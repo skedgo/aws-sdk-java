@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,6 +39,21 @@ public class AbstractAmazonAppStream implements AmazonAppStream {
     }
 
     @Override
+    public AssociateAppBlockBuilderAppBlockResult associateAppBlockBuilderAppBlock(AssociateAppBlockBuilderAppBlockRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateApplicationFleetResult associateApplicationFleet(AssociateApplicationFleetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateApplicationToEntitlementResult associateApplicationToEntitlement(AssociateApplicationToEntitlementRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public AssociateFleetResult associateFleet(AssociateFleetRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -59,7 +74,32 @@ public class AbstractAmazonAppStream implements AmazonAppStream {
     }
 
     @Override
+    public CreateAppBlockResult createAppBlock(CreateAppBlockRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateAppBlockBuilderResult createAppBlockBuilder(CreateAppBlockBuilderRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateAppBlockBuilderStreamingURLResult createAppBlockBuilderStreamingURL(CreateAppBlockBuilderStreamingURLRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateApplicationResult createApplication(CreateApplicationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateDirectoryConfigResult createDirectoryConfig(CreateDirectoryConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateEntitlementResult createEntitlement(CreateEntitlementRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -89,6 +129,11 @@ public class AbstractAmazonAppStream implements AmazonAppStream {
     }
 
     @Override
+    public CreateUpdatedImageResult createUpdatedImage(CreateUpdatedImageRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateUsageReportSubscriptionResult createUsageReportSubscription(CreateUsageReportSubscriptionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -99,7 +144,27 @@ public class AbstractAmazonAppStream implements AmazonAppStream {
     }
 
     @Override
+    public DeleteAppBlockResult deleteAppBlock(DeleteAppBlockRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteAppBlockBuilderResult deleteAppBlockBuilder(DeleteAppBlockBuilderRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteApplicationResult deleteApplication(DeleteApplicationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteDirectoryConfigResult deleteDirectoryConfig(DeleteDirectoryConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteEntitlementResult deleteEntitlement(DeleteEntitlementRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -139,7 +204,38 @@ public class AbstractAmazonAppStream implements AmazonAppStream {
     }
 
     @Override
+    public DescribeAppBlockBuilderAppBlockAssociationsResult describeAppBlockBuilderAppBlockAssociations(
+            DescribeAppBlockBuilderAppBlockAssociationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeAppBlockBuildersResult describeAppBlockBuilders(DescribeAppBlockBuildersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeAppBlocksResult describeAppBlocks(DescribeAppBlocksRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeApplicationFleetAssociationsResult describeApplicationFleetAssociations(DescribeApplicationFleetAssociationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeApplicationsResult describeApplications(DescribeApplicationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeDirectoryConfigsResult describeDirectoryConfigs(DescribeDirectoryConfigsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeEntitlementsResult describeEntitlements(DescribeEntitlementsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -194,6 +290,21 @@ public class AbstractAmazonAppStream implements AmazonAppStream {
     }
 
     @Override
+    public DisassociateAppBlockBuilderAppBlockResult disassociateAppBlockBuilderAppBlock(DisassociateAppBlockBuilderAppBlockRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateApplicationFleetResult disassociateApplicationFleet(DisassociateApplicationFleetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateApplicationFromEntitlementResult disassociateApplicationFromEntitlement(DisassociateApplicationFromEntitlementRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DisassociateFleetResult disassociateFleet(DisassociateFleetRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -219,7 +330,17 @@ public class AbstractAmazonAppStream implements AmazonAppStream {
     }
 
     @Override
+    public ListEntitledApplicationsResult listEntitledApplications(ListEntitledApplicationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartAppBlockBuilderResult startAppBlockBuilder(StartAppBlockBuilderRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -230,6 +351,11 @@ public class AbstractAmazonAppStream implements AmazonAppStream {
 
     @Override
     public StartImageBuilderResult startImageBuilder(StartImageBuilderRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StopAppBlockBuilderResult stopAppBlockBuilder(StopAppBlockBuilderRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -254,7 +380,22 @@ public class AbstractAmazonAppStream implements AmazonAppStream {
     }
 
     @Override
+    public UpdateAppBlockBuilderResult updateAppBlockBuilder(UpdateAppBlockBuilderRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateApplicationResult updateApplication(UpdateApplicationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateDirectoryConfigResult updateDirectoryConfig(UpdateDirectoryConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateEntitlementResult updateEntitlement(UpdateEntitlementRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

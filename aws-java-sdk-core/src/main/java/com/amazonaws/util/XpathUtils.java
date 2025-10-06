@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.util.Date;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -83,6 +84,8 @@ public class XpathUtils {
         }
     };
 
+    private static volatile DocumentBuilderInfo cachedDocumentBuilderInfo = null;
+
     /**
      * Shared factory for creating XML Factory
      */
@@ -100,19 +103,21 @@ public class XpathUtils {
      * context!
      */
     private static void speedUpDTMManager() throws Exception {
-        // https://github.com/aws/aws-sdk-java/issues/238
-        // http://stackoverflow.com/questions/6340802/java-xpath-apache-jaxp-implementation-performance
-        if (System.getProperty(DTM_MANAGER_DEFAULT_PROP_NAME) == null) {
-            Class<?> XPathContextClass = Class.forName(XPATH_CONTEXT_CLASS_NAME);
-            Method getDTMManager = XPathContextClass.getMethod("getDTMManager");
-            Object XPathContext = XPathContextClass.newInstance();
-            Object dtmManager = getDTMManager.invoke(XPathContext);
+        if (System.getProperty("java.version").startsWith("1.")) {
+            // https://github.com/aws/aws-sdk-java/issues/238
+            // http://stackoverflow.com/questions/6340802/java-xpath-apache-jaxp-implementation-performance
+            if (System.getProperty(DTM_MANAGER_DEFAULT_PROP_NAME) == null) {
+                Class<?> XPathContextClass = Class.forName(XPATH_CONTEXT_CLASS_NAME);
+                Method getDTMManager = XPathContextClass.getMethod("getDTMManager");
+                Object XPathContext = XPathContextClass.newInstance();
+                Object dtmManager = getDTMManager.invoke(XPathContext);
 
-            if (DTM_MANAGER_IMPL_CLASS_NAME.equals(dtmManager.getClass().getName())) {
-                // This would avoid the file system to be accessed every time
-                // the internal XPathContext is instantiated.
-                System.setProperty(DTM_MANAGER_DEFAULT_PROP_NAME,
-                        DTM_MANAGER_IMPL_CLASS_NAME);
+                if (DTM_MANAGER_IMPL_CLASS_NAME.equals(dtmManager.getClass().getName())) {
+                    // This would avoid the file system to be accessed every time
+                    // the internal XPathContext is instantiated.
+                    System.setProperty(DTM_MANAGER_DEFAULT_PROP_NAME,
+                            DTM_MANAGER_IMPL_CLASS_NAME);
+                }
             }
         }
     }
@@ -140,12 +145,12 @@ public class XpathUtils {
         try {
             speedUpDcoumentBuilderFactory();
         } catch(Throwable t) {
-            log.debug("Ingore failure in speeding up DocumentBuilderFactory", t);
+            log.debug("Ignore failure in speeding up DocumentBuilderFactory", t);
         }
         try {
             speedUpDTMManager();
         } catch(Throwable t) {
-            log.debug("Ingore failure in speeding up DTMManager", t);
+            log.debug("Ignore failure in speeding up DTMManager", t);
         }
     }
 
@@ -166,7 +171,11 @@ public class XpathUtils {
         is = new NamespaceRemovingInputStream(is);
         // DocumentBuilderFactory is not thread safe
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+        configureDocumentBuilderFactory(factory);
+
         DocumentBuilder builder = factory.newDocumentBuilder();
+
         // ensure that parser writes error/warning messages to the logger
         // rather than stderr
         builder.setErrorHandler(ERROR_HANDLER);
@@ -614,5 +623,89 @@ public class XpathUtils {
      */
     private static boolean isEmptyString(String s) {
         return s == null || s.trim().length() == 0;
+    }
+
+    private static void configureDocumentBuilderFactory(DocumentBuilderFactory factory) {
+        DocumentBuilderInfo cache = XpathUtils.cachedDocumentBuilderInfo;
+
+        if (cache != null && cache.clzz.equals(factory.getClass())) {
+            if (cache.xxeMitigationSuccessful) {
+                try {
+                    if (isXerces(cache.canonicalName)) {
+                        configureXercesFactory(factory);
+                    } else {
+                        configureGenericFactory(factory);
+                    }
+                } catch (Throwable t) {
+                    // Should not get to here since we check first if we could successfully configure previously
+                    log.warn("Unable to configure DocumentBuilderFactory to protect against XXE attacks", t);
+                }
+            }
+        } else {
+            initialConfigureDocumentBuilderFactory(factory);
+        }
+    }
+
+    private static void initialConfigureDocumentBuilderFactory(DocumentBuilderFactory factory) {
+        synchronized (XpathUtils.class) {
+            Class<?> clzz = factory.getClass();
+            String canonicalName = clzz.getCanonicalName();
+
+            boolean xxeMitigationSuccessful;
+            try {
+                if (isXerces(canonicalName)) {
+                    configureXercesFactory(factory);
+                } else {
+                    configureGenericFactory(factory);
+                }
+                xxeMitigationSuccessful = true;
+            } catch (Throwable t) {
+                log.warn("Unable to configure DocumentBuilderFactory to protect against XXE attacks", t);
+                xxeMitigationSuccessful = false;
+            }
+
+            cachedDocumentBuilderInfo = new DocumentBuilderInfo(clzz, canonicalName, xxeMitigationSuccessful);
+        }
+    }
+
+    private static boolean isXerces(String canonicalName) {
+        // The included implementation in the JDK is also Xerces, but a fork and under a different package:
+        // https://github.com/openjdk/jdk/blob/3f77a6002ea7c150308409600abd4f1140bfb36a/src/java.xml/share/classes/com/sun/org/apache/xerces/internal/jaxp/DocumentBuilderFactoryImpl.java#L21
+        return canonicalName.startsWith("org.apache.xerces.") || canonicalName.startsWith("com.sun.org.apache.xerces.");
+    }
+
+    private static void configureXercesFactory(DocumentBuilderFactory factory) throws ParserConfigurationException {
+        commonConfigureFactory(factory);
+        // https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html
+        factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+        factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+        factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+    }
+
+    private static void configureGenericFactory(DocumentBuilderFactory factory) throws ParserConfigurationException {
+        commonConfigureFactory(factory);
+        // https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html
+        // https://rules.sonarsource.com/java/tag/owasp/RSPEC-2755
+        factory.setAttribute("http://javax.xml.XMLConstants/property/accessExternalDTD", "");
+        factory.setAttribute("http://javax.xml.XMLConstants/property/accessExternalSchema", "");
+    }
+
+    private static void commonConfigureFactory(DocumentBuilderFactory factory) throws ParserConfigurationException {
+        factory.setXIncludeAware(false);
+        factory.setExpandEntityReferences(false);
+        factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+    }
+
+    private static class DocumentBuilderInfo {
+        private final Class<?> clzz;
+        private final String canonicalName;
+        private final boolean xxeMitigationSuccessful;
+
+        private DocumentBuilderInfo(Class<?> clzz, String canonicalName, boolean xxeMitigationSuccessful) {
+            this.clzz = clzz;
+            this.canonicalName = canonicalName;
+            this.xxeMitigationSuccessful = xxeMitigationSuccessful;
+        }
     }
 }

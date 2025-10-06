@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -24,7 +24,11 @@ public enum SourceType {
     CacheParameterGroup("cache-parameter-group"),
     CacheSecurityGroup("cache-security-group"),
     CacheSubnetGroup("cache-subnet-group"),
-    ReplicationGroup("replication-group");
+    ReplicationGroup("replication-group"),
+    ServerlessCache("serverless-cache"),
+    ServerlessCacheSnapshot("serverless-cache-snapshot"),
+    User("user"),
+    UserGroup("user-group");
 
     private String value;
 

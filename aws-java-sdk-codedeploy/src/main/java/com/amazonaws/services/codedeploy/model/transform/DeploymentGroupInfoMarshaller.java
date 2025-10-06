@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,6 +54,8 @@ public class DeploymentGroupInfoMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("autoRollbackConfiguration").build();
     private static final MarshallingInfo<StructuredPojo> DEPLOYMENTSTYLE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("deploymentStyle").build();
+    private static final MarshallingInfo<String> OUTDATEDINSTANCESSTRATEGY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("outdatedInstancesStrategy").build();
     private static final MarshallingInfo<StructuredPojo> BLUEGREENDEPLOYMENTCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("blueGreenDeploymentConfiguration").build();
     private static final MarshallingInfo<StructuredPojo> LOADBALANCERINFO_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -70,6 +72,8 @@ public class DeploymentGroupInfoMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("computePlatform").build();
     private static final MarshallingInfo<List> ECSSERVICES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("ecsServices").build();
+    private static final MarshallingInfo<Boolean> TERMINATIONHOOKENABLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("terminationHookEnabled").build();
 
     private static final DeploymentGroupInfoMarshaller instance = new DeploymentGroupInfoMarshaller();
 
@@ -100,6 +104,7 @@ public class DeploymentGroupInfoMarshaller {
             protocolMarshaller.marshall(deploymentGroupInfo.getAlarmConfiguration(), ALARMCONFIGURATION_BINDING);
             protocolMarshaller.marshall(deploymentGroupInfo.getAutoRollbackConfiguration(), AUTOROLLBACKCONFIGURATION_BINDING);
             protocolMarshaller.marshall(deploymentGroupInfo.getDeploymentStyle(), DEPLOYMENTSTYLE_BINDING);
+            protocolMarshaller.marshall(deploymentGroupInfo.getOutdatedInstancesStrategy(), OUTDATEDINSTANCESSTRATEGY_BINDING);
             protocolMarshaller.marshall(deploymentGroupInfo.getBlueGreenDeploymentConfiguration(), BLUEGREENDEPLOYMENTCONFIGURATION_BINDING);
             protocolMarshaller.marshall(deploymentGroupInfo.getLoadBalancerInfo(), LOADBALANCERINFO_BINDING);
             protocolMarshaller.marshall(deploymentGroupInfo.getLastSuccessfulDeployment(), LASTSUCCESSFULDEPLOYMENT_BINDING);
@@ -108,6 +113,7 @@ public class DeploymentGroupInfoMarshaller {
             protocolMarshaller.marshall(deploymentGroupInfo.getOnPremisesTagSet(), ONPREMISESTAGSET_BINDING);
             protocolMarshaller.marshall(deploymentGroupInfo.getComputePlatform(), COMPUTEPLATFORM_BINDING);
             protocolMarshaller.marshall(deploymentGroupInfo.getEcsServices(), ECSSERVICES_BINDING);
+            protocolMarshaller.marshall(deploymentGroupInfo.getTerminationHookEnabled(), TERMINATIONHOOKENABLED_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

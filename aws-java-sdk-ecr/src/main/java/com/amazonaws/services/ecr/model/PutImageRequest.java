@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,8 +26,8 @@ public class PutImageRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that contains the repository in which to put the image. If you do
-     * not specify a registry, the default registry is assumed.
+     * The Amazon Web Services account ID associated with the registry that contains the repository in which to put the
+     * image. If you do not specify a registry, the default registry is assumed.
      * </p>
      */
     private String registryId;
@@ -45,21 +45,34 @@ public class PutImageRequest extends com.amazonaws.AmazonWebServiceRequest imple
     private String imageManifest;
     /**
      * <p>
+     * The media type of the image manifest. If you push an image manifest that does not contain the
+     * <code>mediaType</code> field, you must specify the <code>imageManifestMediaType</code> in the request.
+     * </p>
+     */
+    private String imageManifestMediaType;
+    /**
+     * <p>
      * The tag to associate with the image. This parameter is required for images that use the Docker Image Manifest V2
-     * Schema 2 or OCI formats.
+     * Schema 2 or Open Container Initiative (OCI) formats.
      * </p>
      */
     private String imageTag;
+    /**
+     * <p>
+     * The image digest of the image manifest corresponding to the image.
+     * </p>
+     */
+    private String imageDigest;
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that contains the repository in which to put the image. If you do
-     * not specify a registry, the default registry is assumed.
+     * The Amazon Web Services account ID associated with the registry that contains the repository in which to put the
+     * image. If you do not specify a registry, the default registry is assumed.
      * </p>
      * 
      * @param registryId
-     *        The AWS account ID associated with the registry that contains the repository in which to put the image. If
-     *        you do not specify a registry, the default registry is assumed.
+     *        The Amazon Web Services account ID associated with the registry that contains the repository in which to
+     *        put the image. If you do not specify a registry, the default registry is assumed.
      */
 
     public void setRegistryId(String registryId) {
@@ -68,12 +81,12 @@ public class PutImageRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that contains the repository in which to put the image. If you do
-     * not specify a registry, the default registry is assumed.
+     * The Amazon Web Services account ID associated with the registry that contains the repository in which to put the
+     * image. If you do not specify a registry, the default registry is assumed.
      * </p>
      * 
-     * @return The AWS account ID associated with the registry that contains the repository in which to put the image.
-     *         If you do not specify a registry, the default registry is assumed.
+     * @return The Amazon Web Services account ID associated with the registry that contains the repository in which to
+     *         put the image. If you do not specify a registry, the default registry is assumed.
      */
 
     public String getRegistryId() {
@@ -82,13 +95,13 @@ public class PutImageRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that contains the repository in which to put the image. If you do
-     * not specify a registry, the default registry is assumed.
+     * The Amazon Web Services account ID associated with the registry that contains the repository in which to put the
+     * image. If you do not specify a registry, the default registry is assumed.
      * </p>
      * 
      * @param registryId
-     *        The AWS account ID associated with the registry that contains the repository in which to put the image. If
-     *        you do not specify a registry, the default registry is assumed.
+     *        The Amazon Web Services account ID associated with the registry that contains the repository in which to
+     *        put the image. If you do not specify a registry, the default registry is assumed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -179,13 +192,59 @@ public class PutImageRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
+     * The media type of the image manifest. If you push an image manifest that does not contain the
+     * <code>mediaType</code> field, you must specify the <code>imageManifestMediaType</code> in the request.
+     * </p>
+     * 
+     * @param imageManifestMediaType
+     *        The media type of the image manifest. If you push an image manifest that does not contain the
+     *        <code>mediaType</code> field, you must specify the <code>imageManifestMediaType</code> in the request.
+     */
+
+    public void setImageManifestMediaType(String imageManifestMediaType) {
+        this.imageManifestMediaType = imageManifestMediaType;
+    }
+
+    /**
+     * <p>
+     * The media type of the image manifest. If you push an image manifest that does not contain the
+     * <code>mediaType</code> field, you must specify the <code>imageManifestMediaType</code> in the request.
+     * </p>
+     * 
+     * @return The media type of the image manifest. If you push an image manifest that does not contain the
+     *         <code>mediaType</code> field, you must specify the <code>imageManifestMediaType</code> in the request.
+     */
+
+    public String getImageManifestMediaType() {
+        return this.imageManifestMediaType;
+    }
+
+    /**
+     * <p>
+     * The media type of the image manifest. If you push an image manifest that does not contain the
+     * <code>mediaType</code> field, you must specify the <code>imageManifestMediaType</code> in the request.
+     * </p>
+     * 
+     * @param imageManifestMediaType
+     *        The media type of the image manifest. If you push an image manifest that does not contain the
+     *        <code>mediaType</code> field, you must specify the <code>imageManifestMediaType</code> in the request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutImageRequest withImageManifestMediaType(String imageManifestMediaType) {
+        setImageManifestMediaType(imageManifestMediaType);
+        return this;
+    }
+
+    /**
+     * <p>
      * The tag to associate with the image. This parameter is required for images that use the Docker Image Manifest V2
-     * Schema 2 or OCI formats.
+     * Schema 2 or Open Container Initiative (OCI) formats.
      * </p>
      * 
      * @param imageTag
      *        The tag to associate with the image. This parameter is required for images that use the Docker Image
-     *        Manifest V2 Schema 2 or OCI formats.
+     *        Manifest V2 Schema 2 or Open Container Initiative (OCI) formats.
      */
 
     public void setImageTag(String imageTag) {
@@ -195,11 +254,11 @@ public class PutImageRequest extends com.amazonaws.AmazonWebServiceRequest imple
     /**
      * <p>
      * The tag to associate with the image. This parameter is required for images that use the Docker Image Manifest V2
-     * Schema 2 or OCI formats.
+     * Schema 2 or Open Container Initiative (OCI) formats.
      * </p>
      * 
      * @return The tag to associate with the image. This parameter is required for images that use the Docker Image
-     *         Manifest V2 Schema 2 or OCI formats.
+     *         Manifest V2 Schema 2 or Open Container Initiative (OCI) formats.
      */
 
     public String getImageTag() {
@@ -209,17 +268,57 @@ public class PutImageRequest extends com.amazonaws.AmazonWebServiceRequest imple
     /**
      * <p>
      * The tag to associate with the image. This parameter is required for images that use the Docker Image Manifest V2
-     * Schema 2 or OCI formats.
+     * Schema 2 or Open Container Initiative (OCI) formats.
      * </p>
      * 
      * @param imageTag
      *        The tag to associate with the image. This parameter is required for images that use the Docker Image
-     *        Manifest V2 Schema 2 or OCI formats.
+     *        Manifest V2 Schema 2 or Open Container Initiative (OCI) formats.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public PutImageRequest withImageTag(String imageTag) {
         setImageTag(imageTag);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The image digest of the image manifest corresponding to the image.
+     * </p>
+     * 
+     * @param imageDigest
+     *        The image digest of the image manifest corresponding to the image.
+     */
+
+    public void setImageDigest(String imageDigest) {
+        this.imageDigest = imageDigest;
+    }
+
+    /**
+     * <p>
+     * The image digest of the image manifest corresponding to the image.
+     * </p>
+     * 
+     * @return The image digest of the image manifest corresponding to the image.
+     */
+
+    public String getImageDigest() {
+        return this.imageDigest;
+    }
+
+    /**
+     * <p>
+     * The image digest of the image manifest corresponding to the image.
+     * </p>
+     * 
+     * @param imageDigest
+     *        The image digest of the image manifest corresponding to the image.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutImageRequest withImageDigest(String imageDigest) {
+        setImageDigest(imageDigest);
         return this;
     }
 
@@ -241,8 +340,12 @@ public class PutImageRequest extends com.amazonaws.AmazonWebServiceRequest imple
             sb.append("RepositoryName: ").append(getRepositoryName()).append(",");
         if (getImageManifest() != null)
             sb.append("ImageManifest: ").append(getImageManifest()).append(",");
+        if (getImageManifestMediaType() != null)
+            sb.append("ImageManifestMediaType: ").append(getImageManifestMediaType()).append(",");
         if (getImageTag() != null)
-            sb.append("ImageTag: ").append(getImageTag());
+            sb.append("ImageTag: ").append(getImageTag()).append(",");
+        if (getImageDigest() != null)
+            sb.append("ImageDigest: ").append(getImageDigest());
         sb.append("}");
         return sb.toString();
     }
@@ -269,9 +372,17 @@ public class PutImageRequest extends com.amazonaws.AmazonWebServiceRequest imple
             return false;
         if (other.getImageManifest() != null && other.getImageManifest().equals(this.getImageManifest()) == false)
             return false;
+        if (other.getImageManifestMediaType() == null ^ this.getImageManifestMediaType() == null)
+            return false;
+        if (other.getImageManifestMediaType() != null && other.getImageManifestMediaType().equals(this.getImageManifestMediaType()) == false)
+            return false;
         if (other.getImageTag() == null ^ this.getImageTag() == null)
             return false;
         if (other.getImageTag() != null && other.getImageTag().equals(this.getImageTag()) == false)
+            return false;
+        if (other.getImageDigest() == null ^ this.getImageDigest() == null)
+            return false;
+        if (other.getImageDigest() != null && other.getImageDigest().equals(this.getImageDigest()) == false)
             return false;
         return true;
     }
@@ -284,7 +395,9 @@ public class PutImageRequest extends com.amazonaws.AmazonWebServiceRequest imple
         hashCode = prime * hashCode + ((getRegistryId() == null) ? 0 : getRegistryId().hashCode());
         hashCode = prime * hashCode + ((getRepositoryName() == null) ? 0 : getRepositoryName().hashCode());
         hashCode = prime * hashCode + ((getImageManifest() == null) ? 0 : getImageManifest().hashCode());
+        hashCode = prime * hashCode + ((getImageManifestMediaType() == null) ? 0 : getImageManifestMediaType().hashCode());
         hashCode = prime * hashCode + ((getImageTag() == null) ? 0 : getImageTag().hashCode());
+        hashCode = prime * hashCode + ((getImageDigest() == null) ? 0 : getImageDigest().hashCode());
         return hashCode;
     }
 

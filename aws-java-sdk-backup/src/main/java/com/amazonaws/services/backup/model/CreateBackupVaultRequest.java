@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,8 +28,8 @@ public class CreateBackupVaultRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * letters, numbers, and hyphens.
      * </p>
      */
     private String backupVaultName;
@@ -48,8 +48,11 @@ public class CreateBackupVaultRequest extends com.amazonaws.AmazonWebServiceRequ
     private String encryptionKeyArn;
     /**
      * <p>
-     * A unique string that identifies the request and allows failed requests to be retried without the risk of
-     * executing the operation twice.
+     * A unique string that identifies the request and allows failed requests to be retried without the risk of running
+     * the operation twice. This parameter is optional.
+     * </p>
+     * <p>
+     * If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      */
     private String creatorRequestId;
@@ -57,14 +60,14 @@ public class CreateBackupVaultRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * letters, numbers, and hyphens.
      * </p>
      * 
      * @param backupVaultName
      *        The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *        unique to the account used to create them and the AWS Region where they are created. They consist of
-     *        lowercase letters, numbers, and hyphens.
+     *        unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *        consist of letters, numbers, and hyphens.
      */
 
     public void setBackupVaultName(String backupVaultName) {
@@ -74,13 +77,13 @@ public class CreateBackupVaultRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * letters, numbers, and hyphens.
      * </p>
      * 
      * @return The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *         unique to the account used to create them and the AWS Region where they are created. They consist of
-     *         lowercase letters, numbers, and hyphens.
+     *         unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *         consist of letters, numbers, and hyphens.
      */
 
     public String getBackupVaultName() {
@@ -90,14 +93,14 @@ public class CreateBackupVaultRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * letters, numbers, and hyphens.
      * </p>
      * 
      * @param backupVaultName
      *        The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *        unique to the account used to create them and the AWS Region where they are created. They consist of
-     *        lowercase letters, numbers, and hyphens.
+     *        unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *        consist of letters, numbers, and hyphens.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -146,6 +149,13 @@ public class CreateBackupVaultRequest extends com.amazonaws.AmazonWebServiceRequ
         setBackupVaultTags(backupVaultTags);
         return this;
     }
+
+    /**
+     * Add a single BackupVaultTags entry
+     *
+     * @see CreateBackupVaultRequest#withBackupVaultTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateBackupVaultRequest addBackupVaultTagsEntry(String key, String value) {
         if (null == this.backupVaultTags) {
@@ -216,13 +226,18 @@ public class CreateBackupVaultRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A unique string that identifies the request and allows failed requests to be retried without the risk of
-     * executing the operation twice.
+     * A unique string that identifies the request and allows failed requests to be retried without the risk of running
+     * the operation twice. This parameter is optional.
+     * </p>
+     * <p>
+     * If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      * 
      * @param creatorRequestId
      *        A unique string that identifies the request and allows failed requests to be retried without the risk of
-     *        executing the operation twice.
+     *        running the operation twice. This parameter is optional.</p>
+     *        <p>
+     *        If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      */
 
     public void setCreatorRequestId(String creatorRequestId) {
@@ -231,12 +246,17 @@ public class CreateBackupVaultRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A unique string that identifies the request and allows failed requests to be retried without the risk of
-     * executing the operation twice.
+     * A unique string that identifies the request and allows failed requests to be retried without the risk of running
+     * the operation twice. This parameter is optional.
+     * </p>
+     * <p>
+     * If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      * 
      * @return A unique string that identifies the request and allows failed requests to be retried without the risk of
-     *         executing the operation twice.
+     *         running the operation twice. This parameter is optional.</p>
+     *         <p>
+     *         If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      */
 
     public String getCreatorRequestId() {
@@ -245,13 +265,18 @@ public class CreateBackupVaultRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A unique string that identifies the request and allows failed requests to be retried without the risk of
-     * executing the operation twice.
+     * A unique string that identifies the request and allows failed requests to be retried without the risk of running
+     * the operation twice. This parameter is optional.
+     * </p>
+     * <p>
+     * If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      * 
      * @param creatorRequestId
      *        A unique string that identifies the request and allows failed requests to be retried without the risk of
-     *        executing the operation twice.
+     *        running the operation twice. This parameter is optional.</p>
+     *        <p>
+     *        If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

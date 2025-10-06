@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Represents the input of a ListApplicationRevisions operation.
+ * Represents the input of a <code>ListApplicationRevisions</code> operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/ListApplicationRevisions"
@@ -30,7 +30,7 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
+     * The name of an CodeDeploy application associated with the user or Amazon Web Services account.
      * </p>
      */
     private String applicationName;
@@ -41,17 +41,17 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * registerTime: Sort by the time the revisions were registered with AWS CodeDeploy.
+     * <code>registerTime</code>: Sort by the time the revisions were registered with CodeDeploy.
      * </p>
      * </li>
      * <li>
      * <p>
-     * firstUsedTime: Sort by the time the revisions were first used in a deployment.
+     * <code>firstUsedTime</code>: Sort by the time the revisions were first used in a deployment.
      * </p>
      * </li>
      * <li>
      * <p>
-     * lastUsedTime: Sort by the time the revisions were last used in a deployment.
+     * <code>lastUsedTime</code>: Sort by the time the revisions were last used in a deployment.
      * </p>
      * </li>
      * </ul>
@@ -67,12 +67,12 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * ascending: ascending order.
+     * <code>ascending</code>: ascending order.
      * </p>
      * </li>
      * <li>
      * <p>
-     * descending: descending order.
+     * <code>descending</code>: descending order.
      * </p>
      * </li>
      * </ul>
@@ -101,22 +101,22 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
     private String s3KeyPrefix;
     /**
      * <p>
-     * Whether to list revisions based on whether the revision is the target revision of an deployment group:
+     * Whether to list revisions based on whether the revision is the target revision of a deployment group:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * include: List revisions that are target revisions of a deployment group.
+     * <code>include</code>: List revisions that are target revisions of a deployment group.
      * </p>
      * </li>
      * <li>
      * <p>
-     * exclude: Do not list revisions that are target revisions of a deployment group.
+     * <code>exclude</code>: Do not list revisions that are target revisions of a deployment group.
      * </p>
      * </li>
      * <li>
      * <p>
-     * ignore: List all revisions.
+     * <code>ignore</code>: List all revisions.
      * </p>
      * </li>
      * </ul>
@@ -132,11 +132,11 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
+     * The name of an CodeDeploy application associated with the user or Amazon Web Services account.
      * </p>
      * 
      * @param applicationName
-     *        The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
+     *        The name of an CodeDeploy application associated with the user or Amazon Web Services account.
      */
 
     public void setApplicationName(String applicationName) {
@@ -145,10 +145,10 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
+     * The name of an CodeDeploy application associated with the user or Amazon Web Services account.
      * </p>
      * 
-     * @return The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
+     * @return The name of an CodeDeploy application associated with the user or Amazon Web Services account.
      */
 
     public String getApplicationName() {
@@ -157,11 +157,11 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
+     * The name of an CodeDeploy application associated with the user or Amazon Web Services account.
      * </p>
      * 
      * @param applicationName
-     *        The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
+     *        The name of an CodeDeploy application associated with the user or Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -177,17 +177,17 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * registerTime: Sort by the time the revisions were registered with AWS CodeDeploy.
+     * <code>registerTime</code>: Sort by the time the revisions were registered with CodeDeploy.
      * </p>
      * </li>
      * <li>
      * <p>
-     * firstUsedTime: Sort by the time the revisions were first used in a deployment.
+     * <code>firstUsedTime</code>: Sort by the time the revisions were first used in a deployment.
      * </p>
      * </li>
      * <li>
      * <p>
-     * lastUsedTime: Sort by the time the revisions were last used in a deployment.
+     * <code>lastUsedTime</code>: Sort by the time the revisions were last used in a deployment.
      * </p>
      * </li>
      * </ul>
@@ -200,17 +200,17 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        registerTime: Sort by the time the revisions were registered with AWS CodeDeploy.
+     *        <code>registerTime</code>: Sort by the time the revisions were registered with CodeDeploy.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        firstUsedTime: Sort by the time the revisions were first used in a deployment.
+     *        <code>firstUsedTime</code>: Sort by the time the revisions were first used in a deployment.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        lastUsedTime: Sort by the time the revisions were last used in a deployment.
+     *        <code>lastUsedTime</code>: Sort by the time the revisions were last used in a deployment.
      *        </p>
      *        </li>
      *        </ul>
@@ -230,17 +230,17 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * registerTime: Sort by the time the revisions were registered with AWS CodeDeploy.
+     * <code>registerTime</code>: Sort by the time the revisions were registered with CodeDeploy.
      * </p>
      * </li>
      * <li>
      * <p>
-     * firstUsedTime: Sort by the time the revisions were first used in a deployment.
+     * <code>firstUsedTime</code>: Sort by the time the revisions were first used in a deployment.
      * </p>
      * </li>
      * <li>
      * <p>
-     * lastUsedTime: Sort by the time the revisions were last used in a deployment.
+     * <code>lastUsedTime</code>: Sort by the time the revisions were last used in a deployment.
      * </p>
      * </li>
      * </ul>
@@ -252,17 +252,17 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      *         <ul>
      *         <li>
      *         <p>
-     *         registerTime: Sort by the time the revisions were registered with AWS CodeDeploy.
+     *         <code>registerTime</code>: Sort by the time the revisions were registered with CodeDeploy.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         firstUsedTime: Sort by the time the revisions were first used in a deployment.
+     *         <code>firstUsedTime</code>: Sort by the time the revisions were first used in a deployment.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         lastUsedTime: Sort by the time the revisions were last used in a deployment.
+     *         <code>lastUsedTime</code>: Sort by the time the revisions were last used in a deployment.
      *         </p>
      *         </li>
      *         </ul>
@@ -282,17 +282,17 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * registerTime: Sort by the time the revisions were registered with AWS CodeDeploy.
+     * <code>registerTime</code>: Sort by the time the revisions were registered with CodeDeploy.
      * </p>
      * </li>
      * <li>
      * <p>
-     * firstUsedTime: Sort by the time the revisions were first used in a deployment.
+     * <code>firstUsedTime</code>: Sort by the time the revisions were first used in a deployment.
      * </p>
      * </li>
      * <li>
      * <p>
-     * lastUsedTime: Sort by the time the revisions were last used in a deployment.
+     * <code>lastUsedTime</code>: Sort by the time the revisions were last used in a deployment.
      * </p>
      * </li>
      * </ul>
@@ -305,17 +305,17 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        registerTime: Sort by the time the revisions were registered with AWS CodeDeploy.
+     *        <code>registerTime</code>: Sort by the time the revisions were registered with CodeDeploy.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        firstUsedTime: Sort by the time the revisions were first used in a deployment.
+     *        <code>firstUsedTime</code>: Sort by the time the revisions were first used in a deployment.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        lastUsedTime: Sort by the time the revisions were last used in a deployment.
+     *        <code>lastUsedTime</code>: Sort by the time the revisions were last used in a deployment.
      *        </p>
      *        </li>
      *        </ul>
@@ -337,17 +337,17 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * registerTime: Sort by the time the revisions were registered with AWS CodeDeploy.
+     * <code>registerTime</code>: Sort by the time the revisions were registered with CodeDeploy.
      * </p>
      * </li>
      * <li>
      * <p>
-     * firstUsedTime: Sort by the time the revisions were first used in a deployment.
+     * <code>firstUsedTime</code>: Sort by the time the revisions were first used in a deployment.
      * </p>
      * </li>
      * <li>
      * <p>
-     * lastUsedTime: Sort by the time the revisions were last used in a deployment.
+     * <code>lastUsedTime</code>: Sort by the time the revisions were last used in a deployment.
      * </p>
      * </li>
      * </ul>
@@ -360,17 +360,17 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        registerTime: Sort by the time the revisions were registered with AWS CodeDeploy.
+     *        <code>registerTime</code>: Sort by the time the revisions were registered with CodeDeploy.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        firstUsedTime: Sort by the time the revisions were first used in a deployment.
+     *        <code>firstUsedTime</code>: Sort by the time the revisions were first used in a deployment.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        lastUsedTime: Sort by the time the revisions were last used in a deployment.
+     *        <code>lastUsedTime</code>: Sort by the time the revisions were last used in a deployment.
      *        </p>
      *        </li>
      *        </ul>
@@ -390,17 +390,17 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * registerTime: Sort by the time the revisions were registered with AWS CodeDeploy.
+     * <code>registerTime</code>: Sort by the time the revisions were registered with CodeDeploy.
      * </p>
      * </li>
      * <li>
      * <p>
-     * firstUsedTime: Sort by the time the revisions were first used in a deployment.
+     * <code>firstUsedTime</code>: Sort by the time the revisions were first used in a deployment.
      * </p>
      * </li>
      * <li>
      * <p>
-     * lastUsedTime: Sort by the time the revisions were last used in a deployment.
+     * <code>lastUsedTime</code>: Sort by the time the revisions were last used in a deployment.
      * </p>
      * </li>
      * </ul>
@@ -413,17 +413,17 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        registerTime: Sort by the time the revisions were registered with AWS CodeDeploy.
+     *        <code>registerTime</code>: Sort by the time the revisions were registered with CodeDeploy.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        firstUsedTime: Sort by the time the revisions were first used in a deployment.
+     *        <code>firstUsedTime</code>: Sort by the time the revisions were first used in a deployment.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        lastUsedTime: Sort by the time the revisions were last used in a deployment.
+     *        <code>lastUsedTime</code>: Sort by the time the revisions were last used in a deployment.
      *        </p>
      *        </li>
      *        </ul>
@@ -445,12 +445,12 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * ascending: ascending order.
+     * <code>ascending</code>: ascending order.
      * </p>
      * </li>
      * <li>
      * <p>
-     * descending: descending order.
+     * <code>descending</code>: descending order.
      * </p>
      * </li>
      * </ul>
@@ -466,12 +466,12 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        ascending: ascending order.
+     *        <code>ascending</code>: ascending order.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        descending: descending order.
+     *        <code>descending</code>: descending order.
      *        </p>
      *        </li>
      *        </ul>
@@ -494,12 +494,12 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * ascending: ascending order.
+     * <code>ascending</code>: ascending order.
      * </p>
      * </li>
      * <li>
      * <p>
-     * descending: descending order.
+     * <code>descending</code>: descending order.
      * </p>
      * </li>
      * </ul>
@@ -514,12 +514,12 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      *         <ul>
      *         <li>
      *         <p>
-     *         ascending: ascending order.
+     *         <code>ascending</code>: ascending order.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         descending: descending order.
+     *         <code>descending</code>: descending order.
      *         </p>
      *         </li>
      *         </ul>
@@ -542,12 +542,12 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * ascending: ascending order.
+     * <code>ascending</code>: ascending order.
      * </p>
      * </li>
      * <li>
      * <p>
-     * descending: descending order.
+     * <code>descending</code>: descending order.
      * </p>
      * </li>
      * </ul>
@@ -563,12 +563,12 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        ascending: ascending order.
+     *        <code>ascending</code>: ascending order.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        descending: descending order.
+     *        <code>descending</code>: descending order.
      *        </p>
      *        </li>
      *        </ul>
@@ -593,12 +593,12 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * ascending: ascending order.
+     * <code>ascending</code>: ascending order.
      * </p>
      * </li>
      * <li>
      * <p>
-     * descending: descending order.
+     * <code>descending</code>: descending order.
      * </p>
      * </li>
      * </ul>
@@ -614,12 +614,12 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        ascending: ascending order.
+     *        <code>ascending</code>: ascending order.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        descending: descending order.
+     *        <code>descending</code>: descending order.
      *        </p>
      *        </li>
      *        </ul>
@@ -642,12 +642,12 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * ascending: ascending order.
+     * <code>ascending</code>: ascending order.
      * </p>
      * </li>
      * <li>
      * <p>
-     * descending: descending order.
+     * <code>descending</code>: descending order.
      * </p>
      * </li>
      * </ul>
@@ -663,12 +663,12 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        ascending: ascending order.
+     *        <code>ascending</code>: ascending order.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        descending: descending order.
+     *        <code>descending</code>: descending order.
      *        </p>
      *        </li>
      *        </ul>
@@ -783,43 +783,42 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Whether to list revisions based on whether the revision is the target revision of an deployment group:
+     * Whether to list revisions based on whether the revision is the target revision of a deployment group:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * include: List revisions that are target revisions of a deployment group.
+     * <code>include</code>: List revisions that are target revisions of a deployment group.
      * </p>
      * </li>
      * <li>
      * <p>
-     * exclude: Do not list revisions that are target revisions of a deployment group.
+     * <code>exclude</code>: Do not list revisions that are target revisions of a deployment group.
      * </p>
      * </li>
      * <li>
      * <p>
-     * ignore: List all revisions.
+     * <code>ignore</code>: List all revisions.
      * </p>
      * </li>
      * </ul>
      * 
      * @param deployed
-     *        Whether to list revisions based on whether the revision is the target revision of an deployment group:
-     *        </p>
+     *        Whether to list revisions based on whether the revision is the target revision of a deployment group: </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        include: List revisions that are target revisions of a deployment group.
+     *        <code>include</code>: List revisions that are target revisions of a deployment group.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        exclude: Do not list revisions that are target revisions of a deployment group.
+     *        <code>exclude</code>: Do not list revisions that are target revisions of a deployment group.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        ignore: List all revisions.
+     *        <code>ignore</code>: List all revisions.
      *        </p>
      *        </li>
      * @see ListStateFilterAction
@@ -831,42 +830,42 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Whether to list revisions based on whether the revision is the target revision of an deployment group:
+     * Whether to list revisions based on whether the revision is the target revision of a deployment group:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * include: List revisions that are target revisions of a deployment group.
+     * <code>include</code>: List revisions that are target revisions of a deployment group.
      * </p>
      * </li>
      * <li>
      * <p>
-     * exclude: Do not list revisions that are target revisions of a deployment group.
+     * <code>exclude</code>: Do not list revisions that are target revisions of a deployment group.
      * </p>
      * </li>
      * <li>
      * <p>
-     * ignore: List all revisions.
+     * <code>ignore</code>: List all revisions.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return Whether to list revisions based on whether the revision is the target revision of an deployment group:
+     * @return Whether to list revisions based on whether the revision is the target revision of a deployment group:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         include: List revisions that are target revisions of a deployment group.
+     *         <code>include</code>: List revisions that are target revisions of a deployment group.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         exclude: Do not list revisions that are target revisions of a deployment group.
+     *         <code>exclude</code>: Do not list revisions that are target revisions of a deployment group.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         ignore: List all revisions.
+     *         <code>ignore</code>: List all revisions.
      *         </p>
      *         </li>
      * @see ListStateFilterAction
@@ -878,43 +877,42 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Whether to list revisions based on whether the revision is the target revision of an deployment group:
+     * Whether to list revisions based on whether the revision is the target revision of a deployment group:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * include: List revisions that are target revisions of a deployment group.
+     * <code>include</code>: List revisions that are target revisions of a deployment group.
      * </p>
      * </li>
      * <li>
      * <p>
-     * exclude: Do not list revisions that are target revisions of a deployment group.
+     * <code>exclude</code>: Do not list revisions that are target revisions of a deployment group.
      * </p>
      * </li>
      * <li>
      * <p>
-     * ignore: List all revisions.
+     * <code>ignore</code>: List all revisions.
      * </p>
      * </li>
      * </ul>
      * 
      * @param deployed
-     *        Whether to list revisions based on whether the revision is the target revision of an deployment group:
-     *        </p>
+     *        Whether to list revisions based on whether the revision is the target revision of a deployment group: </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        include: List revisions that are target revisions of a deployment group.
+     *        <code>include</code>: List revisions that are target revisions of a deployment group.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        exclude: Do not list revisions that are target revisions of a deployment group.
+     *        <code>exclude</code>: Do not list revisions that are target revisions of a deployment group.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        ignore: List all revisions.
+     *        <code>ignore</code>: List all revisions.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -928,43 +926,42 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Whether to list revisions based on whether the revision is the target revision of an deployment group:
+     * Whether to list revisions based on whether the revision is the target revision of a deployment group:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * include: List revisions that are target revisions of a deployment group.
+     * <code>include</code>: List revisions that are target revisions of a deployment group.
      * </p>
      * </li>
      * <li>
      * <p>
-     * exclude: Do not list revisions that are target revisions of a deployment group.
+     * <code>exclude</code>: Do not list revisions that are target revisions of a deployment group.
      * </p>
      * </li>
      * <li>
      * <p>
-     * ignore: List all revisions.
+     * <code>ignore</code>: List all revisions.
      * </p>
      * </li>
      * </ul>
      * 
      * @param deployed
-     *        Whether to list revisions based on whether the revision is the target revision of an deployment group:
-     *        </p>
+     *        Whether to list revisions based on whether the revision is the target revision of a deployment group: </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        include: List revisions that are target revisions of a deployment group.
+     *        <code>include</code>: List revisions that are target revisions of a deployment group.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        exclude: Do not list revisions that are target revisions of a deployment group.
+     *        <code>exclude</code>: Do not list revisions that are target revisions of a deployment group.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        ignore: List all revisions.
+     *        <code>ignore</code>: List all revisions.
      *        </p>
      *        </li>
      * @see ListStateFilterAction
@@ -976,43 +973,42 @@ public class ListApplicationRevisionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Whether to list revisions based on whether the revision is the target revision of an deployment group:
+     * Whether to list revisions based on whether the revision is the target revision of a deployment group:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * include: List revisions that are target revisions of a deployment group.
+     * <code>include</code>: List revisions that are target revisions of a deployment group.
      * </p>
      * </li>
      * <li>
      * <p>
-     * exclude: Do not list revisions that are target revisions of a deployment group.
+     * <code>exclude</code>: Do not list revisions that are target revisions of a deployment group.
      * </p>
      * </li>
      * <li>
      * <p>
-     * ignore: List all revisions.
+     * <code>ignore</code>: List all revisions.
      * </p>
      * </li>
      * </ul>
      * 
      * @param deployed
-     *        Whether to list revisions based on whether the revision is the target revision of an deployment group:
-     *        </p>
+     *        Whether to list revisions based on whether the revision is the target revision of a deployment group: </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        include: List revisions that are target revisions of a deployment group.
+     *        <code>include</code>: List revisions that are target revisions of a deployment group.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        exclude: Do not list revisions that are target revisions of a deployment group.
+     *        <code>exclude</code>: Do not list revisions that are target revisions of a deployment group.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        ignore: List all revisions.
+     *        <code>ignore</code>: List all revisions.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

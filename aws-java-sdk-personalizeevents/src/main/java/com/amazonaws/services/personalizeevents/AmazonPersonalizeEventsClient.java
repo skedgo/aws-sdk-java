@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,13 +44,19 @@ import com.amazonaws.services.personalizeevents.AmazonPersonalizeEventsClientBui
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.personalizeevents.model.*;
+
 import com.amazonaws.services.personalizeevents.model.transform.*;
 
 /**
  * Client for accessing Amazon Personalize Events. All service calls made using this client are blocking, and will not
  * return until the service call completes.
  * <p>
- * <p/>
+ * <p>
+ * Amazon Personalize can consume real-time user event data, such as <i>stream</i> or <i>click</i> data, and use it for
+ * model training either alone or combined with historical data. For more information see <a
+ * href="https://docs.aws.amazon.com/personalize/latest/dg/recording-item-interaction-events.html">Recording item
+ * interaction events</a>.
+ * </p>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -74,10 +80,16 @@ public class AmazonPersonalizeEventsClient extends AmazonWebServiceClient implem
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidInputException").withModeledClass(
-                                    com.amazonaws.services.personalizeevents.model.InvalidInputException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidInputException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.personalizeevents.model.transform.InvalidInputExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.personalizeevents.model.transform.ResourceInUseExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.personalizeevents.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.personalizeevents.model.AmazonPersonalizeEventsException.class));
 
     public static AmazonPersonalizeEventsClientBuilder builder() {
@@ -128,7 +140,142 @@ public class AmazonPersonalizeEventsClient extends AmazonWebServiceClient implem
 
     /**
      * <p>
-     * Records user interaction event data.
+     * Records action interaction event data. An <i>action interaction</i> event is an interaction between a user and an
+     * <i>action</i>. For example, a user taking an action, such a enrolling in a membership program or downloading your
+     * app.
+     * </p>
+     * <p>
+     * For more information about recording action interactions, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/recording-action-interaction-events.html">Recording
+     * action interaction events</a>. For more information about actions in an Actions dataset, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/actions-datasets.html">Actions dataset</a>.
+     * </p>
+     * 
+     * @param putActionInteractionsRequest
+     * @return Result of the PutActionInteractions operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @sample AmazonPersonalizeEvents.PutActionInteractions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-events-2018-03-22/PutActionInteractions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public PutActionInteractionsResult putActionInteractions(PutActionInteractionsRequest request) {
+        request = beforeClientExecution(request);
+        return executePutActionInteractions(request);
+    }
+
+    @SdkInternalApi
+    final PutActionInteractionsResult executePutActionInteractions(PutActionInteractionsRequest putActionInteractionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putActionInteractionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutActionInteractionsRequest> request = null;
+        Response<PutActionInteractionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutActionInteractionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putActionInteractionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize Events");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutActionInteractions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutActionInteractionsResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new PutActionInteractionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Adds one or more actions to an Actions dataset. For more information see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/importing-actions.html">Importing actions
+     * individually</a>.
+     * </p>
+     * 
+     * @param putActionsRequest
+     * @return Result of the PutActions operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @sample AmazonPersonalizeEvents.PutActions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-events-2018-03-22/PutActions" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public PutActionsResult putActions(PutActionsRequest request) {
+        request = beforeClientExecution(request);
+        return executePutActions(request);
+    }
+
+    @SdkInternalApi
+    final PutActionsResult executePutActions(PutActionsRequest putActionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putActionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutActionsRequest> request = null;
+        Response<PutActionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutActionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putActionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize Events");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutActions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutActionsResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new PutActionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Records item interaction event data. For more information see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/recording-item-interaction-events.html">Recording item
+     * interaction events</a>.
      * </p>
      * 
      * @param putEventsRequest
@@ -160,6 +307,8 @@ public class AmazonPersonalizeEventsClient extends AmazonWebServiceClient implem
                 request = new PutEventsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putEventsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize Events");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutEvents");
@@ -171,6 +320,130 @@ public class AmazonPersonalizeEventsClient extends AmazonWebServiceClient implem
 
             HttpResponseHandler<AmazonWebServiceResponse<PutEventsResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
                     .withPayloadJson(true).withHasStreamingSuccessResponse(false), new PutEventsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Adds one or more items to an Items dataset. For more information see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/importing-items.html">Importing items individually</a>.
+     * </p>
+     * 
+     * @param putItemsRequest
+     * @return Result of the PutItems operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @sample AmazonPersonalizeEvents.PutItems
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-events-2018-03-22/PutItems" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public PutItemsResult putItems(PutItemsRequest request) {
+        request = beforeClientExecution(request);
+        return executePutItems(request);
+    }
+
+    @SdkInternalApi
+    final PutItemsResult executePutItems(PutItemsRequest putItemsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putItemsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutItemsRequest> request = null;
+        Response<PutItemsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutItemsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putItemsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize Events");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutItems");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutItemsResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new PutItemsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Adds one or more users to a Users dataset. For more information see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/importing-users.html">Importing users individually</a>.
+     * </p>
+     * 
+     * @param putUsersRequest
+     * @return Result of the PutUsers operation returned by the service.
+     * @throws InvalidInputException
+     *         Provide a valid value for the field or parameter.
+     * @throws ResourceNotFoundException
+     *         Could not find the specified resource.
+     * @throws ResourceInUseException
+     *         The specified resource is in use.
+     * @sample AmazonPersonalizeEvents.PutUsers
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-events-2018-03-22/PutUsers" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public PutUsersResult putUsers(PutUsersRequest request) {
+        request = beforeClientExecution(request);
+        return executePutUsers(request);
+    }
+
+    @SdkInternalApi
+    final PutUsersResult executePutUsers(PutUsersRequest putUsersRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putUsersRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutUsersRequest> request = null;
+        Response<PutUsersResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutUsersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putUsersRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Personalize Events");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutUsers");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutUsersResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new PutUsersResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -255,6 +528,11 @@ public class AmazonPersonalizeEventsClient extends AmazonWebServiceClient implem
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

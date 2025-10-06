@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,21 +27,29 @@ public class DescribeFleetsRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default value
-     * is 1000. To retrieve the remaining results, make another call with the returned <code>NextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      */
     private Integer maxResults;
     /**
      * <p>
-     * The token for the next set of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * The ID of the EC2 Fleets.
+     * The IDs of the EC2 Fleets.
      * </p>
+     * <note>
+     * <p>
+     * If a fleet is of type <code>instant</code>, you must specify the fleet ID, otherwise it does not appear in the
+     * response.
+     * </p>
+     * </note>
      */
     private com.amazonaws.internal.SdkInternalList<String> fleetIds;
     /**
@@ -85,14 +93,16 @@ public class DescribeFleetsRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default value
-     * is 1000. To retrieve the remaining results, make another call with the returned <code>NextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default
-     *        value is 1000. To retrieve the remaining results, make another call with the returned
-     *        <code>NextToken</code> value.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -101,13 +111,15 @@ public class DescribeFleetsRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default value
-     * is 1000. To retrieve the remaining results, make another call with the returned <code>NextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
-     * @return The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default
-     *         value is 1000. To retrieve the remaining results, make another call with the returned
-     *         <code>NextToken</code> value.
+     * @return The maximum number of items to return for this request. To get the next page of items, make another
+     *         request with the token returned in the output. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *         >Pagination</a>.
      */
 
     public Integer getMaxResults() {
@@ -116,14 +128,16 @@ public class DescribeFleetsRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default value
-     * is 1000. To retrieve the remaining results, make another call with the returned <code>NextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return in a single call. Specify a value between 1 and 1000. The default
-     *        value is 1000. To retrieve the remaining results, make another call with the returned
-     *        <code>NextToken</code> value.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -134,11 +148,13 @@ public class DescribeFleetsRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * The token for the next set of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token for the next set of results.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      */
 
     public void setNextToken(String nextToken) {
@@ -147,10 +163,12 @@ public class DescribeFleetsRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * The token for the next set of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
-     * @return The token for the next set of results.
+     * @return The token returned from a previous paginated request. Pagination continues from the end of the items
+     *         returned by the previous request.
      */
 
     public String getNextToken() {
@@ -159,11 +177,13 @@ public class DescribeFleetsRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * The token for the next set of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token for the next set of results.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -174,10 +194,20 @@ public class DescribeFleetsRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * The ID of the EC2 Fleets.
+     * The IDs of the EC2 Fleets.
      * </p>
+     * <note>
+     * <p>
+     * If a fleet is of type <code>instant</code>, you must specify the fleet ID, otherwise it does not appear in the
+     * response.
+     * </p>
+     * </note>
      * 
-     * @return The ID of the EC2 Fleets.
+     * @return The IDs of the EC2 Fleets.</p> <note>
+     *         <p>
+     *         If a fleet is of type <code>instant</code>, you must specify the fleet ID, otherwise it does not appear
+     *         in the response.
+     *         </p>
      */
 
     public java.util.List<String> getFleetIds() {
@@ -189,11 +219,21 @@ public class DescribeFleetsRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * The ID of the EC2 Fleets.
+     * The IDs of the EC2 Fleets.
      * </p>
+     * <note>
+     * <p>
+     * If a fleet is of type <code>instant</code>, you must specify the fleet ID, otherwise it does not appear in the
+     * response.
+     * </p>
+     * </note>
      * 
      * @param fleetIds
-     *        The ID of the EC2 Fleets.
+     *        The IDs of the EC2 Fleets.</p> <note>
+     *        <p>
+     *        If a fleet is of type <code>instant</code>, you must specify the fleet ID, otherwise it does not appear in
+     *        the response.
+     *        </p>
      */
 
     public void setFleetIds(java.util.Collection<String> fleetIds) {
@@ -207,8 +247,14 @@ public class DescribeFleetsRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * The ID of the EC2 Fleets.
+     * The IDs of the EC2 Fleets.
      * </p>
+     * <note>
+     * <p>
+     * If a fleet is of type <code>instant</code>, you must specify the fleet ID, otherwise it does not appear in the
+     * response.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setFleetIds(java.util.Collection)} or {@link #withFleetIds(java.util.Collection)} if you want to override
@@ -216,7 +262,11 @@ public class DescribeFleetsRequest extends AmazonWebServiceRequest implements Se
      * </p>
      * 
      * @param fleetIds
-     *        The ID of the EC2 Fleets.
+     *        The IDs of the EC2 Fleets.</p> <note>
+     *        <p>
+     *        If a fleet is of type <code>instant</code>, you must specify the fleet ID, otherwise it does not appear in
+     *        the response.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -232,11 +282,21 @@ public class DescribeFleetsRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * The ID of the EC2 Fleets.
+     * The IDs of the EC2 Fleets.
      * </p>
+     * <note>
+     * <p>
+     * If a fleet is of type <code>instant</code>, you must specify the fleet ID, otherwise it does not appear in the
+     * response.
+     * </p>
+     * </note>
      * 
      * @param fleetIds
-     *        The ID of the EC2 Fleets.
+     *        The IDs of the EC2 Fleets.</p> <note>
+     *        <p>
+     *        If a fleet is of type <code>instant</code>, you must specify the fleet ID, otherwise it does not appear in
+     *        the response.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

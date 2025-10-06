@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -105,6 +105,20 @@ public class GetTemplateSummaryResultStaxUnmarshaller implements Unmarshaller<Ge
                     continue;
                 }
 
+                if (context.testExpression("ResourceIdentifierSummaries", targetDepth)) {
+                    getTemplateSummaryResult.withResourceIdentifierSummaries(new ArrayList<ResourceIdentifierSummary>());
+                    continue;
+                }
+
+                if (context.testExpression("ResourceIdentifierSummaries/member", targetDepth)) {
+                    getTemplateSummaryResult.withResourceIdentifierSummaries(ResourceIdentifierSummaryStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("Warnings", targetDepth)) {
+                    getTemplateSummaryResult.setWarnings(WarningsStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
                     return getTemplateSummaryResult;

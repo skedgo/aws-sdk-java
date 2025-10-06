@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Object used for associating a license configuration with a resource.
+ * Details for associating a license configuration with a resource.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/license-manager-2018-08-01/LicenseSpecification"
@@ -30,18 +30,24 @@ public class LicenseSpecification implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * ARN of the <code>LicenseConfiguration</code> object.
+     * Amazon Resource Name (ARN) of the license configuration.
      * </p>
      */
     private String licenseConfigurationArn;
+    /**
+     * <p>
+     * Scope of AMI associations. The possible value is <code>cross-account</code>.
+     * </p>
+     */
+    private String amiAssociationScope;
 
     /**
      * <p>
-     * ARN of the <code>LicenseConfiguration</code> object.
+     * Amazon Resource Name (ARN) of the license configuration.
      * </p>
      * 
      * @param licenseConfigurationArn
-     *        ARN of the <code>LicenseConfiguration</code> object.
+     *        Amazon Resource Name (ARN) of the license configuration.
      */
 
     public void setLicenseConfigurationArn(String licenseConfigurationArn) {
@@ -50,10 +56,10 @@ public class LicenseSpecification implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * ARN of the <code>LicenseConfiguration</code> object.
+     * Amazon Resource Name (ARN) of the license configuration.
      * </p>
      * 
-     * @return ARN of the <code>LicenseConfiguration</code> object.
+     * @return Amazon Resource Name (ARN) of the license configuration.
      */
 
     public String getLicenseConfigurationArn() {
@@ -62,16 +68,56 @@ public class LicenseSpecification implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * ARN of the <code>LicenseConfiguration</code> object.
+     * Amazon Resource Name (ARN) of the license configuration.
      * </p>
      * 
      * @param licenseConfigurationArn
-     *        ARN of the <code>LicenseConfiguration</code> object.
+     *        Amazon Resource Name (ARN) of the license configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public LicenseSpecification withLicenseConfigurationArn(String licenseConfigurationArn) {
         setLicenseConfigurationArn(licenseConfigurationArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Scope of AMI associations. The possible value is <code>cross-account</code>.
+     * </p>
+     * 
+     * @param amiAssociationScope
+     *        Scope of AMI associations. The possible value is <code>cross-account</code>.
+     */
+
+    public void setAmiAssociationScope(String amiAssociationScope) {
+        this.amiAssociationScope = amiAssociationScope;
+    }
+
+    /**
+     * <p>
+     * Scope of AMI associations. The possible value is <code>cross-account</code>.
+     * </p>
+     * 
+     * @return Scope of AMI associations. The possible value is <code>cross-account</code>.
+     */
+
+    public String getAmiAssociationScope() {
+        return this.amiAssociationScope;
+    }
+
+    /**
+     * <p>
+     * Scope of AMI associations. The possible value is <code>cross-account</code>.
+     * </p>
+     * 
+     * @param amiAssociationScope
+     *        Scope of AMI associations. The possible value is <code>cross-account</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LicenseSpecification withAmiAssociationScope(String amiAssociationScope) {
+        setAmiAssociationScope(amiAssociationScope);
         return this;
     }
 
@@ -88,7 +134,9 @@ public class LicenseSpecification implements Serializable, Cloneable, Structured
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getLicenseConfigurationArn() != null)
-            sb.append("LicenseConfigurationArn: ").append(getLicenseConfigurationArn());
+            sb.append("LicenseConfigurationArn: ").append(getLicenseConfigurationArn()).append(",");
+        if (getAmiAssociationScope() != null)
+            sb.append("AmiAssociationScope: ").append(getAmiAssociationScope());
         sb.append("}");
         return sb.toString();
     }
@@ -107,6 +155,10 @@ public class LicenseSpecification implements Serializable, Cloneable, Structured
             return false;
         if (other.getLicenseConfigurationArn() != null && other.getLicenseConfigurationArn().equals(this.getLicenseConfigurationArn()) == false)
             return false;
+        if (other.getAmiAssociationScope() == null ^ this.getAmiAssociationScope() == null)
+            return false;
+        if (other.getAmiAssociationScope() != null && other.getAmiAssociationScope().equals(this.getAmiAssociationScope()) == false)
+            return false;
         return true;
     }
 
@@ -116,6 +168,7 @@ public class LicenseSpecification implements Serializable, Cloneable, Structured
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getLicenseConfigurationArn() == null) ? 0 : getLicenseConfigurationArn().hashCode());
+        hashCode = prime * hashCode + ((getAmiAssociationScope() == null) ? 0 : getAmiAssociationScope().hashCode());
         return hashCode;
     }
 

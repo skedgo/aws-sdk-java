@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,7 +29,7 @@ public class DescribeStackProvisioningParametersResult extends com.amazonaws.Ama
 
     /**
      * <p>
-     * The AWS OpsWorks Stacks agent installer's URL.
+     * The OpsWorks Stacks agent installer's URL.
      * </p>
      */
     private String agentInstallerUrl;
@@ -42,11 +42,11 @@ public class DescribeStackProvisioningParametersResult extends com.amazonaws.Ama
 
     /**
      * <p>
-     * The AWS OpsWorks Stacks agent installer's URL.
+     * The OpsWorks Stacks agent installer's URL.
      * </p>
      * 
      * @param agentInstallerUrl
-     *        The AWS OpsWorks Stacks agent installer's URL.
+     *        The OpsWorks Stacks agent installer's URL.
      */
 
     public void setAgentInstallerUrl(String agentInstallerUrl) {
@@ -55,10 +55,10 @@ public class DescribeStackProvisioningParametersResult extends com.amazonaws.Ama
 
     /**
      * <p>
-     * The AWS OpsWorks Stacks agent installer's URL.
+     * The OpsWorks Stacks agent installer's URL.
      * </p>
      * 
-     * @return The AWS OpsWorks Stacks agent installer's URL.
+     * @return The OpsWorks Stacks agent installer's URL.
      */
 
     public String getAgentInstallerUrl() {
@@ -67,11 +67,11 @@ public class DescribeStackProvisioningParametersResult extends com.amazonaws.Ama
 
     /**
      * <p>
-     * The AWS OpsWorks Stacks agent installer's URL.
+     * The OpsWorks Stacks agent installer's URL.
      * </p>
      * 
      * @param agentInstallerUrl
-     *        The AWS OpsWorks Stacks agent installer's URL.
+     *        The OpsWorks Stacks agent installer's URL.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -122,6 +122,13 @@ public class DescribeStackProvisioningParametersResult extends com.amazonaws.Ama
         setParameters(parameters);
         return this;
     }
+
+    /**
+     * Add a single Parameters entry
+     *
+     * @see DescribeStackProvisioningParametersResult#withParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public DescribeStackProvisioningParametersResult addParametersEntry(String key, String value) {
         if (null == this.parameters) {

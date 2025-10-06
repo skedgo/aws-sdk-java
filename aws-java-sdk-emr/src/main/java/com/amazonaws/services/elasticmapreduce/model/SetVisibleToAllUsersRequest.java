@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,26 +30,26 @@ public class SetVisibleToAllUsersRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Identifiers of the job flows to receive the new visibility setting.
+     * The unique identifier of the job flow (cluster).
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> jobFlowIds;
     /**
      * <p>
-     * Whether the specified clusters are visible to all IAM users of the AWS account associated with the cluster. If
-     * this value is set to True, all IAM users of that AWS account can view and, if they have the proper IAM policy
-     * permissions set, manage the clusters. If it is set to False, only the IAM user that created a cluster can view
-     * and manage it.
+     * A value of <code>true</code> indicates that an IAM principal in the Amazon Web Services account can perform
+     * Amazon EMR actions on the cluster that the IAM policies attached to the principal allow. A value of
+     * <code>false</code> indicates that only the IAM principal that created the cluster and the Amazon Web Services
+     * root user can perform Amazon EMR actions on the cluster.
      * </p>
      */
     private Boolean visibleToAllUsers;
 
     /**
      * <p>
-     * Identifiers of the job flows to receive the new visibility setting.
+     * The unique identifier of the job flow (cluster).
      * </p>
      * 
-     * @return Identifiers of the job flows to receive the new visibility setting.
+     * @return The unique identifier of the job flow (cluster).
      */
 
     public java.util.List<String> getJobFlowIds() {
@@ -61,11 +61,11 @@ public class SetVisibleToAllUsersRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Identifiers of the job flows to receive the new visibility setting.
+     * The unique identifier of the job flow (cluster).
      * </p>
      * 
      * @param jobFlowIds
-     *        Identifiers of the job flows to receive the new visibility setting.
+     *        The unique identifier of the job flow (cluster).
      */
 
     public void setJobFlowIds(java.util.Collection<String> jobFlowIds) {
@@ -79,7 +79,7 @@ public class SetVisibleToAllUsersRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Identifiers of the job flows to receive the new visibility setting.
+     * The unique identifier of the job flow (cluster).
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -88,7 +88,7 @@ public class SetVisibleToAllUsersRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param jobFlowIds
-     *        Identifiers of the job flows to receive the new visibility setting.
+     *        The unique identifier of the job flow (cluster).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -104,11 +104,11 @@ public class SetVisibleToAllUsersRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Identifiers of the job flows to receive the new visibility setting.
+     * The unique identifier of the job flow (cluster).
      * </p>
      * 
      * @param jobFlowIds
-     *        Identifiers of the job flows to receive the new visibility setting.
+     *        The unique identifier of the job flow (cluster).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -119,17 +119,17 @@ public class SetVisibleToAllUsersRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Whether the specified clusters are visible to all IAM users of the AWS account associated with the cluster. If
-     * this value is set to True, all IAM users of that AWS account can view and, if they have the proper IAM policy
-     * permissions set, manage the clusters. If it is set to False, only the IAM user that created a cluster can view
-     * and manage it.
+     * A value of <code>true</code> indicates that an IAM principal in the Amazon Web Services account can perform
+     * Amazon EMR actions on the cluster that the IAM policies attached to the principal allow. A value of
+     * <code>false</code> indicates that only the IAM principal that created the cluster and the Amazon Web Services
+     * root user can perform Amazon EMR actions on the cluster.
      * </p>
      * 
      * @param visibleToAllUsers
-     *        Whether the specified clusters are visible to all IAM users of the AWS account associated with the
-     *        cluster. If this value is set to True, all IAM users of that AWS account can view and, if they have the
-     *        proper IAM policy permissions set, manage the clusters. If it is set to False, only the IAM user that
-     *        created a cluster can view and manage it.
+     *        A value of <code>true</code> indicates that an IAM principal in the Amazon Web Services account can
+     *        perform Amazon EMR actions on the cluster that the IAM policies attached to the principal allow. A value
+     *        of <code>false</code> indicates that only the IAM principal that created the cluster and the Amazon Web
+     *        Services root user can perform Amazon EMR actions on the cluster.
      */
 
     public void setVisibleToAllUsers(Boolean visibleToAllUsers) {
@@ -138,16 +138,16 @@ public class SetVisibleToAllUsersRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Whether the specified clusters are visible to all IAM users of the AWS account associated with the cluster. If
-     * this value is set to True, all IAM users of that AWS account can view and, if they have the proper IAM policy
-     * permissions set, manage the clusters. If it is set to False, only the IAM user that created a cluster can view
-     * and manage it.
+     * A value of <code>true</code> indicates that an IAM principal in the Amazon Web Services account can perform
+     * Amazon EMR actions on the cluster that the IAM policies attached to the principal allow. A value of
+     * <code>false</code> indicates that only the IAM principal that created the cluster and the Amazon Web Services
+     * root user can perform Amazon EMR actions on the cluster.
      * </p>
      * 
-     * @return Whether the specified clusters are visible to all IAM users of the AWS account associated with the
-     *         cluster. If this value is set to True, all IAM users of that AWS account can view and, if they have the
-     *         proper IAM policy permissions set, manage the clusters. If it is set to False, only the IAM user that
-     *         created a cluster can view and manage it.
+     * @return A value of <code>true</code> indicates that an IAM principal in the Amazon Web Services account can
+     *         perform Amazon EMR actions on the cluster that the IAM policies attached to the principal allow. A value
+     *         of <code>false</code> indicates that only the IAM principal that created the cluster and the Amazon Web
+     *         Services root user can perform Amazon EMR actions on the cluster.
      */
 
     public Boolean getVisibleToAllUsers() {
@@ -156,17 +156,17 @@ public class SetVisibleToAllUsersRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Whether the specified clusters are visible to all IAM users of the AWS account associated with the cluster. If
-     * this value is set to True, all IAM users of that AWS account can view and, if they have the proper IAM policy
-     * permissions set, manage the clusters. If it is set to False, only the IAM user that created a cluster can view
-     * and manage it.
+     * A value of <code>true</code> indicates that an IAM principal in the Amazon Web Services account can perform
+     * Amazon EMR actions on the cluster that the IAM policies attached to the principal allow. A value of
+     * <code>false</code> indicates that only the IAM principal that created the cluster and the Amazon Web Services
+     * root user can perform Amazon EMR actions on the cluster.
      * </p>
      * 
      * @param visibleToAllUsers
-     *        Whether the specified clusters are visible to all IAM users of the AWS account associated with the
-     *        cluster. If this value is set to True, all IAM users of that AWS account can view and, if they have the
-     *        proper IAM policy permissions set, manage the clusters. If it is set to False, only the IAM user that
-     *        created a cluster can view and manage it.
+     *        A value of <code>true</code> indicates that an IAM principal in the Amazon Web Services account can
+     *        perform Amazon EMR actions on the cluster that the IAM policies attached to the principal allow. A value
+     *        of <code>false</code> indicates that only the IAM principal that created the cluster and the Amazon Web
+     *        Services root user can perform Amazon EMR actions on the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -177,16 +177,16 @@ public class SetVisibleToAllUsersRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Whether the specified clusters are visible to all IAM users of the AWS account associated with the cluster. If
-     * this value is set to True, all IAM users of that AWS account can view and, if they have the proper IAM policy
-     * permissions set, manage the clusters. If it is set to False, only the IAM user that created a cluster can view
-     * and manage it.
+     * A value of <code>true</code> indicates that an IAM principal in the Amazon Web Services account can perform
+     * Amazon EMR actions on the cluster that the IAM policies attached to the principal allow. A value of
+     * <code>false</code> indicates that only the IAM principal that created the cluster and the Amazon Web Services
+     * root user can perform Amazon EMR actions on the cluster.
      * </p>
      * 
-     * @return Whether the specified clusters are visible to all IAM users of the AWS account associated with the
-     *         cluster. If this value is set to True, all IAM users of that AWS account can view and, if they have the
-     *         proper IAM policy permissions set, manage the clusters. If it is set to False, only the IAM user that
-     *         created a cluster can view and manage it.
+     * @return A value of <code>true</code> indicates that an IAM principal in the Amazon Web Services account can
+     *         perform Amazon EMR actions on the cluster that the IAM policies attached to the principal allow. A value
+     *         of <code>false</code> indicates that only the IAM principal that created the cluster and the Amazon Web
+     *         Services root user can perform Amazon EMR actions on the cluster.
      */
 
     public Boolean isVisibleToAllUsers() {

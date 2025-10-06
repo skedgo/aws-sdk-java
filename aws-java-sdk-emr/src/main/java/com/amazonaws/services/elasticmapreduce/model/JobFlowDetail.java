@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,13 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
     private String logUri;
     /**
      * <p>
+     * The KMS key used for encrypting log files. This attribute is only available with Amazon EMR 5.30.0 and later,
+     * excluding 6.0.0.
+     * </p>
+     */
+    private String logEncryptionKmsKeyId;
+    /**
+     * <p>
      * Applies only to Amazon EMR AMI versions 3.x and 2.x. For Amazon EMR releases 4.0 and later,
      * <code>ReleaseLabel</code> is used. To specify a custom AMI, use <code>CustomAmiID</code>.
      * </p>
@@ -79,30 +86,37 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
     private com.amazonaws.internal.SdkInternalList<BootstrapActionDetail> bootstrapActions;
     /**
      * <p>
-     * A list of strings set by third party software when the job flow is launched. If you are not using third party
-     * software to manage the job flow this value is empty.
+     * A list of strings set by third-party software when the job flow is launched. If you are not using third-party
+     * software to manage the job flow, this value is empty.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> supportedProducts;
     /**
      * <p>
-     * Specifies whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this
-     * value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have the proper policy
-     * permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM user that created the
-     * cluster can view and manage it. This value can be changed using the <a>SetVisibleToAllUsers</a> action.
+     * Indicates whether the cluster is visible to IAM principals in the Amazon Web Services account associated with the
+     * cluster. When <code>true</code>, IAM principals in the Amazon Web Services account can perform Amazon EMR cluster
+     * actions that their IAM policies allow. When <code>false</code>, only the IAM principal that created the cluster
+     * and the Amazon Web Services account root user can perform Amazon EMR actions, regardless of IAM permissions
+     * policies attached to other IAM principals.
+     * </p>
+     * <p>
+     * The default value is <code>true</code> if a value is not provided when creating a cluster using the Amazon EMR
+     * API <a>RunJobFlow</a> command, the CLI <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a> command, or
+     * the Amazon Web Services Management Console.
      * </p>
      */
     private Boolean visibleToAllUsers;
     /**
      * <p>
-     * The IAM role that was specified when the job flow was launched. The EC2 instances of the job flow assume this
-     * role.
+     * The IAM role that was specified when the job flow was launched. The Amazon EC2 instances of the job flow assume
+     * this role.
      * </p>
      */
     private String jobFlowRole;
     /**
      * <p>
-     * The IAM role that will be assumed by the Amazon EMR service to access AWS resources on your behalf.
+     * The IAM role that is assumed by the Amazon EMR service to access Amazon Web Services resources on your behalf.
      * </p>
      */
     private String serviceRole;
@@ -110,7 +124,7 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * An IAM role for automatic scaling policies. The default role is <code>EMR_AutoScaling_DefaultRole</code>. The IAM
      * role provides a way for the automatic scaling feature to get the required permissions it needs to launch and
-     * terminate EC2 instances in an instance group.
+     * terminate Amazon EC2 instances in an instance group.
      * </p>
      */
     private String autoScalingRole;
@@ -120,11 +134,11 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
      * group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates nodes at the
      * instance-hour boundary, regardless of when the request to terminate the instance was submitted. This option is
      * only available with Amazon EMR 5.1.0 and later and is the default for clusters created using that version.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists and drains tasks from nodes before
-     * terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either behavior, Amazon EMR
-     * removes the least active nodes first and blocks instance termination if it could lead to HDFS corruption.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR version 4.1.0 and later, and is the
-     * default for versions of Amazon EMR earlier than 5.1.0.
+     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds nodes to a deny list and drains tasks
+     * from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either
+     * behavior, Amazon EMR removes the least active nodes first and blocks instance termination if it could lead to
+     * HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later,
+     * and is the default for releases of Amazon EMR earlier than 5.1.0.
      * </p>
      */
     private String scaleDownBehavior;
@@ -273,6 +287,52 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
 
     public JobFlowDetail withLogUri(String logUri) {
         setLogUri(logUri);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The KMS key used for encrypting log files. This attribute is only available with Amazon EMR 5.30.0 and later,
+     * excluding 6.0.0.
+     * </p>
+     * 
+     * @param logEncryptionKmsKeyId
+     *        The KMS key used for encrypting log files. This attribute is only available with Amazon EMR 5.30.0 and
+     *        later, excluding 6.0.0.
+     */
+
+    public void setLogEncryptionKmsKeyId(String logEncryptionKmsKeyId) {
+        this.logEncryptionKmsKeyId = logEncryptionKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The KMS key used for encrypting log files. This attribute is only available with Amazon EMR 5.30.0 and later,
+     * excluding 6.0.0.
+     * </p>
+     * 
+     * @return The KMS key used for encrypting log files. This attribute is only available with Amazon EMR 5.30.0 and
+     *         later, excluding 6.0.0.
+     */
+
+    public String getLogEncryptionKmsKeyId() {
+        return this.logEncryptionKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The KMS key used for encrypting log files. This attribute is only available with Amazon EMR 5.30.0 and later,
+     * excluding 6.0.0.
+     * </p>
+     * 
+     * @param logEncryptionKmsKeyId
+     *        The KMS key used for encrypting log files. This attribute is only available with Amazon EMR 5.30.0 and
+     *        later, excluding 6.0.0.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobFlowDetail withLogEncryptionKmsKeyId(String logEncryptionKmsKeyId) {
+        setLogEncryptionKmsKeyId(logEncryptionKmsKeyId);
         return this;
     }
 
@@ -550,12 +610,12 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of strings set by third party software when the job flow is launched. If you are not using third party
-     * software to manage the job flow this value is empty.
+     * A list of strings set by third-party software when the job flow is launched. If you are not using third-party
+     * software to manage the job flow, this value is empty.
      * </p>
      * 
-     * @return A list of strings set by third party software when the job flow is launched. If you are not using third
-     *         party software to manage the job flow this value is empty.
+     * @return A list of strings set by third-party software when the job flow is launched. If you are not using
+     *         third-party software to manage the job flow, this value is empty.
      */
 
     public java.util.List<String> getSupportedProducts() {
@@ -567,13 +627,13 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of strings set by third party software when the job flow is launched. If you are not using third party
-     * software to manage the job flow this value is empty.
+     * A list of strings set by third-party software when the job flow is launched. If you are not using third-party
+     * software to manage the job flow, this value is empty.
      * </p>
      * 
      * @param supportedProducts
-     *        A list of strings set by third party software when the job flow is launched. If you are not using third
-     *        party software to manage the job flow this value is empty.
+     *        A list of strings set by third-party software when the job flow is launched. If you are not using
+     *        third-party software to manage the job flow, this value is empty.
      */
 
     public void setSupportedProducts(java.util.Collection<String> supportedProducts) {
@@ -587,8 +647,8 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of strings set by third party software when the job flow is launched. If you are not using third party
-     * software to manage the job flow this value is empty.
+     * A list of strings set by third-party software when the job flow is launched. If you are not using third-party
+     * software to manage the job flow, this value is empty.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -597,8 +657,8 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param supportedProducts
-     *        A list of strings set by third party software when the job flow is launched. If you are not using third
-     *        party software to manage the job flow this value is empty.
+     *        A list of strings set by third-party software when the job flow is launched. If you are not using
+     *        third-party software to manage the job flow, this value is empty.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -614,13 +674,13 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A list of strings set by third party software when the job flow is launched. If you are not using third party
-     * software to manage the job flow this value is empty.
+     * A list of strings set by third-party software when the job flow is launched. If you are not using third-party
+     * software to manage the job flow, this value is empty.
      * </p>
      * 
      * @param supportedProducts
-     *        A list of strings set by third party software when the job flow is launched. If you are not using third
-     *        party software to manage the job flow this value is empty.
+     *        A list of strings set by third-party software when the job flow is launched. If you are not using
+     *        third-party software to manage the job flow, this value is empty.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -631,18 +691,30 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this
-     * value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have the proper policy
-     * permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM user that created the
-     * cluster can view and manage it. This value can be changed using the <a>SetVisibleToAllUsers</a> action.
+     * Indicates whether the cluster is visible to IAM principals in the Amazon Web Services account associated with the
+     * cluster. When <code>true</code>, IAM principals in the Amazon Web Services account can perform Amazon EMR cluster
+     * actions that their IAM policies allow. When <code>false</code>, only the IAM principal that created the cluster
+     * and the Amazon Web Services account root user can perform Amazon EMR actions, regardless of IAM permissions
+     * policies attached to other IAM principals.
+     * </p>
+     * <p>
+     * The default value is <code>true</code> if a value is not provided when creating a cluster using the Amazon EMR
+     * API <a>RunJobFlow</a> command, the CLI <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a> command, or
+     * the Amazon Web Services Management Console.
      * </p>
      * 
      * @param visibleToAllUsers
-     *        Specifies whether the cluster is visible to all IAM users of the AWS account associated with the cluster.
-     *        If this value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have
-     *        the proper policy permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM
-     *        user that created the cluster can view and manage it. This value can be changed using the
-     *        <a>SetVisibleToAllUsers</a> action.
+     *        Indicates whether the cluster is visible to IAM principals in the Amazon Web Services account associated
+     *        with the cluster. When <code>true</code>, IAM principals in the Amazon Web Services account can perform
+     *        Amazon EMR cluster actions that their IAM policies allow. When <code>false</code>, only the IAM principal
+     *        that created the cluster and the Amazon Web Services account root user can perform Amazon EMR actions,
+     *        regardless of IAM permissions policies attached to other IAM principals.</p>
+     *        <p>
+     *        The default value is <code>true</code> if a value is not provided when creating a cluster using the Amazon
+     *        EMR API <a>RunJobFlow</a> command, the CLI <a
+     *        href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a>
+     *        command, or the Amazon Web Services Management Console.
      */
 
     public void setVisibleToAllUsers(Boolean visibleToAllUsers) {
@@ -651,17 +723,29 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this
-     * value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have the proper policy
-     * permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM user that created the
-     * cluster can view and manage it. This value can be changed using the <a>SetVisibleToAllUsers</a> action.
+     * Indicates whether the cluster is visible to IAM principals in the Amazon Web Services account associated with the
+     * cluster. When <code>true</code>, IAM principals in the Amazon Web Services account can perform Amazon EMR cluster
+     * actions that their IAM policies allow. When <code>false</code>, only the IAM principal that created the cluster
+     * and the Amazon Web Services account root user can perform Amazon EMR actions, regardless of IAM permissions
+     * policies attached to other IAM principals.
+     * </p>
+     * <p>
+     * The default value is <code>true</code> if a value is not provided when creating a cluster using the Amazon EMR
+     * API <a>RunJobFlow</a> command, the CLI <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a> command, or
+     * the Amazon Web Services Management Console.
      * </p>
      * 
-     * @return Specifies whether the cluster is visible to all IAM users of the AWS account associated with the cluster.
-     *         If this value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have
-     *         the proper policy permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM
-     *         user that created the cluster can view and manage it. This value can be changed using the
-     *         <a>SetVisibleToAllUsers</a> action.
+     * @return Indicates whether the cluster is visible to IAM principals in the Amazon Web Services account associated
+     *         with the cluster. When <code>true</code>, IAM principals in the Amazon Web Services account can perform
+     *         Amazon EMR cluster actions that their IAM policies allow. When <code>false</code>, only the IAM principal
+     *         that created the cluster and the Amazon Web Services account root user can perform Amazon EMR actions,
+     *         regardless of IAM permissions policies attached to other IAM principals.</p>
+     *         <p>
+     *         The default value is <code>true</code> if a value is not provided when creating a cluster using the
+     *         Amazon EMR API <a>RunJobFlow</a> command, the CLI <a
+     *         href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a>
+     *         command, or the Amazon Web Services Management Console.
      */
 
     public Boolean getVisibleToAllUsers() {
@@ -670,18 +754,30 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this
-     * value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have the proper policy
-     * permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM user that created the
-     * cluster can view and manage it. This value can be changed using the <a>SetVisibleToAllUsers</a> action.
+     * Indicates whether the cluster is visible to IAM principals in the Amazon Web Services account associated with the
+     * cluster. When <code>true</code>, IAM principals in the Amazon Web Services account can perform Amazon EMR cluster
+     * actions that their IAM policies allow. When <code>false</code>, only the IAM principal that created the cluster
+     * and the Amazon Web Services account root user can perform Amazon EMR actions, regardless of IAM permissions
+     * policies attached to other IAM principals.
+     * </p>
+     * <p>
+     * The default value is <code>true</code> if a value is not provided when creating a cluster using the Amazon EMR
+     * API <a>RunJobFlow</a> command, the CLI <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a> command, or
+     * the Amazon Web Services Management Console.
      * </p>
      * 
      * @param visibleToAllUsers
-     *        Specifies whether the cluster is visible to all IAM users of the AWS account associated with the cluster.
-     *        If this value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have
-     *        the proper policy permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM
-     *        user that created the cluster can view and manage it. This value can be changed using the
-     *        <a>SetVisibleToAllUsers</a> action.
+     *        Indicates whether the cluster is visible to IAM principals in the Amazon Web Services account associated
+     *        with the cluster. When <code>true</code>, IAM principals in the Amazon Web Services account can perform
+     *        Amazon EMR cluster actions that their IAM policies allow. When <code>false</code>, only the IAM principal
+     *        that created the cluster and the Amazon Web Services account root user can perform Amazon EMR actions,
+     *        regardless of IAM permissions policies attached to other IAM principals.</p>
+     *        <p>
+     *        The default value is <code>true</code> if a value is not provided when creating a cluster using the Amazon
+     *        EMR API <a>RunJobFlow</a> command, the CLI <a
+     *        href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a>
+     *        command, or the Amazon Web Services Management Console.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -692,17 +788,29 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this
-     * value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have the proper policy
-     * permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM user that created the
-     * cluster can view and manage it. This value can be changed using the <a>SetVisibleToAllUsers</a> action.
+     * Indicates whether the cluster is visible to IAM principals in the Amazon Web Services account associated with the
+     * cluster. When <code>true</code>, IAM principals in the Amazon Web Services account can perform Amazon EMR cluster
+     * actions that their IAM policies allow. When <code>false</code>, only the IAM principal that created the cluster
+     * and the Amazon Web Services account root user can perform Amazon EMR actions, regardless of IAM permissions
+     * policies attached to other IAM principals.
+     * </p>
+     * <p>
+     * The default value is <code>true</code> if a value is not provided when creating a cluster using the Amazon EMR
+     * API <a>RunJobFlow</a> command, the CLI <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a> command, or
+     * the Amazon Web Services Management Console.
      * </p>
      * 
-     * @return Specifies whether the cluster is visible to all IAM users of the AWS account associated with the cluster.
-     *         If this value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have
-     *         the proper policy permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM
-     *         user that created the cluster can view and manage it. This value can be changed using the
-     *         <a>SetVisibleToAllUsers</a> action.
+     * @return Indicates whether the cluster is visible to IAM principals in the Amazon Web Services account associated
+     *         with the cluster. When <code>true</code>, IAM principals in the Amazon Web Services account can perform
+     *         Amazon EMR cluster actions that their IAM policies allow. When <code>false</code>, only the IAM principal
+     *         that created the cluster and the Amazon Web Services account root user can perform Amazon EMR actions,
+     *         regardless of IAM permissions policies attached to other IAM principals.</p>
+     *         <p>
+     *         The default value is <code>true</code> if a value is not provided when creating a cluster using the
+     *         Amazon EMR API <a>RunJobFlow</a> command, the CLI <a
+     *         href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a>
+     *         command, or the Amazon Web Services Management Console.
      */
 
     public Boolean isVisibleToAllUsers() {
@@ -711,13 +819,13 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The IAM role that was specified when the job flow was launched. The EC2 instances of the job flow assume this
-     * role.
+     * The IAM role that was specified when the job flow was launched. The Amazon EC2 instances of the job flow assume
+     * this role.
      * </p>
      * 
      * @param jobFlowRole
-     *        The IAM role that was specified when the job flow was launched. The EC2 instances of the job flow assume
-     *        this role.
+     *        The IAM role that was specified when the job flow was launched. The Amazon EC2 instances of the job flow
+     *        assume this role.
      */
 
     public void setJobFlowRole(String jobFlowRole) {
@@ -726,12 +834,12 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The IAM role that was specified when the job flow was launched. The EC2 instances of the job flow assume this
-     * role.
+     * The IAM role that was specified when the job flow was launched. The Amazon EC2 instances of the job flow assume
+     * this role.
      * </p>
      * 
-     * @return The IAM role that was specified when the job flow was launched. The EC2 instances of the job flow assume
-     *         this role.
+     * @return The IAM role that was specified when the job flow was launched. The Amazon EC2 instances of the job flow
+     *         assume this role.
      */
 
     public String getJobFlowRole() {
@@ -740,13 +848,13 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The IAM role that was specified when the job flow was launched. The EC2 instances of the job flow assume this
-     * role.
+     * The IAM role that was specified when the job flow was launched. The Amazon EC2 instances of the job flow assume
+     * this role.
      * </p>
      * 
      * @param jobFlowRole
-     *        The IAM role that was specified when the job flow was launched. The EC2 instances of the job flow assume
-     *        this role.
+     *        The IAM role that was specified when the job flow was launched. The Amazon EC2 instances of the job flow
+     *        assume this role.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -757,11 +865,12 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The IAM role that will be assumed by the Amazon EMR service to access AWS resources on your behalf.
+     * The IAM role that is assumed by the Amazon EMR service to access Amazon Web Services resources on your behalf.
      * </p>
      * 
      * @param serviceRole
-     *        The IAM role that will be assumed by the Amazon EMR service to access AWS resources on your behalf.
+     *        The IAM role that is assumed by the Amazon EMR service to access Amazon Web Services resources on your
+     *        behalf.
      */
 
     public void setServiceRole(String serviceRole) {
@@ -770,10 +879,11 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The IAM role that will be assumed by the Amazon EMR service to access AWS resources on your behalf.
+     * The IAM role that is assumed by the Amazon EMR service to access Amazon Web Services resources on your behalf.
      * </p>
      * 
-     * @return The IAM role that will be assumed by the Amazon EMR service to access AWS resources on your behalf.
+     * @return The IAM role that is assumed by the Amazon EMR service to access Amazon Web Services resources on your
+     *         behalf.
      */
 
     public String getServiceRole() {
@@ -782,11 +892,12 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The IAM role that will be assumed by the Amazon EMR service to access AWS resources on your behalf.
+     * The IAM role that is assumed by the Amazon EMR service to access Amazon Web Services resources on your behalf.
      * </p>
      * 
      * @param serviceRole
-     *        The IAM role that will be assumed by the Amazon EMR service to access AWS resources on your behalf.
+     *        The IAM role that is assumed by the Amazon EMR service to access Amazon Web Services resources on your
+     *        behalf.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -799,13 +910,13 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * An IAM role for automatic scaling policies. The default role is <code>EMR_AutoScaling_DefaultRole</code>. The IAM
      * role provides a way for the automatic scaling feature to get the required permissions it needs to launch and
-     * terminate EC2 instances in an instance group.
+     * terminate Amazon EC2 instances in an instance group.
      * </p>
      * 
      * @param autoScalingRole
      *        An IAM role for automatic scaling policies. The default role is <code>EMR_AutoScaling_DefaultRole</code>.
      *        The IAM role provides a way for the automatic scaling feature to get the required permissions it needs to
-     *        launch and terminate EC2 instances in an instance group.
+     *        launch and terminate Amazon EC2 instances in an instance group.
      */
 
     public void setAutoScalingRole(String autoScalingRole) {
@@ -816,12 +927,12 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * An IAM role for automatic scaling policies. The default role is <code>EMR_AutoScaling_DefaultRole</code>. The IAM
      * role provides a way for the automatic scaling feature to get the required permissions it needs to launch and
-     * terminate EC2 instances in an instance group.
+     * terminate Amazon EC2 instances in an instance group.
      * </p>
      * 
      * @return An IAM role for automatic scaling policies. The default role is <code>EMR_AutoScaling_DefaultRole</code>.
      *         The IAM role provides a way for the automatic scaling feature to get the required permissions it needs to
-     *         launch and terminate EC2 instances in an instance group.
+     *         launch and terminate Amazon EC2 instances in an instance group.
      */
 
     public String getAutoScalingRole() {
@@ -832,13 +943,13 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * An IAM role for automatic scaling policies. The default role is <code>EMR_AutoScaling_DefaultRole</code>. The IAM
      * role provides a way for the automatic scaling feature to get the required permissions it needs to launch and
-     * terminate EC2 instances in an instance group.
+     * terminate Amazon EC2 instances in an instance group.
      * </p>
      * 
      * @param autoScalingRole
      *        An IAM role for automatic scaling policies. The default role is <code>EMR_AutoScaling_DefaultRole</code>.
      *        The IAM role provides a way for the automatic scaling feature to get the required permissions it needs to
-     *        launch and terminate EC2 instances in an instance group.
+     *        launch and terminate Amazon EC2 instances in an instance group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -853,11 +964,11 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
      * group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates nodes at the
      * instance-hour boundary, regardless of when the request to terminate the instance was submitted. This option is
      * only available with Amazon EMR 5.1.0 and later and is the default for clusters created using that version.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists and drains tasks from nodes before
-     * terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either behavior, Amazon EMR
-     * removes the least active nodes first and blocks instance termination if it could lead to HDFS corruption.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR version 4.1.0 and later, and is the
-     * default for versions of Amazon EMR earlier than 5.1.0.
+     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds nodes to a deny list and drains tasks
+     * from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either
+     * behavior, Amazon EMR removes the least active nodes first and blocks instance termination if it could lead to
+     * HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later,
+     * and is the default for releases of Amazon EMR earlier than 5.1.0.
      * </p>
      * 
      * @param scaleDownBehavior
@@ -865,11 +976,12 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
      *        instance group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates
      *        nodes at the instance-hour boundary, regardless of when the request to terminate the instance was
      *        submitted. This option is only available with Amazon EMR 5.1.0 and later and is the default for clusters
-     *        created using that version. <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists
-     *        and drains tasks from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour
-     *        boundary. With either behavior, Amazon EMR removes the least active nodes first and blocks instance
-     *        termination if it could lead to HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only
-     *        in Amazon EMR version 4.1.0 and later, and is the default for versions of Amazon EMR earlier than 5.1.0.
+     *        created using that version. <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds nodes
+     *        to a deny list and drains tasks from nodes before terminating the Amazon EC2 instances, regardless of the
+     *        instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes first and blocks
+     *        instance termination if it could lead to HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code>
+     *        available only in Amazon EMR releases 4.1.0 and later, and is the default for releases of Amazon EMR
+     *        earlier than 5.1.0.
      * @see ScaleDownBehavior
      */
 
@@ -883,23 +995,23 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
      * group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates nodes at the
      * instance-hour boundary, regardless of when the request to terminate the instance was submitted. This option is
      * only available with Amazon EMR 5.1.0 and later and is the default for clusters created using that version.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists and drains tasks from nodes before
-     * terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either behavior, Amazon EMR
-     * removes the least active nodes first and blocks instance termination if it could lead to HDFS corruption.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR version 4.1.0 and later, and is the
-     * default for versions of Amazon EMR earlier than 5.1.0.
+     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds nodes to a deny list and drains tasks
+     * from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either
+     * behavior, Amazon EMR removes the least active nodes first and blocks instance termination if it could lead to
+     * HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later,
+     * and is the default for releases of Amazon EMR earlier than 5.1.0.
      * </p>
      * 
      * @return The way that individual Amazon EC2 instances terminate when an automatic scale-in activity occurs or an
      *         instance group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates
      *         nodes at the instance-hour boundary, regardless of when the request to terminate the instance was
      *         submitted. This option is only available with Amazon EMR 5.1.0 and later and is the default for clusters
-     *         created using that version. <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR
-     *         blacklists and drains tasks from nodes before terminating the Amazon EC2 instances, regardless of the
-     *         instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes first and blocks
-     *         instance termination if it could lead to HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code>
-     *         available only in Amazon EMR version 4.1.0 and later, and is the default for versions of Amazon EMR
-     *         earlier than 5.1.0.
+     *         created using that version. <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds
+     *         nodes to a deny list and drains tasks from nodes before terminating the Amazon EC2 instances, regardless
+     *         of the instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes first and
+     *         blocks instance termination if it could lead to HDFS corruption.
+     *         <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later, and is
+     *         the default for releases of Amazon EMR earlier than 5.1.0.
      * @see ScaleDownBehavior
      */
 
@@ -913,11 +1025,11 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
      * group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates nodes at the
      * instance-hour boundary, regardless of when the request to terminate the instance was submitted. This option is
      * only available with Amazon EMR 5.1.0 and later and is the default for clusters created using that version.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists and drains tasks from nodes before
-     * terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either behavior, Amazon EMR
-     * removes the least active nodes first and blocks instance termination if it could lead to HDFS corruption.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR version 4.1.0 and later, and is the
-     * default for versions of Amazon EMR earlier than 5.1.0.
+     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds nodes to a deny list and drains tasks
+     * from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either
+     * behavior, Amazon EMR removes the least active nodes first and blocks instance termination if it could lead to
+     * HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later,
+     * and is the default for releases of Amazon EMR earlier than 5.1.0.
      * </p>
      * 
      * @param scaleDownBehavior
@@ -925,11 +1037,12 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
      *        instance group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates
      *        nodes at the instance-hour boundary, regardless of when the request to terminate the instance was
      *        submitted. This option is only available with Amazon EMR 5.1.0 and later and is the default for clusters
-     *        created using that version. <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists
-     *        and drains tasks from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour
-     *        boundary. With either behavior, Amazon EMR removes the least active nodes first and blocks instance
-     *        termination if it could lead to HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only
-     *        in Amazon EMR version 4.1.0 and later, and is the default for versions of Amazon EMR earlier than 5.1.0.
+     *        created using that version. <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds nodes
+     *        to a deny list and drains tasks from nodes before terminating the Amazon EC2 instances, regardless of the
+     *        instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes first and blocks
+     *        instance termination if it could lead to HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code>
+     *        available only in Amazon EMR releases 4.1.0 and later, and is the default for releases of Amazon EMR
+     *        earlier than 5.1.0.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ScaleDownBehavior
      */
@@ -945,11 +1058,11 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
      * group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates nodes at the
      * instance-hour boundary, regardless of when the request to terminate the instance was submitted. This option is
      * only available with Amazon EMR 5.1.0 and later and is the default for clusters created using that version.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists and drains tasks from nodes before
-     * terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either behavior, Amazon EMR
-     * removes the least active nodes first and blocks instance termination if it could lead to HDFS corruption.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR version 4.1.0 and later, and is the
-     * default for versions of Amazon EMR earlier than 5.1.0.
+     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds nodes to a deny list and drains tasks
+     * from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either
+     * behavior, Amazon EMR removes the least active nodes first and blocks instance termination if it could lead to
+     * HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later,
+     * and is the default for releases of Amazon EMR earlier than 5.1.0.
      * </p>
      * 
      * @param scaleDownBehavior
@@ -957,11 +1070,12 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
      *        instance group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates
      *        nodes at the instance-hour boundary, regardless of when the request to terminate the instance was
      *        submitted. This option is only available with Amazon EMR 5.1.0 and later and is the default for clusters
-     *        created using that version. <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists
-     *        and drains tasks from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour
-     *        boundary. With either behavior, Amazon EMR removes the least active nodes first and blocks instance
-     *        termination if it could lead to HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only
-     *        in Amazon EMR version 4.1.0 and later, and is the default for versions of Amazon EMR earlier than 5.1.0.
+     *        created using that version. <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds nodes
+     *        to a deny list and drains tasks from nodes before terminating the Amazon EC2 instances, regardless of the
+     *        instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes first and blocks
+     *        instance termination if it could lead to HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code>
+     *        available only in Amazon EMR releases 4.1.0 and later, and is the default for releases of Amazon EMR
+     *        earlier than 5.1.0.
      * @see ScaleDownBehavior
      */
 
@@ -975,11 +1089,11 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
      * group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates nodes at the
      * instance-hour boundary, regardless of when the request to terminate the instance was submitted. This option is
      * only available with Amazon EMR 5.1.0 and later and is the default for clusters created using that version.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists and drains tasks from nodes before
-     * terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either behavior, Amazon EMR
-     * removes the least active nodes first and blocks instance termination if it could lead to HDFS corruption.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR version 4.1.0 and later, and is the
-     * default for versions of Amazon EMR earlier than 5.1.0.
+     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds nodes to a deny list and drains tasks
+     * from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either
+     * behavior, Amazon EMR removes the least active nodes first and blocks instance termination if it could lead to
+     * HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later,
+     * and is the default for releases of Amazon EMR earlier than 5.1.0.
      * </p>
      * 
      * @param scaleDownBehavior
@@ -987,11 +1101,12 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
      *        instance group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates
      *        nodes at the instance-hour boundary, regardless of when the request to terminate the instance was
      *        submitted. This option is only available with Amazon EMR 5.1.0 and later and is the default for clusters
-     *        created using that version. <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists
-     *        and drains tasks from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour
-     *        boundary. With either behavior, Amazon EMR removes the least active nodes first and blocks instance
-     *        termination if it could lead to HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only
-     *        in Amazon EMR version 4.1.0 and later, and is the default for versions of Amazon EMR earlier than 5.1.0.
+     *        created using that version. <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds nodes
+     *        to a deny list and drains tasks from nodes before terminating the Amazon EC2 instances, regardless of the
+     *        instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes first and blocks
+     *        instance termination if it could lead to HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code>
+     *        available only in Amazon EMR releases 4.1.0 and later, and is the default for releases of Amazon EMR
+     *        earlier than 5.1.0.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ScaleDownBehavior
      */
@@ -1019,6 +1134,8 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
             sb.append("Name: ").append(getName()).append(",");
         if (getLogUri() != null)
             sb.append("LogUri: ").append(getLogUri()).append(",");
+        if (getLogEncryptionKmsKeyId() != null)
+            sb.append("LogEncryptionKmsKeyId: ").append(getLogEncryptionKmsKeyId()).append(",");
         if (getAmiVersion() != null)
             sb.append("AmiVersion: ").append(getAmiVersion()).append(",");
         if (getExecutionStatusDetail() != null)
@@ -1066,6 +1183,10 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
         if (other.getLogUri() == null ^ this.getLogUri() == null)
             return false;
         if (other.getLogUri() != null && other.getLogUri().equals(this.getLogUri()) == false)
+            return false;
+        if (other.getLogEncryptionKmsKeyId() == null ^ this.getLogEncryptionKmsKeyId() == null)
+            return false;
+        if (other.getLogEncryptionKmsKeyId() != null && other.getLogEncryptionKmsKeyId().equals(this.getLogEncryptionKmsKeyId()) == false)
             return false;
         if (other.getAmiVersion() == null ^ this.getAmiVersion() == null)
             return false;
@@ -1122,6 +1243,7 @@ public class JobFlowDetail implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getJobFlowId() == null) ? 0 : getJobFlowId().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getLogUri() == null) ? 0 : getLogUri().hashCode());
+        hashCode = prime * hashCode + ((getLogEncryptionKmsKeyId() == null) ? 0 : getLogEncryptionKmsKeyId().hashCode());
         hashCode = prime * hashCode + ((getAmiVersion() == null) ? 0 : getAmiVersion().hashCode());
         hashCode = prime * hashCode + ((getExecutionStatusDetail() == null) ? 0 : getExecutionStatusDetail().hashCode());
         hashCode = prime * hashCode + ((getInstances() == null) ? 0 : getInstances().hashCode());

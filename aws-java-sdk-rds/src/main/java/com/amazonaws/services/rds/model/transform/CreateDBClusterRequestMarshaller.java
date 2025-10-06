@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -134,13 +134,15 @@ public class CreateDBClusterRequestMarshaller implements Marshaller<Request<Crea
             int tagsListIndex = 1;
 
             for (Tag tagsListValue : tagsList) {
+                if (tagsListValue != null) {
 
-                if (tagsListValue.getKey() != null) {
-                    request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
-                }
+                    if (tagsListValue.getKey() != null) {
+                        request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
+                    }
 
-                if (tagsListValue.getValue() != null) {
-                    request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    if (tagsListValue.getValue() != null) {
+                        request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    }
                 }
                 tagsListIndex++;
             }
@@ -208,6 +210,30 @@ public class CreateDBClusterRequestMarshaller implements Marshaller<Request<Crea
                 if (scalingConfiguration.getTimeoutAction() != null) {
                     request.addParameter("ScalingConfiguration.TimeoutAction", StringUtils.fromString(scalingConfiguration.getTimeoutAction()));
                 }
+
+                if (scalingConfiguration.getSecondsBeforeTimeout() != null) {
+                    request.addParameter("ScalingConfiguration.SecondsBeforeTimeout", StringUtils.fromInteger(scalingConfiguration.getSecondsBeforeTimeout()));
+                }
+            }
+        }
+
+        {
+            RdsCustomClusterConfiguration rdsCustomClusterConfiguration = createDBClusterRequest.getRdsCustomClusterConfiguration();
+            if (rdsCustomClusterConfiguration != null) {
+
+                if (rdsCustomClusterConfiguration.getInterconnectSubnetId() != null) {
+                    request.addParameter("RdsCustomClusterConfiguration.InterconnectSubnetId",
+                            StringUtils.fromString(rdsCustomClusterConfiguration.getInterconnectSubnetId()));
+                }
+
+                if (rdsCustomClusterConfiguration.getTransitGatewayMulticastDomainId() != null) {
+                    request.addParameter("RdsCustomClusterConfiguration.TransitGatewayMulticastDomainId",
+                            StringUtils.fromString(rdsCustomClusterConfiguration.getTransitGatewayMulticastDomainId()));
+                }
+
+                if (rdsCustomClusterConfiguration.getReplicaMode() != null) {
+                    request.addParameter("RdsCustomClusterConfiguration.ReplicaMode", StringUtils.fromString(rdsCustomClusterConfiguration.getReplicaMode()));
+                }
             }
         }
 
@@ -219,8 +245,116 @@ public class CreateDBClusterRequestMarshaller implements Marshaller<Request<Crea
             request.addParameter("GlobalClusterIdentifier", StringUtils.fromString(createDBClusterRequest.getGlobalClusterIdentifier()));
         }
 
+        if (createDBClusterRequest.getEnableHttpEndpoint() != null) {
+            request.addParameter("EnableHttpEndpoint", StringUtils.fromBoolean(createDBClusterRequest.getEnableHttpEndpoint()));
+        }
+
         if (createDBClusterRequest.getCopyTagsToSnapshot() != null) {
             request.addParameter("CopyTagsToSnapshot", StringUtils.fromBoolean(createDBClusterRequest.getCopyTagsToSnapshot()));
+        }
+
+        if (createDBClusterRequest.getDomain() != null) {
+            request.addParameter("Domain", StringUtils.fromString(createDBClusterRequest.getDomain()));
+        }
+
+        if (createDBClusterRequest.getDomainIAMRoleName() != null) {
+            request.addParameter("DomainIAMRoleName", StringUtils.fromString(createDBClusterRequest.getDomainIAMRoleName()));
+        }
+
+        if (createDBClusterRequest.getEnableGlobalWriteForwarding() != null) {
+            request.addParameter("EnableGlobalWriteForwarding", StringUtils.fromBoolean(createDBClusterRequest.getEnableGlobalWriteForwarding()));
+        }
+
+        if (createDBClusterRequest.getDBClusterInstanceClass() != null) {
+            request.addParameter("DBClusterInstanceClass", StringUtils.fromString(createDBClusterRequest.getDBClusterInstanceClass()));
+        }
+
+        if (createDBClusterRequest.getAllocatedStorage() != null) {
+            request.addParameter("AllocatedStorage", StringUtils.fromInteger(createDBClusterRequest.getAllocatedStorage()));
+        }
+
+        if (createDBClusterRequest.getStorageType() != null) {
+            request.addParameter("StorageType", StringUtils.fromString(createDBClusterRequest.getStorageType()));
+        }
+
+        if (createDBClusterRequest.getIops() != null) {
+            request.addParameter("Iops", StringUtils.fromInteger(createDBClusterRequest.getIops()));
+        }
+
+        if (createDBClusterRequest.getPubliclyAccessible() != null) {
+            request.addParameter("PubliclyAccessible", StringUtils.fromBoolean(createDBClusterRequest.getPubliclyAccessible()));
+        }
+
+        if (createDBClusterRequest.getAutoMinorVersionUpgrade() != null) {
+            request.addParameter("AutoMinorVersionUpgrade", StringUtils.fromBoolean(createDBClusterRequest.getAutoMinorVersionUpgrade()));
+        }
+
+        if (createDBClusterRequest.getMonitoringInterval() != null) {
+            request.addParameter("MonitoringInterval", StringUtils.fromInteger(createDBClusterRequest.getMonitoringInterval()));
+        }
+
+        if (createDBClusterRequest.getMonitoringRoleArn() != null) {
+            request.addParameter("MonitoringRoleArn", StringUtils.fromString(createDBClusterRequest.getMonitoringRoleArn()));
+        }
+
+        if (createDBClusterRequest.getEnablePerformanceInsights() != null) {
+            request.addParameter("EnablePerformanceInsights", StringUtils.fromBoolean(createDBClusterRequest.getEnablePerformanceInsights()));
+        }
+
+        if (createDBClusterRequest.getPerformanceInsightsKMSKeyId() != null) {
+            request.addParameter("PerformanceInsightsKMSKeyId", StringUtils.fromString(createDBClusterRequest.getPerformanceInsightsKMSKeyId()));
+        }
+
+        if (createDBClusterRequest.getPerformanceInsightsRetentionPeriod() != null) {
+            request.addParameter("PerformanceInsightsRetentionPeriod", StringUtils.fromInteger(createDBClusterRequest.getPerformanceInsightsRetentionPeriod()));
+        }
+
+        if (createDBClusterRequest.getEnableLimitlessDatabase() != null) {
+            request.addParameter("EnableLimitlessDatabase", StringUtils.fromBoolean(createDBClusterRequest.getEnableLimitlessDatabase()));
+        }
+
+        {
+            ServerlessV2ScalingConfiguration serverlessV2ScalingConfiguration = createDBClusterRequest.getServerlessV2ScalingConfiguration();
+            if (serverlessV2ScalingConfiguration != null) {
+
+                if (serverlessV2ScalingConfiguration.getMinCapacity() != null) {
+                    request.addParameter("ServerlessV2ScalingConfiguration.MinCapacity",
+                            StringUtils.fromDouble(serverlessV2ScalingConfiguration.getMinCapacity()));
+                }
+
+                if (serverlessV2ScalingConfiguration.getMaxCapacity() != null) {
+                    request.addParameter("ServerlessV2ScalingConfiguration.MaxCapacity",
+                            StringUtils.fromDouble(serverlessV2ScalingConfiguration.getMaxCapacity()));
+                }
+            }
+        }
+
+        if (createDBClusterRequest.getNetworkType() != null) {
+            request.addParameter("NetworkType", StringUtils.fromString(createDBClusterRequest.getNetworkType()));
+        }
+
+        if (createDBClusterRequest.getDBSystemId() != null) {
+            request.addParameter("DBSystemId", StringUtils.fromString(createDBClusterRequest.getDBSystemId()));
+        }
+
+        if (createDBClusterRequest.getManageMasterUserPassword() != null) {
+            request.addParameter("ManageMasterUserPassword", StringUtils.fromBoolean(createDBClusterRequest.getManageMasterUserPassword()));
+        }
+
+        if (createDBClusterRequest.getMasterUserSecretKmsKeyId() != null) {
+            request.addParameter("MasterUserSecretKmsKeyId", StringUtils.fromString(createDBClusterRequest.getMasterUserSecretKmsKeyId()));
+        }
+
+        if (createDBClusterRequest.getEnableLocalWriteForwarding() != null) {
+            request.addParameter("EnableLocalWriteForwarding", StringUtils.fromBoolean(createDBClusterRequest.getEnableLocalWriteForwarding()));
+        }
+
+        if (createDBClusterRequest.getCACertificateIdentifier() != null) {
+            request.addParameter("CACertificateIdentifier", StringUtils.fromString(createDBClusterRequest.getCACertificateIdentifier()));
+        }
+
+        if (createDBClusterRequest.getEngineLifecycleSupport() != null) {
+            request.addParameter("EngineLifecycleSupport", StringUtils.fromString(createDBClusterRequest.getEngineLifecycleSupport()));
         }
 
         if (createDBClusterRequest.getSourceRegion() != null) {

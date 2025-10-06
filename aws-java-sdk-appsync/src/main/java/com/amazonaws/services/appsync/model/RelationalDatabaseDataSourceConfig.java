@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,7 +35,8 @@ public class RelationalDatabaseDataSourceConfig implements Serializable, Cloneab
      * <ul>
      * <li>
      * <p>
-     * <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon RDS HTTP endpoint.
+     * <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon Relational Database Service (Amazon
+     * RDS) HTTP endpoint.
      * </p>
      * </li>
      * </ul>
@@ -55,7 +56,8 @@ public class RelationalDatabaseDataSourceConfig implements Serializable, Cloneab
      * <ul>
      * <li>
      * <p>
-     * <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon RDS HTTP endpoint.
+     * <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon Relational Database Service (Amazon
+     * RDS) HTTP endpoint.
      * </p>
      * </li>
      * </ul>
@@ -65,7 +67,8 @@ public class RelationalDatabaseDataSourceConfig implements Serializable, Cloneab
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon RDS HTTP endpoint.
+     *        <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon Relational Database Service
+     *        (Amazon RDS) HTTP endpoint.
      *        </p>
      *        </li>
      * @see RelationalDatabaseSourceType
@@ -82,7 +85,8 @@ public class RelationalDatabaseDataSourceConfig implements Serializable, Cloneab
      * <ul>
      * <li>
      * <p>
-     * <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon RDS HTTP endpoint.
+     * <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon Relational Database Service (Amazon
+     * RDS) HTTP endpoint.
      * </p>
      * </li>
      * </ul>
@@ -91,7 +95,8 @@ public class RelationalDatabaseDataSourceConfig implements Serializable, Cloneab
      *         <ul>
      *         <li>
      *         <p>
-     *         <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon RDS HTTP endpoint.
+     *         <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon Relational Database Service
+     *         (Amazon RDS) HTTP endpoint.
      *         </p>
      *         </li>
      * @see RelationalDatabaseSourceType
@@ -108,7 +113,8 @@ public class RelationalDatabaseDataSourceConfig implements Serializable, Cloneab
      * <ul>
      * <li>
      * <p>
-     * <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon RDS HTTP endpoint.
+     * <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon Relational Database Service (Amazon
+     * RDS) HTTP endpoint.
      * </p>
      * </li>
      * </ul>
@@ -118,7 +124,8 @@ public class RelationalDatabaseDataSourceConfig implements Serializable, Cloneab
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon RDS HTTP endpoint.
+     *        <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon Relational Database Service
+     *        (Amazon RDS) HTTP endpoint.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -137,7 +144,8 @@ public class RelationalDatabaseDataSourceConfig implements Serializable, Cloneab
      * <ul>
      * <li>
      * <p>
-     * <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon RDS HTTP endpoint.
+     * <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon Relational Database Service (Amazon
+     * RDS) HTTP endpoint.
      * </p>
      * </li>
      * </ul>
@@ -147,7 +155,8 @@ public class RelationalDatabaseDataSourceConfig implements Serializable, Cloneab
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon RDS HTTP endpoint.
+     *        <b>RDS_HTTP_ENDPOINT</b>: The relational database source type is an Amazon Relational Database Service
+     *        (Amazon RDS) HTTP endpoint.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

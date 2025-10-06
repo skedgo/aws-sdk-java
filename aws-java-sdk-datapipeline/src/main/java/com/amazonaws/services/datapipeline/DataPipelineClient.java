@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.datapipeline.DataPipelineClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.datapipeline.model.*;
+
 import com.amazonaws.services.datapipeline.model.transform.*;
 
 /**
@@ -94,20 +95,20 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withModeledClass(
-                                    com.amazonaws.services.datapipeline.model.InvalidRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.datapipeline.model.transform.InvalidRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TaskNotFoundException").withModeledClass(
-                                    com.amazonaws.services.datapipeline.model.TaskNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TaskNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.datapipeline.model.transform.TaskNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("PipelineDeletedException").withModeledClass(
-                                    com.amazonaws.services.datapipeline.model.PipelineDeletedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("PipelineDeletedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.datapipeline.model.transform.PipelineDeletedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("PipelineNotFoundException").withModeledClass(
-                                    com.amazonaws.services.datapipeline.model.PipelineNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("PipelineNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.datapipeline.model.transform.PipelineNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServiceError").withModeledClass(
-                                    com.amazonaws.services.datapipeline.model.InternalServiceErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServiceError").withExceptionUnmarshaller(
+                                    com.amazonaws.services.datapipeline.model.transform.InternalServiceErrorExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.datapipeline.model.DataPipelineException.class));
 
     /**
@@ -361,6 +362,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new ActivatePipelineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(activatePipelineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ActivatePipeline");
@@ -425,6 +428,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new AddTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddTags");
@@ -485,6 +490,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new CreatePipelineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createPipelineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePipeline");
@@ -554,6 +561,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new DeactivatePipelineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deactivatePipelineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeactivatePipeline");
@@ -622,6 +631,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new DeletePipelineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deletePipelineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePipeline");
@@ -687,6 +698,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new DescribeObjectsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeObjectsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeObjects");
@@ -758,6 +771,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new DescribePipelinesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describePipelinesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribePipelines");
@@ -825,6 +840,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new EvaluateExpressionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(evaluateExpressionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "EvaluateExpression");
@@ -890,6 +907,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new GetPipelineDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPipelineDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPipelineDefinition");
@@ -951,6 +970,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new ListPipelinesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPipelinesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPipelines");
@@ -1029,6 +1050,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new PollForTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(pollForTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PollForTask");
@@ -1108,6 +1131,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new PutPipelineDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putPipelineDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutPipelineDefinition");
@@ -1173,6 +1198,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new QueryObjectsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(queryObjectsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "QueryObjects");
@@ -1237,6 +1264,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new RemoveTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(removeTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveTags");
@@ -1312,6 +1341,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new ReportTaskProgressRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(reportTaskProgressRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ReportTaskProgress");
@@ -1375,6 +1406,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                         .beforeMarshalling(reportTaskRunnerHeartbeatRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ReportTaskRunnerHeartbeat");
@@ -1443,6 +1476,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new SetStatusRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(setStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetStatus");
@@ -1512,6 +1547,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                 request = new SetTaskStatusRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(setTaskStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetTaskStatus");
@@ -1577,6 +1614,8 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
                         .beforeMarshalling(validatePipelineDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Data Pipeline");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ValidatePipelineDefinition");
@@ -1673,6 +1712,11 @@ public class DataPipelineClient extends AmazonWebServiceClient implements DataPi
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

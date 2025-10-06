@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,74 +30,106 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the source location for the task.
+     * Specifies the ARN of your transfer's source location.
      * </p>
      */
     private String sourceLocationArn;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an AWS storage resource's location.
+     * Specifies the ARN of your transfer's destination location.
      * </p>
      */
     private String destinationLocationArn;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that is used to monitor and log events in the
-     * task.
-     * </p>
-     * <p>
-     * For more information on these groups, see Working with Log Groups and Log Streams in the <i>Amazon CloudWatch
-     * User Guide.</i>
-     * </p>
-     * <p>
-     * For more information about how to use CloudWatch Logs with DataSync, see Monitoring Your Task in the <i>AWS
-     * DataSync User Guide.</i>
+     * Specifies the Amazon Resource Name (ARN) of an Amazon CloudWatch log group for monitoring your task.
      * </p>
      */
     private String cloudWatchLogGroupArn;
     /**
      * <p>
-     * The name of a task. This value is a text reference that is used to identify the task in the console.
+     * Specifies the name of your task.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The set of configuration options that control the behavior of a single execution of the task that occurs when you
-     * call <code>StartTaskExecution</code>. You can configure these options to preserve metadata such as user ID (UID)
-     * and group ID (GID), file permissions, data integrity verification, and so on.
-     * </p>
-     * <p>
-     * For each individual task execution, you can override these options by specifying the <code>OverrideOptions</code>
-     * before starting a the task execution. For more information, see the operation.
+     * Specifies your task's settings, such as preserving file metadata, verifying data integrity, among other options.
      * </p>
      */
     private Options options;
     /**
      * <p>
-     * A list of filter rules that determines which files to exclude from a task. The list should contain a single
-     * filter string that consists of the patterns to exclude. The patterns are delimited by "|" (that is, a pipe), for
-     * example, <code>"/folder1|/folder2"</code>
-     * </p>
-     * <p>
+     * Specifies exclude filters that define the files, objects, and folders in your source location that you don't want
+     * DataSync to transfer. For more information and examples, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync transfers by
+     * using filters</a>.
      * </p>
      */
     private java.util.List<FilterRule> excludes;
     /**
      * <p>
-     * The key-value pair that represents the tag that you want to add to the resource. The value can be an empty
-     * string.
+     * Specifies a schedule for when you want your task to run. For more information, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html">Scheduling your task</a>.
+     * </p>
+     */
+    private TaskSchedule schedule;
+    /**
+     * <p>
+     * Specifies the tags that you want to apply to your task.
+     * </p>
+     * <p>
+     * <i>Tags</i> are key-value pairs that help you manage, filter, and search for your DataSync resources.
      * </p>
      */
     private java.util.List<TagListEntry> tags;
+    /**
+     * <p>
+     * Specifies include filters define the files, objects, and folders in your source location that you want DataSync
+     * to transfer. For more information and examples, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync transfers by
+     * using filters</a>.
+     * </p>
+     */
+    private java.util.List<FilterRule> includes;
+    /**
+     * <p>
+     * Configures a manifest, which is a list of files or objects that you want DataSync to transfer. For more
+     * information and configuration examples, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/transferring-with-manifest.html">Specifying what
+     * DataSync transfers by using a manifest</a>.
+     * </p>
+     * <p>
+     * When using this parameter, your caller identity (the role that you're using DataSync with) must have the
+     * <code>iam:PassRole</code> permission. The <a href=
+     * "https://docs.aws.amazon.com/datasync/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-awsdatasyncfullaccess"
+     * >AWSDataSyncFullAccess</a> policy includes this permission.
+     * </p>
+     */
+    private ManifestConfig manifestConfig;
+    /**
+     * <p>
+     * Specifies how you want to configure a task report, which provides detailed information about your DataSync
+     * transfer. For more information, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/task-reports.html">Monitoring your DataSync transfers
+     * with task reports</a>.
+     * </p>
+     * <p>
+     * When using this parameter, your caller identity (the role that you're using DataSync with) must have the
+     * <code>iam:PassRole</code> permission. The <a href=
+     * "https://docs.aws.amazon.com/datasync/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-awsdatasyncfullaccess"
+     * >AWSDataSyncFullAccess</a> policy includes this permission.
+     * </p>
+     */
+    private TaskReportConfig taskReportConfig;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the source location for the task.
+     * Specifies the ARN of your transfer's source location.
      * </p>
      * 
      * @param sourceLocationArn
-     *        The Amazon Resource Name (ARN) of the source location for the task.
+     *        Specifies the ARN of your transfer's source location.
      */
 
     public void setSourceLocationArn(String sourceLocationArn) {
@@ -106,10 +138,10 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the source location for the task.
+     * Specifies the ARN of your transfer's source location.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the source location for the task.
+     * @return Specifies the ARN of your transfer's source location.
      */
 
     public String getSourceLocationArn() {
@@ -118,11 +150,11 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the source location for the task.
+     * Specifies the ARN of your transfer's source location.
      * </p>
      * 
      * @param sourceLocationArn
-     *        The Amazon Resource Name (ARN) of the source location for the task.
+     *        Specifies the ARN of your transfer's source location.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -133,11 +165,11 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an AWS storage resource's location.
+     * Specifies the ARN of your transfer's destination location.
      * </p>
      * 
      * @param destinationLocationArn
-     *        The Amazon Resource Name (ARN) of an AWS storage resource's location.
+     *        Specifies the ARN of your transfer's destination location.
      */
 
     public void setDestinationLocationArn(String destinationLocationArn) {
@@ -146,10 +178,10 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an AWS storage resource's location.
+     * Specifies the ARN of your transfer's destination location.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of an AWS storage resource's location.
+     * @return Specifies the ARN of your transfer's destination location.
      */
 
     public String getDestinationLocationArn() {
@@ -158,11 +190,11 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an AWS storage resource's location.
+     * Specifies the ARN of your transfer's destination location.
      * </p>
      * 
      * @param destinationLocationArn
-     *        The Amazon Resource Name (ARN) of an AWS storage resource's location.
+     *        Specifies the ARN of your transfer's destination location.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -173,28 +205,11 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that is used to monitor and log events in the
-     * task.
-     * </p>
-     * <p>
-     * For more information on these groups, see Working with Log Groups and Log Streams in the <i>Amazon CloudWatch
-     * User Guide.</i>
-     * </p>
-     * <p>
-     * For more information about how to use CloudWatch Logs with DataSync, see Monitoring Your Task in the <i>AWS
-     * DataSync User Guide.</i>
+     * Specifies the Amazon Resource Name (ARN) of an Amazon CloudWatch log group for monitoring your task.
      * </p>
      * 
      * @param cloudWatchLogGroupArn
-     *        The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that is used to monitor and log events
-     *        in the task. </p>
-     *        <p>
-     *        For more information on these groups, see Working with Log Groups and Log Streams in the <i>Amazon
-     *        CloudWatch User Guide.</i>
-     *        </p>
-     *        <p>
-     *        For more information about how to use CloudWatch Logs with DataSync, see Monitoring Your Task in the
-     *        <i>AWS DataSync User Guide.</i>
+     *        Specifies the Amazon Resource Name (ARN) of an Amazon CloudWatch log group for monitoring your task.
      */
 
     public void setCloudWatchLogGroupArn(String cloudWatchLogGroupArn) {
@@ -203,27 +218,10 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that is used to monitor and log events in the
-     * task.
-     * </p>
-     * <p>
-     * For more information on these groups, see Working with Log Groups and Log Streams in the <i>Amazon CloudWatch
-     * User Guide.</i>
-     * </p>
-     * <p>
-     * For more information about how to use CloudWatch Logs with DataSync, see Monitoring Your Task in the <i>AWS
-     * DataSync User Guide.</i>
+     * Specifies the Amazon Resource Name (ARN) of an Amazon CloudWatch log group for monitoring your task.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that is used to monitor and log events
-     *         in the task. </p>
-     *         <p>
-     *         For more information on these groups, see Working with Log Groups and Log Streams in the <i>Amazon
-     *         CloudWatch User Guide.</i>
-     *         </p>
-     *         <p>
-     *         For more information about how to use CloudWatch Logs with DataSync, see Monitoring Your Task in the
-     *         <i>AWS DataSync User Guide.</i>
+     * @return Specifies the Amazon Resource Name (ARN) of an Amazon CloudWatch log group for monitoring your task.
      */
 
     public String getCloudWatchLogGroupArn() {
@@ -232,28 +230,11 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that is used to monitor and log events in the
-     * task.
-     * </p>
-     * <p>
-     * For more information on these groups, see Working with Log Groups and Log Streams in the <i>Amazon CloudWatch
-     * User Guide.</i>
-     * </p>
-     * <p>
-     * For more information about how to use CloudWatch Logs with DataSync, see Monitoring Your Task in the <i>AWS
-     * DataSync User Guide.</i>
+     * Specifies the Amazon Resource Name (ARN) of an Amazon CloudWatch log group for monitoring your task.
      * </p>
      * 
      * @param cloudWatchLogGroupArn
-     *        The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that is used to monitor and log events
-     *        in the task. </p>
-     *        <p>
-     *        For more information on these groups, see Working with Log Groups and Log Streams in the <i>Amazon
-     *        CloudWatch User Guide.</i>
-     *        </p>
-     *        <p>
-     *        For more information about how to use CloudWatch Logs with DataSync, see Monitoring Your Task in the
-     *        <i>AWS DataSync User Guide.</i>
+     *        Specifies the Amazon Resource Name (ARN) of an Amazon CloudWatch log group for monitoring your task.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -264,11 +245,11 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The name of a task. This value is a text reference that is used to identify the task in the console.
+     * Specifies the name of your task.
      * </p>
      * 
      * @param name
-     *        The name of a task. This value is a text reference that is used to identify the task in the console.
+     *        Specifies the name of your task.
      */
 
     public void setName(String name) {
@@ -277,10 +258,10 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The name of a task. This value is a text reference that is used to identify the task in the console.
+     * Specifies the name of your task.
      * </p>
      * 
-     * @return The name of a task. This value is a text reference that is used to identify the task in the console.
+     * @return Specifies the name of your task.
      */
 
     public String getName() {
@@ -289,11 +270,11 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The name of a task. This value is a text reference that is used to identify the task in the console.
+     * Specifies the name of your task.
      * </p>
      * 
      * @param name
-     *        The name of a task. This value is a text reference that is used to identify the task in the console.
+     *        Specifies the name of your task.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -304,23 +285,12 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The set of configuration options that control the behavior of a single execution of the task that occurs when you
-     * call <code>StartTaskExecution</code>. You can configure these options to preserve metadata such as user ID (UID)
-     * and group ID (GID), file permissions, data integrity verification, and so on.
-     * </p>
-     * <p>
-     * For each individual task execution, you can override these options by specifying the <code>OverrideOptions</code>
-     * before starting a the task execution. For more information, see the operation.
+     * Specifies your task's settings, such as preserving file metadata, verifying data integrity, among other options.
      * </p>
      * 
      * @param options
-     *        The set of configuration options that control the behavior of a single execution of the task that occurs
-     *        when you call <code>StartTaskExecution</code>. You can configure these options to preserve metadata such
-     *        as user ID (UID) and group ID (GID), file permissions, data integrity verification, and so on.</p>
-     *        <p>
-     *        For each individual task execution, you can override these options by specifying the
-     *        <code>OverrideOptions</code> before starting a the task execution. For more information, see the
-     *        operation.
+     *        Specifies your task's settings, such as preserving file metadata, verifying data integrity, among other
+     *        options.
      */
 
     public void setOptions(Options options) {
@@ -329,22 +299,11 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The set of configuration options that control the behavior of a single execution of the task that occurs when you
-     * call <code>StartTaskExecution</code>. You can configure these options to preserve metadata such as user ID (UID)
-     * and group ID (GID), file permissions, data integrity verification, and so on.
-     * </p>
-     * <p>
-     * For each individual task execution, you can override these options by specifying the <code>OverrideOptions</code>
-     * before starting a the task execution. For more information, see the operation.
+     * Specifies your task's settings, such as preserving file metadata, verifying data integrity, among other options.
      * </p>
      * 
-     * @return The set of configuration options that control the behavior of a single execution of the task that occurs
-     *         when you call <code>StartTaskExecution</code>. You can configure these options to preserve metadata such
-     *         as user ID (UID) and group ID (GID), file permissions, data integrity verification, and so on.</p>
-     *         <p>
-     *         For each individual task execution, you can override these options by specifying the
-     *         <code>OverrideOptions</code> before starting a the task execution. For more information, see the
-     *         operation.
+     * @return Specifies your task's settings, such as preserving file metadata, verifying data integrity, among other
+     *         options.
      */
 
     public Options getOptions() {
@@ -353,23 +312,12 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The set of configuration options that control the behavior of a single execution of the task that occurs when you
-     * call <code>StartTaskExecution</code>. You can configure these options to preserve metadata such as user ID (UID)
-     * and group ID (GID), file permissions, data integrity verification, and so on.
-     * </p>
-     * <p>
-     * For each individual task execution, you can override these options by specifying the <code>OverrideOptions</code>
-     * before starting a the task execution. For more information, see the operation.
+     * Specifies your task's settings, such as preserving file metadata, verifying data integrity, among other options.
      * </p>
      * 
      * @param options
-     *        The set of configuration options that control the behavior of a single execution of the task that occurs
-     *        when you call <code>StartTaskExecution</code>. You can configure these options to preserve metadata such
-     *        as user ID (UID) and group ID (GID), file permissions, data integrity verification, and so on.</p>
-     *        <p>
-     *        For each individual task execution, you can override these options by specifying the
-     *        <code>OverrideOptions</code> before starting a the task execution. For more information, see the
-     *        operation.
+     *        Specifies your task's settings, such as preserving file metadata, verifying data integrity, among other
+     *        options.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -380,17 +328,16 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A list of filter rules that determines which files to exclude from a task. The list should contain a single
-     * filter string that consists of the patterns to exclude. The patterns are delimited by "|" (that is, a pipe), for
-     * example, <code>"/folder1|/folder2"</code>
-     * </p>
-     * <p>
+     * Specifies exclude filters that define the files, objects, and folders in your source location that you don't want
+     * DataSync to transfer. For more information and examples, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync transfers by
+     * using filters</a>.
      * </p>
      * 
-     * @return A list of filter rules that determines which files to exclude from a task. The list should contain a
-     *         single filter string that consists of the patterns to exclude. The patterns are delimited by "|" (that
-     *         is, a pipe), for example, <code>"/folder1|/folder2"</code> </p>
-     *         <p>
+     * @return Specifies exclude filters that define the files, objects, and folders in your source location that you
+     *         don't want DataSync to transfer. For more information and examples, see <a
+     *         href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync
+     *         transfers by using filters</a>.
      */
 
     public java.util.List<FilterRule> getExcludes() {
@@ -399,18 +346,17 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A list of filter rules that determines which files to exclude from a task. The list should contain a single
-     * filter string that consists of the patterns to exclude. The patterns are delimited by "|" (that is, a pipe), for
-     * example, <code>"/folder1|/folder2"</code>
-     * </p>
-     * <p>
+     * Specifies exclude filters that define the files, objects, and folders in your source location that you don't want
+     * DataSync to transfer. For more information and examples, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync transfers by
+     * using filters</a>.
      * </p>
      * 
      * @param excludes
-     *        A list of filter rules that determines which files to exclude from a task. The list should contain a
-     *        single filter string that consists of the patterns to exclude. The patterns are delimited by "|" (that is,
-     *        a pipe), for example, <code>"/folder1|/folder2"</code> </p>
-     *        <p>
+     *        Specifies exclude filters that define the files, objects, and folders in your source location that you
+     *        don't want DataSync to transfer. For more information and examples, see <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync
+     *        transfers by using filters</a>.
      */
 
     public void setExcludes(java.util.Collection<FilterRule> excludes) {
@@ -424,11 +370,10 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A list of filter rules that determines which files to exclude from a task. The list should contain a single
-     * filter string that consists of the patterns to exclude. The patterns are delimited by "|" (that is, a pipe), for
-     * example, <code>"/folder1|/folder2"</code>
-     * </p>
-     * <p>
+     * Specifies exclude filters that define the files, objects, and folders in your source location that you don't want
+     * DataSync to transfer. For more information and examples, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync transfers by
+     * using filters</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -437,10 +382,10 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </p>
      * 
      * @param excludes
-     *        A list of filter rules that determines which files to exclude from a task. The list should contain a
-     *        single filter string that consists of the patterns to exclude. The patterns are delimited by "|" (that is,
-     *        a pipe), for example, <code>"/folder1|/folder2"</code> </p>
-     *        <p>
+     *        Specifies exclude filters that define the files, objects, and folders in your source location that you
+     *        don't want DataSync to transfer. For more information and examples, see <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync
+     *        transfers by using filters</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -456,18 +401,17 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A list of filter rules that determines which files to exclude from a task. The list should contain a single
-     * filter string that consists of the patterns to exclude. The patterns are delimited by "|" (that is, a pipe), for
-     * example, <code>"/folder1|/folder2"</code>
-     * </p>
-     * <p>
+     * Specifies exclude filters that define the files, objects, and folders in your source location that you don't want
+     * DataSync to transfer. For more information and examples, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync transfers by
+     * using filters</a>.
      * </p>
      * 
      * @param excludes
-     *        A list of filter rules that determines which files to exclude from a task. The list should contain a
-     *        single filter string that consists of the patterns to exclude. The patterns are delimited by "|" (that is,
-     *        a pipe), for example, <code>"/folder1|/folder2"</code> </p>
-     *        <p>
+     *        Specifies exclude filters that define the files, objects, and folders in your source location that you
+     *        don't want DataSync to transfer. For more information and examples, see <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync
+     *        transfers by using filters</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -478,12 +422,64 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The key-value pair that represents the tag that you want to add to the resource. The value can be an empty
-     * string.
+     * Specifies a schedule for when you want your task to run. For more information, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html">Scheduling your task</a>.
      * </p>
      * 
-     * @return The key-value pair that represents the tag that you want to add to the resource. The value can be an
-     *         empty string.
+     * @param schedule
+     *        Specifies a schedule for when you want your task to run. For more information, see <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html">Scheduling your
+     *        task</a>.
+     */
+
+    public void setSchedule(TaskSchedule schedule) {
+        this.schedule = schedule;
+    }
+
+    /**
+     * <p>
+     * Specifies a schedule for when you want your task to run. For more information, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html">Scheduling your task</a>.
+     * </p>
+     * 
+     * @return Specifies a schedule for when you want your task to run. For more information, see <a
+     *         href="https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html">Scheduling your
+     *         task</a>.
+     */
+
+    public TaskSchedule getSchedule() {
+        return this.schedule;
+    }
+
+    /**
+     * <p>
+     * Specifies a schedule for when you want your task to run. For more information, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html">Scheduling your task</a>.
+     * </p>
+     * 
+     * @param schedule
+     *        Specifies a schedule for when you want your task to run. For more information, see <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html">Scheduling your
+     *        task</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTaskRequest withSchedule(TaskSchedule schedule) {
+        setSchedule(schedule);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the tags that you want to apply to your task.
+     * </p>
+     * <p>
+     * <i>Tags</i> are key-value pairs that help you manage, filter, and search for your DataSync resources.
+     * </p>
+     * 
+     * @return Specifies the tags that you want to apply to your task.</p>
+     *         <p>
+     *         <i>Tags</i> are key-value pairs that help you manage, filter, and search for your DataSync resources.
      */
 
     public java.util.List<TagListEntry> getTags() {
@@ -492,13 +488,16 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The key-value pair that represents the tag that you want to add to the resource. The value can be an empty
-     * string.
+     * Specifies the tags that you want to apply to your task.
+     * </p>
+     * <p>
+     * <i>Tags</i> are key-value pairs that help you manage, filter, and search for your DataSync resources.
      * </p>
      * 
      * @param tags
-     *        The key-value pair that represents the tag that you want to add to the resource. The value can be an empty
-     *        string.
+     *        Specifies the tags that you want to apply to your task.</p>
+     *        <p>
+     *        <i>Tags</i> are key-value pairs that help you manage, filter, and search for your DataSync resources.
      */
 
     public void setTags(java.util.Collection<TagListEntry> tags) {
@@ -512,8 +511,10 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The key-value pair that represents the tag that you want to add to the resource. The value can be an empty
-     * string.
+     * Specifies the tags that you want to apply to your task.
+     * </p>
+     * <p>
+     * <i>Tags</i> are key-value pairs that help you manage, filter, and search for your DataSync resources.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -522,8 +523,9 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </p>
      * 
      * @param tags
-     *        The key-value pair that represents the tag that you want to add to the resource. The value can be an empty
-     *        string.
+     *        Specifies the tags that you want to apply to your task.</p>
+     *        <p>
+     *        <i>Tags</i> are key-value pairs that help you manage, filter, and search for your DataSync resources.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -539,18 +541,297 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The key-value pair that represents the tag that you want to add to the resource. The value can be an empty
-     * string.
+     * Specifies the tags that you want to apply to your task.
+     * </p>
+     * <p>
+     * <i>Tags</i> are key-value pairs that help you manage, filter, and search for your DataSync resources.
      * </p>
      * 
      * @param tags
-     *        The key-value pair that represents the tag that you want to add to the resource. The value can be an empty
-     *        string.
+     *        Specifies the tags that you want to apply to your task.</p>
+     *        <p>
+     *        <i>Tags</i> are key-value pairs that help you manage, filter, and search for your DataSync resources.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateTaskRequest withTags(java.util.Collection<TagListEntry> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies include filters define the files, objects, and folders in your source location that you want DataSync
+     * to transfer. For more information and examples, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync transfers by
+     * using filters</a>.
+     * </p>
+     * 
+     * @return Specifies include filters define the files, objects, and folders in your source location that you want
+     *         DataSync to transfer. For more information and examples, see <a
+     *         href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync
+     *         transfers by using filters</a>.
+     */
+
+    public java.util.List<FilterRule> getIncludes() {
+        return includes;
+    }
+
+    /**
+     * <p>
+     * Specifies include filters define the files, objects, and folders in your source location that you want DataSync
+     * to transfer. For more information and examples, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync transfers by
+     * using filters</a>.
+     * </p>
+     * 
+     * @param includes
+     *        Specifies include filters define the files, objects, and folders in your source location that you want
+     *        DataSync to transfer. For more information and examples, see <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync
+     *        transfers by using filters</a>.
+     */
+
+    public void setIncludes(java.util.Collection<FilterRule> includes) {
+        if (includes == null) {
+            this.includes = null;
+            return;
+        }
+
+        this.includes = new java.util.ArrayList<FilterRule>(includes);
+    }
+
+    /**
+     * <p>
+     * Specifies include filters define the files, objects, and folders in your source location that you want DataSync
+     * to transfer. For more information and examples, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync transfers by
+     * using filters</a>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setIncludes(java.util.Collection)} or {@link #withIncludes(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param includes
+     *        Specifies include filters define the files, objects, and folders in your source location that you want
+     *        DataSync to transfer. For more information and examples, see <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync
+     *        transfers by using filters</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTaskRequest withIncludes(FilterRule... includes) {
+        if (this.includes == null) {
+            setIncludes(new java.util.ArrayList<FilterRule>(includes.length));
+        }
+        for (FilterRule ele : includes) {
+            this.includes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies include filters define the files, objects, and folders in your source location that you want DataSync
+     * to transfer. For more information and examples, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync transfers by
+     * using filters</a>.
+     * </p>
+     * 
+     * @param includes
+     *        Specifies include filters define the files, objects, and folders in your source location that you want
+     *        DataSync to transfer. For more information and examples, see <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/filtering.html">Specifying what DataSync
+     *        transfers by using filters</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTaskRequest withIncludes(java.util.Collection<FilterRule> includes) {
+        setIncludes(includes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Configures a manifest, which is a list of files or objects that you want DataSync to transfer. For more
+     * information and configuration examples, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/transferring-with-manifest.html">Specifying what
+     * DataSync transfers by using a manifest</a>.
+     * </p>
+     * <p>
+     * When using this parameter, your caller identity (the role that you're using DataSync with) must have the
+     * <code>iam:PassRole</code> permission. The <a href=
+     * "https://docs.aws.amazon.com/datasync/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-awsdatasyncfullaccess"
+     * >AWSDataSyncFullAccess</a> policy includes this permission.
+     * </p>
+     * 
+     * @param manifestConfig
+     *        Configures a manifest, which is a list of files or objects that you want DataSync to transfer. For more
+     *        information and configuration examples, see <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/transferring-with-manifest.html">Specifying
+     *        what DataSync transfers by using a manifest</a>.</p>
+     *        <p>
+     *        When using this parameter, your caller identity (the role that you're using DataSync with) must have the
+     *        <code>iam:PassRole</code> permission. The <a href=
+     *        "https://docs.aws.amazon.com/datasync/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-awsdatasyncfullaccess"
+     *        >AWSDataSyncFullAccess</a> policy includes this permission.
+     */
+
+    public void setManifestConfig(ManifestConfig manifestConfig) {
+        this.manifestConfig = manifestConfig;
+    }
+
+    /**
+     * <p>
+     * Configures a manifest, which is a list of files or objects that you want DataSync to transfer. For more
+     * information and configuration examples, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/transferring-with-manifest.html">Specifying what
+     * DataSync transfers by using a manifest</a>.
+     * </p>
+     * <p>
+     * When using this parameter, your caller identity (the role that you're using DataSync with) must have the
+     * <code>iam:PassRole</code> permission. The <a href=
+     * "https://docs.aws.amazon.com/datasync/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-awsdatasyncfullaccess"
+     * >AWSDataSyncFullAccess</a> policy includes this permission.
+     * </p>
+     * 
+     * @return Configures a manifest, which is a list of files or objects that you want DataSync to transfer. For more
+     *         information and configuration examples, see <a
+     *         href="https://docs.aws.amazon.com/datasync/latest/userguide/transferring-with-manifest.html">Specifying
+     *         what DataSync transfers by using a manifest</a>.</p>
+     *         <p>
+     *         When using this parameter, your caller identity (the role that you're using DataSync with) must have the
+     *         <code>iam:PassRole</code> permission. The <a href=
+     *         "https://docs.aws.amazon.com/datasync/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-awsdatasyncfullaccess"
+     *         >AWSDataSyncFullAccess</a> policy includes this permission.
+     */
+
+    public ManifestConfig getManifestConfig() {
+        return this.manifestConfig;
+    }
+
+    /**
+     * <p>
+     * Configures a manifest, which is a list of files or objects that you want DataSync to transfer. For more
+     * information and configuration examples, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/transferring-with-manifest.html">Specifying what
+     * DataSync transfers by using a manifest</a>.
+     * </p>
+     * <p>
+     * When using this parameter, your caller identity (the role that you're using DataSync with) must have the
+     * <code>iam:PassRole</code> permission. The <a href=
+     * "https://docs.aws.amazon.com/datasync/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-awsdatasyncfullaccess"
+     * >AWSDataSyncFullAccess</a> policy includes this permission.
+     * </p>
+     * 
+     * @param manifestConfig
+     *        Configures a manifest, which is a list of files or objects that you want DataSync to transfer. For more
+     *        information and configuration examples, see <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/transferring-with-manifest.html">Specifying
+     *        what DataSync transfers by using a manifest</a>.</p>
+     *        <p>
+     *        When using this parameter, your caller identity (the role that you're using DataSync with) must have the
+     *        <code>iam:PassRole</code> permission. The <a href=
+     *        "https://docs.aws.amazon.com/datasync/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-awsdatasyncfullaccess"
+     *        >AWSDataSyncFullAccess</a> policy includes this permission.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTaskRequest withManifestConfig(ManifestConfig manifestConfig) {
+        setManifestConfig(manifestConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies how you want to configure a task report, which provides detailed information about your DataSync
+     * transfer. For more information, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/task-reports.html">Monitoring your DataSync transfers
+     * with task reports</a>.
+     * </p>
+     * <p>
+     * When using this parameter, your caller identity (the role that you're using DataSync with) must have the
+     * <code>iam:PassRole</code> permission. The <a href=
+     * "https://docs.aws.amazon.com/datasync/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-awsdatasyncfullaccess"
+     * >AWSDataSyncFullAccess</a> policy includes this permission.
+     * </p>
+     * 
+     * @param taskReportConfig
+     *        Specifies how you want to configure a task report, which provides detailed information about your DataSync
+     *        transfer. For more information, see <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/task-reports.html">Monitoring your DataSync
+     *        transfers with task reports</a>.</p>
+     *        <p>
+     *        When using this parameter, your caller identity (the role that you're using DataSync with) must have the
+     *        <code>iam:PassRole</code> permission. The <a href=
+     *        "https://docs.aws.amazon.com/datasync/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-awsdatasyncfullaccess"
+     *        >AWSDataSyncFullAccess</a> policy includes this permission.
+     */
+
+    public void setTaskReportConfig(TaskReportConfig taskReportConfig) {
+        this.taskReportConfig = taskReportConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies how you want to configure a task report, which provides detailed information about your DataSync
+     * transfer. For more information, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/task-reports.html">Monitoring your DataSync transfers
+     * with task reports</a>.
+     * </p>
+     * <p>
+     * When using this parameter, your caller identity (the role that you're using DataSync with) must have the
+     * <code>iam:PassRole</code> permission. The <a href=
+     * "https://docs.aws.amazon.com/datasync/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-awsdatasyncfullaccess"
+     * >AWSDataSyncFullAccess</a> policy includes this permission.
+     * </p>
+     * 
+     * @return Specifies how you want to configure a task report, which provides detailed information about your
+     *         DataSync transfer. For more information, see <a
+     *         href="https://docs.aws.amazon.com/datasync/latest/userguide/task-reports.html">Monitoring your DataSync
+     *         transfers with task reports</a>.</p>
+     *         <p>
+     *         When using this parameter, your caller identity (the role that you're using DataSync with) must have the
+     *         <code>iam:PassRole</code> permission. The <a href=
+     *         "https://docs.aws.amazon.com/datasync/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-awsdatasyncfullaccess"
+     *         >AWSDataSyncFullAccess</a> policy includes this permission.
+     */
+
+    public TaskReportConfig getTaskReportConfig() {
+        return this.taskReportConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies how you want to configure a task report, which provides detailed information about your DataSync
+     * transfer. For more information, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/task-reports.html">Monitoring your DataSync transfers
+     * with task reports</a>.
+     * </p>
+     * <p>
+     * When using this parameter, your caller identity (the role that you're using DataSync with) must have the
+     * <code>iam:PassRole</code> permission. The <a href=
+     * "https://docs.aws.amazon.com/datasync/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-awsdatasyncfullaccess"
+     * >AWSDataSyncFullAccess</a> policy includes this permission.
+     * </p>
+     * 
+     * @param taskReportConfig
+     *        Specifies how you want to configure a task report, which provides detailed information about your DataSync
+     *        transfer. For more information, see <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/task-reports.html">Monitoring your DataSync
+     *        transfers with task reports</a>.</p>
+     *        <p>
+     *        When using this parameter, your caller identity (the role that you're using DataSync with) must have the
+     *        <code>iam:PassRole</code> permission. The <a href=
+     *        "https://docs.aws.amazon.com/datasync/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-awsdatasyncfullaccess"
+     *        >AWSDataSyncFullAccess</a> policy includes this permission.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTaskRequest withTaskReportConfig(TaskReportConfig taskReportConfig) {
+        setTaskReportConfig(taskReportConfig);
         return this;
     }
 
@@ -578,8 +859,16 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
             sb.append("Options: ").append(getOptions()).append(",");
         if (getExcludes() != null)
             sb.append("Excludes: ").append(getExcludes()).append(",");
+        if (getSchedule() != null)
+            sb.append("Schedule: ").append(getSchedule()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getIncludes() != null)
+            sb.append("Includes: ").append(getIncludes()).append(",");
+        if (getManifestConfig() != null)
+            sb.append("ManifestConfig: ").append(getManifestConfig()).append(",");
+        if (getTaskReportConfig() != null)
+            sb.append("TaskReportConfig: ").append(getTaskReportConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -618,9 +907,25 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
             return false;
         if (other.getExcludes() != null && other.getExcludes().equals(this.getExcludes()) == false)
             return false;
+        if (other.getSchedule() == null ^ this.getSchedule() == null)
+            return false;
+        if (other.getSchedule() != null && other.getSchedule().equals(this.getSchedule()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getIncludes() == null ^ this.getIncludes() == null)
+            return false;
+        if (other.getIncludes() != null && other.getIncludes().equals(this.getIncludes()) == false)
+            return false;
+        if (other.getManifestConfig() == null ^ this.getManifestConfig() == null)
+            return false;
+        if (other.getManifestConfig() != null && other.getManifestConfig().equals(this.getManifestConfig()) == false)
+            return false;
+        if (other.getTaskReportConfig() == null ^ this.getTaskReportConfig() == null)
+            return false;
+        if (other.getTaskReportConfig() != null && other.getTaskReportConfig().equals(this.getTaskReportConfig()) == false)
             return false;
         return true;
     }
@@ -636,7 +941,11 @@ public class CreateTaskRequest extends com.amazonaws.AmazonWebServiceRequest imp
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getOptions() == null) ? 0 : getOptions().hashCode());
         hashCode = prime * hashCode + ((getExcludes() == null) ? 0 : getExcludes().hashCode());
+        hashCode = prime * hashCode + ((getSchedule() == null) ? 0 : getSchedule().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getIncludes() == null) ? 0 : getIncludes().hashCode());
+        hashCode = prime * hashCode + ((getManifestConfig() == null) ? 0 : getManifestConfig().hashCode());
+        hashCode = prime * hashCode + ((getTaskReportConfig() == null) ? 0 : getTaskReportConfig().hashCode());
         return hashCode;
     }
 

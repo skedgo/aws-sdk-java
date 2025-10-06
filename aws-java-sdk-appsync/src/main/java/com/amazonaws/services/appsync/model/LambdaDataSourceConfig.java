@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes an AWS Lambda data source configuration.
+ * Describes an Lambda data source configuration.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/LambdaDataSourceConfig" target="_top">AWS API
@@ -30,18 +30,18 @@ public class LambdaDataSourceConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The ARN for the Lambda function.
+     * The Amazon Resource Name (ARN) for the Lambda function.
      * </p>
      */
     private String lambdaFunctionArn;
 
     /**
      * <p>
-     * The ARN for the Lambda function.
+     * The Amazon Resource Name (ARN) for the Lambda function.
      * </p>
      * 
      * @param lambdaFunctionArn
-     *        The ARN for the Lambda function.
+     *        The Amazon Resource Name (ARN) for the Lambda function.
      */
 
     public void setLambdaFunctionArn(String lambdaFunctionArn) {
@@ -50,10 +50,10 @@ public class LambdaDataSourceConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The ARN for the Lambda function.
+     * The Amazon Resource Name (ARN) for the Lambda function.
      * </p>
      * 
-     * @return The ARN for the Lambda function.
+     * @return The Amazon Resource Name (ARN) for the Lambda function.
      */
 
     public String getLambdaFunctionArn() {
@@ -62,11 +62,11 @@ public class LambdaDataSourceConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The ARN for the Lambda function.
+     * The Amazon Resource Name (ARN) for the Lambda function.
      * </p>
      * 
      * @param lambdaFunctionArn
-     *        The ARN for the Lambda function.
+     *        The Amazon Resource Name (ARN) for the Lambda function.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

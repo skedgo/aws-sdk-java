@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,16 +27,26 @@ public enum GameliftActions implements Action {
 
     /** Action for the AcceptMatch operation. */
     AcceptMatch("gamelift:AcceptMatch"),
+    /** Action for the ClaimGameServer operation. */
+    ClaimGameServer("gamelift:ClaimGameServer"),
     /** Action for the CreateAlias operation. */
     CreateAlias("gamelift:CreateAlias"),
     /** Action for the CreateBuild operation. */
     CreateBuild("gamelift:CreateBuild"),
+    /** Action for the CreateContainerGroupDefinition operation. */
+    CreateContainerGroupDefinition("gamelift:CreateContainerGroupDefinition"),
     /** Action for the CreateFleet operation. */
     CreateFleet("gamelift:CreateFleet"),
+    /** Action for the CreateFleetLocations operation. */
+    CreateFleetLocations("gamelift:CreateFleetLocations"),
+    /** Action for the CreateGameServerGroup operation. */
+    CreateGameServerGroup("gamelift:CreateGameServerGroup"),
     /** Action for the CreateGameSession operation. */
     CreateGameSession("gamelift:CreateGameSession"),
     /** Action for the CreateGameSessionQueue operation. */
     CreateGameSessionQueue("gamelift:CreateGameSessionQueue"),
+    /** Action for the CreateLocation operation. */
+    CreateLocation("gamelift:CreateLocation"),
     /** Action for the CreateMatchmakingConfiguration operation. */
     CreateMatchmakingConfiguration("gamelift:CreateMatchmakingConfiguration"),
     /** Action for the CreateMatchmakingRuleSet operation. */
@@ -55,10 +65,18 @@ public enum GameliftActions implements Action {
     DeleteAlias("gamelift:DeleteAlias"),
     /** Action for the DeleteBuild operation. */
     DeleteBuild("gamelift:DeleteBuild"),
+    /** Action for the DeleteContainerGroupDefinition operation. */
+    DeleteContainerGroupDefinition("gamelift:DeleteContainerGroupDefinition"),
     /** Action for the DeleteFleet operation. */
     DeleteFleet("gamelift:DeleteFleet"),
+    /** Action for the DeleteFleetLocations operation. */
+    DeleteFleetLocations("gamelift:DeleteFleetLocations"),
+    /** Action for the DeleteGameServerGroup operation. */
+    DeleteGameServerGroup("gamelift:DeleteGameServerGroup"),
     /** Action for the DeleteGameSessionQueue operation. */
     DeleteGameSessionQueue("gamelift:DeleteGameSessionQueue"),
+    /** Action for the DeleteLocation operation. */
+    DeleteLocation("gamelift:DeleteLocation"),
     /** Action for the DeleteMatchmakingConfiguration operation. */
     DeleteMatchmakingConfiguration("gamelift:DeleteMatchmakingConfiguration"),
     /** Action for the DeleteMatchmakingRuleSet operation. */
@@ -71,10 +89,18 @@ public enum GameliftActions implements Action {
     DeleteVpcPeeringAuthorization("gamelift:DeleteVpcPeeringAuthorization"),
     /** Action for the DeleteVpcPeeringConnection operation. */
     DeleteVpcPeeringConnection("gamelift:DeleteVpcPeeringConnection"),
+    /** Action for the DeregisterCompute operation. */
+    DeregisterCompute("gamelift:DeregisterCompute"),
+    /** Action for the DeregisterGameServer operation. */
+    DeregisterGameServer("gamelift:DeregisterGameServer"),
     /** Action for the DescribeAlias operation. */
     DescribeAlias("gamelift:DescribeAlias"),
     /** Action for the DescribeBuild operation. */
     DescribeBuild("gamelift:DescribeBuild"),
+    /** Action for the DescribeCompute operation. */
+    DescribeCompute("gamelift:DescribeCompute"),
+    /** Action for the DescribeContainerGroupDefinition operation. */
+    DescribeContainerGroupDefinition("gamelift:DescribeContainerGroupDefinition"),
     /** Action for the DescribeEC2InstanceLimits operation. */
     DescribeEC2InstanceLimits("gamelift:DescribeEC2InstanceLimits"),
     /** Action for the DescribeFleetAttributes operation. */
@@ -83,10 +109,22 @@ public enum GameliftActions implements Action {
     DescribeFleetCapacity("gamelift:DescribeFleetCapacity"),
     /** Action for the DescribeFleetEvents operation. */
     DescribeFleetEvents("gamelift:DescribeFleetEvents"),
+    /** Action for the DescribeFleetLocationAttributes operation. */
+    DescribeFleetLocationAttributes("gamelift:DescribeFleetLocationAttributes"),
+    /** Action for the DescribeFleetLocationCapacity operation. */
+    DescribeFleetLocationCapacity("gamelift:DescribeFleetLocationCapacity"),
+    /** Action for the DescribeFleetLocationUtilization operation. */
+    DescribeFleetLocationUtilization("gamelift:DescribeFleetLocationUtilization"),
     /** Action for the DescribeFleetPortSettings operation. */
     DescribeFleetPortSettings("gamelift:DescribeFleetPortSettings"),
     /** Action for the DescribeFleetUtilization operation. */
     DescribeFleetUtilization("gamelift:DescribeFleetUtilization"),
+    /** Action for the DescribeGameServer operation. */
+    DescribeGameServer("gamelift:DescribeGameServer"),
+    /** Action for the DescribeGameServerGroup operation. */
+    DescribeGameServerGroup("gamelift:DescribeGameServerGroup"),
+    /** Action for the DescribeGameServerInstances operation. */
+    DescribeGameServerInstances("gamelift:DescribeGameServerInstances"),
     /** Action for the DescribeGameSessionDetails operation. */
     DescribeGameSessionDetails("gamelift:DescribeGameSessionDetails"),
     /** Action for the DescribeGameSessionPlacement operation. */
@@ -115,6 +153,10 @@ public enum GameliftActions implements Action {
     DescribeVpcPeeringAuthorizations("gamelift:DescribeVpcPeeringAuthorizations"),
     /** Action for the DescribeVpcPeeringConnections operation. */
     DescribeVpcPeeringConnections("gamelift:DescribeVpcPeeringConnections"),
+    /** Action for the GetComputeAccess operation. */
+    GetComputeAccess("gamelift:GetComputeAccess"),
+    /** Action for the GetComputeAuthToken operation. */
+    GetComputeAuthToken("gamelift:GetComputeAuthToken"),
     /** Action for the GetGameSessionLogUrl operation. */
     GetGameSessionLogUrl("gamelift:GetGameSessionLogUrl"),
     /** Action for the GetInstanceAccess operation. */
@@ -123,16 +165,34 @@ public enum GameliftActions implements Action {
     ListAliases("gamelift:ListAliases"),
     /** Action for the ListBuilds operation. */
     ListBuilds("gamelift:ListBuilds"),
+    /** Action for the ListCompute operation. */
+    ListCompute("gamelift:ListCompute"),
+    /** Action for the ListContainerGroupDefinitions operation. */
+    ListContainerGroupDefinitions("gamelift:ListContainerGroupDefinitions"),
     /** Action for the ListFleets operation. */
     ListFleets("gamelift:ListFleets"),
+    /** Action for the ListGameServerGroups operation. */
+    ListGameServerGroups("gamelift:ListGameServerGroups"),
+    /** Action for the ListGameServers operation. */
+    ListGameServers("gamelift:ListGameServers"),
+    /** Action for the ListLocations operation. */
+    ListLocations("gamelift:ListLocations"),
     /** Action for the ListScripts operation. */
     ListScripts("gamelift:ListScripts"),
+    /** Action for the ListTagsForResource operation. */
+    ListTagsForResource("gamelift:ListTagsForResource"),
     /** Action for the PutScalingPolicy operation. */
     PutScalingPolicy("gamelift:PutScalingPolicy"),
+    /** Action for the RegisterCompute operation. */
+    RegisterCompute("gamelift:RegisterCompute"),
+    /** Action for the RegisterGameServer operation. */
+    RegisterGameServer("gamelift:RegisterGameServer"),
     /** Action for the RequestUploadCredentials operation. */
     RequestUploadCredentials("gamelift:RequestUploadCredentials"),
     /** Action for the ResolveAlias operation. */
     ResolveAlias("gamelift:ResolveAlias"),
+    /** Action for the ResumeGameServerGroup operation. */
+    ResumeGameServerGroup("gamelift:ResumeGameServerGroup"),
     /** Action for the SearchGameSessions operation. */
     SearchGameSessions("gamelift:SearchGameSessions"),
     /** Action for the StartFleetActions operation. */
@@ -149,6 +209,12 @@ public enum GameliftActions implements Action {
     StopGameSessionPlacement("gamelift:StopGameSessionPlacement"),
     /** Action for the StopMatchmaking operation. */
     StopMatchmaking("gamelift:StopMatchmaking"),
+    /** Action for the SuspendGameServerGroup operation. */
+    SuspendGameServerGroup("gamelift:SuspendGameServerGroup"),
+    /** Action for the TagResource operation. */
+    TagResource("gamelift:TagResource"),
+    /** Action for the UntagResource operation. */
+    UntagResource("gamelift:UntagResource"),
     /** Action for the UpdateAlias operation. */
     UpdateAlias("gamelift:UpdateAlias"),
     /** Action for the UpdateBuild operation. */
@@ -159,6 +225,10 @@ public enum GameliftActions implements Action {
     UpdateFleetCapacity("gamelift:UpdateFleetCapacity"),
     /** Action for the UpdateFleetPortSettings operation. */
     UpdateFleetPortSettings("gamelift:UpdateFleetPortSettings"),
+    /** Action for the UpdateGameServer operation. */
+    UpdateGameServer("gamelift:UpdateGameServer"),
+    /** Action for the UpdateGameServerGroup operation. */
+    UpdateGameServerGroup("gamelift:UpdateGameServerGroup"),
     /** Action for the UpdateGameSession operation. */
     UpdateGameSession("gamelift:UpdateGameSession"),
     /** Action for the UpdateGameSessionQueue operation. */
@@ -182,5 +252,9 @@ public enum GameliftActions implements Action {
 
     public String getActionName() {
         return this.action;
+    }
+
+    public boolean isNotType() {
+        return false;
     }
 }

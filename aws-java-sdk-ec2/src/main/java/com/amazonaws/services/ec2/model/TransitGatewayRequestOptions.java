@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,52 +29,78 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
     /**
      * <p>
      * A private Autonomous System Number (ASN) for the Amazon side of a BGP session. The range is 64512 to 65534 for
-     * 16-bit ASNs and 4200000000 to 4294967294 for 32-bit ASNs.
+     * 16-bit ASNs and 4200000000 to 4294967294 for 32-bit ASNs. The default is <code>64512</code>.
      * </p>
      */
     private Long amazonSideAsn;
     /**
      * <p>
-     * Enable or disable automatic acceptance of attachment requests. The default is <code>disable</code>.
+     * Enable or disable automatic acceptance of attachment requests. Disabled by default.
      * </p>
      */
     private String autoAcceptSharedAttachments;
     /**
      * <p>
-     * Enable or disable automatic association with the default association route table. The default is
-     * <code>enable</code>.
+     * Enable or disable automatic association with the default association route table. Enabled by default.
      * </p>
      */
     private String defaultRouteTableAssociation;
     /**
      * <p>
-     * Enable or disable automatic propagation of routes to the default propagation route table. The default is
-     * <code>enable</code>.
+     * Enable or disable automatic propagation of routes to the default propagation route table. Enabled by default.
      * </p>
      */
     private String defaultRouteTablePropagation;
     /**
      * <p>
-     * Enable or disable Equal Cost Multipath Protocol support.
+     * Enable or disable Equal Cost Multipath Protocol support. Enabled by default.
      * </p>
      */
     private String vpnEcmpSupport;
     /**
      * <p>
-     * Enable or disable DNS support.
+     * Enable or disable DNS support. Enabled by default.
      * </p>
      */
     private String dnsSupport;
+    /**
+     * <note>
+     * <p>
+     * This parameter is in preview and may not be available for your account.
+     * </p>
+     * </note>
+     * <p>
+     * Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to simplify
+     * security group management and control of instance-to-instance traffic across VPCs that are connected by transit
+     * gateway. You can also use this option to migrate from VPC peering (which was the only option that supported
+     * security group referencing) to transit gateways (which now also support security group referencing). This option
+     * is disabled by default and there are no additional costs to use this feature.
+     * </p>
+     */
+    private String securityGroupReferencingSupport;
+    /**
+     * <p>
+     * Indicates whether multicast is enabled on the transit gateway
+     * </p>
+     */
+    private String multicastSupport;
+    /**
+     * <p>
+     * One or more IPv4 or IPv6 CIDR blocks for the transit gateway. Must be a size /24 CIDR block or larger for IPv4,
+     * or a size /64 CIDR block or larger for IPv6.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> transitGatewayCidrBlocks;
 
     /**
      * <p>
      * A private Autonomous System Number (ASN) for the Amazon side of a BGP session. The range is 64512 to 65534 for
-     * 16-bit ASNs and 4200000000 to 4294967294 for 32-bit ASNs.
+     * 16-bit ASNs and 4200000000 to 4294967294 for 32-bit ASNs. The default is <code>64512</code>.
      * </p>
      * 
      * @param amazonSideAsn
      *        A private Autonomous System Number (ASN) for the Amazon side of a BGP session. The range is 64512 to 65534
-     *        for 16-bit ASNs and 4200000000 to 4294967294 for 32-bit ASNs.
+     *        for 16-bit ASNs and 4200000000 to 4294967294 for 32-bit ASNs. The default is <code>64512</code>.
      */
 
     public void setAmazonSideAsn(Long amazonSideAsn) {
@@ -84,11 +110,11 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
     /**
      * <p>
      * A private Autonomous System Number (ASN) for the Amazon side of a BGP session. The range is 64512 to 65534 for
-     * 16-bit ASNs and 4200000000 to 4294967294 for 32-bit ASNs.
+     * 16-bit ASNs and 4200000000 to 4294967294 for 32-bit ASNs. The default is <code>64512</code>.
      * </p>
      * 
      * @return A private Autonomous System Number (ASN) for the Amazon side of a BGP session. The range is 64512 to
-     *         65534 for 16-bit ASNs and 4200000000 to 4294967294 for 32-bit ASNs.
+     *         65534 for 16-bit ASNs and 4200000000 to 4294967294 for 32-bit ASNs. The default is <code>64512</code>.
      */
 
     public Long getAmazonSideAsn() {
@@ -98,12 +124,12 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
     /**
      * <p>
      * A private Autonomous System Number (ASN) for the Amazon side of a BGP session. The range is 64512 to 65534 for
-     * 16-bit ASNs and 4200000000 to 4294967294 for 32-bit ASNs.
+     * 16-bit ASNs and 4200000000 to 4294967294 for 32-bit ASNs. The default is <code>64512</code>.
      * </p>
      * 
      * @param amazonSideAsn
      *        A private Autonomous System Number (ASN) for the Amazon side of a BGP session. The range is 64512 to 65534
-     *        for 16-bit ASNs and 4200000000 to 4294967294 for 32-bit ASNs.
+     *        for 16-bit ASNs and 4200000000 to 4294967294 for 32-bit ASNs. The default is <code>64512</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -114,11 +140,11 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable automatic acceptance of attachment requests. The default is <code>disable</code>.
+     * Enable or disable automatic acceptance of attachment requests. Disabled by default.
      * </p>
      * 
      * @param autoAcceptSharedAttachments
-     *        Enable or disable automatic acceptance of attachment requests. The default is <code>disable</code>.
+     *        Enable or disable automatic acceptance of attachment requests. Disabled by default.
      * @see AutoAcceptSharedAttachmentsValue
      */
 
@@ -128,10 +154,10 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable automatic acceptance of attachment requests. The default is <code>disable</code>.
+     * Enable or disable automatic acceptance of attachment requests. Disabled by default.
      * </p>
      * 
-     * @return Enable or disable automatic acceptance of attachment requests. The default is <code>disable</code>.
+     * @return Enable or disable automatic acceptance of attachment requests. Disabled by default.
      * @see AutoAcceptSharedAttachmentsValue
      */
 
@@ -141,11 +167,11 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable automatic acceptance of attachment requests. The default is <code>disable</code>.
+     * Enable or disable automatic acceptance of attachment requests. Disabled by default.
      * </p>
      * 
      * @param autoAcceptSharedAttachments
-     *        Enable or disable automatic acceptance of attachment requests. The default is <code>disable</code>.
+     *        Enable or disable automatic acceptance of attachment requests. Disabled by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AutoAcceptSharedAttachmentsValue
      */
@@ -157,11 +183,11 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable automatic acceptance of attachment requests. The default is <code>disable</code>.
+     * Enable or disable automatic acceptance of attachment requests. Disabled by default.
      * </p>
      * 
      * @param autoAcceptSharedAttachments
-     *        Enable or disable automatic acceptance of attachment requests. The default is <code>disable</code>.
+     *        Enable or disable automatic acceptance of attachment requests. Disabled by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AutoAcceptSharedAttachmentsValue
      */
@@ -173,13 +199,11 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable automatic association with the default association route table. The default is
-     * <code>enable</code>.
+     * Enable or disable automatic association with the default association route table. Enabled by default.
      * </p>
      * 
      * @param defaultRouteTableAssociation
-     *        Enable or disable automatic association with the default association route table. The default is
-     *        <code>enable</code>.
+     *        Enable or disable automatic association with the default association route table. Enabled by default.
      * @see DefaultRouteTableAssociationValue
      */
 
@@ -189,12 +213,10 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable automatic association with the default association route table. The default is
-     * <code>enable</code>.
+     * Enable or disable automatic association with the default association route table. Enabled by default.
      * </p>
      * 
-     * @return Enable or disable automatic association with the default association route table. The default is
-     *         <code>enable</code>.
+     * @return Enable or disable automatic association with the default association route table. Enabled by default.
      * @see DefaultRouteTableAssociationValue
      */
 
@@ -204,13 +226,11 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable automatic association with the default association route table. The default is
-     * <code>enable</code>.
+     * Enable or disable automatic association with the default association route table. Enabled by default.
      * </p>
      * 
      * @param defaultRouteTableAssociation
-     *        Enable or disable automatic association with the default association route table. The default is
-     *        <code>enable</code>.
+     *        Enable or disable automatic association with the default association route table. Enabled by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DefaultRouteTableAssociationValue
      */
@@ -222,13 +242,11 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable automatic association with the default association route table. The default is
-     * <code>enable</code>.
+     * Enable or disable automatic association with the default association route table. Enabled by default.
      * </p>
      * 
      * @param defaultRouteTableAssociation
-     *        Enable or disable automatic association with the default association route table. The default is
-     *        <code>enable</code>.
+     *        Enable or disable automatic association with the default association route table. Enabled by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DefaultRouteTableAssociationValue
      */
@@ -240,13 +258,12 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable automatic propagation of routes to the default propagation route table. The default is
-     * <code>enable</code>.
+     * Enable or disable automatic propagation of routes to the default propagation route table. Enabled by default.
      * </p>
      * 
      * @param defaultRouteTablePropagation
-     *        Enable or disable automatic propagation of routes to the default propagation route table. The default is
-     *        <code>enable</code>.
+     *        Enable or disable automatic propagation of routes to the default propagation route table. Enabled by
+     *        default.
      * @see DefaultRouteTablePropagationValue
      */
 
@@ -256,12 +273,11 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable automatic propagation of routes to the default propagation route table. The default is
-     * <code>enable</code>.
+     * Enable or disable automatic propagation of routes to the default propagation route table. Enabled by default.
      * </p>
      * 
-     * @return Enable or disable automatic propagation of routes to the default propagation route table. The default is
-     *         <code>enable</code>.
+     * @return Enable or disable automatic propagation of routes to the default propagation route table. Enabled by
+     *         default.
      * @see DefaultRouteTablePropagationValue
      */
 
@@ -271,13 +287,12 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable automatic propagation of routes to the default propagation route table. The default is
-     * <code>enable</code>.
+     * Enable or disable automatic propagation of routes to the default propagation route table. Enabled by default.
      * </p>
      * 
      * @param defaultRouteTablePropagation
-     *        Enable or disable automatic propagation of routes to the default propagation route table. The default is
-     *        <code>enable</code>.
+     *        Enable or disable automatic propagation of routes to the default propagation route table. Enabled by
+     *        default.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DefaultRouteTablePropagationValue
      */
@@ -289,13 +304,12 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable automatic propagation of routes to the default propagation route table. The default is
-     * <code>enable</code>.
+     * Enable or disable automatic propagation of routes to the default propagation route table. Enabled by default.
      * </p>
      * 
      * @param defaultRouteTablePropagation
-     *        Enable or disable automatic propagation of routes to the default propagation route table. The default is
-     *        <code>enable</code>.
+     *        Enable or disable automatic propagation of routes to the default propagation route table. Enabled by
+     *        default.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DefaultRouteTablePropagationValue
      */
@@ -307,11 +321,11 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable Equal Cost Multipath Protocol support.
+     * Enable or disable Equal Cost Multipath Protocol support. Enabled by default.
      * </p>
      * 
      * @param vpnEcmpSupport
-     *        Enable or disable Equal Cost Multipath Protocol support.
+     *        Enable or disable Equal Cost Multipath Protocol support. Enabled by default.
      * @see VpnEcmpSupportValue
      */
 
@@ -321,10 +335,10 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable Equal Cost Multipath Protocol support.
+     * Enable or disable Equal Cost Multipath Protocol support. Enabled by default.
      * </p>
      * 
-     * @return Enable or disable Equal Cost Multipath Protocol support.
+     * @return Enable or disable Equal Cost Multipath Protocol support. Enabled by default.
      * @see VpnEcmpSupportValue
      */
 
@@ -334,11 +348,11 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable Equal Cost Multipath Protocol support.
+     * Enable or disable Equal Cost Multipath Protocol support. Enabled by default.
      * </p>
      * 
      * @param vpnEcmpSupport
-     *        Enable or disable Equal Cost Multipath Protocol support.
+     *        Enable or disable Equal Cost Multipath Protocol support. Enabled by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VpnEcmpSupportValue
      */
@@ -350,11 +364,11 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable Equal Cost Multipath Protocol support.
+     * Enable or disable Equal Cost Multipath Protocol support. Enabled by default.
      * </p>
      * 
      * @param vpnEcmpSupport
-     *        Enable or disable Equal Cost Multipath Protocol support.
+     *        Enable or disable Equal Cost Multipath Protocol support. Enabled by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VpnEcmpSupportValue
      */
@@ -366,11 +380,11 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable DNS support.
+     * Enable or disable DNS support. Enabled by default.
      * </p>
      * 
      * @param dnsSupport
-     *        Enable or disable DNS support.
+     *        Enable or disable DNS support. Enabled by default.
      * @see DnsSupportValue
      */
 
@@ -380,10 +394,10 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable DNS support.
+     * Enable or disable DNS support. Enabled by default.
      * </p>
      * 
-     * @return Enable or disable DNS support.
+     * @return Enable or disable DNS support. Enabled by default.
      * @see DnsSupportValue
      */
 
@@ -393,11 +407,11 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable DNS support.
+     * Enable or disable DNS support. Enabled by default.
      * </p>
      * 
      * @param dnsSupport
-     *        Enable or disable DNS support.
+     *        Enable or disable DNS support. Enabled by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DnsSupportValue
      */
@@ -409,17 +423,292 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Enable or disable DNS support.
+     * Enable or disable DNS support. Enabled by default.
      * </p>
      * 
      * @param dnsSupport
-     *        Enable or disable DNS support.
+     *        Enable or disable DNS support. Enabled by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DnsSupportValue
      */
 
     public TransitGatewayRequestOptions withDnsSupport(DnsSupportValue dnsSupport) {
         this.dnsSupport = dnsSupport.toString();
+        return this;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is in preview and may not be available for your account.
+     * </p>
+     * </note>
+     * <p>
+     * Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to simplify
+     * security group management and control of instance-to-instance traffic across VPCs that are connected by transit
+     * gateway. You can also use this option to migrate from VPC peering (which was the only option that supported
+     * security group referencing) to transit gateways (which now also support security group referencing). This option
+     * is disabled by default and there are no additional costs to use this feature.
+     * </p>
+     * 
+     * @param securityGroupReferencingSupport
+     *        <p>
+     *        This parameter is in preview and may not be available for your account.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to
+     *        simplify security group management and control of instance-to-instance traffic across VPCs that are
+     *        connected by transit gateway. You can also use this option to migrate from VPC peering (which was the only
+     *        option that supported security group referencing) to transit gateways (which now also support security
+     *        group referencing). This option is disabled by default and there are no additional costs to use this
+     *        feature.
+     * @see SecurityGroupReferencingSupportValue
+     */
+
+    public void setSecurityGroupReferencingSupport(String securityGroupReferencingSupport) {
+        this.securityGroupReferencingSupport = securityGroupReferencingSupport;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is in preview and may not be available for your account.
+     * </p>
+     * </note>
+     * <p>
+     * Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to simplify
+     * security group management and control of instance-to-instance traffic across VPCs that are connected by transit
+     * gateway. You can also use this option to migrate from VPC peering (which was the only option that supported
+     * security group referencing) to transit gateways (which now also support security group referencing). This option
+     * is disabled by default and there are no additional costs to use this feature.
+     * </p>
+     * 
+     * @return <p>
+     *         This parameter is in preview and may not be available for your account.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to
+     *         simplify security group management and control of instance-to-instance traffic across VPCs that are
+     *         connected by transit gateway. You can also use this option to migrate from VPC peering (which was the
+     *         only option that supported security group referencing) to transit gateways (which now also support
+     *         security group referencing). This option is disabled by default and there are no additional costs to use
+     *         this feature.
+     * @see SecurityGroupReferencingSupportValue
+     */
+
+    public String getSecurityGroupReferencingSupport() {
+        return this.securityGroupReferencingSupport;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is in preview and may not be available for your account.
+     * </p>
+     * </note>
+     * <p>
+     * Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to simplify
+     * security group management and control of instance-to-instance traffic across VPCs that are connected by transit
+     * gateway. You can also use this option to migrate from VPC peering (which was the only option that supported
+     * security group referencing) to transit gateways (which now also support security group referencing). This option
+     * is disabled by default and there are no additional costs to use this feature.
+     * </p>
+     * 
+     * @param securityGroupReferencingSupport
+     *        <p>
+     *        This parameter is in preview and may not be available for your account.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to
+     *        simplify security group management and control of instance-to-instance traffic across VPCs that are
+     *        connected by transit gateway. You can also use this option to migrate from VPC peering (which was the only
+     *        option that supported security group referencing) to transit gateways (which now also support security
+     *        group referencing). This option is disabled by default and there are no additional costs to use this
+     *        feature.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SecurityGroupReferencingSupportValue
+     */
+
+    public TransitGatewayRequestOptions withSecurityGroupReferencingSupport(String securityGroupReferencingSupport) {
+        setSecurityGroupReferencingSupport(securityGroupReferencingSupport);
+        return this;
+    }
+
+    /**
+     * <note>
+     * <p>
+     * This parameter is in preview and may not be available for your account.
+     * </p>
+     * </note>
+     * <p>
+     * Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to simplify
+     * security group management and control of instance-to-instance traffic across VPCs that are connected by transit
+     * gateway. You can also use this option to migrate from VPC peering (which was the only option that supported
+     * security group referencing) to transit gateways (which now also support security group referencing). This option
+     * is disabled by default and there are no additional costs to use this feature.
+     * </p>
+     * 
+     * @param securityGroupReferencingSupport
+     *        <p>
+     *        This parameter is in preview and may not be available for your account.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Enables you to reference a security group across VPCs attached to a transit gateway. Use this option to
+     *        simplify security group management and control of instance-to-instance traffic across VPCs that are
+     *        connected by transit gateway. You can also use this option to migrate from VPC peering (which was the only
+     *        option that supported security group referencing) to transit gateways (which now also support security
+     *        group referencing). This option is disabled by default and there are no additional costs to use this
+     *        feature.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SecurityGroupReferencingSupportValue
+     */
+
+    public TransitGatewayRequestOptions withSecurityGroupReferencingSupport(SecurityGroupReferencingSupportValue securityGroupReferencingSupport) {
+        this.securityGroupReferencingSupport = securityGroupReferencingSupport.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether multicast is enabled on the transit gateway
+     * </p>
+     * 
+     * @param multicastSupport
+     *        Indicates whether multicast is enabled on the transit gateway
+     * @see MulticastSupportValue
+     */
+
+    public void setMulticastSupport(String multicastSupport) {
+        this.multicastSupport = multicastSupport;
+    }
+
+    /**
+     * <p>
+     * Indicates whether multicast is enabled on the transit gateway
+     * </p>
+     * 
+     * @return Indicates whether multicast is enabled on the transit gateway
+     * @see MulticastSupportValue
+     */
+
+    public String getMulticastSupport() {
+        return this.multicastSupport;
+    }
+
+    /**
+     * <p>
+     * Indicates whether multicast is enabled on the transit gateway
+     * </p>
+     * 
+     * @param multicastSupport
+     *        Indicates whether multicast is enabled on the transit gateway
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MulticastSupportValue
+     */
+
+    public TransitGatewayRequestOptions withMulticastSupport(String multicastSupport) {
+        setMulticastSupport(multicastSupport);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether multicast is enabled on the transit gateway
+     * </p>
+     * 
+     * @param multicastSupport
+     *        Indicates whether multicast is enabled on the transit gateway
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MulticastSupportValue
+     */
+
+    public TransitGatewayRequestOptions withMulticastSupport(MulticastSupportValue multicastSupport) {
+        this.multicastSupport = multicastSupport.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * One or more IPv4 or IPv6 CIDR blocks for the transit gateway. Must be a size /24 CIDR block or larger for IPv4,
+     * or a size /64 CIDR block or larger for IPv6.
+     * </p>
+     * 
+     * @return One or more IPv4 or IPv6 CIDR blocks for the transit gateway. Must be a size /24 CIDR block or larger for
+     *         IPv4, or a size /64 CIDR block or larger for IPv6.
+     */
+
+    public java.util.List<String> getTransitGatewayCidrBlocks() {
+        if (transitGatewayCidrBlocks == null) {
+            transitGatewayCidrBlocks = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return transitGatewayCidrBlocks;
+    }
+
+    /**
+     * <p>
+     * One or more IPv4 or IPv6 CIDR blocks for the transit gateway. Must be a size /24 CIDR block or larger for IPv4,
+     * or a size /64 CIDR block or larger for IPv6.
+     * </p>
+     * 
+     * @param transitGatewayCidrBlocks
+     *        One or more IPv4 or IPv6 CIDR blocks for the transit gateway. Must be a size /24 CIDR block or larger for
+     *        IPv4, or a size /64 CIDR block or larger for IPv6.
+     */
+
+    public void setTransitGatewayCidrBlocks(java.util.Collection<String> transitGatewayCidrBlocks) {
+        if (transitGatewayCidrBlocks == null) {
+            this.transitGatewayCidrBlocks = null;
+            return;
+        }
+
+        this.transitGatewayCidrBlocks = new com.amazonaws.internal.SdkInternalList<String>(transitGatewayCidrBlocks);
+    }
+
+    /**
+     * <p>
+     * One or more IPv4 or IPv6 CIDR blocks for the transit gateway. Must be a size /24 CIDR block or larger for IPv4,
+     * or a size /64 CIDR block or larger for IPv6.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTransitGatewayCidrBlocks(java.util.Collection)} or
+     * {@link #withTransitGatewayCidrBlocks(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param transitGatewayCidrBlocks
+     *        One or more IPv4 or IPv6 CIDR blocks for the transit gateway. Must be a size /24 CIDR block or larger for
+     *        IPv4, or a size /64 CIDR block or larger for IPv6.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TransitGatewayRequestOptions withTransitGatewayCidrBlocks(String... transitGatewayCidrBlocks) {
+        if (this.transitGatewayCidrBlocks == null) {
+            setTransitGatewayCidrBlocks(new com.amazonaws.internal.SdkInternalList<String>(transitGatewayCidrBlocks.length));
+        }
+        for (String ele : transitGatewayCidrBlocks) {
+            this.transitGatewayCidrBlocks.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * One or more IPv4 or IPv6 CIDR blocks for the transit gateway. Must be a size /24 CIDR block or larger for IPv4,
+     * or a size /64 CIDR block or larger for IPv6.
+     * </p>
+     * 
+     * @param transitGatewayCidrBlocks
+     *        One or more IPv4 or IPv6 CIDR blocks for the transit gateway. Must be a size /24 CIDR block or larger for
+     *        IPv4, or a size /64 CIDR block or larger for IPv6.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TransitGatewayRequestOptions withTransitGatewayCidrBlocks(java.util.Collection<String> transitGatewayCidrBlocks) {
+        setTransitGatewayCidrBlocks(transitGatewayCidrBlocks);
         return this;
     }
 
@@ -446,7 +735,13 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
         if (getVpnEcmpSupport() != null)
             sb.append("VpnEcmpSupport: ").append(getVpnEcmpSupport()).append(",");
         if (getDnsSupport() != null)
-            sb.append("DnsSupport: ").append(getDnsSupport());
+            sb.append("DnsSupport: ").append(getDnsSupport()).append(",");
+        if (getSecurityGroupReferencingSupport() != null)
+            sb.append("SecurityGroupReferencingSupport: ").append(getSecurityGroupReferencingSupport()).append(",");
+        if (getMulticastSupport() != null)
+            sb.append("MulticastSupport: ").append(getMulticastSupport()).append(",");
+        if (getTransitGatewayCidrBlocks() != null)
+            sb.append("TransitGatewayCidrBlocks: ").append(getTransitGatewayCidrBlocks());
         sb.append("}");
         return sb.toString();
     }
@@ -485,6 +780,19 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
             return false;
         if (other.getDnsSupport() != null && other.getDnsSupport().equals(this.getDnsSupport()) == false)
             return false;
+        if (other.getSecurityGroupReferencingSupport() == null ^ this.getSecurityGroupReferencingSupport() == null)
+            return false;
+        if (other.getSecurityGroupReferencingSupport() != null
+                && other.getSecurityGroupReferencingSupport().equals(this.getSecurityGroupReferencingSupport()) == false)
+            return false;
+        if (other.getMulticastSupport() == null ^ this.getMulticastSupport() == null)
+            return false;
+        if (other.getMulticastSupport() != null && other.getMulticastSupport().equals(this.getMulticastSupport()) == false)
+            return false;
+        if (other.getTransitGatewayCidrBlocks() == null ^ this.getTransitGatewayCidrBlocks() == null)
+            return false;
+        if (other.getTransitGatewayCidrBlocks() != null && other.getTransitGatewayCidrBlocks().equals(this.getTransitGatewayCidrBlocks()) == false)
+            return false;
         return true;
     }
 
@@ -499,6 +807,9 @@ public class TransitGatewayRequestOptions implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getDefaultRouteTablePropagation() == null) ? 0 : getDefaultRouteTablePropagation().hashCode());
         hashCode = prime * hashCode + ((getVpnEcmpSupport() == null) ? 0 : getVpnEcmpSupport().hashCode());
         hashCode = prime * hashCode + ((getDnsSupport() == null) ? 0 : getDnsSupport().hashCode());
+        hashCode = prime * hashCode + ((getSecurityGroupReferencingSupport() == null) ? 0 : getSecurityGroupReferencingSupport().hashCode());
+        hashCode = prime * hashCode + ((getMulticastSupport() == null) ? 0 : getMulticastSupport().hashCode());
+        hashCode = prime * hashCode + ((getTransitGatewayCidrBlocks() == null) ? 0 : getTransitGatewayCidrBlocks().hashCode());
         return hashCode;
     }
 

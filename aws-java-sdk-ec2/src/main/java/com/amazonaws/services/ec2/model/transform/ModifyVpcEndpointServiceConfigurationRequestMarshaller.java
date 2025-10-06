@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -47,6 +47,14 @@ public class ModifyVpcEndpointServiceConfigurationRequestMarshaller implements
             request.addParameter("ServiceId", StringUtils.fromString(modifyVpcEndpointServiceConfigurationRequest.getServiceId()));
         }
 
+        if (modifyVpcEndpointServiceConfigurationRequest.getPrivateDnsName() != null) {
+            request.addParameter("PrivateDnsName", StringUtils.fromString(modifyVpcEndpointServiceConfigurationRequest.getPrivateDnsName()));
+        }
+
+        if (modifyVpcEndpointServiceConfigurationRequest.getRemovePrivateDnsName() != null) {
+            request.addParameter("RemovePrivateDnsName", StringUtils.fromBoolean(modifyVpcEndpointServiceConfigurationRequest.getRemovePrivateDnsName()));
+        }
+
         if (modifyVpcEndpointServiceConfigurationRequest.getAcceptanceRequired() != null) {
             request.addParameter("AcceptanceRequired", StringUtils.fromBoolean(modifyVpcEndpointServiceConfigurationRequest.getAcceptanceRequired()));
         }
@@ -78,6 +86,66 @@ public class ModifyVpcEndpointServiceConfigurationRequestMarshaller implements
                             StringUtils.fromString(modifyVpcEndpointServiceConfigurationRequestRemoveNetworkLoadBalancerArnsListValue));
                 }
                 removeNetworkLoadBalancerArnsListIndex++;
+            }
+        }
+
+        com.amazonaws.internal.SdkInternalList<String> modifyVpcEndpointServiceConfigurationRequestAddGatewayLoadBalancerArnsList = (com.amazonaws.internal.SdkInternalList<String>) modifyVpcEndpointServiceConfigurationRequest
+                .getAddGatewayLoadBalancerArns();
+        if (!modifyVpcEndpointServiceConfigurationRequestAddGatewayLoadBalancerArnsList.isEmpty()
+                || !modifyVpcEndpointServiceConfigurationRequestAddGatewayLoadBalancerArnsList.isAutoConstruct()) {
+            int addGatewayLoadBalancerArnsListIndex = 1;
+
+            for (String modifyVpcEndpointServiceConfigurationRequestAddGatewayLoadBalancerArnsListValue : modifyVpcEndpointServiceConfigurationRequestAddGatewayLoadBalancerArnsList) {
+                if (modifyVpcEndpointServiceConfigurationRequestAddGatewayLoadBalancerArnsListValue != null) {
+                    request.addParameter("AddGatewayLoadBalancerArn." + addGatewayLoadBalancerArnsListIndex,
+                            StringUtils.fromString(modifyVpcEndpointServiceConfigurationRequestAddGatewayLoadBalancerArnsListValue));
+                }
+                addGatewayLoadBalancerArnsListIndex++;
+            }
+        }
+
+        com.amazonaws.internal.SdkInternalList<String> modifyVpcEndpointServiceConfigurationRequestRemoveGatewayLoadBalancerArnsList = (com.amazonaws.internal.SdkInternalList<String>) modifyVpcEndpointServiceConfigurationRequest
+                .getRemoveGatewayLoadBalancerArns();
+        if (!modifyVpcEndpointServiceConfigurationRequestRemoveGatewayLoadBalancerArnsList.isEmpty()
+                || !modifyVpcEndpointServiceConfigurationRequestRemoveGatewayLoadBalancerArnsList.isAutoConstruct()) {
+            int removeGatewayLoadBalancerArnsListIndex = 1;
+
+            for (String modifyVpcEndpointServiceConfigurationRequestRemoveGatewayLoadBalancerArnsListValue : modifyVpcEndpointServiceConfigurationRequestRemoveGatewayLoadBalancerArnsList) {
+                if (modifyVpcEndpointServiceConfigurationRequestRemoveGatewayLoadBalancerArnsListValue != null) {
+                    request.addParameter("RemoveGatewayLoadBalancerArn." + removeGatewayLoadBalancerArnsListIndex,
+                            StringUtils.fromString(modifyVpcEndpointServiceConfigurationRequestRemoveGatewayLoadBalancerArnsListValue));
+                }
+                removeGatewayLoadBalancerArnsListIndex++;
+            }
+        }
+
+        com.amazonaws.internal.SdkInternalList<String> modifyVpcEndpointServiceConfigurationRequestAddSupportedIpAddressTypesList = (com.amazonaws.internal.SdkInternalList<String>) modifyVpcEndpointServiceConfigurationRequest
+                .getAddSupportedIpAddressTypes();
+        if (!modifyVpcEndpointServiceConfigurationRequestAddSupportedIpAddressTypesList.isEmpty()
+                || !modifyVpcEndpointServiceConfigurationRequestAddSupportedIpAddressTypesList.isAutoConstruct()) {
+            int addSupportedIpAddressTypesListIndex = 1;
+
+            for (String modifyVpcEndpointServiceConfigurationRequestAddSupportedIpAddressTypesListValue : modifyVpcEndpointServiceConfigurationRequestAddSupportedIpAddressTypesList) {
+                if (modifyVpcEndpointServiceConfigurationRequestAddSupportedIpAddressTypesListValue != null) {
+                    request.addParameter("AddSupportedIpAddressType." + addSupportedIpAddressTypesListIndex,
+                            StringUtils.fromString(modifyVpcEndpointServiceConfigurationRequestAddSupportedIpAddressTypesListValue));
+                }
+                addSupportedIpAddressTypesListIndex++;
+            }
+        }
+
+        com.amazonaws.internal.SdkInternalList<String> modifyVpcEndpointServiceConfigurationRequestRemoveSupportedIpAddressTypesList = (com.amazonaws.internal.SdkInternalList<String>) modifyVpcEndpointServiceConfigurationRequest
+                .getRemoveSupportedIpAddressTypes();
+        if (!modifyVpcEndpointServiceConfigurationRequestRemoveSupportedIpAddressTypesList.isEmpty()
+                || !modifyVpcEndpointServiceConfigurationRequestRemoveSupportedIpAddressTypesList.isAutoConstruct()) {
+            int removeSupportedIpAddressTypesListIndex = 1;
+
+            for (String modifyVpcEndpointServiceConfigurationRequestRemoveSupportedIpAddressTypesListValue : modifyVpcEndpointServiceConfigurationRequestRemoveSupportedIpAddressTypesList) {
+                if (modifyVpcEndpointServiceConfigurationRequestRemoveSupportedIpAddressTypesListValue != null) {
+                    request.addParameter("RemoveSupportedIpAddressType." + removeSupportedIpAddressTypesListIndex,
+                            StringUtils.fromString(modifyVpcEndpointServiceConfigurationRequestRemoveSupportedIpAddressTypesListValue));
+                }
+                removeSupportedIpAddressTypesListIndex++;
             }
         }
 

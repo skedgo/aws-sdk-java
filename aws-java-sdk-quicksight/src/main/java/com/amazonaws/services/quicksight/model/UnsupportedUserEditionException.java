@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,8 +17,8 @@ import javax.annotation.Generated;
 /**
  * <p>
  * This error indicates that you are calling an operation on an Amazon QuickSight subscription where the edition doesn't
- * include support for that operation. Amazon QuickSight currently has Standard Edition and Enterprise Edition. Not
- * every operation and capability is available in every edition.
+ * include support for that operation. Amazon Amazon QuickSight currently has Standard Edition and Enterprise Edition.
+ * Not every operation and capability is available in every edition.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -27,7 +27,7 @@ public class UnsupportedUserEditionException extends com.amazonaws.services.quic
 
     /**
      * <p>
-     * The AWS request ID for this request.
+     * The Amazon Web Services request ID for this request.
      * </p>
      */
     private String requestId;
@@ -44,11 +44,11 @@ public class UnsupportedUserEditionException extends com.amazonaws.services.quic
 
     /**
      * <p>
-     * The AWS request ID for this request.
+     * The Amazon Web Services request ID for this request.
      * </p>
      * 
      * @param requestId
-     *        The AWS request ID for this request.
+     *        The Amazon Web Services request ID for this request.
      */
 
     @com.fasterxml.jackson.annotation.JsonProperty("RequestId")
@@ -58,10 +58,10 @@ public class UnsupportedUserEditionException extends com.amazonaws.services.quic
 
     /**
      * <p>
-     * The AWS request ID for this request.
+     * The Amazon Web Services request ID for this request.
      * </p>
      * 
-     * @return The AWS request ID for this request.
+     * @return The Amazon Web Services request ID for this request.
      */
 
     @com.fasterxml.jackson.annotation.JsonProperty("RequestId")
@@ -71,11 +71,11 @@ public class UnsupportedUserEditionException extends com.amazonaws.services.quic
 
     /**
      * <p>
-     * The AWS request ID for this request.
+     * The Amazon Web Services request ID for this request.
      * </p>
      * 
      * @param requestId
-     *        The AWS request ID for this request.
+     *        The Amazon Web Services request ID for this request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

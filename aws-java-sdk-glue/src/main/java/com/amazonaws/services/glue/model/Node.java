@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A node represents an AWS Glue component like Trigger, Job etc. which is part of a workflow.
+ * A node represents an Glue component (trigger, crawler, or job) on a workflow graph.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/Node" target="_top">AWS API Documentation</a>
@@ -29,13 +29,13 @@ public class Node implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of AWS Glue component represented by the node.
+     * The type of Glue component represented by the node.
      * </p>
      */
     private String type;
     /**
      * <p>
-     * The name of the AWS Glue component represented by the node.
+     * The name of the Glue component represented by the node.
      * </p>
      */
     private String name;
@@ -66,11 +66,11 @@ public class Node implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of AWS Glue component represented by the node.
+     * The type of Glue component represented by the node.
      * </p>
      * 
      * @param type
-     *        The type of AWS Glue component represented by the node.
+     *        The type of Glue component represented by the node.
      * @see NodeType
      */
 
@@ -80,10 +80,10 @@ public class Node implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of AWS Glue component represented by the node.
+     * The type of Glue component represented by the node.
      * </p>
      * 
-     * @return The type of AWS Glue component represented by the node.
+     * @return The type of Glue component represented by the node.
      * @see NodeType
      */
 
@@ -93,11 +93,11 @@ public class Node implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of AWS Glue component represented by the node.
+     * The type of Glue component represented by the node.
      * </p>
      * 
      * @param type
-     *        The type of AWS Glue component represented by the node.
+     *        The type of Glue component represented by the node.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see NodeType
      */
@@ -109,11 +109,11 @@ public class Node implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of AWS Glue component represented by the node.
+     * The type of Glue component represented by the node.
      * </p>
      * 
      * @param type
-     *        The type of AWS Glue component represented by the node.
+     *        The type of Glue component represented by the node.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see NodeType
      */
@@ -125,11 +125,11 @@ public class Node implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the AWS Glue component represented by the node.
+     * The name of the Glue component represented by the node.
      * </p>
      * 
      * @param name
-     *        The name of the AWS Glue component represented by the node.
+     *        The name of the Glue component represented by the node.
      */
 
     public void setName(String name) {
@@ -138,10 +138,10 @@ public class Node implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the AWS Glue component represented by the node.
+     * The name of the Glue component represented by the node.
      * </p>
      * 
-     * @return The name of the AWS Glue component represented by the node.
+     * @return The name of the Glue component represented by the node.
      */
 
     public String getName() {
@@ -150,11 +150,11 @@ public class Node implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the AWS Glue component represented by the node.
+     * The name of the Glue component represented by the node.
      * </p>
      * 
      * @param name
-     *        The name of the AWS Glue component represented by the node.
+     *        The name of the Glue component represented by the node.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

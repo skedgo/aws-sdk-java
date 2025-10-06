@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,10 @@ public class BurninDestinationSettingsJsonUnmarshaller implements Unmarshaller<B
                     context.nextToken();
                     burninDestinationSettings.setAlignment(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("applyFontColor", targetDepth)) {
+                    context.nextToken();
+                    burninDestinationSettings.setApplyFontColor(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("backgroundColor", targetDepth)) {
                     context.nextToken();
                     burninDestinationSettings.setBackgroundColor(context.getUnmarshaller(String.class).unmarshall(context));
@@ -60,9 +64,29 @@ public class BurninDestinationSettingsJsonUnmarshaller implements Unmarshaller<B
                     context.nextToken();
                     burninDestinationSettings.setBackgroundOpacity(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
+                if (context.testExpression("fallbackFont", targetDepth)) {
+                    context.nextToken();
+                    burninDestinationSettings.setFallbackFont(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("fontColor", targetDepth)) {
                     context.nextToken();
                     burninDestinationSettings.setFontColor(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("fontFileBold", targetDepth)) {
+                    context.nextToken();
+                    burninDestinationSettings.setFontFileBold(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("fontFileBoldItalic", targetDepth)) {
+                    context.nextToken();
+                    burninDestinationSettings.setFontFileBoldItalic(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("fontFileItalic", targetDepth)) {
+                    context.nextToken();
+                    burninDestinationSettings.setFontFileItalic(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("fontFileRegular", targetDepth)) {
+                    context.nextToken();
+                    burninDestinationSettings.setFontFileRegular(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("fontOpacity", targetDepth)) {
                     context.nextToken();
@@ -79,6 +103,10 @@ public class BurninDestinationSettingsJsonUnmarshaller implements Unmarshaller<B
                 if (context.testExpression("fontSize", targetDepth)) {
                     context.nextToken();
                     burninDestinationSettings.setFontSize(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("hexFontColor", targetDepth)) {
+                    context.nextToken();
+                    burninDestinationSettings.setHexFontColor(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("outlineColor", targetDepth)) {
                     context.nextToken();
@@ -103,6 +131,10 @@ public class BurninDestinationSettingsJsonUnmarshaller implements Unmarshaller<B
                 if (context.testExpression("shadowYOffset", targetDepth)) {
                     context.nextToken();
                     burninDestinationSettings.setShadowYOffset(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("stylePassthrough", targetDepth)) {
+                    context.nextToken();
+                    burninDestinationSettings.setStylePassthrough(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("teletextSpacing", targetDepth)) {
                     context.nextToken();

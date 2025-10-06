@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -86,11 +86,18 @@ public class CreateTriggerRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * The tags to use with this trigger. You may use tags to limit access to the trigger. For more information about
-     * tags in AWS Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS Tags in AWS
-     * Glue</a> in the developer guide.
+     * tags in Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web Services Tags
+     * in Glue</a> in the developer guide.
      * </p>
      */
     private java.util.Map<String, String> tags;
+    /**
+     * <p>
+     * Batch condition that must be met (specified number of events received or batch time window expired) before
+     * EventBridge event trigger fires.
+     * </p>
+     */
+    private EventBatchingCondition eventBatchingCondition;
 
     /**
      * <p>
@@ -532,13 +539,13 @@ public class CreateTriggerRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * The tags to use with this trigger. You may use tags to limit access to the trigger. For more information about
-     * tags in AWS Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS Tags in AWS
-     * Glue</a> in the developer guide.
+     * tags in Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web Services Tags
+     * in Glue</a> in the developer guide.
      * </p>
      * 
      * @return The tags to use with this trigger. You may use tags to limit access to the trigger. For more information
-     *         about tags in AWS Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS
-     *         Tags in AWS Glue</a> in the developer guide.
+     *         about tags in Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web
+     *         Services Tags in Glue</a> in the developer guide.
      */
 
     public java.util.Map<String, String> getTags() {
@@ -548,14 +555,14 @@ public class CreateTriggerRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * The tags to use with this trigger. You may use tags to limit access to the trigger. For more information about
-     * tags in AWS Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS Tags in AWS
-     * Glue</a> in the developer guide.
+     * tags in Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web Services Tags
+     * in Glue</a> in the developer guide.
      * </p>
      * 
      * @param tags
      *        The tags to use with this trigger. You may use tags to limit access to the trigger. For more information
-     *        about tags in AWS Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS
-     *        Tags in AWS Glue</a> in the developer guide.
+     *        about tags in Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web
+     *        Services Tags in Glue</a> in the developer guide.
      */
 
     public void setTags(java.util.Map<String, String> tags) {
@@ -565,14 +572,14 @@ public class CreateTriggerRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * The tags to use with this trigger. You may use tags to limit access to the trigger. For more information about
-     * tags in AWS Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS Tags in AWS
-     * Glue</a> in the developer guide.
+     * tags in Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web Services Tags
+     * in Glue</a> in the developer guide.
      * </p>
      * 
      * @param tags
      *        The tags to use with this trigger. You may use tags to limit access to the trigger. For more information
-     *        about tags in AWS Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS
-     *        Tags in AWS Glue</a> in the developer guide.
+     *        about tags in Glue, see <a href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">Amazon Web
+     *        Services Tags in Glue</a> in the developer guide.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -580,6 +587,13 @@ public class CreateTriggerRequest extends com.amazonaws.AmazonWebServiceRequest 
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateTriggerRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateTriggerRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {
@@ -599,6 +613,52 @@ public class CreateTriggerRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     public CreateTriggerRequest clearTagsEntries() {
         this.tags = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * Batch condition that must be met (specified number of events received or batch time window expired) before
+     * EventBridge event trigger fires.
+     * </p>
+     * 
+     * @param eventBatchingCondition
+     *        Batch condition that must be met (specified number of events received or batch time window expired) before
+     *        EventBridge event trigger fires.
+     */
+
+    public void setEventBatchingCondition(EventBatchingCondition eventBatchingCondition) {
+        this.eventBatchingCondition = eventBatchingCondition;
+    }
+
+    /**
+     * <p>
+     * Batch condition that must be met (specified number of events received or batch time window expired) before
+     * EventBridge event trigger fires.
+     * </p>
+     * 
+     * @return Batch condition that must be met (specified number of events received or batch time window expired)
+     *         before EventBridge event trigger fires.
+     */
+
+    public EventBatchingCondition getEventBatchingCondition() {
+        return this.eventBatchingCondition;
+    }
+
+    /**
+     * <p>
+     * Batch condition that must be met (specified number of events received or batch time window expired) before
+     * EventBridge event trigger fires.
+     * </p>
+     * 
+     * @param eventBatchingCondition
+     *        Batch condition that must be met (specified number of events received or batch time window expired) before
+     *        EventBridge event trigger fires.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTriggerRequest withEventBatchingCondition(EventBatchingCondition eventBatchingCondition) {
+        setEventBatchingCondition(eventBatchingCondition);
         return this;
     }
 
@@ -631,7 +691,9 @@ public class CreateTriggerRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getStartOnCreation() != null)
             sb.append("StartOnCreation: ").append(getStartOnCreation()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getEventBatchingCondition() != null)
+            sb.append("EventBatchingCondition: ").append(getEventBatchingCondition());
         sb.append("}");
         return sb.toString();
     }
@@ -682,6 +744,10 @@ public class CreateTriggerRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getEventBatchingCondition() == null ^ this.getEventBatchingCondition() == null)
+            return false;
+        if (other.getEventBatchingCondition() != null && other.getEventBatchingCondition().equals(this.getEventBatchingCondition()) == false)
+            return false;
         return true;
     }
 
@@ -699,6 +765,7 @@ public class CreateTriggerRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getStartOnCreation() == null) ? 0 : getStartOnCreation().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getEventBatchingCondition() == null) ? 0 : getEventBatchingCondition().hashCode());
         return hashCode;
     }
 

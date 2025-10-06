@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains information about the elastic network interface of the EC2 instance.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/NetworkInterface" target="_top">AWS API
  *      Documentation</a>
@@ -27,25 +30,25 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A list of EC2 instance IPv6 address information.
+     * A list of IPv6 addresses for the EC2 instance.
      * </p>
      */
     private java.util.List<String> ipv6Addresses;
     /**
      * <p>
-     * The ID of the network interface
+     * The ID of the network interface.
      * </p>
      */
     private String networkInterfaceId;
     /**
      * <p>
-     * Private DNS name of the EC2 instance.
+     * The private DNS name of the EC2 instance.
      * </p>
      */
     private String privateDnsName;
     /**
      * <p>
-     * Private IP address of the EC2 instance.
+     * The private IP address of the EC2 instance.
      * </p>
      */
     private String privateIpAddress;
@@ -57,19 +60,19 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
     private java.util.List<PrivateIpAddressDetails> privateIpAddresses;
     /**
      * <p>
-     * Public DNS name of the EC2 instance.
+     * The public DNS name of the EC2 instance.
      * </p>
      */
     private String publicDnsName;
     /**
      * <p>
-     * Public IP address of the EC2 instance.
+     * The public IP address of the EC2 instance.
      * </p>
      */
     private String publicIp;
     /**
      * <p>
-     * Security groups associated with the EC2 instance.
+     * The security groups associated with the EC2 instance.
      * </p>
      */
     private java.util.List<SecurityGroup> securityGroups;
@@ -88,10 +91,10 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A list of EC2 instance IPv6 address information.
+     * A list of IPv6 addresses for the EC2 instance.
      * </p>
      * 
-     * @return A list of EC2 instance IPv6 address information.
+     * @return A list of IPv6 addresses for the EC2 instance.
      */
 
     public java.util.List<String> getIpv6Addresses() {
@@ -100,11 +103,11 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A list of EC2 instance IPv6 address information.
+     * A list of IPv6 addresses for the EC2 instance.
      * </p>
      * 
      * @param ipv6Addresses
-     *        A list of EC2 instance IPv6 address information.
+     *        A list of IPv6 addresses for the EC2 instance.
      */
 
     public void setIpv6Addresses(java.util.Collection<String> ipv6Addresses) {
@@ -118,7 +121,7 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A list of EC2 instance IPv6 address information.
+     * A list of IPv6 addresses for the EC2 instance.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -127,7 +130,7 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
      * </p>
      * 
      * @param ipv6Addresses
-     *        A list of EC2 instance IPv6 address information.
+     *        A list of IPv6 addresses for the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -143,11 +146,11 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A list of EC2 instance IPv6 address information.
+     * A list of IPv6 addresses for the EC2 instance.
      * </p>
      * 
      * @param ipv6Addresses
-     *        A list of EC2 instance IPv6 address information.
+     *        A list of IPv6 addresses for the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -158,11 +161,11 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The ID of the network interface
+     * The ID of the network interface.
      * </p>
      * 
      * @param networkInterfaceId
-     *        The ID of the network interface
+     *        The ID of the network interface.
      */
 
     public void setNetworkInterfaceId(String networkInterfaceId) {
@@ -171,10 +174,10 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The ID of the network interface
+     * The ID of the network interface.
      * </p>
      * 
-     * @return The ID of the network interface
+     * @return The ID of the network interface.
      */
 
     public String getNetworkInterfaceId() {
@@ -183,11 +186,11 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The ID of the network interface
+     * The ID of the network interface.
      * </p>
      * 
      * @param networkInterfaceId
-     *        The ID of the network interface
+     *        The ID of the network interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -198,11 +201,11 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Private DNS name of the EC2 instance.
+     * The private DNS name of the EC2 instance.
      * </p>
      * 
      * @param privateDnsName
-     *        Private DNS name of the EC2 instance.
+     *        The private DNS name of the EC2 instance.
      */
 
     public void setPrivateDnsName(String privateDnsName) {
@@ -211,10 +214,10 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Private DNS name of the EC2 instance.
+     * The private DNS name of the EC2 instance.
      * </p>
      * 
-     * @return Private DNS name of the EC2 instance.
+     * @return The private DNS name of the EC2 instance.
      */
 
     public String getPrivateDnsName() {
@@ -223,11 +226,11 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Private DNS name of the EC2 instance.
+     * The private DNS name of the EC2 instance.
      * </p>
      * 
      * @param privateDnsName
-     *        Private DNS name of the EC2 instance.
+     *        The private DNS name of the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -238,11 +241,11 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Private IP address of the EC2 instance.
+     * The private IP address of the EC2 instance.
      * </p>
      * 
      * @param privateIpAddress
-     *        Private IP address of the EC2 instance.
+     *        The private IP address of the EC2 instance.
      */
 
     public void setPrivateIpAddress(String privateIpAddress) {
@@ -251,10 +254,10 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Private IP address of the EC2 instance.
+     * The private IP address of the EC2 instance.
      * </p>
      * 
-     * @return Private IP address of the EC2 instance.
+     * @return The private IP address of the EC2 instance.
      */
 
     public String getPrivateIpAddress() {
@@ -263,11 +266,11 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Private IP address of the EC2 instance.
+     * The private IP address of the EC2 instance.
      * </p>
      * 
      * @param privateIpAddress
-     *        Private IP address of the EC2 instance.
+     *        The private IP address of the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -348,11 +351,11 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Public DNS name of the EC2 instance.
+     * The public DNS name of the EC2 instance.
      * </p>
      * 
      * @param publicDnsName
-     *        Public DNS name of the EC2 instance.
+     *        The public DNS name of the EC2 instance.
      */
 
     public void setPublicDnsName(String publicDnsName) {
@@ -361,10 +364,10 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Public DNS name of the EC2 instance.
+     * The public DNS name of the EC2 instance.
      * </p>
      * 
-     * @return Public DNS name of the EC2 instance.
+     * @return The public DNS name of the EC2 instance.
      */
 
     public String getPublicDnsName() {
@@ -373,11 +376,11 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Public DNS name of the EC2 instance.
+     * The public DNS name of the EC2 instance.
      * </p>
      * 
      * @param publicDnsName
-     *        Public DNS name of the EC2 instance.
+     *        The public DNS name of the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -388,11 +391,11 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Public IP address of the EC2 instance.
+     * The public IP address of the EC2 instance.
      * </p>
      * 
      * @param publicIp
-     *        Public IP address of the EC2 instance.
+     *        The public IP address of the EC2 instance.
      */
 
     public void setPublicIp(String publicIp) {
@@ -401,10 +404,10 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Public IP address of the EC2 instance.
+     * The public IP address of the EC2 instance.
      * </p>
      * 
-     * @return Public IP address of the EC2 instance.
+     * @return The public IP address of the EC2 instance.
      */
 
     public String getPublicIp() {
@@ -413,11 +416,11 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Public IP address of the EC2 instance.
+     * The public IP address of the EC2 instance.
      * </p>
      * 
      * @param publicIp
-     *        Public IP address of the EC2 instance.
+     *        The public IP address of the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -428,10 +431,10 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Security groups associated with the EC2 instance.
+     * The security groups associated with the EC2 instance.
      * </p>
      * 
-     * @return Security groups associated with the EC2 instance.
+     * @return The security groups associated with the EC2 instance.
      */
 
     public java.util.List<SecurityGroup> getSecurityGroups() {
@@ -440,11 +443,11 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Security groups associated with the EC2 instance.
+     * The security groups associated with the EC2 instance.
      * </p>
      * 
      * @param securityGroups
-     *        Security groups associated with the EC2 instance.
+     *        The security groups associated with the EC2 instance.
      */
 
     public void setSecurityGroups(java.util.Collection<SecurityGroup> securityGroups) {
@@ -458,7 +461,7 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Security groups associated with the EC2 instance.
+     * The security groups associated with the EC2 instance.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -467,7 +470,7 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
      * </p>
      * 
      * @param securityGroups
-     *        Security groups associated with the EC2 instance.
+     *        The security groups associated with the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -483,11 +486,11 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Security groups associated with the EC2 instance.
+     * The security groups associated with the EC2 instance.
      * </p>
      * 
      * @param securityGroups
-     *        Security groups associated with the EC2 instance.
+     *        The security groups associated with the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -595,7 +598,7 @@ public class NetworkInterface implements Serializable, Cloneable, StructuredPojo
         if (getPrivateDnsName() != null)
             sb.append("PrivateDnsName: ").append(getPrivateDnsName()).append(",");
         if (getPrivateIpAddress() != null)
-            sb.append("PrivateIpAddress: ").append(getPrivateIpAddress()).append(",");
+            sb.append("PrivateIpAddress: ").append("***Sensitive Data Redacted***").append(",");
         if (getPrivateIpAddresses() != null)
             sb.append("PrivateIpAddresses: ").append(getPrivateIpAddresses()).append(",");
         if (getPublicDnsName() != null)

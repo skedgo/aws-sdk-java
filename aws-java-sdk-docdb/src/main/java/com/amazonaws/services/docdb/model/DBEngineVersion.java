@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Detailed information about a DB engine version.
+ * Detailed information about an engine version.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/DBEngineVersion" target="_top">AWS API
@@ -40,7 +40,7 @@ public class DBEngineVersion implements Serializable, Cloneable {
     private String engineVersion;
     /**
      * <p>
-     * The name of the DB parameter group family for the database engine.
+     * The name of the parameter group family for the database engine.
      * </p>
      */
     private String dBParameterGroupFamily;
@@ -75,6 +75,25 @@ public class DBEngineVersion implements Serializable, Cloneable {
      * </p>
      */
     private Boolean supportsLogExportsToCloudwatchLogs;
+    /**
+     * <p>
+     * A list of the supported CA certificate identifiers.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your Amazon
+     * DocumentDB TLS Certificates</a> and <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html"> Encrypting Data
+     * in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     */
+    private java.util.List<String> supportedCACertificateIdentifiers;
+    /**
+     * <p>
+     * Indicates whether the engine version supports rotating the server certificate without rebooting the DB instance.
+     * </p>
+     */
+    private Boolean supportsCertificateRotationWithoutRestart;
 
     /**
      * <p>
@@ -158,11 +177,11 @@ public class DBEngineVersion implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the DB parameter group family for the database engine.
+     * The name of the parameter group family for the database engine.
      * </p>
      * 
      * @param dBParameterGroupFamily
-     *        The name of the DB parameter group family for the database engine.
+     *        The name of the parameter group family for the database engine.
      */
 
     public void setDBParameterGroupFamily(String dBParameterGroupFamily) {
@@ -171,10 +190,10 @@ public class DBEngineVersion implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the DB parameter group family for the database engine.
+     * The name of the parameter group family for the database engine.
      * </p>
      * 
-     * @return The name of the DB parameter group family for the database engine.
+     * @return The name of the parameter group family for the database engine.
      */
 
     public String getDBParameterGroupFamily() {
@@ -183,11 +202,11 @@ public class DBEngineVersion implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the DB parameter group family for the database engine.
+     * The name of the parameter group family for the database engine.
      * </p>
      * 
      * @param dBParameterGroupFamily
-     *        The name of the DB parameter group family for the database engine.
+     *        The name of the parameter group family for the database engine.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -477,6 +496,184 @@ public class DBEngineVersion implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * A list of the supported CA certificate identifiers.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your Amazon
+     * DocumentDB TLS Certificates</a> and <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html"> Encrypting Data
+     * in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     * 
+     * @return A list of the supported CA certificate identifiers.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your
+     *         Amazon DocumentDB TLS Certificates</a> and <a
+     *         href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html">
+     *         Encrypting Data in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     */
+
+    public java.util.List<String> getSupportedCACertificateIdentifiers() {
+        return supportedCACertificateIdentifiers;
+    }
+
+    /**
+     * <p>
+     * A list of the supported CA certificate identifiers.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your Amazon
+     * DocumentDB TLS Certificates</a> and <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html"> Encrypting Data
+     * in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     * 
+     * @param supportedCACertificateIdentifiers
+     *        A list of the supported CA certificate identifiers.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your
+     *        Amazon DocumentDB TLS Certificates</a> and <a
+     *        href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html">
+     *        Encrypting Data in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     */
+
+    public void setSupportedCACertificateIdentifiers(java.util.Collection<String> supportedCACertificateIdentifiers) {
+        if (supportedCACertificateIdentifiers == null) {
+            this.supportedCACertificateIdentifiers = null;
+            return;
+        }
+
+        this.supportedCACertificateIdentifiers = new java.util.ArrayList<String>(supportedCACertificateIdentifiers);
+    }
+
+    /**
+     * <p>
+     * A list of the supported CA certificate identifiers.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your Amazon
+     * DocumentDB TLS Certificates</a> and <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html"> Encrypting Data
+     * in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSupportedCACertificateIdentifiers(java.util.Collection)} or
+     * {@link #withSupportedCACertificateIdentifiers(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param supportedCACertificateIdentifiers
+     *        A list of the supported CA certificate identifiers.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your
+     *        Amazon DocumentDB TLS Certificates</a> and <a
+     *        href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html">
+     *        Encrypting Data in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBEngineVersion withSupportedCACertificateIdentifiers(String... supportedCACertificateIdentifiers) {
+        if (this.supportedCACertificateIdentifiers == null) {
+            setSupportedCACertificateIdentifiers(new java.util.ArrayList<String>(supportedCACertificateIdentifiers.length));
+        }
+        for (String ele : supportedCACertificateIdentifiers) {
+            this.supportedCACertificateIdentifiers.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of the supported CA certificate identifiers.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your Amazon
+     * DocumentDB TLS Certificates</a> and <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html"> Encrypting Data
+     * in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     * 
+     * @param supportedCACertificateIdentifiers
+     *        A list of the supported CA certificate identifiers.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your
+     *        Amazon DocumentDB TLS Certificates</a> and <a
+     *        href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html">
+     *        Encrypting Data in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBEngineVersion withSupportedCACertificateIdentifiers(java.util.Collection<String> supportedCACertificateIdentifiers) {
+        setSupportedCACertificateIdentifiers(supportedCACertificateIdentifiers);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the engine version supports rotating the server certificate without rebooting the DB instance.
+     * </p>
+     * 
+     * @param supportsCertificateRotationWithoutRestart
+     *        Indicates whether the engine version supports rotating the server certificate without rebooting the DB
+     *        instance.
+     */
+
+    public void setSupportsCertificateRotationWithoutRestart(Boolean supportsCertificateRotationWithoutRestart) {
+        this.supportsCertificateRotationWithoutRestart = supportsCertificateRotationWithoutRestart;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the engine version supports rotating the server certificate without rebooting the DB instance.
+     * </p>
+     * 
+     * @return Indicates whether the engine version supports rotating the server certificate without rebooting the DB
+     *         instance.
+     */
+
+    public Boolean getSupportsCertificateRotationWithoutRestart() {
+        return this.supportsCertificateRotationWithoutRestart;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the engine version supports rotating the server certificate without rebooting the DB instance.
+     * </p>
+     * 
+     * @param supportsCertificateRotationWithoutRestart
+     *        Indicates whether the engine version supports rotating the server certificate without rebooting the DB
+     *        instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBEngineVersion withSupportsCertificateRotationWithoutRestart(Boolean supportsCertificateRotationWithoutRestart) {
+        setSupportsCertificateRotationWithoutRestart(supportsCertificateRotationWithoutRestart);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the engine version supports rotating the server certificate without rebooting the DB instance.
+     * </p>
+     * 
+     * @return Indicates whether the engine version supports rotating the server certificate without rebooting the DB
+     *         instance.
+     */
+
+    public Boolean isSupportsCertificateRotationWithoutRestart() {
+        return this.supportsCertificateRotationWithoutRestart;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -503,7 +700,11 @@ public class DBEngineVersion implements Serializable, Cloneable {
         if (getExportableLogTypes() != null)
             sb.append("ExportableLogTypes: ").append(getExportableLogTypes()).append(",");
         if (getSupportsLogExportsToCloudwatchLogs() != null)
-            sb.append("SupportsLogExportsToCloudwatchLogs: ").append(getSupportsLogExportsToCloudwatchLogs());
+            sb.append("SupportsLogExportsToCloudwatchLogs: ").append(getSupportsLogExportsToCloudwatchLogs()).append(",");
+        if (getSupportedCACertificateIdentifiers() != null)
+            sb.append("SupportedCACertificateIdentifiers: ").append(getSupportedCACertificateIdentifiers()).append(",");
+        if (getSupportsCertificateRotationWithoutRestart() != null)
+            sb.append("SupportsCertificateRotationWithoutRestart: ").append(getSupportsCertificateRotationWithoutRestart());
         sb.append("}");
         return sb.toString();
     }
@@ -551,6 +752,16 @@ public class DBEngineVersion implements Serializable, Cloneable {
         if (other.getSupportsLogExportsToCloudwatchLogs() != null
                 && other.getSupportsLogExportsToCloudwatchLogs().equals(this.getSupportsLogExportsToCloudwatchLogs()) == false)
             return false;
+        if (other.getSupportedCACertificateIdentifiers() == null ^ this.getSupportedCACertificateIdentifiers() == null)
+            return false;
+        if (other.getSupportedCACertificateIdentifiers() != null
+                && other.getSupportedCACertificateIdentifiers().equals(this.getSupportedCACertificateIdentifiers()) == false)
+            return false;
+        if (other.getSupportsCertificateRotationWithoutRestart() == null ^ this.getSupportsCertificateRotationWithoutRestart() == null)
+            return false;
+        if (other.getSupportsCertificateRotationWithoutRestart() != null
+                && other.getSupportsCertificateRotationWithoutRestart().equals(this.getSupportsCertificateRotationWithoutRestart()) == false)
+            return false;
         return true;
     }
 
@@ -567,6 +778,9 @@ public class DBEngineVersion implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getValidUpgradeTarget() == null) ? 0 : getValidUpgradeTarget().hashCode());
         hashCode = prime * hashCode + ((getExportableLogTypes() == null) ? 0 : getExportableLogTypes().hashCode());
         hashCode = prime * hashCode + ((getSupportsLogExportsToCloudwatchLogs() == null) ? 0 : getSupportsLogExportsToCloudwatchLogs().hashCode());
+        hashCode = prime * hashCode + ((getSupportedCACertificateIdentifiers() == null) ? 0 : getSupportedCACertificateIdentifiers().hashCode());
+        hashCode = prime * hashCode
+                + ((getSupportsCertificateRotationWithoutRestart() == null) ? 0 : getSupportsCertificateRotationWithoutRestart().hashCode());
         return hashCode;
     }
 

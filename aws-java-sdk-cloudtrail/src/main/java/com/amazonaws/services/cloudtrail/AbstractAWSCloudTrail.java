@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,12 +43,52 @@ public class AbstractAWSCloudTrail implements AWSCloudTrail {
     }
 
     @Override
+    public CancelQueryResult cancelQuery(CancelQueryRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateChannelResult createChannel(CreateChannelRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateEventDataStoreResult createEventDataStore(CreateEventDataStoreRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateTrailResult createTrail(CreateTrailRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public DeleteChannelResult deleteChannel(DeleteChannelRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteEventDataStoreResult deleteEventDataStore(DeleteEventDataStoreRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteResourcePolicyResult deleteResourcePolicy(DeleteResourcePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteTrailResult deleteTrail(DeleteTrailRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeregisterOrganizationDelegatedAdminResult deregisterOrganizationDelegatedAdmin(DeregisterOrganizationDelegatedAdminRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeQueryResult describeQuery(DescribeQueryRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -63,12 +103,82 @@ public class AbstractAWSCloudTrail implements AWSCloudTrail {
     }
 
     @Override
+    public DisableFederationResult disableFederation(DisableFederationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public EnableFederationResult enableFederation(EnableFederationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetChannelResult getChannel(GetChannelRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetEventDataStoreResult getEventDataStore(GetEventDataStoreRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetEventSelectorsResult getEventSelectors(GetEventSelectorsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public GetImportResult getImport(GetImportRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetInsightSelectorsResult getInsightSelectors(GetInsightSelectorsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetQueryResultsResult getQueryResults(GetQueryResultsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetResourcePolicyResult getResourcePolicy(GetResourcePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetTrailResult getTrail(GetTrailRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetTrailStatusResult getTrailStatus(GetTrailStatusRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListChannelsResult listChannels(ListChannelsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListEventDataStoresResult listEventDataStores(ListEventDataStoresRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListImportFailuresResult listImportFailures(ListImportFailuresRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListImportsResult listImports(ListImportsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListInsightsMetricDataResult listInsightsMetricData(ListInsightsMetricDataRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -83,7 +193,17 @@ public class AbstractAWSCloudTrail implements AWSCloudTrail {
     }
 
     @Override
+    public ListQueriesResult listQueries(ListQueriesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListTagsResult listTags(ListTagsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTrailsResult listTrails(ListTrailsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -103,7 +223,37 @@ public class AbstractAWSCloudTrail implements AWSCloudTrail {
     }
 
     @Override
+    public PutInsightSelectorsResult putInsightSelectors(PutInsightSelectorsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutResourcePolicyResult putResourcePolicy(PutResourcePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public RegisterOrganizationDelegatedAdminResult registerOrganizationDelegatedAdmin(RegisterOrganizationDelegatedAdminRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public RemoveTagsResult removeTags(RemoveTagsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public RestoreEventDataStoreResult restoreEventDataStore(RestoreEventDataStoreRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartEventDataStoreIngestionResult startEventDataStoreIngestion(StartEventDataStoreIngestionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartImportResult startImport(StartImportRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -113,7 +263,32 @@ public class AbstractAWSCloudTrail implements AWSCloudTrail {
     }
 
     @Override
+    public StartQueryResult startQuery(StartQueryRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StopEventDataStoreIngestionResult stopEventDataStoreIngestion(StopEventDataStoreIngestionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StopImportResult stopImport(StopImportRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StopLoggingResult stopLogging(StopLoggingRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateChannelResult updateChannel(UpdateChannelRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateEventDataStoreResult updateEventDataStore(UpdateEventDataStoreRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

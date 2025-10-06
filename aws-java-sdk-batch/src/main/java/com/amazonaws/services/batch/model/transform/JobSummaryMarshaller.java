@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,6 +27,8 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class JobSummaryMarshaller {
 
+    private static final MarshallingInfo<String> JOBARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("jobArn").build();
     private static final MarshallingInfo<String> JOBID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("jobId").build();
     private static final MarshallingInfo<String> JOBNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -47,6 +49,8 @@ public class JobSummaryMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("arrayProperties").build();
     private static final MarshallingInfo<StructuredPojo> NODEPROPERTIES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("nodeProperties").build();
+    private static final MarshallingInfo<String> JOBDEFINITION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("jobDefinition").build();
 
     private static final JobSummaryMarshaller instance = new JobSummaryMarshaller();
 
@@ -64,6 +68,7 @@ public class JobSummaryMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(jobSummary.getJobArn(), JOBARN_BINDING);
             protocolMarshaller.marshall(jobSummary.getJobId(), JOBID_BINDING);
             protocolMarshaller.marshall(jobSummary.getJobName(), JOBNAME_BINDING);
             protocolMarshaller.marshall(jobSummary.getCreatedAt(), CREATEDAT_BINDING);
@@ -74,6 +79,7 @@ public class JobSummaryMarshaller {
             protocolMarshaller.marshall(jobSummary.getContainer(), CONTAINER_BINDING);
             protocolMarshaller.marshall(jobSummary.getArrayProperties(), ARRAYPROPERTIES_BINDING);
             protocolMarshaller.marshall(jobSummary.getNodeProperties(), NODEPROPERTIES_BINDING);
+            protocolMarshaller.marshall(jobSummary.getJobDefinition(), JOBDEFINITION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

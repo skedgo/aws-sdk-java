@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class LambdaResource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An Amazon Resource Name (ARN) that represents an AWS Lambda function to be triggered by PUT object actions on the
+     * An Amazon Resource Name (ARN) that represents an Lambda function to be triggered by PUT object actions on the
      * associated local Amazon S3 resource.
      * </p>
      */
@@ -45,13 +45,13 @@ public class LambdaResource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An Amazon Resource Name (ARN) that represents an AWS Lambda function to be triggered by PUT object actions on the
+     * An Amazon Resource Name (ARN) that represents an Lambda function to be triggered by PUT object actions on the
      * associated local Amazon S3 resource.
      * </p>
      * 
      * @param lambdaArn
-     *        An Amazon Resource Name (ARN) that represents an AWS Lambda function to be triggered by PUT object actions
-     *        on the associated local Amazon S3 resource.
+     *        An Amazon Resource Name (ARN) that represents an Lambda function to be triggered by PUT object actions on
+     *        the associated local Amazon S3 resource.
      */
 
     public void setLambdaArn(String lambdaArn) {
@@ -60,12 +60,12 @@ public class LambdaResource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An Amazon Resource Name (ARN) that represents an AWS Lambda function to be triggered by PUT object actions on the
+     * An Amazon Resource Name (ARN) that represents an Lambda function to be triggered by PUT object actions on the
      * associated local Amazon S3 resource.
      * </p>
      * 
-     * @return An Amazon Resource Name (ARN) that represents an AWS Lambda function to be triggered by PUT object
-     *         actions on the associated local Amazon S3 resource.
+     * @return An Amazon Resource Name (ARN) that represents an Lambda function to be triggered by PUT object actions on
+     *         the associated local Amazon S3 resource.
      */
 
     public String getLambdaArn() {
@@ -74,13 +74,13 @@ public class LambdaResource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An Amazon Resource Name (ARN) that represents an AWS Lambda function to be triggered by PUT object actions on the
+     * An Amazon Resource Name (ARN) that represents an Lambda function to be triggered by PUT object actions on the
      * associated local Amazon S3 resource.
      * </p>
      * 
      * @param lambdaArn
-     *        An Amazon Resource Name (ARN) that represents an AWS Lambda function to be triggered by PUT object actions
-     *        on the associated local Amazon S3 resource.
+     *        An Amazon Resource Name (ARN) that represents an Lambda function to be triggered by PUT object actions on
+     *        the associated local Amazon S3 resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

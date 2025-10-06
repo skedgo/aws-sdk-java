@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,7 @@ public class ListDatasetContentsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Summary information about data set contents that have been created.
+     * Summary information about dataset contents that have been created.
      * </p>
      */
     private java.util.List<DatasetContentSummary> datasetContentSummaries;
@@ -38,10 +38,10 @@ public class ListDatasetContentsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Summary information about data set contents that have been created.
+     * Summary information about dataset contents that have been created.
      * </p>
      * 
-     * @return Summary information about data set contents that have been created.
+     * @return Summary information about dataset contents that have been created.
      */
 
     public java.util.List<DatasetContentSummary> getDatasetContentSummaries() {
@@ -50,11 +50,11 @@ public class ListDatasetContentsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Summary information about data set contents that have been created.
+     * Summary information about dataset contents that have been created.
      * </p>
      * 
      * @param datasetContentSummaries
-     *        Summary information about data set contents that have been created.
+     *        Summary information about dataset contents that have been created.
      */
 
     public void setDatasetContentSummaries(java.util.Collection<DatasetContentSummary> datasetContentSummaries) {
@@ -68,7 +68,7 @@ public class ListDatasetContentsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Summary information about data set contents that have been created.
+     * Summary information about dataset contents that have been created.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -77,7 +77,7 @@ public class ListDatasetContentsResult extends com.amazonaws.AmazonWebServiceRes
      * </p>
      * 
      * @param datasetContentSummaries
-     *        Summary information about data set contents that have been created.
+     *        Summary information about dataset contents that have been created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -93,11 +93,11 @@ public class ListDatasetContentsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Summary information about data set contents that have been created.
+     * Summary information about dataset contents that have been created.
      * </p>
      * 
      * @param datasetContentSummaries
-     *        Summary information about data set contents that have been created.
+     *        Summary information about dataset contents that have been created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

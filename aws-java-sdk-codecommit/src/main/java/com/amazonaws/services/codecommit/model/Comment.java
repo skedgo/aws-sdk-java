@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -72,12 +72,26 @@ public class Comment implements Serializable, Cloneable, StructuredPojo {
     private Boolean deleted;
     /**
      * <p>
-     * A unique, client-generated idempotency token that when provided in a request, ensures the request cannot be
+     * A unique, client-generated idempotency token that, when provided in a request, ensures the request cannot be
      * repeated with a changed parameter. If a request is received with the same parameters and a token is included, the
-     * request will return information about the initial request that used that token.
+     * request returns information about the initial request that used that token.
      * </p>
      */
     private String clientRequestToken;
+    /**
+     * <p>
+     * The emoji reactions to a comment, if any, submitted by the user whose credentials are associated with the call to
+     * the API.
+     * </p>
+     */
+    private java.util.List<String> callerReactions;
+    /**
+     * <p>
+     * A string to integer map that represents the number of individual users who have responded to a comment with the
+     * specified reactions.
+     * </p>
+     */
+    private java.util.Map<String, Integer> reactionCounts;
 
     /**
      * <p>
@@ -373,15 +387,15 @@ public class Comment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A unique, client-generated idempotency token that when provided in a request, ensures the request cannot be
+     * A unique, client-generated idempotency token that, when provided in a request, ensures the request cannot be
      * repeated with a changed parameter. If a request is received with the same parameters and a token is included, the
-     * request will return information about the initial request that used that token.
+     * request returns information about the initial request that used that token.
      * </p>
      * 
      * @param clientRequestToken
-     *        A unique, client-generated idempotency token that when provided in a request, ensures the request cannot
+     *        A unique, client-generated idempotency token that, when provided in a request, ensures the request cannot
      *        be repeated with a changed parameter. If a request is received with the same parameters and a token is
-     *        included, the request will return information about the initial request that used that token.
+     *        included, the request returns information about the initial request that used that token.
      */
 
     public void setClientRequestToken(String clientRequestToken) {
@@ -390,14 +404,14 @@ public class Comment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A unique, client-generated idempotency token that when provided in a request, ensures the request cannot be
+     * A unique, client-generated idempotency token that, when provided in a request, ensures the request cannot be
      * repeated with a changed parameter. If a request is received with the same parameters and a token is included, the
-     * request will return information about the initial request that used that token.
+     * request returns information about the initial request that used that token.
      * </p>
      * 
-     * @return A unique, client-generated idempotency token that when provided in a request, ensures the request cannot
+     * @return A unique, client-generated idempotency token that, when provided in a request, ensures the request cannot
      *         be repeated with a changed parameter. If a request is received with the same parameters and a token is
-     *         included, the request will return information about the initial request that used that token.
+     *         included, the request returns information about the initial request that used that token.
      */
 
     public String getClientRequestToken() {
@@ -406,20 +420,172 @@ public class Comment implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A unique, client-generated idempotency token that when provided in a request, ensures the request cannot be
+     * A unique, client-generated idempotency token that, when provided in a request, ensures the request cannot be
      * repeated with a changed parameter. If a request is received with the same parameters and a token is included, the
-     * request will return information about the initial request that used that token.
+     * request returns information about the initial request that used that token.
      * </p>
      * 
      * @param clientRequestToken
-     *        A unique, client-generated idempotency token that when provided in a request, ensures the request cannot
+     *        A unique, client-generated idempotency token that, when provided in a request, ensures the request cannot
      *        be repeated with a changed parameter. If a request is received with the same parameters and a token is
-     *        included, the request will return information about the initial request that used that token.
+     *        included, the request returns information about the initial request that used that token.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Comment withClientRequestToken(String clientRequestToken) {
         setClientRequestToken(clientRequestToken);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The emoji reactions to a comment, if any, submitted by the user whose credentials are associated with the call to
+     * the API.
+     * </p>
+     * 
+     * @return The emoji reactions to a comment, if any, submitted by the user whose credentials are associated with the
+     *         call to the API.
+     */
+
+    public java.util.List<String> getCallerReactions() {
+        return callerReactions;
+    }
+
+    /**
+     * <p>
+     * The emoji reactions to a comment, if any, submitted by the user whose credentials are associated with the call to
+     * the API.
+     * </p>
+     * 
+     * @param callerReactions
+     *        The emoji reactions to a comment, if any, submitted by the user whose credentials are associated with the
+     *        call to the API.
+     */
+
+    public void setCallerReactions(java.util.Collection<String> callerReactions) {
+        if (callerReactions == null) {
+            this.callerReactions = null;
+            return;
+        }
+
+        this.callerReactions = new java.util.ArrayList<String>(callerReactions);
+    }
+
+    /**
+     * <p>
+     * The emoji reactions to a comment, if any, submitted by the user whose credentials are associated with the call to
+     * the API.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCallerReactions(java.util.Collection)} or {@link #withCallerReactions(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param callerReactions
+     *        The emoji reactions to a comment, if any, submitted by the user whose credentials are associated with the
+     *        call to the API.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Comment withCallerReactions(String... callerReactions) {
+        if (this.callerReactions == null) {
+            setCallerReactions(new java.util.ArrayList<String>(callerReactions.length));
+        }
+        for (String ele : callerReactions) {
+            this.callerReactions.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The emoji reactions to a comment, if any, submitted by the user whose credentials are associated with the call to
+     * the API.
+     * </p>
+     * 
+     * @param callerReactions
+     *        The emoji reactions to a comment, if any, submitted by the user whose credentials are associated with the
+     *        call to the API.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Comment withCallerReactions(java.util.Collection<String> callerReactions) {
+        setCallerReactions(callerReactions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A string to integer map that represents the number of individual users who have responded to a comment with the
+     * specified reactions.
+     * </p>
+     * 
+     * @return A string to integer map that represents the number of individual users who have responded to a comment
+     *         with the specified reactions.
+     */
+
+    public java.util.Map<String, Integer> getReactionCounts() {
+        return reactionCounts;
+    }
+
+    /**
+     * <p>
+     * A string to integer map that represents the number of individual users who have responded to a comment with the
+     * specified reactions.
+     * </p>
+     * 
+     * @param reactionCounts
+     *        A string to integer map that represents the number of individual users who have responded to a comment
+     *        with the specified reactions.
+     */
+
+    public void setReactionCounts(java.util.Map<String, Integer> reactionCounts) {
+        this.reactionCounts = reactionCounts;
+    }
+
+    /**
+     * <p>
+     * A string to integer map that represents the number of individual users who have responded to a comment with the
+     * specified reactions.
+     * </p>
+     * 
+     * @param reactionCounts
+     *        A string to integer map that represents the number of individual users who have responded to a comment
+     *        with the specified reactions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Comment withReactionCounts(java.util.Map<String, Integer> reactionCounts) {
+        setReactionCounts(reactionCounts);
+        return this;
+    }
+
+    /**
+     * Add a single ReactionCounts entry
+     *
+     * @see Comment#withReactionCounts
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Comment addReactionCountsEntry(String key, Integer value) {
+        if (null == this.reactionCounts) {
+            this.reactionCounts = new java.util.HashMap<String, Integer>();
+        }
+        if (this.reactionCounts.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.reactionCounts.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into ReactionCounts.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Comment clearReactionCountsEntries() {
+        this.reactionCounts = null;
         return this;
     }
 
@@ -450,7 +616,11 @@ public class Comment implements Serializable, Cloneable, StructuredPojo {
         if (getDeleted() != null)
             sb.append("Deleted: ").append(getDeleted()).append(",");
         if (getClientRequestToken() != null)
-            sb.append("ClientRequestToken: ").append(getClientRequestToken());
+            sb.append("ClientRequestToken: ").append(getClientRequestToken()).append(",");
+        if (getCallerReactions() != null)
+            sb.append("CallerReactions: ").append(getCallerReactions()).append(",");
+        if (getReactionCounts() != null)
+            sb.append("ReactionCounts: ").append(getReactionCounts());
         sb.append("}");
         return sb.toString();
     }
@@ -497,6 +667,14 @@ public class Comment implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getClientRequestToken() != null && other.getClientRequestToken().equals(this.getClientRequestToken()) == false)
             return false;
+        if (other.getCallerReactions() == null ^ this.getCallerReactions() == null)
+            return false;
+        if (other.getCallerReactions() != null && other.getCallerReactions().equals(this.getCallerReactions()) == false)
+            return false;
+        if (other.getReactionCounts() == null ^ this.getReactionCounts() == null)
+            return false;
+        if (other.getReactionCounts() != null && other.getReactionCounts().equals(this.getReactionCounts()) == false)
+            return false;
         return true;
     }
 
@@ -513,6 +691,8 @@ public class Comment implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getAuthorArn() == null) ? 0 : getAuthorArn().hashCode());
         hashCode = prime * hashCode + ((getDeleted() == null) ? 0 : getDeleted().hashCode());
         hashCode = prime * hashCode + ((getClientRequestToken() == null) ? 0 : getClientRequestToken().hashCode());
+        hashCode = prime * hashCode + ((getCallerReactions() == null) ? 0 : getCallerReactions().hashCode());
+        hashCode = prime * hashCode + ((getReactionCounts() == null) ? 0 : getReactionCounts().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,10 @@ public class StartChannelResultJsonUnmarshaller implements Unmarshaller<StartCha
                     context.nextToken();
                     startChannelResult.setArn(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("cdiInputSpecification", targetDepth)) {
+                    context.nextToken();
+                    startChannelResult.setCdiInputSpecification(CdiInputSpecificationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("channelClass", targetDepth)) {
                     context.nextToken();
                     startChannelResult.setChannelClass(context.getUnmarshaller(String.class).unmarshall(context));
@@ -59,12 +63,14 @@ public class StartChannelResultJsonUnmarshaller implements Unmarshaller<StartCha
                 if (context.testExpression("destinations", targetDepth)) {
                     context.nextToken();
                     startChannelResult.setDestinations(new ListUnmarshaller<OutputDestination>(OutputDestinationJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("egressEndpoints", targetDepth)) {
                     context.nextToken();
                     startChannelResult.setEgressEndpoints(new ListUnmarshaller<ChannelEgressEndpoint>(ChannelEgressEndpointJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("encoderSettings", targetDepth)) {
                     context.nextToken();
@@ -77,7 +83,8 @@ public class StartChannelResultJsonUnmarshaller implements Unmarshaller<StartCha
                 if (context.testExpression("inputAttachments", targetDepth)) {
                     context.nextToken();
                     startChannelResult.setInputAttachments(new ListUnmarshaller<InputAttachment>(InputAttachmentJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("inputSpecification", targetDepth)) {
                     context.nextToken();
@@ -87,6 +94,10 @@ public class StartChannelResultJsonUnmarshaller implements Unmarshaller<StartCha
                     context.nextToken();
                     startChannelResult.setLogLevel(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("maintenance", targetDepth)) {
+                    context.nextToken();
+                    startChannelResult.setMaintenance(MaintenanceStatusJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("name", targetDepth)) {
                     context.nextToken();
                     startChannelResult.setName(context.getUnmarshaller(String.class).unmarshall(context));
@@ -94,7 +105,8 @@ public class StartChannelResultJsonUnmarshaller implements Unmarshaller<StartCha
                 if (context.testExpression("pipelineDetails", targetDepth)) {
                     context.nextToken();
                     startChannelResult.setPipelineDetails(new ListUnmarshaller<PipelineDetail>(PipelineDetailJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("pipelinesRunningCount", targetDepth)) {
                     context.nextToken();
@@ -113,6 +125,10 @@ public class StartChannelResultJsonUnmarshaller implements Unmarshaller<StartCha
                     startChannelResult
                             .setTags(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
                                     .unmarshall(context));
+                }
+                if (context.testExpression("vpc", targetDepth)) {
+                    context.nextToken();
+                    startChannelResult.setVpc(VpcOutputSettingsDescriptionJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

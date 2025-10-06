@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -112,6 +112,31 @@ public class ImportImageResultStaxUnmarshaller implements Unmarshaller<ImportIma
 
                 if (context.testExpression("statusMessage", targetDepth)) {
                     importImageResult.setStatusMessage(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("licenseSpecifications", targetDepth)) {
+                    importImageResult.withLicenseSpecifications(new ArrayList<ImportImageLicenseConfigurationResponse>());
+                    continue;
+                }
+
+                if (context.testExpression("licenseSpecifications/item", targetDepth)) {
+                    importImageResult.withLicenseSpecifications(ImportImageLicenseConfigurationResponseStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("tagSet", targetDepth)) {
+                    importImageResult.withTags(new ArrayList<Tag>());
+                    continue;
+                }
+
+                if (context.testExpression("tagSet/item", targetDepth)) {
+                    importImageResult.withTags(TagStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("usageOperation", targetDepth)) {
+                    importImageResult.setUsageOperation(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

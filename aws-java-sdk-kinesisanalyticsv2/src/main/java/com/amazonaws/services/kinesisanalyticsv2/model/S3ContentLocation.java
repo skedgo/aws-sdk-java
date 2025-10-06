@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,9 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * For a Java-based Amazon Kinesis Data Analytics application, provides a description of an Amazon S3 object, including
- * the Amazon Resource Name (ARN) of the S3 bucket, the name of the Amazon S3 object that contains the data, and the
- * version number of the Amazon S3 object that contains the data.
+ * For a Managed Service for Apache Flink application provides a description of an Amazon S3 object, including the
+ * Amazon Resource Name (ARN) of the S3 bucket, the name of the Amazon S3 object that contains the data, and the version
+ * number of the Amazon S3 object that contains the data.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/S3ContentLocation"

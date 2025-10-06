@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,7 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * Name of the Amazon SageMaker model.
+     * Name of the SageMaker model.
      * </p>
      */
     private String modelName;
@@ -44,13 +44,20 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
     private java.util.List<ContainerDefinition> containers;
     /**
      * <p>
+     * Specifies details of how containers in a multi-container endpoint are called.
+     * </p>
+     */
+    private InferenceExecutionConfig inferenceExecutionConfig;
+    /**
+     * <p>
      * The Amazon Resource Name (ARN) of the IAM role that you specified for the model.
      * </p>
      */
     private String executionRoleArn;
     /**
      * <p>
-     * A <a>VpcConfig</a> object that specifies the VPC that this model has access to. For more information, see <a
+     * A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a> object
+     * that specifies the VPC that this model has access to. For more information, see <a
      * href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect Endpoints by Using an Amazon Virtual
      * Private Cloud</a>
      * </p>
@@ -72,21 +79,22 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
      * <p>
      * If <code>True</code>, no inbound or outbound network calls can be made to or from the model container.
      * </p>
-     * <note>
-     * <p>
-     * The Semantic Segmentation built-in algorithm does not support network isolation.
-     * </p>
-     * </note>
      */
     private Boolean enableNetworkIsolation;
+    /**
+     * <p>
+     * A set of recommended deployment configurations for the model.
+     * </p>
+     */
+    private DeploymentRecommendation deploymentRecommendation;
 
     /**
      * <p>
-     * Name of the Amazon SageMaker model.
+     * Name of the SageMaker model.
      * </p>
      * 
      * @param modelName
-     *        Name of the Amazon SageMaker model.
+     *        Name of the SageMaker model.
      */
 
     public void setModelName(String modelName) {
@@ -95,10 +103,10 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * Name of the Amazon SageMaker model.
+     * Name of the SageMaker model.
      * </p>
      * 
-     * @return Name of the Amazon SageMaker model.
+     * @return Name of the SageMaker model.
      */
 
     public String getModelName() {
@@ -107,11 +115,11 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * Name of the Amazon SageMaker model.
+     * Name of the SageMaker model.
      * </p>
      * 
      * @param modelName
-     *        Name of the Amazon SageMaker model.
+     *        Name of the SageMaker model.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -238,6 +246,46 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
+     * Specifies details of how containers in a multi-container endpoint are called.
+     * </p>
+     * 
+     * @param inferenceExecutionConfig
+     *        Specifies details of how containers in a multi-container endpoint are called.
+     */
+
+    public void setInferenceExecutionConfig(InferenceExecutionConfig inferenceExecutionConfig) {
+        this.inferenceExecutionConfig = inferenceExecutionConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies details of how containers in a multi-container endpoint are called.
+     * </p>
+     * 
+     * @return Specifies details of how containers in a multi-container endpoint are called.
+     */
+
+    public InferenceExecutionConfig getInferenceExecutionConfig() {
+        return this.inferenceExecutionConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies details of how containers in a multi-container endpoint are called.
+     * </p>
+     * 
+     * @param inferenceExecutionConfig
+     *        Specifies details of how containers in a multi-container endpoint are called.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeModelResult withInferenceExecutionConfig(InferenceExecutionConfig inferenceExecutionConfig) {
+        setInferenceExecutionConfig(inferenceExecutionConfig);
+        return this;
+    }
+
+    /**
+     * <p>
      * The Amazon Resource Name (ARN) of the IAM role that you specified for the model.
      * </p>
      * 
@@ -278,15 +326,17 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * A <a>VpcConfig</a> object that specifies the VPC that this model has access to. For more information, see <a
+     * A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a> object
+     * that specifies the VPC that this model has access to. For more information, see <a
      * href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect Endpoints by Using an Amazon Virtual
      * Private Cloud</a>
      * </p>
      * 
      * @param vpcConfig
-     *        A <a>VpcConfig</a> object that specifies the VPC that this model has access to. For more information, see
-     *        <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect Endpoints by Using an
-     *        Amazon Virtual Private Cloud</a>
+     *        A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a>
+     *        object that specifies the VPC that this model has access to. For more information, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect Endpoints by Using an Amazon
+     *        Virtual Private Cloud</a>
      */
 
     public void setVpcConfig(VpcConfig vpcConfig) {
@@ -295,14 +345,16 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * A <a>VpcConfig</a> object that specifies the VPC that this model has access to. For more information, see <a
+     * A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a> object
+     * that specifies the VPC that this model has access to. For more information, see <a
      * href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect Endpoints by Using an Amazon Virtual
      * Private Cloud</a>
      * </p>
      * 
-     * @return A <a>VpcConfig</a> object that specifies the VPC that this model has access to. For more information, see
-     *         <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect Endpoints by Using an
-     *         Amazon Virtual Private Cloud</a>
+     * @return A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a>
+     *         object that specifies the VPC that this model has access to. For more information, see <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect Endpoints by Using an Amazon
+     *         Virtual Private Cloud</a>
      */
 
     public VpcConfig getVpcConfig() {
@@ -311,15 +363,17 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * A <a>VpcConfig</a> object that specifies the VPC that this model has access to. For more information, see <a
+     * A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a> object
+     * that specifies the VPC that this model has access to. For more information, see <a
      * href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect Endpoints by Using an Amazon Virtual
      * Private Cloud</a>
      * </p>
      * 
      * @param vpcConfig
-     *        A <a>VpcConfig</a> object that specifies the VPC that this model has access to. For more information, see
-     *        <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect Endpoints by Using an
-     *        Amazon Virtual Private Cloud</a>
+     *        A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a>
+     *        object that specifies the VPC that this model has access to. For more information, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html">Protect Endpoints by Using an Amazon
+     *        Virtual Private Cloud</a>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -412,18 +466,9 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
      * <p>
      * If <code>True</code>, no inbound or outbound network calls can be made to or from the model container.
      * </p>
-     * <note>
-     * <p>
-     * The Semantic Segmentation built-in algorithm does not support network isolation.
-     * </p>
-     * </note>
      * 
      * @param enableNetworkIsolation
-     *        If <code>True</code>, no inbound or outbound network calls can be made to or from the model container.</p>
-     *        <note>
-     *        <p>
-     *        The Semantic Segmentation built-in algorithm does not support network isolation.
-     *        </p>
+     *        If <code>True</code>, no inbound or outbound network calls can be made to or from the model container.
      */
 
     public void setEnableNetworkIsolation(Boolean enableNetworkIsolation) {
@@ -434,17 +479,8 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
      * <p>
      * If <code>True</code>, no inbound or outbound network calls can be made to or from the model container.
      * </p>
-     * <note>
-     * <p>
-     * The Semantic Segmentation built-in algorithm does not support network isolation.
-     * </p>
-     * </note>
      * 
-     * @return If <code>True</code>, no inbound or outbound network calls can be made to or from the model
-     *         container.</p> <note>
-     *         <p>
-     *         The Semantic Segmentation built-in algorithm does not support network isolation.
-     *         </p>
+     * @return If <code>True</code>, no inbound or outbound network calls can be made to or from the model container.
      */
 
     public Boolean getEnableNetworkIsolation() {
@@ -455,18 +491,9 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
      * <p>
      * If <code>True</code>, no inbound or outbound network calls can be made to or from the model container.
      * </p>
-     * <note>
-     * <p>
-     * The Semantic Segmentation built-in algorithm does not support network isolation.
-     * </p>
-     * </note>
      * 
      * @param enableNetworkIsolation
-     *        If <code>True</code>, no inbound or outbound network calls can be made to or from the model container.</p>
-     *        <note>
-     *        <p>
-     *        The Semantic Segmentation built-in algorithm does not support network isolation.
-     *        </p>
+     *        If <code>True</code>, no inbound or outbound network calls can be made to or from the model container.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -479,21 +506,52 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
      * <p>
      * If <code>True</code>, no inbound or outbound network calls can be made to or from the model container.
      * </p>
-     * <note>
-     * <p>
-     * The Semantic Segmentation built-in algorithm does not support network isolation.
-     * </p>
-     * </note>
      * 
-     * @return If <code>True</code>, no inbound or outbound network calls can be made to or from the model
-     *         container.</p> <note>
-     *         <p>
-     *         The Semantic Segmentation built-in algorithm does not support network isolation.
-     *         </p>
+     * @return If <code>True</code>, no inbound or outbound network calls can be made to or from the model container.
      */
 
     public Boolean isEnableNetworkIsolation() {
         return this.enableNetworkIsolation;
+    }
+
+    /**
+     * <p>
+     * A set of recommended deployment configurations for the model.
+     * </p>
+     * 
+     * @param deploymentRecommendation
+     *        A set of recommended deployment configurations for the model.
+     */
+
+    public void setDeploymentRecommendation(DeploymentRecommendation deploymentRecommendation) {
+        this.deploymentRecommendation = deploymentRecommendation;
+    }
+
+    /**
+     * <p>
+     * A set of recommended deployment configurations for the model.
+     * </p>
+     * 
+     * @return A set of recommended deployment configurations for the model.
+     */
+
+    public DeploymentRecommendation getDeploymentRecommendation() {
+        return this.deploymentRecommendation;
+    }
+
+    /**
+     * <p>
+     * A set of recommended deployment configurations for the model.
+     * </p>
+     * 
+     * @param deploymentRecommendation
+     *        A set of recommended deployment configurations for the model.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeModelResult withDeploymentRecommendation(DeploymentRecommendation deploymentRecommendation) {
+        setDeploymentRecommendation(deploymentRecommendation);
+        return this;
     }
 
     /**
@@ -514,6 +572,8 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
             sb.append("PrimaryContainer: ").append(getPrimaryContainer()).append(",");
         if (getContainers() != null)
             sb.append("Containers: ").append(getContainers()).append(",");
+        if (getInferenceExecutionConfig() != null)
+            sb.append("InferenceExecutionConfig: ").append(getInferenceExecutionConfig()).append(",");
         if (getExecutionRoleArn() != null)
             sb.append("ExecutionRoleArn: ").append(getExecutionRoleArn()).append(",");
         if (getVpcConfig() != null)
@@ -523,7 +583,9 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
         if (getModelArn() != null)
             sb.append("ModelArn: ").append(getModelArn()).append(",");
         if (getEnableNetworkIsolation() != null)
-            sb.append("EnableNetworkIsolation: ").append(getEnableNetworkIsolation());
+            sb.append("EnableNetworkIsolation: ").append(getEnableNetworkIsolation()).append(",");
+        if (getDeploymentRecommendation() != null)
+            sb.append("DeploymentRecommendation: ").append(getDeploymentRecommendation());
         sb.append("}");
         return sb.toString();
     }
@@ -550,6 +612,10 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
             return false;
         if (other.getContainers() != null && other.getContainers().equals(this.getContainers()) == false)
             return false;
+        if (other.getInferenceExecutionConfig() == null ^ this.getInferenceExecutionConfig() == null)
+            return false;
+        if (other.getInferenceExecutionConfig() != null && other.getInferenceExecutionConfig().equals(this.getInferenceExecutionConfig()) == false)
+            return false;
         if (other.getExecutionRoleArn() == null ^ this.getExecutionRoleArn() == null)
             return false;
         if (other.getExecutionRoleArn() != null && other.getExecutionRoleArn().equals(this.getExecutionRoleArn()) == false)
@@ -570,6 +636,10 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
             return false;
         if (other.getEnableNetworkIsolation() != null && other.getEnableNetworkIsolation().equals(this.getEnableNetworkIsolation()) == false)
             return false;
+        if (other.getDeploymentRecommendation() == null ^ this.getDeploymentRecommendation() == null)
+            return false;
+        if (other.getDeploymentRecommendation() != null && other.getDeploymentRecommendation().equals(this.getDeploymentRecommendation()) == false)
+            return false;
         return true;
     }
 
@@ -581,11 +651,13 @@ public class DescribeModelResult extends com.amazonaws.AmazonWebServiceResult<co
         hashCode = prime * hashCode + ((getModelName() == null) ? 0 : getModelName().hashCode());
         hashCode = prime * hashCode + ((getPrimaryContainer() == null) ? 0 : getPrimaryContainer().hashCode());
         hashCode = prime * hashCode + ((getContainers() == null) ? 0 : getContainers().hashCode());
+        hashCode = prime * hashCode + ((getInferenceExecutionConfig() == null) ? 0 : getInferenceExecutionConfig().hashCode());
         hashCode = prime * hashCode + ((getExecutionRoleArn() == null) ? 0 : getExecutionRoleArn().hashCode());
         hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
         hashCode = prime * hashCode + ((getCreationTime() == null) ? 0 : getCreationTime().hashCode());
         hashCode = prime * hashCode + ((getModelArn() == null) ? 0 : getModelArn().hashCode());
         hashCode = prime * hashCode + ((getEnableNetworkIsolation() == null) ? 0 : getEnableNetworkIsolation().hashCode());
+        hashCode = prime * hashCode + ((getDeploymentRecommendation() == null) ? 0 : getDeploymentRecommendation().hashCode());
         return hashCode;
     }
 

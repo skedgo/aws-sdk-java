@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,18 @@ public class DescribeLimitsResult extends com.amazonaws.AmazonWebServiceResult<c
      * </p>
      */
     private Integer openShardCount;
+    /**
+     * <p>
+     * Indicates the number of data streams with the on-demand capacity mode.
+     * </p>
+     */
+    private Integer onDemandStreamCount;
+    /**
+     * <p>
+     * The maximum number of data streams with the on-demand capacity mode.
+     * </p>
+     */
+    private Integer onDemandStreamCountLimit;
 
     /**
      * <p>
@@ -117,6 +129,86 @@ public class DescribeLimitsResult extends com.amazonaws.AmazonWebServiceResult<c
     }
 
     /**
+     * <p>
+     * Indicates the number of data streams with the on-demand capacity mode.
+     * </p>
+     * 
+     * @param onDemandStreamCount
+     *        Indicates the number of data streams with the on-demand capacity mode.
+     */
+
+    public void setOnDemandStreamCount(Integer onDemandStreamCount) {
+        this.onDemandStreamCount = onDemandStreamCount;
+    }
+
+    /**
+     * <p>
+     * Indicates the number of data streams with the on-demand capacity mode.
+     * </p>
+     * 
+     * @return Indicates the number of data streams with the on-demand capacity mode.
+     */
+
+    public Integer getOnDemandStreamCount() {
+        return this.onDemandStreamCount;
+    }
+
+    /**
+     * <p>
+     * Indicates the number of data streams with the on-demand capacity mode.
+     * </p>
+     * 
+     * @param onDemandStreamCount
+     *        Indicates the number of data streams with the on-demand capacity mode.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeLimitsResult withOnDemandStreamCount(Integer onDemandStreamCount) {
+        setOnDemandStreamCount(onDemandStreamCount);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maximum number of data streams with the on-demand capacity mode.
+     * </p>
+     * 
+     * @param onDemandStreamCountLimit
+     *        The maximum number of data streams with the on-demand capacity mode.
+     */
+
+    public void setOnDemandStreamCountLimit(Integer onDemandStreamCountLimit) {
+        this.onDemandStreamCountLimit = onDemandStreamCountLimit;
+    }
+
+    /**
+     * <p>
+     * The maximum number of data streams with the on-demand capacity mode.
+     * </p>
+     * 
+     * @return The maximum number of data streams with the on-demand capacity mode.
+     */
+
+    public Integer getOnDemandStreamCountLimit() {
+        return this.onDemandStreamCountLimit;
+    }
+
+    /**
+     * <p>
+     * The maximum number of data streams with the on-demand capacity mode.
+     * </p>
+     * 
+     * @param onDemandStreamCountLimit
+     *        The maximum number of data streams with the on-demand capacity mode.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeLimitsResult withOnDemandStreamCountLimit(Integer onDemandStreamCountLimit) {
+        setOnDemandStreamCountLimit(onDemandStreamCountLimit);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -131,7 +223,11 @@ public class DescribeLimitsResult extends com.amazonaws.AmazonWebServiceResult<c
         if (getShardLimit() != null)
             sb.append("ShardLimit: ").append(getShardLimit()).append(",");
         if (getOpenShardCount() != null)
-            sb.append("OpenShardCount: ").append(getOpenShardCount());
+            sb.append("OpenShardCount: ").append(getOpenShardCount()).append(",");
+        if (getOnDemandStreamCount() != null)
+            sb.append("OnDemandStreamCount: ").append(getOnDemandStreamCount()).append(",");
+        if (getOnDemandStreamCountLimit() != null)
+            sb.append("OnDemandStreamCountLimit: ").append(getOnDemandStreamCountLimit());
         sb.append("}");
         return sb.toString();
     }
@@ -154,6 +250,14 @@ public class DescribeLimitsResult extends com.amazonaws.AmazonWebServiceResult<c
             return false;
         if (other.getOpenShardCount() != null && other.getOpenShardCount().equals(this.getOpenShardCount()) == false)
             return false;
+        if (other.getOnDemandStreamCount() == null ^ this.getOnDemandStreamCount() == null)
+            return false;
+        if (other.getOnDemandStreamCount() != null && other.getOnDemandStreamCount().equals(this.getOnDemandStreamCount()) == false)
+            return false;
+        if (other.getOnDemandStreamCountLimit() == null ^ this.getOnDemandStreamCountLimit() == null)
+            return false;
+        if (other.getOnDemandStreamCountLimit() != null && other.getOnDemandStreamCountLimit().equals(this.getOnDemandStreamCountLimit()) == false)
+            return false;
         return true;
     }
 
@@ -164,6 +268,8 @@ public class DescribeLimitsResult extends com.amazonaws.AmazonWebServiceResult<c
 
         hashCode = prime * hashCode + ((getShardLimit() == null) ? 0 : getShardLimit().hashCode());
         hashCode = prime * hashCode + ((getOpenShardCount() == null) ? 0 : getOpenShardCount().hashCode());
+        hashCode = prime * hashCode + ((getOnDemandStreamCount() == null) ? 0 : getOnDemandStreamCount().hashCode());
+        hashCode = prime * hashCode + ((getOnDemandStreamCountLimit() == null) ? 0 : getOnDemandStreamCountLimit().hashCode());
         return hashCode;
     }
 

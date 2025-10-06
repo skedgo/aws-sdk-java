@@ -7,6 +7,7 @@ aws_access_key_id=a
 # More comments...
 aws_secret_access_key=a
 unsupported_property=foo
+aws_account_id=null
 
 # More comments...
 
@@ -14,17 +15,20 @@ unsupported_property=foo
 # More comments...
 aws_access_key_id=b
 aws_secret_access_key=b
+aws_account_id=null
 
 [c]
 aws_access_key_id=c
 # More comments...
 aws_secret_access_key=c
 aws_session_token=c
+aws_account_id=null
 
 [d]
 aws_access_key_id=d
 aws_secret_access_key=d
 # More comments...
 aws_session_token=d
+aws_account_id=null
 
 # More comments...

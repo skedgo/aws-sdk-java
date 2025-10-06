@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Provides a summary of the properties of a dataset import job. For a complete listing, call the
- * <a>DescribeDatasetImportJob</a> API.
+ * Provides a summary of the properties of a dataset import job. For a complete listing, call the <a
+ * href="https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeDatasetImportJob.html"
+ * >DescribeDatasetImportJob</a> API.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/DatasetImportJobSummary"
@@ -56,7 +57,7 @@ public class DatasetImportJobSummary implements Serializable, Cloneable, Structu
     private java.util.Date creationDateTime;
     /**
      * <p>
-     * The date and time (in Unix time) that the dataset was last updated.
+     * The date and time (in Unix time) that the dataset import job status was last updated.
      * </p>
      */
     private java.util.Date lastUpdatedDateTime;
@@ -66,6 +67,14 @@ public class DatasetImportJobSummary implements Serializable, Cloneable, Structu
      * </p>
      */
     private String failureReason;
+    /**
+     * <p>
+     * The import mode the dataset import job used to update the data in the dataset. For more information see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/updating-existing-bulk-data.html">Updating existing bulk
+     * data</a>.
+     * </p>
+     */
+    private String importMode;
 
     /**
      * <p>
@@ -286,11 +295,11 @@ public class DatasetImportJobSummary implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The date and time (in Unix time) that the dataset was last updated.
+     * The date and time (in Unix time) that the dataset import job status was last updated.
      * </p>
      * 
      * @param lastUpdatedDateTime
-     *        The date and time (in Unix time) that the dataset was last updated.
+     *        The date and time (in Unix time) that the dataset import job status was last updated.
      */
 
     public void setLastUpdatedDateTime(java.util.Date lastUpdatedDateTime) {
@@ -299,10 +308,10 @@ public class DatasetImportJobSummary implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The date and time (in Unix time) that the dataset was last updated.
+     * The date and time (in Unix time) that the dataset import job status was last updated.
      * </p>
      * 
-     * @return The date and time (in Unix time) that the dataset was last updated.
+     * @return The date and time (in Unix time) that the dataset import job status was last updated.
      */
 
     public java.util.Date getLastUpdatedDateTime() {
@@ -311,11 +320,11 @@ public class DatasetImportJobSummary implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The date and time (in Unix time) that the dataset was last updated.
+     * The date and time (in Unix time) that the dataset import job status was last updated.
      * </p>
      * 
      * @param lastUpdatedDateTime
-     *        The date and time (in Unix time) that the dataset was last updated.
+     *        The date and time (in Unix time) that the dataset import job status was last updated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -365,6 +374,81 @@ public class DatasetImportJobSummary implements Serializable, Cloneable, Structu
     }
 
     /**
+     * <p>
+     * The import mode the dataset import job used to update the data in the dataset. For more information see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/updating-existing-bulk-data.html">Updating existing bulk
+     * data</a>.
+     * </p>
+     * 
+     * @param importMode
+     *        The import mode the dataset import job used to update the data in the dataset. For more information see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/updating-existing-bulk-data.html">Updating
+     *        existing bulk data</a>.
+     * @see ImportMode
+     */
+
+    public void setImportMode(String importMode) {
+        this.importMode = importMode;
+    }
+
+    /**
+     * <p>
+     * The import mode the dataset import job used to update the data in the dataset. For more information see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/updating-existing-bulk-data.html">Updating existing bulk
+     * data</a>.
+     * </p>
+     * 
+     * @return The import mode the dataset import job used to update the data in the dataset. For more information see
+     *         <a href="https://docs.aws.amazon.com/personalize/latest/dg/updating-existing-bulk-data.html">Updating
+     *         existing bulk data</a>.
+     * @see ImportMode
+     */
+
+    public String getImportMode() {
+        return this.importMode;
+    }
+
+    /**
+     * <p>
+     * The import mode the dataset import job used to update the data in the dataset. For more information see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/updating-existing-bulk-data.html">Updating existing bulk
+     * data</a>.
+     * </p>
+     * 
+     * @param importMode
+     *        The import mode the dataset import job used to update the data in the dataset. For more information see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/updating-existing-bulk-data.html">Updating
+     *        existing bulk data</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ImportMode
+     */
+
+    public DatasetImportJobSummary withImportMode(String importMode) {
+        setImportMode(importMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The import mode the dataset import job used to update the data in the dataset. For more information see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/updating-existing-bulk-data.html">Updating existing bulk
+     * data</a>.
+     * </p>
+     * 
+     * @param importMode
+     *        The import mode the dataset import job used to update the data in the dataset. For more information see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/updating-existing-bulk-data.html">Updating
+     *        existing bulk data</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ImportMode
+     */
+
+    public DatasetImportJobSummary withImportMode(ImportMode importMode) {
+        this.importMode = importMode.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -387,7 +471,9 @@ public class DatasetImportJobSummary implements Serializable, Cloneable, Structu
         if (getLastUpdatedDateTime() != null)
             sb.append("LastUpdatedDateTime: ").append(getLastUpdatedDateTime()).append(",");
         if (getFailureReason() != null)
-            sb.append("FailureReason: ").append(getFailureReason());
+            sb.append("FailureReason: ").append(getFailureReason()).append(",");
+        if (getImportMode() != null)
+            sb.append("ImportMode: ").append(getImportMode());
         sb.append("}");
         return sb.toString();
     }
@@ -426,6 +512,10 @@ public class DatasetImportJobSummary implements Serializable, Cloneable, Structu
             return false;
         if (other.getFailureReason() != null && other.getFailureReason().equals(this.getFailureReason()) == false)
             return false;
+        if (other.getImportMode() == null ^ this.getImportMode() == null)
+            return false;
+        if (other.getImportMode() != null && other.getImportMode().equals(this.getImportMode()) == false)
+            return false;
         return true;
     }
 
@@ -440,6 +530,7 @@ public class DatasetImportJobSummary implements Serializable, Cloneable, Structu
         hashCode = prime * hashCode + ((getCreationDateTime() == null) ? 0 : getCreationDateTime().hashCode());
         hashCode = prime * hashCode + ((getLastUpdatedDateTime() == null) ? 0 : getLastUpdatedDateTime().hashCode());
         hashCode = prime * hashCode + ((getFailureReason() == null) ? 0 : getFailureReason().hashCode());
+        hashCode = prime * hashCode + ((getImportMode() == null) ? 0 : getImportMode().hashCode());
         return hashCode;
     }
 

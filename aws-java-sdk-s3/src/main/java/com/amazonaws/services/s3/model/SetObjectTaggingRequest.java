@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2016-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,17 +21,32 @@ import java.io.Serializable;
 /**
  * Request object for the parameters to set the tags for an object.
  */
-public class SetObjectTaggingRequest extends AmazonWebServiceRequest implements Serializable {
+public class SetObjectTaggingRequest extends AmazonWebServiceRequest implements Serializable, ExpectedBucketOwnerRequest {
     private String bucketName;
     private String key;
     private String versionId;
     private ObjectTagging tagging;
 
+    private String expectedBucketOwner;
+    private boolean isRequesterPays;
+
     /**
      * Constructs an instance of this object.
      *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     *
      * @param bucketName
-     *            The bucket name.
+     *            The bucket name or access point ARN.
      * @param key
      *            The object key.
      * @param tagging
@@ -40,12 +55,23 @@ public class SetObjectTaggingRequest extends AmazonWebServiceRequest implements 
     public SetObjectTaggingRequest(String bucketName, String key, ObjectTagging tagging) {
         this(bucketName, key, null, tagging);
     }
-
     /**
      * Constructs an instance of this object.
      *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     *
      * @param bucketName
-     *            The bucket name.
+     *            The bucket name or access point ARN.
      * @param key
      *            The object key.
      * @param versionId
@@ -60,6 +86,19 @@ public class SetObjectTaggingRequest extends AmazonWebServiceRequest implements 
         this.tagging = tagging;
     }
 
+    public String getExpectedBucketOwner() {
+        return expectedBucketOwner;
+    }
+
+    public SetObjectTaggingRequest withExpectedBucketOwner(String expectedBucketOwner) {
+        this.expectedBucketOwner = expectedBucketOwner;
+        return this;
+    }
+
+    public void setExpectedBucketOwner(String expectedBucketOwner) {
+        withExpectedBucketOwner(expectedBucketOwner);
+    }
+
     /**
      * @return The bucket name.
      */
@@ -70,7 +109,19 @@ public class SetObjectTaggingRequest extends AmazonWebServiceRequest implements 
     /**
      * Set the bucket name.
      *
-     * @param bucketName The bucket name.
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     *
+     * @param bucketName The bucket name or access point ARN.
      */
     public void setBucketName(String bucketName) {
         this.bucketName = bucketName;
@@ -79,7 +130,19 @@ public class SetObjectTaggingRequest extends AmazonWebServiceRequest implements 
     /**
      * Set the bucket name.
      *
-     * @param bucketName the bucket name.
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     *
+     * @param bucketName the bucket name or access point ARN.
      *
      * @return This object for chaining.
      */
@@ -169,6 +232,40 @@ public class SetObjectTaggingRequest extends AmazonWebServiceRequest implements 
      */
     public SetObjectTaggingRequest withTagging(ObjectTagging tagging) {
         setTagging(tagging);
+        return this;
+    }
+
+    /**
+     * Returns whether the requester knows that they will be charged for the request.
+     *
+     * @return true if the user has enabled Requester Pays option for
+     *         conducting this operation from Requester Pays Bucket.
+     */
+    public boolean isRequesterPays() {
+        return isRequesterPays;
+    }
+
+    /**
+     * Confirms whether the requester knows that they will be charged for the request. Bucket owners need not specify this
+     * parameter in their requests.
+     *
+     * @param isRequesterPays if Requester Pays option is enabled for the operation.
+     */
+    public void setRequesterPays(boolean isRequesterPays) {
+        this.isRequesterPays = isRequesterPays;
+    }
+
+    /**
+     * Confirms whether the requester knows that they will be charged for the request. Bucket owners need not specify this
+     * parameter in their requests.
+     *
+     *
+     * @param isRequesterPays if Requester Pays option is enabled for the operation.
+     *
+     * @return The updated ListObjectsRequest object.
+     */
+    public SetObjectTaggingRequest withRequesterPays(boolean isRequesterPays) {
+        setRequesterPays(isRequesterPays);
         return this;
     }
 }

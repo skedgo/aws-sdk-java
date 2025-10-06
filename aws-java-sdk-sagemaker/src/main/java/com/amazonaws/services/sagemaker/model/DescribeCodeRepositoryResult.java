@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,8 +50,8 @@ public class DescribeCodeRepositoryResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Configuration details about the repository, including the URL where the repository is located, the default
-     * branch, and the Amazon Resource Name (ARN) of the AWS Secrets Manager secret that contains the credentials used
-     * to access the repository.
+     * branch, and the Amazon Resource Name (ARN) of the Amazon Web Services Secrets Manager secret that contains the
+     * credentials used to access the repository.
      * </p>
      */
     private GitConfig gitConfig;
@@ -219,14 +219,14 @@ public class DescribeCodeRepositoryResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Configuration details about the repository, including the URL where the repository is located, the default
-     * branch, and the Amazon Resource Name (ARN) of the AWS Secrets Manager secret that contains the credentials used
-     * to access the repository.
+     * branch, and the Amazon Resource Name (ARN) of the Amazon Web Services Secrets Manager secret that contains the
+     * credentials used to access the repository.
      * </p>
      * 
      * @param gitConfig
      *        Configuration details about the repository, including the URL where the repository is located, the default
-     *        branch, and the Amazon Resource Name (ARN) of the AWS Secrets Manager secret that contains the credentials
-     *        used to access the repository.
+     *        branch, and the Amazon Resource Name (ARN) of the Amazon Web Services Secrets Manager secret that contains
+     *        the credentials used to access the repository.
      */
 
     public void setGitConfig(GitConfig gitConfig) {
@@ -236,13 +236,13 @@ public class DescribeCodeRepositoryResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Configuration details about the repository, including the URL where the repository is located, the default
-     * branch, and the Amazon Resource Name (ARN) of the AWS Secrets Manager secret that contains the credentials used
-     * to access the repository.
+     * branch, and the Amazon Resource Name (ARN) of the Amazon Web Services Secrets Manager secret that contains the
+     * credentials used to access the repository.
      * </p>
      * 
      * @return Configuration details about the repository, including the URL where the repository is located, the
-     *         default branch, and the Amazon Resource Name (ARN) of the AWS Secrets Manager secret that contains the
-     *         credentials used to access the repository.
+     *         default branch, and the Amazon Resource Name (ARN) of the Amazon Web Services Secrets Manager secret that
+     *         contains the credentials used to access the repository.
      */
 
     public GitConfig getGitConfig() {
@@ -252,14 +252,14 @@ public class DescribeCodeRepositoryResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Configuration details about the repository, including the URL where the repository is located, the default
-     * branch, and the Amazon Resource Name (ARN) of the AWS Secrets Manager secret that contains the credentials used
-     * to access the repository.
+     * branch, and the Amazon Resource Name (ARN) of the Amazon Web Services Secrets Manager secret that contains the
+     * credentials used to access the repository.
      * </p>
      * 
      * @param gitConfig
      *        Configuration details about the repository, including the URL where the repository is located, the default
-     *        branch, and the Amazon Resource Name (ARN) of the AWS Secrets Manager secret that contains the credentials
-     *        used to access the repository.
+     *        branch, and the Amazon Resource Name (ARN) of the Amazon Web Services Secrets Manager secret that contains
+     *        the credentials used to access the repository.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

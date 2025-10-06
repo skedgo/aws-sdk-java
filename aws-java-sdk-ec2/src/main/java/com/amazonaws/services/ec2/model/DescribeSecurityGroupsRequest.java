@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,8 +56,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>egress.ip-permission.group-name</code> - The name of a security group that has been referenced in an
-     * outbound security group rule.
+     * <code>egress.ip-permission.group-name</code> - The name of a security group that is referenced in an outbound
+     * security group rule.
      * </p>
      * </li>
      * <li>
@@ -67,14 +67,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>egress.ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service to which a security group
-     * rule allows outbound access.
+     * <code>egress.ip-permission.prefix-list-id</code> - The ID of a prefix list to which a security group rule allows
+     * outbound access.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>egress.ip-permission.protocol</code> - The IP protocol for an outbound security group rule (
-     * <code>tcp</code> | <code>udp</code> | <code>icmp</code> or a protocol number).
+     * <code>tcp</code> | <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      * </p>
      * </li>
      * <li>
@@ -85,8 +85,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>egress.ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an outbound
-     * security group rule.
+     * <code>egress.ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been referenced in
+     * an outbound security group rule.
      * </p>
      * </li>
      * <li>
@@ -118,8 +118,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>ip-permission.group-name</code> - The name of a security group that has been referenced in an inbound
-     * security group rule.
+     * <code>ip-permission.group-name</code> - The name of a security group that is referenced in an inbound security
+     * group rule.
      * </p>
      * </li>
      * <li>
@@ -129,14 +129,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service from which a security group rule
-     * allows inbound access.
+     * <code>ip-permission.prefix-list-id</code> - The ID of a prefix list from which a security group rule allows
+     * inbound access.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>ip-permission.protocol</code> - The IP protocol for an inbound security group rule (<code>tcp</code> |
-     * <code>udp</code> | <code>icmp</code> or a protocol number).
+     * <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      * </p>
      * </li>
      * <li>
@@ -147,13 +147,13 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an inbound security
-     * group rule.
+     * <code>ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been referenced in an
+     * inbound security group rule.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The AWS account ID of the owner of the security group.
+     * <code>owner-id</code> - The Amazon Web Services account ID of the owner of the security group.
      * </p>
      * </li>
      * <li>
@@ -183,32 +183,33 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * The IDs of the security groups. Required for security groups in a nondefault VPC.
      * </p>
      * <p>
-     * Default: Describes all your security groups.
+     * Default: Describes all of your security groups.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> groupIds;
     /**
      * <p>
-     * [EC2-Classic and default VPC only] The names of the security groups. You can specify either the security group
-     * name or the security group ID. For security groups in a nondefault VPC, use the <code>group-name</code> filter to
-     * describe security groups by name.
+     * [Default VPC] The names of the security groups. You can specify either the security group name or the security
+     * group ID.
      * </p>
      * <p>
-     * Default: Describes all your security groups.
+     * Default: Describes all of your security groups.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> groupNames;
     /**
      * <p>
-     * The token to request the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * The maximum number of results to return in a single call. To retrieve the remaining results, make another request
-     * with the returned <code>NextToken</code> value. This value can be between 5 and 1000. If this parameter is not
-     * specified, then all results are returned.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. This value can be between 5 and 1000. If this parameter is not specified, then
+     * all items are returned. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      */
     private Integer maxResults;
@@ -243,8 +244,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>egress.ip-permission.group-name</code> - The name of a security group that has been referenced in an
-     * outbound security group rule.
+     * <code>egress.ip-permission.group-name</code> - The name of a security group that is referenced in an outbound
+     * security group rule.
      * </p>
      * </li>
      * <li>
@@ -254,14 +255,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>egress.ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service to which a security group
-     * rule allows outbound access.
+     * <code>egress.ip-permission.prefix-list-id</code> - The ID of a prefix list to which a security group rule allows
+     * outbound access.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>egress.ip-permission.protocol</code> - The IP protocol for an outbound security group rule (
-     * <code>tcp</code> | <code>udp</code> | <code>icmp</code> or a protocol number).
+     * <code>tcp</code> | <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      * </p>
      * </li>
      * <li>
@@ -272,8 +273,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>egress.ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an outbound
-     * security group rule.
+     * <code>egress.ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been referenced in
+     * an outbound security group rule.
      * </p>
      * </li>
      * <li>
@@ -305,8 +306,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>ip-permission.group-name</code> - The name of a security group that has been referenced in an inbound
-     * security group rule.
+     * <code>ip-permission.group-name</code> - The name of a security group that is referenced in an inbound security
+     * group rule.
      * </p>
      * </li>
      * <li>
@@ -316,14 +317,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service from which a security group rule
-     * allows inbound access.
+     * <code>ip-permission.prefix-list-id</code> - The ID of a prefix list from which a security group rule allows
+     * inbound access.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>ip-permission.protocol</code> - The IP protocol for an inbound security group rule (<code>tcp</code> |
-     * <code>udp</code> | <code>icmp</code> or a protocol number).
+     * <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      * </p>
      * </li>
      * <li>
@@ -334,13 +335,13 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an inbound security
-     * group rule.
+     * <code>ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been referenced in an
+     * inbound security group rule.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The AWS account ID of the owner of the security group.
+     * <code>owner-id</code> - The Amazon Web Services account ID of the owner of the security group.
      * </p>
      * </li>
      * <li>
@@ -391,8 +392,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *         </li>
      *         <li>
      *         <p>
-     *         <code>egress.ip-permission.group-name</code> - The name of a security group that has been referenced in
-     *         an outbound security group rule.
+     *         <code>egress.ip-permission.group-name</code> - The name of a security group that is referenced in an
+     *         outbound security group rule.
      *         </p>
      *         </li>
      *         <li>
@@ -402,14 +403,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *         </li>
      *         <li>
      *         <p>
-     *         <code>egress.ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service to which a security
-     *         group rule allows outbound access.
+     *         <code>egress.ip-permission.prefix-list-id</code> - The ID of a prefix list to which a security group rule
+     *         allows outbound access.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>egress.ip-permission.protocol</code> - The IP protocol for an outbound security group rule (
-     *         <code>tcp</code> | <code>udp</code> | <code>icmp</code> or a protocol number).
+     *         <code>tcp</code> | <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      *         </p>
      *         </li>
      *         <li>
@@ -420,8 +421,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *         </li>
      *         <li>
      *         <p>
-     *         <code>egress.ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an
-     *         outbound security group rule.
+     *         <code>egress.ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been
+     *         referenced in an outbound security group rule.
      *         </p>
      *         </li>
      *         <li>
@@ -453,8 +454,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *         </li>
      *         <li>
      *         <p>
-     *         <code>ip-permission.group-name</code> - The name of a security group that has been referenced in an
-     *         inbound security group rule.
+     *         <code>ip-permission.group-name</code> - The name of a security group that is referenced in an inbound
+     *         security group rule.
      *         </p>
      *         </li>
      *         <li>
@@ -464,14 +465,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *         </li>
      *         <li>
      *         <p>
-     *         <code>ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service from which a security
-     *         group rule allows inbound access.
+     *         <code>ip-permission.prefix-list-id</code> - The ID of a prefix list from which a security group rule
+     *         allows inbound access.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>ip-permission.protocol</code> - The IP protocol for an inbound security group rule (
-     *         <code>tcp</code> | <code>udp</code> | <code>icmp</code> or a protocol number).
+     *         <code>tcp</code> | <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      *         </p>
      *         </li>
      *         <li>
@@ -482,13 +483,13 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *         </li>
      *         <li>
      *         <p>
-     *         <code>ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an inbound
-     *         security group rule.
+     *         <code>ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been referenced in
+     *         an inbound security group rule.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>owner-id</code> - The AWS account ID of the owner of the security group.
+     *         <code>owner-id</code> - The Amazon Web Services account ID of the owner of the security group.
      *         </p>
      *         </li>
      *         <li>
@@ -549,8 +550,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>egress.ip-permission.group-name</code> - The name of a security group that has been referenced in an
-     * outbound security group rule.
+     * <code>egress.ip-permission.group-name</code> - The name of a security group that is referenced in an outbound
+     * security group rule.
      * </p>
      * </li>
      * <li>
@@ -560,14 +561,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>egress.ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service to which a security group
-     * rule allows outbound access.
+     * <code>egress.ip-permission.prefix-list-id</code> - The ID of a prefix list to which a security group rule allows
+     * outbound access.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>egress.ip-permission.protocol</code> - The IP protocol for an outbound security group rule (
-     * <code>tcp</code> | <code>udp</code> | <code>icmp</code> or a protocol number).
+     * <code>tcp</code> | <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      * </p>
      * </li>
      * <li>
@@ -578,8 +579,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>egress.ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an outbound
-     * security group rule.
+     * <code>egress.ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been referenced in
+     * an outbound security group rule.
      * </p>
      * </li>
      * <li>
@@ -611,8 +612,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>ip-permission.group-name</code> - The name of a security group that has been referenced in an inbound
-     * security group rule.
+     * <code>ip-permission.group-name</code> - The name of a security group that is referenced in an inbound security
+     * group rule.
      * </p>
      * </li>
      * <li>
@@ -622,14 +623,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service from which a security group rule
-     * allows inbound access.
+     * <code>ip-permission.prefix-list-id</code> - The ID of a prefix list from which a security group rule allows
+     * inbound access.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>ip-permission.protocol</code> - The IP protocol for an inbound security group rule (<code>tcp</code> |
-     * <code>udp</code> | <code>icmp</code> or a protocol number).
+     * <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      * </p>
      * </li>
      * <li>
@@ -640,13 +641,13 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an inbound security
-     * group rule.
+     * <code>ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been referenced in an
+     * inbound security group rule.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The AWS account ID of the owner of the security group.
+     * <code>owner-id</code> - The Amazon Web Services account ID of the owner of the security group.
      * </p>
      * </li>
      * <li>
@@ -698,7 +699,7 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>egress.ip-permission.group-name</code> - The name of a security group that has been referenced in an
+     *        <code>egress.ip-permission.group-name</code> - The name of a security group that is referenced in an
      *        outbound security group rule.
      *        </p>
      *        </li>
@@ -709,14 +710,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>egress.ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service to which a security
-     *        group rule allows outbound access.
+     *        <code>egress.ip-permission.prefix-list-id</code> - The ID of a prefix list to which a security group rule
+     *        allows outbound access.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>egress.ip-permission.protocol</code> - The IP protocol for an outbound security group rule (
-     *        <code>tcp</code> | <code>udp</code> | <code>icmp</code> or a protocol number).
+     *        <code>tcp</code> | <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      *        </p>
      *        </li>
      *        <li>
@@ -727,8 +728,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>egress.ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an
-     *        outbound security group rule.
+     *        <code>egress.ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been
+     *        referenced in an outbound security group rule.
      *        </p>
      *        </li>
      *        <li>
@@ -760,8 +761,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ip-permission.group-name</code> - The name of a security group that has been referenced in an
-     *        inbound security group rule.
+     *        <code>ip-permission.group-name</code> - The name of a security group that is referenced in an inbound
+     *        security group rule.
      *        </p>
      *        </li>
      *        <li>
@@ -771,14 +772,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service from which a security group
-     *        rule allows inbound access.
+     *        <code>ip-permission.prefix-list-id</code> - The ID of a prefix list from which a security group rule
+     *        allows inbound access.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>ip-permission.protocol</code> - The IP protocol for an inbound security group rule (<code>tcp</code>
-     *        | <code>udp</code> | <code>icmp</code> or a protocol number).
+     *        | <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      *        </p>
      *        </li>
      *        <li>
@@ -789,13 +790,13 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an inbound
-     *        security group rule.
+     *        <code>ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been referenced in
+     *        an inbound security group rule.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The AWS account ID of the owner of the security group.
+     *        <code>owner-id</code> - The Amazon Web Services account ID of the owner of the security group.
      *        </p>
      *        </li>
      *        <li>
@@ -858,8 +859,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>egress.ip-permission.group-name</code> - The name of a security group that has been referenced in an
-     * outbound security group rule.
+     * <code>egress.ip-permission.group-name</code> - The name of a security group that is referenced in an outbound
+     * security group rule.
      * </p>
      * </li>
      * <li>
@@ -869,14 +870,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>egress.ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service to which a security group
-     * rule allows outbound access.
+     * <code>egress.ip-permission.prefix-list-id</code> - The ID of a prefix list to which a security group rule allows
+     * outbound access.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>egress.ip-permission.protocol</code> - The IP protocol for an outbound security group rule (
-     * <code>tcp</code> | <code>udp</code> | <code>icmp</code> or a protocol number).
+     * <code>tcp</code> | <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      * </p>
      * </li>
      * <li>
@@ -887,8 +888,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>egress.ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an outbound
-     * security group rule.
+     * <code>egress.ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been referenced in
+     * an outbound security group rule.
      * </p>
      * </li>
      * <li>
@@ -920,8 +921,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>ip-permission.group-name</code> - The name of a security group that has been referenced in an inbound
-     * security group rule.
+     * <code>ip-permission.group-name</code> - The name of a security group that is referenced in an inbound security
+     * group rule.
      * </p>
      * </li>
      * <li>
@@ -931,14 +932,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service from which a security group rule
-     * allows inbound access.
+     * <code>ip-permission.prefix-list-id</code> - The ID of a prefix list from which a security group rule allows
+     * inbound access.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>ip-permission.protocol</code> - The IP protocol for an inbound security group rule (<code>tcp</code> |
-     * <code>udp</code> | <code>icmp</code> or a protocol number).
+     * <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      * </p>
      * </li>
      * <li>
@@ -949,13 +950,13 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an inbound security
-     * group rule.
+     * <code>ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been referenced in an
+     * inbound security group rule.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The AWS account ID of the owner of the security group.
+     * <code>owner-id</code> - The Amazon Web Services account ID of the owner of the security group.
      * </p>
      * </li>
      * <li>
@@ -1012,7 +1013,7 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>egress.ip-permission.group-name</code> - The name of a security group that has been referenced in an
+     *        <code>egress.ip-permission.group-name</code> - The name of a security group that is referenced in an
      *        outbound security group rule.
      *        </p>
      *        </li>
@@ -1023,14 +1024,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>egress.ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service to which a security
-     *        group rule allows outbound access.
+     *        <code>egress.ip-permission.prefix-list-id</code> - The ID of a prefix list to which a security group rule
+     *        allows outbound access.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>egress.ip-permission.protocol</code> - The IP protocol for an outbound security group rule (
-     *        <code>tcp</code> | <code>udp</code> | <code>icmp</code> or a protocol number).
+     *        <code>tcp</code> | <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      *        </p>
      *        </li>
      *        <li>
@@ -1041,8 +1042,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>egress.ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an
-     *        outbound security group rule.
+     *        <code>egress.ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been
+     *        referenced in an outbound security group rule.
      *        </p>
      *        </li>
      *        <li>
@@ -1074,8 +1075,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ip-permission.group-name</code> - The name of a security group that has been referenced in an
-     *        inbound security group rule.
+     *        <code>ip-permission.group-name</code> - The name of a security group that is referenced in an inbound
+     *        security group rule.
      *        </p>
      *        </li>
      *        <li>
@@ -1085,14 +1086,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service from which a security group
-     *        rule allows inbound access.
+     *        <code>ip-permission.prefix-list-id</code> - The ID of a prefix list from which a security group rule
+     *        allows inbound access.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>ip-permission.protocol</code> - The IP protocol for an inbound security group rule (<code>tcp</code>
-     *        | <code>udp</code> | <code>icmp</code> or a protocol number).
+     *        | <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      *        </p>
      *        </li>
      *        <li>
@@ -1103,13 +1104,13 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an inbound
-     *        security group rule.
+     *        <code>ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been referenced in
+     *        an inbound security group rule.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The AWS account ID of the owner of the security group.
+     *        <code>owner-id</code> - The Amazon Web Services account ID of the owner of the security group.
      *        </p>
      *        </li>
      *        <li>
@@ -1174,8 +1175,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>egress.ip-permission.group-name</code> - The name of a security group that has been referenced in an
-     * outbound security group rule.
+     * <code>egress.ip-permission.group-name</code> - The name of a security group that is referenced in an outbound
+     * security group rule.
      * </p>
      * </li>
      * <li>
@@ -1185,14 +1186,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>egress.ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service to which a security group
-     * rule allows outbound access.
+     * <code>egress.ip-permission.prefix-list-id</code> - The ID of a prefix list to which a security group rule allows
+     * outbound access.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>egress.ip-permission.protocol</code> - The IP protocol for an outbound security group rule (
-     * <code>tcp</code> | <code>udp</code> | <code>icmp</code> or a protocol number).
+     * <code>tcp</code> | <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      * </p>
      * </li>
      * <li>
@@ -1203,8 +1204,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>egress.ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an outbound
-     * security group rule.
+     * <code>egress.ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been referenced in
+     * an outbound security group rule.
      * </p>
      * </li>
      * <li>
@@ -1236,8 +1237,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>ip-permission.group-name</code> - The name of a security group that has been referenced in an inbound
-     * security group rule.
+     * <code>ip-permission.group-name</code> - The name of a security group that is referenced in an inbound security
+     * group rule.
      * </p>
      * </li>
      * <li>
@@ -1247,14 +1248,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service from which a security group rule
-     * allows inbound access.
+     * <code>ip-permission.prefix-list-id</code> - The ID of a prefix list from which a security group rule allows
+     * inbound access.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>ip-permission.protocol</code> - The IP protocol for an inbound security group rule (<code>tcp</code> |
-     * <code>udp</code> | <code>icmp</code> or a protocol number).
+     * <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      * </p>
      * </li>
      * <li>
@@ -1265,13 +1266,13 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </li>
      * <li>
      * <p>
-     * <code>ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an inbound security
-     * group rule.
+     * <code>ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been referenced in an
+     * inbound security group rule.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The AWS account ID of the owner of the security group.
+     * <code>owner-id</code> - The Amazon Web Services account ID of the owner of the security group.
      * </p>
      * </li>
      * <li>
@@ -1323,7 +1324,7 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>egress.ip-permission.group-name</code> - The name of a security group that has been referenced in an
+     *        <code>egress.ip-permission.group-name</code> - The name of a security group that is referenced in an
      *        outbound security group rule.
      *        </p>
      *        </li>
@@ -1334,14 +1335,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>egress.ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service to which a security
-     *        group rule allows outbound access.
+     *        <code>egress.ip-permission.prefix-list-id</code> - The ID of a prefix list to which a security group rule
+     *        allows outbound access.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>egress.ip-permission.protocol</code> - The IP protocol for an outbound security group rule (
-     *        <code>tcp</code> | <code>udp</code> | <code>icmp</code> or a protocol number).
+     *        <code>tcp</code> | <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      *        </p>
      *        </li>
      *        <li>
@@ -1352,8 +1353,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>egress.ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an
-     *        outbound security group rule.
+     *        <code>egress.ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been
+     *        referenced in an outbound security group rule.
      *        </p>
      *        </li>
      *        <li>
@@ -1385,8 +1386,8 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ip-permission.group-name</code> - The name of a security group that has been referenced in an
-     *        inbound security group rule.
+     *        <code>ip-permission.group-name</code> - The name of a security group that is referenced in an inbound
+     *        security group rule.
      *        </p>
      *        </li>
      *        <li>
@@ -1396,14 +1397,14 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ip-permission.prefix-list-id</code> - The ID (prefix) of the AWS service from which a security group
-     *        rule allows inbound access.
+     *        <code>ip-permission.prefix-list-id</code> - The ID of a prefix list from which a security group rule
+     *        allows inbound access.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>ip-permission.protocol</code> - The IP protocol for an inbound security group rule (<code>tcp</code>
-     *        | <code>udp</code> | <code>icmp</code> or a protocol number).
+     *        | <code>udp</code> | <code>icmp</code>, a protocol number, or -1 for all protocols).
      *        </p>
      *        </li>
      *        <li>
@@ -1414,13 +1415,13 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ip-permission.user-id</code> - The ID of an AWS account that has been referenced in an inbound
-     *        security group rule.
+     *        <code>ip-permission.user-id</code> - The ID of an Amazon Web Services account that has been referenced in
+     *        an inbound security group rule.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The AWS account ID of the owner of the security group.
+     *        <code>owner-id</code> - The Amazon Web Services account ID of the owner of the security group.
      *        </p>
      *        </li>
      *        <li>
@@ -1455,12 +1456,12 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * The IDs of the security groups. Required for security groups in a nondefault VPC.
      * </p>
      * <p>
-     * Default: Describes all your security groups.
+     * Default: Describes all of your security groups.
      * </p>
      * 
      * @return The IDs of the security groups. Required for security groups in a nondefault VPC.</p>
      *         <p>
-     *         Default: Describes all your security groups.
+     *         Default: Describes all of your security groups.
      */
 
     public java.util.List<String> getGroupIds() {
@@ -1475,13 +1476,13 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * The IDs of the security groups. Required for security groups in a nondefault VPC.
      * </p>
      * <p>
-     * Default: Describes all your security groups.
+     * Default: Describes all of your security groups.
      * </p>
      * 
      * @param groupIds
      *        The IDs of the security groups. Required for security groups in a nondefault VPC.</p>
      *        <p>
-     *        Default: Describes all your security groups.
+     *        Default: Describes all of your security groups.
      */
 
     public void setGroupIds(java.util.Collection<String> groupIds) {
@@ -1498,7 +1499,7 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * The IDs of the security groups. Required for security groups in a nondefault VPC.
      * </p>
      * <p>
-     * Default: Describes all your security groups.
+     * Default: Describes all of your security groups.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1509,7 +1510,7 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * @param groupIds
      *        The IDs of the security groups. Required for security groups in a nondefault VPC.</p>
      *        <p>
-     *        Default: Describes all your security groups.
+     *        Default: Describes all of your security groups.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1528,13 +1529,13 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * The IDs of the security groups. Required for security groups in a nondefault VPC.
      * </p>
      * <p>
-     * Default: Describes all your security groups.
+     * Default: Describes all of your security groups.
      * </p>
      * 
      * @param groupIds
      *        The IDs of the security groups. Required for security groups in a nondefault VPC.</p>
      *        <p>
-     *        Default: Describes all your security groups.
+     *        Default: Describes all of your security groups.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1545,19 +1546,17 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * [EC2-Classic and default VPC only] The names of the security groups. You can specify either the security group
-     * name or the security group ID. For security groups in a nondefault VPC, use the <code>group-name</code> filter to
-     * describe security groups by name.
+     * [Default VPC] The names of the security groups. You can specify either the security group name or the security
+     * group ID.
      * </p>
      * <p>
-     * Default: Describes all your security groups.
+     * Default: Describes all of your security groups.
      * </p>
      * 
-     * @return [EC2-Classic and default VPC only] The names of the security groups. You can specify either the security
-     *         group name or the security group ID. For security groups in a nondefault VPC, use the
-     *         <code>group-name</code> filter to describe security groups by name.</p>
+     * @return [Default VPC] The names of the security groups. You can specify either the security group name or the
+     *         security group ID.</p>
      *         <p>
-     *         Default: Describes all your security groups.
+     *         Default: Describes all of your security groups.
      */
 
     public java.util.List<String> getGroupNames() {
@@ -1569,20 +1568,18 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * [EC2-Classic and default VPC only] The names of the security groups. You can specify either the security group
-     * name or the security group ID. For security groups in a nondefault VPC, use the <code>group-name</code> filter to
-     * describe security groups by name.
+     * [Default VPC] The names of the security groups. You can specify either the security group name or the security
+     * group ID.
      * </p>
      * <p>
-     * Default: Describes all your security groups.
+     * Default: Describes all of your security groups.
      * </p>
      * 
      * @param groupNames
-     *        [EC2-Classic and default VPC only] The names of the security groups. You can specify either the security
-     *        group name or the security group ID. For security groups in a nondefault VPC, use the
-     *        <code>group-name</code> filter to describe security groups by name.</p>
+     *        [Default VPC] The names of the security groups. You can specify either the security group name or the
+     *        security group ID.</p>
      *        <p>
-     *        Default: Describes all your security groups.
+     *        Default: Describes all of your security groups.
      */
 
     public void setGroupNames(java.util.Collection<String> groupNames) {
@@ -1596,12 +1593,11 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * [EC2-Classic and default VPC only] The names of the security groups. You can specify either the security group
-     * name or the security group ID. For security groups in a nondefault VPC, use the <code>group-name</code> filter to
-     * describe security groups by name.
+     * [Default VPC] The names of the security groups. You can specify either the security group name or the security
+     * group ID.
      * </p>
      * <p>
-     * Default: Describes all your security groups.
+     * Default: Describes all of your security groups.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1610,11 +1606,10 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
      * </p>
      * 
      * @param groupNames
-     *        [EC2-Classic and default VPC only] The names of the security groups. You can specify either the security
-     *        group name or the security group ID. For security groups in a nondefault VPC, use the
-     *        <code>group-name</code> filter to describe security groups by name.</p>
+     *        [Default VPC] The names of the security groups. You can specify either the security group name or the
+     *        security group ID.</p>
      *        <p>
-     *        Default: Describes all your security groups.
+     *        Default: Describes all of your security groups.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1630,20 +1625,18 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * [EC2-Classic and default VPC only] The names of the security groups. You can specify either the security group
-     * name or the security group ID. For security groups in a nondefault VPC, use the <code>group-name</code> filter to
-     * describe security groups by name.
+     * [Default VPC] The names of the security groups. You can specify either the security group name or the security
+     * group ID.
      * </p>
      * <p>
-     * Default: Describes all your security groups.
+     * Default: Describes all of your security groups.
      * </p>
      * 
      * @param groupNames
-     *        [EC2-Classic and default VPC only] The names of the security groups. You can specify either the security
-     *        group name or the security group ID. For security groups in a nondefault VPC, use the
-     *        <code>group-name</code> filter to describe security groups by name.</p>
+     *        [Default VPC] The names of the security groups. You can specify either the security group name or the
+     *        security group ID.</p>
      *        <p>
-     *        Default: Describes all your security groups.
+     *        Default: Describes all of your security groups.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1654,11 +1647,13 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The token to request the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token to request the next page of results.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      */
 
     public void setNextToken(String nextToken) {
@@ -1667,10 +1662,12 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The token to request the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
-     * @return The token to request the next page of results.
+     * @return The token returned from a previous paginated request. Pagination continues from the end of the items
+     *         returned by the previous request.
      */
 
     public String getNextToken() {
@@ -1679,11 +1676,13 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The token to request the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token to request the next page of results.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1694,15 +1693,18 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The maximum number of results to return in a single call. To retrieve the remaining results, make another request
-     * with the returned <code>NextToken</code> value. This value can be between 5 and 1000. If this parameter is not
-     * specified, then all results are returned.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. This value can be between 5 and 1000. If this parameter is not specified, then
+     * all items are returned. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return in a single call. To retrieve the remaining results, make another
-     *        request with the returned <code>NextToken</code> value. This value can be between 5 and 1000. If this
-     *        parameter is not specified, then all results are returned.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. This value can be between 5 and 1000. If this parameter is
+     *        not specified, then all items are returned. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -1711,14 +1713,17 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The maximum number of results to return in a single call. To retrieve the remaining results, make another request
-     * with the returned <code>NextToken</code> value. This value can be between 5 and 1000. If this parameter is not
-     * specified, then all results are returned.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. This value can be between 5 and 1000. If this parameter is not specified, then
+     * all items are returned. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
-     * @return The maximum number of results to return in a single call. To retrieve the remaining results, make another
-     *         request with the returned <code>NextToken</code> value. This value can be between 5 and 1000. If this
-     *         parameter is not specified, then all results are returned.
+     * @return The maximum number of items to return for this request. To get the next page of items, make another
+     *         request with the token returned in the output. This value can be between 5 and 1000. If this parameter is
+     *         not specified, then all items are returned. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *         >Pagination</a>.
      */
 
     public Integer getMaxResults() {
@@ -1727,15 +1732,18 @@ public class DescribeSecurityGroupsRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The maximum number of results to return in a single call. To retrieve the remaining results, make another request
-     * with the returned <code>NextToken</code> value. This value can be between 5 and 1000. If this parameter is not
-     * specified, then all results are returned.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. This value can be between 5 and 1000. If this parameter is not specified, then
+     * all items are returned. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return in a single call. To retrieve the remaining results, make another
-     *        request with the returned <code>NextToken</code> value. This value can be between 5 and 1000. If this
-     *        parameter is not specified, then all results are returned.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. This value can be between 5 and 1000. If this parameter is
+     *        not specified, then all items are returned. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -79,7 +79,13 @@ public class ResourceShareInvitationJsonUnmarshaller implements Unmarshaller<Res
                 if (context.testExpression("resourceShareAssociations", targetDepth)) {
                     context.nextToken();
                     resourceShareInvitation.setResourceShareAssociations(new ListUnmarshaller<ResourceShareAssociation>(
-                            ResourceShareAssociationJsonUnmarshaller.getInstance()).unmarshall(context));
+                            ResourceShareAssociationJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("receiverArn", targetDepth)) {
+                    context.nextToken();
+                    resourceShareInvitation.setReceiverArn(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

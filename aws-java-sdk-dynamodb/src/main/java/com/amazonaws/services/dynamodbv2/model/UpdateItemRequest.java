@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,8 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The name of the table containing the item to update.
+     * The name of the table containing the item to update. You can also provide the Amazon Resource Name (ARN) of the
+     * table in this parameter.
      * </p>
      */
     private String tableName;
@@ -73,7 +74,7 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * Use <code>ReturnValues</code> if you want to get the item attributes as they appear before or after they are
-     * updated. For <code>UpdateItem</code>, the valid values are:
+     * successfully updated. For <code>UpdateItem</code>, the valid values are:
      * </p>
      * <ul>
      * <li>
@@ -372,6 +373,17 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </p>
      */
     private java.util.Map<String, AttributeValue> expressionAttributeValues;
+    /**
+     * <p>
+     * An optional parameter that returns the item attributes for an <code>UpdateItem</code> operation that failed a
+     * condition check.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
+     */
+    private String returnValuesOnConditionCheckFailure;
 
     /**
      * Default constructor for UpdateItemRequest object. Callers should use the setter or fluent setter (with...)
@@ -385,7 +397,8 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * initialize any additional object members.
      * 
      * @param tableName
-     *        The name of the table containing the item to update.
+     *        The name of the table containing the item to update. You can also provide the Amazon Resource Name (ARN)
+     *        of the table in this parameter.
      * @param key
      *        The primary key of the item to be updated. Each element consists of an attribute name and a value for that
      *        attribute.</p>
@@ -409,7 +422,8 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * initialize any additional object members.
      * 
      * @param tableName
-     *        The name of the table containing the item to update.
+     *        The name of the table containing the item to update. You can also provide the Amazon Resource Name (ARN)
+     *        of the table in this parameter.
      * @param key
      *        The primary key of the item to be updated. Each element consists of an attribute name and a value for that
      *        attribute.</p>
@@ -423,7 +437,7 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *        >AttributeUpdates</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * @param returnValues
      *        Use <code>ReturnValues</code> if you want to get the item attributes as they appear before or after they
-     *        are updated. For <code>UpdateItem</code>, the valid values are:
+     *        are successfully updated. For <code>UpdateItem</code>, the valid values are:
      *        </p>
      *        <ul>
      *        <li>
@@ -477,7 +491,8 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * initialize any additional object members.
      * 
      * @param tableName
-     *        The name of the table containing the item to update.
+     *        The name of the table containing the item to update. You can also provide the Amazon Resource Name (ARN)
+     *        of the table in this parameter.
      * @param key
      *        The primary key of the item to be updated. Each element consists of an attribute name and a value for that
      *        attribute.</p>
@@ -491,7 +506,7 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *        >AttributeUpdates</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * @param returnValues
      *        Use <code>ReturnValues</code> if you want to get the item attributes as they appear before or after they
-     *        are updated. For <code>UpdateItem</code>, the valid values are:
+     *        are successfully updated. For <code>UpdateItem</code>, the valid values are:
      *        </p>
      *        <ul>
      *        <li>
@@ -542,11 +557,13 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The name of the table containing the item to update.
+     * The name of the table containing the item to update. You can also provide the Amazon Resource Name (ARN) of the
+     * table in this parameter.
      * </p>
      * 
      * @param tableName
-     *        The name of the table containing the item to update.
+     *        The name of the table containing the item to update. You can also provide the Amazon Resource Name (ARN)
+     *        of the table in this parameter.
      */
 
     public void setTableName(String tableName) {
@@ -555,10 +572,12 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The name of the table containing the item to update.
+     * The name of the table containing the item to update. You can also provide the Amazon Resource Name (ARN) of the
+     * table in this parameter.
      * </p>
      * 
-     * @return The name of the table containing the item to update.
+     * @return The name of the table containing the item to update. You can also provide the Amazon Resource Name (ARN)
+     *         of the table in this parameter.
      */
 
     public String getTableName() {
@@ -567,11 +586,13 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The name of the table containing the item to update.
+     * The name of the table containing the item to update. You can also provide the Amazon Resource Name (ARN) of the
+     * table in this parameter.
      * </p>
      * 
      * @param tableName
-     *        The name of the table containing the item to update.
+     *        The name of the table containing the item to update. You can also provide the Amazon Resource Name (ARN)
+     *        of the table in this parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -653,6 +674,13 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
         return this;
     }
 
+    /**
+     * Add a single Key entry
+     *
+     * @see UpdateItemRequest#withKey
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public UpdateItemRequest addKeyEntry(String key, AttributeValue value) {
         if (null == this.key) {
             this.key = new java.util.HashMap<String, AttributeValue>();
@@ -725,6 +753,13 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
         setAttributeUpdates(attributeUpdates);
         return this;
     }
+
+    /**
+     * Add a single AttributeUpdates entry
+     *
+     * @see UpdateItemRequest#withAttributeUpdates
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public UpdateItemRequest addAttributeUpdatesEntry(String key, AttributeValueUpdate value) {
         if (null == this.attributeUpdates) {
@@ -801,6 +836,13 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
         setExpected(expected);
         return this;
     }
+
+    /**
+     * Add a single Expected entry
+     *
+     * @see UpdateItemRequest#withExpected
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public UpdateItemRequest addExpectedEntry(String key, ExpectedAttributeValue value) {
         if (null == this.expected) {
@@ -924,7 +966,7 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * Use <code>ReturnValues</code> if you want to get the item attributes as they appear before or after they are
-     * updated. For <code>UpdateItem</code>, the valid values are:
+     * successfully updated. For <code>UpdateItem</code>, the valid values are:
      * </p>
      * <ul>
      * <li>
@@ -965,7 +1007,7 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * 
      * @param returnValues
      *        Use <code>ReturnValues</code> if you want to get the item attributes as they appear before or after they
-     *        are updated. For <code>UpdateItem</code>, the valid values are:</p>
+     *        are successfully updated. For <code>UpdateItem</code>, the valid values are:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1014,7 +1056,7 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * Use <code>ReturnValues</code> if you want to get the item attributes as they appear before or after they are
-     * updated. For <code>UpdateItem</code>, the valid values are:
+     * successfully updated. For <code>UpdateItem</code>, the valid values are:
      * </p>
      * <ul>
      * <li>
@@ -1054,7 +1096,7 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </p>
      * 
      * @return Use <code>ReturnValues</code> if you want to get the item attributes as they appear before or after they
-     *         are updated. For <code>UpdateItem</code>, the valid values are:</p>
+     *         are successfully updated. For <code>UpdateItem</code>, the valid values are:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -1103,7 +1145,7 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * Use <code>ReturnValues</code> if you want to get the item attributes as they appear before or after they are
-     * updated. For <code>UpdateItem</code>, the valid values are:
+     * successfully updated. For <code>UpdateItem</code>, the valid values are:
      * </p>
      * <ul>
      * <li>
@@ -1144,7 +1186,7 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * 
      * @param returnValues
      *        Use <code>ReturnValues</code> if you want to get the item attributes as they appear before or after they
-     *        are updated. For <code>UpdateItem</code>, the valid values are:</p>
+     *        are successfully updated. For <code>UpdateItem</code>, the valid values are:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1195,7 +1237,7 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * Use <code>ReturnValues</code> if you want to get the item attributes as they appear before or after they are
-     * updated. For <code>UpdateItem</code>, the valid values are:
+     * successfully updated. For <code>UpdateItem</code>, the valid values are:
      * </p>
      * <ul>
      * <li>
@@ -1236,7 +1278,7 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * 
      * @param returnValues
      *        Use <code>ReturnValues</code> if you want to get the item attributes as they appear before or after they
-     *        are updated. For <code>UpdateItem</code>, the valid values are:</p>
+     *        are successfully updated. For <code>UpdateItem</code>, the valid values are:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1285,7 +1327,7 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * Use <code>ReturnValues</code> if you want to get the item attributes as they appear before or after they are
-     * updated. For <code>UpdateItem</code>, the valid values are:
+     * successfully updated. For <code>UpdateItem</code>, the valid values are:
      * </p>
      * <ul>
      * <li>
@@ -1326,7 +1368,7 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * 
      * @param returnValues
      *        Use <code>ReturnValues</code> if you want to get the item attributes as they appear before or after they
-     *        are updated. For <code>UpdateItem</code>, the valid values are:</p>
+     *        are successfully updated. For <code>UpdateItem</code>, the valid values are:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -2842,6 +2884,13 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
         return this;
     }
 
+    /**
+     * Add a single ExpressionAttributeNames entry
+     *
+     * @see UpdateItemRequest#withExpressionAttributeNames
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public UpdateItemRequest addExpressionAttributeNamesEntry(String key, String value) {
         if (null == this.expressionAttributeNames) {
             this.expressionAttributeNames = new java.util.HashMap<String, String>();
@@ -3047,6 +3096,13 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
         return this;
     }
 
+    /**
+     * Add a single ExpressionAttributeValues entry
+     *
+     * @see UpdateItemRequest#withExpressionAttributeValues
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public UpdateItemRequest addExpressionAttributeValuesEntry(String key, AttributeValue value) {
         if (null == this.expressionAttributeValues) {
             this.expressionAttributeValues = new java.util.HashMap<String, AttributeValue>();
@@ -3065,6 +3121,124 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     public UpdateItemRequest clearExpressionAttributeValuesEntries() {
         this.expressionAttributeValues = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * An optional parameter that returns the item attributes for an <code>UpdateItem</code> operation that failed a
+     * condition check.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
+     * 
+     * @param returnValuesOnConditionCheckFailure
+     *        An optional parameter that returns the item attributes for an <code>UpdateItem</code> operation that
+     *        failed a condition check.</p>
+     *        <p>
+     *        There is no additional cost associated with requesting a return value aside from the small network and
+     *        processing overhead of receiving a larger response. No read capacity units are consumed.
+     * @see ReturnValuesOnConditionCheckFailure
+     */
+
+    public void setReturnValuesOnConditionCheckFailure(String returnValuesOnConditionCheckFailure) {
+        this.returnValuesOnConditionCheckFailure = returnValuesOnConditionCheckFailure;
+    }
+
+    /**
+     * <p>
+     * An optional parameter that returns the item attributes for an <code>UpdateItem</code> operation that failed a
+     * condition check.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
+     * 
+     * @return An optional parameter that returns the item attributes for an <code>UpdateItem</code> operation that
+     *         failed a condition check.</p>
+     *         <p>
+     *         There is no additional cost associated with requesting a return value aside from the small network and
+     *         processing overhead of receiving a larger response. No read capacity units are consumed.
+     * @see ReturnValuesOnConditionCheckFailure
+     */
+
+    public String getReturnValuesOnConditionCheckFailure() {
+        return this.returnValuesOnConditionCheckFailure;
+    }
+
+    /**
+     * <p>
+     * An optional parameter that returns the item attributes for an <code>UpdateItem</code> operation that failed a
+     * condition check.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
+     * 
+     * @param returnValuesOnConditionCheckFailure
+     *        An optional parameter that returns the item attributes for an <code>UpdateItem</code> operation that
+     *        failed a condition check.</p>
+     *        <p>
+     *        There is no additional cost associated with requesting a return value aside from the small network and
+     *        processing overhead of receiving a larger response. No read capacity units are consumed.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ReturnValuesOnConditionCheckFailure
+     */
+
+    public UpdateItemRequest withReturnValuesOnConditionCheckFailure(String returnValuesOnConditionCheckFailure) {
+        setReturnValuesOnConditionCheckFailure(returnValuesOnConditionCheckFailure);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An optional parameter that returns the item attributes for an <code>UpdateItem</code> operation that failed a
+     * condition check.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
+     * 
+     * @param returnValuesOnConditionCheckFailure
+     *        An optional parameter that returns the item attributes for an <code>UpdateItem</code> operation that
+     *        failed a condition check.</p>
+     *        <p>
+     *        There is no additional cost associated with requesting a return value aside from the small network and
+     *        processing overhead of receiving a larger response. No read capacity units are consumed.
+     * @see ReturnValuesOnConditionCheckFailure
+     */
+
+    public void setReturnValuesOnConditionCheckFailure(ReturnValuesOnConditionCheckFailure returnValuesOnConditionCheckFailure) {
+        withReturnValuesOnConditionCheckFailure(returnValuesOnConditionCheckFailure);
+    }
+
+    /**
+     * <p>
+     * An optional parameter that returns the item attributes for an <code>UpdateItem</code> operation that failed a
+     * condition check.
+     * </p>
+     * <p>
+     * There is no additional cost associated with requesting a return value aside from the small network and processing
+     * overhead of receiving a larger response. No read capacity units are consumed.
+     * </p>
+     * 
+     * @param returnValuesOnConditionCheckFailure
+     *        An optional parameter that returns the item attributes for an <code>UpdateItem</code> operation that
+     *        failed a condition check.</p>
+     *        <p>
+     *        There is no additional cost associated with requesting a return value aside from the small network and
+     *        processing overhead of receiving a larger response. No read capacity units are consumed.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ReturnValuesOnConditionCheckFailure
+     */
+
+    public UpdateItemRequest withReturnValuesOnConditionCheckFailure(ReturnValuesOnConditionCheckFailure returnValuesOnConditionCheckFailure) {
+        this.returnValuesOnConditionCheckFailure = returnValuesOnConditionCheckFailure.toString();
         return this;
     }
 
@@ -3147,7 +3321,9 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
         if (getExpressionAttributeNames() != null)
             sb.append("ExpressionAttributeNames: ").append(getExpressionAttributeNames()).append(",");
         if (getExpressionAttributeValues() != null)
-            sb.append("ExpressionAttributeValues: ").append(getExpressionAttributeValues());
+            sb.append("ExpressionAttributeValues: ").append(getExpressionAttributeValues()).append(",");
+        if (getReturnValuesOnConditionCheckFailure() != null)
+            sb.append("ReturnValuesOnConditionCheckFailure: ").append(getReturnValuesOnConditionCheckFailure());
         sb.append("}");
         return sb.toString();
     }
@@ -3210,6 +3386,11 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
             return false;
         if (other.getExpressionAttributeValues() != null && other.getExpressionAttributeValues().equals(this.getExpressionAttributeValues()) == false)
             return false;
+        if (other.getReturnValuesOnConditionCheckFailure() == null ^ this.getReturnValuesOnConditionCheckFailure() == null)
+            return false;
+        if (other.getReturnValuesOnConditionCheckFailure() != null
+                && other.getReturnValuesOnConditionCheckFailure().equals(this.getReturnValuesOnConditionCheckFailure()) == false)
+            return false;
         return true;
     }
 
@@ -3230,6 +3411,7 @@ public class UpdateItemRequest extends com.amazonaws.AmazonWebServiceRequest imp
         hashCode = prime * hashCode + ((getConditionExpression() == null) ? 0 : getConditionExpression().hashCode());
         hashCode = prime * hashCode + ((getExpressionAttributeNames() == null) ? 0 : getExpressionAttributeNames().hashCode());
         hashCode = prime * hashCode + ((getExpressionAttributeValues() == null) ? 0 : getExpressionAttributeValues().hashCode());
+        hashCode = prime * hashCode + ((getReturnValuesOnConditionCheckFailure() == null) ? 0 : getReturnValuesOnConditionCheckFailure().hashCode());
         return hashCode;
     }
 

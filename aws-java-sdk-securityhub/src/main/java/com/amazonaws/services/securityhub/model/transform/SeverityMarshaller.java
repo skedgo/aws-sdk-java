@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,8 +29,12 @@ public class SeverityMarshaller {
 
     private static final MarshallingInfo<Double> PRODUCT_BINDING = MarshallingInfo.builder(MarshallingType.DOUBLE).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Product").build();
+    private static final MarshallingInfo<String> LABEL_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Label").build();
     private static final MarshallingInfo<Integer> NORMALIZED_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Normalized").build();
+    private static final MarshallingInfo<String> ORIGINAL_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Original").build();
 
     private static final SeverityMarshaller instance = new SeverityMarshaller();
 
@@ -49,7 +53,9 @@ public class SeverityMarshaller {
 
         try {
             protocolMarshaller.marshall(severity.getProduct(), PRODUCT_BINDING);
+            protocolMarshaller.marshall(severity.getLabel(), LABEL_BINDING);
             protocolMarshaller.marshall(severity.getNormalized(), NORMALIZED_BINDING);
+            protocolMarshaller.marshall(severity.getOriginal(), ORIGINAL_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

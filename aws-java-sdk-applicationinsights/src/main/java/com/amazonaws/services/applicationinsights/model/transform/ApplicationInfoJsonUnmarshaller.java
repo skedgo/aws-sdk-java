@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,10 @@ public class ApplicationInfoJsonUnmarshaller implements Unmarshaller<Application
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("AccountId", targetDepth)) {
+                    context.nextToken();
+                    applicationInfo.setAccountId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("ResourceGroupName", targetDepth)) {
                     context.nextToken();
                     applicationInfo.setResourceGroupName(context.getUnmarshaller(String.class).unmarshall(context));
@@ -64,9 +68,25 @@ public class ApplicationInfoJsonUnmarshaller implements Unmarshaller<Application
                     context.nextToken();
                     applicationInfo.setOpsCenterEnabled(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
+                if (context.testExpression("CWEMonitorEnabled", targetDepth)) {
+                    context.nextToken();
+                    applicationInfo.setCWEMonitorEnabled(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
                 if (context.testExpression("Remarks", targetDepth)) {
                     context.nextToken();
                     applicationInfo.setRemarks(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("AutoConfigEnabled", targetDepth)) {
+                    context.nextToken();
+                    applicationInfo.setAutoConfigEnabled(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("DiscoveryType", targetDepth)) {
+                    context.nextToken();
+                    applicationInfo.setDiscoveryType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("AttachMissingPermission", targetDepth)) {
+                    context.nextToken();
+                    applicationInfo.setAttachMissingPermission(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

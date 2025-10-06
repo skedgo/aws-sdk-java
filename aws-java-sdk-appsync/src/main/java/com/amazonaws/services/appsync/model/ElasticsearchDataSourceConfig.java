@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,11 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes an Elasticsearch data source configuration.
+ * Describes an OpenSearch data source configuration.
+ * </p>
+ * <p>
+ * As of September 2021, Amazon Elasticsearch service is Amazon OpenSearch Service. This configuration is deprecated.
+ * For new data sources, use <a>OpenSearchServiceDataSourceConfig</a> to specify an OpenSearch data source.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ElasticsearchDataSourceConfig"
@@ -36,7 +40,7 @@ public class ElasticsearchDataSourceConfig implements Serializable, Cloneable, S
     private String endpoint;
     /**
      * <p>
-     * The AWS Region.
+     * The Amazon Web Services Region.
      * </p>
      */
     private String awsRegion;
@@ -83,11 +87,11 @@ public class ElasticsearchDataSourceConfig implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The AWS Region.
+     * The Amazon Web Services Region.
      * </p>
      * 
      * @param awsRegion
-     *        The AWS Region.
+     *        The Amazon Web Services Region.
      */
 
     public void setAwsRegion(String awsRegion) {
@@ -96,10 +100,10 @@ public class ElasticsearchDataSourceConfig implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The AWS Region.
+     * The Amazon Web Services Region.
      * </p>
      * 
-     * @return The AWS Region.
+     * @return The Amazon Web Services Region.
      */
 
     public String getAwsRegion() {
@@ -108,11 +112,11 @@ public class ElasticsearchDataSourceConfig implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The AWS Region.
+     * The Amazon Web Services Region.
      * </p>
      * 
      * @param awsRegion
-     *        The AWS Region.
+     *        The Amazon Web Services Region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

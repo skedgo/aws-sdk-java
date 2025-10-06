@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about a webhook that connects repository events to a build project in AWS CodeBuild.
+ * Information about a webhook that connects repository events to a build project in CodeBuild.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/Webhook" target="_top">AWS API
@@ -36,7 +36,7 @@ public class Webhook implements Serializable, Cloneable, StructuredPojo {
     private String url;
     /**
      * <p>
-     * The AWS CodeBuild endpoint where webhook events are sent.
+     * The CodeBuild endpoint where webhook events are sent.
      * </p>
      */
     private String payloadUrl;
@@ -77,10 +77,40 @@ public class Webhook implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<java.util.List<WebhookFilter>> filterGroups;
     /**
      * <p>
+     * Specifies the type of build this webhook will trigger.
+     * </p>
+     */
+    private String buildType;
+    /**
+     * <p>
+     * If manualCreation is true, CodeBuild doesn't create a webhook in GitHub and instead returns
+     * <code>payloadUrl</code> and <code>secret</code> values for the webhook. The <code>payloadUrl</code> and
+     * <code>secret</code> values in the output can be used to manually create a webhook within GitHub.
+     * </p>
+     * <note>
+     * <p>
+     * manualCreation is only available for GitHub webhooks.
+     * </p>
+     * </note>
+     */
+    private Boolean manualCreation;
+    /**
+     * <p>
      * A timestamp that indicates the last time a repository's secret token was modified.
      * </p>
      */
     private java.util.Date lastModifiedSecret;
+    /**
+     * <p>
+     * The scope configuration for global or organization webhooks.
+     * </p>
+     * <note>
+     * <p>
+     * Global or organization webhooks are only available for GitHub and Github Enterprise webhooks.
+     * </p>
+     * </note>
+     */
+    private ScopeConfiguration scopeConfiguration;
 
     /**
      * <p>
@@ -124,11 +154,11 @@ public class Webhook implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS CodeBuild endpoint where webhook events are sent.
+     * The CodeBuild endpoint where webhook events are sent.
      * </p>
      * 
      * @param payloadUrl
-     *        The AWS CodeBuild endpoint where webhook events are sent.
+     *        The CodeBuild endpoint where webhook events are sent.
      */
 
     public void setPayloadUrl(String payloadUrl) {
@@ -137,10 +167,10 @@ public class Webhook implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS CodeBuild endpoint where webhook events are sent.
+     * The CodeBuild endpoint where webhook events are sent.
      * </p>
      * 
-     * @return The AWS CodeBuild endpoint where webhook events are sent.
+     * @return The CodeBuild endpoint where webhook events are sent.
      */
 
     public String getPayloadUrl() {
@@ -149,11 +179,11 @@ public class Webhook implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS CodeBuild endpoint where webhook events are sent.
+     * The CodeBuild endpoint where webhook events are sent.
      * </p>
      * 
      * @param payloadUrl
-     *        The AWS CodeBuild endpoint where webhook events are sent.
+     *        The CodeBuild endpoint where webhook events are sent.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -414,6 +444,169 @@ public class Webhook implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
+     * Specifies the type of build this webhook will trigger.
+     * </p>
+     * 
+     * @param buildType
+     *        Specifies the type of build this webhook will trigger.
+     * @see WebhookBuildType
+     */
+
+    public void setBuildType(String buildType) {
+        this.buildType = buildType;
+    }
+
+    /**
+     * <p>
+     * Specifies the type of build this webhook will trigger.
+     * </p>
+     * 
+     * @return Specifies the type of build this webhook will trigger.
+     * @see WebhookBuildType
+     */
+
+    public String getBuildType() {
+        return this.buildType;
+    }
+
+    /**
+     * <p>
+     * Specifies the type of build this webhook will trigger.
+     * </p>
+     * 
+     * @param buildType
+     *        Specifies the type of build this webhook will trigger.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see WebhookBuildType
+     */
+
+    public Webhook withBuildType(String buildType) {
+        setBuildType(buildType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the type of build this webhook will trigger.
+     * </p>
+     * 
+     * @param buildType
+     *        Specifies the type of build this webhook will trigger.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see WebhookBuildType
+     */
+
+    public Webhook withBuildType(WebhookBuildType buildType) {
+        this.buildType = buildType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * If manualCreation is true, CodeBuild doesn't create a webhook in GitHub and instead returns
+     * <code>payloadUrl</code> and <code>secret</code> values for the webhook. The <code>payloadUrl</code> and
+     * <code>secret</code> values in the output can be used to manually create a webhook within GitHub.
+     * </p>
+     * <note>
+     * <p>
+     * manualCreation is only available for GitHub webhooks.
+     * </p>
+     * </note>
+     * 
+     * @param manualCreation
+     *        If manualCreation is true, CodeBuild doesn't create a webhook in GitHub and instead returns
+     *        <code>payloadUrl</code> and <code>secret</code> values for the webhook. The <code>payloadUrl</code> and
+     *        <code>secret</code> values in the output can be used to manually create a webhook within GitHub.</p>
+     *        <note>
+     *        <p>
+     *        manualCreation is only available for GitHub webhooks.
+     *        </p>
+     */
+
+    public void setManualCreation(Boolean manualCreation) {
+        this.manualCreation = manualCreation;
+    }
+
+    /**
+     * <p>
+     * If manualCreation is true, CodeBuild doesn't create a webhook in GitHub and instead returns
+     * <code>payloadUrl</code> and <code>secret</code> values for the webhook. The <code>payloadUrl</code> and
+     * <code>secret</code> values in the output can be used to manually create a webhook within GitHub.
+     * </p>
+     * <note>
+     * <p>
+     * manualCreation is only available for GitHub webhooks.
+     * </p>
+     * </note>
+     * 
+     * @return If manualCreation is true, CodeBuild doesn't create a webhook in GitHub and instead returns
+     *         <code>payloadUrl</code> and <code>secret</code> values for the webhook. The <code>payloadUrl</code> and
+     *         <code>secret</code> values in the output can be used to manually create a webhook within GitHub.</p>
+     *         <note>
+     *         <p>
+     *         manualCreation is only available for GitHub webhooks.
+     *         </p>
+     */
+
+    public Boolean getManualCreation() {
+        return this.manualCreation;
+    }
+
+    /**
+     * <p>
+     * If manualCreation is true, CodeBuild doesn't create a webhook in GitHub and instead returns
+     * <code>payloadUrl</code> and <code>secret</code> values for the webhook. The <code>payloadUrl</code> and
+     * <code>secret</code> values in the output can be used to manually create a webhook within GitHub.
+     * </p>
+     * <note>
+     * <p>
+     * manualCreation is only available for GitHub webhooks.
+     * </p>
+     * </note>
+     * 
+     * @param manualCreation
+     *        If manualCreation is true, CodeBuild doesn't create a webhook in GitHub and instead returns
+     *        <code>payloadUrl</code> and <code>secret</code> values for the webhook. The <code>payloadUrl</code> and
+     *        <code>secret</code> values in the output can be used to manually create a webhook within GitHub.</p>
+     *        <note>
+     *        <p>
+     *        manualCreation is only available for GitHub webhooks.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Webhook withManualCreation(Boolean manualCreation) {
+        setManualCreation(manualCreation);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If manualCreation is true, CodeBuild doesn't create a webhook in GitHub and instead returns
+     * <code>payloadUrl</code> and <code>secret</code> values for the webhook. The <code>payloadUrl</code> and
+     * <code>secret</code> values in the output can be used to manually create a webhook within GitHub.
+     * </p>
+     * <note>
+     * <p>
+     * manualCreation is only available for GitHub webhooks.
+     * </p>
+     * </note>
+     * 
+     * @return If manualCreation is true, CodeBuild doesn't create a webhook in GitHub and instead returns
+     *         <code>payloadUrl</code> and <code>secret</code> values for the webhook. The <code>payloadUrl</code> and
+     *         <code>secret</code> values in the output can be used to manually create a webhook within GitHub.</p>
+     *         <note>
+     *         <p>
+     *         manualCreation is only available for GitHub webhooks.
+     *         </p>
+     */
+
+    public Boolean isManualCreation() {
+        return this.manualCreation;
+    }
+
+    /**
+     * <p>
      * A timestamp that indicates the last time a repository's secret token was modified.
      * </p>
      * 
@@ -453,6 +646,70 @@ public class Webhook implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The scope configuration for global or organization webhooks.
+     * </p>
+     * <note>
+     * <p>
+     * Global or organization webhooks are only available for GitHub and Github Enterprise webhooks.
+     * </p>
+     * </note>
+     * 
+     * @param scopeConfiguration
+     *        The scope configuration for global or organization webhooks.</p> <note>
+     *        <p>
+     *        Global or organization webhooks are only available for GitHub and Github Enterprise webhooks.
+     *        </p>
+     */
+
+    public void setScopeConfiguration(ScopeConfiguration scopeConfiguration) {
+        this.scopeConfiguration = scopeConfiguration;
+    }
+
+    /**
+     * <p>
+     * The scope configuration for global or organization webhooks.
+     * </p>
+     * <note>
+     * <p>
+     * Global or organization webhooks are only available for GitHub and Github Enterprise webhooks.
+     * </p>
+     * </note>
+     * 
+     * @return The scope configuration for global or organization webhooks.</p> <note>
+     *         <p>
+     *         Global or organization webhooks are only available for GitHub and Github Enterprise webhooks.
+     *         </p>
+     */
+
+    public ScopeConfiguration getScopeConfiguration() {
+        return this.scopeConfiguration;
+    }
+
+    /**
+     * <p>
+     * The scope configuration for global or organization webhooks.
+     * </p>
+     * <note>
+     * <p>
+     * Global or organization webhooks are only available for GitHub and Github Enterprise webhooks.
+     * </p>
+     * </note>
+     * 
+     * @param scopeConfiguration
+     *        The scope configuration for global or organization webhooks.</p> <note>
+     *        <p>
+     *        Global or organization webhooks are only available for GitHub and Github Enterprise webhooks.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Webhook withScopeConfiguration(ScopeConfiguration scopeConfiguration) {
+        setScopeConfiguration(scopeConfiguration);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -474,8 +731,14 @@ public class Webhook implements Serializable, Cloneable, StructuredPojo {
             sb.append("BranchFilter: ").append(getBranchFilter()).append(",");
         if (getFilterGroups() != null)
             sb.append("FilterGroups: ").append(getFilterGroups()).append(",");
+        if (getBuildType() != null)
+            sb.append("BuildType: ").append(getBuildType()).append(",");
+        if (getManualCreation() != null)
+            sb.append("ManualCreation: ").append(getManualCreation()).append(",");
         if (getLastModifiedSecret() != null)
-            sb.append("LastModifiedSecret: ").append(getLastModifiedSecret());
+            sb.append("LastModifiedSecret: ").append(getLastModifiedSecret()).append(",");
+        if (getScopeConfiguration() != null)
+            sb.append("ScopeConfiguration: ").append(getScopeConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -510,9 +773,21 @@ public class Webhook implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getFilterGroups() != null && other.getFilterGroups().equals(this.getFilterGroups()) == false)
             return false;
+        if (other.getBuildType() == null ^ this.getBuildType() == null)
+            return false;
+        if (other.getBuildType() != null && other.getBuildType().equals(this.getBuildType()) == false)
+            return false;
+        if (other.getManualCreation() == null ^ this.getManualCreation() == null)
+            return false;
+        if (other.getManualCreation() != null && other.getManualCreation().equals(this.getManualCreation()) == false)
+            return false;
         if (other.getLastModifiedSecret() == null ^ this.getLastModifiedSecret() == null)
             return false;
         if (other.getLastModifiedSecret() != null && other.getLastModifiedSecret().equals(this.getLastModifiedSecret()) == false)
+            return false;
+        if (other.getScopeConfiguration() == null ^ this.getScopeConfiguration() == null)
+            return false;
+        if (other.getScopeConfiguration() != null && other.getScopeConfiguration().equals(this.getScopeConfiguration()) == false)
             return false;
         return true;
     }
@@ -527,7 +802,10 @@ public class Webhook implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getSecret() == null) ? 0 : getSecret().hashCode());
         hashCode = prime * hashCode + ((getBranchFilter() == null) ? 0 : getBranchFilter().hashCode());
         hashCode = prime * hashCode + ((getFilterGroups() == null) ? 0 : getFilterGroups().hashCode());
+        hashCode = prime * hashCode + ((getBuildType() == null) ? 0 : getBuildType().hashCode());
+        hashCode = prime * hashCode + ((getManualCreation() == null) ? 0 : getManualCreation().hashCode());
         hashCode = prime * hashCode + ((getLastModifiedSecret() == null) ? 0 : getLastModifiedSecret().hashCode());
+        hashCode = prime * hashCode + ((getScopeConfiguration() == null) ? 0 : getScopeConfiguration().hashCode());
         return hashCode;
     }
 

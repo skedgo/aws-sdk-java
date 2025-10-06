@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,14 +39,14 @@ public class ListResolversRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String typeName;
     /**
      * <p>
-     * An identifier that was returned from the previous call to this operation, which can be used to return the next
+     * An identifier that was returned from the previous call to this operation, which you can use to return the next
      * set of items in the list.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * The maximum number of results you want the request to return.
+     * The maximum number of results that you want the request to return.
      * </p>
      */
     private Integer maxResults;
@@ -133,12 +133,12 @@ public class ListResolversRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * An identifier that was returned from the previous call to this operation, which can be used to return the next
+     * An identifier that was returned from the previous call to this operation, which you can use to return the next
      * set of items in the list.
      * </p>
      * 
      * @param nextToken
-     *        An identifier that was returned from the previous call to this operation, which can be used to return the
+     *        An identifier that was returned from the previous call to this operation, which you can use to return the
      *        next set of items in the list.
      */
 
@@ -148,11 +148,11 @@ public class ListResolversRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * An identifier that was returned from the previous call to this operation, which can be used to return the next
+     * An identifier that was returned from the previous call to this operation, which you can use to return the next
      * set of items in the list.
      * </p>
      * 
-     * @return An identifier that was returned from the previous call to this operation, which can be used to return the
+     * @return An identifier that was returned from the previous call to this operation, which you can use to return the
      *         next set of items in the list.
      */
 
@@ -162,12 +162,12 @@ public class ListResolversRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * An identifier that was returned from the previous call to this operation, which can be used to return the next
+     * An identifier that was returned from the previous call to this operation, which you can use to return the next
      * set of items in the list.
      * </p>
      * 
      * @param nextToken
-     *        An identifier that was returned from the previous call to this operation, which can be used to return the
+     *        An identifier that was returned from the previous call to this operation, which you can use to return the
      *        next set of items in the list.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -179,11 +179,11 @@ public class ListResolversRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The maximum number of results you want the request to return.
+     * The maximum number of results that you want the request to return.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results you want the request to return.
+     *        The maximum number of results that you want the request to return.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -192,10 +192,10 @@ public class ListResolversRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The maximum number of results you want the request to return.
+     * The maximum number of results that you want the request to return.
      * </p>
      * 
-     * @return The maximum number of results you want the request to return.
+     * @return The maximum number of results that you want the request to return.
      */
 
     public Integer getMaxResults() {
@@ -204,11 +204,11 @@ public class ListResolversRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The maximum number of results you want the request to return.
+     * The maximum number of results that you want the request to return.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results you want the request to return.
+     *        The maximum number of results that you want the request to return.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

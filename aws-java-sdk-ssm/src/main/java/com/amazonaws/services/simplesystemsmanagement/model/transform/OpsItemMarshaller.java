@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class OpsItemMarshaller {
 
     private static final MarshallingInfo<String> CREATEDBY_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("CreatedBy").build();
+    private static final MarshallingInfo<String> OPSITEMTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OpsItemType").build();
     private static final MarshallingInfo<java.util.Date> CREATEDTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CreatedTime").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<String> DESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -57,6 +59,20 @@ public class OpsItemMarshaller {
             .marshallLocationName("Source").build();
     private static final MarshallingInfo<Map> OPERATIONALDATA_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("OperationalData").build();
+    private static final MarshallingInfo<String> CATEGORY_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Category").build();
+    private static final MarshallingInfo<String> SEVERITY_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Severity").build();
+    private static final MarshallingInfo<java.util.Date> ACTUALSTARTTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ActualStartTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<java.util.Date> ACTUALENDTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ActualEndTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<java.util.Date> PLANNEDSTARTTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PlannedStartTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<java.util.Date> PLANNEDENDTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PlannedEndTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<String> OPSITEMARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OpsItemArn").build();
 
     private static final OpsItemMarshaller instance = new OpsItemMarshaller();
 
@@ -75,6 +91,7 @@ public class OpsItemMarshaller {
 
         try {
             protocolMarshaller.marshall(opsItem.getCreatedBy(), CREATEDBY_BINDING);
+            protocolMarshaller.marshall(opsItem.getOpsItemType(), OPSITEMTYPE_BINDING);
             protocolMarshaller.marshall(opsItem.getCreatedTime(), CREATEDTIME_BINDING);
             protocolMarshaller.marshall(opsItem.getDescription(), DESCRIPTION_BINDING);
             protocolMarshaller.marshall(opsItem.getLastModifiedBy(), LASTMODIFIEDBY_BINDING);
@@ -88,6 +105,13 @@ public class OpsItemMarshaller {
             protocolMarshaller.marshall(opsItem.getTitle(), TITLE_BINDING);
             protocolMarshaller.marshall(opsItem.getSource(), SOURCE_BINDING);
             protocolMarshaller.marshall(opsItem.getOperationalData(), OPERATIONALDATA_BINDING);
+            protocolMarshaller.marshall(opsItem.getCategory(), CATEGORY_BINDING);
+            protocolMarshaller.marshall(opsItem.getSeverity(), SEVERITY_BINDING);
+            protocolMarshaller.marshall(opsItem.getActualStartTime(), ACTUALSTARTTIME_BINDING);
+            protocolMarshaller.marshall(opsItem.getActualEndTime(), ACTUALENDTIME_BINDING);
+            protocolMarshaller.marshall(opsItem.getPlannedStartTime(), PLANNEDSTARTTIME_BINDING);
+            protocolMarshaller.marshall(opsItem.getPlannedEndTime(), PLANNEDENDTIME_BINDING);
+            protocolMarshaller.marshall(opsItem.getOpsItemArn(), OPSITEMARN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

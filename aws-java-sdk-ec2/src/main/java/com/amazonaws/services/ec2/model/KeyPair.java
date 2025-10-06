@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,14 +26,24 @@ import javax.annotation.Generated;
 public class KeyPair implements Serializable, Cloneable {
 
     /**
+     * <ul>
+     * <li>
      * <p>
-     * The SHA-1 digest of the DER encoded private key.
+     * For RSA key pairs, the key fingerprint is the SHA-1 digest of the DER encoded private key.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For ED25519 key pairs, the key fingerprint is the base64-encoded SHA-256 digest, which is the default for
+     * OpenSSH, starting with OpenSSH 6.8.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String keyFingerprint;
     /**
      * <p>
-     * An unencrypted PEM encoded RSA private key.
+     * An unencrypted PEM encoded RSA or ED25519 private key.
      * </p>
      */
     private String keyMaterial;
@@ -43,14 +53,45 @@ public class KeyPair implements Serializable, Cloneable {
      * </p>
      */
     private String keyName;
-
     /**
      * <p>
-     * The SHA-1 digest of the DER encoded private key.
+     * The ID of the key pair.
      * </p>
+     */
+    private String keyPairId;
+    /**
+     * <p>
+     * Any tags applied to the key pair.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Tag> tags;
+
+    /**
+     * <ul>
+     * <li>
+     * <p>
+     * For RSA key pairs, the key fingerprint is the SHA-1 digest of the DER encoded private key.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For ED25519 key pairs, the key fingerprint is the base64-encoded SHA-256 digest, which is the default for
+     * OpenSSH, starting with OpenSSH 6.8.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param keyFingerprint
-     *        The SHA-1 digest of the DER encoded private key.
+     *        <li>
+     *        <p>
+     *        For RSA key pairs, the key fingerprint is the SHA-1 digest of the DER encoded private key.
+     *        </p>
+     *        </li> <li>
+     *        <p>
+     *        For ED25519 key pairs, the key fingerprint is the base64-encoded SHA-256 digest, which is the default for
+     *        OpenSSH, starting with OpenSSH 6.8.
+     *        </p>
+     *        </li>
      */
 
     public void setKeyFingerprint(String keyFingerprint) {
@@ -58,11 +99,30 @@ public class KeyPair implements Serializable, Cloneable {
     }
 
     /**
+     * <ul>
+     * <li>
      * <p>
-     * The SHA-1 digest of the DER encoded private key.
+     * For RSA key pairs, the key fingerprint is the SHA-1 digest of the DER encoded private key.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For ED25519 key pairs, the key fingerprint is the base64-encoded SHA-256 digest, which is the default for
+     * OpenSSH, starting with OpenSSH 6.8.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The SHA-1 digest of the DER encoded private key.
+     * @return <li>
+     *         <p>
+     *         For RSA key pairs, the key fingerprint is the SHA-1 digest of the DER encoded private key.
+     *         </p>
+     *         </li> <li>
+     *         <p>
+     *         For ED25519 key pairs, the key fingerprint is the base64-encoded SHA-256 digest, which is the default for
+     *         OpenSSH, starting with OpenSSH 6.8.
+     *         </p>
+     *         </li>
      */
 
     public String getKeyFingerprint() {
@@ -70,12 +130,31 @@ public class KeyPair implements Serializable, Cloneable {
     }
 
     /**
+     * <ul>
+     * <li>
      * <p>
-     * The SHA-1 digest of the DER encoded private key.
+     * For RSA key pairs, the key fingerprint is the SHA-1 digest of the DER encoded private key.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For ED25519 key pairs, the key fingerprint is the base64-encoded SHA-256 digest, which is the default for
+     * OpenSSH, starting with OpenSSH 6.8.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param keyFingerprint
-     *        The SHA-1 digest of the DER encoded private key.
+     *        <li>
+     *        <p>
+     *        For RSA key pairs, the key fingerprint is the SHA-1 digest of the DER encoded private key.
+     *        </p>
+     *        </li> <li>
+     *        <p>
+     *        For ED25519 key pairs, the key fingerprint is the base64-encoded SHA-256 digest, which is the default for
+     *        OpenSSH, starting with OpenSSH 6.8.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -86,11 +165,11 @@ public class KeyPair implements Serializable, Cloneable {
 
     /**
      * <p>
-     * An unencrypted PEM encoded RSA private key.
+     * An unencrypted PEM encoded RSA or ED25519 private key.
      * </p>
      * 
      * @param keyMaterial
-     *        An unencrypted PEM encoded RSA private key.
+     *        An unencrypted PEM encoded RSA or ED25519 private key.
      */
 
     public void setKeyMaterial(String keyMaterial) {
@@ -99,10 +178,10 @@ public class KeyPair implements Serializable, Cloneable {
 
     /**
      * <p>
-     * An unencrypted PEM encoded RSA private key.
+     * An unencrypted PEM encoded RSA or ED25519 private key.
      * </p>
      * 
-     * @return An unencrypted PEM encoded RSA private key.
+     * @return An unencrypted PEM encoded RSA or ED25519 private key.
      */
 
     public String getKeyMaterial() {
@@ -111,11 +190,11 @@ public class KeyPair implements Serializable, Cloneable {
 
     /**
      * <p>
-     * An unencrypted PEM encoded RSA private key.
+     * An unencrypted PEM encoded RSA or ED25519 private key.
      * </p>
      * 
      * @param keyMaterial
-     *        An unencrypted PEM encoded RSA private key.
+     *        An unencrypted PEM encoded RSA or ED25519 private key.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -165,6 +244,119 @@ public class KeyPair implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The ID of the key pair.
+     * </p>
+     * 
+     * @param keyPairId
+     *        The ID of the key pair.
+     */
+
+    public void setKeyPairId(String keyPairId) {
+        this.keyPairId = keyPairId;
+    }
+
+    /**
+     * <p>
+     * The ID of the key pair.
+     * </p>
+     * 
+     * @return The ID of the key pair.
+     */
+
+    public String getKeyPairId() {
+        return this.keyPairId;
+    }
+
+    /**
+     * <p>
+     * The ID of the key pair.
+     * </p>
+     * 
+     * @param keyPairId
+     *        The ID of the key pair.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public KeyPair withKeyPairId(String keyPairId) {
+        setKeyPairId(keyPairId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Any tags applied to the key pair.
+     * </p>
+     * 
+     * @return Any tags applied to the key pair.
+     */
+
+    public java.util.List<Tag> getTags() {
+        if (tags == null) {
+            tags = new com.amazonaws.internal.SdkInternalList<Tag>();
+        }
+        return tags;
+    }
+
+    /**
+     * <p>
+     * Any tags applied to the key pair.
+     * </p>
+     * 
+     * @param tags
+     *        Any tags applied to the key pair.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new com.amazonaws.internal.SdkInternalList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * Any tags applied to the key pair.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        Any tags applied to the key pair.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public KeyPair withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new com.amazonaws.internal.SdkInternalList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Any tags applied to the key pair.
+     * </p>
+     * 
+     * @param tags
+     *        Any tags applied to the key pair.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public KeyPair withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -179,9 +371,13 @@ public class KeyPair implements Serializable, Cloneable {
         if (getKeyFingerprint() != null)
             sb.append("KeyFingerprint: ").append(getKeyFingerprint()).append(",");
         if (getKeyMaterial() != null)
-            sb.append("KeyMaterial: ").append(getKeyMaterial()).append(",");
+            sb.append("KeyMaterial: ").append("***Sensitive Data Redacted***").append(",");
         if (getKeyName() != null)
-            sb.append("KeyName: ").append(getKeyName());
+            sb.append("KeyName: ").append(getKeyName()).append(",");
+        if (getKeyPairId() != null)
+            sb.append("KeyPairId: ").append(getKeyPairId()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -208,6 +404,14 @@ public class KeyPair implements Serializable, Cloneable {
             return false;
         if (other.getKeyName() != null && other.getKeyName().equals(this.getKeyName()) == false)
             return false;
+        if (other.getKeyPairId() == null ^ this.getKeyPairId() == null)
+            return false;
+        if (other.getKeyPairId() != null && other.getKeyPairId().equals(this.getKeyPairId()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -219,6 +423,8 @@ public class KeyPair implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getKeyFingerprint() == null) ? 0 : getKeyFingerprint().hashCode());
         hashCode = prime * hashCode + ((getKeyMaterial() == null) ? 0 : getKeyMaterial().hashCode());
         hashCode = prime * hashCode + ((getKeyName() == null) ? 0 : getKeyName().hashCode());
+        hashCode = prime * hashCode + ((getKeyPairId() == null) ? 0 : getKeyPairId().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

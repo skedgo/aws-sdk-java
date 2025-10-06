@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,13 +33,18 @@ public class RegisterCACertificateRequest extends com.amazonaws.AmazonWebService
     private String caCertificate;
     /**
      * <p>
-     * The private key verification certificate.
+     * The private key verification certificate. If <code>certificateMode</code> is <code>SNI_ONLY</code>, the
+     * <code>verificationCertificate</code> field must be empty. If <code>certificateMode</code> is <code>DEFAULT</code>
+     * or not provided, the <code>verificationCertificate</code> field must not be empty.
      * </p>
      */
     private String verificationCertificate;
     /**
      * <p>
      * A boolean value that specifies if the CA certificate is set to active.
+     * </p>
+     * <p>
+     * Valid values: <code>ACTIVE | INACTIVE</code>
      * </p>
      */
     private Boolean setAsActive;
@@ -55,6 +60,37 @@ public class RegisterCACertificateRequest extends com.amazonaws.AmazonWebService
      * </p>
      */
     private RegistrationConfig registrationConfig;
+    /**
+     * <p>
+     * Metadata which can be used to manage the CA certificate.
+     * </p>
+     * <note>
+     * <p>
+     * For URI Request parameters use format: ...key1=value1&amp;key2=value2...
+     * </p>
+     * <p>
+     * For the CLI command-line parameter use format: &amp;&amp;tags "key1=value1&amp;key2=value2..."
+     * </p>
+     * <p>
+     * For the cli-input-json file use format: "tags": "key1=value1&amp;key2=value2..."
+     * </p>
+     * </note>
+     */
+    private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * Describes the certificate mode in which the Certificate Authority (CA) will be registered. If the
+     * <code>verificationCertificate</code> field is not provided, set <code>certificateMode</code> to be
+     * <code>SNI_ONLY</code>. If the <code>verificationCertificate</code> field is provided, set
+     * <code>certificateMode</code> to be <code>DEFAULT</code>. When <code>certificateMode</code> is not provided, it
+     * defaults to <code>DEFAULT</code>. All the device certificates that are registered using this CA will be
+     * registered in the same certificate mode as the CA. For more information about certificate mode for device
+     * certificates, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/apireference/API_CertificateDescription.html#iot-Type-CertificateDescription-certificateMode"
+     * > certificate mode</a>.
+     * </p>
+     */
+    private String certificateMode;
 
     /**
      * <p>
@@ -98,11 +134,15 @@ public class RegisterCACertificateRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The private key verification certificate.
+     * The private key verification certificate. If <code>certificateMode</code> is <code>SNI_ONLY</code>, the
+     * <code>verificationCertificate</code> field must be empty. If <code>certificateMode</code> is <code>DEFAULT</code>
+     * or not provided, the <code>verificationCertificate</code> field must not be empty.
      * </p>
      * 
      * @param verificationCertificate
-     *        The private key verification certificate.
+     *        The private key verification certificate. If <code>certificateMode</code> is <code>SNI_ONLY</code>, the
+     *        <code>verificationCertificate</code> field must be empty. If <code>certificateMode</code> is
+     *        <code>DEFAULT</code> or not provided, the <code>verificationCertificate</code> field must not be empty.
      */
 
     public void setVerificationCertificate(String verificationCertificate) {
@@ -111,10 +151,14 @@ public class RegisterCACertificateRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The private key verification certificate.
+     * The private key verification certificate. If <code>certificateMode</code> is <code>SNI_ONLY</code>, the
+     * <code>verificationCertificate</code> field must be empty. If <code>certificateMode</code> is <code>DEFAULT</code>
+     * or not provided, the <code>verificationCertificate</code> field must not be empty.
      * </p>
      * 
-     * @return The private key verification certificate.
+     * @return The private key verification certificate. If <code>certificateMode</code> is <code>SNI_ONLY</code>, the
+     *         <code>verificationCertificate</code> field must be empty. If <code>certificateMode</code> is
+     *         <code>DEFAULT</code> or not provided, the <code>verificationCertificate</code> field must not be empty.
      */
 
     public String getVerificationCertificate() {
@@ -123,11 +167,15 @@ public class RegisterCACertificateRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The private key verification certificate.
+     * The private key verification certificate. If <code>certificateMode</code> is <code>SNI_ONLY</code>, the
+     * <code>verificationCertificate</code> field must be empty. If <code>certificateMode</code> is <code>DEFAULT</code>
+     * or not provided, the <code>verificationCertificate</code> field must not be empty.
      * </p>
      * 
      * @param verificationCertificate
-     *        The private key verification certificate.
+     *        The private key verification certificate. If <code>certificateMode</code> is <code>SNI_ONLY</code>, the
+     *        <code>verificationCertificate</code> field must be empty. If <code>certificateMode</code> is
+     *        <code>DEFAULT</code> or not provided, the <code>verificationCertificate</code> field must not be empty.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -140,9 +188,14 @@ public class RegisterCACertificateRequest extends com.amazonaws.AmazonWebService
      * <p>
      * A boolean value that specifies if the CA certificate is set to active.
      * </p>
+     * <p>
+     * Valid values: <code>ACTIVE | INACTIVE</code>
+     * </p>
      * 
      * @param setAsActive
-     *        A boolean value that specifies if the CA certificate is set to active.
+     *        A boolean value that specifies if the CA certificate is set to active.</p>
+     *        <p>
+     *        Valid values: <code>ACTIVE | INACTIVE</code>
      */
 
     public void setSetAsActive(Boolean setAsActive) {
@@ -153,8 +206,13 @@ public class RegisterCACertificateRequest extends com.amazonaws.AmazonWebService
      * <p>
      * A boolean value that specifies if the CA certificate is set to active.
      * </p>
+     * <p>
+     * Valid values: <code>ACTIVE | INACTIVE</code>
+     * </p>
      * 
-     * @return A boolean value that specifies if the CA certificate is set to active.
+     * @return A boolean value that specifies if the CA certificate is set to active.</p>
+     *         <p>
+     *         Valid values: <code>ACTIVE | INACTIVE</code>
      */
 
     public Boolean getSetAsActive() {
@@ -165,9 +223,14 @@ public class RegisterCACertificateRequest extends com.amazonaws.AmazonWebService
      * <p>
      * A boolean value that specifies if the CA certificate is set to active.
      * </p>
+     * <p>
+     * Valid values: <code>ACTIVE | INACTIVE</code>
+     * </p>
      * 
      * @param setAsActive
-     *        A boolean value that specifies if the CA certificate is set to active.
+     *        A boolean value that specifies if the CA certificate is set to active.</p>
+     *        <p>
+     *        Valid values: <code>ACTIVE | INACTIVE</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -180,8 +243,13 @@ public class RegisterCACertificateRequest extends com.amazonaws.AmazonWebService
      * <p>
      * A boolean value that specifies if the CA certificate is set to active.
      * </p>
+     * <p>
+     * Valid values: <code>ACTIVE | INACTIVE</code>
+     * </p>
      * 
-     * @return A boolean value that specifies if the CA certificate is set to active.
+     * @return A boolean value that specifies if the CA certificate is set to active.</p>
+     *         <p>
+     *         Valid values: <code>ACTIVE | INACTIVE</code>
      */
 
     public Boolean isSetAsActive() {
@@ -281,6 +349,279 @@ public class RegisterCACertificateRequest extends com.amazonaws.AmazonWebService
     }
 
     /**
+     * <p>
+     * Metadata which can be used to manage the CA certificate.
+     * </p>
+     * <note>
+     * <p>
+     * For URI Request parameters use format: ...key1=value1&amp;key2=value2...
+     * </p>
+     * <p>
+     * For the CLI command-line parameter use format: &amp;&amp;tags "key1=value1&amp;key2=value2..."
+     * </p>
+     * <p>
+     * For the cli-input-json file use format: "tags": "key1=value1&amp;key2=value2..."
+     * </p>
+     * </note>
+     * 
+     * @return Metadata which can be used to manage the CA certificate.</p> <note>
+     *         <p>
+     *         For URI Request parameters use format: ...key1=value1&amp;key2=value2...
+     *         </p>
+     *         <p>
+     *         For the CLI command-line parameter use format: &amp;&amp;tags "key1=value1&amp;key2=value2..."
+     *         </p>
+     *         <p>
+     *         For the cli-input-json file use format: "tags": "key1=value1&amp;key2=value2..."
+     *         </p>
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * Metadata which can be used to manage the CA certificate.
+     * </p>
+     * <note>
+     * <p>
+     * For URI Request parameters use format: ...key1=value1&amp;key2=value2...
+     * </p>
+     * <p>
+     * For the CLI command-line parameter use format: &amp;&amp;tags "key1=value1&amp;key2=value2..."
+     * </p>
+     * <p>
+     * For the cli-input-json file use format: "tags": "key1=value1&amp;key2=value2..."
+     * </p>
+     * </note>
+     * 
+     * @param tags
+     *        Metadata which can be used to manage the CA certificate.</p> <note>
+     *        <p>
+     *        For URI Request parameters use format: ...key1=value1&amp;key2=value2...
+     *        </p>
+     *        <p>
+     *        For the CLI command-line parameter use format: &amp;&amp;tags "key1=value1&amp;key2=value2..."
+     *        </p>
+     *        <p>
+     *        For the cli-input-json file use format: "tags": "key1=value1&amp;key2=value2..."
+     *        </p>
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * Metadata which can be used to manage the CA certificate.
+     * </p>
+     * <note>
+     * <p>
+     * For URI Request parameters use format: ...key1=value1&amp;key2=value2...
+     * </p>
+     * <p>
+     * For the CLI command-line parameter use format: &amp;&amp;tags "key1=value1&amp;key2=value2..."
+     * </p>
+     * <p>
+     * For the cli-input-json file use format: "tags": "key1=value1&amp;key2=value2..."
+     * </p>
+     * </note>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        Metadata which can be used to manage the CA certificate.</p> <note>
+     *        <p>
+     *        For URI Request parameters use format: ...key1=value1&amp;key2=value2...
+     *        </p>
+     *        <p>
+     *        For the CLI command-line parameter use format: &amp;&amp;tags "key1=value1&amp;key2=value2..."
+     *        </p>
+     *        <p>
+     *        For the cli-input-json file use format: "tags": "key1=value1&amp;key2=value2..."
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RegisterCACertificateRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Metadata which can be used to manage the CA certificate.
+     * </p>
+     * <note>
+     * <p>
+     * For URI Request parameters use format: ...key1=value1&amp;key2=value2...
+     * </p>
+     * <p>
+     * For the CLI command-line parameter use format: &amp;&amp;tags "key1=value1&amp;key2=value2..."
+     * </p>
+     * <p>
+     * For the cli-input-json file use format: "tags": "key1=value1&amp;key2=value2..."
+     * </p>
+     * </note>
+     * 
+     * @param tags
+     *        Metadata which can be used to manage the CA certificate.</p> <note>
+     *        <p>
+     *        For URI Request parameters use format: ...key1=value1&amp;key2=value2...
+     *        </p>
+     *        <p>
+     *        For the CLI command-line parameter use format: &amp;&amp;tags "key1=value1&amp;key2=value2..."
+     *        </p>
+     *        <p>
+     *        For the cli-input-json file use format: "tags": "key1=value1&amp;key2=value2..."
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RegisterCACertificateRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes the certificate mode in which the Certificate Authority (CA) will be registered. If the
+     * <code>verificationCertificate</code> field is not provided, set <code>certificateMode</code> to be
+     * <code>SNI_ONLY</code>. If the <code>verificationCertificate</code> field is provided, set
+     * <code>certificateMode</code> to be <code>DEFAULT</code>. When <code>certificateMode</code> is not provided, it
+     * defaults to <code>DEFAULT</code>. All the device certificates that are registered using this CA will be
+     * registered in the same certificate mode as the CA. For more information about certificate mode for device
+     * certificates, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/apireference/API_CertificateDescription.html#iot-Type-CertificateDescription-certificateMode"
+     * > certificate mode</a>.
+     * </p>
+     * 
+     * @param certificateMode
+     *        Describes the certificate mode in which the Certificate Authority (CA) will be registered. If the
+     *        <code>verificationCertificate</code> field is not provided, set <code>certificateMode</code> to be
+     *        <code>SNI_ONLY</code>. If the <code>verificationCertificate</code> field is provided, set
+     *        <code>certificateMode</code> to be <code>DEFAULT</code>. When <code>certificateMode</code> is not
+     *        provided, it defaults to <code>DEFAULT</code>. All the device certificates that are registered using this
+     *        CA will be registered in the same certificate mode as the CA. For more information about certificate mode
+     *        for device certificates, see <a href=
+     *        "https://docs.aws.amazon.com/iot/latest/apireference/API_CertificateDescription.html#iot-Type-CertificateDescription-certificateMode"
+     *        > certificate mode</a>.
+     * @see CertificateMode
+     */
+
+    public void setCertificateMode(String certificateMode) {
+        this.certificateMode = certificateMode;
+    }
+
+    /**
+     * <p>
+     * Describes the certificate mode in which the Certificate Authority (CA) will be registered. If the
+     * <code>verificationCertificate</code> field is not provided, set <code>certificateMode</code> to be
+     * <code>SNI_ONLY</code>. If the <code>verificationCertificate</code> field is provided, set
+     * <code>certificateMode</code> to be <code>DEFAULT</code>. When <code>certificateMode</code> is not provided, it
+     * defaults to <code>DEFAULT</code>. All the device certificates that are registered using this CA will be
+     * registered in the same certificate mode as the CA. For more information about certificate mode for device
+     * certificates, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/apireference/API_CertificateDescription.html#iot-Type-CertificateDescription-certificateMode"
+     * > certificate mode</a>.
+     * </p>
+     * 
+     * @return Describes the certificate mode in which the Certificate Authority (CA) will be registered. If the
+     *         <code>verificationCertificate</code> field is not provided, set <code>certificateMode</code> to be
+     *         <code>SNI_ONLY</code>. If the <code>verificationCertificate</code> field is provided, set
+     *         <code>certificateMode</code> to be <code>DEFAULT</code>. When <code>certificateMode</code> is not
+     *         provided, it defaults to <code>DEFAULT</code>. All the device certificates that are registered using this
+     *         CA will be registered in the same certificate mode as the CA. For more information about certificate mode
+     *         for device certificates, see <a href=
+     *         "https://docs.aws.amazon.com/iot/latest/apireference/API_CertificateDescription.html#iot-Type-CertificateDescription-certificateMode"
+     *         > certificate mode</a>.
+     * @see CertificateMode
+     */
+
+    public String getCertificateMode() {
+        return this.certificateMode;
+    }
+
+    /**
+     * <p>
+     * Describes the certificate mode in which the Certificate Authority (CA) will be registered. If the
+     * <code>verificationCertificate</code> field is not provided, set <code>certificateMode</code> to be
+     * <code>SNI_ONLY</code>. If the <code>verificationCertificate</code> field is provided, set
+     * <code>certificateMode</code> to be <code>DEFAULT</code>. When <code>certificateMode</code> is not provided, it
+     * defaults to <code>DEFAULT</code>. All the device certificates that are registered using this CA will be
+     * registered in the same certificate mode as the CA. For more information about certificate mode for device
+     * certificates, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/apireference/API_CertificateDescription.html#iot-Type-CertificateDescription-certificateMode"
+     * > certificate mode</a>.
+     * </p>
+     * 
+     * @param certificateMode
+     *        Describes the certificate mode in which the Certificate Authority (CA) will be registered. If the
+     *        <code>verificationCertificate</code> field is not provided, set <code>certificateMode</code> to be
+     *        <code>SNI_ONLY</code>. If the <code>verificationCertificate</code> field is provided, set
+     *        <code>certificateMode</code> to be <code>DEFAULT</code>. When <code>certificateMode</code> is not
+     *        provided, it defaults to <code>DEFAULT</code>. All the device certificates that are registered using this
+     *        CA will be registered in the same certificate mode as the CA. For more information about certificate mode
+     *        for device certificates, see <a href=
+     *        "https://docs.aws.amazon.com/iot/latest/apireference/API_CertificateDescription.html#iot-Type-CertificateDescription-certificateMode"
+     *        > certificate mode</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CertificateMode
+     */
+
+    public RegisterCACertificateRequest withCertificateMode(String certificateMode) {
+        setCertificateMode(certificateMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes the certificate mode in which the Certificate Authority (CA) will be registered. If the
+     * <code>verificationCertificate</code> field is not provided, set <code>certificateMode</code> to be
+     * <code>SNI_ONLY</code>. If the <code>verificationCertificate</code> field is provided, set
+     * <code>certificateMode</code> to be <code>DEFAULT</code>. When <code>certificateMode</code> is not provided, it
+     * defaults to <code>DEFAULT</code>. All the device certificates that are registered using this CA will be
+     * registered in the same certificate mode as the CA. For more information about certificate mode for device
+     * certificates, see <a href=
+     * "https://docs.aws.amazon.com/iot/latest/apireference/API_CertificateDescription.html#iot-Type-CertificateDescription-certificateMode"
+     * > certificate mode</a>.
+     * </p>
+     * 
+     * @param certificateMode
+     *        Describes the certificate mode in which the Certificate Authority (CA) will be registered. If the
+     *        <code>verificationCertificate</code> field is not provided, set <code>certificateMode</code> to be
+     *        <code>SNI_ONLY</code>. If the <code>verificationCertificate</code> field is provided, set
+     *        <code>certificateMode</code> to be <code>DEFAULT</code>. When <code>certificateMode</code> is not
+     *        provided, it defaults to <code>DEFAULT</code>. All the device certificates that are registered using this
+     *        CA will be registered in the same certificate mode as the CA. For more information about certificate mode
+     *        for device certificates, see <a href=
+     *        "https://docs.aws.amazon.com/iot/latest/apireference/API_CertificateDescription.html#iot-Type-CertificateDescription-certificateMode"
+     *        > certificate mode</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CertificateMode
+     */
+
+    public RegisterCACertificateRequest withCertificateMode(CertificateMode certificateMode) {
+        this.certificateMode = certificateMode.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -301,7 +642,11 @@ public class RegisterCACertificateRequest extends com.amazonaws.AmazonWebService
         if (getAllowAutoRegistration() != null)
             sb.append("AllowAutoRegistration: ").append(getAllowAutoRegistration()).append(",");
         if (getRegistrationConfig() != null)
-            sb.append("RegistrationConfig: ").append(getRegistrationConfig());
+            sb.append("RegistrationConfig: ").append(getRegistrationConfig()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getCertificateMode() != null)
+            sb.append("CertificateMode: ").append(getCertificateMode());
         sb.append("}");
         return sb.toString();
     }
@@ -336,6 +681,14 @@ public class RegisterCACertificateRequest extends com.amazonaws.AmazonWebService
             return false;
         if (other.getRegistrationConfig() != null && other.getRegistrationConfig().equals(this.getRegistrationConfig()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getCertificateMode() == null ^ this.getCertificateMode() == null)
+            return false;
+        if (other.getCertificateMode() != null && other.getCertificateMode().equals(this.getCertificateMode()) == false)
+            return false;
         return true;
     }
 
@@ -349,6 +702,8 @@ public class RegisterCACertificateRequest extends com.amazonaws.AmazonWebService
         hashCode = prime * hashCode + ((getSetAsActive() == null) ? 0 : getSetAsActive().hashCode());
         hashCode = prime * hashCode + ((getAllowAutoRegistration() == null) ? 0 : getAllowAutoRegistration().hashCode());
         hashCode = prime * hashCode + ((getRegistrationConfig() == null) ? 0 : getRegistrationConfig().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getCertificateMode() == null) ? 0 : getCertificateMode().hashCode());
         return hashCode;
     }
 

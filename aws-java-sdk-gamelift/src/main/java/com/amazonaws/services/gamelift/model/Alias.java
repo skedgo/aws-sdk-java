@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,40 +19,16 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Properties describing a fleet alias.
+ * Properties that describe an alias resource.
  * </p>
- * <ul>
- * <li>
  * <p>
- * <a>CreateAlias</a>
+ * <b>Related actions</b>
  * </p>
- * </li>
- * <li>
  * <p>
- * <a>ListAliases</a>
+ * <a href=
+ * "https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets"
+ * >All APIs by task</a>
  * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeAlias</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>UpdateAlias</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DeleteAlias</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>ResolveAlias</a>
- * </p>
- * </li>
- * </ul>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/Alias" target="_top">AWS API
  *      Documentation</a>
@@ -62,56 +38,59 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique identifier for an alias; alias IDs are unique within a region.
+     * A unique identifier for the alias. Alias IDs are unique within a Region.
      * </p>
      */
     private String aliasId;
     /**
      * <p>
-     * Descriptive label that is associated with an alias. Alias names do not need to be unique.
+     * A descriptive label that is associated with an alias. Alias names do not need to be unique.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * Unique identifier for an alias; alias ARNs are unique across all regions.
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * that is assigned to a Amazon GameLift alias resource and uniquely identifies it. ARNs are unique across all
+     * Regions. Format is <code>arn:aws:gamelift:&lt;region&gt;::alias/alias-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>
+     * . In a GameLift alias ARN, the resource ID matches the alias ID value.
      * </p>
      */
     private String aliasArn;
     /**
      * <p>
-     * Human-readable description of an alias.
+     * A human-readable description of an alias.
      * </p>
      */
     private String description;
     /**
      * <p>
-     * Alias configuration for the alias, including routing type and settings.
+     * The routing configuration, including routing type and fleet target, for the alias.
      * </p>
      */
     private RoutingStrategy routingStrategy;
     /**
      * <p>
-     * Time stamp indicating when this data object was created. Format is a number expressed in Unix time as
-     * milliseconds (for example "1469498468.057").
+     * A time stamp indicating when this data object was created. Format is a number expressed in Unix time as
+     * milliseconds (for example <code>"1469498468.057"</code>).
      * </p>
      */
     private java.util.Date creationTime;
     /**
      * <p>
-     * Time stamp indicating when this data object was last modified. Format is a number expressed in Unix time as
-     * milliseconds (for example "1469498468.057").
+     * The time that this data object was last modified. Format is a number expressed in Unix time as milliseconds (for
+     * example <code>"1469498468.057"</code>).
      * </p>
      */
     private java.util.Date lastUpdatedTime;
 
     /**
      * <p>
-     * Unique identifier for an alias; alias IDs are unique within a region.
+     * A unique identifier for the alias. Alias IDs are unique within a Region.
      * </p>
      * 
      * @param aliasId
-     *        Unique identifier for an alias; alias IDs are unique within a region.
+     *        A unique identifier for the alias. Alias IDs are unique within a Region.
      */
 
     public void setAliasId(String aliasId) {
@@ -120,10 +99,10 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique identifier for an alias; alias IDs are unique within a region.
+     * A unique identifier for the alias. Alias IDs are unique within a Region.
      * </p>
      * 
-     * @return Unique identifier for an alias; alias IDs are unique within a region.
+     * @return A unique identifier for the alias. Alias IDs are unique within a Region.
      */
 
     public String getAliasId() {
@@ -132,11 +111,11 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique identifier for an alias; alias IDs are unique within a region.
+     * A unique identifier for the alias. Alias IDs are unique within a Region.
      * </p>
      * 
      * @param aliasId
-     *        Unique identifier for an alias; alias IDs are unique within a region.
+     *        A unique identifier for the alias. Alias IDs are unique within a Region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -147,11 +126,11 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Descriptive label that is associated with an alias. Alias names do not need to be unique.
+     * A descriptive label that is associated with an alias. Alias names do not need to be unique.
      * </p>
      * 
      * @param name
-     *        Descriptive label that is associated with an alias. Alias names do not need to be unique.
+     *        A descriptive label that is associated with an alias. Alias names do not need to be unique.
      */
 
     public void setName(String name) {
@@ -160,10 +139,10 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Descriptive label that is associated with an alias. Alias names do not need to be unique.
+     * A descriptive label that is associated with an alias. Alias names do not need to be unique.
      * </p>
      * 
-     * @return Descriptive label that is associated with an alias. Alias names do not need to be unique.
+     * @return A descriptive label that is associated with an alias. Alias names do not need to be unique.
      */
 
     public String getName() {
@@ -172,11 +151,11 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Descriptive label that is associated with an alias. Alias names do not need to be unique.
+     * A descriptive label that is associated with an alias. Alias names do not need to be unique.
      * </p>
      * 
      * @param name
-     *        Descriptive label that is associated with an alias. Alias names do not need to be unique.
+     *        A descriptive label that is associated with an alias. Alias names do not need to be unique.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -187,11 +166,18 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique identifier for an alias; alias ARNs are unique across all regions.
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * that is assigned to a Amazon GameLift alias resource and uniquely identifies it. ARNs are unique across all
+     * Regions. Format is <code>arn:aws:gamelift:&lt;region&gt;::alias/alias-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>
+     * . In a GameLift alias ARN, the resource ID matches the alias ID value.
      * </p>
      * 
      * @param aliasArn
-     *        Unique identifier for an alias; alias ARNs are unique across all regions.
+     *        The Amazon Resource Name (<a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a
+     *        Amazon GameLift alias resource and uniquely identifies it. ARNs are unique across all Regions. Format is
+     *        <code>arn:aws:gamelift:&lt;region&gt;::alias/alias-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>. In a
+     *        GameLift alias ARN, the resource ID matches the alias ID value.
      */
 
     public void setAliasArn(String aliasArn) {
@@ -200,10 +186,17 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique identifier for an alias; alias ARNs are unique across all regions.
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * that is assigned to a Amazon GameLift alias resource and uniquely identifies it. ARNs are unique across all
+     * Regions. Format is <code>arn:aws:gamelift:&lt;region&gt;::alias/alias-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>
+     * . In a GameLift alias ARN, the resource ID matches the alias ID value.
      * </p>
      * 
-     * @return Unique identifier for an alias; alias ARNs are unique across all regions.
+     * @return The Amazon Resource Name (<a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a
+     *         Amazon GameLift alias resource and uniquely identifies it. ARNs are unique across all Regions. Format is
+     *         <code>arn:aws:gamelift:&lt;region&gt;::alias/alias-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>. In a
+     *         GameLift alias ARN, the resource ID matches the alias ID value.
      */
 
     public String getAliasArn() {
@@ -212,11 +205,18 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique identifier for an alias; alias ARNs are unique across all regions.
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * that is assigned to a Amazon GameLift alias resource and uniquely identifies it. ARNs are unique across all
+     * Regions. Format is <code>arn:aws:gamelift:&lt;region&gt;::alias/alias-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>
+     * . In a GameLift alias ARN, the resource ID matches the alias ID value.
      * </p>
      * 
      * @param aliasArn
-     *        Unique identifier for an alias; alias ARNs are unique across all regions.
+     *        The Amazon Resource Name (<a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a
+     *        Amazon GameLift alias resource and uniquely identifies it. ARNs are unique across all Regions. Format is
+     *        <code>arn:aws:gamelift:&lt;region&gt;::alias/alias-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>. In a
+     *        GameLift alias ARN, the resource ID matches the alias ID value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -227,11 +227,11 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Human-readable description of an alias.
+     * A human-readable description of an alias.
      * </p>
      * 
      * @param description
-     *        Human-readable description of an alias.
+     *        A human-readable description of an alias.
      */
 
     public void setDescription(String description) {
@@ -240,10 +240,10 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Human-readable description of an alias.
+     * A human-readable description of an alias.
      * </p>
      * 
-     * @return Human-readable description of an alias.
+     * @return A human-readable description of an alias.
      */
 
     public String getDescription() {
@@ -252,11 +252,11 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Human-readable description of an alias.
+     * A human-readable description of an alias.
      * </p>
      * 
      * @param description
-     *        Human-readable description of an alias.
+     *        A human-readable description of an alias.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -267,11 +267,11 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Alias configuration for the alias, including routing type and settings.
+     * The routing configuration, including routing type and fleet target, for the alias.
      * </p>
      * 
      * @param routingStrategy
-     *        Alias configuration for the alias, including routing type and settings.
+     *        The routing configuration, including routing type and fleet target, for the alias.
      */
 
     public void setRoutingStrategy(RoutingStrategy routingStrategy) {
@@ -280,10 +280,10 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Alias configuration for the alias, including routing type and settings.
+     * The routing configuration, including routing type and fleet target, for the alias.
      * </p>
      * 
-     * @return Alias configuration for the alias, including routing type and settings.
+     * @return The routing configuration, including routing type and fleet target, for the alias.
      */
 
     public RoutingStrategy getRoutingStrategy() {
@@ -292,11 +292,11 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Alias configuration for the alias, including routing type and settings.
+     * The routing configuration, including routing type and fleet target, for the alias.
      * </p>
      * 
      * @param routingStrategy
-     *        Alias configuration for the alias, including routing type and settings.
+     *        The routing configuration, including routing type and fleet target, for the alias.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -307,13 +307,13 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Time stamp indicating when this data object was created. Format is a number expressed in Unix time as
-     * milliseconds (for example "1469498468.057").
+     * A time stamp indicating when this data object was created. Format is a number expressed in Unix time as
+     * milliseconds (for example <code>"1469498468.057"</code>).
      * </p>
      * 
      * @param creationTime
-     *        Time stamp indicating when this data object was created. Format is a number expressed in Unix time as
-     *        milliseconds (for example "1469498468.057").
+     *        A time stamp indicating when this data object was created. Format is a number expressed in Unix time as
+     *        milliseconds (for example <code>"1469498468.057"</code>).
      */
 
     public void setCreationTime(java.util.Date creationTime) {
@@ -322,12 +322,12 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Time stamp indicating when this data object was created. Format is a number expressed in Unix time as
-     * milliseconds (for example "1469498468.057").
+     * A time stamp indicating when this data object was created. Format is a number expressed in Unix time as
+     * milliseconds (for example <code>"1469498468.057"</code>).
      * </p>
      * 
-     * @return Time stamp indicating when this data object was created. Format is a number expressed in Unix time as
-     *         milliseconds (for example "1469498468.057").
+     * @return A time stamp indicating when this data object was created. Format is a number expressed in Unix time as
+     *         milliseconds (for example <code>"1469498468.057"</code>).
      */
 
     public java.util.Date getCreationTime() {
@@ -336,13 +336,13 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Time stamp indicating when this data object was created. Format is a number expressed in Unix time as
-     * milliseconds (for example "1469498468.057").
+     * A time stamp indicating when this data object was created. Format is a number expressed in Unix time as
+     * milliseconds (for example <code>"1469498468.057"</code>).
      * </p>
      * 
      * @param creationTime
-     *        Time stamp indicating when this data object was created. Format is a number expressed in Unix time as
-     *        milliseconds (for example "1469498468.057").
+     *        A time stamp indicating when this data object was created. Format is a number expressed in Unix time as
+     *        milliseconds (for example <code>"1469498468.057"</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -353,13 +353,13 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Time stamp indicating when this data object was last modified. Format is a number expressed in Unix time as
-     * milliseconds (for example "1469498468.057").
+     * The time that this data object was last modified. Format is a number expressed in Unix time as milliseconds (for
+     * example <code>"1469498468.057"</code>).
      * </p>
      * 
      * @param lastUpdatedTime
-     *        Time stamp indicating when this data object was last modified. Format is a number expressed in Unix time
-     *        as milliseconds (for example "1469498468.057").
+     *        The time that this data object was last modified. Format is a number expressed in Unix time as
+     *        milliseconds (for example <code>"1469498468.057"</code>).
      */
 
     public void setLastUpdatedTime(java.util.Date lastUpdatedTime) {
@@ -368,12 +368,12 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Time stamp indicating when this data object was last modified. Format is a number expressed in Unix time as
-     * milliseconds (for example "1469498468.057").
+     * The time that this data object was last modified. Format is a number expressed in Unix time as milliseconds (for
+     * example <code>"1469498468.057"</code>).
      * </p>
      * 
-     * @return Time stamp indicating when this data object was last modified. Format is a number expressed in Unix time
-     *         as milliseconds (for example "1469498468.057").
+     * @return The time that this data object was last modified. Format is a number expressed in Unix time as
+     *         milliseconds (for example <code>"1469498468.057"</code>).
      */
 
     public java.util.Date getLastUpdatedTime() {
@@ -382,13 +382,13 @@ public class Alias implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Time stamp indicating when this data object was last modified. Format is a number expressed in Unix time as
-     * milliseconds (for example "1469498468.057").
+     * The time that this data object was last modified. Format is a number expressed in Unix time as milliseconds (for
+     * example <code>"1469498468.057"</code>).
      * </p>
      * 
      * @param lastUpdatedTime
-     *        Time stamp indicating when this data object was last modified. Format is a number expressed in Unix time
-     *        as milliseconds (for example "1469498468.057").
+     *        The time that this data object was last modified. Format is a number expressed in Unix time as
+     *        milliseconds (for example <code>"1469498468.057"</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

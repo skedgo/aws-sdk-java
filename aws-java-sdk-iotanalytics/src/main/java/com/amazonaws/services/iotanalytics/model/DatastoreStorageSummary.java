@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Where data store data is stored.
+ * Contains information about your data store.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iotanalytics-2017-11-27/DatastoreStorageSummary"
@@ -30,24 +30,30 @@ public class DatastoreStorageSummary implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Used to store data store data in an S3 bucket managed by the AWS IoT Analytics service.
+     * Used to store data in an Amazon S3 bucket managed by IoT Analytics.
      * </p>
      */
     private ServiceManagedDatastoreS3StorageSummary serviceManagedS3;
     /**
      * <p>
-     * Used to store data store data in an S3 bucket that you manage.
+     * Used to store data in an Amazon S3 bucket managed by IoT Analytics.
      * </p>
      */
     private CustomerManagedDatastoreS3StorageSummary customerManagedS3;
+    /**
+     * <p>
+     * Used to store data used by IoT SiteWise in an Amazon S3 bucket that you manage.
+     * </p>
+     */
+    private DatastoreIotSiteWiseMultiLayerStorageSummary iotSiteWiseMultiLayerStorage;
 
     /**
      * <p>
-     * Used to store data store data in an S3 bucket managed by the AWS IoT Analytics service.
+     * Used to store data in an Amazon S3 bucket managed by IoT Analytics.
      * </p>
      * 
      * @param serviceManagedS3
-     *        Used to store data store data in an S3 bucket managed by the AWS IoT Analytics service.
+     *        Used to store data in an Amazon S3 bucket managed by IoT Analytics.
      */
 
     public void setServiceManagedS3(ServiceManagedDatastoreS3StorageSummary serviceManagedS3) {
@@ -56,10 +62,10 @@ public class DatastoreStorageSummary implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Used to store data store data in an S3 bucket managed by the AWS IoT Analytics service.
+     * Used to store data in an Amazon S3 bucket managed by IoT Analytics.
      * </p>
      * 
-     * @return Used to store data store data in an S3 bucket managed by the AWS IoT Analytics service.
+     * @return Used to store data in an Amazon S3 bucket managed by IoT Analytics.
      */
 
     public ServiceManagedDatastoreS3StorageSummary getServiceManagedS3() {
@@ -68,11 +74,11 @@ public class DatastoreStorageSummary implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Used to store data store data in an S3 bucket managed by the AWS IoT Analytics service.
+     * Used to store data in an Amazon S3 bucket managed by IoT Analytics.
      * </p>
      * 
      * @param serviceManagedS3
-     *        Used to store data store data in an S3 bucket managed by the AWS IoT Analytics service.
+     *        Used to store data in an Amazon S3 bucket managed by IoT Analytics.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -83,11 +89,11 @@ public class DatastoreStorageSummary implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Used to store data store data in an S3 bucket that you manage.
+     * Used to store data in an Amazon S3 bucket managed by IoT Analytics.
      * </p>
      * 
      * @param customerManagedS3
-     *        Used to store data store data in an S3 bucket that you manage.
+     *        Used to store data in an Amazon S3 bucket managed by IoT Analytics.
      */
 
     public void setCustomerManagedS3(CustomerManagedDatastoreS3StorageSummary customerManagedS3) {
@@ -96,10 +102,10 @@ public class DatastoreStorageSummary implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Used to store data store data in an S3 bucket that you manage.
+     * Used to store data in an Amazon S3 bucket managed by IoT Analytics.
      * </p>
      * 
-     * @return Used to store data store data in an S3 bucket that you manage.
+     * @return Used to store data in an Amazon S3 bucket managed by IoT Analytics.
      */
 
     public CustomerManagedDatastoreS3StorageSummary getCustomerManagedS3() {
@@ -108,16 +114,56 @@ public class DatastoreStorageSummary implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Used to store data store data in an S3 bucket that you manage.
+     * Used to store data in an Amazon S3 bucket managed by IoT Analytics.
      * </p>
      * 
      * @param customerManagedS3
-     *        Used to store data store data in an S3 bucket that you manage.
+     *        Used to store data in an Amazon S3 bucket managed by IoT Analytics.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DatastoreStorageSummary withCustomerManagedS3(CustomerManagedDatastoreS3StorageSummary customerManagedS3) {
         setCustomerManagedS3(customerManagedS3);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Used to store data used by IoT SiteWise in an Amazon S3 bucket that you manage.
+     * </p>
+     * 
+     * @param iotSiteWiseMultiLayerStorage
+     *        Used to store data used by IoT SiteWise in an Amazon S3 bucket that you manage.
+     */
+
+    public void setIotSiteWiseMultiLayerStorage(DatastoreIotSiteWiseMultiLayerStorageSummary iotSiteWiseMultiLayerStorage) {
+        this.iotSiteWiseMultiLayerStorage = iotSiteWiseMultiLayerStorage;
+    }
+
+    /**
+     * <p>
+     * Used to store data used by IoT SiteWise in an Amazon S3 bucket that you manage.
+     * </p>
+     * 
+     * @return Used to store data used by IoT SiteWise in an Amazon S3 bucket that you manage.
+     */
+
+    public DatastoreIotSiteWiseMultiLayerStorageSummary getIotSiteWiseMultiLayerStorage() {
+        return this.iotSiteWiseMultiLayerStorage;
+    }
+
+    /**
+     * <p>
+     * Used to store data used by IoT SiteWise in an Amazon S3 bucket that you manage.
+     * </p>
+     * 
+     * @param iotSiteWiseMultiLayerStorage
+     *        Used to store data used by IoT SiteWise in an Amazon S3 bucket that you manage.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DatastoreStorageSummary withIotSiteWiseMultiLayerStorage(DatastoreIotSiteWiseMultiLayerStorageSummary iotSiteWiseMultiLayerStorage) {
+        setIotSiteWiseMultiLayerStorage(iotSiteWiseMultiLayerStorage);
         return this;
     }
 
@@ -136,7 +182,9 @@ public class DatastoreStorageSummary implements Serializable, Cloneable, Structu
         if (getServiceManagedS3() != null)
             sb.append("ServiceManagedS3: ").append(getServiceManagedS3()).append(",");
         if (getCustomerManagedS3() != null)
-            sb.append("CustomerManagedS3: ").append(getCustomerManagedS3());
+            sb.append("CustomerManagedS3: ").append(getCustomerManagedS3()).append(",");
+        if (getIotSiteWiseMultiLayerStorage() != null)
+            sb.append("IotSiteWiseMultiLayerStorage: ").append(getIotSiteWiseMultiLayerStorage());
         sb.append("}");
         return sb.toString();
     }
@@ -159,6 +207,10 @@ public class DatastoreStorageSummary implements Serializable, Cloneable, Structu
             return false;
         if (other.getCustomerManagedS3() != null && other.getCustomerManagedS3().equals(this.getCustomerManagedS3()) == false)
             return false;
+        if (other.getIotSiteWiseMultiLayerStorage() == null ^ this.getIotSiteWiseMultiLayerStorage() == null)
+            return false;
+        if (other.getIotSiteWiseMultiLayerStorage() != null && other.getIotSiteWiseMultiLayerStorage().equals(this.getIotSiteWiseMultiLayerStorage()) == false)
+            return false;
         return true;
     }
 
@@ -169,6 +221,7 @@ public class DatastoreStorageSummary implements Serializable, Cloneable, Structu
 
         hashCode = prime * hashCode + ((getServiceManagedS3() == null) ? 0 : getServiceManagedS3().hashCode());
         hashCode = prime * hashCode + ((getCustomerManagedS3() == null) ? 0 : getCustomerManagedS3().hashCode());
+        hashCode = prime * hashCode + ((getIotSiteWiseMultiLayerStorage() == null) ? 0 : getIotSiteWiseMultiLayerStorage().hashCode());
         return hashCode;
     }
 

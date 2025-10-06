@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -63,56 +63,118 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>DelaySeconds</code> - The length of time, in seconds, for which the delivery of all messages in the queue
+     * <code>DelaySeconds</code> – The length of time, in seconds, for which the delivery of all messages in the queue
      * is delayed. Valid values: An integer from 0 to 900 seconds (15 minutes). Default: 0.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MaximumMessageSize</code> - The limit of how many bytes a message can contain before Amazon SQS rejects it.
+     * <code>MaximumMessageSize</code> – The limit of how many bytes a message can contain before Amazon SQS rejects it.
      * Valid values: An integer from 1,024 bytes (1 KiB) to 262,144 bytes (256 KiB). Default: 262,144 (256 KiB).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MessageRetentionPeriod</code> - The length of time, in seconds, for which Amazon SQS retains a message.
+     * <code>MessageRetentionPeriod</code> – The length of time, in seconds, for which Amazon SQS retains a message.
      * Valid values: An integer from 60 seconds (1 minute) to 1,209,600 seconds (14 days). Default: 345,600 (4 days).
+     * When you change a queue's attributes, the change can take up to 60 seconds for most of the attributes to
+     * propagate throughout the Amazon SQS system. Changes made to the <code>MessageRetentionPeriod</code> attribute can
+     * take up to 15 minutes and will impact existing messages in the queue potentially causing them to be expired and
+     * deleted if the <code>MessageRetentionPeriod</code> is reduced below the age of existing messages.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Policy</code> - The queue's policy. A valid AWS policy. For more information about policy structure, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html">Overview of AWS IAM Policies</a> in
-     * the <i>Amazon IAM User Guide</i>.
+     * <code>Policy</code> – The queue's policy. A valid Amazon Web Services policy. For more information about policy
+     * structure, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html">Overview of
+     * Amazon Web Services IAM Policies</a> in the <i>IAM User Guide</i>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ReceiveMessageWaitTimeSeconds</code> - The length of time, in seconds, for which a
+     * <code>ReceiveMessageWaitTimeSeconds</code> – The length of time, in seconds, for which a
      * <code> <a>ReceiveMessage</a> </code> action waits for a message to arrive. Valid values: An integer from 0 to 20
      * (seconds). Default: 0.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>RedrivePolicy</code> - The string that includes the parameters for the dead-letter queue functionality of
-     * the source queue. For more information about the redrive policy and dead-letter queues, see <a
+     * <code>VisibilityTimeout</code> – The visibility timeout for the queue, in seconds. Valid values: An integer from
+     * 0 to 43,200 (12 hours). Default: 30. For more information about the visibility timeout, see <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
+     * >Visibility Timeout</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes apply only to <a
      * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html"
-     * >Using Amazon SQS Dead-Letter Queues</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     * >dead-letter queues:</a>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>deadLetterTargetArn</code> - The Amazon Resource Name (ARN) of the dead-letter queue to which Amazon SQS
+     * <code>RedrivePolicy</code> – The string that includes the parameters for the dead-letter queue functionality of
+     * the source queue as a JSON object. The parameters are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>deadLetterTargetArn</code> – The Amazon Resource Name (ARN) of the dead-letter queue to which Amazon SQS
      * moves messages after the value of <code>maxReceiveCount</code> is exceeded.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>maxReceiveCount</code> - The number of times a message is delivered to the source queue before being moved
-     * to the dead-letter queue. When the <code>ReceiveCount</code> for a message exceeds the
+     * <code>maxReceiveCount</code> – The number of times a message is delivered to the source queue before being moved
+     * to the dead-letter queue. Default: 10. When the <code>ReceiveCount</code> for a message exceeds the
      * <code>maxReceiveCount</code> for a queue, Amazon SQS moves the message to the dead-letter-queue.
      * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RedriveAllowPolicy</code> – The string that includes the parameters for the permissions for the dead-letter
+     * queue redrive permission and which source queues can specify dead-letter queues as a JSON object. The parameters
+     * are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>redrivePermission</code> – The permission type that defines which source queues can specify the current
+     * queue as the dead-letter queue. Valid values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>allowAll</code> – (Default) Any source queues in this Amazon Web Services account in the same Region can
+     * specify this queue as the dead-letter queue.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>denyAll</code> – No source queues can specify this queue as the dead-letter queue.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>byQueue</code> – Only queues specified by the <code>sourceQueueArns</code> parameter can specify this queue
+     * as the dead-letter queue.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sourceQueueArns</code> – The Amazon Resource Names (ARN)s of the source queues that can specify this queue
+     * as the dead-letter queue and redrive messages. You can specify this parameter only when the
+     * <code>redrivePermission</code> parameter is set to <code>byQueue</code>. You can specify up to 10 source queue
+     * ARNs. To allow more than 10 source queues to specify dead-letter queues, set the <code>redrivePermission</code>
+     * parameter to <code>allowAll</code>.
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * <note>
@@ -120,16 +182,7 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * The dead-letter queue of a FIFO queue must also be a FIFO queue. Similarly, the dead-letter queue of a standard
      * queue must also be a standard queue.
      * </p>
-     * </note></li>
-     * <li>
-     * <p>
-     * <code>VisibilityTimeout</code> - The visibility timeout for the queue, in seconds. Valid values: An integer from
-     * 0 to 43,200 (12 hours). Default: 30. For more information about the visibility timeout, see <a
-     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
-     * >Visibility Timeout</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
-     * </p>
-     * </li>
-     * </ul>
+     * </note>
      * <p>
      * The following attributes apply only to <a href=
      * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html"
@@ -138,24 +191,35 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>KmsMasterKeyId</code> - The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CMK.
-     * For more information, see <a href=
+     * <code>KmsMasterKeyId</code> – The ID of an Amazon Web Services managed customer master key (CMK) for Amazon SQS
+     * or a custom CMK. For more information, see <a href=
      * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-sse-key-terms"
-     * >Key Terms</a>. While the alias of the AWS-managed CMK for Amazon SQS is always <code>alias/aws/sqs</code>, the
-     * alias of a custom CMK can, for example, be <code>alias/<i>MyAlias</i> </code>. For more examples, see <a href=
+     * >Key Terms</a>. While the alias of the Amazon Web Services managed CMK for Amazon SQS is always
+     * <code>alias/aws/sqs</code>, the alias of a custom CMK can, for example, be <code>alias/<i>MyAlias</i> </code>.
+     * For more examples, see <a href=
      * "https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters"
-     * >KeyId</a> in the <i>AWS Key Management Service API Reference</i>.
+     * >KeyId</a> in the <i>Key Management Service API Reference</i>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>KmsDataKeyReusePeriodSeconds</code> - The length of time, in seconds, for which Amazon SQS can reuse a <a
+     * <code>KmsDataKeyReusePeriodSeconds</code> – The length of time, in seconds, for which Amazon SQS can reuse a <a
      * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#data-keys">data key</a> to encrypt or
-     * decrypt messages before calling AWS KMS again. An integer representing seconds, between 60 seconds (1 minute) and
+     * decrypt messages before calling KMS again. An integer representing seconds, between 60 seconds (1 minute) and
      * 86,400 seconds (24 hours). Default: 300 (5 minutes). A shorter time period provides better security but results
      * in more calls to KMS which might incur charges after Free Tier. For more information, see <a href=
      * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-how-does-the-data-key-reuse-period-work"
-     * >How Does the Data Key Reuse Period Work?</a>.
+     * >How Does the Data Key Reuse Period Work?</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SqsManagedSseEnabled</code> – Enables server-side queue encryption using SQS owned encryption keys. Only
+     * one server-side encryption option is supported per queue (for example, <a href=
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sse-existing-queue.html"
+     * >SSE-KMS</a> or <a href=
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sqs-sse-queue.html"
+     * >SSE-SQS</a>).
      * </p>
      * </li>
      * </ul>
@@ -167,28 +231,28 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>FifoQueue</code> - Designates a queue as FIFO. Valid values: <code>true</code>, <code>false</code>. If you
-     * don't specify the <code>FifoQueue</code> attribute, Amazon SQS creates a standard queue. You can provide this
-     * attribute only during queue creation. You can't change it for an existing queue. When you set this attribute, you
-     * must also provide the <code>MessageGroupId</code> for your messages explicitly.
+     * <code>FifoQueue</code> – Designates a queue as FIFO. Valid values are <code>true</code> and <code>false</code>.
+     * If you don't specify the <code>FifoQueue</code> attribute, Amazon SQS creates a standard queue. You can provide
+     * this attribute only during queue creation. You can't change it for an existing queue. When you set this
+     * attribute, you must also provide the <code>MessageGroupId</code> for your messages explicitly.
      * </p>
      * <p>
      * For more information, see <a href=
-     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-understanding-logic"
-     * >FIFO Queue Logic</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-understanding-logic.html"
+     * >FIFO queue logic</a> in the <i>Amazon SQS Developer Guide</i>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ContentBasedDeduplication</code> - Enables content-based deduplication. Valid values: <code>true</code>,
-     * <code>false</code>. For more information, see <a href=
-     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-exactly-once-processing"
-     * >Exactly-Once Processing</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     * <code>ContentBasedDeduplication</code> – Enables content-based deduplication. Valid values are <code>true</code>
+     * and <code>false</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-exactly-once-processing.html"
+     * >Exactly-once processing</a> in the <i>Amazon SQS Developer Guide</i>. Note the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Every message must have a unique <code>MessageDeduplicationId</code>,
+     * Every message must have a unique <code>MessageDeduplicationId</code>.
      * </p>
      * <ul>
      * <li>
@@ -234,8 +298,102 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </ul>
      * </li>
      * </ul>
+     * <p>
+     * The following attributes apply only to <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/high-throughput-fifo.html">high
+     * throughput for FIFO queues</a>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DeduplicationScope</code> – Specifies whether message deduplication occurs at the message group or queue
+     * level. Valid values are <code>messageGroup</code> and <code>queue</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FifoThroughputLimit</code> – Specifies whether the FIFO queue throughput quota applies to the entire queue
+     * or per message group. Valid values are <code>perQueue</code> and <code>perMessageGroupId</code>. The
+     * <code>perMessageGroupId</code> value is allowed only when the value for <code>DeduplicationScope</code> is
+     * <code>messageGroup</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To enable high throughput for FIFO queues, do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Set <code>DeduplicationScope</code> to <code>messageGroup</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set <code>FifoThroughputLimit</code> to <code>perMessageGroupId</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you set these attributes to anything other than the values shown for enabling high throughput, normal
+     * throughput is in effect and deduplication occurs as specified.
+     * </p>
+     * <p>
+     * For information on throughput quotas, see <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html">Quotas
+     * related to messages</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
      */
     private com.amazonaws.internal.SdkInternalMap<String, String> attributes;
+    /**
+     * <p>
+     * Add cost allocation tags to the specified Amazon SQS queue. For an overview, see <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-tags.html">Tagging
+     * Your Amazon SQS Queues</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
+     * <p>
+     * When you use queue tags, keep the following guidelines in mind:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Adding more than 50 tags to a queue isn't recommended.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tags don't have any semantic meaning. Amazon SQS interprets tags as character strings.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tags are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * A new tag with a key identical to that of an existing tag overwrites the existing tag.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For a full list of tag restrictions, see <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-limits.html#limits-queues"
+     * >Quotas related to queues</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * To be able to tag a queue on creation, you must have the <code>sqs:CreateQueue</code> and
+     * <code>sqs:TagQueue</code> permissions.
+     * </p>
+     * <p>
+     * Cross-account permissions don't apply to this action. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-customer-managed-policy-examples.html#grant-cross-account-permissions-to-role-and-user-name"
+     * >Grant cross-account permissions to a role and a username</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
+     * </note>
+     */
+    private com.amazonaws.internal.SdkInternalMap<String, String> tags;
 
     /**
      * Default constructor for CreateQueueRequest object. Callers should use the setter or fluent setter (with...)
@@ -442,56 +600,118 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>DelaySeconds</code> - The length of time, in seconds, for which the delivery of all messages in the queue
+     * <code>DelaySeconds</code> – The length of time, in seconds, for which the delivery of all messages in the queue
      * is delayed. Valid values: An integer from 0 to 900 seconds (15 minutes). Default: 0.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MaximumMessageSize</code> - The limit of how many bytes a message can contain before Amazon SQS rejects it.
+     * <code>MaximumMessageSize</code> – The limit of how many bytes a message can contain before Amazon SQS rejects it.
      * Valid values: An integer from 1,024 bytes (1 KiB) to 262,144 bytes (256 KiB). Default: 262,144 (256 KiB).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MessageRetentionPeriod</code> - The length of time, in seconds, for which Amazon SQS retains a message.
+     * <code>MessageRetentionPeriod</code> – The length of time, in seconds, for which Amazon SQS retains a message.
      * Valid values: An integer from 60 seconds (1 minute) to 1,209,600 seconds (14 days). Default: 345,600 (4 days).
+     * When you change a queue's attributes, the change can take up to 60 seconds for most of the attributes to
+     * propagate throughout the Amazon SQS system. Changes made to the <code>MessageRetentionPeriod</code> attribute can
+     * take up to 15 minutes and will impact existing messages in the queue potentially causing them to be expired and
+     * deleted if the <code>MessageRetentionPeriod</code> is reduced below the age of existing messages.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Policy</code> - The queue's policy. A valid AWS policy. For more information about policy structure, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html">Overview of AWS IAM Policies</a> in
-     * the <i>Amazon IAM User Guide</i>.
+     * <code>Policy</code> – The queue's policy. A valid Amazon Web Services policy. For more information about policy
+     * structure, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html">Overview of
+     * Amazon Web Services IAM Policies</a> in the <i>IAM User Guide</i>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ReceiveMessageWaitTimeSeconds</code> - The length of time, in seconds, for which a
+     * <code>ReceiveMessageWaitTimeSeconds</code> – The length of time, in seconds, for which a
      * <code> <a>ReceiveMessage</a> </code> action waits for a message to arrive. Valid values: An integer from 0 to 20
      * (seconds). Default: 0.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>RedrivePolicy</code> - The string that includes the parameters for the dead-letter queue functionality of
-     * the source queue. For more information about the redrive policy and dead-letter queues, see <a
+     * <code>VisibilityTimeout</code> – The visibility timeout for the queue, in seconds. Valid values: An integer from
+     * 0 to 43,200 (12 hours). Default: 30. For more information about the visibility timeout, see <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
+     * >Visibility Timeout</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes apply only to <a
      * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html"
-     * >Using Amazon SQS Dead-Letter Queues</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     * >dead-letter queues:</a>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>deadLetterTargetArn</code> - The Amazon Resource Name (ARN) of the dead-letter queue to which Amazon SQS
+     * <code>RedrivePolicy</code> – The string that includes the parameters for the dead-letter queue functionality of
+     * the source queue as a JSON object. The parameters are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>deadLetterTargetArn</code> – The Amazon Resource Name (ARN) of the dead-letter queue to which Amazon SQS
      * moves messages after the value of <code>maxReceiveCount</code> is exceeded.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>maxReceiveCount</code> - The number of times a message is delivered to the source queue before being moved
-     * to the dead-letter queue. When the <code>ReceiveCount</code> for a message exceeds the
+     * <code>maxReceiveCount</code> – The number of times a message is delivered to the source queue before being moved
+     * to the dead-letter queue. Default: 10. When the <code>ReceiveCount</code> for a message exceeds the
      * <code>maxReceiveCount</code> for a queue, Amazon SQS moves the message to the dead-letter-queue.
      * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RedriveAllowPolicy</code> – The string that includes the parameters for the permissions for the dead-letter
+     * queue redrive permission and which source queues can specify dead-letter queues as a JSON object. The parameters
+     * are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>redrivePermission</code> – The permission type that defines which source queues can specify the current
+     * queue as the dead-letter queue. Valid values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>allowAll</code> – (Default) Any source queues in this Amazon Web Services account in the same Region can
+     * specify this queue as the dead-letter queue.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>denyAll</code> – No source queues can specify this queue as the dead-letter queue.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>byQueue</code> – Only queues specified by the <code>sourceQueueArns</code> parameter can specify this queue
+     * as the dead-letter queue.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sourceQueueArns</code> – The Amazon Resource Names (ARN)s of the source queues that can specify this queue
+     * as the dead-letter queue and redrive messages. You can specify this parameter only when the
+     * <code>redrivePermission</code> parameter is set to <code>byQueue</code>. You can specify up to 10 source queue
+     * ARNs. To allow more than 10 source queues to specify dead-letter queues, set the <code>redrivePermission</code>
+     * parameter to <code>allowAll</code>.
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * <note>
@@ -499,16 +719,7 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * The dead-letter queue of a FIFO queue must also be a FIFO queue. Similarly, the dead-letter queue of a standard
      * queue must also be a standard queue.
      * </p>
-     * </note></li>
-     * <li>
-     * <p>
-     * <code>VisibilityTimeout</code> - The visibility timeout for the queue, in seconds. Valid values: An integer from
-     * 0 to 43,200 (12 hours). Default: 30. For more information about the visibility timeout, see <a
-     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
-     * >Visibility Timeout</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
-     * </p>
-     * </li>
-     * </ul>
+     * </note>
      * <p>
      * The following attributes apply only to <a href=
      * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html"
@@ -517,24 +728,35 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>KmsMasterKeyId</code> - The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CMK.
-     * For more information, see <a href=
+     * <code>KmsMasterKeyId</code> – The ID of an Amazon Web Services managed customer master key (CMK) for Amazon SQS
+     * or a custom CMK. For more information, see <a href=
      * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-sse-key-terms"
-     * >Key Terms</a>. While the alias of the AWS-managed CMK for Amazon SQS is always <code>alias/aws/sqs</code>, the
-     * alias of a custom CMK can, for example, be <code>alias/<i>MyAlias</i> </code>. For more examples, see <a href=
+     * >Key Terms</a>. While the alias of the Amazon Web Services managed CMK for Amazon SQS is always
+     * <code>alias/aws/sqs</code>, the alias of a custom CMK can, for example, be <code>alias/<i>MyAlias</i> </code>.
+     * For more examples, see <a href=
      * "https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters"
-     * >KeyId</a> in the <i>AWS Key Management Service API Reference</i>.
+     * >KeyId</a> in the <i>Key Management Service API Reference</i>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>KmsDataKeyReusePeriodSeconds</code> - The length of time, in seconds, for which Amazon SQS can reuse a <a
+     * <code>KmsDataKeyReusePeriodSeconds</code> – The length of time, in seconds, for which Amazon SQS can reuse a <a
      * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#data-keys">data key</a> to encrypt or
-     * decrypt messages before calling AWS KMS again. An integer representing seconds, between 60 seconds (1 minute) and
+     * decrypt messages before calling KMS again. An integer representing seconds, between 60 seconds (1 minute) and
      * 86,400 seconds (24 hours). Default: 300 (5 minutes). A shorter time period provides better security but results
      * in more calls to KMS which might incur charges after Free Tier. For more information, see <a href=
      * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-how-does-the-data-key-reuse-period-work"
-     * >How Does the Data Key Reuse Period Work?</a>.
+     * >How Does the Data Key Reuse Period Work?</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SqsManagedSseEnabled</code> – Enables server-side queue encryption using SQS owned encryption keys. Only
+     * one server-side encryption option is supported per queue (for example, <a href=
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sse-existing-queue.html"
+     * >SSE-KMS</a> or <a href=
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sqs-sse-queue.html"
+     * >SSE-SQS</a>).
      * </p>
      * </li>
      * </ul>
@@ -546,28 +768,28 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>FifoQueue</code> - Designates a queue as FIFO. Valid values: <code>true</code>, <code>false</code>. If you
-     * don't specify the <code>FifoQueue</code> attribute, Amazon SQS creates a standard queue. You can provide this
-     * attribute only during queue creation. You can't change it for an existing queue. When you set this attribute, you
-     * must also provide the <code>MessageGroupId</code> for your messages explicitly.
+     * <code>FifoQueue</code> – Designates a queue as FIFO. Valid values are <code>true</code> and <code>false</code>.
+     * If you don't specify the <code>FifoQueue</code> attribute, Amazon SQS creates a standard queue. You can provide
+     * this attribute only during queue creation. You can't change it for an existing queue. When you set this
+     * attribute, you must also provide the <code>MessageGroupId</code> for your messages explicitly.
      * </p>
      * <p>
      * For more information, see <a href=
-     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-understanding-logic"
-     * >FIFO Queue Logic</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-understanding-logic.html"
+     * >FIFO queue logic</a> in the <i>Amazon SQS Developer Guide</i>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ContentBasedDeduplication</code> - Enables content-based deduplication. Valid values: <code>true</code>,
-     * <code>false</code>. For more information, see <a href=
-     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-exactly-once-processing"
-     * >Exactly-Once Processing</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     * <code>ContentBasedDeduplication</code> – Enables content-based deduplication. Valid values are <code>true</code>
+     * and <code>false</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-exactly-once-processing.html"
+     * >Exactly-once processing</a> in the <i>Amazon SQS Developer Guide</i>. Note the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Every message must have a unique <code>MessageDeduplicationId</code>,
+     * Every message must have a unique <code>MessageDeduplicationId</code>.
      * </p>
      * <ul>
      * <li>
@@ -613,6 +835,51 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </ul>
      * </li>
      * </ul>
+     * <p>
+     * The following attributes apply only to <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/high-throughput-fifo.html">high
+     * throughput for FIFO queues</a>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DeduplicationScope</code> – Specifies whether message deduplication occurs at the message group or queue
+     * level. Valid values are <code>messageGroup</code> and <code>queue</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FifoThroughputLimit</code> – Specifies whether the FIFO queue throughput quota applies to the entire queue
+     * or per message group. Valid values are <code>perQueue</code> and <code>perMessageGroupId</code>. The
+     * <code>perMessageGroupId</code> value is allowed only when the value for <code>DeduplicationScope</code> is
+     * <code>messageGroup</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To enable high throughput for FIFO queues, do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Set <code>DeduplicationScope</code> to <code>messageGroup</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set <code>FifoThroughputLimit</code> to <code>perMessageGroupId</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you set these attributes to anything other than the values shown for enabling high throughput, normal
+     * throughput is in effect and deduplication occurs as specified.
+     * </p>
+     * <p>
+     * For information on throughput quotas, see <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html">Quotas
+     * related to messages</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
      * 
      * @return A map of attributes with their corresponding values.</p>
      *         <p>
@@ -622,59 +889,123 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>DelaySeconds</code> - The length of time, in seconds, for which the delivery of all messages in the
+     *         <code>DelaySeconds</code> – The length of time, in seconds, for which the delivery of all messages in the
      *         queue is delayed. Valid values: An integer from 0 to 900 seconds (15 minutes). Default: 0.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>MaximumMessageSize</code> - The limit of how many bytes a message can contain before Amazon SQS
+     *         <code>MaximumMessageSize</code> – The limit of how many bytes a message can contain before Amazon SQS
      *         rejects it. Valid values: An integer from 1,024 bytes (1 KiB) to 262,144 bytes (256 KiB). Default:
      *         262,144 (256 KiB).
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>MessageRetentionPeriod</code> - The length of time, in seconds, for which Amazon SQS retains a
+     *         <code>MessageRetentionPeriod</code> – The length of time, in seconds, for which Amazon SQS retains a
      *         message. Valid values: An integer from 60 seconds (1 minute) to 1,209,600 seconds (14 days). Default:
-     *         345,600 (4 days).
+     *         345,600 (4 days). When you change a queue's attributes, the change can take up to 60 seconds for most of
+     *         the attributes to propagate throughout the Amazon SQS system. Changes made to the
+     *         <code>MessageRetentionPeriod</code> attribute can take up to 15 minutes and will impact existing messages
+     *         in the queue potentially causing them to be expired and deleted if the
+     *         <code>MessageRetentionPeriod</code> is reduced below the age of existing messages.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>Policy</code> - The queue's policy. A valid AWS policy. For more information about policy
-     *         structure, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html">Overview
-     *         of AWS IAM Policies</a> in the <i>Amazon IAM User Guide</i>.
+     *         <code>Policy</code> – The queue's policy. A valid Amazon Web Services policy. For more information about
+     *         policy structure, see <a
+     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html">Overview of Amazon Web
+     *         Services IAM Policies</a> in the <i>IAM User Guide</i>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>ReceiveMessageWaitTimeSeconds</code> - The length of time, in seconds, for which a
+     *         <code>ReceiveMessageWaitTimeSeconds</code> – The length of time, in seconds, for which a
      *         <code> <a>ReceiveMessage</a> </code> action waits for a message to arrive. Valid values: An integer from
      *         0 to 20 (seconds). Default: 0.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>RedrivePolicy</code> - The string that includes the parameters for the dead-letter queue
-     *         functionality of the source queue. For more information about the redrive policy and dead-letter queues,
-     *         see <a href=
+     *         <code>VisibilityTimeout</code> – The visibility timeout for the queue, in seconds. Valid values: An
+     *         integer from 0 to 43,200 (12 hours). Default: 30. For more information about the visibility timeout, see
+     *         <a href=
+     *         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
+     *         >Visibility Timeout</a> in the <i>Amazon SQS Developer Guide</i>.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The following attributes apply only to <a href=
      *         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html"
-     *         >Using Amazon SQS Dead-Letter Queues</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     *         >dead-letter queues:</a>
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>deadLetterTargetArn</code> - The Amazon Resource Name (ARN) of the dead-letter queue to which
+     *         <code>RedrivePolicy</code> – The string that includes the parameters for the dead-letter queue
+     *         functionality of the source queue as a JSON object. The parameters are as follows:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>deadLetterTargetArn</code> – The Amazon Resource Name (ARN) of the dead-letter queue to which
      *         Amazon SQS moves messages after the value of <code>maxReceiveCount</code> is exceeded.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>maxReceiveCount</code> - The number of times a message is delivered to the source queue before
-     *         being moved to the dead-letter queue. When the <code>ReceiveCount</code> for a message exceeds the
-     *         <code>maxReceiveCount</code> for a queue, Amazon SQS moves the message to the dead-letter-queue.
+     *         <code>maxReceiveCount</code> – The number of times a message is delivered to the source queue before
+     *         being moved to the dead-letter queue. Default: 10. When the <code>ReceiveCount</code> for a message
+     *         exceeds the <code>maxReceiveCount</code> for a queue, Amazon SQS moves the message to the
+     *         dead-letter-queue.
      *         </p>
+     *         </li>
+     *         </ul>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>RedriveAllowPolicy</code> – The string that includes the parameters for the permissions for the
+     *         dead-letter queue redrive permission and which source queues can specify dead-letter queues as a JSON
+     *         object. The parameters are as follows:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>redrivePermission</code> – The permission type that defines which source queues can specify the
+     *         current queue as the dead-letter queue. Valid values are:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>allowAll</code> – (Default) Any source queues in this Amazon Web Services account in the same
+     *         Region can specify this queue as the dead-letter queue.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>denyAll</code> – No source queues can specify this queue as the dead-letter queue.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>byQueue</code> – Only queues specified by the <code>sourceQueueArns</code> parameter can specify
+     *         this queue as the dead-letter queue.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sourceQueueArns</code> – The Amazon Resource Names (ARN)s of the source queues that can specify
+     *         this queue as the dead-letter queue and redrive messages. You can specify this parameter only when the
+     *         <code>redrivePermission</code> parameter is set to <code>byQueue</code>. You can specify up to 10 source
+     *         queue ARNs. To allow more than 10 source queues to specify dead-letter queues, set the
+     *         <code>redrivePermission</code> parameter to <code>allowAll</code>.
+     *         </p>
+     *         </li>
+     *         </ul>
      *         </li>
      *         </ul>
      *         <note>
@@ -682,17 +1013,7 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         The dead-letter queue of a FIFO queue must also be a FIFO queue. Similarly, the dead-letter queue of a
      *         standard queue must also be a standard queue.
      *         </p>
-     *         </note></li>
-     *         <li>
-     *         <p>
-     *         <code>VisibilityTimeout</code> - The visibility timeout for the queue, in seconds. Valid values: An
-     *         integer from 0 to 43,200 (12 hours). Default: 30. For more information about the visibility timeout, see
-     *         <a href=
-     *         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
-     *         >Visibility Timeout</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
-     *         </p>
-     *         </li>
-     *         </ul>
+     *         </note>
      *         <p>
      *         The following attributes apply only to <a href=
      *         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html"
@@ -701,26 +1022,36 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>KmsMasterKeyId</code> - The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a
-     *         custom CMK. For more information, see <a href=
+     *         <code>KmsMasterKeyId</code> – The ID of an Amazon Web Services managed customer master key (CMK) for
+     *         Amazon SQS or a custom CMK. For more information, see <a href=
      *         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-sse-key-terms"
-     *         >Key Terms</a>. While the alias of the AWS-managed CMK for Amazon SQS is always
+     *         >Key Terms</a>. While the alias of the Amazon Web Services managed CMK for Amazon SQS is always
      *         <code>alias/aws/sqs</code>, the alias of a custom CMK can, for example, be
      *         <code>alias/<i>MyAlias</i> </code>. For more examples, see <a href=
      *         "https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters"
-     *         >KeyId</a> in the <i>AWS Key Management Service API Reference</i>.
+     *         >KeyId</a> in the <i>Key Management Service API Reference</i>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>KmsDataKeyReusePeriodSeconds</code> - The length of time, in seconds, for which Amazon SQS can
+     *         <code>KmsDataKeyReusePeriodSeconds</code> – The length of time, in seconds, for which Amazon SQS can
      *         reuse a <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#data-keys">data
-     *         key</a> to encrypt or decrypt messages before calling AWS KMS again. An integer representing seconds,
-     *         between 60 seconds (1 minute) and 86,400 seconds (24 hours). Default: 300 (5 minutes). A shorter time
-     *         period provides better security but results in more calls to KMS which might incur charges after Free
-     *         Tier. For more information, see <a href=
+     *         key</a> to encrypt or decrypt messages before calling KMS again. An integer representing seconds, between
+     *         60 seconds (1 minute) and 86,400 seconds (24 hours). Default: 300 (5 minutes). A shorter time period
+     *         provides better security but results in more calls to KMS which might incur charges after Free Tier. For
+     *         more information, see <a href=
      *         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-how-does-the-data-key-reuse-period-work"
-     *         >How Does the Data Key Reuse Period Work?</a>.
+     *         >How Does the Data Key Reuse Period Work?</a>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>SqsManagedSseEnabled</code> – Enables server-side queue encryption using SQS owned encryption keys.
+     *         Only one server-side encryption option is supported per queue (for example, <a href=
+     *         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sse-existing-queue.html"
+     *         >SSE-KMS</a> or <a href=
+     *         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sqs-sse-queue.html"
+     *         >SSE-SQS</a>).
      *         </p>
      *         </li>
      *         </ul>
@@ -732,28 +1063,29 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>FifoQueue</code> - Designates a queue as FIFO. Valid values: <code>true</code>, <code>false</code>.
-     *         If you don't specify the <code>FifoQueue</code> attribute, Amazon SQS creates a standard queue. You can
-     *         provide this attribute only during queue creation. You can't change it for an existing queue. When you
-     *         set this attribute, you must also provide the <code>MessageGroupId</code> for your messages explicitly.
+     *         <code>FifoQueue</code> – Designates a queue as FIFO. Valid values are <code>true</code> and
+     *         <code>false</code>. If you don't specify the <code>FifoQueue</code> attribute, Amazon SQS creates a
+     *         standard queue. You can provide this attribute only during queue creation. You can't change it for an
+     *         existing queue. When you set this attribute, you must also provide the <code>MessageGroupId</code> for
+     *         your messages explicitly.
      *         </p>
      *         <p>
      *         For more information, see <a href=
-     *         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-understanding-logic"
-     *         >FIFO Queue Logic</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     *         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-understanding-logic.html"
+     *         >FIFO queue logic</a> in the <i>Amazon SQS Developer Guide</i>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>ContentBasedDeduplication</code> - Enables content-based deduplication. Valid values:
-     *         <code>true</code>, <code>false</code>. For more information, see <a href=
-     *         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-exactly-once-processing"
-     *         >Exactly-Once Processing</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     *         <code>ContentBasedDeduplication</code> – Enables content-based deduplication. Valid values are
+     *         <code>true</code> and <code>false</code>. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-exactly-once-processing.html"
+     *         >Exactly-once processing</a> in the <i>Amazon SQS Developer Guide</i>. Note the following:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         Every message must have a unique <code>MessageDeduplicationId</code>,
+     *         Every message must have a unique <code>MessageDeduplicationId</code>.
      *         </p>
      *         <ul>
      *         <li>
@@ -799,6 +1131,51 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         </li>
      *         </ul>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         The following attributes apply only to <a href=
+     *         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/high-throughput-fifo.html"
+     *         >high throughput for FIFO queues</a>:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>DeduplicationScope</code> – Specifies whether message deduplication occurs at the message group or
+     *         queue level. Valid values are <code>messageGroup</code> and <code>queue</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>FifoThroughputLimit</code> – Specifies whether the FIFO queue throughput quota applies to the
+     *         entire queue or per message group. Valid values are <code>perQueue</code> and
+     *         <code>perMessageGroupId</code>. The <code>perMessageGroupId</code> value is allowed only when the value
+     *         for <code>DeduplicationScope</code> is <code>messageGroup</code>.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         To enable high throughput for FIFO queues, do the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Set <code>DeduplicationScope</code> to <code>messageGroup</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Set <code>FifoThroughputLimit</code> to <code>perMessageGroupId</code>.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         If you set these attributes to anything other than the values shown for enabling high throughput, normal
+     *         throughput is in effect and deduplication occurs as specified.
+     *         </p>
+     *         <p>
+     *         For information on throughput quotas, see <a
+     *         href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html"
+     *         >Quotas related to messages</a> in the <i>Amazon SQS Developer Guide</i>.
      */
 
     public java.util.Map<String, String> getAttributes() {
@@ -819,56 +1196,118 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>DelaySeconds</code> - The length of time, in seconds, for which the delivery of all messages in the queue
+     * <code>DelaySeconds</code> – The length of time, in seconds, for which the delivery of all messages in the queue
      * is delayed. Valid values: An integer from 0 to 900 seconds (15 minutes). Default: 0.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MaximumMessageSize</code> - The limit of how many bytes a message can contain before Amazon SQS rejects it.
+     * <code>MaximumMessageSize</code> – The limit of how many bytes a message can contain before Amazon SQS rejects it.
      * Valid values: An integer from 1,024 bytes (1 KiB) to 262,144 bytes (256 KiB). Default: 262,144 (256 KiB).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MessageRetentionPeriod</code> - The length of time, in seconds, for which Amazon SQS retains a message.
+     * <code>MessageRetentionPeriod</code> – The length of time, in seconds, for which Amazon SQS retains a message.
      * Valid values: An integer from 60 seconds (1 minute) to 1,209,600 seconds (14 days). Default: 345,600 (4 days).
+     * When you change a queue's attributes, the change can take up to 60 seconds for most of the attributes to
+     * propagate throughout the Amazon SQS system. Changes made to the <code>MessageRetentionPeriod</code> attribute can
+     * take up to 15 minutes and will impact existing messages in the queue potentially causing them to be expired and
+     * deleted if the <code>MessageRetentionPeriod</code> is reduced below the age of existing messages.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Policy</code> - The queue's policy. A valid AWS policy. For more information about policy structure, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html">Overview of AWS IAM Policies</a> in
-     * the <i>Amazon IAM User Guide</i>.
+     * <code>Policy</code> – The queue's policy. A valid Amazon Web Services policy. For more information about policy
+     * structure, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html">Overview of
+     * Amazon Web Services IAM Policies</a> in the <i>IAM User Guide</i>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ReceiveMessageWaitTimeSeconds</code> - The length of time, in seconds, for which a
+     * <code>ReceiveMessageWaitTimeSeconds</code> – The length of time, in seconds, for which a
      * <code> <a>ReceiveMessage</a> </code> action waits for a message to arrive. Valid values: An integer from 0 to 20
      * (seconds). Default: 0.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>RedrivePolicy</code> - The string that includes the parameters for the dead-letter queue functionality of
-     * the source queue. For more information about the redrive policy and dead-letter queues, see <a
+     * <code>VisibilityTimeout</code> – The visibility timeout for the queue, in seconds. Valid values: An integer from
+     * 0 to 43,200 (12 hours). Default: 30. For more information about the visibility timeout, see <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
+     * >Visibility Timeout</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes apply only to <a
      * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html"
-     * >Using Amazon SQS Dead-Letter Queues</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     * >dead-letter queues:</a>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>deadLetterTargetArn</code> - The Amazon Resource Name (ARN) of the dead-letter queue to which Amazon SQS
+     * <code>RedrivePolicy</code> – The string that includes the parameters for the dead-letter queue functionality of
+     * the source queue as a JSON object. The parameters are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>deadLetterTargetArn</code> – The Amazon Resource Name (ARN) of the dead-letter queue to which Amazon SQS
      * moves messages after the value of <code>maxReceiveCount</code> is exceeded.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>maxReceiveCount</code> - The number of times a message is delivered to the source queue before being moved
-     * to the dead-letter queue. When the <code>ReceiveCount</code> for a message exceeds the
+     * <code>maxReceiveCount</code> – The number of times a message is delivered to the source queue before being moved
+     * to the dead-letter queue. Default: 10. When the <code>ReceiveCount</code> for a message exceeds the
      * <code>maxReceiveCount</code> for a queue, Amazon SQS moves the message to the dead-letter-queue.
      * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RedriveAllowPolicy</code> – The string that includes the parameters for the permissions for the dead-letter
+     * queue redrive permission and which source queues can specify dead-letter queues as a JSON object. The parameters
+     * are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>redrivePermission</code> – The permission type that defines which source queues can specify the current
+     * queue as the dead-letter queue. Valid values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>allowAll</code> – (Default) Any source queues in this Amazon Web Services account in the same Region can
+     * specify this queue as the dead-letter queue.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>denyAll</code> – No source queues can specify this queue as the dead-letter queue.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>byQueue</code> – Only queues specified by the <code>sourceQueueArns</code> parameter can specify this queue
+     * as the dead-letter queue.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sourceQueueArns</code> – The Amazon Resource Names (ARN)s of the source queues that can specify this queue
+     * as the dead-letter queue and redrive messages. You can specify this parameter only when the
+     * <code>redrivePermission</code> parameter is set to <code>byQueue</code>. You can specify up to 10 source queue
+     * ARNs. To allow more than 10 source queues to specify dead-letter queues, set the <code>redrivePermission</code>
+     * parameter to <code>allowAll</code>.
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * <note>
@@ -876,16 +1315,7 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * The dead-letter queue of a FIFO queue must also be a FIFO queue. Similarly, the dead-letter queue of a standard
      * queue must also be a standard queue.
      * </p>
-     * </note></li>
-     * <li>
-     * <p>
-     * <code>VisibilityTimeout</code> - The visibility timeout for the queue, in seconds. Valid values: An integer from
-     * 0 to 43,200 (12 hours). Default: 30. For more information about the visibility timeout, see <a
-     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
-     * >Visibility Timeout</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
-     * </p>
-     * </li>
-     * </ul>
+     * </note>
      * <p>
      * The following attributes apply only to <a href=
      * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html"
@@ -894,24 +1324,35 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>KmsMasterKeyId</code> - The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CMK.
-     * For more information, see <a href=
+     * <code>KmsMasterKeyId</code> – The ID of an Amazon Web Services managed customer master key (CMK) for Amazon SQS
+     * or a custom CMK. For more information, see <a href=
      * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-sse-key-terms"
-     * >Key Terms</a>. While the alias of the AWS-managed CMK for Amazon SQS is always <code>alias/aws/sqs</code>, the
-     * alias of a custom CMK can, for example, be <code>alias/<i>MyAlias</i> </code>. For more examples, see <a href=
+     * >Key Terms</a>. While the alias of the Amazon Web Services managed CMK for Amazon SQS is always
+     * <code>alias/aws/sqs</code>, the alias of a custom CMK can, for example, be <code>alias/<i>MyAlias</i> </code>.
+     * For more examples, see <a href=
      * "https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters"
-     * >KeyId</a> in the <i>AWS Key Management Service API Reference</i>.
+     * >KeyId</a> in the <i>Key Management Service API Reference</i>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>KmsDataKeyReusePeriodSeconds</code> - The length of time, in seconds, for which Amazon SQS can reuse a <a
+     * <code>KmsDataKeyReusePeriodSeconds</code> – The length of time, in seconds, for which Amazon SQS can reuse a <a
      * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#data-keys">data key</a> to encrypt or
-     * decrypt messages before calling AWS KMS again. An integer representing seconds, between 60 seconds (1 minute) and
+     * decrypt messages before calling KMS again. An integer representing seconds, between 60 seconds (1 minute) and
      * 86,400 seconds (24 hours). Default: 300 (5 minutes). A shorter time period provides better security but results
      * in more calls to KMS which might incur charges after Free Tier. For more information, see <a href=
      * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-how-does-the-data-key-reuse-period-work"
-     * >How Does the Data Key Reuse Period Work?</a>.
+     * >How Does the Data Key Reuse Period Work?</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SqsManagedSseEnabled</code> – Enables server-side queue encryption using SQS owned encryption keys. Only
+     * one server-side encryption option is supported per queue (for example, <a href=
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sse-existing-queue.html"
+     * >SSE-KMS</a> or <a href=
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sqs-sse-queue.html"
+     * >SSE-SQS</a>).
      * </p>
      * </li>
      * </ul>
@@ -923,28 +1364,28 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>FifoQueue</code> - Designates a queue as FIFO. Valid values: <code>true</code>, <code>false</code>. If you
-     * don't specify the <code>FifoQueue</code> attribute, Amazon SQS creates a standard queue. You can provide this
-     * attribute only during queue creation. You can't change it for an existing queue. When you set this attribute, you
-     * must also provide the <code>MessageGroupId</code> for your messages explicitly.
+     * <code>FifoQueue</code> – Designates a queue as FIFO. Valid values are <code>true</code> and <code>false</code>.
+     * If you don't specify the <code>FifoQueue</code> attribute, Amazon SQS creates a standard queue. You can provide
+     * this attribute only during queue creation. You can't change it for an existing queue. When you set this
+     * attribute, you must also provide the <code>MessageGroupId</code> for your messages explicitly.
      * </p>
      * <p>
      * For more information, see <a href=
-     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-understanding-logic"
-     * >FIFO Queue Logic</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-understanding-logic.html"
+     * >FIFO queue logic</a> in the <i>Amazon SQS Developer Guide</i>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ContentBasedDeduplication</code> - Enables content-based deduplication. Valid values: <code>true</code>,
-     * <code>false</code>. For more information, see <a href=
-     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-exactly-once-processing"
-     * >Exactly-Once Processing</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     * <code>ContentBasedDeduplication</code> – Enables content-based deduplication. Valid values are <code>true</code>
+     * and <code>false</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-exactly-once-processing.html"
+     * >Exactly-once processing</a> in the <i>Amazon SQS Developer Guide</i>. Note the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Every message must have a unique <code>MessageDeduplicationId</code>,
+     * Every message must have a unique <code>MessageDeduplicationId</code>.
      * </p>
      * <ul>
      * <li>
@@ -990,6 +1431,51 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </ul>
      * </li>
      * </ul>
+     * <p>
+     * The following attributes apply only to <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/high-throughput-fifo.html">high
+     * throughput for FIFO queues</a>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DeduplicationScope</code> – Specifies whether message deduplication occurs at the message group or queue
+     * level. Valid values are <code>messageGroup</code> and <code>queue</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FifoThroughputLimit</code> – Specifies whether the FIFO queue throughput quota applies to the entire queue
+     * or per message group. Valid values are <code>perQueue</code> and <code>perMessageGroupId</code>. The
+     * <code>perMessageGroupId</code> value is allowed only when the value for <code>DeduplicationScope</code> is
+     * <code>messageGroup</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To enable high throughput for FIFO queues, do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Set <code>DeduplicationScope</code> to <code>messageGroup</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set <code>FifoThroughputLimit</code> to <code>perMessageGroupId</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you set these attributes to anything other than the values shown for enabling high throughput, normal
+     * throughput is in effect and deduplication occurs as specified.
+     * </p>
+     * <p>
+     * For information on throughput quotas, see <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html">Quotas
+     * related to messages</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
      * 
      * @param attributes
      *        A map of attributes with their corresponding values.</p>
@@ -1000,59 +1486,122 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>DelaySeconds</code> - The length of time, in seconds, for which the delivery of all messages in the
+     *        <code>DelaySeconds</code> – The length of time, in seconds, for which the delivery of all messages in the
      *        queue is delayed. Valid values: An integer from 0 to 900 seconds (15 minutes). Default: 0.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MaximumMessageSize</code> - The limit of how many bytes a message can contain before Amazon SQS
+     *        <code>MaximumMessageSize</code> – The limit of how many bytes a message can contain before Amazon SQS
      *        rejects it. Valid values: An integer from 1,024 bytes (1 KiB) to 262,144 bytes (256 KiB). Default: 262,144
      *        (256 KiB).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MessageRetentionPeriod</code> - The length of time, in seconds, for which Amazon SQS retains a
+     *        <code>MessageRetentionPeriod</code> – The length of time, in seconds, for which Amazon SQS retains a
      *        message. Valid values: An integer from 60 seconds (1 minute) to 1,209,600 seconds (14 days). Default:
-     *        345,600 (4 days).
+     *        345,600 (4 days). When you change a queue's attributes, the change can take up to 60 seconds for most of
+     *        the attributes to propagate throughout the Amazon SQS system. Changes made to the
+     *        <code>MessageRetentionPeriod</code> attribute can take up to 15 minutes and will impact existing messages
+     *        in the queue potentially causing them to be expired and deleted if the <code>MessageRetentionPeriod</code>
+     *        is reduced below the age of existing messages.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Policy</code> - The queue's policy. A valid AWS policy. For more information about policy structure,
-     *        see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html">Overview of AWS IAM
-     *        Policies</a> in the <i>Amazon IAM User Guide</i>.
+     *        <code>Policy</code> – The queue's policy. A valid Amazon Web Services policy. For more information about
+     *        policy structure, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html">Overview of Amazon Web
+     *        Services IAM Policies</a> in the <i>IAM User Guide</i>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ReceiveMessageWaitTimeSeconds</code> - The length of time, in seconds, for which a
+     *        <code>ReceiveMessageWaitTimeSeconds</code> – The length of time, in seconds, for which a
      *        <code> <a>ReceiveMessage</a> </code> action waits for a message to arrive. Valid values: An integer from 0
      *        to 20 (seconds). Default: 0.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>RedrivePolicy</code> - The string that includes the parameters for the dead-letter queue
-     *        functionality of the source queue. For more information about the redrive policy and dead-letter queues,
-     *        see <a href=
+     *        <code>VisibilityTimeout</code> – The visibility timeout for the queue, in seconds. Valid values: An
+     *        integer from 0 to 43,200 (12 hours). Default: 30. For more information about the visibility timeout, see
+     *        <a href=
+     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
+     *        >Visibility Timeout</a> in the <i>Amazon SQS Developer Guide</i>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attributes apply only to <a href=
      *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html"
-     *        >Using Amazon SQS Dead-Letter Queues</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     *        >dead-letter queues:</a>
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>deadLetterTargetArn</code> - The Amazon Resource Name (ARN) of the dead-letter queue to which Amazon
+     *        <code>RedrivePolicy</code> – The string that includes the parameters for the dead-letter queue
+     *        functionality of the source queue as a JSON object. The parameters are as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>deadLetterTargetArn</code> – The Amazon Resource Name (ARN) of the dead-letter queue to which Amazon
      *        SQS moves messages after the value of <code>maxReceiveCount</code> is exceeded.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>maxReceiveCount</code> - The number of times a message is delivered to the source queue before being
-     *        moved to the dead-letter queue. When the <code>ReceiveCount</code> for a message exceeds the
+     *        <code>maxReceiveCount</code> – The number of times a message is delivered to the source queue before being
+     *        moved to the dead-letter queue. Default: 10. When the <code>ReceiveCount</code> for a message exceeds the
      *        <code>maxReceiveCount</code> for a queue, Amazon SQS moves the message to the dead-letter-queue.
      *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RedriveAllowPolicy</code> – The string that includes the parameters for the permissions for the
+     *        dead-letter queue redrive permission and which source queues can specify dead-letter queues as a JSON
+     *        object. The parameters are as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>redrivePermission</code> – The permission type that defines which source queues can specify the
+     *        current queue as the dead-letter queue. Valid values are:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>allowAll</code> – (Default) Any source queues in this Amazon Web Services account in the same Region
+     *        can specify this queue as the dead-letter queue.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>denyAll</code> – No source queues can specify this queue as the dead-letter queue.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>byQueue</code> – Only queues specified by the <code>sourceQueueArns</code> parameter can specify
+     *        this queue as the dead-letter queue.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sourceQueueArns</code> – The Amazon Resource Names (ARN)s of the source queues that can specify this
+     *        queue as the dead-letter queue and redrive messages. You can specify this parameter only when the
+     *        <code>redrivePermission</code> parameter is set to <code>byQueue</code>. You can specify up to 10 source
+     *        queue ARNs. To allow more than 10 source queues to specify dead-letter queues, set the
+     *        <code>redrivePermission</code> parameter to <code>allowAll</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
      *        </li>
      *        </ul>
      *        <note>
@@ -1060,17 +1609,7 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        The dead-letter queue of a FIFO queue must also be a FIFO queue. Similarly, the dead-letter queue of a
      *        standard queue must also be a standard queue.
      *        </p>
-     *        </note></li>
-     *        <li>
-     *        <p>
-     *        <code>VisibilityTimeout</code> - The visibility timeout for the queue, in seconds. Valid values: An
-     *        integer from 0 to 43,200 (12 hours). Default: 30. For more information about the visibility timeout, see
-     *        <a href=
-     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
-     *        >Visibility Timeout</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
-     *        </p>
-     *        </li>
-     *        </ul>
+     *        </note>
      *        <p>
      *        The following attributes apply only to <a href=
      *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html"
@@ -1079,26 +1618,36 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>KmsMasterKeyId</code> - The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a
-     *        custom CMK. For more information, see <a href=
+     *        <code>KmsMasterKeyId</code> – The ID of an Amazon Web Services managed customer master key (CMK) for
+     *        Amazon SQS or a custom CMK. For more information, see <a href=
      *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-sse-key-terms"
-     *        >Key Terms</a>. While the alias of the AWS-managed CMK for Amazon SQS is always <code>alias/aws/sqs</code>
-     *        , the alias of a custom CMK can, for example, be <code>alias/<i>MyAlias</i> </code>. For more examples,
-     *        see <a href=
+     *        >Key Terms</a>. While the alias of the Amazon Web Services managed CMK for Amazon SQS is always
+     *        <code>alias/aws/sqs</code>, the alias of a custom CMK can, for example, be
+     *        <code>alias/<i>MyAlias</i> </code>. For more examples, see <a href=
      *        "https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters"
-     *        >KeyId</a> in the <i>AWS Key Management Service API Reference</i>.
+     *        >KeyId</a> in the <i>Key Management Service API Reference</i>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>KmsDataKeyReusePeriodSeconds</code> - The length of time, in seconds, for which Amazon SQS can reuse
+     *        <code>KmsDataKeyReusePeriodSeconds</code> – The length of time, in seconds, for which Amazon SQS can reuse
      *        a <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#data-keys">data key</a> to
-     *        encrypt or decrypt messages before calling AWS KMS again. An integer representing seconds, between 60
-     *        seconds (1 minute) and 86,400 seconds (24 hours). Default: 300 (5 minutes). A shorter time period provides
-     *        better security but results in more calls to KMS which might incur charges after Free Tier. For more
-     *        information, see <a href=
+     *        encrypt or decrypt messages before calling KMS again. An integer representing seconds, between 60 seconds
+     *        (1 minute) and 86,400 seconds (24 hours). Default: 300 (5 minutes). A shorter time period provides better
+     *        security but results in more calls to KMS which might incur charges after Free Tier. For more information,
+     *        see <a href=
      *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-how-does-the-data-key-reuse-period-work"
-     *        >How Does the Data Key Reuse Period Work?</a>.
+     *        >How Does the Data Key Reuse Period Work?</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SqsManagedSseEnabled</code> – Enables server-side queue encryption using SQS owned encryption keys.
+     *        Only one server-side encryption option is supported per queue (for example, <a href=
+     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sse-existing-queue.html"
+     *        >SSE-KMS</a> or <a href=
+     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sqs-sse-queue.html"
+     *        >SSE-SQS</a>).
      *        </p>
      *        </li>
      *        </ul>
@@ -1110,28 +1659,29 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>FifoQueue</code> - Designates a queue as FIFO. Valid values: <code>true</code>, <code>false</code>.
-     *        If you don't specify the <code>FifoQueue</code> attribute, Amazon SQS creates a standard queue. You can
-     *        provide this attribute only during queue creation. You can't change it for an existing queue. When you set
-     *        this attribute, you must also provide the <code>MessageGroupId</code> for your messages explicitly.
+     *        <code>FifoQueue</code> – Designates a queue as FIFO. Valid values are <code>true</code> and
+     *        <code>false</code>. If you don't specify the <code>FifoQueue</code> attribute, Amazon SQS creates a
+     *        standard queue. You can provide this attribute only during queue creation. You can't change it for an
+     *        existing queue. When you set this attribute, you must also provide the <code>MessageGroupId</code> for
+     *        your messages explicitly.
      *        </p>
      *        <p>
      *        For more information, see <a href=
-     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-understanding-logic"
-     *        >FIFO Queue Logic</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-understanding-logic.html"
+     *        >FIFO queue logic</a> in the <i>Amazon SQS Developer Guide</i>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ContentBasedDeduplication</code> - Enables content-based deduplication. Valid values:
-     *        <code>true</code>, <code>false</code>. For more information, see <a href=
-     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-exactly-once-processing"
-     *        >Exactly-Once Processing</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     *        <code>ContentBasedDeduplication</code> – Enables content-based deduplication. Valid values are
+     *        <code>true</code> and <code>false</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-exactly-once-processing.html"
+     *        >Exactly-once processing</a> in the <i>Amazon SQS Developer Guide</i>. Note the following:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Every message must have a unique <code>MessageDeduplicationId</code>,
+     *        Every message must have a unique <code>MessageDeduplicationId</code>.
      *        </p>
      *        <ul>
      *        <li>
@@ -1176,6 +1726,51 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        </li>
      *        </ul>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attributes apply only to <a href=
+     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/high-throughput-fifo.html"
+     *        >high throughput for FIFO queues</a>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DeduplicationScope</code> – Specifies whether message deduplication occurs at the message group or
+     *        queue level. Valid values are <code>messageGroup</code> and <code>queue</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>FifoThroughputLimit</code> – Specifies whether the FIFO queue throughput quota applies to the entire
+     *        queue or per message group. Valid values are <code>perQueue</code> and <code>perMessageGroupId</code>. The
+     *        <code>perMessageGroupId</code> value is allowed only when the value for <code>DeduplicationScope</code> is
+     *        <code>messageGroup</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        To enable high throughput for FIFO queues, do the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Set <code>DeduplicationScope</code> to <code>messageGroup</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Set <code>FifoThroughputLimit</code> to <code>perMessageGroupId</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you set these attributes to anything other than the values shown for enabling high throughput, normal
+     *        throughput is in effect and deduplication occurs as specified.
+     *        </p>
+     *        <p>
+     *        For information on throughput quotas, see <a
+     *        href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html"
+     *        >Quotas related to messages</a> in the <i>Amazon SQS Developer Guide</i>.
      */
 
     public void setAttributes(java.util.Map<String, String> attributes) {
@@ -1193,56 +1788,118 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>DelaySeconds</code> - The length of time, in seconds, for which the delivery of all messages in the queue
+     * <code>DelaySeconds</code> – The length of time, in seconds, for which the delivery of all messages in the queue
      * is delayed. Valid values: An integer from 0 to 900 seconds (15 minutes). Default: 0.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MaximumMessageSize</code> - The limit of how many bytes a message can contain before Amazon SQS rejects it.
+     * <code>MaximumMessageSize</code> – The limit of how many bytes a message can contain before Amazon SQS rejects it.
      * Valid values: An integer from 1,024 bytes (1 KiB) to 262,144 bytes (256 KiB). Default: 262,144 (256 KiB).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MessageRetentionPeriod</code> - The length of time, in seconds, for which Amazon SQS retains a message.
+     * <code>MessageRetentionPeriod</code> – The length of time, in seconds, for which Amazon SQS retains a message.
      * Valid values: An integer from 60 seconds (1 minute) to 1,209,600 seconds (14 days). Default: 345,600 (4 days).
+     * When you change a queue's attributes, the change can take up to 60 seconds for most of the attributes to
+     * propagate throughout the Amazon SQS system. Changes made to the <code>MessageRetentionPeriod</code> attribute can
+     * take up to 15 minutes and will impact existing messages in the queue potentially causing them to be expired and
+     * deleted if the <code>MessageRetentionPeriod</code> is reduced below the age of existing messages.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Policy</code> - The queue's policy. A valid AWS policy. For more information about policy structure, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html">Overview of AWS IAM Policies</a> in
-     * the <i>Amazon IAM User Guide</i>.
+     * <code>Policy</code> – The queue's policy. A valid Amazon Web Services policy. For more information about policy
+     * structure, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html">Overview of
+     * Amazon Web Services IAM Policies</a> in the <i>IAM User Guide</i>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ReceiveMessageWaitTimeSeconds</code> - The length of time, in seconds, for which a
+     * <code>ReceiveMessageWaitTimeSeconds</code> – The length of time, in seconds, for which a
      * <code> <a>ReceiveMessage</a> </code> action waits for a message to arrive. Valid values: An integer from 0 to 20
      * (seconds). Default: 0.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>RedrivePolicy</code> - The string that includes the parameters for the dead-letter queue functionality of
-     * the source queue. For more information about the redrive policy and dead-letter queues, see <a
+     * <code>VisibilityTimeout</code> – The visibility timeout for the queue, in seconds. Valid values: An integer from
+     * 0 to 43,200 (12 hours). Default: 30. For more information about the visibility timeout, see <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
+     * >Visibility Timeout</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The following attributes apply only to <a
      * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html"
-     * >Using Amazon SQS Dead-Letter Queues</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     * >dead-letter queues:</a>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>deadLetterTargetArn</code> - The Amazon Resource Name (ARN) of the dead-letter queue to which Amazon SQS
+     * <code>RedrivePolicy</code> – The string that includes the parameters for the dead-letter queue functionality of
+     * the source queue as a JSON object. The parameters are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>deadLetterTargetArn</code> – The Amazon Resource Name (ARN) of the dead-letter queue to which Amazon SQS
      * moves messages after the value of <code>maxReceiveCount</code> is exceeded.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>maxReceiveCount</code> - The number of times a message is delivered to the source queue before being moved
-     * to the dead-letter queue. When the <code>ReceiveCount</code> for a message exceeds the
+     * <code>maxReceiveCount</code> – The number of times a message is delivered to the source queue before being moved
+     * to the dead-letter queue. Default: 10. When the <code>ReceiveCount</code> for a message exceeds the
      * <code>maxReceiveCount</code> for a queue, Amazon SQS moves the message to the dead-letter-queue.
      * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RedriveAllowPolicy</code> – The string that includes the parameters for the permissions for the dead-letter
+     * queue redrive permission and which source queues can specify dead-letter queues as a JSON object. The parameters
+     * are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>redrivePermission</code> – The permission type that defines which source queues can specify the current
+     * queue as the dead-letter queue. Valid values are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>allowAll</code> – (Default) Any source queues in this Amazon Web Services account in the same Region can
+     * specify this queue as the dead-letter queue.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>denyAll</code> – No source queues can specify this queue as the dead-letter queue.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>byQueue</code> – Only queues specified by the <code>sourceQueueArns</code> parameter can specify this queue
+     * as the dead-letter queue.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sourceQueueArns</code> – The Amazon Resource Names (ARN)s of the source queues that can specify this queue
+     * as the dead-letter queue and redrive messages. You can specify this parameter only when the
+     * <code>redrivePermission</code> parameter is set to <code>byQueue</code>. You can specify up to 10 source queue
+     * ARNs. To allow more than 10 source queues to specify dead-letter queues, set the <code>redrivePermission</code>
+     * parameter to <code>allowAll</code>.
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * <note>
@@ -1250,16 +1907,7 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * The dead-letter queue of a FIFO queue must also be a FIFO queue. Similarly, the dead-letter queue of a standard
      * queue must also be a standard queue.
      * </p>
-     * </note></li>
-     * <li>
-     * <p>
-     * <code>VisibilityTimeout</code> - The visibility timeout for the queue, in seconds. Valid values: An integer from
-     * 0 to 43,200 (12 hours). Default: 30. For more information about the visibility timeout, see <a
-     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
-     * >Visibility Timeout</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
-     * </p>
-     * </li>
-     * </ul>
+     * </note>
      * <p>
      * The following attributes apply only to <a href=
      * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html"
@@ -1268,24 +1916,35 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>KmsMasterKeyId</code> - The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a custom CMK.
-     * For more information, see <a href=
+     * <code>KmsMasterKeyId</code> – The ID of an Amazon Web Services managed customer master key (CMK) for Amazon SQS
+     * or a custom CMK. For more information, see <a href=
      * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-sse-key-terms"
-     * >Key Terms</a>. While the alias of the AWS-managed CMK for Amazon SQS is always <code>alias/aws/sqs</code>, the
-     * alias of a custom CMK can, for example, be <code>alias/<i>MyAlias</i> </code>. For more examples, see <a href=
+     * >Key Terms</a>. While the alias of the Amazon Web Services managed CMK for Amazon SQS is always
+     * <code>alias/aws/sqs</code>, the alias of a custom CMK can, for example, be <code>alias/<i>MyAlias</i> </code>.
+     * For more examples, see <a href=
      * "https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters"
-     * >KeyId</a> in the <i>AWS Key Management Service API Reference</i>.
+     * >KeyId</a> in the <i>Key Management Service API Reference</i>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>KmsDataKeyReusePeriodSeconds</code> - The length of time, in seconds, for which Amazon SQS can reuse a <a
+     * <code>KmsDataKeyReusePeriodSeconds</code> – The length of time, in seconds, for which Amazon SQS can reuse a <a
      * href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#data-keys">data key</a> to encrypt or
-     * decrypt messages before calling AWS KMS again. An integer representing seconds, between 60 seconds (1 minute) and
+     * decrypt messages before calling KMS again. An integer representing seconds, between 60 seconds (1 minute) and
      * 86,400 seconds (24 hours). Default: 300 (5 minutes). A shorter time period provides better security but results
      * in more calls to KMS which might incur charges after Free Tier. For more information, see <a href=
      * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-how-does-the-data-key-reuse-period-work"
-     * >How Does the Data Key Reuse Period Work?</a>.
+     * >How Does the Data Key Reuse Period Work?</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SqsManagedSseEnabled</code> – Enables server-side queue encryption using SQS owned encryption keys. Only
+     * one server-side encryption option is supported per queue (for example, <a href=
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sse-existing-queue.html"
+     * >SSE-KMS</a> or <a href=
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sqs-sse-queue.html"
+     * >SSE-SQS</a>).
      * </p>
      * </li>
      * </ul>
@@ -1297,28 +1956,28 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>FifoQueue</code> - Designates a queue as FIFO. Valid values: <code>true</code>, <code>false</code>. If you
-     * don't specify the <code>FifoQueue</code> attribute, Amazon SQS creates a standard queue. You can provide this
-     * attribute only during queue creation. You can't change it for an existing queue. When you set this attribute, you
-     * must also provide the <code>MessageGroupId</code> for your messages explicitly.
+     * <code>FifoQueue</code> – Designates a queue as FIFO. Valid values are <code>true</code> and <code>false</code>.
+     * If you don't specify the <code>FifoQueue</code> attribute, Amazon SQS creates a standard queue. You can provide
+     * this attribute only during queue creation. You can't change it for an existing queue. When you set this
+     * attribute, you must also provide the <code>MessageGroupId</code> for your messages explicitly.
      * </p>
      * <p>
      * For more information, see <a href=
-     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-understanding-logic"
-     * >FIFO Queue Logic</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-understanding-logic.html"
+     * >FIFO queue logic</a> in the <i>Amazon SQS Developer Guide</i>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ContentBasedDeduplication</code> - Enables content-based deduplication. Valid values: <code>true</code>,
-     * <code>false</code>. For more information, see <a href=
-     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-exactly-once-processing"
-     * >Exactly-Once Processing</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     * <code>ContentBasedDeduplication</code> – Enables content-based deduplication. Valid values are <code>true</code>
+     * and <code>false</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-exactly-once-processing.html"
+     * >Exactly-once processing</a> in the <i>Amazon SQS Developer Guide</i>. Note the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Every message must have a unique <code>MessageDeduplicationId</code>,
+     * Every message must have a unique <code>MessageDeduplicationId</code>.
      * </p>
      * <ul>
      * <li>
@@ -1364,6 +2023,51 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </ul>
      * </li>
      * </ul>
+     * <p>
+     * The following attributes apply only to <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/high-throughput-fifo.html">high
+     * throughput for FIFO queues</a>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DeduplicationScope</code> – Specifies whether message deduplication occurs at the message group or queue
+     * level. Valid values are <code>messageGroup</code> and <code>queue</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FifoThroughputLimit</code> – Specifies whether the FIFO queue throughput quota applies to the entire queue
+     * or per message group. Valid values are <code>perQueue</code> and <code>perMessageGroupId</code>. The
+     * <code>perMessageGroupId</code> value is allowed only when the value for <code>DeduplicationScope</code> is
+     * <code>messageGroup</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To enable high throughput for FIFO queues, do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Set <code>DeduplicationScope</code> to <code>messageGroup</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set <code>FifoThroughputLimit</code> to <code>perMessageGroupId</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you set these attributes to anything other than the values shown for enabling high throughput, normal
+     * throughput is in effect and deduplication occurs as specified.
+     * </p>
+     * <p>
+     * For information on throughput quotas, see <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html">Quotas
+     * related to messages</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
      * 
      * @param attributes
      *        A map of attributes with their corresponding values.</p>
@@ -1374,59 +2078,122 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>DelaySeconds</code> - The length of time, in seconds, for which the delivery of all messages in the
+     *        <code>DelaySeconds</code> – The length of time, in seconds, for which the delivery of all messages in the
      *        queue is delayed. Valid values: An integer from 0 to 900 seconds (15 minutes). Default: 0.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MaximumMessageSize</code> - The limit of how many bytes a message can contain before Amazon SQS
+     *        <code>MaximumMessageSize</code> – The limit of how many bytes a message can contain before Amazon SQS
      *        rejects it. Valid values: An integer from 1,024 bytes (1 KiB) to 262,144 bytes (256 KiB). Default: 262,144
      *        (256 KiB).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MessageRetentionPeriod</code> - The length of time, in seconds, for which Amazon SQS retains a
+     *        <code>MessageRetentionPeriod</code> – The length of time, in seconds, for which Amazon SQS retains a
      *        message. Valid values: An integer from 60 seconds (1 minute) to 1,209,600 seconds (14 days). Default:
-     *        345,600 (4 days).
+     *        345,600 (4 days). When you change a queue's attributes, the change can take up to 60 seconds for most of
+     *        the attributes to propagate throughout the Amazon SQS system. Changes made to the
+     *        <code>MessageRetentionPeriod</code> attribute can take up to 15 minutes and will impact existing messages
+     *        in the queue potentially causing them to be expired and deleted if the <code>MessageRetentionPeriod</code>
+     *        is reduced below the age of existing messages.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Policy</code> - The queue's policy. A valid AWS policy. For more information about policy structure,
-     *        see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html">Overview of AWS IAM
-     *        Policies</a> in the <i>Amazon IAM User Guide</i>.
+     *        <code>Policy</code> – The queue's policy. A valid Amazon Web Services policy. For more information about
+     *        policy structure, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html">Overview of Amazon Web
+     *        Services IAM Policies</a> in the <i>IAM User Guide</i>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ReceiveMessageWaitTimeSeconds</code> - The length of time, in seconds, for which a
+     *        <code>ReceiveMessageWaitTimeSeconds</code> – The length of time, in seconds, for which a
      *        <code> <a>ReceiveMessage</a> </code> action waits for a message to arrive. Valid values: An integer from 0
      *        to 20 (seconds). Default: 0.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>RedrivePolicy</code> - The string that includes the parameters for the dead-letter queue
-     *        functionality of the source queue. For more information about the redrive policy and dead-letter queues,
-     *        see <a href=
+     *        <code>VisibilityTimeout</code> – The visibility timeout for the queue, in seconds. Valid values: An
+     *        integer from 0 to 43,200 (12 hours). Default: 30. For more information about the visibility timeout, see
+     *        <a href=
+     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
+     *        >Visibility Timeout</a> in the <i>Amazon SQS Developer Guide</i>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attributes apply only to <a href=
      *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html"
-     *        >Using Amazon SQS Dead-Letter Queues</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     *        >dead-letter queues:</a>
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>deadLetterTargetArn</code> - The Amazon Resource Name (ARN) of the dead-letter queue to which Amazon
+     *        <code>RedrivePolicy</code> – The string that includes the parameters for the dead-letter queue
+     *        functionality of the source queue as a JSON object. The parameters are as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>deadLetterTargetArn</code> – The Amazon Resource Name (ARN) of the dead-letter queue to which Amazon
      *        SQS moves messages after the value of <code>maxReceiveCount</code> is exceeded.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>maxReceiveCount</code> - The number of times a message is delivered to the source queue before being
-     *        moved to the dead-letter queue. When the <code>ReceiveCount</code> for a message exceeds the
+     *        <code>maxReceiveCount</code> – The number of times a message is delivered to the source queue before being
+     *        moved to the dead-letter queue. Default: 10. When the <code>ReceiveCount</code> for a message exceeds the
      *        <code>maxReceiveCount</code> for a queue, Amazon SQS moves the message to the dead-letter-queue.
      *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RedriveAllowPolicy</code> – The string that includes the parameters for the permissions for the
+     *        dead-letter queue redrive permission and which source queues can specify dead-letter queues as a JSON
+     *        object. The parameters are as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>redrivePermission</code> – The permission type that defines which source queues can specify the
+     *        current queue as the dead-letter queue. Valid values are:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>allowAll</code> – (Default) Any source queues in this Amazon Web Services account in the same Region
+     *        can specify this queue as the dead-letter queue.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>denyAll</code> – No source queues can specify this queue as the dead-letter queue.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>byQueue</code> – Only queues specified by the <code>sourceQueueArns</code> parameter can specify
+     *        this queue as the dead-letter queue.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sourceQueueArns</code> – The Amazon Resource Names (ARN)s of the source queues that can specify this
+     *        queue as the dead-letter queue and redrive messages. You can specify this parameter only when the
+     *        <code>redrivePermission</code> parameter is set to <code>byQueue</code>. You can specify up to 10 source
+     *        queue ARNs. To allow more than 10 source queues to specify dead-letter queues, set the
+     *        <code>redrivePermission</code> parameter to <code>allowAll</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
      *        </li>
      *        </ul>
      *        <note>
@@ -1434,17 +2201,7 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        The dead-letter queue of a FIFO queue must also be a FIFO queue. Similarly, the dead-letter queue of a
      *        standard queue must also be a standard queue.
      *        </p>
-     *        </note></li>
-     *        <li>
-     *        <p>
-     *        <code>VisibilityTimeout</code> - The visibility timeout for the queue, in seconds. Valid values: An
-     *        integer from 0 to 43,200 (12 hours). Default: 30. For more information about the visibility timeout, see
-     *        <a href=
-     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html"
-     *        >Visibility Timeout</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
-     *        </p>
-     *        </li>
-     *        </ul>
+     *        </note>
      *        <p>
      *        The following attributes apply only to <a href=
      *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html"
@@ -1453,26 +2210,36 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>KmsMasterKeyId</code> - The ID of an AWS-managed customer master key (CMK) for Amazon SQS or a
-     *        custom CMK. For more information, see <a href=
+     *        <code>KmsMasterKeyId</code> – The ID of an Amazon Web Services managed customer master key (CMK) for
+     *        Amazon SQS or a custom CMK. For more information, see <a href=
      *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-sse-key-terms"
-     *        >Key Terms</a>. While the alias of the AWS-managed CMK for Amazon SQS is always <code>alias/aws/sqs</code>
-     *        , the alias of a custom CMK can, for example, be <code>alias/<i>MyAlias</i> </code>. For more examples,
-     *        see <a href=
+     *        >Key Terms</a>. While the alias of the Amazon Web Services managed CMK for Amazon SQS is always
+     *        <code>alias/aws/sqs</code>, the alias of a custom CMK can, for example, be
+     *        <code>alias/<i>MyAlias</i> </code>. For more examples, see <a href=
      *        "https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters"
-     *        >KeyId</a> in the <i>AWS Key Management Service API Reference</i>.
+     *        >KeyId</a> in the <i>Key Management Service API Reference</i>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>KmsDataKeyReusePeriodSeconds</code> - The length of time, in seconds, for which Amazon SQS can reuse
+     *        <code>KmsDataKeyReusePeriodSeconds</code> – The length of time, in seconds, for which Amazon SQS can reuse
      *        a <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#data-keys">data key</a> to
-     *        encrypt or decrypt messages before calling AWS KMS again. An integer representing seconds, between 60
-     *        seconds (1 minute) and 86,400 seconds (24 hours). Default: 300 (5 minutes). A shorter time period provides
-     *        better security but results in more calls to KMS which might incur charges after Free Tier. For more
-     *        information, see <a href=
+     *        encrypt or decrypt messages before calling KMS again. An integer representing seconds, between 60 seconds
+     *        (1 minute) and 86,400 seconds (24 hours). Default: 300 (5 minutes). A shorter time period provides better
+     *        security but results in more calls to KMS which might incur charges after Free Tier. For more information,
+     *        see <a href=
      *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html#sqs-how-does-the-data-key-reuse-period-work"
-     *        >How Does the Data Key Reuse Period Work?</a>.
+     *        >How Does the Data Key Reuse Period Work?</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>SqsManagedSseEnabled</code> – Enables server-side queue encryption using SQS owned encryption keys.
+     *        Only one server-side encryption option is supported per queue (for example, <a href=
+     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sse-existing-queue.html"
+     *        >SSE-KMS</a> or <a href=
+     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-sqs-sse-queue.html"
+     *        >SSE-SQS</a>).
      *        </p>
      *        </li>
      *        </ul>
@@ -1484,28 +2251,29 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>FifoQueue</code> - Designates a queue as FIFO. Valid values: <code>true</code>, <code>false</code>.
-     *        If you don't specify the <code>FifoQueue</code> attribute, Amazon SQS creates a standard queue. You can
-     *        provide this attribute only during queue creation. You can't change it for an existing queue. When you set
-     *        this attribute, you must also provide the <code>MessageGroupId</code> for your messages explicitly.
+     *        <code>FifoQueue</code> – Designates a queue as FIFO. Valid values are <code>true</code> and
+     *        <code>false</code>. If you don't specify the <code>FifoQueue</code> attribute, Amazon SQS creates a
+     *        standard queue. You can provide this attribute only during queue creation. You can't change it for an
+     *        existing queue. When you set this attribute, you must also provide the <code>MessageGroupId</code> for
+     *        your messages explicitly.
      *        </p>
      *        <p>
      *        For more information, see <a href=
-     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-understanding-logic"
-     *        >FIFO Queue Logic</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-understanding-logic.html"
+     *        >FIFO queue logic</a> in the <i>Amazon SQS Developer Guide</i>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>ContentBasedDeduplication</code> - Enables content-based deduplication. Valid values:
-     *        <code>true</code>, <code>false</code>. For more information, see <a href=
-     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html#FIFO-queues-exactly-once-processing"
-     *        >Exactly-Once Processing</a> in the <i>Amazon Simple Queue Service Developer Guide</i>.
+     *        <code>ContentBasedDeduplication</code> – Enables content-based deduplication. Valid values are
+     *        <code>true</code> and <code>false</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-exactly-once-processing.html"
+     *        >Exactly-once processing</a> in the <i>Amazon SQS Developer Guide</i>. Note the following:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Every message must have a unique <code>MessageDeduplicationId</code>,
+     *        Every message must have a unique <code>MessageDeduplicationId</code>.
      *        </p>
      *        <ul>
      *        <li>
@@ -1550,6 +2318,51 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        </li>
      *        </ul>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attributes apply only to <a href=
+     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/high-throughput-fifo.html"
+     *        >high throughput for FIFO queues</a>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DeduplicationScope</code> – Specifies whether message deduplication occurs at the message group or
+     *        queue level. Valid values are <code>messageGroup</code> and <code>queue</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>FifoThroughputLimit</code> – Specifies whether the FIFO queue throughput quota applies to the entire
+     *        queue or per message group. Valid values are <code>perQueue</code> and <code>perMessageGroupId</code>. The
+     *        <code>perMessageGroupId</code> value is allowed only when the value for <code>DeduplicationScope</code> is
+     *        <code>messageGroup</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        To enable high throughput for FIFO queues, do the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Set <code>DeduplicationScope</code> to <code>messageGroup</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Set <code>FifoThroughputLimit</code> to <code>perMessageGroupId</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you set these attributes to anything other than the values shown for enabling high throughput, normal
+     *        throughput is in effect and deduplication occurs as specified.
+     *        </p>
+     *        <p>
+     *        For information on throughput quotas, see <a
+     *        href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html"
+     *        >Quotas related to messages</a> in the <i>Amazon SQS Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1557,6 +2370,13 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
         setAttributes(attributes);
         return this;
     }
+
+    /**
+     * Add a single Attributes entry
+     *
+     * @see CreateQueueRequest#withAttributes
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateQueueRequest addAttributesEntry(String key, String value) {
         if (null == this.attributes) {
@@ -1580,6 +2400,332 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
+     * Add cost allocation tags to the specified Amazon SQS queue. For an overview, see <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-tags.html">Tagging
+     * Your Amazon SQS Queues</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
+     * <p>
+     * When you use queue tags, keep the following guidelines in mind:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Adding more than 50 tags to a queue isn't recommended.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tags don't have any semantic meaning. Amazon SQS interprets tags as character strings.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tags are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * A new tag with a key identical to that of an existing tag overwrites the existing tag.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For a full list of tag restrictions, see <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-limits.html#limits-queues"
+     * >Quotas related to queues</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * To be able to tag a queue on creation, you must have the <code>sqs:CreateQueue</code> and
+     * <code>sqs:TagQueue</code> permissions.
+     * </p>
+     * <p>
+     * Cross-account permissions don't apply to this action. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-customer-managed-policy-examples.html#grant-cross-account-permissions-to-role-and-user-name"
+     * >Grant cross-account permissions to a role and a username</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
+     * </note>
+     * 
+     * @return Add cost allocation tags to the specified Amazon SQS queue. For an overview, see <a
+     *         href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-tags.html"
+     *         >Tagging Your Amazon SQS Queues</a> in the <i>Amazon SQS Developer Guide</i>.</p>
+     *         <p>
+     *         When you use queue tags, keep the following guidelines in mind:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Adding more than 50 tags to a queue isn't recommended.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Tags don't have any semantic meaning. Amazon SQS interprets tags as character strings.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Tags are case-sensitive.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         A new tag with a key identical to that of an existing tag overwrites the existing tag.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For a full list of tag restrictions, see <a href=
+     *         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-limits.html#limits-queues"
+     *         >Quotas related to queues</a> in the <i>Amazon SQS Developer Guide</i>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         To be able to tag a queue on creation, you must have the <code>sqs:CreateQueue</code> and
+     *         <code>sqs:TagQueue</code> permissions.
+     *         </p>
+     *         <p>
+     *         Cross-account permissions don't apply to this action. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-customer-managed-policy-examples.html#grant-cross-account-permissions-to-role-and-user-name"
+     *         >Grant cross-account permissions to a role and a username</a> in the <i>Amazon SQS Developer Guide</i>.
+     *         </p>
+     */
+
+    public java.util.Map<String, String> getTags() {
+        if (tags == null) {
+            tags = new com.amazonaws.internal.SdkInternalMap<String, String>();
+        }
+        return tags;
+    }
+
+    /**
+     * <p>
+     * Add cost allocation tags to the specified Amazon SQS queue. For an overview, see <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-tags.html">Tagging
+     * Your Amazon SQS Queues</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
+     * <p>
+     * When you use queue tags, keep the following guidelines in mind:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Adding more than 50 tags to a queue isn't recommended.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tags don't have any semantic meaning. Amazon SQS interprets tags as character strings.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tags are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * A new tag with a key identical to that of an existing tag overwrites the existing tag.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For a full list of tag restrictions, see <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-limits.html#limits-queues"
+     * >Quotas related to queues</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * To be able to tag a queue on creation, you must have the <code>sqs:CreateQueue</code> and
+     * <code>sqs:TagQueue</code> permissions.
+     * </p>
+     * <p>
+     * Cross-account permissions don't apply to this action. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-customer-managed-policy-examples.html#grant-cross-account-permissions-to-role-and-user-name"
+     * >Grant cross-account permissions to a role and a username</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
+     * </note>
+     * 
+     * @param tags
+     *        Add cost allocation tags to the specified Amazon SQS queue. For an overview, see <a
+     *        href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-tags.html"
+     *        >Tagging Your Amazon SQS Queues</a> in the <i>Amazon SQS Developer Guide</i>.</p>
+     *        <p>
+     *        When you use queue tags, keep the following guidelines in mind:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Adding more than 50 tags to a queue isn't recommended.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tags don't have any semantic meaning. Amazon SQS interprets tags as character strings.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tags are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        A new tag with a key identical to that of an existing tag overwrites the existing tag.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For a full list of tag restrictions, see <a href=
+     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-limits.html#limits-queues"
+     *        >Quotas related to queues</a> in the <i>Amazon SQS Developer Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        To be able to tag a queue on creation, you must have the <code>sqs:CreateQueue</code> and
+     *        <code>sqs:TagQueue</code> permissions.
+     *        </p>
+     *        <p>
+     *        Cross-account permissions don't apply to this action. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-customer-managed-policy-examples.html#grant-cross-account-permissions-to-role-and-user-name"
+     *        >Grant cross-account permissions to a role and a username</a> in the <i>Amazon SQS Developer Guide</i>.
+     *        </p>
+     */
+
+    public void setTags(java.util.Map<String, String> tags) {
+        this.tags = tags == null ? null : new com.amazonaws.internal.SdkInternalMap<String, String>(tags);
+    }
+
+    /**
+     * <p>
+     * Add cost allocation tags to the specified Amazon SQS queue. For an overview, see <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-tags.html">Tagging
+     * Your Amazon SQS Queues</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
+     * <p>
+     * When you use queue tags, keep the following guidelines in mind:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Adding more than 50 tags to a queue isn't recommended.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tags don't have any semantic meaning. Amazon SQS interprets tags as character strings.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tags are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * A new tag with a key identical to that of an existing tag overwrites the existing tag.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For a full list of tag restrictions, see <a
+     * href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-limits.html#limits-queues"
+     * >Quotas related to queues</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * To be able to tag a queue on creation, you must have the <code>sqs:CreateQueue</code> and
+     * <code>sqs:TagQueue</code> permissions.
+     * </p>
+     * <p>
+     * Cross-account permissions don't apply to this action. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-customer-managed-policy-examples.html#grant-cross-account-permissions-to-role-and-user-name"
+     * >Grant cross-account permissions to a role and a username</a> in the <i>Amazon SQS Developer Guide</i>.
+     * </p>
+     * </note>
+     * 
+     * @param tags
+     *        Add cost allocation tags to the specified Amazon SQS queue. For an overview, see <a
+     *        href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-queue-tags.html"
+     *        >Tagging Your Amazon SQS Queues</a> in the <i>Amazon SQS Developer Guide</i>.</p>
+     *        <p>
+     *        When you use queue tags, keep the following guidelines in mind:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Adding more than 50 tags to a queue isn't recommended.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tags don't have any semantic meaning. Amazon SQS interprets tags as character strings.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tags are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        A new tag with a key identical to that of an existing tag overwrites the existing tag.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For a full list of tag restrictions, see <a href=
+     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-limits.html#limits-queues"
+     *        >Quotas related to queues</a> in the <i>Amazon SQS Developer Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        To be able to tag a queue on creation, you must have the <code>sqs:CreateQueue</code> and
+     *        <code>sqs:TagQueue</code> permissions.
+     *        </p>
+     *        <p>
+     *        Cross-account permissions don't apply to this action. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-customer-managed-policy-examples.html#grant-cross-account-permissions-to-role-and-user-name"
+     *        >Grant cross-account permissions to a role and a username</a> in the <i>Amazon SQS Developer Guide</i>.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateQueueRequest withTags(java.util.Map<String, String> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateQueueRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateQueueRequest addTagsEntry(String key, String value) {
+        if (null == this.tags) {
+            this.tags = new com.amazonaws.internal.SdkInternalMap<String, String>();
+        }
+        if (this.tags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.tags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Tags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateQueueRequest clearTagsEntries() {
+        this.tags = null;
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1594,7 +2740,9 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getQueueName() != null)
             sb.append("QueueName: ").append(getQueueName()).append(",");
         if (getAttributes() != null)
-            sb.append("Attributes: ").append(getAttributes());
+            sb.append("Attributes: ").append(getAttributes()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -1617,6 +2765,10 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getAttributes() != null && other.getAttributes().equals(this.getAttributes()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -1627,6 +2779,7 @@ public class CreateQueueRequest extends com.amazonaws.AmazonWebServiceRequest im
 
         hashCode = prime * hashCode + ((getQueueName() == null) ? 0 : getQueueName().hashCode());
         hashCode = prime * hashCode + ((getAttributes() == null) ? 0 : getAttributes().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

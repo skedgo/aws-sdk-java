@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,13 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * <p/>
+ * <p>
+ * The name of an Availability Zone for use during database migration. <code>AvailabilityZone</code> is an optional
+ * parameter to the <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_CreateReplicationInstance.html">
+ * <code>CreateReplicationInstance</code> </a> operation, and it’s value relates to the Amazon Web Services Region of an
+ * endpoint. For example, the availability zone of an endpoint in the us-east-1 region might be us-east-1a, us-east-1b,
+ * us-east-1c, or us-east-1d.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/AvailabilityZone" target="_top">AWS API
  *      Documentation</a>
@@ -28,18 +34,18 @@ public class AvailabilityZone implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The name of the availability zone.
+     * The name of the Availability Zone.
      * </p>
      */
     private String name;
 
     /**
      * <p>
-     * The name of the availability zone.
+     * The name of the Availability Zone.
      * </p>
      * 
      * @param name
-     *        The name of the availability zone.
+     *        The name of the Availability Zone.
      */
 
     public void setName(String name) {
@@ -48,10 +54,10 @@ public class AvailabilityZone implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The name of the availability zone.
+     * The name of the Availability Zone.
      * </p>
      * 
-     * @return The name of the availability zone.
+     * @return The name of the Availability Zone.
      */
 
     public String getName() {
@@ -60,11 +66,11 @@ public class AvailabilityZone implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The name of the availability zone.
+     * The name of the Availability Zone.
      * </p>
      * 
      * @param name
-     *        The name of the availability zone.
+     *        The name of the Availability Zone.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

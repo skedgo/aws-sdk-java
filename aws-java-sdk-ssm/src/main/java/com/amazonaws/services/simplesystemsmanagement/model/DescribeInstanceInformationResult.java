@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,7 @@ public class DescribeInstanceInformationResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The instance information list.
+     * The managed node information list.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<InstanceInformation> instanceInformationList;
@@ -39,10 +39,10 @@ public class DescribeInstanceInformationResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The instance information list.
+     * The managed node information list.
      * </p>
      * 
-     * @return The instance information list.
+     * @return The managed node information list.
      */
 
     public java.util.List<InstanceInformation> getInstanceInformationList() {
@@ -54,11 +54,11 @@ public class DescribeInstanceInformationResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The instance information list.
+     * The managed node information list.
      * </p>
      * 
      * @param instanceInformationList
-     *        The instance information list.
+     *        The managed node information list.
      */
 
     public void setInstanceInformationList(java.util.Collection<InstanceInformation> instanceInformationList) {
@@ -72,7 +72,7 @@ public class DescribeInstanceInformationResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The instance information list.
+     * The managed node information list.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -81,7 +81,7 @@ public class DescribeInstanceInformationResult extends com.amazonaws.AmazonWebSe
      * </p>
      * 
      * @param instanceInformationList
-     *        The instance information list.
+     *        The managed node information list.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -97,11 +97,11 @@ public class DescribeInstanceInformationResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The instance information list.
+     * The managed node information list.
      * </p>
      * 
      * @param instanceInformationList
-     *        The instance information list.
+     *        The managed node information list.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

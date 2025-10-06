@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -57,8 +57,9 @@ public class CreateNamedQueryRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * <important>
      * <p>
-     * This token is listed as not required because AWS SDKs (for example the AWS SDK for Java) auto-generate the token
-     * for users. If you are not using the AWS SDK or the AWS CLI, you must provide this token or the action will fail.
+     * This token is listed as not required because Amazon Web Services SDKs (for example the Amazon Web Services SDK
+     * for Java) auto-generate the token for users. If you are not using the Amazon Web Services SDK or the Amazon Web
+     * Services CLI, you must provide this token or the action will fail.
      * </p>
      * </important>
      */
@@ -238,8 +239,9 @@ public class CreateNamedQueryRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * <important>
      * <p>
-     * This token is listed as not required because AWS SDKs (for example the AWS SDK for Java) auto-generate the token
-     * for users. If you are not using the AWS SDK or the AWS CLI, you must provide this token or the action will fail.
+     * This token is listed as not required because Amazon Web Services SDKs (for example the Amazon Web Services SDK
+     * for Java) auto-generate the token for users. If you are not using the Amazon Web Services SDK or the Amazon Web
+     * Services CLI, you must provide this token or the action will fail.
      * </p>
      * </important>
      * 
@@ -249,9 +251,9 @@ public class CreateNamedQueryRequest extends com.amazonaws.AmazonWebServiceReque
      *        another query is not created. If a parameter has changed, for example, the <code>QueryString</code>, an
      *        error is returned.</p> <important>
      *        <p>
-     *        This token is listed as not required because AWS SDKs (for example the AWS SDK for Java) auto-generate the
-     *        token for users. If you are not using the AWS SDK or the AWS CLI, you must provide this token or the
-     *        action will fail.
+     *        This token is listed as not required because Amazon Web Services SDKs (for example the Amazon Web Services
+     *        SDK for Java) auto-generate the token for users. If you are not using the Amazon Web Services SDK or the
+     *        Amazon Web Services CLI, you must provide this token or the action will fail.
      *        </p>
      */
 
@@ -267,8 +269,9 @@ public class CreateNamedQueryRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * <important>
      * <p>
-     * This token is listed as not required because AWS SDKs (for example the AWS SDK for Java) auto-generate the token
-     * for users. If you are not using the AWS SDK or the AWS CLI, you must provide this token or the action will fail.
+     * This token is listed as not required because Amazon Web Services SDKs (for example the Amazon Web Services SDK
+     * for Java) auto-generate the token for users. If you are not using the Amazon Web Services SDK or the Amazon Web
+     * Services CLI, you must provide this token or the action will fail.
      * </p>
      * </important>
      * 
@@ -277,9 +280,9 @@ public class CreateNamedQueryRequest extends com.amazonaws.AmazonWebServiceReque
      *         and another query is not created. If a parameter has changed, for example, the <code>QueryString</code>,
      *         an error is returned.</p> <important>
      *         <p>
-     *         This token is listed as not required because AWS SDKs (for example the AWS SDK for Java) auto-generate
-     *         the token for users. If you are not using the AWS SDK or the AWS CLI, you must provide this token or the
-     *         action will fail.
+     *         This token is listed as not required because Amazon Web Services SDKs (for example the Amazon Web
+     *         Services SDK for Java) auto-generate the token for users. If you are not using the Amazon Web Services
+     *         SDK or the Amazon Web Services CLI, you must provide this token or the action will fail.
      *         </p>
      */
 
@@ -295,8 +298,9 @@ public class CreateNamedQueryRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * <important>
      * <p>
-     * This token is listed as not required because AWS SDKs (for example the AWS SDK for Java) auto-generate the token
-     * for users. If you are not using the AWS SDK or the AWS CLI, you must provide this token or the action will fail.
+     * This token is listed as not required because Amazon Web Services SDKs (for example the Amazon Web Services SDK
+     * for Java) auto-generate the token for users. If you are not using the Amazon Web Services SDK or the Amazon Web
+     * Services CLI, you must provide this token or the action will fail.
      * </p>
      * </important>
      * 
@@ -306,9 +310,9 @@ public class CreateNamedQueryRequest extends com.amazonaws.AmazonWebServiceReque
      *        another query is not created. If a parameter has changed, for example, the <code>QueryString</code>, an
      *        error is returned.</p> <important>
      *        <p>
-     *        This token is listed as not required because AWS SDKs (for example the AWS SDK for Java) auto-generate the
-     *        token for users. If you are not using the AWS SDK or the AWS CLI, you must provide this token or the
-     *        action will fail.
+     *        This token is listed as not required because Amazon Web Services SDKs (for example the Amazon Web Services
+     *        SDK for Java) auto-generate the token for users. If you are not using the Amazon Web Services SDK or the
+     *        Amazon Web Services CLI, you must provide this token or the action will fail.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */

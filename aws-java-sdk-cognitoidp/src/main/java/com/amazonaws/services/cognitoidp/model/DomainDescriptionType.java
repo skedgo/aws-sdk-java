@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,25 +36,28 @@ public class DomainDescriptionType implements Serializable, Cloneable, Structure
     private String userPoolId;
     /**
      * <p>
-     * The AWS account ID for the user pool owner.
+     * The Amazon Web Services ID for the user pool owner.
      * </p>
      */
     private String aWSAccountId;
     /**
      * <p>
-     * The domain string.
+     * The domain string. For custom domains, this is the fully-qualified domain name, such as
+     * <code>auth.example.com</code>. For Amazon Cognito prefix domains, this is the prefix alone, such as
+     * <code>auth</code>.
      * </p>
      */
     private String domain;
     /**
      * <p>
-     * The S3 bucket where the static files for this domain are stored.
+     * The Amazon S3 bucket where the static files for this domain are stored.
      * </p>
      */
     private String s3Bucket;
     /**
      * <p>
-     * The ARN of the CloudFront distribution.
+     * The Amazon CloudFront endpoint that you use as the target of the alias that you set up with your Domain Name
+     * Service (DNS) provider.
      * </p>
      */
     private String cloudFrontDistribution;
@@ -119,11 +122,11 @@ public class DomainDescriptionType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The AWS account ID for the user pool owner.
+     * The Amazon Web Services ID for the user pool owner.
      * </p>
      * 
      * @param aWSAccountId
-     *        The AWS account ID for the user pool owner.
+     *        The Amazon Web Services ID for the user pool owner.
      */
 
     public void setAWSAccountId(String aWSAccountId) {
@@ -132,10 +135,10 @@ public class DomainDescriptionType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The AWS account ID for the user pool owner.
+     * The Amazon Web Services ID for the user pool owner.
      * </p>
      * 
-     * @return The AWS account ID for the user pool owner.
+     * @return The Amazon Web Services ID for the user pool owner.
      */
 
     public String getAWSAccountId() {
@@ -144,11 +147,11 @@ public class DomainDescriptionType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The AWS account ID for the user pool owner.
+     * The Amazon Web Services ID for the user pool owner.
      * </p>
      * 
      * @param aWSAccountId
-     *        The AWS account ID for the user pool owner.
+     *        The Amazon Web Services ID for the user pool owner.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -159,11 +162,15 @@ public class DomainDescriptionType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The domain string.
+     * The domain string. For custom domains, this is the fully-qualified domain name, such as
+     * <code>auth.example.com</code>. For Amazon Cognito prefix domains, this is the prefix alone, such as
+     * <code>auth</code>.
      * </p>
      * 
      * @param domain
-     *        The domain string.
+     *        The domain string. For custom domains, this is the fully-qualified domain name, such as
+     *        <code>auth.example.com</code>. For Amazon Cognito prefix domains, this is the prefix alone, such as
+     *        <code>auth</code>.
      */
 
     public void setDomain(String domain) {
@@ -172,10 +179,14 @@ public class DomainDescriptionType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The domain string.
+     * The domain string. For custom domains, this is the fully-qualified domain name, such as
+     * <code>auth.example.com</code>. For Amazon Cognito prefix domains, this is the prefix alone, such as
+     * <code>auth</code>.
      * </p>
      * 
-     * @return The domain string.
+     * @return The domain string. For custom domains, this is the fully-qualified domain name, such as
+     *         <code>auth.example.com</code>. For Amazon Cognito prefix domains, this is the prefix alone, such as
+     *         <code>auth</code>.
      */
 
     public String getDomain() {
@@ -184,11 +195,15 @@ public class DomainDescriptionType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The domain string.
+     * The domain string. For custom domains, this is the fully-qualified domain name, such as
+     * <code>auth.example.com</code>. For Amazon Cognito prefix domains, this is the prefix alone, such as
+     * <code>auth</code>.
      * </p>
      * 
      * @param domain
-     *        The domain string.
+     *        The domain string. For custom domains, this is the fully-qualified domain name, such as
+     *        <code>auth.example.com</code>. For Amazon Cognito prefix domains, this is the prefix alone, such as
+     *        <code>auth</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -199,11 +214,11 @@ public class DomainDescriptionType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The S3 bucket where the static files for this domain are stored.
+     * The Amazon S3 bucket where the static files for this domain are stored.
      * </p>
      * 
      * @param s3Bucket
-     *        The S3 bucket where the static files for this domain are stored.
+     *        The Amazon S3 bucket where the static files for this domain are stored.
      */
 
     public void setS3Bucket(String s3Bucket) {
@@ -212,10 +227,10 @@ public class DomainDescriptionType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The S3 bucket where the static files for this domain are stored.
+     * The Amazon S3 bucket where the static files for this domain are stored.
      * </p>
      * 
-     * @return The S3 bucket where the static files for this domain are stored.
+     * @return The Amazon S3 bucket where the static files for this domain are stored.
      */
 
     public String getS3Bucket() {
@@ -224,11 +239,11 @@ public class DomainDescriptionType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The S3 bucket where the static files for this domain are stored.
+     * The Amazon S3 bucket where the static files for this domain are stored.
      * </p>
      * 
      * @param s3Bucket
-     *        The S3 bucket where the static files for this domain are stored.
+     *        The Amazon S3 bucket where the static files for this domain are stored.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -239,11 +254,13 @@ public class DomainDescriptionType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The ARN of the CloudFront distribution.
+     * The Amazon CloudFront endpoint that you use as the target of the alias that you set up with your Domain Name
+     * Service (DNS) provider.
      * </p>
      * 
      * @param cloudFrontDistribution
-     *        The ARN of the CloudFront distribution.
+     *        The Amazon CloudFront endpoint that you use as the target of the alias that you set up with your Domain
+     *        Name Service (DNS) provider.
      */
 
     public void setCloudFrontDistribution(String cloudFrontDistribution) {
@@ -252,10 +269,12 @@ public class DomainDescriptionType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The ARN of the CloudFront distribution.
+     * The Amazon CloudFront endpoint that you use as the target of the alias that you set up with your Domain Name
+     * Service (DNS) provider.
      * </p>
      * 
-     * @return The ARN of the CloudFront distribution.
+     * @return The Amazon CloudFront endpoint that you use as the target of the alias that you set up with your Domain
+     *         Name Service (DNS) provider.
      */
 
     public String getCloudFrontDistribution() {
@@ -264,11 +283,13 @@ public class DomainDescriptionType implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The ARN of the CloudFront distribution.
+     * The Amazon CloudFront endpoint that you use as the target of the alias that you set up with your Domain Name
+     * Service (DNS) provider.
      * </p>
      * 
      * @param cloudFrontDistribution
-     *        The ARN of the CloudFront distribution.
+     *        The Amazon CloudFront endpoint that you use as the target of the alias that you set up with your Domain
+     *        Name Service (DNS) provider.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about build logs in Amazon CloudWatch Logs.
+ * Information about build logs in CloudWatch Logs.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/LogsLocation" target="_top">AWS API
@@ -30,19 +30,20 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the Amazon CloudWatch Logs group for the build logs.
+     * The name of the CloudWatch Logs group for the build logs.
      * </p>
      */
     private String groupName;
     /**
      * <p>
-     * The name of the Amazon CloudWatch Logs stream for the build logs.
+     * The name of the CloudWatch Logs stream for the build logs.
      * </p>
      */
     private String streamName;
     /**
      * <p>
-     * The URL to an individual build log in Amazon CloudWatch Logs.
+     * The URL to an individual build log in CloudWatch Logs. The log stream is created during the PROVISIONING phase of
+     * a build and the <code>deeplink</code> will not be valid until it is created.
      * </p>
      */
     private String deepLink;
@@ -54,7 +55,27 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
     private String s3DeepLink;
     /**
      * <p>
-     * Information about Amazon CloudWatch Logs for a build project.
+     * The ARN of the CloudWatch Logs stream for a build execution. Its format is
+     * <code>arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}:log-stream:${LogStreamName}</code>.
+     * The CloudWatch Logs stream is created during the PROVISIONING phase of a build and the ARN will not be valid
+     * until it is created. For more information, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatchlogs.html#amazoncloudwatchlogs-resources-for-iam-policies"
+     * >Resources Defined by CloudWatch Logs</a>.
+     * </p>
+     */
+    private String cloudWatchLogsArn;
+    /**
+     * <p>
+     * The ARN of S3 logs for a build project. Its format is
+     * <code>arn:${Partition}:s3:::${BucketName}/${ObjectName}</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html#amazons3-resources-for-iam-policies"
+     * >Resources Defined by Amazon S3</a>.
+     * </p>
+     */
+    private String s3LogsArn;
+    /**
+     * <p>
+     * Information about CloudWatch Logs for a build project.
      * </p>
      */
     private CloudWatchLogsConfig cloudWatchLogs;
@@ -67,11 +88,11 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the Amazon CloudWatch Logs group for the build logs.
+     * The name of the CloudWatch Logs group for the build logs.
      * </p>
      * 
      * @param groupName
-     *        The name of the Amazon CloudWatch Logs group for the build logs.
+     *        The name of the CloudWatch Logs group for the build logs.
      */
 
     public void setGroupName(String groupName) {
@@ -80,10 +101,10 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the Amazon CloudWatch Logs group for the build logs.
+     * The name of the CloudWatch Logs group for the build logs.
      * </p>
      * 
-     * @return The name of the Amazon CloudWatch Logs group for the build logs.
+     * @return The name of the CloudWatch Logs group for the build logs.
      */
 
     public String getGroupName() {
@@ -92,11 +113,11 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the Amazon CloudWatch Logs group for the build logs.
+     * The name of the CloudWatch Logs group for the build logs.
      * </p>
      * 
      * @param groupName
-     *        The name of the Amazon CloudWatch Logs group for the build logs.
+     *        The name of the CloudWatch Logs group for the build logs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -107,11 +128,11 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the Amazon CloudWatch Logs stream for the build logs.
+     * The name of the CloudWatch Logs stream for the build logs.
      * </p>
      * 
      * @param streamName
-     *        The name of the Amazon CloudWatch Logs stream for the build logs.
+     *        The name of the CloudWatch Logs stream for the build logs.
      */
 
     public void setStreamName(String streamName) {
@@ -120,10 +141,10 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the Amazon CloudWatch Logs stream for the build logs.
+     * The name of the CloudWatch Logs stream for the build logs.
      * </p>
      * 
-     * @return The name of the Amazon CloudWatch Logs stream for the build logs.
+     * @return The name of the CloudWatch Logs stream for the build logs.
      */
 
     public String getStreamName() {
@@ -132,11 +153,11 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the Amazon CloudWatch Logs stream for the build logs.
+     * The name of the CloudWatch Logs stream for the build logs.
      * </p>
      * 
      * @param streamName
-     *        The name of the Amazon CloudWatch Logs stream for the build logs.
+     *        The name of the CloudWatch Logs stream for the build logs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -147,11 +168,13 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The URL to an individual build log in Amazon CloudWatch Logs.
+     * The URL to an individual build log in CloudWatch Logs. The log stream is created during the PROVISIONING phase of
+     * a build and the <code>deeplink</code> will not be valid until it is created.
      * </p>
      * 
      * @param deepLink
-     *        The URL to an individual build log in Amazon CloudWatch Logs.
+     *        The URL to an individual build log in CloudWatch Logs. The log stream is created during the PROVISIONING
+     *        phase of a build and the <code>deeplink</code> will not be valid until it is created.
      */
 
     public void setDeepLink(String deepLink) {
@@ -160,10 +183,12 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The URL to an individual build log in Amazon CloudWatch Logs.
+     * The URL to an individual build log in CloudWatch Logs. The log stream is created during the PROVISIONING phase of
+     * a build and the <code>deeplink</code> will not be valid until it is created.
      * </p>
      * 
-     * @return The URL to an individual build log in Amazon CloudWatch Logs.
+     * @return The URL to an individual build log in CloudWatch Logs. The log stream is created during the PROVISIONING
+     *         phase of a build and the <code>deeplink</code> will not be valid until it is created.
      */
 
     public String getDeepLink() {
@@ -172,11 +197,13 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The URL to an individual build log in Amazon CloudWatch Logs.
+     * The URL to an individual build log in CloudWatch Logs. The log stream is created during the PROVISIONING phase of
+     * a build and the <code>deeplink</code> will not be valid until it is created.
      * </p>
      * 
      * @param deepLink
-     *        The URL to an individual build log in Amazon CloudWatch Logs.
+     *        The URL to an individual build log in CloudWatch Logs. The log stream is created during the PROVISIONING
+     *        phase of a build and the <code>deeplink</code> will not be valid until it is created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -227,11 +254,139 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about Amazon CloudWatch Logs for a build project.
+     * The ARN of the CloudWatch Logs stream for a build execution. Its format is
+     * <code>arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}:log-stream:${LogStreamName}</code>.
+     * The CloudWatch Logs stream is created during the PROVISIONING phase of a build and the ARN will not be valid
+     * until it is created. For more information, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatchlogs.html#amazoncloudwatchlogs-resources-for-iam-policies"
+     * >Resources Defined by CloudWatch Logs</a>.
+     * </p>
+     * 
+     * @param cloudWatchLogsArn
+     *        The ARN of the CloudWatch Logs stream for a build execution. Its format is
+     *        <code>arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}:log-stream:${LogStreamName}</code>
+     *        . The CloudWatch Logs stream is created during the PROVISIONING phase of a build and the ARN will not be
+     *        valid until it is created. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatchlogs.html#amazoncloudwatchlogs-resources-for-iam-policies"
+     *        >Resources Defined by CloudWatch Logs</a>.
+     */
+
+    public void setCloudWatchLogsArn(String cloudWatchLogsArn) {
+        this.cloudWatchLogsArn = cloudWatchLogsArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the CloudWatch Logs stream for a build execution. Its format is
+     * <code>arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}:log-stream:${LogStreamName}</code>.
+     * The CloudWatch Logs stream is created during the PROVISIONING phase of a build and the ARN will not be valid
+     * until it is created. For more information, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatchlogs.html#amazoncloudwatchlogs-resources-for-iam-policies"
+     * >Resources Defined by CloudWatch Logs</a>.
+     * </p>
+     * 
+     * @return The ARN of the CloudWatch Logs stream for a build execution. Its format is
+     *         <code>arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}:log-stream:${LogStreamName}</code>
+     *         . The CloudWatch Logs stream is created during the PROVISIONING phase of a build and the ARN will not be
+     *         valid until it is created. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatchlogs.html#amazoncloudwatchlogs-resources-for-iam-policies"
+     *         >Resources Defined by CloudWatch Logs</a>.
+     */
+
+    public String getCloudWatchLogsArn() {
+        return this.cloudWatchLogsArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the CloudWatch Logs stream for a build execution. Its format is
+     * <code>arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}:log-stream:${LogStreamName}</code>.
+     * The CloudWatch Logs stream is created during the PROVISIONING phase of a build and the ARN will not be valid
+     * until it is created. For more information, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatchlogs.html#amazoncloudwatchlogs-resources-for-iam-policies"
+     * >Resources Defined by CloudWatch Logs</a>.
+     * </p>
+     * 
+     * @param cloudWatchLogsArn
+     *        The ARN of the CloudWatch Logs stream for a build execution. Its format is
+     *        <code>arn:${Partition}:logs:${Region}:${Account}:log-group:${LogGroupName}:log-stream:${LogStreamName}</code>
+     *        . The CloudWatch Logs stream is created during the PROVISIONING phase of a build and the ARN will not be
+     *        valid until it is created. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazoncloudwatchlogs.html#amazoncloudwatchlogs-resources-for-iam-policies"
+     *        >Resources Defined by CloudWatch Logs</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LogsLocation withCloudWatchLogsArn(String cloudWatchLogsArn) {
+        setCloudWatchLogsArn(cloudWatchLogsArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of S3 logs for a build project. Its format is
+     * <code>arn:${Partition}:s3:::${BucketName}/${ObjectName}</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html#amazons3-resources-for-iam-policies"
+     * >Resources Defined by Amazon S3</a>.
+     * </p>
+     * 
+     * @param s3LogsArn
+     *        The ARN of S3 logs for a build project. Its format is
+     *        <code>arn:${Partition}:s3:::${BucketName}/${ObjectName}</code>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html#amazons3-resources-for-iam-policies"
+     *        >Resources Defined by Amazon S3</a>.
+     */
+
+    public void setS3LogsArn(String s3LogsArn) {
+        this.s3LogsArn = s3LogsArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of S3 logs for a build project. Its format is
+     * <code>arn:${Partition}:s3:::${BucketName}/${ObjectName}</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html#amazons3-resources-for-iam-policies"
+     * >Resources Defined by Amazon S3</a>.
+     * </p>
+     * 
+     * @return The ARN of S3 logs for a build project. Its format is
+     *         <code>arn:${Partition}:s3:::${BucketName}/${ObjectName}</code>. For more information, see <a
+     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html#amazons3-resources-for-iam-policies"
+     *         >Resources Defined by Amazon S3</a>.
+     */
+
+    public String getS3LogsArn() {
+        return this.s3LogsArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of S3 logs for a build project. Its format is
+     * <code>arn:${Partition}:s3:::${BucketName}/${ObjectName}</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html#amazons3-resources-for-iam-policies"
+     * >Resources Defined by Amazon S3</a>.
+     * </p>
+     * 
+     * @param s3LogsArn
+     *        The ARN of S3 logs for a build project. Its format is
+     *        <code>arn:${Partition}:s3:::${BucketName}/${ObjectName}</code>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazons3.html#amazons3-resources-for-iam-policies"
+     *        >Resources Defined by Amazon S3</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LogsLocation withS3LogsArn(String s3LogsArn) {
+        setS3LogsArn(s3LogsArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about CloudWatch Logs for a build project.
      * </p>
      * 
      * @param cloudWatchLogs
-     *        Information about Amazon CloudWatch Logs for a build project.
+     *        Information about CloudWatch Logs for a build project.
      */
 
     public void setCloudWatchLogs(CloudWatchLogsConfig cloudWatchLogs) {
@@ -240,10 +395,10 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about Amazon CloudWatch Logs for a build project.
+     * Information about CloudWatch Logs for a build project.
      * </p>
      * 
-     * @return Information about Amazon CloudWatch Logs for a build project.
+     * @return Information about CloudWatch Logs for a build project.
      */
 
     public CloudWatchLogsConfig getCloudWatchLogs() {
@@ -252,11 +407,11 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about Amazon CloudWatch Logs for a build project.
+     * Information about CloudWatch Logs for a build project.
      * </p>
      * 
      * @param cloudWatchLogs
-     *        Information about Amazon CloudWatch Logs for a build project.
+     *        Information about CloudWatch Logs for a build project.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -325,6 +480,10 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
             sb.append("DeepLink: ").append(getDeepLink()).append(",");
         if (getS3DeepLink() != null)
             sb.append("S3DeepLink: ").append(getS3DeepLink()).append(",");
+        if (getCloudWatchLogsArn() != null)
+            sb.append("CloudWatchLogsArn: ").append(getCloudWatchLogsArn()).append(",");
+        if (getS3LogsArn() != null)
+            sb.append("S3LogsArn: ").append(getS3LogsArn()).append(",");
         if (getCloudWatchLogs() != null)
             sb.append("CloudWatchLogs: ").append(getCloudWatchLogs()).append(",");
         if (getS3Logs() != null)
@@ -359,6 +518,14 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getS3DeepLink() != null && other.getS3DeepLink().equals(this.getS3DeepLink()) == false)
             return false;
+        if (other.getCloudWatchLogsArn() == null ^ this.getCloudWatchLogsArn() == null)
+            return false;
+        if (other.getCloudWatchLogsArn() != null && other.getCloudWatchLogsArn().equals(this.getCloudWatchLogsArn()) == false)
+            return false;
+        if (other.getS3LogsArn() == null ^ this.getS3LogsArn() == null)
+            return false;
+        if (other.getS3LogsArn() != null && other.getS3LogsArn().equals(this.getS3LogsArn()) == false)
+            return false;
         if (other.getCloudWatchLogs() == null ^ this.getCloudWatchLogs() == null)
             return false;
         if (other.getCloudWatchLogs() != null && other.getCloudWatchLogs().equals(this.getCloudWatchLogs()) == false)
@@ -379,6 +546,8 @@ public class LogsLocation implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getStreamName() == null) ? 0 : getStreamName().hashCode());
         hashCode = prime * hashCode + ((getDeepLink() == null) ? 0 : getDeepLink().hashCode());
         hashCode = prime * hashCode + ((getS3DeepLink() == null) ? 0 : getS3DeepLink().hashCode());
+        hashCode = prime * hashCode + ((getCloudWatchLogsArn() == null) ? 0 : getCloudWatchLogsArn().hashCode());
+        hashCode = prime * hashCode + ((getS3LogsArn() == null) ? 0 : getS3LogsArn().hashCode());
         hashCode = prime * hashCode + ((getCloudWatchLogs() == null) ? 0 : getCloudWatchLogs().hashCode());
         hashCode = prime * hashCode + ((getS3Logs() == null) ? 0 : getS3Logs().hashCode());
         return hashCode;

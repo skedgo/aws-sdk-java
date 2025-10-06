@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A <code>Dimensions</code> object that includes the Channel and Queue for the metric.
+ * Contains information about the dimensions for a set of metrics.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/Dimensions" target="_top">AWS API
@@ -30,24 +30,32 @@ public class Dimensions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A <code>QueueReference</code> object used as one part of dimension for the metrics results.
+     * Information about the queue for which metrics are returned.
      * </p>
      */
     private QueueReference queue;
     /**
      * <p>
-     * The channel used for grouping and filters. Only VOICE is supported.
+     * The channel used for grouping and filters.
      * </p>
      */
     private String channel;
 
+    private RoutingProfileReference routingProfile;
     /**
      * <p>
-     * A <code>QueueReference</code> object used as one part of dimension for the metrics results.
+     * The expression of a step in a routing criteria.
+     * </p>
+     */
+    private String routingStepExpression;
+
+    /**
+     * <p>
+     * Information about the queue for which metrics are returned.
      * </p>
      * 
      * @param queue
-     *        A <code>QueueReference</code> object used as one part of dimension for the metrics results.
+     *        Information about the queue for which metrics are returned.
      */
 
     public void setQueue(QueueReference queue) {
@@ -56,10 +64,10 @@ public class Dimensions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A <code>QueueReference</code> object used as one part of dimension for the metrics results.
+     * Information about the queue for which metrics are returned.
      * </p>
      * 
-     * @return A <code>QueueReference</code> object used as one part of dimension for the metrics results.
+     * @return Information about the queue for which metrics are returned.
      */
 
     public QueueReference getQueue() {
@@ -68,11 +76,11 @@ public class Dimensions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A <code>QueueReference</code> object used as one part of dimension for the metrics results.
+     * Information about the queue for which metrics are returned.
      * </p>
      * 
      * @param queue
-     *        A <code>QueueReference</code> object used as one part of dimension for the metrics results.
+     *        Information about the queue for which metrics are returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -83,11 +91,11 @@ public class Dimensions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The channel used for grouping and filters. Only VOICE is supported.
+     * The channel used for grouping and filters.
      * </p>
      * 
      * @param channel
-     *        The channel used for grouping and filters. Only VOICE is supported.
+     *        The channel used for grouping and filters.
      * @see Channel
      */
 
@@ -97,10 +105,10 @@ public class Dimensions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The channel used for grouping and filters. Only VOICE is supported.
+     * The channel used for grouping and filters.
      * </p>
      * 
-     * @return The channel used for grouping and filters. Only VOICE is supported.
+     * @return The channel used for grouping and filters.
      * @see Channel
      */
 
@@ -110,11 +118,11 @@ public class Dimensions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The channel used for grouping and filters. Only VOICE is supported.
+     * The channel used for grouping and filters.
      * </p>
      * 
      * @param channel
-     *        The channel used for grouping and filters. Only VOICE is supported.
+     *        The channel used for grouping and filters.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Channel
      */
@@ -126,17 +134,83 @@ public class Dimensions implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The channel used for grouping and filters. Only VOICE is supported.
+     * The channel used for grouping and filters.
      * </p>
      * 
      * @param channel
-     *        The channel used for grouping and filters. Only VOICE is supported.
+     *        The channel used for grouping and filters.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Channel
      */
 
     public Dimensions withChannel(Channel channel) {
         this.channel = channel.toString();
+        return this;
+    }
+
+    /**
+     * @param routingProfile
+     */
+
+    public void setRoutingProfile(RoutingProfileReference routingProfile) {
+        this.routingProfile = routingProfile;
+    }
+
+    /**
+     * @return
+     */
+
+    public RoutingProfileReference getRoutingProfile() {
+        return this.routingProfile;
+    }
+
+    /**
+     * @param routingProfile
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Dimensions withRoutingProfile(RoutingProfileReference routingProfile) {
+        setRoutingProfile(routingProfile);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The expression of a step in a routing criteria.
+     * </p>
+     * 
+     * @param routingStepExpression
+     *        The expression of a step in a routing criteria.
+     */
+
+    public void setRoutingStepExpression(String routingStepExpression) {
+        this.routingStepExpression = routingStepExpression;
+    }
+
+    /**
+     * <p>
+     * The expression of a step in a routing criteria.
+     * </p>
+     * 
+     * @return The expression of a step in a routing criteria.
+     */
+
+    public String getRoutingStepExpression() {
+        return this.routingStepExpression;
+    }
+
+    /**
+     * <p>
+     * The expression of a step in a routing criteria.
+     * </p>
+     * 
+     * @param routingStepExpression
+     *        The expression of a step in a routing criteria.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Dimensions withRoutingStepExpression(String routingStepExpression) {
+        setRoutingStepExpression(routingStepExpression);
         return this;
     }
 
@@ -155,7 +229,11 @@ public class Dimensions implements Serializable, Cloneable, StructuredPojo {
         if (getQueue() != null)
             sb.append("Queue: ").append(getQueue()).append(",");
         if (getChannel() != null)
-            sb.append("Channel: ").append(getChannel());
+            sb.append("Channel: ").append(getChannel()).append(",");
+        if (getRoutingProfile() != null)
+            sb.append("RoutingProfile: ").append(getRoutingProfile()).append(",");
+        if (getRoutingStepExpression() != null)
+            sb.append("RoutingStepExpression: ").append(getRoutingStepExpression());
         sb.append("}");
         return sb.toString();
     }
@@ -178,6 +256,14 @@ public class Dimensions implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getChannel() != null && other.getChannel().equals(this.getChannel()) == false)
             return false;
+        if (other.getRoutingProfile() == null ^ this.getRoutingProfile() == null)
+            return false;
+        if (other.getRoutingProfile() != null && other.getRoutingProfile().equals(this.getRoutingProfile()) == false)
+            return false;
+        if (other.getRoutingStepExpression() == null ^ this.getRoutingStepExpression() == null)
+            return false;
+        if (other.getRoutingStepExpression() != null && other.getRoutingStepExpression().equals(this.getRoutingStepExpression()) == false)
+            return false;
         return true;
     }
 
@@ -188,6 +274,8 @@ public class Dimensions implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getQueue() == null) ? 0 : getQueue().hashCode());
         hashCode = prime * hashCode + ((getChannel() == null) ? 0 : getChannel().hashCode());
+        hashCode = prime * hashCode + ((getRoutingProfile() == null) ? 0 : getRoutingProfile().hashCode());
+        hashCode = prime * hashCode + ((getRoutingStepExpression() == null) ? 0 : getRoutingStepExpression().hashCode());
         return hashCode;
     }
 

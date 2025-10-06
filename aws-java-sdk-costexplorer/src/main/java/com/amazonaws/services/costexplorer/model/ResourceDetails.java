@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Details on the resource.
+ * Details for the resource.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/ResourceDetails" target="_top">AWS API
@@ -30,18 +30,18 @@ public class ResourceDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Details on the Amazon EC2 resource.
+     * Details for the Amazon EC2 resource.
      * </p>
      */
     private EC2ResourceDetails eC2ResourceDetails;
 
     /**
      * <p>
-     * Details on the Amazon EC2 resource.
+     * Details for the Amazon EC2 resource.
      * </p>
      * 
      * @param eC2ResourceDetails
-     *        Details on the Amazon EC2 resource.
+     *        Details for the Amazon EC2 resource.
      */
 
     public void setEC2ResourceDetails(EC2ResourceDetails eC2ResourceDetails) {
@@ -50,10 +50,10 @@ public class ResourceDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Details on the Amazon EC2 resource.
+     * Details for the Amazon EC2 resource.
      * </p>
      * 
-     * @return Details on the Amazon EC2 resource.
+     * @return Details for the Amazon EC2 resource.
      */
 
     public EC2ResourceDetails getEC2ResourceDetails() {
@@ -62,11 +62,11 @@ public class ResourceDetails implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Details on the Amazon EC2 resource.
+     * Details for the Amazon EC2 resource.
      * </p>
      * 
      * @param eC2ResourceDetails
-     *        Details on the Amazon EC2 resource.
+     *        Details for the Amazon EC2 resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.simplesystemsmanagement.model.transform;
 
+import java.util.Map;
 import java.math.*;
 
 import javax.annotation.Generated;
@@ -70,7 +71,9 @@ public class AssociationJsonUnmarshaller implements Unmarshaller<Association, Js
                 }
                 if (context.testExpression("Targets", targetDepth)) {
                     context.nextToken();
-                    association.setTargets(new ListUnmarshaller<Target>(TargetJsonUnmarshaller.getInstance()).unmarshall(context));
+                    association.setTargets(new ListUnmarshaller<Target>(TargetJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("LastExecutionDate", targetDepth)) {
                     context.nextToken();
@@ -87,6 +90,24 @@ public class AssociationJsonUnmarshaller implements Unmarshaller<Association, Js
                 if (context.testExpression("AssociationName", targetDepth)) {
                     context.nextToken();
                     association.setAssociationName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ScheduleOffset", targetDepth)) {
+                    context.nextToken();
+                    association.setScheduleOffset(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("Duration", targetDepth)) {
+                    context.nextToken();
+                    association.setDuration(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("TargetMaps", targetDepth)) {
+                    context.nextToken();
+                    association.setTargetMaps(new ListUnmarshaller<java.util.Map<String, java.util.List<String>>>(
+                            new MapUnmarshaller<String, java.util.List<String>>(context.getUnmarshaller(String.class), new ListUnmarshaller<String>(context
+                                    .getUnmarshaller(String.class))
+
+                            ))
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

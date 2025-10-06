@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,7 +39,14 @@ public class PutSigningProfileRequest extends com.amazonaws.AmazonWebServiceRequ
     private SigningMaterial signingMaterial;
     /**
      * <p>
-     * The ID of the signing profile to be created.
+     * The default validity period override for any signature generated using this signing profile. If unspecified, the
+     * default is 135 months.
+     * </p>
+     */
+    private SignatureValidityPeriod signatureValidityPeriod;
+    /**
+     * <p>
+     * The ID of the signing platform to be created.
      * </p>
      */
     private String platformId;
@@ -56,6 +63,12 @@ public class PutSigningProfileRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      */
     private java.util.Map<String, String> signingParameters;
+    /**
+     * <p>
+     * Tags to be associated with the signing profile that is being created.
+     * </p>
+     */
+    private java.util.Map<String, String> tags;
 
     /**
      * <p>
@@ -139,11 +152,57 @@ public class PutSigningProfileRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The ID of the signing profile to be created.
+     * The default validity period override for any signature generated using this signing profile. If unspecified, the
+     * default is 135 months.
+     * </p>
+     * 
+     * @param signatureValidityPeriod
+     *        The default validity period override for any signature generated using this signing profile. If
+     *        unspecified, the default is 135 months.
+     */
+
+    public void setSignatureValidityPeriod(SignatureValidityPeriod signatureValidityPeriod) {
+        this.signatureValidityPeriod = signatureValidityPeriod;
+    }
+
+    /**
+     * <p>
+     * The default validity period override for any signature generated using this signing profile. If unspecified, the
+     * default is 135 months.
+     * </p>
+     * 
+     * @return The default validity period override for any signature generated using this signing profile. If
+     *         unspecified, the default is 135 months.
+     */
+
+    public SignatureValidityPeriod getSignatureValidityPeriod() {
+        return this.signatureValidityPeriod;
+    }
+
+    /**
+     * <p>
+     * The default validity period override for any signature generated using this signing profile. If unspecified, the
+     * default is 135 months.
+     * </p>
+     * 
+     * @param signatureValidityPeriod
+     *        The default validity period override for any signature generated using this signing profile. If
+     *        unspecified, the default is 135 months.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutSigningProfileRequest withSignatureValidityPeriod(SignatureValidityPeriod signatureValidityPeriod) {
+        setSignatureValidityPeriod(signatureValidityPeriod);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the signing platform to be created.
      * </p>
      * 
      * @param platformId
-     *        The ID of the signing profile to be created.
+     *        The ID of the signing platform to be created.
      */
 
     public void setPlatformId(String platformId) {
@@ -152,10 +211,10 @@ public class PutSigningProfileRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The ID of the signing profile to be created.
+     * The ID of the signing platform to be created.
      * </p>
      * 
-     * @return The ID of the signing profile to be created.
+     * @return The ID of the signing platform to be created.
      */
 
     public String getPlatformId() {
@@ -164,11 +223,11 @@ public class PutSigningProfileRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The ID of the signing profile to be created.
+     * The ID of the signing platform to be created.
      * </p>
      * 
      * @param platformId
-     *        The ID of the signing profile to be created.
+     *        The ID of the signing platform to be created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -267,6 +326,13 @@ public class PutSigningProfileRequest extends com.amazonaws.AmazonWebServiceRequ
         return this;
     }
 
+    /**
+     * Add a single SigningParameters entry
+     *
+     * @see PutSigningProfileRequest#withSigningParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public PutSigningProfileRequest addSigningParametersEntry(String key, String value) {
         if (null == this.signingParameters) {
             this.signingParameters = new java.util.HashMap<String, String>();
@@ -289,6 +355,74 @@ public class PutSigningProfileRequest extends com.amazonaws.AmazonWebServiceRequ
     }
 
     /**
+     * <p>
+     * Tags to be associated with the signing profile that is being created.
+     * </p>
+     * 
+     * @return Tags to be associated with the signing profile that is being created.
+     */
+
+    public java.util.Map<String, String> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * Tags to be associated with the signing profile that is being created.
+     * </p>
+     * 
+     * @param tags
+     *        Tags to be associated with the signing profile that is being created.
+     */
+
+    public void setTags(java.util.Map<String, String> tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * <p>
+     * Tags to be associated with the signing profile that is being created.
+     * </p>
+     * 
+     * @param tags
+     *        Tags to be associated with the signing profile that is being created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutSigningProfileRequest withTags(java.util.Map<String, String> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see PutSigningProfileRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutSigningProfileRequest addTagsEntry(String key, String value) {
+        if (null == this.tags) {
+            this.tags = new java.util.HashMap<String, String>();
+        }
+        if (this.tags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.tags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Tags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutSigningProfileRequest clearTagsEntries() {
+        this.tags = null;
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -304,12 +438,16 @@ public class PutSigningProfileRequest extends com.amazonaws.AmazonWebServiceRequ
             sb.append("ProfileName: ").append(getProfileName()).append(",");
         if (getSigningMaterial() != null)
             sb.append("SigningMaterial: ").append(getSigningMaterial()).append(",");
+        if (getSignatureValidityPeriod() != null)
+            sb.append("SignatureValidityPeriod: ").append(getSignatureValidityPeriod()).append(",");
         if (getPlatformId() != null)
             sb.append("PlatformId: ").append(getPlatformId()).append(",");
         if (getOverrides() != null)
             sb.append("Overrides: ").append(getOverrides()).append(",");
         if (getSigningParameters() != null)
-            sb.append("SigningParameters: ").append(getSigningParameters());
+            sb.append("SigningParameters: ").append(getSigningParameters()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -332,6 +470,10 @@ public class PutSigningProfileRequest extends com.amazonaws.AmazonWebServiceRequ
             return false;
         if (other.getSigningMaterial() != null && other.getSigningMaterial().equals(this.getSigningMaterial()) == false)
             return false;
+        if (other.getSignatureValidityPeriod() == null ^ this.getSignatureValidityPeriod() == null)
+            return false;
+        if (other.getSignatureValidityPeriod() != null && other.getSignatureValidityPeriod().equals(this.getSignatureValidityPeriod()) == false)
+            return false;
         if (other.getPlatformId() == null ^ this.getPlatformId() == null)
             return false;
         if (other.getPlatformId() != null && other.getPlatformId().equals(this.getPlatformId()) == false)
@@ -344,6 +486,10 @@ public class PutSigningProfileRequest extends com.amazonaws.AmazonWebServiceRequ
             return false;
         if (other.getSigningParameters() != null && other.getSigningParameters().equals(this.getSigningParameters()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -354,9 +500,11 @@ public class PutSigningProfileRequest extends com.amazonaws.AmazonWebServiceRequ
 
         hashCode = prime * hashCode + ((getProfileName() == null) ? 0 : getProfileName().hashCode());
         hashCode = prime * hashCode + ((getSigningMaterial() == null) ? 0 : getSigningMaterial().hashCode());
+        hashCode = prime * hashCode + ((getSignatureValidityPeriod() == null) ? 0 : getSignatureValidityPeriod().hashCode());
         hashCode = prime * hashCode + ((getPlatformId() == null) ? 0 : getPlatformId().hashCode());
         hashCode = prime * hashCode + ((getOverrides() == null) ? 0 : getOverrides().hashCode());
         hashCode = prime * hashCode + ((getSigningParameters() == null) ? 0 : getSigningParameters().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

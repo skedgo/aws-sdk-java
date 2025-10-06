@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Contains the UsageRecords processed by BatchMeterUsage and any records that have failed due to transient error.
+ * Contains the <code>UsageRecords</code> processed by <code>BatchMeterUsage</code> and any records that have failed due
+ * to transient error.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/meteringmarketplace-2016-01-14/BatchMeterUsage"
@@ -28,28 +29,31 @@ public class BatchMeterUsageResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Contains all UsageRecords processed by BatchMeterUsage. These records were either honored by AWS Marketplace
-     * Metering Service or were invalid.
+     * Contains all <code>UsageRecords</code> processed by <code>BatchMeterUsage</code>. These records were either
+     * honored by AWS Marketplace Metering Service or were invalid. Invalid records should be fixed before being
+     * resubmitted.
      * </p>
      */
     private java.util.List<UsageRecordResult> results;
     /**
      * <p>
-     * Contains all UsageRecords that were not processed by BatchMeterUsage. This is a list of UsageRecords. You can
-     * retry the failed request by making another BatchMeterUsage call with this list as input in the
-     * BatchMeterUsageRequest.
+     * Contains all <code>UsageRecords</code> that were not processed by <code>BatchMeterUsage</code>. This is a list of
+     * <code>UsageRecords</code>. You can retry the failed request by making another <code>BatchMeterUsage</code> call
+     * with this list as input in the <code>BatchMeterUsageRequest</code>.
      * </p>
      */
     private java.util.List<UsageRecord> unprocessedRecords;
 
     /**
      * <p>
-     * Contains all UsageRecords processed by BatchMeterUsage. These records were either honored by AWS Marketplace
-     * Metering Service or were invalid.
+     * Contains all <code>UsageRecords</code> processed by <code>BatchMeterUsage</code>. These records were either
+     * honored by AWS Marketplace Metering Service or were invalid. Invalid records should be fixed before being
+     * resubmitted.
      * </p>
      * 
-     * @return Contains all UsageRecords processed by BatchMeterUsage. These records were either honored by AWS
-     *         Marketplace Metering Service or were invalid.
+     * @return Contains all <code>UsageRecords</code> processed by <code>BatchMeterUsage</code>. These records were
+     *         either honored by AWS Marketplace Metering Service or were invalid. Invalid records should be fixed
+     *         before being resubmitted.
      */
 
     public java.util.List<UsageRecordResult> getResults() {
@@ -58,13 +62,15 @@ public class BatchMeterUsageResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Contains all UsageRecords processed by BatchMeterUsage. These records were either honored by AWS Marketplace
-     * Metering Service or were invalid.
+     * Contains all <code>UsageRecords</code> processed by <code>BatchMeterUsage</code>. These records were either
+     * honored by AWS Marketplace Metering Service or were invalid. Invalid records should be fixed before being
+     * resubmitted.
      * </p>
      * 
      * @param results
-     *        Contains all UsageRecords processed by BatchMeterUsage. These records were either honored by AWS
-     *        Marketplace Metering Service or were invalid.
+     *        Contains all <code>UsageRecords</code> processed by <code>BatchMeterUsage</code>. These records were
+     *        either honored by AWS Marketplace Metering Service or were invalid. Invalid records should be fixed before
+     *        being resubmitted.
      */
 
     public void setResults(java.util.Collection<UsageRecordResult> results) {
@@ -78,8 +84,9 @@ public class BatchMeterUsageResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Contains all UsageRecords processed by BatchMeterUsage. These records were either honored by AWS Marketplace
-     * Metering Service or were invalid.
+     * Contains all <code>UsageRecords</code> processed by <code>BatchMeterUsage</code>. These records were either
+     * honored by AWS Marketplace Metering Service or were invalid. Invalid records should be fixed before being
+     * resubmitted.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -88,8 +95,9 @@ public class BatchMeterUsageResult extends com.amazonaws.AmazonWebServiceResult<
      * </p>
      * 
      * @param results
-     *        Contains all UsageRecords processed by BatchMeterUsage. These records were either honored by AWS
-     *        Marketplace Metering Service or were invalid.
+     *        Contains all <code>UsageRecords</code> processed by <code>BatchMeterUsage</code>. These records were
+     *        either honored by AWS Marketplace Metering Service or were invalid. Invalid records should be fixed before
+     *        being resubmitted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -105,13 +113,15 @@ public class BatchMeterUsageResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Contains all UsageRecords processed by BatchMeterUsage. These records were either honored by AWS Marketplace
-     * Metering Service or were invalid.
+     * Contains all <code>UsageRecords</code> processed by <code>BatchMeterUsage</code>. These records were either
+     * honored by AWS Marketplace Metering Service or were invalid. Invalid records should be fixed before being
+     * resubmitted.
      * </p>
      * 
      * @param results
-     *        Contains all UsageRecords processed by BatchMeterUsage. These records were either honored by AWS
-     *        Marketplace Metering Service or were invalid.
+     *        Contains all <code>UsageRecords</code> processed by <code>BatchMeterUsage</code>. These records were
+     *        either honored by AWS Marketplace Metering Service or were invalid. Invalid records should be fixed before
+     *        being resubmitted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -122,14 +132,14 @@ public class BatchMeterUsageResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Contains all UsageRecords that were not processed by BatchMeterUsage. This is a list of UsageRecords. You can
-     * retry the failed request by making another BatchMeterUsage call with this list as input in the
-     * BatchMeterUsageRequest.
+     * Contains all <code>UsageRecords</code> that were not processed by <code>BatchMeterUsage</code>. This is a list of
+     * <code>UsageRecords</code>. You can retry the failed request by making another <code>BatchMeterUsage</code> call
+     * with this list as input in the <code>BatchMeterUsageRequest</code>.
      * </p>
      * 
-     * @return Contains all UsageRecords that were not processed by BatchMeterUsage. This is a list of UsageRecords. You
-     *         can retry the failed request by making another BatchMeterUsage call with this list as input in the
-     *         BatchMeterUsageRequest.
+     * @return Contains all <code>UsageRecords</code> that were not processed by <code>BatchMeterUsage</code>. This is a
+     *         list of <code>UsageRecords</code>. You can retry the failed request by making another
+     *         <code>BatchMeterUsage</code> call with this list as input in the <code>BatchMeterUsageRequest</code>.
      */
 
     public java.util.List<UsageRecord> getUnprocessedRecords() {
@@ -138,15 +148,15 @@ public class BatchMeterUsageResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Contains all UsageRecords that were not processed by BatchMeterUsage. This is a list of UsageRecords. You can
-     * retry the failed request by making another BatchMeterUsage call with this list as input in the
-     * BatchMeterUsageRequest.
+     * Contains all <code>UsageRecords</code> that were not processed by <code>BatchMeterUsage</code>. This is a list of
+     * <code>UsageRecords</code>. You can retry the failed request by making another <code>BatchMeterUsage</code> call
+     * with this list as input in the <code>BatchMeterUsageRequest</code>.
      * </p>
      * 
      * @param unprocessedRecords
-     *        Contains all UsageRecords that were not processed by BatchMeterUsage. This is a list of UsageRecords. You
-     *        can retry the failed request by making another BatchMeterUsage call with this list as input in the
-     *        BatchMeterUsageRequest.
+     *        Contains all <code>UsageRecords</code> that were not processed by <code>BatchMeterUsage</code>. This is a
+     *        list of <code>UsageRecords</code>. You can retry the failed request by making another
+     *        <code>BatchMeterUsage</code> call with this list as input in the <code>BatchMeterUsageRequest</code>.
      */
 
     public void setUnprocessedRecords(java.util.Collection<UsageRecord> unprocessedRecords) {
@@ -160,9 +170,9 @@ public class BatchMeterUsageResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Contains all UsageRecords that were not processed by BatchMeterUsage. This is a list of UsageRecords. You can
-     * retry the failed request by making another BatchMeterUsage call with this list as input in the
-     * BatchMeterUsageRequest.
+     * Contains all <code>UsageRecords</code> that were not processed by <code>BatchMeterUsage</code>. This is a list of
+     * <code>UsageRecords</code>. You can retry the failed request by making another <code>BatchMeterUsage</code> call
+     * with this list as input in the <code>BatchMeterUsageRequest</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -171,9 +181,9 @@ public class BatchMeterUsageResult extends com.amazonaws.AmazonWebServiceResult<
      * </p>
      * 
      * @param unprocessedRecords
-     *        Contains all UsageRecords that were not processed by BatchMeterUsage. This is a list of UsageRecords. You
-     *        can retry the failed request by making another BatchMeterUsage call with this list as input in the
-     *        BatchMeterUsageRequest.
+     *        Contains all <code>UsageRecords</code> that were not processed by <code>BatchMeterUsage</code>. This is a
+     *        list of <code>UsageRecords</code>. You can retry the failed request by making another
+     *        <code>BatchMeterUsage</code> call with this list as input in the <code>BatchMeterUsageRequest</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -189,15 +199,15 @@ public class BatchMeterUsageResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Contains all UsageRecords that were not processed by BatchMeterUsage. This is a list of UsageRecords. You can
-     * retry the failed request by making another BatchMeterUsage call with this list as input in the
-     * BatchMeterUsageRequest.
+     * Contains all <code>UsageRecords</code> that were not processed by <code>BatchMeterUsage</code>. This is a list of
+     * <code>UsageRecords</code>. You can retry the failed request by making another <code>BatchMeterUsage</code> call
+     * with this list as input in the <code>BatchMeterUsageRequest</code>.
      * </p>
      * 
      * @param unprocessedRecords
-     *        Contains all UsageRecords that were not processed by BatchMeterUsage. This is a list of UsageRecords. You
-     *        can retry the failed request by making another BatchMeterUsage call with this list as input in the
-     *        BatchMeterUsageRequest.
+     *        Contains all <code>UsageRecords</code> that were not processed by <code>BatchMeterUsage</code>. This is a
+     *        list of <code>UsageRecords</code>. You can retry the failed request by making another
+     *        <code>BatchMeterUsage</code> call with this list as input in the <code>BatchMeterUsageRequest</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

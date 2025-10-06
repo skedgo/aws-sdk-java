@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,6 +55,76 @@ public class CertificateSummaryJsonUnmarshaller implements Unmarshaller<Certific
                 if (context.testExpression("DomainName", targetDepth)) {
                     context.nextToken();
                     certificateSummary.setDomainName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("SubjectAlternativeNameSummaries", targetDepth)) {
+                    context.nextToken();
+                    certificateSummary.setSubjectAlternativeNameSummaries(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("HasAdditionalSubjectAlternativeNames", targetDepth)) {
+                    context.nextToken();
+                    certificateSummary.setHasAdditionalSubjectAlternativeNames(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("Status", targetDepth)) {
+                    context.nextToken();
+                    certificateSummary.setStatus(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Type", targetDepth)) {
+                    context.nextToken();
+                    certificateSummary.setType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("KeyAlgorithm", targetDepth)) {
+                    context.nextToken();
+                    certificateSummary.setKeyAlgorithm(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("KeyUsages", targetDepth)) {
+                    context.nextToken();
+                    certificateSummary.setKeyUsages(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ExtendedKeyUsages", targetDepth)) {
+                    context.nextToken();
+                    certificateSummary.setExtendedKeyUsages(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("InUse", targetDepth)) {
+                    context.nextToken();
+                    certificateSummary.setInUse(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("Exported", targetDepth)) {
+                    context.nextToken();
+                    certificateSummary.setExported(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("RenewalEligibility", targetDepth)) {
+                    context.nextToken();
+                    certificateSummary.setRenewalEligibility(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("NotBefore", targetDepth)) {
+                    context.nextToken();
+                    certificateSummary.setNotBefore(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("NotAfter", targetDepth)) {
+                    context.nextToken();
+                    certificateSummary.setNotAfter(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("CreatedAt", targetDepth)) {
+                    context.nextToken();
+                    certificateSummary.setCreatedAt(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("IssuedAt", targetDepth)) {
+                    context.nextToken();
+                    certificateSummary.setIssuedAt(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("ImportedAt", targetDepth)) {
+                    context.nextToken();
+                    certificateSummary.setImportedAt(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("RevokedAt", targetDepth)) {
+                    context.nextToken();
+                    certificateSummary.setRevokedAt(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -238,7 +238,20 @@ public class AWSMarketplaceCommerceAnalyticsAsyncClient extends AWSMarketplaceCo
      *        Object providing client parameters.
      */
     AWSMarketplaceCommerceAnalyticsAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWS Marketplace Commerce Analytics using the
+     * specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSMarketplaceCommerceAnalyticsAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -285,12 +298,14 @@ public class AWSMarketplaceCommerceAnalyticsAsyncClient extends AWSMarketplaceCo
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<StartSupportDataExportResult> startSupportDataExportAsync(StartSupportDataExportRequest request) {
 
         return startSupportDataExportAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<StartSupportDataExportResult> startSupportDataExportAsync(final StartSupportDataExportRequest request,
             final com.amazonaws.handlers.AsyncHandler<StartSupportDataExportRequest, StartSupportDataExportResult> asyncHandler) {
         final StartSupportDataExportRequest finalRequest = beforeClientExecution(request);

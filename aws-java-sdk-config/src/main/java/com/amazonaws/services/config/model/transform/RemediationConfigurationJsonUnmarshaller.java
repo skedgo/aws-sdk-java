@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -72,6 +72,30 @@ public class RemediationConfigurationJsonUnmarshaller implements Unmarshaller<Re
                 if (context.testExpression("ResourceType", targetDepth)) {
                     context.nextToken();
                     remediationConfiguration.setResourceType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Automatic", targetDepth)) {
+                    context.nextToken();
+                    remediationConfiguration.setAutomatic(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("ExecutionControls", targetDepth)) {
+                    context.nextToken();
+                    remediationConfiguration.setExecutionControls(ExecutionControlsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("MaximumAutomaticAttempts", targetDepth)) {
+                    context.nextToken();
+                    remediationConfiguration.setMaximumAutomaticAttempts(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("RetryAttemptSeconds", targetDepth)) {
+                    context.nextToken();
+                    remediationConfiguration.setRetryAttemptSeconds(context.getUnmarshaller(Long.class).unmarshall(context));
+                }
+                if (context.testExpression("Arn", targetDepth)) {
+                    context.nextToken();
+                    remediationConfiguration.setArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("CreatedByService", targetDepth)) {
+                    context.nextToken();
+                    remediationConfiguration.setCreatedByService(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

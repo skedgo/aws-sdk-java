@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,10 +29,14 @@ public class InstanceMarshaller {
 
     private static final MarshallingInfo<String> FLEETID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("FleetId").build();
+    private static final MarshallingInfo<String> FLEETARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("FleetArn").build();
     private static final MarshallingInfo<String> INSTANCEID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InstanceId").build();
     private static final MarshallingInfo<String> IPADDRESS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("IpAddress").build();
+    private static final MarshallingInfo<String> DNSNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("DnsName").build();
     private static final MarshallingInfo<String> OPERATINGSYSTEM_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OperatingSystem").build();
     private static final MarshallingInfo<String> TYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -41,6 +45,8 @@ public class InstanceMarshaller {
             .marshallLocationName("Status").build();
     private static final MarshallingInfo<java.util.Date> CREATIONTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CreationTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<String> LOCATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Location").build();
 
     private static final InstanceMarshaller instance = new InstanceMarshaller();
 
@@ -59,12 +65,15 @@ public class InstanceMarshaller {
 
         try {
             protocolMarshaller.marshall(instance.getFleetId(), FLEETID_BINDING);
+            protocolMarshaller.marshall(instance.getFleetArn(), FLEETARN_BINDING);
             protocolMarshaller.marshall(instance.getInstanceId(), INSTANCEID_BINDING);
             protocolMarshaller.marshall(instance.getIpAddress(), IPADDRESS_BINDING);
+            protocolMarshaller.marshall(instance.getDnsName(), DNSNAME_BINDING);
             protocolMarshaller.marshall(instance.getOperatingSystem(), OPERATINGSYSTEM_BINDING);
             protocolMarshaller.marshall(instance.getType(), TYPE_BINDING);
             protocolMarshaller.marshall(instance.getStatus(), STATUS_BINDING);
             protocolMarshaller.marshall(instance.getCreationTime(), CREATIONTIME_BINDING);
+            protocolMarshaller.marshall(instance.getLocation(), LOCATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

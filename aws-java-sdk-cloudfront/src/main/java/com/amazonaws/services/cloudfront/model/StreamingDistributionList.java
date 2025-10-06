@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  * A streaming distribution list.
  * </p>
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/StreamingDistributionList"
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/StreamingDistributionList"
  *      target="_top">AWS API Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -55,14 +55,14 @@ public class StreamingDistributionList implements Serializable, Cloneable {
     private Boolean isTruncated;
     /**
      * <p>
-     * The number of streaming distributions that were created by the current AWS account.
+     * The number of streaming distributions that were created by the current Amazon Web Services account.
      * </p>
      */
     private Integer quantity;
     /**
      * <p>
      * A complex type that contains one <code>StreamingDistributionSummary</code> element for each distribution that was
-     * created by the current AWS account.
+     * created by the current Amazon Web Services account.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<StreamingDistributionSummary> items;
@@ -266,11 +266,11 @@ public class StreamingDistributionList implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of streaming distributions that were created by the current AWS account.
+     * The number of streaming distributions that were created by the current Amazon Web Services account.
      * </p>
      * 
      * @param quantity
-     *        The number of streaming distributions that were created by the current AWS account.
+     *        The number of streaming distributions that were created by the current Amazon Web Services account.
      */
 
     public void setQuantity(Integer quantity) {
@@ -279,10 +279,10 @@ public class StreamingDistributionList implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of streaming distributions that were created by the current AWS account.
+     * The number of streaming distributions that were created by the current Amazon Web Services account.
      * </p>
      * 
-     * @return The number of streaming distributions that were created by the current AWS account.
+     * @return The number of streaming distributions that were created by the current Amazon Web Services account.
      */
 
     public Integer getQuantity() {
@@ -291,11 +291,11 @@ public class StreamingDistributionList implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of streaming distributions that were created by the current AWS account.
+     * The number of streaming distributions that were created by the current Amazon Web Services account.
      * </p>
      * 
      * @param quantity
-     *        The number of streaming distributions that were created by the current AWS account.
+     *        The number of streaming distributions that were created by the current Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -307,11 +307,11 @@ public class StreamingDistributionList implements Serializable, Cloneable {
     /**
      * <p>
      * A complex type that contains one <code>StreamingDistributionSummary</code> element for each distribution that was
-     * created by the current AWS account.
+     * created by the current Amazon Web Services account.
      * </p>
      * 
      * @return A complex type that contains one <code>StreamingDistributionSummary</code> element for each distribution
-     *         that was created by the current AWS account.
+     *         that was created by the current Amazon Web Services account.
      */
 
     public java.util.List<StreamingDistributionSummary> getItems() {
@@ -324,12 +324,12 @@ public class StreamingDistributionList implements Serializable, Cloneable {
     /**
      * <p>
      * A complex type that contains one <code>StreamingDistributionSummary</code> element for each distribution that was
-     * created by the current AWS account.
+     * created by the current Amazon Web Services account.
      * </p>
      * 
      * @param items
      *        A complex type that contains one <code>StreamingDistributionSummary</code> element for each distribution
-     *        that was created by the current AWS account.
+     *        that was created by the current Amazon Web Services account.
      */
 
     public void setItems(java.util.Collection<StreamingDistributionSummary> items) {
@@ -344,7 +344,7 @@ public class StreamingDistributionList implements Serializable, Cloneable {
     /**
      * <p>
      * A complex type that contains one <code>StreamingDistributionSummary</code> element for each distribution that was
-     * created by the current AWS account.
+     * created by the current Amazon Web Services account.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -354,7 +354,7 @@ public class StreamingDistributionList implements Serializable, Cloneable {
      * 
      * @param items
      *        A complex type that contains one <code>StreamingDistributionSummary</code> element for each distribution
-     *        that was created by the current AWS account.
+     *        that was created by the current Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -371,12 +371,12 @@ public class StreamingDistributionList implements Serializable, Cloneable {
     /**
      * <p>
      * A complex type that contains one <code>StreamingDistributionSummary</code> element for each distribution that was
-     * created by the current AWS account.
+     * created by the current Amazon Web Services account.
      * </p>
      * 
      * @param items
      *        A complex type that contains one <code>StreamingDistributionSummary</code> element for each distribution
-     *        that was created by the current AWS account.
+     *        that was created by the current Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

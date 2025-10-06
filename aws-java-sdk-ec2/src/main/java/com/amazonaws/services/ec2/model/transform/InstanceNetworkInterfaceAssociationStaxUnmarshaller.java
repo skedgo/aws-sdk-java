@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,6 +42,16 @@ public class InstanceNetworkInterfaceAssociationStaxUnmarshaller implements Unma
                 return instanceNetworkInterfaceAssociation;
 
             if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
+
+                if (context.testExpression("carrierIp", targetDepth)) {
+                    instanceNetworkInterfaceAssociation.setCarrierIp(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("customerOwnedIp", targetDepth)) {
+                    instanceNetworkInterfaceAssociation.setCustomerOwnedIp(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
 
                 if (context.testExpression("ipOwnerId", targetDepth)) {
                     instanceNetworkInterfaceAssociation.setIpOwnerId(StringStaxUnmarshaller.getInstance().unmarshall(context));

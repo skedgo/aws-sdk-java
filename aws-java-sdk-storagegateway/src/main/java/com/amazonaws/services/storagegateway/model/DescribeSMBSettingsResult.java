@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,7 +32,58 @@ public class DescribeSMBSettingsResult extends com.amazonaws.AmazonWebServiceRes
     private String domainName;
     /**
      * <p>
-     * This value is true if a password for the guest user “smbguest” is set, and otherwise false.
+     * Indicates the status of a gateway that is a member of the Active Directory domain.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ACCESS_DENIED</code>: Indicates that the <code>JoinDomain</code> operation failed due to an authentication
+     * error.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DETACHED</code>: Indicates that gateway is not joined to a domain.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>JOINED</code>: Indicates that the gateway has successfully joined a domain.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>JOINING</code>: Indicates that a <code>JoinDomain</code> operation is in progress.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NETWORK_ERROR</code>: Indicates that <code>JoinDomain</code> operation failed due to a network or
+     * connectivity error.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TIMEOUT</code>: Indicates that the <code>JoinDomain</code> operation failed because the operation didn't
+     * complete within the allotted time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNKNOWN_ERROR</code>: Indicates that the <code>JoinDomain</code> operation failed due to another type of
+     * error.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String activeDirectoryStatus;
+    /**
+     * <p>
+     * This value is <code>true</code> if a password for the guest user <code>smbguest</code> is set, otherwise
+     * <code>false</code>. Only supported for S3 File Gateways.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      */
     private Boolean sMBGuestPasswordSet;
@@ -40,18 +91,52 @@ public class DescribeSMBSettingsResult extends com.amazonaws.AmazonWebServiceRes
      * <p>
      * The type of security strategy that was specified for file gateway.
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * ClientSpecified: SMBv1 is enabled, SMB signing is offered but not required, SMB encryption is offered but not
-     * required.
+     * <code>ClientSpecified</code>: If you choose this option, requests are established based on what is negotiated by
+     * the client. This option is recommended when you want to maximize compatibility across different clients in your
+     * environment. Supported only for S3 File Gateway.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * MandatorySigning: SMBv1 is disabled, SMB signing is required, SMB encryption is offered but not required.
+     * <code>MandatorySigning</code>: If you choose this option, File Gateway only allows connections from SMBv2 or
+     * SMBv3 clients that have signing turned on. This option works with SMB clients on Microsoft Windows Vista, Windows
+     * Server 2008, or later.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * MandatoryEncryption: SMBv1 is disabled, SMB signing is offered but not required, SMB encryption is required.
+     * <code>MandatoryEncryption</code>: If you choose this option, File Gateway only allows connections from SMBv3
+     * clients that have encryption turned on. Both 256-bit and 128-bit algorithms are allowed. This option is
+     * recommended for environments that handle sensitive data. It works with SMB clients on Microsoft Windows 8,
+     * Windows Server 2012, or later.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MandatoryEncryptionNoAes128</code>: If you choose this option, File Gateway only allows connections from
+     * SMBv3 clients that use 256-bit AES encryption algorithms. 128-bit algorithms are not allowed. This option is
+     * recommended for environments that handle sensitive data. It works with SMB clients on Microsoft Windows 8,
+     * Windows Server 2012, or later.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String sMBSecurityStrategy;
+    /**
+     * <p>
+     * The shares on this gateway appear when listing shares. Only supported for S3 File Gateways.
+     * </p>
+     */
+    private Boolean fileSharesVisible;
+    /**
+     * <p>
+     * A list of Active Directory users and groups that have special permissions for SMB file shares on the gateway.
+     * </p>
+     */
+    private SMBLocalGroups sMBLocalGroups;
 
     /**
      * @param gatewayARN
@@ -121,11 +206,401 @@ public class DescribeSMBSettingsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * This value is true if a password for the guest user “smbguest” is set, and otherwise false.
+     * Indicates the status of a gateway that is a member of the Active Directory domain.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ACCESS_DENIED</code>: Indicates that the <code>JoinDomain</code> operation failed due to an authentication
+     * error.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DETACHED</code>: Indicates that gateway is not joined to a domain.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>JOINED</code>: Indicates that the gateway has successfully joined a domain.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>JOINING</code>: Indicates that a <code>JoinDomain</code> operation is in progress.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NETWORK_ERROR</code>: Indicates that <code>JoinDomain</code> operation failed due to a network or
+     * connectivity error.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TIMEOUT</code>: Indicates that the <code>JoinDomain</code> operation failed because the operation didn't
+     * complete within the allotted time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNKNOWN_ERROR</code>: Indicates that the <code>JoinDomain</code> operation failed due to another type of
+     * error.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param activeDirectoryStatus
+     *        Indicates the status of a gateway that is a member of the Active Directory domain.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ACCESS_DENIED</code>: Indicates that the <code>JoinDomain</code> operation failed due to an
+     *        authentication error.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DETACHED</code>: Indicates that gateway is not joined to a domain.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>JOINED</code>: Indicates that the gateway has successfully joined a domain.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>JOINING</code>: Indicates that a <code>JoinDomain</code> operation is in progress.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NETWORK_ERROR</code>: Indicates that <code>JoinDomain</code> operation failed due to a network or
+     *        connectivity error.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TIMEOUT</code>: Indicates that the <code>JoinDomain</code> operation failed because the operation
+     *        didn't complete within the allotted time.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UNKNOWN_ERROR</code>: Indicates that the <code>JoinDomain</code> operation failed due to another
+     *        type of error.
+     *        </p>
+     *        </li>
+     * @see ActiveDirectoryStatus
+     */
+
+    public void setActiveDirectoryStatus(String activeDirectoryStatus) {
+        this.activeDirectoryStatus = activeDirectoryStatus;
+    }
+
+    /**
+     * <p>
+     * Indicates the status of a gateway that is a member of the Active Directory domain.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ACCESS_DENIED</code>: Indicates that the <code>JoinDomain</code> operation failed due to an authentication
+     * error.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DETACHED</code>: Indicates that gateway is not joined to a domain.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>JOINED</code>: Indicates that the gateway has successfully joined a domain.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>JOINING</code>: Indicates that a <code>JoinDomain</code> operation is in progress.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NETWORK_ERROR</code>: Indicates that <code>JoinDomain</code> operation failed due to a network or
+     * connectivity error.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TIMEOUT</code>: Indicates that the <code>JoinDomain</code> operation failed because the operation didn't
+     * complete within the allotted time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNKNOWN_ERROR</code>: Indicates that the <code>JoinDomain</code> operation failed due to another type of
+     * error.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Indicates the status of a gateway that is a member of the Active Directory domain.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>ACCESS_DENIED</code>: Indicates that the <code>JoinDomain</code> operation failed due to an
+     *         authentication error.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DETACHED</code>: Indicates that gateway is not joined to a domain.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>JOINED</code>: Indicates that the gateway has successfully joined a domain.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>JOINING</code>: Indicates that a <code>JoinDomain</code> operation is in progress.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>NETWORK_ERROR</code>: Indicates that <code>JoinDomain</code> operation failed due to a network or
+     *         connectivity error.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TIMEOUT</code>: Indicates that the <code>JoinDomain</code> operation failed because the operation
+     *         didn't complete within the allotted time.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>UNKNOWN_ERROR</code>: Indicates that the <code>JoinDomain</code> operation failed due to another
+     *         type of error.
+     *         </p>
+     *         </li>
+     * @see ActiveDirectoryStatus
+     */
+
+    public String getActiveDirectoryStatus() {
+        return this.activeDirectoryStatus;
+    }
+
+    /**
+     * <p>
+     * Indicates the status of a gateway that is a member of the Active Directory domain.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ACCESS_DENIED</code>: Indicates that the <code>JoinDomain</code> operation failed due to an authentication
+     * error.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DETACHED</code>: Indicates that gateway is not joined to a domain.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>JOINED</code>: Indicates that the gateway has successfully joined a domain.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>JOINING</code>: Indicates that a <code>JoinDomain</code> operation is in progress.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NETWORK_ERROR</code>: Indicates that <code>JoinDomain</code> operation failed due to a network or
+     * connectivity error.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TIMEOUT</code>: Indicates that the <code>JoinDomain</code> operation failed because the operation didn't
+     * complete within the allotted time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNKNOWN_ERROR</code>: Indicates that the <code>JoinDomain</code> operation failed due to another type of
+     * error.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param activeDirectoryStatus
+     *        Indicates the status of a gateway that is a member of the Active Directory domain.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ACCESS_DENIED</code>: Indicates that the <code>JoinDomain</code> operation failed due to an
+     *        authentication error.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DETACHED</code>: Indicates that gateway is not joined to a domain.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>JOINED</code>: Indicates that the gateway has successfully joined a domain.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>JOINING</code>: Indicates that a <code>JoinDomain</code> operation is in progress.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NETWORK_ERROR</code>: Indicates that <code>JoinDomain</code> operation failed due to a network or
+     *        connectivity error.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TIMEOUT</code>: Indicates that the <code>JoinDomain</code> operation failed because the operation
+     *        didn't complete within the allotted time.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UNKNOWN_ERROR</code>: Indicates that the <code>JoinDomain</code> operation failed due to another
+     *        type of error.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ActiveDirectoryStatus
+     */
+
+    public DescribeSMBSettingsResult withActiveDirectoryStatus(String activeDirectoryStatus) {
+        setActiveDirectoryStatus(activeDirectoryStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates the status of a gateway that is a member of the Active Directory domain.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ACCESS_DENIED</code>: Indicates that the <code>JoinDomain</code> operation failed due to an authentication
+     * error.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DETACHED</code>: Indicates that gateway is not joined to a domain.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>JOINED</code>: Indicates that the gateway has successfully joined a domain.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>JOINING</code>: Indicates that a <code>JoinDomain</code> operation is in progress.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NETWORK_ERROR</code>: Indicates that <code>JoinDomain</code> operation failed due to a network or
+     * connectivity error.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TIMEOUT</code>: Indicates that the <code>JoinDomain</code> operation failed because the operation didn't
+     * complete within the allotted time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNKNOWN_ERROR</code>: Indicates that the <code>JoinDomain</code> operation failed due to another type of
+     * error.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param activeDirectoryStatus
+     *        Indicates the status of a gateway that is a member of the Active Directory domain.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ACCESS_DENIED</code>: Indicates that the <code>JoinDomain</code> operation failed due to an
+     *        authentication error.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DETACHED</code>: Indicates that gateway is not joined to a domain.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>JOINED</code>: Indicates that the gateway has successfully joined a domain.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>JOINING</code>: Indicates that a <code>JoinDomain</code> operation is in progress.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NETWORK_ERROR</code>: Indicates that <code>JoinDomain</code> operation failed due to a network or
+     *        connectivity error.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TIMEOUT</code>: Indicates that the <code>JoinDomain</code> operation failed because the operation
+     *        didn't complete within the allotted time.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UNKNOWN_ERROR</code>: Indicates that the <code>JoinDomain</code> operation failed due to another
+     *        type of error.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ActiveDirectoryStatus
+     */
+
+    public DescribeSMBSettingsResult withActiveDirectoryStatus(ActiveDirectoryStatus activeDirectoryStatus) {
+        this.activeDirectoryStatus = activeDirectoryStatus.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * This value is <code>true</code> if a password for the guest user <code>smbguest</code> is set, otherwise
+     * <code>false</code>. Only supported for S3 File Gateways.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
      * @param sMBGuestPasswordSet
-     *        This value is true if a password for the guest user “smbguest” is set, and otherwise false.
+     *        This value is <code>true</code> if a password for the guest user <code>smbguest</code> is set, otherwise
+     *        <code>false</code>. Only supported for S3 File Gateways.</p>
+     *        <p>
+     *        Valid Values: <code>true</code> | <code>false</code>
      */
 
     public void setSMBGuestPasswordSet(Boolean sMBGuestPasswordSet) {
@@ -134,10 +609,17 @@ public class DescribeSMBSettingsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * This value is true if a password for the guest user “smbguest” is set, and otherwise false.
+     * This value is <code>true</code> if a password for the guest user <code>smbguest</code> is set, otherwise
+     * <code>false</code>. Only supported for S3 File Gateways.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
-     * @return This value is true if a password for the guest user “smbguest” is set, and otherwise false.
+     * @return This value is <code>true</code> if a password for the guest user <code>smbguest</code> is set, otherwise
+     *         <code>false</code>. Only supported for S3 File Gateways.</p>
+     *         <p>
+     *         Valid Values: <code>true</code> | <code>false</code>
      */
 
     public Boolean getSMBGuestPasswordSet() {
@@ -146,11 +628,18 @@ public class DescribeSMBSettingsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * This value is true if a password for the guest user “smbguest” is set, and otherwise false.
+     * This value is <code>true</code> if a password for the guest user <code>smbguest</code> is set, otherwise
+     * <code>false</code>. Only supported for S3 File Gateways.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
      * @param sMBGuestPasswordSet
-     *        This value is true if a password for the guest user “smbguest” is set, and otherwise false.
+     *        This value is <code>true</code> if a password for the guest user <code>smbguest</code> is set, otherwise
+     *        <code>false</code>. Only supported for S3 File Gateways.</p>
+     *        <p>
+     *        Valid Values: <code>true</code> | <code>false</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -161,10 +650,17 @@ public class DescribeSMBSettingsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * This value is true if a password for the guest user “smbguest” is set, and otherwise false.
+     * This value is <code>true</code> if a password for the guest user <code>smbguest</code> is set, otherwise
+     * <code>false</code>. Only supported for S3 File Gateways.
+     * </p>
+     * <p>
+     * Valid Values: <code>true</code> | <code>false</code>
      * </p>
      * 
-     * @return This value is true if a password for the guest user “smbguest” is set, and otherwise false.
+     * @return This value is <code>true</code> if a password for the guest user <code>smbguest</code> is set, otherwise
+     *         <code>false</code>. Only supported for S3 File Gateways.</p>
+     *         <p>
+     *         Valid Values: <code>true</code> | <code>false</code>
      */
 
     public Boolean isSMBGuestPasswordSet() {
@@ -175,29 +671,72 @@ public class DescribeSMBSettingsResult extends com.amazonaws.AmazonWebServiceRes
      * <p>
      * The type of security strategy that was specified for file gateway.
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * ClientSpecified: SMBv1 is enabled, SMB signing is offered but not required, SMB encryption is offered but not
-     * required.
+     * <code>ClientSpecified</code>: If you choose this option, requests are established based on what is negotiated by
+     * the client. This option is recommended when you want to maximize compatibility across different clients in your
+     * environment. Supported only for S3 File Gateway.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * MandatorySigning: SMBv1 is disabled, SMB signing is required, SMB encryption is offered but not required.
+     * <code>MandatorySigning</code>: If you choose this option, File Gateway only allows connections from SMBv2 or
+     * SMBv3 clients that have signing turned on. This option works with SMB clients on Microsoft Windows Vista, Windows
+     * Server 2008, or later.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * MandatoryEncryption: SMBv1 is disabled, SMB signing is offered but not required, SMB encryption is required.
+     * <code>MandatoryEncryption</code>: If you choose this option, File Gateway only allows connections from SMBv3
+     * clients that have encryption turned on. Both 256-bit and 128-bit algorithms are allowed. This option is
+     * recommended for environments that handle sensitive data. It works with SMB clients on Microsoft Windows 8,
+     * Windows Server 2012, or later.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MandatoryEncryptionNoAes128</code>: If you choose this option, File Gateway only allows connections from
+     * SMBv3 clients that use 256-bit AES encryption algorithms. 128-bit algorithms are not allowed. This option is
+     * recommended for environments that handle sensitive data. It works with SMB clients on Microsoft Windows 8,
+     * Windows Server 2012, or later.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param sMBSecurityStrategy
      *        The type of security strategy that was specified for file gateway.</p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        ClientSpecified: SMBv1 is enabled, SMB signing is offered but not required, SMB encryption is offered but
-     *        not required.
+     *        <code>ClientSpecified</code>: If you choose this option, requests are established based on what is
+     *        negotiated by the client. This option is recommended when you want to maximize compatibility across
+     *        different clients in your environment. Supported only for S3 File Gateway.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        MandatorySigning: SMBv1 is disabled, SMB signing is required, SMB encryption is offered but not required.
+     *        <code>MandatorySigning</code>: If you choose this option, File Gateway only allows connections from SMBv2
+     *        or SMBv3 clients that have signing turned on. This option works with SMB clients on Microsoft Windows
+     *        Vista, Windows Server 2008, or later.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        MandatoryEncryption: SMBv1 is disabled, SMB signing is offered but not required, SMB encryption is
-     *        required.
+     *        <code>MandatoryEncryption</code>: If you choose this option, File Gateway only allows connections from
+     *        SMBv3 clients that have encryption turned on. Both 256-bit and 128-bit algorithms are allowed. This option
+     *        is recommended for environments that handle sensitive data. It works with SMB clients on Microsoft Windows
+     *        8, Windows Server 2012, or later.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MandatoryEncryptionNoAes128</code>: If you choose this option, File Gateway only allows connections
+     *        from SMBv3 clients that use 256-bit AES encryption algorithms. 128-bit algorithms are not allowed. This
+     *        option is recommended for environments that handle sensitive data. It works with SMB clients on Microsoft
+     *        Windows 8, Windows Server 2012, or later.
+     *        </p>
+     *        </li>
      * @see SMBSecurityStrategy
      */
 
@@ -209,28 +748,71 @@ public class DescribeSMBSettingsResult extends com.amazonaws.AmazonWebServiceRes
      * <p>
      * The type of security strategy that was specified for file gateway.
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * ClientSpecified: SMBv1 is enabled, SMB signing is offered but not required, SMB encryption is offered but not
-     * required.
+     * <code>ClientSpecified</code>: If you choose this option, requests are established based on what is negotiated by
+     * the client. This option is recommended when you want to maximize compatibility across different clients in your
+     * environment. Supported only for S3 File Gateway.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * MandatorySigning: SMBv1 is disabled, SMB signing is required, SMB encryption is offered but not required.
+     * <code>MandatorySigning</code>: If you choose this option, File Gateway only allows connections from SMBv2 or
+     * SMBv3 clients that have signing turned on. This option works with SMB clients on Microsoft Windows Vista, Windows
+     * Server 2008, or later.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * MandatoryEncryption: SMBv1 is disabled, SMB signing is offered but not required, SMB encryption is required.
+     * <code>MandatoryEncryption</code>: If you choose this option, File Gateway only allows connections from SMBv3
+     * clients that have encryption turned on. Both 256-bit and 128-bit algorithms are allowed. This option is
+     * recommended for environments that handle sensitive data. It works with SMB clients on Microsoft Windows 8,
+     * Windows Server 2012, or later.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MandatoryEncryptionNoAes128</code>: If you choose this option, File Gateway only allows connections from
+     * SMBv3 clients that use 256-bit AES encryption algorithms. 128-bit algorithms are not allowed. This option is
+     * recommended for environments that handle sensitive data. It works with SMB clients on Microsoft Windows 8,
+     * Windows Server 2012, or later.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @return The type of security strategy that was specified for file gateway.</p>
+     *         <ul>
+     *         <li>
      *         <p>
-     *         ClientSpecified: SMBv1 is enabled, SMB signing is offered but not required, SMB encryption is offered but
-     *         not required.
+     *         <code>ClientSpecified</code>: If you choose this option, requests are established based on what is
+     *         negotiated by the client. This option is recommended when you want to maximize compatibility across
+     *         different clients in your environment. Supported only for S3 File Gateway.
      *         </p>
+     *         </li>
+     *         <li>
      *         <p>
-     *         MandatorySigning: SMBv1 is disabled, SMB signing is required, SMB encryption is offered but not required.
+     *         <code>MandatorySigning</code>: If you choose this option, File Gateway only allows connections from SMBv2
+     *         or SMBv3 clients that have signing turned on. This option works with SMB clients on Microsoft Windows
+     *         Vista, Windows Server 2008, or later.
      *         </p>
+     *         </li>
+     *         <li>
      *         <p>
-     *         MandatoryEncryption: SMBv1 is disabled, SMB signing is offered but not required, SMB encryption is
-     *         required.
+     *         <code>MandatoryEncryption</code>: If you choose this option, File Gateway only allows connections from
+     *         SMBv3 clients that have encryption turned on. Both 256-bit and 128-bit algorithms are allowed. This
+     *         option is recommended for environments that handle sensitive data. It works with SMB clients on Microsoft
+     *         Windows 8, Windows Server 2012, or later.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>MandatoryEncryptionNoAes128</code>: If you choose this option, File Gateway only allows connections
+     *         from SMBv3 clients that use 256-bit AES encryption algorithms. 128-bit algorithms are not allowed. This
+     *         option is recommended for environments that handle sensitive data. It works with SMB clients on Microsoft
+     *         Windows 8, Windows Server 2012, or later.
+     *         </p>
+     *         </li>
      * @see SMBSecurityStrategy
      */
 
@@ -242,29 +824,72 @@ public class DescribeSMBSettingsResult extends com.amazonaws.AmazonWebServiceRes
      * <p>
      * The type of security strategy that was specified for file gateway.
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * ClientSpecified: SMBv1 is enabled, SMB signing is offered but not required, SMB encryption is offered but not
-     * required.
+     * <code>ClientSpecified</code>: If you choose this option, requests are established based on what is negotiated by
+     * the client. This option is recommended when you want to maximize compatibility across different clients in your
+     * environment. Supported only for S3 File Gateway.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * MandatorySigning: SMBv1 is disabled, SMB signing is required, SMB encryption is offered but not required.
+     * <code>MandatorySigning</code>: If you choose this option, File Gateway only allows connections from SMBv2 or
+     * SMBv3 clients that have signing turned on. This option works with SMB clients on Microsoft Windows Vista, Windows
+     * Server 2008, or later.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * MandatoryEncryption: SMBv1 is disabled, SMB signing is offered but not required, SMB encryption is required.
+     * <code>MandatoryEncryption</code>: If you choose this option, File Gateway only allows connections from SMBv3
+     * clients that have encryption turned on. Both 256-bit and 128-bit algorithms are allowed. This option is
+     * recommended for environments that handle sensitive data. It works with SMB clients on Microsoft Windows 8,
+     * Windows Server 2012, or later.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MandatoryEncryptionNoAes128</code>: If you choose this option, File Gateway only allows connections from
+     * SMBv3 clients that use 256-bit AES encryption algorithms. 128-bit algorithms are not allowed. This option is
+     * recommended for environments that handle sensitive data. It works with SMB clients on Microsoft Windows 8,
+     * Windows Server 2012, or later.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param sMBSecurityStrategy
      *        The type of security strategy that was specified for file gateway.</p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        ClientSpecified: SMBv1 is enabled, SMB signing is offered but not required, SMB encryption is offered but
-     *        not required.
+     *        <code>ClientSpecified</code>: If you choose this option, requests are established based on what is
+     *        negotiated by the client. This option is recommended when you want to maximize compatibility across
+     *        different clients in your environment. Supported only for S3 File Gateway.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        MandatorySigning: SMBv1 is disabled, SMB signing is required, SMB encryption is offered but not required.
+     *        <code>MandatorySigning</code>: If you choose this option, File Gateway only allows connections from SMBv2
+     *        or SMBv3 clients that have signing turned on. This option works with SMB clients on Microsoft Windows
+     *        Vista, Windows Server 2008, or later.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        MandatoryEncryption: SMBv1 is disabled, SMB signing is offered but not required, SMB encryption is
-     *        required.
+     *        <code>MandatoryEncryption</code>: If you choose this option, File Gateway only allows connections from
+     *        SMBv3 clients that have encryption turned on. Both 256-bit and 128-bit algorithms are allowed. This option
+     *        is recommended for environments that handle sensitive data. It works with SMB clients on Microsoft Windows
+     *        8, Windows Server 2012, or later.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MandatoryEncryptionNoAes128</code>: If you choose this option, File Gateway only allows connections
+     *        from SMBv3 clients that use 256-bit AES encryption algorithms. 128-bit algorithms are not allowed. This
+     *        option is recommended for environments that handle sensitive data. It works with SMB clients on Microsoft
+     *        Windows 8, Windows Server 2012, or later.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SMBSecurityStrategy
      */
@@ -278,35 +903,173 @@ public class DescribeSMBSettingsResult extends com.amazonaws.AmazonWebServiceRes
      * <p>
      * The type of security strategy that was specified for file gateway.
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * ClientSpecified: SMBv1 is enabled, SMB signing is offered but not required, SMB encryption is offered but not
-     * required.
+     * <code>ClientSpecified</code>: If you choose this option, requests are established based on what is negotiated by
+     * the client. This option is recommended when you want to maximize compatibility across different clients in your
+     * environment. Supported only for S3 File Gateway.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * MandatorySigning: SMBv1 is disabled, SMB signing is required, SMB encryption is offered but not required.
+     * <code>MandatorySigning</code>: If you choose this option, File Gateway only allows connections from SMBv2 or
+     * SMBv3 clients that have signing turned on. This option works with SMB clients on Microsoft Windows Vista, Windows
+     * Server 2008, or later.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * MandatoryEncryption: SMBv1 is disabled, SMB signing is offered but not required, SMB encryption is required.
+     * <code>MandatoryEncryption</code>: If you choose this option, File Gateway only allows connections from SMBv3
+     * clients that have encryption turned on. Both 256-bit and 128-bit algorithms are allowed. This option is
+     * recommended for environments that handle sensitive data. It works with SMB clients on Microsoft Windows 8,
+     * Windows Server 2012, or later.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MandatoryEncryptionNoAes128</code>: If you choose this option, File Gateway only allows connections from
+     * SMBv3 clients that use 256-bit AES encryption algorithms. 128-bit algorithms are not allowed. This option is
+     * recommended for environments that handle sensitive data. It works with SMB clients on Microsoft Windows 8,
+     * Windows Server 2012, or later.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param sMBSecurityStrategy
      *        The type of security strategy that was specified for file gateway.</p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        ClientSpecified: SMBv1 is enabled, SMB signing is offered but not required, SMB encryption is offered but
-     *        not required.
+     *        <code>ClientSpecified</code>: If you choose this option, requests are established based on what is
+     *        negotiated by the client. This option is recommended when you want to maximize compatibility across
+     *        different clients in your environment. Supported only for S3 File Gateway.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        MandatorySigning: SMBv1 is disabled, SMB signing is required, SMB encryption is offered but not required.
+     *        <code>MandatorySigning</code>: If you choose this option, File Gateway only allows connections from SMBv2
+     *        or SMBv3 clients that have signing turned on. This option works with SMB clients on Microsoft Windows
+     *        Vista, Windows Server 2008, or later.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        MandatoryEncryption: SMBv1 is disabled, SMB signing is offered but not required, SMB encryption is
-     *        required.
+     *        <code>MandatoryEncryption</code>: If you choose this option, File Gateway only allows connections from
+     *        SMBv3 clients that have encryption turned on. Both 256-bit and 128-bit algorithms are allowed. This option
+     *        is recommended for environments that handle sensitive data. It works with SMB clients on Microsoft Windows
+     *        8, Windows Server 2012, or later.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>MandatoryEncryptionNoAes128</code>: If you choose this option, File Gateway only allows connections
+     *        from SMBv3 clients that use 256-bit AES encryption algorithms. 128-bit algorithms are not allowed. This
+     *        option is recommended for environments that handle sensitive data. It works with SMB clients on Microsoft
+     *        Windows 8, Windows Server 2012, or later.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SMBSecurityStrategy
      */
 
     public DescribeSMBSettingsResult withSMBSecurityStrategy(SMBSecurityStrategy sMBSecurityStrategy) {
         this.sMBSecurityStrategy = sMBSecurityStrategy.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The shares on this gateway appear when listing shares. Only supported for S3 File Gateways.
+     * </p>
+     * 
+     * @param fileSharesVisible
+     *        The shares on this gateway appear when listing shares. Only supported for S3 File Gateways.
+     */
+
+    public void setFileSharesVisible(Boolean fileSharesVisible) {
+        this.fileSharesVisible = fileSharesVisible;
+    }
+
+    /**
+     * <p>
+     * The shares on this gateway appear when listing shares. Only supported for S3 File Gateways.
+     * </p>
+     * 
+     * @return The shares on this gateway appear when listing shares. Only supported for S3 File Gateways.
+     */
+
+    public Boolean getFileSharesVisible() {
+        return this.fileSharesVisible;
+    }
+
+    /**
+     * <p>
+     * The shares on this gateway appear when listing shares. Only supported for S3 File Gateways.
+     * </p>
+     * 
+     * @param fileSharesVisible
+     *        The shares on this gateway appear when listing shares. Only supported for S3 File Gateways.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeSMBSettingsResult withFileSharesVisible(Boolean fileSharesVisible) {
+        setFileSharesVisible(fileSharesVisible);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The shares on this gateway appear when listing shares. Only supported for S3 File Gateways.
+     * </p>
+     * 
+     * @return The shares on this gateway appear when listing shares. Only supported for S3 File Gateways.
+     */
+
+    public Boolean isFileSharesVisible() {
+        return this.fileSharesVisible;
+    }
+
+    /**
+     * <p>
+     * A list of Active Directory users and groups that have special permissions for SMB file shares on the gateway.
+     * </p>
+     * 
+     * @param sMBLocalGroups
+     *        A list of Active Directory users and groups that have special permissions for SMB file shares on the
+     *        gateway.
+     */
+
+    public void setSMBLocalGroups(SMBLocalGroups sMBLocalGroups) {
+        this.sMBLocalGroups = sMBLocalGroups;
+    }
+
+    /**
+     * <p>
+     * A list of Active Directory users and groups that have special permissions for SMB file shares on the gateway.
+     * </p>
+     * 
+     * @return A list of Active Directory users and groups that have special permissions for SMB file shares on the
+     *         gateway.
+     */
+
+    public SMBLocalGroups getSMBLocalGroups() {
+        return this.sMBLocalGroups;
+    }
+
+    /**
+     * <p>
+     * A list of Active Directory users and groups that have special permissions for SMB file shares on the gateway.
+     * </p>
+     * 
+     * @param sMBLocalGroups
+     *        A list of Active Directory users and groups that have special permissions for SMB file shares on the
+     *        gateway.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeSMBSettingsResult withSMBLocalGroups(SMBLocalGroups sMBLocalGroups) {
+        setSMBLocalGroups(sMBLocalGroups);
         return this;
     }
 
@@ -326,10 +1089,16 @@ public class DescribeSMBSettingsResult extends com.amazonaws.AmazonWebServiceRes
             sb.append("GatewayARN: ").append(getGatewayARN()).append(",");
         if (getDomainName() != null)
             sb.append("DomainName: ").append(getDomainName()).append(",");
+        if (getActiveDirectoryStatus() != null)
+            sb.append("ActiveDirectoryStatus: ").append(getActiveDirectoryStatus()).append(",");
         if (getSMBGuestPasswordSet() != null)
             sb.append("SMBGuestPasswordSet: ").append(getSMBGuestPasswordSet()).append(",");
         if (getSMBSecurityStrategy() != null)
-            sb.append("SMBSecurityStrategy: ").append(getSMBSecurityStrategy());
+            sb.append("SMBSecurityStrategy: ").append(getSMBSecurityStrategy()).append(",");
+        if (getFileSharesVisible() != null)
+            sb.append("FileSharesVisible: ").append(getFileSharesVisible()).append(",");
+        if (getSMBLocalGroups() != null)
+            sb.append("SMBLocalGroups: ").append(getSMBLocalGroups());
         sb.append("}");
         return sb.toString();
     }
@@ -352,6 +1121,10 @@ public class DescribeSMBSettingsResult extends com.amazonaws.AmazonWebServiceRes
             return false;
         if (other.getDomainName() != null && other.getDomainName().equals(this.getDomainName()) == false)
             return false;
+        if (other.getActiveDirectoryStatus() == null ^ this.getActiveDirectoryStatus() == null)
+            return false;
+        if (other.getActiveDirectoryStatus() != null && other.getActiveDirectoryStatus().equals(this.getActiveDirectoryStatus()) == false)
+            return false;
         if (other.getSMBGuestPasswordSet() == null ^ this.getSMBGuestPasswordSet() == null)
             return false;
         if (other.getSMBGuestPasswordSet() != null && other.getSMBGuestPasswordSet().equals(this.getSMBGuestPasswordSet()) == false)
@@ -359,6 +1132,14 @@ public class DescribeSMBSettingsResult extends com.amazonaws.AmazonWebServiceRes
         if (other.getSMBSecurityStrategy() == null ^ this.getSMBSecurityStrategy() == null)
             return false;
         if (other.getSMBSecurityStrategy() != null && other.getSMBSecurityStrategy().equals(this.getSMBSecurityStrategy()) == false)
+            return false;
+        if (other.getFileSharesVisible() == null ^ this.getFileSharesVisible() == null)
+            return false;
+        if (other.getFileSharesVisible() != null && other.getFileSharesVisible().equals(this.getFileSharesVisible()) == false)
+            return false;
+        if (other.getSMBLocalGroups() == null ^ this.getSMBLocalGroups() == null)
+            return false;
+        if (other.getSMBLocalGroups() != null && other.getSMBLocalGroups().equals(this.getSMBLocalGroups()) == false)
             return false;
         return true;
     }
@@ -370,8 +1151,11 @@ public class DescribeSMBSettingsResult extends com.amazonaws.AmazonWebServiceRes
 
         hashCode = prime * hashCode + ((getGatewayARN() == null) ? 0 : getGatewayARN().hashCode());
         hashCode = prime * hashCode + ((getDomainName() == null) ? 0 : getDomainName().hashCode());
+        hashCode = prime * hashCode + ((getActiveDirectoryStatus() == null) ? 0 : getActiveDirectoryStatus().hashCode());
         hashCode = prime * hashCode + ((getSMBGuestPasswordSet() == null) ? 0 : getSMBGuestPasswordSet().hashCode());
         hashCode = prime * hashCode + ((getSMBSecurityStrategy() == null) ? 0 : getSMBSecurityStrategy().hashCode());
+        hashCode = prime * hashCode + ((getFileSharesVisible() == null) ? 0 : getFileSharesVisible().hashCode());
+        hashCode = prime * hashCode + ((getSMBLocalGroups() == null) ? 0 : getSMBLocalGroups().hashCode());
         return hashCode;
     }
 

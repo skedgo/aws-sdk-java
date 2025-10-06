@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,10 +60,43 @@ public class DestinationDescription implements Serializable, Cloneable, Structur
     private ElasticsearchDestinationDescription elasticsearchDestinationDescription;
     /**
      * <p>
+     * The destination in Amazon OpenSearch Service.
+     * </p>
+     */
+    private AmazonopensearchserviceDestinationDescription amazonopensearchserviceDestinationDescription;
+    /**
+     * <p>
      * The destination in Splunk.
      * </p>
      */
     private SplunkDestinationDescription splunkDestinationDescription;
+    /**
+     * <p>
+     * Describes the specified HTTP endpoint destination.
+     * </p>
+     */
+    private HttpEndpointDestinationDescription httpEndpointDestinationDescription;
+    /**
+     * <p>
+     * Optional description for the destination
+     * </p>
+     */
+    private SnowflakeDestinationDescription snowflakeDestinationDescription;
+    /**
+     * <p>
+     * The destination in the Serverless offering for Amazon OpenSearch Service.
+     * </p>
+     */
+    private AmazonOpenSearchServerlessDestinationDescription amazonOpenSearchServerlessDestinationDescription;
+    /**
+     * <p>
+     * Describes a destination in Apache Iceberg Tables.
+     * </p>
+     * <p>
+     * Amazon Data Firehose is in preview release and is subject to change.
+     * </p>
+     */
+    private IcebergDestinationDescription icebergDestinationDescription;
 
     /**
      * <p>
@@ -267,6 +300,47 @@ public class DestinationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
+     * The destination in Amazon OpenSearch Service.
+     * </p>
+     * 
+     * @param amazonopensearchserviceDestinationDescription
+     *        The destination in Amazon OpenSearch Service.
+     */
+
+    public void setAmazonopensearchserviceDestinationDescription(AmazonopensearchserviceDestinationDescription amazonopensearchserviceDestinationDescription) {
+        this.amazonopensearchserviceDestinationDescription = amazonopensearchserviceDestinationDescription;
+    }
+
+    /**
+     * <p>
+     * The destination in Amazon OpenSearch Service.
+     * </p>
+     * 
+     * @return The destination in Amazon OpenSearch Service.
+     */
+
+    public AmazonopensearchserviceDestinationDescription getAmazonopensearchserviceDestinationDescription() {
+        return this.amazonopensearchserviceDestinationDescription;
+    }
+
+    /**
+     * <p>
+     * The destination in Amazon OpenSearch Service.
+     * </p>
+     * 
+     * @param amazonopensearchserviceDestinationDescription
+     *        The destination in Amazon OpenSearch Service.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DestinationDescription withAmazonopensearchserviceDestinationDescription(
+            AmazonopensearchserviceDestinationDescription amazonopensearchserviceDestinationDescription) {
+        setAmazonopensearchserviceDestinationDescription(amazonopensearchserviceDestinationDescription);
+        return this;
+    }
+
+    /**
+     * <p>
      * The destination in Splunk.
      * </p>
      * 
@@ -306,6 +380,183 @@ public class DestinationDescription implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * Describes the specified HTTP endpoint destination.
+     * </p>
+     * 
+     * @param httpEndpointDestinationDescription
+     *        Describes the specified HTTP endpoint destination.
+     */
+
+    public void setHttpEndpointDestinationDescription(HttpEndpointDestinationDescription httpEndpointDestinationDescription) {
+        this.httpEndpointDestinationDescription = httpEndpointDestinationDescription;
+    }
+
+    /**
+     * <p>
+     * Describes the specified HTTP endpoint destination.
+     * </p>
+     * 
+     * @return Describes the specified HTTP endpoint destination.
+     */
+
+    public HttpEndpointDestinationDescription getHttpEndpointDestinationDescription() {
+        return this.httpEndpointDestinationDescription;
+    }
+
+    /**
+     * <p>
+     * Describes the specified HTTP endpoint destination.
+     * </p>
+     * 
+     * @param httpEndpointDestinationDescription
+     *        Describes the specified HTTP endpoint destination.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DestinationDescription withHttpEndpointDestinationDescription(HttpEndpointDestinationDescription httpEndpointDestinationDescription) {
+        setHttpEndpointDestinationDescription(httpEndpointDestinationDescription);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Optional description for the destination
+     * </p>
+     * 
+     * @param snowflakeDestinationDescription
+     *        Optional description for the destination
+     */
+
+    public void setSnowflakeDestinationDescription(SnowflakeDestinationDescription snowflakeDestinationDescription) {
+        this.snowflakeDestinationDescription = snowflakeDestinationDescription;
+    }
+
+    /**
+     * <p>
+     * Optional description for the destination
+     * </p>
+     * 
+     * @return Optional description for the destination
+     */
+
+    public SnowflakeDestinationDescription getSnowflakeDestinationDescription() {
+        return this.snowflakeDestinationDescription;
+    }
+
+    /**
+     * <p>
+     * Optional description for the destination
+     * </p>
+     * 
+     * @param snowflakeDestinationDescription
+     *        Optional description for the destination
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DestinationDescription withSnowflakeDestinationDescription(SnowflakeDestinationDescription snowflakeDestinationDescription) {
+        setSnowflakeDestinationDescription(snowflakeDestinationDescription);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The destination in the Serverless offering for Amazon OpenSearch Service.
+     * </p>
+     * 
+     * @param amazonOpenSearchServerlessDestinationDescription
+     *        The destination in the Serverless offering for Amazon OpenSearch Service.
+     */
+
+    public void setAmazonOpenSearchServerlessDestinationDescription(
+            AmazonOpenSearchServerlessDestinationDescription amazonOpenSearchServerlessDestinationDescription) {
+        this.amazonOpenSearchServerlessDestinationDescription = amazonOpenSearchServerlessDestinationDescription;
+    }
+
+    /**
+     * <p>
+     * The destination in the Serverless offering for Amazon OpenSearch Service.
+     * </p>
+     * 
+     * @return The destination in the Serverless offering for Amazon OpenSearch Service.
+     */
+
+    public AmazonOpenSearchServerlessDestinationDescription getAmazonOpenSearchServerlessDestinationDescription() {
+        return this.amazonOpenSearchServerlessDestinationDescription;
+    }
+
+    /**
+     * <p>
+     * The destination in the Serverless offering for Amazon OpenSearch Service.
+     * </p>
+     * 
+     * @param amazonOpenSearchServerlessDestinationDescription
+     *        The destination in the Serverless offering for Amazon OpenSearch Service.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DestinationDescription withAmazonOpenSearchServerlessDestinationDescription(
+            AmazonOpenSearchServerlessDestinationDescription amazonOpenSearchServerlessDestinationDescription) {
+        setAmazonOpenSearchServerlessDestinationDescription(amazonOpenSearchServerlessDestinationDescription);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes a destination in Apache Iceberg Tables.
+     * </p>
+     * <p>
+     * Amazon Data Firehose is in preview release and is subject to change.
+     * </p>
+     * 
+     * @param icebergDestinationDescription
+     *        Describes a destination in Apache Iceberg Tables. </p>
+     *        <p>
+     *        Amazon Data Firehose is in preview release and is subject to change.
+     */
+
+    public void setIcebergDestinationDescription(IcebergDestinationDescription icebergDestinationDescription) {
+        this.icebergDestinationDescription = icebergDestinationDescription;
+    }
+
+    /**
+     * <p>
+     * Describes a destination in Apache Iceberg Tables.
+     * </p>
+     * <p>
+     * Amazon Data Firehose is in preview release and is subject to change.
+     * </p>
+     * 
+     * @return Describes a destination in Apache Iceberg Tables. </p>
+     *         <p>
+     *         Amazon Data Firehose is in preview release and is subject to change.
+     */
+
+    public IcebergDestinationDescription getIcebergDestinationDescription() {
+        return this.icebergDestinationDescription;
+    }
+
+    /**
+     * <p>
+     * Describes a destination in Apache Iceberg Tables.
+     * </p>
+     * <p>
+     * Amazon Data Firehose is in preview release and is subject to change.
+     * </p>
+     * 
+     * @param icebergDestinationDescription
+     *        Describes a destination in Apache Iceberg Tables. </p>
+     *        <p>
+     *        Amazon Data Firehose is in preview release and is subject to change.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DestinationDescription withIcebergDestinationDescription(IcebergDestinationDescription icebergDestinationDescription) {
+        setIcebergDestinationDescription(icebergDestinationDescription);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -327,8 +578,18 @@ public class DestinationDescription implements Serializable, Cloneable, Structur
             sb.append("RedshiftDestinationDescription: ").append(getRedshiftDestinationDescription()).append(",");
         if (getElasticsearchDestinationDescription() != null)
             sb.append("ElasticsearchDestinationDescription: ").append(getElasticsearchDestinationDescription()).append(",");
+        if (getAmazonopensearchserviceDestinationDescription() != null)
+            sb.append("AmazonopensearchserviceDestinationDescription: ").append(getAmazonopensearchserviceDestinationDescription()).append(",");
         if (getSplunkDestinationDescription() != null)
-            sb.append("SplunkDestinationDescription: ").append(getSplunkDestinationDescription());
+            sb.append("SplunkDestinationDescription: ").append(getSplunkDestinationDescription()).append(",");
+        if (getHttpEndpointDestinationDescription() != null)
+            sb.append("HttpEndpointDestinationDescription: ").append(getHttpEndpointDestinationDescription()).append(",");
+        if (getSnowflakeDestinationDescription() != null)
+            sb.append("SnowflakeDestinationDescription: ").append(getSnowflakeDestinationDescription()).append(",");
+        if (getAmazonOpenSearchServerlessDestinationDescription() != null)
+            sb.append("AmazonOpenSearchServerlessDestinationDescription: ").append(getAmazonOpenSearchServerlessDestinationDescription()).append(",");
+        if (getIcebergDestinationDescription() != null)
+            sb.append("IcebergDestinationDescription: ").append(getIcebergDestinationDescription());
         sb.append("}");
         return sb.toString();
     }
@@ -366,9 +627,34 @@ public class DestinationDescription implements Serializable, Cloneable, Structur
         if (other.getElasticsearchDestinationDescription() != null
                 && other.getElasticsearchDestinationDescription().equals(this.getElasticsearchDestinationDescription()) == false)
             return false;
+        if (other.getAmazonopensearchserviceDestinationDescription() == null ^ this.getAmazonopensearchserviceDestinationDescription() == null)
+            return false;
+        if (other.getAmazonopensearchserviceDestinationDescription() != null
+                && other.getAmazonopensearchserviceDestinationDescription().equals(this.getAmazonopensearchserviceDestinationDescription()) == false)
+            return false;
         if (other.getSplunkDestinationDescription() == null ^ this.getSplunkDestinationDescription() == null)
             return false;
         if (other.getSplunkDestinationDescription() != null && other.getSplunkDestinationDescription().equals(this.getSplunkDestinationDescription()) == false)
+            return false;
+        if (other.getHttpEndpointDestinationDescription() == null ^ this.getHttpEndpointDestinationDescription() == null)
+            return false;
+        if (other.getHttpEndpointDestinationDescription() != null
+                && other.getHttpEndpointDestinationDescription().equals(this.getHttpEndpointDestinationDescription()) == false)
+            return false;
+        if (other.getSnowflakeDestinationDescription() == null ^ this.getSnowflakeDestinationDescription() == null)
+            return false;
+        if (other.getSnowflakeDestinationDescription() != null
+                && other.getSnowflakeDestinationDescription().equals(this.getSnowflakeDestinationDescription()) == false)
+            return false;
+        if (other.getAmazonOpenSearchServerlessDestinationDescription() == null ^ this.getAmazonOpenSearchServerlessDestinationDescription() == null)
+            return false;
+        if (other.getAmazonOpenSearchServerlessDestinationDescription() != null
+                && other.getAmazonOpenSearchServerlessDestinationDescription().equals(this.getAmazonOpenSearchServerlessDestinationDescription()) == false)
+            return false;
+        if (other.getIcebergDestinationDescription() == null ^ this.getIcebergDestinationDescription() == null)
+            return false;
+        if (other.getIcebergDestinationDescription() != null
+                && other.getIcebergDestinationDescription().equals(this.getIcebergDestinationDescription()) == false)
             return false;
         return true;
     }
@@ -383,7 +669,14 @@ public class DestinationDescription implements Serializable, Cloneable, Structur
         hashCode = prime * hashCode + ((getExtendedS3DestinationDescription() == null) ? 0 : getExtendedS3DestinationDescription().hashCode());
         hashCode = prime * hashCode + ((getRedshiftDestinationDescription() == null) ? 0 : getRedshiftDestinationDescription().hashCode());
         hashCode = prime * hashCode + ((getElasticsearchDestinationDescription() == null) ? 0 : getElasticsearchDestinationDescription().hashCode());
+        hashCode = prime * hashCode
+                + ((getAmazonopensearchserviceDestinationDescription() == null) ? 0 : getAmazonopensearchserviceDestinationDescription().hashCode());
         hashCode = prime * hashCode + ((getSplunkDestinationDescription() == null) ? 0 : getSplunkDestinationDescription().hashCode());
+        hashCode = prime * hashCode + ((getHttpEndpointDestinationDescription() == null) ? 0 : getHttpEndpointDestinationDescription().hashCode());
+        hashCode = prime * hashCode + ((getSnowflakeDestinationDescription() == null) ? 0 : getSnowflakeDestinationDescription().hashCode());
+        hashCode = prime * hashCode
+                + ((getAmazonOpenSearchServerlessDestinationDescription() == null) ? 0 : getAmazonOpenSearchServerlessDestinationDescription().hashCode());
+        hashCode = prime * hashCode + ((getIcebergDestinationDescription() == null) ? 0 : getIcebergDestinationDescription().hashCode());
         return hashCode;
     }
 

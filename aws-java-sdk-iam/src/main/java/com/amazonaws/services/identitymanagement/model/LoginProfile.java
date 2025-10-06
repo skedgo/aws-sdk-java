@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,7 @@ public class LoginProfile implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the user, which can be used for signing in to the AWS Management Console.
+     * The name of the user, which can be used for signing in to the Amazon Web Services Management Console.
      * </p>
      */
     private String userName;
@@ -60,7 +60,7 @@ public class LoginProfile implements Serializable, Cloneable {
      * initialize any additional object members.
      * 
      * @param userName
-     *        The name of the user, which can be used for signing in to the AWS Management Console.
+     *        The name of the user, which can be used for signing in to the Amazon Web Services Management Console.
      * @param createDate
      *        The date when the password for the user was created.
      */
@@ -71,11 +71,11 @@ public class LoginProfile implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the user, which can be used for signing in to the AWS Management Console.
+     * The name of the user, which can be used for signing in to the Amazon Web Services Management Console.
      * </p>
      * 
      * @param userName
-     *        The name of the user, which can be used for signing in to the AWS Management Console.
+     *        The name of the user, which can be used for signing in to the Amazon Web Services Management Console.
      */
 
     public void setUserName(String userName) {
@@ -84,10 +84,10 @@ public class LoginProfile implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the user, which can be used for signing in to the AWS Management Console.
+     * The name of the user, which can be used for signing in to the Amazon Web Services Management Console.
      * </p>
      * 
-     * @return The name of the user, which can be used for signing in to the AWS Management Console.
+     * @return The name of the user, which can be used for signing in to the Amazon Web Services Management Console.
      */
 
     public String getUserName() {
@@ -96,11 +96,11 @@ public class LoginProfile implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the user, which can be used for signing in to the AWS Management Console.
+     * The name of the user, which can be used for signing in to the Amazon Web Services Management Console.
      * </p>
      * 
      * @param userName
-     *        The name of the user, which can be used for signing in to the AWS Management Console.
+     *        The name of the user, which can be used for signing in to the Amazon Web Services Management Console.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

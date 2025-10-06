@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.dynamodbv2.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -29,6 +30,24 @@ public class ReplicaDescriptionMarshaller {
 
     private static final MarshallingInfo<String> REGIONNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RegionName").build();
+    private static final MarshallingInfo<String> REPLICASTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ReplicaStatus").build();
+    private static final MarshallingInfo<String> REPLICASTATUSDESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ReplicaStatusDescription").build();
+    private static final MarshallingInfo<String> REPLICASTATUSPERCENTPROGRESS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ReplicaStatusPercentProgress").build();
+    private static final MarshallingInfo<String> KMSMASTERKEYID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("KMSMasterKeyId").build();
+    private static final MarshallingInfo<StructuredPojo> PROVISIONEDTHROUGHPUTOVERRIDE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ProvisionedThroughputOverride").build();
+    private static final MarshallingInfo<StructuredPojo> ONDEMANDTHROUGHPUTOVERRIDE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OnDemandThroughputOverride").build();
+    private static final MarshallingInfo<List> GLOBALSECONDARYINDEXES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("GlobalSecondaryIndexes").build();
+    private static final MarshallingInfo<java.util.Date> REPLICAINACCESSIBLEDATETIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ReplicaInaccessibleDateTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<StructuredPojo> REPLICATABLECLASSSUMMARY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ReplicaTableClassSummary").build();
 
     private static final ReplicaDescriptionMarshaller instance = new ReplicaDescriptionMarshaller();
 
@@ -47,6 +66,15 @@ public class ReplicaDescriptionMarshaller {
 
         try {
             protocolMarshaller.marshall(replicaDescription.getRegionName(), REGIONNAME_BINDING);
+            protocolMarshaller.marshall(replicaDescription.getReplicaStatus(), REPLICASTATUS_BINDING);
+            protocolMarshaller.marshall(replicaDescription.getReplicaStatusDescription(), REPLICASTATUSDESCRIPTION_BINDING);
+            protocolMarshaller.marshall(replicaDescription.getReplicaStatusPercentProgress(), REPLICASTATUSPERCENTPROGRESS_BINDING);
+            protocolMarshaller.marshall(replicaDescription.getKMSMasterKeyId(), KMSMASTERKEYID_BINDING);
+            protocolMarshaller.marshall(replicaDescription.getProvisionedThroughputOverride(), PROVISIONEDTHROUGHPUTOVERRIDE_BINDING);
+            protocolMarshaller.marshall(replicaDescription.getOnDemandThroughputOverride(), ONDEMANDTHROUGHPUTOVERRIDE_BINDING);
+            protocolMarshaller.marshall(replicaDescription.getGlobalSecondaryIndexes(), GLOBALSECONDARYINDEXES_BINDING);
+            protocolMarshaller.marshall(replicaDescription.getReplicaInaccessibleDateTime(), REPLICAINACCESSIBLEDATETIME_BINDING);
+            protocolMarshaller.marshall(replicaDescription.getReplicaTableClassSummary(), REPLICATABLECLASSSUMMARY_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

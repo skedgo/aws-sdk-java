@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class InputDataConfigMarshaller {
             .marshallLocationName("S3Uri").build();
     private static final MarshallingInfo<String> INPUTFORMAT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InputFormat").build();
+    private static final MarshallingInfo<StructuredPojo> DOCUMENTREADERCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DocumentReaderConfig").build();
 
     private static final InputDataConfigMarshaller instance = new InputDataConfigMarshaller();
 
@@ -50,6 +52,7 @@ public class InputDataConfigMarshaller {
         try {
             protocolMarshaller.marshall(inputDataConfig.getS3Uri(), S3URI_BINDING);
             protocolMarshaller.marshall(inputDataConfig.getInputFormat(), INPUTFORMAT_BINDING);
+            protocolMarshaller.marshall(inputDataConfig.getDocumentReaderConfig(), DOCUMENTREADERCONFIG_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,12 +25,13 @@ import java.util.concurrent.ExecutorService;
  * representing the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive
  * notification when an asynchronous operation completes.
  * <p>
+ * <fullname>Cloud Map</fullname>
  * <p>
- * AWS Cloud Map lets you configure public DNS, private DNS, or HTTP namespaces that your microservice applications run
- * in. When an instance of the service becomes available, you can call the AWS Cloud Map API to register the instance
- * with AWS Cloud Map. For public or private DNS namespaces, AWS Cloud Map automatically creates DNS records and an
- * optional health check. Clients that submit public or private DNS queries, or HTTP requests, for the service receive
- * an answer that contains up to eight healthy records.
+ * With Cloud Map, you can configure public DNS, private DNS, or HTTP namespaces that your microservice applications run
+ * in. When an instance becomes available, you can call the Cloud Map API to register the instance with Cloud Map. For
+ * public or private DNS namespaces, Cloud Map automatically creates DNS records and an optional health check. Clients
+ * that submit public or private DNS queries, or HTTP requests, for the service receive an answer that contains up to
+ * eight healthy records.
  * </p>
  */
 @ThreadSafe
@@ -53,7 +54,20 @@ public class AWSServiceDiscoveryAsyncClient extends AWSServiceDiscoveryClient im
      *        Object providing client parameters.
      */
     AWSServiceDiscoveryAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on ServiceDiscovery using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSServiceDiscoveryAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -315,6 +329,39 @@ public class AWSServiceDiscoveryAsyncClient extends AWSServiceDiscoveryClient im
 
                 try {
                     result = executeDiscoverInstances(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DiscoverInstancesRevisionResult> discoverInstancesRevisionAsync(DiscoverInstancesRevisionRequest request) {
+
+        return discoverInstancesRevisionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DiscoverInstancesRevisionResult> discoverInstancesRevisionAsync(final DiscoverInstancesRevisionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DiscoverInstancesRevisionRequest, DiscoverInstancesRevisionResult> asyncHandler) {
+        final DiscoverInstancesRevisionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DiscoverInstancesRevisionResult>() {
+            @Override
+            public DiscoverInstancesRevisionResult call() throws Exception {
+                DiscoverInstancesRevisionResult result = null;
+
+                try {
+                    result = executeDiscoverInstancesRevision(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -628,6 +675,39 @@ public class AWSServiceDiscoveryAsyncClient extends AWSServiceDiscoveryClient im
     }
 
     @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+        final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTagsForResourceResult>() {
+            @Override
+            public ListTagsForResourceResult call() throws Exception {
+                ListTagsForResourceResult result = null;
+
+                try {
+                    result = executeListTagsForResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<RegisterInstanceResult> registerInstanceAsync(RegisterInstanceRequest request) {
 
         return registerInstanceAsync(request, null);
@@ -645,6 +725,105 @@ public class AWSServiceDiscoveryAsyncClient extends AWSServiceDiscoveryClient im
 
                 try {
                     result = executeRegisterInstance(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateHttpNamespaceResult> updateHttpNamespaceAsync(UpdateHttpNamespaceRequest request) {
+
+        return updateHttpNamespaceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateHttpNamespaceResult> updateHttpNamespaceAsync(final UpdateHttpNamespaceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateHttpNamespaceRequest, UpdateHttpNamespaceResult> asyncHandler) {
+        final UpdateHttpNamespaceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateHttpNamespaceResult>() {
+            @Override
+            public UpdateHttpNamespaceResult call() throws Exception {
+                UpdateHttpNamespaceResult result = null;
+
+                try {
+                    result = executeUpdateHttpNamespace(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -680,6 +859,72 @@ public class AWSServiceDiscoveryAsyncClient extends AWSServiceDiscoveryClient im
 
                 try {
                     result = executeUpdateInstanceCustomHealthStatus(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePrivateDnsNamespaceResult> updatePrivateDnsNamespaceAsync(UpdatePrivateDnsNamespaceRequest request) {
+
+        return updatePrivateDnsNamespaceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePrivateDnsNamespaceResult> updatePrivateDnsNamespaceAsync(final UpdatePrivateDnsNamespaceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdatePrivateDnsNamespaceRequest, UpdatePrivateDnsNamespaceResult> asyncHandler) {
+        final UpdatePrivateDnsNamespaceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdatePrivateDnsNamespaceResult>() {
+            @Override
+            public UpdatePrivateDnsNamespaceResult call() throws Exception {
+                UpdatePrivateDnsNamespaceResult result = null;
+
+                try {
+                    result = executeUpdatePrivateDnsNamespace(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePublicDnsNamespaceResult> updatePublicDnsNamespaceAsync(UpdatePublicDnsNamespaceRequest request) {
+
+        return updatePublicDnsNamespaceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePublicDnsNamespaceResult> updatePublicDnsNamespaceAsync(final UpdatePublicDnsNamespaceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdatePublicDnsNamespaceRequest, UpdatePublicDnsNamespaceResult> asyncHandler) {
+        final UpdatePublicDnsNamespaceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdatePublicDnsNamespaceResult>() {
+            @Override
+            public UpdatePublicDnsNamespaceResult call() throws Exception {
+                UpdatePublicDnsNamespaceResult result = null;
+
+                try {
+                    result = executeUpdatePublicDnsNamespace(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

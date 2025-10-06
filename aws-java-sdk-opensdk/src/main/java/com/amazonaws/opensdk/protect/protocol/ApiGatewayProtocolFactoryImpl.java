@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -35,6 +35,7 @@ import com.amazonaws.protocol.json.SdkJsonMarshallerFactory;
 import com.amazonaws.protocol.json.SdkStructuredJsonFactory;
 import com.amazonaws.protocol.json.SdkStructuredPlainJsonFactory;
 import com.amazonaws.protocol.json.StructuredJsonGenerator;
+import com.amazonaws.protocol.json.internal.EmptyBodyJsonMarshaller;
 import com.amazonaws.transform.JsonUnmarshallerContext;
 import com.amazonaws.transform.Unmarshaller;
 import com.amazonaws.util.DateUtils;
@@ -73,9 +74,9 @@ public final class ApiGatewayProtocolFactoryImpl implements SdkJsonMarshallerFac
                 .contentType(getContentType())
                 .operationInfo(operationInfo)
                 .originalRequest(origRequest)
-                .sendExplicitNullForPayload(true)
                 .marshallerOverride(MarshallLocation.PAYLOAD, MarshallingType.DATE,
                                     (val, generator) -> generator.writeValue(DateUtils.formatISO8601Date(val)))
+                .emptyBodyMarshaller(EmptyBodyJsonMarshaller.NULL)
                 .build();
     }
 

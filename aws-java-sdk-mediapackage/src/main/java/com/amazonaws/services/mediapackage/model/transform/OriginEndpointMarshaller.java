@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,10 +31,14 @@ public class OriginEndpointMarshaller {
 
     private static final MarshallingInfo<String> ARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("arn").build();
+    private static final MarshallingInfo<StructuredPojo> AUTHORIZATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("authorization").build();
     private static final MarshallingInfo<String> CHANNELID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("channelId").build();
     private static final MarshallingInfo<StructuredPojo> CMAFPACKAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("cmafPackage").build();
+    private static final MarshallingInfo<String> CREATEDAT_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("createdAt").build();
     private static final MarshallingInfo<StructuredPojo> DASHPACKAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dashPackage").build();
     private static final MarshallingInfo<String> DESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -47,6 +51,8 @@ public class OriginEndpointMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("manifestName").build();
     private static final MarshallingInfo<StructuredPojo> MSSPACKAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("mssPackage").build();
+    private static final MarshallingInfo<String> ORIGINATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("origination").build();
     private static final MarshallingInfo<Integer> STARTOVERWINDOWSECONDS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("startoverWindowSeconds").build();
     private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
@@ -75,14 +81,17 @@ public class OriginEndpointMarshaller {
 
         try {
             protocolMarshaller.marshall(originEndpoint.getArn(), ARN_BINDING);
+            protocolMarshaller.marshall(originEndpoint.getAuthorization(), AUTHORIZATION_BINDING);
             protocolMarshaller.marshall(originEndpoint.getChannelId(), CHANNELID_BINDING);
             protocolMarshaller.marshall(originEndpoint.getCmafPackage(), CMAFPACKAGE_BINDING);
+            protocolMarshaller.marshall(originEndpoint.getCreatedAt(), CREATEDAT_BINDING);
             protocolMarshaller.marshall(originEndpoint.getDashPackage(), DASHPACKAGE_BINDING);
             protocolMarshaller.marshall(originEndpoint.getDescription(), DESCRIPTION_BINDING);
             protocolMarshaller.marshall(originEndpoint.getHlsPackage(), HLSPACKAGE_BINDING);
             protocolMarshaller.marshall(originEndpoint.getId(), ID_BINDING);
             protocolMarshaller.marshall(originEndpoint.getManifestName(), MANIFESTNAME_BINDING);
             protocolMarshaller.marshall(originEndpoint.getMssPackage(), MSSPACKAGE_BINDING);
+            protocolMarshaller.marshall(originEndpoint.getOrigination(), ORIGINATION_BINDING);
             protocolMarshaller.marshall(originEndpoint.getStartoverWindowSeconds(), STARTOVERWINDOWSECONDS_BINDING);
             protocolMarshaller.marshall(originEndpoint.getTags(), TAGS_BINDING);
             protocolMarshaller.marshall(originEndpoint.getTimeDelaySeconds(), TIMEDELAYSECONDS_BINDING);

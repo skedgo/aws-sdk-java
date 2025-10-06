@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.simplesystemsmanagement.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -43,6 +44,10 @@ public class AssociationExecutionMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastExecutionDate").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<String> RESOURCECOUNTBYSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceCountByStatus").build();
+    private static final MarshallingInfo<StructuredPojo> ALARMCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AlarmConfiguration").build();
+    private static final MarshallingInfo<List> TRIGGEREDALARMS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TriggeredAlarms").build();
 
     private static final AssociationExecutionMarshaller instance = new AssociationExecutionMarshaller();
 
@@ -68,6 +73,8 @@ public class AssociationExecutionMarshaller {
             protocolMarshaller.marshall(associationExecution.getCreatedTime(), CREATEDTIME_BINDING);
             protocolMarshaller.marshall(associationExecution.getLastExecutionDate(), LASTEXECUTIONDATE_BINDING);
             protocolMarshaller.marshall(associationExecution.getResourceCountByStatus(), RESOURCECOUNTBYSTATUS_BINDING);
+            protocolMarshaller.marshall(associationExecution.getAlarmConfiguration(), ALARMCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(associationExecution.getTriggeredAlarms(), TRIGGEREDALARMS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

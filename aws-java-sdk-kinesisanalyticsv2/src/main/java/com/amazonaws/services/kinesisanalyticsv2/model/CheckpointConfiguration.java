@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,9 +21,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <p>
  * Describes an application's checkpointing configuration. Checkpointing is the process of persisting application state
  * for fault tolerance. For more information, see <a href=
- * "https://ci.apache.org/projects/flink/flink-docs-release-1.6/concepts/programming-model.html#checkpoints-for-fault-tolerance"
+ * "https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/dev/datastream/fault-tolerance/checkpointing/#enabling-and-configuring-checkpointing"
  * > Checkpoints for Fault Tolerance</a> in the <a
- * href="https://ci.apache.org/projects/flink/flink-docs-release-1.6/">Apache Flink Documentation</a>.
+ * href="https://nightlies.apache.org/flink/flink-docs-release-1.19/">Apache Flink Documentation</a>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/CheckpointConfiguration"
@@ -34,20 +34,59 @@ public class CheckpointConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Describes whether the application uses Amazon Kinesis Data Analytics' default checkpointing behavior.
+     * Describes whether the application uses Managed Service for Apache Flink' default checkpointing behavior. You must
+     * set this property to <code>CUSTOM</code> in order to set the <code>CheckpointingEnabled</code>,
+     * <code>CheckpointInterval</code>, or <code>MinPauseBetweenCheckpoints</code> parameters.
      * </p>
+     * <note>
+     * <p>
+     * If this value is set to <code>DEFAULT</code>, the application will use the following values, even if they are set
+     * to other values using APIs or application code:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>CheckpointingEnabled:</b> true
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>CheckpointInterval:</b> 60000
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>MinPauseBetweenCheckpoints:</b> 5000
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
      */
     private String configurationType;
     /**
      * <p>
-     * Describes whether checkpointing is enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether checkpointing is enabled for a Managed Service for Apache Flink application.
      * </p>
+     * <note>
+     * <p>
+     * If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will use a
+     * <code>CheckpointingEnabled</code> value of <code>true</code>, even if this value is set to another value using
+     * this API or in application code.
+     * </p>
+     * </note>
      */
     private Boolean checkpointingEnabled;
     /**
      * <p>
      * Describes the interval in milliseconds between checkpoint operations.
      * </p>
+     * <note>
+     * <p>
+     * If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will use a
+     * <code>CheckpointInterval</code> value of 60000, even if this value is set to another value using this API or in
+     * application code.
+     * </p>
+     * </note>
      */
     private Long checkpointInterval;
     /**
@@ -55,20 +94,75 @@ public class CheckpointConfiguration implements Serializable, Cloneable, Structu
      * Describes the minimum time in milliseconds after a checkpoint operation completes that a new checkpoint operation
      * can start. If a checkpoint operation takes longer than the <code>CheckpointInterval</code>, the application
      * otherwise performs continual checkpoint operations. For more information, see <a href=
-     * "https://ci.apache.org/projects/flink/flink-docs-stable/ops/state/large_state_tuning.html#tuning-checkpointing">
-     * Tuning Checkpointing</a> in the <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.6/">Apache
+     * "https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/ops/state/large_state_tuning/#tuning-checkpointing"
+     * > Tuning Checkpointing</a> in the <a href="https://nightlies.apache.org/flink/flink-docs-release-1.19/">Apache
      * Flink Documentation</a>.
      * </p>
+     * <note>
+     * <p>
+     * If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will use a
+     * <code>MinPauseBetweenCheckpoints</code> value of 5000, even if this value is set using this API or in application
+     * code.
+     * </p>
+     * </note>
      */
     private Long minPauseBetweenCheckpoints;
 
     /**
      * <p>
-     * Describes whether the application uses Amazon Kinesis Data Analytics' default checkpointing behavior.
+     * Describes whether the application uses Managed Service for Apache Flink' default checkpointing behavior. You must
+     * set this property to <code>CUSTOM</code> in order to set the <code>CheckpointingEnabled</code>,
+     * <code>CheckpointInterval</code>, or <code>MinPauseBetweenCheckpoints</code> parameters.
      * </p>
+     * <note>
+     * <p>
+     * If this value is set to <code>DEFAULT</code>, the application will use the following values, even if they are set
+     * to other values using APIs or application code:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>CheckpointingEnabled:</b> true
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>CheckpointInterval:</b> 60000
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>MinPauseBetweenCheckpoints:</b> 5000
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
      * 
      * @param configurationType
-     *        Describes whether the application uses Amazon Kinesis Data Analytics' default checkpointing behavior.
+     *        Describes whether the application uses Managed Service for Apache Flink' default checkpointing behavior.
+     *        You must set this property to <code>CUSTOM</code> in order to set the <code>CheckpointingEnabled</code>,
+     *        <code>CheckpointInterval</code>, or <code>MinPauseBetweenCheckpoints</code> parameters.</p> <note>
+     *        <p>
+     *        If this value is set to <code>DEFAULT</code>, the application will use the following values, even if they
+     *        are set to other values using APIs or application code:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>CheckpointingEnabled:</b> true
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>CheckpointInterval:</b> 60000
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>MinPauseBetweenCheckpoints:</b> 5000
+     *        </p>
+     *        </li>
+     *        </ul>
      * @see ConfigurationType
      */
 
@@ -78,10 +172,58 @@ public class CheckpointConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Describes whether the application uses Amazon Kinesis Data Analytics' default checkpointing behavior.
+     * Describes whether the application uses Managed Service for Apache Flink' default checkpointing behavior. You must
+     * set this property to <code>CUSTOM</code> in order to set the <code>CheckpointingEnabled</code>,
+     * <code>CheckpointInterval</code>, or <code>MinPauseBetweenCheckpoints</code> parameters.
      * </p>
+     * <note>
+     * <p>
+     * If this value is set to <code>DEFAULT</code>, the application will use the following values, even if they are set
+     * to other values using APIs or application code:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>CheckpointingEnabled:</b> true
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>CheckpointInterval:</b> 60000
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>MinPauseBetweenCheckpoints:</b> 5000
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
      * 
-     * @return Describes whether the application uses Amazon Kinesis Data Analytics' default checkpointing behavior.
+     * @return Describes whether the application uses Managed Service for Apache Flink' default checkpointing behavior.
+     *         You must set this property to <code>CUSTOM</code> in order to set the <code>CheckpointingEnabled</code>,
+     *         <code>CheckpointInterval</code>, or <code>MinPauseBetweenCheckpoints</code> parameters.</p> <note>
+     *         <p>
+     *         If this value is set to <code>DEFAULT</code>, the application will use the following values, even if they
+     *         are set to other values using APIs or application code:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <b>CheckpointingEnabled:</b> true
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>CheckpointInterval:</b> 60000
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>MinPauseBetweenCheckpoints:</b> 5000
+     *         </p>
+     *         </li>
+     *         </ul>
      * @see ConfigurationType
      */
 
@@ -91,11 +233,59 @@ public class CheckpointConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Describes whether the application uses Amazon Kinesis Data Analytics' default checkpointing behavior.
+     * Describes whether the application uses Managed Service for Apache Flink' default checkpointing behavior. You must
+     * set this property to <code>CUSTOM</code> in order to set the <code>CheckpointingEnabled</code>,
+     * <code>CheckpointInterval</code>, or <code>MinPauseBetweenCheckpoints</code> parameters.
      * </p>
+     * <note>
+     * <p>
+     * If this value is set to <code>DEFAULT</code>, the application will use the following values, even if they are set
+     * to other values using APIs or application code:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>CheckpointingEnabled:</b> true
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>CheckpointInterval:</b> 60000
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>MinPauseBetweenCheckpoints:</b> 5000
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
      * 
      * @param configurationType
-     *        Describes whether the application uses Amazon Kinesis Data Analytics' default checkpointing behavior.
+     *        Describes whether the application uses Managed Service for Apache Flink' default checkpointing behavior.
+     *        You must set this property to <code>CUSTOM</code> in order to set the <code>CheckpointingEnabled</code>,
+     *        <code>CheckpointInterval</code>, or <code>MinPauseBetweenCheckpoints</code> parameters.</p> <note>
+     *        <p>
+     *        If this value is set to <code>DEFAULT</code>, the application will use the following values, even if they
+     *        are set to other values using APIs or application code:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>CheckpointingEnabled:</b> true
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>CheckpointInterval:</b> 60000
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>MinPauseBetweenCheckpoints:</b> 5000
+     *        </p>
+     *        </li>
+     *        </ul>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ConfigurationType
      */
@@ -107,11 +297,59 @@ public class CheckpointConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Describes whether the application uses Amazon Kinesis Data Analytics' default checkpointing behavior.
+     * Describes whether the application uses Managed Service for Apache Flink' default checkpointing behavior. You must
+     * set this property to <code>CUSTOM</code> in order to set the <code>CheckpointingEnabled</code>,
+     * <code>CheckpointInterval</code>, or <code>MinPauseBetweenCheckpoints</code> parameters.
      * </p>
+     * <note>
+     * <p>
+     * If this value is set to <code>DEFAULT</code>, the application will use the following values, even if they are set
+     * to other values using APIs or application code:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>CheckpointingEnabled:</b> true
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>CheckpointInterval:</b> 60000
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>MinPauseBetweenCheckpoints:</b> 5000
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
      * 
      * @param configurationType
-     *        Describes whether the application uses Amazon Kinesis Data Analytics' default checkpointing behavior.
+     *        Describes whether the application uses Managed Service for Apache Flink' default checkpointing behavior.
+     *        You must set this property to <code>CUSTOM</code> in order to set the <code>CheckpointingEnabled</code>,
+     *        <code>CheckpointInterval</code>, or <code>MinPauseBetweenCheckpoints</code> parameters.</p> <note>
+     *        <p>
+     *        If this value is set to <code>DEFAULT</code>, the application will use the following values, even if they
+     *        are set to other values using APIs or application code:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>CheckpointingEnabled:</b> true
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>CheckpointInterval:</b> 60000
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>MinPauseBetweenCheckpoints:</b> 5000
+     *        </p>
+     *        </li>
+     *        </ul>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ConfigurationType
      */
@@ -123,11 +361,23 @@ public class CheckpointConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Describes whether checkpointing is enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether checkpointing is enabled for a Managed Service for Apache Flink application.
      * </p>
+     * <note>
+     * <p>
+     * If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will use a
+     * <code>CheckpointingEnabled</code> value of <code>true</code>, even if this value is set to another value using
+     * this API or in application code.
+     * </p>
+     * </note>
      * 
      * @param checkpointingEnabled
-     *        Describes whether checkpointing is enabled for a Java-based Kinesis Data Analytics application.
+     *        Describes whether checkpointing is enabled for a Managed Service for Apache Flink application.</p> <note>
+     *        <p>
+     *        If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will
+     *        use a <code>CheckpointingEnabled</code> value of <code>true</code>, even if this value is set to another
+     *        value using this API or in application code.
+     *        </p>
      */
 
     public void setCheckpointingEnabled(Boolean checkpointingEnabled) {
@@ -136,10 +386,22 @@ public class CheckpointConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Describes whether checkpointing is enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether checkpointing is enabled for a Managed Service for Apache Flink application.
      * </p>
+     * <note>
+     * <p>
+     * If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will use a
+     * <code>CheckpointingEnabled</code> value of <code>true</code>, even if this value is set to another value using
+     * this API or in application code.
+     * </p>
+     * </note>
      * 
-     * @return Describes whether checkpointing is enabled for a Java-based Kinesis Data Analytics application.
+     * @return Describes whether checkpointing is enabled for a Managed Service for Apache Flink application.</p> <note>
+     *         <p>
+     *         If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will
+     *         use a <code>CheckpointingEnabled</code> value of <code>true</code>, even if this value is set to another
+     *         value using this API or in application code.
+     *         </p>
      */
 
     public Boolean getCheckpointingEnabled() {
@@ -148,11 +410,23 @@ public class CheckpointConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Describes whether checkpointing is enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether checkpointing is enabled for a Managed Service for Apache Flink application.
      * </p>
+     * <note>
+     * <p>
+     * If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will use a
+     * <code>CheckpointingEnabled</code> value of <code>true</code>, even if this value is set to another value using
+     * this API or in application code.
+     * </p>
+     * </note>
      * 
      * @param checkpointingEnabled
-     *        Describes whether checkpointing is enabled for a Java-based Kinesis Data Analytics application.
+     *        Describes whether checkpointing is enabled for a Managed Service for Apache Flink application.</p> <note>
+     *        <p>
+     *        If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will
+     *        use a <code>CheckpointingEnabled</code> value of <code>true</code>, even if this value is set to another
+     *        value using this API or in application code.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -163,10 +437,22 @@ public class CheckpointConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Describes whether checkpointing is enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether checkpointing is enabled for a Managed Service for Apache Flink application.
      * </p>
+     * <note>
+     * <p>
+     * If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will use a
+     * <code>CheckpointingEnabled</code> value of <code>true</code>, even if this value is set to another value using
+     * this API or in application code.
+     * </p>
+     * </note>
      * 
-     * @return Describes whether checkpointing is enabled for a Java-based Kinesis Data Analytics application.
+     * @return Describes whether checkpointing is enabled for a Managed Service for Apache Flink application.</p> <note>
+     *         <p>
+     *         If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will
+     *         use a <code>CheckpointingEnabled</code> value of <code>true</code>, even if this value is set to another
+     *         value using this API or in application code.
+     *         </p>
      */
 
     public Boolean isCheckpointingEnabled() {
@@ -177,9 +463,21 @@ public class CheckpointConfiguration implements Serializable, Cloneable, Structu
      * <p>
      * Describes the interval in milliseconds between checkpoint operations.
      * </p>
+     * <note>
+     * <p>
+     * If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will use a
+     * <code>CheckpointInterval</code> value of 60000, even if this value is set to another value using this API or in
+     * application code.
+     * </p>
+     * </note>
      * 
      * @param checkpointInterval
-     *        Describes the interval in milliseconds between checkpoint operations.
+     *        Describes the interval in milliseconds between checkpoint operations. </p> <note>
+     *        <p>
+     *        If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will
+     *        use a <code>CheckpointInterval</code> value of 60000, even if this value is set to another value using
+     *        this API or in application code.
+     *        </p>
      */
 
     public void setCheckpointInterval(Long checkpointInterval) {
@@ -190,8 +488,20 @@ public class CheckpointConfiguration implements Serializable, Cloneable, Structu
      * <p>
      * Describes the interval in milliseconds between checkpoint operations.
      * </p>
+     * <note>
+     * <p>
+     * If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will use a
+     * <code>CheckpointInterval</code> value of 60000, even if this value is set to another value using this API or in
+     * application code.
+     * </p>
+     * </note>
      * 
-     * @return Describes the interval in milliseconds between checkpoint operations.
+     * @return Describes the interval in milliseconds between checkpoint operations. </p> <note>
+     *         <p>
+     *         If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will
+     *         use a <code>CheckpointInterval</code> value of 60000, even if this value is set to another value using
+     *         this API or in application code.
+     *         </p>
      */
 
     public Long getCheckpointInterval() {
@@ -202,9 +512,21 @@ public class CheckpointConfiguration implements Serializable, Cloneable, Structu
      * <p>
      * Describes the interval in milliseconds between checkpoint operations.
      * </p>
+     * <note>
+     * <p>
+     * If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will use a
+     * <code>CheckpointInterval</code> value of 60000, even if this value is set to another value using this API or in
+     * application code.
+     * </p>
+     * </note>
      * 
      * @param checkpointInterval
-     *        Describes the interval in milliseconds between checkpoint operations.
+     *        Describes the interval in milliseconds between checkpoint operations. </p> <note>
+     *        <p>
+     *        If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will
+     *        use a <code>CheckpointInterval</code> value of 60000, even if this value is set to another value using
+     *        this API or in application code.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -218,18 +540,31 @@ public class CheckpointConfiguration implements Serializable, Cloneable, Structu
      * Describes the minimum time in milliseconds after a checkpoint operation completes that a new checkpoint operation
      * can start. If a checkpoint operation takes longer than the <code>CheckpointInterval</code>, the application
      * otherwise performs continual checkpoint operations. For more information, see <a href=
-     * "https://ci.apache.org/projects/flink/flink-docs-stable/ops/state/large_state_tuning.html#tuning-checkpointing">
-     * Tuning Checkpointing</a> in the <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.6/">Apache
+     * "https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/ops/state/large_state_tuning/#tuning-checkpointing"
+     * > Tuning Checkpointing</a> in the <a href="https://nightlies.apache.org/flink/flink-docs-release-1.19/">Apache
      * Flink Documentation</a>.
      * </p>
+     * <note>
+     * <p>
+     * If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will use a
+     * <code>MinPauseBetweenCheckpoints</code> value of 5000, even if this value is set using this API or in application
+     * code.
+     * </p>
+     * </note>
      * 
      * @param minPauseBetweenCheckpoints
      *        Describes the minimum time in milliseconds after a checkpoint operation completes that a new checkpoint
      *        operation can start. If a checkpoint operation takes longer than the <code>CheckpointInterval</code>, the
      *        application otherwise performs continual checkpoint operations. For more information, see <a href=
-     *        "https://ci.apache.org/projects/flink/flink-docs-stable/ops/state/large_state_tuning.html#tuning-checkpointing"
+     *        "https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/ops/state/large_state_tuning/#tuning-checkpointing"
      *        > Tuning Checkpointing</a> in the <a
-     *        href="https://ci.apache.org/projects/flink/flink-docs-release-1.6/">Apache Flink Documentation</a>.
+     *        href="https://nightlies.apache.org/flink/flink-docs-release-1.19/">Apache Flink Documentation</a>.</p>
+     *        <note>
+     *        <p>
+     *        If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will
+     *        use a <code>MinPauseBetweenCheckpoints</code> value of 5000, even if this value is set using this API or
+     *        in application code.
+     *        </p>
      */
 
     public void setMinPauseBetweenCheckpoints(Long minPauseBetweenCheckpoints) {
@@ -241,17 +576,30 @@ public class CheckpointConfiguration implements Serializable, Cloneable, Structu
      * Describes the minimum time in milliseconds after a checkpoint operation completes that a new checkpoint operation
      * can start. If a checkpoint operation takes longer than the <code>CheckpointInterval</code>, the application
      * otherwise performs continual checkpoint operations. For more information, see <a href=
-     * "https://ci.apache.org/projects/flink/flink-docs-stable/ops/state/large_state_tuning.html#tuning-checkpointing">
-     * Tuning Checkpointing</a> in the <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.6/">Apache
+     * "https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/ops/state/large_state_tuning/#tuning-checkpointing"
+     * > Tuning Checkpointing</a> in the <a href="https://nightlies.apache.org/flink/flink-docs-release-1.19/">Apache
      * Flink Documentation</a>.
      * </p>
+     * <note>
+     * <p>
+     * If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will use a
+     * <code>MinPauseBetweenCheckpoints</code> value of 5000, even if this value is set using this API or in application
+     * code.
+     * </p>
+     * </note>
      * 
      * @return Describes the minimum time in milliseconds after a checkpoint operation completes that a new checkpoint
      *         operation can start. If a checkpoint operation takes longer than the <code>CheckpointInterval</code>, the
      *         application otherwise performs continual checkpoint operations. For more information, see <a href=
-     *         "https://ci.apache.org/projects/flink/flink-docs-stable/ops/state/large_state_tuning.html#tuning-checkpointing"
+     *         "https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/ops/state/large_state_tuning/#tuning-checkpointing"
      *         > Tuning Checkpointing</a> in the <a
-     *         href="https://ci.apache.org/projects/flink/flink-docs-release-1.6/">Apache Flink Documentation</a>.
+     *         href="https://nightlies.apache.org/flink/flink-docs-release-1.19/">Apache Flink Documentation</a>.</p>
+     *         <note>
+     *         <p>
+     *         If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will
+     *         use a <code>MinPauseBetweenCheckpoints</code> value of 5000, even if this value is set using this API or
+     *         in application code.
+     *         </p>
      */
 
     public Long getMinPauseBetweenCheckpoints() {
@@ -263,18 +611,31 @@ public class CheckpointConfiguration implements Serializable, Cloneable, Structu
      * Describes the minimum time in milliseconds after a checkpoint operation completes that a new checkpoint operation
      * can start. If a checkpoint operation takes longer than the <code>CheckpointInterval</code>, the application
      * otherwise performs continual checkpoint operations. For more information, see <a href=
-     * "https://ci.apache.org/projects/flink/flink-docs-stable/ops/state/large_state_tuning.html#tuning-checkpointing">
-     * Tuning Checkpointing</a> in the <a href="https://ci.apache.org/projects/flink/flink-docs-release-1.6/">Apache
+     * "https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/ops/state/large_state_tuning/#tuning-checkpointing"
+     * > Tuning Checkpointing</a> in the <a href="https://nightlies.apache.org/flink/flink-docs-release-1.19/">Apache
      * Flink Documentation</a>.
      * </p>
+     * <note>
+     * <p>
+     * If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will use a
+     * <code>MinPauseBetweenCheckpoints</code> value of 5000, even if this value is set using this API or in application
+     * code.
+     * </p>
+     * </note>
      * 
      * @param minPauseBetweenCheckpoints
      *        Describes the minimum time in milliseconds after a checkpoint operation completes that a new checkpoint
      *        operation can start. If a checkpoint operation takes longer than the <code>CheckpointInterval</code>, the
      *        application otherwise performs continual checkpoint operations. For more information, see <a href=
-     *        "https://ci.apache.org/projects/flink/flink-docs-stable/ops/state/large_state_tuning.html#tuning-checkpointing"
+     *        "https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/ops/state/large_state_tuning/#tuning-checkpointing"
      *        > Tuning Checkpointing</a> in the <a
-     *        href="https://ci.apache.org/projects/flink/flink-docs-release-1.6/">Apache Flink Documentation</a>.
+     *        href="https://nightlies.apache.org/flink/flink-docs-release-1.19/">Apache Flink Documentation</a>.</p>
+     *        <note>
+     *        <p>
+     *        If <code>CheckpointConfiguration.ConfigurationType</code> is <code>DEFAULT</code>, the application will
+     *        use a <code>MinPauseBetweenCheckpoints</code> value of 5000, even if this value is set using this API or
+     *        in application code.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,7 +35,7 @@ public class ConfigStreamDeliveryInfo implements Serializable, Cloneable, Struct
      * <p>
      * <b>Note</b> Providing an SNS topic on a <a
      * href="https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html">DeliveryChannel</a> for
-     * AWS Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.
+     * Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.
      * </p>
      */
     private String lastStatus;
@@ -65,7 +65,7 @@ public class ConfigStreamDeliveryInfo implements Serializable, Cloneable, Struct
      * <p>
      * <b>Note</b> Providing an SNS topic on a <a
      * href="https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html">DeliveryChannel</a> for
-     * AWS Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.
+     * Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.
      * </p>
      * 
      * @param lastStatus
@@ -73,8 +73,7 @@ public class ConfigStreamDeliveryInfo implements Serializable, Cloneable, Struct
      *        <p>
      *        <b>Note</b> Providing an SNS topic on a <a
      *        href="https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html">DeliveryChannel</a>
-     *        for AWS Config is optional. If the SNS delivery is turned off, the last status will be
-     *        <b>Not_Applicable</b>.
+     *        for Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.
      * @see DeliveryStatus
      */
 
@@ -89,15 +88,15 @@ public class ConfigStreamDeliveryInfo implements Serializable, Cloneable, Struct
      * <p>
      * <b>Note</b> Providing an SNS topic on a <a
      * href="https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html">DeliveryChannel</a> for
-     * AWS Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.
+     * Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.
      * </p>
      * 
      * @return Status of the last attempted delivery.</p>
      *         <p>
      *         <b>Note</b> Providing an SNS topic on a <a
      *         href="https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html"
-     *         >DeliveryChannel</a> for AWS Config is optional. If the SNS delivery is turned off, the last status will
-     *         be <b>Not_Applicable</b>.
+     *         >DeliveryChannel</a> for Config is optional. If the SNS delivery is turned off, the last status will be
+     *         <b>Not_Applicable</b>.
      * @see DeliveryStatus
      */
 
@@ -112,7 +111,7 @@ public class ConfigStreamDeliveryInfo implements Serializable, Cloneable, Struct
      * <p>
      * <b>Note</b> Providing an SNS topic on a <a
      * href="https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html">DeliveryChannel</a> for
-     * AWS Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.
+     * Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.
      * </p>
      * 
      * @param lastStatus
@@ -120,8 +119,7 @@ public class ConfigStreamDeliveryInfo implements Serializable, Cloneable, Struct
      *        <p>
      *        <b>Note</b> Providing an SNS topic on a <a
      *        href="https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html">DeliveryChannel</a>
-     *        for AWS Config is optional. If the SNS delivery is turned off, the last status will be
-     *        <b>Not_Applicable</b>.
+     *        for Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DeliveryStatus
      */
@@ -138,7 +136,7 @@ public class ConfigStreamDeliveryInfo implements Serializable, Cloneable, Struct
      * <p>
      * <b>Note</b> Providing an SNS topic on a <a
      * href="https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html">DeliveryChannel</a> for
-     * AWS Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.
+     * Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.
      * </p>
      * 
      * @param lastStatus
@@ -146,8 +144,7 @@ public class ConfigStreamDeliveryInfo implements Serializable, Cloneable, Struct
      *        <p>
      *        <b>Note</b> Providing an SNS topic on a <a
      *        href="https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html">DeliveryChannel</a>
-     *        for AWS Config is optional. If the SNS delivery is turned off, the last status will be
-     *        <b>Not_Applicable</b>.
+     *        for Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.
      * @see DeliveryStatus
      */
 
@@ -162,7 +159,7 @@ public class ConfigStreamDeliveryInfo implements Serializable, Cloneable, Struct
      * <p>
      * <b>Note</b> Providing an SNS topic on a <a
      * href="https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html">DeliveryChannel</a> for
-     * AWS Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.
+     * Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.
      * </p>
      * 
      * @param lastStatus
@@ -170,8 +167,7 @@ public class ConfigStreamDeliveryInfo implements Serializable, Cloneable, Struct
      *        <p>
      *        <b>Note</b> Providing an SNS topic on a <a
      *        href="https://docs.aws.amazon.com/config/latest/APIReference/API_DeliveryChannel.html">DeliveryChannel</a>
-     *        for AWS Config is optional. If the SNS delivery is turned off, the last status will be
-     *        <b>Not_Applicable</b>.
+     *        for Config is optional. If the SNS delivery is turned off, the last status will be <b>Not_Applicable</b>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DeliveryStatus
      */

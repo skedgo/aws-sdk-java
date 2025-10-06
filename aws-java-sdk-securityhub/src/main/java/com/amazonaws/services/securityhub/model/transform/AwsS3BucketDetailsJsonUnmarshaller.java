@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,6 +55,59 @@ public class AwsS3BucketDetailsJsonUnmarshaller implements Unmarshaller<AwsS3Buc
                 if (context.testExpression("OwnerName", targetDepth)) {
                     context.nextToken();
                     awsS3BucketDetails.setOwnerName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("OwnerAccountId", targetDepth)) {
+                    context.nextToken();
+                    awsS3BucketDetails.setOwnerAccountId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("CreatedAt", targetDepth)) {
+                    context.nextToken();
+                    awsS3BucketDetails.setCreatedAt(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ServerSideEncryptionConfiguration", targetDepth)) {
+                    context.nextToken();
+                    awsS3BucketDetails.setServerSideEncryptionConfiguration(AwsS3BucketServerSideEncryptionConfigurationJsonUnmarshaller.getInstance()
+                            .unmarshall(context));
+                }
+                if (context.testExpression("BucketLifecycleConfiguration", targetDepth)) {
+                    context.nextToken();
+                    awsS3BucketDetails.setBucketLifecycleConfiguration(AwsS3BucketBucketLifecycleConfigurationDetailsJsonUnmarshaller.getInstance().unmarshall(
+                            context));
+                }
+                if (context.testExpression("PublicAccessBlockConfiguration", targetDepth)) {
+                    context.nextToken();
+                    awsS3BucketDetails
+                            .setPublicAccessBlockConfiguration(AwsS3AccountPublicAccessBlockDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("AccessControlList", targetDepth)) {
+                    context.nextToken();
+                    awsS3BucketDetails.setAccessControlList(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("BucketLoggingConfiguration", targetDepth)) {
+                    context.nextToken();
+                    awsS3BucketDetails.setBucketLoggingConfiguration(AwsS3BucketLoggingConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("BucketWebsiteConfiguration", targetDepth)) {
+                    context.nextToken();
+                    awsS3BucketDetails.setBucketWebsiteConfiguration(AwsS3BucketWebsiteConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("BucketNotificationConfiguration", targetDepth)) {
+                    context.nextToken();
+                    awsS3BucketDetails.setBucketNotificationConfiguration(AwsS3BucketNotificationConfigurationJsonUnmarshaller.getInstance()
+                            .unmarshall(context));
+                }
+                if (context.testExpression("BucketVersioningConfiguration", targetDepth)) {
+                    context.nextToken();
+                    awsS3BucketDetails.setBucketVersioningConfiguration(AwsS3BucketBucketVersioningConfigurationJsonUnmarshaller.getInstance().unmarshall(
+                            context));
+                }
+                if (context.testExpression("ObjectLockConfiguration", targetDepth)) {
+                    context.nextToken();
+                    awsS3BucketDetails.setObjectLockConfiguration(AwsS3BucketObjectLockConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("Name", targetDepth)) {
+                    context.nextToken();
+                    awsS3BucketDetails.setName(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

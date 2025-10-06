@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -148,6 +148,34 @@ public class ModifyClusterRequestMarshaller implements Marshaller<Request<Modify
 
         if (modifyClusterRequest.getKmsKeyId() != null) {
             request.addParameter("KmsKeyId", StringUtils.fromString(modifyClusterRequest.getKmsKeyId()));
+        }
+
+        if (modifyClusterRequest.getAvailabilityZoneRelocation() != null) {
+            request.addParameter("AvailabilityZoneRelocation", StringUtils.fromBoolean(modifyClusterRequest.getAvailabilityZoneRelocation()));
+        }
+
+        if (modifyClusterRequest.getAvailabilityZone() != null) {
+            request.addParameter("AvailabilityZone", StringUtils.fromString(modifyClusterRequest.getAvailabilityZone()));
+        }
+
+        if (modifyClusterRequest.getPort() != null) {
+            request.addParameter("Port", StringUtils.fromInteger(modifyClusterRequest.getPort()));
+        }
+
+        if (modifyClusterRequest.getManageMasterPassword() != null) {
+            request.addParameter("ManageMasterPassword", StringUtils.fromBoolean(modifyClusterRequest.getManageMasterPassword()));
+        }
+
+        if (modifyClusterRequest.getMasterPasswordSecretKmsKeyId() != null) {
+            request.addParameter("MasterPasswordSecretKmsKeyId", StringUtils.fromString(modifyClusterRequest.getMasterPasswordSecretKmsKeyId()));
+        }
+
+        if (modifyClusterRequest.getIpAddressType() != null) {
+            request.addParameter("IpAddressType", StringUtils.fromString(modifyClusterRequest.getIpAddressType()));
+        }
+
+        if (modifyClusterRequest.getMultiAZ() != null) {
+            request.addParameter("MultiAZ", StringUtils.fromBoolean(modifyClusterRequest.getMultiAZ()));
         }
 
         return request;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,12 @@ public class AssignPrivateIpAddressesResult extends com.amazonaws.AmazonWebServi
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<AssignedPrivateIpAddress> assignedPrivateIpAddresses;
+    /**
+     * <p>
+     * The IPv4 prefixes that are assigned to the network interface.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecification> assignedIpv4Prefixes;
 
     /**
      * <p>
@@ -150,6 +156,79 @@ public class AssignPrivateIpAddressesResult extends com.amazonaws.AmazonWebServi
     }
 
     /**
+     * <p>
+     * The IPv4 prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @return The IPv4 prefixes that are assigned to the network interface.
+     */
+
+    public java.util.List<Ipv4PrefixSpecification> getAssignedIpv4Prefixes() {
+        if (assignedIpv4Prefixes == null) {
+            assignedIpv4Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecification>();
+        }
+        return assignedIpv4Prefixes;
+    }
+
+    /**
+     * <p>
+     * The IPv4 prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @param assignedIpv4Prefixes
+     *        The IPv4 prefixes that are assigned to the network interface.
+     */
+
+    public void setAssignedIpv4Prefixes(java.util.Collection<Ipv4PrefixSpecification> assignedIpv4Prefixes) {
+        if (assignedIpv4Prefixes == null) {
+            this.assignedIpv4Prefixes = null;
+            return;
+        }
+
+        this.assignedIpv4Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecification>(assignedIpv4Prefixes);
+    }
+
+    /**
+     * <p>
+     * The IPv4 prefixes that are assigned to the network interface.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAssignedIpv4Prefixes(java.util.Collection)} or {@link #withAssignedIpv4Prefixes(java.util.Collection)}
+     * if you want to override the existing values.
+     * </p>
+     * 
+     * @param assignedIpv4Prefixes
+     *        The IPv4 prefixes that are assigned to the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssignPrivateIpAddressesResult withAssignedIpv4Prefixes(Ipv4PrefixSpecification... assignedIpv4Prefixes) {
+        if (this.assignedIpv4Prefixes == null) {
+            setAssignedIpv4Prefixes(new com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecification>(assignedIpv4Prefixes.length));
+        }
+        for (Ipv4PrefixSpecification ele : assignedIpv4Prefixes) {
+            this.assignedIpv4Prefixes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv4 prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @param assignedIpv4Prefixes
+     *        The IPv4 prefixes that are assigned to the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssignPrivateIpAddressesResult withAssignedIpv4Prefixes(java.util.Collection<Ipv4PrefixSpecification> assignedIpv4Prefixes) {
+        setAssignedIpv4Prefixes(assignedIpv4Prefixes);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -164,7 +243,9 @@ public class AssignPrivateIpAddressesResult extends com.amazonaws.AmazonWebServi
         if (getNetworkInterfaceId() != null)
             sb.append("NetworkInterfaceId: ").append(getNetworkInterfaceId()).append(",");
         if (getAssignedPrivateIpAddresses() != null)
-            sb.append("AssignedPrivateIpAddresses: ").append(getAssignedPrivateIpAddresses());
+            sb.append("AssignedPrivateIpAddresses: ").append(getAssignedPrivateIpAddresses()).append(",");
+        if (getAssignedIpv4Prefixes() != null)
+            sb.append("AssignedIpv4Prefixes: ").append(getAssignedIpv4Prefixes());
         sb.append("}");
         return sb.toString();
     }
@@ -187,6 +268,10 @@ public class AssignPrivateIpAddressesResult extends com.amazonaws.AmazonWebServi
             return false;
         if (other.getAssignedPrivateIpAddresses() != null && other.getAssignedPrivateIpAddresses().equals(this.getAssignedPrivateIpAddresses()) == false)
             return false;
+        if (other.getAssignedIpv4Prefixes() == null ^ this.getAssignedIpv4Prefixes() == null)
+            return false;
+        if (other.getAssignedIpv4Prefixes() != null && other.getAssignedIpv4Prefixes().equals(this.getAssignedIpv4Prefixes()) == false)
+            return false;
         return true;
     }
 
@@ -197,6 +282,7 @@ public class AssignPrivateIpAddressesResult extends com.amazonaws.AmazonWebServi
 
         hashCode = prime * hashCode + ((getNetworkInterfaceId() == null) ? 0 : getNetworkInterfaceId().hashCode());
         hashCode = prime * hashCode + ((getAssignedPrivateIpAddresses() == null) ? 0 : getAssignedPrivateIpAddresses().hashCode());
+        hashCode = prime * hashCode + ((getAssignedIpv4Prefixes() == null) ? 0 : getAssignedIpv4Prefixes().hashCode());
         return hashCode;
     }
 

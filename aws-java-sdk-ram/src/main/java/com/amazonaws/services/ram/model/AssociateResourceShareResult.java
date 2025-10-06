@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,23 +25,25 @@ public class AssociateResourceShareResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Information about the associations.
+     * An array of objects that contain information about the associations.
      * </p>
      */
     private java.util.List<ResourceShareAssociation> resourceShareAssociations;
     /**
      * <p>
-     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * The idempotency identifier associated with this request. If you want to repeat the same operation in an
+     * idempotent manner then you must include this value in the <code>clientToken</code> request parameter of that
+     * later call. All other parameters must also have the same values that you used in the first call.
      * </p>
      */
     private String clientToken;
 
     /**
      * <p>
-     * Information about the associations.
+     * An array of objects that contain information about the associations.
      * </p>
      * 
-     * @return Information about the associations.
+     * @return An array of objects that contain information about the associations.
      */
 
     public java.util.List<ResourceShareAssociation> getResourceShareAssociations() {
@@ -50,11 +52,11 @@ public class AssociateResourceShareResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Information about the associations.
+     * An array of objects that contain information about the associations.
      * </p>
      * 
      * @param resourceShareAssociations
-     *        Information about the associations.
+     *        An array of objects that contain information about the associations.
      */
 
     public void setResourceShareAssociations(java.util.Collection<ResourceShareAssociation> resourceShareAssociations) {
@@ -68,7 +70,7 @@ public class AssociateResourceShareResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Information about the associations.
+     * An array of objects that contain information about the associations.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -77,7 +79,7 @@ public class AssociateResourceShareResult extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @param resourceShareAssociations
-     *        Information about the associations.
+     *        An array of objects that contain information about the associations.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -93,11 +95,11 @@ public class AssociateResourceShareResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Information about the associations.
+     * An array of objects that contain information about the associations.
      * </p>
      * 
      * @param resourceShareAssociations
-     *        Information about the associations.
+     *        An array of objects that contain information about the associations.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -108,11 +110,15 @@ public class AssociateResourceShareResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * The idempotency identifier associated with this request. If you want to repeat the same operation in an
+     * idempotent manner then you must include this value in the <code>clientToken</code> request parameter of that
+     * later call. All other parameters must also have the same values that you used in the first call.
      * </p>
      * 
      * @param clientToken
-     *        A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        The idempotency identifier associated with this request. If you want to repeat the same operation in an
+     *        idempotent manner then you must include this value in the <code>clientToken</code> request parameter of
+     *        that later call. All other parameters must also have the same values that you used in the first call.
      */
 
     public void setClientToken(String clientToken) {
@@ -121,10 +127,14 @@ public class AssociateResourceShareResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * The idempotency identifier associated with this request. If you want to repeat the same operation in an
+     * idempotent manner then you must include this value in the <code>clientToken</code> request parameter of that
+     * later call. All other parameters must also have the same values that you used in the first call.
      * </p>
      * 
-     * @return A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * @return The idempotency identifier associated with this request. If you want to repeat the same operation in an
+     *         idempotent manner then you must include this value in the <code>clientToken</code> request parameter of
+     *         that later call. All other parameters must also have the same values that you used in the first call.
      */
 
     public String getClientToken() {
@@ -133,11 +143,15 @@ public class AssociateResourceShareResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * The idempotency identifier associated with this request. If you want to repeat the same operation in an
+     * idempotent manner then you must include this value in the <code>clientToken</code> request parameter of that
+     * later call. All other parameters must also have the same values that you used in the first call.
      * </p>
      * 
      * @param clientToken
-     *        A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        The idempotency identifier associated with this request. If you want to repeat the same operation in an
+     *        idempotent manner then you must include this value in the <code>clientToken</code> request parameter of
+     *        that later call. All other parameters must also have the same values that you used in the first call.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

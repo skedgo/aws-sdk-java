@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,8 +31,7 @@ public class DescribeParametersResult extends com.amazonaws.AmazonWebServiceResu
     private com.amazonaws.internal.SdkInternalList<ParameterMetadata> parameters;
     /**
      * <p>
-     * The token to use when requesting the next set of items. If there are no additional items to return, the string is
-     * empty.
+     * The token to use when requesting the next set of items.
      * </p>
      */
     private String nextToken;
@@ -112,13 +111,11 @@ public class DescribeParametersResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The token to use when requesting the next set of items. If there are no additional items to return, the string is
-     * empty.
+     * The token to use when requesting the next set of items.
      * </p>
      * 
      * @param nextToken
-     *        The token to use when requesting the next set of items. If there are no additional items to return, the
-     *        string is empty.
+     *        The token to use when requesting the next set of items.
      */
 
     public void setNextToken(String nextToken) {
@@ -127,12 +124,10 @@ public class DescribeParametersResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The token to use when requesting the next set of items. If there are no additional items to return, the string is
-     * empty.
+     * The token to use when requesting the next set of items.
      * </p>
      * 
-     * @return The token to use when requesting the next set of items. If there are no additional items to return, the
-     *         string is empty.
+     * @return The token to use when requesting the next set of items.
      */
 
     public String getNextToken() {
@@ -141,13 +136,11 @@ public class DescribeParametersResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The token to use when requesting the next set of items. If there are no additional items to return, the string is
-     * empty.
+     * The token to use when requesting the next set of items.
      * </p>
      * 
      * @param nextToken
-     *        The token to use when requesting the next set of items. If there are no additional items to return, the
-     *        string is empty.
+     *        The token to use when requesting the next set of items.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An object that provides information about a specific version of a <a>Solution</a>.
+ * An object that provides information about a specific version of a <a
+ * href="https://docs.aws.amazon.com/personalize/latest/dg/API_Solution.html">Solution</a> in a Custom dataset group.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/SolutionVersion" target="_top">AWS API
@@ -28,6 +29,12 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class SolutionVersion implements Serializable, Cloneable, StructuredPojo {
 
+    /**
+     * <p>
+     * The name of the solution version.
+     * </p>
+     */
+    private String name;
     /**
      * <p>
      * The ARN of the solution version.
@@ -48,8 +55,8 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
     private Boolean performHPO;
     /**
      * <p>
-     * When true, Amazon Personalize performs a search for the most optimal recipe according to the solution
-     * configuration. When false (the default), Amazon Personalize uses <code>recipeArn</code>.
+     * When true, Amazon Personalize searches for the most optimal recipe according to the solution configuration. When
+     * false (the default), Amazon Personalize uses <code>recipeArn</code>.
      * </p>
      */
     private Boolean performAutoML;
@@ -79,6 +86,27 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
     private SolutionConfig solutionConfig;
     /**
      * <p>
+     * The time used to train the model. You are billed for the time it takes to train a model. This field is visible
+     * only after Amazon Personalize successfully trains a model.
+     * </p>
+     */
+    private Double trainingHours;
+    /**
+     * <p>
+     * The scope of training to be performed when creating the solution version. A <code>FULL</code> training considers
+     * all of the data in your dataset group. An <code>UPDATE</code> processes only the data that has changed since the
+     * latest training. Only solution versions created with the User-Personalization recipe can use <code>UPDATE</code>.
+     * </p>
+     */
+    private String trainingMode;
+    /**
+     * <p>
+     * If hyperparameter optimization was performed, contains the hyperparameter values of the best performing model.
+     * </p>
+     */
+    private TunedHPOParams tunedHPOParams;
+    /**
+     * <p>
      * The status of the solution version.
      * </p>
      * <p>
@@ -87,7 +115,32 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
      * <ul>
      * <li>
      * <p>
-     * CREATE PENDING &gt; CREATE IN_PROGRESS &gt; ACTIVE -or- CREATE FAILED
+     * CREATE PENDING
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE IN_PROGRESS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ACTIVE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE FAILED
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE STOPPING
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE STOPPED
      * </p>
      * </li>
      * </ul>
@@ -95,7 +148,7 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
     private String status;
     /**
      * <p>
-     * If training a solution version fails, the reason behind the failure.
+     * If training a solution version fails, the reason for the failure.
      * </p>
      */
     private String failureReason;
@@ -111,6 +164,52 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
      * </p>
      */
     private java.util.Date lastUpdatedDateTime;
+    /**
+     * <p>
+     * Whether the solution version was created automatically or manually.
+     * </p>
+     */
+    private String trainingType;
+
+    /**
+     * <p>
+     * The name of the solution version.
+     * </p>
+     * 
+     * @param name
+     *        The name of the solution version.
+     */
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * <p>
+     * The name of the solution version.
+     * </p>
+     * 
+     * @return The name of the solution version.
+     */
+
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * <p>
+     * The name of the solution version.
+     * </p>
+     * 
+     * @param name
+     *        The name of the solution version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SolutionVersion withName(String name) {
+        setName(name);
+        return this;
+    }
 
     /**
      * <p>
@@ -250,12 +349,12 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * When true, Amazon Personalize performs a search for the most optimal recipe according to the solution
-     * configuration. When false (the default), Amazon Personalize uses <code>recipeArn</code>.
+     * When true, Amazon Personalize searches for the most optimal recipe according to the solution configuration. When
+     * false (the default), Amazon Personalize uses <code>recipeArn</code>.
      * </p>
      * 
      * @param performAutoML
-     *        When true, Amazon Personalize performs a search for the most optimal recipe according to the solution
+     *        When true, Amazon Personalize searches for the most optimal recipe according to the solution
      *        configuration. When false (the default), Amazon Personalize uses <code>recipeArn</code>.
      */
 
@@ -265,11 +364,11 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * When true, Amazon Personalize performs a search for the most optimal recipe according to the solution
-     * configuration. When false (the default), Amazon Personalize uses <code>recipeArn</code>.
+     * When true, Amazon Personalize searches for the most optimal recipe according to the solution configuration. When
+     * false (the default), Amazon Personalize uses <code>recipeArn</code>.
      * </p>
      * 
-     * @return When true, Amazon Personalize performs a search for the most optimal recipe according to the solution
+     * @return When true, Amazon Personalize searches for the most optimal recipe according to the solution
      *         configuration. When false (the default), Amazon Personalize uses <code>recipeArn</code>.
      */
 
@@ -279,12 +378,12 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * When true, Amazon Personalize performs a search for the most optimal recipe according to the solution
-     * configuration. When false (the default), Amazon Personalize uses <code>recipeArn</code>.
+     * When true, Amazon Personalize searches for the most optimal recipe according to the solution configuration. When
+     * false (the default), Amazon Personalize uses <code>recipeArn</code>.
      * </p>
      * 
      * @param performAutoML
-     *        When true, Amazon Personalize performs a search for the most optimal recipe according to the solution
+     *        When true, Amazon Personalize searches for the most optimal recipe according to the solution
      *        configuration. When false (the default), Amazon Personalize uses <code>recipeArn</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -296,11 +395,11 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * When true, Amazon Personalize performs a search for the most optimal recipe according to the solution
-     * configuration. When false (the default), Amazon Personalize uses <code>recipeArn</code>.
+     * When true, Amazon Personalize searches for the most optimal recipe according to the solution configuration. When
+     * false (the default), Amazon Personalize uses <code>recipeArn</code>.
      * </p>
      * 
-     * @return When true, Amazon Personalize performs a search for the most optimal recipe according to the solution
+     * @return When true, Amazon Personalize searches for the most optimal recipe according to the solution
      *         configuration. When false (the default), Amazon Personalize uses <code>recipeArn</code>.
      */
 
@@ -470,6 +569,174 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
+     * The time used to train the model. You are billed for the time it takes to train a model. This field is visible
+     * only after Amazon Personalize successfully trains a model.
+     * </p>
+     * 
+     * @param trainingHours
+     *        The time used to train the model. You are billed for the time it takes to train a model. This field is
+     *        visible only after Amazon Personalize successfully trains a model.
+     */
+
+    public void setTrainingHours(Double trainingHours) {
+        this.trainingHours = trainingHours;
+    }
+
+    /**
+     * <p>
+     * The time used to train the model. You are billed for the time it takes to train a model. This field is visible
+     * only after Amazon Personalize successfully trains a model.
+     * </p>
+     * 
+     * @return The time used to train the model. You are billed for the time it takes to train a model. This field is
+     *         visible only after Amazon Personalize successfully trains a model.
+     */
+
+    public Double getTrainingHours() {
+        return this.trainingHours;
+    }
+
+    /**
+     * <p>
+     * The time used to train the model. You are billed for the time it takes to train a model. This field is visible
+     * only after Amazon Personalize successfully trains a model.
+     * </p>
+     * 
+     * @param trainingHours
+     *        The time used to train the model. You are billed for the time it takes to train a model. This field is
+     *        visible only after Amazon Personalize successfully trains a model.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SolutionVersion withTrainingHours(Double trainingHours) {
+        setTrainingHours(trainingHours);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The scope of training to be performed when creating the solution version. A <code>FULL</code> training considers
+     * all of the data in your dataset group. An <code>UPDATE</code> processes only the data that has changed since the
+     * latest training. Only solution versions created with the User-Personalization recipe can use <code>UPDATE</code>.
+     * </p>
+     * 
+     * @param trainingMode
+     *        The scope of training to be performed when creating the solution version. A <code>FULL</code> training
+     *        considers all of the data in your dataset group. An <code>UPDATE</code> processes only the data that has
+     *        changed since the latest training. Only solution versions created with the User-Personalization recipe can
+     *        use <code>UPDATE</code>.
+     * @see TrainingMode
+     */
+
+    public void setTrainingMode(String trainingMode) {
+        this.trainingMode = trainingMode;
+    }
+
+    /**
+     * <p>
+     * The scope of training to be performed when creating the solution version. A <code>FULL</code> training considers
+     * all of the data in your dataset group. An <code>UPDATE</code> processes only the data that has changed since the
+     * latest training. Only solution versions created with the User-Personalization recipe can use <code>UPDATE</code>.
+     * </p>
+     * 
+     * @return The scope of training to be performed when creating the solution version. A <code>FULL</code> training
+     *         considers all of the data in your dataset group. An <code>UPDATE</code> processes only the data that has
+     *         changed since the latest training. Only solution versions created with the User-Personalization recipe
+     *         can use <code>UPDATE</code>.
+     * @see TrainingMode
+     */
+
+    public String getTrainingMode() {
+        return this.trainingMode;
+    }
+
+    /**
+     * <p>
+     * The scope of training to be performed when creating the solution version. A <code>FULL</code> training considers
+     * all of the data in your dataset group. An <code>UPDATE</code> processes only the data that has changed since the
+     * latest training. Only solution versions created with the User-Personalization recipe can use <code>UPDATE</code>.
+     * </p>
+     * 
+     * @param trainingMode
+     *        The scope of training to be performed when creating the solution version. A <code>FULL</code> training
+     *        considers all of the data in your dataset group. An <code>UPDATE</code> processes only the data that has
+     *        changed since the latest training. Only solution versions created with the User-Personalization recipe can
+     *        use <code>UPDATE</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TrainingMode
+     */
+
+    public SolutionVersion withTrainingMode(String trainingMode) {
+        setTrainingMode(trainingMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The scope of training to be performed when creating the solution version. A <code>FULL</code> training considers
+     * all of the data in your dataset group. An <code>UPDATE</code> processes only the data that has changed since the
+     * latest training. Only solution versions created with the User-Personalization recipe can use <code>UPDATE</code>.
+     * </p>
+     * 
+     * @param trainingMode
+     *        The scope of training to be performed when creating the solution version. A <code>FULL</code> training
+     *        considers all of the data in your dataset group. An <code>UPDATE</code> processes only the data that has
+     *        changed since the latest training. Only solution versions created with the User-Personalization recipe can
+     *        use <code>UPDATE</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TrainingMode
+     */
+
+    public SolutionVersion withTrainingMode(TrainingMode trainingMode) {
+        this.trainingMode = trainingMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * If hyperparameter optimization was performed, contains the hyperparameter values of the best performing model.
+     * </p>
+     * 
+     * @param tunedHPOParams
+     *        If hyperparameter optimization was performed, contains the hyperparameter values of the best performing
+     *        model.
+     */
+
+    public void setTunedHPOParams(TunedHPOParams tunedHPOParams) {
+        this.tunedHPOParams = tunedHPOParams;
+    }
+
+    /**
+     * <p>
+     * If hyperparameter optimization was performed, contains the hyperparameter values of the best performing model.
+     * </p>
+     * 
+     * @return If hyperparameter optimization was performed, contains the hyperparameter values of the best performing
+     *         model.
+     */
+
+    public TunedHPOParams getTunedHPOParams() {
+        return this.tunedHPOParams;
+    }
+
+    /**
+     * <p>
+     * If hyperparameter optimization was performed, contains the hyperparameter values of the best performing model.
+     * </p>
+     * 
+     * @param tunedHPOParams
+     *        If hyperparameter optimization was performed, contains the hyperparameter values of the best performing
+     *        model.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SolutionVersion withTunedHPOParams(TunedHPOParams tunedHPOParams) {
+        setTunedHPOParams(tunedHPOParams);
+        return this;
+    }
+
+    /**
+     * <p>
      * The status of the solution version.
      * </p>
      * <p>
@@ -478,7 +745,32 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
      * <ul>
      * <li>
      * <p>
-     * CREATE PENDING &gt; CREATE IN_PROGRESS &gt; ACTIVE -or- CREATE FAILED
+     * CREATE PENDING
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE IN_PROGRESS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ACTIVE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE FAILED
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE STOPPING
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE STOPPED
      * </p>
      * </li>
      * </ul>
@@ -491,7 +783,32 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
      *        <ul>
      *        <li>
      *        <p>
-     *        CREATE PENDING &gt; CREATE IN_PROGRESS &gt; ACTIVE -or- CREATE FAILED
+     *        CREATE PENDING
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        CREATE IN_PROGRESS
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        ACTIVE
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        CREATE FAILED
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        CREATE STOPPING
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        CREATE STOPPED
      *        </p>
      *        </li>
      */
@@ -510,7 +827,32 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
      * <ul>
      * <li>
      * <p>
-     * CREATE PENDING &gt; CREATE IN_PROGRESS &gt; ACTIVE -or- CREATE FAILED
+     * CREATE PENDING
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE IN_PROGRESS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ACTIVE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE FAILED
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE STOPPING
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE STOPPED
      * </p>
      * </li>
      * </ul>
@@ -522,7 +864,32 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
      *         <ul>
      *         <li>
      *         <p>
-     *         CREATE PENDING &gt; CREATE IN_PROGRESS &gt; ACTIVE -or- CREATE FAILED
+     *         CREATE PENDING
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         CREATE IN_PROGRESS
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         ACTIVE
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         CREATE FAILED
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         CREATE STOPPING
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         CREATE STOPPED
      *         </p>
      *         </li>
      */
@@ -541,7 +908,32 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
      * <ul>
      * <li>
      * <p>
-     * CREATE PENDING &gt; CREATE IN_PROGRESS &gt; ACTIVE -or- CREATE FAILED
+     * CREATE PENDING
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE IN_PROGRESS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ACTIVE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE FAILED
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE STOPPING
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * CREATE STOPPED
      * </p>
      * </li>
      * </ul>
@@ -554,7 +946,32 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
      *        <ul>
      *        <li>
      *        <p>
-     *        CREATE PENDING &gt; CREATE IN_PROGRESS &gt; ACTIVE -or- CREATE FAILED
+     *        CREATE PENDING
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        CREATE IN_PROGRESS
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        ACTIVE
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        CREATE FAILED
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        CREATE STOPPING
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        CREATE STOPPED
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -567,11 +984,11 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * If training a solution version fails, the reason behind the failure.
+     * If training a solution version fails, the reason for the failure.
      * </p>
      * 
      * @param failureReason
-     *        If training a solution version fails, the reason behind the failure.
+     *        If training a solution version fails, the reason for the failure.
      */
 
     public void setFailureReason(String failureReason) {
@@ -580,10 +997,10 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * If training a solution version fails, the reason behind the failure.
+     * If training a solution version fails, the reason for the failure.
      * </p>
      * 
-     * @return If training a solution version fails, the reason behind the failure.
+     * @return If training a solution version fails, the reason for the failure.
      */
 
     public String getFailureReason() {
@@ -592,11 +1009,11 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * If training a solution version fails, the reason behind the failure.
+     * If training a solution version fails, the reason for the failure.
      * </p>
      * 
      * @param failureReason
-     *        If training a solution version fails, the reason behind the failure.
+     *        If training a solution version fails, the reason for the failure.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -686,6 +1103,65 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
+     * <p>
+     * Whether the solution version was created automatically or manually.
+     * </p>
+     * 
+     * @param trainingType
+     *        Whether the solution version was created automatically or manually.
+     * @see TrainingType
+     */
+
+    public void setTrainingType(String trainingType) {
+        this.trainingType = trainingType;
+    }
+
+    /**
+     * <p>
+     * Whether the solution version was created automatically or manually.
+     * </p>
+     * 
+     * @return Whether the solution version was created automatically or manually.
+     * @see TrainingType
+     */
+
+    public String getTrainingType() {
+        return this.trainingType;
+    }
+
+    /**
+     * <p>
+     * Whether the solution version was created automatically or manually.
+     * </p>
+     * 
+     * @param trainingType
+     *        Whether the solution version was created automatically or manually.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TrainingType
+     */
+
+    public SolutionVersion withTrainingType(String trainingType) {
+        setTrainingType(trainingType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether the solution version was created automatically or manually.
+     * </p>
+     * 
+     * @param trainingType
+     *        Whether the solution version was created automatically or manually.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TrainingType
+     */
+
+    public SolutionVersion withTrainingType(TrainingType trainingType) {
+        this.trainingType = trainingType.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -697,6 +1173,8 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getName() != null)
+            sb.append("Name: ").append(getName()).append(",");
         if (getSolutionVersionArn() != null)
             sb.append("SolutionVersionArn: ").append(getSolutionVersionArn()).append(",");
         if (getSolutionArn() != null)
@@ -713,6 +1191,12 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
             sb.append("DatasetGroupArn: ").append(getDatasetGroupArn()).append(",");
         if (getSolutionConfig() != null)
             sb.append("SolutionConfig: ").append(getSolutionConfig()).append(",");
+        if (getTrainingHours() != null)
+            sb.append("TrainingHours: ").append(getTrainingHours()).append(",");
+        if (getTrainingMode() != null)
+            sb.append("TrainingMode: ").append(getTrainingMode()).append(",");
+        if (getTunedHPOParams() != null)
+            sb.append("TunedHPOParams: ").append(getTunedHPOParams()).append(",");
         if (getStatus() != null)
             sb.append("Status: ").append(getStatus()).append(",");
         if (getFailureReason() != null)
@@ -720,7 +1204,9 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
         if (getCreationDateTime() != null)
             sb.append("CreationDateTime: ").append(getCreationDateTime()).append(",");
         if (getLastUpdatedDateTime() != null)
-            sb.append("LastUpdatedDateTime: ").append(getLastUpdatedDateTime());
+            sb.append("LastUpdatedDateTime: ").append(getLastUpdatedDateTime()).append(",");
+        if (getTrainingType() != null)
+            sb.append("TrainingType: ").append(getTrainingType());
         sb.append("}");
         return sb.toString();
     }
@@ -735,6 +1221,10 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
         if (obj instanceof SolutionVersion == false)
             return false;
         SolutionVersion other = (SolutionVersion) obj;
+        if (other.getName() == null ^ this.getName() == null)
+            return false;
+        if (other.getName() != null && other.getName().equals(this.getName()) == false)
+            return false;
         if (other.getSolutionVersionArn() == null ^ this.getSolutionVersionArn() == null)
             return false;
         if (other.getSolutionVersionArn() != null && other.getSolutionVersionArn().equals(this.getSolutionVersionArn()) == false)
@@ -767,6 +1257,18 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getSolutionConfig() != null && other.getSolutionConfig().equals(this.getSolutionConfig()) == false)
             return false;
+        if (other.getTrainingHours() == null ^ this.getTrainingHours() == null)
+            return false;
+        if (other.getTrainingHours() != null && other.getTrainingHours().equals(this.getTrainingHours()) == false)
+            return false;
+        if (other.getTrainingMode() == null ^ this.getTrainingMode() == null)
+            return false;
+        if (other.getTrainingMode() != null && other.getTrainingMode().equals(this.getTrainingMode()) == false)
+            return false;
+        if (other.getTunedHPOParams() == null ^ this.getTunedHPOParams() == null)
+            return false;
+        if (other.getTunedHPOParams() != null && other.getTunedHPOParams().equals(this.getTunedHPOParams()) == false)
+            return false;
         if (other.getStatus() == null ^ this.getStatus() == null)
             return false;
         if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
@@ -783,6 +1285,10 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getLastUpdatedDateTime() != null && other.getLastUpdatedDateTime().equals(this.getLastUpdatedDateTime()) == false)
             return false;
+        if (other.getTrainingType() == null ^ this.getTrainingType() == null)
+            return false;
+        if (other.getTrainingType() != null && other.getTrainingType().equals(this.getTrainingType()) == false)
+            return false;
         return true;
     }
 
@@ -791,6 +1297,7 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getSolutionVersionArn() == null) ? 0 : getSolutionVersionArn().hashCode());
         hashCode = prime * hashCode + ((getSolutionArn() == null) ? 0 : getSolutionArn().hashCode());
         hashCode = prime * hashCode + ((getPerformHPO() == null) ? 0 : getPerformHPO().hashCode());
@@ -799,10 +1306,14 @@ public class SolutionVersion implements Serializable, Cloneable, StructuredPojo 
         hashCode = prime * hashCode + ((getEventType() == null) ? 0 : getEventType().hashCode());
         hashCode = prime * hashCode + ((getDatasetGroupArn() == null) ? 0 : getDatasetGroupArn().hashCode());
         hashCode = prime * hashCode + ((getSolutionConfig() == null) ? 0 : getSolutionConfig().hashCode());
+        hashCode = prime * hashCode + ((getTrainingHours() == null) ? 0 : getTrainingHours().hashCode());
+        hashCode = prime * hashCode + ((getTrainingMode() == null) ? 0 : getTrainingMode().hashCode());
+        hashCode = prime * hashCode + ((getTunedHPOParams() == null) ? 0 : getTunedHPOParams().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getFailureReason() == null) ? 0 : getFailureReason().hashCode());
         hashCode = prime * hashCode + ((getCreationDateTime() == null) ? 0 : getCreationDateTime().hashCode());
         hashCode = prime * hashCode + ((getLastUpdatedDateTime() == null) ? 0 : getLastUpdatedDateTime().hashCode());
+        hashCode = prime * hashCode + ((getTrainingType() == null) ? 0 : getTrainingType().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,7 +45,7 @@ public class CreateApplicationVersionRequest extends com.amazonaws.AmazonWebServ
     private String versionLabel;
     /**
      * <p>
-     * Describes this version.
+     * A description of this application version.
      * </p>
      */
     private String description;
@@ -250,11 +250,11 @@ public class CreateApplicationVersionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Describes this version.
+     * A description of this application version.
      * </p>
      * 
      * @param description
-     *        Describes this version.
+     *        A description of this application version.
      */
 
     public void setDescription(String description) {
@@ -263,10 +263,10 @@ public class CreateApplicationVersionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Describes this version.
+     * A description of this application version.
      * </p>
      * 
-     * @return Describes this version.
+     * @return A description of this application version.
      */
 
     public String getDescription() {
@@ -275,11 +275,11 @@ public class CreateApplicationVersionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Describes this version.
+     * A description of this application version.
      * </p>
      * 
      * @param description
-     *        Describes this version.
+     *        A description of this application version.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

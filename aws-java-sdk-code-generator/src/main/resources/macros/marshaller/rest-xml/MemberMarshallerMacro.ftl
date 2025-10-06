@@ -71,6 +71,9 @@
     xmlWriter.startElement("${http.marshallLocationName}");
 
     for (${mapModel.entryType} ${loopVariable} : ${mapVariable}.entrySet()) {
+        if (${loopVariable} == null) {
+            continue;
+        }
         xmlWriter.startElement("entry");
         xmlWriter.startElement("${mapModel.keyLocationName}");
         xmlWriter.value(${loopVariable}.getKey());
@@ -87,12 +90,14 @@
     xmlWriter.endElement();
  }
 <#else>
-    <#local variable = member.variable />
-    ${variable.variableType} ${variable.variableName} = ${getMember}();
-    if (${variable.variableName} != null) {
-        xmlWriter.startElement("${http.marshallLocationName}");
-        <@MemberMarshallerMacro.content customConfig variable.simpleType variable.variableName shapes/>
-        xmlWriter.endElement();
+    {
+        <#local variable = member.variable />
+        ${variable.variableType} ${variable.variableName} = ${getMember}();
+        if (${variable.variableName} != null) {
+            xmlWriter.startElement("${http.marshallLocationName}");
+            <@MemberMarshallerMacro.content customConfig variable.simpleType variable.variableName shapes/>
+            xmlWriter.endElement();
+        }
     }
 </#if>
 </#if>

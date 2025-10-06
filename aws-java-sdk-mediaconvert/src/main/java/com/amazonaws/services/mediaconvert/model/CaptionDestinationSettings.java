@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,8 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * Specific settings required by destination type. Note that burnin_destination_settings are not available if the source
- * of the caption data is Embedded or Teletext.
+ * Settings related to one captions tab on the MediaConvert console. Usually, one captions tab corresponds to one output
+ * captions track. Depending on your output captions format, one tab might correspond to a set of output captions
+ * tracks. For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/including-captions.html.
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CaptionDestinationSettings"
  *      target="_top">AWS API Documentation</a>
@@ -27,32 +28,78 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class CaptionDestinationSettings implements Serializable, Cloneable, StructuredPojo {
 
-    /** Burn-In Destination Settings. */
+    /**
+     * Burn-in is a captions delivery method, rather than a captions format. Burn-in writes the captions directly on
+     * your video frames, replacing pixels of video content with the captions. Set up burn-in captions in the same
+     * output as your video. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/burn-in-output-captions.html.
+     */
     private BurninDestinationSettings burninDestinationSettings;
     /**
-     * Specify the format for this set of captions on this output. The default format is embedded without SCTE-20. Other
-     * options are embedded with SCTE-20, burn-in, DVB-sub, SCC, SRT, teletext, TTML, and web-VTT. If you are using
-     * SCTE-20, choose SCTE-20 plus embedded (SCTE20_PLUS_EMBEDDED) to create an output that complies with the SCTE-43
-     * spec. To create a non-compliant output where the embedded captions come first, choose Embedded plus SCTE-20
-     * (EMBEDDED_PLUS_SCTE20).
+     * Specify the format for this set of captions on this output. The default format is embedded without SCTE-20. Note
+     * that your choice of video output container constrains your choice of output captions format. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/captions-support-tables.html. If you are using
+     * SCTE-20 and you want to create an output that complies with the SCTE-43 spec, choose SCTE-20 plus embedded. To
+     * create a non-compliant output where the embedded captions come first, choose Embedded plus SCTE-20.
      */
     private String destinationType;
-    /** DVB-Sub Destination Settings */
+    /**
+     * Settings related to DVB-Sub captions. Set up DVB-Sub captions in the same output as your video. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/dvb-sub-output-captions.html.
+     */
     private DvbSubDestinationSettings dvbSubDestinationSettings;
-    /** Settings specific to embedded/ancillary caption outputs, including 608/708 Channel destination number. */
+    /**
+     * Settings related to CEA/EIA-608 and CEA/EIA-708 (also called embedded or ancillary) captions. Set up embedded
+     * captions in the same output as your video. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/embedded-output-captions.html.
+     */
     private EmbeddedDestinationSettings embeddedDestinationSettings;
-    /** Settings for SCC caption output. */
+    /**
+     * Settings related to IMSC captions. IMSC is a sidecar format that holds captions in a file that is separate from
+     * the video container. Set up sidecar captions in the same output group, but different output from your video. For
+     * more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
+     */
+    private ImscDestinationSettings imscDestinationSettings;
+    /**
+     * Settings related to SCC captions. SCC is a sidecar format that holds captions in a file that is separate from the
+     * video container. Set up sidecar captions in the same output group, but different output from your video. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/scc-srt-output-captions.html.
+     */
     private SccDestinationSettings sccDestinationSettings;
-    /** Settings for Teletext caption output */
+    /**
+     * Settings related to SRT captions. SRT is a sidecar format that holds captions in a file that is separate from the
+     * video container. Set up sidecar captions in the same output group, but different output from your video.
+     */
+    private SrtDestinationSettings srtDestinationSettings;
+    /**
+     * Settings related to teletext captions. Set up teletext captions in the same output as your video. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/teletext-output-captions.html.
+     */
     private TeletextDestinationSettings teletextDestinationSettings;
-    /** Settings specific to TTML caption outputs, including Pass style information (TtmlStylePassthrough). */
+    /**
+     * Settings related to TTML captions. TTML is a sidecar format that holds captions in a file that is separate from
+     * the video container. Set up sidecar captions in the same output group, but different output from your video. For
+     * more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
+     */
     private TtmlDestinationSettings ttmlDestinationSettings;
+    /**
+     * Settings related to WebVTT captions. WebVTT is a sidecar format that holds captions in a file that is separate
+     * from the video container. Set up sidecar captions in the same output group, but different output from your video.
+     * For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
+     */
+    private WebvttDestinationSettings webvttDestinationSettings;
 
     /**
-     * Burn-In Destination Settings.
+     * Burn-in is a captions delivery method, rather than a captions format. Burn-in writes the captions directly on
+     * your video frames, replacing pixels of video content with the captions. Set up burn-in captions in the same
+     * output as your video. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/burn-in-output-captions.html.
      * 
      * @param burninDestinationSettings
-     *        Burn-In Destination Settings.
+     *        Burn-in is a captions delivery method, rather than a captions format. Burn-in writes the captions directly
+     *        on your video frames, replacing pixels of video content with the captions. Set up burn-in captions in the
+     *        same output as your video. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/burn-in-output-captions.html.
      */
 
     public void setBurninDestinationSettings(BurninDestinationSettings burninDestinationSettings) {
@@ -60,9 +107,15 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Burn-In Destination Settings.
+     * Burn-in is a captions delivery method, rather than a captions format. Burn-in writes the captions directly on
+     * your video frames, replacing pixels of video content with the captions. Set up burn-in captions in the same
+     * output as your video. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/burn-in-output-captions.html.
      * 
-     * @return Burn-In Destination Settings.
+     * @return Burn-in is a captions delivery method, rather than a captions format. Burn-in writes the captions
+     *         directly on your video frames, replacing pixels of video content with the captions. Set up burn-in
+     *         captions in the same output as your video. For more information, see
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/burn-in-output-captions.html.
      */
 
     public BurninDestinationSettings getBurninDestinationSettings() {
@@ -70,10 +123,16 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Burn-In Destination Settings.
+     * Burn-in is a captions delivery method, rather than a captions format. Burn-in writes the captions directly on
+     * your video frames, replacing pixels of video content with the captions. Set up burn-in captions in the same
+     * output as your video. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/burn-in-output-captions.html.
      * 
      * @param burninDestinationSettings
-     *        Burn-In Destination Settings.
+     *        Burn-in is a captions delivery method, rather than a captions format. Burn-in writes the captions directly
+     *        on your video frames, replacing pixels of video content with the captions. Set up burn-in captions in the
+     *        same output as your video. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/burn-in-output-captions.html.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -83,18 +142,19 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Specify the format for this set of captions on this output. The default format is embedded without SCTE-20. Other
-     * options are embedded with SCTE-20, burn-in, DVB-sub, SCC, SRT, teletext, TTML, and web-VTT. If you are using
-     * SCTE-20, choose SCTE-20 plus embedded (SCTE20_PLUS_EMBEDDED) to create an output that complies with the SCTE-43
-     * spec. To create a non-compliant output where the embedded captions come first, choose Embedded plus SCTE-20
-     * (EMBEDDED_PLUS_SCTE20).
+     * Specify the format for this set of captions on this output. The default format is embedded without SCTE-20. Note
+     * that your choice of video output container constrains your choice of output captions format. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/captions-support-tables.html. If you are using
+     * SCTE-20 and you want to create an output that complies with the SCTE-43 spec, choose SCTE-20 plus embedded. To
+     * create a non-compliant output where the embedded captions come first, choose Embedded plus SCTE-20.
      * 
      * @param destinationType
      *        Specify the format for this set of captions on this output. The default format is embedded without
-     *        SCTE-20. Other options are embedded with SCTE-20, burn-in, DVB-sub, SCC, SRT, teletext, TTML, and web-VTT.
-     *        If you are using SCTE-20, choose SCTE-20 plus embedded (SCTE20_PLUS_EMBEDDED) to create an output that
-     *        complies with the SCTE-43 spec. To create a non-compliant output where the embedded captions come first,
-     *        choose Embedded plus SCTE-20 (EMBEDDED_PLUS_SCTE20).
+     *        SCTE-20. Note that your choice of video output container constrains your choice of output captions format.
+     *        For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/captions-support-tables.html.
+     *        If you are using SCTE-20 and you want to create an output that complies with the SCTE-43 spec, choose
+     *        SCTE-20 plus embedded. To create a non-compliant output where the embedded captions come first, choose
+     *        Embedded plus SCTE-20.
      * @see CaptionDestinationType
      */
 
@@ -103,17 +163,18 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Specify the format for this set of captions on this output. The default format is embedded without SCTE-20. Other
-     * options are embedded with SCTE-20, burn-in, DVB-sub, SCC, SRT, teletext, TTML, and web-VTT. If you are using
-     * SCTE-20, choose SCTE-20 plus embedded (SCTE20_PLUS_EMBEDDED) to create an output that complies with the SCTE-43
-     * spec. To create a non-compliant output where the embedded captions come first, choose Embedded plus SCTE-20
-     * (EMBEDDED_PLUS_SCTE20).
+     * Specify the format for this set of captions on this output. The default format is embedded without SCTE-20. Note
+     * that your choice of video output container constrains your choice of output captions format. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/captions-support-tables.html. If you are using
+     * SCTE-20 and you want to create an output that complies with the SCTE-43 spec, choose SCTE-20 plus embedded. To
+     * create a non-compliant output where the embedded captions come first, choose Embedded plus SCTE-20.
      * 
      * @return Specify the format for this set of captions on this output. The default format is embedded without
-     *         SCTE-20. Other options are embedded with SCTE-20, burn-in, DVB-sub, SCC, SRT, teletext, TTML, and
-     *         web-VTT. If you are using SCTE-20, choose SCTE-20 plus embedded (SCTE20_PLUS_EMBEDDED) to create an
-     *         output that complies with the SCTE-43 spec. To create a non-compliant output where the embedded captions
-     *         come first, choose Embedded plus SCTE-20 (EMBEDDED_PLUS_SCTE20).
+     *         SCTE-20. Note that your choice of video output container constrains your choice of output captions
+     *         format. For more information, see
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/captions-support-tables.html. If you are using SCTE-20
+     *         and you want to create an output that complies with the SCTE-43 spec, choose SCTE-20 plus embedded. To
+     *         create a non-compliant output where the embedded captions come first, choose Embedded plus SCTE-20.
      * @see CaptionDestinationType
      */
 
@@ -122,18 +183,19 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Specify the format for this set of captions on this output. The default format is embedded without SCTE-20. Other
-     * options are embedded with SCTE-20, burn-in, DVB-sub, SCC, SRT, teletext, TTML, and web-VTT. If you are using
-     * SCTE-20, choose SCTE-20 plus embedded (SCTE20_PLUS_EMBEDDED) to create an output that complies with the SCTE-43
-     * spec. To create a non-compliant output where the embedded captions come first, choose Embedded plus SCTE-20
-     * (EMBEDDED_PLUS_SCTE20).
+     * Specify the format for this set of captions on this output. The default format is embedded without SCTE-20. Note
+     * that your choice of video output container constrains your choice of output captions format. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/captions-support-tables.html. If you are using
+     * SCTE-20 and you want to create an output that complies with the SCTE-43 spec, choose SCTE-20 plus embedded. To
+     * create a non-compliant output where the embedded captions come first, choose Embedded plus SCTE-20.
      * 
      * @param destinationType
      *        Specify the format for this set of captions on this output. The default format is embedded without
-     *        SCTE-20. Other options are embedded with SCTE-20, burn-in, DVB-sub, SCC, SRT, teletext, TTML, and web-VTT.
-     *        If you are using SCTE-20, choose SCTE-20 plus embedded (SCTE20_PLUS_EMBEDDED) to create an output that
-     *        complies with the SCTE-43 spec. To create a non-compliant output where the embedded captions come first,
-     *        choose Embedded plus SCTE-20 (EMBEDDED_PLUS_SCTE20).
+     *        SCTE-20. Note that your choice of video output container constrains your choice of output captions format.
+     *        For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/captions-support-tables.html.
+     *        If you are using SCTE-20 and you want to create an output that complies with the SCTE-43 spec, choose
+     *        SCTE-20 plus embedded. To create a non-compliant output where the embedded captions come first, choose
+     *        Embedded plus SCTE-20.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CaptionDestinationType
      */
@@ -144,18 +206,19 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Specify the format for this set of captions on this output. The default format is embedded without SCTE-20. Other
-     * options are embedded with SCTE-20, burn-in, DVB-sub, SCC, SRT, teletext, TTML, and web-VTT. If you are using
-     * SCTE-20, choose SCTE-20 plus embedded (SCTE20_PLUS_EMBEDDED) to create an output that complies with the SCTE-43
-     * spec. To create a non-compliant output where the embedded captions come first, choose Embedded plus SCTE-20
-     * (EMBEDDED_PLUS_SCTE20).
+     * Specify the format for this set of captions on this output. The default format is embedded without SCTE-20. Note
+     * that your choice of video output container constrains your choice of output captions format. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/captions-support-tables.html. If you are using
+     * SCTE-20 and you want to create an output that complies with the SCTE-43 spec, choose SCTE-20 plus embedded. To
+     * create a non-compliant output where the embedded captions come first, choose Embedded plus SCTE-20.
      * 
      * @param destinationType
      *        Specify the format for this set of captions on this output. The default format is embedded without
-     *        SCTE-20. Other options are embedded with SCTE-20, burn-in, DVB-sub, SCC, SRT, teletext, TTML, and web-VTT.
-     *        If you are using SCTE-20, choose SCTE-20 plus embedded (SCTE20_PLUS_EMBEDDED) to create an output that
-     *        complies with the SCTE-43 spec. To create a non-compliant output where the embedded captions come first,
-     *        choose Embedded plus SCTE-20 (EMBEDDED_PLUS_SCTE20).
+     *        SCTE-20. Note that your choice of video output container constrains your choice of output captions format.
+     *        For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/captions-support-tables.html.
+     *        If you are using SCTE-20 and you want to create an output that complies with the SCTE-43 spec, choose
+     *        SCTE-20 plus embedded. To create a non-compliant output where the embedded captions come first, choose
+     *        Embedded plus SCTE-20.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CaptionDestinationType
      */
@@ -166,10 +229,12 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * DVB-Sub Destination Settings
+     * Settings related to DVB-Sub captions. Set up DVB-Sub captions in the same output as your video. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/dvb-sub-output-captions.html.
      * 
      * @param dvbSubDestinationSettings
-     *        DVB-Sub Destination Settings
+     *        Settings related to DVB-Sub captions. Set up DVB-Sub captions in the same output as your video. For more
+     *        information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/dvb-sub-output-captions.html.
      */
 
     public void setDvbSubDestinationSettings(DvbSubDestinationSettings dvbSubDestinationSettings) {
@@ -177,9 +242,11 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * DVB-Sub Destination Settings
+     * Settings related to DVB-Sub captions. Set up DVB-Sub captions in the same output as your video. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/dvb-sub-output-captions.html.
      * 
-     * @return DVB-Sub Destination Settings
+     * @return Settings related to DVB-Sub captions. Set up DVB-Sub captions in the same output as your video. For more
+     *         information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/dvb-sub-output-captions.html.
      */
 
     public DvbSubDestinationSettings getDvbSubDestinationSettings() {
@@ -187,10 +254,12 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * DVB-Sub Destination Settings
+     * Settings related to DVB-Sub captions. Set up DVB-Sub captions in the same output as your video. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/dvb-sub-output-captions.html.
      * 
      * @param dvbSubDestinationSettings
-     *        DVB-Sub Destination Settings
+     *        Settings related to DVB-Sub captions. Set up DVB-Sub captions in the same output as your video. For more
+     *        information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/dvb-sub-output-captions.html.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -200,10 +269,14 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Settings specific to embedded/ancillary caption outputs, including 608/708 Channel destination number.
+     * Settings related to CEA/EIA-608 and CEA/EIA-708 (also called embedded or ancillary) captions. Set up embedded
+     * captions in the same output as your video. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/embedded-output-captions.html.
      * 
      * @param embeddedDestinationSettings
-     *        Settings specific to embedded/ancillary caption outputs, including 608/708 Channel destination number.
+     *        Settings related to CEA/EIA-608 and CEA/EIA-708 (also called embedded or ancillary) captions. Set up
+     *        embedded captions in the same output as your video. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/embedded-output-captions.html.
      */
 
     public void setEmbeddedDestinationSettings(EmbeddedDestinationSettings embeddedDestinationSettings) {
@@ -211,9 +284,13 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Settings specific to embedded/ancillary caption outputs, including 608/708 Channel destination number.
+     * Settings related to CEA/EIA-608 and CEA/EIA-708 (also called embedded or ancillary) captions. Set up embedded
+     * captions in the same output as your video. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/embedded-output-captions.html.
      * 
-     * @return Settings specific to embedded/ancillary caption outputs, including 608/708 Channel destination number.
+     * @return Settings related to CEA/EIA-608 and CEA/EIA-708 (also called embedded or ancillary) captions. Set up
+     *         embedded captions in the same output as your video. For more information, see
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/embedded-output-captions.html.
      */
 
     public EmbeddedDestinationSettings getEmbeddedDestinationSettings() {
@@ -221,10 +298,14 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Settings specific to embedded/ancillary caption outputs, including 608/708 Channel destination number.
+     * Settings related to CEA/EIA-608 and CEA/EIA-708 (also called embedded or ancillary) captions. Set up embedded
+     * captions in the same output as your video. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/embedded-output-captions.html.
      * 
      * @param embeddedDestinationSettings
-     *        Settings specific to embedded/ancillary caption outputs, including 608/708 Channel destination number.
+     *        Settings related to CEA/EIA-608 and CEA/EIA-708 (also called embedded or ancillary) captions. Set up
+     *        embedded captions in the same output as your video. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/embedded-output-captions.html.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -234,10 +315,64 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Settings for SCC caption output.
+     * Settings related to IMSC captions. IMSC is a sidecar format that holds captions in a file that is separate from
+     * the video container. Set up sidecar captions in the same output group, but different output from your video. For
+     * more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
+     * 
+     * @param imscDestinationSettings
+     *        Settings related to IMSC captions. IMSC is a sidecar format that holds captions in a file that is separate
+     *        from the video container. Set up sidecar captions in the same output group, but different output from your
+     *        video. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
+     */
+
+    public void setImscDestinationSettings(ImscDestinationSettings imscDestinationSettings) {
+        this.imscDestinationSettings = imscDestinationSettings;
+    }
+
+    /**
+     * Settings related to IMSC captions. IMSC is a sidecar format that holds captions in a file that is separate from
+     * the video container. Set up sidecar captions in the same output group, but different output from your video. For
+     * more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
+     * 
+     * @return Settings related to IMSC captions. IMSC is a sidecar format that holds captions in a file that is
+     *         separate from the video container. Set up sidecar captions in the same output group, but different output
+     *         from your video. For more information, see
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
+     */
+
+    public ImscDestinationSettings getImscDestinationSettings() {
+        return this.imscDestinationSettings;
+    }
+
+    /**
+     * Settings related to IMSC captions. IMSC is a sidecar format that holds captions in a file that is separate from
+     * the video container. Set up sidecar captions in the same output group, but different output from your video. For
+     * more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
+     * 
+     * @param imscDestinationSettings
+     *        Settings related to IMSC captions. IMSC is a sidecar format that holds captions in a file that is separate
+     *        from the video container. Set up sidecar captions in the same output group, but different output from your
+     *        video. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CaptionDestinationSettings withImscDestinationSettings(ImscDestinationSettings imscDestinationSettings) {
+        setImscDestinationSettings(imscDestinationSettings);
+        return this;
+    }
+
+    /**
+     * Settings related to SCC captions. SCC is a sidecar format that holds captions in a file that is separate from the
+     * video container. Set up sidecar captions in the same output group, but different output from your video. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/scc-srt-output-captions.html.
      * 
      * @param sccDestinationSettings
-     *        Settings for SCC caption output.
+     *        Settings related to SCC captions. SCC is a sidecar format that holds captions in a file that is separate
+     *        from the video container. Set up sidecar captions in the same output group, but different output from your
+     *        video. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/scc-srt-output-captions.html.
      */
 
     public void setSccDestinationSettings(SccDestinationSettings sccDestinationSettings) {
@@ -245,9 +380,14 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Settings for SCC caption output.
+     * Settings related to SCC captions. SCC is a sidecar format that holds captions in a file that is separate from the
+     * video container. Set up sidecar captions in the same output group, but different output from your video. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/scc-srt-output-captions.html.
      * 
-     * @return Settings for SCC caption output.
+     * @return Settings related to SCC captions. SCC is a sidecar format that holds captions in a file that is separate
+     *         from the video container. Set up sidecar captions in the same output group, but different output from
+     *         your video. For more information, see
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/scc-srt-output-captions.html.
      */
 
     public SccDestinationSettings getSccDestinationSettings() {
@@ -255,10 +395,15 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Settings for SCC caption output.
+     * Settings related to SCC captions. SCC is a sidecar format that holds captions in a file that is separate from the
+     * video container. Set up sidecar captions in the same output group, but different output from your video. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/scc-srt-output-captions.html.
      * 
      * @param sccDestinationSettings
-     *        Settings for SCC caption output.
+     *        Settings related to SCC captions. SCC is a sidecar format that holds captions in a file that is separate
+     *        from the video container. Set up sidecar captions in the same output group, but different output from your
+     *        video. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/scc-srt-output-captions.html.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -268,10 +413,55 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Settings for Teletext caption output
+     * Settings related to SRT captions. SRT is a sidecar format that holds captions in a file that is separate from the
+     * video container. Set up sidecar captions in the same output group, but different output from your video.
+     * 
+     * @param srtDestinationSettings
+     *        Settings related to SRT captions. SRT is a sidecar format that holds captions in a file that is separate
+     *        from the video container. Set up sidecar captions in the same output group, but different output from your
+     *        video.
+     */
+
+    public void setSrtDestinationSettings(SrtDestinationSettings srtDestinationSettings) {
+        this.srtDestinationSettings = srtDestinationSettings;
+    }
+
+    /**
+     * Settings related to SRT captions. SRT is a sidecar format that holds captions in a file that is separate from the
+     * video container. Set up sidecar captions in the same output group, but different output from your video.
+     * 
+     * @return Settings related to SRT captions. SRT is a sidecar format that holds captions in a file that is separate
+     *         from the video container. Set up sidecar captions in the same output group, but different output from
+     *         your video.
+     */
+
+    public SrtDestinationSettings getSrtDestinationSettings() {
+        return this.srtDestinationSettings;
+    }
+
+    /**
+     * Settings related to SRT captions. SRT is a sidecar format that holds captions in a file that is separate from the
+     * video container. Set up sidecar captions in the same output group, but different output from your video.
+     * 
+     * @param srtDestinationSettings
+     *        Settings related to SRT captions. SRT is a sidecar format that holds captions in a file that is separate
+     *        from the video container. Set up sidecar captions in the same output group, but different output from your
+     *        video.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CaptionDestinationSettings withSrtDestinationSettings(SrtDestinationSettings srtDestinationSettings) {
+        setSrtDestinationSettings(srtDestinationSettings);
+        return this;
+    }
+
+    /**
+     * Settings related to teletext captions. Set up teletext captions in the same output as your video. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/teletext-output-captions.html.
      * 
      * @param teletextDestinationSettings
-     *        Settings for Teletext caption output
+     *        Settings related to teletext captions. Set up teletext captions in the same output as your video. For more
+     *        information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/teletext-output-captions.html.
      */
 
     public void setTeletextDestinationSettings(TeletextDestinationSettings teletextDestinationSettings) {
@@ -279,9 +469,11 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Settings for Teletext caption output
+     * Settings related to teletext captions. Set up teletext captions in the same output as your video. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/teletext-output-captions.html.
      * 
-     * @return Settings for Teletext caption output
+     * @return Settings related to teletext captions. Set up teletext captions in the same output as your video. For
+     *         more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/teletext-output-captions.html.
      */
 
     public TeletextDestinationSettings getTeletextDestinationSettings() {
@@ -289,10 +481,12 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Settings for Teletext caption output
+     * Settings related to teletext captions. Set up teletext captions in the same output as your video. For more
+     * information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/teletext-output-captions.html.
      * 
      * @param teletextDestinationSettings
-     *        Settings for Teletext caption output
+     *        Settings related to teletext captions. Set up teletext captions in the same output as your video. For more
+     *        information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/teletext-output-captions.html.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -302,10 +496,15 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Settings specific to TTML caption outputs, including Pass style information (TtmlStylePassthrough).
+     * Settings related to TTML captions. TTML is a sidecar format that holds captions in a file that is separate from
+     * the video container. Set up sidecar captions in the same output group, but different output from your video. For
+     * more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
      * 
      * @param ttmlDestinationSettings
-     *        Settings specific to TTML caption outputs, including Pass style information (TtmlStylePassthrough).
+     *        Settings related to TTML captions. TTML is a sidecar format that holds captions in a file that is separate
+     *        from the video container. Set up sidecar captions in the same output group, but different output from your
+     *        video. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
      */
 
     public void setTtmlDestinationSettings(TtmlDestinationSettings ttmlDestinationSettings) {
@@ -313,9 +512,14 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Settings specific to TTML caption outputs, including Pass style information (TtmlStylePassthrough).
+     * Settings related to TTML captions. TTML is a sidecar format that holds captions in a file that is separate from
+     * the video container. Set up sidecar captions in the same output group, but different output from your video. For
+     * more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
      * 
-     * @return Settings specific to TTML caption outputs, including Pass style information (TtmlStylePassthrough).
+     * @return Settings related to TTML captions. TTML is a sidecar format that holds captions in a file that is
+     *         separate from the video container. Set up sidecar captions in the same output group, but different output
+     *         from your video. For more information, see
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
      */
 
     public TtmlDestinationSettings getTtmlDestinationSettings() {
@@ -323,15 +527,69 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
     }
 
     /**
-     * Settings specific to TTML caption outputs, including Pass style information (TtmlStylePassthrough).
+     * Settings related to TTML captions. TTML is a sidecar format that holds captions in a file that is separate from
+     * the video container. Set up sidecar captions in the same output group, but different output from your video. For
+     * more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
      * 
      * @param ttmlDestinationSettings
-     *        Settings specific to TTML caption outputs, including Pass style information (TtmlStylePassthrough).
+     *        Settings related to TTML captions. TTML is a sidecar format that holds captions in a file that is separate
+     *        from the video container. Set up sidecar captions in the same output group, but different output from your
+     *        video. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CaptionDestinationSettings withTtmlDestinationSettings(TtmlDestinationSettings ttmlDestinationSettings) {
         setTtmlDestinationSettings(ttmlDestinationSettings);
+        return this;
+    }
+
+    /**
+     * Settings related to WebVTT captions. WebVTT is a sidecar format that holds captions in a file that is separate
+     * from the video container. Set up sidecar captions in the same output group, but different output from your video.
+     * For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
+     * 
+     * @param webvttDestinationSettings
+     *        Settings related to WebVTT captions. WebVTT is a sidecar format that holds captions in a file that is
+     *        separate from the video container. Set up sidecar captions in the same output group, but different output
+     *        from your video. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
+     */
+
+    public void setWebvttDestinationSettings(WebvttDestinationSettings webvttDestinationSettings) {
+        this.webvttDestinationSettings = webvttDestinationSettings;
+    }
+
+    /**
+     * Settings related to WebVTT captions. WebVTT is a sidecar format that holds captions in a file that is separate
+     * from the video container. Set up sidecar captions in the same output group, but different output from your video.
+     * For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
+     * 
+     * @return Settings related to WebVTT captions. WebVTT is a sidecar format that holds captions in a file that is
+     *         separate from the video container. Set up sidecar captions in the same output group, but different output
+     *         from your video. For more information, see
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
+     */
+
+    public WebvttDestinationSettings getWebvttDestinationSettings() {
+        return this.webvttDestinationSettings;
+    }
+
+    /**
+     * Settings related to WebVTT captions. WebVTT is a sidecar format that holds captions in a file that is separate
+     * from the video container. Set up sidecar captions in the same output group, but different output from your video.
+     * For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
+     * 
+     * @param webvttDestinationSettings
+     *        Settings related to WebVTT captions. WebVTT is a sidecar format that holds captions in a file that is
+     *        separate from the video container. Set up sidecar captions in the same output group, but different output
+     *        from your video. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/ttml-and-webvtt-output-captions.html.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CaptionDestinationSettings withWebvttDestinationSettings(WebvttDestinationSettings webvttDestinationSettings) {
+        setWebvttDestinationSettings(webvttDestinationSettings);
         return this;
     }
 
@@ -355,12 +613,18 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
             sb.append("DvbSubDestinationSettings: ").append(getDvbSubDestinationSettings()).append(",");
         if (getEmbeddedDestinationSettings() != null)
             sb.append("EmbeddedDestinationSettings: ").append(getEmbeddedDestinationSettings()).append(",");
+        if (getImscDestinationSettings() != null)
+            sb.append("ImscDestinationSettings: ").append(getImscDestinationSettings()).append(",");
         if (getSccDestinationSettings() != null)
             sb.append("SccDestinationSettings: ").append(getSccDestinationSettings()).append(",");
+        if (getSrtDestinationSettings() != null)
+            sb.append("SrtDestinationSettings: ").append(getSrtDestinationSettings()).append(",");
         if (getTeletextDestinationSettings() != null)
             sb.append("TeletextDestinationSettings: ").append(getTeletextDestinationSettings()).append(",");
         if (getTtmlDestinationSettings() != null)
-            sb.append("TtmlDestinationSettings: ").append(getTtmlDestinationSettings());
+            sb.append("TtmlDestinationSettings: ").append(getTtmlDestinationSettings()).append(",");
+        if (getWebvttDestinationSettings() != null)
+            sb.append("WebvttDestinationSettings: ").append(getWebvttDestinationSettings());
         sb.append("}");
         return sb.toString();
     }
@@ -391,9 +655,17 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
             return false;
         if (other.getEmbeddedDestinationSettings() != null && other.getEmbeddedDestinationSettings().equals(this.getEmbeddedDestinationSettings()) == false)
             return false;
+        if (other.getImscDestinationSettings() == null ^ this.getImscDestinationSettings() == null)
+            return false;
+        if (other.getImscDestinationSettings() != null && other.getImscDestinationSettings().equals(this.getImscDestinationSettings()) == false)
+            return false;
         if (other.getSccDestinationSettings() == null ^ this.getSccDestinationSettings() == null)
             return false;
         if (other.getSccDestinationSettings() != null && other.getSccDestinationSettings().equals(this.getSccDestinationSettings()) == false)
+            return false;
+        if (other.getSrtDestinationSettings() == null ^ this.getSrtDestinationSettings() == null)
+            return false;
+        if (other.getSrtDestinationSettings() != null && other.getSrtDestinationSettings().equals(this.getSrtDestinationSettings()) == false)
             return false;
         if (other.getTeletextDestinationSettings() == null ^ this.getTeletextDestinationSettings() == null)
             return false;
@@ -402,6 +674,10 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
         if (other.getTtmlDestinationSettings() == null ^ this.getTtmlDestinationSettings() == null)
             return false;
         if (other.getTtmlDestinationSettings() != null && other.getTtmlDestinationSettings().equals(this.getTtmlDestinationSettings()) == false)
+            return false;
+        if (other.getWebvttDestinationSettings() == null ^ this.getWebvttDestinationSettings() == null)
+            return false;
+        if (other.getWebvttDestinationSettings() != null && other.getWebvttDestinationSettings().equals(this.getWebvttDestinationSettings()) == false)
             return false;
         return true;
     }
@@ -415,9 +691,12 @@ public class CaptionDestinationSettings implements Serializable, Cloneable, Stru
         hashCode = prime * hashCode + ((getDestinationType() == null) ? 0 : getDestinationType().hashCode());
         hashCode = prime * hashCode + ((getDvbSubDestinationSettings() == null) ? 0 : getDvbSubDestinationSettings().hashCode());
         hashCode = prime * hashCode + ((getEmbeddedDestinationSettings() == null) ? 0 : getEmbeddedDestinationSettings().hashCode());
+        hashCode = prime * hashCode + ((getImscDestinationSettings() == null) ? 0 : getImscDestinationSettings().hashCode());
         hashCode = prime * hashCode + ((getSccDestinationSettings() == null) ? 0 : getSccDestinationSettings().hashCode());
+        hashCode = prime * hashCode + ((getSrtDestinationSettings() == null) ? 0 : getSrtDestinationSettings().hashCode());
         hashCode = prime * hashCode + ((getTeletextDestinationSettings() == null) ? 0 : getTeletextDestinationSettings().hashCode());
         hashCode = prime * hashCode + ((getTtmlDestinationSettings() == null) ? 0 : getTtmlDestinationSettings().hashCode());
+        hashCode = prime * hashCode + ((getWebvttDestinationSettings() == null) ? 0 : getWebvttDestinationSettings().hashCode());
         return hashCode;
     }
 

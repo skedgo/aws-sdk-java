@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,9 +30,10 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A name to identify the stream. The stream name is scoped to the AWS account used by the application that creates
-     * the stream. It is also scoped by AWS Region. That is, two streams in two different AWS accounts can have the same
-     * name. Two streams in the same AWS account but in two different Regions can also have the same name.
+     * A name to identify the stream. The stream name is scoped to the Amazon Web Services account used by the
+     * application that creates the stream. It is also scoped by Amazon Web Services Region. That is, two streams in two
+     * different Amazon Web Services accounts can have the same name. Two streams in the same Amazon Web Services
+     * account but in two different Regions can also have the same name.
      * </p>
      */
     private String streamName;
@@ -41,24 +42,29 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The number of shards that the stream will use. The throughput of the stream is a function of the number of
      * shards; more shards are required for greater provisioned throughput.
      * </p>
-     * <p>
-     * DefaultShardLimit;
-     * </p>
      */
     private Integer shardCount;
+    /**
+     * <p>
+     * Indicates the capacity mode of the data stream. Currently, in Kinesis Data Streams, you can choose between an
+     * <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode for your data streams.
+     * </p>
+     */
+    private StreamModeDetails streamModeDetails;
 
     /**
      * <p>
-     * A name to identify the stream. The stream name is scoped to the AWS account used by the application that creates
-     * the stream. It is also scoped by AWS Region. That is, two streams in two different AWS accounts can have the same
-     * name. Two streams in the same AWS account but in two different Regions can also have the same name.
+     * A name to identify the stream. The stream name is scoped to the Amazon Web Services account used by the
+     * application that creates the stream. It is also scoped by Amazon Web Services Region. That is, two streams in two
+     * different Amazon Web Services accounts can have the same name. Two streams in the same Amazon Web Services
+     * account but in two different Regions can also have the same name.
      * </p>
      * 
      * @param streamName
-     *        A name to identify the stream. The stream name is scoped to the AWS account used by the application that
-     *        creates the stream. It is also scoped by AWS Region. That is, two streams in two different AWS accounts
-     *        can have the same name. Two streams in the same AWS account but in two different Regions can also have the
-     *        same name.
+     *        A name to identify the stream. The stream name is scoped to the Amazon Web Services account used by the
+     *        application that creates the stream. It is also scoped by Amazon Web Services Region. That is, two streams
+     *        in two different Amazon Web Services accounts can have the same name. Two streams in the same Amazon Web
+     *        Services account but in two different Regions can also have the same name.
      */
 
     public void setStreamName(String streamName) {
@@ -67,15 +73,16 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A name to identify the stream. The stream name is scoped to the AWS account used by the application that creates
-     * the stream. It is also scoped by AWS Region. That is, two streams in two different AWS accounts can have the same
-     * name. Two streams in the same AWS account but in two different Regions can also have the same name.
+     * A name to identify the stream. The stream name is scoped to the Amazon Web Services account used by the
+     * application that creates the stream. It is also scoped by Amazon Web Services Region. That is, two streams in two
+     * different Amazon Web Services accounts can have the same name. Two streams in the same Amazon Web Services
+     * account but in two different Regions can also have the same name.
      * </p>
      * 
-     * @return A name to identify the stream. The stream name is scoped to the AWS account used by the application that
-     *         creates the stream. It is also scoped by AWS Region. That is, two streams in two different AWS accounts
-     *         can have the same name. Two streams in the same AWS account but in two different Regions can also have
-     *         the same name.
+     * @return A name to identify the stream. The stream name is scoped to the Amazon Web Services account used by the
+     *         application that creates the stream. It is also scoped by Amazon Web Services Region. That is, two
+     *         streams in two different Amazon Web Services accounts can have the same name. Two streams in the same
+     *         Amazon Web Services account but in two different Regions can also have the same name.
      */
 
     public String getStreamName() {
@@ -84,16 +91,17 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A name to identify the stream. The stream name is scoped to the AWS account used by the application that creates
-     * the stream. It is also scoped by AWS Region. That is, two streams in two different AWS accounts can have the same
-     * name. Two streams in the same AWS account but in two different Regions can also have the same name.
+     * A name to identify the stream. The stream name is scoped to the Amazon Web Services account used by the
+     * application that creates the stream. It is also scoped by Amazon Web Services Region. That is, two streams in two
+     * different Amazon Web Services accounts can have the same name. Two streams in the same Amazon Web Services
+     * account but in two different Regions can also have the same name.
      * </p>
      * 
      * @param streamName
-     *        A name to identify the stream. The stream name is scoped to the AWS account used by the application that
-     *        creates the stream. It is also scoped by AWS Region. That is, two streams in two different AWS accounts
-     *        can have the same name. Two streams in the same AWS account but in two different Regions can also have the
-     *        same name.
+     *        A name to identify the stream. The stream name is scoped to the Amazon Web Services account used by the
+     *        application that creates the stream. It is also scoped by Amazon Web Services Region. That is, two streams
+     *        in two different Amazon Web Services accounts can have the same name. Two streams in the same Amazon Web
+     *        Services account but in two different Regions can also have the same name.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -107,15 +115,10 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The number of shards that the stream will use. The throughput of the stream is a function of the number of
      * shards; more shards are required for greater provisioned throughput.
      * </p>
-     * <p>
-     * DefaultShardLimit;
-     * </p>
      * 
      * @param shardCount
      *        The number of shards that the stream will use. The throughput of the stream is a function of the number of
-     *        shards; more shards are required for greater provisioned throughput.</p>
-     *        <p>
-     *        DefaultShardLimit;
+     *        shards; more shards are required for greater provisioned throughput.
      */
 
     public void setShardCount(Integer shardCount) {
@@ -127,14 +130,9 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The number of shards that the stream will use. The throughput of the stream is a function of the number of
      * shards; more shards are required for greater provisioned throughput.
      * </p>
-     * <p>
-     * DefaultShardLimit;
-     * </p>
      * 
      * @return The number of shards that the stream will use. The throughput of the stream is a function of the number
-     *         of shards; more shards are required for greater provisioned throughput.</p>
-     *         <p>
-     *         DefaultShardLimit;
+     *         of shards; more shards are required for greater provisioned throughput.
      */
 
     public Integer getShardCount() {
@@ -146,20 +144,61 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The number of shards that the stream will use. The throughput of the stream is a function of the number of
      * shards; more shards are required for greater provisioned throughput.
      * </p>
-     * <p>
-     * DefaultShardLimit;
-     * </p>
      * 
      * @param shardCount
      *        The number of shards that the stream will use. The throughput of the stream is a function of the number of
-     *        shards; more shards are required for greater provisioned throughput.</p>
-     *        <p>
-     *        DefaultShardLimit;
+     *        shards; more shards are required for greater provisioned throughput.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateStreamRequest withShardCount(Integer shardCount) {
         setShardCount(shardCount);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates the capacity mode of the data stream. Currently, in Kinesis Data Streams, you can choose between an
+     * <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode for your data streams.
+     * </p>
+     * 
+     * @param streamModeDetails
+     *        Indicates the capacity mode of the data stream. Currently, in Kinesis Data Streams, you can choose between
+     *        an <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode for your data streams.
+     */
+
+    public void setStreamModeDetails(StreamModeDetails streamModeDetails) {
+        this.streamModeDetails = streamModeDetails;
+    }
+
+    /**
+     * <p>
+     * Indicates the capacity mode of the data stream. Currently, in Kinesis Data Streams, you can choose between an
+     * <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode for your data streams.
+     * </p>
+     * 
+     * @return Indicates the capacity mode of the data stream. Currently, in Kinesis Data Streams, you can choose
+     *         between an <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode for your data streams.
+     */
+
+    public StreamModeDetails getStreamModeDetails() {
+        return this.streamModeDetails;
+    }
+
+    /**
+     * <p>
+     * Indicates the capacity mode of the data stream. Currently, in Kinesis Data Streams, you can choose between an
+     * <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode for your data streams.
+     * </p>
+     * 
+     * @param streamModeDetails
+     *        Indicates the capacity mode of the data stream. Currently, in Kinesis Data Streams, you can choose between
+     *        an <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode for your data streams.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateStreamRequest withStreamModeDetails(StreamModeDetails streamModeDetails) {
+        setStreamModeDetails(streamModeDetails);
         return this;
     }
 
@@ -178,7 +217,9 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
         if (getStreamName() != null)
             sb.append("StreamName: ").append(getStreamName()).append(",");
         if (getShardCount() != null)
-            sb.append("ShardCount: ").append(getShardCount());
+            sb.append("ShardCount: ").append(getShardCount()).append(",");
+        if (getStreamModeDetails() != null)
+            sb.append("StreamModeDetails: ").append(getStreamModeDetails());
         sb.append("}");
         return sb.toString();
     }
@@ -201,6 +242,10 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
             return false;
         if (other.getShardCount() != null && other.getShardCount().equals(this.getShardCount()) == false)
             return false;
+        if (other.getStreamModeDetails() == null ^ this.getStreamModeDetails() == null)
+            return false;
+        if (other.getStreamModeDetails() != null && other.getStreamModeDetails().equals(this.getStreamModeDetails()) == false)
+            return false;
         return true;
     }
 
@@ -211,6 +256,7 @@ public class CreateStreamRequest extends com.amazonaws.AmazonWebServiceRequest i
 
         hashCode = prime * hashCode + ((getStreamName() == null) ? 0 : getStreamName().hashCode());
         hashCode = prime * hashCode + ((getShardCount() == null) ? 0 : getShardCount().hashCode());
+        hashCode = prime * hashCode + ((getStreamModeDetails() == null) ? 0 : getStreamModeDetails().hashCode());
         return hashCode;
     }
 

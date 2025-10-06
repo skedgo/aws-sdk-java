@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,9 +19,10 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Metadata that you assign to your AWS resources. Tags enable you to categorize your resources in different ways, for
- * example, by purpose, owner, or environment. In Systems Manager, you can apply tags to documents, managed instances,
- * maintenance windows, Parameter Store parameters, and patch baselines.
+ * Metadata that you assign to your Amazon Web Services resources. Tags enable you to categorize your resources in
+ * different ways, for example, by purpose, owner, or environment. In Amazon Web Services Systems Manager, you can apply
+ * tags to Systems Manager documents (SSM documents), managed nodes, maintenance windows, parameters, patch baselines,
+ * OpsItems, and OpsMetadata.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/Tag" target="_top">AWS API Documentation</a>

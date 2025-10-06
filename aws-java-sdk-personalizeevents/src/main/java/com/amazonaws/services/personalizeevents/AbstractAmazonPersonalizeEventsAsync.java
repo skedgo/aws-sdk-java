@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,32 @@ public class AbstractAmazonPersonalizeEventsAsync extends AbstractAmazonPersonal
     }
 
     @Override
+    public java.util.concurrent.Future<PutActionInteractionsResult> putActionInteractionsAsync(PutActionInteractionsRequest request) {
+
+        return putActionInteractionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutActionInteractionsResult> putActionInteractionsAsync(PutActionInteractionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<PutActionInteractionsRequest, PutActionInteractionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutActionsResult> putActionsAsync(PutActionsRequest request) {
+
+        return putActionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutActionsResult> putActionsAsync(PutActionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<PutActionsRequest, PutActionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<PutEventsResult> putEventsAsync(PutEventsRequest request) {
 
         return putEventsAsync(request, null);
@@ -36,6 +62,32 @@ public class AbstractAmazonPersonalizeEventsAsync extends AbstractAmazonPersonal
     @Override
     public java.util.concurrent.Future<PutEventsResult> putEventsAsync(PutEventsRequest request,
             com.amazonaws.handlers.AsyncHandler<PutEventsRequest, PutEventsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutItemsResult> putItemsAsync(PutItemsRequest request) {
+
+        return putItemsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutItemsResult> putItemsAsync(PutItemsRequest request,
+            com.amazonaws.handlers.AsyncHandler<PutItemsRequest, PutItemsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutUsersResult> putUsersAsync(PutUsersRequest request) {
+
+        return putUsersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutUsersResult> putUsersAsync(PutUsersRequest request,
+            com.amazonaws.handlers.AsyncHandler<PutUsersRequest, PutUsersResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

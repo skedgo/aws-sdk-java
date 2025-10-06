@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -295,8 +295,93 @@ public class ClusterStaxUnmarshaller implements Unmarshaller<Cluster, StaxUnmars
                     continue;
                 }
 
+                if (context.testExpression("ExpectedNextSnapshotScheduleTime", targetDepth)) {
+                    cluster.setExpectedNextSnapshotScheduleTime(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ExpectedNextSnapshotScheduleTimeStatus", targetDepth)) {
+                    cluster.setExpectedNextSnapshotScheduleTimeStatus(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("NextMaintenanceWindowStartTime", targetDepth)) {
+                    cluster.setNextMaintenanceWindowStartTime(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("ResizeInfo", targetDepth)) {
                     cluster.setResizeInfo(ResizeInfoStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("AvailabilityZoneRelocationStatus", targetDepth)) {
+                    cluster.setAvailabilityZoneRelocationStatus(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ClusterNamespaceArn", targetDepth)) {
+                    cluster.setClusterNamespaceArn(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("TotalStorageCapacityInMegaBytes", targetDepth)) {
+                    cluster.setTotalStorageCapacityInMegaBytes(LongStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("AquaConfiguration", targetDepth)) {
+                    cluster.setAquaConfiguration(AquaConfigurationStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DefaultIamRoleArn", targetDepth)) {
+                    cluster.setDefaultIamRoleArn(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ReservedNodeExchangeStatus", targetDepth)) {
+                    cluster.setReservedNodeExchangeStatus(ReservedNodeExchangeStatusStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("CustomDomainName", targetDepth)) {
+                    cluster.setCustomDomainName(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("CustomDomainCertificateArn", targetDepth)) {
+                    cluster.setCustomDomainCertificateArn(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("CustomDomainCertificateExpiryDate", targetDepth)) {
+                    cluster.setCustomDomainCertificateExpiryDate(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MasterPasswordSecretArn", targetDepth)) {
+                    cluster.setMasterPasswordSecretArn(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MasterPasswordSecretKmsKeyId", targetDepth)) {
+                    cluster.setMasterPasswordSecretKmsKeyId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("IpAddressType", targetDepth)) {
+                    cluster.setIpAddressType(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MultiAZ", targetDepth)) {
+                    cluster.setMultiAZ(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MultiAZSecondary", targetDepth)) {
+                    cluster.setMultiAZSecondary(SecondaryClusterInfoStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

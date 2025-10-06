@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,7 @@ public class ModifyDBClusterEndpointRequest extends com.amazonaws.AmazonWebServi
     private String dBClusterEndpointIdentifier;
     /**
      * <p>
-     * The type of the endpoint. One of: <code>READER</code>, <code>ANY</code>.
+     * The type of the endpoint. One of: <code>READER</code>, <code>WRITER</code>, <code>ANY</code>.
      * </p>
      */
     private String endpointType;
@@ -93,11 +93,11 @@ public class ModifyDBClusterEndpointRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The type of the endpoint. One of: <code>READER</code>, <code>ANY</code>.
+     * The type of the endpoint. One of: <code>READER</code>, <code>WRITER</code>, <code>ANY</code>.
      * </p>
      * 
      * @param endpointType
-     *        The type of the endpoint. One of: <code>READER</code>, <code>ANY</code>.
+     *        The type of the endpoint. One of: <code>READER</code>, <code>WRITER</code>, <code>ANY</code>.
      */
 
     public void setEndpointType(String endpointType) {
@@ -106,10 +106,10 @@ public class ModifyDBClusterEndpointRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The type of the endpoint. One of: <code>READER</code>, <code>ANY</code>.
+     * The type of the endpoint. One of: <code>READER</code>, <code>WRITER</code>, <code>ANY</code>.
      * </p>
      * 
-     * @return The type of the endpoint. One of: <code>READER</code>, <code>ANY</code>.
+     * @return The type of the endpoint. One of: <code>READER</code>, <code>WRITER</code>, <code>ANY</code>.
      */
 
     public String getEndpointType() {
@@ -118,11 +118,11 @@ public class ModifyDBClusterEndpointRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The type of the endpoint. One of: <code>READER</code>, <code>ANY</code>.
+     * The type of the endpoint. One of: <code>READER</code>, <code>WRITER</code>, <code>ANY</code>.
      * </p>
      * 
      * @param endpointType
-     *        The type of the endpoint. One of: <code>READER</code>, <code>ANY</code>.
+     *        The type of the endpoint. One of: <code>READER</code>, <code>WRITER</code>, <code>ANY</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

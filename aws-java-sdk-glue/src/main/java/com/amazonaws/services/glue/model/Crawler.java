@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * Specifies a crawler program that examines a data source and uses classifiers to try to determine its schema. If
- * successful, the crawler records metadata concerning the data source in the AWS Glue Data Catalog.
+ * successful, the crawler records metadata concerning the data source in the Glue Data Catalog.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/Crawler" target="_top">AWS API Documentation</a>
@@ -67,10 +67,23 @@ public class Crawler implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<String> classifiers;
     /**
      * <p>
+     * A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were added since
+     * the last crawler run.
+     * </p>
+     */
+    private RecrawlPolicy recrawlPolicy;
+    /**
+     * <p>
      * The policy that specifies update and delete behaviors for the crawler.
      * </p>
      */
     private SchemaChangePolicy schemaChangePolicy;
+    /**
+     * <p>
+     * A configuration that specifies whether data lineage is enabled for the crawler.
+     * </p>
+     */
+    private LineageConfiguration lineageConfiguration;
     /**
      * <p>
      * Indicates whether the crawler is running, or whether a run is pending.
@@ -123,7 +136,8 @@ public class Crawler implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's
      * behavior. For more information, see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Configuring a Crawler</a>.
+     * href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler configuration
+     * options</a>.
      * </p>
      */
     private String configuration;
@@ -133,6 +147,13 @@ public class Crawler implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String crawlerSecurityConfiguration;
+    /**
+     * <p>
+     * Specifies whether the crawler should use Lake Formation credentials for the crawler instead of the IAM role
+     * credentials.
+     * </p>
+     */
+    private LakeFormationConfiguration lakeFormationConfiguration;
 
     /**
      * <p>
@@ -412,6 +433,52 @@ public class Crawler implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
+     * A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were added since
+     * the last crawler run.
+     * </p>
+     * 
+     * @param recrawlPolicy
+     *        A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were
+     *        added since the last crawler run.
+     */
+
+    public void setRecrawlPolicy(RecrawlPolicy recrawlPolicy) {
+        this.recrawlPolicy = recrawlPolicy;
+    }
+
+    /**
+     * <p>
+     * A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were added since
+     * the last crawler run.
+     * </p>
+     * 
+     * @return A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were
+     *         added since the last crawler run.
+     */
+
+    public RecrawlPolicy getRecrawlPolicy() {
+        return this.recrawlPolicy;
+    }
+
+    /**
+     * <p>
+     * A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were added since
+     * the last crawler run.
+     * </p>
+     * 
+     * @param recrawlPolicy
+     *        A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were
+     *        added since the last crawler run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Crawler withRecrawlPolicy(RecrawlPolicy recrawlPolicy) {
+        setRecrawlPolicy(recrawlPolicy);
+        return this;
+    }
+
+    /**
+     * <p>
      * The policy that specifies update and delete behaviors for the crawler.
      * </p>
      * 
@@ -447,6 +514,46 @@ public class Crawler implements Serializable, Cloneable, StructuredPojo {
 
     public Crawler withSchemaChangePolicy(SchemaChangePolicy schemaChangePolicy) {
         setSchemaChangePolicy(schemaChangePolicy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A configuration that specifies whether data lineage is enabled for the crawler.
+     * </p>
+     * 
+     * @param lineageConfiguration
+     *        A configuration that specifies whether data lineage is enabled for the crawler.
+     */
+
+    public void setLineageConfiguration(LineageConfiguration lineageConfiguration) {
+        this.lineageConfiguration = lineageConfiguration;
+    }
+
+    /**
+     * <p>
+     * A configuration that specifies whether data lineage is enabled for the crawler.
+     * </p>
+     * 
+     * @return A configuration that specifies whether data lineage is enabled for the crawler.
+     */
+
+    public LineageConfiguration getLineageConfiguration() {
+        return this.lineageConfiguration;
+    }
+
+    /**
+     * <p>
+     * A configuration that specifies whether data lineage is enabled for the crawler.
+     * </p>
+     * 
+     * @param lineageConfiguration
+     *        A configuration that specifies whether data lineage is enabled for the crawler.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Crawler withLineageConfiguration(LineageConfiguration lineageConfiguration) {
+        setLineageConfiguration(lineageConfiguration);
         return this;
     }
 
@@ -793,13 +900,15 @@ public class Crawler implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's
      * behavior. For more information, see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Configuring a Crawler</a>.
+     * href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler configuration
+     * options</a>.
      * </p>
      * 
      * @param configuration
      *        Crawler configuration information. This versioned JSON string allows users to specify aspects of a
      *        crawler's behavior. For more information, see <a
-     *        href="http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Configuring a Crawler</a>.
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler configuration
+     *        options</a>.
      */
 
     public void setConfiguration(String configuration) {
@@ -810,12 +919,14 @@ public class Crawler implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's
      * behavior. For more information, see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Configuring a Crawler</a>.
+     * href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler configuration
+     * options</a>.
      * </p>
      * 
      * @return Crawler configuration information. This versioned JSON string allows users to specify aspects of a
      *         crawler's behavior. For more information, see <a
-     *         href="http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Configuring a Crawler</a>.
+     *         href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler
+     *         configuration options</a>.
      */
 
     public String getConfiguration() {
@@ -826,13 +937,15 @@ public class Crawler implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's
      * behavior. For more information, see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Configuring a Crawler</a>.
+     * href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler configuration
+     * options</a>.
      * </p>
      * 
      * @param configuration
      *        Crawler configuration information. This versioned JSON string allows users to specify aspects of a
      *        crawler's behavior. For more information, see <a
-     *        href="http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Configuring a Crawler</a>.
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler configuration
+     *        options</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -882,6 +995,52 @@ public class Crawler implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * Specifies whether the crawler should use Lake Formation credentials for the crawler instead of the IAM role
+     * credentials.
+     * </p>
+     * 
+     * @param lakeFormationConfiguration
+     *        Specifies whether the crawler should use Lake Formation credentials for the crawler instead of the IAM
+     *        role credentials.
+     */
+
+    public void setLakeFormationConfiguration(LakeFormationConfiguration lakeFormationConfiguration) {
+        this.lakeFormationConfiguration = lakeFormationConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the crawler should use Lake Formation credentials for the crawler instead of the IAM role
+     * credentials.
+     * </p>
+     * 
+     * @return Specifies whether the crawler should use Lake Formation credentials for the crawler instead of the IAM
+     *         role credentials.
+     */
+
+    public LakeFormationConfiguration getLakeFormationConfiguration() {
+        return this.lakeFormationConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the crawler should use Lake Formation credentials for the crawler instead of the IAM role
+     * credentials.
+     * </p>
+     * 
+     * @param lakeFormationConfiguration
+     *        Specifies whether the crawler should use Lake Formation credentials for the crawler instead of the IAM
+     *        role credentials.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Crawler withLakeFormationConfiguration(LakeFormationConfiguration lakeFormationConfiguration) {
+        setLakeFormationConfiguration(lakeFormationConfiguration);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -905,8 +1064,12 @@ public class Crawler implements Serializable, Cloneable, StructuredPojo {
             sb.append("Description: ").append(getDescription()).append(",");
         if (getClassifiers() != null)
             sb.append("Classifiers: ").append(getClassifiers()).append(",");
+        if (getRecrawlPolicy() != null)
+            sb.append("RecrawlPolicy: ").append(getRecrawlPolicy()).append(",");
         if (getSchemaChangePolicy() != null)
             sb.append("SchemaChangePolicy: ").append(getSchemaChangePolicy()).append(",");
+        if (getLineageConfiguration() != null)
+            sb.append("LineageConfiguration: ").append(getLineageConfiguration()).append(",");
         if (getState() != null)
             sb.append("State: ").append(getState()).append(",");
         if (getTablePrefix() != null)
@@ -926,7 +1089,9 @@ public class Crawler implements Serializable, Cloneable, StructuredPojo {
         if (getConfiguration() != null)
             sb.append("Configuration: ").append(getConfiguration()).append(",");
         if (getCrawlerSecurityConfiguration() != null)
-            sb.append("CrawlerSecurityConfiguration: ").append(getCrawlerSecurityConfiguration());
+            sb.append("CrawlerSecurityConfiguration: ").append(getCrawlerSecurityConfiguration()).append(",");
+        if (getLakeFormationConfiguration() != null)
+            sb.append("LakeFormationConfiguration: ").append(getLakeFormationConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -965,9 +1130,17 @@ public class Crawler implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getClassifiers() != null && other.getClassifiers().equals(this.getClassifiers()) == false)
             return false;
+        if (other.getRecrawlPolicy() == null ^ this.getRecrawlPolicy() == null)
+            return false;
+        if (other.getRecrawlPolicy() != null && other.getRecrawlPolicy().equals(this.getRecrawlPolicy()) == false)
+            return false;
         if (other.getSchemaChangePolicy() == null ^ this.getSchemaChangePolicy() == null)
             return false;
         if (other.getSchemaChangePolicy() != null && other.getSchemaChangePolicy().equals(this.getSchemaChangePolicy()) == false)
+            return false;
+        if (other.getLineageConfiguration() == null ^ this.getLineageConfiguration() == null)
+            return false;
+        if (other.getLineageConfiguration() != null && other.getLineageConfiguration().equals(this.getLineageConfiguration()) == false)
             return false;
         if (other.getState() == null ^ this.getState() == null)
             return false;
@@ -1009,6 +1182,10 @@ public class Crawler implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getCrawlerSecurityConfiguration() != null && other.getCrawlerSecurityConfiguration().equals(this.getCrawlerSecurityConfiguration()) == false)
             return false;
+        if (other.getLakeFormationConfiguration() == null ^ this.getLakeFormationConfiguration() == null)
+            return false;
+        if (other.getLakeFormationConfiguration() != null && other.getLakeFormationConfiguration().equals(this.getLakeFormationConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -1023,7 +1200,9 @@ public class Crawler implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getDatabaseName() == null) ? 0 : getDatabaseName().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getClassifiers() == null) ? 0 : getClassifiers().hashCode());
+        hashCode = prime * hashCode + ((getRecrawlPolicy() == null) ? 0 : getRecrawlPolicy().hashCode());
         hashCode = prime * hashCode + ((getSchemaChangePolicy() == null) ? 0 : getSchemaChangePolicy().hashCode());
+        hashCode = prime * hashCode + ((getLineageConfiguration() == null) ? 0 : getLineageConfiguration().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
         hashCode = prime * hashCode + ((getTablePrefix() == null) ? 0 : getTablePrefix().hashCode());
         hashCode = prime * hashCode + ((getSchedule() == null) ? 0 : getSchedule().hashCode());
@@ -1034,6 +1213,7 @@ public class Crawler implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getVersion() == null) ? 0 : getVersion().hashCode());
         hashCode = prime * hashCode + ((getConfiguration() == null) ? 0 : getConfiguration().hashCode());
         hashCode = prime * hashCode + ((getCrawlerSecurityConfiguration() == null) ? 0 : getCrawlerSecurityConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getLakeFormationConfiguration() == null) ? 0 : getLakeFormationConfiguration().hashCode());
         return hashCode;
     }
 

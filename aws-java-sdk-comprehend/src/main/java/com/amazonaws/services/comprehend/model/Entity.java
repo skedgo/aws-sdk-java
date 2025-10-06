@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,7 +38,12 @@ public class Entity implements Serializable, Cloneable, StructuredPojo {
     private Float score;
     /**
      * <p>
-     * The entity's type.
+     * The entity type. For entity detection using the built-in model, this field contains one of the standard entity
+     * types listed below.
+     * </p>
+     * <p>
+     * For custom entity detection, this field contains one of the entity types that you specified when you trained your
+     * custom model.
      * </p>
      */
     private String type;
@@ -50,21 +55,28 @@ public class Entity implements Serializable, Cloneable, StructuredPojo {
     private String text;
     /**
      * <p>
-     * A character offset in the input text that shows where the entity begins (the first character is at position 0).
-     * The offset returns the position of each UTF-8 code point in the string. A <i>code point</i> is the abstract
-     * character from a particular graphical representation. For example, a multi-byte UTF-8 character maps to a single
-     * code point.
+     * The zero-based offset from the beginning of the source text to the first character in the entity.
+     * </p>
+     * <p>
+     * This field is empty for non-text input.
      * </p>
      */
     private Integer beginOffset;
     /**
      * <p>
-     * A character offset in the input text that shows where the entity ends. The offset returns the position of each
-     * UTF-8 code point in the string. A <i>code point</i> is the abstract character from a particular graphical
-     * representation. For example, a multi-byte UTF-8 character maps to a single code point.
+     * The zero-based offset from the beginning of the source text to the last character in the entity.
+     * </p>
+     * <p>
+     * This field is empty for non-text input.
      * </p>
      */
     private Integer endOffset;
+    /**
+     * <p>
+     * A reference to each block for this entity. This field is empty for plain-text input.
+     * </p>
+     */
+    private java.util.List<BlockReference> blockReferences;
 
     /**
      * <p>
@@ -108,11 +120,20 @@ public class Entity implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The entity's type.
+     * The entity type. For entity detection using the built-in model, this field contains one of the standard entity
+     * types listed below.
+     * </p>
+     * <p>
+     * For custom entity detection, this field contains one of the entity types that you specified when you trained your
+     * custom model.
      * </p>
      * 
      * @param type
-     *        The entity's type.
+     *        The entity type. For entity detection using the built-in model, this field contains one of the standard
+     *        entity types listed below.</p>
+     *        <p>
+     *        For custom entity detection, this field contains one of the entity types that you specified when you
+     *        trained your custom model.
      * @see EntityType
      */
 
@@ -122,10 +143,19 @@ public class Entity implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The entity's type.
+     * The entity type. For entity detection using the built-in model, this field contains one of the standard entity
+     * types listed below.
+     * </p>
+     * <p>
+     * For custom entity detection, this field contains one of the entity types that you specified when you trained your
+     * custom model.
      * </p>
      * 
-     * @return The entity's type.
+     * @return The entity type. For entity detection using the built-in model, this field contains one of the standard
+     *         entity types listed below.</p>
+     *         <p>
+     *         For custom entity detection, this field contains one of the entity types that you specified when you
+     *         trained your custom model.
      * @see EntityType
      */
 
@@ -135,11 +165,20 @@ public class Entity implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The entity's type.
+     * The entity type. For entity detection using the built-in model, this field contains one of the standard entity
+     * types listed below.
+     * </p>
+     * <p>
+     * For custom entity detection, this field contains one of the entity types that you specified when you trained your
+     * custom model.
      * </p>
      * 
      * @param type
-     *        The entity's type.
+     *        The entity type. For entity detection using the built-in model, this field contains one of the standard
+     *        entity types listed below.</p>
+     *        <p>
+     *        For custom entity detection, this field contains one of the entity types that you specified when you
+     *        trained your custom model.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EntityType
      */
@@ -151,11 +190,20 @@ public class Entity implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The entity's type.
+     * The entity type. For entity detection using the built-in model, this field contains one of the standard entity
+     * types listed below.
+     * </p>
+     * <p>
+     * For custom entity detection, this field contains one of the entity types that you specified when you trained your
+     * custom model.
      * </p>
      * 
      * @param type
-     *        The entity's type.
+     *        The entity type. For entity detection using the built-in model, this field contains one of the standard
+     *        entity types listed below.</p>
+     *        <p>
+     *        For custom entity detection, this field contains one of the entity types that you specified when you
+     *        trained your custom model.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EntityType
      */
@@ -207,17 +255,16 @@ public class Entity implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A character offset in the input text that shows where the entity begins (the first character is at position 0).
-     * The offset returns the position of each UTF-8 code point in the string. A <i>code point</i> is the abstract
-     * character from a particular graphical representation. For example, a multi-byte UTF-8 character maps to a single
-     * code point.
+     * The zero-based offset from the beginning of the source text to the first character in the entity.
+     * </p>
+     * <p>
+     * This field is empty for non-text input.
      * </p>
      * 
      * @param beginOffset
-     *        A character offset in the input text that shows where the entity begins (the first character is at
-     *        position 0). The offset returns the position of each UTF-8 code point in the string. A <i>code point</i>
-     *        is the abstract character from a particular graphical representation. For example, a multi-byte UTF-8
-     *        character maps to a single code point.
+     *        The zero-based offset from the beginning of the source text to the first character in the entity.</p>
+     *        <p>
+     *        This field is empty for non-text input.
      */
 
     public void setBeginOffset(Integer beginOffset) {
@@ -226,16 +273,15 @@ public class Entity implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A character offset in the input text that shows where the entity begins (the first character is at position 0).
-     * The offset returns the position of each UTF-8 code point in the string. A <i>code point</i> is the abstract
-     * character from a particular graphical representation. For example, a multi-byte UTF-8 character maps to a single
-     * code point.
+     * The zero-based offset from the beginning of the source text to the first character in the entity.
+     * </p>
+     * <p>
+     * This field is empty for non-text input.
      * </p>
      * 
-     * @return A character offset in the input text that shows where the entity begins (the first character is at
-     *         position 0). The offset returns the position of each UTF-8 code point in the string. A <i>code point</i>
-     *         is the abstract character from a particular graphical representation. For example, a multi-byte UTF-8
-     *         character maps to a single code point.
+     * @return The zero-based offset from the beginning of the source text to the first character in the entity.</p>
+     *         <p>
+     *         This field is empty for non-text input.
      */
 
     public Integer getBeginOffset() {
@@ -244,17 +290,16 @@ public class Entity implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A character offset in the input text that shows where the entity begins (the first character is at position 0).
-     * The offset returns the position of each UTF-8 code point in the string. A <i>code point</i> is the abstract
-     * character from a particular graphical representation. For example, a multi-byte UTF-8 character maps to a single
-     * code point.
+     * The zero-based offset from the beginning of the source text to the first character in the entity.
+     * </p>
+     * <p>
+     * This field is empty for non-text input.
      * </p>
      * 
      * @param beginOffset
-     *        A character offset in the input text that shows where the entity begins (the first character is at
-     *        position 0). The offset returns the position of each UTF-8 code point in the string. A <i>code point</i>
-     *        is the abstract character from a particular graphical representation. For example, a multi-byte UTF-8
-     *        character maps to a single code point.
+     *        The zero-based offset from the beginning of the source text to the first character in the entity.</p>
+     *        <p>
+     *        This field is empty for non-text input.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -265,15 +310,16 @@ public class Entity implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A character offset in the input text that shows where the entity ends. The offset returns the position of each
-     * UTF-8 code point in the string. A <i>code point</i> is the abstract character from a particular graphical
-     * representation. For example, a multi-byte UTF-8 character maps to a single code point.
+     * The zero-based offset from the beginning of the source text to the last character in the entity.
+     * </p>
+     * <p>
+     * This field is empty for non-text input.
      * </p>
      * 
      * @param endOffset
-     *        A character offset in the input text that shows where the entity ends. The offset returns the position of
-     *        each UTF-8 code point in the string. A <i>code point</i> is the abstract character from a particular
-     *        graphical representation. For example, a multi-byte UTF-8 character maps to a single code point.
+     *        The zero-based offset from the beginning of the source text to the last character in the entity.</p>
+     *        <p>
+     *        This field is empty for non-text input.
      */
 
     public void setEndOffset(Integer endOffset) {
@@ -282,14 +328,15 @@ public class Entity implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A character offset in the input text that shows where the entity ends. The offset returns the position of each
-     * UTF-8 code point in the string. A <i>code point</i> is the abstract character from a particular graphical
-     * representation. For example, a multi-byte UTF-8 character maps to a single code point.
+     * The zero-based offset from the beginning of the source text to the last character in the entity.
+     * </p>
+     * <p>
+     * This field is empty for non-text input.
      * </p>
      * 
-     * @return A character offset in the input text that shows where the entity ends. The offset returns the position of
-     *         each UTF-8 code point in the string. A <i>code point</i> is the abstract character from a particular
-     *         graphical representation. For example, a multi-byte UTF-8 character maps to a single code point.
+     * @return The zero-based offset from the beginning of the source text to the last character in the entity.</p>
+     *         <p>
+     *         This field is empty for non-text input.
      */
 
     public Integer getEndOffset() {
@@ -298,20 +345,91 @@ public class Entity implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A character offset in the input text that shows where the entity ends. The offset returns the position of each
-     * UTF-8 code point in the string. A <i>code point</i> is the abstract character from a particular graphical
-     * representation. For example, a multi-byte UTF-8 character maps to a single code point.
+     * The zero-based offset from the beginning of the source text to the last character in the entity.
+     * </p>
+     * <p>
+     * This field is empty for non-text input.
      * </p>
      * 
      * @param endOffset
-     *        A character offset in the input text that shows where the entity ends. The offset returns the position of
-     *        each UTF-8 code point in the string. A <i>code point</i> is the abstract character from a particular
-     *        graphical representation. For example, a multi-byte UTF-8 character maps to a single code point.
+     *        The zero-based offset from the beginning of the source text to the last character in the entity.</p>
+     *        <p>
+     *        This field is empty for non-text input.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Entity withEndOffset(Integer endOffset) {
         setEndOffset(endOffset);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A reference to each block for this entity. This field is empty for plain-text input.
+     * </p>
+     * 
+     * @return A reference to each block for this entity. This field is empty for plain-text input.
+     */
+
+    public java.util.List<BlockReference> getBlockReferences() {
+        return blockReferences;
+    }
+
+    /**
+     * <p>
+     * A reference to each block for this entity. This field is empty for plain-text input.
+     * </p>
+     * 
+     * @param blockReferences
+     *        A reference to each block for this entity. This field is empty for plain-text input.
+     */
+
+    public void setBlockReferences(java.util.Collection<BlockReference> blockReferences) {
+        if (blockReferences == null) {
+            this.blockReferences = null;
+            return;
+        }
+
+        this.blockReferences = new java.util.ArrayList<BlockReference>(blockReferences);
+    }
+
+    /**
+     * <p>
+     * A reference to each block for this entity. This field is empty for plain-text input.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setBlockReferences(java.util.Collection)} or {@link #withBlockReferences(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param blockReferences
+     *        A reference to each block for this entity. This field is empty for plain-text input.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Entity withBlockReferences(BlockReference... blockReferences) {
+        if (this.blockReferences == null) {
+            setBlockReferences(new java.util.ArrayList<BlockReference>(blockReferences.length));
+        }
+        for (BlockReference ele : blockReferences) {
+            this.blockReferences.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A reference to each block for this entity. This field is empty for plain-text input.
+     * </p>
+     * 
+     * @param blockReferences
+     *        A reference to each block for this entity. This field is empty for plain-text input.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Entity withBlockReferences(java.util.Collection<BlockReference> blockReferences) {
+        setBlockReferences(blockReferences);
         return this;
     }
 
@@ -336,7 +454,9 @@ public class Entity implements Serializable, Cloneable, StructuredPojo {
         if (getBeginOffset() != null)
             sb.append("BeginOffset: ").append(getBeginOffset()).append(",");
         if (getEndOffset() != null)
-            sb.append("EndOffset: ").append(getEndOffset());
+            sb.append("EndOffset: ").append(getEndOffset()).append(",");
+        if (getBlockReferences() != null)
+            sb.append("BlockReferences: ").append(getBlockReferences());
         sb.append("}");
         return sb.toString();
     }
@@ -371,6 +491,10 @@ public class Entity implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getEndOffset() != null && other.getEndOffset().equals(this.getEndOffset()) == false)
             return false;
+        if (other.getBlockReferences() == null ^ this.getBlockReferences() == null)
+            return false;
+        if (other.getBlockReferences() != null && other.getBlockReferences().equals(this.getBlockReferences()) == false)
+            return false;
         return true;
     }
 
@@ -384,6 +508,7 @@ public class Entity implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getText() == null) ? 0 : getText().hashCode());
         hashCode = prime * hashCode + ((getBeginOffset() == null) ? 0 : getBeginOffset().hashCode());
         hashCode = prime * hashCode + ((getEndOffset() == null) ? 0 : getEndOffset().hashCode());
+        hashCode = prime * hashCode + ((getBlockReferences() == null) ? 0 : getBlockReferences().hashCode());
         return hashCode;
     }
 

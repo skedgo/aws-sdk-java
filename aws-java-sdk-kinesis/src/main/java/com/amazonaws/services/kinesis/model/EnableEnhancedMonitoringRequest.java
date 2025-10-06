@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -85,12 +85,18 @@ public class EnableEnhancedMonitoringRequest extends com.amazonaws.AmazonWebServ
      * </ul>
      * <p>
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon
+     * href="https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon
      * Kinesis Data Streams Service with Amazon CloudWatch</a> in the <i>Amazon Kinesis Data Streams Developer
      * Guide</i>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> shardLevelMetrics;
+    /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     */
+    private String streamARN;
 
     /**
      * <p>
@@ -183,7 +189,7 @@ public class EnableEnhancedMonitoringRequest extends com.amazonaws.AmazonWebServ
      * </ul>
      * <p>
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon
+     * href="https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon
      * Kinesis Data Streams Service with Amazon CloudWatch</a> in the <i>Amazon Kinesis Data Streams Developer
      * Guide</i>.
      * </p>
@@ -236,7 +242,7 @@ public class EnableEnhancedMonitoringRequest extends com.amazonaws.AmazonWebServ
      *         </ul>
      *         <p>
      *         For more information, see <a
-     *         href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the
+     *         href="https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the
      *         Amazon Kinesis Data Streams Service with Amazon CloudWatch</a> in the <i>Amazon Kinesis Data Streams
      *         Developer Guide</i>.
      * @see MetricsName
@@ -300,7 +306,7 @@ public class EnableEnhancedMonitoringRequest extends com.amazonaws.AmazonWebServ
      * </ul>
      * <p>
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon
+     * href="https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon
      * Kinesis Data Streams Service with Amazon CloudWatch</a> in the <i>Amazon Kinesis Data Streams Developer
      * Guide</i>.
      * </p>
@@ -354,9 +360,9 @@ public class EnableEnhancedMonitoringRequest extends com.amazonaws.AmazonWebServ
      *        </ul>
      *        <p>
      *        For more information, see <a
-     *        href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon
-     *        Kinesis Data Streams Service with Amazon CloudWatch</a> in the <i>Amazon Kinesis Data Streams Developer
-     *        Guide</i>.
+     *        href="https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the
+     *        Amazon Kinesis Data Streams Service with Amazon CloudWatch</a> in the <i>Amazon Kinesis Data Streams
+     *        Developer Guide</i>.
      * @see MetricsName
      */
 
@@ -420,7 +426,7 @@ public class EnableEnhancedMonitoringRequest extends com.amazonaws.AmazonWebServ
      * </ul>
      * <p>
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon
+     * href="https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon
      * Kinesis Data Streams Service with Amazon CloudWatch</a> in the <i>Amazon Kinesis Data Streams Developer
      * Guide</i>.
      * </p>
@@ -479,9 +485,9 @@ public class EnableEnhancedMonitoringRequest extends com.amazonaws.AmazonWebServ
      *        </ul>
      *        <p>
      *        For more information, see <a
-     *        href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon
-     *        Kinesis Data Streams Service with Amazon CloudWatch</a> in the <i>Amazon Kinesis Data Streams Developer
-     *        Guide</i>.
+     *        href="https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the
+     *        Amazon Kinesis Data Streams Service with Amazon CloudWatch</a> in the <i>Amazon Kinesis Data Streams
+     *        Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see MetricsName
      */
@@ -547,7 +553,7 @@ public class EnableEnhancedMonitoringRequest extends com.amazonaws.AmazonWebServ
      * </ul>
      * <p>
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon
+     * href="https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon
      * Kinesis Data Streams Service with Amazon CloudWatch</a> in the <i>Amazon Kinesis Data Streams Developer
      * Guide</i>.
      * </p>
@@ -601,9 +607,9 @@ public class EnableEnhancedMonitoringRequest extends com.amazonaws.AmazonWebServ
      *        </ul>
      *        <p>
      *        For more information, see <a
-     *        href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon
-     *        Kinesis Data Streams Service with Amazon CloudWatch</a> in the <i>Amazon Kinesis Data Streams Developer
-     *        Guide</i>.
+     *        href="https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the
+     *        Amazon Kinesis Data Streams Service with Amazon CloudWatch</a> in the <i>Amazon Kinesis Data Streams
+     *        Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see MetricsName
      */
@@ -664,7 +670,7 @@ public class EnableEnhancedMonitoringRequest extends com.amazonaws.AmazonWebServ
      * </ul>
      * <p>
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon
+     * href="https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon
      * Kinesis Data Streams Service with Amazon CloudWatch</a> in the <i>Amazon Kinesis Data Streams Developer
      * Guide</i>.
      * </p>
@@ -718,9 +724,9 @@ public class EnableEnhancedMonitoringRequest extends com.amazonaws.AmazonWebServ
      *        </ul>
      *        <p>
      *        For more information, see <a
-     *        href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon
-     *        Kinesis Data Streams Service with Amazon CloudWatch</a> in the <i>Amazon Kinesis Data Streams Developer
-     *        Guide</i>.
+     *        href="https://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the
+     *        Amazon Kinesis Data Streams Service with Amazon CloudWatch</a> in the <i>Amazon Kinesis Data Streams
+     *        Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see MetricsName
      */
@@ -739,6 +745,46 @@ public class EnableEnhancedMonitoringRequest extends com.amazonaws.AmazonWebServ
     }
 
     /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     * 
+     * @param streamARN
+     *        The ARN of the stream.
+     */
+
+    public void setStreamARN(String streamARN) {
+        this.streamARN = streamARN;
+    }
+
+    /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     * 
+     * @return The ARN of the stream.
+     */
+
+    public String getStreamARN() {
+        return this.streamARN;
+    }
+
+    /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     * 
+     * @param streamARN
+     *        The ARN of the stream.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EnableEnhancedMonitoringRequest withStreamARN(String streamARN) {
+        setStreamARN(streamARN);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -753,7 +799,9 @@ public class EnableEnhancedMonitoringRequest extends com.amazonaws.AmazonWebServ
         if (getStreamName() != null)
             sb.append("StreamName: ").append(getStreamName()).append(",");
         if (getShardLevelMetrics() != null)
-            sb.append("ShardLevelMetrics: ").append(getShardLevelMetrics());
+            sb.append("ShardLevelMetrics: ").append(getShardLevelMetrics()).append(",");
+        if (getStreamARN() != null)
+            sb.append("StreamARN: ").append(getStreamARN());
         sb.append("}");
         return sb.toString();
     }
@@ -776,6 +824,10 @@ public class EnableEnhancedMonitoringRequest extends com.amazonaws.AmazonWebServ
             return false;
         if (other.getShardLevelMetrics() != null && other.getShardLevelMetrics().equals(this.getShardLevelMetrics()) == false)
             return false;
+        if (other.getStreamARN() == null ^ this.getStreamARN() == null)
+            return false;
+        if (other.getStreamARN() != null && other.getStreamARN().equals(this.getStreamARN()) == false)
+            return false;
         return true;
     }
 
@@ -786,6 +838,7 @@ public class EnableEnhancedMonitoringRequest extends com.amazonaws.AmazonWebServ
 
         hashCode = prime * hashCode + ((getStreamName() == null) ? 0 : getStreamName().hashCode());
         hashCode = prime * hashCode + ((getShardLevelMetrics() == null) ? 0 : getShardLevelMetrics().hashCode());
+        hashCode = prime * hashCode + ((getStreamARN() == null) ? 0 : getStreamARN().hashCode());
         return hashCode;
     }
 

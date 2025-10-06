@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A <code>User</code> object that contains information about a user account in your Amazon Connect instance, including
- * configuration settings.
+ * Contains information about a user account for an Amazon Connect instance.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/User" target="_top">AWS API Documentation</a>
@@ -36,7 +35,7 @@ public class User implements Serializable, Cloneable, StructuredPojo {
     private String id;
     /**
      * <p>
-     * The ARN of the user account.
+     * The Amazon Resource Name (ARN) of the user account.
      * </p>
      */
     private String arn;
@@ -48,40 +47,58 @@ public class User implements Serializable, Cloneable, StructuredPojo {
     private String username;
     /**
      * <p>
-     * A <code>UserIdentityInfo</code> object.
+     * Information about the user identity.
      * </p>
      */
     private UserIdentityInfo identityInfo;
     /**
      * <p>
-     * A <code>UserPhoneConfig</code> object.
+     * Information about the phone configuration for the user.
      * </p>
      */
     private UserPhoneConfig phoneConfig;
     /**
      * <p>
-     * The directory Id for the user account in the existing directory used for identity management.
+     * The identifier of the user account in the directory used for identity management.
      * </p>
      */
     private String directoryUserId;
     /**
      * <p>
-     * The identifier(s) for the security profile assigned to the user.
+     * The identifiers of the security profiles for the user.
      * </p>
      */
     private java.util.List<String> securityProfileIds;
     /**
      * <p>
-     * The identifier of the routing profile assigned to the user.
+     * The identifier of the routing profile for the user.
      * </p>
      */
     private String routingProfileId;
     /**
      * <p>
-     * The identifier for the hierarchy group assigned to the user.
+     * The identifier of the hierarchy group for the user.
      * </p>
      */
     private String hierarchyGroupId;
+    /**
+     * <p>
+     * The tags.
+     * </p>
+     */
+    private java.util.Map<String, String> tags;
+    /**
+     * <p>
+     * The timestamp when this resource was last modified.
+     * </p>
+     */
+    private java.util.Date lastModifiedTime;
+    /**
+     * <p>
+     * The Amazon Web Services Region where this resource was last modified.
+     * </p>
+     */
+    private String lastModifiedRegion;
 
     /**
      * <p>
@@ -125,11 +142,11 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the user account.
+     * The Amazon Resource Name (ARN) of the user account.
      * </p>
      * 
      * @param arn
-     *        The ARN of the user account.
+     *        The Amazon Resource Name (ARN) of the user account.
      */
 
     public void setArn(String arn) {
@@ -138,10 +155,10 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the user account.
+     * The Amazon Resource Name (ARN) of the user account.
      * </p>
      * 
-     * @return The ARN of the user account.
+     * @return The Amazon Resource Name (ARN) of the user account.
      */
 
     public String getArn() {
@@ -150,11 +167,11 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the user account.
+     * The Amazon Resource Name (ARN) of the user account.
      * </p>
      * 
      * @param arn
-     *        The ARN of the user account.
+     *        The Amazon Resource Name (ARN) of the user account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -205,11 +222,11 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A <code>UserIdentityInfo</code> object.
+     * Information about the user identity.
      * </p>
      * 
      * @param identityInfo
-     *        A <code>UserIdentityInfo</code> object.
+     *        Information about the user identity.
      */
 
     public void setIdentityInfo(UserIdentityInfo identityInfo) {
@@ -218,10 +235,10 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A <code>UserIdentityInfo</code> object.
+     * Information about the user identity.
      * </p>
      * 
-     * @return A <code>UserIdentityInfo</code> object.
+     * @return Information about the user identity.
      */
 
     public UserIdentityInfo getIdentityInfo() {
@@ -230,11 +247,11 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A <code>UserIdentityInfo</code> object.
+     * Information about the user identity.
      * </p>
      * 
      * @param identityInfo
-     *        A <code>UserIdentityInfo</code> object.
+     *        Information about the user identity.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -245,11 +262,11 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A <code>UserPhoneConfig</code> object.
+     * Information about the phone configuration for the user.
      * </p>
      * 
      * @param phoneConfig
-     *        A <code>UserPhoneConfig</code> object.
+     *        Information about the phone configuration for the user.
      */
 
     public void setPhoneConfig(UserPhoneConfig phoneConfig) {
@@ -258,10 +275,10 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A <code>UserPhoneConfig</code> object.
+     * Information about the phone configuration for the user.
      * </p>
      * 
-     * @return A <code>UserPhoneConfig</code> object.
+     * @return Information about the phone configuration for the user.
      */
 
     public UserPhoneConfig getPhoneConfig() {
@@ -270,11 +287,11 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A <code>UserPhoneConfig</code> object.
+     * Information about the phone configuration for the user.
      * </p>
      * 
      * @param phoneConfig
-     *        A <code>UserPhoneConfig</code> object.
+     *        Information about the phone configuration for the user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -285,11 +302,11 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The directory Id for the user account in the existing directory used for identity management.
+     * The identifier of the user account in the directory used for identity management.
      * </p>
      * 
      * @param directoryUserId
-     *        The directory Id for the user account in the existing directory used for identity management.
+     *        The identifier of the user account in the directory used for identity management.
      */
 
     public void setDirectoryUserId(String directoryUserId) {
@@ -298,10 +315,10 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The directory Id for the user account in the existing directory used for identity management.
+     * The identifier of the user account in the directory used for identity management.
      * </p>
      * 
-     * @return The directory Id for the user account in the existing directory used for identity management.
+     * @return The identifier of the user account in the directory used for identity management.
      */
 
     public String getDirectoryUserId() {
@@ -310,11 +327,11 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The directory Id for the user account in the existing directory used for identity management.
+     * The identifier of the user account in the directory used for identity management.
      * </p>
      * 
      * @param directoryUserId
-     *        The directory Id for the user account in the existing directory used for identity management.
+     *        The identifier of the user account in the directory used for identity management.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -325,10 +342,10 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier(s) for the security profile assigned to the user.
+     * The identifiers of the security profiles for the user.
      * </p>
      * 
-     * @return The identifier(s) for the security profile assigned to the user.
+     * @return The identifiers of the security profiles for the user.
      */
 
     public java.util.List<String> getSecurityProfileIds() {
@@ -337,11 +354,11 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier(s) for the security profile assigned to the user.
+     * The identifiers of the security profiles for the user.
      * </p>
      * 
      * @param securityProfileIds
-     *        The identifier(s) for the security profile assigned to the user.
+     *        The identifiers of the security profiles for the user.
      */
 
     public void setSecurityProfileIds(java.util.Collection<String> securityProfileIds) {
@@ -355,7 +372,7 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier(s) for the security profile assigned to the user.
+     * The identifiers of the security profiles for the user.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -364,7 +381,7 @@ public class User implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param securityProfileIds
-     *        The identifier(s) for the security profile assigned to the user.
+     *        The identifiers of the security profiles for the user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -380,11 +397,11 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier(s) for the security profile assigned to the user.
+     * The identifiers of the security profiles for the user.
      * </p>
      * 
      * @param securityProfileIds
-     *        The identifier(s) for the security profile assigned to the user.
+     *        The identifiers of the security profiles for the user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -395,11 +412,11 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier of the routing profile assigned to the user.
+     * The identifier of the routing profile for the user.
      * </p>
      * 
      * @param routingProfileId
-     *        The identifier of the routing profile assigned to the user.
+     *        The identifier of the routing profile for the user.
      */
 
     public void setRoutingProfileId(String routingProfileId) {
@@ -408,10 +425,10 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier of the routing profile assigned to the user.
+     * The identifier of the routing profile for the user.
      * </p>
      * 
-     * @return The identifier of the routing profile assigned to the user.
+     * @return The identifier of the routing profile for the user.
      */
 
     public String getRoutingProfileId() {
@@ -420,11 +437,11 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier of the routing profile assigned to the user.
+     * The identifier of the routing profile for the user.
      * </p>
      * 
      * @param routingProfileId
-     *        The identifier of the routing profile assigned to the user.
+     *        The identifier of the routing profile for the user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -435,11 +452,11 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier for the hierarchy group assigned to the user.
+     * The identifier of the hierarchy group for the user.
      * </p>
      * 
      * @param hierarchyGroupId
-     *        The identifier for the hierarchy group assigned to the user.
+     *        The identifier of the hierarchy group for the user.
      */
 
     public void setHierarchyGroupId(String hierarchyGroupId) {
@@ -448,10 +465,10 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier for the hierarchy group assigned to the user.
+     * The identifier of the hierarchy group for the user.
      * </p>
      * 
-     * @return The identifier for the hierarchy group assigned to the user.
+     * @return The identifier of the hierarchy group for the user.
      */
 
     public String getHierarchyGroupId() {
@@ -460,16 +477,164 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier for the hierarchy group assigned to the user.
+     * The identifier of the hierarchy group for the user.
      * </p>
      * 
      * @param hierarchyGroupId
-     *        The identifier for the hierarchy group assigned to the user.
+     *        The identifier of the hierarchy group for the user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public User withHierarchyGroupId(String hierarchyGroupId) {
         setHierarchyGroupId(hierarchyGroupId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags.
+     * </p>
+     * 
+     * @return The tags.
+     */
+
+    public java.util.Map<String, String> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * The tags.
+     * </p>
+     * 
+     * @param tags
+     *        The tags.
+     */
+
+    public void setTags(java.util.Map<String, String> tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * <p>
+     * The tags.
+     * </p>
+     * 
+     * @param tags
+     *        The tags.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public User withTags(java.util.Map<String, String> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see User#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public User addTagsEntry(String key, String value) {
+        if (null == this.tags) {
+            this.tags = new java.util.HashMap<String, String>();
+        }
+        if (this.tags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.tags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Tags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public User clearTagsEntries() {
+        this.tags = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The timestamp when this resource was last modified.
+     * </p>
+     * 
+     * @param lastModifiedTime
+     *        The timestamp when this resource was last modified.
+     */
+
+    public void setLastModifiedTime(java.util.Date lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
+    }
+
+    /**
+     * <p>
+     * The timestamp when this resource was last modified.
+     * </p>
+     * 
+     * @return The timestamp when this resource was last modified.
+     */
+
+    public java.util.Date getLastModifiedTime() {
+        return this.lastModifiedTime;
+    }
+
+    /**
+     * <p>
+     * The timestamp when this resource was last modified.
+     * </p>
+     * 
+     * @param lastModifiedTime
+     *        The timestamp when this resource was last modified.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public User withLastModifiedTime(java.util.Date lastModifiedTime) {
+        setLastModifiedTime(lastModifiedTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services Region where this resource was last modified.
+     * </p>
+     * 
+     * @param lastModifiedRegion
+     *        The Amazon Web Services Region where this resource was last modified.
+     */
+
+    public void setLastModifiedRegion(String lastModifiedRegion) {
+        this.lastModifiedRegion = lastModifiedRegion;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services Region where this resource was last modified.
+     * </p>
+     * 
+     * @return The Amazon Web Services Region where this resource was last modified.
+     */
+
+    public String getLastModifiedRegion() {
+        return this.lastModifiedRegion;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services Region where this resource was last modified.
+     * </p>
+     * 
+     * @param lastModifiedRegion
+     *        The Amazon Web Services Region where this resource was last modified.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public User withLastModifiedRegion(String lastModifiedRegion) {
+        setLastModifiedRegion(lastModifiedRegion);
         return this;
     }
 
@@ -502,7 +667,13 @@ public class User implements Serializable, Cloneable, StructuredPojo {
         if (getRoutingProfileId() != null)
             sb.append("RoutingProfileId: ").append(getRoutingProfileId()).append(",");
         if (getHierarchyGroupId() != null)
-            sb.append("HierarchyGroupId: ").append(getHierarchyGroupId());
+            sb.append("HierarchyGroupId: ").append(getHierarchyGroupId()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getLastModifiedTime() != null)
+            sb.append("LastModifiedTime: ").append(getLastModifiedTime()).append(",");
+        if (getLastModifiedRegion() != null)
+            sb.append("LastModifiedRegion: ").append(getLastModifiedRegion());
         sb.append("}");
         return sb.toString();
     }
@@ -553,6 +724,18 @@ public class User implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getHierarchyGroupId() != null && other.getHierarchyGroupId().equals(this.getHierarchyGroupId()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getLastModifiedTime() == null ^ this.getLastModifiedTime() == null)
+            return false;
+        if (other.getLastModifiedTime() != null && other.getLastModifiedTime().equals(this.getLastModifiedTime()) == false)
+            return false;
+        if (other.getLastModifiedRegion() == null ^ this.getLastModifiedRegion() == null)
+            return false;
+        if (other.getLastModifiedRegion() != null && other.getLastModifiedRegion().equals(this.getLastModifiedRegion()) == false)
+            return false;
         return true;
     }
 
@@ -570,6 +753,9 @@ public class User implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getSecurityProfileIds() == null) ? 0 : getSecurityProfileIds().hashCode());
         hashCode = prime * hashCode + ((getRoutingProfileId() == null) ? 0 : getRoutingProfileId().hashCode());
         hashCode = prime * hashCode + ((getHierarchyGroupId() == null) ? 0 : getHierarchyGroupId().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getLastModifiedTime() == null) ? 0 : getLastModifiedTime().hashCode());
+        hashCode = prime * hashCode + ((getLastModifiedRegion() == null) ? 0 : getLastModifiedRegion().hashCode());
         return hashCode;
     }
 

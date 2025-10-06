@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,168 +27,125 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Specifies the secret that you want to modify or to which you want to add a new version. You can specify either
-     * the Amazon Resource Name (ARN) or the friendly name of the secret.
+     * The ARN or name of the secret.
      * </p>
-     * <note>
      * <p>
-     * If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial ARN
-     * too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager adds at the
-     * end of the ARN when you created the secret. A partial ARN match can work as long as it uniquely matches only one
-     * secret. However, if your secret has a name that ends in a hyphen followed by six characters (before Secrets
-     * Manager adds the hyphen and six characters to the ARN) and you try to use that as a partial ARN, then those
-     * characters cause Secrets Manager to assume that you’re specifying a complete ARN. This confusion can cause
-     * unexpected results. To avoid this situation, we recommend that you don’t create secret names that end with a
-     * hyphen followed by six characters.
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding
+     * a secret from a partial ARN</a>.
      * </p>
-     * </note>
      */
     private String secretId;
     /**
      * <p>
-     * (Optional) If you want to add a new version to the secret, this parameter specifies a unique identifier for the
-     * new version that helps ensure idempotency.
+     * If you include <code>SecretString</code> or <code>SecretBinary</code>, then Secrets Manager creates a new version
+     * for the secret, and this parameter specifies the unique identifier for the new version.
+     * </p>
+     * <note>
+     * <p>
+     * If you use the Amazon Web Services CLI or one of the Amazon Web Services SDKs to call this operation, then you
+     * can leave this parameter empty. The CLI or SDK generates a random UUID for you and includes it as the value for
+     * this parameter in the request.
+     * </p>
+     * </note>
+     * <p>
+     * If you generate a raw HTTP request to the Secrets Manager service endpoint, then you must generate a
+     * <code>ClientRequestToken</code> and include it in the request.
      * </p>
      * <p>
-     * If you use the AWS CLI or one of the AWS SDK to call this operation, then you can leave this parameter empty. The
-     * CLI or SDK generates a random UUID for you and includes that in the request. If you don't use the SDK and instead
-     * generate a raw HTTP request to the Secrets Manager service endpoint, then you must generate a
-     * <code>ClientRequestToken</code> yourself for new versions and include that value in the request.
-     * </p>
-     * <p>
-     * You typically only need to interact with this value if you implement your own retry logic and want to ensure that
-     * a given secret is not created twice. We recommend that you generate a <a
-     * href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a> value to ensure uniqueness within
-     * the specified secret.
-     * </p>
-     * <p>
-     * Secrets Manager uses this value to prevent the accidental creation of duplicate versions if there are failures
-     * and retries during the Lambda rotation function's processing.
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * If the <code>ClientRequestToken</code> value isn't already associated with a version of the secret then a new
-     * version of the secret is created.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If a version with this value already exists and that version's <code>SecretString</code> and
-     * <code>SecretBinary</code> values are the same as those in the request then the request is ignored (the operation
-     * is idempotent).
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If a version with this value already exists and that version's <code>SecretString</code> and
-     * <code>SecretBinary</code> values are different from the request then an error occurs because you cannot modify an
-     * existing secret value.
-     * </p>
-     * </li>
-     * </ul>
-     * <p>
-     * This value becomes the <code>VersionId</code> of the new version.
+     * This value helps ensure idempotency. Secrets Manager uses this value to prevent the accidental creation of
+     * duplicate versions if there are failures and retries during a rotation. We recommend that you generate a <a
+     * href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a> value to ensure uniqueness of your
+     * versions within the specified secret.
      * </p>
      */
     private String clientRequestToken;
     /**
      * <p>
-     * (Optional) Specifies an updated user-provided description of the secret.
+     * The description of the secret.
      * </p>
      */
     private String description;
     /**
      * <p>
-     * (Optional) Specifies an updated ARN or alias of the AWS KMS customer master key (CMK) to be used to encrypt the
-     * protected text in new versions of this secret.
+     * The ARN, key ID, or alias of the KMS key that Secrets Manager uses to encrypt new secret versions as well as any
+     * existing versions with the staging labels <code>AWSCURRENT</code>, <code>AWSPENDING</code>, or
+     * <code>AWSPREVIOUS</code>. If you don't have <code>kms:Encrypt</code> permission to the new key, Secrets Manager
+     * does not re-encrypt existing secret versions with the new key. For more information about versions and staging
+     * labels, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/getting-started.html#term_version">Concepts:
+     * Version</a>.
+     * </p>
+     * <p>
+     * A key alias is always prefixed by <code>alias/</code>, for example <code>alias/aws/secretsmanager</code>. For
+     * more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/alias-about.html">About
+     * aliases</a>.
+     * </p>
+     * <p>
+     * If you set this to an empty string, Secrets Manager uses the Amazon Web Services managed key
+     * <code>aws/secretsmanager</code>. If this key doesn't already exist in your account, then Secrets Manager creates
+     * it for you automatically. All users and roles in the Amazon Web Services account automatically have access to use
+     * <code>aws/secretsmanager</code>. Creating <code>aws/secretsmanager</code> can result in a one-time significant
+     * delay in returning the result.
      * </p>
      * <important>
      * <p>
-     * You can only use the account's default CMK to encrypt and decrypt if you call this operation using credentials
-     * from the same account that owns the secret. If the secret is in a different account, then you must create a
-     * custom CMK and provide the ARN of that CMK in this field. The user making the call must have permissions to both
-     * the secret and the CMK in their respective accounts.
+     * You can only use the Amazon Web Services managed key <code>aws/secretsmanager</code> if you call this operation
+     * using credentials from the same Amazon Web Services account that owns the secret. If the secret is in a different
+     * account, then you must use a customer managed key and provide the ARN of that KMS key in this field. The user
+     * making the call must have permissions to both the secret and the KMS key in their respective accounts.
      * </p>
      * </important>
      */
     private String kmsKeyId;
     /**
      * <p>
-     * (Optional) Specifies updated binary data that you want to encrypt and store in the new version of the secret. To
-     * use this parameter in the command-line tools, we recommend that you store your binary data in a file and then use
-     * the appropriate technique for your tool to pass the contents of the file as a parameter. Either
-     * <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both. They cannot both be
-     * empty.
+     * The binary data to encrypt and store in the new version of the secret. We recommend that you store your binary
+     * data in a file and then pass the contents of the file as a parameter.
      * </p>
      * <p>
-     * This parameter is not accessible using the Secrets Manager console.
+     * Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
+     * </p>
+     * <p>
+     * You can't access this parameter in the Secrets Manager console.
+     * </p>
+     * <p>
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     * entries. If you create your own log entries, you must also avoid logging the information in this field.
      * </p>
      */
     private java.nio.ByteBuffer secretBinary;
     /**
      * <p>
-     * (Optional) Specifies updated text data that you want to encrypt and store in this new version of the secret.
-     * Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both. They cannot both
-     * be empty.
+     * The text data to encrypt and store in the new version of the secret. We recommend you use a JSON structure of
+     * key/value pairs for your secret value.
      * </p>
      * <p>
-     * If you create this secret by using the Secrets Manager console then Secrets Manager puts the protected secret
-     * text in only the <code>SecretString</code> parameter. The Secrets Manager console stores the information as a
-     * JSON structure of key/value pairs that the default Lambda rotation function knows how to parse.
+     * Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
      * </p>
      * <p>
-     * For storing multiple values, we recommend that you use a JSON text string argument and specify key/value pairs.
-     * For information on how to format a JSON parameter for the various command line tool environments, see <a
-     * href="https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using JSON for
-     * Parameters</a> in the <i>AWS CLI User Guide</i>. For example:
-     * </p>
-     * <p>
-     * <code>[{"username":"bob"},{"password":"abc123xyz456"}]</code>
-     * </p>
-     * <p>
-     * If your command-line tool or SDK requires quotation marks around the parameter, you should use single quotes to
-     * avoid confusion with the double quotes required in the JSON text. You can also 'escape' the double quote
-     * character in the embedded JSON text by prefacing each with a backslash. For example, the following string is
-     * surrounded by double-quotes. All of the embedded double quotes are escaped:
-     * </p>
-     * <p>
-     * <code>"[{\"username\":\"bob\"},{\"password\":\"abc123xyz456\"}]"</code>
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     * entries. If you create your own log entries, you must also avoid logging the information in this field.
      * </p>
      */
     private String secretString;
 
     /**
      * <p>
-     * Specifies the secret that you want to modify or to which you want to add a new version. You can specify either
-     * the Amazon Resource Name (ARN) or the friendly name of the secret.
+     * The ARN or name of the secret.
      * </p>
-     * <note>
      * <p>
-     * If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial ARN
-     * too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager adds at the
-     * end of the ARN when you created the secret. A partial ARN match can work as long as it uniquely matches only one
-     * secret. However, if your secret has a name that ends in a hyphen followed by six characters (before Secrets
-     * Manager adds the hyphen and six characters to the ARN) and you try to use that as a partial ARN, then those
-     * characters cause Secrets Manager to assume that you’re specifying a complete ARN. This confusion can cause
-     * unexpected results. To avoid this situation, we recommend that you don’t create secret names that end with a
-     * hyphen followed by six characters.
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding
+     * a secret from a partial ARN</a>.
      * </p>
-     * </note>
      * 
      * @param secretId
-     *        Specifies the secret that you want to modify or to which you want to add a new version. You can specify
-     *        either the Amazon Resource Name (ARN) or the friendly name of the secret.</p> <note>
+     *        The ARN or name of the secret.</p>
      *        <p>
-     *        If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial
-     *        ARN too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager
-     *        adds at the end of the ARN when you created the secret. A partial ARN match can work as long as it
-     *        uniquely matches only one secret. However, if your secret has a name that ends in a hyphen followed by six
-     *        characters (before Secrets Manager adds the hyphen and six characters to the ARN) and you try to use that
-     *        as a partial ARN, then those characters cause Secrets Manager to assume that you’re specifying a complete
-     *        ARN. This confusion can cause unexpected results. To avoid this situation, we recommend that you don’t
-     *        create secret names that end with a hyphen followed by six characters.
-     *        </p>
+     *        For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href=
+     *        "https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen"
+     *        >Finding a secret from a partial ARN</a>.
      */
 
     public void setSecretId(String secretId) {
@@ -197,34 +154,19 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Specifies the secret that you want to modify or to which you want to add a new version. You can specify either
-     * the Amazon Resource Name (ARN) or the friendly name of the secret.
+     * The ARN or name of the secret.
      * </p>
-     * <note>
      * <p>
-     * If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial ARN
-     * too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager adds at the
-     * end of the ARN when you created the secret. A partial ARN match can work as long as it uniquely matches only one
-     * secret. However, if your secret has a name that ends in a hyphen followed by six characters (before Secrets
-     * Manager adds the hyphen and six characters to the ARN) and you try to use that as a partial ARN, then those
-     * characters cause Secrets Manager to assume that you’re specifying a complete ARN. This confusion can cause
-     * unexpected results. To avoid this situation, we recommend that you don’t create secret names that end with a
-     * hyphen followed by six characters.
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding
+     * a secret from a partial ARN</a>.
      * </p>
-     * </note>
      * 
-     * @return Specifies the secret that you want to modify or to which you want to add a new version. You can specify
-     *         either the Amazon Resource Name (ARN) or the friendly name of the secret.</p> <note>
+     * @return The ARN or name of the secret.</p>
      *         <p>
-     *         If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial
-     *         ARN too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager
-     *         adds at the end of the ARN when you created the secret. A partial ARN match can work as long as it
-     *         uniquely matches only one secret. However, if your secret has a name that ends in a hyphen followed by
-     *         six characters (before Secrets Manager adds the hyphen and six characters to the ARN) and you try to use
-     *         that as a partial ARN, then those characters cause Secrets Manager to assume that you’re specifying a
-     *         complete ARN. This confusion can cause unexpected results. To avoid this situation, we recommend that you
-     *         don’t create secret names that end with a hyphen followed by six characters.
-     *         </p>
+     *         For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href=
+     *         "https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen"
+     *         >Finding a secret from a partial ARN</a>.
      */
 
     public String getSecretId() {
@@ -233,35 +175,20 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Specifies the secret that you want to modify or to which you want to add a new version. You can specify either
-     * the Amazon Resource Name (ARN) or the friendly name of the secret.
+     * The ARN or name of the secret.
      * </p>
-     * <note>
      * <p>
-     * If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial ARN
-     * too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager adds at the
-     * end of the ARN when you created the secret. A partial ARN match can work as long as it uniquely matches only one
-     * secret. However, if your secret has a name that ends in a hyphen followed by six characters (before Secrets
-     * Manager adds the hyphen and six characters to the ARN) and you try to use that as a partial ARN, then those
-     * characters cause Secrets Manager to assume that you’re specifying a complete ARN. This confusion can cause
-     * unexpected results. To avoid this situation, we recommend that you don’t create secret names that end with a
-     * hyphen followed by six characters.
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding
+     * a secret from a partial ARN</a>.
      * </p>
-     * </note>
      * 
      * @param secretId
-     *        Specifies the secret that you want to modify or to which you want to add a new version. You can specify
-     *        either the Amazon Resource Name (ARN) or the friendly name of the secret.</p> <note>
+     *        The ARN or name of the secret.</p>
      *        <p>
-     *        If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial
-     *        ARN too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager
-     *        adds at the end of the ARN when you created the secret. A partial ARN match can work as long as it
-     *        uniquely matches only one secret. However, if your secret has a name that ends in a hyphen followed by six
-     *        characters (before Secrets Manager adds the hyphen and six characters to the ARN) and you try to use that
-     *        as a partial ARN, then those characters cause Secrets Manager to assume that you’re specifying a complete
-     *        ARN. This confusion can cause unexpected results. To avoid this situation, we recommend that you don’t
-     *        create secret names that end with a hyphen followed by six characters.
-     *        </p>
+     *        For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href=
+     *        "https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen"
+     *        >Finding a secret from a partial ARN</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -272,95 +199,45 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) If you want to add a new version to the secret, this parameter specifies a unique identifier for the
-     * new version that helps ensure idempotency.
+     * If you include <code>SecretString</code> or <code>SecretBinary</code>, then Secrets Manager creates a new version
+     * for the secret, and this parameter specifies the unique identifier for the new version.
+     * </p>
+     * <note>
+     * <p>
+     * If you use the Amazon Web Services CLI or one of the Amazon Web Services SDKs to call this operation, then you
+     * can leave this parameter empty. The CLI or SDK generates a random UUID for you and includes it as the value for
+     * this parameter in the request.
+     * </p>
+     * </note>
+     * <p>
+     * If you generate a raw HTTP request to the Secrets Manager service endpoint, then you must generate a
+     * <code>ClientRequestToken</code> and include it in the request.
      * </p>
      * <p>
-     * If you use the AWS CLI or one of the AWS SDK to call this operation, then you can leave this parameter empty. The
-     * CLI or SDK generates a random UUID for you and includes that in the request. If you don't use the SDK and instead
-     * generate a raw HTTP request to the Secrets Manager service endpoint, then you must generate a
-     * <code>ClientRequestToken</code> yourself for new versions and include that value in the request.
-     * </p>
-     * <p>
-     * You typically only need to interact with this value if you implement your own retry logic and want to ensure that
-     * a given secret is not created twice. We recommend that you generate a <a
-     * href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a> value to ensure uniqueness within
-     * the specified secret.
-     * </p>
-     * <p>
-     * Secrets Manager uses this value to prevent the accidental creation of duplicate versions if there are failures
-     * and retries during the Lambda rotation function's processing.
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * If the <code>ClientRequestToken</code> value isn't already associated with a version of the secret then a new
-     * version of the secret is created.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If a version with this value already exists and that version's <code>SecretString</code> and
-     * <code>SecretBinary</code> values are the same as those in the request then the request is ignored (the operation
-     * is idempotent).
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If a version with this value already exists and that version's <code>SecretString</code> and
-     * <code>SecretBinary</code> values are different from the request then an error occurs because you cannot modify an
-     * existing secret value.
-     * </p>
-     * </li>
-     * </ul>
-     * <p>
-     * This value becomes the <code>VersionId</code> of the new version.
+     * This value helps ensure idempotency. Secrets Manager uses this value to prevent the accidental creation of
+     * duplicate versions if there are failures and retries during a rotation. We recommend that you generate a <a
+     * href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a> value to ensure uniqueness of your
+     * versions within the specified secret.
      * </p>
      * 
      * @param clientRequestToken
-     *        (Optional) If you want to add a new version to the secret, this parameter specifies a unique identifier
-     *        for the new version that helps ensure idempotency. </p>
+     *        If you include <code>SecretString</code> or <code>SecretBinary</code>, then Secrets Manager creates a new
+     *        version for the secret, and this parameter specifies the unique identifier for the new version.</p> <note>
      *        <p>
-     *        If you use the AWS CLI or one of the AWS SDK to call this operation, then you can leave this parameter
-     *        empty. The CLI or SDK generates a random UUID for you and includes that in the request. If you don't use
-     *        the SDK and instead generate a raw HTTP request to the Secrets Manager service endpoint, then you must
-     *        generate a <code>ClientRequestToken</code> yourself for new versions and include that value in the
-     *        request.
+     *        If you use the Amazon Web Services CLI or one of the Amazon Web Services SDKs to call this operation, then
+     *        you can leave this parameter empty. The CLI or SDK generates a random UUID for you and includes it as the
+     *        value for this parameter in the request.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        If you generate a raw HTTP request to the Secrets Manager service endpoint, then you must generate a
+     *        <code>ClientRequestToken</code> and include it in the request.
      *        </p>
      *        <p>
-     *        You typically only need to interact with this value if you implement your own retry logic and want to
-     *        ensure that a given secret is not created twice. We recommend that you generate a <a
-     *        href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a> value to ensure uniqueness
-     *        within the specified secret.
-     *        </p>
-     *        <p>
-     *        Secrets Manager uses this value to prevent the accidental creation of duplicate versions if there are
-     *        failures and retries during the Lambda rotation function's processing.
-     *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        If the <code>ClientRequestToken</code> value isn't already associated with a version of the secret then a
-     *        new version of the secret is created.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        If a version with this value already exists and that version's <code>SecretString</code> and
-     *        <code>SecretBinary</code> values are the same as those in the request then the request is ignored (the
-     *        operation is idempotent).
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        If a version with this value already exists and that version's <code>SecretString</code> and
-     *        <code>SecretBinary</code> values are different from the request then an error occurs because you cannot
-     *        modify an existing secret value.
-     *        </p>
-     *        </li>
-     *        </ul>
-     *        <p>
-     *        This value becomes the <code>VersionId</code> of the new version.
+     *        This value helps ensure idempotency. Secrets Manager uses this value to prevent the accidental creation of
+     *        duplicate versions if there are failures and retries during a rotation. We recommend that you generate a
+     *        <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a> value to ensure
+     *        uniqueness of your versions within the specified secret.
      */
 
     public void setClientRequestToken(String clientRequestToken) {
@@ -369,94 +246,45 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) If you want to add a new version to the secret, this parameter specifies a unique identifier for the
-     * new version that helps ensure idempotency.
+     * If you include <code>SecretString</code> or <code>SecretBinary</code>, then Secrets Manager creates a new version
+     * for the secret, and this parameter specifies the unique identifier for the new version.
+     * </p>
+     * <note>
+     * <p>
+     * If you use the Amazon Web Services CLI or one of the Amazon Web Services SDKs to call this operation, then you
+     * can leave this parameter empty. The CLI or SDK generates a random UUID for you and includes it as the value for
+     * this parameter in the request.
+     * </p>
+     * </note>
+     * <p>
+     * If you generate a raw HTTP request to the Secrets Manager service endpoint, then you must generate a
+     * <code>ClientRequestToken</code> and include it in the request.
      * </p>
      * <p>
-     * If you use the AWS CLI or one of the AWS SDK to call this operation, then you can leave this parameter empty. The
-     * CLI or SDK generates a random UUID for you and includes that in the request. If you don't use the SDK and instead
-     * generate a raw HTTP request to the Secrets Manager service endpoint, then you must generate a
-     * <code>ClientRequestToken</code> yourself for new versions and include that value in the request.
-     * </p>
-     * <p>
-     * You typically only need to interact with this value if you implement your own retry logic and want to ensure that
-     * a given secret is not created twice. We recommend that you generate a <a
-     * href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a> value to ensure uniqueness within
-     * the specified secret.
-     * </p>
-     * <p>
-     * Secrets Manager uses this value to prevent the accidental creation of duplicate versions if there are failures
-     * and retries during the Lambda rotation function's processing.
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * If the <code>ClientRequestToken</code> value isn't already associated with a version of the secret then a new
-     * version of the secret is created.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If a version with this value already exists and that version's <code>SecretString</code> and
-     * <code>SecretBinary</code> values are the same as those in the request then the request is ignored (the operation
-     * is idempotent).
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If a version with this value already exists and that version's <code>SecretString</code> and
-     * <code>SecretBinary</code> values are different from the request then an error occurs because you cannot modify an
-     * existing secret value.
-     * </p>
-     * </li>
-     * </ul>
-     * <p>
-     * This value becomes the <code>VersionId</code> of the new version.
+     * This value helps ensure idempotency. Secrets Manager uses this value to prevent the accidental creation of
+     * duplicate versions if there are failures and retries during a rotation. We recommend that you generate a <a
+     * href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a> value to ensure uniqueness of your
+     * versions within the specified secret.
      * </p>
      * 
-     * @return (Optional) If you want to add a new version to the secret, this parameter specifies a unique identifier
-     *         for the new version that helps ensure idempotency. </p>
+     * @return If you include <code>SecretString</code> or <code>SecretBinary</code>, then Secrets Manager creates a new
+     *         version for the secret, and this parameter specifies the unique identifier for the new version.</p>
+     *         <note>
      *         <p>
-     *         If you use the AWS CLI or one of the AWS SDK to call this operation, then you can leave this parameter
-     *         empty. The CLI or SDK generates a random UUID for you and includes that in the request. If you don't use
-     *         the SDK and instead generate a raw HTTP request to the Secrets Manager service endpoint, then you must
-     *         generate a <code>ClientRequestToken</code> yourself for new versions and include that value in the
-     *         request.
+     *         If you use the Amazon Web Services CLI or one of the Amazon Web Services SDKs to call this operation,
+     *         then you can leave this parameter empty. The CLI or SDK generates a random UUID for you and includes it
+     *         as the value for this parameter in the request.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         If you generate a raw HTTP request to the Secrets Manager service endpoint, then you must generate a
+     *         <code>ClientRequestToken</code> and include it in the request.
      *         </p>
      *         <p>
-     *         You typically only need to interact with this value if you implement your own retry logic and want to
-     *         ensure that a given secret is not created twice. We recommend that you generate a <a
-     *         href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a> value to ensure uniqueness
-     *         within the specified secret.
-     *         </p>
-     *         <p>
-     *         Secrets Manager uses this value to prevent the accidental creation of duplicate versions if there are
-     *         failures and retries during the Lambda rotation function's processing.
-     *         </p>
-     *         <ul>
-     *         <li>
-     *         <p>
-     *         If the <code>ClientRequestToken</code> value isn't already associated with a version of the secret then a
-     *         new version of the secret is created.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         If a version with this value already exists and that version's <code>SecretString</code> and
-     *         <code>SecretBinary</code> values are the same as those in the request then the request is ignored (the
-     *         operation is idempotent).
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         If a version with this value already exists and that version's <code>SecretString</code> and
-     *         <code>SecretBinary</code> values are different from the request then an error occurs because you cannot
-     *         modify an existing secret value.
-     *         </p>
-     *         </li>
-     *         </ul>
-     *         <p>
-     *         This value becomes the <code>VersionId</code> of the new version.
+     *         This value helps ensure idempotency. Secrets Manager uses this value to prevent the accidental creation
+     *         of duplicate versions if there are failures and retries during a rotation. We recommend that you generate
+     *         a <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a> value to ensure
+     *         uniqueness of your versions within the specified secret.
      */
 
     public String getClientRequestToken() {
@@ -465,95 +293,45 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) If you want to add a new version to the secret, this parameter specifies a unique identifier for the
-     * new version that helps ensure idempotency.
+     * If you include <code>SecretString</code> or <code>SecretBinary</code>, then Secrets Manager creates a new version
+     * for the secret, and this parameter specifies the unique identifier for the new version.
+     * </p>
+     * <note>
+     * <p>
+     * If you use the Amazon Web Services CLI or one of the Amazon Web Services SDKs to call this operation, then you
+     * can leave this parameter empty. The CLI or SDK generates a random UUID for you and includes it as the value for
+     * this parameter in the request.
+     * </p>
+     * </note>
+     * <p>
+     * If you generate a raw HTTP request to the Secrets Manager service endpoint, then you must generate a
+     * <code>ClientRequestToken</code> and include it in the request.
      * </p>
      * <p>
-     * If you use the AWS CLI or one of the AWS SDK to call this operation, then you can leave this parameter empty. The
-     * CLI or SDK generates a random UUID for you and includes that in the request. If you don't use the SDK and instead
-     * generate a raw HTTP request to the Secrets Manager service endpoint, then you must generate a
-     * <code>ClientRequestToken</code> yourself for new versions and include that value in the request.
-     * </p>
-     * <p>
-     * You typically only need to interact with this value if you implement your own retry logic and want to ensure that
-     * a given secret is not created twice. We recommend that you generate a <a
-     * href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a> value to ensure uniqueness within
-     * the specified secret.
-     * </p>
-     * <p>
-     * Secrets Manager uses this value to prevent the accidental creation of duplicate versions if there are failures
-     * and retries during the Lambda rotation function's processing.
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * If the <code>ClientRequestToken</code> value isn't already associated with a version of the secret then a new
-     * version of the secret is created.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If a version with this value already exists and that version's <code>SecretString</code> and
-     * <code>SecretBinary</code> values are the same as those in the request then the request is ignored (the operation
-     * is idempotent).
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If a version with this value already exists and that version's <code>SecretString</code> and
-     * <code>SecretBinary</code> values are different from the request then an error occurs because you cannot modify an
-     * existing secret value.
-     * </p>
-     * </li>
-     * </ul>
-     * <p>
-     * This value becomes the <code>VersionId</code> of the new version.
+     * This value helps ensure idempotency. Secrets Manager uses this value to prevent the accidental creation of
+     * duplicate versions if there are failures and retries during a rotation. We recommend that you generate a <a
+     * href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a> value to ensure uniqueness of your
+     * versions within the specified secret.
      * </p>
      * 
      * @param clientRequestToken
-     *        (Optional) If you want to add a new version to the secret, this parameter specifies a unique identifier
-     *        for the new version that helps ensure idempotency. </p>
+     *        If you include <code>SecretString</code> or <code>SecretBinary</code>, then Secrets Manager creates a new
+     *        version for the secret, and this parameter specifies the unique identifier for the new version.</p> <note>
      *        <p>
-     *        If you use the AWS CLI or one of the AWS SDK to call this operation, then you can leave this parameter
-     *        empty. The CLI or SDK generates a random UUID for you and includes that in the request. If you don't use
-     *        the SDK and instead generate a raw HTTP request to the Secrets Manager service endpoint, then you must
-     *        generate a <code>ClientRequestToken</code> yourself for new versions and include that value in the
-     *        request.
+     *        If you use the Amazon Web Services CLI or one of the Amazon Web Services SDKs to call this operation, then
+     *        you can leave this parameter empty. The CLI or SDK generates a random UUID for you and includes it as the
+     *        value for this parameter in the request.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        If you generate a raw HTTP request to the Secrets Manager service endpoint, then you must generate a
+     *        <code>ClientRequestToken</code> and include it in the request.
      *        </p>
      *        <p>
-     *        You typically only need to interact with this value if you implement your own retry logic and want to
-     *        ensure that a given secret is not created twice. We recommend that you generate a <a
-     *        href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a> value to ensure uniqueness
-     *        within the specified secret.
-     *        </p>
-     *        <p>
-     *        Secrets Manager uses this value to prevent the accidental creation of duplicate versions if there are
-     *        failures and retries during the Lambda rotation function's processing.
-     *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        If the <code>ClientRequestToken</code> value isn't already associated with a version of the secret then a
-     *        new version of the secret is created.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        If a version with this value already exists and that version's <code>SecretString</code> and
-     *        <code>SecretBinary</code> values are the same as those in the request then the request is ignored (the
-     *        operation is idempotent).
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        If a version with this value already exists and that version's <code>SecretString</code> and
-     *        <code>SecretBinary</code> values are different from the request then an error occurs because you cannot
-     *        modify an existing secret value.
-     *        </p>
-     *        </li>
-     *        </ul>
-     *        <p>
-     *        This value becomes the <code>VersionId</code> of the new version.
+     *        This value helps ensure idempotency. Secrets Manager uses this value to prevent the accidental creation of
+     *        duplicate versions if there are failures and retries during a rotation. We recommend that you generate a
+     *        <a href="https://wikipedia.org/wiki/Universally_unique_identifier">UUID-type</a> value to ensure
+     *        uniqueness of your versions within the specified secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -564,11 +342,11 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies an updated user-provided description of the secret.
+     * The description of the secret.
      * </p>
      * 
      * @param description
-     *        (Optional) Specifies an updated user-provided description of the secret.
+     *        The description of the secret.
      */
 
     public void setDescription(String description) {
@@ -577,10 +355,10 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies an updated user-provided description of the secret.
+     * The description of the secret.
      * </p>
      * 
-     * @return (Optional) Specifies an updated user-provided description of the secret.
+     * @return The description of the secret.
      */
 
     public String getDescription() {
@@ -589,11 +367,11 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies an updated user-provided description of the secret.
+     * The description of the secret.
      * </p>
      * 
      * @param description
-     *        (Optional) Specifies an updated user-provided description of the secret.
+     *        The description of the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -604,26 +382,62 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies an updated ARN or alias of the AWS KMS customer master key (CMK) to be used to encrypt the
-     * protected text in new versions of this secret.
+     * The ARN, key ID, or alias of the KMS key that Secrets Manager uses to encrypt new secret versions as well as any
+     * existing versions with the staging labels <code>AWSCURRENT</code>, <code>AWSPENDING</code>, or
+     * <code>AWSPREVIOUS</code>. If you don't have <code>kms:Encrypt</code> permission to the new key, Secrets Manager
+     * does not re-encrypt existing secret versions with the new key. For more information about versions and staging
+     * labels, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/getting-started.html#term_version">Concepts:
+     * Version</a>.
+     * </p>
+     * <p>
+     * A key alias is always prefixed by <code>alias/</code>, for example <code>alias/aws/secretsmanager</code>. For
+     * more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/alias-about.html">About
+     * aliases</a>.
+     * </p>
+     * <p>
+     * If you set this to an empty string, Secrets Manager uses the Amazon Web Services managed key
+     * <code>aws/secretsmanager</code>. If this key doesn't already exist in your account, then Secrets Manager creates
+     * it for you automatically. All users and roles in the Amazon Web Services account automatically have access to use
+     * <code>aws/secretsmanager</code>. Creating <code>aws/secretsmanager</code> can result in a one-time significant
+     * delay in returning the result.
      * </p>
      * <important>
      * <p>
-     * You can only use the account's default CMK to encrypt and decrypt if you call this operation using credentials
-     * from the same account that owns the secret. If the secret is in a different account, then you must create a
-     * custom CMK and provide the ARN of that CMK in this field. The user making the call must have permissions to both
-     * the secret and the CMK in their respective accounts.
+     * You can only use the Amazon Web Services managed key <code>aws/secretsmanager</code> if you call this operation
+     * using credentials from the same Amazon Web Services account that owns the secret. If the secret is in a different
+     * account, then you must use a customer managed key and provide the ARN of that KMS key in this field. The user
+     * making the call must have permissions to both the secret and the KMS key in their respective accounts.
      * </p>
      * </important>
      * 
      * @param kmsKeyId
-     *        (Optional) Specifies an updated ARN or alias of the AWS KMS customer master key (CMK) to be used to
-     *        encrypt the protected text in new versions of this secret.</p> <important>
+     *        The ARN, key ID, or alias of the KMS key that Secrets Manager uses to encrypt new secret versions as well
+     *        as any existing versions with the staging labels <code>AWSCURRENT</code>, <code>AWSPENDING</code>, or
+     *        <code>AWSPREVIOUS</code>. If you don't have <code>kms:Encrypt</code> permission to the new key, Secrets
+     *        Manager does not re-encrypt existing secret versions with the new key. For more information about versions
+     *        and staging labels, see <a
+     *        href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/getting-started.html#term_version"
+     *        >Concepts: Version</a>.</p>
      *        <p>
-     *        You can only use the account's default CMK to encrypt and decrypt if you call this operation using
-     *        credentials from the same account that owns the secret. If the secret is in a different account, then you
-     *        must create a custom CMK and provide the ARN of that CMK in this field. The user making the call must have
-     *        permissions to both the secret and the CMK in their respective accounts.
+     *        A key alias is always prefixed by <code>alias/</code>, for example <code>alias/aws/secretsmanager</code>.
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/alias-about.html">About aliases</a>.
+     *        </p>
+     *        <p>
+     *        If you set this to an empty string, Secrets Manager uses the Amazon Web Services managed key
+     *        <code>aws/secretsmanager</code>. If this key doesn't already exist in your account, then Secrets Manager
+     *        creates it for you automatically. All users and roles in the Amazon Web Services account automatically
+     *        have access to use <code>aws/secretsmanager</code>. Creating <code>aws/secretsmanager</code> can result in
+     *        a one-time significant delay in returning the result.
+     *        </p>
+     *        <important>
+     *        <p>
+     *        You can only use the Amazon Web Services managed key <code>aws/secretsmanager</code> if you call this
+     *        operation using credentials from the same Amazon Web Services account that owns the secret. If the secret
+     *        is in a different account, then you must use a customer managed key and provide the ARN of that KMS key in
+     *        this field. The user making the call must have permissions to both the secret and the KMS key in their
+     *        respective accounts.
      *        </p>
      */
 
@@ -633,25 +447,61 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies an updated ARN or alias of the AWS KMS customer master key (CMK) to be used to encrypt the
-     * protected text in new versions of this secret.
+     * The ARN, key ID, or alias of the KMS key that Secrets Manager uses to encrypt new secret versions as well as any
+     * existing versions with the staging labels <code>AWSCURRENT</code>, <code>AWSPENDING</code>, or
+     * <code>AWSPREVIOUS</code>. If you don't have <code>kms:Encrypt</code> permission to the new key, Secrets Manager
+     * does not re-encrypt existing secret versions with the new key. For more information about versions and staging
+     * labels, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/getting-started.html#term_version">Concepts:
+     * Version</a>.
+     * </p>
+     * <p>
+     * A key alias is always prefixed by <code>alias/</code>, for example <code>alias/aws/secretsmanager</code>. For
+     * more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/alias-about.html">About
+     * aliases</a>.
+     * </p>
+     * <p>
+     * If you set this to an empty string, Secrets Manager uses the Amazon Web Services managed key
+     * <code>aws/secretsmanager</code>. If this key doesn't already exist in your account, then Secrets Manager creates
+     * it for you automatically. All users and roles in the Amazon Web Services account automatically have access to use
+     * <code>aws/secretsmanager</code>. Creating <code>aws/secretsmanager</code> can result in a one-time significant
+     * delay in returning the result.
      * </p>
      * <important>
      * <p>
-     * You can only use the account's default CMK to encrypt and decrypt if you call this operation using credentials
-     * from the same account that owns the secret. If the secret is in a different account, then you must create a
-     * custom CMK and provide the ARN of that CMK in this field. The user making the call must have permissions to both
-     * the secret and the CMK in their respective accounts.
+     * You can only use the Amazon Web Services managed key <code>aws/secretsmanager</code> if you call this operation
+     * using credentials from the same Amazon Web Services account that owns the secret. If the secret is in a different
+     * account, then you must use a customer managed key and provide the ARN of that KMS key in this field. The user
+     * making the call must have permissions to both the secret and the KMS key in their respective accounts.
      * </p>
      * </important>
      * 
-     * @return (Optional) Specifies an updated ARN or alias of the AWS KMS customer master key (CMK) to be used to
-     *         encrypt the protected text in new versions of this secret.</p> <important>
+     * @return The ARN, key ID, or alias of the KMS key that Secrets Manager uses to encrypt new secret versions as well
+     *         as any existing versions with the staging labels <code>AWSCURRENT</code>, <code>AWSPENDING</code>, or
+     *         <code>AWSPREVIOUS</code>. If you don't have <code>kms:Encrypt</code> permission to the new key, Secrets
+     *         Manager does not re-encrypt existing secret versions with the new key. For more information about
+     *         versions and staging labels, see <a
+     *         href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/getting-started.html#term_version"
+     *         >Concepts: Version</a>.</p>
      *         <p>
-     *         You can only use the account's default CMK to encrypt and decrypt if you call this operation using
-     *         credentials from the same account that owns the secret. If the secret is in a different account, then you
-     *         must create a custom CMK and provide the ARN of that CMK in this field. The user making the call must
-     *         have permissions to both the secret and the CMK in their respective accounts.
+     *         A key alias is always prefixed by <code>alias/</code>, for example <code>alias/aws/secretsmanager</code>.
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/alias-about.html">About aliases</a>.
+     *         </p>
+     *         <p>
+     *         If you set this to an empty string, Secrets Manager uses the Amazon Web Services managed key
+     *         <code>aws/secretsmanager</code>. If this key doesn't already exist in your account, then Secrets Manager
+     *         creates it for you automatically. All users and roles in the Amazon Web Services account automatically
+     *         have access to use <code>aws/secretsmanager</code>. Creating <code>aws/secretsmanager</code> can result
+     *         in a one-time significant delay in returning the result.
+     *         </p>
+     *         <important>
+     *         <p>
+     *         You can only use the Amazon Web Services managed key <code>aws/secretsmanager</code> if you call this
+     *         operation using credentials from the same Amazon Web Services account that owns the secret. If the secret
+     *         is in a different account, then you must use a customer managed key and provide the ARN of that KMS key
+     *         in this field. The user making the call must have permissions to both the secret and the KMS key in their
+     *         respective accounts.
      *         </p>
      */
 
@@ -661,26 +511,62 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies an updated ARN or alias of the AWS KMS customer master key (CMK) to be used to encrypt the
-     * protected text in new versions of this secret.
+     * The ARN, key ID, or alias of the KMS key that Secrets Manager uses to encrypt new secret versions as well as any
+     * existing versions with the staging labels <code>AWSCURRENT</code>, <code>AWSPENDING</code>, or
+     * <code>AWSPREVIOUS</code>. If you don't have <code>kms:Encrypt</code> permission to the new key, Secrets Manager
+     * does not re-encrypt existing secret versions with the new key. For more information about versions and staging
+     * labels, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/getting-started.html#term_version">Concepts:
+     * Version</a>.
+     * </p>
+     * <p>
+     * A key alias is always prefixed by <code>alias/</code>, for example <code>alias/aws/secretsmanager</code>. For
+     * more information, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/alias-about.html">About
+     * aliases</a>.
+     * </p>
+     * <p>
+     * If you set this to an empty string, Secrets Manager uses the Amazon Web Services managed key
+     * <code>aws/secretsmanager</code>. If this key doesn't already exist in your account, then Secrets Manager creates
+     * it for you automatically. All users and roles in the Amazon Web Services account automatically have access to use
+     * <code>aws/secretsmanager</code>. Creating <code>aws/secretsmanager</code> can result in a one-time significant
+     * delay in returning the result.
      * </p>
      * <important>
      * <p>
-     * You can only use the account's default CMK to encrypt and decrypt if you call this operation using credentials
-     * from the same account that owns the secret. If the secret is in a different account, then you must create a
-     * custom CMK and provide the ARN of that CMK in this field. The user making the call must have permissions to both
-     * the secret and the CMK in their respective accounts.
+     * You can only use the Amazon Web Services managed key <code>aws/secretsmanager</code> if you call this operation
+     * using credentials from the same Amazon Web Services account that owns the secret. If the secret is in a different
+     * account, then you must use a customer managed key and provide the ARN of that KMS key in this field. The user
+     * making the call must have permissions to both the secret and the KMS key in their respective accounts.
      * </p>
      * </important>
      * 
      * @param kmsKeyId
-     *        (Optional) Specifies an updated ARN or alias of the AWS KMS customer master key (CMK) to be used to
-     *        encrypt the protected text in new versions of this secret.</p> <important>
+     *        The ARN, key ID, or alias of the KMS key that Secrets Manager uses to encrypt new secret versions as well
+     *        as any existing versions with the staging labels <code>AWSCURRENT</code>, <code>AWSPENDING</code>, or
+     *        <code>AWSPREVIOUS</code>. If you don't have <code>kms:Encrypt</code> permission to the new key, Secrets
+     *        Manager does not re-encrypt existing secret versions with the new key. For more information about versions
+     *        and staging labels, see <a
+     *        href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/getting-started.html#term_version"
+     *        >Concepts: Version</a>.</p>
      *        <p>
-     *        You can only use the account's default CMK to encrypt and decrypt if you call this operation using
-     *        credentials from the same account that owns the secret. If the secret is in a different account, then you
-     *        must create a custom CMK and provide the ARN of that CMK in this field. The user making the call must have
-     *        permissions to both the secret and the CMK in their respective accounts.
+     *        A key alias is always prefixed by <code>alias/</code>, for example <code>alias/aws/secretsmanager</code>.
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/alias-about.html">About aliases</a>.
+     *        </p>
+     *        <p>
+     *        If you set this to an empty string, Secrets Manager uses the Amazon Web Services managed key
+     *        <code>aws/secretsmanager</code>. If this key doesn't already exist in your account, then Secrets Manager
+     *        creates it for you automatically. All users and roles in the Amazon Web Services account automatically
+     *        have access to use <code>aws/secretsmanager</code>. Creating <code>aws/secretsmanager</code> can result in
+     *        a one-time significant delay in returning the result.
+     *        </p>
+     *        <important>
+     *        <p>
+     *        You can only use the Amazon Web Services managed key <code>aws/secretsmanager</code> if you call this
+     *        operation using credentials from the same Amazon Web Services account that owns the secret. If the secret
+     *        is in a different account, then you must use a customer managed key and provide the ARN of that KMS key in
+     *        this field. The user making the call must have permissions to both the secret and the KMS key in their
+     *        respective accounts.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -692,14 +578,18 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies updated binary data that you want to encrypt and store in the new version of the secret. To
-     * use this parameter in the command-line tools, we recommend that you store your binary data in a file and then use
-     * the appropriate technique for your tool to pass the contents of the file as a parameter. Either
-     * <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both. They cannot both be
-     * empty.
+     * The binary data to encrypt and store in the new version of the secret. We recommend that you store your binary
+     * data in a file and then pass the contents of the file as a parameter.
      * </p>
      * <p>
-     * This parameter is not accessible using the Secrets Manager console.
+     * Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
+     * </p>
+     * <p>
+     * You can't access this parameter in the Secrets Manager console.
+     * </p>
+     * <p>
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     * entries. If you create your own log entries, you must also avoid logging the information in this field.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -713,13 +603,17 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * 
      * @param secretBinary
-     *        (Optional) Specifies updated binary data that you want to encrypt and store in the new version of the
-     *        secret. To use this parameter in the command-line tools, we recommend that you store your binary data in a
-     *        file and then use the appropriate technique for your tool to pass the contents of the file as a parameter.
-     *        Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both. They cannot
-     *        both be empty.</p>
+     *        The binary data to encrypt and store in the new version of the secret. We recommend that you store your
+     *        binary data in a file and then pass the contents of the file as a parameter. </p>
      *        <p>
-     *        This parameter is not accessible using the Secrets Manager console.
+     *        Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
+     *        </p>
+     *        <p>
+     *        You can't access this parameter in the Secrets Manager console.
+     *        </p>
+     *        <p>
+     *        Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     *        entries. If you create your own log entries, you must also avoid logging the information in this field.
      */
 
     public void setSecretBinary(java.nio.ByteBuffer secretBinary) {
@@ -728,14 +622,18 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies updated binary data that you want to encrypt and store in the new version of the secret. To
-     * use this parameter in the command-line tools, we recommend that you store your binary data in a file and then use
-     * the appropriate technique for your tool to pass the contents of the file as a parameter. Either
-     * <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both. They cannot both be
-     * empty.
+     * The binary data to encrypt and store in the new version of the secret. We recommend that you store your binary
+     * data in a file and then pass the contents of the file as a parameter.
      * </p>
      * <p>
-     * This parameter is not accessible using the Secrets Manager console.
+     * Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
+     * </p>
+     * <p>
+     * You can't access this parameter in the Secrets Manager console.
+     * </p>
+     * <p>
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     * entries. If you create your own log entries, you must also avoid logging the information in this field.
      * </p>
      * <p>
      * {@code ByteBuffer}s are stateful. Calling their {@code get} methods changes their {@code position}. We recommend
@@ -745,13 +643,18 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
      * {@code position}.
      * </p>
      * 
-     * @return (Optional) Specifies updated binary data that you want to encrypt and store in the new version of the
-     *         secret. To use this parameter in the command-line tools, we recommend that you store your binary data in
-     *         a file and then use the appropriate technique for your tool to pass the contents of the file as a
-     *         parameter. Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
-     *         They cannot both be empty.</p>
+     * @return The binary data to encrypt and store in the new version of the secret. We recommend that you store your
+     *         binary data in a file and then pass the contents of the file as a parameter. </p>
      *         <p>
-     *         This parameter is not accessible using the Secrets Manager console.
+     *         Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
+     *         </p>
+     *         <p>
+     *         You can't access this parameter in the Secrets Manager console.
+     *         </p>
+     *         <p>
+     *         Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail
+     *         log entries. If you create your own log entries, you must also avoid logging the information in this
+     *         field.
      */
 
     public java.nio.ByteBuffer getSecretBinary() {
@@ -760,14 +663,18 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies updated binary data that you want to encrypt and store in the new version of the secret. To
-     * use this parameter in the command-line tools, we recommend that you store your binary data in a file and then use
-     * the appropriate technique for your tool to pass the contents of the file as a parameter. Either
-     * <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both. They cannot both be
-     * empty.
+     * The binary data to encrypt and store in the new version of the secret. We recommend that you store your binary
+     * data in a file and then pass the contents of the file as a parameter.
      * </p>
      * <p>
-     * This parameter is not accessible using the Secrets Manager console.
+     * Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
+     * </p>
+     * <p>
+     * You can't access this parameter in the Secrets Manager console.
+     * </p>
+     * <p>
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     * entries. If you create your own log entries, you must also avoid logging the information in this field.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -781,13 +688,17 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * 
      * @param secretBinary
-     *        (Optional) Specifies updated binary data that you want to encrypt and store in the new version of the
-     *        secret. To use this parameter in the command-line tools, we recommend that you store your binary data in a
-     *        file and then use the appropriate technique for your tool to pass the contents of the file as a parameter.
-     *        Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both. They cannot
-     *        both be empty.</p>
+     *        The binary data to encrypt and store in the new version of the secret. We recommend that you store your
+     *        binary data in a file and then pass the contents of the file as a parameter. </p>
      *        <p>
-     *        This parameter is not accessible using the Secrets Manager console.
+     *        Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
+     *        </p>
+     *        <p>
+     *        You can't access this parameter in the Secrets Manager console.
+     *        </p>
+     *        <p>
+     *        Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     *        entries. If you create your own log entries, you must also avoid logging the information in this field.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -798,62 +709,26 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies updated text data that you want to encrypt and store in this new version of the secret.
-     * Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both. They cannot both
-     * be empty.
+     * The text data to encrypt and store in the new version of the secret. We recommend you use a JSON structure of
+     * key/value pairs for your secret value.
      * </p>
      * <p>
-     * If you create this secret by using the Secrets Manager console then Secrets Manager puts the protected secret
-     * text in only the <code>SecretString</code> parameter. The Secrets Manager console stores the information as a
-     * JSON structure of key/value pairs that the default Lambda rotation function knows how to parse.
+     * Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
      * </p>
      * <p>
-     * For storing multiple values, we recommend that you use a JSON text string argument and specify key/value pairs.
-     * For information on how to format a JSON parameter for the various command line tool environments, see <a
-     * href="https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using JSON for
-     * Parameters</a> in the <i>AWS CLI User Guide</i>. For example:
-     * </p>
-     * <p>
-     * <code>[{"username":"bob"},{"password":"abc123xyz456"}]</code>
-     * </p>
-     * <p>
-     * If your command-line tool or SDK requires quotation marks around the parameter, you should use single quotes to
-     * avoid confusion with the double quotes required in the JSON text. You can also 'escape' the double quote
-     * character in the embedded JSON text by prefacing each with a backslash. For example, the following string is
-     * surrounded by double-quotes. All of the embedded double quotes are escaped:
-     * </p>
-     * <p>
-     * <code>"[{\"username\":\"bob\"},{\"password\":\"abc123xyz456\"}]"</code>
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     * entries. If you create your own log entries, you must also avoid logging the information in this field.
      * </p>
      * 
      * @param secretString
-     *        (Optional) Specifies updated text data that you want to encrypt and store in this new version of the
-     *        secret. Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
-     *        They cannot both be empty.</p>
+     *        The text data to encrypt and store in the new version of the secret. We recommend you use a JSON structure
+     *        of key/value pairs for your secret value. </p>
      *        <p>
-     *        If you create this secret by using the Secrets Manager console then Secrets Manager puts the protected
-     *        secret text in only the <code>SecretString</code> parameter. The Secrets Manager console stores the
-     *        information as a JSON structure of key/value pairs that the default Lambda rotation function knows how to
-     *        parse.
+     *        Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
      *        </p>
      *        <p>
-     *        For storing multiple values, we recommend that you use a JSON text string argument and specify key/value
-     *        pairs. For information on how to format a JSON parameter for the various command line tool environments,
-     *        see <a
-     *        href="https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using
-     *        JSON for Parameters</a> in the <i>AWS CLI User Guide</i>. For example:
-     *        </p>
-     *        <p>
-     *        <code>[{"username":"bob"},{"password":"abc123xyz456"}]</code>
-     *        </p>
-     *        <p>
-     *        If your command-line tool or SDK requires quotation marks around the parameter, you should use single
-     *        quotes to avoid confusion with the double quotes required in the JSON text. You can also 'escape' the
-     *        double quote character in the embedded JSON text by prefacing each with a backslash. For example, the
-     *        following string is surrounded by double-quotes. All of the embedded double quotes are escaped:
-     *        </p>
-     *        <p>
-     *        <code>"[{\"username\":\"bob\"},{\"password\":\"abc123xyz456\"}]"</code>
+     *        Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     *        entries. If you create your own log entries, you must also avoid logging the information in this field.
      */
 
     public void setSecretString(String secretString) {
@@ -862,61 +737,26 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies updated text data that you want to encrypt and store in this new version of the secret.
-     * Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both. They cannot both
-     * be empty.
+     * The text data to encrypt and store in the new version of the secret. We recommend you use a JSON structure of
+     * key/value pairs for your secret value.
      * </p>
      * <p>
-     * If you create this secret by using the Secrets Manager console then Secrets Manager puts the protected secret
-     * text in only the <code>SecretString</code> parameter. The Secrets Manager console stores the information as a
-     * JSON structure of key/value pairs that the default Lambda rotation function knows how to parse.
+     * Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
      * </p>
      * <p>
-     * For storing multiple values, we recommend that you use a JSON text string argument and specify key/value pairs.
-     * For information on how to format a JSON parameter for the various command line tool environments, see <a
-     * href="https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using JSON for
-     * Parameters</a> in the <i>AWS CLI User Guide</i>. For example:
-     * </p>
-     * <p>
-     * <code>[{"username":"bob"},{"password":"abc123xyz456"}]</code>
-     * </p>
-     * <p>
-     * If your command-line tool or SDK requires quotation marks around the parameter, you should use single quotes to
-     * avoid confusion with the double quotes required in the JSON text. You can also 'escape' the double quote
-     * character in the embedded JSON text by prefacing each with a backslash. For example, the following string is
-     * surrounded by double-quotes. All of the embedded double quotes are escaped:
-     * </p>
-     * <p>
-     * <code>"[{\"username\":\"bob\"},{\"password\":\"abc123xyz456\"}]"</code>
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     * entries. If you create your own log entries, you must also avoid logging the information in this field.
      * </p>
      * 
-     * @return (Optional) Specifies updated text data that you want to encrypt and store in this new version of the
-     *         secret. Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
-     *         They cannot both be empty.</p>
+     * @return The text data to encrypt and store in the new version of the secret. We recommend you use a JSON
+     *         structure of key/value pairs for your secret value. </p>
      *         <p>
-     *         If you create this secret by using the Secrets Manager console then Secrets Manager puts the protected
-     *         secret text in only the <code>SecretString</code> parameter. The Secrets Manager console stores the
-     *         information as a JSON structure of key/value pairs that the default Lambda rotation function knows how to
-     *         parse.
+     *         Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
      *         </p>
      *         <p>
-     *         For storing multiple values, we recommend that you use a JSON text string argument and specify key/value
-     *         pairs. For information on how to format a JSON parameter for the various command line tool environments,
-     *         see <a
-     *         href="https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using
-     *         JSON for Parameters</a> in the <i>AWS CLI User Guide</i>. For example:
-     *         </p>
-     *         <p>
-     *         <code>[{"username":"bob"},{"password":"abc123xyz456"}]</code>
-     *         </p>
-     *         <p>
-     *         If your command-line tool or SDK requires quotation marks around the parameter, you should use single
-     *         quotes to avoid confusion with the double quotes required in the JSON text. You can also 'escape' the
-     *         double quote character in the embedded JSON text by prefacing each with a backslash. For example, the
-     *         following string is surrounded by double-quotes. All of the embedded double quotes are escaped:
-     *         </p>
-     *         <p>
-     *         <code>"[{\"username\":\"bob\"},{\"password\":\"abc123xyz456\"}]"</code>
+     *         Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail
+     *         log entries. If you create your own log entries, you must also avoid logging the information in this
+     *         field.
      */
 
     public String getSecretString() {
@@ -925,62 +765,26 @@ public class UpdateSecretRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) Specifies updated text data that you want to encrypt and store in this new version of the secret.
-     * Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both. They cannot both
-     * be empty.
+     * The text data to encrypt and store in the new version of the secret. We recommend you use a JSON structure of
+     * key/value pairs for your secret value.
      * </p>
      * <p>
-     * If you create this secret by using the Secrets Manager console then Secrets Manager puts the protected secret
-     * text in only the <code>SecretString</code> parameter. The Secrets Manager console stores the information as a
-     * JSON structure of key/value pairs that the default Lambda rotation function knows how to parse.
+     * Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
      * </p>
      * <p>
-     * For storing multiple values, we recommend that you use a JSON text string argument and specify key/value pairs.
-     * For information on how to format a JSON parameter for the various command line tool environments, see <a
-     * href="https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using JSON for
-     * Parameters</a> in the <i>AWS CLI User Guide</i>. For example:
-     * </p>
-     * <p>
-     * <code>[{"username":"bob"},{"password":"abc123xyz456"}]</code>
-     * </p>
-     * <p>
-     * If your command-line tool or SDK requires quotation marks around the parameter, you should use single quotes to
-     * avoid confusion with the double quotes required in the JSON text. You can also 'escape' the double quote
-     * character in the embedded JSON text by prefacing each with a backslash. For example, the following string is
-     * surrounded by double-quotes. All of the embedded double quotes are escaped:
-     * </p>
-     * <p>
-     * <code>"[{\"username\":\"bob\"},{\"password\":\"abc123xyz456\"}]"</code>
+     * Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     * entries. If you create your own log entries, you must also avoid logging the information in this field.
      * </p>
      * 
      * @param secretString
-     *        (Optional) Specifies updated text data that you want to encrypt and store in this new version of the
-     *        secret. Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
-     *        They cannot both be empty.</p>
+     *        The text data to encrypt and store in the new version of the secret. We recommend you use a JSON structure
+     *        of key/value pairs for your secret value. </p>
      *        <p>
-     *        If you create this secret by using the Secrets Manager console then Secrets Manager puts the protected
-     *        secret text in only the <code>SecretString</code> parameter. The Secrets Manager console stores the
-     *        information as a JSON structure of key/value pairs that the default Lambda rotation function knows how to
-     *        parse.
+     *        Either <code>SecretBinary</code> or <code>SecretString</code> must have a value, but not both.
      *        </p>
      *        <p>
-     *        For storing multiple values, we recommend that you use a JSON text string argument and specify key/value
-     *        pairs. For information on how to format a JSON parameter for the various command line tool environments,
-     *        see <a
-     *        href="https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using
-     *        JSON for Parameters</a> in the <i>AWS CLI User Guide</i>. For example:
-     *        </p>
-     *        <p>
-     *        <code>[{"username":"bob"},{"password":"abc123xyz456"}]</code>
-     *        </p>
-     *        <p>
-     *        If your command-line tool or SDK requires quotation marks around the parameter, you should use single
-     *        quotes to avoid confusion with the double quotes required in the JSON text. You can also 'escape' the
-     *        double quote character in the embedded JSON text by prefacing each with a backslash. For example, the
-     *        following string is surrounded by double-quotes. All of the embedded double quotes are escaped:
-     *        </p>
-     *        <p>
-     *        <code>"[{\"username\":\"bob\"},{\"password\":\"abc123xyz456\"}]"</code>
+     *        Sensitive: This field contains sensitive information, so the service does not include it in CloudTrail log
+     *        entries. If you create your own log entries, you must also avoid logging the information in this field.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

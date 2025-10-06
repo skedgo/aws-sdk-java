@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,29 +25,31 @@ import com.amazonaws.services.servermigration.model.*;
  * {@link com.amazonaws.services.servermigration.AbstractAWSServerMigrationAsync} instead.
  * </p>
  * <p>
- * <fullname>AAWS Sever Migration Service</fullname>
+ * <important>
  * <p>
- * This is the <i>AWS Sever Migration Service API Reference</i>. It provides descriptions, syntax, and usage examples
- * for each of the actions and data types for the AWS Sever Migration Service (AWS SMS). The topic for each action shows
- * the Query API request parameters and the XML response. You can also view the XML request elements in the WSDL.
+ * <b>Product update</b>
  * </p>
  * <p>
- * Alternatively, you can use one of the AWS SDKs to access an API that's tailored to the programming language or
- * platform that you're using. For more information, see <a href="http://aws.amazon.com/tools/#SDKs">AWS SDKs</a>.
+ * We recommend <a href="http://aws.amazon.com/application-migration-service">Amazon Web Services Application Migration
+ * Service</a> (Amazon Web Services MGN) as the primary migration service for lift-and-shift migrations. If Amazon Web
+ * Services MGN is unavailable in a specific Amazon Web Services Region, you can use the Server Migration Service APIs
+ * through March 2023.
  * </p>
+ * </important>
  * <p>
- * To learn more about the Server Migration Service, see the following resources:
+ * Server Migration Service (Server Migration Service) makes it easier and faster for you to migrate your on-premises
+ * workloads to Amazon Web Services. To learn more about Server Migration Service, see the following resources:
  * </p>
  * <ul>
  * <li>
  * <p>
- * <a href="https://aws.amazon.com/server-migration-service/">AWS Sever Migration Service product page</a>
+ * <a href="http://aws.amazon.com/server-migration-service/">Server Migration Service product page</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="https://docs.aws.amazon.com/server-migration-service/latest/userguide/server-migration.html">AWS Sever
- * Migration Service User Guide</a>
+ * <a href="https://docs.aws.amazon.com/server-migration-service/latest/userguide/">Server Migration Service User
+ * Guide</a>
  * </p>
  * </li>
  * </ul>
@@ -91,7 +93,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
     /**
      * <p>
      * Creates a replication job. The replication job schedules periodic replication runs to replicate your server to
-     * AWS. Each replication run creates an Amazon Machine Image (AMI).
+     * Amazon Web Services. Each replication run creates an Amazon Machine Image (AMI).
      * </p>
      * 
      * @param createReplicationJobRequest
@@ -105,7 +107,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
     /**
      * <p>
      * Creates a replication job. The replication job schedules periodic replication runs to replicate your server to
-     * AWS. Each replication run creates an Amazon Machine Image (AMI).
+     * Amazon Web Services. Each replication run creates an Amazon Machine Image (AMI).
      * </p>
      * 
      * @param createReplicationJobRequest
@@ -123,8 +125,8 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Deletes an existing application. Optionally deletes the launched stack associated with the application and all
-     * AWS SMS replication jobs for servers in the application.
+     * Deletes the specified application. Optionally deletes the launched stack associated with the application and all
+     * Server Migration Service replication jobs for servers in the application.
      * </p>
      * 
      * @param deleteAppRequest
@@ -137,8 +139,8 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Deletes an existing application. Optionally deletes the launched stack associated with the application and all
-     * AWS SMS replication jobs for servers in the application.
+     * Deletes the specified application. Optionally deletes the launched stack associated with the application and all
+     * Server Migration Service replication jobs for servers in the application.
      * </p>
      * 
      * @param deleteAppRequest
@@ -156,7 +158,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Deletes existing launch configuration for an application.
+     * Deletes the launch configuration for the specified application.
      * </p>
      * 
      * @param deleteAppLaunchConfigurationRequest
@@ -171,7 +173,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Deletes existing launch configuration for an application.
+     * Deletes the launch configuration for the specified application.
      * </p>
      * 
      * @param deleteAppLaunchConfigurationRequest
@@ -191,7 +193,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Deletes existing replication configuration for an application.
+     * Deletes the replication configuration for the specified application.
      * </p>
      * 
      * @param deleteAppReplicationConfigurationRequest
@@ -206,7 +208,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Deletes existing replication configuration for an application.
+     * Deletes the replication configuration for the specified application.
      * </p>
      * 
      * @param deleteAppReplicationConfigurationRequest
@@ -226,11 +228,47 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
+     * Deletes the validation configuration for the specified application.
+     * </p>
+     * 
+     * @param deleteAppValidationConfigurationRequest
+     * @return A Java Future containing the result of the DeleteAppValidationConfiguration operation returned by the
+     *         service.
+     * @sample AWSServerMigrationAsync.DeleteAppValidationConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sms-2016-10-24/DeleteAppValidationConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteAppValidationConfigurationResult> deleteAppValidationConfigurationAsync(
+            DeleteAppValidationConfigurationRequest deleteAppValidationConfigurationRequest);
+
+    /**
+     * <p>
+     * Deletes the validation configuration for the specified application.
+     * </p>
+     * 
+     * @param deleteAppValidationConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteAppValidationConfiguration operation returned by the
+     *         service.
+     * @sample AWSServerMigrationAsyncHandler.DeleteAppValidationConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sms-2016-10-24/DeleteAppValidationConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteAppValidationConfigurationResult> deleteAppValidationConfigurationAsync(
+            DeleteAppValidationConfigurationRequest deleteAppValidationConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteAppValidationConfigurationRequest, DeleteAppValidationConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes the specified replication job.
      * </p>
      * <p>
-     * After you delete a replication job, there are no further replication runs. AWS deletes the contents of the Amazon
-     * S3 bucket used to store AWS SMS artifacts. The AMIs created by the replication runs are not deleted.
+     * After you delete a replication job, there are no further replication runs. Amazon Web Services deletes the
+     * contents of the Amazon S3 bucket used to store Server Migration Service artifacts. The AMIs created by the
+     * replication runs are not deleted.
      * </p>
      * 
      * @param deleteReplicationJobRequest
@@ -246,8 +284,9 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
      * Deletes the specified replication job.
      * </p>
      * <p>
-     * After you delete a replication job, there are no further replication runs. AWS deletes the contents of the Amazon
-     * S3 bucket used to store AWS SMS artifacts. The AMIs created by the replication runs are not deleted.
+     * After you delete a replication job, there are no further replication runs. Amazon Web Services deletes the
+     * contents of the Amazon S3 bucket used to store Server Migration Service artifacts. The AMIs created by the
+     * replication runs are not deleted.
      * </p>
      * 
      * @param deleteReplicationJobRequest
@@ -296,7 +335,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Disassociates the specified connector from AWS SMS.
+     * Disassociates the specified connector from Server Migration Service.
      * </p>
      * <p>
      * After you disassociate a connector, it is no longer available to support replication jobs.
@@ -312,7 +351,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Disassociates the specified connector from AWS SMS.
+     * Disassociates the specified connector from Server Migration Service.
      * </p>
      * <p>
      * After you disassociate a connector, it is no longer available to support replication jobs.
@@ -366,8 +405,8 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Generates an Amazon CloudFormation template based on the current launch configuration and writes it to an Amazon
-     * S3 object in the customer’s Amazon S3 bucket.
+     * Generates an CloudFormation template based on the current launch configuration and writes it to an Amazon S3
+     * object in the customer’s Amazon S3 bucket.
      * </p>
      * 
      * @param generateTemplateRequest
@@ -380,8 +419,8 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Generates an Amazon CloudFormation template based on the current launch configuration and writes it to an Amazon
-     * S3 object in the customer’s Amazon S3 bucket.
+     * Generates an CloudFormation template based on the current launch configuration and writes it to an Amazon S3
+     * object in the customer’s Amazon S3 bucket.
      * </p>
      * 
      * @param generateTemplateRequest
@@ -399,7 +438,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Retrieve information about an application.
+     * Retrieve information about the specified application.
      * </p>
      * 
      * @param getAppRequest
@@ -412,7 +451,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Retrieve information about an application.
+     * Retrieve information about the specified application.
      * </p>
      * 
      * @param getAppRequest
@@ -430,7 +469,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Retrieves the application launch configuration associated with an application.
+     * Retrieves the application launch configuration associated with the specified application.
      * </p>
      * 
      * @param getAppLaunchConfigurationRequest
@@ -444,7 +483,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Retrieves the application launch configuration associated with an application.
+     * Retrieves the application launch configuration associated with the specified application.
      * </p>
      * 
      * @param getAppLaunchConfigurationRequest
@@ -463,7 +502,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Retrieves an application replication configuration associatd with an application.
+     * Retrieves the application replication configuration associated with the specified application.
      * </p>
      * 
      * @param getAppReplicationConfigurationRequest
@@ -478,7 +517,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Retrieves an application replication configuration associatd with an application.
+     * Retrieves the application replication configuration associated with the specified application.
      * </p>
      * 
      * @param getAppReplicationConfigurationRequest
@@ -498,7 +537,73 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Describes the connectors registered with the AWS SMS.
+     * Retrieves information about a configuration for validating an application.
+     * </p>
+     * 
+     * @param getAppValidationConfigurationRequest
+     * @return A Java Future containing the result of the GetAppValidationConfiguration operation returned by the
+     *         service.
+     * @sample AWSServerMigrationAsync.GetAppValidationConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sms-2016-10-24/GetAppValidationConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetAppValidationConfigurationResult> getAppValidationConfigurationAsync(
+            GetAppValidationConfigurationRequest getAppValidationConfigurationRequest);
+
+    /**
+     * <p>
+     * Retrieves information about a configuration for validating an application.
+     * </p>
+     * 
+     * @param getAppValidationConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetAppValidationConfiguration operation returned by the
+     *         service.
+     * @sample AWSServerMigrationAsyncHandler.GetAppValidationConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sms-2016-10-24/GetAppValidationConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetAppValidationConfigurationResult> getAppValidationConfigurationAsync(
+            GetAppValidationConfigurationRequest getAppValidationConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<GetAppValidationConfigurationRequest, GetAppValidationConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves output from validating an application.
+     * </p>
+     * 
+     * @param getAppValidationOutputRequest
+     * @return A Java Future containing the result of the GetAppValidationOutput operation returned by the service.
+     * @sample AWSServerMigrationAsync.GetAppValidationOutput
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sms-2016-10-24/GetAppValidationOutput" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetAppValidationOutputResult> getAppValidationOutputAsync(GetAppValidationOutputRequest getAppValidationOutputRequest);
+
+    /**
+     * <p>
+     * Retrieves output from validating an application.
+     * </p>
+     * 
+     * @param getAppValidationOutputRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetAppValidationOutput operation returned by the service.
+     * @sample AWSServerMigrationAsyncHandler.GetAppValidationOutput
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sms-2016-10-24/GetAppValidationOutput" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetAppValidationOutputResult> getAppValidationOutputAsync(GetAppValidationOutputRequest getAppValidationOutputRequest,
+            com.amazonaws.handlers.AsyncHandler<GetAppValidationOutputRequest, GetAppValidationOutputResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes the connectors registered with the Server Migration Service.
      * </p>
      * 
      * @param getConnectorsRequest
@@ -511,7 +616,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Describes the connectors registered with the AWS SMS.
+     * Describes the connectors registered with the Server Migration Service.
      * </p>
      * 
      * @param getConnectorsRequest
@@ -628,8 +733,39 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Gathers a complete list of on-premises servers. Connectors must be installed and monitoring all servers that you
-     * want to import.
+     * Allows application import from Migration Hub.
+     * </p>
+     * 
+     * @param importAppCatalogRequest
+     * @return A Java Future containing the result of the ImportAppCatalog operation returned by the service.
+     * @sample AWSServerMigrationAsync.ImportAppCatalog
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sms-2016-10-24/ImportAppCatalog" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ImportAppCatalogResult> importAppCatalogAsync(ImportAppCatalogRequest importAppCatalogRequest);
+
+    /**
+     * <p>
+     * Allows application import from Migration Hub.
+     * </p>
+     * 
+     * @param importAppCatalogRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ImportAppCatalog operation returned by the service.
+     * @sample AWSServerMigrationAsyncHandler.ImportAppCatalog
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sms-2016-10-24/ImportAppCatalog" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ImportAppCatalogResult> importAppCatalogAsync(ImportAppCatalogRequest importAppCatalogRequest,
+            com.amazonaws.handlers.AsyncHandler<ImportAppCatalogRequest, ImportAppCatalogResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gathers a complete list of on-premises servers. Connectors must be installed and monitoring all servers to
+     * import.
      * </p>
      * <p>
      * This call returns immediately, but might take additional time to retrieve all the servers.
@@ -645,8 +781,8 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Gathers a complete list of on-premises servers. Connectors must be installed and monitoring all servers that you
-     * want to import.
+     * Gathers a complete list of on-premises servers. Connectors must be installed and monitoring all servers to
+     * import.
      * </p>
      * <p>
      * This call returns immediately, but might take additional time to retrieve all the servers.
@@ -667,7 +803,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Launches an application stack.
+     * Launches the specified application as a stack in CloudFormation.
      * </p>
      * 
      * @param launchAppRequest
@@ -680,7 +816,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Launches an application stack.
+     * Launches the specified application as a stack in CloudFormation.
      * </p>
      * 
      * @param launchAppRequest
@@ -698,7 +834,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Returns a list of summaries for all applications.
+     * Retrieves summaries for all applications.
      * </p>
      * 
      * @param listAppsRequest
@@ -711,7 +847,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Returns a list of summaries for all applications.
+     * Retrieves summaries for all applications.
      * </p>
      * 
      * @param listAppsRequest
@@ -729,7 +865,40 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Creates a launch configuration for an application.
+     * Provides information to Server Migration Service about whether application validation is successful.
+     * </p>
+     * 
+     * @param notifyAppValidationOutputRequest
+     * @return A Java Future containing the result of the NotifyAppValidationOutput operation returned by the service.
+     * @sample AWSServerMigrationAsync.NotifyAppValidationOutput
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sms-2016-10-24/NotifyAppValidationOutput" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<NotifyAppValidationOutputResult> notifyAppValidationOutputAsync(
+            NotifyAppValidationOutputRequest notifyAppValidationOutputRequest);
+
+    /**
+     * <p>
+     * Provides information to Server Migration Service about whether application validation is successful.
+     * </p>
+     * 
+     * @param notifyAppValidationOutputRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the NotifyAppValidationOutput operation returned by the service.
+     * @sample AWSServerMigrationAsyncHandler.NotifyAppValidationOutput
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sms-2016-10-24/NotifyAppValidationOutput" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<NotifyAppValidationOutputResult> notifyAppValidationOutputAsync(
+            NotifyAppValidationOutputRequest notifyAppValidationOutputRequest,
+            com.amazonaws.handlers.AsyncHandler<NotifyAppValidationOutputRequest, NotifyAppValidationOutputResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates or updates the launch configuration for the specified application.
      * </p>
      * 
      * @param putAppLaunchConfigurationRequest
@@ -743,7 +912,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Creates a launch configuration for an application.
+     * Creates or updates the launch configuration for the specified application.
      * </p>
      * 
      * @param putAppLaunchConfigurationRequest
@@ -762,7 +931,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Creates or updates a replication configuration for an application.
+     * Creates or updates the replication configuration for the specified application.
      * </p>
      * 
      * @param putAppReplicationConfigurationRequest
@@ -777,7 +946,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Creates or updates a replication configuration for an application.
+     * Creates or updates the replication configuration for the specified application.
      * </p>
      * 
      * @param putAppReplicationConfigurationRequest
@@ -797,7 +966,42 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Starts replicating an application.
+     * Creates or updates a validation configuration for the specified application.
+     * </p>
+     * 
+     * @param putAppValidationConfigurationRequest
+     * @return A Java Future containing the result of the PutAppValidationConfiguration operation returned by the
+     *         service.
+     * @sample AWSServerMigrationAsync.PutAppValidationConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sms-2016-10-24/PutAppValidationConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutAppValidationConfigurationResult> putAppValidationConfigurationAsync(
+            PutAppValidationConfigurationRequest putAppValidationConfigurationRequest);
+
+    /**
+     * <p>
+     * Creates or updates a validation configuration for the specified application.
+     * </p>
+     * 
+     * @param putAppValidationConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutAppValidationConfiguration operation returned by the
+     *         service.
+     * @sample AWSServerMigrationAsyncHandler.PutAppValidationConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sms-2016-10-24/PutAppValidationConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutAppValidationConfigurationResult> putAppValidationConfigurationAsync(
+            PutAppValidationConfigurationRequest putAppValidationConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<PutAppValidationConfigurationRequest, PutAppValidationConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Starts replicating the specified application by creating replication jobs for each server in the application.
      * </p>
      * 
      * @param startAppReplicationRequest
@@ -810,7 +1014,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Starts replicating an application.
+     * Starts replicating the specified application by creating replication jobs for each server in the application.
      * </p>
      * 
      * @param startAppReplicationRequest
@@ -828,11 +1032,44 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
+     * Starts an on-demand replication run for the specified application.
+     * </p>
+     * 
+     * @param startOnDemandAppReplicationRequest
+     * @return A Java Future containing the result of the StartOnDemandAppReplication operation returned by the service.
+     * @sample AWSServerMigrationAsync.StartOnDemandAppReplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sms-2016-10-24/StartOnDemandAppReplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartOnDemandAppReplicationResult> startOnDemandAppReplicationAsync(
+            StartOnDemandAppReplicationRequest startOnDemandAppReplicationRequest);
+
+    /**
+     * <p>
+     * Starts an on-demand replication run for the specified application.
+     * </p>
+     * 
+     * @param startOnDemandAppReplicationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartOnDemandAppReplication operation returned by the service.
+     * @sample AWSServerMigrationAsyncHandler.StartOnDemandAppReplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sms-2016-10-24/StartOnDemandAppReplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartOnDemandAppReplicationResult> startOnDemandAppReplicationAsync(
+            StartOnDemandAppReplicationRequest startOnDemandAppReplicationRequest,
+            com.amazonaws.handlers.AsyncHandler<StartOnDemandAppReplicationRequest, StartOnDemandAppReplicationResult> asyncHandler);
+
+    /**
+     * <p>
      * Starts an on-demand replication run for the specified replication job. This replication run starts immediately.
      * This replication run is in addition to the ones already scheduled.
      * </p>
      * <p>
-     * There is a limit on the number of on-demand replications runs you can request in a 24-hour period.
+     * There is a limit on the number of on-demand replications runs that you can request in a 24-hour period.
      * </p>
      * 
      * @param startOnDemandReplicationRunRequest
@@ -850,7 +1087,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
      * This replication run is in addition to the ones already scheduled.
      * </p>
      * <p>
-     * There is a limit on the number of on-demand replications runs you can request in a 24-hour period.
+     * There is a limit on the number of on-demand replications runs that you can request in a 24-hour period.
      * </p>
      * 
      * @param startOnDemandReplicationRunRequest
@@ -869,7 +1106,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Stops replicating an application.
+     * Stops replicating the specified application by deleting the replication job for each server in the application.
      * </p>
      * 
      * @param stopAppReplicationRequest
@@ -882,7 +1119,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Stops replicating an application.
+     * Stops replicating the specified application by deleting the replication job for each server in the application.
      * </p>
      * 
      * @param stopAppReplicationRequest
@@ -900,7 +1137,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Terminates the stack for an application.
+     * Terminates the stack for the specified application.
      * </p>
      * 
      * @param terminateAppRequest
@@ -913,7 +1150,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Terminates the stack for an application.
+     * Terminates the stack for the specified application.
      * </p>
      * 
      * @param terminateAppRequest
@@ -931,7 +1168,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Updates an application.
+     * Updates the specified application.
      * </p>
      * 
      * @param updateAppRequest
@@ -944,7 +1181,7 @@ public interface AWSServerMigrationAsync extends AWSServerMigration {
 
     /**
      * <p>
-     * Updates an application.
+     * Updates the specified application.
      * </p>
      * 
      * @param updateAppRequest

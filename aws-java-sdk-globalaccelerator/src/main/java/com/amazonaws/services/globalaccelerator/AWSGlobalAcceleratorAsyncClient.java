@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,90 +25,78 @@ import java.util.concurrent.ExecutorService;
  * representing the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive
  * notification when an asynchronous operation completes.
  * <p>
- * <fullname>AWS Global Accelerator</fullname>
+ * <fullname>Global Accelerator</fullname>
  * <p>
- * This is the <i>AWS Global Accelerator API Reference</i>. This guide is for developers who need detailed information
- * about AWS Global Accelerator API actions, data types, and errors. For more information about Global Accelerator
- * features, see the <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/Welcome.html">AWS Global
+ * This is the <i>Global Accelerator API Reference</i>. This guide is for developers who need detailed information about
+ * Global Accelerator API actions, data types, and errors. For more information about Global Accelerator features, see
+ * the <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html">Global
  * Accelerator Developer Guide</a>.
  * </p>
  * <p>
- * AWS Global Accelerator is a network layer service in which you create accelerators to improve availability and
- * performance for internet applications used by a global audience.
+ * Global Accelerator is a service in which you create <i>accelerators</i> to improve the performance of your
+ * applications for local and global users. Depending on the type of accelerator you choose, you can gain additional
+ * benefits.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * By using a standard accelerator, you can improve availability of your internet applications that are used by a global
+ * audience. With a standard accelerator, Global Accelerator directs traffic to optimal endpoints over the Amazon Web
+ * Services global network.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * For other scenarios, you might choose a custom routing accelerator. With a custom routing accelerator, you can use
+ * application logic to directly map one or more users to a specific endpoint among many endpoints.
+ * </p>
+ * </li>
+ * </ul>
+ * <important>
+ * <p>
+ * Global Accelerator is a global service that supports endpoints in multiple Amazon Web Services Regions but you must
+ * specify the US West (Oregon) Region to create, update, or otherwise work with accelerators. That is, for example,
+ * specify <code>--region us-west-2</code> on Amazon Web Services CLI commands.
+ * </p>
+ * </important>
+ * <p>
+ * By default, Global Accelerator provides you with static IP addresses that you associate with your accelerator. The
+ * static IP addresses are anycast from the Amazon Web Services edge network. For IPv4, Global Accelerator provides two
+ * static IPv4 addresses. For dual-stack, Global Accelerator provides a total of four addresses: two static IPv4
+ * addresses and two static IPv6 addresses. With a standard accelerator for IPv4, instead of using the addresses that
+ * Global Accelerator provides, you can configure these entry points to be IPv4 addresses from your own IP address
+ * ranges that you bring to Global Accelerator (BYOIP).
  * </p>
  * <p>
- * Global Accelerator provides you with static IP addresses that you associate with your accelerator. These IP addresses
- * are anycast from the AWS edge network and distribute incoming application traffic across multiple endpoint resources
- * in multiple AWS Regions, which increases the availability of your applications. Endpoints can be Elastic IP
- * addresses, Network Load Balancers, and Application Load Balancers that are located in one AWS Region or multiple
- * Regions.
+ * For a standard accelerator, they distribute incoming application traffic across multiple endpoint resources in
+ * multiple Amazon Web Services Regions , which increases the availability of your applications. Endpoints for standard
+ * accelerators can be Network Load Balancers, Application Load Balancers, Amazon EC2 instances, or Elastic IP addresses
+ * that are located in one Amazon Web Services Region or multiple Amazon Web Services Regions. For custom routing
+ * accelerators, you map traffic that arrives to the static IP addresses to specific Amazon EC2 servers in endpoints
+ * that are virtual private cloud (VPC) subnets.
+ * </p>
+ * <important>
+ * <p>
+ * The static IP addresses remain assigned to your accelerator for as long as it exists, even if you disable the
+ * accelerator and it no longer accepts or routes traffic. However, when you <i>delete</i> an accelerator, you lose the
+ * static IP addresses that are assigned to it, so you can no longer route traffic by using them. You can use IAM
+ * policies like tag-based permissions with Global Accelerator to limit the users who have permissions to delete an
+ * accelerator. For more information, see <a
+ * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/access-control-manage-access-tag-policies.html"
+ * >Tag-based policies</a>.
+ * </p>
+ * </important>
+ * <p>
+ * For standard accelerators, Global Accelerator uses the Amazon Web Services global network to route traffic to the
+ * optimal regional endpoint based on health, client location, and policies that you configure. The service reacts
+ * instantly to changes in health or configuration to ensure that internet traffic from clients is always directed to
+ * healthy endpoints.
  * </p>
  * <p>
- * Global Accelerator uses the AWS global network to route traffic to the optimal regional endpoint based on health,
- * client location, and policies that you configure. The service reacts instantly to changes in health or configuration
- * to ensure that internet traffic from clients is directed to only healthy endpoints.
+ * For more information about understanding and using Global Accelerator, see the <a
+ * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html">Global Accelerator
+ * Developer Guide</a>.
  * </p>
- * <p>
- * Global Accelerator includes components that work together to help you improve performance and availability for your
- * applications:
- * </p>
- * <dl>
- * <dt>Static IP address</dt>
- * <dd>
- * <p>
- * AWS Global Accelerator provides you with a set of static IP addresses which are anycast from the AWS edge network and
- * serve as the single fixed entry points for your clients. If you already have Elastic Load Balancing or Elastic IP
- * address resources set up for your applications, you can easily add those to Global Accelerator to allow the resources
- * to be accessed by a Global Accelerator static IP address.
- * </p>
- * </dd>
- * <dt>Accelerator</dt>
- * <dd>
- * <p>
- * An accelerator directs traffic to optimal endpoints over the AWS global network to improve availability and
- * performance for your internet applications that have a global audience. Each accelerator includes one or more
- * listeners.
- * </p>
- * </dd>
- * <dt>Network zone</dt>
- * <dd>
- * <p>
- * A network zone services the static IP addresses for your accelerator from a unique IP subnet. Similar to an AWS
- * Availability Zone, a network zone is an isolated unit with its own set of physical infrastructure. When you configure
- * an accelerator, Global Accelerator allocates two IPv4 addresses for it. If one IP address from a network zone becomes
- * unavailable due to IP address blocking by certain client networks, or network disruptions, then client applications
- * can retry on the healthy static IP address from the other isolated network zone.
- * </p>
- * </dd>
- * <dt>Listener</dt>
- * <dd>
- * <p>
- * A listener processes inbound connections from clients to Global Accelerator, based on the protocol and port that you
- * configure. Each listener has one or more endpoint groups associated with it, and traffic is forwarded to endpoints in
- * one of the groups. You associate endpoint groups with listeners by specifying the Regions that you want to distribute
- * traffic to. Traffic is distributed to optimal endpoints within the endpoint groups associated with a listener.
- * </p>
- * </dd>
- * <dt>Endpoint group</dt>
- * <dd>
- * <p>
- * Each endpoint group is associated with a specific AWS Region. Endpoint groups include one or more endpoints in the
- * Region. You can increase or reduce the percentage of traffic that would be otherwise directed to an endpoint group by
- * adjusting a setting called a <i>traffic dial</i>. The traffic dial lets you easily do performance testing or
- * blue/green deployment testing for new releases across different AWS Regions, for example.
- * </p>
- * </dd>
- * <dt>Endpoint</dt>
- * <dd>
- * <p>
- * An endpoint is an Elastic IP address, Network Load Balancer, or Application Load Balancer. Traffic is routed to
- * endpoints based on several factors, including the geo-proximity to the user, the health of the endpoint, and the
- * configuration options that you choose, such as endpoint weights. For each endpoint, you can configure weights, which
- * are numbers that you can use to specify the proportion of traffic to route to each one. This can be useful, for
- * example, to do performance testing within a Region.
- * </p>
- * </dd>
- * </dl>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -130,7 +118,20 @@ public class AWSGlobalAcceleratorAsyncClient extends AWSGlobalAcceleratorClient 
      *        Object providing client parameters.
      */
     AWSGlobalAcceleratorAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWS Global Accelerator using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSGlobalAcceleratorAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -141,6 +142,138 @@ public class AWSGlobalAcceleratorAsyncClient extends AWSGlobalAcceleratorClient 
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddCustomRoutingEndpointsResult> addCustomRoutingEndpointsAsync(AddCustomRoutingEndpointsRequest request) {
+
+        return addCustomRoutingEndpointsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddCustomRoutingEndpointsResult> addCustomRoutingEndpointsAsync(final AddCustomRoutingEndpointsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AddCustomRoutingEndpointsRequest, AddCustomRoutingEndpointsResult> asyncHandler) {
+        final AddCustomRoutingEndpointsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AddCustomRoutingEndpointsResult>() {
+            @Override
+            public AddCustomRoutingEndpointsResult call() throws Exception {
+                AddCustomRoutingEndpointsResult result = null;
+
+                try {
+                    result = executeAddCustomRoutingEndpoints(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddEndpointsResult> addEndpointsAsync(AddEndpointsRequest request) {
+
+        return addEndpointsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddEndpointsResult> addEndpointsAsync(final AddEndpointsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AddEndpointsRequest, AddEndpointsResult> asyncHandler) {
+        final AddEndpointsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AddEndpointsResult>() {
+            @Override
+            public AddEndpointsResult call() throws Exception {
+                AddEndpointsResult result = null;
+
+                try {
+                    result = executeAddEndpoints(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AdvertiseByoipCidrResult> advertiseByoipCidrAsync(AdvertiseByoipCidrRequest request) {
+
+        return advertiseByoipCidrAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AdvertiseByoipCidrResult> advertiseByoipCidrAsync(final AdvertiseByoipCidrRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AdvertiseByoipCidrRequest, AdvertiseByoipCidrResult> asyncHandler) {
+        final AdvertiseByoipCidrRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AdvertiseByoipCidrResult>() {
+            @Override
+            public AdvertiseByoipCidrResult call() throws Exception {
+                AdvertiseByoipCidrResult result = null;
+
+                try {
+                    result = executeAdvertiseByoipCidr(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AllowCustomRoutingTrafficResult> allowCustomRoutingTrafficAsync(AllowCustomRoutingTrafficRequest request) {
+
+        return allowCustomRoutingTrafficAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AllowCustomRoutingTrafficResult> allowCustomRoutingTrafficAsync(final AllowCustomRoutingTrafficRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AllowCustomRoutingTrafficRequest, AllowCustomRoutingTrafficResult> asyncHandler) {
+        final AllowCustomRoutingTrafficRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AllowCustomRoutingTrafficResult>() {
+            @Override
+            public AllowCustomRoutingTrafficResult call() throws Exception {
+                AllowCustomRoutingTrafficResult result = null;
+
+                try {
+                    result = executeAllowCustomRoutingTraffic(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -161,6 +294,141 @@ public class AWSGlobalAcceleratorAsyncClient extends AWSGlobalAcceleratorClient 
 
                 try {
                     result = executeCreateAccelerator(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCrossAccountAttachmentResult> createCrossAccountAttachmentAsync(CreateCrossAccountAttachmentRequest request) {
+
+        return createCrossAccountAttachmentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCrossAccountAttachmentResult> createCrossAccountAttachmentAsync(final CreateCrossAccountAttachmentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateCrossAccountAttachmentRequest, CreateCrossAccountAttachmentResult> asyncHandler) {
+        final CreateCrossAccountAttachmentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateCrossAccountAttachmentResult>() {
+            @Override
+            public CreateCrossAccountAttachmentResult call() throws Exception {
+                CreateCrossAccountAttachmentResult result = null;
+
+                try {
+                    result = executeCreateCrossAccountAttachment(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCustomRoutingAcceleratorResult> createCustomRoutingAcceleratorAsync(CreateCustomRoutingAcceleratorRequest request) {
+
+        return createCustomRoutingAcceleratorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCustomRoutingAcceleratorResult> createCustomRoutingAcceleratorAsync(
+            final CreateCustomRoutingAcceleratorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateCustomRoutingAcceleratorRequest, CreateCustomRoutingAcceleratorResult> asyncHandler) {
+        final CreateCustomRoutingAcceleratorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateCustomRoutingAcceleratorResult>() {
+            @Override
+            public CreateCustomRoutingAcceleratorResult call() throws Exception {
+                CreateCustomRoutingAcceleratorResult result = null;
+
+                try {
+                    result = executeCreateCustomRoutingAccelerator(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCustomRoutingEndpointGroupResult> createCustomRoutingEndpointGroupAsync(
+            CreateCustomRoutingEndpointGroupRequest request) {
+
+        return createCustomRoutingEndpointGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCustomRoutingEndpointGroupResult> createCustomRoutingEndpointGroupAsync(
+            final CreateCustomRoutingEndpointGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateCustomRoutingEndpointGroupRequest, CreateCustomRoutingEndpointGroupResult> asyncHandler) {
+        final CreateCustomRoutingEndpointGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateCustomRoutingEndpointGroupResult>() {
+            @Override
+            public CreateCustomRoutingEndpointGroupResult call() throws Exception {
+                CreateCustomRoutingEndpointGroupResult result = null;
+
+                try {
+                    result = executeCreateCustomRoutingEndpointGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCustomRoutingListenerResult> createCustomRoutingListenerAsync(CreateCustomRoutingListenerRequest request) {
+
+        return createCustomRoutingListenerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCustomRoutingListenerResult> createCustomRoutingListenerAsync(final CreateCustomRoutingListenerRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateCustomRoutingListenerRequest, CreateCustomRoutingListenerResult> asyncHandler) {
+        final CreateCustomRoutingListenerRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateCustomRoutingListenerResult>() {
+            @Override
+            public CreateCustomRoutingListenerResult call() throws Exception {
+                CreateCustomRoutingListenerResult result = null;
+
+                try {
+                    result = executeCreateCustomRoutingListener(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -276,6 +544,141 @@ public class AWSGlobalAcceleratorAsyncClient extends AWSGlobalAcceleratorClient 
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteCrossAccountAttachmentResult> deleteCrossAccountAttachmentAsync(DeleteCrossAccountAttachmentRequest request) {
+
+        return deleteCrossAccountAttachmentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCrossAccountAttachmentResult> deleteCrossAccountAttachmentAsync(final DeleteCrossAccountAttachmentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteCrossAccountAttachmentRequest, DeleteCrossAccountAttachmentResult> asyncHandler) {
+        final DeleteCrossAccountAttachmentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteCrossAccountAttachmentResult>() {
+            @Override
+            public DeleteCrossAccountAttachmentResult call() throws Exception {
+                DeleteCrossAccountAttachmentResult result = null;
+
+                try {
+                    result = executeDeleteCrossAccountAttachment(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCustomRoutingAcceleratorResult> deleteCustomRoutingAcceleratorAsync(DeleteCustomRoutingAcceleratorRequest request) {
+
+        return deleteCustomRoutingAcceleratorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCustomRoutingAcceleratorResult> deleteCustomRoutingAcceleratorAsync(
+            final DeleteCustomRoutingAcceleratorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteCustomRoutingAcceleratorRequest, DeleteCustomRoutingAcceleratorResult> asyncHandler) {
+        final DeleteCustomRoutingAcceleratorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteCustomRoutingAcceleratorResult>() {
+            @Override
+            public DeleteCustomRoutingAcceleratorResult call() throws Exception {
+                DeleteCustomRoutingAcceleratorResult result = null;
+
+                try {
+                    result = executeDeleteCustomRoutingAccelerator(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCustomRoutingEndpointGroupResult> deleteCustomRoutingEndpointGroupAsync(
+            DeleteCustomRoutingEndpointGroupRequest request) {
+
+        return deleteCustomRoutingEndpointGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCustomRoutingEndpointGroupResult> deleteCustomRoutingEndpointGroupAsync(
+            final DeleteCustomRoutingEndpointGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteCustomRoutingEndpointGroupRequest, DeleteCustomRoutingEndpointGroupResult> asyncHandler) {
+        final DeleteCustomRoutingEndpointGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteCustomRoutingEndpointGroupResult>() {
+            @Override
+            public DeleteCustomRoutingEndpointGroupResult call() throws Exception {
+                DeleteCustomRoutingEndpointGroupResult result = null;
+
+                try {
+                    result = executeDeleteCustomRoutingEndpointGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCustomRoutingListenerResult> deleteCustomRoutingListenerAsync(DeleteCustomRoutingListenerRequest request) {
+
+        return deleteCustomRoutingListenerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCustomRoutingListenerResult> deleteCustomRoutingListenerAsync(final DeleteCustomRoutingListenerRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteCustomRoutingListenerRequest, DeleteCustomRoutingListenerResult> asyncHandler) {
+        final DeleteCustomRoutingListenerRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteCustomRoutingListenerResult>() {
+            @Override
+            public DeleteCustomRoutingListenerResult call() throws Exception {
+                DeleteCustomRoutingListenerResult result = null;
+
+                try {
+                    result = executeDeleteCustomRoutingListener(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteEndpointGroupResult> deleteEndpointGroupAsync(DeleteEndpointGroupRequest request) {
 
         return deleteEndpointGroupAsync(request, null);
@@ -326,6 +729,72 @@ public class AWSGlobalAcceleratorAsyncClient extends AWSGlobalAcceleratorClient 
 
                 try {
                     result = executeDeleteListener(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DenyCustomRoutingTrafficResult> denyCustomRoutingTrafficAsync(DenyCustomRoutingTrafficRequest request) {
+
+        return denyCustomRoutingTrafficAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DenyCustomRoutingTrafficResult> denyCustomRoutingTrafficAsync(final DenyCustomRoutingTrafficRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DenyCustomRoutingTrafficRequest, DenyCustomRoutingTrafficResult> asyncHandler) {
+        final DenyCustomRoutingTrafficRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DenyCustomRoutingTrafficResult>() {
+            @Override
+            public DenyCustomRoutingTrafficResult call() throws Exception {
+                DenyCustomRoutingTrafficResult result = null;
+
+                try {
+                    result = executeDenyCustomRoutingTraffic(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeprovisionByoipCidrResult> deprovisionByoipCidrAsync(DeprovisionByoipCidrRequest request) {
+
+        return deprovisionByoipCidrAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeprovisionByoipCidrResult> deprovisionByoipCidrAsync(final DeprovisionByoipCidrRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeprovisionByoipCidrRequest, DeprovisionByoipCidrResult> asyncHandler) {
+        final DeprovisionByoipCidrRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeprovisionByoipCidrResult>() {
+            @Override
+            public DeprovisionByoipCidrResult call() throws Exception {
+                DeprovisionByoipCidrResult result = null;
+
+                try {
+                    result = executeDeprovisionByoipCidr(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -393,6 +862,179 @@ public class AWSGlobalAcceleratorAsyncClient extends AWSGlobalAcceleratorClient 
 
                 try {
                     result = executeDescribeAcceleratorAttributes(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCrossAccountAttachmentResult> describeCrossAccountAttachmentAsync(DescribeCrossAccountAttachmentRequest request) {
+
+        return describeCrossAccountAttachmentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCrossAccountAttachmentResult> describeCrossAccountAttachmentAsync(
+            final DescribeCrossAccountAttachmentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeCrossAccountAttachmentRequest, DescribeCrossAccountAttachmentResult> asyncHandler) {
+        final DescribeCrossAccountAttachmentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeCrossAccountAttachmentResult>() {
+            @Override
+            public DescribeCrossAccountAttachmentResult call() throws Exception {
+                DescribeCrossAccountAttachmentResult result = null;
+
+                try {
+                    result = executeDescribeCrossAccountAttachment(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomRoutingAcceleratorResult> describeCustomRoutingAcceleratorAsync(
+            DescribeCustomRoutingAcceleratorRequest request) {
+
+        return describeCustomRoutingAcceleratorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomRoutingAcceleratorResult> describeCustomRoutingAcceleratorAsync(
+            final DescribeCustomRoutingAcceleratorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeCustomRoutingAcceleratorRequest, DescribeCustomRoutingAcceleratorResult> asyncHandler) {
+        final DescribeCustomRoutingAcceleratorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeCustomRoutingAcceleratorResult>() {
+            @Override
+            public DescribeCustomRoutingAcceleratorResult call() throws Exception {
+                DescribeCustomRoutingAcceleratorResult result = null;
+
+                try {
+                    result = executeDescribeCustomRoutingAccelerator(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomRoutingAcceleratorAttributesResult> describeCustomRoutingAcceleratorAttributesAsync(
+            DescribeCustomRoutingAcceleratorAttributesRequest request) {
+
+        return describeCustomRoutingAcceleratorAttributesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomRoutingAcceleratorAttributesResult> describeCustomRoutingAcceleratorAttributesAsync(
+            final DescribeCustomRoutingAcceleratorAttributesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeCustomRoutingAcceleratorAttributesRequest, DescribeCustomRoutingAcceleratorAttributesResult> asyncHandler) {
+        final DescribeCustomRoutingAcceleratorAttributesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeCustomRoutingAcceleratorAttributesResult>() {
+            @Override
+            public DescribeCustomRoutingAcceleratorAttributesResult call() throws Exception {
+                DescribeCustomRoutingAcceleratorAttributesResult result = null;
+
+                try {
+                    result = executeDescribeCustomRoutingAcceleratorAttributes(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomRoutingEndpointGroupResult> describeCustomRoutingEndpointGroupAsync(
+            DescribeCustomRoutingEndpointGroupRequest request) {
+
+        return describeCustomRoutingEndpointGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomRoutingEndpointGroupResult> describeCustomRoutingEndpointGroupAsync(
+            final DescribeCustomRoutingEndpointGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeCustomRoutingEndpointGroupRequest, DescribeCustomRoutingEndpointGroupResult> asyncHandler) {
+        final DescribeCustomRoutingEndpointGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeCustomRoutingEndpointGroupResult>() {
+            @Override
+            public DescribeCustomRoutingEndpointGroupResult call() throws Exception {
+                DescribeCustomRoutingEndpointGroupResult result = null;
+
+                try {
+                    result = executeDescribeCustomRoutingEndpointGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomRoutingListenerResult> describeCustomRoutingListenerAsync(DescribeCustomRoutingListenerRequest request) {
+
+        return describeCustomRoutingListenerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCustomRoutingListenerResult> describeCustomRoutingListenerAsync(
+            final DescribeCustomRoutingListenerRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeCustomRoutingListenerRequest, DescribeCustomRoutingListenerResult> asyncHandler) {
+        final DescribeCustomRoutingListenerRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeCustomRoutingListenerResult>() {
+            @Override
+            public DescribeCustomRoutingListenerResult call() throws Exception {
+                DescribeCustomRoutingListenerResult result = null;
+
+                try {
+                    result = executeDescribeCustomRoutingListener(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -508,6 +1150,311 @@ public class AWSGlobalAcceleratorAsyncClient extends AWSGlobalAcceleratorClient 
     }
 
     @Override
+    public java.util.concurrent.Future<ListByoipCidrsResult> listByoipCidrsAsync(ListByoipCidrsRequest request) {
+
+        return listByoipCidrsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListByoipCidrsResult> listByoipCidrsAsync(final ListByoipCidrsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListByoipCidrsRequest, ListByoipCidrsResult> asyncHandler) {
+        final ListByoipCidrsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListByoipCidrsResult>() {
+            @Override
+            public ListByoipCidrsResult call() throws Exception {
+                ListByoipCidrsResult result = null;
+
+                try {
+                    result = executeListByoipCidrs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCrossAccountAttachmentsResult> listCrossAccountAttachmentsAsync(ListCrossAccountAttachmentsRequest request) {
+
+        return listCrossAccountAttachmentsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCrossAccountAttachmentsResult> listCrossAccountAttachmentsAsync(final ListCrossAccountAttachmentsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCrossAccountAttachmentsRequest, ListCrossAccountAttachmentsResult> asyncHandler) {
+        final ListCrossAccountAttachmentsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCrossAccountAttachmentsResult>() {
+            @Override
+            public ListCrossAccountAttachmentsResult call() throws Exception {
+                ListCrossAccountAttachmentsResult result = null;
+
+                try {
+                    result = executeListCrossAccountAttachments(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCrossAccountResourceAccountsResult> listCrossAccountResourceAccountsAsync(
+            ListCrossAccountResourceAccountsRequest request) {
+
+        return listCrossAccountResourceAccountsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCrossAccountResourceAccountsResult> listCrossAccountResourceAccountsAsync(
+            final ListCrossAccountResourceAccountsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCrossAccountResourceAccountsRequest, ListCrossAccountResourceAccountsResult> asyncHandler) {
+        final ListCrossAccountResourceAccountsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCrossAccountResourceAccountsResult>() {
+            @Override
+            public ListCrossAccountResourceAccountsResult call() throws Exception {
+                ListCrossAccountResourceAccountsResult result = null;
+
+                try {
+                    result = executeListCrossAccountResourceAccounts(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCrossAccountResourcesResult> listCrossAccountResourcesAsync(ListCrossAccountResourcesRequest request) {
+
+        return listCrossAccountResourcesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCrossAccountResourcesResult> listCrossAccountResourcesAsync(final ListCrossAccountResourcesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCrossAccountResourcesRequest, ListCrossAccountResourcesResult> asyncHandler) {
+        final ListCrossAccountResourcesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCrossAccountResourcesResult>() {
+            @Override
+            public ListCrossAccountResourcesResult call() throws Exception {
+                ListCrossAccountResourcesResult result = null;
+
+                try {
+                    result = executeListCrossAccountResources(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingAcceleratorsResult> listCustomRoutingAcceleratorsAsync(ListCustomRoutingAcceleratorsRequest request) {
+
+        return listCustomRoutingAcceleratorsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingAcceleratorsResult> listCustomRoutingAcceleratorsAsync(
+            final ListCustomRoutingAcceleratorsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCustomRoutingAcceleratorsRequest, ListCustomRoutingAcceleratorsResult> asyncHandler) {
+        final ListCustomRoutingAcceleratorsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCustomRoutingAcceleratorsResult>() {
+            @Override
+            public ListCustomRoutingAcceleratorsResult call() throws Exception {
+                ListCustomRoutingAcceleratorsResult result = null;
+
+                try {
+                    result = executeListCustomRoutingAccelerators(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingEndpointGroupsResult> listCustomRoutingEndpointGroupsAsync(
+            ListCustomRoutingEndpointGroupsRequest request) {
+
+        return listCustomRoutingEndpointGroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingEndpointGroupsResult> listCustomRoutingEndpointGroupsAsync(
+            final ListCustomRoutingEndpointGroupsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCustomRoutingEndpointGroupsRequest, ListCustomRoutingEndpointGroupsResult> asyncHandler) {
+        final ListCustomRoutingEndpointGroupsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCustomRoutingEndpointGroupsResult>() {
+            @Override
+            public ListCustomRoutingEndpointGroupsResult call() throws Exception {
+                ListCustomRoutingEndpointGroupsResult result = null;
+
+                try {
+                    result = executeListCustomRoutingEndpointGroups(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingListenersResult> listCustomRoutingListenersAsync(ListCustomRoutingListenersRequest request) {
+
+        return listCustomRoutingListenersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingListenersResult> listCustomRoutingListenersAsync(final ListCustomRoutingListenersRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCustomRoutingListenersRequest, ListCustomRoutingListenersResult> asyncHandler) {
+        final ListCustomRoutingListenersRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCustomRoutingListenersResult>() {
+            @Override
+            public ListCustomRoutingListenersResult call() throws Exception {
+                ListCustomRoutingListenersResult result = null;
+
+                try {
+                    result = executeListCustomRoutingListeners(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingPortMappingsResult> listCustomRoutingPortMappingsAsync(ListCustomRoutingPortMappingsRequest request) {
+
+        return listCustomRoutingPortMappingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingPortMappingsResult> listCustomRoutingPortMappingsAsync(
+            final ListCustomRoutingPortMappingsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCustomRoutingPortMappingsRequest, ListCustomRoutingPortMappingsResult> asyncHandler) {
+        final ListCustomRoutingPortMappingsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCustomRoutingPortMappingsResult>() {
+            @Override
+            public ListCustomRoutingPortMappingsResult call() throws Exception {
+                ListCustomRoutingPortMappingsResult result = null;
+
+                try {
+                    result = executeListCustomRoutingPortMappings(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingPortMappingsByDestinationResult> listCustomRoutingPortMappingsByDestinationAsync(
+            ListCustomRoutingPortMappingsByDestinationRequest request) {
+
+        return listCustomRoutingPortMappingsByDestinationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCustomRoutingPortMappingsByDestinationResult> listCustomRoutingPortMappingsByDestinationAsync(
+            final ListCustomRoutingPortMappingsByDestinationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCustomRoutingPortMappingsByDestinationRequest, ListCustomRoutingPortMappingsByDestinationResult> asyncHandler) {
+        final ListCustomRoutingPortMappingsByDestinationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCustomRoutingPortMappingsByDestinationResult>() {
+            @Override
+            public ListCustomRoutingPortMappingsByDestinationResult call() throws Exception {
+                ListCustomRoutingPortMappingsByDestinationResult result = null;
+
+                try {
+                    result = executeListCustomRoutingPortMappingsByDestination(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListEndpointGroupsResult> listEndpointGroupsAsync(ListEndpointGroupsRequest request) {
 
         return listEndpointGroupsAsync(request, null);
@@ -558,6 +1505,204 @@ public class AWSGlobalAcceleratorAsyncClient extends AWSGlobalAcceleratorClient 
 
                 try {
                     result = executeListListeners(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+        final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTagsForResourceResult>() {
+            @Override
+            public ListTagsForResourceResult call() throws Exception {
+                ListTagsForResourceResult result = null;
+
+                try {
+                    result = executeListTagsForResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ProvisionByoipCidrResult> provisionByoipCidrAsync(ProvisionByoipCidrRequest request) {
+
+        return provisionByoipCidrAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ProvisionByoipCidrResult> provisionByoipCidrAsync(final ProvisionByoipCidrRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ProvisionByoipCidrRequest, ProvisionByoipCidrResult> asyncHandler) {
+        final ProvisionByoipCidrRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ProvisionByoipCidrResult>() {
+            @Override
+            public ProvisionByoipCidrResult call() throws Exception {
+                ProvisionByoipCidrResult result = null;
+
+                try {
+                    result = executeProvisionByoipCidr(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveCustomRoutingEndpointsResult> removeCustomRoutingEndpointsAsync(RemoveCustomRoutingEndpointsRequest request) {
+
+        return removeCustomRoutingEndpointsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveCustomRoutingEndpointsResult> removeCustomRoutingEndpointsAsync(final RemoveCustomRoutingEndpointsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RemoveCustomRoutingEndpointsRequest, RemoveCustomRoutingEndpointsResult> asyncHandler) {
+        final RemoveCustomRoutingEndpointsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RemoveCustomRoutingEndpointsResult>() {
+            @Override
+            public RemoveCustomRoutingEndpointsResult call() throws Exception {
+                RemoveCustomRoutingEndpointsResult result = null;
+
+                try {
+                    result = executeRemoveCustomRoutingEndpoints(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveEndpointsResult> removeEndpointsAsync(RemoveEndpointsRequest request) {
+
+        return removeEndpointsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RemoveEndpointsResult> removeEndpointsAsync(final RemoveEndpointsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RemoveEndpointsRequest, RemoveEndpointsResult> asyncHandler) {
+        final RemoveEndpointsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RemoveEndpointsResult>() {
+            @Override
+            public RemoveEndpointsResult call() throws Exception {
+                RemoveEndpointsResult result = null;
+
+                try {
+                    result = executeRemoveEndpoints(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -640,6 +1785,141 @@ public class AWSGlobalAcceleratorAsyncClient extends AWSGlobalAcceleratorClient 
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateCrossAccountAttachmentResult> updateCrossAccountAttachmentAsync(UpdateCrossAccountAttachmentRequest request) {
+
+        return updateCrossAccountAttachmentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCrossAccountAttachmentResult> updateCrossAccountAttachmentAsync(final UpdateCrossAccountAttachmentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateCrossAccountAttachmentRequest, UpdateCrossAccountAttachmentResult> asyncHandler) {
+        final UpdateCrossAccountAttachmentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateCrossAccountAttachmentResult>() {
+            @Override
+            public UpdateCrossAccountAttachmentResult call() throws Exception {
+                UpdateCrossAccountAttachmentResult result = null;
+
+                try {
+                    result = executeUpdateCrossAccountAttachment(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCustomRoutingAcceleratorResult> updateCustomRoutingAcceleratorAsync(UpdateCustomRoutingAcceleratorRequest request) {
+
+        return updateCustomRoutingAcceleratorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCustomRoutingAcceleratorResult> updateCustomRoutingAcceleratorAsync(
+            final UpdateCustomRoutingAcceleratorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateCustomRoutingAcceleratorRequest, UpdateCustomRoutingAcceleratorResult> asyncHandler) {
+        final UpdateCustomRoutingAcceleratorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateCustomRoutingAcceleratorResult>() {
+            @Override
+            public UpdateCustomRoutingAcceleratorResult call() throws Exception {
+                UpdateCustomRoutingAcceleratorResult result = null;
+
+                try {
+                    result = executeUpdateCustomRoutingAccelerator(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCustomRoutingAcceleratorAttributesResult> updateCustomRoutingAcceleratorAttributesAsync(
+            UpdateCustomRoutingAcceleratorAttributesRequest request) {
+
+        return updateCustomRoutingAcceleratorAttributesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCustomRoutingAcceleratorAttributesResult> updateCustomRoutingAcceleratorAttributesAsync(
+            final UpdateCustomRoutingAcceleratorAttributesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateCustomRoutingAcceleratorAttributesRequest, UpdateCustomRoutingAcceleratorAttributesResult> asyncHandler) {
+        final UpdateCustomRoutingAcceleratorAttributesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateCustomRoutingAcceleratorAttributesResult>() {
+            @Override
+            public UpdateCustomRoutingAcceleratorAttributesResult call() throws Exception {
+                UpdateCustomRoutingAcceleratorAttributesResult result = null;
+
+                try {
+                    result = executeUpdateCustomRoutingAcceleratorAttributes(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCustomRoutingListenerResult> updateCustomRoutingListenerAsync(UpdateCustomRoutingListenerRequest request) {
+
+        return updateCustomRoutingListenerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCustomRoutingListenerResult> updateCustomRoutingListenerAsync(final UpdateCustomRoutingListenerRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateCustomRoutingListenerRequest, UpdateCustomRoutingListenerResult> asyncHandler) {
+        final UpdateCustomRoutingListenerRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateCustomRoutingListenerResult>() {
+            @Override
+            public UpdateCustomRoutingListenerResult call() throws Exception {
+                UpdateCustomRoutingListenerResult result = null;
+
+                try {
+                    result = executeUpdateCustomRoutingListener(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateEndpointGroupResult> updateEndpointGroupAsync(UpdateEndpointGroupRequest request) {
 
         return updateEndpointGroupAsync(request, null);
@@ -690,6 +1970,39 @@ public class AWSGlobalAcceleratorAsyncClient extends AWSGlobalAcceleratorClient 
 
                 try {
                     result = executeUpdateListener(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<WithdrawByoipCidrResult> withdrawByoipCidrAsync(WithdrawByoipCidrRequest request) {
+
+        return withdrawByoipCidrAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<WithdrawByoipCidrResult> withdrawByoipCidrAsync(final WithdrawByoipCidrRequest request,
+            final com.amazonaws.handlers.AsyncHandler<WithdrawByoipCidrRequest, WithdrawByoipCidrResult> asyncHandler) {
+        final WithdrawByoipCidrRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<WithdrawByoipCidrResult>() {
+            @Override
+            public WithdrawByoipCidrResult call() throws Exception {
+                WithdrawByoipCidrResult result = null;
+
+                try {
+                    result = executeWithdrawByoipCidr(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

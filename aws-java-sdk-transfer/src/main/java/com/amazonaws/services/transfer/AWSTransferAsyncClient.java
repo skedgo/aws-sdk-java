@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,13 +26,14 @@ import java.util.concurrent.ExecutorService;
  * notification when an asynchronous operation completes.
  * <p>
  * <p>
- * AWS Transfer for SFTP is a fully managed service that enables the transfer of files directly into and out of Amazon
- * S3 using the Secure File Transfer Protocol (SFTP)—also known as Secure Shell (SSH) File Transfer Protocol. AWS helps
- * you seamlessly migrate your file transfer workflows to AWS Transfer for SFTP—by integrating with existing
- * authentication systems, and providing DNS routing with Amazon Route 53—so nothing changes for your customers and
- * partners, or their applications. With your data in S3, you can use it with AWS services for processing, analytics,
- * machine learning, and archiving. Getting started with AWS Transfer for SFTP (AWS SFTP) is easy; there is no
- * infrastructure to buy and setup.
+ * Transfer Family is a fully managed service that enables the transfer of files over the File Transfer Protocol (FTP),
+ * File Transfer Protocol over SSL (FTPS), or Secure Shell (SSH) File Transfer Protocol (SFTP) directly into and out of
+ * Amazon Simple Storage Service (Amazon S3) or Amazon EFS. Additionally, you can use Applicability Statement 2 (AS2) to
+ * transfer files into and out of Amazon S3. Amazon Web Services helps you seamlessly migrate your file transfer
+ * workflows to Transfer Family by integrating with existing authentication systems, and providing DNS routing with
+ * Amazon Route 53 so nothing changes for your customers and partners, or their applications. With your data in Amazon
+ * S3, you can use it with Amazon Web Services for processing, analytics, machine learning, and archiving. Getting
+ * started with Transfer Family is easy since there is no infrastructure to buy and set up.
  * </p>
  */
 @ThreadSafe
@@ -54,7 +55,19 @@ public class AWSTransferAsyncClient extends AWSTransferClient implements AWSTran
      *        Object providing client parameters.
      */
     AWSTransferAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWS Transfer using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSTransferAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -65,6 +78,138 @@ public class AWSTransferAsyncClient extends AWSTransferClient implements AWSTran
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAccessResult> createAccessAsync(CreateAccessRequest request) {
+
+        return createAccessAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAccessResult> createAccessAsync(final CreateAccessRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateAccessRequest, CreateAccessResult> asyncHandler) {
+        final CreateAccessRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateAccessResult>() {
+            @Override
+            public CreateAccessResult call() throws Exception {
+                CreateAccessResult result = null;
+
+                try {
+                    result = executeCreateAccess(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAgreementResult> createAgreementAsync(CreateAgreementRequest request) {
+
+        return createAgreementAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAgreementResult> createAgreementAsync(final CreateAgreementRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateAgreementRequest, CreateAgreementResult> asyncHandler) {
+        final CreateAgreementRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateAgreementResult>() {
+            @Override
+            public CreateAgreementResult call() throws Exception {
+                CreateAgreementResult result = null;
+
+                try {
+                    result = executeCreateAgreement(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateConnectorResult> createConnectorAsync(CreateConnectorRequest request) {
+
+        return createConnectorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateConnectorResult> createConnectorAsync(final CreateConnectorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateConnectorRequest, CreateConnectorResult> asyncHandler) {
+        final CreateConnectorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateConnectorResult>() {
+            @Override
+            public CreateConnectorResult call() throws Exception {
+                CreateConnectorResult result = null;
+
+                try {
+                    result = executeCreateConnector(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateProfileResult> createProfileAsync(CreateProfileRequest request) {
+
+        return createProfileAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateProfileResult> createProfileAsync(final CreateProfileRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateProfileRequest, CreateProfileResult> asyncHandler) {
+        final CreateProfileRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateProfileResult>() {
+            @Override
+            public CreateProfileResult call() throws Exception {
+                CreateProfileResult result = null;
+
+                try {
+                    result = executeCreateProfile(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -118,6 +263,237 @@ public class AWSTransferAsyncClient extends AWSTransferClient implements AWSTran
 
                 try {
                     result = executeCreateUser(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorkflowResult> createWorkflowAsync(CreateWorkflowRequest request) {
+
+        return createWorkflowAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorkflowResult> createWorkflowAsync(final CreateWorkflowRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateWorkflowRequest, CreateWorkflowResult> asyncHandler) {
+        final CreateWorkflowRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateWorkflowResult>() {
+            @Override
+            public CreateWorkflowResult call() throws Exception {
+                CreateWorkflowResult result = null;
+
+                try {
+                    result = executeCreateWorkflow(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAccessResult> deleteAccessAsync(DeleteAccessRequest request) {
+
+        return deleteAccessAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAccessResult> deleteAccessAsync(final DeleteAccessRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteAccessRequest, DeleteAccessResult> asyncHandler) {
+        final DeleteAccessRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteAccessResult>() {
+            @Override
+            public DeleteAccessResult call() throws Exception {
+                DeleteAccessResult result = null;
+
+                try {
+                    result = executeDeleteAccess(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAgreementResult> deleteAgreementAsync(DeleteAgreementRequest request) {
+
+        return deleteAgreementAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAgreementResult> deleteAgreementAsync(final DeleteAgreementRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteAgreementRequest, DeleteAgreementResult> asyncHandler) {
+        final DeleteAgreementRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteAgreementResult>() {
+            @Override
+            public DeleteAgreementResult call() throws Exception {
+                DeleteAgreementResult result = null;
+
+                try {
+                    result = executeDeleteAgreement(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCertificateResult> deleteCertificateAsync(DeleteCertificateRequest request) {
+
+        return deleteCertificateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCertificateResult> deleteCertificateAsync(final DeleteCertificateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteCertificateRequest, DeleteCertificateResult> asyncHandler) {
+        final DeleteCertificateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteCertificateResult>() {
+            @Override
+            public DeleteCertificateResult call() throws Exception {
+                DeleteCertificateResult result = null;
+
+                try {
+                    result = executeDeleteCertificate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteConnectorResult> deleteConnectorAsync(DeleteConnectorRequest request) {
+
+        return deleteConnectorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteConnectorResult> deleteConnectorAsync(final DeleteConnectorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteConnectorRequest, DeleteConnectorResult> asyncHandler) {
+        final DeleteConnectorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteConnectorResult>() {
+            @Override
+            public DeleteConnectorResult call() throws Exception {
+                DeleteConnectorResult result = null;
+
+                try {
+                    result = executeDeleteConnector(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteHostKeyResult> deleteHostKeyAsync(DeleteHostKeyRequest request) {
+
+        return deleteHostKeyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteHostKeyResult> deleteHostKeyAsync(final DeleteHostKeyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteHostKeyRequest, DeleteHostKeyResult> asyncHandler) {
+        final DeleteHostKeyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteHostKeyResult>() {
+            @Override
+            public DeleteHostKeyResult call() throws Exception {
+                DeleteHostKeyResult result = null;
+
+                try {
+                    result = executeDeleteHostKey(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProfileResult> deleteProfileAsync(DeleteProfileRequest request) {
+
+        return deleteProfileAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProfileResult> deleteProfileAsync(final DeleteProfileRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteProfileRequest, DeleteProfileResult> asyncHandler) {
+        final DeleteProfileRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteProfileResult>() {
+            @Override
+            public DeleteProfileResult call() throws Exception {
+                DeleteProfileResult result = null;
+
+                try {
+                    result = executeDeleteProfile(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -233,6 +609,303 @@ public class AWSTransferAsyncClient extends AWSTransferClient implements AWSTran
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteWorkflowResult> deleteWorkflowAsync(DeleteWorkflowRequest request) {
+
+        return deleteWorkflowAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteWorkflowResult> deleteWorkflowAsync(final DeleteWorkflowRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteWorkflowRequest, DeleteWorkflowResult> asyncHandler) {
+        final DeleteWorkflowRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteWorkflowResult>() {
+            @Override
+            public DeleteWorkflowResult call() throws Exception {
+                DeleteWorkflowResult result = null;
+
+                try {
+                    result = executeDeleteWorkflow(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAccessResult> describeAccessAsync(DescribeAccessRequest request) {
+
+        return describeAccessAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAccessResult> describeAccessAsync(final DescribeAccessRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeAccessRequest, DescribeAccessResult> asyncHandler) {
+        final DescribeAccessRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeAccessResult>() {
+            @Override
+            public DescribeAccessResult call() throws Exception {
+                DescribeAccessResult result = null;
+
+                try {
+                    result = executeDescribeAccess(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAgreementResult> describeAgreementAsync(DescribeAgreementRequest request) {
+
+        return describeAgreementAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAgreementResult> describeAgreementAsync(final DescribeAgreementRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeAgreementRequest, DescribeAgreementResult> asyncHandler) {
+        final DescribeAgreementRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeAgreementResult>() {
+            @Override
+            public DescribeAgreementResult call() throws Exception {
+                DescribeAgreementResult result = null;
+
+                try {
+                    result = executeDescribeAgreement(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCertificateResult> describeCertificateAsync(DescribeCertificateRequest request) {
+
+        return describeCertificateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCertificateResult> describeCertificateAsync(final DescribeCertificateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeCertificateRequest, DescribeCertificateResult> asyncHandler) {
+        final DescribeCertificateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeCertificateResult>() {
+            @Override
+            public DescribeCertificateResult call() throws Exception {
+                DescribeCertificateResult result = null;
+
+                try {
+                    result = executeDescribeCertificate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeConnectorResult> describeConnectorAsync(DescribeConnectorRequest request) {
+
+        return describeConnectorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeConnectorResult> describeConnectorAsync(final DescribeConnectorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeConnectorRequest, DescribeConnectorResult> asyncHandler) {
+        final DescribeConnectorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeConnectorResult>() {
+            @Override
+            public DescribeConnectorResult call() throws Exception {
+                DescribeConnectorResult result = null;
+
+                try {
+                    result = executeDescribeConnector(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeExecutionResult> describeExecutionAsync(DescribeExecutionRequest request) {
+
+        return describeExecutionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeExecutionResult> describeExecutionAsync(final DescribeExecutionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeExecutionRequest, DescribeExecutionResult> asyncHandler) {
+        final DescribeExecutionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeExecutionResult>() {
+            @Override
+            public DescribeExecutionResult call() throws Exception {
+                DescribeExecutionResult result = null;
+
+                try {
+                    result = executeDescribeExecution(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeHostKeyResult> describeHostKeyAsync(DescribeHostKeyRequest request) {
+
+        return describeHostKeyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeHostKeyResult> describeHostKeyAsync(final DescribeHostKeyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeHostKeyRequest, DescribeHostKeyResult> asyncHandler) {
+        final DescribeHostKeyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeHostKeyResult>() {
+            @Override
+            public DescribeHostKeyResult call() throws Exception {
+                DescribeHostKeyResult result = null;
+
+                try {
+                    result = executeDescribeHostKey(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeProfileResult> describeProfileAsync(DescribeProfileRequest request) {
+
+        return describeProfileAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeProfileResult> describeProfileAsync(final DescribeProfileRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeProfileRequest, DescribeProfileResult> asyncHandler) {
+        final DescribeProfileRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeProfileResult>() {
+            @Override
+            public DescribeProfileResult call() throws Exception {
+                DescribeProfileResult result = null;
+
+                try {
+                    result = executeDescribeProfile(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeSecurityPolicyResult> describeSecurityPolicyAsync(DescribeSecurityPolicyRequest request) {
+
+        return describeSecurityPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeSecurityPolicyResult> describeSecurityPolicyAsync(final DescribeSecurityPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeSecurityPolicyRequest, DescribeSecurityPolicyResult> asyncHandler) {
+        final DescribeSecurityPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeSecurityPolicyResult>() {
+            @Override
+            public DescribeSecurityPolicyResult call() throws Exception {
+                DescribeSecurityPolicyResult result = null;
+
+                try {
+                    result = executeDescribeSecurityPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeServerResult> describeServerAsync(DescribeServerRequest request) {
 
         return describeServerAsync(request, null);
@@ -299,6 +972,105 @@ public class AWSTransferAsyncClient extends AWSTransferClient implements AWSTran
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeWorkflowResult> describeWorkflowAsync(DescribeWorkflowRequest request) {
+
+        return describeWorkflowAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkflowResult> describeWorkflowAsync(final DescribeWorkflowRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeWorkflowRequest, DescribeWorkflowResult> asyncHandler) {
+        final DescribeWorkflowRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeWorkflowResult>() {
+            @Override
+            public DescribeWorkflowResult call() throws Exception {
+                DescribeWorkflowResult result = null;
+
+                try {
+                    result = executeDescribeWorkflow(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportCertificateResult> importCertificateAsync(ImportCertificateRequest request) {
+
+        return importCertificateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportCertificateResult> importCertificateAsync(final ImportCertificateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ImportCertificateRequest, ImportCertificateResult> asyncHandler) {
+        final ImportCertificateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ImportCertificateResult>() {
+            @Override
+            public ImportCertificateResult call() throws Exception {
+                ImportCertificateResult result = null;
+
+                try {
+                    result = executeImportCertificate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportHostKeyResult> importHostKeyAsync(ImportHostKeyRequest request) {
+
+        return importHostKeyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportHostKeyResult> importHostKeyAsync(final ImportHostKeyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ImportHostKeyRequest, ImportHostKeyResult> asyncHandler) {
+        final ImportHostKeyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ImportHostKeyResult>() {
+            @Override
+            public ImportHostKeyResult call() throws Exception {
+                ImportHostKeyResult result = null;
+
+                try {
+                    result = executeImportHostKey(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ImportSshPublicKeyResult> importSshPublicKeyAsync(ImportSshPublicKeyRequest request) {
 
         return importSshPublicKeyAsync(request, null);
@@ -316,6 +1088,270 @@ public class AWSTransferAsyncClient extends AWSTransferClient implements AWSTran
 
                 try {
                     result = executeImportSshPublicKey(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAccessesResult> listAccessesAsync(ListAccessesRequest request) {
+
+        return listAccessesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAccessesResult> listAccessesAsync(final ListAccessesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListAccessesRequest, ListAccessesResult> asyncHandler) {
+        final ListAccessesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListAccessesResult>() {
+            @Override
+            public ListAccessesResult call() throws Exception {
+                ListAccessesResult result = null;
+
+                try {
+                    result = executeListAccesses(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAgreementsResult> listAgreementsAsync(ListAgreementsRequest request) {
+
+        return listAgreementsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAgreementsResult> listAgreementsAsync(final ListAgreementsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListAgreementsRequest, ListAgreementsResult> asyncHandler) {
+        final ListAgreementsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListAgreementsResult>() {
+            @Override
+            public ListAgreementsResult call() throws Exception {
+                ListAgreementsResult result = null;
+
+                try {
+                    result = executeListAgreements(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCertificatesResult> listCertificatesAsync(ListCertificatesRequest request) {
+
+        return listCertificatesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCertificatesResult> listCertificatesAsync(final ListCertificatesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCertificatesRequest, ListCertificatesResult> asyncHandler) {
+        final ListCertificatesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCertificatesResult>() {
+            @Override
+            public ListCertificatesResult call() throws Exception {
+                ListCertificatesResult result = null;
+
+                try {
+                    result = executeListCertificates(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListConnectorsResult> listConnectorsAsync(ListConnectorsRequest request) {
+
+        return listConnectorsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListConnectorsResult> listConnectorsAsync(final ListConnectorsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListConnectorsRequest, ListConnectorsResult> asyncHandler) {
+        final ListConnectorsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListConnectorsResult>() {
+            @Override
+            public ListConnectorsResult call() throws Exception {
+                ListConnectorsResult result = null;
+
+                try {
+                    result = executeListConnectors(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListExecutionsResult> listExecutionsAsync(ListExecutionsRequest request) {
+
+        return listExecutionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListExecutionsResult> listExecutionsAsync(final ListExecutionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListExecutionsRequest, ListExecutionsResult> asyncHandler) {
+        final ListExecutionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListExecutionsResult>() {
+            @Override
+            public ListExecutionsResult call() throws Exception {
+                ListExecutionsResult result = null;
+
+                try {
+                    result = executeListExecutions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListHostKeysResult> listHostKeysAsync(ListHostKeysRequest request) {
+
+        return listHostKeysAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListHostKeysResult> listHostKeysAsync(final ListHostKeysRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListHostKeysRequest, ListHostKeysResult> asyncHandler) {
+        final ListHostKeysRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListHostKeysResult>() {
+            @Override
+            public ListHostKeysResult call() throws Exception {
+                ListHostKeysResult result = null;
+
+                try {
+                    result = executeListHostKeys(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProfilesResult> listProfilesAsync(ListProfilesRequest request) {
+
+        return listProfilesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProfilesResult> listProfilesAsync(final ListProfilesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListProfilesRequest, ListProfilesResult> asyncHandler) {
+        final ListProfilesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListProfilesResult>() {
+            @Override
+            public ListProfilesResult call() throws Exception {
+                ListProfilesResult result = null;
+
+                try {
+                    result = executeListProfiles(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSecurityPoliciesResult> listSecurityPoliciesAsync(ListSecurityPoliciesRequest request) {
+
+        return listSecurityPoliciesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSecurityPoliciesResult> listSecurityPoliciesAsync(final ListSecurityPoliciesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListSecurityPoliciesRequest, ListSecurityPoliciesResult> asyncHandler) {
+        final ListSecurityPoliciesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListSecurityPoliciesResult>() {
+            @Override
+            public ListSecurityPoliciesResult call() throws Exception {
+                ListSecurityPoliciesResult result = null;
+
+                try {
+                    result = executeListSecurityPolicies(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -431,6 +1467,138 @@ public class AWSTransferAsyncClient extends AWSTransferClient implements AWSTran
     }
 
     @Override
+    public java.util.concurrent.Future<ListWorkflowsResult> listWorkflowsAsync(ListWorkflowsRequest request) {
+
+        return listWorkflowsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListWorkflowsResult> listWorkflowsAsync(final ListWorkflowsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListWorkflowsRequest, ListWorkflowsResult> asyncHandler) {
+        final ListWorkflowsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListWorkflowsResult>() {
+            @Override
+            public ListWorkflowsResult call() throws Exception {
+                ListWorkflowsResult result = null;
+
+                try {
+                    result = executeListWorkflows(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<SendWorkflowStepStateResult> sendWorkflowStepStateAsync(SendWorkflowStepStateRequest request) {
+
+        return sendWorkflowStepStateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SendWorkflowStepStateResult> sendWorkflowStepStateAsync(final SendWorkflowStepStateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<SendWorkflowStepStateRequest, SendWorkflowStepStateResult> asyncHandler) {
+        final SendWorkflowStepStateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<SendWorkflowStepStateResult>() {
+            @Override
+            public SendWorkflowStepStateResult call() throws Exception {
+                SendWorkflowStepStateResult result = null;
+
+                try {
+                    result = executeSendWorkflowStepState(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartDirectoryListingResult> startDirectoryListingAsync(StartDirectoryListingRequest request) {
+
+        return startDirectoryListingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartDirectoryListingResult> startDirectoryListingAsync(final StartDirectoryListingRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartDirectoryListingRequest, StartDirectoryListingResult> asyncHandler) {
+        final StartDirectoryListingRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartDirectoryListingResult>() {
+            @Override
+            public StartDirectoryListingResult call() throws Exception {
+                StartDirectoryListingResult result = null;
+
+                try {
+                    result = executeStartDirectoryListing(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartFileTransferResult> startFileTransferAsync(StartFileTransferRequest request) {
+
+        return startFileTransferAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartFileTransferResult> startFileTransferAsync(final StartFileTransferRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartFileTransferRequest, StartFileTransferResult> asyncHandler) {
+        final StartFileTransferRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartFileTransferResult>() {
+            @Override
+            public StartFileTransferResult call() throws Exception {
+                StartFileTransferResult result = null;
+
+                try {
+                    result = executeStartFileTransfer(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<StartServerResult> startServerAsync(StartServerRequest request) {
 
         return startServerAsync(request, null);
@@ -530,6 +1698,39 @@ public class AWSTransferAsyncClient extends AWSTransferClient implements AWSTran
     }
 
     @Override
+    public java.util.concurrent.Future<TestConnectionResult> testConnectionAsync(TestConnectionRequest request) {
+
+        return testConnectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TestConnectionResult> testConnectionAsync(final TestConnectionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TestConnectionRequest, TestConnectionResult> asyncHandler) {
+        final TestConnectionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TestConnectionResult>() {
+            @Override
+            public TestConnectionResult call() throws Exception {
+                TestConnectionResult result = null;
+
+                try {
+                    result = executeTestConnection(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<TestIdentityProviderResult> testIdentityProviderAsync(TestIdentityProviderRequest request) {
 
         return testIdentityProviderAsync(request, null);
@@ -580,6 +1781,204 @@ public class AWSTransferAsyncClient extends AWSTransferClient implements AWSTran
 
                 try {
                     result = executeUntagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAccessResult> updateAccessAsync(UpdateAccessRequest request) {
+
+        return updateAccessAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAccessResult> updateAccessAsync(final UpdateAccessRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateAccessRequest, UpdateAccessResult> asyncHandler) {
+        final UpdateAccessRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateAccessResult>() {
+            @Override
+            public UpdateAccessResult call() throws Exception {
+                UpdateAccessResult result = null;
+
+                try {
+                    result = executeUpdateAccess(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAgreementResult> updateAgreementAsync(UpdateAgreementRequest request) {
+
+        return updateAgreementAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAgreementResult> updateAgreementAsync(final UpdateAgreementRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateAgreementRequest, UpdateAgreementResult> asyncHandler) {
+        final UpdateAgreementRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateAgreementResult>() {
+            @Override
+            public UpdateAgreementResult call() throws Exception {
+                UpdateAgreementResult result = null;
+
+                try {
+                    result = executeUpdateAgreement(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCertificateResult> updateCertificateAsync(UpdateCertificateRequest request) {
+
+        return updateCertificateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCertificateResult> updateCertificateAsync(final UpdateCertificateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateCertificateRequest, UpdateCertificateResult> asyncHandler) {
+        final UpdateCertificateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateCertificateResult>() {
+            @Override
+            public UpdateCertificateResult call() throws Exception {
+                UpdateCertificateResult result = null;
+
+                try {
+                    result = executeUpdateCertificate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConnectorResult> updateConnectorAsync(UpdateConnectorRequest request) {
+
+        return updateConnectorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConnectorResult> updateConnectorAsync(final UpdateConnectorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateConnectorRequest, UpdateConnectorResult> asyncHandler) {
+        final UpdateConnectorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateConnectorResult>() {
+            @Override
+            public UpdateConnectorResult call() throws Exception {
+                UpdateConnectorResult result = null;
+
+                try {
+                    result = executeUpdateConnector(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateHostKeyResult> updateHostKeyAsync(UpdateHostKeyRequest request) {
+
+        return updateHostKeyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateHostKeyResult> updateHostKeyAsync(final UpdateHostKeyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateHostKeyRequest, UpdateHostKeyResult> asyncHandler) {
+        final UpdateHostKeyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateHostKeyResult>() {
+            @Override
+            public UpdateHostKeyResult call() throws Exception {
+                UpdateHostKeyResult result = null;
+
+                try {
+                    result = executeUpdateHostKey(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateProfileResult> updateProfileAsync(UpdateProfileRequest request) {
+
+        return updateProfileAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateProfileResult> updateProfileAsync(final UpdateProfileRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateProfileRequest, UpdateProfileResult> asyncHandler) {
+        final UpdateProfileRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateProfileResult>() {
+            @Override
+            public UpdateProfileResult call() throws Exception {
+                UpdateProfileResult result = null;
+
+                try {
+                    result = executeUpdateProfile(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

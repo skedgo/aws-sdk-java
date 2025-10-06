@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,8 +48,71 @@ public class CreateVpcRequestMarshaller implements Marshaller<Request<CreateVpcR
             request.addParameter("AmazonProvidedIpv6CidrBlock", StringUtils.fromBoolean(createVpcRequest.getAmazonProvidedIpv6CidrBlock()));
         }
 
+        if (createVpcRequest.getIpv6Pool() != null) {
+            request.addParameter("Ipv6Pool", StringUtils.fromString(createVpcRequest.getIpv6Pool()));
+        }
+
+        if (createVpcRequest.getIpv6CidrBlock() != null) {
+            request.addParameter("Ipv6CidrBlock", StringUtils.fromString(createVpcRequest.getIpv6CidrBlock()));
+        }
+
+        if (createVpcRequest.getIpv4IpamPoolId() != null) {
+            request.addParameter("Ipv4IpamPoolId", StringUtils.fromString(createVpcRequest.getIpv4IpamPoolId()));
+        }
+
+        if (createVpcRequest.getIpv4NetmaskLength() != null) {
+            request.addParameter("Ipv4NetmaskLength", StringUtils.fromInteger(createVpcRequest.getIpv4NetmaskLength()));
+        }
+
+        if (createVpcRequest.getIpv6IpamPoolId() != null) {
+            request.addParameter("Ipv6IpamPoolId", StringUtils.fromString(createVpcRequest.getIpv6IpamPoolId()));
+        }
+
+        if (createVpcRequest.getIpv6NetmaskLength() != null) {
+            request.addParameter("Ipv6NetmaskLength", StringUtils.fromInteger(createVpcRequest.getIpv6NetmaskLength()));
+        }
+
         if (createVpcRequest.getInstanceTenancy() != null) {
             request.addParameter("InstanceTenancy", StringUtils.fromString(createVpcRequest.getInstanceTenancy()));
+        }
+
+        if (createVpcRequest.getIpv6CidrBlockNetworkBorderGroup() != null) {
+            request.addParameter("Ipv6CidrBlockNetworkBorderGroup", StringUtils.fromString(createVpcRequest.getIpv6CidrBlockNetworkBorderGroup()));
+        }
+
+        com.amazonaws.internal.SdkInternalList<TagSpecification> createVpcRequestTagSpecificationsList = (com.amazonaws.internal.SdkInternalList<TagSpecification>) createVpcRequest
+                .getTagSpecifications();
+        if (!createVpcRequestTagSpecificationsList.isEmpty() || !createVpcRequestTagSpecificationsList.isAutoConstruct()) {
+            int tagSpecificationsListIndex = 1;
+
+            for (TagSpecification createVpcRequestTagSpecificationsListValue : createVpcRequestTagSpecificationsList) {
+
+                if (createVpcRequestTagSpecificationsListValue.getResourceType() != null) {
+                    request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".ResourceType",
+                            StringUtils.fromString(createVpcRequestTagSpecificationsListValue.getResourceType()));
+                }
+
+                com.amazonaws.internal.SdkInternalList<Tag> tagSpecificationTagsList = (com.amazonaws.internal.SdkInternalList<Tag>) createVpcRequestTagSpecificationsListValue
+                        .getTags();
+                if (!tagSpecificationTagsList.isEmpty() || !tagSpecificationTagsList.isAutoConstruct()) {
+                    int tagsListIndex = 1;
+
+                    for (Tag tagSpecificationTagsListValue : tagSpecificationTagsList) {
+
+                        if (tagSpecificationTagsListValue.getKey() != null) {
+                            request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Key",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getKey()));
+                        }
+
+                        if (tagSpecificationTagsListValue.getValue() != null) {
+                            request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Value",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getValue()));
+                        }
+                        tagsListIndex++;
+                    }
+                }
+                tagSpecificationsListIndex++;
+            }
         }
 
         return request;

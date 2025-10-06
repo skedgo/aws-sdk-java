@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,8 +22,8 @@ import javax.annotation.Generated;
  * </p>
  * <p>
  * When used in <code>GetMetricData</code>, it indicates the metric data to return, and whether this call is just
- * retrieving a batch set of data for one metric, or is performing a math expression on metric data. A single
- * <code>GetMetricData</code> call can include up to 100 <code>MetricDataQuery</code> structures.
+ * retrieving a batch set of data for one metric, or is performing a Metrics Insights query or a math expression. A
+ * single <code>GetMetricData</code> call can include up to 500 <code>MetricDataQuery</code> structures.
  * </p>
  * <p>
  * When used in <code>PutMetricAlarm</code>, it enables you to create an alarm based on a metric math expression. Each
@@ -32,7 +32,7 @@ import javax.annotation.Generated;
  * structures in the array. The 20 structures can include as many as 10 structures that contain a
  * <code>MetricStat</code> parameter to retrieve a metric, and as many as 10 structures that contain the
  * <code>Expression</code> parameter to perform a math expression. Of those <code>Expression</code> structures, one must
- * have <code>True</code> as the value for <code>ReturnData</code>. The result of this expression is the value the alarm
+ * have <code>true</code> as the value for <code>ReturnData</code>. The result of this expression is the value the alarm
  * watches.
  * </p>
  * <p>
@@ -75,10 +75,15 @@ public class MetricDataQuery implements Serializable, Cloneable {
     private MetricStat metricStat;
     /**
      * <p>
-     * The math expression to be performed on the returned data, if this object is performing a math expression. This
-     * expression can use the <code>Id</code> of the other metrics to refer to those metrics, and can also use the
-     * <code>Id</code> of other expressions to use the result of those expressions. For more information about metric
-     * math expressions, see <a
+     * This field can contain either a Metrics Insights query, or a metric math expression to be performed on the
+     * returned data. For more information about Metrics Insights queries, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-metrics-insights-querylanguage"
+     * >Metrics Insights query components and syntax</a> in the <i>Amazon CloudWatch User Guide</i>.
+     * </p>
+     * <p>
+     * A math expression can use the <code>Id</code> of the other metrics or queries to refer to those metrics, and can
+     * also use the <code>Id</code> of other expressions to use the result of those expressions. For more information
+     * about metric math expressions, see <a
      * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax"
      * >Metric Math Syntax and Functions</a> in the <i>Amazon CloudWatch User Guide</i>.
      * </p>
@@ -94,21 +99,50 @@ public class MetricDataQuery implements Serializable, Cloneable {
      * you know what the value represents. If the metric or expression is shown in a CloudWatch dashboard widget, the
      * label is shown. If Label is omitted, CloudWatch generates a default.
      * </p>
+     * <p>
+     * You can put dynamic expressions into a label, so that it is more descriptive. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/graph-dynamic-labels.html">Using Dynamic
+     * Labels</a>.
+     * </p>
      */
     private String label;
     /**
      * <p>
      * When used in <code>GetMetricData</code>, this option indicates whether to return the timestamps and raw data
      * values of this metric. If you are performing this call just to do math expressions and do not also need the raw
-     * data returned, you can specify <code>False</code>. If you omit this, the default of <code>True</code> is used.
+     * data returned, you can specify <code>false</code>. If you omit this, the default of <code>true</code> is used.
      * </p>
      * <p>
-     * When used in <code>PutMetricAlarm</code>, specify <code>True</code> for the one expression result to use as the
+     * When used in <code>PutMetricAlarm</code>, specify <code>true</code> for the one expression result to use as the
      * alarm. For all other metrics and expressions in the same <code>PutMetricAlarm</code> operation, specify
      * <code>ReturnData</code> as False.
      * </p>
      */
     private Boolean returnData;
+    /**
+     * <p>
+     * The granularity, in seconds, of the returned data points. For metrics with regular resolution, a period can be as
+     * short as one minute (60 seconds) and must be a multiple of 60. For high-resolution metrics that are collected at
+     * intervals of less than one minute, the period can be 1, 5, 10, 30, 60, or any multiple of 60. High-resolution
+     * metrics are those metrics stored by a <code>PutMetricData</code> operation that includes a
+     * <code>StorageResolution of 1 second</code>.
+     * </p>
+     */
+    private Integer period;
+    /**
+     * <p>
+     * The ID of the account where the metrics are located.
+     * </p>
+     * <p>
+     * If you are performing a <code>GetMetricData</code> operation in a monitoring account, use this to specify which
+     * account to retrieve this metric from.
+     * </p>
+     * <p>
+     * If you are performing a <code>PutMetricAlarm</code> operation, use this to specify which account contains the
+     * metric that the alarm is watching.
+     * </p>
+     */
+    private String accountId;
 
     /**
      * <p>
@@ -237,10 +271,15 @@ public class MetricDataQuery implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The math expression to be performed on the returned data, if this object is performing a math expression. This
-     * expression can use the <code>Id</code> of the other metrics to refer to those metrics, and can also use the
-     * <code>Id</code> of other expressions to use the result of those expressions. For more information about metric
-     * math expressions, see <a
+     * This field can contain either a Metrics Insights query, or a metric math expression to be performed on the
+     * returned data. For more information about Metrics Insights queries, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-metrics-insights-querylanguage"
+     * >Metrics Insights query components and syntax</a> in the <i>Amazon CloudWatch User Guide</i>.
+     * </p>
+     * <p>
+     * A math expression can use the <code>Id</code> of the other metrics or queries to refer to those metrics, and can
+     * also use the <code>Id</code> of other expressions to use the result of those expressions. For more information
+     * about metric math expressions, see <a
      * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax"
      * >Metric Math Syntax and Functions</a> in the <i>Amazon CloudWatch User Guide</i>.
      * </p>
@@ -250,12 +289,17 @@ public class MetricDataQuery implements Serializable, Cloneable {
      * </p>
      * 
      * @param expression
-     *        The math expression to be performed on the returned data, if this object is performing a math expression.
-     *        This expression can use the <code>Id</code> of the other metrics to refer to those metrics, and can also
-     *        use the <code>Id</code> of other expressions to use the result of those expressions. For more information
-     *        about metric math expressions, see <a href=
+     *        This field can contain either a Metrics Insights query, or a metric math expression to be performed on the
+     *        returned data. For more information about Metrics Insights queries, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-metrics-insights-querylanguage"
+     *        >Metrics Insights query components and syntax</a> in the <i>Amazon CloudWatch User Guide</i>.</p>
+     *        <p>
+     *        A math expression can use the <code>Id</code> of the other metrics or queries to refer to those metrics,
+     *        and can also use the <code>Id</code> of other expressions to use the result of those expressions. For more
+     *        information about metric math expressions, see <a href=
      *        "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax"
-     *        >Metric Math Syntax and Functions</a> in the <i>Amazon CloudWatch User Guide</i>.</p>
+     *        >Metric Math Syntax and Functions</a> in the <i>Amazon CloudWatch User Guide</i>.
+     *        </p>
      *        <p>
      *        Within each MetricDataQuery object, you must specify either <code>Expression</code> or
      *        <code>MetricStat</code> but not both.
@@ -267,10 +311,15 @@ public class MetricDataQuery implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The math expression to be performed on the returned data, if this object is performing a math expression. This
-     * expression can use the <code>Id</code> of the other metrics to refer to those metrics, and can also use the
-     * <code>Id</code> of other expressions to use the result of those expressions. For more information about metric
-     * math expressions, see <a
+     * This field can contain either a Metrics Insights query, or a metric math expression to be performed on the
+     * returned data. For more information about Metrics Insights queries, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-metrics-insights-querylanguage"
+     * >Metrics Insights query components and syntax</a> in the <i>Amazon CloudWatch User Guide</i>.
+     * </p>
+     * <p>
+     * A math expression can use the <code>Id</code> of the other metrics or queries to refer to those metrics, and can
+     * also use the <code>Id</code> of other expressions to use the result of those expressions. For more information
+     * about metric math expressions, see <a
      * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax"
      * >Metric Math Syntax and Functions</a> in the <i>Amazon CloudWatch User Guide</i>.
      * </p>
@@ -279,12 +328,17 @@ public class MetricDataQuery implements Serializable, Cloneable {
      * but not both.
      * </p>
      * 
-     * @return The math expression to be performed on the returned data, if this object is performing a math expression.
-     *         This expression can use the <code>Id</code> of the other metrics to refer to those metrics, and can also
-     *         use the <code>Id</code> of other expressions to use the result of those expressions. For more information
-     *         about metric math expressions, see <a href=
+     * @return This field can contain either a Metrics Insights query, or a metric math expression to be performed on
+     *         the returned data. For more information about Metrics Insights queries, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-metrics-insights-querylanguage"
+     *         >Metrics Insights query components and syntax</a> in the <i>Amazon CloudWatch User Guide</i>.</p>
+     *         <p>
+     *         A math expression can use the <code>Id</code> of the other metrics or queries to refer to those metrics,
+     *         and can also use the <code>Id</code> of other expressions to use the result of those expressions. For
+     *         more information about metric math expressions, see <a href=
      *         "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax"
-     *         >Metric Math Syntax and Functions</a> in the <i>Amazon CloudWatch User Guide</i>.</p>
+     *         >Metric Math Syntax and Functions</a> in the <i>Amazon CloudWatch User Guide</i>.
+     *         </p>
      *         <p>
      *         Within each MetricDataQuery object, you must specify either <code>Expression</code> or
      *         <code>MetricStat</code> but not both.
@@ -296,10 +350,15 @@ public class MetricDataQuery implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The math expression to be performed on the returned data, if this object is performing a math expression. This
-     * expression can use the <code>Id</code> of the other metrics to refer to those metrics, and can also use the
-     * <code>Id</code> of other expressions to use the result of those expressions. For more information about metric
-     * math expressions, see <a
+     * This field can contain either a Metrics Insights query, or a metric math expression to be performed on the
+     * returned data. For more information about Metrics Insights queries, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-metrics-insights-querylanguage"
+     * >Metrics Insights query components and syntax</a> in the <i>Amazon CloudWatch User Guide</i>.
+     * </p>
+     * <p>
+     * A math expression can use the <code>Id</code> of the other metrics or queries to refer to those metrics, and can
+     * also use the <code>Id</code> of other expressions to use the result of those expressions. For more information
+     * about metric math expressions, see <a
      * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax"
      * >Metric Math Syntax and Functions</a> in the <i>Amazon CloudWatch User Guide</i>.
      * </p>
@@ -309,12 +368,17 @@ public class MetricDataQuery implements Serializable, Cloneable {
      * </p>
      * 
      * @param expression
-     *        The math expression to be performed on the returned data, if this object is performing a math expression.
-     *        This expression can use the <code>Id</code> of the other metrics to refer to those metrics, and can also
-     *        use the <code>Id</code> of other expressions to use the result of those expressions. For more information
-     *        about metric math expressions, see <a href=
+     *        This field can contain either a Metrics Insights query, or a metric math expression to be performed on the
+     *        returned data. For more information about Metrics Insights queries, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch-metrics-insights-querylanguage"
+     *        >Metrics Insights query components and syntax</a> in the <i>Amazon CloudWatch User Guide</i>.</p>
+     *        <p>
+     *        A math expression can use the <code>Id</code> of the other metrics or queries to refer to those metrics,
+     *        and can also use the <code>Id</code> of other expressions to use the result of those expressions. For more
+     *        information about metric math expressions, see <a href=
      *        "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax"
-     *        >Metric Math Syntax and Functions</a> in the <i>Amazon CloudWatch User Guide</i>.</p>
+     *        >Metric Math Syntax and Functions</a> in the <i>Amazon CloudWatch User Guide</i>.
+     *        </p>
      *        <p>
      *        Within each MetricDataQuery object, you must specify either <code>Expression</code> or
      *        <code>MetricStat</code> but not both.
@@ -332,11 +396,20 @@ public class MetricDataQuery implements Serializable, Cloneable {
      * you know what the value represents. If the metric or expression is shown in a CloudWatch dashboard widget, the
      * label is shown. If Label is omitted, CloudWatch generates a default.
      * </p>
+     * <p>
+     * You can put dynamic expressions into a label, so that it is more descriptive. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/graph-dynamic-labels.html">Using Dynamic
+     * Labels</a>.
+     * </p>
      * 
      * @param label
      *        A human-readable label for this metric or expression. This is especially useful if this is an expression,
      *        so that you know what the value represents. If the metric or expression is shown in a CloudWatch dashboard
-     *        widget, the label is shown. If Label is omitted, CloudWatch generates a default.
+     *        widget, the label is shown. If Label is omitted, CloudWatch generates a default.</p>
+     *        <p>
+     *        You can put dynamic expressions into a label, so that it is more descriptive. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/graph-dynamic-labels.html">Using
+     *        Dynamic Labels</a>.
      */
 
     public void setLabel(String label) {
@@ -349,10 +422,19 @@ public class MetricDataQuery implements Serializable, Cloneable {
      * you know what the value represents. If the metric or expression is shown in a CloudWatch dashboard widget, the
      * label is shown. If Label is omitted, CloudWatch generates a default.
      * </p>
+     * <p>
+     * You can put dynamic expressions into a label, so that it is more descriptive. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/graph-dynamic-labels.html">Using Dynamic
+     * Labels</a>.
+     * </p>
      * 
      * @return A human-readable label for this metric or expression. This is especially useful if this is an expression,
      *         so that you know what the value represents. If the metric or expression is shown in a CloudWatch
-     *         dashboard widget, the label is shown. If Label is omitted, CloudWatch generates a default.
+     *         dashboard widget, the label is shown. If Label is omitted, CloudWatch generates a default.</p>
+     *         <p>
+     *         You can put dynamic expressions into a label, so that it is more descriptive. For more information, see
+     *         <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/graph-dynamic-labels.html">Using
+     *         Dynamic Labels</a>.
      */
 
     public String getLabel() {
@@ -365,11 +447,20 @@ public class MetricDataQuery implements Serializable, Cloneable {
      * you know what the value represents. If the metric or expression is shown in a CloudWatch dashboard widget, the
      * label is shown. If Label is omitted, CloudWatch generates a default.
      * </p>
+     * <p>
+     * You can put dynamic expressions into a label, so that it is more descriptive. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/graph-dynamic-labels.html">Using Dynamic
+     * Labels</a>.
+     * </p>
      * 
      * @param label
      *        A human-readable label for this metric or expression. This is especially useful if this is an expression,
      *        so that you know what the value represents. If the metric or expression is shown in a CloudWatch dashboard
-     *        widget, the label is shown. If Label is omitted, CloudWatch generates a default.
+     *        widget, the label is shown. If Label is omitted, CloudWatch generates a default.</p>
+     *        <p>
+     *        You can put dynamic expressions into a label, so that it is more descriptive. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/graph-dynamic-labels.html">Using
+     *        Dynamic Labels</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -382,10 +473,10 @@ public class MetricDataQuery implements Serializable, Cloneable {
      * <p>
      * When used in <code>GetMetricData</code>, this option indicates whether to return the timestamps and raw data
      * values of this metric. If you are performing this call just to do math expressions and do not also need the raw
-     * data returned, you can specify <code>False</code>. If you omit this, the default of <code>True</code> is used.
+     * data returned, you can specify <code>false</code>. If you omit this, the default of <code>true</code> is used.
      * </p>
      * <p>
-     * When used in <code>PutMetricAlarm</code>, specify <code>True</code> for the one expression result to use as the
+     * When used in <code>PutMetricAlarm</code>, specify <code>true</code> for the one expression result to use as the
      * alarm. For all other metrics and expressions in the same <code>PutMetricAlarm</code> operation, specify
      * <code>ReturnData</code> as False.
      * </p>
@@ -393,10 +484,10 @@ public class MetricDataQuery implements Serializable, Cloneable {
      * @param returnData
      *        When used in <code>GetMetricData</code>, this option indicates whether to return the timestamps and raw
      *        data values of this metric. If you are performing this call just to do math expressions and do not also
-     *        need the raw data returned, you can specify <code>False</code>. If you omit this, the default of
-     *        <code>True</code> is used.</p>
+     *        need the raw data returned, you can specify <code>false</code>. If you omit this, the default of
+     *        <code>true</code> is used.</p>
      *        <p>
-     *        When used in <code>PutMetricAlarm</code>, specify <code>True</code> for the one expression result to use
+     *        When used in <code>PutMetricAlarm</code>, specify <code>true</code> for the one expression result to use
      *        as the alarm. For all other metrics and expressions in the same <code>PutMetricAlarm</code> operation,
      *        specify <code>ReturnData</code> as False.
      */
@@ -409,20 +500,20 @@ public class MetricDataQuery implements Serializable, Cloneable {
      * <p>
      * When used in <code>GetMetricData</code>, this option indicates whether to return the timestamps and raw data
      * values of this metric. If you are performing this call just to do math expressions and do not also need the raw
-     * data returned, you can specify <code>False</code>. If you omit this, the default of <code>True</code> is used.
+     * data returned, you can specify <code>false</code>. If you omit this, the default of <code>true</code> is used.
      * </p>
      * <p>
-     * When used in <code>PutMetricAlarm</code>, specify <code>True</code> for the one expression result to use as the
+     * When used in <code>PutMetricAlarm</code>, specify <code>true</code> for the one expression result to use as the
      * alarm. For all other metrics and expressions in the same <code>PutMetricAlarm</code> operation, specify
      * <code>ReturnData</code> as False.
      * </p>
      * 
      * @return When used in <code>GetMetricData</code>, this option indicates whether to return the timestamps and raw
      *         data values of this metric. If you are performing this call just to do math expressions and do not also
-     *         need the raw data returned, you can specify <code>False</code>. If you omit this, the default of
-     *         <code>True</code> is used.</p>
+     *         need the raw data returned, you can specify <code>false</code>. If you omit this, the default of
+     *         <code>true</code> is used.</p>
      *         <p>
-     *         When used in <code>PutMetricAlarm</code>, specify <code>True</code> for the one expression result to use
+     *         When used in <code>PutMetricAlarm</code>, specify <code>true</code> for the one expression result to use
      *         as the alarm. For all other metrics and expressions in the same <code>PutMetricAlarm</code> operation,
      *         specify <code>ReturnData</code> as False.
      */
@@ -435,10 +526,10 @@ public class MetricDataQuery implements Serializable, Cloneable {
      * <p>
      * When used in <code>GetMetricData</code>, this option indicates whether to return the timestamps and raw data
      * values of this metric. If you are performing this call just to do math expressions and do not also need the raw
-     * data returned, you can specify <code>False</code>. If you omit this, the default of <code>True</code> is used.
+     * data returned, you can specify <code>false</code>. If you omit this, the default of <code>true</code> is used.
      * </p>
      * <p>
-     * When used in <code>PutMetricAlarm</code>, specify <code>True</code> for the one expression result to use as the
+     * When used in <code>PutMetricAlarm</code>, specify <code>true</code> for the one expression result to use as the
      * alarm. For all other metrics and expressions in the same <code>PutMetricAlarm</code> operation, specify
      * <code>ReturnData</code> as False.
      * </p>
@@ -446,10 +537,10 @@ public class MetricDataQuery implements Serializable, Cloneable {
      * @param returnData
      *        When used in <code>GetMetricData</code>, this option indicates whether to return the timestamps and raw
      *        data values of this metric. If you are performing this call just to do math expressions and do not also
-     *        need the raw data returned, you can specify <code>False</code>. If you omit this, the default of
-     *        <code>True</code> is used.</p>
+     *        need the raw data returned, you can specify <code>false</code>. If you omit this, the default of
+     *        <code>true</code> is used.</p>
      *        <p>
-     *        When used in <code>PutMetricAlarm</code>, specify <code>True</code> for the one expression result to use
+     *        When used in <code>PutMetricAlarm</code>, specify <code>true</code> for the one expression result to use
      *        as the alarm. For all other metrics and expressions in the same <code>PutMetricAlarm</code> operation,
      *        specify <code>ReturnData</code> as False.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -464,26 +555,175 @@ public class MetricDataQuery implements Serializable, Cloneable {
      * <p>
      * When used in <code>GetMetricData</code>, this option indicates whether to return the timestamps and raw data
      * values of this metric. If you are performing this call just to do math expressions and do not also need the raw
-     * data returned, you can specify <code>False</code>. If you omit this, the default of <code>True</code> is used.
+     * data returned, you can specify <code>false</code>. If you omit this, the default of <code>true</code> is used.
      * </p>
      * <p>
-     * When used in <code>PutMetricAlarm</code>, specify <code>True</code> for the one expression result to use as the
+     * When used in <code>PutMetricAlarm</code>, specify <code>true</code> for the one expression result to use as the
      * alarm. For all other metrics and expressions in the same <code>PutMetricAlarm</code> operation, specify
      * <code>ReturnData</code> as False.
      * </p>
      * 
      * @return When used in <code>GetMetricData</code>, this option indicates whether to return the timestamps and raw
      *         data values of this metric. If you are performing this call just to do math expressions and do not also
-     *         need the raw data returned, you can specify <code>False</code>. If you omit this, the default of
-     *         <code>True</code> is used.</p>
+     *         need the raw data returned, you can specify <code>false</code>. If you omit this, the default of
+     *         <code>true</code> is used.</p>
      *         <p>
-     *         When used in <code>PutMetricAlarm</code>, specify <code>True</code> for the one expression result to use
+     *         When used in <code>PutMetricAlarm</code>, specify <code>true</code> for the one expression result to use
      *         as the alarm. For all other metrics and expressions in the same <code>PutMetricAlarm</code> operation,
      *         specify <code>ReturnData</code> as False.
      */
 
     public Boolean isReturnData() {
         return this.returnData;
+    }
+
+    /**
+     * <p>
+     * The granularity, in seconds, of the returned data points. For metrics with regular resolution, a period can be as
+     * short as one minute (60 seconds) and must be a multiple of 60. For high-resolution metrics that are collected at
+     * intervals of less than one minute, the period can be 1, 5, 10, 30, 60, or any multiple of 60. High-resolution
+     * metrics are those metrics stored by a <code>PutMetricData</code> operation that includes a
+     * <code>StorageResolution of 1 second</code>.
+     * </p>
+     * 
+     * @param period
+     *        The granularity, in seconds, of the returned data points. For metrics with regular resolution, a period
+     *        can be as short as one minute (60 seconds) and must be a multiple of 60. For high-resolution metrics that
+     *        are collected at intervals of less than one minute, the period can be 1, 5, 10, 30, 60, or any multiple of
+     *        60. High-resolution metrics are those metrics stored by a <code>PutMetricData</code> operation that
+     *        includes a <code>StorageResolution of 1 second</code>.
+     */
+
+    public void setPeriod(Integer period) {
+        this.period = period;
+    }
+
+    /**
+     * <p>
+     * The granularity, in seconds, of the returned data points. For metrics with regular resolution, a period can be as
+     * short as one minute (60 seconds) and must be a multiple of 60. For high-resolution metrics that are collected at
+     * intervals of less than one minute, the period can be 1, 5, 10, 30, 60, or any multiple of 60. High-resolution
+     * metrics are those metrics stored by a <code>PutMetricData</code> operation that includes a
+     * <code>StorageResolution of 1 second</code>.
+     * </p>
+     * 
+     * @return The granularity, in seconds, of the returned data points. For metrics with regular resolution, a period
+     *         can be as short as one minute (60 seconds) and must be a multiple of 60. For high-resolution metrics that
+     *         are collected at intervals of less than one minute, the period can be 1, 5, 10, 30, 60, or any multiple
+     *         of 60. High-resolution metrics are those metrics stored by a <code>PutMetricData</code> operation that
+     *         includes a <code>StorageResolution of 1 second</code>.
+     */
+
+    public Integer getPeriod() {
+        return this.period;
+    }
+
+    /**
+     * <p>
+     * The granularity, in seconds, of the returned data points. For metrics with regular resolution, a period can be as
+     * short as one minute (60 seconds) and must be a multiple of 60. For high-resolution metrics that are collected at
+     * intervals of less than one minute, the period can be 1, 5, 10, 30, 60, or any multiple of 60. High-resolution
+     * metrics are those metrics stored by a <code>PutMetricData</code> operation that includes a
+     * <code>StorageResolution of 1 second</code>.
+     * </p>
+     * 
+     * @param period
+     *        The granularity, in seconds, of the returned data points. For metrics with regular resolution, a period
+     *        can be as short as one minute (60 seconds) and must be a multiple of 60. For high-resolution metrics that
+     *        are collected at intervals of less than one minute, the period can be 1, 5, 10, 30, 60, or any multiple of
+     *        60. High-resolution metrics are those metrics stored by a <code>PutMetricData</code> operation that
+     *        includes a <code>StorageResolution of 1 second</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MetricDataQuery withPeriod(Integer period) {
+        setPeriod(period);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the account where the metrics are located.
+     * </p>
+     * <p>
+     * If you are performing a <code>GetMetricData</code> operation in a monitoring account, use this to specify which
+     * account to retrieve this metric from.
+     * </p>
+     * <p>
+     * If you are performing a <code>PutMetricAlarm</code> operation, use this to specify which account contains the
+     * metric that the alarm is watching.
+     * </p>
+     * 
+     * @param accountId
+     *        The ID of the account where the metrics are located.</p>
+     *        <p>
+     *        If you are performing a <code>GetMetricData</code> operation in a monitoring account, use this to specify
+     *        which account to retrieve this metric from.
+     *        </p>
+     *        <p>
+     *        If you are performing a <code>PutMetricAlarm</code> operation, use this to specify which account contains
+     *        the metric that the alarm is watching.
+     */
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    /**
+     * <p>
+     * The ID of the account where the metrics are located.
+     * </p>
+     * <p>
+     * If you are performing a <code>GetMetricData</code> operation in a monitoring account, use this to specify which
+     * account to retrieve this metric from.
+     * </p>
+     * <p>
+     * If you are performing a <code>PutMetricAlarm</code> operation, use this to specify which account contains the
+     * metric that the alarm is watching.
+     * </p>
+     * 
+     * @return The ID of the account where the metrics are located.</p>
+     *         <p>
+     *         If you are performing a <code>GetMetricData</code> operation in a monitoring account, use this to specify
+     *         which account to retrieve this metric from.
+     *         </p>
+     *         <p>
+     *         If you are performing a <code>PutMetricAlarm</code> operation, use this to specify which account contains
+     *         the metric that the alarm is watching.
+     */
+
+    public String getAccountId() {
+        return this.accountId;
+    }
+
+    /**
+     * <p>
+     * The ID of the account where the metrics are located.
+     * </p>
+     * <p>
+     * If you are performing a <code>GetMetricData</code> operation in a monitoring account, use this to specify which
+     * account to retrieve this metric from.
+     * </p>
+     * <p>
+     * If you are performing a <code>PutMetricAlarm</code> operation, use this to specify which account contains the
+     * metric that the alarm is watching.
+     * </p>
+     * 
+     * @param accountId
+     *        The ID of the account where the metrics are located.</p>
+     *        <p>
+     *        If you are performing a <code>GetMetricData</code> operation in a monitoring account, use this to specify
+     *        which account to retrieve this metric from.
+     *        </p>
+     *        <p>
+     *        If you are performing a <code>PutMetricAlarm</code> operation, use this to specify which account contains
+     *        the metric that the alarm is watching.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MetricDataQuery withAccountId(String accountId) {
+        setAccountId(accountId);
+        return this;
     }
 
     /**
@@ -507,7 +747,11 @@ public class MetricDataQuery implements Serializable, Cloneable {
         if (getLabel() != null)
             sb.append("Label: ").append(getLabel()).append(",");
         if (getReturnData() != null)
-            sb.append("ReturnData: ").append(getReturnData());
+            sb.append("ReturnData: ").append(getReturnData()).append(",");
+        if (getPeriod() != null)
+            sb.append("Period: ").append(getPeriod()).append(",");
+        if (getAccountId() != null)
+            sb.append("AccountId: ").append(getAccountId());
         sb.append("}");
         return sb.toString();
     }
@@ -542,6 +786,14 @@ public class MetricDataQuery implements Serializable, Cloneable {
             return false;
         if (other.getReturnData() != null && other.getReturnData().equals(this.getReturnData()) == false)
             return false;
+        if (other.getPeriod() == null ^ this.getPeriod() == null)
+            return false;
+        if (other.getPeriod() != null && other.getPeriod().equals(this.getPeriod()) == false)
+            return false;
+        if (other.getAccountId() == null ^ this.getAccountId() == null)
+            return false;
+        if (other.getAccountId() != null && other.getAccountId().equals(this.getAccountId()) == false)
+            return false;
         return true;
     }
 
@@ -555,6 +807,8 @@ public class MetricDataQuery implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getExpression() == null) ? 0 : getExpression().hashCode());
         hashCode = prime * hashCode + ((getLabel() == null) ? 0 : getLabel().hashCode());
         hashCode = prime * hashCode + ((getReturnData() == null) ? 0 : getReturnData().hashCode());
+        hashCode = prime * hashCode + ((getPeriod() == null) ? 0 : getPeriod().hashCode());
+        hashCode = prime * hashCode + ((getAccountId() == null) ? 0 : getAccountId().hashCode());
         return hashCode;
     }
 

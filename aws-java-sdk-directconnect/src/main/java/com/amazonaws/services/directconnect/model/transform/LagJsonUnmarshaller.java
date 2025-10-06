@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -92,9 +92,15 @@ public class LagJsonUnmarshaller implements Unmarshaller<Lag, JsonUnmarshallerCo
                     context.nextToken();
                     lag.setAwsDeviceV2(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("awsLogicalDeviceId", targetDepth)) {
+                    context.nextToken();
+                    lag.setAwsLogicalDeviceId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("connections", targetDepth)) {
                     context.nextToken();
-                    lag.setConnections(new ListUnmarshaller<Connection>(ConnectionJsonUnmarshaller.getInstance()).unmarshall(context));
+                    lag.setConnections(new ListUnmarshaller<Connection>(ConnectionJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("allowsHostedConnections", targetDepth)) {
                     context.nextToken();
@@ -110,7 +116,27 @@ public class LagJsonUnmarshaller implements Unmarshaller<Lag, JsonUnmarshallerCo
                 }
                 if (context.testExpression("tags", targetDepth)) {
                     context.nextToken();
-                    lag.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance()).unmarshall(context));
+                    lag.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("providerName", targetDepth)) {
+                    context.nextToken();
+                    lag.setProviderName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("macSecCapable", targetDepth)) {
+                    context.nextToken();
+                    lag.setMacSecCapable(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("encryptionMode", targetDepth)) {
+                    context.nextToken();
+                    lag.setEncryptionMode(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("macSecKeys", targetDepth)) {
+                    context.nextToken();
+                    lag.setMacSecKeys(new ListUnmarshaller<MacSecKey>(MacSecKeyJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

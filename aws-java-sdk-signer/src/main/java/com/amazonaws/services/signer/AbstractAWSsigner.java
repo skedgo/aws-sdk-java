@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,11 @@ public class AbstractAWSsigner implements AWSsigner {
     }
 
     @Override
+    public AddProfilePermissionResult addProfilePermission(AddProfilePermissionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CancelSigningProfileResult cancelSigningProfile(CancelSigningProfileRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -39,12 +44,22 @@ public class AbstractAWSsigner implements AWSsigner {
     }
 
     @Override
+    public GetRevocationStatusResult getRevocationStatus(GetRevocationStatusRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetSigningPlatformResult getSigningPlatform(GetSigningPlatformRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public GetSigningProfileResult getSigningProfile(GetSigningProfileRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListProfilePermissionsResult listProfilePermissions(ListProfilePermissionsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -64,12 +79,47 @@ public class AbstractAWSsigner implements AWSsigner {
     }
 
     @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public PutSigningProfileResult putSigningProfile(PutSigningProfileRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public RemoveProfilePermissionResult removeProfilePermission(RemoveProfilePermissionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public RevokeSignatureResult revokeSignature(RevokeSignatureRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public RevokeSigningProfileResult revokeSigningProfile(RevokeSigningProfileRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SignPayloadResult signPayload(SignPayloadRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StartSigningJobResult startSigningJob(StartSigningJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

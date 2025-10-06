@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,8 +30,17 @@ public class ModifyFleetRequest extends AmazonWebServiceRequest implements Seria
      * Indicates whether running instances should be terminated if the total target capacity of the EC2 Fleet is
      * decreased below the current size of the EC2 Fleet.
      * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
+     * </p>
      */
     private String excessCapacityTerminationPolicy;
+    /**
+     * <p>
+     * The launch template and overrides.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<FleetLaunchTemplateConfigRequest> launchTemplateConfigs;
     /**
      * <p>
      * The ID of the EC2 Fleet.
@@ -44,16 +53,27 @@ public class ModifyFleetRequest extends AmazonWebServiceRequest implements Seria
      * </p>
      */
     private TargetCapacitySpecificationRequest targetCapacitySpecification;
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     */
+    private String context;
 
     /**
      * <p>
      * Indicates whether running instances should be terminated if the total target capacity of the EC2 Fleet is
      * decreased below the current size of the EC2 Fleet.
      * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
+     * </p>
      * 
      * @param excessCapacityTerminationPolicy
      *        Indicates whether running instances should be terminated if the total target capacity of the EC2 Fleet is
-     *        decreased below the current size of the EC2 Fleet.
+     *        decreased below the current size of the EC2 Fleet.</p>
+     *        <p>
+     *        Supported only for fleets of type <code>maintain</code>.
      * @see FleetExcessCapacityTerminationPolicy
      */
 
@@ -66,9 +86,14 @@ public class ModifyFleetRequest extends AmazonWebServiceRequest implements Seria
      * Indicates whether running instances should be terminated if the total target capacity of the EC2 Fleet is
      * decreased below the current size of the EC2 Fleet.
      * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
+     * </p>
      * 
      * @return Indicates whether running instances should be terminated if the total target capacity of the EC2 Fleet is
-     *         decreased below the current size of the EC2 Fleet.
+     *         decreased below the current size of the EC2 Fleet.</p>
+     *         <p>
+     *         Supported only for fleets of type <code>maintain</code>.
      * @see FleetExcessCapacityTerminationPolicy
      */
 
@@ -81,10 +106,15 @@ public class ModifyFleetRequest extends AmazonWebServiceRequest implements Seria
      * Indicates whether running instances should be terminated if the total target capacity of the EC2 Fleet is
      * decreased below the current size of the EC2 Fleet.
      * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
+     * </p>
      * 
      * @param excessCapacityTerminationPolicy
      *        Indicates whether running instances should be terminated if the total target capacity of the EC2 Fleet is
-     *        decreased below the current size of the EC2 Fleet.
+     *        decreased below the current size of the EC2 Fleet.</p>
+     *        <p>
+     *        Supported only for fleets of type <code>maintain</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FleetExcessCapacityTerminationPolicy
      */
@@ -99,16 +129,94 @@ public class ModifyFleetRequest extends AmazonWebServiceRequest implements Seria
      * Indicates whether running instances should be terminated if the total target capacity of the EC2 Fleet is
      * decreased below the current size of the EC2 Fleet.
      * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
+     * </p>
      * 
      * @param excessCapacityTerminationPolicy
      *        Indicates whether running instances should be terminated if the total target capacity of the EC2 Fleet is
-     *        decreased below the current size of the EC2 Fleet.
+     *        decreased below the current size of the EC2 Fleet.</p>
+     *        <p>
+     *        Supported only for fleets of type <code>maintain</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FleetExcessCapacityTerminationPolicy
      */
 
     public ModifyFleetRequest withExcessCapacityTerminationPolicy(FleetExcessCapacityTerminationPolicy excessCapacityTerminationPolicy) {
         this.excessCapacityTerminationPolicy = excessCapacityTerminationPolicy.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The launch template and overrides.
+     * </p>
+     * 
+     * @return The launch template and overrides.
+     */
+
+    public java.util.List<FleetLaunchTemplateConfigRequest> getLaunchTemplateConfigs() {
+        if (launchTemplateConfigs == null) {
+            launchTemplateConfigs = new com.amazonaws.internal.SdkInternalList<FleetLaunchTemplateConfigRequest>();
+        }
+        return launchTemplateConfigs;
+    }
+
+    /**
+     * <p>
+     * The launch template and overrides.
+     * </p>
+     * 
+     * @param launchTemplateConfigs
+     *        The launch template and overrides.
+     */
+
+    public void setLaunchTemplateConfigs(java.util.Collection<FleetLaunchTemplateConfigRequest> launchTemplateConfigs) {
+        if (launchTemplateConfigs == null) {
+            this.launchTemplateConfigs = null;
+            return;
+        }
+
+        this.launchTemplateConfigs = new com.amazonaws.internal.SdkInternalList<FleetLaunchTemplateConfigRequest>(launchTemplateConfigs);
+    }
+
+    /**
+     * <p>
+     * The launch template and overrides.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setLaunchTemplateConfigs(java.util.Collection)} or
+     * {@link #withLaunchTemplateConfigs(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param launchTemplateConfigs
+     *        The launch template and overrides.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyFleetRequest withLaunchTemplateConfigs(FleetLaunchTemplateConfigRequest... launchTemplateConfigs) {
+        if (this.launchTemplateConfigs == null) {
+            setLaunchTemplateConfigs(new com.amazonaws.internal.SdkInternalList<FleetLaunchTemplateConfigRequest>(launchTemplateConfigs.length));
+        }
+        for (FleetLaunchTemplateConfigRequest ele : launchTemplateConfigs) {
+            this.launchTemplateConfigs.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The launch template and overrides.
+     * </p>
+     * 
+     * @param launchTemplateConfigs
+     *        The launch template and overrides.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyFleetRequest withLaunchTemplateConfigs(java.util.Collection<FleetLaunchTemplateConfigRequest> launchTemplateConfigs) {
+        setLaunchTemplateConfigs(launchTemplateConfigs);
         return this;
     }
 
@@ -193,6 +301,46 @@ public class ModifyFleetRequest extends AmazonWebServiceRequest implements Seria
     }
 
     /**
+     * <p>
+     * Reserved.
+     * </p>
+     * 
+     * @param context
+     *        Reserved.
+     */
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     * 
+     * @return Reserved.
+     */
+
+    public String getContext() {
+        return this.context;
+    }
+
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     * 
+     * @param context
+     *        Reserved.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyFleetRequest withContext(String context) {
+        setContext(context);
+        return this;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -217,10 +365,14 @@ public class ModifyFleetRequest extends AmazonWebServiceRequest implements Seria
         sb.append("{");
         if (getExcessCapacityTerminationPolicy() != null)
             sb.append("ExcessCapacityTerminationPolicy: ").append(getExcessCapacityTerminationPolicy()).append(",");
+        if (getLaunchTemplateConfigs() != null)
+            sb.append("LaunchTemplateConfigs: ").append(getLaunchTemplateConfigs()).append(",");
         if (getFleetId() != null)
             sb.append("FleetId: ").append(getFleetId()).append(",");
         if (getTargetCapacitySpecification() != null)
-            sb.append("TargetCapacitySpecification: ").append(getTargetCapacitySpecification());
+            sb.append("TargetCapacitySpecification: ").append(getTargetCapacitySpecification()).append(",");
+        if (getContext() != null)
+            sb.append("Context: ").append(getContext());
         sb.append("}");
         return sb.toString();
     }
@@ -240,6 +392,10 @@ public class ModifyFleetRequest extends AmazonWebServiceRequest implements Seria
         if (other.getExcessCapacityTerminationPolicy() != null
                 && other.getExcessCapacityTerminationPolicy().equals(this.getExcessCapacityTerminationPolicy()) == false)
             return false;
+        if (other.getLaunchTemplateConfigs() == null ^ this.getLaunchTemplateConfigs() == null)
+            return false;
+        if (other.getLaunchTemplateConfigs() != null && other.getLaunchTemplateConfigs().equals(this.getLaunchTemplateConfigs()) == false)
+            return false;
         if (other.getFleetId() == null ^ this.getFleetId() == null)
             return false;
         if (other.getFleetId() != null && other.getFleetId().equals(this.getFleetId()) == false)
@@ -247,6 +403,10 @@ public class ModifyFleetRequest extends AmazonWebServiceRequest implements Seria
         if (other.getTargetCapacitySpecification() == null ^ this.getTargetCapacitySpecification() == null)
             return false;
         if (other.getTargetCapacitySpecification() != null && other.getTargetCapacitySpecification().equals(this.getTargetCapacitySpecification()) == false)
+            return false;
+        if (other.getContext() == null ^ this.getContext() == null)
+            return false;
+        if (other.getContext() != null && other.getContext().equals(this.getContext()) == false)
             return false;
         return true;
     }
@@ -257,8 +417,10 @@ public class ModifyFleetRequest extends AmazonWebServiceRequest implements Seria
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getExcessCapacityTerminationPolicy() == null) ? 0 : getExcessCapacityTerminationPolicy().hashCode());
+        hashCode = prime * hashCode + ((getLaunchTemplateConfigs() == null) ? 0 : getLaunchTemplateConfigs().hashCode());
         hashCode = prime * hashCode + ((getFleetId() == null) ? 0 : getFleetId().hashCode());
         hashCode = prime * hashCode + ((getTargetCapacitySpecification() == null) ? 0 : getTargetCapacitySpecification().hashCode());
+        hashCode = prime * hashCode + ((getContext() == null) ? 0 : getContext().hashCode());
         return hashCode;
     }
 

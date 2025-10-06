@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,6 +55,11 @@ public class ReplicationGroupStaxUnmarshaller implements Unmarshaller<Replicatio
                     continue;
                 }
 
+                if (context.testExpression("GlobalReplicationGroupInfo", targetDepth)) {
+                    replicationGroup.setGlobalReplicationGroupInfo(GlobalReplicationGroupInfoStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("Status", targetDepth)) {
                     replicationGroup.setStatus(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
@@ -95,6 +100,11 @@ public class ReplicationGroupStaxUnmarshaller implements Unmarshaller<Replicatio
                     continue;
                 }
 
+                if (context.testExpression("MultiAZ", targetDepth)) {
+                    replicationGroup.setMultiAZ(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("ConfigurationEndpoint", targetDepth)) {
                     replicationGroup.setConfigurationEndpoint(EndpointStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
@@ -125,6 +135,11 @@ public class ReplicationGroupStaxUnmarshaller implements Unmarshaller<Replicatio
                     continue;
                 }
 
+                if (context.testExpression("AuthTokenLastModifiedDate", targetDepth)) {
+                    replicationGroup.setAuthTokenLastModifiedDate(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("TransitEncryptionEnabled", targetDepth)) {
                     replicationGroup.setTransitEncryptionEnabled(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
@@ -132,6 +147,81 @@ public class ReplicationGroupStaxUnmarshaller implements Unmarshaller<Replicatio
 
                 if (context.testExpression("AtRestEncryptionEnabled", targetDepth)) {
                     replicationGroup.setAtRestEncryptionEnabled(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MemberClustersOutpostArns", targetDepth)) {
+                    replicationGroup.withMemberClustersOutpostArns(new ArrayList<String>());
+                    continue;
+                }
+
+                if (context.testExpression("MemberClustersOutpostArns/ReplicationGroupOutpostArn", targetDepth)) {
+                    replicationGroup.withMemberClustersOutpostArns(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("KmsKeyId", targetDepth)) {
+                    replicationGroup.setKmsKeyId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ARN", targetDepth)) {
+                    replicationGroup.setARN(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("UserGroupIds", targetDepth)) {
+                    replicationGroup.withUserGroupIds(new ArrayList<String>());
+                    continue;
+                }
+
+                if (context.testExpression("UserGroupIds/member", targetDepth)) {
+                    replicationGroup.withUserGroupIds(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("LogDeliveryConfigurations", targetDepth)) {
+                    replicationGroup.withLogDeliveryConfigurations(new ArrayList<LogDeliveryConfiguration>());
+                    continue;
+                }
+
+                if (context.testExpression("LogDeliveryConfigurations/LogDeliveryConfiguration", targetDepth)) {
+                    replicationGroup.withLogDeliveryConfigurations(LogDeliveryConfigurationStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ReplicationGroupCreateTime", targetDepth)) {
+                    replicationGroup.setReplicationGroupCreateTime(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DataTiering", targetDepth)) {
+                    replicationGroup.setDataTiering(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("AutoMinorVersionUpgrade", targetDepth)) {
+                    replicationGroup.setAutoMinorVersionUpgrade(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("NetworkType", targetDepth)) {
+                    replicationGroup.setNetworkType(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("IpDiscovery", targetDepth)) {
+                    replicationGroup.setIpDiscovery(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("TransitEncryptionMode", targetDepth)) {
+                    replicationGroup.setTransitEncryptionMode(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ClusterMode", targetDepth)) {
+                    replicationGroup.setClusterMode(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

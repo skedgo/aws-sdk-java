@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,7 +26,7 @@ import java.util.concurrent.ExecutorService;
  * notification when an asynchronous operation completes.
  * <p>
  * <p>
- * Provides translation between one source language and another of the same set of languages.
+ * Provides translation of the input content from the source language to the target language.
  * </p>
  */
 @ThreadSafe
@@ -49,7 +49,20 @@ public class AmazonTranslateAsyncClient extends AmazonTranslateClient implements
      *        Object providing client parameters.
      */
     AmazonTranslateAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Amazon Translate using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonTranslateAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -60,6 +73,72 @@ public class AmazonTranslateAsyncClient extends AmazonTranslateClient implements
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateParallelDataResult> createParallelDataAsync(CreateParallelDataRequest request) {
+
+        return createParallelDataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateParallelDataResult> createParallelDataAsync(final CreateParallelDataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateParallelDataRequest, CreateParallelDataResult> asyncHandler) {
+        final CreateParallelDataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateParallelDataResult>() {
+            @Override
+            public CreateParallelDataResult call() throws Exception {
+                CreateParallelDataResult result = null;
+
+                try {
+                    result = executeCreateParallelData(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteParallelDataResult> deleteParallelDataAsync(DeleteParallelDataRequest request) {
+
+        return deleteParallelDataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteParallelDataResult> deleteParallelDataAsync(final DeleteParallelDataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteParallelDataRequest, DeleteParallelDataResult> asyncHandler) {
+        final DeleteParallelDataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteParallelDataResult>() {
+            @Override
+            public DeleteParallelDataResult call() throws Exception {
+                DeleteParallelDataResult result = null;
+
+                try {
+                    result = executeDeleteParallelData(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -80,6 +159,72 @@ public class AmazonTranslateAsyncClient extends AmazonTranslateClient implements
 
                 try {
                     result = executeDeleteTerminology(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTextTranslationJobResult> describeTextTranslationJobAsync(DescribeTextTranslationJobRequest request) {
+
+        return describeTextTranslationJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTextTranslationJobResult> describeTextTranslationJobAsync(final DescribeTextTranslationJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeTextTranslationJobRequest, DescribeTextTranslationJobResult> asyncHandler) {
+        final DescribeTextTranslationJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeTextTranslationJobResult>() {
+            @Override
+            public DescribeTextTranslationJobResult call() throws Exception {
+                DescribeTextTranslationJobResult result = null;
+
+                try {
+                    result = executeDescribeTextTranslationJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetParallelDataResult> getParallelDataAsync(GetParallelDataRequest request) {
+
+        return getParallelDataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetParallelDataResult> getParallelDataAsync(final GetParallelDataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetParallelDataRequest, GetParallelDataResult> asyncHandler) {
+        final GetParallelDataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetParallelDataResult>() {
+            @Override
+            public GetParallelDataResult call() throws Exception {
+                GetParallelDataResult result = null;
+
+                try {
+                    result = executeGetParallelData(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -162,6 +307,105 @@ public class AmazonTranslateAsyncClient extends AmazonTranslateClient implements
     }
 
     @Override
+    public java.util.concurrent.Future<ListLanguagesResult> listLanguagesAsync(ListLanguagesRequest request) {
+
+        return listLanguagesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListLanguagesResult> listLanguagesAsync(final ListLanguagesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListLanguagesRequest, ListLanguagesResult> asyncHandler) {
+        final ListLanguagesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListLanguagesResult>() {
+            @Override
+            public ListLanguagesResult call() throws Exception {
+                ListLanguagesResult result = null;
+
+                try {
+                    result = executeListLanguages(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListParallelDataResult> listParallelDataAsync(ListParallelDataRequest request) {
+
+        return listParallelDataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListParallelDataResult> listParallelDataAsync(final ListParallelDataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListParallelDataRequest, ListParallelDataResult> asyncHandler) {
+        final ListParallelDataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListParallelDataResult>() {
+            @Override
+            public ListParallelDataResult call() throws Exception {
+                ListParallelDataResult result = null;
+
+                try {
+                    result = executeListParallelData(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+        final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTagsForResourceResult>() {
+            @Override
+            public ListTagsForResourceResult call() throws Exception {
+                ListTagsForResourceResult result = null;
+
+                try {
+                    result = executeListTagsForResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListTerminologiesResult> listTerminologiesAsync(ListTerminologiesRequest request) {
 
         return listTerminologiesAsync(request, null);
@@ -195,6 +439,171 @@ public class AmazonTranslateAsyncClient extends AmazonTranslateClient implements
     }
 
     @Override
+    public java.util.concurrent.Future<ListTextTranslationJobsResult> listTextTranslationJobsAsync(ListTextTranslationJobsRequest request) {
+
+        return listTextTranslationJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTextTranslationJobsResult> listTextTranslationJobsAsync(final ListTextTranslationJobsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTextTranslationJobsRequest, ListTextTranslationJobsResult> asyncHandler) {
+        final ListTextTranslationJobsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTextTranslationJobsResult>() {
+            @Override
+            public ListTextTranslationJobsResult call() throws Exception {
+                ListTextTranslationJobsResult result = null;
+
+                try {
+                    result = executeListTextTranslationJobs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartTextTranslationJobResult> startTextTranslationJobAsync(StartTextTranslationJobRequest request) {
+
+        return startTextTranslationJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartTextTranslationJobResult> startTextTranslationJobAsync(final StartTextTranslationJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartTextTranslationJobRequest, StartTextTranslationJobResult> asyncHandler) {
+        final StartTextTranslationJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartTextTranslationJobResult>() {
+            @Override
+            public StartTextTranslationJobResult call() throws Exception {
+                StartTextTranslationJobResult result = null;
+
+                try {
+                    result = executeStartTextTranslationJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopTextTranslationJobResult> stopTextTranslationJobAsync(StopTextTranslationJobRequest request) {
+
+        return stopTextTranslationJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopTextTranslationJobResult> stopTextTranslationJobAsync(final StopTextTranslationJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StopTextTranslationJobRequest, StopTextTranslationJobResult> asyncHandler) {
+        final StopTextTranslationJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StopTextTranslationJobResult>() {
+            @Override
+            public StopTextTranslationJobResult call() throws Exception {
+                StopTextTranslationJobResult result = null;
+
+                try {
+                    result = executeStopTextTranslationJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TranslateDocumentResult> translateDocumentAsync(TranslateDocumentRequest request) {
+
+        return translateDocumentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TranslateDocumentResult> translateDocumentAsync(final TranslateDocumentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TranslateDocumentRequest, TranslateDocumentResult> asyncHandler) {
+        final TranslateDocumentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TranslateDocumentResult>() {
+            @Override
+            public TranslateDocumentResult call() throws Exception {
+                TranslateDocumentResult result = null;
+
+                try {
+                    result = executeTranslateDocument(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<TranslateTextResult> translateTextAsync(TranslateTextRequest request) {
 
         return translateTextAsync(request, null);
@@ -212,6 +621,72 @@ public class AmazonTranslateAsyncClient extends AmazonTranslateClient implements
 
                 try {
                     result = executeTranslateText(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateParallelDataResult> updateParallelDataAsync(UpdateParallelDataRequest request) {
+
+        return updateParallelDataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateParallelDataResult> updateParallelDataAsync(final UpdateParallelDataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateParallelDataRequest, UpdateParallelDataResult> asyncHandler) {
+        final UpdateParallelDataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateParallelDataResult>() {
+            @Override
+            public UpdateParallelDataResult call() throws Exception {
+                UpdateParallelDataResult result = null;
+
+                try {
+                    result = executeUpdateParallelData(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

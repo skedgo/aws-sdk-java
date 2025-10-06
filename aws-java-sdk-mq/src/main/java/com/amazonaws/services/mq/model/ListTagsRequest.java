@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -24,11 +24,17 @@ import com.amazonaws.AmazonWebServiceRequest;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class ListTagsRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
-    /** The Amazon Resource Name (ARN) of the resource tag. */
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the resource tag.
+     * </p>
+     */
     private String resourceArn;
 
     /**
+     * <p>
      * The Amazon Resource Name (ARN) of the resource tag.
+     * </p>
      * 
      * @param resourceArn
      *        The Amazon Resource Name (ARN) of the resource tag.
@@ -39,7 +45,9 @@ public class ListTagsRequest extends com.amazonaws.AmazonWebServiceRequest imple
     }
 
     /**
+     * <p>
      * The Amazon Resource Name (ARN) of the resource tag.
+     * </p>
      * 
      * @return The Amazon Resource Name (ARN) of the resource tag.
      */
@@ -49,7 +57,9 @@ public class ListTagsRequest extends com.amazonaws.AmazonWebServiceRequest imple
     }
 
     /**
+     * <p>
      * The Amazon Resource Name (ARN) of the resource tag.
+     * </p>
      * 
      * @param resourceArn
      *        The Amazon Resource Name (ARN) of the resource tag.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,9 +27,9 @@ import com.amazonaws.services.budgets.model.*;
  * </p>
  * <p>
  * <p>
- * The AWS Budgets API enables you to use AWS Budgets to plan your service usage, service costs, and instance
- * reservations. The API reference provides descriptions, syntax, and usage examples for each of the actions and data
- * types for AWS Budgets.
+ * Use the Amazon Web Services Budgets API to plan your service usage, service costs, and instance reservations. This
+ * API reference provides descriptions, syntax, and usage examples for each of the actions and data types for the Amazon
+ * Web Services Budgets feature.
  * </p>
  * <p>
  * Budgets provide you with a way to see the following information:
@@ -47,8 +47,8 @@ import com.amazonaws.services.budgets.model.*;
  * </li>
  * <li>
  * <p>
- * Your current estimated charges from AWS, and how much your predicted usage will accrue in charges by the end of the
- * month
+ * Your current estimated charges from Amazon Web Services, and how much your predicted usage will accrue in charges by
+ * the end of the month
  * </p>
  * </li>
  * <li>
@@ -58,8 +58,8 @@ import com.amazonaws.services.budgets.model.*;
  * </li>
  * </ul>
  * <p>
- * AWS updates your budget status several times a day. Budgets track your unblended costs, subscriptions, refunds, and
- * RIs. You can create the following types of budgets:
+ * Amazon Web Services updates your budget status several times a day. Budgets track your unblended costs,
+ * subscriptions, refunds, and RIs. You can create the following types of budgets:
  * </p>
  * <ul>
  * <li>
@@ -90,7 +90,7 @@ import com.amazonaws.services.budgets.model.*;
  * Service Endpoint
  * </p>
  * <p>
- * The AWS Budgets API provides the following endpoint:
+ * The Amazon Web Services Budgets API provides the following endpoint:
  * </p>
  * <ul>
  * <li>
@@ -100,8 +100,8 @@ import com.amazonaws.services.budgets.model.*;
  * </li>
  * </ul>
  * <p>
- * For information about costs that are associated with the AWS Budgets API, see <a
- * href="https://aws.amazon.com/aws-cost-management/pricing/">AWS Cost Management Pricing</a>.
+ * For information about costs that are associated with the Amazon Web Services Budgets API, see <a
+ * href="https://aws.amazon.com/aws-cost-management/pricing/">Amazon Web Services Cost Management Pricing</a>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -191,9 +191,42 @@ public interface AWSBudgets {
      *         You've exceeded the notification or subscriber limit.
      * @throws DuplicateRecordException
      *         The budget name already exists. Budget names must be unique within an account.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @throws ServiceQuotaExceededException
+     *         You've reached the limit on the number of tags you can associate with a resource.
      * @sample AWSBudgets.CreateBudget
      */
     CreateBudgetResult createBudget(CreateBudgetRequest createBudgetRequest);
+
+    /**
+     * <p>
+     * Creates a budget action.
+     * </p>
+     * 
+     * @param createBudgetActionRequest
+     * @return Result of the CreateBudgetAction operation returned by the service.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws CreationLimitExceededException
+     *         You've exceeded the notification or subscriber limit.
+     * @throws DuplicateRecordException
+     *         The budget name already exists. Budget names must be unique within an account.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @throws ServiceQuotaExceededException
+     *         You've reached the limit on the number of tags you can associate with a resource.
+     * @sample AWSBudgets.CreateBudgetAction
+     */
+    CreateBudgetActionResult createBudgetAction(CreateBudgetActionRequest createBudgetActionRequest);
 
     /**
      * <p>
@@ -213,6 +246,10 @@ public interface AWSBudgets {
      *         You've exceeded the notification or subscriber limit.
      * @throws DuplicateRecordException
      *         The budget name already exists. Budget names must be unique within an account.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.CreateNotification
      */
     CreateNotificationResult createNotification(CreateNotificationRequest createNotificationRequest);
@@ -235,6 +272,10 @@ public interface AWSBudgets {
      *         The budget name already exists. Budget names must be unique within an account.
      * @throws NotFoundException
      *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.CreateSubscriber
      */
     CreateSubscriberResult createSubscriber(CreateSubscriberRequest createSubscriberRequest);
@@ -258,9 +299,37 @@ public interface AWSBudgets {
      *         An error on the client occurred. Typically, the cause is an invalid input value.
      * @throws NotFoundException
      *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.DeleteBudget
      */
     DeleteBudgetResult deleteBudget(DeleteBudgetRequest deleteBudgetRequest);
+
+    /**
+     * <p>
+     * Deletes a budget action.
+     * </p>
+     * 
+     * @param deleteBudgetActionRequest
+     * @return Result of the DeleteBudgetAction operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ResourceLockedException
+     *         The request was received and recognized by the server, but the server rejected that particular method for
+     *         the requested resource.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @sample AWSBudgets.DeleteBudgetAction
+     */
+    DeleteBudgetActionResult deleteBudgetAction(DeleteBudgetActionRequest deleteBudgetActionRequest);
 
     /**
      * <p>
@@ -281,6 +350,10 @@ public interface AWSBudgets {
      *         An error on the server occurred during the processing of your request. Try again later.
      * @throws NotFoundException
      *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.DeleteNotification
      */
     DeleteNotificationResult deleteNotification(DeleteNotificationRequest deleteNotificationRequest);
@@ -304,6 +377,10 @@ public interface AWSBudgets {
      *         An error on the client occurred. Typically, the cause is an invalid input value.
      * @throws NotFoundException
      *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.DeleteSubscriber
      */
     DeleteSubscriberResult deleteSubscriber(DeleteSubscriberRequest deleteSubscriberRequest);
@@ -330,9 +407,127 @@ public interface AWSBudgets {
      *         An error on the client occurred. Typically, the cause is an invalid input value.
      * @throws NotFoundException
      *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.DescribeBudget
      */
     DescribeBudgetResult describeBudget(DescribeBudgetRequest describeBudgetRequest);
+
+    /**
+     * <p>
+     * Describes a budget action detail.
+     * </p>
+     * 
+     * @param describeBudgetActionRequest
+     * @return Result of the DescribeBudgetAction operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @sample AWSBudgets.DescribeBudgetAction
+     */
+    DescribeBudgetActionResult describeBudgetAction(DescribeBudgetActionRequest describeBudgetActionRequest);
+
+    /**
+     * <p>
+     * Describes a budget action history detail.
+     * </p>
+     * 
+     * @param describeBudgetActionHistoriesRequest
+     * @return Result of the DescribeBudgetActionHistories operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws InvalidNextTokenException
+     *         The pagination token is invalid.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @sample AWSBudgets.DescribeBudgetActionHistories
+     */
+    DescribeBudgetActionHistoriesResult describeBudgetActionHistories(DescribeBudgetActionHistoriesRequest describeBudgetActionHistoriesRequest);
+
+    /**
+     * <p>
+     * Describes all of the budget actions for an account.
+     * </p>
+     * 
+     * @param describeBudgetActionsForAccountRequest
+     * @return Result of the DescribeBudgetActionsForAccount operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws InvalidNextTokenException
+     *         The pagination token is invalid.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @sample AWSBudgets.DescribeBudgetActionsForAccount
+     */
+    DescribeBudgetActionsForAccountResult describeBudgetActionsForAccount(DescribeBudgetActionsForAccountRequest describeBudgetActionsForAccountRequest);
+
+    /**
+     * <p>
+     * Describes all of the budget actions for a budget.
+     * </p>
+     * 
+     * @param describeBudgetActionsForBudgetRequest
+     * @return Result of the DescribeBudgetActionsForBudget operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws InvalidNextTokenException
+     *         The pagination token is invalid.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @sample AWSBudgets.DescribeBudgetActionsForBudget
+     */
+    DescribeBudgetActionsForBudgetResult describeBudgetActionsForBudget(DescribeBudgetActionsForBudgetRequest describeBudgetActionsForBudgetRequest);
+
+    /**
+     * <p>
+     * Lists the budget names and notifications that are associated with an account.
+     * </p>
+     * 
+     * @param describeBudgetNotificationsForAccountRequest
+     * @return Result of the DescribeBudgetNotificationsForAccount operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws InvalidNextTokenException
+     *         The pagination token is invalid.
+     * @throws ExpiredNextTokenException
+     *         The pagination token expired.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @sample AWSBudgets.DescribeBudgetNotificationsForAccount
+     */
+    DescribeBudgetNotificationsForAccountResult describeBudgetNotificationsForAccount(
+            DescribeBudgetNotificationsForAccountRequest describeBudgetNotificationsForAccountRequest);
 
     /**
      * <p>
@@ -352,6 +547,10 @@ public interface AWSBudgets {
      *         The pagination token is invalid.
      * @throws ExpiredNextTokenException
      *         The pagination token expired.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.DescribeBudgetPerformanceHistory
      */
     DescribeBudgetPerformanceHistoryResult describeBudgetPerformanceHistory(DescribeBudgetPerformanceHistoryRequest describeBudgetPerformanceHistoryRequest);
@@ -382,6 +581,10 @@ public interface AWSBudgets {
      *         The pagination token is invalid.
      * @throws ExpiredNextTokenException
      *         The pagination token expired.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.DescribeBudgets
      */
     DescribeBudgetsResult describeBudgets(DescribeBudgetsRequest describeBudgetsRequest);
@@ -404,6 +607,10 @@ public interface AWSBudgets {
      *         The pagination token is invalid.
      * @throws ExpiredNextTokenException
      *         The pagination token expired.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.DescribeNotificationsForBudget
      */
     DescribeNotificationsForBudgetResult describeNotificationsForBudget(DescribeNotificationsForBudgetRequest describeNotificationsForBudgetRequest);
@@ -426,6 +633,10 @@ public interface AWSBudgets {
      *         The pagination token is invalid.
      * @throws ExpiredNextTokenException
      *         The pagination token expired.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.DescribeSubscribersForNotification
      */
     DescribeSubscribersForNotificationResult describeSubscribersForNotification(
@@ -433,9 +644,98 @@ public interface AWSBudgets {
 
     /**
      * <p>
+     * Executes a budget action.
+     * </p>
+     * 
+     * @param executeBudgetActionRequest
+     * @return Result of the ExecuteBudgetAction operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ResourceLockedException
+     *         The request was received and recognized by the server, but the server rejected that particular method for
+     *         the requested resource.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @sample AWSBudgets.ExecuteBudgetAction
+     */
+    ExecuteBudgetActionResult executeBudgetAction(ExecuteBudgetActionRequest executeBudgetActionRequest);
+
+    /**
+     * <p>
+     * Lists tags associated with a budget or budget action resource.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @sample AWSBudgets.ListTagsForResource
+     */
+    ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest);
+
+    /**
+     * <p>
+     * Creates tags for a budget or budget action resource.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @throws ServiceQuotaExceededException
+     *         You've reached the limit on the number of tags you can associate with a resource.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @sample AWSBudgets.TagResource
+     */
+    TagResourceResult tagResource(TagResourceRequest tagResourceRequest);
+
+    /**
+     * <p>
+     * Deletes tags associated with a budget or budget action resource.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @sample AWSBudgets.UntagResource
+     */
+    UntagResourceResult untagResource(UntagResourceRequest untagResourceRequest);
+
+    /**
+     * <p>
      * Updates a budget. You can change every part of a budget except for the <code>budgetName</code> and the
-     * <code>calculatedSpend</code>. When you modify a budget, the <code>calculatedSpend</code> drops to zero until AWS
-     * has new usage data to use for forecasting.
+     * <code>calculatedSpend</code>. When you modify a budget, the <code>calculatedSpend</code> drops to zero until
+     * Amazon Web Services has new usage data to use for forecasting.
      * </p>
      * <important>
      * <p>
@@ -456,9 +756,37 @@ public interface AWSBudgets {
      *         An error on the client occurred. Typically, the cause is an invalid input value.
      * @throws NotFoundException
      *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.UpdateBudget
      */
     UpdateBudgetResult updateBudget(UpdateBudgetRequest updateBudgetRequest);
+
+    /**
+     * <p>
+     * Updates a budget action.
+     * </p>
+     * 
+     * @param updateBudgetActionRequest
+     * @return Result of the UpdateBudgetAction operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws InvalidParameterException
+     *         An error on the client occurred. Typically, the cause is an invalid input value.
+     * @throws NotFoundException
+     *         We can’t locate the resource that you specified.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ResourceLockedException
+     *         The request was received and recognized by the server, but the server rejected that particular method for
+     *         the requested resource.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
+     * @sample AWSBudgets.UpdateBudgetAction
+     */
+    UpdateBudgetActionResult updateBudgetAction(UpdateBudgetActionRequest updateBudgetActionRequest);
 
     /**
      * <p>
@@ -476,6 +804,10 @@ public interface AWSBudgets {
      *         We can’t locate the resource that you specified.
      * @throws DuplicateRecordException
      *         The budget name already exists. Budget names must be unique within an account.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.UpdateNotification
      */
     UpdateNotificationResult updateNotification(UpdateNotificationRequest updateNotificationRequest);
@@ -496,6 +828,10 @@ public interface AWSBudgets {
      *         We can’t locate the resource that you specified.
      * @throws DuplicateRecordException
      *         The budget name already exists. Budget names must be unique within an account.
+     * @throws AccessDeniedException
+     *         You are not authorized to use this operation with the given parameters.
+     * @throws ThrottlingException
+     *         The number of API requests has exceeded the maximum allowed API request throttling limit for the account.
      * @sample AWSBudgets.UpdateSubscriber
      */
     UpdateSubscriberResult updateSubscriber(UpdateSubscriberRequest updateSubscriberRequest);

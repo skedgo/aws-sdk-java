@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,10 +31,14 @@ public enum AutoScalingActions implements Action {
     AttachLoadBalancerTargetGroups("autoscaling:AttachLoadBalancerTargetGroups"),
     /** Action for the AttachLoadBalancers operation. */
     AttachLoadBalancers("autoscaling:AttachLoadBalancers"),
+    /** Action for the AttachTrafficSources operation. */
+    AttachTrafficSources("autoscaling:AttachTrafficSources"),
     /** Action for the BatchDeleteScheduledAction operation. */
     BatchDeleteScheduledAction("autoscaling:BatchDeleteScheduledAction"),
     /** Action for the BatchPutScheduledUpdateGroupAction operation. */
     BatchPutScheduledUpdateGroupAction("autoscaling:BatchPutScheduledUpdateGroupAction"),
+    /** Action for the CancelInstanceRefresh operation. */
+    CancelInstanceRefresh("autoscaling:CancelInstanceRefresh"),
     /** Action for the CompleteLifecycleAction operation. */
     CompleteLifecycleAction("autoscaling:CompleteLifecycleAction"),
     /** Action for the CreateAutoScalingGroup operation. */
@@ -57,6 +61,8 @@ public enum AutoScalingActions implements Action {
     DeleteScheduledAction("autoscaling:DeleteScheduledAction"),
     /** Action for the DeleteTags operation. */
     DeleteTags("autoscaling:DeleteTags"),
+    /** Action for the DeleteWarmPool operation. */
+    DeleteWarmPool("autoscaling:DeleteWarmPool"),
     /** Action for the DescribeAccountLimits operation. */
     DescribeAccountLimits("autoscaling:DescribeAccountLimits"),
     /** Action for the DescribeAdjustmentTypes operation. */
@@ -67,6 +73,8 @@ public enum AutoScalingActions implements Action {
     DescribeAutoScalingInstances("autoscaling:DescribeAutoScalingInstances"),
     /** Action for the DescribeAutoScalingNotificationTypes operation. */
     DescribeAutoScalingNotificationTypes("autoscaling:DescribeAutoScalingNotificationTypes"),
+    /** Action for the DescribeInstanceRefreshes operation. */
+    DescribeInstanceRefreshes("autoscaling:DescribeInstanceRefreshes"),
     /** Action for the DescribeLaunchConfigurations operation. */
     DescribeLaunchConfigurations("autoscaling:DescribeLaunchConfigurations"),
     /** Action for the DescribeLifecycleHookTypes operation. */
@@ -93,12 +101,18 @@ public enum AutoScalingActions implements Action {
     DescribeTags("autoscaling:DescribeTags"),
     /** Action for the DescribeTerminationPolicyTypes operation. */
     DescribeTerminationPolicyTypes("autoscaling:DescribeTerminationPolicyTypes"),
+    /** Action for the DescribeTrafficSources operation. */
+    DescribeTrafficSources("autoscaling:DescribeTrafficSources"),
+    /** Action for the DescribeWarmPool operation. */
+    DescribeWarmPool("autoscaling:DescribeWarmPool"),
     /** Action for the DetachInstances operation. */
     DetachInstances("autoscaling:DetachInstances"),
     /** Action for the DetachLoadBalancerTargetGroups operation. */
     DetachLoadBalancerTargetGroups("autoscaling:DetachLoadBalancerTargetGroups"),
     /** Action for the DetachLoadBalancers operation. */
     DetachLoadBalancers("autoscaling:DetachLoadBalancers"),
+    /** Action for the DetachTrafficSources operation. */
+    DetachTrafficSources("autoscaling:DetachTrafficSources"),
     /** Action for the DisableMetricsCollection operation. */
     DisableMetricsCollection("autoscaling:DisableMetricsCollection"),
     /** Action for the EnableMetricsCollection operation. */
@@ -109,6 +123,8 @@ public enum AutoScalingActions implements Action {
     ExecutePolicy("autoscaling:ExecutePolicy"),
     /** Action for the ExitStandby operation. */
     ExitStandby("autoscaling:ExitStandby"),
+    /** Action for the GetPredictiveScalingForecast operation. */
+    GetPredictiveScalingForecast("autoscaling:GetPredictiveScalingForecast"),
     /** Action for the PutLifecycleHook operation. */
     PutLifecycleHook("autoscaling:PutLifecycleHook"),
     /** Action for the PutNotificationConfiguration operation. */
@@ -117,16 +133,22 @@ public enum AutoScalingActions implements Action {
     PutScalingPolicy("autoscaling:PutScalingPolicy"),
     /** Action for the PutScheduledUpdateGroupAction operation. */
     PutScheduledUpdateGroupAction("autoscaling:PutScheduledUpdateGroupAction"),
+    /** Action for the PutWarmPool operation. */
+    PutWarmPool("autoscaling:PutWarmPool"),
     /** Action for the RecordLifecycleActionHeartbeat operation. */
     RecordLifecycleActionHeartbeat("autoscaling:RecordLifecycleActionHeartbeat"),
     /** Action for the ResumeProcesses operation. */
     ResumeProcesses("autoscaling:ResumeProcesses"),
+    /** Action for the RollbackInstanceRefresh operation. */
+    RollbackInstanceRefresh("autoscaling:RollbackInstanceRefresh"),
     /** Action for the SetDesiredCapacity operation. */
     SetDesiredCapacity("autoscaling:SetDesiredCapacity"),
     /** Action for the SetInstanceHealth operation. */
     SetInstanceHealth("autoscaling:SetInstanceHealth"),
     /** Action for the SetInstanceProtection operation. */
     SetInstanceProtection("autoscaling:SetInstanceProtection"),
+    /** Action for the StartInstanceRefresh operation. */
+    StartInstanceRefresh("autoscaling:StartInstanceRefresh"),
     /** Action for the SuspendProcesses operation. */
     SuspendProcesses("autoscaling:SuspendProcesses"),
     /** Action for the TerminateInstanceInAutoScalingGroup operation. */
@@ -144,5 +166,9 @@ public enum AutoScalingActions implements Action {
 
     public String getActionName() {
         return this.action;
+    }
+
+    public boolean isNotType() {
+        return false;
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,6 +60,10 @@ public class DeliveryStreamDescriptionJsonUnmarshaller implements Unmarshaller<D
                     context.nextToken();
                     deliveryStreamDescription.setDeliveryStreamStatus(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("FailureDescription", targetDepth)) {
+                    context.nextToken();
+                    deliveryStreamDescription.setFailureDescription(FailureDescriptionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("DeliveryStreamEncryptionConfiguration", targetDepth)) {
                     context.nextToken();
                     deliveryStreamDescription.setDeliveryStreamEncryptionConfiguration(DeliveryStreamEncryptionConfigurationJsonUnmarshaller.getInstance()
@@ -89,7 +93,8 @@ public class DeliveryStreamDescriptionJsonUnmarshaller implements Unmarshaller<D
                     context.nextToken();
                     deliveryStreamDescription
                             .setDestinations(new ListUnmarshaller<DestinationDescription>(DestinationDescriptionJsonUnmarshaller.getInstance())
-                                    .unmarshall(context));
+
+                            .unmarshall(context));
                 }
                 if (context.testExpression("HasMoreDestinations", targetDepth)) {
                     context.nextToken();

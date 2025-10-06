@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -64,9 +64,17 @@ public class CaptionDestinationSettingsJsonUnmarshaller implements Unmarshaller<
                     context.nextToken();
                     captionDestinationSettings.setEmbeddedDestinationSettings(EmbeddedDestinationSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("imscDestinationSettings", targetDepth)) {
+                    context.nextToken();
+                    captionDestinationSettings.setImscDestinationSettings(ImscDestinationSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("sccDestinationSettings", targetDepth)) {
                     context.nextToken();
                     captionDestinationSettings.setSccDestinationSettings(SccDestinationSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("srtDestinationSettings", targetDepth)) {
+                    context.nextToken();
+                    captionDestinationSettings.setSrtDestinationSettings(SrtDestinationSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("teletextDestinationSettings", targetDepth)) {
                     context.nextToken();
@@ -75,6 +83,10 @@ public class CaptionDestinationSettingsJsonUnmarshaller implements Unmarshaller<
                 if (context.testExpression("ttmlDestinationSettings", targetDepth)) {
                     context.nextToken();
                     captionDestinationSettings.setTtmlDestinationSettings(TtmlDestinationSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("webvttDestinationSettings", targetDepth)) {
+                    context.nextToken();
+                    captionDestinationSettings.setWebvttDestinationSettings(WebvttDestinationSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

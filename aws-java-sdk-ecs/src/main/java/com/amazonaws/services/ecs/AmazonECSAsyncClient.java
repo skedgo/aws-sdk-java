@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,21 +32,20 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * <p>
  * <fullname>Amazon Elastic Container Service</fullname>
  * <p>
- * Amazon Elastic Container Service (Amazon ECS) is a highly scalable, fast, container management service that makes it
- * easy to run, stop, and manage Docker containers on a cluster. You can host your cluster on a serverless
- * infrastructure that is managed by Amazon ECS by launching your services or tasks using the Fargate launch type. For
- * more control, you can host your tasks on a cluster of Amazon Elastic Compute Cloud (Amazon EC2) instances that you
- * manage by using the EC2 launch type. For more information about launch types, see <a
- * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS Launch Types</a>.
+ * Amazon Elastic Container Service (Amazon ECS) is a highly scalable, fast, container management service. It makes it
+ * easy to run, stop, and manage Docker containers. You can host your cluster on a serverless infrastructure that's
+ * managed by Amazon ECS by launching your services or tasks on Fargate. For more control, you can host your tasks on a
+ * cluster of Amazon Elastic Compute Cloud (Amazon EC2) or External (on-premises) instances that you manage.
  * </p>
  * <p>
- * Amazon ECS lets you launch and stop container-based applications with simple API calls, allows you to get the state
- * of your cluster from a centralized service, and gives you access to many familiar Amazon EC2 features.
+ * Amazon ECS makes it easy to launch and stop container-based applications with simple API calls. This makes it easy to
+ * get the state of your cluster from a centralized service, and gives you access to many familiar Amazon EC2 features.
  * </p>
  * <p>
  * You can use Amazon ECS to schedule the placement of containers across your cluster based on your resource needs,
- * isolation policies, and availability requirements. Amazon ECS eliminates the need for you to operate your own cluster
- * management and configuration management systems or worry about scaling your management infrastructure.
+ * isolation policies, and availability requirements. With Amazon ECS, you don't need to operate your own cluster
+ * management and configuration management systems. You also don't need to worry about scaling your management
+ * infrastructure.
  * </p>
  */
 @ThreadSafe
@@ -245,7 +244,19 @@ public class AmazonECSAsyncClient extends AmazonECSClient implements AmazonECSAs
      *        Object providing client parameters.
      */
     AmazonECSAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Amazon ECS using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonECSAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -256,6 +267,39 @@ public class AmazonECSAsyncClient extends AmazonECSClient implements AmazonECSAs
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCapacityProviderResult> createCapacityProviderAsync(CreateCapacityProviderRequest request) {
+
+        return createCapacityProviderAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCapacityProviderResult> createCapacityProviderAsync(final CreateCapacityProviderRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateCapacityProviderRequest, CreateCapacityProviderResult> asyncHandler) {
+        final CreateCapacityProviderRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateCapacityProviderResult>() {
+            @Override
+            public CreateCapacityProviderResult call() throws Exception {
+                CreateCapacityProviderResult result = null;
+
+                try {
+                    result = executeCreateCapacityProvider(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -447,6 +491,39 @@ public class AmazonECSAsyncClient extends AmazonECSClient implements AmazonECSAs
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteCapacityProviderResult> deleteCapacityProviderAsync(DeleteCapacityProviderRequest request) {
+
+        return deleteCapacityProviderAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCapacityProviderResult> deleteCapacityProviderAsync(final DeleteCapacityProviderRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteCapacityProviderRequest, DeleteCapacityProviderResult> asyncHandler) {
+        final DeleteCapacityProviderRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteCapacityProviderResult>() {
+            @Override
+            public DeleteCapacityProviderResult call() throws Exception {
+                DeleteCapacityProviderResult result = null;
+
+                try {
+                    result = executeDeleteCapacityProvider(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteClusterResult> deleteClusterAsync(DeleteClusterRequest request) {
 
         return deleteClusterAsync(request, null);
@@ -497,6 +574,39 @@ public class AmazonECSAsyncClient extends AmazonECSClient implements AmazonECSAs
 
                 try {
                     result = executeDeleteService(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteTaskDefinitionsResult> deleteTaskDefinitionsAsync(DeleteTaskDefinitionsRequest request) {
+
+        return deleteTaskDefinitionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteTaskDefinitionsResult> deleteTaskDefinitionsAsync(final DeleteTaskDefinitionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteTaskDefinitionsRequest, DeleteTaskDefinitionsResult> asyncHandler) {
+        final DeleteTaskDefinitionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteTaskDefinitionsResult>() {
+            @Override
+            public DeleteTaskDefinitionsResult call() throws Exception {
+                DeleteTaskDefinitionsResult result = null;
+
+                try {
+                    result = executeDeleteTaskDefinitions(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -596,6 +706,39 @@ public class AmazonECSAsyncClient extends AmazonECSClient implements AmazonECSAs
 
                 try {
                     result = executeDeregisterTaskDefinition(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCapacityProvidersResult> describeCapacityProvidersAsync(DescribeCapacityProvidersRequest request) {
+
+        return describeCapacityProvidersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCapacityProvidersResult> describeCapacityProvidersAsync(final DescribeCapacityProvidersRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeCapacityProvidersRequest, DescribeCapacityProvidersResult> asyncHandler) {
+        final DescribeCapacityProvidersRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeCapacityProvidersResult>() {
+            @Override
+            public DescribeCapacityProvidersResult call() throws Exception {
+                DescribeCapacityProvidersResult result = null;
+
+                try {
+                    result = executeDescribeCapacityProviders(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -889,6 +1032,72 @@ public class AmazonECSAsyncClient extends AmazonECSClient implements AmazonECSAs
     }
 
     @Override
+    public java.util.concurrent.Future<ExecuteCommandResult> executeCommandAsync(ExecuteCommandRequest request) {
+
+        return executeCommandAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExecuteCommandResult> executeCommandAsync(final ExecuteCommandRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ExecuteCommandRequest, ExecuteCommandResult> asyncHandler) {
+        final ExecuteCommandRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ExecuteCommandResult>() {
+            @Override
+            public ExecuteCommandResult call() throws Exception {
+                ExecuteCommandResult result = null;
+
+                try {
+                    result = executeExecuteCommand(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTaskProtectionResult> getTaskProtectionAsync(GetTaskProtectionRequest request) {
+
+        return getTaskProtectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTaskProtectionResult> getTaskProtectionAsync(final GetTaskProtectionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetTaskProtectionRequest, GetTaskProtectionResult> asyncHandler) {
+        final GetTaskProtectionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetTaskProtectionResult>() {
+            @Override
+            public GetTaskProtectionResult call() throws Exception {
+                GetTaskProtectionResult result = null;
+
+                try {
+                    result = executeGetTaskProtection(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListAccountSettingsResult> listAccountSettingsAsync(ListAccountSettingsRequest request) {
 
         return listAccountSettingsAsync(request, null);
@@ -1120,6 +1329,39 @@ public class AmazonECSAsyncClient extends AmazonECSClient implements AmazonECSAs
             com.amazonaws.handlers.AsyncHandler<ListServicesRequest, ListServicesResult> asyncHandler) {
 
         return listServicesAsync(new ListServicesRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListServicesByNamespaceResult> listServicesByNamespaceAsync(ListServicesByNamespaceRequest request) {
+
+        return listServicesByNamespaceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListServicesByNamespaceResult> listServicesByNamespaceAsync(final ListServicesByNamespaceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListServicesByNamespaceRequest, ListServicesByNamespaceResult> asyncHandler) {
+        final ListServicesByNamespaceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListServicesByNamespaceResult>() {
+            @Override
+            public ListServicesByNamespaceResult call() throws Exception {
+                ListServicesByNamespaceResult result = null;
+
+                try {
+                    result = executeListServicesByNamespace(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -1406,6 +1648,39 @@ public class AmazonECSAsyncClient extends AmazonECSClient implements AmazonECSAs
 
                 try {
                     result = executePutAttributes(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutClusterCapacityProvidersResult> putClusterCapacityProvidersAsync(PutClusterCapacityProvidersRequest request) {
+
+        return putClusterCapacityProvidersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutClusterCapacityProvidersResult> putClusterCapacityProvidersAsync(final PutClusterCapacityProvidersRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutClusterCapacityProvidersRequest, PutClusterCapacityProvidersResult> asyncHandler) {
+        final PutClusterCapacityProvidersRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutClusterCapacityProvidersResult>() {
+            @Override
+            public PutClusterCapacityProvidersResult call() throws Exception {
+                PutClusterCapacityProvidersResult result = null;
+
+                try {
+                    result = executePutClusterCapacityProviders(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1775,6 +2050,105 @@ public class AmazonECSAsyncClient extends AmazonECSClient implements AmazonECSAs
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateCapacityProviderResult> updateCapacityProviderAsync(UpdateCapacityProviderRequest request) {
+
+        return updateCapacityProviderAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCapacityProviderResult> updateCapacityProviderAsync(final UpdateCapacityProviderRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateCapacityProviderRequest, UpdateCapacityProviderResult> asyncHandler) {
+        final UpdateCapacityProviderRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateCapacityProviderResult>() {
+            @Override
+            public UpdateCapacityProviderResult call() throws Exception {
+                UpdateCapacityProviderResult result = null;
+
+                try {
+                    result = executeUpdateCapacityProvider(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateClusterResult> updateClusterAsync(UpdateClusterRequest request) {
+
+        return updateClusterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateClusterResult> updateClusterAsync(final UpdateClusterRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateClusterRequest, UpdateClusterResult> asyncHandler) {
+        final UpdateClusterRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateClusterResult>() {
+            @Override
+            public UpdateClusterResult call() throws Exception {
+                UpdateClusterResult result = null;
+
+                try {
+                    result = executeUpdateCluster(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateClusterSettingsResult> updateClusterSettingsAsync(UpdateClusterSettingsRequest request) {
+
+        return updateClusterSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateClusterSettingsResult> updateClusterSettingsAsync(final UpdateClusterSettingsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateClusterSettingsRequest, UpdateClusterSettingsResult> asyncHandler) {
+        final UpdateClusterSettingsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateClusterSettingsResult>() {
+            @Override
+            public UpdateClusterSettingsResult call() throws Exception {
+                UpdateClusterSettingsResult result = null;
+
+                try {
+                    result = executeUpdateClusterSettings(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateContainerAgentResult> updateContainerAgentAsync(UpdateContainerAgentRequest request) {
 
         return updateContainerAgentAsync(request, null);
@@ -1892,6 +2266,39 @@ public class AmazonECSAsyncClient extends AmazonECSClient implements AmazonECSAs
 
                 try {
                     result = executeUpdateServicePrimaryTaskSet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateTaskProtectionResult> updateTaskProtectionAsync(UpdateTaskProtectionRequest request) {
+
+        return updateTaskProtectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateTaskProtectionResult> updateTaskProtectionAsync(final UpdateTaskProtectionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateTaskProtectionRequest, UpdateTaskProtectionResult> asyncHandler) {
+        final UpdateTaskProtectionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateTaskProtectionResult>() {
+            @Override
+            public UpdateTaskProtectionResult call() throws Exception {
+                UpdateTaskProtectionResult result = null;
+
+                try {
+                    result = executeUpdateTaskProtection(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

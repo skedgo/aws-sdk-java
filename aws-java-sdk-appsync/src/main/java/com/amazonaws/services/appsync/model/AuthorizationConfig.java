@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The authorization config in case the HTTP endpoint requires authorization.
+ * The authorization configuration in case the HTTP endpoint requires authorization.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/AuthorizationConfig" target="_top">AWS API
@@ -30,12 +30,12 @@ public class AuthorizationConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The authorization type required by the HTTP endpoint.
+     * The authorization type that the HTTP endpoint requires.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>AWS_IAM</b>: The authorization type is Sigv4.
+     * <b>AWS_IAM</b>: The authorization type is Signature Version 4 (SigV4).
      * </p>
      * </li>
      * </ul>
@@ -43,29 +43,29 @@ public class AuthorizationConfig implements Serializable, Cloneable, StructuredP
     private String authorizationType;
     /**
      * <p>
-     * The AWS IAM settings.
+     * The Identity and Access Management (IAM) settings.
      * </p>
      */
     private AwsIamConfig awsIamConfig;
 
     /**
      * <p>
-     * The authorization type required by the HTTP endpoint.
+     * The authorization type that the HTTP endpoint requires.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>AWS_IAM</b>: The authorization type is Sigv4.
+     * <b>AWS_IAM</b>: The authorization type is Signature Version 4 (SigV4).
      * </p>
      * </li>
      * </ul>
      * 
      * @param authorizationType
-     *        The authorization type required by the HTTP endpoint.</p>
+     *        The authorization type that the HTTP endpoint requires.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>AWS_IAM</b>: The authorization type is Sigv4.
+     *        <b>AWS_IAM</b>: The authorization type is Signature Version 4 (SigV4).
      *        </p>
      *        </li>
      * @see AuthorizationType
@@ -77,21 +77,21 @@ public class AuthorizationConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The authorization type required by the HTTP endpoint.
+     * The authorization type that the HTTP endpoint requires.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>AWS_IAM</b>: The authorization type is Sigv4.
+     * <b>AWS_IAM</b>: The authorization type is Signature Version 4 (SigV4).
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The authorization type required by the HTTP endpoint.</p>
+     * @return The authorization type that the HTTP endpoint requires.</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <b>AWS_IAM</b>: The authorization type is Sigv4.
+     *         <b>AWS_IAM</b>: The authorization type is Signature Version 4 (SigV4).
      *         </p>
      *         </li>
      * @see AuthorizationType
@@ -103,22 +103,22 @@ public class AuthorizationConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The authorization type required by the HTTP endpoint.
+     * The authorization type that the HTTP endpoint requires.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>AWS_IAM</b>: The authorization type is Sigv4.
+     * <b>AWS_IAM</b>: The authorization type is Signature Version 4 (SigV4).
      * </p>
      * </li>
      * </ul>
      * 
      * @param authorizationType
-     *        The authorization type required by the HTTP endpoint.</p>
+     *        The authorization type that the HTTP endpoint requires.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>AWS_IAM</b>: The authorization type is Sigv4.
+     *        <b>AWS_IAM</b>: The authorization type is Signature Version 4 (SigV4).
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -132,22 +132,22 @@ public class AuthorizationConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The authorization type required by the HTTP endpoint.
+     * The authorization type that the HTTP endpoint requires.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>AWS_IAM</b>: The authorization type is Sigv4.
+     * <b>AWS_IAM</b>: The authorization type is Signature Version 4 (SigV4).
      * </p>
      * </li>
      * </ul>
      * 
      * @param authorizationType
-     *        The authorization type required by the HTTP endpoint.</p>
+     *        The authorization type that the HTTP endpoint requires.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>AWS_IAM</b>: The authorization type is Sigv4.
+     *        <b>AWS_IAM</b>: The authorization type is Signature Version 4 (SigV4).
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -161,11 +161,11 @@ public class AuthorizationConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The AWS IAM settings.
+     * The Identity and Access Management (IAM) settings.
      * </p>
      * 
      * @param awsIamConfig
-     *        The AWS IAM settings.
+     *        The Identity and Access Management (IAM) settings.
      */
 
     public void setAwsIamConfig(AwsIamConfig awsIamConfig) {
@@ -174,10 +174,10 @@ public class AuthorizationConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The AWS IAM settings.
+     * The Identity and Access Management (IAM) settings.
      * </p>
      * 
-     * @return The AWS IAM settings.
+     * @return The Identity and Access Management (IAM) settings.
      */
 
     public AwsIamConfig getAwsIamConfig() {
@@ -186,11 +186,11 @@ public class AuthorizationConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The AWS IAM settings.
+     * The Identity and Access Management (IAM) settings.
      * </p>
      * 
      * @param awsIamConfig
-     *        The AWS IAM settings.
+     *        The Identity and Access Management (IAM) settings.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

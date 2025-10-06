@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,8 @@ public class UserPoolTypeMarshaller {
             .marshallLocationName("Name").build();
     private static final MarshallingInfo<StructuredPojo> POLICIES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Policies").build();
+    private static final MarshallingInfo<String> DELETIONPROTECTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DeletionProtection").build();
     private static final MarshallingInfo<StructuredPojo> LAMBDACONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LambdaConfig").build();
     private static final MarshallingInfo<String> STATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -61,6 +63,8 @@ public class UserPoolTypeMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VerificationMessageTemplate").build();
     private static final MarshallingInfo<String> SMSAUTHENTICATIONMESSAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SmsAuthenticationMessage").build();
+    private static final MarshallingInfo<StructuredPojo> USERATTRIBUTEUPDATESETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("UserAttributeUpdateSettings").build();
     private static final MarshallingInfo<String> MFACONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MfaConfiguration").build();
     private static final MarshallingInfo<StructuredPojo> DEVICECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -85,8 +89,12 @@ public class UserPoolTypeMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AdminCreateUserConfig").build();
     private static final MarshallingInfo<StructuredPojo> USERPOOLADDONS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("UserPoolAddOns").build();
+    private static final MarshallingInfo<StructuredPojo> USERNAMECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("UsernameConfiguration").build();
     private static final MarshallingInfo<String> ARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Arn").build();
+    private static final MarshallingInfo<StructuredPojo> ACCOUNTRECOVERYSETTING_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AccountRecoverySetting").build();
 
     private static final UserPoolTypeMarshaller instance = new UserPoolTypeMarshaller();
 
@@ -107,6 +115,7 @@ public class UserPoolTypeMarshaller {
             protocolMarshaller.marshall(userPoolType.getId(), ID_BINDING);
             protocolMarshaller.marshall(userPoolType.getName(), NAME_BINDING);
             protocolMarshaller.marshall(userPoolType.getPolicies(), POLICIES_BINDING);
+            protocolMarshaller.marshall(userPoolType.getDeletionProtection(), DELETIONPROTECTION_BINDING);
             protocolMarshaller.marshall(userPoolType.getLambdaConfig(), LAMBDACONFIG_BINDING);
             protocolMarshaller.marshall(userPoolType.getStatus(), STATUS_BINDING);
             protocolMarshaller.marshall(userPoolType.getLastModifiedDate(), LASTMODIFIEDDATE_BINDING);
@@ -120,6 +129,7 @@ public class UserPoolTypeMarshaller {
             protocolMarshaller.marshall(userPoolType.getEmailVerificationSubject(), EMAILVERIFICATIONSUBJECT_BINDING);
             protocolMarshaller.marshall(userPoolType.getVerificationMessageTemplate(), VERIFICATIONMESSAGETEMPLATE_BINDING);
             protocolMarshaller.marshall(userPoolType.getSmsAuthenticationMessage(), SMSAUTHENTICATIONMESSAGE_BINDING);
+            protocolMarshaller.marshall(userPoolType.getUserAttributeUpdateSettings(), USERATTRIBUTEUPDATESETTINGS_BINDING);
             protocolMarshaller.marshall(userPoolType.getMfaConfiguration(), MFACONFIGURATION_BINDING);
             protocolMarshaller.marshall(userPoolType.getDeviceConfiguration(), DEVICECONFIGURATION_BINDING);
             protocolMarshaller.marshall(userPoolType.getEstimatedNumberOfUsers(), ESTIMATEDNUMBEROFUSERS_BINDING);
@@ -132,7 +142,9 @@ public class UserPoolTypeMarshaller {
             protocolMarshaller.marshall(userPoolType.getCustomDomain(), CUSTOMDOMAIN_BINDING);
             protocolMarshaller.marshall(userPoolType.getAdminCreateUserConfig(), ADMINCREATEUSERCONFIG_BINDING);
             protocolMarshaller.marshall(userPoolType.getUserPoolAddOns(), USERPOOLADDONS_BINDING);
+            protocolMarshaller.marshall(userPoolType.getUsernameConfiguration(), USERNAMECONFIGURATION_BINDING);
             protocolMarshaller.marshall(userPoolType.getArn(), ARN_BINDING);
+            protocolMarshaller.marshall(userPoolType.getAccountRecoverySetting(), ACCOUNTRECOVERYSETTING_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.ram.AWSRAMClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.ram.model.*;
+
 import com.amazonaws.services.ram.model.transform.*;
 
 /**
@@ -51,33 +52,27 @@ import com.amazonaws.services.ram.model.transform.*;
  * service call completes.
  * <p>
  * <p>
- * Use AWS Resource Access Manager to share AWS resources between AWS accounts. To share a resource, you create a
- * resource share, associate the resource with the resource share, and specify the principals that can access the
- * resource. The following principals are supported:
+ * This is the <i>Resource Access Manager API Reference</i>. This documentation provides descriptions and syntax for
+ * each of the actions and data types in RAM. RAM is a service that helps you securely share your Amazon Web Services
+ * resources to other Amazon Web Services accounts. If you use Organizations to manage your accounts, then you can share
+ * your resources with your entire organization or to organizational units (OUs). For supported resource types, you can
+ * also share resources with individual Identity and Access Management (IAM) roles and users.
+ * </p>
+ * <p>
+ * To learn more about RAM, see the following resources:
  * </p>
  * <ul>
  * <li>
  * <p>
- * The ID of an AWS account
+ * <a href="http://aws.amazon.com/ram">Resource Access Manager product page</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * The Amazon Resource Name (ARN) of an OU from AWS Organizations
- * </p>
- * </li>
- * <li>
- * <p>
- * The Amazon Resource Name (ARN) of an organization from AWS Organizations
+ * <a href="https://docs.aws.amazon.com/ram/latest/userguide/">Resource Access Manager User Guide</a>
  * </p>
  * </li>
  * </ul>
- * <p>
- * If you specify an AWS account that doesn't exist in the same organization as the account that owns the resource
- * share, the owner of the specified account receives an invitation to accept the resource share. After the owner
- * accepts the invitation, they can access the resources in the resource share. An administrator of the specified
- * account can use IAM policies to restrict access resources in the resource share.
- * </p>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -101,67 +96,91 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidClientTokenException").withModeledClass(
-                                    com.amazonaws.services.ram.model.InvalidClientTokenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidClientTokenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.InvalidClientTokenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnknownResourceException").withModeledClass(
-                                    com.amazonaws.services.ram.model.UnknownResourceException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.InvalidParameterExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withModeledClass(
-                                    com.amazonaws.services.ram.model.InvalidParameterException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServerInternalException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.ServerInternalExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServerInternalException").withModeledClass(
-                                    com.amazonaws.services.ram.model.ServerInternalException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.ThrottlingExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("IdempotentParameterMismatchException").withModeledClass(
-                                    com.amazonaws.services.ram.model.IdempotentParameterMismatchException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidResourceTypeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.InvalidResourceTypeExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidMaxResultsException").withModeledClass(
-                                    com.amazonaws.services.ram.model.InvalidMaxResultsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceShareInvitationExpiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.ResourceShareInvitationExpiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidResourceTypeException").withModeledClass(
-                                    com.amazonaws.services.ram.model.InvalidResourceTypeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MissingRequiredParameterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.MissingRequiredParameterExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withModeledClass(
-                                    com.amazonaws.services.ram.model.ServiceUnavailableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("OperationNotPermittedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.OperationNotPermittedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceShareInvitationExpiredException").withModeledClass(
-                                    com.amazonaws.services.ram.model.ResourceShareInvitationExpiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceShareLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.ResourceShareLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MissingRequiredParameterException").withModeledClass(
-                                    com.amazonaws.services.ram.model.MissingRequiredParameterException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("PermissionAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.PermissionAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TagLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.ram.model.TagLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.InvalidNextTokenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceArnNotFoundException").withModeledClass(
-                                    com.amazonaws.services.ram.model.ResourceArnNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnknownResourceException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.UnknownResourceExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("OperationNotPermittedException").withModeledClass(
-                                    com.amazonaws.services.ram.model.OperationNotPermittedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("PermissionLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.PermissionLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceShareLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.ram.model.ResourceShareLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidPolicyException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.InvalidPolicyExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceShareInvitationAlreadyRejectedException").withModeledClass(
-                                    com.amazonaws.services.ram.model.ResourceShareInvitationAlreadyRejectedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("PermissionVersionsLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.PermissionVersionsLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MalformedArnException").withModeledClass(
-                                    com.amazonaws.services.ram.model.MalformedArnException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("IdempotentParameterMismatchException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.IdempotentParameterMismatchExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidStateTransitionException").withModeledClass(
-                                    com.amazonaws.services.ram.model.InvalidStateTransitionException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidMaxResultsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.InvalidMaxResultsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceShareInvitationAlreadyAcceptedException").withModeledClass(
-                                    com.amazonaws.services.ram.model.ResourceShareInvitationAlreadyAcceptedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.ServiceUnavailableExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceShareInvitationArnNotFoundException").withModeledClass(
-                                    com.amazonaws.services.ram.model.ResourceShareInvitationArnNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TagLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.TagLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withModeledClass(
-                                    com.amazonaws.services.ram.model.InvalidNextTokenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceArnNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.ResourceArnNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("UnmatchedPolicyPermissionException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.UnmatchedPolicyPermissionExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceShareInvitationAlreadyRejectedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.ResourceShareInvitationAlreadyRejectedExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("MalformedArnException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.MalformedArnExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidStateTransitionException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.InvalidStateTransitionExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceShareInvitationAlreadyAcceptedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.ResourceShareInvitationAlreadyAcceptedExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceShareInvitationArnNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.ResourceShareInvitationArnNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("MalformedPolicyTemplateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.MalformedPolicyTemplateExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TagPolicyViolationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ram.model.transform.TagPolicyViolationExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.ram.model.AWSRAMException.class));
 
     public static AWSRAMClientBuilder builder() {
@@ -212,27 +231,40 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
 
     /**
      * <p>
-     * Accepts an invitation to a resource share from another AWS account.
+     * Accepts an invitation to a resource share from another Amazon Web Services account. After you accept the
+     * invitation, the resources included in the resource share are available to interact with in the relevant Amazon
+     * Web Services Management Consoles and tools.
      * </p>
      * 
      * @param acceptResourceShareInvitationRequest
      * @return Result of the AcceptResourceShareInvitation operation returned by the service.
      * @throws MalformedArnException
-     *         The format of an Amazon Resource Name (ARN) is not valid.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
      * @throws OperationNotPermittedException
-     *         The requested operation is not permitted.
+     *         The operation failed because the requested operation isn't permitted.
      * @throws ResourceShareInvitationArnNotFoundException
-     *         The Amazon Resource Name (ARN) for an invitation was not found.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> for an invitation was not found.
      * @throws ResourceShareInvitationAlreadyAcceptedException
-     *         The invitation was already accepted.
+     *         The operation failed because the specified invitation was already accepted.
      * @throws ResourceShareInvitationAlreadyRejectedException
-     *         The invitation was already rejected.
+     *         The operation failed because the specified invitation was already rejected.
      * @throws ResourceShareInvitationExpiredException
-     *         The invitation is expired.
+     *         The operation failed because the specified invitation is past its expiration date and time.
      * @throws ServerInternalException
-     *         The service could not respond to the request due to an internal problem.
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
      * @throws ServiceUnavailableException
-     *         The service is not available.
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws InvalidClientTokenException
+     *         The operation failed because the specified client token isn't valid.
+     * @throws IdempotentParameterMismatchException
+     *         The operation failed because the client token input parameter matched one that was used with a previous
+     *         call to the operation, but at least one of the other input parameters is different from the previous
+     *         call.
      * @sample AWSRAM.AcceptResourceShareInvitation
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/AcceptResourceShareInvitation"
      *      target="_top">AWS API Documentation</a>
@@ -259,6 +291,8 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                         .beforeMarshalling(acceptResourceShareInvitationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AcceptResourceShareInvitation");
@@ -283,36 +317,50 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
 
     /**
      * <p>
-     * Associates the specified resource share with the specified principals and resources.
+     * Adds the specified list of principals and list of resources to a resource share. Principals that already have
+     * access to this resource share immediately receive access to the added resources. Newly added principals
+     * immediately receive access to the resources shared in this resource share.
      * </p>
      * 
      * @param associateResourceShareRequest
      * @return Result of the AssociateResourceShare operation returned by the service.
      * @throws IdempotentParameterMismatchException
-     *         A client token input parameter was reused with an operation, but at least one of the other input
-     *         parameters is different from the previous call to the operation.
+     *         The operation failed because the client token input parameter matched one that was used with a previous
+     *         call to the operation, but at least one of the other input parameters is different from the previous
+     *         call.
      * @throws UnknownResourceException
-     *         A specified resource was not found.
+     *         The operation failed because a specified resource couldn't be found.
      * @throws InvalidStateTransitionException
-     *         The requested state transition is not valid.
+     *         The operation failed because the requested operation isn't valid for the resource share in its current
+     *         state.
      * @throws ResourceShareLimitExceededException
-     *         The requested resource share exceeds the limit for your account.
+     *         The operation failed because it would exceed the limit for resource shares for your account. To view the
+     *         limits for your Amazon Web Services account, see the <a
+     *         href="https://console.aws.amazon.com/servicequotas/home/services/ram/quotas">RAM page in the Service
+     *         Quotas console</a>.
      * @throws MalformedArnException
-     *         The format of an Amazon Resource Name (ARN) is not valid.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
      * @throws InvalidStateTransitionException
-     *         The requested state transition is not valid.
+     *         The operation failed because the requested operation isn't valid for the resource share in its current
+     *         state.
      * @throws InvalidClientTokenException
-     *         A client token is not valid.
+     *         The operation failed because the specified client token isn't valid.
      * @throws InvalidParameterException
-     *         A parameter is not valid.
+     *         The operation failed because a parameter you specified isn't valid.
      * @throws OperationNotPermittedException
-     *         The requested operation is not permitted.
+     *         The operation failed because the requested operation isn't permitted.
      * @throws ServerInternalException
-     *         The service could not respond to the request due to an internal problem.
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
      * @throws ServiceUnavailableException
-     *         The service is not available.
+     *         The operation failed because the service isn't available. Try again later.
      * @throws UnknownResourceException
-     *         A specified resource was not found.
+     *         The operation failed because a specified resource couldn't be found.
+     * @throws ThrottlingException
+     *         The operation failed because it exceeded the rate at which you are allowed to perform this operation.
+     *         Please try again later.
      * @sample AWSRAM.AssociateResourceShare
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/AssociateResourceShare" target="_top">AWS API
      *      Documentation</a>
@@ -338,6 +386,8 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                 request = new AssociateResourceShareRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(associateResourceShareRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateResourceShare");
@@ -362,32 +412,306 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
 
     /**
      * <p>
-     * Creates a resource share.
+     * Adds or replaces the RAM permission for a resource type included in a resource share. You can have exactly one
+     * permission associated with each resource type in the resource share. You can add a new RAM permission only if
+     * there are currently no resources of that resource type currently in the resource share.
      * </p>
+     * 
+     * @param associateResourceSharePermissionRequest
+     * @return Result of the AssociateResourceSharePermission operation returned by the service.
+     * @throws MalformedArnException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
+     * @throws UnknownResourceException
+     *         The operation failed because a specified resource couldn't be found.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws InvalidClientTokenException
+     *         The operation failed because the specified client token isn't valid.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws OperationNotPermittedException
+     *         The operation failed because the requested operation isn't permitted.
+     * @sample AWSRAM.AssociateResourceSharePermission
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/AssociateResourceSharePermission"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public AssociateResourceSharePermissionResult associateResourceSharePermission(AssociateResourceSharePermissionRequest request) {
+        request = beforeClientExecution(request);
+        return executeAssociateResourceSharePermission(request);
+    }
+
+    @SdkInternalApi
+    final AssociateResourceSharePermissionResult executeAssociateResourceSharePermission(
+            AssociateResourceSharePermissionRequest associateResourceSharePermissionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(associateResourceSharePermissionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AssociateResourceSharePermissionRequest> request = null;
+        Response<AssociateResourceSharePermissionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AssociateResourceSharePermissionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(associateResourceSharePermissionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateResourceSharePermission");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AssociateResourceSharePermissionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new AssociateResourceSharePermissionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a customer managed permission for a specified resource type that you can attach to resource shares. It is
+     * created in the Amazon Web Services Region in which you call the operation.
+     * </p>
+     * 
+     * @param createPermissionRequest
+     * @return Result of the CreatePermission operation returned by the service.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws InvalidPolicyException
+     *         The operation failed because a policy you specified isn't valid.
+     * @throws OperationNotPermittedException
+     *         The operation failed because the requested operation isn't permitted.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws PermissionAlreadyExistsException
+     *         The operation failed because a permission with the specified name already exists in the requested Amazon
+     *         Web Services Region. Choose a different name.
+     * @throws MalformedPolicyTemplateException
+     *         The operation failed because the policy template that you provided isn't valid.
+     * @throws InvalidClientTokenException
+     *         The operation failed because the specified client token isn't valid.
+     * @throws PermissionLimitExceededException
+     *         The operation failed because it would exceed the maximum number of permissions you can create in each
+     *         Amazon Web Services Region. To view the limits for your Amazon Web Services account, see the <a
+     *         href="https://console.aws.amazon.com/servicequotas/home/services/ram/quotas">RAM page in the Service
+     *         Quotas console</a>.
+     * @throws IdempotentParameterMismatchException
+     *         The operation failed because the client token input parameter matched one that was used with a previous
+     *         call to the operation, but at least one of the other input parameters is different from the previous
+     *         call.
+     * @sample AWSRAM.CreatePermission
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/CreatePermission" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreatePermissionResult createPermission(CreatePermissionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreatePermission(request);
+    }
+
+    @SdkInternalApi
+    final CreatePermissionResult executeCreatePermission(CreatePermissionRequest createPermissionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createPermissionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreatePermissionRequest> request = null;
+        Response<CreatePermissionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreatePermissionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createPermissionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePermission");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreatePermissionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreatePermissionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a new version of the specified customer managed permission. The new version is automatically set as the
+     * default version of the customer managed permission. New resource shares automatically use the default permission.
+     * Existing resource shares continue to use their original permission versions, but you can use
+     * <a>ReplacePermissionAssociations</a> to update them.
+     * </p>
+     * <p>
+     * If the specified customer managed permission already has the maximum of 5 versions, then you must delete one of
+     * the existing versions before you can create a new one.
+     * </p>
+     * 
+     * @param createPermissionVersionRequest
+     * @return Result of the CreatePermissionVersion operation returned by the service.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws InvalidPolicyException
+     *         The operation failed because a policy you specified isn't valid.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws UnknownResourceException
+     *         The operation failed because a specified resource couldn't be found.
+     * @throws MalformedPolicyTemplateException
+     *         The operation failed because the policy template that you provided isn't valid.
+     * @throws MalformedArnException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
+     * @throws InvalidClientTokenException
+     *         The operation failed because the specified client token isn't valid.
+     * @throws IdempotentParameterMismatchException
+     *         The operation failed because the client token input parameter matched one that was used with a previous
+     *         call to the operation, but at least one of the other input parameters is different from the previous
+     *         call.
+     * @throws PermissionVersionsLimitExceededException
+     *         The operation failed because it would exceed the limit for the number of versions you can have for a
+     *         permission. To view the limits for your Amazon Web Services account, see the <a
+     *         href="https://console.aws.amazon.com/servicequotas/home/services/ram/quotas">RAM page in the Service
+     *         Quotas console</a>.
+     * @sample AWSRAM.CreatePermissionVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/CreatePermissionVersion" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreatePermissionVersionResult createPermissionVersion(CreatePermissionVersionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreatePermissionVersion(request);
+    }
+
+    @SdkInternalApi
+    final CreatePermissionVersionResult executeCreatePermissionVersion(CreatePermissionVersionRequest createPermissionVersionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createPermissionVersionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreatePermissionVersionRequest> request = null;
+        Response<CreatePermissionVersionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreatePermissionVersionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createPermissionVersionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePermissionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreatePermissionVersionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreatePermissionVersionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a resource share. You can provide a list of the <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> for the resources that you want to share, a list of principals you want to share the resources with,
+     * and the permissions to grant those principals.
+     * </p>
+     * <note>
+     * <p>
+     * Sharing a resource makes it available for use by principals outside of the Amazon Web Services account that
+     * created the resource. Sharing doesn't change any permissions or quotas that apply to the resource in the account
+     * that created it.
+     * </p>
+     * </note>
      * 
      * @param createResourceShareRequest
      * @return Result of the CreateResourceShare operation returned by the service.
      * @throws IdempotentParameterMismatchException
-     *         A client token input parameter was reused with an operation, but at least one of the other input
-     *         parameters is different from the previous call to the operation.
+     *         The operation failed because the client token input parameter matched one that was used with a previous
+     *         call to the operation, but at least one of the other input parameters is different from the previous
+     *         call.
      * @throws InvalidStateTransitionException
-     *         The requested state transition is not valid.
+     *         The operation failed because the requested operation isn't valid for the resource share in its current
+     *         state.
      * @throws UnknownResourceException
-     *         A specified resource was not found.
+     *         The operation failed because a specified resource couldn't be found.
      * @throws MalformedArnException
-     *         The format of an Amazon Resource Name (ARN) is not valid.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
      * @throws InvalidClientTokenException
-     *         A client token is not valid.
+     *         The operation failed because the specified client token isn't valid.
      * @throws InvalidParameterException
-     *         A parameter is not valid.
+     *         The operation failed because a parameter you specified isn't valid.
      * @throws OperationNotPermittedException
-     *         The requested operation is not permitted.
+     *         The operation failed because the requested operation isn't permitted.
      * @throws ResourceShareLimitExceededException
-     *         The requested resource share exceeds the limit for your account.
+     *         The operation failed because it would exceed the limit for resource shares for your account. To view the
+     *         limits for your Amazon Web Services account, see the <a
+     *         href="https://console.aws.amazon.com/servicequotas/home/services/ram/quotas">RAM page in the Service
+     *         Quotas console</a>.
+     * @throws TagPolicyViolationException
+     *         The operation failed because the specified tag key is a reserved word and can't be used.
+     * @throws TagLimitExceededException
+     *         The operation failed because it would exceed the limit for tags for your Amazon Web Services account.
      * @throws ServerInternalException
-     *         The service could not respond to the request due to an internal problem.
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
      * @throws ServiceUnavailableException
-     *         The service is not available.
+     *         The operation failed because the service isn't available. Try again later.
      * @sample AWSRAM.CreateResourceShare
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/CreateResourceShare" target="_top">AWS API
      *      Documentation</a>
@@ -413,6 +737,8 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                 request = new CreateResourceShareRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createResourceShareRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateResourceShare");
@@ -436,30 +762,200 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
 
     /**
      * <p>
+     * Deletes the specified customer managed permission in the Amazon Web Services Region in which you call this
+     * operation. You can delete a customer managed permission only if it isn't attached to any resource share. The
+     * operation deletes all versions associated with the customer managed permission.
+     * </p>
+     * 
+     * @param deletePermissionRequest
+     * @return Result of the DeletePermission operation returned by the service.
+     * @throws MalformedArnException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws OperationNotPermittedException
+     *         The operation failed because the requested operation isn't permitted.
+     * @throws UnknownResourceException
+     *         The operation failed because a specified resource couldn't be found.
+     * @throws InvalidClientTokenException
+     *         The operation failed because the specified client token isn't valid.
+     * @throws IdempotentParameterMismatchException
+     *         The operation failed because the client token input parameter matched one that was used with a previous
+     *         call to the operation, but at least one of the other input parameters is different from the previous
+     *         call.
+     * @sample AWSRAM.DeletePermission
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/DeletePermission" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeletePermissionResult deletePermission(DeletePermissionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeletePermission(request);
+    }
+
+    @SdkInternalApi
+    final DeletePermissionResult executeDeletePermission(DeletePermissionRequest deletePermissionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deletePermissionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeletePermissionRequest> request = null;
+        Response<DeletePermissionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeletePermissionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deletePermissionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePermission");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeletePermissionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeletePermissionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes one version of a customer managed permission. The version you specify must not be attached to any
+     * resource share and must not be the default version for the permission.
+     * </p>
+     * <p>
+     * If a customer managed permission has the maximum of 5 versions, then you must delete at least one version before
+     * you can create another.
+     * </p>
+     * 
+     * @param deletePermissionVersionRequest
+     * @return Result of the DeletePermissionVersion operation returned by the service.
+     * @throws MalformedArnException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws OperationNotPermittedException
+     *         The operation failed because the requested operation isn't permitted.
+     * @throws UnknownResourceException
+     *         The operation failed because a specified resource couldn't be found.
+     * @throws InvalidClientTokenException
+     *         The operation failed because the specified client token isn't valid.
+     * @throws IdempotentParameterMismatchException
+     *         The operation failed because the client token input parameter matched one that was used with a previous
+     *         call to the operation, but at least one of the other input parameters is different from the previous
+     *         call.
+     * @sample AWSRAM.DeletePermissionVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/DeletePermissionVersion" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeletePermissionVersionResult deletePermissionVersion(DeletePermissionVersionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeletePermissionVersion(request);
+    }
+
+    @SdkInternalApi
+    final DeletePermissionVersionResult executeDeletePermissionVersion(DeletePermissionVersionRequest deletePermissionVersionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deletePermissionVersionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeletePermissionVersionRequest> request = null;
+        Response<DeletePermissionVersionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeletePermissionVersionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deletePermissionVersionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePermissionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeletePermissionVersionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeletePermissionVersionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deletes the specified resource share.
      * </p>
+     * <important>
+     * <p>
+     * This doesn't delete any of the resources that were associated with the resource share; it only stops the sharing
+     * of those resources through this resource share.
+     * </p>
+     * </important>
      * 
      * @param deleteResourceShareRequest
      * @return Result of the DeleteResourceShare operation returned by the service.
      * @throws OperationNotPermittedException
-     *         The requested operation is not permitted.
+     *         The operation failed because the requested operation isn't permitted.
      * @throws IdempotentParameterMismatchException
-     *         A client token input parameter was reused with an operation, but at least one of the other input
-     *         parameters is different from the previous call to the operation.
+     *         The operation failed because the client token input parameter matched one that was used with a previous
+     *         call to the operation, but at least one of the other input parameters is different from the previous
+     *         call.
      * @throws InvalidStateTransitionException
-     *         The requested state transition is not valid.
+     *         The operation failed because the requested operation isn't valid for the resource share in its current
+     *         state.
      * @throws UnknownResourceException
-     *         A specified resource was not found.
+     *         The operation failed because a specified resource couldn't be found.
      * @throws MalformedArnException
-     *         The format of an Amazon Resource Name (ARN) is not valid.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
      * @throws InvalidClientTokenException
-     *         A client token is not valid.
+     *         The operation failed because the specified client token isn't valid.
      * @throws InvalidParameterException
-     *         A parameter is not valid.
+     *         The operation failed because a parameter you specified isn't valid.
      * @throws ServerInternalException
-     *         The service could not respond to the request due to an internal problem.
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
      * @throws ServiceUnavailableException
-     *         The service is not available.
+     *         The operation failed because the service isn't available. Try again later.
      * @sample AWSRAM.DeleteResourceShare
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/DeleteResourceShare" target="_top">AWS API
      *      Documentation</a>
@@ -485,6 +981,8 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                 request = new DeleteResourceShareRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteResourceShareRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteResourceShare");
@@ -508,32 +1006,40 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
 
     /**
      * <p>
-     * Disassociates the specified principals or resources from the specified resource share.
+     * Removes the specified principals or resources from participating in the specified resource share.
      * </p>
      * 
      * @param disassociateResourceShareRequest
      * @return Result of the DisassociateResourceShare operation returned by the service.
      * @throws IdempotentParameterMismatchException
-     *         A client token input parameter was reused with an operation, but at least one of the other input
-     *         parameters is different from the previous call to the operation.
+     *         The operation failed because the client token input parameter matched one that was used with a previous
+     *         call to the operation, but at least one of the other input parameters is different from the previous
+     *         call.
      * @throws ResourceShareLimitExceededException
-     *         The requested resource share exceeds the limit for your account.
+     *         The operation failed because it would exceed the limit for resource shares for your account. To view the
+     *         limits for your Amazon Web Services account, see the <a
+     *         href="https://console.aws.amazon.com/servicequotas/home/services/ram/quotas">RAM page in the Service
+     *         Quotas console</a>.
      * @throws MalformedArnException
-     *         The format of an Amazon Resource Name (ARN) is not valid.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
      * @throws InvalidStateTransitionException
-     *         The requested state transition is not valid.
+     *         The operation failed because the requested operation isn't valid for the resource share in its current
+     *         state.
      * @throws InvalidClientTokenException
-     *         A client token is not valid.
+     *         The operation failed because the specified client token isn't valid.
      * @throws InvalidParameterException
-     *         A parameter is not valid.
+     *         The operation failed because a parameter you specified isn't valid.
      * @throws OperationNotPermittedException
-     *         The requested operation is not permitted.
+     *         The operation failed because the requested operation isn't permitted.
      * @throws ServerInternalException
-     *         The service could not respond to the request due to an internal problem.
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
      * @throws ServiceUnavailableException
-     *         The service is not available.
+     *         The operation failed because the service isn't available. Try again later.
      * @throws UnknownResourceException
-     *         A specified resource was not found.
+     *         The operation failed because a specified resource couldn't be found.
      * @sample AWSRAM.DisassociateResourceShare
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/DisassociateResourceShare" target="_top">AWS
      *      API Documentation</a>
@@ -560,6 +1066,8 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                         .beforeMarshalling(disassociateResourceShareRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateResourceShare");
@@ -584,17 +1092,108 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
 
     /**
      * <p>
-     * Enables resource sharing within your organization.
+     * Removes a managed permission from a resource share. Permission changes take effect immediately. You can remove a
+     * managed permission from a resource share only if there are currently no resources of the relevant resource type
+     * currently attached to the resource share.
      * </p>
+     * 
+     * @param disassociateResourceSharePermissionRequest
+     * @return Result of the DisassociateResourceSharePermission operation returned by the service.
+     * @throws MalformedArnException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
+     * @throws UnknownResourceException
+     *         The operation failed because a specified resource couldn't be found.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws InvalidClientTokenException
+     *         The operation failed because the specified client token isn't valid.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws OperationNotPermittedException
+     *         The operation failed because the requested operation isn't permitted.
+     * @throws InvalidStateTransitionException
+     *         The operation failed because the requested operation isn't valid for the resource share in its current
+     *         state.
+     * @sample AWSRAM.DisassociateResourceSharePermission
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/DisassociateResourceSharePermission"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DisassociateResourceSharePermissionResult disassociateResourceSharePermission(DisassociateResourceSharePermissionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDisassociateResourceSharePermission(request);
+    }
+
+    @SdkInternalApi
+    final DisassociateResourceSharePermissionResult executeDisassociateResourceSharePermission(
+            DisassociateResourceSharePermissionRequest disassociateResourceSharePermissionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(disassociateResourceSharePermissionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DisassociateResourceSharePermissionRequest> request = null;
+        Response<DisassociateResourceSharePermissionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DisassociateResourceSharePermissionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(disassociateResourceSharePermissionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateResourceSharePermission");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DisassociateResourceSharePermissionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DisassociateResourceSharePermissionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Enables resource sharing within your organization in Organizations. This operation creates a service-linked role
+     * called <code>AWSServiceRoleForResourceAccessManager</code> that has the IAM managed policy named
+     * AWSResourceAccessManagerServiceRolePolicy attached. This role permits RAM to retrieve information about the
+     * organization and its structure. This lets you share resources with all of the accounts in the calling account's
+     * organization by specifying the organization ID, or all of the accounts in an organizational unit (OU) by
+     * specifying the OU ID. Until you enable sharing within the organization, you can specify only individual Amazon
+     * Web Services accounts, or for supported resource types, IAM roles and users.
+     * </p>
+     * <p>
+     * You must call this operation from an IAM role or user in the organization's management account.
+     * </p>
+     * <p/>
      * 
      * @param enableSharingWithAwsOrganizationRequest
      * @return Result of the EnableSharingWithAwsOrganization operation returned by the service.
      * @throws OperationNotPermittedException
-     *         The requested operation is not permitted.
+     *         The operation failed because the requested operation isn't permitted.
      * @throws ServerInternalException
-     *         The service could not respond to the request due to an internal problem.
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
      * @throws ServiceUnavailableException
-     *         The service is not available.
+     *         The operation failed because the service isn't available. Try again later.
      * @sample AWSRAM.EnableSharingWithAwsOrganization
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/EnableSharingWithAwsOrganization"
      *      target="_top">AWS API Documentation</a>
@@ -622,6 +1221,8 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                         .beforeMarshalling(enableSharingWithAwsOrganizationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "EnableSharingWithAwsOrganization");
@@ -646,21 +1247,99 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
 
     /**
      * <p>
-     * Gets the policies for the specifies resources.
+     * Retrieves the contents of a managed permission in JSON format.
+     * </p>
+     * 
+     * @param getPermissionRequest
+     * @return Result of the GetPermission operation returned by the service.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws MalformedArnException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
+     * @throws UnknownResourceException
+     *         The operation failed because a specified resource couldn't be found.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws OperationNotPermittedException
+     *         The operation failed because the requested operation isn't permitted.
+     * @sample AWSRAM.GetPermission
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/GetPermission" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetPermissionResult getPermission(GetPermissionRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetPermission(request);
+    }
+
+    @SdkInternalApi
+    final GetPermissionResult executeGetPermission(GetPermissionRequest getPermissionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getPermissionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetPermissionRequest> request = null;
+        Response<GetPermissionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetPermissionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPermissionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPermission");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetPermissionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetPermissionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves the resource policies for the specified resources that you own and have shared.
      * </p>
      * 
      * @param getResourcePoliciesRequest
      * @return Result of the GetResourcePolicies operation returned by the service.
      * @throws MalformedArnException
-     *         The format of an Amazon Resource Name (ARN) is not valid.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
      * @throws InvalidNextTokenException
-     *         The specified value for NextToken is not valid.
+     *         The operation failed because the specified value for <code>NextToken</code> isn't valid. You must specify
+     *         a value you received in the <code>NextToken</code> response of a previous call to this operation.
      * @throws InvalidParameterException
-     *         A parameter is not valid.
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws ResourceArnNotFoundException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> was not found.
      * @throws ServerInternalException
-     *         The service could not respond to the request due to an internal problem.
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
      * @throws ServiceUnavailableException
-     *         The service is not available.
+     *         The operation failed because the service isn't available. Try again later.
      * @sample AWSRAM.GetResourcePolicies
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/GetResourcePolicies" target="_top">AWS API
      *      Documentation</a>
@@ -686,6 +1365,8 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                 request = new GetResourcePoliciesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getResourcePoliciesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetResourcePolicies");
@@ -709,25 +1390,29 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
 
     /**
      * <p>
-     * Gets the associations for the specified resource share.
+     * Retrieves the lists of resources and principals that associated for resource shares that you own.
      * </p>
      * 
      * @param getResourceShareAssociationsRequest
      * @return Result of the GetResourceShareAssociations operation returned by the service.
      * @throws UnknownResourceException
-     *         A specified resource was not found.
+     *         The operation failed because a specified resource couldn't be found.
      * @throws MalformedArnException
-     *         The format of an Amazon Resource Name (ARN) is not valid.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
      * @throws InvalidNextTokenException
-     *         The specified value for NextToken is not valid.
+     *         The operation failed because the specified value for <code>NextToken</code> isn't valid. You must specify
+     *         a value you received in the <code>NextToken</code> response of a previous call to this operation.
      * @throws InvalidParameterException
-     *         A parameter is not valid.
+     *         The operation failed because a parameter you specified isn't valid.
      * @throws OperationNotPermittedException
-     *         The requested operation is not permitted.
+     *         The operation failed because the requested operation isn't permitted.
      * @throws ServerInternalException
-     *         The service could not respond to the request due to an internal problem.
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
      * @throws ServiceUnavailableException
-     *         The service is not available.
+     *         The operation failed because the service isn't available. Try again later.
      * @sample AWSRAM.GetResourceShareAssociations
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/GetResourceShareAssociations"
      *      target="_top">AWS API Documentation</a>
@@ -754,6 +1439,8 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                         .beforeMarshalling(getResourceShareAssociationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetResourceShareAssociations");
@@ -778,25 +1465,33 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
 
     /**
      * <p>
-     * Gets the specified invitations for resource sharing.
+     * Retrieves details about invitations that you have received for resource shares.
      * </p>
      * 
      * @param getResourceShareInvitationsRequest
      * @return Result of the GetResourceShareInvitations operation returned by the service.
      * @throws ResourceShareInvitationArnNotFoundException
-     *         The Amazon Resource Name (ARN) for an invitation was not found.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> for an invitation was not found.
      * @throws InvalidMaxResultsException
-     *         The specified value for MaxResults is not valid.
+     *         The operation failed because the specified value for <code>MaxResults</code> isn't valid.
      * @throws MalformedArnException
-     *         The format of an Amazon Resource Name (ARN) is not valid.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
+     * @throws UnknownResourceException
+     *         The operation failed because a specified resource couldn't be found.
      * @throws InvalidNextTokenException
-     *         The specified value for NextToken is not valid.
+     *         The operation failed because the specified value for <code>NextToken</code> isn't valid. You must specify
+     *         a value you received in the <code>NextToken</code> response of a previous call to this operation.
      * @throws InvalidParameterException
-     *         A parameter is not valid.
+     *         The operation failed because a parameter you specified isn't valid.
      * @throws ServerInternalException
-     *         The service could not respond to the request due to an internal problem.
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
      * @throws ServiceUnavailableException
-     *         The service is not available.
+     *         The operation failed because the service isn't available. Try again later.
      * @sample AWSRAM.GetResourceShareInvitations
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/GetResourceShareInvitations"
      *      target="_top">AWS API Documentation</a>
@@ -823,6 +1518,8 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                         .beforeMarshalling(getResourceShareInvitationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetResourceShareInvitations");
@@ -847,23 +1544,27 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
 
     /**
      * <p>
-     * Gets the specified resource shares or all of your resource shares.
+     * Retrieves details about the resource shares that you own or that are shared with you.
      * </p>
      * 
      * @param getResourceSharesRequest
      * @return Result of the GetResourceShares operation returned by the service.
      * @throws UnknownResourceException
-     *         A specified resource was not found.
+     *         The operation failed because a specified resource couldn't be found.
      * @throws MalformedArnException
-     *         The format of an Amazon Resource Name (ARN) is not valid.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
      * @throws InvalidNextTokenException
-     *         The specified value for NextToken is not valid.
+     *         The operation failed because the specified value for <code>NextToken</code> isn't valid. You must specify
+     *         a value you received in the <code>NextToken</code> response of a previous call to this operation.
      * @throws InvalidParameterException
-     *         A parameter is not valid.
+     *         The operation failed because a parameter you specified isn't valid.
      * @throws ServerInternalException
-     *         The service could not respond to the request due to an internal problem.
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
      * @throws ServiceUnavailableException
-     *         The service is not available.
+     *         The operation failed because the service isn't available. Try again later.
      * @sample AWSRAM.GetResourceShares
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/GetResourceShares" target="_top">AWS API
      *      Documentation</a>
@@ -889,6 +1590,8 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                 request = new GetResourceSharesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getResourceSharesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetResourceShares");
@@ -912,23 +1615,323 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
 
     /**
      * <p>
-     * Lists the principals with access to the specified resource.
+     * Lists the resources in a resource share that is shared with you but for which the invitation is still
+     * <code>PENDING</code>. That means that you haven't accepted or rejected the invitation and the invitation hasn't
+     * expired.
+     * </p>
+     * 
+     * @param listPendingInvitationResourcesRequest
+     * @return Result of the ListPendingInvitationResources operation returned by the service.
+     * @throws MalformedArnException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
+     * @throws InvalidNextTokenException
+     *         The operation failed because the specified value for <code>NextToken</code> isn't valid. You must specify
+     *         a value you received in the <code>NextToken</code> response of a previous call to this operation.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws ResourceShareInvitationArnNotFoundException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> for an invitation was not found.
+     * @throws MissingRequiredParameterException
+     *         The operation failed because a required input parameter is missing.
+     * @throws ResourceShareInvitationAlreadyRejectedException
+     *         The operation failed because the specified invitation was already rejected.
+     * @throws ResourceShareInvitationExpiredException
+     *         The operation failed because the specified invitation is past its expiration date and time.
+     * @sample AWSRAM.ListPendingInvitationResources
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/ListPendingInvitationResources"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListPendingInvitationResourcesResult listPendingInvitationResources(ListPendingInvitationResourcesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListPendingInvitationResources(request);
+    }
+
+    @SdkInternalApi
+    final ListPendingInvitationResourcesResult executeListPendingInvitationResources(ListPendingInvitationResourcesRequest listPendingInvitationResourcesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listPendingInvitationResourcesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListPendingInvitationResourcesRequest> request = null;
+        Response<ListPendingInvitationResourcesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListPendingInvitationResourcesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listPendingInvitationResourcesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPendingInvitationResources");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListPendingInvitationResourcesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListPendingInvitationResourcesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists information about the managed permission and its associations to any resource shares that use this managed
+     * permission. This lets you see which resource shares use which versions of the specified managed permission.
+     * </p>
+     * 
+     * @param listPermissionAssociationsRequest
+     * @return Result of the ListPermissionAssociations operation returned by the service.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws MalformedArnException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
+     * @throws InvalidNextTokenException
+     *         The operation failed because the specified value for <code>NextToken</code> isn't valid. You must specify
+     *         a value you received in the <code>NextToken</code> response of a previous call to this operation.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @sample AWSRAM.ListPermissionAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/ListPermissionAssociations" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListPermissionAssociationsResult listPermissionAssociations(ListPermissionAssociationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListPermissionAssociations(request);
+    }
+
+    @SdkInternalApi
+    final ListPermissionAssociationsResult executeListPermissionAssociations(ListPermissionAssociationsRequest listPermissionAssociationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listPermissionAssociationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListPermissionAssociationsRequest> request = null;
+        Response<ListPermissionAssociationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListPermissionAssociationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listPermissionAssociationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPermissionAssociations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListPermissionAssociationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListPermissionAssociationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the available versions of the specified RAM permission.
+     * </p>
+     * 
+     * @param listPermissionVersionsRequest
+     * @return Result of the ListPermissionVersions operation returned by the service.
+     * @throws MalformedArnException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
+     * @throws UnknownResourceException
+     *         The operation failed because a specified resource couldn't be found.
+     * @throws InvalidNextTokenException
+     *         The operation failed because the specified value for <code>NextToken</code> isn't valid. You must specify
+     *         a value you received in the <code>NextToken</code> response of a previous call to this operation.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws OperationNotPermittedException
+     *         The operation failed because the requested operation isn't permitted.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @sample AWSRAM.ListPermissionVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/ListPermissionVersions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListPermissionVersionsResult listPermissionVersions(ListPermissionVersionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListPermissionVersions(request);
+    }
+
+    @SdkInternalApi
+    final ListPermissionVersionsResult executeListPermissionVersions(ListPermissionVersionsRequest listPermissionVersionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listPermissionVersionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListPermissionVersionsRequest> request = null;
+        Response<ListPermissionVersionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListPermissionVersionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPermissionVersionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPermissionVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListPermissionVersionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListPermissionVersionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a list of available RAM permissions that you can use for the supported resource types.
+     * </p>
+     * 
+     * @param listPermissionsRequest
+     * @return Result of the ListPermissions operation returned by the service.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws InvalidNextTokenException
+     *         The operation failed because the specified value for <code>NextToken</code> isn't valid. You must specify
+     *         a value you received in the <code>NextToken</code> response of a previous call to this operation.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws OperationNotPermittedException
+     *         The operation failed because the requested operation isn't permitted.
+     * @sample AWSRAM.ListPermissions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/ListPermissions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListPermissionsResult listPermissions(ListPermissionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListPermissions(request);
+    }
+
+    @SdkInternalApi
+    final ListPermissionsResult executeListPermissions(ListPermissionsRequest listPermissionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listPermissionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListPermissionsRequest> request = null;
+        Response<ListPermissionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListPermissionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPermissionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPermissions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListPermissionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListPermissionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the principals that you are sharing resources with or that are sharing resources with you.
      * </p>
      * 
      * @param listPrincipalsRequest
      * @return Result of the ListPrincipals operation returned by the service.
      * @throws MalformedArnException
-     *         The format of an Amazon Resource Name (ARN) is not valid.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
      * @throws UnknownResourceException
-     *         A specified resource was not found.
+     *         The operation failed because a specified resource couldn't be found.
      * @throws InvalidNextTokenException
-     *         The specified value for NextToken is not valid.
+     *         The operation failed because the specified value for <code>NextToken</code> isn't valid. You must specify
+     *         a value you received in the <code>NextToken</code> response of a previous call to this operation.
      * @throws InvalidParameterException
-     *         A parameter is not valid.
+     *         The operation failed because a parameter you specified isn't valid.
      * @throws ServerInternalException
-     *         The service could not respond to the request due to an internal problem.
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
      * @throws ServiceUnavailableException
-     *         The service is not available.
+     *         The operation failed because the service isn't available. Try again later.
      * @sample AWSRAM.ListPrincipals
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/ListPrincipals" target="_top">AWS API
      *      Documentation</a>
@@ -954,6 +1957,8 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                 request = new ListPrincipalsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPrincipalsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPrincipals");
@@ -977,25 +1982,238 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
 
     /**
      * <p>
-     * Lists the resources that the specified principal can access.
+     * Retrieves the current status of the asynchronous tasks performed by RAM when you perform the
+     * <a>ReplacePermissionAssociationsWork</a> operation.
+     * </p>
+     * 
+     * @param listReplacePermissionAssociationsWorkRequest
+     * @return Result of the ListReplacePermissionAssociationsWork operation returned by the service.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws InvalidNextTokenException
+     *         The operation failed because the specified value for <code>NextToken</code> isn't valid. You must specify
+     *         a value you received in the <code>NextToken</code> response of a previous call to this operation.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @sample AWSRAM.ListReplacePermissionAssociationsWork
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/ListReplacePermissionAssociationsWork"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListReplacePermissionAssociationsWorkResult listReplacePermissionAssociationsWork(ListReplacePermissionAssociationsWorkRequest request) {
+        request = beforeClientExecution(request);
+        return executeListReplacePermissionAssociationsWork(request);
+    }
+
+    @SdkInternalApi
+    final ListReplacePermissionAssociationsWorkResult executeListReplacePermissionAssociationsWork(
+            ListReplacePermissionAssociationsWorkRequest listReplacePermissionAssociationsWorkRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listReplacePermissionAssociationsWorkRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListReplacePermissionAssociationsWorkRequest> request = null;
+        Response<ListReplacePermissionAssociationsWorkResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListReplacePermissionAssociationsWorkRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listReplacePermissionAssociationsWorkRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListReplacePermissionAssociationsWork");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListReplacePermissionAssociationsWorkResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListReplacePermissionAssociationsWorkResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the RAM permissions that are associated with a resource share.
+     * </p>
+     * 
+     * @param listResourceSharePermissionsRequest
+     * @return Result of the ListResourceSharePermissions operation returned by the service.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws MalformedArnException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
+     * @throws UnknownResourceException
+     *         The operation failed because a specified resource couldn't be found.
+     * @throws InvalidNextTokenException
+     *         The operation failed because the specified value for <code>NextToken</code> isn't valid. You must specify
+     *         a value you received in the <code>NextToken</code> response of a previous call to this operation.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws OperationNotPermittedException
+     *         The operation failed because the requested operation isn't permitted.
+     * @sample AWSRAM.ListResourceSharePermissions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/ListResourceSharePermissions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListResourceSharePermissionsResult listResourceSharePermissions(ListResourceSharePermissionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListResourceSharePermissions(request);
+    }
+
+    @SdkInternalApi
+    final ListResourceSharePermissionsResult executeListResourceSharePermissions(ListResourceSharePermissionsRequest listResourceSharePermissionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listResourceSharePermissionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListResourceSharePermissionsRequest> request = null;
+        Response<ListResourceSharePermissionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListResourceSharePermissionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listResourceSharePermissionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListResourceSharePermissions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListResourceSharePermissionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListResourceSharePermissionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the resource types that can be shared by RAM.
+     * </p>
+     * 
+     * @param listResourceTypesRequest
+     * @return Result of the ListResourceTypes operation returned by the service.
+     * @throws InvalidNextTokenException
+     *         The operation failed because the specified value for <code>NextToken</code> isn't valid. You must specify
+     *         a value you received in the <code>NextToken</code> response of a previous call to this operation.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @sample AWSRAM.ListResourceTypes
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/ListResourceTypes" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListResourceTypesResult listResourceTypes(ListResourceTypesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListResourceTypes(request);
+    }
+
+    @SdkInternalApi
+    final ListResourceTypesResult executeListResourceTypes(ListResourceTypesRequest listResourceTypesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listResourceTypesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListResourceTypesRequest> request = null;
+        Response<ListResourceTypesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListResourceTypesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listResourceTypesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListResourceTypes");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListResourceTypesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListResourceTypesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the resources that you added to a resource share or the resources that are shared with you.
      * </p>
      * 
      * @param listResourcesRequest
      * @return Result of the ListResources operation returned by the service.
      * @throws InvalidResourceTypeException
-     *         The specified resource type is not valid.
+     *         The operation failed because the specified resource type isn't valid.
      * @throws UnknownResourceException
-     *         A specified resource was not found.
+     *         The operation failed because a specified resource couldn't be found.
      * @throws MalformedArnException
-     *         The format of an Amazon Resource Name (ARN) is not valid.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
      * @throws InvalidNextTokenException
-     *         The specified value for NextToken is not valid.
+     *         The operation failed because the specified value for <code>NextToken</code> isn't valid. You must specify
+     *         a value you received in the <code>NextToken</code> response of a previous call to this operation.
      * @throws InvalidParameterException
-     *         A parameter is not valid.
+     *         The operation failed because a parameter you specified isn't valid.
      * @throws ServerInternalException
-     *         The service could not respond to the request due to an internal problem.
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
      * @throws ServiceUnavailableException
-     *         The service is not available.
+     *         The operation failed because the service isn't available. Try again later.
      * @sample AWSRAM.ListResources
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/ListResources" target="_top">AWS API
      *      Documentation</a>
@@ -1021,6 +2239,8 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                 request = new ListResourcesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listResourcesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListResources");
@@ -1044,27 +2264,251 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
 
     /**
      * <p>
-     * Rejects an invitation to a resource share from another AWS account.
+     * When you attach a resource-based policy to a resource, RAM automatically creates a resource share of
+     * <code>featureSet</code>=<code>CREATED_FROM_POLICY</code> with a managed permission that has the same IAM
+     * permissions as the original resource-based policy. However, this type of managed permission is visible to only
+     * the resource share owner, and the associated resource share can't be modified by using RAM.
+     * </p>
+     * <p>
+     * This operation creates a separate, fully manageable customer managed permission that has the same IAM permissions
+     * as the original resource-based policy. You can associate this customer managed permission to any resource shares.
+     * </p>
+     * <p>
+     * Before you use <a>PromoteResourceShareCreatedFromPolicy</a>, you should first run this operation to ensure that
+     * you have an appropriate customer managed permission that can be associated with the promoted resource share.
+     * </p>
+     * <note>
+     * <ul>
+     * <li>
+     * <p>
+     * The original <code>CREATED_FROM_POLICY</code> policy isn't deleted, and resource shares using that original
+     * policy aren't automatically updated.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You can't modify a <code>CREATED_FROM_POLICY</code> resource share so you can't associate the new customer
+     * managed permission by using <code>ReplacePermsissionAssociations</code>. However, if you use
+     * <a>PromoteResourceShareCreatedFromPolicy</a>, that operation automatically associates the fully manageable
+     * customer managed permission to the newly promoted <code>STANDARD</code> resource share.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * After you promote a resource share, if the original <code>CREATED_FROM_POLICY</code> managed permission has no
+     * other associations to A resource share, then RAM automatically deletes it.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param promotePermissionCreatedFromPolicyRequest
+     * @return Result of the PromotePermissionCreatedFromPolicy operation returned by the service.
+     * @throws MalformedArnException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
+     * @throws OperationNotPermittedException
+     *         The operation failed because the requested operation isn't permitted.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws MissingRequiredParameterException
+     *         The operation failed because a required input parameter is missing.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws UnknownResourceException
+     *         The operation failed because a specified resource couldn't be found.
+     * @sample AWSRAM.PromotePermissionCreatedFromPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/PromotePermissionCreatedFromPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public PromotePermissionCreatedFromPolicyResult promotePermissionCreatedFromPolicy(PromotePermissionCreatedFromPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executePromotePermissionCreatedFromPolicy(request);
+    }
+
+    @SdkInternalApi
+    final PromotePermissionCreatedFromPolicyResult executePromotePermissionCreatedFromPolicy(
+            PromotePermissionCreatedFromPolicyRequest promotePermissionCreatedFromPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(promotePermissionCreatedFromPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PromotePermissionCreatedFromPolicyRequest> request = null;
+        Response<PromotePermissionCreatedFromPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PromotePermissionCreatedFromPolicyRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(promotePermissionCreatedFromPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PromotePermissionCreatedFromPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PromotePermissionCreatedFromPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PromotePermissionCreatedFromPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * When you attach a resource-based policy to a resource, RAM automatically creates a resource share of
+     * <code>featureSet</code>=<code>CREATED_FROM_POLICY</code> with a managed permission that has the same IAM
+     * permissions as the original resource-based policy. However, this type of managed permission is visible to only
+     * the resource share owner, and the associated resource share can't be modified by using RAM.
+     * </p>
+     * <p>
+     * This operation promotes the resource share to a <code>STANDARD</code> resource share that is fully manageable in
+     * RAM. When you promote a resource share, you can then manage the resource share in RAM and it becomes visible to
+     * all of the principals you shared it with.
+     * </p>
+     * <important>
+     * <p>
+     * Before you perform this operation, you should first run <a>PromotePermissionCreatedFromPolicy</a>to ensure that
+     * you have an appropriate customer managed permission that can be associated with this resource share after its is
+     * promoted. If this operation can't find a managed permission that exactly matches the existing
+     * <code>CREATED_FROM_POLICY</code> permission, then this operation fails.
+     * </p>
+     * </important>
+     * 
+     * @param promoteResourceShareCreatedFromPolicyRequest
+     * @return Result of the PromoteResourceShareCreatedFromPolicy operation returned by the service.
+     * @throws MalformedArnException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
+     * @throws ResourceShareLimitExceededException
+     *         The operation failed because it would exceed the limit for resource shares for your account. To view the
+     *         limits for your Amazon Web Services account, see the <a
+     *         href="https://console.aws.amazon.com/servicequotas/home/services/ram/quotas">RAM page in the Service
+     *         Quotas console</a>.
+     * @throws OperationNotPermittedException
+     *         The operation failed because the requested operation isn't permitted.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws MissingRequiredParameterException
+     *         The operation failed because a required input parameter is missing.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws UnknownResourceException
+     *         The operation failed because a specified resource couldn't be found.
+     * @throws InvalidStateTransitionException
+     *         The operation failed because the requested operation isn't valid for the resource share in its current
+     *         state.
+     * @throws UnmatchedPolicyPermissionException
+     *         There isn't an existing managed permission defined in RAM that has the same IAM permissions as the
+     *         resource-based policy attached to the resource. You should first run
+     *         <a>PromotePermissionCreatedFromPolicy</a> to create that managed permission.
+     * @sample AWSRAM.PromoteResourceShareCreatedFromPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/PromoteResourceShareCreatedFromPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public PromoteResourceShareCreatedFromPolicyResult promoteResourceShareCreatedFromPolicy(PromoteResourceShareCreatedFromPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executePromoteResourceShareCreatedFromPolicy(request);
+    }
+
+    @SdkInternalApi
+    final PromoteResourceShareCreatedFromPolicyResult executePromoteResourceShareCreatedFromPolicy(
+            PromoteResourceShareCreatedFromPolicyRequest promoteResourceShareCreatedFromPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(promoteResourceShareCreatedFromPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PromoteResourceShareCreatedFromPolicyRequest> request = null;
+        Response<PromoteResourceShareCreatedFromPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PromoteResourceShareCreatedFromPolicyRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(promoteResourceShareCreatedFromPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PromoteResourceShareCreatedFromPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PromoteResourceShareCreatedFromPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PromoteResourceShareCreatedFromPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Rejects an invitation to a resource share from another Amazon Web Services account.
      * </p>
      * 
      * @param rejectResourceShareInvitationRequest
      * @return Result of the RejectResourceShareInvitation operation returned by the service.
      * @throws MalformedArnException
-     *         The format of an Amazon Resource Name (ARN) is not valid.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
      * @throws OperationNotPermittedException
-     *         The requested operation is not permitted.
+     *         The operation failed because the requested operation isn't permitted.
      * @throws ResourceShareInvitationArnNotFoundException
-     *         The Amazon Resource Name (ARN) for an invitation was not found.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> for an invitation was not found.
      * @throws ResourceShareInvitationAlreadyAcceptedException
-     *         The invitation was already accepted.
+     *         The operation failed because the specified invitation was already accepted.
      * @throws ResourceShareInvitationAlreadyRejectedException
-     *         The invitation was already rejected.
+     *         The operation failed because the specified invitation was already rejected.
      * @throws ResourceShareInvitationExpiredException
-     *         The invitation is expired.
+     *         The operation failed because the specified invitation is past its expiration date and time.
      * @throws ServerInternalException
-     *         The service could not respond to the request due to an internal problem.
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
      * @throws ServiceUnavailableException
-     *         The service is not available.
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws InvalidClientTokenException
+     *         The operation failed because the specified client token isn't valid.
+     * @throws IdempotentParameterMismatchException
+     *         The operation failed because the client token input parameter matched one that was used with a previous
+     *         call to the operation, but at least one of the other input parameters is different from the previous
+     *         call.
      * @sample AWSRAM.RejectResourceShareInvitation
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/RejectResourceShareInvitation"
      *      target="_top">AWS API Documentation</a>
@@ -1091,6 +2535,8 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                         .beforeMarshalling(rejectResourceShareInvitationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RejectResourceShareInvitation");
@@ -1115,23 +2561,210 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
 
     /**
      * <p>
-     * Adds the specified tags to the specified resource share.
+     * Updates all resource shares that use a managed permission to a different managed permission. This operation
+     * always applies the default version of the target managed permission. You can optionally specify that the update
+     * applies to only resource shares that currently use a specified version. This enables you to update to the latest
+     * version, without changing the which managed permission is used.
+     * </p>
+     * <p>
+     * You can use this operation to update all of your resource shares to use the current default version of the
+     * permission by specifying the same value for the <code>fromPermissionArn</code> and <code>toPermissionArn</code>
+     * parameters.
+     * </p>
+     * <p>
+     * You can use the optional <code>fromPermissionVersion</code> parameter to update only those resources that use a
+     * specified version of the managed permission to the new managed permission.
+     * </p>
+     * <important>
+     * <p>
+     * To successfully perform this operation, you must have permission to update the resource-based policy on all
+     * affected resource types.
+     * </p>
+     * </important>
+     * 
+     * @param replacePermissionAssociationsRequest
+     * @return Result of the ReplacePermissionAssociations operation returned by the service.
+     * @throws MalformedArnException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws OperationNotPermittedException
+     *         The operation failed because the requested operation isn't permitted.
+     * @throws UnknownResourceException
+     *         The operation failed because a specified resource couldn't be found.
+     * @throws InvalidClientTokenException
+     *         The operation failed because the specified client token isn't valid.
+     * @throws IdempotentParameterMismatchException
+     *         The operation failed because the client token input parameter matched one that was used with a previous
+     *         call to the operation, but at least one of the other input parameters is different from the previous
+     *         call.
+     * @sample AWSRAM.ReplacePermissionAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/ReplacePermissionAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ReplacePermissionAssociationsResult replacePermissionAssociations(ReplacePermissionAssociationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeReplacePermissionAssociations(request);
+    }
+
+    @SdkInternalApi
+    final ReplacePermissionAssociationsResult executeReplacePermissionAssociations(ReplacePermissionAssociationsRequest replacePermissionAssociationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(replacePermissionAssociationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ReplacePermissionAssociationsRequest> request = null;
+        Response<ReplacePermissionAssociationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ReplacePermissionAssociationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(replacePermissionAssociationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ReplacePermissionAssociations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ReplacePermissionAssociationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ReplacePermissionAssociationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Designates the specified version number as the default version for the specified customer managed permission. New
+     * resource shares automatically use this new default permission. Existing resource shares continue to use their
+     * original permission version, but you can use <a>ReplacePermissionAssociations</a> to update them.
+     * </p>
+     * 
+     * @param setDefaultPermissionVersionRequest
+     * @return Result of the SetDefaultPermissionVersion operation returned by the service.
+     * @throws InvalidParameterException
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws MalformedArnException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
+     * @throws ServerInternalException
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
+     * @throws ServiceUnavailableException
+     *         The operation failed because the service isn't available. Try again later.
+     * @throws UnknownResourceException
+     *         The operation failed because a specified resource couldn't be found.
+     * @throws InvalidClientTokenException
+     *         The operation failed because the specified client token isn't valid.
+     * @throws IdempotentParameterMismatchException
+     *         The operation failed because the client token input parameter matched one that was used with a previous
+     *         call to the operation, but at least one of the other input parameters is different from the previous
+     *         call.
+     * @sample AWSRAM.SetDefaultPermissionVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/SetDefaultPermissionVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public SetDefaultPermissionVersionResult setDefaultPermissionVersion(SetDefaultPermissionVersionRequest request) {
+        request = beforeClientExecution(request);
+        return executeSetDefaultPermissionVersion(request);
+    }
+
+    @SdkInternalApi
+    final SetDefaultPermissionVersionResult executeSetDefaultPermissionVersion(SetDefaultPermissionVersionRequest setDefaultPermissionVersionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(setDefaultPermissionVersionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<SetDefaultPermissionVersionRequest> request = null;
+        Response<SetDefaultPermissionVersionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new SetDefaultPermissionVersionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(setDefaultPermissionVersionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetDefaultPermissionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<SetDefaultPermissionVersionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new SetDefaultPermissionVersionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Adds the specified tag keys and values to a resource share or managed permission. If you choose a resource share,
+     * the tags are attached to only the resource share, not to the resources that are in the resource share.
+     * </p>
+     * <p>
+     * The tags on a managed permission are the same for all versions of the managed permission.
      * </p>
      * 
      * @param tagResourceRequest
      * @return Result of the TagResource operation returned by the service.
      * @throws InvalidParameterException
-     *         A parameter is not valid.
+     *         The operation failed because a parameter you specified isn't valid.
      * @throws MalformedArnException
-     *         The format of an Amazon Resource Name (ARN) is not valid.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
+     * @throws UnknownResourceException
+     *         The operation failed because a specified resource couldn't be found.
      * @throws TagLimitExceededException
-     *         The requested tags exceed the limit for your account.
+     *         The operation failed because it would exceed the limit for tags for your Amazon Web Services account.
      * @throws ResourceArnNotFoundException
-     *         An Amazon Resource Name (ARN) was not found.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> was not found.
+     * @throws TagPolicyViolationException
+     *         The operation failed because the specified tag key is a reserved word and can't be used.
      * @throws ServerInternalException
-     *         The service could not respond to the request due to an internal problem.
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
      * @throws ServiceUnavailableException
-     *         The service is not available.
+     *         The operation failed because the service isn't available. Try again later.
      * @sample AWSRAM.TagResource
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/TagResource" target="_top">AWS API
      *      Documentation</a>
@@ -1157,6 +2790,8 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -1180,17 +2815,24 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
 
     /**
      * <p>
-     * Removes the specified tags from the specified resource share.
+     * Removes the specified tag key and value pairs from the specified resource share or managed permission.
      * </p>
      * 
      * @param untagResourceRequest
      * @return Result of the UntagResource operation returned by the service.
+     * @throws UnknownResourceException
+     *         The operation failed because a specified resource couldn't be found.
      * @throws InvalidParameterException
-     *         A parameter is not valid.
+     *         The operation failed because a parameter you specified isn't valid.
+     * @throws MalformedArnException
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
      * @throws ServerInternalException
-     *         The service could not respond to the request due to an internal problem.
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
      * @throws ServiceUnavailableException
-     *         The service is not available.
+     *         The operation failed because the service isn't available. Try again later.
      * @sample AWSRAM.UntagResource
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/UntagResource" target="_top">AWS API
      *      Documentation</a>
@@ -1216,6 +2858,8 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -1239,30 +2883,34 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
 
     /**
      * <p>
-     * Updates the specified resource share.
+     * Modifies some of the properties of the specified resource share.
      * </p>
      * 
      * @param updateResourceShareRequest
      * @return Result of the UpdateResourceShare operation returned by the service.
      * @throws IdempotentParameterMismatchException
-     *         A client token input parameter was reused with an operation, but at least one of the other input
-     *         parameters is different from the previous call to the operation.
+     *         The operation failed because the client token input parameter matched one that was used with a previous
+     *         call to the operation, but at least one of the other input parameters is different from the previous
+     *         call.
      * @throws MissingRequiredParameterException
-     *         A required input parameter is missing.
+     *         The operation failed because a required input parameter is missing.
      * @throws UnknownResourceException
-     *         A specified resource was not found.
+     *         The operation failed because a specified resource couldn't be found.
      * @throws MalformedArnException
-     *         The format of an Amazon Resource Name (ARN) is not valid.
+     *         The operation failed because the specified <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     *         (ARN)</a> has a format that isn't valid.
      * @throws InvalidClientTokenException
-     *         A client token is not valid.
+     *         The operation failed because the specified client token isn't valid.
      * @throws InvalidParameterException
-     *         A parameter is not valid.
+     *         The operation failed because a parameter you specified isn't valid.
      * @throws OperationNotPermittedException
-     *         The requested operation is not permitted.
+     *         The operation failed because the requested operation isn't permitted.
      * @throws ServerInternalException
-     *         The service could not respond to the request due to an internal problem.
+     *         The operation failed because the service could not respond to the request due to an internal problem. Try
+     *         again later.
      * @throws ServiceUnavailableException
-     *         The service is not available.
+     *         The operation failed because the service isn't available. Try again later.
      * @sample AWSRAM.UpdateResourceShare
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/UpdateResourceShare" target="_top">AWS API
      *      Documentation</a>
@@ -1288,6 +2936,8 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
                 request = new UpdateResourceShareRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateResourceShareRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RAM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateResourceShare");
@@ -1383,6 +3033,11 @@ public class AWSRAMClient extends AmazonWebServiceClient implements AWSRAM {
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

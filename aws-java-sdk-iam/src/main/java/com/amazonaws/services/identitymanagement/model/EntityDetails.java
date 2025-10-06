@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,7 @@ import javax.annotation.Generated;
 /**
  * <p>
  * An object that contains details about when the IAM entities (users or roles) were last used in an attempt to access
- * the specified AWS service.
+ * the specified Amazon Web Services service.
  * </p>
  * <p>
  * This data type is a response element in the <a>GetServiceLastAccessedDetailsWithEntities</a> operation.
@@ -39,12 +39,13 @@ public class EntityDetails implements Serializable, Cloneable {
     /**
      * <p>
      * The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the
-     * authenticated entity last attempted to access AWS. AWS does not report unauthenticated requests.
+     * authenticated entity last attempted to access Amazon Web Services. Amazon Web Services does not report
+     * unauthenticated requests.
      * </p>
      * <p>
      * This field is null if no IAM entities attempted to access the service within the <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     * >reporting period</a>.
+     * >tracking period</a>.
      * </p>
      */
     private java.util.Date lastAuthenticated;
@@ -92,21 +93,23 @@ public class EntityDetails implements Serializable, Cloneable {
     /**
      * <p>
      * The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the
-     * authenticated entity last attempted to access AWS. AWS does not report unauthenticated requests.
+     * authenticated entity last attempted to access Amazon Web Services. Amazon Web Services does not report
+     * unauthenticated requests.
      * </p>
      * <p>
      * This field is null if no IAM entities attempted to access the service within the <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     * >reporting period</a>.
+     * >tracking period</a>.
      * </p>
      * 
      * @param lastAuthenticated
      *        The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the
-     *        authenticated entity last attempted to access AWS. AWS does not report unauthenticated requests.</p>
+     *        authenticated entity last attempted to access Amazon Web Services. Amazon Web Services does not report
+     *        unauthenticated requests.</p>
      *        <p>
      *        This field is null if no IAM entities attempted to access the service within the <a href=
      *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     *        >reporting period</a>.
+     *        >tracking period</a>.
      */
 
     public void setLastAuthenticated(java.util.Date lastAuthenticated) {
@@ -116,20 +119,22 @@ public class EntityDetails implements Serializable, Cloneable {
     /**
      * <p>
      * The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the
-     * authenticated entity last attempted to access AWS. AWS does not report unauthenticated requests.
+     * authenticated entity last attempted to access Amazon Web Services. Amazon Web Services does not report
+     * unauthenticated requests.
      * </p>
      * <p>
      * This field is null if no IAM entities attempted to access the service within the <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     * >reporting period</a>.
+     * >tracking period</a>.
      * </p>
      * 
      * @return The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the
-     *         authenticated entity last attempted to access AWS. AWS does not report unauthenticated requests.</p>
+     *         authenticated entity last attempted to access Amazon Web Services. Amazon Web Services does not report
+     *         unauthenticated requests.</p>
      *         <p>
      *         This field is null if no IAM entities attempted to access the service within the <a href=
      *         "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     *         >reporting period</a>.
+     *         >tracking period</a>.
      */
 
     public java.util.Date getLastAuthenticated() {
@@ -139,21 +144,23 @@ public class EntityDetails implements Serializable, Cloneable {
     /**
      * <p>
      * The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the
-     * authenticated entity last attempted to access AWS. AWS does not report unauthenticated requests.
+     * authenticated entity last attempted to access Amazon Web Services. Amazon Web Services does not report
+     * unauthenticated requests.
      * </p>
      * <p>
      * This field is null if no IAM entities attempted to access the service within the <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     * >reporting period</a>.
+     * >tracking period</a>.
      * </p>
      * 
      * @param lastAuthenticated
      *        The date and time, in <a href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a>, when the
-     *        authenticated entity last attempted to access AWS. AWS does not report unauthenticated requests.</p>
+     *        authenticated entity last attempted to access Amazon Web Services. Amazon Web Services does not report
+     *        unauthenticated requests.</p>
      *        <p>
      *        This field is null if no IAM entities attempted to access the service within the <a href=
      *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period"
-     *        >reporting period</a>.
+     *        >tracking period</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

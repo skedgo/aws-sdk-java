@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,42 +30,56 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Describes updates to an SQL-based Kinesis Data Analytics application's configuration.
+     * Describes updates to a SQL-based Kinesis Data Analytics application's configuration.
      * </p>
      */
     private SqlApplicationConfigurationUpdate sqlApplicationConfigurationUpdate;
     /**
      * <p>
-     * Describes updates to a Java-based Kinesis Data Analytics application's code configuration.
+     * Describes updates to an application's code configuration.
      * </p>
      */
     private ApplicationCodeConfigurationUpdate applicationCodeConfigurationUpdate;
     /**
      * <p>
-     * Describes updates to a Java-based Kinesis Data Analytics application's configuration.
+     * Describes updates to a Managed Service for Apache Flink application's configuration.
      * </p>
      */
     private FlinkApplicationConfigurationUpdate flinkApplicationConfigurationUpdate;
     /**
      * <p>
-     * Describes updates to the environment properties for a Java-based Kinesis Data Analytics application.
+     * Describes updates to the environment properties for a Managed Service for Apache Flink application.
      * </p>
      */
     private EnvironmentPropertyUpdates environmentPropertyUpdates;
     /**
      * <p>
-     * Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      * </p>
      */
     private ApplicationSnapshotConfigurationUpdate applicationSnapshotConfigurationUpdate;
 
+    private ApplicationSystemRollbackConfigurationUpdate applicationSystemRollbackConfigurationUpdate;
     /**
      * <p>
-     * Describes updates to an SQL-based Kinesis Data Analytics application's configuration.
+     * Updates to the array of descriptions of VPC configurations available to the application.
+     * </p>
+     */
+    private java.util.List<VpcConfigurationUpdate> vpcConfigurationUpdates;
+    /**
+     * <p>
+     * Updates to the configuration of a Managed Service for Apache Flink Studio notebook.
+     * </p>
+     */
+    private ZeppelinApplicationConfigurationUpdate zeppelinApplicationConfigurationUpdate;
+
+    /**
+     * <p>
+     * Describes updates to a SQL-based Kinesis Data Analytics application's configuration.
      * </p>
      * 
      * @param sqlApplicationConfigurationUpdate
-     *        Describes updates to an SQL-based Kinesis Data Analytics application's configuration.
+     *        Describes updates to a SQL-based Kinesis Data Analytics application's configuration.
      */
 
     public void setSqlApplicationConfigurationUpdate(SqlApplicationConfigurationUpdate sqlApplicationConfigurationUpdate) {
@@ -74,10 +88,10 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Describes updates to an SQL-based Kinesis Data Analytics application's configuration.
+     * Describes updates to a SQL-based Kinesis Data Analytics application's configuration.
      * </p>
      * 
-     * @return Describes updates to an SQL-based Kinesis Data Analytics application's configuration.
+     * @return Describes updates to a SQL-based Kinesis Data Analytics application's configuration.
      */
 
     public SqlApplicationConfigurationUpdate getSqlApplicationConfigurationUpdate() {
@@ -86,11 +100,11 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Describes updates to an SQL-based Kinesis Data Analytics application's configuration.
+     * Describes updates to a SQL-based Kinesis Data Analytics application's configuration.
      * </p>
      * 
      * @param sqlApplicationConfigurationUpdate
-     *        Describes updates to an SQL-based Kinesis Data Analytics application's configuration.
+     *        Describes updates to a SQL-based Kinesis Data Analytics application's configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -101,11 +115,11 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Describes updates to a Java-based Kinesis Data Analytics application's code configuration.
+     * Describes updates to an application's code configuration.
      * </p>
      * 
      * @param applicationCodeConfigurationUpdate
-     *        Describes updates to a Java-based Kinesis Data Analytics application's code configuration.
+     *        Describes updates to an application's code configuration.
      */
 
     public void setApplicationCodeConfigurationUpdate(ApplicationCodeConfigurationUpdate applicationCodeConfigurationUpdate) {
@@ -114,10 +128,10 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Describes updates to a Java-based Kinesis Data Analytics application's code configuration.
+     * Describes updates to an application's code configuration.
      * </p>
      * 
-     * @return Describes updates to a Java-based Kinesis Data Analytics application's code configuration.
+     * @return Describes updates to an application's code configuration.
      */
 
     public ApplicationCodeConfigurationUpdate getApplicationCodeConfigurationUpdate() {
@@ -126,11 +140,11 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Describes updates to a Java-based Kinesis Data Analytics application's code configuration.
+     * Describes updates to an application's code configuration.
      * </p>
      * 
      * @param applicationCodeConfigurationUpdate
-     *        Describes updates to a Java-based Kinesis Data Analytics application's code configuration.
+     *        Describes updates to an application's code configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -141,11 +155,11 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Describes updates to a Java-based Kinesis Data Analytics application's configuration.
+     * Describes updates to a Managed Service for Apache Flink application's configuration.
      * </p>
      * 
      * @param flinkApplicationConfigurationUpdate
-     *        Describes updates to a Java-based Kinesis Data Analytics application's configuration.
+     *        Describes updates to a Managed Service for Apache Flink application's configuration.
      */
 
     public void setFlinkApplicationConfigurationUpdate(FlinkApplicationConfigurationUpdate flinkApplicationConfigurationUpdate) {
@@ -154,10 +168,10 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Describes updates to a Java-based Kinesis Data Analytics application's configuration.
+     * Describes updates to a Managed Service for Apache Flink application's configuration.
      * </p>
      * 
-     * @return Describes updates to a Java-based Kinesis Data Analytics application's configuration.
+     * @return Describes updates to a Managed Service for Apache Flink application's configuration.
      */
 
     public FlinkApplicationConfigurationUpdate getFlinkApplicationConfigurationUpdate() {
@@ -166,11 +180,11 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Describes updates to a Java-based Kinesis Data Analytics application's configuration.
+     * Describes updates to a Managed Service for Apache Flink application's configuration.
      * </p>
      * 
      * @param flinkApplicationConfigurationUpdate
-     *        Describes updates to a Java-based Kinesis Data Analytics application's configuration.
+     *        Describes updates to a Managed Service for Apache Flink application's configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -181,11 +195,11 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Describes updates to the environment properties for a Java-based Kinesis Data Analytics application.
+     * Describes updates to the environment properties for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param environmentPropertyUpdates
-     *        Describes updates to the environment properties for a Java-based Kinesis Data Analytics application.
+     *        Describes updates to the environment properties for a Managed Service for Apache Flink application.
      */
 
     public void setEnvironmentPropertyUpdates(EnvironmentPropertyUpdates environmentPropertyUpdates) {
@@ -194,10 +208,10 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Describes updates to the environment properties for a Java-based Kinesis Data Analytics application.
+     * Describes updates to the environment properties for a Managed Service for Apache Flink application.
      * </p>
      * 
-     * @return Describes updates to the environment properties for a Java-based Kinesis Data Analytics application.
+     * @return Describes updates to the environment properties for a Managed Service for Apache Flink application.
      */
 
     public EnvironmentPropertyUpdates getEnvironmentPropertyUpdates() {
@@ -206,11 +220,11 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Describes updates to the environment properties for a Java-based Kinesis Data Analytics application.
+     * Describes updates to the environment properties for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param environmentPropertyUpdates
-     *        Describes updates to the environment properties for a Java-based Kinesis Data Analytics application.
+     *        Describes updates to the environment properties for a Managed Service for Apache Flink application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -221,11 +235,11 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param applicationSnapshotConfigurationUpdate
-     *        Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     *        Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      */
 
     public void setApplicationSnapshotConfigurationUpdate(ApplicationSnapshotConfigurationUpdate applicationSnapshotConfigurationUpdate) {
@@ -234,10 +248,10 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      * </p>
      * 
-     * @return Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     * @return Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      */
 
     public ApplicationSnapshotConfigurationUpdate getApplicationSnapshotConfigurationUpdate() {
@@ -246,17 +260,155 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     * Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      * </p>
      * 
      * @param applicationSnapshotConfigurationUpdate
-     *        Describes whether snapshots are enabled for a Java-based Kinesis Data Analytics application.
+     *        Describes whether snapshots are enabled for a Managed Service for Apache Flink application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ApplicationConfigurationUpdate withApplicationSnapshotConfigurationUpdate(
             ApplicationSnapshotConfigurationUpdate applicationSnapshotConfigurationUpdate) {
         setApplicationSnapshotConfigurationUpdate(applicationSnapshotConfigurationUpdate);
+        return this;
+    }
+
+    /**
+     * @param applicationSystemRollbackConfigurationUpdate
+     */
+
+    public void setApplicationSystemRollbackConfigurationUpdate(ApplicationSystemRollbackConfigurationUpdate applicationSystemRollbackConfigurationUpdate) {
+        this.applicationSystemRollbackConfigurationUpdate = applicationSystemRollbackConfigurationUpdate;
+    }
+
+    /**
+     * @return
+     */
+
+    public ApplicationSystemRollbackConfigurationUpdate getApplicationSystemRollbackConfigurationUpdate() {
+        return this.applicationSystemRollbackConfigurationUpdate;
+    }
+
+    /**
+     * @param applicationSystemRollbackConfigurationUpdate
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationConfigurationUpdate withApplicationSystemRollbackConfigurationUpdate(
+            ApplicationSystemRollbackConfigurationUpdate applicationSystemRollbackConfigurationUpdate) {
+        setApplicationSystemRollbackConfigurationUpdate(applicationSystemRollbackConfigurationUpdate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Updates to the array of descriptions of VPC configurations available to the application.
+     * </p>
+     * 
+     * @return Updates to the array of descriptions of VPC configurations available to the application.
+     */
+
+    public java.util.List<VpcConfigurationUpdate> getVpcConfigurationUpdates() {
+        return vpcConfigurationUpdates;
+    }
+
+    /**
+     * <p>
+     * Updates to the array of descriptions of VPC configurations available to the application.
+     * </p>
+     * 
+     * @param vpcConfigurationUpdates
+     *        Updates to the array of descriptions of VPC configurations available to the application.
+     */
+
+    public void setVpcConfigurationUpdates(java.util.Collection<VpcConfigurationUpdate> vpcConfigurationUpdates) {
+        if (vpcConfigurationUpdates == null) {
+            this.vpcConfigurationUpdates = null;
+            return;
+        }
+
+        this.vpcConfigurationUpdates = new java.util.ArrayList<VpcConfigurationUpdate>(vpcConfigurationUpdates);
+    }
+
+    /**
+     * <p>
+     * Updates to the array of descriptions of VPC configurations available to the application.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setVpcConfigurationUpdates(java.util.Collection)} or
+     * {@link #withVpcConfigurationUpdates(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param vpcConfigurationUpdates
+     *        Updates to the array of descriptions of VPC configurations available to the application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationConfigurationUpdate withVpcConfigurationUpdates(VpcConfigurationUpdate... vpcConfigurationUpdates) {
+        if (this.vpcConfigurationUpdates == null) {
+            setVpcConfigurationUpdates(new java.util.ArrayList<VpcConfigurationUpdate>(vpcConfigurationUpdates.length));
+        }
+        for (VpcConfigurationUpdate ele : vpcConfigurationUpdates) {
+            this.vpcConfigurationUpdates.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Updates to the array of descriptions of VPC configurations available to the application.
+     * </p>
+     * 
+     * @param vpcConfigurationUpdates
+     *        Updates to the array of descriptions of VPC configurations available to the application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationConfigurationUpdate withVpcConfigurationUpdates(java.util.Collection<VpcConfigurationUpdate> vpcConfigurationUpdates) {
+        setVpcConfigurationUpdates(vpcConfigurationUpdates);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Updates to the configuration of a Managed Service for Apache Flink Studio notebook.
+     * </p>
+     * 
+     * @param zeppelinApplicationConfigurationUpdate
+     *        Updates to the configuration of a Managed Service for Apache Flink Studio notebook.
+     */
+
+    public void setZeppelinApplicationConfigurationUpdate(ZeppelinApplicationConfigurationUpdate zeppelinApplicationConfigurationUpdate) {
+        this.zeppelinApplicationConfigurationUpdate = zeppelinApplicationConfigurationUpdate;
+    }
+
+    /**
+     * <p>
+     * Updates to the configuration of a Managed Service for Apache Flink Studio notebook.
+     * </p>
+     * 
+     * @return Updates to the configuration of a Managed Service for Apache Flink Studio notebook.
+     */
+
+    public ZeppelinApplicationConfigurationUpdate getZeppelinApplicationConfigurationUpdate() {
+        return this.zeppelinApplicationConfigurationUpdate;
+    }
+
+    /**
+     * <p>
+     * Updates to the configuration of a Managed Service for Apache Flink Studio notebook.
+     * </p>
+     * 
+     * @param zeppelinApplicationConfigurationUpdate
+     *        Updates to the configuration of a Managed Service for Apache Flink Studio notebook.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationConfigurationUpdate withZeppelinApplicationConfigurationUpdate(
+            ZeppelinApplicationConfigurationUpdate zeppelinApplicationConfigurationUpdate) {
+        setZeppelinApplicationConfigurationUpdate(zeppelinApplicationConfigurationUpdate);
         return this;
     }
 
@@ -281,7 +433,13 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
         if (getEnvironmentPropertyUpdates() != null)
             sb.append("EnvironmentPropertyUpdates: ").append(getEnvironmentPropertyUpdates()).append(",");
         if (getApplicationSnapshotConfigurationUpdate() != null)
-            sb.append("ApplicationSnapshotConfigurationUpdate: ").append(getApplicationSnapshotConfigurationUpdate());
+            sb.append("ApplicationSnapshotConfigurationUpdate: ").append(getApplicationSnapshotConfigurationUpdate()).append(",");
+        if (getApplicationSystemRollbackConfigurationUpdate() != null)
+            sb.append("ApplicationSystemRollbackConfigurationUpdate: ").append(getApplicationSystemRollbackConfigurationUpdate()).append(",");
+        if (getVpcConfigurationUpdates() != null)
+            sb.append("VpcConfigurationUpdates: ").append(getVpcConfigurationUpdates()).append(",");
+        if (getZeppelinApplicationConfigurationUpdate() != null)
+            sb.append("ZeppelinApplicationConfigurationUpdate: ").append(getZeppelinApplicationConfigurationUpdate());
         sb.append("}");
         return sb.toString();
     }
@@ -320,6 +478,20 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
         if (other.getApplicationSnapshotConfigurationUpdate() != null
                 && other.getApplicationSnapshotConfigurationUpdate().equals(this.getApplicationSnapshotConfigurationUpdate()) == false)
             return false;
+        if (other.getApplicationSystemRollbackConfigurationUpdate() == null ^ this.getApplicationSystemRollbackConfigurationUpdate() == null)
+            return false;
+        if (other.getApplicationSystemRollbackConfigurationUpdate() != null
+                && other.getApplicationSystemRollbackConfigurationUpdate().equals(this.getApplicationSystemRollbackConfigurationUpdate()) == false)
+            return false;
+        if (other.getVpcConfigurationUpdates() == null ^ this.getVpcConfigurationUpdates() == null)
+            return false;
+        if (other.getVpcConfigurationUpdates() != null && other.getVpcConfigurationUpdates().equals(this.getVpcConfigurationUpdates()) == false)
+            return false;
+        if (other.getZeppelinApplicationConfigurationUpdate() == null ^ this.getZeppelinApplicationConfigurationUpdate() == null)
+            return false;
+        if (other.getZeppelinApplicationConfigurationUpdate() != null
+                && other.getZeppelinApplicationConfigurationUpdate().equals(this.getZeppelinApplicationConfigurationUpdate()) == false)
+            return false;
         return true;
     }
 
@@ -333,6 +505,10 @@ public class ApplicationConfigurationUpdate implements Serializable, Cloneable, 
         hashCode = prime * hashCode + ((getFlinkApplicationConfigurationUpdate() == null) ? 0 : getFlinkApplicationConfigurationUpdate().hashCode());
         hashCode = prime * hashCode + ((getEnvironmentPropertyUpdates() == null) ? 0 : getEnvironmentPropertyUpdates().hashCode());
         hashCode = prime * hashCode + ((getApplicationSnapshotConfigurationUpdate() == null) ? 0 : getApplicationSnapshotConfigurationUpdate().hashCode());
+        hashCode = prime * hashCode
+                + ((getApplicationSystemRollbackConfigurationUpdate() == null) ? 0 : getApplicationSystemRollbackConfigurationUpdate().hashCode());
+        hashCode = prime * hashCode + ((getVpcConfigurationUpdates() == null) ? 0 : getVpcConfigurationUpdates().hashCode());
+        hashCode = prime * hashCode + ((getZeppelinApplicationConfigurationUpdate() == null) ? 0 : getZeppelinApplicationConfigurationUpdate().hashCode());
         return hashCode;
     }
 

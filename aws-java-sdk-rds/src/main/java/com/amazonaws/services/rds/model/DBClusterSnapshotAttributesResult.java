@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,8 +20,8 @@ import javax.annotation.Generated;
  * Contains the results of a successful call to the <code>DescribeDBClusterSnapshotAttributes</code> API action.
  * </p>
  * <p>
- * Manual DB cluster snapshot attributes are used to authorize other AWS accounts to copy or restore a manual DB cluster
- * snapshot. For more information, see the <code>ModifyDBClusterSnapshotAttribute</code> API action.
+ * Manual DB cluster snapshot attributes are used to authorize other Amazon Web Services accounts to copy or restore a
+ * manual DB cluster snapshot. For more information, see the <code>ModifyDBClusterSnapshotAttribute</code> API action.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBClusterSnapshotAttributesResult"

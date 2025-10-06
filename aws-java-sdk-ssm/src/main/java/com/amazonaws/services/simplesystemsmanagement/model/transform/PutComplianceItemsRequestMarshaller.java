@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,6 +40,8 @@ public class PutComplianceItemsRequestMarshaller {
             .marshallLocationName("Items").build();
     private static final MarshallingInfo<String> ITEMCONTENTHASH_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ItemContentHash").build();
+    private static final MarshallingInfo<String> UPLOADTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("UploadType").build();
 
     private static final PutComplianceItemsRequestMarshaller instance = new PutComplianceItemsRequestMarshaller();
 
@@ -63,6 +65,7 @@ public class PutComplianceItemsRequestMarshaller {
             protocolMarshaller.marshall(putComplianceItemsRequest.getExecutionSummary(), EXECUTIONSUMMARY_BINDING);
             protocolMarshaller.marshall(putComplianceItemsRequest.getItems(), ITEMS_BINDING);
             protocolMarshaller.marshall(putComplianceItemsRequest.getItemContentHash(), ITEMCONTENTHASH_BINDING);
+            protocolMarshaller.marshall(putComplianceItemsRequest.getUploadType(), UPLOADTYPE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

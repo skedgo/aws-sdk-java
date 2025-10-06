@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.comprehend.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -48,6 +49,10 @@ public class StartEntitiesDetectionJobRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VolumeKmsKeyId").build();
     private static final MarshallingInfo<StructuredPojo> VPCCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VpcConfig").build();
+    private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Tags").build();
+    private static final MarshallingInfo<String> FLYWHEELARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FlywheelArn").build();
 
     private static final StartEntitiesDetectionJobRequestMarshaller instance = new StartEntitiesDetectionJobRequestMarshaller();
 
@@ -74,6 +79,8 @@ public class StartEntitiesDetectionJobRequestMarshaller {
             protocolMarshaller.marshall(startEntitiesDetectionJobRequest.getClientRequestToken(), CLIENTREQUESTTOKEN_BINDING);
             protocolMarshaller.marshall(startEntitiesDetectionJobRequest.getVolumeKmsKeyId(), VOLUMEKMSKEYID_BINDING);
             protocolMarshaller.marshall(startEntitiesDetectionJobRequest.getVpcConfig(), VPCCONFIG_BINDING);
+            protocolMarshaller.marshall(startEntitiesDetectionJobRequest.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(startEntitiesDetectionJobRequest.getFlywheelArn(), FLYWHEELARN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

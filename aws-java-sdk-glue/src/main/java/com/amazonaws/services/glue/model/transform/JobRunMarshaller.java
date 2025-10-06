@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,6 +39,8 @@ public class JobRunMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TriggerName").build();
     private static final MarshallingInfo<String> JOBNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("JobName").build();
+    private static final MarshallingInfo<String> JOBMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("JobMode").build();
     private static final MarshallingInfo<java.util.Date> STARTEDON_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StartedOn").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<java.util.Date> LASTMODIFIEDON_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
@@ -73,6 +75,14 @@ public class JobRunMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("NotificationProperty").build();
     private static final MarshallingInfo<String> GLUEVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("GlueVersion").build();
+    private static final MarshallingInfo<Double> DPUSECONDS_BINDING = MarshallingInfo.builder(MarshallingType.DOUBLE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DPUSeconds").build();
+    private static final MarshallingInfo<String> EXECUTIONCLASS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExecutionClass").build();
+    private static final MarshallingInfo<String> MAINTENANCEWINDOW_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MaintenanceWindow").build();
+    private static final MarshallingInfo<String> PROFILENAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ProfileName").build();
 
     private static final JobRunMarshaller instance = new JobRunMarshaller();
 
@@ -95,6 +105,7 @@ public class JobRunMarshaller {
             protocolMarshaller.marshall(jobRun.getPreviousRunId(), PREVIOUSRUNID_BINDING);
             protocolMarshaller.marshall(jobRun.getTriggerName(), TRIGGERNAME_BINDING);
             protocolMarshaller.marshall(jobRun.getJobName(), JOBNAME_BINDING);
+            protocolMarshaller.marshall(jobRun.getJobMode(), JOBMODE_BINDING);
             protocolMarshaller.marshall(jobRun.getStartedOn(), STARTEDON_BINDING);
             protocolMarshaller.marshall(jobRun.getLastModifiedOn(), LASTMODIFIEDON_BINDING);
             protocolMarshaller.marshall(jobRun.getCompletedOn(), COMPLETEDON_BINDING);
@@ -112,6 +123,10 @@ public class JobRunMarshaller {
             protocolMarshaller.marshall(jobRun.getLogGroupName(), LOGGROUPNAME_BINDING);
             protocolMarshaller.marshall(jobRun.getNotificationProperty(), NOTIFICATIONPROPERTY_BINDING);
             protocolMarshaller.marshall(jobRun.getGlueVersion(), GLUEVERSION_BINDING);
+            protocolMarshaller.marshall(jobRun.getDPUSeconds(), DPUSECONDS_BINDING);
+            protocolMarshaller.marshall(jobRun.getExecutionClass(), EXECUTIONCLASS_BINDING);
+            protocolMarshaller.marshall(jobRun.getMaintenanceWindow(), MAINTENANCEWINDOW_BINDING);
+            protocolMarshaller.marshall(jobRun.getProfileName(), PROFILENAME_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

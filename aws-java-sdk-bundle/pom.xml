@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.amazonaws</groupId>
         <artifactId>aws-java-sdk-pom</artifactId>
-        <version>1.11.607-SNAPSHOT</version>
+        <version>1.12.793-SNAPSHOT</version>
     </parent>
     <groupId>com.amazonaws</groupId>
     <artifactId>aws-java-sdk-bundle</artifactId>
@@ -24,7 +24,7 @@
         <artifactId>aws-java-sdk</artifactId>
         <groupId>com.amazonaws</groupId>
         <optional>false</optional>
-        <version>1.11.607-SNAPSHOT</version>
+        <version>1.12.793-SNAPSHOT</version>
     </dependency>
 </dependencies>
 
@@ -33,7 +33,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>2.4.3</version>
+                <version>3.2.4</version>
                 <configuration>
                     <artifactSet>
                         <includes>
@@ -42,7 +42,6 @@
                             <include>com.fasterxml.jackson.dataformat:jackson-dataformat-cbor</include>
                             <include>org.apache.httpcomponents:*</include>
                             <include>commons-codec:commons-codec</include>
-                            <include>software.amazon.ion:ion-java</include>
                             <include>commons-logging:commons-logging</include>
                             <include>io.netty:*</include>
                             <include>com.amazonaws:*</include>
@@ -66,10 +65,6 @@
                             <shadedPattern>com.amazonaws.thirdparty.apache.codec</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>software.amazon.ion</pattern>
-                            <shadedPattern>com.amazonaws.thirdparty.ion</shadedPattern>
-                        </relocation>
-                        <relocation>
                             <pattern>org.apache.commons.logging</pattern>
                             <shadedPattern>com.amazonaws.thirdparty.apache.logging</shadedPattern>
                         </relocation>
@@ -78,6 +73,17 @@
                             <shadedPattern>com.amazonaws.thirdparty.io.netty</shadedPattern>
                         </relocation>
                     </relocations>
+                    <filters>
+                        <filter>
+                            <artifact>com.fasterxml.jackson.core:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/**/pom.xml</exclude>
+                                <exclude>META-INF/**/pom.properties</exclude>
+                                <!-- exclude multirelease classes -->
+                                <exclude>META-INF/versions/**/*.class</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
                     <shadedArtifactAttached>false</shadedArtifactAttached>
                     <createDependencyReducedPom>true</createDependencyReducedPom>
                     <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * Must match the identifier of an existing Read Replica DB instance.
+     * Must match the identifier of an existing read replica DB instance.
      * </p>
      * </li>
      * </ul>
@@ -47,8 +47,8 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
     private String dBInstanceIdentifier;
     /**
      * <p>
-     * The number of days to retain automated backups. Setting this parameter to a positive number enables backups.
-     * Setting this parameter to 0 disables automated backups.
+     * The number of days for which automated backups are retained. Setting this parameter to a positive number enables
+     * backups. Setting this parameter to 0 disables automated backups.
      * </p>
      * <p>
      * Default: 1
@@ -59,7 +59,12 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * Must be a value from 0 to 8
+     * Must be a value from 0 to 35.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be set to 0 if the DB instance is a source to read replicas.
      * </p>
      * </li>
      * </ul>
@@ -71,8 +76,8 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the
-     * time blocks available, see <a
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region. To see the time blocks available, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting the
      * Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
@@ -114,7 +119,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * Must match the identifier of an existing Read Replica DB instance.
+     * Must match the identifier of an existing read replica DB instance.
      * </p>
      * </li>
      * </ul>
@@ -130,7 +135,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      *        <ul>
      *        <li>
      *        <p>
-     *        Must match the identifier of an existing Read Replica DB instance.
+     *        Must match the identifier of an existing read replica DB instance.
      *        </p>
      *        </li>
      *        </ul>
@@ -152,7 +157,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * Must match the identifier of an existing Read Replica DB instance.
+     * Must match the identifier of an existing read replica DB instance.
      * </p>
      * </li>
      * </ul>
@@ -167,7 +172,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      *         <ul>
      *         <li>
      *         <p>
-     *         Must match the identifier of an existing Read Replica DB instance.
+     *         Must match the identifier of an existing read replica DB instance.
      *         </p>
      *         </li>
      *         </ul>
@@ -189,7 +194,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * Must match the identifier of an existing Read Replica DB instance.
+     * Must match the identifier of an existing read replica DB instance.
      * </p>
      * </li>
      * </ul>
@@ -205,7 +210,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      *        <ul>
      *        <li>
      *        <p>
-     *        Must match the identifier of an existing Read Replica DB instance.
+     *        Must match the identifier of an existing read replica DB instance.
      *        </p>
      *        </li>
      *        </ul>
@@ -221,8 +226,8 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The number of days to retain automated backups. Setting this parameter to a positive number enables backups.
-     * Setting this parameter to 0 disables automated backups.
+     * The number of days for which automated backups are retained. Setting this parameter to a positive number enables
+     * backups. Setting this parameter to 0 disables automated backups.
      * </p>
      * <p>
      * Default: 1
@@ -233,14 +238,19 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * Must be a value from 0 to 8
+     * Must be a value from 0 to 35.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be set to 0 if the DB instance is a source to read replicas.
      * </p>
      * </li>
      * </ul>
      * 
      * @param backupRetentionPeriod
-     *        The number of days to retain automated backups. Setting this parameter to a positive number enables
-     *        backups. Setting this parameter to 0 disables automated backups.</p>
+     *        The number of days for which automated backups are retained. Setting this parameter to a positive number
+     *        enables backups. Setting this parameter to 0 disables automated backups.</p>
      *        <p>
      *        Default: 1
      *        </p>
@@ -250,7 +260,12 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be a value from 0 to 8
+     *        Must be a value from 0 to 35.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can't be set to 0 if the DB instance is a source to read replicas.
      *        </p>
      *        </li>
      */
@@ -261,8 +276,8 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The number of days to retain automated backups. Setting this parameter to a positive number enables backups.
-     * Setting this parameter to 0 disables automated backups.
+     * The number of days for which automated backups are retained. Setting this parameter to a positive number enables
+     * backups. Setting this parameter to 0 disables automated backups.
      * </p>
      * <p>
      * Default: 1
@@ -273,13 +288,18 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * Must be a value from 0 to 8
+     * Must be a value from 0 to 35.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be set to 0 if the DB instance is a source to read replicas.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The number of days to retain automated backups. Setting this parameter to a positive number enables
-     *         backups. Setting this parameter to 0 disables automated backups.</p>
+     * @return The number of days for which automated backups are retained. Setting this parameter to a positive number
+     *         enables backups. Setting this parameter to 0 disables automated backups.</p>
      *         <p>
      *         Default: 1
      *         </p>
@@ -289,7 +309,12 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      *         <ul>
      *         <li>
      *         <p>
-     *         Must be a value from 0 to 8
+     *         Must be a value from 0 to 35.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Can't be set to 0 if the DB instance is a source to read replicas.
      *         </p>
      *         </li>
      */
@@ -300,8 +325,8 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The number of days to retain automated backups. Setting this parameter to a positive number enables backups.
-     * Setting this parameter to 0 disables automated backups.
+     * The number of days for which automated backups are retained. Setting this parameter to a positive number enables
+     * backups. Setting this parameter to 0 disables automated backups.
      * </p>
      * <p>
      * Default: 1
@@ -312,14 +337,19 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * Must be a value from 0 to 8
+     * Must be a value from 0 to 35.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't be set to 0 if the DB instance is a source to read replicas.
      * </p>
      * </li>
      * </ul>
      * 
      * @param backupRetentionPeriod
-     *        The number of days to retain automated backups. Setting this parameter to a positive number enables
-     *        backups. Setting this parameter to 0 disables automated backups.</p>
+     *        The number of days for which automated backups are retained. Setting this parameter to a positive number
+     *        enables backups. Setting this parameter to 0 disables automated backups.</p>
      *        <p>
      *        Default: 1
      *        </p>
@@ -329,7 +359,12 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be a value from 0 to 8
+     *        Must be a value from 0 to 35.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can't be set to 0 if the DB instance is a source to read replicas.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -346,8 +381,8 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the
-     * time blocks available, see <a
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region. To see the time blocks available, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting the
      * Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
@@ -379,10 +414,10 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * 
      * @param preferredBackupWindow
      *        The daily time range during which automated backups are created if automated backups are enabled, using
-     *        the <code>BackupRetentionPeriod</code> parameter. </p>
+     *        the <code>BackupRetentionPeriod</code> parameter.</p>
      *        <p>
-     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To
-     *        see the time blocks available, see <a
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web
+     *        Services Region. To see the time blocks available, see <a
      *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
      *        Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
      *        </p>
@@ -422,8 +457,8 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the
-     * time blocks available, see <a
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region. To see the time blocks available, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting the
      * Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
@@ -454,10 +489,10 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * </ul>
      * 
      * @return The daily time range during which automated backups are created if automated backups are enabled, using
-     *         the <code>BackupRetentionPeriod</code> parameter. </p>
+     *         the <code>BackupRetentionPeriod</code> parameter.</p>
      *         <p>
-     *         The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To
-     *         see the time blocks available, see <a
+     *         The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web
+     *         Services Region. To see the time blocks available, see <a
      *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
      *         Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
      *         </p>
@@ -497,8 +532,8 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the
-     * time blocks available, see <a
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region. To see the time blocks available, see <a
      * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting the
      * Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
@@ -530,10 +565,10 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * 
      * @param preferredBackupWindow
      *        The daily time range during which automated backups are created if automated backups are enabled, using
-     *        the <code>BackupRetentionPeriod</code> parameter. </p>
+     *        the <code>BackupRetentionPeriod</code> parameter.</p>
      *        <p>
-     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To
-     *        see the time blocks available, see <a
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web
+     *        Services Region. To see the time blocks available, see <a
      *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
      *        Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
      *        </p>

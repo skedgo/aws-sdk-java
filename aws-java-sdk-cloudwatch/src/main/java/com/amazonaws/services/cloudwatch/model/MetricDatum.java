@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,8 +51,8 @@ public class MetricDatum implements Serializable, Cloneable {
      * </p>
      * <p>
      * Although the parameter accepts numbers of type Double, CloudWatch rejects values that are either too small or too
-     * large. Values must be in the range of 8.515920e-109 to 1.174271e+108 (Base 10) or 2e-360 to 2e360 (Base 2). In
-     * addition, special values (for example, NaN, +Infinity, -Infinity) are not supported.
+     * large. Values must be in the range of -2^360 to 2^360. In addition, special values (for example, NaN, +Infinity,
+     * -Infinity) are not supported.
      * </p>
      */
     private Double value;
@@ -71,9 +71,8 @@ public class MetricDatum implements Serializable, Cloneable {
      * </p>
      * <p>
      * Although the <code>Values</code> array accepts numbers of type <code>Double</code>, CloudWatch rejects values
-     * that are either too small or too large. Values must be in the range of 8.515920e-109 to 1.174271e+108 (Base 10)
-     * or 2e-360 to 2e360 (Base 2). In addition, special values (for example, NaN, +Infinity, -Infinity) are not
-     * supported.
+     * that are either too small or too large. Values must be in the range of -2^360 to 2^360. In addition, special
+     * values (for example, NaN, +Infinity, -Infinity) are not supported.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Double> values;
@@ -91,6 +90,8 @@ public class MetricDatum implements Serializable, Cloneable {
     /**
      * <p>
      * When you are using a <code>Put</code> operation, this defines what unit you want to use when storing the metric.
+     * </p>
+     * <p>
      * In a <code>Get</code> operation, this displays the unit that is used for the metric.
      * </p>
      */
@@ -272,16 +273,16 @@ public class MetricDatum implements Serializable, Cloneable {
      * </p>
      * <p>
      * Although the parameter accepts numbers of type Double, CloudWatch rejects values that are either too small or too
-     * large. Values must be in the range of 8.515920e-109 to 1.174271e+108 (Base 10) or 2e-360 to 2e360 (Base 2). In
-     * addition, special values (for example, NaN, +Infinity, -Infinity) are not supported.
+     * large. Values must be in the range of -2^360 to 2^360. In addition, special values (for example, NaN, +Infinity,
+     * -Infinity) are not supported.
      * </p>
      * 
      * @param value
      *        The value for the metric.</p>
      *        <p>
      *        Although the parameter accepts numbers of type Double, CloudWatch rejects values that are either too small
-     *        or too large. Values must be in the range of 8.515920e-109 to 1.174271e+108 (Base 10) or 2e-360 to 2e360
-     *        (Base 2). In addition, special values (for example, NaN, +Infinity, -Infinity) are not supported.
+     *        or too large. Values must be in the range of -2^360 to 2^360. In addition, special values (for example,
+     *        NaN, +Infinity, -Infinity) are not supported.
      */
 
     public void setValue(Double value) {
@@ -294,15 +295,15 @@ public class MetricDatum implements Serializable, Cloneable {
      * </p>
      * <p>
      * Although the parameter accepts numbers of type Double, CloudWatch rejects values that are either too small or too
-     * large. Values must be in the range of 8.515920e-109 to 1.174271e+108 (Base 10) or 2e-360 to 2e360 (Base 2). In
-     * addition, special values (for example, NaN, +Infinity, -Infinity) are not supported.
+     * large. Values must be in the range of -2^360 to 2^360. In addition, special values (for example, NaN, +Infinity,
+     * -Infinity) are not supported.
      * </p>
      * 
      * @return The value for the metric.</p>
      *         <p>
      *         Although the parameter accepts numbers of type Double, CloudWatch rejects values that are either too
-     *         small or too large. Values must be in the range of 8.515920e-109 to 1.174271e+108 (Base 10) or 2e-360 to
-     *         2e360 (Base 2). In addition, special values (for example, NaN, +Infinity, -Infinity) are not supported.
+     *         small or too large. Values must be in the range of -2^360 to 2^360. In addition, special values (for
+     *         example, NaN, +Infinity, -Infinity) are not supported.
      */
 
     public Double getValue() {
@@ -315,16 +316,16 @@ public class MetricDatum implements Serializable, Cloneable {
      * </p>
      * <p>
      * Although the parameter accepts numbers of type Double, CloudWatch rejects values that are either too small or too
-     * large. Values must be in the range of 8.515920e-109 to 1.174271e+108 (Base 10) or 2e-360 to 2e360 (Base 2). In
-     * addition, special values (for example, NaN, +Infinity, -Infinity) are not supported.
+     * large. Values must be in the range of -2^360 to 2^360. In addition, special values (for example, NaN, +Infinity,
+     * -Infinity) are not supported.
      * </p>
      * 
      * @param value
      *        The value for the metric.</p>
      *        <p>
      *        Although the parameter accepts numbers of type Double, CloudWatch rejects values that are either too small
-     *        or too large. Values must be in the range of 8.515920e-109 to 1.174271e+108 (Base 10) or 2e-360 to 2e360
-     *        (Base 2). In addition, special values (for example, NaN, +Infinity, -Infinity) are not supported.
+     *        or too large. Values must be in the range of -2^360 to 2^360. In addition, special values (for example,
+     *        NaN, +Infinity, -Infinity) are not supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -382,9 +383,8 @@ public class MetricDatum implements Serializable, Cloneable {
      * </p>
      * <p>
      * Although the <code>Values</code> array accepts numbers of type <code>Double</code>, CloudWatch rejects values
-     * that are either too small or too large. Values must be in the range of 8.515920e-109 to 1.174271e+108 (Base 10)
-     * or 2e-360 to 2e360 (Base 2). In addition, special values (for example, NaN, +Infinity, -Infinity) are not
-     * supported.
+     * that are either too small or too large. Values must be in the range of -2^360 to 2^360. In addition, special
+     * values (for example, NaN, +Infinity, -Infinity) are not supported.
      * </p>
      * 
      * @return Array of numbers representing the values for the metric during the period. Each unique value is listed
@@ -393,9 +393,8 @@ public class MetricDatum implements Serializable, Cloneable {
      *         <code>PutMetricData</code> action that specifies a <code>Values</code> array.</p>
      *         <p>
      *         Although the <code>Values</code> array accepts numbers of type <code>Double</code>, CloudWatch rejects
-     *         values that are either too small or too large. Values must be in the range of 8.515920e-109 to
-     *         1.174271e+108 (Base 10) or 2e-360 to 2e360 (Base 2). In addition, special values (for example, NaN,
-     *         +Infinity, -Infinity) are not supported.
+     *         values that are either too small or too large. Values must be in the range of -2^360 to 2^360. In
+     *         addition, special values (for example, NaN, +Infinity, -Infinity) are not supported.
      */
 
     public java.util.List<Double> getValues() {
@@ -414,9 +413,8 @@ public class MetricDatum implements Serializable, Cloneable {
      * </p>
      * <p>
      * Although the <code>Values</code> array accepts numbers of type <code>Double</code>, CloudWatch rejects values
-     * that are either too small or too large. Values must be in the range of 8.515920e-109 to 1.174271e+108 (Base 10)
-     * or 2e-360 to 2e360 (Base 2). In addition, special values (for example, NaN, +Infinity, -Infinity) are not
-     * supported.
+     * that are either too small or too large. Values must be in the range of -2^360 to 2^360. In addition, special
+     * values (for example, NaN, +Infinity, -Infinity) are not supported.
      * </p>
      * 
      * @param values
@@ -426,9 +424,8 @@ public class MetricDatum implements Serializable, Cloneable {
      *        <code>PutMetricData</code> action that specifies a <code>Values</code> array.</p>
      *        <p>
      *        Although the <code>Values</code> array accepts numbers of type <code>Double</code>, CloudWatch rejects
-     *        values that are either too small or too large. Values must be in the range of 8.515920e-109 to
-     *        1.174271e+108 (Base 10) or 2e-360 to 2e360 (Base 2). In addition, special values (for example, NaN,
-     *        +Infinity, -Infinity) are not supported.
+     *        values that are either too small or too large. Values must be in the range of -2^360 to 2^360. In
+     *        addition, special values (for example, NaN, +Infinity, -Infinity) are not supported.
      */
 
     public void setValues(java.util.Collection<Double> values) {
@@ -449,9 +446,8 @@ public class MetricDatum implements Serializable, Cloneable {
      * </p>
      * <p>
      * Although the <code>Values</code> array accepts numbers of type <code>Double</code>, CloudWatch rejects values
-     * that are either too small or too large. Values must be in the range of 8.515920e-109 to 1.174271e+108 (Base 10)
-     * or 2e-360 to 2e360 (Base 2). In addition, special values (for example, NaN, +Infinity, -Infinity) are not
-     * supported.
+     * that are either too small or too large. Values must be in the range of -2^360 to 2^360. In addition, special
+     * values (for example, NaN, +Infinity, -Infinity) are not supported.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -466,9 +462,8 @@ public class MetricDatum implements Serializable, Cloneable {
      *        <code>PutMetricData</code> action that specifies a <code>Values</code> array.</p>
      *        <p>
      *        Although the <code>Values</code> array accepts numbers of type <code>Double</code>, CloudWatch rejects
-     *        values that are either too small or too large. Values must be in the range of 8.515920e-109 to
-     *        1.174271e+108 (Base 10) or 2e-360 to 2e360 (Base 2). In addition, special values (for example, NaN,
-     *        +Infinity, -Infinity) are not supported.
+     *        values that are either too small or too large. Values must be in the range of -2^360 to 2^360. In
+     *        addition, special values (for example, NaN, +Infinity, -Infinity) are not supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -491,9 +486,8 @@ public class MetricDatum implements Serializable, Cloneable {
      * </p>
      * <p>
      * Although the <code>Values</code> array accepts numbers of type <code>Double</code>, CloudWatch rejects values
-     * that are either too small or too large. Values must be in the range of 8.515920e-109 to 1.174271e+108 (Base 10)
-     * or 2e-360 to 2e360 (Base 2). In addition, special values (for example, NaN, +Infinity, -Infinity) are not
-     * supported.
+     * that are either too small or too large. Values must be in the range of -2^360 to 2^360. In addition, special
+     * values (for example, NaN, +Infinity, -Infinity) are not supported.
      * </p>
      * 
      * @param values
@@ -503,9 +497,8 @@ public class MetricDatum implements Serializable, Cloneable {
      *        <code>PutMetricData</code> action that specifies a <code>Values</code> array.</p>
      *        <p>
      *        Although the <code>Values</code> array accepts numbers of type <code>Double</code>, CloudWatch rejects
-     *        values that are either too small or too large. Values must be in the range of 8.515920e-109 to
-     *        1.174271e+108 (Base 10) or 2e-360 to 2e360 (Base 2). In addition, special values (for example, NaN,
-     *        +Infinity, -Infinity) are not supported.
+     *        values that are either too small or too large. Values must be in the range of -2^360 to 2^360. In
+     *        addition, special values (for example, NaN, +Infinity, -Infinity) are not supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -634,12 +627,16 @@ public class MetricDatum implements Serializable, Cloneable {
     /**
      * <p>
      * When you are using a <code>Put</code> operation, this defines what unit you want to use when storing the metric.
+     * </p>
+     * <p>
      * In a <code>Get</code> operation, this displays the unit that is used for the metric.
      * </p>
      * 
      * @param unit
      *        When you are using a <code>Put</code> operation, this defines what unit you want to use when storing the
-     *        metric. In a <code>Get</code> operation, this displays the unit that is used for the metric.
+     *        metric.</p>
+     *        <p>
+     *        In a <code>Get</code> operation, this displays the unit that is used for the metric.
      * @see StandardUnit
      */
 
@@ -650,11 +647,15 @@ public class MetricDatum implements Serializable, Cloneable {
     /**
      * <p>
      * When you are using a <code>Put</code> operation, this defines what unit you want to use when storing the metric.
+     * </p>
+     * <p>
      * In a <code>Get</code> operation, this displays the unit that is used for the metric.
      * </p>
      * 
      * @return When you are using a <code>Put</code> operation, this defines what unit you want to use when storing the
-     *         metric. In a <code>Get</code> operation, this displays the unit that is used for the metric.
+     *         metric.</p>
+     *         <p>
+     *         In a <code>Get</code> operation, this displays the unit that is used for the metric.
      * @see StandardUnit
      */
 
@@ -665,12 +666,16 @@ public class MetricDatum implements Serializable, Cloneable {
     /**
      * <p>
      * When you are using a <code>Put</code> operation, this defines what unit you want to use when storing the metric.
+     * </p>
+     * <p>
      * In a <code>Get</code> operation, this displays the unit that is used for the metric.
      * </p>
      * 
      * @param unit
      *        When you are using a <code>Put</code> operation, this defines what unit you want to use when storing the
-     *        metric. In a <code>Get</code> operation, this displays the unit that is used for the metric.
+     *        metric.</p>
+     *        <p>
+     *        In a <code>Get</code> operation, this displays the unit that is used for the metric.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see StandardUnit
      */
@@ -683,12 +688,16 @@ public class MetricDatum implements Serializable, Cloneable {
     /**
      * <p>
      * When you are using a <code>Put</code> operation, this defines what unit you want to use when storing the metric.
+     * </p>
+     * <p>
      * In a <code>Get</code> operation, this displays the unit that is used for the metric.
      * </p>
      * 
      * @param unit
      *        When you are using a <code>Put</code> operation, this defines what unit you want to use when storing the
-     *        metric. In a <code>Get</code> operation, this displays the unit that is used for the metric.
+     *        metric.</p>
+     *        <p>
+     *        In a <code>Get</code> operation, this displays the unit that is used for the metric.
      * @see StandardUnit
      */
 
@@ -699,12 +708,16 @@ public class MetricDatum implements Serializable, Cloneable {
     /**
      * <p>
      * When you are using a <code>Put</code> operation, this defines what unit you want to use when storing the metric.
+     * </p>
+     * <p>
      * In a <code>Get</code> operation, this displays the unit that is used for the metric.
      * </p>
      * 
      * @param unit
      *        When you are using a <code>Put</code> operation, this defines what unit you want to use when storing the
-     *        metric. In a <code>Get</code> operation, this displays the unit that is used for the metric.
+     *        metric.</p>
+     *        <p>
+     *        In a <code>Get</code> operation, this displays the unit that is used for the metric.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see StandardUnit
      */

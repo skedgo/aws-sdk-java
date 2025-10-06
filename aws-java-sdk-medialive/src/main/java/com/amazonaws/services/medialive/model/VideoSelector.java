@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,10 +27,12 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 public class VideoSelector implements Serializable, Cloneable, StructuredPojo {
 
     /**
-     * Specifies the colorspace of an input. This setting works in tandem with colorSpaceConversion to determine if any
-     * conversion will be performed.
+     * Specifies the color space of an input. This setting works in tandem with colorSpaceUsage and a video
+     * description's colorSpaceSettingsChoice to determine if any conversion will be performed.
      */
     private String colorSpace;
+    /** Color space settings */
+    private VideoSelectorColorSpaceSettings colorSpaceSettings;
     /**
      * Applies only if colorSpace is a value other than follow. This field controls how the value in the colorSpace
      * field will be used. fallback means that when the input does include color space data, that data will be used, but
@@ -44,12 +46,12 @@ public class VideoSelector implements Serializable, Cloneable, StructuredPojo {
     private VideoSelectorSettings selectorSettings;
 
     /**
-     * Specifies the colorspace of an input. This setting works in tandem with colorSpaceConversion to determine if any
-     * conversion will be performed.
+     * Specifies the color space of an input. This setting works in tandem with colorSpaceUsage and a video
+     * description's colorSpaceSettingsChoice to determine if any conversion will be performed.
      * 
      * @param colorSpace
-     *        Specifies the colorspace of an input. This setting works in tandem with colorSpaceConversion to determine
-     *        if any conversion will be performed.
+     *        Specifies the color space of an input. This setting works in tandem with colorSpaceUsage and a video
+     *        description's colorSpaceSettingsChoice to determine if any conversion will be performed.
      * @see VideoSelectorColorSpace
      */
 
@@ -58,11 +60,11 @@ public class VideoSelector implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Specifies the colorspace of an input. This setting works in tandem with colorSpaceConversion to determine if any
-     * conversion will be performed.
+     * Specifies the color space of an input. This setting works in tandem with colorSpaceUsage and a video
+     * description's colorSpaceSettingsChoice to determine if any conversion will be performed.
      * 
-     * @return Specifies the colorspace of an input. This setting works in tandem with colorSpaceConversion to determine
-     *         if any conversion will be performed.
+     * @return Specifies the color space of an input. This setting works in tandem with colorSpaceUsage and a video
+     *         description's colorSpaceSettingsChoice to determine if any conversion will be performed.
      * @see VideoSelectorColorSpace
      */
 
@@ -71,12 +73,12 @@ public class VideoSelector implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Specifies the colorspace of an input. This setting works in tandem with colorSpaceConversion to determine if any
-     * conversion will be performed.
+     * Specifies the color space of an input. This setting works in tandem with colorSpaceUsage and a video
+     * description's colorSpaceSettingsChoice to determine if any conversion will be performed.
      * 
      * @param colorSpace
-     *        Specifies the colorspace of an input. This setting works in tandem with colorSpaceConversion to determine
-     *        if any conversion will be performed.
+     *        Specifies the color space of an input. This setting works in tandem with colorSpaceUsage and a video
+     *        description's colorSpaceSettingsChoice to determine if any conversion will be performed.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VideoSelectorColorSpace
      */
@@ -87,18 +89,52 @@ public class VideoSelector implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Specifies the colorspace of an input. This setting works in tandem with colorSpaceConversion to determine if any
-     * conversion will be performed.
+     * Specifies the color space of an input. This setting works in tandem with colorSpaceUsage and a video
+     * description's colorSpaceSettingsChoice to determine if any conversion will be performed.
      * 
      * @param colorSpace
-     *        Specifies the colorspace of an input. This setting works in tandem with colorSpaceConversion to determine
-     *        if any conversion will be performed.
+     *        Specifies the color space of an input. This setting works in tandem with colorSpaceUsage and a video
+     *        description's colorSpaceSettingsChoice to determine if any conversion will be performed.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VideoSelectorColorSpace
      */
 
     public VideoSelector withColorSpace(VideoSelectorColorSpace colorSpace) {
         this.colorSpace = colorSpace.toString();
+        return this;
+    }
+
+    /**
+     * Color space settings
+     * 
+     * @param colorSpaceSettings
+     *        Color space settings
+     */
+
+    public void setColorSpaceSettings(VideoSelectorColorSpaceSettings colorSpaceSettings) {
+        this.colorSpaceSettings = colorSpaceSettings;
+    }
+
+    /**
+     * Color space settings
+     * 
+     * @return Color space settings
+     */
+
+    public VideoSelectorColorSpaceSettings getColorSpaceSettings() {
+        return this.colorSpaceSettings;
+    }
+
+    /**
+     * Color space settings
+     * 
+     * @param colorSpaceSettings
+     *        Color space settings
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VideoSelector withColorSpaceSettings(VideoSelectorColorSpaceSettings colorSpaceSettings) {
+        setColorSpaceSettings(colorSpaceSettings);
         return this;
     }
 
@@ -241,6 +277,8 @@ public class VideoSelector implements Serializable, Cloneable, StructuredPojo {
         sb.append("{");
         if (getColorSpace() != null)
             sb.append("ColorSpace: ").append(getColorSpace()).append(",");
+        if (getColorSpaceSettings() != null)
+            sb.append("ColorSpaceSettings: ").append(getColorSpaceSettings()).append(",");
         if (getColorSpaceUsage() != null)
             sb.append("ColorSpaceUsage: ").append(getColorSpaceUsage()).append(",");
         if (getSelectorSettings() != null)
@@ -263,6 +301,10 @@ public class VideoSelector implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getColorSpace() != null && other.getColorSpace().equals(this.getColorSpace()) == false)
             return false;
+        if (other.getColorSpaceSettings() == null ^ this.getColorSpaceSettings() == null)
+            return false;
+        if (other.getColorSpaceSettings() != null && other.getColorSpaceSettings().equals(this.getColorSpaceSettings()) == false)
+            return false;
         if (other.getColorSpaceUsage() == null ^ this.getColorSpaceUsage() == null)
             return false;
         if (other.getColorSpaceUsage() != null && other.getColorSpaceUsage().equals(this.getColorSpaceUsage()) == false)
@@ -280,6 +322,7 @@ public class VideoSelector implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getColorSpace() == null) ? 0 : getColorSpace().hashCode());
+        hashCode = prime * hashCode + ((getColorSpaceSettings() == null) ? 0 : getColorSpaceSettings().hashCode());
         hashCode = prime * hashCode + ((getColorSpaceUsage() == null) ? 0 : getColorSpaceUsage().hashCode());
         hashCode = prime * hashCode + ((getSelectorSettings() == null) ? 0 : getSelectorSettings().hashCode());
         return hashCode;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,10 +34,25 @@ public class PutDestinationPolicyRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * An IAM policy document that authorizes cross-account users to deliver their log events to the associated
-     * destination.
+     * destination. This can be up to 5120 bytes.
      * </p>
      */
     private String accessPolicy;
+    /**
+     * <p>
+     * Specify true if you are updating an existing destination policy to grant permission to an organization ID instead
+     * of granting permission to individual Amazon Web Services accounts. Before you update a destination policy this
+     * way, you must first update the subscription filters in the accounts that send logs to this destination. If you do
+     * not, the subscription filters might stop working. By specifying <code>true</code> for <code>forceUpdate</code>,
+     * you are affirming that you have already updated the subscription filters. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Cross-Account-Log_Subscription-Update.html">
+     * Updating an existing cross-account subscription</a>
+     * </p>
+     * <p>
+     * If you omit this parameter, the default of <code>false</code> is used.
+     * </p>
+     */
+    private Boolean forceUpdate;
 
     /**
      * <p>
@@ -82,12 +97,12 @@ public class PutDestinationPolicyRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * An IAM policy document that authorizes cross-account users to deliver their log events to the associated
-     * destination.
+     * destination. This can be up to 5120 bytes.
      * </p>
      * 
      * @param accessPolicy
      *        An IAM policy document that authorizes cross-account users to deliver their log events to the associated
-     *        destination.
+     *        destination. This can be up to 5120 bytes.
      */
 
     public void setAccessPolicy(String accessPolicy) {
@@ -97,11 +112,11 @@ public class PutDestinationPolicyRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * An IAM policy document that authorizes cross-account users to deliver their log events to the associated
-     * destination.
+     * destination. This can be up to 5120 bytes.
      * </p>
      * 
      * @return An IAM policy document that authorizes cross-account users to deliver their log events to the associated
-     *         destination.
+     *         destination. This can be up to 5120 bytes.
      */
 
     public String getAccessPolicy() {
@@ -111,18 +126,142 @@ public class PutDestinationPolicyRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * An IAM policy document that authorizes cross-account users to deliver their log events to the associated
-     * destination.
+     * destination. This can be up to 5120 bytes.
      * </p>
      * 
      * @param accessPolicy
      *        An IAM policy document that authorizes cross-account users to deliver their log events to the associated
-     *        destination.
+     *        destination. This can be up to 5120 bytes.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public PutDestinationPolicyRequest withAccessPolicy(String accessPolicy) {
         setAccessPolicy(accessPolicy);
         return this;
+    }
+
+    /**
+     * <p>
+     * Specify true if you are updating an existing destination policy to grant permission to an organization ID instead
+     * of granting permission to individual Amazon Web Services accounts. Before you update a destination policy this
+     * way, you must first update the subscription filters in the accounts that send logs to this destination. If you do
+     * not, the subscription filters might stop working. By specifying <code>true</code> for <code>forceUpdate</code>,
+     * you are affirming that you have already updated the subscription filters. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Cross-Account-Log_Subscription-Update.html">
+     * Updating an existing cross-account subscription</a>
+     * </p>
+     * <p>
+     * If you omit this parameter, the default of <code>false</code> is used.
+     * </p>
+     * 
+     * @param forceUpdate
+     *        Specify true if you are updating an existing destination policy to grant permission to an organization ID
+     *        instead of granting permission to individual Amazon Web Services accounts. Before you update a destination
+     *        policy this way, you must first update the subscription filters in the accounts that send logs to this
+     *        destination. If you do not, the subscription filters might stop working. By specifying <code>true</code>
+     *        for <code>forceUpdate</code>, you are affirming that you have already updated the subscription filters.
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Cross-Account-Log_Subscription-Update.html">
+     *        Updating an existing cross-account subscription</a> </p>
+     *        <p>
+     *        If you omit this parameter, the default of <code>false</code> is used.
+     */
+
+    public void setForceUpdate(Boolean forceUpdate) {
+        this.forceUpdate = forceUpdate;
+    }
+
+    /**
+     * <p>
+     * Specify true if you are updating an existing destination policy to grant permission to an organization ID instead
+     * of granting permission to individual Amazon Web Services accounts. Before you update a destination policy this
+     * way, you must first update the subscription filters in the accounts that send logs to this destination. If you do
+     * not, the subscription filters might stop working. By specifying <code>true</code> for <code>forceUpdate</code>,
+     * you are affirming that you have already updated the subscription filters. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Cross-Account-Log_Subscription-Update.html">
+     * Updating an existing cross-account subscription</a>
+     * </p>
+     * <p>
+     * If you omit this parameter, the default of <code>false</code> is used.
+     * </p>
+     * 
+     * @return Specify true if you are updating an existing destination policy to grant permission to an organization ID
+     *         instead of granting permission to individual Amazon Web Services accounts. Before you update a
+     *         destination policy this way, you must first update the subscription filters in the accounts that send
+     *         logs to this destination. If you do not, the subscription filters might stop working. By specifying
+     *         <code>true</code> for <code>forceUpdate</code>, you are affirming that you have already updated the
+     *         subscription filters. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Cross-Account-Log_Subscription-Update.html">
+     *         Updating an existing cross-account subscription</a> </p>
+     *         <p>
+     *         If you omit this parameter, the default of <code>false</code> is used.
+     */
+
+    public Boolean getForceUpdate() {
+        return this.forceUpdate;
+    }
+
+    /**
+     * <p>
+     * Specify true if you are updating an existing destination policy to grant permission to an organization ID instead
+     * of granting permission to individual Amazon Web Services accounts. Before you update a destination policy this
+     * way, you must first update the subscription filters in the accounts that send logs to this destination. If you do
+     * not, the subscription filters might stop working. By specifying <code>true</code> for <code>forceUpdate</code>,
+     * you are affirming that you have already updated the subscription filters. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Cross-Account-Log_Subscription-Update.html">
+     * Updating an existing cross-account subscription</a>
+     * </p>
+     * <p>
+     * If you omit this parameter, the default of <code>false</code> is used.
+     * </p>
+     * 
+     * @param forceUpdate
+     *        Specify true if you are updating an existing destination policy to grant permission to an organization ID
+     *        instead of granting permission to individual Amazon Web Services accounts. Before you update a destination
+     *        policy this way, you must first update the subscription filters in the accounts that send logs to this
+     *        destination. If you do not, the subscription filters might stop working. By specifying <code>true</code>
+     *        for <code>forceUpdate</code>, you are affirming that you have already updated the subscription filters.
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Cross-Account-Log_Subscription-Update.html">
+     *        Updating an existing cross-account subscription</a> </p>
+     *        <p>
+     *        If you omit this parameter, the default of <code>false</code> is used.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutDestinationPolicyRequest withForceUpdate(Boolean forceUpdate) {
+        setForceUpdate(forceUpdate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specify true if you are updating an existing destination policy to grant permission to an organization ID instead
+     * of granting permission to individual Amazon Web Services accounts. Before you update a destination policy this
+     * way, you must first update the subscription filters in the accounts that send logs to this destination. If you do
+     * not, the subscription filters might stop working. By specifying <code>true</code> for <code>forceUpdate</code>,
+     * you are affirming that you have already updated the subscription filters. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Cross-Account-Log_Subscription-Update.html">
+     * Updating an existing cross-account subscription</a>
+     * </p>
+     * <p>
+     * If you omit this parameter, the default of <code>false</code> is used.
+     * </p>
+     * 
+     * @return Specify true if you are updating an existing destination policy to grant permission to an organization ID
+     *         instead of granting permission to individual Amazon Web Services accounts. Before you update a
+     *         destination policy this way, you must first update the subscription filters in the accounts that send
+     *         logs to this destination. If you do not, the subscription filters might stop working. By specifying
+     *         <code>true</code> for <code>forceUpdate</code>, you are affirming that you have already updated the
+     *         subscription filters. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Cross-Account-Log_Subscription-Update.html">
+     *         Updating an existing cross-account subscription</a> </p>
+     *         <p>
+     *         If you omit this parameter, the default of <code>false</code> is used.
+     */
+
+    public Boolean isForceUpdate() {
+        return this.forceUpdate;
     }
 
     /**
@@ -140,7 +279,9 @@ public class PutDestinationPolicyRequest extends com.amazonaws.AmazonWebServiceR
         if (getDestinationName() != null)
             sb.append("DestinationName: ").append(getDestinationName()).append(",");
         if (getAccessPolicy() != null)
-            sb.append("AccessPolicy: ").append(getAccessPolicy());
+            sb.append("AccessPolicy: ").append(getAccessPolicy()).append(",");
+        if (getForceUpdate() != null)
+            sb.append("ForceUpdate: ").append(getForceUpdate());
         sb.append("}");
         return sb.toString();
     }
@@ -163,6 +304,10 @@ public class PutDestinationPolicyRequest extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getAccessPolicy() != null && other.getAccessPolicy().equals(this.getAccessPolicy()) == false)
             return false;
+        if (other.getForceUpdate() == null ^ this.getForceUpdate() == null)
+            return false;
+        if (other.getForceUpdate() != null && other.getForceUpdate().equals(this.getForceUpdate()) == false)
+            return false;
         return true;
     }
 
@@ -173,6 +318,7 @@ public class PutDestinationPolicyRequest extends com.amazonaws.AmazonWebServiceR
 
         hashCode = prime * hashCode + ((getDestinationName() == null) ? 0 : getDestinationName().hashCode());
         hashCode = prime * hashCode + ((getAccessPolicy() == null) ? 0 : getAccessPolicy().hashCode());
+        hashCode = prime * hashCode + ((getForceUpdate() == null) ? 0 : getForceUpdate().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -53,14 +53,14 @@ public class UpdateFieldLevelEncryptionProfileRequestMarshaller implements
             request.addHeader("If-Match", StringUtils.fromString(updateFieldLevelEncryptionProfileRequest.getIfMatch()));
         }
 
-        String uriResourcePath = "/2019-03-26/field-level-encryption-profile/{Id}/config";
+        String uriResourcePath = "/2020-05-31/field-level-encryption-profile/{Id}/config";
 
         uriResourcePath = com.amazonaws.transform.PathMarshallers.NON_GREEDY.marshall(uriResourcePath, "Id", updateFieldLevelEncryptionProfileRequest.getId());
         request.setResourcePath(uriResourcePath);
 
         try {
             StringWriter stringWriter = new StringWriter();
-            XMLWriter xmlWriter = new XMLWriter(stringWriter, "http://cloudfront.amazonaws.com/doc/2019-03-26/");
+            XMLWriter xmlWriter = new XMLWriter(stringWriter, "http://cloudfront.amazonaws.com/doc/2020-05-31/");
 
             FieldLevelEncryptionProfileConfig fieldLevelEncryptionProfileConfig = updateFieldLevelEncryptionProfileRequest
                     .getFieldLevelEncryptionProfileConfig();
@@ -79,49 +79,54 @@ public class UpdateFieldLevelEncryptionProfileRequestMarshaller implements
                     xmlWriter.startElement("Comment").value(fieldLevelEncryptionProfileConfig.getComment()).endElement();
                 }
 
-                EncryptionEntities encryptionEntities = fieldLevelEncryptionProfileConfig.getEncryptionEntities();
-                if (encryptionEntities != null) {
-                    xmlWriter.startElement("EncryptionEntities");
+                {
+                    EncryptionEntities encryptionEntities = fieldLevelEncryptionProfileConfig.getEncryptionEntities();
+                    if (encryptionEntities != null) {
+                        xmlWriter.startElement("EncryptionEntities");
 
-                    if (encryptionEntities.getQuantity() != null) {
-                        xmlWriter.startElement("Quantity").value(encryptionEntities.getQuantity()).endElement();
-                    }
+                        if (encryptionEntities.getQuantity() != null) {
+                            xmlWriter.startElement("Quantity").value(encryptionEntities.getQuantity()).endElement();
+                        }
 
-                    com.amazonaws.internal.SdkInternalList<EncryptionEntity> encryptionEntitiesItemsList = (com.amazonaws.internal.SdkInternalList<EncryptionEntity>) encryptionEntities
-                            .getItems();
-                    if (!encryptionEntitiesItemsList.isEmpty() || !encryptionEntitiesItemsList.isAutoConstruct()) {
-                        xmlWriter.startElement("Items");
+                        com.amazonaws.internal.SdkInternalList<EncryptionEntity> encryptionEntitiesItemsList = (com.amazonaws.internal.SdkInternalList<EncryptionEntity>) encryptionEntities
+                                .getItems();
+                        if (!encryptionEntitiesItemsList.isEmpty() || !encryptionEntitiesItemsList.isAutoConstruct()) {
+                            xmlWriter.startElement("Items");
 
-                        for (EncryptionEntity encryptionEntitiesItemsListValue : encryptionEntitiesItemsList) {
-                            xmlWriter.startElement("EncryptionEntity");
+                            for (EncryptionEntity encryptionEntitiesItemsListValue : encryptionEntitiesItemsList) {
+                                xmlWriter.startElement("EncryptionEntity");
 
-                            if (encryptionEntitiesItemsListValue.getPublicKeyId() != null) {
-                                xmlWriter.startElement("PublicKeyId").value(encryptionEntitiesItemsListValue.getPublicKeyId()).endElement();
-                            }
-
-                            if (encryptionEntitiesItemsListValue.getProviderId() != null) {
-                                xmlWriter.startElement("ProviderId").value(encryptionEntitiesItemsListValue.getProviderId()).endElement();
-                            }
-
-                            FieldPatterns fieldPatterns = encryptionEntitiesItemsListValue.getFieldPatterns();
-                            if (fieldPatterns != null) {
-                                xmlWriter.startElement("FieldPatterns");
-
-                                if (fieldPatterns.getQuantity() != null) {
-                                    xmlWriter.startElement("Quantity").value(fieldPatterns.getQuantity()).endElement();
+                                if (encryptionEntitiesItemsListValue.getPublicKeyId() != null) {
+                                    xmlWriter.startElement("PublicKeyId").value(encryptionEntitiesItemsListValue.getPublicKeyId()).endElement();
                                 }
 
-                                com.amazonaws.internal.SdkInternalList<String> fieldPatternsItemsList = (com.amazonaws.internal.SdkInternalList<String>) fieldPatterns
-                                        .getItems();
-                                if (!fieldPatternsItemsList.isEmpty() || !fieldPatternsItemsList.isAutoConstruct()) {
-                                    xmlWriter.startElement("Items");
+                                if (encryptionEntitiesItemsListValue.getProviderId() != null) {
+                                    xmlWriter.startElement("ProviderId").value(encryptionEntitiesItemsListValue.getProviderId()).endElement();
+                                }
 
-                                    for (String fieldPatternsItemsListValue : fieldPatternsItemsList) {
-                                        xmlWriter.startElement("FieldPattern");
-                                        xmlWriter.value(fieldPatternsItemsListValue);
+                                {
+                                    FieldPatterns fieldPatterns = encryptionEntitiesItemsListValue.getFieldPatterns();
+                                    if (fieldPatterns != null) {
+                                        xmlWriter.startElement("FieldPatterns");
+
+                                        if (fieldPatterns.getQuantity() != null) {
+                                            xmlWriter.startElement("Quantity").value(fieldPatterns.getQuantity()).endElement();
+                                        }
+
+                                        com.amazonaws.internal.SdkInternalList<String> fieldPatternsItemsList = (com.amazonaws.internal.SdkInternalList<String>) fieldPatterns
+                                                .getItems();
+                                        if (!fieldPatternsItemsList.isEmpty() || !fieldPatternsItemsList.isAutoConstruct()) {
+                                            xmlWriter.startElement("Items");
+
+                                            for (String fieldPatternsItemsListValue : fieldPatternsItemsList) {
+                                                xmlWriter.startElement("FieldPattern");
+                                                xmlWriter.value(fieldPatternsItemsListValue);
+                                                xmlWriter.endElement();
+                                            }
+                                            xmlWriter.endElement();
+                                        }
                                         xmlWriter.endElement();
                                     }
-                                    xmlWriter.endElement();
                                 }
                                 xmlWriter.endElement();
                             }
@@ -129,7 +134,6 @@ public class UpdateFieldLevelEncryptionProfileRequestMarshaller implements
                         }
                         xmlWriter.endElement();
                     }
-                    xmlWriter.endElement();
                 }
                 xmlWriter.endElement();
             }

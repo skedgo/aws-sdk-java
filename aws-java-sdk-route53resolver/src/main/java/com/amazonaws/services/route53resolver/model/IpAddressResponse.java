@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * In the response to a <a>GetResolverEndpoint</a> request, information about the IP addresses that the resolver
- * endpoint uses for DNS queries.
+ * In the response to a <a
+ * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_GetResolverEndpoint.html"
+ * >GetResolverEndpoint</a> request, information about the IP addresses that the Resolver endpoint uses for DNS queries.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53resolver-2018-04-01/IpAddressResponse" target="_top">AWS
@@ -43,10 +44,16 @@ public class IpAddressResponse implements Serializable, Cloneable, StructuredPoj
     private String subnetId;
     /**
      * <p>
-     * One IP address that the resolver endpoint uses for DNS queries.
+     * One IPv4 address that the Resolver endpoint uses for DNS queries.
      * </p>
      */
     private String ip;
+    /**
+     * <p>
+     * One IPv6 address that the Resolver endpoint uses for DNS queries.
+     * </p>
+     */
+    private String ipv6;
     /**
      * <p>
      * A status code that gives the current status of the request.
@@ -155,11 +162,11 @@ public class IpAddressResponse implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * One IP address that the resolver endpoint uses for DNS queries.
+     * One IPv4 address that the Resolver endpoint uses for DNS queries.
      * </p>
      * 
      * @param ip
-     *        One IP address that the resolver endpoint uses for DNS queries.
+     *        One IPv4 address that the Resolver endpoint uses for DNS queries.
      */
 
     public void setIp(String ip) {
@@ -168,10 +175,10 @@ public class IpAddressResponse implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * One IP address that the resolver endpoint uses for DNS queries.
+     * One IPv4 address that the Resolver endpoint uses for DNS queries.
      * </p>
      * 
-     * @return One IP address that the resolver endpoint uses for DNS queries.
+     * @return One IPv4 address that the Resolver endpoint uses for DNS queries.
      */
 
     public String getIp() {
@@ -180,16 +187,56 @@ public class IpAddressResponse implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * One IP address that the resolver endpoint uses for DNS queries.
+     * One IPv4 address that the Resolver endpoint uses for DNS queries.
      * </p>
      * 
      * @param ip
-     *        One IP address that the resolver endpoint uses for DNS queries.
+     *        One IPv4 address that the Resolver endpoint uses for DNS queries.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public IpAddressResponse withIp(String ip) {
         setIp(ip);
+        return this;
+    }
+
+    /**
+     * <p>
+     * One IPv6 address that the Resolver endpoint uses for DNS queries.
+     * </p>
+     * 
+     * @param ipv6
+     *        One IPv6 address that the Resolver endpoint uses for DNS queries.
+     */
+
+    public void setIpv6(String ipv6) {
+        this.ipv6 = ipv6;
+    }
+
+    /**
+     * <p>
+     * One IPv6 address that the Resolver endpoint uses for DNS queries.
+     * </p>
+     * 
+     * @return One IPv6 address that the Resolver endpoint uses for DNS queries.
+     */
+
+    public String getIpv6() {
+        return this.ipv6;
+    }
+
+    /**
+     * <p>
+     * One IPv6 address that the Resolver endpoint uses for DNS queries.
+     * </p>
+     * 
+     * @param ipv6
+     *        One IPv6 address that the Resolver endpoint uses for DNS queries.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public IpAddressResponse withIpv6(String ipv6) {
+        setIpv6(ipv6);
         return this;
     }
 
@@ -399,6 +446,8 @@ public class IpAddressResponse implements Serializable, Cloneable, StructuredPoj
             sb.append("SubnetId: ").append(getSubnetId()).append(",");
         if (getIp() != null)
             sb.append("Ip: ").append(getIp()).append(",");
+        if (getIpv6() != null)
+            sb.append("Ipv6: ").append(getIpv6()).append(",");
         if (getStatus() != null)
             sb.append("Status: ").append(getStatus()).append(",");
         if (getStatusMessage() != null)
@@ -433,6 +482,10 @@ public class IpAddressResponse implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getIp() != null && other.getIp().equals(this.getIp()) == false)
             return false;
+        if (other.getIpv6() == null ^ this.getIpv6() == null)
+            return false;
+        if (other.getIpv6() != null && other.getIpv6().equals(this.getIpv6()) == false)
+            return false;
         if (other.getStatus() == null ^ this.getStatus() == null)
             return false;
         if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
@@ -460,6 +513,7 @@ public class IpAddressResponse implements Serializable, Cloneable, StructuredPoj
         hashCode = prime * hashCode + ((getIpId() == null) ? 0 : getIpId().hashCode());
         hashCode = prime * hashCode + ((getSubnetId() == null) ? 0 : getSubnetId().hashCode());
         hashCode = prime * hashCode + ((getIp() == null) ? 0 : getIp().hashCode());
+        hashCode = prime * hashCode + ((getIpv6() == null) ? 0 : getIpv6().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getStatusMessage() == null) ? 0 : getStatusMessage().hashCode());
         hashCode = prime * hashCode + ((getCreationTime() == null) ? 0 : getCreationTime().hashCode());

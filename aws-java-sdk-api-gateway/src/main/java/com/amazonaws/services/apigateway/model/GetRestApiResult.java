@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,6 @@ import javax.annotation.Generated;
  * <p>
  * Represents a REST API.
  * </p>
- * <div class="seeAlso"> <a
- * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-create-api.html">Create an API</a> </div>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
@@ -63,8 +61,8 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
     private java.util.List<String> warnings;
     /**
      * <p>
-     * The list of binary media types supported by the <a>RestApi</a>. By default, the <a>RestApi</a> supports only
-     * UTF-8-encoded text payloads.
+     * The list of binary media types supported by the RestApi. By default, the RestApi supports only UTF-8-encoded text
+     * payloads.
      * </p>
      */
     private java.util.List<String> binaryMediaTypes;
@@ -79,24 +77,23 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
     private Integer minimumCompressionSize;
     /**
      * <p>
-     * The source of the API key for metering requests according to a usage plan. Valid values are:
-     * <ul>
-     * <li><code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.</li>
-     * <li><code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom
-     * authorizer.</li>
-     * </ul>
+     * The source of the API key for metering requests according to a usage plan. Valid values are: &gt;
+     * <code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.
+     * <code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom authorizer.
      * </p>
      */
     private String apiKeySource;
     /**
      * <p>
-     * The endpoint configuration of this <a>RestApi</a> showing the endpoint types of the API.
+     * The endpoint configuration of this RestApi showing the endpoint types of the API.
      * </p>
      */
     private EndpointConfiguration endpointConfiguration;
     /**
-     * A stringified JSON policy document that applies to this RestApi regardless of the caller and <a>Method</a>
+     * <p>
+     * A stringified JSON policy document that applies to this RestApi regardless of the caller and Method
      * configuration.
+     * </p>
      */
     private String policy;
     /**
@@ -105,6 +102,20 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
      * </p>
      */
     private java.util.Map<String, String> tags;
+    /**
+     * <p>
+     * Specifies whether clients can invoke your API by using the default <code>execute-api</code> endpoint. By default,
+     * clients can invoke your API with the default <code>https://{api_id}.execute-api.{region}.amazonaws.com</code>
+     * endpoint. To require that clients use a custom domain name to invoke your API, disable the default endpoint.
+     * </p>
+     */
+    private Boolean disableExecuteApiEndpoint;
+    /**
+     * <p>
+     * The API's root resource ID.
+     * </p>
+     */
+    private String rootResourceId;
 
     /**
      * <p>
@@ -378,12 +389,12 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The list of binary media types supported by the <a>RestApi</a>. By default, the <a>RestApi</a> supports only
-     * UTF-8-encoded text payloads.
+     * The list of binary media types supported by the RestApi. By default, the RestApi supports only UTF-8-encoded text
+     * payloads.
      * </p>
      * 
-     * @return The list of binary media types supported by the <a>RestApi</a>. By default, the <a>RestApi</a> supports
-     *         only UTF-8-encoded text payloads.
+     * @return The list of binary media types supported by the RestApi. By default, the RestApi supports only
+     *         UTF-8-encoded text payloads.
      */
 
     public java.util.List<String> getBinaryMediaTypes() {
@@ -392,13 +403,13 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The list of binary media types supported by the <a>RestApi</a>. By default, the <a>RestApi</a> supports only
-     * UTF-8-encoded text payloads.
+     * The list of binary media types supported by the RestApi. By default, the RestApi supports only UTF-8-encoded text
+     * payloads.
      * </p>
      * 
      * @param binaryMediaTypes
-     *        The list of binary media types supported by the <a>RestApi</a>. By default, the <a>RestApi</a> supports
-     *        only UTF-8-encoded text payloads.
+     *        The list of binary media types supported by the RestApi. By default, the RestApi supports only
+     *        UTF-8-encoded text payloads.
      */
 
     public void setBinaryMediaTypes(java.util.Collection<String> binaryMediaTypes) {
@@ -412,8 +423,8 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The list of binary media types supported by the <a>RestApi</a>. By default, the <a>RestApi</a> supports only
-     * UTF-8-encoded text payloads.
+     * The list of binary media types supported by the RestApi. By default, the RestApi supports only UTF-8-encoded text
+     * payloads.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -422,8 +433,8 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
      * </p>
      * 
      * @param binaryMediaTypes
-     *        The list of binary media types supported by the <a>RestApi</a>. By default, the <a>RestApi</a> supports
-     *        only UTF-8-encoded text payloads.
+     *        The list of binary media types supported by the RestApi. By default, the RestApi supports only
+     *        UTF-8-encoded text payloads.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -439,13 +450,13 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The list of binary media types supported by the <a>RestApi</a>. By default, the <a>RestApi</a> supports only
-     * UTF-8-encoded text payloads.
+     * The list of binary media types supported by the RestApi. By default, the RestApi supports only UTF-8-encoded text
+     * payloads.
      * </p>
      * 
      * @param binaryMediaTypes
-     *        The list of binary media types supported by the <a>RestApi</a>. By default, the <a>RestApi</a> supports
-     *        only UTF-8-encoded text payloads.
+     *        The list of binary media types supported by the RestApi. By default, the RestApi supports only
+     *        UTF-8-encoded text payloads.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -514,21 +525,16 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The source of the API key for metering requests according to a usage plan. Valid values are:
-     * <ul>
-     * <li><code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.</li>
-     * <li><code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom
-     * authorizer.</li>
-     * </ul>
+     * The source of the API key for metering requests according to a usage plan. Valid values are: &gt;
+     * <code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.
+     * <code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom authorizer.
      * </p>
      * 
      * @param apiKeySource
-     *        The source of the API key for metering requests according to a usage plan. Valid values are:
-     *        <ul>
-     *        <li><code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.</li>
-     *        <li><code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom
-     *        authorizer.</li>
-     *        </ul>
+     *        The source of the API key for metering requests according to a usage plan. Valid values are: &gt;
+     *        <code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.
+     *        <code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom
+     *        authorizer.
      * @see ApiKeySourceType
      */
 
@@ -538,20 +544,15 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The source of the API key for metering requests according to a usage plan. Valid values are:
-     * <ul>
-     * <li><code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.</li>
-     * <li><code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom
-     * authorizer.</li>
-     * </ul>
+     * The source of the API key for metering requests according to a usage plan. Valid values are: &gt;
+     * <code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.
+     * <code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom authorizer.
      * </p>
      * 
-     * @return The source of the API key for metering requests according to a usage plan. Valid values are:
-     *         <ul>
-     *         <li><code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.</li>
-     *         <li><code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom
-     *         authorizer.</li>
-     *         </ul>
+     * @return The source of the API key for metering requests according to a usage plan. Valid values are: &gt;
+     *         <code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.
+     *         <code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom
+     *         authorizer.
      * @see ApiKeySourceType
      */
 
@@ -561,21 +562,16 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The source of the API key for metering requests according to a usage plan. Valid values are:
-     * <ul>
-     * <li><code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.</li>
-     * <li><code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom
-     * authorizer.</li>
-     * </ul>
+     * The source of the API key for metering requests according to a usage plan. Valid values are: &gt;
+     * <code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.
+     * <code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom authorizer.
      * </p>
      * 
      * @param apiKeySource
-     *        The source of the API key for metering requests according to a usage plan. Valid values are:
-     *        <ul>
-     *        <li><code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.</li>
-     *        <li><code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom
-     *        authorizer.</li>
-     *        </ul>
+     *        The source of the API key for metering requests according to a usage plan. Valid values are: &gt;
+     *        <code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.
+     *        <code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom
+     *        authorizer.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ApiKeySourceType
      */
@@ -587,21 +583,16 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The source of the API key for metering requests according to a usage plan. Valid values are:
-     * <ul>
-     * <li><code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.</li>
-     * <li><code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom
-     * authorizer.</li>
-     * </ul>
+     * The source of the API key for metering requests according to a usage plan. Valid values are: &gt;
+     * <code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.
+     * <code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom authorizer.
      * </p>
      * 
      * @param apiKeySource
-     *        The source of the API key for metering requests according to a usage plan. Valid values are:
-     *        <ul>
-     *        <li><code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.</li>
-     *        <li><code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom
-     *        authorizer.</li>
-     *        </ul>
+     *        The source of the API key for metering requests according to a usage plan. Valid values are: &gt;
+     *        <code>HEADER</code> to read the API key from the <code>X-API-Key</code> header of a request.
+     *        <code>AUTHORIZER</code> to read the API key from the <code>UsageIdentifierKey</code> from a custom
+     *        authorizer.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ApiKeySourceType
      */
@@ -613,11 +604,11 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The endpoint configuration of this <a>RestApi</a> showing the endpoint types of the API.
+     * The endpoint configuration of this RestApi showing the endpoint types of the API.
      * </p>
      * 
      * @param endpointConfiguration
-     *        The endpoint configuration of this <a>RestApi</a> showing the endpoint types of the API.
+     *        The endpoint configuration of this RestApi showing the endpoint types of the API.
      */
 
     public void setEndpointConfiguration(EndpointConfiguration endpointConfiguration) {
@@ -626,10 +617,10 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The endpoint configuration of this <a>RestApi</a> showing the endpoint types of the API.
+     * The endpoint configuration of this RestApi showing the endpoint types of the API.
      * </p>
      * 
-     * @return The endpoint configuration of this <a>RestApi</a> showing the endpoint types of the API.
+     * @return The endpoint configuration of this RestApi showing the endpoint types of the API.
      */
 
     public EndpointConfiguration getEndpointConfiguration() {
@@ -638,11 +629,11 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The endpoint configuration of this <a>RestApi</a> showing the endpoint types of the API.
+     * The endpoint configuration of this RestApi showing the endpoint types of the API.
      * </p>
      * 
      * @param endpointConfiguration
-     *        The endpoint configuration of this <a>RestApi</a> showing the endpoint types of the API.
+     *        The endpoint configuration of this RestApi showing the endpoint types of the API.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -652,11 +643,13 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
     }
 
     /**
-     * A stringified JSON policy document that applies to this RestApi regardless of the caller and <a>Method</a>
+     * <p>
+     * A stringified JSON policy document that applies to this RestApi regardless of the caller and Method
      * configuration.
+     * </p>
      * 
      * @param policy
-     *        A stringified JSON policy document that applies to this RestApi regardless of the caller and <a>Method</a>
+     *        A stringified JSON policy document that applies to this RestApi regardless of the caller and Method
      *        configuration.
      */
 
@@ -665,11 +658,13 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
     }
 
     /**
-     * A stringified JSON policy document that applies to this RestApi regardless of the caller and <a>Method</a>
+     * <p>
+     * A stringified JSON policy document that applies to this RestApi regardless of the caller and Method
      * configuration.
+     * </p>
      * 
-     * @return A stringified JSON policy document that applies to this RestApi regardless of the caller and
-     *         <a>Method</a> configuration.
+     * @return A stringified JSON policy document that applies to this RestApi regardless of the caller and Method
+     *         configuration.
      */
 
     public String getPolicy() {
@@ -677,11 +672,13 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
     }
 
     /**
-     * A stringified JSON policy document that applies to this RestApi regardless of the caller and <a>Method</a>
+     * <p>
+     * A stringified JSON policy document that applies to this RestApi regardless of the caller and Method
      * configuration.
+     * </p>
      * 
      * @param policy
-     *        A stringified JSON policy document that applies to this RestApi regardless of the caller and <a>Method</a>
+     *        A stringified JSON policy document that applies to this RestApi regardless of the caller and Method
      *        configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -731,6 +728,13 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
         return this;
     }
 
+    /**
+     * Add a single Tags entry
+     *
+     * @see GetRestApiResult#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public GetRestApiResult addTagsEntry(String key, String value) {
         if (null == this.tags) {
             this.tags = new java.util.HashMap<String, String>();
@@ -749,6 +753,118 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     public GetRestApiResult clearTagsEntries() {
         this.tags = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether clients can invoke your API by using the default <code>execute-api</code> endpoint. By default,
+     * clients can invoke your API with the default <code>https://{api_id}.execute-api.{region}.amazonaws.com</code>
+     * endpoint. To require that clients use a custom domain name to invoke your API, disable the default endpoint.
+     * </p>
+     * 
+     * @param disableExecuteApiEndpoint
+     *        Specifies whether clients can invoke your API by using the default <code>execute-api</code> endpoint. By
+     *        default, clients can invoke your API with the default
+     *        <code>https://{api_id}.execute-api.{region}.amazonaws.com</code> endpoint. To require that clients use a
+     *        custom domain name to invoke your API, disable the default endpoint.
+     */
+
+    public void setDisableExecuteApiEndpoint(Boolean disableExecuteApiEndpoint) {
+        this.disableExecuteApiEndpoint = disableExecuteApiEndpoint;
+    }
+
+    /**
+     * <p>
+     * Specifies whether clients can invoke your API by using the default <code>execute-api</code> endpoint. By default,
+     * clients can invoke your API with the default <code>https://{api_id}.execute-api.{region}.amazonaws.com</code>
+     * endpoint. To require that clients use a custom domain name to invoke your API, disable the default endpoint.
+     * </p>
+     * 
+     * @return Specifies whether clients can invoke your API by using the default <code>execute-api</code> endpoint. By
+     *         default, clients can invoke your API with the default
+     *         <code>https://{api_id}.execute-api.{region}.amazonaws.com</code> endpoint. To require that clients use a
+     *         custom domain name to invoke your API, disable the default endpoint.
+     */
+
+    public Boolean getDisableExecuteApiEndpoint() {
+        return this.disableExecuteApiEndpoint;
+    }
+
+    /**
+     * <p>
+     * Specifies whether clients can invoke your API by using the default <code>execute-api</code> endpoint. By default,
+     * clients can invoke your API with the default <code>https://{api_id}.execute-api.{region}.amazonaws.com</code>
+     * endpoint. To require that clients use a custom domain name to invoke your API, disable the default endpoint.
+     * </p>
+     * 
+     * @param disableExecuteApiEndpoint
+     *        Specifies whether clients can invoke your API by using the default <code>execute-api</code> endpoint. By
+     *        default, clients can invoke your API with the default
+     *        <code>https://{api_id}.execute-api.{region}.amazonaws.com</code> endpoint. To require that clients use a
+     *        custom domain name to invoke your API, disable the default endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetRestApiResult withDisableExecuteApiEndpoint(Boolean disableExecuteApiEndpoint) {
+        setDisableExecuteApiEndpoint(disableExecuteApiEndpoint);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether clients can invoke your API by using the default <code>execute-api</code> endpoint. By default,
+     * clients can invoke your API with the default <code>https://{api_id}.execute-api.{region}.amazonaws.com</code>
+     * endpoint. To require that clients use a custom domain name to invoke your API, disable the default endpoint.
+     * </p>
+     * 
+     * @return Specifies whether clients can invoke your API by using the default <code>execute-api</code> endpoint. By
+     *         default, clients can invoke your API with the default
+     *         <code>https://{api_id}.execute-api.{region}.amazonaws.com</code> endpoint. To require that clients use a
+     *         custom domain name to invoke your API, disable the default endpoint.
+     */
+
+    public Boolean isDisableExecuteApiEndpoint() {
+        return this.disableExecuteApiEndpoint;
+    }
+
+    /**
+     * <p>
+     * The API's root resource ID.
+     * </p>
+     * 
+     * @param rootResourceId
+     *        The API's root resource ID.
+     */
+
+    public void setRootResourceId(String rootResourceId) {
+        this.rootResourceId = rootResourceId;
+    }
+
+    /**
+     * <p>
+     * The API's root resource ID.
+     * </p>
+     * 
+     * @return The API's root resource ID.
+     */
+
+    public String getRootResourceId() {
+        return this.rootResourceId;
+    }
+
+    /**
+     * <p>
+     * The API's root resource ID.
+     * </p>
+     * 
+     * @param rootResourceId
+     *        The API's root resource ID.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetRestApiResult withRootResourceId(String rootResourceId) {
+        setRootResourceId(rootResourceId);
         return this;
     }
 
@@ -787,7 +903,11 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
         if (getPolicy() != null)
             sb.append("Policy: ").append(getPolicy()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getDisableExecuteApiEndpoint() != null)
+            sb.append("DisableExecuteApiEndpoint: ").append(getDisableExecuteApiEndpoint()).append(",");
+        if (getRootResourceId() != null)
+            sb.append("RootResourceId: ").append(getRootResourceId());
         sb.append("}");
         return sb.toString();
     }
@@ -850,6 +970,14 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getDisableExecuteApiEndpoint() == null ^ this.getDisableExecuteApiEndpoint() == null)
+            return false;
+        if (other.getDisableExecuteApiEndpoint() != null && other.getDisableExecuteApiEndpoint().equals(this.getDisableExecuteApiEndpoint()) == false)
+            return false;
+        if (other.getRootResourceId() == null ^ this.getRootResourceId() == null)
+            return false;
+        if (other.getRootResourceId() != null && other.getRootResourceId().equals(this.getRootResourceId()) == false)
+            return false;
         return true;
     }
 
@@ -870,6 +998,8 @@ public class GetRestApiResult extends com.amazonaws.AmazonWebServiceResult<com.a
         hashCode = prime * hashCode + ((getEndpointConfiguration() == null) ? 0 : getEndpointConfiguration().hashCode());
         hashCode = prime * hashCode + ((getPolicy() == null) ? 0 : getPolicy().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getDisableExecuteApiEndpoint() == null) ? 0 : getDisableExecuteApiEndpoint().hashCode());
+        hashCode = prime * hashCode + ((getRootResourceId() == null) ? 0 : getRootResourceId().hashCode());
         return hashCode;
     }
 

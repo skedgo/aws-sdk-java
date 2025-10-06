@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,23 +25,43 @@ import com.amazonaws.AmazonWebServiceRequest;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class DescribeBrokerInstanceOptionsRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
-    /** Filter response by engine type. */
+    /**
+     * <p>
+     * Filter response by engine type.
+     * </p>
+     */
     private String engineType;
-    /** Filter response by host instance type. */
+    /**
+     * <p>
+     * Filter response by host instance type.
+     * </p>
+     */
     private String hostInstanceType;
     /**
-     * The maximum number of instance options that Amazon MQ can return per page (20 by default). This value must be an
-     * integer from 5 to 100.
+     * <p>
+     * The maximum number of brokers that Amazon MQ can return per page (20 by default). This value must be an integer
+     * from 5 to 100.
+     * </p>
      */
     private Integer maxResults;
     /**
+     * <p>
      * The token that specifies the next page of results Amazon MQ should return. To request the first page, leave
      * nextToken empty.
+     * </p>
      */
     private String nextToken;
+    /**
+     * <p>
+     * Filter response by storage type.
+     * </p>
+     */
+    private String storageType;
 
     /**
+     * <p>
      * Filter response by engine type.
+     * </p>
      * 
      * @param engineType
      *        Filter response by engine type.
@@ -52,7 +72,9 @@ public class DescribeBrokerInstanceOptionsRequest extends com.amazonaws.AmazonWe
     }
 
     /**
+     * <p>
      * Filter response by engine type.
+     * </p>
      * 
      * @return Filter response by engine type.
      */
@@ -62,7 +84,9 @@ public class DescribeBrokerInstanceOptionsRequest extends com.amazonaws.AmazonWe
     }
 
     /**
+     * <p>
      * Filter response by engine type.
+     * </p>
      * 
      * @param engineType
      *        Filter response by engine type.
@@ -75,7 +99,9 @@ public class DescribeBrokerInstanceOptionsRequest extends com.amazonaws.AmazonWe
     }
 
     /**
+     * <p>
      * Filter response by host instance type.
+     * </p>
      * 
      * @param hostInstanceType
      *        Filter response by host instance type.
@@ -86,7 +112,9 @@ public class DescribeBrokerInstanceOptionsRequest extends com.amazonaws.AmazonWe
     }
 
     /**
+     * <p>
      * Filter response by host instance type.
+     * </p>
      * 
      * @return Filter response by host instance type.
      */
@@ -96,7 +124,9 @@ public class DescribeBrokerInstanceOptionsRequest extends com.amazonaws.AmazonWe
     }
 
     /**
+     * <p>
      * Filter response by host instance type.
+     * </p>
      * 
      * @param hostInstanceType
      *        Filter response by host instance type.
@@ -109,12 +139,14 @@ public class DescribeBrokerInstanceOptionsRequest extends com.amazonaws.AmazonWe
     }
 
     /**
-     * The maximum number of instance options that Amazon MQ can return per page (20 by default). This value must be an
-     * integer from 5 to 100.
+     * <p>
+     * The maximum number of brokers that Amazon MQ can return per page (20 by default). This value must be an integer
+     * from 5 to 100.
+     * </p>
      * 
      * @param maxResults
-     *        The maximum number of instance options that Amazon MQ can return per page (20 by default). This value must
-     *        be an integer from 5 to 100.
+     *        The maximum number of brokers that Amazon MQ can return per page (20 by default). This value must be an
+     *        integer from 5 to 100.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -122,11 +154,13 @@ public class DescribeBrokerInstanceOptionsRequest extends com.amazonaws.AmazonWe
     }
 
     /**
-     * The maximum number of instance options that Amazon MQ can return per page (20 by default). This value must be an
-     * integer from 5 to 100.
+     * <p>
+     * The maximum number of brokers that Amazon MQ can return per page (20 by default). This value must be an integer
+     * from 5 to 100.
+     * </p>
      * 
-     * @return The maximum number of instance options that Amazon MQ can return per page (20 by default). This value
-     *         must be an integer from 5 to 100.
+     * @return The maximum number of brokers that Amazon MQ can return per page (20 by default). This value must be an
+     *         integer from 5 to 100.
      */
 
     public Integer getMaxResults() {
@@ -134,12 +168,14 @@ public class DescribeBrokerInstanceOptionsRequest extends com.amazonaws.AmazonWe
     }
 
     /**
-     * The maximum number of instance options that Amazon MQ can return per page (20 by default). This value must be an
-     * integer from 5 to 100.
+     * <p>
+     * The maximum number of brokers that Amazon MQ can return per page (20 by default). This value must be an integer
+     * from 5 to 100.
+     * </p>
      * 
      * @param maxResults
-     *        The maximum number of instance options that Amazon MQ can return per page (20 by default). This value must
-     *        be an integer from 5 to 100.
+     *        The maximum number of brokers that Amazon MQ can return per page (20 by default). This value must be an
+     *        integer from 5 to 100.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -149,8 +185,10 @@ public class DescribeBrokerInstanceOptionsRequest extends com.amazonaws.AmazonWe
     }
 
     /**
+     * <p>
      * The token that specifies the next page of results Amazon MQ should return. To request the first page, leave
      * nextToken empty.
+     * </p>
      * 
      * @param nextToken
      *        The token that specifies the next page of results Amazon MQ should return. To request the first page,
@@ -162,8 +200,10 @@ public class DescribeBrokerInstanceOptionsRequest extends com.amazonaws.AmazonWe
     }
 
     /**
+     * <p>
      * The token that specifies the next page of results Amazon MQ should return. To request the first page, leave
      * nextToken empty.
+     * </p>
      * 
      * @return The token that specifies the next page of results Amazon MQ should return. To request the first page,
      *         leave nextToken empty.
@@ -174,8 +214,10 @@ public class DescribeBrokerInstanceOptionsRequest extends com.amazonaws.AmazonWe
     }
 
     /**
+     * <p>
      * The token that specifies the next page of results Amazon MQ should return. To request the first page, leave
      * nextToken empty.
+     * </p>
      * 
      * @param nextToken
      *        The token that specifies the next page of results Amazon MQ should return. To request the first page,
@@ -185,6 +227,46 @@ public class DescribeBrokerInstanceOptionsRequest extends com.amazonaws.AmazonWe
 
     public DescribeBrokerInstanceOptionsRequest withNextToken(String nextToken) {
         setNextToken(nextToken);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Filter response by storage type.
+     * </p>
+     * 
+     * @param storageType
+     *        Filter response by storage type.
+     */
+
+    public void setStorageType(String storageType) {
+        this.storageType = storageType;
+    }
+
+    /**
+     * <p>
+     * Filter response by storage type.
+     * </p>
+     * 
+     * @return Filter response by storage type.
+     */
+
+    public String getStorageType() {
+        return this.storageType;
+    }
+
+    /**
+     * <p>
+     * Filter response by storage type.
+     * </p>
+     * 
+     * @param storageType
+     *        Filter response by storage type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeBrokerInstanceOptionsRequest withStorageType(String storageType) {
+        setStorageType(storageType);
         return this;
     }
 
@@ -207,7 +289,9 @@ public class DescribeBrokerInstanceOptionsRequest extends com.amazonaws.AmazonWe
         if (getMaxResults() != null)
             sb.append("MaxResults: ").append(getMaxResults()).append(",");
         if (getNextToken() != null)
-            sb.append("NextToken: ").append(getNextToken());
+            sb.append("NextToken: ").append(getNextToken()).append(",");
+        if (getStorageType() != null)
+            sb.append("StorageType: ").append(getStorageType());
         sb.append("}");
         return sb.toString();
     }
@@ -238,6 +322,10 @@ public class DescribeBrokerInstanceOptionsRequest extends com.amazonaws.AmazonWe
             return false;
         if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
             return false;
+        if (other.getStorageType() == null ^ this.getStorageType() == null)
+            return false;
+        if (other.getStorageType() != null && other.getStorageType().equals(this.getStorageType()) == false)
+            return false;
         return true;
     }
 
@@ -250,6 +338,7 @@ public class DescribeBrokerInstanceOptionsRequest extends com.amazonaws.AmazonWe
         hashCode = prime * hashCode + ((getHostInstanceType() == null) ? 0 : getHostInstanceType().hashCode());
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
+        hashCode = prime * hashCode + ((getStorageType() == null) ? 0 : getStorageType().hashCode());
         return hashCode;
     }
 

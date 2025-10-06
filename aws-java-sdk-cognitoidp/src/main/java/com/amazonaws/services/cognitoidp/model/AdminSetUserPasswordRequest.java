@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,16 +25,41 @@ import com.amazonaws.AmazonWebServiceRequest;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AdminSetUserPasswordRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
+    /**
+     * <p>
+     * The user pool ID for the user pool where you want to set the user's password.
+     * </p>
+     */
     private String userPoolId;
-
+    /**
+     * <p>
+     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
+     * username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your
+     * user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party
+     * IdP.
+     * </p>
+     */
     private String username;
-
+    /**
+     * <p>
+     * The password for the user.
+     * </p>
+     */
     private String password;
-
+    /**
+     * <p>
+     * <code>True</code> if the password is permanent, <code>False</code> if it is temporary.
+     * </p>
+     */
     private Boolean permanent;
 
     /**
+     * <p>
+     * The user pool ID for the user pool where you want to set the user's password.
+     * </p>
+     * 
      * @param userPoolId
+     *        The user pool ID for the user pool where you want to set the user's password.
      */
 
     public void setUserPoolId(String userPoolId) {
@@ -42,7 +67,11 @@ public class AdminSetUserPasswordRequest extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
-     * @return
+     * <p>
+     * The user pool ID for the user pool where you want to set the user's password.
+     * </p>
+     * 
+     * @return The user pool ID for the user pool where you want to set the user's password.
      */
 
     public String getUserPoolId() {
@@ -50,7 +79,12 @@ public class AdminSetUserPasswordRequest extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
+     * <p>
+     * The user pool ID for the user pool where you want to set the user's password.
+     * </p>
+     * 
      * @param userPoolId
+     *        The user pool ID for the user pool where you want to set the user's password.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -60,7 +94,18 @@ public class AdminSetUserPasswordRequest extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
+     * <p>
+     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
+     * username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your
+     * user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party
+     * IdP.
+     * </p>
+     * 
      * @param username
+     *        The username of the user that you want to query or modify. The value of this parameter is typically your
+     *        user's username, but it can be any of their alias attributes. If <code>username</code> isn't an alias
+     *        attribute in your user pool, this value must be the <code>sub</code> of a local user or the username of a
+     *        user from a third-party IdP.
      */
 
     public void setUsername(String username) {
@@ -68,7 +113,17 @@ public class AdminSetUserPasswordRequest extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
-     * @return
+     * <p>
+     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
+     * username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your
+     * user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party
+     * IdP.
+     * </p>
+     * 
+     * @return The username of the user that you want to query or modify. The value of this parameter is typically your
+     *         user's username, but it can be any of their alias attributes. If <code>username</code> isn't an alias
+     *         attribute in your user pool, this value must be the <code>sub</code> of a local user or the username of a
+     *         user from a third-party IdP.
      */
 
     public String getUsername() {
@@ -76,7 +131,18 @@ public class AdminSetUserPasswordRequest extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
+     * <p>
+     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
+     * username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your
+     * user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party
+     * IdP.
+     * </p>
+     * 
      * @param username
+     *        The username of the user that you want to query or modify. The value of this parameter is typically your
+     *        user's username, but it can be any of their alias attributes. If <code>username</code> isn't an alias
+     *        attribute in your user pool, this value must be the <code>sub</code> of a local user or the username of a
+     *        user from a third-party IdP.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -86,7 +152,12 @@ public class AdminSetUserPasswordRequest extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
+     * <p>
+     * The password for the user.
+     * </p>
+     * 
      * @param password
+     *        The password for the user.
      */
 
     public void setPassword(String password) {
@@ -94,7 +165,11 @@ public class AdminSetUserPasswordRequest extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
-     * @return
+     * <p>
+     * The password for the user.
+     * </p>
+     * 
+     * @return The password for the user.
      */
 
     public String getPassword() {
@@ -102,7 +177,12 @@ public class AdminSetUserPasswordRequest extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
+     * <p>
+     * The password for the user.
+     * </p>
+     * 
      * @param password
+     *        The password for the user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -112,7 +192,12 @@ public class AdminSetUserPasswordRequest extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
+     * <p>
+     * <code>True</code> if the password is permanent, <code>False</code> if it is temporary.
+     * </p>
+     * 
      * @param permanent
+     *        <code>True</code> if the password is permanent, <code>False</code> if it is temporary.
      */
 
     public void setPermanent(Boolean permanent) {
@@ -120,7 +205,11 @@ public class AdminSetUserPasswordRequest extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
-     * @return
+     * <p>
+     * <code>True</code> if the password is permanent, <code>False</code> if it is temporary.
+     * </p>
+     * 
+     * @return <code>True</code> if the password is permanent, <code>False</code> if it is temporary.
      */
 
     public Boolean getPermanent() {
@@ -128,7 +217,12 @@ public class AdminSetUserPasswordRequest extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
+     * <p>
+     * <code>True</code> if the password is permanent, <code>False</code> if it is temporary.
+     * </p>
+     * 
      * @param permanent
+     *        <code>True</code> if the password is permanent, <code>False</code> if it is temporary.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -138,7 +232,11 @@ public class AdminSetUserPasswordRequest extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
-     * @return
+     * <p>
+     * <code>True</code> if the password is permanent, <code>False</code> if it is temporary.
+     * </p>
+     * 
+     * @return <code>True</code> if the password is permanent, <code>False</code> if it is temporary.
      */
 
     public Boolean isPermanent() {

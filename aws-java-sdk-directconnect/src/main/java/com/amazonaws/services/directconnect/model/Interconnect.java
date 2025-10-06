@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -86,7 +86,7 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
     private String interconnectState;
     /**
      * <p>
-     * The AWS Region where the connection is located.
+     * The Amazon Web Services Region where the connection is located.
      * </p>
      */
     private String region;
@@ -122,16 +122,23 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
     private String awsDevice;
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      */
     private Boolean jumboFrameCapable;
     /**
      * <p>
-     * The Direct Connect endpoint on which the physical connection terminates.
+     * The Direct Connect endpoint that terminates the physical connection.
      * </p>
      */
     private String awsDeviceV2;
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     */
+    private String awsLogicalDeviceId;
     /**
      * <p>
      * Indicates whether the interconnect supports a secondary BGP in the same address family (IPv4/IPv6).
@@ -140,10 +147,16 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
     private String hasLogicalRedundancy;
     /**
      * <p>
-     * Any tags assigned to the interconnect.
+     * The tags associated with the interconnect.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * The name of the service provider associated with the interconnect.
+     * </p>
+     */
+    private String providerName;
 
     /**
      * <p>
@@ -675,11 +688,11 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region where the connection is located.
+     * The Amazon Web Services Region where the connection is located.
      * </p>
      * 
      * @param region
-     *        The AWS Region where the connection is located.
+     *        The Amazon Web Services Region where the connection is located.
      */
 
     public void setRegion(String region) {
@@ -688,10 +701,10 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region where the connection is located.
+     * The Amazon Web Services Region where the connection is located.
      * </p>
      * 
-     * @return The AWS Region where the connection is located.
+     * @return The Amazon Web Services Region where the connection is located.
      */
 
     public String getRegion() {
@@ -700,11 +713,11 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region where the connection is located.
+     * The Amazon Web Services Region where the connection is located.
      * </p>
      * 
      * @param region
-     *        The AWS Region where the connection is located.
+     *        The Amazon Web Services Region where the connection is located.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -915,11 +928,11 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      * 
      * @param jumboFrameCapable
-     *        Indicates whether jumbo frames (9001 MTU) are supported.
+     *        Indicates whether jumbo frames are supported.
      */
 
     public void setJumboFrameCapable(Boolean jumboFrameCapable) {
@@ -928,10 +941,10 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      * 
-     * @return Indicates whether jumbo frames (9001 MTU) are supported.
+     * @return Indicates whether jumbo frames are supported.
      */
 
     public Boolean getJumboFrameCapable() {
@@ -940,11 +953,11 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      * 
      * @param jumboFrameCapable
-     *        Indicates whether jumbo frames (9001 MTU) are supported.
+     *        Indicates whether jumbo frames are supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -955,10 +968,10 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      * 
-     * @return Indicates whether jumbo frames (9001 MTU) are supported.
+     * @return Indicates whether jumbo frames are supported.
      */
 
     public Boolean isJumboFrameCapable() {
@@ -967,11 +980,11 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Direct Connect endpoint on which the physical connection terminates.
+     * The Direct Connect endpoint that terminates the physical connection.
      * </p>
      * 
      * @param awsDeviceV2
-     *        The Direct Connect endpoint on which the physical connection terminates.
+     *        The Direct Connect endpoint that terminates the physical connection.
      */
 
     public void setAwsDeviceV2(String awsDeviceV2) {
@@ -980,10 +993,10 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Direct Connect endpoint on which the physical connection terminates.
+     * The Direct Connect endpoint that terminates the physical connection.
      * </p>
      * 
-     * @return The Direct Connect endpoint on which the physical connection terminates.
+     * @return The Direct Connect endpoint that terminates the physical connection.
      */
 
     public String getAwsDeviceV2() {
@@ -992,16 +1005,62 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Direct Connect endpoint on which the physical connection terminates.
+     * The Direct Connect endpoint that terminates the physical connection.
      * </p>
      * 
      * @param awsDeviceV2
-     *        The Direct Connect endpoint on which the physical connection terminates.
+     *        The Direct Connect endpoint that terminates the physical connection.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Interconnect withAwsDeviceV2(String awsDeviceV2) {
         setAwsDeviceV2(awsDeviceV2);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     * 
+     * @param awsLogicalDeviceId
+     *        The Direct Connect endpoint that terminates the logical connection. This device might be different than
+     *        the device that terminates the physical connection.
+     */
+
+    public void setAwsLogicalDeviceId(String awsLogicalDeviceId) {
+        this.awsLogicalDeviceId = awsLogicalDeviceId;
+    }
+
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     * 
+     * @return The Direct Connect endpoint that terminates the logical connection. This device might be different than
+     *         the device that terminates the physical connection.
+     */
+
+    public String getAwsLogicalDeviceId() {
+        return this.awsLogicalDeviceId;
+    }
+
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     * 
+     * @param awsLogicalDeviceId
+     *        The Direct Connect endpoint that terminates the logical connection. This device might be different than
+     *        the device that terminates the physical connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Interconnect withAwsLogicalDeviceId(String awsLogicalDeviceId) {
+        setAwsLogicalDeviceId(awsLogicalDeviceId);
         return this;
     }
 
@@ -1080,10 +1139,10 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Any tags assigned to the interconnect.
+     * The tags associated with the interconnect.
      * </p>
      * 
-     * @return Any tags assigned to the interconnect.
+     * @return The tags associated with the interconnect.
      */
 
     public java.util.List<Tag> getTags() {
@@ -1095,11 +1154,11 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Any tags assigned to the interconnect.
+     * The tags associated with the interconnect.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the interconnect.
+     *        The tags associated with the interconnect.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -1113,7 +1172,7 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Any tags assigned to the interconnect.
+     * The tags associated with the interconnect.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1122,7 +1181,7 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the interconnect.
+     *        The tags associated with the interconnect.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1138,16 +1197,56 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Any tags assigned to the interconnect.
+     * The tags associated with the interconnect.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the interconnect.
+     *        The tags associated with the interconnect.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Interconnect withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the service provider associated with the interconnect.
+     * </p>
+     * 
+     * @param providerName
+     *        The name of the service provider associated with the interconnect.
+     */
+
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
+    }
+
+    /**
+     * <p>
+     * The name of the service provider associated with the interconnect.
+     * </p>
+     * 
+     * @return The name of the service provider associated with the interconnect.
+     */
+
+    public String getProviderName() {
+        return this.providerName;
+    }
+
+    /**
+     * <p>
+     * The name of the service provider associated with the interconnect.
+     * </p>
+     * 
+     * @param providerName
+     *        The name of the service provider associated with the interconnect.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Interconnect withProviderName(String providerName) {
+        setProviderName(providerName);
         return this;
     }
 
@@ -1185,10 +1284,14 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
             sb.append("JumboFrameCapable: ").append(getJumboFrameCapable()).append(",");
         if (getAwsDeviceV2() != null)
             sb.append("AwsDeviceV2: ").append(getAwsDeviceV2()).append(",");
+        if (getAwsLogicalDeviceId() != null)
+            sb.append("AwsLogicalDeviceId: ").append(getAwsLogicalDeviceId()).append(",");
         if (getHasLogicalRedundancy() != null)
             sb.append("HasLogicalRedundancy: ").append(getHasLogicalRedundancy()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getProviderName() != null)
+            sb.append("ProviderName: ").append(getProviderName());
         sb.append("}");
         return sb.toString();
     }
@@ -1247,6 +1350,10 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getAwsDeviceV2() != null && other.getAwsDeviceV2().equals(this.getAwsDeviceV2()) == false)
             return false;
+        if (other.getAwsLogicalDeviceId() == null ^ this.getAwsLogicalDeviceId() == null)
+            return false;
+        if (other.getAwsLogicalDeviceId() != null && other.getAwsLogicalDeviceId().equals(this.getAwsLogicalDeviceId()) == false)
+            return false;
         if (other.getHasLogicalRedundancy() == null ^ this.getHasLogicalRedundancy() == null)
             return false;
         if (other.getHasLogicalRedundancy() != null && other.getHasLogicalRedundancy().equals(this.getHasLogicalRedundancy()) == false)
@@ -1254,6 +1361,10 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getProviderName() == null ^ this.getProviderName() == null)
+            return false;
+        if (other.getProviderName() != null && other.getProviderName().equals(this.getProviderName()) == false)
             return false;
         return true;
     }
@@ -1274,8 +1385,10 @@ public class Interconnect implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getAwsDevice() == null) ? 0 : getAwsDevice().hashCode());
         hashCode = prime * hashCode + ((getJumboFrameCapable() == null) ? 0 : getJumboFrameCapable().hashCode());
         hashCode = prime * hashCode + ((getAwsDeviceV2() == null) ? 0 : getAwsDeviceV2().hashCode());
+        hashCode = prime * hashCode + ((getAwsLogicalDeviceId() == null) ? 0 : getAwsLogicalDeviceId().hashCode());
         hashCode = prime * hashCode + ((getHasLogicalRedundancy() == null) ? 0 : getHasLogicalRedundancy().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getProviderName() == null) ? 0 : getProviderName().hashCode());
         return hashCode;
     }
 

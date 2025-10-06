@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -220,6 +220,35 @@ public class AmazonEC2Waiters {
     }
 
     /**
+     * Builds a StoreImageTaskComplete waiter by using custom parameters waiterParameters and other parameters defined
+     * in the waiters specification, and then polls until it determines whether the resource entered the desired state
+     * or not, where polling criteria is bound by either default polling strategy or custom polling strategy.
+     */
+    public Waiter<DescribeStoreImageTasksRequest> storeImageTaskComplete() {
+
+        return new WaiterBuilder<DescribeStoreImageTasksRequest, DescribeStoreImageTasksResult>()
+                .withSdkFunction(new DescribeStoreImageTasksFunction(client))
+                .withAcceptors(new StoreImageTaskComplete.IsCompletedMatcher(), new StoreImageTaskComplete.IsFailedMatcher(),
+                        new StoreImageTaskComplete.IsInProgressMatcher())
+                .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(40), new FixedDelayStrategy(5)))
+                .withExecutorService(executorService).build();
+    }
+
+    /**
+     * Builds a InternetGatewayExists waiter by using custom parameters waiterParameters and other parameters defined in
+     * the waiters specification, and then polls until it determines whether the resource entered the desired state or
+     * not, where polling criteria is bound by either default polling strategy or custom polling strategy.
+     */
+    public Waiter<DescribeInternetGatewaysRequest> internetGatewayExists() {
+
+        return new WaiterBuilder<DescribeInternetGatewaysRequest, DescribeInternetGatewaysResult>()
+                .withSdkFunction(new DescribeInternetGatewaysFunction(client))
+                .withAcceptors(new InternetGatewayExists.IsTrueMatcher(), new InternetGatewayExists.IsInvalidInternetGatewayNotFoundMatcher())
+                .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(6), new FixedDelayStrategy(5)))
+                .withExecutorService(executorService).build();
+    }
+
+    /**
      * Builds a ImageExists waiter by using custom parameters waiterParameters and other parameters defined in the
      * waiters specification, and then polls until it determines whether the resource entered the desired state or not,
      * where polling criteria is bound by either default polling strategy or custom polling strategy.
@@ -287,6 +316,32 @@ public class AmazonEC2Waiters {
     }
 
     /**
+     * Builds a SecurityGroupExists waiter by using custom parameters waiterParameters and other parameters defined in
+     * the waiters specification, and then polls until it determines whether the resource entered the desired state or
+     * not, where polling criteria is bound by either default polling strategy or custom polling strategy.
+     */
+    public Waiter<DescribeSecurityGroupsRequest> securityGroupExists() {
+
+        return new WaiterBuilder<DescribeSecurityGroupsRequest, DescribeSecurityGroupsResult>().withSdkFunction(new DescribeSecurityGroupsFunction(client))
+                .withAcceptors(new SecurityGroupExists.IsTrueMatcher(), new SecurityGroupExists.IsInvalidGroupNotFoundMatcher())
+                .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(6), new FixedDelayStrategy(5)))
+                .withExecutorService(executorService).build();
+    }
+
+    /**
+     * Builds a NatGatewayDeleted waiter by using custom parameters waiterParameters and other parameters defined in the
+     * waiters specification, and then polls until it determines whether the resource entered the desired state or not,
+     * where polling criteria is bound by either default polling strategy or custom polling strategy.
+     */
+    public Waiter<DescribeNatGatewaysRequest> natGatewayDeleted() {
+
+        return new WaiterBuilder<DescribeNatGatewaysRequest, DescribeNatGatewaysResult>().withSdkFunction(new DescribeNatGatewaysFunction(client))
+                .withAcceptors(new NatGatewayDeleted.IsDeletedMatcher(), new NatGatewayDeleted.IsNatGatewayNotFoundMatcher())
+                .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(40), new FixedDelayStrategy(15)))
+                .withExecutorService(executorService).build();
+    }
+
+    /**
      * Builds a InstanceTerminated waiter by using custom parameters waiterParameters and other parameters defined in
      * the waiters specification, and then polls until it determines whether the resource entered the desired state or
      * not, where polling criteria is bound by either default polling strategy or custom polling strategy.
@@ -297,6 +352,20 @@ public class AmazonEC2Waiters {
                 .withSdkFunction(new DescribeInstancesFunction(client))
                 .withAcceptors(new InstanceTerminated.IsTerminatedMatcher(), new InstanceTerminated.IsPendingMatcher(),
                         new InstanceTerminated.IsStoppingMatcher())
+                .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(40), new FixedDelayStrategy(15)))
+                .withExecutorService(executorService).build();
+    }
+
+    /**
+     * Builds a SnapshotImported waiter by using custom parameters waiterParameters and other parameters defined in the
+     * waiters specification, and then polls until it determines whether the resource entered the desired state or not,
+     * where polling criteria is bound by either default polling strategy or custom polling strategy.
+     */
+    public Waiter<DescribeImportSnapshotTasksRequest> snapshotImported() {
+
+        return new WaiterBuilder<DescribeImportSnapshotTasksRequest, DescribeImportSnapshotTasksResult>()
+                .withSdkFunction(new DescribeImportSnapshotTasksFunction(client))
+                .withAcceptors(new SnapshotImported.IsCompletedMatcher(), new SnapshotImported.IsErrorMatcher())
                 .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(40), new FixedDelayStrategy(15)))
                 .withExecutorService(executorService).build();
     }
@@ -396,7 +465,7 @@ public class AmazonEC2Waiters {
     public Waiter<DescribeSnapshotsRequest> snapshotCompleted() {
 
         return new WaiterBuilder<DescribeSnapshotsRequest, DescribeSnapshotsResult>().withSdkFunction(new DescribeSnapshotsFunction(client))
-                .withAcceptors(new SnapshotCompleted.IsCompletedMatcher())
+                .withAcceptors(new SnapshotCompleted.IsCompletedMatcher(), new SnapshotCompleted.IsErrorMatcher())
                 .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(40), new FixedDelayStrategy(15)))
                 .withExecutorService(executorService).build();
     }

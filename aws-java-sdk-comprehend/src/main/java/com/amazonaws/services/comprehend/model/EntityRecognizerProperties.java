@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -91,16 +91,15 @@ public class EntityRecognizerProperties implements Serializable, Cloneable, Stru
     private EntityRecognizerMetadata recognizerMetadata;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend read
-     * access to your input data.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data.
      * </p>
      */
     private String dataAccessRoleArn;
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -125,6 +124,51 @@ public class EntityRecognizerProperties implements Serializable, Cloneable, Stru
      * </p>
      */
     private VpcConfig vpcConfig;
+    /**
+     * <p>
+     * ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either
+     * of the following formats:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Resource Name (ARN) of a KMS Key:
+     * <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String modelKmsKeyId;
+    /**
+     * <p>
+     * The version name you assigned to the entity recognizer.
+     * </p>
+     */
+    private String versionName;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the source model. This model was imported from a different Amazon Web Services
+     * account to create the entity recognizer model in your Amazon Web Services account.
+     * </p>
+     */
+    private String sourceModelArn;
+    /**
+     * <p>
+     * The Amazon Resource Number (ARN) of the flywheel
+     * </p>
+     */
+    private String flywheelArn;
+    /**
+     * <p>
+     * Output data configuration.
+     * </p>
+     */
+    private EntityRecognizerOutputDataConfig outputDataConfig;
 
     /**
      * <p>
@@ -574,13 +618,12 @@ public class EntityRecognizerProperties implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend read
-     * access to your input data.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data.
      * </p>
      * 
      * @param dataAccessRoleArn
-     *        The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend
-     *        read access to your input data.
+     *        The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input
+     *        data.
      */
 
     public void setDataAccessRoleArn(String dataAccessRoleArn) {
@@ -589,12 +632,11 @@ public class EntityRecognizerProperties implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend read
-     * access to your input data.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon
-     *         Comprehend read access to your input data.
+     * @return The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input
+     *         data.
      */
 
     public String getDataAccessRoleArn() {
@@ -603,13 +645,12 @@ public class EntityRecognizerProperties implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend read
-     * access to your input data.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data.
      * </p>
      * 
      * @param dataAccessRoleArn
-     *        The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend
-     *        read access to your input data.
+     *        The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input
+     *        data.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -620,9 +661,9 @@ public class EntityRecognizerProperties implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -639,9 +680,9 @@ public class EntityRecognizerProperties implements Serializable, Cloneable, Stru
      * </ul>
      * 
      * @param volumeKmsKeyId
-     *        ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage
-     *        volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be
-     *        either of the following formats:</p>
+     *        ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt
+     *        data on the storage volume attached to the ML compute instance(s) that process the analysis job. The
+     *        VolumeKmsKeyId can be either of the following formats:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -662,9 +703,9 @@ public class EntityRecognizerProperties implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -680,9 +721,9 @@ public class EntityRecognizerProperties implements Serializable, Cloneable, Stru
      * </li>
      * </ul>
      * 
-     * @return ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the
-     *         storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId
-     *         can be either of the following formats:</p>
+     * @return ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt
+     *         data on the storage volume attached to the ML compute instance(s) that process the analysis job. The
+     *         VolumeKmsKeyId can be either of the following formats:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -703,9 +744,9 @@ public class EntityRecognizerProperties implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -722,9 +763,9 @@ public class EntityRecognizerProperties implements Serializable, Cloneable, Stru
      * </ul>
      * 
      * @param volumeKmsKeyId
-     *        ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage
-     *        volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be
-     *        either of the following formats:</p>
+     *        ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt
+     *        data on the storage volume attached to the ML compute instance(s) that process the analysis job. The
+     *        VolumeKmsKeyId can be either of the following formats:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -798,6 +839,293 @@ public class EntityRecognizerProperties implements Serializable, Cloneable, Stru
     }
 
     /**
+     * <p>
+     * ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either
+     * of the following formats:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Resource Name (ARN) of a KMS Key:
+     * <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param modelKmsKeyId
+     *        ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be
+     *        either of the following formats:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Resource Name (ARN) of a KMS Key:
+     *        <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     *        </p>
+     *        </li>
+     */
+
+    public void setModelKmsKeyId(String modelKmsKeyId) {
+        this.modelKmsKeyId = modelKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either
+     * of the following formats:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Resource Name (ARN) of a KMS Key:
+     * <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be
+     *         either of the following formats:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon Resource Name (ARN) of a KMS Key:
+     *         <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     *         </p>
+     *         </li>
+     */
+
+    public String getModelKmsKeyId() {
+        return this.modelKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either
+     * of the following formats:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Resource Name (ARN) of a KMS Key:
+     * <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param modelKmsKeyId
+     *        ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be
+     *        either of the following formats:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Resource Name (ARN) of a KMS Key:
+     *        <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EntityRecognizerProperties withModelKmsKeyId(String modelKmsKeyId) {
+        setModelKmsKeyId(modelKmsKeyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The version name you assigned to the entity recognizer.
+     * </p>
+     * 
+     * @param versionName
+     *        The version name you assigned to the entity recognizer.
+     */
+
+    public void setVersionName(String versionName) {
+        this.versionName = versionName;
+    }
+
+    /**
+     * <p>
+     * The version name you assigned to the entity recognizer.
+     * </p>
+     * 
+     * @return The version name you assigned to the entity recognizer.
+     */
+
+    public String getVersionName() {
+        return this.versionName;
+    }
+
+    /**
+     * <p>
+     * The version name you assigned to the entity recognizer.
+     * </p>
+     * 
+     * @param versionName
+     *        The version name you assigned to the entity recognizer.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EntityRecognizerProperties withVersionName(String versionName) {
+        setVersionName(versionName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the source model. This model was imported from a different Amazon Web Services
+     * account to create the entity recognizer model in your Amazon Web Services account.
+     * </p>
+     * 
+     * @param sourceModelArn
+     *        The Amazon Resource Name (ARN) of the source model. This model was imported from a different Amazon Web
+     *        Services account to create the entity recognizer model in your Amazon Web Services account.
+     */
+
+    public void setSourceModelArn(String sourceModelArn) {
+        this.sourceModelArn = sourceModelArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the source model. This model was imported from a different Amazon Web Services
+     * account to create the entity recognizer model in your Amazon Web Services account.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the source model. This model was imported from a different Amazon Web
+     *         Services account to create the entity recognizer model in your Amazon Web Services account.
+     */
+
+    public String getSourceModelArn() {
+        return this.sourceModelArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the source model. This model was imported from a different Amazon Web Services
+     * account to create the entity recognizer model in your Amazon Web Services account.
+     * </p>
+     * 
+     * @param sourceModelArn
+     *        The Amazon Resource Name (ARN) of the source model. This model was imported from a different Amazon Web
+     *        Services account to create the entity recognizer model in your Amazon Web Services account.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EntityRecognizerProperties withSourceModelArn(String sourceModelArn) {
+        setSourceModelArn(sourceModelArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Number (ARN) of the flywheel
+     * </p>
+     * 
+     * @param flywheelArn
+     *        The Amazon Resource Number (ARN) of the flywheel
+     */
+
+    public void setFlywheelArn(String flywheelArn) {
+        this.flywheelArn = flywheelArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Number (ARN) of the flywheel
+     * </p>
+     * 
+     * @return The Amazon Resource Number (ARN) of the flywheel
+     */
+
+    public String getFlywheelArn() {
+        return this.flywheelArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Number (ARN) of the flywheel
+     * </p>
+     * 
+     * @param flywheelArn
+     *        The Amazon Resource Number (ARN) of the flywheel
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EntityRecognizerProperties withFlywheelArn(String flywheelArn) {
+        setFlywheelArn(flywheelArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Output data configuration.
+     * </p>
+     * 
+     * @param outputDataConfig
+     *        Output data configuration.
+     */
+
+    public void setOutputDataConfig(EntityRecognizerOutputDataConfig outputDataConfig) {
+        this.outputDataConfig = outputDataConfig;
+    }
+
+    /**
+     * <p>
+     * Output data configuration.
+     * </p>
+     * 
+     * @return Output data configuration.
+     */
+
+    public EntityRecognizerOutputDataConfig getOutputDataConfig() {
+        return this.outputDataConfig;
+    }
+
+    /**
+     * <p>
+     * Output data configuration.
+     * </p>
+     * 
+     * @param outputDataConfig
+     *        Output data configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EntityRecognizerProperties withOutputDataConfig(EntityRecognizerOutputDataConfig outputDataConfig) {
+        setOutputDataConfig(outputDataConfig);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -828,13 +1156,23 @@ public class EntityRecognizerProperties implements Serializable, Cloneable, Stru
         if (getInputDataConfig() != null)
             sb.append("InputDataConfig: ").append(getInputDataConfig()).append(",");
         if (getRecognizerMetadata() != null)
-            sb.append("RecognizerMetadata: ").append(getRecognizerMetadata()).append(",");
+            sb.append("RecognizerMetadata: ").append("***Sensitive Data Redacted***").append(",");
         if (getDataAccessRoleArn() != null)
             sb.append("DataAccessRoleArn: ").append(getDataAccessRoleArn()).append(",");
         if (getVolumeKmsKeyId() != null)
             sb.append("VolumeKmsKeyId: ").append(getVolumeKmsKeyId()).append(",");
         if (getVpcConfig() != null)
-            sb.append("VpcConfig: ").append(getVpcConfig());
+            sb.append("VpcConfig: ").append(getVpcConfig()).append(",");
+        if (getModelKmsKeyId() != null)
+            sb.append("ModelKmsKeyId: ").append(getModelKmsKeyId()).append(",");
+        if (getVersionName() != null)
+            sb.append("VersionName: ").append(getVersionName()).append(",");
+        if (getSourceModelArn() != null)
+            sb.append("SourceModelArn: ").append(getSourceModelArn()).append(",");
+        if (getFlywheelArn() != null)
+            sb.append("FlywheelArn: ").append(getFlywheelArn()).append(",");
+        if (getOutputDataConfig() != null)
+            sb.append("OutputDataConfig: ").append(getOutputDataConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -901,6 +1239,26 @@ public class EntityRecognizerProperties implements Serializable, Cloneable, Stru
             return false;
         if (other.getVpcConfig() != null && other.getVpcConfig().equals(this.getVpcConfig()) == false)
             return false;
+        if (other.getModelKmsKeyId() == null ^ this.getModelKmsKeyId() == null)
+            return false;
+        if (other.getModelKmsKeyId() != null && other.getModelKmsKeyId().equals(this.getModelKmsKeyId()) == false)
+            return false;
+        if (other.getVersionName() == null ^ this.getVersionName() == null)
+            return false;
+        if (other.getVersionName() != null && other.getVersionName().equals(this.getVersionName()) == false)
+            return false;
+        if (other.getSourceModelArn() == null ^ this.getSourceModelArn() == null)
+            return false;
+        if (other.getSourceModelArn() != null && other.getSourceModelArn().equals(this.getSourceModelArn()) == false)
+            return false;
+        if (other.getFlywheelArn() == null ^ this.getFlywheelArn() == null)
+            return false;
+        if (other.getFlywheelArn() != null && other.getFlywheelArn().equals(this.getFlywheelArn()) == false)
+            return false;
+        if (other.getOutputDataConfig() == null ^ this.getOutputDataConfig() == null)
+            return false;
+        if (other.getOutputDataConfig() != null && other.getOutputDataConfig().equals(this.getOutputDataConfig()) == false)
+            return false;
         return true;
     }
 
@@ -922,6 +1280,11 @@ public class EntityRecognizerProperties implements Serializable, Cloneable, Stru
         hashCode = prime * hashCode + ((getDataAccessRoleArn() == null) ? 0 : getDataAccessRoleArn().hashCode());
         hashCode = prime * hashCode + ((getVolumeKmsKeyId() == null) ? 0 : getVolumeKmsKeyId().hashCode());
         hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
+        hashCode = prime * hashCode + ((getModelKmsKeyId() == null) ? 0 : getModelKmsKeyId().hashCode());
+        hashCode = prime * hashCode + ((getVersionName() == null) ? 0 : getVersionName().hashCode());
+        hashCode = prime * hashCode + ((getSourceModelArn() == null) ? 0 : getSourceModelArn().hashCode());
+        hashCode = prime * hashCode + ((getFlywheelArn() == null) ? 0 : getFlywheelArn().hashCode());
+        hashCode = prime * hashCode + ((getOutputDataConfig() == null) ? 0 : getOutputDataConfig().hashCode());
         return hashCode;
     }
 

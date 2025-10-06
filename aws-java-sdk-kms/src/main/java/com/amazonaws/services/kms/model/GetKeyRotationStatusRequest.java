@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,11 +27,11 @@ public class GetKeyRotationStatusRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A unique identifier for the customer master key (CMK).
+     * Gets the rotation status for the specified KMS key.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you
-     * must use the key ARN.
+     * Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services account,
+     * you must use the key ARN.
      * </p>
      * <p>
      * For example:
@@ -49,18 +49,18 @@ public class GetKeyRotationStatusRequest extends com.amazonaws.AmazonWebServiceR
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      */
     private String keyId;
 
     /**
      * <p>
-     * A unique identifier for the customer master key (CMK).
+     * Gets the rotation status for the specified KMS key.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you
-     * must use the key ARN.
+     * Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services account,
+     * you must use the key ARN.
      * </p>
      * <p>
      * For example:
@@ -78,13 +78,13 @@ public class GetKeyRotationStatusRequest extends com.amazonaws.AmazonWebServiceR
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
      * @param keyId
-     *        A unique identifier for the customer master key (CMK).</p>
+     *        Gets the rotation status for the specified KMS key.</p>
      *        <p>
-     *        Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS
+     *        Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services
      *        account, you must use the key ARN.
      *        </p>
      *        <p>
@@ -103,7 +103,7 @@ public class GetKeyRotationStatusRequest extends com.amazonaws.AmazonWebServiceR
      *        </li>
      *        </ul>
      *        <p>
-     *        To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *        To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      */
 
     public void setKeyId(String keyId) {
@@ -112,11 +112,11 @@ public class GetKeyRotationStatusRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A unique identifier for the customer master key (CMK).
+     * Gets the rotation status for the specified KMS key.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you
-     * must use the key ARN.
+     * Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services account,
+     * you must use the key ARN.
      * </p>
      * <p>
      * For example:
@@ -134,12 +134,12 @@ public class GetKeyRotationStatusRequest extends com.amazonaws.AmazonWebServiceR
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
-     * @return A unique identifier for the customer master key (CMK).</p>
+     * @return Gets the rotation status for the specified KMS key.</p>
      *         <p>
-     *         Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS
+     *         Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services
      *         account, you must use the key ARN.
      *         </p>
      *         <p>
@@ -158,7 +158,7 @@ public class GetKeyRotationStatusRequest extends com.amazonaws.AmazonWebServiceR
      *         </li>
      *         </ul>
      *         <p>
-     *         To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *         To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      */
 
     public String getKeyId() {
@@ -167,11 +167,11 @@ public class GetKeyRotationStatusRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A unique identifier for the customer master key (CMK).
+     * Gets the rotation status for the specified KMS key.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you
-     * must use the key ARN.
+     * Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services account,
+     * you must use the key ARN.
      * </p>
      * <p>
      * For example:
@@ -189,13 +189,13 @@ public class GetKeyRotationStatusRequest extends com.amazonaws.AmazonWebServiceR
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
      * @param keyId
-     *        A unique identifier for the customer master key (CMK).</p>
+     *        Gets the rotation status for the specified KMS key.</p>
      *        <p>
-     *        Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS
+     *        Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services
      *        account, you must use the key ARN.
      *        </p>
      *        <p>
@@ -214,7 +214,7 @@ public class GetKeyRotationStatusRequest extends com.amazonaws.AmazonWebServiceR
      *        </li>
      *        </ul>
      *        <p>
-     *        To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *        To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

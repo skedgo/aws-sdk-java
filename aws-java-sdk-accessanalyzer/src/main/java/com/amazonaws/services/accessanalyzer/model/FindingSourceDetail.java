@@ -1,0 +1,197 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.accessanalyzer.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * Includes details about how the access that generated the finding is granted. This is populated for Amazon S3 bucket
+ * findings.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/accessanalyzer-2019-11-01/FindingSourceDetail" target="_top">AWS
+ *      API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class FindingSourceDetail implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * The ARN of the access point that generated the finding. The ARN format depends on whether the ARN represents an
+     * access point or a multi-region access point.
+     * </p>
+     */
+    private String accessPointArn;
+    /**
+     * <p>
+     * The account of the cross-account access point that generated the finding.
+     * </p>
+     */
+    private String accessPointAccount;
+
+    /**
+     * <p>
+     * The ARN of the access point that generated the finding. The ARN format depends on whether the ARN represents an
+     * access point or a multi-region access point.
+     * </p>
+     * 
+     * @param accessPointArn
+     *        The ARN of the access point that generated the finding. The ARN format depends on whether the ARN
+     *        represents an access point or a multi-region access point.
+     */
+
+    public void setAccessPointArn(String accessPointArn) {
+        this.accessPointArn = accessPointArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the access point that generated the finding. The ARN format depends on whether the ARN represents an
+     * access point or a multi-region access point.
+     * </p>
+     * 
+     * @return The ARN of the access point that generated the finding. The ARN format depends on whether the ARN
+     *         represents an access point or a multi-region access point.
+     */
+
+    public String getAccessPointArn() {
+        return this.accessPointArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the access point that generated the finding. The ARN format depends on whether the ARN represents an
+     * access point or a multi-region access point.
+     * </p>
+     * 
+     * @param accessPointArn
+     *        The ARN of the access point that generated the finding. The ARN format depends on whether the ARN
+     *        represents an access point or a multi-region access point.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public FindingSourceDetail withAccessPointArn(String accessPointArn) {
+        setAccessPointArn(accessPointArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The account of the cross-account access point that generated the finding.
+     * </p>
+     * 
+     * @param accessPointAccount
+     *        The account of the cross-account access point that generated the finding.
+     */
+
+    public void setAccessPointAccount(String accessPointAccount) {
+        this.accessPointAccount = accessPointAccount;
+    }
+
+    /**
+     * <p>
+     * The account of the cross-account access point that generated the finding.
+     * </p>
+     * 
+     * @return The account of the cross-account access point that generated the finding.
+     */
+
+    public String getAccessPointAccount() {
+        return this.accessPointAccount;
+    }
+
+    /**
+     * <p>
+     * The account of the cross-account access point that generated the finding.
+     * </p>
+     * 
+     * @param accessPointAccount
+     *        The account of the cross-account access point that generated the finding.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public FindingSourceDetail withAccessPointAccount(String accessPointAccount) {
+        setAccessPointAccount(accessPointAccount);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getAccessPointArn() != null)
+            sb.append("AccessPointArn: ").append(getAccessPointArn()).append(",");
+        if (getAccessPointAccount() != null)
+            sb.append("AccessPointAccount: ").append(getAccessPointAccount());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof FindingSourceDetail == false)
+            return false;
+        FindingSourceDetail other = (FindingSourceDetail) obj;
+        if (other.getAccessPointArn() == null ^ this.getAccessPointArn() == null)
+            return false;
+        if (other.getAccessPointArn() != null && other.getAccessPointArn().equals(this.getAccessPointArn()) == false)
+            return false;
+        if (other.getAccessPointAccount() == null ^ this.getAccessPointAccount() == null)
+            return false;
+        if (other.getAccessPointAccount() != null && other.getAccessPointAccount().equals(this.getAccessPointAccount()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getAccessPointArn() == null) ? 0 : getAccessPointArn().hashCode());
+        hashCode = prime * hashCode + ((getAccessPointAccount() == null) ? 0 : getAccessPointAccount().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public FindingSourceDetail clone() {
+        try {
+            return (FindingSourceDetail) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.accessanalyzer.model.transform.FindingSourceDetailMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,57 @@ public class AbstractAmazonTranscribe implements AmazonTranscribe {
     }
 
     @Override
+    public CreateCallAnalyticsCategoryResult createCallAnalyticsCategory(CreateCallAnalyticsCategoryRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateLanguageModelResult createLanguageModel(CreateLanguageModelRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateMedicalVocabularyResult createMedicalVocabulary(CreateMedicalVocabularyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateVocabularyResult createVocabulary(CreateVocabularyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateVocabularyFilterResult createVocabularyFilter(CreateVocabularyFilterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteCallAnalyticsCategoryResult deleteCallAnalyticsCategory(DeleteCallAnalyticsCategoryRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteCallAnalyticsJobResult deleteCallAnalyticsJob(DeleteCallAnalyticsJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteLanguageModelResult deleteLanguageModel(DeleteLanguageModelRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteMedicalScribeJobResult deleteMedicalScribeJob(DeleteMedicalScribeJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteMedicalTranscriptionJobResult deleteMedicalTranscriptionJob(DeleteMedicalTranscriptionJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteMedicalVocabularyResult deleteMedicalVocabulary(DeleteMedicalVocabularyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -43,12 +93,87 @@ public class AbstractAmazonTranscribe implements AmazonTranscribe {
     }
 
     @Override
+    public DeleteVocabularyFilterResult deleteVocabularyFilter(DeleteVocabularyFilterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeLanguageModelResult describeLanguageModel(DescribeLanguageModelRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetCallAnalyticsCategoryResult getCallAnalyticsCategory(GetCallAnalyticsCategoryRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetCallAnalyticsJobResult getCallAnalyticsJob(GetCallAnalyticsJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetMedicalScribeJobResult getMedicalScribeJob(GetMedicalScribeJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetMedicalTranscriptionJobResult getMedicalTranscriptionJob(GetMedicalTranscriptionJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetMedicalVocabularyResult getMedicalVocabulary(GetMedicalVocabularyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetTranscriptionJobResult getTranscriptionJob(GetTranscriptionJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public GetVocabularyResult getVocabulary(GetVocabularyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetVocabularyFilterResult getVocabularyFilter(GetVocabularyFilterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListCallAnalyticsCategoriesResult listCallAnalyticsCategories(ListCallAnalyticsCategoriesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListCallAnalyticsJobsResult listCallAnalyticsJobs(ListCallAnalyticsJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListLanguageModelsResult listLanguageModels(ListLanguageModelsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListMedicalScribeJobsResult listMedicalScribeJobs(ListMedicalScribeJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListMedicalTranscriptionJobsResult listMedicalTranscriptionJobs(ListMedicalTranscriptionJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListMedicalVocabulariesResult listMedicalVocabularies(ListMedicalVocabulariesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -63,12 +188,57 @@ public class AbstractAmazonTranscribe implements AmazonTranscribe {
     }
 
     @Override
+    public ListVocabularyFiltersResult listVocabularyFilters(ListVocabularyFiltersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartCallAnalyticsJobResult startCallAnalyticsJob(StartCallAnalyticsJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartMedicalScribeJobResult startMedicalScribeJob(StartMedicalScribeJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartMedicalTranscriptionJobResult startMedicalTranscriptionJob(StartMedicalTranscriptionJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StartTranscriptionJobResult startTranscriptionJob(StartTranscriptionJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateCallAnalyticsCategoryResult updateCallAnalyticsCategory(UpdateCallAnalyticsCategoryRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateMedicalVocabularyResult updateMedicalVocabulary(UpdateMedicalVocabularyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateVocabularyResult updateVocabulary(UpdateVocabularyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateVocabularyFilterResult updateVocabularyFilter(UpdateVocabularyFilterRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

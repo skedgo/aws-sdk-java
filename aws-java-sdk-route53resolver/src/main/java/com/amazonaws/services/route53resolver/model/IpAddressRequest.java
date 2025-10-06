@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,11 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * In an <a>CreateResolverEndpoint</a> request, a subnet and IP address that you want to use for DNS queries.
+ * In a <a
+ * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_CreateResolverEndpoint.html"
+ * >CreateResolverEndpoint</a> request, the IP address that DNS queries originate from (for outbound endpoints) or that
+ * you forward DNS queries to (for inbound endpoints). <code>IpAddressRequest</code> also includes the ID of the subnet
+ * that contains the IP address.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53resolver-2018-04-01/IpAddressRequest" target="_top">AWS
@@ -30,24 +34,30 @@ public class IpAddressRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The subnet that contains the IP address.
+     * The ID of the subnet that contains the IP address.
      * </p>
      */
     private String subnetId;
     /**
      * <p>
-     * The IP address that you want to use for DNS queries.
+     * The IPv4 address that you want to use for DNS queries.
      * </p>
      */
     private String ip;
+    /**
+     * <p>
+     * The IPv6 address that you want to use for DNS queries.
+     * </p>
+     */
+    private String ipv6;
 
     /**
      * <p>
-     * The subnet that contains the IP address.
+     * The ID of the subnet that contains the IP address.
      * </p>
      * 
      * @param subnetId
-     *        The subnet that contains the IP address.
+     *        The ID of the subnet that contains the IP address.
      */
 
     public void setSubnetId(String subnetId) {
@@ -56,10 +66,10 @@ public class IpAddressRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The subnet that contains the IP address.
+     * The ID of the subnet that contains the IP address.
      * </p>
      * 
-     * @return The subnet that contains the IP address.
+     * @return The ID of the subnet that contains the IP address.
      */
 
     public String getSubnetId() {
@@ -68,11 +78,11 @@ public class IpAddressRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The subnet that contains the IP address.
+     * The ID of the subnet that contains the IP address.
      * </p>
      * 
      * @param subnetId
-     *        The subnet that contains the IP address.
+     *        The ID of the subnet that contains the IP address.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -83,11 +93,11 @@ public class IpAddressRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The IP address that you want to use for DNS queries.
+     * The IPv4 address that you want to use for DNS queries.
      * </p>
      * 
      * @param ip
-     *        The IP address that you want to use for DNS queries.
+     *        The IPv4 address that you want to use for DNS queries.
      */
 
     public void setIp(String ip) {
@@ -96,10 +106,10 @@ public class IpAddressRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The IP address that you want to use for DNS queries.
+     * The IPv4 address that you want to use for DNS queries.
      * </p>
      * 
-     * @return The IP address that you want to use for DNS queries.
+     * @return The IPv4 address that you want to use for DNS queries.
      */
 
     public String getIp() {
@@ -108,16 +118,56 @@ public class IpAddressRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The IP address that you want to use for DNS queries.
+     * The IPv4 address that you want to use for DNS queries.
      * </p>
      * 
      * @param ip
-     *        The IP address that you want to use for DNS queries.
+     *        The IPv4 address that you want to use for DNS queries.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public IpAddressRequest withIp(String ip) {
         setIp(ip);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv6 address that you want to use for DNS queries.
+     * </p>
+     * 
+     * @param ipv6
+     *        The IPv6 address that you want to use for DNS queries.
+     */
+
+    public void setIpv6(String ipv6) {
+        this.ipv6 = ipv6;
+    }
+
+    /**
+     * <p>
+     * The IPv6 address that you want to use for DNS queries.
+     * </p>
+     * 
+     * @return The IPv6 address that you want to use for DNS queries.
+     */
+
+    public String getIpv6() {
+        return this.ipv6;
+    }
+
+    /**
+     * <p>
+     * The IPv6 address that you want to use for DNS queries.
+     * </p>
+     * 
+     * @param ipv6
+     *        The IPv6 address that you want to use for DNS queries.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public IpAddressRequest withIpv6(String ipv6) {
+        setIpv6(ipv6);
         return this;
     }
 
@@ -136,7 +186,9 @@ public class IpAddressRequest implements Serializable, Cloneable, StructuredPojo
         if (getSubnetId() != null)
             sb.append("SubnetId: ").append(getSubnetId()).append(",");
         if (getIp() != null)
-            sb.append("Ip: ").append(getIp());
+            sb.append("Ip: ").append(getIp()).append(",");
+        if (getIpv6() != null)
+            sb.append("Ipv6: ").append(getIpv6());
         sb.append("}");
         return sb.toString();
     }
@@ -159,6 +211,10 @@ public class IpAddressRequest implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getIp() != null && other.getIp().equals(this.getIp()) == false)
             return false;
+        if (other.getIpv6() == null ^ this.getIpv6() == null)
+            return false;
+        if (other.getIpv6() != null && other.getIpv6().equals(this.getIpv6()) == false)
+            return false;
         return true;
     }
 
@@ -169,6 +225,7 @@ public class IpAddressRequest implements Serializable, Cloneable, StructuredPojo
 
         hashCode = prime * hashCode + ((getSubnetId() == null) ? 0 : getSubnetId().hashCode());
         hashCode = prime * hashCode + ((getIp() == null) ? 0 : getIp().hashCode());
+        hashCode = prime * hashCode + ((getIpv6() == null) ? 0 : getIpv6().hashCode());
         return hashCode;
     }
 

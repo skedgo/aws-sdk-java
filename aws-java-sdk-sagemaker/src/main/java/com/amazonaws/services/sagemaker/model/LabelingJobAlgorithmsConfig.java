@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -59,14 +59,22 @@ public class LabelingJobAlgorithmsConfig implements Serializable, Cloneable, Str
      * <code>arn:aws:sagemaker:<i>region</i>:027400017018:labeling-job-algorithm-specification/object-detection</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <i>Semantic Segmentation</i>
+     * </p>
+     * <p>
+     * <code>arn:aws:sagemaker:<i>region</i>:027400017018:labeling-job-algorithm-specification/semantic-segmentation</code>
+     * </p>
+     * </li>
      * </ul>
      */
     private String labelingJobAlgorithmSpecificationArn;
     /**
      * <p>
-     * At the end of an auto-label job Amazon SageMaker Ground Truth sends the Amazon Resource Nam (ARN) of the final
-     * model used for auto-labeling. You can use this model as the starting point for subsequent similar jobs by
-     * providing the ARN of the model here.
+     * At the end of an auto-label job Ground Truth sends the Amazon Resource Name (ARN) of the final model used for
+     * auto-labeling. You can use this model as the starting point for subsequent similar jobs by providing the ARN of
+     * the model here.
      * </p>
      */
     private String initialActiveLearningModelArn;
@@ -107,6 +115,14 @@ public class LabelingJobAlgorithmsConfig implements Serializable, Cloneable, Str
      * <code>arn:aws:sagemaker:<i>region</i>:027400017018:labeling-job-algorithm-specification/object-detection</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <i>Semantic Segmentation</i>
+     * </p>
+     * <p>
+     * <code>arn:aws:sagemaker:<i>region</i>:027400017018:labeling-job-algorithm-specification/semantic-segmentation</code>
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param labelingJobAlgorithmSpecificationArn
@@ -135,6 +151,14 @@ public class LabelingJobAlgorithmsConfig implements Serializable, Cloneable, Str
      *        </p>
      *        <p>
      *        <code>arn:aws:sagemaker:<i>region</i>:027400017018:labeling-job-algorithm-specification/object-detection</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <i>Semantic Segmentation</i>
+     *        </p>
+     *        <p>
+     *        <code>arn:aws:sagemaker:<i>region</i>:027400017018:labeling-job-algorithm-specification/semantic-segmentation</code>
      *        </p>
      *        </li>
      */
@@ -173,6 +197,14 @@ public class LabelingJobAlgorithmsConfig implements Serializable, Cloneable, Str
      * <code>arn:aws:sagemaker:<i>region</i>:027400017018:labeling-job-algorithm-specification/object-detection</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <i>Semantic Segmentation</i>
+     * </p>
+     * <p>
+     * <code>arn:aws:sagemaker:<i>region</i>:027400017018:labeling-job-algorithm-specification/semantic-segmentation</code>
+     * </p>
+     * </li>
      * </ul>
      * 
      * @return Specifies the Amazon Resource Name (ARN) of the algorithm used for auto-labeling. You must select one of
@@ -200,6 +232,14 @@ public class LabelingJobAlgorithmsConfig implements Serializable, Cloneable, Str
      *         </p>
      *         <p>
      *         <code>arn:aws:sagemaker:<i>region</i>:027400017018:labeling-job-algorithm-specification/object-detection</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <i>Semantic Segmentation</i>
+     *         </p>
+     *         <p>
+     *         <code>arn:aws:sagemaker:<i>region</i>:027400017018:labeling-job-algorithm-specification/semantic-segmentation</code>
      *         </p>
      *         </li>
      */
@@ -238,6 +278,14 @@ public class LabelingJobAlgorithmsConfig implements Serializable, Cloneable, Str
      * <code>arn:aws:sagemaker:<i>region</i>:027400017018:labeling-job-algorithm-specification/object-detection</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <i>Semantic Segmentation</i>
+     * </p>
+     * <p>
+     * <code>arn:aws:sagemaker:<i>region</i>:027400017018:labeling-job-algorithm-specification/semantic-segmentation</code>
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param labelingJobAlgorithmSpecificationArn
@@ -268,6 +316,14 @@ public class LabelingJobAlgorithmsConfig implements Serializable, Cloneable, Str
      *        <code>arn:aws:sagemaker:<i>region</i>:027400017018:labeling-job-algorithm-specification/object-detection</code>
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        <i>Semantic Segmentation</i>
+     *        </p>
+     *        <p>
+     *        <code>arn:aws:sagemaker:<i>region</i>:027400017018:labeling-job-algorithm-specification/semantic-segmentation</code>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -278,15 +334,15 @@ public class LabelingJobAlgorithmsConfig implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * At the end of an auto-label job Amazon SageMaker Ground Truth sends the Amazon Resource Nam (ARN) of the final
-     * model used for auto-labeling. You can use this model as the starting point for subsequent similar jobs by
-     * providing the ARN of the model here.
+     * At the end of an auto-label job Ground Truth sends the Amazon Resource Name (ARN) of the final model used for
+     * auto-labeling. You can use this model as the starting point for subsequent similar jobs by providing the ARN of
+     * the model here.
      * </p>
      * 
      * @param initialActiveLearningModelArn
-     *        At the end of an auto-label job Amazon SageMaker Ground Truth sends the Amazon Resource Nam (ARN) of the
-     *        final model used for auto-labeling. You can use this model as the starting point for subsequent similar
-     *        jobs by providing the ARN of the model here.
+     *        At the end of an auto-label job Ground Truth sends the Amazon Resource Name (ARN) of the final model used
+     *        for auto-labeling. You can use this model as the starting point for subsequent similar jobs by providing
+     *        the ARN of the model here.
      */
 
     public void setInitialActiveLearningModelArn(String initialActiveLearningModelArn) {
@@ -295,14 +351,14 @@ public class LabelingJobAlgorithmsConfig implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * At the end of an auto-label job Amazon SageMaker Ground Truth sends the Amazon Resource Nam (ARN) of the final
-     * model used for auto-labeling. You can use this model as the starting point for subsequent similar jobs by
-     * providing the ARN of the model here.
+     * At the end of an auto-label job Ground Truth sends the Amazon Resource Name (ARN) of the final model used for
+     * auto-labeling. You can use this model as the starting point for subsequent similar jobs by providing the ARN of
+     * the model here.
      * </p>
      * 
-     * @return At the end of an auto-label job Amazon SageMaker Ground Truth sends the Amazon Resource Nam (ARN) of the
-     *         final model used for auto-labeling. You can use this model as the starting point for subsequent similar
-     *         jobs by providing the ARN of the model here.
+     * @return At the end of an auto-label job Ground Truth sends the Amazon Resource Name (ARN) of the final model used
+     *         for auto-labeling. You can use this model as the starting point for subsequent similar jobs by providing
+     *         the ARN of the model here.
      */
 
     public String getInitialActiveLearningModelArn() {
@@ -311,15 +367,15 @@ public class LabelingJobAlgorithmsConfig implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * At the end of an auto-label job Amazon SageMaker Ground Truth sends the Amazon Resource Nam (ARN) of the final
-     * model used for auto-labeling. You can use this model as the starting point for subsequent similar jobs by
-     * providing the ARN of the model here.
+     * At the end of an auto-label job Ground Truth sends the Amazon Resource Name (ARN) of the final model used for
+     * auto-labeling. You can use this model as the starting point for subsequent similar jobs by providing the ARN of
+     * the model here.
      * </p>
      * 
      * @param initialActiveLearningModelArn
-     *        At the end of an auto-label job Amazon SageMaker Ground Truth sends the Amazon Resource Nam (ARN) of the
-     *        final model used for auto-labeling. You can use this model as the starting point for subsequent similar
-     *        jobs by providing the ARN of the model here.
+     *        At the end of an auto-label job Ground Truth sends the Amazon Resource Name (ARN) of the final model used
+     *        for auto-labeling. You can use this model as the starting point for subsequent similar jobs by providing
+     *        the ARN of the model here.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

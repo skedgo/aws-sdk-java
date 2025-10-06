@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,7 +58,9 @@ public class UpdateMaintenanceWindowTaskResultJsonUnmarshaller implements Unmars
                 }
                 if (context.testExpression("Targets", targetDepth)) {
                     context.nextToken();
-                    updateMaintenanceWindowTaskResult.setTargets(new ListUnmarshaller<Target>(TargetJsonUnmarshaller.getInstance()).unmarshall(context));
+                    updateMaintenanceWindowTaskResult.setTargets(new ListUnmarshaller<Target>(TargetJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("TaskArn", targetDepth)) {
                     context.nextToken();
@@ -101,6 +103,14 @@ public class UpdateMaintenanceWindowTaskResultJsonUnmarshaller implements Unmars
                 if (context.testExpression("Description", targetDepth)) {
                     context.nextToken();
                     updateMaintenanceWindowTaskResult.setDescription(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("CutoffBehavior", targetDepth)) {
+                    context.nextToken();
+                    updateMaintenanceWindowTaskResult.setCutoffBehavior(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("AlarmConfiguration", targetDepth)) {
+                    context.nextToken();
+                    updateMaintenanceWindowTaskResult.setAlarmConfiguration(AlarmConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

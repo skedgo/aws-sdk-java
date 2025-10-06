@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,18 @@ public class AbstractAWSSecurityHub implements AWSSecurityHub {
     }
 
     @Override
+    public AcceptAdministratorInvitationResult acceptAdministratorInvitation(AcceptAdministratorInvitationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
     public AcceptInvitationResult acceptInvitation(AcceptInvitationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public BatchDeleteAutomationRulesResult batchDeleteAutomationRules(BatchDeleteAutomationRulesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -43,12 +54,62 @@ public class AbstractAWSSecurityHub implements AWSSecurityHub {
     }
 
     @Override
+    public BatchGetAutomationRulesResult batchGetAutomationRules(BatchGetAutomationRulesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public BatchGetConfigurationPolicyAssociationsResult batchGetConfigurationPolicyAssociations(BatchGetConfigurationPolicyAssociationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public BatchGetSecurityControlsResult batchGetSecurityControls(BatchGetSecurityControlsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public BatchGetStandardsControlAssociationsResult batchGetStandardsControlAssociations(BatchGetStandardsControlAssociationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public BatchImportFindingsResult batchImportFindings(BatchImportFindingsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public BatchUpdateAutomationRulesResult batchUpdateAutomationRules(BatchUpdateAutomationRulesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public BatchUpdateFindingsResult batchUpdateFindings(BatchUpdateFindingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public BatchUpdateStandardsControlAssociationsResult batchUpdateStandardsControlAssociations(BatchUpdateStandardsControlAssociationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateActionTargetResult createActionTarget(CreateActionTargetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateAutomationRuleResult createAutomationRule(CreateAutomationRuleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateConfigurationPolicyResult createConfigurationPolicy(CreateConfigurationPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateFindingAggregatorResult createFindingAggregator(CreateFindingAggregatorRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -69,6 +130,16 @@ public class AbstractAWSSecurityHub implements AWSSecurityHub {
 
     @Override
     public DeleteActionTargetResult deleteActionTarget(DeleteActionTargetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteConfigurationPolicyResult deleteConfigurationPolicy(DeleteConfigurationPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteFindingAggregatorResult deleteFindingAggregator(DeleteFindingAggregatorRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -98,7 +169,22 @@ public class AbstractAWSSecurityHub implements AWSSecurityHub {
     }
 
     @Override
+    public DescribeOrganizationConfigurationResult describeOrganizationConfiguration(DescribeOrganizationConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeProductsResult describeProducts(DescribeProductsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeStandardsResult describeStandards(DescribeStandardsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeStandardsControlsResult describeStandardsControls(DescribeStandardsControlsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -108,11 +194,22 @@ public class AbstractAWSSecurityHub implements AWSSecurityHub {
     }
 
     @Override
+    public DisableOrganizationAdminAccountResult disableOrganizationAdminAccount(DisableOrganizationAdminAccountRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DisableSecurityHubResult disableSecurityHub(DisableSecurityHubRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public DisassociateFromAdministratorAccountResult disassociateFromAdministratorAccount(DisassociateFromAdministratorAccountRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
     public DisassociateFromMasterAccountResult disassociateFromMasterAccount(DisassociateFromMasterAccountRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -128,12 +225,42 @@ public class AbstractAWSSecurityHub implements AWSSecurityHub {
     }
 
     @Override
+    public EnableOrganizationAdminAccountResult enableOrganizationAdminAccount(EnableOrganizationAdminAccountRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public EnableSecurityHubResult enableSecurityHub(EnableSecurityHubRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public GetAdministratorAccountResult getAdministratorAccount(GetAdministratorAccountRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetConfigurationPolicyResult getConfigurationPolicy(GetConfigurationPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetConfigurationPolicyAssociationResult getConfigurationPolicyAssociation(GetConfigurationPolicyAssociationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetEnabledStandardsResult getEnabledStandards(GetEnabledStandardsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetFindingAggregatorResult getFindingAggregator(GetFindingAggregatorRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetFindingHistoryResult getFindingHistory(GetFindingHistoryRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -158,6 +285,7 @@ public class AbstractAWSSecurityHub implements AWSSecurityHub {
     }
 
     @Override
+    @Deprecated
     public GetMasterAccountResult getMasterAccount(GetMasterAccountRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -168,12 +296,37 @@ public class AbstractAWSSecurityHub implements AWSSecurityHub {
     }
 
     @Override
+    public GetSecurityControlDefinitionResult getSecurityControlDefinition(GetSecurityControlDefinitionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public InviteMembersResult inviteMembers(InviteMembersRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public ListAutomationRulesResult listAutomationRules(ListAutomationRulesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListConfigurationPoliciesResult listConfigurationPolicies(ListConfigurationPoliciesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListConfigurationPolicyAssociationsResult listConfigurationPolicyAssociations(ListConfigurationPolicyAssociationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListEnabledProductsForImportResult listEnabledProductsForImport(ListEnabledProductsForImportRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListFindingAggregatorsResult listFindingAggregators(ListFindingAggregatorsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -188,7 +341,32 @@ public class AbstractAWSSecurityHub implements AWSSecurityHub {
     }
 
     @Override
+    public ListOrganizationAdminAccountsResult listOrganizationAdminAccounts(ListOrganizationAdminAccountsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListSecurityControlDefinitionsResult listSecurityControlDefinitions(ListSecurityControlDefinitionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListStandardsControlAssociationsResult listStandardsControlAssociations(ListStandardsControlAssociationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartConfigurationPolicyAssociationResult startConfigurationPolicyAssociation(StartConfigurationPolicyAssociationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartConfigurationPolicyDisassociationResult startConfigurationPolicyDisassociation(StartConfigurationPolicyDisassociationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -208,12 +386,42 @@ public class AbstractAWSSecurityHub implements AWSSecurityHub {
     }
 
     @Override
+    public UpdateConfigurationPolicyResult updateConfigurationPolicy(UpdateConfigurationPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateFindingAggregatorResult updateFindingAggregator(UpdateFindingAggregatorRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateFindingsResult updateFindings(UpdateFindingsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public UpdateInsightResult updateInsight(UpdateInsightRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateOrganizationConfigurationResult updateOrganizationConfiguration(UpdateOrganizationConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateSecurityControlResult updateSecurityControl(UpdateSecurityControlRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateSecurityHubConfigurationResult updateSecurityHubConfiguration(UpdateSecurityHubConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateStandardsControlResult updateStandardsControl(UpdateStandardsControlRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

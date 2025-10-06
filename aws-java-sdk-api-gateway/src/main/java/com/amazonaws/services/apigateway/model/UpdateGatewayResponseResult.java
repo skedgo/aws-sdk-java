@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,144 +19,51 @@ import javax.annotation.Generated;
  * <p>
  * A gateway response of a given response type and status code, with optional response parameters and mapping templates.
  * </p>
- * <div class="remarks"> For more information about valid gateway response types, see <a
- * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/supported-gateway-response-types.html">Gateway
- * Response Types Supported by API Gateway</a> <div class="example"> <h4>Example: Get a Gateway Response of a given
- * response type</h4> <h5>Request</h5>
- * <p>
- * This example shows how to get a gateway response of the <code>MISSING_AUTHENTICATION_TOKEN</code> type.
- * </p>
- * 
- * <pre>
- * <code>GET /restapis/o81lxisefl/gatewayresponses/MISSING_AUTHENTICATION_TOKEN HTTP/1.1 Host: beta-apigateway.us-east-1.amazonaws.com Content-Type: application/json X-Amz-Date: 20170503T202516Z Authorization: AWS4-HMAC-SHA256 Credential={access-key-id}/20170503/us-east-1/apigateway/aws4_request, SignedHeaders=content-type;host;x-amz-date, Signature=1b52460e3159c1a26cff29093855d50ea141c1c5b937528fecaf60f51129697a Cache-Control: no-cache Postman-Token: 3b2a1ce9-c848-2e26-2e2f-9c2caefbed45 </code>
- * </pre>
- * <p>
- * The response type is specified as a URL path.
- * </p>
- * <h5>Response</h5>
- * <p>
- * The successful operation returns the <code>200 OK</code> status code and a payload similar to the following:
- * </p>
- * 
- * <pre>
- * <code>{ "_links": { "curies": { "href": "http://docs.aws.amazon.com/apigateway/latest/developerguide/restapi-gatewayresponse-{rel}.html", "name": "gatewayresponse", "templated": true }, "self": { "href": "/restapis/o81lxisefl/gatewayresponses/MISSING_AUTHENTICATION_TOKEN" }, "gatewayresponse:delete": { "href": "/restapis/o81lxisefl/gatewayresponses/MISSING_AUTHENTICATION_TOKEN" }, "gatewayresponse:put": { "href": "/restapis/o81lxisefl/gatewayresponses/{response_type}", "templated": true }, "gatewayresponse:update": { "href": "/restapis/o81lxisefl/gatewayresponses/MISSING_AUTHENTICATION_TOKEN" } }, "defaultResponse": false, "responseParameters": { "gatewayresponse.header.x-request-path": "method.request.path.petId", "gatewayresponse.header.Access-Control-Allow-Origin": "&apos;a.b.c&apos;", "gatewayresponse.header.x-request-query": "method.request.querystring.q", "gatewayresponse.header.x-request-header": "method.request.header.Accept" }, "responseTemplates": { "application/json": "{\n \"message\": $context.error.messageString,\n \"type\": \"$context.error.responseType\",\n \"stage\": \"$context.stage\",\n \"resourcePath\": \"$context.resourcePath\",\n \"stageVariables.a\": \"$stageVariables.a\",\n \"statusCode\": \"&apos;404&apos;\"\n}" }, "responseType": "MISSING_AUTHENTICATION_TOKEN", "statusCode": "404" }</code>
- * </pre>
- * <p>
- * </p>
- * </div> </div> <div class="seeAlso"> <a
- * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/customize-gateway-responses.html">Customize
- * Gateway Responses</a> </div>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
+     * The response type of the associated GatewayResponse.
      * </p>
      */
     private String responseType;
     /**
      * <p>
-     * The HTTP status code for this <a>GatewayResponse</a>.
+     * The HTTP status code for this GatewayResponse.
      * </p>
      */
     private String statusCode;
     /**
      * <p>
-     * Response parameters (paths, query strings and headers) of the <a>GatewayResponse</a> as a string-to-string map of
+     * Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of
      * key-value pairs.
      * </p>
      */
     private java.util.Map<String, String> responseParameters;
     /**
      * <p>
-     * Response templates of the <a>GatewayResponse</a> as a string-to-string map of key-value pairs.
+     * Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
      * </p>
      */
     private java.util.Map<String, String> responseTemplates;
     /**
      * <p>
-     * A Boolean flag to indicate whether this <a>GatewayResponse</a> is the default gateway response (<code>true</code>
-     * ) or not (<code>false</code>). A default gateway response is one generated by API Gateway without any
-     * customization by an API developer.
+     * A Boolean flag to indicate whether this GatewayResponse is the default gateway response (<code>true</code>) or
+     * not (<code>false</code>). A default gateway response is one generated by API Gateway without any customization by
+     * an API developer.
      * </p>
      */
     private Boolean defaultResponse;
 
     /**
      * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
+     * The response type of the associated GatewayResponse.
      * </p>
      * 
      * @param responseType
-     *        The response type of the associated <a>GatewayResponse</a>. Valid values are
-     *        <ul>
-     *        <li>ACCESS_DENIED</li>
-     *        <li>API_CONFIGURATION_ERROR</li>
-     *        <li>AUTHORIZER_FAILURE</li>
-     *        <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     *        <li>BAD_REQUEST_PARAMETERS</li>
-     *        <li>BAD_REQUEST_BODY</li>
-     *        <li>DEFAULT_4XX</li>
-     *        <li>DEFAULT_5XX</li>
-     *        <li>EXPIRED_TOKEN</li>
-     *        <li>INVALID_SIGNATURE</li>
-     *        <li>INTEGRATION_FAILURE</li>
-     *        <li>INTEGRATION_TIMEOUT</li>
-     *        <li>INVALID_API_KEY</li>
-     *        <li>MISSING_AUTHENTICATION_TOKEN</li>
-     *        <li>QUOTA_EXCEEDED</li>
-     *        <li>REQUEST_TOO_LARGE</li>
-     *        <li>RESOURCE_NOT_FOUND</li>
-     *        <li>THROTTLED</li>
-     *        <li>UNAUTHORIZED</li>
-     *        <li>UNSUPPORTED_MEDIA_TYPE</li>
-     *        </ul>
+     *        The response type of the associated GatewayResponse.
      * @see GatewayResponseType
      */
 
@@ -166,54 +73,10 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
+     * The response type of the associated GatewayResponse.
      * </p>
      * 
-     * @return The response type of the associated <a>GatewayResponse</a>. Valid values are
-     *         <ul>
-     *         <li>ACCESS_DENIED</li>
-     *         <li>API_CONFIGURATION_ERROR</li>
-     *         <li>AUTHORIZER_FAILURE</li>
-     *         <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     *         <li>BAD_REQUEST_PARAMETERS</li>
-     *         <li>BAD_REQUEST_BODY</li>
-     *         <li>DEFAULT_4XX</li>
-     *         <li>DEFAULT_5XX</li>
-     *         <li>EXPIRED_TOKEN</li>
-     *         <li>INVALID_SIGNATURE</li>
-     *         <li>INTEGRATION_FAILURE</li>
-     *         <li>INTEGRATION_TIMEOUT</li>
-     *         <li>INVALID_API_KEY</li>
-     *         <li>MISSING_AUTHENTICATION_TOKEN</li>
-     *         <li>QUOTA_EXCEEDED</li>
-     *         <li>REQUEST_TOO_LARGE</li>
-     *         <li>RESOURCE_NOT_FOUND</li>
-     *         <li>THROTTLED</li>
-     *         <li>UNAUTHORIZED</li>
-     *         <li>UNSUPPORTED_MEDIA_TYPE</li>
-     *         </ul>
+     * @return The response type of the associated GatewayResponse.
      * @see GatewayResponseType
      */
 
@@ -223,55 +86,11 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
+     * The response type of the associated GatewayResponse.
      * </p>
      * 
      * @param responseType
-     *        The response type of the associated <a>GatewayResponse</a>. Valid values are
-     *        <ul>
-     *        <li>ACCESS_DENIED</li>
-     *        <li>API_CONFIGURATION_ERROR</li>
-     *        <li>AUTHORIZER_FAILURE</li>
-     *        <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     *        <li>BAD_REQUEST_PARAMETERS</li>
-     *        <li>BAD_REQUEST_BODY</li>
-     *        <li>DEFAULT_4XX</li>
-     *        <li>DEFAULT_5XX</li>
-     *        <li>EXPIRED_TOKEN</li>
-     *        <li>INVALID_SIGNATURE</li>
-     *        <li>INTEGRATION_FAILURE</li>
-     *        <li>INTEGRATION_TIMEOUT</li>
-     *        <li>INVALID_API_KEY</li>
-     *        <li>MISSING_AUTHENTICATION_TOKEN</li>
-     *        <li>QUOTA_EXCEEDED</li>
-     *        <li>REQUEST_TOO_LARGE</li>
-     *        <li>RESOURCE_NOT_FOUND</li>
-     *        <li>THROTTLED</li>
-     *        <li>UNAUTHORIZED</li>
-     *        <li>UNSUPPORTED_MEDIA_TYPE</li>
-     *        </ul>
+     *        The response type of the associated GatewayResponse.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see GatewayResponseType
      */
@@ -283,55 +102,11 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
+     * The response type of the associated GatewayResponse.
      * </p>
      * 
      * @param responseType
-     *        The response type of the associated <a>GatewayResponse</a>. Valid values are
-     *        <ul>
-     *        <li>ACCESS_DENIED</li>
-     *        <li>API_CONFIGURATION_ERROR</li>
-     *        <li>AUTHORIZER_FAILURE</li>
-     *        <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     *        <li>BAD_REQUEST_PARAMETERS</li>
-     *        <li>BAD_REQUEST_BODY</li>
-     *        <li>DEFAULT_4XX</li>
-     *        <li>DEFAULT_5XX</li>
-     *        <li>EXPIRED_TOKEN</li>
-     *        <li>INVALID_SIGNATURE</li>
-     *        <li>INTEGRATION_FAILURE</li>
-     *        <li>INTEGRATION_TIMEOUT</li>
-     *        <li>INVALID_API_KEY</li>
-     *        <li>MISSING_AUTHENTICATION_TOKEN</li>
-     *        <li>QUOTA_EXCEEDED</li>
-     *        <li>REQUEST_TOO_LARGE</li>
-     *        <li>RESOURCE_NOT_FOUND</li>
-     *        <li>THROTTLED</li>
-     *        <li>UNAUTHORIZED</li>
-     *        <li>UNSUPPORTED_MEDIA_TYPE</li>
-     *        </ul>
+     *        The response type of the associated GatewayResponse.
      * @see GatewayResponseType
      */
 
@@ -341,55 +116,11 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
+     * The response type of the associated GatewayResponse.
      * </p>
      * 
      * @param responseType
-     *        The response type of the associated <a>GatewayResponse</a>. Valid values are
-     *        <ul>
-     *        <li>ACCESS_DENIED</li>
-     *        <li>API_CONFIGURATION_ERROR</li>
-     *        <li>AUTHORIZER_FAILURE</li>
-     *        <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     *        <li>BAD_REQUEST_PARAMETERS</li>
-     *        <li>BAD_REQUEST_BODY</li>
-     *        <li>DEFAULT_4XX</li>
-     *        <li>DEFAULT_5XX</li>
-     *        <li>EXPIRED_TOKEN</li>
-     *        <li>INVALID_SIGNATURE</li>
-     *        <li>INTEGRATION_FAILURE</li>
-     *        <li>INTEGRATION_TIMEOUT</li>
-     *        <li>INVALID_API_KEY</li>
-     *        <li>MISSING_AUTHENTICATION_TOKEN</li>
-     *        <li>QUOTA_EXCEEDED</li>
-     *        <li>REQUEST_TOO_LARGE</li>
-     *        <li>RESOURCE_NOT_FOUND</li>
-     *        <li>THROTTLED</li>
-     *        <li>UNAUTHORIZED</li>
-     *        <li>UNSUPPORTED_MEDIA_TYPE</li>
-     *        </ul>
+     *        The response type of the associated GatewayResponse.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see GatewayResponseType
      */
@@ -401,11 +132,11 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The HTTP status code for this <a>GatewayResponse</a>.
+     * The HTTP status code for this GatewayResponse.
      * </p>
      * 
      * @param statusCode
-     *        The HTTP status code for this <a>GatewayResponse</a>.
+     *        The HTTP status code for this GatewayResponse.
      */
 
     public void setStatusCode(String statusCode) {
@@ -414,10 +145,10 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The HTTP status code for this <a>GatewayResponse</a>.
+     * The HTTP status code for this GatewayResponse.
      * </p>
      * 
-     * @return The HTTP status code for this <a>GatewayResponse</a>.
+     * @return The HTTP status code for this GatewayResponse.
      */
 
     public String getStatusCode() {
@@ -426,11 +157,11 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The HTTP status code for this <a>GatewayResponse</a>.
+     * The HTTP status code for this GatewayResponse.
      * </p>
      * 
      * @param statusCode
-     *        The HTTP status code for this <a>GatewayResponse</a>.
+     *        The HTTP status code for this GatewayResponse.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -441,12 +172,12 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Response parameters (paths, query strings and headers) of the <a>GatewayResponse</a> as a string-to-string map of
+     * Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of
      * key-value pairs.
      * </p>
      * 
-     * @return Response parameters (paths, query strings and headers) of the <a>GatewayResponse</a> as a
-     *         string-to-string map of key-value pairs.
+     * @return Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map
+     *         of key-value pairs.
      */
 
     public java.util.Map<String, String> getResponseParameters() {
@@ -455,13 +186,13 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Response parameters (paths, query strings and headers) of the <a>GatewayResponse</a> as a string-to-string map of
+     * Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of
      * key-value pairs.
      * </p>
      * 
      * @param responseParameters
-     *        Response parameters (paths, query strings and headers) of the <a>GatewayResponse</a> as a string-to-string
-     *        map of key-value pairs.
+     *        Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of
+     *        key-value pairs.
      */
 
     public void setResponseParameters(java.util.Map<String, String> responseParameters) {
@@ -470,13 +201,13 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Response parameters (paths, query strings and headers) of the <a>GatewayResponse</a> as a string-to-string map of
+     * Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of
      * key-value pairs.
      * </p>
      * 
      * @param responseParameters
-     *        Response parameters (paths, query strings and headers) of the <a>GatewayResponse</a> as a string-to-string
-     *        map of key-value pairs.
+     *        Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of
+     *        key-value pairs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -484,6 +215,13 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
         setResponseParameters(responseParameters);
         return this;
     }
+
+    /**
+     * Add a single ResponseParameters entry
+     *
+     * @see UpdateGatewayResponseResult#withResponseParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public UpdateGatewayResponseResult addResponseParametersEntry(String key, String value) {
         if (null == this.responseParameters) {
@@ -508,10 +246,10 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Response templates of the <a>GatewayResponse</a> as a string-to-string map of key-value pairs.
+     * Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
      * </p>
      * 
-     * @return Response templates of the <a>GatewayResponse</a> as a string-to-string map of key-value pairs.
+     * @return Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
      */
 
     public java.util.Map<String, String> getResponseTemplates() {
@@ -520,11 +258,11 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Response templates of the <a>GatewayResponse</a> as a string-to-string map of key-value pairs.
+     * Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
      * </p>
      * 
      * @param responseTemplates
-     *        Response templates of the <a>GatewayResponse</a> as a string-to-string map of key-value pairs.
+     *        Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
      */
 
     public void setResponseTemplates(java.util.Map<String, String> responseTemplates) {
@@ -533,11 +271,11 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Response templates of the <a>GatewayResponse</a> as a string-to-string map of key-value pairs.
+     * Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
      * </p>
      * 
      * @param responseTemplates
-     *        Response templates of the <a>GatewayResponse</a> as a string-to-string map of key-value pairs.
+     *        Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -545,6 +283,13 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
         setResponseTemplates(responseTemplates);
         return this;
     }
+
+    /**
+     * Add a single ResponseTemplates entry
+     *
+     * @see UpdateGatewayResponseResult#withResponseTemplates
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public UpdateGatewayResponseResult addResponseTemplatesEntry(String key, String value) {
         if (null == this.responseTemplates) {
@@ -569,15 +314,15 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A Boolean flag to indicate whether this <a>GatewayResponse</a> is the default gateway response (<code>true</code>
-     * ) or not (<code>false</code>). A default gateway response is one generated by API Gateway without any
-     * customization by an API developer.
+     * A Boolean flag to indicate whether this GatewayResponse is the default gateway response (<code>true</code>) or
+     * not (<code>false</code>). A default gateway response is one generated by API Gateway without any customization by
+     * an API developer.
      * </p>
      * 
      * @param defaultResponse
-     *        A Boolean flag to indicate whether this <a>GatewayResponse</a> is the default gateway response (
-     *        <code>true</code>) or not (<code>false</code>). A default gateway response is one generated by API Gateway
-     *        without any customization by an API developer.
+     *        A Boolean flag to indicate whether this GatewayResponse is the default gateway response (<code>true</code>
+     *        ) or not (<code>false</code>). A default gateway response is one generated by API Gateway without any
+     *        customization by an API developer.
      */
 
     public void setDefaultResponse(Boolean defaultResponse) {
@@ -586,12 +331,12 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A Boolean flag to indicate whether this <a>GatewayResponse</a> is the default gateway response (<code>true</code>
-     * ) or not (<code>false</code>). A default gateway response is one generated by API Gateway without any
-     * customization by an API developer.
+     * A Boolean flag to indicate whether this GatewayResponse is the default gateway response (<code>true</code>) or
+     * not (<code>false</code>). A default gateway response is one generated by API Gateway without any customization by
+     * an API developer.
      * </p>
      * 
-     * @return A Boolean flag to indicate whether this <a>GatewayResponse</a> is the default gateway response (
+     * @return A Boolean flag to indicate whether this GatewayResponse is the default gateway response (
      *         <code>true</code>) or not (<code>false</code>). A default gateway response is one generated by API
      *         Gateway without any customization by an API developer.
      */
@@ -602,15 +347,15 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A Boolean flag to indicate whether this <a>GatewayResponse</a> is the default gateway response (<code>true</code>
-     * ) or not (<code>false</code>). A default gateway response is one generated by API Gateway without any
-     * customization by an API developer.
+     * A Boolean flag to indicate whether this GatewayResponse is the default gateway response (<code>true</code>) or
+     * not (<code>false</code>). A default gateway response is one generated by API Gateway without any customization by
+     * an API developer.
      * </p>
      * 
      * @param defaultResponse
-     *        A Boolean flag to indicate whether this <a>GatewayResponse</a> is the default gateway response (
-     *        <code>true</code>) or not (<code>false</code>). A default gateway response is one generated by API Gateway
-     *        without any customization by an API developer.
+     *        A Boolean flag to indicate whether this GatewayResponse is the default gateway response (<code>true</code>
+     *        ) or not (<code>false</code>). A default gateway response is one generated by API Gateway without any
+     *        customization by an API developer.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -621,12 +366,12 @@ public class UpdateGatewayResponseResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A Boolean flag to indicate whether this <a>GatewayResponse</a> is the default gateway response (<code>true</code>
-     * ) or not (<code>false</code>). A default gateway response is one generated by API Gateway without any
-     * customization by an API developer.
+     * A Boolean flag to indicate whether this GatewayResponse is the default gateway response (<code>true</code>) or
+     * not (<code>false</code>). A default gateway response is one generated by API Gateway without any customization by
+     * an API developer.
      * </p>
      * 
-     * @return A Boolean flag to indicate whether this <a>GatewayResponse</a> is the default gateway response (
+     * @return A Boolean flag to indicate whether this GatewayResponse is the default gateway response (
      *         <code>true</code>) or not (<code>false</code>). A default gateway response is one generated by API
      *         Gateway without any customization by an API developer.
      */

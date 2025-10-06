@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,7 +46,7 @@ public class VpcPeeringConnectionVpcInfo implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<CidrBlock> cidrBlockSet;
     /**
      * <p>
-     * The AWS account ID of the VPC owner.
+     * The ID of the Amazon Web Services account that owns the VPC.
      * </p>
      */
     private String ownerId;
@@ -257,11 +257,11 @@ public class VpcPeeringConnectionVpcInfo implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the VPC owner.
+     * The ID of the Amazon Web Services account that owns the VPC.
      * </p>
      * 
      * @param ownerId
-     *        The AWS account ID of the VPC owner.
+     *        The ID of the Amazon Web Services account that owns the VPC.
      */
 
     public void setOwnerId(String ownerId) {
@@ -270,10 +270,10 @@ public class VpcPeeringConnectionVpcInfo implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the VPC owner.
+     * The ID of the Amazon Web Services account that owns the VPC.
      * </p>
      * 
-     * @return The AWS account ID of the VPC owner.
+     * @return The ID of the Amazon Web Services account that owns the VPC.
      */
 
     public String getOwnerId() {
@@ -282,11 +282,11 @@ public class VpcPeeringConnectionVpcInfo implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the VPC owner.
+     * The ID of the Amazon Web Services account that owns the VPC.
      * </p>
      * 
      * @param ownerId
-     *        The AWS account ID of the VPC owner.
+     *        The ID of the Amazon Web Services account that owns the VPC.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

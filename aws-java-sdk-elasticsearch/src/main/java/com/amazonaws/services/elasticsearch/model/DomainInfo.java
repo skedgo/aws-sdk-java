@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,6 +26,12 @@ public class DomainInfo implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String domainName;
+    /**
+     * <p>
+     * Specifies the <code>EngineType</code> of the domain.
+     * </p>
+     */
+    private String engineType;
 
     /**
      * <p>
@@ -68,6 +74,65 @@ public class DomainInfo implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * Specifies the <code>EngineType</code> of the domain.
+     * </p>
+     * 
+     * @param engineType
+     *        Specifies the <code>EngineType</code> of the domain.
+     * @see EngineType
+     */
+
+    public void setEngineType(String engineType) {
+        this.engineType = engineType;
+    }
+
+    /**
+     * <p>
+     * Specifies the <code>EngineType</code> of the domain.
+     * </p>
+     * 
+     * @return Specifies the <code>EngineType</code> of the domain.
+     * @see EngineType
+     */
+
+    public String getEngineType() {
+        return this.engineType;
+    }
+
+    /**
+     * <p>
+     * Specifies the <code>EngineType</code> of the domain.
+     * </p>
+     * 
+     * @param engineType
+     *        Specifies the <code>EngineType</code> of the domain.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EngineType
+     */
+
+    public DomainInfo withEngineType(String engineType) {
+        setEngineType(engineType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the <code>EngineType</code> of the domain.
+     * </p>
+     * 
+     * @param engineType
+     *        Specifies the <code>EngineType</code> of the domain.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EngineType
+     */
+
+    public DomainInfo withEngineType(EngineType engineType) {
+        this.engineType = engineType.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -80,7 +145,9 @@ public class DomainInfo implements Serializable, Cloneable, StructuredPojo {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getDomainName() != null)
-            sb.append("DomainName: ").append(getDomainName());
+            sb.append("DomainName: ").append(getDomainName()).append(",");
+        if (getEngineType() != null)
+            sb.append("EngineType: ").append(getEngineType());
         sb.append("}");
         return sb.toString();
     }
@@ -99,6 +166,10 @@ public class DomainInfo implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getDomainName() != null && other.getDomainName().equals(this.getDomainName()) == false)
             return false;
+        if (other.getEngineType() == null ^ this.getEngineType() == null)
+            return false;
+        if (other.getEngineType() != null && other.getEngineType().equals(this.getEngineType()) == false)
+            return false;
         return true;
     }
 
@@ -108,6 +179,7 @@ public class DomainInfo implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getDomainName() == null) ? 0 : getDomainName().hashCode());
+        hashCode = prime * hashCode + ((getEngineType() == null) ? 0 : getEngineType().hashCode());
         return hashCode;
     }
 

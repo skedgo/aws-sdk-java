@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An EC2 instance that is running the Amazon ECS agent and has been registered with a cluster.
+ * An Amazon EC2 or External instance that's running the Amazon ECS agent and has been registered with a cluster.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/ContainerInstance" target="_top">AWS API
@@ -30,23 +30,29 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the container instance. The ARN contains the <code>arn:aws:ecs</code>
-     * namespace, followed by the Region of the container instance, the AWS account ID of the container instance owner,
-     * the <code>container-instance</code> namespace, and then the container instance ID. For example,
-     * <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.
+     * The Amazon Resource Name (ARN) of the container instance. For more information about the ARN format, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids"
+     * >Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      * </p>
      */
     private String containerInstanceArn;
     /**
      * <p>
-     * The EC2 instance ID of the container instance.
+     * The ID of the container instance. For Amazon EC2 instances, this value is the Amazon EC2 instance ID. For
+     * external instances, this value is the Amazon Web Services Systems Manager managed instance ID.
      * </p>
      */
     private String ec2InstanceId;
     /**
      * <p>
+     * The capacity provider that's associated with the container instance.
+     * </p>
+     */
+    private String capacityProviderName;
+    /**
+     * <p>
      * The version counter for the container instance. Every time a container instance experiences a change that
-     * triggers a CloudWatch event, the version counter is incremented. If you are replicating your Amazon ECS container
+     * triggers a CloudWatch event, the version counter is incremented. If you're replicating your Amazon ECS container
      * instance state with CloudWatch Events, you can compare the version of a container instance reported by the Amazon
      * ECS APIs with the version reported in CloudWatch Events for the container instance (inside the
      * <code>detail</code> object) to verify that the version in your event stream is current.
@@ -61,11 +67,11 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
     private VersionInfo versionInfo;
     /**
      * <p>
-     * For CPU and memory resource types, this parameter describes the remaining CPU and memory that has not already
-     * been allocated to tasks and is therefore available for new tasks. For port resource types, this parameter
-     * describes the ports that were reserved by the Amazon ECS container agent (at instance registration time) and any
-     * task containers that have reserved port mappings on the host (with the <code>host</code> or <code>bridge</code>
-     * network mode). Any port that is not specified here is available for new tasks.
+     * For CPU and memory resource types, this parameter describes the remaining CPU and memory that wasn't already
+     * allocated to tasks and is therefore available for new tasks. For port resource types, this parameter describes
+     * the ports that were reserved by the Amazon ECS container agent (at instance registration time) and any task
+     * containers that have reserved port mappings on the host (with the <code>host</code> or <code>bridge</code>
+     * network mode). Any port that's not specified here is available for new tasks.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Resource> remainingResources;
@@ -96,10 +102,10 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
      * </p>
      * <p>
      * The <code>ACTIVE</code> status indicates that the container instance can accept tasks. The <code>DRAINING</code>
-     * indicates that new tasks are not placed on the container instance and any service tasks running on the container
+     * indicates that new tasks aren't placed on the container instance and any service tasks running on the container
      * instance are removed if possible. For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
-     * Instance Draining</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * instance draining</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      */
     private String status;
@@ -111,15 +117,16 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
     private String statusReason;
     /**
      * <p>
-     * This parameter returns <code>true</code> if the agent is connected to Amazon ECS. Registered instances with an
-     * agent that may be unhealthy or stopped return <code>false</code>. Only instances connected to an agent can accept
+     * This parameter returns <code>true</code> if the agent is connected to Amazon ECS. An instance with an agent that
+     * may be unhealthy or stopped return <code>false</code>. Only instances connected to an agent can accept task
      * placement requests.
      * </p>
      */
     private Boolean agentConnected;
     /**
      * <p>
-     * The number of tasks on the container instance that are in the <code>RUNNING</code> status.
+     * The number of tasks on the container instance that have a desired status (<code>desiredStatus</code>) of
+     * <code>RUNNING</code>.
      * </p>
      */
     private Integer runningTasksCount;
@@ -131,8 +138,7 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
     private Integer pendingTasksCount;
     /**
      * <p>
-     * The status of the most recent agent update. If an update has never been requested, this value is
-     * <code>NULL</code>.
+     * The status of the most recent agent update. If an update wasn't ever requested, this value is <code>NULL</code>.
      * </p>
      */
     private String agentUpdateStatus;
@@ -145,38 +151,86 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
     private com.amazonaws.internal.SdkInternalList<Attribute> attributes;
     /**
      * <p>
-     * The Unix timestamp for when the container instance was registered.
+     * The Unix timestamp for the time when the container instance was registered.
      * </p>
      */
     private java.util.Date registeredAt;
     /**
      * <p>
-     * The resources attached to a container instance, such as elastic network interfaces.
+     * The resources attached to a container instance, such as an elastic network interface.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Attachment> attachments;
     /**
      * <p>
      * The metadata that you apply to the container instance to help you categorize and organize them. Each tag consists
-     * of a key and an optional value, both of which you define. Tag keys can have a maximum character length of 128
-     * characters, and tag values can have a maximum length of 256 characters.
+     * of a key and an optional value. You define both.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * An object representing the health status of the container instance.
+     * </p>
+     */
+    private ContainerInstanceHealthStatus healthStatus;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the container instance. The ARN contains the <code>arn:aws:ecs</code>
-     * namespace, followed by the Region of the container instance, the AWS account ID of the container instance owner,
-     * the <code>container-instance</code> namespace, and then the container instance ID. For example,
-     * <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.
+     * The Amazon Resource Name (ARN) of the container instance. For more information about the ARN format, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids"
+     * >Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      * </p>
      * 
      * @param containerInstanceArn
-     *        The Amazon Resource Name (ARN) of the container instance. The ARN contains the <code>arn:aws:ecs</code>
-     *        namespace, followed by the Region of the container instance, the AWS account ID of the container instance
-     *        owner, the <code>container-instance</code> namespace, and then the container instance ID. For example,
-     *        <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.
+     *        The Amazon Resource Name (ARN) of the container instance. For more information about the ARN format, see
+     *        <a href=
+     *        "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids"
+     *        >Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      */
 
     public void setContainerInstanceArn(String containerInstanceArn) {
@@ -185,16 +239,15 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the container instance. The ARN contains the <code>arn:aws:ecs</code>
-     * namespace, followed by the Region of the container instance, the AWS account ID of the container instance owner,
-     * the <code>container-instance</code> namespace, and then the container instance ID. For example,
-     * <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.
+     * The Amazon Resource Name (ARN) of the container instance. For more information about the ARN format, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids"
+     * >Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the container instance. The ARN contains the <code>arn:aws:ecs</code>
-     *         namespace, followed by the Region of the container instance, the AWS account ID of the container instance
-     *         owner, the <code>container-instance</code> namespace, and then the container instance ID. For example,
-     *         <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.
+     * @return The Amazon Resource Name (ARN) of the container instance. For more information about the ARN format, see
+     *         <a href=
+     *         "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids"
+     *         >Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      */
 
     public String getContainerInstanceArn() {
@@ -203,17 +256,16 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the container instance. The ARN contains the <code>arn:aws:ecs</code>
-     * namespace, followed by the Region of the container instance, the AWS account ID of the container instance owner,
-     * the <code>container-instance</code> namespace, and then the container instance ID. For example,
-     * <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.
+     * The Amazon Resource Name (ARN) of the container instance. For more information about the ARN format, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids"
+     * >Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      * </p>
      * 
      * @param containerInstanceArn
-     *        The Amazon Resource Name (ARN) of the container instance. The ARN contains the <code>arn:aws:ecs</code>
-     *        namespace, followed by the Region of the container instance, the AWS account ID of the container instance
-     *        owner, the <code>container-instance</code> namespace, and then the container instance ID. For example,
-     *        <code>arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</code>.
+     *        The Amazon Resource Name (ARN) of the container instance. For more information about the ARN format, see
+     *        <a href=
+     *        "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids"
+     *        >Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -224,11 +276,13 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The EC2 instance ID of the container instance.
+     * The ID of the container instance. For Amazon EC2 instances, this value is the Amazon EC2 instance ID. For
+     * external instances, this value is the Amazon Web Services Systems Manager managed instance ID.
      * </p>
      * 
      * @param ec2InstanceId
-     *        The EC2 instance ID of the container instance.
+     *        The ID of the container instance. For Amazon EC2 instances, this value is the Amazon EC2 instance ID. For
+     *        external instances, this value is the Amazon Web Services Systems Manager managed instance ID.
      */
 
     public void setEc2InstanceId(String ec2InstanceId) {
@@ -237,10 +291,12 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The EC2 instance ID of the container instance.
+     * The ID of the container instance. For Amazon EC2 instances, this value is the Amazon EC2 instance ID. For
+     * external instances, this value is the Amazon Web Services Systems Manager managed instance ID.
      * </p>
      * 
-     * @return The EC2 instance ID of the container instance.
+     * @return The ID of the container instance. For Amazon EC2 instances, this value is the Amazon EC2 instance ID. For
+     *         external instances, this value is the Amazon Web Services Systems Manager managed instance ID.
      */
 
     public String getEc2InstanceId() {
@@ -249,11 +305,13 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The EC2 instance ID of the container instance.
+     * The ID of the container instance. For Amazon EC2 instances, this value is the Amazon EC2 instance ID. For
+     * external instances, this value is the Amazon Web Services Systems Manager managed instance ID.
      * </p>
      * 
      * @param ec2InstanceId
-     *        The EC2 instance ID of the container instance.
+     *        The ID of the container instance. For Amazon EC2 instances, this value is the Amazon EC2 instance ID. For
+     *        external instances, this value is the Amazon Web Services Systems Manager managed instance ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -264,8 +322,48 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
+     * The capacity provider that's associated with the container instance.
+     * </p>
+     * 
+     * @param capacityProviderName
+     *        The capacity provider that's associated with the container instance.
+     */
+
+    public void setCapacityProviderName(String capacityProviderName) {
+        this.capacityProviderName = capacityProviderName;
+    }
+
+    /**
+     * <p>
+     * The capacity provider that's associated with the container instance.
+     * </p>
+     * 
+     * @return The capacity provider that's associated with the container instance.
+     */
+
+    public String getCapacityProviderName() {
+        return this.capacityProviderName;
+    }
+
+    /**
+     * <p>
+     * The capacity provider that's associated with the container instance.
+     * </p>
+     * 
+     * @param capacityProviderName
+     *        The capacity provider that's associated with the container instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerInstance withCapacityProviderName(String capacityProviderName) {
+        setCapacityProviderName(capacityProviderName);
+        return this;
+    }
+
+    /**
+     * <p>
      * The version counter for the container instance. Every time a container instance experiences a change that
-     * triggers a CloudWatch event, the version counter is incremented. If you are replicating your Amazon ECS container
+     * triggers a CloudWatch event, the version counter is incremented. If you're replicating your Amazon ECS container
      * instance state with CloudWatch Events, you can compare the version of a container instance reported by the Amazon
      * ECS APIs with the version reported in CloudWatch Events for the container instance (inside the
      * <code>detail</code> object) to verify that the version in your event stream is current.
@@ -273,7 +371,7 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
      * 
      * @param version
      *        The version counter for the container instance. Every time a container instance experiences a change that
-     *        triggers a CloudWatch event, the version counter is incremented. If you are replicating your Amazon ECS
+     *        triggers a CloudWatch event, the version counter is incremented. If you're replicating your Amazon ECS
      *        container instance state with CloudWatch Events, you can compare the version of a container instance
      *        reported by the Amazon ECS APIs with the version reported in CloudWatch Events for the container instance
      *        (inside the <code>detail</code> object) to verify that the version in your event stream is current.
@@ -286,14 +384,14 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
     /**
      * <p>
      * The version counter for the container instance. Every time a container instance experiences a change that
-     * triggers a CloudWatch event, the version counter is incremented. If you are replicating your Amazon ECS container
+     * triggers a CloudWatch event, the version counter is incremented. If you're replicating your Amazon ECS container
      * instance state with CloudWatch Events, you can compare the version of a container instance reported by the Amazon
      * ECS APIs with the version reported in CloudWatch Events for the container instance (inside the
      * <code>detail</code> object) to verify that the version in your event stream is current.
      * </p>
      * 
      * @return The version counter for the container instance. Every time a container instance experiences a change that
-     *         triggers a CloudWatch event, the version counter is incremented. If you are replicating your Amazon ECS
+     *         triggers a CloudWatch event, the version counter is incremented. If you're replicating your Amazon ECS
      *         container instance state with CloudWatch Events, you can compare the version of a container instance
      *         reported by the Amazon ECS APIs with the version reported in CloudWatch Events for the container instance
      *         (inside the <code>detail</code> object) to verify that the version in your event stream is current.
@@ -306,7 +404,7 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
     /**
      * <p>
      * The version counter for the container instance. Every time a container instance experiences a change that
-     * triggers a CloudWatch event, the version counter is incremented. If you are replicating your Amazon ECS container
+     * triggers a CloudWatch event, the version counter is incremented. If you're replicating your Amazon ECS container
      * instance state with CloudWatch Events, you can compare the version of a container instance reported by the Amazon
      * ECS APIs with the version reported in CloudWatch Events for the container instance (inside the
      * <code>detail</code> object) to verify that the version in your event stream is current.
@@ -314,7 +412,7 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
      * 
      * @param version
      *        The version counter for the container instance. Every time a container instance experiences a change that
-     *        triggers a CloudWatch event, the version counter is incremented. If you are replicating your Amazon ECS
+     *        triggers a CloudWatch event, the version counter is incremented. If you're replicating your Amazon ECS
      *        container instance state with CloudWatch Events, you can compare the version of a container instance
      *        reported by the Amazon ECS APIs with the version reported in CloudWatch Events for the container instance
      *        (inside the <code>detail</code> object) to verify that the version in your event stream is current.
@@ -371,18 +469,18 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * For CPU and memory resource types, this parameter describes the remaining CPU and memory that has not already
-     * been allocated to tasks and is therefore available for new tasks. For port resource types, this parameter
-     * describes the ports that were reserved by the Amazon ECS container agent (at instance registration time) and any
-     * task containers that have reserved port mappings on the host (with the <code>host</code> or <code>bridge</code>
-     * network mode). Any port that is not specified here is available for new tasks.
+     * For CPU and memory resource types, this parameter describes the remaining CPU and memory that wasn't already
+     * allocated to tasks and is therefore available for new tasks. For port resource types, this parameter describes
+     * the ports that were reserved by the Amazon ECS container agent (at instance registration time) and any task
+     * containers that have reserved port mappings on the host (with the <code>host</code> or <code>bridge</code>
+     * network mode). Any port that's not specified here is available for new tasks.
      * </p>
      * 
-     * @return For CPU and memory resource types, this parameter describes the remaining CPU and memory that has not
-     *         already been allocated to tasks and is therefore available for new tasks. For port resource types, this
+     * @return For CPU and memory resource types, this parameter describes the remaining CPU and memory that wasn't
+     *         already allocated to tasks and is therefore available for new tasks. For port resource types, this
      *         parameter describes the ports that were reserved by the Amazon ECS container agent (at instance
      *         registration time) and any task containers that have reserved port mappings on the host (with the
-     *         <code>host</code> or <code>bridge</code> network mode). Any port that is not specified here is available
+     *         <code>host</code> or <code>bridge</code> network mode). Any port that's not specified here is available
      *         for new tasks.
      */
 
@@ -395,19 +493,19 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * For CPU and memory resource types, this parameter describes the remaining CPU and memory that has not already
-     * been allocated to tasks and is therefore available for new tasks. For port resource types, this parameter
-     * describes the ports that were reserved by the Amazon ECS container agent (at instance registration time) and any
-     * task containers that have reserved port mappings on the host (with the <code>host</code> or <code>bridge</code>
-     * network mode). Any port that is not specified here is available for new tasks.
+     * For CPU and memory resource types, this parameter describes the remaining CPU and memory that wasn't already
+     * allocated to tasks and is therefore available for new tasks. For port resource types, this parameter describes
+     * the ports that were reserved by the Amazon ECS container agent (at instance registration time) and any task
+     * containers that have reserved port mappings on the host (with the <code>host</code> or <code>bridge</code>
+     * network mode). Any port that's not specified here is available for new tasks.
      * </p>
      * 
      * @param remainingResources
-     *        For CPU and memory resource types, this parameter describes the remaining CPU and memory that has not
-     *        already been allocated to tasks and is therefore available for new tasks. For port resource types, this
+     *        For CPU and memory resource types, this parameter describes the remaining CPU and memory that wasn't
+     *        already allocated to tasks and is therefore available for new tasks. For port resource types, this
      *        parameter describes the ports that were reserved by the Amazon ECS container agent (at instance
      *        registration time) and any task containers that have reserved port mappings on the host (with the
-     *        <code>host</code> or <code>bridge</code> network mode). Any port that is not specified here is available
+     *        <code>host</code> or <code>bridge</code> network mode). Any port that's not specified here is available
      *        for new tasks.
      */
 
@@ -422,11 +520,11 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * For CPU and memory resource types, this parameter describes the remaining CPU and memory that has not already
-     * been allocated to tasks and is therefore available for new tasks. For port resource types, this parameter
-     * describes the ports that were reserved by the Amazon ECS container agent (at instance registration time) and any
-     * task containers that have reserved port mappings on the host (with the <code>host</code> or <code>bridge</code>
-     * network mode). Any port that is not specified here is available for new tasks.
+     * For CPU and memory resource types, this parameter describes the remaining CPU and memory that wasn't already
+     * allocated to tasks and is therefore available for new tasks. For port resource types, this parameter describes
+     * the ports that were reserved by the Amazon ECS container agent (at instance registration time) and any task
+     * containers that have reserved port mappings on the host (with the <code>host</code> or <code>bridge</code>
+     * network mode). Any port that's not specified here is available for new tasks.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -435,11 +533,11 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
      * </p>
      * 
      * @param remainingResources
-     *        For CPU and memory resource types, this parameter describes the remaining CPU and memory that has not
-     *        already been allocated to tasks and is therefore available for new tasks. For port resource types, this
+     *        For CPU and memory resource types, this parameter describes the remaining CPU and memory that wasn't
+     *        already allocated to tasks and is therefore available for new tasks. For port resource types, this
      *        parameter describes the ports that were reserved by the Amazon ECS container agent (at instance
      *        registration time) and any task containers that have reserved port mappings on the host (with the
-     *        <code>host</code> or <code>bridge</code> network mode). Any port that is not specified here is available
+     *        <code>host</code> or <code>bridge</code> network mode). Any port that's not specified here is available
      *        for new tasks.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -456,19 +554,19 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * For CPU and memory resource types, this parameter describes the remaining CPU and memory that has not already
-     * been allocated to tasks and is therefore available for new tasks. For port resource types, this parameter
-     * describes the ports that were reserved by the Amazon ECS container agent (at instance registration time) and any
-     * task containers that have reserved port mappings on the host (with the <code>host</code> or <code>bridge</code>
-     * network mode). Any port that is not specified here is available for new tasks.
+     * For CPU and memory resource types, this parameter describes the remaining CPU and memory that wasn't already
+     * allocated to tasks and is therefore available for new tasks. For port resource types, this parameter describes
+     * the ports that were reserved by the Amazon ECS container agent (at instance registration time) and any task
+     * containers that have reserved port mappings on the host (with the <code>host</code> or <code>bridge</code>
+     * network mode). Any port that's not specified here is available for new tasks.
      * </p>
      * 
      * @param remainingResources
-     *        For CPU and memory resource types, this parameter describes the remaining CPU and memory that has not
-     *        already been allocated to tasks and is therefore available for new tasks. For port resource types, this
+     *        For CPU and memory resource types, this parameter describes the remaining CPU and memory that wasn't
+     *        already allocated to tasks and is therefore available for new tasks. For port resource types, this
      *        parameter describes the ports that were reserved by the Amazon ECS container agent (at instance
      *        registration time) and any task containers that have reserved port mappings on the host (with the
-     *        <code>host</code> or <code>bridge</code> network mode). Any port that is not specified here is available
+     *        <code>host</code> or <code>bridge</code> network mode). Any port that's not specified here is available
      *        for new tasks.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -600,10 +698,10 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
      * </p>
      * <p>
      * The <code>ACTIVE</code> status indicates that the container instance can accept tasks. The <code>DRAINING</code>
-     * indicates that new tasks are not placed on the container instance and any service tasks running on the container
+     * indicates that new tasks aren't placed on the container instance and any service tasks running on the container
      * instance are removed if possible. For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
-     * Instance Draining</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * instance draining</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
      * @param status
@@ -621,10 +719,10 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
      *        </p>
      *        <p>
      *        The <code>ACTIVE</code> status indicates that the container instance can accept tasks. The
-     *        <code>DRAINING</code> indicates that new tasks are not placed on the container instance and any service
+     *        <code>DRAINING</code> indicates that new tasks aren't placed on the container instance and any service
      *        tasks running on the container instance are removed if possible. For more information, see <a
      *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html"
-     *        >Container Instance Draining</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     *        >Container instance draining</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      */
 
     public void setStatus(String status) {
@@ -648,10 +746,10 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
      * </p>
      * <p>
      * The <code>ACTIVE</code> status indicates that the container instance can accept tasks. The <code>DRAINING</code>
-     * indicates that new tasks are not placed on the container instance and any service tasks running on the container
+     * indicates that new tasks aren't placed on the container instance and any service tasks running on the container
      * instance are removed if possible. For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
-     * Instance Draining</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * instance draining</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
      * @return The status of the container instance. The valid values are <code>REGISTERING</code>,
@@ -668,10 +766,10 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
      *         </p>
      *         <p>
      *         The <code>ACTIVE</code> status indicates that the container instance can accept tasks. The
-     *         <code>DRAINING</code> indicates that new tasks are not placed on the container instance and any service
+     *         <code>DRAINING</code> indicates that new tasks aren't placed on the container instance and any service
      *         tasks running on the container instance are removed if possible. For more information, see <a
      *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html"
-     *         >Container Instance Draining</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     *         >Container instance draining</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      */
 
     public String getStatus() {
@@ -695,10 +793,10 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
      * </p>
      * <p>
      * The <code>ACTIVE</code> status indicates that the container instance can accept tasks. The <code>DRAINING</code>
-     * indicates that new tasks are not placed on the container instance and any service tasks running on the container
+     * indicates that new tasks aren't placed on the container instance and any service tasks running on the container
      * instance are removed if possible. For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container
-     * Instance Draining</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * instance draining</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * </p>
      * 
      * @param status
@@ -716,10 +814,10 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
      *        </p>
      *        <p>
      *        The <code>ACTIVE</code> status indicates that the container instance can accept tasks. The
-     *        <code>DRAINING</code> indicates that new tasks are not placed on the container instance and any service
+     *        <code>DRAINING</code> indicates that new tasks aren't placed on the container instance and any service
      *        tasks running on the container instance are removed if possible. For more information, see <a
      *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html"
-     *        >Container Instance Draining</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     *        >Container instance draining</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -770,15 +868,15 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * This parameter returns <code>true</code> if the agent is connected to Amazon ECS. Registered instances with an
-     * agent that may be unhealthy or stopped return <code>false</code>. Only instances connected to an agent can accept
+     * This parameter returns <code>true</code> if the agent is connected to Amazon ECS. An instance with an agent that
+     * may be unhealthy or stopped return <code>false</code>. Only instances connected to an agent can accept task
      * placement requests.
      * </p>
      * 
      * @param agentConnected
-     *        This parameter returns <code>true</code> if the agent is connected to Amazon ECS. Registered instances
-     *        with an agent that may be unhealthy or stopped return <code>false</code>. Only instances connected to an
-     *        agent can accept placement requests.
+     *        This parameter returns <code>true</code> if the agent is connected to Amazon ECS. An instance with an
+     *        agent that may be unhealthy or stopped return <code>false</code>. Only instances connected to an agent can
+     *        accept task placement requests.
      */
 
     public void setAgentConnected(Boolean agentConnected) {
@@ -787,14 +885,14 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * This parameter returns <code>true</code> if the agent is connected to Amazon ECS. Registered instances with an
-     * agent that may be unhealthy or stopped return <code>false</code>. Only instances connected to an agent can accept
+     * This parameter returns <code>true</code> if the agent is connected to Amazon ECS. An instance with an agent that
+     * may be unhealthy or stopped return <code>false</code>. Only instances connected to an agent can accept task
      * placement requests.
      * </p>
      * 
-     * @return This parameter returns <code>true</code> if the agent is connected to Amazon ECS. Registered instances
-     *         with an agent that may be unhealthy or stopped return <code>false</code>. Only instances connected to an
-     *         agent can accept placement requests.
+     * @return This parameter returns <code>true</code> if the agent is connected to Amazon ECS. An instance with an
+     *         agent that may be unhealthy or stopped return <code>false</code>. Only instances connected to an agent
+     *         can accept task placement requests.
      */
 
     public Boolean getAgentConnected() {
@@ -803,15 +901,15 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * This parameter returns <code>true</code> if the agent is connected to Amazon ECS. Registered instances with an
-     * agent that may be unhealthy or stopped return <code>false</code>. Only instances connected to an agent can accept
+     * This parameter returns <code>true</code> if the agent is connected to Amazon ECS. An instance with an agent that
+     * may be unhealthy or stopped return <code>false</code>. Only instances connected to an agent can accept task
      * placement requests.
      * </p>
      * 
      * @param agentConnected
-     *        This parameter returns <code>true</code> if the agent is connected to Amazon ECS. Registered instances
-     *        with an agent that may be unhealthy or stopped return <code>false</code>. Only instances connected to an
-     *        agent can accept placement requests.
+     *        This parameter returns <code>true</code> if the agent is connected to Amazon ECS. An instance with an
+     *        agent that may be unhealthy or stopped return <code>false</code>. Only instances connected to an agent can
+     *        accept task placement requests.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -822,14 +920,14 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * This parameter returns <code>true</code> if the agent is connected to Amazon ECS. Registered instances with an
-     * agent that may be unhealthy or stopped return <code>false</code>. Only instances connected to an agent can accept
+     * This parameter returns <code>true</code> if the agent is connected to Amazon ECS. An instance with an agent that
+     * may be unhealthy or stopped return <code>false</code>. Only instances connected to an agent can accept task
      * placement requests.
      * </p>
      * 
-     * @return This parameter returns <code>true</code> if the agent is connected to Amazon ECS. Registered instances
-     *         with an agent that may be unhealthy or stopped return <code>false</code>. Only instances connected to an
-     *         agent can accept placement requests.
+     * @return This parameter returns <code>true</code> if the agent is connected to Amazon ECS. An instance with an
+     *         agent that may be unhealthy or stopped return <code>false</code>. Only instances connected to an agent
+     *         can accept task placement requests.
      */
 
     public Boolean isAgentConnected() {
@@ -838,11 +936,13 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The number of tasks on the container instance that are in the <code>RUNNING</code> status.
+     * The number of tasks on the container instance that have a desired status (<code>desiredStatus</code>) of
+     * <code>RUNNING</code>.
      * </p>
      * 
      * @param runningTasksCount
-     *        The number of tasks on the container instance that are in the <code>RUNNING</code> status.
+     *        The number of tasks on the container instance that have a desired status (<code>desiredStatus</code>) of
+     *        <code>RUNNING</code>.
      */
 
     public void setRunningTasksCount(Integer runningTasksCount) {
@@ -851,10 +951,12 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The number of tasks on the container instance that are in the <code>RUNNING</code> status.
+     * The number of tasks on the container instance that have a desired status (<code>desiredStatus</code>) of
+     * <code>RUNNING</code>.
      * </p>
      * 
-     * @return The number of tasks on the container instance that are in the <code>RUNNING</code> status.
+     * @return The number of tasks on the container instance that have a desired status (<code>desiredStatus</code>) of
+     *         <code>RUNNING</code>.
      */
 
     public Integer getRunningTasksCount() {
@@ -863,11 +965,13 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The number of tasks on the container instance that are in the <code>RUNNING</code> status.
+     * The number of tasks on the container instance that have a desired status (<code>desiredStatus</code>) of
+     * <code>RUNNING</code>.
      * </p>
      * 
      * @param runningTasksCount
-     *        The number of tasks on the container instance that are in the <code>RUNNING</code> status.
+     *        The number of tasks on the container instance that have a desired status (<code>desiredStatus</code>) of
+     *        <code>RUNNING</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -918,12 +1022,11 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The status of the most recent agent update. If an update has never been requested, this value is
-     * <code>NULL</code>.
+     * The status of the most recent agent update. If an update wasn't ever requested, this value is <code>NULL</code>.
      * </p>
      * 
      * @param agentUpdateStatus
-     *        The status of the most recent agent update. If an update has never been requested, this value is
+     *        The status of the most recent agent update. If an update wasn't ever requested, this value is
      *        <code>NULL</code>.
      * @see AgentUpdateStatus
      */
@@ -934,11 +1037,10 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The status of the most recent agent update. If an update has never been requested, this value is
-     * <code>NULL</code>.
+     * The status of the most recent agent update. If an update wasn't ever requested, this value is <code>NULL</code>.
      * </p>
      * 
-     * @return The status of the most recent agent update. If an update has never been requested, this value is
+     * @return The status of the most recent agent update. If an update wasn't ever requested, this value is
      *         <code>NULL</code>.
      * @see AgentUpdateStatus
      */
@@ -949,12 +1051,11 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The status of the most recent agent update. If an update has never been requested, this value is
-     * <code>NULL</code>.
+     * The status of the most recent agent update. If an update wasn't ever requested, this value is <code>NULL</code>.
      * </p>
      * 
      * @param agentUpdateStatus
-     *        The status of the most recent agent update. If an update has never been requested, this value is
+     *        The status of the most recent agent update. If an update wasn't ever requested, this value is
      *        <code>NULL</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AgentUpdateStatus
@@ -967,12 +1068,11 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The status of the most recent agent update. If an update has never been requested, this value is
-     * <code>NULL</code>.
+     * The status of the most recent agent update. If an update wasn't ever requested, this value is <code>NULL</code>.
      * </p>
      * 
      * @param agentUpdateStatus
-     *        The status of the most recent agent update. If an update has never been requested, this value is
+     *        The status of the most recent agent update. If an update wasn't ever requested, this value is
      *        <code>NULL</code>.
      * @see AgentUpdateStatus
      */
@@ -983,12 +1083,11 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The status of the most recent agent update. If an update has never been requested, this value is
-     * <code>NULL</code>.
+     * The status of the most recent agent update. If an update wasn't ever requested, this value is <code>NULL</code>.
      * </p>
      * 
      * @param agentUpdateStatus
-     *        The status of the most recent agent update. If an update has never been requested, this value is
+     *        The status of the most recent agent update. If an update wasn't ever requested, this value is
      *        <code>NULL</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AgentUpdateStatus
@@ -1082,11 +1181,11 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The Unix timestamp for when the container instance was registered.
+     * The Unix timestamp for the time when the container instance was registered.
      * </p>
      * 
      * @param registeredAt
-     *        The Unix timestamp for when the container instance was registered.
+     *        The Unix timestamp for the time when the container instance was registered.
      */
 
     public void setRegisteredAt(java.util.Date registeredAt) {
@@ -1095,10 +1194,10 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The Unix timestamp for when the container instance was registered.
+     * The Unix timestamp for the time when the container instance was registered.
      * </p>
      * 
-     * @return The Unix timestamp for when the container instance was registered.
+     * @return The Unix timestamp for the time when the container instance was registered.
      */
 
     public java.util.Date getRegisteredAt() {
@@ -1107,11 +1206,11 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The Unix timestamp for when the container instance was registered.
+     * The Unix timestamp for the time when the container instance was registered.
      * </p>
      * 
      * @param registeredAt
-     *        The Unix timestamp for when the container instance was registered.
+     *        The Unix timestamp for the time when the container instance was registered.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1122,10 +1221,10 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The resources attached to a container instance, such as elastic network interfaces.
+     * The resources attached to a container instance, such as an elastic network interface.
      * </p>
      * 
-     * @return The resources attached to a container instance, such as elastic network interfaces.
+     * @return The resources attached to a container instance, such as an elastic network interface.
      */
 
     public java.util.List<Attachment> getAttachments() {
@@ -1137,11 +1236,11 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The resources attached to a container instance, such as elastic network interfaces.
+     * The resources attached to a container instance, such as an elastic network interface.
      * </p>
      * 
      * @param attachments
-     *        The resources attached to a container instance, such as elastic network interfaces.
+     *        The resources attached to a container instance, such as an elastic network interface.
      */
 
     public void setAttachments(java.util.Collection<Attachment> attachments) {
@@ -1155,7 +1254,7 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The resources attached to a container instance, such as elastic network interfaces.
+     * The resources attached to a container instance, such as an elastic network interface.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1164,7 +1263,7 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
      * </p>
      * 
      * @param attachments
-     *        The resources attached to a container instance, such as elastic network interfaces.
+     *        The resources attached to a container instance, such as an elastic network interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1180,11 +1279,11 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The resources attached to a container instance, such as elastic network interfaces.
+     * The resources attached to a container instance, such as an elastic network interface.
      * </p>
      * 
      * @param attachments
-     *        The resources attached to a container instance, such as elastic network interfaces.
+     *        The resources attached to a container instance, such as an elastic network interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1196,13 +1295,99 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
     /**
      * <p>
      * The metadata that you apply to the container instance to help you categorize and organize them. Each tag consists
-     * of a key and an optional value, both of which you define. Tag keys can have a maximum character length of 128
-     * characters, and tag values can have a maximum length of 256 characters.
+     * of a key and an optional value. You define both.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @return The metadata that you apply to the container instance to help you categorize and organize them. Each tag
-     *         consists of a key and an optional value, both of which you define. Tag keys can have a maximum character
-     *         length of 128 characters, and tag values can have a maximum length of 256 characters.
+     *         consists of a key and an optional value. You define both.</p>
+     *         <p>
+     *         The following basic restrictions apply to tags:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Maximum number of tags per resource - 50
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For each resource, each tag key must be unique, and each tag key can have only one value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Maximum key length - 128 Unicode characters in UTF-8
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Maximum value length - 256 Unicode characters in UTF-8
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If your tagging schema is used across multiple services and resources, remember that other services may
+     *         have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *         representable in UTF-8, and the following characters: + - = . _ : / @.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Tag keys and values are case-sensitive.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a
+     *         prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete
+     *         tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource
+     *         limit.
+     *         </p>
+     *         </li>
      */
 
     public java.util.List<Tag> getTags() {
@@ -1215,14 +1400,99 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
     /**
      * <p>
      * The metadata that you apply to the container instance to help you categorize and organize them. Each tag consists
-     * of a key and an optional value, both of which you define. Tag keys can have a maximum character length of 128
-     * characters, and tag values can have a maximum length of 256 characters.
+     * of a key and an optional value. You define both.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param tags
      *        The metadata that you apply to the container instance to help you categorize and organize them. Each tag
-     *        consists of a key and an optional value, both of which you define. Tag keys can have a maximum character
-     *        length of 128 characters, and tag values can have a maximum length of 256 characters.
+     *        consists of a key and an optional value. You define both.</p>
+     *        <p>
+     *        The following basic restrictions apply to tags:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Maximum number of tags per resource - 50
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For each resource, each tag key must be unique, and each tag key can have only one value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum key length - 128 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum value length - 256 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If your tagging schema is used across multiple services and resources, remember that other services may
+     *        have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *        representable in UTF-8, and the following characters: + - = . _ : / @.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tag keys and values are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix
+     *        for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag
+     *        keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     *        </p>
+     *        </li>
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -1237,9 +1507,52 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
     /**
      * <p>
      * The metadata that you apply to the container instance to help you categorize and organize them. Each tag consists
-     * of a key and an optional value, both of which you define. Tag keys can have a maximum character length of 128
-     * characters, and tag values can have a maximum length of 256 characters.
+     * of a key and an optional value. You define both.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
@@ -1248,8 +1561,50 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
      * 
      * @param tags
      *        The metadata that you apply to the container instance to help you categorize and organize them. Each tag
-     *        consists of a key and an optional value, both of which you define. Tag keys can have a maximum character
-     *        length of 128 characters, and tag values can have a maximum length of 256 characters.
+     *        consists of a key and an optional value. You define both.</p>
+     *        <p>
+     *        The following basic restrictions apply to tags:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Maximum number of tags per resource - 50
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For each resource, each tag key must be unique, and each tag key can have only one value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum key length - 128 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum value length - 256 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If your tagging schema is used across multiple services and resources, remember that other services may
+     *        have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *        representable in UTF-8, and the following characters: + - = . _ : / @.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tag keys and values are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix
+     *        for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag
+     *        keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1266,19 +1621,144 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
     /**
      * <p>
      * The metadata that you apply to the container instance to help you categorize and organize them. Each tag consists
-     * of a key and an optional value, both of which you define. Tag keys can have a maximum character length of 128
-     * characters, and tag values can have a maximum length of 256 characters.
+     * of a key and an optional value. You define both.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param tags
      *        The metadata that you apply to the container instance to help you categorize and organize them. Each tag
-     *        consists of a key and an optional value, both of which you define. Tag keys can have a maximum character
-     *        length of 128 characters, and tag values can have a maximum length of 256 characters.
+     *        consists of a key and an optional value. You define both.</p>
+     *        <p>
+     *        The following basic restrictions apply to tags:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Maximum number of tags per resource - 50
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For each resource, each tag key must be unique, and each tag key can have only one value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum key length - 128 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum value length - 256 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If your tagging schema is used across multiple services and resources, remember that other services may
+     *        have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *        representable in UTF-8, and the following characters: + - = . _ : / @.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tag keys and values are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix
+     *        for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag
+     *        keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ContainerInstance withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An object representing the health status of the container instance.
+     * </p>
+     * 
+     * @param healthStatus
+     *        An object representing the health status of the container instance.
+     */
+
+    public void setHealthStatus(ContainerInstanceHealthStatus healthStatus) {
+        this.healthStatus = healthStatus;
+    }
+
+    /**
+     * <p>
+     * An object representing the health status of the container instance.
+     * </p>
+     * 
+     * @return An object representing the health status of the container instance.
+     */
+
+    public ContainerInstanceHealthStatus getHealthStatus() {
+        return this.healthStatus;
+    }
+
+    /**
+     * <p>
+     * An object representing the health status of the container instance.
+     * </p>
+     * 
+     * @param healthStatus
+     *        An object representing the health status of the container instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerInstance withHealthStatus(ContainerInstanceHealthStatus healthStatus) {
+        setHealthStatus(healthStatus);
         return this;
     }
 
@@ -1298,6 +1778,8 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
             sb.append("ContainerInstanceArn: ").append(getContainerInstanceArn()).append(",");
         if (getEc2InstanceId() != null)
             sb.append("Ec2InstanceId: ").append(getEc2InstanceId()).append(",");
+        if (getCapacityProviderName() != null)
+            sb.append("CapacityProviderName: ").append(getCapacityProviderName()).append(",");
         if (getVersion() != null)
             sb.append("Version: ").append(getVersion()).append(",");
         if (getVersionInfo() != null)
@@ -1325,7 +1807,9 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
         if (getAttachments() != null)
             sb.append("Attachments: ").append(getAttachments()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getHealthStatus() != null)
+            sb.append("HealthStatus: ").append(getHealthStatus());
         sb.append("}");
         return sb.toString();
     }
@@ -1347,6 +1831,10 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
         if (other.getEc2InstanceId() == null ^ this.getEc2InstanceId() == null)
             return false;
         if (other.getEc2InstanceId() != null && other.getEc2InstanceId().equals(this.getEc2InstanceId()) == false)
+            return false;
+        if (other.getCapacityProviderName() == null ^ this.getCapacityProviderName() == null)
+            return false;
+        if (other.getCapacityProviderName() != null && other.getCapacityProviderName().equals(this.getCapacityProviderName()) == false)
             return false;
         if (other.getVersion() == null ^ this.getVersion() == null)
             return false;
@@ -1404,6 +1892,10 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getHealthStatus() == null ^ this.getHealthStatus() == null)
+            return false;
+        if (other.getHealthStatus() != null && other.getHealthStatus().equals(this.getHealthStatus()) == false)
+            return false;
         return true;
     }
 
@@ -1414,6 +1906,7 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
 
         hashCode = prime * hashCode + ((getContainerInstanceArn() == null) ? 0 : getContainerInstanceArn().hashCode());
         hashCode = prime * hashCode + ((getEc2InstanceId() == null) ? 0 : getEc2InstanceId().hashCode());
+        hashCode = prime * hashCode + ((getCapacityProviderName() == null) ? 0 : getCapacityProviderName().hashCode());
         hashCode = prime * hashCode + ((getVersion() == null) ? 0 : getVersion().hashCode());
         hashCode = prime * hashCode + ((getVersionInfo() == null) ? 0 : getVersionInfo().hashCode());
         hashCode = prime * hashCode + ((getRemainingResources() == null) ? 0 : getRemainingResources().hashCode());
@@ -1428,6 +1921,7 @@ public class ContainerInstance implements Serializable, Cloneable, StructuredPoj
         hashCode = prime * hashCode + ((getRegisteredAt() == null) ? 0 : getRegisteredAt().hashCode());
         hashCode = prime * hashCode + ((getAttachments() == null) ? 0 : getAttachments().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getHealthStatus() == null) ? 0 : getHealthStatus().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,13 +36,10 @@ public class DeleteDBSubnetGroupRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * </note>
      * <p>
-     * Constraints:
-     * </p>
-     * <p>
      * Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      * </p>
      * <p>
-     * Example: <code>mySubnetgroup</code>
+     * Example: <code>mydbsubnetgroup</code>
      * </p>
      */
     private String dBSubnetGroupName;
@@ -57,13 +54,10 @@ public class DeleteDBSubnetGroupRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * </note>
      * <p>
-     * Constraints:
-     * </p>
-     * <p>
      * Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      * </p>
      * <p>
-     * Example: <code>mySubnetgroup</code>
+     * Example: <code>mydbsubnetgroup</code>
      * </p>
      * 
      * @param dBSubnetGroupName
@@ -73,13 +67,10 @@ public class DeleteDBSubnetGroupRequest extends com.amazonaws.AmazonWebServiceRe
      *        </p>
      *        </note>
      *        <p>
-     *        Constraints:
-     *        </p>
-     *        <p>
      *        Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      *        </p>
      *        <p>
-     *        Example: <code>mySubnetgroup</code>
+     *        Example: <code>mydbsubnetgroup</code>
      */
 
     public void setDBSubnetGroupName(String dBSubnetGroupName) {
@@ -96,13 +87,10 @@ public class DeleteDBSubnetGroupRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * </note>
      * <p>
-     * Constraints:
-     * </p>
-     * <p>
      * Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      * </p>
      * <p>
-     * Example: <code>mySubnetgroup</code>
+     * Example: <code>mydbsubnetgroup</code>
      * </p>
      * 
      * @return The name of the database subnet group to delete.</p> <note>
@@ -111,13 +99,10 @@ public class DeleteDBSubnetGroupRequest extends com.amazonaws.AmazonWebServiceRe
      *         </p>
      *         </note>
      *         <p>
-     *         Constraints:
-     *         </p>
-     *         <p>
      *         Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      *         </p>
      *         <p>
-     *         Example: <code>mySubnetgroup</code>
+     *         Example: <code>mydbsubnetgroup</code>
      */
 
     public String getDBSubnetGroupName() {
@@ -134,13 +119,10 @@ public class DeleteDBSubnetGroupRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * </note>
      * <p>
-     * Constraints:
-     * </p>
-     * <p>
      * Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      * </p>
      * <p>
-     * Example: <code>mySubnetgroup</code>
+     * Example: <code>mydbsubnetgroup</code>
      * </p>
      * 
      * @param dBSubnetGroupName
@@ -150,13 +132,10 @@ public class DeleteDBSubnetGroupRequest extends com.amazonaws.AmazonWebServiceRe
      *        </p>
      *        </note>
      *        <p>
-     *        Constraints:
-     *        </p>
-     *        <p>
      *        Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      *        </p>
      *        <p>
-     *        Example: <code>mySubnetgroup</code>
+     *        Example: <code>mydbsubnetgroup</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

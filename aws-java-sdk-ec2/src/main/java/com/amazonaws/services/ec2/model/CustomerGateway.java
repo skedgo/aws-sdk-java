@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,10 @@ public class CustomerGateway implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The customer gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN).
+     * The customer gateway device's Border Gateway Protocol (BGP) Autonomous System Number (ASN).
+     * </p>
+     * <p>
+     * Valid values: <code>1</code> to <code>2,147,483,647</code>
      * </p>
      */
     private String bgpAsn;
@@ -40,10 +43,19 @@ public class CustomerGateway implements Serializable, Cloneable {
     private String customerGatewayId;
     /**
      * <p>
-     * The Internet-routable IP address of the customer gateway's outside interface.
+     * IPv4 address for the customer gateway device's outside interface. The address must be static. If
+     * <code>OutsideIpAddressType</code> in your VPN connection options is set to <code>PrivateIpv4</code>, you can use
+     * an RFC6598 or RFC1918 private IPv4 address. If <code>OutsideIpAddressType</code> is set to
+     * <code>PublicIpv4</code>, you can use a public IPv4 address.
      * </p>
      */
     private String ipAddress;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the customer gateway certificate.
+     * </p>
+     */
+    private String certificateArn;
     /**
      * <p>
      * The current state of the customer gateway (<code>pending | available | deleting | deleted</code>).
@@ -58,18 +70,38 @@ public class CustomerGateway implements Serializable, Cloneable {
     private String type;
     /**
      * <p>
+     * The name of customer gateway device.
+     * </p>
+     */
+    private String deviceName;
+    /**
+     * <p>
      * Any tags assigned to the customer gateway.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * The customer gateway device's Border Gateway Protocol (BGP) Autonomous System Number (ASN).
+     * </p>
+     * <p>
+     * Valid values: <code>2,147,483,648</code> to <code>4,294,967,295</code>
+     * </p>
+     */
+    private String bgpAsnExtended;
 
     /**
      * <p>
-     * The customer gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN).
+     * The customer gateway device's Border Gateway Protocol (BGP) Autonomous System Number (ASN).
+     * </p>
+     * <p>
+     * Valid values: <code>1</code> to <code>2,147,483,647</code>
      * </p>
      * 
      * @param bgpAsn
-     *        The customer gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN).
+     *        The customer gateway device's Border Gateway Protocol (BGP) Autonomous System Number (ASN).</p>
+     *        <p>
+     *        Valid values: <code>1</code> to <code>2,147,483,647</code>
      */
 
     public void setBgpAsn(String bgpAsn) {
@@ -78,10 +110,15 @@ public class CustomerGateway implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The customer gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN).
+     * The customer gateway device's Border Gateway Protocol (BGP) Autonomous System Number (ASN).
+     * </p>
+     * <p>
+     * Valid values: <code>1</code> to <code>2,147,483,647</code>
      * </p>
      * 
-     * @return The customer gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN).
+     * @return The customer gateway device's Border Gateway Protocol (BGP) Autonomous System Number (ASN).</p>
+     *         <p>
+     *         Valid values: <code>1</code> to <code>2,147,483,647</code>
      */
 
     public String getBgpAsn() {
@@ -90,11 +127,16 @@ public class CustomerGateway implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The customer gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN).
+     * The customer gateway device's Border Gateway Protocol (BGP) Autonomous System Number (ASN).
+     * </p>
+     * <p>
+     * Valid values: <code>1</code> to <code>2,147,483,647</code>
      * </p>
      * 
      * @param bgpAsn
-     *        The customer gateway's Border Gateway Protocol (BGP) Autonomous System Number (ASN).
+     *        The customer gateway device's Border Gateway Protocol (BGP) Autonomous System Number (ASN).</p>
+     *        <p>
+     *        Valid values: <code>1</code> to <code>2,147,483,647</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -145,11 +187,17 @@ public class CustomerGateway implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Internet-routable IP address of the customer gateway's outside interface.
+     * IPv4 address for the customer gateway device's outside interface. The address must be static. If
+     * <code>OutsideIpAddressType</code> in your VPN connection options is set to <code>PrivateIpv4</code>, you can use
+     * an RFC6598 or RFC1918 private IPv4 address. If <code>OutsideIpAddressType</code> is set to
+     * <code>PublicIpv4</code>, you can use a public IPv4 address.
      * </p>
      * 
      * @param ipAddress
-     *        The Internet-routable IP address of the customer gateway's outside interface.
+     *        IPv4 address for the customer gateway device's outside interface. The address must be static. If
+     *        <code>OutsideIpAddressType</code> in your VPN connection options is set to <code>PrivateIpv4</code>, you
+     *        can use an RFC6598 or RFC1918 private IPv4 address. If <code>OutsideIpAddressType</code> is set to
+     *        <code>PublicIpv4</code>, you can use a public IPv4 address.
      */
 
     public void setIpAddress(String ipAddress) {
@@ -158,10 +206,16 @@ public class CustomerGateway implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Internet-routable IP address of the customer gateway's outside interface.
+     * IPv4 address for the customer gateway device's outside interface. The address must be static. If
+     * <code>OutsideIpAddressType</code> in your VPN connection options is set to <code>PrivateIpv4</code>, you can use
+     * an RFC6598 or RFC1918 private IPv4 address. If <code>OutsideIpAddressType</code> is set to
+     * <code>PublicIpv4</code>, you can use a public IPv4 address.
      * </p>
      * 
-     * @return The Internet-routable IP address of the customer gateway's outside interface.
+     * @return IPv4 address for the customer gateway device's outside interface. The address must be static. If
+     *         <code>OutsideIpAddressType</code> in your VPN connection options is set to <code>PrivateIpv4</code>, you
+     *         can use an RFC6598 or RFC1918 private IPv4 address. If <code>OutsideIpAddressType</code> is set to
+     *         <code>PublicIpv4</code>, you can use a public IPv4 address.
      */
 
     public String getIpAddress() {
@@ -170,16 +224,62 @@ public class CustomerGateway implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Internet-routable IP address of the customer gateway's outside interface.
+     * IPv4 address for the customer gateway device's outside interface. The address must be static. If
+     * <code>OutsideIpAddressType</code> in your VPN connection options is set to <code>PrivateIpv4</code>, you can use
+     * an RFC6598 or RFC1918 private IPv4 address. If <code>OutsideIpAddressType</code> is set to
+     * <code>PublicIpv4</code>, you can use a public IPv4 address.
      * </p>
      * 
      * @param ipAddress
-     *        The Internet-routable IP address of the customer gateway's outside interface.
+     *        IPv4 address for the customer gateway device's outside interface. The address must be static. If
+     *        <code>OutsideIpAddressType</code> in your VPN connection options is set to <code>PrivateIpv4</code>, you
+     *        can use an RFC6598 or RFC1918 private IPv4 address. If <code>OutsideIpAddressType</code> is set to
+     *        <code>PublicIpv4</code>, you can use a public IPv4 address.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CustomerGateway withIpAddress(String ipAddress) {
         setIpAddress(ipAddress);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the customer gateway certificate.
+     * </p>
+     * 
+     * @param certificateArn
+     *        The Amazon Resource Name (ARN) for the customer gateway certificate.
+     */
+
+    public void setCertificateArn(String certificateArn) {
+        this.certificateArn = certificateArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the customer gateway certificate.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) for the customer gateway certificate.
+     */
+
+    public String getCertificateArn() {
+        return this.certificateArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the customer gateway certificate.
+     * </p>
+     * 
+     * @param certificateArn
+     *        The Amazon Resource Name (ARN) for the customer gateway certificate.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CustomerGateway withCertificateArn(String certificateArn) {
+        setCertificateArn(certificateArn);
         return this;
     }
 
@@ -265,6 +365,46 @@ public class CustomerGateway implements Serializable, Cloneable {
 
     /**
      * <p>
+     * The name of customer gateway device.
+     * </p>
+     * 
+     * @param deviceName
+     *        The name of customer gateway device.
+     */
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
+    /**
+     * <p>
+     * The name of customer gateway device.
+     * </p>
+     * 
+     * @return The name of customer gateway device.
+     */
+
+    public String getDeviceName() {
+        return this.deviceName;
+    }
+
+    /**
+     * <p>
+     * The name of customer gateway device.
+     * </p>
+     * 
+     * @param deviceName
+     *        The name of customer gateway device.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CustomerGateway withDeviceName(String deviceName) {
+        setDeviceName(deviceName);
+        return this;
+    }
+
+    /**
+     * <p>
      * Any tags assigned to the customer gateway.
      * </p>
      * 
@@ -337,6 +477,61 @@ public class CustomerGateway implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The customer gateway device's Border Gateway Protocol (BGP) Autonomous System Number (ASN).
+     * </p>
+     * <p>
+     * Valid values: <code>2,147,483,648</code> to <code>4,294,967,295</code>
+     * </p>
+     * 
+     * @param bgpAsnExtended
+     *        The customer gateway device's Border Gateway Protocol (BGP) Autonomous System Number (ASN).</p>
+     *        <p>
+     *        Valid values: <code>2,147,483,648</code> to <code>4,294,967,295</code>
+     */
+
+    public void setBgpAsnExtended(String bgpAsnExtended) {
+        this.bgpAsnExtended = bgpAsnExtended;
+    }
+
+    /**
+     * <p>
+     * The customer gateway device's Border Gateway Protocol (BGP) Autonomous System Number (ASN).
+     * </p>
+     * <p>
+     * Valid values: <code>2,147,483,648</code> to <code>4,294,967,295</code>
+     * </p>
+     * 
+     * @return The customer gateway device's Border Gateway Protocol (BGP) Autonomous System Number (ASN).</p>
+     *         <p>
+     *         Valid values: <code>2,147,483,648</code> to <code>4,294,967,295</code>
+     */
+
+    public String getBgpAsnExtended() {
+        return this.bgpAsnExtended;
+    }
+
+    /**
+     * <p>
+     * The customer gateway device's Border Gateway Protocol (BGP) Autonomous System Number (ASN).
+     * </p>
+     * <p>
+     * Valid values: <code>2,147,483,648</code> to <code>4,294,967,295</code>
+     * </p>
+     * 
+     * @param bgpAsnExtended
+     *        The customer gateway device's Border Gateway Protocol (BGP) Autonomous System Number (ASN).</p>
+     *        <p>
+     *        Valid values: <code>2,147,483,648</code> to <code>4,294,967,295</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CustomerGateway withBgpAsnExtended(String bgpAsnExtended) {
+        setBgpAsnExtended(bgpAsnExtended);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -354,12 +549,18 @@ public class CustomerGateway implements Serializable, Cloneable {
             sb.append("CustomerGatewayId: ").append(getCustomerGatewayId()).append(",");
         if (getIpAddress() != null)
             sb.append("IpAddress: ").append(getIpAddress()).append(",");
+        if (getCertificateArn() != null)
+            sb.append("CertificateArn: ").append(getCertificateArn()).append(",");
         if (getState() != null)
             sb.append("State: ").append(getState()).append(",");
         if (getType() != null)
             sb.append("Type: ").append(getType()).append(",");
+        if (getDeviceName() != null)
+            sb.append("DeviceName: ").append(getDeviceName()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getBgpAsnExtended() != null)
+            sb.append("BgpAsnExtended: ").append(getBgpAsnExtended());
         sb.append("}");
         return sb.toString();
     }
@@ -386,6 +587,10 @@ public class CustomerGateway implements Serializable, Cloneable {
             return false;
         if (other.getIpAddress() != null && other.getIpAddress().equals(this.getIpAddress()) == false)
             return false;
+        if (other.getCertificateArn() == null ^ this.getCertificateArn() == null)
+            return false;
+        if (other.getCertificateArn() != null && other.getCertificateArn().equals(this.getCertificateArn()) == false)
+            return false;
         if (other.getState() == null ^ this.getState() == null)
             return false;
         if (other.getState() != null && other.getState().equals(this.getState()) == false)
@@ -394,9 +599,17 @@ public class CustomerGateway implements Serializable, Cloneable {
             return false;
         if (other.getType() != null && other.getType().equals(this.getType()) == false)
             return false;
+        if (other.getDeviceName() == null ^ this.getDeviceName() == null)
+            return false;
+        if (other.getDeviceName() != null && other.getDeviceName().equals(this.getDeviceName()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getBgpAsnExtended() == null ^ this.getBgpAsnExtended() == null)
+            return false;
+        if (other.getBgpAsnExtended() != null && other.getBgpAsnExtended().equals(this.getBgpAsnExtended()) == false)
             return false;
         return true;
     }
@@ -409,9 +622,12 @@ public class CustomerGateway implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getBgpAsn() == null) ? 0 : getBgpAsn().hashCode());
         hashCode = prime * hashCode + ((getCustomerGatewayId() == null) ? 0 : getCustomerGatewayId().hashCode());
         hashCode = prime * hashCode + ((getIpAddress() == null) ? 0 : getIpAddress().hashCode());
+        hashCode = prime * hashCode + ((getCertificateArn() == null) ? 0 : getCertificateArn().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
         hashCode = prime * hashCode + ((getType() == null) ? 0 : getType().hashCode());
+        hashCode = prime * hashCode + ((getDeviceName() == null) ? 0 : getDeviceName().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getBgpAsnExtended() == null) ? 0 : getBgpAsnExtended().hashCode());
         return hashCode;
     }
 

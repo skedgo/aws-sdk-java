@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -89,7 +89,8 @@ public class RecordDetail implements Serializable, Cloneable, StructuredPojo {
     private java.util.Date updatedTime;
     /**
      * <p>
-     * The type of provisioned product. The supported values are <code>CFN_STACK</code> and <code>CFN_STACKSET</code>.
+     * The type of provisioned product. The supported values are <code>CFN_STACK</code>, <code>CFN_STACKSET</code>,
+     * <code>TERRAFORM_OPEN_SOURCE</code>, <code>TERRAFORM_CLOUD</code>, and <code>EXTERNAL</code>.
      * </p>
      */
     private String provisionedProductType;
@@ -152,6 +153,12 @@ public class RecordDetail implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private java.util.List<RecordTag> recordTags;
+    /**
+     * <p>
+     * The ARN of the launch role associated with the provisioned product.
+     * </p>
+     */
+    private String launchRoleArn;
 
     /**
      * <p>
@@ -673,12 +680,14 @@ public class RecordDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of provisioned product. The supported values are <code>CFN_STACK</code> and <code>CFN_STACKSET</code>.
+     * The type of provisioned product. The supported values are <code>CFN_STACK</code>, <code>CFN_STACKSET</code>,
+     * <code>TERRAFORM_OPEN_SOURCE</code>, <code>TERRAFORM_CLOUD</code>, and <code>EXTERNAL</code>.
      * </p>
      * 
      * @param provisionedProductType
-     *        The type of provisioned product. The supported values are <code>CFN_STACK</code> and
-     *        <code>CFN_STACKSET</code>.
+     *        The type of provisioned product. The supported values are <code>CFN_STACK</code>,
+     *        <code>CFN_STACKSET</code>, <code>TERRAFORM_OPEN_SOURCE</code>, <code>TERRAFORM_CLOUD</code>, and
+     *        <code>EXTERNAL</code>.
      */
 
     public void setProvisionedProductType(String provisionedProductType) {
@@ -687,11 +696,13 @@ public class RecordDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of provisioned product. The supported values are <code>CFN_STACK</code> and <code>CFN_STACKSET</code>.
+     * The type of provisioned product. The supported values are <code>CFN_STACK</code>, <code>CFN_STACKSET</code>,
+     * <code>TERRAFORM_OPEN_SOURCE</code>, <code>TERRAFORM_CLOUD</code>, and <code>EXTERNAL</code>.
      * </p>
      * 
-     * @return The type of provisioned product. The supported values are <code>CFN_STACK</code> and
-     *         <code>CFN_STACKSET</code>.
+     * @return The type of provisioned product. The supported values are <code>CFN_STACK</code>,
+     *         <code>CFN_STACKSET</code>, <code>TERRAFORM_OPEN_SOURCE</code>, <code>TERRAFORM_CLOUD</code>, and
+     *         <code>EXTERNAL</code>.
      */
 
     public String getProvisionedProductType() {
@@ -700,12 +711,14 @@ public class RecordDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of provisioned product. The supported values are <code>CFN_STACK</code> and <code>CFN_STACKSET</code>.
+     * The type of provisioned product. The supported values are <code>CFN_STACK</code>, <code>CFN_STACKSET</code>,
+     * <code>TERRAFORM_OPEN_SOURCE</code>, <code>TERRAFORM_CLOUD</code>, and <code>EXTERNAL</code>.
      * </p>
      * 
      * @param provisionedProductType
-     *        The type of provisioned product. The supported values are <code>CFN_STACK</code> and
-     *        <code>CFN_STACKSET</code>.
+     *        The type of provisioned product. The supported values are <code>CFN_STACK</code>,
+     *        <code>CFN_STACKSET</code>, <code>TERRAFORM_OPEN_SOURCE</code>, <code>TERRAFORM_CLOUD</code>, and
+     *        <code>EXTERNAL</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1154,6 +1167,46 @@ public class RecordDetail implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The ARN of the launch role associated with the provisioned product.
+     * </p>
+     * 
+     * @param launchRoleArn
+     *        The ARN of the launch role associated with the provisioned product.
+     */
+
+    public void setLaunchRoleArn(String launchRoleArn) {
+        this.launchRoleArn = launchRoleArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the launch role associated with the provisioned product.
+     * </p>
+     * 
+     * @return The ARN of the launch role associated with the provisioned product.
+     */
+
+    public String getLaunchRoleArn() {
+        return this.launchRoleArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the launch role associated with the provisioned product.
+     * </p>
+     * 
+     * @param launchRoleArn
+     *        The ARN of the launch role associated with the provisioned product.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RecordDetail withLaunchRoleArn(String launchRoleArn) {
+        setLaunchRoleArn(launchRoleArn);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1190,7 +1243,9 @@ public class RecordDetail implements Serializable, Cloneable, StructuredPojo {
         if (getRecordErrors() != null)
             sb.append("RecordErrors: ").append(getRecordErrors()).append(",");
         if (getRecordTags() != null)
-            sb.append("RecordTags: ").append(getRecordTags());
+            sb.append("RecordTags: ").append(getRecordTags()).append(",");
+        if (getLaunchRoleArn() != null)
+            sb.append("LaunchRoleArn: ").append(getLaunchRoleArn());
         sb.append("}");
         return sb.toString();
     }
@@ -1257,6 +1312,10 @@ public class RecordDetail implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getRecordTags() != null && other.getRecordTags().equals(this.getRecordTags()) == false)
             return false;
+        if (other.getLaunchRoleArn() == null ^ this.getLaunchRoleArn() == null)
+            return false;
+        if (other.getLaunchRoleArn() != null && other.getLaunchRoleArn().equals(this.getLaunchRoleArn()) == false)
+            return false;
         return true;
     }
 
@@ -1278,6 +1337,7 @@ public class RecordDetail implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getPathId() == null) ? 0 : getPathId().hashCode());
         hashCode = prime * hashCode + ((getRecordErrors() == null) ? 0 : getRecordErrors().hashCode());
         hashCode = prime * hashCode + ((getRecordTags() == null) ? 0 : getRecordTags().hashCode());
+        hashCode = prime * hashCode + ((getLaunchRoleArn() == null) ? 0 : getLaunchRoleArn().hashCode());
         return hashCode;
     }
 

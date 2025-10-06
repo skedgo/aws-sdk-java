@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,8 +29,14 @@ public class ExecutionStartedEventDetailsMarshaller {
 
     private static final MarshallingInfo<String> INPUT_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("input").build();
+    private static final MarshallingInfo<StructuredPojo> INPUTDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("inputDetails").build();
     private static final MarshallingInfo<String> ROLEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("roleArn").build();
+    private static final MarshallingInfo<String> STATEMACHINEALIASARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("stateMachineAliasArn").build();
+    private static final MarshallingInfo<String> STATEMACHINEVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("stateMachineVersionArn").build();
 
     private static final ExecutionStartedEventDetailsMarshaller instance = new ExecutionStartedEventDetailsMarshaller();
 
@@ -49,7 +55,10 @@ public class ExecutionStartedEventDetailsMarshaller {
 
         try {
             protocolMarshaller.marshall(executionStartedEventDetails.getInput(), INPUT_BINDING);
+            protocolMarshaller.marshall(executionStartedEventDetails.getInputDetails(), INPUTDETAILS_BINDING);
             protocolMarshaller.marshall(executionStartedEventDetails.getRoleArn(), ROLEARN_BINDING);
+            protocolMarshaller.marshall(executionStartedEventDetails.getStateMachineAliasArn(), STATEMACHINEALIASARN_BINDING);
+            protocolMarshaller.marshall(executionStartedEventDetails.getStateMachineVersionArn(), STATEMACHINEVERSIONARN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

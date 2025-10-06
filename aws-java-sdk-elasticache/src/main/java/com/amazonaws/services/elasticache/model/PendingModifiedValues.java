@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,8 +31,8 @@ public class PendingModifiedValues implements Serializable, Cloneable {
      * The new number of cache nodes for the cluster.
      * </p>
      * <p>
-     * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1
-     * and 20.
+     * For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be between
+     * 1 and 40.
      * </p>
      */
     private Integer numCacheNodes;
@@ -55,21 +55,45 @@ public class PendingModifiedValues implements Serializable, Cloneable {
      * </p>
      */
     private String cacheNodeType;
+    /**
+     * <p>
+     * The auth token status
+     * </p>
+     */
+    private String authTokenStatus;
+    /**
+     * <p>
+     * The log delivery configurations being modified
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<PendingLogDeliveryConfiguration> logDeliveryConfigurations;
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to true.
+     * </p>
+     */
+    private Boolean transitEncryptionEnabled;
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     */
+    private String transitEncryptionMode;
 
     /**
      * <p>
      * The new number of cache nodes for the cluster.
      * </p>
      * <p>
-     * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1
-     * and 20.
+     * For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be between
+     * 1 and 40.
      * </p>
      * 
      * @param numCacheNodes
      *        The new number of cache nodes for the cluster.</p>
      *        <p>
-     *        For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be
-     *        between 1 and 20.
+     *        For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be
+     *        between 1 and 40.
      */
 
     public void setNumCacheNodes(Integer numCacheNodes) {
@@ -81,14 +105,14 @@ public class PendingModifiedValues implements Serializable, Cloneable {
      * The new number of cache nodes for the cluster.
      * </p>
      * <p>
-     * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1
-     * and 20.
+     * For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be between
+     * 1 and 40.
      * </p>
      * 
      * @return The new number of cache nodes for the cluster.</p>
      *         <p>
-     *         For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be
-     *         between 1 and 20.
+     *         For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be
+     *         between 1 and 40.
      */
 
     public Integer getNumCacheNodes() {
@@ -100,15 +124,15 @@ public class PendingModifiedValues implements Serializable, Cloneable {
      * The new number of cache nodes for the cluster.
      * </p>
      * <p>
-     * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1
-     * and 20.
+     * For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be between
+     * 1 and 40.
      * </p>
      * 
      * @param numCacheNodes
      *        The new number of cache nodes for the cluster.</p>
      *        <p>
-     *        For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be
-     *        between 1 and 20.
+     *        For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be
+     *        between 1 and 40.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -279,6 +303,249 @@ public class PendingModifiedValues implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The auth token status
+     * </p>
+     * 
+     * @param authTokenStatus
+     *        The auth token status
+     * @see AuthTokenUpdateStatus
+     */
+
+    public void setAuthTokenStatus(String authTokenStatus) {
+        this.authTokenStatus = authTokenStatus;
+    }
+
+    /**
+     * <p>
+     * The auth token status
+     * </p>
+     * 
+     * @return The auth token status
+     * @see AuthTokenUpdateStatus
+     */
+
+    public String getAuthTokenStatus() {
+        return this.authTokenStatus;
+    }
+
+    /**
+     * <p>
+     * The auth token status
+     * </p>
+     * 
+     * @param authTokenStatus
+     *        The auth token status
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthTokenUpdateStatus
+     */
+
+    public PendingModifiedValues withAuthTokenStatus(String authTokenStatus) {
+        setAuthTokenStatus(authTokenStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The auth token status
+     * </p>
+     * 
+     * @param authTokenStatus
+     *        The auth token status
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthTokenUpdateStatus
+     */
+
+    public PendingModifiedValues withAuthTokenStatus(AuthTokenUpdateStatus authTokenStatus) {
+        this.authTokenStatus = authTokenStatus.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The log delivery configurations being modified
+     * </p>
+     * 
+     * @return The log delivery configurations being modified
+     */
+
+    public java.util.List<PendingLogDeliveryConfiguration> getLogDeliveryConfigurations() {
+        if (logDeliveryConfigurations == null) {
+            logDeliveryConfigurations = new com.amazonaws.internal.SdkInternalList<PendingLogDeliveryConfiguration>();
+        }
+        return logDeliveryConfigurations;
+    }
+
+    /**
+     * <p>
+     * The log delivery configurations being modified
+     * </p>
+     * 
+     * @param logDeliveryConfigurations
+     *        The log delivery configurations being modified
+     */
+
+    public void setLogDeliveryConfigurations(java.util.Collection<PendingLogDeliveryConfiguration> logDeliveryConfigurations) {
+        if (logDeliveryConfigurations == null) {
+            this.logDeliveryConfigurations = null;
+            return;
+        }
+
+        this.logDeliveryConfigurations = new com.amazonaws.internal.SdkInternalList<PendingLogDeliveryConfiguration>(logDeliveryConfigurations);
+    }
+
+    /**
+     * <p>
+     * The log delivery configurations being modified
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setLogDeliveryConfigurations(java.util.Collection)} or
+     * {@link #withLogDeliveryConfigurations(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param logDeliveryConfigurations
+     *        The log delivery configurations being modified
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PendingModifiedValues withLogDeliveryConfigurations(PendingLogDeliveryConfiguration... logDeliveryConfigurations) {
+        if (this.logDeliveryConfigurations == null) {
+            setLogDeliveryConfigurations(new com.amazonaws.internal.SdkInternalList<PendingLogDeliveryConfiguration>(logDeliveryConfigurations.length));
+        }
+        for (PendingLogDeliveryConfiguration ele : logDeliveryConfigurations) {
+            this.logDeliveryConfigurations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The log delivery configurations being modified
+     * </p>
+     * 
+     * @param logDeliveryConfigurations
+     *        The log delivery configurations being modified
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PendingModifiedValues withLogDeliveryConfigurations(java.util.Collection<PendingLogDeliveryConfiguration> logDeliveryConfigurations) {
+        setLogDeliveryConfigurations(logDeliveryConfigurations);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to true.
+     * </p>
+     * 
+     * @param transitEncryptionEnabled
+     *        A flag that enables in-transit encryption when set to true.
+     */
+
+    public void setTransitEncryptionEnabled(Boolean transitEncryptionEnabled) {
+        this.transitEncryptionEnabled = transitEncryptionEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to true.
+     * </p>
+     * 
+     * @return A flag that enables in-transit encryption when set to true.
+     */
+
+    public Boolean getTransitEncryptionEnabled() {
+        return this.transitEncryptionEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to true.
+     * </p>
+     * 
+     * @param transitEncryptionEnabled
+     *        A flag that enables in-transit encryption when set to true.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PendingModifiedValues withTransitEncryptionEnabled(Boolean transitEncryptionEnabled) {
+        setTransitEncryptionEnabled(transitEncryptionEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to true.
+     * </p>
+     * 
+     * @return A flag that enables in-transit encryption when set to true.
+     */
+
+    public Boolean isTransitEncryptionEnabled() {
+        return this.transitEncryptionEnabled;
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * 
+     * @param transitEncryptionMode
+     *        A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * @see TransitEncryptionMode
+     */
+
+    public void setTransitEncryptionMode(String transitEncryptionMode) {
+        this.transitEncryptionMode = transitEncryptionMode;
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * 
+     * @return A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * @see TransitEncryptionMode
+     */
+
+    public String getTransitEncryptionMode() {
+        return this.transitEncryptionMode;
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * 
+     * @param transitEncryptionMode
+     *        A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TransitEncryptionMode
+     */
+
+    public PendingModifiedValues withTransitEncryptionMode(String transitEncryptionMode) {
+        setTransitEncryptionMode(transitEncryptionMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * 
+     * @param transitEncryptionMode
+     *        A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TransitEncryptionMode
+     */
+
+    public PendingModifiedValues withTransitEncryptionMode(TransitEncryptionMode transitEncryptionMode) {
+        this.transitEncryptionMode = transitEncryptionMode.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -297,7 +564,15 @@ public class PendingModifiedValues implements Serializable, Cloneable {
         if (getEngineVersion() != null)
             sb.append("EngineVersion: ").append(getEngineVersion()).append(",");
         if (getCacheNodeType() != null)
-            sb.append("CacheNodeType: ").append(getCacheNodeType());
+            sb.append("CacheNodeType: ").append(getCacheNodeType()).append(",");
+        if (getAuthTokenStatus() != null)
+            sb.append("AuthTokenStatus: ").append(getAuthTokenStatus()).append(",");
+        if (getLogDeliveryConfigurations() != null)
+            sb.append("LogDeliveryConfigurations: ").append(getLogDeliveryConfigurations()).append(",");
+        if (getTransitEncryptionEnabled() != null)
+            sb.append("TransitEncryptionEnabled: ").append(getTransitEncryptionEnabled()).append(",");
+        if (getTransitEncryptionMode() != null)
+            sb.append("TransitEncryptionMode: ").append(getTransitEncryptionMode());
         sb.append("}");
         return sb.toString();
     }
@@ -328,6 +603,22 @@ public class PendingModifiedValues implements Serializable, Cloneable {
             return false;
         if (other.getCacheNodeType() != null && other.getCacheNodeType().equals(this.getCacheNodeType()) == false)
             return false;
+        if (other.getAuthTokenStatus() == null ^ this.getAuthTokenStatus() == null)
+            return false;
+        if (other.getAuthTokenStatus() != null && other.getAuthTokenStatus().equals(this.getAuthTokenStatus()) == false)
+            return false;
+        if (other.getLogDeliveryConfigurations() == null ^ this.getLogDeliveryConfigurations() == null)
+            return false;
+        if (other.getLogDeliveryConfigurations() != null && other.getLogDeliveryConfigurations().equals(this.getLogDeliveryConfigurations()) == false)
+            return false;
+        if (other.getTransitEncryptionEnabled() == null ^ this.getTransitEncryptionEnabled() == null)
+            return false;
+        if (other.getTransitEncryptionEnabled() != null && other.getTransitEncryptionEnabled().equals(this.getTransitEncryptionEnabled()) == false)
+            return false;
+        if (other.getTransitEncryptionMode() == null ^ this.getTransitEncryptionMode() == null)
+            return false;
+        if (other.getTransitEncryptionMode() != null && other.getTransitEncryptionMode().equals(this.getTransitEncryptionMode()) == false)
+            return false;
         return true;
     }
 
@@ -340,6 +631,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getCacheNodeIdsToRemove() == null) ? 0 : getCacheNodeIdsToRemove().hashCode());
         hashCode = prime * hashCode + ((getEngineVersion() == null) ? 0 : getEngineVersion().hashCode());
         hashCode = prime * hashCode + ((getCacheNodeType() == null) ? 0 : getCacheNodeType().hashCode());
+        hashCode = prime * hashCode + ((getAuthTokenStatus() == null) ? 0 : getAuthTokenStatus().hashCode());
+        hashCode = prime * hashCode + ((getLogDeliveryConfigurations() == null) ? 0 : getLogDeliveryConfigurations().hashCode());
+        hashCode = prime * hashCode + ((getTransitEncryptionEnabled() == null) ? 0 : getTransitEncryptionEnabled().hashCode());
+        hashCode = prime * hashCode + ((getTransitEncryptionMode() == null) ? 0 : getTransitEncryptionMode().hashCode());
         return hashCode;
     }
 

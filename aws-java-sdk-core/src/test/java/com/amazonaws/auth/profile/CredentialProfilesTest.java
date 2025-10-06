@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ import com.amazonaws.AmazonClientException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSSessionCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.profile.internal.BasicProfile;
 import com.amazonaws.auth.profile.internal.Profile;
 
 import org.junit.Test;
@@ -155,9 +156,8 @@ public class CredentialProfilesTest {
      */
     @Test
     public void testProfileWithMultipleAccessOrSecretKeysUnderSameProfile() {
-        checkExpectedException(ProfileResourceLoader.profilesWithTwoAccessKeyUnderSameProfile(),
-                               IllegalArgumentException.class,
-                               "Should throw an exception as there is a profile with two AWS Access Key ID's.");
+        ProfilesConfigFile profile = new ProfilesConfigFile(ProfileResourceLoader.profilesWithTwoAccessKeyUnderSameProfile().asFile());
+        assertEquals("testProfile3", profile.getCredentials("test2").getAWSAccessKeyId());
     }
 
     /**
@@ -176,6 +176,20 @@ public class CredentialProfilesTest {
         assertEquals(profile.getCredentials(PROFILE_NAME_TEST).getAWSAccessKeyId(), "test");
 
         assertEquals(profile.getCredentials(PROFILE_NAME_TEST).getAWSSecretKey(), "test key");
+    }
+
+    @Test
+    public void prefixProfilesCanBeLoaded() {
+        ProfilesConfigFile profile = new ProfilesConfigFile(ProfileResourceLoader.profileWithProfilePrefix().asFile());
+
+        assertEquals("withPrefix", profile.getCredentials("test").getAWSAccessKeyId());
+    }
+
+    @Test
+    public void prefixProfilesAreLowerPriorityThanNonPrefixProfiles() {
+        ProfilesConfigFile profile =
+            new ProfilesConfigFile(ProfileResourceLoader.duplicateProfileWithAndWithoutProfilePrefix().asFile());
+        assertEquals("withoutPrefix", profile.getCredentials("test").getAWSAccessKeyId());
     }
 
     /**
@@ -248,6 +262,15 @@ public class CredentialProfilesTest {
         checkDeferredException(ProfileResourceLoader.roleProfileWithRoleSource(),
                                AmazonClientException.class, "test",
                                "Should throw an exception as a role profile can not use a role profile as its source");
+    }
+
+    @Test
+    public void testProfilesWithAccountId() {
+        ProfilesConfigFile profile = new ProfilesConfigFile(
+                ProfileResourceLoader.profilesWithAccountId().asFile());
+
+        BasicAWSCredentials cred = (BasicAWSCredentials) profile.getCredentials(DEFAULT_PROFILE_NAME);
+        assertEquals("defaultAccountId", cred.getAccountId());
     }
 
     /**

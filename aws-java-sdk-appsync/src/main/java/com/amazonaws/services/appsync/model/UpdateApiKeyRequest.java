@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,8 +45,8 @@ public class UpdateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
     private String description;
     /**
      * <p>
-     * The time from update time after which the API key expires. The date is represented as seconds since the epoch.
-     * For more information, see .
+     * From the update time, the time after which the API key expires. The date is represented as seconds since the
+     * epoch. For more information, see .
      * </p>
      */
     private Long expires;
@@ -173,13 +173,13 @@ public class UpdateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The time from update time after which the API key expires. The date is represented as seconds since the epoch.
-     * For more information, see .
+     * From the update time, the time after which the API key expires. The date is represented as seconds since the
+     * epoch. For more information, see .
      * </p>
      * 
      * @param expires
-     *        The time from update time after which the API key expires. The date is represented as seconds since the
-     *        epoch. For more information, see .
+     *        From the update time, the time after which the API key expires. The date is represented as seconds since
+     *        the epoch. For more information, see .
      */
 
     public void setExpires(Long expires) {
@@ -188,12 +188,12 @@ public class UpdateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The time from update time after which the API key expires. The date is represented as seconds since the epoch.
-     * For more information, see .
+     * From the update time, the time after which the API key expires. The date is represented as seconds since the
+     * epoch. For more information, see .
      * </p>
      * 
-     * @return The time from update time after which the API key expires. The date is represented as seconds since the
-     *         epoch. For more information, see .
+     * @return From the update time, the time after which the API key expires. The date is represented as seconds since
+     *         the epoch. For more information, see .
      */
 
     public Long getExpires() {
@@ -202,13 +202,13 @@ public class UpdateApiKeyRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The time from update time after which the API key expires. The date is represented as seconds since the epoch.
-     * For more information, see .
+     * From the update time, the time after which the API key expires. The date is represented as seconds since the
+     * epoch. For more information, see .
      * </p>
      * 
      * @param expires
-     *        The time from update time after which the API key expires. The date is represented as seconds since the
-     *        epoch. For more information, see .
+     *        From the update time, the time after which the API key expires. The date is represented as seconds since
+     *        the epoch. For more information, see .
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

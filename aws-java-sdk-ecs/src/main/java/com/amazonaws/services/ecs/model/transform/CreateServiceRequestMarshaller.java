@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,8 @@ public class CreateServiceRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("clientToken").build();
     private static final MarshallingInfo<String> LAUNCHTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("launchType").build();
+    private static final MarshallingInfo<List> CAPACITYPROVIDERSTRATEGY_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("capacityProviderStrategy").build();
     private static final MarshallingInfo<String> PLATFORMVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("platformVersion").build();
     private static final MarshallingInfo<String> ROLE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -68,6 +70,12 @@ public class CreateServiceRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("enableECSManagedTags").build();
     private static final MarshallingInfo<String> PROPAGATETAGS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("propagateTags").build();
+    private static final MarshallingInfo<Boolean> ENABLEEXECUTECOMMAND_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("enableExecuteCommand").build();
+    private static final MarshallingInfo<StructuredPojo> SERVICECONNECTCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("serviceConnectConfiguration").build();
+    private static final MarshallingInfo<List> VOLUMECONFIGURATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("volumeConfigurations").build();
 
     private static final CreateServiceRequestMarshaller instance = new CreateServiceRequestMarshaller();
 
@@ -93,6 +101,7 @@ public class CreateServiceRequestMarshaller {
             protocolMarshaller.marshall(createServiceRequest.getDesiredCount(), DESIREDCOUNT_BINDING);
             protocolMarshaller.marshall(createServiceRequest.getClientToken(), CLIENTTOKEN_BINDING);
             protocolMarshaller.marshall(createServiceRequest.getLaunchType(), LAUNCHTYPE_BINDING);
+            protocolMarshaller.marshall(createServiceRequest.getCapacityProviderStrategy(), CAPACITYPROVIDERSTRATEGY_BINDING);
             protocolMarshaller.marshall(createServiceRequest.getPlatformVersion(), PLATFORMVERSION_BINDING);
             protocolMarshaller.marshall(createServiceRequest.getRole(), ROLE_BINDING);
             protocolMarshaller.marshall(createServiceRequest.getDeploymentConfiguration(), DEPLOYMENTCONFIGURATION_BINDING);
@@ -105,6 +114,9 @@ public class CreateServiceRequestMarshaller {
             protocolMarshaller.marshall(createServiceRequest.getTags(), TAGS_BINDING);
             protocolMarshaller.marshall(createServiceRequest.getEnableECSManagedTags(), ENABLEECSMANAGEDTAGS_BINDING);
             protocolMarshaller.marshall(createServiceRequest.getPropagateTags(), PROPAGATETAGS_BINDING);
+            protocolMarshaller.marshall(createServiceRequest.getEnableExecuteCommand(), ENABLEEXECUTECOMMAND_BINDING);
+            protocolMarshaller.marshall(createServiceRequest.getServiceConnectConfiguration(), SERVICECONNECTCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(createServiceRequest.getVolumeConfigurations(), VOLUMECONFIGURATIONS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

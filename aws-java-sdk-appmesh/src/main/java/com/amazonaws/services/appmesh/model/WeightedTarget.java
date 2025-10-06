@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,9 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An object representing a target and its relative weight. Traffic is distributed across targets according to their
+ * An object that represents a target and its relative weight. Traffic is distributed across targets according to their
  * relative weight. For example, a weighted target with a relative weight of 50 receives five times as much traffic as
- * one with a relative weight of 10.
+ * one with a relative weight of 10. The total weight for all targets combined must be less than or equal to 100.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/WeightedTarget" target="_top">AWS API
@@ -30,6 +30,12 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class WeightedTarget implements Serializable, Cloneable, StructuredPojo {
 
+    /**
+     * <p>
+     * The targeted port of the weighted object.
+     * </p>
+     */
+    private Integer port;
     /**
      * <p>
      * The virtual node to associate with the weighted target.
@@ -42,6 +48,46 @@ public class WeightedTarget implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private Integer weight;
+
+    /**
+     * <p>
+     * The targeted port of the weighted object.
+     * </p>
+     * 
+     * @param port
+     *        The targeted port of the weighted object.
+     */
+
+    public void setPort(Integer port) {
+        this.port = port;
+    }
+
+    /**
+     * <p>
+     * The targeted port of the weighted object.
+     * </p>
+     * 
+     * @return The targeted port of the weighted object.
+     */
+
+    public Integer getPort() {
+        return this.port;
+    }
+
+    /**
+     * <p>
+     * The targeted port of the weighted object.
+     * </p>
+     * 
+     * @param port
+     *        The targeted port of the weighted object.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WeightedTarget withPort(Integer port) {
+        setPort(port);
+        return this;
+    }
 
     /**
      * <p>
@@ -135,6 +181,8 @@ public class WeightedTarget implements Serializable, Cloneable, StructuredPojo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getPort() != null)
+            sb.append("Port: ").append(getPort()).append(",");
         if (getVirtualNode() != null)
             sb.append("VirtualNode: ").append(getVirtualNode()).append(",");
         if (getWeight() != null)
@@ -153,6 +201,10 @@ public class WeightedTarget implements Serializable, Cloneable, StructuredPojo {
         if (obj instanceof WeightedTarget == false)
             return false;
         WeightedTarget other = (WeightedTarget) obj;
+        if (other.getPort() == null ^ this.getPort() == null)
+            return false;
+        if (other.getPort() != null && other.getPort().equals(this.getPort()) == false)
+            return false;
         if (other.getVirtualNode() == null ^ this.getVirtualNode() == null)
             return false;
         if (other.getVirtualNode() != null && other.getVirtualNode().equals(this.getVirtualNode()) == false)
@@ -169,6 +221,7 @@ public class WeightedTarget implements Serializable, Cloneable, StructuredPojo {
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getPort() == null) ? 0 : getPort().hashCode());
         hashCode = prime * hashCode + ((getVirtualNode() == null) ? 0 : getVirtualNode().hashCode());
         hashCode = prime * hashCode + ((getWeight() == null) ? 0 : getWeight().hashCode());
         return hashCode;

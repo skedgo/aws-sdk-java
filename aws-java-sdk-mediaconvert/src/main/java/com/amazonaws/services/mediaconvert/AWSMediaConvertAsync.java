@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -228,6 +228,33 @@ public interface AWSMediaConvertAsync extends AWSMediaConvert {
             com.amazonaws.handlers.AsyncHandler<DeleteJobTemplateRequest, DeleteJobTemplateResult> asyncHandler);
 
     /**
+     * Permanently delete a policy that you created.
+     * 
+     * @param deletePolicyRequest
+     * @return A Java Future containing the result of the DeletePolicy operation returned by the service.
+     * @sample AWSMediaConvertAsync.DeletePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeletePolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeletePolicyResult> deletePolicyAsync(DeletePolicyRequest deletePolicyRequest);
+
+    /**
+     * Permanently delete a policy that you created.
+     * 
+     * @param deletePolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeletePolicy operation returned by the service.
+     * @sample AWSMediaConvertAsyncHandler.DeletePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeletePolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeletePolicyResult> deletePolicyAsync(DeletePolicyRequest deletePolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<DeletePolicyRequest, DeletePolicyResult> asyncHandler);
+
+    /**
      * Permanently delete a preset you have created.
      * 
      * @param deletePresetRequest
@@ -282,22 +309,25 @@ public interface AWSMediaConvertAsync extends AWSMediaConvert {
             com.amazonaws.handlers.AsyncHandler<DeleteQueueRequest, DeleteQueueResult> asyncHandler);
 
     /**
-     * Send an request with an empty body to the regional API endpoint to get your account API endpoint.
+     * Send a request with an empty body to the regional API endpoint to get your account API endpoint. Note that
+     * DescribeEndpoints is no longer required. We recommend that you send your requests directly to the regional
+     * endpoint instead.
      * 
      * @param describeEndpointsRequest
-     *        DescribeEndpointsRequest
      * @return A Java Future containing the result of the DescribeEndpoints operation returned by the service.
      * @sample AWSMediaConvertAsync.DescribeEndpoints
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DescribeEndpoints" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DescribeEndpointsResult> describeEndpointsAsync(DescribeEndpointsRequest describeEndpointsRequest);
 
     /**
-     * Send an request with an empty body to the regional API endpoint to get your account API endpoint.
+     * Send a request with an empty body to the regional API endpoint to get your account API endpoint. Note that
+     * DescribeEndpoints is no longer required. We recommend that you send your requests directly to the regional
+     * endpoint instead.
      * 
      * @param describeEndpointsRequest
-     *        DescribeEndpointsRequest
      * @param asyncHandler
      *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
      *        implementation of the callback methods in this interface to receive notification of successful or
@@ -307,6 +337,7 @@ public interface AWSMediaConvertAsync extends AWSMediaConvert {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DescribeEndpoints" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DescribeEndpointsResult> describeEndpointsAsync(DescribeEndpointsRequest describeEndpointsRequest,
             com.amazonaws.handlers.AsyncHandler<DescribeEndpointsRequest, DescribeEndpointsResult> asyncHandler);
 
@@ -340,7 +371,7 @@ public interface AWSMediaConvertAsync extends AWSMediaConvert {
             com.amazonaws.handlers.AsyncHandler<DisassociateCertificateRequest, DisassociateCertificateResult> asyncHandler);
 
     /**
-     * Retrieve the JSON for a specific completed transcoding job.
+     * Retrieve the JSON for a specific transcoding job.
      * 
      * @param getJobRequest
      * @return A Java Future containing the result of the GetJob operation returned by the service.
@@ -351,7 +382,7 @@ public interface AWSMediaConvertAsync extends AWSMediaConvert {
     java.util.concurrent.Future<GetJobResult> getJobAsync(GetJobRequest getJobRequest);
 
     /**
-     * Retrieve the JSON for a specific completed transcoding job.
+     * Retrieve the JSON for a specific transcoding job.
      * 
      * @param getJobRequest
      * @param asyncHandler
@@ -392,6 +423,33 @@ public interface AWSMediaConvertAsync extends AWSMediaConvert {
      */
     java.util.concurrent.Future<GetJobTemplateResult> getJobTemplateAsync(GetJobTemplateRequest getJobTemplateRequest,
             com.amazonaws.handlers.AsyncHandler<GetJobTemplateRequest, GetJobTemplateResult> asyncHandler);
+
+    /**
+     * Retrieve the JSON for your policy.
+     * 
+     * @param getPolicyRequest
+     * @return A Java Future containing the result of the GetPolicy operation returned by the service.
+     * @sample AWSMediaConvertAsync.GetPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetPolicyResult> getPolicyAsync(GetPolicyRequest getPolicyRequest);
+
+    /**
+     * Retrieve the JSON for your policy.
+     * 
+     * @param getPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetPolicy operation returned by the service.
+     * @sample AWSMediaConvertAsyncHandler.GetPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetPolicyResult> getPolicyAsync(GetPolicyRequest getPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<GetPolicyRequest, GetPolicyResult> asyncHandler);
 
     /**
      * Retrieve the JSON for a specific preset.
@@ -591,6 +649,66 @@ public interface AWSMediaConvertAsync extends AWSMediaConvert {
      */
     java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest listTagsForResourceRequest,
             com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler);
+
+    /**
+     * Create or change your policy. For more information about policies, see the user guide at
+     * http://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html
+     * 
+     * @param putPolicyRequest
+     * @return A Java Future containing the result of the PutPolicy operation returned by the service.
+     * @sample AWSMediaConvertAsync.PutPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/PutPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<PutPolicyResult> putPolicyAsync(PutPolicyRequest putPolicyRequest);
+
+    /**
+     * Create or change your policy. For more information about policies, see the user guide at
+     * http://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html
+     * 
+     * @param putPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutPolicy operation returned by the service.
+     * @sample AWSMediaConvertAsyncHandler.PutPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/PutPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<PutPolicyResult> putPolicyAsync(PutPolicyRequest putPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<PutPolicyRequest, PutPolicyResult> asyncHandler);
+
+    /**
+     * Retrieve a JSON array that includes job details for up to twenty of your most recent jobs. Optionally filter
+     * results further according to input file, queue, or status. To retrieve the twenty next most recent jobs, use the
+     * nextToken string returned with the array.
+     * 
+     * @param searchJobsRequest
+     * @return A Java Future containing the result of the SearchJobs operation returned by the service.
+     * @sample AWSMediaConvertAsync.SearchJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/SearchJobs" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<SearchJobsResult> searchJobsAsync(SearchJobsRequest searchJobsRequest);
+
+    /**
+     * Retrieve a JSON array that includes job details for up to twenty of your most recent jobs. Optionally filter
+     * results further according to input file, queue, or status. To retrieve the twenty next most recent jobs, use the
+     * nextToken string returned with the array.
+     * 
+     * @param searchJobsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the SearchJobs operation returned by the service.
+     * @sample AWSMediaConvertAsyncHandler.SearchJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/SearchJobs" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<SearchJobsResult> searchJobsAsync(SearchJobsRequest searchJobsRequest,
+            com.amazonaws.handlers.AsyncHandler<SearchJobsRequest, SearchJobsResult> asyncHandler);
 
     /**
      * Add tags to a MediaConvert queue, preset, or job template. For information about tagging, see the User Guide at

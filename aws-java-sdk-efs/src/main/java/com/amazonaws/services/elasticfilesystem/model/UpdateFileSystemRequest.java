@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,18 +33,20 @@ public class UpdateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
     private String fileSystemId;
     /**
      * <p>
-     * (Optional) The throughput mode that you want your file system to use. If you're not updating your throughput
-     * mode, you don't need to provide this value in your request. If you are changing the <code>ThroughputMode</code>
-     * to <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>.
+     * (Optional) Updates the file system's throughput mode. If you're not updating your throughput mode, you don't need
+     * to provide this value in your request. If you are changing the <code>ThroughputMode</code> to
+     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>.
      * </p>
      */
     private String throughputMode;
     /**
      * <p>
-     * (Optional) The amount of throughput, in MiB/s, that you want to provision for your file system. Valid values are
-     * 1-1024. Required if <code>ThroughputMode</code> is changed to <code>provisioned</code> on update. If you're not
-     * updating the amount of provisioned throughput for your file system, you don't need to provide this value in your
-     * request.
+     * (Optional) The throughput, measured in mebibytes per second (MiBps), that you want to provision for a file system
+     * that you're creating. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. Valid values
+     * are 1-3414 MiBps, with the upper limit depending on Region. To increase this limit, contact Amazon Web Services
+     * Support. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS quotas that you can
+     * increase</a> in the <i>Amazon EFS User Guide</i>.
      * </p>
      */
     private Double provisionedThroughputInMibps;
@@ -91,16 +93,15 @@ public class UpdateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * (Optional) The throughput mode that you want your file system to use. If you're not updating your throughput
-     * mode, you don't need to provide this value in your request. If you are changing the <code>ThroughputMode</code>
-     * to <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>.
+     * (Optional) Updates the file system's throughput mode. If you're not updating your throughput mode, you don't need
+     * to provide this value in your request. If you are changing the <code>ThroughputMode</code> to
+     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>.
      * </p>
      * 
      * @param throughputMode
-     *        (Optional) The throughput mode that you want your file system to use. If you're not updating your
-     *        throughput mode, you don't need to provide this value in your request. If you are changing the
-     *        <code>ThroughputMode</code> to <code>provisioned</code>, you must also set a value for
-     *        <code>ProvisionedThroughputInMibps</code>.
+     *        (Optional) Updates the file system's throughput mode. If you're not updating your throughput mode, you
+     *        don't need to provide this value in your request. If you are changing the <code>ThroughputMode</code> to
+     *        <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>.
      * @see ThroughputMode
      */
 
@@ -110,15 +111,14 @@ public class UpdateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * (Optional) The throughput mode that you want your file system to use. If you're not updating your throughput
-     * mode, you don't need to provide this value in your request. If you are changing the <code>ThroughputMode</code>
-     * to <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>.
+     * (Optional) Updates the file system's throughput mode. If you're not updating your throughput mode, you don't need
+     * to provide this value in your request. If you are changing the <code>ThroughputMode</code> to
+     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>.
      * </p>
      * 
-     * @return (Optional) The throughput mode that you want your file system to use. If you're not updating your
-     *         throughput mode, you don't need to provide this value in your request. If you are changing the
-     *         <code>ThroughputMode</code> to <code>provisioned</code>, you must also set a value for
-     *         <code>ProvisionedThroughputInMibps</code>.
+     * @return (Optional) Updates the file system's throughput mode. If you're not updating your throughput mode, you
+     *         don't need to provide this value in your request. If you are changing the <code>ThroughputMode</code> to
+     *         <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>.
      * @see ThroughputMode
      */
 
@@ -128,16 +128,15 @@ public class UpdateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * (Optional) The throughput mode that you want your file system to use. If you're not updating your throughput
-     * mode, you don't need to provide this value in your request. If you are changing the <code>ThroughputMode</code>
-     * to <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>.
+     * (Optional) Updates the file system's throughput mode. If you're not updating your throughput mode, you don't need
+     * to provide this value in your request. If you are changing the <code>ThroughputMode</code> to
+     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>.
      * </p>
      * 
      * @param throughputMode
-     *        (Optional) The throughput mode that you want your file system to use. If you're not updating your
-     *        throughput mode, you don't need to provide this value in your request. If you are changing the
-     *        <code>ThroughputMode</code> to <code>provisioned</code>, you must also set a value for
-     *        <code>ProvisionedThroughputInMibps</code>.
+     *        (Optional) Updates the file system's throughput mode. If you're not updating your throughput mode, you
+     *        don't need to provide this value in your request. If you are changing the <code>ThroughputMode</code> to
+     *        <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ThroughputMode
      */
@@ -149,16 +148,15 @@ public class UpdateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * (Optional) The throughput mode that you want your file system to use. If you're not updating your throughput
-     * mode, you don't need to provide this value in your request. If you are changing the <code>ThroughputMode</code>
-     * to <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>.
+     * (Optional) Updates the file system's throughput mode. If you're not updating your throughput mode, you don't need
+     * to provide this value in your request. If you are changing the <code>ThroughputMode</code> to
+     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>.
      * </p>
      * 
      * @param throughputMode
-     *        (Optional) The throughput mode that you want your file system to use. If you're not updating your
-     *        throughput mode, you don't need to provide this value in your request. If you are changing the
-     *        <code>ThroughputMode</code> to <code>provisioned</code>, you must also set a value for
-     *        <code>ProvisionedThroughputInMibps</code>.
+     *        (Optional) Updates the file system's throughput mode. If you're not updating your throughput mode, you
+     *        don't need to provide this value in your request. If you are changing the <code>ThroughputMode</code> to
+     *        <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughputInMibps</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ThroughputMode
      */
@@ -170,17 +168,21 @@ public class UpdateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * (Optional) The amount of throughput, in MiB/s, that you want to provision for your file system. Valid values are
-     * 1-1024. Required if <code>ThroughputMode</code> is changed to <code>provisioned</code> on update. If you're not
-     * updating the amount of provisioned throughput for your file system, you don't need to provide this value in your
-     * request.
+     * (Optional) The throughput, measured in mebibytes per second (MiBps), that you want to provision for a file system
+     * that you're creating. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. Valid values
+     * are 1-3414 MiBps, with the upper limit depending on Region. To increase this limit, contact Amazon Web Services
+     * Support. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS quotas that you can
+     * increase</a> in the <i>Amazon EFS User Guide</i>.
      * </p>
      * 
      * @param provisionedThroughputInMibps
-     *        (Optional) The amount of throughput, in MiB/s, that you want to provision for your file system. Valid
-     *        values are 1-1024. Required if <code>ThroughputMode</code> is changed to <code>provisioned</code> on
-     *        update. If you're not updating the amount of provisioned throughput for your file system, you don't need
-     *        to provide this value in your request.
+     *        (Optional) The throughput, measured in mebibytes per second (MiBps), that you want to provision for a file
+     *        system that you're creating. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>.
+     *        Valid values are 1-3414 MiBps, with the upper limit depending on Region. To increase this limit, contact
+     *        Amazon Web Services Support. For more information, see <a
+     *        href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS quotas that you can
+     *        increase</a> in the <i>Amazon EFS User Guide</i>.
      */
 
     public void setProvisionedThroughputInMibps(Double provisionedThroughputInMibps) {
@@ -189,16 +191,20 @@ public class UpdateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * (Optional) The amount of throughput, in MiB/s, that you want to provision for your file system. Valid values are
-     * 1-1024. Required if <code>ThroughputMode</code> is changed to <code>provisioned</code> on update. If you're not
-     * updating the amount of provisioned throughput for your file system, you don't need to provide this value in your
-     * request.
+     * (Optional) The throughput, measured in mebibytes per second (MiBps), that you want to provision for a file system
+     * that you're creating. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. Valid values
+     * are 1-3414 MiBps, with the upper limit depending on Region. To increase this limit, contact Amazon Web Services
+     * Support. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS quotas that you can
+     * increase</a> in the <i>Amazon EFS User Guide</i>.
      * </p>
      * 
-     * @return (Optional) The amount of throughput, in MiB/s, that you want to provision for your file system. Valid
-     *         values are 1-1024. Required if <code>ThroughputMode</code> is changed to <code>provisioned</code> on
-     *         update. If you're not updating the amount of provisioned throughput for your file system, you don't need
-     *         to provide this value in your request.
+     * @return (Optional) The throughput, measured in mebibytes per second (MiBps), that you want to provision for a
+     *         file system that you're creating. Required if <code>ThroughputMode</code> is set to
+     *         <code>provisioned</code>. Valid values are 1-3414 MiBps, with the upper limit depending on Region. To
+     *         increase this limit, contact Amazon Web Services Support. For more information, see <a
+     *         href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS quotas that you can
+     *         increase</a> in the <i>Amazon EFS User Guide</i>.
      */
 
     public Double getProvisionedThroughputInMibps() {
@@ -207,17 +213,21 @@ public class UpdateFileSystemRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * (Optional) The amount of throughput, in MiB/s, that you want to provision for your file system. Valid values are
-     * 1-1024. Required if <code>ThroughputMode</code> is changed to <code>provisioned</code> on update. If you're not
-     * updating the amount of provisioned throughput for your file system, you don't need to provide this value in your
-     * request.
+     * (Optional) The throughput, measured in mebibytes per second (MiBps), that you want to provision for a file system
+     * that you're creating. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. Valid values
+     * are 1-3414 MiBps, with the upper limit depending on Region. To increase this limit, contact Amazon Web Services
+     * Support. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS quotas that you can
+     * increase</a> in the <i>Amazon EFS User Guide</i>.
      * </p>
      * 
      * @param provisionedThroughputInMibps
-     *        (Optional) The amount of throughput, in MiB/s, that you want to provision for your file system. Valid
-     *        values are 1-1024. Required if <code>ThroughputMode</code> is changed to <code>provisioned</code> on
-     *        update. If you're not updating the amount of provisioned throughput for your file system, you don't need
-     *        to provide this value in your request.
+     *        (Optional) The throughput, measured in mebibytes per second (MiBps), that you want to provision for a file
+     *        system that you're creating. Required if <code>ThroughputMode</code> is set to <code>provisioned</code>.
+     *        Valid values are 1-3414 MiBps, with the upper limit depending on Region. To increase this limit, contact
+     *        Amazon Web Services Support. For more information, see <a
+     *        href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS quotas that you can
+     *        increase</a> in the <i>Amazon EFS User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

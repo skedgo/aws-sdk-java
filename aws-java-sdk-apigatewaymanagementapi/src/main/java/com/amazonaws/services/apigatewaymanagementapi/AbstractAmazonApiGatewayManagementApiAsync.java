@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,6 +25,32 @@ import com.amazonaws.services.apigatewaymanagementapi.model.*;
 public class AbstractAmazonApiGatewayManagementApiAsync extends AbstractAmazonApiGatewayManagementApi implements AmazonApiGatewayManagementApiAsync {
 
     protected AbstractAmazonApiGatewayManagementApiAsync() {
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteConnectionResult> deleteConnectionAsync(DeleteConnectionRequest request) {
+
+        return deleteConnectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteConnectionResult> deleteConnectionAsync(DeleteConnectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteConnectionRequest, DeleteConnectionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetConnectionResult> getConnectionAsync(GetConnectionRequest request) {
+
+        return getConnectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetConnectionResult> getConnectionAsync(GetConnectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetConnectionRequest, GetConnectionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override

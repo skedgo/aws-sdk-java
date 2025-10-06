@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,8 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * Description of Caption output
+ * This object holds groups of settings related to captions for one output. For each output that has captions, include
+ * one instance of CaptionDescriptions.
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CaptionDescription" target="_top">AWS
  *      API Documentation</a>
@@ -33,15 +34,19 @@ public class CaptionDescription implements Serializable, Cloneable, StructuredPo
      */
     private String captionSelectorName;
     /**
-     * Indicates the language of the caption output track, using the ISO 639-2 or ISO 639-3 three-letter language code.
-     * For most captions output formats, the encoder puts this language information in the output captions metadata. If
-     * your output captions format is DVB-Sub or Burn in, the encoder uses this language information to choose the font
-     * language for rendering the captions text.
+     * Specify the language for this captions output track. For most captions output formats, the encoder puts this
+     * language information in the output captions metadata. If your output captions format is DVB-Sub or Burn in, the
+     * encoder uses this language information when automatically selecting the font script for rendering the captions
+     * text. For all outputs, you can use an ISO 639-2 or ISO 639-3 code. For streaming outputs, you can also use any
+     * other code in the full RFC-5646 specification. Streaming outputs are those that are in one of the following output
+     * groups: CMAF, DASH ISO, Apple HLS, or Microsoft Smooth Streaming.
      */
     private String customLanguageCode;
     /**
-     * Specific settings required by destination type. Note that burnin_destination_settings are not available if the
-     * source of the caption data is Embedded or Teletext.
+     * Settings related to one captions tab on the MediaConvert console. Usually, one captions tab corresponds to one
+     * output captions track. Depending on your output captions format, one tab might correspond to a set of output
+     * captions tracks. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/including-captions.html.
      */
     private CaptionDestinationSettings destinationSettings;
     /**
@@ -51,8 +56,9 @@ public class CaptionDescription implements Serializable, Cloneable, StructuredPo
      */
     private String languageCode;
     /**
-     * Human readable information to indicate captions available for players (eg. English, or Spanish). Alphanumeric
-     * characters, spaces, and underscore are legal.
+     * Specify a label for this set of output captions. For example, "English", "Director commentary", or "track_2". For
+     * streaming outputs, MediaConvert passes this information into destination manifests for display on the
+     * end-viewer's player device. For outputs in other output groups, the service ignores this setting.
      */
     private String languageDescription;
 
@@ -103,16 +109,20 @@ public class CaptionDescription implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * Indicates the language of the caption output track, using the ISO 639-2 or ISO 639-3 three-letter language code.
-     * For most captions output formats, the encoder puts this language information in the output captions metadata. If
-     * your output captions format is DVB-Sub or Burn in, the encoder uses this language information to choose the font
-     * language for rendering the captions text.
+     * Specify the language for this captions output track. For most captions output formats, the encoder puts this
+     * language information in the output captions metadata. If your output captions format is DVB-Sub or Burn in, the
+     * encoder uses this language information when automatically selecting the font script for rendering the captions
+     * text. For all outputs, you can use an ISO 639-2 or ISO 639-3 code. For streaming outputs, you can also use any
+     * other code in the full RFC-5646 specification. Streaming outputs are those that are in one of the following output
+     * groups: CMAF, DASH ISO, Apple HLS, or Microsoft Smooth Streaming.
      * 
      * @param customLanguageCode
-     *        Indicates the language of the caption output track, using the ISO 639-2 or ISO 639-3 three-letter language
-     *        code. For most captions output formats, the encoder puts this language information in the output captions
-     *        metadata. If your output captions format is DVB-Sub or Burn in, the encoder uses this language information
-     *        to choose the font language for rendering the captions text.
+     *        Specify the language for this captions output track. For most captions output formats, the encoder puts
+     *        this language information in the output captions metadata. If your output captions format is DVB-Sub or
+     *        Burn in, the encoder uses this language information when automatically selecting the font script for
+     *        rendering the captions text. For all outputs, you can use an ISO 639-2 or ISO 639-3 code. For streaming
+     *        outputs, you can also use any other code in the full RFC-5646 specification. Streaming outputs are those
+     *        that are in one of the following output groups: CMAF, DASH ISO, Apple HLS, or Microsoft Smooth Streaming.
      */
 
     public void setCustomLanguageCode(String customLanguageCode) {
@@ -120,15 +130,19 @@ public class CaptionDescription implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * Indicates the language of the caption output track, using the ISO 639-2 or ISO 639-3 three-letter language code.
-     * For most captions output formats, the encoder puts this language information in the output captions metadata. If
-     * your output captions format is DVB-Sub or Burn in, the encoder uses this language information to choose the font
-     * language for rendering the captions text.
+     * Specify the language for this captions output track. For most captions output formats, the encoder puts this
+     * language information in the output captions metadata. If your output captions format is DVB-Sub or Burn in, the
+     * encoder uses this language information when automatically selecting the font script for rendering the captions
+     * text. For all outputs, you can use an ISO 639-2 or ISO 639-3 code. For streaming outputs, you can also use any
+     * other code in the full RFC-5646 specification. Streaming outputs are those that are in one of the following output
+     * groups: CMAF, DASH ISO, Apple HLS, or Microsoft Smooth Streaming.
      * 
-     * @return Indicates the language of the caption output track, using the ISO 639-2 or ISO 639-3 three-letter
-     *         language code. For most captions output formats, the encoder puts this language information in the output
-     *         captions metadata. If your output captions format is DVB-Sub or Burn in, the encoder uses this language
-     *         information to choose the font language for rendering the captions text.
+     * @return Specify the language for this captions output track. For most captions output formats, the encoder puts
+     *         this language information in the output captions metadata. If your output captions format is DVB-Sub or
+     *         Burn in, the encoder uses this language information when automatically selecting the font script for
+     *         rendering the captions text. For all outputs, you can use an ISO 639-2 or ISO 639-3 code. For streaming
+     *         outputs, you can also use any other code in the full RFC-5646 specification. Streaming outputs are those
+     *         that are in one of the following output groups: CMAF, DASH ISO, Apple HLS, or Microsoft Smooth Streaming.
      */
 
     public String getCustomLanguageCode() {
@@ -136,16 +150,20 @@ public class CaptionDescription implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * Indicates the language of the caption output track, using the ISO 639-2 or ISO 639-3 three-letter language code.
-     * For most captions output formats, the encoder puts this language information in the output captions metadata. If
-     * your output captions format is DVB-Sub or Burn in, the encoder uses this language information to choose the font
-     * language for rendering the captions text.
+     * Specify the language for this captions output track. For most captions output formats, the encoder puts this
+     * language information in the output captions metadata. If your output captions format is DVB-Sub or Burn in, the
+     * encoder uses this language information when automatically selecting the font script for rendering the captions
+     * text. For all outputs, you can use an ISO 639-2 or ISO 639-3 code. For streaming outputs, you can also use any
+     * other code in the full RFC-5646 specification. Streaming outputs are those that are in one of the following output
+     * groups: CMAF, DASH ISO, Apple HLS, or Microsoft Smooth Streaming.
      * 
      * @param customLanguageCode
-     *        Indicates the language of the caption output track, using the ISO 639-2 or ISO 639-3 three-letter language
-     *        code. For most captions output formats, the encoder puts this language information in the output captions
-     *        metadata. If your output captions format is DVB-Sub or Burn in, the encoder uses this language information
-     *        to choose the font language for rendering the captions text.
+     *        Specify the language for this captions output track. For most captions output formats, the encoder puts
+     *        this language information in the output captions metadata. If your output captions format is DVB-Sub or
+     *        Burn in, the encoder uses this language information when automatically selecting the font script for
+     *        rendering the captions text. For all outputs, you can use an ISO 639-2 or ISO 639-3 code. For streaming
+     *        outputs, you can also use any other code in the full RFC-5646 specification. Streaming outputs are those
+     *        that are in one of the following output groups: CMAF, DASH ISO, Apple HLS, or Microsoft Smooth Streaming.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -155,12 +173,16 @@ public class CaptionDescription implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * Specific settings required by destination type. Note that burnin_destination_settings are not available if the
-     * source of the caption data is Embedded or Teletext.
+     * Settings related to one captions tab on the MediaConvert console. Usually, one captions tab corresponds to one
+     * output captions track. Depending on your output captions format, one tab might correspond to a set of output
+     * captions tracks. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/including-captions.html.
      * 
      * @param destinationSettings
-     *        Specific settings required by destination type. Note that burnin_destination_settings are not available if
-     *        the source of the caption data is Embedded or Teletext.
+     *        Settings related to one captions tab on the MediaConvert console. Usually, one captions tab corresponds to
+     *        one output captions track. Depending on your output captions format, one tab might correspond to a set of
+     *        output captions tracks. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/including-captions.html.
      */
 
     public void setDestinationSettings(CaptionDestinationSettings destinationSettings) {
@@ -168,11 +190,15 @@ public class CaptionDescription implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * Specific settings required by destination type. Note that burnin_destination_settings are not available if the
-     * source of the caption data is Embedded or Teletext.
+     * Settings related to one captions tab on the MediaConvert console. Usually, one captions tab corresponds to one
+     * output captions track. Depending on your output captions format, one tab might correspond to a set of output
+     * captions tracks. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/including-captions.html.
      * 
-     * @return Specific settings required by destination type. Note that burnin_destination_settings are not available
-     *         if the source of the caption data is Embedded or Teletext.
+     * @return Settings related to one captions tab on the MediaConvert console. Usually, one captions tab corresponds
+     *         to one output captions track. Depending on your output captions format, one tab might correspond to a set
+     *         of output captions tracks. For more information, see
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/including-captions.html.
      */
 
     public CaptionDestinationSettings getDestinationSettings() {
@@ -180,12 +206,16 @@ public class CaptionDescription implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * Specific settings required by destination type. Note that burnin_destination_settings are not available if the
-     * source of the caption data is Embedded or Teletext.
+     * Settings related to one captions tab on the MediaConvert console. Usually, one captions tab corresponds to one
+     * output captions track. Depending on your output captions format, one tab might correspond to a set of output
+     * captions tracks. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/including-captions.html.
      * 
      * @param destinationSettings
-     *        Specific settings required by destination type. Note that burnin_destination_settings are not available if
-     *        the source of the caption data is Embedded or Teletext.
+     *        Settings related to one captions tab on the MediaConvert console. Usually, one captions tab corresponds to
+     *        one output captions track. Depending on your output captions format, one tab might correspond to a set of
+     *        output captions tracks. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/including-captions.html.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -266,12 +296,15 @@ public class CaptionDescription implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * Human readable information to indicate captions available for players (eg. English, or Spanish). Alphanumeric
-     * characters, spaces, and underscore are legal.
+     * Specify a label for this set of output captions. For example, "English", "Director commentary", or "track_2". For
+     * streaming outputs, MediaConvert passes this information into destination manifests for display on the
+     * end-viewer's player device. For outputs in other output groups, the service ignores this setting.
      * 
      * @param languageDescription
-     *        Human readable information to indicate captions available for players (eg. English, or Spanish).
-     *        Alphanumeric characters, spaces, and underscore are legal.
+     *        Specify a label for this set of output captions. For example, "English", "Director commentary", or
+     *        "track_2". For streaming outputs, MediaConvert passes this information into destination manifests for
+     *        display on the end-viewer's player device. For outputs in other output groups, the service ignores this
+     *        setting.
      */
 
     public void setLanguageDescription(String languageDescription) {
@@ -279,11 +312,14 @@ public class CaptionDescription implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * Human readable information to indicate captions available for players (eg. English, or Spanish). Alphanumeric
-     * characters, spaces, and underscore are legal.
+     * Specify a label for this set of output captions. For example, "English", "Director commentary", or "track_2". For
+     * streaming outputs, MediaConvert passes this information into destination manifests for display on the
+     * end-viewer's player device. For outputs in other output groups, the service ignores this setting.
      * 
-     * @return Human readable information to indicate captions available for players (eg. English, or Spanish).
-     *         Alphanumeric characters, spaces, and underscore are legal.
+     * @return Specify a label for this set of output captions. For example, "English", "Director commentary", or
+     *         "track_2". For streaming outputs, MediaConvert passes this information into destination manifests for
+     *         display on the end-viewer's player device. For outputs in other output groups, the service ignores this
+     *         setting.
      */
 
     public String getLanguageDescription() {
@@ -291,12 +327,15 @@ public class CaptionDescription implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * Human readable information to indicate captions available for players (eg. English, or Spanish). Alphanumeric
-     * characters, spaces, and underscore are legal.
+     * Specify a label for this set of output captions. For example, "English", "Director commentary", or "track_2". For
+     * streaming outputs, MediaConvert passes this information into destination manifests for display on the
+     * end-viewer's player device. For outputs in other output groups, the service ignores this setting.
      * 
      * @param languageDescription
-     *        Human readable information to indicate captions available for players (eg. English, or Spanish).
-     *        Alphanumeric characters, spaces, and underscore are legal.
+     *        Specify a label for this set of output captions. For example, "English", "Director commentary", or
+     *        "track_2". For streaming outputs, MediaConvert passes this information into destination manifests for
+     *        display on the end-viewer's player device. For outputs in other output groups, the service ignores this
+     *        setting.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

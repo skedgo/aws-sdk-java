@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,29 +12,31 @@
  */
 
 /**
- * <fullname>AAWS Sever Migration Service</fullname>
+ * <important>
  * <p>
- * This is the <i>AWS Sever Migration Service API Reference</i>. It provides descriptions, syntax, and usage examples
- * for each of the actions and data types for the AWS Sever Migration Service (AWS SMS). The topic for each action shows
- * the Query API request parameters and the XML response. You can also view the XML request elements in the WSDL.
+ * <b>Product update</b>
  * </p>
  * <p>
- * Alternatively, you can use one of the AWS SDKs to access an API that's tailored to the programming language or
- * platform that you're using. For more information, see <a href="http://aws.amazon.com/tools/#SDKs">AWS SDKs</a>.
+ * We recommend <a href="http://aws.amazon.com/application-migration-service">Amazon Web Services Application Migration
+ * Service</a> (Amazon Web Services MGN) as the primary migration service for lift-and-shift migrations. If Amazon Web
+ * Services MGN is unavailable in a specific Amazon Web Services Region, you can use the Server Migration Service APIs
+ * through March 2023.
  * </p>
+ * </important>
  * <p>
- * To learn more about the Server Migration Service, see the following resources:
+ * Server Migration Service (Server Migration Service) makes it easier and faster for you to migrate your on-premises
+ * workloads to Amazon Web Services. To learn more about Server Migration Service, see the following resources:
  * </p>
  * <ul>
  * <li>
  * <p>
- * <a href="https://aws.amazon.com/server-migration-service/">AWS Sever Migration Service product page</a>
+ * <a href="http://aws.amazon.com/server-migration-service/">Server Migration Service product page</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="https://docs.aws.amazon.com/server-migration-service/latest/userguide/server-migration.html">AWS Sever
- * Migration Service User Guide</a>
+ * <a href="https://docs.aws.amazon.com/server-migration-service/latest/userguide/">Server Migration Service User
+ * Guide</a>
  * </p>
  * </li>
  * </ul>

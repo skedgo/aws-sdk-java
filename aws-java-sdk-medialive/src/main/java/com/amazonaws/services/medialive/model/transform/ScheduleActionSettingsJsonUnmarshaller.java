@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,18 +48,41 @@ public class ScheduleActionSettingsJsonUnmarshaller implements Unmarshaller<Sche
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("hlsId3SegmentTaggingSettings", targetDepth)) {
+                    context.nextToken();
+                    scheduleActionSettings.setHlsId3SegmentTaggingSettings(HlsId3SegmentTaggingScheduleActionSettingsJsonUnmarshaller.getInstance().unmarshall(
+                            context));
+                }
                 if (context.testExpression("hlsTimedMetadataSettings", targetDepth)) {
                     context.nextToken();
                     scheduleActionSettings
                             .setHlsTimedMetadataSettings(HlsTimedMetadataScheduleActionSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("inputPrepareSettings", targetDepth)) {
+                    context.nextToken();
+                    scheduleActionSettings.setInputPrepareSettings(InputPrepareScheduleActionSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("inputSwitchSettings", targetDepth)) {
                     context.nextToken();
                     scheduleActionSettings.setInputSwitchSettings(InputSwitchScheduleActionSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("motionGraphicsImageActivateSettings", targetDepth)) {
+                    context.nextToken();
+                    scheduleActionSettings.setMotionGraphicsImageActivateSettings(MotionGraphicsActivateScheduleActionSettingsJsonUnmarshaller.getInstance()
+                            .unmarshall(context));
+                }
+                if (context.testExpression("motionGraphicsImageDeactivateSettings", targetDepth)) {
+                    context.nextToken();
+                    scheduleActionSettings.setMotionGraphicsImageDeactivateSettings(MotionGraphicsDeactivateScheduleActionSettingsJsonUnmarshaller
+                            .getInstance().unmarshall(context));
+                }
                 if (context.testExpression("pauseStateSettings", targetDepth)) {
                     context.nextToken();
                     scheduleActionSettings.setPauseStateSettings(PauseStateScheduleActionSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("scte35InputSettings", targetDepth)) {
+                    context.nextToken();
+                    scheduleActionSettings.setScte35InputSettings(Scte35InputScheduleActionSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("scte35ReturnToNetworkSettings", targetDepth)) {
                     context.nextToken();
@@ -85,6 +108,16 @@ public class ScheduleActionSettingsJsonUnmarshaller implements Unmarshaller<Sche
                     context.nextToken();
                     scheduleActionSettings.setStaticImageDeactivateSettings(StaticImageDeactivateScheduleActionSettingsJsonUnmarshaller.getInstance()
                             .unmarshall(context));
+                }
+                if (context.testExpression("staticImageOutputActivateSettings", targetDepth)) {
+                    context.nextToken();
+                    scheduleActionSettings.setStaticImageOutputActivateSettings(StaticImageOutputActivateScheduleActionSettingsJsonUnmarshaller.getInstance()
+                            .unmarshall(context));
+                }
+                if (context.testExpression("staticImageOutputDeactivateSettings", targetDepth)) {
+                    context.nextToken();
+                    scheduleActionSettings.setStaticImageOutputDeactivateSettings(StaticImageOutputDeactivateScheduleActionSettingsJsonUnmarshaller
+                            .getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,9 +30,10 @@ public class Contributor implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the contributor. This is dependent on the <code>AttackPropertyIdentifier</code>. For example, if the
-     * <code>AttackPropertyIdentifier</code> is <code>SOURCE_COUNTRY</code>, the <code>Name</code> could be
-     * <code>United States</code>.
+     * The name of the contributor. The type of name that you'll find here depends on the
+     * <code>AttackPropertyIdentifier</code> setting in the <code>AttackProperty</code> where this contributor is
+     * defined. For example, if the <code>AttackPropertyIdentifier</code> is <code>SOURCE_COUNTRY</code>, the
+     * <code>Name</code> could be <code>United States</code>.
      * </p>
      */
     private String name;
@@ -45,15 +46,17 @@ public class Contributor implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the contributor. This is dependent on the <code>AttackPropertyIdentifier</code>. For example, if the
-     * <code>AttackPropertyIdentifier</code> is <code>SOURCE_COUNTRY</code>, the <code>Name</code> could be
-     * <code>United States</code>.
+     * The name of the contributor. The type of name that you'll find here depends on the
+     * <code>AttackPropertyIdentifier</code> setting in the <code>AttackProperty</code> where this contributor is
+     * defined. For example, if the <code>AttackPropertyIdentifier</code> is <code>SOURCE_COUNTRY</code>, the
+     * <code>Name</code> could be <code>United States</code>.
      * </p>
      * 
      * @param name
-     *        The name of the contributor. This is dependent on the <code>AttackPropertyIdentifier</code>. For example,
-     *        if the <code>AttackPropertyIdentifier</code> is <code>SOURCE_COUNTRY</code>, the <code>Name</code> could
-     *        be <code>United States</code>.
+     *        The name of the contributor. The type of name that you'll find here depends on the
+     *        <code>AttackPropertyIdentifier</code> setting in the <code>AttackProperty</code> where this contributor is
+     *        defined. For example, if the <code>AttackPropertyIdentifier</code> is <code>SOURCE_COUNTRY</code>, the
+     *        <code>Name</code> could be <code>United States</code>.
      */
 
     public void setName(String name) {
@@ -62,14 +65,16 @@ public class Contributor implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the contributor. This is dependent on the <code>AttackPropertyIdentifier</code>. For example, if the
-     * <code>AttackPropertyIdentifier</code> is <code>SOURCE_COUNTRY</code>, the <code>Name</code> could be
-     * <code>United States</code>.
+     * The name of the contributor. The type of name that you'll find here depends on the
+     * <code>AttackPropertyIdentifier</code> setting in the <code>AttackProperty</code> where this contributor is
+     * defined. For example, if the <code>AttackPropertyIdentifier</code> is <code>SOURCE_COUNTRY</code>, the
+     * <code>Name</code> could be <code>United States</code>.
      * </p>
      * 
-     * @return The name of the contributor. This is dependent on the <code>AttackPropertyIdentifier</code>. For example,
-     *         if the <code>AttackPropertyIdentifier</code> is <code>SOURCE_COUNTRY</code>, the <code>Name</code> could
-     *         be <code>United States</code>.
+     * @return The name of the contributor. The type of name that you'll find here depends on the
+     *         <code>AttackPropertyIdentifier</code> setting in the <code>AttackProperty</code> where this contributor
+     *         is defined. For example, if the <code>AttackPropertyIdentifier</code> is <code>SOURCE_COUNTRY</code>, the
+     *         <code>Name</code> could be <code>United States</code>.
      */
 
     public String getName() {
@@ -78,15 +83,17 @@ public class Contributor implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the contributor. This is dependent on the <code>AttackPropertyIdentifier</code>. For example, if the
-     * <code>AttackPropertyIdentifier</code> is <code>SOURCE_COUNTRY</code>, the <code>Name</code> could be
-     * <code>United States</code>.
+     * The name of the contributor. The type of name that you'll find here depends on the
+     * <code>AttackPropertyIdentifier</code> setting in the <code>AttackProperty</code> where this contributor is
+     * defined. For example, if the <code>AttackPropertyIdentifier</code> is <code>SOURCE_COUNTRY</code>, the
+     * <code>Name</code> could be <code>United States</code>.
      * </p>
      * 
      * @param name
-     *        The name of the contributor. This is dependent on the <code>AttackPropertyIdentifier</code>. For example,
-     *        if the <code>AttackPropertyIdentifier</code> is <code>SOURCE_COUNTRY</code>, the <code>Name</code> could
-     *        be <code>United States</code>.
+     *        The name of the contributor. The type of name that you'll find here depends on the
+     *        <code>AttackPropertyIdentifier</code> setting in the <code>AttackProperty</code> where this contributor is
+     *        defined. For example, if the <code>AttackPropertyIdentifier</code> is <code>SOURCE_COUNTRY</code>, the
+     *        <code>Name</code> could be <code>United States</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

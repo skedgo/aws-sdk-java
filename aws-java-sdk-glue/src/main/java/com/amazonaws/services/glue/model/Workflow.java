@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A workflow represents a flow in which AWS Glue components should be executed to complete a logical task.
+ * A workflow is a collection of multiple dependent Glue jobs and crawlers that are run to complete a complex ETL task.
+ * A workflow manages the execution and monitoring of all its jobs and crawlers.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/Workflow" target="_top">AWS API
@@ -30,7 +31,7 @@ public class Workflow implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the workflow representing the flow.
+     * The name of the workflow.
      * </p>
      */
     private String name;
@@ -42,7 +43,8 @@ public class Workflow implements Serializable, Cloneable, StructuredPojo {
     private String description;
     /**
      * <p>
-     * A collection of properties to be used as part of each execution of the workflow.
+     * A collection of properties to be used as part of each execution of the workflow. The run properties are made
+     * available to each job in the workflow. A job can modify the properties for the next jobs in the flow.
      * </p>
      */
     private java.util.Map<String, String> defaultRunProperties;
@@ -66,19 +68,33 @@ public class Workflow implements Serializable, Cloneable, StructuredPojo {
     private WorkflowRun lastRun;
     /**
      * <p>
-     * The graph representing all the AWS Glue components that belong to the workflow as nodes and directed connections
+     * The graph representing all the Glue components that belong to the workflow as nodes and directed connections
      * between them as edges.
      * </p>
      */
     private WorkflowGraph graph;
+    /**
+     * <p>
+     * You can use this parameter to prevent unwanted multiple updates to data, to control costs, or in some cases, to
+     * prevent exceeding the maximum number of concurrent runs of any of the component jobs. If you leave this parameter
+     * blank, there is no limit to the number of concurrent workflow runs.
+     * </p>
+     */
+    private Integer maxConcurrentRuns;
+    /**
+     * <p>
+     * This structure indicates the details of the blueprint that this particular workflow is created from.
+     * </p>
+     */
+    private BlueprintDetails blueprintDetails;
 
     /**
      * <p>
-     * The name of the workflow representing the flow.
+     * The name of the workflow.
      * </p>
      * 
      * @param name
-     *        The name of the workflow representing the flow.
+     *        The name of the workflow.
      */
 
     public void setName(String name) {
@@ -87,10 +103,10 @@ public class Workflow implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the workflow representing the flow.
+     * The name of the workflow.
      * </p>
      * 
-     * @return The name of the workflow representing the flow.
+     * @return The name of the workflow.
      */
 
     public String getName() {
@@ -99,11 +115,11 @@ public class Workflow implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the workflow representing the flow.
+     * The name of the workflow.
      * </p>
      * 
      * @param name
-     *        The name of the workflow representing the flow.
+     *        The name of the workflow.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -154,10 +170,13 @@ public class Workflow implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A collection of properties to be used as part of each execution of the workflow.
+     * A collection of properties to be used as part of each execution of the workflow. The run properties are made
+     * available to each job in the workflow. A job can modify the properties for the next jobs in the flow.
      * </p>
      * 
-     * @return A collection of properties to be used as part of each execution of the workflow.
+     * @return A collection of properties to be used as part of each execution of the workflow. The run properties are
+     *         made available to each job in the workflow. A job can modify the properties for the next jobs in the
+     *         flow.
      */
 
     public java.util.Map<String, String> getDefaultRunProperties() {
@@ -166,11 +185,13 @@ public class Workflow implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A collection of properties to be used as part of each execution of the workflow.
+     * A collection of properties to be used as part of each execution of the workflow. The run properties are made
+     * available to each job in the workflow. A job can modify the properties for the next jobs in the flow.
      * </p>
      * 
      * @param defaultRunProperties
-     *        A collection of properties to be used as part of each execution of the workflow.
+     *        A collection of properties to be used as part of each execution of the workflow. The run properties are
+     *        made available to each job in the workflow. A job can modify the properties for the next jobs in the flow.
      */
 
     public void setDefaultRunProperties(java.util.Map<String, String> defaultRunProperties) {
@@ -179,11 +200,13 @@ public class Workflow implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A collection of properties to be used as part of each execution of the workflow.
+     * A collection of properties to be used as part of each execution of the workflow. The run properties are made
+     * available to each job in the workflow. A job can modify the properties for the next jobs in the flow.
      * </p>
      * 
      * @param defaultRunProperties
-     *        A collection of properties to be used as part of each execution of the workflow.
+     *        A collection of properties to be used as part of each execution of the workflow. The run properties are
+     *        made available to each job in the workflow. A job can modify the properties for the next jobs in the flow.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -191,6 +214,13 @@ public class Workflow implements Serializable, Cloneable, StructuredPojo {
         setDefaultRunProperties(defaultRunProperties);
         return this;
     }
+
+    /**
+     * Add a single DefaultRunProperties entry
+     *
+     * @see Workflow#withDefaultRunProperties
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public Workflow addDefaultRunPropertiesEntry(String key, String value) {
         if (null == this.defaultRunProperties) {
@@ -335,12 +365,12 @@ public class Workflow implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The graph representing all the AWS Glue components that belong to the workflow as nodes and directed connections
+     * The graph representing all the Glue components that belong to the workflow as nodes and directed connections
      * between them as edges.
      * </p>
      * 
      * @param graph
-     *        The graph representing all the AWS Glue components that belong to the workflow as nodes and directed
+     *        The graph representing all the Glue components that belong to the workflow as nodes and directed
      *        connections between them as edges.
      */
 
@@ -350,11 +380,11 @@ public class Workflow implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The graph representing all the AWS Glue components that belong to the workflow as nodes and directed connections
+     * The graph representing all the Glue components that belong to the workflow as nodes and directed connections
      * between them as edges.
      * </p>
      * 
-     * @return The graph representing all the AWS Glue components that belong to the workflow as nodes and directed
+     * @return The graph representing all the Glue components that belong to the workflow as nodes and directed
      *         connections between them as edges.
      */
 
@@ -364,18 +394,110 @@ public class Workflow implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The graph representing all the AWS Glue components that belong to the workflow as nodes and directed connections
+     * The graph representing all the Glue components that belong to the workflow as nodes and directed connections
      * between them as edges.
      * </p>
      * 
      * @param graph
-     *        The graph representing all the AWS Glue components that belong to the workflow as nodes and directed
+     *        The graph representing all the Glue components that belong to the workflow as nodes and directed
      *        connections between them as edges.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Workflow withGraph(WorkflowGraph graph) {
         setGraph(graph);
+        return this;
+    }
+
+    /**
+     * <p>
+     * You can use this parameter to prevent unwanted multiple updates to data, to control costs, or in some cases, to
+     * prevent exceeding the maximum number of concurrent runs of any of the component jobs. If you leave this parameter
+     * blank, there is no limit to the number of concurrent workflow runs.
+     * </p>
+     * 
+     * @param maxConcurrentRuns
+     *        You can use this parameter to prevent unwanted multiple updates to data, to control costs, or in some
+     *        cases, to prevent exceeding the maximum number of concurrent runs of any of the component jobs. If you
+     *        leave this parameter blank, there is no limit to the number of concurrent workflow runs.
+     */
+
+    public void setMaxConcurrentRuns(Integer maxConcurrentRuns) {
+        this.maxConcurrentRuns = maxConcurrentRuns;
+    }
+
+    /**
+     * <p>
+     * You can use this parameter to prevent unwanted multiple updates to data, to control costs, or in some cases, to
+     * prevent exceeding the maximum number of concurrent runs of any of the component jobs. If you leave this parameter
+     * blank, there is no limit to the number of concurrent workflow runs.
+     * </p>
+     * 
+     * @return You can use this parameter to prevent unwanted multiple updates to data, to control costs, or in some
+     *         cases, to prevent exceeding the maximum number of concurrent runs of any of the component jobs. If you
+     *         leave this parameter blank, there is no limit to the number of concurrent workflow runs.
+     */
+
+    public Integer getMaxConcurrentRuns() {
+        return this.maxConcurrentRuns;
+    }
+
+    /**
+     * <p>
+     * You can use this parameter to prevent unwanted multiple updates to data, to control costs, or in some cases, to
+     * prevent exceeding the maximum number of concurrent runs of any of the component jobs. If you leave this parameter
+     * blank, there is no limit to the number of concurrent workflow runs.
+     * </p>
+     * 
+     * @param maxConcurrentRuns
+     *        You can use this parameter to prevent unwanted multiple updates to data, to control costs, or in some
+     *        cases, to prevent exceeding the maximum number of concurrent runs of any of the component jobs. If you
+     *        leave this parameter blank, there is no limit to the number of concurrent workflow runs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Workflow withMaxConcurrentRuns(Integer maxConcurrentRuns) {
+        setMaxConcurrentRuns(maxConcurrentRuns);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This structure indicates the details of the blueprint that this particular workflow is created from.
+     * </p>
+     * 
+     * @param blueprintDetails
+     *        This structure indicates the details of the blueprint that this particular workflow is created from.
+     */
+
+    public void setBlueprintDetails(BlueprintDetails blueprintDetails) {
+        this.blueprintDetails = blueprintDetails;
+    }
+
+    /**
+     * <p>
+     * This structure indicates the details of the blueprint that this particular workflow is created from.
+     * </p>
+     * 
+     * @return This structure indicates the details of the blueprint that this particular workflow is created from.
+     */
+
+    public BlueprintDetails getBlueprintDetails() {
+        return this.blueprintDetails;
+    }
+
+    /**
+     * <p>
+     * This structure indicates the details of the blueprint that this particular workflow is created from.
+     * </p>
+     * 
+     * @param blueprintDetails
+     *        This structure indicates the details of the blueprint that this particular workflow is created from.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Workflow withBlueprintDetails(BlueprintDetails blueprintDetails) {
+        setBlueprintDetails(blueprintDetails);
         return this;
     }
 
@@ -404,7 +526,11 @@ public class Workflow implements Serializable, Cloneable, StructuredPojo {
         if (getLastRun() != null)
             sb.append("LastRun: ").append(getLastRun()).append(",");
         if (getGraph() != null)
-            sb.append("Graph: ").append(getGraph());
+            sb.append("Graph: ").append(getGraph()).append(",");
+        if (getMaxConcurrentRuns() != null)
+            sb.append("MaxConcurrentRuns: ").append(getMaxConcurrentRuns()).append(",");
+        if (getBlueprintDetails() != null)
+            sb.append("BlueprintDetails: ").append(getBlueprintDetails());
         sb.append("}");
         return sb.toString();
     }
@@ -447,6 +573,14 @@ public class Workflow implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getGraph() != null && other.getGraph().equals(this.getGraph()) == false)
             return false;
+        if (other.getMaxConcurrentRuns() == null ^ this.getMaxConcurrentRuns() == null)
+            return false;
+        if (other.getMaxConcurrentRuns() != null && other.getMaxConcurrentRuns().equals(this.getMaxConcurrentRuns()) == false)
+            return false;
+        if (other.getBlueprintDetails() == null ^ this.getBlueprintDetails() == null)
+            return false;
+        if (other.getBlueprintDetails() != null && other.getBlueprintDetails().equals(this.getBlueprintDetails()) == false)
+            return false;
         return true;
     }
 
@@ -462,6 +596,8 @@ public class Workflow implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getLastModifiedOn() == null) ? 0 : getLastModifiedOn().hashCode());
         hashCode = prime * hashCode + ((getLastRun() == null) ? 0 : getLastRun().hashCode());
         hashCode = prime * hashCode + ((getGraph() == null) ? 0 : getGraph().hashCode());
+        hashCode = prime * hashCode + ((getMaxConcurrentRuns() == null) ? 0 : getMaxConcurrentRuns().hashCode());
+        hashCode = prime * hashCode + ((getBlueprintDetails() == null) ? 0 : getBlueprintDetails().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,8 +32,8 @@ public class GetAggregateComplianceDetailsByConfigRuleResult extends com.amazona
     private com.amazonaws.internal.SdkInternalList<AggregateEvaluationResult> aggregateEvaluationResults;
     /**
      * <p>
-     * The nextToken string returned on a previous page that you use to get the next page of results in a paginated
-     * response.
+     * The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a
+     * paginated response.
      * </p>
      */
     private String nextToken;
@@ -114,13 +114,13 @@ public class GetAggregateComplianceDetailsByConfigRuleResult extends com.amazona
 
     /**
      * <p>
-     * The nextToken string returned on a previous page that you use to get the next page of results in a paginated
-     * response.
+     * The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a
+     * paginated response.
      * </p>
      * 
      * @param nextToken
-     *        The nextToken string returned on a previous page that you use to get the next page of results in a
-     *        paginated response.
+     *        The <code>nextToken</code> string returned on a previous page that you use to get the next page of results
+     *        in a paginated response.
      */
 
     public void setNextToken(String nextToken) {
@@ -129,12 +129,12 @@ public class GetAggregateComplianceDetailsByConfigRuleResult extends com.amazona
 
     /**
      * <p>
-     * The nextToken string returned on a previous page that you use to get the next page of results in a paginated
-     * response.
+     * The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a
+     * paginated response.
      * </p>
      * 
-     * @return The nextToken string returned on a previous page that you use to get the next page of results in a
-     *         paginated response.
+     * @return The <code>nextToken</code> string returned on a previous page that you use to get the next page of
+     *         results in a paginated response.
      */
 
     public String getNextToken() {
@@ -143,13 +143,13 @@ public class GetAggregateComplianceDetailsByConfigRuleResult extends com.amazona
 
     /**
      * <p>
-     * The nextToken string returned on a previous page that you use to get the next page of results in a paginated
-     * response.
+     * The <code>nextToken</code> string returned on a previous page that you use to get the next page of results in a
+     * paginated response.
      * </p>
      * 
      * @param nextToken
-     *        The nextToken string returned on a previous page that you use to get the next page of results in a
-     *        paginated response.
+     *        The <code>nextToken</code> string returned on a previous page that you use to get the next page of results
+     *        in a paginated response.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

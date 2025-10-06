@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A regional grouping of one or more container instances on which you can run task requests. Each account receives a
+ * A regional grouping of one or more container instances where you can run task requests. Each account receives a
  * default cluster the first time you use the Amazon ECS service, but you may also create other clusters. Clusters may
  * contain more than one instance type simultaneously.
  * </p>
@@ -31,10 +31,10 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that identifies the cluster. The ARN contains the <code>arn:aws:ecs</code>
-     * namespace, followed by the Region of the cluster, the AWS account ID of the cluster owner, the
-     * <code>cluster</code> namespace, and then the cluster name. For example,
-     * <code>arn:aws:ecs:region:012345678910:cluster/test</code>.
+     * The Amazon Resource Name (ARN) that identifies the cluster. For more information about the ARN format, see <a
+     * href
+     * ="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids">Amazon
+     * Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      * </p>
      */
     private String clusterArn;
@@ -46,10 +46,51 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
     private String clusterName;
     /**
      * <p>
-     * The status of the cluster. The valid values are <code>ACTIVE</code> or <code>INACTIVE</code>. <code>ACTIVE</code>
-     * indicates that you can register container instances with the cluster and the associated instances can accept
-     * tasks.
+     * The execute command configuration for the cluster.
      * </p>
+     */
+    private ClusterConfiguration configuration;
+    /**
+     * <p>
+     * The status of the cluster. The following are the possible states that are returned.
+     * </p>
+     * <dl>
+     * <dt>ACTIVE</dt>
+     * <dd>
+     * <p>
+     * The cluster is ready to accept tasks and if applicable you can register container instances with the cluster.
+     * </p>
+     * </dd>
+     * <dt>PROVISIONING</dt>
+     * <dd>
+     * <p>
+     * The cluster has capacity providers that are associated with it and the resources needed for the capacity provider
+     * are being created.
+     * </p>
+     * </dd>
+     * <dt>DEPROVISIONING</dt>
+     * <dd>
+     * <p>
+     * The cluster has capacity providers that are associated with it and the resources needed for the capacity provider
+     * are being deleted.
+     * </p>
+     * </dd>
+     * <dt>FAILED</dt>
+     * <dd>
+     * <p>
+     * The cluster has capacity providers that are associated with it and the resources needed for the capacity provider
+     * have failed to create.
+     * </p>
+     * </dd>
+     * <dt>INACTIVE</dt>
+     * <dd>
+     * <p>
+     * The cluster has been deleted. Clusters with an <code>INACTIVE</code> status may remain discoverable in your
+     * account for a period of time. However, this behavior is subject to change in the future. We don't recommend that
+     * you rely on <code>INACTIVE</code> clusters persisting.
+     * </p>
+     * </dd>
+     * </dl>
      */
     private String status;
     /**
@@ -80,7 +121,7 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
     private Integer activeServicesCount;
     /**
      * <p>
-     * Additional information about your clusters that are separated by launch type, including:
+     * Additional information about your clusters that are separated by launch type. They include the following:
      * </p>
      * <ul>
      * <li>
@@ -129,32 +170,139 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of a key
-     * and an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters,
-     * and tag values can have a maximum length of 256 characters.
+     * and an optional value. You define both.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
     /**
      * <p>
-     * The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is enabled or
-     * disabled for a cluster.
+     * The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is on or off for a
+     * cluster.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<ClusterSetting> settings;
+    /**
+     * <p>
+     * The capacity providers associated with the cluster.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> capacityProviders;
+    /**
+     * <p>
+     * The default capacity provider strategy for the cluster. When services or tasks are run in the cluster with no
+     * launch type or capacity provider strategy specified, the default capacity provider strategy is used.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<CapacityProviderStrategyItem> defaultCapacityProviderStrategy;
+    /**
+     * <p>
+     * The resources attached to a cluster. When using a capacity provider with a cluster, the capacity provider and
+     * associated resources are returned as cluster attachments.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Attachment> attachments;
+    /**
+     * <p>
+     * The status of the capacity providers associated with the cluster. The following are the states that are returned.
+     * </p>
+     * <dl>
+     * <dt>UPDATE_IN_PROGRESS</dt>
+     * <dd>
+     * <p>
+     * The available capacity providers for the cluster are updating.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_COMPLETE</dt>
+     * <dd>
+     * <p>
+     * The capacity providers have successfully updated.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_FAILED</dt>
+     * <dd>
+     * <p>
+     * The capacity provider updates failed.
+     * </p>
+     * </dd>
+     * </dl>
+     */
+    private String attachmentsStatus;
+    /**
+     * <p>
+     * Use this parameter to set a default Service Connect namespace. After you set a default Service Connect namespace,
+     * any new services with Service Connect turned on that are created in the cluster are added as client services in
+     * the namespace. This setting only applies to new services that set the <code>enabled</code> parameter to
+     * <code>true</code> in the <code>ServiceConnectConfiguration</code>. You can set the namespace of each service
+     * individually in the <code>ServiceConnectConfiguration</code> to override this default parameter.
+     * </p>
+     * <p>
+     * Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to
+     * services across all of the clusters in the namespace. Tasks connect through a managed proxy container that
+     * collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported
+     * with Service Connect. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in
+     * the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     */
+    private ClusterServiceConnectDefaults serviceConnectDefaults;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that identifies the cluster. The ARN contains the <code>arn:aws:ecs</code>
-     * namespace, followed by the Region of the cluster, the AWS account ID of the cluster owner, the
-     * <code>cluster</code> namespace, and then the cluster name. For example,
-     * <code>arn:aws:ecs:region:012345678910:cluster/test</code>.
+     * The Amazon Resource Name (ARN) that identifies the cluster. For more information about the ARN format, see <a
+     * href
+     * ="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids">Amazon
+     * Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      * </p>
      * 
      * @param clusterArn
-     *        The Amazon Resource Name (ARN) that identifies the cluster. The ARN contains the <code>arn:aws:ecs</code>
-     *        namespace, followed by the Region of the cluster, the AWS account ID of the cluster owner, the
-     *        <code>cluster</code> namespace, and then the cluster name. For example,
-     *        <code>arn:aws:ecs:region:012345678910:cluster/test</code>.
+     *        The Amazon Resource Name (ARN) that identifies the cluster. For more information about the ARN format, see
+     *        <a href=
+     *        "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids"
+     *        >Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      */
 
     public void setClusterArn(String clusterArn) {
@@ -163,16 +311,16 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that identifies the cluster. The ARN contains the <code>arn:aws:ecs</code>
-     * namespace, followed by the Region of the cluster, the AWS account ID of the cluster owner, the
-     * <code>cluster</code> namespace, and then the cluster name. For example,
-     * <code>arn:aws:ecs:region:012345678910:cluster/test</code>.
+     * The Amazon Resource Name (ARN) that identifies the cluster. For more information about the ARN format, see <a
+     * href
+     * ="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids">Amazon
+     * Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) that identifies the cluster. The ARN contains the <code>arn:aws:ecs</code>
-     *         namespace, followed by the Region of the cluster, the AWS account ID of the cluster owner, the
-     *         <code>cluster</code> namespace, and then the cluster name. For example,
-     *         <code>arn:aws:ecs:region:012345678910:cluster/test</code>.
+     * @return The Amazon Resource Name (ARN) that identifies the cluster. For more information about the ARN format,
+     *         see <a href=
+     *         "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids"
+     *         >Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      */
 
     public String getClusterArn() {
@@ -181,17 +329,17 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that identifies the cluster. The ARN contains the <code>arn:aws:ecs</code>
-     * namespace, followed by the Region of the cluster, the AWS account ID of the cluster owner, the
-     * <code>cluster</code> namespace, and then the cluster name. For example,
-     * <code>arn:aws:ecs:region:012345678910:cluster/test</code>.
+     * The Amazon Resource Name (ARN) that identifies the cluster. For more information about the ARN format, see <a
+     * href
+     * ="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids">Amazon
+     * Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      * </p>
      * 
      * @param clusterArn
-     *        The Amazon Resource Name (ARN) that identifies the cluster. The ARN contains the <code>arn:aws:ecs</code>
-     *        namespace, followed by the Region of the cluster, the AWS account ID of the cluster owner, the
-     *        <code>cluster</code> namespace, and then the cluster name. For example,
-     *        <code>arn:aws:ecs:region:012345678910:cluster/test</code>.
+     *        The Amazon Resource Name (ARN) that identifies the cluster. For more information about the ARN format, see
+     *        <a href=
+     *        "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids"
+     *        >Amazon Resource Name (ARN)</a> in the <i>Amazon ECS Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -242,15 +390,125 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the cluster. The valid values are <code>ACTIVE</code> or <code>INACTIVE</code>. <code>ACTIVE</code>
-     * indicates that you can register container instances with the cluster and the associated instances can accept
-     * tasks.
+     * The execute command configuration for the cluster.
      * </p>
      * 
+     * @param configuration
+     *        The execute command configuration for the cluster.
+     */
+
+    public void setConfiguration(ClusterConfiguration configuration) {
+        this.configuration = configuration;
+    }
+
+    /**
+     * <p>
+     * The execute command configuration for the cluster.
+     * </p>
+     * 
+     * @return The execute command configuration for the cluster.
+     */
+
+    public ClusterConfiguration getConfiguration() {
+        return this.configuration;
+    }
+
+    /**
+     * <p>
+     * The execute command configuration for the cluster.
+     * </p>
+     * 
+     * @param configuration
+     *        The execute command configuration for the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withConfiguration(ClusterConfiguration configuration) {
+        setConfiguration(configuration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of the cluster. The following are the possible states that are returned.
+     * </p>
+     * <dl>
+     * <dt>ACTIVE</dt>
+     * <dd>
+     * <p>
+     * The cluster is ready to accept tasks and if applicable you can register container instances with the cluster.
+     * </p>
+     * </dd>
+     * <dt>PROVISIONING</dt>
+     * <dd>
+     * <p>
+     * The cluster has capacity providers that are associated with it and the resources needed for the capacity provider
+     * are being created.
+     * </p>
+     * </dd>
+     * <dt>DEPROVISIONING</dt>
+     * <dd>
+     * <p>
+     * The cluster has capacity providers that are associated with it and the resources needed for the capacity provider
+     * are being deleted.
+     * </p>
+     * </dd>
+     * <dt>FAILED</dt>
+     * <dd>
+     * <p>
+     * The cluster has capacity providers that are associated with it and the resources needed for the capacity provider
+     * have failed to create.
+     * </p>
+     * </dd>
+     * <dt>INACTIVE</dt>
+     * <dd>
+     * <p>
+     * The cluster has been deleted. Clusters with an <code>INACTIVE</code> status may remain discoverable in your
+     * account for a period of time. However, this behavior is subject to change in the future. We don't recommend that
+     * you rely on <code>INACTIVE</code> clusters persisting.
+     * </p>
+     * </dd>
+     * </dl>
+     * 
      * @param status
-     *        The status of the cluster. The valid values are <code>ACTIVE</code> or <code>INACTIVE</code>.
-     *        <code>ACTIVE</code> indicates that you can register container instances with the cluster and the
-     *        associated instances can accept tasks.
+     *        The status of the cluster. The following are the possible states that are returned.</p>
+     *        <dl>
+     *        <dt>ACTIVE</dt>
+     *        <dd>
+     *        <p>
+     *        The cluster is ready to accept tasks and if applicable you can register container instances with the
+     *        cluster.
+     *        </p>
+     *        </dd>
+     *        <dt>PROVISIONING</dt>
+     *        <dd>
+     *        <p>
+     *        The cluster has capacity providers that are associated with it and the resources needed for the capacity
+     *        provider are being created.
+     *        </p>
+     *        </dd>
+     *        <dt>DEPROVISIONING</dt>
+     *        <dd>
+     *        <p>
+     *        The cluster has capacity providers that are associated with it and the resources needed for the capacity
+     *        provider are being deleted.
+     *        </p>
+     *        </dd>
+     *        <dt>FAILED</dt>
+     *        <dd>
+     *        <p>
+     *        The cluster has capacity providers that are associated with it and the resources needed for the capacity
+     *        provider have failed to create.
+     *        </p>
+     *        </dd>
+     *        <dt>INACTIVE</dt>
+     *        <dd>
+     *        <p>
+     *        The cluster has been deleted. Clusters with an <code>INACTIVE</code> status may remain discoverable in
+     *        your account for a period of time. However, this behavior is subject to change in the future. We don't
+     *        recommend that you rely on <code>INACTIVE</code> clusters persisting.
+     *        </p>
+     *        </dd>
      */
 
     public void setStatus(String status) {
@@ -259,14 +517,84 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the cluster. The valid values are <code>ACTIVE</code> or <code>INACTIVE</code>. <code>ACTIVE</code>
-     * indicates that you can register container instances with the cluster and the associated instances can accept
-     * tasks.
+     * The status of the cluster. The following are the possible states that are returned.
      * </p>
+     * <dl>
+     * <dt>ACTIVE</dt>
+     * <dd>
+     * <p>
+     * The cluster is ready to accept tasks and if applicable you can register container instances with the cluster.
+     * </p>
+     * </dd>
+     * <dt>PROVISIONING</dt>
+     * <dd>
+     * <p>
+     * The cluster has capacity providers that are associated with it and the resources needed for the capacity provider
+     * are being created.
+     * </p>
+     * </dd>
+     * <dt>DEPROVISIONING</dt>
+     * <dd>
+     * <p>
+     * The cluster has capacity providers that are associated with it and the resources needed for the capacity provider
+     * are being deleted.
+     * </p>
+     * </dd>
+     * <dt>FAILED</dt>
+     * <dd>
+     * <p>
+     * The cluster has capacity providers that are associated with it and the resources needed for the capacity provider
+     * have failed to create.
+     * </p>
+     * </dd>
+     * <dt>INACTIVE</dt>
+     * <dd>
+     * <p>
+     * The cluster has been deleted. Clusters with an <code>INACTIVE</code> status may remain discoverable in your
+     * account for a period of time. However, this behavior is subject to change in the future. We don't recommend that
+     * you rely on <code>INACTIVE</code> clusters persisting.
+     * </p>
+     * </dd>
+     * </dl>
      * 
-     * @return The status of the cluster. The valid values are <code>ACTIVE</code> or <code>INACTIVE</code>.
-     *         <code>ACTIVE</code> indicates that you can register container instances with the cluster and the
-     *         associated instances can accept tasks.
+     * @return The status of the cluster. The following are the possible states that are returned.</p>
+     *         <dl>
+     *         <dt>ACTIVE</dt>
+     *         <dd>
+     *         <p>
+     *         The cluster is ready to accept tasks and if applicable you can register container instances with the
+     *         cluster.
+     *         </p>
+     *         </dd>
+     *         <dt>PROVISIONING</dt>
+     *         <dd>
+     *         <p>
+     *         The cluster has capacity providers that are associated with it and the resources needed for the capacity
+     *         provider are being created.
+     *         </p>
+     *         </dd>
+     *         <dt>DEPROVISIONING</dt>
+     *         <dd>
+     *         <p>
+     *         The cluster has capacity providers that are associated with it and the resources needed for the capacity
+     *         provider are being deleted.
+     *         </p>
+     *         </dd>
+     *         <dt>FAILED</dt>
+     *         <dd>
+     *         <p>
+     *         The cluster has capacity providers that are associated with it and the resources needed for the capacity
+     *         provider have failed to create.
+     *         </p>
+     *         </dd>
+     *         <dt>INACTIVE</dt>
+     *         <dd>
+     *         <p>
+     *         The cluster has been deleted. Clusters with an <code>INACTIVE</code> status may remain discoverable in
+     *         your account for a period of time. However, this behavior is subject to change in the future. We don't
+     *         recommend that you rely on <code>INACTIVE</code> clusters persisting.
+     *         </p>
+     *         </dd>
      */
 
     public String getStatus() {
@@ -275,15 +603,85 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the cluster. The valid values are <code>ACTIVE</code> or <code>INACTIVE</code>. <code>ACTIVE</code>
-     * indicates that you can register container instances with the cluster and the associated instances can accept
-     * tasks.
+     * The status of the cluster. The following are the possible states that are returned.
      * </p>
+     * <dl>
+     * <dt>ACTIVE</dt>
+     * <dd>
+     * <p>
+     * The cluster is ready to accept tasks and if applicable you can register container instances with the cluster.
+     * </p>
+     * </dd>
+     * <dt>PROVISIONING</dt>
+     * <dd>
+     * <p>
+     * The cluster has capacity providers that are associated with it and the resources needed for the capacity provider
+     * are being created.
+     * </p>
+     * </dd>
+     * <dt>DEPROVISIONING</dt>
+     * <dd>
+     * <p>
+     * The cluster has capacity providers that are associated with it and the resources needed for the capacity provider
+     * are being deleted.
+     * </p>
+     * </dd>
+     * <dt>FAILED</dt>
+     * <dd>
+     * <p>
+     * The cluster has capacity providers that are associated with it and the resources needed for the capacity provider
+     * have failed to create.
+     * </p>
+     * </dd>
+     * <dt>INACTIVE</dt>
+     * <dd>
+     * <p>
+     * The cluster has been deleted. Clusters with an <code>INACTIVE</code> status may remain discoverable in your
+     * account for a period of time. However, this behavior is subject to change in the future. We don't recommend that
+     * you rely on <code>INACTIVE</code> clusters persisting.
+     * </p>
+     * </dd>
+     * </dl>
      * 
      * @param status
-     *        The status of the cluster. The valid values are <code>ACTIVE</code> or <code>INACTIVE</code>.
-     *        <code>ACTIVE</code> indicates that you can register container instances with the cluster and the
-     *        associated instances can accept tasks.
+     *        The status of the cluster. The following are the possible states that are returned.</p>
+     *        <dl>
+     *        <dt>ACTIVE</dt>
+     *        <dd>
+     *        <p>
+     *        The cluster is ready to accept tasks and if applicable you can register container instances with the
+     *        cluster.
+     *        </p>
+     *        </dd>
+     *        <dt>PROVISIONING</dt>
+     *        <dd>
+     *        <p>
+     *        The cluster has capacity providers that are associated with it and the resources needed for the capacity
+     *        provider are being created.
+     *        </p>
+     *        </dd>
+     *        <dt>DEPROVISIONING</dt>
+     *        <dd>
+     *        <p>
+     *        The cluster has capacity providers that are associated with it and the resources needed for the capacity
+     *        provider are being deleted.
+     *        </p>
+     *        </dd>
+     *        <dt>FAILED</dt>
+     *        <dd>
+     *        <p>
+     *        The cluster has capacity providers that are associated with it and the resources needed for the capacity
+     *        provider have failed to create.
+     *        </p>
+     *        </dd>
+     *        <dt>INACTIVE</dt>
+     *        <dd>
+     *        <p>
+     *        The cluster has been deleted. Clusters with an <code>INACTIVE</code> status may remain discoverable in
+     *        your account for a period of time. However, this behavior is subject to change in the future. We don't
+     *        recommend that you rely on <code>INACTIVE</code> clusters persisting.
+     *        </p>
+     *        </dd>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -466,7 +864,7 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Additional information about your clusters that are separated by launch type, including:
+     * Additional information about your clusters that are separated by launch type. They include the following:
      * </p>
      * <ul>
      * <li>
@@ -511,7 +909,8 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * </ul>
      * 
-     * @return Additional information about your clusters that are separated by launch type, including:</p>
+     * @return Additional information about your clusters that are separated by launch type. They include the
+     *         following:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -564,7 +963,7 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Additional information about your clusters that are separated by launch type, including:
+     * Additional information about your clusters that are separated by launch type. They include the following:
      * </p>
      * <ul>
      * <li>
@@ -610,7 +1009,8 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
      * </ul>
      * 
      * @param statistics
-     *        Additional information about your clusters that are separated by launch type, including:</p>
+     *        Additional information about your clusters that are separated by launch type. They include the
+     *        following:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -665,7 +1065,7 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Additional information about your clusters that are separated by launch type, including:
+     * Additional information about your clusters that are separated by launch type. They include the following:
      * </p>
      * <ul>
      * <li>
@@ -716,7 +1116,8 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param statistics
-     *        Additional information about your clusters that are separated by launch type, including:</p>
+     *        Additional information about your clusters that are separated by launch type. They include the
+     *        following:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -773,7 +1174,7 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Additional information about your clusters that are separated by launch type, including:
+     * Additional information about your clusters that are separated by launch type. They include the following:
      * </p>
      * <ul>
      * <li>
@@ -819,7 +1220,8 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
      * </ul>
      * 
      * @param statistics
-     *        Additional information about your clusters that are separated by launch type, including:</p>
+     *        Additional information about your clusters that are separated by launch type. They include the
+     *        following:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -872,13 +1274,99 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of a key
-     * and an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters,
-     * and tag values can have a maximum length of 256 characters.
+     * and an optional value. You define both.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @return The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of
-     *         a key and an optional value, both of which you define. Tag keys can have a maximum character length of
-     *         128 characters, and tag values can have a maximum length of 256 characters.
+     *         a key and an optional value. You define both.</p>
+     *         <p>
+     *         The following basic restrictions apply to tags:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Maximum number of tags per resource - 50
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For each resource, each tag key must be unique, and each tag key can have only one value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Maximum key length - 128 Unicode characters in UTF-8
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Maximum value length - 256 Unicode characters in UTF-8
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If your tagging schema is used across multiple services and resources, remember that other services may
+     *         have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *         representable in UTF-8, and the following characters: + - = . _ : / @.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Tag keys and values are case-sensitive.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a
+     *         prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete
+     *         tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource
+     *         limit.
+     *         </p>
+     *         </li>
      */
 
     public java.util.List<Tag> getTags() {
@@ -891,14 +1379,99 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of a key
-     * and an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters,
-     * and tag values can have a maximum length of 256 characters.
+     * and an optional value. You define both.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param tags
      *        The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of
-     *        a key and an optional value, both of which you define. Tag keys can have a maximum character length of 128
-     *        characters, and tag values can have a maximum length of 256 characters.
+     *        a key and an optional value. You define both.</p>
+     *        <p>
+     *        The following basic restrictions apply to tags:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Maximum number of tags per resource - 50
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For each resource, each tag key must be unique, and each tag key can have only one value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum key length - 128 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum value length - 256 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If your tagging schema is used across multiple services and resources, remember that other services may
+     *        have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *        representable in UTF-8, and the following characters: + - = . _ : / @.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tag keys and values are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix
+     *        for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag
+     *        keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     *        </p>
+     *        </li>
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -913,9 +1486,52 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of a key
-     * and an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters,
-     * and tag values can have a maximum length of 256 characters.
+     * and an optional value. You define both.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
@@ -924,8 +1540,50 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param tags
      *        The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of
-     *        a key and an optional value, both of which you define. Tag keys can have a maximum character length of 128
-     *        characters, and tag values can have a maximum length of 256 characters.
+     *        a key and an optional value. You define both.</p>
+     *        <p>
+     *        The following basic restrictions apply to tags:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Maximum number of tags per resource - 50
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For each resource, each tag key must be unique, and each tag key can have only one value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum key length - 128 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum value length - 256 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If your tagging schema is used across multiple services and resources, remember that other services may
+     *        have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *        representable in UTF-8, and the following characters: + - = . _ : / @.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tag keys and values are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix
+     *        for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag
+     *        keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -942,14 +1600,99 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of a key
-     * and an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters,
-     * and tag values can have a maximum length of 256 characters.
+     * and an optional value. You define both.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param tags
      *        The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of
-     *        a key and an optional value, both of which you define. Tag keys can have a maximum character length of 128
-     *        characters, and tag values can have a maximum length of 256 characters.
+     *        a key and an optional value. You define both.</p>
+     *        <p>
+     *        The following basic restrictions apply to tags:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Maximum number of tags per resource - 50
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For each resource, each tag key must be unique, and each tag key can have only one value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum key length - 128 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum value length - 256 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If your tagging schema is used across multiple services and resources, remember that other services may
+     *        have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *        representable in UTF-8, and the following characters: + - = . _ : / @.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tag keys and values are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix
+     *        for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag
+     *        keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -960,12 +1703,12 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is enabled or
-     * disabled for a cluster.
+     * The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is on or off for a
+     * cluster.
      * </p>
      * 
-     * @return The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is enabled
-     *         or disabled for a cluster.
+     * @return The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is on or off
+     *         for a cluster.
      */
 
     public java.util.List<ClusterSetting> getSettings() {
@@ -977,13 +1720,13 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is enabled or
-     * disabled for a cluster.
+     * The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is on or off for a
+     * cluster.
      * </p>
      * 
      * @param settings
-     *        The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is enabled or
-     *        disabled for a cluster.
+     *        The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is on or off
+     *        for a cluster.
      */
 
     public void setSettings(java.util.Collection<ClusterSetting> settings) {
@@ -997,8 +1740,8 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is enabled or
-     * disabled for a cluster.
+     * The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is on or off for a
+     * cluster.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1007,8 +1750,8 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param settings
-     *        The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is enabled or
-     *        disabled for a cluster.
+     *        The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is on or off
+     *        for a cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1024,18 +1767,526 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is enabled or
-     * disabled for a cluster.
+     * The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is on or off for a
+     * cluster.
      * </p>
      * 
      * @param settings
-     *        The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is enabled or
-     *        disabled for a cluster.
+     *        The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is on or off
+     *        for a cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Cluster withSettings(java.util.Collection<ClusterSetting> settings) {
         setSettings(settings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The capacity providers associated with the cluster.
+     * </p>
+     * 
+     * @return The capacity providers associated with the cluster.
+     */
+
+    public java.util.List<String> getCapacityProviders() {
+        if (capacityProviders == null) {
+            capacityProviders = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return capacityProviders;
+    }
+
+    /**
+     * <p>
+     * The capacity providers associated with the cluster.
+     * </p>
+     * 
+     * @param capacityProviders
+     *        The capacity providers associated with the cluster.
+     */
+
+    public void setCapacityProviders(java.util.Collection<String> capacityProviders) {
+        if (capacityProviders == null) {
+            this.capacityProviders = null;
+            return;
+        }
+
+        this.capacityProviders = new com.amazonaws.internal.SdkInternalList<String>(capacityProviders);
+    }
+
+    /**
+     * <p>
+     * The capacity providers associated with the cluster.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCapacityProviders(java.util.Collection)} or {@link #withCapacityProviders(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param capacityProviders
+     *        The capacity providers associated with the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withCapacityProviders(String... capacityProviders) {
+        if (this.capacityProviders == null) {
+            setCapacityProviders(new com.amazonaws.internal.SdkInternalList<String>(capacityProviders.length));
+        }
+        for (String ele : capacityProviders) {
+            this.capacityProviders.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The capacity providers associated with the cluster.
+     * </p>
+     * 
+     * @param capacityProviders
+     *        The capacity providers associated with the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withCapacityProviders(java.util.Collection<String> capacityProviders) {
+        setCapacityProviders(capacityProviders);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The default capacity provider strategy for the cluster. When services or tasks are run in the cluster with no
+     * launch type or capacity provider strategy specified, the default capacity provider strategy is used.
+     * </p>
+     * 
+     * @return The default capacity provider strategy for the cluster. When services or tasks are run in the cluster
+     *         with no launch type or capacity provider strategy specified, the default capacity provider strategy is
+     *         used.
+     */
+
+    public java.util.List<CapacityProviderStrategyItem> getDefaultCapacityProviderStrategy() {
+        if (defaultCapacityProviderStrategy == null) {
+            defaultCapacityProviderStrategy = new com.amazonaws.internal.SdkInternalList<CapacityProviderStrategyItem>();
+        }
+        return defaultCapacityProviderStrategy;
+    }
+
+    /**
+     * <p>
+     * The default capacity provider strategy for the cluster. When services or tasks are run in the cluster with no
+     * launch type or capacity provider strategy specified, the default capacity provider strategy is used.
+     * </p>
+     * 
+     * @param defaultCapacityProviderStrategy
+     *        The default capacity provider strategy for the cluster. When services or tasks are run in the cluster with
+     *        no launch type or capacity provider strategy specified, the default capacity provider strategy is used.
+     */
+
+    public void setDefaultCapacityProviderStrategy(java.util.Collection<CapacityProviderStrategyItem> defaultCapacityProviderStrategy) {
+        if (defaultCapacityProviderStrategy == null) {
+            this.defaultCapacityProviderStrategy = null;
+            return;
+        }
+
+        this.defaultCapacityProviderStrategy = new com.amazonaws.internal.SdkInternalList<CapacityProviderStrategyItem>(defaultCapacityProviderStrategy);
+    }
+
+    /**
+     * <p>
+     * The default capacity provider strategy for the cluster. When services or tasks are run in the cluster with no
+     * launch type or capacity provider strategy specified, the default capacity provider strategy is used.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setDefaultCapacityProviderStrategy(java.util.Collection)} or
+     * {@link #withDefaultCapacityProviderStrategy(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param defaultCapacityProviderStrategy
+     *        The default capacity provider strategy for the cluster. When services or tasks are run in the cluster with
+     *        no launch type or capacity provider strategy specified, the default capacity provider strategy is used.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withDefaultCapacityProviderStrategy(CapacityProviderStrategyItem... defaultCapacityProviderStrategy) {
+        if (this.defaultCapacityProviderStrategy == null) {
+            setDefaultCapacityProviderStrategy(new com.amazonaws.internal.SdkInternalList<CapacityProviderStrategyItem>(defaultCapacityProviderStrategy.length));
+        }
+        for (CapacityProviderStrategyItem ele : defaultCapacityProviderStrategy) {
+            this.defaultCapacityProviderStrategy.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The default capacity provider strategy for the cluster. When services or tasks are run in the cluster with no
+     * launch type or capacity provider strategy specified, the default capacity provider strategy is used.
+     * </p>
+     * 
+     * @param defaultCapacityProviderStrategy
+     *        The default capacity provider strategy for the cluster. When services or tasks are run in the cluster with
+     *        no launch type or capacity provider strategy specified, the default capacity provider strategy is used.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withDefaultCapacityProviderStrategy(java.util.Collection<CapacityProviderStrategyItem> defaultCapacityProviderStrategy) {
+        setDefaultCapacityProviderStrategy(defaultCapacityProviderStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The resources attached to a cluster. When using a capacity provider with a cluster, the capacity provider and
+     * associated resources are returned as cluster attachments.
+     * </p>
+     * 
+     * @return The resources attached to a cluster. When using a capacity provider with a cluster, the capacity provider
+     *         and associated resources are returned as cluster attachments.
+     */
+
+    public java.util.List<Attachment> getAttachments() {
+        if (attachments == null) {
+            attachments = new com.amazonaws.internal.SdkInternalList<Attachment>();
+        }
+        return attachments;
+    }
+
+    /**
+     * <p>
+     * The resources attached to a cluster. When using a capacity provider with a cluster, the capacity provider and
+     * associated resources are returned as cluster attachments.
+     * </p>
+     * 
+     * @param attachments
+     *        The resources attached to a cluster. When using a capacity provider with a cluster, the capacity provider
+     *        and associated resources are returned as cluster attachments.
+     */
+
+    public void setAttachments(java.util.Collection<Attachment> attachments) {
+        if (attachments == null) {
+            this.attachments = null;
+            return;
+        }
+
+        this.attachments = new com.amazonaws.internal.SdkInternalList<Attachment>(attachments);
+    }
+
+    /**
+     * <p>
+     * The resources attached to a cluster. When using a capacity provider with a cluster, the capacity provider and
+     * associated resources are returned as cluster attachments.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAttachments(java.util.Collection)} or {@link #withAttachments(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param attachments
+     *        The resources attached to a cluster. When using a capacity provider with a cluster, the capacity provider
+     *        and associated resources are returned as cluster attachments.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withAttachments(Attachment... attachments) {
+        if (this.attachments == null) {
+            setAttachments(new com.amazonaws.internal.SdkInternalList<Attachment>(attachments.length));
+        }
+        for (Attachment ele : attachments) {
+            this.attachments.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The resources attached to a cluster. When using a capacity provider with a cluster, the capacity provider and
+     * associated resources are returned as cluster attachments.
+     * </p>
+     * 
+     * @param attachments
+     *        The resources attached to a cluster. When using a capacity provider with a cluster, the capacity provider
+     *        and associated resources are returned as cluster attachments.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withAttachments(java.util.Collection<Attachment> attachments) {
+        setAttachments(attachments);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of the capacity providers associated with the cluster. The following are the states that are returned.
+     * </p>
+     * <dl>
+     * <dt>UPDATE_IN_PROGRESS</dt>
+     * <dd>
+     * <p>
+     * The available capacity providers for the cluster are updating.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_COMPLETE</dt>
+     * <dd>
+     * <p>
+     * The capacity providers have successfully updated.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_FAILED</dt>
+     * <dd>
+     * <p>
+     * The capacity provider updates failed.
+     * </p>
+     * </dd>
+     * </dl>
+     * 
+     * @param attachmentsStatus
+     *        The status of the capacity providers associated with the cluster. The following are the states that are
+     *        returned.</p>
+     *        <dl>
+     *        <dt>UPDATE_IN_PROGRESS</dt>
+     *        <dd>
+     *        <p>
+     *        The available capacity providers for the cluster are updating.
+     *        </p>
+     *        </dd>
+     *        <dt>UPDATE_COMPLETE</dt>
+     *        <dd>
+     *        <p>
+     *        The capacity providers have successfully updated.
+     *        </p>
+     *        </dd>
+     *        <dt>UPDATE_FAILED</dt>
+     *        <dd>
+     *        <p>
+     *        The capacity provider updates failed.
+     *        </p>
+     *        </dd>
+     */
+
+    public void setAttachmentsStatus(String attachmentsStatus) {
+        this.attachmentsStatus = attachmentsStatus;
+    }
+
+    /**
+     * <p>
+     * The status of the capacity providers associated with the cluster. The following are the states that are returned.
+     * </p>
+     * <dl>
+     * <dt>UPDATE_IN_PROGRESS</dt>
+     * <dd>
+     * <p>
+     * The available capacity providers for the cluster are updating.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_COMPLETE</dt>
+     * <dd>
+     * <p>
+     * The capacity providers have successfully updated.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_FAILED</dt>
+     * <dd>
+     * <p>
+     * The capacity provider updates failed.
+     * </p>
+     * </dd>
+     * </dl>
+     * 
+     * @return The status of the capacity providers associated with the cluster. The following are the states that are
+     *         returned.</p>
+     *         <dl>
+     *         <dt>UPDATE_IN_PROGRESS</dt>
+     *         <dd>
+     *         <p>
+     *         The available capacity providers for the cluster are updating.
+     *         </p>
+     *         </dd>
+     *         <dt>UPDATE_COMPLETE</dt>
+     *         <dd>
+     *         <p>
+     *         The capacity providers have successfully updated.
+     *         </p>
+     *         </dd>
+     *         <dt>UPDATE_FAILED</dt>
+     *         <dd>
+     *         <p>
+     *         The capacity provider updates failed.
+     *         </p>
+     *         </dd>
+     */
+
+    public String getAttachmentsStatus() {
+        return this.attachmentsStatus;
+    }
+
+    /**
+     * <p>
+     * The status of the capacity providers associated with the cluster. The following are the states that are returned.
+     * </p>
+     * <dl>
+     * <dt>UPDATE_IN_PROGRESS</dt>
+     * <dd>
+     * <p>
+     * The available capacity providers for the cluster are updating.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_COMPLETE</dt>
+     * <dd>
+     * <p>
+     * The capacity providers have successfully updated.
+     * </p>
+     * </dd>
+     * <dt>UPDATE_FAILED</dt>
+     * <dd>
+     * <p>
+     * The capacity provider updates failed.
+     * </p>
+     * </dd>
+     * </dl>
+     * 
+     * @param attachmentsStatus
+     *        The status of the capacity providers associated with the cluster. The following are the states that are
+     *        returned.</p>
+     *        <dl>
+     *        <dt>UPDATE_IN_PROGRESS</dt>
+     *        <dd>
+     *        <p>
+     *        The available capacity providers for the cluster are updating.
+     *        </p>
+     *        </dd>
+     *        <dt>UPDATE_COMPLETE</dt>
+     *        <dd>
+     *        <p>
+     *        The capacity providers have successfully updated.
+     *        </p>
+     *        </dd>
+     *        <dt>UPDATE_FAILED</dt>
+     *        <dd>
+     *        <p>
+     *        The capacity provider updates failed.
+     *        </p>
+     *        </dd>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withAttachmentsStatus(String attachmentsStatus) {
+        setAttachmentsStatus(attachmentsStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Use this parameter to set a default Service Connect namespace. After you set a default Service Connect namespace,
+     * any new services with Service Connect turned on that are created in the cluster are added as client services in
+     * the namespace. This setting only applies to new services that set the <code>enabled</code> parameter to
+     * <code>true</code> in the <code>ServiceConnectConfiguration</code>. You can set the namespace of each service
+     * individually in the <code>ServiceConnectConfiguration</code> to override this default parameter.
+     * </p>
+     * <p>
+     * Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to
+     * services across all of the clusters in the namespace. Tasks connect through a managed proxy container that
+     * collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported
+     * with Service Connect. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in
+     * the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     * 
+     * @param serviceConnectDefaults
+     *        Use this parameter to set a default Service Connect namespace. After you set a default Service Connect
+     *        namespace, any new services with Service Connect turned on that are created in the cluster are added as
+     *        client services in the namespace. This setting only applies to new services that set the
+     *        <code>enabled</code> parameter to <code>true</code> in the <code>ServiceConnectConfiguration</code>. You
+     *        can set the namespace of each service individually in the <code>ServiceConnectConfiguration</code> to
+     *        override this default parameter.</p>
+     *        <p>
+     *        Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can
+     *        connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy
+     *        container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services
+     *        create are supported with Service Connect. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service
+     *        Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     */
+
+    public void setServiceConnectDefaults(ClusterServiceConnectDefaults serviceConnectDefaults) {
+        this.serviceConnectDefaults = serviceConnectDefaults;
+    }
+
+    /**
+     * <p>
+     * Use this parameter to set a default Service Connect namespace. After you set a default Service Connect namespace,
+     * any new services with Service Connect turned on that are created in the cluster are added as client services in
+     * the namespace. This setting only applies to new services that set the <code>enabled</code> parameter to
+     * <code>true</code> in the <code>ServiceConnectConfiguration</code>. You can set the namespace of each service
+     * individually in the <code>ServiceConnectConfiguration</code> to override this default parameter.
+     * </p>
+     * <p>
+     * Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to
+     * services across all of the clusters in the namespace. Tasks connect through a managed proxy container that
+     * collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported
+     * with Service Connect. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in
+     * the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     * 
+     * @return Use this parameter to set a default Service Connect namespace. After you set a default Service Connect
+     *         namespace, any new services with Service Connect turned on that are created in the cluster are added as
+     *         client services in the namespace. This setting only applies to new services that set the
+     *         <code>enabled</code> parameter to <code>true</code> in the <code>ServiceConnectConfiguration</code>. You
+     *         can set the namespace of each service individually in the <code>ServiceConnectConfiguration</code> to
+     *         override this default parameter.</p>
+     *         <p>
+     *         Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can
+     *         connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy
+     *         container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS
+     *         services create are supported with Service Connect. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service
+     *         Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     */
+
+    public ClusterServiceConnectDefaults getServiceConnectDefaults() {
+        return this.serviceConnectDefaults;
+    }
+
+    /**
+     * <p>
+     * Use this parameter to set a default Service Connect namespace. After you set a default Service Connect namespace,
+     * any new services with Service Connect turned on that are created in the cluster are added as client services in
+     * the namespace. This setting only applies to new services that set the <code>enabled</code> parameter to
+     * <code>true</code> in the <code>ServiceConnectConfiguration</code>. You can set the namespace of each service
+     * individually in the <code>ServiceConnectConfiguration</code> to override this default parameter.
+     * </p>
+     * <p>
+     * Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to
+     * services across all of the clusters in the namespace. Tasks connect through a managed proxy container that
+     * collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported
+     * with Service Connect. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in
+     * the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     * 
+     * @param serviceConnectDefaults
+     *        Use this parameter to set a default Service Connect namespace. After you set a default Service Connect
+     *        namespace, any new services with Service Connect turned on that are created in the cluster are added as
+     *        client services in the namespace. This setting only applies to new services that set the
+     *        <code>enabled</code> parameter to <code>true</code> in the <code>ServiceConnectConfiguration</code>. You
+     *        can set the namespace of each service individually in the <code>ServiceConnectConfiguration</code> to
+     *        override this default parameter.</p>
+     *        <p>
+     *        Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can
+     *        connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy
+     *        container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services
+     *        create are supported with Service Connect. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service
+     *        Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withServiceConnectDefaults(ClusterServiceConnectDefaults serviceConnectDefaults) {
+        setServiceConnectDefaults(serviceConnectDefaults);
         return this;
     }
 
@@ -1055,6 +2306,8 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
             sb.append("ClusterArn: ").append(getClusterArn()).append(",");
         if (getClusterName() != null)
             sb.append("ClusterName: ").append(getClusterName()).append(",");
+        if (getConfiguration() != null)
+            sb.append("Configuration: ").append(getConfiguration()).append(",");
         if (getStatus() != null)
             sb.append("Status: ").append(getStatus()).append(",");
         if (getRegisteredContainerInstancesCount() != null)
@@ -1070,7 +2323,17 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getSettings() != null)
-            sb.append("Settings: ").append(getSettings());
+            sb.append("Settings: ").append(getSettings()).append(",");
+        if (getCapacityProviders() != null)
+            sb.append("CapacityProviders: ").append(getCapacityProviders()).append(",");
+        if (getDefaultCapacityProviderStrategy() != null)
+            sb.append("DefaultCapacityProviderStrategy: ").append(getDefaultCapacityProviderStrategy()).append(",");
+        if (getAttachments() != null)
+            sb.append("Attachments: ").append(getAttachments()).append(",");
+        if (getAttachmentsStatus() != null)
+            sb.append("AttachmentsStatus: ").append(getAttachmentsStatus()).append(",");
+        if (getServiceConnectDefaults() != null)
+            sb.append("ServiceConnectDefaults: ").append(getServiceConnectDefaults());
         sb.append("}");
         return sb.toString();
     }
@@ -1092,6 +2355,10 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
         if (other.getClusterName() == null ^ this.getClusterName() == null)
             return false;
         if (other.getClusterName() != null && other.getClusterName().equals(this.getClusterName()) == false)
+            return false;
+        if (other.getConfiguration() == null ^ this.getConfiguration() == null)
+            return false;
+        if (other.getConfiguration() != null && other.getConfiguration().equals(this.getConfiguration()) == false)
             return false;
         if (other.getStatus() == null ^ this.getStatus() == null)
             return false;
@@ -1126,6 +2393,27 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getSettings() != null && other.getSettings().equals(this.getSettings()) == false)
             return false;
+        if (other.getCapacityProviders() == null ^ this.getCapacityProviders() == null)
+            return false;
+        if (other.getCapacityProviders() != null && other.getCapacityProviders().equals(this.getCapacityProviders()) == false)
+            return false;
+        if (other.getDefaultCapacityProviderStrategy() == null ^ this.getDefaultCapacityProviderStrategy() == null)
+            return false;
+        if (other.getDefaultCapacityProviderStrategy() != null
+                && other.getDefaultCapacityProviderStrategy().equals(this.getDefaultCapacityProviderStrategy()) == false)
+            return false;
+        if (other.getAttachments() == null ^ this.getAttachments() == null)
+            return false;
+        if (other.getAttachments() != null && other.getAttachments().equals(this.getAttachments()) == false)
+            return false;
+        if (other.getAttachmentsStatus() == null ^ this.getAttachmentsStatus() == null)
+            return false;
+        if (other.getAttachmentsStatus() != null && other.getAttachmentsStatus().equals(this.getAttachmentsStatus()) == false)
+            return false;
+        if (other.getServiceConnectDefaults() == null ^ this.getServiceConnectDefaults() == null)
+            return false;
+        if (other.getServiceConnectDefaults() != null && other.getServiceConnectDefaults().equals(this.getServiceConnectDefaults()) == false)
+            return false;
         return true;
     }
 
@@ -1136,6 +2424,7 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getClusterArn() == null) ? 0 : getClusterArn().hashCode());
         hashCode = prime * hashCode + ((getClusterName() == null) ? 0 : getClusterName().hashCode());
+        hashCode = prime * hashCode + ((getConfiguration() == null) ? 0 : getConfiguration().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getRegisteredContainerInstancesCount() == null) ? 0 : getRegisteredContainerInstancesCount().hashCode());
         hashCode = prime * hashCode + ((getRunningTasksCount() == null) ? 0 : getRunningTasksCount().hashCode());
@@ -1144,6 +2433,11 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getStatistics() == null) ? 0 : getStatistics().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getSettings() == null) ? 0 : getSettings().hashCode());
+        hashCode = prime * hashCode + ((getCapacityProviders() == null) ? 0 : getCapacityProviders().hashCode());
+        hashCode = prime * hashCode + ((getDefaultCapacityProviderStrategy() == null) ? 0 : getDefaultCapacityProviderStrategy().hashCode());
+        hashCode = prime * hashCode + ((getAttachments() == null) ? 0 : getAttachments().hashCode());
+        hashCode = prime * hashCode + ((getAttachmentsStatus() == null) ? 0 : getAttachmentsStatus().hashCode());
+        hashCode = prime * hashCode + ((getServiceConnectDefaults() == null) ? 0 : getServiceConnectDefaults().hashCode());
         return hashCode;
     }
 

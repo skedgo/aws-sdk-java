@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class RouteTable implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The associations between the route table and one or more subnets.
+     * The associations between the route table and your subnets or gateways.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<RouteTableAssociation> associations;
@@ -64,17 +64,17 @@ public class RouteTable implements Serializable, Cloneable {
     private String vpcId;
     /**
      * <p>
-     * The ID of the AWS account that owns the route table.
+     * The ID of the Amazon Web Services account that owns the route table.
      * </p>
      */
     private String ownerId;
 
     /**
      * <p>
-     * The associations between the route table and one or more subnets.
+     * The associations between the route table and your subnets or gateways.
      * </p>
      * 
-     * @return The associations between the route table and one or more subnets.
+     * @return The associations between the route table and your subnets or gateways.
      */
 
     public java.util.List<RouteTableAssociation> getAssociations() {
@@ -86,11 +86,11 @@ public class RouteTable implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The associations between the route table and one or more subnets.
+     * The associations between the route table and your subnets or gateways.
      * </p>
      * 
      * @param associations
-     *        The associations between the route table and one or more subnets.
+     *        The associations between the route table and your subnets or gateways.
      */
 
     public void setAssociations(java.util.Collection<RouteTableAssociation> associations) {
@@ -104,7 +104,7 @@ public class RouteTable implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The associations between the route table and one or more subnets.
+     * The associations between the route table and your subnets or gateways.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -113,7 +113,7 @@ public class RouteTable implements Serializable, Cloneable {
      * </p>
      * 
      * @param associations
-     *        The associations between the route table and one or more subnets.
+     *        The associations between the route table and your subnets or gateways.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -129,11 +129,11 @@ public class RouteTable implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The associations between the route table and one or more subnets.
+     * The associations between the route table and your subnets or gateways.
      * </p>
      * 
      * @param associations
-     *        The associations between the route table and one or more subnets.
+     *        The associations between the route table and your subnets or gateways.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -443,11 +443,11 @@ public class RouteTable implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the route table.
+     * The ID of the Amazon Web Services account that owns the route table.
      * </p>
      * 
      * @param ownerId
-     *        The ID of the AWS account that owns the route table.
+     *        The ID of the Amazon Web Services account that owns the route table.
      */
 
     public void setOwnerId(String ownerId) {
@@ -456,10 +456,10 @@ public class RouteTable implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the route table.
+     * The ID of the Amazon Web Services account that owns the route table.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the route table.
+     * @return The ID of the Amazon Web Services account that owns the route table.
      */
 
     public String getOwnerId() {
@@ -468,11 +468,11 @@ public class RouteTable implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the route table.
+     * The ID of the Amazon Web Services account that owns the route table.
      * </p>
      * 
      * @param ownerId
-     *        The ID of the AWS account that owns the route table.
+     *        The ID of the Amazon Web Services account that owns the route table.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

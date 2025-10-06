@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,23 +28,23 @@ public class CreateVolumePermissionModifications implements Serializable, Clonea
 
     /**
      * <p>
-     * Adds the specified AWS account ID or group to the list.
+     * Adds the specified Amazon Web Services account ID or group to the list.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<CreateVolumePermission> add;
     /**
      * <p>
-     * Removes the specified AWS account ID or group from the list.
+     * Removes the specified Amazon Web Services account ID or group from the list.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<CreateVolumePermission> remove;
 
     /**
      * <p>
-     * Adds the specified AWS account ID or group to the list.
+     * Adds the specified Amazon Web Services account ID or group to the list.
      * </p>
      * 
-     * @return Adds the specified AWS account ID or group to the list.
+     * @return Adds the specified Amazon Web Services account ID or group to the list.
      */
 
     public java.util.List<CreateVolumePermission> getAdd() {
@@ -56,11 +56,11 @@ public class CreateVolumePermissionModifications implements Serializable, Clonea
 
     /**
      * <p>
-     * Adds the specified AWS account ID or group to the list.
+     * Adds the specified Amazon Web Services account ID or group to the list.
      * </p>
      * 
      * @param add
-     *        Adds the specified AWS account ID or group to the list.
+     *        Adds the specified Amazon Web Services account ID or group to the list.
      */
 
     public void setAdd(java.util.Collection<CreateVolumePermission> add) {
@@ -74,7 +74,7 @@ public class CreateVolumePermissionModifications implements Serializable, Clonea
 
     /**
      * <p>
-     * Adds the specified AWS account ID or group to the list.
+     * Adds the specified Amazon Web Services account ID or group to the list.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -83,7 +83,7 @@ public class CreateVolumePermissionModifications implements Serializable, Clonea
      * </p>
      * 
      * @param add
-     *        Adds the specified AWS account ID or group to the list.
+     *        Adds the specified Amazon Web Services account ID or group to the list.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -99,11 +99,11 @@ public class CreateVolumePermissionModifications implements Serializable, Clonea
 
     /**
      * <p>
-     * Adds the specified AWS account ID or group to the list.
+     * Adds the specified Amazon Web Services account ID or group to the list.
      * </p>
      * 
      * @param add
-     *        Adds the specified AWS account ID or group to the list.
+     *        Adds the specified Amazon Web Services account ID or group to the list.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -114,10 +114,10 @@ public class CreateVolumePermissionModifications implements Serializable, Clonea
 
     /**
      * <p>
-     * Removes the specified AWS account ID or group from the list.
+     * Removes the specified Amazon Web Services account ID or group from the list.
      * </p>
      * 
-     * @return Removes the specified AWS account ID or group from the list.
+     * @return Removes the specified Amazon Web Services account ID or group from the list.
      */
 
     public java.util.List<CreateVolumePermission> getRemove() {
@@ -129,11 +129,11 @@ public class CreateVolumePermissionModifications implements Serializable, Clonea
 
     /**
      * <p>
-     * Removes the specified AWS account ID or group from the list.
+     * Removes the specified Amazon Web Services account ID or group from the list.
      * </p>
      * 
      * @param remove
-     *        Removes the specified AWS account ID or group from the list.
+     *        Removes the specified Amazon Web Services account ID or group from the list.
      */
 
     public void setRemove(java.util.Collection<CreateVolumePermission> remove) {
@@ -147,7 +147,7 @@ public class CreateVolumePermissionModifications implements Serializable, Clonea
 
     /**
      * <p>
-     * Removes the specified AWS account ID or group from the list.
+     * Removes the specified Amazon Web Services account ID or group from the list.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -156,7 +156,7 @@ public class CreateVolumePermissionModifications implements Serializable, Clonea
      * </p>
      * 
      * @param remove
-     *        Removes the specified AWS account ID or group from the list.
+     *        Removes the specified Amazon Web Services account ID or group from the list.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -172,11 +172,11 @@ public class CreateVolumePermissionModifications implements Serializable, Clonea
 
     /**
      * <p>
-     * Removes the specified AWS account ID or group from the list.
+     * Removes the specified Amazon Web Services account ID or group from the list.
      * </p>
      * 
      * @param remove
-     *        Removes the specified AWS account ID or group from the list.
+     *        Removes the specified Amazon Web Services account ID or group from the list.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

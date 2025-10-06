@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,10 +38,6 @@ public class StandardsSubscription implements Serializable, Cloneable, Structure
      * <p>
      * The ARN of a standard.
      * </p>
-     * <p>
-     * In this release, Security Hub supports only the CIS AWS Foundations standard, which uses the following ARN:
-     * <code>arn:aws:securityhub:::ruleset/cis-aws-foundations-benchmark/v/1.2.0.</code>
-     * </p>
      */
     private String standardsArn;
     /**
@@ -52,10 +48,46 @@ public class StandardsSubscription implements Serializable, Cloneable, Structure
     private java.util.Map<String, String> standardsInput;
     /**
      * <p>
-     * The status of the standards subscription.
+     * The status of the standard subscription.
      * </p>
+     * <p>
+     * The status values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PENDING</code> - Standard is in the process of being enabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>READY</code> - Standard is enabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INCOMPLETE</code> - Standard could not be enabled completely. Some controls may not be available.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DELETING</code> - Standard is in the process of being disabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FAILED</code> - Standard could not be disabled.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String standardsStatus;
+    /**
+     * <p>
+     * The reason for the current status.
+     * </p>
+     */
+    private StandardsStatusReason standardsStatusReason;
 
     /**
      * <p>
@@ -101,16 +133,9 @@ public class StandardsSubscription implements Serializable, Cloneable, Structure
      * <p>
      * The ARN of a standard.
      * </p>
-     * <p>
-     * In this release, Security Hub supports only the CIS AWS Foundations standard, which uses the following ARN:
-     * <code>arn:aws:securityhub:::ruleset/cis-aws-foundations-benchmark/v/1.2.0.</code>
-     * </p>
      * 
      * @param standardsArn
-     *        The ARN of a standard.</p>
-     *        <p>
-     *        In this release, Security Hub supports only the CIS AWS Foundations standard, which uses the following
-     *        ARN: <code>arn:aws:securityhub:::ruleset/cis-aws-foundations-benchmark/v/1.2.0.</code>
+     *        The ARN of a standard.
      */
 
     public void setStandardsArn(String standardsArn) {
@@ -121,15 +146,8 @@ public class StandardsSubscription implements Serializable, Cloneable, Structure
      * <p>
      * The ARN of a standard.
      * </p>
-     * <p>
-     * In this release, Security Hub supports only the CIS AWS Foundations standard, which uses the following ARN:
-     * <code>arn:aws:securityhub:::ruleset/cis-aws-foundations-benchmark/v/1.2.0.</code>
-     * </p>
      * 
-     * @return The ARN of a standard.</p>
-     *         <p>
-     *         In this release, Security Hub supports only the CIS AWS Foundations standard, which uses the following
-     *         ARN: <code>arn:aws:securityhub:::ruleset/cis-aws-foundations-benchmark/v/1.2.0.</code>
+     * @return The ARN of a standard.
      */
 
     public String getStandardsArn() {
@@ -140,16 +158,9 @@ public class StandardsSubscription implements Serializable, Cloneable, Structure
      * <p>
      * The ARN of a standard.
      * </p>
-     * <p>
-     * In this release, Security Hub supports only the CIS AWS Foundations standard, which uses the following ARN:
-     * <code>arn:aws:securityhub:::ruleset/cis-aws-foundations-benchmark/v/1.2.0.</code>
-     * </p>
      * 
      * @param standardsArn
-     *        The ARN of a standard.</p>
-     *        <p>
-     *        In this release, Security Hub supports only the CIS AWS Foundations standard, which uses the following
-     *        ARN: <code>arn:aws:securityhub:::ruleset/cis-aws-foundations-benchmark/v/1.2.0.</code>
+     *        The ARN of a standard.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -198,6 +209,13 @@ public class StandardsSubscription implements Serializable, Cloneable, Structure
         return this;
     }
 
+    /**
+     * Add a single StandardsInput entry
+     *
+     * @see StandardsSubscription#withStandardsInput
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public StandardsSubscription addStandardsInputEntry(String key, String value) {
         if (null == this.standardsInput) {
             this.standardsInput = new java.util.HashMap<String, String>();
@@ -221,11 +239,70 @@ public class StandardsSubscription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The status of the standards subscription.
+     * The status of the standard subscription.
      * </p>
+     * <p>
+     * The status values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PENDING</code> - Standard is in the process of being enabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>READY</code> - Standard is enabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INCOMPLETE</code> - Standard could not be enabled completely. Some controls may not be available.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DELETING</code> - Standard is in the process of being disabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FAILED</code> - Standard could not be disabled.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param standardsStatus
-     *        The status of the standards subscription.
+     *        The status of the standard subscription.</p>
+     *        <p>
+     *        The status values are as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>PENDING</code> - Standard is in the process of being enabled.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>READY</code> - Standard is enabled.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INCOMPLETE</code> - Standard could not be enabled completely. Some controls may not be available.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DELETING</code> - Standard is in the process of being disabled.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>FAILED</code> - Standard could not be disabled.
+     *        </p>
+     *        </li>
      * @see StandardsStatus
      */
 
@@ -235,10 +312,69 @@ public class StandardsSubscription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The status of the standards subscription.
+     * The status of the standard subscription.
      * </p>
+     * <p>
+     * The status values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PENDING</code> - Standard is in the process of being enabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>READY</code> - Standard is enabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INCOMPLETE</code> - Standard could not be enabled completely. Some controls may not be available.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DELETING</code> - Standard is in the process of being disabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FAILED</code> - Standard could not be disabled.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The status of the standards subscription.
+     * @return The status of the standard subscription.</p>
+     *         <p>
+     *         The status values are as follows:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>PENDING</code> - Standard is in the process of being enabled.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>READY</code> - Standard is enabled.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>INCOMPLETE</code> - Standard could not be enabled completely. Some controls may not be available.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DELETING</code> - Standard is in the process of being disabled.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>FAILED</code> - Standard could not be disabled.
+     *         </p>
+     *         </li>
      * @see StandardsStatus
      */
 
@@ -248,11 +384,70 @@ public class StandardsSubscription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The status of the standards subscription.
+     * The status of the standard subscription.
      * </p>
+     * <p>
+     * The status values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PENDING</code> - Standard is in the process of being enabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>READY</code> - Standard is enabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INCOMPLETE</code> - Standard could not be enabled completely. Some controls may not be available.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DELETING</code> - Standard is in the process of being disabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FAILED</code> - Standard could not be disabled.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param standardsStatus
-     *        The status of the standards subscription.
+     *        The status of the standard subscription.</p>
+     *        <p>
+     *        The status values are as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>PENDING</code> - Standard is in the process of being enabled.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>READY</code> - Standard is enabled.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INCOMPLETE</code> - Standard could not be enabled completely. Some controls may not be available.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DELETING</code> - Standard is in the process of being disabled.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>FAILED</code> - Standard could not be disabled.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see StandardsStatus
      */
@@ -264,17 +459,116 @@ public class StandardsSubscription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The status of the standards subscription.
+     * The status of the standard subscription.
      * </p>
+     * <p>
+     * The status values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PENDING</code> - Standard is in the process of being enabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>READY</code> - Standard is enabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>INCOMPLETE</code> - Standard could not be enabled completely. Some controls may not be available.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DELETING</code> - Standard is in the process of being disabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FAILED</code> - Standard could not be disabled.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param standardsStatus
-     *        The status of the standards subscription.
+     *        The status of the standard subscription.</p>
+     *        <p>
+     *        The status values are as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>PENDING</code> - Standard is in the process of being enabled.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>READY</code> - Standard is enabled.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>INCOMPLETE</code> - Standard could not be enabled completely. Some controls may not be available.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DELETING</code> - Standard is in the process of being disabled.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>FAILED</code> - Standard could not be disabled.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see StandardsStatus
      */
 
     public StandardsSubscription withStandardsStatus(StandardsStatus standardsStatus) {
         this.standardsStatus = standardsStatus.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The reason for the current status.
+     * </p>
+     * 
+     * @param standardsStatusReason
+     *        The reason for the current status.
+     */
+
+    public void setStandardsStatusReason(StandardsStatusReason standardsStatusReason) {
+        this.standardsStatusReason = standardsStatusReason;
+    }
+
+    /**
+     * <p>
+     * The reason for the current status.
+     * </p>
+     * 
+     * @return The reason for the current status.
+     */
+
+    public StandardsStatusReason getStandardsStatusReason() {
+        return this.standardsStatusReason;
+    }
+
+    /**
+     * <p>
+     * The reason for the current status.
+     * </p>
+     * 
+     * @param standardsStatusReason
+     *        The reason for the current status.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StandardsSubscription withStandardsStatusReason(StandardsStatusReason standardsStatusReason) {
+        setStandardsStatusReason(standardsStatusReason);
         return this;
     }
 
@@ -297,7 +591,9 @@ public class StandardsSubscription implements Serializable, Cloneable, Structure
         if (getStandardsInput() != null)
             sb.append("StandardsInput: ").append(getStandardsInput()).append(",");
         if (getStandardsStatus() != null)
-            sb.append("StandardsStatus: ").append(getStandardsStatus());
+            sb.append("StandardsStatus: ").append(getStandardsStatus()).append(",");
+        if (getStandardsStatusReason() != null)
+            sb.append("StandardsStatusReason: ").append(getStandardsStatusReason());
         sb.append("}");
         return sb.toString();
     }
@@ -328,6 +624,10 @@ public class StandardsSubscription implements Serializable, Cloneable, Structure
             return false;
         if (other.getStandardsStatus() != null && other.getStandardsStatus().equals(this.getStandardsStatus()) == false)
             return false;
+        if (other.getStandardsStatusReason() == null ^ this.getStandardsStatusReason() == null)
+            return false;
+        if (other.getStandardsStatusReason() != null && other.getStandardsStatusReason().equals(this.getStandardsStatusReason()) == false)
+            return false;
         return true;
     }
 
@@ -340,6 +640,7 @@ public class StandardsSubscription implements Serializable, Cloneable, Structure
         hashCode = prime * hashCode + ((getStandardsArn() == null) ? 0 : getStandardsArn().hashCode());
         hashCode = prime * hashCode + ((getStandardsInput() == null) ? 0 : getStandardsInput().hashCode());
         hashCode = prime * hashCode + ((getStandardsStatus() == null) ? 0 : getStandardsStatus().hashCode());
+        hashCode = prime * hashCode + ((getStandardsStatusReason() == null) ? 0 : getStandardsStatusReason().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,13 +42,16 @@ public class ListStepsRequest extends com.amazonaws.AmazonWebServiceRequest impl
     private com.amazonaws.internal.SdkInternalList<String> stepStates;
     /**
      * <p>
-     * The filter to limit the step list based on the identifier of the steps.
+     * The filter to limit the step list based on the identifier of the steps. You can specify a maximum of ten Step
+     * IDs. The character constraint applies to the overall length of the array.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> stepIds;
     /**
      * <p>
-     * The pagination token that indicates the next set of results to retrieve.
+     * The maximum number of steps that a single <code>ListSteps</code> action returns is 50. To return a longer list of
+     * steps, use multiple <code>ListSteps</code> actions along with the <code>Marker</code> parameter, which is a
+     * pagination token that indicates the next set of results to retrieve.
      * </p>
      */
     private String marker;
@@ -196,10 +199,12 @@ public class ListStepsRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The filter to limit the step list based on the identifier of the steps.
+     * The filter to limit the step list based on the identifier of the steps. You can specify a maximum of ten Step
+     * IDs. The character constraint applies to the overall length of the array.
      * </p>
      * 
-     * @return The filter to limit the step list based on the identifier of the steps.
+     * @return The filter to limit the step list based on the identifier of the steps. You can specify a maximum of ten
+     *         Step IDs. The character constraint applies to the overall length of the array.
      */
 
     public java.util.List<String> getStepIds() {
@@ -211,11 +216,13 @@ public class ListStepsRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The filter to limit the step list based on the identifier of the steps.
+     * The filter to limit the step list based on the identifier of the steps. You can specify a maximum of ten Step
+     * IDs. The character constraint applies to the overall length of the array.
      * </p>
      * 
      * @param stepIds
-     *        The filter to limit the step list based on the identifier of the steps.
+     *        The filter to limit the step list based on the identifier of the steps. You can specify a maximum of ten
+     *        Step IDs. The character constraint applies to the overall length of the array.
      */
 
     public void setStepIds(java.util.Collection<String> stepIds) {
@@ -229,7 +236,8 @@ public class ListStepsRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The filter to limit the step list based on the identifier of the steps.
+     * The filter to limit the step list based on the identifier of the steps. You can specify a maximum of ten Step
+     * IDs. The character constraint applies to the overall length of the array.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -238,7 +246,8 @@ public class ListStepsRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </p>
      * 
      * @param stepIds
-     *        The filter to limit the step list based on the identifier of the steps.
+     *        The filter to limit the step list based on the identifier of the steps. You can specify a maximum of ten
+     *        Step IDs. The character constraint applies to the overall length of the array.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -254,11 +263,13 @@ public class ListStepsRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The filter to limit the step list based on the identifier of the steps.
+     * The filter to limit the step list based on the identifier of the steps. You can specify a maximum of ten Step
+     * IDs. The character constraint applies to the overall length of the array.
      * </p>
      * 
      * @param stepIds
-     *        The filter to limit the step list based on the identifier of the steps.
+     *        The filter to limit the step list based on the identifier of the steps. You can specify a maximum of ten
+     *        Step IDs. The character constraint applies to the overall length of the array.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -269,11 +280,15 @@ public class ListStepsRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The pagination token that indicates the next set of results to retrieve.
+     * The maximum number of steps that a single <code>ListSteps</code> action returns is 50. To return a longer list of
+     * steps, use multiple <code>ListSteps</code> actions along with the <code>Marker</code> parameter, which is a
+     * pagination token that indicates the next set of results to retrieve.
      * </p>
      * 
      * @param marker
-     *        The pagination token that indicates the next set of results to retrieve.
+     *        The maximum number of steps that a single <code>ListSteps</code> action returns is 50. To return a longer
+     *        list of steps, use multiple <code>ListSteps</code> actions along with the <code>Marker</code> parameter,
+     *        which is a pagination token that indicates the next set of results to retrieve.
      */
 
     public void setMarker(String marker) {
@@ -282,10 +297,14 @@ public class ListStepsRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The pagination token that indicates the next set of results to retrieve.
+     * The maximum number of steps that a single <code>ListSteps</code> action returns is 50. To return a longer list of
+     * steps, use multiple <code>ListSteps</code> actions along with the <code>Marker</code> parameter, which is a
+     * pagination token that indicates the next set of results to retrieve.
      * </p>
      * 
-     * @return The pagination token that indicates the next set of results to retrieve.
+     * @return The maximum number of steps that a single <code>ListSteps</code> action returns is 50. To return a longer
+     *         list of steps, use multiple <code>ListSteps</code> actions along with the <code>Marker</code> parameter,
+     *         which is a pagination token that indicates the next set of results to retrieve.
      */
 
     public String getMarker() {
@@ -294,11 +313,15 @@ public class ListStepsRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The pagination token that indicates the next set of results to retrieve.
+     * The maximum number of steps that a single <code>ListSteps</code> action returns is 50. To return a longer list of
+     * steps, use multiple <code>ListSteps</code> actions along with the <code>Marker</code> parameter, which is a
+     * pagination token that indicates the next set of results to retrieve.
      * </p>
      * 
      * @param marker
-     *        The pagination token that indicates the next set of results to retrieve.
+     *        The maximum number of steps that a single <code>ListSteps</code> action returns is 50. To return a longer
+     *        list of steps, use multiple <code>ListSteps</code> actions along with the <code>Marker</code> parameter,
+     *        which is a pagination token that indicates the next set of results to retrieve.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

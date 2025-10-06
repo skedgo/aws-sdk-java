@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,10 +27,12 @@ import com.amazonaws.services.elasticfilesystem.model.*;
  * <p>
  * <fullname>Amazon Elastic File System</fullname>
  * <p>
- * Amazon Elastic File System (Amazon EFS) provides simple, scalable file storage for use with Amazon EC2 instances in
- * the AWS Cloud. With Amazon EFS, storage capacity is elastic, growing and shrinking automatically as you add and
- * remove files, so your applications have the storage they need, when they need it. For more information, see the <a
- * href="https://docs.aws.amazon.com/efs/latest/ug/api-reference.html">User Guide</a>.
+ * Amazon Elastic File System (Amazon EFS) provides simple, scalable file storage for use with Amazon EC2 Linux and Mac
+ * instances in the Amazon Web Services Cloud. With Amazon EFS, storage capacity is elastic, growing and shrinking
+ * automatically as you add and remove files, so that your applications have the storage they need, when they need it.
+ * For more information, see the <a href="https://docs.aws.amazon.com/efs/latest/ug/api-reference.html">Amazon Elastic
+ * File System API Reference</a> and the <a href="https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html">Amazon
+ * Elastic File System User Guide</a>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -38,10 +40,89 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
 
     /**
      * <p>
+     * Creates an EFS access point. An access point is an application-specific view into an EFS file system that applies
+     * an operating system user and group, and a file system path, to any file system request made through the access
+     * point. The operating system user and group override any identity information provided by the NFS client. The file
+     * system path is exposed as the access point's root directory. Applications using the access point can only access
+     * data in the application's own directory and any subdirectories. To learn more, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/efs-access-points.html">Mounting a file system using EFS access
+     * points</a>.
+     * </p>
+     * <note>
+     * <p>
+     * If multiple requests to create access points on the same file system are sent in quick succession, and the file
+     * system is near the limit of 1,000 access points, you may experience a throttling response for these requests.
+     * This is to ensure that the file system does not exceed the stated access point limit.
+     * </p>
+     * </note>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:CreateAccessPoint</code> action.
+     * </p>
+     * <p>
+     * Access points can be tagged on creation. If tags are specified in the creation action, IAM performs additional
+     * authorization on the <code>elasticfilesystem:TagResource</code> action to verify if users have permissions to
+     * create tags. Therefore, you must grant explicit permissions to use the <code>elasticfilesystem:TagResource</code>
+     * action. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/using-tags-efs.html#supported-iam-actions-tagging.html">Granting
+     * permissions to tag resources during creation</a>.
+     * </p>
+     * 
+     * @param createAccessPointRequest
+     * @return A Java Future containing the result of the CreateAccessPoint operation returned by the service.
+     * @sample AmazonElasticFileSystemAsync.CreateAccessPoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/CreateAccessPoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateAccessPointResult> createAccessPointAsync(CreateAccessPointRequest createAccessPointRequest);
+
+    /**
+     * <p>
+     * Creates an EFS access point. An access point is an application-specific view into an EFS file system that applies
+     * an operating system user and group, and a file system path, to any file system request made through the access
+     * point. The operating system user and group override any identity information provided by the NFS client. The file
+     * system path is exposed as the access point's root directory. Applications using the access point can only access
+     * data in the application's own directory and any subdirectories. To learn more, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/efs-access-points.html">Mounting a file system using EFS access
+     * points</a>.
+     * </p>
+     * <note>
+     * <p>
+     * If multiple requests to create access points on the same file system are sent in quick succession, and the file
+     * system is near the limit of 1,000 access points, you may experience a throttling response for these requests.
+     * This is to ensure that the file system does not exceed the stated access point limit.
+     * </p>
+     * </note>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:CreateAccessPoint</code> action.
+     * </p>
+     * <p>
+     * Access points can be tagged on creation. If tags are specified in the creation action, IAM performs additional
+     * authorization on the <code>elasticfilesystem:TagResource</code> action to verify if users have permissions to
+     * create tags. Therefore, you must grant explicit permissions to use the <code>elasticfilesystem:TagResource</code>
+     * action. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/using-tags-efs.html#supported-iam-actions-tagging.html">Granting
+     * permissions to tag resources during creation</a>.
+     * </p>
+     * 
+     * @param createAccessPointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateAccessPoint operation returned by the service.
+     * @sample AmazonElasticFileSystemAsyncHandler.CreateAccessPoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/CreateAccessPoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateAccessPointResult> createAccessPointAsync(CreateAccessPointRequest createAccessPointRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateAccessPointRequest, CreateAccessPointResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates a new, empty file system. The operation requires a creation token in the request that Amazon EFS uses to
      * ensure idempotent creation (calling the operation with same creation token has no effect). If a file system does
-     * not currently exist that is owned by the caller's AWS account with the specified creation token, this operation
-     * does the following:
+     * not currently exist that is owned by the caller's Amazon Web Services account with the specified creation token,
+     * this operation does the following:
      * </p>
      * <ul>
      * <li>
@@ -72,6 +153,11 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * was reset. As long as you use the same creation token, if the initial call had succeeded in creating a file
      * system, the client can learn of its existence from the <code>FileSystemAlreadyExists</code> error.
      * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/creating-using-create-fs.html#creating-using-create-fs-part1"
+     * >Creating a file system</a> in the <i>Amazon EFS User Guide</i>.
+     * </p>
      * <note>
      * <p>
      * The <code>CreateFileSystem</code> call returns while the file system's lifecycle state is still
@@ -80,13 +166,25 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * </p>
      * </note>
      * <p>
-     * This operation also takes an optional <code>PerformanceMode</code> parameter that you choose for your file
-     * system. We recommend <code>generalPurpose</code> performance mode for most file systems. File systems using the
-     * <code>maxIO</code> performance mode can scale to higher levels of aggregate throughput and operations per second
-     * with a tradeoff of slightly higher latencies for most file operations. The performance mode can't be changed
-     * after the file system has been created. For more information, see <a
-     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#performancemodes.html">Amazon EFS: Performance
-     * Modes</a>.
+     * This operation accepts an optional <code>PerformanceMode</code> parameter that you choose for your file system.
+     * We recommend <code>generalPurpose</code> performance mode for all file systems. File systems using the
+     * <code>maxIO</code> mode is a previous generation performance type that is designed for highly parallelized
+     * workloads that can tolerate higher latencies than the General Purpose mode. Max I/O mode is not supported for One
+     * Zone file systems or file systems that use Elastic throughput.
+     * </p>
+     * <important>
+     * <p>
+     * Due to the higher per-operation latencies with Max I/O, we recommend using General Purpose performance mode for
+     * all file systems.
+     * </p>
+     * </important>
+     * <p>
+     * The performance mode can't be changed after the file system has been created. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#performancemodes.html">Amazon EFS performance
+     * modes</a>.
+     * </p>
+     * <p>
+     * You can set the throughput mode for the file system using the <code>ThroughputMode</code> parameter.
      * </p>
      * <p>
      * After the file system is fully created, Amazon EFS sets its lifecycle state to <code>available</code>, at which
@@ -97,6 +195,14 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * </p>
      * <p>
      * This operation requires permissions for the <code>elasticfilesystem:CreateFileSystem</code> action.
+     * </p>
+     * <p>
+     * File systems can be tagged on creation. If tags are specified in the creation action, IAM performs additional
+     * authorization on the <code>elasticfilesystem:TagResource</code> action to verify if users have permissions to
+     * create tags. Therefore, you must grant explicit permissions to use the <code>elasticfilesystem:TagResource</code>
+     * action. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/using-tags-efs.html#supported-iam-actions-tagging.html">Granting
+     * permissions to tag resources during creation</a>.
      * </p>
      * 
      * @param createFileSystemRequest
@@ -111,8 +217,8 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * <p>
      * Creates a new, empty file system. The operation requires a creation token in the request that Amazon EFS uses to
      * ensure idempotent creation (calling the operation with same creation token has no effect). If a file system does
-     * not currently exist that is owned by the caller's AWS account with the specified creation token, this operation
-     * does the following:
+     * not currently exist that is owned by the caller's Amazon Web Services account with the specified creation token,
+     * this operation does the following:
      * </p>
      * <ul>
      * <li>
@@ -143,6 +249,11 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * was reset. As long as you use the same creation token, if the initial call had succeeded in creating a file
      * system, the client can learn of its existence from the <code>FileSystemAlreadyExists</code> error.
      * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/creating-using-create-fs.html#creating-using-create-fs-part1"
+     * >Creating a file system</a> in the <i>Amazon EFS User Guide</i>.
+     * </p>
      * <note>
      * <p>
      * The <code>CreateFileSystem</code> call returns while the file system's lifecycle state is still
@@ -151,13 +262,25 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * </p>
      * </note>
      * <p>
-     * This operation also takes an optional <code>PerformanceMode</code> parameter that you choose for your file
-     * system. We recommend <code>generalPurpose</code> performance mode for most file systems. File systems using the
-     * <code>maxIO</code> performance mode can scale to higher levels of aggregate throughput and operations per second
-     * with a tradeoff of slightly higher latencies for most file operations. The performance mode can't be changed
-     * after the file system has been created. For more information, see <a
-     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#performancemodes.html">Amazon EFS: Performance
-     * Modes</a>.
+     * This operation accepts an optional <code>PerformanceMode</code> parameter that you choose for your file system.
+     * We recommend <code>generalPurpose</code> performance mode for all file systems. File systems using the
+     * <code>maxIO</code> mode is a previous generation performance type that is designed for highly parallelized
+     * workloads that can tolerate higher latencies than the General Purpose mode. Max I/O mode is not supported for One
+     * Zone file systems or file systems that use Elastic throughput.
+     * </p>
+     * <important>
+     * <p>
+     * Due to the higher per-operation latencies with Max I/O, we recommend using General Purpose performance mode for
+     * all file systems.
+     * </p>
+     * </important>
+     * <p>
+     * The performance mode can't be changed after the file system has been created. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#performancemodes.html">Amazon EFS performance
+     * modes</a>.
+     * </p>
+     * <p>
+     * You can set the throughput mode for the file system using the <code>ThroughputMode</code> parameter.
      * </p>
      * <p>
      * After the file system is fully created, Amazon EFS sets its lifecycle state to <code>available</code>, at which
@@ -168,6 +291,14 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * </p>
      * <p>
      * This operation requires permissions for the <code>elasticfilesystem:CreateFileSystem</code> action.
+     * </p>
+     * <p>
+     * File systems can be tagged on creation. If tags are specified in the creation action, IAM performs additional
+     * authorization on the <code>elasticfilesystem:TagResource</code> action to verify if users have permissions to
+     * create tags. Therefore, you must grant explicit permissions to use the <code>elasticfilesystem:TagResource</code>
+     * action. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/using-tags-efs.html#supported-iam-actions-tagging.html">Granting
+     * permissions to tag resources during creation</a>.
      * </p>
      * 
      * @param createFileSystemRequest
@@ -192,32 +323,54 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * You can create one mount target in each Availability Zone in your VPC. All EC2 instances in a VPC within a given
      * Availability Zone share a single mount target for a given file system. If you have multiple subnets in an
      * Availability Zone, you create a mount target in one of the subnets. EC2 instances do not need to be in the same
-     * subnet as the mount target in order to access their file system. For more information, see <a
-     * href="https://docs.aws.amazon.com/efs/latest/ug/how-it-works.html">Amazon EFS: How it Works</a>.
+     * subnet as the mount target in order to access their file system.
      * </p>
      * <p>
-     * In the request, you also specify a file system ID for which you are creating the mount target and the file
-     * system's lifecycle state must be <code>available</code>. For more information, see <a>DescribeFileSystems</a>.
+     * You can create only one mount target for a One Zone file system. You must create that mount target in the same
+     * Availability Zone in which the file system is located. Use the <code>AvailabilityZoneName</code> and
+     * <code>AvailabiltyZoneId</code> properties in the <a>DescribeFileSystems</a> response object to get this
+     * information. Use the <code>subnetId</code> associated with the file system's Availability Zone when creating the
+     * mount target.
      * </p>
      * <p>
-     * In the request, you also provide a subnet ID, which determines the following:
+     * For more information, see <a href="https://docs.aws.amazon.com/efs/latest/ug/how-it-works.html">Amazon EFS: How
+     * it Works</a>.
+     * </p>
+     * <p>
+     * To create a mount target for a file system, the file system's lifecycle state must be <code>available</code>. For
+     * more information, see <a>DescribeFileSystems</a>.
+     * </p>
+     * <p>
+     * In the request, provide the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * VPC in which Amazon EFS creates the mount target
+     * The file system ID for which you are creating the mount target.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Availability Zone in which Amazon EFS creates the mount target
+     * A subnet ID, which determines the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The VPC in which Amazon EFS creates the mount target
      * </p>
      * </li>
      * <li>
      * <p>
-     * IP address range from which Amazon EFS selects the IP address of the mount target (if you don't specify an IP
+     * The Availability Zone in which Amazon EFS creates the mount target
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The IP address range from which Amazon EFS selects the IP address of the mount target (if you don't specify an IP
      * address in the request)
      * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * <p>
@@ -356,32 +509,54 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * You can create one mount target in each Availability Zone in your VPC. All EC2 instances in a VPC within a given
      * Availability Zone share a single mount target for a given file system. If you have multiple subnets in an
      * Availability Zone, you create a mount target in one of the subnets. EC2 instances do not need to be in the same
-     * subnet as the mount target in order to access their file system. For more information, see <a
-     * href="https://docs.aws.amazon.com/efs/latest/ug/how-it-works.html">Amazon EFS: How it Works</a>.
+     * subnet as the mount target in order to access their file system.
      * </p>
      * <p>
-     * In the request, you also specify a file system ID for which you are creating the mount target and the file
-     * system's lifecycle state must be <code>available</code>. For more information, see <a>DescribeFileSystems</a>.
+     * You can create only one mount target for a One Zone file system. You must create that mount target in the same
+     * Availability Zone in which the file system is located. Use the <code>AvailabilityZoneName</code> and
+     * <code>AvailabiltyZoneId</code> properties in the <a>DescribeFileSystems</a> response object to get this
+     * information. Use the <code>subnetId</code> associated with the file system's Availability Zone when creating the
+     * mount target.
      * </p>
      * <p>
-     * In the request, you also provide a subnet ID, which determines the following:
+     * For more information, see <a href="https://docs.aws.amazon.com/efs/latest/ug/how-it-works.html">Amazon EFS: How
+     * it Works</a>.
+     * </p>
+     * <p>
+     * To create a mount target for a file system, the file system's lifecycle state must be <code>available</code>. For
+     * more information, see <a>DescribeFileSystems</a>.
+     * </p>
+     * <p>
+     * In the request, provide the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * VPC in which Amazon EFS creates the mount target
+     * The file system ID for which you are creating the mount target.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Availability Zone in which Amazon EFS creates the mount target
+     * A subnet ID, which determines the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The VPC in which Amazon EFS creates the mount target
      * </p>
      * </li>
      * <li>
      * <p>
-     * IP address range from which Amazon EFS selects the IP address of the mount target (if you don't specify an IP
+     * The Availability Zone in which Amazon EFS creates the mount target
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The IP address range from which Amazon EFS selects the IP address of the mount target (if you don't specify an IP
      * address in the request)
      * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * <p>
@@ -518,6 +693,247 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
 
     /**
      * <p>
+     * Creates a replication configuration that replicates an existing EFS file system to a new, read-only file system.
+     * For more information, see <a href="https://docs.aws.amazon.com/efs/latest/ug/efs-replication.html">Amazon EFS
+     * replication</a> in the <i>Amazon EFS User Guide</i>. The replication configuration specifies the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>Source file system</b> – The EFS file system that you want replicated. The source file system cannot be a
+     * destination file system in an existing replication configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Amazon Web Services Region</b> – The Amazon Web Services Region in which the destination file system is
+     * created. Amazon EFS replication is available in all Amazon Web Services Regions in which EFS is available. The
+     * Region must be enabled. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable">Managing Amazon Web
+     * Services Regions</a> in the <i>Amazon Web Services General Reference Reference Guide</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Destination file system configuration</b> – The configuration of the destination file system to which the
+     * source file system will be replicated. There can only be one destination file system in a replication
+     * configuration.
+     * </p>
+     * <p>
+     * Parameters for the replication configuration include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>File system ID</b> – The ID of the destination file system for the replication. If no ID is provided, then EFS
+     * creates a new file system with the default settings. For existing file systems, the file system's replication
+     * overwrite protection must be disabled. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/efs-replication#replicate-existing-destination"> Replicating to
+     * an existing file system</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Availability Zone</b> – If you want the destination file system to use One Zone storage, you must specify the
+     * Availability Zone to create the file system in. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html"> EFS file system types</a> in the <i>Amazon
+     * EFS User Guide</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Encryption</b> – All destination file systems are created with encryption at rest enabled. You can specify the
+     * Key Management Service (KMS) key that is used to encrypt the destination file system. If you don't specify a KMS
+     * key, your service-managed KMS key for Amazon EFS is used.
+     * </p>
+     * <note>
+     * <p>
+     * After the file system is created, you cannot change the KMS key.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * After the file system is created, you cannot change the KMS key.
+     * </p>
+     * </note>
+     * <p>
+     * For new destination file systems, the following properties are set by default:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>Performance mode</b> - The destination file system's performance mode matches that of the source file system,
+     * unless the destination file system uses EFS One Zone storage. In that case, the General Purpose performance mode
+     * is used. The performance mode cannot be changed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Throughput mode</b> - The destination file system's throughput mode matches that of the source file system.
+     * After the file system is created, you can modify the throughput mode.
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>Lifecycle management</b> – Lifecycle management is not enabled on the destination file system. After the
+     * destination file system is created, you can enable lifecycle management.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Automatic backups</b> – Automatic daily backups are enabled on the destination file system. After the file
+     * system is created, you can change this setting.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/efs/latest/ug/efs-replication.html">Amazon EFS
+     * replication</a> in the <i>Amazon EFS User Guide</i>.
+     * </p>
+     * 
+     * @param createReplicationConfigurationRequest
+     * @return A Java Future containing the result of the CreateReplicationConfiguration operation returned by the
+     *         service.
+     * @sample AmazonElasticFileSystemAsync.CreateReplicationConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/CreateReplicationConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateReplicationConfigurationResult> createReplicationConfigurationAsync(
+            CreateReplicationConfigurationRequest createReplicationConfigurationRequest);
+
+    /**
+     * <p>
+     * Creates a replication configuration that replicates an existing EFS file system to a new, read-only file system.
+     * For more information, see <a href="https://docs.aws.amazon.com/efs/latest/ug/efs-replication.html">Amazon EFS
+     * replication</a> in the <i>Amazon EFS User Guide</i>. The replication configuration specifies the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>Source file system</b> – The EFS file system that you want replicated. The source file system cannot be a
+     * destination file system in an existing replication configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Amazon Web Services Region</b> – The Amazon Web Services Region in which the destination file system is
+     * created. Amazon EFS replication is available in all Amazon Web Services Regions in which EFS is available. The
+     * Region must be enabled. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/rande-manage.html#rande-manage-enable">Managing Amazon Web
+     * Services Regions</a> in the <i>Amazon Web Services General Reference Reference Guide</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Destination file system configuration</b> – The configuration of the destination file system to which the
+     * source file system will be replicated. There can only be one destination file system in a replication
+     * configuration.
+     * </p>
+     * <p>
+     * Parameters for the replication configuration include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>File system ID</b> – The ID of the destination file system for the replication. If no ID is provided, then EFS
+     * creates a new file system with the default settings. For existing file systems, the file system's replication
+     * overwrite protection must be disabled. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/efs-replication#replicate-existing-destination"> Replicating to
+     * an existing file system</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Availability Zone</b> – If you want the destination file system to use One Zone storage, you must specify the
+     * Availability Zone to create the file system in. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html"> EFS file system types</a> in the <i>Amazon
+     * EFS User Guide</i>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Encryption</b> – All destination file systems are created with encryption at rest enabled. You can specify the
+     * Key Management Service (KMS) key that is used to encrypt the destination file system. If you don't specify a KMS
+     * key, your service-managed KMS key for Amazon EFS is used.
+     * </p>
+     * <note>
+     * <p>
+     * After the file system is created, you cannot change the KMS key.
+     * </p>
+     * </note></li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * After the file system is created, you cannot change the KMS key.
+     * </p>
+     * </note>
+     * <p>
+     * For new destination file systems, the following properties are set by default:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>Performance mode</b> - The destination file system's performance mode matches that of the source file system,
+     * unless the destination file system uses EFS One Zone storage. In that case, the General Purpose performance mode
+     * is used. The performance mode cannot be changed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Throughput mode</b> - The destination file system's throughput mode matches that of the source file system.
+     * After the file system is created, you can modify the throughput mode.
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>Lifecycle management</b> – Lifecycle management is not enabled on the destination file system. After the
+     * destination file system is created, you can enable lifecycle management.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Automatic backups</b> – Automatic daily backups are enabled on the destination file system. After the file
+     * system is created, you can change this setting.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/efs/latest/ug/efs-replication.html">Amazon EFS
+     * replication</a> in the <i>Amazon EFS User Guide</i>.
+     * </p>
+     * 
+     * @param createReplicationConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateReplicationConfiguration operation returned by the
+     *         service.
+     * @sample AmazonElasticFileSystemAsyncHandler.CreateReplicationConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/CreateReplicationConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateReplicationConfigurationResult> createReplicationConfigurationAsync(
+            CreateReplicationConfigurationRequest createReplicationConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateReplicationConfigurationRequest, CreateReplicationConfigurationResult> asyncHandler);
+
+    /**
+     * <note>
+     * <p>
+     * DEPRECATED - <code>CreateTags</code> is deprecated and not maintained. To create tags for EFS resources, use the
+     * API action.
+     * </p>
+     * </note>
+     * <p>
      * Creates or overwrites tags associated with a file system. Each tag is a key-value pair. If a tag key specified in
      * the request already exists on the file system, this operation overwrites its value with the value provided in the
      * request. If you add the <code>Name</code> tag to your file system, Amazon EFS returns it in the response to the
@@ -533,9 +949,16 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/CreateTags" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<CreateTagsResult> createTagsAsync(CreateTagsRequest createTagsRequest);
 
     /**
+     * <note>
+     * <p>
+     * DEPRECATED - <code>CreateTags</code> is deprecated and not maintained. To create tags for EFS resources, use the
+     * API action.
+     * </p>
+     * </note>
      * <p>
      * Creates or overwrites tags associated with a file system. Each tag is a key-value pair. If a tag key specified in
      * the request already exists on the file system, this operation overwrites its value with the value provided in the
@@ -556,14 +979,66 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/CreateTags" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<CreateTagsResult> createTagsAsync(CreateTagsRequest createTagsRequest,
             com.amazonaws.handlers.AsyncHandler<CreateTagsRequest, CreateTagsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the specified access point. After deletion is complete, new clients can no longer connect to the access
+     * points. Clients connected to the access point at the time of deletion will continue to function until they
+     * terminate their connection.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:DeleteAccessPoint</code> action.
+     * </p>
+     * 
+     * @param deleteAccessPointRequest
+     * @return A Java Future containing the result of the DeleteAccessPoint operation returned by the service.
+     * @sample AmazonElasticFileSystemAsync.DeleteAccessPoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DeleteAccessPoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteAccessPointResult> deleteAccessPointAsync(DeleteAccessPointRequest deleteAccessPointRequest);
+
+    /**
+     * <p>
+     * Deletes the specified access point. After deletion is complete, new clients can no longer connect to the access
+     * points. Clients connected to the access point at the time of deletion will continue to function until they
+     * terminate their connection.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:DeleteAccessPoint</code> action.
+     * </p>
+     * 
+     * @param deleteAccessPointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteAccessPoint operation returned by the service.
+     * @sample AmazonElasticFileSystemAsyncHandler.DeleteAccessPoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DeleteAccessPoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteAccessPointResult> deleteAccessPointAsync(DeleteAccessPointRequest deleteAccessPointRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteAccessPointRequest, DeleteAccessPointResult> asyncHandler);
 
     /**
      * <p>
      * Deletes a file system, permanently severing access to its contents. Upon return, the file system no longer exists
      * and you can't access any contents of the deleted file system.
      * </p>
+     * <p>
+     * You need to manually delete mount targets attached to a file system before you can delete an EFS file system.
+     * This step is performed for you when you use the Amazon Web Services console to delete a file system.
+     * </p>
+     * <note>
+     * <p>
+     * You cannot delete a file system that is part of an EFS Replication configuration. You need to delete the
+     * replication configuration first.
+     * </p>
+     * </note>
      * <p>
      * You can't delete a file system that is in use. That is, if the file system has any mount targets, you must first
      * delete them. For more information, see <a>DescribeMountTargets</a> and <a>DeleteMountTarget</a>.
@@ -594,6 +1069,16 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * and you can't access any contents of the deleted file system.
      * </p>
      * <p>
+     * You need to manually delete mount targets attached to a file system before you can delete an EFS file system.
+     * This step is performed for you when you use the Amazon Web Services console to delete a file system.
+     * </p>
+     * <note>
+     * <p>
+     * You cannot delete a file system that is part of an EFS Replication configuration. You need to delete the
+     * replication configuration first.
+     * </p>
+     * </note>
+     * <p>
      * You can't delete a file system that is in use. That is, if the file system has any mount targets, you must first
      * delete them. For more information, see <a>DescribeMountTargets</a> and <a>DeleteMountTarget</a>.
      * </p>
@@ -621,6 +1106,51 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      */
     java.util.concurrent.Future<DeleteFileSystemResult> deleteFileSystemAsync(DeleteFileSystemRequest deleteFileSystemRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteFileSystemRequest, DeleteFileSystemResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the <code>FileSystemPolicy</code> for the specified file system. The default
+     * <code>FileSystemPolicy</code> goes into effect once the existing policy is deleted. For more information about
+     * the default file system policy, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/res-based-policies-efs.html">Using Resource-based Policies with
+     * EFS</a>.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:DeleteFileSystemPolicy</code> action.
+     * </p>
+     * 
+     * @param deleteFileSystemPolicyRequest
+     * @return A Java Future containing the result of the DeleteFileSystemPolicy operation returned by the service.
+     * @sample AmazonElasticFileSystemAsync.DeleteFileSystemPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DeleteFileSystemPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteFileSystemPolicyResult> deleteFileSystemPolicyAsync(DeleteFileSystemPolicyRequest deleteFileSystemPolicyRequest);
+
+    /**
+     * <p>
+     * Deletes the <code>FileSystemPolicy</code> for the specified file system. The default
+     * <code>FileSystemPolicy</code> goes into effect once the existing policy is deleted. For more information about
+     * the default file system policy, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/res-based-policies-efs.html">Using Resource-based Policies with
+     * EFS</a>.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:DeleteFileSystemPolicy</code> action.
+     * </p>
+     * 
+     * @param deleteFileSystemPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteFileSystemPolicy operation returned by the service.
+     * @sample AmazonElasticFileSystemAsyncHandler.DeleteFileSystemPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DeleteFileSystemPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteFileSystemPolicyResult> deleteFileSystemPolicyAsync(DeleteFileSystemPolicyRequest deleteFileSystemPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteFileSystemPolicyRequest, DeleteFileSystemPolicyResult> asyncHandler);
 
     /**
      * <p>
@@ -727,10 +1257,63 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
 
     /**
      * <p>
+     * Deletes a replication configuration. Deleting a replication configuration ends the replication process. After a
+     * replication configuration is deleted, the destination file system becomes <code>Writeable</code> and its
+     * replication overwrite protection is re-enabled. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/delete-replications.html">Delete a replication configuration</a>.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:DeleteReplicationConfiguration</code> action.
+     * </p>
+     * 
+     * @param deleteReplicationConfigurationRequest
+     * @return A Java Future containing the result of the DeleteReplicationConfiguration operation returned by the
+     *         service.
+     * @sample AmazonElasticFileSystemAsync.DeleteReplicationConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DeleteReplicationConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteReplicationConfigurationResult> deleteReplicationConfigurationAsync(
+            DeleteReplicationConfigurationRequest deleteReplicationConfigurationRequest);
+
+    /**
+     * <p>
+     * Deletes a replication configuration. Deleting a replication configuration ends the replication process. After a
+     * replication configuration is deleted, the destination file system becomes <code>Writeable</code> and its
+     * replication overwrite protection is re-enabled. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/delete-replications.html">Delete a replication configuration</a>.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:DeleteReplicationConfiguration</code> action.
+     * </p>
+     * 
+     * @param deleteReplicationConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteReplicationConfiguration operation returned by the
+     *         service.
+     * @sample AmazonElasticFileSystemAsyncHandler.DeleteReplicationConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DeleteReplicationConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteReplicationConfigurationResult> deleteReplicationConfigurationAsync(
+            DeleteReplicationConfigurationRequest deleteReplicationConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteReplicationConfigurationRequest, DeleteReplicationConfigurationResult> asyncHandler);
+
+    /**
+     * <note>
+     * <p>
+     * DEPRECATED - <code>DeleteTags</code> is deprecated and not maintained. To remove tags from EFS resources, use the
+     * API action.
+     * </p>
+     * </note>
+     * <p>
      * Deletes the specified tags from a file system. If the <code>DeleteTags</code> request includes a tag key that
      * doesn't exist, Amazon EFS ignores it and doesn't cause an error. For more information about tags and related
      * restrictions, see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Tag
-     * Restrictions</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     * restrictions</a> in the <i>Billing and Cost Management User Guide</i>.
      * </p>
      * <p>
      * This operation requires permissions for the <code>elasticfilesystem:DeleteTags</code> action.
@@ -742,14 +1325,21 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DeleteTags" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DeleteTagsResult> deleteTagsAsync(DeleteTagsRequest deleteTagsRequest);
 
     /**
+     * <note>
+     * <p>
+     * DEPRECATED - <code>DeleteTags</code> is deprecated and not maintained. To remove tags from EFS resources, use the
+     * API action.
+     * </p>
+     * </note>
      * <p>
      * Deletes the specified tags from a file system. If the <code>DeleteTags</code> request includes a tag key that
      * doesn't exist, Amazon EFS ignores it and doesn't cause an error. For more information about tags and related
      * restrictions, see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Tag
-     * Restrictions</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     * restrictions</a> in the <i>Billing and Cost Management User Guide</i>.
      * </p>
      * <p>
      * This operation requires permissions for the <code>elasticfilesystem:DeleteTags</code> action.
@@ -765,21 +1355,166 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DeleteTags" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DeleteTagsResult> deleteTagsAsync(DeleteTagsRequest deleteTagsRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteTagsRequest, DeleteTagsResult> asyncHandler);
 
     /**
      * <p>
+     * Returns the description of a specific Amazon EFS access point if the <code>AccessPointId</code> is provided. If
+     * you provide an EFS <code>FileSystemId</code>, it returns descriptions of all access points for that file system.
+     * You can provide either an <code>AccessPointId</code> or a <code>FileSystemId</code> in the request, but not both.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:DescribeAccessPoints</code> action.
+     * </p>
+     * 
+     * @param describeAccessPointsRequest
+     * @return A Java Future containing the result of the DescribeAccessPoints operation returned by the service.
+     * @sample AmazonElasticFileSystemAsync.DescribeAccessPoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DescribeAccessPoints"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeAccessPointsResult> describeAccessPointsAsync(DescribeAccessPointsRequest describeAccessPointsRequest);
+
+    /**
+     * <p>
+     * Returns the description of a specific Amazon EFS access point if the <code>AccessPointId</code> is provided. If
+     * you provide an EFS <code>FileSystemId</code>, it returns descriptions of all access points for that file system.
+     * You can provide either an <code>AccessPointId</code> or a <code>FileSystemId</code> in the request, but not both.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:DescribeAccessPoints</code> action.
+     * </p>
+     * 
+     * @param describeAccessPointsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeAccessPoints operation returned by the service.
+     * @sample AmazonElasticFileSystemAsyncHandler.DescribeAccessPoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DescribeAccessPoints"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeAccessPointsResult> describeAccessPointsAsync(DescribeAccessPointsRequest describeAccessPointsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeAccessPointsRequest, DescribeAccessPointsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the account preferences settings for the Amazon Web Services account associated with the user making the
+     * request, in the current Amazon Web Services Region.
+     * </p>
+     * 
+     * @param describeAccountPreferencesRequest
+     * @return A Java Future containing the result of the DescribeAccountPreferences operation returned by the service.
+     * @sample AmazonElasticFileSystemAsync.DescribeAccountPreferences
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DescribeAccountPreferences"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeAccountPreferencesResult> describeAccountPreferencesAsync(
+            DescribeAccountPreferencesRequest describeAccountPreferencesRequest);
+
+    /**
+     * <p>
+     * Returns the account preferences settings for the Amazon Web Services account associated with the user making the
+     * request, in the current Amazon Web Services Region.
+     * </p>
+     * 
+     * @param describeAccountPreferencesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeAccountPreferences operation returned by the service.
+     * @sample AmazonElasticFileSystemAsyncHandler.DescribeAccountPreferences
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DescribeAccountPreferences"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeAccountPreferencesResult> describeAccountPreferencesAsync(
+            DescribeAccountPreferencesRequest describeAccountPreferencesRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeAccountPreferencesRequest, DescribeAccountPreferencesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the backup policy for the specified EFS file system.
+     * </p>
+     * 
+     * @param describeBackupPolicyRequest
+     * @return A Java Future containing the result of the DescribeBackupPolicy operation returned by the service.
+     * @sample AmazonElasticFileSystemAsync.DescribeBackupPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DescribeBackupPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeBackupPolicyResult> describeBackupPolicyAsync(DescribeBackupPolicyRequest describeBackupPolicyRequest);
+
+    /**
+     * <p>
+     * Returns the backup policy for the specified EFS file system.
+     * </p>
+     * 
+     * @param describeBackupPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeBackupPolicy operation returned by the service.
+     * @sample AmazonElasticFileSystemAsyncHandler.DescribeBackupPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DescribeBackupPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeBackupPolicyResult> describeBackupPolicyAsync(DescribeBackupPolicyRequest describeBackupPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeBackupPolicyRequest, DescribeBackupPolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the <code>FileSystemPolicy</code> for the specified EFS file system.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:DescribeFileSystemPolicy</code> action.
+     * </p>
+     * 
+     * @param describeFileSystemPolicyRequest
+     * @return A Java Future containing the result of the DescribeFileSystemPolicy operation returned by the service.
+     * @sample AmazonElasticFileSystemAsync.DescribeFileSystemPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DescribeFileSystemPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeFileSystemPolicyResult> describeFileSystemPolicyAsync(DescribeFileSystemPolicyRequest describeFileSystemPolicyRequest);
+
+    /**
+     * <p>
+     * Returns the <code>FileSystemPolicy</code> for the specified EFS file system.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:DescribeFileSystemPolicy</code> action.
+     * </p>
+     * 
+     * @param describeFileSystemPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeFileSystemPolicy operation returned by the service.
+     * @sample AmazonElasticFileSystemAsyncHandler.DescribeFileSystemPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DescribeFileSystemPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeFileSystemPolicyResult> describeFileSystemPolicyAsync(DescribeFileSystemPolicyRequest describeFileSystemPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeFileSystemPolicyRequest, DescribeFileSystemPolicyResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns the description of a specific Amazon EFS file system if either the file system <code>CreationToken</code>
      * or the <code>FileSystemId</code> is provided. Otherwise, it returns descriptions of all file systems owned by the
-     * caller's AWS account in the AWS Region of the endpoint that you're calling.
+     * caller's Amazon Web Services account in the Amazon Web Services Region of the endpoint that you're calling.
      * </p>
      * <p>
      * When retrieving all file system descriptions, you can optionally specify the <code>MaxItems</code> parameter to
-     * limit the number of descriptions in a response. Currently, this number is automatically set to 10. If more file
-     * system descriptions remain, Amazon EFS returns a <code>NextMarker</code>, an opaque token, in the response. In
-     * this case, you should send a subsequent request with the <code>Marker</code> request parameter set to the value
-     * of <code>NextMarker</code>.
+     * limit the number of descriptions in a response. This number is automatically set to 100. If more file system
+     * descriptions remain, Amazon EFS returns a <code>NextMarker</code>, an opaque token, in the response. In this
+     * case, you should send a subsequent request with the <code>Marker</code> request parameter set to the value of
+     * <code>NextMarker</code>.
      * </p>
      * <p>
      * To retrieve a list of your file system descriptions, this operation is used in an iterative process, where
@@ -807,14 +1542,14 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * <p>
      * Returns the description of a specific Amazon EFS file system if either the file system <code>CreationToken</code>
      * or the <code>FileSystemId</code> is provided. Otherwise, it returns descriptions of all file systems owned by the
-     * caller's AWS account in the AWS Region of the endpoint that you're calling.
+     * caller's Amazon Web Services account in the Amazon Web Services Region of the endpoint that you're calling.
      * </p>
      * <p>
      * When retrieving all file system descriptions, you can optionally specify the <code>MaxItems</code> parameter to
-     * limit the number of descriptions in a response. Currently, this number is automatically set to 10. If more file
-     * system descriptions remain, Amazon EFS returns a <code>NextMarker</code>, an opaque token, in the response. In
-     * this case, you should send a subsequent request with the <code>Marker</code> request parameter set to the value
-     * of <code>NextMarker</code>.
+     * limit the number of descriptions in a response. This number is automatically set to 100. If more file system
+     * descriptions remain, Amazon EFS returns a <code>NextMarker</code>, an opaque token, in the response. In this
+     * case, you should send a subsequent request with the <code>Marker</code> request parameter set to the value of
+     * <code>NextMarker</code>.
      * </p>
      * <p>
      * To retrieve a list of your file system descriptions, this operation is used in an iterative process, where
@@ -860,10 +1595,10 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
 
     /**
      * <p>
-     * Returns the current <code>LifecycleConfiguration</code> object for the specified Amazon EFS file system. EFS
-     * lifecycle management uses the <code>LifecycleConfiguration</code> object to identify which files to move to the
-     * EFS Infrequent Access (IA) storage class. For a file system without a <code>LifecycleConfiguration</code> object,
-     * the call returns an empty array in the response.
+     * Returns the current <code>LifecycleConfiguration</code> object for the specified Amazon EFS file system.
+     * Lifecycle management uses the <code>LifecycleConfiguration</code> object to identify when to move files between
+     * storage classes. For a file system without a <code>LifecycleConfiguration</code> object, the call returns an
+     * empty array in the response.
      * </p>
      * <p>
      * This operation requires permissions for the <code>elasticfilesystem:DescribeLifecycleConfiguration</code>
@@ -882,10 +1617,10 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
 
     /**
      * <p>
-     * Returns the current <code>LifecycleConfiguration</code> object for the specified Amazon EFS file system. EFS
-     * lifecycle management uses the <code>LifecycleConfiguration</code> object to identify which files to move to the
-     * EFS Infrequent Access (IA) storage class. For a file system without a <code>LifecycleConfiguration</code> object,
-     * the call returns an empty array in the response.
+     * Returns the current <code>LifecycleConfiguration</code> object for the specified Amazon EFS file system.
+     * Lifecycle management uses the <code>LifecycleConfiguration</code> object to identify when to move files between
+     * storage classes. For a file system without a <code>LifecycleConfiguration</code> object, the call returns an
+     * empty array in the response.
      * </p>
      * <p>
      * This operation requires permissions for the <code>elasticfilesystem:DescribeLifecycleConfiguration</code>
@@ -1023,6 +1758,51 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
 
     /**
      * <p>
+     * Retrieves the replication configuration for a specific file system. If a file system is not specified, all of the
+     * replication configurations for the Amazon Web Services account in an Amazon Web Services Region are retrieved.
+     * </p>
+     * 
+     * @param describeReplicationConfigurationsRequest
+     * @return A Java Future containing the result of the DescribeReplicationConfigurations operation returned by the
+     *         service.
+     * @sample AmazonElasticFileSystemAsync.DescribeReplicationConfigurations
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DescribeReplicationConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeReplicationConfigurationsResult> describeReplicationConfigurationsAsync(
+            DescribeReplicationConfigurationsRequest describeReplicationConfigurationsRequest);
+
+    /**
+     * <p>
+     * Retrieves the replication configuration for a specific file system. If a file system is not specified, all of the
+     * replication configurations for the Amazon Web Services account in an Amazon Web Services Region are retrieved.
+     * </p>
+     * 
+     * @param describeReplicationConfigurationsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeReplicationConfigurations operation returned by the
+     *         service.
+     * @sample AmazonElasticFileSystemAsyncHandler.DescribeReplicationConfigurations
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DescribeReplicationConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeReplicationConfigurationsResult> describeReplicationConfigurationsAsync(
+            DescribeReplicationConfigurationsRequest describeReplicationConfigurationsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeReplicationConfigurationsRequest, DescribeReplicationConfigurationsResult> asyncHandler);
+
+    /**
+     * <note>
+     * <p>
+     * DEPRECATED - The <code>DescribeTags</code> action is deprecated and not maintained. To view tags associated with
+     * EFS resources, use the <code>ListTagsForResource</code> API action.
+     * </p>
+     * </note>
+     * <p>
      * Returns the tags associated with a file system. The order of tags returned in the response of one
      * <code>DescribeTags</code> call and the order of tags returned across the responses of a multiple-call iteration
      * (when using pagination) is unspecified.
@@ -1037,9 +1817,16 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DescribeTags" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DescribeTagsResult> describeTagsAsync(DescribeTagsRequest describeTagsRequest);
 
     /**
+     * <note>
+     * <p>
+     * DEPRECATED - The <code>DescribeTags</code> action is deprecated and not maintained. To view tags associated with
+     * EFS resources, use the <code>ListTagsForResource</code> API action.
+     * </p>
+     * </note>
      * <p>
      * Returns the tags associated with a file system. The order of tags returned in the response of one
      * <code>DescribeTags</code> call and the order of tags returned across the responses of a multiple-call iteration
@@ -1059,8 +1846,48 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/DescribeTags" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DescribeTagsResult> describeTagsAsync(DescribeTagsRequest describeTagsRequest,
             com.amazonaws.handlers.AsyncHandler<DescribeTagsRequest, DescribeTagsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists all tags for a top-level EFS resource. You must provide the ID of the resource that you want to retrieve
+     * the tags for.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:DescribeAccessPoints</code> action.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return A Java Future containing the result of the ListTagsForResource operation returned by the service.
+     * @sample AmazonElasticFileSystemAsync.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/ListTagsForResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest listTagsForResourceRequest);
+
+    /**
+     * <p>
+     * Lists all tags for a top-level EFS resource. You must provide the ID of the resource that you want to retrieve
+     * the tags for.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:DescribeAccessPoints</code> action.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListTagsForResource operation returned by the service.
+     * @sample AmazonElasticFileSystemAsyncHandler.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/ListTagsForResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest listTagsForResourceRequest,
+            com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler);
 
     /**
      * <p>
@@ -1145,40 +1972,221 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
 
     /**
      * <p>
-     * Enables lifecycle management by creating a new <code>LifecycleConfiguration</code> object. A
-     * <code>LifecycleConfiguration</code> object defines when files in an Amazon EFS file system are automatically
-     * transitioned to the lower-cost EFS Infrequent Access (IA) storage class. A <code>LifecycleConfiguration</code>
-     * applies to all files in a file system.
+     * Use this operation to set the account preference in the current Amazon Web Services Region to use long 17
+     * character (63 bit) or short 8 character (32 bit) resource IDs for new EFS file system and mount target resources.
+     * All existing resource IDs are not affected by any changes you make. You can set the ID preference during the
+     * opt-in period as EFS transitions to long resource IDs. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/manage-efs-resource-ids.html">Managing Amazon EFS resource
+     * IDs</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Starting in October, 2021, you will receive an error if you try to set the account preference to use the short 8
+     * character format resource ID. Contact Amazon Web Services support if you receive an error and must use short IDs
+     * for file system and mount target resources.
+     * </p>
+     * </note>
+     * 
+     * @param putAccountPreferencesRequest
+     * @return A Java Future containing the result of the PutAccountPreferences operation returned by the service.
+     * @sample AmazonElasticFileSystemAsync.PutAccountPreferences
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/PutAccountPreferences"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutAccountPreferencesResult> putAccountPreferencesAsync(PutAccountPreferencesRequest putAccountPreferencesRequest);
+
+    /**
+     * <p>
+     * Use this operation to set the account preference in the current Amazon Web Services Region to use long 17
+     * character (63 bit) or short 8 character (32 bit) resource IDs for new EFS file system and mount target resources.
+     * All existing resource IDs are not affected by any changes you make. You can set the ID preference during the
+     * opt-in period as EFS transitions to long resource IDs. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/manage-efs-resource-ids.html">Managing Amazon EFS resource
+     * IDs</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Starting in October, 2021, you will receive an error if you try to set the account preference to use the short 8
+     * character format resource ID. Contact Amazon Web Services support if you receive an error and must use short IDs
+     * for file system and mount target resources.
+     * </p>
+     * </note>
+     * 
+     * @param putAccountPreferencesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutAccountPreferences operation returned by the service.
+     * @sample AmazonElasticFileSystemAsyncHandler.PutAccountPreferences
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/PutAccountPreferences"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutAccountPreferencesResult> putAccountPreferencesAsync(PutAccountPreferencesRequest putAccountPreferencesRequest,
+            com.amazonaws.handlers.AsyncHandler<PutAccountPreferencesRequest, PutAccountPreferencesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the file system's backup policy. Use this action to start or stop automatic backups of the file system.
+     * </p>
+     * 
+     * @param putBackupPolicyRequest
+     * @return A Java Future containing the result of the PutBackupPolicy operation returned by the service.
+     * @sample AmazonElasticFileSystemAsync.PutBackupPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/PutBackupPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutBackupPolicyResult> putBackupPolicyAsync(PutBackupPolicyRequest putBackupPolicyRequest);
+
+    /**
+     * <p>
+     * Updates the file system's backup policy. Use this action to start or stop automatic backups of the file system.
+     * </p>
+     * 
+     * @param putBackupPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutBackupPolicy operation returned by the service.
+     * @sample AmazonElasticFileSystemAsyncHandler.PutBackupPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/PutBackupPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutBackupPolicyResult> putBackupPolicyAsync(PutBackupPolicyRequest putBackupPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<PutBackupPolicyRequest, PutBackupPolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Applies an Amazon EFS <code>FileSystemPolicy</code> to an Amazon EFS file system. A file system policy is an IAM
+     * resource-based policy and can contain multiple policy statements. A file system always has exactly one file
+     * system policy, which can be the default policy or an explicit policy set or updated using this API operation. EFS
+     * file system policies have a 20,000 character limit. When an explicit policy is set, it overrides the default
+     * policy. For more information about the default file system policy, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/iam-access-control-nfs-efs.html#default-filesystempolicy">Default
+     * EFS File System Policy</a>.
+     * </p>
+     * <note>
+     * <p>
+     * EFS file system policies have a 20,000 character limit.
+     * </p>
+     * </note>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:PutFileSystemPolicy</code> action.
+     * </p>
+     * 
+     * @param putFileSystemPolicyRequest
+     * @return A Java Future containing the result of the PutFileSystemPolicy operation returned by the service.
+     * @sample AmazonElasticFileSystemAsync.PutFileSystemPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/PutFileSystemPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutFileSystemPolicyResult> putFileSystemPolicyAsync(PutFileSystemPolicyRequest putFileSystemPolicyRequest);
+
+    /**
+     * <p>
+     * Applies an Amazon EFS <code>FileSystemPolicy</code> to an Amazon EFS file system. A file system policy is an IAM
+     * resource-based policy and can contain multiple policy statements. A file system always has exactly one file
+     * system policy, which can be the default policy or an explicit policy set or updated using this API operation. EFS
+     * file system policies have a 20,000 character limit. When an explicit policy is set, it overrides the default
+     * policy. For more information about the default file system policy, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/iam-access-control-nfs-efs.html#default-filesystempolicy">Default
+     * EFS File System Policy</a>.
+     * </p>
+     * <note>
+     * <p>
+     * EFS file system policies have a 20,000 character limit.
+     * </p>
+     * </note>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:PutFileSystemPolicy</code> action.
+     * </p>
+     * 
+     * @param putFileSystemPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutFileSystemPolicy operation returned by the service.
+     * @sample AmazonElasticFileSystemAsyncHandler.PutFileSystemPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/PutFileSystemPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutFileSystemPolicyResult> putFileSystemPolicyAsync(PutFileSystemPolicyRequest putFileSystemPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<PutFileSystemPolicyRequest, PutFileSystemPolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Use this action to manage storage for your file system. A <code>LifecycleConfiguration</code> consists of one or
+     * more <code>LifecyclePolicy</code> objects that define the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>TransitionToIA</code> </b> – When to move files in the file system from primary storage (Standard
+     * storage class) into the Infrequent Access (IA) storage.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>TransitionToArchive</code> </b> – When to move files in the file system from their current storage
+     * class (either IA or Standard storage) into the Archive storage.
+     * </p>
+     * <p>
+     * File systems cannot transition into Archive storage before transitioning into IA storage. Therefore,
+     * TransitionToArchive must either not be set or must be later than TransitionToIA.
+     * </p>
+     * <note>
+     * <p>
+     * The Archive storage class is available only for file systems that use the Elastic Throughput mode and the General
+     * Purpose Performance mode.
+     * </p>
+     * </note></li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>TransitionToPrimaryStorageClass</code> </b> – Whether to move files in the file system back to primary
+     * storage (Standard storage class) after they are accessed in IA or Archive storage.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/efs/latest/ug/lifecycle-management-efs.html">
+     * Managing file system storage</a>.
      * </p>
      * <p>
      * Each Amazon EFS file system supports one lifecycle configuration, which applies to all files in the file system.
      * If a <code>LifecycleConfiguration</code> object already exists for the specified file system, a
      * <code>PutLifecycleConfiguration</code> call modifies the existing configuration. A
      * <code>PutLifecycleConfiguration</code> call with an empty <code>LifecyclePolicies</code> array in the request
-     * body deletes any existing <code>LifecycleConfiguration</code> and disables lifecycle management.
-     * </p>
-     * <p>
-     * In the request, specify the following:
+     * body deletes any existing <code>LifecycleConfiguration</code>. In the request, specify the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * The ID for the file system for which you are enabling, disabling, or modifying lifecycle management.
+     * The ID for the file system for which you are enabling, disabling, or modifying Lifecycle management.
      * </p>
      * </li>
      * <li>
      * <p>
-     * A <code>LifecyclePolicies</code> array of <code>LifecyclePolicy</code> objects that define when files are moved
-     * to the IA storage class. The array can contain only one <code>LifecyclePolicy</code> item.
+     * A <code>LifecyclePolicies</code> array of <code>LifecyclePolicy</code> objects that define when to move files to
+     * IA storage, to Archive storage, and back to primary storage.
      * </p>
-     * </li>
+     * <note>
+     * <p>
+     * Amazon EFS requires that each <code>LifecyclePolicy</code> object have only have a single transition, so the
+     * <code>LifecyclePolicies</code> array needs to be structured with separate <code>LifecyclePolicy</code> objects.
+     * See the example requests in the following section for more information.
+     * </p>
+     * </note></li>
      * </ul>
      * <p>
      * This operation requires permissions for the <code>elasticfilesystem:PutLifecycleConfiguration</code> operation.
      * </p>
      * <p>
-     * To apply a <code>LifecycleConfiguration</code> object to an encrypted file system, you need the same AWS Key
-     * Management Service (AWS KMS) permissions as when you created the encrypted file system.
+     * To apply a <code>LifecycleConfiguration</code> object to an encrypted file system, you need the same Key
+     * Management Service permissions as when you created the encrypted file system.
      * </p>
      * 
      * @param putLifecycleConfigurationRequest
@@ -1192,40 +2200,76 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
 
     /**
      * <p>
-     * Enables lifecycle management by creating a new <code>LifecycleConfiguration</code> object. A
-     * <code>LifecycleConfiguration</code> object defines when files in an Amazon EFS file system are automatically
-     * transitioned to the lower-cost EFS Infrequent Access (IA) storage class. A <code>LifecycleConfiguration</code>
-     * applies to all files in a file system.
+     * Use this action to manage storage for your file system. A <code>LifecycleConfiguration</code> consists of one or
+     * more <code>LifecyclePolicy</code> objects that define the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>TransitionToIA</code> </b> – When to move files in the file system from primary storage (Standard
+     * storage class) into the Infrequent Access (IA) storage.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>TransitionToArchive</code> </b> – When to move files in the file system from their current storage
+     * class (either IA or Standard storage) into the Archive storage.
+     * </p>
+     * <p>
+     * File systems cannot transition into Archive storage before transitioning into IA storage. Therefore,
+     * TransitionToArchive must either not be set or must be later than TransitionToIA.
+     * </p>
+     * <note>
+     * <p>
+     * The Archive storage class is available only for file systems that use the Elastic Throughput mode and the General
+     * Purpose Performance mode.
+     * </p>
+     * </note></li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>TransitionToPrimaryStorageClass</code> </b> – Whether to move files in the file system back to primary
+     * storage (Standard storage class) after they are accessed in IA or Archive storage.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/efs/latest/ug/lifecycle-management-efs.html">
+     * Managing file system storage</a>.
      * </p>
      * <p>
      * Each Amazon EFS file system supports one lifecycle configuration, which applies to all files in the file system.
      * If a <code>LifecycleConfiguration</code> object already exists for the specified file system, a
      * <code>PutLifecycleConfiguration</code> call modifies the existing configuration. A
      * <code>PutLifecycleConfiguration</code> call with an empty <code>LifecyclePolicies</code> array in the request
-     * body deletes any existing <code>LifecycleConfiguration</code> and disables lifecycle management.
-     * </p>
-     * <p>
-     * In the request, specify the following:
+     * body deletes any existing <code>LifecycleConfiguration</code>. In the request, specify the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * The ID for the file system for which you are enabling, disabling, or modifying lifecycle management.
+     * The ID for the file system for which you are enabling, disabling, or modifying Lifecycle management.
      * </p>
      * </li>
      * <li>
      * <p>
-     * A <code>LifecyclePolicies</code> array of <code>LifecyclePolicy</code> objects that define when files are moved
-     * to the IA storage class. The array can contain only one <code>LifecyclePolicy</code> item.
+     * A <code>LifecyclePolicies</code> array of <code>LifecyclePolicy</code> objects that define when to move files to
+     * IA storage, to Archive storage, and back to primary storage.
      * </p>
-     * </li>
+     * <note>
+     * <p>
+     * Amazon EFS requires that each <code>LifecyclePolicy</code> object have only have a single transition, so the
+     * <code>LifecyclePolicies</code> array needs to be structured with separate <code>LifecyclePolicy</code> objects.
+     * See the example requests in the following section for more information.
+     * </p>
+     * </note></li>
      * </ul>
      * <p>
      * This operation requires permissions for the <code>elasticfilesystem:PutLifecycleConfiguration</code> operation.
      * </p>
      * <p>
-     * To apply a <code>LifecycleConfiguration</code> object to an encrypted file system, you need the same AWS Key
-     * Management Service (AWS KMS) permissions as when you created the encrypted file system.
+     * To apply a <code>LifecycleConfiguration</code> object to an encrypted file system, you need the same Key
+     * Management Service permissions as when you created the encrypted file system.
      * </p>
      * 
      * @param putLifecycleConfigurationRequest
@@ -1241,6 +2285,84 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
     java.util.concurrent.Future<PutLifecycleConfigurationResult> putLifecycleConfigurationAsync(
             PutLifecycleConfigurationRequest putLifecycleConfigurationRequest,
             com.amazonaws.handlers.AsyncHandler<PutLifecycleConfigurationRequest, PutLifecycleConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a tag for an EFS resource. You can create tags for EFS file systems and access points using this API
+     * operation.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:TagResource</code> action.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return A Java Future containing the result of the TagResource operation returned by the service.
+     * @sample AmazonElasticFileSystemAsync.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/TagResource" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest tagResourceRequest);
+
+    /**
+     * <p>
+     * Creates a tag for an EFS resource. You can create tags for EFS file systems and access points using this API
+     * operation.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:TagResource</code> action.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the TagResource operation returned by the service.
+     * @sample AmazonElasticFileSystemAsyncHandler.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/TagResource" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest tagResourceRequest,
+            com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Removes tags from an EFS resource. You can remove tags from EFS file systems and access points using this API
+     * operation.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:UntagResource</code> action.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return A Java Future containing the result of the UntagResource operation returned by the service.
+     * @sample AmazonElasticFileSystemAsync.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/UntagResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest untagResourceRequest);
+
+    /**
+     * <p>
+     * Removes tags from an EFS resource. You can remove tags from EFS file systems and access points using this API
+     * operation.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:UntagResource</code> action.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UntagResource operation returned by the service.
+     * @sample AmazonElasticFileSystemAsyncHandler.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/UntagResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest untagResourceRequest,
+            com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler);
 
     /**
      * <p>
@@ -1272,5 +2394,44 @@ public interface AmazonElasticFileSystemAsync extends AmazonElasticFileSystem {
      */
     java.util.concurrent.Future<UpdateFileSystemResult> updateFileSystemAsync(UpdateFileSystemRequest updateFileSystemRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateFileSystemRequest, UpdateFileSystemResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates protection on the file system.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:UpdateFileSystemProtection</code> action.
+     * </p>
+     * 
+     * @param updateFileSystemProtectionRequest
+     * @return A Java Future containing the result of the UpdateFileSystemProtection operation returned by the service.
+     * @sample AmazonElasticFileSystemAsync.UpdateFileSystemProtection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/UpdateFileSystemProtection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateFileSystemProtectionResult> updateFileSystemProtectionAsync(
+            UpdateFileSystemProtectionRequest updateFileSystemProtectionRequest);
+
+    /**
+     * <p>
+     * Updates protection on the file system.
+     * </p>
+     * <p>
+     * This operation requires permissions for the <code>elasticfilesystem:UpdateFileSystemProtection</code> action.
+     * </p>
+     * 
+     * @param updateFileSystemProtectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateFileSystemProtection operation returned by the service.
+     * @sample AmazonElasticFileSystemAsyncHandler.UpdateFileSystemProtection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticfilesystem-2015-02-01/UpdateFileSystemProtection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateFileSystemProtectionResult> updateFileSystemProtectionAsync(
+            UpdateFileSystemProtectionRequest updateFileSystemProtectionRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateFileSystemProtectionRequest, UpdateFileSystemProtectionResult> asyncHandler);
 
 }

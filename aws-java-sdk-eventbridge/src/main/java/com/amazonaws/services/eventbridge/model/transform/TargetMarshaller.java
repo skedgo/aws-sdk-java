@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,6 +49,18 @@ public class TargetMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("BatchParameters").build();
     private static final MarshallingInfo<StructuredPojo> SQSPARAMETERS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SqsParameters").build();
+    private static final MarshallingInfo<StructuredPojo> HTTPPARAMETERS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("HttpParameters").build();
+    private static final MarshallingInfo<StructuredPojo> REDSHIFTDATAPARAMETERS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RedshiftDataParameters").build();
+    private static final MarshallingInfo<StructuredPojo> SAGEMAKERPIPELINEPARAMETERS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SageMakerPipelineParameters").build();
+    private static final MarshallingInfo<StructuredPojo> DEADLETTERCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DeadLetterConfig").build();
+    private static final MarshallingInfo<StructuredPojo> RETRYPOLICY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RetryPolicy").build();
+    private static final MarshallingInfo<StructuredPojo> APPSYNCPARAMETERS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AppSyncParameters").build();
 
     private static final TargetMarshaller instance = new TargetMarshaller();
 
@@ -77,6 +89,12 @@ public class TargetMarshaller {
             protocolMarshaller.marshall(target.getEcsParameters(), ECSPARAMETERS_BINDING);
             protocolMarshaller.marshall(target.getBatchParameters(), BATCHPARAMETERS_BINDING);
             protocolMarshaller.marshall(target.getSqsParameters(), SQSPARAMETERS_BINDING);
+            protocolMarshaller.marshall(target.getHttpParameters(), HTTPPARAMETERS_BINDING);
+            protocolMarshaller.marshall(target.getRedshiftDataParameters(), REDSHIFTDATAPARAMETERS_BINDING);
+            protocolMarshaller.marshall(target.getSageMakerPipelineParameters(), SAGEMAKERPIPELINEPARAMETERS_BINDING);
+            protocolMarshaller.marshall(target.getDeadLetterConfig(), DEADLETTERCONFIG_BINDING);
+            protocolMarshaller.marshall(target.getRetryPolicy(), RETRYPOLICY_BINDING);
+            protocolMarshaller.marshall(target.getAppSyncParameters(), APPSYNCPARAMETERS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

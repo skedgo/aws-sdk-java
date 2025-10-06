@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -47,6 +47,12 @@ public class CreateStackRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ApplicationSettings").build();
     private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Tags").build();
+    private static final MarshallingInfo<List> ACCESSENDPOINTS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AccessEndpoints").build();
+    private static final MarshallingInfo<List> EMBEDHOSTDOMAINS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EmbedHostDomains").build();
+    private static final MarshallingInfo<StructuredPojo> STREAMINGEXPERIENCESETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StreamingExperienceSettings").build();
 
     private static final CreateStackRequestMarshaller instance = new CreateStackRequestMarshaller();
 
@@ -73,6 +79,9 @@ public class CreateStackRequestMarshaller {
             protocolMarshaller.marshall(createStackRequest.getUserSettings(), USERSETTINGS_BINDING);
             protocolMarshaller.marshall(createStackRequest.getApplicationSettings(), APPLICATIONSETTINGS_BINDING);
             protocolMarshaller.marshall(createStackRequest.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(createStackRequest.getAccessEndpoints(), ACCESSENDPOINTS_BINDING);
+            protocolMarshaller.marshall(createStackRequest.getEmbedHostDomains(), EMBEDHOSTDOMAINS_BINDING);
+            protocolMarshaller.marshall(createStackRequest.getStreamingExperienceSettings(), STREAMINGEXPERIENCESETTINGS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

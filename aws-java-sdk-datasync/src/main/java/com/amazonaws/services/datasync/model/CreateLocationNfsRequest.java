@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,102 +30,66 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The subdirectory in the NFS file system that is used to read data from the NFS source location or write data to
-     * the NFS destination. The NFS path should be a path that's exported by the NFS server, or a subdirectory of that
-     * path. The path should be such that it can be mounted by other NFS clients in your network.
+     * Specifies the export path in your NFS file server that you want DataSync to mount.
      * </p>
      * <p>
-     * To see all the paths exported by your NFS server. run "<code>showmount -e nfs-server-name</code>" from an NFS
-     * client that has access to your server. You can specify any directory that appears in the results, and any
-     * subdirectory of that directory. Ensure that the NFS export is accessible without Kerberos authentication.
-     * </p>
-     * <p>
-     * To transfer all the data in the folder you specified, DataSync needs to have permissions to read all the data. To
-     * ensure this, either configure the NFS export with <code>no_root_squash,</code> or ensure that the permissions for
-     * all of the files that you want DataSync allow read access for all users. Doing either enables the agent to read
-     * the files. For the agent to access directories, you must additionally enable all execute access.
-     * </p>
-     * <p>
-     * For information about NFS export configuration, see 18.7. The /etc/exports Configuration File in the Red Hat
-     * Enterprise Linux documentation.
+     * This path (or a subdirectory of the path) is where DataSync transfers data to or from. For information on
+     * configuring an export for DataSync, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/create-nfs-location.html#accessing-nfs">Accessing NFS
+     * file servers</a>.
      * </p>
      */
     private String subdirectory;
     /**
      * <p>
-     * The name of the NFS server. This value is the IP address or Domain Name Service (DNS) name of the NFS server. An
-     * agent that is installed on-premises uses this host name to mount the NFS server in a network.
+     * Specifies the Domain Name System (DNS) name or IP version 4 address of the NFS file server that your DataSync
+     * agent connects to.
      * </p>
-     * <note>
-     * <p>
-     * This name must either be DNS-compliant or must be an IP version 4 (IPv4) address.
-     * </p>
-     * </note>
      */
     private String serverHostname;
     /**
      * <p>
-     * Contains a list of Amazon Resource Names (ARNs) of agents that are used to connect to an NFS server.
+     * Specifies the Amazon Resource Name (ARN) of the DataSync agent that want to connect to your NFS file server.
+     * </p>
+     * <p>
+     * You can specify more than one agent. For more information, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/multiple-agents.html">Using multiple agents for
+     * transfers</a>.
      * </p>
      */
     private OnPremConfig onPremConfig;
     /**
      * <p>
-     * The NFS mount options that DataSync can use to mount your NFS share.
+     * Specifies the options that DataSync can use to mount your NFS file server.
      * </p>
      */
     private NfsMountOptions mountOptions;
     /**
      * <p>
-     * The key-value pair that represents the tag that you want to add to the location. The value can be an empty
-     * string. We recommend using tags to name your resources.
+     * Specifies labels that help you categorize, filter, and search for your Amazon Web Services resources. We
+     * recommend creating at least a name tag for your location.
      * </p>
      */
     private java.util.List<TagListEntry> tags;
 
     /**
      * <p>
-     * The subdirectory in the NFS file system that is used to read data from the NFS source location or write data to
-     * the NFS destination. The NFS path should be a path that's exported by the NFS server, or a subdirectory of that
-     * path. The path should be such that it can be mounted by other NFS clients in your network.
+     * Specifies the export path in your NFS file server that you want DataSync to mount.
      * </p>
      * <p>
-     * To see all the paths exported by your NFS server. run "<code>showmount -e nfs-server-name</code>" from an NFS
-     * client that has access to your server. You can specify any directory that appears in the results, and any
-     * subdirectory of that directory. Ensure that the NFS export is accessible without Kerberos authentication.
-     * </p>
-     * <p>
-     * To transfer all the data in the folder you specified, DataSync needs to have permissions to read all the data. To
-     * ensure this, either configure the NFS export with <code>no_root_squash,</code> or ensure that the permissions for
-     * all of the files that you want DataSync allow read access for all users. Doing either enables the agent to read
-     * the files. For the agent to access directories, you must additionally enable all execute access.
-     * </p>
-     * <p>
-     * For information about NFS export configuration, see 18.7. The /etc/exports Configuration File in the Red Hat
-     * Enterprise Linux documentation.
+     * This path (or a subdirectory of the path) is where DataSync transfers data to or from. For information on
+     * configuring an export for DataSync, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/create-nfs-location.html#accessing-nfs">Accessing NFS
+     * file servers</a>.
      * </p>
      * 
      * @param subdirectory
-     *        The subdirectory in the NFS file system that is used to read data from the NFS source location or write
-     *        data to the NFS destination. The NFS path should be a path that's exported by the NFS server, or a
-     *        subdirectory of that path. The path should be such that it can be mounted by other NFS clients in your
-     *        network. </p>
+     *        Specifies the export path in your NFS file server that you want DataSync to mount.</p>
      *        <p>
-     *        To see all the paths exported by your NFS server. run "<code>showmount -e nfs-server-name</code>" from an
-     *        NFS client that has access to your server. You can specify any directory that appears in the results, and
-     *        any subdirectory of that directory. Ensure that the NFS export is accessible without Kerberos
-     *        authentication.
-     *        </p>
-     *        <p>
-     *        To transfer all the data in the folder you specified, DataSync needs to have permissions to read all the
-     *        data. To ensure this, either configure the NFS export with <code>no_root_squash,</code> or ensure that the
-     *        permissions for all of the files that you want DataSync allow read access for all users. Doing either
-     *        enables the agent to read the files. For the agent to access directories, you must additionally enable all
-     *        execute access.
-     *        </p>
-     *        <p>
-     *        For information about NFS export configuration, see 18.7. The /etc/exports Configuration File in the Red
-     *        Hat Enterprise Linux documentation.
+     *        This path (or a subdirectory of the path) is where DataSync transfers data to or from. For information on
+     *        configuring an export for DataSync, see <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/create-nfs-location.html#accessing-nfs"
+     *        >Accessing NFS file servers</a>.
      */
 
     public void setSubdirectory(String subdirectory) {
@@ -134,46 +98,21 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The subdirectory in the NFS file system that is used to read data from the NFS source location or write data to
-     * the NFS destination. The NFS path should be a path that's exported by the NFS server, or a subdirectory of that
-     * path. The path should be such that it can be mounted by other NFS clients in your network.
+     * Specifies the export path in your NFS file server that you want DataSync to mount.
      * </p>
      * <p>
-     * To see all the paths exported by your NFS server. run "<code>showmount -e nfs-server-name</code>" from an NFS
-     * client that has access to your server. You can specify any directory that appears in the results, and any
-     * subdirectory of that directory. Ensure that the NFS export is accessible without Kerberos authentication.
-     * </p>
-     * <p>
-     * To transfer all the data in the folder you specified, DataSync needs to have permissions to read all the data. To
-     * ensure this, either configure the NFS export with <code>no_root_squash,</code> or ensure that the permissions for
-     * all of the files that you want DataSync allow read access for all users. Doing either enables the agent to read
-     * the files. For the agent to access directories, you must additionally enable all execute access.
-     * </p>
-     * <p>
-     * For information about NFS export configuration, see 18.7. The /etc/exports Configuration File in the Red Hat
-     * Enterprise Linux documentation.
+     * This path (or a subdirectory of the path) is where DataSync transfers data to or from. For information on
+     * configuring an export for DataSync, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/create-nfs-location.html#accessing-nfs">Accessing NFS
+     * file servers</a>.
      * </p>
      * 
-     * @return The subdirectory in the NFS file system that is used to read data from the NFS source location or write
-     *         data to the NFS destination. The NFS path should be a path that's exported by the NFS server, or a
-     *         subdirectory of that path. The path should be such that it can be mounted by other NFS clients in your
-     *         network. </p>
+     * @return Specifies the export path in your NFS file server that you want DataSync to mount.</p>
      *         <p>
-     *         To see all the paths exported by your NFS server. run "<code>showmount -e nfs-server-name</code>" from an
-     *         NFS client that has access to your server. You can specify any directory that appears in the results, and
-     *         any subdirectory of that directory. Ensure that the NFS export is accessible without Kerberos
-     *         authentication.
-     *         </p>
-     *         <p>
-     *         To transfer all the data in the folder you specified, DataSync needs to have permissions to read all the
-     *         data. To ensure this, either configure the NFS export with <code>no_root_squash,</code> or ensure that
-     *         the permissions for all of the files that you want DataSync allow read access for all users. Doing either
-     *         enables the agent to read the files. For the agent to access directories, you must additionally enable
-     *         all execute access.
-     *         </p>
-     *         <p>
-     *         For information about NFS export configuration, see 18.7. The /etc/exports Configuration File in the Red
-     *         Hat Enterprise Linux documentation.
+     *         This path (or a subdirectory of the path) is where DataSync transfers data to or from. For information on
+     *         configuring an export for DataSync, see <a
+     *         href="https://docs.aws.amazon.com/datasync/latest/userguide/create-nfs-location.html#accessing-nfs"
+     *         >Accessing NFS file servers</a>.
      */
 
     public String getSubdirectory() {
@@ -182,47 +121,22 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The subdirectory in the NFS file system that is used to read data from the NFS source location or write data to
-     * the NFS destination. The NFS path should be a path that's exported by the NFS server, or a subdirectory of that
-     * path. The path should be such that it can be mounted by other NFS clients in your network.
+     * Specifies the export path in your NFS file server that you want DataSync to mount.
      * </p>
      * <p>
-     * To see all the paths exported by your NFS server. run "<code>showmount -e nfs-server-name</code>" from an NFS
-     * client that has access to your server. You can specify any directory that appears in the results, and any
-     * subdirectory of that directory. Ensure that the NFS export is accessible without Kerberos authentication.
-     * </p>
-     * <p>
-     * To transfer all the data in the folder you specified, DataSync needs to have permissions to read all the data. To
-     * ensure this, either configure the NFS export with <code>no_root_squash,</code> or ensure that the permissions for
-     * all of the files that you want DataSync allow read access for all users. Doing either enables the agent to read
-     * the files. For the agent to access directories, you must additionally enable all execute access.
-     * </p>
-     * <p>
-     * For information about NFS export configuration, see 18.7. The /etc/exports Configuration File in the Red Hat
-     * Enterprise Linux documentation.
+     * This path (or a subdirectory of the path) is where DataSync transfers data to or from. For information on
+     * configuring an export for DataSync, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/create-nfs-location.html#accessing-nfs">Accessing NFS
+     * file servers</a>.
      * </p>
      * 
      * @param subdirectory
-     *        The subdirectory in the NFS file system that is used to read data from the NFS source location or write
-     *        data to the NFS destination. The NFS path should be a path that's exported by the NFS server, or a
-     *        subdirectory of that path. The path should be such that it can be mounted by other NFS clients in your
-     *        network. </p>
+     *        Specifies the export path in your NFS file server that you want DataSync to mount.</p>
      *        <p>
-     *        To see all the paths exported by your NFS server. run "<code>showmount -e nfs-server-name</code>" from an
-     *        NFS client that has access to your server. You can specify any directory that appears in the results, and
-     *        any subdirectory of that directory. Ensure that the NFS export is accessible without Kerberos
-     *        authentication.
-     *        </p>
-     *        <p>
-     *        To transfer all the data in the folder you specified, DataSync needs to have permissions to read all the
-     *        data. To ensure this, either configure the NFS export with <code>no_root_squash,</code> or ensure that the
-     *        permissions for all of the files that you want DataSync allow read access for all users. Doing either
-     *        enables the agent to read the files. For the agent to access directories, you must additionally enable all
-     *        execute access.
-     *        </p>
-     *        <p>
-     *        For information about NFS export configuration, see 18.7. The /etc/exports Configuration File in the Red
-     *        Hat Enterprise Linux documentation.
+     *        This path (or a subdirectory of the path) is where DataSync transfers data to or from. For information on
+     *        configuring an export for DataSync, see <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/create-nfs-location.html#accessing-nfs"
+     *        >Accessing NFS file servers</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -233,22 +147,13 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the NFS server. This value is the IP address or Domain Name Service (DNS) name of the NFS server. An
-     * agent that is installed on-premises uses this host name to mount the NFS server in a network.
+     * Specifies the Domain Name System (DNS) name or IP version 4 address of the NFS file server that your DataSync
+     * agent connects to.
      * </p>
-     * <note>
-     * <p>
-     * This name must either be DNS-compliant or must be an IP version 4 (IPv4) address.
-     * </p>
-     * </note>
      * 
      * @param serverHostname
-     *        The name of the NFS server. This value is the IP address or Domain Name Service (DNS) name of the NFS
-     *        server. An agent that is installed on-premises uses this host name to mount the NFS server in a network.
-     *        </p> <note>
-     *        <p>
-     *        This name must either be DNS-compliant or must be an IP version 4 (IPv4) address.
-     *        </p>
+     *        Specifies the Domain Name System (DNS) name or IP version 4 address of the NFS file server that your
+     *        DataSync agent connects to.
      */
 
     public void setServerHostname(String serverHostname) {
@@ -257,21 +162,12 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the NFS server. This value is the IP address or Domain Name Service (DNS) name of the NFS server. An
-     * agent that is installed on-premises uses this host name to mount the NFS server in a network.
+     * Specifies the Domain Name System (DNS) name or IP version 4 address of the NFS file server that your DataSync
+     * agent connects to.
      * </p>
-     * <note>
-     * <p>
-     * This name must either be DNS-compliant or must be an IP version 4 (IPv4) address.
-     * </p>
-     * </note>
      * 
-     * @return The name of the NFS server. This value is the IP address or Domain Name Service (DNS) name of the NFS
-     *         server. An agent that is installed on-premises uses this host name to mount the NFS server in a network.
-     *         </p> <note>
-     *         <p>
-     *         This name must either be DNS-compliant or must be an IP version 4 (IPv4) address.
-     *         </p>
+     * @return Specifies the Domain Name System (DNS) name or IP version 4 address of the NFS file server that your
+     *         DataSync agent connects to.
      */
 
     public String getServerHostname() {
@@ -280,22 +176,13 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the NFS server. This value is the IP address or Domain Name Service (DNS) name of the NFS server. An
-     * agent that is installed on-premises uses this host name to mount the NFS server in a network.
+     * Specifies the Domain Name System (DNS) name or IP version 4 address of the NFS file server that your DataSync
+     * agent connects to.
      * </p>
-     * <note>
-     * <p>
-     * This name must either be DNS-compliant or must be an IP version 4 (IPv4) address.
-     * </p>
-     * </note>
      * 
      * @param serverHostname
-     *        The name of the NFS server. This value is the IP address or Domain Name Service (DNS) name of the NFS
-     *        server. An agent that is installed on-premises uses this host name to mount the NFS server in a network.
-     *        </p> <note>
-     *        <p>
-     *        This name must either be DNS-compliant or must be an IP version 4 (IPv4) address.
-     *        </p>
+     *        Specifies the Domain Name System (DNS) name or IP version 4 address of the NFS file server that your
+     *        DataSync agent connects to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -306,11 +193,21 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Contains a list of Amazon Resource Names (ARNs) of agents that are used to connect to an NFS server.
+     * Specifies the Amazon Resource Name (ARN) of the DataSync agent that want to connect to your NFS file server.
+     * </p>
+     * <p>
+     * You can specify more than one agent. For more information, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/multiple-agents.html">Using multiple agents for
+     * transfers</a>.
      * </p>
      * 
      * @param onPremConfig
-     *        Contains a list of Amazon Resource Names (ARNs) of agents that are used to connect to an NFS server.
+     *        Specifies the Amazon Resource Name (ARN) of the DataSync agent that want to connect to your NFS file
+     *        server.</p>
+     *        <p>
+     *        You can specify more than one agent. For more information, see <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/multiple-agents.html">Using multiple agents
+     *        for transfers</a>.
      */
 
     public void setOnPremConfig(OnPremConfig onPremConfig) {
@@ -319,10 +216,20 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Contains a list of Amazon Resource Names (ARNs) of agents that are used to connect to an NFS server.
+     * Specifies the Amazon Resource Name (ARN) of the DataSync agent that want to connect to your NFS file server.
+     * </p>
+     * <p>
+     * You can specify more than one agent. For more information, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/multiple-agents.html">Using multiple agents for
+     * transfers</a>.
      * </p>
      * 
-     * @return Contains a list of Amazon Resource Names (ARNs) of agents that are used to connect to an NFS server.
+     * @return Specifies the Amazon Resource Name (ARN) of the DataSync agent that want to connect to your NFS file
+     *         server.</p>
+     *         <p>
+     *         You can specify more than one agent. For more information, see <a
+     *         href="https://docs.aws.amazon.com/datasync/latest/userguide/multiple-agents.html">Using multiple agents
+     *         for transfers</a>.
      */
 
     public OnPremConfig getOnPremConfig() {
@@ -331,11 +238,21 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Contains a list of Amazon Resource Names (ARNs) of agents that are used to connect to an NFS server.
+     * Specifies the Amazon Resource Name (ARN) of the DataSync agent that want to connect to your NFS file server.
+     * </p>
+     * <p>
+     * You can specify more than one agent. For more information, see <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/multiple-agents.html">Using multiple agents for
+     * transfers</a>.
      * </p>
      * 
      * @param onPremConfig
-     *        Contains a list of Amazon Resource Names (ARNs) of agents that are used to connect to an NFS server.
+     *        Specifies the Amazon Resource Name (ARN) of the DataSync agent that want to connect to your NFS file
+     *        server.</p>
+     *        <p>
+     *        You can specify more than one agent. For more information, see <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/multiple-agents.html">Using multiple agents
+     *        for transfers</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -346,11 +263,11 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The NFS mount options that DataSync can use to mount your NFS share.
+     * Specifies the options that DataSync can use to mount your NFS file server.
      * </p>
      * 
      * @param mountOptions
-     *        The NFS mount options that DataSync can use to mount your NFS share.
+     *        Specifies the options that DataSync can use to mount your NFS file server.
      */
 
     public void setMountOptions(NfsMountOptions mountOptions) {
@@ -359,10 +276,10 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The NFS mount options that DataSync can use to mount your NFS share.
+     * Specifies the options that DataSync can use to mount your NFS file server.
      * </p>
      * 
-     * @return The NFS mount options that DataSync can use to mount your NFS share.
+     * @return Specifies the options that DataSync can use to mount your NFS file server.
      */
 
     public NfsMountOptions getMountOptions() {
@@ -371,11 +288,11 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The NFS mount options that DataSync can use to mount your NFS share.
+     * Specifies the options that DataSync can use to mount your NFS file server.
      * </p>
      * 
      * @param mountOptions
-     *        The NFS mount options that DataSync can use to mount your NFS share.
+     *        Specifies the options that DataSync can use to mount your NFS file server.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -386,12 +303,12 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The key-value pair that represents the tag that you want to add to the location. The value can be an empty
-     * string. We recommend using tags to name your resources.
+     * Specifies labels that help you categorize, filter, and search for your Amazon Web Services resources. We
+     * recommend creating at least a name tag for your location.
      * </p>
      * 
-     * @return The key-value pair that represents the tag that you want to add to the location. The value can be an
-     *         empty string. We recommend using tags to name your resources.
+     * @return Specifies labels that help you categorize, filter, and search for your Amazon Web Services resources. We
+     *         recommend creating at least a name tag for your location.
      */
 
     public java.util.List<TagListEntry> getTags() {
@@ -400,13 +317,13 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The key-value pair that represents the tag that you want to add to the location. The value can be an empty
-     * string. We recommend using tags to name your resources.
+     * Specifies labels that help you categorize, filter, and search for your Amazon Web Services resources. We
+     * recommend creating at least a name tag for your location.
      * </p>
      * 
      * @param tags
-     *        The key-value pair that represents the tag that you want to add to the location. The value can be an empty
-     *        string. We recommend using tags to name your resources.
+     *        Specifies labels that help you categorize, filter, and search for your Amazon Web Services resources. We
+     *        recommend creating at least a name tag for your location.
      */
 
     public void setTags(java.util.Collection<TagListEntry> tags) {
@@ -420,8 +337,8 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The key-value pair that represents the tag that you want to add to the location. The value can be an empty
-     * string. We recommend using tags to name your resources.
+     * Specifies labels that help you categorize, filter, and search for your Amazon Web Services resources. We
+     * recommend creating at least a name tag for your location.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -430,8 +347,8 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * 
      * @param tags
-     *        The key-value pair that represents the tag that you want to add to the location. The value can be an empty
-     *        string. We recommend using tags to name your resources.
+     *        Specifies labels that help you categorize, filter, and search for your Amazon Web Services resources. We
+     *        recommend creating at least a name tag for your location.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -447,13 +364,13 @@ public class CreateLocationNfsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The key-value pair that represents the tag that you want to add to the location. The value can be an empty
-     * string. We recommend using tags to name your resources.
+     * Specifies labels that help you categorize, filter, and search for your Amazon Web Services resources. We
+     * recommend creating at least a name tag for your location.
      * </p>
      * 
      * @param tags
-     *        The key-value pair that represents the tag that you want to add to the location. The value can be an empty
-     *        string. We recommend using tags to name your resources.
+     *        Specifies labels that help you categorize, filter, and search for your Amazon Web Services resources. We
+     *        recommend creating at least a name tag for your location.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

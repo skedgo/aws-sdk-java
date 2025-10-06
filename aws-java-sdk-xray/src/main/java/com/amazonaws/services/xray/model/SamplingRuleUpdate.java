@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,7 +42,7 @@ public class SamplingRuleUpdate implements Serializable, Cloneable, StructuredPo
     private String ruleARN;
     /**
      * <p>
-     * Matches the ARN of the AWS resource on which the service runs.
+     * Matches the ARN of the Amazon Web Services resource on which the service runs.
      * </p>
      */
     private String resourceARN;
@@ -184,11 +184,11 @@ public class SamplingRuleUpdate implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Matches the ARN of the AWS resource on which the service runs.
+     * Matches the ARN of the Amazon Web Services resource on which the service runs.
      * </p>
      * 
      * @param resourceARN
-     *        Matches the ARN of the AWS resource on which the service runs.
+     *        Matches the ARN of the Amazon Web Services resource on which the service runs.
      */
 
     public void setResourceARN(String resourceARN) {
@@ -197,10 +197,10 @@ public class SamplingRuleUpdate implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Matches the ARN of the AWS resource on which the service runs.
+     * Matches the ARN of the Amazon Web Services resource on which the service runs.
      * </p>
      * 
-     * @return Matches the ARN of the AWS resource on which the service runs.
+     * @return Matches the ARN of the Amazon Web Services resource on which the service runs.
      */
 
     public String getResourceARN() {
@@ -209,11 +209,11 @@ public class SamplingRuleUpdate implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Matches the ARN of the AWS resource on which the service runs.
+     * Matches the ARN of the Amazon Web Services resource on which the service runs.
      * </p>
      * 
      * @param resourceARN
-     *        Matches the ARN of the AWS resource on which the service runs.
+     *        Matches the ARN of the Amazon Web Services resource on which the service runs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -587,6 +587,13 @@ public class SamplingRuleUpdate implements Serializable, Cloneable, StructuredPo
         setAttributes(attributes);
         return this;
     }
+
+    /**
+     * Add a single Attributes entry
+     *
+     * @see SamplingRuleUpdate#withAttributes
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public SamplingRuleUpdate addAttributesEntry(String key, String value) {
         if (null == this.attributes) {

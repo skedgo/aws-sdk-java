@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -53,47 +53,47 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * PENDING: A pending status.
+     * PENDING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PENDING_CONCURRENCY: A pending concurrency status.
+     * PENDING_CONCURRENCY.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PENDING_DEVICE: A pending device status.
+     * PENDING_DEVICE.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PROCESSING: A processing status.
+     * PROCESSING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * SCHEDULING: A scheduling status.
+     * SCHEDULING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PREPARING: A preparing status.
+     * PREPARING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * RUNNING: A running status.
+     * RUNNING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * COMPLETED: A completed status.
+     * COMPLETED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * STOPPING: A stopping status.
+     * STOPPING.
      * </p>
      * </li>
      * </ul>
@@ -106,37 +106,37 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * PENDING: A pending condition.
+     * PENDING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PASSED: A passing condition.
+     * PASSED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * WARNED: A warning condition.
+     * WARNED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FAILED: A failed condition.
+     * FAILED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * SKIPPED: A skipped condition.
+     * SKIPPED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * ERRORED: An error condition.
+     * ERRORED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * STOPPED: A stopped condition.
+     * STOPPED.
      * </p>
      * </li>
      * </ul>
@@ -168,13 +168,17 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
     private Device device;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the instance.
+     * The ARN of the instance.
      * </p>
      */
     private String instanceArn;
     /**
      * <p>
      * This flag is set to <code>true</code> if remote debugging is enabled for the remote access session.
+     * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
      * </p>
      */
     private Boolean remoteDebugEnabled;
@@ -186,7 +190,7 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
     private Boolean remoteRecordEnabled;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the app to be recorded in the remote access session.
+     * The ARN for the app to be recorded in the remote access session.
      * </p>
      */
     private String remoteRecordAppArn;
@@ -195,12 +199,20 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * IP address of the EC2 host where you need to connect to remotely debug devices. Only returned if remote debugging
      * is enabled for the remote access session.
      * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
+     * </p>
      */
     private String hostAddress;
     /**
      * <p>
      * Unique identifier of your client for the remote access session. Only returned if remote debugging is enabled for
      * the remote access session.
+     * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
      * </p>
      */
     private String clientId;
@@ -209,7 +221,7 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * The billing method of the remote access session. Possible values include <code>METERED</code> or
      * <code>UNMETERED</code>. For more information about metered devices, see <a
      * href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/welcome.html#welcome-terminology">AWS Device
-     * Farm terminology</a>."
+     * Farm terminology</a>.
      * </p>
      */
     private String billingMethod;
@@ -230,6 +242,10 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * Unique device identifier for the remote device. Only returned if remote debugging is enabled for the remote
      * access session.
      * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
+     * </p>
      */
     private String deviceUdid;
     /**
@@ -239,20 +255,20 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You
-     * <b>cannot</b> run XCUITest framework-based tests in this mode.
+     * INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You cannot run
+     * XCUITest framework-based tests in this mode.
      * </p>
      * </li>
      * <li>
      * <p>
-     * NO_VIDEO: You are connected to the device but cannot interact with it or view the screen. This mode has the
-     * fastest test execution speed. You <b>can</b> run XCUITest framework-based tests in this mode.
+     * NO_VIDEO: You are connected to the device, but cannot interact with it or view the screen. This mode has the
+     * fastest test execution speed. You can run XCUITest framework-based tests in this mode.
      * </p>
      * </li>
      * <li>
      * <p>
-     * VIDEO_ONLY: You can view the screen but cannot touch or rotate it. You <b>can</b> run XCUITest framework-based
-     * tests and watch the screen in this mode.
+     * VIDEO_ONLY: You can view the screen, but cannot touch or rotate it. You can run XCUITest framework-based tests
+     * and watch the screen in this mode.
      * </p>
      * </li>
      * </ul>
@@ -260,15 +276,21 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
     private String interactionMode;
     /**
      * <p>
-     * When set to <code>true</code>, for private devices, Device Farm will not sign your app again. For public devices,
-     * Device Farm always signs your apps again and this parameter has no effect.
+     * When set to <code>true</code>, for private devices, Device Farm does not sign your app again. For public devices,
+     * Device Farm always signs your apps again.
      * </p>
      * <p>
-     * For more information about how Device Farm re-signs your app(s), see <a
-     * href="https://aws.amazon.com/device-farm/faq/">Do you modify my app?</a> in the <i>AWS Device Farm FAQs</i>.
+     * For more information about how Device Farm re-signs your apps, see <a
+     * href="http://aws.amazon.com/device-farm/faqs/">Do you modify my app?</a> in the <i>AWS Device Farm FAQs</i>.
      * </p>
      */
     private Boolean skipAppResign;
+    /**
+     * <p>
+     * The VPC security groups and subnets that are attached to a project.
+     * </p>
+     */
+    private VpcConfig vpcConfig;
 
     /**
      * <p>
@@ -397,47 +419,47 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * PENDING: A pending status.
+     * PENDING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PENDING_CONCURRENCY: A pending concurrency status.
+     * PENDING_CONCURRENCY.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PENDING_DEVICE: A pending device status.
+     * PENDING_DEVICE.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PROCESSING: A processing status.
+     * PROCESSING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * SCHEDULING: A scheduling status.
+     * SCHEDULING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PREPARING: A preparing status.
+     * PREPARING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * RUNNING: A running status.
+     * RUNNING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * COMPLETED: A completed status.
+     * COMPLETED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * STOPPING: A stopping status.
+     * STOPPING.
      * </p>
      * </li>
      * </ul>
@@ -447,47 +469,47 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      *        <ul>
      *        <li>
      *        <p>
-     *        PENDING: A pending status.
+     *        PENDING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PENDING_CONCURRENCY: A pending concurrency status.
+     *        PENDING_CONCURRENCY.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PENDING_DEVICE: A pending device status.
+     *        PENDING_DEVICE.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PROCESSING: A processing status.
+     *        PROCESSING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        SCHEDULING: A scheduling status.
+     *        SCHEDULING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PREPARING: A preparing status.
+     *        PREPARING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        RUNNING: A running status.
+     *        RUNNING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        COMPLETED: A completed status.
+     *        COMPLETED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        STOPPING: A stopping status.
+     *        STOPPING.
      *        </p>
      *        </li>
      * @see ExecutionStatus
@@ -504,47 +526,47 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * PENDING: A pending status.
+     * PENDING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PENDING_CONCURRENCY: A pending concurrency status.
+     * PENDING_CONCURRENCY.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PENDING_DEVICE: A pending device status.
+     * PENDING_DEVICE.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PROCESSING: A processing status.
+     * PROCESSING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * SCHEDULING: A scheduling status.
+     * SCHEDULING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PREPARING: A preparing status.
+     * PREPARING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * RUNNING: A running status.
+     * RUNNING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * COMPLETED: A completed status.
+     * COMPLETED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * STOPPING: A stopping status.
+     * STOPPING.
      * </p>
      * </li>
      * </ul>
@@ -553,47 +575,47 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      *         <ul>
      *         <li>
      *         <p>
-     *         PENDING: A pending status.
+     *         PENDING.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         PENDING_CONCURRENCY: A pending concurrency status.
+     *         PENDING_CONCURRENCY.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         PENDING_DEVICE: A pending device status.
+     *         PENDING_DEVICE.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         PROCESSING: A processing status.
+     *         PROCESSING.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         SCHEDULING: A scheduling status.
+     *         SCHEDULING.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         PREPARING: A preparing status.
+     *         PREPARING.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         RUNNING: A running status.
+     *         RUNNING.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         COMPLETED: A completed status.
+     *         COMPLETED.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         STOPPING: A stopping status.
+     *         STOPPING.
      *         </p>
      *         </li>
      * @see ExecutionStatus
@@ -610,47 +632,47 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * PENDING: A pending status.
+     * PENDING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PENDING_CONCURRENCY: A pending concurrency status.
+     * PENDING_CONCURRENCY.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PENDING_DEVICE: A pending device status.
+     * PENDING_DEVICE.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PROCESSING: A processing status.
+     * PROCESSING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * SCHEDULING: A scheduling status.
+     * SCHEDULING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PREPARING: A preparing status.
+     * PREPARING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * RUNNING: A running status.
+     * RUNNING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * COMPLETED: A completed status.
+     * COMPLETED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * STOPPING: A stopping status.
+     * STOPPING.
      * </p>
      * </li>
      * </ul>
@@ -660,47 +682,47 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      *        <ul>
      *        <li>
      *        <p>
-     *        PENDING: A pending status.
+     *        PENDING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PENDING_CONCURRENCY: A pending concurrency status.
+     *        PENDING_CONCURRENCY.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PENDING_DEVICE: A pending device status.
+     *        PENDING_DEVICE.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PROCESSING: A processing status.
+     *        PROCESSING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        SCHEDULING: A scheduling status.
+     *        SCHEDULING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PREPARING: A preparing status.
+     *        PREPARING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        RUNNING: A running status.
+     *        RUNNING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        COMPLETED: A completed status.
+     *        COMPLETED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        STOPPING: A stopping status.
+     *        STOPPING.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -719,47 +741,47 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * PENDING: A pending status.
+     * PENDING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PENDING_CONCURRENCY: A pending concurrency status.
+     * PENDING_CONCURRENCY.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PENDING_DEVICE: A pending device status.
+     * PENDING_DEVICE.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PROCESSING: A processing status.
+     * PROCESSING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * SCHEDULING: A scheduling status.
+     * SCHEDULING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PREPARING: A preparing status.
+     * PREPARING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * RUNNING: A running status.
+     * RUNNING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * COMPLETED: A completed status.
+     * COMPLETED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * STOPPING: A stopping status.
+     * STOPPING.
      * </p>
      * </li>
      * </ul>
@@ -769,47 +791,47 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      *        <ul>
      *        <li>
      *        <p>
-     *        PENDING: A pending status.
+     *        PENDING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PENDING_CONCURRENCY: A pending concurrency status.
+     *        PENDING_CONCURRENCY.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PENDING_DEVICE: A pending device status.
+     *        PENDING_DEVICE.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PROCESSING: A processing status.
+     *        PROCESSING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        SCHEDULING: A scheduling status.
+     *        SCHEDULING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PREPARING: A preparing status.
+     *        PREPARING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        RUNNING: A running status.
+     *        RUNNING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        COMPLETED: A completed status.
+     *        COMPLETED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        STOPPING: A stopping status.
+     *        STOPPING.
      *        </p>
      *        </li>
      * @see ExecutionStatus
@@ -826,47 +848,47 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * PENDING: A pending status.
+     * PENDING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PENDING_CONCURRENCY: A pending concurrency status.
+     * PENDING_CONCURRENCY.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PENDING_DEVICE: A pending device status.
+     * PENDING_DEVICE.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PROCESSING: A processing status.
+     * PROCESSING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * SCHEDULING: A scheduling status.
+     * SCHEDULING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PREPARING: A preparing status.
+     * PREPARING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * RUNNING: A running status.
+     * RUNNING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * COMPLETED: A completed status.
+     * COMPLETED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * STOPPING: A stopping status.
+     * STOPPING.
      * </p>
      * </li>
      * </ul>
@@ -876,47 +898,47 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      *        <ul>
      *        <li>
      *        <p>
-     *        PENDING: A pending status.
+     *        PENDING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PENDING_CONCURRENCY: A pending concurrency status.
+     *        PENDING_CONCURRENCY.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PENDING_DEVICE: A pending device status.
+     *        PENDING_DEVICE.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PROCESSING: A processing status.
+     *        PROCESSING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        SCHEDULING: A scheduling status.
+     *        SCHEDULING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PREPARING: A preparing status.
+     *        PREPARING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        RUNNING: A running status.
+     *        RUNNING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        COMPLETED: A completed status.
+     *        COMPLETED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        STOPPING: A stopping status.
+     *        STOPPING.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -935,37 +957,37 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * PENDING: A pending condition.
+     * PENDING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PASSED: A passing condition.
+     * PASSED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * WARNED: A warning condition.
+     * WARNED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FAILED: A failed condition.
+     * FAILED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * SKIPPED: A skipped condition.
+     * SKIPPED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * ERRORED: An error condition.
+     * ERRORED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * STOPPED: A stopped condition.
+     * STOPPED.
      * </p>
      * </li>
      * </ul>
@@ -975,37 +997,37 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      *        <ul>
      *        <li>
      *        <p>
-     *        PENDING: A pending condition.
+     *        PENDING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PASSED: A passing condition.
+     *        PASSED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        WARNED: A warning condition.
+     *        WARNED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        FAILED: A failed condition.
+     *        FAILED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        SKIPPED: A skipped condition.
+     *        SKIPPED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        ERRORED: An error condition.
+     *        ERRORED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        STOPPED: A stopped condition.
+     *        STOPPED.
      *        </p>
      *        </li>
      * @see ExecutionResult
@@ -1022,37 +1044,37 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * PENDING: A pending condition.
+     * PENDING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PASSED: A passing condition.
+     * PASSED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * WARNED: A warning condition.
+     * WARNED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FAILED: A failed condition.
+     * FAILED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * SKIPPED: A skipped condition.
+     * SKIPPED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * ERRORED: An error condition.
+     * ERRORED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * STOPPED: A stopped condition.
+     * STOPPED.
      * </p>
      * </li>
      * </ul>
@@ -1061,37 +1083,37 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      *         <ul>
      *         <li>
      *         <p>
-     *         PENDING: A pending condition.
+     *         PENDING.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         PASSED: A passing condition.
+     *         PASSED.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         WARNED: A warning condition.
+     *         WARNED.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         FAILED: A failed condition.
+     *         FAILED.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         SKIPPED: A skipped condition.
+     *         SKIPPED.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         ERRORED: An error condition.
+     *         ERRORED.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         STOPPED: A stopped condition.
+     *         STOPPED.
      *         </p>
      *         </li>
      * @see ExecutionResult
@@ -1108,37 +1130,37 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * PENDING: A pending condition.
+     * PENDING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PASSED: A passing condition.
+     * PASSED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * WARNED: A warning condition.
+     * WARNED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FAILED: A failed condition.
+     * FAILED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * SKIPPED: A skipped condition.
+     * SKIPPED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * ERRORED: An error condition.
+     * ERRORED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * STOPPED: A stopped condition.
+     * STOPPED.
      * </p>
      * </li>
      * </ul>
@@ -1148,37 +1170,37 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      *        <ul>
      *        <li>
      *        <p>
-     *        PENDING: A pending condition.
+     *        PENDING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PASSED: A passing condition.
+     *        PASSED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        WARNED: A warning condition.
+     *        WARNED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        FAILED: A failed condition.
+     *        FAILED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        SKIPPED: A skipped condition.
+     *        SKIPPED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        ERRORED: An error condition.
+     *        ERRORED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        STOPPED: A stopped condition.
+     *        STOPPED.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1197,37 +1219,37 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * PENDING: A pending condition.
+     * PENDING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PASSED: A passing condition.
+     * PASSED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * WARNED: A warning condition.
+     * WARNED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FAILED: A failed condition.
+     * FAILED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * SKIPPED: A skipped condition.
+     * SKIPPED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * ERRORED: An error condition.
+     * ERRORED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * STOPPED: A stopped condition.
+     * STOPPED.
      * </p>
      * </li>
      * </ul>
@@ -1237,37 +1259,37 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      *        <ul>
      *        <li>
      *        <p>
-     *        PENDING: A pending condition.
+     *        PENDING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PASSED: A passing condition.
+     *        PASSED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        WARNED: A warning condition.
+     *        WARNED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        FAILED: A failed condition.
+     *        FAILED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        SKIPPED: A skipped condition.
+     *        SKIPPED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        ERRORED: An error condition.
+     *        ERRORED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        STOPPED: A stopped condition.
+     *        STOPPED.
      *        </p>
      *        </li>
      * @see ExecutionResult
@@ -1284,37 +1306,37 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * PENDING: A pending condition.
+     * PENDING.
      * </p>
      * </li>
      * <li>
      * <p>
-     * PASSED: A passing condition.
+     * PASSED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * WARNED: A warning condition.
+     * WARNED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * FAILED: A failed condition.
+     * FAILED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * SKIPPED: A skipped condition.
+     * SKIPPED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * ERRORED: An error condition.
+     * ERRORED.
      * </p>
      * </li>
      * <li>
      * <p>
-     * STOPPED: A stopped condition.
+     * STOPPED.
      * </p>
      * </li>
      * </ul>
@@ -1324,37 +1346,37 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      *        <ul>
      *        <li>
      *        <p>
-     *        PENDING: A pending condition.
+     *        PENDING.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        PASSED: A passing condition.
+     *        PASSED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        WARNED: A warning condition.
+     *        WARNED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        FAILED: A failed condition.
+     *        FAILED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        SKIPPED: A skipped condition.
+     *        SKIPPED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        ERRORED: An error condition.
+     *        ERRORED.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        STOPPED: A stopped condition.
+     *        STOPPED.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1528,11 +1550,11 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the instance.
+     * The ARN of the instance.
      * </p>
      * 
      * @param instanceArn
-     *        The Amazon Resource Name (ARN) of the instance.
+     *        The ARN of the instance.
      */
 
     public void setInstanceArn(String instanceArn) {
@@ -1541,10 +1563,10 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the instance.
+     * The ARN of the instance.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the instance.
+     * @return The ARN of the instance.
      */
 
     public String getInstanceArn() {
@@ -1553,11 +1575,11 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the instance.
+     * The ARN of the instance.
      * </p>
      * 
      * @param instanceArn
-     *        The Amazon Resource Name (ARN) of the instance.
+     *        The ARN of the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1570,9 +1592,16 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <p>
      * This flag is set to <code>true</code> if remote debugging is enabled for the remote access session.
      * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
+     * </p>
      * 
      * @param remoteDebugEnabled
-     *        This flag is set to <code>true</code> if remote debugging is enabled for the remote access session.
+     *        This flag is set to <code>true</code> if remote debugging is enabled for the remote access session.</p>
+     *        <p>
+     *        Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no
+     *        longer supported</a>.
      */
 
     public void setRemoteDebugEnabled(Boolean remoteDebugEnabled) {
@@ -1583,8 +1612,15 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <p>
      * This flag is set to <code>true</code> if remote debugging is enabled for the remote access session.
      * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
+     * </p>
      * 
-     * @return This flag is set to <code>true</code> if remote debugging is enabled for the remote access session.
+     * @return This flag is set to <code>true</code> if remote debugging is enabled for the remote access session.</p>
+     *         <p>
+     *         Remote debugging is <a
+     *         href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer supported</a>.
      */
 
     public Boolean getRemoteDebugEnabled() {
@@ -1595,9 +1631,16 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <p>
      * This flag is set to <code>true</code> if remote debugging is enabled for the remote access session.
      * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
+     * </p>
      * 
      * @param remoteDebugEnabled
-     *        This flag is set to <code>true</code> if remote debugging is enabled for the remote access session.
+     *        This flag is set to <code>true</code> if remote debugging is enabled for the remote access session.</p>
+     *        <p>
+     *        Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no
+     *        longer supported</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1610,8 +1653,15 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <p>
      * This flag is set to <code>true</code> if remote debugging is enabled for the remote access session.
      * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
+     * </p>
      * 
-     * @return This flag is set to <code>true</code> if remote debugging is enabled for the remote access session.
+     * @return This flag is set to <code>true</code> if remote debugging is enabled for the remote access session.</p>
+     *         <p>
+     *         Remote debugging is <a
+     *         href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer supported</a>.
      */
 
     public Boolean isRemoteDebugEnabled() {
@@ -1672,11 +1722,11 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the app to be recorded in the remote access session.
+     * The ARN for the app to be recorded in the remote access session.
      * </p>
      * 
      * @param remoteRecordAppArn
-     *        The Amazon Resource Name (ARN) for the app to be recorded in the remote access session.
+     *        The ARN for the app to be recorded in the remote access session.
      */
 
     public void setRemoteRecordAppArn(String remoteRecordAppArn) {
@@ -1685,10 +1735,10 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the app to be recorded in the remote access session.
+     * The ARN for the app to be recorded in the remote access session.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) for the app to be recorded in the remote access session.
+     * @return The ARN for the app to be recorded in the remote access session.
      */
 
     public String getRemoteRecordAppArn() {
@@ -1697,11 +1747,11 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the app to be recorded in the remote access session.
+     * The ARN for the app to be recorded in the remote access session.
      * </p>
      * 
      * @param remoteRecordAppArn
-     *        The Amazon Resource Name (ARN) for the app to be recorded in the remote access session.
+     *        The ARN for the app to be recorded in the remote access session.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1715,10 +1765,17 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * IP address of the EC2 host where you need to connect to remotely debug devices. Only returned if remote debugging
      * is enabled for the remote access session.
      * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
+     * </p>
      * 
      * @param hostAddress
      *        IP address of the EC2 host where you need to connect to remotely debug devices. Only returned if remote
-     *        debugging is enabled for the remote access session.
+     *        debugging is enabled for the remote access session.</p>
+     *        <p>
+     *        Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no
+     *        longer supported</a>.
      */
 
     public void setHostAddress(String hostAddress) {
@@ -1730,9 +1787,16 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * IP address of the EC2 host where you need to connect to remotely debug devices. Only returned if remote debugging
      * is enabled for the remote access session.
      * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
+     * </p>
      * 
      * @return IP address of the EC2 host where you need to connect to remotely debug devices. Only returned if remote
-     *         debugging is enabled for the remote access session.
+     *         debugging is enabled for the remote access session.</p>
+     *         <p>
+     *         Remote debugging is <a
+     *         href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer supported</a>.
      */
 
     public String getHostAddress() {
@@ -1744,10 +1808,17 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * IP address of the EC2 host where you need to connect to remotely debug devices. Only returned if remote debugging
      * is enabled for the remote access session.
      * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
+     * </p>
      * 
      * @param hostAddress
      *        IP address of the EC2 host where you need to connect to remotely debug devices. Only returned if remote
-     *        debugging is enabled for the remote access session.
+     *        debugging is enabled for the remote access session.</p>
+     *        <p>
+     *        Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no
+     *        longer supported</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1761,10 +1832,17 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * Unique identifier of your client for the remote access session. Only returned if remote debugging is enabled for
      * the remote access session.
      * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
+     * </p>
      * 
      * @param clientId
      *        Unique identifier of your client for the remote access session. Only returned if remote debugging is
-     *        enabled for the remote access session.
+     *        enabled for the remote access session.</p>
+     *        <p>
+     *        Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no
+     *        longer supported</a>.
      */
 
     public void setClientId(String clientId) {
@@ -1776,9 +1854,16 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * Unique identifier of your client for the remote access session. Only returned if remote debugging is enabled for
      * the remote access session.
      * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
+     * </p>
      * 
      * @return Unique identifier of your client for the remote access session. Only returned if remote debugging is
-     *         enabled for the remote access session.
+     *         enabled for the remote access session.</p>
+     *         <p>
+     *         Remote debugging is <a
+     *         href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer supported</a>.
      */
 
     public String getClientId() {
@@ -1790,10 +1875,17 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * Unique identifier of your client for the remote access session. Only returned if remote debugging is enabled for
      * the remote access session.
      * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
+     * </p>
      * 
      * @param clientId
      *        Unique identifier of your client for the remote access session. Only returned if remote debugging is
-     *        enabled for the remote access session.
+     *        enabled for the remote access session.</p>
+     *        <p>
+     *        Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no
+     *        longer supported</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1807,14 +1899,14 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * The billing method of the remote access session. Possible values include <code>METERED</code> or
      * <code>UNMETERED</code>. For more information about metered devices, see <a
      * href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/welcome.html#welcome-terminology">AWS Device
-     * Farm terminology</a>."
+     * Farm terminology</a>.
      * </p>
      * 
      * @param billingMethod
      *        The billing method of the remote access session. Possible values include <code>METERED</code> or
      *        <code>UNMETERED</code>. For more information about metered devices, see <a
      *        href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/welcome.html#welcome-terminology">AWS
-     *        Device Farm terminology</a>."
+     *        Device Farm terminology</a>.
      * @see BillingMethod
      */
 
@@ -1827,13 +1919,13 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * The billing method of the remote access session. Possible values include <code>METERED</code> or
      * <code>UNMETERED</code>. For more information about metered devices, see <a
      * href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/welcome.html#welcome-terminology">AWS Device
-     * Farm terminology</a>."
+     * Farm terminology</a>.
      * </p>
      * 
      * @return The billing method of the remote access session. Possible values include <code>METERED</code> or
      *         <code>UNMETERED</code>. For more information about metered devices, see <a
      *         href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/welcome.html#welcome-terminology">AWS
-     *         Device Farm terminology</a>."
+     *         Device Farm terminology</a>.
      * @see BillingMethod
      */
 
@@ -1846,14 +1938,14 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * The billing method of the remote access session. Possible values include <code>METERED</code> or
      * <code>UNMETERED</code>. For more information about metered devices, see <a
      * href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/welcome.html#welcome-terminology">AWS Device
-     * Farm terminology</a>."
+     * Farm terminology</a>.
      * </p>
      * 
      * @param billingMethod
      *        The billing method of the remote access session. Possible values include <code>METERED</code> or
      *        <code>UNMETERED</code>. For more information about metered devices, see <a
      *        href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/welcome.html#welcome-terminology">AWS
-     *        Device Farm terminology</a>."
+     *        Device Farm terminology</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see BillingMethod
      */
@@ -1868,14 +1960,14 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * The billing method of the remote access session. Possible values include <code>METERED</code> or
      * <code>UNMETERED</code>. For more information about metered devices, see <a
      * href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/welcome.html#welcome-terminology">AWS Device
-     * Farm terminology</a>."
+     * Farm terminology</a>.
      * </p>
      * 
      * @param billingMethod
      *        The billing method of the remote access session. Possible values include <code>METERED</code> or
      *        <code>UNMETERED</code>. For more information about metered devices, see <a
      *        href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/welcome.html#welcome-terminology">AWS
-     *        Device Farm terminology</a>."
+     *        Device Farm terminology</a>.
      * @see BillingMethod
      */
 
@@ -1888,14 +1980,14 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * The billing method of the remote access session. Possible values include <code>METERED</code> or
      * <code>UNMETERED</code>. For more information about metered devices, see <a
      * href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/welcome.html#welcome-terminology">AWS Device
-     * Farm terminology</a>."
+     * Farm terminology</a>.
      * </p>
      * 
      * @param billingMethod
      *        The billing method of the remote access session. Possible values include <code>METERED</code> or
      *        <code>UNMETERED</code>. For more information about metered devices, see <a
      *        href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/welcome.html#welcome-terminology">AWS
-     *        Device Farm terminology</a>."
+     *        Device Farm terminology</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see BillingMethod
      */
@@ -1990,10 +2082,17 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * Unique device identifier for the remote device. Only returned if remote debugging is enabled for the remote
      * access session.
      * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
+     * </p>
      * 
      * @param deviceUdid
      *        Unique device identifier for the remote device. Only returned if remote debugging is enabled for the
-     *        remote access session.
+     *        remote access session.</p>
+     *        <p>
+     *        Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no
+     *        longer supported</a>.
      */
 
     public void setDeviceUdid(String deviceUdid) {
@@ -2005,9 +2104,16 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * Unique device identifier for the remote device. Only returned if remote debugging is enabled for the remote
      * access session.
      * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
+     * </p>
      * 
      * @return Unique device identifier for the remote device. Only returned if remote debugging is enabled for the
-     *         remote access session.
+     *         remote access session.</p>
+     *         <p>
+     *         Remote debugging is <a
+     *         href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer supported</a>.
      */
 
     public String getDeviceUdid() {
@@ -2019,10 +2125,17 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * Unique device identifier for the remote device. Only returned if remote debugging is enabled for the remote
      * access session.
      * </p>
+     * <p>
+     * Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no longer
+     * supported</a>.
+     * </p>
      * 
      * @param deviceUdid
      *        Unique device identifier for the remote device. Only returned if remote debugging is enabled for the
-     *        remote access session.
+     *        remote access session.</p>
+     *        <p>
+     *        Remote debugging is <a href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html">no
+     *        longer supported</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2038,20 +2151,20 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You
-     * <b>cannot</b> run XCUITest framework-based tests in this mode.
+     * INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You cannot run
+     * XCUITest framework-based tests in this mode.
      * </p>
      * </li>
      * <li>
      * <p>
-     * NO_VIDEO: You are connected to the device but cannot interact with it or view the screen. This mode has the
-     * fastest test execution speed. You <b>can</b> run XCUITest framework-based tests in this mode.
+     * NO_VIDEO: You are connected to the device, but cannot interact with it or view the screen. This mode has the
+     * fastest test execution speed. You can run XCUITest framework-based tests in this mode.
      * </p>
      * </li>
      * <li>
      * <p>
-     * VIDEO_ONLY: You can view the screen but cannot touch or rotate it. You <b>can</b> run XCUITest framework-based
-     * tests and watch the screen in this mode.
+     * VIDEO_ONLY: You can view the screen, but cannot touch or rotate it. You can run XCUITest framework-based tests
+     * and watch the screen in this mode.
      * </p>
      * </li>
      * </ul>
@@ -2062,19 +2175,19 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      *        <li>
      *        <p>
      *        INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You
-     *        <b>cannot</b> run XCUITest framework-based tests in this mode.
+     *        cannot run XCUITest framework-based tests in this mode.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        NO_VIDEO: You are connected to the device but cannot interact with it or view the screen. This mode has
-     *        the fastest test execution speed. You <b>can</b> run XCUITest framework-based tests in this mode.
+     *        NO_VIDEO: You are connected to the device, but cannot interact with it or view the screen. This mode has
+     *        the fastest test execution speed. You can run XCUITest framework-based tests in this mode.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        VIDEO_ONLY: You can view the screen but cannot touch or rotate it. You <b>can</b> run XCUITest
-     *        framework-based tests and watch the screen in this mode.
+     *        VIDEO_ONLY: You can view the screen, but cannot touch or rotate it. You can run XCUITest framework-based
+     *        tests and watch the screen in this mode.
      *        </p>
      *        </li>
      * @see InteractionMode
@@ -2091,20 +2204,20 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You
-     * <b>cannot</b> run XCUITest framework-based tests in this mode.
+     * INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You cannot run
+     * XCUITest framework-based tests in this mode.
      * </p>
      * </li>
      * <li>
      * <p>
-     * NO_VIDEO: You are connected to the device but cannot interact with it or view the screen. This mode has the
-     * fastest test execution speed. You <b>can</b> run XCUITest framework-based tests in this mode.
+     * NO_VIDEO: You are connected to the device, but cannot interact with it or view the screen. This mode has the
+     * fastest test execution speed. You can run XCUITest framework-based tests in this mode.
      * </p>
      * </li>
      * <li>
      * <p>
-     * VIDEO_ONLY: You can view the screen but cannot touch or rotate it. You <b>can</b> run XCUITest framework-based
-     * tests and watch the screen in this mode.
+     * VIDEO_ONLY: You can view the screen, but cannot touch or rotate it. You can run XCUITest framework-based tests
+     * and watch the screen in this mode.
      * </p>
      * </li>
      * </ul>
@@ -2114,19 +2227,19 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      *         <li>
      *         <p>
      *         INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You
-     *         <b>cannot</b> run XCUITest framework-based tests in this mode.
+     *         cannot run XCUITest framework-based tests in this mode.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         NO_VIDEO: You are connected to the device but cannot interact with it or view the screen. This mode has
-     *         the fastest test execution speed. You <b>can</b> run XCUITest framework-based tests in this mode.
+     *         NO_VIDEO: You are connected to the device, but cannot interact with it or view the screen. This mode has
+     *         the fastest test execution speed. You can run XCUITest framework-based tests in this mode.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         VIDEO_ONLY: You can view the screen but cannot touch or rotate it. You <b>can</b> run XCUITest
-     *         framework-based tests and watch the screen in this mode.
+     *         VIDEO_ONLY: You can view the screen, but cannot touch or rotate it. You can run XCUITest framework-based
+     *         tests and watch the screen in this mode.
      *         </p>
      *         </li>
      * @see InteractionMode
@@ -2143,20 +2256,20 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You
-     * <b>cannot</b> run XCUITest framework-based tests in this mode.
+     * INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You cannot run
+     * XCUITest framework-based tests in this mode.
      * </p>
      * </li>
      * <li>
      * <p>
-     * NO_VIDEO: You are connected to the device but cannot interact with it or view the screen. This mode has the
-     * fastest test execution speed. You <b>can</b> run XCUITest framework-based tests in this mode.
+     * NO_VIDEO: You are connected to the device, but cannot interact with it or view the screen. This mode has the
+     * fastest test execution speed. You can run XCUITest framework-based tests in this mode.
      * </p>
      * </li>
      * <li>
      * <p>
-     * VIDEO_ONLY: You can view the screen but cannot touch or rotate it. You <b>can</b> run XCUITest framework-based
-     * tests and watch the screen in this mode.
+     * VIDEO_ONLY: You can view the screen, but cannot touch or rotate it. You can run XCUITest framework-based tests
+     * and watch the screen in this mode.
      * </p>
      * </li>
      * </ul>
@@ -2167,19 +2280,19 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      *        <li>
      *        <p>
      *        INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You
-     *        <b>cannot</b> run XCUITest framework-based tests in this mode.
+     *        cannot run XCUITest framework-based tests in this mode.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        NO_VIDEO: You are connected to the device but cannot interact with it or view the screen. This mode has
-     *        the fastest test execution speed. You <b>can</b> run XCUITest framework-based tests in this mode.
+     *        NO_VIDEO: You are connected to the device, but cannot interact with it or view the screen. This mode has
+     *        the fastest test execution speed. You can run XCUITest framework-based tests in this mode.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        VIDEO_ONLY: You can view the screen but cannot touch or rotate it. You <b>can</b> run XCUITest
-     *        framework-based tests and watch the screen in this mode.
+     *        VIDEO_ONLY: You can view the screen, but cannot touch or rotate it. You can run XCUITest framework-based
+     *        tests and watch the screen in this mode.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -2198,20 +2311,20 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You
-     * <b>cannot</b> run XCUITest framework-based tests in this mode.
+     * INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You cannot run
+     * XCUITest framework-based tests in this mode.
      * </p>
      * </li>
      * <li>
      * <p>
-     * NO_VIDEO: You are connected to the device but cannot interact with it or view the screen. This mode has the
-     * fastest test execution speed. You <b>can</b> run XCUITest framework-based tests in this mode.
+     * NO_VIDEO: You are connected to the device, but cannot interact with it or view the screen. This mode has the
+     * fastest test execution speed. You can run XCUITest framework-based tests in this mode.
      * </p>
      * </li>
      * <li>
      * <p>
-     * VIDEO_ONLY: You can view the screen but cannot touch or rotate it. You <b>can</b> run XCUITest framework-based
-     * tests and watch the screen in this mode.
+     * VIDEO_ONLY: You can view the screen, but cannot touch or rotate it. You can run XCUITest framework-based tests
+     * and watch the screen in this mode.
      * </p>
      * </li>
      * </ul>
@@ -2222,19 +2335,19 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      *        <li>
      *        <p>
      *        INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You
-     *        <b>cannot</b> run XCUITest framework-based tests in this mode.
+     *        cannot run XCUITest framework-based tests in this mode.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        NO_VIDEO: You are connected to the device but cannot interact with it or view the screen. This mode has
-     *        the fastest test execution speed. You <b>can</b> run XCUITest framework-based tests in this mode.
+     *        NO_VIDEO: You are connected to the device, but cannot interact with it or view the screen. This mode has
+     *        the fastest test execution speed. You can run XCUITest framework-based tests in this mode.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        VIDEO_ONLY: You can view the screen but cannot touch or rotate it. You <b>can</b> run XCUITest
-     *        framework-based tests and watch the screen in this mode.
+     *        VIDEO_ONLY: You can view the screen, but cannot touch or rotate it. You can run XCUITest framework-based
+     *        tests and watch the screen in this mode.
      *        </p>
      *        </li>
      * @see InteractionMode
@@ -2251,20 +2364,20 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You
-     * <b>cannot</b> run XCUITest framework-based tests in this mode.
+     * INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You cannot run
+     * XCUITest framework-based tests in this mode.
      * </p>
      * </li>
      * <li>
      * <p>
-     * NO_VIDEO: You are connected to the device but cannot interact with it or view the screen. This mode has the
-     * fastest test execution speed. You <b>can</b> run XCUITest framework-based tests in this mode.
+     * NO_VIDEO: You are connected to the device, but cannot interact with it or view the screen. This mode has the
+     * fastest test execution speed. You can run XCUITest framework-based tests in this mode.
      * </p>
      * </li>
      * <li>
      * <p>
-     * VIDEO_ONLY: You can view the screen but cannot touch or rotate it. You <b>can</b> run XCUITest framework-based
-     * tests and watch the screen in this mode.
+     * VIDEO_ONLY: You can view the screen, but cannot touch or rotate it. You can run XCUITest framework-based tests
+     * and watch the screen in this mode.
      * </p>
      * </li>
      * </ul>
@@ -2275,19 +2388,19 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
      *        <li>
      *        <p>
      *        INTERACTIVE: You can interact with the iOS device by viewing, touching, and rotating the screen. You
-     *        <b>cannot</b> run XCUITest framework-based tests in this mode.
+     *        cannot run XCUITest framework-based tests in this mode.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        NO_VIDEO: You are connected to the device but cannot interact with it or view the screen. This mode has
-     *        the fastest test execution speed. You <b>can</b> run XCUITest framework-based tests in this mode.
+     *        NO_VIDEO: You are connected to the device, but cannot interact with it or view the screen. This mode has
+     *        the fastest test execution speed. You can run XCUITest framework-based tests in this mode.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        VIDEO_ONLY: You can view the screen but cannot touch or rotate it. You <b>can</b> run XCUITest
-     *        framework-based tests and watch the screen in this mode.
+     *        VIDEO_ONLY: You can view the screen, but cannot touch or rotate it. You can run XCUITest framework-based
+     *        tests and watch the screen in this mode.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -2301,20 +2414,20 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * When set to <code>true</code>, for private devices, Device Farm will not sign your app again. For public devices,
-     * Device Farm always signs your apps again and this parameter has no effect.
+     * When set to <code>true</code>, for private devices, Device Farm does not sign your app again. For public devices,
+     * Device Farm always signs your apps again.
      * </p>
      * <p>
-     * For more information about how Device Farm re-signs your app(s), see <a
-     * href="https://aws.amazon.com/device-farm/faq/">Do you modify my app?</a> in the <i>AWS Device Farm FAQs</i>.
+     * For more information about how Device Farm re-signs your apps, see <a
+     * href="http://aws.amazon.com/device-farm/faqs/">Do you modify my app?</a> in the <i>AWS Device Farm FAQs</i>.
      * </p>
      * 
      * @param skipAppResign
-     *        When set to <code>true</code>, for private devices, Device Farm will not sign your app again. For public
-     *        devices, Device Farm always signs your apps again and this parameter has no effect.</p>
+     *        When set to <code>true</code>, for private devices, Device Farm does not sign your app again. For public
+     *        devices, Device Farm always signs your apps again.</p>
      *        <p>
-     *        For more information about how Device Farm re-signs your app(s), see <a
-     *        href="https://aws.amazon.com/device-farm/faq/">Do you modify my app?</a> in the <i>AWS Device Farm
+     *        For more information about how Device Farm re-signs your apps, see <a
+     *        href="http://aws.amazon.com/device-farm/faqs/">Do you modify my app?</a> in the <i>AWS Device Farm
      *        FAQs</i>.
      */
 
@@ -2324,19 +2437,19 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * When set to <code>true</code>, for private devices, Device Farm will not sign your app again. For public devices,
-     * Device Farm always signs your apps again and this parameter has no effect.
+     * When set to <code>true</code>, for private devices, Device Farm does not sign your app again. For public devices,
+     * Device Farm always signs your apps again.
      * </p>
      * <p>
-     * For more information about how Device Farm re-signs your app(s), see <a
-     * href="https://aws.amazon.com/device-farm/faq/">Do you modify my app?</a> in the <i>AWS Device Farm FAQs</i>.
+     * For more information about how Device Farm re-signs your apps, see <a
+     * href="http://aws.amazon.com/device-farm/faqs/">Do you modify my app?</a> in the <i>AWS Device Farm FAQs</i>.
      * </p>
      * 
-     * @return When set to <code>true</code>, for private devices, Device Farm will not sign your app again. For public
-     *         devices, Device Farm always signs your apps again and this parameter has no effect.</p>
+     * @return When set to <code>true</code>, for private devices, Device Farm does not sign your app again. For public
+     *         devices, Device Farm always signs your apps again.</p>
      *         <p>
-     *         For more information about how Device Farm re-signs your app(s), see <a
-     *         href="https://aws.amazon.com/device-farm/faq/">Do you modify my app?</a> in the <i>AWS Device Farm
+     *         For more information about how Device Farm re-signs your apps, see <a
+     *         href="http://aws.amazon.com/device-farm/faqs/">Do you modify my app?</a> in the <i>AWS Device Farm
      *         FAQs</i>.
      */
 
@@ -2346,20 +2459,20 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * When set to <code>true</code>, for private devices, Device Farm will not sign your app again. For public devices,
-     * Device Farm always signs your apps again and this parameter has no effect.
+     * When set to <code>true</code>, for private devices, Device Farm does not sign your app again. For public devices,
+     * Device Farm always signs your apps again.
      * </p>
      * <p>
-     * For more information about how Device Farm re-signs your app(s), see <a
-     * href="https://aws.amazon.com/device-farm/faq/">Do you modify my app?</a> in the <i>AWS Device Farm FAQs</i>.
+     * For more information about how Device Farm re-signs your apps, see <a
+     * href="http://aws.amazon.com/device-farm/faqs/">Do you modify my app?</a> in the <i>AWS Device Farm FAQs</i>.
      * </p>
      * 
      * @param skipAppResign
-     *        When set to <code>true</code>, for private devices, Device Farm will not sign your app again. For public
-     *        devices, Device Farm always signs your apps again and this parameter has no effect.</p>
+     *        When set to <code>true</code>, for private devices, Device Farm does not sign your app again. For public
+     *        devices, Device Farm always signs your apps again.</p>
      *        <p>
-     *        For more information about how Device Farm re-signs your app(s), see <a
-     *        href="https://aws.amazon.com/device-farm/faq/">Do you modify my app?</a> in the <i>AWS Device Farm
+     *        For more information about how Device Farm re-signs your apps, see <a
+     *        href="http://aws.amazon.com/device-farm/faqs/">Do you modify my app?</a> in the <i>AWS Device Farm
      *        FAQs</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -2371,24 +2484,64 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * When set to <code>true</code>, for private devices, Device Farm will not sign your app again. For public devices,
-     * Device Farm always signs your apps again and this parameter has no effect.
+     * When set to <code>true</code>, for private devices, Device Farm does not sign your app again. For public devices,
+     * Device Farm always signs your apps again.
      * </p>
      * <p>
-     * For more information about how Device Farm re-signs your app(s), see <a
-     * href="https://aws.amazon.com/device-farm/faq/">Do you modify my app?</a> in the <i>AWS Device Farm FAQs</i>.
+     * For more information about how Device Farm re-signs your apps, see <a
+     * href="http://aws.amazon.com/device-farm/faqs/">Do you modify my app?</a> in the <i>AWS Device Farm FAQs</i>.
      * </p>
      * 
-     * @return When set to <code>true</code>, for private devices, Device Farm will not sign your app again. For public
-     *         devices, Device Farm always signs your apps again and this parameter has no effect.</p>
+     * @return When set to <code>true</code>, for private devices, Device Farm does not sign your app again. For public
+     *         devices, Device Farm always signs your apps again.</p>
      *         <p>
-     *         For more information about how Device Farm re-signs your app(s), see <a
-     *         href="https://aws.amazon.com/device-farm/faq/">Do you modify my app?</a> in the <i>AWS Device Farm
+     *         For more information about how Device Farm re-signs your apps, see <a
+     *         href="http://aws.amazon.com/device-farm/faqs/">Do you modify my app?</a> in the <i>AWS Device Farm
      *         FAQs</i>.
      */
 
     public Boolean isSkipAppResign() {
         return this.skipAppResign;
+    }
+
+    /**
+     * <p>
+     * The VPC security groups and subnets that are attached to a project.
+     * </p>
+     * 
+     * @param vpcConfig
+     *        The VPC security groups and subnets that are attached to a project.
+     */
+
+    public void setVpcConfig(VpcConfig vpcConfig) {
+        this.vpcConfig = vpcConfig;
+    }
+
+    /**
+     * <p>
+     * The VPC security groups and subnets that are attached to a project.
+     * </p>
+     * 
+     * @return The VPC security groups and subnets that are attached to a project.
+     */
+
+    public VpcConfig getVpcConfig() {
+        return this.vpcConfig;
+    }
+
+    /**
+     * <p>
+     * The VPC security groups and subnets that are attached to a project.
+     * </p>
+     * 
+     * @param vpcConfig
+     *        The VPC security groups and subnets that are attached to a project.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RemoteAccessSession withVpcConfig(VpcConfig vpcConfig) {
+        setVpcConfig(vpcConfig);
+        return this;
     }
 
     /**
@@ -2444,7 +2597,9 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
         if (getInteractionMode() != null)
             sb.append("InteractionMode: ").append(getInteractionMode()).append(",");
         if (getSkipAppResign() != null)
-            sb.append("SkipAppResign: ").append(getSkipAppResign());
+            sb.append("SkipAppResign: ").append(getSkipAppResign()).append(",");
+        if (getVpcConfig() != null)
+            sb.append("VpcConfig: ").append(getVpcConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -2543,6 +2698,10 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getSkipAppResign() != null && other.getSkipAppResign().equals(this.getSkipAppResign()) == false)
             return false;
+        if (other.getVpcConfig() == null ^ this.getVpcConfig() == null)
+            return false;
+        if (other.getVpcConfig() != null && other.getVpcConfig().equals(this.getVpcConfig()) == false)
+            return false;
         return true;
     }
 
@@ -2572,6 +2731,7 @@ public class RemoteAccessSession implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getDeviceUdid() == null) ? 0 : getDeviceUdid().hashCode());
         hashCode = prime * hashCode + ((getInteractionMode() == null) ? 0 : getInteractionMode().hashCode());
         hashCode = prime * hashCode + ((getSkipAppResign() == null) ? 0 : getSkipAppResign().hashCode());
+        hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
         return hashCode;
     }
 

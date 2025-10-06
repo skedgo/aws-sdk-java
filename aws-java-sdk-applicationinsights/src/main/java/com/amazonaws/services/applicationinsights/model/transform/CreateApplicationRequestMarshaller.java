@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.applicationinsights.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -31,8 +32,20 @@ public class CreateApplicationRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceGroupName").build();
     private static final MarshallingInfo<Boolean> OPSCENTERENABLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OpsCenterEnabled").build();
+    private static final MarshallingInfo<Boolean> CWEMONITORENABLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CWEMonitorEnabled").build();
     private static final MarshallingInfo<String> OPSITEMSNSTOPICARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OpsItemSNSTopicArn").build();
+    private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Tags").build();
+    private static final MarshallingInfo<Boolean> AUTOCONFIGENABLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AutoConfigEnabled").build();
+    private static final MarshallingInfo<Boolean> AUTOCREATE_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AutoCreate").build();
+    private static final MarshallingInfo<String> GROUPINGTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("GroupingType").build();
+    private static final MarshallingInfo<Boolean> ATTACHMISSINGPERMISSION_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AttachMissingPermission").build();
 
     private static final CreateApplicationRequestMarshaller instance = new CreateApplicationRequestMarshaller();
 
@@ -52,7 +65,13 @@ public class CreateApplicationRequestMarshaller {
         try {
             protocolMarshaller.marshall(createApplicationRequest.getResourceGroupName(), RESOURCEGROUPNAME_BINDING);
             protocolMarshaller.marshall(createApplicationRequest.getOpsCenterEnabled(), OPSCENTERENABLED_BINDING);
+            protocolMarshaller.marshall(createApplicationRequest.getCWEMonitorEnabled(), CWEMONITORENABLED_BINDING);
             protocolMarshaller.marshall(createApplicationRequest.getOpsItemSNSTopicArn(), OPSITEMSNSTOPICARN_BINDING);
+            protocolMarshaller.marshall(createApplicationRequest.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(createApplicationRequest.getAutoConfigEnabled(), AUTOCONFIGENABLED_BINDING);
+            protocolMarshaller.marshall(createApplicationRequest.getAutoCreate(), AUTOCREATE_BINDING);
+            protocolMarshaller.marshall(createApplicationRequest.getGroupingType(), GROUPINGTYPE_BINDING);
+            protocolMarshaller.marshall(createApplicationRequest.getAttachMissingPermission(), ATTACHMISSINGPERMISSION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

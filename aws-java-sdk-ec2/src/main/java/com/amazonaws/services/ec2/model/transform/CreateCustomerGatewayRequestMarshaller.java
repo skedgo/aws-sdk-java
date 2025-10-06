@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,11 +45,62 @@ public class CreateCustomerGatewayRequestMarshaller implements Marshaller<Reques
         }
 
         if (createCustomerGatewayRequest.getPublicIp() != null) {
-            request.addParameter("IpAddress", StringUtils.fromString(createCustomerGatewayRequest.getPublicIp()));
+            request.addParameter("PublicIp", StringUtils.fromString(createCustomerGatewayRequest.getPublicIp()));
+        }
+
+        if (createCustomerGatewayRequest.getCertificateArn() != null) {
+            request.addParameter("CertificateArn", StringUtils.fromString(createCustomerGatewayRequest.getCertificateArn()));
         }
 
         if (createCustomerGatewayRequest.getType() != null) {
             request.addParameter("Type", StringUtils.fromString(createCustomerGatewayRequest.getType()));
+        }
+
+        com.amazonaws.internal.SdkInternalList<TagSpecification> createCustomerGatewayRequestTagSpecificationsList = (com.amazonaws.internal.SdkInternalList<TagSpecification>) createCustomerGatewayRequest
+                .getTagSpecifications();
+        if (!createCustomerGatewayRequestTagSpecificationsList.isEmpty() || !createCustomerGatewayRequestTagSpecificationsList.isAutoConstruct()) {
+            int tagSpecificationsListIndex = 1;
+
+            for (TagSpecification createCustomerGatewayRequestTagSpecificationsListValue : createCustomerGatewayRequestTagSpecificationsList) {
+
+                if (createCustomerGatewayRequestTagSpecificationsListValue.getResourceType() != null) {
+                    request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".ResourceType",
+                            StringUtils.fromString(createCustomerGatewayRequestTagSpecificationsListValue.getResourceType()));
+                }
+
+                com.amazonaws.internal.SdkInternalList<Tag> tagSpecificationTagsList = (com.amazonaws.internal.SdkInternalList<Tag>) createCustomerGatewayRequestTagSpecificationsListValue
+                        .getTags();
+                if (!tagSpecificationTagsList.isEmpty() || !tagSpecificationTagsList.isAutoConstruct()) {
+                    int tagsListIndex = 1;
+
+                    for (Tag tagSpecificationTagsListValue : tagSpecificationTagsList) {
+
+                        if (tagSpecificationTagsListValue.getKey() != null) {
+                            request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Key",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getKey()));
+                        }
+
+                        if (tagSpecificationTagsListValue.getValue() != null) {
+                            request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Value",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getValue()));
+                        }
+                        tagsListIndex++;
+                    }
+                }
+                tagSpecificationsListIndex++;
+            }
+        }
+
+        if (createCustomerGatewayRequest.getDeviceName() != null) {
+            request.addParameter("DeviceName", StringUtils.fromString(createCustomerGatewayRequest.getDeviceName()));
+        }
+
+        if (createCustomerGatewayRequest.getIpAddress() != null) {
+            request.addParameter("IpAddress", StringUtils.fromString(createCustomerGatewayRequest.getIpAddress()));
+        }
+
+        if (createCustomerGatewayRequest.getBgpAsnExtended() != null) {
+            request.addParameter("BgpAsnExtended", StringUtils.fromLong(createCustomerGatewayRequest.getBgpAsnExtended()));
         }
 
         return request;

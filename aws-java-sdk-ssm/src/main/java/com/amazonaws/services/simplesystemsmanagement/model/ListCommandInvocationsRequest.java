@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,7 @@ public class ListCommandInvocationsRequest extends com.amazonaws.AmazonWebServic
     private String commandId;
     /**
      * <p>
-     * (Optional) The command execution details for a specific instance ID.
+     * (Optional) The command execution details for a specific managed node ID.
      * </p>
      */
     private String instanceId;
@@ -58,8 +58,8 @@ public class ListCommandInvocationsRequest extends com.amazonaws.AmazonWebServic
     private com.amazonaws.internal.SdkInternalList<CommandFilter> filters;
     /**
      * <p>
-     * (Optional) If set this returns the response of the command executions and any command output. By default this is
-     * set to False.
+     * (Optional) If set this returns the response of the command executions and any command output. The default value
+     * is <code>false</code>.
      * </p>
      */
     private Boolean details;
@@ -106,11 +106,11 @@ public class ListCommandInvocationsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * (Optional) The command execution details for a specific instance ID.
+     * (Optional) The command execution details for a specific managed node ID.
      * </p>
      * 
      * @param instanceId
-     *        (Optional) The command execution details for a specific instance ID.
+     *        (Optional) The command execution details for a specific managed node ID.
      */
 
     public void setInstanceId(String instanceId) {
@@ -119,10 +119,10 @@ public class ListCommandInvocationsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * (Optional) The command execution details for a specific instance ID.
+     * (Optional) The command execution details for a specific managed node ID.
      * </p>
      * 
-     * @return (Optional) The command execution details for a specific instance ID.
+     * @return (Optional) The command execution details for a specific managed node ID.
      */
 
     public String getInstanceId() {
@@ -131,11 +131,11 @@ public class ListCommandInvocationsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * (Optional) The command execution details for a specific instance ID.
+     * (Optional) The command execution details for a specific managed node ID.
      * </p>
      * 
      * @param instanceId
-     *        (Optional) The command execution details for a specific instance ID.
+     *        (Optional) The command execution details for a specific managed node ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -305,13 +305,13 @@ public class ListCommandInvocationsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * (Optional) If set this returns the response of the command executions and any command output. By default this is
-     * set to False.
+     * (Optional) If set this returns the response of the command executions and any command output. The default value
+     * is <code>false</code>.
      * </p>
      * 
      * @param details
-     *        (Optional) If set this returns the response of the command executions and any command output. By default
-     *        this is set to False.
+     *        (Optional) If set this returns the response of the command executions and any command output. The default
+     *        value is <code>false</code>.
      */
 
     public void setDetails(Boolean details) {
@@ -320,12 +320,12 @@ public class ListCommandInvocationsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * (Optional) If set this returns the response of the command executions and any command output. By default this is
-     * set to False.
+     * (Optional) If set this returns the response of the command executions and any command output. The default value
+     * is <code>false</code>.
      * </p>
      * 
-     * @return (Optional) If set this returns the response of the command executions and any command output. By default
-     *         this is set to False.
+     * @return (Optional) If set this returns the response of the command executions and any command output. The default
+     *         value is <code>false</code>.
      */
 
     public Boolean getDetails() {
@@ -334,13 +334,13 @@ public class ListCommandInvocationsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * (Optional) If set this returns the response of the command executions and any command output. By default this is
-     * set to False.
+     * (Optional) If set this returns the response of the command executions and any command output. The default value
+     * is <code>false</code>.
      * </p>
      * 
      * @param details
-     *        (Optional) If set this returns the response of the command executions and any command output. By default
-     *        this is set to False.
+     *        (Optional) If set this returns the response of the command executions and any command output. The default
+     *        value is <code>false</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -351,12 +351,12 @@ public class ListCommandInvocationsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * (Optional) If set this returns the response of the command executions and any command output. By default this is
-     * set to False.
+     * (Optional) If set this returns the response of the command executions and any command output. The default value
+     * is <code>false</code>.
      * </p>
      * 
-     * @return (Optional) If set this returns the response of the command executions and any command output. By default
-     *         this is set to False.
+     * @return (Optional) If set this returns the response of the command executions and any command output. The default
+     *         value is <code>false</code>.
      */
 
     public Boolean isDetails() {

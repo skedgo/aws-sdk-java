@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,20 +31,21 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * receive notification when an asynchronous operation completes.
  * <p>
  * <p>
- * The AWS Cost and Usage Report API enables you to programmatically create, query, and delete AWS Cost and Usage report
- * definitions.
+ * You can use the Amazon Web Services Cost and Usage Report API to programmatically create, query, and delete Amazon
+ * Web Services Cost and Usage Report definitions.
  * </p>
  * <p>
- * AWS Cost and Usage reports track the monthly AWS costs and usage associated with your AWS account. The report
- * contains line items for each unique combination of AWS product, usage type, and operation that your AWS account uses.
- * You can configure the AWS Cost and Usage report to show only the data that you want, using the AWS Cost and Usage
- * API.
+ * Amazon Web Services Cost and Usage Report track the monthly Amazon Web Services costs and usage associated with your
+ * Amazon Web Services account. The report contains line items for each unique combination of Amazon Web Services
+ * product, usage type, and operation that your Amazon Web Services account uses. You can configure the Amazon Web
+ * Services Cost and Usage Report to show only the data that you want, using the Amazon Web Services Cost and Usage
+ * Report API.
  * </p>
  * <p>
  * Service Endpoint
  * </p>
  * <p>
- * The AWS Cost and Usage Report API provides the following endpoint:
+ * The Amazon Web Services Cost and Usage Report API provides the following endpoint:
  * </p>
  * <ul>
  * <li>
@@ -252,7 +253,20 @@ public class AWSCostAndUsageReportAsyncClient extends AWSCostAndUsageReportClien
      *        Object providing client parameters.
      */
     AWSCostAndUsageReportAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWS Cost and Usage Report Service using the
+     * specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSCostAndUsageReportAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -332,6 +346,72 @@ public class AWSCostAndUsageReportAsyncClient extends AWSCostAndUsageReportClien
     }
 
     @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+        final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTagsForResourceResult>() {
+            @Override
+            public ListTagsForResourceResult call() throws Exception {
+                ListTagsForResourceResult result = null;
+
+                try {
+                    result = executeListTagsForResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyReportDefinitionResult> modifyReportDefinitionAsync(ModifyReportDefinitionRequest request) {
+
+        return modifyReportDefinitionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyReportDefinitionResult> modifyReportDefinitionAsync(final ModifyReportDefinitionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyReportDefinitionRequest, ModifyReportDefinitionResult> asyncHandler) {
+        final ModifyReportDefinitionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyReportDefinitionResult>() {
+            @Override
+            public ModifyReportDefinitionResult call() throws Exception {
+                ModifyReportDefinitionResult result = null;
+
+                try {
+                    result = executeModifyReportDefinition(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<PutReportDefinitionResult> putReportDefinitionAsync(PutReportDefinitionRequest request) {
 
         return putReportDefinitionAsync(request, null);
@@ -349,6 +429,72 @@ public class AWSCostAndUsageReportAsyncClient extends AWSCostAndUsageReportClien
 
                 try {
                     result = executePutReportDefinition(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

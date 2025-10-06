@@ -30,14 +30,24 @@
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
+                <#-- This macro is used in s3 control -->
+                <#if S3ArnableFieldMacro?has_content>
+                    <@S3ArnableFieldMacro.content operationModel customConfig/>
+                </#if>
                 request = <@RequestMarshallerCreation.content operationModel />.marshall(
                     super.beforeMarshalling(${operationModel.input.variableName}));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "${metadata.serviceId}");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "${operationModel.operationName}");
                 request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+                <#if customConfig.s3ArnableFields??&&customConfig.s3ArnableFields["${operationModel.input.variableType}"]??>
+                    request.addHandlerContext(S3ControlHandlerContextKey.S3_ARNABLE_FIELD, new S3ArnableField().withArn(arn));
+                </#if>
+
                 <#if operationModel.hasRequiresLengthInInput() >
                     request.addHandlerContext(HandlerContextKey.REQUIRES_LENGTH, Boolean.TRUE);
                 </#if>
@@ -49,7 +59,22 @@
                   awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            <#if operationModel.endpointDiscovery?has_content>
+            <#if operationModel.endpointDiscovery?has_content && operationModel.endpointDiscovery.required == true>
+                URI cachedEndpoint = null;
+                if (endpointDiscoveryEnabled) {
+                    DescribeEndpointsRequest discoveryRequest = new DescribeEndpointsRequest();
+                    <#if operationModel.inputShape.endpointDiscoveryMembers?has_content>
+                    discoveryRequest.setOperation("${operationModel.operationName}");
+                    Map<String, String> discoveryIdentifiers = new HashMap<String, String>();
+                    <#list operationModel.inputShape.endpointDiscoveryMembers as edMember>
+                    discoveryIdentifiers.put("${edMember}", ${operationModel.input.variableName}.get${edMember?cap_first}());
+                    </#list>
+                    discoveryRequest.setIdentifiers(discoveryIdentifiers);
+                    </#if>
+                    cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), discoveryRequest, ${operationModel.endpointDiscovery.required?c}, endpoint);
+                }
+            </#if>
+            <#if operationModel.endpointDiscovery?has_content && operationModel.endpointDiscovery.required == false>
                 URI cachedEndpoint = null;
                 if (endpointDiscoveryEnabled) {
                     cachedEndpoint = cache.get(awsCredentialsProvider.getCredentials().getAWSAccessKeyId(), false, endpoint);
@@ -65,6 +90,7 @@
                    <#list hostPrefixProcessor.c2jNames as memberName>
                        <#local memberShape = inputShape.getMemberByC2jName(memberName) />
                        ValidationUtils.assertStringNotEmpty(${operationModel.input.variableName}.${memberShape.getterMethodName}(), "${memberName}");
+                       HostnameValidator.validateHostnameCompliant(${operationModel.input.variableName}.${memberShape.getterMethodName}(), "${memberName}", "${operationModel.input.variableName}");
                    </#list>
 
                    String hostPrefix = "${operationModel.endpointTrait.hostPrefix}";
@@ -92,6 +118,11 @@
                                                      this));
 
                 </#if>
+
+                <#if operationModel.outputShape?? && operationModel.outputShape.hasStreamingMember >
+                    request.addHandlerContext(HandlerContextKey.HAS_STREAMING_OUTPUT, Boolean.TRUE);
+                </#if>
+
                 <#-- This macro is used in glacier for wrapping the response streams -->
                 <#if WrapResponseStreamMacro?has_content>
                     <@WrapResponseStreamMacro.content operationModel/>

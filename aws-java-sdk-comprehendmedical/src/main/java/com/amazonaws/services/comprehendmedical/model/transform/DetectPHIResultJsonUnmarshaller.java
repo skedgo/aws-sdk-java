@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,11 +50,17 @@ public class DetectPHIResultJsonUnmarshaller implements Unmarshaller<DetectPHIRe
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("Entities", targetDepth)) {
                     context.nextToken();
-                    detectPHIResult.setEntities(new ListUnmarshaller<Entity>(EntityJsonUnmarshaller.getInstance()).unmarshall(context));
+                    detectPHIResult.setEntities(new ListUnmarshaller<Entity>(EntityJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("PaginationToken", targetDepth)) {
                     context.nextToken();
                     detectPHIResult.setPaginationToken(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ModelVersion", targetDepth)) {
+                    context.nextToken();
+                    detectPHIResult.setModelVersion(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

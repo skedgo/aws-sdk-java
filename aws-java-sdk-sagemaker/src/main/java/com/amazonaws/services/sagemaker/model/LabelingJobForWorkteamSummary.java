@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,7 +40,11 @@ public class LabelingJobForWorkteamSummary implements Serializable, Cloneable, S
      * </p>
      */
     private String jobReferenceCode;
-    /** <p/> */
+    /**
+     * <p>
+     * The Amazon Web Services account ID of the account used to start the labeling job.
+     * </p>
+     */
     private String workRequesterAccountId;
     /**
      * <p>
@@ -142,9 +146,12 @@ public class LabelingJobForWorkteamSummary implements Serializable, Cloneable, S
     }
 
     /**
-     * <p/>
+     * <p>
+     * The Amazon Web Services account ID of the account used to start the labeling job.
+     * </p>
      * 
      * @param workRequesterAccountId
+     *        The Amazon Web Services account ID of the account used to start the labeling job.
      */
 
     public void setWorkRequesterAccountId(String workRequesterAccountId) {
@@ -152,9 +159,11 @@ public class LabelingJobForWorkteamSummary implements Serializable, Cloneable, S
     }
 
     /**
-     * <p/>
+     * <p>
+     * The Amazon Web Services account ID of the account used to start the labeling job.
+     * </p>
      * 
-     * @return
+     * @return The Amazon Web Services account ID of the account used to start the labeling job.
      */
 
     public String getWorkRequesterAccountId() {
@@ -162,9 +171,12 @@ public class LabelingJobForWorkteamSummary implements Serializable, Cloneable, S
     }
 
     /**
-     * <p/>
+     * <p>
+     * The Amazon Web Services account ID of the account used to start the labeling job.
+     * </p>
      * 
      * @param workRequesterAccountId
+     *        The Amazon Web Services account ID of the account used to start the labeling job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,15 +36,22 @@ public class InventoryFilter implements Serializable, Cloneable, StructuredPojo 
     private String key;
     /**
      * <p>
-     * Inventory filter values. Example: inventory filter where instance IDs are specified as values
-     * Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal
+     * Inventory filter values. Example: inventory filter where managed node IDs are specified as values
+     * <code>Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal</code>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> values;
     /**
      * <p>
-     * The type of filter. Valid values include the following: "Equal"|"NotEqual"|"BeginWith"|"LessThan"|"GreaterThan"
+     * The type of filter.
      * </p>
+     * <note>
+     * <p>
+     * The <code>Exists</code> filter must be used with aggregators. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-aggregate.html">Aggregating
+     * inventory data</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * </note>
      */
     private String type;
 
@@ -90,12 +97,12 @@ public class InventoryFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Inventory filter values. Example: inventory filter where instance IDs are specified as values
-     * Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal
+     * Inventory filter values. Example: inventory filter where managed node IDs are specified as values
+     * <code>Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal</code>.
      * </p>
      * 
-     * @return Inventory filter values. Example: inventory filter where instance IDs are specified as values
-     *         Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal
+     * @return Inventory filter values. Example: inventory filter where managed node IDs are specified as values
+     *         <code>Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal</code>.
      */
 
     public java.util.List<String> getValues() {
@@ -107,13 +114,13 @@ public class InventoryFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Inventory filter values. Example: inventory filter where instance IDs are specified as values
-     * Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal
+     * Inventory filter values. Example: inventory filter where managed node IDs are specified as values
+     * <code>Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal</code>.
      * </p>
      * 
      * @param values
-     *        Inventory filter values. Example: inventory filter where instance IDs are specified as values
-     *        Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal
+     *        Inventory filter values. Example: inventory filter where managed node IDs are specified as values
+     *        <code>Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal</code>.
      */
 
     public void setValues(java.util.Collection<String> values) {
@@ -127,8 +134,8 @@ public class InventoryFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Inventory filter values. Example: inventory filter where instance IDs are specified as values
-     * Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal
+     * Inventory filter values. Example: inventory filter where managed node IDs are specified as values
+     * <code>Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -137,8 +144,8 @@ public class InventoryFilter implements Serializable, Cloneable, StructuredPojo 
      * </p>
      * 
      * @param values
-     *        Inventory filter values. Example: inventory filter where instance IDs are specified as values
-     *        Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal
+     *        Inventory filter values. Example: inventory filter where managed node IDs are specified as values
+     *        <code>Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -154,13 +161,13 @@ public class InventoryFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Inventory filter values. Example: inventory filter where instance IDs are specified as values
-     * Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal
+     * Inventory filter values. Example: inventory filter where managed node IDs are specified as values
+     * <code>Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal</code>.
      * </p>
      * 
      * @param values
-     *        Inventory filter values. Example: inventory filter where instance IDs are specified as values
-     *        Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal
+     *        Inventory filter values. Example: inventory filter where managed node IDs are specified as values
+     *        <code>Key=AWS:InstanceInformation.InstanceId,Values= i-a12b3c4d5e6g, i-1a2b3c4d5e6,Type=Equal</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -171,12 +178,23 @@ public class InventoryFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The type of filter. Valid values include the following: "Equal"|"NotEqual"|"BeginWith"|"LessThan"|"GreaterThan"
+     * The type of filter.
      * </p>
+     * <note>
+     * <p>
+     * The <code>Exists</code> filter must be used with aggregators. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-aggregate.html">Aggregating
+     * inventory data</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param type
-     *        The type of filter. Valid values include the following:
-     *        "Equal"|"NotEqual"|"BeginWith"|"LessThan"|"GreaterThan"
+     *        The type of filter.</p> <note>
+     *        <p>
+     *        The <code>Exists</code> filter must be used with aggregators. For more information, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-aggregate.html"
+     *        >Aggregating inventory data</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     *        </p>
      * @see InventoryQueryOperatorType
      */
 
@@ -186,11 +204,22 @@ public class InventoryFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The type of filter. Valid values include the following: "Equal"|"NotEqual"|"BeginWith"|"LessThan"|"GreaterThan"
+     * The type of filter.
      * </p>
+     * <note>
+     * <p>
+     * The <code>Exists</code> filter must be used with aggregators. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-aggregate.html">Aggregating
+     * inventory data</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * </note>
      * 
-     * @return The type of filter. Valid values include the following:
-     *         "Equal"|"NotEqual"|"BeginWith"|"LessThan"|"GreaterThan"
+     * @return The type of filter.</p> <note>
+     *         <p>
+     *         The <code>Exists</code> filter must be used with aggregators. For more information, see <a
+     *         href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-aggregate.html"
+     *         >Aggregating inventory data</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     *         </p>
      * @see InventoryQueryOperatorType
      */
 
@@ -200,12 +229,23 @@ public class InventoryFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The type of filter. Valid values include the following: "Equal"|"NotEqual"|"BeginWith"|"LessThan"|"GreaterThan"
+     * The type of filter.
      * </p>
+     * <note>
+     * <p>
+     * The <code>Exists</code> filter must be used with aggregators. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-aggregate.html">Aggregating
+     * inventory data</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param type
-     *        The type of filter. Valid values include the following:
-     *        "Equal"|"NotEqual"|"BeginWith"|"LessThan"|"GreaterThan"
+     *        The type of filter.</p> <note>
+     *        <p>
+     *        The <code>Exists</code> filter must be used with aggregators. For more information, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-aggregate.html"
+     *        >Aggregating inventory data</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InventoryQueryOperatorType
      */
@@ -217,12 +257,23 @@ public class InventoryFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The type of filter. Valid values include the following: "Equal"|"NotEqual"|"BeginWith"|"LessThan"|"GreaterThan"
+     * The type of filter.
      * </p>
+     * <note>
+     * <p>
+     * The <code>Exists</code> filter must be used with aggregators. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-aggregate.html">Aggregating
+     * inventory data</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param type
-     *        The type of filter. Valid values include the following:
-     *        "Equal"|"NotEqual"|"BeginWith"|"LessThan"|"GreaterThan"
+     *        The type of filter.</p> <note>
+     *        <p>
+     *        The <code>Exists</code> filter must be used with aggregators. For more information, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-aggregate.html"
+     *        >Aggregating inventory data</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     *        </p>
      * @see InventoryQueryOperatorType
      */
 
@@ -232,12 +283,23 @@ public class InventoryFilter implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The type of filter. Valid values include the following: "Equal"|"NotEqual"|"BeginWith"|"LessThan"|"GreaterThan"
+     * The type of filter.
      * </p>
+     * <note>
+     * <p>
+     * The <code>Exists</code> filter must be used with aggregators. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-aggregate.html">Aggregating
+     * inventory data</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param type
-     *        The type of filter. Valid values include the following:
-     *        "Equal"|"NotEqual"|"BeginWith"|"LessThan"|"GreaterThan"
+     *        The type of filter.</p> <note>
+     *        <p>
+     *        The <code>Exists</code> filter must be used with aggregators. For more information, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-aggregate.html"
+     *        >Aggregating inventory data</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InventoryQueryOperatorType
      */

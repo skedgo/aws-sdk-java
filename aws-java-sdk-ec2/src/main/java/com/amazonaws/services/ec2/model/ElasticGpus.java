@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,6 +16,12 @@ import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
+ * <note>
+ * <p>
+ * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration, we
+ * recommend that you use Amazon EC2 G4, G5, or G6 instances.
+ * </p>
+ * </note>
  * <p>
  * Describes an Elastic Graphics accelerator.
  * </p>
@@ -62,6 +68,12 @@ public class ElasticGpus implements Serializable, Cloneable {
      * </p>
      */
     private String instanceId;
+    /**
+     * <p>
+     * The tags assigned to the Elastic Graphics accelerator.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Tag> tags;
 
     /**
      * <p>
@@ -323,6 +335,79 @@ public class ElasticGpus implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The tags assigned to the Elastic Graphics accelerator.
+     * </p>
+     * 
+     * @return The tags assigned to the Elastic Graphics accelerator.
+     */
+
+    public java.util.List<Tag> getTags() {
+        if (tags == null) {
+            tags = new com.amazonaws.internal.SdkInternalList<Tag>();
+        }
+        return tags;
+    }
+
+    /**
+     * <p>
+     * The tags assigned to the Elastic Graphics accelerator.
+     * </p>
+     * 
+     * @param tags
+     *        The tags assigned to the Elastic Graphics accelerator.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new com.amazonaws.internal.SdkInternalList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * The tags assigned to the Elastic Graphics accelerator.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        The tags assigned to the Elastic Graphics accelerator.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ElasticGpus withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new com.amazonaws.internal.SdkInternalList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags assigned to the Elastic Graphics accelerator.
+     * </p>
+     * 
+     * @param tags
+     *        The tags assigned to the Elastic Graphics accelerator.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ElasticGpus withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -345,7 +430,9 @@ public class ElasticGpus implements Serializable, Cloneable {
         if (getElasticGpuState() != null)
             sb.append("ElasticGpuState: ").append(getElasticGpuState()).append(",");
         if (getInstanceId() != null)
-            sb.append("InstanceId: ").append(getInstanceId());
+            sb.append("InstanceId: ").append(getInstanceId()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -384,6 +471,10 @@ public class ElasticGpus implements Serializable, Cloneable {
             return false;
         if (other.getInstanceId() != null && other.getInstanceId().equals(this.getInstanceId()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -398,6 +489,7 @@ public class ElasticGpus implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getElasticGpuHealth() == null) ? 0 : getElasticGpuHealth().hashCode());
         hashCode = prime * hashCode + ((getElasticGpuState() == null) ? 0 : getElasticGpuState().hashCode());
         hashCode = prime * hashCode + ((getInstanceId() == null) ? 0 : getInstanceId().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,25 +37,32 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and
-     * username plus the client ID in the message.
+     * username plus the client ID in the message. For more information about <code>SecretHash</code>, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     * >Computing secret hash values</a>.
      * </p>
      */
     private String secretHash;
     /**
      * <p>
-     * The user name of the user for whom you want to enter a code to retrieve a forgotten password.
+     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
+     * username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your
+     * user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party
+     * IdP.
      * </p>
      */
     private String username;
     /**
      * <p>
-     * The confirmation code sent by a user's request to retrieve a forgotten password. For more information, see
+     * The confirmation code from your user's request to reset their password. For more information, see <a
+     * href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html"
+     * >ForgotPassword</a>.
      * </p>
      */
     private String confirmationCode;
     /**
      * <p>
-     * The password sent by a user's request to retrieve a forgotten password.
+     * The new password that your user wants to set.
      * </p>
      */
     private String password;
@@ -67,11 +74,55 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
     private AnalyticsMetadataType analyticsMetadata;
     /**
      * <p>
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
-     * unexpected event by Amazon Cognito advanced security.
+     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
+     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
+     * passes to Amazon Cognito when it makes API requests.
      * </p>
      */
     private UserContextDataType userContextData;
+    /**
+     * <p>
+     * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
+     * </p>
+     * <p>
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     * ConfirmForgotPassword API action, Amazon Cognito invokes the function that is assigned to the <i>post
+     * confirmation</i> trigger. When Amazon Cognito invokes this function, it passes a JSON payload, which the function
+     * receives as input. This payload contains a <code>clientMetadata</code> attribute, which provides the data that
+     * you assigned to the ClientMetadata parameter in your ConfirmForgotPassword request. In your function code in
+     * Lambda, you can process the <code>clientMetadata</code> value to enhance your workflow for your specific needs.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     * > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * parameter serves no purpose.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Validate the ClientMetadata value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     */
+    private java.util.Map<String, String> clientMetadata;
 
     /**
      * <p>
@@ -116,12 +167,17 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and
-     * username plus the client ID in the message.
+     * username plus the client ID in the message. For more information about <code>SecretHash</code>, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     * >Computing secret hash values</a>.
      * </p>
      * 
      * @param secretHash
      *        A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and
-     *        username plus the client ID in the message.
+     *        username plus the client ID in the message. For more information about <code>SecretHash</code>, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     *        >Computing secret hash values</a>.
      */
 
     public void setSecretHash(String secretHash) {
@@ -131,11 +187,16 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and
-     * username plus the client ID in the message.
+     * username plus the client ID in the message. For more information about <code>SecretHash</code>, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     * >Computing secret hash values</a>.
      * </p>
      * 
      * @return A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and
-     *         username plus the client ID in the message.
+     *         username plus the client ID in the message. For more information about <code>SecretHash</code>, see <a
+     *         href=
+     *         "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     *         >Computing secret hash values</a>.
      */
 
     public String getSecretHash() {
@@ -145,12 +206,17 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and
-     * username plus the client ID in the message.
+     * username plus the client ID in the message. For more information about <code>SecretHash</code>, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     * >Computing secret hash values</a>.
      * </p>
      * 
      * @param secretHash
      *        A keyed-hash message authentication code (HMAC) calculated using the secret key of a user pool client and
-     *        username plus the client ID in the message.
+     *        username plus the client ID in the message. For more information about <code>SecretHash</code>, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     *        >Computing secret hash values</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -161,11 +227,17 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The user name of the user for whom you want to enter a code to retrieve a forgotten password.
+     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
+     * username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your
+     * user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party
+     * IdP.
      * </p>
      * 
      * @param username
-     *        The user name of the user for whom you want to enter a code to retrieve a forgotten password.
+     *        The username of the user that you want to query or modify. The value of this parameter is typically your
+     *        user's username, but it can be any of their alias attributes. If <code>username</code> isn't an alias
+     *        attribute in your user pool, this value must be the <code>sub</code> of a local user or the username of a
+     *        user from a third-party IdP.
      */
 
     public void setUsername(String username) {
@@ -174,10 +246,16 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The user name of the user for whom you want to enter a code to retrieve a forgotten password.
+     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
+     * username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your
+     * user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party
+     * IdP.
      * </p>
      * 
-     * @return The user name of the user for whom you want to enter a code to retrieve a forgotten password.
+     * @return The username of the user that you want to query or modify. The value of this parameter is typically your
+     *         user's username, but it can be any of their alias attributes. If <code>username</code> isn't an alias
+     *         attribute in your user pool, this value must be the <code>sub</code> of a local user or the username of a
+     *         user from a third-party IdP.
      */
 
     public String getUsername() {
@@ -186,11 +264,17 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The user name of the user for whom you want to enter a code to retrieve a forgotten password.
+     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
+     * username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your
+     * user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party
+     * IdP.
      * </p>
      * 
      * @param username
-     *        The user name of the user for whom you want to enter a code to retrieve a forgotten password.
+     *        The username of the user that you want to query or modify. The value of this parameter is typically your
+     *        user's username, but it can be any of their alias attributes. If <code>username</code> isn't an alias
+     *        attribute in your user pool, this value must be the <code>sub</code> of a local user or the username of a
+     *        user from a third-party IdP.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -201,11 +285,15 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The confirmation code sent by a user's request to retrieve a forgotten password. For more information, see
+     * The confirmation code from your user's request to reset their password. For more information, see <a
+     * href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html"
+     * >ForgotPassword</a>.
      * </p>
      * 
      * @param confirmationCode
-     *        The confirmation code sent by a user's request to retrieve a forgotten password. For more information, see
+     *        The confirmation code from your user's request to reset their password. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html"
+     *        >ForgotPassword</a>.
      */
 
     public void setConfirmationCode(String confirmationCode) {
@@ -214,11 +302,15 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The confirmation code sent by a user's request to retrieve a forgotten password. For more information, see
+     * The confirmation code from your user's request to reset their password. For more information, see <a
+     * href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html"
+     * >ForgotPassword</a>.
      * </p>
      * 
-     * @return The confirmation code sent by a user's request to retrieve a forgotten password. For more information,
-     *         see
+     * @return The confirmation code from your user's request to reset their password. For more information, see <a
+     *         href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html"
+     *         >ForgotPassword</a>.
      */
 
     public String getConfirmationCode() {
@@ -227,11 +319,15 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The confirmation code sent by a user's request to retrieve a forgotten password. For more information, see
+     * The confirmation code from your user's request to reset their password. For more information, see <a
+     * href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html"
+     * >ForgotPassword</a>.
      * </p>
      * 
      * @param confirmationCode
-     *        The confirmation code sent by a user's request to retrieve a forgotten password. For more information, see
+     *        The confirmation code from your user's request to reset their password. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_ForgotPassword.html"
+     *        >ForgotPassword</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -242,11 +338,11 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The password sent by a user's request to retrieve a forgotten password.
+     * The new password that your user wants to set.
      * </p>
      * 
      * @param password
-     *        The password sent by a user's request to retrieve a forgotten password.
+     *        The new password that your user wants to set.
      */
 
     public void setPassword(String password) {
@@ -255,10 +351,10 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The password sent by a user's request to retrieve a forgotten password.
+     * The new password that your user wants to set.
      * </p>
      * 
-     * @return The password sent by a user's request to retrieve a forgotten password.
+     * @return The new password that your user wants to set.
      */
 
     public String getPassword() {
@@ -267,11 +363,11 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The password sent by a user's request to retrieve a forgotten password.
+     * The new password that your user wants to set.
      * </p>
      * 
      * @param password
-     *        The password sent by a user's request to retrieve a forgotten password.
+     *        The new password that your user wants to set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -325,13 +421,15 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
-     * unexpected event by Amazon Cognito advanced security.
+     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
+     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
+     * passes to Amazon Cognito when it makes API requests.
      * </p>
      * 
      * @param userContextData
-     *        Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the
-     *        risk of an unexpected event by Amazon Cognito advanced security.
+     *        Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon
+     *        Cognito advanced security evaluates the risk of an authentication event based on the context that your app
+     *        generates and passes to Amazon Cognito when it makes API requests.
      */
 
     public void setUserContextData(UserContextDataType userContextData) {
@@ -340,12 +438,14 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
-     * unexpected event by Amazon Cognito advanced security.
+     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
+     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
+     * passes to Amazon Cognito when it makes API requests.
      * </p>
      * 
-     * @return Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the
-     *         risk of an unexpected event by Amazon Cognito advanced security.
+     * @return Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon
+     *         Cognito advanced security evaluates the risk of an authentication event based on the context that your
+     *         app generates and passes to Amazon Cognito when it makes API requests.
      */
 
     public UserContextDataType getUserContextData() {
@@ -354,18 +454,313 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
-     * unexpected event by Amazon Cognito advanced security.
+     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
+     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
+     * passes to Amazon Cognito when it makes API requests.
      * </p>
      * 
      * @param userContextData
-     *        Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the
-     *        risk of an unexpected event by Amazon Cognito advanced security.
+     *        Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon
+     *        Cognito advanced security evaluates the risk of an authentication event based on the context that your app
+     *        generates and passes to Amazon Cognito when it makes API requests.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ConfirmForgotPasswordRequest withUserContextData(UserContextDataType userContextData) {
         setUserContextData(userContextData);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
+     * </p>
+     * <p>
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     * ConfirmForgotPassword API action, Amazon Cognito invokes the function that is assigned to the <i>post
+     * confirmation</i> trigger. When Amazon Cognito invokes this function, it passes a JSON payload, which the function
+     * receives as input. This payload contains a <code>clientMetadata</code> attribute, which provides the data that
+     * you assigned to the ClientMetadata parameter in your ConfirmForgotPassword request. In your function code in
+     * Lambda, you can process the <code>clientMetadata</code> value to enhance your workflow for your specific needs.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     * > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * parameter serves no purpose.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Validate the ClientMetadata value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @return A map of custom key-value pairs that you can provide as input for any custom workflows that this action
+     *         triggers.</p>
+     *         <p>
+     *         You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     *         ConfirmForgotPassword API action, Amazon Cognito invokes the function that is assigned to the <i>post
+     *         confirmation</i> trigger. When Amazon Cognito invokes this function, it passes a JSON payload, which the
+     *         function receives as input. This payload contains a <code>clientMetadata</code> attribute, which provides
+     *         the data that you assigned to the ClientMetadata parameter in your ConfirmForgotPassword request. In your
+     *         function code in Lambda, you can process the <code>clientMetadata</code> value to enhance your workflow
+     *         for your specific needs.
+     *         </p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     *         > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a
+     *         user pool to support custom workflows. If your user pool configuration doesn't include triggers, the
+     *         ClientMetadata parameter serves no purpose.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Validate the ClientMetadata value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     *         </p>
+     *         </li>
+     *         </ul>
+     */
+
+    public java.util.Map<String, String> getClientMetadata() {
+        return clientMetadata;
+    }
+
+    /**
+     * <p>
+     * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
+     * </p>
+     * <p>
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     * ConfirmForgotPassword API action, Amazon Cognito invokes the function that is assigned to the <i>post
+     * confirmation</i> trigger. When Amazon Cognito invokes this function, it passes a JSON payload, which the function
+     * receives as input. This payload contains a <code>clientMetadata</code> attribute, which provides the data that
+     * you assigned to the ClientMetadata parameter in your ConfirmForgotPassword request. In your function code in
+     * Lambda, you can process the <code>clientMetadata</code> value to enhance your workflow for your specific needs.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     * > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * parameter serves no purpose.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Validate the ClientMetadata value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param clientMetadata
+     *        A map of custom key-value pairs that you can provide as input for any custom workflows that this action
+     *        triggers.</p>
+     *        <p>
+     *        You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     *        ConfirmForgotPassword API action, Amazon Cognito invokes the function that is assigned to the <i>post
+     *        confirmation</i> trigger. When Amazon Cognito invokes this function, it passes a JSON payload, which the
+     *        function receives as input. This payload contains a <code>clientMetadata</code> attribute, which provides
+     *        the data that you assigned to the ClientMetadata parameter in your ConfirmForgotPassword request. In your
+     *        function code in Lambda, you can process the <code>clientMetadata</code> value to enhance your workflow
+     *        for your specific needs.
+     *        </p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     *        > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user
+     *        pool to support custom workflows. If your user pool configuration doesn't include triggers, the
+     *        ClientMetadata parameter serves no purpose.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Validate the ClientMetadata value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     *        </p>
+     *        </li>
+     *        </ul>
+     */
+
+    public void setClientMetadata(java.util.Map<String, String> clientMetadata) {
+        this.clientMetadata = clientMetadata;
+    }
+
+    /**
+     * <p>
+     * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
+     * </p>
+     * <p>
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     * ConfirmForgotPassword API action, Amazon Cognito invokes the function that is assigned to the <i>post
+     * confirmation</i> trigger. When Amazon Cognito invokes this function, it passes a JSON payload, which the function
+     * receives as input. This payload contains a <code>clientMetadata</code> attribute, which provides the data that
+     * you assigned to the ClientMetadata parameter in your ConfirmForgotPassword request. In your function code in
+     * Lambda, you can process the <code>clientMetadata</code> value to enhance your workflow for your specific needs.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     * > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * parameter serves no purpose.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Validate the ClientMetadata value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param clientMetadata
+     *        A map of custom key-value pairs that you can provide as input for any custom workflows that this action
+     *        triggers.</p>
+     *        <p>
+     *        You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     *        ConfirmForgotPassword API action, Amazon Cognito invokes the function that is assigned to the <i>post
+     *        confirmation</i> trigger. When Amazon Cognito invokes this function, it passes a JSON payload, which the
+     *        function receives as input. This payload contains a <code>clientMetadata</code> attribute, which provides
+     *        the data that you assigned to the ClientMetadata parameter in your ConfirmForgotPassword request. In your
+     *        function code in Lambda, you can process the <code>clientMetadata</code> value to enhance your workflow
+     *        for your specific needs.
+     *        </p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     *        > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user
+     *        pool to support custom workflows. If your user pool configuration doesn't include triggers, the
+     *        ClientMetadata parameter serves no purpose.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Validate the ClientMetadata value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     *        </p>
+     *        </li>
+     *        </ul>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ConfirmForgotPasswordRequest withClientMetadata(java.util.Map<String, String> clientMetadata) {
+        setClientMetadata(clientMetadata);
+        return this;
+    }
+
+    /**
+     * Add a single ClientMetadata entry
+     *
+     * @see ConfirmForgotPasswordRequest#withClientMetadata
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ConfirmForgotPasswordRequest addClientMetadataEntry(String key, String value) {
+        if (null == this.clientMetadata) {
+            this.clientMetadata = new java.util.HashMap<String, String>();
+        }
+        if (this.clientMetadata.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.clientMetadata.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into ClientMetadata.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ConfirmForgotPasswordRequest clearClientMetadataEntries() {
+        this.clientMetadata = null;
         return this;
     }
 
@@ -394,7 +789,9 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
         if (getAnalyticsMetadata() != null)
             sb.append("AnalyticsMetadata: ").append(getAnalyticsMetadata()).append(",");
         if (getUserContextData() != null)
-            sb.append("UserContextData: ").append(getUserContextData());
+            sb.append("UserContextData: ").append("***Sensitive Data Redacted***").append(",");
+        if (getClientMetadata() != null)
+            sb.append("ClientMetadata: ").append(getClientMetadata());
         sb.append("}");
         return sb.toString();
     }
@@ -437,6 +834,10 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
             return false;
         if (other.getUserContextData() != null && other.getUserContextData().equals(this.getUserContextData()) == false)
             return false;
+        if (other.getClientMetadata() == null ^ this.getClientMetadata() == null)
+            return false;
+        if (other.getClientMetadata() != null && other.getClientMetadata().equals(this.getClientMetadata()) == false)
+            return false;
         return true;
     }
 
@@ -452,6 +853,7 @@ public class ConfirmForgotPasswordRequest extends com.amazonaws.AmazonWebService
         hashCode = prime * hashCode + ((getPassword() == null) ? 0 : getPassword().hashCode());
         hashCode = prime * hashCode + ((getAnalyticsMetadata() == null) ? 0 : getAnalyticsMetadata().hashCode());
         hashCode = prime * hashCode + ((getUserContextData() == null) ? 0 : getUserContextData().hashCode());
+        hashCode = prime * hashCode + ((getClientMetadata() == null) ? 0 : getClientMetadata().hashCode());
         return hashCode;
     }
 

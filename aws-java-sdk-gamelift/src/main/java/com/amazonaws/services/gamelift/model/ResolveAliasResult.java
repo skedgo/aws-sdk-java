@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,9 +16,6 @@ import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
- * <p>
- * Represents the returned data in response to a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/ResolveAlias" target="_top">AWS API
  *      Documentation</a>
@@ -28,18 +25,25 @@ public class ResolveAliasResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * Fleet identifier that is associated with the requested alias.
+     * The fleet identifier that the alias is pointing to.
      * </p>
      */
     private String fleetId;
+    /**
+     * <p>
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * associated with the GameLift fleet resource that this alias points to.
+     * </p>
+     */
+    private String fleetArn;
 
     /**
      * <p>
-     * Fleet identifier that is associated with the requested alias.
+     * The fleet identifier that the alias is pointing to.
      * </p>
      * 
      * @param fleetId
-     *        Fleet identifier that is associated with the requested alias.
+     *        The fleet identifier that the alias is pointing to.
      */
 
     public void setFleetId(String fleetId) {
@@ -48,10 +52,10 @@ public class ResolveAliasResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * Fleet identifier that is associated with the requested alias.
+     * The fleet identifier that the alias is pointing to.
      * </p>
      * 
-     * @return Fleet identifier that is associated with the requested alias.
+     * @return The fleet identifier that the alias is pointing to.
      */
 
     public String getFleetId() {
@@ -60,16 +64,65 @@ public class ResolveAliasResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * Fleet identifier that is associated with the requested alias.
+     * The fleet identifier that the alias is pointing to.
      * </p>
      * 
      * @param fleetId
-     *        Fleet identifier that is associated with the requested alias.
+     *        The fleet identifier that the alias is pointing to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ResolveAliasResult withFleetId(String fleetId) {
         setFleetId(fleetId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * associated with the GameLift fleet resource that this alias points to.
+     * </p>
+     * 
+     * @param fleetArn
+     *        The Amazon Resource Name (<a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) associated with the
+     *        GameLift fleet resource that this alias points to.
+     */
+
+    public void setFleetArn(String fleetArn) {
+        this.fleetArn = fleetArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * associated with the GameLift fleet resource that this alias points to.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (<a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) associated with the
+     *         GameLift fleet resource that this alias points to.
+     */
+
+    public String getFleetArn() {
+        return this.fleetArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * associated with the GameLift fleet resource that this alias points to.
+     * </p>
+     * 
+     * @param fleetArn
+     *        The Amazon Resource Name (<a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) associated with the
+     *        GameLift fleet resource that this alias points to.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResolveAliasResult withFleetArn(String fleetArn) {
+        setFleetArn(fleetArn);
         return this;
     }
 
@@ -86,7 +139,9 @@ public class ResolveAliasResult extends com.amazonaws.AmazonWebServiceResult<com
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getFleetId() != null)
-            sb.append("FleetId: ").append(getFleetId());
+            sb.append("FleetId: ").append(getFleetId()).append(",");
+        if (getFleetArn() != null)
+            sb.append("FleetArn: ").append(getFleetArn());
         sb.append("}");
         return sb.toString();
     }
@@ -105,6 +160,10 @@ public class ResolveAliasResult extends com.amazonaws.AmazonWebServiceResult<com
             return false;
         if (other.getFleetId() != null && other.getFleetId().equals(this.getFleetId()) == false)
             return false;
+        if (other.getFleetArn() == null ^ this.getFleetArn() == null)
+            return false;
+        if (other.getFleetArn() != null && other.getFleetArn().equals(this.getFleetArn()) == false)
+            return false;
         return true;
     }
 
@@ -114,6 +173,7 @@ public class ResolveAliasResult extends com.amazonaws.AmazonWebServiceResult<com
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getFleetId() == null) ? 0 : getFleetId().hashCode());
+        hashCode = prime * hashCode + ((getFleetArn() == null) ? 0 : getFleetArn().hashCode());
         return hashCode;
     }
 

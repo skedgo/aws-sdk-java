@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2016-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,10 +21,12 @@ import java.io.Serializable;
 /**
  * Request object for the parameters to delete the tags for an object.
  */
-public class DeleteObjectTaggingRequest extends AmazonWebServiceRequest implements Serializable {
+public class DeleteObjectTaggingRequest extends AmazonWebServiceRequest implements Serializable, ExpectedBucketOwnerRequest {
     private String bucketName;
     private String key;
     private String versionId;
+    private String expectedBucketOwner;
+
 
     /**
      * Constructs an instance of this object.
@@ -39,28 +41,153 @@ public class DeleteObjectTaggingRequest extends AmazonWebServiceRequest implemen
         this.key = key;
     }
 
+    public String getExpectedBucketOwner() {
+        return expectedBucketOwner;
+    }
+
+    public DeleteObjectTaggingRequest withExpectedBucketOwner(String expectedBucketOwner) {
+        this.expectedBucketOwner = expectedBucketOwner;
+        return this;
+    }
+
+    public void setExpectedBucketOwner(String expectedBucketOwner) {
+        withExpectedBucketOwner(expectedBucketOwner);
+    }
+
     /**
-     * @return The bucket name.
+     * <p>
+     * The bucket name containing the objects from which to remove the tags.
+     * </p>
+     * <p>
+     * When using this action with an access point, you must direct requests to the access point hostname. The access
+     * point hostname takes the form <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * When using this action with an access point through the Amazon Web Services SDKs, you provide the access point
+     * ARN in place of the bucket name. For more information about access point ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html">Using access points</a> in
+     * the <i>Amazon S3 User Guide</i>.
+     * </p>
+     * <p>
+     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The
+     * S3 on Outposts hostname takes the form
+     * <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     * When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     * access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a> in the
+     * <i>Amazon S3 User Guide</i>.
+     * </p>
+     *
+     * @return The bucket name containing the objects from which to remove the tags. </p>
+     *         <p>
+     *         When using this action with an access point, you must direct requests to the access point hostname. The
+     *         access point hostname takes the form
+     *         <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this
+     *         action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in
+     *         place of the bucket name. For more information about access point ARNs, see <a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html">Using access
+     *         points</a> in the <i>Amazon S3 User Guide</i>.
+     *         </p>
+     *         <p>
+     *         When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts
+     *         hostname. The S3 on Outposts hostname takes the form
+     *         <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     *         When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     *         access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a>
+     *         in the <i>Amazon S3 User Guide</i>.
      */
     public String getBucketName() {
         return bucketName;
     }
 
     /**
-     * Set the bucket name.
+     * <p>
+     * The bucket name containing the objects from which to remove the tags.
+     * </p>
+     * <p>
+     * When using this action with an access point, you must direct requests to the access point hostname. The
+     * access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this action
+     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the
+     * bucket name. For more information about access point ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html">Using access points</a>
+     * in the <i>Amazon S3 User Guide</i>.
+     * </p>
+     * <p>
+     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The
+     * S3 on Outposts hostname takes the form
+     * <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     * When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     * access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a> in the
+     * <i>Amazon S3 User Guide</i>.
+     * </p>
      *
      * @param bucketName
-     *            The bucket name.
+     *        The bucket name containing the objects from which to remove the tags. </p>
+     *        <p>
+     *        When using this action with an access point, you must direct requests to the access point hostname.
+     *        The access point hostname takes the form
+     *        <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this
+     *        action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in
+     *        place of the bucket name. For more information about access point ARNs, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html">Using access
+     *        points</a> in the <i>Amazon S3 User Guide</i>.
+     *        </p>
+     *        <p>
+     *        When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts
+     *        hostname. The S3 on Outposts hostname takes the form
+     *        <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     *        When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     *        access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a>
+     *        in the <i>Amazon S3 User Guide</i>.
      */
     public void setBucketName(String bucketName) {
         this.bucketName = bucketName;
     }
 
     /**
-     * Set the bucket name.
+     * <p>
+     * The bucket name containing the objects from which to remove the tags.
+     * </p>
+     * <p>
+     * When using this action with an access point, you must direct requests to the access point hostname. The
+     * access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this action
+     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the
+     * bucket name. For more information about access point ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html">Using access points</a>
+     * in the <i>Amazon S3 User Guide</i>.
+     * </p>
+     * <p>
+     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The
+     * S3 on Outposts hostname takes the form
+     * <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     * When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     * access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a> in the
+     * <i>Amazon S3 User Guide</i>.
+     * </p>
      *
      * @param bucketName
-     *            The bucket name.
+     *        The bucket name containing the objects from which to remove the tags. </p>
+     *        <p>
+     *        When using this action with an access point, you must direct requests to the access point hostname.
+     *        The access point hostname takes the form
+     *        <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this
+     *        action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in
+     *        place of the bucket name. For more information about access point ARNs, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html">Using access
+     *        points</a> in the <i>Amazon S3 User Guide</i>.
+     *        </p>
+     *        <p>
+     *        When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts
+     *        hostname. The S3 on Outposts hostname takes the form
+     *        <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     *        When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     *        access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a>
+     *        in the <i>Amazon S3 User Guide</i>.
      *
      * @return This object for chaining.
      */

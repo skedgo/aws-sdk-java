@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The number of entities that are affected by one or more events. Returned by the <a>DescribeEntityAggregates</a>
- * operation.
+ * The number of entities that are affected by one or more events. Returned by the <a
+ * href="https://docs.aws.amazon.com/health/latest/APIReference/API_DescribeEntityAggregates.html"
+ * >DescribeEntityAggregates</a> operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/health-2016-08-04/EntityAggregate" target="_top">AWS API
@@ -31,33 +32,53 @@ public class EntityAggregate implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The unique identifier for the event. Format:
+     * The unique identifier for the event. The event ARN has the
      * <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i> </code>
-     * . Example:
-     * <code>Example: arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     * format.
+     * </p>
+     * <p>
+     * For example, an event ARN might look like the following:
+     * </p>
+     * <p>
+     * <code>arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
      * </p>
      */
     private String eventArn;
     /**
      * <p>
-     * The number entities that match the criteria for the specified events.
+     * The number of entities that match the criteria for the specified events.
      * </p>
      */
     private Integer count;
+    /**
+     * <p>
+     * The number of affected entities aggregated by the entity status codes.
+     * </p>
+     */
+    private java.util.Map<String, Integer> statuses;
 
     /**
      * <p>
-     * The unique identifier for the event. Format:
+     * The unique identifier for the event. The event ARN has the
      * <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i> </code>
-     * . Example:
-     * <code>Example: arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     * format.
+     * </p>
+     * <p>
+     * For example, an event ARN might look like the following:
+     * </p>
+     * <p>
+     * <code>arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
      * </p>
      * 
      * @param eventArn
-     *        The unique identifier for the event. Format:
+     *        The unique identifier for the event. The event ARN has the
      *        <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i> </code>
-     *        . Example:
-     *        <code>Example: arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     *        format.</p>
+     *        <p>
+     *        For example, an event ARN might look like the following:
+     *        </p>
+     *        <p>
+     *        <code>arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
      */
 
     public void setEventArn(String eventArn) {
@@ -66,16 +87,25 @@ public class EntityAggregate implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The unique identifier for the event. Format:
+     * The unique identifier for the event. The event ARN has the
      * <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i> </code>
-     * . Example:
-     * <code>Example: arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     * format.
+     * </p>
+     * <p>
+     * For example, an event ARN might look like the following:
+     * </p>
+     * <p>
+     * <code>arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
      * </p>
      * 
-     * @return The unique identifier for the event. Format:
+     * @return The unique identifier for the event. The event ARN has the
      *         <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i> </code>
-     *         . Example:
-     *         <code>Example: arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     *         format.</p>
+     *         <p>
+     *         For example, an event ARN might look like the following:
+     *         </p>
+     *         <p>
+     *         <code>arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
      */
 
     public String getEventArn() {
@@ -84,17 +114,26 @@ public class EntityAggregate implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The unique identifier for the event. Format:
+     * The unique identifier for the event. The event ARN has the
      * <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i> </code>
-     * . Example:
-     * <code>Example: arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     * format.
+     * </p>
+     * <p>
+     * For example, an event ARN might look like the following:
+     * </p>
+     * <p>
+     * <code>arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
      * </p>
      * 
      * @param eventArn
-     *        The unique identifier for the event. Format:
+     *        The unique identifier for the event. The event ARN has the
      *        <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i> </code>
-     *        . Example:
-     *        <code>Example: arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     *        format.</p>
+     *        <p>
+     *        For example, an event ARN might look like the following:
+     *        </p>
+     *        <p>
+     *        <code>arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -105,11 +144,11 @@ public class EntityAggregate implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The number entities that match the criteria for the specified events.
+     * The number of entities that match the criteria for the specified events.
      * </p>
      * 
      * @param count
-     *        The number entities that match the criteria for the specified events.
+     *        The number of entities that match the criteria for the specified events.
      */
 
     public void setCount(Integer count) {
@@ -118,10 +157,10 @@ public class EntityAggregate implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The number entities that match the criteria for the specified events.
+     * The number of entities that match the criteria for the specified events.
      * </p>
      * 
-     * @return The number entities that match the criteria for the specified events.
+     * @return The number of entities that match the criteria for the specified events.
      */
 
     public Integer getCount() {
@@ -130,16 +169,84 @@ public class EntityAggregate implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The number entities that match the criteria for the specified events.
+     * The number of entities that match the criteria for the specified events.
      * </p>
      * 
      * @param count
-     *        The number entities that match the criteria for the specified events.
+     *        The number of entities that match the criteria for the specified events.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public EntityAggregate withCount(Integer count) {
         setCount(count);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of affected entities aggregated by the entity status codes.
+     * </p>
+     * 
+     * @return The number of affected entities aggregated by the entity status codes.
+     */
+
+    public java.util.Map<String, Integer> getStatuses() {
+        return statuses;
+    }
+
+    /**
+     * <p>
+     * The number of affected entities aggregated by the entity status codes.
+     * </p>
+     * 
+     * @param statuses
+     *        The number of affected entities aggregated by the entity status codes.
+     */
+
+    public void setStatuses(java.util.Map<String, Integer> statuses) {
+        this.statuses = statuses;
+    }
+
+    /**
+     * <p>
+     * The number of affected entities aggregated by the entity status codes.
+     * </p>
+     * 
+     * @param statuses
+     *        The number of affected entities aggregated by the entity status codes.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EntityAggregate withStatuses(java.util.Map<String, Integer> statuses) {
+        setStatuses(statuses);
+        return this;
+    }
+
+    /**
+     * Add a single Statuses entry
+     *
+     * @see EntityAggregate#withStatuses
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EntityAggregate addStatusesEntry(String key, Integer value) {
+        if (null == this.statuses) {
+            this.statuses = new java.util.HashMap<String, Integer>();
+        }
+        if (this.statuses.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.statuses.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Statuses.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EntityAggregate clearStatusesEntries() {
+        this.statuses = null;
         return this;
     }
 
@@ -158,7 +265,9 @@ public class EntityAggregate implements Serializable, Cloneable, StructuredPojo 
         if (getEventArn() != null)
             sb.append("EventArn: ").append(getEventArn()).append(",");
         if (getCount() != null)
-            sb.append("Count: ").append(getCount());
+            sb.append("Count: ").append(getCount()).append(",");
+        if (getStatuses() != null)
+            sb.append("Statuses: ").append(getStatuses());
         sb.append("}");
         return sb.toString();
     }
@@ -181,6 +290,10 @@ public class EntityAggregate implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getCount() != null && other.getCount().equals(this.getCount()) == false)
             return false;
+        if (other.getStatuses() == null ^ this.getStatuses() == null)
+            return false;
+        if (other.getStatuses() != null && other.getStatuses().equals(this.getStatuses()) == false)
+            return false;
         return true;
     }
 
@@ -191,6 +304,7 @@ public class EntityAggregate implements Serializable, Cloneable, StructuredPojo 
 
         hashCode = prime * hashCode + ((getEventArn() == null) ? 0 : getEventArn().hashCode());
         hashCode = prime * hashCode + ((getCount() == null) ? 0 : getCount().hashCode());
+        hashCode = prime * hashCode + ((getStatuses() == null) ? 0 : getStatuses().hashCode());
         return hashCode;
     }
 

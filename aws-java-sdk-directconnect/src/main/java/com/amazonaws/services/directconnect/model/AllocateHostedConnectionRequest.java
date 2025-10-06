@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,15 +33,15 @@ public class AllocateHostedConnectionRequest extends com.amazonaws.AmazonWebServ
     private String connectionId;
     /**
      * <p>
-     * The ID of the AWS account ID of the customer for the connection.
+     * The ID of the Amazon Web Services account ID of the customer for the connection.
      * </p>
      */
     private String ownerAccount;
     /**
      * <p>
      * The bandwidth of the connection. The possible values are 50Mbps, 100Mbps, 200Mbps, 300Mbps, 400Mbps, 500Mbps,
-     * 1Gbps, 2Gbps, 5Gbps, and 10Gbps. Note that only those AWS Direct Connect Partners who have met specific
-     * requirements are allowed to create a 1Gbps, 2Gbps, 5Gbps or 10Gbps hosted connection.
+     * 1Gbps, 2Gbps, 5Gbps, 10Gbps, and 25Gbps. Note that only those Direct Connect Partners who have met specific
+     * requirements are allowed to create a 1Gbps, 2Gbps, 5Gbps, 10Gbps, or 25Gbps hosted connection.
      * </p>
      */
     private String bandwidth;
@@ -59,7 +59,7 @@ public class AllocateHostedConnectionRequest extends com.amazonaws.AmazonWebServ
     private Integer vlan;
     /**
      * <p>
-     * The tags to assign to the hosted connection.
+     * The tags associated with the connection.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
@@ -106,11 +106,11 @@ public class AllocateHostedConnectionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The ID of the AWS account ID of the customer for the connection.
+     * The ID of the Amazon Web Services account ID of the customer for the connection.
      * </p>
      * 
      * @param ownerAccount
-     *        The ID of the AWS account ID of the customer for the connection.
+     *        The ID of the Amazon Web Services account ID of the customer for the connection.
      */
 
     public void setOwnerAccount(String ownerAccount) {
@@ -119,10 +119,10 @@ public class AllocateHostedConnectionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The ID of the AWS account ID of the customer for the connection.
+     * The ID of the Amazon Web Services account ID of the customer for the connection.
      * </p>
      * 
-     * @return The ID of the AWS account ID of the customer for the connection.
+     * @return The ID of the Amazon Web Services account ID of the customer for the connection.
      */
 
     public String getOwnerAccount() {
@@ -131,11 +131,11 @@ public class AllocateHostedConnectionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The ID of the AWS account ID of the customer for the connection.
+     * The ID of the Amazon Web Services account ID of the customer for the connection.
      * </p>
      * 
      * @param ownerAccount
-     *        The ID of the AWS account ID of the customer for the connection.
+     *        The ID of the Amazon Web Services account ID of the customer for the connection.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -147,14 +147,15 @@ public class AllocateHostedConnectionRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The bandwidth of the connection. The possible values are 50Mbps, 100Mbps, 200Mbps, 300Mbps, 400Mbps, 500Mbps,
-     * 1Gbps, 2Gbps, 5Gbps, and 10Gbps. Note that only those AWS Direct Connect Partners who have met specific
-     * requirements are allowed to create a 1Gbps, 2Gbps, 5Gbps or 10Gbps hosted connection.
+     * 1Gbps, 2Gbps, 5Gbps, 10Gbps, and 25Gbps. Note that only those Direct Connect Partners who have met specific
+     * requirements are allowed to create a 1Gbps, 2Gbps, 5Gbps, 10Gbps, or 25Gbps hosted connection.
      * </p>
      * 
      * @param bandwidth
      *        The bandwidth of the connection. The possible values are 50Mbps, 100Mbps, 200Mbps, 300Mbps, 400Mbps,
-     *        500Mbps, 1Gbps, 2Gbps, 5Gbps, and 10Gbps. Note that only those AWS Direct Connect Partners who have met
-     *        specific requirements are allowed to create a 1Gbps, 2Gbps, 5Gbps or 10Gbps hosted connection.
+     *        500Mbps, 1Gbps, 2Gbps, 5Gbps, 10Gbps, and 25Gbps. Note that only those Direct Connect Partners who have
+     *        met specific requirements are allowed to create a 1Gbps, 2Gbps, 5Gbps, 10Gbps, or 25Gbps hosted
+     *        connection.
      */
 
     public void setBandwidth(String bandwidth) {
@@ -164,13 +165,14 @@ public class AllocateHostedConnectionRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The bandwidth of the connection. The possible values are 50Mbps, 100Mbps, 200Mbps, 300Mbps, 400Mbps, 500Mbps,
-     * 1Gbps, 2Gbps, 5Gbps, and 10Gbps. Note that only those AWS Direct Connect Partners who have met specific
-     * requirements are allowed to create a 1Gbps, 2Gbps, 5Gbps or 10Gbps hosted connection.
+     * 1Gbps, 2Gbps, 5Gbps, 10Gbps, and 25Gbps. Note that only those Direct Connect Partners who have met specific
+     * requirements are allowed to create a 1Gbps, 2Gbps, 5Gbps, 10Gbps, or 25Gbps hosted connection.
      * </p>
      * 
      * @return The bandwidth of the connection. The possible values are 50Mbps, 100Mbps, 200Mbps, 300Mbps, 400Mbps,
-     *         500Mbps, 1Gbps, 2Gbps, 5Gbps, and 10Gbps. Note that only those AWS Direct Connect Partners who have met
-     *         specific requirements are allowed to create a 1Gbps, 2Gbps, 5Gbps or 10Gbps hosted connection.
+     *         500Mbps, 1Gbps, 2Gbps, 5Gbps, 10Gbps, and 25Gbps. Note that only those Direct Connect Partners who have
+     *         met specific requirements are allowed to create a 1Gbps, 2Gbps, 5Gbps, 10Gbps, or 25Gbps hosted
+     *         connection.
      */
 
     public String getBandwidth() {
@@ -180,14 +182,15 @@ public class AllocateHostedConnectionRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The bandwidth of the connection. The possible values are 50Mbps, 100Mbps, 200Mbps, 300Mbps, 400Mbps, 500Mbps,
-     * 1Gbps, 2Gbps, 5Gbps, and 10Gbps. Note that only those AWS Direct Connect Partners who have met specific
-     * requirements are allowed to create a 1Gbps, 2Gbps, 5Gbps or 10Gbps hosted connection.
+     * 1Gbps, 2Gbps, 5Gbps, 10Gbps, and 25Gbps. Note that only those Direct Connect Partners who have met specific
+     * requirements are allowed to create a 1Gbps, 2Gbps, 5Gbps, 10Gbps, or 25Gbps hosted connection.
      * </p>
      * 
      * @param bandwidth
      *        The bandwidth of the connection. The possible values are 50Mbps, 100Mbps, 200Mbps, 300Mbps, 400Mbps,
-     *        500Mbps, 1Gbps, 2Gbps, 5Gbps, and 10Gbps. Note that only those AWS Direct Connect Partners who have met
-     *        specific requirements are allowed to create a 1Gbps, 2Gbps, 5Gbps or 10Gbps hosted connection.
+     *        500Mbps, 1Gbps, 2Gbps, 5Gbps, 10Gbps, and 25Gbps. Note that only those Direct Connect Partners who have
+     *        met specific requirements are allowed to create a 1Gbps, 2Gbps, 5Gbps, 10Gbps, or 25Gbps hosted
+     *        connection.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -278,10 +281,10 @@ public class AllocateHostedConnectionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The tags to assign to the hosted connection.
+     * The tags associated with the connection.
      * </p>
      * 
-     * @return The tags to assign to the hosted connection.
+     * @return The tags associated with the connection.
      */
 
     public java.util.List<Tag> getTags() {
@@ -293,11 +296,11 @@ public class AllocateHostedConnectionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The tags to assign to the hosted connection.
+     * The tags associated with the connection.
      * </p>
      * 
      * @param tags
-     *        The tags to assign to the hosted connection.
+     *        The tags associated with the connection.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -311,7 +314,7 @@ public class AllocateHostedConnectionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The tags to assign to the hosted connection.
+     * The tags associated with the connection.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -320,7 +323,7 @@ public class AllocateHostedConnectionRequest extends com.amazonaws.AmazonWebServ
      * </p>
      * 
      * @param tags
-     *        The tags to assign to the hosted connection.
+     *        The tags associated with the connection.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -336,11 +339,11 @@ public class AllocateHostedConnectionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The tags to assign to the hosted connection.
+     * The tags associated with the connection.
      * </p>
      * 
      * @param tags
-     *        The tags to assign to the hosted connection.
+     *        The tags associated with the connection.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

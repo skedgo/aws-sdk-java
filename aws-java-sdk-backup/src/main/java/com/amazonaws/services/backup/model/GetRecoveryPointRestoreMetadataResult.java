@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,11 +40,17 @@ public class GetRecoveryPointRestoreMetadataResult extends com.amazonaws.AmazonW
     private String recoveryPointArn;
     /**
      * <p>
-     * A set of metadata key-value pairs that lists the metadata key-value pairs that are required to restore the
-     * recovery point.
+     * The set of metadata key-value pairs that describe the original configuration of the backed-up resource. These
+     * values vary depending on the service that is being restored.
      * </p>
      */
     private java.util.Map<String, String> restoreMetadata;
+    /**
+     * <p>
+     * This is the resource type associated with the recovery point.
+     * </p>
+     */
+    private String resourceType;
 
     /**
      * <p>
@@ -140,12 +146,12 @@ public class GetRecoveryPointRestoreMetadataResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A set of metadata key-value pairs that lists the metadata key-value pairs that are required to restore the
-     * recovery point.
+     * The set of metadata key-value pairs that describe the original configuration of the backed-up resource. These
+     * values vary depending on the service that is being restored.
      * </p>
      * 
-     * @return A set of metadata key-value pairs that lists the metadata key-value pairs that are required to restore
-     *         the recovery point.
+     * @return The set of metadata key-value pairs that describe the original configuration of the backed-up resource.
+     *         These values vary depending on the service that is being restored.
      */
 
     public java.util.Map<String, String> getRestoreMetadata() {
@@ -154,13 +160,13 @@ public class GetRecoveryPointRestoreMetadataResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A set of metadata key-value pairs that lists the metadata key-value pairs that are required to restore the
-     * recovery point.
+     * The set of metadata key-value pairs that describe the original configuration of the backed-up resource. These
+     * values vary depending on the service that is being restored.
      * </p>
      * 
      * @param restoreMetadata
-     *        A set of metadata key-value pairs that lists the metadata key-value pairs that are required to restore the
-     *        recovery point.
+     *        The set of metadata key-value pairs that describe the original configuration of the backed-up resource.
+     *        These values vary depending on the service that is being restored.
      */
 
     public void setRestoreMetadata(java.util.Map<String, String> restoreMetadata) {
@@ -169,13 +175,13 @@ public class GetRecoveryPointRestoreMetadataResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * A set of metadata key-value pairs that lists the metadata key-value pairs that are required to restore the
-     * recovery point.
+     * The set of metadata key-value pairs that describe the original configuration of the backed-up resource. These
+     * values vary depending on the service that is being restored.
      * </p>
      * 
      * @param restoreMetadata
-     *        A set of metadata key-value pairs that lists the metadata key-value pairs that are required to restore the
-     *        recovery point.
+     *        The set of metadata key-value pairs that describe the original configuration of the backed-up resource.
+     *        These values vary depending on the service that is being restored.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -183,6 +189,13 @@ public class GetRecoveryPointRestoreMetadataResult extends com.amazonaws.AmazonW
         setRestoreMetadata(restoreMetadata);
         return this;
     }
+
+    /**
+     * Add a single RestoreMetadata entry
+     *
+     * @see GetRecoveryPointRestoreMetadataResult#withRestoreMetadata
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public GetRecoveryPointRestoreMetadataResult addRestoreMetadataEntry(String key, String value) {
         if (null == this.restoreMetadata) {
@@ -206,6 +219,46 @@ public class GetRecoveryPointRestoreMetadataResult extends com.amazonaws.AmazonW
     }
 
     /**
+     * <p>
+     * This is the resource type associated with the recovery point.
+     * </p>
+     * 
+     * @param resourceType
+     *        This is the resource type associated with the recovery point.
+     */
+
+    public void setResourceType(String resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    /**
+     * <p>
+     * This is the resource type associated with the recovery point.
+     * </p>
+     * 
+     * @return This is the resource type associated with the recovery point.
+     */
+
+    public String getResourceType() {
+        return this.resourceType;
+    }
+
+    /**
+     * <p>
+     * This is the resource type associated with the recovery point.
+     * </p>
+     * 
+     * @param resourceType
+     *        This is the resource type associated with the recovery point.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetRecoveryPointRestoreMetadataResult withResourceType(String resourceType) {
+        setResourceType(resourceType);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -222,7 +275,9 @@ public class GetRecoveryPointRestoreMetadataResult extends com.amazonaws.AmazonW
         if (getRecoveryPointArn() != null)
             sb.append("RecoveryPointArn: ").append(getRecoveryPointArn()).append(",");
         if (getRestoreMetadata() != null)
-            sb.append("RestoreMetadata: ").append(getRestoreMetadata());
+            sb.append("RestoreMetadata: ").append("***Sensitive Data Redacted***").append(",");
+        if (getResourceType() != null)
+            sb.append("ResourceType: ").append(getResourceType());
         sb.append("}");
         return sb.toString();
     }
@@ -249,6 +304,10 @@ public class GetRecoveryPointRestoreMetadataResult extends com.amazonaws.AmazonW
             return false;
         if (other.getRestoreMetadata() != null && other.getRestoreMetadata().equals(this.getRestoreMetadata()) == false)
             return false;
+        if (other.getResourceType() == null ^ this.getResourceType() == null)
+            return false;
+        if (other.getResourceType() != null && other.getResourceType().equals(this.getResourceType()) == false)
+            return false;
         return true;
     }
 
@@ -260,6 +319,7 @@ public class GetRecoveryPointRestoreMetadataResult extends com.amazonaws.AmazonW
         hashCode = prime * hashCode + ((getBackupVaultArn() == null) ? 0 : getBackupVaultArn().hashCode());
         hashCode = prime * hashCode + ((getRecoveryPointArn() == null) ? 0 : getRecoveryPointArn().hashCode());
         hashCode = prime * hashCode + ((getRestoreMetadata() == null) ? 0 : getRestoreMetadata().hashCode());
+        hashCode = prime * hashCode + ((getResourceType() == null) ? 0 : getResourceType().hashCode());
         return hashCode;
     }
 

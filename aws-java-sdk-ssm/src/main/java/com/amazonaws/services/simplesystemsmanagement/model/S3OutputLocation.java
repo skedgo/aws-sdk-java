@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An Amazon S3 bucket where you want to store the results of this request.
+ * An S3 bucket where you want to store the results of this request.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/S3OutputLocation" target="_top">AWS API
@@ -30,33 +30,30 @@ public class S3OutputLocation implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * (Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager
-     * automatically determines the Amazon S3 bucket region.
+     * The Amazon Web Services Region of the S3 bucket.
      * </p>
      */
     private String outputS3Region;
     /**
      * <p>
-     * The name of the Amazon S3 bucket.
+     * The name of the S3 bucket.
      * </p>
      */
     private String outputS3BucketName;
     /**
      * <p>
-     * The Amazon S3 bucket subfolder.
+     * The S3 bucket subfolder.
      * </p>
      */
     private String outputS3KeyPrefix;
 
     /**
      * <p>
-     * (Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager
-     * automatically determines the Amazon S3 bucket region.
+     * The Amazon Web Services Region of the S3 bucket.
      * </p>
      * 
      * @param outputS3Region
-     *        (Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager
-     *        automatically determines the Amazon S3 bucket region.
+     *        The Amazon Web Services Region of the S3 bucket.
      */
 
     public void setOutputS3Region(String outputS3Region) {
@@ -65,12 +62,10 @@ public class S3OutputLocation implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * (Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager
-     * automatically determines the Amazon S3 bucket region.
+     * The Amazon Web Services Region of the S3 bucket.
      * </p>
      * 
-     * @return (Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager
-     *         automatically determines the Amazon S3 bucket region.
+     * @return The Amazon Web Services Region of the S3 bucket.
      */
 
     public String getOutputS3Region() {
@@ -79,13 +74,11 @@ public class S3OutputLocation implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * (Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager
-     * automatically determines the Amazon S3 bucket region.
+     * The Amazon Web Services Region of the S3 bucket.
      * </p>
      * 
      * @param outputS3Region
-     *        (Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager
-     *        automatically determines the Amazon S3 bucket region.
+     *        The Amazon Web Services Region of the S3 bucket.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -96,11 +89,11 @@ public class S3OutputLocation implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The name of the Amazon S3 bucket.
+     * The name of the S3 bucket.
      * </p>
      * 
      * @param outputS3BucketName
-     *        The name of the Amazon S3 bucket.
+     *        The name of the S3 bucket.
      */
 
     public void setOutputS3BucketName(String outputS3BucketName) {
@@ -109,10 +102,10 @@ public class S3OutputLocation implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The name of the Amazon S3 bucket.
+     * The name of the S3 bucket.
      * </p>
      * 
-     * @return The name of the Amazon S3 bucket.
+     * @return The name of the S3 bucket.
      */
 
     public String getOutputS3BucketName() {
@@ -121,11 +114,11 @@ public class S3OutputLocation implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The name of the Amazon S3 bucket.
+     * The name of the S3 bucket.
      * </p>
      * 
      * @param outputS3BucketName
-     *        The name of the Amazon S3 bucket.
+     *        The name of the S3 bucket.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -136,11 +129,11 @@ public class S3OutputLocation implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The Amazon S3 bucket subfolder.
+     * The S3 bucket subfolder.
      * </p>
      * 
      * @param outputS3KeyPrefix
-     *        The Amazon S3 bucket subfolder.
+     *        The S3 bucket subfolder.
      */
 
     public void setOutputS3KeyPrefix(String outputS3KeyPrefix) {
@@ -149,10 +142,10 @@ public class S3OutputLocation implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The Amazon S3 bucket subfolder.
+     * The S3 bucket subfolder.
      * </p>
      * 
-     * @return The Amazon S3 bucket subfolder.
+     * @return The S3 bucket subfolder.
      */
 
     public String getOutputS3KeyPrefix() {
@@ -161,11 +154,11 @@ public class S3OutputLocation implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The Amazon S3 bucket subfolder.
+     * The S3 bucket subfolder.
      * </p>
      * 
      * @param outputS3KeyPrefix
-     *        The Amazon S3 bucket subfolder.
+     *        The S3 bucket subfolder.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,13 @@ public class CreateDefaultSubnetRequest extends AmazonWebServiceRequest implemen
      * </p>
      */
     private String availabilityZone;
+    /**
+     * <p>
+     * Indicates whether to create an IPv6 only subnet. If you already have a default subnet for this Availability Zone,
+     * you must delete it before you can create an IPv6 only subnet.
+     * </p>
+     */
+    private Boolean ipv6Native;
 
     /**
      * <p>
@@ -73,6 +80,66 @@ public class CreateDefaultSubnetRequest extends AmazonWebServiceRequest implemen
     }
 
     /**
+     * <p>
+     * Indicates whether to create an IPv6 only subnet. If you already have a default subnet for this Availability Zone,
+     * you must delete it before you can create an IPv6 only subnet.
+     * </p>
+     * 
+     * @param ipv6Native
+     *        Indicates whether to create an IPv6 only subnet. If you already have a default subnet for this
+     *        Availability Zone, you must delete it before you can create an IPv6 only subnet.
+     */
+
+    public void setIpv6Native(Boolean ipv6Native) {
+        this.ipv6Native = ipv6Native;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to create an IPv6 only subnet. If you already have a default subnet for this Availability Zone,
+     * you must delete it before you can create an IPv6 only subnet.
+     * </p>
+     * 
+     * @return Indicates whether to create an IPv6 only subnet. If you already have a default subnet for this
+     *         Availability Zone, you must delete it before you can create an IPv6 only subnet.
+     */
+
+    public Boolean getIpv6Native() {
+        return this.ipv6Native;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to create an IPv6 only subnet. If you already have a default subnet for this Availability Zone,
+     * you must delete it before you can create an IPv6 only subnet.
+     * </p>
+     * 
+     * @param ipv6Native
+     *        Indicates whether to create an IPv6 only subnet. If you already have a default subnet for this
+     *        Availability Zone, you must delete it before you can create an IPv6 only subnet.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDefaultSubnetRequest withIpv6Native(Boolean ipv6Native) {
+        setIpv6Native(ipv6Native);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to create an IPv6 only subnet. If you already have a default subnet for this Availability Zone,
+     * you must delete it before you can create an IPv6 only subnet.
+     * </p>
+     * 
+     * @return Indicates whether to create an IPv6 only subnet. If you already have a default subnet for this
+     *         Availability Zone, you must delete it before you can create an IPv6 only subnet.
+     */
+
+    public Boolean isIpv6Native() {
+        return this.ipv6Native;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -96,7 +163,9 @@ public class CreateDefaultSubnetRequest extends AmazonWebServiceRequest implemen
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getAvailabilityZone() != null)
-            sb.append("AvailabilityZone: ").append(getAvailabilityZone());
+            sb.append("AvailabilityZone: ").append(getAvailabilityZone()).append(",");
+        if (getIpv6Native() != null)
+            sb.append("Ipv6Native: ").append(getIpv6Native());
         sb.append("}");
         return sb.toString();
     }
@@ -115,6 +184,10 @@ public class CreateDefaultSubnetRequest extends AmazonWebServiceRequest implemen
             return false;
         if (other.getAvailabilityZone() != null && other.getAvailabilityZone().equals(this.getAvailabilityZone()) == false)
             return false;
+        if (other.getIpv6Native() == null ^ this.getIpv6Native() == null)
+            return false;
+        if (other.getIpv6Native() != null && other.getIpv6Native().equals(this.getIpv6Native()) == false)
+            return false;
         return true;
     }
 
@@ -124,6 +197,7 @@ public class CreateDefaultSubnetRequest extends AmazonWebServiceRequest implemen
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getAvailabilityZone() == null) ? 0 : getAvailabilityZone().hashCode());
+        hashCode = prime * hashCode + ((getIpv6Native() == null) ? 0 : getIpv6Native().hashCode());
         return hashCode;
     }
 

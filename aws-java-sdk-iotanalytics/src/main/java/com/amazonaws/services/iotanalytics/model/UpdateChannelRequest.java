@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,13 +33,16 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String channelName;
     /**
      * <p>
-     * Where channel data is stored.
+     * Where channel data is stored. You can choose one of <code>serviceManagedS3</code> or
+     * <code>customerManagedS3</code> storage. If not specified, the default is <code>serviceManagedS3</code>. You can't
+     * change this storage option after the channel is created.
      * </p>
      */
     private ChannelStorage channelStorage;
     /**
      * <p>
-     * How long, in days, message data is kept for the channel.
+     * How long, in days, message data is kept for the channel. The retention period can't be updated if the channel's
+     * Amazon S3 storage is customer-managed.
      * </p>
      */
     private RetentionPeriod retentionPeriod;
@@ -86,11 +89,15 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Where channel data is stored.
+     * Where channel data is stored. You can choose one of <code>serviceManagedS3</code> or
+     * <code>customerManagedS3</code> storage. If not specified, the default is <code>serviceManagedS3</code>. You can't
+     * change this storage option after the channel is created.
      * </p>
      * 
      * @param channelStorage
-     *        Where channel data is stored.
+     *        Where channel data is stored. You can choose one of <code>serviceManagedS3</code> or
+     *        <code>customerManagedS3</code> storage. If not specified, the default is <code>serviceManagedS3</code>.
+     *        You can't change this storage option after the channel is created.
      */
 
     public void setChannelStorage(ChannelStorage channelStorage) {
@@ -99,10 +106,14 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Where channel data is stored.
+     * Where channel data is stored. You can choose one of <code>serviceManagedS3</code> or
+     * <code>customerManagedS3</code> storage. If not specified, the default is <code>serviceManagedS3</code>. You can't
+     * change this storage option after the channel is created.
      * </p>
      * 
-     * @return Where channel data is stored.
+     * @return Where channel data is stored. You can choose one of <code>serviceManagedS3</code> or
+     *         <code>customerManagedS3</code> storage. If not specified, the default is <code>serviceManagedS3</code>.
+     *         You can't change this storage option after the channel is created.
      */
 
     public ChannelStorage getChannelStorage() {
@@ -111,11 +122,15 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Where channel data is stored.
+     * Where channel data is stored. You can choose one of <code>serviceManagedS3</code> or
+     * <code>customerManagedS3</code> storage. If not specified, the default is <code>serviceManagedS3</code>. You can't
+     * change this storage option after the channel is created.
      * </p>
      * 
      * @param channelStorage
-     *        Where channel data is stored.
+     *        Where channel data is stored. You can choose one of <code>serviceManagedS3</code> or
+     *        <code>customerManagedS3</code> storage. If not specified, the default is <code>serviceManagedS3</code>.
+     *        You can't change this storage option after the channel is created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -126,11 +141,13 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * How long, in days, message data is kept for the channel.
+     * How long, in days, message data is kept for the channel. The retention period can't be updated if the channel's
+     * Amazon S3 storage is customer-managed.
      * </p>
      * 
      * @param retentionPeriod
-     *        How long, in days, message data is kept for the channel.
+     *        How long, in days, message data is kept for the channel. The retention period can't be updated if the
+     *        channel's Amazon S3 storage is customer-managed.
      */
 
     public void setRetentionPeriod(RetentionPeriod retentionPeriod) {
@@ -139,10 +156,12 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * How long, in days, message data is kept for the channel.
+     * How long, in days, message data is kept for the channel. The retention period can't be updated if the channel's
+     * Amazon S3 storage is customer-managed.
      * </p>
      * 
-     * @return How long, in days, message data is kept for the channel.
+     * @return How long, in days, message data is kept for the channel. The retention period can't be updated if the
+     *         channel's Amazon S3 storage is customer-managed.
      */
 
     public RetentionPeriod getRetentionPeriod() {
@@ -151,11 +170,13 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * How long, in days, message data is kept for the channel.
+     * How long, in days, message data is kept for the channel. The retention period can't be updated if the channel's
+     * Amazon S3 storage is customer-managed.
      * </p>
      * 
      * @param retentionPeriod
-     *        How long, in days, message data is kept for the channel.
+     *        How long, in days, message data is kept for the channel. The retention period can't be updated if the
+     *        channel's Amazon S3 storage is customer-managed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -81,7 +81,20 @@ public class AWSServerlessApplicationRepositoryAsyncClient extends AWSServerless
      *        Object providing client parameters.
      */
     AWSServerlessApplicationRepositoryAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWSServerlessApplicationRepository using the
+     * specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSServerlessApplicationRepositoryAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -476,6 +489,39 @@ public class AWSServerlessApplicationRepositoryAsyncClient extends AWSServerless
 
                 try {
                     result = executePutApplicationPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UnshareApplicationResult> unshareApplicationAsync(UnshareApplicationRequest request) {
+
+        return unshareApplicationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UnshareApplicationResult> unshareApplicationAsync(final UnshareApplicationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UnshareApplicationRequest, UnshareApplicationResult> asyncHandler) {
+        final UnshareApplicationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UnshareApplicationResult>() {
+            @Override
+            public UnshareApplicationResult call() throws Exception {
+                UnshareApplicationResult result = null;
+
+                try {
+                    result = executeUnshareApplication(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,19 +34,19 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
     private String changeSetName;
     /**
      * <p>
-     * The ARN of the change set.
+     * The Amazon Resource Name (ARN) of the change set.
      * </p>
      */
     private String changeSetId;
     /**
      * <p>
-     * The ARN of the stack that is associated with the change set.
+     * The Amazon Resource Name (ARN) of the stack that's associated with the change set.
      * </p>
      */
     private String stackId;
     /**
      * <p>
-     * The name of the stack that is associated with the change set.
+     * The name of the stack that's associated with the change set.
      * </p>
      */
     private String stackName;
@@ -73,10 +73,10 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
     private java.util.Date creationTime;
     /**
      * <p>
-     * If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can’t
+     * If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can't
      * execute the change set, the status indicates why. For example, a change set might be in an
-     * <code>UNAVAILABLE</code> state because AWS CloudFormation is still creating it or in an <code>OBSOLETE</code>
-     * state because the stack was already updated.
+     * <code>UNAVAILABLE</code> state because CloudFormation is still creating it or in an <code>OBSOLETE</code> state
+     * because the stack was already updated.
      * </p>
      */
     private String executionStatus;
@@ -89,7 +89,7 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
     private String status;
     /**
      * <p>
-     * A description of the change set's status. For example, if your attempt to create a change set failed, AWS
+     * A description of the change set's status. For example, if your attempt to create a change set failed,
      * CloudFormation shows the error message.
      * </p>
      */
@@ -103,8 +103,8 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
     private com.amazonaws.internal.SdkInternalList<String> notificationARNs;
     /**
      * <p>
-     * The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for
-     * the specified monitoring period afterwards.
+     * The rollback triggers for CloudFormation to monitor during stack creation and updating operations, and for the
+     * specified monitoring period afterwards.
      * </p>
      */
     private RollbackConfiguration rollbackConfiguration;
@@ -123,8 +123,8 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
     /**
      * <p>
-     * A list of <code>Change</code> structures that describes the resources AWS CloudFormation changes if you execute
-     * the change set.
+     * A list of <code>Change</code> structures that describes the resources CloudFormation changes if you execute the
+     * change set.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Change> changes;
@@ -135,6 +135,73 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
      * </p>
      */
     private String nextToken;
+    /**
+     * <p>
+     * Verifies if <code>IncludeNestedStacks</code> is set to <code>True</code>.
+     * </p>
+     */
+    private Boolean includeNestedStacks;
+    /**
+     * <p>
+     * Specifies the change set ID of the parent change set in the current nested change set hierarchy.
+     * </p>
+     */
+    private String parentChangeSetId;
+    /**
+     * <p>
+     * Specifies the change set ID of the root change set in the current nested change set hierarchy.
+     * </p>
+     */
+    private String rootChangeSetId;
+    /**
+     * <p>
+     * Determines what action will be taken if stack creation fails. When this parameter is specified, the
+     * <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation must not be specified. This must be one of these values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DELETE</code> - Deletes the change set if the stack creation fails. This is only valid when the
+     * <code>ChangeSetType</code> parameter is set to <code>CREATE</code>. If the deletion of the stack fails, the
+     * status of the stack is <code>DELETE_FAILED</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DO_NOTHING</code> - if the stack creation fails, do nothing. This is equivalent to specifying
+     * <code>true</code> for the <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ROLLBACK</code> - if the stack creation fails, roll back the stack. This is equivalent to specifying
+     * <code>false</code> for the <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String onStackFailure;
+    /**
+     * <p>
+     * Indicates if the change set imports resources that already exist.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter can only import resources that have <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html">custom names</a>
+     * in templates. To import resources that do not accept custom names, such as EC2 instances, use the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import.html">resource import</a>
+     * feature instead.
+     * </p>
+     * </note>
+     */
+    private Boolean importExistingResources;
 
     /**
      * <p>
@@ -178,11 +245,11 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The ARN of the change set.
+     * The Amazon Resource Name (ARN) of the change set.
      * </p>
      * 
      * @param changeSetId
-     *        The ARN of the change set.
+     *        The Amazon Resource Name (ARN) of the change set.
      */
 
     public void setChangeSetId(String changeSetId) {
@@ -191,10 +258,10 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The ARN of the change set.
+     * The Amazon Resource Name (ARN) of the change set.
      * </p>
      * 
-     * @return The ARN of the change set.
+     * @return The Amazon Resource Name (ARN) of the change set.
      */
 
     public String getChangeSetId() {
@@ -203,11 +270,11 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The ARN of the change set.
+     * The Amazon Resource Name (ARN) of the change set.
      * </p>
      * 
      * @param changeSetId
-     *        The ARN of the change set.
+     *        The Amazon Resource Name (ARN) of the change set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -218,11 +285,11 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The ARN of the stack that is associated with the change set.
+     * The Amazon Resource Name (ARN) of the stack that's associated with the change set.
      * </p>
      * 
      * @param stackId
-     *        The ARN of the stack that is associated with the change set.
+     *        The Amazon Resource Name (ARN) of the stack that's associated with the change set.
      */
 
     public void setStackId(String stackId) {
@@ -231,10 +298,10 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The ARN of the stack that is associated with the change set.
+     * The Amazon Resource Name (ARN) of the stack that's associated with the change set.
      * </p>
      * 
-     * @return The ARN of the stack that is associated with the change set.
+     * @return The Amazon Resource Name (ARN) of the stack that's associated with the change set.
      */
 
     public String getStackId() {
@@ -243,11 +310,11 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The ARN of the stack that is associated with the change set.
+     * The Amazon Resource Name (ARN) of the stack that's associated with the change set.
      * </p>
      * 
      * @param stackId
-     *        The ARN of the stack that is associated with the change set.
+     *        The Amazon Resource Name (ARN) of the stack that's associated with the change set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -258,11 +325,11 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The name of the stack that is associated with the change set.
+     * The name of the stack that's associated with the change set.
      * </p>
      * 
      * @param stackName
-     *        The name of the stack that is associated with the change set.
+     *        The name of the stack that's associated with the change set.
      */
 
     public void setStackName(String stackName) {
@@ -271,10 +338,10 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The name of the stack that is associated with the change set.
+     * The name of the stack that's associated with the change set.
      * </p>
      * 
-     * @return The name of the stack that is associated with the change set.
+     * @return The name of the stack that's associated with the change set.
      */
 
     public String getStackName() {
@@ -283,11 +350,11 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The name of the stack that is associated with the change set.
+     * The name of the stack that's associated with the change set.
      * </p>
      * 
      * @param stackName
-     *        The name of the stack that is associated with the change set.
+     *        The name of the stack that's associated with the change set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -475,17 +542,17 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can’t
+     * If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can't
      * execute the change set, the status indicates why. For example, a change set might be in an
-     * <code>UNAVAILABLE</code> state because AWS CloudFormation is still creating it or in an <code>OBSOLETE</code>
-     * state because the stack was already updated.
+     * <code>UNAVAILABLE</code> state because CloudFormation is still creating it or in an <code>OBSOLETE</code> state
+     * because the stack was already updated.
      * </p>
      * 
      * @param executionStatus
-     *        If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can’t
+     *        If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can't
      *        execute the change set, the status indicates why. For example, a change set might be in an
-     *        <code>UNAVAILABLE</code> state because AWS CloudFormation is still creating it or in an
-     *        <code>OBSOLETE</code> state because the stack was already updated.
+     *        <code>UNAVAILABLE</code> state because CloudFormation is still creating it or in an <code>OBSOLETE</code>
+     *        state because the stack was already updated.
      * @see ExecutionStatus
      */
 
@@ -495,16 +562,16 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can’t
+     * If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can't
      * execute the change set, the status indicates why. For example, a change set might be in an
-     * <code>UNAVAILABLE</code> state because AWS CloudFormation is still creating it or in an <code>OBSOLETE</code>
-     * state because the stack was already updated.
+     * <code>UNAVAILABLE</code> state because CloudFormation is still creating it or in an <code>OBSOLETE</code> state
+     * because the stack was already updated.
      * </p>
      * 
      * @return If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you
-     *         can’t execute the change set, the status indicates why. For example, a change set might be in an
-     *         <code>UNAVAILABLE</code> state because AWS CloudFormation is still creating it or in an
-     *         <code>OBSOLETE</code> state because the stack was already updated.
+     *         can't execute the change set, the status indicates why. For example, a change set might be in an
+     *         <code>UNAVAILABLE</code> state because CloudFormation is still creating it or in an <code>OBSOLETE</code>
+     *         state because the stack was already updated.
      * @see ExecutionStatus
      */
 
@@ -514,17 +581,17 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can’t
+     * If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can't
      * execute the change set, the status indicates why. For example, a change set might be in an
-     * <code>UNAVAILABLE</code> state because AWS CloudFormation is still creating it or in an <code>OBSOLETE</code>
-     * state because the stack was already updated.
+     * <code>UNAVAILABLE</code> state because CloudFormation is still creating it or in an <code>OBSOLETE</code> state
+     * because the stack was already updated.
      * </p>
      * 
      * @param executionStatus
-     *        If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can’t
+     *        If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can't
      *        execute the change set, the status indicates why. For example, a change set might be in an
-     *        <code>UNAVAILABLE</code> state because AWS CloudFormation is still creating it or in an
-     *        <code>OBSOLETE</code> state because the stack was already updated.
+     *        <code>UNAVAILABLE</code> state because CloudFormation is still creating it or in an <code>OBSOLETE</code>
+     *        state because the stack was already updated.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ExecutionStatus
      */
@@ -536,17 +603,17 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can’t
+     * If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can't
      * execute the change set, the status indicates why. For example, a change set might be in an
-     * <code>UNAVAILABLE</code> state because AWS CloudFormation is still creating it or in an <code>OBSOLETE</code>
-     * state because the stack was already updated.
+     * <code>UNAVAILABLE</code> state because CloudFormation is still creating it or in an <code>OBSOLETE</code> state
+     * because the stack was already updated.
      * </p>
      * 
      * @param executionStatus
-     *        If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can’t
+     *        If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can't
      *        execute the change set, the status indicates why. For example, a change set might be in an
-     *        <code>UNAVAILABLE</code> state because AWS CloudFormation is still creating it or in an
-     *        <code>OBSOLETE</code> state because the stack was already updated.
+     *        <code>UNAVAILABLE</code> state because CloudFormation is still creating it or in an <code>OBSOLETE</code>
+     *        state because the stack was already updated.
      * @see ExecutionStatus
      */
 
@@ -556,17 +623,17 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can’t
+     * If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can't
      * execute the change set, the status indicates why. For example, a change set might be in an
-     * <code>UNAVAILABLE</code> state because AWS CloudFormation is still creating it or in an <code>OBSOLETE</code>
-     * state because the stack was already updated.
+     * <code>UNAVAILABLE</code> state because CloudFormation is still creating it or in an <code>OBSOLETE</code> state
+     * because the stack was already updated.
      * </p>
      * 
      * @param executionStatus
-     *        If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can’t
+     *        If the change set execution status is <code>AVAILABLE</code>, you can execute the change set. If you can't
      *        execute the change set, the status indicates why. For example, a change set might be in an
-     *        <code>UNAVAILABLE</code> state because AWS CloudFormation is still creating it or in an
-     *        <code>OBSOLETE</code> state because the stack was already updated.
+     *        <code>UNAVAILABLE</code> state because CloudFormation is still creating it or in an <code>OBSOLETE</code>
+     *        state because the stack was already updated.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ExecutionStatus
      */
@@ -661,12 +728,12 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A description of the change set's status. For example, if your attempt to create a change set failed, AWS
+     * A description of the change set's status. For example, if your attempt to create a change set failed,
      * CloudFormation shows the error message.
      * </p>
      * 
      * @param statusReason
-     *        A description of the change set's status. For example, if your attempt to create a change set failed, AWS
+     *        A description of the change set's status. For example, if your attempt to create a change set failed,
      *        CloudFormation shows the error message.
      */
 
@@ -676,11 +743,11 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A description of the change set's status. For example, if your attempt to create a change set failed, AWS
+     * A description of the change set's status. For example, if your attempt to create a change set failed,
      * CloudFormation shows the error message.
      * </p>
      * 
-     * @return A description of the change set's status. For example, if your attempt to create a change set failed, AWS
+     * @return A description of the change set's status. For example, if your attempt to create a change set failed,
      *         CloudFormation shows the error message.
      */
 
@@ -690,12 +757,12 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A description of the change set's status. For example, if your attempt to create a change set failed, AWS
+     * A description of the change set's status. For example, if your attempt to create a change set failed,
      * CloudFormation shows the error message.
      * </p>
      * 
      * @param statusReason
-     *        A description of the change set's status. For example, if your attempt to create a change set failed, AWS
+     *        A description of the change set's status. For example, if your attempt to create a change set failed,
      *        CloudFormation shows the error message.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -788,13 +855,13 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for
-     * the specified monitoring period afterwards.
+     * The rollback triggers for CloudFormation to monitor during stack creation and updating operations, and for the
+     * specified monitoring period afterwards.
      * </p>
      * 
      * @param rollbackConfiguration
-     *        The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and
-     *        for the specified monitoring period afterwards.
+     *        The rollback triggers for CloudFormation to monitor during stack creation and updating operations, and for
+     *        the specified monitoring period afterwards.
      */
 
     public void setRollbackConfiguration(RollbackConfiguration rollbackConfiguration) {
@@ -803,12 +870,12 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for
-     * the specified monitoring period afterwards.
+     * The rollback triggers for CloudFormation to monitor during stack creation and updating operations, and for the
+     * specified monitoring period afterwards.
      * </p>
      * 
-     * @return The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations,
-     *         and for the specified monitoring period afterwards.
+     * @return The rollback triggers for CloudFormation to monitor during stack creation and updating operations, and
+     *         for the specified monitoring period afterwards.
      */
 
     public RollbackConfiguration getRollbackConfiguration() {
@@ -817,13 +884,13 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for
-     * the specified monitoring period afterwards.
+     * The rollback triggers for CloudFormation to monitor during stack creation and updating operations, and for the
+     * specified monitoring period afterwards.
      * </p>
      * 
      * @param rollbackConfiguration
-     *        The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and
-     *        for the specified monitoring period afterwards.
+     *        The rollback triggers for CloudFormation to monitor during stack creation and updating operations, and for
+     *        the specified monitoring period afterwards.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1018,11 +1085,11 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A list of <code>Change</code> structures that describes the resources AWS CloudFormation changes if you execute
-     * the change set.
+     * A list of <code>Change</code> structures that describes the resources CloudFormation changes if you execute the
+     * change set.
      * </p>
      * 
-     * @return A list of <code>Change</code> structures that describes the resources AWS CloudFormation changes if you
+     * @return A list of <code>Change</code> structures that describes the resources CloudFormation changes if you
      *         execute the change set.
      */
 
@@ -1035,12 +1102,12 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A list of <code>Change</code> structures that describes the resources AWS CloudFormation changes if you execute
-     * the change set.
+     * A list of <code>Change</code> structures that describes the resources CloudFormation changes if you execute the
+     * change set.
      * </p>
      * 
      * @param changes
-     *        A list of <code>Change</code> structures that describes the resources AWS CloudFormation changes if you
+     *        A list of <code>Change</code> structures that describes the resources CloudFormation changes if you
      *        execute the change set.
      */
 
@@ -1055,8 +1122,8 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A list of <code>Change</code> structures that describes the resources AWS CloudFormation changes if you execute
-     * the change set.
+     * A list of <code>Change</code> structures that describes the resources CloudFormation changes if you execute the
+     * change set.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1065,7 +1132,7 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
      * </p>
      * 
      * @param changes
-     *        A list of <code>Change</code> structures that describes the resources AWS CloudFormation changes if you
+     *        A list of <code>Change</code> structures that describes the resources CloudFormation changes if you
      *        execute the change set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1082,12 +1149,12 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A list of <code>Change</code> structures that describes the resources AWS CloudFormation changes if you execute
-     * the change set.
+     * A list of <code>Change</code> structures that describes the resources CloudFormation changes if you execute the
+     * change set.
      * </p>
      * 
      * @param changes
-     *        A list of <code>Change</code> structures that describes the resources AWS CloudFormation changes if you
+     *        A list of <code>Change</code> structures that describes the resources CloudFormation changes if you
      *        execute the change set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1144,6 +1211,604 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
     }
 
     /**
+     * <p>
+     * Verifies if <code>IncludeNestedStacks</code> is set to <code>True</code>.
+     * </p>
+     * 
+     * @param includeNestedStacks
+     *        Verifies if <code>IncludeNestedStacks</code> is set to <code>True</code>.
+     */
+
+    public void setIncludeNestedStacks(Boolean includeNestedStacks) {
+        this.includeNestedStacks = includeNestedStacks;
+    }
+
+    /**
+     * <p>
+     * Verifies if <code>IncludeNestedStacks</code> is set to <code>True</code>.
+     * </p>
+     * 
+     * @return Verifies if <code>IncludeNestedStacks</code> is set to <code>True</code>.
+     */
+
+    public Boolean getIncludeNestedStacks() {
+        return this.includeNestedStacks;
+    }
+
+    /**
+     * <p>
+     * Verifies if <code>IncludeNestedStacks</code> is set to <code>True</code>.
+     * </p>
+     * 
+     * @param includeNestedStacks
+     *        Verifies if <code>IncludeNestedStacks</code> is set to <code>True</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeChangeSetResult withIncludeNestedStacks(Boolean includeNestedStacks) {
+        setIncludeNestedStacks(includeNestedStacks);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Verifies if <code>IncludeNestedStacks</code> is set to <code>True</code>.
+     * </p>
+     * 
+     * @return Verifies if <code>IncludeNestedStacks</code> is set to <code>True</code>.
+     */
+
+    public Boolean isIncludeNestedStacks() {
+        return this.includeNestedStacks;
+    }
+
+    /**
+     * <p>
+     * Specifies the change set ID of the parent change set in the current nested change set hierarchy.
+     * </p>
+     * 
+     * @param parentChangeSetId
+     *        Specifies the change set ID of the parent change set in the current nested change set hierarchy.
+     */
+
+    public void setParentChangeSetId(String parentChangeSetId) {
+        this.parentChangeSetId = parentChangeSetId;
+    }
+
+    /**
+     * <p>
+     * Specifies the change set ID of the parent change set in the current nested change set hierarchy.
+     * </p>
+     * 
+     * @return Specifies the change set ID of the parent change set in the current nested change set hierarchy.
+     */
+
+    public String getParentChangeSetId() {
+        return this.parentChangeSetId;
+    }
+
+    /**
+     * <p>
+     * Specifies the change set ID of the parent change set in the current nested change set hierarchy.
+     * </p>
+     * 
+     * @param parentChangeSetId
+     *        Specifies the change set ID of the parent change set in the current nested change set hierarchy.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeChangeSetResult withParentChangeSetId(String parentChangeSetId) {
+        setParentChangeSetId(parentChangeSetId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the change set ID of the root change set in the current nested change set hierarchy.
+     * </p>
+     * 
+     * @param rootChangeSetId
+     *        Specifies the change set ID of the root change set in the current nested change set hierarchy.
+     */
+
+    public void setRootChangeSetId(String rootChangeSetId) {
+        this.rootChangeSetId = rootChangeSetId;
+    }
+
+    /**
+     * <p>
+     * Specifies the change set ID of the root change set in the current nested change set hierarchy.
+     * </p>
+     * 
+     * @return Specifies the change set ID of the root change set in the current nested change set hierarchy.
+     */
+
+    public String getRootChangeSetId() {
+        return this.rootChangeSetId;
+    }
+
+    /**
+     * <p>
+     * Specifies the change set ID of the root change set in the current nested change set hierarchy.
+     * </p>
+     * 
+     * @param rootChangeSetId
+     *        Specifies the change set ID of the root change set in the current nested change set hierarchy.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeChangeSetResult withRootChangeSetId(String rootChangeSetId) {
+        setRootChangeSetId(rootChangeSetId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Determines what action will be taken if stack creation fails. When this parameter is specified, the
+     * <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation must not be specified. This must be one of these values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DELETE</code> - Deletes the change set if the stack creation fails. This is only valid when the
+     * <code>ChangeSetType</code> parameter is set to <code>CREATE</code>. If the deletion of the stack fails, the
+     * status of the stack is <code>DELETE_FAILED</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DO_NOTHING</code> - if the stack creation fails, do nothing. This is equivalent to specifying
+     * <code>true</code> for the <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ROLLBACK</code> - if the stack creation fails, roll back the stack. This is equivalent to specifying
+     * <code>false</code> for the <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param onStackFailure
+     *        Determines what action will be taken if stack creation fails. When this parameter is specified, the
+     *        <code>DisableRollback</code> parameter to the <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     *        >ExecuteChangeSet</a> API operation must not be specified. This must be one of these values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DELETE</code> - Deletes the change set if the stack creation fails. This is only valid when the
+     *        <code>ChangeSetType</code> parameter is set to <code>CREATE</code>. If the deletion of the stack fails,
+     *        the status of the stack is <code>DELETE_FAILED</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DO_NOTHING</code> - if the stack creation fails, do nothing. This is equivalent to specifying
+     *        <code>true</code> for the <code>DisableRollback</code> parameter to the <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     *        >ExecuteChangeSet</a> API operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ROLLBACK</code> - if the stack creation fails, roll back the stack. This is equivalent to specifying
+     *        <code>false</code> for the <code>DisableRollback</code> parameter to the <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     *        >ExecuteChangeSet</a> API operation.
+     *        </p>
+     *        </li>
+     * @see OnStackFailure
+     */
+
+    public void setOnStackFailure(String onStackFailure) {
+        this.onStackFailure = onStackFailure;
+    }
+
+    /**
+     * <p>
+     * Determines what action will be taken if stack creation fails. When this parameter is specified, the
+     * <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation must not be specified. This must be one of these values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DELETE</code> - Deletes the change set if the stack creation fails. This is only valid when the
+     * <code>ChangeSetType</code> parameter is set to <code>CREATE</code>. If the deletion of the stack fails, the
+     * status of the stack is <code>DELETE_FAILED</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DO_NOTHING</code> - if the stack creation fails, do nothing. This is equivalent to specifying
+     * <code>true</code> for the <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ROLLBACK</code> - if the stack creation fails, roll back the stack. This is equivalent to specifying
+     * <code>false</code> for the <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Determines what action will be taken if stack creation fails. When this parameter is specified, the
+     *         <code>DisableRollback</code> parameter to the <a
+     *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     *         >ExecuteChangeSet</a> API operation must not be specified. This must be one of these values:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>DELETE</code> - Deletes the change set if the stack creation fails. This is only valid when the
+     *         <code>ChangeSetType</code> parameter is set to <code>CREATE</code>. If the deletion of the stack fails,
+     *         the status of the stack is <code>DELETE_FAILED</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DO_NOTHING</code> - if the stack creation fails, do nothing. This is equivalent to specifying
+     *         <code>true</code> for the <code>DisableRollback</code> parameter to the <a
+     *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     *         >ExecuteChangeSet</a> API operation.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ROLLBACK</code> - if the stack creation fails, roll back the stack. This is equivalent to
+     *         specifying <code>false</code> for the <code>DisableRollback</code> parameter to the <a
+     *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     *         >ExecuteChangeSet</a> API operation.
+     *         </p>
+     *         </li>
+     * @see OnStackFailure
+     */
+
+    public String getOnStackFailure() {
+        return this.onStackFailure;
+    }
+
+    /**
+     * <p>
+     * Determines what action will be taken if stack creation fails. When this parameter is specified, the
+     * <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation must not be specified. This must be one of these values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DELETE</code> - Deletes the change set if the stack creation fails. This is only valid when the
+     * <code>ChangeSetType</code> parameter is set to <code>CREATE</code>. If the deletion of the stack fails, the
+     * status of the stack is <code>DELETE_FAILED</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DO_NOTHING</code> - if the stack creation fails, do nothing. This is equivalent to specifying
+     * <code>true</code> for the <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ROLLBACK</code> - if the stack creation fails, roll back the stack. This is equivalent to specifying
+     * <code>false</code> for the <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param onStackFailure
+     *        Determines what action will be taken if stack creation fails. When this parameter is specified, the
+     *        <code>DisableRollback</code> parameter to the <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     *        >ExecuteChangeSet</a> API operation must not be specified. This must be one of these values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DELETE</code> - Deletes the change set if the stack creation fails. This is only valid when the
+     *        <code>ChangeSetType</code> parameter is set to <code>CREATE</code>. If the deletion of the stack fails,
+     *        the status of the stack is <code>DELETE_FAILED</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DO_NOTHING</code> - if the stack creation fails, do nothing. This is equivalent to specifying
+     *        <code>true</code> for the <code>DisableRollback</code> parameter to the <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     *        >ExecuteChangeSet</a> API operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ROLLBACK</code> - if the stack creation fails, roll back the stack. This is equivalent to specifying
+     *        <code>false</code> for the <code>DisableRollback</code> parameter to the <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     *        >ExecuteChangeSet</a> API operation.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see OnStackFailure
+     */
+
+    public DescribeChangeSetResult withOnStackFailure(String onStackFailure) {
+        setOnStackFailure(onStackFailure);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Determines what action will be taken if stack creation fails. When this parameter is specified, the
+     * <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation must not be specified. This must be one of these values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DELETE</code> - Deletes the change set if the stack creation fails. This is only valid when the
+     * <code>ChangeSetType</code> parameter is set to <code>CREATE</code>. If the deletion of the stack fails, the
+     * status of the stack is <code>DELETE_FAILED</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DO_NOTHING</code> - if the stack creation fails, do nothing. This is equivalent to specifying
+     * <code>true</code> for the <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ROLLBACK</code> - if the stack creation fails, roll back the stack. This is equivalent to specifying
+     * <code>false</code> for the <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param onStackFailure
+     *        Determines what action will be taken if stack creation fails. When this parameter is specified, the
+     *        <code>DisableRollback</code> parameter to the <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     *        >ExecuteChangeSet</a> API operation must not be specified. This must be one of these values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DELETE</code> - Deletes the change set if the stack creation fails. This is only valid when the
+     *        <code>ChangeSetType</code> parameter is set to <code>CREATE</code>. If the deletion of the stack fails,
+     *        the status of the stack is <code>DELETE_FAILED</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DO_NOTHING</code> - if the stack creation fails, do nothing. This is equivalent to specifying
+     *        <code>true</code> for the <code>DisableRollback</code> parameter to the <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     *        >ExecuteChangeSet</a> API operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ROLLBACK</code> - if the stack creation fails, roll back the stack. This is equivalent to specifying
+     *        <code>false</code> for the <code>DisableRollback</code> parameter to the <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     *        >ExecuteChangeSet</a> API operation.
+     *        </p>
+     *        </li>
+     * @see OnStackFailure
+     */
+
+    public void setOnStackFailure(OnStackFailure onStackFailure) {
+        withOnStackFailure(onStackFailure);
+    }
+
+    /**
+     * <p>
+     * Determines what action will be taken if stack creation fails. When this parameter is specified, the
+     * <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation must not be specified. This must be one of these values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DELETE</code> - Deletes the change set if the stack creation fails. This is only valid when the
+     * <code>ChangeSetType</code> parameter is set to <code>CREATE</code>. If the deletion of the stack fails, the
+     * status of the stack is <code>DELETE_FAILED</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DO_NOTHING</code> - if the stack creation fails, do nothing. This is equivalent to specifying
+     * <code>true</code> for the <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ROLLBACK</code> - if the stack creation fails, roll back the stack. This is equivalent to specifying
+     * <code>false</code> for the <code>DisableRollback</code> parameter to the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     * >ExecuteChangeSet</a> API operation.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param onStackFailure
+     *        Determines what action will be taken if stack creation fails. When this parameter is specified, the
+     *        <code>DisableRollback</code> parameter to the <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     *        >ExecuteChangeSet</a> API operation must not be specified. This must be one of these values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DELETE</code> - Deletes the change set if the stack creation fails. This is only valid when the
+     *        <code>ChangeSetType</code> parameter is set to <code>CREATE</code>. If the deletion of the stack fails,
+     *        the status of the stack is <code>DELETE_FAILED</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DO_NOTHING</code> - if the stack creation fails, do nothing. This is equivalent to specifying
+     *        <code>true</code> for the <code>DisableRollback</code> parameter to the <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     *        >ExecuteChangeSet</a> API operation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ROLLBACK</code> - if the stack creation fails, roll back the stack. This is equivalent to specifying
+     *        <code>false</code> for the <code>DisableRollback</code> parameter to the <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ExecuteChangeSet.html"
+     *        >ExecuteChangeSet</a> API operation.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see OnStackFailure
+     */
+
+    public DescribeChangeSetResult withOnStackFailure(OnStackFailure onStackFailure) {
+        this.onStackFailure = onStackFailure.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates if the change set imports resources that already exist.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter can only import resources that have <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html">custom names</a>
+     * in templates. To import resources that do not accept custom names, such as EC2 instances, use the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import.html">resource import</a>
+     * feature instead.
+     * </p>
+     * </note>
+     * 
+     * @param importExistingResources
+     *        Indicates if the change set imports resources that already exist.</p> <note>
+     *        <p>
+     *        This parameter can only import resources that have <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html">custom
+     *        names</a> in templates. To import resources that do not accept custom names, such as EC2 instances, use
+     *        the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import.html">resource
+     *        import</a> feature instead.
+     *        </p>
+     */
+
+    public void setImportExistingResources(Boolean importExistingResources) {
+        this.importExistingResources = importExistingResources;
+    }
+
+    /**
+     * <p>
+     * Indicates if the change set imports resources that already exist.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter can only import resources that have <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html">custom names</a>
+     * in templates. To import resources that do not accept custom names, such as EC2 instances, use the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import.html">resource import</a>
+     * feature instead.
+     * </p>
+     * </note>
+     * 
+     * @return Indicates if the change set imports resources that already exist.</p> <note>
+     *         <p>
+     *         This parameter can only import resources that have <a
+     *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html">custom
+     *         names</a> in templates. To import resources that do not accept custom names, such as EC2 instances, use
+     *         the <a
+     *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import.html">resource
+     *         import</a> feature instead.
+     *         </p>
+     */
+
+    public Boolean getImportExistingResources() {
+        return this.importExistingResources;
+    }
+
+    /**
+     * <p>
+     * Indicates if the change set imports resources that already exist.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter can only import resources that have <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html">custom names</a>
+     * in templates. To import resources that do not accept custom names, such as EC2 instances, use the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import.html">resource import</a>
+     * feature instead.
+     * </p>
+     * </note>
+     * 
+     * @param importExistingResources
+     *        Indicates if the change set imports resources that already exist.</p> <note>
+     *        <p>
+     *        This parameter can only import resources that have <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html">custom
+     *        names</a> in templates. To import resources that do not accept custom names, such as EC2 instances, use
+     *        the <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import.html">resource
+     *        import</a> feature instead.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeChangeSetResult withImportExistingResources(Boolean importExistingResources) {
+        setImportExistingResources(importExistingResources);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates if the change set imports resources that already exist.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter can only import resources that have <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html">custom names</a>
+     * in templates. To import resources that do not accept custom names, such as EC2 instances, use the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import.html">resource import</a>
+     * feature instead.
+     * </p>
+     * </note>
+     * 
+     * @return Indicates if the change set imports resources that already exist.</p> <note>
+     *         <p>
+     *         This parameter can only import resources that have <a
+     *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html">custom
+     *         names</a> in templates. To import resources that do not accept custom names, such as EC2 instances, use
+     *         the <a
+     *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-import.html">resource
+     *         import</a> feature instead.
+     *         </p>
+     */
+
+    public Boolean isImportExistingResources() {
+        return this.importExistingResources;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1186,7 +1851,17 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
         if (getChanges() != null)
             sb.append("Changes: ").append(getChanges()).append(",");
         if (getNextToken() != null)
-            sb.append("NextToken: ").append(getNextToken());
+            sb.append("NextToken: ").append(getNextToken()).append(",");
+        if (getIncludeNestedStacks() != null)
+            sb.append("IncludeNestedStacks: ").append(getIncludeNestedStacks()).append(",");
+        if (getParentChangeSetId() != null)
+            sb.append("ParentChangeSetId: ").append(getParentChangeSetId()).append(",");
+        if (getRootChangeSetId() != null)
+            sb.append("RootChangeSetId: ").append(getRootChangeSetId()).append(",");
+        if (getOnStackFailure() != null)
+            sb.append("OnStackFailure: ").append(getOnStackFailure()).append(",");
+        if (getImportExistingResources() != null)
+            sb.append("ImportExistingResources: ").append(getImportExistingResources());
         sb.append("}");
         return sb.toString();
     }
@@ -1265,6 +1940,26 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
             return false;
         if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
             return false;
+        if (other.getIncludeNestedStacks() == null ^ this.getIncludeNestedStacks() == null)
+            return false;
+        if (other.getIncludeNestedStacks() != null && other.getIncludeNestedStacks().equals(this.getIncludeNestedStacks()) == false)
+            return false;
+        if (other.getParentChangeSetId() == null ^ this.getParentChangeSetId() == null)
+            return false;
+        if (other.getParentChangeSetId() != null && other.getParentChangeSetId().equals(this.getParentChangeSetId()) == false)
+            return false;
+        if (other.getRootChangeSetId() == null ^ this.getRootChangeSetId() == null)
+            return false;
+        if (other.getRootChangeSetId() != null && other.getRootChangeSetId().equals(this.getRootChangeSetId()) == false)
+            return false;
+        if (other.getOnStackFailure() == null ^ this.getOnStackFailure() == null)
+            return false;
+        if (other.getOnStackFailure() != null && other.getOnStackFailure().equals(this.getOnStackFailure()) == false)
+            return false;
+        if (other.getImportExistingResources() == null ^ this.getImportExistingResources() == null)
+            return false;
+        if (other.getImportExistingResources() != null && other.getImportExistingResources().equals(this.getImportExistingResources()) == false)
+            return false;
         return true;
     }
 
@@ -1289,6 +1984,11 @@ public class DescribeChangeSetResult extends com.amazonaws.AmazonWebServiceResul
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getChanges() == null) ? 0 : getChanges().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
+        hashCode = prime * hashCode + ((getIncludeNestedStacks() == null) ? 0 : getIncludeNestedStacks().hashCode());
+        hashCode = prime * hashCode + ((getParentChangeSetId() == null) ? 0 : getParentChangeSetId().hashCode());
+        hashCode = prime * hashCode + ((getRootChangeSetId() == null) ? 0 : getRootChangeSetId().hashCode());
+        hashCode = prime * hashCode + ((getOnStackFailure() == null) ? 0 : getOnStackFailure().hashCode());
+        hashCode = prime * hashCode + ((getImportExistingResources() == null) ? 0 : getImportExistingResources().hashCode());
         return hashCode;
     }
 

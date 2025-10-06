@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,8 +43,8 @@ public class VpnConnection implements Serializable, Cloneable {
     private String customerGatewayId;
     /**
      * <p>
-     * The category of the VPN connection. A value of <code>VPN</code> indicates an AWS VPN connection. A value of
-     * <code>VPN-Classic</code> indicates an AWS Classic VPN connection.
+     * The category of the VPN connection. A value of <code>VPN</code> indicates an Amazon Web Services VPN connection.
+     * A value of <code>VPN-Classic</code> indicates an Amazon Web Services Classic VPN connection.
      * </p>
      */
     private String category;
@@ -68,7 +68,7 @@ public class VpnConnection implements Serializable, Cloneable {
     private String vpnConnectionId;
     /**
      * <p>
-     * The ID of the virtual private gateway at the AWS side of the VPN connection.
+     * The ID of the virtual private gateway at the Amazon Web Services side of the VPN connection.
      * </p>
      */
     private String vpnGatewayId;
@@ -78,6 +78,24 @@ public class VpnConnection implements Serializable, Cloneable {
      * </p>
      */
     private String transitGatewayId;
+    /**
+     * <p>
+     * The ARN of the core network.
+     * </p>
+     */
+    private String coreNetworkArn;
+    /**
+     * <p>
+     * The ARN of the core network attachment.
+     * </p>
+     */
+    private String coreNetworkAttachmentArn;
+    /**
+     * <p>
+     * The current state of the gateway association.
+     * </p>
+     */
+    private String gatewayAssociationState;
     /**
      * <p>
      * The VPN connection options.
@@ -203,13 +221,13 @@ public class VpnConnection implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The category of the VPN connection. A value of <code>VPN</code> indicates an AWS VPN connection. A value of
-     * <code>VPN-Classic</code> indicates an AWS Classic VPN connection.
+     * The category of the VPN connection. A value of <code>VPN</code> indicates an Amazon Web Services VPN connection.
+     * A value of <code>VPN-Classic</code> indicates an Amazon Web Services Classic VPN connection.
      * </p>
      * 
      * @param category
-     *        The category of the VPN connection. A value of <code>VPN</code> indicates an AWS VPN connection. A value
-     *        of <code>VPN-Classic</code> indicates an AWS Classic VPN connection.
+     *        The category of the VPN connection. A value of <code>VPN</code> indicates an Amazon Web Services VPN
+     *        connection. A value of <code>VPN-Classic</code> indicates an Amazon Web Services Classic VPN connection.
      */
 
     public void setCategory(String category) {
@@ -218,12 +236,12 @@ public class VpnConnection implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The category of the VPN connection. A value of <code>VPN</code> indicates an AWS VPN connection. A value of
-     * <code>VPN-Classic</code> indicates an AWS Classic VPN connection.
+     * The category of the VPN connection. A value of <code>VPN</code> indicates an Amazon Web Services VPN connection.
+     * A value of <code>VPN-Classic</code> indicates an Amazon Web Services Classic VPN connection.
      * </p>
      * 
-     * @return The category of the VPN connection. A value of <code>VPN</code> indicates an AWS VPN connection. A value
-     *         of <code>VPN-Classic</code> indicates an AWS Classic VPN connection.
+     * @return The category of the VPN connection. A value of <code>VPN</code> indicates an Amazon Web Services VPN
+     *         connection. A value of <code>VPN-Classic</code> indicates an Amazon Web Services Classic VPN connection.
      */
 
     public String getCategory() {
@@ -232,13 +250,13 @@ public class VpnConnection implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The category of the VPN connection. A value of <code>VPN</code> indicates an AWS VPN connection. A value of
-     * <code>VPN-Classic</code> indicates an AWS Classic VPN connection.
+     * The category of the VPN connection. A value of <code>VPN</code> indicates an Amazon Web Services VPN connection.
+     * A value of <code>VPN-Classic</code> indicates an Amazon Web Services Classic VPN connection.
      * </p>
      * 
      * @param category
-     *        The category of the VPN connection. A value of <code>VPN</code> indicates an AWS VPN connection. A value
-     *        of <code>VPN-Classic</code> indicates an AWS Classic VPN connection.
+     *        The category of the VPN connection. A value of <code>VPN</code> indicates an Amazon Web Services VPN
+     *        connection. A value of <code>VPN-Classic</code> indicates an Amazon Web Services Classic VPN connection.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -435,11 +453,11 @@ public class VpnConnection implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the virtual private gateway at the AWS side of the VPN connection.
+     * The ID of the virtual private gateway at the Amazon Web Services side of the VPN connection.
      * </p>
      * 
      * @param vpnGatewayId
-     *        The ID of the virtual private gateway at the AWS side of the VPN connection.
+     *        The ID of the virtual private gateway at the Amazon Web Services side of the VPN connection.
      */
 
     public void setVpnGatewayId(String vpnGatewayId) {
@@ -448,10 +466,10 @@ public class VpnConnection implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the virtual private gateway at the AWS side of the VPN connection.
+     * The ID of the virtual private gateway at the Amazon Web Services side of the VPN connection.
      * </p>
      * 
-     * @return The ID of the virtual private gateway at the AWS side of the VPN connection.
+     * @return The ID of the virtual private gateway at the Amazon Web Services side of the VPN connection.
      */
 
     public String getVpnGatewayId() {
@@ -460,11 +478,11 @@ public class VpnConnection implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the virtual private gateway at the AWS side of the VPN connection.
+     * The ID of the virtual private gateway at the Amazon Web Services side of the VPN connection.
      * </p>
      * 
      * @param vpnGatewayId
-     *        The ID of the virtual private gateway at the AWS side of the VPN connection.
+     *        The ID of the virtual private gateway at the Amazon Web Services side of the VPN connection.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -510,6 +528,159 @@ public class VpnConnection implements Serializable, Cloneable {
 
     public VpnConnection withTransitGatewayId(String transitGatewayId) {
         setTransitGatewayId(transitGatewayId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the core network.
+     * </p>
+     * 
+     * @param coreNetworkArn
+     *        The ARN of the core network.
+     */
+
+    public void setCoreNetworkArn(String coreNetworkArn) {
+        this.coreNetworkArn = coreNetworkArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the core network.
+     * </p>
+     * 
+     * @return The ARN of the core network.
+     */
+
+    public String getCoreNetworkArn() {
+        return this.coreNetworkArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the core network.
+     * </p>
+     * 
+     * @param coreNetworkArn
+     *        The ARN of the core network.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VpnConnection withCoreNetworkArn(String coreNetworkArn) {
+        setCoreNetworkArn(coreNetworkArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the core network attachment.
+     * </p>
+     * 
+     * @param coreNetworkAttachmentArn
+     *        The ARN of the core network attachment.
+     */
+
+    public void setCoreNetworkAttachmentArn(String coreNetworkAttachmentArn) {
+        this.coreNetworkAttachmentArn = coreNetworkAttachmentArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the core network attachment.
+     * </p>
+     * 
+     * @return The ARN of the core network attachment.
+     */
+
+    public String getCoreNetworkAttachmentArn() {
+        return this.coreNetworkAttachmentArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the core network attachment.
+     * </p>
+     * 
+     * @param coreNetworkAttachmentArn
+     *        The ARN of the core network attachment.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VpnConnection withCoreNetworkAttachmentArn(String coreNetworkAttachmentArn) {
+        setCoreNetworkAttachmentArn(coreNetworkAttachmentArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current state of the gateway association.
+     * </p>
+     * 
+     * @param gatewayAssociationState
+     *        The current state of the gateway association.
+     * @see GatewayAssociationState
+     */
+
+    public void setGatewayAssociationState(String gatewayAssociationState) {
+        this.gatewayAssociationState = gatewayAssociationState;
+    }
+
+    /**
+     * <p>
+     * The current state of the gateway association.
+     * </p>
+     * 
+     * @return The current state of the gateway association.
+     * @see GatewayAssociationState
+     */
+
+    public String getGatewayAssociationState() {
+        return this.gatewayAssociationState;
+    }
+
+    /**
+     * <p>
+     * The current state of the gateway association.
+     * </p>
+     * 
+     * @param gatewayAssociationState
+     *        The current state of the gateway association.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see GatewayAssociationState
+     */
+
+    public VpnConnection withGatewayAssociationState(String gatewayAssociationState) {
+        setGatewayAssociationState(gatewayAssociationState);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current state of the gateway association.
+     * </p>
+     * 
+     * @param gatewayAssociationState
+     *        The current state of the gateway association.
+     * @see GatewayAssociationState
+     */
+
+    public void setGatewayAssociationState(GatewayAssociationState gatewayAssociationState) {
+        withGatewayAssociationState(gatewayAssociationState);
+    }
+
+    /**
+     * <p>
+     * The current state of the gateway association.
+     * </p>
+     * 
+     * @param gatewayAssociationState
+     *        The current state of the gateway association.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see GatewayAssociationState
+     */
+
+    public VpnConnection withGatewayAssociationState(GatewayAssociationState gatewayAssociationState) {
+        this.gatewayAssociationState = gatewayAssociationState.toString();
         return this;
     }
 
@@ -785,7 +956,7 @@ public class VpnConnection implements Serializable, Cloneable {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getCustomerGatewayConfiguration() != null)
-            sb.append("CustomerGatewayConfiguration: ").append(getCustomerGatewayConfiguration()).append(",");
+            sb.append("CustomerGatewayConfiguration: ").append("***Sensitive Data Redacted***").append(",");
         if (getCustomerGatewayId() != null)
             sb.append("CustomerGatewayId: ").append(getCustomerGatewayId()).append(",");
         if (getCategory() != null)
@@ -800,6 +971,12 @@ public class VpnConnection implements Serializable, Cloneable {
             sb.append("VpnGatewayId: ").append(getVpnGatewayId()).append(",");
         if (getTransitGatewayId() != null)
             sb.append("TransitGatewayId: ").append(getTransitGatewayId()).append(",");
+        if (getCoreNetworkArn() != null)
+            sb.append("CoreNetworkArn: ").append(getCoreNetworkArn()).append(",");
+        if (getCoreNetworkAttachmentArn() != null)
+            sb.append("CoreNetworkAttachmentArn: ").append(getCoreNetworkAttachmentArn()).append(",");
+        if (getGatewayAssociationState() != null)
+            sb.append("GatewayAssociationState: ").append(getGatewayAssociationState()).append(",");
         if (getOptions() != null)
             sb.append("Options: ").append(getOptions()).append(",");
         if (getRoutes() != null)
@@ -854,6 +1031,18 @@ public class VpnConnection implements Serializable, Cloneable {
             return false;
         if (other.getTransitGatewayId() != null && other.getTransitGatewayId().equals(this.getTransitGatewayId()) == false)
             return false;
+        if (other.getCoreNetworkArn() == null ^ this.getCoreNetworkArn() == null)
+            return false;
+        if (other.getCoreNetworkArn() != null && other.getCoreNetworkArn().equals(this.getCoreNetworkArn()) == false)
+            return false;
+        if (other.getCoreNetworkAttachmentArn() == null ^ this.getCoreNetworkAttachmentArn() == null)
+            return false;
+        if (other.getCoreNetworkAttachmentArn() != null && other.getCoreNetworkAttachmentArn().equals(this.getCoreNetworkAttachmentArn()) == false)
+            return false;
+        if (other.getGatewayAssociationState() == null ^ this.getGatewayAssociationState() == null)
+            return false;
+        if (other.getGatewayAssociationState() != null && other.getGatewayAssociationState().equals(this.getGatewayAssociationState()) == false)
+            return false;
         if (other.getOptions() == null ^ this.getOptions() == null)
             return false;
         if (other.getOptions() != null && other.getOptions().equals(this.getOptions()) == false)
@@ -886,6 +1075,9 @@ public class VpnConnection implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getVpnConnectionId() == null) ? 0 : getVpnConnectionId().hashCode());
         hashCode = prime * hashCode + ((getVpnGatewayId() == null) ? 0 : getVpnGatewayId().hashCode());
         hashCode = prime * hashCode + ((getTransitGatewayId() == null) ? 0 : getTransitGatewayId().hashCode());
+        hashCode = prime * hashCode + ((getCoreNetworkArn() == null) ? 0 : getCoreNetworkArn().hashCode());
+        hashCode = prime * hashCode + ((getCoreNetworkAttachmentArn() == null) ? 0 : getCoreNetworkAttachmentArn().hashCode());
+        hashCode = prime * hashCode + ((getGatewayAssociationState() == null) ? 0 : getGatewayAssociationState().hashCode());
         hashCode = prime * hashCode + ((getOptions() == null) ? 0 : getOptions().hashCode());
         hashCode = prime * hashCode + ((getRoutes() == null) ? 0 : getRoutes().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());

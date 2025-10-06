@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An AWS Firewall Manager policy.
+ * An Firewall Manager policy.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/Policy" target="_top">AWS API Documentation</a>
@@ -29,13 +29,13 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the AWS Firewall Manager policy.
+     * The ID of the Firewall Manager policy.
      * </p>
      */
     private String policyId;
     /**
      * <p>
-     * The friendly name of the AWS Firewall Manager policy.
+     * The name of the Firewall Manager policy.
      * </p>
      */
     private String policyName;
@@ -56,16 +56,62 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
     private SecurityServicePolicyData securityServicePolicyData;
     /**
      * <p>
-     * The type of resource to protect with the policy. This is in the format shown in <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
+     * The type of resource protected by or in scope of the policy. This is in the format shown in the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a>. To apply this policy to multiple resource types, specify a resource
+     * type of <code>ResourceTypeList</code> and then specify the resource types in a <code>ResourceTypeList</code>.
+     * </p>
+     * <p>
+     * The following are valid resource types for each Firewall Manager policy type:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Web Services WAF Classic - <code>AWS::ApiGateway::Stage</code>, <code>AWS::CloudFront::Distribution</code>
+     * , and <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * WAF - <code>AWS::ApiGateway::Stage</code>, <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>, and
      * <code>AWS::CloudFront::Distribution</code>.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Shield Advanced - <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>,
+     * <code>AWS::ElasticLoadBalancing::LoadBalancer</code>, <code>AWS::EC2::EIP</code>, and
+     * <code>AWS::CloudFront::Distribution</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Network ACL - <code>AWS::EC2::Subnet</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Security group usage audit - <code>AWS::EC2::SecurityGroup</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Security group content audit - <code>AWS::EC2::SecurityGroup</code>, <code>AWS::EC2::NetworkInterface</code>, and
+     * <code>AWS::EC2::Instance</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DNS Firewall, Network Firewall, and third-party firewall - <code>AWS::EC2::VPC</code>.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String resourceType;
     /**
      * <p>
-     * An array of <code>ResourceType</code>.
+     * An array of <code>ResourceType</code> objects. Use this only to specify multiple resource types. To specify a
+     * single resource type, use <code>ResourceType</code>.
      * </p>
      */
     private java.util.List<String> resourceTypeList;
@@ -78,8 +124,8 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * If set to <code>True</code>, resources with the tags that are specified in the <code>ResourceTag</code> array are
-     * not protected by the policy. If set to <code>False</code>, and the <code>ResourceTag</code> array is not null,
-     * only resources with the specified tags are associated with the policy.
+     * not in scope of the policy. If set to <code>False</code>, and the <code>ResourceTag</code> array is not null,
+     * only resources with the specified tags are in scope of the policy.
      * </p>
      */
     private Boolean excludeResourceTags;
@@ -91,36 +137,133 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
     private Boolean remediationEnabled;
     /**
      * <p>
-     * Specifies the AWS account IDs to include in the policy. If <code>IncludeMap</code> is null, all accounts in the
-     * organization in AWS Organizations are included in the policy. If <code>IncludeMap</code> is not null, only values
-     * listed in <code>IncludeMap</code> are included in the policy.
+     * Indicates whether Firewall Manager should automatically remove protections from resources that leave the policy
+     * scope and clean up resources that Firewall Manager is managing for accounts when those accounts leave policy
+     * scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL from a protected
+     * customer resource when the customer resource leaves policy scope.
      * </p>
      * <p>
-     * The key to the map is <code>ACCOUNT</code>. For example, a valid <code>IncludeMap</code> would be
+     * By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     * </p>
+     * <p>
+     * This option is not available for Shield Advanced or WAF Classic policies.
+     * </p>
+     */
+    private Boolean deleteUnusedFMManagedResources;
+    /**
+     * <p>
+     * Specifies the Amazon Web Services account IDs and Organizations organizational units (OUs) to include in the
+     * policy. Specifying an OU is the equivalent of specifying all accounts in the OU and in any of its child OUs,
+     * including any child OUs and accounts that are added at a later time.
+     * </p>
+     * <p>
+     * You can specify inclusions or exclusions, but not both. If you specify an <code>IncludeMap</code>, Firewall
+     * Manager applies the policy to all accounts specified by the <code>IncludeMap</code>, and does not evaluate any
+     * <code>ExcludeMap</code> specifications. If you do not specify an <code>IncludeMap</code>, then Firewall Manager
+     * applies the policy to all accounts except for those specified by the <code>ExcludeMap</code>.
+     * </p>
+     * <p>
+     * You can specify account IDs, OUs, or a combination:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Specify account IDs by setting the key to <code>ACCOUNT</code>. For example, the following is a valid map:
      * <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Specify OUs by setting the key to <code>ORG_UNIT</code>. For example, the following is a valid map:
+     * <code>{“ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Specify accounts and OUs together in a single map, separated with a comma. For example, the following is a valid
+     * map: <code>{“ACCOUNT” : [“accountID1”, “accountID2”], “ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     * </p>
+     * </li>
+     * </ul>
      */
     private java.util.Map<String, java.util.List<String>> includeMap;
     /**
      * <p>
-     * Specifies the AWS account IDs to exclude from the policy. The <code>IncludeMap</code> values are evaluated first,
-     * with all the appropriate account IDs added to the policy. Then the accounts listed in <code>ExcludeMap</code> are
-     * removed, resulting in the final list of accounts to add to the policy.
+     * Specifies the Amazon Web Services account IDs and Organizations organizational units (OUs) to exclude from the
+     * policy. Specifying an OU is the equivalent of specifying all accounts in the OU and in any of its child OUs,
+     * including any child OUs and accounts that are added at a later time.
      * </p>
      * <p>
-     * The key to the map is <code>ACCOUNT</code>. For example, a valid <code>ExcludeMap</code> would be
+     * You can specify inclusions or exclusions, but not both. If you specify an <code>IncludeMap</code>, Firewall
+     * Manager applies the policy to all accounts specified by the <code>IncludeMap</code>, and does not evaluate any
+     * <code>ExcludeMap</code> specifications. If you do not specify an <code>IncludeMap</code>, then Firewall Manager
+     * applies the policy to all accounts except for those specified by the <code>ExcludeMap</code>.
+     * </p>
+     * <p>
+     * You can specify account IDs, OUs, or a combination:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Specify account IDs by setting the key to <code>ACCOUNT</code>. For example, the following is a valid map:
      * <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Specify OUs by setting the key to <code>ORG_UNIT</code>. For example, the following is a valid map:
+     * <code>{“ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Specify accounts and OUs together in a single map, separated with a comma. For example, the following is a valid
+     * map: <code>{“ACCOUNT” : [“accountID1”, “accountID2”], “ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     * </p>
+     * </li>
+     * </ul>
      */
     private java.util.Map<String, java.util.List<String>> excludeMap;
+    /**
+     * <p>
+     * The unique identifiers of the resource sets used by the policy.
+     * </p>
+     */
+    private java.util.List<String> resourceSetIds;
+    /**
+     * <p>
+     * Your description of the Firewall Manager policy.
+     * </p>
+     */
+    private String policyDescription;
+    /**
+     * <p>
+     * Indicates whether the policy is in or out of an admin's policy or Region scope.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete the
+     * policy. Existing policy protections stay in place. Any new resources that come into scope of the policy won't be
+     * protected.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String policyStatus;
 
     /**
      * <p>
-     * The ID of the AWS Firewall Manager policy.
+     * The ID of the Firewall Manager policy.
      * </p>
      * 
      * @param policyId
-     *        The ID of the AWS Firewall Manager policy.
+     *        The ID of the Firewall Manager policy.
      */
 
     public void setPolicyId(String policyId) {
@@ -129,10 +272,10 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the AWS Firewall Manager policy.
+     * The ID of the Firewall Manager policy.
      * </p>
      * 
-     * @return The ID of the AWS Firewall Manager policy.
+     * @return The ID of the Firewall Manager policy.
      */
 
     public String getPolicyId() {
@@ -141,11 +284,11 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the AWS Firewall Manager policy.
+     * The ID of the Firewall Manager policy.
      * </p>
      * 
      * @param policyId
-     *        The ID of the AWS Firewall Manager policy.
+     *        The ID of the Firewall Manager policy.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -156,11 +299,11 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The friendly name of the AWS Firewall Manager policy.
+     * The name of the Firewall Manager policy.
      * </p>
      * 
      * @param policyName
-     *        The friendly name of the AWS Firewall Manager policy.
+     *        The name of the Firewall Manager policy.
      */
 
     public void setPolicyName(String policyName) {
@@ -169,10 +312,10 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The friendly name of the AWS Firewall Manager policy.
+     * The name of the Firewall Manager policy.
      * </p>
      * 
-     * @return The friendly name of the AWS Firewall Manager policy.
+     * @return The name of the Firewall Manager policy.
      */
 
     public String getPolicyName() {
@@ -181,11 +324,11 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The friendly name of the AWS Firewall Manager policy.
+     * The name of the Firewall Manager policy.
      * </p>
      * 
      * @param policyName
-     *        The friendly name of the AWS Firewall Manager policy.
+     *        The name of the Firewall Manager policy.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -294,17 +437,107 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of resource to protect with the policy. This is in the format shown in <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
+     * The type of resource protected by or in scope of the policy. This is in the format shown in the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a>. To apply this policy to multiple resource types, specify a resource
+     * type of <code>ResourceTypeList</code> and then specify the resource types in a <code>ResourceTypeList</code>.
+     * </p>
+     * <p>
+     * The following are valid resource types for each Firewall Manager policy type:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Web Services WAF Classic - <code>AWS::ApiGateway::Stage</code>, <code>AWS::CloudFront::Distribution</code>
+     * , and <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * WAF - <code>AWS::ApiGateway::Stage</code>, <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>, and
      * <code>AWS::CloudFront::Distribution</code>.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Shield Advanced - <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>,
+     * <code>AWS::ElasticLoadBalancing::LoadBalancer</code>, <code>AWS::EC2::EIP</code>, and
+     * <code>AWS::CloudFront::Distribution</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Network ACL - <code>AWS::EC2::Subnet</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Security group usage audit - <code>AWS::EC2::SecurityGroup</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Security group content audit - <code>AWS::EC2::SecurityGroup</code>, <code>AWS::EC2::NetworkInterface</code>, and
+     * <code>AWS::EC2::Instance</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DNS Firewall, Network Firewall, and third-party firewall - <code>AWS::EC2::VPC</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param resourceType
-     *        The type of resource to protect with the policy. This is in the format shown in <a href=
-     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     *        Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
+     *        The type of resource protected by or in scope of the policy. This is in the format shown in the <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *        >Amazon Web Services Resource Types Reference</a>. To apply this policy to multiple resource types,
+     *        specify a resource type of <code>ResourceTypeList</code> and then specify the resource types in a
+     *        <code>ResourceTypeList</code>.</p>
+     *        <p>
+     *        The following are valid resource types for each Firewall Manager policy type:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Amazon Web Services WAF Classic - <code>AWS::ApiGateway::Stage</code>,
+     *        <code>AWS::CloudFront::Distribution</code>, and <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        WAF - <code>AWS::ApiGateway::Stage</code>, <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>, and
      *        <code>AWS::CloudFront::Distribution</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Shield Advanced - <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>,
+     *        <code>AWS::ElasticLoadBalancing::LoadBalancer</code>, <code>AWS::EC2::EIP</code>, and
+     *        <code>AWS::CloudFront::Distribution</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Network ACL - <code>AWS::EC2::Subnet</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Security group usage audit - <code>AWS::EC2::SecurityGroup</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Security group content audit - <code>AWS::EC2::SecurityGroup</code>,
+     *        <code>AWS::EC2::NetworkInterface</code>, and <code>AWS::EC2::Instance</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DNS Firewall, Network Firewall, and third-party firewall - <code>AWS::EC2::VPC</code>.
+     *        </p>
+     *        </li>
      */
 
     public void setResourceType(String resourceType) {
@@ -313,16 +546,106 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of resource to protect with the policy. This is in the format shown in <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
+     * The type of resource protected by or in scope of the policy. This is in the format shown in the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a>. To apply this policy to multiple resource types, specify a resource
+     * type of <code>ResourceTypeList</code> and then specify the resource types in a <code>ResourceTypeList</code>.
+     * </p>
+     * <p>
+     * The following are valid resource types for each Firewall Manager policy type:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Web Services WAF Classic - <code>AWS::ApiGateway::Stage</code>, <code>AWS::CloudFront::Distribution</code>
+     * , and <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * WAF - <code>AWS::ApiGateway::Stage</code>, <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>, and
      * <code>AWS::CloudFront::Distribution</code>.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Shield Advanced - <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>,
+     * <code>AWS::ElasticLoadBalancing::LoadBalancer</code>, <code>AWS::EC2::EIP</code>, and
+     * <code>AWS::CloudFront::Distribution</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Network ACL - <code>AWS::EC2::Subnet</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Security group usage audit - <code>AWS::EC2::SecurityGroup</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Security group content audit - <code>AWS::EC2::SecurityGroup</code>, <code>AWS::EC2::NetworkInterface</code>, and
+     * <code>AWS::EC2::Instance</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DNS Firewall, Network Firewall, and third-party firewall - <code>AWS::EC2::VPC</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The type of resource to protect with the policy. This is in the format shown in <a
+     * @return The type of resource protected by or in scope of the policy. This is in the format shown in the <a
      *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
-     *         >AWS Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
+     *         >Amazon Web Services Resource Types Reference</a>. To apply this policy to multiple resource types,
+     *         specify a resource type of <code>ResourceTypeList</code> and then specify the resource types in a
+     *         <code>ResourceTypeList</code>.</p>
+     *         <p>
+     *         The following are valid resource types for each Firewall Manager policy type:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Amazon Web Services WAF Classic - <code>AWS::ApiGateway::Stage</code>,
+     *         <code>AWS::CloudFront::Distribution</code>, and <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         WAF - <code>AWS::ApiGateway::Stage</code>, <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>, and
      *         <code>AWS::CloudFront::Distribution</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Shield Advanced - <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>,
+     *         <code>AWS::ElasticLoadBalancing::LoadBalancer</code>, <code>AWS::EC2::EIP</code>, and
+     *         <code>AWS::CloudFront::Distribution</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Network ACL - <code>AWS::EC2::Subnet</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Security group usage audit - <code>AWS::EC2::SecurityGroup</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Security group content audit - <code>AWS::EC2::SecurityGroup</code>,
+     *         <code>AWS::EC2::NetworkInterface</code>, and <code>AWS::EC2::Instance</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         DNS Firewall, Network Firewall, and third-party firewall - <code>AWS::EC2::VPC</code>.
+     *         </p>
+     *         </li>
      */
 
     public String getResourceType() {
@@ -331,17 +654,107 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of resource to protect with the policy. This is in the format shown in <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
+     * The type of resource protected by or in scope of the policy. This is in the format shown in the <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a>. To apply this policy to multiple resource types, specify a resource
+     * type of <code>ResourceTypeList</code> and then specify the resource types in a <code>ResourceTypeList</code>.
+     * </p>
+     * <p>
+     * The following are valid resource types for each Firewall Manager policy type:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Web Services WAF Classic - <code>AWS::ApiGateway::Stage</code>, <code>AWS::CloudFront::Distribution</code>
+     * , and <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * WAF - <code>AWS::ApiGateway::Stage</code>, <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>, and
      * <code>AWS::CloudFront::Distribution</code>.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Shield Advanced - <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>,
+     * <code>AWS::ElasticLoadBalancing::LoadBalancer</code>, <code>AWS::EC2::EIP</code>, and
+     * <code>AWS::CloudFront::Distribution</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Network ACL - <code>AWS::EC2::Subnet</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Security group usage audit - <code>AWS::EC2::SecurityGroup</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Security group content audit - <code>AWS::EC2::SecurityGroup</code>, <code>AWS::EC2::NetworkInterface</code>, and
+     * <code>AWS::EC2::Instance</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DNS Firewall, Network Firewall, and third-party firewall - <code>AWS::EC2::VPC</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param resourceType
-     *        The type of resource to protect with the policy. This is in the format shown in <a href=
-     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     *        Resource Types Reference</a>. For example: <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code> or
+     *        The type of resource protected by or in scope of the policy. This is in the format shown in the <a href=
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *        >Amazon Web Services Resource Types Reference</a>. To apply this policy to multiple resource types,
+     *        specify a resource type of <code>ResourceTypeList</code> and then specify the resource types in a
+     *        <code>ResourceTypeList</code>.</p>
+     *        <p>
+     *        The following are valid resource types for each Firewall Manager policy type:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Amazon Web Services WAF Classic - <code>AWS::ApiGateway::Stage</code>,
+     *        <code>AWS::CloudFront::Distribution</code>, and <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        WAF - <code>AWS::ApiGateway::Stage</code>, <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>, and
      *        <code>AWS::CloudFront::Distribution</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Shield Advanced - <code>AWS::ElasticLoadBalancingV2::LoadBalancer</code>,
+     *        <code>AWS::ElasticLoadBalancing::LoadBalancer</code>, <code>AWS::EC2::EIP</code>, and
+     *        <code>AWS::CloudFront::Distribution</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Network ACL - <code>AWS::EC2::Subnet</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Security group usage audit - <code>AWS::EC2::SecurityGroup</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Security group content audit - <code>AWS::EC2::SecurityGroup</code>,
+     *        <code>AWS::EC2::NetworkInterface</code>, and <code>AWS::EC2::Instance</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DNS Firewall, Network Firewall, and third-party firewall - <code>AWS::EC2::VPC</code>.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -352,10 +765,12 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An array of <code>ResourceType</code>.
+     * An array of <code>ResourceType</code> objects. Use this only to specify multiple resource types. To specify a
+     * single resource type, use <code>ResourceType</code>.
      * </p>
      * 
-     * @return An array of <code>ResourceType</code>.
+     * @return An array of <code>ResourceType</code> objects. Use this only to specify multiple resource types. To
+     *         specify a single resource type, use <code>ResourceType</code>.
      */
 
     public java.util.List<String> getResourceTypeList() {
@@ -364,11 +779,13 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An array of <code>ResourceType</code>.
+     * An array of <code>ResourceType</code> objects. Use this only to specify multiple resource types. To specify a
+     * single resource type, use <code>ResourceType</code>.
      * </p>
      * 
      * @param resourceTypeList
-     *        An array of <code>ResourceType</code>.
+     *        An array of <code>ResourceType</code> objects. Use this only to specify multiple resource types. To
+     *        specify a single resource type, use <code>ResourceType</code>.
      */
 
     public void setResourceTypeList(java.util.Collection<String> resourceTypeList) {
@@ -382,7 +799,8 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An array of <code>ResourceType</code>.
+     * An array of <code>ResourceType</code> objects. Use this only to specify multiple resource types. To specify a
+     * single resource type, use <code>ResourceType</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -391,7 +809,8 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param resourceTypeList
-     *        An array of <code>ResourceType</code>.
+     *        An array of <code>ResourceType</code> objects. Use this only to specify multiple resource types. To
+     *        specify a single resource type, use <code>ResourceType</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -407,11 +826,13 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An array of <code>ResourceType</code>.
+     * An array of <code>ResourceType</code> objects. Use this only to specify multiple resource types. To specify a
+     * single resource type, use <code>ResourceType</code>.
      * </p>
      * 
      * @param resourceTypeList
-     *        An array of <code>ResourceType</code>.
+     *        An array of <code>ResourceType</code> objects. Use this only to specify multiple resource types. To
+     *        specify a single resource type, use <code>ResourceType</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -493,14 +914,14 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * If set to <code>True</code>, resources with the tags that are specified in the <code>ResourceTag</code> array are
-     * not protected by the policy. If set to <code>False</code>, and the <code>ResourceTag</code> array is not null,
-     * only resources with the specified tags are associated with the policy.
+     * not in scope of the policy. If set to <code>False</code>, and the <code>ResourceTag</code> array is not null,
+     * only resources with the specified tags are in scope of the policy.
      * </p>
      * 
      * @param excludeResourceTags
      *        If set to <code>True</code>, resources with the tags that are specified in the <code>ResourceTag</code>
-     *        array are not protected by the policy. If set to <code>False</code>, and the <code>ResourceTag</code>
-     *        array is not null, only resources with the specified tags are associated with the policy.
+     *        array are not in scope of the policy. If set to <code>False</code>, and the <code>ResourceTag</code> array
+     *        is not null, only resources with the specified tags are in scope of the policy.
      */
 
     public void setExcludeResourceTags(Boolean excludeResourceTags) {
@@ -510,13 +931,13 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * If set to <code>True</code>, resources with the tags that are specified in the <code>ResourceTag</code> array are
-     * not protected by the policy. If set to <code>False</code>, and the <code>ResourceTag</code> array is not null,
-     * only resources with the specified tags are associated with the policy.
+     * not in scope of the policy. If set to <code>False</code>, and the <code>ResourceTag</code> array is not null,
+     * only resources with the specified tags are in scope of the policy.
      * </p>
      * 
      * @return If set to <code>True</code>, resources with the tags that are specified in the <code>ResourceTag</code>
-     *         array are not protected by the policy. If set to <code>False</code>, and the <code>ResourceTag</code>
-     *         array is not null, only resources with the specified tags are associated with the policy.
+     *         array are not in scope of the policy. If set to <code>False</code>, and the <code>ResourceTag</code>
+     *         array is not null, only resources with the specified tags are in scope of the policy.
      */
 
     public Boolean getExcludeResourceTags() {
@@ -526,14 +947,14 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * If set to <code>True</code>, resources with the tags that are specified in the <code>ResourceTag</code> array are
-     * not protected by the policy. If set to <code>False</code>, and the <code>ResourceTag</code> array is not null,
-     * only resources with the specified tags are associated with the policy.
+     * not in scope of the policy. If set to <code>False</code>, and the <code>ResourceTag</code> array is not null,
+     * only resources with the specified tags are in scope of the policy.
      * </p>
      * 
      * @param excludeResourceTags
      *        If set to <code>True</code>, resources with the tags that are specified in the <code>ResourceTag</code>
-     *        array are not protected by the policy. If set to <code>False</code>, and the <code>ResourceTag</code>
-     *        array is not null, only resources with the specified tags are associated with the policy.
+     *        array are not in scope of the policy. If set to <code>False</code>, and the <code>ResourceTag</code> array
+     *        is not null, only resources with the specified tags are in scope of the policy.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -545,13 +966,13 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * If set to <code>True</code>, resources with the tags that are specified in the <code>ResourceTag</code> array are
-     * not protected by the policy. If set to <code>False</code>, and the <code>ResourceTag</code> array is not null,
-     * only resources with the specified tags are associated with the policy.
+     * not in scope of the policy. If set to <code>False</code>, and the <code>ResourceTag</code> array is not null,
+     * only resources with the specified tags are in scope of the policy.
      * </p>
      * 
      * @return If set to <code>True</code>, resources with the tags that are specified in the <code>ResourceTag</code>
-     *         array are not protected by the policy. If set to <code>False</code>, and the <code>ResourceTag</code>
-     *         array is not null, only resources with the specified tags are associated with the policy.
+     *         array are not in scope of the policy. If set to <code>False</code>, and the <code>ResourceTag</code>
+     *         array is not null, only resources with the specified tags are in scope of the policy.
      */
 
     public Boolean isExcludeResourceTags() {
@@ -612,21 +1033,193 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the AWS account IDs to include in the policy. If <code>IncludeMap</code> is null, all accounts in the
-     * organization in AWS Organizations are included in the policy. If <code>IncludeMap</code> is not null, only values
-     * listed in <code>IncludeMap</code> are included in the policy.
+     * Indicates whether Firewall Manager should automatically remove protections from resources that leave the policy
+     * scope and clean up resources that Firewall Manager is managing for accounts when those accounts leave policy
+     * scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL from a protected
+     * customer resource when the customer resource leaves policy scope.
      * </p>
      * <p>
-     * The key to the map is <code>ACCOUNT</code>. For example, a valid <code>IncludeMap</code> would be
-     * <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
+     * By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     * </p>
+     * <p>
+     * This option is not available for Shield Advanced or WAF Classic policies.
      * </p>
      * 
-     * @return Specifies the AWS account IDs to include in the policy. If <code>IncludeMap</code> is null, all accounts
-     *         in the organization in AWS Organizations are included in the policy. If <code>IncludeMap</code> is not
-     *         null, only values listed in <code>IncludeMap</code> are included in the policy.</p>
+     * @param deleteUnusedFMManagedResources
+     *        Indicates whether Firewall Manager should automatically remove protections from resources that leave the
+     *        policy scope and clean up resources that Firewall Manager is managing for accounts when those accounts
+     *        leave policy scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL
+     *        from a protected customer resource when the customer resource leaves policy scope. </p>
+     *        <p>
+     *        By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     *        </p>
+     *        <p>
+     *        This option is not available for Shield Advanced or WAF Classic policies.
+     */
+
+    public void setDeleteUnusedFMManagedResources(Boolean deleteUnusedFMManagedResources) {
+        this.deleteUnusedFMManagedResources = deleteUnusedFMManagedResources;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Firewall Manager should automatically remove protections from resources that leave the policy
+     * scope and clean up resources that Firewall Manager is managing for accounts when those accounts leave policy
+     * scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL from a protected
+     * customer resource when the customer resource leaves policy scope.
+     * </p>
+     * <p>
+     * By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     * </p>
+     * <p>
+     * This option is not available for Shield Advanced or WAF Classic policies.
+     * </p>
+     * 
+     * @return Indicates whether Firewall Manager should automatically remove protections from resources that leave the
+     *         policy scope and clean up resources that Firewall Manager is managing for accounts when those accounts
+     *         leave policy scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL
+     *         from a protected customer resource when the customer resource leaves policy scope. </p>
      *         <p>
-     *         The key to the map is <code>ACCOUNT</code>. For example, a valid <code>IncludeMap</code> would be
-     *         <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
+     *         By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     *         </p>
+     *         <p>
+     *         This option is not available for Shield Advanced or WAF Classic policies.
+     */
+
+    public Boolean getDeleteUnusedFMManagedResources() {
+        return this.deleteUnusedFMManagedResources;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Firewall Manager should automatically remove protections from resources that leave the policy
+     * scope and clean up resources that Firewall Manager is managing for accounts when those accounts leave policy
+     * scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL from a protected
+     * customer resource when the customer resource leaves policy scope.
+     * </p>
+     * <p>
+     * By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     * </p>
+     * <p>
+     * This option is not available for Shield Advanced or WAF Classic policies.
+     * </p>
+     * 
+     * @param deleteUnusedFMManagedResources
+     *        Indicates whether Firewall Manager should automatically remove protections from resources that leave the
+     *        policy scope and clean up resources that Firewall Manager is managing for accounts when those accounts
+     *        leave policy scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL
+     *        from a protected customer resource when the customer resource leaves policy scope. </p>
+     *        <p>
+     *        By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     *        </p>
+     *        <p>
+     *        This option is not available for Shield Advanced or WAF Classic policies.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Policy withDeleteUnusedFMManagedResources(Boolean deleteUnusedFMManagedResources) {
+        setDeleteUnusedFMManagedResources(deleteUnusedFMManagedResources);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Firewall Manager should automatically remove protections from resources that leave the policy
+     * scope and clean up resources that Firewall Manager is managing for accounts when those accounts leave policy
+     * scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL from a protected
+     * customer resource when the customer resource leaves policy scope.
+     * </p>
+     * <p>
+     * By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     * </p>
+     * <p>
+     * This option is not available for Shield Advanced or WAF Classic policies.
+     * </p>
+     * 
+     * @return Indicates whether Firewall Manager should automatically remove protections from resources that leave the
+     *         policy scope and clean up resources that Firewall Manager is managing for accounts when those accounts
+     *         leave policy scope. For example, Firewall Manager will disassociate a Firewall Manager managed web ACL
+     *         from a protected customer resource when the customer resource leaves policy scope. </p>
+     *         <p>
+     *         By default, Firewall Manager doesn't remove protections or delete Firewall Manager managed resources.
+     *         </p>
+     *         <p>
+     *         This option is not available for Shield Advanced or WAF Classic policies.
+     */
+
+    public Boolean isDeleteUnusedFMManagedResources() {
+        return this.deleteUnusedFMManagedResources;
+    }
+
+    /**
+     * <p>
+     * Specifies the Amazon Web Services account IDs and Organizations organizational units (OUs) to include in the
+     * policy. Specifying an OU is the equivalent of specifying all accounts in the OU and in any of its child OUs,
+     * including any child OUs and accounts that are added at a later time.
+     * </p>
+     * <p>
+     * You can specify inclusions or exclusions, but not both. If you specify an <code>IncludeMap</code>, Firewall
+     * Manager applies the policy to all accounts specified by the <code>IncludeMap</code>, and does not evaluate any
+     * <code>ExcludeMap</code> specifications. If you do not specify an <code>IncludeMap</code>, then Firewall Manager
+     * applies the policy to all accounts except for those specified by the <code>ExcludeMap</code>.
+     * </p>
+     * <p>
+     * You can specify account IDs, OUs, or a combination:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Specify account IDs by setting the key to <code>ACCOUNT</code>. For example, the following is a valid map:
+     * <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Specify OUs by setting the key to <code>ORG_UNIT</code>. For example, the following is a valid map:
+     * <code>{“ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Specify accounts and OUs together in a single map, separated with a comma. For example, the following is a valid
+     * map: <code>{“ACCOUNT” : [“accountID1”, “accountID2”], “ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Specifies the Amazon Web Services account IDs and Organizations organizational units (OUs) to include in
+     *         the policy. Specifying an OU is the equivalent of specifying all accounts in the OU and in any of its
+     *         child OUs, including any child OUs and accounts that are added at a later time.</p>
+     *         <p>
+     *         You can specify inclusions or exclusions, but not both. If you specify an <code>IncludeMap</code>,
+     *         Firewall Manager applies the policy to all accounts specified by the <code>IncludeMap</code>, and does
+     *         not evaluate any <code>ExcludeMap</code> specifications. If you do not specify an <code>IncludeMap</code>
+     *         , then Firewall Manager applies the policy to all accounts except for those specified by the
+     *         <code>ExcludeMap</code>.
+     *         </p>
+     *         <p>
+     *         You can specify account IDs, OUs, or a combination:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Specify account IDs by setting the key to <code>ACCOUNT</code>. For example, the following is a valid
+     *         map: <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Specify OUs by setting the key to <code>ORG_UNIT</code>. For example, the following is a valid map:
+     *         <code>{“ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Specify accounts and OUs together in a single map, separated with a comma. For example, the following is
+     *         a valid map: <code>{“ACCOUNT” : [“accountID1”, “accountID2”], “ORG_UNIT” : [“ouid111”, “ouid112”]}</code>
+     *         .
+     *         </p>
+     *         </li>
      */
 
     public java.util.Map<String, java.util.List<String>> getIncludeMap() {
@@ -635,22 +1228,73 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the AWS account IDs to include in the policy. If <code>IncludeMap</code> is null, all accounts in the
-     * organization in AWS Organizations are included in the policy. If <code>IncludeMap</code> is not null, only values
-     * listed in <code>IncludeMap</code> are included in the policy.
+     * Specifies the Amazon Web Services account IDs and Organizations organizational units (OUs) to include in the
+     * policy. Specifying an OU is the equivalent of specifying all accounts in the OU and in any of its child OUs,
+     * including any child OUs and accounts that are added at a later time.
      * </p>
      * <p>
-     * The key to the map is <code>ACCOUNT</code>. For example, a valid <code>IncludeMap</code> would be
+     * You can specify inclusions or exclusions, but not both. If you specify an <code>IncludeMap</code>, Firewall
+     * Manager applies the policy to all accounts specified by the <code>IncludeMap</code>, and does not evaluate any
+     * <code>ExcludeMap</code> specifications. If you do not specify an <code>IncludeMap</code>, then Firewall Manager
+     * applies the policy to all accounts except for those specified by the <code>ExcludeMap</code>.
+     * </p>
+     * <p>
+     * You can specify account IDs, OUs, or a combination:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Specify account IDs by setting the key to <code>ACCOUNT</code>. For example, the following is a valid map:
      * <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Specify OUs by setting the key to <code>ORG_UNIT</code>. For example, the following is a valid map:
+     * <code>{“ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Specify accounts and OUs together in a single map, separated with a comma. For example, the following is a valid
+     * map: <code>{“ACCOUNT” : [“accountID1”, “accountID2”], “ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param includeMap
-     *        Specifies the AWS account IDs to include in the policy. If <code>IncludeMap</code> is null, all accounts
-     *        in the organization in AWS Organizations are included in the policy. If <code>IncludeMap</code> is not
-     *        null, only values listed in <code>IncludeMap</code> are included in the policy.</p>
+     *        Specifies the Amazon Web Services account IDs and Organizations organizational units (OUs) to include in
+     *        the policy. Specifying an OU is the equivalent of specifying all accounts in the OU and in any of its
+     *        child OUs, including any child OUs and accounts that are added at a later time.</p>
      *        <p>
-     *        The key to the map is <code>ACCOUNT</code>. For example, a valid <code>IncludeMap</code> would be
+     *        You can specify inclusions or exclusions, but not both. If you specify an <code>IncludeMap</code>,
+     *        Firewall Manager applies the policy to all accounts specified by the <code>IncludeMap</code>, and does not
+     *        evaluate any <code>ExcludeMap</code> specifications. If you do not specify an <code>IncludeMap</code>,
+     *        then Firewall Manager applies the policy to all accounts except for those specified by the
+     *        <code>ExcludeMap</code>.
+     *        </p>
+     *        <p>
+     *        You can specify account IDs, OUs, or a combination:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Specify account IDs by setting the key to <code>ACCOUNT</code>. For example, the following is a valid map:
      *        <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Specify OUs by setting the key to <code>ORG_UNIT</code>. For example, the following is a valid map:
+     *        <code>{“ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Specify accounts and OUs together in a single map, separated with a comma. For example, the following is a
+     *        valid map: <code>{“ACCOUNT” : [“accountID1”, “accountID2”], “ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     *        </p>
+     *        </li>
      */
 
     public void setIncludeMap(java.util.Map<String, java.util.List<String>> includeMap) {
@@ -659,22 +1303,73 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the AWS account IDs to include in the policy. If <code>IncludeMap</code> is null, all accounts in the
-     * organization in AWS Organizations are included in the policy. If <code>IncludeMap</code> is not null, only values
-     * listed in <code>IncludeMap</code> are included in the policy.
+     * Specifies the Amazon Web Services account IDs and Organizations organizational units (OUs) to include in the
+     * policy. Specifying an OU is the equivalent of specifying all accounts in the OU and in any of its child OUs,
+     * including any child OUs and accounts that are added at a later time.
      * </p>
      * <p>
-     * The key to the map is <code>ACCOUNT</code>. For example, a valid <code>IncludeMap</code> would be
+     * You can specify inclusions or exclusions, but not both. If you specify an <code>IncludeMap</code>, Firewall
+     * Manager applies the policy to all accounts specified by the <code>IncludeMap</code>, and does not evaluate any
+     * <code>ExcludeMap</code> specifications. If you do not specify an <code>IncludeMap</code>, then Firewall Manager
+     * applies the policy to all accounts except for those specified by the <code>ExcludeMap</code>.
+     * </p>
+     * <p>
+     * You can specify account IDs, OUs, or a combination:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Specify account IDs by setting the key to <code>ACCOUNT</code>. For example, the following is a valid map:
      * <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Specify OUs by setting the key to <code>ORG_UNIT</code>. For example, the following is a valid map:
+     * <code>{“ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Specify accounts and OUs together in a single map, separated with a comma. For example, the following is a valid
+     * map: <code>{“ACCOUNT” : [“accountID1”, “accountID2”], “ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param includeMap
-     *        Specifies the AWS account IDs to include in the policy. If <code>IncludeMap</code> is null, all accounts
-     *        in the organization in AWS Organizations are included in the policy. If <code>IncludeMap</code> is not
-     *        null, only values listed in <code>IncludeMap</code> are included in the policy.</p>
+     *        Specifies the Amazon Web Services account IDs and Organizations organizational units (OUs) to include in
+     *        the policy. Specifying an OU is the equivalent of specifying all accounts in the OU and in any of its
+     *        child OUs, including any child OUs and accounts that are added at a later time.</p>
      *        <p>
-     *        The key to the map is <code>ACCOUNT</code>. For example, a valid <code>IncludeMap</code> would be
+     *        You can specify inclusions or exclusions, but not both. If you specify an <code>IncludeMap</code>,
+     *        Firewall Manager applies the policy to all accounts specified by the <code>IncludeMap</code>, and does not
+     *        evaluate any <code>ExcludeMap</code> specifications. If you do not specify an <code>IncludeMap</code>,
+     *        then Firewall Manager applies the policy to all accounts except for those specified by the
+     *        <code>ExcludeMap</code>.
+     *        </p>
+     *        <p>
+     *        You can specify account IDs, OUs, or a combination:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Specify account IDs by setting the key to <code>ACCOUNT</code>. For example, the following is a valid map:
      *        <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Specify OUs by setting the key to <code>ORG_UNIT</code>. For example, the following is a valid map:
+     *        <code>{“ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Specify accounts and OUs together in a single map, separated with a comma. For example, the following is a
+     *        valid map: <code>{“ACCOUNT” : [“accountID1”, “accountID2”], “ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -682,6 +1377,13 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
         setIncludeMap(includeMap);
         return this;
     }
+
+    /**
+     * Add a single IncludeMap entry
+     *
+     * @see Policy#withIncludeMap
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public Policy addIncludeMapEntry(String key, java.util.List<String> value) {
         if (null == this.includeMap) {
@@ -706,21 +1408,73 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the AWS account IDs to exclude from the policy. The <code>IncludeMap</code> values are evaluated first,
-     * with all the appropriate account IDs added to the policy. Then the accounts listed in <code>ExcludeMap</code> are
-     * removed, resulting in the final list of accounts to add to the policy.
+     * Specifies the Amazon Web Services account IDs and Organizations organizational units (OUs) to exclude from the
+     * policy. Specifying an OU is the equivalent of specifying all accounts in the OU and in any of its child OUs,
+     * including any child OUs and accounts that are added at a later time.
      * </p>
      * <p>
-     * The key to the map is <code>ACCOUNT</code>. For example, a valid <code>ExcludeMap</code> would be
+     * You can specify inclusions or exclusions, but not both. If you specify an <code>IncludeMap</code>, Firewall
+     * Manager applies the policy to all accounts specified by the <code>IncludeMap</code>, and does not evaluate any
+     * <code>ExcludeMap</code> specifications. If you do not specify an <code>IncludeMap</code>, then Firewall Manager
+     * applies the policy to all accounts except for those specified by the <code>ExcludeMap</code>.
+     * </p>
+     * <p>
+     * You can specify account IDs, OUs, or a combination:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Specify account IDs by setting the key to <code>ACCOUNT</code>. For example, the following is a valid map:
      * <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Specify OUs by setting the key to <code>ORG_UNIT</code>. For example, the following is a valid map:
+     * <code>{“ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Specify accounts and OUs together in a single map, separated with a comma. For example, the following is a valid
+     * map: <code>{“ACCOUNT” : [“accountID1”, “accountID2”], “ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return Specifies the AWS account IDs to exclude from the policy. The <code>IncludeMap</code> values are
-     *         evaluated first, with all the appropriate account IDs added to the policy. Then the accounts listed in
-     *         <code>ExcludeMap</code> are removed, resulting in the final list of accounts to add to the policy.</p>
+     * @return Specifies the Amazon Web Services account IDs and Organizations organizational units (OUs) to exclude
+     *         from the policy. Specifying an OU is the equivalent of specifying all accounts in the OU and in any of
+     *         its child OUs, including any child OUs and accounts that are added at a later time.</p>
      *         <p>
-     *         The key to the map is <code>ACCOUNT</code>. For example, a valid <code>ExcludeMap</code> would be
-     *         <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
+     *         You can specify inclusions or exclusions, but not both. If you specify an <code>IncludeMap</code>,
+     *         Firewall Manager applies the policy to all accounts specified by the <code>IncludeMap</code>, and does
+     *         not evaluate any <code>ExcludeMap</code> specifications. If you do not specify an <code>IncludeMap</code>
+     *         , then Firewall Manager applies the policy to all accounts except for those specified by the
+     *         <code>ExcludeMap</code>.
+     *         </p>
+     *         <p>
+     *         You can specify account IDs, OUs, or a combination:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Specify account IDs by setting the key to <code>ACCOUNT</code>. For example, the following is a valid
+     *         map: <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Specify OUs by setting the key to <code>ORG_UNIT</code>. For example, the following is a valid map:
+     *         <code>{“ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Specify accounts and OUs together in a single map, separated with a comma. For example, the following is
+     *         a valid map: <code>{“ACCOUNT” : [“accountID1”, “accountID2”], “ORG_UNIT” : [“ouid111”, “ouid112”]}</code>
+     *         .
+     *         </p>
+     *         </li>
      */
 
     public java.util.Map<String, java.util.List<String>> getExcludeMap() {
@@ -729,22 +1483,73 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the AWS account IDs to exclude from the policy. The <code>IncludeMap</code> values are evaluated first,
-     * with all the appropriate account IDs added to the policy. Then the accounts listed in <code>ExcludeMap</code> are
-     * removed, resulting in the final list of accounts to add to the policy.
+     * Specifies the Amazon Web Services account IDs and Organizations organizational units (OUs) to exclude from the
+     * policy. Specifying an OU is the equivalent of specifying all accounts in the OU and in any of its child OUs,
+     * including any child OUs and accounts that are added at a later time.
      * </p>
      * <p>
-     * The key to the map is <code>ACCOUNT</code>. For example, a valid <code>ExcludeMap</code> would be
+     * You can specify inclusions or exclusions, but not both. If you specify an <code>IncludeMap</code>, Firewall
+     * Manager applies the policy to all accounts specified by the <code>IncludeMap</code>, and does not evaluate any
+     * <code>ExcludeMap</code> specifications. If you do not specify an <code>IncludeMap</code>, then Firewall Manager
+     * applies the policy to all accounts except for those specified by the <code>ExcludeMap</code>.
+     * </p>
+     * <p>
+     * You can specify account IDs, OUs, or a combination:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Specify account IDs by setting the key to <code>ACCOUNT</code>. For example, the following is a valid map:
      * <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Specify OUs by setting the key to <code>ORG_UNIT</code>. For example, the following is a valid map:
+     * <code>{“ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Specify accounts and OUs together in a single map, separated with a comma. For example, the following is a valid
+     * map: <code>{“ACCOUNT” : [“accountID1”, “accountID2”], “ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param excludeMap
-     *        Specifies the AWS account IDs to exclude from the policy. The <code>IncludeMap</code> values are evaluated
-     *        first, with all the appropriate account IDs added to the policy. Then the accounts listed in
-     *        <code>ExcludeMap</code> are removed, resulting in the final list of accounts to add to the policy.</p>
+     *        Specifies the Amazon Web Services account IDs and Organizations organizational units (OUs) to exclude from
+     *        the policy. Specifying an OU is the equivalent of specifying all accounts in the OU and in any of its
+     *        child OUs, including any child OUs and accounts that are added at a later time.</p>
      *        <p>
-     *        The key to the map is <code>ACCOUNT</code>. For example, a valid <code>ExcludeMap</code> would be
+     *        You can specify inclusions or exclusions, but not both. If you specify an <code>IncludeMap</code>,
+     *        Firewall Manager applies the policy to all accounts specified by the <code>IncludeMap</code>, and does not
+     *        evaluate any <code>ExcludeMap</code> specifications. If you do not specify an <code>IncludeMap</code>,
+     *        then Firewall Manager applies the policy to all accounts except for those specified by the
+     *        <code>ExcludeMap</code>.
+     *        </p>
+     *        <p>
+     *        You can specify account IDs, OUs, or a combination:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Specify account IDs by setting the key to <code>ACCOUNT</code>. For example, the following is a valid map:
      *        <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Specify OUs by setting the key to <code>ORG_UNIT</code>. For example, the following is a valid map:
+     *        <code>{“ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Specify accounts and OUs together in a single map, separated with a comma. For example, the following is a
+     *        valid map: <code>{“ACCOUNT” : [“accountID1”, “accountID2”], “ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     *        </p>
+     *        </li>
      */
 
     public void setExcludeMap(java.util.Map<String, java.util.List<String>> excludeMap) {
@@ -753,22 +1558,73 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the AWS account IDs to exclude from the policy. The <code>IncludeMap</code> values are evaluated first,
-     * with all the appropriate account IDs added to the policy. Then the accounts listed in <code>ExcludeMap</code> are
-     * removed, resulting in the final list of accounts to add to the policy.
+     * Specifies the Amazon Web Services account IDs and Organizations organizational units (OUs) to exclude from the
+     * policy. Specifying an OU is the equivalent of specifying all accounts in the OU and in any of its child OUs,
+     * including any child OUs and accounts that are added at a later time.
      * </p>
      * <p>
-     * The key to the map is <code>ACCOUNT</code>. For example, a valid <code>ExcludeMap</code> would be
+     * You can specify inclusions or exclusions, but not both. If you specify an <code>IncludeMap</code>, Firewall
+     * Manager applies the policy to all accounts specified by the <code>IncludeMap</code>, and does not evaluate any
+     * <code>ExcludeMap</code> specifications. If you do not specify an <code>IncludeMap</code>, then Firewall Manager
+     * applies the policy to all accounts except for those specified by the <code>ExcludeMap</code>.
+     * </p>
+     * <p>
+     * You can specify account IDs, OUs, or a combination:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Specify account IDs by setting the key to <code>ACCOUNT</code>. For example, the following is a valid map:
      * <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Specify OUs by setting the key to <code>ORG_UNIT</code>. For example, the following is a valid map:
+     * <code>{“ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Specify accounts and OUs together in a single map, separated with a comma. For example, the following is a valid
+     * map: <code>{“ACCOUNT” : [“accountID1”, “accountID2”], “ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param excludeMap
-     *        Specifies the AWS account IDs to exclude from the policy. The <code>IncludeMap</code> values are evaluated
-     *        first, with all the appropriate account IDs added to the policy. Then the accounts listed in
-     *        <code>ExcludeMap</code> are removed, resulting in the final list of accounts to add to the policy.</p>
+     *        Specifies the Amazon Web Services account IDs and Organizations organizational units (OUs) to exclude from
+     *        the policy. Specifying an OU is the equivalent of specifying all accounts in the OU and in any of its
+     *        child OUs, including any child OUs and accounts that are added at a later time.</p>
      *        <p>
-     *        The key to the map is <code>ACCOUNT</code>. For example, a valid <code>ExcludeMap</code> would be
+     *        You can specify inclusions or exclusions, but not both. If you specify an <code>IncludeMap</code>,
+     *        Firewall Manager applies the policy to all accounts specified by the <code>IncludeMap</code>, and does not
+     *        evaluate any <code>ExcludeMap</code> specifications. If you do not specify an <code>IncludeMap</code>,
+     *        then Firewall Manager applies the policy to all accounts except for those specified by the
+     *        <code>ExcludeMap</code>.
+     *        </p>
+     *        <p>
+     *        You can specify account IDs, OUs, or a combination:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Specify account IDs by setting the key to <code>ACCOUNT</code>. For example, the following is a valid map:
      *        <code>{“ACCOUNT” : [“accountID1”, “accountID2”]}</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Specify OUs by setting the key to <code>ORG_UNIT</code>. For example, the following is a valid map:
+     *        <code>{“ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Specify accounts and OUs together in a single map, separated with a comma. For example, the following is a
+     *        valid map: <code>{“ACCOUNT” : [“accountID1”, “accountID2”], “ORG_UNIT” : [“ouid111”, “ouid112”]}</code>.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -776,6 +1632,13 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
         setExcludeMap(excludeMap);
         return this;
     }
+
+    /**
+     * Add a single ExcludeMap entry
+     *
+     * @see Policy#withExcludeMap
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public Policy addExcludeMapEntry(String key, java.util.List<String> value) {
         if (null == this.excludeMap) {
@@ -795,6 +1658,283 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
 
     public Policy clearExcludeMapEntries() {
         this.excludeMap = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The unique identifiers of the resource sets used by the policy.
+     * </p>
+     * 
+     * @return The unique identifiers of the resource sets used by the policy.
+     */
+
+    public java.util.List<String> getResourceSetIds() {
+        return resourceSetIds;
+    }
+
+    /**
+     * <p>
+     * The unique identifiers of the resource sets used by the policy.
+     * </p>
+     * 
+     * @param resourceSetIds
+     *        The unique identifiers of the resource sets used by the policy.
+     */
+
+    public void setResourceSetIds(java.util.Collection<String> resourceSetIds) {
+        if (resourceSetIds == null) {
+            this.resourceSetIds = null;
+            return;
+        }
+
+        this.resourceSetIds = new java.util.ArrayList<String>(resourceSetIds);
+    }
+
+    /**
+     * <p>
+     * The unique identifiers of the resource sets used by the policy.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setResourceSetIds(java.util.Collection)} or {@link #withResourceSetIds(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param resourceSetIds
+     *        The unique identifiers of the resource sets used by the policy.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Policy withResourceSetIds(String... resourceSetIds) {
+        if (this.resourceSetIds == null) {
+            setResourceSetIds(new java.util.ArrayList<String>(resourceSetIds.length));
+        }
+        for (String ele : resourceSetIds) {
+            this.resourceSetIds.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The unique identifiers of the resource sets used by the policy.
+     * </p>
+     * 
+     * @param resourceSetIds
+     *        The unique identifiers of the resource sets used by the policy.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Policy withResourceSetIds(java.util.Collection<String> resourceSetIds) {
+        setResourceSetIds(resourceSetIds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Your description of the Firewall Manager policy.
+     * </p>
+     * 
+     * @param policyDescription
+     *        Your description of the Firewall Manager policy.
+     */
+
+    public void setPolicyDescription(String policyDescription) {
+        this.policyDescription = policyDescription;
+    }
+
+    /**
+     * <p>
+     * Your description of the Firewall Manager policy.
+     * </p>
+     * 
+     * @return Your description of the Firewall Manager policy.
+     */
+
+    public String getPolicyDescription() {
+        return this.policyDescription;
+    }
+
+    /**
+     * <p>
+     * Your description of the Firewall Manager policy.
+     * </p>
+     * 
+     * @param policyDescription
+     *        Your description of the Firewall Manager policy.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Policy withPolicyDescription(String policyDescription) {
+        setPolicyDescription(policyDescription);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the policy is in or out of an admin's policy or Region scope.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete the
+     * policy. Existing policy protections stay in place. Any new resources that come into scope of the policy won't be
+     * protected.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param policyStatus
+     *        Indicates whether the policy is in or out of an admin's policy or Region scope.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete the
+     *        policy. Existing policy protections stay in place. Any new resources that come into scope of the policy
+     *        won't be protected.
+     *        </p>
+     *        </li>
+     * @see CustomerPolicyStatus
+     */
+
+    public void setPolicyStatus(String policyStatus) {
+        this.policyStatus = policyStatus;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the policy is in or out of an admin's policy or Region scope.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete the
+     * policy. Existing policy protections stay in place. Any new resources that come into scope of the policy won't be
+     * protected.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Indicates whether the policy is in or out of an admin's policy or Region scope.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete
+     *         the policy. Existing policy protections stay in place. Any new resources that come into scope of the
+     *         policy won't be protected.
+     *         </p>
+     *         </li>
+     * @see CustomerPolicyStatus
+     */
+
+    public String getPolicyStatus() {
+        return this.policyStatus;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the policy is in or out of an admin's policy or Region scope.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete the
+     * policy. Existing policy protections stay in place. Any new resources that come into scope of the policy won't be
+     * protected.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param policyStatus
+     *        Indicates whether the policy is in or out of an admin's policy or Region scope.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete the
+     *        policy. Existing policy protections stay in place. Any new resources that come into scope of the policy
+     *        won't be protected.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CustomerPolicyStatus
+     */
+
+    public Policy withPolicyStatus(String policyStatus) {
+        setPolicyStatus(policyStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the policy is in or out of an admin's policy or Region scope.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete the
+     * policy. Existing policy protections stay in place. Any new resources that come into scope of the policy won't be
+     * protected.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param policyStatus
+     *        Indicates whether the policy is in or out of an admin's policy or Region scope.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ACTIVE</code> - The administrator can manage and delete the policy.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>OUT_OF_ADMIN_SCOPE</code> - The administrator can view the policy, but they can't edit or delete the
+     *        policy. Existing policy protections stay in place. Any new resources that come into scope of the policy
+     *        won't be protected.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CustomerPolicyStatus
+     */
+
+    public Policy withPolicyStatus(CustomerPolicyStatus policyStatus) {
+        this.policyStatus = policyStatus.toString();
         return this;
     }
 
@@ -828,10 +1968,18 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
             sb.append("ExcludeResourceTags: ").append(getExcludeResourceTags()).append(",");
         if (getRemediationEnabled() != null)
             sb.append("RemediationEnabled: ").append(getRemediationEnabled()).append(",");
+        if (getDeleteUnusedFMManagedResources() != null)
+            sb.append("DeleteUnusedFMManagedResources: ").append(getDeleteUnusedFMManagedResources()).append(",");
         if (getIncludeMap() != null)
             sb.append("IncludeMap: ").append(getIncludeMap()).append(",");
         if (getExcludeMap() != null)
-            sb.append("ExcludeMap: ").append(getExcludeMap());
+            sb.append("ExcludeMap: ").append(getExcludeMap()).append(",");
+        if (getResourceSetIds() != null)
+            sb.append("ResourceSetIds: ").append(getResourceSetIds()).append(",");
+        if (getPolicyDescription() != null)
+            sb.append("PolicyDescription: ").append(getPolicyDescription()).append(",");
+        if (getPolicyStatus() != null)
+            sb.append("PolicyStatus: ").append(getPolicyStatus());
         sb.append("}");
         return sb.toString();
     }
@@ -882,6 +2030,11 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getRemediationEnabled() != null && other.getRemediationEnabled().equals(this.getRemediationEnabled()) == false)
             return false;
+        if (other.getDeleteUnusedFMManagedResources() == null ^ this.getDeleteUnusedFMManagedResources() == null)
+            return false;
+        if (other.getDeleteUnusedFMManagedResources() != null
+                && other.getDeleteUnusedFMManagedResources().equals(this.getDeleteUnusedFMManagedResources()) == false)
+            return false;
         if (other.getIncludeMap() == null ^ this.getIncludeMap() == null)
             return false;
         if (other.getIncludeMap() != null && other.getIncludeMap().equals(this.getIncludeMap()) == false)
@@ -889,6 +2042,18 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
         if (other.getExcludeMap() == null ^ this.getExcludeMap() == null)
             return false;
         if (other.getExcludeMap() != null && other.getExcludeMap().equals(this.getExcludeMap()) == false)
+            return false;
+        if (other.getResourceSetIds() == null ^ this.getResourceSetIds() == null)
+            return false;
+        if (other.getResourceSetIds() != null && other.getResourceSetIds().equals(this.getResourceSetIds()) == false)
+            return false;
+        if (other.getPolicyDescription() == null ^ this.getPolicyDescription() == null)
+            return false;
+        if (other.getPolicyDescription() != null && other.getPolicyDescription().equals(this.getPolicyDescription()) == false)
+            return false;
+        if (other.getPolicyStatus() == null ^ this.getPolicyStatus() == null)
+            return false;
+        if (other.getPolicyStatus() != null && other.getPolicyStatus().equals(this.getPolicyStatus()) == false)
             return false;
         return true;
     }
@@ -907,8 +2072,12 @@ public class Policy implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getResourceTags() == null) ? 0 : getResourceTags().hashCode());
         hashCode = prime * hashCode + ((getExcludeResourceTags() == null) ? 0 : getExcludeResourceTags().hashCode());
         hashCode = prime * hashCode + ((getRemediationEnabled() == null) ? 0 : getRemediationEnabled().hashCode());
+        hashCode = prime * hashCode + ((getDeleteUnusedFMManagedResources() == null) ? 0 : getDeleteUnusedFMManagedResources().hashCode());
         hashCode = prime * hashCode + ((getIncludeMap() == null) ? 0 : getIncludeMap().hashCode());
         hashCode = prime * hashCode + ((getExcludeMap() == null) ? 0 : getExcludeMap().hashCode());
+        hashCode = prime * hashCode + ((getResourceSetIds() == null) ? 0 : getResourceSetIds().hashCode());
+        hashCode = prime * hashCode + ((getPolicyDescription() == null) ? 0 : getPolicyDescription().hashCode());
+        hashCode = prime * hashCode + ((getPolicyStatus() == null) ? 0 : getPolicyStatus().hashCode());
         return hashCode;
     }
 

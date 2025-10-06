@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An activity that adds data from the AWS IoT device registry to your message.
+ * An activity that adds data from the IoT device registry to your message.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iotanalytics-2017-11-27/DeviceRegistryEnrichActivity"
@@ -30,7 +30,7 @@ public class DeviceRegistryEnrichActivity implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The name of the 'deviceRegistryEnrich' activity.
+     * The name of the <code>deviceRegistryEnrich</code> activity.
      * </p>
      */
     private String name;
@@ -61,11 +61,11 @@ public class DeviceRegistryEnrichActivity implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The name of the 'deviceRegistryEnrich' activity.
+     * The name of the <code>deviceRegistryEnrich</code> activity.
      * </p>
      * 
      * @param name
-     *        The name of the 'deviceRegistryEnrich' activity.
+     *        The name of the <code>deviceRegistryEnrich</code> activity.
      */
 
     public void setName(String name) {
@@ -74,10 +74,10 @@ public class DeviceRegistryEnrichActivity implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The name of the 'deviceRegistryEnrich' activity.
+     * The name of the <code>deviceRegistryEnrich</code> activity.
      * </p>
      * 
-     * @return The name of the 'deviceRegistryEnrich' activity.
+     * @return The name of the <code>deviceRegistryEnrich</code> activity.
      */
 
     public String getName() {
@@ -86,11 +86,11 @@ public class DeviceRegistryEnrichActivity implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The name of the 'deviceRegistryEnrich' activity.
+     * The name of the <code>deviceRegistryEnrich</code> activity.
      * </p>
      * 
      * @param name
-     *        The name of the 'deviceRegistryEnrich' activity.
+     *        The name of the <code>deviceRegistryEnrich</code> activity.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

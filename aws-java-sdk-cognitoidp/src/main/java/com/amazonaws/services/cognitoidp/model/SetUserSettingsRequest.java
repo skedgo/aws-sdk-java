@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,24 +30,24 @@ public class SetUserSettingsRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The access token for the set user settings request.
+     * A valid access token that Amazon Cognito issued to the user whose user settings you want to configure.
      * </p>
      */
     private String accessToken;
     /**
      * <p>
-     * Specifies the options for MFA (e.g., email or phone number).
+     * You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      * </p>
      */
     private java.util.List<MFAOptionType> mFAOptions;
 
     /**
      * <p>
-     * The access token for the set user settings request.
+     * A valid access token that Amazon Cognito issued to the user whose user settings you want to configure.
      * </p>
      * 
      * @param accessToken
-     *        The access token for the set user settings request.
+     *        A valid access token that Amazon Cognito issued to the user whose user settings you want to configure.
      */
 
     public void setAccessToken(String accessToken) {
@@ -56,10 +56,10 @@ public class SetUserSettingsRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The access token for the set user settings request.
+     * A valid access token that Amazon Cognito issued to the user whose user settings you want to configure.
      * </p>
      * 
-     * @return The access token for the set user settings request.
+     * @return A valid access token that Amazon Cognito issued to the user whose user settings you want to configure.
      */
 
     public String getAccessToken() {
@@ -68,11 +68,11 @@ public class SetUserSettingsRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The access token for the set user settings request.
+     * A valid access token that Amazon Cognito issued to the user whose user settings you want to configure.
      * </p>
      * 
      * @param accessToken
-     *        The access token for the set user settings request.
+     *        A valid access token that Amazon Cognito issued to the user whose user settings you want to configure.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -83,10 +83,10 @@ public class SetUserSettingsRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Specifies the options for MFA (e.g., email or phone number).
+     * You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      * </p>
      * 
-     * @return Specifies the options for MFA (e.g., email or phone number).
+     * @return You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      */
 
     public java.util.List<MFAOptionType> getMFAOptions() {
@@ -95,11 +95,11 @@ public class SetUserSettingsRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Specifies the options for MFA (e.g., email or phone number).
+     * You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      * </p>
      * 
      * @param mFAOptions
-     *        Specifies the options for MFA (e.g., email or phone number).
+     *        You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      */
 
     public void setMFAOptions(java.util.Collection<MFAOptionType> mFAOptions) {
@@ -113,7 +113,7 @@ public class SetUserSettingsRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Specifies the options for MFA (e.g., email or phone number).
+     * You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -122,7 +122,7 @@ public class SetUserSettingsRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * 
      * @param mFAOptions
-     *        Specifies the options for MFA (e.g., email or phone number).
+     *        You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -138,11 +138,11 @@ public class SetUserSettingsRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Specifies the options for MFA (e.g., email or phone number).
+     * You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      * </p>
      * 
      * @param mFAOptions
-     *        Specifies the options for MFA (e.g., email or phone number).
+     *        You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

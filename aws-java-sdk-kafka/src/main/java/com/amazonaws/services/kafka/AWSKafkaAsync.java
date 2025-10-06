@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,86 @@ public interface AWSKafkaAsync extends AWSKafka {
 
     /**
      * <p>
+     * Associates one or more Scram Secrets with an Amazon MSK cluster.
+     * </p>
+     * 
+     * @param batchAssociateScramSecretRequest
+     *        <p>
+     *        Associates sasl scram secrets to cluster.
+     *        </p>
+     * @return A Java Future containing the result of the BatchAssociateScramSecret operation returned by the service.
+     * @sample AWSKafkaAsync.BatchAssociateScramSecret
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/BatchAssociateScramSecret"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<BatchAssociateScramSecretResult> batchAssociateScramSecretAsync(
+            BatchAssociateScramSecretRequest batchAssociateScramSecretRequest);
+
+    /**
+     * <p>
+     * Associates one or more Scram Secrets with an Amazon MSK cluster.
+     * </p>
+     * 
+     * @param batchAssociateScramSecretRequest
+     *        <p>
+     *        Associates sasl scram secrets to cluster.
+     *        </p>
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the BatchAssociateScramSecret operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.BatchAssociateScramSecret
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/BatchAssociateScramSecret"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<BatchAssociateScramSecretResult> batchAssociateScramSecretAsync(
+            BatchAssociateScramSecretRequest batchAssociateScramSecretRequest,
+            com.amazonaws.handlers.AsyncHandler<BatchAssociateScramSecretRequest, BatchAssociateScramSecretResult> asyncHandler);
+
+    /**
+     * <p>
+     * Disassociates one or more Scram Secrets from an Amazon MSK cluster.
+     * </p>
+     * 
+     * @param batchDisassociateScramSecretRequest
+     *        <p>
+     *        Disassociates sasl scram secrets to cluster.
+     *        </p>
+     * @return A Java Future containing the result of the BatchDisassociateScramSecret operation returned by the
+     *         service.
+     * @sample AWSKafkaAsync.BatchDisassociateScramSecret
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/BatchDisassociateScramSecret"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<BatchDisassociateScramSecretResult> batchDisassociateScramSecretAsync(
+            BatchDisassociateScramSecretRequest batchDisassociateScramSecretRequest);
+
+    /**
+     * <p>
+     * Disassociates one or more Scram Secrets from an Amazon MSK cluster.
+     * </p>
+     * 
+     * @param batchDisassociateScramSecretRequest
+     *        <p>
+     *        Disassociates sasl scram secrets to cluster.
+     *        </p>
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the BatchDisassociateScramSecret operation returned by the
+     *         service.
+     * @sample AWSKafkaAsyncHandler.BatchDisassociateScramSecret
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/BatchDisassociateScramSecret"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<BatchDisassociateScramSecretResult> batchDisassociateScramSecretAsync(
+            BatchDisassociateScramSecretRequest batchDisassociateScramSecretRequest,
+            com.amazonaws.handlers.AsyncHandler<BatchDisassociateScramSecretRequest, BatchDisassociateScramSecretResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates a new MSK cluster.
      * </p>
      * 
@@ -63,6 +143,37 @@ public interface AWSKafkaAsync extends AWSKafka {
      */
     java.util.concurrent.Future<CreateClusterResult> createClusterAsync(CreateClusterRequest createClusterRequest,
             com.amazonaws.handlers.AsyncHandler<CreateClusterRequest, CreateClusterResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new MSK cluster.
+     * </p>
+     * 
+     * @param createClusterV2Request
+     * @return A Java Future containing the result of the CreateClusterV2 operation returned by the service.
+     * @sample AWSKafkaAsync.CreateClusterV2
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/CreateClusterV2" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateClusterV2Result> createClusterV2Async(CreateClusterV2Request createClusterV2Request);
+
+    /**
+     * <p>
+     * Creates a new MSK cluster.
+     * </p>
+     * 
+     * @param createClusterV2Request
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateClusterV2 operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.CreateClusterV2
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/CreateClusterV2" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateClusterV2Result> createClusterV2Async(CreateClusterV2Request createClusterV2Request,
+            com.amazonaws.handlers.AsyncHandler<CreateClusterV2Request, CreateClusterV2Result> asyncHandler);
 
     /**
      * <p>
@@ -97,6 +208,70 @@ public interface AWSKafkaAsync extends AWSKafka {
 
     /**
      * <p>
+     * Creates the replicator.
+     * </p>
+     * 
+     * @param createReplicatorRequest
+     *        Creates a replicator using the specified configuration.
+     * @return A Java Future containing the result of the CreateReplicator operation returned by the service.
+     * @sample AWSKafkaAsync.CreateReplicator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/CreateReplicator" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateReplicatorResult> createReplicatorAsync(CreateReplicatorRequest createReplicatorRequest);
+
+    /**
+     * <p>
+     * Creates the replicator.
+     * </p>
+     * 
+     * @param createReplicatorRequest
+     *        Creates a replicator using the specified configuration.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateReplicator operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.CreateReplicator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/CreateReplicator" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateReplicatorResult> createReplicatorAsync(CreateReplicatorRequest createReplicatorRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateReplicatorRequest, CreateReplicatorResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new MSK VPC connection.
+     * </p>
+     * 
+     * @param createVpcConnectionRequest
+     * @return A Java Future containing the result of the CreateVpcConnection operation returned by the service.
+     * @sample AWSKafkaAsync.CreateVpcConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/CreateVpcConnection" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateVpcConnectionResult> createVpcConnectionAsync(CreateVpcConnectionRequest createVpcConnectionRequest);
+
+    /**
+     * <p>
+     * Creates a new MSK VPC connection.
+     * </p>
+     * 
+     * @param createVpcConnectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateVpcConnection operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.CreateVpcConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/CreateVpcConnection" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateVpcConnectionResult> createVpcConnectionAsync(CreateVpcConnectionRequest createVpcConnectionRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateVpcConnectionRequest, CreateVpcConnectionResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes the MSK cluster specified by the Amazon Resource Name (ARN) in the request.
      * </p>
      * 
@@ -125,6 +300,130 @@ public interface AWSKafkaAsync extends AWSKafka {
      */
     java.util.concurrent.Future<DeleteClusterResult> deleteClusterAsync(DeleteClusterRequest deleteClusterRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteClusterRequest, DeleteClusterResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the MSK cluster policy specified by the Amazon Resource Name (ARN) in the request.
+     * </p>
+     * 
+     * @param deleteClusterPolicyRequest
+     * @return A Java Future containing the result of the DeleteClusterPolicy operation returned by the service.
+     * @sample AWSKafkaAsync.DeleteClusterPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DeleteClusterPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteClusterPolicyResult> deleteClusterPolicyAsync(DeleteClusterPolicyRequest deleteClusterPolicyRequest);
+
+    /**
+     * <p>
+     * Deletes the MSK cluster policy specified by the Amazon Resource Name (ARN) in the request.
+     * </p>
+     * 
+     * @param deleteClusterPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteClusterPolicy operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.DeleteClusterPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DeleteClusterPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteClusterPolicyResult> deleteClusterPolicyAsync(DeleteClusterPolicyRequest deleteClusterPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteClusterPolicyRequest, DeleteClusterPolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an MSK Configuration.
+     * </p>
+     * 
+     * @param deleteConfigurationRequest
+     * @return A Java Future containing the result of the DeleteConfiguration operation returned by the service.
+     * @sample AWSKafkaAsync.DeleteConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DeleteConfiguration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteConfigurationResult> deleteConfigurationAsync(DeleteConfigurationRequest deleteConfigurationRequest);
+
+    /**
+     * <p>
+     * Deletes an MSK Configuration.
+     * </p>
+     * 
+     * @param deleteConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteConfiguration operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.DeleteConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DeleteConfiguration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteConfigurationResult> deleteConfigurationAsync(DeleteConfigurationRequest deleteConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteConfigurationRequest, DeleteConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a replicator.
+     * </p>
+     * 
+     * @param deleteReplicatorRequest
+     * @return A Java Future containing the result of the DeleteReplicator operation returned by the service.
+     * @sample AWSKafkaAsync.DeleteReplicator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DeleteReplicator" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteReplicatorResult> deleteReplicatorAsync(DeleteReplicatorRequest deleteReplicatorRequest);
+
+    /**
+     * <p>
+     * Deletes a replicator.
+     * </p>
+     * 
+     * @param deleteReplicatorRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteReplicator operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.DeleteReplicator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DeleteReplicator" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteReplicatorResult> deleteReplicatorAsync(DeleteReplicatorRequest deleteReplicatorRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteReplicatorRequest, DeleteReplicatorResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a MSK VPC connection.
+     * </p>
+     * 
+     * @param deleteVpcConnectionRequest
+     * @return A Java Future containing the result of the DeleteVpcConnection operation returned by the service.
+     * @sample AWSKafkaAsync.DeleteVpcConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DeleteVpcConnection" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteVpcConnectionResult> deleteVpcConnectionAsync(DeleteVpcConnectionRequest deleteVpcConnectionRequest);
+
+    /**
+     * <p>
+     * Deletes a MSK VPC connection.
+     * </p>
+     * 
+     * @param deleteVpcConnectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteVpcConnection operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.DeleteVpcConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DeleteVpcConnection" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteVpcConnectionResult> deleteVpcConnectionAsync(DeleteVpcConnectionRequest deleteVpcConnectionRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteVpcConnectionRequest, DeleteVpcConnectionResult> asyncHandler);
 
     /**
      * <p>
@@ -187,6 +486,70 @@ public interface AWSKafkaAsync extends AWSKafka {
      */
     java.util.concurrent.Future<DescribeClusterOperationResult> describeClusterOperationAsync(DescribeClusterOperationRequest describeClusterOperationRequest,
             com.amazonaws.handlers.AsyncHandler<DescribeClusterOperationRequest, DescribeClusterOperationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a description of the cluster operation specified by the ARN.
+     * </p>
+     * 
+     * @param describeClusterOperationV2Request
+     * @return A Java Future containing the result of the DescribeClusterOperationV2 operation returned by the service.
+     * @sample AWSKafkaAsync.DescribeClusterOperationV2
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DescribeClusterOperationV2"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeClusterOperationV2Result> describeClusterOperationV2Async(
+            DescribeClusterOperationV2Request describeClusterOperationV2Request);
+
+    /**
+     * <p>
+     * Returns a description of the cluster operation specified by the ARN.
+     * </p>
+     * 
+     * @param describeClusterOperationV2Request
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeClusterOperationV2 operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.DescribeClusterOperationV2
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DescribeClusterOperationV2"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeClusterOperationV2Result> describeClusterOperationV2Async(
+            DescribeClusterOperationV2Request describeClusterOperationV2Request,
+            com.amazonaws.handlers.AsyncHandler<DescribeClusterOperationV2Request, DescribeClusterOperationV2Result> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a description of the MSK cluster whose Amazon Resource Name (ARN) is specified in the request.
+     * </p>
+     * 
+     * @param describeClusterV2Request
+     * @return A Java Future containing the result of the DescribeClusterV2 operation returned by the service.
+     * @sample AWSKafkaAsync.DescribeClusterV2
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DescribeClusterV2" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeClusterV2Result> describeClusterV2Async(DescribeClusterV2Request describeClusterV2Request);
+
+    /**
+     * <p>
+     * Returns a description of the MSK cluster whose Amazon Resource Name (ARN) is specified in the request.
+     * </p>
+     * 
+     * @param describeClusterV2Request
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeClusterV2 operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.DescribeClusterV2
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DescribeClusterV2" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeClusterV2Result> describeClusterV2Async(DescribeClusterV2Request describeClusterV2Request,
+            com.amazonaws.handlers.AsyncHandler<DescribeClusterV2Request, DescribeClusterV2Result> asyncHandler);
 
     /**
      * <p>
@@ -256,6 +619,68 @@ public interface AWSKafkaAsync extends AWSKafka {
 
     /**
      * <p>
+     * Describes a replicator.
+     * </p>
+     * 
+     * @param describeReplicatorRequest
+     * @return A Java Future containing the result of the DescribeReplicator operation returned by the service.
+     * @sample AWSKafkaAsync.DescribeReplicator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DescribeReplicator" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeReplicatorResult> describeReplicatorAsync(DescribeReplicatorRequest describeReplicatorRequest);
+
+    /**
+     * <p>
+     * Describes a replicator.
+     * </p>
+     * 
+     * @param describeReplicatorRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeReplicator operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.DescribeReplicator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DescribeReplicator" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeReplicatorResult> describeReplicatorAsync(DescribeReplicatorRequest describeReplicatorRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeReplicatorRequest, DescribeReplicatorResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a description of this MSK VPC connection.
+     * </p>
+     * 
+     * @param describeVpcConnectionRequest
+     * @return A Java Future containing the result of the DescribeVpcConnection operation returned by the service.
+     * @sample AWSKafkaAsync.DescribeVpcConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DescribeVpcConnection" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeVpcConnectionResult> describeVpcConnectionAsync(DescribeVpcConnectionRequest describeVpcConnectionRequest);
+
+    /**
+     * <p>
+     * Returns a description of this MSK VPC connection.
+     * </p>
+     * 
+     * @param describeVpcConnectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeVpcConnection operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.DescribeVpcConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DescribeVpcConnection" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeVpcConnectionResult> describeVpcConnectionAsync(DescribeVpcConnectionRequest describeVpcConnectionRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeVpcConnectionRequest, DescribeVpcConnectionResult> asyncHandler);
+
+    /**
+     * <p>
      * A list of brokers that a client application can use to bootstrap.
      * </p>
      * 
@@ -284,6 +709,101 @@ public interface AWSKafkaAsync extends AWSKafka {
      */
     java.util.concurrent.Future<GetBootstrapBrokersResult> getBootstrapBrokersAsync(GetBootstrapBrokersRequest getBootstrapBrokersRequest,
             com.amazonaws.handlers.AsyncHandler<GetBootstrapBrokersRequest, GetBootstrapBrokersResult> asyncHandler);
+
+    /**
+     * <p>
+     * Get the MSK cluster policy specified by the Amazon Resource Name (ARN) in the request.
+     * </p>
+     * 
+     * @param getClusterPolicyRequest
+     * @return A Java Future containing the result of the GetClusterPolicy operation returned by the service.
+     * @sample AWSKafkaAsync.GetClusterPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/GetClusterPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetClusterPolicyResult> getClusterPolicyAsync(GetClusterPolicyRequest getClusterPolicyRequest);
+
+    /**
+     * <p>
+     * Get the MSK cluster policy specified by the Amazon Resource Name (ARN) in the request.
+     * </p>
+     * 
+     * @param getClusterPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetClusterPolicy operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.GetClusterPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/GetClusterPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetClusterPolicyResult> getClusterPolicyAsync(GetClusterPolicyRequest getClusterPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<GetClusterPolicyRequest, GetClusterPolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets the Apache Kafka versions to which you can update the MSK cluster.
+     * </p>
+     * 
+     * @param getCompatibleKafkaVersionsRequest
+     * @return A Java Future containing the result of the GetCompatibleKafkaVersions operation returned by the service.
+     * @sample AWSKafkaAsync.GetCompatibleKafkaVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/GetCompatibleKafkaVersions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetCompatibleKafkaVersionsResult> getCompatibleKafkaVersionsAsync(
+            GetCompatibleKafkaVersionsRequest getCompatibleKafkaVersionsRequest);
+
+    /**
+     * <p>
+     * Gets the Apache Kafka versions to which you can update the MSK cluster.
+     * </p>
+     * 
+     * @param getCompatibleKafkaVersionsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetCompatibleKafkaVersions operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.GetCompatibleKafkaVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/GetCompatibleKafkaVersions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetCompatibleKafkaVersionsResult> getCompatibleKafkaVersionsAsync(
+            GetCompatibleKafkaVersionsRequest getCompatibleKafkaVersionsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetCompatibleKafkaVersionsRequest, GetCompatibleKafkaVersionsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of all the VPC connections in this Region.
+     * </p>
+     * 
+     * @param listClientVpcConnectionsRequest
+     * @return A Java Future containing the result of the ListClientVpcConnections operation returned by the service.
+     * @sample AWSKafkaAsync.ListClientVpcConnections
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListClientVpcConnections" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListClientVpcConnectionsResult> listClientVpcConnectionsAsync(ListClientVpcConnectionsRequest listClientVpcConnectionsRequest);
+
+    /**
+     * <p>
+     * Returns a list of all the VPC connections in this Region.
+     * </p>
+     * 
+     * @param listClientVpcConnectionsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListClientVpcConnections operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.ListClientVpcConnections
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListClientVpcConnections" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListClientVpcConnectionsResult> listClientVpcConnectionsAsync(ListClientVpcConnectionsRequest listClientVpcConnectionsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListClientVpcConnectionsRequest, ListClientVpcConnectionsResult> asyncHandler);
 
     /**
      * <p>
@@ -318,6 +838,37 @@ public interface AWSKafkaAsync extends AWSKafka {
 
     /**
      * <p>
+     * Returns a list of all the operations that have been performed on the specified MSK cluster.
+     * </p>
+     * 
+     * @param listClusterOperationsV2Request
+     * @return A Java Future containing the result of the ListClusterOperationsV2 operation returned by the service.
+     * @sample AWSKafkaAsync.ListClusterOperationsV2
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListClusterOperationsV2" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListClusterOperationsV2Result> listClusterOperationsV2Async(ListClusterOperationsV2Request listClusterOperationsV2Request);
+
+    /**
+     * <p>
+     * Returns a list of all the operations that have been performed on the specified MSK cluster.
+     * </p>
+     * 
+     * @param listClusterOperationsV2Request
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListClusterOperationsV2 operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.ListClusterOperationsV2
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListClusterOperationsV2" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListClusterOperationsV2Result> listClusterOperationsV2Async(ListClusterOperationsV2Request listClusterOperationsV2Request,
+            com.amazonaws.handlers.AsyncHandler<ListClusterOperationsV2Request, ListClusterOperationsV2Result> asyncHandler);
+
+    /**
+     * <p>
      * Returns a list of all the MSK clusters in the current Region.
      * </p>
      * 
@@ -346,6 +897,37 @@ public interface AWSKafkaAsync extends AWSKafka {
      */
     java.util.concurrent.Future<ListClustersResult> listClustersAsync(ListClustersRequest listClustersRequest,
             com.amazonaws.handlers.AsyncHandler<ListClustersRequest, ListClustersResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of all the MSK clusters in the current Region.
+     * </p>
+     * 
+     * @param listClustersV2Request
+     * @return A Java Future containing the result of the ListClustersV2 operation returned by the service.
+     * @sample AWSKafkaAsync.ListClustersV2
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListClustersV2" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListClustersV2Result> listClustersV2Async(ListClustersV2Request listClustersV2Request);
+
+    /**
+     * <p>
+     * Returns a list of all the MSK clusters in the current Region.
+     * </p>
+     * 
+     * @param listClustersV2Request
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListClustersV2 operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.ListClustersV2
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListClustersV2" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListClustersV2Result> listClustersV2Async(ListClustersV2Request listClustersV2Request,
+            com.amazonaws.handlers.AsyncHandler<ListClustersV2Request, ListClustersV2Result> asyncHandler);
 
     /**
      * <p>
@@ -413,6 +995,37 @@ public interface AWSKafkaAsync extends AWSKafka {
 
     /**
      * <p>
+     * Returns a list of Apache Kafka versions.
+     * </p>
+     * 
+     * @param listKafkaVersionsRequest
+     * @return A Java Future containing the result of the ListKafkaVersions operation returned by the service.
+     * @sample AWSKafkaAsync.ListKafkaVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListKafkaVersions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListKafkaVersionsResult> listKafkaVersionsAsync(ListKafkaVersionsRequest listKafkaVersionsRequest);
+
+    /**
+     * <p>
+     * Returns a list of Apache Kafka versions.
+     * </p>
+     * 
+     * @param listKafkaVersionsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListKafkaVersions operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.ListKafkaVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListKafkaVersions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListKafkaVersionsResult> listKafkaVersionsAsync(ListKafkaVersionsRequest listKafkaVersionsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListKafkaVersionsRequest, ListKafkaVersionsResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns a list of the broker nodes in the cluster.
      * </p>
      * 
@@ -444,6 +1057,68 @@ public interface AWSKafkaAsync extends AWSKafka {
 
     /**
      * <p>
+     * Lists the replicators.
+     * </p>
+     * 
+     * @param listReplicatorsRequest
+     * @return A Java Future containing the result of the ListReplicators operation returned by the service.
+     * @sample AWSKafkaAsync.ListReplicators
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListReplicators" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListReplicatorsResult> listReplicatorsAsync(ListReplicatorsRequest listReplicatorsRequest);
+
+    /**
+     * <p>
+     * Lists the replicators.
+     * </p>
+     * 
+     * @param listReplicatorsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListReplicators operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.ListReplicators
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListReplicators" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListReplicatorsResult> listReplicatorsAsync(ListReplicatorsRequest listReplicatorsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListReplicatorsRequest, ListReplicatorsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of the Scram Secrets associated with an Amazon MSK cluster.
+     * </p>
+     * 
+     * @param listScramSecretsRequest
+     * @return A Java Future containing the result of the ListScramSecrets operation returned by the service.
+     * @sample AWSKafkaAsync.ListScramSecrets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListScramSecrets" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListScramSecretsResult> listScramSecretsAsync(ListScramSecretsRequest listScramSecretsRequest);
+
+    /**
+     * <p>
+     * Returns a list of the Scram Secrets associated with an Amazon MSK cluster.
+     * </p>
+     * 
+     * @param listScramSecretsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListScramSecrets operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.ListScramSecrets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListScramSecrets" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListScramSecretsResult> listScramSecretsAsync(ListScramSecretsRequest listScramSecretsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListScramSecretsRequest, ListScramSecretsResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns a list of the tags associated with the specified resource.
      * </p>
      * 
@@ -472,6 +1147,130 @@ public interface AWSKafkaAsync extends AWSKafka {
      */
     java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest listTagsForResourceRequest,
             com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of all the VPC connections in this Region.
+     * </p>
+     * 
+     * @param listVpcConnectionsRequest
+     * @return A Java Future containing the result of the ListVpcConnections operation returned by the service.
+     * @sample AWSKafkaAsync.ListVpcConnections
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListVpcConnections" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListVpcConnectionsResult> listVpcConnectionsAsync(ListVpcConnectionsRequest listVpcConnectionsRequest);
+
+    /**
+     * <p>
+     * Returns a list of all the VPC connections in this Region.
+     * </p>
+     * 
+     * @param listVpcConnectionsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListVpcConnections operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.ListVpcConnections
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/ListVpcConnections" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListVpcConnectionsResult> listVpcConnectionsAsync(ListVpcConnectionsRequest listVpcConnectionsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListVpcConnectionsRequest, ListVpcConnectionsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates or updates the MSK cluster policy specified by the cluster Amazon Resource Name (ARN) in the request.
+     * </p>
+     * 
+     * @param putClusterPolicyRequest
+     * @return A Java Future containing the result of the PutClusterPolicy operation returned by the service.
+     * @sample AWSKafkaAsync.PutClusterPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/PutClusterPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<PutClusterPolicyResult> putClusterPolicyAsync(PutClusterPolicyRequest putClusterPolicyRequest);
+
+    /**
+     * <p>
+     * Creates or updates the MSK cluster policy specified by the cluster Amazon Resource Name (ARN) in the request.
+     * </p>
+     * 
+     * @param putClusterPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutClusterPolicy operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.PutClusterPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/PutClusterPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<PutClusterPolicyResult> putClusterPolicyAsync(PutClusterPolicyRequest putClusterPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<PutClusterPolicyRequest, PutClusterPolicyResult> asyncHandler);
+
+    /**
+     * Reboots brokers.
+     * 
+     * @param rebootBrokerRequest
+     *        Reboots a node.
+     * @return A Java Future containing the result of the RebootBroker operation returned by the service.
+     * @sample AWSKafkaAsync.RebootBroker
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/RebootBroker" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<RebootBrokerResult> rebootBrokerAsync(RebootBrokerRequest rebootBrokerRequest);
+
+    /**
+     * Reboots brokers.
+     * 
+     * @param rebootBrokerRequest
+     *        Reboots a node.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RebootBroker operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.RebootBroker
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/RebootBroker" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<RebootBrokerResult> rebootBrokerAsync(RebootBrokerRequest rebootBrokerRequest,
+            com.amazonaws.handlers.AsyncHandler<RebootBrokerRequest, RebootBrokerResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns empty response.
+     * </p>
+     * 
+     * @param rejectClientVpcConnectionRequest
+     * @return A Java Future containing the result of the RejectClientVpcConnection operation returned by the service.
+     * @sample AWSKafkaAsync.RejectClientVpcConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/RejectClientVpcConnection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<RejectClientVpcConnectionResult> rejectClientVpcConnectionAsync(
+            RejectClientVpcConnectionRequest rejectClientVpcConnectionRequest);
+
+    /**
+     * <p>
+     * Returns empty response.
+     * </p>
+     * 
+     * @param rejectClientVpcConnectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RejectClientVpcConnection operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.RejectClientVpcConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/RejectClientVpcConnection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<RejectClientVpcConnectionResult> rejectClientVpcConnectionAsync(
+            RejectClientVpcConnectionRequest rejectClientVpcConnectionRequest,
+            com.amazonaws.handlers.AsyncHandler<RejectClientVpcConnectionRequest, RejectClientVpcConnectionResult> asyncHandler);
 
     /**
      * <p>
@@ -537,6 +1336,37 @@ public interface AWSKafkaAsync extends AWSKafka {
 
     /**
      * <p>
+     * Updates the number of broker nodes in the cluster.
+     * </p>
+     * 
+     * @param updateBrokerCountRequest
+     * @return A Java Future containing the result of the UpdateBrokerCount operation returned by the service.
+     * @sample AWSKafkaAsync.UpdateBrokerCount
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateBrokerCount" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateBrokerCountResult> updateBrokerCountAsync(UpdateBrokerCountRequest updateBrokerCountRequest);
+
+    /**
+     * <p>
+     * Updates the number of broker nodes in the cluster.
+     * </p>
+     * 
+     * @param updateBrokerCountRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateBrokerCount operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.UpdateBrokerCount
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateBrokerCount" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateBrokerCountResult> updateBrokerCountAsync(UpdateBrokerCountRequest updateBrokerCountRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateBrokerCountRequest, UpdateBrokerCountResult> asyncHandler);
+
+    /**
+     * <p>
      * Updates the EBS storage associated with MSK brokers.
      * </p>
      * 
@@ -565,6 +1395,37 @@ public interface AWSKafkaAsync extends AWSKafka {
      */
     java.util.concurrent.Future<UpdateBrokerStorageResult> updateBrokerStorageAsync(UpdateBrokerStorageRequest updateBrokerStorageRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateBrokerStorageRequest, UpdateBrokerStorageResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates EC2 instance type.
+     * </p>
+     * 
+     * @param updateBrokerTypeRequest
+     * @return A Java Future containing the result of the UpdateBrokerType operation returned by the service.
+     * @sample AWSKafkaAsync.UpdateBrokerType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateBrokerType" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateBrokerTypeResult> updateBrokerTypeAsync(UpdateBrokerTypeRequest updateBrokerTypeRequest);
+
+    /**
+     * <p>
+     * Updates EC2 instance type.
+     * </p>
+     * 
+     * @param updateBrokerTypeRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateBrokerType operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.UpdateBrokerType
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateBrokerType" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateBrokerTypeResult> updateBrokerTypeAsync(UpdateBrokerTypeRequest updateBrokerTypeRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateBrokerTypeRequest, UpdateBrokerTypeResult> asyncHandler);
 
     /**
      * <p>
@@ -598,5 +1459,238 @@ public interface AWSKafkaAsync extends AWSKafka {
     java.util.concurrent.Future<UpdateClusterConfigurationResult> updateClusterConfigurationAsync(
             UpdateClusterConfigurationRequest updateClusterConfigurationRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateClusterConfigurationRequest, UpdateClusterConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the Apache Kafka version for the cluster.
+     * </p>
+     * 
+     * @param updateClusterKafkaVersionRequest
+     * @return A Java Future containing the result of the UpdateClusterKafkaVersion operation returned by the service.
+     * @sample AWSKafkaAsync.UpdateClusterKafkaVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateClusterKafkaVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateClusterKafkaVersionResult> updateClusterKafkaVersionAsync(
+            UpdateClusterKafkaVersionRequest updateClusterKafkaVersionRequest);
+
+    /**
+     * <p>
+     * Updates the Apache Kafka version for the cluster.
+     * </p>
+     * 
+     * @param updateClusterKafkaVersionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateClusterKafkaVersion operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.UpdateClusterKafkaVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateClusterKafkaVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateClusterKafkaVersionResult> updateClusterKafkaVersionAsync(
+            UpdateClusterKafkaVersionRequest updateClusterKafkaVersionRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateClusterKafkaVersionRequest, UpdateClusterKafkaVersionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates an MSK configuration.
+     * </p>
+     * 
+     * @param updateConfigurationRequest
+     * @return A Java Future containing the result of the UpdateConfiguration operation returned by the service.
+     * @sample AWSKafkaAsync.UpdateConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateConfiguration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateConfigurationResult> updateConfigurationAsync(UpdateConfigurationRequest updateConfigurationRequest);
+
+    /**
+     * <p>
+     * Updates an MSK configuration.
+     * </p>
+     * 
+     * @param updateConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateConfiguration operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.UpdateConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateConfiguration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateConfigurationResult> updateConfigurationAsync(UpdateConfigurationRequest updateConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateConfigurationRequest, UpdateConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the cluster's connectivity configuration.
+     * </p>
+     * 
+     * @param updateConnectivityRequest
+     *        Request body for UpdateConnectivity.
+     * @return A Java Future containing the result of the UpdateConnectivity operation returned by the service.
+     * @sample AWSKafkaAsync.UpdateConnectivity
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateConnectivity" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateConnectivityResult> updateConnectivityAsync(UpdateConnectivityRequest updateConnectivityRequest);
+
+    /**
+     * <p>
+     * Updates the cluster's connectivity configuration.
+     * </p>
+     * 
+     * @param updateConnectivityRequest
+     *        Request body for UpdateConnectivity.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateConnectivity operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.UpdateConnectivity
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateConnectivity" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateConnectivityResult> updateConnectivityAsync(UpdateConnectivityRequest updateConnectivityRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateConnectivityRequest, UpdateConnectivityResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the monitoring settings for the cluster. You can use this operation to specify which Apache Kafka metrics
+     * you want Amazon MSK to send to Amazon CloudWatch. You can also specify settings for open monitoring with
+     * Prometheus.
+     * </p>
+     * 
+     * @param updateMonitoringRequest
+     *        Request body for UpdateMonitoring.
+     * @return A Java Future containing the result of the UpdateMonitoring operation returned by the service.
+     * @sample AWSKafkaAsync.UpdateMonitoring
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateMonitoring" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateMonitoringResult> updateMonitoringAsync(UpdateMonitoringRequest updateMonitoringRequest);
+
+    /**
+     * <p>
+     * Updates the monitoring settings for the cluster. You can use this operation to specify which Apache Kafka metrics
+     * you want Amazon MSK to send to Amazon CloudWatch. You can also specify settings for open monitoring with
+     * Prometheus.
+     * </p>
+     * 
+     * @param updateMonitoringRequest
+     *        Request body for UpdateMonitoring.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateMonitoring operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.UpdateMonitoring
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateMonitoring" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateMonitoringResult> updateMonitoringAsync(UpdateMonitoringRequest updateMonitoringRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateMonitoringRequest, UpdateMonitoringResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates replication info of a replicator.
+     * </p>
+     * 
+     * @param updateReplicationInfoRequest
+     *        Update information relating to replication between a given source and target Kafka cluster.
+     * @return A Java Future containing the result of the UpdateReplicationInfo operation returned by the service.
+     * @sample AWSKafkaAsync.UpdateReplicationInfo
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateReplicationInfo" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateReplicationInfoResult> updateReplicationInfoAsync(UpdateReplicationInfoRequest updateReplicationInfoRequest);
+
+    /**
+     * <p>
+     * Updates replication info of a replicator.
+     * </p>
+     * 
+     * @param updateReplicationInfoRequest
+     *        Update information relating to replication between a given source and target Kafka cluster.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateReplicationInfo operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.UpdateReplicationInfo
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateReplicationInfo" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateReplicationInfoResult> updateReplicationInfoAsync(UpdateReplicationInfoRequest updateReplicationInfoRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateReplicationInfoRequest, UpdateReplicationInfoResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the security settings for the cluster. You can use this operation to specify encryption and
+     * authentication on existing clusters.
+     * </p>
+     * 
+     * @param updateSecurityRequest
+     * @return A Java Future containing the result of the UpdateSecurity operation returned by the service.
+     * @sample AWSKafkaAsync.UpdateSecurity
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateSecurity" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateSecurityResult> updateSecurityAsync(UpdateSecurityRequest updateSecurityRequest);
+
+    /**
+     * <p>
+     * Updates the security settings for the cluster. You can use this operation to specify encryption and
+     * authentication on existing clusters.
+     * </p>
+     * 
+     * @param updateSecurityRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateSecurity operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.UpdateSecurity
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateSecurity" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateSecurityResult> updateSecurityAsync(UpdateSecurityRequest updateSecurityRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateSecurityRequest, UpdateSecurityResult> asyncHandler);
+
+    /**
+     * Updates cluster broker volume size (or) sets cluster storage mode to TIERED.
+     * 
+     * @param updateStorageRequest
+     *        <p>
+     *        Request object for UpdateStorage api. Its used to update the storage attributes for the cluster.
+     *        </p>
+     * @return A Java Future containing the result of the UpdateStorage operation returned by the service.
+     * @sample AWSKafkaAsync.UpdateStorage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateStorage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateStorageResult> updateStorageAsync(UpdateStorageRequest updateStorageRequest);
+
+    /**
+     * Updates cluster broker volume size (or) sets cluster storage mode to TIERED.
+     * 
+     * @param updateStorageRequest
+     *        <p>
+     *        Request object for UpdateStorage api. Its used to update the storage attributes for the cluster.
+     *        </p>
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateStorage operation returned by the service.
+     * @sample AWSKafkaAsyncHandler.UpdateStorage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateStorage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateStorageResult> updateStorageAsync(UpdateStorageRequest updateStorageRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateStorageRequest, UpdateStorageResult> asyncHandler);
 
 }

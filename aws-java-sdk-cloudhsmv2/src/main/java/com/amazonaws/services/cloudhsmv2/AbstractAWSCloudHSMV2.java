@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,6 +58,11 @@ public class AbstractAWSCloudHSMV2 implements AWSCloudHSMV2 {
     }
 
     @Override
+    public DeleteResourcePolicyResult deleteResourcePolicy(DeleteResourcePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeBackupsResult describeBackups(DescribeBackupsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -68,12 +73,32 @@ public class AbstractAWSCloudHSMV2 implements AWSCloudHSMV2 {
     }
 
     @Override
+    public GetResourcePolicyResult getResourcePolicy(GetResourcePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public InitializeClusterResult initializeCluster(InitializeClusterRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public ListTagsResult listTags(ListTagsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ModifyBackupAttributesResult modifyBackupAttributes(ModifyBackupAttributesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ModifyClusterResult modifyCluster(ModifyClusterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutResourcePolicyResult putResourcePolicy(PutResourcePolicyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

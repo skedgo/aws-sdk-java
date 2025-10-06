@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,6 +36,12 @@ public class CreateUserPoolClientRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("GenerateSecret").build();
     private static final MarshallingInfo<Integer> REFRESHTOKENVALIDITY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RefreshTokenValidity").build();
+    private static final MarshallingInfo<Integer> ACCESSTOKENVALIDITY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AccessTokenValidity").build();
+    private static final MarshallingInfo<Integer> IDTOKENVALIDITY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IdTokenValidity").build();
+    private static final MarshallingInfo<StructuredPojo> TOKENVALIDITYUNITS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TokenValidityUnits").build();
     private static final MarshallingInfo<List> READATTRIBUTES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ReadAttributes").build();
     private static final MarshallingInfo<List> WRITEATTRIBUTES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
@@ -58,6 +64,14 @@ public class CreateUserPoolClientRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AllowedOAuthFlowsUserPoolClient").build();
     private static final MarshallingInfo<StructuredPojo> ANALYTICSCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AnalyticsConfiguration").build();
+    private static final MarshallingInfo<String> PREVENTUSEREXISTENCEERRORS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PreventUserExistenceErrors").build();
+    private static final MarshallingInfo<Boolean> ENABLETOKENREVOCATION_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EnableTokenRevocation").build();
+    private static final MarshallingInfo<Boolean> ENABLEPROPAGATEADDITIONALUSERCONTEXTDATA_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EnablePropagateAdditionalUserContextData").build();
+    private static final MarshallingInfo<Integer> AUTHSESSIONVALIDITY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AuthSessionValidity").build();
 
     private static final CreateUserPoolClientRequestMarshaller instance = new CreateUserPoolClientRequestMarshaller();
 
@@ -79,6 +93,9 @@ public class CreateUserPoolClientRequestMarshaller {
             protocolMarshaller.marshall(createUserPoolClientRequest.getClientName(), CLIENTNAME_BINDING);
             protocolMarshaller.marshall(createUserPoolClientRequest.getGenerateSecret(), GENERATESECRET_BINDING);
             protocolMarshaller.marshall(createUserPoolClientRequest.getRefreshTokenValidity(), REFRESHTOKENVALIDITY_BINDING);
+            protocolMarshaller.marshall(createUserPoolClientRequest.getAccessTokenValidity(), ACCESSTOKENVALIDITY_BINDING);
+            protocolMarshaller.marshall(createUserPoolClientRequest.getIdTokenValidity(), IDTOKENVALIDITY_BINDING);
+            protocolMarshaller.marshall(createUserPoolClientRequest.getTokenValidityUnits(), TOKENVALIDITYUNITS_BINDING);
             protocolMarshaller.marshall(createUserPoolClientRequest.getReadAttributes(), READATTRIBUTES_BINDING);
             protocolMarshaller.marshall(createUserPoolClientRequest.getWriteAttributes(), WRITEATTRIBUTES_BINDING);
             protocolMarshaller.marshall(createUserPoolClientRequest.getExplicitAuthFlows(), EXPLICITAUTHFLOWS_BINDING);
@@ -90,6 +107,11 @@ public class CreateUserPoolClientRequestMarshaller {
             protocolMarshaller.marshall(createUserPoolClientRequest.getAllowedOAuthScopes(), ALLOWEDOAUTHSCOPES_BINDING);
             protocolMarshaller.marshall(createUserPoolClientRequest.getAllowedOAuthFlowsUserPoolClient(), ALLOWEDOAUTHFLOWSUSERPOOLCLIENT_BINDING);
             protocolMarshaller.marshall(createUserPoolClientRequest.getAnalyticsConfiguration(), ANALYTICSCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(createUserPoolClientRequest.getPreventUserExistenceErrors(), PREVENTUSEREXISTENCEERRORS_BINDING);
+            protocolMarshaller.marshall(createUserPoolClientRequest.getEnableTokenRevocation(), ENABLETOKENREVOCATION_BINDING);
+            protocolMarshaller.marshall(createUserPoolClientRequest.getEnablePropagateAdditionalUserContextData(),
+                    ENABLEPROPAGATEADDITIONALUSERCONTEXTDATA_BINDING);
+            protocolMarshaller.marshall(createUserPoolClientRequest.getAuthSessionValidity(), AUTHSESSIONVALIDITY_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

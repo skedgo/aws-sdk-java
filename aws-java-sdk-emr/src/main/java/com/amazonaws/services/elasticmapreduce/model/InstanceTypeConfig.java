@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,13 +19,16 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An instance type configuration for each instance type in an instance fleet, which determines the EC2 instances Amazon
- * EMR attempts to provision to fulfill On-Demand and Spot target capacities. There can be a maximum of 5 instance type
- * configurations in a fleet.
+ * An instance type configuration for each instance type in an instance fleet, which determines the Amazon EC2 instances
+ * Amazon EMR attempts to provision to fulfill On-Demand and Spot target capacities. When you use an allocation
+ * strategy, you can include a maximum of 30 instance type configurations for a fleet. For more information about how to
+ * use an allocation strategy, see <a
+ * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-instance-fleet.html">Configure Instance Fleets</a>.
+ * Without an allocation strategy, you may specify a maximum of five instance type configurations for a fleet.
  * </p>
  * <note>
  * <p>
- * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x versions.
+ * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x versions.
  * </p>
  * </note>
  * 
@@ -37,7 +40,7 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * An EC2 instance type, such as <code>m3.xlarge</code>.
+     * An Amazon EC2 instance type, such as <code>m3.xlarge</code>.
      * </p>
      */
     private String instanceType;
@@ -51,15 +54,15 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
     private Integer weightedCapacity;
     /**
      * <p>
-     * The bid price for each EC2 Spot instance type as defined by <code>InstanceType</code>. Expressed in USD. If
-     * neither <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
+     * The bid price for each Amazon EC2 Spot Instance type as defined by <code>InstanceType</code>. Expressed in USD.
+     * If neither <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
      * <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.
      * </p>
      */
     private String bidPrice;
     /**
      * <p>
-     * The bid price, as a percentage of On-Demand price, for each EC2 Spot instance as defined by
+     * The bid price, as a percentage of On-Demand price, for each Amazon EC2 Spot Instance as defined by
      * <code>InstanceType</code>. Expressed as a number (for example, 20 specifies 20%). If neither
      * <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
      * <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.
@@ -68,7 +71,7 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
     private Double bidPriceAsPercentageOfOnDemandPrice;
     /**
      * <p>
-     * The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by
+     * The configuration of Amazon Elastic Block Store (Amazon EBS) attached to each instance as defined by
      * <code>InstanceType</code>.
      * </p>
      */
@@ -80,14 +83,27 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Configuration> configurations;
+    /**
+     * <p>
+     * The custom AMI ID to use for the instance type.
+     * </p>
+     */
+    private String customAmiId;
+    /**
+     * <p>
+     * The priority at which Amazon EMR launches the Amazon EC2 instances with this instance type. Priority starts at 0,
+     * which is the highest priority. Amazon EMR considers the highest priority first.
+     * </p>
+     */
+    private Double priority;
 
     /**
      * <p>
-     * An EC2 instance type, such as <code>m3.xlarge</code>.
+     * An Amazon EC2 instance type, such as <code>m3.xlarge</code>.
      * </p>
      * 
      * @param instanceType
-     *        An EC2 instance type, such as <code>m3.xlarge</code>.
+     *        An Amazon EC2 instance type, such as <code>m3.xlarge</code>.
      */
 
     public void setInstanceType(String instanceType) {
@@ -96,10 +112,10 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * An EC2 instance type, such as <code>m3.xlarge</code>.
+     * An Amazon EC2 instance type, such as <code>m3.xlarge</code>.
      * </p>
      * 
-     * @return An EC2 instance type, such as <code>m3.xlarge</code>.
+     * @return An Amazon EC2 instance type, such as <code>m3.xlarge</code>.
      */
 
     public String getInstanceType() {
@@ -108,11 +124,11 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * An EC2 instance type, such as <code>m3.xlarge</code>.
+     * An Amazon EC2 instance type, such as <code>m3.xlarge</code>.
      * </p>
      * 
      * @param instanceType
-     *        An EC2 instance type, such as <code>m3.xlarge</code>.
+     *        An Amazon EC2 instance type, such as <code>m3.xlarge</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -175,14 +191,14 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The bid price for each EC2 Spot instance type as defined by <code>InstanceType</code>. Expressed in USD. If
-     * neither <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
+     * The bid price for each Amazon EC2 Spot Instance type as defined by <code>InstanceType</code>. Expressed in USD.
+     * If neither <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
      * <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.
      * </p>
      * 
      * @param bidPrice
-     *        The bid price for each EC2 Spot instance type as defined by <code>InstanceType</code>. Expressed in USD.
-     *        If neither <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
+     *        The bid price for each Amazon EC2 Spot Instance type as defined by <code>InstanceType</code>. Expressed in
+     *        USD. If neither <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
      *        <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.
      */
 
@@ -192,14 +208,14 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The bid price for each EC2 Spot instance type as defined by <code>InstanceType</code>. Expressed in USD. If
-     * neither <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
+     * The bid price for each Amazon EC2 Spot Instance type as defined by <code>InstanceType</code>. Expressed in USD.
+     * If neither <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
      * <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.
      * </p>
      * 
-     * @return The bid price for each EC2 Spot instance type as defined by <code>InstanceType</code>. Expressed in USD.
-     *         If neither <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
-     *         <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.
+     * @return The bid price for each Amazon EC2 Spot Instance type as defined by <code>InstanceType</code>. Expressed
+     *         in USD. If neither <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is
+     *         provided, <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.
      */
 
     public String getBidPrice() {
@@ -208,14 +224,14 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The bid price for each EC2 Spot instance type as defined by <code>InstanceType</code>. Expressed in USD. If
-     * neither <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
+     * The bid price for each Amazon EC2 Spot Instance type as defined by <code>InstanceType</code>. Expressed in USD.
+     * If neither <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
      * <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.
      * </p>
      * 
      * @param bidPrice
-     *        The bid price for each EC2 Spot instance type as defined by <code>InstanceType</code>. Expressed in USD.
-     *        If neither <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
+     *        The bid price for each Amazon EC2 Spot Instance type as defined by <code>InstanceType</code>. Expressed in
+     *        USD. If neither <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
      *        <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -227,14 +243,14 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The bid price, as a percentage of On-Demand price, for each EC2 Spot instance as defined by
+     * The bid price, as a percentage of On-Demand price, for each Amazon EC2 Spot Instance as defined by
      * <code>InstanceType</code>. Expressed as a number (for example, 20 specifies 20%). If neither
      * <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
      * <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.
      * </p>
      * 
      * @param bidPriceAsPercentageOfOnDemandPrice
-     *        The bid price, as a percentage of On-Demand price, for each EC2 Spot instance as defined by
+     *        The bid price, as a percentage of On-Demand price, for each Amazon EC2 Spot Instance as defined by
      *        <code>InstanceType</code>. Expressed as a number (for example, 20 specifies 20%). If neither
      *        <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
      *        <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.
@@ -246,13 +262,13 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The bid price, as a percentage of On-Demand price, for each EC2 Spot instance as defined by
+     * The bid price, as a percentage of On-Demand price, for each Amazon EC2 Spot Instance as defined by
      * <code>InstanceType</code>. Expressed as a number (for example, 20 specifies 20%). If neither
      * <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
      * <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.
      * </p>
      * 
-     * @return The bid price, as a percentage of On-Demand price, for each EC2 Spot instance as defined by
+     * @return The bid price, as a percentage of On-Demand price, for each Amazon EC2 Spot Instance as defined by
      *         <code>InstanceType</code>. Expressed as a number (for example, 20 specifies 20%). If neither
      *         <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
      *         <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.
@@ -264,14 +280,14 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The bid price, as a percentage of On-Demand price, for each EC2 Spot instance as defined by
+     * The bid price, as a percentage of On-Demand price, for each Amazon EC2 Spot Instance as defined by
      * <code>InstanceType</code>. Expressed as a number (for example, 20 specifies 20%). If neither
      * <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
      * <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.
      * </p>
      * 
      * @param bidPriceAsPercentageOfOnDemandPrice
-     *        The bid price, as a percentage of On-Demand price, for each EC2 Spot instance as defined by
+     *        The bid price, as a percentage of On-Demand price, for each Amazon EC2 Spot Instance as defined by
      *        <code>InstanceType</code>. Expressed as a number (for example, 20 specifies 20%). If neither
      *        <code>BidPrice</code> nor <code>BidPriceAsPercentageOfOnDemandPrice</code> is provided,
      *        <code>BidPriceAsPercentageOfOnDemandPrice</code> defaults to 100%.
@@ -285,12 +301,12 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by
+     * The configuration of Amazon Elastic Block Store (Amazon EBS) attached to each instance as defined by
      * <code>InstanceType</code>.
      * </p>
      * 
      * @param ebsConfiguration
-     *        The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by
+     *        The configuration of Amazon Elastic Block Store (Amazon EBS) attached to each instance as defined by
      *        <code>InstanceType</code>.
      */
 
@@ -300,11 +316,11 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by
+     * The configuration of Amazon Elastic Block Store (Amazon EBS) attached to each instance as defined by
      * <code>InstanceType</code>.
      * </p>
      * 
-     * @return The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by
+     * @return The configuration of Amazon Elastic Block Store (Amazon EBS) attached to each instance as defined by
      *         <code>InstanceType</code>.
      */
 
@@ -314,12 +330,12 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by
+     * The configuration of Amazon Elastic Block Store (Amazon EBS) attached to each instance as defined by
      * <code>InstanceType</code>.
      * </p>
      * 
      * @param ebsConfiguration
-     *        The configuration of Amazon Elastic Block Storage (EBS) attached to each instance as defined by
+     *        The configuration of Amazon Elastic Block Store (Amazon EBS) attached to each instance as defined by
      *        <code>InstanceType</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -411,6 +427,92 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
     }
 
     /**
+     * <p>
+     * The custom AMI ID to use for the instance type.
+     * </p>
+     * 
+     * @param customAmiId
+     *        The custom AMI ID to use for the instance type.
+     */
+
+    public void setCustomAmiId(String customAmiId) {
+        this.customAmiId = customAmiId;
+    }
+
+    /**
+     * <p>
+     * The custom AMI ID to use for the instance type.
+     * </p>
+     * 
+     * @return The custom AMI ID to use for the instance type.
+     */
+
+    public String getCustomAmiId() {
+        return this.customAmiId;
+    }
+
+    /**
+     * <p>
+     * The custom AMI ID to use for the instance type.
+     * </p>
+     * 
+     * @param customAmiId
+     *        The custom AMI ID to use for the instance type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceTypeConfig withCustomAmiId(String customAmiId) {
+        setCustomAmiId(customAmiId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The priority at which Amazon EMR launches the Amazon EC2 instances with this instance type. Priority starts at 0,
+     * which is the highest priority. Amazon EMR considers the highest priority first.
+     * </p>
+     * 
+     * @param priority
+     *        The priority at which Amazon EMR launches the Amazon EC2 instances with this instance type. Priority
+     *        starts at 0, which is the highest priority. Amazon EMR considers the highest priority first.
+     */
+
+    public void setPriority(Double priority) {
+        this.priority = priority;
+    }
+
+    /**
+     * <p>
+     * The priority at which Amazon EMR launches the Amazon EC2 instances with this instance type. Priority starts at 0,
+     * which is the highest priority. Amazon EMR considers the highest priority first.
+     * </p>
+     * 
+     * @return The priority at which Amazon EMR launches the Amazon EC2 instances with this instance type. Priority
+     *         starts at 0, which is the highest priority. Amazon EMR considers the highest priority first.
+     */
+
+    public Double getPriority() {
+        return this.priority;
+    }
+
+    /**
+     * <p>
+     * The priority at which Amazon EMR launches the Amazon EC2 instances with this instance type. Priority starts at 0,
+     * which is the highest priority. Amazon EMR considers the highest priority first.
+     * </p>
+     * 
+     * @param priority
+     *        The priority at which Amazon EMR launches the Amazon EC2 instances with this instance type. Priority
+     *        starts at 0, which is the highest priority. Amazon EMR considers the highest priority first.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceTypeConfig withPriority(Double priority) {
+        setPriority(priority);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -433,7 +535,11 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
         if (getEbsConfiguration() != null)
             sb.append("EbsConfiguration: ").append(getEbsConfiguration()).append(",");
         if (getConfigurations() != null)
-            sb.append("Configurations: ").append(getConfigurations());
+            sb.append("Configurations: ").append(getConfigurations()).append(",");
+        if (getCustomAmiId() != null)
+            sb.append("CustomAmiId: ").append(getCustomAmiId()).append(",");
+        if (getPriority() != null)
+            sb.append("Priority: ").append(getPriority());
         sb.append("}");
         return sb.toString();
     }
@@ -473,6 +579,14 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
             return false;
         if (other.getConfigurations() != null && other.getConfigurations().equals(this.getConfigurations()) == false)
             return false;
+        if (other.getCustomAmiId() == null ^ this.getCustomAmiId() == null)
+            return false;
+        if (other.getCustomAmiId() != null && other.getCustomAmiId().equals(this.getCustomAmiId()) == false)
+            return false;
+        if (other.getPriority() == null ^ this.getPriority() == null)
+            return false;
+        if (other.getPriority() != null && other.getPriority().equals(this.getPriority()) == false)
+            return false;
         return true;
     }
 
@@ -487,6 +601,8 @@ public class InstanceTypeConfig implements Serializable, Cloneable, StructuredPo
         hashCode = prime * hashCode + ((getBidPriceAsPercentageOfOnDemandPrice() == null) ? 0 : getBidPriceAsPercentageOfOnDemandPrice().hashCode());
         hashCode = prime * hashCode + ((getEbsConfiguration() == null) ? 0 : getEbsConfiguration().hashCode());
         hashCode = prime * hashCode + ((getConfigurations() == null) ? 0 : getConfigurations().hashCode());
+        hashCode = prime * hashCode + ((getCustomAmiId() == null) ? 0 : getCustomAmiId().hashCode());
+        hashCode = prime * hashCode + ((getPriority() == null) ? 0 : getPriority().hashCode());
         return hashCode;
     }
 

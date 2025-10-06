@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,14 +38,24 @@ public class EncoderSettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("blackoutSlate").build();
     private static final MarshallingInfo<List> CAPTIONDESCRIPTIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("captionDescriptions").build();
+    private static final MarshallingInfo<StructuredPojo> FEATUREACTIVATIONS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("featureActivations").build();
     private static final MarshallingInfo<StructuredPojo> GLOBALCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("globalConfiguration").build();
+    private static final MarshallingInfo<StructuredPojo> MOTIONGRAPHICSCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("motionGraphicsConfiguration").build();
+    private static final MarshallingInfo<StructuredPojo> NIELSENCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("nielsenConfiguration").build();
     private static final MarshallingInfo<List> OUTPUTGROUPS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("outputGroups").build();
     private static final MarshallingInfo<StructuredPojo> TIMECODECONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("timecodeConfig").build();
     private static final MarshallingInfo<List> VIDEODESCRIPTIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("videoDescriptions").build();
+    private static final MarshallingInfo<StructuredPojo> THUMBNAILCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("thumbnailConfiguration").build();
+    private static final MarshallingInfo<StructuredPojo> COLORCORRECTIONSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("colorCorrectionSettings").build();
 
     private static final EncoderSettingsMarshaller instance = new EncoderSettingsMarshaller();
 
@@ -68,10 +78,15 @@ public class EncoderSettingsMarshaller {
             protocolMarshaller.marshall(encoderSettings.getAvailConfiguration(), AVAILCONFIGURATION_BINDING);
             protocolMarshaller.marshall(encoderSettings.getBlackoutSlate(), BLACKOUTSLATE_BINDING);
             protocolMarshaller.marshall(encoderSettings.getCaptionDescriptions(), CAPTIONDESCRIPTIONS_BINDING);
+            protocolMarshaller.marshall(encoderSettings.getFeatureActivations(), FEATUREACTIVATIONS_BINDING);
             protocolMarshaller.marshall(encoderSettings.getGlobalConfiguration(), GLOBALCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(encoderSettings.getMotionGraphicsConfiguration(), MOTIONGRAPHICSCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(encoderSettings.getNielsenConfiguration(), NIELSENCONFIGURATION_BINDING);
             protocolMarshaller.marshall(encoderSettings.getOutputGroups(), OUTPUTGROUPS_BINDING);
             protocolMarshaller.marshall(encoderSettings.getTimecodeConfig(), TIMECODECONFIG_BINDING);
             protocolMarshaller.marshall(encoderSettings.getVideoDescriptions(), VIDEODESCRIPTIONS_BINDING);
+            protocolMarshaller.marshall(encoderSettings.getThumbnailConfiguration(), THUMBNAILCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(encoderSettings.getColorCorrectionSettings(), COLORCORRECTIONSETTINGS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

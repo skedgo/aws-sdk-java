@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,6 +26,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
+    /** Specification of CDI inputs for this channel */
+    private CdiInputSpecification cdiInputSpecification;
     /** channel ID */
     private String channelId;
     /** A list of output destinations for this channel. */
@@ -34,10 +36,12 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
     private EncoderSettings encoderSettings;
 
     private java.util.List<InputAttachment> inputAttachments;
-    /** Specification of input for this channel (max. bitrate, resolution, codec, etc.) */
+    /** Specification of network and file inputs for this channel */
     private InputSpecification inputSpecification;
     /** The log level to write to CloudWatch Logs. */
     private String logLevel;
+    /** Maintenance settings for this channel. */
+    private MaintenanceUpdateSettings maintenance;
     /** The name of the channel. */
     private String name;
     /**
@@ -45,6 +49,40 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
      * on an update call but the role was previously set that role will be removed.
      */
     private String roleArn;
+
+    /**
+     * Specification of CDI inputs for this channel
+     * 
+     * @param cdiInputSpecification
+     *        Specification of CDI inputs for this channel
+     */
+
+    public void setCdiInputSpecification(CdiInputSpecification cdiInputSpecification) {
+        this.cdiInputSpecification = cdiInputSpecification;
+    }
+
+    /**
+     * Specification of CDI inputs for this channel
+     * 
+     * @return Specification of CDI inputs for this channel
+     */
+
+    public CdiInputSpecification getCdiInputSpecification() {
+        return this.cdiInputSpecification;
+    }
+
+    /**
+     * Specification of CDI inputs for this channel
+     * 
+     * @param cdiInputSpecification
+     *        Specification of CDI inputs for this channel
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateChannelRequest withCdiInputSpecification(CdiInputSpecification cdiInputSpecification) {
+        setCdiInputSpecification(cdiInputSpecification);
+        return this;
+    }
 
     /**
      * channel ID
@@ -229,10 +267,10 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
-     * Specification of input for this channel (max. bitrate, resolution, codec, etc.)
+     * Specification of network and file inputs for this channel
      * 
      * @param inputSpecification
-     *        Specification of input for this channel (max. bitrate, resolution, codec, etc.)
+     *        Specification of network and file inputs for this channel
      */
 
     public void setInputSpecification(InputSpecification inputSpecification) {
@@ -240,9 +278,9 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
-     * Specification of input for this channel (max. bitrate, resolution, codec, etc.)
+     * Specification of network and file inputs for this channel
      * 
-     * @return Specification of input for this channel (max. bitrate, resolution, codec, etc.)
+     * @return Specification of network and file inputs for this channel
      */
 
     public InputSpecification getInputSpecification() {
@@ -250,10 +288,10 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
-     * Specification of input for this channel (max. bitrate, resolution, codec, etc.)
+     * Specification of network and file inputs for this channel
      * 
      * @param inputSpecification
-     *        Specification of input for this channel (max. bitrate, resolution, codec, etc.)
+     *        Specification of network and file inputs for this channel
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -310,6 +348,40 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     public UpdateChannelRequest withLogLevel(LogLevel logLevel) {
         this.logLevel = logLevel.toString();
+        return this;
+    }
+
+    /**
+     * Maintenance settings for this channel.
+     * 
+     * @param maintenance
+     *        Maintenance settings for this channel.
+     */
+
+    public void setMaintenance(MaintenanceUpdateSettings maintenance) {
+        this.maintenance = maintenance;
+    }
+
+    /**
+     * Maintenance settings for this channel.
+     * 
+     * @return Maintenance settings for this channel.
+     */
+
+    public MaintenanceUpdateSettings getMaintenance() {
+        return this.maintenance;
+    }
+
+    /**
+     * Maintenance settings for this channel.
+     * 
+     * @param maintenance
+     *        Maintenance settings for this channel.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateChannelRequest withMaintenance(MaintenanceUpdateSettings maintenance) {
+        setMaintenance(maintenance);
         return this;
     }
 
@@ -399,6 +471,8 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getCdiInputSpecification() != null)
+            sb.append("CdiInputSpecification: ").append(getCdiInputSpecification()).append(",");
         if (getChannelId() != null)
             sb.append("ChannelId: ").append(getChannelId()).append(",");
         if (getDestinations() != null)
@@ -411,6 +485,8 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
             sb.append("InputSpecification: ").append(getInputSpecification()).append(",");
         if (getLogLevel() != null)
             sb.append("LogLevel: ").append(getLogLevel()).append(",");
+        if (getMaintenance() != null)
+            sb.append("Maintenance: ").append(getMaintenance()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getRoleArn() != null)
@@ -429,6 +505,10 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (obj instanceof UpdateChannelRequest == false)
             return false;
         UpdateChannelRequest other = (UpdateChannelRequest) obj;
+        if (other.getCdiInputSpecification() == null ^ this.getCdiInputSpecification() == null)
+            return false;
+        if (other.getCdiInputSpecification() != null && other.getCdiInputSpecification().equals(this.getCdiInputSpecification()) == false)
+            return false;
         if (other.getChannelId() == null ^ this.getChannelId() == null)
             return false;
         if (other.getChannelId() != null && other.getChannelId().equals(this.getChannelId()) == false)
@@ -453,6 +533,10 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getLogLevel() != null && other.getLogLevel().equals(this.getLogLevel()) == false)
             return false;
+        if (other.getMaintenance() == null ^ this.getMaintenance() == null)
+            return false;
+        if (other.getMaintenance() != null && other.getMaintenance().equals(this.getMaintenance()) == false)
+            return false;
         if (other.getName() == null ^ this.getName() == null)
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
@@ -469,12 +553,14 @@ public class UpdateChannelRequest extends com.amazonaws.AmazonWebServiceRequest 
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getCdiInputSpecification() == null) ? 0 : getCdiInputSpecification().hashCode());
         hashCode = prime * hashCode + ((getChannelId() == null) ? 0 : getChannelId().hashCode());
         hashCode = prime * hashCode + ((getDestinations() == null) ? 0 : getDestinations().hashCode());
         hashCode = prime * hashCode + ((getEncoderSettings() == null) ? 0 : getEncoderSettings().hashCode());
         hashCode = prime * hashCode + ((getInputAttachments() == null) ? 0 : getInputAttachments().hashCode());
         hashCode = prime * hashCode + ((getInputSpecification() == null) ? 0 : getInputSpecification().hashCode());
         hashCode = prime * hashCode + ((getLogLevel() == null) ? 0 : getLogLevel().hashCode());
+        hashCode = prime * hashCode + ((getMaintenance() == null) ? 0 : getMaintenance().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getRoleArn() == null) ? 0 : getRoleArn().hashCode());
         return hashCode;

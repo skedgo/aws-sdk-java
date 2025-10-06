@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * <p/>
+ * <p>
+ * Provides information that defines a replication instance.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ReplicationInstance" target="_top">AWS API
  *      Documentation</a>
@@ -28,7 +30,7 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The replication instance identifier. This parameter is stored as a lowercase string.
+     * The replication instance identifier is a required parameter. This parameter is stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -36,7 +38,7 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens.
+     * Must contain 1-63 alphanumeric characters or hyphens.
      * </p>
      * </li>
      * <li>
@@ -57,18 +59,87 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
     private String replicationInstanceIdentifier;
     /**
      * <p>
-     * The compute and memory capacity of the replication instance.
+     * The compute and memory capacity of the replication instance as defined for the specified replication instance
+     * class. It is a required parameter, although a default value is pre-selected in the DMS console.
      * </p>
      * <p>
-     * Valid Values:
-     * <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     * For more information on the settings and capacities for the available replication instance classes, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     * > Selecting the right DMS replication instance for your migration</a>.
      * </p>
      */
     private String replicationInstanceClass;
     /**
      * <p>
-     * The status of the replication instance.
+     * The status of the replication instance. The possible return values include:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>"available"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"creating"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"deleted"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"deleting"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"failed"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"modifying"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"upgrading"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"rebooting"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"resetting-master-credentials"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"storage-full"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"incompatible-credentials"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"incompatible-network"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"maintenance"</code>
+     * </p>
+     * </li>
+     * </ul>
      */
     private String replicationInstanceStatus;
     /**
@@ -103,7 +174,8 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
     private ReplicationSubnetGroup replicationSubnetGroup;
     /**
      * <p>
-     * The maintenance window times for the replication instance.
+     * The maintenance window times for the replication instance. Any pending upgrades to the replication instance are
+     * performed during this time.
      * </p>
      */
     private String preferredMaintenanceWindow;
@@ -115,7 +187,7 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
     private ReplicationPendingModifiedValues pendingModifiedValues;
     /**
      * <p>
-     * Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      * <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * </p>
      */
@@ -123,6 +195,14 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
     /**
      * <p>
      * The engine version number of the replication instance.
+     * </p>
+     * <p>
+     * If an engine version number is not specified when a replication instance is created, the default is the latest
+     * engine version available.
+     * </p>
+     * <p>
+     * When modifying a major engine version of an instance, also set <code>AllowMajorVersionUpgrade</code> to
+     * <code>true</code>.
      * </p>
      */
     private String engineVersion;
@@ -134,15 +214,14 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
     private Boolean autoMinorVersionUpgrade;
     /**
      * <p>
-     * An AWS KMS key identifier that is used to encrypt the data on the replication instance.
+     * An KMS key identifier that is used to encrypt the data on the replication instance.
      * </p>
      * <p>
-     * If you don't specify a value for the <code>KmsKeyId</code> parameter, then AWS DMS uses your default encryption
-     * key.
+     * If you don't specify a value for the <code>KmsKeyId</code> parameter, then DMS uses your default encryption key.
      * </p>
      * <p>
-     * AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default
-     * encryption key for each AWS Region.
+     * KMS creates the default encryption key for your Amazon Web Services account. Your Amazon Web Services account has
+     * a different default encryption key for each Amazon Web Services Region.
      * </p>
      */
     private String kmsKeyId;
@@ -180,6 +259,12 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
     private java.util.List<String> replicationInstancePrivateIpAddresses;
     /**
      * <p>
+     * One or more IPv6 addresses for the replication instance.
+     * </p>
+     */
+    private java.util.List<String> replicationInstanceIpv6Addresses;
+    /**
+     * <p>
      * Specifies the accessibility options for the replication instance. A value of <code>true</code> represents an
      * instance with a public IP address. A value of <code>false</code> represents an instance with a private IP
      * address. The default value is <code>true</code>.
@@ -188,7 +273,7 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
     private Boolean publiclyAccessible;
     /**
      * <p>
-     * The availability zone of the standby replication instance in a Multi-AZ deployment.
+     * The Availability Zone of the standby replication instance in a Multi-AZ deployment.
      * </p>
      */
     private String secondaryAvailabilityZone;
@@ -200,14 +285,21 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
     private java.util.Date freeUntil;
     /**
      * <p>
-     * The DNS name servers for the replication instance.
+     * The DNS name servers supported for the replication instance to access your on-premise source or target database.
      * </p>
      */
     private String dnsNameServers;
+    /**
+     * <p>
+     * The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that supports
+     * both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     * </p>
+     */
+    private String networkType;
 
     /**
      * <p>
-     * The replication instance identifier. This parameter is stored as a lowercase string.
+     * The replication instance identifier is a required parameter. This parameter is stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -215,7 +307,7 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens.
+     * Must contain 1-63 alphanumeric characters or hyphens.
      * </p>
      * </li>
      * <li>
@@ -234,14 +326,15 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
      * </p>
      * 
      * @param replicationInstanceIdentifier
-     *        The replication instance identifier. This parameter is stored as a lowercase string.</p>
+     *        The replication instance identifier is a required parameter. This parameter is stored as a lowercase
+     *        string.</p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 63 alphanumeric characters or hyphens.
+     *        Must contain 1-63 alphanumeric characters or hyphens.
      *        </p>
      *        </li>
      *        <li>
@@ -265,7 +358,7 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The replication instance identifier. This parameter is stored as a lowercase string.
+     * The replication instance identifier is a required parameter. This parameter is stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -273,7 +366,7 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens.
+     * Must contain 1-63 alphanumeric characters or hyphens.
      * </p>
      * </li>
      * <li>
@@ -291,14 +384,15 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
      * Example: <code>myrepinstance</code>
      * </p>
      * 
-     * @return The replication instance identifier. This parameter is stored as a lowercase string.</p>
+     * @return The replication instance identifier is a required parameter. This parameter is stored as a lowercase
+     *         string.</p>
      *         <p>
      *         Constraints:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         Must contain from 1 to 63 alphanumeric characters or hyphens.
+     *         Must contain 1-63 alphanumeric characters or hyphens.
      *         </p>
      *         </li>
      *         <li>
@@ -322,7 +416,7 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The replication instance identifier. This parameter is stored as a lowercase string.
+     * The replication instance identifier is a required parameter. This parameter is stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -330,7 +424,7 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens.
+     * Must contain 1-63 alphanumeric characters or hyphens.
      * </p>
      * </li>
      * <li>
@@ -349,14 +443,15 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
      * </p>
      * 
      * @param replicationInstanceIdentifier
-     *        The replication instance identifier. This parameter is stored as a lowercase string.</p>
+     *        The replication instance identifier is a required parameter. This parameter is stored as a lowercase
+     *        string.</p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 63 alphanumeric characters or hyphens.
+     *        Must contain 1-63 alphanumeric characters or hyphens.
      *        </p>
      *        </li>
      *        <li>
@@ -382,18 +477,24 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The compute and memory capacity of the replication instance.
+     * The compute and memory capacity of the replication instance as defined for the specified replication instance
+     * class. It is a required parameter, although a default value is pre-selected in the DMS console.
      * </p>
      * <p>
-     * Valid Values:
-     * <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     * For more information on the settings and capacities for the available replication instance classes, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     * > Selecting the right DMS replication instance for your migration</a>.
      * </p>
      * 
      * @param replicationInstanceClass
-     *        The compute and memory capacity of the replication instance.</p>
+     *        The compute and memory capacity of the replication instance as defined for the specified replication
+     *        instance class. It is a required parameter, although a default value is pre-selected in the DMS
+     *        console.</p>
      *        <p>
-     *        Valid Values:
-     *        <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     *        For more information on the settings and capacities for the available replication instance classes, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     *        > Selecting the right DMS replication instance for your migration</a>.
      */
 
     public void setReplicationInstanceClass(String replicationInstanceClass) {
@@ -402,17 +503,23 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The compute and memory capacity of the replication instance.
+     * The compute and memory capacity of the replication instance as defined for the specified replication instance
+     * class. It is a required parameter, although a default value is pre-selected in the DMS console.
      * </p>
      * <p>
-     * Valid Values:
-     * <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     * For more information on the settings and capacities for the available replication instance classes, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     * > Selecting the right DMS replication instance for your migration</a>.
      * </p>
      * 
-     * @return The compute and memory capacity of the replication instance.</p>
+     * @return The compute and memory capacity of the replication instance as defined for the specified replication
+     *         instance class. It is a required parameter, although a default value is pre-selected in the DMS
+     *         console.</p>
      *         <p>
-     *         Valid Values:
-     *         <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     *         For more information on the settings and capacities for the available replication instance classes, see
+     *         <a href=
+     *         "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     *         > Selecting the right DMS replication instance for your migration</a>.
      */
 
     public String getReplicationInstanceClass() {
@@ -421,18 +528,24 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The compute and memory capacity of the replication instance.
+     * The compute and memory capacity of the replication instance as defined for the specified replication instance
+     * class. It is a required parameter, although a default value is pre-selected in the DMS console.
      * </p>
      * <p>
-     * Valid Values:
-     * <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     * For more information on the settings and capacities for the available replication instance classes, see <a href=
+     * "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     * > Selecting the right DMS replication instance for your migration</a>.
      * </p>
      * 
      * @param replicationInstanceClass
-     *        The compute and memory capacity of the replication instance.</p>
+     *        The compute and memory capacity of the replication instance as defined for the specified replication
+     *        instance class. It is a required parameter, although a default value is pre-selected in the DMS
+     *        console.</p>
      *        <p>
-     *        Valid Values:
-     *        <code>dms.t2.micro | dms.t2.small | dms.t2.medium | dms.t2.large | dms.c4.large | dms.c4.xlarge | dms.c4.2xlarge | dms.c4.4xlarge </code>
+     *        For more information on the settings and capacities for the available replication instance classes, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReplicationInstance.html#CHAP_ReplicationInstance.InDepth"
+     *        > Selecting the right DMS replication instance for your migration</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -443,11 +556,144 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The status of the replication instance.
+     * The status of the replication instance. The possible return values include:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>"available"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"creating"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"deleted"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"deleting"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"failed"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"modifying"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"upgrading"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"rebooting"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"resetting-master-credentials"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"storage-full"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"incompatible-credentials"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"incompatible-network"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"maintenance"</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param replicationInstanceStatus
-     *        The status of the replication instance.
+     *        The status of the replication instance. The possible return values include:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>"available"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"creating"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"deleted"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"deleting"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"failed"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"modifying"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"upgrading"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"rebooting"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"resetting-master-credentials"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"storage-full"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"incompatible-credentials"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"incompatible-network"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"maintenance"</code>
+     *        </p>
+     *        </li>
      */
 
     public void setReplicationInstanceStatus(String replicationInstanceStatus) {
@@ -456,10 +702,143 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The status of the replication instance.
+     * The status of the replication instance. The possible return values include:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>"available"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"creating"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"deleted"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"deleting"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"failed"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"modifying"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"upgrading"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"rebooting"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"resetting-master-credentials"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"storage-full"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"incompatible-credentials"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"incompatible-network"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"maintenance"</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The status of the replication instance.
+     * @return The status of the replication instance. The possible return values include:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>"available"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"creating"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"deleted"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"deleting"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"failed"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"modifying"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"upgrading"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"rebooting"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"resetting-master-credentials"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"storage-full"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"incompatible-credentials"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"incompatible-network"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>"maintenance"</code>
+     *         </p>
+     *         </li>
      */
 
     public String getReplicationInstanceStatus() {
@@ -468,11 +847,144 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The status of the replication instance.
+     * The status of the replication instance. The possible return values include:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>"available"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"creating"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"deleted"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"deleting"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"failed"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"modifying"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"upgrading"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"rebooting"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"resetting-master-credentials"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"storage-full"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"incompatible-credentials"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"incompatible-network"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>"maintenance"</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param replicationInstanceStatus
-     *        The status of the replication instance.
+     *        The status of the replication instance. The possible return values include:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>"available"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"creating"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"deleted"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"deleting"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"failed"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"modifying"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"upgrading"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"rebooting"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"resetting-master-credentials"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"storage-full"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"incompatible-credentials"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"incompatible-network"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>"maintenance"</code>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -713,11 +1225,13 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The maintenance window times for the replication instance.
+     * The maintenance window times for the replication instance. Any pending upgrades to the replication instance are
+     * performed during this time.
      * </p>
      * 
      * @param preferredMaintenanceWindow
-     *        The maintenance window times for the replication instance.
+     *        The maintenance window times for the replication instance. Any pending upgrades to the replication
+     *        instance are performed during this time.
      */
 
     public void setPreferredMaintenanceWindow(String preferredMaintenanceWindow) {
@@ -726,10 +1240,12 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The maintenance window times for the replication instance.
+     * The maintenance window times for the replication instance. Any pending upgrades to the replication instance are
+     * performed during this time.
      * </p>
      * 
-     * @return The maintenance window times for the replication instance.
+     * @return The maintenance window times for the replication instance. Any pending upgrades to the replication
+     *         instance are performed during this time.
      */
 
     public String getPreferredMaintenanceWindow() {
@@ -738,11 +1254,13 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The maintenance window times for the replication instance.
+     * The maintenance window times for the replication instance. Any pending upgrades to the replication instance are
+     * performed during this time.
      * </p>
      * 
      * @param preferredMaintenanceWindow
-     *        The maintenance window times for the replication instance.
+     *        The maintenance window times for the replication instance. Any pending upgrades to the replication
+     *        instance are performed during this time.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -793,12 +1311,12 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      * <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * </p>
      * 
      * @param multiAZ
-     *        Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     *        Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      *        <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      */
 
@@ -808,11 +1326,11 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      * <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * </p>
      * 
-     * @return Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * @return Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      *         <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      */
 
@@ -822,12 +1340,12 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      * <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * </p>
      * 
      * @param multiAZ
-     *        Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     *        Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      *        <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -839,11 +1357,11 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      * <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      * </p>
      * 
-     * @return Specifies whether the replication instance is a Multi-AZ deployment. You cannot set the
+     * @return Specifies whether the replication instance is a Multi-AZ deployment. You can't set the
      *         <code>AvailabilityZone</code> parameter if the Multi-AZ parameter is set to <code>true</code>.
      */
 
@@ -855,9 +1373,24 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
      * <p>
      * The engine version number of the replication instance.
      * </p>
+     * <p>
+     * If an engine version number is not specified when a replication instance is created, the default is the latest
+     * engine version available.
+     * </p>
+     * <p>
+     * When modifying a major engine version of an instance, also set <code>AllowMajorVersionUpgrade</code> to
+     * <code>true</code>.
+     * </p>
      * 
      * @param engineVersion
-     *        The engine version number of the replication instance.
+     *        The engine version number of the replication instance.</p>
+     *        <p>
+     *        If an engine version number is not specified when a replication instance is created, the default is the
+     *        latest engine version available.
+     *        </p>
+     *        <p>
+     *        When modifying a major engine version of an instance, also set <code>AllowMajorVersionUpgrade</code> to
+     *        <code>true</code>.
      */
 
     public void setEngineVersion(String engineVersion) {
@@ -868,8 +1401,23 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
      * <p>
      * The engine version number of the replication instance.
      * </p>
+     * <p>
+     * If an engine version number is not specified when a replication instance is created, the default is the latest
+     * engine version available.
+     * </p>
+     * <p>
+     * When modifying a major engine version of an instance, also set <code>AllowMajorVersionUpgrade</code> to
+     * <code>true</code>.
+     * </p>
      * 
-     * @return The engine version number of the replication instance.
+     * @return The engine version number of the replication instance.</p>
+     *         <p>
+     *         If an engine version number is not specified when a replication instance is created, the default is the
+     *         latest engine version available.
+     *         </p>
+     *         <p>
+     *         When modifying a major engine version of an instance, also set <code>AllowMajorVersionUpgrade</code> to
+     *         <code>true</code>.
      */
 
     public String getEngineVersion() {
@@ -880,9 +1428,24 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
      * <p>
      * The engine version number of the replication instance.
      * </p>
+     * <p>
+     * If an engine version number is not specified when a replication instance is created, the default is the latest
+     * engine version available.
+     * </p>
+     * <p>
+     * When modifying a major engine version of an instance, also set <code>AllowMajorVersionUpgrade</code> to
+     * <code>true</code>.
+     * </p>
      * 
      * @param engineVersion
-     *        The engine version number of the replication instance.
+     *        The engine version number of the replication instance.</p>
+     *        <p>
+     *        If an engine version number is not specified when a replication instance is created, the default is the
+     *        latest engine version available.
+     *        </p>
+     *        <p>
+     *        When modifying a major engine version of an instance, also set <code>AllowMajorVersionUpgrade</code> to
+     *        <code>true</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -945,26 +1508,25 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * An AWS KMS key identifier that is used to encrypt the data on the replication instance.
+     * An KMS key identifier that is used to encrypt the data on the replication instance.
      * </p>
      * <p>
-     * If you don't specify a value for the <code>KmsKeyId</code> parameter, then AWS DMS uses your default encryption
-     * key.
+     * If you don't specify a value for the <code>KmsKeyId</code> parameter, then DMS uses your default encryption key.
      * </p>
      * <p>
-     * AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default
-     * encryption key for each AWS Region.
+     * KMS creates the default encryption key for your Amazon Web Services account. Your Amazon Web Services account has
+     * a different default encryption key for each Amazon Web Services Region.
      * </p>
      * 
      * @param kmsKeyId
-     *        An AWS KMS key identifier that is used to encrypt the data on the replication instance.</p>
+     *        An KMS key identifier that is used to encrypt the data on the replication instance.</p>
      *        <p>
-     *        If you don't specify a value for the <code>KmsKeyId</code> parameter, then AWS DMS uses your default
+     *        If you don't specify a value for the <code>KmsKeyId</code> parameter, then DMS uses your default
      *        encryption key.
      *        </p>
      *        <p>
-     *        AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default
-     *        encryption key for each AWS Region.
+     *        KMS creates the default encryption key for your Amazon Web Services account. Your Amazon Web Services
+     *        account has a different default encryption key for each Amazon Web Services Region.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -973,25 +1535,24 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * An AWS KMS key identifier that is used to encrypt the data on the replication instance.
+     * An KMS key identifier that is used to encrypt the data on the replication instance.
      * </p>
      * <p>
-     * If you don't specify a value for the <code>KmsKeyId</code> parameter, then AWS DMS uses your default encryption
-     * key.
+     * If you don't specify a value for the <code>KmsKeyId</code> parameter, then DMS uses your default encryption key.
      * </p>
      * <p>
-     * AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default
-     * encryption key for each AWS Region.
+     * KMS creates the default encryption key for your Amazon Web Services account. Your Amazon Web Services account has
+     * a different default encryption key for each Amazon Web Services Region.
      * </p>
      * 
-     * @return An AWS KMS key identifier that is used to encrypt the data on the replication instance.</p>
+     * @return An KMS key identifier that is used to encrypt the data on the replication instance.</p>
      *         <p>
-     *         If you don't specify a value for the <code>KmsKeyId</code> parameter, then AWS DMS uses your default
+     *         If you don't specify a value for the <code>KmsKeyId</code> parameter, then DMS uses your default
      *         encryption key.
      *         </p>
      *         <p>
-     *         AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default
-     *         encryption key for each AWS Region.
+     *         KMS creates the default encryption key for your Amazon Web Services account. Your Amazon Web Services
+     *         account has a different default encryption key for each Amazon Web Services Region.
      */
 
     public String getKmsKeyId() {
@@ -1000,26 +1561,25 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * An AWS KMS key identifier that is used to encrypt the data on the replication instance.
+     * An KMS key identifier that is used to encrypt the data on the replication instance.
      * </p>
      * <p>
-     * If you don't specify a value for the <code>KmsKeyId</code> parameter, then AWS DMS uses your default encryption
-     * key.
+     * If you don't specify a value for the <code>KmsKeyId</code> parameter, then DMS uses your default encryption key.
      * </p>
      * <p>
-     * AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default
-     * encryption key for each AWS Region.
+     * KMS creates the default encryption key for your Amazon Web Services account. Your Amazon Web Services account has
+     * a different default encryption key for each Amazon Web Services Region.
      * </p>
      * 
      * @param kmsKeyId
-     *        An AWS KMS key identifier that is used to encrypt the data on the replication instance.</p>
+     *        An KMS key identifier that is used to encrypt the data on the replication instance.</p>
      *        <p>
-     *        If you don't specify a value for the <code>KmsKeyId</code> parameter, then AWS DMS uses your default
+     *        If you don't specify a value for the <code>KmsKeyId</code> parameter, then DMS uses your default
      *        encryption key.
      *        </p>
      *        <p>
-     *        AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default
-     *        encryption key for each AWS Region.
+     *        KMS creates the default encryption key for your Amazon Web Services account. Your Amazon Web Services
+     *        account has a different default encryption key for each Amazon Web Services Region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1292,6 +1852,76 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
+     * One or more IPv6 addresses for the replication instance.
+     * </p>
+     * 
+     * @return One or more IPv6 addresses for the replication instance.
+     */
+
+    public java.util.List<String> getReplicationInstanceIpv6Addresses() {
+        return replicationInstanceIpv6Addresses;
+    }
+
+    /**
+     * <p>
+     * One or more IPv6 addresses for the replication instance.
+     * </p>
+     * 
+     * @param replicationInstanceIpv6Addresses
+     *        One or more IPv6 addresses for the replication instance.
+     */
+
+    public void setReplicationInstanceIpv6Addresses(java.util.Collection<String> replicationInstanceIpv6Addresses) {
+        if (replicationInstanceIpv6Addresses == null) {
+            this.replicationInstanceIpv6Addresses = null;
+            return;
+        }
+
+        this.replicationInstanceIpv6Addresses = new java.util.ArrayList<String>(replicationInstanceIpv6Addresses);
+    }
+
+    /**
+     * <p>
+     * One or more IPv6 addresses for the replication instance.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setReplicationInstanceIpv6Addresses(java.util.Collection)} or
+     * {@link #withReplicationInstanceIpv6Addresses(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param replicationInstanceIpv6Addresses
+     *        One or more IPv6 addresses for the replication instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationInstance withReplicationInstanceIpv6Addresses(String... replicationInstanceIpv6Addresses) {
+        if (this.replicationInstanceIpv6Addresses == null) {
+            setReplicationInstanceIpv6Addresses(new java.util.ArrayList<String>(replicationInstanceIpv6Addresses.length));
+        }
+        for (String ele : replicationInstanceIpv6Addresses) {
+            this.replicationInstanceIpv6Addresses.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * One or more IPv6 addresses for the replication instance.
+     * </p>
+     * 
+     * @param replicationInstanceIpv6Addresses
+     *        One or more IPv6 addresses for the replication instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationInstance withReplicationInstanceIpv6Addresses(java.util.Collection<String> replicationInstanceIpv6Addresses) {
+        setReplicationInstanceIpv6Addresses(replicationInstanceIpv6Addresses);
+        return this;
+    }
+
+    /**
+     * <p>
      * Specifies the accessibility options for the replication instance. A value of <code>true</code> represents an
      * instance with a public IP address. A value of <code>false</code> represents an instance with a private IP
      * address. The default value is <code>true</code>.
@@ -1360,11 +1990,11 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The availability zone of the standby replication instance in a Multi-AZ deployment.
+     * The Availability Zone of the standby replication instance in a Multi-AZ deployment.
      * </p>
      * 
      * @param secondaryAvailabilityZone
-     *        The availability zone of the standby replication instance in a Multi-AZ deployment.
+     *        The Availability Zone of the standby replication instance in a Multi-AZ deployment.
      */
 
     public void setSecondaryAvailabilityZone(String secondaryAvailabilityZone) {
@@ -1373,10 +2003,10 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The availability zone of the standby replication instance in a Multi-AZ deployment.
+     * The Availability Zone of the standby replication instance in a Multi-AZ deployment.
      * </p>
      * 
-     * @return The availability zone of the standby replication instance in a Multi-AZ deployment.
+     * @return The Availability Zone of the standby replication instance in a Multi-AZ deployment.
      */
 
     public String getSecondaryAvailabilityZone() {
@@ -1385,11 +2015,11 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The availability zone of the standby replication instance in a Multi-AZ deployment.
+     * The Availability Zone of the standby replication instance in a Multi-AZ deployment.
      * </p>
      * 
      * @param secondaryAvailabilityZone
-     *        The availability zone of the standby replication instance in a Multi-AZ deployment.
+     *        The Availability Zone of the standby replication instance in a Multi-AZ deployment.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1440,11 +2070,12 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The DNS name servers for the replication instance.
+     * The DNS name servers supported for the replication instance to access your on-premise source or target database.
      * </p>
      * 
      * @param dnsNameServers
-     *        The DNS name servers for the replication instance.
+     *        The DNS name servers supported for the replication instance to access your on-premise source or target
+     *        database.
      */
 
     public void setDnsNameServers(String dnsNameServers) {
@@ -1453,10 +2084,11 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The DNS name servers for the replication instance.
+     * The DNS name servers supported for the replication instance to access your on-premise source or target database.
      * </p>
      * 
-     * @return The DNS name servers for the replication instance.
+     * @return The DNS name servers supported for the replication instance to access your on-premise source or target
+     *         database.
      */
 
     public String getDnsNameServers() {
@@ -1465,16 +2097,63 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The DNS name servers for the replication instance.
+     * The DNS name servers supported for the replication instance to access your on-premise source or target database.
      * </p>
      * 
      * @param dnsNameServers
-     *        The DNS name servers for the replication instance.
+     *        The DNS name servers supported for the replication instance to access your on-premise source or target
+     *        database.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ReplicationInstance withDnsNameServers(String dnsNameServers) {
         setDnsNameServers(dnsNameServers);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that supports
+     * both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     * </p>
+     * 
+     * @param networkType
+     *        The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that
+     *        supports both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     */
+
+    public void setNetworkType(String networkType) {
+        this.networkType = networkType;
+    }
+
+    /**
+     * <p>
+     * The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that supports
+     * both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     * </p>
+     * 
+     * @return The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that
+     *         supports both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     */
+
+    public String getNetworkType() {
+        return this.networkType;
+    }
+
+    /**
+     * <p>
+     * The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that supports
+     * both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     * </p>
+     * 
+     * @param networkType
+     *        The type of IP address protocol used by a replication instance, such as IPv4 only or Dual-stack that
+     *        supports both IPv4 and IPv6 addressing. IPv6 only is not yet supported.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationInstance withNetworkType(String networkType) {
+        setNetworkType(networkType);
         return this;
     }
 
@@ -1528,6 +2207,8 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
             sb.append("ReplicationInstancePublicIpAddresses: ").append(getReplicationInstancePublicIpAddresses()).append(",");
         if (getReplicationInstancePrivateIpAddresses() != null)
             sb.append("ReplicationInstancePrivateIpAddresses: ").append(getReplicationInstancePrivateIpAddresses()).append(",");
+        if (getReplicationInstanceIpv6Addresses() != null)
+            sb.append("ReplicationInstanceIpv6Addresses: ").append(getReplicationInstanceIpv6Addresses()).append(",");
         if (getPubliclyAccessible() != null)
             sb.append("PubliclyAccessible: ").append(getPubliclyAccessible()).append(",");
         if (getSecondaryAvailabilityZone() != null)
@@ -1535,7 +2216,9 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
         if (getFreeUntil() != null)
             sb.append("FreeUntil: ").append(getFreeUntil()).append(",");
         if (getDnsNameServers() != null)
-            sb.append("DnsNameServers: ").append(getDnsNameServers());
+            sb.append("DnsNameServers: ").append(getDnsNameServers()).append(",");
+        if (getNetworkType() != null)
+            sb.append("NetworkType: ").append(getNetworkType());
         sb.append("}");
         return sb.toString();
     }
@@ -1631,6 +2314,11 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
         if (other.getReplicationInstancePrivateIpAddresses() != null
                 && other.getReplicationInstancePrivateIpAddresses().equals(this.getReplicationInstancePrivateIpAddresses()) == false)
             return false;
+        if (other.getReplicationInstanceIpv6Addresses() == null ^ this.getReplicationInstanceIpv6Addresses() == null)
+            return false;
+        if (other.getReplicationInstanceIpv6Addresses() != null
+                && other.getReplicationInstanceIpv6Addresses().equals(this.getReplicationInstanceIpv6Addresses()) == false)
+            return false;
         if (other.getPubliclyAccessible() == null ^ this.getPubliclyAccessible() == null)
             return false;
         if (other.getPubliclyAccessible() != null && other.getPubliclyAccessible().equals(this.getPubliclyAccessible()) == false)
@@ -1646,6 +2334,10 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
         if (other.getDnsNameServers() == null ^ this.getDnsNameServers() == null)
             return false;
         if (other.getDnsNameServers() != null && other.getDnsNameServers().equals(this.getDnsNameServers()) == false)
+            return false;
+        if (other.getNetworkType() == null ^ this.getNetworkType() == null)
+            return false;
+        if (other.getNetworkType() != null && other.getNetworkType().equals(this.getNetworkType()) == false)
             return false;
         return true;
     }
@@ -1674,10 +2366,12 @@ public class ReplicationInstance implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getReplicationInstancePrivateIpAddress() == null) ? 0 : getReplicationInstancePrivateIpAddress().hashCode());
         hashCode = prime * hashCode + ((getReplicationInstancePublicIpAddresses() == null) ? 0 : getReplicationInstancePublicIpAddresses().hashCode());
         hashCode = prime * hashCode + ((getReplicationInstancePrivateIpAddresses() == null) ? 0 : getReplicationInstancePrivateIpAddresses().hashCode());
+        hashCode = prime * hashCode + ((getReplicationInstanceIpv6Addresses() == null) ? 0 : getReplicationInstanceIpv6Addresses().hashCode());
         hashCode = prime * hashCode + ((getPubliclyAccessible() == null) ? 0 : getPubliclyAccessible().hashCode());
         hashCode = prime * hashCode + ((getSecondaryAvailabilityZone() == null) ? 0 : getSecondaryAvailabilityZone().hashCode());
         hashCode = prime * hashCode + ((getFreeUntil() == null) ? 0 : getFreeUntil().hashCode());
         hashCode = prime * hashCode + ((getDnsNameServers() == null) ? 0 : getDnsNameServers().hashCode());
+        hashCode = prime * hashCode + ((getNetworkType() == null) ? 0 : getNetworkType().hashCode());
         return hashCode;
     }
 

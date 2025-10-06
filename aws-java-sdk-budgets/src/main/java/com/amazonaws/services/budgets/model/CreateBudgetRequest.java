@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,10 +41,18 @@ public class CreateBudgetRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * A notification that you want to associate with a budget. A budget can have up to five notifications, and each
      * notification can have one SNS subscriber and up to 10 email subscribers. If you include notifications and
-     * subscribers in your <code>CreateBudget</code> call, AWS creates the notifications and subscribers for you.
+     * subscribers in your <code>CreateBudget</code> call, Amazon Web Services creates the notifications and subscribers
+     * for you.
      * </p>
      */
     private java.util.List<NotificationWithSubscribers> notificationsWithSubscribers;
+    /**
+     * <p>
+     * An optional list of tags to associate with the specified budget. Each tag consists of a key and a value, and each
+     * key must be unique for the resource.
+     * </p>
+     */
+    private java.util.List<ResourceTag> resourceTags;
 
     /**
      * <p>
@@ -130,13 +138,14 @@ public class CreateBudgetRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * A notification that you want to associate with a budget. A budget can have up to five notifications, and each
      * notification can have one SNS subscriber and up to 10 email subscribers. If you include notifications and
-     * subscribers in your <code>CreateBudget</code> call, AWS creates the notifications and subscribers for you.
+     * subscribers in your <code>CreateBudget</code> call, Amazon Web Services creates the notifications and subscribers
+     * for you.
      * </p>
      * 
      * @return A notification that you want to associate with a budget. A budget can have up to five notifications, and
      *         each notification can have one SNS subscriber and up to 10 email subscribers. If you include
-     *         notifications and subscribers in your <code>CreateBudget</code> call, AWS creates the notifications and
-     *         subscribers for you.
+     *         notifications and subscribers in your <code>CreateBudget</code> call, Amazon Web Services creates the
+     *         notifications and subscribers for you.
      */
 
     public java.util.List<NotificationWithSubscribers> getNotificationsWithSubscribers() {
@@ -147,14 +156,15 @@ public class CreateBudgetRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * A notification that you want to associate with a budget. A budget can have up to five notifications, and each
      * notification can have one SNS subscriber and up to 10 email subscribers. If you include notifications and
-     * subscribers in your <code>CreateBudget</code> call, AWS creates the notifications and subscribers for you.
+     * subscribers in your <code>CreateBudget</code> call, Amazon Web Services creates the notifications and subscribers
+     * for you.
      * </p>
      * 
      * @param notificationsWithSubscribers
      *        A notification that you want to associate with a budget. A budget can have up to five notifications, and
      *        each notification can have one SNS subscriber and up to 10 email subscribers. If you include notifications
-     *        and subscribers in your <code>CreateBudget</code> call, AWS creates the notifications and subscribers for
-     *        you.
+     *        and subscribers in your <code>CreateBudget</code> call, Amazon Web Services creates the notifications and
+     *        subscribers for you.
      */
 
     public void setNotificationsWithSubscribers(java.util.Collection<NotificationWithSubscribers> notificationsWithSubscribers) {
@@ -170,7 +180,8 @@ public class CreateBudgetRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * A notification that you want to associate with a budget. A budget can have up to five notifications, and each
      * notification can have one SNS subscriber and up to 10 email subscribers. If you include notifications and
-     * subscribers in your <code>CreateBudget</code> call, AWS creates the notifications and subscribers for you.
+     * subscribers in your <code>CreateBudget</code> call, Amazon Web Services creates the notifications and subscribers
+     * for you.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -181,8 +192,8 @@ public class CreateBudgetRequest extends com.amazonaws.AmazonWebServiceRequest i
      * @param notificationsWithSubscribers
      *        A notification that you want to associate with a budget. A budget can have up to five notifications, and
      *        each notification can have one SNS subscriber and up to 10 email subscribers. If you include notifications
-     *        and subscribers in your <code>CreateBudget</code> call, AWS creates the notifications and subscribers for
-     *        you.
+     *        and subscribers in your <code>CreateBudget</code> call, Amazon Web Services creates the notifications and
+     *        subscribers for you.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -200,19 +211,98 @@ public class CreateBudgetRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * A notification that you want to associate with a budget. A budget can have up to five notifications, and each
      * notification can have one SNS subscriber and up to 10 email subscribers. If you include notifications and
-     * subscribers in your <code>CreateBudget</code> call, AWS creates the notifications and subscribers for you.
+     * subscribers in your <code>CreateBudget</code> call, Amazon Web Services creates the notifications and subscribers
+     * for you.
      * </p>
      * 
      * @param notificationsWithSubscribers
      *        A notification that you want to associate with a budget. A budget can have up to five notifications, and
      *        each notification can have one SNS subscriber and up to 10 email subscribers. If you include notifications
-     *        and subscribers in your <code>CreateBudget</code> call, AWS creates the notifications and subscribers for
-     *        you.
+     *        and subscribers in your <code>CreateBudget</code> call, Amazon Web Services creates the notifications and
+     *        subscribers for you.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateBudgetRequest withNotificationsWithSubscribers(java.util.Collection<NotificationWithSubscribers> notificationsWithSubscribers) {
         setNotificationsWithSubscribers(notificationsWithSubscribers);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An optional list of tags to associate with the specified budget. Each tag consists of a key and a value, and each
+     * key must be unique for the resource.
+     * </p>
+     * 
+     * @return An optional list of tags to associate with the specified budget. Each tag consists of a key and a value,
+     *         and each key must be unique for the resource.
+     */
+
+    public java.util.List<ResourceTag> getResourceTags() {
+        return resourceTags;
+    }
+
+    /**
+     * <p>
+     * An optional list of tags to associate with the specified budget. Each tag consists of a key and a value, and each
+     * key must be unique for the resource.
+     * </p>
+     * 
+     * @param resourceTags
+     *        An optional list of tags to associate with the specified budget. Each tag consists of a key and a value,
+     *        and each key must be unique for the resource.
+     */
+
+    public void setResourceTags(java.util.Collection<ResourceTag> resourceTags) {
+        if (resourceTags == null) {
+            this.resourceTags = null;
+            return;
+        }
+
+        this.resourceTags = new java.util.ArrayList<ResourceTag>(resourceTags);
+    }
+
+    /**
+     * <p>
+     * An optional list of tags to associate with the specified budget. Each tag consists of a key and a value, and each
+     * key must be unique for the resource.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setResourceTags(java.util.Collection)} or {@link #withResourceTags(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param resourceTags
+     *        An optional list of tags to associate with the specified budget. Each tag consists of a key and a value,
+     *        and each key must be unique for the resource.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBudgetRequest withResourceTags(ResourceTag... resourceTags) {
+        if (this.resourceTags == null) {
+            setResourceTags(new java.util.ArrayList<ResourceTag>(resourceTags.length));
+        }
+        for (ResourceTag ele : resourceTags) {
+            this.resourceTags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An optional list of tags to associate with the specified budget. Each tag consists of a key and a value, and each
+     * key must be unique for the resource.
+     * </p>
+     * 
+     * @param resourceTags
+     *        An optional list of tags to associate with the specified budget. Each tag consists of a key and a value,
+     *        and each key must be unique for the resource.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateBudgetRequest withResourceTags(java.util.Collection<ResourceTag> resourceTags) {
+        setResourceTags(resourceTags);
         return this;
     }
 
@@ -233,7 +323,9 @@ public class CreateBudgetRequest extends com.amazonaws.AmazonWebServiceRequest i
         if (getBudget() != null)
             sb.append("Budget: ").append(getBudget()).append(",");
         if (getNotificationsWithSubscribers() != null)
-            sb.append("NotificationsWithSubscribers: ").append(getNotificationsWithSubscribers());
+            sb.append("NotificationsWithSubscribers: ").append(getNotificationsWithSubscribers()).append(",");
+        if (getResourceTags() != null)
+            sb.append("ResourceTags: ").append(getResourceTags());
         sb.append("}");
         return sb.toString();
     }
@@ -260,6 +352,10 @@ public class CreateBudgetRequest extends com.amazonaws.AmazonWebServiceRequest i
             return false;
         if (other.getNotificationsWithSubscribers() != null && other.getNotificationsWithSubscribers().equals(this.getNotificationsWithSubscribers()) == false)
             return false;
+        if (other.getResourceTags() == null ^ this.getResourceTags() == null)
+            return false;
+        if (other.getResourceTags() != null && other.getResourceTags().equals(this.getResourceTags()) == false)
+            return false;
         return true;
     }
 
@@ -271,6 +367,7 @@ public class CreateBudgetRequest extends com.amazonaws.AmazonWebServiceRequest i
         hashCode = prime * hashCode + ((getAccountId() == null) ? 0 : getAccountId().hashCode());
         hashCode = prime * hashCode + ((getBudget() == null) ? 0 : getBudget().hashCode());
         hashCode = prime * hashCode + ((getNotificationsWithSubscribers() == null) ? 0 : getNotificationsWithSubscribers().hashCode());
+        hashCode = prime * hashCode + ((getResourceTags() == null) ? 0 : getResourceTags().hashCode());
         return hashCode;
     }
 

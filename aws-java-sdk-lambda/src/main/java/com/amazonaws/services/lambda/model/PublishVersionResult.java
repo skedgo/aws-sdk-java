@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,7 +40,14 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
     private String functionArn;
     /**
      * <p>
-     * The runtime environment for the Lambda function.
+     * The identifier of the function's <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">runtime</a>. Runtime is required if the
+     * deployment package is a .zip file archive.
+     * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
      * </p>
      */
     private String runtime;
@@ -52,7 +59,7 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
     private String role;
     /**
      * <p>
-     * The function that Lambda calls to begin executing your function.
+     * The function that Lambda calls to begin running your function.
      * </p>
      */
     private String handler;
@@ -70,13 +77,13 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
     private String description;
     /**
      * <p>
-     * The amount of time that Lambda allows a function to run before stopping it.
+     * The amount of time in seconds that Lambda allows a function to run before stopping it.
      * </p>
      */
     private Integer timeout;
     /**
      * <p>
-     * The memory that's allocated to the function.
+     * The amount of memory available to the function at runtime.
      * </p>
      */
     private Integer memorySize;
@@ -113,26 +120,31 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
     private DeadLetterConfig deadLetterConfig;
     /**
      * <p>
-     * The function's environment variables.
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html">environment
+     * variables</a>. Omitted from CloudTrail logs.
      * </p>
      */
     private EnvironmentResponse environment;
     /**
      * <p>
-     * The KMS key that's used to encrypt the function's environment variables. This key is only returned if you've
-     * configured a customer-managed CMK.
+     * The KMS key that's used to encrypt the function's <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption"
+     * >environment variables</a>. When <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html">Lambda SnapStart</a> is activated,
+     * this key is also used to encrypt the function's snapshot. This key is returned only if you've configured a
+     * customer managed key.
      * </p>
      */
     private String kMSKeyArn;
     /**
      * <p>
-     * The function's AWS X-Ray tracing configuration.
+     * The function's X-Ray tracing configuration.
      * </p>
      */
     private TracingConfigResponse tracingConfig;
     /**
      * <p>
-     * For Lambda@Edge functions, the ARN of the master function.
+     * For Lambda@Edge functions, the ARN of the main function.
      * </p>
      */
     private String masterArn;
@@ -144,10 +156,118 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
     private String revisionId;
     /**
      * <p>
-     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html"> layers</a>.
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">layers</a>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Layer> layers;
+    /**
+     * <p>
+     * The current state of the function. When the state is <code>Inactive</code>, you can reactivate the function by
+     * invoking it.
+     * </p>
+     */
+    private String state;
+    /**
+     * <p>
+     * The reason for the function's current state.
+     * </p>
+     */
+    private String stateReason;
+    /**
+     * <p>
+     * The reason code for the function's current state. When the code is <code>Creating</code>, you can't invoke or
+     * modify the function.
+     * </p>
+     */
+    private String stateReasonCode;
+    /**
+     * <p>
+     * The status of the last update that was performed on the function. This is first set to <code>Successful</code>
+     * after function creation completes.
+     * </p>
+     */
+    private String lastUpdateStatus;
+    /**
+     * <p>
+     * The reason for the last update that was performed on the function.
+     * </p>
+     */
+    private String lastUpdateStatusReason;
+    /**
+     * <p>
+     * The reason code for the last update that was performed on the function.
+     * </p>
+     */
+    private String lastUpdateStatusReasonCode;
+    /**
+     * <p>
+     * Connection settings for an <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html">Amazon EFS file system</a>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<FileSystemConfig> fileSystemConfigs;
+    /**
+     * <p>
+     * The type of deployment package. Set to <code>Image</code> for container image and set <code>Zip</code> for .zip
+     * file archive.
+     * </p>
+     */
+    private String packageType;
+    /**
+     * <p>
+     * The function's image configuration values.
+     * </p>
+     */
+    private ImageConfigResponse imageConfigResponse;
+    /**
+     * <p>
+     * The ARN of the signing profile version.
+     * </p>
+     */
+    private String signingProfileVersionArn;
+    /**
+     * <p>
+     * The ARN of the signing job.
+     * </p>
+     */
+    private String signingJobArn;
+    /**
+     * <p>
+     * The instruction set architecture that the function supports. Architecture is a string array with one of the valid
+     * values. The default architecture value is <code>x86_64</code>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> architectures;
+    /**
+     * <p>
+     * The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole
+     * number between 512 and 10,240 MB. For more information, see <a href=
+     * "https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage"
+     * >Configuring ephemeral storage (console)</a>.
+     * </p>
+     */
+    private EphemeralStorage ephemeralStorage;
+    /**
+     * <p>
+     * Set <code>ApplyOn</code> to <code>PublishedVersions</code> to create a snapshot of the initialized execution
+     * environment when you publish a function version. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html">Improving startup performance with Lambda
+     * SnapStart</a>.
+     * </p>
+     */
+    private SnapStartResponse snapStart;
+    /**
+     * <p>
+     * The ARN of the runtime and any errors that occured.
+     * </p>
+     */
+    private RuntimeVersionConfig runtimeVersionConfig;
+    /**
+     * <p>
+     * The function's Amazon CloudWatch Logs configuration settings.
+     * </p>
+     */
+    private LoggingConfig loggingConfig;
 
     /**
      * <p>
@@ -231,11 +351,24 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The runtime environment for the Lambda function.
+     * The identifier of the function's <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">runtime</a>. Runtime is required if the
+     * deployment package is a .zip file archive.
+     * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
      * </p>
      * 
      * @param runtime
-     *        The runtime environment for the Lambda function.
+     *        The identifier of the function's <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">runtime</a>. Runtime is required
+     *        if the deployment package is a .zip file archive.</p>
+     *        <p>
+     *        The following list includes deprecated runtimes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *        deprecation policy</a>.
      * @see Runtime
      */
 
@@ -245,10 +378,23 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The runtime environment for the Lambda function.
+     * The identifier of the function's <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">runtime</a>. Runtime is required if the
+     * deployment package is a .zip file archive.
+     * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
      * </p>
      * 
-     * @return The runtime environment for the Lambda function.
+     * @return The identifier of the function's <a
+     *         href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">runtime</a>. Runtime is required
+     *         if the deployment package is a .zip file archive.</p>
+     *         <p>
+     *         The following list includes deprecated runtimes. For more information, see <a
+     *         href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *         deprecation policy</a>.
      * @see Runtime
      */
 
@@ -258,11 +404,24 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The runtime environment for the Lambda function.
+     * The identifier of the function's <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">runtime</a>. Runtime is required if the
+     * deployment package is a .zip file archive.
+     * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
      * </p>
      * 
      * @param runtime
-     *        The runtime environment for the Lambda function.
+     *        The identifier of the function's <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">runtime</a>. Runtime is required
+     *        if the deployment package is a .zip file archive.</p>
+     *        <p>
+     *        The following list includes deprecated runtimes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *        deprecation policy</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Runtime
      */
@@ -274,11 +433,24 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The runtime environment for the Lambda function.
+     * The identifier of the function's <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">runtime</a>. Runtime is required if the
+     * deployment package is a .zip file archive.
+     * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
      * </p>
      * 
      * @param runtime
-     *        The runtime environment for the Lambda function.
+     *        The identifier of the function's <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">runtime</a>. Runtime is required
+     *        if the deployment package is a .zip file archive.</p>
+     *        <p>
+     *        The following list includes deprecated runtimes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *        deprecation policy</a>.
      * @see Runtime
      */
 
@@ -288,11 +460,24 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The runtime environment for the Lambda function.
+     * The identifier of the function's <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">runtime</a>. Runtime is required if the
+     * deployment package is a .zip file archive.
+     * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
      * </p>
      * 
      * @param runtime
-     *        The runtime environment for the Lambda function.
+     *        The identifier of the function's <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">runtime</a>. Runtime is required
+     *        if the deployment package is a .zip file archive.</p>
+     *        <p>
+     *        The following list includes deprecated runtimes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *        deprecation policy</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Runtime
      */
@@ -344,11 +529,11 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The function that Lambda calls to begin executing your function.
+     * The function that Lambda calls to begin running your function.
      * </p>
      * 
      * @param handler
-     *        The function that Lambda calls to begin executing your function.
+     *        The function that Lambda calls to begin running your function.
      */
 
     public void setHandler(String handler) {
@@ -357,10 +542,10 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The function that Lambda calls to begin executing your function.
+     * The function that Lambda calls to begin running your function.
      * </p>
      * 
-     * @return The function that Lambda calls to begin executing your function.
+     * @return The function that Lambda calls to begin running your function.
      */
 
     public String getHandler() {
@@ -369,11 +554,11 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The function that Lambda calls to begin executing your function.
+     * The function that Lambda calls to begin running your function.
      * </p>
      * 
      * @param handler
-     *        The function that Lambda calls to begin executing your function.
+     *        The function that Lambda calls to begin running your function.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -464,11 +649,11 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The amount of time that Lambda allows a function to run before stopping it.
+     * The amount of time in seconds that Lambda allows a function to run before stopping it.
      * </p>
      * 
      * @param timeout
-     *        The amount of time that Lambda allows a function to run before stopping it.
+     *        The amount of time in seconds that Lambda allows a function to run before stopping it.
      */
 
     public void setTimeout(Integer timeout) {
@@ -477,10 +662,10 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The amount of time that Lambda allows a function to run before stopping it.
+     * The amount of time in seconds that Lambda allows a function to run before stopping it.
      * </p>
      * 
-     * @return The amount of time that Lambda allows a function to run before stopping it.
+     * @return The amount of time in seconds that Lambda allows a function to run before stopping it.
      */
 
     public Integer getTimeout() {
@@ -489,11 +674,11 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The amount of time that Lambda allows a function to run before stopping it.
+     * The amount of time in seconds that Lambda allows a function to run before stopping it.
      * </p>
      * 
      * @param timeout
-     *        The amount of time that Lambda allows a function to run before stopping it.
+     *        The amount of time in seconds that Lambda allows a function to run before stopping it.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -504,11 +689,11 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The memory that's allocated to the function.
+     * The amount of memory available to the function at runtime.
      * </p>
      * 
      * @param memorySize
-     *        The memory that's allocated to the function.
+     *        The amount of memory available to the function at runtime.
      */
 
     public void setMemorySize(Integer memorySize) {
@@ -517,10 +702,10 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The memory that's allocated to the function.
+     * The amount of memory available to the function at runtime.
      * </p>
      * 
-     * @return The memory that's allocated to the function.
+     * @return The amount of memory available to the function at runtime.
      */
 
     public Integer getMemorySize() {
@@ -529,11 +714,11 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The memory that's allocated to the function.
+     * The amount of memory available to the function at runtime.
      * </p>
      * 
      * @param memorySize
-     *        The memory that's allocated to the function.
+     *        The amount of memory available to the function at runtime.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -750,11 +935,14 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The function's environment variables.
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html">environment
+     * variables</a>. Omitted from CloudTrail logs.
      * </p>
      * 
      * @param environment
-     *        The function's environment variables.
+     *        The function's <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html">environment variables</a>.
+     *        Omitted from CloudTrail logs.
      */
 
     public void setEnvironment(EnvironmentResponse environment) {
@@ -763,10 +951,13 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The function's environment variables.
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html">environment
+     * variables</a>. Omitted from CloudTrail logs.
      * </p>
      * 
-     * @return The function's environment variables.
+     * @return The function's <a
+     *         href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html">environment variables</a>.
+     *         Omitted from CloudTrail logs.
      */
 
     public EnvironmentResponse getEnvironment() {
@@ -775,11 +966,14 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The function's environment variables.
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html">environment
+     * variables</a>. Omitted from CloudTrail logs.
      * </p>
      * 
      * @param environment
-     *        The function's environment variables.
+     *        The function's <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html">environment variables</a>.
+     *        Omitted from CloudTrail logs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -790,13 +984,21 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The KMS key that's used to encrypt the function's environment variables. This key is only returned if you've
-     * configured a customer-managed CMK.
+     * The KMS key that's used to encrypt the function's <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption"
+     * >environment variables</a>. When <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html">Lambda SnapStart</a> is activated,
+     * this key is also used to encrypt the function's snapshot. This key is returned only if you've configured a
+     * customer managed key.
      * </p>
      * 
      * @param kMSKeyArn
-     *        The KMS key that's used to encrypt the function's environment variables. This key is only returned if
-     *        you've configured a customer-managed CMK.
+     *        The KMS key that's used to encrypt the function's <a href=
+     *        "https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption"
+     *        >environment variables</a>. When <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html">Lambda SnapStart</a> is
+     *        activated, this key is also used to encrypt the function's snapshot. This key is returned only if you've
+     *        configured a customer managed key.
      */
 
     public void setKMSKeyArn(String kMSKeyArn) {
@@ -805,12 +1007,20 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The KMS key that's used to encrypt the function's environment variables. This key is only returned if you've
-     * configured a customer-managed CMK.
+     * The KMS key that's used to encrypt the function's <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption"
+     * >environment variables</a>. When <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html">Lambda SnapStart</a> is activated,
+     * this key is also used to encrypt the function's snapshot. This key is returned only if you've configured a
+     * customer managed key.
      * </p>
      * 
-     * @return The KMS key that's used to encrypt the function's environment variables. This key is only returned if
-     *         you've configured a customer-managed CMK.
+     * @return The KMS key that's used to encrypt the function's <a
+     *         href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption"
+     *         >environment variables</a>. When <a
+     *         href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html">Lambda SnapStart</a> is
+     *         activated, this key is also used to encrypt the function's snapshot. This key is returned only if you've
+     *         configured a customer managed key.
      */
 
     public String getKMSKeyArn() {
@@ -819,13 +1029,21 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The KMS key that's used to encrypt the function's environment variables. This key is only returned if you've
-     * configured a customer-managed CMK.
+     * The KMS key that's used to encrypt the function's <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption"
+     * >environment variables</a>. When <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html">Lambda SnapStart</a> is activated,
+     * this key is also used to encrypt the function's snapshot. This key is returned only if you've configured a
+     * customer managed key.
      * </p>
      * 
      * @param kMSKeyArn
-     *        The KMS key that's used to encrypt the function's environment variables. This key is only returned if
-     *        you've configured a customer-managed CMK.
+     *        The KMS key that's used to encrypt the function's <a href=
+     *        "https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption"
+     *        >environment variables</a>. When <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html">Lambda SnapStart</a> is
+     *        activated, this key is also used to encrypt the function's snapshot. This key is returned only if you've
+     *        configured a customer managed key.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -836,11 +1054,11 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The function's AWS X-Ray tracing configuration.
+     * The function's X-Ray tracing configuration.
      * </p>
      * 
      * @param tracingConfig
-     *        The function's AWS X-Ray tracing configuration.
+     *        The function's X-Ray tracing configuration.
      */
 
     public void setTracingConfig(TracingConfigResponse tracingConfig) {
@@ -849,10 +1067,10 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The function's AWS X-Ray tracing configuration.
+     * The function's X-Ray tracing configuration.
      * </p>
      * 
-     * @return The function's AWS X-Ray tracing configuration.
+     * @return The function's X-Ray tracing configuration.
      */
 
     public TracingConfigResponse getTracingConfig() {
@@ -861,11 +1079,11 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The function's AWS X-Ray tracing configuration.
+     * The function's X-Ray tracing configuration.
      * </p>
      * 
      * @param tracingConfig
-     *        The function's AWS X-Ray tracing configuration.
+     *        The function's X-Ray tracing configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -876,11 +1094,11 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * For Lambda@Edge functions, the ARN of the master function.
+     * For Lambda@Edge functions, the ARN of the main function.
      * </p>
      * 
      * @param masterArn
-     *        For Lambda@Edge functions, the ARN of the master function.
+     *        For Lambda@Edge functions, the ARN of the main function.
      */
 
     public void setMasterArn(String masterArn) {
@@ -889,10 +1107,10 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * For Lambda@Edge functions, the ARN of the master function.
+     * For Lambda@Edge functions, the ARN of the main function.
      * </p>
      * 
-     * @return For Lambda@Edge functions, the ARN of the master function.
+     * @return For Lambda@Edge functions, the ARN of the main function.
      */
 
     public String getMasterArn() {
@@ -901,11 +1119,11 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * For Lambda@Edge functions, the ARN of the master function.
+     * For Lambda@Edge functions, the ARN of the main function.
      * </p>
      * 
      * @param masterArn
-     *        For Lambda@Edge functions, the ARN of the master function.
+     *        For Lambda@Edge functions, the ARN of the main function.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -956,11 +1174,11 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html"> layers</a>.
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">layers</a>.
      * </p>
      * 
-     * @return The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">
-     *         layers</a>.
+     * @return The function's <a
+     *         href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">layers</a>.
      */
 
     public java.util.List<Layer> getLayers() {
@@ -972,12 +1190,12 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html"> layers</a>.
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">layers</a>.
      * </p>
      * 
      * @param layers
-     *        The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">
-     *        layers</a>.
+     *        The function's <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">layers</a>.
      */
 
     public void setLayers(java.util.Collection<Layer> layers) {
@@ -991,7 +1209,7 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html"> layers</a>.
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">layers</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1000,8 +1218,8 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
      * </p>
      * 
      * @param layers
-     *        The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">
-     *        layers</a>.
+     *        The function's <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">layers</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1017,17 +1235,1014 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html"> layers</a>.
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">layers</a>.
      * </p>
      * 
      * @param layers
-     *        The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">
-     *        layers</a>.
+     *        The function's <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">layers</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public PublishVersionResult withLayers(java.util.Collection<Layer> layers) {
         setLayers(layers);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current state of the function. When the state is <code>Inactive</code>, you can reactivate the function by
+     * invoking it.
+     * </p>
+     * 
+     * @param state
+     *        The current state of the function. When the state is <code>Inactive</code>, you can reactivate the
+     *        function by invoking it.
+     * @see State
+     */
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    /**
+     * <p>
+     * The current state of the function. When the state is <code>Inactive</code>, you can reactivate the function by
+     * invoking it.
+     * </p>
+     * 
+     * @return The current state of the function. When the state is <code>Inactive</code>, you can reactivate the
+     *         function by invoking it.
+     * @see State
+     */
+
+    public String getState() {
+        return this.state;
+    }
+
+    /**
+     * <p>
+     * The current state of the function. When the state is <code>Inactive</code>, you can reactivate the function by
+     * invoking it.
+     * </p>
+     * 
+     * @param state
+     *        The current state of the function. When the state is <code>Inactive</code>, you can reactivate the
+     *        function by invoking it.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see State
+     */
+
+    public PublishVersionResult withState(String state) {
+        setState(state);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current state of the function. When the state is <code>Inactive</code>, you can reactivate the function by
+     * invoking it.
+     * </p>
+     * 
+     * @param state
+     *        The current state of the function. When the state is <code>Inactive</code>, you can reactivate the
+     *        function by invoking it.
+     * @see State
+     */
+
+    public void setState(State state) {
+        withState(state);
+    }
+
+    /**
+     * <p>
+     * The current state of the function. When the state is <code>Inactive</code>, you can reactivate the function by
+     * invoking it.
+     * </p>
+     * 
+     * @param state
+     *        The current state of the function. When the state is <code>Inactive</code>, you can reactivate the
+     *        function by invoking it.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see State
+     */
+
+    public PublishVersionResult withState(State state) {
+        this.state = state.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The reason for the function's current state.
+     * </p>
+     * 
+     * @param stateReason
+     *        The reason for the function's current state.
+     */
+
+    public void setStateReason(String stateReason) {
+        this.stateReason = stateReason;
+    }
+
+    /**
+     * <p>
+     * The reason for the function's current state.
+     * </p>
+     * 
+     * @return The reason for the function's current state.
+     */
+
+    public String getStateReason() {
+        return this.stateReason;
+    }
+
+    /**
+     * <p>
+     * The reason for the function's current state.
+     * </p>
+     * 
+     * @param stateReason
+     *        The reason for the function's current state.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PublishVersionResult withStateReason(String stateReason) {
+        setStateReason(stateReason);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The reason code for the function's current state. When the code is <code>Creating</code>, you can't invoke or
+     * modify the function.
+     * </p>
+     * 
+     * @param stateReasonCode
+     *        The reason code for the function's current state. When the code is <code>Creating</code>, you can't invoke
+     *        or modify the function.
+     * @see StateReasonCode
+     */
+
+    public void setStateReasonCode(String stateReasonCode) {
+        this.stateReasonCode = stateReasonCode;
+    }
+
+    /**
+     * <p>
+     * The reason code for the function's current state. When the code is <code>Creating</code>, you can't invoke or
+     * modify the function.
+     * </p>
+     * 
+     * @return The reason code for the function's current state. When the code is <code>Creating</code>, you can't
+     *         invoke or modify the function.
+     * @see StateReasonCode
+     */
+
+    public String getStateReasonCode() {
+        return this.stateReasonCode;
+    }
+
+    /**
+     * <p>
+     * The reason code for the function's current state. When the code is <code>Creating</code>, you can't invoke or
+     * modify the function.
+     * </p>
+     * 
+     * @param stateReasonCode
+     *        The reason code for the function's current state. When the code is <code>Creating</code>, you can't invoke
+     *        or modify the function.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StateReasonCode
+     */
+
+    public PublishVersionResult withStateReasonCode(String stateReasonCode) {
+        setStateReasonCode(stateReasonCode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The reason code for the function's current state. When the code is <code>Creating</code>, you can't invoke or
+     * modify the function.
+     * </p>
+     * 
+     * @param stateReasonCode
+     *        The reason code for the function's current state. When the code is <code>Creating</code>, you can't invoke
+     *        or modify the function.
+     * @see StateReasonCode
+     */
+
+    public void setStateReasonCode(StateReasonCode stateReasonCode) {
+        withStateReasonCode(stateReasonCode);
+    }
+
+    /**
+     * <p>
+     * The reason code for the function's current state. When the code is <code>Creating</code>, you can't invoke or
+     * modify the function.
+     * </p>
+     * 
+     * @param stateReasonCode
+     *        The reason code for the function's current state. When the code is <code>Creating</code>, you can't invoke
+     *        or modify the function.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StateReasonCode
+     */
+
+    public PublishVersionResult withStateReasonCode(StateReasonCode stateReasonCode) {
+        this.stateReasonCode = stateReasonCode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of the last update that was performed on the function. This is first set to <code>Successful</code>
+     * after function creation completes.
+     * </p>
+     * 
+     * @param lastUpdateStatus
+     *        The status of the last update that was performed on the function. This is first set to
+     *        <code>Successful</code> after function creation completes.
+     * @see LastUpdateStatus
+     */
+
+    public void setLastUpdateStatus(String lastUpdateStatus) {
+        this.lastUpdateStatus = lastUpdateStatus;
+    }
+
+    /**
+     * <p>
+     * The status of the last update that was performed on the function. This is first set to <code>Successful</code>
+     * after function creation completes.
+     * </p>
+     * 
+     * @return The status of the last update that was performed on the function. This is first set to
+     *         <code>Successful</code> after function creation completes.
+     * @see LastUpdateStatus
+     */
+
+    public String getLastUpdateStatus() {
+        return this.lastUpdateStatus;
+    }
+
+    /**
+     * <p>
+     * The status of the last update that was performed on the function. This is first set to <code>Successful</code>
+     * after function creation completes.
+     * </p>
+     * 
+     * @param lastUpdateStatus
+     *        The status of the last update that was performed on the function. This is first set to
+     *        <code>Successful</code> after function creation completes.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see LastUpdateStatus
+     */
+
+    public PublishVersionResult withLastUpdateStatus(String lastUpdateStatus) {
+        setLastUpdateStatus(lastUpdateStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of the last update that was performed on the function. This is first set to <code>Successful</code>
+     * after function creation completes.
+     * </p>
+     * 
+     * @param lastUpdateStatus
+     *        The status of the last update that was performed on the function. This is first set to
+     *        <code>Successful</code> after function creation completes.
+     * @see LastUpdateStatus
+     */
+
+    public void setLastUpdateStatus(LastUpdateStatus lastUpdateStatus) {
+        withLastUpdateStatus(lastUpdateStatus);
+    }
+
+    /**
+     * <p>
+     * The status of the last update that was performed on the function. This is first set to <code>Successful</code>
+     * after function creation completes.
+     * </p>
+     * 
+     * @param lastUpdateStatus
+     *        The status of the last update that was performed on the function. This is first set to
+     *        <code>Successful</code> after function creation completes.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see LastUpdateStatus
+     */
+
+    public PublishVersionResult withLastUpdateStatus(LastUpdateStatus lastUpdateStatus) {
+        this.lastUpdateStatus = lastUpdateStatus.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The reason for the last update that was performed on the function.
+     * </p>
+     * 
+     * @param lastUpdateStatusReason
+     *        The reason for the last update that was performed on the function.
+     */
+
+    public void setLastUpdateStatusReason(String lastUpdateStatusReason) {
+        this.lastUpdateStatusReason = lastUpdateStatusReason;
+    }
+
+    /**
+     * <p>
+     * The reason for the last update that was performed on the function.
+     * </p>
+     * 
+     * @return The reason for the last update that was performed on the function.
+     */
+
+    public String getLastUpdateStatusReason() {
+        return this.lastUpdateStatusReason;
+    }
+
+    /**
+     * <p>
+     * The reason for the last update that was performed on the function.
+     * </p>
+     * 
+     * @param lastUpdateStatusReason
+     *        The reason for the last update that was performed on the function.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PublishVersionResult withLastUpdateStatusReason(String lastUpdateStatusReason) {
+        setLastUpdateStatusReason(lastUpdateStatusReason);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The reason code for the last update that was performed on the function.
+     * </p>
+     * 
+     * @param lastUpdateStatusReasonCode
+     *        The reason code for the last update that was performed on the function.
+     * @see LastUpdateStatusReasonCode
+     */
+
+    public void setLastUpdateStatusReasonCode(String lastUpdateStatusReasonCode) {
+        this.lastUpdateStatusReasonCode = lastUpdateStatusReasonCode;
+    }
+
+    /**
+     * <p>
+     * The reason code for the last update that was performed on the function.
+     * </p>
+     * 
+     * @return The reason code for the last update that was performed on the function.
+     * @see LastUpdateStatusReasonCode
+     */
+
+    public String getLastUpdateStatusReasonCode() {
+        return this.lastUpdateStatusReasonCode;
+    }
+
+    /**
+     * <p>
+     * The reason code for the last update that was performed on the function.
+     * </p>
+     * 
+     * @param lastUpdateStatusReasonCode
+     *        The reason code for the last update that was performed on the function.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see LastUpdateStatusReasonCode
+     */
+
+    public PublishVersionResult withLastUpdateStatusReasonCode(String lastUpdateStatusReasonCode) {
+        setLastUpdateStatusReasonCode(lastUpdateStatusReasonCode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The reason code for the last update that was performed on the function.
+     * </p>
+     * 
+     * @param lastUpdateStatusReasonCode
+     *        The reason code for the last update that was performed on the function.
+     * @see LastUpdateStatusReasonCode
+     */
+
+    public void setLastUpdateStatusReasonCode(LastUpdateStatusReasonCode lastUpdateStatusReasonCode) {
+        withLastUpdateStatusReasonCode(lastUpdateStatusReasonCode);
+    }
+
+    /**
+     * <p>
+     * The reason code for the last update that was performed on the function.
+     * </p>
+     * 
+     * @param lastUpdateStatusReasonCode
+     *        The reason code for the last update that was performed on the function.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see LastUpdateStatusReasonCode
+     */
+
+    public PublishVersionResult withLastUpdateStatusReasonCode(LastUpdateStatusReasonCode lastUpdateStatusReasonCode) {
+        this.lastUpdateStatusReasonCode = lastUpdateStatusReasonCode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Connection settings for an <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html">Amazon EFS file system</a>.
+     * </p>
+     * 
+     * @return Connection settings for an <a
+     *         href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html">Amazon EFS file
+     *         system</a>.
+     */
+
+    public java.util.List<FileSystemConfig> getFileSystemConfigs() {
+        if (fileSystemConfigs == null) {
+            fileSystemConfigs = new com.amazonaws.internal.SdkInternalList<FileSystemConfig>();
+        }
+        return fileSystemConfigs;
+    }
+
+    /**
+     * <p>
+     * Connection settings for an <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html">Amazon EFS file system</a>.
+     * </p>
+     * 
+     * @param fileSystemConfigs
+     *        Connection settings for an <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html">Amazon EFS file
+     *        system</a>.
+     */
+
+    public void setFileSystemConfigs(java.util.Collection<FileSystemConfig> fileSystemConfigs) {
+        if (fileSystemConfigs == null) {
+            this.fileSystemConfigs = null;
+            return;
+        }
+
+        this.fileSystemConfigs = new com.amazonaws.internal.SdkInternalList<FileSystemConfig>(fileSystemConfigs);
+    }
+
+    /**
+     * <p>
+     * Connection settings for an <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html">Amazon EFS file system</a>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setFileSystemConfigs(java.util.Collection)} or {@link #withFileSystemConfigs(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param fileSystemConfigs
+     *        Connection settings for an <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html">Amazon EFS file
+     *        system</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PublishVersionResult withFileSystemConfigs(FileSystemConfig... fileSystemConfigs) {
+        if (this.fileSystemConfigs == null) {
+            setFileSystemConfigs(new com.amazonaws.internal.SdkInternalList<FileSystemConfig>(fileSystemConfigs.length));
+        }
+        for (FileSystemConfig ele : fileSystemConfigs) {
+            this.fileSystemConfigs.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Connection settings for an <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html">Amazon EFS file system</a>.
+     * </p>
+     * 
+     * @param fileSystemConfigs
+     *        Connection settings for an <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-filesystem.html">Amazon EFS file
+     *        system</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PublishVersionResult withFileSystemConfigs(java.util.Collection<FileSystemConfig> fileSystemConfigs) {
+        setFileSystemConfigs(fileSystemConfigs);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of deployment package. Set to <code>Image</code> for container image and set <code>Zip</code> for .zip
+     * file archive.
+     * </p>
+     * 
+     * @param packageType
+     *        The type of deployment package. Set to <code>Image</code> for container image and set <code>Zip</code> for
+     *        .zip file archive.
+     * @see PackageType
+     */
+
+    public void setPackageType(String packageType) {
+        this.packageType = packageType;
+    }
+
+    /**
+     * <p>
+     * The type of deployment package. Set to <code>Image</code> for container image and set <code>Zip</code> for .zip
+     * file archive.
+     * </p>
+     * 
+     * @return The type of deployment package. Set to <code>Image</code> for container image and set <code>Zip</code>
+     *         for .zip file archive.
+     * @see PackageType
+     */
+
+    public String getPackageType() {
+        return this.packageType;
+    }
+
+    /**
+     * <p>
+     * The type of deployment package. Set to <code>Image</code> for container image and set <code>Zip</code> for .zip
+     * file archive.
+     * </p>
+     * 
+     * @param packageType
+     *        The type of deployment package. Set to <code>Image</code> for container image and set <code>Zip</code> for
+     *        .zip file archive.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PackageType
+     */
+
+    public PublishVersionResult withPackageType(String packageType) {
+        setPackageType(packageType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of deployment package. Set to <code>Image</code> for container image and set <code>Zip</code> for .zip
+     * file archive.
+     * </p>
+     * 
+     * @param packageType
+     *        The type of deployment package. Set to <code>Image</code> for container image and set <code>Zip</code> for
+     *        .zip file archive.
+     * @see PackageType
+     */
+
+    public void setPackageType(PackageType packageType) {
+        withPackageType(packageType);
+    }
+
+    /**
+     * <p>
+     * The type of deployment package. Set to <code>Image</code> for container image and set <code>Zip</code> for .zip
+     * file archive.
+     * </p>
+     * 
+     * @param packageType
+     *        The type of deployment package. Set to <code>Image</code> for container image and set <code>Zip</code> for
+     *        .zip file archive.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PackageType
+     */
+
+    public PublishVersionResult withPackageType(PackageType packageType) {
+        this.packageType = packageType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The function's image configuration values.
+     * </p>
+     * 
+     * @param imageConfigResponse
+     *        The function's image configuration values.
+     */
+
+    public void setImageConfigResponse(ImageConfigResponse imageConfigResponse) {
+        this.imageConfigResponse = imageConfigResponse;
+    }
+
+    /**
+     * <p>
+     * The function's image configuration values.
+     * </p>
+     * 
+     * @return The function's image configuration values.
+     */
+
+    public ImageConfigResponse getImageConfigResponse() {
+        return this.imageConfigResponse;
+    }
+
+    /**
+     * <p>
+     * The function's image configuration values.
+     * </p>
+     * 
+     * @param imageConfigResponse
+     *        The function's image configuration values.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PublishVersionResult withImageConfigResponse(ImageConfigResponse imageConfigResponse) {
+        setImageConfigResponse(imageConfigResponse);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the signing profile version.
+     * </p>
+     * 
+     * @param signingProfileVersionArn
+     *        The ARN of the signing profile version.
+     */
+
+    public void setSigningProfileVersionArn(String signingProfileVersionArn) {
+        this.signingProfileVersionArn = signingProfileVersionArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the signing profile version.
+     * </p>
+     * 
+     * @return The ARN of the signing profile version.
+     */
+
+    public String getSigningProfileVersionArn() {
+        return this.signingProfileVersionArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the signing profile version.
+     * </p>
+     * 
+     * @param signingProfileVersionArn
+     *        The ARN of the signing profile version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PublishVersionResult withSigningProfileVersionArn(String signingProfileVersionArn) {
+        setSigningProfileVersionArn(signingProfileVersionArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the signing job.
+     * </p>
+     * 
+     * @param signingJobArn
+     *        The ARN of the signing job.
+     */
+
+    public void setSigningJobArn(String signingJobArn) {
+        this.signingJobArn = signingJobArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the signing job.
+     * </p>
+     * 
+     * @return The ARN of the signing job.
+     */
+
+    public String getSigningJobArn() {
+        return this.signingJobArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the signing job.
+     * </p>
+     * 
+     * @param signingJobArn
+     *        The ARN of the signing job.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PublishVersionResult withSigningJobArn(String signingJobArn) {
+        setSigningJobArn(signingJobArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The instruction set architecture that the function supports. Architecture is a string array with one of the valid
+     * values. The default architecture value is <code>x86_64</code>.
+     * </p>
+     * 
+     * @return The instruction set architecture that the function supports. Architecture is a string array with one of
+     *         the valid values. The default architecture value is <code>x86_64</code>.
+     * @see Architecture
+     */
+
+    public java.util.List<String> getArchitectures() {
+        if (architectures == null) {
+            architectures = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return architectures;
+    }
+
+    /**
+     * <p>
+     * The instruction set architecture that the function supports. Architecture is a string array with one of the valid
+     * values. The default architecture value is <code>x86_64</code>.
+     * </p>
+     * 
+     * @param architectures
+     *        The instruction set architecture that the function supports. Architecture is a string array with one of
+     *        the valid values. The default architecture value is <code>x86_64</code>.
+     * @see Architecture
+     */
+
+    public void setArchitectures(java.util.Collection<String> architectures) {
+        if (architectures == null) {
+            this.architectures = null;
+            return;
+        }
+
+        this.architectures = new com.amazonaws.internal.SdkInternalList<String>(architectures);
+    }
+
+    /**
+     * <p>
+     * The instruction set architecture that the function supports. Architecture is a string array with one of the valid
+     * values. The default architecture value is <code>x86_64</code>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setArchitectures(java.util.Collection)} or {@link #withArchitectures(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param architectures
+     *        The instruction set architecture that the function supports. Architecture is a string array with one of
+     *        the valid values. The default architecture value is <code>x86_64</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Architecture
+     */
+
+    public PublishVersionResult withArchitectures(String... architectures) {
+        if (this.architectures == null) {
+            setArchitectures(new com.amazonaws.internal.SdkInternalList<String>(architectures.length));
+        }
+        for (String ele : architectures) {
+            this.architectures.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The instruction set architecture that the function supports. Architecture is a string array with one of the valid
+     * values. The default architecture value is <code>x86_64</code>.
+     * </p>
+     * 
+     * @param architectures
+     *        The instruction set architecture that the function supports. Architecture is a string array with one of
+     *        the valid values. The default architecture value is <code>x86_64</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Architecture
+     */
+
+    public PublishVersionResult withArchitectures(java.util.Collection<String> architectures) {
+        setArchitectures(architectures);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The instruction set architecture that the function supports. Architecture is a string array with one of the valid
+     * values. The default architecture value is <code>x86_64</code>.
+     * </p>
+     * 
+     * @param architectures
+     *        The instruction set architecture that the function supports. Architecture is a string array with one of
+     *        the valid values. The default architecture value is <code>x86_64</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Architecture
+     */
+
+    public PublishVersionResult withArchitectures(Architecture... architectures) {
+        com.amazonaws.internal.SdkInternalList<String> architecturesCopy = new com.amazonaws.internal.SdkInternalList<String>(architectures.length);
+        for (Architecture value : architectures) {
+            architecturesCopy.add(value.toString());
+        }
+        if (getArchitectures() == null) {
+            setArchitectures(architecturesCopy);
+        } else {
+            getArchitectures().addAll(architecturesCopy);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole
+     * number between 512 and 10,240 MB. For more information, see <a href=
+     * "https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage"
+     * >Configuring ephemeral storage (console)</a>.
+     * </p>
+     * 
+     * @param ephemeralStorage
+     *        The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any
+     *        whole number between 512 and 10,240 MB. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage"
+     *        >Configuring ephemeral storage (console)</a>.
+     */
+
+    public void setEphemeralStorage(EphemeralStorage ephemeralStorage) {
+        this.ephemeralStorage = ephemeralStorage;
+    }
+
+    /**
+     * <p>
+     * The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole
+     * number between 512 and 10,240 MB. For more information, see <a href=
+     * "https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage"
+     * >Configuring ephemeral storage (console)</a>.
+     * </p>
+     * 
+     * @return The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any
+     *         whole number between 512 and 10,240 MB. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage"
+     *         >Configuring ephemeral storage (console)</a>.
+     */
+
+    public EphemeralStorage getEphemeralStorage() {
+        return this.ephemeralStorage;
+    }
+
+    /**
+     * <p>
+     * The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any whole
+     * number between 512 and 10,240 MB. For more information, see <a href=
+     * "https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage"
+     * >Configuring ephemeral storage (console)</a>.
+     * </p>
+     * 
+     * @param ephemeralStorage
+     *        The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but can be any
+     *        whole number between 512 and 10,240 MB. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-ephemeral-storage"
+     *        >Configuring ephemeral storage (console)</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PublishVersionResult withEphemeralStorage(EphemeralStorage ephemeralStorage) {
+        setEphemeralStorage(ephemeralStorage);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Set <code>ApplyOn</code> to <code>PublishedVersions</code> to create a snapshot of the initialized execution
+     * environment when you publish a function version. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html">Improving startup performance with Lambda
+     * SnapStart</a>.
+     * </p>
+     * 
+     * @param snapStart
+     *        Set <code>ApplyOn</code> to <code>PublishedVersions</code> to create a snapshot of the initialized
+     *        execution environment when you publish a function version. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html">Improving startup performance with
+     *        Lambda SnapStart</a>.
+     */
+
+    public void setSnapStart(SnapStartResponse snapStart) {
+        this.snapStart = snapStart;
+    }
+
+    /**
+     * <p>
+     * Set <code>ApplyOn</code> to <code>PublishedVersions</code> to create a snapshot of the initialized execution
+     * environment when you publish a function version. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html">Improving startup performance with Lambda
+     * SnapStart</a>.
+     * </p>
+     * 
+     * @return Set <code>ApplyOn</code> to <code>PublishedVersions</code> to create a snapshot of the initialized
+     *         execution environment when you publish a function version. For more information, see <a
+     *         href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html">Improving startup performance with
+     *         Lambda SnapStart</a>.
+     */
+
+    public SnapStartResponse getSnapStart() {
+        return this.snapStart;
+    }
+
+    /**
+     * <p>
+     * Set <code>ApplyOn</code> to <code>PublishedVersions</code> to create a snapshot of the initialized execution
+     * environment when you publish a function version. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html">Improving startup performance with Lambda
+     * SnapStart</a>.
+     * </p>
+     * 
+     * @param snapStart
+     *        Set <code>ApplyOn</code> to <code>PublishedVersions</code> to create a snapshot of the initialized
+     *        execution environment when you publish a function version. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html">Improving startup performance with
+     *        Lambda SnapStart</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PublishVersionResult withSnapStart(SnapStartResponse snapStart) {
+        setSnapStart(snapStart);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the runtime and any errors that occured.
+     * </p>
+     * 
+     * @param runtimeVersionConfig
+     *        The ARN of the runtime and any errors that occured.
+     */
+
+    public void setRuntimeVersionConfig(RuntimeVersionConfig runtimeVersionConfig) {
+        this.runtimeVersionConfig = runtimeVersionConfig;
+    }
+
+    /**
+     * <p>
+     * The ARN of the runtime and any errors that occured.
+     * </p>
+     * 
+     * @return The ARN of the runtime and any errors that occured.
+     */
+
+    public RuntimeVersionConfig getRuntimeVersionConfig() {
+        return this.runtimeVersionConfig;
+    }
+
+    /**
+     * <p>
+     * The ARN of the runtime and any errors that occured.
+     * </p>
+     * 
+     * @param runtimeVersionConfig
+     *        The ARN of the runtime and any errors that occured.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PublishVersionResult withRuntimeVersionConfig(RuntimeVersionConfig runtimeVersionConfig) {
+        setRuntimeVersionConfig(runtimeVersionConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The function's Amazon CloudWatch Logs configuration settings.
+     * </p>
+     * 
+     * @param loggingConfig
+     *        The function's Amazon CloudWatch Logs configuration settings.
+     */
+
+    public void setLoggingConfig(LoggingConfig loggingConfig) {
+        this.loggingConfig = loggingConfig;
+    }
+
+    /**
+     * <p>
+     * The function's Amazon CloudWatch Logs configuration settings.
+     * </p>
+     * 
+     * @return The function's Amazon CloudWatch Logs configuration settings.
+     */
+
+    public LoggingConfig getLoggingConfig() {
+        return this.loggingConfig;
+    }
+
+    /**
+     * <p>
+     * The function's Amazon CloudWatch Logs configuration settings.
+     * </p>
+     * 
+     * @param loggingConfig
+     *        The function's Amazon CloudWatch Logs configuration settings.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PublishVersionResult withLoggingConfig(LoggingConfig loggingConfig) {
+        setLoggingConfig(loggingConfig);
         return this;
     }
 
@@ -1082,7 +2297,39 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
         if (getRevisionId() != null)
             sb.append("RevisionId: ").append(getRevisionId()).append(",");
         if (getLayers() != null)
-            sb.append("Layers: ").append(getLayers());
+            sb.append("Layers: ").append(getLayers()).append(",");
+        if (getState() != null)
+            sb.append("State: ").append(getState()).append(",");
+        if (getStateReason() != null)
+            sb.append("StateReason: ").append(getStateReason()).append(",");
+        if (getStateReasonCode() != null)
+            sb.append("StateReasonCode: ").append(getStateReasonCode()).append(",");
+        if (getLastUpdateStatus() != null)
+            sb.append("LastUpdateStatus: ").append(getLastUpdateStatus()).append(",");
+        if (getLastUpdateStatusReason() != null)
+            sb.append("LastUpdateStatusReason: ").append(getLastUpdateStatusReason()).append(",");
+        if (getLastUpdateStatusReasonCode() != null)
+            sb.append("LastUpdateStatusReasonCode: ").append(getLastUpdateStatusReasonCode()).append(",");
+        if (getFileSystemConfigs() != null)
+            sb.append("FileSystemConfigs: ").append(getFileSystemConfigs()).append(",");
+        if (getPackageType() != null)
+            sb.append("PackageType: ").append(getPackageType()).append(",");
+        if (getImageConfigResponse() != null)
+            sb.append("ImageConfigResponse: ").append(getImageConfigResponse()).append(",");
+        if (getSigningProfileVersionArn() != null)
+            sb.append("SigningProfileVersionArn: ").append(getSigningProfileVersionArn()).append(",");
+        if (getSigningJobArn() != null)
+            sb.append("SigningJobArn: ").append(getSigningJobArn()).append(",");
+        if (getArchitectures() != null)
+            sb.append("Architectures: ").append(getArchitectures()).append(",");
+        if (getEphemeralStorage() != null)
+            sb.append("EphemeralStorage: ").append(getEphemeralStorage()).append(",");
+        if (getSnapStart() != null)
+            sb.append("SnapStart: ").append(getSnapStart()).append(",");
+        if (getRuntimeVersionConfig() != null)
+            sb.append("RuntimeVersionConfig: ").append(getRuntimeVersionConfig()).append(",");
+        if (getLoggingConfig() != null)
+            sb.append("LoggingConfig: ").append(getLoggingConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -1177,6 +2424,70 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
             return false;
         if (other.getLayers() != null && other.getLayers().equals(this.getLayers()) == false)
             return false;
+        if (other.getState() == null ^ this.getState() == null)
+            return false;
+        if (other.getState() != null && other.getState().equals(this.getState()) == false)
+            return false;
+        if (other.getStateReason() == null ^ this.getStateReason() == null)
+            return false;
+        if (other.getStateReason() != null && other.getStateReason().equals(this.getStateReason()) == false)
+            return false;
+        if (other.getStateReasonCode() == null ^ this.getStateReasonCode() == null)
+            return false;
+        if (other.getStateReasonCode() != null && other.getStateReasonCode().equals(this.getStateReasonCode()) == false)
+            return false;
+        if (other.getLastUpdateStatus() == null ^ this.getLastUpdateStatus() == null)
+            return false;
+        if (other.getLastUpdateStatus() != null && other.getLastUpdateStatus().equals(this.getLastUpdateStatus()) == false)
+            return false;
+        if (other.getLastUpdateStatusReason() == null ^ this.getLastUpdateStatusReason() == null)
+            return false;
+        if (other.getLastUpdateStatusReason() != null && other.getLastUpdateStatusReason().equals(this.getLastUpdateStatusReason()) == false)
+            return false;
+        if (other.getLastUpdateStatusReasonCode() == null ^ this.getLastUpdateStatusReasonCode() == null)
+            return false;
+        if (other.getLastUpdateStatusReasonCode() != null && other.getLastUpdateStatusReasonCode().equals(this.getLastUpdateStatusReasonCode()) == false)
+            return false;
+        if (other.getFileSystemConfigs() == null ^ this.getFileSystemConfigs() == null)
+            return false;
+        if (other.getFileSystemConfigs() != null && other.getFileSystemConfigs().equals(this.getFileSystemConfigs()) == false)
+            return false;
+        if (other.getPackageType() == null ^ this.getPackageType() == null)
+            return false;
+        if (other.getPackageType() != null && other.getPackageType().equals(this.getPackageType()) == false)
+            return false;
+        if (other.getImageConfigResponse() == null ^ this.getImageConfigResponse() == null)
+            return false;
+        if (other.getImageConfigResponse() != null && other.getImageConfigResponse().equals(this.getImageConfigResponse()) == false)
+            return false;
+        if (other.getSigningProfileVersionArn() == null ^ this.getSigningProfileVersionArn() == null)
+            return false;
+        if (other.getSigningProfileVersionArn() != null && other.getSigningProfileVersionArn().equals(this.getSigningProfileVersionArn()) == false)
+            return false;
+        if (other.getSigningJobArn() == null ^ this.getSigningJobArn() == null)
+            return false;
+        if (other.getSigningJobArn() != null && other.getSigningJobArn().equals(this.getSigningJobArn()) == false)
+            return false;
+        if (other.getArchitectures() == null ^ this.getArchitectures() == null)
+            return false;
+        if (other.getArchitectures() != null && other.getArchitectures().equals(this.getArchitectures()) == false)
+            return false;
+        if (other.getEphemeralStorage() == null ^ this.getEphemeralStorage() == null)
+            return false;
+        if (other.getEphemeralStorage() != null && other.getEphemeralStorage().equals(this.getEphemeralStorage()) == false)
+            return false;
+        if (other.getSnapStart() == null ^ this.getSnapStart() == null)
+            return false;
+        if (other.getSnapStart() != null && other.getSnapStart().equals(this.getSnapStart()) == false)
+            return false;
+        if (other.getRuntimeVersionConfig() == null ^ this.getRuntimeVersionConfig() == null)
+            return false;
+        if (other.getRuntimeVersionConfig() != null && other.getRuntimeVersionConfig().equals(this.getRuntimeVersionConfig()) == false)
+            return false;
+        if (other.getLoggingConfig() == null ^ this.getLoggingConfig() == null)
+            return false;
+        if (other.getLoggingConfig() != null && other.getLoggingConfig().equals(this.getLoggingConfig()) == false)
+            return false;
         return true;
     }
 
@@ -1205,6 +2516,22 @@ public class PublishVersionResult extends com.amazonaws.AmazonWebServiceResult<c
         hashCode = prime * hashCode + ((getMasterArn() == null) ? 0 : getMasterArn().hashCode());
         hashCode = prime * hashCode + ((getRevisionId() == null) ? 0 : getRevisionId().hashCode());
         hashCode = prime * hashCode + ((getLayers() == null) ? 0 : getLayers().hashCode());
+        hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
+        hashCode = prime * hashCode + ((getStateReason() == null) ? 0 : getStateReason().hashCode());
+        hashCode = prime * hashCode + ((getStateReasonCode() == null) ? 0 : getStateReasonCode().hashCode());
+        hashCode = prime * hashCode + ((getLastUpdateStatus() == null) ? 0 : getLastUpdateStatus().hashCode());
+        hashCode = prime * hashCode + ((getLastUpdateStatusReason() == null) ? 0 : getLastUpdateStatusReason().hashCode());
+        hashCode = prime * hashCode + ((getLastUpdateStatusReasonCode() == null) ? 0 : getLastUpdateStatusReasonCode().hashCode());
+        hashCode = prime * hashCode + ((getFileSystemConfigs() == null) ? 0 : getFileSystemConfigs().hashCode());
+        hashCode = prime * hashCode + ((getPackageType() == null) ? 0 : getPackageType().hashCode());
+        hashCode = prime * hashCode + ((getImageConfigResponse() == null) ? 0 : getImageConfigResponse().hashCode());
+        hashCode = prime * hashCode + ((getSigningProfileVersionArn() == null) ? 0 : getSigningProfileVersionArn().hashCode());
+        hashCode = prime * hashCode + ((getSigningJobArn() == null) ? 0 : getSigningJobArn().hashCode());
+        hashCode = prime * hashCode + ((getArchitectures() == null) ? 0 : getArchitectures().hashCode());
+        hashCode = prime * hashCode + ((getEphemeralStorage() == null) ? 0 : getEphemeralStorage().hashCode());
+        hashCode = prime * hashCode + ((getSnapStart() == null) ? 0 : getSnapStart().hashCode());
+        hashCode = prime * hashCode + ((getRuntimeVersionConfig() == null) ? 0 : getRuntimeVersionConfig().hashCode());
+        hashCode = prime * hashCode + ((getLoggingConfig() == null) ? 0 : getLoggingConfig().hashCode());
         return hashCode;
     }
 

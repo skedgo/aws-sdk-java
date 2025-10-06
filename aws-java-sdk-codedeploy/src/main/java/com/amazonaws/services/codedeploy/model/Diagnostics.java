@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -83,7 +83,7 @@ public class Diagnostics implements Serializable, Cloneable, StructuredPojo {
      * The last portion of the diagnostic log.
      * </p>
      * <p>
-     * If available, AWS CodeDeploy returns up to the last 4 KB of the diagnostic log.
+     * If available, CodeDeploy returns up to the last 4 KB of the diagnostic log.
      * </p>
      */
     private String logTail;
@@ -561,13 +561,13 @@ public class Diagnostics implements Serializable, Cloneable, StructuredPojo {
      * The last portion of the diagnostic log.
      * </p>
      * <p>
-     * If available, AWS CodeDeploy returns up to the last 4 KB of the diagnostic log.
+     * If available, CodeDeploy returns up to the last 4 KB of the diagnostic log.
      * </p>
      * 
      * @param logTail
      *        The last portion of the diagnostic log.</p>
      *        <p>
-     *        If available, AWS CodeDeploy returns up to the last 4 KB of the diagnostic log.
+     *        If available, CodeDeploy returns up to the last 4 KB of the diagnostic log.
      */
 
     public void setLogTail(String logTail) {
@@ -579,12 +579,12 @@ public class Diagnostics implements Serializable, Cloneable, StructuredPojo {
      * The last portion of the diagnostic log.
      * </p>
      * <p>
-     * If available, AWS CodeDeploy returns up to the last 4 KB of the diagnostic log.
+     * If available, CodeDeploy returns up to the last 4 KB of the diagnostic log.
      * </p>
      * 
      * @return The last portion of the diagnostic log.</p>
      *         <p>
-     *         If available, AWS CodeDeploy returns up to the last 4 KB of the diagnostic log.
+     *         If available, CodeDeploy returns up to the last 4 KB of the diagnostic log.
      */
 
     public String getLogTail() {
@@ -596,13 +596,13 @@ public class Diagnostics implements Serializable, Cloneable, StructuredPojo {
      * The last portion of the diagnostic log.
      * </p>
      * <p>
-     * If available, AWS CodeDeploy returns up to the last 4 KB of the diagnostic log.
+     * If available, CodeDeploy returns up to the last 4 KB of the diagnostic log.
      * </p>
      * 
      * @param logTail
      *        The last portion of the diagnostic log.</p>
      *        <p>
-     *        If available, AWS CodeDeploy returns up to the last 4 KB of the diagnostic log.
+     *        If available, CodeDeploy returns up to the last 4 KB of the diagnostic log.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

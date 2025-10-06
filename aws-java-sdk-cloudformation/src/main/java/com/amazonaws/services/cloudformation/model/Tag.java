@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,8 +17,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The Tag type enables you to specify a key-value pair that can be used to store information about an AWS
- * CloudFormation stack.
+ * The Tag type enables you to specify a key-value pair that can be used to store information about an CloudFormation
+ * stack.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/Tag" target="_top">AWS API
@@ -30,7 +30,7 @@ public class Tag implements Serializable, Cloneable {
     /**
      * <p>
      * <i>Required</i>. A string used to identify this tag. You can specify a maximum of 128 characters for a tag key.
-     * Tags owned by Amazon Web Services (AWS) have the reserved prefix: <code>aws:</code>.
+     * Tags owned by Amazon Web Services (Amazon Web Services) have the reserved prefix: <code>aws:</code>.
      * </p>
      */
     private String key;
@@ -45,12 +45,12 @@ public class Tag implements Serializable, Cloneable {
     /**
      * <p>
      * <i>Required</i>. A string used to identify this tag. You can specify a maximum of 128 characters for a tag key.
-     * Tags owned by Amazon Web Services (AWS) have the reserved prefix: <code>aws:</code>.
+     * Tags owned by Amazon Web Services (Amazon Web Services) have the reserved prefix: <code>aws:</code>.
      * </p>
      * 
      * @param key
      *        <i>Required</i>. A string used to identify this tag. You can specify a maximum of 128 characters for a tag
-     *        key. Tags owned by Amazon Web Services (AWS) have the reserved prefix: <code>aws:</code>.
+     *        key. Tags owned by Amazon Web Services (Amazon Web Services) have the reserved prefix: <code>aws:</code>.
      */
 
     public void setKey(String key) {
@@ -60,11 +60,12 @@ public class Tag implements Serializable, Cloneable {
     /**
      * <p>
      * <i>Required</i>. A string used to identify this tag. You can specify a maximum of 128 characters for a tag key.
-     * Tags owned by Amazon Web Services (AWS) have the reserved prefix: <code>aws:</code>.
+     * Tags owned by Amazon Web Services (Amazon Web Services) have the reserved prefix: <code>aws:</code>.
      * </p>
      * 
      * @return <i>Required</i>. A string used to identify this tag. You can specify a maximum of 128 characters for a
-     *         tag key. Tags owned by Amazon Web Services (AWS) have the reserved prefix: <code>aws:</code>.
+     *         tag key. Tags owned by Amazon Web Services (Amazon Web Services) have the reserved prefix:
+     *         <code>aws:</code>.
      */
 
     public String getKey() {
@@ -74,12 +75,12 @@ public class Tag implements Serializable, Cloneable {
     /**
      * <p>
      * <i>Required</i>. A string used to identify this tag. You can specify a maximum of 128 characters for a tag key.
-     * Tags owned by Amazon Web Services (AWS) have the reserved prefix: <code>aws:</code>.
+     * Tags owned by Amazon Web Services (Amazon Web Services) have the reserved prefix: <code>aws:</code>.
      * </p>
      * 
      * @param key
      *        <i>Required</i>. A string used to identify this tag. You can specify a maximum of 128 characters for a tag
-     *        key. Tags owned by Amazon Web Services (AWS) have the reserved prefix: <code>aws:</code>.
+     *        key. Tags owned by Amazon Web Services (Amazon Web Services) have the reserved prefix: <code>aws:</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

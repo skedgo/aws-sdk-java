@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,10 @@ public class OutputJsonUnmarshaller implements Unmarshaller<Output, JsonUnmarsha
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("dataTransferSubscriberFeePercent", targetDepth)) {
+                    context.nextToken();
+                    output.setDataTransferSubscriberFeePercent(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
                 if (context.testExpression("description", targetDepth)) {
                     context.nextToken();
                     output.setDescription(context.getUnmarshaller(String.class).unmarshall(context));
@@ -64,9 +68,20 @@ public class OutputJsonUnmarshaller implements Unmarshaller<Output, JsonUnmarsha
                     context.nextToken();
                     output.setEntitlementArn(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("listenerAddress", targetDepth)) {
+                    context.nextToken();
+                    output.setListenerAddress(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("mediaLiveInputArn", targetDepth)) {
                     context.nextToken();
                     output.setMediaLiveInputArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("mediaStreamOutputConfigurations", targetDepth)) {
+                    context.nextToken();
+                    output.setMediaStreamOutputConfigurations(new ListUnmarshaller<MediaStreamOutputConfiguration>(
+                            MediaStreamOutputConfigurationJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("name", targetDepth)) {
                     context.nextToken();
@@ -83,6 +98,24 @@ public class OutputJsonUnmarshaller implements Unmarshaller<Output, JsonUnmarsha
                 if (context.testExpression("transport", targetDepth)) {
                     context.nextToken();
                     output.setTransport(TransportJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("vpcInterfaceAttachment", targetDepth)) {
+                    context.nextToken();
+                    output.setVpcInterfaceAttachment(VpcInterfaceAttachmentJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("bridgeArn", targetDepth)) {
+                    context.nextToken();
+                    output.setBridgeArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("bridgePorts", targetDepth)) {
+                    context.nextToken();
+                    output.setBridgePorts(new ListUnmarshaller<Integer>(context.getUnmarshaller(Integer.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("outputStatus", targetDepth)) {
+                    context.nextToken();
+                    output.setOutputStatus(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

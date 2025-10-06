@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ public class CreateRobotApplicationRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("robotSoftwareSuite").build();
     private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("tags").build();
+    private static final MarshallingInfo<StructuredPojo> ENVIRONMENT_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("environment").build();
 
     private static final CreateRobotApplicationRequestMarshaller instance = new CreateRobotApplicationRequestMarshaller();
 
@@ -58,6 +60,7 @@ public class CreateRobotApplicationRequestMarshaller {
             protocolMarshaller.marshall(createRobotApplicationRequest.getSources(), SOURCES_BINDING);
             protocolMarshaller.marshall(createRobotApplicationRequest.getRobotSoftwareSuite(), ROBOTSOFTWARESUITE_BINDING);
             protocolMarshaller.marshall(createRobotApplicationRequest.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(createRobotApplicationRequest.getEnvironment(), ENVIRONMENT_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

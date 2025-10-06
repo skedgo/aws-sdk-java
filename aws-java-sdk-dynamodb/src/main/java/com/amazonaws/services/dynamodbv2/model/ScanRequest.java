@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,8 +30,11 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
 
     /**
      * <p>
-     * The name of the table containing the requested items; or, if you provide <code>IndexName</code>, the name of the
+     * The name of the table containing the requested items or if you provide <code>IndexName</code>, the name of the
      * table to which that index belongs.
+     * </p>
+     * <p>
+     * You can also provide the Amazon Resource Name (ARN) of the table in this parameter.
      * </p>
      */
     private String tableName;
@@ -86,13 +89,15 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * </li>
      * <li>
      * <p>
-     * <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves.
+     * <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves. Note that
+     * this uses the same quantity of read capacity units as getting the items, and is subject to the same item size
+     * calculations.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>AttributesToGet</code>. This
-     * return value is equivalent to specifying <code>AttributesToGet</code> without specifying any value for
+     * <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>ProjectionExpression</code>. This
+     * return value is equivalent to specifying <code>ProjectionExpression</code> without specifying any value for
      * <code>Select</code>.
      * </p>
      * <p>
@@ -108,11 +113,11 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * </li>
      * </ul>
      * <p>
-     * If neither <code>Select</code> nor <code>AttributesToGet</code> are specified, DynamoDB defaults to
+     * If neither <code>Select</code> nor <code>ProjectionExpression</code> are specified, DynamoDB defaults to
      * <code>ALL_ATTRIBUTES</code> when accessing a table, and <code>ALL_PROJECTED_ATTRIBUTES</code> when accessing an
-     * index. You cannot use both <code>Select</code> and <code>AttributesToGet</code> together in a single request,
-     * unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This usage is equivalent to
-     * specifying <code>AttributesToGet</code> without any value for <code>Select</code>.)
+     * index. You cannot use both <code>Select</code> and <code>ProjectionExpression</code> together in a single
+     * request, unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This usage is equivalent
+     * to specifying <code>ProjectionExpression</code> without any value for <code>Select</code>.)
      * </p>
      * <note>
      * <p>
@@ -224,7 +229,7 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * </note>
      * <p>
      * For more information, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#FilteringResults">Filter
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.FilterExpression">Filter
      * Expressions</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      */
@@ -371,8 +376,10 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * initialize any additional object members.
      * 
      * @param tableName
-     *        The name of the table containing the requested items; or, if you provide <code>IndexName</code>, the name
-     *        of the table to which that index belongs.
+     *        The name of the table containing the requested items or if you provide <code>IndexName</code>, the name of
+     *        the table to which that index belongs.</p>
+     *        <p>
+     *        You can also provide the Amazon Resource Name (ARN) of the table in this parameter.
      */
     public ScanRequest(String tableName) {
         setTableName(tableName);
@@ -380,13 +387,18 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
 
     /**
      * <p>
-     * The name of the table containing the requested items; or, if you provide <code>IndexName</code>, the name of the
+     * The name of the table containing the requested items or if you provide <code>IndexName</code>, the name of the
      * table to which that index belongs.
+     * </p>
+     * <p>
+     * You can also provide the Amazon Resource Name (ARN) of the table in this parameter.
      * </p>
      * 
      * @param tableName
-     *        The name of the table containing the requested items; or, if you provide <code>IndexName</code>, the name
-     *        of the table to which that index belongs.
+     *        The name of the table containing the requested items or if you provide <code>IndexName</code>, the name of
+     *        the table to which that index belongs.</p>
+     *        <p>
+     *        You can also provide the Amazon Resource Name (ARN) of the table in this parameter.
      */
 
     public void setTableName(String tableName) {
@@ -395,12 +407,17 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
 
     /**
      * <p>
-     * The name of the table containing the requested items; or, if you provide <code>IndexName</code>, the name of the
+     * The name of the table containing the requested items or if you provide <code>IndexName</code>, the name of the
      * table to which that index belongs.
      * </p>
+     * <p>
+     * You can also provide the Amazon Resource Name (ARN) of the table in this parameter.
+     * </p>
      * 
-     * @return The name of the table containing the requested items; or, if you provide <code>IndexName</code>, the name
-     *         of the table to which that index belongs.
+     * @return The name of the table containing the requested items or if you provide <code>IndexName</code>, the name
+     *         of the table to which that index belongs.</p>
+     *         <p>
+     *         You can also provide the Amazon Resource Name (ARN) of the table in this parameter.
      */
 
     public String getTableName() {
@@ -409,13 +426,18 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
 
     /**
      * <p>
-     * The name of the table containing the requested items; or, if you provide <code>IndexName</code>, the name of the
+     * The name of the table containing the requested items or if you provide <code>IndexName</code>, the name of the
      * table to which that index belongs.
+     * </p>
+     * <p>
+     * You can also provide the Amazon Resource Name (ARN) of the table in this parameter.
      * </p>
      * 
      * @param tableName
-     *        The name of the table containing the requested items; or, if you provide <code>IndexName</code>, the name
-     *        of the table to which that index belongs.
+     *        The name of the table containing the requested items or if you provide <code>IndexName</code>, the name of
+     *        the table to which that index belongs.</p>
+     *        <p>
+     *        You can also provide the Amazon Resource Name (ARN) of the table in this parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -671,13 +693,15 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * </li>
      * <li>
      * <p>
-     * <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves.
+     * <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves. Note that
+     * this uses the same quantity of read capacity units as getting the items, and is subject to the same item size
+     * calculations.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>AttributesToGet</code>. This
-     * return value is equivalent to specifying <code>AttributesToGet</code> without specifying any value for
+     * <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>ProjectionExpression</code>. This
+     * return value is equivalent to specifying <code>ProjectionExpression</code> without specifying any value for
      * <code>Select</code>.
      * </p>
      * <p>
@@ -693,11 +717,11 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * </li>
      * </ul>
      * <p>
-     * If neither <code>Select</code> nor <code>AttributesToGet</code> are specified, DynamoDB defaults to
+     * If neither <code>Select</code> nor <code>ProjectionExpression</code> are specified, DynamoDB defaults to
      * <code>ALL_ATTRIBUTES</code> when accessing a table, and <code>ALL_PROJECTED_ATTRIBUTES</code> when accessing an
-     * index. You cannot use both <code>Select</code> and <code>AttributesToGet</code> together in a single request,
-     * unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This usage is equivalent to
-     * specifying <code>AttributesToGet</code> without any value for <code>Select</code>.)
+     * index. You cannot use both <code>Select</code> and <code>ProjectionExpression</code> together in a single
+     * request, unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This usage is equivalent
+     * to specifying <code>ProjectionExpression</code> without any value for <code>Select</code>.)
      * </p>
      * <note>
      * <p>
@@ -728,14 +752,16 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      *        </li>
      *        <li>
      *        <p>
-     *        <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves.
+     *        <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves. Note
+     *        that this uses the same quantity of read capacity units as getting the items, and is subject to the same
+     *        item size calculations.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>AttributesToGet</code>.
-     *        This return value is equivalent to specifying <code>AttributesToGet</code> without specifying any value
-     *        for <code>Select</code>.
+     *        <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>ProjectionExpression</code>
+     *        . This return value is equivalent to specifying <code>ProjectionExpression</code> without specifying any
+     *        value for <code>Select</code>.
      *        </p>
      *        <p>
      *        If you query or scan a local secondary index and request only attributes that are projected into that
@@ -750,11 +776,12 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      *        </li>
      *        </ul>
      *        <p>
-     *        If neither <code>Select</code> nor <code>AttributesToGet</code> are specified, DynamoDB defaults to
+     *        If neither <code>Select</code> nor <code>ProjectionExpression</code> are specified, DynamoDB defaults to
      *        <code>ALL_ATTRIBUTES</code> when accessing a table, and <code>ALL_PROJECTED_ATTRIBUTES</code> when
-     *        accessing an index. You cannot use both <code>Select</code> and <code>AttributesToGet</code> together in a
-     *        single request, unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This usage
-     *        is equivalent to specifying <code>AttributesToGet</code> without any value for <code>Select</code>.)
+     *        accessing an index. You cannot use both <code>Select</code> and <code>ProjectionExpression</code> together
+     *        in a single request, unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This
+     *        usage is equivalent to specifying <code>ProjectionExpression</code> without any value for
+     *        <code>Select</code>.)
      *        </p>
      *        <note>
      *        <p>
@@ -791,13 +818,15 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * </li>
      * <li>
      * <p>
-     * <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves.
+     * <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves. Note that
+     * this uses the same quantity of read capacity units as getting the items, and is subject to the same item size
+     * calculations.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>AttributesToGet</code>. This
-     * return value is equivalent to specifying <code>AttributesToGet</code> without specifying any value for
+     * <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>ProjectionExpression</code>. This
+     * return value is equivalent to specifying <code>ProjectionExpression</code> without specifying any value for
      * <code>Select</code>.
      * </p>
      * <p>
@@ -813,11 +842,11 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * </li>
      * </ul>
      * <p>
-     * If neither <code>Select</code> nor <code>AttributesToGet</code> are specified, DynamoDB defaults to
+     * If neither <code>Select</code> nor <code>ProjectionExpression</code> are specified, DynamoDB defaults to
      * <code>ALL_ATTRIBUTES</code> when accessing a table, and <code>ALL_PROJECTED_ATTRIBUTES</code> when accessing an
-     * index. You cannot use both <code>Select</code> and <code>AttributesToGet</code> together in a single request,
-     * unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This usage is equivalent to
-     * specifying <code>AttributesToGet</code> without any value for <code>Select</code>.)
+     * index. You cannot use both <code>Select</code> and <code>ProjectionExpression</code> together in a single
+     * request, unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This usage is equivalent
+     * to specifying <code>ProjectionExpression</code> without any value for <code>Select</code>.)
      * </p>
      * <note>
      * <p>
@@ -848,13 +877,15 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      *         <li>
      *         <p>
      *         <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves.
+     *         Note that this uses the same quantity of read capacity units as getting the items, and is subject to the
+     *         same item size calculations.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>AttributesToGet</code>.
-     *         This return value is equivalent to specifying <code>AttributesToGet</code> without specifying any value
-     *         for <code>Select</code>.
+     *         <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in
+     *         <code>ProjectionExpression</code>. This return value is equivalent to specifying
+     *         <code>ProjectionExpression</code> without specifying any value for <code>Select</code>.
      *         </p>
      *         <p>
      *         If you query or scan a local secondary index and request only attributes that are projected into that
@@ -869,12 +900,12 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      *         </li>
      *         </ul>
      *         <p>
-     *         If neither <code>Select</code> nor <code>AttributesToGet</code> are specified, DynamoDB defaults to
+     *         If neither <code>Select</code> nor <code>ProjectionExpression</code> are specified, DynamoDB defaults to
      *         <code>ALL_ATTRIBUTES</code> when accessing a table, and <code>ALL_PROJECTED_ATTRIBUTES</code> when
-     *         accessing an index. You cannot use both <code>Select</code> and <code>AttributesToGet</code> together in
-     *         a single request, unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This
-     *         usage is equivalent to specifying <code>AttributesToGet</code> without any value for <code>Select</code>
-     *         .)
+     *         accessing an index. You cannot use both <code>Select</code> and <code>ProjectionExpression</code>
+     *         together in a single request, unless the value for <code>Select</code> is
+     *         <code>SPECIFIC_ATTRIBUTES</code>. (This usage is equivalent to specifying
+     *         <code>ProjectionExpression</code> without any value for <code>Select</code>.)
      *         </p>
      *         <note>
      *         <p>
@@ -911,13 +942,15 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * </li>
      * <li>
      * <p>
-     * <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves.
+     * <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves. Note that
+     * this uses the same quantity of read capacity units as getting the items, and is subject to the same item size
+     * calculations.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>AttributesToGet</code>. This
-     * return value is equivalent to specifying <code>AttributesToGet</code> without specifying any value for
+     * <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>ProjectionExpression</code>. This
+     * return value is equivalent to specifying <code>ProjectionExpression</code> without specifying any value for
      * <code>Select</code>.
      * </p>
      * <p>
@@ -933,11 +966,11 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * </li>
      * </ul>
      * <p>
-     * If neither <code>Select</code> nor <code>AttributesToGet</code> are specified, DynamoDB defaults to
+     * If neither <code>Select</code> nor <code>ProjectionExpression</code> are specified, DynamoDB defaults to
      * <code>ALL_ATTRIBUTES</code> when accessing a table, and <code>ALL_PROJECTED_ATTRIBUTES</code> when accessing an
-     * index. You cannot use both <code>Select</code> and <code>AttributesToGet</code> together in a single request,
-     * unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This usage is equivalent to
-     * specifying <code>AttributesToGet</code> without any value for <code>Select</code>.)
+     * index. You cannot use both <code>Select</code> and <code>ProjectionExpression</code> together in a single
+     * request, unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This usage is equivalent
+     * to specifying <code>ProjectionExpression</code> without any value for <code>Select</code>.)
      * </p>
      * <note>
      * <p>
@@ -968,14 +1001,16 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      *        </li>
      *        <li>
      *        <p>
-     *        <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves.
+     *        <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves. Note
+     *        that this uses the same quantity of read capacity units as getting the items, and is subject to the same
+     *        item size calculations.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>AttributesToGet</code>.
-     *        This return value is equivalent to specifying <code>AttributesToGet</code> without specifying any value
-     *        for <code>Select</code>.
+     *        <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>ProjectionExpression</code>
+     *        . This return value is equivalent to specifying <code>ProjectionExpression</code> without specifying any
+     *        value for <code>Select</code>.
      *        </p>
      *        <p>
      *        If you query or scan a local secondary index and request only attributes that are projected into that
@@ -990,11 +1025,12 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      *        </li>
      *        </ul>
      *        <p>
-     *        If neither <code>Select</code> nor <code>AttributesToGet</code> are specified, DynamoDB defaults to
+     *        If neither <code>Select</code> nor <code>ProjectionExpression</code> are specified, DynamoDB defaults to
      *        <code>ALL_ATTRIBUTES</code> when accessing a table, and <code>ALL_PROJECTED_ATTRIBUTES</code> when
-     *        accessing an index. You cannot use both <code>Select</code> and <code>AttributesToGet</code> together in a
-     *        single request, unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This usage
-     *        is equivalent to specifying <code>AttributesToGet</code> without any value for <code>Select</code>.)
+     *        accessing an index. You cannot use both <code>Select</code> and <code>ProjectionExpression</code> together
+     *        in a single request, unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This
+     *        usage is equivalent to specifying <code>ProjectionExpression</code> without any value for
+     *        <code>Select</code>.)
      *        </p>
      *        <note>
      *        <p>
@@ -1033,13 +1069,15 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * </li>
      * <li>
      * <p>
-     * <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves.
+     * <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves. Note that
+     * this uses the same quantity of read capacity units as getting the items, and is subject to the same item size
+     * calculations.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>AttributesToGet</code>. This
-     * return value is equivalent to specifying <code>AttributesToGet</code> without specifying any value for
+     * <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>ProjectionExpression</code>. This
+     * return value is equivalent to specifying <code>ProjectionExpression</code> without specifying any value for
      * <code>Select</code>.
      * </p>
      * <p>
@@ -1055,11 +1093,11 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * </li>
      * </ul>
      * <p>
-     * If neither <code>Select</code> nor <code>AttributesToGet</code> are specified, DynamoDB defaults to
+     * If neither <code>Select</code> nor <code>ProjectionExpression</code> are specified, DynamoDB defaults to
      * <code>ALL_ATTRIBUTES</code> when accessing a table, and <code>ALL_PROJECTED_ATTRIBUTES</code> when accessing an
-     * index. You cannot use both <code>Select</code> and <code>AttributesToGet</code> together in a single request,
-     * unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This usage is equivalent to
-     * specifying <code>AttributesToGet</code> without any value for <code>Select</code>.)
+     * index. You cannot use both <code>Select</code> and <code>ProjectionExpression</code> together in a single
+     * request, unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This usage is equivalent
+     * to specifying <code>ProjectionExpression</code> without any value for <code>Select</code>.)
      * </p>
      * <note>
      * <p>
@@ -1090,14 +1128,16 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      *        </li>
      *        <li>
      *        <p>
-     *        <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves.
+     *        <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves. Note
+     *        that this uses the same quantity of read capacity units as getting the items, and is subject to the same
+     *        item size calculations.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>AttributesToGet</code>.
-     *        This return value is equivalent to specifying <code>AttributesToGet</code> without specifying any value
-     *        for <code>Select</code>.
+     *        <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>ProjectionExpression</code>
+     *        . This return value is equivalent to specifying <code>ProjectionExpression</code> without specifying any
+     *        value for <code>Select</code>.
      *        </p>
      *        <p>
      *        If you query or scan a local secondary index and request only attributes that are projected into that
@@ -1112,11 +1152,12 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      *        </li>
      *        </ul>
      *        <p>
-     *        If neither <code>Select</code> nor <code>AttributesToGet</code> are specified, DynamoDB defaults to
+     *        If neither <code>Select</code> nor <code>ProjectionExpression</code> are specified, DynamoDB defaults to
      *        <code>ALL_ATTRIBUTES</code> when accessing a table, and <code>ALL_PROJECTED_ATTRIBUTES</code> when
-     *        accessing an index. You cannot use both <code>Select</code> and <code>AttributesToGet</code> together in a
-     *        single request, unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This usage
-     *        is equivalent to specifying <code>AttributesToGet</code> without any value for <code>Select</code>.)
+     *        accessing an index. You cannot use both <code>Select</code> and <code>ProjectionExpression</code> together
+     *        in a single request, unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This
+     *        usage is equivalent to specifying <code>ProjectionExpression</code> without any value for
+     *        <code>Select</code>.)
      *        </p>
      *        <note>
      *        <p>
@@ -1153,13 +1194,15 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * </li>
      * <li>
      * <p>
-     * <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves.
+     * <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves. Note that
+     * this uses the same quantity of read capacity units as getting the items, and is subject to the same item size
+     * calculations.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>AttributesToGet</code>. This
-     * return value is equivalent to specifying <code>AttributesToGet</code> without specifying any value for
+     * <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>ProjectionExpression</code>. This
+     * return value is equivalent to specifying <code>ProjectionExpression</code> without specifying any value for
      * <code>Select</code>.
      * </p>
      * <p>
@@ -1175,11 +1218,11 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * </li>
      * </ul>
      * <p>
-     * If neither <code>Select</code> nor <code>AttributesToGet</code> are specified, DynamoDB defaults to
+     * If neither <code>Select</code> nor <code>ProjectionExpression</code> are specified, DynamoDB defaults to
      * <code>ALL_ATTRIBUTES</code> when accessing a table, and <code>ALL_PROJECTED_ATTRIBUTES</code> when accessing an
-     * index. You cannot use both <code>Select</code> and <code>AttributesToGet</code> together in a single request,
-     * unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This usage is equivalent to
-     * specifying <code>AttributesToGet</code> without any value for <code>Select</code>.)
+     * index. You cannot use both <code>Select</code> and <code>ProjectionExpression</code> together in a single
+     * request, unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This usage is equivalent
+     * to specifying <code>ProjectionExpression</code> without any value for <code>Select</code>.)
      * </p>
      * <note>
      * <p>
@@ -1210,14 +1253,16 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      *        </li>
      *        <li>
      *        <p>
-     *        <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves.
+     *        <code>COUNT</code> - Returns the number of matching items, rather than the matching items themselves. Note
+     *        that this uses the same quantity of read capacity units as getting the items, and is subject to the same
+     *        item size calculations.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>AttributesToGet</code>.
-     *        This return value is equivalent to specifying <code>AttributesToGet</code> without specifying any value
-     *        for <code>Select</code>.
+     *        <code>SPECIFIC_ATTRIBUTES</code> - Returns only the attributes listed in <code>ProjectionExpression</code>
+     *        . This return value is equivalent to specifying <code>ProjectionExpression</code> without specifying any
+     *        value for <code>Select</code>.
      *        </p>
      *        <p>
      *        If you query or scan a local secondary index and request only attributes that are projected into that
@@ -1232,11 +1277,12 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      *        </li>
      *        </ul>
      *        <p>
-     *        If neither <code>Select</code> nor <code>AttributesToGet</code> are specified, DynamoDB defaults to
+     *        If neither <code>Select</code> nor <code>ProjectionExpression</code> are specified, DynamoDB defaults to
      *        <code>ALL_ATTRIBUTES</code> when accessing a table, and <code>ALL_PROJECTED_ATTRIBUTES</code> when
-     *        accessing an index. You cannot use both <code>Select</code> and <code>AttributesToGet</code> together in a
-     *        single request, unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This usage
-     *        is equivalent to specifying <code>AttributesToGet</code> without any value for <code>Select</code>.)
+     *        accessing an index. You cannot use both <code>Select</code> and <code>ProjectionExpression</code> together
+     *        in a single request, unless the value for <code>Select</code> is <code>SPECIFIC_ATTRIBUTES</code>. (This
+     *        usage is equivalent to specifying <code>ProjectionExpression</code> without any value for
+     *        <code>Select</code>.)
      *        </p>
      *        <note>
      *        <p>
@@ -1303,6 +1349,13 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
         setScanFilter(scanFilter);
         return this;
     }
+
+    /**
+     * Add a single ScanFilter entry
+     *
+     * @see ScanRequest#withScanFilter
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public ScanRequest addScanFilterEntry(String key, Condition value) {
         if (null == this.scanFilter) {
@@ -1508,6 +1561,13 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
         setExclusiveStartKey(exclusiveStartKey);
         return this;
     }
+
+    /**
+     * Add a single ExclusiveStartKey entry
+     *
+     * @see ScanRequest#withExclusiveStartKey
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public ScanRequest addExclusiveStartKeyEntry(String key, AttributeValue value) {
         if (null == this.exclusiveStartKey) {
@@ -1941,7 +2001,7 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * </note>
      * <p>
      * For more information, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#FilteringResults">Filter
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.FilterExpression">Filter
      * Expressions</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * 
@@ -1955,8 +2015,8 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      *        </p>
      *        </note>
      *        <p>
-     *        For more information, see <a href=
-     *        "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#FilteringResults"
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.FilterExpression"
      *        >Filter Expressions</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      */
 
@@ -1977,7 +2037,7 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * </note>
      * <p>
      * For more information, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#FilteringResults">Filter
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.FilterExpression">Filter
      * Expressions</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * 
@@ -1990,8 +2050,8 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      *         </p>
      *         </note>
      *         <p>
-     *         For more information, see <a href=
-     *         "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#FilteringResults"
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.FilterExpression"
      *         >Filter Expressions</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      */
 
@@ -2012,7 +2072,7 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      * </note>
      * <p>
      * For more information, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#FilteringResults">Filter
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.FilterExpression">Filter
      * Expressions</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * 
@@ -2026,8 +2086,8 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
      *        </p>
      *        </note>
      *        <p>
-     *        For more information, see <a href=
-     *        "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#FilteringResults"
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.FilterExpression"
      *        >Filter Expressions</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -2458,6 +2518,13 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
         return this;
     }
 
+    /**
+     * Add a single ExpressionAttributeNames entry
+     *
+     * @see ScanRequest#withExpressionAttributeNames
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public ScanRequest addExpressionAttributeNamesEntry(String key, String value) {
         if (null == this.expressionAttributeNames) {
             this.expressionAttributeNames = new java.util.HashMap<String, String>();
@@ -2662,6 +2729,13 @@ public class ScanRequest extends com.amazonaws.AmazonWebServiceRequest implement
         setExpressionAttributeValues(expressionAttributeValues);
         return this;
     }
+
+    /**
+     * Add a single ExpressionAttributeValues entry
+     *
+     * @see ScanRequest#withExpressionAttributeValues
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public ScanRequest addExpressionAttributeValuesEntry(String key, AttributeValue value) {
         if (null == this.expressionAttributeValues) {

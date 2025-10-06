@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -68,6 +68,38 @@ public class FunctionConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RevisionId").build();
     private static final MarshallingInfo<List> LAYERS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Layers").build();
+    private static final MarshallingInfo<String> STATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("State").build();
+    private static final MarshallingInfo<String> STATEREASON_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StateReason").build();
+    private static final MarshallingInfo<String> STATEREASONCODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StateReasonCode").build();
+    private static final MarshallingInfo<String> LASTUPDATESTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastUpdateStatus").build();
+    private static final MarshallingInfo<String> LASTUPDATESTATUSREASON_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastUpdateStatusReason").build();
+    private static final MarshallingInfo<String> LASTUPDATESTATUSREASONCODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastUpdateStatusReasonCode").build();
+    private static final MarshallingInfo<List> FILESYSTEMCONFIGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FileSystemConfigs").build();
+    private static final MarshallingInfo<String> PACKAGETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PackageType").build();
+    private static final MarshallingInfo<StructuredPojo> IMAGECONFIGRESPONSE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ImageConfigResponse").build();
+    private static final MarshallingInfo<String> SIGNINGPROFILEVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SigningProfileVersionArn").build();
+    private static final MarshallingInfo<String> SIGNINGJOBARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SigningJobArn").build();
+    private static final MarshallingInfo<List> ARCHITECTURES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Architectures").build();
+    private static final MarshallingInfo<StructuredPojo> EPHEMERALSTORAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EphemeralStorage").build();
+    private static final MarshallingInfo<StructuredPojo> SNAPSTART_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SnapStart").build();
+    private static final MarshallingInfo<StructuredPojo> RUNTIMEVERSIONCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RuntimeVersionConfig").build();
+    private static final MarshallingInfo<StructuredPojo> LOGGINGCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LoggingConfig").build();
 
     private static final FunctionConfigurationMarshaller instance = new FunctionConfigurationMarshaller();
 
@@ -105,6 +137,22 @@ public class FunctionConfigurationMarshaller {
             protocolMarshaller.marshall(functionConfiguration.getMasterArn(), MASTERARN_BINDING);
             protocolMarshaller.marshall(functionConfiguration.getRevisionId(), REVISIONID_BINDING);
             protocolMarshaller.marshall(functionConfiguration.getLayers(), LAYERS_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getState(), STATE_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getStateReason(), STATEREASON_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getStateReasonCode(), STATEREASONCODE_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getLastUpdateStatus(), LASTUPDATESTATUS_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getLastUpdateStatusReason(), LASTUPDATESTATUSREASON_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getLastUpdateStatusReasonCode(), LASTUPDATESTATUSREASONCODE_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getFileSystemConfigs(), FILESYSTEMCONFIGS_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getPackageType(), PACKAGETYPE_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getImageConfigResponse(), IMAGECONFIGRESPONSE_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getSigningProfileVersionArn(), SIGNINGPROFILEVERSIONARN_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getSigningJobArn(), SIGNINGJOBARN_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getArchitectures(), ARCHITECTURES_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getEphemeralStorage(), EPHEMERALSTORAGE_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getSnapStart(), SNAPSTART_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getRuntimeVersionConfig(), RUNTIMEVERSIONCONFIG_BINDING);
+            protocolMarshaller.marshall(functionConfiguration.getLoggingConfig(), LOGGINGCONFIG_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

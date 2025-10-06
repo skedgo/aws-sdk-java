@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class DescribeCollectionResult extends com.amazonaws.AmazonWebServiceResu
      * The version of the face model that's used by the collection for face detection.
      * </p>
      * <p>
-     * For more information, see Model Versioning in the Amazon Rekognition Developer Guide.
+     * For more information, see Model versioning in the Amazon Rekognition Developer Guide.
      * </p>
      */
     private String faceModelVersion;
@@ -47,6 +47,12 @@ public class DescribeCollectionResult extends com.amazonaws.AmazonWebServiceResu
      * </p>
      */
     private java.util.Date creationTimestamp;
+    /**
+     * <p>
+     * The number of UserIDs assigned to the specified colleciton.
+     * </p>
+     */
+    private Long userCount;
 
     /**
      * <p>
@@ -99,13 +105,13 @@ public class DescribeCollectionResult extends com.amazonaws.AmazonWebServiceResu
      * The version of the face model that's used by the collection for face detection.
      * </p>
      * <p>
-     * For more information, see Model Versioning in the Amazon Rekognition Developer Guide.
+     * For more information, see Model versioning in the Amazon Rekognition Developer Guide.
      * </p>
      * 
      * @param faceModelVersion
      *        The version of the face model that's used by the collection for face detection.</p>
      *        <p>
-     *        For more information, see Model Versioning in the Amazon Rekognition Developer Guide.
+     *        For more information, see Model versioning in the Amazon Rekognition Developer Guide.
      */
 
     public void setFaceModelVersion(String faceModelVersion) {
@@ -117,12 +123,12 @@ public class DescribeCollectionResult extends com.amazonaws.AmazonWebServiceResu
      * The version of the face model that's used by the collection for face detection.
      * </p>
      * <p>
-     * For more information, see Model Versioning in the Amazon Rekognition Developer Guide.
+     * For more information, see Model versioning in the Amazon Rekognition Developer Guide.
      * </p>
      * 
      * @return The version of the face model that's used by the collection for face detection.</p>
      *         <p>
-     *         For more information, see Model Versioning in the Amazon Rekognition Developer Guide.
+     *         For more information, see Model versioning in the Amazon Rekognition Developer Guide.
      */
 
     public String getFaceModelVersion() {
@@ -134,13 +140,13 @@ public class DescribeCollectionResult extends com.amazonaws.AmazonWebServiceResu
      * The version of the face model that's used by the collection for face detection.
      * </p>
      * <p>
-     * For more information, see Model Versioning in the Amazon Rekognition Developer Guide.
+     * For more information, see Model versioning in the Amazon Rekognition Developer Guide.
      * </p>
      * 
      * @param faceModelVersion
      *        The version of the face model that's used by the collection for face detection.</p>
      *        <p>
-     *        For more information, see Model Versioning in the Amazon Rekognition Developer Guide.
+     *        For more information, see Model versioning in the Amazon Rekognition Developer Guide.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -236,6 +242,46 @@ public class DescribeCollectionResult extends com.amazonaws.AmazonWebServiceResu
     }
 
     /**
+     * <p>
+     * The number of UserIDs assigned to the specified colleciton.
+     * </p>
+     * 
+     * @param userCount
+     *        The number of UserIDs assigned to the specified colleciton.
+     */
+
+    public void setUserCount(Long userCount) {
+        this.userCount = userCount;
+    }
+
+    /**
+     * <p>
+     * The number of UserIDs assigned to the specified colleciton.
+     * </p>
+     * 
+     * @return The number of UserIDs assigned to the specified colleciton.
+     */
+
+    public Long getUserCount() {
+        return this.userCount;
+    }
+
+    /**
+     * <p>
+     * The number of UserIDs assigned to the specified colleciton.
+     * </p>
+     * 
+     * @param userCount
+     *        The number of UserIDs assigned to the specified colleciton.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeCollectionResult withUserCount(Long userCount) {
+        setUserCount(userCount);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -254,7 +300,9 @@ public class DescribeCollectionResult extends com.amazonaws.AmazonWebServiceResu
         if (getCollectionARN() != null)
             sb.append("CollectionARN: ").append(getCollectionARN()).append(",");
         if (getCreationTimestamp() != null)
-            sb.append("CreationTimestamp: ").append(getCreationTimestamp());
+            sb.append("CreationTimestamp: ").append(getCreationTimestamp()).append(",");
+        if (getUserCount() != null)
+            sb.append("UserCount: ").append(getUserCount());
         sb.append("}");
         return sb.toString();
     }
@@ -285,6 +333,10 @@ public class DescribeCollectionResult extends com.amazonaws.AmazonWebServiceResu
             return false;
         if (other.getCreationTimestamp() != null && other.getCreationTimestamp().equals(this.getCreationTimestamp()) == false)
             return false;
+        if (other.getUserCount() == null ^ this.getUserCount() == null)
+            return false;
+        if (other.getUserCount() != null && other.getUserCount().equals(this.getUserCount()) == false)
+            return false;
         return true;
     }
 
@@ -297,6 +349,7 @@ public class DescribeCollectionResult extends com.amazonaws.AmazonWebServiceResu
         hashCode = prime * hashCode + ((getFaceModelVersion() == null) ? 0 : getFaceModelVersion().hashCode());
         hashCode = prime * hashCode + ((getCollectionARN() == null) ? 0 : getCollectionARN().hashCode());
         hashCode = prime * hashCode + ((getCreationTimestamp() == null) ? 0 : getCreationTimestamp().hashCode());
+        hashCode = prime * hashCode + ((getUserCount() == null) ? 0 : getUserCount().hashCode());
         return hashCode;
     }
 

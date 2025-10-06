@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -93,6 +93,58 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     }
 
     @Override
+    public java.util.concurrent.Future<BatchDetectTargetedSentimentResult> batchDetectTargetedSentimentAsync(BatchDetectTargetedSentimentRequest request) {
+
+        return batchDetectTargetedSentimentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchDetectTargetedSentimentResult> batchDetectTargetedSentimentAsync(BatchDetectTargetedSentimentRequest request,
+            com.amazonaws.handlers.AsyncHandler<BatchDetectTargetedSentimentRequest, BatchDetectTargetedSentimentResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ClassifyDocumentResult> classifyDocumentAsync(ClassifyDocumentRequest request) {
+
+        return classifyDocumentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ClassifyDocumentResult> classifyDocumentAsync(ClassifyDocumentRequest request,
+            com.amazonaws.handlers.AsyncHandler<ClassifyDocumentRequest, ClassifyDocumentResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ContainsPiiEntitiesResult> containsPiiEntitiesAsync(ContainsPiiEntitiesRequest request) {
+
+        return containsPiiEntitiesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ContainsPiiEntitiesResult> containsPiiEntitiesAsync(ContainsPiiEntitiesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ContainsPiiEntitiesRequest, ContainsPiiEntitiesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDatasetResult> createDatasetAsync(CreateDatasetRequest request) {
+
+        return createDatasetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDatasetResult> createDatasetAsync(CreateDatasetRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateDatasetRequest, CreateDatasetResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateDocumentClassifierResult> createDocumentClassifierAsync(CreateDocumentClassifierRequest request) {
 
         return createDocumentClassifierAsync(request, null);
@@ -101,6 +153,19 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     @Override
     public java.util.concurrent.Future<CreateDocumentClassifierResult> createDocumentClassifierAsync(CreateDocumentClassifierRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateDocumentClassifierRequest, CreateDocumentClassifierResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateEndpointResult> createEndpointAsync(CreateEndpointRequest request) {
+
+        return createEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateEndpointResult> createEndpointAsync(CreateEndpointRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateEndpointRequest, CreateEndpointResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -119,6 +184,19 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     }
 
     @Override
+    public java.util.concurrent.Future<CreateFlywheelResult> createFlywheelAsync(CreateFlywheelRequest request) {
+
+        return createFlywheelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFlywheelResult> createFlywheelAsync(CreateFlywheelRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateFlywheelRequest, CreateFlywheelResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteDocumentClassifierResult> deleteDocumentClassifierAsync(DeleteDocumentClassifierRequest request) {
 
         return deleteDocumentClassifierAsync(request, null);
@@ -132,6 +210,19 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteEndpointResult> deleteEndpointAsync(DeleteEndpointRequest request) {
+
+        return deleteEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteEndpointResult> deleteEndpointAsync(DeleteEndpointRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteEndpointRequest, DeleteEndpointResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteEntityRecognizerResult> deleteEntityRecognizerAsync(DeleteEntityRecognizerRequest request) {
 
         return deleteEntityRecognizerAsync(request, null);
@@ -140,6 +231,45 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     @Override
     public java.util.concurrent.Future<DeleteEntityRecognizerResult> deleteEntityRecognizerAsync(DeleteEntityRecognizerRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteEntityRecognizerRequest, DeleteEntityRecognizerResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFlywheelResult> deleteFlywheelAsync(DeleteFlywheelRequest request) {
+
+        return deleteFlywheelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFlywheelResult> deleteFlywheelAsync(DeleteFlywheelRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteFlywheelRequest, DeleteFlywheelResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest request) {
+
+        return deleteResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteResourcePolicyRequest, DeleteResourcePolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDatasetResult> describeDatasetAsync(DescribeDatasetRequest request) {
+
+        return describeDatasetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDatasetResult> describeDatasetAsync(DescribeDatasetRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeDatasetRequest, DescribeDatasetResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -188,6 +318,19 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeEndpointResult> describeEndpointAsync(DescribeEndpointRequest request) {
+
+        return describeEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEndpointResult> describeEndpointAsync(DescribeEndpointRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeEndpointRequest, DescribeEndpointResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeEntitiesDetectionJobResult> describeEntitiesDetectionJobAsync(DescribeEntitiesDetectionJobRequest request) {
 
         return describeEntitiesDetectionJobAsync(request, null);
@@ -214,6 +357,45 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeEventsDetectionJobResult> describeEventsDetectionJobAsync(DescribeEventsDetectionJobRequest request) {
+
+        return describeEventsDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEventsDetectionJobResult> describeEventsDetectionJobAsync(DescribeEventsDetectionJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeEventsDetectionJobRequest, DescribeEventsDetectionJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFlywheelResult> describeFlywheelAsync(DescribeFlywheelRequest request) {
+
+        return describeFlywheelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFlywheelResult> describeFlywheelAsync(DescribeFlywheelRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeFlywheelRequest, DescribeFlywheelResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFlywheelIterationResult> describeFlywheelIterationAsync(DescribeFlywheelIterationRequest request) {
+
+        return describeFlywheelIterationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFlywheelIterationResult> describeFlywheelIterationAsync(DescribeFlywheelIterationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeFlywheelIterationRequest, DescribeFlywheelIterationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeKeyPhrasesDetectionJobResult> describeKeyPhrasesDetectionJobAsync(DescribeKeyPhrasesDetectionJobRequest request) {
 
         return describeKeyPhrasesDetectionJobAsync(request, null);
@@ -227,6 +409,34 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     }
 
     @Override
+    public java.util.concurrent.Future<DescribePiiEntitiesDetectionJobResult> describePiiEntitiesDetectionJobAsync(
+            DescribePiiEntitiesDetectionJobRequest request) {
+
+        return describePiiEntitiesDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribePiiEntitiesDetectionJobResult> describePiiEntitiesDetectionJobAsync(
+            DescribePiiEntitiesDetectionJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribePiiEntitiesDetectionJobRequest, DescribePiiEntitiesDetectionJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeResourcePolicyResult> describeResourcePolicyAsync(DescribeResourcePolicyRequest request) {
+
+        return describeResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeResourcePolicyResult> describeResourcePolicyAsync(DescribeResourcePolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeResourcePolicyRequest, DescribeResourcePolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeSentimentDetectionJobResult> describeSentimentDetectionJobAsync(DescribeSentimentDetectionJobRequest request) {
 
         return describeSentimentDetectionJobAsync(request, null);
@@ -235,6 +445,21 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     @Override
     public java.util.concurrent.Future<DescribeSentimentDetectionJobResult> describeSentimentDetectionJobAsync(DescribeSentimentDetectionJobRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeSentimentDetectionJobRequest, DescribeSentimentDetectionJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTargetedSentimentDetectionJobResult> describeTargetedSentimentDetectionJobAsync(
+            DescribeTargetedSentimentDetectionJobRequest request) {
+
+        return describeTargetedSentimentDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTargetedSentimentDetectionJobResult> describeTargetedSentimentDetectionJobAsync(
+            DescribeTargetedSentimentDetectionJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeTargetedSentimentDetectionJobRequest, DescribeTargetedSentimentDetectionJobResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -292,6 +517,19 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     }
 
     @Override
+    public java.util.concurrent.Future<DetectPiiEntitiesResult> detectPiiEntitiesAsync(DetectPiiEntitiesRequest request) {
+
+        return detectPiiEntitiesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetectPiiEntitiesResult> detectPiiEntitiesAsync(DetectPiiEntitiesRequest request,
+            com.amazonaws.handlers.AsyncHandler<DetectPiiEntitiesRequest, DetectPiiEntitiesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DetectSentimentResult> detectSentimentAsync(DetectSentimentRequest request) {
 
         return detectSentimentAsync(request, null);
@@ -318,6 +556,58 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     }
 
     @Override
+    public java.util.concurrent.Future<DetectTargetedSentimentResult> detectTargetedSentimentAsync(DetectTargetedSentimentRequest request) {
+
+        return detectTargetedSentimentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetectTargetedSentimentResult> detectTargetedSentimentAsync(DetectTargetedSentimentRequest request,
+            com.amazonaws.handlers.AsyncHandler<DetectTargetedSentimentRequest, DetectTargetedSentimentResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetectToxicContentResult> detectToxicContentAsync(DetectToxicContentRequest request) {
+
+        return detectToxicContentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetectToxicContentResult> detectToxicContentAsync(DetectToxicContentRequest request,
+            com.amazonaws.handlers.AsyncHandler<DetectToxicContentRequest, DetectToxicContentResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportModelResult> importModelAsync(ImportModelRequest request) {
+
+        return importModelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportModelResult> importModelAsync(ImportModelRequest request,
+            com.amazonaws.handlers.AsyncHandler<ImportModelRequest, ImportModelResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDatasetsResult> listDatasetsAsync(ListDatasetsRequest request) {
+
+        return listDatasetsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDatasetsResult> listDatasetsAsync(ListDatasetsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListDatasetsRequest, ListDatasetsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListDocumentClassificationJobsResult> listDocumentClassificationJobsAsync(ListDocumentClassificationJobsRequest request) {
 
         return listDocumentClassificationJobsAsync(request, null);
@@ -326,6 +616,21 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     @Override
     public java.util.concurrent.Future<ListDocumentClassificationJobsResult> listDocumentClassificationJobsAsync(ListDocumentClassificationJobsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListDocumentClassificationJobsRequest, ListDocumentClassificationJobsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDocumentClassifierSummariesResult> listDocumentClassifierSummariesAsync(
+            ListDocumentClassifierSummariesRequest request) {
+
+        return listDocumentClassifierSummariesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDocumentClassifierSummariesResult> listDocumentClassifierSummariesAsync(
+            ListDocumentClassifierSummariesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListDocumentClassifierSummariesRequest, ListDocumentClassifierSummariesResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -359,6 +664,19 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     }
 
     @Override
+    public java.util.concurrent.Future<ListEndpointsResult> listEndpointsAsync(ListEndpointsRequest request) {
+
+        return listEndpointsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEndpointsResult> listEndpointsAsync(ListEndpointsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListEndpointsRequest, ListEndpointsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListEntitiesDetectionJobsResult> listEntitiesDetectionJobsAsync(ListEntitiesDetectionJobsRequest request) {
 
         return listEntitiesDetectionJobsAsync(request, null);
@@ -367,6 +685,19 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     @Override
     public java.util.concurrent.Future<ListEntitiesDetectionJobsResult> listEntitiesDetectionJobsAsync(ListEntitiesDetectionJobsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListEntitiesDetectionJobsRequest, ListEntitiesDetectionJobsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEntityRecognizerSummariesResult> listEntityRecognizerSummariesAsync(ListEntityRecognizerSummariesRequest request) {
+
+        return listEntityRecognizerSummariesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEntityRecognizerSummariesResult> listEntityRecognizerSummariesAsync(ListEntityRecognizerSummariesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListEntityRecognizerSummariesRequest, ListEntityRecognizerSummariesResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -385,6 +716,45 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     }
 
     @Override
+    public java.util.concurrent.Future<ListEventsDetectionJobsResult> listEventsDetectionJobsAsync(ListEventsDetectionJobsRequest request) {
+
+        return listEventsDetectionJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEventsDetectionJobsResult> listEventsDetectionJobsAsync(ListEventsDetectionJobsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListEventsDetectionJobsRequest, ListEventsDetectionJobsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFlywheelIterationHistoryResult> listFlywheelIterationHistoryAsync(ListFlywheelIterationHistoryRequest request) {
+
+        return listFlywheelIterationHistoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFlywheelIterationHistoryResult> listFlywheelIterationHistoryAsync(ListFlywheelIterationHistoryRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListFlywheelIterationHistoryRequest, ListFlywheelIterationHistoryResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFlywheelsResult> listFlywheelsAsync(ListFlywheelsRequest request) {
+
+        return listFlywheelsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFlywheelsResult> listFlywheelsAsync(ListFlywheelsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListFlywheelsRequest, ListFlywheelsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListKeyPhrasesDetectionJobsResult> listKeyPhrasesDetectionJobsAsync(ListKeyPhrasesDetectionJobsRequest request) {
 
         return listKeyPhrasesDetectionJobsAsync(request, null);
@@ -393,6 +763,19 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     @Override
     public java.util.concurrent.Future<ListKeyPhrasesDetectionJobsResult> listKeyPhrasesDetectionJobsAsync(ListKeyPhrasesDetectionJobsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListKeyPhrasesDetectionJobsRequest, ListKeyPhrasesDetectionJobsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPiiEntitiesDetectionJobsResult> listPiiEntitiesDetectionJobsAsync(ListPiiEntitiesDetectionJobsRequest request) {
+
+        return listPiiEntitiesDetectionJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPiiEntitiesDetectionJobsResult> listPiiEntitiesDetectionJobsAsync(ListPiiEntitiesDetectionJobsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListPiiEntitiesDetectionJobsRequest, ListPiiEntitiesDetectionJobsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -424,6 +807,21 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     }
 
     @Override
+    public java.util.concurrent.Future<ListTargetedSentimentDetectionJobsResult> listTargetedSentimentDetectionJobsAsync(
+            ListTargetedSentimentDetectionJobsRequest request) {
+
+        return listTargetedSentimentDetectionJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTargetedSentimentDetectionJobsResult> listTargetedSentimentDetectionJobsAsync(
+            ListTargetedSentimentDetectionJobsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListTargetedSentimentDetectionJobsRequest, ListTargetedSentimentDetectionJobsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListTopicsDetectionJobsResult> listTopicsDetectionJobsAsync(ListTopicsDetectionJobsRequest request) {
 
         return listTopicsDetectionJobsAsync(request, null);
@@ -432,6 +830,19 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     @Override
     public java.util.concurrent.Future<ListTopicsDetectionJobsResult> listTopicsDetectionJobsAsync(ListTopicsDetectionJobsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListTopicsDetectionJobsRequest, ListTopicsDetectionJobsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest request) {
+
+        return putResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<PutResourcePolicyRequest, PutResourcePolicyResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -478,6 +889,32 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     }
 
     @Override
+    public java.util.concurrent.Future<StartEventsDetectionJobResult> startEventsDetectionJobAsync(StartEventsDetectionJobRequest request) {
+
+        return startEventsDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartEventsDetectionJobResult> startEventsDetectionJobAsync(StartEventsDetectionJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartEventsDetectionJobRequest, StartEventsDetectionJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartFlywheelIterationResult> startFlywheelIterationAsync(StartFlywheelIterationRequest request) {
+
+        return startFlywheelIterationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartFlywheelIterationResult> startFlywheelIterationAsync(StartFlywheelIterationRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartFlywheelIterationRequest, StartFlywheelIterationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<StartKeyPhrasesDetectionJobResult> startKeyPhrasesDetectionJobAsync(StartKeyPhrasesDetectionJobRequest request) {
 
         return startKeyPhrasesDetectionJobAsync(request, null);
@@ -491,6 +928,19 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     }
 
     @Override
+    public java.util.concurrent.Future<StartPiiEntitiesDetectionJobResult> startPiiEntitiesDetectionJobAsync(StartPiiEntitiesDetectionJobRequest request) {
+
+        return startPiiEntitiesDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartPiiEntitiesDetectionJobResult> startPiiEntitiesDetectionJobAsync(StartPiiEntitiesDetectionJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartPiiEntitiesDetectionJobRequest, StartPiiEntitiesDetectionJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<StartSentimentDetectionJobResult> startSentimentDetectionJobAsync(StartSentimentDetectionJobRequest request) {
 
         return startSentimentDetectionJobAsync(request, null);
@@ -499,6 +949,21 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     @Override
     public java.util.concurrent.Future<StartSentimentDetectionJobResult> startSentimentDetectionJobAsync(StartSentimentDetectionJobRequest request,
             com.amazonaws.handlers.AsyncHandler<StartSentimentDetectionJobRequest, StartSentimentDetectionJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartTargetedSentimentDetectionJobResult> startTargetedSentimentDetectionJobAsync(
+            StartTargetedSentimentDetectionJobRequest request) {
+
+        return startTargetedSentimentDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartTargetedSentimentDetectionJobResult> startTargetedSentimentDetectionJobAsync(
+            StartTargetedSentimentDetectionJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartTargetedSentimentDetectionJobRequest, StartTargetedSentimentDetectionJobResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -545,6 +1010,19 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     }
 
     @Override
+    public java.util.concurrent.Future<StopEventsDetectionJobResult> stopEventsDetectionJobAsync(StopEventsDetectionJobRequest request) {
+
+        return stopEventsDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopEventsDetectionJobResult> stopEventsDetectionJobAsync(StopEventsDetectionJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<StopEventsDetectionJobRequest, StopEventsDetectionJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<StopKeyPhrasesDetectionJobResult> stopKeyPhrasesDetectionJobAsync(StopKeyPhrasesDetectionJobRequest request) {
 
         return stopKeyPhrasesDetectionJobAsync(request, null);
@@ -558,6 +1036,19 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     }
 
     @Override
+    public java.util.concurrent.Future<StopPiiEntitiesDetectionJobResult> stopPiiEntitiesDetectionJobAsync(StopPiiEntitiesDetectionJobRequest request) {
+
+        return stopPiiEntitiesDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopPiiEntitiesDetectionJobResult> stopPiiEntitiesDetectionJobAsync(StopPiiEntitiesDetectionJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<StopPiiEntitiesDetectionJobRequest, StopPiiEntitiesDetectionJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<StopSentimentDetectionJobResult> stopSentimentDetectionJobAsync(StopSentimentDetectionJobRequest request) {
 
         return stopSentimentDetectionJobAsync(request, null);
@@ -566,6 +1057,21 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     @Override
     public java.util.concurrent.Future<StopSentimentDetectionJobResult> stopSentimentDetectionJobAsync(StopSentimentDetectionJobRequest request,
             com.amazonaws.handlers.AsyncHandler<StopSentimentDetectionJobRequest, StopSentimentDetectionJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopTargetedSentimentDetectionJobResult> stopTargetedSentimentDetectionJobAsync(
+            StopTargetedSentimentDetectionJobRequest request) {
+
+        return stopTargetedSentimentDetectionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopTargetedSentimentDetectionJobResult> stopTargetedSentimentDetectionJobAsync(
+            StopTargetedSentimentDetectionJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<StopTargetedSentimentDetectionJobRequest, StopTargetedSentimentDetectionJobResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -618,6 +1124,32 @@ public class AbstractAmazonComprehendAsync extends AbstractAmazonComprehend impl
     @Override
     public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request,
             com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateEndpointResult> updateEndpointAsync(UpdateEndpointRequest request) {
+
+        return updateEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateEndpointResult> updateEndpointAsync(UpdateEndpointRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateEndpointRequest, UpdateEndpointResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateFlywheelResult> updateFlywheelAsync(UpdateFlywheelRequest request) {
+
+        return updateFlywheelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateFlywheelResult> updateFlywheelAsync(UpdateFlywheelRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateFlywheelRequest, UpdateFlywheelResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

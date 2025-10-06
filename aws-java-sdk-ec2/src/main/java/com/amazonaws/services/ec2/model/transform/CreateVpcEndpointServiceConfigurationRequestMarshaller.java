@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -47,6 +47,10 @@ public class CreateVpcEndpointServiceConfigurationRequestMarshaller implements
             request.addParameter("AcceptanceRequired", StringUtils.fromBoolean(createVpcEndpointServiceConfigurationRequest.getAcceptanceRequired()));
         }
 
+        if (createVpcEndpointServiceConfigurationRequest.getPrivateDnsName() != null) {
+            request.addParameter("PrivateDnsName", StringUtils.fromString(createVpcEndpointServiceConfigurationRequest.getPrivateDnsName()));
+        }
+
         com.amazonaws.internal.SdkInternalList<String> createVpcEndpointServiceConfigurationRequestNetworkLoadBalancerArnsList = (com.amazonaws.internal.SdkInternalList<String>) createVpcEndpointServiceConfigurationRequest
                 .getNetworkLoadBalancerArns();
         if (!createVpcEndpointServiceConfigurationRequestNetworkLoadBalancerArnsList.isEmpty()
@@ -62,8 +66,74 @@ public class CreateVpcEndpointServiceConfigurationRequestMarshaller implements
             }
         }
 
+        com.amazonaws.internal.SdkInternalList<String> createVpcEndpointServiceConfigurationRequestGatewayLoadBalancerArnsList = (com.amazonaws.internal.SdkInternalList<String>) createVpcEndpointServiceConfigurationRequest
+                .getGatewayLoadBalancerArns();
+        if (!createVpcEndpointServiceConfigurationRequestGatewayLoadBalancerArnsList.isEmpty()
+                || !createVpcEndpointServiceConfigurationRequestGatewayLoadBalancerArnsList.isAutoConstruct()) {
+            int gatewayLoadBalancerArnsListIndex = 1;
+
+            for (String createVpcEndpointServiceConfigurationRequestGatewayLoadBalancerArnsListValue : createVpcEndpointServiceConfigurationRequestGatewayLoadBalancerArnsList) {
+                if (createVpcEndpointServiceConfigurationRequestGatewayLoadBalancerArnsListValue != null) {
+                    request.addParameter("GatewayLoadBalancerArn." + gatewayLoadBalancerArnsListIndex,
+                            StringUtils.fromString(createVpcEndpointServiceConfigurationRequestGatewayLoadBalancerArnsListValue));
+                }
+                gatewayLoadBalancerArnsListIndex++;
+            }
+        }
+
+        com.amazonaws.internal.SdkInternalList<String> createVpcEndpointServiceConfigurationRequestSupportedIpAddressTypesList = (com.amazonaws.internal.SdkInternalList<String>) createVpcEndpointServiceConfigurationRequest
+                .getSupportedIpAddressTypes();
+        if (!createVpcEndpointServiceConfigurationRequestSupportedIpAddressTypesList.isEmpty()
+                || !createVpcEndpointServiceConfigurationRequestSupportedIpAddressTypesList.isAutoConstruct()) {
+            int supportedIpAddressTypesListIndex = 1;
+
+            for (String createVpcEndpointServiceConfigurationRequestSupportedIpAddressTypesListValue : createVpcEndpointServiceConfigurationRequestSupportedIpAddressTypesList) {
+                if (createVpcEndpointServiceConfigurationRequestSupportedIpAddressTypesListValue != null) {
+                    request.addParameter("SupportedIpAddressType." + supportedIpAddressTypesListIndex,
+                            StringUtils.fromString(createVpcEndpointServiceConfigurationRequestSupportedIpAddressTypesListValue));
+                }
+                supportedIpAddressTypesListIndex++;
+            }
+        }
+
         if (createVpcEndpointServiceConfigurationRequest.getClientToken() != null) {
             request.addParameter("ClientToken", StringUtils.fromString(createVpcEndpointServiceConfigurationRequest.getClientToken()));
+        }
+
+        com.amazonaws.internal.SdkInternalList<TagSpecification> createVpcEndpointServiceConfigurationRequestTagSpecificationsList = (com.amazonaws.internal.SdkInternalList<TagSpecification>) createVpcEndpointServiceConfigurationRequest
+                .getTagSpecifications();
+        if (!createVpcEndpointServiceConfigurationRequestTagSpecificationsList.isEmpty()
+                || !createVpcEndpointServiceConfigurationRequestTagSpecificationsList.isAutoConstruct()) {
+            int tagSpecificationsListIndex = 1;
+
+            for (TagSpecification createVpcEndpointServiceConfigurationRequestTagSpecificationsListValue : createVpcEndpointServiceConfigurationRequestTagSpecificationsList) {
+
+                if (createVpcEndpointServiceConfigurationRequestTagSpecificationsListValue.getResourceType() != null) {
+                    request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".ResourceType",
+                            StringUtils.fromString(createVpcEndpointServiceConfigurationRequestTagSpecificationsListValue.getResourceType()));
+                }
+
+                com.amazonaws.internal.SdkInternalList<Tag> tagSpecificationTagsList = (com.amazonaws.internal.SdkInternalList<Tag>) createVpcEndpointServiceConfigurationRequestTagSpecificationsListValue
+                        .getTags();
+                if (!tagSpecificationTagsList.isEmpty() || !tagSpecificationTagsList.isAutoConstruct()) {
+                    int tagsListIndex = 1;
+
+                    for (Tag tagSpecificationTagsListValue : tagSpecificationTagsList) {
+
+                        if (tagSpecificationTagsListValue.getKey() != null) {
+                            request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Key",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getKey()));
+                        }
+
+                        if (tagSpecificationTagsListValue.getValue() != null) {
+                            request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Value",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getValue()));
+                        }
+                        tagsListIndex++;
+                    }
+                }
+                tagSpecificationsListIndex++;
+            }
         }
 
         return request;

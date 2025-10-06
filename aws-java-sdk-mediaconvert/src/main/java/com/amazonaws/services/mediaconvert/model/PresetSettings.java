@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,28 +27,29 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 public class PresetSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
-     * (AudioDescriptions) contains groups of audio encoding settings organized by audio codec. Include one instance of
-     * (AudioDescriptions) per output. (AudioDescriptions) can contain multiple groups of encoding settings.
+     * Contains groups of audio encoding settings organized by audio codec. Include one instance of per output. Can
+     * contain multiple groups of encoding settings.
      */
     private java.util.List<AudioDescription> audioDescriptions;
-    /** Caption settings for this preset. There can be multiple caption settings in a single output. */
+    /**
+     * This object holds groups of settings related to captions for one output. For each output that has captions,
+     * include one instance of CaptionDescriptions.
+     */
     private java.util.List<CaptionDescriptionPreset> captionDescriptions;
     /** Container specific settings. */
     private ContainerSettings containerSettings;
     /**
-     * (VideoDescription) contains a group of video encoding settings. The specific video settings depend on the video
-     * codec that you choose when you specify a value for Video codec (codec). Include one instance of
-     * (VideoDescription) per output.
+     * VideoDescription contains a group of video encoding settings. The specific video settings depend on the video
+     * codec that you choose for the property codec. Include one instance of VideoDescription per output.
      */
     private VideoDescription videoDescription;
 
     /**
-     * (AudioDescriptions) contains groups of audio encoding settings organized by audio codec. Include one instance of
-     * (AudioDescriptions) per output. (AudioDescriptions) can contain multiple groups of encoding settings.
+     * Contains groups of audio encoding settings organized by audio codec. Include one instance of per output. Can
+     * contain multiple groups of encoding settings.
      * 
-     * @return (AudioDescriptions) contains groups of audio encoding settings organized by audio codec. Include one
-     *         instance of (AudioDescriptions) per output. (AudioDescriptions) can contain multiple groups of encoding
-     *         settings.
+     * @return Contains groups of audio encoding settings organized by audio codec. Include one instance of per output.
+     *         Can contain multiple groups of encoding settings.
      */
 
     public java.util.List<AudioDescription> getAudioDescriptions() {
@@ -56,13 +57,12 @@ public class PresetSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * (AudioDescriptions) contains groups of audio encoding settings organized by audio codec. Include one instance of
-     * (AudioDescriptions) per output. (AudioDescriptions) can contain multiple groups of encoding settings.
+     * Contains groups of audio encoding settings organized by audio codec. Include one instance of per output. Can
+     * contain multiple groups of encoding settings.
      * 
      * @param audioDescriptions
-     *        (AudioDescriptions) contains groups of audio encoding settings organized by audio codec. Include one
-     *        instance of (AudioDescriptions) per output. (AudioDescriptions) can contain multiple groups of encoding
-     *        settings.
+     *        Contains groups of audio encoding settings organized by audio codec. Include one instance of per output.
+     *        Can contain multiple groups of encoding settings.
      */
 
     public void setAudioDescriptions(java.util.Collection<AudioDescription> audioDescriptions) {
@@ -75,8 +75,8 @@ public class PresetSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * (AudioDescriptions) contains groups of audio encoding settings organized by audio codec. Include one instance of
-     * (AudioDescriptions) per output. (AudioDescriptions) can contain multiple groups of encoding settings.
+     * Contains groups of audio encoding settings organized by audio codec. Include one instance of per output. Can
+     * contain multiple groups of encoding settings.
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setAudioDescriptions(java.util.Collection)} or {@link #withAudioDescriptions(java.util.Collection)} if
@@ -84,9 +84,8 @@ public class PresetSettings implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param audioDescriptions
-     *        (AudioDescriptions) contains groups of audio encoding settings organized by audio codec. Include one
-     *        instance of (AudioDescriptions) per output. (AudioDescriptions) can contain multiple groups of encoding
-     *        settings.
+     *        Contains groups of audio encoding settings organized by audio codec. Include one instance of per output.
+     *        Can contain multiple groups of encoding settings.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -101,13 +100,12 @@ public class PresetSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * (AudioDescriptions) contains groups of audio encoding settings organized by audio codec. Include one instance of
-     * (AudioDescriptions) per output. (AudioDescriptions) can contain multiple groups of encoding settings.
+     * Contains groups of audio encoding settings organized by audio codec. Include one instance of per output. Can
+     * contain multiple groups of encoding settings.
      * 
      * @param audioDescriptions
-     *        (AudioDescriptions) contains groups of audio encoding settings organized by audio codec. Include one
-     *        instance of (AudioDescriptions) per output. (AudioDescriptions) can contain multiple groups of encoding
-     *        settings.
+     *        Contains groups of audio encoding settings organized by audio codec. Include one instance of per output.
+     *        Can contain multiple groups of encoding settings.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -117,9 +115,11 @@ public class PresetSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Caption settings for this preset. There can be multiple caption settings in a single output.
+     * This object holds groups of settings related to captions for one output. For each output that has captions,
+     * include one instance of CaptionDescriptions.
      * 
-     * @return Caption settings for this preset. There can be multiple caption settings in a single output.
+     * @return This object holds groups of settings related to captions for one output. For each output that has
+     *         captions, include one instance of CaptionDescriptions.
      */
 
     public java.util.List<CaptionDescriptionPreset> getCaptionDescriptions() {
@@ -127,10 +127,12 @@ public class PresetSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Caption settings for this preset. There can be multiple caption settings in a single output.
+     * This object holds groups of settings related to captions for one output. For each output that has captions,
+     * include one instance of CaptionDescriptions.
      * 
      * @param captionDescriptions
-     *        Caption settings for this preset. There can be multiple caption settings in a single output.
+     *        This object holds groups of settings related to captions for one output. For each output that has
+     *        captions, include one instance of CaptionDescriptions.
      */
 
     public void setCaptionDescriptions(java.util.Collection<CaptionDescriptionPreset> captionDescriptions) {
@@ -143,7 +145,8 @@ public class PresetSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Caption settings for this preset. There can be multiple caption settings in a single output.
+     * This object holds groups of settings related to captions for one output. For each output that has captions,
+     * include one instance of CaptionDescriptions.
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setCaptionDescriptions(java.util.Collection)} or {@link #withCaptionDescriptions(java.util.Collection)}
@@ -151,7 +154,8 @@ public class PresetSettings implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param captionDescriptions
-     *        Caption settings for this preset. There can be multiple caption settings in a single output.
+     *        This object holds groups of settings related to captions for one output. For each output that has
+     *        captions, include one instance of CaptionDescriptions.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -166,10 +170,12 @@ public class PresetSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Caption settings for this preset. There can be multiple caption settings in a single output.
+     * This object holds groups of settings related to captions for one output. For each output that has captions,
+     * include one instance of CaptionDescriptions.
      * 
      * @param captionDescriptions
-     *        Caption settings for this preset. There can be multiple caption settings in a single output.
+     *        This object holds groups of settings related to captions for one output. For each output that has
+     *        captions, include one instance of CaptionDescriptions.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -213,14 +219,12 @@ public class PresetSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * (VideoDescription) contains a group of video encoding settings. The specific video settings depend on the video
-     * codec that you choose when you specify a value for Video codec (codec). Include one instance of
-     * (VideoDescription) per output.
+     * VideoDescription contains a group of video encoding settings. The specific video settings depend on the video
+     * codec that you choose for the property codec. Include one instance of VideoDescription per output.
      * 
      * @param videoDescription
-     *        (VideoDescription) contains a group of video encoding settings. The specific video settings depend on the
-     *        video codec that you choose when you specify a value for Video codec (codec). Include one instance of
-     *        (VideoDescription) per output.
+     *        VideoDescription contains a group of video encoding settings. The specific video settings depend on the
+     *        video codec that you choose for the property codec. Include one instance of VideoDescription per output.
      */
 
     public void setVideoDescription(VideoDescription videoDescription) {
@@ -228,13 +232,11 @@ public class PresetSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * (VideoDescription) contains a group of video encoding settings. The specific video settings depend on the video
-     * codec that you choose when you specify a value for Video codec (codec). Include one instance of
-     * (VideoDescription) per output.
+     * VideoDescription contains a group of video encoding settings. The specific video settings depend on the video
+     * codec that you choose for the property codec. Include one instance of VideoDescription per output.
      * 
-     * @return (VideoDescription) contains a group of video encoding settings. The specific video settings depend on the
-     *         video codec that you choose when you specify a value for Video codec (codec). Include one instance of
-     *         (VideoDescription) per output.
+     * @return VideoDescription contains a group of video encoding settings. The specific video settings depend on the
+     *         video codec that you choose for the property codec. Include one instance of VideoDescription per output.
      */
 
     public VideoDescription getVideoDescription() {
@@ -242,14 +244,12 @@ public class PresetSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * (VideoDescription) contains a group of video encoding settings. The specific video settings depend on the video
-     * codec that you choose when you specify a value for Video codec (codec). Include one instance of
-     * (VideoDescription) per output.
+     * VideoDescription contains a group of video encoding settings. The specific video settings depend on the video
+     * codec that you choose for the property codec. Include one instance of VideoDescription per output.
      * 
      * @param videoDescription
-     *        (VideoDescription) contains a group of video encoding settings. The specific video settings depend on the
-     *        video codec that you choose when you specify a value for Video codec (codec). Include one instance of
-     *        (VideoDescription) per output.
+     *        VideoDescription contains a group of video encoding settings. The specific video settings depend on the
+     *        video codec that you choose for the property codec. Include one instance of VideoDescription per output.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

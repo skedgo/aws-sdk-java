@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,13 +14,7 @@
  */
 package com.amazonaws.internal.config;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import static java.util.Collections.singletonList;
 
 import com.amazonaws.annotation.Immutable;
 import com.amazonaws.log.InternalLogApi;
@@ -32,6 +26,18 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Internal configuration for the AWS Java SDK.
@@ -70,6 +76,9 @@ public class InternalConfig {
     private final String userAgentTemplate;
 
     private final boolean endpointDiscoveryEnabled;
+    
+    private final String defaultRetryMode;
+
 
     /**
      * @param defaults
@@ -99,6 +108,8 @@ public class InternalConfig {
         }
 
         endpointDiscoveryEnabled = endpointDiscoveryConfig.isEndpointDiscoveryEnabled();
+
+        defaultRetryMode = override.getDefaultRetryMode();
     }
 
     /**
@@ -244,6 +255,13 @@ public class InternalConfig {
         return endpointDiscoveryEnabled;
     }
 
+    /**
+     * @return the default retry mode, or null if not configured
+     */
+    public String getDefaultRetryMode() {
+        return defaultRetryMode;
+    }
+
     static <T> T loadfrom(URL url, Class<T> clazz) throws JsonParseException, JsonMappingException, IOException {
         if (url == null)
             throw new IllegalArgumentException();
@@ -251,27 +269,35 @@ public class InternalConfig {
         return target;
     }
 
+    static InternalConfig load() throws IOException {
+        return load(new LoadConfiguration()
+                        .setConfigRelativePath(DEFAULT_CONFIG_RESOURCE_RELATIVE_PATH)
+                        .setConfigAbsolutePath(DEFAULT_CONFIG_RESOURCE_ABSOLUTE_PATH)
+                        .setConfigOverrideRelativePaths(singletonList(CONFIG_OVERRIDE_RESOURCE)));
+    }
+
     /**
      * Loads and returns the AWS Java SDK internal configuration from the classpath.
      */
-    static InternalConfig load() throws JsonParseException, JsonMappingException, IOException {
-        URL configUrl = getResource(DEFAULT_CONFIG_RESOURCE_RELATIVE_PATH, true, false);
+    static InternalConfig load(LoadConfiguration loadConfig) throws JsonParseException, JsonMappingException, IOException {
+        URL configUrl = getResource(loadConfig.configRelativePath, true, false);
         if (configUrl == null) {
-            configUrl = getResource(DEFAULT_CONFIG_RESOURCE_ABSOLUTE_PATH, false, false);
+            configUrl = getResource(loadConfig.configAbsolutePath, false, false);
         }
 
         InternalConfigJsonHelper config = loadfrom(configUrl, InternalConfigJsonHelper.class);
         InternalConfigJsonHelper configOverride;
 
-        URL overrideUrl = getResource(CONFIG_OVERRIDE_RESOURCE, false, true);
-        if (overrideUrl == null) {
-            overrideUrl = getResource(CONFIG_OVERRIDE_RESOURCE, false, false);
+        List<URL> overrideUrls = new ArrayList<URL>();
+        for (String path : loadConfig.configOverrideRelativePaths) {
+            overrideUrls.addAll(getResources(path, false, true));
+            overrideUrls.addAll(getResources(path, false, false));
         }
-        if (overrideUrl == null) {
-            log.debug("Configuration override " + CONFIG_OVERRIDE_RESOURCE + " not found.");
+        if (overrideUrls.isEmpty()) {
+            log.debug("Configuration overrides " + loadConfig.configOverrideRelativePaths + " not found.");
             configOverride = new InternalConfigJsonHelper();
         } else {
-            configOverride = loadfrom(overrideUrl, InternalConfigJsonHelper.class);
+            configOverride = loadAndMergeImportantAttributes(overrideUrls);
         }
 
         EndpointDiscoveryConfig endpointDiscoveryConfig = new EndpointDiscoveryConfig();
@@ -284,8 +310,55 @@ public class InternalConfig {
 
         InternalConfig merged = new InternalConfig(config, configOverride, endpointDiscoveryConfig);
         merged.setDefaultConfigFileLocation(configUrl);
-        merged.setOverrideConfigFileLocation(overrideUrl);
+        merged.setOverrideConfigFileLocations(overrideUrls);
         return merged;
+    }
+
+    /**
+     * Load the override configuration from the provided list of URLs. URLs earlier in the list will have precedence over URLs
+     * later in the list, in the event of duplicated keys.
+     * <p>
+     * Keys that aren't defaultRetryMode and userAgentTemplate that aren't in the first file in the list will be ignored. This
+     * merging was added later in the SDK's life to fix an issue where retry modes and user agent templates were ending up null
+     * because of random override files on the classpath. We do not want to use this merging logic for all fields, to limit the
+     * risk of backwards-incompatibility. They can be added later if required and deemed safe.
+     */
+    private static InternalConfigJsonHelper loadAndMergeImportantAttributes(List<URL> overrideUrls) throws IOException {
+        if (overrideUrls.isEmpty()) {
+            return new InternalConfigJsonHelper();
+        }
+
+        removeDuplicates(overrideUrls);
+        InternalConfigJsonHelper base = loadfrom(overrideUrls.get(0), InternalConfigJsonHelper.class);
+        for (int i = 1; i < overrideUrls.size(); i++) {
+            URL overrideUrl = overrideUrls.get(i);
+            InternalConfigJsonHelper nextOverride = loadfrom(overrideUrl, InternalConfigJsonHelper.class);
+            if (base.getDefaultRetryMode() == null) {
+                base.setDefaultRetryMode(nextOverride.getDefaultRetryMode());
+            }
+            if (base.getUserAgentTemplate() == null) {
+                base.setUserAgentTemplate(nextOverride.getUserAgentTemplate());
+            }
+        }
+        return base;
+    }
+
+    /**
+     * Remove duplicates from the provided list, while preserving the order of the elements in this list. We do this
+     * manually instead of using a LinkedHashSet for the override URLs, because the set would invoke the URL's equals method.
+     * URL's equals method requires a DNS query, which is not desired.
+     */
+    private static void removeDuplicates(List<URL> overrideUrls) {
+        Set<String> urls = new HashSet<String>(overrideUrls.size());
+        Iterator<URL> urlIterator = overrideUrls.iterator();
+        while (urlIterator.hasNext()) {
+            String url = urlIterator.next().toString();
+            if (urls.contains(url)) {
+                urlIterator.remove();
+            } else {
+                urls.add(url);
+            }
+        }
     }
 
     private static URL getResource(String path, boolean classesFirst, boolean addLeadingSlash) {
@@ -296,27 +369,40 @@ public class InternalConfig {
         return resourceUrl;
     }
 
+    private static Collection<URL> getResources(String path, boolean classesFirst, boolean addLeadingSlash) {
+        path = addLeadingSlash ? "/" + path : path;
+
+        return ClassLoaderHelper.getResources(path, classesFirst, InternalConfig.class);
+    }
+
     /*
      * For debugging purposes
      */
 
     private URL defaultConfigFileLocation;
-    private URL overrideConfigFileLocation;
+    private List<URL> overrideConfigFileLocations;
 
     public URL getDefaultConfigFileLocation() {
         return defaultConfigFileLocation;
     }
 
     public URL getOverrideConfigFileLocation() {
-        return overrideConfigFileLocation;
+        if (overrideConfigFileLocations == null || overrideConfigFileLocations.isEmpty()) {
+            return null;
+        }
+        return overrideConfigFileLocations.get(0);
+    }
+
+    public List<URL> getOverrideConfigFileLocations() {
+        return overrideConfigFileLocations;
     }
 
     void setDefaultConfigFileLocation(URL url) {
         this.defaultConfigFileLocation = url;
     }
 
-    void setOverrideConfigFileLocation(URL url) {
-        this.overrideConfigFileLocation = url;
+    void setOverrideConfigFileLocations(List<URL> url) {
+        this.overrideConfigFileLocations = url;
     }
 
     void dump() {
@@ -347,6 +433,39 @@ public class InternalConfig {
          */
         public static InternalConfig getInternalConfig() {
             return SINGELTON;
+        }
+    }
+
+    static class LoadConfiguration {
+        private String configRelativePath;
+        private String configAbsolutePath;
+        private List<String> configOverrideRelativePaths;
+
+        public String getConfigRelativePath() {
+            return configRelativePath;
+        }
+
+        public LoadConfiguration setConfigRelativePath(String configRelativePath) {
+            this.configRelativePath = configRelativePath;
+            return this;
+        }
+
+        public String getConfigAbsolutePath() {
+            return configAbsolutePath;
+        }
+
+        public LoadConfiguration setConfigAbsolutePath(String configAbsolutePath) {
+            this.configAbsolutePath = configAbsolutePath;
+            return this;
+        }
+
+        public List<String> getConfigOverrideRelativePaths() {
+            return configOverrideRelativePaths;
+        }
+
+        public LoadConfiguration setConfigOverrideRelativePaths(List<String> configOverrideRelativePaths) {
+            this.configOverrideRelativePaths = configOverrideRelativePaths;
+            return this;
         }
     }
 }

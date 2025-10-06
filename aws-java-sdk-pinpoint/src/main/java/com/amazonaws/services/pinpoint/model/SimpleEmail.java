@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Specifies the content of an email message, composed of a subject, a text part, and an HTML part.
+ * Specifies the contents of an email message, composed of a subject, a text part, and an HTML part.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/SimpleEmail" target="_top">AWS API
@@ -30,8 +30,8 @@ public class SimpleEmail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The body of the email message, in HTML format. We recommend using an HTML part for email clients that support
-     * HTML. You can include links, formatted text, and more in an HTML message.
+     * The body of the email message, in HTML format. We recommend using HTML format for email clients that render HTML
+     * content. You can include links, formatted text, and more in an HTML message.
      * </p>
      */
     private SimpleEmailPart htmlPart;
@@ -43,21 +43,27 @@ public class SimpleEmail implements Serializable, Cloneable, StructuredPojo {
     private SimpleEmailPart subject;
     /**
      * <p>
-     * The body of the email message, in text format. We recommend using a text part for email clients that don't
-     * support HTML and clients that are connected to high-latency networks, such as mobile devices.
+     * The body of the email message, in plain text format. We recommend using plain text format for email clients that
+     * don't render HTML content and clients that are connected to high-latency networks, such as mobile devices.
      * </p>
      */
     private SimpleEmailPart textPart;
+    /**
+     * <p>
+     * The list of MessageHeaders for the email. You can have up to 15 Headers.
+     * </p>
+     */
+    private java.util.List<MessageHeader> headers;
 
     /**
      * <p>
-     * The body of the email message, in HTML format. We recommend using an HTML part for email clients that support
-     * HTML. You can include links, formatted text, and more in an HTML message.
+     * The body of the email message, in HTML format. We recommend using HTML format for email clients that render HTML
+     * content. You can include links, formatted text, and more in an HTML message.
      * </p>
      * 
      * @param htmlPart
-     *        The body of the email message, in HTML format. We recommend using an HTML part for email clients that
-     *        support HTML. You can include links, formatted text, and more in an HTML message.
+     *        The body of the email message, in HTML format. We recommend using HTML format for email clients that
+     *        render HTML content. You can include links, formatted text, and more in an HTML message.
      */
 
     public void setHtmlPart(SimpleEmailPart htmlPart) {
@@ -66,12 +72,12 @@ public class SimpleEmail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The body of the email message, in HTML format. We recommend using an HTML part for email clients that support
-     * HTML. You can include links, formatted text, and more in an HTML message.
+     * The body of the email message, in HTML format. We recommend using HTML format for email clients that render HTML
+     * content. You can include links, formatted text, and more in an HTML message.
      * </p>
      * 
-     * @return The body of the email message, in HTML format. We recommend using an HTML part for email clients that
-     *         support HTML. You can include links, formatted text, and more in an HTML message.
+     * @return The body of the email message, in HTML format. We recommend using HTML format for email clients that
+     *         render HTML content. You can include links, formatted text, and more in an HTML message.
      */
 
     public SimpleEmailPart getHtmlPart() {
@@ -80,13 +86,13 @@ public class SimpleEmail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The body of the email message, in HTML format. We recommend using an HTML part for email clients that support
-     * HTML. You can include links, formatted text, and more in an HTML message.
+     * The body of the email message, in HTML format. We recommend using HTML format for email clients that render HTML
+     * content. You can include links, formatted text, and more in an HTML message.
      * </p>
      * 
      * @param htmlPart
-     *        The body of the email message, in HTML format. We recommend using an HTML part for email clients that
-     *        support HTML. You can include links, formatted text, and more in an HTML message.
+     *        The body of the email message, in HTML format. We recommend using HTML format for email clients that
+     *        render HTML content. You can include links, formatted text, and more in an HTML message.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -137,13 +143,14 @@ public class SimpleEmail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The body of the email message, in text format. We recommend using a text part for email clients that don't
-     * support HTML and clients that are connected to high-latency networks, such as mobile devices.
+     * The body of the email message, in plain text format. We recommend using plain text format for email clients that
+     * don't render HTML content and clients that are connected to high-latency networks, such as mobile devices.
      * </p>
      * 
      * @param textPart
-     *        The body of the email message, in text format. We recommend using a text part for email clients that don't
-     *        support HTML and clients that are connected to high-latency networks, such as mobile devices.
+     *        The body of the email message, in plain text format. We recommend using plain text format for email
+     *        clients that don't render HTML content and clients that are connected to high-latency networks, such as
+     *        mobile devices.
      */
 
     public void setTextPart(SimpleEmailPart textPart) {
@@ -152,12 +159,13 @@ public class SimpleEmail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The body of the email message, in text format. We recommend using a text part for email clients that don't
-     * support HTML and clients that are connected to high-latency networks, such as mobile devices.
+     * The body of the email message, in plain text format. We recommend using plain text format for email clients that
+     * don't render HTML content and clients that are connected to high-latency networks, such as mobile devices.
      * </p>
      * 
-     * @return The body of the email message, in text format. We recommend using a text part for email clients that
-     *         don't support HTML and clients that are connected to high-latency networks, such as mobile devices.
+     * @return The body of the email message, in plain text format. We recommend using plain text format for email
+     *         clients that don't render HTML content and clients that are connected to high-latency networks, such as
+     *         mobile devices.
      */
 
     public SimpleEmailPart getTextPart() {
@@ -166,18 +174,89 @@ public class SimpleEmail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The body of the email message, in text format. We recommend using a text part for email clients that don't
-     * support HTML and clients that are connected to high-latency networks, such as mobile devices.
+     * The body of the email message, in plain text format. We recommend using plain text format for email clients that
+     * don't render HTML content and clients that are connected to high-latency networks, such as mobile devices.
      * </p>
      * 
      * @param textPart
-     *        The body of the email message, in text format. We recommend using a text part for email clients that don't
-     *        support HTML and clients that are connected to high-latency networks, such as mobile devices.
+     *        The body of the email message, in plain text format. We recommend using plain text format for email
+     *        clients that don't render HTML content and clients that are connected to high-latency networks, such as
+     *        mobile devices.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public SimpleEmail withTextPart(SimpleEmailPart textPart) {
         setTextPart(textPart);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of MessageHeaders for the email. You can have up to 15 Headers.
+     * </p>
+     * 
+     * @return The list of MessageHeaders for the email. You can have up to 15 Headers.
+     */
+
+    public java.util.List<MessageHeader> getHeaders() {
+        return headers;
+    }
+
+    /**
+     * <p>
+     * The list of MessageHeaders for the email. You can have up to 15 Headers.
+     * </p>
+     * 
+     * @param headers
+     *        The list of MessageHeaders for the email. You can have up to 15 Headers.
+     */
+
+    public void setHeaders(java.util.Collection<MessageHeader> headers) {
+        if (headers == null) {
+            this.headers = null;
+            return;
+        }
+
+        this.headers = new java.util.ArrayList<MessageHeader>(headers);
+    }
+
+    /**
+     * <p>
+     * The list of MessageHeaders for the email. You can have up to 15 Headers.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setHeaders(java.util.Collection)} or {@link #withHeaders(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param headers
+     *        The list of MessageHeaders for the email. You can have up to 15 Headers.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SimpleEmail withHeaders(MessageHeader... headers) {
+        if (this.headers == null) {
+            setHeaders(new java.util.ArrayList<MessageHeader>(headers.length));
+        }
+        for (MessageHeader ele : headers) {
+            this.headers.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of MessageHeaders for the email. You can have up to 15 Headers.
+     * </p>
+     * 
+     * @param headers
+     *        The list of MessageHeaders for the email. You can have up to 15 Headers.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SimpleEmail withHeaders(java.util.Collection<MessageHeader> headers) {
+        setHeaders(headers);
         return this;
     }
 
@@ -198,7 +277,9 @@ public class SimpleEmail implements Serializable, Cloneable, StructuredPojo {
         if (getSubject() != null)
             sb.append("Subject: ").append(getSubject()).append(",");
         if (getTextPart() != null)
-            sb.append("TextPart: ").append(getTextPart());
+            sb.append("TextPart: ").append(getTextPart()).append(",");
+        if (getHeaders() != null)
+            sb.append("Headers: ").append(getHeaders());
         sb.append("}");
         return sb.toString();
     }
@@ -225,6 +306,10 @@ public class SimpleEmail implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getTextPart() != null && other.getTextPart().equals(this.getTextPart()) == false)
             return false;
+        if (other.getHeaders() == null ^ this.getHeaders() == null)
+            return false;
+        if (other.getHeaders() != null && other.getHeaders().equals(this.getHeaders()) == false)
+            return false;
         return true;
     }
 
@@ -236,6 +321,7 @@ public class SimpleEmail implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getHtmlPart() == null) ? 0 : getHtmlPart().hashCode());
         hashCode = prime * hashCode + ((getSubject() == null) ? 0 : getSubject().hashCode());
         hashCode = prime * hashCode + ((getTextPart() == null) ? 0 : getTextPart().hashCode());
+        hashCode = prime * hashCode + ((getHeaders() == null) ? 0 : getHeaders().hashCode());
         return hashCode;
     }
 

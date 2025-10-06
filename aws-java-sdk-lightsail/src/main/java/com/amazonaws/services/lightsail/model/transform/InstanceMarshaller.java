@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,14 +48,18 @@ public class InstanceMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("blueprintName").build();
     private static final MarshallingInfo<String> BUNDLEID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("bundleId").build();
+    private static final MarshallingInfo<List> ADDONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("addOns").build();
     private static final MarshallingInfo<Boolean> ISSTATICIP_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("isStaticIp").build();
     private static final MarshallingInfo<String> PRIVATEIPADDRESS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("privateIpAddress").build();
     private static final MarshallingInfo<String> PUBLICIPADDRESS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("publicIpAddress").build();
-    private static final MarshallingInfo<String> IPV6ADDRESS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ipv6Address").build();
+    private static final MarshallingInfo<List> IPV6ADDRESSES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("ipv6Addresses").build();
+    private static final MarshallingInfo<String> IPADDRESSTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ipAddressType").build();
     private static final MarshallingInfo<StructuredPojo> HARDWARE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("hardware").build();
     private static final MarshallingInfo<StructuredPojo> NETWORKING_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -66,6 +70,8 @@ public class InstanceMarshaller {
             .marshallLocationName("username").build();
     private static final MarshallingInfo<String> SSHKEYNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("sshKeyName").build();
+    private static final MarshallingInfo<StructuredPojo> METADATAOPTIONS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("metadataOptions").build();
 
     private static final InstanceMarshaller instance = new InstanceMarshaller();
 
@@ -93,15 +99,18 @@ public class InstanceMarshaller {
             protocolMarshaller.marshall(instance.getBlueprintId(), BLUEPRINTID_BINDING);
             protocolMarshaller.marshall(instance.getBlueprintName(), BLUEPRINTNAME_BINDING);
             protocolMarshaller.marshall(instance.getBundleId(), BUNDLEID_BINDING);
+            protocolMarshaller.marshall(instance.getAddOns(), ADDONS_BINDING);
             protocolMarshaller.marshall(instance.getIsStaticIp(), ISSTATICIP_BINDING);
             protocolMarshaller.marshall(instance.getPrivateIpAddress(), PRIVATEIPADDRESS_BINDING);
             protocolMarshaller.marshall(instance.getPublicIpAddress(), PUBLICIPADDRESS_BINDING);
-            protocolMarshaller.marshall(instance.getIpv6Address(), IPV6ADDRESS_BINDING);
+            protocolMarshaller.marshall(instance.getIpv6Addresses(), IPV6ADDRESSES_BINDING);
+            protocolMarshaller.marshall(instance.getIpAddressType(), IPADDRESSTYPE_BINDING);
             protocolMarshaller.marshall(instance.getHardware(), HARDWARE_BINDING);
             protocolMarshaller.marshall(instance.getNetworking(), NETWORKING_BINDING);
             protocolMarshaller.marshall(instance.getState(), STATE_BINDING);
             protocolMarshaller.marshall(instance.getUsername(), USERNAME_BINDING);
             protocolMarshaller.marshall(instance.getSshKeyName(), SSHKEYNAME_BINDING);
+            protocolMarshaller.marshall(instance.getMetadataOptions(), METADATAOPTIONS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

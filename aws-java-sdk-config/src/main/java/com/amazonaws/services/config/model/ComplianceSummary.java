@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The number of AWS Config rules or AWS resources that are compliant and noncompliant.
+ * The number of Config rules or Amazon Web Services resources that are compliant and noncompliant.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/ComplianceSummary" target="_top">AWS API
@@ -30,34 +30,34 @@ public class ComplianceSummary implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The number of AWS Config rules or AWS resources that are compliant, up to a maximum of 25 for rules and 100 for
-     * resources.
+     * The number of Config rules or Amazon Web Services resources that are compliant, up to a maximum of 25 for rules
+     * and 100 for resources.
      * </p>
      */
     private ComplianceContributorCount compliantResourceCount;
     /**
      * <p>
-     * The number of AWS Config rules or AWS resources that are noncompliant, up to a maximum of 25 for rules and 100
-     * for resources.
+     * The number of Config rules or Amazon Web Services resources that are noncompliant, up to a maximum of 25 for
+     * rules and 100 for resources.
      * </p>
      */
     private ComplianceContributorCount nonCompliantResourceCount;
     /**
      * <p>
-     * The time that AWS Config created the compliance summary.
+     * The time that Config created the compliance summary.
      * </p>
      */
     private java.util.Date complianceSummaryTimestamp;
 
     /**
      * <p>
-     * The number of AWS Config rules or AWS resources that are compliant, up to a maximum of 25 for rules and 100 for
-     * resources.
+     * The number of Config rules or Amazon Web Services resources that are compliant, up to a maximum of 25 for rules
+     * and 100 for resources.
      * </p>
      * 
      * @param compliantResourceCount
-     *        The number of AWS Config rules or AWS resources that are compliant, up to a maximum of 25 for rules and
-     *        100 for resources.
+     *        The number of Config rules or Amazon Web Services resources that are compliant, up to a maximum of 25 for
+     *        rules and 100 for resources.
      */
 
     public void setCompliantResourceCount(ComplianceContributorCount compliantResourceCount) {
@@ -66,12 +66,12 @@ public class ComplianceSummary implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The number of AWS Config rules or AWS resources that are compliant, up to a maximum of 25 for rules and 100 for
-     * resources.
+     * The number of Config rules or Amazon Web Services resources that are compliant, up to a maximum of 25 for rules
+     * and 100 for resources.
      * </p>
      * 
-     * @return The number of AWS Config rules or AWS resources that are compliant, up to a maximum of 25 for rules and
-     *         100 for resources.
+     * @return The number of Config rules or Amazon Web Services resources that are compliant, up to a maximum of 25 for
+     *         rules and 100 for resources.
      */
 
     public ComplianceContributorCount getCompliantResourceCount() {
@@ -80,13 +80,13 @@ public class ComplianceSummary implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The number of AWS Config rules or AWS resources that are compliant, up to a maximum of 25 for rules and 100 for
-     * resources.
+     * The number of Config rules or Amazon Web Services resources that are compliant, up to a maximum of 25 for rules
+     * and 100 for resources.
      * </p>
      * 
      * @param compliantResourceCount
-     *        The number of AWS Config rules or AWS resources that are compliant, up to a maximum of 25 for rules and
-     *        100 for resources.
+     *        The number of Config rules or Amazon Web Services resources that are compliant, up to a maximum of 25 for
+     *        rules and 100 for resources.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -97,13 +97,13 @@ public class ComplianceSummary implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The number of AWS Config rules or AWS resources that are noncompliant, up to a maximum of 25 for rules and 100
-     * for resources.
+     * The number of Config rules or Amazon Web Services resources that are noncompliant, up to a maximum of 25 for
+     * rules and 100 for resources.
      * </p>
      * 
      * @param nonCompliantResourceCount
-     *        The number of AWS Config rules or AWS resources that are noncompliant, up to a maximum of 25 for rules and
-     *        100 for resources.
+     *        The number of Config rules or Amazon Web Services resources that are noncompliant, up to a maximum of 25
+     *        for rules and 100 for resources.
      */
 
     public void setNonCompliantResourceCount(ComplianceContributorCount nonCompliantResourceCount) {
@@ -112,12 +112,12 @@ public class ComplianceSummary implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The number of AWS Config rules or AWS resources that are noncompliant, up to a maximum of 25 for rules and 100
-     * for resources.
+     * The number of Config rules or Amazon Web Services resources that are noncompliant, up to a maximum of 25 for
+     * rules and 100 for resources.
      * </p>
      * 
-     * @return The number of AWS Config rules or AWS resources that are noncompliant, up to a maximum of 25 for rules
-     *         and 100 for resources.
+     * @return The number of Config rules or Amazon Web Services resources that are noncompliant, up to a maximum of 25
+     *         for rules and 100 for resources.
      */
 
     public ComplianceContributorCount getNonCompliantResourceCount() {
@@ -126,13 +126,13 @@ public class ComplianceSummary implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The number of AWS Config rules or AWS resources that are noncompliant, up to a maximum of 25 for rules and 100
-     * for resources.
+     * The number of Config rules or Amazon Web Services resources that are noncompliant, up to a maximum of 25 for
+     * rules and 100 for resources.
      * </p>
      * 
      * @param nonCompliantResourceCount
-     *        The number of AWS Config rules or AWS resources that are noncompliant, up to a maximum of 25 for rules and
-     *        100 for resources.
+     *        The number of Config rules or Amazon Web Services resources that are noncompliant, up to a maximum of 25
+     *        for rules and 100 for resources.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -143,11 +143,11 @@ public class ComplianceSummary implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The time that AWS Config created the compliance summary.
+     * The time that Config created the compliance summary.
      * </p>
      * 
      * @param complianceSummaryTimestamp
-     *        The time that AWS Config created the compliance summary.
+     *        The time that Config created the compliance summary.
      */
 
     public void setComplianceSummaryTimestamp(java.util.Date complianceSummaryTimestamp) {
@@ -156,10 +156,10 @@ public class ComplianceSummary implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The time that AWS Config created the compliance summary.
+     * The time that Config created the compliance summary.
      * </p>
      * 
-     * @return The time that AWS Config created the compliance summary.
+     * @return The time that Config created the compliance summary.
      */
 
     public java.util.Date getComplianceSummaryTimestamp() {
@@ -168,11 +168,11 @@ public class ComplianceSummary implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The time that AWS Config created the compliance summary.
+     * The time that Config created the compliance summary.
      * </p>
      * 
      * @param complianceSummaryTimestamp
-     *        The time that AWS Config created the compliance summary.
+     *        The time that Config created the compliance summary.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

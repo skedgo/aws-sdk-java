@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,9 +52,15 @@ public class CurrentInstanceJsonUnmarshaller implements Unmarshaller<CurrentInst
                     context.nextToken();
                     currentInstance.setResourceId(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("InstanceName", targetDepth)) {
+                    context.nextToken();
+                    currentInstance.setInstanceName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("Tags", targetDepth)) {
                     context.nextToken();
-                    currentInstance.setTags(new ListUnmarshaller<TagValues>(TagValuesJsonUnmarshaller.getInstance()).unmarshall(context));
+                    currentInstance.setTags(new ListUnmarshaller<TagValues>(TagValuesJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("ResourceDetails", targetDepth)) {
                     context.nextToken();
@@ -67,6 +73,10 @@ public class CurrentInstanceJsonUnmarshaller implements Unmarshaller<CurrentInst
                 if (context.testExpression("ReservationCoveredHoursInLookbackPeriod", targetDepth)) {
                     context.nextToken();
                     currentInstance.setReservationCoveredHoursInLookbackPeriod(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("SavingsPlansCoveredHoursInLookbackPeriod", targetDepth)) {
+                    context.nextToken();
+                    currentInstance.setSavingsPlansCoveredHoursInLookbackPeriod(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("OnDemandHoursInLookbackPeriod", targetDepth)) {
                     context.nextToken();

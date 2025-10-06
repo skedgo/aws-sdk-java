@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,9 +16,6 @@ import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
- * <p>
- * Represents the returned data in response to a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/CreateAlias" target="_top">AWS API
  *      Documentation</a>
@@ -28,18 +25,18 @@ public class CreateAliasResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Object that describes the newly created alias record.
+     * The newly created alias resource.
      * </p>
      */
     private Alias alias;
 
     /**
      * <p>
-     * Object that describes the newly created alias record.
+     * The newly created alias resource.
      * </p>
      * 
      * @param alias
-     *        Object that describes the newly created alias record.
+     *        The newly created alias resource.
      */
 
     public void setAlias(Alias alias) {
@@ -48,10 +45,10 @@ public class CreateAliasResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Object that describes the newly created alias record.
+     * The newly created alias resource.
      * </p>
      * 
-     * @return Object that describes the newly created alias record.
+     * @return The newly created alias resource.
      */
 
     public Alias getAlias() {
@@ -60,11 +57,11 @@ public class CreateAliasResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Object that describes the newly created alias record.
+     * The newly created alias resource.
      * </p>
      * 
      * @param alias
-     *        Object that describes the newly created alias record.
+     *        The newly created alias resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

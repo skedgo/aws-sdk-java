@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -57,6 +57,14 @@ public class CreateFileSystemWindowsConfigurationJsonUnmarshaller implements Unm
                     createFileSystemWindowsConfiguration.setSelfManagedActiveDirectoryConfiguration(SelfManagedActiveDirectoryConfigurationJsonUnmarshaller
                             .getInstance().unmarshall(context));
                 }
+                if (context.testExpression("DeploymentType", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemWindowsConfiguration.setDeploymentType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("PreferredSubnetId", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemWindowsConfiguration.setPreferredSubnetId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("ThroughputCapacity", targetDepth)) {
                     context.nextToken();
                     createFileSystemWindowsConfiguration.setThroughputCapacity(context.getUnmarshaller(Integer.class).unmarshall(context));
@@ -76,6 +84,21 @@ public class CreateFileSystemWindowsConfigurationJsonUnmarshaller implements Unm
                 if (context.testExpression("CopyTagsToBackups", targetDepth)) {
                     context.nextToken();
                     createFileSystemWindowsConfiguration.setCopyTagsToBackups(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("Aliases", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemWindowsConfiguration.setAliases(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("AuditLogConfiguration", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemWindowsConfiguration.setAuditLogConfiguration(WindowsAuditLogCreateConfigurationJsonUnmarshaller.getInstance().unmarshall(
+                            context));
+                }
+                if (context.testExpression("DiskIopsConfiguration", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemWindowsConfiguration.setDiskIopsConfiguration(DiskIopsConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

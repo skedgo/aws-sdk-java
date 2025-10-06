@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,18 @@ public class GetUsagePlanRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * [Required] The identifier of the <a>UsagePlan</a> resource to be retrieved.
+     * The identifier of the UsagePlan resource to be retrieved.
      * </p>
      */
     private String usagePlanId;
 
     /**
      * <p>
-     * [Required] The identifier of the <a>UsagePlan</a> resource to be retrieved.
+     * The identifier of the UsagePlan resource to be retrieved.
      * </p>
      * 
      * @param usagePlanId
-     *        [Required] The identifier of the <a>UsagePlan</a> resource to be retrieved.
+     *        The identifier of the UsagePlan resource to be retrieved.
      */
 
     public void setUsagePlanId(String usagePlanId) {
@@ -47,10 +47,10 @@ public class GetUsagePlanRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * [Required] The identifier of the <a>UsagePlan</a> resource to be retrieved.
+     * The identifier of the UsagePlan resource to be retrieved.
      * </p>
      * 
-     * @return [Required] The identifier of the <a>UsagePlan</a> resource to be retrieved.
+     * @return The identifier of the UsagePlan resource to be retrieved.
      */
 
     public String getUsagePlanId() {
@@ -59,11 +59,11 @@ public class GetUsagePlanRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * [Required] The identifier of the <a>UsagePlan</a> resource to be retrieved.
+     * The identifier of the UsagePlan resource to be retrieved.
      * </p>
      * 
      * @param usagePlanId
-     *        [Required] The identifier of the <a>UsagePlan</a> resource to be retrieved.
+     *        The identifier of the UsagePlan resource to be retrieved.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

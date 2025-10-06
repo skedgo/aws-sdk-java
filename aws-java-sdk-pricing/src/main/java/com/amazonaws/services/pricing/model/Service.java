@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The code for the AWS service.
+     * The code for the Amazon Web Services service.
      * </p>
      */
     private String serviceCode;
@@ -43,11 +43,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The code for the AWS service.
+     * The code for the Amazon Web Services service.
      * </p>
      * 
      * @param serviceCode
-     *        The code for the AWS service.
+     *        The code for the Amazon Web Services service.
      */
 
     public void setServiceCode(String serviceCode) {
@@ -56,10 +56,10 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The code for the AWS service.
+     * The code for the Amazon Web Services service.
      * </p>
      * 
-     * @return The code for the AWS service.
+     * @return The code for the Amazon Web Services service.
      */
 
     public String getServiceCode() {
@@ -68,11 +68,11 @@ public class Service implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The code for the AWS service.
+     * The code for the Amazon Web Services service.
      * </p>
      * 
      * @param serviceCode
-     *        The code for the AWS service.
+     *        The code for the Amazon Web Services service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

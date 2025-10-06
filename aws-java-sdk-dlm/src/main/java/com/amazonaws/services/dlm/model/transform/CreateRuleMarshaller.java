@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,12 +28,18 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class CreateRuleMarshaller {
 
+    private static final MarshallingInfo<String> LOCATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Location").build();
     private static final MarshallingInfo<Integer> INTERVAL_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Interval").build();
     private static final MarshallingInfo<String> INTERVALUNIT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IntervalUnit").build();
     private static final MarshallingInfo<List> TIMES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Times").build();
+    private static final MarshallingInfo<String> CRONEXPRESSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CronExpression").build();
+    private static final MarshallingInfo<List> SCRIPTS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Scripts").build();
 
     private static final CreateRuleMarshaller instance = new CreateRuleMarshaller();
 
@@ -51,9 +57,12 @@ public class CreateRuleMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(createRule.getLocation(), LOCATION_BINDING);
             protocolMarshaller.marshall(createRule.getInterval(), INTERVAL_BINDING);
             protocolMarshaller.marshall(createRule.getIntervalUnit(), INTERVALUNIT_BINDING);
             protocolMarshaller.marshall(createRule.getTimes(), TIMES_BINDING);
+            protocolMarshaller.marshall(createRule.getCronExpression(), CRONEXPRESSION_BINDING);
+            protocolMarshaller.marshall(createRule.getScripts(), SCRIPTS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

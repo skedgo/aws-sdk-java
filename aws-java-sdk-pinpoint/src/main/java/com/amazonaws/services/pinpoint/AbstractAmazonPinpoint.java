@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,11 @@ public class AbstractAmazonPinpoint implements AmazonPinpoint {
     }
 
     @Override
+    public CreateEmailTemplateResult createEmailTemplate(CreateEmailTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateExportJobResult createExportJob(CreateExportJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -58,7 +63,37 @@ public class AbstractAmazonPinpoint implements AmazonPinpoint {
     }
 
     @Override
+    public CreateInAppTemplateResult createInAppTemplate(CreateInAppTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateJourneyResult createJourney(CreateJourneyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreatePushTemplateResult createPushTemplate(CreatePushTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateRecommenderConfigurationResult createRecommenderConfiguration(CreateRecommenderConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateSegmentResult createSegment(CreateSegmentRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateSmsTemplateResult createSmsTemplate(CreateSmsTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateVoiceTemplateResult createVoiceTemplate(CreateVoiceTemplateRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -108,6 +143,11 @@ public class AbstractAmazonPinpoint implements AmazonPinpoint {
     }
 
     @Override
+    public DeleteEmailTemplateResult deleteEmailTemplate(DeleteEmailTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteEndpointResult deleteEndpoint(DeleteEndpointRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -123,6 +163,26 @@ public class AbstractAmazonPinpoint implements AmazonPinpoint {
     }
 
     @Override
+    public DeleteInAppTemplateResult deleteInAppTemplate(DeleteInAppTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteJourneyResult deleteJourney(DeleteJourneyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeletePushTemplateResult deletePushTemplate(DeletePushTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteRecommenderConfigurationResult deleteRecommenderConfiguration(DeleteRecommenderConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteSegmentResult deleteSegment(DeleteSegmentRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -133,12 +193,22 @@ public class AbstractAmazonPinpoint implements AmazonPinpoint {
     }
 
     @Override
+    public DeleteSmsTemplateResult deleteSmsTemplate(DeleteSmsTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteUserEndpointsResult deleteUserEndpoints(DeleteUserEndpointsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public DeleteVoiceChannelResult deleteVoiceChannel(DeleteVoiceChannelRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteVoiceTemplateResult deleteVoiceTemplate(DeleteVoiceTemplateRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -233,6 +303,11 @@ public class AbstractAmazonPinpoint implements AmazonPinpoint {
     }
 
     @Override
+    public GetEmailTemplateResult getEmailTemplate(GetEmailTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetEndpointResult getEndpoint(GetEndpointRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -264,6 +339,66 @@ public class AbstractAmazonPinpoint implements AmazonPinpoint {
 
     @Override
     public GetImportJobsResult getImportJobs(GetImportJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetInAppMessagesResult getInAppMessages(GetInAppMessagesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetInAppTemplateResult getInAppTemplate(GetInAppTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetJourneyResult getJourney(GetJourneyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetJourneyDateRangeKpiResult getJourneyDateRangeKpi(GetJourneyDateRangeKpiRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetJourneyExecutionActivityMetricsResult getJourneyExecutionActivityMetrics(GetJourneyExecutionActivityMetricsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetJourneyExecutionMetricsResult getJourneyExecutionMetrics(GetJourneyExecutionMetricsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetJourneyRunExecutionActivityMetricsResult getJourneyRunExecutionActivityMetrics(GetJourneyRunExecutionActivityMetricsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetJourneyRunExecutionMetricsResult getJourneyRunExecutionMetrics(GetJourneyRunExecutionMetricsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetJourneyRunsResult getJourneyRuns(GetJourneyRunsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetPushTemplateResult getPushTemplate(GetPushTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetRecommenderConfigurationResult getRecommenderConfiguration(GetRecommenderConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetRecommenderConfigurationsResult getRecommenderConfigurations(GetRecommenderConfigurationsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -303,6 +438,11 @@ public class AbstractAmazonPinpoint implements AmazonPinpoint {
     }
 
     @Override
+    public GetSmsTemplateResult getSmsTemplate(GetSmsTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetUserEndpointsResult getUserEndpoints(GetUserEndpointsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -313,7 +453,27 @@ public class AbstractAmazonPinpoint implements AmazonPinpoint {
     }
 
     @Override
+    public GetVoiceTemplateResult getVoiceTemplate(GetVoiceTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListJourneysResult listJourneys(ListJourneysRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTemplateVersionsResult listTemplateVersions(ListTemplateVersionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTemplatesResult listTemplates(ListTemplatesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -339,6 +499,11 @@ public class AbstractAmazonPinpoint implements AmazonPinpoint {
 
     @Override
     public SendMessagesResult sendMessages(SendMessagesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SendOTPMessageResult sendOTPMessage(SendOTPMessageRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -403,6 +568,11 @@ public class AbstractAmazonPinpoint implements AmazonPinpoint {
     }
 
     @Override
+    public UpdateEmailTemplateResult updateEmailTemplate(UpdateEmailTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateEndpointResult updateEndpoint(UpdateEndpointRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -418,6 +588,31 @@ public class AbstractAmazonPinpoint implements AmazonPinpoint {
     }
 
     @Override
+    public UpdateInAppTemplateResult updateInAppTemplate(UpdateInAppTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateJourneyResult updateJourney(UpdateJourneyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateJourneyStateResult updateJourneyState(UpdateJourneyStateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdatePushTemplateResult updatePushTemplate(UpdatePushTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateRecommenderConfigurationResult updateRecommenderConfiguration(UpdateRecommenderConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateSegmentResult updateSegment(UpdateSegmentRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -428,7 +623,27 @@ public class AbstractAmazonPinpoint implements AmazonPinpoint {
     }
 
     @Override
+    public UpdateSmsTemplateResult updateSmsTemplate(UpdateSmsTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateTemplateActiveVersionResult updateTemplateActiveVersion(UpdateTemplateActiveVersionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateVoiceChannelResult updateVoiceChannel(UpdateVoiceChannelRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateVoiceTemplateResult updateVoiceTemplate(UpdateVoiceTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public VerifyOTPMessageResult verifyOTPMessage(VerifyOTPMessageRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

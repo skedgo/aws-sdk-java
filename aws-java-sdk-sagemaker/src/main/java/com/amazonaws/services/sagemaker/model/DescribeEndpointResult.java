@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,10 +43,14 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
     private String endpointConfigName;
     /**
      * <p>
-     * An array of <a>ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
+     * An array of <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html">
+     * ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
      * </p>
      */
     private java.util.List<ProductionVariantSummary> productionVariants;
+
+    private DataCaptureConfigSummary dataCaptureConfig;
     /**
      * <p>
      * The status of the endpoint.
@@ -59,12 +63,17 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * </li>
      * <li>
      * <p>
-     * <code>Creating</code>: <a>CreateEndpoint</a> is executing.
+     * <code>Creating</code>: <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpoint.html">CreateEndpoint</a> is
+     * executing.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Updating</code>: <a>UpdateEndpoint</a> or <a>UpdateEndpointWeightsAndCapacities</a> is executing.
+     * <code>Updating</code>: <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpoint.html">UpdateEndpoint</a> or <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html">
+     * UpdateEndpointWeightsAndCapacities</a> is executing.
      * </p>
      * </li>
      * <li>
@@ -79,8 +88,11 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * <code>RollingBack</code>: Endpoint fails to scale up or down or change its variant weight and is in the process
      * of rolling back to its previous configuration. Once the rollback completes, endpoint returns to an
      * <code>InService</code> status. This transitional status only applies to an endpoint that has autoscaling enabled
-     * and is undergoing variant weight or capacity changes as part of an <a>UpdateEndpointWeightsAndCapacities</a> call
-     * or when the <a>UpdateEndpointWeightsAndCapacities</a> operation is called explicitly.
+     * and is undergoing variant weight or capacity changes as part of an <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     * >UpdateEndpointWeightsAndCapacities</a> call or when the <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     * >UpdateEndpointWeightsAndCapacities</a> operation is called explicitly.
      * </p>
      * </li>
      * <li>
@@ -90,14 +102,28 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * </li>
      * <li>
      * <p>
-     * <code>Deleting</code>: <a>DeleteEndpoint</a> is executing.
+     * <code>Deleting</code>: <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html">DeleteEndpoint</a> is
+     * executing.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use
-     * <a>DescribeEndpointOutput$FailureReason</a> for information about the failure. <a>DeleteEndpoint</a> is the only
-     * operation that can be performed on a failed endpoint.
+     * <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use the <code>FailureReason</code>
+     * value returned by <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DescribeEndpoint.html">DescribeEndpoint</a>
+     * for information about the failure. <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html">DeleteEndpoint</a> is
+     * the only operation that can be performed on a failed endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UpdateRollbackFailed</code>: Both the rolling deployment and auto-rollback failed. Your endpoint is in
+     * service with a mix of the old and new endpoint configurations. For information about how to remedy this issue and
+     * restore the endpoint's status to <code>InService</code>, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/deployment-guardrails-rolling.html">Rolling
+     * Deployments</a>.
      * </p>
      * </li>
      * </ul>
@@ -121,6 +147,42 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * </p>
      */
     private java.util.Date lastModifiedTime;
+    /**
+     * <p>
+     * The most recent deployment configuration for the endpoint.
+     * </p>
+     */
+    private DeploymentConfig lastDeploymentConfig;
+    /**
+     * <p>
+     * Returns the description of an endpoint configuration created using the <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html">
+     * <code>CreateEndpointConfig</code> </a> API.
+     * </p>
+     */
+    private AsyncInferenceConfig asyncInferenceConfig;
+    /**
+     * <p>
+     * Returns the summary of an in-progress deployment. This field is only returned when the endpoint is creating or
+     * updating with a new endpoint configuration.
+     * </p>
+     */
+    private PendingDeploymentSummary pendingDeploymentSummary;
+    /**
+     * <p>
+     * The configuration parameters for an explainer.
+     * </p>
+     */
+    private ExplainerConfig explainerConfig;
+    /**
+     * <p>
+     * An array of <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html">
+     * ProductionVariantSummary</a> objects, one for each model that you want to host at this endpoint in shadow mode
+     * with production traffic replicated from the model specified on <code>ProductionVariants</code>.
+     * </p>
+     */
+    private java.util.List<ProductionVariantSummary> shadowProductionVariants;
 
     /**
      * <p>
@@ -244,10 +306,14 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * An array of <a>ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
+     * An array of <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html">
+     * ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
      * </p>
      * 
-     * @return An array of <a>ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
+     * @return An array of <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html"
+     *         >ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
      */
 
     public java.util.List<ProductionVariantSummary> getProductionVariants() {
@@ -256,11 +322,15 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * An array of <a>ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
+     * An array of <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html">
+     * ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
      * </p>
      * 
      * @param productionVariants
-     *        An array of <a>ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
+     *        An array of <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html"
+     *        >ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
      */
 
     public void setProductionVariants(java.util.Collection<ProductionVariantSummary> productionVariants) {
@@ -274,7 +344,9 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * An array of <a>ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
+     * An array of <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html">
+     * ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -283,7 +355,9 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * </p>
      * 
      * @param productionVariants
-     *        An array of <a>ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
+     *        An array of <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html"
+     *        >ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -299,16 +373,46 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * An array of <a>ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
+     * An array of <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html">
+     * ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
      * </p>
      * 
      * @param productionVariants
-     *        An array of <a>ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
+     *        An array of <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html"
+     *        >ProductionVariantSummary</a> objects, one for each model hosted behind this endpoint.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DescribeEndpointResult withProductionVariants(java.util.Collection<ProductionVariantSummary> productionVariants) {
         setProductionVariants(productionVariants);
+        return this;
+    }
+
+    /**
+     * @param dataCaptureConfig
+     */
+
+    public void setDataCaptureConfig(DataCaptureConfigSummary dataCaptureConfig) {
+        this.dataCaptureConfig = dataCaptureConfig;
+    }
+
+    /**
+     * @return
+     */
+
+    public DataCaptureConfigSummary getDataCaptureConfig() {
+        return this.dataCaptureConfig;
+    }
+
+    /**
+     * @param dataCaptureConfig
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeEndpointResult withDataCaptureConfig(DataCaptureConfigSummary dataCaptureConfig) {
+        setDataCaptureConfig(dataCaptureConfig);
         return this;
     }
 
@@ -324,12 +428,17 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * </li>
      * <li>
      * <p>
-     * <code>Creating</code>: <a>CreateEndpoint</a> is executing.
+     * <code>Creating</code>: <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpoint.html">CreateEndpoint</a> is
+     * executing.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Updating</code>: <a>UpdateEndpoint</a> or <a>UpdateEndpointWeightsAndCapacities</a> is executing.
+     * <code>Updating</code>: <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpoint.html">UpdateEndpoint</a> or <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html">
+     * UpdateEndpointWeightsAndCapacities</a> is executing.
      * </p>
      * </li>
      * <li>
@@ -344,8 +453,11 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * <code>RollingBack</code>: Endpoint fails to scale up or down or change its variant weight and is in the process
      * of rolling back to its previous configuration. Once the rollback completes, endpoint returns to an
      * <code>InService</code> status. This transitional status only applies to an endpoint that has autoscaling enabled
-     * and is undergoing variant weight or capacity changes as part of an <a>UpdateEndpointWeightsAndCapacities</a> call
-     * or when the <a>UpdateEndpointWeightsAndCapacities</a> operation is called explicitly.
+     * and is undergoing variant weight or capacity changes as part of an <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     * >UpdateEndpointWeightsAndCapacities</a> call or when the <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     * >UpdateEndpointWeightsAndCapacities</a> operation is called explicitly.
      * </p>
      * </li>
      * <li>
@@ -355,14 +467,28 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * </li>
      * <li>
      * <p>
-     * <code>Deleting</code>: <a>DeleteEndpoint</a> is executing.
+     * <code>Deleting</code>: <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html">DeleteEndpoint</a> is
+     * executing.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use
-     * <a>DescribeEndpointOutput$FailureReason</a> for information about the failure. <a>DeleteEndpoint</a> is the only
-     * operation that can be performed on a failed endpoint.
+     * <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use the <code>FailureReason</code>
+     * value returned by <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DescribeEndpoint.html">DescribeEndpoint</a>
+     * for information about the failure. <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html">DeleteEndpoint</a> is
+     * the only operation that can be performed on a failed endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UpdateRollbackFailed</code>: Both the rolling deployment and auto-rollback failed. Your endpoint is in
+     * service with a mix of the old and new endpoint configurations. For information about how to remedy this issue and
+     * restore the endpoint's status to <code>InService</code>, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/deployment-guardrails-rolling.html">Rolling
+     * Deployments</a>.
      * </p>
      * </li>
      * </ul>
@@ -377,12 +503,18 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Creating</code>: <a>CreateEndpoint</a> is executing.
+     *        <code>Creating</code>: <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpoint.html"
+     *        >CreateEndpoint</a> is executing.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Updating</code>: <a>UpdateEndpoint</a> or <a>UpdateEndpointWeightsAndCapacities</a> is executing.
+     *        <code>Updating</code>: <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpoint.html"
+     *        >UpdateEndpoint</a> or <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     *        >UpdateEndpointWeightsAndCapacities</a> is executing.
      *        </p>
      *        </li>
      *        <li>
@@ -397,9 +529,11 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      *        <code>RollingBack</code>: Endpoint fails to scale up or down or change its variant weight and is in the
      *        process of rolling back to its previous configuration. Once the rollback completes, endpoint returns to an
      *        <code>InService</code> status. This transitional status only applies to an endpoint that has autoscaling
-     *        enabled and is undergoing variant weight or capacity changes as part of an
-     *        <a>UpdateEndpointWeightsAndCapacities</a> call or when the <a>UpdateEndpointWeightsAndCapacities</a>
-     *        operation is called explicitly.
+     *        enabled and is undergoing variant weight or capacity changes as part of an <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     *        >UpdateEndpointWeightsAndCapacities</a> call or when the <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     *        >UpdateEndpointWeightsAndCapacities</a> operation is called explicitly.
      *        </p>
      *        </li>
      *        <li>
@@ -409,14 +543,28 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Deleting</code>: <a>DeleteEndpoint</a> is executing.
+     *        <code>Deleting</code>: <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html"
+     *        >DeleteEndpoint</a> is executing.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use
-     *        <a>DescribeEndpointOutput$FailureReason</a> for information about the failure. <a>DeleteEndpoint</a> is
-     *        the only operation that can be performed on a failed endpoint.
+     *        <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use the
+     *        <code>FailureReason</code> value returned by <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DescribeEndpoint.html"
+     *        >DescribeEndpoint</a> for information about the failure. <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html"
+     *        >DeleteEndpoint</a> is the only operation that can be performed on a failed endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UpdateRollbackFailed</code>: Both the rolling deployment and auto-rollback failed. Your endpoint is
+     *        in service with a mix of the old and new endpoint configurations. For information about how to remedy this
+     *        issue and restore the endpoint's status to <code>InService</code>, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/deployment-guardrails-rolling.html">Rolling
+     *        Deployments</a>.
      *        </p>
      *        </li>
      * @see EndpointStatus
@@ -438,12 +586,17 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * </li>
      * <li>
      * <p>
-     * <code>Creating</code>: <a>CreateEndpoint</a> is executing.
+     * <code>Creating</code>: <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpoint.html">CreateEndpoint</a> is
+     * executing.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Updating</code>: <a>UpdateEndpoint</a> or <a>UpdateEndpointWeightsAndCapacities</a> is executing.
+     * <code>Updating</code>: <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpoint.html">UpdateEndpoint</a> or <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html">
+     * UpdateEndpointWeightsAndCapacities</a> is executing.
      * </p>
      * </li>
      * <li>
@@ -458,8 +611,11 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * <code>RollingBack</code>: Endpoint fails to scale up or down or change its variant weight and is in the process
      * of rolling back to its previous configuration. Once the rollback completes, endpoint returns to an
      * <code>InService</code> status. This transitional status only applies to an endpoint that has autoscaling enabled
-     * and is undergoing variant weight or capacity changes as part of an <a>UpdateEndpointWeightsAndCapacities</a> call
-     * or when the <a>UpdateEndpointWeightsAndCapacities</a> operation is called explicitly.
+     * and is undergoing variant weight or capacity changes as part of an <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     * >UpdateEndpointWeightsAndCapacities</a> call or when the <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     * >UpdateEndpointWeightsAndCapacities</a> operation is called explicitly.
      * </p>
      * </li>
      * <li>
@@ -469,14 +625,28 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * </li>
      * <li>
      * <p>
-     * <code>Deleting</code>: <a>DeleteEndpoint</a> is executing.
+     * <code>Deleting</code>: <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html">DeleteEndpoint</a> is
+     * executing.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use
-     * <a>DescribeEndpointOutput$FailureReason</a> for information about the failure. <a>DeleteEndpoint</a> is the only
-     * operation that can be performed on a failed endpoint.
+     * <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use the <code>FailureReason</code>
+     * value returned by <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DescribeEndpoint.html">DescribeEndpoint</a>
+     * for information about the failure. <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html">DeleteEndpoint</a> is
+     * the only operation that can be performed on a failed endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UpdateRollbackFailed</code>: Both the rolling deployment and auto-rollback failed. Your endpoint is in
+     * service with a mix of the old and new endpoint configurations. For information about how to remedy this issue and
+     * restore the endpoint's status to <code>InService</code>, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/deployment-guardrails-rolling.html">Rolling
+     * Deployments</a>.
      * </p>
      * </li>
      * </ul>
@@ -490,12 +660,18 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      *         </li>
      *         <li>
      *         <p>
-     *         <code>Creating</code>: <a>CreateEndpoint</a> is executing.
+     *         <code>Creating</code>: <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpoint.html"
+     *         >CreateEndpoint</a> is executing.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>Updating</code>: <a>UpdateEndpoint</a> or <a>UpdateEndpointWeightsAndCapacities</a> is executing.
+     *         <code>Updating</code>: <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpoint.html"
+     *         >UpdateEndpoint</a> or <a href=
+     *         "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     *         >UpdateEndpointWeightsAndCapacities</a> is executing.
      *         </p>
      *         </li>
      *         <li>
@@ -510,9 +686,11 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      *         <code>RollingBack</code>: Endpoint fails to scale up or down or change its variant weight and is in the
      *         process of rolling back to its previous configuration. Once the rollback completes, endpoint returns to
      *         an <code>InService</code> status. This transitional status only applies to an endpoint that has
-     *         autoscaling enabled and is undergoing variant weight or capacity changes as part of an
-     *         <a>UpdateEndpointWeightsAndCapacities</a> call or when the <a>UpdateEndpointWeightsAndCapacities</a>
-     *         operation is called explicitly.
+     *         autoscaling enabled and is undergoing variant weight or capacity changes as part of an <a href=
+     *         "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     *         >UpdateEndpointWeightsAndCapacities</a> call or when the <a href=
+     *         "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     *         >UpdateEndpointWeightsAndCapacities</a> operation is called explicitly.
      *         </p>
      *         </li>
      *         <li>
@@ -522,14 +700,28 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      *         </li>
      *         <li>
      *         <p>
-     *         <code>Deleting</code>: <a>DeleteEndpoint</a> is executing.
+     *         <code>Deleting</code>: <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html"
+     *         >DeleteEndpoint</a> is executing.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use
-     *         <a>DescribeEndpointOutput$FailureReason</a> for information about the failure. <a>DeleteEndpoint</a> is
-     *         the only operation that can be performed on a failed endpoint.
+     *         <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use the
+     *         <code>FailureReason</code> value returned by <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DescribeEndpoint.html"
+     *         >DescribeEndpoint</a> for information about the failure. <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html"
+     *         >DeleteEndpoint</a> is the only operation that can be performed on a failed endpoint.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>UpdateRollbackFailed</code>: Both the rolling deployment and auto-rollback failed. Your endpoint is
+     *         in service with a mix of the old and new endpoint configurations. For information about how to remedy
+     *         this issue and restore the endpoint's status to <code>InService</code>, see <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/deployment-guardrails-rolling.html">Rolling
+     *         Deployments</a>.
      *         </p>
      *         </li>
      * @see EndpointStatus
@@ -551,12 +743,17 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * </li>
      * <li>
      * <p>
-     * <code>Creating</code>: <a>CreateEndpoint</a> is executing.
+     * <code>Creating</code>: <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpoint.html">CreateEndpoint</a> is
+     * executing.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Updating</code>: <a>UpdateEndpoint</a> or <a>UpdateEndpointWeightsAndCapacities</a> is executing.
+     * <code>Updating</code>: <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpoint.html">UpdateEndpoint</a> or <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html">
+     * UpdateEndpointWeightsAndCapacities</a> is executing.
      * </p>
      * </li>
      * <li>
@@ -571,8 +768,11 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * <code>RollingBack</code>: Endpoint fails to scale up or down or change its variant weight and is in the process
      * of rolling back to its previous configuration. Once the rollback completes, endpoint returns to an
      * <code>InService</code> status. This transitional status only applies to an endpoint that has autoscaling enabled
-     * and is undergoing variant weight or capacity changes as part of an <a>UpdateEndpointWeightsAndCapacities</a> call
-     * or when the <a>UpdateEndpointWeightsAndCapacities</a> operation is called explicitly.
+     * and is undergoing variant weight or capacity changes as part of an <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     * >UpdateEndpointWeightsAndCapacities</a> call or when the <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     * >UpdateEndpointWeightsAndCapacities</a> operation is called explicitly.
      * </p>
      * </li>
      * <li>
@@ -582,14 +782,28 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * </li>
      * <li>
      * <p>
-     * <code>Deleting</code>: <a>DeleteEndpoint</a> is executing.
+     * <code>Deleting</code>: <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html">DeleteEndpoint</a> is
+     * executing.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use
-     * <a>DescribeEndpointOutput$FailureReason</a> for information about the failure. <a>DeleteEndpoint</a> is the only
-     * operation that can be performed on a failed endpoint.
+     * <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use the <code>FailureReason</code>
+     * value returned by <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DescribeEndpoint.html">DescribeEndpoint</a>
+     * for information about the failure. <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html">DeleteEndpoint</a> is
+     * the only operation that can be performed on a failed endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UpdateRollbackFailed</code>: Both the rolling deployment and auto-rollback failed. Your endpoint is in
+     * service with a mix of the old and new endpoint configurations. For information about how to remedy this issue and
+     * restore the endpoint's status to <code>InService</code>, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/deployment-guardrails-rolling.html">Rolling
+     * Deployments</a>.
      * </p>
      * </li>
      * </ul>
@@ -604,12 +818,18 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Creating</code>: <a>CreateEndpoint</a> is executing.
+     *        <code>Creating</code>: <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpoint.html"
+     *        >CreateEndpoint</a> is executing.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Updating</code>: <a>UpdateEndpoint</a> or <a>UpdateEndpointWeightsAndCapacities</a> is executing.
+     *        <code>Updating</code>: <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpoint.html"
+     *        >UpdateEndpoint</a> or <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     *        >UpdateEndpointWeightsAndCapacities</a> is executing.
      *        </p>
      *        </li>
      *        <li>
@@ -624,9 +844,11 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      *        <code>RollingBack</code>: Endpoint fails to scale up or down or change its variant weight and is in the
      *        process of rolling back to its previous configuration. Once the rollback completes, endpoint returns to an
      *        <code>InService</code> status. This transitional status only applies to an endpoint that has autoscaling
-     *        enabled and is undergoing variant weight or capacity changes as part of an
-     *        <a>UpdateEndpointWeightsAndCapacities</a> call or when the <a>UpdateEndpointWeightsAndCapacities</a>
-     *        operation is called explicitly.
+     *        enabled and is undergoing variant weight or capacity changes as part of an <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     *        >UpdateEndpointWeightsAndCapacities</a> call or when the <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     *        >UpdateEndpointWeightsAndCapacities</a> operation is called explicitly.
      *        </p>
      *        </li>
      *        <li>
@@ -636,14 +858,28 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Deleting</code>: <a>DeleteEndpoint</a> is executing.
+     *        <code>Deleting</code>: <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html"
+     *        >DeleteEndpoint</a> is executing.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use
-     *        <a>DescribeEndpointOutput$FailureReason</a> for information about the failure. <a>DeleteEndpoint</a> is
-     *        the only operation that can be performed on a failed endpoint.
+     *        <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use the
+     *        <code>FailureReason</code> value returned by <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DescribeEndpoint.html"
+     *        >DescribeEndpoint</a> for information about the failure. <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html"
+     *        >DeleteEndpoint</a> is the only operation that can be performed on a failed endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UpdateRollbackFailed</code>: Both the rolling deployment and auto-rollback failed. Your endpoint is
+     *        in service with a mix of the old and new endpoint configurations. For information about how to remedy this
+     *        issue and restore the endpoint's status to <code>InService</code>, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/deployment-guardrails-rolling.html">Rolling
+     *        Deployments</a>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -667,12 +903,17 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * </li>
      * <li>
      * <p>
-     * <code>Creating</code>: <a>CreateEndpoint</a> is executing.
+     * <code>Creating</code>: <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpoint.html">CreateEndpoint</a> is
+     * executing.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Updating</code>: <a>UpdateEndpoint</a> or <a>UpdateEndpointWeightsAndCapacities</a> is executing.
+     * <code>Updating</code>: <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpoint.html">UpdateEndpoint</a> or <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html">
+     * UpdateEndpointWeightsAndCapacities</a> is executing.
      * </p>
      * </li>
      * <li>
@@ -687,8 +928,11 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * <code>RollingBack</code>: Endpoint fails to scale up or down or change its variant weight and is in the process
      * of rolling back to its previous configuration. Once the rollback completes, endpoint returns to an
      * <code>InService</code> status. This transitional status only applies to an endpoint that has autoscaling enabled
-     * and is undergoing variant weight or capacity changes as part of an <a>UpdateEndpointWeightsAndCapacities</a> call
-     * or when the <a>UpdateEndpointWeightsAndCapacities</a> operation is called explicitly.
+     * and is undergoing variant weight or capacity changes as part of an <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     * >UpdateEndpointWeightsAndCapacities</a> call or when the <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     * >UpdateEndpointWeightsAndCapacities</a> operation is called explicitly.
      * </p>
      * </li>
      * <li>
@@ -698,14 +942,28 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      * </li>
      * <li>
      * <p>
-     * <code>Deleting</code>: <a>DeleteEndpoint</a> is executing.
+     * <code>Deleting</code>: <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html">DeleteEndpoint</a> is
+     * executing.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use
-     * <a>DescribeEndpointOutput$FailureReason</a> for information about the failure. <a>DeleteEndpoint</a> is the only
-     * operation that can be performed on a failed endpoint.
+     * <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use the <code>FailureReason</code>
+     * value returned by <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DescribeEndpoint.html">DescribeEndpoint</a>
+     * for information about the failure. <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html">DeleteEndpoint</a> is
+     * the only operation that can be performed on a failed endpoint.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UpdateRollbackFailed</code>: Both the rolling deployment and auto-rollback failed. Your endpoint is in
+     * service with a mix of the old and new endpoint configurations. For information about how to remedy this issue and
+     * restore the endpoint's status to <code>InService</code>, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/deployment-guardrails-rolling.html">Rolling
+     * Deployments</a>.
      * </p>
      * </li>
      * </ul>
@@ -720,12 +978,18 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Creating</code>: <a>CreateEndpoint</a> is executing.
+     *        <code>Creating</code>: <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpoint.html"
+     *        >CreateEndpoint</a> is executing.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Updating</code>: <a>UpdateEndpoint</a> or <a>UpdateEndpointWeightsAndCapacities</a> is executing.
+     *        <code>Updating</code>: <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpoint.html"
+     *        >UpdateEndpoint</a> or <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     *        >UpdateEndpointWeightsAndCapacities</a> is executing.
      *        </p>
      *        </li>
      *        <li>
@@ -740,9 +1004,11 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      *        <code>RollingBack</code>: Endpoint fails to scale up or down or change its variant weight and is in the
      *        process of rolling back to its previous configuration. Once the rollback completes, endpoint returns to an
      *        <code>InService</code> status. This transitional status only applies to an endpoint that has autoscaling
-     *        enabled and is undergoing variant weight or capacity changes as part of an
-     *        <a>UpdateEndpointWeightsAndCapacities</a> call or when the <a>UpdateEndpointWeightsAndCapacities</a>
-     *        operation is called explicitly.
+     *        enabled and is undergoing variant weight or capacity changes as part of an <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     *        >UpdateEndpointWeightsAndCapacities</a> call or when the <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateEndpointWeightsAndCapacities.html"
+     *        >UpdateEndpointWeightsAndCapacities</a> operation is called explicitly.
      *        </p>
      *        </li>
      *        <li>
@@ -752,14 +1018,28 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Deleting</code>: <a>DeleteEndpoint</a> is executing.
+     *        <code>Deleting</code>: <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html"
+     *        >DeleteEndpoint</a> is executing.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use
-     *        <a>DescribeEndpointOutput$FailureReason</a> for information about the failure. <a>DeleteEndpoint</a> is
-     *        the only operation that can be performed on a failed endpoint.
+     *        <code>Failed</code>: Endpoint could not be created, updated, or re-scaled. Use the
+     *        <code>FailureReason</code> value returned by <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DescribeEndpoint.html"
+     *        >DescribeEndpoint</a> for information about the failure. <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DeleteEndpoint.html"
+     *        >DeleteEndpoint</a> is the only operation that can be performed on a failed endpoint.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UpdateRollbackFailed</code>: Both the rolling deployment and auto-rollback failed. Your endpoint is
+     *        in service with a mix of the old and new endpoint configurations. For information about how to remedy this
+     *        issue and restore the endpoint's status to <code>InService</code>, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/deployment-guardrails-rolling.html">Rolling
+     *        Deployments</a>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -892,6 +1172,279 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
     }
 
     /**
+     * <p>
+     * The most recent deployment configuration for the endpoint.
+     * </p>
+     * 
+     * @param lastDeploymentConfig
+     *        The most recent deployment configuration for the endpoint.
+     */
+
+    public void setLastDeploymentConfig(DeploymentConfig lastDeploymentConfig) {
+        this.lastDeploymentConfig = lastDeploymentConfig;
+    }
+
+    /**
+     * <p>
+     * The most recent deployment configuration for the endpoint.
+     * </p>
+     * 
+     * @return The most recent deployment configuration for the endpoint.
+     */
+
+    public DeploymentConfig getLastDeploymentConfig() {
+        return this.lastDeploymentConfig;
+    }
+
+    /**
+     * <p>
+     * The most recent deployment configuration for the endpoint.
+     * </p>
+     * 
+     * @param lastDeploymentConfig
+     *        The most recent deployment configuration for the endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeEndpointResult withLastDeploymentConfig(DeploymentConfig lastDeploymentConfig) {
+        setLastDeploymentConfig(lastDeploymentConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Returns the description of an endpoint configuration created using the <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html">
+     * <code>CreateEndpointConfig</code> </a> API.
+     * </p>
+     * 
+     * @param asyncInferenceConfig
+     *        Returns the description of an endpoint configuration created using the <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html">
+     *        <code>CreateEndpointConfig</code> </a> API.
+     */
+
+    public void setAsyncInferenceConfig(AsyncInferenceConfig asyncInferenceConfig) {
+        this.asyncInferenceConfig = asyncInferenceConfig;
+    }
+
+    /**
+     * <p>
+     * Returns the description of an endpoint configuration created using the <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html">
+     * <code>CreateEndpointConfig</code> </a> API.
+     * </p>
+     * 
+     * @return Returns the description of an endpoint configuration created using the <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html">
+     *         <code>CreateEndpointConfig</code> </a> API.
+     */
+
+    public AsyncInferenceConfig getAsyncInferenceConfig() {
+        return this.asyncInferenceConfig;
+    }
+
+    /**
+     * <p>
+     * Returns the description of an endpoint configuration created using the <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html">
+     * <code>CreateEndpointConfig</code> </a> API.
+     * </p>
+     * 
+     * @param asyncInferenceConfig
+     *        Returns the description of an endpoint configuration created using the <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html">
+     *        <code>CreateEndpointConfig</code> </a> API.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeEndpointResult withAsyncInferenceConfig(AsyncInferenceConfig asyncInferenceConfig) {
+        setAsyncInferenceConfig(asyncInferenceConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Returns the summary of an in-progress deployment. This field is only returned when the endpoint is creating or
+     * updating with a new endpoint configuration.
+     * </p>
+     * 
+     * @param pendingDeploymentSummary
+     *        Returns the summary of an in-progress deployment. This field is only returned when the endpoint is
+     *        creating or updating with a new endpoint configuration.
+     */
+
+    public void setPendingDeploymentSummary(PendingDeploymentSummary pendingDeploymentSummary) {
+        this.pendingDeploymentSummary = pendingDeploymentSummary;
+    }
+
+    /**
+     * <p>
+     * Returns the summary of an in-progress deployment. This field is only returned when the endpoint is creating or
+     * updating with a new endpoint configuration.
+     * </p>
+     * 
+     * @return Returns the summary of an in-progress deployment. This field is only returned when the endpoint is
+     *         creating or updating with a new endpoint configuration.
+     */
+
+    public PendingDeploymentSummary getPendingDeploymentSummary() {
+        return this.pendingDeploymentSummary;
+    }
+
+    /**
+     * <p>
+     * Returns the summary of an in-progress deployment. This field is only returned when the endpoint is creating or
+     * updating with a new endpoint configuration.
+     * </p>
+     * 
+     * @param pendingDeploymentSummary
+     *        Returns the summary of an in-progress deployment. This field is only returned when the endpoint is
+     *        creating or updating with a new endpoint configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeEndpointResult withPendingDeploymentSummary(PendingDeploymentSummary pendingDeploymentSummary) {
+        setPendingDeploymentSummary(pendingDeploymentSummary);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The configuration parameters for an explainer.
+     * </p>
+     * 
+     * @param explainerConfig
+     *        The configuration parameters for an explainer.
+     */
+
+    public void setExplainerConfig(ExplainerConfig explainerConfig) {
+        this.explainerConfig = explainerConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration parameters for an explainer.
+     * </p>
+     * 
+     * @return The configuration parameters for an explainer.
+     */
+
+    public ExplainerConfig getExplainerConfig() {
+        return this.explainerConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration parameters for an explainer.
+     * </p>
+     * 
+     * @param explainerConfig
+     *        The configuration parameters for an explainer.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeEndpointResult withExplainerConfig(ExplainerConfig explainerConfig) {
+        setExplainerConfig(explainerConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html">
+     * ProductionVariantSummary</a> objects, one for each model that you want to host at this endpoint in shadow mode
+     * with production traffic replicated from the model specified on <code>ProductionVariants</code>.
+     * </p>
+     * 
+     * @return An array of <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html"
+     *         >ProductionVariantSummary</a> objects, one for each model that you want to host at this endpoint in
+     *         shadow mode with production traffic replicated from the model specified on
+     *         <code>ProductionVariants</code>.
+     */
+
+    public java.util.List<ProductionVariantSummary> getShadowProductionVariants() {
+        return shadowProductionVariants;
+    }
+
+    /**
+     * <p>
+     * An array of <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html">
+     * ProductionVariantSummary</a> objects, one for each model that you want to host at this endpoint in shadow mode
+     * with production traffic replicated from the model specified on <code>ProductionVariants</code>.
+     * </p>
+     * 
+     * @param shadowProductionVariants
+     *        An array of <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html"
+     *        >ProductionVariantSummary</a> objects, one for each model that you want to host at this endpoint in shadow
+     *        mode with production traffic replicated from the model specified on <code>ProductionVariants</code>.
+     */
+
+    public void setShadowProductionVariants(java.util.Collection<ProductionVariantSummary> shadowProductionVariants) {
+        if (shadowProductionVariants == null) {
+            this.shadowProductionVariants = null;
+            return;
+        }
+
+        this.shadowProductionVariants = new java.util.ArrayList<ProductionVariantSummary>(shadowProductionVariants);
+    }
+
+    /**
+     * <p>
+     * An array of <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html">
+     * ProductionVariantSummary</a> objects, one for each model that you want to host at this endpoint in shadow mode
+     * with production traffic replicated from the model specified on <code>ProductionVariants</code>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setShadowProductionVariants(java.util.Collection)} or
+     * {@link #withShadowProductionVariants(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param shadowProductionVariants
+     *        An array of <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html"
+     *        >ProductionVariantSummary</a> objects, one for each model that you want to host at this endpoint in shadow
+     *        mode with production traffic replicated from the model specified on <code>ProductionVariants</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeEndpointResult withShadowProductionVariants(ProductionVariantSummary... shadowProductionVariants) {
+        if (this.shadowProductionVariants == null) {
+            setShadowProductionVariants(new java.util.ArrayList<ProductionVariantSummary>(shadowProductionVariants.length));
+        }
+        for (ProductionVariantSummary ele : shadowProductionVariants) {
+            this.shadowProductionVariants.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html">
+     * ProductionVariantSummary</a> objects, one for each model that you want to host at this endpoint in shadow mode
+     * with production traffic replicated from the model specified on <code>ProductionVariants</code>.
+     * </p>
+     * 
+     * @param shadowProductionVariants
+     *        An array of <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html"
+     *        >ProductionVariantSummary</a> objects, one for each model that you want to host at this endpoint in shadow
+     *        mode with production traffic replicated from the model specified on <code>ProductionVariants</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeEndpointResult withShadowProductionVariants(java.util.Collection<ProductionVariantSummary> shadowProductionVariants) {
+        setShadowProductionVariants(shadowProductionVariants);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -911,6 +1464,8 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
             sb.append("EndpointConfigName: ").append(getEndpointConfigName()).append(",");
         if (getProductionVariants() != null)
             sb.append("ProductionVariants: ").append(getProductionVariants()).append(",");
+        if (getDataCaptureConfig() != null)
+            sb.append("DataCaptureConfig: ").append(getDataCaptureConfig()).append(",");
         if (getEndpointStatus() != null)
             sb.append("EndpointStatus: ").append(getEndpointStatus()).append(",");
         if (getFailureReason() != null)
@@ -918,7 +1473,17 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
         if (getCreationTime() != null)
             sb.append("CreationTime: ").append(getCreationTime()).append(",");
         if (getLastModifiedTime() != null)
-            sb.append("LastModifiedTime: ").append(getLastModifiedTime());
+            sb.append("LastModifiedTime: ").append(getLastModifiedTime()).append(",");
+        if (getLastDeploymentConfig() != null)
+            sb.append("LastDeploymentConfig: ").append(getLastDeploymentConfig()).append(",");
+        if (getAsyncInferenceConfig() != null)
+            sb.append("AsyncInferenceConfig: ").append(getAsyncInferenceConfig()).append(",");
+        if (getPendingDeploymentSummary() != null)
+            sb.append("PendingDeploymentSummary: ").append(getPendingDeploymentSummary()).append(",");
+        if (getExplainerConfig() != null)
+            sb.append("ExplainerConfig: ").append(getExplainerConfig()).append(",");
+        if (getShadowProductionVariants() != null)
+            sb.append("ShadowProductionVariants: ").append(getShadowProductionVariants());
         sb.append("}");
         return sb.toString();
     }
@@ -949,6 +1514,10 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
             return false;
         if (other.getProductionVariants() != null && other.getProductionVariants().equals(this.getProductionVariants()) == false)
             return false;
+        if (other.getDataCaptureConfig() == null ^ this.getDataCaptureConfig() == null)
+            return false;
+        if (other.getDataCaptureConfig() != null && other.getDataCaptureConfig().equals(this.getDataCaptureConfig()) == false)
+            return false;
         if (other.getEndpointStatus() == null ^ this.getEndpointStatus() == null)
             return false;
         if (other.getEndpointStatus() != null && other.getEndpointStatus().equals(this.getEndpointStatus()) == false)
@@ -965,6 +1534,26 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
             return false;
         if (other.getLastModifiedTime() != null && other.getLastModifiedTime().equals(this.getLastModifiedTime()) == false)
             return false;
+        if (other.getLastDeploymentConfig() == null ^ this.getLastDeploymentConfig() == null)
+            return false;
+        if (other.getLastDeploymentConfig() != null && other.getLastDeploymentConfig().equals(this.getLastDeploymentConfig()) == false)
+            return false;
+        if (other.getAsyncInferenceConfig() == null ^ this.getAsyncInferenceConfig() == null)
+            return false;
+        if (other.getAsyncInferenceConfig() != null && other.getAsyncInferenceConfig().equals(this.getAsyncInferenceConfig()) == false)
+            return false;
+        if (other.getPendingDeploymentSummary() == null ^ this.getPendingDeploymentSummary() == null)
+            return false;
+        if (other.getPendingDeploymentSummary() != null && other.getPendingDeploymentSummary().equals(this.getPendingDeploymentSummary()) == false)
+            return false;
+        if (other.getExplainerConfig() == null ^ this.getExplainerConfig() == null)
+            return false;
+        if (other.getExplainerConfig() != null && other.getExplainerConfig().equals(this.getExplainerConfig()) == false)
+            return false;
+        if (other.getShadowProductionVariants() == null ^ this.getShadowProductionVariants() == null)
+            return false;
+        if (other.getShadowProductionVariants() != null && other.getShadowProductionVariants().equals(this.getShadowProductionVariants()) == false)
+            return false;
         return true;
     }
 
@@ -977,10 +1566,16 @@ public class DescribeEndpointResult extends com.amazonaws.AmazonWebServiceResult
         hashCode = prime * hashCode + ((getEndpointArn() == null) ? 0 : getEndpointArn().hashCode());
         hashCode = prime * hashCode + ((getEndpointConfigName() == null) ? 0 : getEndpointConfigName().hashCode());
         hashCode = prime * hashCode + ((getProductionVariants() == null) ? 0 : getProductionVariants().hashCode());
+        hashCode = prime * hashCode + ((getDataCaptureConfig() == null) ? 0 : getDataCaptureConfig().hashCode());
         hashCode = prime * hashCode + ((getEndpointStatus() == null) ? 0 : getEndpointStatus().hashCode());
         hashCode = prime * hashCode + ((getFailureReason() == null) ? 0 : getFailureReason().hashCode());
         hashCode = prime * hashCode + ((getCreationTime() == null) ? 0 : getCreationTime().hashCode());
         hashCode = prime * hashCode + ((getLastModifiedTime() == null) ? 0 : getLastModifiedTime().hashCode());
+        hashCode = prime * hashCode + ((getLastDeploymentConfig() == null) ? 0 : getLastDeploymentConfig().hashCode());
+        hashCode = prime * hashCode + ((getAsyncInferenceConfig() == null) ? 0 : getAsyncInferenceConfig().hashCode());
+        hashCode = prime * hashCode + ((getPendingDeploymentSummary() == null) ? 0 : getPendingDeploymentSummary().hashCode());
+        hashCode = prime * hashCode + ((getExplainerConfig() == null) ? 0 : getExplainerConfig().hashCode());
+        hashCode = prime * hashCode + ((getShadowProductionVariants() == null) ? 0 : getShadowProductionVariants().hashCode());
         return hashCode;
     }
 

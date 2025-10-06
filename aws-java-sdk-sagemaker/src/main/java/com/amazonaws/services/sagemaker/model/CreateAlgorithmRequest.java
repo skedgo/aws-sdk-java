@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -106,18 +106,26 @@ public class CreateAlgorithmRequest extends com.amazonaws.AmazonWebServiceReques
     private InferenceSpecification inferenceSpecification;
     /**
      * <p>
-     * Specifies configurations for one or more training jobs and that Amazon SageMaker runs to test the algorithm's
-     * training code and, optionally, one or more batch transform jobs that Amazon SageMaker runs to test the
-     * algorithm's inference code.
+     * Specifies configurations for one or more training jobs and that SageMaker runs to test the algorithm's training
+     * code and, optionally, one or more batch transform jobs that SageMaker runs to test the algorithm's inference
+     * code.
      * </p>
      */
     private AlgorithmValidationSpecification validationSpecification;
     /**
      * <p>
-     * Whether to certify the algorithm so that it can be listed in AWS Marketplace.
+     * Whether to certify the algorithm so that it can be listed in Amazon Web Services Marketplace.
      * </p>
      */
     private Boolean certifyForMarketplace;
+    /**
+     * <p>
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
 
     /**
      * <p>
@@ -609,15 +617,15 @@ public class CreateAlgorithmRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Specifies configurations for one or more training jobs and that Amazon SageMaker runs to test the algorithm's
-     * training code and, optionally, one or more batch transform jobs that Amazon SageMaker runs to test the
-     * algorithm's inference code.
+     * Specifies configurations for one or more training jobs and that SageMaker runs to test the algorithm's training
+     * code and, optionally, one or more batch transform jobs that SageMaker runs to test the algorithm's inference
+     * code.
      * </p>
      * 
      * @param validationSpecification
-     *        Specifies configurations for one or more training jobs and that Amazon SageMaker runs to test the
-     *        algorithm's training code and, optionally, one or more batch transform jobs that Amazon SageMaker runs to
-     *        test the algorithm's inference code.
+     *        Specifies configurations for one or more training jobs and that SageMaker runs to test the algorithm's
+     *        training code and, optionally, one or more batch transform jobs that SageMaker runs to test the
+     *        algorithm's inference code.
      */
 
     public void setValidationSpecification(AlgorithmValidationSpecification validationSpecification) {
@@ -626,14 +634,14 @@ public class CreateAlgorithmRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Specifies configurations for one or more training jobs and that Amazon SageMaker runs to test the algorithm's
-     * training code and, optionally, one or more batch transform jobs that Amazon SageMaker runs to test the
-     * algorithm's inference code.
+     * Specifies configurations for one or more training jobs and that SageMaker runs to test the algorithm's training
+     * code and, optionally, one or more batch transform jobs that SageMaker runs to test the algorithm's inference
+     * code.
      * </p>
      * 
-     * @return Specifies configurations for one or more training jobs and that Amazon SageMaker runs to test the
-     *         algorithm's training code and, optionally, one or more batch transform jobs that Amazon SageMaker runs to
-     *         test the algorithm's inference code.
+     * @return Specifies configurations for one or more training jobs and that SageMaker runs to test the algorithm's
+     *         training code and, optionally, one or more batch transform jobs that SageMaker runs to test the
+     *         algorithm's inference code.
      */
 
     public AlgorithmValidationSpecification getValidationSpecification() {
@@ -642,15 +650,15 @@ public class CreateAlgorithmRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Specifies configurations for one or more training jobs and that Amazon SageMaker runs to test the algorithm's
-     * training code and, optionally, one or more batch transform jobs that Amazon SageMaker runs to test the
-     * algorithm's inference code.
+     * Specifies configurations for one or more training jobs and that SageMaker runs to test the algorithm's training
+     * code and, optionally, one or more batch transform jobs that SageMaker runs to test the algorithm's inference
+     * code.
      * </p>
      * 
      * @param validationSpecification
-     *        Specifies configurations for one or more training jobs and that Amazon SageMaker runs to test the
-     *        algorithm's training code and, optionally, one or more batch transform jobs that Amazon SageMaker runs to
-     *        test the algorithm's inference code.
+     *        Specifies configurations for one or more training jobs and that SageMaker runs to test the algorithm's
+     *        training code and, optionally, one or more batch transform jobs that SageMaker runs to test the
+     *        algorithm's inference code.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -661,11 +669,11 @@ public class CreateAlgorithmRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Whether to certify the algorithm so that it can be listed in AWS Marketplace.
+     * Whether to certify the algorithm so that it can be listed in Amazon Web Services Marketplace.
      * </p>
      * 
      * @param certifyForMarketplace
-     *        Whether to certify the algorithm so that it can be listed in AWS Marketplace.
+     *        Whether to certify the algorithm so that it can be listed in Amazon Web Services Marketplace.
      */
 
     public void setCertifyForMarketplace(Boolean certifyForMarketplace) {
@@ -674,10 +682,10 @@ public class CreateAlgorithmRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Whether to certify the algorithm so that it can be listed in AWS Marketplace.
+     * Whether to certify the algorithm so that it can be listed in Amazon Web Services Marketplace.
      * </p>
      * 
-     * @return Whether to certify the algorithm so that it can be listed in AWS Marketplace.
+     * @return Whether to certify the algorithm so that it can be listed in Amazon Web Services Marketplace.
      */
 
     public Boolean getCertifyForMarketplace() {
@@ -686,11 +694,11 @@ public class CreateAlgorithmRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Whether to certify the algorithm so that it can be listed in AWS Marketplace.
+     * Whether to certify the algorithm so that it can be listed in Amazon Web Services Marketplace.
      * </p>
      * 
      * @param certifyForMarketplace
-     *        Whether to certify the algorithm so that it can be listed in AWS Marketplace.
+     *        Whether to certify the algorithm so that it can be listed in Amazon Web Services Marketplace.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -701,14 +709,104 @@ public class CreateAlgorithmRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Whether to certify the algorithm so that it can be listed in AWS Marketplace.
+     * Whether to certify the algorithm so that it can be listed in Amazon Web Services Marketplace.
      * </p>
      * 
-     * @return Whether to certify the algorithm so that it can be listed in AWS Marketplace.
+     * @return Whether to certify the algorithm so that it can be listed in Amazon Web Services Marketplace.
      */
 
     public Boolean isCertifyForMarketplace() {
         return this.certifyForMarketplace;
+    }
+
+    /**
+     * <p>
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
+     * </p>
+     * 
+     * @return An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *         different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *         Resources</a>.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
+     * </p>
+     * 
+     * @param tags
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateAlgorithmRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
+     * </p>
+     * 
+     * @param tags
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateAlgorithmRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
     }
 
     /**
@@ -734,7 +832,9 @@ public class CreateAlgorithmRequest extends com.amazonaws.AmazonWebServiceReques
         if (getValidationSpecification() != null)
             sb.append("ValidationSpecification: ").append(getValidationSpecification()).append(",");
         if (getCertifyForMarketplace() != null)
-            sb.append("CertifyForMarketplace: ").append(getCertifyForMarketplace());
+            sb.append("CertifyForMarketplace: ").append(getCertifyForMarketplace()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -773,6 +873,10 @@ public class CreateAlgorithmRequest extends com.amazonaws.AmazonWebServiceReques
             return false;
         if (other.getCertifyForMarketplace() != null && other.getCertifyForMarketplace().equals(this.getCertifyForMarketplace()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -787,6 +891,7 @@ public class CreateAlgorithmRequest extends com.amazonaws.AmazonWebServiceReques
         hashCode = prime * hashCode + ((getInferenceSpecification() == null) ? 0 : getInferenceSpecification().hashCode());
         hashCode = prime * hashCode + ((getValidationSpecification() == null) ? 0 : getValidationSpecification().hashCode());
         hashCode = prime * hashCode + ((getCertifyForMarketplace() == null) ? 0 : getCertifyForMarketplace().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

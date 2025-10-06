@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class ListRetirableGrantsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not
+     * Use this parameter to specify the maximum number of items to return. When this value is present, KMS does not
      * return more than the specified number of items, but it might return fewer.
      * </p>
      * <p>
@@ -45,22 +45,22 @@ public class ListRetirableGrantsRequest extends com.amazonaws.AmazonWebServiceRe
     private String marker;
     /**
      * <p>
-     * The retiring principal for which to list grants.
+     * The retiring principal for which to list grants. Enter a principal in your Amazon Web Services account.
      * </p>
      * <p>
      * To specify the retiring principal, use the <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a>
-     * of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated users, and assumed
-     * role users. For examples of the ARN syntax for specifying a principal, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS Identity and
-     * Access Management (IAM)</a> in the Example ARNs section of the <i>Amazon Web Services General Reference</i>.
+     * of an Amazon Web Services principal. Valid principals include Amazon Web Services accounts, IAM users, IAM roles,
+     * federated users, and assumed role users. For help with the ARN syntax for a principal, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM ARNs</a>
+     * in the <i> <i>Identity and Access Management User Guide</i> </i>.
      * </p>
      */
     private String retiringPrincipal;
 
     /**
      * <p>
-     * Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not
+     * Use this parameter to specify the maximum number of items to return. When this value is present, KMS does not
      * return more than the specified number of items, but it might return fewer.
      * </p>
      * <p>
@@ -69,8 +69,8 @@ public class ListRetirableGrantsRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param limit
-     *        Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS
-     *        does not return more than the specified number of items, but it might return fewer.</p>
+     *        Use this parameter to specify the maximum number of items to return. When this value is present, KMS does
+     *        not return more than the specified number of items, but it might return fewer.</p>
      *        <p>
      *        This value is optional. If you include a value, it must be between 1 and 100, inclusive. If you do not
      *        include a value, it defaults to 50.
@@ -82,7 +82,7 @@ public class ListRetirableGrantsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not
+     * Use this parameter to specify the maximum number of items to return. When this value is present, KMS does not
      * return more than the specified number of items, but it might return fewer.
      * </p>
      * <p>
@@ -90,8 +90,8 @@ public class ListRetirableGrantsRequest extends com.amazonaws.AmazonWebServiceRe
      * value, it defaults to 50.
      * </p>
      * 
-     * @return Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS
-     *         does not return more than the specified number of items, but it might return fewer.</p>
+     * @return Use this parameter to specify the maximum number of items to return. When this value is present, KMS does
+     *         not return more than the specified number of items, but it might return fewer.</p>
      *         <p>
      *         This value is optional. If you include a value, it must be between 1 and 100, inclusive. If you do not
      *         include a value, it defaults to 50.
@@ -103,7 +103,7 @@ public class ListRetirableGrantsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not
+     * Use this parameter to specify the maximum number of items to return. When this value is present, KMS does not
      * return more than the specified number of items, but it might return fewer.
      * </p>
      * <p>
@@ -112,8 +112,8 @@ public class ListRetirableGrantsRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param limit
-     *        Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS
-     *        does not return more than the specified number of items, but it might return fewer.</p>
+     *        Use this parameter to specify the maximum number of items to return. When this value is present, KMS does
+     *        not return more than the specified number of items, but it might return fewer.</p>
      *        <p>
      *        This value is optional. If you include a value, it must be between 1 and 100, inclusive. If you do not
      *        include a value, it defaults to 50.
@@ -173,27 +173,28 @@ public class ListRetirableGrantsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The retiring principal for which to list grants.
+     * The retiring principal for which to list grants. Enter a principal in your Amazon Web Services account.
      * </p>
      * <p>
      * To specify the retiring principal, use the <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a>
-     * of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated users, and assumed
-     * role users. For examples of the ARN syntax for specifying a principal, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS Identity and
-     * Access Management (IAM)</a> in the Example ARNs section of the <i>Amazon Web Services General Reference</i>.
+     * of an Amazon Web Services principal. Valid principals include Amazon Web Services accounts, IAM users, IAM roles,
+     * federated users, and assumed role users. For help with the ARN syntax for a principal, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM ARNs</a>
+     * in the <i> <i>Identity and Access Management User Guide</i> </i>.
      * </p>
      * 
      * @param retiringPrincipal
-     *        The retiring principal for which to list grants.</p>
+     *        The retiring principal for which to list grants. Enter a principal in your Amazon Web Services
+     *        account.</p>
      *        <p>
      *        To specify the retiring principal, use the <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
-     *        (ARN)</a> of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated
-     *        users, and assumed role users. For examples of the ARN syntax for specifying a principal, see <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS
-     *        Identity and Access Management (IAM)</a> in the Example ARNs section of the <i>Amazon Web Services General
-     *        Reference</i>.
+     *        (ARN)</a> of an Amazon Web Services principal. Valid principals include Amazon Web Services accounts, IAM
+     *        users, IAM roles, federated users, and assumed role users. For help with the ARN syntax for a principal,
+     *        see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM
+     *        ARNs</a> in the <i> <i>Identity and Access Management User Guide</i> </i>.
      */
 
     public void setRetiringPrincipal(String retiringPrincipal) {
@@ -202,26 +203,27 @@ public class ListRetirableGrantsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The retiring principal for which to list grants.
+     * The retiring principal for which to list grants. Enter a principal in your Amazon Web Services account.
      * </p>
      * <p>
      * To specify the retiring principal, use the <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a>
-     * of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated users, and assumed
-     * role users. For examples of the ARN syntax for specifying a principal, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS Identity and
-     * Access Management (IAM)</a> in the Example ARNs section of the <i>Amazon Web Services General Reference</i>.
+     * of an Amazon Web Services principal. Valid principals include Amazon Web Services accounts, IAM users, IAM roles,
+     * federated users, and assumed role users. For help with the ARN syntax for a principal, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM ARNs</a>
+     * in the <i> <i>Identity and Access Management User Guide</i> </i>.
      * </p>
      * 
-     * @return The retiring principal for which to list grants.</p>
+     * @return The retiring principal for which to list grants. Enter a principal in your Amazon Web Services
+     *         account.</p>
      *         <p>
      *         To specify the retiring principal, use the <a
      *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
-     *         (ARN)</a> of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated
-     *         users, and assumed role users. For examples of the ARN syntax for specifying a principal, see <a
-     *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS
-     *         Identity and Access Management (IAM)</a> in the Example ARNs section of the <i>Amazon Web Services
-     *         General Reference</i>.
+     *         (ARN)</a> of an Amazon Web Services principal. Valid principals include Amazon Web Services accounts, IAM
+     *         users, IAM roles, federated users, and assumed role users. For help with the ARN syntax for a principal,
+     *         see <a
+     *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM
+     *         ARNs</a> in the <i> <i>Identity and Access Management User Guide</i> </i>.
      */
 
     public String getRetiringPrincipal() {
@@ -230,27 +232,28 @@ public class ListRetirableGrantsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The retiring principal for which to list grants.
+     * The retiring principal for which to list grants. Enter a principal in your Amazon Web Services account.
      * </p>
      * <p>
      * To specify the retiring principal, use the <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a>
-     * of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated users, and assumed
-     * role users. For examples of the ARN syntax for specifying a principal, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS Identity and
-     * Access Management (IAM)</a> in the Example ARNs section of the <i>Amazon Web Services General Reference</i>.
+     * of an Amazon Web Services principal. Valid principals include Amazon Web Services accounts, IAM users, IAM roles,
+     * federated users, and assumed role users. For help with the ARN syntax for a principal, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM ARNs</a>
+     * in the <i> <i>Identity and Access Management User Guide</i> </i>.
      * </p>
      * 
      * @param retiringPrincipal
-     *        The retiring principal for which to list grants.</p>
+     *        The retiring principal for which to list grants. Enter a principal in your Amazon Web Services
+     *        account.</p>
      *        <p>
      *        To specify the retiring principal, use the <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
-     *        (ARN)</a> of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated
-     *        users, and assumed role users. For examples of the ARN syntax for specifying a principal, see <a
-     *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS
-     *        Identity and Access Management (IAM)</a> in the Example ARNs section of the <i>Amazon Web Services General
-     *        Reference</i>.
+     *        (ARN)</a> of an Amazon Web Services principal. Valid principals include Amazon Web Services accounts, IAM
+     *        users, IAM roles, federated users, and assumed role users. For help with the ARN syntax for a principal,
+     *        see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns">IAM
+     *        ARNs</a> in the <i> <i>Identity and Access Management User Guide</i> </i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

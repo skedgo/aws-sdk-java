@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,10 @@ public class ListFunctionsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * For Lambda@Edge functions, the AWS Region of the master function. For example, <code>us-east-2</code> or
-     * <code>ALL</code>. If specified, you must set <code>FunctionVersion</code> to <code>ALL</code>.
+     * For Lambda@Edge functions, the Amazon Web Services Region of the master function. For example,
+     * <code>us-east-1</code> filters the list of functions to include only Lambda@Edge functions replicated from a
+     * master function in US East (N. Virginia). If specified, you must set <code>FunctionVersion</code> to
+     * <code>ALL</code>.
      * </p>
      */
     private String masterRegion;
@@ -46,20 +48,25 @@ public class ListFunctionsRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String marker;
     /**
      * <p>
-     * Specify a value between 1 and 50 to limit the number of functions in the response.
+     * The maximum number of functions to return in the response. Note that <code>ListFunctions</code> returns a maximum
+     * of 50 items in each response, even if you set the number higher.
      * </p>
      */
     private Integer maxItems;
 
     /**
      * <p>
-     * For Lambda@Edge functions, the AWS Region of the master function. For example, <code>us-east-2</code> or
-     * <code>ALL</code>. If specified, you must set <code>FunctionVersion</code> to <code>ALL</code>.
+     * For Lambda@Edge functions, the Amazon Web Services Region of the master function. For example,
+     * <code>us-east-1</code> filters the list of functions to include only Lambda@Edge functions replicated from a
+     * master function in US East (N. Virginia). If specified, you must set <code>FunctionVersion</code> to
+     * <code>ALL</code>.
      * </p>
      * 
      * @param masterRegion
-     *        For Lambda@Edge functions, the AWS Region of the master function. For example, <code>us-east-2</code> or
-     *        <code>ALL</code>. If specified, you must set <code>FunctionVersion</code> to <code>ALL</code>.
+     *        For Lambda@Edge functions, the Amazon Web Services Region of the master function. For example,
+     *        <code>us-east-1</code> filters the list of functions to include only Lambda@Edge functions replicated from
+     *        a master function in US East (N. Virginia). If specified, you must set <code>FunctionVersion</code> to
+     *        <code>ALL</code>.
      */
 
     public void setMasterRegion(String masterRegion) {
@@ -68,12 +75,16 @@ public class ListFunctionsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * For Lambda@Edge functions, the AWS Region of the master function. For example, <code>us-east-2</code> or
-     * <code>ALL</code>. If specified, you must set <code>FunctionVersion</code> to <code>ALL</code>.
+     * For Lambda@Edge functions, the Amazon Web Services Region of the master function. For example,
+     * <code>us-east-1</code> filters the list of functions to include only Lambda@Edge functions replicated from a
+     * master function in US East (N. Virginia). If specified, you must set <code>FunctionVersion</code> to
+     * <code>ALL</code>.
      * </p>
      * 
-     * @return For Lambda@Edge functions, the AWS Region of the master function. For example, <code>us-east-2</code> or
-     *         <code>ALL</code>. If specified, you must set <code>FunctionVersion</code> to <code>ALL</code>.
+     * @return For Lambda@Edge functions, the Amazon Web Services Region of the master function. For example,
+     *         <code>us-east-1</code> filters the list of functions to include only Lambda@Edge functions replicated
+     *         from a master function in US East (N. Virginia). If specified, you must set <code>FunctionVersion</code>
+     *         to <code>ALL</code>.
      */
 
     public String getMasterRegion() {
@@ -82,13 +93,17 @@ public class ListFunctionsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * For Lambda@Edge functions, the AWS Region of the master function. For example, <code>us-east-2</code> or
-     * <code>ALL</code>. If specified, you must set <code>FunctionVersion</code> to <code>ALL</code>.
+     * For Lambda@Edge functions, the Amazon Web Services Region of the master function. For example,
+     * <code>us-east-1</code> filters the list of functions to include only Lambda@Edge functions replicated from a
+     * master function in US East (N. Virginia). If specified, you must set <code>FunctionVersion</code> to
+     * <code>ALL</code>.
      * </p>
      * 
      * @param masterRegion
-     *        For Lambda@Edge functions, the AWS Region of the master function. For example, <code>us-east-2</code> or
-     *        <code>ALL</code>. If specified, you must set <code>FunctionVersion</code> to <code>ALL</code>.
+     *        For Lambda@Edge functions, the Amazon Web Services Region of the master function. For example,
+     *        <code>us-east-1</code> filters the list of functions to include only Lambda@Edge functions replicated from
+     *        a master function in US East (N. Virginia). If specified, you must set <code>FunctionVersion</code> to
+     *        <code>ALL</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -212,11 +227,13 @@ public class ListFunctionsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Specify a value between 1 and 50 to limit the number of functions in the response.
+     * The maximum number of functions to return in the response. Note that <code>ListFunctions</code> returns a maximum
+     * of 50 items in each response, even if you set the number higher.
      * </p>
      * 
      * @param maxItems
-     *        Specify a value between 1 and 50 to limit the number of functions in the response.
+     *        The maximum number of functions to return in the response. Note that <code>ListFunctions</code> returns a
+     *        maximum of 50 items in each response, even if you set the number higher.
      */
 
     public void setMaxItems(Integer maxItems) {
@@ -225,10 +242,12 @@ public class ListFunctionsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Specify a value between 1 and 50 to limit the number of functions in the response.
+     * The maximum number of functions to return in the response. Note that <code>ListFunctions</code> returns a maximum
+     * of 50 items in each response, even if you set the number higher.
      * </p>
      * 
-     * @return Specify a value between 1 and 50 to limit the number of functions in the response.
+     * @return The maximum number of functions to return in the response. Note that <code>ListFunctions</code> returns a
+     *         maximum of 50 items in each response, even if you set the number higher.
      */
 
     public Integer getMaxItems() {
@@ -237,11 +256,13 @@ public class ListFunctionsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Specify a value between 1 and 50 to limit the number of functions in the response.
+     * The maximum number of functions to return in the response. Note that <code>ListFunctions</code> returns a maximum
+     * of 50 items in each response, even if you set the number higher.
      * </p>
      * 
      * @param maxItems
-     *        Specify a value between 1 and 50 to limit the number of functions in the response.
+     *        The maximum number of functions to return in the response. Note that <code>ListFunctions</code> returns a
+     *        maximum of 50 items in each response, even if you set the number higher.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

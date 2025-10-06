@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,62 +36,178 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
     private String clientId;
     /**
      * <p>
-     * The challenge name. For more information, see .
+     * The challenge name. For more information, see <a
+     * href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html"
+     * >InitiateAuth</a>.
      * </p>
      * <p>
-     * <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     * <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * </p>
      */
     private String challengeName;
     /**
      * <p>
-     * The session which should be passed both ways in challenge-response calls to the service. If
-     * <code>InitiateAuth</code> or <code>RespondToAuthChallenge</code> API call determines that the caller needs to go
-     * through another challenge, they return a session with other challenge parameters. This session should be passed
-     * as it is to the next <code>RespondToAuthChallenge</code> API call.
+     * The session that should be passed both ways in challenge-response calls to the service. If
+     * <code>InitiateAuth</code> or <code>RespondToAuthChallenge</code> API call determines that the caller must pass
+     * another challenge, they return a session with other challenge parameters. This session should be passed as it is
+     * to the next <code>RespondToAuthChallenge</code> API call.
      * </p>
      */
     private String session;
     /**
      * <p>
-     * The challenge responses. These are inputs corresponding to the value of <code>ChallengeName</code>, for example:
+     * The responses to the challenge that you received in the previous request. Each challenge has its own required
+     * response parameters. The following examples are partial JSON request bodies that highlight challenge-response
+     * parameters.
      * </p>
-     * <ul>
-     * <li>
+     * <important>
      * <p>
-     * <code>SMS_MFA</code>: <code>SMS_MFA_CODE</code>, <code>USERNAME</code>, <code>SECRET_HASH</code> (if app client
-     * is configured with client secret).
+     * You must provide a SECRET_HASH parameter in all challenge responses to an app client that has a client secret.
      * </p>
-     * </li>
-     * <li>
+     * </important>
+     * <dl>
+     * <dt>SMS_MFA</dt>
+     * <dd>
      * <p>
-     * <code>PASSWORD_VERIFIER</code>: <code>PASSWORD_CLAIM_SIGNATURE</code>, <code>PASSWORD_CLAIM_SECRET_BLOCK</code>,
-     * <code>TIMESTAMP</code>, <code>USERNAME</code>, <code>SECRET_HASH</code> (if app client is configured with client
-     * secret).
+     * <code>"ChallengeName": "SMS_MFA", "ChallengeResponses": {"SMS_MFA_CODE": "[SMS_code]", "USERNAME": "[username]"}</code>
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>PASSWORD_VERIFIER</dt>
+     * <dd>
      * <p>
-     * <code>NEW_PASSWORD_REQUIRED</code>: <code>NEW_PASSWORD</code>, any other required attributes,
-     * <code>USERNAME</code>, <code>SECRET_HASH</code> (if app client is configured with client secret).
+     * <code>"ChallengeName": "PASSWORD_VERIFIER", "ChallengeResponses": {"PASSWORD_CLAIM_SIGNATURE": "[claim_signature]", "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP": [timestamp], "USERNAME": "[username]"}</code>
      * </p>
-     * </li>
-     * </ul>
+     * <p>
+     * Add <code>"DEVICE_KEY"</code> when you sign in with a remembered device.
+     * </p>
+     * </dd>
+     * <dt>CUSTOM_CHALLENGE</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "CUSTOM_CHALLENGE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER": "[challenge_answer]"}</code>
+     * </p>
+     * <p>
+     * Add <code>"DEVICE_KEY"</code> when you sign in with a remembered device.
+     * </p>
+     * </dd>
+     * <dt>NEW_PASSWORD_REQUIRED</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "NEW_PASSWORD_REQUIRED", "ChallengeResponses": {"NEW_PASSWORD": "[new_password]", "USERNAME": "[username]"}</code>
+     * </p>
+     * <p>
+     * To set any required attributes that <code>InitiateAuth</code> returned in an <code>requiredAttributes</code>
+     * parameter, add <code>"userAttributes.[attribute_name]": "[attribute_value]"</code>. This parameter can also set
+     * values for writable attributes that aren't required by your user pool.
+     * </p>
+     * <note>
+     * <p>
+     * In a <code>NEW_PASSWORD_REQUIRED</code> challenge response, you can't modify a required attribute that already
+     * has a value. In <code>RespondToAuthChallenge</code>, set a value for any keys that Amazon Cognito returned in the
+     * <code>requiredAttributes</code> parameter, then use the <code>UpdateUserAttributes</code> API operation to modify
+     * the value of any additional attributes.
+     * </p>
+     * </note></dd>
+     * <dt>SOFTWARE_TOKEN_MFA</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "SOFTWARE_TOKEN_MFA", "ChallengeResponses": {"USERNAME": "[username]", "SOFTWARE_TOKEN_MFA_CODE": [authenticator_code]}</code>
+     * </p>
+     * </dd>
+     * <dt>DEVICE_SRP_AUTH</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "DEVICE_SRP_AUTH", "ChallengeResponses": {"USERNAME": "[username]", "DEVICE_KEY": "[device_key]", "SRP_A": "[srp_a]"}</code>
+     * </p>
+     * </dd>
+     * <dt>DEVICE_PASSWORD_VERIFIER</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "DEVICE_PASSWORD_VERIFIER", "ChallengeResponses": {"DEVICE_KEY": "[device_key]", "PASSWORD_CLAIM_SIGNATURE": "[claim_signature]", "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP": [timestamp], "USERNAME": "[username]"}</code>
+     * </p>
+     * </dd>
+     * <dt>MFA_SETUP</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "MFA_SETUP", "ChallengeResponses": {"USERNAME": "[username]"}, "SESSION": "[Session ID from VerifySoftwareToken]"</code>
+     * </p>
+     * </dd>
+     * <dt>SELECT_MFA_TYPE</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "SELECT_MFA_TYPE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER": "[SMS_MFA or SOFTWARE_TOKEN_MFA]"}</code>
+     * </p>
+     * </dd>
+     * </dl>
+     * <p>
+     * For more information about <code>SECRET_HASH</code>, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     * >Computing secret hash values</a>. For information about <code>DEVICE_KEY</code>, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html"
+     * >Working with user devices in your user pool</a>.
+     * </p>
      */
     private java.util.Map<String, String> challengeResponses;
     /**
      * <p>
-     * The Amazon Pinpoint analytics metadata for collecting metrics for <code>RespondToAuthChallenge</code> calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>RespondToAuthChallenge</code>
+     * calls.
      * </p>
      */
     private AnalyticsMetadataType analyticsMetadata;
     /**
      * <p>
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
-     * unexpected event by Amazon Cognito advanced security.
+     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
+     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
+     * passes to Amazon Cognito when it makes API requests.
      * </p>
      */
     private UserContextDataType userContextData;
+    /**
+     * <p>
+     * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
+     * </p>
+     * <p>
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     * RespondToAuthChallenge API action, Amazon Cognito invokes any functions that are assigned to the following
+     * triggers: <i>post authentication</i>, <i>pre token generation</i>, <i>define auth challenge</i>, <i>create auth
+     * challenge</i>, and <i>verify auth challenge</i>. When Amazon Cognito invokes any of these functions, it passes a
+     * JSON payload, which the function receives as input. This payload contains a <code>clientMetadata</code>
+     * attribute, which provides the data that you assigned to the ClientMetadata parameter in your
+     * RespondToAuthChallenge request. In your function code in Lambda, you can process the <code>clientMetadata</code>
+     * value to enhance your workflow for your specific needs.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     * > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * parameter serves no purpose.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Validate the ClientMetadata value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     */
+    private java.util.Map<String, String> clientMetadata;
 
     /**
      * <p>
@@ -135,16 +251,20 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The challenge name. For more information, see .
+     * The challenge name. For more information, see <a
+     * href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html"
+     * >InitiateAuth</a>.
      * </p>
      * <p>
-     * <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     * <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * </p>
      * 
      * @param challengeName
-     *        The challenge name. For more information, see .</p>
+     *        The challenge name. For more information, see <a
+     *        href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html"
+     *        >InitiateAuth</a>.</p>
      *        <p>
-     *        <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     *        <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * @see ChallengeNameType
      */
 
@@ -154,15 +274,19 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The challenge name. For more information, see .
+     * The challenge name. For more information, see <a
+     * href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html"
+     * >InitiateAuth</a>.
      * </p>
      * <p>
-     * <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     * <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * </p>
      * 
-     * @return The challenge name. For more information, see .</p>
+     * @return The challenge name. For more information, see <a
+     *         href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html"
+     *         >InitiateAuth</a>.</p>
      *         <p>
-     *         <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     *         <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * @see ChallengeNameType
      */
 
@@ -172,16 +296,20 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The challenge name. For more information, see .
+     * The challenge name. For more information, see <a
+     * href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html"
+     * >InitiateAuth</a>.
      * </p>
      * <p>
-     * <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     * <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * </p>
      * 
      * @param challengeName
-     *        The challenge name. For more information, see .</p>
+     *        The challenge name. For more information, see <a
+     *        href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html"
+     *        >InitiateAuth</a>.</p>
      *        <p>
-     *        <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     *        <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ChallengeNameType
      */
@@ -193,16 +321,20 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The challenge name. For more information, see .
+     * The challenge name. For more information, see <a
+     * href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html"
+     * >InitiateAuth</a>.
      * </p>
      * <p>
-     * <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     * <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * </p>
      * 
      * @param challengeName
-     *        The challenge name. For more information, see .</p>
+     *        The challenge name. For more information, see <a
+     *        href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html"
+     *        >InitiateAuth</a>.</p>
      *        <p>
-     *        <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     *        <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * @see ChallengeNameType
      */
 
@@ -212,16 +344,20 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The challenge name. For more information, see .
+     * The challenge name. For more information, see <a
+     * href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html"
+     * >InitiateAuth</a>.
      * </p>
      * <p>
-     * <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     * <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * </p>
      * 
      * @param challengeName
-     *        The challenge name. For more information, see .</p>
+     *        The challenge name. For more information, see <a
+     *        href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html"
+     *        >InitiateAuth</a>.</p>
      *        <p>
-     *        <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     *        <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ChallengeNameType
      */
@@ -233,17 +369,17 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The session which should be passed both ways in challenge-response calls to the service. If
-     * <code>InitiateAuth</code> or <code>RespondToAuthChallenge</code> API call determines that the caller needs to go
-     * through another challenge, they return a session with other challenge parameters. This session should be passed
-     * as it is to the next <code>RespondToAuthChallenge</code> API call.
+     * The session that should be passed both ways in challenge-response calls to the service. If
+     * <code>InitiateAuth</code> or <code>RespondToAuthChallenge</code> API call determines that the caller must pass
+     * another challenge, they return a session with other challenge parameters. This session should be passed as it is
+     * to the next <code>RespondToAuthChallenge</code> API call.
      * </p>
      * 
      * @param session
-     *        The session which should be passed both ways in challenge-response calls to the service. If
-     *        <code>InitiateAuth</code> or <code>RespondToAuthChallenge</code> API call determines that the caller needs
-     *        to go through another challenge, they return a session with other challenge parameters. This session
-     *        should be passed as it is to the next <code>RespondToAuthChallenge</code> API call.
+     *        The session that should be passed both ways in challenge-response calls to the service. If
+     *        <code>InitiateAuth</code> or <code>RespondToAuthChallenge</code> API call determines that the caller must
+     *        pass another challenge, they return a session with other challenge parameters. This session should be
+     *        passed as it is to the next <code>RespondToAuthChallenge</code> API call.
      */
 
     public void setSession(String session) {
@@ -252,16 +388,16 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The session which should be passed both ways in challenge-response calls to the service. If
-     * <code>InitiateAuth</code> or <code>RespondToAuthChallenge</code> API call determines that the caller needs to go
-     * through another challenge, they return a session with other challenge parameters. This session should be passed
-     * as it is to the next <code>RespondToAuthChallenge</code> API call.
+     * The session that should be passed both ways in challenge-response calls to the service. If
+     * <code>InitiateAuth</code> or <code>RespondToAuthChallenge</code> API call determines that the caller must pass
+     * another challenge, they return a session with other challenge parameters. This session should be passed as it is
+     * to the next <code>RespondToAuthChallenge</code> API call.
      * </p>
      * 
-     * @return The session which should be passed both ways in challenge-response calls to the service. If
-     *         <code>InitiateAuth</code> or <code>RespondToAuthChallenge</code> API call determines that the caller
-     *         needs to go through another challenge, they return a session with other challenge parameters. This
-     *         session should be passed as it is to the next <code>RespondToAuthChallenge</code> API call.
+     * @return The session that should be passed both ways in challenge-response calls to the service. If
+     *         <code>InitiateAuth</code> or <code>RespondToAuthChallenge</code> API call determines that the caller must
+     *         pass another challenge, they return a session with other challenge parameters. This session should be
+     *         passed as it is to the next <code>RespondToAuthChallenge</code> API call.
      */
 
     public String getSession() {
@@ -270,17 +406,17 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The session which should be passed both ways in challenge-response calls to the service. If
-     * <code>InitiateAuth</code> or <code>RespondToAuthChallenge</code> API call determines that the caller needs to go
-     * through another challenge, they return a session with other challenge parameters. This session should be passed
-     * as it is to the next <code>RespondToAuthChallenge</code> API call.
+     * The session that should be passed both ways in challenge-response calls to the service. If
+     * <code>InitiateAuth</code> or <code>RespondToAuthChallenge</code> API call determines that the caller must pass
+     * another challenge, they return a session with other challenge parameters. This session should be passed as it is
+     * to the next <code>RespondToAuthChallenge</code> API call.
      * </p>
      * 
      * @param session
-     *        The session which should be passed both ways in challenge-response calls to the service. If
-     *        <code>InitiateAuth</code> or <code>RespondToAuthChallenge</code> API call determines that the caller needs
-     *        to go through another challenge, they return a session with other challenge parameters. This session
-     *        should be passed as it is to the next <code>RespondToAuthChallenge</code> API call.
+     *        The session that should be passed both ways in challenge-response calls to the service. If
+     *        <code>InitiateAuth</code> or <code>RespondToAuthChallenge</code> API call determines that the caller must
+     *        pass another challenge, they return a session with other challenge parameters. This session should be
+     *        passed as it is to the next <code>RespondToAuthChallenge</code> API call.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -291,52 +427,186 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The challenge responses. These are inputs corresponding to the value of <code>ChallengeName</code>, for example:
+     * The responses to the challenge that you received in the previous request. Each challenge has its own required
+     * response parameters. The following examples are partial JSON request bodies that highlight challenge-response
+     * parameters.
      * </p>
-     * <ul>
-     * <li>
+     * <important>
      * <p>
-     * <code>SMS_MFA</code>: <code>SMS_MFA_CODE</code>, <code>USERNAME</code>, <code>SECRET_HASH</code> (if app client
-     * is configured with client secret).
+     * You must provide a SECRET_HASH parameter in all challenge responses to an app client that has a client secret.
      * </p>
-     * </li>
-     * <li>
+     * </important>
+     * <dl>
+     * <dt>SMS_MFA</dt>
+     * <dd>
      * <p>
-     * <code>PASSWORD_VERIFIER</code>: <code>PASSWORD_CLAIM_SIGNATURE</code>, <code>PASSWORD_CLAIM_SECRET_BLOCK</code>,
-     * <code>TIMESTAMP</code>, <code>USERNAME</code>, <code>SECRET_HASH</code> (if app client is configured with client
-     * secret).
+     * <code>"ChallengeName": "SMS_MFA", "ChallengeResponses": {"SMS_MFA_CODE": "[SMS_code]", "USERNAME": "[username]"}</code>
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>PASSWORD_VERIFIER</dt>
+     * <dd>
      * <p>
-     * <code>NEW_PASSWORD_REQUIRED</code>: <code>NEW_PASSWORD</code>, any other required attributes,
-     * <code>USERNAME</code>, <code>SECRET_HASH</code> (if app client is configured with client secret).
+     * <code>"ChallengeName": "PASSWORD_VERIFIER", "ChallengeResponses": {"PASSWORD_CLAIM_SIGNATURE": "[claim_signature]", "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP": [timestamp], "USERNAME": "[username]"}</code>
      * </p>
-     * </li>
-     * </ul>
+     * <p>
+     * Add <code>"DEVICE_KEY"</code> when you sign in with a remembered device.
+     * </p>
+     * </dd>
+     * <dt>CUSTOM_CHALLENGE</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "CUSTOM_CHALLENGE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER": "[challenge_answer]"}</code>
+     * </p>
+     * <p>
+     * Add <code>"DEVICE_KEY"</code> when you sign in with a remembered device.
+     * </p>
+     * </dd>
+     * <dt>NEW_PASSWORD_REQUIRED</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "NEW_PASSWORD_REQUIRED", "ChallengeResponses": {"NEW_PASSWORD": "[new_password]", "USERNAME": "[username]"}</code>
+     * </p>
+     * <p>
+     * To set any required attributes that <code>InitiateAuth</code> returned in an <code>requiredAttributes</code>
+     * parameter, add <code>"userAttributes.[attribute_name]": "[attribute_value]"</code>. This parameter can also set
+     * values for writable attributes that aren't required by your user pool.
+     * </p>
+     * <note>
+     * <p>
+     * In a <code>NEW_PASSWORD_REQUIRED</code> challenge response, you can't modify a required attribute that already
+     * has a value. In <code>RespondToAuthChallenge</code>, set a value for any keys that Amazon Cognito returned in the
+     * <code>requiredAttributes</code> parameter, then use the <code>UpdateUserAttributes</code> API operation to modify
+     * the value of any additional attributes.
+     * </p>
+     * </note></dd>
+     * <dt>SOFTWARE_TOKEN_MFA</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "SOFTWARE_TOKEN_MFA", "ChallengeResponses": {"USERNAME": "[username]", "SOFTWARE_TOKEN_MFA_CODE": [authenticator_code]}</code>
+     * </p>
+     * </dd>
+     * <dt>DEVICE_SRP_AUTH</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "DEVICE_SRP_AUTH", "ChallengeResponses": {"USERNAME": "[username]", "DEVICE_KEY": "[device_key]", "SRP_A": "[srp_a]"}</code>
+     * </p>
+     * </dd>
+     * <dt>DEVICE_PASSWORD_VERIFIER</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "DEVICE_PASSWORD_VERIFIER", "ChallengeResponses": {"DEVICE_KEY": "[device_key]", "PASSWORD_CLAIM_SIGNATURE": "[claim_signature]", "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP": [timestamp], "USERNAME": "[username]"}</code>
+     * </p>
+     * </dd>
+     * <dt>MFA_SETUP</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "MFA_SETUP", "ChallengeResponses": {"USERNAME": "[username]"}, "SESSION": "[Session ID from VerifySoftwareToken]"</code>
+     * </p>
+     * </dd>
+     * <dt>SELECT_MFA_TYPE</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "SELECT_MFA_TYPE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER": "[SMS_MFA or SOFTWARE_TOKEN_MFA]"}</code>
+     * </p>
+     * </dd>
+     * </dl>
+     * <p>
+     * For more information about <code>SECRET_HASH</code>, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     * >Computing secret hash values</a>. For information about <code>DEVICE_KEY</code>, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html"
+     * >Working with user devices in your user pool</a>.
+     * </p>
      * 
-     * @return The challenge responses. These are inputs corresponding to the value of <code>ChallengeName</code>, for
-     *         example:</p>
-     *         <ul>
-     *         <li>
+     * @return The responses to the challenge that you received in the previous request. Each challenge has its own
+     *         required response parameters. The following examples are partial JSON request bodies that highlight
+     *         challenge-response parameters.</p> <important>
      *         <p>
-     *         <code>SMS_MFA</code>: <code>SMS_MFA_CODE</code>, <code>USERNAME</code>, <code>SECRET_HASH</code> (if app
-     *         client is configured with client secret).
+     *         You must provide a SECRET_HASH parameter in all challenge responses to an app client that has a client
+     *         secret.
      *         </p>
-     *         </li>
-     *         <li>
+     *         </important>
+     *         <dl>
+     *         <dt>SMS_MFA</dt>
+     *         <dd>
      *         <p>
-     *         <code>PASSWORD_VERIFIER</code>: <code>PASSWORD_CLAIM_SIGNATURE</code>,
-     *         <code>PASSWORD_CLAIM_SECRET_BLOCK</code>, <code>TIMESTAMP</code>, <code>USERNAME</code>,
-     *         <code>SECRET_HASH</code> (if app client is configured with client secret).
+     *         <code>"ChallengeName": "SMS_MFA", "ChallengeResponses": {"SMS_MFA_CODE": "[SMS_code]", "USERNAME": "[username]"}</code>
      *         </p>
-     *         </li>
-     *         <li>
+     *         </dd>
+     *         <dt>PASSWORD_VERIFIER</dt>
+     *         <dd>
      *         <p>
-     *         <code>NEW_PASSWORD_REQUIRED</code>: <code>NEW_PASSWORD</code>, any other required attributes,
-     *         <code>USERNAME</code>, <code>SECRET_HASH</code> (if app client is configured with client secret).
+     *         <code>"ChallengeName": "PASSWORD_VERIFIER", "ChallengeResponses": {"PASSWORD_CLAIM_SIGNATURE": "[claim_signature]", "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP": [timestamp], "USERNAME": "[username]"}</code>
      *         </p>
-     *         </li>
+     *         <p>
+     *         Add <code>"DEVICE_KEY"</code> when you sign in with a remembered device.
+     *         </p>
+     *         </dd>
+     *         <dt>CUSTOM_CHALLENGE</dt>
+     *         <dd>
+     *         <p>
+     *         <code>"ChallengeName": "CUSTOM_CHALLENGE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER": "[challenge_answer]"}</code>
+     *         </p>
+     *         <p>
+     *         Add <code>"DEVICE_KEY"</code> when you sign in with a remembered device.
+     *         </p>
+     *         </dd>
+     *         <dt>NEW_PASSWORD_REQUIRED</dt>
+     *         <dd>
+     *         <p>
+     *         <code>"ChallengeName": "NEW_PASSWORD_REQUIRED", "ChallengeResponses": {"NEW_PASSWORD": "[new_password]", "USERNAME": "[username]"}</code>
+     *         </p>
+     *         <p>
+     *         To set any required attributes that <code>InitiateAuth</code> returned in an
+     *         <code>requiredAttributes</code> parameter, add
+     *         <code>"userAttributes.[attribute_name]": "[attribute_value]"</code>. This parameter can also set values
+     *         for writable attributes that aren't required by your user pool.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         In a <code>NEW_PASSWORD_REQUIRED</code> challenge response, you can't modify a required attribute that
+     *         already has a value. In <code>RespondToAuthChallenge</code>, set a value for any keys that Amazon Cognito
+     *         returned in the <code>requiredAttributes</code> parameter, then use the <code>UpdateUserAttributes</code>
+     *         API operation to modify the value of any additional attributes.
+     *         </p>
+     *         </note></dd>
+     *         <dt>SOFTWARE_TOKEN_MFA</dt>
+     *         <dd>
+     *         <p>
+     *         <code>"ChallengeName": "SOFTWARE_TOKEN_MFA", "ChallengeResponses": {"USERNAME": "[username]", "SOFTWARE_TOKEN_MFA_CODE": [authenticator_code]}</code>
+     *         </p>
+     *         </dd>
+     *         <dt>DEVICE_SRP_AUTH</dt>
+     *         <dd>
+     *         <p>
+     *         <code>"ChallengeName": "DEVICE_SRP_AUTH", "ChallengeResponses": {"USERNAME": "[username]", "DEVICE_KEY": "[device_key]", "SRP_A": "[srp_a]"}</code>
+     *         </p>
+     *         </dd>
+     *         <dt>DEVICE_PASSWORD_VERIFIER</dt>
+     *         <dd>
+     *         <p>
+     *         <code>"ChallengeName": "DEVICE_PASSWORD_VERIFIER", "ChallengeResponses": {"DEVICE_KEY": "[device_key]", "PASSWORD_CLAIM_SIGNATURE": "[claim_signature]", "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP": [timestamp], "USERNAME": "[username]"}</code>
+     *         </p>
+     *         </dd>
+     *         <dt>MFA_SETUP</dt>
+     *         <dd>
+     *         <p>
+     *         <code>"ChallengeName": "MFA_SETUP", "ChallengeResponses": {"USERNAME": "[username]"}, "SESSION": "[Session ID from VerifySoftwareToken]"</code>
+     *         </p>
+     *         </dd>
+     *         <dt>SELECT_MFA_TYPE</dt>
+     *         <dd>
+     *         <p>
+     *         <code>"ChallengeName": "SELECT_MFA_TYPE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER": "[SMS_MFA or SOFTWARE_TOKEN_MFA]"}</code>
+     *         </p>
+     *         </dd>
+     *         </dl>
+     *         <p>
+     *         For more information about <code>SECRET_HASH</code>, see <a href=
+     *         "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     *         >Computing secret hash values</a>. For information about <code>DEVICE_KEY</code>, see <a
+     *         href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html"
+     *         >Working with user devices in your user pool</a>.
      */
 
     public java.util.Map<String, String> getChallengeResponses() {
@@ -345,53 +615,187 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The challenge responses. These are inputs corresponding to the value of <code>ChallengeName</code>, for example:
+     * The responses to the challenge that you received in the previous request. Each challenge has its own required
+     * response parameters. The following examples are partial JSON request bodies that highlight challenge-response
+     * parameters.
      * </p>
-     * <ul>
-     * <li>
+     * <important>
      * <p>
-     * <code>SMS_MFA</code>: <code>SMS_MFA_CODE</code>, <code>USERNAME</code>, <code>SECRET_HASH</code> (if app client
-     * is configured with client secret).
+     * You must provide a SECRET_HASH parameter in all challenge responses to an app client that has a client secret.
      * </p>
-     * </li>
-     * <li>
+     * </important>
+     * <dl>
+     * <dt>SMS_MFA</dt>
+     * <dd>
      * <p>
-     * <code>PASSWORD_VERIFIER</code>: <code>PASSWORD_CLAIM_SIGNATURE</code>, <code>PASSWORD_CLAIM_SECRET_BLOCK</code>,
-     * <code>TIMESTAMP</code>, <code>USERNAME</code>, <code>SECRET_HASH</code> (if app client is configured with client
-     * secret).
+     * <code>"ChallengeName": "SMS_MFA", "ChallengeResponses": {"SMS_MFA_CODE": "[SMS_code]", "USERNAME": "[username]"}</code>
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>PASSWORD_VERIFIER</dt>
+     * <dd>
      * <p>
-     * <code>NEW_PASSWORD_REQUIRED</code>: <code>NEW_PASSWORD</code>, any other required attributes,
-     * <code>USERNAME</code>, <code>SECRET_HASH</code> (if app client is configured with client secret).
+     * <code>"ChallengeName": "PASSWORD_VERIFIER", "ChallengeResponses": {"PASSWORD_CLAIM_SIGNATURE": "[claim_signature]", "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP": [timestamp], "USERNAME": "[username]"}</code>
      * </p>
-     * </li>
-     * </ul>
+     * <p>
+     * Add <code>"DEVICE_KEY"</code> when you sign in with a remembered device.
+     * </p>
+     * </dd>
+     * <dt>CUSTOM_CHALLENGE</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "CUSTOM_CHALLENGE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER": "[challenge_answer]"}</code>
+     * </p>
+     * <p>
+     * Add <code>"DEVICE_KEY"</code> when you sign in with a remembered device.
+     * </p>
+     * </dd>
+     * <dt>NEW_PASSWORD_REQUIRED</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "NEW_PASSWORD_REQUIRED", "ChallengeResponses": {"NEW_PASSWORD": "[new_password]", "USERNAME": "[username]"}</code>
+     * </p>
+     * <p>
+     * To set any required attributes that <code>InitiateAuth</code> returned in an <code>requiredAttributes</code>
+     * parameter, add <code>"userAttributes.[attribute_name]": "[attribute_value]"</code>. This parameter can also set
+     * values for writable attributes that aren't required by your user pool.
+     * </p>
+     * <note>
+     * <p>
+     * In a <code>NEW_PASSWORD_REQUIRED</code> challenge response, you can't modify a required attribute that already
+     * has a value. In <code>RespondToAuthChallenge</code>, set a value for any keys that Amazon Cognito returned in the
+     * <code>requiredAttributes</code> parameter, then use the <code>UpdateUserAttributes</code> API operation to modify
+     * the value of any additional attributes.
+     * </p>
+     * </note></dd>
+     * <dt>SOFTWARE_TOKEN_MFA</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "SOFTWARE_TOKEN_MFA", "ChallengeResponses": {"USERNAME": "[username]", "SOFTWARE_TOKEN_MFA_CODE": [authenticator_code]}</code>
+     * </p>
+     * </dd>
+     * <dt>DEVICE_SRP_AUTH</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "DEVICE_SRP_AUTH", "ChallengeResponses": {"USERNAME": "[username]", "DEVICE_KEY": "[device_key]", "SRP_A": "[srp_a]"}</code>
+     * </p>
+     * </dd>
+     * <dt>DEVICE_PASSWORD_VERIFIER</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "DEVICE_PASSWORD_VERIFIER", "ChallengeResponses": {"DEVICE_KEY": "[device_key]", "PASSWORD_CLAIM_SIGNATURE": "[claim_signature]", "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP": [timestamp], "USERNAME": "[username]"}</code>
+     * </p>
+     * </dd>
+     * <dt>MFA_SETUP</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "MFA_SETUP", "ChallengeResponses": {"USERNAME": "[username]"}, "SESSION": "[Session ID from VerifySoftwareToken]"</code>
+     * </p>
+     * </dd>
+     * <dt>SELECT_MFA_TYPE</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "SELECT_MFA_TYPE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER": "[SMS_MFA or SOFTWARE_TOKEN_MFA]"}</code>
+     * </p>
+     * </dd>
+     * </dl>
+     * <p>
+     * For more information about <code>SECRET_HASH</code>, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     * >Computing secret hash values</a>. For information about <code>DEVICE_KEY</code>, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html"
+     * >Working with user devices in your user pool</a>.
+     * </p>
      * 
      * @param challengeResponses
-     *        The challenge responses. These are inputs corresponding to the value of <code>ChallengeName</code>, for
-     *        example:</p>
-     *        <ul>
-     *        <li>
+     *        The responses to the challenge that you received in the previous request. Each challenge has its own
+     *        required response parameters. The following examples are partial JSON request bodies that highlight
+     *        challenge-response parameters.</p> <important>
      *        <p>
-     *        <code>SMS_MFA</code>: <code>SMS_MFA_CODE</code>, <code>USERNAME</code>, <code>SECRET_HASH</code> (if app
-     *        client is configured with client secret).
+     *        You must provide a SECRET_HASH parameter in all challenge responses to an app client that has a client
+     *        secret.
      *        </p>
-     *        </li>
-     *        <li>
+     *        </important>
+     *        <dl>
+     *        <dt>SMS_MFA</dt>
+     *        <dd>
      *        <p>
-     *        <code>PASSWORD_VERIFIER</code>: <code>PASSWORD_CLAIM_SIGNATURE</code>,
-     *        <code>PASSWORD_CLAIM_SECRET_BLOCK</code>, <code>TIMESTAMP</code>, <code>USERNAME</code>,
-     *        <code>SECRET_HASH</code> (if app client is configured with client secret).
+     *        <code>"ChallengeName": "SMS_MFA", "ChallengeResponses": {"SMS_MFA_CODE": "[SMS_code]", "USERNAME": "[username]"}</code>
      *        </p>
-     *        </li>
-     *        <li>
+     *        </dd>
+     *        <dt>PASSWORD_VERIFIER</dt>
+     *        <dd>
      *        <p>
-     *        <code>NEW_PASSWORD_REQUIRED</code>: <code>NEW_PASSWORD</code>, any other required attributes,
-     *        <code>USERNAME</code>, <code>SECRET_HASH</code> (if app client is configured with client secret).
+     *        <code>"ChallengeName": "PASSWORD_VERIFIER", "ChallengeResponses": {"PASSWORD_CLAIM_SIGNATURE": "[claim_signature]", "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP": [timestamp], "USERNAME": "[username]"}</code>
      *        </p>
-     *        </li>
+     *        <p>
+     *        Add <code>"DEVICE_KEY"</code> when you sign in with a remembered device.
+     *        </p>
+     *        </dd>
+     *        <dt>CUSTOM_CHALLENGE</dt>
+     *        <dd>
+     *        <p>
+     *        <code>"ChallengeName": "CUSTOM_CHALLENGE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER": "[challenge_answer]"}</code>
+     *        </p>
+     *        <p>
+     *        Add <code>"DEVICE_KEY"</code> when you sign in with a remembered device.
+     *        </p>
+     *        </dd>
+     *        <dt>NEW_PASSWORD_REQUIRED</dt>
+     *        <dd>
+     *        <p>
+     *        <code>"ChallengeName": "NEW_PASSWORD_REQUIRED", "ChallengeResponses": {"NEW_PASSWORD": "[new_password]", "USERNAME": "[username]"}</code>
+     *        </p>
+     *        <p>
+     *        To set any required attributes that <code>InitiateAuth</code> returned in an
+     *        <code>requiredAttributes</code> parameter, add
+     *        <code>"userAttributes.[attribute_name]": "[attribute_value]"</code>. This parameter can also set values
+     *        for writable attributes that aren't required by your user pool.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        In a <code>NEW_PASSWORD_REQUIRED</code> challenge response, you can't modify a required attribute that
+     *        already has a value. In <code>RespondToAuthChallenge</code>, set a value for any keys that Amazon Cognito
+     *        returned in the <code>requiredAttributes</code> parameter, then use the <code>UpdateUserAttributes</code>
+     *        API operation to modify the value of any additional attributes.
+     *        </p>
+     *        </note></dd>
+     *        <dt>SOFTWARE_TOKEN_MFA</dt>
+     *        <dd>
+     *        <p>
+     *        <code>"ChallengeName": "SOFTWARE_TOKEN_MFA", "ChallengeResponses": {"USERNAME": "[username]", "SOFTWARE_TOKEN_MFA_CODE": [authenticator_code]}</code>
+     *        </p>
+     *        </dd>
+     *        <dt>DEVICE_SRP_AUTH</dt>
+     *        <dd>
+     *        <p>
+     *        <code>"ChallengeName": "DEVICE_SRP_AUTH", "ChallengeResponses": {"USERNAME": "[username]", "DEVICE_KEY": "[device_key]", "SRP_A": "[srp_a]"}</code>
+     *        </p>
+     *        </dd>
+     *        <dt>DEVICE_PASSWORD_VERIFIER</dt>
+     *        <dd>
+     *        <p>
+     *        <code>"ChallengeName": "DEVICE_PASSWORD_VERIFIER", "ChallengeResponses": {"DEVICE_KEY": "[device_key]", "PASSWORD_CLAIM_SIGNATURE": "[claim_signature]", "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP": [timestamp], "USERNAME": "[username]"}</code>
+     *        </p>
+     *        </dd>
+     *        <dt>MFA_SETUP</dt>
+     *        <dd>
+     *        <p>
+     *        <code>"ChallengeName": "MFA_SETUP", "ChallengeResponses": {"USERNAME": "[username]"}, "SESSION": "[Session ID from VerifySoftwareToken]"</code>
+     *        </p>
+     *        </dd>
+     *        <dt>SELECT_MFA_TYPE</dt>
+     *        <dd>
+     *        <p>
+     *        <code>"ChallengeName": "SELECT_MFA_TYPE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER": "[SMS_MFA or SOFTWARE_TOKEN_MFA]"}</code>
+     *        </p>
+     *        </dd>
+     *        </dl>
+     *        <p>
+     *        For more information about <code>SECRET_HASH</code>, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     *        >Computing secret hash values</a>. For information about <code>DEVICE_KEY</code>, see <a
+     *        href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html"
+     *        >Working with user devices in your user pool</a>.
      */
 
     public void setChallengeResponses(java.util.Map<String, String> challengeResponses) {
@@ -400,53 +804,187 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The challenge responses. These are inputs corresponding to the value of <code>ChallengeName</code>, for example:
+     * The responses to the challenge that you received in the previous request. Each challenge has its own required
+     * response parameters. The following examples are partial JSON request bodies that highlight challenge-response
+     * parameters.
      * </p>
-     * <ul>
-     * <li>
+     * <important>
      * <p>
-     * <code>SMS_MFA</code>: <code>SMS_MFA_CODE</code>, <code>USERNAME</code>, <code>SECRET_HASH</code> (if app client
-     * is configured with client secret).
+     * You must provide a SECRET_HASH parameter in all challenge responses to an app client that has a client secret.
      * </p>
-     * </li>
-     * <li>
+     * </important>
+     * <dl>
+     * <dt>SMS_MFA</dt>
+     * <dd>
      * <p>
-     * <code>PASSWORD_VERIFIER</code>: <code>PASSWORD_CLAIM_SIGNATURE</code>, <code>PASSWORD_CLAIM_SECRET_BLOCK</code>,
-     * <code>TIMESTAMP</code>, <code>USERNAME</code>, <code>SECRET_HASH</code> (if app client is configured with client
-     * secret).
+     * <code>"ChallengeName": "SMS_MFA", "ChallengeResponses": {"SMS_MFA_CODE": "[SMS_code]", "USERNAME": "[username]"}</code>
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>PASSWORD_VERIFIER</dt>
+     * <dd>
      * <p>
-     * <code>NEW_PASSWORD_REQUIRED</code>: <code>NEW_PASSWORD</code>, any other required attributes,
-     * <code>USERNAME</code>, <code>SECRET_HASH</code> (if app client is configured with client secret).
+     * <code>"ChallengeName": "PASSWORD_VERIFIER", "ChallengeResponses": {"PASSWORD_CLAIM_SIGNATURE": "[claim_signature]", "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP": [timestamp], "USERNAME": "[username]"}</code>
      * </p>
-     * </li>
-     * </ul>
+     * <p>
+     * Add <code>"DEVICE_KEY"</code> when you sign in with a remembered device.
+     * </p>
+     * </dd>
+     * <dt>CUSTOM_CHALLENGE</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "CUSTOM_CHALLENGE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER": "[challenge_answer]"}</code>
+     * </p>
+     * <p>
+     * Add <code>"DEVICE_KEY"</code> when you sign in with a remembered device.
+     * </p>
+     * </dd>
+     * <dt>NEW_PASSWORD_REQUIRED</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "NEW_PASSWORD_REQUIRED", "ChallengeResponses": {"NEW_PASSWORD": "[new_password]", "USERNAME": "[username]"}</code>
+     * </p>
+     * <p>
+     * To set any required attributes that <code>InitiateAuth</code> returned in an <code>requiredAttributes</code>
+     * parameter, add <code>"userAttributes.[attribute_name]": "[attribute_value]"</code>. This parameter can also set
+     * values for writable attributes that aren't required by your user pool.
+     * </p>
+     * <note>
+     * <p>
+     * In a <code>NEW_PASSWORD_REQUIRED</code> challenge response, you can't modify a required attribute that already
+     * has a value. In <code>RespondToAuthChallenge</code>, set a value for any keys that Amazon Cognito returned in the
+     * <code>requiredAttributes</code> parameter, then use the <code>UpdateUserAttributes</code> API operation to modify
+     * the value of any additional attributes.
+     * </p>
+     * </note></dd>
+     * <dt>SOFTWARE_TOKEN_MFA</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "SOFTWARE_TOKEN_MFA", "ChallengeResponses": {"USERNAME": "[username]", "SOFTWARE_TOKEN_MFA_CODE": [authenticator_code]}</code>
+     * </p>
+     * </dd>
+     * <dt>DEVICE_SRP_AUTH</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "DEVICE_SRP_AUTH", "ChallengeResponses": {"USERNAME": "[username]", "DEVICE_KEY": "[device_key]", "SRP_A": "[srp_a]"}</code>
+     * </p>
+     * </dd>
+     * <dt>DEVICE_PASSWORD_VERIFIER</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "DEVICE_PASSWORD_VERIFIER", "ChallengeResponses": {"DEVICE_KEY": "[device_key]", "PASSWORD_CLAIM_SIGNATURE": "[claim_signature]", "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP": [timestamp], "USERNAME": "[username]"}</code>
+     * </p>
+     * </dd>
+     * <dt>MFA_SETUP</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "MFA_SETUP", "ChallengeResponses": {"USERNAME": "[username]"}, "SESSION": "[Session ID from VerifySoftwareToken]"</code>
+     * </p>
+     * </dd>
+     * <dt>SELECT_MFA_TYPE</dt>
+     * <dd>
+     * <p>
+     * <code>"ChallengeName": "SELECT_MFA_TYPE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER": "[SMS_MFA or SOFTWARE_TOKEN_MFA]"}</code>
+     * </p>
+     * </dd>
+     * </dl>
+     * <p>
+     * For more information about <code>SECRET_HASH</code>, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     * >Computing secret hash values</a>. For information about <code>DEVICE_KEY</code>, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html"
+     * >Working with user devices in your user pool</a>.
+     * </p>
      * 
      * @param challengeResponses
-     *        The challenge responses. These are inputs corresponding to the value of <code>ChallengeName</code>, for
-     *        example:</p>
-     *        <ul>
-     *        <li>
+     *        The responses to the challenge that you received in the previous request. Each challenge has its own
+     *        required response parameters. The following examples are partial JSON request bodies that highlight
+     *        challenge-response parameters.</p> <important>
      *        <p>
-     *        <code>SMS_MFA</code>: <code>SMS_MFA_CODE</code>, <code>USERNAME</code>, <code>SECRET_HASH</code> (if app
-     *        client is configured with client secret).
+     *        You must provide a SECRET_HASH parameter in all challenge responses to an app client that has a client
+     *        secret.
      *        </p>
-     *        </li>
-     *        <li>
+     *        </important>
+     *        <dl>
+     *        <dt>SMS_MFA</dt>
+     *        <dd>
      *        <p>
-     *        <code>PASSWORD_VERIFIER</code>: <code>PASSWORD_CLAIM_SIGNATURE</code>,
-     *        <code>PASSWORD_CLAIM_SECRET_BLOCK</code>, <code>TIMESTAMP</code>, <code>USERNAME</code>,
-     *        <code>SECRET_HASH</code> (if app client is configured with client secret).
+     *        <code>"ChallengeName": "SMS_MFA", "ChallengeResponses": {"SMS_MFA_CODE": "[SMS_code]", "USERNAME": "[username]"}</code>
      *        </p>
-     *        </li>
-     *        <li>
+     *        </dd>
+     *        <dt>PASSWORD_VERIFIER</dt>
+     *        <dd>
      *        <p>
-     *        <code>NEW_PASSWORD_REQUIRED</code>: <code>NEW_PASSWORD</code>, any other required attributes,
-     *        <code>USERNAME</code>, <code>SECRET_HASH</code> (if app client is configured with client secret).
+     *        <code>"ChallengeName": "PASSWORD_VERIFIER", "ChallengeResponses": {"PASSWORD_CLAIM_SIGNATURE": "[claim_signature]", "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP": [timestamp], "USERNAME": "[username]"}</code>
      *        </p>
-     *        </li>
+     *        <p>
+     *        Add <code>"DEVICE_KEY"</code> when you sign in with a remembered device.
+     *        </p>
+     *        </dd>
+     *        <dt>CUSTOM_CHALLENGE</dt>
+     *        <dd>
+     *        <p>
+     *        <code>"ChallengeName": "CUSTOM_CHALLENGE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER": "[challenge_answer]"}</code>
+     *        </p>
+     *        <p>
+     *        Add <code>"DEVICE_KEY"</code> when you sign in with a remembered device.
+     *        </p>
+     *        </dd>
+     *        <dt>NEW_PASSWORD_REQUIRED</dt>
+     *        <dd>
+     *        <p>
+     *        <code>"ChallengeName": "NEW_PASSWORD_REQUIRED", "ChallengeResponses": {"NEW_PASSWORD": "[new_password]", "USERNAME": "[username]"}</code>
+     *        </p>
+     *        <p>
+     *        To set any required attributes that <code>InitiateAuth</code> returned in an
+     *        <code>requiredAttributes</code> parameter, add
+     *        <code>"userAttributes.[attribute_name]": "[attribute_value]"</code>. This parameter can also set values
+     *        for writable attributes that aren't required by your user pool.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        In a <code>NEW_PASSWORD_REQUIRED</code> challenge response, you can't modify a required attribute that
+     *        already has a value. In <code>RespondToAuthChallenge</code>, set a value for any keys that Amazon Cognito
+     *        returned in the <code>requiredAttributes</code> parameter, then use the <code>UpdateUserAttributes</code>
+     *        API operation to modify the value of any additional attributes.
+     *        </p>
+     *        </note></dd>
+     *        <dt>SOFTWARE_TOKEN_MFA</dt>
+     *        <dd>
+     *        <p>
+     *        <code>"ChallengeName": "SOFTWARE_TOKEN_MFA", "ChallengeResponses": {"USERNAME": "[username]", "SOFTWARE_TOKEN_MFA_CODE": [authenticator_code]}</code>
+     *        </p>
+     *        </dd>
+     *        <dt>DEVICE_SRP_AUTH</dt>
+     *        <dd>
+     *        <p>
+     *        <code>"ChallengeName": "DEVICE_SRP_AUTH", "ChallengeResponses": {"USERNAME": "[username]", "DEVICE_KEY": "[device_key]", "SRP_A": "[srp_a]"}</code>
+     *        </p>
+     *        </dd>
+     *        <dt>DEVICE_PASSWORD_VERIFIER</dt>
+     *        <dd>
+     *        <p>
+     *        <code>"ChallengeName": "DEVICE_PASSWORD_VERIFIER", "ChallengeResponses": {"DEVICE_KEY": "[device_key]", "PASSWORD_CLAIM_SIGNATURE": "[claim_signature]", "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP": [timestamp], "USERNAME": "[username]"}</code>
+     *        </p>
+     *        </dd>
+     *        <dt>MFA_SETUP</dt>
+     *        <dd>
+     *        <p>
+     *        <code>"ChallengeName": "MFA_SETUP", "ChallengeResponses": {"USERNAME": "[username]"}, "SESSION": "[Session ID from VerifySoftwareToken]"</code>
+     *        </p>
+     *        </dd>
+     *        <dt>SELECT_MFA_TYPE</dt>
+     *        <dd>
+     *        <p>
+     *        <code>"ChallengeName": "SELECT_MFA_TYPE", "ChallengeResponses": {"USERNAME": "[username]", "ANSWER": "[SMS_MFA or SOFTWARE_TOKEN_MFA]"}</code>
+     *        </p>
+     *        </dd>
+     *        </dl>
+     *        <p>
+     *        For more information about <code>SECRET_HASH</code>, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     *        >Computing secret hash values</a>. For information about <code>DEVICE_KEY</code>, see <a
+     *        href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html"
+     *        >Working with user devices in your user pool</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -454,6 +992,13 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
         setChallengeResponses(challengeResponses);
         return this;
     }
+
+    /**
+     * Add a single ChallengeResponses entry
+     *
+     * @see RespondToAuthChallengeRequest#withChallengeResponses
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public RespondToAuthChallengeRequest addChallengeResponsesEntry(String key, String value) {
         if (null == this.challengeResponses) {
@@ -478,12 +1023,13 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The Amazon Pinpoint analytics metadata for collecting metrics for <code>RespondToAuthChallenge</code> calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>RespondToAuthChallenge</code>
+     * calls.
      * </p>
      * 
      * @param analyticsMetadata
-     *        The Amazon Pinpoint analytics metadata for collecting metrics for <code>RespondToAuthChallenge</code>
-     *        calls.
+     *        The Amazon Pinpoint analytics metadata that contributes to your metrics for
+     *        <code>RespondToAuthChallenge</code> calls.
      */
 
     public void setAnalyticsMetadata(AnalyticsMetadataType analyticsMetadata) {
@@ -492,11 +1038,12 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The Amazon Pinpoint analytics metadata for collecting metrics for <code>RespondToAuthChallenge</code> calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>RespondToAuthChallenge</code>
+     * calls.
      * </p>
      * 
-     * @return The Amazon Pinpoint analytics metadata for collecting metrics for <code>RespondToAuthChallenge</code>
-     *         calls.
+     * @return The Amazon Pinpoint analytics metadata that contributes to your metrics for
+     *         <code>RespondToAuthChallenge</code> calls.
      */
 
     public AnalyticsMetadataType getAnalyticsMetadata() {
@@ -505,12 +1052,13 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The Amazon Pinpoint analytics metadata for collecting metrics for <code>RespondToAuthChallenge</code> calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>RespondToAuthChallenge</code>
+     * calls.
      * </p>
      * 
      * @param analyticsMetadata
-     *        The Amazon Pinpoint analytics metadata for collecting metrics for <code>RespondToAuthChallenge</code>
-     *        calls.
+     *        The Amazon Pinpoint analytics metadata that contributes to your metrics for
+     *        <code>RespondToAuthChallenge</code> calls.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -521,13 +1069,15 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
-     * unexpected event by Amazon Cognito advanced security.
+     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
+     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
+     * passes to Amazon Cognito when it makes API requests.
      * </p>
      * 
      * @param userContextData
-     *        Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the
-     *        risk of an unexpected event by Amazon Cognito advanced security.
+     *        Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon
+     *        Cognito advanced security evaluates the risk of an authentication event based on the context that your app
+     *        generates and passes to Amazon Cognito when it makes API requests.
      */
 
     public void setUserContextData(UserContextDataType userContextData) {
@@ -536,12 +1086,14 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
-     * unexpected event by Amazon Cognito advanced security.
+     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
+     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
+     * passes to Amazon Cognito when it makes API requests.
      * </p>
      * 
-     * @return Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the
-     *         risk of an unexpected event by Amazon Cognito advanced security.
+     * @return Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon
+     *         Cognito advanced security evaluates the risk of an authentication event based on the context that your
+     *         app generates and passes to Amazon Cognito when it makes API requests.
      */
 
     public UserContextDataType getUserContextData() {
@@ -550,18 +1102,322 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
-     * unexpected event by Amazon Cognito advanced security.
+     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
+     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
+     * passes to Amazon Cognito when it makes API requests.
      * </p>
      * 
      * @param userContextData
-     *        Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the
-     *        risk of an unexpected event by Amazon Cognito advanced security.
+     *        Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon
+     *        Cognito advanced security evaluates the risk of an authentication event based on the context that your app
+     *        generates and passes to Amazon Cognito when it makes API requests.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public RespondToAuthChallengeRequest withUserContextData(UserContextDataType userContextData) {
         setUserContextData(userContextData);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
+     * </p>
+     * <p>
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     * RespondToAuthChallenge API action, Amazon Cognito invokes any functions that are assigned to the following
+     * triggers: <i>post authentication</i>, <i>pre token generation</i>, <i>define auth challenge</i>, <i>create auth
+     * challenge</i>, and <i>verify auth challenge</i>. When Amazon Cognito invokes any of these functions, it passes a
+     * JSON payload, which the function receives as input. This payload contains a <code>clientMetadata</code>
+     * attribute, which provides the data that you assigned to the ClientMetadata parameter in your
+     * RespondToAuthChallenge request. In your function code in Lambda, you can process the <code>clientMetadata</code>
+     * value to enhance your workflow for your specific needs.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     * > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * parameter serves no purpose.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Validate the ClientMetadata value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @return A map of custom key-value pairs that you can provide as input for any custom workflows that this action
+     *         triggers.</p>
+     *         <p>
+     *         You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     *         RespondToAuthChallenge API action, Amazon Cognito invokes any functions that are assigned to the
+     *         following triggers: <i>post authentication</i>, <i>pre token generation</i>, <i>define auth
+     *         challenge</i>, <i>create auth challenge</i>, and <i>verify auth challenge</i>. When Amazon Cognito
+     *         invokes any of these functions, it passes a JSON payload, which the function receives as input. This
+     *         payload contains a <code>clientMetadata</code> attribute, which provides the data that you assigned to
+     *         the ClientMetadata parameter in your RespondToAuthChallenge request. In your function code in Lambda, you
+     *         can process the <code>clientMetadata</code> value to enhance your workflow for your specific needs.
+     *         </p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     *         > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a
+     *         user pool to support custom workflows. If your user pool configuration doesn't include triggers, the
+     *         ClientMetadata parameter serves no purpose.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Validate the ClientMetadata value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     *         </p>
+     *         </li>
+     *         </ul>
+     */
+
+    public java.util.Map<String, String> getClientMetadata() {
+        return clientMetadata;
+    }
+
+    /**
+     * <p>
+     * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
+     * </p>
+     * <p>
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     * RespondToAuthChallenge API action, Amazon Cognito invokes any functions that are assigned to the following
+     * triggers: <i>post authentication</i>, <i>pre token generation</i>, <i>define auth challenge</i>, <i>create auth
+     * challenge</i>, and <i>verify auth challenge</i>. When Amazon Cognito invokes any of these functions, it passes a
+     * JSON payload, which the function receives as input. This payload contains a <code>clientMetadata</code>
+     * attribute, which provides the data that you assigned to the ClientMetadata parameter in your
+     * RespondToAuthChallenge request. In your function code in Lambda, you can process the <code>clientMetadata</code>
+     * value to enhance your workflow for your specific needs.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     * > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * parameter serves no purpose.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Validate the ClientMetadata value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param clientMetadata
+     *        A map of custom key-value pairs that you can provide as input for any custom workflows that this action
+     *        triggers.</p>
+     *        <p>
+     *        You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     *        RespondToAuthChallenge API action, Amazon Cognito invokes any functions that are assigned to the following
+     *        triggers: <i>post authentication</i>, <i>pre token generation</i>, <i>define auth challenge</i>, <i>create
+     *        auth challenge</i>, and <i>verify auth challenge</i>. When Amazon Cognito invokes any of these functions,
+     *        it passes a JSON payload, which the function receives as input. This payload contains a
+     *        <code>clientMetadata</code> attribute, which provides the data that you assigned to the ClientMetadata
+     *        parameter in your RespondToAuthChallenge request. In your function code in Lambda, you can process the
+     *        <code>clientMetadata</code> value to enhance your workflow for your specific needs.
+     *        </p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     *        > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user
+     *        pool to support custom workflows. If your user pool configuration doesn't include triggers, the
+     *        ClientMetadata parameter serves no purpose.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Validate the ClientMetadata value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     *        </p>
+     *        </li>
+     *        </ul>
+     */
+
+    public void setClientMetadata(java.util.Map<String, String> clientMetadata) {
+        this.clientMetadata = clientMetadata;
+    }
+
+    /**
+     * <p>
+     * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
+     * </p>
+     * <p>
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     * RespondToAuthChallenge API action, Amazon Cognito invokes any functions that are assigned to the following
+     * triggers: <i>post authentication</i>, <i>pre token generation</i>, <i>define auth challenge</i>, <i>create auth
+     * challenge</i>, and <i>verify auth challenge</i>. When Amazon Cognito invokes any of these functions, it passes a
+     * JSON payload, which the function receives as input. This payload contains a <code>clientMetadata</code>
+     * attribute, which provides the data that you assigned to the ClientMetadata parameter in your
+     * RespondToAuthChallenge request. In your function code in Lambda, you can process the <code>clientMetadata</code>
+     * value to enhance your workflow for your specific needs.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     * > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * parameter serves no purpose.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Validate the ClientMetadata value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param clientMetadata
+     *        A map of custom key-value pairs that you can provide as input for any custom workflows that this action
+     *        triggers.</p>
+     *        <p>
+     *        You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     *        RespondToAuthChallenge API action, Amazon Cognito invokes any functions that are assigned to the following
+     *        triggers: <i>post authentication</i>, <i>pre token generation</i>, <i>define auth challenge</i>, <i>create
+     *        auth challenge</i>, and <i>verify auth challenge</i>. When Amazon Cognito invokes any of these functions,
+     *        it passes a JSON payload, which the function receives as input. This payload contains a
+     *        <code>clientMetadata</code> attribute, which provides the data that you assigned to the ClientMetadata
+     *        parameter in your RespondToAuthChallenge request. In your function code in Lambda, you can process the
+     *        <code>clientMetadata</code> value to enhance your workflow for your specific needs.
+     *        </p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     *        > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user
+     *        pool to support custom workflows. If your user pool configuration doesn't include triggers, the
+     *        ClientMetadata parameter serves no purpose.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Validate the ClientMetadata value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     *        </p>
+     *        </li>
+     *        </ul>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RespondToAuthChallengeRequest withClientMetadata(java.util.Map<String, String> clientMetadata) {
+        setClientMetadata(clientMetadata);
+        return this;
+    }
+
+    /**
+     * Add a single ClientMetadata entry
+     *
+     * @see RespondToAuthChallengeRequest#withClientMetadata
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RespondToAuthChallengeRequest addClientMetadataEntry(String key, String value) {
+        if (null == this.clientMetadata) {
+            this.clientMetadata = new java.util.HashMap<String, String>();
+        }
+        if (this.clientMetadata.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.clientMetadata.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into ClientMetadata.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RespondToAuthChallengeRequest clearClientMetadataEntries() {
+        this.clientMetadata = null;
         return this;
     }
 
@@ -582,13 +1438,15 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
         if (getChallengeName() != null)
             sb.append("ChallengeName: ").append(getChallengeName()).append(",");
         if (getSession() != null)
-            sb.append("Session: ").append(getSession()).append(",");
+            sb.append("Session: ").append("***Sensitive Data Redacted***").append(",");
         if (getChallengeResponses() != null)
-            sb.append("ChallengeResponses: ").append(getChallengeResponses()).append(",");
+            sb.append("ChallengeResponses: ").append("***Sensitive Data Redacted***").append(",");
         if (getAnalyticsMetadata() != null)
             sb.append("AnalyticsMetadata: ").append(getAnalyticsMetadata()).append(",");
         if (getUserContextData() != null)
-            sb.append("UserContextData: ").append(getUserContextData());
+            sb.append("UserContextData: ").append("***Sensitive Data Redacted***").append(",");
+        if (getClientMetadata() != null)
+            sb.append("ClientMetadata: ").append(getClientMetadata());
         sb.append("}");
         return sb.toString();
     }
@@ -627,6 +1485,10 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
             return false;
         if (other.getUserContextData() != null && other.getUserContextData().equals(this.getUserContextData()) == false)
             return false;
+        if (other.getClientMetadata() == null ^ this.getClientMetadata() == null)
+            return false;
+        if (other.getClientMetadata() != null && other.getClientMetadata().equals(this.getClientMetadata()) == false)
+            return false;
         return true;
     }
 
@@ -641,6 +1503,7 @@ public class RespondToAuthChallengeRequest extends com.amazonaws.AmazonWebServic
         hashCode = prime * hashCode + ((getChallengeResponses() == null) ? 0 : getChallengeResponses().hashCode());
         hashCode = prime * hashCode + ((getAnalyticsMetadata() == null) ? 0 : getAnalyticsMetadata().hashCode());
         hashCode = prime * hashCode + ((getUserContextData() == null) ? 0 : getUserContextData().hashCode());
+        hashCode = prime * hashCode + ((getClientMetadata() == null) ? 0 : getClientMetadata().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,11 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * <p/>
+ * <p>
+ * Identifies the name and value of a filter object. This filter is used to limit the number and type of DMS objects
+ * that are returned for a particular <code>Describe*</code> call or similar operation. Filters are used as an optional
+ * parameter for certain API operations.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/Filter" target="_top">AWS API Documentation</a>
  */
@@ -27,24 +31,24 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the filter.
+     * The name of the filter as specified for a <code>Describe*</code> or similar operation.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The filter value.
+     * The filter value, which can specify one or more values used to narrow the returned results.
      * </p>
      */
     private java.util.List<String> values;
 
     /**
      * <p>
-     * The name of the filter.
+     * The name of the filter as specified for a <code>Describe*</code> or similar operation.
      * </p>
      * 
      * @param name
-     *        The name of the filter.
+     *        The name of the filter as specified for a <code>Describe*</code> or similar operation.
      */
 
     public void setName(String name) {
@@ -53,10 +57,10 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the filter.
+     * The name of the filter as specified for a <code>Describe*</code> or similar operation.
      * </p>
      * 
-     * @return The name of the filter.
+     * @return The name of the filter as specified for a <code>Describe*</code> or similar operation.
      */
 
     public String getName() {
@@ -65,11 +69,11 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the filter.
+     * The name of the filter as specified for a <code>Describe*</code> or similar operation.
      * </p>
      * 
      * @param name
-     *        The name of the filter.
+     *        The name of the filter as specified for a <code>Describe*</code> or similar operation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,10 +84,10 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The filter value.
+     * The filter value, which can specify one or more values used to narrow the returned results.
      * </p>
      * 
-     * @return The filter value.
+     * @return The filter value, which can specify one or more values used to narrow the returned results.
      */
 
     public java.util.List<String> getValues() {
@@ -92,11 +96,11 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The filter value.
+     * The filter value, which can specify one or more values used to narrow the returned results.
      * </p>
      * 
      * @param values
-     *        The filter value.
+     *        The filter value, which can specify one or more values used to narrow the returned results.
      */
 
     public void setValues(java.util.Collection<String> values) {
@@ -110,7 +114,7 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The filter value.
+     * The filter value, which can specify one or more values used to narrow the returned results.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -119,7 +123,7 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param values
-     *        The filter value.
+     *        The filter value, which can specify one or more values used to narrow the returned results.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -135,11 +139,11 @@ public class Filter implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The filter value.
+     * The filter value, which can specify one or more values used to narrow the returned results.
      * </p>
      * 
      * @param values
-     *        The filter value.
+     *        The filter value, which can specify one or more values used to narrow the returned results.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

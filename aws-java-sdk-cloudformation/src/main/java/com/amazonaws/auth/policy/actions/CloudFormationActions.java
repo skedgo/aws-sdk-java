@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,30 +25,56 @@ public enum CloudFormationActions implements Action {
     /** Represents any action executed on AWS CloudFormation. */
     AllCloudFormationActions("cloudformation:*"),
 
+    /** Action for the ActivateOrganizationsAccess operation. */
+    ActivateOrganizationsAccess("cloudformation:ActivateOrganizationsAccess"),
+    /** Action for the ActivateType operation. */
+    ActivateType("cloudformation:ActivateType"),
+    /** Action for the BatchDescribeTypeConfigurations operation. */
+    BatchDescribeTypeConfigurations("cloudformation:BatchDescribeTypeConfigurations"),
     /** Action for the CancelUpdateStack operation. */
     CancelUpdateStack("cloudformation:CancelUpdateStack"),
     /** Action for the ContinueUpdateRollback operation. */
     ContinueUpdateRollback("cloudformation:ContinueUpdateRollback"),
     /** Action for the CreateChangeSet operation. */
     CreateChangeSet("cloudformation:CreateChangeSet"),
+    /** Action for the CreateGeneratedTemplate operation. */
+    CreateGeneratedTemplate("cloudformation:CreateGeneratedTemplate"),
     /** Action for the CreateStack operation. */
     CreateStack("cloudformation:CreateStack"),
     /** Action for the CreateStackInstances operation. */
     CreateStackInstances("cloudformation:CreateStackInstances"),
     /** Action for the CreateStackSet operation. */
     CreateStackSet("cloudformation:CreateStackSet"),
+    /** Action for the DeactivateOrganizationsAccess operation. */
+    DeactivateOrganizationsAccess("cloudformation:DeactivateOrganizationsAccess"),
+    /** Action for the DeactivateType operation. */
+    DeactivateType("cloudformation:DeactivateType"),
     /** Action for the DeleteChangeSet operation. */
     DeleteChangeSet("cloudformation:DeleteChangeSet"),
+    /** Action for the DeleteGeneratedTemplate operation. */
+    DeleteGeneratedTemplate("cloudformation:DeleteGeneratedTemplate"),
     /** Action for the DeleteStack operation. */
     DeleteStack("cloudformation:DeleteStack"),
     /** Action for the DeleteStackInstances operation. */
     DeleteStackInstances("cloudformation:DeleteStackInstances"),
     /** Action for the DeleteStackSet operation. */
     DeleteStackSet("cloudformation:DeleteStackSet"),
+    /** Action for the DeregisterType operation. */
+    DeregisterType("cloudformation:DeregisterType"),
     /** Action for the DescribeAccountLimits operation. */
     DescribeAccountLimits("cloudformation:DescribeAccountLimits"),
     /** Action for the DescribeChangeSet operation. */
     DescribeChangeSet("cloudformation:DescribeChangeSet"),
+    /** Action for the DescribeChangeSetHooks operation. */
+    DescribeChangeSetHooks("cloudformation:DescribeChangeSetHooks"),
+    /** Action for the DescribeGeneratedTemplate operation. */
+    DescribeGeneratedTemplate("cloudformation:DescribeGeneratedTemplate"),
+    /** Action for the DescribeOrganizationsAccess operation. */
+    DescribeOrganizationsAccess("cloudformation:DescribeOrganizationsAccess"),
+    /** Action for the DescribePublisher operation. */
+    DescribePublisher("cloudformation:DescribePublisher"),
+    /** Action for the DescribeResourceScan operation. */
+    DescribeResourceScan("cloudformation:DescribeResourceScan"),
     /** Action for the DescribeStackDriftDetectionStatus operation. */
     DescribeStackDriftDetectionStatus("cloudformation:DescribeStackDriftDetectionStatus"),
     /** Action for the DescribeStackEvents operation. */
@@ -67,30 +93,52 @@ public enum CloudFormationActions implements Action {
     DescribeStackSetOperation("cloudformation:DescribeStackSetOperation"),
     /** Action for the DescribeStacks operation. */
     DescribeStacks("cloudformation:DescribeStacks"),
+    /** Action for the DescribeType operation. */
+    DescribeType("cloudformation:DescribeType"),
+    /** Action for the DescribeTypeRegistration operation. */
+    DescribeTypeRegistration("cloudformation:DescribeTypeRegistration"),
     /** Action for the DetectStackDrift operation. */
     DetectStackDrift("cloudformation:DetectStackDrift"),
     /** Action for the DetectStackResourceDrift operation. */
     DetectStackResourceDrift("cloudformation:DetectStackResourceDrift"),
+    /** Action for the DetectStackSetDrift operation. */
+    DetectStackSetDrift("cloudformation:DetectStackSetDrift"),
     /** Action for the EstimateTemplateCost operation. */
     EstimateTemplateCost("cloudformation:EstimateTemplateCost"),
     /** Action for the ExecuteChangeSet operation. */
     ExecuteChangeSet("cloudformation:ExecuteChangeSet"),
+    /** Action for the GetGeneratedTemplate operation. */
+    GetGeneratedTemplate("cloudformation:GetGeneratedTemplate"),
     /** Action for the GetStackPolicy operation. */
     GetStackPolicy("cloudformation:GetStackPolicy"),
     /** Action for the GetTemplate operation. */
     GetTemplate("cloudformation:GetTemplate"),
     /** Action for the GetTemplateSummary operation. */
     GetTemplateSummary("cloudformation:GetTemplateSummary"),
+    /** Action for the ImportStacksToStackSet operation. */
+    ImportStacksToStackSet("cloudformation:ImportStacksToStackSet"),
     /** Action for the ListChangeSets operation. */
     ListChangeSets("cloudformation:ListChangeSets"),
     /** Action for the ListExports operation. */
     ListExports("cloudformation:ListExports"),
+    /** Action for the ListGeneratedTemplates operation. */
+    ListGeneratedTemplates("cloudformation:ListGeneratedTemplates"),
     /** Action for the ListImports operation. */
     ListImports("cloudformation:ListImports"),
+    /** Action for the ListResourceScanRelatedResources operation. */
+    ListResourceScanRelatedResources("cloudformation:ListResourceScanRelatedResources"),
+    /** Action for the ListResourceScanResources operation. */
+    ListResourceScanResources("cloudformation:ListResourceScanResources"),
+    /** Action for the ListResourceScans operation. */
+    ListResourceScans("cloudformation:ListResourceScans"),
+    /** Action for the ListStackInstanceResourceDrifts operation. */
+    ListStackInstanceResourceDrifts("cloudformation:ListStackInstanceResourceDrifts"),
     /** Action for the ListStackInstances operation. */
     ListStackInstances("cloudformation:ListStackInstances"),
     /** Action for the ListStackResources operation. */
     ListStackResources("cloudformation:ListStackResources"),
+    /** Action for the ListStackSetAutoDeploymentTargets operation. */
+    ListStackSetAutoDeploymentTargets("cloudformation:ListStackSetAutoDeploymentTargets"),
     /** Action for the ListStackSetOperationResults operation. */
     ListStackSetOperationResults("cloudformation:ListStackSetOperationResults"),
     /** Action for the ListStackSetOperations operation. */
@@ -99,12 +147,38 @@ public enum CloudFormationActions implements Action {
     ListStackSets("cloudformation:ListStackSets"),
     /** Action for the ListStacks operation. */
     ListStacks("cloudformation:ListStacks"),
+    /** Action for the ListTypeRegistrations operation. */
+    ListTypeRegistrations("cloudformation:ListTypeRegistrations"),
+    /** Action for the ListTypeVersions operation. */
+    ListTypeVersions("cloudformation:ListTypeVersions"),
+    /** Action for the ListTypes operation. */
+    ListTypes("cloudformation:ListTypes"),
+    /** Action for the PublishType operation. */
+    PublishType("cloudformation:PublishType"),
+    /** Action for the RecordHandlerProgress operation. */
+    RecordHandlerProgress("cloudformation:RecordHandlerProgress"),
+    /** Action for the RegisterPublisher operation. */
+    RegisterPublisher("cloudformation:RegisterPublisher"),
+    /** Action for the RegisterType operation. */
+    RegisterType("cloudformation:RegisterType"),
+    /** Action for the RollbackStack operation. */
+    RollbackStack("cloudformation:RollbackStack"),
     /** Action for the SetStackPolicy operation. */
     SetStackPolicy("cloudformation:SetStackPolicy"),
+    /** Action for the SetTypeConfiguration operation. */
+    SetTypeConfiguration("cloudformation:SetTypeConfiguration"),
+    /** Action for the SetTypeDefaultVersion operation. */
+    SetTypeDefaultVersion("cloudformation:SetTypeDefaultVersion"),
     /** Action for the SignalResource operation. */
     SignalResource("cloudformation:SignalResource"),
+    /** Action for the StartResourceScan operation. */
+    StartResourceScan("cloudformation:StartResourceScan"),
     /** Action for the StopStackSetOperation operation. */
     StopStackSetOperation("cloudformation:StopStackSetOperation"),
+    /** Action for the TestType operation. */
+    TestType("cloudformation:TestType"),
+    /** Action for the UpdateGeneratedTemplate operation. */
+    UpdateGeneratedTemplate("cloudformation:UpdateGeneratedTemplate"),
     /** Action for the UpdateStack operation. */
     UpdateStack("cloudformation:UpdateStack"),
     /** Action for the UpdateStackInstances operation. */
@@ -126,5 +200,9 @@ public enum CloudFormationActions implements Action {
 
     public String getActionName() {
         return this.action;
+    }
+
+    public boolean isNotType() {
+        return false;
     }
 }

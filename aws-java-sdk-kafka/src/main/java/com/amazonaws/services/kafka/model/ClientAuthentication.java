@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,10 +31,68 @@ public class ClientAuthentication implements Serializable, Cloneable, Structured
 
     /**
      * <p>
+     * Details for ClientAuthentication using SASL.
+     * </p>
+     */
+    private Sasl sasl;
+    /**
+     * <p>
      * Details for ClientAuthentication using TLS.
      * </p>
      */
     private Tls tls;
+    /**
+     * <p>
+     * Contains information about unauthenticated traffic to the cluster.
+     * </p>
+     */
+    private Unauthenticated unauthenticated;
+
+    /**
+     * <p>
+     * Details for ClientAuthentication using SASL.
+     * </p>
+     * 
+     * @param sasl
+     *        <p>
+     *        Details for ClientAuthentication using SASL.
+     *        </p>
+     */
+
+    public void setSasl(Sasl sasl) {
+        this.sasl = sasl;
+    }
+
+    /**
+     * <p>
+     * Details for ClientAuthentication using SASL.
+     * </p>
+     * 
+     * @return <p>
+     *         Details for ClientAuthentication using SASL.
+     *         </p>
+     */
+
+    public Sasl getSasl() {
+        return this.sasl;
+    }
+
+    /**
+     * <p>
+     * Details for ClientAuthentication using SASL.
+     * </p>
+     * 
+     * @param sasl
+     *        <p>
+     *        Details for ClientAuthentication using SASL.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClientAuthentication withSasl(Sasl sasl) {
+        setSasl(sasl);
+        return this;
+    }
 
     /**
      * <p>
@@ -83,6 +141,52 @@ public class ClientAuthentication implements Serializable, Cloneable, Structured
     }
 
     /**
+     * <p>
+     * Contains information about unauthenticated traffic to the cluster.
+     * </p>
+     * 
+     * @param unauthenticated
+     *        <p>
+     *        Contains information about unauthenticated traffic to the cluster.
+     *        </p>
+     */
+
+    public void setUnauthenticated(Unauthenticated unauthenticated) {
+        this.unauthenticated = unauthenticated;
+    }
+
+    /**
+     * <p>
+     * Contains information about unauthenticated traffic to the cluster.
+     * </p>
+     * 
+     * @return <p>
+     *         Contains information about unauthenticated traffic to the cluster.
+     *         </p>
+     */
+
+    public Unauthenticated getUnauthenticated() {
+        return this.unauthenticated;
+    }
+
+    /**
+     * <p>
+     * Contains information about unauthenticated traffic to the cluster.
+     * </p>
+     * 
+     * @param unauthenticated
+     *        <p>
+     *        Contains information about unauthenticated traffic to the cluster.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ClientAuthentication withUnauthenticated(Unauthenticated unauthenticated) {
+        setUnauthenticated(unauthenticated);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -94,8 +198,12 @@ public class ClientAuthentication implements Serializable, Cloneable, Structured
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getSasl() != null)
+            sb.append("Sasl: ").append(getSasl()).append(",");
         if (getTls() != null)
-            sb.append("Tls: ").append(getTls());
+            sb.append("Tls: ").append(getTls()).append(",");
+        if (getUnauthenticated() != null)
+            sb.append("Unauthenticated: ").append(getUnauthenticated());
         sb.append("}");
         return sb.toString();
     }
@@ -110,9 +218,17 @@ public class ClientAuthentication implements Serializable, Cloneable, Structured
         if (obj instanceof ClientAuthentication == false)
             return false;
         ClientAuthentication other = (ClientAuthentication) obj;
+        if (other.getSasl() == null ^ this.getSasl() == null)
+            return false;
+        if (other.getSasl() != null && other.getSasl().equals(this.getSasl()) == false)
+            return false;
         if (other.getTls() == null ^ this.getTls() == null)
             return false;
         if (other.getTls() != null && other.getTls().equals(this.getTls()) == false)
+            return false;
+        if (other.getUnauthenticated() == null ^ this.getUnauthenticated() == null)
+            return false;
+        if (other.getUnauthenticated() != null && other.getUnauthenticated().equals(this.getUnauthenticated()) == false)
             return false;
         return true;
     }
@@ -122,7 +238,9 @@ public class ClientAuthentication implements Serializable, Cloneable, Structured
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getSasl() == null) ? 0 : getSasl().hashCode());
         hashCode = prime * hashCode + ((getTls() == null) ? 0 : getTls().hashCode());
+        hashCode = prime * hashCode + ((getUnauthenticated() == null) ? 0 : getUnauthenticated().hashCode());
         return hashCode;
     }
 

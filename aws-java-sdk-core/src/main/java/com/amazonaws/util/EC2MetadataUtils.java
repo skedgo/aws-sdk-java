@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2013-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,18 +15,20 @@
 package com.amazonaws.util;
 
 import static com.amazonaws.SDKGlobalConfiguration.EC2_METADATA_SERVICE_OVERRIDE_SYSTEM_PROPERTY;
+import static com.amazonaws.SDKGlobalConfiguration.EC2_METADATA_SERVICE_OVERRIDE_ENV_VAR;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.SDKGlobalConfiguration;
 import com.amazonaws.SdkClientException;
-import com.amazonaws.internal.EC2CredentialsUtils;
+import com.amazonaws.internal.InstanceMetadataServiceResourceFetcher;
+import com.amazonaws.retry.internal.CredentialsEndpointRetryParameters;
+import com.amazonaws.retry.internal.CredentialsEndpointRetryPolicy;
 import com.amazonaws.util.json.Jackson;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Collections;
@@ -54,8 +56,16 @@ import org.apache.commons.logging.LogFactory;
  *
  * More information about Amazon EC2 Metadata
  *
+ * <p>
+ * <b>Migrating to AWS SDK for Java v2</b>
+ * <p>
+ * The v2 equivalent of this class is
+ * <a href="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/imds/Ec2MetadataClient.html">Ec2MetadataClient</a>
+ * <p>
+ * See <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/migration-imds.html">Migration Guide</a>
+ * for more information.
  * @see <a
- *      href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html">Amazon
+ *      href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html">Amazon
  *      EC2 User Guide: Instance Metadata</a>
  */
 public class EC2MetadataUtils {
@@ -79,11 +89,8 @@ public class EC2MetadataUtils {
 
     private static final ObjectMapper mapper = new ObjectMapper();
     static {
-        mapper.configure(
-                DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        mapper
-                .setPropertyNamingStrategy(PropertyNamingStrategy.PASCAL_CASE_TO_CAMEL_CASE);
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        PropertyNamingStrategyUtils.configureUpperCamelCase(mapper);
     }
 
     private static final Log log = LogFactory.getLog(EC2MetadataUtils.class);
@@ -397,25 +404,15 @@ public class EC2MetadataUtils {
         List<String> items;
         try {
             String hostAddress = getHostAddressForEC2MetadataService();
-            String response = EC2CredentialsUtils.getInstance().readResource(new URI(hostAddress + path));
+            String response = InstanceMetadataServiceResourceFetcher.getInstance().readResource(new URI(hostAddress + path), EC2MetadataUtilsRetryPolicy.INSTANCE);
             if (slurp)
                 items = Collections.singletonList(response);
             else
                 items = Arrays.asList(response.split("\n"));
             return items;
-        } catch (AmazonClientException ace) {
+        } catch (Exception ace) {
             log.warn("Unable to retrieve the requested metadata (" + path + "). " + ace.getMessage(), ace);
             return null;
-        } catch (Exception e) {
-            // Retry on any other exceptions
-            int pause = (int) (Math.pow(2, DEFAULT_QUERY_RETRIES - tries) * MINIMUM_RETRY_WAIT_TIME_MILLISECONDS);
-            try {
-                Thread.sleep(pause < MINIMUM_RETRY_WAIT_TIME_MILLISECONDS ? MINIMUM_RETRY_WAIT_TIME_MILLISECONDS
-                        : pause);
-            } catch (InterruptedException e1) {
-                Thread.currentThread().interrupt();
-            }
-            return getItems(path, tries - 1, slurp);
         }
     }
 
@@ -438,6 +435,9 @@ public class EC2MetadataUtils {
      */
     public static String getHostAddressForEC2MetadataService() {
         String host = System.getProperty(EC2_METADATA_SERVICE_OVERRIDE_SYSTEM_PROPERTY);
+        if (host == null) {
+            host = System.getenv(EC2_METADATA_SERVICE_OVERRIDE_ENV_VAR);
+        }
         return host != null ? host : EC2_METADATA_SERVICE_URL;
     }
 
@@ -750,6 +750,32 @@ public class EC2MetadataUtils {
             } else {
                 return new LinkedList<String>();
             }
+        }
+    }
+
+    private static final class EC2MetadataUtilsRetryPolicy implements CredentialsEndpointRetryPolicy {
+
+        private static final EC2MetadataUtilsRetryPolicy INSTANCE = new EC2MetadataUtilsRetryPolicy();
+
+        @Override
+        public boolean shouldRetry(int retriesAttempted, CredentialsEndpointRetryParameters retryParams) {
+            if (retriesAttempted >= DEFAULT_QUERY_RETRIES) {
+                return false;
+            }
+
+            if (retryParams.getException() instanceof AmazonClientException) {
+                return false;
+            }
+
+            // Retry on any other exceptions
+            int pause = (int) (Math.pow(2, DEFAULT_QUERY_RETRIES - retriesAttempted) * MINIMUM_RETRY_WAIT_TIME_MILLISECONDS);
+            try {
+                Thread.sleep(Math.max(pause, MINIMUM_RETRY_WAIT_TIME_MILLISECONDS));
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+
+            return true;
         }
     }
 }

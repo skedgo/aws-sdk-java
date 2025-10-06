@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,9 +31,45 @@ public class GeoLocation implements Serializable, Cloneable {
      * The two-letter code for the continent.
      * </p>
      * <p>
-     * Valid values: <code>AF</code> | <code>AN</code> | <code>AS</code> | <code>EU</code> | <code>OC</code> |
-     * <code>NA</code> | <code>SA</code>
+     * Amazon Route 53 supports the following continent codes:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>AF</b>: Africa
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>AN</b>: Antarctica
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>AS</b>: Asia
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>EU</b>: Europe
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>OC</b>: Oceania
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>NA</b>: North America
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>SA</b>: South America
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * Constraint: Specifying <code>ContinentCode</code> with either <code>CountryCode</code> or
      * <code>SubdivisionCode</code> returns an <code>InvalidInput</code> error.
@@ -42,13 +78,26 @@ public class GeoLocation implements Serializable, Cloneable {
     private String continentCode;
     /**
      * <p>
-     * The two-letter code for the country.
+     * For geolocation resource record sets, the two-letter code for a country.
+     * </p>
+     * <p>
+     * Amazon Route 53 uses the two-letter country codes that are specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.
+     * </p>
+     * <p>
+     * Route 53 also supports the country code <b>UA</b> for Ukraine.
      * </p>
      */
     private String countryCode;
     /**
      * <p>
-     * The code for the subdivision. Route 53 currently supports only states in the United States.
+     * For geolocation resource record sets, the two-letter code for a state of the United States. Route 53 doesn't
+     * support any other values for <code>SubdivisionCode</code>. For a list of state abbreviations, see <a
+     * href="https://pe.usps.com/text/pub28/28apb.htm">Appendix B: Two–Letter State and Possession Abbreviations</a> on
+     * the United States Postal Service website.
+     * </p>
+     * <p>
+     * If you specify <code>subdivisioncode</code>, you must also specify <code>US</code> for <code>CountryCode</code>.
      * </p>
      */
     private String subdivisionCode;
@@ -58,9 +107,45 @@ public class GeoLocation implements Serializable, Cloneable {
      * The two-letter code for the continent.
      * </p>
      * <p>
-     * Valid values: <code>AF</code> | <code>AN</code> | <code>AS</code> | <code>EU</code> | <code>OC</code> |
-     * <code>NA</code> | <code>SA</code>
+     * Amazon Route 53 supports the following continent codes:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>AF</b>: Africa
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>AN</b>: Antarctica
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>AS</b>: Asia
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>EU</b>: Europe
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>OC</b>: Oceania
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>NA</b>: North America
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>SA</b>: South America
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * Constraint: Specifying <code>ContinentCode</code> with either <code>CountryCode</code> or
      * <code>SubdivisionCode</code> returns an <code>InvalidInput</code> error.
@@ -69,9 +154,45 @@ public class GeoLocation implements Serializable, Cloneable {
      * @param continentCode
      *        The two-letter code for the continent.</p>
      *        <p>
-     *        Valid values: <code>AF</code> | <code>AN</code> | <code>AS</code> | <code>EU</code> | <code>OC</code> |
-     *        <code>NA</code> | <code>SA</code>
+     *        Amazon Route 53 supports the following continent codes:
      *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>AF</b>: Africa
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>AN</b>: Antarctica
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>AS</b>: Asia
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>EU</b>: Europe
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>OC</b>: Oceania
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>NA</b>: North America
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>SA</b>: South America
+     *        </p>
+     *        </li>
+     *        </ul>
      *        <p>
      *        Constraint: Specifying <code>ContinentCode</code> with either <code>CountryCode</code> or
      *        <code>SubdivisionCode</code> returns an <code>InvalidInput</code> error.
@@ -86,9 +207,45 @@ public class GeoLocation implements Serializable, Cloneable {
      * The two-letter code for the continent.
      * </p>
      * <p>
-     * Valid values: <code>AF</code> | <code>AN</code> | <code>AS</code> | <code>EU</code> | <code>OC</code> |
-     * <code>NA</code> | <code>SA</code>
+     * Amazon Route 53 supports the following continent codes:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>AF</b>: Africa
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>AN</b>: Antarctica
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>AS</b>: Asia
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>EU</b>: Europe
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>OC</b>: Oceania
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>NA</b>: North America
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>SA</b>: South America
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * Constraint: Specifying <code>ContinentCode</code> with either <code>CountryCode</code> or
      * <code>SubdivisionCode</code> returns an <code>InvalidInput</code> error.
@@ -96,9 +253,45 @@ public class GeoLocation implements Serializable, Cloneable {
      * 
      * @return The two-letter code for the continent.</p>
      *         <p>
-     *         Valid values: <code>AF</code> | <code>AN</code> | <code>AS</code> | <code>EU</code> | <code>OC</code> |
-     *         <code>NA</code> | <code>SA</code>
+     *         Amazon Route 53 supports the following continent codes:
      *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <b>AF</b>: Africa
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>AN</b>: Antarctica
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>AS</b>: Asia
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>EU</b>: Europe
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>OC</b>: Oceania
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>NA</b>: North America
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>SA</b>: South America
+     *         </p>
+     *         </li>
+     *         </ul>
      *         <p>
      *         Constraint: Specifying <code>ContinentCode</code> with either <code>CountryCode</code> or
      *         <code>SubdivisionCode</code> returns an <code>InvalidInput</code> error.
@@ -113,9 +306,45 @@ public class GeoLocation implements Serializable, Cloneable {
      * The two-letter code for the continent.
      * </p>
      * <p>
-     * Valid values: <code>AF</code> | <code>AN</code> | <code>AS</code> | <code>EU</code> | <code>OC</code> |
-     * <code>NA</code> | <code>SA</code>
+     * Amazon Route 53 supports the following continent codes:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>AF</b>: Africa
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>AN</b>: Antarctica
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>AS</b>: Asia
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>EU</b>: Europe
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>OC</b>: Oceania
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>NA</b>: North America
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>SA</b>: South America
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * Constraint: Specifying <code>ContinentCode</code> with either <code>CountryCode</code> or
      * <code>SubdivisionCode</code> returns an <code>InvalidInput</code> error.
@@ -124,9 +353,45 @@ public class GeoLocation implements Serializable, Cloneable {
      * @param continentCode
      *        The two-letter code for the continent.</p>
      *        <p>
-     *        Valid values: <code>AF</code> | <code>AN</code> | <code>AS</code> | <code>EU</code> | <code>OC</code> |
-     *        <code>NA</code> | <code>SA</code>
+     *        Amazon Route 53 supports the following continent codes:
      *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>AF</b>: Africa
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>AN</b>: Antarctica
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>AS</b>: Asia
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>EU</b>: Europe
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>OC</b>: Oceania
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>NA</b>: North America
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>SA</b>: South America
+     *        </p>
+     *        </li>
+     *        </ul>
      *        <p>
      *        Constraint: Specifying <code>ContinentCode</code> with either <code>CountryCode</code> or
      *        <code>SubdivisionCode</code> returns an <code>InvalidInput</code> error.
@@ -140,11 +405,24 @@ public class GeoLocation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The two-letter code for the country.
+     * For geolocation resource record sets, the two-letter code for a country.
+     * </p>
+     * <p>
+     * Amazon Route 53 uses the two-letter country codes that are specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.
+     * </p>
+     * <p>
+     * Route 53 also supports the country code <b>UA</b> for Ukraine.
      * </p>
      * 
      * @param countryCode
-     *        The two-letter code for the country.
+     *        For geolocation resource record sets, the two-letter code for a country.</p>
+     *        <p>
+     *        Amazon Route 53 uses the two-letter country codes that are specified in <a
+     *        href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.
+     *        </p>
+     *        <p>
+     *        Route 53 also supports the country code <b>UA</b> for Ukraine.
      */
 
     public void setCountryCode(String countryCode) {
@@ -153,10 +431,23 @@ public class GeoLocation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The two-letter code for the country.
+     * For geolocation resource record sets, the two-letter code for a country.
+     * </p>
+     * <p>
+     * Amazon Route 53 uses the two-letter country codes that are specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.
+     * </p>
+     * <p>
+     * Route 53 also supports the country code <b>UA</b> for Ukraine.
      * </p>
      * 
-     * @return The two-letter code for the country.
+     * @return For geolocation resource record sets, the two-letter code for a country.</p>
+     *         <p>
+     *         Amazon Route 53 uses the two-letter country codes that are specified in <a
+     *         href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.
+     *         </p>
+     *         <p>
+     *         Route 53 also supports the country code <b>UA</b> for Ukraine.
      */
 
     public String getCountryCode() {
@@ -165,11 +456,24 @@ public class GeoLocation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The two-letter code for the country.
+     * For geolocation resource record sets, the two-letter code for a country.
+     * </p>
+     * <p>
+     * Amazon Route 53 uses the two-letter country codes that are specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.
+     * </p>
+     * <p>
+     * Route 53 also supports the country code <b>UA</b> for Ukraine.
      * </p>
      * 
      * @param countryCode
-     *        The two-letter code for the country.
+     *        For geolocation resource record sets, the two-letter code for a country.</p>
+     *        <p>
+     *        Amazon Route 53 uses the two-letter country codes that are specified in <a
+     *        href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.
+     *        </p>
+     *        <p>
+     *        Route 53 also supports the country code <b>UA</b> for Ukraine.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -180,11 +484,23 @@ public class GeoLocation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The code for the subdivision. Route 53 currently supports only states in the United States.
+     * For geolocation resource record sets, the two-letter code for a state of the United States. Route 53 doesn't
+     * support any other values for <code>SubdivisionCode</code>. For a list of state abbreviations, see <a
+     * href="https://pe.usps.com/text/pub28/28apb.htm">Appendix B: Two–Letter State and Possession Abbreviations</a> on
+     * the United States Postal Service website.
+     * </p>
+     * <p>
+     * If you specify <code>subdivisioncode</code>, you must also specify <code>US</code> for <code>CountryCode</code>.
      * </p>
      * 
      * @param subdivisionCode
-     *        The code for the subdivision. Route 53 currently supports only states in the United States.
+     *        For geolocation resource record sets, the two-letter code for a state of the United States. Route 53
+     *        doesn't support any other values for <code>SubdivisionCode</code>. For a list of state abbreviations, see
+     *        <a href="https://pe.usps.com/text/pub28/28apb.htm">Appendix B: Two–Letter State and Possession
+     *        Abbreviations</a> on the United States Postal Service website. </p>
+     *        <p>
+     *        If you specify <code>subdivisioncode</code>, you must also specify <code>US</code> for
+     *        <code>CountryCode</code>.
      */
 
     public void setSubdivisionCode(String subdivisionCode) {
@@ -193,10 +509,22 @@ public class GeoLocation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The code for the subdivision. Route 53 currently supports only states in the United States.
+     * For geolocation resource record sets, the two-letter code for a state of the United States. Route 53 doesn't
+     * support any other values for <code>SubdivisionCode</code>. For a list of state abbreviations, see <a
+     * href="https://pe.usps.com/text/pub28/28apb.htm">Appendix B: Two–Letter State and Possession Abbreviations</a> on
+     * the United States Postal Service website.
+     * </p>
+     * <p>
+     * If you specify <code>subdivisioncode</code>, you must also specify <code>US</code> for <code>CountryCode</code>.
      * </p>
      * 
-     * @return The code for the subdivision. Route 53 currently supports only states in the United States.
+     * @return For geolocation resource record sets, the two-letter code for a state of the United States. Route 53
+     *         doesn't support any other values for <code>SubdivisionCode</code>. For a list of state abbreviations, see
+     *         <a href="https://pe.usps.com/text/pub28/28apb.htm">Appendix B: Two–Letter State and Possession
+     *         Abbreviations</a> on the United States Postal Service website. </p>
+     *         <p>
+     *         If you specify <code>subdivisioncode</code>, you must also specify <code>US</code> for
+     *         <code>CountryCode</code>.
      */
 
     public String getSubdivisionCode() {
@@ -205,11 +533,23 @@ public class GeoLocation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The code for the subdivision. Route 53 currently supports only states in the United States.
+     * For geolocation resource record sets, the two-letter code for a state of the United States. Route 53 doesn't
+     * support any other values for <code>SubdivisionCode</code>. For a list of state abbreviations, see <a
+     * href="https://pe.usps.com/text/pub28/28apb.htm">Appendix B: Two–Letter State and Possession Abbreviations</a> on
+     * the United States Postal Service website.
+     * </p>
+     * <p>
+     * If you specify <code>subdivisioncode</code>, you must also specify <code>US</code> for <code>CountryCode</code>.
      * </p>
      * 
      * @param subdivisionCode
-     *        The code for the subdivision. Route 53 currently supports only states in the United States.
+     *        For geolocation resource record sets, the two-letter code for a state of the United States. Route 53
+     *        doesn't support any other values for <code>SubdivisionCode</code>. For a list of state abbreviations, see
+     *        <a href="https://pe.usps.com/text/pub28/28apb.htm">Appendix B: Two–Letter State and Possession
+     *        Abbreviations</a> on the United States Postal Service website. </p>
+     *        <p>
+     *        If you specify <code>subdivisioncode</code>, you must also specify <code>US</code> for
+     *        <code>CountryCode</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

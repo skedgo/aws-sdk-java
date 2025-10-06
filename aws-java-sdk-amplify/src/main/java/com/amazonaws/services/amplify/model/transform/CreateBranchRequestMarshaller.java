@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,6 +49,8 @@ public class CreateBranchRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("basicAuthCredentials").build();
     private static final MarshallingInfo<Boolean> ENABLEBASICAUTH_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("enableBasicAuth").build();
+    private static final MarshallingInfo<Boolean> ENABLEPERFORMANCEMODE_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("enablePerformanceMode").build();
     private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("tags").build();
     private static final MarshallingInfo<String> BUILDSPEC_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -57,6 +59,14 @@ public class CreateBranchRequestMarshaller {
             .marshallLocationName("ttl").build();
     private static final MarshallingInfo<String> DISPLAYNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("displayName").build();
+    private static final MarshallingInfo<Boolean> ENABLEPULLREQUESTPREVIEW_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("enablePullRequestPreview").build();
+    private static final MarshallingInfo<String> PULLREQUESTENVIRONMENTNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("pullRequestEnvironmentName").build();
+    private static final MarshallingInfo<String> BACKENDENVIRONMENTARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("backendEnvironmentArn").build();
+    private static final MarshallingInfo<StructuredPojo> BACKEND_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("backend").build();
 
     private static final CreateBranchRequestMarshaller instance = new CreateBranchRequestMarshaller();
 
@@ -84,10 +94,15 @@ public class CreateBranchRequestMarshaller {
             protocolMarshaller.marshall(createBranchRequest.getEnvironmentVariables(), ENVIRONMENTVARIABLES_BINDING);
             protocolMarshaller.marshall(createBranchRequest.getBasicAuthCredentials(), BASICAUTHCREDENTIALS_BINDING);
             protocolMarshaller.marshall(createBranchRequest.getEnableBasicAuth(), ENABLEBASICAUTH_BINDING);
+            protocolMarshaller.marshall(createBranchRequest.getEnablePerformanceMode(), ENABLEPERFORMANCEMODE_BINDING);
             protocolMarshaller.marshall(createBranchRequest.getTags(), TAGS_BINDING);
             protocolMarshaller.marshall(createBranchRequest.getBuildSpec(), BUILDSPEC_BINDING);
             protocolMarshaller.marshall(createBranchRequest.getTtl(), TTL_BINDING);
             protocolMarshaller.marshall(createBranchRequest.getDisplayName(), DISPLAYNAME_BINDING);
+            protocolMarshaller.marshall(createBranchRequest.getEnablePullRequestPreview(), ENABLEPULLREQUESTPREVIEW_BINDING);
+            protocolMarshaller.marshall(createBranchRequest.getPullRequestEnvironmentName(), PULLREQUESTENVIRONMENTNAME_BINDING);
+            protocolMarshaller.marshall(createBranchRequest.getBackendEnvironmentArn(), BACKENDENVIRONMENTARN_BINDING);
+            protocolMarshaller.marshall(createBranchRequest.getBackend(), BACKEND_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

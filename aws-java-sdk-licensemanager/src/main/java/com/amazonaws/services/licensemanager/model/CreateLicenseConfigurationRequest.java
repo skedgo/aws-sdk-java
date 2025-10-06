@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,13 +33,13 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
     private String name;
     /**
      * <p>
-     * Human-friendly description of the license configuration.
+     * Description of the license configuration.
      * </p>
      */
     private String description;
     /**
      * <p>
-     * Dimension to use to track the license inventory.
+     * Dimension used to track the license inventory.
      * </p>
      */
     private String licenseCountingType;
@@ -51,26 +51,69 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
     private Long licenseCount;
     /**
      * <p>
-     * Flag indicating whether hard or soft license enforcement is used. Exceeding a hard limit results in the blocked
-     * deployment of new instances.
+     * Indicates whether hard or soft license enforcement is used. Exceeding a hard limit blocks the launch of new
+     * instances.
      * </p>
      */
     private Boolean licenseCountHardLimit;
     /**
      * <p>
-     * Array of configured License Manager rules.
+     * License rules. The syntax is #name=value (for example, #allowedTenancy=EC2-DedicatedHost). The available rules
+     * vary by dimension, as follows.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Cores</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     * <code>maximumCores</code> | <code>minimumCores</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Instances</code> dimension: <code>allowedTenancy</code> | <code>maximumCores</code> |
+     * <code>minimumCores</code> | <code>maximumSockets</code> | <code>minimumSockets</code> | <code>maximumVcpus</code>
+     * | <code>minimumVcpus</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Sockets</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     * <code>maximumSockets</code> | <code>minimumSockets</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>vCPUs</code> dimension: <code>allowedTenancy</code> | <code>honorVcpuOptimization</code> |
+     * <code>maximumVcpus</code> | <code>minimumVcpus</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The unit for <code>licenseAffinityToHost</code> is days and the range is 1 to 180. The possible values for
+     * <code>allowedTenancy</code> are <code>EC2-Default</code>, <code>EC2-DedicatedHost</code>, and
+     * <code>EC2-DedicatedInstance</code>. The possible values for <code>honorVcpuOptimization</code> are
+     * <code>True</code> and <code>False</code>.
      * </p>
      */
     private java.util.List<String> licenseRules;
     /**
      * <p>
-     * The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The specified
-     * tags are applied to all instances or volumes that are created during launch. To tag a resource after it has been
-     * created, see CreateTags .
+     * Tags to add to the license configuration.
      * </p>
-     * <p/>
      */
     private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * When true, disassociates a resource when software is uninstalled.
+     * </p>
+     */
+    private Boolean disassociateWhenNotFound;
+    /**
+     * <p>
+     * Product information.
+     * </p>
+     */
+    private java.util.List<ProductInformation> productInformationList;
 
     /**
      * <p>
@@ -114,11 +157,11 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Human-friendly description of the license configuration.
+     * Description of the license configuration.
      * </p>
      * 
      * @param description
-     *        Human-friendly description of the license configuration.
+     *        Description of the license configuration.
      */
 
     public void setDescription(String description) {
@@ -127,10 +170,10 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Human-friendly description of the license configuration.
+     * Description of the license configuration.
      * </p>
      * 
-     * @return Human-friendly description of the license configuration.
+     * @return Description of the license configuration.
      */
 
     public String getDescription() {
@@ -139,11 +182,11 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Human-friendly description of the license configuration.
+     * Description of the license configuration.
      * </p>
      * 
      * @param description
-     *        Human-friendly description of the license configuration.
+     *        Description of the license configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -154,11 +197,11 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Dimension to use to track the license inventory.
+     * Dimension used to track the license inventory.
      * </p>
      * 
      * @param licenseCountingType
-     *        Dimension to use to track the license inventory.
+     *        Dimension used to track the license inventory.
      * @see LicenseCountingType
      */
 
@@ -168,10 +211,10 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Dimension to use to track the license inventory.
+     * Dimension used to track the license inventory.
      * </p>
      * 
-     * @return Dimension to use to track the license inventory.
+     * @return Dimension used to track the license inventory.
      * @see LicenseCountingType
      */
 
@@ -181,11 +224,11 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Dimension to use to track the license inventory.
+     * Dimension used to track the license inventory.
      * </p>
      * 
      * @param licenseCountingType
-     *        Dimension to use to track the license inventory.
+     *        Dimension used to track the license inventory.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LicenseCountingType
      */
@@ -197,11 +240,11 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Dimension to use to track the license inventory.
+     * Dimension used to track the license inventory.
      * </p>
      * 
      * @param licenseCountingType
-     *        Dimension to use to track the license inventory.
+     *        Dimension used to track the license inventory.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LicenseCountingType
      */
@@ -253,13 +296,13 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Flag indicating whether hard or soft license enforcement is used. Exceeding a hard limit results in the blocked
-     * deployment of new instances.
+     * Indicates whether hard or soft license enforcement is used. Exceeding a hard limit blocks the launch of new
+     * instances.
      * </p>
      * 
      * @param licenseCountHardLimit
-     *        Flag indicating whether hard or soft license enforcement is used. Exceeding a hard limit results in the
-     *        blocked deployment of new instances.
+     *        Indicates whether hard or soft license enforcement is used. Exceeding a hard limit blocks the launch of
+     *        new instances.
      */
 
     public void setLicenseCountHardLimit(Boolean licenseCountHardLimit) {
@@ -268,12 +311,12 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Flag indicating whether hard or soft license enforcement is used. Exceeding a hard limit results in the blocked
-     * deployment of new instances.
+     * Indicates whether hard or soft license enforcement is used. Exceeding a hard limit blocks the launch of new
+     * instances.
      * </p>
      * 
-     * @return Flag indicating whether hard or soft license enforcement is used. Exceeding a hard limit results in the
-     *         blocked deployment of new instances.
+     * @return Indicates whether hard or soft license enforcement is used. Exceeding a hard limit blocks the launch of
+     *         new instances.
      */
 
     public Boolean getLicenseCountHardLimit() {
@@ -282,13 +325,13 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Flag indicating whether hard or soft license enforcement is used. Exceeding a hard limit results in the blocked
-     * deployment of new instances.
+     * Indicates whether hard or soft license enforcement is used. Exceeding a hard limit blocks the launch of new
+     * instances.
      * </p>
      * 
      * @param licenseCountHardLimit
-     *        Flag indicating whether hard or soft license enforcement is used. Exceeding a hard limit results in the
-     *        blocked deployment of new instances.
+     *        Indicates whether hard or soft license enforcement is used. Exceeding a hard limit blocks the launch of
+     *        new instances.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -299,12 +342,12 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Flag indicating whether hard or soft license enforcement is used. Exceeding a hard limit results in the blocked
-     * deployment of new instances.
+     * Indicates whether hard or soft license enforcement is used. Exceeding a hard limit blocks the launch of new
+     * instances.
      * </p>
      * 
-     * @return Flag indicating whether hard or soft license enforcement is used. Exceeding a hard limit results in the
-     *         blocked deployment of new instances.
+     * @return Indicates whether hard or soft license enforcement is used. Exceeding a hard limit blocks the launch of
+     *         new instances.
      */
 
     public Boolean isLicenseCountHardLimit() {
@@ -313,10 +356,77 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Array of configured License Manager rules.
+     * License rules. The syntax is #name=value (for example, #allowedTenancy=EC2-DedicatedHost). The available rules
+     * vary by dimension, as follows.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Cores</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     * <code>maximumCores</code> | <code>minimumCores</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Instances</code> dimension: <code>allowedTenancy</code> | <code>maximumCores</code> |
+     * <code>minimumCores</code> | <code>maximumSockets</code> | <code>minimumSockets</code> | <code>maximumVcpus</code>
+     * | <code>minimumVcpus</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Sockets</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     * <code>maximumSockets</code> | <code>minimumSockets</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>vCPUs</code> dimension: <code>allowedTenancy</code> | <code>honorVcpuOptimization</code> |
+     * <code>maximumVcpus</code> | <code>minimumVcpus</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The unit for <code>licenseAffinityToHost</code> is days and the range is 1 to 180. The possible values for
+     * <code>allowedTenancy</code> are <code>EC2-Default</code>, <code>EC2-DedicatedHost</code>, and
+     * <code>EC2-DedicatedInstance</code>. The possible values for <code>honorVcpuOptimization</code> are
+     * <code>True</code> and <code>False</code>.
      * </p>
      * 
-     * @return Array of configured License Manager rules.
+     * @return License rules. The syntax is #name=value (for example, #allowedTenancy=EC2-DedicatedHost). The available
+     *         rules vary by dimension, as follows.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>Cores</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     *         <code>maximumCores</code> | <code>minimumCores</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Instances</code> dimension: <code>allowedTenancy</code> | <code>maximumCores</code> |
+     *         <code>minimumCores</code> | <code>maximumSockets</code> | <code>minimumSockets</code> |
+     *         <code>maximumVcpus</code> | <code>minimumVcpus</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Sockets</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     *         <code>maximumSockets</code> | <code>minimumSockets</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>vCPUs</code> dimension: <code>allowedTenancy</code> | <code>honorVcpuOptimization</code> |
+     *         <code>maximumVcpus</code> | <code>minimumVcpus</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The unit for <code>licenseAffinityToHost</code> is days and the range is 1 to 180. The possible values
+     *         for <code>allowedTenancy</code> are <code>EC2-Default</code>, <code>EC2-DedicatedHost</code>, and
+     *         <code>EC2-DedicatedInstance</code>. The possible values for <code>honorVcpuOptimization</code> are
+     *         <code>True</code> and <code>False</code>.
      */
 
     public java.util.List<String> getLicenseRules() {
@@ -325,11 +435,78 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Array of configured License Manager rules.
+     * License rules. The syntax is #name=value (for example, #allowedTenancy=EC2-DedicatedHost). The available rules
+     * vary by dimension, as follows.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Cores</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     * <code>maximumCores</code> | <code>minimumCores</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Instances</code> dimension: <code>allowedTenancy</code> | <code>maximumCores</code> |
+     * <code>minimumCores</code> | <code>maximumSockets</code> | <code>minimumSockets</code> | <code>maximumVcpus</code>
+     * | <code>minimumVcpus</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Sockets</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     * <code>maximumSockets</code> | <code>minimumSockets</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>vCPUs</code> dimension: <code>allowedTenancy</code> | <code>honorVcpuOptimization</code> |
+     * <code>maximumVcpus</code> | <code>minimumVcpus</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The unit for <code>licenseAffinityToHost</code> is days and the range is 1 to 180. The possible values for
+     * <code>allowedTenancy</code> are <code>EC2-Default</code>, <code>EC2-DedicatedHost</code>, and
+     * <code>EC2-DedicatedInstance</code>. The possible values for <code>honorVcpuOptimization</code> are
+     * <code>True</code> and <code>False</code>.
      * </p>
      * 
      * @param licenseRules
-     *        Array of configured License Manager rules.
+     *        License rules. The syntax is #name=value (for example, #allowedTenancy=EC2-DedicatedHost). The available
+     *        rules vary by dimension, as follows.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Cores</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     *        <code>maximumCores</code> | <code>minimumCores</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Instances</code> dimension: <code>allowedTenancy</code> | <code>maximumCores</code> |
+     *        <code>minimumCores</code> | <code>maximumSockets</code> | <code>minimumSockets</code> |
+     *        <code>maximumVcpus</code> | <code>minimumVcpus</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Sockets</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     *        <code>maximumSockets</code> | <code>minimumSockets</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>vCPUs</code> dimension: <code>allowedTenancy</code> | <code>honorVcpuOptimization</code> |
+     *        <code>maximumVcpus</code> | <code>minimumVcpus</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The unit for <code>licenseAffinityToHost</code> is days and the range is 1 to 180. The possible values for
+     *        <code>allowedTenancy</code> are <code>EC2-Default</code>, <code>EC2-DedicatedHost</code>, and
+     *        <code>EC2-DedicatedInstance</code>. The possible values for <code>honorVcpuOptimization</code> are
+     *        <code>True</code> and <code>False</code>.
      */
 
     public void setLicenseRules(java.util.Collection<String> licenseRules) {
@@ -343,7 +520,41 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Array of configured License Manager rules.
+     * License rules. The syntax is #name=value (for example, #allowedTenancy=EC2-DedicatedHost). The available rules
+     * vary by dimension, as follows.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Cores</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     * <code>maximumCores</code> | <code>minimumCores</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Instances</code> dimension: <code>allowedTenancy</code> | <code>maximumCores</code> |
+     * <code>minimumCores</code> | <code>maximumSockets</code> | <code>minimumSockets</code> | <code>maximumVcpus</code>
+     * | <code>minimumVcpus</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Sockets</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     * <code>maximumSockets</code> | <code>minimumSockets</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>vCPUs</code> dimension: <code>allowedTenancy</code> | <code>honorVcpuOptimization</code> |
+     * <code>maximumVcpus</code> | <code>minimumVcpus</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The unit for <code>licenseAffinityToHost</code> is days and the range is 1 to 180. The possible values for
+     * <code>allowedTenancy</code> are <code>EC2-Default</code>, <code>EC2-DedicatedHost</code>, and
+     * <code>EC2-DedicatedInstance</code>. The possible values for <code>honorVcpuOptimization</code> are
+     * <code>True</code> and <code>False</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -352,7 +563,40 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
      * </p>
      * 
      * @param licenseRules
-     *        Array of configured License Manager rules.
+     *        License rules. The syntax is #name=value (for example, #allowedTenancy=EC2-DedicatedHost). The available
+     *        rules vary by dimension, as follows.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Cores</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     *        <code>maximumCores</code> | <code>minimumCores</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Instances</code> dimension: <code>allowedTenancy</code> | <code>maximumCores</code> |
+     *        <code>minimumCores</code> | <code>maximumSockets</code> | <code>minimumSockets</code> |
+     *        <code>maximumVcpus</code> | <code>minimumVcpus</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Sockets</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     *        <code>maximumSockets</code> | <code>minimumSockets</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>vCPUs</code> dimension: <code>allowedTenancy</code> | <code>honorVcpuOptimization</code> |
+     *        <code>maximumVcpus</code> | <code>minimumVcpus</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The unit for <code>licenseAffinityToHost</code> is days and the range is 1 to 180. The possible values for
+     *        <code>allowedTenancy</code> are <code>EC2-Default</code>, <code>EC2-DedicatedHost</code>, and
+     *        <code>EC2-DedicatedInstance</code>. The possible values for <code>honorVcpuOptimization</code> are
+     *        <code>True</code> and <code>False</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -368,11 +612,78 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Array of configured License Manager rules.
+     * License rules. The syntax is #name=value (for example, #allowedTenancy=EC2-DedicatedHost). The available rules
+     * vary by dimension, as follows.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Cores</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     * <code>maximumCores</code> | <code>minimumCores</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Instances</code> dimension: <code>allowedTenancy</code> | <code>maximumCores</code> |
+     * <code>minimumCores</code> | <code>maximumSockets</code> | <code>minimumSockets</code> | <code>maximumVcpus</code>
+     * | <code>minimumVcpus</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Sockets</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     * <code>maximumSockets</code> | <code>minimumSockets</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>vCPUs</code> dimension: <code>allowedTenancy</code> | <code>honorVcpuOptimization</code> |
+     * <code>maximumVcpus</code> | <code>minimumVcpus</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The unit for <code>licenseAffinityToHost</code> is days and the range is 1 to 180. The possible values for
+     * <code>allowedTenancy</code> are <code>EC2-Default</code>, <code>EC2-DedicatedHost</code>, and
+     * <code>EC2-DedicatedInstance</code>. The possible values for <code>honorVcpuOptimization</code> are
+     * <code>True</code> and <code>False</code>.
      * </p>
      * 
      * @param licenseRules
-     *        Array of configured License Manager rules.
+     *        License rules. The syntax is #name=value (for example, #allowedTenancy=EC2-DedicatedHost). The available
+     *        rules vary by dimension, as follows.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Cores</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     *        <code>maximumCores</code> | <code>minimumCores</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Instances</code> dimension: <code>allowedTenancy</code> | <code>maximumCores</code> |
+     *        <code>minimumCores</code> | <code>maximumSockets</code> | <code>minimumSockets</code> |
+     *        <code>maximumVcpus</code> | <code>minimumVcpus</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Sockets</code> dimension: <code>allowedTenancy</code> | <code>licenseAffinityToHost</code> |
+     *        <code>maximumSockets</code> | <code>minimumSockets</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>vCPUs</code> dimension: <code>allowedTenancy</code> | <code>honorVcpuOptimization</code> |
+     *        <code>maximumVcpus</code> | <code>minimumVcpus</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The unit for <code>licenseAffinityToHost</code> is days and the range is 1 to 180. The possible values for
+     *        <code>allowedTenancy</code> are <code>EC2-Default</code>, <code>EC2-DedicatedHost</code>, and
+     *        <code>EC2-DedicatedInstance</code>. The possible values for <code>honorVcpuOptimization</code> are
+     *        <code>True</code> and <code>False</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -383,16 +694,10 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The specified
-     * tags are applied to all instances or volumes that are created during launch. To tag a resource after it has been
-     * created, see CreateTags .
+     * Tags to add to the license configuration.
      * </p>
-     * <p/>
      * 
-     * @return The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The
-     *         specified tags are applied to all instances or volumes that are created during launch. To tag a resource
-     *         after it has been created, see CreateTags .
-     *         </p>
+     * @return Tags to add to the license configuration.
      */
 
     public java.util.List<Tag> getTags() {
@@ -401,17 +706,11 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The specified
-     * tags are applied to all instances or volumes that are created during launch. To tag a resource after it has been
-     * created, see CreateTags .
+     * Tags to add to the license configuration.
      * </p>
-     * <p/>
      * 
      * @param tags
-     *        The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The
-     *        specified tags are applied to all instances or volumes that are created during launch. To tag a resource
-     *        after it has been created, see CreateTags .
-     *        </p>
+     *        Tags to add to the license configuration.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -425,11 +724,8 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The specified
-     * tags are applied to all instances or volumes that are created during launch. To tag a resource after it has been
-     * created, see CreateTags .
+     * Tags to add to the license configuration.
      * </p>
-     * <p/>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
@@ -437,9 +733,7 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
      * </p>
      * 
      * @param tags
-     *        The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The
-     *        specified tags are applied to all instances or volumes that are created during launch. To tag a resource
-     *        after it has been created, see CreateTags .</p>
+     *        Tags to add to the license configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -455,22 +749,138 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The specified
-     * tags are applied to all instances or volumes that are created during launch. To tag a resource after it has been
-     * created, see CreateTags .
+     * Tags to add to the license configuration.
      * </p>
-     * <p/>
      * 
      * @param tags
-     *        The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The
-     *        specified tags are applied to all instances or volumes that are created during launch. To tag a resource
-     *        after it has been created, see CreateTags .
-     *        </p>
+     *        Tags to add to the license configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateLicenseConfigurationRequest withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * When true, disassociates a resource when software is uninstalled.
+     * </p>
+     * 
+     * @param disassociateWhenNotFound
+     *        When true, disassociates a resource when software is uninstalled.
+     */
+
+    public void setDisassociateWhenNotFound(Boolean disassociateWhenNotFound) {
+        this.disassociateWhenNotFound = disassociateWhenNotFound;
+    }
+
+    /**
+     * <p>
+     * When true, disassociates a resource when software is uninstalled.
+     * </p>
+     * 
+     * @return When true, disassociates a resource when software is uninstalled.
+     */
+
+    public Boolean getDisassociateWhenNotFound() {
+        return this.disassociateWhenNotFound;
+    }
+
+    /**
+     * <p>
+     * When true, disassociates a resource when software is uninstalled.
+     * </p>
+     * 
+     * @param disassociateWhenNotFound
+     *        When true, disassociates a resource when software is uninstalled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateLicenseConfigurationRequest withDisassociateWhenNotFound(Boolean disassociateWhenNotFound) {
+        setDisassociateWhenNotFound(disassociateWhenNotFound);
+        return this;
+    }
+
+    /**
+     * <p>
+     * When true, disassociates a resource when software is uninstalled.
+     * </p>
+     * 
+     * @return When true, disassociates a resource when software is uninstalled.
+     */
+
+    public Boolean isDisassociateWhenNotFound() {
+        return this.disassociateWhenNotFound;
+    }
+
+    /**
+     * <p>
+     * Product information.
+     * </p>
+     * 
+     * @return Product information.
+     */
+
+    public java.util.List<ProductInformation> getProductInformationList() {
+        return productInformationList;
+    }
+
+    /**
+     * <p>
+     * Product information.
+     * </p>
+     * 
+     * @param productInformationList
+     *        Product information.
+     */
+
+    public void setProductInformationList(java.util.Collection<ProductInformation> productInformationList) {
+        if (productInformationList == null) {
+            this.productInformationList = null;
+            return;
+        }
+
+        this.productInformationList = new java.util.ArrayList<ProductInformation>(productInformationList);
+    }
+
+    /**
+     * <p>
+     * Product information.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setProductInformationList(java.util.Collection)} or
+     * {@link #withProductInformationList(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param productInformationList
+     *        Product information.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateLicenseConfigurationRequest withProductInformationList(ProductInformation... productInformationList) {
+        if (this.productInformationList == null) {
+            setProductInformationList(new java.util.ArrayList<ProductInformation>(productInformationList.length));
+        }
+        for (ProductInformation ele : productInformationList) {
+            this.productInformationList.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Product information.
+     * </p>
+     * 
+     * @param productInformationList
+     *        Product information.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateLicenseConfigurationRequest withProductInformationList(java.util.Collection<ProductInformation> productInformationList) {
+        setProductInformationList(productInformationList);
         return this;
     }
 
@@ -499,7 +909,11 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
         if (getLicenseRules() != null)
             sb.append("LicenseRules: ").append(getLicenseRules()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getDisassociateWhenNotFound() != null)
+            sb.append("DisassociateWhenNotFound: ").append(getDisassociateWhenNotFound()).append(",");
+        if (getProductInformationList() != null)
+            sb.append("ProductInformationList: ").append(getProductInformationList());
         sb.append("}");
         return sb.toString();
     }
@@ -542,6 +956,14 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getDisassociateWhenNotFound() == null ^ this.getDisassociateWhenNotFound() == null)
+            return false;
+        if (other.getDisassociateWhenNotFound() != null && other.getDisassociateWhenNotFound().equals(this.getDisassociateWhenNotFound()) == false)
+            return false;
+        if (other.getProductInformationList() == null ^ this.getProductInformationList() == null)
+            return false;
+        if (other.getProductInformationList() != null && other.getProductInformationList().equals(this.getProductInformationList()) == false)
+            return false;
         return true;
     }
 
@@ -557,6 +979,8 @@ public class CreateLicenseConfigurationRequest extends com.amazonaws.AmazonWebSe
         hashCode = prime * hashCode + ((getLicenseCountHardLimit() == null) ? 0 : getLicenseCountHardLimit().hashCode());
         hashCode = prime * hashCode + ((getLicenseRules() == null) ? 0 : getLicenseRules().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getDisassociateWhenNotFound() == null) ? 0 : getDisassociateWhenNotFound().hashCode());
+        hashCode = prime * hashCode + ((getProductInformationList() == null) ? 0 : getProductInformationList().hashCode());
         return hashCode;
     }
 

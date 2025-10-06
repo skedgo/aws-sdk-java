@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A registered user of Amazon QuickSight. Currently, an Amazon QuickSight subscription can't contain more than 20
- * million users.
+ * A registered user of Amazon QuickSight.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/quicksight-2018-04-01/User" target="_top">AWS API
@@ -37,7 +36,9 @@ public class User implements Serializable, Cloneable, StructuredPojo {
     private String arn;
     /**
      * <p>
-     * The user's user name.
+     * The user's user name. This value is required if you are registering a user that will be managed in Amazon
+     * QuickSight. In the output, the value for <code>UserName</code> is <code>N/A</code> when the value for
+     * <code>IdentityType</code> is <code>IAM</code> and the corresponding IAM user is deleted.
      * </p>
      */
     private String userName;
@@ -49,8 +50,55 @@ public class User implements Serializable, Cloneable, StructuredPojo {
     private String email;
     /**
      * <p>
-     * The Amazon QuickSight role for the user.
+     * The Amazon QuickSight role for the user. The user role can be one of the following:.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>READER</code>: A user who has read-only access to dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AUTHOR</code>: A user who can create data sources, datasets, analyses, and dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ADMIN</code>: A user who is an author, who can also manage Amazon Amazon QuickSight settings.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>READER_PRO</code>: Reader Pro adds Generative BI capabilities to the Reader role. Reader Pros have access
+     * to Amazon Q in Amazon QuickSight, can build stories with Amazon Q, and can generate executive summaries from
+     * dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AUTHOR_PRO</code>: Author Pro adds Generative BI capabilities to the Author role. Author Pros can author
+     * dashboards with natural language with Amazon Q, build stories with Amazon Q, create Topics for Q&amp;A, and
+     * generate executive summaries from dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ADMIN_PRO</code>: Admin Pros are Author Pros who can also manage Amazon QuickSight administrative settings.
+     * Admin Pro users are billed at Author Pro pricing.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTRICTED_READER</code>: This role isn't currently available for use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTRICTED_AUTHOR</code>: This role isn't currently available for use.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String role;
     /**
@@ -61,8 +109,8 @@ public class User implements Serializable, Cloneable, StructuredPojo {
     private String identityType;
     /**
      * <p>
-     * Active status of user. When you create an Amazon QuickSight user that’s not an IAM user or an AD user, that user
-     * is inactive until they sign in and provide a password
+     * The active status of user. When you create an Amazon QuickSight user that's not an IAM user or an Active
+     * Directory user, that user is inactive until they sign in and provide a password.
      * </p>
      */
     private Boolean active;
@@ -72,6 +120,43 @@ public class User implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String principalId;
+    /**
+     * <p>
+     * The custom permissions profile associated with this user.
+     * </p>
+     */
+    private String customPermissionsName;
+    /**
+     * <p>
+     * The type of supported external login provider that provides identity to let the user federate into Amazon
+     * QuickSight with an associated IAM role. The type can be one of the following.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>COGNITO</code>: Amazon Cognito. The provider URL is cognito-identity.amazonaws.com.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CUSTOM_OIDC</code>: Custom OpenID Connect (OIDC) provider.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String externalLoginFederationProviderType;
+    /**
+     * <p>
+     * The URL of the external login provider.
+     * </p>
+     */
+    private String externalLoginFederationProviderUrl;
+    /**
+     * <p>
+     * The identity ID for the user in the external login provider.
+     * </p>
+     */
+    private String externalLoginId;
 
     /**
      * <p>
@@ -115,11 +200,15 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The user's user name.
+     * The user's user name. This value is required if you are registering a user that will be managed in Amazon
+     * QuickSight. In the output, the value for <code>UserName</code> is <code>N/A</code> when the value for
+     * <code>IdentityType</code> is <code>IAM</code> and the corresponding IAM user is deleted.
      * </p>
      * 
      * @param userName
-     *        The user's user name.
+     *        The user's user name. This value is required if you are registering a user that will be managed in Amazon
+     *        QuickSight. In the output, the value for <code>UserName</code> is <code>N/A</code> when the value for
+     *        <code>IdentityType</code> is <code>IAM</code> and the corresponding IAM user is deleted.
      */
 
     public void setUserName(String userName) {
@@ -128,10 +217,14 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The user's user name.
+     * The user's user name. This value is required if you are registering a user that will be managed in Amazon
+     * QuickSight. In the output, the value for <code>UserName</code> is <code>N/A</code> when the value for
+     * <code>IdentityType</code> is <code>IAM</code> and the corresponding IAM user is deleted.
      * </p>
      * 
-     * @return The user's user name.
+     * @return The user's user name. This value is required if you are registering a user that will be managed in Amazon
+     *         QuickSight. In the output, the value for <code>UserName</code> is <code>N/A</code> when the value for
+     *         <code>IdentityType</code> is <code>IAM</code> and the corresponding IAM user is deleted.
      */
 
     public String getUserName() {
@@ -140,11 +233,15 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The user's user name.
+     * The user's user name. This value is required if you are registering a user that will be managed in Amazon
+     * QuickSight. In the output, the value for <code>UserName</code> is <code>N/A</code> when the value for
+     * <code>IdentityType</code> is <code>IAM</code> and the corresponding IAM user is deleted.
      * </p>
      * 
      * @param userName
-     *        The user's user name.
+     *        The user's user name. This value is required if you are registering a user that will be managed in Amazon
+     *        QuickSight. In the output, the value for <code>UserName</code> is <code>N/A</code> when the value for
+     *        <code>IdentityType</code> is <code>IAM</code> and the corresponding IAM user is deleted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -195,11 +292,104 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon QuickSight role for the user.
+     * The Amazon QuickSight role for the user. The user role can be one of the following:.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>READER</code>: A user who has read-only access to dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AUTHOR</code>: A user who can create data sources, datasets, analyses, and dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ADMIN</code>: A user who is an author, who can also manage Amazon Amazon QuickSight settings.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>READER_PRO</code>: Reader Pro adds Generative BI capabilities to the Reader role. Reader Pros have access
+     * to Amazon Q in Amazon QuickSight, can build stories with Amazon Q, and can generate executive summaries from
+     * dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AUTHOR_PRO</code>: Author Pro adds Generative BI capabilities to the Author role. Author Pros can author
+     * dashboards with natural language with Amazon Q, build stories with Amazon Q, create Topics for Q&amp;A, and
+     * generate executive summaries from dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ADMIN_PRO</code>: Admin Pros are Author Pros who can also manage Amazon QuickSight administrative settings.
+     * Admin Pro users are billed at Author Pro pricing.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTRICTED_READER</code>: This role isn't currently available for use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTRICTED_AUTHOR</code>: This role isn't currently available for use.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param role
-     *        The Amazon QuickSight role for the user.
+     *        The Amazon QuickSight role for the user. The user role can be one of the following:.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>READER</code>: A user who has read-only access to dashboards.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AUTHOR</code>: A user who can create data sources, datasets, analyses, and dashboards.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ADMIN</code>: A user who is an author, who can also manage Amazon Amazon QuickSight settings.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>READER_PRO</code>: Reader Pro adds Generative BI capabilities to the Reader role. Reader Pros have
+     *        access to Amazon Q in Amazon QuickSight, can build stories with Amazon Q, and can generate executive
+     *        summaries from dashboards.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AUTHOR_PRO</code>: Author Pro adds Generative BI capabilities to the Author role. Author Pros can
+     *        author dashboards with natural language with Amazon Q, build stories with Amazon Q, create Topics for
+     *        Q&amp;A, and generate executive summaries from dashboards.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ADMIN_PRO</code>: Admin Pros are Author Pros who can also manage Amazon QuickSight administrative
+     *        settings. Admin Pro users are billed at Author Pro pricing.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RESTRICTED_READER</code>: This role isn't currently available for use.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RESTRICTED_AUTHOR</code>: This role isn't currently available for use.
+     *        </p>
+     *        </li>
      * @see UserRole
      */
 
@@ -209,10 +399,103 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon QuickSight role for the user.
+     * The Amazon QuickSight role for the user. The user role can be one of the following:.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>READER</code>: A user who has read-only access to dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AUTHOR</code>: A user who can create data sources, datasets, analyses, and dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ADMIN</code>: A user who is an author, who can also manage Amazon Amazon QuickSight settings.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>READER_PRO</code>: Reader Pro adds Generative BI capabilities to the Reader role. Reader Pros have access
+     * to Amazon Q in Amazon QuickSight, can build stories with Amazon Q, and can generate executive summaries from
+     * dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AUTHOR_PRO</code>: Author Pro adds Generative BI capabilities to the Author role. Author Pros can author
+     * dashboards with natural language with Amazon Q, build stories with Amazon Q, create Topics for Q&amp;A, and
+     * generate executive summaries from dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ADMIN_PRO</code>: Admin Pros are Author Pros who can also manage Amazon QuickSight administrative settings.
+     * Admin Pro users are billed at Author Pro pricing.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTRICTED_READER</code>: This role isn't currently available for use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTRICTED_AUTHOR</code>: This role isn't currently available for use.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The Amazon QuickSight role for the user.
+     * @return The Amazon QuickSight role for the user. The user role can be one of the following:.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>READER</code>: A user who has read-only access to dashboards.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>AUTHOR</code>: A user who can create data sources, datasets, analyses, and dashboards.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ADMIN</code>: A user who is an author, who can also manage Amazon Amazon QuickSight settings.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>READER_PRO</code>: Reader Pro adds Generative BI capabilities to the Reader role. Reader Pros have
+     *         access to Amazon Q in Amazon QuickSight, can build stories with Amazon Q, and can generate executive
+     *         summaries from dashboards.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>AUTHOR_PRO</code>: Author Pro adds Generative BI capabilities to the Author role. Author Pros can
+     *         author dashboards with natural language with Amazon Q, build stories with Amazon Q, create Topics for
+     *         Q&amp;A, and generate executive summaries from dashboards.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ADMIN_PRO</code>: Admin Pros are Author Pros who can also manage Amazon QuickSight administrative
+     *         settings. Admin Pro users are billed at Author Pro pricing.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>RESTRICTED_READER</code>: This role isn't currently available for use.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>RESTRICTED_AUTHOR</code>: This role isn't currently available for use.
+     *         </p>
+     *         </li>
      * @see UserRole
      */
 
@@ -222,11 +505,104 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon QuickSight role for the user.
+     * The Amazon QuickSight role for the user. The user role can be one of the following:.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>READER</code>: A user who has read-only access to dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AUTHOR</code>: A user who can create data sources, datasets, analyses, and dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ADMIN</code>: A user who is an author, who can also manage Amazon Amazon QuickSight settings.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>READER_PRO</code>: Reader Pro adds Generative BI capabilities to the Reader role. Reader Pros have access
+     * to Amazon Q in Amazon QuickSight, can build stories with Amazon Q, and can generate executive summaries from
+     * dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AUTHOR_PRO</code>: Author Pro adds Generative BI capabilities to the Author role. Author Pros can author
+     * dashboards with natural language with Amazon Q, build stories with Amazon Q, create Topics for Q&amp;A, and
+     * generate executive summaries from dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ADMIN_PRO</code>: Admin Pros are Author Pros who can also manage Amazon QuickSight administrative settings.
+     * Admin Pro users are billed at Author Pro pricing.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTRICTED_READER</code>: This role isn't currently available for use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTRICTED_AUTHOR</code>: This role isn't currently available for use.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param role
-     *        The Amazon QuickSight role for the user.
+     *        The Amazon QuickSight role for the user. The user role can be one of the following:.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>READER</code>: A user who has read-only access to dashboards.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AUTHOR</code>: A user who can create data sources, datasets, analyses, and dashboards.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ADMIN</code>: A user who is an author, who can also manage Amazon Amazon QuickSight settings.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>READER_PRO</code>: Reader Pro adds Generative BI capabilities to the Reader role. Reader Pros have
+     *        access to Amazon Q in Amazon QuickSight, can build stories with Amazon Q, and can generate executive
+     *        summaries from dashboards.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AUTHOR_PRO</code>: Author Pro adds Generative BI capabilities to the Author role. Author Pros can
+     *        author dashboards with natural language with Amazon Q, build stories with Amazon Q, create Topics for
+     *        Q&amp;A, and generate executive summaries from dashboards.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ADMIN_PRO</code>: Admin Pros are Author Pros who can also manage Amazon QuickSight administrative
+     *        settings. Admin Pro users are billed at Author Pro pricing.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RESTRICTED_READER</code>: This role isn't currently available for use.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RESTRICTED_AUTHOR</code>: This role isn't currently available for use.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see UserRole
      */
@@ -238,11 +614,104 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon QuickSight role for the user.
+     * The Amazon QuickSight role for the user. The user role can be one of the following:.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>READER</code>: A user who has read-only access to dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AUTHOR</code>: A user who can create data sources, datasets, analyses, and dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ADMIN</code>: A user who is an author, who can also manage Amazon Amazon QuickSight settings.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>READER_PRO</code>: Reader Pro adds Generative BI capabilities to the Reader role. Reader Pros have access
+     * to Amazon Q in Amazon QuickSight, can build stories with Amazon Q, and can generate executive summaries from
+     * dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>AUTHOR_PRO</code>: Author Pro adds Generative BI capabilities to the Author role. Author Pros can author
+     * dashboards with natural language with Amazon Q, build stories with Amazon Q, create Topics for Q&amp;A, and
+     * generate executive summaries from dashboards.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ADMIN_PRO</code>: Admin Pros are Author Pros who can also manage Amazon QuickSight administrative settings.
+     * Admin Pro users are billed at Author Pro pricing.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTRICTED_READER</code>: This role isn't currently available for use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RESTRICTED_AUTHOR</code>: This role isn't currently available for use.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param role
-     *        The Amazon QuickSight role for the user.
+     *        The Amazon QuickSight role for the user. The user role can be one of the following:.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>READER</code>: A user who has read-only access to dashboards.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AUTHOR</code>: A user who can create data sources, datasets, analyses, and dashboards.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ADMIN</code>: A user who is an author, who can also manage Amazon Amazon QuickSight settings.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>READER_PRO</code>: Reader Pro adds Generative BI capabilities to the Reader role. Reader Pros have
+     *        access to Amazon Q in Amazon QuickSight, can build stories with Amazon Q, and can generate executive
+     *        summaries from dashboards.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>AUTHOR_PRO</code>: Author Pro adds Generative BI capabilities to the Author role. Author Pros can
+     *        author dashboards with natural language with Amazon Q, build stories with Amazon Q, create Topics for
+     *        Q&amp;A, and generate executive summaries from dashboards.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ADMIN_PRO</code>: Admin Pros are Author Pros who can also manage Amazon QuickSight administrative
+     *        settings. Admin Pro users are billed at Author Pro pricing.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RESTRICTED_READER</code>: This role isn't currently available for use.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>RESTRICTED_AUTHOR</code>: This role isn't currently available for use.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see UserRole
      */
@@ -313,13 +782,13 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Active status of user. When you create an Amazon QuickSight user that’s not an IAM user or an AD user, that user
-     * is inactive until they sign in and provide a password
+     * The active status of user. When you create an Amazon QuickSight user that's not an IAM user or an Active
+     * Directory user, that user is inactive until they sign in and provide a password.
      * </p>
      * 
      * @param active
-     *        Active status of user. When you create an Amazon QuickSight user that’s not an IAM user or an AD user,
-     *        that user is inactive until they sign in and provide a password
+     *        The active status of user. When you create an Amazon QuickSight user that's not an IAM user or an Active
+     *        Directory user, that user is inactive until they sign in and provide a password.
      */
 
     public void setActive(Boolean active) {
@@ -328,12 +797,12 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Active status of user. When you create an Amazon QuickSight user that’s not an IAM user or an AD user, that user
-     * is inactive until they sign in and provide a password
+     * The active status of user. When you create an Amazon QuickSight user that's not an IAM user or an Active
+     * Directory user, that user is inactive until they sign in and provide a password.
      * </p>
      * 
-     * @return Active status of user. When you create an Amazon QuickSight user that’s not an IAM user or an AD user,
-     *         that user is inactive until they sign in and provide a password
+     * @return The active status of user. When you create an Amazon QuickSight user that's not an IAM user or an Active
+     *         Directory user, that user is inactive until they sign in and provide a password.
      */
 
     public Boolean getActive() {
@@ -342,13 +811,13 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Active status of user. When you create an Amazon QuickSight user that’s not an IAM user or an AD user, that user
-     * is inactive until they sign in and provide a password
+     * The active status of user. When you create an Amazon QuickSight user that's not an IAM user or an Active
+     * Directory user, that user is inactive until they sign in and provide a password.
      * </p>
      * 
      * @param active
-     *        Active status of user. When you create an Amazon QuickSight user that’s not an IAM user or an AD user,
-     *        that user is inactive until they sign in and provide a password
+     *        The active status of user. When you create an Amazon QuickSight user that's not an IAM user or an Active
+     *        Directory user, that user is inactive until they sign in and provide a password.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -359,12 +828,12 @@ public class User implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Active status of user. When you create an Amazon QuickSight user that’s not an IAM user or an AD user, that user
-     * is inactive until they sign in and provide a password
+     * The active status of user. When you create an Amazon QuickSight user that's not an IAM user or an Active
+     * Directory user, that user is inactive until they sign in and provide a password.
      * </p>
      * 
-     * @return Active status of user. When you create an Amazon QuickSight user that’s not an IAM user or an AD user,
-     *         that user is inactive until they sign in and provide a password
+     * @return The active status of user. When you create an Amazon QuickSight user that's not an IAM user or an Active
+     *         Directory user, that user is inactive until they sign in and provide a password.
      */
 
     public Boolean isActive() {
@@ -412,6 +881,241 @@ public class User implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The custom permissions profile associated with this user.
+     * </p>
+     * 
+     * @param customPermissionsName
+     *        The custom permissions profile associated with this user.
+     */
+
+    public void setCustomPermissionsName(String customPermissionsName) {
+        this.customPermissionsName = customPermissionsName;
+    }
+
+    /**
+     * <p>
+     * The custom permissions profile associated with this user.
+     * </p>
+     * 
+     * @return The custom permissions profile associated with this user.
+     */
+
+    public String getCustomPermissionsName() {
+        return this.customPermissionsName;
+    }
+
+    /**
+     * <p>
+     * The custom permissions profile associated with this user.
+     * </p>
+     * 
+     * @param customPermissionsName
+     *        The custom permissions profile associated with this user.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public User withCustomPermissionsName(String customPermissionsName) {
+        setCustomPermissionsName(customPermissionsName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of supported external login provider that provides identity to let the user federate into Amazon
+     * QuickSight with an associated IAM role. The type can be one of the following.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>COGNITO</code>: Amazon Cognito. The provider URL is cognito-identity.amazonaws.com.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CUSTOM_OIDC</code>: Custom OpenID Connect (OIDC) provider.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param externalLoginFederationProviderType
+     *        The type of supported external login provider that provides identity to let the user federate into Amazon
+     *        QuickSight with an associated IAM role. The type can be one of the following.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>COGNITO</code>: Amazon Cognito. The provider URL is cognito-identity.amazonaws.com.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CUSTOM_OIDC</code>: Custom OpenID Connect (OIDC) provider.
+     *        </p>
+     *        </li>
+     */
+
+    public void setExternalLoginFederationProviderType(String externalLoginFederationProviderType) {
+        this.externalLoginFederationProviderType = externalLoginFederationProviderType;
+    }
+
+    /**
+     * <p>
+     * The type of supported external login provider that provides identity to let the user federate into Amazon
+     * QuickSight with an associated IAM role. The type can be one of the following.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>COGNITO</code>: Amazon Cognito. The provider URL is cognito-identity.amazonaws.com.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CUSTOM_OIDC</code>: Custom OpenID Connect (OIDC) provider.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The type of supported external login provider that provides identity to let the user federate into Amazon
+     *         QuickSight with an associated IAM role. The type can be one of the following.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>COGNITO</code>: Amazon Cognito. The provider URL is cognito-identity.amazonaws.com.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>CUSTOM_OIDC</code>: Custom OpenID Connect (OIDC) provider.
+     *         </p>
+     *         </li>
+     */
+
+    public String getExternalLoginFederationProviderType() {
+        return this.externalLoginFederationProviderType;
+    }
+
+    /**
+     * <p>
+     * The type of supported external login provider that provides identity to let the user federate into Amazon
+     * QuickSight with an associated IAM role. The type can be one of the following.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>COGNITO</code>: Amazon Cognito. The provider URL is cognito-identity.amazonaws.com.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CUSTOM_OIDC</code>: Custom OpenID Connect (OIDC) provider.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param externalLoginFederationProviderType
+     *        The type of supported external login provider that provides identity to let the user federate into Amazon
+     *        QuickSight with an associated IAM role. The type can be one of the following.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>COGNITO</code>: Amazon Cognito. The provider URL is cognito-identity.amazonaws.com.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CUSTOM_OIDC</code>: Custom OpenID Connect (OIDC) provider.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public User withExternalLoginFederationProviderType(String externalLoginFederationProviderType) {
+        setExternalLoginFederationProviderType(externalLoginFederationProviderType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The URL of the external login provider.
+     * </p>
+     * 
+     * @param externalLoginFederationProviderUrl
+     *        The URL of the external login provider.
+     */
+
+    public void setExternalLoginFederationProviderUrl(String externalLoginFederationProviderUrl) {
+        this.externalLoginFederationProviderUrl = externalLoginFederationProviderUrl;
+    }
+
+    /**
+     * <p>
+     * The URL of the external login provider.
+     * </p>
+     * 
+     * @return The URL of the external login provider.
+     */
+
+    public String getExternalLoginFederationProviderUrl() {
+        return this.externalLoginFederationProviderUrl;
+    }
+
+    /**
+     * <p>
+     * The URL of the external login provider.
+     * </p>
+     * 
+     * @param externalLoginFederationProviderUrl
+     *        The URL of the external login provider.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public User withExternalLoginFederationProviderUrl(String externalLoginFederationProviderUrl) {
+        setExternalLoginFederationProviderUrl(externalLoginFederationProviderUrl);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The identity ID for the user in the external login provider.
+     * </p>
+     * 
+     * @param externalLoginId
+     *        The identity ID for the user in the external login provider.
+     */
+
+    public void setExternalLoginId(String externalLoginId) {
+        this.externalLoginId = externalLoginId;
+    }
+
+    /**
+     * <p>
+     * The identity ID for the user in the external login provider.
+     * </p>
+     * 
+     * @return The identity ID for the user in the external login provider.
+     */
+
+    public String getExternalLoginId() {
+        return this.externalLoginId;
+    }
+
+    /**
+     * <p>
+     * The identity ID for the user in the external login provider.
+     * </p>
+     * 
+     * @param externalLoginId
+     *        The identity ID for the user in the external login provider.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public User withExternalLoginId(String externalLoginId) {
+        setExternalLoginId(externalLoginId);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -436,7 +1140,15 @@ public class User implements Serializable, Cloneable, StructuredPojo {
         if (getActive() != null)
             sb.append("Active: ").append(getActive()).append(",");
         if (getPrincipalId() != null)
-            sb.append("PrincipalId: ").append(getPrincipalId());
+            sb.append("PrincipalId: ").append(getPrincipalId()).append(",");
+        if (getCustomPermissionsName() != null)
+            sb.append("CustomPermissionsName: ").append(getCustomPermissionsName()).append(",");
+        if (getExternalLoginFederationProviderType() != null)
+            sb.append("ExternalLoginFederationProviderType: ").append(getExternalLoginFederationProviderType()).append(",");
+        if (getExternalLoginFederationProviderUrl() != null)
+            sb.append("ExternalLoginFederationProviderUrl: ").append(getExternalLoginFederationProviderUrl()).append(",");
+        if (getExternalLoginId() != null)
+            sb.append("ExternalLoginId: ").append(getExternalLoginId());
         sb.append("}");
         return sb.toString();
     }
@@ -479,6 +1191,24 @@ public class User implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getPrincipalId() != null && other.getPrincipalId().equals(this.getPrincipalId()) == false)
             return false;
+        if (other.getCustomPermissionsName() == null ^ this.getCustomPermissionsName() == null)
+            return false;
+        if (other.getCustomPermissionsName() != null && other.getCustomPermissionsName().equals(this.getCustomPermissionsName()) == false)
+            return false;
+        if (other.getExternalLoginFederationProviderType() == null ^ this.getExternalLoginFederationProviderType() == null)
+            return false;
+        if (other.getExternalLoginFederationProviderType() != null
+                && other.getExternalLoginFederationProviderType().equals(this.getExternalLoginFederationProviderType()) == false)
+            return false;
+        if (other.getExternalLoginFederationProviderUrl() == null ^ this.getExternalLoginFederationProviderUrl() == null)
+            return false;
+        if (other.getExternalLoginFederationProviderUrl() != null
+                && other.getExternalLoginFederationProviderUrl().equals(this.getExternalLoginFederationProviderUrl()) == false)
+            return false;
+        if (other.getExternalLoginId() == null ^ this.getExternalLoginId() == null)
+            return false;
+        if (other.getExternalLoginId() != null && other.getExternalLoginId().equals(this.getExternalLoginId()) == false)
+            return false;
         return true;
     }
 
@@ -494,6 +1224,10 @@ public class User implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getIdentityType() == null) ? 0 : getIdentityType().hashCode());
         hashCode = prime * hashCode + ((getActive() == null) ? 0 : getActive().hashCode());
         hashCode = prime * hashCode + ((getPrincipalId() == null) ? 0 : getPrincipalId().hashCode());
+        hashCode = prime * hashCode + ((getCustomPermissionsName() == null) ? 0 : getCustomPermissionsName().hashCode());
+        hashCode = prime * hashCode + ((getExternalLoginFederationProviderType() == null) ? 0 : getExternalLoginFederationProviderType().hashCode());
+        hashCode = prime * hashCode + ((getExternalLoginFederationProviderUrl() == null) ? 0 : getExternalLoginFederationProviderUrl().hashCode());
+        hashCode = prime * hashCode + ((getExternalLoginId() == null) ? 0 : getExternalLoginId().hashCode());
         return hashCode;
     }
 

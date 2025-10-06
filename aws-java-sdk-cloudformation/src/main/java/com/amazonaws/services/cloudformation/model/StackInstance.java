@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,11 +17,11 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * An AWS CloudFormation stack, in a specific account and region, that's part of a stack set operation. A stack instance
- * is a reference to an attempted or actual stack in a given account within a given region. A stack instance can exist
+ * An CloudFormation stack, in a specific account and Region, that's part of a stack set operation. A stack instance is
+ * a reference to an attempted or actual stack in a given account within a given Region. A stack instance can exist
  * without a stack—for example, if the stack couldn't be created for some reason. A stack instance is associated with
- * only one stack set. Each stack instance contains the ID of its associated stack set, as well as the ID of the actual
- * stack and the stack status.
+ * only one stack set. Each stack instance contains the ID of its associated stack set, in addition to the ID of the
+ * actual stack and the stack status.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/StackInstance" target="_top">AWS API
@@ -38,13 +38,14 @@ public class StackInstance implements Serializable, Cloneable {
     private String stackSetId;
     /**
      * <p>
-     * The name of the AWS region that the stack instance is associated with.
+     * The name of the Amazon Web Services Region that the stack instance is associated with.
      * </p>
      */
     private String region;
     /**
      * <p>
-     * The name of the AWS account that the stack instance is associated with.
+     * [Self-managed permissions] The name of the Amazon Web Services account that the stack instance is associated
+     * with.
      * </p>
      */
     private String account;
@@ -70,7 +71,10 @@ public class StackInstance implements Serializable, Cloneable {
      * <code>INOPERABLE</code>: A <code>DeleteStackInstances</code> operation has failed and left the stack in an
      * unstable state. Stacks in this state are excluded from further <code>UpdateStackSet</code> operations. You might
      * need to perform a <code>DeleteStackInstances</code> operation, with <code>RetainStacks</code> set to
-     * <code>true</code>, to delete the stack instance, and then delete the stack manually.
+     * <code>true</code>, to delete the stack instance, and then delete the stack manually. <code>INOPERABLE</code> can
+     * be returned here when the cause is a failed import. If it's due to a failed import, the operation can be retried
+     * once the failures are fixed. To see if this is due to a failed import, look at the <code>DetailedStatus</code>
+     * member in the <code>StackInstanceSummary</code> member that is a peer to this <code>Status</code> member.
      * </p>
      * </li>
      * <li>
@@ -101,10 +105,69 @@ public class StackInstance implements Serializable, Cloneable {
     private String status;
     /**
      * <p>
-     * The explanation for the specific status code that is assigned to this stack instance.
+     * The detailed status of the stack instance.
+     * </p>
+     */
+    private StackInstanceComprehensiveStatus stackInstanceStatus;
+    /**
+     * <p>
+     * The explanation for the specific status code that's assigned to this stack instance.
      * </p>
      */
     private String statusReason;
+    /**
+     * <p>
+     * [Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified for <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html">
+     * DeploymentTargets</a>.
+     * </p>
+     */
+    private String organizationalUnitId;
+    /**
+     * <p>
+     * Status of the stack instance's actual configuration compared to the expected template and parameter configuration
+     * of the stack set to which it belongs.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DRIFTED</code>: The stack differs from the expected template and parameter configuration of the stack set
+     * to which it belongs. A stack instance is considered to have drifted if one or more of the resources in the
+     * associated stack have drifted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack instance differs from its expected stack set
+     * configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>IN_SYNC</code>: The stack instance's actual configuration matches its expected stack set configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNKNOWN</code>: This value is reserved for future use.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String driftStatus;
+    /**
+     * <p>
+     * Most recent time when CloudFormation performed a drift detection operation on the stack instance. This value will
+     * be <code>NULL</code> for any stack instance on which drift detection hasn't yet been performed.
+     * </p>
+     */
+    private java.util.Date lastDriftCheckTimestamp;
+    /**
+     * <p>
+     * The last unique ID of a StackSet operation performed on a stack instance.
+     * </p>
+     */
+    private String lastOperationId;
 
     /**
      * <p>
@@ -148,11 +211,11 @@ public class StackInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the AWS region that the stack instance is associated with.
+     * The name of the Amazon Web Services Region that the stack instance is associated with.
      * </p>
      * 
      * @param region
-     *        The name of the AWS region that the stack instance is associated with.
+     *        The name of the Amazon Web Services Region that the stack instance is associated with.
      */
 
     public void setRegion(String region) {
@@ -161,10 +224,10 @@ public class StackInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the AWS region that the stack instance is associated with.
+     * The name of the Amazon Web Services Region that the stack instance is associated with.
      * </p>
      * 
-     * @return The name of the AWS region that the stack instance is associated with.
+     * @return The name of the Amazon Web Services Region that the stack instance is associated with.
      */
 
     public String getRegion() {
@@ -173,11 +236,11 @@ public class StackInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the AWS region that the stack instance is associated with.
+     * The name of the Amazon Web Services Region that the stack instance is associated with.
      * </p>
      * 
      * @param region
-     *        The name of the AWS region that the stack instance is associated with.
+     *        The name of the Amazon Web Services Region that the stack instance is associated with.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -188,11 +251,13 @@ public class StackInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the AWS account that the stack instance is associated with.
+     * [Self-managed permissions] The name of the Amazon Web Services account that the stack instance is associated
+     * with.
      * </p>
      * 
      * @param account
-     *        The name of the AWS account that the stack instance is associated with.
+     *        [Self-managed permissions] The name of the Amazon Web Services account that the stack instance is
+     *        associated with.
      */
 
     public void setAccount(String account) {
@@ -201,10 +266,12 @@ public class StackInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the AWS account that the stack instance is associated with.
+     * [Self-managed permissions] The name of the Amazon Web Services account that the stack instance is associated
+     * with.
      * </p>
      * 
-     * @return The name of the AWS account that the stack instance is associated with.
+     * @return [Self-managed permissions] The name of the Amazon Web Services account that the stack instance is
+     *         associated with.
      */
 
     public String getAccount() {
@@ -213,11 +280,13 @@ public class StackInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the AWS account that the stack instance is associated with.
+     * [Self-managed permissions] The name of the Amazon Web Services account that the stack instance is associated
+     * with.
      * </p>
      * 
      * @param account
-     *        The name of the AWS account that the stack instance is associated with.
+     *        [Self-managed permissions] The name of the Amazon Web Services account that the stack instance is
+     *        associated with.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -350,7 +419,10 @@ public class StackInstance implements Serializable, Cloneable {
      * <code>INOPERABLE</code>: A <code>DeleteStackInstances</code> operation has failed and left the stack in an
      * unstable state. Stacks in this state are excluded from further <code>UpdateStackSet</code> operations. You might
      * need to perform a <code>DeleteStackInstances</code> operation, with <code>RetainStacks</code> set to
-     * <code>true</code>, to delete the stack instance, and then delete the stack manually.
+     * <code>true</code>, to delete the stack instance, and then delete the stack manually. <code>INOPERABLE</code> can
+     * be returned here when the cause is a failed import. If it's due to a failed import, the operation can be retried
+     * once the failures are fixed. To see if this is due to a failed import, look at the <code>DetailedStatus</code>
+     * member in the <code>StackInstanceSummary</code> member that is a peer to this <code>Status</code> member.
      * </p>
      * </li>
      * <li>
@@ -387,6 +459,10 @@ public class StackInstance implements Serializable, Cloneable {
      *        unstable state. Stacks in this state are excluded from further <code>UpdateStackSet</code> operations. You
      *        might need to perform a <code>DeleteStackInstances</code> operation, with <code>RetainStacks</code> set to
      *        <code>true</code>, to delete the stack instance, and then delete the stack manually.
+     *        <code>INOPERABLE</code> can be returned here when the cause is a failed import. If it's due to a failed
+     *        import, the operation can be retried once the failures are fixed. To see if this is due to a failed
+     *        import, look at the <code>DetailedStatus</code> member in the <code>StackInstanceSummary</code> member
+     *        that is a peer to this <code>Status</code> member.
      *        </p>
      *        </li>
      *        <li>
@@ -429,7 +505,10 @@ public class StackInstance implements Serializable, Cloneable {
      * <code>INOPERABLE</code>: A <code>DeleteStackInstances</code> operation has failed and left the stack in an
      * unstable state. Stacks in this state are excluded from further <code>UpdateStackSet</code> operations. You might
      * need to perform a <code>DeleteStackInstances</code> operation, with <code>RetainStacks</code> set to
-     * <code>true</code>, to delete the stack instance, and then delete the stack manually.
+     * <code>true</code>, to delete the stack instance, and then delete the stack manually. <code>INOPERABLE</code> can
+     * be returned here when the cause is a failed import. If it's due to a failed import, the operation can be retried
+     * once the failures are fixed. To see if this is due to a failed import, look at the <code>DetailedStatus</code>
+     * member in the <code>StackInstanceSummary</code> member that is a peer to this <code>Status</code> member.
      * </p>
      * </li>
      * <li>
@@ -465,6 +544,10 @@ public class StackInstance implements Serializable, Cloneable {
      *         an unstable state. Stacks in this state are excluded from further <code>UpdateStackSet</code> operations.
      *         You might need to perform a <code>DeleteStackInstances</code> operation, with <code>RetainStacks</code>
      *         set to <code>true</code>, to delete the stack instance, and then delete the stack manually.
+     *         <code>INOPERABLE</code> can be returned here when the cause is a failed import. If it's due to a failed
+     *         import, the operation can be retried once the failures are fixed. To see if this is due to a failed
+     *         import, look at the <code>DetailedStatus</code> member in the <code>StackInstanceSummary</code> member
+     *         that is a peer to this <code>Status</code> member.
      *         </p>
      *         </li>
      *         <li>
@@ -508,7 +591,10 @@ public class StackInstance implements Serializable, Cloneable {
      * <code>INOPERABLE</code>: A <code>DeleteStackInstances</code> operation has failed and left the stack in an
      * unstable state. Stacks in this state are excluded from further <code>UpdateStackSet</code> operations. You might
      * need to perform a <code>DeleteStackInstances</code> operation, with <code>RetainStacks</code> set to
-     * <code>true</code>, to delete the stack instance, and then delete the stack manually.
+     * <code>true</code>, to delete the stack instance, and then delete the stack manually. <code>INOPERABLE</code> can
+     * be returned here when the cause is a failed import. If it's due to a failed import, the operation can be retried
+     * once the failures are fixed. To see if this is due to a failed import, look at the <code>DetailedStatus</code>
+     * member in the <code>StackInstanceSummary</code> member that is a peer to this <code>Status</code> member.
      * </p>
      * </li>
      * <li>
@@ -545,6 +631,10 @@ public class StackInstance implements Serializable, Cloneable {
      *        unstable state. Stacks in this state are excluded from further <code>UpdateStackSet</code> operations. You
      *        might need to perform a <code>DeleteStackInstances</code> operation, with <code>RetainStacks</code> set to
      *        <code>true</code>, to delete the stack instance, and then delete the stack manually.
+     *        <code>INOPERABLE</code> can be returned here when the cause is a failed import. If it's due to a failed
+     *        import, the operation can be retried once the failures are fixed. To see if this is due to a failed
+     *        import, look at the <code>DetailedStatus</code> member in the <code>StackInstanceSummary</code> member
+     *        that is a peer to this <code>Status</code> member.
      *        </p>
      *        </li>
      *        <li>
@@ -589,7 +679,10 @@ public class StackInstance implements Serializable, Cloneable {
      * <code>INOPERABLE</code>: A <code>DeleteStackInstances</code> operation has failed and left the stack in an
      * unstable state. Stacks in this state are excluded from further <code>UpdateStackSet</code> operations. You might
      * need to perform a <code>DeleteStackInstances</code> operation, with <code>RetainStacks</code> set to
-     * <code>true</code>, to delete the stack instance, and then delete the stack manually.
+     * <code>true</code>, to delete the stack instance, and then delete the stack manually. <code>INOPERABLE</code> can
+     * be returned here when the cause is a failed import. If it's due to a failed import, the operation can be retried
+     * once the failures are fixed. To see if this is due to a failed import, look at the <code>DetailedStatus</code>
+     * member in the <code>StackInstanceSummary</code> member that is a peer to this <code>Status</code> member.
      * </p>
      * </li>
      * <li>
@@ -626,6 +719,10 @@ public class StackInstance implements Serializable, Cloneable {
      *        unstable state. Stacks in this state are excluded from further <code>UpdateStackSet</code> operations. You
      *        might need to perform a <code>DeleteStackInstances</code> operation, with <code>RetainStacks</code> set to
      *        <code>true</code>, to delete the stack instance, and then delete the stack manually.
+     *        <code>INOPERABLE</code> can be returned here when the cause is a failed import. If it's due to a failed
+     *        import, the operation can be retried once the failures are fixed. To see if this is due to a failed
+     *        import, look at the <code>DetailedStatus</code> member in the <code>StackInstanceSummary</code> member
+     *        that is a peer to this <code>Status</code> member.
      *        </p>
      *        </li>
      *        <li>
@@ -668,7 +765,10 @@ public class StackInstance implements Serializable, Cloneable {
      * <code>INOPERABLE</code>: A <code>DeleteStackInstances</code> operation has failed and left the stack in an
      * unstable state. Stacks in this state are excluded from further <code>UpdateStackSet</code> operations. You might
      * need to perform a <code>DeleteStackInstances</code> operation, with <code>RetainStacks</code> set to
-     * <code>true</code>, to delete the stack instance, and then delete the stack manually.
+     * <code>true</code>, to delete the stack instance, and then delete the stack manually. <code>INOPERABLE</code> can
+     * be returned here when the cause is a failed import. If it's due to a failed import, the operation can be retried
+     * once the failures are fixed. To see if this is due to a failed import, look at the <code>DetailedStatus</code>
+     * member in the <code>StackInstanceSummary</code> member that is a peer to this <code>Status</code> member.
      * </p>
      * </li>
      * <li>
@@ -705,6 +805,10 @@ public class StackInstance implements Serializable, Cloneable {
      *        unstable state. Stacks in this state are excluded from further <code>UpdateStackSet</code> operations. You
      *        might need to perform a <code>DeleteStackInstances</code> operation, with <code>RetainStacks</code> set to
      *        <code>true</code>, to delete the stack instance, and then delete the stack manually.
+     *        <code>INOPERABLE</code> can be returned here when the cause is a failed import. If it's due to a failed
+     *        import, the operation can be retried once the failures are fixed. To see if this is due to a failed
+     *        import, look at the <code>DetailedStatus</code> member in the <code>StackInstanceSummary</code> member
+     *        that is a peer to this <code>Status</code> member.
      *        </p>
      *        </li>
      *        <li>
@@ -741,11 +845,51 @@ public class StackInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The explanation for the specific status code that is assigned to this stack instance.
+     * The detailed status of the stack instance.
+     * </p>
+     * 
+     * @param stackInstanceStatus
+     *        The detailed status of the stack instance.
+     */
+
+    public void setStackInstanceStatus(StackInstanceComprehensiveStatus stackInstanceStatus) {
+        this.stackInstanceStatus = stackInstanceStatus;
+    }
+
+    /**
+     * <p>
+     * The detailed status of the stack instance.
+     * </p>
+     * 
+     * @return The detailed status of the stack instance.
+     */
+
+    public StackInstanceComprehensiveStatus getStackInstanceStatus() {
+        return this.stackInstanceStatus;
+    }
+
+    /**
+     * <p>
+     * The detailed status of the stack instance.
+     * </p>
+     * 
+     * @param stackInstanceStatus
+     *        The detailed status of the stack instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StackInstance withStackInstanceStatus(StackInstanceComprehensiveStatus stackInstanceStatus) {
+        setStackInstanceStatus(stackInstanceStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The explanation for the specific status code that's assigned to this stack instance.
      * </p>
      * 
      * @param statusReason
-     *        The explanation for the specific status code that is assigned to this stack instance.
+     *        The explanation for the specific status code that's assigned to this stack instance.
      */
 
     public void setStatusReason(String statusReason) {
@@ -754,10 +898,10 @@ public class StackInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The explanation for the specific status code that is assigned to this stack instance.
+     * The explanation for the specific status code that's assigned to this stack instance.
      * </p>
      * 
-     * @return The explanation for the specific status code that is assigned to this stack instance.
+     * @return The explanation for the specific status code that's assigned to this stack instance.
      */
 
     public String getStatusReason() {
@@ -766,16 +910,491 @@ public class StackInstance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The explanation for the specific status code that is assigned to this stack instance.
+     * The explanation for the specific status code that's assigned to this stack instance.
      * </p>
      * 
      * @param statusReason
-     *        The explanation for the specific status code that is assigned to this stack instance.
+     *        The explanation for the specific status code that's assigned to this stack instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public StackInstance withStatusReason(String statusReason) {
         setStatusReason(statusReason);
+        return this;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified for <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html">
+     * DeploymentTargets</a>.
+     * </p>
+     * 
+     * @param organizationalUnitId
+     *        [Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified
+     *        for <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html">
+     *        DeploymentTargets</a>.
+     */
+
+    public void setOrganizationalUnitId(String organizationalUnitId) {
+        this.organizationalUnitId = organizationalUnitId;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified for <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html">
+     * DeploymentTargets</a>.
+     * </p>
+     * 
+     * @return [Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified
+     *         for <a
+     *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html"
+     *         >DeploymentTargets</a>.
+     */
+
+    public String getOrganizationalUnitId() {
+        return this.organizationalUnitId;
+    }
+
+    /**
+     * <p>
+     * [Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified for <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html">
+     * DeploymentTargets</a>.
+     * </p>
+     * 
+     * @param organizationalUnitId
+     *        [Service-managed permissions] The organization root ID or organizational unit (OU) IDs that you specified
+     *        for <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_DeploymentTargets.html">
+     *        DeploymentTargets</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StackInstance withOrganizationalUnitId(String organizationalUnitId) {
+        setOrganizationalUnitId(organizationalUnitId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Status of the stack instance's actual configuration compared to the expected template and parameter configuration
+     * of the stack set to which it belongs.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DRIFTED</code>: The stack differs from the expected template and parameter configuration of the stack set
+     * to which it belongs. A stack instance is considered to have drifted if one or more of the resources in the
+     * associated stack have drifted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack instance differs from its expected stack set
+     * configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>IN_SYNC</code>: The stack instance's actual configuration matches its expected stack set configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNKNOWN</code>: This value is reserved for future use.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param driftStatus
+     *        Status of the stack instance's actual configuration compared to the expected template and parameter
+     *        configuration of the stack set to which it belongs.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DRIFTED</code>: The stack differs from the expected template and parameter configuration of the
+     *        stack set to which it belongs. A stack instance is considered to have drifted if one or more of the
+     *        resources in the associated stack have drifted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack instance differs from its expected
+     *        stack set configuration.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>IN_SYNC</code>: The stack instance's actual configuration matches its expected stack set
+     *        configuration.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UNKNOWN</code>: This value is reserved for future use.
+     *        </p>
+     *        </li>
+     * @see StackDriftStatus
+     */
+
+    public void setDriftStatus(String driftStatus) {
+        this.driftStatus = driftStatus;
+    }
+
+    /**
+     * <p>
+     * Status of the stack instance's actual configuration compared to the expected template and parameter configuration
+     * of the stack set to which it belongs.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DRIFTED</code>: The stack differs from the expected template and parameter configuration of the stack set
+     * to which it belongs. A stack instance is considered to have drifted if one or more of the resources in the
+     * associated stack have drifted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack instance differs from its expected stack set
+     * configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>IN_SYNC</code>: The stack instance's actual configuration matches its expected stack set configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNKNOWN</code>: This value is reserved for future use.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Status of the stack instance's actual configuration compared to the expected template and parameter
+     *         configuration of the stack set to which it belongs.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>DRIFTED</code>: The stack differs from the expected template and parameter configuration of the
+     *         stack set to which it belongs. A stack instance is considered to have drifted if one or more of the
+     *         resources in the associated stack have drifted.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack instance differs from its expected
+     *         stack set configuration.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>IN_SYNC</code>: The stack instance's actual configuration matches its expected stack set
+     *         configuration.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>UNKNOWN</code>: This value is reserved for future use.
+     *         </p>
+     *         </li>
+     * @see StackDriftStatus
+     */
+
+    public String getDriftStatus() {
+        return this.driftStatus;
+    }
+
+    /**
+     * <p>
+     * Status of the stack instance's actual configuration compared to the expected template and parameter configuration
+     * of the stack set to which it belongs.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DRIFTED</code>: The stack differs from the expected template and parameter configuration of the stack set
+     * to which it belongs. A stack instance is considered to have drifted if one or more of the resources in the
+     * associated stack have drifted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack instance differs from its expected stack set
+     * configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>IN_SYNC</code>: The stack instance's actual configuration matches its expected stack set configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNKNOWN</code>: This value is reserved for future use.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param driftStatus
+     *        Status of the stack instance's actual configuration compared to the expected template and parameter
+     *        configuration of the stack set to which it belongs.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DRIFTED</code>: The stack differs from the expected template and parameter configuration of the
+     *        stack set to which it belongs. A stack instance is considered to have drifted if one or more of the
+     *        resources in the associated stack have drifted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack instance differs from its expected
+     *        stack set configuration.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>IN_SYNC</code>: The stack instance's actual configuration matches its expected stack set
+     *        configuration.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UNKNOWN</code>: This value is reserved for future use.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StackDriftStatus
+     */
+
+    public StackInstance withDriftStatus(String driftStatus) {
+        setDriftStatus(driftStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Status of the stack instance's actual configuration compared to the expected template and parameter configuration
+     * of the stack set to which it belongs.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DRIFTED</code>: The stack differs from the expected template and parameter configuration of the stack set
+     * to which it belongs. A stack instance is considered to have drifted if one or more of the resources in the
+     * associated stack have drifted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack instance differs from its expected stack set
+     * configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>IN_SYNC</code>: The stack instance's actual configuration matches its expected stack set configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNKNOWN</code>: This value is reserved for future use.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param driftStatus
+     *        Status of the stack instance's actual configuration compared to the expected template and parameter
+     *        configuration of the stack set to which it belongs.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DRIFTED</code>: The stack differs from the expected template and parameter configuration of the
+     *        stack set to which it belongs. A stack instance is considered to have drifted if one or more of the
+     *        resources in the associated stack have drifted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack instance differs from its expected
+     *        stack set configuration.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>IN_SYNC</code>: The stack instance's actual configuration matches its expected stack set
+     *        configuration.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UNKNOWN</code>: This value is reserved for future use.
+     *        </p>
+     *        </li>
+     * @see StackDriftStatus
+     */
+
+    public void setDriftStatus(StackDriftStatus driftStatus) {
+        withDriftStatus(driftStatus);
+    }
+
+    /**
+     * <p>
+     * Status of the stack instance's actual configuration compared to the expected template and parameter configuration
+     * of the stack set to which it belongs.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DRIFTED</code>: The stack differs from the expected template and parameter configuration of the stack set
+     * to which it belongs. A stack instance is considered to have drifted if one or more of the resources in the
+     * associated stack have drifted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack instance differs from its expected stack set
+     * configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>IN_SYNC</code>: The stack instance's actual configuration matches its expected stack set configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UNKNOWN</code>: This value is reserved for future use.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param driftStatus
+     *        Status of the stack instance's actual configuration compared to the expected template and parameter
+     *        configuration of the stack set to which it belongs.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DRIFTED</code>: The stack differs from the expected template and parameter configuration of the
+     *        stack set to which it belongs. A stack instance is considered to have drifted if one or more of the
+     *        resources in the associated stack have drifted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack instance differs from its expected
+     *        stack set configuration.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>IN_SYNC</code>: The stack instance's actual configuration matches its expected stack set
+     *        configuration.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UNKNOWN</code>: This value is reserved for future use.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StackDriftStatus
+     */
+
+    public StackInstance withDriftStatus(StackDriftStatus driftStatus) {
+        this.driftStatus = driftStatus.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Most recent time when CloudFormation performed a drift detection operation on the stack instance. This value will
+     * be <code>NULL</code> for any stack instance on which drift detection hasn't yet been performed.
+     * </p>
+     * 
+     * @param lastDriftCheckTimestamp
+     *        Most recent time when CloudFormation performed a drift detection operation on the stack instance. This
+     *        value will be <code>NULL</code> for any stack instance on which drift detection hasn't yet been performed.
+     */
+
+    public void setLastDriftCheckTimestamp(java.util.Date lastDriftCheckTimestamp) {
+        this.lastDriftCheckTimestamp = lastDriftCheckTimestamp;
+    }
+
+    /**
+     * <p>
+     * Most recent time when CloudFormation performed a drift detection operation on the stack instance. This value will
+     * be <code>NULL</code> for any stack instance on which drift detection hasn't yet been performed.
+     * </p>
+     * 
+     * @return Most recent time when CloudFormation performed a drift detection operation on the stack instance. This
+     *         value will be <code>NULL</code> for any stack instance on which drift detection hasn't yet been
+     *         performed.
+     */
+
+    public java.util.Date getLastDriftCheckTimestamp() {
+        return this.lastDriftCheckTimestamp;
+    }
+
+    /**
+     * <p>
+     * Most recent time when CloudFormation performed a drift detection operation on the stack instance. This value will
+     * be <code>NULL</code> for any stack instance on which drift detection hasn't yet been performed.
+     * </p>
+     * 
+     * @param lastDriftCheckTimestamp
+     *        Most recent time when CloudFormation performed a drift detection operation on the stack instance. This
+     *        value will be <code>NULL</code> for any stack instance on which drift detection hasn't yet been performed.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StackInstance withLastDriftCheckTimestamp(java.util.Date lastDriftCheckTimestamp) {
+        setLastDriftCheckTimestamp(lastDriftCheckTimestamp);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The last unique ID of a StackSet operation performed on a stack instance.
+     * </p>
+     * 
+     * @param lastOperationId
+     *        The last unique ID of a StackSet operation performed on a stack instance.
+     */
+
+    public void setLastOperationId(String lastOperationId) {
+        this.lastOperationId = lastOperationId;
+    }
+
+    /**
+     * <p>
+     * The last unique ID of a StackSet operation performed on a stack instance.
+     * </p>
+     * 
+     * @return The last unique ID of a StackSet operation performed on a stack instance.
+     */
+
+    public String getLastOperationId() {
+        return this.lastOperationId;
+    }
+
+    /**
+     * <p>
+     * The last unique ID of a StackSet operation performed on a stack instance.
+     * </p>
+     * 
+     * @param lastOperationId
+     *        The last unique ID of a StackSet operation performed on a stack instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StackInstance withLastOperationId(String lastOperationId) {
+        setLastOperationId(lastOperationId);
         return this;
     }
 
@@ -803,8 +1422,18 @@ public class StackInstance implements Serializable, Cloneable {
             sb.append("ParameterOverrides: ").append(getParameterOverrides()).append(",");
         if (getStatus() != null)
             sb.append("Status: ").append(getStatus()).append(",");
+        if (getStackInstanceStatus() != null)
+            sb.append("StackInstanceStatus: ").append(getStackInstanceStatus()).append(",");
         if (getStatusReason() != null)
-            sb.append("StatusReason: ").append(getStatusReason());
+            sb.append("StatusReason: ").append(getStatusReason()).append(",");
+        if (getOrganizationalUnitId() != null)
+            sb.append("OrganizationalUnitId: ").append(getOrganizationalUnitId()).append(",");
+        if (getDriftStatus() != null)
+            sb.append("DriftStatus: ").append(getDriftStatus()).append(",");
+        if (getLastDriftCheckTimestamp() != null)
+            sb.append("LastDriftCheckTimestamp: ").append(getLastDriftCheckTimestamp()).append(",");
+        if (getLastOperationId() != null)
+            sb.append("LastOperationId: ").append(getLastOperationId());
         sb.append("}");
         return sb.toString();
     }
@@ -843,9 +1472,29 @@ public class StackInstance implements Serializable, Cloneable {
             return false;
         if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
             return false;
+        if (other.getStackInstanceStatus() == null ^ this.getStackInstanceStatus() == null)
+            return false;
+        if (other.getStackInstanceStatus() != null && other.getStackInstanceStatus().equals(this.getStackInstanceStatus()) == false)
+            return false;
         if (other.getStatusReason() == null ^ this.getStatusReason() == null)
             return false;
         if (other.getStatusReason() != null && other.getStatusReason().equals(this.getStatusReason()) == false)
+            return false;
+        if (other.getOrganizationalUnitId() == null ^ this.getOrganizationalUnitId() == null)
+            return false;
+        if (other.getOrganizationalUnitId() != null && other.getOrganizationalUnitId().equals(this.getOrganizationalUnitId()) == false)
+            return false;
+        if (other.getDriftStatus() == null ^ this.getDriftStatus() == null)
+            return false;
+        if (other.getDriftStatus() != null && other.getDriftStatus().equals(this.getDriftStatus()) == false)
+            return false;
+        if (other.getLastDriftCheckTimestamp() == null ^ this.getLastDriftCheckTimestamp() == null)
+            return false;
+        if (other.getLastDriftCheckTimestamp() != null && other.getLastDriftCheckTimestamp().equals(this.getLastDriftCheckTimestamp()) == false)
+            return false;
+        if (other.getLastOperationId() == null ^ this.getLastOperationId() == null)
+            return false;
+        if (other.getLastOperationId() != null && other.getLastOperationId().equals(this.getLastOperationId()) == false)
             return false;
         return true;
     }
@@ -861,7 +1510,12 @@ public class StackInstance implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getStackId() == null) ? 0 : getStackId().hashCode());
         hashCode = prime * hashCode + ((getParameterOverrides() == null) ? 0 : getParameterOverrides().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        hashCode = prime * hashCode + ((getStackInstanceStatus() == null) ? 0 : getStackInstanceStatus().hashCode());
         hashCode = prime * hashCode + ((getStatusReason() == null) ? 0 : getStatusReason().hashCode());
+        hashCode = prime * hashCode + ((getOrganizationalUnitId() == null) ? 0 : getOrganizationalUnitId().hashCode());
+        hashCode = prime * hashCode + ((getDriftStatus() == null) ? 0 : getDriftStatus().hashCode());
+        hashCode = prime * hashCode + ((getLastDriftCheckTimestamp() == null) ? 0 : getLastDriftCheckTimestamp().hashCode());
+        hashCode = prime * hashCode + ((getLastOperationId() == null) ? 0 : getLastOperationId().hashCode());
         return hashCode;
     }
 

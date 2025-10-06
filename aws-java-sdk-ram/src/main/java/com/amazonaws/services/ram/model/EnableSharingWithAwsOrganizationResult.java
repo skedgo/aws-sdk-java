@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,18 +26,21 @@ public class EnableSharingWithAwsOrganizationResult extends com.amazonaws.Amazon
 
     /**
      * <p>
-     * Indicates whether the request succeeded.
+     * A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code> indicates
+     * that the request failed.
      * </p>
      */
     private Boolean returnValue;
 
     /**
      * <p>
-     * Indicates whether the request succeeded.
+     * A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code> indicates
+     * that the request failed.
      * </p>
      * 
      * @param returnValue
-     *        Indicates whether the request succeeded.
+     *        A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code>
+     *        indicates that the request failed.
      */
 
     public void setReturnValue(Boolean returnValue) {
@@ -46,10 +49,12 @@ public class EnableSharingWithAwsOrganizationResult extends com.amazonaws.Amazon
 
     /**
      * <p>
-     * Indicates whether the request succeeded.
+     * A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code> indicates
+     * that the request failed.
      * </p>
      * 
-     * @return Indicates whether the request succeeded.
+     * @return A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code>
+     *         indicates that the request failed.
      */
 
     public Boolean getReturnValue() {
@@ -58,11 +63,13 @@ public class EnableSharingWithAwsOrganizationResult extends com.amazonaws.Amazon
 
     /**
      * <p>
-     * Indicates whether the request succeeded.
+     * A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code> indicates
+     * that the request failed.
      * </p>
      * 
      * @param returnValue
-     *        Indicates whether the request succeeded.
+     *        A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code>
+     *        indicates that the request failed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -73,10 +80,12 @@ public class EnableSharingWithAwsOrganizationResult extends com.amazonaws.Amazon
 
     /**
      * <p>
-     * Indicates whether the request succeeded.
+     * A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code> indicates
+     * that the request failed.
      * </p>
      * 
-     * @return Indicates whether the request succeeded.
+     * @return A return value of <code>true</code> indicates that the request succeeded. A value of <code>false</code>
+     *         indicates that the request failed.
      */
 
     public Boolean isReturnValue() {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,19 +26,25 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class ListBrokersRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
     /**
+     * <p>
      * The maximum number of brokers that Amazon MQ can return per page (20 by default). This value must be an integer
      * from 5 to 100.
+     * </p>
      */
     private Integer maxResults;
     /**
+     * <p>
      * The token that specifies the next page of results Amazon MQ should return. To request the first page, leave
      * nextToken empty.
+     * </p>
      */
     private String nextToken;
 
     /**
+     * <p>
      * The maximum number of brokers that Amazon MQ can return per page (20 by default). This value must be an integer
      * from 5 to 100.
+     * </p>
      * 
      * @param maxResults
      *        The maximum number of brokers that Amazon MQ can return per page (20 by default). This value must be an
@@ -50,8 +56,10 @@ public class ListBrokersRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
      * The maximum number of brokers that Amazon MQ can return per page (20 by default). This value must be an integer
      * from 5 to 100.
+     * </p>
      * 
      * @return The maximum number of brokers that Amazon MQ can return per page (20 by default). This value must be an
      *         integer from 5 to 100.
@@ -62,8 +70,10 @@ public class ListBrokersRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
      * The maximum number of brokers that Amazon MQ can return per page (20 by default). This value must be an integer
      * from 5 to 100.
+     * </p>
      * 
      * @param maxResults
      *        The maximum number of brokers that Amazon MQ can return per page (20 by default). This value must be an
@@ -77,8 +87,10 @@ public class ListBrokersRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
      * The token that specifies the next page of results Amazon MQ should return. To request the first page, leave
      * nextToken empty.
+     * </p>
      * 
      * @param nextToken
      *        The token that specifies the next page of results Amazon MQ should return. To request the first page,
@@ -90,8 +102,10 @@ public class ListBrokersRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
      * The token that specifies the next page of results Amazon MQ should return. To request the first page, leave
      * nextToken empty.
+     * </p>
      * 
      * @return The token that specifies the next page of results Amazon MQ should return. To request the first page,
      *         leave nextToken empty.
@@ -102,8 +116,10 @@ public class ListBrokersRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
      * The token that specifies the next page of results Amazon MQ should return. To request the first page, leave
      * nextToken empty.
+     * </p>
      * 
      * @param nextToken
      *        The token that specifies the next page of results Amazon MQ should return. To request the first page,

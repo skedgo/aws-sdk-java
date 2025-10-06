@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -95,6 +95,36 @@ public class StackEventStaxUnmarshaller implements Unmarshaller<StackEvent, Stax
 
                 if (context.testExpression("ClientRequestToken", targetDepth)) {
                     stackEvent.setClientRequestToken(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("HookType", targetDepth)) {
+                    stackEvent.setHookType(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("HookStatus", targetDepth)) {
+                    stackEvent.setHookStatus(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("HookStatusReason", targetDepth)) {
+                    stackEvent.setHookStatusReason(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("HookInvocationPoint", targetDepth)) {
+                    stackEvent.setHookInvocationPoint(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("HookFailureMode", targetDepth)) {
+                    stackEvent.setHookFailureMode(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DetailedStatus", targetDepth)) {
+                    stackEvent.setDetailedStatus(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,11 +40,18 @@ public class UpdateGlobalSecondaryIndexAction implements Serializable, Cloneable
      * </p>
      * <p>
      * For current minimum and maximum provisioned throughput values, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the <i>Amazon
-     * DynamoDB Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and Table
+     * Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      */
     private ProvisionedThroughput provisionedThroughput;
+    /**
+     * <p>
+     * Updates the maximum number of read and write units for the specified global secondary index. If you use this
+     * parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.
+     * </p>
+     */
+    private OnDemandThroughput onDemandThroughput;
 
     /**
      * <p>
@@ -92,16 +99,16 @@ public class UpdateGlobalSecondaryIndexAction implements Serializable, Cloneable
      * </p>
      * <p>
      * For current minimum and maximum provisioned throughput values, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the <i>Amazon
-     * DynamoDB Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and Table
+     * Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * 
      * @param provisionedThroughput
      *        Represents the provisioned throughput settings for the specified global secondary index.</p>
      *        <p>
      *        For current minimum and maximum provisioned throughput values, see <a
-     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the
-     *        <i>Amazon DynamoDB Developer Guide</i>.
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and
+     *        Table Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      */
 
     public void setProvisionedThroughput(ProvisionedThroughput provisionedThroughput) {
@@ -114,15 +121,15 @@ public class UpdateGlobalSecondaryIndexAction implements Serializable, Cloneable
      * </p>
      * <p>
      * For current minimum and maximum provisioned throughput values, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the <i>Amazon
-     * DynamoDB Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and Table
+     * Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * 
      * @return Represents the provisioned throughput settings for the specified global secondary index.</p>
      *         <p>
      *         For current minimum and maximum provisioned throughput values, see <a
-     *         href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the
-     *         <i>Amazon DynamoDB Developer Guide</i>.
+     *         href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and
+     *         Table Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      */
 
     public ProvisionedThroughput getProvisionedThroughput() {
@@ -135,21 +142,70 @@ public class UpdateGlobalSecondaryIndexAction implements Serializable, Cloneable
      * </p>
      * <p>
      * For current minimum and maximum provisioned throughput values, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the <i>Amazon
-     * DynamoDB Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and Table
+     * Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * 
      * @param provisionedThroughput
      *        Represents the provisioned throughput settings for the specified global secondary index.</p>
      *        <p>
      *        For current minimum and maximum provisioned throughput values, see <a
-     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the
-     *        <i>Amazon DynamoDB Developer Guide</i>.
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and
+     *        Table Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UpdateGlobalSecondaryIndexAction withProvisionedThroughput(ProvisionedThroughput provisionedThroughput) {
         setProvisionedThroughput(provisionedThroughput);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Updates the maximum number of read and write units for the specified global secondary index. If you use this
+     * parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.
+     * </p>
+     * 
+     * @param onDemandThroughput
+     *        Updates the maximum number of read and write units for the specified global secondary index. If you use
+     *        this parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or
+     *        both.
+     */
+
+    public void setOnDemandThroughput(OnDemandThroughput onDemandThroughput) {
+        this.onDemandThroughput = onDemandThroughput;
+    }
+
+    /**
+     * <p>
+     * Updates the maximum number of read and write units for the specified global secondary index. If you use this
+     * parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.
+     * </p>
+     * 
+     * @return Updates the maximum number of read and write units for the specified global secondary index. If you use
+     *         this parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or
+     *         both.
+     */
+
+    public OnDemandThroughput getOnDemandThroughput() {
+        return this.onDemandThroughput;
+    }
+
+    /**
+     * <p>
+     * Updates the maximum number of read and write units for the specified global secondary index. If you use this
+     * parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.
+     * </p>
+     * 
+     * @param onDemandThroughput
+     *        Updates the maximum number of read and write units for the specified global secondary index. If you use
+     *        this parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or
+     *        both.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateGlobalSecondaryIndexAction withOnDemandThroughput(OnDemandThroughput onDemandThroughput) {
+        setOnDemandThroughput(onDemandThroughput);
         return this;
     }
 
@@ -168,7 +224,9 @@ public class UpdateGlobalSecondaryIndexAction implements Serializable, Cloneable
         if (getIndexName() != null)
             sb.append("IndexName: ").append(getIndexName()).append(",");
         if (getProvisionedThroughput() != null)
-            sb.append("ProvisionedThroughput: ").append(getProvisionedThroughput());
+            sb.append("ProvisionedThroughput: ").append(getProvisionedThroughput()).append(",");
+        if (getOnDemandThroughput() != null)
+            sb.append("OnDemandThroughput: ").append(getOnDemandThroughput());
         sb.append("}");
         return sb.toString();
     }
@@ -191,6 +249,10 @@ public class UpdateGlobalSecondaryIndexAction implements Serializable, Cloneable
             return false;
         if (other.getProvisionedThroughput() != null && other.getProvisionedThroughput().equals(this.getProvisionedThroughput()) == false)
             return false;
+        if (other.getOnDemandThroughput() == null ^ this.getOnDemandThroughput() == null)
+            return false;
+        if (other.getOnDemandThroughput() != null && other.getOnDemandThroughput().equals(this.getOnDemandThroughput()) == false)
+            return false;
         return true;
     }
 
@@ -201,6 +263,7 @@ public class UpdateGlobalSecondaryIndexAction implements Serializable, Cloneable
 
         hashCode = prime * hashCode + ((getIndexName() == null) ? 0 : getIndexName().hashCode());
         hashCode = prime * hashCode + ((getProvisionedThroughput() == null) ? 0 : getProvisionedThroughput().hashCode());
+        hashCode = prime * hashCode + ((getOnDemandThroughput() == null) ? 0 : getOnDemandThroughput().hashCode());
         return hashCode;
     }
 

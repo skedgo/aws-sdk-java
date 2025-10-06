@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,8 +32,8 @@ public class BillingRecord implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The name of the domain that the billing record applies to. If the domain name contains characters other than a-z,
      * 0-9, and - (hyphen), such as an internationalized domain name, then this value is in Punycode. For more
-     * information, see <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html">DNS
-     * Domain Name Format</a> in the <i>Amazon Route 53 Developer Guidezzz</i>.
+     * information, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html">DNS
+     * Domain Name Format</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      */
     private String domainName;
@@ -69,16 +69,16 @@ public class BillingRecord implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The name of the domain that the billing record applies to. If the domain name contains characters other than a-z,
      * 0-9, and - (hyphen), such as an internationalized domain name, then this value is in Punycode. For more
-     * information, see <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html">DNS
-     * Domain Name Format</a> in the <i>Amazon Route 53 Developer Guidezzz</i>.
+     * information, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html">DNS
+     * Domain Name Format</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * 
      * @param domainName
      *        The name of the domain that the billing record applies to. If the domain name contains characters other
      *        than a-z, 0-9, and - (hyphen), such as an internationalized domain name, then this value is in Punycode.
      *        For more information, see <a
-     *        href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html">DNS Domain Name
-     *        Format</a> in the <i>Amazon Route 53 Developer Guidezzz</i>.
+     *        href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html">DNS Domain Name
+     *        Format</a> in the <i>Amazon Route 53 Developer Guide</i>.
      */
 
     public void setDomainName(String domainName) {
@@ -89,15 +89,15 @@ public class BillingRecord implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The name of the domain that the billing record applies to. If the domain name contains characters other than a-z,
      * 0-9, and - (hyphen), such as an internationalized domain name, then this value is in Punycode. For more
-     * information, see <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html">DNS
-     * Domain Name Format</a> in the <i>Amazon Route 53 Developer Guidezzz</i>.
+     * information, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html">DNS
+     * Domain Name Format</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * 
      * @return The name of the domain that the billing record applies to. If the domain name contains characters other
      *         than a-z, 0-9, and - (hyphen), such as an internationalized domain name, then this value is in Punycode.
      *         For more information, see <a
-     *         href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html">DNS Domain Name
-     *         Format</a> in the <i>Amazon Route 53 Developer Guidezzz</i>.
+     *         href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html">DNS Domain Name
+     *         Format</a> in the <i>Amazon Route 53 Developer Guide</i>.
      */
 
     public String getDomainName() {
@@ -108,16 +108,16 @@ public class BillingRecord implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The name of the domain that the billing record applies to. If the domain name contains characters other than a-z,
      * 0-9, and - (hyphen), such as an internationalized domain name, then this value is in Punycode. For more
-     * information, see <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html">DNS
-     * Domain Name Format</a> in the <i>Amazon Route 53 Developer Guidezzz</i>.
+     * information, see <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html">DNS
+     * Domain Name Format</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * 
      * @param domainName
      *        The name of the domain that the billing record applies to. If the domain name contains characters other
      *        than a-z, 0-9, and - (hyphen), such as an internationalized domain name, then this value is in Punycode.
      *        For more information, see <a
-     *        href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html">DNS Domain Name
-     *        Format</a> in the <i>Amazon Route 53 Developer Guidezzz</i>.
+     *        href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html">DNS Domain Name
+     *        Format</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,18 @@ public class DescribedServerJsonUnmarshaller implements Unmarshaller<DescribedSe
                     context.nextToken();
                     describedServer.setArn(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("Certificate", targetDepth)) {
+                    context.nextToken();
+                    describedServer.setCertificate(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ProtocolDetails", targetDepth)) {
+                    context.nextToken();
+                    describedServer.setProtocolDetails(ProtocolDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("Domain", targetDepth)) {
+                    context.nextToken();
+                    describedServer.setDomain(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("EndpointDetails", targetDepth)) {
                     context.nextToken();
                     describedServer.setEndpointDetails(EndpointDetailsJsonUnmarshaller.getInstance().unmarshall(context));
@@ -76,6 +88,24 @@ public class DescribedServerJsonUnmarshaller implements Unmarshaller<DescribedSe
                     context.nextToken();
                     describedServer.setLoggingRole(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("PostAuthenticationLoginBanner", targetDepth)) {
+                    context.nextToken();
+                    describedServer.setPostAuthenticationLoginBanner(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("PreAuthenticationLoginBanner", targetDepth)) {
+                    context.nextToken();
+                    describedServer.setPreAuthenticationLoginBanner(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Protocols", targetDepth)) {
+                    context.nextToken();
+                    describedServer.setProtocols(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("SecurityPolicyName", targetDepth)) {
+                    context.nextToken();
+                    describedServer.setSecurityPolicyName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("ServerId", targetDepth)) {
                     context.nextToken();
                     describedServer.setServerId(context.getUnmarshaller(String.class).unmarshall(context));
@@ -86,11 +116,33 @@ public class DescribedServerJsonUnmarshaller implements Unmarshaller<DescribedSe
                 }
                 if (context.testExpression("Tags", targetDepth)) {
                     context.nextToken();
-                    describedServer.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance()).unmarshall(context));
+                    describedServer.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("UserCount", targetDepth)) {
                     context.nextToken();
                     describedServer.setUserCount(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("WorkflowDetails", targetDepth)) {
+                    context.nextToken();
+                    describedServer.setWorkflowDetails(WorkflowDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("StructuredLogDestinations", targetDepth)) {
+                    context.nextToken();
+                    describedServer.setStructuredLogDestinations(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("S3StorageOptions", targetDepth)) {
+                    context.nextToken();
+                    describedServer.setS3StorageOptions(S3StorageOptionsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("As2ServiceManagedEgressIpAddresses", targetDepth)) {
+                    context.nextToken();
+                    describedServer.setAs2ServiceManagedEgressIpAddresses(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -84,19 +84,26 @@ public class DescribeTransitGatewaysRequest extends AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     * <code>owner-id</code> - The ID of the Amazon Web Services account that owns the transit gateway.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     * <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     * <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     * <code>state</code> - The state of the transit gateway (<code>available</code> | <code>deleted</code> |
+     * <code>deleting</code> | <code>modifying</code> | <code>pending</code>).
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>transit-gateway-id</code> - The ID of the transit gateway.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key </code>- The key/value combination of a tag assigned to the resource. Use the tag key in the filter
+     * name and the tag value as the filter value. For example, to find all resources that have a tag with the key
+     * <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and
+     * <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * </ul>
@@ -241,19 +248,26 @@ public class DescribeTransitGatewaysRequest extends AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     * <code>owner-id</code> - The ID of the Amazon Web Services account that owns the transit gateway.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     * <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     * <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     * <code>state</code> - The state of the transit gateway (<code>available</code> | <code>deleted</code> |
+     * <code>deleting</code> | <code>modifying</code> | <code>pending</code>).
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>transit-gateway-id</code> - The ID of the transit gateway.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key </code>- The key/value combination of a tag assigned to the resource. Use the tag key in the filter
+     * name and the tag value as the filter value. For example, to find all resources that have a tag with the key
+     * <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and
+     * <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * </ul>
@@ -309,19 +323,26 @@ public class DescribeTransitGatewaysRequest extends AmazonWebServiceRequest impl
      *         </li>
      *         <li>
      *         <p>
-     *         <code>owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     *         <code>owner-id</code> - The ID of the Amazon Web Services account that owns the transit gateway.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     *         <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     *         <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     *         <code>state</code> - The state of the transit gateway (<code>available</code> | <code>deleted</code> |
+     *         <code>deleting</code> | <code>modifying</code> | <code>pending</code>).
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>transit-gateway-id</code> - The ID of the transit gateway.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>tag-key </code>- The key/value combination of a tag assigned to the resource. Use the tag key in
+     *         the filter name and the tag value as the filter value. For example, to find all resources that have a tag
+     *         with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the
+     *         filter name and <code>TeamA</code> for the filter value.
      *         </p>
      *         </li>
      */
@@ -385,19 +406,26 @@ public class DescribeTransitGatewaysRequest extends AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     * <code>owner-id</code> - The ID of the Amazon Web Services account that owns the transit gateway.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     * <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     * <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     * <code>state</code> - The state of the transit gateway (<code>available</code> | <code>deleted</code> |
+     * <code>deleting</code> | <code>modifying</code> | <code>pending</code>).
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>transit-gateway-id</code> - The ID of the transit gateway.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key </code>- The key/value combination of a tag assigned to the resource. Use the tag key in the filter
+     * name and the tag value as the filter value. For example, to find all resources that have a tag with the key
+     * <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and
+     * <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * </ul>
@@ -454,19 +482,26 @@ public class DescribeTransitGatewaysRequest extends AmazonWebServiceRequest impl
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     *        <code>owner-id</code> - The ID of the Amazon Web Services account that owns the transit gateway.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     *        <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     *        <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     *        <code>state</code> - The state of the transit gateway (<code>available</code> | <code>deleted</code> |
+     *        <code>deleting</code> | <code>modifying</code> | <code>pending</code>).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>transit-gateway-id</code> - The ID of the transit gateway.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag-key </code>- The key/value combination of a tag assigned to the resource. Use the tag key in the
+     *        filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     *        the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter
+     *        name and <code>TeamA</code> for the filter value.
      *        </p>
      *        </li>
      */
@@ -532,19 +567,26 @@ public class DescribeTransitGatewaysRequest extends AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     * <code>owner-id</code> - The ID of the Amazon Web Services account that owns the transit gateway.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     * <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     * <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     * <code>state</code> - The state of the transit gateway (<code>available</code> | <code>deleted</code> |
+     * <code>deleting</code> | <code>modifying</code> | <code>pending</code>).
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>transit-gateway-id</code> - The ID of the transit gateway.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key </code>- The key/value combination of a tag assigned to the resource. Use the tag key in the filter
+     * name and the tag value as the filter value. For example, to find all resources that have a tag with the key
+     * <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and
+     * <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * </ul>
@@ -606,19 +648,26 @@ public class DescribeTransitGatewaysRequest extends AmazonWebServiceRequest impl
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     *        <code>owner-id</code> - The ID of the Amazon Web Services account that owns the transit gateway.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     *        <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     *        <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     *        <code>state</code> - The state of the transit gateway (<code>available</code> | <code>deleted</code> |
+     *        <code>deleting</code> | <code>modifying</code> | <code>pending</code>).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>transit-gateway-id</code> - The ID of the transit gateway.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag-key </code>- The key/value combination of a tag assigned to the resource. Use the tag key in the
+     *        filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     *        the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter
+     *        name and <code>TeamA</code> for the filter value.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -686,19 +735,26 @@ public class DescribeTransitGatewaysRequest extends AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     * <code>owner-id</code> - The ID of the Amazon Web Services account that owns the transit gateway.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     * <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     * <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     * <code>state</code> - The state of the transit gateway (<code>available</code> | <code>deleted</code> |
+     * <code>deleting</code> | <code>modifying</code> | <code>pending</code>).
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>transit-gateway-id</code> - The ID of the transit gateway.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key </code>- The key/value combination of a tag assigned to the resource. Use the tag key in the filter
+     * name and the tag value as the filter value. For example, to find all resources that have a tag with the key
+     * <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and
+     * <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * </ul>
@@ -755,19 +811,26 @@ public class DescribeTransitGatewaysRequest extends AmazonWebServiceRequest impl
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The ID of the AWS account that owns the transit gateway.
+     *        <code>owner-id</code> - The ID of the Amazon Web Services account that owns the transit gateway.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>state</code> - The state of the attachment (<code>available</code> | <code>deleted</code> |
-     *        <code>deleting</code> | <code>failed</code> | <code>modifying</code> | <code>pendingAcceptance</code> |
-     *        <code>pending</code> | <code>rollingBack</code> | <code>rejected</code> | <code>rejecting</code>).
+     *        <code>state</code> - The state of the transit gateway (<code>available</code> | <code>deleted</code> |
+     *        <code>deleting</code> | <code>modifying</code> | <code>pending</code>).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>transit-gateway-id</code> - The ID of the transit gateway.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag-key </code>- The key/value combination of a tag assigned to the resource. Use the tag key in the
+     *        filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     *        the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter
+     *        name and <code>TeamA</code> for the filter value.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

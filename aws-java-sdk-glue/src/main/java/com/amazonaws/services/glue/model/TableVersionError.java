@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,7 +43,7 @@ public class TableVersionError implements Serializable, Cloneable, StructuredPoj
     private String versionId;
     /**
      * <p>
-     * Detail about the error.
+     * The details about the error.
      * </p>
      */
     private ErrorDetail errorDetail;
@@ -136,11 +136,11 @@ public class TableVersionError implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Detail about the error.
+     * The details about the error.
      * </p>
      * 
      * @param errorDetail
-     *        Detail about the error.
+     *        The details about the error.
      */
 
     public void setErrorDetail(ErrorDetail errorDetail) {
@@ -149,10 +149,10 @@ public class TableVersionError implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Detail about the error.
+     * The details about the error.
      * </p>
      * 
-     * @return Detail about the error.
+     * @return The details about the error.
      */
 
     public ErrorDetail getErrorDetail() {
@@ -161,11 +161,11 @@ public class TableVersionError implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Detail about the error.
+     * The details about the error.
      * </p>
      * 
      * @param errorDetail
-     *        Detail about the error.
+     *        The details about the error.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

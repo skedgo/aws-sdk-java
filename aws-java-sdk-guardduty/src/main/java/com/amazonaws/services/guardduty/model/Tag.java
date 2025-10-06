@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains information about a tag associated with the EC2 instance.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/Tag" target="_top">AWS API
  *      Documentation</a>
@@ -27,24 +30,24 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * EC2 instance tag key.
+     * The EC2 instance tag key.
      * </p>
      */
     private String key;
     /**
      * <p>
-     * EC2 instance tag value.
+     * The EC2 instance tag value.
      * </p>
      */
     private String value;
 
     /**
      * <p>
-     * EC2 instance tag key.
+     * The EC2 instance tag key.
      * </p>
      * 
      * @param key
-     *        EC2 instance tag key.
+     *        The EC2 instance tag key.
      */
 
     public void setKey(String key) {
@@ -53,10 +56,10 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * EC2 instance tag key.
+     * The EC2 instance tag key.
      * </p>
      * 
-     * @return EC2 instance tag key.
+     * @return The EC2 instance tag key.
      */
 
     public String getKey() {
@@ -65,11 +68,11 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * EC2 instance tag key.
+     * The EC2 instance tag key.
      * </p>
      * 
      * @param key
-     *        EC2 instance tag key.
+     *        The EC2 instance tag key.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,11 +83,11 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * EC2 instance tag value.
+     * The EC2 instance tag value.
      * </p>
      * 
      * @param value
-     *        EC2 instance tag value.
+     *        The EC2 instance tag value.
      */
 
     public void setValue(String value) {
@@ -93,10 +96,10 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * EC2 instance tag value.
+     * The EC2 instance tag value.
      * </p>
      * 
-     * @return EC2 instance tag value.
+     * @return The EC2 instance tag value.
      */
 
     public String getValue() {
@@ -105,11 +108,11 @@ public class Tag implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * EC2 instance tag value.
+     * The EC2 instance tag value.
      * </p>
      * 
      * @param value
-     *        EC2 instance tag value.
+     *        The EC2 instance tag value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

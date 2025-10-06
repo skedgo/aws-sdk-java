@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,8 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
     private java.util.List<AttributeDefinition> attributeDefinitions;
     /**
      * <p>
-     * The name of the table to create.
+     * The name of the table to create. You can also provide the Amazon Resource Name (ARN) of the table in this
+     * parameter.
      * </p>
      */
     private String tableName;
@@ -239,14 +240,18 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>PROVISIONED</code> - Sets the billing mode to <code>PROVISIONED</code>. We recommend using
-     * <code>PROVISIONED</code> for predictable workloads.
+     * <code>PROVISIONED</code> - We recommend using <code>PROVISIONED</code> for predictable workloads.
+     * <code>PROVISIONED</code> sets the billing mode to <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html"
+     * >Provisioned capacity mode</a>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>PAY_PER_REQUEST</code> - Sets the billing mode to <code>PAY_PER_REQUEST</code>. We recommend using
-     * <code>PAY_PER_REQUEST</code> for unpredictable workloads.
+     * <code>PAY_PER_REQUEST</code> - We recommend using <code>PAY_PER_REQUEST</code> for unpredictable workloads.
+     * <code>PAY_PER_REQUEST</code> sets the billing mode to <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html">On-demand
+     * capacity mode</a>.
      * </p>
      * </li>
      * </ul>
@@ -263,8 +268,8 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * <p>
      * For current minimum and maximum provisioned throughput values, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the <i>Amazon
-     * DynamoDB Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and Table
+     * Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      */
     private ProvisionedThroughput provisionedThroughput;
@@ -322,6 +327,49 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      */
     private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * The table class of the new table. Valid values are <code>STANDARD</code> and
+     * <code>STANDARD_INFREQUENT_ACCESS</code>.
+     * </p>
+     */
+    private String tableClass;
+    /**
+     * <p>
+     * Indicates whether deletion protection is to be enabled (true) or disabled (false) on the table.
+     * </p>
+     */
+    private Boolean deletionProtectionEnabled;
+    /**
+     * <p>
+     * An Amazon Web Services resource-based policy document in JSON format that will be attached to the table.
+     * </p>
+     * <p>
+     * When you attach a resource-based policy while creating a table, the policy application is <i>strongly
+     * consistent</i>.
+     * </p>
+     * <p>
+     * The maximum size supported for a resource-based policy document is 20 KB. DynamoDB counts whitespaces when
+     * calculating the size of a policy against this limit. For a full list of all considerations that apply for
+     * resource-based policies, see <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-considerations.html">Resource-based
+     * policy considerations</a>.
+     * </p>
+     * <note>
+     * <p>
+     * You need to specify the <code>CreateTable</code> and <code>PutResourcePolicy</code> IAM actions for authorizing a
+     * user to create a table with a resource-based policy.
+     * </p>
+     * </note>
+     */
+    private String resourcePolicy;
+    /**
+     * <p>
+     * Sets the maximum number of read and write units for the specified table in on-demand capacity mode. If you use
+     * this parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.
+     * </p>
+     */
+    private OnDemandThroughput onDemandThroughput;
 
     /**
      * Default constructor for CreateTableRequest object. Callers should use the setter or fluent setter (with...)
@@ -335,7 +383,8 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      * initialize any additional object members.
      * 
      * @param tableName
-     *        The name of the table to create.
+     *        The name of the table to create. You can also provide the Amazon Resource Name (ARN) of the table in this
+     *        parameter.
      * @param keySchema
      *        Specifies the attributes that make up the primary key for a table or an index. The attributes in
      *        <code>KeySchema</code> must also be defined in the <code>AttributeDefinitions</code> array. For more
@@ -407,7 +456,8 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      * @param attributeDefinitions
      *        An array of attributes that describe the key schema for the table and indexes.
      * @param tableName
-     *        The name of the table to create.
+     *        The name of the table to create. You can also provide the Amazon Resource Name (ARN) of the table in this
+     *        parameter.
      * @param keySchema
      *        Specifies the attributes that make up the primary key for a table or an index. The attributes in
      *        <code>KeySchema</code> must also be defined in the <code>AttributeDefinitions</code> array. For more
@@ -476,8 +526,8 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        </p>
      *        <p>
      *        For current minimum and maximum provisioned throughput values, see <a
-     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the
-     *        <i>Amazon DynamoDB Developer Guide</i>.
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and
+     *        Table Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      */
     public CreateTableRequest(java.util.List<AttributeDefinition> attributeDefinitions, String tableName, java.util.List<KeySchemaElement> keySchema,
             ProvisionedThroughput provisionedThroughput) {
@@ -559,11 +609,13 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name of the table to create.
+     * The name of the table to create. You can also provide the Amazon Resource Name (ARN) of the table in this
+     * parameter.
      * </p>
      * 
      * @param tableName
-     *        The name of the table to create.
+     *        The name of the table to create. You can also provide the Amazon Resource Name (ARN) of the table in this
+     *        parameter.
      */
 
     public void setTableName(String tableName) {
@@ -572,10 +624,12 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name of the table to create.
+     * The name of the table to create. You can also provide the Amazon Resource Name (ARN) of the table in this
+     * parameter.
      * </p>
      * 
-     * @return The name of the table to create.
+     * @return The name of the table to create. You can also provide the Amazon Resource Name (ARN) of the table in this
+     *         parameter.
      */
 
     public String getTableName() {
@@ -584,11 +638,13 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name of the table to create.
+     * The name of the table to create. You can also provide the Amazon Resource Name (ARN) of the table in this
+     * parameter.
      * </p>
      * 
      * @param tableName
-     *        The name of the table to create.
+     *        The name of the table to create. You can also provide the Amazon Resource Name (ARN) of the table in this
+     *        parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2191,14 +2247,18 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>PROVISIONED</code> - Sets the billing mode to <code>PROVISIONED</code>. We recommend using
-     * <code>PROVISIONED</code> for predictable workloads.
+     * <code>PROVISIONED</code> - We recommend using <code>PROVISIONED</code> for predictable workloads.
+     * <code>PROVISIONED</code> sets the billing mode to <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html"
+     * >Provisioned capacity mode</a>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>PAY_PER_REQUEST</code> - Sets the billing mode to <code>PAY_PER_REQUEST</code>. We recommend using
-     * <code>PAY_PER_REQUEST</code> for unpredictable workloads.
+     * <code>PAY_PER_REQUEST</code> - We recommend using <code>PAY_PER_REQUEST</code> for unpredictable workloads.
+     * <code>PAY_PER_REQUEST</code> sets the billing mode to <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html">On-demand
+     * capacity mode</a>.
      * </p>
      * </li>
      * </ul>
@@ -2209,14 +2269,18 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>PROVISIONED</code> - Sets the billing mode to <code>PROVISIONED</code>. We recommend using
-     *        <code>PROVISIONED</code> for predictable workloads.
+     *        <code>PROVISIONED</code> - We recommend using <code>PROVISIONED</code> for predictable workloads.
+     *        <code>PROVISIONED</code> sets the billing mode to <a
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html"
+     *        >Provisioned capacity mode</a>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>PAY_PER_REQUEST</code> - Sets the billing mode to <code>PAY_PER_REQUEST</code>. We recommend using
-     *        <code>PAY_PER_REQUEST</code> for unpredictable workloads.
+     *        <code>PAY_PER_REQUEST</code> - We recommend using <code>PAY_PER_REQUEST</code> for unpredictable
+     *        workloads. <code>PAY_PER_REQUEST</code> sets the billing mode to <a
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html"
+     *        >On-demand capacity mode</a>.
      *        </p>
      *        </li>
      * @see BillingMode
@@ -2234,14 +2298,18 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>PROVISIONED</code> - Sets the billing mode to <code>PROVISIONED</code>. We recommend using
-     * <code>PROVISIONED</code> for predictable workloads.
+     * <code>PROVISIONED</code> - We recommend using <code>PROVISIONED</code> for predictable workloads.
+     * <code>PROVISIONED</code> sets the billing mode to <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html"
+     * >Provisioned capacity mode</a>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>PAY_PER_REQUEST</code> - Sets the billing mode to <code>PAY_PER_REQUEST</code>. We recommend using
-     * <code>PAY_PER_REQUEST</code> for unpredictable workloads.
+     * <code>PAY_PER_REQUEST</code> - We recommend using <code>PAY_PER_REQUEST</code> for unpredictable workloads.
+     * <code>PAY_PER_REQUEST</code> sets the billing mode to <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html">On-demand
+     * capacity mode</a>.
      * </p>
      * </li>
      * </ul>
@@ -2251,14 +2319,18 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>PROVISIONED</code> - Sets the billing mode to <code>PROVISIONED</code>. We recommend using
-     *         <code>PROVISIONED</code> for predictable workloads.
+     *         <code>PROVISIONED</code> - We recommend using <code>PROVISIONED</code> for predictable workloads.
+     *         <code>PROVISIONED</code> sets the billing mode to <a
+     *         href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html"
+     *         >Provisioned capacity mode</a>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>PAY_PER_REQUEST</code> - Sets the billing mode to <code>PAY_PER_REQUEST</code>. We recommend using
-     *         <code>PAY_PER_REQUEST</code> for unpredictable workloads.
+     *         <code>PAY_PER_REQUEST</code> - We recommend using <code>PAY_PER_REQUEST</code> for unpredictable
+     *         workloads. <code>PAY_PER_REQUEST</code> sets the billing mode to <a
+     *         href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html"
+     *         >On-demand capacity mode</a>.
      *         </p>
      *         </li>
      * @see BillingMode
@@ -2276,14 +2348,18 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>PROVISIONED</code> - Sets the billing mode to <code>PROVISIONED</code>. We recommend using
-     * <code>PROVISIONED</code> for predictable workloads.
+     * <code>PROVISIONED</code> - We recommend using <code>PROVISIONED</code> for predictable workloads.
+     * <code>PROVISIONED</code> sets the billing mode to <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html"
+     * >Provisioned capacity mode</a>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>PAY_PER_REQUEST</code> - Sets the billing mode to <code>PAY_PER_REQUEST</code>. We recommend using
-     * <code>PAY_PER_REQUEST</code> for unpredictable workloads.
+     * <code>PAY_PER_REQUEST</code> - We recommend using <code>PAY_PER_REQUEST</code> for unpredictable workloads.
+     * <code>PAY_PER_REQUEST</code> sets the billing mode to <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html">On-demand
+     * capacity mode</a>.
      * </p>
      * </li>
      * </ul>
@@ -2294,14 +2370,18 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>PROVISIONED</code> - Sets the billing mode to <code>PROVISIONED</code>. We recommend using
-     *        <code>PROVISIONED</code> for predictable workloads.
+     *        <code>PROVISIONED</code> - We recommend using <code>PROVISIONED</code> for predictable workloads.
+     *        <code>PROVISIONED</code> sets the billing mode to <a
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html"
+     *        >Provisioned capacity mode</a>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>PAY_PER_REQUEST</code> - Sets the billing mode to <code>PAY_PER_REQUEST</code>. We recommend using
-     *        <code>PAY_PER_REQUEST</code> for unpredictable workloads.
+     *        <code>PAY_PER_REQUEST</code> - We recommend using <code>PAY_PER_REQUEST</code> for unpredictable
+     *        workloads. <code>PAY_PER_REQUEST</code> sets the billing mode to <a
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html"
+     *        >On-demand capacity mode</a>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -2321,14 +2401,18 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      * <ul>
      * <li>
      * <p>
-     * <code>PROVISIONED</code> - Sets the billing mode to <code>PROVISIONED</code>. We recommend using
-     * <code>PROVISIONED</code> for predictable workloads.
+     * <code>PROVISIONED</code> - We recommend using <code>PROVISIONED</code> for predictable workloads.
+     * <code>PROVISIONED</code> sets the billing mode to <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html"
+     * >Provisioned capacity mode</a>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>PAY_PER_REQUEST</code> - Sets the billing mode to <code>PAY_PER_REQUEST</code>. We recommend using
-     * <code>PAY_PER_REQUEST</code> for unpredictable workloads.
+     * <code>PAY_PER_REQUEST</code> - We recommend using <code>PAY_PER_REQUEST</code> for unpredictable workloads.
+     * <code>PAY_PER_REQUEST</code> sets the billing mode to <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html">On-demand
+     * capacity mode</a>.
      * </p>
      * </li>
      * </ul>
@@ -2339,14 +2423,18 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>PROVISIONED</code> - Sets the billing mode to <code>PROVISIONED</code>. We recommend using
-     *        <code>PROVISIONED</code> for predictable workloads.
+     *        <code>PROVISIONED</code> - We recommend using <code>PROVISIONED</code> for predictable workloads.
+     *        <code>PROVISIONED</code> sets the billing mode to <a
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/provisioned-capacity-mode.html"
+     *        >Provisioned capacity mode</a>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>PAY_PER_REQUEST</code> - Sets the billing mode to <code>PAY_PER_REQUEST</code>. We recommend using
-     *        <code>PAY_PER_REQUEST</code> for unpredictable workloads.
+     *        <code>PAY_PER_REQUEST</code> - We recommend using <code>PAY_PER_REQUEST</code> for unpredictable
+     *        workloads. <code>PAY_PER_REQUEST</code> sets the billing mode to <a
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/on-demand-capacity-mode.html"
+     *        >On-demand capacity mode</a>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -2369,8 +2457,8 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * <p>
      * For current minimum and maximum provisioned throughput values, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the <i>Amazon
-     * DynamoDB Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and Table
+     * Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * 
      * @param provisionedThroughput
@@ -2382,8 +2470,8 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        </p>
      *        <p>
      *        For current minimum and maximum provisioned throughput values, see <a
-     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the
-     *        <i>Amazon DynamoDB Developer Guide</i>.
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and
+     *        Table Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      */
 
     public void setProvisionedThroughput(ProvisionedThroughput provisionedThroughput) {
@@ -2401,8 +2489,8 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * <p>
      * For current minimum and maximum provisioned throughput values, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the <i>Amazon
-     * DynamoDB Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and Table
+     * Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * 
      * @return Represents the provisioned throughput settings for a specified table or index. The settings can be
@@ -2413,8 +2501,8 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         </p>
      *         <p>
      *         For current minimum and maximum provisioned throughput values, see <a
-     *         href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the
-     *         <i>Amazon DynamoDB Developer Guide</i>.
+     *         href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and
+     *         Table Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      */
 
     public ProvisionedThroughput getProvisionedThroughput() {
@@ -2432,8 +2520,8 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * <p>
      * For current minimum and maximum provisioned throughput values, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the <i>Amazon
-     * DynamoDB Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and Table
+     * Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * 
      * @param provisionedThroughput
@@ -2445,8 +2533,8 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        </p>
      *        <p>
      *        For current minimum and maximum provisioned throughput values, see <a
-     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the
-     *        <i>Amazon DynamoDB Developer Guide</i>.
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and
+     *        Table Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2835,6 +2923,316 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
+     * The table class of the new table. Valid values are <code>STANDARD</code> and
+     * <code>STANDARD_INFREQUENT_ACCESS</code>.
+     * </p>
+     * 
+     * @param tableClass
+     *        The table class of the new table. Valid values are <code>STANDARD</code> and
+     *        <code>STANDARD_INFREQUENT_ACCESS</code>.
+     * @see TableClass
+     */
+
+    public void setTableClass(String tableClass) {
+        this.tableClass = tableClass;
+    }
+
+    /**
+     * <p>
+     * The table class of the new table. Valid values are <code>STANDARD</code> and
+     * <code>STANDARD_INFREQUENT_ACCESS</code>.
+     * </p>
+     * 
+     * @return The table class of the new table. Valid values are <code>STANDARD</code> and
+     *         <code>STANDARD_INFREQUENT_ACCESS</code>.
+     * @see TableClass
+     */
+
+    public String getTableClass() {
+        return this.tableClass;
+    }
+
+    /**
+     * <p>
+     * The table class of the new table. Valid values are <code>STANDARD</code> and
+     * <code>STANDARD_INFREQUENT_ACCESS</code>.
+     * </p>
+     * 
+     * @param tableClass
+     *        The table class of the new table. Valid values are <code>STANDARD</code> and
+     *        <code>STANDARD_INFREQUENT_ACCESS</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TableClass
+     */
+
+    public CreateTableRequest withTableClass(String tableClass) {
+        setTableClass(tableClass);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The table class of the new table. Valid values are <code>STANDARD</code> and
+     * <code>STANDARD_INFREQUENT_ACCESS</code>.
+     * </p>
+     * 
+     * @param tableClass
+     *        The table class of the new table. Valid values are <code>STANDARD</code> and
+     *        <code>STANDARD_INFREQUENT_ACCESS</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TableClass
+     */
+
+    public CreateTableRequest withTableClass(TableClass tableClass) {
+        this.tableClass = tableClass.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether deletion protection is to be enabled (true) or disabled (false) on the table.
+     * </p>
+     * 
+     * @param deletionProtectionEnabled
+     *        Indicates whether deletion protection is to be enabled (true) or disabled (false) on the table.
+     */
+
+    public void setDeletionProtectionEnabled(Boolean deletionProtectionEnabled) {
+        this.deletionProtectionEnabled = deletionProtectionEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether deletion protection is to be enabled (true) or disabled (false) on the table.
+     * </p>
+     * 
+     * @return Indicates whether deletion protection is to be enabled (true) or disabled (false) on the table.
+     */
+
+    public Boolean getDeletionProtectionEnabled() {
+        return this.deletionProtectionEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether deletion protection is to be enabled (true) or disabled (false) on the table.
+     * </p>
+     * 
+     * @param deletionProtectionEnabled
+     *        Indicates whether deletion protection is to be enabled (true) or disabled (false) on the table.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTableRequest withDeletionProtectionEnabled(Boolean deletionProtectionEnabled) {
+        setDeletionProtectionEnabled(deletionProtectionEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether deletion protection is to be enabled (true) or disabled (false) on the table.
+     * </p>
+     * 
+     * @return Indicates whether deletion protection is to be enabled (true) or disabled (false) on the table.
+     */
+
+    public Boolean isDeletionProtectionEnabled() {
+        return this.deletionProtectionEnabled;
+    }
+
+    /**
+     * <p>
+     * An Amazon Web Services resource-based policy document in JSON format that will be attached to the table.
+     * </p>
+     * <p>
+     * When you attach a resource-based policy while creating a table, the policy application is <i>strongly
+     * consistent</i>.
+     * </p>
+     * <p>
+     * The maximum size supported for a resource-based policy document is 20 KB. DynamoDB counts whitespaces when
+     * calculating the size of a policy against this limit. For a full list of all considerations that apply for
+     * resource-based policies, see <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-considerations.html">Resource-based
+     * policy considerations</a>.
+     * </p>
+     * <note>
+     * <p>
+     * You need to specify the <code>CreateTable</code> and <code>PutResourcePolicy</code> IAM actions for authorizing a
+     * user to create a table with a resource-based policy.
+     * </p>
+     * </note>
+     * 
+     * @param resourcePolicy
+     *        An Amazon Web Services resource-based policy document in JSON format that will be attached to the
+     *        table.</p>
+     *        <p>
+     *        When you attach a resource-based policy while creating a table, the policy application is <i>strongly
+     *        consistent</i>.
+     *        </p>
+     *        <p>
+     *        The maximum size supported for a resource-based policy document is 20 KB. DynamoDB counts whitespaces when
+     *        calculating the size of a policy against this limit. For a full list of all considerations that apply for
+     *        resource-based policies, see <a
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-considerations.html"
+     *        >Resource-based policy considerations</a>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        You need to specify the <code>CreateTable</code> and <code>PutResourcePolicy</code> IAM actions for
+     *        authorizing a user to create a table with a resource-based policy.
+     *        </p>
+     */
+
+    public void setResourcePolicy(String resourcePolicy) {
+        this.resourcePolicy = resourcePolicy;
+    }
+
+    /**
+     * <p>
+     * An Amazon Web Services resource-based policy document in JSON format that will be attached to the table.
+     * </p>
+     * <p>
+     * When you attach a resource-based policy while creating a table, the policy application is <i>strongly
+     * consistent</i>.
+     * </p>
+     * <p>
+     * The maximum size supported for a resource-based policy document is 20 KB. DynamoDB counts whitespaces when
+     * calculating the size of a policy against this limit. For a full list of all considerations that apply for
+     * resource-based policies, see <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-considerations.html">Resource-based
+     * policy considerations</a>.
+     * </p>
+     * <note>
+     * <p>
+     * You need to specify the <code>CreateTable</code> and <code>PutResourcePolicy</code> IAM actions for authorizing a
+     * user to create a table with a resource-based policy.
+     * </p>
+     * </note>
+     * 
+     * @return An Amazon Web Services resource-based policy document in JSON format that will be attached to the
+     *         table.</p>
+     *         <p>
+     *         When you attach a resource-based policy while creating a table, the policy application is <i>strongly
+     *         consistent</i>.
+     *         </p>
+     *         <p>
+     *         The maximum size supported for a resource-based policy document is 20 KB. DynamoDB counts whitespaces
+     *         when calculating the size of a policy against this limit. For a full list of all considerations that
+     *         apply for resource-based policies, see <a
+     *         href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-considerations.html"
+     *         >Resource-based policy considerations</a>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         You need to specify the <code>CreateTable</code> and <code>PutResourcePolicy</code> IAM actions for
+     *         authorizing a user to create a table with a resource-based policy.
+     *         </p>
+     */
+
+    public String getResourcePolicy() {
+        return this.resourcePolicy;
+    }
+
+    /**
+     * <p>
+     * An Amazon Web Services resource-based policy document in JSON format that will be attached to the table.
+     * </p>
+     * <p>
+     * When you attach a resource-based policy while creating a table, the policy application is <i>strongly
+     * consistent</i>.
+     * </p>
+     * <p>
+     * The maximum size supported for a resource-based policy document is 20 KB. DynamoDB counts whitespaces when
+     * calculating the size of a policy against this limit. For a full list of all considerations that apply for
+     * resource-based policies, see <a
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-considerations.html">Resource-based
+     * policy considerations</a>.
+     * </p>
+     * <note>
+     * <p>
+     * You need to specify the <code>CreateTable</code> and <code>PutResourcePolicy</code> IAM actions for authorizing a
+     * user to create a table with a resource-based policy.
+     * </p>
+     * </note>
+     * 
+     * @param resourcePolicy
+     *        An Amazon Web Services resource-based policy document in JSON format that will be attached to the
+     *        table.</p>
+     *        <p>
+     *        When you attach a resource-based policy while creating a table, the policy application is <i>strongly
+     *        consistent</i>.
+     *        </p>
+     *        <p>
+     *        The maximum size supported for a resource-based policy document is 20 KB. DynamoDB counts whitespaces when
+     *        calculating the size of a policy against this limit. For a full list of all considerations that apply for
+     *        resource-based policies, see <a
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/rbac-considerations.html"
+     *        >Resource-based policy considerations</a>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        You need to specify the <code>CreateTable</code> and <code>PutResourcePolicy</code> IAM actions for
+     *        authorizing a user to create a table with a resource-based policy.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTableRequest withResourcePolicy(String resourcePolicy) {
+        setResourcePolicy(resourcePolicy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Sets the maximum number of read and write units for the specified table in on-demand capacity mode. If you use
+     * this parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.
+     * </p>
+     * 
+     * @param onDemandThroughput
+     *        Sets the maximum number of read and write units for the specified table in on-demand capacity mode. If you
+     *        use this parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>,
+     *        or both.
+     */
+
+    public void setOnDemandThroughput(OnDemandThroughput onDemandThroughput) {
+        this.onDemandThroughput = onDemandThroughput;
+    }
+
+    /**
+     * <p>
+     * Sets the maximum number of read and write units for the specified table in on-demand capacity mode. If you use
+     * this parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.
+     * </p>
+     * 
+     * @return Sets the maximum number of read and write units for the specified table in on-demand capacity mode. If
+     *         you use this parameter, you must specify <code>MaxReadRequestUnits</code>,
+     *         <code>MaxWriteRequestUnits</code>, or both.
+     */
+
+    public OnDemandThroughput getOnDemandThroughput() {
+        return this.onDemandThroughput;
+    }
+
+    /**
+     * <p>
+     * Sets the maximum number of read and write units for the specified table in on-demand capacity mode. If you use
+     * this parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.
+     * </p>
+     * 
+     * @param onDemandThroughput
+     *        Sets the maximum number of read and write units for the specified table in on-demand capacity mode. If you
+     *        use this parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>,
+     *        or both.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateTableRequest withOnDemandThroughput(OnDemandThroughput onDemandThroughput) {
+        setOnDemandThroughput(onDemandThroughput);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -2865,7 +3263,15 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getSSESpecification() != null)
             sb.append("SSESpecification: ").append(getSSESpecification()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getTableClass() != null)
+            sb.append("TableClass: ").append(getTableClass()).append(",");
+        if (getDeletionProtectionEnabled() != null)
+            sb.append("DeletionProtectionEnabled: ").append(getDeletionProtectionEnabled()).append(",");
+        if (getResourcePolicy() != null)
+            sb.append("ResourcePolicy: ").append(getResourcePolicy()).append(",");
+        if (getOnDemandThroughput() != null)
+            sb.append("OnDemandThroughput: ").append(getOnDemandThroughput());
         sb.append("}");
         return sb.toString();
     }
@@ -2920,6 +3326,22 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getTableClass() == null ^ this.getTableClass() == null)
+            return false;
+        if (other.getTableClass() != null && other.getTableClass().equals(this.getTableClass()) == false)
+            return false;
+        if (other.getDeletionProtectionEnabled() == null ^ this.getDeletionProtectionEnabled() == null)
+            return false;
+        if (other.getDeletionProtectionEnabled() != null && other.getDeletionProtectionEnabled().equals(this.getDeletionProtectionEnabled()) == false)
+            return false;
+        if (other.getResourcePolicy() == null ^ this.getResourcePolicy() == null)
+            return false;
+        if (other.getResourcePolicy() != null && other.getResourcePolicy().equals(this.getResourcePolicy()) == false)
+            return false;
+        if (other.getOnDemandThroughput() == null ^ this.getOnDemandThroughput() == null)
+            return false;
+        if (other.getOnDemandThroughput() != null && other.getOnDemandThroughput().equals(this.getOnDemandThroughput()) == false)
+            return false;
         return true;
     }
 
@@ -2938,6 +3360,10 @@ public class CreateTableRequest extends com.amazonaws.AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getStreamSpecification() == null) ? 0 : getStreamSpecification().hashCode());
         hashCode = prime * hashCode + ((getSSESpecification() == null) ? 0 : getSSESpecification().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getTableClass() == null) ? 0 : getTableClass().hashCode());
+        hashCode = prime * hashCode + ((getDeletionProtectionEnabled() == null) ? 0 : getDeletionProtectionEnabled().hashCode());
+        hashCode = prime * hashCode + ((getResourcePolicy() == null) ? 0 : getResourcePolicy().hashCode());
+        hashCode = prime * hashCode + ((getOnDemandThroughput() == null) ? 0 : getOnDemandThroughput().hashCode());
         return hashCode;
     }
 

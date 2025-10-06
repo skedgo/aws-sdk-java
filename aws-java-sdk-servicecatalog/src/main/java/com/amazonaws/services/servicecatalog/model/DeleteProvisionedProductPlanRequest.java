@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,11 +32,6 @@ public class DeleteProvisionedProductPlanRequest extends com.amazonaws.AmazonWeb
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -56,7 +51,7 @@ public class DeleteProvisionedProductPlanRequest extends com.amazonaws.AmazonWeb
     private String planId;
     /**
      * <p>
-     * If set to true, AWS Service Catalog stops managing the specified provisioned product even if it cannot delete the
+     * If set to true, Service Catalog stops managing the specified provisioned product even if it cannot delete the
      * underlying resources.
      * </p>
      */
@@ -67,11 +62,6 @@ public class DeleteProvisionedProductPlanRequest extends com.amazonaws.AmazonWeb
      * The language code.
      * </p>
      * <ul>
-     * <li>
-     * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
      * <li>
      * <p>
      * <code>jp</code> - Japanese
@@ -87,11 +77,6 @@ public class DeleteProvisionedProductPlanRequest extends com.amazonaws.AmazonWeb
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -115,11 +100,6 @@ public class DeleteProvisionedProductPlanRequest extends com.amazonaws.AmazonWeb
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -132,11 +112,6 @@ public class DeleteProvisionedProductPlanRequest extends com.amazonaws.AmazonWeb
      * 
      * @return The language code.</p>
      *         <ul>
-     *         <li>
-     *         <p>
-     *         <code>en</code> - English (default)
-     *         </p>
-     *         </li>
      *         <li>
      *         <p>
      *         <code>jp</code> - Japanese
@@ -160,11 +135,6 @@ public class DeleteProvisionedProductPlanRequest extends com.amazonaws.AmazonWeb
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -178,11 +148,6 @@ public class DeleteProvisionedProductPlanRequest extends com.amazonaws.AmazonWeb
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -243,13 +208,13 @@ public class DeleteProvisionedProductPlanRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * If set to true, AWS Service Catalog stops managing the specified provisioned product even if it cannot delete the
+     * If set to true, Service Catalog stops managing the specified provisioned product even if it cannot delete the
      * underlying resources.
      * </p>
      * 
      * @param ignoreErrors
-     *        If set to true, AWS Service Catalog stops managing the specified provisioned product even if it cannot
-     *        delete the underlying resources.
+     *        If set to true, Service Catalog stops managing the specified provisioned product even if it cannot delete
+     *        the underlying resources.
      */
 
     public void setIgnoreErrors(Boolean ignoreErrors) {
@@ -258,12 +223,12 @@ public class DeleteProvisionedProductPlanRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * If set to true, AWS Service Catalog stops managing the specified provisioned product even if it cannot delete the
+     * If set to true, Service Catalog stops managing the specified provisioned product even if it cannot delete the
      * underlying resources.
      * </p>
      * 
-     * @return If set to true, AWS Service Catalog stops managing the specified provisioned product even if it cannot
-     *         delete the underlying resources.
+     * @return If set to true, Service Catalog stops managing the specified provisioned product even if it cannot delete
+     *         the underlying resources.
      */
 
     public Boolean getIgnoreErrors() {
@@ -272,13 +237,13 @@ public class DeleteProvisionedProductPlanRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * If set to true, AWS Service Catalog stops managing the specified provisioned product even if it cannot delete the
+     * If set to true, Service Catalog stops managing the specified provisioned product even if it cannot delete the
      * underlying resources.
      * </p>
      * 
      * @param ignoreErrors
-     *        If set to true, AWS Service Catalog stops managing the specified provisioned product even if it cannot
-     *        delete the underlying resources.
+     *        If set to true, Service Catalog stops managing the specified provisioned product even if it cannot delete
+     *        the underlying resources.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -289,12 +254,12 @@ public class DeleteProvisionedProductPlanRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * If set to true, AWS Service Catalog stops managing the specified provisioned product even if it cannot delete the
+     * If set to true, Service Catalog stops managing the specified provisioned product even if it cannot delete the
      * underlying resources.
      * </p>
      * 
-     * @return If set to true, AWS Service Catalog stops managing the specified provisioned product even if it cannot
-     *         delete the underlying resources.
+     * @return If set to true, Service Catalog stops managing the specified provisioned product even if it cannot delete
+     *         the underlying resources.
      */
 
     public Boolean isIgnoreErrors() {

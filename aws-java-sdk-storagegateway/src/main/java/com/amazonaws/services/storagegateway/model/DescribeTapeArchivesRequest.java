@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,7 +42,7 @@ public class DescribeTapeArchivesRequest extends com.amazonaws.AmazonWebServiceR
     private String marker;
     /**
      * <p>
-     * Specifies that the number of virtual tapes descried be limited to the specified number.
+     * Specifies that the number of virtual tapes described be limited to the specified number.
      * </p>
      */
     private Integer limit;
@@ -166,11 +166,11 @@ public class DescribeTapeArchivesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Specifies that the number of virtual tapes descried be limited to the specified number.
+     * Specifies that the number of virtual tapes described be limited to the specified number.
      * </p>
      * 
      * @param limit
-     *        Specifies that the number of virtual tapes descried be limited to the specified number.
+     *        Specifies that the number of virtual tapes described be limited to the specified number.
      */
 
     public void setLimit(Integer limit) {
@@ -179,10 +179,10 @@ public class DescribeTapeArchivesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Specifies that the number of virtual tapes descried be limited to the specified number.
+     * Specifies that the number of virtual tapes described be limited to the specified number.
      * </p>
      * 
-     * @return Specifies that the number of virtual tapes descried be limited to the specified number.
+     * @return Specifies that the number of virtual tapes described be limited to the specified number.
      */
 
     public Integer getLimit() {
@@ -191,11 +191,11 @@ public class DescribeTapeArchivesRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Specifies that the number of virtual tapes descried be limited to the specified number.
+     * Specifies that the number of virtual tapes described be limited to the specified number.
      * </p>
      * 
      * @param limit
-     *        Specifies that the number of virtual tapes descried be limited to the specified number.
+     *        Specifies that the number of virtual tapes described be limited to the specified number.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

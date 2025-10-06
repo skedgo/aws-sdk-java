@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.kafka.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -41,12 +42,16 @@ public class ClusterOperationInfoMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("operationArn").build();
     private static final MarshallingInfo<String> OPERATIONSTATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("operationState").build();
+    private static final MarshallingInfo<List> OPERATIONSTEPS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("operationSteps").build();
     private static final MarshallingInfo<String> OPERATIONTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("operationType").build();
     private static final MarshallingInfo<StructuredPojo> SOURCECLUSTERINFO_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("sourceClusterInfo").build();
     private static final MarshallingInfo<StructuredPojo> TARGETCLUSTERINFO_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("targetClusterInfo").build();
+    private static final MarshallingInfo<StructuredPojo> VPCCONNECTIONINFO_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("vpcConnectionInfo").build();
 
     private static final ClusterOperationInfoMarshaller instance = new ClusterOperationInfoMarshaller();
 
@@ -71,9 +76,11 @@ public class ClusterOperationInfoMarshaller {
             protocolMarshaller.marshall(clusterOperationInfo.getErrorInfo(), ERRORINFO_BINDING);
             protocolMarshaller.marshall(clusterOperationInfo.getOperationArn(), OPERATIONARN_BINDING);
             protocolMarshaller.marshall(clusterOperationInfo.getOperationState(), OPERATIONSTATE_BINDING);
+            protocolMarshaller.marshall(clusterOperationInfo.getOperationSteps(), OPERATIONSTEPS_BINDING);
             protocolMarshaller.marshall(clusterOperationInfo.getOperationType(), OPERATIONTYPE_BINDING);
             protocolMarshaller.marshall(clusterOperationInfo.getSourceClusterInfo(), SOURCECLUSTERINFO_BINDING);
             protocolMarshaller.marshall(clusterOperationInfo.getTargetClusterInfo(), TARGETCLUSTERINFO_BINDING);
+            protocolMarshaller.marshall(clusterOperationInfo.getVpcConnectionInfo(), VPCCONNECTIONINFO_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

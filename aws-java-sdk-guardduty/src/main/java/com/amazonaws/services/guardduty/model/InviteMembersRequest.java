@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class InviteMembersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The unique ID of the detector of the GuardDuty account with which you want to invite members.
+     * The unique ID of the detector of the GuardDuty account that you want to invite members with.
      * </p>
      */
     private String detectorId;
@@ -39,25 +39,25 @@ public class InviteMembersRequest extends com.amazonaws.AmazonWebServiceRequest 
     private java.util.List<String> accountIds;
     /**
      * <p>
-     * A boolean value that specifies whether you want to disable email notification to the accounts that you’re
+     * A Boolean value that specifies whether you want to disable email notification to the accounts that you are
      * inviting to GuardDuty as members.
      * </p>
      */
     private Boolean disableEmailNotification;
     /**
      * <p>
-     * The invitation message that you want to send to the accounts that you’re inviting to GuardDuty as members.
+     * The invitation message that you want to send to the accounts that you're inviting to GuardDuty as members.
      * </p>
      */
     private String message;
 
     /**
      * <p>
-     * The unique ID of the detector of the GuardDuty account with which you want to invite members.
+     * The unique ID of the detector of the GuardDuty account that you want to invite members with.
      * </p>
      * 
      * @param detectorId
-     *        The unique ID of the detector of the GuardDuty account with which you want to invite members.
+     *        The unique ID of the detector of the GuardDuty account that you want to invite members with.
      */
 
     public void setDetectorId(String detectorId) {
@@ -66,10 +66,10 @@ public class InviteMembersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The unique ID of the detector of the GuardDuty account with which you want to invite members.
+     * The unique ID of the detector of the GuardDuty account that you want to invite members with.
      * </p>
      * 
-     * @return The unique ID of the detector of the GuardDuty account with which you want to invite members.
+     * @return The unique ID of the detector of the GuardDuty account that you want to invite members with.
      */
 
     public String getDetectorId() {
@@ -78,11 +78,11 @@ public class InviteMembersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The unique ID of the detector of the GuardDuty account with which you want to invite members.
+     * The unique ID of the detector of the GuardDuty account that you want to invite members with.
      * </p>
      * 
      * @param detectorId
-     *        The unique ID of the detector of the GuardDuty account with which you want to invite members.
+     *        The unique ID of the detector of the GuardDuty account that you want to invite members with.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -163,12 +163,12 @@ public class InviteMembersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A boolean value that specifies whether you want to disable email notification to the accounts that you’re
+     * A Boolean value that specifies whether you want to disable email notification to the accounts that you are
      * inviting to GuardDuty as members.
      * </p>
      * 
      * @param disableEmailNotification
-     *        A boolean value that specifies whether you want to disable email notification to the accounts that you’re
+     *        A Boolean value that specifies whether you want to disable email notification to the accounts that you are
      *        inviting to GuardDuty as members.
      */
 
@@ -178,12 +178,12 @@ public class InviteMembersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A boolean value that specifies whether you want to disable email notification to the accounts that you’re
+     * A Boolean value that specifies whether you want to disable email notification to the accounts that you are
      * inviting to GuardDuty as members.
      * </p>
      * 
-     * @return A boolean value that specifies whether you want to disable email notification to the accounts that you’re
-     *         inviting to GuardDuty as members.
+     * @return A Boolean value that specifies whether you want to disable email notification to the accounts that you
+     *         are inviting to GuardDuty as members.
      */
 
     public Boolean getDisableEmailNotification() {
@@ -192,12 +192,12 @@ public class InviteMembersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A boolean value that specifies whether you want to disable email notification to the accounts that you’re
+     * A Boolean value that specifies whether you want to disable email notification to the accounts that you are
      * inviting to GuardDuty as members.
      * </p>
      * 
      * @param disableEmailNotification
-     *        A boolean value that specifies whether you want to disable email notification to the accounts that you’re
+     *        A Boolean value that specifies whether you want to disable email notification to the accounts that you are
      *        inviting to GuardDuty as members.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -209,12 +209,12 @@ public class InviteMembersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A boolean value that specifies whether you want to disable email notification to the accounts that you’re
+     * A Boolean value that specifies whether you want to disable email notification to the accounts that you are
      * inviting to GuardDuty as members.
      * </p>
      * 
-     * @return A boolean value that specifies whether you want to disable email notification to the accounts that you’re
-     *         inviting to GuardDuty as members.
+     * @return A Boolean value that specifies whether you want to disable email notification to the accounts that you
+     *         are inviting to GuardDuty as members.
      */
 
     public Boolean isDisableEmailNotification() {
@@ -223,11 +223,11 @@ public class InviteMembersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The invitation message that you want to send to the accounts that you’re inviting to GuardDuty as members.
+     * The invitation message that you want to send to the accounts that you're inviting to GuardDuty as members.
      * </p>
      * 
      * @param message
-     *        The invitation message that you want to send to the accounts that you’re inviting to GuardDuty as members.
+     *        The invitation message that you want to send to the accounts that you're inviting to GuardDuty as members.
      */
 
     public void setMessage(String message) {
@@ -236,10 +236,10 @@ public class InviteMembersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The invitation message that you want to send to the accounts that you’re inviting to GuardDuty as members.
+     * The invitation message that you want to send to the accounts that you're inviting to GuardDuty as members.
      * </p>
      * 
-     * @return The invitation message that you want to send to the accounts that you’re inviting to GuardDuty as
+     * @return The invitation message that you want to send to the accounts that you're inviting to GuardDuty as
      *         members.
      */
 
@@ -249,11 +249,11 @@ public class InviteMembersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The invitation message that you want to send to the accounts that you’re inviting to GuardDuty as members.
+     * The invitation message that you want to send to the accounts that you're inviting to GuardDuty as members.
      * </p>
      * 
      * @param message
-     *        The invitation message that you want to send to the accounts that you’re inviting to GuardDuty as members.
+     *        The invitation message that you want to send to the accounts that you're inviting to GuardDuty as members.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

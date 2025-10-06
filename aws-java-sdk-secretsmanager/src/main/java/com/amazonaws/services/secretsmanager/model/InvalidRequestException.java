@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,7 +16,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * You provided a parameter value that is not valid for the current state of the resource.
+ * A parameter value is not valid for the current state of the resource.
  * </p>
  * <p>
  * Possible causes:
@@ -24,13 +24,20 @@ import javax.annotation.Generated;
  * <ul>
  * <li>
  * <p>
- * You tried to perform the operation on a secret that's currently marked deleted.
+ * The secret is scheduled for deletion.
  * </p>
  * </li>
  * <li>
  * <p>
  * You tried to enable rotation on a secret that doesn't already have a Lambda function ARN configured and you didn't
  * include such an ARN as a parameter in this call.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * The secret is managed by another service, and you must use that service to update it. For more information, see <a
+ * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/service-linked-secrets.html">Secrets managed by
+ * other Amazon Web Services services</a>.
  * </p>
  * </li>
  * </ul>

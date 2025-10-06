@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,6 +55,12 @@ public class S3ResourceJsonUnmarshaller implements Unmarshaller<S3Resource, Json
                 if (context.testExpression("KeyRange", targetDepth)) {
                     context.nextToken();
                     s3Resource.setKeyRange(KeyRangeJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("TargetOnDeviceServices", targetDepth)) {
+                    context.nextToken();
+                    s3Resource.setTargetOnDeviceServices(new ListUnmarshaller<TargetOnDeviceService>(TargetOnDeviceServiceJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

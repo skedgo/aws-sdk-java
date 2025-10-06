@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,8 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The number of minutes specified for the lifetime of a session is not valid. The session lifetime must be from 15 to
- * 600 minutes.
+ * The number of minutes specified for the lifetime of a session isn't valid. The session lifetime must be 15-600
+ * minutes.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -26,7 +26,7 @@ public class SessionLifetimeInMinutesInvalidException extends com.amazonaws.serv
 
     /**
      * <p>
-     * The AWS request ID for this request.
+     * The Amazon Web Services request ID for this request.
      * </p>
      */
     private String requestId;
@@ -43,11 +43,11 @@ public class SessionLifetimeInMinutesInvalidException extends com.amazonaws.serv
 
     /**
      * <p>
-     * The AWS request ID for this request.
+     * The Amazon Web Services request ID for this request.
      * </p>
      * 
      * @param requestId
-     *        The AWS request ID for this request.
+     *        The Amazon Web Services request ID for this request.
      */
 
     @com.fasterxml.jackson.annotation.JsonProperty("RequestId")
@@ -57,10 +57,10 @@ public class SessionLifetimeInMinutesInvalidException extends com.amazonaws.serv
 
     /**
      * <p>
-     * The AWS request ID for this request.
+     * The Amazon Web Services request ID for this request.
      * </p>
      * 
-     * @return The AWS request ID for this request.
+     * @return The Amazon Web Services request ID for this request.
      */
 
     @com.fasterxml.jackson.annotation.JsonProperty("RequestId")
@@ -70,11 +70,11 @@ public class SessionLifetimeInMinutesInvalidException extends com.amazonaws.serv
 
     /**
      * <p>
-     * The AWS request ID for this request.
+     * The Amazon Web Services request ID for this request.
      * </p>
      * 
      * @param requestId
-     *        The AWS request ID for this request.
+     *        The Amazon Web Services request ID for this request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

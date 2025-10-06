@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -110,6 +110,11 @@ public class Cluster implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
+     * <code>paused</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>rebooting</code>
      * </p>
      * </li>
@@ -182,7 +187,7 @@ public class Cluster implements Serializable, Cloneable {
     private String modifyStatus;
     /**
      * <p>
-     * The master user name for the cluster. This name is used to connect to the database that is specified in the
+     * The admin user name for the cluster. This name is used to connect to the database that is specified in the
      * <b>DBName</b> parameter.
      * </p>
      */
@@ -371,7 +376,7 @@ public class Cluster implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
     /**
      * <p>
-     * The AWS Key Management Service (AWS KMS) key ID of the encryption key used to encrypt data in the cluster.
+     * The Key Management Service (KMS) key ID of the encryption key used to encrypt data in the cluster.
      * </p>
      */
     private String kmsKeyId;
@@ -392,8 +397,8 @@ public class Cluster implements Serializable, Cloneable {
     private Boolean enhancedVpcRouting;
     /**
      * <p>
-     * A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other AWS
-     * services.
+     * A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other Amazon Web
+     * Services services.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<ClusterIamRole> iamRoles;
@@ -435,6 +440,38 @@ public class Cluster implements Serializable, Cloneable {
     private String snapshotScheduleState;
     /**
      * <p>
+     * The date and time when the next snapshot is expected to be taken for clusters with a valid snapshot schedule and
+     * backups enabled.
+     * </p>
+     */
+    private java.util.Date expectedNextSnapshotScheduleTime;
+    /**
+     * <p>
+     * The status of next expected snapshot for clusters having a valid snapshot schedule and backups enabled. Possible
+     * values are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * OnTrack - The next snapshot is expected to be taken on time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pending - The next snapshot is pending to be taken.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String expectedNextSnapshotScheduleTimeStatus;
+    /**
+     * <p>
+     * The date and time in UTC when system maintenance can begin.
+     * </p>
+     */
+    private java.util.Date nextMaintenanceWindowStartTime;
+    /**
+     * <p>
      * Returns the following:
      * </p>
      * <ul>
@@ -451,6 +488,90 @@ public class Cluster implements Serializable, Cloneable {
      * </ul>
      */
     private ResizeInfo resizeInfo;
+    /**
+     * <p>
+     * Describes the status of the Availability Zone relocation operation.
+     * </p>
+     */
+    private String availabilityZoneRelocationStatus;
+    /**
+     * <p>
+     * The namespace Amazon Resource Name (ARN) of the cluster.
+     * </p>
+     */
+    private String clusterNamespaceArn;
+    /**
+     * <p>
+     * The total storage capacity of the cluster in megabytes.
+     * </p>
+     */
+    private Long totalStorageCapacityInMegaBytes;
+    /**
+     * <p>
+     * This field is retired. Amazon Redshift automatically determines whether to use AQUA (Advanced Query Accelerator).
+     * </p>
+     */
+    private AquaConfiguration aquaConfiguration;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the IAM role set as default for the cluster.
+     * </p>
+     */
+    private String defaultIamRoleArn;
+    /**
+     * <p>
+     * The status of the reserved-node exchange request. Statuses include in-progress and requested.
+     * </p>
+     */
+    private ReservedNodeExchangeStatus reservedNodeExchangeStatus;
+    /**
+     * <p>
+     * The custom domain name associated with the cluster.
+     * </p>
+     */
+    private String customDomainName;
+    /**
+     * <p>
+     * The certificate Amazon Resource Name (ARN) for the custom domain name.
+     * </p>
+     */
+    private String customDomainCertificateArn;
+    /**
+     * <p>
+     * The expiration date for the certificate associated with the custom domain name.
+     * </p>
+     */
+    private java.util.Date customDomainCertificateExpiryDate;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the cluster's admin user credentials secret.
+     * </p>
+     */
+    private String masterPasswordSecretArn;
+    /**
+     * <p>
+     * The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials secret.
+     * </p>
+     */
+    private String masterPasswordSecretKmsKeyId;
+    /**
+     * <p>
+     * The IP address type for the cluster. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     * </p>
+     */
+    private String ipAddressType;
+    /**
+     * <p>
+     * A boolean value that, if true, indicates that the cluster is deployed in two Availability Zones.
+     * </p>
+     */
+    private String multiAZ;
+    /**
+     * <p>
+     * The secondary compute unit of a cluster, if Multi-AZ deployment is turned on.
+     * </p>
+     */
+    private SecondaryClusterInfo multiAZSecondary;
 
     /**
      * <p>
@@ -604,6 +725,11 @@ public class Cluster implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
+     * <code>paused</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>rebooting</code>
      * </p>
      * </li>
@@ -700,6 +826,11 @@ public class Cluster implements Serializable, Cloneable {
      *        <li>
      *        <p>
      *        <code>modifying</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>paused</code>
      *        </p>
      *        </li>
      *        <li>
@@ -810,6 +941,11 @@ public class Cluster implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
+     * <code>paused</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>rebooting</code>
      * </p>
      * </li>
@@ -905,6 +1041,11 @@ public class Cluster implements Serializable, Cloneable {
      *         <li>
      *         <p>
      *         <code>modifying</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>paused</code>
      *         </p>
      *         </li>
      *         <li>
@@ -1015,6 +1156,11 @@ public class Cluster implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
+     * <code>paused</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>rebooting</code>
      * </p>
      * </li>
@@ -1111,6 +1257,11 @@ public class Cluster implements Serializable, Cloneable {
      *        <li>
      *        <p>
      *        <code>modifying</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>paused</code>
      *        </p>
      *        </li>
      *        <li>
@@ -1392,13 +1543,13 @@ public class Cluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The master user name for the cluster. This name is used to connect to the database that is specified in the
+     * The admin user name for the cluster. This name is used to connect to the database that is specified in the
      * <b>DBName</b> parameter.
      * </p>
      * 
      * @param masterUsername
-     *        The master user name for the cluster. This name is used to connect to the database that is specified in
-     *        the <b>DBName</b> parameter.
+     *        The admin user name for the cluster. This name is used to connect to the database that is specified in the
+     *        <b>DBName</b> parameter.
      */
 
     public void setMasterUsername(String masterUsername) {
@@ -1407,11 +1558,11 @@ public class Cluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The master user name for the cluster. This name is used to connect to the database that is specified in the
+     * The admin user name for the cluster. This name is used to connect to the database that is specified in the
      * <b>DBName</b> parameter.
      * </p>
      * 
-     * @return The master user name for the cluster. This name is used to connect to the database that is specified in
+     * @return The admin user name for the cluster. This name is used to connect to the database that is specified in
      *         the <b>DBName</b> parameter.
      */
 
@@ -1421,13 +1572,13 @@ public class Cluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The master user name for the cluster. This name is used to connect to the database that is specified in the
+     * The admin user name for the cluster. This name is used to connect to the database that is specified in the
      * <b>DBName</b> parameter.
      * </p>
      * 
      * @param masterUsername
-     *        The master user name for the cluster. This name is used to connect to the database that is specified in
-     *        the <b>DBName</b> parameter.
+     *        The admin user name for the cluster. This name is used to connect to the database that is specified in the
+     *        <b>DBName</b> parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2869,11 +3020,11 @@ public class Cluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Key Management Service (AWS KMS) key ID of the encryption key used to encrypt data in the cluster.
+     * The Key Management Service (KMS) key ID of the encryption key used to encrypt data in the cluster.
      * </p>
      * 
      * @param kmsKeyId
-     *        The AWS Key Management Service (AWS KMS) key ID of the encryption key used to encrypt data in the cluster.
+     *        The Key Management Service (KMS) key ID of the encryption key used to encrypt data in the cluster.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -2882,11 +3033,10 @@ public class Cluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Key Management Service (AWS KMS) key ID of the encryption key used to encrypt data in the cluster.
+     * The Key Management Service (KMS) key ID of the encryption key used to encrypt data in the cluster.
      * </p>
      * 
-     * @return The AWS Key Management Service (AWS KMS) key ID of the encryption key used to encrypt data in the
-     *         cluster.
+     * @return The Key Management Service (KMS) key ID of the encryption key used to encrypt data in the cluster.
      */
 
     public String getKmsKeyId() {
@@ -2895,11 +3045,11 @@ public class Cluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Key Management Service (AWS KMS) key ID of the encryption key used to encrypt data in the cluster.
+     * The Key Management Service (KMS) key ID of the encryption key used to encrypt data in the cluster.
      * </p>
      * 
      * @param kmsKeyId
-     *        The AWS Key Management Service (AWS KMS) key ID of the encryption key used to encrypt data in the cluster.
+     *        The Key Management Service (KMS) key ID of the encryption key used to encrypt data in the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3030,12 +3180,12 @@ public class Cluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other AWS
-     * services.
+     * A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other Amazon Web
+     * Services services.
      * </p>
      * 
-     * @return A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other
-     *         AWS services.
+     * @return A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other
+     *         Amazon Web Services services.
      */
 
     public java.util.List<ClusterIamRole> getIamRoles() {
@@ -3047,13 +3197,13 @@ public class Cluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other AWS
-     * services.
+     * A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other Amazon Web
+     * Services services.
      * </p>
      * 
      * @param iamRoles
-     *        A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other
-     *        AWS services.
+     *        A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other
+     *        Amazon Web Services services.
      */
 
     public void setIamRoles(java.util.Collection<ClusterIamRole> iamRoles) {
@@ -3067,8 +3217,8 @@ public class Cluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other AWS
-     * services.
+     * A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other Amazon Web
+     * Services services.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -3077,8 +3227,8 @@ public class Cluster implements Serializable, Cloneable {
      * </p>
      * 
      * @param iamRoles
-     *        A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other
-     *        AWS services.
+     *        A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other
+     *        Amazon Web Services services.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3094,13 +3244,13 @@ public class Cluster implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other AWS
-     * services.
+     * A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other Amazon Web
+     * Services services.
      * </p>
      * 
      * @param iamRoles
-     *        A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other
-     *        AWS services.
+     *        A list of Identity and Access Management (IAM) roles that can be used by the cluster to access other
+     *        Amazon Web Services services.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3436,6 +3586,207 @@ public class Cluster implements Serializable, Cloneable {
 
     /**
      * <p>
+     * The date and time when the next snapshot is expected to be taken for clusters with a valid snapshot schedule and
+     * backups enabled.
+     * </p>
+     * 
+     * @param expectedNextSnapshotScheduleTime
+     *        The date and time when the next snapshot is expected to be taken for clusters with a valid snapshot
+     *        schedule and backups enabled.
+     */
+
+    public void setExpectedNextSnapshotScheduleTime(java.util.Date expectedNextSnapshotScheduleTime) {
+        this.expectedNextSnapshotScheduleTime = expectedNextSnapshotScheduleTime;
+    }
+
+    /**
+     * <p>
+     * The date and time when the next snapshot is expected to be taken for clusters with a valid snapshot schedule and
+     * backups enabled.
+     * </p>
+     * 
+     * @return The date and time when the next snapshot is expected to be taken for clusters with a valid snapshot
+     *         schedule and backups enabled.
+     */
+
+    public java.util.Date getExpectedNextSnapshotScheduleTime() {
+        return this.expectedNextSnapshotScheduleTime;
+    }
+
+    /**
+     * <p>
+     * The date and time when the next snapshot is expected to be taken for clusters with a valid snapshot schedule and
+     * backups enabled.
+     * </p>
+     * 
+     * @param expectedNextSnapshotScheduleTime
+     *        The date and time when the next snapshot is expected to be taken for clusters with a valid snapshot
+     *        schedule and backups enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withExpectedNextSnapshotScheduleTime(java.util.Date expectedNextSnapshotScheduleTime) {
+        setExpectedNextSnapshotScheduleTime(expectedNextSnapshotScheduleTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of next expected snapshot for clusters having a valid snapshot schedule and backups enabled. Possible
+     * values are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * OnTrack - The next snapshot is expected to be taken on time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pending - The next snapshot is pending to be taken.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param expectedNextSnapshotScheduleTimeStatus
+     *        The status of next expected snapshot for clusters having a valid snapshot schedule and backups enabled.
+     *        Possible values are the following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        OnTrack - The next snapshot is expected to be taken on time.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Pending - The next snapshot is pending to be taken.
+     *        </p>
+     *        </li>
+     */
+
+    public void setExpectedNextSnapshotScheduleTimeStatus(String expectedNextSnapshotScheduleTimeStatus) {
+        this.expectedNextSnapshotScheduleTimeStatus = expectedNextSnapshotScheduleTimeStatus;
+    }
+
+    /**
+     * <p>
+     * The status of next expected snapshot for clusters having a valid snapshot schedule and backups enabled. Possible
+     * values are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * OnTrack - The next snapshot is expected to be taken on time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pending - The next snapshot is pending to be taken.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The status of next expected snapshot for clusters having a valid snapshot schedule and backups enabled.
+     *         Possible values are the following:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         OnTrack - The next snapshot is expected to be taken on time.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Pending - The next snapshot is pending to be taken.
+     *         </p>
+     *         </li>
+     */
+
+    public String getExpectedNextSnapshotScheduleTimeStatus() {
+        return this.expectedNextSnapshotScheduleTimeStatus;
+    }
+
+    /**
+     * <p>
+     * The status of next expected snapshot for clusters having a valid snapshot schedule and backups enabled. Possible
+     * values are the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * OnTrack - The next snapshot is expected to be taken on time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pending - The next snapshot is pending to be taken.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param expectedNextSnapshotScheduleTimeStatus
+     *        The status of next expected snapshot for clusters having a valid snapshot schedule and backups enabled.
+     *        Possible values are the following:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        OnTrack - The next snapshot is expected to be taken on time.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Pending - The next snapshot is pending to be taken.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withExpectedNextSnapshotScheduleTimeStatus(String expectedNextSnapshotScheduleTimeStatus) {
+        setExpectedNextSnapshotScheduleTimeStatus(expectedNextSnapshotScheduleTimeStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date and time in UTC when system maintenance can begin.
+     * </p>
+     * 
+     * @param nextMaintenanceWindowStartTime
+     *        The date and time in UTC when system maintenance can begin.
+     */
+
+    public void setNextMaintenanceWindowStartTime(java.util.Date nextMaintenanceWindowStartTime) {
+        this.nextMaintenanceWindowStartTime = nextMaintenanceWindowStartTime;
+    }
+
+    /**
+     * <p>
+     * The date and time in UTC when system maintenance can begin.
+     * </p>
+     * 
+     * @return The date and time in UTC when system maintenance can begin.
+     */
+
+    public java.util.Date getNextMaintenanceWindowStartTime() {
+        return this.nextMaintenanceWindowStartTime;
+    }
+
+    /**
+     * <p>
+     * The date and time in UTC when system maintenance can begin.
+     * </p>
+     * 
+     * @param nextMaintenanceWindowStartTime
+     *        The date and time in UTC when system maintenance can begin.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withNextMaintenanceWindowStartTime(java.util.Date nextMaintenanceWindowStartTime) {
+        setNextMaintenanceWindowStartTime(nextMaintenanceWindowStartTime);
+        return this;
+    }
+
+    /**
+     * <p>
      * Returns the following:
      * </p>
      * <ul>
@@ -3544,6 +3895,572 @@ public class Cluster implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * Describes the status of the Availability Zone relocation operation.
+     * </p>
+     * 
+     * @param availabilityZoneRelocationStatus
+     *        Describes the status of the Availability Zone relocation operation.
+     */
+
+    public void setAvailabilityZoneRelocationStatus(String availabilityZoneRelocationStatus) {
+        this.availabilityZoneRelocationStatus = availabilityZoneRelocationStatus;
+    }
+
+    /**
+     * <p>
+     * Describes the status of the Availability Zone relocation operation.
+     * </p>
+     * 
+     * @return Describes the status of the Availability Zone relocation operation.
+     */
+
+    public String getAvailabilityZoneRelocationStatus() {
+        return this.availabilityZoneRelocationStatus;
+    }
+
+    /**
+     * <p>
+     * Describes the status of the Availability Zone relocation operation.
+     * </p>
+     * 
+     * @param availabilityZoneRelocationStatus
+     *        Describes the status of the Availability Zone relocation operation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withAvailabilityZoneRelocationStatus(String availabilityZoneRelocationStatus) {
+        setAvailabilityZoneRelocationStatus(availabilityZoneRelocationStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The namespace Amazon Resource Name (ARN) of the cluster.
+     * </p>
+     * 
+     * @param clusterNamespaceArn
+     *        The namespace Amazon Resource Name (ARN) of the cluster.
+     */
+
+    public void setClusterNamespaceArn(String clusterNamespaceArn) {
+        this.clusterNamespaceArn = clusterNamespaceArn;
+    }
+
+    /**
+     * <p>
+     * The namespace Amazon Resource Name (ARN) of the cluster.
+     * </p>
+     * 
+     * @return The namespace Amazon Resource Name (ARN) of the cluster.
+     */
+
+    public String getClusterNamespaceArn() {
+        return this.clusterNamespaceArn;
+    }
+
+    /**
+     * <p>
+     * The namespace Amazon Resource Name (ARN) of the cluster.
+     * </p>
+     * 
+     * @param clusterNamespaceArn
+     *        The namespace Amazon Resource Name (ARN) of the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withClusterNamespaceArn(String clusterNamespaceArn) {
+        setClusterNamespaceArn(clusterNamespaceArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The total storage capacity of the cluster in megabytes.
+     * </p>
+     * 
+     * @param totalStorageCapacityInMegaBytes
+     *        The total storage capacity of the cluster in megabytes.
+     */
+
+    public void setTotalStorageCapacityInMegaBytes(Long totalStorageCapacityInMegaBytes) {
+        this.totalStorageCapacityInMegaBytes = totalStorageCapacityInMegaBytes;
+    }
+
+    /**
+     * <p>
+     * The total storage capacity of the cluster in megabytes.
+     * </p>
+     * 
+     * @return The total storage capacity of the cluster in megabytes.
+     */
+
+    public Long getTotalStorageCapacityInMegaBytes() {
+        return this.totalStorageCapacityInMegaBytes;
+    }
+
+    /**
+     * <p>
+     * The total storage capacity of the cluster in megabytes.
+     * </p>
+     * 
+     * @param totalStorageCapacityInMegaBytes
+     *        The total storage capacity of the cluster in megabytes.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withTotalStorageCapacityInMegaBytes(Long totalStorageCapacityInMegaBytes) {
+        setTotalStorageCapacityInMegaBytes(totalStorageCapacityInMegaBytes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This field is retired. Amazon Redshift automatically determines whether to use AQUA (Advanced Query Accelerator).
+     * </p>
+     * 
+     * @param aquaConfiguration
+     *        This field is retired. Amazon Redshift automatically determines whether to use AQUA (Advanced Query
+     *        Accelerator).
+     */
+
+    public void setAquaConfiguration(AquaConfiguration aquaConfiguration) {
+        this.aquaConfiguration = aquaConfiguration;
+    }
+
+    /**
+     * <p>
+     * This field is retired. Amazon Redshift automatically determines whether to use AQUA (Advanced Query Accelerator).
+     * </p>
+     * 
+     * @return This field is retired. Amazon Redshift automatically determines whether to use AQUA (Advanced Query
+     *         Accelerator).
+     */
+
+    public AquaConfiguration getAquaConfiguration() {
+        return this.aquaConfiguration;
+    }
+
+    /**
+     * <p>
+     * This field is retired. Amazon Redshift automatically determines whether to use AQUA (Advanced Query Accelerator).
+     * </p>
+     * 
+     * @param aquaConfiguration
+     *        This field is retired. Amazon Redshift automatically determines whether to use AQUA (Advanced Query
+     *        Accelerator).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withAquaConfiguration(AquaConfiguration aquaConfiguration) {
+        setAquaConfiguration(aquaConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the IAM role set as default for the cluster.
+     * </p>
+     * 
+     * @param defaultIamRoleArn
+     *        The Amazon Resource Name (ARN) for the IAM role set as default for the cluster.
+     */
+
+    public void setDefaultIamRoleArn(String defaultIamRoleArn) {
+        this.defaultIamRoleArn = defaultIamRoleArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the IAM role set as default for the cluster.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) for the IAM role set as default for the cluster.
+     */
+
+    public String getDefaultIamRoleArn() {
+        return this.defaultIamRoleArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the IAM role set as default for the cluster.
+     * </p>
+     * 
+     * @param defaultIamRoleArn
+     *        The Amazon Resource Name (ARN) for the IAM role set as default for the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withDefaultIamRoleArn(String defaultIamRoleArn) {
+        setDefaultIamRoleArn(defaultIamRoleArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of the reserved-node exchange request. Statuses include in-progress and requested.
+     * </p>
+     * 
+     * @param reservedNodeExchangeStatus
+     *        The status of the reserved-node exchange request. Statuses include in-progress and requested.
+     */
+
+    public void setReservedNodeExchangeStatus(ReservedNodeExchangeStatus reservedNodeExchangeStatus) {
+        this.reservedNodeExchangeStatus = reservedNodeExchangeStatus;
+    }
+
+    /**
+     * <p>
+     * The status of the reserved-node exchange request. Statuses include in-progress and requested.
+     * </p>
+     * 
+     * @return The status of the reserved-node exchange request. Statuses include in-progress and requested.
+     */
+
+    public ReservedNodeExchangeStatus getReservedNodeExchangeStatus() {
+        return this.reservedNodeExchangeStatus;
+    }
+
+    /**
+     * <p>
+     * The status of the reserved-node exchange request. Statuses include in-progress and requested.
+     * </p>
+     * 
+     * @param reservedNodeExchangeStatus
+     *        The status of the reserved-node exchange request. Statuses include in-progress and requested.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withReservedNodeExchangeStatus(ReservedNodeExchangeStatus reservedNodeExchangeStatus) {
+        setReservedNodeExchangeStatus(reservedNodeExchangeStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The custom domain name associated with the cluster.
+     * </p>
+     * 
+     * @param customDomainName
+     *        The custom domain name associated with the cluster.
+     */
+
+    public void setCustomDomainName(String customDomainName) {
+        this.customDomainName = customDomainName;
+    }
+
+    /**
+     * <p>
+     * The custom domain name associated with the cluster.
+     * </p>
+     * 
+     * @return The custom domain name associated with the cluster.
+     */
+
+    public String getCustomDomainName() {
+        return this.customDomainName;
+    }
+
+    /**
+     * <p>
+     * The custom domain name associated with the cluster.
+     * </p>
+     * 
+     * @param customDomainName
+     *        The custom domain name associated with the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withCustomDomainName(String customDomainName) {
+        setCustomDomainName(customDomainName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The certificate Amazon Resource Name (ARN) for the custom domain name.
+     * </p>
+     * 
+     * @param customDomainCertificateArn
+     *        The certificate Amazon Resource Name (ARN) for the custom domain name.
+     */
+
+    public void setCustomDomainCertificateArn(String customDomainCertificateArn) {
+        this.customDomainCertificateArn = customDomainCertificateArn;
+    }
+
+    /**
+     * <p>
+     * The certificate Amazon Resource Name (ARN) for the custom domain name.
+     * </p>
+     * 
+     * @return The certificate Amazon Resource Name (ARN) for the custom domain name.
+     */
+
+    public String getCustomDomainCertificateArn() {
+        return this.customDomainCertificateArn;
+    }
+
+    /**
+     * <p>
+     * The certificate Amazon Resource Name (ARN) for the custom domain name.
+     * </p>
+     * 
+     * @param customDomainCertificateArn
+     *        The certificate Amazon Resource Name (ARN) for the custom domain name.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withCustomDomainCertificateArn(String customDomainCertificateArn) {
+        setCustomDomainCertificateArn(customDomainCertificateArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The expiration date for the certificate associated with the custom domain name.
+     * </p>
+     * 
+     * @param customDomainCertificateExpiryDate
+     *        The expiration date for the certificate associated with the custom domain name.
+     */
+
+    public void setCustomDomainCertificateExpiryDate(java.util.Date customDomainCertificateExpiryDate) {
+        this.customDomainCertificateExpiryDate = customDomainCertificateExpiryDate;
+    }
+
+    /**
+     * <p>
+     * The expiration date for the certificate associated with the custom domain name.
+     * </p>
+     * 
+     * @return The expiration date for the certificate associated with the custom domain name.
+     */
+
+    public java.util.Date getCustomDomainCertificateExpiryDate() {
+        return this.customDomainCertificateExpiryDate;
+    }
+
+    /**
+     * <p>
+     * The expiration date for the certificate associated with the custom domain name.
+     * </p>
+     * 
+     * @param customDomainCertificateExpiryDate
+     *        The expiration date for the certificate associated with the custom domain name.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withCustomDomainCertificateExpiryDate(java.util.Date customDomainCertificateExpiryDate) {
+        setCustomDomainCertificateExpiryDate(customDomainCertificateExpiryDate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the cluster's admin user credentials secret.
+     * </p>
+     * 
+     * @param masterPasswordSecretArn
+     *        The Amazon Resource Name (ARN) for the cluster's admin user credentials secret.
+     */
+
+    public void setMasterPasswordSecretArn(String masterPasswordSecretArn) {
+        this.masterPasswordSecretArn = masterPasswordSecretArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the cluster's admin user credentials secret.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) for the cluster's admin user credentials secret.
+     */
+
+    public String getMasterPasswordSecretArn() {
+        return this.masterPasswordSecretArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the cluster's admin user credentials secret.
+     * </p>
+     * 
+     * @param masterPasswordSecretArn
+     *        The Amazon Resource Name (ARN) for the cluster's admin user credentials secret.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withMasterPasswordSecretArn(String masterPasswordSecretArn) {
+        setMasterPasswordSecretArn(masterPasswordSecretArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials secret.
+     * </p>
+     * 
+     * @param masterPasswordSecretKmsKeyId
+     *        The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials
+     *        secret.
+     */
+
+    public void setMasterPasswordSecretKmsKeyId(String masterPasswordSecretKmsKeyId) {
+        this.masterPasswordSecretKmsKeyId = masterPasswordSecretKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials secret.
+     * </p>
+     * 
+     * @return The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials
+     *         secret.
+     */
+
+    public String getMasterPasswordSecretKmsKeyId() {
+        return this.masterPasswordSecretKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials secret.
+     * </p>
+     * 
+     * @param masterPasswordSecretKmsKeyId
+     *        The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials
+     *        secret.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withMasterPasswordSecretKmsKeyId(String masterPasswordSecretKmsKeyId) {
+        setMasterPasswordSecretKmsKeyId(masterPasswordSecretKmsKeyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the cluster. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type for the cluster. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     */
+
+    public void setIpAddressType(String ipAddressType) {
+        this.ipAddressType = ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the cluster. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     * </p>
+     * 
+     * @return The IP address type for the cluster. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     */
+
+    public String getIpAddressType() {
+        return this.ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the cluster. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type for the cluster. Possible values are <code>ipv4</code> and <code>dualstack</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withIpAddressType(String ipAddressType) {
+        setIpAddressType(ipAddressType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A boolean value that, if true, indicates that the cluster is deployed in two Availability Zones.
+     * </p>
+     * 
+     * @param multiAZ
+     *        A boolean value that, if true, indicates that the cluster is deployed in two Availability Zones.
+     */
+
+    public void setMultiAZ(String multiAZ) {
+        this.multiAZ = multiAZ;
+    }
+
+    /**
+     * <p>
+     * A boolean value that, if true, indicates that the cluster is deployed in two Availability Zones.
+     * </p>
+     * 
+     * @return A boolean value that, if true, indicates that the cluster is deployed in two Availability Zones.
+     */
+
+    public String getMultiAZ() {
+        return this.multiAZ;
+    }
+
+    /**
+     * <p>
+     * A boolean value that, if true, indicates that the cluster is deployed in two Availability Zones.
+     * </p>
+     * 
+     * @param multiAZ
+     *        A boolean value that, if true, indicates that the cluster is deployed in two Availability Zones.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withMultiAZ(String multiAZ) {
+        setMultiAZ(multiAZ);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The secondary compute unit of a cluster, if Multi-AZ deployment is turned on.
+     * </p>
+     * 
+     * @param multiAZSecondary
+     *        The secondary compute unit of a cluster, if Multi-AZ deployment is turned on.
+     */
+
+    public void setMultiAZSecondary(SecondaryClusterInfo multiAZSecondary) {
+        this.multiAZSecondary = multiAZSecondary;
+    }
+
+    /**
+     * <p>
+     * The secondary compute unit of a cluster, if Multi-AZ deployment is turned on.
+     * </p>
+     * 
+     * @return The secondary compute unit of a cluster, if Multi-AZ deployment is turned on.
+     */
+
+    public SecondaryClusterInfo getMultiAZSecondary() {
+        return this.multiAZSecondary;
+    }
+
+    /**
+     * <p>
+     * The secondary compute unit of a cluster, if Multi-AZ deployment is turned on.
+     * </p>
+     * 
+     * @param multiAZSecondary
+     *        The secondary compute unit of a cluster, if Multi-AZ deployment is turned on.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withMultiAZSecondary(SecondaryClusterInfo multiAZSecondary) {
+        setMultiAZSecondary(multiAZSecondary);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -3639,8 +4556,42 @@ public class Cluster implements Serializable, Cloneable {
             sb.append("SnapshotScheduleIdentifier: ").append(getSnapshotScheduleIdentifier()).append(",");
         if (getSnapshotScheduleState() != null)
             sb.append("SnapshotScheduleState: ").append(getSnapshotScheduleState()).append(",");
+        if (getExpectedNextSnapshotScheduleTime() != null)
+            sb.append("ExpectedNextSnapshotScheduleTime: ").append(getExpectedNextSnapshotScheduleTime()).append(",");
+        if (getExpectedNextSnapshotScheduleTimeStatus() != null)
+            sb.append("ExpectedNextSnapshotScheduleTimeStatus: ").append(getExpectedNextSnapshotScheduleTimeStatus()).append(",");
+        if (getNextMaintenanceWindowStartTime() != null)
+            sb.append("NextMaintenanceWindowStartTime: ").append(getNextMaintenanceWindowStartTime()).append(",");
         if (getResizeInfo() != null)
-            sb.append("ResizeInfo: ").append(getResizeInfo());
+            sb.append("ResizeInfo: ").append(getResizeInfo()).append(",");
+        if (getAvailabilityZoneRelocationStatus() != null)
+            sb.append("AvailabilityZoneRelocationStatus: ").append(getAvailabilityZoneRelocationStatus()).append(",");
+        if (getClusterNamespaceArn() != null)
+            sb.append("ClusterNamespaceArn: ").append(getClusterNamespaceArn()).append(",");
+        if (getTotalStorageCapacityInMegaBytes() != null)
+            sb.append("TotalStorageCapacityInMegaBytes: ").append(getTotalStorageCapacityInMegaBytes()).append(",");
+        if (getAquaConfiguration() != null)
+            sb.append("AquaConfiguration: ").append(getAquaConfiguration()).append(",");
+        if (getDefaultIamRoleArn() != null)
+            sb.append("DefaultIamRoleArn: ").append(getDefaultIamRoleArn()).append(",");
+        if (getReservedNodeExchangeStatus() != null)
+            sb.append("ReservedNodeExchangeStatus: ").append(getReservedNodeExchangeStatus()).append(",");
+        if (getCustomDomainName() != null)
+            sb.append("CustomDomainName: ").append(getCustomDomainName()).append(",");
+        if (getCustomDomainCertificateArn() != null)
+            sb.append("CustomDomainCertificateArn: ").append(getCustomDomainCertificateArn()).append(",");
+        if (getCustomDomainCertificateExpiryDate() != null)
+            sb.append("CustomDomainCertificateExpiryDate: ").append(getCustomDomainCertificateExpiryDate()).append(",");
+        if (getMasterPasswordSecretArn() != null)
+            sb.append("MasterPasswordSecretArn: ").append(getMasterPasswordSecretArn()).append(",");
+        if (getMasterPasswordSecretKmsKeyId() != null)
+            sb.append("MasterPasswordSecretKmsKeyId: ").append(getMasterPasswordSecretKmsKeyId()).append(",");
+        if (getIpAddressType() != null)
+            sb.append("IpAddressType: ").append(getIpAddressType()).append(",");
+        if (getMultiAZ() != null)
+            sb.append("MultiAZ: ").append(getMultiAZ()).append(",");
+        if (getMultiAZSecondary() != null)
+            sb.append("MultiAZSecondary: ").append(getMultiAZSecondary());
         sb.append("}");
         return sb.toString();
     }
@@ -3826,9 +4777,83 @@ public class Cluster implements Serializable, Cloneable {
             return false;
         if (other.getSnapshotScheduleState() != null && other.getSnapshotScheduleState().equals(this.getSnapshotScheduleState()) == false)
             return false;
+        if (other.getExpectedNextSnapshotScheduleTime() == null ^ this.getExpectedNextSnapshotScheduleTime() == null)
+            return false;
+        if (other.getExpectedNextSnapshotScheduleTime() != null
+                && other.getExpectedNextSnapshotScheduleTime().equals(this.getExpectedNextSnapshotScheduleTime()) == false)
+            return false;
+        if (other.getExpectedNextSnapshotScheduleTimeStatus() == null ^ this.getExpectedNextSnapshotScheduleTimeStatus() == null)
+            return false;
+        if (other.getExpectedNextSnapshotScheduleTimeStatus() != null
+                && other.getExpectedNextSnapshotScheduleTimeStatus().equals(this.getExpectedNextSnapshotScheduleTimeStatus()) == false)
+            return false;
+        if (other.getNextMaintenanceWindowStartTime() == null ^ this.getNextMaintenanceWindowStartTime() == null)
+            return false;
+        if (other.getNextMaintenanceWindowStartTime() != null
+                && other.getNextMaintenanceWindowStartTime().equals(this.getNextMaintenanceWindowStartTime()) == false)
+            return false;
         if (other.getResizeInfo() == null ^ this.getResizeInfo() == null)
             return false;
         if (other.getResizeInfo() != null && other.getResizeInfo().equals(this.getResizeInfo()) == false)
+            return false;
+        if (other.getAvailabilityZoneRelocationStatus() == null ^ this.getAvailabilityZoneRelocationStatus() == null)
+            return false;
+        if (other.getAvailabilityZoneRelocationStatus() != null
+                && other.getAvailabilityZoneRelocationStatus().equals(this.getAvailabilityZoneRelocationStatus()) == false)
+            return false;
+        if (other.getClusterNamespaceArn() == null ^ this.getClusterNamespaceArn() == null)
+            return false;
+        if (other.getClusterNamespaceArn() != null && other.getClusterNamespaceArn().equals(this.getClusterNamespaceArn()) == false)
+            return false;
+        if (other.getTotalStorageCapacityInMegaBytes() == null ^ this.getTotalStorageCapacityInMegaBytes() == null)
+            return false;
+        if (other.getTotalStorageCapacityInMegaBytes() != null
+                && other.getTotalStorageCapacityInMegaBytes().equals(this.getTotalStorageCapacityInMegaBytes()) == false)
+            return false;
+        if (other.getAquaConfiguration() == null ^ this.getAquaConfiguration() == null)
+            return false;
+        if (other.getAquaConfiguration() != null && other.getAquaConfiguration().equals(this.getAquaConfiguration()) == false)
+            return false;
+        if (other.getDefaultIamRoleArn() == null ^ this.getDefaultIamRoleArn() == null)
+            return false;
+        if (other.getDefaultIamRoleArn() != null && other.getDefaultIamRoleArn().equals(this.getDefaultIamRoleArn()) == false)
+            return false;
+        if (other.getReservedNodeExchangeStatus() == null ^ this.getReservedNodeExchangeStatus() == null)
+            return false;
+        if (other.getReservedNodeExchangeStatus() != null && other.getReservedNodeExchangeStatus().equals(this.getReservedNodeExchangeStatus()) == false)
+            return false;
+        if (other.getCustomDomainName() == null ^ this.getCustomDomainName() == null)
+            return false;
+        if (other.getCustomDomainName() != null && other.getCustomDomainName().equals(this.getCustomDomainName()) == false)
+            return false;
+        if (other.getCustomDomainCertificateArn() == null ^ this.getCustomDomainCertificateArn() == null)
+            return false;
+        if (other.getCustomDomainCertificateArn() != null && other.getCustomDomainCertificateArn().equals(this.getCustomDomainCertificateArn()) == false)
+            return false;
+        if (other.getCustomDomainCertificateExpiryDate() == null ^ this.getCustomDomainCertificateExpiryDate() == null)
+            return false;
+        if (other.getCustomDomainCertificateExpiryDate() != null
+                && other.getCustomDomainCertificateExpiryDate().equals(this.getCustomDomainCertificateExpiryDate()) == false)
+            return false;
+        if (other.getMasterPasswordSecretArn() == null ^ this.getMasterPasswordSecretArn() == null)
+            return false;
+        if (other.getMasterPasswordSecretArn() != null && other.getMasterPasswordSecretArn().equals(this.getMasterPasswordSecretArn()) == false)
+            return false;
+        if (other.getMasterPasswordSecretKmsKeyId() == null ^ this.getMasterPasswordSecretKmsKeyId() == null)
+            return false;
+        if (other.getMasterPasswordSecretKmsKeyId() != null && other.getMasterPasswordSecretKmsKeyId().equals(this.getMasterPasswordSecretKmsKeyId()) == false)
+            return false;
+        if (other.getIpAddressType() == null ^ this.getIpAddressType() == null)
+            return false;
+        if (other.getIpAddressType() != null && other.getIpAddressType().equals(this.getIpAddressType()) == false)
+            return false;
+        if (other.getMultiAZ() == null ^ this.getMultiAZ() == null)
+            return false;
+        if (other.getMultiAZ() != null && other.getMultiAZ().equals(this.getMultiAZ()) == false)
+            return false;
+        if (other.getMultiAZSecondary() == null ^ this.getMultiAZSecondary() == null)
+            return false;
+        if (other.getMultiAZSecondary() != null && other.getMultiAZSecondary().equals(this.getMultiAZSecondary()) == false)
             return false;
         return true;
     }
@@ -3880,7 +4905,24 @@ public class Cluster implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getDeferredMaintenanceWindows() == null) ? 0 : getDeferredMaintenanceWindows().hashCode());
         hashCode = prime * hashCode + ((getSnapshotScheduleIdentifier() == null) ? 0 : getSnapshotScheduleIdentifier().hashCode());
         hashCode = prime * hashCode + ((getSnapshotScheduleState() == null) ? 0 : getSnapshotScheduleState().hashCode());
+        hashCode = prime * hashCode + ((getExpectedNextSnapshotScheduleTime() == null) ? 0 : getExpectedNextSnapshotScheduleTime().hashCode());
+        hashCode = prime * hashCode + ((getExpectedNextSnapshotScheduleTimeStatus() == null) ? 0 : getExpectedNextSnapshotScheduleTimeStatus().hashCode());
+        hashCode = prime * hashCode + ((getNextMaintenanceWindowStartTime() == null) ? 0 : getNextMaintenanceWindowStartTime().hashCode());
         hashCode = prime * hashCode + ((getResizeInfo() == null) ? 0 : getResizeInfo().hashCode());
+        hashCode = prime * hashCode + ((getAvailabilityZoneRelocationStatus() == null) ? 0 : getAvailabilityZoneRelocationStatus().hashCode());
+        hashCode = prime * hashCode + ((getClusterNamespaceArn() == null) ? 0 : getClusterNamespaceArn().hashCode());
+        hashCode = prime * hashCode + ((getTotalStorageCapacityInMegaBytes() == null) ? 0 : getTotalStorageCapacityInMegaBytes().hashCode());
+        hashCode = prime * hashCode + ((getAquaConfiguration() == null) ? 0 : getAquaConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getDefaultIamRoleArn() == null) ? 0 : getDefaultIamRoleArn().hashCode());
+        hashCode = prime * hashCode + ((getReservedNodeExchangeStatus() == null) ? 0 : getReservedNodeExchangeStatus().hashCode());
+        hashCode = prime * hashCode + ((getCustomDomainName() == null) ? 0 : getCustomDomainName().hashCode());
+        hashCode = prime * hashCode + ((getCustomDomainCertificateArn() == null) ? 0 : getCustomDomainCertificateArn().hashCode());
+        hashCode = prime * hashCode + ((getCustomDomainCertificateExpiryDate() == null) ? 0 : getCustomDomainCertificateExpiryDate().hashCode());
+        hashCode = prime * hashCode + ((getMasterPasswordSecretArn() == null) ? 0 : getMasterPasswordSecretArn().hashCode());
+        hashCode = prime * hashCode + ((getMasterPasswordSecretKmsKeyId() == null) ? 0 : getMasterPasswordSecretKmsKeyId().hashCode());
+        hashCode = prime * hashCode + ((getIpAddressType() == null) ? 0 : getIpAddressType().hashCode());
+        hashCode = prime * hashCode + ((getMultiAZ() == null) ? 0 : getMultiAZ().hashCode());
+        hashCode = prime * hashCode + ((getMultiAZSecondary() == null) ? 0 : getMultiAZSecondary().hashCode());
         return hashCode;
     }
 

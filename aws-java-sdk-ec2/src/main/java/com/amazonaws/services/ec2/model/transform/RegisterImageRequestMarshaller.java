@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -92,13 +92,23 @@ public class RegisterImageRequestMarshaller implements Marshaller<Request<Regist
                                 StringUtils.fromString(ebs.getVolumeType()));
                     }
 
+                    if (ebs.getKmsKeyId() != null) {
+                        request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.KmsKeyId", StringUtils.fromString(ebs.getKmsKeyId()));
+                    }
+
+                    if (ebs.getThroughput() != null) {
+                        request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Throughput",
+                                StringUtils.fromInteger(ebs.getThroughput()));
+                    }
+
+                    if (ebs.getOutpostArn() != null) {
+                        request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.OutpostArn",
+                                StringUtils.fromString(ebs.getOutpostArn()));
+                    }
+
                     if (ebs.getEncrypted() != null) {
                         request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Encrypted",
                                 StringUtils.fromBoolean(ebs.getEncrypted()));
-                    }
-
-                    if (ebs.getKmsKeyId() != null) {
-                        request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.KmsKeyId", StringUtils.fromString(ebs.getKmsKeyId()));
                     }
                 }
 
@@ -153,6 +163,57 @@ public class RegisterImageRequestMarshaller implements Marshaller<Request<Regist
 
         if (registerImageRequest.getVirtualizationType() != null) {
             request.addParameter("VirtualizationType", StringUtils.fromString(registerImageRequest.getVirtualizationType()));
+        }
+
+        if (registerImageRequest.getBootMode() != null) {
+            request.addParameter("BootMode", StringUtils.fromString(registerImageRequest.getBootMode()));
+        }
+
+        if (registerImageRequest.getTpmSupport() != null) {
+            request.addParameter("TpmSupport", StringUtils.fromString(registerImageRequest.getTpmSupport()));
+        }
+
+        if (registerImageRequest.getUefiData() != null) {
+            request.addParameter("UefiData", StringUtils.fromString(registerImageRequest.getUefiData()));
+        }
+
+        if (registerImageRequest.getImdsSupport() != null) {
+            request.addParameter("ImdsSupport", StringUtils.fromString(registerImageRequest.getImdsSupport()));
+        }
+
+        com.amazonaws.internal.SdkInternalList<TagSpecification> registerImageRequestTagSpecificationsList = (com.amazonaws.internal.SdkInternalList<TagSpecification>) registerImageRequest
+                .getTagSpecifications();
+        if (!registerImageRequestTagSpecificationsList.isEmpty() || !registerImageRequestTagSpecificationsList.isAutoConstruct()) {
+            int tagSpecificationsListIndex = 1;
+
+            for (TagSpecification registerImageRequestTagSpecificationsListValue : registerImageRequestTagSpecificationsList) {
+
+                if (registerImageRequestTagSpecificationsListValue.getResourceType() != null) {
+                    request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".ResourceType",
+                            StringUtils.fromString(registerImageRequestTagSpecificationsListValue.getResourceType()));
+                }
+
+                com.amazonaws.internal.SdkInternalList<Tag> tagSpecificationTagsList = (com.amazonaws.internal.SdkInternalList<Tag>) registerImageRequestTagSpecificationsListValue
+                        .getTags();
+                if (!tagSpecificationTagsList.isEmpty() || !tagSpecificationTagsList.isAutoConstruct()) {
+                    int tagsListIndex = 1;
+
+                    for (Tag tagSpecificationTagsListValue : tagSpecificationTagsList) {
+
+                        if (tagSpecificationTagsListValue.getKey() != null) {
+                            request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Key",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getKey()));
+                        }
+
+                        if (tagSpecificationTagsListValue.getValue() != null) {
+                            request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Value",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getValue()));
+                        }
+                        tagsListIndex++;
+                    }
+                }
+                tagSpecificationsListIndex++;
+            }
         }
 
         return request;

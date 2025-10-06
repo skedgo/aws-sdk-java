@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,20 +37,21 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
     private String acceleratorArn;
     /**
      * <p>
-     * The name of the accelerator. The name can have a maximum of 32 characters, must contain only alphanumeric
-     * characters or hyphens (-), and must not begin or end with a hyphen.
+     * The name of the accelerator. The name must contain only alphanumeric characters or hyphens (-), and must not
+     * begin or end with a hyphen.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The value for the address type must be IPv4.
+     * The IP address type that an accelerator supports. For a standard accelerator, the value can be IPV4 or
+     * DUAL_STACK.
      * </p>
      */
     private String ipAddressType;
     /**
      * <p>
-     * Indicates whether theaccelerator is enabled. The value is true or false. The default value is true.
+     * Indicates whether the accelerator is enabled. The value is true or false. The default value is true.
      * </p>
      * <p>
      * If the value is set to true, the accelerator cannot be deleted. If set to false, accelerator can be deleted.
@@ -59,10 +60,32 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
     private Boolean enabled;
     /**
      * <p>
-     * IP address set associated with the accelerator.
+     * The static IP addresses that Global Accelerator associates with the accelerator.
      * </p>
      */
     private java.util.List<IpSet> ipSets;
+    /**
+     * <p>
+     * The Domain Name System (DNS) name that Global Accelerator creates that points to an accelerator's static IPv4
+     * addresses.
+     * </p>
+     * <p>
+     * The naming convention for the DNS name for an accelerator is the following: A lowercase letter a, followed by a
+     * 16-bit random hex string, followed by .awsglobalaccelerator.com. For example:
+     * a1234567890abcdef.awsglobalaccelerator.com.
+     * </p>
+     * <p>
+     * If you have a dual-stack accelerator, you also have a second DNS name, <code>DualStackDnsName</code>, that points
+     * to both the A record and the AAAA record for all four static addresses for the accelerator: two IPv4 addresses
+     * and two IPv6 addresses.
+     * </p>
+     * <p>
+     * For more information about the default DNS name, see <a href=
+     * "https://docs.aws.amazon.com/global-accelerator/latest/dg/dns-addressing-custom-domains.dns-addressing.html">
+     * Support for DNS addressing in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     */
+    private String dnsName;
     /**
      * <p>
      * Describes the deployment status of the accelerator.
@@ -81,6 +104,33 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private java.util.Date lastModifiedTime;
+    /**
+     * <p>
+     * The Domain Name System (DNS) name that Global Accelerator creates that points to a dual-stack accelerator's four
+     * static IP addresses: two IPv4 addresses and two IPv6 addresses.
+     * </p>
+     * <p>
+     * The naming convention for the dual-stack DNS name is the following: A lowercase letter a, followed by a 16-bit
+     * random hex string, followed by .dualstack.awsglobalaccelerator.com. For example:
+     * a1234567890abcdef.dualstack.awsglobalaccelerator.com.
+     * </p>
+     * <p>
+     * Note: Global Accelerator also assigns a default DNS name, <code>DnsName</code>, to your accelerator that points
+     * just to the static IPv4 addresses.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/global-accelerator/latest/dg/about-accelerators.html#about-accelerators.dns-addressing"
+     * > Support for DNS addressing in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     */
+    private String dualStackDnsName;
+    /**
+     * <p>
+     * A history of changes that you make to an accelerator in Global Accelerator.
+     * </p>
+     */
+    private java.util.List<AcceleratorEvent> events;
 
     /**
      * <p>
@@ -124,13 +174,13 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the accelerator. The name can have a maximum of 32 characters, must contain only alphanumeric
-     * characters or hyphens (-), and must not begin or end with a hyphen.
+     * The name of the accelerator. The name must contain only alphanumeric characters or hyphens (-), and must not
+     * begin or end with a hyphen.
      * </p>
      * 
      * @param name
-     *        The name of the accelerator. The name can have a maximum of 32 characters, must contain only alphanumeric
-     *        characters or hyphens (-), and must not begin or end with a hyphen.
+     *        The name of the accelerator. The name must contain only alphanumeric characters or hyphens (-), and must
+     *        not begin or end with a hyphen.
      */
 
     public void setName(String name) {
@@ -139,12 +189,12 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the accelerator. The name can have a maximum of 32 characters, must contain only alphanumeric
-     * characters or hyphens (-), and must not begin or end with a hyphen.
+     * The name of the accelerator. The name must contain only alphanumeric characters or hyphens (-), and must not
+     * begin or end with a hyphen.
      * </p>
      * 
-     * @return The name of the accelerator. The name can have a maximum of 32 characters, must contain only alphanumeric
-     *         characters or hyphens (-), and must not begin or end with a hyphen.
+     * @return The name of the accelerator. The name must contain only alphanumeric characters or hyphens (-), and must
+     *         not begin or end with a hyphen.
      */
 
     public String getName() {
@@ -153,13 +203,13 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the accelerator. The name can have a maximum of 32 characters, must contain only alphanumeric
-     * characters or hyphens (-), and must not begin or end with a hyphen.
+     * The name of the accelerator. The name must contain only alphanumeric characters or hyphens (-), and must not
+     * begin or end with a hyphen.
      * </p>
      * 
      * @param name
-     *        The name of the accelerator. The name can have a maximum of 32 characters, must contain only alphanumeric
-     *        characters or hyphens (-), and must not begin or end with a hyphen.
+     *        The name of the accelerator. The name must contain only alphanumeric characters or hyphens (-), and must
+     *        not begin or end with a hyphen.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -170,11 +220,13 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value for the address type must be IPv4.
+     * The IP address type that an accelerator supports. For a standard accelerator, the value can be IPV4 or
+     * DUAL_STACK.
      * </p>
      * 
      * @param ipAddressType
-     *        The value for the address type must be IPv4.
+     *        The IP address type that an accelerator supports. For a standard accelerator, the value can be IPV4 or
+     *        DUAL_STACK.
      * @see IpAddressType
      */
 
@@ -184,10 +236,12 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value for the address type must be IPv4.
+     * The IP address type that an accelerator supports. For a standard accelerator, the value can be IPV4 or
+     * DUAL_STACK.
      * </p>
      * 
-     * @return The value for the address type must be IPv4.
+     * @return The IP address type that an accelerator supports. For a standard accelerator, the value can be IPV4 or
+     *         DUAL_STACK.
      * @see IpAddressType
      */
 
@@ -197,11 +251,13 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value for the address type must be IPv4.
+     * The IP address type that an accelerator supports. For a standard accelerator, the value can be IPV4 or
+     * DUAL_STACK.
      * </p>
      * 
      * @param ipAddressType
-     *        The value for the address type must be IPv4.
+     *        The IP address type that an accelerator supports. For a standard accelerator, the value can be IPV4 or
+     *        DUAL_STACK.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see IpAddressType
      */
@@ -213,11 +269,13 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value for the address type must be IPv4.
+     * The IP address type that an accelerator supports. For a standard accelerator, the value can be IPV4 or
+     * DUAL_STACK.
      * </p>
      * 
      * @param ipAddressType
-     *        The value for the address type must be IPv4.
+     *        The IP address type that an accelerator supports. For a standard accelerator, the value can be IPV4 or
+     *        DUAL_STACK.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see IpAddressType
      */
@@ -229,14 +287,14 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether theaccelerator is enabled. The value is true or false. The default value is true.
+     * Indicates whether the accelerator is enabled. The value is true or false. The default value is true.
      * </p>
      * <p>
      * If the value is set to true, the accelerator cannot be deleted. If set to false, accelerator can be deleted.
      * </p>
      * 
      * @param enabled
-     *        Indicates whether theaccelerator is enabled. The value is true or false. The default value is true. </p>
+     *        Indicates whether the accelerator is enabled. The value is true or false. The default value is true. </p>
      *        <p>
      *        If the value is set to true, the accelerator cannot be deleted. If set to false, accelerator can be
      *        deleted.
@@ -248,13 +306,13 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether theaccelerator is enabled. The value is true or false. The default value is true.
+     * Indicates whether the accelerator is enabled. The value is true or false. The default value is true.
      * </p>
      * <p>
      * If the value is set to true, the accelerator cannot be deleted. If set to false, accelerator can be deleted.
      * </p>
      * 
-     * @return Indicates whether theaccelerator is enabled. The value is true or false. The default value is true. </p>
+     * @return Indicates whether the accelerator is enabled. The value is true or false. The default value is true. </p>
      *         <p>
      *         If the value is set to true, the accelerator cannot be deleted. If set to false, accelerator can be
      *         deleted.
@@ -266,14 +324,14 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether theaccelerator is enabled. The value is true or false. The default value is true.
+     * Indicates whether the accelerator is enabled. The value is true or false. The default value is true.
      * </p>
      * <p>
      * If the value is set to true, the accelerator cannot be deleted. If set to false, accelerator can be deleted.
      * </p>
      * 
      * @param enabled
-     *        Indicates whether theaccelerator is enabled. The value is true or false. The default value is true. </p>
+     *        Indicates whether the accelerator is enabled. The value is true or false. The default value is true. </p>
      *        <p>
      *        If the value is set to true, the accelerator cannot be deleted. If set to false, accelerator can be
      *        deleted.
@@ -287,13 +345,13 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether theaccelerator is enabled. The value is true or false. The default value is true.
+     * Indicates whether the accelerator is enabled. The value is true or false. The default value is true.
      * </p>
      * <p>
      * If the value is set to true, the accelerator cannot be deleted. If set to false, accelerator can be deleted.
      * </p>
      * 
-     * @return Indicates whether theaccelerator is enabled. The value is true or false. The default value is true. </p>
+     * @return Indicates whether the accelerator is enabled. The value is true or false. The default value is true. </p>
      *         <p>
      *         If the value is set to true, the accelerator cannot be deleted. If set to false, accelerator can be
      *         deleted.
@@ -305,10 +363,10 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * IP address set associated with the accelerator.
+     * The static IP addresses that Global Accelerator associates with the accelerator.
      * </p>
      * 
-     * @return IP address set associated with the accelerator.
+     * @return The static IP addresses that Global Accelerator associates with the accelerator.
      */
 
     public java.util.List<IpSet> getIpSets() {
@@ -317,11 +375,11 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * IP address set associated with the accelerator.
+     * The static IP addresses that Global Accelerator associates with the accelerator.
      * </p>
      * 
      * @param ipSets
-     *        IP address set associated with the accelerator.
+     *        The static IP addresses that Global Accelerator associates with the accelerator.
      */
 
     public void setIpSets(java.util.Collection<IpSet> ipSets) {
@@ -335,7 +393,7 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * IP address set associated with the accelerator.
+     * The static IP addresses that Global Accelerator associates with the accelerator.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -344,7 +402,7 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param ipSets
-     *        IP address set associated with the accelerator.
+     *        The static IP addresses that Global Accelerator associates with the accelerator.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -360,16 +418,149 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * IP address set associated with the accelerator.
+     * The static IP addresses that Global Accelerator associates with the accelerator.
      * </p>
      * 
      * @param ipSets
-     *        IP address set associated with the accelerator.
+     *        The static IP addresses that Global Accelerator associates with the accelerator.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Accelerator withIpSets(java.util.Collection<IpSet> ipSets) {
         setIpSets(ipSets);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Domain Name System (DNS) name that Global Accelerator creates that points to an accelerator's static IPv4
+     * addresses.
+     * </p>
+     * <p>
+     * The naming convention for the DNS name for an accelerator is the following: A lowercase letter a, followed by a
+     * 16-bit random hex string, followed by .awsglobalaccelerator.com. For example:
+     * a1234567890abcdef.awsglobalaccelerator.com.
+     * </p>
+     * <p>
+     * If you have a dual-stack accelerator, you also have a second DNS name, <code>DualStackDnsName</code>, that points
+     * to both the A record and the AAAA record for all four static addresses for the accelerator: two IPv4 addresses
+     * and two IPv6 addresses.
+     * </p>
+     * <p>
+     * For more information about the default DNS name, see <a href=
+     * "https://docs.aws.amazon.com/global-accelerator/latest/dg/dns-addressing-custom-domains.dns-addressing.html">
+     * Support for DNS addressing in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @param dnsName
+     *        The Domain Name System (DNS) name that Global Accelerator creates that points to an accelerator's static
+     *        IPv4 addresses.</p>
+     *        <p>
+     *        The naming convention for the DNS name for an accelerator is the following: A lowercase letter a, followed
+     *        by a 16-bit random hex string, followed by .awsglobalaccelerator.com. For example:
+     *        a1234567890abcdef.awsglobalaccelerator.com.
+     *        </p>
+     *        <p>
+     *        If you have a dual-stack accelerator, you also have a second DNS name, <code>DualStackDnsName</code>, that
+     *        points to both the A record and the AAAA record for all four static addresses for the accelerator: two
+     *        IPv4 addresses and two IPv6 addresses.
+     *        </p>
+     *        <p>
+     *        For more information about the default DNS name, see <a href=
+     *        "https://docs.aws.amazon.com/global-accelerator/latest/dg/dns-addressing-custom-domains.dns-addressing.html"
+     *        > Support for DNS addressing in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     */
+
+    public void setDnsName(String dnsName) {
+        this.dnsName = dnsName;
+    }
+
+    /**
+     * <p>
+     * The Domain Name System (DNS) name that Global Accelerator creates that points to an accelerator's static IPv4
+     * addresses.
+     * </p>
+     * <p>
+     * The naming convention for the DNS name for an accelerator is the following: A lowercase letter a, followed by a
+     * 16-bit random hex string, followed by .awsglobalaccelerator.com. For example:
+     * a1234567890abcdef.awsglobalaccelerator.com.
+     * </p>
+     * <p>
+     * If you have a dual-stack accelerator, you also have a second DNS name, <code>DualStackDnsName</code>, that points
+     * to both the A record and the AAAA record for all four static addresses for the accelerator: two IPv4 addresses
+     * and two IPv6 addresses.
+     * </p>
+     * <p>
+     * For more information about the default DNS name, see <a href=
+     * "https://docs.aws.amazon.com/global-accelerator/latest/dg/dns-addressing-custom-domains.dns-addressing.html">
+     * Support for DNS addressing in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @return The Domain Name System (DNS) name that Global Accelerator creates that points to an accelerator's static
+     *         IPv4 addresses.</p>
+     *         <p>
+     *         The naming convention for the DNS name for an accelerator is the following: A lowercase letter a,
+     *         followed by a 16-bit random hex string, followed by .awsglobalaccelerator.com. For example:
+     *         a1234567890abcdef.awsglobalaccelerator.com.
+     *         </p>
+     *         <p>
+     *         If you have a dual-stack accelerator, you also have a second DNS name, <code>DualStackDnsName</code>,
+     *         that points to both the A record and the AAAA record for all four static addresses for the accelerator:
+     *         two IPv4 addresses and two IPv6 addresses.
+     *         </p>
+     *         <p>
+     *         For more information about the default DNS name, see <a href=
+     *         "https://docs.aws.amazon.com/global-accelerator/latest/dg/dns-addressing-custom-domains.dns-addressing.html"
+     *         > Support for DNS addressing in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     */
+
+    public String getDnsName() {
+        return this.dnsName;
+    }
+
+    /**
+     * <p>
+     * The Domain Name System (DNS) name that Global Accelerator creates that points to an accelerator's static IPv4
+     * addresses.
+     * </p>
+     * <p>
+     * The naming convention for the DNS name for an accelerator is the following: A lowercase letter a, followed by a
+     * 16-bit random hex string, followed by .awsglobalaccelerator.com. For example:
+     * a1234567890abcdef.awsglobalaccelerator.com.
+     * </p>
+     * <p>
+     * If you have a dual-stack accelerator, you also have a second DNS name, <code>DualStackDnsName</code>, that points
+     * to both the A record and the AAAA record for all four static addresses for the accelerator: two IPv4 addresses
+     * and two IPv6 addresses.
+     * </p>
+     * <p>
+     * For more information about the default DNS name, see <a href=
+     * "https://docs.aws.amazon.com/global-accelerator/latest/dg/dns-addressing-custom-domains.dns-addressing.html">
+     * Support for DNS addressing in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @param dnsName
+     *        The Domain Name System (DNS) name that Global Accelerator creates that points to an accelerator's static
+     *        IPv4 addresses.</p>
+     *        <p>
+     *        The naming convention for the DNS name for an accelerator is the following: A lowercase letter a, followed
+     *        by a 16-bit random hex string, followed by .awsglobalaccelerator.com. For example:
+     *        a1234567890abcdef.awsglobalaccelerator.com.
+     *        </p>
+     *        <p>
+     *        If you have a dual-stack accelerator, you also have a second DNS name, <code>DualStackDnsName</code>, that
+     *        points to both the A record and the AAAA record for all four static addresses for the accelerator: two
+     *        IPv4 addresses and two IPv6 addresses.
+     *        </p>
+     *        <p>
+     *        For more information about the default DNS name, see <a href=
+     *        "https://docs.aws.amazon.com/global-accelerator/latest/dg/dns-addressing-custom-domains.dns-addressing.html"
+     *        > Support for DNS addressing in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Accelerator withDnsName(String dnsName) {
+        setDnsName(dnsName);
         return this;
     }
 
@@ -513,6 +704,203 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The Domain Name System (DNS) name that Global Accelerator creates that points to a dual-stack accelerator's four
+     * static IP addresses: two IPv4 addresses and two IPv6 addresses.
+     * </p>
+     * <p>
+     * The naming convention for the dual-stack DNS name is the following: A lowercase letter a, followed by a 16-bit
+     * random hex string, followed by .dualstack.awsglobalaccelerator.com. For example:
+     * a1234567890abcdef.dualstack.awsglobalaccelerator.com.
+     * </p>
+     * <p>
+     * Note: Global Accelerator also assigns a default DNS name, <code>DnsName</code>, to your accelerator that points
+     * just to the static IPv4 addresses.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/global-accelerator/latest/dg/about-accelerators.html#about-accelerators.dns-addressing"
+     * > Support for DNS addressing in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @param dualStackDnsName
+     *        The Domain Name System (DNS) name that Global Accelerator creates that points to a dual-stack
+     *        accelerator's four static IP addresses: two IPv4 addresses and two IPv6 addresses.</p>
+     *        <p>
+     *        The naming convention for the dual-stack DNS name is the following: A lowercase letter a, followed by a
+     *        16-bit random hex string, followed by .dualstack.awsglobalaccelerator.com. For example:
+     *        a1234567890abcdef.dualstack.awsglobalaccelerator.com.
+     *        </p>
+     *        <p>
+     *        Note: Global Accelerator also assigns a default DNS name, <code>DnsName</code>, to your accelerator that
+     *        points just to the static IPv4 addresses.
+     *        </p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/global-accelerator/latest/dg/about-accelerators.html#about-accelerators.dns-addressing"
+     *        > Support for DNS addressing in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     */
+
+    public void setDualStackDnsName(String dualStackDnsName) {
+        this.dualStackDnsName = dualStackDnsName;
+    }
+
+    /**
+     * <p>
+     * The Domain Name System (DNS) name that Global Accelerator creates that points to a dual-stack accelerator's four
+     * static IP addresses: two IPv4 addresses and two IPv6 addresses.
+     * </p>
+     * <p>
+     * The naming convention for the dual-stack DNS name is the following: A lowercase letter a, followed by a 16-bit
+     * random hex string, followed by .dualstack.awsglobalaccelerator.com. For example:
+     * a1234567890abcdef.dualstack.awsglobalaccelerator.com.
+     * </p>
+     * <p>
+     * Note: Global Accelerator also assigns a default DNS name, <code>DnsName</code>, to your accelerator that points
+     * just to the static IPv4 addresses.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/global-accelerator/latest/dg/about-accelerators.html#about-accelerators.dns-addressing"
+     * > Support for DNS addressing in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @return The Domain Name System (DNS) name that Global Accelerator creates that points to a dual-stack
+     *         accelerator's four static IP addresses: two IPv4 addresses and two IPv6 addresses.</p>
+     *         <p>
+     *         The naming convention for the dual-stack DNS name is the following: A lowercase letter a, followed by a
+     *         16-bit random hex string, followed by .dualstack.awsglobalaccelerator.com. For example:
+     *         a1234567890abcdef.dualstack.awsglobalaccelerator.com.
+     *         </p>
+     *         <p>
+     *         Note: Global Accelerator also assigns a default DNS name, <code>DnsName</code>, to your accelerator that
+     *         points just to the static IPv4 addresses.
+     *         </p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/global-accelerator/latest/dg/about-accelerators.html#about-accelerators.dns-addressing"
+     *         > Support for DNS addressing in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     */
+
+    public String getDualStackDnsName() {
+        return this.dualStackDnsName;
+    }
+
+    /**
+     * <p>
+     * The Domain Name System (DNS) name that Global Accelerator creates that points to a dual-stack accelerator's four
+     * static IP addresses: two IPv4 addresses and two IPv6 addresses.
+     * </p>
+     * <p>
+     * The naming convention for the dual-stack DNS name is the following: A lowercase letter a, followed by a 16-bit
+     * random hex string, followed by .dualstack.awsglobalaccelerator.com. For example:
+     * a1234567890abcdef.dualstack.awsglobalaccelerator.com.
+     * </p>
+     * <p>
+     * Note: Global Accelerator also assigns a default DNS name, <code>DnsName</code>, to your accelerator that points
+     * just to the static IPv4 addresses.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/global-accelerator/latest/dg/about-accelerators.html#about-accelerators.dns-addressing"
+     * > Support for DNS addressing in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @param dualStackDnsName
+     *        The Domain Name System (DNS) name that Global Accelerator creates that points to a dual-stack
+     *        accelerator's four static IP addresses: two IPv4 addresses and two IPv6 addresses.</p>
+     *        <p>
+     *        The naming convention for the dual-stack DNS name is the following: A lowercase letter a, followed by a
+     *        16-bit random hex string, followed by .dualstack.awsglobalaccelerator.com. For example:
+     *        a1234567890abcdef.dualstack.awsglobalaccelerator.com.
+     *        </p>
+     *        <p>
+     *        Note: Global Accelerator also assigns a default DNS name, <code>DnsName</code>, to your accelerator that
+     *        points just to the static IPv4 addresses.
+     *        </p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/global-accelerator/latest/dg/about-accelerators.html#about-accelerators.dns-addressing"
+     *        > Support for DNS addressing in Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Accelerator withDualStackDnsName(String dualStackDnsName) {
+        setDualStackDnsName(dualStackDnsName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A history of changes that you make to an accelerator in Global Accelerator.
+     * </p>
+     * 
+     * @return A history of changes that you make to an accelerator in Global Accelerator.
+     */
+
+    public java.util.List<AcceleratorEvent> getEvents() {
+        return events;
+    }
+
+    /**
+     * <p>
+     * A history of changes that you make to an accelerator in Global Accelerator.
+     * </p>
+     * 
+     * @param events
+     *        A history of changes that you make to an accelerator in Global Accelerator.
+     */
+
+    public void setEvents(java.util.Collection<AcceleratorEvent> events) {
+        if (events == null) {
+            this.events = null;
+            return;
+        }
+
+        this.events = new java.util.ArrayList<AcceleratorEvent>(events);
+    }
+
+    /**
+     * <p>
+     * A history of changes that you make to an accelerator in Global Accelerator.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setEvents(java.util.Collection)} or {@link #withEvents(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param events
+     *        A history of changes that you make to an accelerator in Global Accelerator.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Accelerator withEvents(AcceleratorEvent... events) {
+        if (this.events == null) {
+            setEvents(new java.util.ArrayList<AcceleratorEvent>(events.length));
+        }
+        for (AcceleratorEvent ele : events) {
+            this.events.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A history of changes that you make to an accelerator in Global Accelerator.
+     * </p>
+     * 
+     * @param events
+     *        A history of changes that you make to an accelerator in Global Accelerator.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Accelerator withEvents(java.util.Collection<AcceleratorEvent> events) {
+        setEvents(events);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -534,12 +922,18 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
             sb.append("Enabled: ").append(getEnabled()).append(",");
         if (getIpSets() != null)
             sb.append("IpSets: ").append(getIpSets()).append(",");
+        if (getDnsName() != null)
+            sb.append("DnsName: ").append(getDnsName()).append(",");
         if (getStatus() != null)
             sb.append("Status: ").append(getStatus()).append(",");
         if (getCreatedTime() != null)
             sb.append("CreatedTime: ").append(getCreatedTime()).append(",");
         if (getLastModifiedTime() != null)
-            sb.append("LastModifiedTime: ").append(getLastModifiedTime());
+            sb.append("LastModifiedTime: ").append(getLastModifiedTime()).append(",");
+        if (getDualStackDnsName() != null)
+            sb.append("DualStackDnsName: ").append(getDualStackDnsName()).append(",");
+        if (getEvents() != null)
+            sb.append("Events: ").append(getEvents());
         sb.append("}");
         return sb.toString();
     }
@@ -574,6 +968,10 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getIpSets() != null && other.getIpSets().equals(this.getIpSets()) == false)
             return false;
+        if (other.getDnsName() == null ^ this.getDnsName() == null)
+            return false;
+        if (other.getDnsName() != null && other.getDnsName().equals(this.getDnsName()) == false)
+            return false;
         if (other.getStatus() == null ^ this.getStatus() == null)
             return false;
         if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
@@ -585,6 +983,14 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
         if (other.getLastModifiedTime() == null ^ this.getLastModifiedTime() == null)
             return false;
         if (other.getLastModifiedTime() != null && other.getLastModifiedTime().equals(this.getLastModifiedTime()) == false)
+            return false;
+        if (other.getDualStackDnsName() == null ^ this.getDualStackDnsName() == null)
+            return false;
+        if (other.getDualStackDnsName() != null && other.getDualStackDnsName().equals(this.getDualStackDnsName()) == false)
+            return false;
+        if (other.getEvents() == null ^ this.getEvents() == null)
+            return false;
+        if (other.getEvents() != null && other.getEvents().equals(this.getEvents()) == false)
             return false;
         return true;
     }
@@ -599,9 +1005,12 @@ public class Accelerator implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getIpAddressType() == null) ? 0 : getIpAddressType().hashCode());
         hashCode = prime * hashCode + ((getEnabled() == null) ? 0 : getEnabled().hashCode());
         hashCode = prime * hashCode + ((getIpSets() == null) ? 0 : getIpSets().hashCode());
+        hashCode = prime * hashCode + ((getDnsName() == null) ? 0 : getDnsName().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getCreatedTime() == null) ? 0 : getCreatedTime().hashCode());
         hashCode = prime * hashCode + ((getLastModifiedTime() == null) ? 0 : getLastModifiedTime().hashCode());
+        hashCode = prime * hashCode + ((getDualStackDnsName() == null) ? 0 : getDualStackDnsName().hashCode());
+        hashCode = prime * hashCode + ((getEvents() == null) ? 0 : getEvents().hashCode());
         return hashCode;
     }
 

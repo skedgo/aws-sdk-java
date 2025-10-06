@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,11 +32,6 @@ public class DescribeProvisioningArtifactRequest extends com.amazonaws.AmazonWeb
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -62,21 +57,34 @@ public class DescribeProvisioningArtifactRequest extends com.amazonaws.AmazonWeb
     private String productId;
     /**
      * <p>
+     * The provisioning artifact name.
+     * </p>
+     */
+    private String provisioningArtifactName;
+    /**
+     * <p>
+     * The product name.
+     * </p>
+     */
+    private String productName;
+    /**
+     * <p>
      * Indicates whether a verbose level of detail is enabled.
      * </p>
      */
     private Boolean verbose;
+    /**
+     * <p>
+     * Indicates if the API call response does or does not include additional details about the provisioning parameters.
+     * </p>
+     */
+    private Boolean includeProvisioningArtifactParameters;
 
     /**
      * <p>
      * The language code.
      * </p>
      * <ul>
-     * <li>
-     * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
      * <li>
      * <p>
      * <code>jp</code> - Japanese
@@ -92,11 +100,6 @@ public class DescribeProvisioningArtifactRequest extends com.amazonaws.AmazonWeb
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -120,11 +123,6 @@ public class DescribeProvisioningArtifactRequest extends com.amazonaws.AmazonWeb
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -137,11 +135,6 @@ public class DescribeProvisioningArtifactRequest extends com.amazonaws.AmazonWeb
      * 
      * @return The language code.</p>
      *         <ul>
-     *         <li>
-     *         <p>
-     *         <code>en</code> - English (default)
-     *         </p>
-     *         </li>
      *         <li>
      *         <p>
      *         <code>jp</code> - Japanese
@@ -165,11 +158,6 @@ public class DescribeProvisioningArtifactRequest extends com.amazonaws.AmazonWeb
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -183,11 +171,6 @@ public class DescribeProvisioningArtifactRequest extends com.amazonaws.AmazonWeb
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -288,6 +271,86 @@ public class DescribeProvisioningArtifactRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
+     * The provisioning artifact name.
+     * </p>
+     * 
+     * @param provisioningArtifactName
+     *        The provisioning artifact name.
+     */
+
+    public void setProvisioningArtifactName(String provisioningArtifactName) {
+        this.provisioningArtifactName = provisioningArtifactName;
+    }
+
+    /**
+     * <p>
+     * The provisioning artifact name.
+     * </p>
+     * 
+     * @return The provisioning artifact name.
+     */
+
+    public String getProvisioningArtifactName() {
+        return this.provisioningArtifactName;
+    }
+
+    /**
+     * <p>
+     * The provisioning artifact name.
+     * </p>
+     * 
+     * @param provisioningArtifactName
+     *        The provisioning artifact name.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeProvisioningArtifactRequest withProvisioningArtifactName(String provisioningArtifactName) {
+        setProvisioningArtifactName(provisioningArtifactName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The product name.
+     * </p>
+     * 
+     * @param productName
+     *        The product name.
+     */
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    /**
+     * <p>
+     * The product name.
+     * </p>
+     * 
+     * @return The product name.
+     */
+
+    public String getProductName() {
+        return this.productName;
+    }
+
+    /**
+     * <p>
+     * The product name.
+     * </p>
+     * 
+     * @param productName
+     *        The product name.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeProvisioningArtifactRequest withProductName(String productName) {
+        setProductName(productName);
+        return this;
+    }
+
+    /**
+     * <p>
      * Indicates whether a verbose level of detail is enabled.
      * </p>
      * 
@@ -339,6 +402,62 @@ public class DescribeProvisioningArtifactRequest extends com.amazonaws.AmazonWeb
     }
 
     /**
+     * <p>
+     * Indicates if the API call response does or does not include additional details about the provisioning parameters.
+     * </p>
+     * 
+     * @param includeProvisioningArtifactParameters
+     *        Indicates if the API call response does or does not include additional details about the provisioning
+     *        parameters.
+     */
+
+    public void setIncludeProvisioningArtifactParameters(Boolean includeProvisioningArtifactParameters) {
+        this.includeProvisioningArtifactParameters = includeProvisioningArtifactParameters;
+    }
+
+    /**
+     * <p>
+     * Indicates if the API call response does or does not include additional details about the provisioning parameters.
+     * </p>
+     * 
+     * @return Indicates if the API call response does or does not include additional details about the provisioning
+     *         parameters.
+     */
+
+    public Boolean getIncludeProvisioningArtifactParameters() {
+        return this.includeProvisioningArtifactParameters;
+    }
+
+    /**
+     * <p>
+     * Indicates if the API call response does or does not include additional details about the provisioning parameters.
+     * </p>
+     * 
+     * @param includeProvisioningArtifactParameters
+     *        Indicates if the API call response does or does not include additional details about the provisioning
+     *        parameters.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeProvisioningArtifactRequest withIncludeProvisioningArtifactParameters(Boolean includeProvisioningArtifactParameters) {
+        setIncludeProvisioningArtifactParameters(includeProvisioningArtifactParameters);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates if the API call response does or does not include additional details about the provisioning parameters.
+     * </p>
+     * 
+     * @return Indicates if the API call response does or does not include additional details about the provisioning
+     *         parameters.
+     */
+
+    public Boolean isIncludeProvisioningArtifactParameters() {
+        return this.includeProvisioningArtifactParameters;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -356,8 +475,14 @@ public class DescribeProvisioningArtifactRequest extends com.amazonaws.AmazonWeb
             sb.append("ProvisioningArtifactId: ").append(getProvisioningArtifactId()).append(",");
         if (getProductId() != null)
             sb.append("ProductId: ").append(getProductId()).append(",");
+        if (getProvisioningArtifactName() != null)
+            sb.append("ProvisioningArtifactName: ").append(getProvisioningArtifactName()).append(",");
+        if (getProductName() != null)
+            sb.append("ProductName: ").append(getProductName()).append(",");
         if (getVerbose() != null)
-            sb.append("Verbose: ").append(getVerbose());
+            sb.append("Verbose: ").append(getVerbose()).append(",");
+        if (getIncludeProvisioningArtifactParameters() != null)
+            sb.append("IncludeProvisioningArtifactParameters: ").append(getIncludeProvisioningArtifactParameters());
         sb.append("}");
         return sb.toString();
     }
@@ -384,9 +509,22 @@ public class DescribeProvisioningArtifactRequest extends com.amazonaws.AmazonWeb
             return false;
         if (other.getProductId() != null && other.getProductId().equals(this.getProductId()) == false)
             return false;
+        if (other.getProvisioningArtifactName() == null ^ this.getProvisioningArtifactName() == null)
+            return false;
+        if (other.getProvisioningArtifactName() != null && other.getProvisioningArtifactName().equals(this.getProvisioningArtifactName()) == false)
+            return false;
+        if (other.getProductName() == null ^ this.getProductName() == null)
+            return false;
+        if (other.getProductName() != null && other.getProductName().equals(this.getProductName()) == false)
+            return false;
         if (other.getVerbose() == null ^ this.getVerbose() == null)
             return false;
         if (other.getVerbose() != null && other.getVerbose().equals(this.getVerbose()) == false)
+            return false;
+        if (other.getIncludeProvisioningArtifactParameters() == null ^ this.getIncludeProvisioningArtifactParameters() == null)
+            return false;
+        if (other.getIncludeProvisioningArtifactParameters() != null
+                && other.getIncludeProvisioningArtifactParameters().equals(this.getIncludeProvisioningArtifactParameters()) == false)
             return false;
         return true;
     }
@@ -399,7 +537,10 @@ public class DescribeProvisioningArtifactRequest extends com.amazonaws.AmazonWeb
         hashCode = prime * hashCode + ((getAcceptLanguage() == null) ? 0 : getAcceptLanguage().hashCode());
         hashCode = prime * hashCode + ((getProvisioningArtifactId() == null) ? 0 : getProvisioningArtifactId().hashCode());
         hashCode = prime * hashCode + ((getProductId() == null) ? 0 : getProductId().hashCode());
+        hashCode = prime * hashCode + ((getProvisioningArtifactName() == null) ? 0 : getProvisioningArtifactName().hashCode());
+        hashCode = prime * hashCode + ((getProductName() == null) ? 0 : getProductName().hashCode());
         hashCode = prime * hashCode + ((getVerbose() == null) ? 0 : getVerbose().hashCode());
+        hashCode = prime * hashCode + ((getIncludeProvisioningArtifactParameters() == null) ? 0 : getIncludeProvisioningArtifactParameters().hashCode());
         return hashCode;
     }
 

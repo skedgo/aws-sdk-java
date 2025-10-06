@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -59,12 +59,15 @@ public class TrainingSpecificationJsonUnmarshaller implements Unmarshaller<Train
                 if (context.testExpression("SupportedHyperParameters", targetDepth)) {
                     context.nextToken();
                     trainingSpecification.setSupportedHyperParameters(new ListUnmarshaller<HyperParameterSpecification>(
-                            HyperParameterSpecificationJsonUnmarshaller.getInstance()).unmarshall(context));
+                            HyperParameterSpecificationJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("SupportedTrainingInstanceTypes", targetDepth)) {
                     context.nextToken();
                     trainingSpecification.setSupportedTrainingInstanceTypes(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("SupportsDistributedTraining", targetDepth)) {
                     context.nextToken();
@@ -73,17 +76,25 @@ public class TrainingSpecificationJsonUnmarshaller implements Unmarshaller<Train
                 if (context.testExpression("MetricDefinitions", targetDepth)) {
                     context.nextToken();
                     trainingSpecification.setMetricDefinitions(new ListUnmarshaller<MetricDefinition>(MetricDefinitionJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("TrainingChannels", targetDepth)) {
                     context.nextToken();
                     trainingSpecification.setTrainingChannels(new ListUnmarshaller<ChannelSpecification>(ChannelSpecificationJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("SupportedTuningJobObjectiveMetrics", targetDepth)) {
                     context.nextToken();
                     trainingSpecification.setSupportedTuningJobObjectiveMetrics(new ListUnmarshaller<HyperParameterTuningJobObjective>(
-                            HyperParameterTuningJobObjectiveJsonUnmarshaller.getInstance()).unmarshall(context));
+                            HyperParameterTuningJobObjectiveJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("AdditionalS3DataSource", targetDepth)) {
+                    context.nextToken();
+                    trainingSpecification.setAdditionalS3DataSource(AdditionalS3DataSourceJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

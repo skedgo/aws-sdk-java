@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,7 +34,7 @@ public class LoadPermissionRequest implements Serializable, Cloneable {
     private String group;
     /**
      * <p>
-     * The AWS account ID.
+     * The Amazon Web Services account ID.
      * </p>
      */
     private String userId;
@@ -100,11 +100,11 @@ public class LoadPermissionRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID.
+     * The Amazon Web Services account ID.
      * </p>
      * 
      * @param userId
-     *        The AWS account ID.
+     *        The Amazon Web Services account ID.
      */
 
     public void setUserId(String userId) {
@@ -113,10 +113,10 @@ public class LoadPermissionRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID.
+     * The Amazon Web Services account ID.
      * </p>
      * 
-     * @return The AWS account ID.
+     * @return The Amazon Web Services account ID.
      */
 
     public String getUserId() {
@@ -125,11 +125,11 @@ public class LoadPermissionRequest implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID.
+     * The Amazon Web Services account ID.
      * </p>
      * 
      * @param userId
-     *        The AWS account ID.
+     *        The Amazon Web Services account ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

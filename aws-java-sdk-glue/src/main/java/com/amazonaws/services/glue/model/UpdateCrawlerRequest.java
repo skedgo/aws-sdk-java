@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,7 +40,7 @@ public class UpdateCrawlerRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String role;
     /**
      * <p>
-     * The AWS Glue database where results are stored, such as:
+     * The Glue database where results are stored, such as:
      * <code>arn:aws:daylight:us-east-1::database/sometable/*</code>.
      * </p>
      */
@@ -59,9 +59,9 @@ public class UpdateCrawlerRequest extends com.amazonaws.AmazonWebServiceRequest 
     private CrawlerTargets targets;
     /**
      * <p>
-     * A <code>cron</code> expression used to specify the schedule. For more information, see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based Schedules for
-     * Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, specify
+     * A <code>cron</code> expression used to specify the schedule (see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based Schedules for
+     * Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, you would specify:
      * <code>cron(15 12 * * ? *)</code>.
      * </p>
      */
@@ -87,9 +87,29 @@ public class UpdateCrawlerRequest extends com.amazonaws.AmazonWebServiceRequest 
     private SchemaChangePolicy schemaChangePolicy;
     /**
      * <p>
-     * The crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's
+     * A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were added since
+     * the last crawler run.
+     * </p>
+     */
+    private RecrawlPolicy recrawlPolicy;
+    /**
+     * <p>
+     * Specifies data lineage configuration settings for the crawler.
+     * </p>
+     */
+    private LineageConfiguration lineageConfiguration;
+    /**
+     * <p>
+     * Specifies Lake Formation configuration settings for the crawler.
+     * </p>
+     */
+    private LakeFormationConfiguration lakeFormationConfiguration;
+    /**
+     * <p>
+     * Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's
      * behavior. For more information, see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Configuring a Crawler</a>.
+     * href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler configuration
+     * options</a>.
      * </p>
      */
     private String configuration;
@@ -188,12 +208,12 @@ public class UpdateCrawlerRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The AWS Glue database where results are stored, such as:
+     * The Glue database where results are stored, such as:
      * <code>arn:aws:daylight:us-east-1::database/sometable/*</code>.
      * </p>
      * 
      * @param databaseName
-     *        The AWS Glue database where results are stored, such as:
+     *        The Glue database where results are stored, such as:
      *        <code>arn:aws:daylight:us-east-1::database/sometable/*</code>.
      */
 
@@ -203,11 +223,11 @@ public class UpdateCrawlerRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The AWS Glue database where results are stored, such as:
+     * The Glue database where results are stored, such as:
      * <code>arn:aws:daylight:us-east-1::database/sometable/*</code>.
      * </p>
      * 
-     * @return The AWS Glue database where results are stored, such as:
+     * @return The Glue database where results are stored, such as:
      *         <code>arn:aws:daylight:us-east-1::database/sometable/*</code>.
      */
 
@@ -217,12 +237,12 @@ public class UpdateCrawlerRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The AWS Glue database where results are stored, such as:
+     * The Glue database where results are stored, such as:
      * <code>arn:aws:daylight:us-east-1::database/sometable/*</code>.
      * </p>
      * 
      * @param databaseName
-     *        The AWS Glue database where results are stored, such as:
+     *        The Glue database where results are stored, such as:
      *        <code>arn:aws:daylight:us-east-1::database/sometable/*</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -314,17 +334,17 @@ public class UpdateCrawlerRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A <code>cron</code> expression used to specify the schedule. For more information, see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based Schedules for
-     * Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, specify
+     * A <code>cron</code> expression used to specify the schedule (see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based Schedules for
+     * Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, you would specify:
      * <code>cron(15 12 * * ? *)</code>.
      * </p>
      * 
      * @param schedule
-     *        A <code>cron</code> expression used to specify the schedule. For more information, see <a
-     *        href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based Schedules
-     *        for Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, specify
-     *        <code>cron(15 12 * * ? *)</code>.
+     *        A <code>cron</code> expression used to specify the schedule (see <a
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
+     *        Schedules for Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, you would
+     *        specify: <code>cron(15 12 * * ? *)</code>.
      */
 
     public void setSchedule(String schedule) {
@@ -333,16 +353,16 @@ public class UpdateCrawlerRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A <code>cron</code> expression used to specify the schedule. For more information, see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based Schedules for
-     * Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, specify
+     * A <code>cron</code> expression used to specify the schedule (see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based Schedules for
+     * Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, you would specify:
      * <code>cron(15 12 * * ? *)</code>.
      * </p>
      * 
-     * @return A <code>cron</code> expression used to specify the schedule. For more information, see <a
-     *         href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
-     *         Schedules for Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, specify
-     *         <code>cron(15 12 * * ? *)</code>.
+     * @return A <code>cron</code> expression used to specify the schedule (see <a
+     *         href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
+     *         Schedules for Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, you would
+     *         specify: <code>cron(15 12 * * ? *)</code>.
      */
 
     public String getSchedule() {
@@ -351,17 +371,17 @@ public class UpdateCrawlerRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A <code>cron</code> expression used to specify the schedule. For more information, see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based Schedules for
-     * Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, specify
+     * A <code>cron</code> expression used to specify the schedule (see <a
+     * href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based Schedules for
+     * Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, you would specify:
      * <code>cron(15 12 * * ? *)</code>.
      * </p>
      * 
      * @param schedule
-     *        A <code>cron</code> expression used to specify the schedule. For more information, see <a
-     *        href="http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based Schedules
-     *        for Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, specify
-     *        <code>cron(15 12 * * ? *)</code>.
+     *        A <code>cron</code> expression used to specify the schedule (see <a
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html">Time-Based
+     *        Schedules for Jobs and Crawlers</a>. For example, to run something every day at 12:15 UTC, you would
+     *        specify: <code>cron(15 12 * * ? *)</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -534,15 +554,143 @@ public class UpdateCrawlerRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's
+     * A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were added since
+     * the last crawler run.
+     * </p>
+     * 
+     * @param recrawlPolicy
+     *        A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were
+     *        added since the last crawler run.
+     */
+
+    public void setRecrawlPolicy(RecrawlPolicy recrawlPolicy) {
+        this.recrawlPolicy = recrawlPolicy;
+    }
+
+    /**
+     * <p>
+     * A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were added since
+     * the last crawler run.
+     * </p>
+     * 
+     * @return A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were
+     *         added since the last crawler run.
+     */
+
+    public RecrawlPolicy getRecrawlPolicy() {
+        return this.recrawlPolicy;
+    }
+
+    /**
+     * <p>
+     * A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were added since
+     * the last crawler run.
+     * </p>
+     * 
+     * @param recrawlPolicy
+     *        A policy that specifies whether to crawl the entire dataset again, or to crawl only folders that were
+     *        added since the last crawler run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateCrawlerRequest withRecrawlPolicy(RecrawlPolicy recrawlPolicy) {
+        setRecrawlPolicy(recrawlPolicy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies data lineage configuration settings for the crawler.
+     * </p>
+     * 
+     * @param lineageConfiguration
+     *        Specifies data lineage configuration settings for the crawler.
+     */
+
+    public void setLineageConfiguration(LineageConfiguration lineageConfiguration) {
+        this.lineageConfiguration = lineageConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies data lineage configuration settings for the crawler.
+     * </p>
+     * 
+     * @return Specifies data lineage configuration settings for the crawler.
+     */
+
+    public LineageConfiguration getLineageConfiguration() {
+        return this.lineageConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies data lineage configuration settings for the crawler.
+     * </p>
+     * 
+     * @param lineageConfiguration
+     *        Specifies data lineage configuration settings for the crawler.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateCrawlerRequest withLineageConfiguration(LineageConfiguration lineageConfiguration) {
+        setLineageConfiguration(lineageConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies Lake Formation configuration settings for the crawler.
+     * </p>
+     * 
+     * @param lakeFormationConfiguration
+     *        Specifies Lake Formation configuration settings for the crawler.
+     */
+
+    public void setLakeFormationConfiguration(LakeFormationConfiguration lakeFormationConfiguration) {
+        this.lakeFormationConfiguration = lakeFormationConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies Lake Formation configuration settings for the crawler.
+     * </p>
+     * 
+     * @return Specifies Lake Formation configuration settings for the crawler.
+     */
+
+    public LakeFormationConfiguration getLakeFormationConfiguration() {
+        return this.lakeFormationConfiguration;
+    }
+
+    /**
+     * <p>
+     * Specifies Lake Formation configuration settings for the crawler.
+     * </p>
+     * 
+     * @param lakeFormationConfiguration
+     *        Specifies Lake Formation configuration settings for the crawler.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateCrawlerRequest withLakeFormationConfiguration(LakeFormationConfiguration lakeFormationConfiguration) {
+        setLakeFormationConfiguration(lakeFormationConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's
      * behavior. For more information, see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Configuring a Crawler</a>.
+     * href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler configuration
+     * options</a>.
      * </p>
      * 
      * @param configuration
-     *        The crawler configuration information. This versioned JSON string allows users to specify aspects of a
+     *        Crawler configuration information. This versioned JSON string allows users to specify aspects of a
      *        crawler's behavior. For more information, see <a
-     *        href="http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Configuring a Crawler</a>.
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler configuration
+     *        options</a>.
      */
 
     public void setConfiguration(String configuration) {
@@ -551,14 +699,16 @@ public class UpdateCrawlerRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's
+     * Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's
      * behavior. For more information, see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Configuring a Crawler</a>.
+     * href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler configuration
+     * options</a>.
      * </p>
      * 
-     * @return The crawler configuration information. This versioned JSON string allows users to specify aspects of a
+     * @return Crawler configuration information. This versioned JSON string allows users to specify aspects of a
      *         crawler's behavior. For more information, see <a
-     *         href="http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Configuring a Crawler</a>.
+     *         href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler
+     *         configuration options</a>.
      */
 
     public String getConfiguration() {
@@ -567,15 +717,17 @@ public class UpdateCrawlerRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's
+     * Crawler configuration information. This versioned JSON string allows users to specify aspects of a crawler's
      * behavior. For more information, see <a
-     * href="http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Configuring a Crawler</a>.
+     * href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler configuration
+     * options</a>.
      * </p>
      * 
      * @param configuration
-     *        The crawler configuration information. This versioned JSON string allows users to specify aspects of a
+     *        Crawler configuration information. This versioned JSON string allows users to specify aspects of a
      *        crawler's behavior. For more information, see <a
-     *        href="http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Configuring a Crawler</a>.
+     *        href="https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html">Setting crawler configuration
+     *        options</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -654,6 +806,12 @@ public class UpdateCrawlerRequest extends com.amazonaws.AmazonWebServiceRequest 
             sb.append("TablePrefix: ").append(getTablePrefix()).append(",");
         if (getSchemaChangePolicy() != null)
             sb.append("SchemaChangePolicy: ").append(getSchemaChangePolicy()).append(",");
+        if (getRecrawlPolicy() != null)
+            sb.append("RecrawlPolicy: ").append(getRecrawlPolicy()).append(",");
+        if (getLineageConfiguration() != null)
+            sb.append("LineageConfiguration: ").append(getLineageConfiguration()).append(",");
+        if (getLakeFormationConfiguration() != null)
+            sb.append("LakeFormationConfiguration: ").append(getLakeFormationConfiguration()).append(",");
         if (getConfiguration() != null)
             sb.append("Configuration: ").append(getConfiguration()).append(",");
         if (getCrawlerSecurityConfiguration() != null)
@@ -708,6 +866,18 @@ public class UpdateCrawlerRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getSchemaChangePolicy() != null && other.getSchemaChangePolicy().equals(this.getSchemaChangePolicy()) == false)
             return false;
+        if (other.getRecrawlPolicy() == null ^ this.getRecrawlPolicy() == null)
+            return false;
+        if (other.getRecrawlPolicy() != null && other.getRecrawlPolicy().equals(this.getRecrawlPolicy()) == false)
+            return false;
+        if (other.getLineageConfiguration() == null ^ this.getLineageConfiguration() == null)
+            return false;
+        if (other.getLineageConfiguration() != null && other.getLineageConfiguration().equals(this.getLineageConfiguration()) == false)
+            return false;
+        if (other.getLakeFormationConfiguration() == null ^ this.getLakeFormationConfiguration() == null)
+            return false;
+        if (other.getLakeFormationConfiguration() != null && other.getLakeFormationConfiguration().equals(this.getLakeFormationConfiguration()) == false)
+            return false;
         if (other.getConfiguration() == null ^ this.getConfiguration() == null)
             return false;
         if (other.getConfiguration() != null && other.getConfiguration().equals(this.getConfiguration()) == false)
@@ -733,6 +903,9 @@ public class UpdateCrawlerRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getClassifiers() == null) ? 0 : getClassifiers().hashCode());
         hashCode = prime * hashCode + ((getTablePrefix() == null) ? 0 : getTablePrefix().hashCode());
         hashCode = prime * hashCode + ((getSchemaChangePolicy() == null) ? 0 : getSchemaChangePolicy().hashCode());
+        hashCode = prime * hashCode + ((getRecrawlPolicy() == null) ? 0 : getRecrawlPolicy().hashCode());
+        hashCode = prime * hashCode + ((getLineageConfiguration() == null) ? 0 : getLineageConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getLakeFormationConfiguration() == null) ? 0 : getLakeFormationConfiguration().hashCode());
         hashCode = prime * hashCode + ((getConfiguration() == null) ? 0 : getConfiguration().hashCode());
         hashCode = prime * hashCode + ((getCrawlerSecurityConfiguration() == null) ? 0 : getCrawlerSecurityConfiguration().hashCode());
         return hashCode;

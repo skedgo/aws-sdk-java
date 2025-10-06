@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -71,10 +71,34 @@ public class EndpointMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MongoDbSettings").build();
     private static final MarshallingInfo<StructuredPojo> KINESISSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("KinesisSettings").build();
+    private static final MarshallingInfo<StructuredPojo> KAFKASETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("KafkaSettings").build();
     private static final MarshallingInfo<StructuredPojo> ELASTICSEARCHSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ElasticsearchSettings").build();
+    private static final MarshallingInfo<StructuredPojo> NEPTUNESETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("NeptuneSettings").build();
     private static final MarshallingInfo<StructuredPojo> REDSHIFTSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RedshiftSettings").build();
+    private static final MarshallingInfo<StructuredPojo> POSTGRESQLSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PostgreSQLSettings").build();
+    private static final MarshallingInfo<StructuredPojo> MYSQLSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MySQLSettings").build();
+    private static final MarshallingInfo<StructuredPojo> ORACLESETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OracleSettings").build();
+    private static final MarshallingInfo<StructuredPojo> SYBASESETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SybaseSettings").build();
+    private static final MarshallingInfo<StructuredPojo> MICROSOFTSQLSERVERSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MicrosoftSQLServerSettings").build();
+    private static final MarshallingInfo<StructuredPojo> IBMDB2SETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IBMDb2Settings").build();
+    private static final MarshallingInfo<StructuredPojo> DOCDBSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DocDbSettings").build();
+    private static final MarshallingInfo<StructuredPojo> REDISSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RedisSettings").build();
+    private static final MarshallingInfo<StructuredPojo> GCPMYSQLSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("GcpMySQLSettings").build();
+    private static final MarshallingInfo<StructuredPojo> TIMESTREAMSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TimestreamSettings").build();
 
     private static final EndpointMarshaller instance = new EndpointMarshaller();
 
@@ -114,8 +138,20 @@ public class EndpointMarshaller {
             protocolMarshaller.marshall(endpoint.getDmsTransferSettings(), DMSTRANSFERSETTINGS_BINDING);
             protocolMarshaller.marshall(endpoint.getMongoDbSettings(), MONGODBSETTINGS_BINDING);
             protocolMarshaller.marshall(endpoint.getKinesisSettings(), KINESISSETTINGS_BINDING);
+            protocolMarshaller.marshall(endpoint.getKafkaSettings(), KAFKASETTINGS_BINDING);
             protocolMarshaller.marshall(endpoint.getElasticsearchSettings(), ELASTICSEARCHSETTINGS_BINDING);
+            protocolMarshaller.marshall(endpoint.getNeptuneSettings(), NEPTUNESETTINGS_BINDING);
             protocolMarshaller.marshall(endpoint.getRedshiftSettings(), REDSHIFTSETTINGS_BINDING);
+            protocolMarshaller.marshall(endpoint.getPostgreSQLSettings(), POSTGRESQLSETTINGS_BINDING);
+            protocolMarshaller.marshall(endpoint.getMySQLSettings(), MYSQLSETTINGS_BINDING);
+            protocolMarshaller.marshall(endpoint.getOracleSettings(), ORACLESETTINGS_BINDING);
+            protocolMarshaller.marshall(endpoint.getSybaseSettings(), SYBASESETTINGS_BINDING);
+            protocolMarshaller.marshall(endpoint.getMicrosoftSQLServerSettings(), MICROSOFTSQLSERVERSETTINGS_BINDING);
+            protocolMarshaller.marshall(endpoint.getIBMDb2Settings(), IBMDB2SETTINGS_BINDING);
+            protocolMarshaller.marshall(endpoint.getDocDbSettings(), DOCDBSETTINGS_BINDING);
+            protocolMarshaller.marshall(endpoint.getRedisSettings(), REDISSETTINGS_BINDING);
+            protocolMarshaller.marshall(endpoint.getGcpMySQLSettings(), GCPMYSQLSETTINGS_BINDING);
+            protocolMarshaller.marshall(endpoint.getTimestreamSettings(), TIMESTREAMSETTINGS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

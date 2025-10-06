@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,7 @@ public class TransferCertificateRequest extends com.amazonaws.AmazonWebServiceRe
     private String certificateId;
     /**
      * <p>
-     * The AWS account.
+     * The Amazon Web Services account.
      * </p>
      */
     private String targetAwsAccount;
@@ -86,11 +86,11 @@ public class TransferCertificateRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The AWS account.
+     * The Amazon Web Services account.
      * </p>
      * 
      * @param targetAwsAccount
-     *        The AWS account.
+     *        The Amazon Web Services account.
      */
 
     public void setTargetAwsAccount(String targetAwsAccount) {
@@ -99,10 +99,10 @@ public class TransferCertificateRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The AWS account.
+     * The Amazon Web Services account.
      * </p>
      * 
-     * @return The AWS account.
+     * @return The Amazon Web Services account.
      */
 
     public String getTargetAwsAccount() {
@@ -111,11 +111,11 @@ public class TransferCertificateRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The AWS account.
+     * The Amazon Web Services account.
      * </p>
      * 
      * @param targetAwsAccount
-     *        The AWS account.
+     *        The Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

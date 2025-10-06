@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,8 +46,120 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
     private java.util.List<Intent> intents;
     /**
      * <p>
+     * Set to <code>true</code> to enable access to natural language understanding improvements.
+     * </p>
+     * <p>
+     * When you set the <code>enableModelImprovements</code> parameter to <code>true</code> you can use the
+     * <code>nluIntentConfidenceThreshold</code> parameter to configure confidence scores. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html">Confidence Scores</a>.
+     * </p>
+     * <p>
+     * You can only set the <code>enableModelImprovements</code> parameter in certain Regions. If you set the parameter
+     * to <code>true</code>, your bot has access to accuracy improvements.
+     * </p>
+     * <p>
+     * The Regions where you can set the <code>enableModelImprovements</code> parameter to <code>true</code> are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * US East (N. Virginia) (us-east-1)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * US West (Oregon) (us-west-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Asia Pacific (Sydney) (ap-southeast-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * EU (Ireland) (eu-west-1)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * In other Regions, the <code>enableModelImprovements</code> parameter is set to <code>true</code> by default. In
+     * these Regions setting the parameter to <code>false</code> throws a <code>ValidationException</code> exception.
+     * </p>
+     */
+    private Boolean enableModelImprovements;
+    /**
+     * <p>
+     * Determines the threshold where Amazon Lex will insert the <code>AMAZON.FallbackIntent</code>,
+     * <code>AMAZON.KendraSearchIntent</code>, or both when returning alternative intents in a <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostContent.html">PostContent</a> or <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html">PostText</a> response.
+     * <code>AMAZON.FallbackIntent</code> and <code>AMAZON.KendraSearchIntent</code> are only inserted if they are
+     * configured for the bot.
+     * </p>
+     * <p>
+     * You must set the <code>enableModelImprovements</code> parameter to <code>true</code> to use confidence scores in
+     * the following regions.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * US East (N. Virginia) (us-east-1)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * US West (Oregon) (us-west-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Asia Pacific (Sydney) (ap-southeast-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * EU (Ireland) (eu-west-1)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * In other Regions, the <code>enableModelImprovements</code> parameter is set to <code>true</code> by default.
+     * </p>
+     * <p>
+     * For example, suppose a bot is configured with the confidence threshold of 0.80 and the
+     * <code>AMAZON.FallbackIntent</code>. Amazon Lex returns three alternative intents with the following confidence
+     * scores: IntentA (0.70), IntentB (0.60), IntentC (0.50). The response from the <code>PostText</code> operation
+     * would be:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * AMAZON.FallbackIntent
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IntentA
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IntentB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IntentC
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private Double nluIntentConfidenceThreshold;
+    /**
+     * <p>
      * When Amazon Lex doesn't understand the user's intent, it uses this message to get clarification. To specify how
-     * many times Amazon Lex should repeate the clarification prompt, use the <code>maxAttempts</code> field. If Amazon
+     * many times Amazon Lex should repeat the clarification prompt, use the <code>maxAttempts</code> field. If Amazon
      * Lex still doesn't understand, it sends the message in the <code>abortStatement</code> field.
      * </p>
      * <p>
@@ -55,12 +167,44 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * example, for a bot that orders pizza and drinks, you might create this clarification prompt:
      * "What would you like to do? You can say 'Order a pizza' or 'Order a drink.'"
      * </p>
+     * <p>
+     * If you have defined a fallback intent, it will be invoked if the clarification prompt is repeated the number of
+     * times defined in the <code>maxAttempts</code> field. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/built-in-intent-fallback.html"> AMAZON.FallbackIntent</a>.
+     * </p>
+     * <p>
+     * If you don't define a clarification prompt, at runtime Amazon Lex will return a 400 Bad Request exception in
+     * three cases:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Follow-up prompt - When the user responds to a follow-up prompt but does not provide an intent. For example, in
+     * response to a follow-up prompt that says "Would you like anything else today?" the user says "Yes." Amazon Lex
+     * will return a 400 Bad Request exception because it does not have a clarification prompt to send to the user to
+     * get an intent.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Lambda function - When using a Lambda function, you return an <code>ElicitIntent</code> dialog type. Since Amazon
+     * Lex does not have a clarification prompt to get an intent from the user, it returns a 400 Bad Request exception.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * PutSession operation - When using the <code>PutSession</code> operation, you send an <code>ElicitIntent</code>
+     * dialog type. Since Amazon Lex does not have a clarification prompt to get an intent from the user, it returns a
+     * 400 Bad Request exception.
+     * </p>
+     * </li>
+     * </ul>
      */
     private Prompt clarificationPrompt;
     /**
      * <p>
      * When Amazon Lex can't understand the user's input in context, it tries to elicit the information a few times.
-     * After that, Amazon Lex sends the message defined in <code>abortStatement</code> to the user, and then aborts the
+     * After that, Amazon Lex sends the message defined in <code>abortStatement</code> to the user, and then cancels the
      * conversation. To set the number of retries, use the <code>valueElicitationPrompt</code> field for the slot type.
      * </p>
      * <p>
@@ -72,6 +216,11 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * For example, in a pizza ordering application, <code>OrderPizza</code> might be one of the intents. This intent
      * might require the <code>CrustType</code> slot. You specify the <code>valueElicitationPrompt</code> field when you
      * create the <code>CrustType</code> slot.
+     * </p>
+     * <p>
+     * If you have defined a fallback intent the cancel statement will not be sent to the user, the fallback intent is
+     * used instead. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/built-in-intent-fallback.html"> AMAZON.FallbackIntent</a>.
      * </p>
      */
     private Statement abortStatement;
@@ -101,8 +250,8 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * <p>
      * The Amazon Polly voice ID that you want Amazon Lex to use for voice interactions with the user. The locale
      * configured for the voice must match the locale of the bot. For more information, see <a
-     * href="http://docs.aws.amazon.com/polly/latest/dg/voicelist.html">Available Voices</a> in the <i>Amazon Polly
-     * Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/polly/latest/dg/voicelist.html">Voices in Amazon Polly</a> in the <i>Amazon
+     * Polly Developer Guide</i>.
      * </p>
      */
     private String voiceId;
@@ -165,8 +314,29 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * </p>
      */
     private Boolean childDirected;
-
+    /**
+     * <p>
+     * When set to <code>true</code> user utterances are sent to Amazon Comprehend for sentiment analysis. If you don't
+     * specify <code>detectSentiment</code>, the default is <code>false</code>.
+     * </p>
+     */
+    private Boolean detectSentiment;
+    /**
+     * <p>
+     * When set to <code>true</code> a new numbered version of the bot is created. This is the same as calling the
+     * <code>CreateBotVersion</code> operation. If you don't specify <code>createVersion</code>, the default is
+     * <code>false</code>.
+     * </p>
+     */
     private Boolean createVersion;
+    /**
+     * <p>
+     * A list of tags to add to the bot. You can only add tags when you create a bot, you can't use the
+     * <code>PutBot</code> operation to update the tags on a bot. To update tags, use the <code>TagResource</code>
+     * operation.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
 
     /**
      * <p>
@@ -332,8 +502,778 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
+     * Set to <code>true</code> to enable access to natural language understanding improvements.
+     * </p>
+     * <p>
+     * When you set the <code>enableModelImprovements</code> parameter to <code>true</code> you can use the
+     * <code>nluIntentConfidenceThreshold</code> parameter to configure confidence scores. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html">Confidence Scores</a>.
+     * </p>
+     * <p>
+     * You can only set the <code>enableModelImprovements</code> parameter in certain Regions. If you set the parameter
+     * to <code>true</code>, your bot has access to accuracy improvements.
+     * </p>
+     * <p>
+     * The Regions where you can set the <code>enableModelImprovements</code> parameter to <code>true</code> are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * US East (N. Virginia) (us-east-1)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * US West (Oregon) (us-west-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Asia Pacific (Sydney) (ap-southeast-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * EU (Ireland) (eu-west-1)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * In other Regions, the <code>enableModelImprovements</code> parameter is set to <code>true</code> by default. In
+     * these Regions setting the parameter to <code>false</code> throws a <code>ValidationException</code> exception.
+     * </p>
+     * 
+     * @param enableModelImprovements
+     *        Set to <code>true</code> to enable access to natural language understanding improvements. </p>
+     *        <p>
+     *        When you set the <code>enableModelImprovements</code> parameter to <code>true</code> you can use the
+     *        <code>nluIntentConfidenceThreshold</code> parameter to configure confidence scores. For more information,
+     *        see <a href="https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html">Confidence Scores</a>.
+     *        </p>
+     *        <p>
+     *        You can only set the <code>enableModelImprovements</code> parameter in certain Regions. If you set the
+     *        parameter to <code>true</code>, your bot has access to accuracy improvements.
+     *        </p>
+     *        <p>
+     *        The Regions where you can set the <code>enableModelImprovements</code> parameter to <code>true</code> are:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        US East (N. Virginia) (us-east-1)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        US West (Oregon) (us-west-2)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Asia Pacific (Sydney) (ap-southeast-2)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        EU (Ireland) (eu-west-1)
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        In other Regions, the <code>enableModelImprovements</code> parameter is set to <code>true</code> by
+     *        default. In these Regions setting the parameter to <code>false</code> throws a
+     *        <code>ValidationException</code> exception.
+     */
+
+    public void setEnableModelImprovements(Boolean enableModelImprovements) {
+        this.enableModelImprovements = enableModelImprovements;
+    }
+
+    /**
+     * <p>
+     * Set to <code>true</code> to enable access to natural language understanding improvements.
+     * </p>
+     * <p>
+     * When you set the <code>enableModelImprovements</code> parameter to <code>true</code> you can use the
+     * <code>nluIntentConfidenceThreshold</code> parameter to configure confidence scores. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html">Confidence Scores</a>.
+     * </p>
+     * <p>
+     * You can only set the <code>enableModelImprovements</code> parameter in certain Regions. If you set the parameter
+     * to <code>true</code>, your bot has access to accuracy improvements.
+     * </p>
+     * <p>
+     * The Regions where you can set the <code>enableModelImprovements</code> parameter to <code>true</code> are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * US East (N. Virginia) (us-east-1)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * US West (Oregon) (us-west-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Asia Pacific (Sydney) (ap-southeast-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * EU (Ireland) (eu-west-1)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * In other Regions, the <code>enableModelImprovements</code> parameter is set to <code>true</code> by default. In
+     * these Regions setting the parameter to <code>false</code> throws a <code>ValidationException</code> exception.
+     * </p>
+     * 
+     * @return Set to <code>true</code> to enable access to natural language understanding improvements. </p>
+     *         <p>
+     *         When you set the <code>enableModelImprovements</code> parameter to <code>true</code> you can use the
+     *         <code>nluIntentConfidenceThreshold</code> parameter to configure confidence scores. For more information,
+     *         see <a href="https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html">Confidence Scores</a>.
+     *         </p>
+     *         <p>
+     *         You can only set the <code>enableModelImprovements</code> parameter in certain Regions. If you set the
+     *         parameter to <code>true</code>, your bot has access to accuracy improvements.
+     *         </p>
+     *         <p>
+     *         The Regions where you can set the <code>enableModelImprovements</code> parameter to <code>true</code>
+     *         are:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         US East (N. Virginia) (us-east-1)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         US West (Oregon) (us-west-2)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Asia Pacific (Sydney) (ap-southeast-2)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         EU (Ireland) (eu-west-1)
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         In other Regions, the <code>enableModelImprovements</code> parameter is set to <code>true</code> by
+     *         default. In these Regions setting the parameter to <code>false</code> throws a
+     *         <code>ValidationException</code> exception.
+     */
+
+    public Boolean getEnableModelImprovements() {
+        return this.enableModelImprovements;
+    }
+
+    /**
+     * <p>
+     * Set to <code>true</code> to enable access to natural language understanding improvements.
+     * </p>
+     * <p>
+     * When you set the <code>enableModelImprovements</code> parameter to <code>true</code> you can use the
+     * <code>nluIntentConfidenceThreshold</code> parameter to configure confidence scores. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html">Confidence Scores</a>.
+     * </p>
+     * <p>
+     * You can only set the <code>enableModelImprovements</code> parameter in certain Regions. If you set the parameter
+     * to <code>true</code>, your bot has access to accuracy improvements.
+     * </p>
+     * <p>
+     * The Regions where you can set the <code>enableModelImprovements</code> parameter to <code>true</code> are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * US East (N. Virginia) (us-east-1)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * US West (Oregon) (us-west-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Asia Pacific (Sydney) (ap-southeast-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * EU (Ireland) (eu-west-1)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * In other Regions, the <code>enableModelImprovements</code> parameter is set to <code>true</code> by default. In
+     * these Regions setting the parameter to <code>false</code> throws a <code>ValidationException</code> exception.
+     * </p>
+     * 
+     * @param enableModelImprovements
+     *        Set to <code>true</code> to enable access to natural language understanding improvements. </p>
+     *        <p>
+     *        When you set the <code>enableModelImprovements</code> parameter to <code>true</code> you can use the
+     *        <code>nluIntentConfidenceThreshold</code> parameter to configure confidence scores. For more information,
+     *        see <a href="https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html">Confidence Scores</a>.
+     *        </p>
+     *        <p>
+     *        You can only set the <code>enableModelImprovements</code> parameter in certain Regions. If you set the
+     *        parameter to <code>true</code>, your bot has access to accuracy improvements.
+     *        </p>
+     *        <p>
+     *        The Regions where you can set the <code>enableModelImprovements</code> parameter to <code>true</code> are:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        US East (N. Virginia) (us-east-1)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        US West (Oregon) (us-west-2)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Asia Pacific (Sydney) (ap-southeast-2)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        EU (Ireland) (eu-west-1)
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        In other Regions, the <code>enableModelImprovements</code> parameter is set to <code>true</code> by
+     *        default. In these Regions setting the parameter to <code>false</code> throws a
+     *        <code>ValidationException</code> exception.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutBotRequest withEnableModelImprovements(Boolean enableModelImprovements) {
+        setEnableModelImprovements(enableModelImprovements);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Set to <code>true</code> to enable access to natural language understanding improvements.
+     * </p>
+     * <p>
+     * When you set the <code>enableModelImprovements</code> parameter to <code>true</code> you can use the
+     * <code>nluIntentConfidenceThreshold</code> parameter to configure confidence scores. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html">Confidence Scores</a>.
+     * </p>
+     * <p>
+     * You can only set the <code>enableModelImprovements</code> parameter in certain Regions. If you set the parameter
+     * to <code>true</code>, your bot has access to accuracy improvements.
+     * </p>
+     * <p>
+     * The Regions where you can set the <code>enableModelImprovements</code> parameter to <code>true</code> are:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * US East (N. Virginia) (us-east-1)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * US West (Oregon) (us-west-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Asia Pacific (Sydney) (ap-southeast-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * EU (Ireland) (eu-west-1)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * In other Regions, the <code>enableModelImprovements</code> parameter is set to <code>true</code> by default. In
+     * these Regions setting the parameter to <code>false</code> throws a <code>ValidationException</code> exception.
+     * </p>
+     * 
+     * @return Set to <code>true</code> to enable access to natural language understanding improvements. </p>
+     *         <p>
+     *         When you set the <code>enableModelImprovements</code> parameter to <code>true</code> you can use the
+     *         <code>nluIntentConfidenceThreshold</code> parameter to configure confidence scores. For more information,
+     *         see <a href="https://docs.aws.amazon.com/lex/latest/dg/confidence-scores.html">Confidence Scores</a>.
+     *         </p>
+     *         <p>
+     *         You can only set the <code>enableModelImprovements</code> parameter in certain Regions. If you set the
+     *         parameter to <code>true</code>, your bot has access to accuracy improvements.
+     *         </p>
+     *         <p>
+     *         The Regions where you can set the <code>enableModelImprovements</code> parameter to <code>true</code>
+     *         are:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         US East (N. Virginia) (us-east-1)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         US West (Oregon) (us-west-2)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Asia Pacific (Sydney) (ap-southeast-2)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         EU (Ireland) (eu-west-1)
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         In other Regions, the <code>enableModelImprovements</code> parameter is set to <code>true</code> by
+     *         default. In these Regions setting the parameter to <code>false</code> throws a
+     *         <code>ValidationException</code> exception.
+     */
+
+    public Boolean isEnableModelImprovements() {
+        return this.enableModelImprovements;
+    }
+
+    /**
+     * <p>
+     * Determines the threshold where Amazon Lex will insert the <code>AMAZON.FallbackIntent</code>,
+     * <code>AMAZON.KendraSearchIntent</code>, or both when returning alternative intents in a <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostContent.html">PostContent</a> or <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html">PostText</a> response.
+     * <code>AMAZON.FallbackIntent</code> and <code>AMAZON.KendraSearchIntent</code> are only inserted if they are
+     * configured for the bot.
+     * </p>
+     * <p>
+     * You must set the <code>enableModelImprovements</code> parameter to <code>true</code> to use confidence scores in
+     * the following regions.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * US East (N. Virginia) (us-east-1)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * US West (Oregon) (us-west-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Asia Pacific (Sydney) (ap-southeast-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * EU (Ireland) (eu-west-1)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * In other Regions, the <code>enableModelImprovements</code> parameter is set to <code>true</code> by default.
+     * </p>
+     * <p>
+     * For example, suppose a bot is configured with the confidence threshold of 0.80 and the
+     * <code>AMAZON.FallbackIntent</code>. Amazon Lex returns three alternative intents with the following confidence
+     * scores: IntentA (0.70), IntentB (0.60), IntentC (0.50). The response from the <code>PostText</code> operation
+     * would be:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * AMAZON.FallbackIntent
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IntentA
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IntentB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IntentC
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param nluIntentConfidenceThreshold
+     *        Determines the threshold where Amazon Lex will insert the <code>AMAZON.FallbackIntent</code>,
+     *        <code>AMAZON.KendraSearchIntent</code>, or both when returning alternative intents in a <a
+     *        href="https://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostContent.html">PostContent</a> or <a
+     *        href="https://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html">PostText</a> response.
+     *        <code>AMAZON.FallbackIntent</code> and <code>AMAZON.KendraSearchIntent</code> are only inserted if they
+     *        are configured for the bot.</p>
+     *        <p>
+     *        You must set the <code>enableModelImprovements</code> parameter to <code>true</code> to use confidence
+     *        scores in the following regions.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        US East (N. Virginia) (us-east-1)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        US West (Oregon) (us-west-2)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Asia Pacific (Sydney) (ap-southeast-2)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        EU (Ireland) (eu-west-1)
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        In other Regions, the <code>enableModelImprovements</code> parameter is set to <code>true</code> by
+     *        default.
+     *        </p>
+     *        <p>
+     *        For example, suppose a bot is configured with the confidence threshold of 0.80 and the
+     *        <code>AMAZON.FallbackIntent</code>. Amazon Lex returns three alternative intents with the following
+     *        confidence scores: IntentA (0.70), IntentB (0.60), IntentC (0.50). The response from the
+     *        <code>PostText</code> operation would be:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        AMAZON.FallbackIntent
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        IntentA
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        IntentB
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        IntentC
+     *        </p>
+     *        </li>
+     */
+
+    public void setNluIntentConfidenceThreshold(Double nluIntentConfidenceThreshold) {
+        this.nluIntentConfidenceThreshold = nluIntentConfidenceThreshold;
+    }
+
+    /**
+     * <p>
+     * Determines the threshold where Amazon Lex will insert the <code>AMAZON.FallbackIntent</code>,
+     * <code>AMAZON.KendraSearchIntent</code>, or both when returning alternative intents in a <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostContent.html">PostContent</a> or <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html">PostText</a> response.
+     * <code>AMAZON.FallbackIntent</code> and <code>AMAZON.KendraSearchIntent</code> are only inserted if they are
+     * configured for the bot.
+     * </p>
+     * <p>
+     * You must set the <code>enableModelImprovements</code> parameter to <code>true</code> to use confidence scores in
+     * the following regions.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * US East (N. Virginia) (us-east-1)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * US West (Oregon) (us-west-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Asia Pacific (Sydney) (ap-southeast-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * EU (Ireland) (eu-west-1)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * In other Regions, the <code>enableModelImprovements</code> parameter is set to <code>true</code> by default.
+     * </p>
+     * <p>
+     * For example, suppose a bot is configured with the confidence threshold of 0.80 and the
+     * <code>AMAZON.FallbackIntent</code>. Amazon Lex returns three alternative intents with the following confidence
+     * scores: IntentA (0.70), IntentB (0.60), IntentC (0.50). The response from the <code>PostText</code> operation
+     * would be:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * AMAZON.FallbackIntent
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IntentA
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IntentB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IntentC
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Determines the threshold where Amazon Lex will insert the <code>AMAZON.FallbackIntent</code>,
+     *         <code>AMAZON.KendraSearchIntent</code>, or both when returning alternative intents in a <a
+     *         href="https://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostContent.html">PostContent</a> or <a
+     *         href="https://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html">PostText</a> response.
+     *         <code>AMAZON.FallbackIntent</code> and <code>AMAZON.KendraSearchIntent</code> are only inserted if they
+     *         are configured for the bot.</p>
+     *         <p>
+     *         You must set the <code>enableModelImprovements</code> parameter to <code>true</code> to use confidence
+     *         scores in the following regions.
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         US East (N. Virginia) (us-east-1)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         US West (Oregon) (us-west-2)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Asia Pacific (Sydney) (ap-southeast-2)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         EU (Ireland) (eu-west-1)
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         In other Regions, the <code>enableModelImprovements</code> parameter is set to <code>true</code> by
+     *         default.
+     *         </p>
+     *         <p>
+     *         For example, suppose a bot is configured with the confidence threshold of 0.80 and the
+     *         <code>AMAZON.FallbackIntent</code>. Amazon Lex returns three alternative intents with the following
+     *         confidence scores: IntentA (0.70), IntentB (0.60), IntentC (0.50). The response from the
+     *         <code>PostText</code> operation would be:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         AMAZON.FallbackIntent
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         IntentA
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         IntentB
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         IntentC
+     *         </p>
+     *         </li>
+     */
+
+    public Double getNluIntentConfidenceThreshold() {
+        return this.nluIntentConfidenceThreshold;
+    }
+
+    /**
+     * <p>
+     * Determines the threshold where Amazon Lex will insert the <code>AMAZON.FallbackIntent</code>,
+     * <code>AMAZON.KendraSearchIntent</code>, or both when returning alternative intents in a <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostContent.html">PostContent</a> or <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html">PostText</a> response.
+     * <code>AMAZON.FallbackIntent</code> and <code>AMAZON.KendraSearchIntent</code> are only inserted if they are
+     * configured for the bot.
+     * </p>
+     * <p>
+     * You must set the <code>enableModelImprovements</code> parameter to <code>true</code> to use confidence scores in
+     * the following regions.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * US East (N. Virginia) (us-east-1)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * US West (Oregon) (us-west-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Asia Pacific (Sydney) (ap-southeast-2)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * EU (Ireland) (eu-west-1)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * In other Regions, the <code>enableModelImprovements</code> parameter is set to <code>true</code> by default.
+     * </p>
+     * <p>
+     * For example, suppose a bot is configured with the confidence threshold of 0.80 and the
+     * <code>AMAZON.FallbackIntent</code>. Amazon Lex returns three alternative intents with the following confidence
+     * scores: IntentA (0.70), IntentB (0.60), IntentC (0.50). The response from the <code>PostText</code> operation
+     * would be:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * AMAZON.FallbackIntent
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IntentA
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IntentB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IntentC
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param nluIntentConfidenceThreshold
+     *        Determines the threshold where Amazon Lex will insert the <code>AMAZON.FallbackIntent</code>,
+     *        <code>AMAZON.KendraSearchIntent</code>, or both when returning alternative intents in a <a
+     *        href="https://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostContent.html">PostContent</a> or <a
+     *        href="https://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html">PostText</a> response.
+     *        <code>AMAZON.FallbackIntent</code> and <code>AMAZON.KendraSearchIntent</code> are only inserted if they
+     *        are configured for the bot.</p>
+     *        <p>
+     *        You must set the <code>enableModelImprovements</code> parameter to <code>true</code> to use confidence
+     *        scores in the following regions.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        US East (N. Virginia) (us-east-1)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        US West (Oregon) (us-west-2)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Asia Pacific (Sydney) (ap-southeast-2)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        EU (Ireland) (eu-west-1)
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        In other Regions, the <code>enableModelImprovements</code> parameter is set to <code>true</code> by
+     *        default.
+     *        </p>
+     *        <p>
+     *        For example, suppose a bot is configured with the confidence threshold of 0.80 and the
+     *        <code>AMAZON.FallbackIntent</code>. Amazon Lex returns three alternative intents with the following
+     *        confidence scores: IntentA (0.70), IntentB (0.60), IntentC (0.50). The response from the
+     *        <code>PostText</code> operation would be:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        AMAZON.FallbackIntent
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        IntentA
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        IntentB
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        IntentC
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutBotRequest withNluIntentConfidenceThreshold(Double nluIntentConfidenceThreshold) {
+        setNluIntentConfidenceThreshold(nluIntentConfidenceThreshold);
+        return this;
+    }
+
+    /**
+     * <p>
      * When Amazon Lex doesn't understand the user's intent, it uses this message to get clarification. To specify how
-     * many times Amazon Lex should repeate the clarification prompt, use the <code>maxAttempts</code> field. If Amazon
+     * many times Amazon Lex should repeat the clarification prompt, use the <code>maxAttempts</code> field. If Amazon
      * Lex still doesn't understand, it sends the message in the <code>abortStatement</code> field.
      * </p>
      * <p>
@@ -341,16 +1281,81 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * example, for a bot that orders pizza and drinks, you might create this clarification prompt:
      * "What would you like to do? You can say 'Order a pizza' or 'Order a drink.'"
      * </p>
+     * <p>
+     * If you have defined a fallback intent, it will be invoked if the clarification prompt is repeated the number of
+     * times defined in the <code>maxAttempts</code> field. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/built-in-intent-fallback.html"> AMAZON.FallbackIntent</a>.
+     * </p>
+     * <p>
+     * If you don't define a clarification prompt, at runtime Amazon Lex will return a 400 Bad Request exception in
+     * three cases:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Follow-up prompt - When the user responds to a follow-up prompt but does not provide an intent. For example, in
+     * response to a follow-up prompt that says "Would you like anything else today?" the user says "Yes." Amazon Lex
+     * will return a 400 Bad Request exception because it does not have a clarification prompt to send to the user to
+     * get an intent.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Lambda function - When using a Lambda function, you return an <code>ElicitIntent</code> dialog type. Since Amazon
+     * Lex does not have a clarification prompt to get an intent from the user, it returns a 400 Bad Request exception.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * PutSession operation - When using the <code>PutSession</code> operation, you send an <code>ElicitIntent</code>
+     * dialog type. Since Amazon Lex does not have a clarification prompt to get an intent from the user, it returns a
+     * 400 Bad Request exception.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param clarificationPrompt
      *        When Amazon Lex doesn't understand the user's intent, it uses this message to get clarification. To
-     *        specify how many times Amazon Lex should repeate the clarification prompt, use the
-     *        <code>maxAttempts</code> field. If Amazon Lex still doesn't understand, it sends the message in the
-     *        <code>abortStatement</code> field. </p>
+     *        specify how many times Amazon Lex should repeat the clarification prompt, use the <code>maxAttempts</code>
+     *        field. If Amazon Lex still doesn't understand, it sends the message in the <code>abortStatement</code>
+     *        field. </p>
      *        <p>
      *        When you create a clarification prompt, make sure that it suggests the correct response from the user. for
      *        example, for a bot that orders pizza and drinks, you might create this clarification prompt:
      *        "What would you like to do? You can say 'Order a pizza' or 'Order a drink.'"
+     *        </p>
+     *        <p>
+     *        If you have defined a fallback intent, it will be invoked if the clarification prompt is repeated the
+     *        number of times defined in the <code>maxAttempts</code> field. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lex/latest/dg/built-in-intent-fallback.html"> AMAZON.FallbackIntent</a>.
+     *        </p>
+     *        <p>
+     *        If you don't define a clarification prompt, at runtime Amazon Lex will return a 400 Bad Request exception
+     *        in three cases:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Follow-up prompt - When the user responds to a follow-up prompt but does not provide an intent. For
+     *        example, in response to a follow-up prompt that says "Would you like anything else today?" the user says
+     *        "Yes." Amazon Lex will return a 400 Bad Request exception because it does not have a clarification prompt
+     *        to send to the user to get an intent.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Lambda function - When using a Lambda function, you return an <code>ElicitIntent</code> dialog type. Since
+     *        Amazon Lex does not have a clarification prompt to get an intent from the user, it returns a 400 Bad
+     *        Request exception.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        PutSession operation - When using the <code>PutSession</code> operation, you send an
+     *        <code>ElicitIntent</code> dialog type. Since Amazon Lex does not have a clarification prompt to get an
+     *        intent from the user, it returns a 400 Bad Request exception.
+     *        </p>
+     *        </li>
      */
 
     public void setClarificationPrompt(Prompt clarificationPrompt) {
@@ -360,7 +1365,7 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
     /**
      * <p>
      * When Amazon Lex doesn't understand the user's intent, it uses this message to get clarification. To specify how
-     * many times Amazon Lex should repeate the clarification prompt, use the <code>maxAttempts</code> field. If Amazon
+     * many times Amazon Lex should repeat the clarification prompt, use the <code>maxAttempts</code> field. If Amazon
      * Lex still doesn't understand, it sends the message in the <code>abortStatement</code> field.
      * </p>
      * <p>
@@ -368,15 +1373,81 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * example, for a bot that orders pizza and drinks, you might create this clarification prompt:
      * "What would you like to do? You can say 'Order a pizza' or 'Order a drink.'"
      * </p>
+     * <p>
+     * If you have defined a fallback intent, it will be invoked if the clarification prompt is repeated the number of
+     * times defined in the <code>maxAttempts</code> field. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/built-in-intent-fallback.html"> AMAZON.FallbackIntent</a>.
+     * </p>
+     * <p>
+     * If you don't define a clarification prompt, at runtime Amazon Lex will return a 400 Bad Request exception in
+     * three cases:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Follow-up prompt - When the user responds to a follow-up prompt but does not provide an intent. For example, in
+     * response to a follow-up prompt that says "Would you like anything else today?" the user says "Yes." Amazon Lex
+     * will return a 400 Bad Request exception because it does not have a clarification prompt to send to the user to
+     * get an intent.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Lambda function - When using a Lambda function, you return an <code>ElicitIntent</code> dialog type. Since Amazon
+     * Lex does not have a clarification prompt to get an intent from the user, it returns a 400 Bad Request exception.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * PutSession operation - When using the <code>PutSession</code> operation, you send an <code>ElicitIntent</code>
+     * dialog type. Since Amazon Lex does not have a clarification prompt to get an intent from the user, it returns a
+     * 400 Bad Request exception.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @return When Amazon Lex doesn't understand the user's intent, it uses this message to get clarification. To
-     *         specify how many times Amazon Lex should repeate the clarification prompt, use the
+     *         specify how many times Amazon Lex should repeat the clarification prompt, use the
      *         <code>maxAttempts</code> field. If Amazon Lex still doesn't understand, it sends the message in the
      *         <code>abortStatement</code> field. </p>
      *         <p>
      *         When you create a clarification prompt, make sure that it suggests the correct response from the user.
      *         for example, for a bot that orders pizza and drinks, you might create this clarification prompt:
      *         "What would you like to do? You can say 'Order a pizza' or 'Order a drink.'"
+     *         </p>
+     *         <p>
+     *         If you have defined a fallback intent, it will be invoked if the clarification prompt is repeated the
+     *         number of times defined in the <code>maxAttempts</code> field. For more information, see <a
+     *         href="https://docs.aws.amazon.com/lex/latest/dg/built-in-intent-fallback.html">
+     *         AMAZON.FallbackIntent</a>.
+     *         </p>
+     *         <p>
+     *         If you don't define a clarification prompt, at runtime Amazon Lex will return a 400 Bad Request exception
+     *         in three cases:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Follow-up prompt - When the user responds to a follow-up prompt but does not provide an intent. For
+     *         example, in response to a follow-up prompt that says "Would you like anything else today?" the user says
+     *         "Yes." Amazon Lex will return a 400 Bad Request exception because it does not have a clarification prompt
+     *         to send to the user to get an intent.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Lambda function - When using a Lambda function, you return an <code>ElicitIntent</code> dialog type.
+     *         Since Amazon Lex does not have a clarification prompt to get an intent from the user, it returns a 400
+     *         Bad Request exception.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         PutSession operation - When using the <code>PutSession</code> operation, you send an
+     *         <code>ElicitIntent</code> dialog type. Since Amazon Lex does not have a clarification prompt to get an
+     *         intent from the user, it returns a 400 Bad Request exception.
+     *         </p>
+     *         </li>
      */
 
     public Prompt getClarificationPrompt() {
@@ -386,7 +1457,7 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
     /**
      * <p>
      * When Amazon Lex doesn't understand the user's intent, it uses this message to get clarification. To specify how
-     * many times Amazon Lex should repeate the clarification prompt, use the <code>maxAttempts</code> field. If Amazon
+     * many times Amazon Lex should repeat the clarification prompt, use the <code>maxAttempts</code> field. If Amazon
      * Lex still doesn't understand, it sends the message in the <code>abortStatement</code> field.
      * </p>
      * <p>
@@ -394,16 +1465,81 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * example, for a bot that orders pizza and drinks, you might create this clarification prompt:
      * "What would you like to do? You can say 'Order a pizza' or 'Order a drink.'"
      * </p>
+     * <p>
+     * If you have defined a fallback intent, it will be invoked if the clarification prompt is repeated the number of
+     * times defined in the <code>maxAttempts</code> field. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/built-in-intent-fallback.html"> AMAZON.FallbackIntent</a>.
+     * </p>
+     * <p>
+     * If you don't define a clarification prompt, at runtime Amazon Lex will return a 400 Bad Request exception in
+     * three cases:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Follow-up prompt - When the user responds to a follow-up prompt but does not provide an intent. For example, in
+     * response to a follow-up prompt that says "Would you like anything else today?" the user says "Yes." Amazon Lex
+     * will return a 400 Bad Request exception because it does not have a clarification prompt to send to the user to
+     * get an intent.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Lambda function - When using a Lambda function, you return an <code>ElicitIntent</code> dialog type. Since Amazon
+     * Lex does not have a clarification prompt to get an intent from the user, it returns a 400 Bad Request exception.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * PutSession operation - When using the <code>PutSession</code> operation, you send an <code>ElicitIntent</code>
+     * dialog type. Since Amazon Lex does not have a clarification prompt to get an intent from the user, it returns a
+     * 400 Bad Request exception.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param clarificationPrompt
      *        When Amazon Lex doesn't understand the user's intent, it uses this message to get clarification. To
-     *        specify how many times Amazon Lex should repeate the clarification prompt, use the
-     *        <code>maxAttempts</code> field. If Amazon Lex still doesn't understand, it sends the message in the
-     *        <code>abortStatement</code> field. </p>
+     *        specify how many times Amazon Lex should repeat the clarification prompt, use the <code>maxAttempts</code>
+     *        field. If Amazon Lex still doesn't understand, it sends the message in the <code>abortStatement</code>
+     *        field. </p>
      *        <p>
      *        When you create a clarification prompt, make sure that it suggests the correct response from the user. for
      *        example, for a bot that orders pizza and drinks, you might create this clarification prompt:
      *        "What would you like to do? You can say 'Order a pizza' or 'Order a drink.'"
+     *        </p>
+     *        <p>
+     *        If you have defined a fallback intent, it will be invoked if the clarification prompt is repeated the
+     *        number of times defined in the <code>maxAttempts</code> field. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lex/latest/dg/built-in-intent-fallback.html"> AMAZON.FallbackIntent</a>.
+     *        </p>
+     *        <p>
+     *        If you don't define a clarification prompt, at runtime Amazon Lex will return a 400 Bad Request exception
+     *        in three cases:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Follow-up prompt - When the user responds to a follow-up prompt but does not provide an intent. For
+     *        example, in response to a follow-up prompt that says "Would you like anything else today?" the user says
+     *        "Yes." Amazon Lex will return a 400 Bad Request exception because it does not have a clarification prompt
+     *        to send to the user to get an intent.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Lambda function - When using a Lambda function, you return an <code>ElicitIntent</code> dialog type. Since
+     *        Amazon Lex does not have a clarification prompt to get an intent from the user, it returns a 400 Bad
+     *        Request exception.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        PutSession operation - When using the <code>PutSession</code> operation, you send an
+     *        <code>ElicitIntent</code> dialog type. Since Amazon Lex does not have a clarification prompt to get an
+     *        intent from the user, it returns a 400 Bad Request exception.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -415,7 +1551,7 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
     /**
      * <p>
      * When Amazon Lex can't understand the user's input in context, it tries to elicit the information a few times.
-     * After that, Amazon Lex sends the message defined in <code>abortStatement</code> to the user, and then aborts the
+     * After that, Amazon Lex sends the message defined in <code>abortStatement</code> to the user, and then cancels the
      * conversation. To set the number of retries, use the <code>valueElicitationPrompt</code> field for the slot type.
      * </p>
      * <p>
@@ -428,11 +1564,16 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * might require the <code>CrustType</code> slot. You specify the <code>valueElicitationPrompt</code> field when you
      * create the <code>CrustType</code> slot.
      * </p>
+     * <p>
+     * If you have defined a fallback intent the cancel statement will not be sent to the user, the fallback intent is
+     * used instead. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/built-in-intent-fallback.html"> AMAZON.FallbackIntent</a>.
+     * </p>
      * 
      * @param abortStatement
      *        When Amazon Lex can't understand the user's input in context, it tries to elicit the information a few
      *        times. After that, Amazon Lex sends the message defined in <code>abortStatement</code> to the user, and
-     *        then aborts the conversation. To set the number of retries, use the <code>valueElicitationPrompt</code>
+     *        then cancels the conversation. To set the number of retries, use the <code>valueElicitationPrompt</code>
      *        field for the slot type. </p>
      *        <p>
      *        For example, in a pizza ordering bot, Amazon Lex might ask a user "What type of crust would you like?" If
@@ -443,6 +1584,11 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      *        For example, in a pizza ordering application, <code>OrderPizza</code> might be one of the intents. This
      *        intent might require the <code>CrustType</code> slot. You specify the <code>valueElicitationPrompt</code>
      *        field when you create the <code>CrustType</code> slot.
+     *        </p>
+     *        <p>
+     *        If you have defined a fallback intent the cancel statement will not be sent to the user, the fallback
+     *        intent is used instead. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lex/latest/dg/built-in-intent-fallback.html"> AMAZON.FallbackIntent</a>.
      */
 
     public void setAbortStatement(Statement abortStatement) {
@@ -452,7 +1598,7 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
     /**
      * <p>
      * When Amazon Lex can't understand the user's input in context, it tries to elicit the information a few times.
-     * After that, Amazon Lex sends the message defined in <code>abortStatement</code> to the user, and then aborts the
+     * After that, Amazon Lex sends the message defined in <code>abortStatement</code> to the user, and then cancels the
      * conversation. To set the number of retries, use the <code>valueElicitationPrompt</code> field for the slot type.
      * </p>
      * <p>
@@ -465,10 +1611,15 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * might require the <code>CrustType</code> slot. You specify the <code>valueElicitationPrompt</code> field when you
      * create the <code>CrustType</code> slot.
      * </p>
+     * <p>
+     * If you have defined a fallback intent the cancel statement will not be sent to the user, the fallback intent is
+     * used instead. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/built-in-intent-fallback.html"> AMAZON.FallbackIntent</a>.
+     * </p>
      * 
      * @return When Amazon Lex can't understand the user's input in context, it tries to elicit the information a few
      *         times. After that, Amazon Lex sends the message defined in <code>abortStatement</code> to the user, and
-     *         then aborts the conversation. To set the number of retries, use the <code>valueElicitationPrompt</code>
+     *         then cancels the conversation. To set the number of retries, use the <code>valueElicitationPrompt</code>
      *         field for the slot type. </p>
      *         <p>
      *         For example, in a pizza ordering bot, Amazon Lex might ask a user "What type of crust would you like?" If
@@ -479,6 +1630,12 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      *         For example, in a pizza ordering application, <code>OrderPizza</code> might be one of the intents. This
      *         intent might require the <code>CrustType</code> slot. You specify the <code>valueElicitationPrompt</code>
      *         field when you create the <code>CrustType</code> slot.
+     *         </p>
+     *         <p>
+     *         If you have defined a fallback intent the cancel statement will not be sent to the user, the fallback
+     *         intent is used instead. For more information, see <a
+     *         href="https://docs.aws.amazon.com/lex/latest/dg/built-in-intent-fallback.html">
+     *         AMAZON.FallbackIntent</a>.
      */
 
     public Statement getAbortStatement() {
@@ -488,7 +1645,7 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
     /**
      * <p>
      * When Amazon Lex can't understand the user's input in context, it tries to elicit the information a few times.
-     * After that, Amazon Lex sends the message defined in <code>abortStatement</code> to the user, and then aborts the
+     * After that, Amazon Lex sends the message defined in <code>abortStatement</code> to the user, and then cancels the
      * conversation. To set the number of retries, use the <code>valueElicitationPrompt</code> field for the slot type.
      * </p>
      * <p>
@@ -501,11 +1658,16 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * might require the <code>CrustType</code> slot. You specify the <code>valueElicitationPrompt</code> field when you
      * create the <code>CrustType</code> slot.
      * </p>
+     * <p>
+     * If you have defined a fallback intent the cancel statement will not be sent to the user, the fallback intent is
+     * used instead. For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/built-in-intent-fallback.html"> AMAZON.FallbackIntent</a>.
+     * </p>
      * 
      * @param abortStatement
      *        When Amazon Lex can't understand the user's input in context, it tries to elicit the information a few
      *        times. After that, Amazon Lex sends the message defined in <code>abortStatement</code> to the user, and
-     *        then aborts the conversation. To set the number of retries, use the <code>valueElicitationPrompt</code>
+     *        then cancels the conversation. To set the number of retries, use the <code>valueElicitationPrompt</code>
      *        field for the slot type. </p>
      *        <p>
      *        For example, in a pizza ordering bot, Amazon Lex might ask a user "What type of crust would you like?" If
@@ -516,6 +1678,11 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      *        For example, in a pizza ordering application, <code>OrderPizza</code> might be one of the intents. This
      *        intent might require the <code>CrustType</code> slot. You specify the <code>valueElicitationPrompt</code>
      *        field when you create the <code>CrustType</code> slot.
+     *        </p>
+     *        <p>
+     *        If you have defined a fallback intent the cancel statement will not be sent to the user, the fallback
+     *        intent is used instead. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lex/latest/dg/built-in-intent-fallback.html"> AMAZON.FallbackIntent</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -661,15 +1828,15 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * <p>
      * The Amazon Polly voice ID that you want Amazon Lex to use for voice interactions with the user. The locale
      * configured for the voice must match the locale of the bot. For more information, see <a
-     * href="http://docs.aws.amazon.com/polly/latest/dg/voicelist.html">Available Voices</a> in the <i>Amazon Polly
-     * Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/polly/latest/dg/voicelist.html">Voices in Amazon Polly</a> in the <i>Amazon
+     * Polly Developer Guide</i>.
      * </p>
      * 
      * @param voiceId
      *        The Amazon Polly voice ID that you want Amazon Lex to use for voice interactions with the user. The locale
      *        configured for the voice must match the locale of the bot. For more information, see <a
-     *        href="http://docs.aws.amazon.com/polly/latest/dg/voicelist.html">Available Voices</a> in the <i>Amazon
-     *        Polly Developer Guide</i>.
+     *        href="https://docs.aws.amazon.com/polly/latest/dg/voicelist.html">Voices in Amazon Polly</a> in the
+     *        <i>Amazon Polly Developer Guide</i>.
      */
 
     public void setVoiceId(String voiceId) {
@@ -680,14 +1847,14 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * <p>
      * The Amazon Polly voice ID that you want Amazon Lex to use for voice interactions with the user. The locale
      * configured for the voice must match the locale of the bot. For more information, see <a
-     * href="http://docs.aws.amazon.com/polly/latest/dg/voicelist.html">Available Voices</a> in the <i>Amazon Polly
-     * Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/polly/latest/dg/voicelist.html">Voices in Amazon Polly</a> in the <i>Amazon
+     * Polly Developer Guide</i>.
      * </p>
      * 
      * @return The Amazon Polly voice ID that you want Amazon Lex to use for voice interactions with the user. The
      *         locale configured for the voice must match the locale of the bot. For more information, see <a
-     *         href="http://docs.aws.amazon.com/polly/latest/dg/voicelist.html">Available Voices</a> in the <i>Amazon
-     *         Polly Developer Guide</i>.
+     *         href="https://docs.aws.amazon.com/polly/latest/dg/voicelist.html">Voices in Amazon Polly</a> in the
+     *         <i>Amazon Polly Developer Guide</i>.
      */
 
     public String getVoiceId() {
@@ -698,15 +1865,15 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * <p>
      * The Amazon Polly voice ID that you want Amazon Lex to use for voice interactions with the user. The locale
      * configured for the voice must match the locale of the bot. For more information, see <a
-     * href="http://docs.aws.amazon.com/polly/latest/dg/voicelist.html">Available Voices</a> in the <i>Amazon Polly
-     * Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/polly/latest/dg/voicelist.html">Voices in Amazon Polly</a> in the <i>Amazon
+     * Polly Developer Guide</i>.
      * </p>
      * 
      * @param voiceId
      *        The Amazon Polly voice ID that you want Amazon Lex to use for voice interactions with the user. The locale
      *        configured for the voice must match the locale of the bot. For more information, see <a
-     *        href="http://docs.aws.amazon.com/polly/latest/dg/voicelist.html">Available Voices</a> in the <i>Amazon
-     *        Polly Developer Guide</i>.
+     *        href="https://docs.aws.amazon.com/polly/latest/dg/voicelist.html">Voices in Amazon Polly</a> in the
+     *        <i>Amazon Polly Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1227,7 +2394,76 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
     }
 
     /**
+     * <p>
+     * When set to <code>true</code> user utterances are sent to Amazon Comprehend for sentiment analysis. If you don't
+     * specify <code>detectSentiment</code>, the default is <code>false</code>.
+     * </p>
+     * 
+     * @param detectSentiment
+     *        When set to <code>true</code> user utterances are sent to Amazon Comprehend for sentiment analysis. If you
+     *        don't specify <code>detectSentiment</code>, the default is <code>false</code>.
+     */
+
+    public void setDetectSentiment(Boolean detectSentiment) {
+        this.detectSentiment = detectSentiment;
+    }
+
+    /**
+     * <p>
+     * When set to <code>true</code> user utterances are sent to Amazon Comprehend for sentiment analysis. If you don't
+     * specify <code>detectSentiment</code>, the default is <code>false</code>.
+     * </p>
+     * 
+     * @return When set to <code>true</code> user utterances are sent to Amazon Comprehend for sentiment analysis. If
+     *         you don't specify <code>detectSentiment</code>, the default is <code>false</code>.
+     */
+
+    public Boolean getDetectSentiment() {
+        return this.detectSentiment;
+    }
+
+    /**
+     * <p>
+     * When set to <code>true</code> user utterances are sent to Amazon Comprehend for sentiment analysis. If you don't
+     * specify <code>detectSentiment</code>, the default is <code>false</code>.
+     * </p>
+     * 
+     * @param detectSentiment
+     *        When set to <code>true</code> user utterances are sent to Amazon Comprehend for sentiment analysis. If you
+     *        don't specify <code>detectSentiment</code>, the default is <code>false</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutBotRequest withDetectSentiment(Boolean detectSentiment) {
+        setDetectSentiment(detectSentiment);
+        return this;
+    }
+
+    /**
+     * <p>
+     * When set to <code>true</code> user utterances are sent to Amazon Comprehend for sentiment analysis. If you don't
+     * specify <code>detectSentiment</code>, the default is <code>false</code>.
+     * </p>
+     * 
+     * @return When set to <code>true</code> user utterances are sent to Amazon Comprehend for sentiment analysis. If
+     *         you don't specify <code>detectSentiment</code>, the default is <code>false</code>.
+     */
+
+    public Boolean isDetectSentiment() {
+        return this.detectSentiment;
+    }
+
+    /**
+     * <p>
+     * When set to <code>true</code> a new numbered version of the bot is created. This is the same as calling the
+     * <code>CreateBotVersion</code> operation. If you don't specify <code>createVersion</code>, the default is
+     * <code>false</code>.
+     * </p>
+     * 
      * @param createVersion
+     *        When set to <code>true</code> a new numbered version of the bot is created. This is the same as calling
+     *        the <code>CreateBotVersion</code> operation. If you don't specify <code>createVersion</code>, the default
+     *        is <code>false</code>.
      */
 
     public void setCreateVersion(Boolean createVersion) {
@@ -1235,7 +2471,15 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
     }
 
     /**
-     * @return
+     * <p>
+     * When set to <code>true</code> a new numbered version of the bot is created. This is the same as calling the
+     * <code>CreateBotVersion</code> operation. If you don't specify <code>createVersion</code>, the default is
+     * <code>false</code>.
+     * </p>
+     * 
+     * @return When set to <code>true</code> a new numbered version of the bot is created. This is the same as calling
+     *         the <code>CreateBotVersion</code> operation. If you don't specify <code>createVersion</code>, the default
+     *         is <code>false</code>.
      */
 
     public Boolean getCreateVersion() {
@@ -1243,7 +2487,16 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
     }
 
     /**
+     * <p>
+     * When set to <code>true</code> a new numbered version of the bot is created. This is the same as calling the
+     * <code>CreateBotVersion</code> operation. If you don't specify <code>createVersion</code>, the default is
+     * <code>false</code>.
+     * </p>
+     * 
      * @param createVersion
+     *        When set to <code>true</code> a new numbered version of the bot is created. This is the same as calling
+     *        the <code>CreateBotVersion</code> operation. If you don't specify <code>createVersion</code>, the default
+     *        is <code>false</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1253,11 +2506,105 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
     }
 
     /**
-     * @return
+     * <p>
+     * When set to <code>true</code> a new numbered version of the bot is created. This is the same as calling the
+     * <code>CreateBotVersion</code> operation. If you don't specify <code>createVersion</code>, the default is
+     * <code>false</code>.
+     * </p>
+     * 
+     * @return When set to <code>true</code> a new numbered version of the bot is created. This is the same as calling
+     *         the <code>CreateBotVersion</code> operation. If you don't specify <code>createVersion</code>, the default
+     *         is <code>false</code>.
      */
 
     public Boolean isCreateVersion() {
         return this.createVersion;
+    }
+
+    /**
+     * <p>
+     * A list of tags to add to the bot. You can only add tags when you create a bot, you can't use the
+     * <code>PutBot</code> operation to update the tags on a bot. To update tags, use the <code>TagResource</code>
+     * operation.
+     * </p>
+     * 
+     * @return A list of tags to add to the bot. You can only add tags when you create a bot, you can't use the
+     *         <code>PutBot</code> operation to update the tags on a bot. To update tags, use the
+     *         <code>TagResource</code> operation.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * A list of tags to add to the bot. You can only add tags when you create a bot, you can't use the
+     * <code>PutBot</code> operation to update the tags on a bot. To update tags, use the <code>TagResource</code>
+     * operation.
+     * </p>
+     * 
+     * @param tags
+     *        A list of tags to add to the bot. You can only add tags when you create a bot, you can't use the
+     *        <code>PutBot</code> operation to update the tags on a bot. To update tags, use the
+     *        <code>TagResource</code> operation.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * A list of tags to add to the bot. You can only add tags when you create a bot, you can't use the
+     * <code>PutBot</code> operation to update the tags on a bot. To update tags, use the <code>TagResource</code>
+     * operation.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        A list of tags to add to the bot. You can only add tags when you create a bot, you can't use the
+     *        <code>PutBot</code> operation to update the tags on a bot. To update tags, use the
+     *        <code>TagResource</code> operation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutBotRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of tags to add to the bot. You can only add tags when you create a bot, you can't use the
+     * <code>PutBot</code> operation to update the tags on a bot. To update tags, use the <code>TagResource</code>
+     * operation.
+     * </p>
+     * 
+     * @param tags
+     *        A list of tags to add to the bot. You can only add tags when you create a bot, you can't use the
+     *        <code>PutBot</code> operation to update the tags on a bot. To update tags, use the
+     *        <code>TagResource</code> operation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutBotRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
     }
 
     /**
@@ -1278,6 +2625,10 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
             sb.append("Description: ").append(getDescription()).append(",");
         if (getIntents() != null)
             sb.append("Intents: ").append(getIntents()).append(",");
+        if (getEnableModelImprovements() != null)
+            sb.append("EnableModelImprovements: ").append(getEnableModelImprovements()).append(",");
+        if (getNluIntentConfidenceThreshold() != null)
+            sb.append("NluIntentConfidenceThreshold: ").append(getNluIntentConfidenceThreshold()).append(",");
         if (getClarificationPrompt() != null)
             sb.append("ClarificationPrompt: ").append(getClarificationPrompt()).append(",");
         if (getAbortStatement() != null)
@@ -1294,8 +2645,12 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
             sb.append("Locale: ").append(getLocale()).append(",");
         if (getChildDirected() != null)
             sb.append("ChildDirected: ").append(getChildDirected()).append(",");
+        if (getDetectSentiment() != null)
+            sb.append("DetectSentiment: ").append(getDetectSentiment()).append(",");
         if (getCreateVersion() != null)
-            sb.append("CreateVersion: ").append(getCreateVersion());
+            sb.append("CreateVersion: ").append(getCreateVersion()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -1321,6 +2676,14 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
         if (other.getIntents() == null ^ this.getIntents() == null)
             return false;
         if (other.getIntents() != null && other.getIntents().equals(this.getIntents()) == false)
+            return false;
+        if (other.getEnableModelImprovements() == null ^ this.getEnableModelImprovements() == null)
+            return false;
+        if (other.getEnableModelImprovements() != null && other.getEnableModelImprovements().equals(this.getEnableModelImprovements()) == false)
+            return false;
+        if (other.getNluIntentConfidenceThreshold() == null ^ this.getNluIntentConfidenceThreshold() == null)
+            return false;
+        if (other.getNluIntentConfidenceThreshold() != null && other.getNluIntentConfidenceThreshold().equals(this.getNluIntentConfidenceThreshold()) == false)
             return false;
         if (other.getClarificationPrompt() == null ^ this.getClarificationPrompt() == null)
             return false;
@@ -1354,9 +2717,17 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
             return false;
         if (other.getChildDirected() != null && other.getChildDirected().equals(this.getChildDirected()) == false)
             return false;
+        if (other.getDetectSentiment() == null ^ this.getDetectSentiment() == null)
+            return false;
+        if (other.getDetectSentiment() != null && other.getDetectSentiment().equals(this.getDetectSentiment()) == false)
+            return false;
         if (other.getCreateVersion() == null ^ this.getCreateVersion() == null)
             return false;
         if (other.getCreateVersion() != null && other.getCreateVersion().equals(this.getCreateVersion()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
         return true;
     }
@@ -1369,6 +2740,8 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getIntents() == null) ? 0 : getIntents().hashCode());
+        hashCode = prime * hashCode + ((getEnableModelImprovements() == null) ? 0 : getEnableModelImprovements().hashCode());
+        hashCode = prime * hashCode + ((getNluIntentConfidenceThreshold() == null) ? 0 : getNluIntentConfidenceThreshold().hashCode());
         hashCode = prime * hashCode + ((getClarificationPrompt() == null) ? 0 : getClarificationPrompt().hashCode());
         hashCode = prime * hashCode + ((getAbortStatement() == null) ? 0 : getAbortStatement().hashCode());
         hashCode = prime * hashCode + ((getIdleSessionTTLInSeconds() == null) ? 0 : getIdleSessionTTLInSeconds().hashCode());
@@ -1377,7 +2750,9 @@ public class PutBotRequest extends com.amazonaws.AmazonWebServiceRequest impleme
         hashCode = prime * hashCode + ((getProcessBehavior() == null) ? 0 : getProcessBehavior().hashCode());
         hashCode = prime * hashCode + ((getLocale() == null) ? 0 : getLocale().hashCode());
         hashCode = prime * hashCode + ((getChildDirected() == null) ? 0 : getChildDirected().hashCode());
+        hashCode = prime * hashCode + ((getDetectSentiment() == null) ? 0 : getDetectSentiment().hashCode());
         hashCode = prime * hashCode + ((getCreateVersion() == null) ? 0 : getCreateVersion().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

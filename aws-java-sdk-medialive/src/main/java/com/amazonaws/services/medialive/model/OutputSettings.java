@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,9 +36,13 @@ public class OutputSettings implements Serializable, Cloneable, StructuredPojo {
 
     private MsSmoothOutputSettings msSmoothOutputSettings;
 
+    private MultiplexOutputSettings multiplexOutputSettings;
+
     private RtmpOutputSettings rtmpOutputSettings;
 
     private UdpOutputSettings udpOutputSettings;
+
+    private CmafIngestOutputSettings cmafIngestOutputSettings;
 
     /**
      * @param archiveOutputSettings
@@ -171,6 +175,32 @@ public class OutputSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * @param multiplexOutputSettings
+     */
+
+    public void setMultiplexOutputSettings(MultiplexOutputSettings multiplexOutputSettings) {
+        this.multiplexOutputSettings = multiplexOutputSettings;
+    }
+
+    /**
+     * @return
+     */
+
+    public MultiplexOutputSettings getMultiplexOutputSettings() {
+        return this.multiplexOutputSettings;
+    }
+
+    /**
+     * @param multiplexOutputSettings
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OutputSettings withMultiplexOutputSettings(MultiplexOutputSettings multiplexOutputSettings) {
+        setMultiplexOutputSettings(multiplexOutputSettings);
+        return this;
+    }
+
+    /**
      * @param rtmpOutputSettings
      */
 
@@ -223,6 +253,32 @@ public class OutputSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * @param cmafIngestOutputSettings
+     */
+
+    public void setCmafIngestOutputSettings(CmafIngestOutputSettings cmafIngestOutputSettings) {
+        this.cmafIngestOutputSettings = cmafIngestOutputSettings;
+    }
+
+    /**
+     * @return
+     */
+
+    public CmafIngestOutputSettings getCmafIngestOutputSettings() {
+        return this.cmafIngestOutputSettings;
+    }
+
+    /**
+     * @param cmafIngestOutputSettings
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OutputSettings withCmafIngestOutputSettings(CmafIngestOutputSettings cmafIngestOutputSettings) {
+        setCmafIngestOutputSettings(cmafIngestOutputSettings);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -244,10 +300,14 @@ public class OutputSettings implements Serializable, Cloneable, StructuredPojo {
             sb.append("MediaPackageOutputSettings: ").append(getMediaPackageOutputSettings()).append(",");
         if (getMsSmoothOutputSettings() != null)
             sb.append("MsSmoothOutputSettings: ").append(getMsSmoothOutputSettings()).append(",");
+        if (getMultiplexOutputSettings() != null)
+            sb.append("MultiplexOutputSettings: ").append(getMultiplexOutputSettings()).append(",");
         if (getRtmpOutputSettings() != null)
             sb.append("RtmpOutputSettings: ").append(getRtmpOutputSettings()).append(",");
         if (getUdpOutputSettings() != null)
-            sb.append("UdpOutputSettings: ").append(getUdpOutputSettings());
+            sb.append("UdpOutputSettings: ").append(getUdpOutputSettings()).append(",");
+        if (getCmafIngestOutputSettings() != null)
+            sb.append("CmafIngestOutputSettings: ").append(getCmafIngestOutputSettings());
         sb.append("}");
         return sb.toString();
     }
@@ -282,6 +342,10 @@ public class OutputSettings implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getMsSmoothOutputSettings() != null && other.getMsSmoothOutputSettings().equals(this.getMsSmoothOutputSettings()) == false)
             return false;
+        if (other.getMultiplexOutputSettings() == null ^ this.getMultiplexOutputSettings() == null)
+            return false;
+        if (other.getMultiplexOutputSettings() != null && other.getMultiplexOutputSettings().equals(this.getMultiplexOutputSettings()) == false)
+            return false;
         if (other.getRtmpOutputSettings() == null ^ this.getRtmpOutputSettings() == null)
             return false;
         if (other.getRtmpOutputSettings() != null && other.getRtmpOutputSettings().equals(this.getRtmpOutputSettings()) == false)
@@ -289,6 +353,10 @@ public class OutputSettings implements Serializable, Cloneable, StructuredPojo {
         if (other.getUdpOutputSettings() == null ^ this.getUdpOutputSettings() == null)
             return false;
         if (other.getUdpOutputSettings() != null && other.getUdpOutputSettings().equals(this.getUdpOutputSettings()) == false)
+            return false;
+        if (other.getCmafIngestOutputSettings() == null ^ this.getCmafIngestOutputSettings() == null)
+            return false;
+        if (other.getCmafIngestOutputSettings() != null && other.getCmafIngestOutputSettings().equals(this.getCmafIngestOutputSettings()) == false)
             return false;
         return true;
     }
@@ -303,8 +371,10 @@ public class OutputSettings implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getHlsOutputSettings() == null) ? 0 : getHlsOutputSettings().hashCode());
         hashCode = prime * hashCode + ((getMediaPackageOutputSettings() == null) ? 0 : getMediaPackageOutputSettings().hashCode());
         hashCode = prime * hashCode + ((getMsSmoothOutputSettings() == null) ? 0 : getMsSmoothOutputSettings().hashCode());
+        hashCode = prime * hashCode + ((getMultiplexOutputSettings() == null) ? 0 : getMultiplexOutputSettings().hashCode());
         hashCode = prime * hashCode + ((getRtmpOutputSettings() == null) ? 0 : getRtmpOutputSettings().hashCode());
         hashCode = prime * hashCode + ((getUdpOutputSettings() == null) ? 0 : getUdpOutputSettings().hashCode());
+        hashCode = prime * hashCode + ((getCmafIngestOutputSettings() == null) ? 0 : getCmafIngestOutputSettings().hashCode());
         return hashCode;
     }
 

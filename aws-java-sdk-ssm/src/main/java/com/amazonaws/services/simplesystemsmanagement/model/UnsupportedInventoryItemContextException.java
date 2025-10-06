@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,7 +16,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The <code>Context</code> attribute that you specified for the <code>InventoryItem</code> is not allowed for this
+ * The <code>Context</code> attribute that you specified for the <code>InventoryItem</code> isn't allowed for this
  * inventory type. You can only use the <code>Context</code> attribute with inventory types like
  * <code>AWS:ComplianceItem</code>.
  * </p>

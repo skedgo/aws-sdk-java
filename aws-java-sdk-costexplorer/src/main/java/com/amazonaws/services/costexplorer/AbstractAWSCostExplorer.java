@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,72 @@ public class AbstractAWSCostExplorer implements AWSCostExplorer {
     }
 
     @Override
+    public CreateAnomalyMonitorResult createAnomalyMonitor(CreateAnomalyMonitorRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateAnomalySubscriptionResult createAnomalySubscription(CreateAnomalySubscriptionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateCostCategoryDefinitionResult createCostCategoryDefinition(CreateCostCategoryDefinitionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteAnomalyMonitorResult deleteAnomalyMonitor(DeleteAnomalyMonitorRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteAnomalySubscriptionResult deleteAnomalySubscription(DeleteAnomalySubscriptionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteCostCategoryDefinitionResult deleteCostCategoryDefinition(DeleteCostCategoryDefinitionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeCostCategoryDefinitionResult describeCostCategoryDefinition(DescribeCostCategoryDefinitionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetAnomaliesResult getAnomalies(GetAnomaliesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetAnomalyMonitorsResult getAnomalyMonitors(GetAnomalyMonitorsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetAnomalySubscriptionsResult getAnomalySubscriptions(GetAnomalySubscriptionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetApproximateUsageRecordsResult getApproximateUsageRecords(GetApproximateUsageRecordsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetCostAndUsageResult getCostAndUsage(GetCostAndUsageRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetCostAndUsageWithResourcesResult getCostAndUsageWithResources(GetCostAndUsageWithResourcesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetCostCategoriesResult getCostCategories(GetCostCategoriesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -63,12 +128,110 @@ public class AbstractAWSCostExplorer implements AWSCostExplorer {
     }
 
     @Override
+    public GetSavingsPlanPurchaseRecommendationDetailsResult getSavingsPlanPurchaseRecommendationDetails(
+            GetSavingsPlanPurchaseRecommendationDetailsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetSavingsPlansCoverageResult getSavingsPlansCoverage(GetSavingsPlansCoverageRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetSavingsPlansPurchaseRecommendationResult getSavingsPlansPurchaseRecommendation(GetSavingsPlansPurchaseRecommendationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetSavingsPlansUtilizationResult getSavingsPlansUtilization(GetSavingsPlansUtilizationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetSavingsPlansUtilizationDetailsResult getSavingsPlansUtilizationDetails(GetSavingsPlansUtilizationDetailsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetTagsResult getTags(GetTagsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public GetUsageForecastResult getUsageForecast(GetUsageForecastRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListCostAllocationTagBackfillHistoryResult listCostAllocationTagBackfillHistory(ListCostAllocationTagBackfillHistoryRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListCostAllocationTagsResult listCostAllocationTags(ListCostAllocationTagsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListCostCategoryDefinitionsResult listCostCategoryDefinitions(ListCostCategoryDefinitionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListSavingsPlansPurchaseRecommendationGenerationResult listSavingsPlansPurchaseRecommendationGeneration(
+            ListSavingsPlansPurchaseRecommendationGenerationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ProvideAnomalyFeedbackResult provideAnomalyFeedback(ProvideAnomalyFeedbackRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartCostAllocationTagBackfillResult startCostAllocationTagBackfill(StartCostAllocationTagBackfillRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartSavingsPlansPurchaseRecommendationGenerationResult startSavingsPlansPurchaseRecommendationGeneration(
+            StartSavingsPlansPurchaseRecommendationGenerationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateAnomalyMonitorResult updateAnomalyMonitor(UpdateAnomalyMonitorRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateAnomalySubscriptionResult updateAnomalySubscription(UpdateAnomalySubscriptionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateCostAllocationTagsStatusResult updateCostAllocationTagsStatus(UpdateCostAllocationTagsStatusRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateCostCategoryDefinitionResult updateCostCategoryDefinition(UpdateCostCategoryDefinitionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

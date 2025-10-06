@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,9 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
+ * <p>
  * A map of the key-value pairs for the resource tag.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateTags" target="_top">AWS API
  *      Documentation</a>
@@ -26,13 +28,23 @@ import com.amazonaws.AmazonWebServiceRequest;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class CreateTagsRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
-    /** The Amazon Resource Name (ARN) of the resource tag. */
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the resource tag.
+     * </p>
+     */
     private String resourceArn;
-    /** The key-value pair for the resource tag. */
+    /**
+     * <p>
+     * The key-value pair for the resource tag.
+     * </p>
+     */
     private java.util.Map<String, String> tags;
 
     /**
+     * <p>
      * The Amazon Resource Name (ARN) of the resource tag.
+     * </p>
      * 
      * @param resourceArn
      *        The Amazon Resource Name (ARN) of the resource tag.
@@ -43,7 +55,9 @@ public class CreateTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * The Amazon Resource Name (ARN) of the resource tag.
+     * </p>
      * 
      * @return The Amazon Resource Name (ARN) of the resource tag.
      */
@@ -53,7 +67,9 @@ public class CreateTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * The Amazon Resource Name (ARN) of the resource tag.
+     * </p>
      * 
      * @param resourceArn
      *        The Amazon Resource Name (ARN) of the resource tag.
@@ -66,7 +82,9 @@ public class CreateTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * The key-value pair for the resource tag.
+     * </p>
      * 
      * @return The key-value pair for the resource tag.
      */
@@ -76,7 +94,9 @@ public class CreateTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * The key-value pair for the resource tag.
+     * </p>
      * 
      * @param tags
      *        The key-value pair for the resource tag.
@@ -87,7 +107,9 @@ public class CreateTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <p>
      * The key-value pair for the resource tag.
+     * </p>
      * 
      * @param tags
      *        The key-value pair for the resource tag.
@@ -98,6 +120,13 @@ public class CreateTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateTagsRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateTagsRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {

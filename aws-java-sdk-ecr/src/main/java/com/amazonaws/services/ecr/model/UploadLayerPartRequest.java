@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,8 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The AWS account ID associated with the registry to which you are uploading layer parts. If you do not specify a
-     * registry, the default registry is assumed.
+     * The Amazon Web Services account ID associated with the registry to which you are uploading layer parts. If you do
+     * not specify a registry, the default registry is assumed.
      * </p>
      */
     private String registryId;
@@ -46,13 +46,13 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
     private String uploadId;
     /**
      * <p>
-     * The integer value of the first byte of the layer part.
+     * The position of the first byte of the layer part witin the overall image layer.
      * </p>
      */
     private Long partFirstByte;
     /**
      * <p>
-     * The integer value of the last byte of the layer part.
+     * The position of the last byte of the layer part within the overall image layer.
      * </p>
      */
     private Long partLastByte;
@@ -65,13 +65,13 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The AWS account ID associated with the registry to which you are uploading layer parts. If you do not specify a
-     * registry, the default registry is assumed.
+     * The Amazon Web Services account ID associated with the registry to which you are uploading layer parts. If you do
+     * not specify a registry, the default registry is assumed.
      * </p>
      * 
      * @param registryId
-     *        The AWS account ID associated with the registry to which you are uploading layer parts. If you do not
-     *        specify a registry, the default registry is assumed.
+     *        The Amazon Web Services account ID associated with the registry to which you are uploading layer parts. If
+     *        you do not specify a registry, the default registry is assumed.
      */
 
     public void setRegistryId(String registryId) {
@@ -80,12 +80,12 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The AWS account ID associated with the registry to which you are uploading layer parts. If you do not specify a
-     * registry, the default registry is assumed.
+     * The Amazon Web Services account ID associated with the registry to which you are uploading layer parts. If you do
+     * not specify a registry, the default registry is assumed.
      * </p>
      * 
-     * @return The AWS account ID associated with the registry to which you are uploading layer parts. If you do not
-     *         specify a registry, the default registry is assumed.
+     * @return The Amazon Web Services account ID associated with the registry to which you are uploading layer parts.
+     *         If you do not specify a registry, the default registry is assumed.
      */
 
     public String getRegistryId() {
@@ -94,13 +94,13 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The AWS account ID associated with the registry to which you are uploading layer parts. If you do not specify a
-     * registry, the default registry is assumed.
+     * The Amazon Web Services account ID associated with the registry to which you are uploading layer parts. If you do
+     * not specify a registry, the default registry is assumed.
      * </p>
      * 
      * @param registryId
-     *        The AWS account ID associated with the registry to which you are uploading layer parts. If you do not
-     *        specify a registry, the default registry is assumed.
+     *        The Amazon Web Services account ID associated with the registry to which you are uploading layer parts. If
+     *        you do not specify a registry, the default registry is assumed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -194,11 +194,11 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The integer value of the first byte of the layer part.
+     * The position of the first byte of the layer part witin the overall image layer.
      * </p>
      * 
      * @param partFirstByte
-     *        The integer value of the first byte of the layer part.
+     *        The position of the first byte of the layer part witin the overall image layer.
      */
 
     public void setPartFirstByte(Long partFirstByte) {
@@ -207,10 +207,10 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The integer value of the first byte of the layer part.
+     * The position of the first byte of the layer part witin the overall image layer.
      * </p>
      * 
-     * @return The integer value of the first byte of the layer part.
+     * @return The position of the first byte of the layer part witin the overall image layer.
      */
 
     public Long getPartFirstByte() {
@@ -219,11 +219,11 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The integer value of the first byte of the layer part.
+     * The position of the first byte of the layer part witin the overall image layer.
      * </p>
      * 
      * @param partFirstByte
-     *        The integer value of the first byte of the layer part.
+     *        The position of the first byte of the layer part witin the overall image layer.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -234,11 +234,11 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The integer value of the last byte of the layer part.
+     * The position of the last byte of the layer part within the overall image layer.
      * </p>
      * 
      * @param partLastByte
-     *        The integer value of the last byte of the layer part.
+     *        The position of the last byte of the layer part within the overall image layer.
      */
 
     public void setPartLastByte(Long partLastByte) {
@@ -247,10 +247,10 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The integer value of the last byte of the layer part.
+     * The position of the last byte of the layer part within the overall image layer.
      * </p>
      * 
-     * @return The integer value of the last byte of the layer part.
+     * @return The position of the last byte of the layer part within the overall image layer.
      */
 
     public Long getPartLastByte() {
@@ -259,11 +259,11 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The integer value of the last byte of the layer part.
+     * The position of the last byte of the layer part within the overall image layer.
      * </p>
      * 
      * @param partLastByte
-     *        The integer value of the last byte of the layer part.
+     *        The position of the last byte of the layer part within the overall image layer.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

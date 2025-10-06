@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,18 +30,18 @@ public class UpdateUserPoolDomainRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The domain name for the custom domain that hosts the sign-up and sign-in pages for your application. For example:
-     * <code>auth.example.com</code>.
+     * The domain name for the custom domain that hosts the sign-up and sign-in pages for your application. One example
+     * might be <code>auth.example.com</code>.
      * </p>
      * <p>
-     * This string can include only lowercase letters, numbers, and hyphens. Do not use a hyphen for the first or last
+     * This string can include only lowercase letters, numbers, and hyphens. Don't use a hyphen for the first or last
      * character. Use periods to separate subdomain names.
      * </p>
      */
     private String domain;
     /**
      * <p>
-     * The ID of the user pool that is associated with the custom domain that you are updating the certificate for.
+     * The ID of the user pool that is associated with the custom domain whose certificate you're updating.
      * </p>
      */
     private String userPoolId;
@@ -55,19 +55,19 @@ public class UpdateUserPoolDomainRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The domain name for the custom domain that hosts the sign-up and sign-in pages for your application. For example:
-     * <code>auth.example.com</code>.
+     * The domain name for the custom domain that hosts the sign-up and sign-in pages for your application. One example
+     * might be <code>auth.example.com</code>.
      * </p>
      * <p>
-     * This string can include only lowercase letters, numbers, and hyphens. Do not use a hyphen for the first or last
+     * This string can include only lowercase letters, numbers, and hyphens. Don't use a hyphen for the first or last
      * character. Use periods to separate subdomain names.
      * </p>
      * 
      * @param domain
-     *        The domain name for the custom domain that hosts the sign-up and sign-in pages for your application. For
-     *        example: <code>auth.example.com</code>. </p>
+     *        The domain name for the custom domain that hosts the sign-up and sign-in pages for your application. One
+     *        example might be <code>auth.example.com</code>. </p>
      *        <p>
-     *        This string can include only lowercase letters, numbers, and hyphens. Do not use a hyphen for the first or
+     *        This string can include only lowercase letters, numbers, and hyphens. Don't use a hyphen for the first or
      *        last character. Use periods to separate subdomain names.
      */
 
@@ -77,19 +77,19 @@ public class UpdateUserPoolDomainRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The domain name for the custom domain that hosts the sign-up and sign-in pages for your application. For example:
-     * <code>auth.example.com</code>.
+     * The domain name for the custom domain that hosts the sign-up and sign-in pages for your application. One example
+     * might be <code>auth.example.com</code>.
      * </p>
      * <p>
-     * This string can include only lowercase letters, numbers, and hyphens. Do not use a hyphen for the first or last
+     * This string can include only lowercase letters, numbers, and hyphens. Don't use a hyphen for the first or last
      * character. Use periods to separate subdomain names.
      * </p>
      * 
-     * @return The domain name for the custom domain that hosts the sign-up and sign-in pages for your application. For
-     *         example: <code>auth.example.com</code>. </p>
+     * @return The domain name for the custom domain that hosts the sign-up and sign-in pages for your application. One
+     *         example might be <code>auth.example.com</code>. </p>
      *         <p>
-     *         This string can include only lowercase letters, numbers, and hyphens. Do not use a hyphen for the first
-     *         or last character. Use periods to separate subdomain names.
+     *         This string can include only lowercase letters, numbers, and hyphens. Don't use a hyphen for the first or
+     *         last character. Use periods to separate subdomain names.
      */
 
     public String getDomain() {
@@ -98,19 +98,19 @@ public class UpdateUserPoolDomainRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The domain name for the custom domain that hosts the sign-up and sign-in pages for your application. For example:
-     * <code>auth.example.com</code>.
+     * The domain name for the custom domain that hosts the sign-up and sign-in pages for your application. One example
+     * might be <code>auth.example.com</code>.
      * </p>
      * <p>
-     * This string can include only lowercase letters, numbers, and hyphens. Do not use a hyphen for the first or last
+     * This string can include only lowercase letters, numbers, and hyphens. Don't use a hyphen for the first or last
      * character. Use periods to separate subdomain names.
      * </p>
      * 
      * @param domain
-     *        The domain name for the custom domain that hosts the sign-up and sign-in pages for your application. For
-     *        example: <code>auth.example.com</code>. </p>
+     *        The domain name for the custom domain that hosts the sign-up and sign-in pages for your application. One
+     *        example might be <code>auth.example.com</code>. </p>
      *        <p>
-     *        This string can include only lowercase letters, numbers, and hyphens. Do not use a hyphen for the first or
+     *        This string can include only lowercase letters, numbers, and hyphens. Don't use a hyphen for the first or
      *        last character. Use periods to separate subdomain names.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -122,12 +122,11 @@ public class UpdateUserPoolDomainRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The ID of the user pool that is associated with the custom domain that you are updating the certificate for.
+     * The ID of the user pool that is associated with the custom domain whose certificate you're updating.
      * </p>
      * 
      * @param userPoolId
-     *        The ID of the user pool that is associated with the custom domain that you are updating the certificate
-     *        for.
+     *        The ID of the user pool that is associated with the custom domain whose certificate you're updating.
      */
 
     public void setUserPoolId(String userPoolId) {
@@ -136,11 +135,10 @@ public class UpdateUserPoolDomainRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The ID of the user pool that is associated with the custom domain that you are updating the certificate for.
+     * The ID of the user pool that is associated with the custom domain whose certificate you're updating.
      * </p>
      * 
-     * @return The ID of the user pool that is associated with the custom domain that you are updating the certificate
-     *         for.
+     * @return The ID of the user pool that is associated with the custom domain whose certificate you're updating.
      */
 
     public String getUserPoolId() {
@@ -149,12 +147,11 @@ public class UpdateUserPoolDomainRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The ID of the user pool that is associated with the custom domain that you are updating the certificate for.
+     * The ID of the user pool that is associated with the custom domain whose certificate you're updating.
      * </p>
      * 
      * @param userPoolId
-     *        The ID of the user pool that is associated with the custom domain that you are updating the certificate
-     *        for.
+     *        The ID of the user pool that is associated with the custom domain whose certificate you're updating.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

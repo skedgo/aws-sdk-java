@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,6 +21,11 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <p>
  * Metadata that help you categorize IT assets.
  * </p>
+ * <important>
+ * <p>
+ * Do not store sensitive information (like personal data) in tags.
+ * </p>
+ * </important>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class Tag implements Serializable, Cloneable, StructuredPojo {

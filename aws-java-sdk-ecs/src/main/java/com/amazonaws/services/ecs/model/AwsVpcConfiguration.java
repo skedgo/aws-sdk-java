@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An object representing the networking details for a task or service.
+ * An object representing the networking details for a task or service. For example
+ * <code>awsvpcConfiguration={subnets=["subnet-12344321"],securityGroups=["sg-12344321"]}</code>
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/AwsVpcConfiguration" target="_top">AWS API
@@ -30,8 +31,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The subnets associated with the task or service. There is a limit of 16 subnets that can be specified per
-     * <code>AwsVpcConfiguration</code>.
+     * The IDs of the subnets associated with the task or service. There's a limit of 16 subnets that can be specified
+     * per <code>AwsVpcConfiguration</code>.
      * </p>
      * <note>
      * <p>
@@ -42,8 +43,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
     private com.amazonaws.internal.SdkInternalList<String> subnets;
     /**
      * <p>
-     * The security groups associated with the task or service. If you do not specify a security group, the default
-     * security group for the VPC is used. There is a limit of 5 security groups that can be specified per
+     * The IDs of the security groups associated with the task or service. If you don't specify a security group, the
+     * default security group for the VPC is used. There's a limit of 5 security groups that can be specified per
      * <code>AwsVpcConfiguration</code>.
      * </p>
      * <note>
@@ -63,8 +64,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The subnets associated with the task or service. There is a limit of 16 subnets that can be specified per
-     * <code>AwsVpcConfiguration</code>.
+     * The IDs of the subnets associated with the task or service. There's a limit of 16 subnets that can be specified
+     * per <code>AwsVpcConfiguration</code>.
      * </p>
      * <note>
      * <p>
@@ -72,8 +73,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
      * </p>
      * </note>
      * 
-     * @return The subnets associated with the task or service. There is a limit of 16 subnets that can be specified per
-     *         <code>AwsVpcConfiguration</code>.</p> <note>
+     * @return The IDs of the subnets associated with the task or service. There's a limit of 16 subnets that can be
+     *         specified per <code>AwsVpcConfiguration</code>.</p> <note>
      *         <p>
      *         All specified subnets must be from the same VPC.
      *         </p>
@@ -88,8 +89,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The subnets associated with the task or service. There is a limit of 16 subnets that can be specified per
-     * <code>AwsVpcConfiguration</code>.
+     * The IDs of the subnets associated with the task or service. There's a limit of 16 subnets that can be specified
+     * per <code>AwsVpcConfiguration</code>.
      * </p>
      * <note>
      * <p>
@@ -98,8 +99,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
      * </note>
      * 
      * @param subnets
-     *        The subnets associated with the task or service. There is a limit of 16 subnets that can be specified per
-     *        <code>AwsVpcConfiguration</code>.</p> <note>
+     *        The IDs of the subnets associated with the task or service. There's a limit of 16 subnets that can be
+     *        specified per <code>AwsVpcConfiguration</code>.</p> <note>
      *        <p>
      *        All specified subnets must be from the same VPC.
      *        </p>
@@ -116,8 +117,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The subnets associated with the task or service. There is a limit of 16 subnets that can be specified per
-     * <code>AwsVpcConfiguration</code>.
+     * The IDs of the subnets associated with the task or service. There's a limit of 16 subnets that can be specified
+     * per <code>AwsVpcConfiguration</code>.
      * </p>
      * <note>
      * <p>
@@ -131,8 +132,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
      * </p>
      * 
      * @param subnets
-     *        The subnets associated with the task or service. There is a limit of 16 subnets that can be specified per
-     *        <code>AwsVpcConfiguration</code>.</p> <note>
+     *        The IDs of the subnets associated with the task or service. There's a limit of 16 subnets that can be
+     *        specified per <code>AwsVpcConfiguration</code>.</p> <note>
      *        <p>
      *        All specified subnets must be from the same VPC.
      *        </p>
@@ -151,8 +152,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The subnets associated with the task or service. There is a limit of 16 subnets that can be specified per
-     * <code>AwsVpcConfiguration</code>.
+     * The IDs of the subnets associated with the task or service. There's a limit of 16 subnets that can be specified
+     * per <code>AwsVpcConfiguration</code>.
      * </p>
      * <note>
      * <p>
@@ -161,8 +162,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
      * </note>
      * 
      * @param subnets
-     *        The subnets associated with the task or service. There is a limit of 16 subnets that can be specified per
-     *        <code>AwsVpcConfiguration</code>.</p> <note>
+     *        The IDs of the subnets associated with the task or service. There's a limit of 16 subnets that can be
+     *        specified per <code>AwsVpcConfiguration</code>.</p> <note>
      *        <p>
      *        All specified subnets must be from the same VPC.
      *        </p>
@@ -176,8 +177,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The security groups associated with the task or service. If you do not specify a security group, the default
-     * security group for the VPC is used. There is a limit of 5 security groups that can be specified per
+     * The IDs of the security groups associated with the task or service. If you don't specify a security group, the
+     * default security group for the VPC is used. There's a limit of 5 security groups that can be specified per
      * <code>AwsVpcConfiguration</code>.
      * </p>
      * <note>
@@ -186,9 +187,9 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
      * </p>
      * </note>
      * 
-     * @return The security groups associated with the task or service. If you do not specify a security group, the
-     *         default security group for the VPC is used. There is a limit of 5 security groups that can be specified
-     *         per <code>AwsVpcConfiguration</code>.</p> <note>
+     * @return The IDs of the security groups associated with the task or service. If you don't specify a security
+     *         group, the default security group for the VPC is used. There's a limit of 5 security groups that can be
+     *         specified per <code>AwsVpcConfiguration</code>.</p> <note>
      *         <p>
      *         All specified security groups must be from the same VPC.
      *         </p>
@@ -203,8 +204,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The security groups associated with the task or service. If you do not specify a security group, the default
-     * security group for the VPC is used. There is a limit of 5 security groups that can be specified per
+     * The IDs of the security groups associated with the task or service. If you don't specify a security group, the
+     * default security group for the VPC is used. There's a limit of 5 security groups that can be specified per
      * <code>AwsVpcConfiguration</code>.
      * </p>
      * <note>
@@ -214,8 +215,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
      * </note>
      * 
      * @param securityGroups
-     *        The security groups associated with the task or service. If you do not specify a security group, the
-     *        default security group for the VPC is used. There is a limit of 5 security groups that can be specified
+     *        The IDs of the security groups associated with the task or service. If you don't specify a security group,
+     *        the default security group for the VPC is used. There's a limit of 5 security groups that can be specified
      *        per <code>AwsVpcConfiguration</code>.</p> <note>
      *        <p>
      *        All specified security groups must be from the same VPC.
@@ -233,8 +234,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The security groups associated with the task or service. If you do not specify a security group, the default
-     * security group for the VPC is used. There is a limit of 5 security groups that can be specified per
+     * The IDs of the security groups associated with the task or service. If you don't specify a security group, the
+     * default security group for the VPC is used. There's a limit of 5 security groups that can be specified per
      * <code>AwsVpcConfiguration</code>.
      * </p>
      * <note>
@@ -249,8 +250,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
      * </p>
      * 
      * @param securityGroups
-     *        The security groups associated with the task or service. If you do not specify a security group, the
-     *        default security group for the VPC is used. There is a limit of 5 security groups that can be specified
+     *        The IDs of the security groups associated with the task or service. If you don't specify a security group,
+     *        the default security group for the VPC is used. There's a limit of 5 security groups that can be specified
      *        per <code>AwsVpcConfiguration</code>.</p> <note>
      *        <p>
      *        All specified security groups must be from the same VPC.
@@ -270,8 +271,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The security groups associated with the task or service. If you do not specify a security group, the default
-     * security group for the VPC is used. There is a limit of 5 security groups that can be specified per
+     * The IDs of the security groups associated with the task or service. If you don't specify a security group, the
+     * default security group for the VPC is used. There's a limit of 5 security groups that can be specified per
      * <code>AwsVpcConfiguration</code>.
      * </p>
      * <note>
@@ -281,8 +282,8 @@ public class AwsVpcConfiguration implements Serializable, Cloneable, StructuredP
      * </note>
      * 
      * @param securityGroups
-     *        The security groups associated with the task or service. If you do not specify a security group, the
-     *        default security group for the VPC is used. There is a limit of 5 security groups that can be specified
+     *        The IDs of the security groups associated with the task or service. If you don't specify a security group,
+     *        the default security group for the VPC is used. There's a limit of 5 security groups that can be specified
      *        per <code>AwsVpcConfiguration</code>.</p> <note>
      *        <p>
      *        All specified security groups must be from the same VPC.

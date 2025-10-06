@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,7 @@ public class DescribeLifecycleHooksRequest extends com.amazonaws.AmazonWebServic
     private String autoScalingGroupName;
     /**
      * <p>
-     * The names of one or more lifecycle hooks. If you omit this parameter, all lifecycle hooks are described.
+     * The names of one or more lifecycle hooks. If you omit this property, all lifecycle hooks are described.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> lifecycleHookNames;
@@ -80,10 +80,10 @@ public class DescribeLifecycleHooksRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The names of one or more lifecycle hooks. If you omit this parameter, all lifecycle hooks are described.
+     * The names of one or more lifecycle hooks. If you omit this property, all lifecycle hooks are described.
      * </p>
      * 
-     * @return The names of one or more lifecycle hooks. If you omit this parameter, all lifecycle hooks are described.
+     * @return The names of one or more lifecycle hooks. If you omit this property, all lifecycle hooks are described.
      */
 
     public java.util.List<String> getLifecycleHookNames() {
@@ -95,11 +95,11 @@ public class DescribeLifecycleHooksRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The names of one or more lifecycle hooks. If you omit this parameter, all lifecycle hooks are described.
+     * The names of one or more lifecycle hooks. If you omit this property, all lifecycle hooks are described.
      * </p>
      * 
      * @param lifecycleHookNames
-     *        The names of one or more lifecycle hooks. If you omit this parameter, all lifecycle hooks are described.
+     *        The names of one or more lifecycle hooks. If you omit this property, all lifecycle hooks are described.
      */
 
     public void setLifecycleHookNames(java.util.Collection<String> lifecycleHookNames) {
@@ -113,7 +113,7 @@ public class DescribeLifecycleHooksRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The names of one or more lifecycle hooks. If you omit this parameter, all lifecycle hooks are described.
+     * The names of one or more lifecycle hooks. If you omit this property, all lifecycle hooks are described.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -122,7 +122,7 @@ public class DescribeLifecycleHooksRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param lifecycleHookNames
-     *        The names of one or more lifecycle hooks. If you omit this parameter, all lifecycle hooks are described.
+     *        The names of one or more lifecycle hooks. If you omit this property, all lifecycle hooks are described.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -138,11 +138,11 @@ public class DescribeLifecycleHooksRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The names of one or more lifecycle hooks. If you omit this parameter, all lifecycle hooks are described.
+     * The names of one or more lifecycle hooks. If you omit this property, all lifecycle hooks are described.
      * </p>
      * 
      * @param lifecycleHookNames
-     *        The names of one or more lifecycle hooks. If you omit this parameter, all lifecycle hooks are described.
+     *        The names of one or more lifecycle hooks. If you omit this property, all lifecycle hooks are described.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

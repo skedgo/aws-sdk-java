@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,13 +46,13 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
     private String description;
     /**
      * <p>
-     * One or more security groups.
+     * The security groups.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<GroupIdentifier> groups;
     /**
      * <p>
-     * One or more IPv6 addresses associated with the network interface.
+     * The IPv6 addresses associated with the network interface.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<InstanceIpv6Address> ipv6Addresses;
@@ -70,7 +70,7 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
     private String networkInterfaceId;
     /**
      * <p>
-     * The ID of the AWS account that created the network interface.
+     * The ID of the Amazon Web Services account that created the network interface.
      * </p>
      */
     private String ownerId;
@@ -88,13 +88,13 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
     private String privateIpAddress;
     /**
      * <p>
-     * One or more private IPv4 addresses associated with the network interface.
+     * The private IPv4 addresses associated with the network interface.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<InstancePrivateIpAddress> privateIpAddresses;
     /**
      * <p>
-     * Indicates whether to validate network traffic to or from this network interface.
+     * Indicates whether source/destination checking is enabled.
      * </p>
      */
     private Boolean sourceDestCheck;
@@ -118,13 +118,34 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
     private String vpcId;
     /**
      * <p>
-     * Describes the type of network interface.
+     * The type of network interface.
      * </p>
      * <p>
-     * Valid values: <code>interface</code> | <code>efa</code>
+     * Valid values: <code>interface</code> | <code>efa</code> | <code>trunk</code>
      * </p>
      */
     private String interfaceType;
+    /**
+     * <p>
+     * The IPv4 delegated prefixes that are assigned to the network interface.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<InstanceIpv4Prefix> ipv4Prefixes;
+    /**
+     * <p>
+     * The IPv6 delegated prefixes that are assigned to the network interface.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<InstanceIpv6Prefix> ipv6Prefixes;
+    /**
+     * <p>
+     * A security group connection tracking configuration that enables you to set the timeout for connection tracking on
+     * an Elastic network interface. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     * >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private ConnectionTrackingSpecificationResponse connectionTrackingConfiguration;
 
     /**
      * <p>
@@ -248,10 +269,10 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more security groups.
+     * The security groups.
      * </p>
      * 
-     * @return One or more security groups.
+     * @return The security groups.
      */
 
     public java.util.List<GroupIdentifier> getGroups() {
@@ -263,11 +284,11 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more security groups.
+     * The security groups.
      * </p>
      * 
      * @param groups
-     *        One or more security groups.
+     *        The security groups.
      */
 
     public void setGroups(java.util.Collection<GroupIdentifier> groups) {
@@ -281,7 +302,7 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more security groups.
+     * The security groups.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -290,7 +311,7 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
      * </p>
      * 
      * @param groups
-     *        One or more security groups.
+     *        The security groups.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -306,11 +327,11 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more security groups.
+     * The security groups.
      * </p>
      * 
      * @param groups
-     *        One or more security groups.
+     *        The security groups.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -321,10 +342,10 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more IPv6 addresses associated with the network interface.
+     * The IPv6 addresses associated with the network interface.
      * </p>
      * 
-     * @return One or more IPv6 addresses associated with the network interface.
+     * @return The IPv6 addresses associated with the network interface.
      */
 
     public java.util.List<InstanceIpv6Address> getIpv6Addresses() {
@@ -336,11 +357,11 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more IPv6 addresses associated with the network interface.
+     * The IPv6 addresses associated with the network interface.
      * </p>
      * 
      * @param ipv6Addresses
-     *        One or more IPv6 addresses associated with the network interface.
+     *        The IPv6 addresses associated with the network interface.
      */
 
     public void setIpv6Addresses(java.util.Collection<InstanceIpv6Address> ipv6Addresses) {
@@ -354,7 +375,7 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more IPv6 addresses associated with the network interface.
+     * The IPv6 addresses associated with the network interface.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -363,7 +384,7 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
      * </p>
      * 
      * @param ipv6Addresses
-     *        One or more IPv6 addresses associated with the network interface.
+     *        The IPv6 addresses associated with the network interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -379,11 +400,11 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more IPv6 addresses associated with the network interface.
+     * The IPv6 addresses associated with the network interface.
      * </p>
      * 
      * @param ipv6Addresses
-     *        One or more IPv6 addresses associated with the network interface.
+     *        The IPv6 addresses associated with the network interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -474,11 +495,11 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that created the network interface.
+     * The ID of the Amazon Web Services account that created the network interface.
      * </p>
      * 
      * @param ownerId
-     *        The ID of the AWS account that created the network interface.
+     *        The ID of the Amazon Web Services account that created the network interface.
      */
 
     public void setOwnerId(String ownerId) {
@@ -487,10 +508,10 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that created the network interface.
+     * The ID of the Amazon Web Services account that created the network interface.
      * </p>
      * 
-     * @return The ID of the AWS account that created the network interface.
+     * @return The ID of the Amazon Web Services account that created the network interface.
      */
 
     public String getOwnerId() {
@@ -499,11 +520,11 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that created the network interface.
+     * The ID of the Amazon Web Services account that created the network interface.
      * </p>
      * 
      * @param ownerId
-     *        The ID of the AWS account that created the network interface.
+     *        The ID of the Amazon Web Services account that created the network interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -594,10 +615,10 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more private IPv4 addresses associated with the network interface.
+     * The private IPv4 addresses associated with the network interface.
      * </p>
      * 
-     * @return One or more private IPv4 addresses associated with the network interface.
+     * @return The private IPv4 addresses associated with the network interface.
      */
 
     public java.util.List<InstancePrivateIpAddress> getPrivateIpAddresses() {
@@ -609,11 +630,11 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more private IPv4 addresses associated with the network interface.
+     * The private IPv4 addresses associated with the network interface.
      * </p>
      * 
      * @param privateIpAddresses
-     *        One or more private IPv4 addresses associated with the network interface.
+     *        The private IPv4 addresses associated with the network interface.
      */
 
     public void setPrivateIpAddresses(java.util.Collection<InstancePrivateIpAddress> privateIpAddresses) {
@@ -627,7 +648,7 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more private IPv4 addresses associated with the network interface.
+     * The private IPv4 addresses associated with the network interface.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -636,7 +657,7 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
      * </p>
      * 
      * @param privateIpAddresses
-     *        One or more private IPv4 addresses associated with the network interface.
+     *        The private IPv4 addresses associated with the network interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -652,11 +673,11 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more private IPv4 addresses associated with the network interface.
+     * The private IPv4 addresses associated with the network interface.
      * </p>
      * 
      * @param privateIpAddresses
-     *        One or more private IPv4 addresses associated with the network interface.
+     *        The private IPv4 addresses associated with the network interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -667,11 +688,11 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether to validate network traffic to or from this network interface.
+     * Indicates whether source/destination checking is enabled.
      * </p>
      * 
      * @param sourceDestCheck
-     *        Indicates whether to validate network traffic to or from this network interface.
+     *        Indicates whether source/destination checking is enabled.
      */
 
     public void setSourceDestCheck(Boolean sourceDestCheck) {
@@ -680,10 +701,10 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether to validate network traffic to or from this network interface.
+     * Indicates whether source/destination checking is enabled.
      * </p>
      * 
-     * @return Indicates whether to validate network traffic to or from this network interface.
+     * @return Indicates whether source/destination checking is enabled.
      */
 
     public Boolean getSourceDestCheck() {
@@ -692,11 +713,11 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether to validate network traffic to or from this network interface.
+     * Indicates whether source/destination checking is enabled.
      * </p>
      * 
      * @param sourceDestCheck
-     *        Indicates whether to validate network traffic to or from this network interface.
+     *        Indicates whether source/destination checking is enabled.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -707,10 +728,10 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether to validate network traffic to or from this network interface.
+     * Indicates whether source/destination checking is enabled.
      * </p>
      * 
-     * @return Indicates whether to validate network traffic to or from this network interface.
+     * @return Indicates whether source/destination checking is enabled.
      */
 
     public Boolean isSourceDestCheck() {
@@ -872,16 +893,16 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Describes the type of network interface.
+     * The type of network interface.
      * </p>
      * <p>
-     * Valid values: <code>interface</code> | <code>efa</code>
+     * Valid values: <code>interface</code> | <code>efa</code> | <code>trunk</code>
      * </p>
      * 
      * @param interfaceType
-     *        Describes the type of network interface.</p>
+     *        The type of network interface.</p>
      *        <p>
-     *        Valid values: <code>interface</code> | <code>efa</code>
+     *        Valid values: <code>interface</code> | <code>efa</code> | <code>trunk</code>
      */
 
     public void setInterfaceType(String interfaceType) {
@@ -890,15 +911,15 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Describes the type of network interface.
+     * The type of network interface.
      * </p>
      * <p>
-     * Valid values: <code>interface</code> | <code>efa</code>
+     * Valid values: <code>interface</code> | <code>efa</code> | <code>trunk</code>
      * </p>
      * 
-     * @return Describes the type of network interface.</p>
+     * @return The type of network interface.</p>
      *         <p>
-     *         Valid values: <code>interface</code> | <code>efa</code>
+     *         Valid values: <code>interface</code> | <code>efa</code> | <code>trunk</code>
      */
 
     public String getInterfaceType() {
@@ -907,21 +928,225 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Describes the type of network interface.
+     * The type of network interface.
      * </p>
      * <p>
-     * Valid values: <code>interface</code> | <code>efa</code>
+     * Valid values: <code>interface</code> | <code>efa</code> | <code>trunk</code>
      * </p>
      * 
      * @param interfaceType
-     *        Describes the type of network interface.</p>
+     *        The type of network interface.</p>
      *        <p>
-     *        Valid values: <code>interface</code> | <code>efa</code>
+     *        Valid values: <code>interface</code> | <code>efa</code> | <code>trunk</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public InstanceNetworkInterface withInterfaceType(String interfaceType) {
         setInterfaceType(interfaceType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv4 delegated prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @return The IPv4 delegated prefixes that are assigned to the network interface.
+     */
+
+    public java.util.List<InstanceIpv4Prefix> getIpv4Prefixes() {
+        if (ipv4Prefixes == null) {
+            ipv4Prefixes = new com.amazonaws.internal.SdkInternalList<InstanceIpv4Prefix>();
+        }
+        return ipv4Prefixes;
+    }
+
+    /**
+     * <p>
+     * The IPv4 delegated prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        The IPv4 delegated prefixes that are assigned to the network interface.
+     */
+
+    public void setIpv4Prefixes(java.util.Collection<InstanceIpv4Prefix> ipv4Prefixes) {
+        if (ipv4Prefixes == null) {
+            this.ipv4Prefixes = null;
+            return;
+        }
+
+        this.ipv4Prefixes = new com.amazonaws.internal.SdkInternalList<InstanceIpv4Prefix>(ipv4Prefixes);
+    }
+
+    /**
+     * <p>
+     * The IPv4 delegated prefixes that are assigned to the network interface.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setIpv4Prefixes(java.util.Collection)} or {@link #withIpv4Prefixes(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        The IPv4 delegated prefixes that are assigned to the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceNetworkInterface withIpv4Prefixes(InstanceIpv4Prefix... ipv4Prefixes) {
+        if (this.ipv4Prefixes == null) {
+            setIpv4Prefixes(new com.amazonaws.internal.SdkInternalList<InstanceIpv4Prefix>(ipv4Prefixes.length));
+        }
+        for (InstanceIpv4Prefix ele : ipv4Prefixes) {
+            this.ipv4Prefixes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv4 delegated prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        The IPv4 delegated prefixes that are assigned to the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceNetworkInterface withIpv4Prefixes(java.util.Collection<InstanceIpv4Prefix> ipv4Prefixes) {
+        setIpv4Prefixes(ipv4Prefixes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv6 delegated prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @return The IPv6 delegated prefixes that are assigned to the network interface.
+     */
+
+    public java.util.List<InstanceIpv6Prefix> getIpv6Prefixes() {
+        if (ipv6Prefixes == null) {
+            ipv6Prefixes = new com.amazonaws.internal.SdkInternalList<InstanceIpv6Prefix>();
+        }
+        return ipv6Prefixes;
+    }
+
+    /**
+     * <p>
+     * The IPv6 delegated prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        The IPv6 delegated prefixes that are assigned to the network interface.
+     */
+
+    public void setIpv6Prefixes(java.util.Collection<InstanceIpv6Prefix> ipv6Prefixes) {
+        if (ipv6Prefixes == null) {
+            this.ipv6Prefixes = null;
+            return;
+        }
+
+        this.ipv6Prefixes = new com.amazonaws.internal.SdkInternalList<InstanceIpv6Prefix>(ipv6Prefixes);
+    }
+
+    /**
+     * <p>
+     * The IPv6 delegated prefixes that are assigned to the network interface.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setIpv6Prefixes(java.util.Collection)} or {@link #withIpv6Prefixes(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        The IPv6 delegated prefixes that are assigned to the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceNetworkInterface withIpv6Prefixes(InstanceIpv6Prefix... ipv6Prefixes) {
+        if (this.ipv6Prefixes == null) {
+            setIpv6Prefixes(new com.amazonaws.internal.SdkInternalList<InstanceIpv6Prefix>(ipv6Prefixes.length));
+        }
+        for (InstanceIpv6Prefix ele : ipv6Prefixes) {
+            this.ipv6Prefixes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv6 delegated prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        The IPv6 delegated prefixes that are assigned to the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceNetworkInterface withIpv6Prefixes(java.util.Collection<InstanceIpv6Prefix> ipv6Prefixes) {
+        setIpv6Prefixes(ipv6Prefixes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A security group connection tracking configuration that enables you to set the timeout for connection tracking on
+     * an Elastic network interface. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     * >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param connectionTrackingConfiguration
+     *        A security group connection tracking configuration that enables you to set the timeout for connection
+     *        tracking on an Elastic network interface. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     *        >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setConnectionTrackingConfiguration(ConnectionTrackingSpecificationResponse connectionTrackingConfiguration) {
+        this.connectionTrackingConfiguration = connectionTrackingConfiguration;
+    }
+
+    /**
+     * <p>
+     * A security group connection tracking configuration that enables you to set the timeout for connection tracking on
+     * an Elastic network interface. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     * >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return A security group connection tracking configuration that enables you to set the timeout for connection
+     *         tracking on an Elastic network interface. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     *         >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public ConnectionTrackingSpecificationResponse getConnectionTrackingConfiguration() {
+        return this.connectionTrackingConfiguration;
+    }
+
+    /**
+     * <p>
+     * A security group connection tracking configuration that enables you to set the timeout for connection tracking on
+     * an Elastic network interface. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     * >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param connectionTrackingConfiguration
+     *        A security group connection tracking configuration that enables you to set the timeout for connection
+     *        tracking on an Elastic network interface. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     *        >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceNetworkInterface withConnectionTrackingConfiguration(ConnectionTrackingSpecificationResponse connectionTrackingConfiguration) {
+        setConnectionTrackingConfiguration(connectionTrackingConfiguration);
         return this;
     }
 
@@ -968,7 +1193,13 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
         if (getVpcId() != null)
             sb.append("VpcId: ").append(getVpcId()).append(",");
         if (getInterfaceType() != null)
-            sb.append("InterfaceType: ").append(getInterfaceType());
+            sb.append("InterfaceType: ").append(getInterfaceType()).append(",");
+        if (getIpv4Prefixes() != null)
+            sb.append("Ipv4Prefixes: ").append(getIpv4Prefixes()).append(",");
+        if (getIpv6Prefixes() != null)
+            sb.append("Ipv6Prefixes: ").append(getIpv6Prefixes()).append(",");
+        if (getConnectionTrackingConfiguration() != null)
+            sb.append("ConnectionTrackingConfiguration: ").append(getConnectionTrackingConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -1047,6 +1278,19 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
             return false;
         if (other.getInterfaceType() != null && other.getInterfaceType().equals(this.getInterfaceType()) == false)
             return false;
+        if (other.getIpv4Prefixes() == null ^ this.getIpv4Prefixes() == null)
+            return false;
+        if (other.getIpv4Prefixes() != null && other.getIpv4Prefixes().equals(this.getIpv4Prefixes()) == false)
+            return false;
+        if (other.getIpv6Prefixes() == null ^ this.getIpv6Prefixes() == null)
+            return false;
+        if (other.getIpv6Prefixes() != null && other.getIpv6Prefixes().equals(this.getIpv6Prefixes()) == false)
+            return false;
+        if (other.getConnectionTrackingConfiguration() == null ^ this.getConnectionTrackingConfiguration() == null)
+            return false;
+        if (other.getConnectionTrackingConfiguration() != null
+                && other.getConnectionTrackingConfiguration().equals(this.getConnectionTrackingConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -1071,6 +1315,9 @@ public class InstanceNetworkInterface implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getSubnetId() == null) ? 0 : getSubnetId().hashCode());
         hashCode = prime * hashCode + ((getVpcId() == null) ? 0 : getVpcId().hashCode());
         hashCode = prime * hashCode + ((getInterfaceType() == null) ? 0 : getInterfaceType().hashCode());
+        hashCode = prime * hashCode + ((getIpv4Prefixes() == null) ? 0 : getIpv4Prefixes().hashCode());
+        hashCode = prime * hashCode + ((getIpv6Prefixes() == null) ? 0 : getIpv6Prefixes().hashCode());
+        hashCode = prime * hashCode + ((getConnectionTrackingConfiguration() == null) ? 0 : getConnectionTrackingConfiguration().hashCode());
         return hashCode;
     }
 

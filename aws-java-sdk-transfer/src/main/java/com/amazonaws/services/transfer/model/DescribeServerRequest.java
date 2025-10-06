@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,18 @@ public class DescribeServerRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server.
+     * A system-assigned unique identifier for a server.
      * </p>
      */
     private String serverId;
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server.
+     * A system-assigned unique identifier for a server.
      * </p>
      * 
      * @param serverId
-     *        A system-assigned unique identifier for an SFTP server.
+     *        A system-assigned unique identifier for a server.
      */
 
     public void setServerId(String serverId) {
@@ -47,10 +47,10 @@ public class DescribeServerRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server.
+     * A system-assigned unique identifier for a server.
      * </p>
      * 
-     * @return A system-assigned unique identifier for an SFTP server.
+     * @return A system-assigned unique identifier for a server.
      */
 
     public String getServerId() {
@@ -59,11 +59,11 @@ public class DescribeServerRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server.
+     * A system-assigned unique identifier for a server.
      * </p>
      * 
      * @param serverId
-     *        A system-assigned unique identifier for an SFTP server.
+     *        A system-assigned unique identifier for a server.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

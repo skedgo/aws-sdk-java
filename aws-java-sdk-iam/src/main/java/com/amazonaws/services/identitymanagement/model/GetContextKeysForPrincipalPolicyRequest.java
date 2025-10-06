@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,8 +35,8 @@ public class GetContextKeysForPrincipalPolicyRequest extends com.amazonaws.Amazo
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      */
     private String policySourceArn;
@@ -51,17 +51,19 @@ public class GetContextKeysForPrincipalPolicyRequest extends com.amazonaws.Amazo
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -78,8 +80,8 @@ public class GetContextKeysForPrincipalPolicyRequest extends com.amazonaws.Amazo
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param policySourceArn
@@ -92,7 +94,7 @@ public class GetContextKeysForPrincipalPolicyRequest extends com.amazonaws.Amazo
      *        <p>
      *        For more information about ARNs, see <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *        (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      */
 
     public void setPolicySourceArn(String policySourceArn) {
@@ -109,8 +111,8 @@ public class GetContextKeysForPrincipalPolicyRequest extends com.amazonaws.Amazo
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @return The ARN of a user, group, or role whose policies contain the context keys that you want listed. If you
@@ -122,7 +124,7 @@ public class GetContextKeysForPrincipalPolicyRequest extends com.amazonaws.Amazo
      *         <p>
      *         For more information about ARNs, see <a
      *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *         (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *         (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      */
 
     public String getPolicySourceArn() {
@@ -139,8 +141,8 @@ public class GetContextKeysForPrincipalPolicyRequest extends com.amazonaws.Amazo
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param policySourceArn
@@ -153,7 +155,7 @@ public class GetContextKeysForPrincipalPolicyRequest extends com.amazonaws.Amazo
      *        <p>
      *        For more information about ARNs, see <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *        (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -173,17 +175,19 @@ public class GetContextKeysForPrincipalPolicyRequest extends com.amazonaws.Amazo
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -197,18 +201,20 @@ public class GetContextKeysForPrincipalPolicyRequest extends com.amazonaws.Amazo
      *         <ul>
      *         <li>
      *         <p>
-     *         Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *         range
+     *         Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *         the ASCII character range
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *         <code>\u00FF</code>)
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The special characters tab ( ), line feed ( ), and carriage return ( )
+     *         The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *         <code>\u000D</code>)
      *         </p>
      *         </li>
      */
@@ -231,17 +237,19 @@ public class GetContextKeysForPrincipalPolicyRequest extends com.amazonaws.Amazo
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -256,18 +264,20 @@ public class GetContextKeysForPrincipalPolicyRequest extends com.amazonaws.Amazo
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      */
@@ -292,17 +302,19 @@ public class GetContextKeysForPrincipalPolicyRequest extends com.amazonaws.Amazo
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -322,18 +334,20 @@ public class GetContextKeysForPrincipalPolicyRequest extends com.amazonaws.Amazo
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -360,17 +374,19 @@ public class GetContextKeysForPrincipalPolicyRequest extends com.amazonaws.Amazo
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -385,18 +401,20 @@ public class GetContextKeysForPrincipalPolicyRequest extends com.amazonaws.Amazo
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

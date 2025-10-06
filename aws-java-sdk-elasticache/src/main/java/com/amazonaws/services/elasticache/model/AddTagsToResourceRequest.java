@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,14 +38,14 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      * <p>
      * For more information about ARNs, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a>.
+     * and Amazon Service Namespaces</a>.
      * </p>
      */
     private String resourceName;
     /**
      * <p>
-     * A list of cost allocation tags to be added to this resource. A tag is a key-value pair. A tag key must be
-     * accompanied by a tag value.
+     * A list of tags to be added to this resource. A tag is a key-value pair. A tag key must be accompanied by a tag
+     * value, although null is accepted.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
@@ -60,7 +60,7 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      * <p>
      * For more information about ARNs, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a>.
+     * and Amazon Service Namespaces</a>.
      * </p>
      * 
      * @param resourceName
@@ -71,7 +71,7 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      *        <p>
      *        For more information about ARNs, see <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a>.
+     *        (ARNs) and Amazon Service Namespaces</a>.
      */
 
     public void setResourceName(String resourceName) {
@@ -88,7 +88,7 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      * <p>
      * For more information about ARNs, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a>.
+     * and Amazon Service Namespaces</a>.
      * </p>
      * 
      * @return The Amazon Resource Name (ARN) of the resource to which the tags are to be added, for example
@@ -98,7 +98,7 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      *         <p>
      *         For more information about ARNs, see <a
      *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *         (ARNs) and AWS Service Namespaces</a>.
+     *         (ARNs) and Amazon Service Namespaces</a>.
      */
 
     public String getResourceName() {
@@ -115,7 +115,7 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      * <p>
      * For more information about ARNs, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a>.
+     * and Amazon Service Namespaces</a>.
      * </p>
      * 
      * @param resourceName
@@ -126,7 +126,7 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      *        <p>
      *        For more information about ARNs, see <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a>.
+     *        (ARNs) and Amazon Service Namespaces</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -137,12 +137,12 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A list of cost allocation tags to be added to this resource. A tag is a key-value pair. A tag key must be
-     * accompanied by a tag value.
+     * A list of tags to be added to this resource. A tag is a key-value pair. A tag key must be accompanied by a tag
+     * value, although null is accepted.
      * </p>
      * 
-     * @return A list of cost allocation tags to be added to this resource. A tag is a key-value pair. A tag key must be
-     *         accompanied by a tag value.
+     * @return A list of tags to be added to this resource. A tag is a key-value pair. A tag key must be accompanied by
+     *         a tag value, although null is accepted.
      */
 
     public java.util.List<Tag> getTags() {
@@ -154,13 +154,13 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A list of cost allocation tags to be added to this resource. A tag is a key-value pair. A tag key must be
-     * accompanied by a tag value.
+     * A list of tags to be added to this resource. A tag is a key-value pair. A tag key must be accompanied by a tag
+     * value, although null is accepted.
      * </p>
      * 
      * @param tags
-     *        A list of cost allocation tags to be added to this resource. A tag is a key-value pair. A tag key must be
-     *        accompanied by a tag value.
+     *        A list of tags to be added to this resource. A tag is a key-value pair. A tag key must be accompanied by a
+     *        tag value, although null is accepted.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -174,8 +174,8 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A list of cost allocation tags to be added to this resource. A tag is a key-value pair. A tag key must be
-     * accompanied by a tag value.
+     * A list of tags to be added to this resource. A tag is a key-value pair. A tag key must be accompanied by a tag
+     * value, although null is accepted.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -184,8 +184,8 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * 
      * @param tags
-     *        A list of cost allocation tags to be added to this resource. A tag is a key-value pair. A tag key must be
-     *        accompanied by a tag value.
+     *        A list of tags to be added to this resource. A tag is a key-value pair. A tag key must be accompanied by a
+     *        tag value, although null is accepted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -201,13 +201,13 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A list of cost allocation tags to be added to this resource. A tag is a key-value pair. A tag key must be
-     * accompanied by a tag value.
+     * A list of tags to be added to this resource. A tag is a key-value pair. A tag key must be accompanied by a tag
+     * value, although null is accepted.
      * </p>
      * 
      * @param tags
-     *        A list of cost allocation tags to be added to this resource. A tag is a key-value pair. A tag key must be
-     *        accompanied by a tag value.
+     *        A list of tags to be added to this resource. A tag is a key-value pair. A tag key must be accompanied by a
+     *        tag value, although null is accepted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

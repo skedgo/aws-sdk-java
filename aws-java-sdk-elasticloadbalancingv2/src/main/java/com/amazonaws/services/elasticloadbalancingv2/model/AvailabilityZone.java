@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,13 +34,21 @@ public class AvailabilityZone implements Serializable, Cloneable {
     private String zoneName;
     /**
      * <p>
-     * The ID of the subnet.
+     * The ID of the subnet. You can specify one subnet per Availability Zone.
      * </p>
      */
     private String subnetId;
     /**
      * <p>
-     * [Network Load Balancers] The static IP address.
+     * [Application Load Balancers on Outposts] The ID of the Outpost.
+     * </p>
+     */
+    private String outpostId;
+    /**
+     * <p>
+     * [Network Load Balancers] If you need static IP addresses for your load balancer, you can specify one Elastic IP
+     * address per Availability Zone when you create an internal-facing load balancer. For internal load balancers, you
+     * can specify a private IP address from the IPv4 range of the subnet.
      * </p>
      */
     private java.util.List<LoadBalancerAddress> loadBalancerAddresses;
@@ -87,11 +95,11 @@ public class AvailabilityZone implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the subnet.
+     * The ID of the subnet. You can specify one subnet per Availability Zone.
      * </p>
      * 
      * @param subnetId
-     *        The ID of the subnet.
+     *        The ID of the subnet. You can specify one subnet per Availability Zone.
      */
 
     public void setSubnetId(String subnetId) {
@@ -100,10 +108,10 @@ public class AvailabilityZone implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the subnet.
+     * The ID of the subnet. You can specify one subnet per Availability Zone.
      * </p>
      * 
-     * @return The ID of the subnet.
+     * @return The ID of the subnet. You can specify one subnet per Availability Zone.
      */
 
     public String getSubnetId() {
@@ -112,11 +120,11 @@ public class AvailabilityZone implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the subnet.
+     * The ID of the subnet. You can specify one subnet per Availability Zone.
      * </p>
      * 
      * @param subnetId
-     *        The ID of the subnet.
+     *        The ID of the subnet. You can specify one subnet per Availability Zone.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -127,10 +135,54 @@ public class AvailabilityZone implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [Network Load Balancers] The static IP address.
+     * [Application Load Balancers on Outposts] The ID of the Outpost.
      * </p>
      * 
-     * @return [Network Load Balancers] The static IP address.
+     * @param outpostId
+     *        [Application Load Balancers on Outposts] The ID of the Outpost.
+     */
+
+    public void setOutpostId(String outpostId) {
+        this.outpostId = outpostId;
+    }
+
+    /**
+     * <p>
+     * [Application Load Balancers on Outposts] The ID of the Outpost.
+     * </p>
+     * 
+     * @return [Application Load Balancers on Outposts] The ID of the Outpost.
+     */
+
+    public String getOutpostId() {
+        return this.outpostId;
+    }
+
+    /**
+     * <p>
+     * [Application Load Balancers on Outposts] The ID of the Outpost.
+     * </p>
+     * 
+     * @param outpostId
+     *        [Application Load Balancers on Outposts] The ID of the Outpost.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AvailabilityZone withOutpostId(String outpostId) {
+        setOutpostId(outpostId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * [Network Load Balancers] If you need static IP addresses for your load balancer, you can specify one Elastic IP
+     * address per Availability Zone when you create an internal-facing load balancer. For internal load balancers, you
+     * can specify a private IP address from the IPv4 range of the subnet.
+     * </p>
+     * 
+     * @return [Network Load Balancers] If you need static IP addresses for your load balancer, you can specify one
+     *         Elastic IP address per Availability Zone when you create an internal-facing load balancer. For internal
+     *         load balancers, you can specify a private IP address from the IPv4 range of the subnet.
      */
 
     public java.util.List<LoadBalancerAddress> getLoadBalancerAddresses() {
@@ -139,11 +191,15 @@ public class AvailabilityZone implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [Network Load Balancers] The static IP address.
+     * [Network Load Balancers] If you need static IP addresses for your load balancer, you can specify one Elastic IP
+     * address per Availability Zone when you create an internal-facing load balancer. For internal load balancers, you
+     * can specify a private IP address from the IPv4 range of the subnet.
      * </p>
      * 
      * @param loadBalancerAddresses
-     *        [Network Load Balancers] The static IP address.
+     *        [Network Load Balancers] If you need static IP addresses for your load balancer, you can specify one
+     *        Elastic IP address per Availability Zone when you create an internal-facing load balancer. For internal
+     *        load balancers, you can specify a private IP address from the IPv4 range of the subnet.
      */
 
     public void setLoadBalancerAddresses(java.util.Collection<LoadBalancerAddress> loadBalancerAddresses) {
@@ -157,7 +213,9 @@ public class AvailabilityZone implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [Network Load Balancers] The static IP address.
+     * [Network Load Balancers] If you need static IP addresses for your load balancer, you can specify one Elastic IP
+     * address per Availability Zone when you create an internal-facing load balancer. For internal load balancers, you
+     * can specify a private IP address from the IPv4 range of the subnet.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -166,7 +224,9 @@ public class AvailabilityZone implements Serializable, Cloneable {
      * </p>
      * 
      * @param loadBalancerAddresses
-     *        [Network Load Balancers] The static IP address.
+     *        [Network Load Balancers] If you need static IP addresses for your load balancer, you can specify one
+     *        Elastic IP address per Availability Zone when you create an internal-facing load balancer. For internal
+     *        load balancers, you can specify a private IP address from the IPv4 range of the subnet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -182,11 +242,15 @@ public class AvailabilityZone implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [Network Load Balancers] The static IP address.
+     * [Network Load Balancers] If you need static IP addresses for your load balancer, you can specify one Elastic IP
+     * address per Availability Zone when you create an internal-facing load balancer. For internal load balancers, you
+     * can specify a private IP address from the IPv4 range of the subnet.
      * </p>
      * 
      * @param loadBalancerAddresses
-     *        [Network Load Balancers] The static IP address.
+     *        [Network Load Balancers] If you need static IP addresses for your load balancer, you can specify one
+     *        Elastic IP address per Availability Zone when you create an internal-facing load balancer. For internal
+     *        load balancers, you can specify a private IP address from the IPv4 range of the subnet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -211,6 +275,8 @@ public class AvailabilityZone implements Serializable, Cloneable {
             sb.append("ZoneName: ").append(getZoneName()).append(",");
         if (getSubnetId() != null)
             sb.append("SubnetId: ").append(getSubnetId()).append(",");
+        if (getOutpostId() != null)
+            sb.append("OutpostId: ").append(getOutpostId()).append(",");
         if (getLoadBalancerAddresses() != null)
             sb.append("LoadBalancerAddresses: ").append(getLoadBalancerAddresses());
         sb.append("}");
@@ -235,6 +301,10 @@ public class AvailabilityZone implements Serializable, Cloneable {
             return false;
         if (other.getSubnetId() != null && other.getSubnetId().equals(this.getSubnetId()) == false)
             return false;
+        if (other.getOutpostId() == null ^ this.getOutpostId() == null)
+            return false;
+        if (other.getOutpostId() != null && other.getOutpostId().equals(this.getOutpostId()) == false)
+            return false;
         if (other.getLoadBalancerAddresses() == null ^ this.getLoadBalancerAddresses() == null)
             return false;
         if (other.getLoadBalancerAddresses() != null && other.getLoadBalancerAddresses().equals(this.getLoadBalancerAddresses()) == false)
@@ -249,6 +319,7 @@ public class AvailabilityZone implements Serializable, Cloneable {
 
         hashCode = prime * hashCode + ((getZoneName() == null) ? 0 : getZoneName().hashCode());
         hashCode = prime * hashCode + ((getSubnetId() == null) ? 0 : getSubnetId().hashCode());
+        hashCode = prime * hashCode + ((getOutpostId() == null) ? 0 : getOutpostId().hashCode());
         hashCode = prime * hashCode + ((getLoadBalancerAddresses() == null) ? 0 : getLoadBalancerAddresses().hashCode());
         return hashCode;
     }

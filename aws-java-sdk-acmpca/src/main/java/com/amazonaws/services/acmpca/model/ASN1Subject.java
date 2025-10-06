@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,12 +19,10 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Contains information about the certificate subject. The certificate can be one issued by your private certificate
- * authority (CA) or it can be your private CA certificate. The <b>Subject</b> field in the certificate identifies the
+ * Contains information about the certificate subject. The <code>Subject</code> field in the certificate identifies the
  * entity that owns or controls the public key in the certificate. The entity can be a user, computer, device, or
- * service. The <b>Subject</b> must contain an X.500 distinguished name (DN). A DN is a sequence of relative
- * distinguished names (RDNs). The RDNs are separated by commas in the certificate. The DN must be unique for each
- * entity, but your private CA can issue more than one certificate with the same DN to the same entity.
+ * service. The <code>Subject </code>must contain an X.500 distinguished name (DN). A DN is a sequence of relative
+ * distinguished names (RDNs). The RDNs are separated by commas in the certificate.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/acm-pca-2017-08-22/ASN1Subject" target="_top">AWS API
@@ -66,7 +64,12 @@ public class ASN1Subject implements Serializable, Cloneable, StructuredPojo {
     private String state;
     /**
      * <p>
-     * Fully qualified domain name (FQDN) associated with the certificate subject.
+     * For CA and end-entity certificates in a private PKI, the common name (CN) can be any string within the length
+     * limit.
+     * </p>
+     * <p>
+     * Note: In publicly trusted certificates, the common name must be a fully qualified domain name (FQDN) associated
+     * with the certificate subject.
      * </p>
      */
     private String commonName;
@@ -104,7 +107,7 @@ public class ASN1Subject implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Concatenation that typically contains the first letter of the <b>GivenName</b>, the first letter of the middle
-     * name if one exists, and the first letter of the <b>SurName</b>.
+     * name if one exists, and the first letter of the <b>Surname</b>.
      * </p>
      */
     private String initials;
@@ -122,6 +125,20 @@ public class ASN1Subject implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String generationQualifier;
+    /**
+     * <p/>
+     * <p>
+     * Contains a sequence of one or more X.500 relative distinguished names (RDNs), each of which consists of an object
+     * identifier (OID) and a value. For more information, see NIST’s definition of <a
+     * href="https://csrc.nist.gov/glossary/term/Object_Identifier">Object Identifier (OID)</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Custom attributes cannot be used in combination with standard attributes.
+     * </p>
+     * </note>
+     */
+    private java.util.List<CustomAttribute> customAttributes;
 
     /**
      * <p>
@@ -331,11 +348,20 @@ public class ASN1Subject implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Fully qualified domain name (FQDN) associated with the certificate subject.
+     * For CA and end-entity certificates in a private PKI, the common name (CN) can be any string within the length
+     * limit.
+     * </p>
+     * <p>
+     * Note: In publicly trusted certificates, the common name must be a fully qualified domain name (FQDN) associated
+     * with the certificate subject.
      * </p>
      * 
      * @param commonName
-     *        Fully qualified domain name (FQDN) associated with the certificate subject.
+     *        For CA and end-entity certificates in a private PKI, the common name (CN) can be any string within the
+     *        length limit. </p>
+     *        <p>
+     *        Note: In publicly trusted certificates, the common name must be a fully qualified domain name (FQDN)
+     *        associated with the certificate subject.
      */
 
     public void setCommonName(String commonName) {
@@ -344,10 +370,19 @@ public class ASN1Subject implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Fully qualified domain name (FQDN) associated with the certificate subject.
+     * For CA and end-entity certificates in a private PKI, the common name (CN) can be any string within the length
+     * limit.
+     * </p>
+     * <p>
+     * Note: In publicly trusted certificates, the common name must be a fully qualified domain name (FQDN) associated
+     * with the certificate subject.
      * </p>
      * 
-     * @return Fully qualified domain name (FQDN) associated with the certificate subject.
+     * @return For CA and end-entity certificates in a private PKI, the common name (CN) can be any string within the
+     *         length limit. </p>
+     *         <p>
+     *         Note: In publicly trusted certificates, the common name must be a fully qualified domain name (FQDN)
+     *         associated with the certificate subject.
      */
 
     public String getCommonName() {
@@ -356,11 +391,20 @@ public class ASN1Subject implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Fully qualified domain name (FQDN) associated with the certificate subject.
+     * For CA and end-entity certificates in a private PKI, the common name (CN) can be any string within the length
+     * limit.
+     * </p>
+     * <p>
+     * Note: In publicly trusted certificates, the common name must be a fully qualified domain name (FQDN) associated
+     * with the certificate subject.
      * </p>
      * 
      * @param commonName
-     *        Fully qualified domain name (FQDN) associated with the certificate subject.
+     *        For CA and end-entity certificates in a private PKI, the common name (CN) can be any string within the
+     *        length limit. </p>
+     *        <p>
+     *        Note: In publicly trusted certificates, the common name must be a fully qualified domain name (FQDN)
+     *        associated with the certificate subject.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -578,12 +622,12 @@ public class ASN1Subject implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Concatenation that typically contains the first letter of the <b>GivenName</b>, the first letter of the middle
-     * name if one exists, and the first letter of the <b>SurName</b>.
+     * name if one exists, and the first letter of the <b>Surname</b>.
      * </p>
      * 
      * @param initials
      *        Concatenation that typically contains the first letter of the <b>GivenName</b>, the first letter of the
-     *        middle name if one exists, and the first letter of the <b>SurName</b>.
+     *        middle name if one exists, and the first letter of the <b>Surname</b>.
      */
 
     public void setInitials(String initials) {
@@ -593,11 +637,11 @@ public class ASN1Subject implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Concatenation that typically contains the first letter of the <b>GivenName</b>, the first letter of the middle
-     * name if one exists, and the first letter of the <b>SurName</b>.
+     * name if one exists, and the first letter of the <b>Surname</b>.
      * </p>
      * 
      * @return Concatenation that typically contains the first letter of the <b>GivenName</b>, the first letter of the
-     *         middle name if one exists, and the first letter of the <b>SurName</b>.
+     *         middle name if one exists, and the first letter of the <b>Surname</b>.
      */
 
     public String getInitials() {
@@ -607,12 +651,12 @@ public class ASN1Subject implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Concatenation that typically contains the first letter of the <b>GivenName</b>, the first letter of the middle
-     * name if one exists, and the first letter of the <b>SurName</b>.
+     * name if one exists, and the first letter of the <b>Surname</b>.
      * </p>
      * 
      * @param initials
      *        Concatenation that typically contains the first letter of the <b>GivenName</b>, the first letter of the
-     *        middle name if one exists, and the first letter of the <b>SurName</b>.
+     *        middle name if one exists, and the first letter of the <b>Surname</b>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -714,6 +758,140 @@ public class ASN1Subject implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p/>
+     * <p>
+     * Contains a sequence of one or more X.500 relative distinguished names (RDNs), each of which consists of an object
+     * identifier (OID) and a value. For more information, see NIST’s definition of <a
+     * href="https://csrc.nist.gov/glossary/term/Object_Identifier">Object Identifier (OID)</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Custom attributes cannot be used in combination with standard attributes.
+     * </p>
+     * </note>
+     * 
+     * @return <p>
+     *         Contains a sequence of one or more X.500 relative distinguished names (RDNs), each of which consists of
+     *         an object identifier (OID) and a value. For more information, see NIST’s definition of <a
+     *         href="https://csrc.nist.gov/glossary/term/Object_Identifier">Object Identifier (OID)</a>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Custom attributes cannot be used in combination with standard attributes.
+     *         </p>
+     */
+
+    public java.util.List<CustomAttribute> getCustomAttributes() {
+        return customAttributes;
+    }
+
+    /**
+     * <p/>
+     * <p>
+     * Contains a sequence of one or more X.500 relative distinguished names (RDNs), each of which consists of an object
+     * identifier (OID) and a value. For more information, see NIST’s definition of <a
+     * href="https://csrc.nist.gov/glossary/term/Object_Identifier">Object Identifier (OID)</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Custom attributes cannot be used in combination with standard attributes.
+     * </p>
+     * </note>
+     * 
+     * @param customAttributes
+     *        <p>
+     *        Contains a sequence of one or more X.500 relative distinguished names (RDNs), each of which consists of an
+     *        object identifier (OID) and a value. For more information, see NIST’s definition of <a
+     *        href="https://csrc.nist.gov/glossary/term/Object_Identifier">Object Identifier (OID)</a>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Custom attributes cannot be used in combination with standard attributes.
+     *        </p>
+     */
+
+    public void setCustomAttributes(java.util.Collection<CustomAttribute> customAttributes) {
+        if (customAttributes == null) {
+            this.customAttributes = null;
+            return;
+        }
+
+        this.customAttributes = new java.util.ArrayList<CustomAttribute>(customAttributes);
+    }
+
+    /**
+     * <p/>
+     * <p>
+     * Contains a sequence of one or more X.500 relative distinguished names (RDNs), each of which consists of an object
+     * identifier (OID) and a value. For more information, see NIST’s definition of <a
+     * href="https://csrc.nist.gov/glossary/term/Object_Identifier">Object Identifier (OID)</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Custom attributes cannot be used in combination with standard attributes.
+     * </p>
+     * </note>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCustomAttributes(java.util.Collection)} or {@link #withCustomAttributes(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param customAttributes
+     *        <p>
+     *        Contains a sequence of one or more X.500 relative distinguished names (RDNs), each of which consists of an
+     *        object identifier (OID) and a value. For more information, see NIST’s definition of <a
+     *        href="https://csrc.nist.gov/glossary/term/Object_Identifier">Object Identifier (OID)</a>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Custom attributes cannot be used in combination with standard attributes.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ASN1Subject withCustomAttributes(CustomAttribute... customAttributes) {
+        if (this.customAttributes == null) {
+            setCustomAttributes(new java.util.ArrayList<CustomAttribute>(customAttributes.length));
+        }
+        for (CustomAttribute ele : customAttributes) {
+            this.customAttributes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p/>
+     * <p>
+     * Contains a sequence of one or more X.500 relative distinguished names (RDNs), each of which consists of an object
+     * identifier (OID) and a value. For more information, see NIST’s definition of <a
+     * href="https://csrc.nist.gov/glossary/term/Object_Identifier">Object Identifier (OID)</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Custom attributes cannot be used in combination with standard attributes.
+     * </p>
+     * </note>
+     * 
+     * @param customAttributes
+     *        <p>
+     *        Contains a sequence of one or more X.500 relative distinguished names (RDNs), each of which consists of an
+     *        object identifier (OID) and a value. For more information, see NIST’s definition of <a
+     *        href="https://csrc.nist.gov/glossary/term/Object_Identifier">Object Identifier (OID)</a>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Custom attributes cannot be used in combination with standard attributes.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ASN1Subject withCustomAttributes(java.util.Collection<CustomAttribute> customAttributes) {
+        setCustomAttributes(customAttributes);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -752,7 +930,9 @@ public class ASN1Subject implements Serializable, Cloneable, StructuredPojo {
         if (getPseudonym() != null)
             sb.append("Pseudonym: ").append(getPseudonym()).append(",");
         if (getGenerationQualifier() != null)
-            sb.append("GenerationQualifier: ").append(getGenerationQualifier());
+            sb.append("GenerationQualifier: ").append(getGenerationQualifier()).append(",");
+        if (getCustomAttributes() != null)
+            sb.append("CustomAttributes: ").append(getCustomAttributes());
         sb.append("}");
         return sb.toString();
     }
@@ -823,6 +1003,10 @@ public class ASN1Subject implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getGenerationQualifier() != null && other.getGenerationQualifier().equals(this.getGenerationQualifier()) == false)
             return false;
+        if (other.getCustomAttributes() == null ^ this.getCustomAttributes() == null)
+            return false;
+        if (other.getCustomAttributes() != null && other.getCustomAttributes().equals(this.getCustomAttributes()) == false)
+            return false;
         return true;
     }
 
@@ -845,6 +1029,7 @@ public class ASN1Subject implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getInitials() == null) ? 0 : getInitials().hashCode());
         hashCode = prime * hashCode + ((getPseudonym() == null) ? 0 : getPseudonym().hashCode());
         hashCode = prime * hashCode + ((getGenerationQualifier() == null) ? 0 : getGenerationQualifier().hashCode());
+        hashCode = prime * hashCode + ((getCustomAttributes() == null) ? 0 : getCustomAttributes().hashCode());
         return hashCode;
     }
 

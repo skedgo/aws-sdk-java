@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,8 +29,10 @@ public enum ResourceRecordSetRegion {
     EuWest2("eu-west-2"),
     EuWest3("eu-west-3"),
     EuCentral1("eu-central-1"),
+    EuCentral2("eu-central-2"),
     ApSoutheast1("ap-southeast-1"),
     ApSoutheast2("ap-southeast-2"),
+    ApSoutheast3("ap-southeast-3"),
     ApNortheast1("ap-northeast-1"),
     ApNortheast2("ap-northeast-2"),
     ApNortheast3("ap-northeast-3"),
@@ -40,7 +42,15 @@ public enum ResourceRecordSetRegion {
     CnNorthwest1("cn-northwest-1"),
     ApEast1("ap-east-1"),
     MeSouth1("me-south-1"),
-    ApSouth1("ap-south-1");
+    MeCentral1("me-central-1"),
+    ApSouth1("ap-south-1"),
+    ApSouth2("ap-south-2"),
+    AfSouth1("af-south-1"),
+    EuSouth1("eu-south-1"),
+    EuSouth2("eu-south-2"),
+    ApSoutheast4("ap-southeast-4"),
+    IlCentral1("il-central-1"),
+    CaWest1("ca-west-1");
 
     private String value;
 

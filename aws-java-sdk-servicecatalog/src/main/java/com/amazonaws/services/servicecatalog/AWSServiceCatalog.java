@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,12 +26,12 @@ import com.amazonaws.services.servicecatalog.model.*;
  * {@link com.amazonaws.services.servicecatalog.AbstractAWSServiceCatalog} instead.
  * </p>
  * <p>
- * <fullname>AWS Service Catalog</fullname>
+ * <fullname>Service Catalog</fullname>
  * <p>
- * <a href="https://aws.amazon.com/servicecatalog/">AWS Service Catalog</a> enables organizations to create and manage
- * catalogs of IT services that are approved for use on AWS. To get the most out of this documentation, you should be
- * familiar with the terminology discussed in <a
- * href="http://docs.aws.amazon.com/servicecatalog/latest/adminguide/what-is_concepts.html">AWS Service Catalog
+ * <a href="http://aws.amazon.com/servicecatalog">Service Catalog</a> enables organizations to create and manage
+ * catalogs of IT services that are approved for Amazon Web Services. To get the most out of this documentation, you
+ * should be familiar with the terminology discussed in <a
+ * href="http://docs.aws.amazon.com/servicecatalog/latest/adminguide/what-is_concepts.html">Service Catalog
  * Concepts</a>.
  * </p>
  */
@@ -144,6 +144,29 @@ public interface AWSServiceCatalog {
      * <p>
      * Associates the specified principal ARN with the specified portfolio.
      * </p>
+     * <p>
+     * If you share the portfolio with principal name sharing enabled, the <code>PrincipalARN</code> association is
+     * included in the share.
+     * </p>
+     * <p>
+     * The <code>PortfolioID</code>, <code>PrincipalARN</code>, and <code>PrincipalType</code> parameters are required.
+     * </p>
+     * <p>
+     * You can associate a maximum of 10 Principals with a portfolio using <code>PrincipalType</code> as
+     * <code>IAM_PATTERN</code>.
+     * </p>
+     * <note>
+     * <p>
+     * When you associate a principal with portfolio, a potential privilege escalation path may occur when that
+     * portfolio is then shared with other accounts. For a user in a recipient account who is <i>not</i> an Service
+     * Catalog Admin, but still has the ability to create Principals (Users/Groups/Roles), that user could create a role
+     * that matches a principal name association for the portfolio. Although this user may not know which principal
+     * names are associated through Service Catalog, they may be able to guess the user. If this potential escalation
+     * path is a concern, then Service Catalog recommends using <code>PrincipalType</code> as <code>IAM</code>. With
+     * this configuration, the <code>PrincipalARN</code> must already exist in the recipient account before it can be
+     * associated.
+     * </p>
+     * </note>
      * 
      * @param associatePrincipalWithPortfolioRequest
      * @return Result of the AssociatePrincipalWithPortfolio operation returned by the service.
@@ -163,6 +186,9 @@ public interface AWSServiceCatalog {
     /**
      * <p>
      * Associates the specified product with the specified portfolio.
+     * </p>
+     * <p>
+     * A delegated admin is authorized to invoke this command.
      * </p>
      * 
      * @param associateProductWithPortfolioRequest
@@ -194,6 +220,8 @@ public interface AWSServiceCatalog {
      * @throws LimitExceededException
      *         The current limits of the service would have been exceeded by this operation. Decrease your resource use
      *         or increase your service limits and retry the operation.
+     * @throws InvalidParametersException
+     *         One or more parameters provided to the operation are not valid.
      * @sample AWSServiceCatalog.AssociateServiceActionWithProvisioningArtifact
      * @see <a
      *      href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/AssociateServiceActionWithProvisioningArtifact"
@@ -211,8 +239,8 @@ public interface AWSServiceCatalog {
      * @return Result of the AssociateTagOptionWithResource operation returned by the service.
      * @throws TagOptionNotMigratedException
      *         An operation requiring TagOptions failed because the TagOptions migration process has not been performed
-     *         for this account. Please use the AWS console to perform the migration process before retrying the
-     *         operation.
+     *         for this account. Use the Amazon Web Services Management Console to perform the migration process before
+     *         retrying the operation.
      * @throws ResourceNotFoundException
      *         The specified resource was not found.
      * @throws InvalidParametersException
@@ -270,8 +298,9 @@ public interface AWSServiceCatalog {
      * Copies the specified source product to the specified target product or a new product.
      * </p>
      * <p>
-     * You can copy a product to the same account or another account. You can copy a product to the same region or
-     * another region.
+     * You can copy a product to the same account or another account. You can copy a product to the same Region or
+     * another Region. If you copy a product to another account, you must first share the product in a portfolio using
+     * <a>CreatePortfolioShare</a>.
      * </p>
      * <p>
      * This operation is performed asynchronously. To track the progress of the operation, use
@@ -293,6 +322,9 @@ public interface AWSServiceCatalog {
     /**
      * <p>
      * Creates a constraint.
+     * </p>
+     * <p>
+     * A delegated admin is authorized to invoke this command.
      * </p>
      * 
      * @param createConstraintRequest
@@ -316,6 +348,9 @@ public interface AWSServiceCatalog {
      * <p>
      * Creates a portfolio.
      * </p>
+     * <p>
+     * A delegated admin is authorized to invoke this command.
+     * </p>
      * 
      * @param createPortfolioRequest
      * @return Result of the CreatePortfolio operation returned by the service.
@@ -326,8 +361,8 @@ public interface AWSServiceCatalog {
      *         or increase your service limits and retry the operation.
      * @throws TagOptionNotMigratedException
      *         An operation requiring TagOptions failed because the TagOptions migration process has not been performed
-     *         for this account. Please use the AWS console to perform the migration process before retrying the
-     *         operation.
+     *         for this account. Use the Amazon Web Services Management Console to perform the migration process before
+     *         retrying the operation.
      * @sample AWSServiceCatalog.CreatePortfolio
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/CreatePortfolio" target="_top">AWS
      *      API Documentation</a>
@@ -337,9 +372,35 @@ public interface AWSServiceCatalog {
     /**
      * <p>
      * Shares the specified portfolio with the specified account or organization node. Shares to an organization node
-     * can only be created by the master account of an Organization. AWSOrganizationsAccess must be enabled in order to
-     * create a portfolio share to an organization node.
+     * can only be created by the management account of an organization or by a delegated administrator. You can share
+     * portfolios to an organization, an organizational unit, or a specific account.
      * </p>
+     * <p>
+     * Note that if a delegated admin is de-registered, they can no longer create portfolio shares.
+     * </p>
+     * <p>
+     * <code>AWSOrganizationsAccess</code> must be enabled in order to create a portfolio share to an organization node.
+     * </p>
+     * <p>
+     * You can't share a shared resource, including portfolios that contain a shared product.
+     * </p>
+     * <p>
+     * If the portfolio share with the specified account or organization node already exists, this action will have no
+     * effect and will not return an error. To update an existing share, you must use the
+     * <code> UpdatePortfolioShare</code> API instead.
+     * </p>
+     * <note>
+     * <p>
+     * When you associate a principal with portfolio, a potential privilege escalation path may occur when that
+     * portfolio is then shared with other accounts. For a user in a recipient account who is <i>not</i> an Service
+     * Catalog Admin, but still has the ability to create Principals (Users/Groups/Roles), that user could create a role
+     * that matches a principal name association for the portfolio. Although this user may not know which principal
+     * names are associated through Service Catalog, they may be able to guess the user. If this potential escalation
+     * path is a concern, then Service Catalog recommends using <code>PrincipalType</code> as <code>IAM</code>. With
+     * this configuration, the <code>PrincipalARN</code> must already exist in the recipient account before it can be
+     * associated.
+     * </p>
+     * </note>
      * 
      * @param createPortfolioShareRequest
      * @return Result of the CreatePortfolioShare operation returned by the service.
@@ -365,6 +426,14 @@ public interface AWSServiceCatalog {
      * <p>
      * Creates a product.
      * </p>
+     * <p>
+     * A delegated admin is authorized to invoke this command.
+     * </p>
+     * <p>
+     * The user or role that performs this operation must have the <code>cloudformation:GetTemplate</code> IAM policy
+     * permission. This policy permission is required when using the <code>ImportFromPhysicalId</code> template source
+     * in the information data section.
+     * </p>
      * 
      * @param createProductRequest
      * @return Result of the CreateProduct operation returned by the service.
@@ -375,8 +444,8 @@ public interface AWSServiceCatalog {
      *         or increase your service limits and retry the operation.
      * @throws TagOptionNotMigratedException
      *         An operation requiring TagOptions failed because the TagOptions migration process has not been performed
-     *         for this account. Please use the AWS console to perform the migration process before retrying the
-     *         operation.
+     *         for this account. Use the Amazon Web Services Management Console to perform the migration process before
+     *         retrying the operation.
      * @sample AWSServiceCatalog.CreateProduct
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/CreateProduct" target="_top">AWS
      *      API Documentation</a>
@@ -385,12 +454,15 @@ public interface AWSServiceCatalog {
 
     /**
      * <p>
-     * Creates a plan. A plan includes the list of resources to be created (when provisioning a new product) or modified
-     * (when updating a provisioned product) when the plan is executed.
+     * Creates a plan.
      * </p>
      * <p>
-     * You can create one plan per provisioned product. To create a plan for an existing provisioned product, the
-     * product status must be AVAILBLE or TAINTED.
+     * A plan includes the list of resources to be created (when provisioning a new product) or modified (when updating
+     * a provisioned product) when the plan is executed.
+     * </p>
+     * <p>
+     * You can create one plan for each provisioned product. To create a plan for an existing provisioned product, the
+     * product status must be AVAILABLE or TAINTED.
      * </p>
      * <p>
      * To view the resource changes in the change set, use <a>DescribeProvisionedProductPlan</a>. To create or modify
@@ -418,6 +490,11 @@ public interface AWSServiceCatalog {
      * </p>
      * <p>
      * You cannot create a provisioning artifact for a product that was shared with you.
+     * </p>
+     * <p>
+     * The user or role that performs this operation must have the <code>cloudformation:GetTemplate</code> IAM policy
+     * permission. This policy permission is required when using the <code>ImportFromPhysicalId</code> template source
+     * in the information data section.
      * </p>
      * 
      * @param createProvisioningArtifactRequest
@@ -462,8 +539,8 @@ public interface AWSServiceCatalog {
      * @return Result of the CreateTagOption operation returned by the service.
      * @throws TagOptionNotMigratedException
      *         An operation requiring TagOptions failed because the TagOptions migration process has not been performed
-     *         for this account. Please use the AWS console to perform the migration process before retrying the
-     *         operation.
+     *         for this account. Use the Amazon Web Services Management Console to perform the migration process before
+     *         retrying the operation.
      * @throws DuplicateResourceException
      *         The specified resource is a duplicate.
      * @throws LimitExceededException
@@ -478,6 +555,9 @@ public interface AWSServiceCatalog {
     /**
      * <p>
      * Deletes the specified constraint.
+     * </p>
+     * <p>
+     * A delegated admin is authorized to invoke this command.
      * </p>
      * 
      * @param deleteConstraintRequest
@@ -500,6 +580,9 @@ public interface AWSServiceCatalog {
      * You cannot delete a portfolio if it was shared with you or if it has associated products, users, constraints, or
      * shared accounts.
      * </p>
+     * <p>
+     * A delegated admin is authorized to invoke this command.
+     * </p>
      * 
      * @param deletePortfolioRequest
      * @return Result of the DeletePortfolio operation returned by the service.
@@ -511,8 +594,8 @@ public interface AWSServiceCatalog {
      *         A resource that is currently in use. Ensure that the resource is not in use and retry the operation.
      * @throws TagOptionNotMigratedException
      *         An operation requiring TagOptions failed because the TagOptions migration process has not been performed
-     *         for this account. Please use the AWS console to perform the migration process before retrying the
-     *         operation.
+     *         for this account. Use the Amazon Web Services Management Console to perform the migration process before
+     *         retrying the operation.
      * @sample AWSServiceCatalog.DeletePortfolio
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/DeletePortfolio" target="_top">AWS
      *      API Documentation</a>
@@ -522,7 +605,10 @@ public interface AWSServiceCatalog {
     /**
      * <p>
      * Stops sharing the specified portfolio with the specified account or organization node. Shares to an organization
-     * node can only be deleted by the master account of an Organization.
+     * node can only be deleted by the management account of an organization or by a delegated administrator.
+     * </p>
+     * <p>
+     * Note that if a delegated admin is de-registered, portfolio shares created from that account are removed.
      * </p>
      * 
      * @param deletePortfolioShareRequest
@@ -549,6 +635,9 @@ public interface AWSServiceCatalog {
      * <p>
      * You cannot delete a product if it was shared with you or is associated with a portfolio.
      * </p>
+     * <p>
+     * A delegated admin is authorized to invoke this command.
+     * </p>
      * 
      * @param deleteProductRequest
      * @return Result of the DeleteProduct operation returned by the service.
@@ -560,8 +649,8 @@ public interface AWSServiceCatalog {
      *         One or more parameters provided to the operation are not valid.
      * @throws TagOptionNotMigratedException
      *         An operation requiring TagOptions failed because the TagOptions migration process has not been performed
-     *         for this account. Please use the AWS console to perform the migration process before retrying the
-     *         operation.
+     *         for this account. Use the Amazon Web Services Management Console to perform the migration process before
+     *         retrying the operation.
      * @sample AWSServiceCatalog.DeleteProduct
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/DeleteProduct" target="_top">AWS
      *      API Documentation</a>
@@ -637,8 +726,8 @@ public interface AWSServiceCatalog {
      * @return Result of the DeleteTagOption operation returned by the service.
      * @throws TagOptionNotMigratedException
      *         An operation requiring TagOptions failed because the TagOptions migration process has not been performed
-     *         for this account. Please use the AWS console to perform the migration process before retrying the
-     *         operation.
+     *         for this account. Use the Amazon Web Services Management Console to perform the migration process before
+     *         retrying the operation.
      * @throws ResourceInUseException
      *         A resource that is currently in use. Ensure that the resource is not in use and retry the operation.
      * @throws ResourceNotFoundException
@@ -683,6 +772,9 @@ public interface AWSServiceCatalog {
      * <p>
      * Gets information about the specified portfolio.
      * </p>
+     * <p>
+     * A delegated admin is authorized to invoke this command.
+     * </p>
      * 
      * @param describePortfolioRequest
      * @return Result of the DescribePortfolio operation returned by the service.
@@ -696,8 +788,8 @@ public interface AWSServiceCatalog {
 
     /**
      * <p>
-     * Gets the status of the specified portfolio share operation. This API can only be called by the master account in
-     * the organization.
+     * Gets the status of the specified portfolio share operation. This API can only be called by the management account
+     * in the organization or by a delegated admin.
      * </p>
      * 
      * @param describePortfolioShareStatusRequest
@@ -716,8 +808,38 @@ public interface AWSServiceCatalog {
 
     /**
      * <p>
+     * Returns a summary of each of the portfolio shares that were created for the specified portfolio.
+     * </p>
+     * <p>
+     * You can use this API to determine which accounts or organizational nodes this portfolio have been shared, whether
+     * the recipient entity has imported the share, and whether TagOptions are included with the share.
+     * </p>
+     * <p>
+     * The <code>PortfolioId</code> and <code>Type</code> parameters are both required.
+     * </p>
+     * 
+     * @param describePortfolioSharesRequest
+     * @return Result of the DescribePortfolioShares operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws InvalidParametersException
+     *         One or more parameters provided to the operation are not valid.
+     * @sample AWSServiceCatalog.DescribePortfolioShares
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/DescribePortfolioShares"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribePortfolioSharesResult describePortfolioShares(DescribePortfolioSharesRequest describePortfolioSharesRequest);
+
+    /**
+     * <p>
      * Gets information about the specified product.
      * </p>
+     * <note>
+     * <p>
+     * Running this operation with administrator access results in a failure. <a>DescribeProductAsAdmin</a> should be
+     * used instead.
+     * </p>
+     * </note>
      * 
      * @param describeProductRequest
      * @return Result of the DescribeProduct operation returned by the service.
@@ -740,6 +862,8 @@ public interface AWSServiceCatalog {
      * @return Result of the DescribeProductAsAdmin operation returned by the service.
      * @throws ResourceNotFoundException
      *         The specified resource was not found.
+     * @throws InvalidParametersException
+     *         One or more parameters provided to the operation are not valid.
      * @sample AWSServiceCatalog.DescribeProductAsAdmin
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/DescribeProductAsAdmin"
      *      target="_top">AWS API Documentation</a>
@@ -769,9 +893,14 @@ public interface AWSServiceCatalog {
      * </p>
      * 
      * @param describeProvisionedProductRequest
+     *        DescribeProvisionedProductAPI input structure. AcceptLanguage - [Optional] The language code for
+     *        localization. Id - [Optional] The provisioned product identifier. Name - [Optional] Another provisioned
+     *        product identifier. Customers must provide either Id or Name.
      * @return Result of the DescribeProvisionedProduct operation returned by the service.
      * @throws ResourceNotFoundException
      *         The specified resource was not found.
+     * @throws InvalidParametersException
+     *         One or more parameters provided to the operation are not valid.
      * @sample AWSServiceCatalog.DescribeProvisionedProduct
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/DescribeProvisionedProduct"
      *      target="_top">AWS API Documentation</a>
@@ -804,6 +933,8 @@ public interface AWSServiceCatalog {
      * @return Result of the DescribeProvisioningArtifact operation returned by the service.
      * @throws ResourceNotFoundException
      *         The specified resource was not found.
+     * @throws InvalidParametersException
+     *         One or more parameters provided to the operation are not valid.
      * @sample AWSServiceCatalog.DescribeProvisioningArtifact
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/DescribeProvisioningArtifact"
      *      target="_top">AWS API Documentation</a>
@@ -878,6 +1009,11 @@ public interface AWSServiceCatalog {
     DescribeServiceActionResult describeServiceAction(DescribeServiceActionRequest describeServiceActionRequest);
 
     /**
+     * <p>
+     * Finds the default parameters for a specific self-service action on a specific provisioned product and returns a
+     * map of the results to the user.
+     * </p>
+     * 
      * @param describeServiceActionExecutionParametersRequest
      * @return Result of the DescribeServiceActionExecutionParameters operation returned by the service.
      * @throws InvalidParametersException
@@ -901,8 +1037,8 @@ public interface AWSServiceCatalog {
      * @return Result of the DescribeTagOption operation returned by the service.
      * @throws TagOptionNotMigratedException
      *         An operation requiring TagOptions failed because the TagOptions migration process has not been performed
-     *         for this account. Please use the AWS console to perform the migration process before retrying the
-     *         operation.
+     *         for this account. Use the Amazon Web Services Management Console to perform the migration process before
+     *         retrying the operation.
      * @throws ResourceNotFoundException
      *         The specified resource was not found.
      * @sample AWSServiceCatalog.DescribeTagOption
@@ -913,11 +1049,25 @@ public interface AWSServiceCatalog {
 
     /**
      * <p>
-     * Disable portfolio sharing through AWS Organizations feature. This feature will not delete your current shares but
-     * it will prevent you from creating new shares throughout your organization. Current shares will not be in sync
-     * with your organization structure if it changes after calling this API. This API can only be called by the master
-     * account in the organization.
+     * Disable portfolio sharing through the Organizations service. This command will not delete your current shares,
+     * but prevents you from creating new shares throughout your organization. Current shares are not kept in sync with
+     * your organization structure if the structure changes after calling this API. Only the management account in the
+     * organization can call this API.
      * </p>
+     * <p>
+     * You cannot call this API if there are active delegated administrators in the organization.
+     * </p>
+     * <p>
+     * Note that a delegated administrator is not authorized to invoke <code>DisableAWSOrganizationsAccess</code>.
+     * </p>
+     * <important>
+     * <p>
+     * If you share an Service Catalog portfolio in an organization within Organizations, and then disable Organizations
+     * access for Service Catalog, the portfolio access permissions will not sync with the latest changes to the
+     * organization structure. Specifically, accounts that you removed from the organization after disabling Service
+     * Catalog access will retain access to the previously shared portfolio.
+     * </p>
+     * </important>
      * 
      * @param disableAWSOrganizationsAccessRequest
      * @return Result of the DisableAWSOrganizationsAccess operation returned by the service.
@@ -953,6 +1103,31 @@ public interface AWSServiceCatalog {
      * <p>
      * Disassociates a previously associated principal ARN from a specified portfolio.
      * </p>
+     * <p>
+     * The <code>PrincipalType</code> and <code>PrincipalARN</code> must match the
+     * <code>AssociatePrincipalWithPortfolio</code> call request details. For example, to disassociate an association
+     * created with a <code>PrincipalARN</code> of <code>PrincipalType</code> IAM you must use the
+     * <code>PrincipalType</code> IAM when calling <code>DisassociatePrincipalFromPortfolio</code>.
+     * </p>
+     * <p>
+     * For portfolios that have been shared with principal name sharing enabled: after disassociating a principal, share
+     * recipient accounts will no longer be able to provision products in this portfolio using a role matching the name
+     * of the associated principal.
+     * </p>
+     * <p>
+     * For more information, review <a href=
+     * "https://docs.aws.amazon.com/cli/latest/reference/servicecatalog/associate-principal-with-portfolio.html#options"
+     * >associate-principal-with-portfolio</a> in the Amazon Web Services CLI Command Reference.
+     * </p>
+     * <note>
+     * <p>
+     * If you disassociate a principal from a portfolio, with PrincipalType as <code>IAM</code>, the same principal will
+     * still have access to the portfolio if it matches one of the associated principals of type
+     * <code>IAM_PATTERN</code>. To fully remove access for a principal, verify all the associated Principals of type
+     * <code>IAM_PATTERN</code>, and then ensure you disassociate any <code>IAM_PATTERN</code> principals that match the
+     * principal whose access you are removing.
+     * </p>
+     * </note>
      * 
      * @param disassociatePrincipalFromPortfolioRequest
      * @return Result of the DisassociatePrincipalFromPortfolio operation returned by the service.
@@ -971,6 +1146,9 @@ public interface AWSServiceCatalog {
     /**
      * <p>
      * Disassociates the specified product from the specified portfolio.
+     * </p>
+     * <p>
+     * A delegated admin is authorized to invoke this command.
      * </p>
      * 
      * @param disassociateProductFromPortfolioRequest
@@ -1013,8 +1191,8 @@ public interface AWSServiceCatalog {
      * @return Result of the DisassociateTagOptionFromResource operation returned by the service.
      * @throws TagOptionNotMigratedException
      *         An operation requiring TagOptions failed because the TagOptions migration process has not been performed
-     *         for this account. Please use the AWS console to perform the migration process before retrying the
-     *         operation.
+     *         for this account. Use the Amazon Web Services Management Console to perform the migration process before
+     *         retrying the operation.
      * @throws ResourceNotFoundException
      *         The specified resource was not found.
      * @sample AWSServiceCatalog.DisassociateTagOptionFromResource
@@ -1025,14 +1203,27 @@ public interface AWSServiceCatalog {
 
     /**
      * <p>
-     * Enable portfolio sharing feature through AWS Organizations. This API will allow Service Catalog to receive
-     * updates on your organization in order to sync your shares with the current structure. This API can only be called
-     * by the master account in the organization.
+     * Enable portfolio sharing feature through Organizations. This API will allow Service Catalog to receive updates on
+     * your organization in order to sync your shares with the current structure. This API can only be called by the
+     * management account in the organization.
      * </p>
      * <p>
-     * By calling this API Service Catalog will make a call to organizations:EnableAWSServiceAccess on your behalf so
-     * that your shares can be in sync with any changes in your AWS Organizations structure.
+     * When you call this API, Service Catalog calls <code>organizations:EnableAWSServiceAccess</code> on your behalf so
+     * that your shares stay in sync with any changes in your Organizations structure.
      * </p>
+     * <p>
+     * Note that a delegated administrator is not authorized to invoke <code>EnableAWSOrganizationsAccess</code>.
+     * </p>
+     * <important>
+     * <p>
+     * If you have previously disabled Organizations access for Service Catalog, and then enable access again, the
+     * portfolio access permissions might not sync with the latest changes to the organization structure. Specifically,
+     * accounts that you removed from the organization after disabling Service Catalog access, and before you enabled
+     * access again, can retain access to the previously shared portfolio. As a result, an account that has been removed
+     * from the organization might still be able to create or manage Amazon Web Services resources when it is no longer
+     * authorized to do so. Amazon Web Services is working to resolve this issue.
+     * </p>
+     * </important>
      * 
      * @param enableAWSOrganizationsAccessRequest
      * @return Result of the EnableAWSOrganizationsAccess operation returned by the service.
@@ -1093,8 +1284,8 @@ public interface AWSServiceCatalog {
 
     /**
      * <p>
-     * Get the Access Status for AWS Organization portfolio share feature. This API can only be called by the master
-     * account in the organization.
+     * Get the Access Status for Organizations portfolio share feature. This API can only be called by the management
+     * account in the organization or by a delegated admin.
      * </p>
      * 
      * @param getAWSOrganizationsAccessStatusRequest
@@ -1111,7 +1302,79 @@ public interface AWSServiceCatalog {
 
     /**
      * <p>
-     * Lists all portfolios for which sharing was accepted by this account.
+     * This API takes either a <code>ProvisonedProductId</code> or a <code>ProvisionedProductName</code>, along with a
+     * list of one or more output keys, and responds with the key/value pairs of those outputs.
+     * </p>
+     * 
+     * @param getProvisionedProductOutputsRequest
+     * @return Result of the GetProvisionedProductOutputs operation returned by the service.
+     * @throws InvalidParametersException
+     *         One or more parameters provided to the operation are not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AWSServiceCatalog.GetProvisionedProductOutputs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/GetProvisionedProductOutputs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetProvisionedProductOutputsResult getProvisionedProductOutputs(GetProvisionedProductOutputsRequest getProvisionedProductOutputsRequest);
+
+    /**
+     * <p>
+     * Requests the import of a resource as an Service Catalog provisioned product that is associated to an Service
+     * Catalog product and provisioning artifact. Once imported, all supported governance actions are supported on the
+     * provisioned product.
+     * </p>
+     * <p>
+     * Resource import only supports CloudFormation stack ARNs. CloudFormation StackSets, and non-root nested stacks,
+     * are not supported.
+     * </p>
+     * <p>
+     * The CloudFormation stack must have one of the following statuses to be imported: <code>CREATE_COMPLETE</code>,
+     * <code>UPDATE_COMPLETE</code>, <code>UPDATE_ROLLBACK_COMPLETE</code>, <code>IMPORT_COMPLETE</code>, and
+     * <code>IMPORT_ROLLBACK_COMPLETE</code>.
+     * </p>
+     * <p>
+     * Import of the resource requires that the CloudFormation stack template matches the associated Service Catalog
+     * product provisioning artifact.
+     * </p>
+     * <note>
+     * <p>
+     * When you import an existing CloudFormation stack into a portfolio, Service Catalog does not apply the product's
+     * associated constraints during the import process. Service Catalog applies the constraints after you call
+     * <code>UpdateProvisionedProduct</code> for the provisioned product.
+     * </p>
+     * </note>
+     * <p>
+     * The user or role that performs this operation must have the <code>cloudformation:GetTemplate</code> and
+     * <code>cloudformation:DescribeStacks</code> IAM policy permissions.
+     * </p>
+     * <p>
+     * You can only import one provisioned product at a time. The product's CloudFormation stack must have the
+     * <code>IMPORT_COMPLETE</code> status before you import another.
+     * </p>
+     * 
+     * @param importAsProvisionedProductRequest
+     * @return Result of the ImportAsProvisionedProduct operation returned by the service.
+     * @throws DuplicateResourceException
+     *         The specified resource is a duplicate.
+     * @throws InvalidStateException
+     *         An attempt was made to modify a resource that is in a state that is not valid. Check your resources to
+     *         ensure that they are in valid states before retrying the operation.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws InvalidParametersException
+     *         One or more parameters provided to the operation are not valid.
+     * @sample AWSServiceCatalog.ImportAsProvisionedProduct
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ImportAsProvisionedProduct"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ImportAsProvisionedProductResult importAsProvisionedProduct(ImportAsProvisionedProductRequest importAsProvisionedProductRequest);
+
+    /**
+     * <p>
+     * Lists all imported portfolios for which account-to-account shares were accepted by this account. By specifying
+     * the <code>PortfolioShareType</code>, you can list portfolios for which organizational shares were accepted by
+     * this account.
      * </p>
      * 
      * @param listAcceptedPortfolioSharesRequest
@@ -1162,9 +1425,18 @@ public interface AWSServiceCatalog {
 
     /**
      * <p>
-     * Lists the paths to the specified product. A path is how the user has access to a specified product, and is
-     * necessary when provisioning a product. A path also determines the constraints put on the product.
+     * Lists the paths to the specified product. A path describes how the user gets access to a specified product and is
+     * necessary when provisioning a product. A path also determines the constraints that are put on a product. A path
+     * is dependent on a specific product, porfolio, and principal.
      * </p>
+     * <note>
+     * <p>
+     * When provisioning a product that's been added to a portfolio, you must grant your user, group, or role access to
+     * the portfolio. For more information, see <a
+     * href="https://docs.aws.amazon.com/servicecatalog/latest/adminguide/catalogs_portfolios_users.html">Granting users
+     * access</a> in the <i>Service Catalog User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param listLaunchPathsRequest
      * @return Result of the ListLaunchPaths operation returned by the service.
@@ -1181,7 +1453,10 @@ public interface AWSServiceCatalog {
     /**
      * <p>
      * Lists the organization nodes that have access to the specified portfolio. This API can only be called by the
-     * master account in the organization.
+     * management account in the organization or by a delegated admin.
+     * </p>
+     * <p>
+     * If a delegated admin is de-registered, they can no longer perform this operation.
      * </p>
      * 
      * @param listOrganizationPortfolioAccessRequest
@@ -1202,11 +1477,17 @@ public interface AWSServiceCatalog {
      * <p>
      * Lists the account IDs that have access to the specified portfolio.
      * </p>
+     * <p>
+     * A delegated admin can list the accounts that have access to the shared portfolio. Note that if a delegated admin
+     * is de-registered, they can no longer perform this operation.
+     * </p>
      * 
      * @param listPortfolioAccessRequest
      * @return Result of the ListPortfolioAccess operation returned by the service.
      * @throws ResourceNotFoundException
      *         The specified resource was not found.
+     * @throws InvalidParametersException
+     *         One or more parameters provided to the operation are not valid.
      * @sample AWSServiceCatalog.ListPortfolioAccess
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ListPortfolioAccess"
      *      target="_top">AWS API Documentation</a>
@@ -1247,7 +1528,8 @@ public interface AWSServiceCatalog {
 
     /**
      * <p>
-     * Lists all principal ARNs associated with the specified portfolio.
+     * Lists all <code>PrincipalARN</code>s and corresponding <code>PrincipalType</code>s associated with the specified
+     * portfolio.
      * </p>
      * 
      * @param listPrincipalsForPortfolioRequest
@@ -1339,8 +1621,8 @@ public interface AWSServiceCatalog {
      * @return Result of the ListResourcesForTagOption operation returned by the service.
      * @throws TagOptionNotMigratedException
      *         An operation requiring TagOptions failed because the TagOptions migration process has not been performed
-     *         for this account. Please use the AWS console to perform the migration process before retrying the
-     *         operation.
+     *         for this account. Use the Amazon Web Services Management Console to perform the migration process before
+     *         retrying the operation.
      * @throws ResourceNotFoundException
      *         The specified resource was not found.
      * @throws InvalidParametersException
@@ -1390,7 +1672,7 @@ public interface AWSServiceCatalog {
      * <p>
      * Returns summary information about stack instances that are associated with the specified
      * <code>CFN_STACKSET</code> type provisioned product. You can filter for stack instances that are associated with a
-     * specific AWS account name or region.
+     * specific Amazon Web Services account name or Region.
      * </p>
      * 
      * @param listStackInstancesForProvisionedProductRequest
@@ -1416,8 +1698,8 @@ public interface AWSServiceCatalog {
      * @return Result of the ListTagOptions operation returned by the service.
      * @throws TagOptionNotMigratedException
      *         An operation requiring TagOptions failed because the TagOptions migration process has not been performed
-     *         for this account. Please use the AWS console to perform the migration process before retrying the
-     *         operation.
+     *         for this account. Use the Amazon Web Services Management Console to perform the migration process before
+     *         retrying the operation.
      * @throws InvalidParametersException
      *         One or more parameters provided to the operation are not valid.
      * @sample AWSServiceCatalog.ListTagOptions
@@ -1428,18 +1710,83 @@ public interface AWSServiceCatalog {
 
     /**
      * <p>
+     * Notifies the result of the provisioning engine execution.
+     * </p>
+     * 
+     * @param notifyProvisionProductEngineWorkflowResultRequest
+     * @return Result of the NotifyProvisionProductEngineWorkflowResult operation returned by the service.
+     * @throws InvalidParametersException
+     *         One or more parameters provided to the operation are not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AWSServiceCatalog.NotifyProvisionProductEngineWorkflowResult
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/NotifyProvisionProductEngineWorkflowResult"
+     *      target="_top">AWS API Documentation</a>
+     */
+    NotifyProvisionProductEngineWorkflowResultResult notifyProvisionProductEngineWorkflowResult(
+            NotifyProvisionProductEngineWorkflowResultRequest notifyProvisionProductEngineWorkflowResultRequest);
+
+    /**
+     * <p>
+     * Notifies the result of the terminate engine execution.
+     * </p>
+     * 
+     * @param notifyTerminateProvisionedProductEngineWorkflowResultRequest
+     * @return Result of the NotifyTerminateProvisionedProductEngineWorkflowResult operation returned by the service.
+     * @throws InvalidParametersException
+     *         One or more parameters provided to the operation are not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AWSServiceCatalog.NotifyTerminateProvisionedProductEngineWorkflowResult
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/NotifyTerminateProvisionedProductEngineWorkflowResult"
+     *      target="_top">AWS API Documentation</a>
+     */
+    NotifyTerminateProvisionedProductEngineWorkflowResultResult notifyTerminateProvisionedProductEngineWorkflowResult(
+            NotifyTerminateProvisionedProductEngineWorkflowResultRequest notifyTerminateProvisionedProductEngineWorkflowResultRequest);
+
+    /**
+     * <p>
+     * Notifies the result of the update engine execution.
+     * </p>
+     * 
+     * @param notifyUpdateProvisionedProductEngineWorkflowResultRequest
+     * @return Result of the NotifyUpdateProvisionedProductEngineWorkflowResult operation returned by the service.
+     * @throws InvalidParametersException
+     *         One or more parameters provided to the operation are not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @sample AWSServiceCatalog.NotifyUpdateProvisionedProductEngineWorkflowResult
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/NotifyUpdateProvisionedProductEngineWorkflowResult"
+     *      target="_top">AWS API Documentation</a>
+     */
+    NotifyUpdateProvisionedProductEngineWorkflowResultResult notifyUpdateProvisionedProductEngineWorkflowResult(
+            NotifyUpdateProvisionedProductEngineWorkflowResultRequest notifyUpdateProvisionedProductEngineWorkflowResultRequest);
+
+    /**
+     * <p>
      * Provisions the specified product.
      * </p>
      * <p>
-     * A provisioned product is a resourced instance of a product. For example, provisioning a product based on a
-     * CloudFormation template launches a CloudFormation stack and its underlying resources. You can check the status of
-     * this request using <a>DescribeRecord</a>.
+     * A provisioned product is a resourced instance of a product. For example, provisioning a product that's based on
+     * an CloudFormation template launches an CloudFormation stack and its underlying resources. You can check the
+     * status of this request using <a>DescribeRecord</a>.
      * </p>
      * <p>
-     * If the request contains a tag key with an empty list of values, there is a tag conflict for that key. Do not
-     * include conflicted keys as tags, or this causes the error
+     * If the request contains a tag key with an empty list of values, there's a tag conflict for that key. Don't
+     * include conflicted keys as tags, or this will cause the error
      * "Parameter validation failed: Missing required parameter in Tags[<i>N</i>]:<i>Value</i>".
      * </p>
+     * <note>
+     * <p>
+     * When provisioning a product that's been added to a portfolio, you must grant your user, group, or role access to
+     * the portfolio. For more information, see <a
+     * href="https://docs.aws.amazon.com/servicecatalog/latest/adminguide/catalogs_portfolios_users.html">Granting users
+     * access</a> in the <i>Service Catalog User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param provisionProductRequest
      * @return Result of the ProvisionProduct operation returned by the service.
@@ -1592,13 +1939,64 @@ public interface AWSServiceCatalog {
      *         or increase your service limits and retry the operation.
      * @throws TagOptionNotMigratedException
      *         An operation requiring TagOptions failed because the TagOptions migration process has not been performed
-     *         for this account. Please use the AWS console to perform the migration process before retrying the
-     *         operation.
+     *         for this account. Use the Amazon Web Services Management Console to perform the migration process before
+     *         retrying the operation.
      * @sample AWSServiceCatalog.UpdatePortfolio
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/UpdatePortfolio" target="_top">AWS
      *      API Documentation</a>
      */
     UpdatePortfolioResult updatePortfolio(UpdatePortfolioRequest updatePortfolioRequest);
+
+    /**
+     * <p>
+     * Updates the specified portfolio share. You can use this API to enable or disable <code>TagOptions</code> sharing
+     * or Principal sharing for an existing portfolio share.
+     * </p>
+     * <p>
+     * The portfolio share cannot be updated if the <code>CreatePortfolioShare</code> operation is
+     * <code>IN_PROGRESS</code>, as the share is not available to recipient entities. In this case, you must wait for
+     * the portfolio share to be completed.
+     * </p>
+     * <p>
+     * You must provide the <code>accountId</code> or organization node in the input, but not both.
+     * </p>
+     * <p>
+     * If the portfolio is shared to both an external account and an organization node, and both shares need to be
+     * updated, you must invoke <code>UpdatePortfolioShare</code> separately for each share type.
+     * </p>
+     * <p>
+     * This API cannot be used for removing the portfolio share. You must use <code>DeletePortfolioShare</code> API for
+     * that action.
+     * </p>
+     * <note>
+     * <p>
+     * When you associate a principal with portfolio, a potential privilege escalation path may occur when that
+     * portfolio is then shared with other accounts. For a user in a recipient account who is <i>not</i> an Service
+     * Catalog Admin, but still has the ability to create Principals (Users/Groups/Roles), that user could create a role
+     * that matches a principal name association for the portfolio. Although this user may not know which principal
+     * names are associated through Service Catalog, they may be able to guess the user. If this potential escalation
+     * path is a concern, then Service Catalog recommends using <code>PrincipalType</code> as <code>IAM</code>. With
+     * this configuration, the <code>PrincipalARN</code> must already exist in the recipient account before it can be
+     * associated.
+     * </p>
+     * </note>
+     * 
+     * @param updatePortfolioShareRequest
+     * @return Result of the UpdatePortfolioShare operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource was not found.
+     * @throws InvalidParametersException
+     *         One or more parameters provided to the operation are not valid.
+     * @throws OperationNotSupportedException
+     *         The operation is not supported.
+     * @throws InvalidStateException
+     *         An attempt was made to modify a resource that is in a state that is not valid. Check your resources to
+     *         ensure that they are in valid states before retrying the operation.
+     * @sample AWSServiceCatalog.UpdatePortfolioShare
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/UpdatePortfolioShare"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdatePortfolioShareResult updatePortfolioShare(UpdatePortfolioShareRequest updatePortfolioShareRequest);
 
     /**
      * <p>
@@ -1613,8 +2011,8 @@ public interface AWSServiceCatalog {
      *         One or more parameters provided to the operation are not valid.
      * @throws TagOptionNotMigratedException
      *         An operation requiring TagOptions failed because the TagOptions migration process has not been performed
-     *         for this account. Please use the AWS console to perform the migration process before retrying the
-     *         operation.
+     *         for this account. Use the Amazon Web Services Management Console to perform the migration process before
+     *         retrying the operation.
      * @sample AWSServiceCatalog.UpdateProduct
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/UpdateProduct" target="_top">AWS
      *      API Documentation</a>
@@ -1714,8 +2112,8 @@ public interface AWSServiceCatalog {
      * @return Result of the UpdateTagOption operation returned by the service.
      * @throws TagOptionNotMigratedException
      *         An operation requiring TagOptions failed because the TagOptions migration process has not been performed
-     *         for this account. Please use the AWS console to perform the migration process before retrying the
-     *         operation.
+     *         for this account. Use the Amazon Web Services Management Console to perform the migration process before
+     *         retrying the operation.
      * @throws ResourceNotFoundException
      *         The specified resource was not found.
      * @throws DuplicateResourceException

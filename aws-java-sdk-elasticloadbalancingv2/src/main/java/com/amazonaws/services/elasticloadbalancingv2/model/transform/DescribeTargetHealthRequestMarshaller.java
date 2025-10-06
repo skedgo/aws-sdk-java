@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,20 +55,38 @@ public class DescribeTargetHealthRequestMarshaller implements Marshaller<Request
                 int targetsListIndex = 1;
 
                 for (TargetDescription targetsListValue : targetsList) {
+                    if (targetsListValue != null) {
 
-                    if (targetsListValue.getId() != null) {
-                        request.addParameter("Targets.member." + targetsListIndex + ".Id", StringUtils.fromString(targetsListValue.getId()));
-                    }
+                        if (targetsListValue.getId() != null) {
+                            request.addParameter("Targets.member." + targetsListIndex + ".Id", StringUtils.fromString(targetsListValue.getId()));
+                        }
 
-                    if (targetsListValue.getPort() != null) {
-                        request.addParameter("Targets.member." + targetsListIndex + ".Port", StringUtils.fromInteger(targetsListValue.getPort()));
-                    }
+                        if (targetsListValue.getPort() != null) {
+                            request.addParameter("Targets.member." + targetsListIndex + ".Port", StringUtils.fromInteger(targetsListValue.getPort()));
+                        }
 
-                    if (targetsListValue.getAvailabilityZone() != null) {
-                        request.addParameter("Targets.member." + targetsListIndex + ".AvailabilityZone",
-                                StringUtils.fromString(targetsListValue.getAvailabilityZone()));
+                        if (targetsListValue.getAvailabilityZone() != null) {
+                            request.addParameter("Targets.member." + targetsListIndex + ".AvailabilityZone",
+                                    StringUtils.fromString(targetsListValue.getAvailabilityZone()));
+                        }
                     }
                     targetsListIndex++;
+                }
+            }
+        }
+
+        if (describeTargetHealthRequest.getInclude() != null) {
+            java.util.List<String> includeList = describeTargetHealthRequest.getInclude();
+            if (includeList.isEmpty()) {
+                request.addParameter("Include", "");
+            } else {
+                int includeListIndex = 1;
+
+                for (String includeListValue : includeList) {
+                    if (includeListValue != null) {
+                        request.addParameter("Include.member." + includeListIndex, StringUtils.fromString(includeListValue));
+                    }
+                    includeListIndex++;
                 }
             }
         }

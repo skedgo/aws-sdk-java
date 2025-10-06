@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class ListDomainsResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * A summary of domains.
+     * A list of domains.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<DomainSummary> domains;
@@ -42,10 +42,10 @@ public class ListDomainsResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * A summary of domains.
+     * A list of domains.
      * </p>
      * 
-     * @return A summary of domains.
+     * @return A list of domains.
      */
 
     public java.util.List<DomainSummary> getDomains() {
@@ -57,11 +57,11 @@ public class ListDomainsResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * A summary of domains.
+     * A list of domains.
      * </p>
      * 
      * @param domains
-     *        A summary of domains.
+     *        A list of domains.
      */
 
     public void setDomains(java.util.Collection<DomainSummary> domains) {
@@ -75,7 +75,7 @@ public class ListDomainsResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * A summary of domains.
+     * A list of domains.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -84,7 +84,7 @@ public class ListDomainsResult extends com.amazonaws.AmazonWebServiceResult<com.
      * </p>
      * 
      * @param domains
-     *        A summary of domains.
+     *        A list of domains.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -100,11 +100,11 @@ public class ListDomainsResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * A summary of domains.
+     * A list of domains.
      * </p>
      * 
      * @param domains
-     *        A summary of domains.
+     *        A list of domains.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,6 +34,14 @@ public class StageState implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String stageName;
+
+    private StageExecution inboundExecution;
+    /**
+     * <p>
+     * The inbound executions for a stage.
+     * </p>
+     */
+    private java.util.List<StageExecution> inboundExecutions;
     /**
      * <p>
      * The state of the inbound transition, which is either enabled or disabled.
@@ -52,6 +60,24 @@ public class StageState implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private StageExecution latestExecution;
+    /**
+     * <p>
+     * The state of the entry conditions for a stage.
+     * </p>
+     */
+    private StageConditionState beforeEntryConditionState;
+    /**
+     * <p>
+     * The state of the success conditions for a stage.
+     * </p>
+     */
+    private StageConditionState onSuccessConditionState;
+    /**
+     * <p>
+     * The state of the failure conditions for a stage.
+     * </p>
+     */
+    private StageConditionState onFailureConditionState;
 
     /**
      * <p>
@@ -90,6 +116,102 @@ public class StageState implements Serializable, Cloneable, StructuredPojo {
 
     public StageState withStageName(String stageName) {
         setStageName(stageName);
+        return this;
+    }
+
+    /**
+     * @param inboundExecution
+     */
+
+    public void setInboundExecution(StageExecution inboundExecution) {
+        this.inboundExecution = inboundExecution;
+    }
+
+    /**
+     * @return
+     */
+
+    public StageExecution getInboundExecution() {
+        return this.inboundExecution;
+    }
+
+    /**
+     * @param inboundExecution
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StageState withInboundExecution(StageExecution inboundExecution) {
+        setInboundExecution(inboundExecution);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The inbound executions for a stage.
+     * </p>
+     * 
+     * @return The inbound executions for a stage.
+     */
+
+    public java.util.List<StageExecution> getInboundExecutions() {
+        return inboundExecutions;
+    }
+
+    /**
+     * <p>
+     * The inbound executions for a stage.
+     * </p>
+     * 
+     * @param inboundExecutions
+     *        The inbound executions for a stage.
+     */
+
+    public void setInboundExecutions(java.util.Collection<StageExecution> inboundExecutions) {
+        if (inboundExecutions == null) {
+            this.inboundExecutions = null;
+            return;
+        }
+
+        this.inboundExecutions = new java.util.ArrayList<StageExecution>(inboundExecutions);
+    }
+
+    /**
+     * <p>
+     * The inbound executions for a stage.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setInboundExecutions(java.util.Collection)} or {@link #withInboundExecutions(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param inboundExecutions
+     *        The inbound executions for a stage.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StageState withInboundExecutions(StageExecution... inboundExecutions) {
+        if (this.inboundExecutions == null) {
+            setInboundExecutions(new java.util.ArrayList<StageExecution>(inboundExecutions.length));
+        }
+        for (StageExecution ele : inboundExecutions) {
+            this.inboundExecutions.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The inbound executions for a stage.
+     * </p>
+     * 
+     * @param inboundExecutions
+     *        The inbound executions for a stage.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StageState withInboundExecutions(java.util.Collection<StageExecution> inboundExecutions) {
+        setInboundExecutions(inboundExecutions);
         return this;
     }
 
@@ -244,6 +366,126 @@ public class StageState implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The state of the entry conditions for a stage.
+     * </p>
+     * 
+     * @param beforeEntryConditionState
+     *        The state of the entry conditions for a stage.
+     */
+
+    public void setBeforeEntryConditionState(StageConditionState beforeEntryConditionState) {
+        this.beforeEntryConditionState = beforeEntryConditionState;
+    }
+
+    /**
+     * <p>
+     * The state of the entry conditions for a stage.
+     * </p>
+     * 
+     * @return The state of the entry conditions for a stage.
+     */
+
+    public StageConditionState getBeforeEntryConditionState() {
+        return this.beforeEntryConditionState;
+    }
+
+    /**
+     * <p>
+     * The state of the entry conditions for a stage.
+     * </p>
+     * 
+     * @param beforeEntryConditionState
+     *        The state of the entry conditions for a stage.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StageState withBeforeEntryConditionState(StageConditionState beforeEntryConditionState) {
+        setBeforeEntryConditionState(beforeEntryConditionState);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The state of the success conditions for a stage.
+     * </p>
+     * 
+     * @param onSuccessConditionState
+     *        The state of the success conditions for a stage.
+     */
+
+    public void setOnSuccessConditionState(StageConditionState onSuccessConditionState) {
+        this.onSuccessConditionState = onSuccessConditionState;
+    }
+
+    /**
+     * <p>
+     * The state of the success conditions for a stage.
+     * </p>
+     * 
+     * @return The state of the success conditions for a stage.
+     */
+
+    public StageConditionState getOnSuccessConditionState() {
+        return this.onSuccessConditionState;
+    }
+
+    /**
+     * <p>
+     * The state of the success conditions for a stage.
+     * </p>
+     * 
+     * @param onSuccessConditionState
+     *        The state of the success conditions for a stage.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StageState withOnSuccessConditionState(StageConditionState onSuccessConditionState) {
+        setOnSuccessConditionState(onSuccessConditionState);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The state of the failure conditions for a stage.
+     * </p>
+     * 
+     * @param onFailureConditionState
+     *        The state of the failure conditions for a stage.
+     */
+
+    public void setOnFailureConditionState(StageConditionState onFailureConditionState) {
+        this.onFailureConditionState = onFailureConditionState;
+    }
+
+    /**
+     * <p>
+     * The state of the failure conditions for a stage.
+     * </p>
+     * 
+     * @return The state of the failure conditions for a stage.
+     */
+
+    public StageConditionState getOnFailureConditionState() {
+        return this.onFailureConditionState;
+    }
+
+    /**
+     * <p>
+     * The state of the failure conditions for a stage.
+     * </p>
+     * 
+     * @param onFailureConditionState
+     *        The state of the failure conditions for a stage.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StageState withOnFailureConditionState(StageConditionState onFailureConditionState) {
+        setOnFailureConditionState(onFailureConditionState);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -257,12 +499,22 @@ public class StageState implements Serializable, Cloneable, StructuredPojo {
         sb.append("{");
         if (getStageName() != null)
             sb.append("StageName: ").append(getStageName()).append(",");
+        if (getInboundExecution() != null)
+            sb.append("InboundExecution: ").append(getInboundExecution()).append(",");
+        if (getInboundExecutions() != null)
+            sb.append("InboundExecutions: ").append(getInboundExecutions()).append(",");
         if (getInboundTransitionState() != null)
             sb.append("InboundTransitionState: ").append(getInboundTransitionState()).append(",");
         if (getActionStates() != null)
             sb.append("ActionStates: ").append(getActionStates()).append(",");
         if (getLatestExecution() != null)
-            sb.append("LatestExecution: ").append(getLatestExecution());
+            sb.append("LatestExecution: ").append(getLatestExecution()).append(",");
+        if (getBeforeEntryConditionState() != null)
+            sb.append("BeforeEntryConditionState: ").append(getBeforeEntryConditionState()).append(",");
+        if (getOnSuccessConditionState() != null)
+            sb.append("OnSuccessConditionState: ").append(getOnSuccessConditionState()).append(",");
+        if (getOnFailureConditionState() != null)
+            sb.append("OnFailureConditionState: ").append(getOnFailureConditionState());
         sb.append("}");
         return sb.toString();
     }
@@ -281,6 +533,14 @@ public class StageState implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getStageName() != null && other.getStageName().equals(this.getStageName()) == false)
             return false;
+        if (other.getInboundExecution() == null ^ this.getInboundExecution() == null)
+            return false;
+        if (other.getInboundExecution() != null && other.getInboundExecution().equals(this.getInboundExecution()) == false)
+            return false;
+        if (other.getInboundExecutions() == null ^ this.getInboundExecutions() == null)
+            return false;
+        if (other.getInboundExecutions() != null && other.getInboundExecutions().equals(this.getInboundExecutions()) == false)
+            return false;
         if (other.getInboundTransitionState() == null ^ this.getInboundTransitionState() == null)
             return false;
         if (other.getInboundTransitionState() != null && other.getInboundTransitionState().equals(this.getInboundTransitionState()) == false)
@@ -293,6 +553,18 @@ public class StageState implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getLatestExecution() != null && other.getLatestExecution().equals(this.getLatestExecution()) == false)
             return false;
+        if (other.getBeforeEntryConditionState() == null ^ this.getBeforeEntryConditionState() == null)
+            return false;
+        if (other.getBeforeEntryConditionState() != null && other.getBeforeEntryConditionState().equals(this.getBeforeEntryConditionState()) == false)
+            return false;
+        if (other.getOnSuccessConditionState() == null ^ this.getOnSuccessConditionState() == null)
+            return false;
+        if (other.getOnSuccessConditionState() != null && other.getOnSuccessConditionState().equals(this.getOnSuccessConditionState()) == false)
+            return false;
+        if (other.getOnFailureConditionState() == null ^ this.getOnFailureConditionState() == null)
+            return false;
+        if (other.getOnFailureConditionState() != null && other.getOnFailureConditionState().equals(this.getOnFailureConditionState()) == false)
+            return false;
         return true;
     }
 
@@ -302,9 +574,14 @@ public class StageState implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getStageName() == null) ? 0 : getStageName().hashCode());
+        hashCode = prime * hashCode + ((getInboundExecution() == null) ? 0 : getInboundExecution().hashCode());
+        hashCode = prime * hashCode + ((getInboundExecutions() == null) ? 0 : getInboundExecutions().hashCode());
         hashCode = prime * hashCode + ((getInboundTransitionState() == null) ? 0 : getInboundTransitionState().hashCode());
         hashCode = prime * hashCode + ((getActionStates() == null) ? 0 : getActionStates().hashCode());
         hashCode = prime * hashCode + ((getLatestExecution() == null) ? 0 : getLatestExecution().hashCode());
+        hashCode = prime * hashCode + ((getBeforeEntryConditionState() == null) ? 0 : getBeforeEntryConditionState().hashCode());
+        hashCode = prime * hashCode + ((getOnSuccessConditionState() == null) ? 0 : getOnSuccessConditionState().hashCode());
+        hashCode = prime * hashCode + ((getOnFailureConditionState() == null) ? 0 : getOnFailureConditionState().hashCode());
         return hashCode;
     }
 

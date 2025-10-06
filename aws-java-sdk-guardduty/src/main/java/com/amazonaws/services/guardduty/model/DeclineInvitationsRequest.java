@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,20 +27,20 @@ public class DeclineInvitationsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * A list of account IDs of the AWS accounts that sent invitations to the current member account that you want to
-     * decline invitations from.
+     * A list of account IDs of the Amazon Web Services accounts that sent invitations to the current member account
+     * that you want to decline invitations from.
      * </p>
      */
     private java.util.List<String> accountIds;
 
     /**
      * <p>
-     * A list of account IDs of the AWS accounts that sent invitations to the current member account that you want to
-     * decline invitations from.
+     * A list of account IDs of the Amazon Web Services accounts that sent invitations to the current member account
+     * that you want to decline invitations from.
      * </p>
      * 
-     * @return A list of account IDs of the AWS accounts that sent invitations to the current member account that you
-     *         want to decline invitations from.
+     * @return A list of account IDs of the Amazon Web Services accounts that sent invitations to the current member
+     *         account that you want to decline invitations from.
      */
 
     public java.util.List<String> getAccountIds() {
@@ -49,13 +49,13 @@ public class DeclineInvitationsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * A list of account IDs of the AWS accounts that sent invitations to the current member account that you want to
-     * decline invitations from.
+     * A list of account IDs of the Amazon Web Services accounts that sent invitations to the current member account
+     * that you want to decline invitations from.
      * </p>
      * 
      * @param accountIds
-     *        A list of account IDs of the AWS accounts that sent invitations to the current member account that you
-     *        want to decline invitations from.
+     *        A list of account IDs of the Amazon Web Services accounts that sent invitations to the current member
+     *        account that you want to decline invitations from.
      */
 
     public void setAccountIds(java.util.Collection<String> accountIds) {
@@ -69,8 +69,8 @@ public class DeclineInvitationsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * A list of account IDs of the AWS accounts that sent invitations to the current member account that you want to
-     * decline invitations from.
+     * A list of account IDs of the Amazon Web Services accounts that sent invitations to the current member account
+     * that you want to decline invitations from.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -79,8 +79,8 @@ public class DeclineInvitationsRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * 
      * @param accountIds
-     *        A list of account IDs of the AWS accounts that sent invitations to the current member account that you
-     *        want to decline invitations from.
+     *        A list of account IDs of the Amazon Web Services accounts that sent invitations to the current member
+     *        account that you want to decline invitations from.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -96,13 +96,13 @@ public class DeclineInvitationsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * A list of account IDs of the AWS accounts that sent invitations to the current member account that you want to
-     * decline invitations from.
+     * A list of account IDs of the Amazon Web Services accounts that sent invitations to the current member account
+     * that you want to decline invitations from.
      * </p>
      * 
      * @param accountIds
-     *        A list of account IDs of the AWS accounts that sent invitations to the current member account that you
-     *        want to decline invitations from.
+     *        A list of account IDs of the Amazon Web Services accounts that sent invitations to the current member
+     *        account that you want to decline invitations from.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,9 +49,10 @@ public class DescribeDefaultClusterParametersRequest extends com.amazonaws.Amazo
     /**
      * <p>
      * An optional parameter that specifies the starting point to return a set of response records. When the results of
-     * a <a>DescribeDefaultClusterParameters</a> request exceed the value specified in <code>MaxRecords</code>, AWS
-     * returns a value in the <code>Marker</code> field of the response. You can retrieve the next set of response
-     * records by providing the returned marker value in the <code>Marker</code> parameter and retrying the request.
+     * a <a>DescribeDefaultClusterParameters</a> request exceed the value specified in <code>MaxRecords</code>, Amazon
+     * Web Services returns a value in the <code>Marker</code> field of the response. You can retrieve the next set of
+     * response records by providing the returned marker value in the <code>Marker</code> parameter and retrying the
+     * request.
      * </p>
      */
     private String marker;
@@ -187,16 +188,17 @@ public class DescribeDefaultClusterParametersRequest extends com.amazonaws.Amazo
     /**
      * <p>
      * An optional parameter that specifies the starting point to return a set of response records. When the results of
-     * a <a>DescribeDefaultClusterParameters</a> request exceed the value specified in <code>MaxRecords</code>, AWS
-     * returns a value in the <code>Marker</code> field of the response. You can retrieve the next set of response
-     * records by providing the returned marker value in the <code>Marker</code> parameter and retrying the request.
+     * a <a>DescribeDefaultClusterParameters</a> request exceed the value specified in <code>MaxRecords</code>, Amazon
+     * Web Services returns a value in the <code>Marker</code> field of the response. You can retrieve the next set of
+     * response records by providing the returned marker value in the <code>Marker</code> parameter and retrying the
+     * request.
      * </p>
      * 
      * @param marker
      *        An optional parameter that specifies the starting point to return a set of response records. When the
      *        results of a <a>DescribeDefaultClusterParameters</a> request exceed the value specified in
-     *        <code>MaxRecords</code>, AWS returns a value in the <code>Marker</code> field of the response. You can
-     *        retrieve the next set of response records by providing the returned marker value in the
+     *        <code>MaxRecords</code>, Amazon Web Services returns a value in the <code>Marker</code> field of the
+     *        response. You can retrieve the next set of response records by providing the returned marker value in the
      *        <code>Marker</code> parameter and retrying the request.
      */
 
@@ -207,15 +209,16 @@ public class DescribeDefaultClusterParametersRequest extends com.amazonaws.Amazo
     /**
      * <p>
      * An optional parameter that specifies the starting point to return a set of response records. When the results of
-     * a <a>DescribeDefaultClusterParameters</a> request exceed the value specified in <code>MaxRecords</code>, AWS
-     * returns a value in the <code>Marker</code> field of the response. You can retrieve the next set of response
-     * records by providing the returned marker value in the <code>Marker</code> parameter and retrying the request.
+     * a <a>DescribeDefaultClusterParameters</a> request exceed the value specified in <code>MaxRecords</code>, Amazon
+     * Web Services returns a value in the <code>Marker</code> field of the response. You can retrieve the next set of
+     * response records by providing the returned marker value in the <code>Marker</code> parameter and retrying the
+     * request.
      * </p>
      * 
      * @return An optional parameter that specifies the starting point to return a set of response records. When the
      *         results of a <a>DescribeDefaultClusterParameters</a> request exceed the value specified in
-     *         <code>MaxRecords</code>, AWS returns a value in the <code>Marker</code> field of the response. You can
-     *         retrieve the next set of response records by providing the returned marker value in the
+     *         <code>MaxRecords</code>, Amazon Web Services returns a value in the <code>Marker</code> field of the
+     *         response. You can retrieve the next set of response records by providing the returned marker value in the
      *         <code>Marker</code> parameter and retrying the request.
      */
 
@@ -226,16 +229,17 @@ public class DescribeDefaultClusterParametersRequest extends com.amazonaws.Amazo
     /**
      * <p>
      * An optional parameter that specifies the starting point to return a set of response records. When the results of
-     * a <a>DescribeDefaultClusterParameters</a> request exceed the value specified in <code>MaxRecords</code>, AWS
-     * returns a value in the <code>Marker</code> field of the response. You can retrieve the next set of response
-     * records by providing the returned marker value in the <code>Marker</code> parameter and retrying the request.
+     * a <a>DescribeDefaultClusterParameters</a> request exceed the value specified in <code>MaxRecords</code>, Amazon
+     * Web Services returns a value in the <code>Marker</code> field of the response. You can retrieve the next set of
+     * response records by providing the returned marker value in the <code>Marker</code> parameter and retrying the
+     * request.
      * </p>
      * 
      * @param marker
      *        An optional parameter that specifies the starting point to return a set of response records. When the
      *        results of a <a>DescribeDefaultClusterParameters</a> request exceed the value specified in
-     *        <code>MaxRecords</code>, AWS returns a value in the <code>Marker</code> field of the response. You can
-     *        retrieve the next set of response records by providing the returned marker value in the
+     *        <code>MaxRecords</code>, Amazon Web Services returns a value in the <code>Marker</code> field of the
+     *        response. You can retrieve the next set of response records by providing the returned marker value in the
      *        <code>Marker</code> parameter and retrying the request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

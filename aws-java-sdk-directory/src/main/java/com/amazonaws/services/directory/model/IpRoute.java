@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * IP address block. This is often the address block of the DNS server used for your on-premises domain.
+ * IP address block. This is often the address block of the DNS server used for your self-managed domain.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/IpRoute" target="_top">AWS API Documentation</a>
@@ -30,7 +30,7 @@ public class IpRoute implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * IP address block using CIDR format, for example 10.0.0.0/24. This is often the address block of the DNS server
-     * used for your on-premises domain. For a single IP address use a CIDR address block with /32. For example
+     * used for your self-managed domain. For a single IP address use a CIDR address block with /32. For example
      * 10.0.0.0/32.
      * </p>
      */
@@ -45,13 +45,13 @@ public class IpRoute implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * IP address block using CIDR format, for example 10.0.0.0/24. This is often the address block of the DNS server
-     * used for your on-premises domain. For a single IP address use a CIDR address block with /32. For example
+     * used for your self-managed domain. For a single IP address use a CIDR address block with /32. For example
      * 10.0.0.0/32.
      * </p>
      * 
      * @param cidrIp
      *        IP address block using CIDR format, for example 10.0.0.0/24. This is often the address block of the DNS
-     *        server used for your on-premises domain. For a single IP address use a CIDR address block with /32. For
+     *        server used for your self-managed domain. For a single IP address use a CIDR address block with /32. For
      *        example 10.0.0.0/32.
      */
 
@@ -62,12 +62,12 @@ public class IpRoute implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * IP address block using CIDR format, for example 10.0.0.0/24. This is often the address block of the DNS server
-     * used for your on-premises domain. For a single IP address use a CIDR address block with /32. For example
+     * used for your self-managed domain. For a single IP address use a CIDR address block with /32. For example
      * 10.0.0.0/32.
      * </p>
      * 
      * @return IP address block using CIDR format, for example 10.0.0.0/24. This is often the address block of the DNS
-     *         server used for your on-premises domain. For a single IP address use a CIDR address block with /32. For
+     *         server used for your self-managed domain. For a single IP address use a CIDR address block with /32. For
      *         example 10.0.0.0/32.
      */
 
@@ -78,13 +78,13 @@ public class IpRoute implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * IP address block using CIDR format, for example 10.0.0.0/24. This is often the address block of the DNS server
-     * used for your on-premises domain. For a single IP address use a CIDR address block with /32. For example
+     * used for your self-managed domain. For a single IP address use a CIDR address block with /32. For example
      * 10.0.0.0/32.
      * </p>
      * 
      * @param cidrIp
      *        IP address block using CIDR format, for example 10.0.0.0/24. This is often the address block of the DNS
-     *        server used for your on-premises domain. For a single IP address use a CIDR address block with /32. For
+     *        server used for your self-managed domain. For a single IP address use a CIDR address block with /32. For
      *        example 10.0.0.0/32.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

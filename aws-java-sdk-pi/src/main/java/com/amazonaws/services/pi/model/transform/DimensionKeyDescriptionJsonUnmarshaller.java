@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -57,9 +57,16 @@ public class DimensionKeyDescriptionJsonUnmarshaller implements Unmarshaller<Dim
                     context.nextToken();
                     dimensionKeyDescription.setTotal(context.getUnmarshaller(Double.class).unmarshall(context));
                 }
+                if (context.testExpression("AdditionalMetrics", targetDepth)) {
+                    context.nextToken();
+                    dimensionKeyDescription.setAdditionalMetrics(new MapUnmarshaller<String, Double>(context.getUnmarshaller(String.class), context
+                            .getUnmarshaller(Double.class)).unmarshall(context));
+                }
                 if (context.testExpression("Partitions", targetDepth)) {
                     context.nextToken();
-                    dimensionKeyDescription.setPartitions(new ListUnmarshaller<Double>(context.getUnmarshaller(Double.class)).unmarshall(context));
+                    dimensionKeyDescription.setPartitions(new ListUnmarshaller<Double>(context.getUnmarshaller(Double.class))
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

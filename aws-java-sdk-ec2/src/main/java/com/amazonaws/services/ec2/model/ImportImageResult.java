@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,7 +37,7 @@ public class ImportImageResult extends com.amazonaws.AmazonWebServiceResult<com.
     private String description;
     /**
      * <p>
-     * Indicates whether the AMI is encypted.
+     * Indicates whether the AMI is encrypted.
      * </p>
      */
     private Boolean encrypted;
@@ -61,8 +61,7 @@ public class ImportImageResult extends com.amazonaws.AmazonWebServiceResult<com.
     private String importTaskId;
     /**
      * <p>
-     * The identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to create the
-     * encrypted AMI.
+     * The identifier for the symmetric KMS key that was used to create the encrypted AMI.
      * </p>
      */
     private String kmsKeyId;
@@ -102,6 +101,24 @@ public class ImportImageResult extends com.amazonaws.AmazonWebServiceResult<com.
      * </p>
      */
     private String statusMessage;
+    /**
+     * <p>
+     * The ARNs of the license configurations.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<ImportImageLicenseConfigurationResponse> licenseSpecifications;
+    /**
+     * <p>
+     * Any tags assigned to the import image task.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * The usage operation value.
+     * </p>
+     */
+    private String usageOperation;
 
     /**
      * <p>
@@ -185,11 +202,11 @@ public class ImportImageResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Indicates whether the AMI is encypted.
+     * Indicates whether the AMI is encrypted.
      * </p>
      * 
      * @param encrypted
-     *        Indicates whether the AMI is encypted.
+     *        Indicates whether the AMI is encrypted.
      */
 
     public void setEncrypted(Boolean encrypted) {
@@ -198,10 +215,10 @@ public class ImportImageResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Indicates whether the AMI is encypted.
+     * Indicates whether the AMI is encrypted.
      * </p>
      * 
-     * @return Indicates whether the AMI is encypted.
+     * @return Indicates whether the AMI is encrypted.
      */
 
     public Boolean getEncrypted() {
@@ -210,11 +227,11 @@ public class ImportImageResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Indicates whether the AMI is encypted.
+     * Indicates whether the AMI is encrypted.
      * </p>
      * 
      * @param encrypted
-     *        Indicates whether the AMI is encypted.
+     *        Indicates whether the AMI is encrypted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -225,10 +242,10 @@ public class ImportImageResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Indicates whether the AMI is encypted.
+     * Indicates whether the AMI is encrypted.
      * </p>
      * 
-     * @return Indicates whether the AMI is encypted.
+     * @return Indicates whether the AMI is encrypted.
      */
 
     public Boolean isEncrypted() {
@@ -357,13 +374,11 @@ public class ImportImageResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to create the
-     * encrypted AMI.
+     * The identifier for the symmetric KMS key that was used to create the encrypted AMI.
      * </p>
      * 
      * @param kmsKeyId
-     *        The identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to
-     *        create the encrypted AMI.
+     *        The identifier for the symmetric KMS key that was used to create the encrypted AMI.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -372,12 +387,10 @@ public class ImportImageResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to create the
-     * encrypted AMI.
+     * The identifier for the symmetric KMS key that was used to create the encrypted AMI.
      * </p>
      * 
-     * @return The identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to
-     *         create the encrypted AMI.
+     * @return The identifier for the symmetric KMS key that was used to create the encrypted AMI.
      */
 
     public String getKmsKeyId() {
@@ -386,13 +399,11 @@ public class ImportImageResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to create the
-     * encrypted AMI.
+     * The identifier for the symmetric KMS key that was used to create the encrypted AMI.
      * </p>
      * 
      * @param kmsKeyId
-     *        The identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to
-     *        create the encrypted AMI.
+     *        The identifier for the symmetric KMS key that was used to create the encrypted AMI.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -675,6 +686,192 @@ public class ImportImageResult extends com.amazonaws.AmazonWebServiceResult<com.
     }
 
     /**
+     * <p>
+     * The ARNs of the license configurations.
+     * </p>
+     * 
+     * @return The ARNs of the license configurations.
+     */
+
+    public java.util.List<ImportImageLicenseConfigurationResponse> getLicenseSpecifications() {
+        if (licenseSpecifications == null) {
+            licenseSpecifications = new com.amazonaws.internal.SdkInternalList<ImportImageLicenseConfigurationResponse>();
+        }
+        return licenseSpecifications;
+    }
+
+    /**
+     * <p>
+     * The ARNs of the license configurations.
+     * </p>
+     * 
+     * @param licenseSpecifications
+     *        The ARNs of the license configurations.
+     */
+
+    public void setLicenseSpecifications(java.util.Collection<ImportImageLicenseConfigurationResponse> licenseSpecifications) {
+        if (licenseSpecifications == null) {
+            this.licenseSpecifications = null;
+            return;
+        }
+
+        this.licenseSpecifications = new com.amazonaws.internal.SdkInternalList<ImportImageLicenseConfigurationResponse>(licenseSpecifications);
+    }
+
+    /**
+     * <p>
+     * The ARNs of the license configurations.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setLicenseSpecifications(java.util.Collection)} or
+     * {@link #withLicenseSpecifications(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param licenseSpecifications
+     *        The ARNs of the license configurations.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImportImageResult withLicenseSpecifications(ImportImageLicenseConfigurationResponse... licenseSpecifications) {
+        if (this.licenseSpecifications == null) {
+            setLicenseSpecifications(new com.amazonaws.internal.SdkInternalList<ImportImageLicenseConfigurationResponse>(licenseSpecifications.length));
+        }
+        for (ImportImageLicenseConfigurationResponse ele : licenseSpecifications) {
+            this.licenseSpecifications.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARNs of the license configurations.
+     * </p>
+     * 
+     * @param licenseSpecifications
+     *        The ARNs of the license configurations.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImportImageResult withLicenseSpecifications(java.util.Collection<ImportImageLicenseConfigurationResponse> licenseSpecifications) {
+        setLicenseSpecifications(licenseSpecifications);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Any tags assigned to the import image task.
+     * </p>
+     * 
+     * @return Any tags assigned to the import image task.
+     */
+
+    public java.util.List<Tag> getTags() {
+        if (tags == null) {
+            tags = new com.amazonaws.internal.SdkInternalList<Tag>();
+        }
+        return tags;
+    }
+
+    /**
+     * <p>
+     * Any tags assigned to the import image task.
+     * </p>
+     * 
+     * @param tags
+     *        Any tags assigned to the import image task.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new com.amazonaws.internal.SdkInternalList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * Any tags assigned to the import image task.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        Any tags assigned to the import image task.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImportImageResult withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new com.amazonaws.internal.SdkInternalList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Any tags assigned to the import image task.
+     * </p>
+     * 
+     * @param tags
+     *        Any tags assigned to the import image task.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImportImageResult withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The usage operation value.
+     * </p>
+     * 
+     * @param usageOperation
+     *        The usage operation value.
+     */
+
+    public void setUsageOperation(String usageOperation) {
+        this.usageOperation = usageOperation;
+    }
+
+    /**
+     * <p>
+     * The usage operation value.
+     * </p>
+     * 
+     * @return The usage operation value.
+     */
+
+    public String getUsageOperation() {
+        return this.usageOperation;
+    }
+
+    /**
+     * <p>
+     * The usage operation value.
+     * </p>
+     * 
+     * @param usageOperation
+     *        The usage operation value.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ImportImageResult withUsageOperation(String usageOperation) {
+        setUsageOperation(usageOperation);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -711,7 +908,13 @@ public class ImportImageResult extends com.amazonaws.AmazonWebServiceResult<com.
         if (getStatus() != null)
             sb.append("Status: ").append(getStatus()).append(",");
         if (getStatusMessage() != null)
-            sb.append("StatusMessage: ").append(getStatusMessage());
+            sb.append("StatusMessage: ").append(getStatusMessage()).append(",");
+        if (getLicenseSpecifications() != null)
+            sb.append("LicenseSpecifications: ").append(getLicenseSpecifications()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getUsageOperation() != null)
+            sb.append("UsageOperation: ").append(getUsageOperation());
         sb.append("}");
         return sb.toString();
     }
@@ -778,6 +981,18 @@ public class ImportImageResult extends com.amazonaws.AmazonWebServiceResult<com.
             return false;
         if (other.getStatusMessage() != null && other.getStatusMessage().equals(this.getStatusMessage()) == false)
             return false;
+        if (other.getLicenseSpecifications() == null ^ this.getLicenseSpecifications() == null)
+            return false;
+        if (other.getLicenseSpecifications() != null && other.getLicenseSpecifications().equals(this.getLicenseSpecifications()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getUsageOperation() == null ^ this.getUsageOperation() == null)
+            return false;
+        if (other.getUsageOperation() != null && other.getUsageOperation().equals(this.getUsageOperation()) == false)
+            return false;
         return true;
     }
 
@@ -799,6 +1014,9 @@ public class ImportImageResult extends com.amazonaws.AmazonWebServiceResult<com.
         hashCode = prime * hashCode + ((getSnapshotDetails() == null) ? 0 : getSnapshotDetails().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getStatusMessage() == null) ? 0 : getStatusMessage().hashCode());
+        hashCode = prime * hashCode + ((getLicenseSpecifications() == null) ? 0 : getLicenseSpecifications().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getUsageOperation() == null) ? 0 : getUsageOperation().hashCode());
         return hashCode;
     }
 

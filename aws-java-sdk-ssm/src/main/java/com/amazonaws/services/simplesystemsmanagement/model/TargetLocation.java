@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The combination of AWS Regions and accounts targeted by the current Automation execution.
+ * The combination of Amazon Web Services Regions and Amazon Web Services accounts targeted by the current Automation
+ * execution.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/TargetLocation" target="_top">AWS API
@@ -30,19 +31,20 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS accounts targeted by the current Automation execution.
+     * The Amazon Web Services accounts targeted by the current Automation execution.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> accounts;
     /**
      * <p>
-     * The AWS Regions targeted by the current Automation execution.
+     * The Amazon Web Services Regions targeted by the current Automation execution.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> regions;
     /**
      * <p>
-     * The maximum number of AWS accounts and AWS regions allowed to run the Automation concurrently
+     * The maximum number of Amazon Web Services Regions and Amazon Web Services accounts allowed to run the Automation
+     * concurrently.
      * </p>
      */
     private String targetLocationMaxConcurrency;
@@ -55,17 +57,20 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
     private String targetLocationMaxErrors;
     /**
      * <p>
-     * The Automation execution role used by the currently running Automation.
+     * The Automation execution role used by the currently running Automation. If not specified, the default value is
+     * <code>AWS-SystemsManager-AutomationExecutionRole</code>.
      * </p>
      */
     private String executionRoleName;
 
+    private AlarmConfiguration targetLocationAlarmConfiguration;
+
     /**
      * <p>
-     * The AWS accounts targeted by the current Automation execution.
+     * The Amazon Web Services accounts targeted by the current Automation execution.
      * </p>
      * 
-     * @return The AWS accounts targeted by the current Automation execution.
+     * @return The Amazon Web Services accounts targeted by the current Automation execution.
      */
 
     public java.util.List<String> getAccounts() {
@@ -77,11 +82,11 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS accounts targeted by the current Automation execution.
+     * The Amazon Web Services accounts targeted by the current Automation execution.
      * </p>
      * 
      * @param accounts
-     *        The AWS accounts targeted by the current Automation execution.
+     *        The Amazon Web Services accounts targeted by the current Automation execution.
      */
 
     public void setAccounts(java.util.Collection<String> accounts) {
@@ -95,7 +100,7 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS accounts targeted by the current Automation execution.
+     * The Amazon Web Services accounts targeted by the current Automation execution.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -104,7 +109,7 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param accounts
-     *        The AWS accounts targeted by the current Automation execution.
+     *        The Amazon Web Services accounts targeted by the current Automation execution.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -120,11 +125,11 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS accounts targeted by the current Automation execution.
+     * The Amazon Web Services accounts targeted by the current Automation execution.
      * </p>
      * 
      * @param accounts
-     *        The AWS accounts targeted by the current Automation execution.
+     *        The Amazon Web Services accounts targeted by the current Automation execution.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -135,10 +140,10 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Regions targeted by the current Automation execution.
+     * The Amazon Web Services Regions targeted by the current Automation execution.
      * </p>
      * 
-     * @return The AWS Regions targeted by the current Automation execution.
+     * @return The Amazon Web Services Regions targeted by the current Automation execution.
      */
 
     public java.util.List<String> getRegions() {
@@ -150,11 +155,11 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Regions targeted by the current Automation execution.
+     * The Amazon Web Services Regions targeted by the current Automation execution.
      * </p>
      * 
      * @param regions
-     *        The AWS Regions targeted by the current Automation execution.
+     *        The Amazon Web Services Regions targeted by the current Automation execution.
      */
 
     public void setRegions(java.util.Collection<String> regions) {
@@ -168,7 +173,7 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Regions targeted by the current Automation execution.
+     * The Amazon Web Services Regions targeted by the current Automation execution.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -177,7 +182,7 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param regions
-     *        The AWS Regions targeted by the current Automation execution.
+     *        The Amazon Web Services Regions targeted by the current Automation execution.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -193,11 +198,11 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Regions targeted by the current Automation execution.
+     * The Amazon Web Services Regions targeted by the current Automation execution.
      * </p>
      * 
      * @param regions
-     *        The AWS Regions targeted by the current Automation execution.
+     *        The Amazon Web Services Regions targeted by the current Automation execution.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -208,11 +213,13 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum number of AWS accounts and AWS regions allowed to run the Automation concurrently
+     * The maximum number of Amazon Web Services Regions and Amazon Web Services accounts allowed to run the Automation
+     * concurrently.
      * </p>
      * 
      * @param targetLocationMaxConcurrency
-     *        The maximum number of AWS accounts and AWS regions allowed to run the Automation concurrently
+     *        The maximum number of Amazon Web Services Regions and Amazon Web Services accounts allowed to run the
+     *        Automation concurrently.
      */
 
     public void setTargetLocationMaxConcurrency(String targetLocationMaxConcurrency) {
@@ -221,10 +228,12 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum number of AWS accounts and AWS regions allowed to run the Automation concurrently
+     * The maximum number of Amazon Web Services Regions and Amazon Web Services accounts allowed to run the Automation
+     * concurrently.
      * </p>
      * 
-     * @return The maximum number of AWS accounts and AWS regions allowed to run the Automation concurrently
+     * @return The maximum number of Amazon Web Services Regions and Amazon Web Services accounts allowed to run the
+     *         Automation concurrently.
      */
 
     public String getTargetLocationMaxConcurrency() {
@@ -233,11 +242,13 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum number of AWS accounts and AWS regions allowed to run the Automation concurrently
+     * The maximum number of Amazon Web Services Regions and Amazon Web Services accounts allowed to run the Automation
+     * concurrently.
      * </p>
      * 
      * @param targetLocationMaxConcurrency
-     *        The maximum number of AWS accounts and AWS regions allowed to run the Automation concurrently
+     *        The maximum number of Amazon Web Services Regions and Amazon Web Services accounts allowed to run the
+     *        Automation concurrently.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -294,11 +305,13 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Automation execution role used by the currently running Automation.
+     * The Automation execution role used by the currently running Automation. If not specified, the default value is
+     * <code>AWS-SystemsManager-AutomationExecutionRole</code>.
      * </p>
      * 
      * @param executionRoleName
-     *        The Automation execution role used by the currently running Automation.
+     *        The Automation execution role used by the currently running Automation. If not specified, the default
+     *        value is <code>AWS-SystemsManager-AutomationExecutionRole</code>.
      */
 
     public void setExecutionRoleName(String executionRoleName) {
@@ -307,10 +320,12 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Automation execution role used by the currently running Automation.
+     * The Automation execution role used by the currently running Automation. If not specified, the default value is
+     * <code>AWS-SystemsManager-AutomationExecutionRole</code>.
      * </p>
      * 
-     * @return The Automation execution role used by the currently running Automation.
+     * @return The Automation execution role used by the currently running Automation. If not specified, the default
+     *         value is <code>AWS-SystemsManager-AutomationExecutionRole</code>.
      */
 
     public String getExecutionRoleName() {
@@ -319,16 +334,44 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Automation execution role used by the currently running Automation.
+     * The Automation execution role used by the currently running Automation. If not specified, the default value is
+     * <code>AWS-SystemsManager-AutomationExecutionRole</code>.
      * </p>
      * 
      * @param executionRoleName
-     *        The Automation execution role used by the currently running Automation.
+     *        The Automation execution role used by the currently running Automation. If not specified, the default
+     *        value is <code>AWS-SystemsManager-AutomationExecutionRole</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public TargetLocation withExecutionRoleName(String executionRoleName) {
         setExecutionRoleName(executionRoleName);
+        return this;
+    }
+
+    /**
+     * @param targetLocationAlarmConfiguration
+     */
+
+    public void setTargetLocationAlarmConfiguration(AlarmConfiguration targetLocationAlarmConfiguration) {
+        this.targetLocationAlarmConfiguration = targetLocationAlarmConfiguration;
+    }
+
+    /**
+     * @return
+     */
+
+    public AlarmConfiguration getTargetLocationAlarmConfiguration() {
+        return this.targetLocationAlarmConfiguration;
+    }
+
+    /**
+     * @param targetLocationAlarmConfiguration
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TargetLocation withTargetLocationAlarmConfiguration(AlarmConfiguration targetLocationAlarmConfiguration) {
+        setTargetLocationAlarmConfiguration(targetLocationAlarmConfiguration);
         return this;
     }
 
@@ -353,7 +396,9 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
         if (getTargetLocationMaxErrors() != null)
             sb.append("TargetLocationMaxErrors: ").append(getTargetLocationMaxErrors()).append(",");
         if (getExecutionRoleName() != null)
-            sb.append("ExecutionRoleName: ").append(getExecutionRoleName());
+            sb.append("ExecutionRoleName: ").append(getExecutionRoleName()).append(",");
+        if (getTargetLocationAlarmConfiguration() != null)
+            sb.append("TargetLocationAlarmConfiguration: ").append(getTargetLocationAlarmConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -388,6 +433,11 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getExecutionRoleName() != null && other.getExecutionRoleName().equals(this.getExecutionRoleName()) == false)
             return false;
+        if (other.getTargetLocationAlarmConfiguration() == null ^ this.getTargetLocationAlarmConfiguration() == null)
+            return false;
+        if (other.getTargetLocationAlarmConfiguration() != null
+                && other.getTargetLocationAlarmConfiguration().equals(this.getTargetLocationAlarmConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -401,6 +451,7 @@ public class TargetLocation implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getTargetLocationMaxConcurrency() == null) ? 0 : getTargetLocationMaxConcurrency().hashCode());
         hashCode = prime * hashCode + ((getTargetLocationMaxErrors() == null) ? 0 : getTargetLocationMaxErrors().hashCode());
         hashCode = prime * hashCode + ((getExecutionRoleName() == null) ? 0 : getExecutionRoleName().hashCode());
+        hashCode = prime * hashCode + ((getTargetLocationAlarmConfiguration() == null) ? 0 : getTargetLocationAlarmConfiguration().hashCode());
         return hashCode;
     }
 

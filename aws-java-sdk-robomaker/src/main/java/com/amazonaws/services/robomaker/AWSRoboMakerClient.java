@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.robomaker.AWSRoboMakerClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.robomaker.model.*;
+
 import com.amazonaws.services.robomaker.model.transform.*;
 
 /**
@@ -76,34 +77,34 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withModeledClass(
-                                    com.amazonaws.services.robomaker.model.InvalidParameterException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConcurrentDeploymentException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.robomaker.model.transform.ConcurrentDeploymentExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withModeledClass(
-                                    com.amazonaws.services.robomaker.model.ThrottlingException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.robomaker.model.transform.InternalServerExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ConcurrentDeploymentException").withModeledClass(
-                                    com.amazonaws.services.robomaker.model.ConcurrentDeploymentException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.robomaker.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerException").withModeledClass(
-                                    com.amazonaws.services.robomaker.model.InternalServerException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.robomaker.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.robomaker.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("IdempotentParameterMismatchException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.robomaker.model.transform.IdempotentParameterMismatchExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.robomaker.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.robomaker.model.transform.ResourceAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("IdempotentParameterMismatchException").withModeledClass(
-                                    com.amazonaws.services.robomaker.model.IdempotentParameterMismatchException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.robomaker.model.transform.InvalidParameterExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withModeledClass(
-                                    com.amazonaws.services.robomaker.model.ServiceUnavailableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.robomaker.model.transform.ThrottlingExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.robomaker.model.ResourceAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.robomaker.model.transform.ServiceUnavailableExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.robomaker.model.AWSRoboMakerException.class));
 
     public static AWSRoboMakerClientBuilder builder() {
@@ -154,6 +155,68 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
 
     /**
      * <p>
+     * Deletes one or more worlds in a batch operation.
+     * </p>
+     * 
+     * @param batchDeleteWorldsRequest
+     * @return Result of the BatchDeleteWorlds operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.BatchDeleteWorlds
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/BatchDeleteWorlds" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public BatchDeleteWorldsResult batchDeleteWorlds(BatchDeleteWorldsRequest request) {
+        request = beforeClientExecution(request);
+        return executeBatchDeleteWorlds(request);
+    }
+
+    @SdkInternalApi
+    final BatchDeleteWorldsResult executeBatchDeleteWorlds(BatchDeleteWorldsRequest batchDeleteWorldsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(batchDeleteWorldsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<BatchDeleteWorldsRequest> request = null;
+        Response<BatchDeleteWorldsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new BatchDeleteWorldsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(batchDeleteWorldsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchDeleteWorlds");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<BatchDeleteWorldsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new BatchDeleteWorldsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Describes one or more simulation jobs.
      * </p>
      * 
@@ -194,6 +257,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                         .beforeMarshalling(batchDescribeSimulationJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchDescribeSimulationJob");
@@ -220,6 +285,12 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      * <p>
      * Cancels the specified deployment job.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param cancelDeploymentJobRequest
      * @return Result of the CancelDeploymentJob operation returned by the service.
@@ -237,6 +308,7 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public CancelDeploymentJobResult cancelDeploymentJob(CancelDeploymentJobRequest request) {
         request = beforeClientExecution(request);
         return executeCancelDeploymentJob(request);
@@ -257,6 +329,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new CancelDeploymentJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelDeploymentJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelDeploymentJob");
@@ -319,6 +393,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new CancelSimulationJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelSimulationJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelSimulationJob");
@@ -342,8 +418,210 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
 
     /**
      * <p>
+     * Cancels a simulation job batch. When you cancel a simulation job batch, you are also cancelling all of the active
+     * simulation jobs created as part of the batch.
+     * </p>
+     * 
+     * @param cancelSimulationJobBatchRequest
+     * @return Result of the CancelSimulationJobBatch operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @sample AWSRoboMaker.CancelSimulationJobBatch
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CancelSimulationJobBatch"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CancelSimulationJobBatchResult cancelSimulationJobBatch(CancelSimulationJobBatchRequest request) {
+        request = beforeClientExecution(request);
+        return executeCancelSimulationJobBatch(request);
+    }
+
+    @SdkInternalApi
+    final CancelSimulationJobBatchResult executeCancelSimulationJobBatch(CancelSimulationJobBatchRequest cancelSimulationJobBatchRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(cancelSimulationJobBatchRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CancelSimulationJobBatchRequest> request = null;
+        Response<CancelSimulationJobBatchResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CancelSimulationJobBatchRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(cancelSimulationJobBatchRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelSimulationJobBatch");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CancelSimulationJobBatchResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CancelSimulationJobBatchResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Cancels the specified export job.
+     * </p>
+     * 
+     * @param cancelWorldExportJobRequest
+     * @return Result of the CancelWorldExportJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @sample AWSRoboMaker.CancelWorldExportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CancelWorldExportJob" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CancelWorldExportJobResult cancelWorldExportJob(CancelWorldExportJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeCancelWorldExportJob(request);
+    }
+
+    @SdkInternalApi
+    final CancelWorldExportJobResult executeCancelWorldExportJob(CancelWorldExportJobRequest cancelWorldExportJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(cancelWorldExportJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CancelWorldExportJobRequest> request = null;
+        Response<CancelWorldExportJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CancelWorldExportJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelWorldExportJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelWorldExportJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CancelWorldExportJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CancelWorldExportJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Cancels the specified world generator job.
+     * </p>
+     * 
+     * @param cancelWorldGenerationJobRequest
+     * @return Result of the CancelWorldGenerationJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @sample AWSRoboMaker.CancelWorldGenerationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CancelWorldGenerationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CancelWorldGenerationJobResult cancelWorldGenerationJob(CancelWorldGenerationJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeCancelWorldGenerationJob(request);
+    }
+
+    @SdkInternalApi
+    final CancelWorldGenerationJobResult executeCancelWorldGenerationJob(CancelWorldGenerationJobRequest cancelWorldGenerationJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(cancelWorldGenerationJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CancelWorldGenerationJobRequest> request = null;
+        Response<CancelWorldGenerationJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CancelWorldGenerationJobRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(cancelWorldGenerationJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelWorldGenerationJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CancelWorldGenerationJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CancelWorldGenerationJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deploys a specific version of a robot application to robots in a fleet.
      * </p>
+     * <important>
+     * <p>
+     * This API is no longer supported and will throw an error if used.
+     * </p>
+     * </important>
      * <p>
      * The robot application must have a numbered <code>applicationVersion</code> for consistency reasons. To create a
      * new version, use <code>CreateRobotApplicationVersion</code> or see <a
@@ -380,6 +658,7 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public CreateDeploymentJobResult createDeploymentJob(CreateDeploymentJobRequest request) {
         request = beforeClientExecution(request);
         return executeCreateDeploymentJob(request);
@@ -400,6 +679,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new CreateDeploymentJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDeploymentJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDeploymentJob");
@@ -425,6 +706,11 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      * <p>
      * Creates a fleet, a logical group of robots running the same robot application.
      * </p>
+     * <important>
+     * <p>
+     * This API is no longer supported and will throw an error if used.
+     * </p>
+     * </important>
      * 
      * @param createFleetRequest
      * @return Result of the CreateFleet operation returned by the service.
@@ -443,6 +729,7 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public CreateFleetResult createFleet(CreateFleetRequest request) {
         request = beforeClientExecution(request);
         return executeCreateFleet(request);
@@ -463,6 +750,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new CreateFleetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createFleetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateFleet");
@@ -488,6 +777,11 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      * <p>
      * Creates a robot.
      * </p>
+     * <important>
+     * <p>
+     * This API is no longer supported and will throw an error if used.
+     * </p>
+     * </important>
      * 
      * @param createRobotRequest
      * @return Result of the CreateRobot operation returned by the service.
@@ -508,6 +802,7 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public CreateRobotResult createRobot(CreateRobotRequest request) {
         request = beforeClientExecution(request);
         return executeCreateRobot(request);
@@ -528,6 +823,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new CreateRobotRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRobotRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRobot");
@@ -596,6 +893,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new CreateRobotApplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRobotApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRobotApplication");
@@ -664,6 +963,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                         .beforeMarshalling(createRobotApplicationVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRobotApplicationVersion");
@@ -734,6 +1035,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                         .beforeMarshalling(createSimulationApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSimulationApplication");
@@ -803,6 +1106,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                         .beforeMarshalling(createSimulationApplicationVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSimulationApplicationVersion");
@@ -879,6 +1184,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new CreateSimulationJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createSimulationJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSimulationJob");
@@ -902,8 +1209,226 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
 
     /**
      * <p>
+     * Creates a world export job.
+     * </p>
+     * 
+     * @param createWorldExportJobRequest
+     * @return Result of the CreateWorldExportJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws IdempotentParameterMismatchException
+     *         The request uses the same client token as a previous, but non-identical request. Do not reuse a client
+     *         token with different requests, unless the requests are identical.
+     * @throws ServiceUnavailableException
+     *         The request has failed due to a temporary failure of the server.
+     * @sample AWSRoboMaker.CreateWorldExportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateWorldExportJob" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateWorldExportJobResult createWorldExportJob(CreateWorldExportJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateWorldExportJob(request);
+    }
+
+    @SdkInternalApi
+    final CreateWorldExportJobResult executeCreateWorldExportJob(CreateWorldExportJobRequest createWorldExportJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createWorldExportJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateWorldExportJobRequest> request = null;
+        Response<CreateWorldExportJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateWorldExportJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createWorldExportJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateWorldExportJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateWorldExportJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateWorldExportJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates worlds using the specified template.
+     * </p>
+     * 
+     * @param createWorldGenerationJobRequest
+     * @return Result of the CreateWorldGenerationJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws LimitExceededException
+     *         The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests
+     *         exceeds the maximum number allowed.
+     * @throws IdempotentParameterMismatchException
+     *         The request uses the same client token as a previous, but non-identical request. Do not reuse a client
+     *         token with different requests, unless the requests are identical.
+     * @throws ServiceUnavailableException
+     *         The request has failed due to a temporary failure of the server.
+     * @sample AWSRoboMaker.CreateWorldGenerationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateWorldGenerationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateWorldGenerationJobResult createWorldGenerationJob(CreateWorldGenerationJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateWorldGenerationJob(request);
+    }
+
+    @SdkInternalApi
+    final CreateWorldGenerationJobResult executeCreateWorldGenerationJob(CreateWorldGenerationJobRequest createWorldGenerationJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createWorldGenerationJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateWorldGenerationJobRequest> request = null;
+        Response<CreateWorldGenerationJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateWorldGenerationJobRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createWorldGenerationJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateWorldGenerationJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateWorldGenerationJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateWorldGenerationJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a world template.
+     * </p>
+     * 
+     * @param createWorldTemplateRequest
+     * @return Result of the CreateWorldTemplate operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws LimitExceededException
+     *         The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests
+     *         exceeds the maximum number allowed.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.CreateWorldTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateWorldTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateWorldTemplateResult createWorldTemplate(CreateWorldTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateWorldTemplate(request);
+    }
+
+    @SdkInternalApi
+    final CreateWorldTemplateResult executeCreateWorldTemplate(CreateWorldTemplateRequest createWorldTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createWorldTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateWorldTemplateRequest> request = null;
+        Response<CreateWorldTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateWorldTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createWorldTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateWorldTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateWorldTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateWorldTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deletes a fleet.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param deleteFleetRequest
      * @return Result of the DeleteFleet operation returned by the service.
@@ -919,6 +1444,7 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public DeleteFleetResult deleteFleet(DeleteFleetRequest request) {
         request = beforeClientExecution(request);
         return executeDeleteFleet(request);
@@ -939,6 +1465,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new DeleteFleetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteFleetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFleet");
@@ -964,6 +1492,12 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      * <p>
      * Deletes a robot.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param deleteRobotRequest
      * @return Result of the DeleteRobot operation returned by the service.
@@ -979,6 +1513,7 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public DeleteRobotResult deleteRobot(DeleteRobotRequest request) {
         request = beforeClientExecution(request);
         return executeDeleteRobot(request);
@@ -999,6 +1534,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new DeleteRobotRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRobotRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRobot");
@@ -1059,6 +1596,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new DeleteRobotApplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRobotApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRobotApplication");
@@ -1121,6 +1660,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                         .beforeMarshalling(deleteSimulationApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSimulationApplication");
@@ -1145,8 +1686,78 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
 
     /**
      * <p>
+     * Deletes a world template.
+     * </p>
+     * 
+     * @param deleteWorldTemplateRequest
+     * @return Result of the DeleteWorldTemplate operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.DeleteWorldTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DeleteWorldTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeleteWorldTemplateResult deleteWorldTemplate(DeleteWorldTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteWorldTemplate(request);
+    }
+
+    @SdkInternalApi
+    final DeleteWorldTemplateResult executeDeleteWorldTemplate(DeleteWorldTemplateRequest deleteWorldTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteWorldTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteWorldTemplateRequest> request = null;
+        Response<DeleteWorldTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteWorldTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteWorldTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteWorldTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteWorldTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteWorldTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deregisters a robot.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param deregisterRobotRequest
      * @return Result of the DeregisterRobot operation returned by the service.
@@ -1164,6 +1775,7 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public DeregisterRobotResult deregisterRobot(DeregisterRobotRequest request) {
         request = beforeClientExecution(request);
         return executeDeregisterRobot(request);
@@ -1184,6 +1796,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new DeregisterRobotRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deregisterRobotRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeregisterRobot");
@@ -1209,6 +1823,12 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      * <p>
      * Describes a deployment job.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param describeDeploymentJobRequest
      * @return Result of the DescribeDeploymentJob operation returned by the service.
@@ -1226,6 +1846,7 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      *      target="_top">AWS API Documentation</a>
      */
     @Override
+    @Deprecated
     public DescribeDeploymentJobResult describeDeploymentJob(DescribeDeploymentJobRequest request) {
         request = beforeClientExecution(request);
         return executeDescribeDeploymentJob(request);
@@ -1246,6 +1867,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new DescribeDeploymentJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeDeploymentJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDeploymentJob");
@@ -1272,6 +1895,12 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      * <p>
      * Describes a fleet.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param describeFleetRequest
      * @return Result of the DescribeFleet operation returned by the service.
@@ -1289,6 +1918,7 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public DescribeFleetResult describeFleet(DescribeFleetRequest request) {
         request = beforeClientExecution(request);
         return executeDescribeFleet(request);
@@ -1309,6 +1939,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new DescribeFleetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeFleetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeFleet");
@@ -1334,6 +1966,12 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      * <p>
      * Describes a robot.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param describeRobotRequest
      * @return Result of the DescribeRobot operation returned by the service.
@@ -1351,6 +1989,7 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public DescribeRobotResult describeRobot(DescribeRobotRequest request) {
         request = beforeClientExecution(request);
         return executeDescribeRobot(request);
@@ -1371,6 +2010,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new DescribeRobotRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeRobotRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRobot");
@@ -1434,6 +2075,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                         .beforeMarshalling(describeRobotApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRobotApplication");
@@ -1498,6 +2141,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                         .beforeMarshalling(describeSimulationApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSimulationApplication");
@@ -1561,6 +2206,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new DescribeSimulationJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeSimulationJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSimulationJob");
@@ -1585,13 +2232,403 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
 
     /**
      * <p>
+     * Describes a simulation job batch.
+     * </p>
+     * 
+     * @param describeSimulationJobBatchRequest
+     * @return Result of the DescribeSimulationJobBatch operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.DescribeSimulationJobBatch
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeSimulationJobBatch"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeSimulationJobBatchResult describeSimulationJobBatch(DescribeSimulationJobBatchRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeSimulationJobBatch(request);
+    }
+
+    @SdkInternalApi
+    final DescribeSimulationJobBatchResult executeDescribeSimulationJobBatch(DescribeSimulationJobBatchRequest describeSimulationJobBatchRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeSimulationJobBatchRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeSimulationJobBatchRequest> request = null;
+        Response<DescribeSimulationJobBatchResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeSimulationJobBatchRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeSimulationJobBatchRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSimulationJobBatch");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeSimulationJobBatchResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeSimulationJobBatchResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes a world.
+     * </p>
+     * 
+     * @param describeWorldRequest
+     * @return Result of the DescribeWorld operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.DescribeWorld
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeWorld" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DescribeWorldResult describeWorld(DescribeWorldRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeWorld(request);
+    }
+
+    @SdkInternalApi
+    final DescribeWorldResult executeDescribeWorld(DescribeWorldRequest describeWorldRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeWorldRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeWorldRequest> request = null;
+        Response<DescribeWorldResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeWorldRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeWorldRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorld");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeWorldResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeWorldResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes a world export job.
+     * </p>
+     * 
+     * @param describeWorldExportJobRequest
+     * @return Result of the DescribeWorldExportJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @sample AWSRoboMaker.DescribeWorldExportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeWorldExportJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeWorldExportJobResult describeWorldExportJob(DescribeWorldExportJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeWorldExportJob(request);
+    }
+
+    @SdkInternalApi
+    final DescribeWorldExportJobResult executeDescribeWorldExportJob(DescribeWorldExportJobRequest describeWorldExportJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeWorldExportJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeWorldExportJobRequest> request = null;
+        Response<DescribeWorldExportJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeWorldExportJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeWorldExportJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorldExportJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeWorldExportJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeWorldExportJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes a world generation job.
+     * </p>
+     * 
+     * @param describeWorldGenerationJobRequest
+     * @return Result of the DescribeWorldGenerationJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @sample AWSRoboMaker.DescribeWorldGenerationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeWorldGenerationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeWorldGenerationJobResult describeWorldGenerationJob(DescribeWorldGenerationJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeWorldGenerationJob(request);
+    }
+
+    @SdkInternalApi
+    final DescribeWorldGenerationJobResult executeDescribeWorldGenerationJob(DescribeWorldGenerationJobRequest describeWorldGenerationJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeWorldGenerationJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeWorldGenerationJobRequest> request = null;
+        Response<DescribeWorldGenerationJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeWorldGenerationJobRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeWorldGenerationJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorldGenerationJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeWorldGenerationJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeWorldGenerationJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes a world template.
+     * </p>
+     * 
+     * @param describeWorldTemplateRequest
+     * @return Result of the DescribeWorldTemplate operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.DescribeWorldTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeWorldTemplate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeWorldTemplateResult describeWorldTemplate(DescribeWorldTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeWorldTemplate(request);
+    }
+
+    @SdkInternalApi
+    final DescribeWorldTemplateResult executeDescribeWorldTemplate(DescribeWorldTemplateRequest describeWorldTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeWorldTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeWorldTemplateRequest> request = null;
+        Response<DescribeWorldTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeWorldTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeWorldTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorldTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeWorldTemplateResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DescribeWorldTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets the world template body.
+     * </p>
+     * 
+     * @param getWorldTemplateBodyRequest
+     * @return Result of the GetWorldTemplateBody operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.GetWorldTemplateBody
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/GetWorldTemplateBody" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public GetWorldTemplateBodyResult getWorldTemplateBody(GetWorldTemplateBodyRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetWorldTemplateBody(request);
+    }
+
+    @SdkInternalApi
+    final GetWorldTemplateBodyResult executeGetWorldTemplateBody(GetWorldTemplateBodyRequest getWorldTemplateBodyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getWorldTemplateBodyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetWorldTemplateBodyRequest> request = null;
+        Response<GetWorldTemplateBodyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetWorldTemplateBodyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getWorldTemplateBodyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetWorldTemplateBody");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetWorldTemplateBodyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetWorldTemplateBodyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns a list of deployment jobs for a fleet. You can optionally provide filters to retrieve specific deployment
      * jobs.
      * </p>
-     * <note>
+     * <important>
      * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
      * </p>
-     * </note>
+     * </important>
      * 
      * @param listDeploymentJobsRequest
      * @return Result of the ListDeploymentJobs operation returned by the service.
@@ -1609,6 +2646,7 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public ListDeploymentJobsResult listDeploymentJobs(ListDeploymentJobsRequest request) {
         request = beforeClientExecution(request);
         return executeListDeploymentJobs(request);
@@ -1629,6 +2667,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new ListDeploymentJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDeploymentJobsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDeploymentJobs");
@@ -1654,6 +2694,12 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      * <p>
      * Returns a list of fleets. You can optionally provide filters to retrieve specific fleets.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param listFleetsRequest
      * @return Result of the ListFleets operation returned by the service.
@@ -1671,6 +2717,7 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public ListFleetsResult listFleets(ListFleetsRequest request) {
         request = beforeClientExecution(request);
         return executeListFleets(request);
@@ -1691,6 +2738,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new ListFleetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listFleetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFleets");
@@ -1751,6 +2800,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new ListRobotApplicationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listRobotApplicationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRobotApplications");
@@ -1777,6 +2828,12 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      * <p>
      * Returns a list of robots. You can optionally provide filters to retrieve specific robots.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param listRobotsRequest
      * @return Result of the ListRobots operation returned by the service.
@@ -1794,6 +2851,7 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public ListRobotsResult listRobots(ListRobotsRequest request) {
         request = beforeClientExecution(request);
         return executeListRobots(request);
@@ -1814,6 +2872,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new ListRobotsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listRobotsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRobots");
@@ -1876,6 +2936,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                         .beforeMarshalling(listSimulationApplicationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSimulationApplications");
@@ -1888,6 +2950,69 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
             HttpResponseHandler<AmazonWebServiceResponse<ListSimulationApplicationsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new ListSimulationApplicationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list simulation job batches. You can optionally provide filters to retrieve specific simulation batch
+     * jobs.
+     * </p>
+     * 
+     * @param listSimulationJobBatchesRequest
+     * @return Result of the ListSimulationJobBatches operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.ListSimulationJobBatches
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListSimulationJobBatches"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListSimulationJobBatchesResult listSimulationJobBatches(ListSimulationJobBatchesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListSimulationJobBatches(request);
+    }
+
+    @SdkInternalApi
+    final ListSimulationJobBatchesResult executeListSimulationJobBatches(ListSimulationJobBatchesRequest listSimulationJobBatchesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listSimulationJobBatchesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListSimulationJobBatchesRequest> request = null;
+        Response<ListSimulationJobBatchesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListSimulationJobBatchesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listSimulationJobBatchesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSimulationJobBatches");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListSimulationJobBatchesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListSimulationJobBatchesResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1937,6 +3062,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new ListSimulationJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listSimulationJobsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSimulationJobs");
@@ -1999,6 +3126,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -2022,8 +3151,263 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
 
     /**
      * <p>
+     * Lists world export jobs.
+     * </p>
+     * 
+     * @param listWorldExportJobsRequest
+     * @return Result of the ListWorldExportJobs operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @sample AWSRoboMaker.ListWorldExportJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListWorldExportJobs" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListWorldExportJobsResult listWorldExportJobs(ListWorldExportJobsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListWorldExportJobs(request);
+    }
+
+    @SdkInternalApi
+    final ListWorldExportJobsResult executeListWorldExportJobs(ListWorldExportJobsRequest listWorldExportJobsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listWorldExportJobsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListWorldExportJobsRequest> request = null;
+        Response<ListWorldExportJobsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListWorldExportJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listWorldExportJobsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListWorldExportJobs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListWorldExportJobsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListWorldExportJobsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists world generator jobs.
+     * </p>
+     * 
+     * @param listWorldGenerationJobsRequest
+     * @return Result of the ListWorldGenerationJobs operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @sample AWSRoboMaker.ListWorldGenerationJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListWorldGenerationJobs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListWorldGenerationJobsResult listWorldGenerationJobs(ListWorldGenerationJobsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListWorldGenerationJobs(request);
+    }
+
+    @SdkInternalApi
+    final ListWorldGenerationJobsResult executeListWorldGenerationJobs(ListWorldGenerationJobsRequest listWorldGenerationJobsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listWorldGenerationJobsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListWorldGenerationJobsRequest> request = null;
+        Response<ListWorldGenerationJobsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListWorldGenerationJobsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listWorldGenerationJobsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListWorldGenerationJobs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListWorldGenerationJobsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListWorldGenerationJobsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists world templates.
+     * </p>
+     * 
+     * @param listWorldTemplatesRequest
+     * @return Result of the ListWorldTemplates operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.ListWorldTemplates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListWorldTemplates" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListWorldTemplatesResult listWorldTemplates(ListWorldTemplatesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListWorldTemplates(request);
+    }
+
+    @SdkInternalApi
+    final ListWorldTemplatesResult executeListWorldTemplates(ListWorldTemplatesRequest listWorldTemplatesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listWorldTemplatesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListWorldTemplatesRequest> request = null;
+        Response<ListWorldTemplatesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListWorldTemplatesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listWorldTemplatesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListWorldTemplates");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListWorldTemplatesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListWorldTemplatesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists worlds.
+     * </p>
+     * 
+     * @param listWorldsRequest
+     * @return Result of the ListWorlds operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.ListWorlds
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListWorlds" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListWorldsResult listWorlds(ListWorldsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListWorlds(request);
+    }
+
+    @SdkInternalApi
+    final ListWorldsResult executeListWorlds(ListWorldsRequest listWorldsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listWorldsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListWorldsRequest> request = null;
+        Response<ListWorldsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListWorldsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listWorldsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListWorlds");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListWorldsResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListWorldsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Registers a robot with a fleet.
      * </p>
+     * <important>
+     * <p>
+     * This API is no longer supported and will throw an error if used.
+     * </p>
+     * </important>
      * 
      * @param registerRobotRequest
      * @return Result of the RegisterRobot operation returned by the service.
@@ -2044,6 +3428,7 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      *      Documentation</a>
      */
     @Override
+    @Deprecated
     public RegisterRobotResult registerRobot(RegisterRobotRequest request) {
         request = beforeClientExecution(request);
         return executeRegisterRobot(request);
@@ -2064,6 +3449,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new RegisterRobotRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(registerRobotRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterRobot");
@@ -2129,6 +3516,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new RestartSimulationJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(restartSimulationJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RestartSimulationJob");
@@ -2152,8 +3541,85 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
 
     /**
      * <p>
+     * Starts a new simulation job batch. The batch is defined using one or more <code>SimulationJobRequest</code>
+     * objects.
+     * </p>
+     * 
+     * @param startSimulationJobBatchRequest
+     * @return Result of the StartSimulationJobBatch operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws LimitExceededException
+     *         The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests
+     *         exceeds the maximum number allowed.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws IdempotentParameterMismatchException
+     *         The request uses the same client token as a previous, but non-identical request. Do not reuse a client
+     *         token with different requests, unless the requests are identical.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.StartSimulationJobBatch
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/StartSimulationJobBatch"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public StartSimulationJobBatchResult startSimulationJobBatch(StartSimulationJobBatchRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartSimulationJobBatch(request);
+    }
+
+    @SdkInternalApi
+    final StartSimulationJobBatchResult executeStartSimulationJobBatch(StartSimulationJobBatchRequest startSimulationJobBatchRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startSimulationJobBatchRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartSimulationJobBatchRequest> request = null;
+        Response<StartSimulationJobBatchResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartSimulationJobBatchRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(startSimulationJobBatchRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartSimulationJobBatch");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartSimulationJobBatchResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new StartSimulationJobBatchResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Syncrhonizes robots in a fleet to the latest deployment. This is helpful if robots were added after a deployment.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param syncDeploymentJobRequest
      * @return Result of the SyncDeploymentJob operation returned by the service.
@@ -2179,6 +3645,7 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
      *      API Documentation</a>
      */
     @Override
+    @Deprecated
     public SyncDeploymentJobResult syncDeploymentJob(SyncDeploymentJobRequest request) {
         request = beforeClientExecution(request);
         return executeSyncDeploymentJob(request);
@@ -2199,6 +3666,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new SyncDeploymentJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(syncDeploymentJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SyncDeploymentJob");
@@ -2270,6 +3739,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -2336,6 +3807,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -2401,6 +3874,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                 request = new UpdateRobotApplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRobotApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRobotApplication");
@@ -2468,6 +3943,8 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
                         .beforeMarshalling(updateSimulationApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateSimulationApplication");
@@ -2480,6 +3957,70 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
             HttpResponseHandler<AmazonWebServiceResponse<UpdateSimulationApplicationResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new UpdateSimulationApplicationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a world template.
+     * </p>
+     * 
+     * @param updateWorldTemplateRequest
+     * @return Result of the UpdateWorldTemplate operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.UpdateWorldTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/UpdateWorldTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UpdateWorldTemplateResult updateWorldTemplate(UpdateWorldTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateWorldTemplate(request);
+    }
+
+    @SdkInternalApi
+    final UpdateWorldTemplateResult executeUpdateWorldTemplate(UpdateWorldTemplateRequest updateWorldTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateWorldTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateWorldTemplateRequest> request = null;
+        Response<UpdateWorldTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateWorldTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateWorldTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "RoboMaker");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateWorldTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateWorldTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateWorldTemplateResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2564,6 +4105,11 @@ public class AWSRoboMakerClient extends AmazonWebServiceClient implements AWSRob
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

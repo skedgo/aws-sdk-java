@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * The request object for <code>DeleteBackup</code> operation.
+ * The request object for the <code>DeleteBackup</code> operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/DeleteBackup" target="_top">AWS API
@@ -30,25 +30,25 @@ public class DeleteBackupRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The ID of the backup you want to delete.
+     * The ID of the backup that you want to delete.
      * </p>
      */
     private String backupId;
     /**
      * <p>
-     * (Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent deletion. This is
-     * automatically filled on your behalf when using the AWS CLI or SDK.
+     * A string of up to 63 ASCII characters that Amazon FSx uses to ensure idempotent deletion. This parameter is
+     * automatically filled on your behalf when using the CLI or SDK.
      * </p>
      */
     private String clientRequestToken;
 
     /**
      * <p>
-     * The ID of the backup you want to delete.
+     * The ID of the backup that you want to delete.
      * </p>
      * 
      * @param backupId
-     *        The ID of the backup you want to delete.
+     *        The ID of the backup that you want to delete.
      */
 
     public void setBackupId(String backupId) {
@@ -57,10 +57,10 @@ public class DeleteBackupRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The ID of the backup you want to delete.
+     * The ID of the backup that you want to delete.
      * </p>
      * 
-     * @return The ID of the backup you want to delete.
+     * @return The ID of the backup that you want to delete.
      */
 
     public String getBackupId() {
@@ -69,11 +69,11 @@ public class DeleteBackupRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The ID of the backup you want to delete.
+     * The ID of the backup that you want to delete.
      * </p>
      * 
      * @param backupId
-     *        The ID of the backup you want to delete.
+     *        The ID of the backup that you want to delete.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -84,13 +84,13 @@ public class DeleteBackupRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent deletion. This is
-     * automatically filled on your behalf when using the AWS CLI or SDK.
+     * A string of up to 63 ASCII characters that Amazon FSx uses to ensure idempotent deletion. This parameter is
+     * automatically filled on your behalf when using the CLI or SDK.
      * </p>
      * 
      * @param clientRequestToken
-     *        (Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent deletion. This
-     *        is automatically filled on your behalf when using the AWS CLI or SDK.
+     *        A string of up to 63 ASCII characters that Amazon FSx uses to ensure idempotent deletion. This parameter
+     *        is automatically filled on your behalf when using the CLI or SDK.
      */
 
     public void setClientRequestToken(String clientRequestToken) {
@@ -99,12 +99,12 @@ public class DeleteBackupRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent deletion. This is
-     * automatically filled on your behalf when using the AWS CLI or SDK.
+     * A string of up to 63 ASCII characters that Amazon FSx uses to ensure idempotent deletion. This parameter is
+     * automatically filled on your behalf when using the CLI or SDK.
      * </p>
      * 
-     * @return (Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent deletion. This
-     *         is automatically filled on your behalf when using the AWS CLI or SDK.
+     * @return A string of up to 63 ASCII characters that Amazon FSx uses to ensure idempotent deletion. This parameter
+     *         is automatically filled on your behalf when using the CLI or SDK.
      */
 
     public String getClientRequestToken() {
@@ -113,13 +113,13 @@ public class DeleteBackupRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * (Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent deletion. This is
-     * automatically filled on your behalf when using the AWS CLI or SDK.
+     * A string of up to 63 ASCII characters that Amazon FSx uses to ensure idempotent deletion. This parameter is
+     * automatically filled on your behalf when using the CLI or SDK.
      * </p>
      * 
      * @param clientRequestToken
-     *        (Optional) A string of up to 64 ASCII characters that Amazon FSx uses to ensure idempotent deletion. This
-     *        is automatically filled on your behalf when using the AWS CLI or SDK.
+     *        A string of up to 63 ASCII characters that Amazon FSx uses to ensure idempotent deletion. This parameter
+     *        is automatically filled on your behalf when using the CLI or SDK.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

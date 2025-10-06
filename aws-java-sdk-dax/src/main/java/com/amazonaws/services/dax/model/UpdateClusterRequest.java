@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -53,7 +53,8 @@ public class UpdateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String notificationTopicArn;
     /**
      * <p>
-     * The current state of the topic.
+     * The current state of the topic. A value of “active” means that notifications will be sent to the topic. A value
+     * of “inactive” means that notifications will not be sent to the topic.
      * </p>
      */
     private String notificationTopicStatus;
@@ -245,11 +246,13 @@ public class UpdateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The current state of the topic.
+     * The current state of the topic. A value of “active” means that notifications will be sent to the topic. A value
+     * of “inactive” means that notifications will not be sent to the topic.
      * </p>
      * 
      * @param notificationTopicStatus
-     *        The current state of the topic.
+     *        The current state of the topic. A value of “active” means that notifications will be sent to the topic. A
+     *        value of “inactive” means that notifications will not be sent to the topic.
      */
 
     public void setNotificationTopicStatus(String notificationTopicStatus) {
@@ -258,10 +261,12 @@ public class UpdateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The current state of the topic.
+     * The current state of the topic. A value of “active” means that notifications will be sent to the topic. A value
+     * of “inactive” means that notifications will not be sent to the topic.
      * </p>
      * 
-     * @return The current state of the topic.
+     * @return The current state of the topic. A value of “active” means that notifications will be sent to the topic. A
+     *         value of “inactive” means that notifications will not be sent to the topic.
      */
 
     public String getNotificationTopicStatus() {
@@ -270,11 +275,13 @@ public class UpdateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The current state of the topic.
+     * The current state of the topic. A value of “active” means that notifications will be sent to the topic. A value
+     * of “inactive” means that notifications will not be sent to the topic.
      * </p>
      * 
      * @param notificationTopicStatus
-     *        The current state of the topic.
+     *        The current state of the topic. A value of “active” means that notifications will be sent to the topic. A
+     *        value of “inactive” means that notifications will not be sent to the topic.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

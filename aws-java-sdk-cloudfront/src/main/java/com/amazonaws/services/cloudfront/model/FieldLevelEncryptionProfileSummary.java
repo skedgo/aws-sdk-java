@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  * The field-level encryption profile summary.
  * </p>
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/FieldLevelEncryptionProfileSummary"
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/FieldLevelEncryptionProfileSummary"
  *      target="_top">AWS API Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -34,7 +34,7 @@ public class FieldLevelEncryptionProfileSummary implements Serializable, Cloneab
     private String id;
     /**
      * <p>
-     * The time when the the field-level encryption profile summary was last updated.
+     * The time when the field-level encryption profile summary was last updated.
      * </p>
      */
     private java.util.Date lastModifiedTime;
@@ -53,7 +53,8 @@ public class FieldLevelEncryptionProfileSummary implements Serializable, Cloneab
     private EncryptionEntities encryptionEntities;
     /**
      * <p>
-     * An optional comment for the field-level encryption profile summary.
+     * An optional comment for the field-level encryption profile summary. The comment cannot be longer than 128
+     * characters.
      * </p>
      */
     private String comment;
@@ -100,11 +101,11 @@ public class FieldLevelEncryptionProfileSummary implements Serializable, Cloneab
 
     /**
      * <p>
-     * The time when the the field-level encryption profile summary was last updated.
+     * The time when the field-level encryption profile summary was last updated.
      * </p>
      * 
      * @param lastModifiedTime
-     *        The time when the the field-level encryption profile summary was last updated.
+     *        The time when the field-level encryption profile summary was last updated.
      */
 
     public void setLastModifiedTime(java.util.Date lastModifiedTime) {
@@ -113,10 +114,10 @@ public class FieldLevelEncryptionProfileSummary implements Serializable, Cloneab
 
     /**
      * <p>
-     * The time when the the field-level encryption profile summary was last updated.
+     * The time when the field-level encryption profile summary was last updated.
      * </p>
      * 
-     * @return The time when the the field-level encryption profile summary was last updated.
+     * @return The time when the field-level encryption profile summary was last updated.
      */
 
     public java.util.Date getLastModifiedTime() {
@@ -125,11 +126,11 @@ public class FieldLevelEncryptionProfileSummary implements Serializable, Cloneab
 
     /**
      * <p>
-     * The time when the the field-level encryption profile summary was last updated.
+     * The time when the field-level encryption profile summary was last updated.
      * </p>
      * 
      * @param lastModifiedTime
-     *        The time when the the field-level encryption profile summary was last updated.
+     *        The time when the field-level encryption profile summary was last updated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -226,11 +227,13 @@ public class FieldLevelEncryptionProfileSummary implements Serializable, Cloneab
 
     /**
      * <p>
-     * An optional comment for the field-level encryption profile summary.
+     * An optional comment for the field-level encryption profile summary. The comment cannot be longer than 128
+     * characters.
      * </p>
      * 
      * @param comment
-     *        An optional comment for the field-level encryption profile summary.
+     *        An optional comment for the field-level encryption profile summary. The comment cannot be longer than 128
+     *        characters.
      */
 
     public void setComment(String comment) {
@@ -239,10 +242,12 @@ public class FieldLevelEncryptionProfileSummary implements Serializable, Cloneab
 
     /**
      * <p>
-     * An optional comment for the field-level encryption profile summary.
+     * An optional comment for the field-level encryption profile summary. The comment cannot be longer than 128
+     * characters.
      * </p>
      * 
-     * @return An optional comment for the field-level encryption profile summary.
+     * @return An optional comment for the field-level encryption profile summary. The comment cannot be longer than 128
+     *         characters.
      */
 
     public String getComment() {
@@ -251,11 +256,13 @@ public class FieldLevelEncryptionProfileSummary implements Serializable, Cloneab
 
     /**
      * <p>
-     * An optional comment for the field-level encryption profile summary.
+     * An optional comment for the field-level encryption profile summary. The comment cannot be longer than 128
+     * characters.
      * </p>
      * 
      * @param comment
-     *        An optional comment for the field-level encryption profile summary.
+     *        An optional comment for the field-level encryption profile summary. The comment cannot be longer than 128
+     *        characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

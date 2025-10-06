@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.simplesystemsmanagement.model.transform;
 
+import java.util.Map;
 import java.math.*;
 
 import javax.annotation.Generated;
@@ -71,11 +72,15 @@ public class AssociationVersionInfoJsonUnmarshaller implements Unmarshaller<Asso
                 if (context.testExpression("Parameters", targetDepth)) {
                     context.nextToken();
                     associationVersionInfo.setParameters(new MapUnmarshaller<String, java.util.List<String>>(context.getUnmarshaller(String.class),
-                            new ListUnmarshaller<String>(context.getUnmarshaller(String.class))).unmarshall(context));
+                            new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    ).unmarshall(context));
                 }
                 if (context.testExpression("Targets", targetDepth)) {
                     context.nextToken();
-                    associationVersionInfo.setTargets(new ListUnmarshaller<Target>(TargetJsonUnmarshaller.getInstance()).unmarshall(context));
+                    associationVersionInfo.setTargets(new ListUnmarshaller<Target>(TargetJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("ScheduleExpression", targetDepth)) {
                     context.nextToken();
@@ -100,6 +105,44 @@ public class AssociationVersionInfoJsonUnmarshaller implements Unmarshaller<Asso
                 if (context.testExpression("ComplianceSeverity", targetDepth)) {
                     context.nextToken();
                     associationVersionInfo.setComplianceSeverity(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("SyncCompliance", targetDepth)) {
+                    context.nextToken();
+                    associationVersionInfo.setSyncCompliance(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ApplyOnlyAtCronInterval", targetDepth)) {
+                    context.nextToken();
+                    associationVersionInfo.setApplyOnlyAtCronInterval(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("CalendarNames", targetDepth)) {
+                    context.nextToken();
+                    associationVersionInfo.setCalendarNames(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("TargetLocations", targetDepth)) {
+                    context.nextToken();
+                    associationVersionInfo.setTargetLocations(new ListUnmarshaller<TargetLocation>(TargetLocationJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ScheduleOffset", targetDepth)) {
+                    context.nextToken();
+                    associationVersionInfo.setScheduleOffset(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("Duration", targetDepth)) {
+                    context.nextToken();
+                    associationVersionInfo.setDuration(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("TargetMaps", targetDepth)) {
+                    context.nextToken();
+                    associationVersionInfo.setTargetMaps(new ListUnmarshaller<java.util.Map<String, java.util.List<String>>>(
+                            new MapUnmarshaller<String, java.util.List<String>>(context.getUnmarshaller(String.class), new ListUnmarshaller<String>(context
+                                    .getUnmarshaller(String.class))
+
+                            ))
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

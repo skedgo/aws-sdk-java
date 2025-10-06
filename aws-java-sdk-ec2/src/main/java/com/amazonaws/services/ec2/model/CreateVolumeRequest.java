@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,62 +20,84 @@ import com.amazonaws.Request;
 import com.amazonaws.services.ec2.model.transform.CreateVolumeRequestMarshaller;
 
 /**
- * <p>
- * Contains the parameters for CreateVolume.
- * </p>
+ * 
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class CreateVolumeRequest extends AmazonWebServiceRequest implements Serializable, Cloneable, DryRunSupportedRequest<CreateVolumeRequest> {
 
     /**
      * <p>
-     * The Availability Zone in which to create the volume.
+     * The ID of the Availability Zone in which to create the volume. For example, <code>us-east-1a</code>.
      * </p>
      */
     private String availabilityZone;
     /**
      * <p>
-     * Specifies whether the volume should be encrypted. The effect of setting the encryption state to <code>true</code>
+     * Indicates whether the volume should be encrypted. The effect of setting the encryption state to <code>true</code>
      * depends on the volume origin (new or from a snapshot), starting encryption state, ownership, and whether
      * encryption by default is enabled. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#encryption-by-default">Encryption by
-     * Default</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/work-with-ebs-encr.html#encryption-by-default">Encryption
+     * by default</a> in the <i>Amazon EBS User Guide</i>.
      * </p>
      * <p>
      * Encrypted Amazon EBS volumes must be attached to instances that support Amazon EBS encryption. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances"
-     * >Supported Instance Types</a>.
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption-requirements.html#ebs-encryption_supported_instances"
+     * >Supported instance types</a>.
      * </p>
      */
     private Boolean encrypted;
     /**
      * <p>
-     * The number of I/O operations per second (IOPS) to provision for the volume, with a maximum ratio of 50 IOPS/GiB.
-     * Range is 100 to 64,000 IOPS for volumes in most Regions. Maximum IOPS of 64,000 is guaranteed only on <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based
-     * instances</a>. Other instance families guarantee performance up to 32,000 IOPS. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and <code>io2</code>
+     * volumes, this represents the number of IOPS that are provisioned for the volume. For <code>gp2</code> volumes,
+     * this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits
+     * for bursting.
      * </p>
      * <p>
-     * This parameter is valid only for Provisioned IOPS SSD (io1) volumes.
+     * The following are the supported values for each volume type:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>gp3</code>: 3,000 - 16,000 IOPS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>io1</code>: 100 - 64,000 IOPS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>io2</code>: 100 - 256,000 IOPS
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For <code>io2</code> volumes, you can achieve up to 256,000 IOPS on <a
+     * href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">instances built on the Nitro
+     * System</a>. On other instances, you can achieve performance up to 32,000 IOPS.
+     * </p>
+     * <p>
+     * This parameter is required for <code>io1</code> and <code>io2</code> volumes. The default for <code>gp3</code>
+     * volumes is 3,000 IOPS. This parameter is not supported for <code>gp2</code>, <code>st1</code>, <code>sc1</code>,
+     * or <code>standard</code> volumes.
      * </p>
      */
     private Integer iops;
     /**
      * <p>
-     * The identifier of the AWS Key Management Service (AWS KMS) customer master key (CMK) to use for Amazon EBS
-     * encryption. If this parameter is not specified, your AWS managed CMK for EBS is used. If <code>KmsKeyId</code> is
-     * specified, the encrypted state must be <code>true</code>.
+     * The identifier of the KMS key to use for Amazon EBS encryption. If this parameter is not specified, your KMS key
+     * for Amazon EBS is used. If <code>KmsKeyId</code> is specified, the encrypted state must be <code>true</code>.
      * </p>
      * <p>
-     * You can specify the CMK using any of the following:
+     * You can specify the KMS key using any of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Key ID. For example, key/1234abcd-12ab-34cd-56ef-1234567890ab.
+     * Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.
      * </p>
      * </li>
      * <li>
@@ -85,63 +107,119 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      * </li>
      * <li>
      * <p>
-     * Key ARN. For example,
-     * arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:key/<i>abcd1234-a123-456a-a12b-a123b4cd56ef</i>.
+     * Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Alias ARN. For example, arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:alias/<i>ExampleAlias</i>.
+     * Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * AWS authenticates the CMK asynchronously. Therefore, if you specify an ID, alias, or ARN that is not valid, the
-     * action can appear to complete, but eventually fails.
+     * Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an ID, alias, or ARN that
+     * is not valid, the action can appear to complete, but eventually fails.
      * </p>
      */
     private String kmsKeyId;
     /**
      * <p>
-     * The size of the volume, in GiBs.
+     * The Amazon Resource Name (ARN) of the Outpost on which to create the volume.
      * </p>
      * <p>
-     * Constraints: 1-16,384 for <code>gp2</code>, 4-16,384 for <code>io1</code>, 500-16,384 for <code>st1</code>,
-     * 500-16,384 for <code>sc1</code>, and 1-1,024 for <code>standard</code>. If you specify a snapshot, the volume
-     * size must be equal to or larger than the snapshot size.
+     * If you intend to use a volume with an instance running on an outpost, then you must create the volume on the same
+     * outpost as the instance. You can't use a volume created in an Amazon Web Services Region with an instance on an
+     * Amazon Web Services outpost, or the other way around.
      * </p>
+     */
+    private String outpostArn;
+    /**
      * <p>
-     * Default: If you're creating the volume from a snapshot and don't specify a volume size, the default is the
+     * The size of the volume, in GiBs. You must specify either a snapshot ID or a volume size. If you specify a
+     * snapshot, the default is the snapshot size. You can specify a volume size that is equal to or larger than the
      * snapshot size.
      * </p>
-     * <note>
      * <p>
-     * At least one of Size or SnapshotId is required.
+     * The following are the supported volumes sizes for each volume type:
      * </p>
-     * </note>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>gp2</code> and <code>gp3</code>: 1 - 16,384 GiB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>io1</code>: 4 - 16,384 GiB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>io2</code>: 4 - 65,536 GiB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>st1</code> and <code>sc1</code>: 125 - 16,384 GiB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>standard</code>: 1 - 1024 GiB
+     * </p>
+     * </li>
+     * </ul>
      */
     private Integer size;
     /**
      * <p>
-     * The snapshot from which to create the volume.
+     * The snapshot from which to create the volume. You must specify either a snapshot ID or a volume size.
      * </p>
-     * <note>
-     * <p>
-     * At least one of Size or SnapshotId are required.
-     * </p>
-     * </note>
      */
     private String snapshotId;
     /**
      * <p>
-     * The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned IOPS SSD,
-     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
-     * Magnetic volumes.
+     * The volume type. This parameter can be one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * General Purpose SSD: <code>gp2</code> | <code>gp3</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Provisioned IOPS SSD: <code>io1</code> | <code>io2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Throughput Optimized HDD: <code>st1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cold HDD: <code>sc1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Magnetic: <code>standard</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <important>
+     * <p>
+     * Throughput Optimized HDD (<code>st1</code>) and Cold HDD (<code>sc1</code>) volumes can't be used as boot
+     * volumes.
+     * </p>
+     * </important>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html">Amazon
+     * EBS volume types</a> in the <i>Amazon EBS User Guide</i>.
      * </p>
      * <p>
-     * Defaults: If no volume type is specified, the default is <code>standard</code> in us-east-1, eu-west-1,
-     * eu-central-1, us-west-2, us-west-1, sa-east-1, ap-northeast-1, ap-northeast-2, ap-southeast-1, ap-southeast-2,
-     * ap-south-1, us-gov-west-1, and cn-north-1. In all other Regions, EBS defaults to <code>gp2</code>.
+     * Default: <code>gp2</code>
      * </p>
      */
     private String volumeType;
@@ -151,6 +229,37 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<TagSpecification> tagSpecifications;
+    /**
+     * <p>
+     * Indicates whether to enable Amazon EBS Multi-Attach. If you enable Multi-Attach, you can attach the volume to up
+     * to 16 <a href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">Instances built on
+     * the Nitro System</a> in the same Availability Zone. This parameter is supported with <code>io1</code> and
+     * <code>io2</code> volumes only. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html"> Amazon EBS Multi-Attach</a> in
+     * the <i>Amazon EBS User Guide</i>.
+     * </p>
+     */
+    private Boolean multiAttachEnabled;
+    /**
+     * <p>
+     * The throughput to provision for a volume, with a maximum of 1,000 MiB/s.
+     * </p>
+     * <p>
+     * This parameter is valid only for <code>gp3</code> volumes.
+     * </p>
+     * <p>
+     * Valid Range: Minimum value of 125. Maximum value of 1000.
+     * </p>
+     */
+    private Integer throughput;
+    /**
+     * <p>
+     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensure
+     * Idempotency</a>.
+     * </p>
+     */
+    private String clientToken;
 
     /**
      * Default constructor for CreateVolumeRequest object. Callers should use the setter or fluent setter (with...)
@@ -164,22 +273,40 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      * initialize any additional object members.
      * 
      * @param size
-     *        The size of the volume, in GiBs.</p>
+     *        The size of the volume, in GiBs. You must specify either a snapshot ID or a volume size. If you specify a
+     *        snapshot, the default is the snapshot size. You can specify a volume size that is equal to or larger than
+     *        the snapshot size.</p>
      *        <p>
-     *        Constraints: 1-16,384 for <code>gp2</code>, 4-16,384 for <code>io1</code>, 500-16,384 for <code>st1</code>
-     *        , 500-16,384 for <code>sc1</code>, and 1-1,024 for <code>standard</code>. If you specify a snapshot, the
-     *        volume size must be equal to or larger than the snapshot size.
+     *        The following are the supported volumes sizes for each volume type:
      *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        Default: If you're creating the volume from a snapshot and don't specify a volume size, the default is the
-     *        snapshot size.
+     *        <code>gp2</code> and <code>gp3</code>: 1 - 16,384 GiB
      *        </p>
-     *        <note>
+     *        </li>
+     *        <li>
      *        <p>
-     *        At least one of Size or SnapshotId is required.
+     *        <code>io1</code>: 4 - 16,384 GiB
      *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>io2</code>: 4 - 65,536 GiB
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>st1</code> and <code>sc1</code>: 125 - 16,384 GiB
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>standard</code>: 1 - 1024 GiB
+     *        </p>
+     *        </li>
      * @param availabilityZone
-     *        The Availability Zone in which to create the volume.
+     *        The ID of the Availability Zone in which to create the volume. For example, <code>us-east-1a</code>.
      */
     public CreateVolumeRequest(Integer size, String availabilityZone) {
         setSize(size);
@@ -191,12 +318,9 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      * initialize any additional object members.
      * 
      * @param snapshotId
-     *        The snapshot from which to create the volume.</p> <note>
-     *        <p>
-     *        At least one of Size or SnapshotId are required.
-     *        </p>
+     *        The snapshot from which to create the volume. You must specify either a snapshot ID or a volume size.
      * @param availabilityZone
-     *        The Availability Zone in which to create the volume.
+     *        The ID of the Availability Zone in which to create the volume. For example, <code>us-east-1a</code>.
      */
     public CreateVolumeRequest(String snapshotId, String availabilityZone) {
         setSnapshotId(snapshotId);
@@ -205,11 +329,11 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The Availability Zone in which to create the volume.
+     * The ID of the Availability Zone in which to create the volume. For example, <code>us-east-1a</code>.
      * </p>
      * 
      * @param availabilityZone
-     *        The Availability Zone in which to create the volume.
+     *        The ID of the Availability Zone in which to create the volume. For example, <code>us-east-1a</code>.
      */
 
     public void setAvailabilityZone(String availabilityZone) {
@@ -218,10 +342,10 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The Availability Zone in which to create the volume.
+     * The ID of the Availability Zone in which to create the volume. For example, <code>us-east-1a</code>.
      * </p>
      * 
-     * @return The Availability Zone in which to create the volume.
+     * @return The ID of the Availability Zone in which to create the volume. For example, <code>us-east-1a</code>.
      */
 
     public String getAvailabilityZone() {
@@ -230,11 +354,11 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The Availability Zone in which to create the volume.
+     * The ID of the Availability Zone in which to create the volume. For example, <code>us-east-1a</code>.
      * </p>
      * 
      * @param availabilityZone
-     *        The Availability Zone in which to create the volume.
+     *        The ID of the Availability Zone in which to create the volume. For example, <code>us-east-1a</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -245,30 +369,30 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * Specifies whether the volume should be encrypted. The effect of setting the encryption state to <code>true</code>
+     * Indicates whether the volume should be encrypted. The effect of setting the encryption state to <code>true</code>
      * depends on the volume origin (new or from a snapshot), starting encryption state, ownership, and whether
      * encryption by default is enabled. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#encryption-by-default">Encryption by
-     * Default</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/work-with-ebs-encr.html#encryption-by-default">Encryption
+     * by default</a> in the <i>Amazon EBS User Guide</i>.
      * </p>
      * <p>
      * Encrypted Amazon EBS volumes must be attached to instances that support Amazon EBS encryption. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances"
-     * >Supported Instance Types</a>.
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption-requirements.html#ebs-encryption_supported_instances"
+     * >Supported instance types</a>.
      * </p>
      * 
      * @param encrypted
-     *        Specifies whether the volume should be encrypted. The effect of setting the encryption state to
+     *        Indicates whether the volume should be encrypted. The effect of setting the encryption state to
      *        <code>true</code> depends on the volume origin (new or from a snapshot), starting encryption state,
      *        ownership, and whether encryption by default is enabled. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#encryption-by-default"
-     *        >Encryption by Default</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/work-with-ebs-encr.html#encryption-by-default"
+     *        >Encryption by default</a> in the <i>Amazon EBS User Guide</i>.</p>
      *        <p>
      *        Encrypted Amazon EBS volumes must be attached to instances that support Amazon EBS encryption. For more
      *        information, see <a href=
-     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances"
-     *        >Supported Instance Types</a>.
+     *        "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption-requirements.html#ebs-encryption_supported_instances"
+     *        >Supported instance types</a>.
      */
 
     public void setEncrypted(Boolean encrypted) {
@@ -277,29 +401,29 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * Specifies whether the volume should be encrypted. The effect of setting the encryption state to <code>true</code>
+     * Indicates whether the volume should be encrypted. The effect of setting the encryption state to <code>true</code>
      * depends on the volume origin (new or from a snapshot), starting encryption state, ownership, and whether
      * encryption by default is enabled. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#encryption-by-default">Encryption by
-     * Default</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/work-with-ebs-encr.html#encryption-by-default">Encryption
+     * by default</a> in the <i>Amazon EBS User Guide</i>.
      * </p>
      * <p>
      * Encrypted Amazon EBS volumes must be attached to instances that support Amazon EBS encryption. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances"
-     * >Supported Instance Types</a>.
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption-requirements.html#ebs-encryption_supported_instances"
+     * >Supported instance types</a>.
      * </p>
      * 
-     * @return Specifies whether the volume should be encrypted. The effect of setting the encryption state to
+     * @return Indicates whether the volume should be encrypted. The effect of setting the encryption state to
      *         <code>true</code> depends on the volume origin (new or from a snapshot), starting encryption state,
      *         ownership, and whether encryption by default is enabled. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#encryption-by-default"
-     *         >Encryption by Default</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     *         href="https://docs.aws.amazon.com/ebs/latest/userguide/work-with-ebs-encr.html#encryption-by-default"
+     *         >Encryption by default</a> in the <i>Amazon EBS User Guide</i>.</p>
      *         <p>
      *         Encrypted Amazon EBS volumes must be attached to instances that support Amazon EBS encryption. For more
      *         information, see <a href=
-     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances"
-     *         >Supported Instance Types</a>.
+     *         "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption-requirements.html#ebs-encryption_supported_instances"
+     *         >Supported instance types</a>.
      */
 
     public Boolean getEncrypted() {
@@ -308,30 +432,30 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * Specifies whether the volume should be encrypted. The effect of setting the encryption state to <code>true</code>
+     * Indicates whether the volume should be encrypted. The effect of setting the encryption state to <code>true</code>
      * depends on the volume origin (new or from a snapshot), starting encryption state, ownership, and whether
      * encryption by default is enabled. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#encryption-by-default">Encryption by
-     * Default</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/work-with-ebs-encr.html#encryption-by-default">Encryption
+     * by default</a> in the <i>Amazon EBS User Guide</i>.
      * </p>
      * <p>
      * Encrypted Amazon EBS volumes must be attached to instances that support Amazon EBS encryption. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances"
-     * >Supported Instance Types</a>.
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption-requirements.html#ebs-encryption_supported_instances"
+     * >Supported instance types</a>.
      * </p>
      * 
      * @param encrypted
-     *        Specifies whether the volume should be encrypted. The effect of setting the encryption state to
+     *        Indicates whether the volume should be encrypted. The effect of setting the encryption state to
      *        <code>true</code> depends on the volume origin (new or from a snapshot), starting encryption state,
      *        ownership, and whether encryption by default is enabled. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#encryption-by-default"
-     *        >Encryption by Default</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/work-with-ebs-encr.html#encryption-by-default"
+     *        >Encryption by default</a> in the <i>Amazon EBS User Guide</i>.</p>
      *        <p>
      *        Encrypted Amazon EBS volumes must be attached to instances that support Amazon EBS encryption. For more
      *        information, see <a href=
-     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances"
-     *        >Supported Instance Types</a>.
+     *        "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption-requirements.html#ebs-encryption_supported_instances"
+     *        >Supported instance types</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -342,29 +466,29 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * Specifies whether the volume should be encrypted. The effect of setting the encryption state to <code>true</code>
+     * Indicates whether the volume should be encrypted. The effect of setting the encryption state to <code>true</code>
      * depends on the volume origin (new or from a snapshot), starting encryption state, ownership, and whether
      * encryption by default is enabled. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#encryption-by-default">Encryption by
-     * Default</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/work-with-ebs-encr.html#encryption-by-default">Encryption
+     * by default</a> in the <i>Amazon EBS User Guide</i>.
      * </p>
      * <p>
      * Encrypted Amazon EBS volumes must be attached to instances that support Amazon EBS encryption. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances"
-     * >Supported Instance Types</a>.
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption-requirements.html#ebs-encryption_supported_instances"
+     * >Supported instance types</a>.
      * </p>
      * 
-     * @return Specifies whether the volume should be encrypted. The effect of setting the encryption state to
+     * @return Indicates whether the volume should be encrypted. The effect of setting the encryption state to
      *         <code>true</code> depends on the volume origin (new or from a snapshot), starting encryption state,
      *         ownership, and whether encryption by default is enabled. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#encryption-by-default"
-     *         >Encryption by Default</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     *         href="https://docs.aws.amazon.com/ebs/latest/userguide/work-with-ebs-encr.html#encryption-by-default"
+     *         >Encryption by default</a> in the <i>Amazon EBS User Guide</i>.</p>
      *         <p>
      *         Encrypted Amazon EBS volumes must be attached to instances that support Amazon EBS encryption. For more
      *         information, see <a href=
-     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances"
-     *         >Supported Instance Types</a>.
+     *         "https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption-requirements.html#ebs-encryption_supported_instances"
+     *         >Supported instance types</a>.
      */
 
     public Boolean isEncrypted() {
@@ -373,27 +497,76 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The number of I/O operations per second (IOPS) to provision for the volume, with a maximum ratio of 50 IOPS/GiB.
-     * Range is 100 to 64,000 IOPS for volumes in most Regions. Maximum IOPS of 64,000 is guaranteed only on <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based
-     * instances</a>. Other instance families guarantee performance up to 32,000 IOPS. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and <code>io2</code>
+     * volumes, this represents the number of IOPS that are provisioned for the volume. For <code>gp2</code> volumes,
+     * this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits
+     * for bursting.
      * </p>
      * <p>
-     * This parameter is valid only for Provisioned IOPS SSD (io1) volumes.
+     * The following are the supported values for each volume type:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>gp3</code>: 3,000 - 16,000 IOPS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>io1</code>: 100 - 64,000 IOPS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>io2</code>: 100 - 256,000 IOPS
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For <code>io2</code> volumes, you can achieve up to 256,000 IOPS on <a
+     * href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">instances built on the Nitro
+     * System</a>. On other instances, you can achieve performance up to 32,000 IOPS.
+     * </p>
+     * <p>
+     * This parameter is required for <code>io1</code> and <code>io2</code> volumes. The default for <code>gp3</code>
+     * volumes is 3,000 IOPS. This parameter is not supported for <code>gp2</code>, <code>st1</code>, <code>sc1</code>,
+     * or <code>standard</code> volumes.
      * </p>
      * 
      * @param iops
-     *        The number of I/O operations per second (IOPS) to provision for the volume, with a maximum ratio of 50
-     *        IOPS/GiB. Range is 100 to 64,000 IOPS for volumes in most Regions. Maximum IOPS of 64,000 is guaranteed
-     *        only on <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances"
-     *        >Nitro-based instances</a>. Other instance families guarantee performance up to 32,000 IOPS. For more
-     *        information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
-     *        EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     *        The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and
+     *        <code>io2</code> volumes, this represents the number of IOPS that are provisioned for the volume. For
+     *        <code>gp2</code> volumes, this represents the baseline performance of the volume and the rate at which the
+     *        volume accumulates I/O credits for bursting.</p>
      *        <p>
-     *        This parameter is valid only for Provisioned IOPS SSD (io1) volumes.
+     *        The following are the supported values for each volume type:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>gp3</code>: 3,000 - 16,000 IOPS
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>io1</code>: 100 - 64,000 IOPS
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>io2</code>: 100 - 256,000 IOPS
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For <code>io2</code> volumes, you can achieve up to 256,000 IOPS on <a
+     *        href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">instances built on
+     *        the Nitro System</a>. On other instances, you can achieve performance up to 32,000 IOPS.
+     *        </p>
+     *        <p>
+     *        This parameter is required for <code>io1</code> and <code>io2</code> volumes. The default for
+     *        <code>gp3</code> volumes is 3,000 IOPS. This parameter is not supported for <code>gp2</code>,
+     *        <code>st1</code>, <code>sc1</code>, or <code>standard</code> volumes.
      */
 
     public void setIops(Integer iops) {
@@ -402,26 +575,75 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The number of I/O operations per second (IOPS) to provision for the volume, with a maximum ratio of 50 IOPS/GiB.
-     * Range is 100 to 64,000 IOPS for volumes in most Regions. Maximum IOPS of 64,000 is guaranteed only on <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based
-     * instances</a>. Other instance families guarantee performance up to 32,000 IOPS. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and <code>io2</code>
+     * volumes, this represents the number of IOPS that are provisioned for the volume. For <code>gp2</code> volumes,
+     * this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits
+     * for bursting.
      * </p>
      * <p>
-     * This parameter is valid only for Provisioned IOPS SSD (io1) volumes.
+     * The following are the supported values for each volume type:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>gp3</code>: 3,000 - 16,000 IOPS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>io1</code>: 100 - 64,000 IOPS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>io2</code>: 100 - 256,000 IOPS
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For <code>io2</code> volumes, you can achieve up to 256,000 IOPS on <a
+     * href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">instances built on the Nitro
+     * System</a>. On other instances, you can achieve performance up to 32,000 IOPS.
+     * </p>
+     * <p>
+     * This parameter is required for <code>io1</code> and <code>io2</code> volumes. The default for <code>gp3</code>
+     * volumes is 3,000 IOPS. This parameter is not supported for <code>gp2</code>, <code>st1</code>, <code>sc1</code>,
+     * or <code>standard</code> volumes.
      * </p>
      * 
-     * @return The number of I/O operations per second (IOPS) to provision for the volume, with a maximum ratio of 50
-     *         IOPS/GiB. Range is 100 to 64,000 IOPS for volumes in most Regions. Maximum IOPS of 64,000 is guaranteed
-     *         only on <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances"
-     *         >Nitro-based instances</a>. Other instance families guarantee performance up to 32,000 IOPS. For more
-     *         information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
-     *         EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     * @return The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and
+     *         <code>io2</code> volumes, this represents the number of IOPS that are provisioned for the volume. For
+     *         <code>gp2</code> volumes, this represents the baseline performance of the volume and the rate at which
+     *         the volume accumulates I/O credits for bursting.</p>
      *         <p>
-     *         This parameter is valid only for Provisioned IOPS SSD (io1) volumes.
+     *         The following are the supported values for each volume type:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>gp3</code>: 3,000 - 16,000 IOPS
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>io1</code>: 100 - 64,000 IOPS
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>io2</code>: 100 - 256,000 IOPS
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For <code>io2</code> volumes, you can achieve up to 256,000 IOPS on <a
+     *         href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">instances built on
+     *         the Nitro System</a>. On other instances, you can achieve performance up to 32,000 IOPS.
+     *         </p>
+     *         <p>
+     *         This parameter is required for <code>io1</code> and <code>io2</code> volumes. The default for
+     *         <code>gp3</code> volumes is 3,000 IOPS. This parameter is not supported for <code>gp2</code>,
+     *         <code>st1</code>, <code>sc1</code>, or <code>standard</code> volumes.
      */
 
     public Integer getIops() {
@@ -430,27 +652,76 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The number of I/O operations per second (IOPS) to provision for the volume, with a maximum ratio of 50 IOPS/GiB.
-     * Range is 100 to 64,000 IOPS for volumes in most Regions. Maximum IOPS of 64,000 is guaranteed only on <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based
-     * instances</a>. Other instance families guarantee performance up to 32,000 IOPS. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and <code>io2</code>
+     * volumes, this represents the number of IOPS that are provisioned for the volume. For <code>gp2</code> volumes,
+     * this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits
+     * for bursting.
      * </p>
      * <p>
-     * This parameter is valid only for Provisioned IOPS SSD (io1) volumes.
+     * The following are the supported values for each volume type:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>gp3</code>: 3,000 - 16,000 IOPS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>io1</code>: 100 - 64,000 IOPS
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>io2</code>: 100 - 256,000 IOPS
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For <code>io2</code> volumes, you can achieve up to 256,000 IOPS on <a
+     * href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">instances built on the Nitro
+     * System</a>. On other instances, you can achieve performance up to 32,000 IOPS.
+     * </p>
+     * <p>
+     * This parameter is required for <code>io1</code> and <code>io2</code> volumes. The default for <code>gp3</code>
+     * volumes is 3,000 IOPS. This parameter is not supported for <code>gp2</code>, <code>st1</code>, <code>sc1</code>,
+     * or <code>standard</code> volumes.
      * </p>
      * 
      * @param iops
-     *        The number of I/O operations per second (IOPS) to provision for the volume, with a maximum ratio of 50
-     *        IOPS/GiB. Range is 100 to 64,000 IOPS for volumes in most Regions. Maximum IOPS of 64,000 is guaranteed
-     *        only on <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances"
-     *        >Nitro-based instances</a>. Other instance families guarantee performance up to 32,000 IOPS. For more
-     *        information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
-     *        EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     *        The number of I/O operations per second (IOPS). For <code>gp3</code>, <code>io1</code>, and
+     *        <code>io2</code> volumes, this represents the number of IOPS that are provisioned for the volume. For
+     *        <code>gp2</code> volumes, this represents the baseline performance of the volume and the rate at which the
+     *        volume accumulates I/O credits for bursting.</p>
      *        <p>
-     *        This parameter is valid only for Provisioned IOPS SSD (io1) volumes.
+     *        The following are the supported values for each volume type:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>gp3</code>: 3,000 - 16,000 IOPS
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>io1</code>: 100 - 64,000 IOPS
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>io2</code>: 100 - 256,000 IOPS
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For <code>io2</code> volumes, you can achieve up to 256,000 IOPS on <a
+     *        href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">instances built on
+     *        the Nitro System</a>. On other instances, you can achieve performance up to 32,000 IOPS.
+     *        </p>
+     *        <p>
+     *        This parameter is required for <code>io1</code> and <code>io2</code> volumes. The default for
+     *        <code>gp3</code> volumes is 3,000 IOPS. This parameter is not supported for <code>gp2</code>,
+     *        <code>st1</code>, <code>sc1</code>, or <code>standard</code> volumes.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -461,17 +732,16 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The identifier of the AWS Key Management Service (AWS KMS) customer master key (CMK) to use for Amazon EBS
-     * encryption. If this parameter is not specified, your AWS managed CMK for EBS is used. If <code>KmsKeyId</code> is
-     * specified, the encrypted state must be <code>true</code>.
+     * The identifier of the KMS key to use for Amazon EBS encryption. If this parameter is not specified, your KMS key
+     * for Amazon EBS is used. If <code>KmsKeyId</code> is specified, the encrypted state must be <code>true</code>.
      * </p>
      * <p>
-     * You can specify the CMK using any of the following:
+     * You can specify the KMS key using any of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Key ID. For example, key/1234abcd-12ab-34cd-56ef-1234567890ab.
+     * Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.
      * </p>
      * </li>
      * <li>
@@ -481,32 +751,31 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      * </li>
      * <li>
      * <p>
-     * Key ARN. For example,
-     * arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:key/<i>abcd1234-a123-456a-a12b-a123b4cd56ef</i>.
+     * Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Alias ARN. For example, arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:alias/<i>ExampleAlias</i>.
+     * Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * AWS authenticates the CMK asynchronously. Therefore, if you specify an ID, alias, or ARN that is not valid, the
-     * action can appear to complete, but eventually fails.
+     * Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an ID, alias, or ARN that
+     * is not valid, the action can appear to complete, but eventually fails.
      * </p>
      * 
      * @param kmsKeyId
-     *        The identifier of the AWS Key Management Service (AWS KMS) customer master key (CMK) to use for Amazon EBS
-     *        encryption. If this parameter is not specified, your AWS managed CMK for EBS is used. If
-     *        <code>KmsKeyId</code> is specified, the encrypted state must be <code>true</code>.</p>
+     *        The identifier of the KMS key to use for Amazon EBS encryption. If this parameter is not specified, your
+     *        KMS key for Amazon EBS is used. If <code>KmsKeyId</code> is specified, the encrypted state must be
+     *        <code>true</code>.</p>
      *        <p>
-     *        You can specify the CMK using any of the following:
+     *        You can specify the KMS key using any of the following:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Key ID. For example, key/1234abcd-12ab-34cd-56ef-1234567890ab.
+     *        Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.
      *        </p>
      *        </li>
      *        <li>
@@ -516,19 +785,18 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      *        </li>
      *        <li>
      *        <p>
-     *        Key ARN. For example,
-     *        arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:key/<i>abcd1234-a123-456a-a12b-a123b4cd56ef</i>.
+     *        Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Alias ARN. For example, arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:alias/<i>ExampleAlias</i>.
+     *        Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
-     *        AWS authenticates the CMK asynchronously. Therefore, if you specify an ID, alias, or ARN that is not
-     *        valid, the action can appear to complete, but eventually fails.
+     *        Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an ID, alias, or
+     *        ARN that is not valid, the action can appear to complete, but eventually fails.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -537,17 +805,16 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The identifier of the AWS Key Management Service (AWS KMS) customer master key (CMK) to use for Amazon EBS
-     * encryption. If this parameter is not specified, your AWS managed CMK for EBS is used. If <code>KmsKeyId</code> is
-     * specified, the encrypted state must be <code>true</code>.
+     * The identifier of the KMS key to use for Amazon EBS encryption. If this parameter is not specified, your KMS key
+     * for Amazon EBS is used. If <code>KmsKeyId</code> is specified, the encrypted state must be <code>true</code>.
      * </p>
      * <p>
-     * You can specify the CMK using any of the following:
+     * You can specify the KMS key using any of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Key ID. For example, key/1234abcd-12ab-34cd-56ef-1234567890ab.
+     * Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.
      * </p>
      * </li>
      * <li>
@@ -557,31 +824,30 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      * </li>
      * <li>
      * <p>
-     * Key ARN. For example,
-     * arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:key/<i>abcd1234-a123-456a-a12b-a123b4cd56ef</i>.
+     * Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Alias ARN. For example, arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:alias/<i>ExampleAlias</i>.
+     * Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * AWS authenticates the CMK asynchronously. Therefore, if you specify an ID, alias, or ARN that is not valid, the
-     * action can appear to complete, but eventually fails.
+     * Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an ID, alias, or ARN that
+     * is not valid, the action can appear to complete, but eventually fails.
      * </p>
      * 
-     * @return The identifier of the AWS Key Management Service (AWS KMS) customer master key (CMK) to use for Amazon
-     *         EBS encryption. If this parameter is not specified, your AWS managed CMK for EBS is used. If
-     *         <code>KmsKeyId</code> is specified, the encrypted state must be <code>true</code>.</p>
+     * @return The identifier of the KMS key to use for Amazon EBS encryption. If this parameter is not specified, your
+     *         KMS key for Amazon EBS is used. If <code>KmsKeyId</code> is specified, the encrypted state must be
+     *         <code>true</code>.</p>
      *         <p>
-     *         You can specify the CMK using any of the following:
+     *         You can specify the KMS key using any of the following:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         Key ID. For example, key/1234abcd-12ab-34cd-56ef-1234567890ab.
+     *         Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.
      *         </p>
      *         </li>
      *         <li>
@@ -591,19 +857,18 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      *         </li>
      *         <li>
      *         <p>
-     *         Key ARN. For example,
-     *         arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:key/<i>abcd1234-a123-456a-a12b-a123b4cd56ef</i>.
+     *         Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Alias ARN. For example, arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:alias/<i>ExampleAlias</i>.
+     *         Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
      *         </p>
      *         </li>
      *         </ul>
      *         <p>
-     *         AWS authenticates the CMK asynchronously. Therefore, if you specify an ID, alias, or ARN that is not
-     *         valid, the action can appear to complete, but eventually fails.
+     *         Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an ID, alias, or
+     *         ARN that is not valid, the action can appear to complete, but eventually fails.
      */
 
     public String getKmsKeyId() {
@@ -612,17 +877,16 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The identifier of the AWS Key Management Service (AWS KMS) customer master key (CMK) to use for Amazon EBS
-     * encryption. If this parameter is not specified, your AWS managed CMK for EBS is used. If <code>KmsKeyId</code> is
-     * specified, the encrypted state must be <code>true</code>.
+     * The identifier of the KMS key to use for Amazon EBS encryption. If this parameter is not specified, your KMS key
+     * for Amazon EBS is used. If <code>KmsKeyId</code> is specified, the encrypted state must be <code>true</code>.
      * </p>
      * <p>
-     * You can specify the CMK using any of the following:
+     * You can specify the KMS key using any of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Key ID. For example, key/1234abcd-12ab-34cd-56ef-1234567890ab.
+     * Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.
      * </p>
      * </li>
      * <li>
@@ -632,32 +896,31 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      * </li>
      * <li>
      * <p>
-     * Key ARN. For example,
-     * arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:key/<i>abcd1234-a123-456a-a12b-a123b4cd56ef</i>.
+     * Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Alias ARN. For example, arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:alias/<i>ExampleAlias</i>.
+     * Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * AWS authenticates the CMK asynchronously. Therefore, if you specify an ID, alias, or ARN that is not valid, the
-     * action can appear to complete, but eventually fails.
+     * Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an ID, alias, or ARN that
+     * is not valid, the action can appear to complete, but eventually fails.
      * </p>
      * 
      * @param kmsKeyId
-     *        The identifier of the AWS Key Management Service (AWS KMS) customer master key (CMK) to use for Amazon EBS
-     *        encryption. If this parameter is not specified, your AWS managed CMK for EBS is used. If
-     *        <code>KmsKeyId</code> is specified, the encrypted state must be <code>true</code>.</p>
+     *        The identifier of the KMS key to use for Amazon EBS encryption. If this parameter is not specified, your
+     *        KMS key for Amazon EBS is used. If <code>KmsKeyId</code> is specified, the encrypted state must be
+     *        <code>true</code>.</p>
      *        <p>
-     *        You can specify the CMK using any of the following:
+     *        You can specify the KMS key using any of the following:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Key ID. For example, key/1234abcd-12ab-34cd-56ef-1234567890ab.
+     *        Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.
      *        </p>
      *        </li>
      *        <li>
@@ -667,19 +930,18 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      *        </li>
      *        <li>
      *        <p>
-     *        Key ARN. For example,
-     *        arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:key/<i>abcd1234-a123-456a-a12b-a123b4cd56ef</i>.
+     *        Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Alias ARN. For example, arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:alias/<i>ExampleAlias</i>.
+     *        Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
-     *        AWS authenticates the CMK asynchronously. Therefore, if you specify an ID, alias, or ARN that is not
-     *        valid, the action can appear to complete, but eventually fails.
+     *        Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an ID, alias, or
+     *        ARN that is not valid, the action can appear to complete, but eventually fails.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -690,38 +952,141 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The size of the volume, in GiBs.
+     * The Amazon Resource Name (ARN) of the Outpost on which to create the volume.
      * </p>
      * <p>
-     * Constraints: 1-16,384 for <code>gp2</code>, 4-16,384 for <code>io1</code>, 500-16,384 for <code>st1</code>,
-     * 500-16,384 for <code>sc1</code>, and 1-1,024 for <code>standard</code>. If you specify a snapshot, the volume
-     * size must be equal to or larger than the snapshot size.
+     * If you intend to use a volume with an instance running on an outpost, then you must create the volume on the same
+     * outpost as the instance. You can't use a volume created in an Amazon Web Services Region with an instance on an
+     * Amazon Web Services outpost, or the other way around.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Outpost on which to create the volume.</p>
+     *        <p>
+     *        If you intend to use a volume with an instance running on an outpost, then you must create the volume on
+     *        the same outpost as the instance. You can't use a volume created in an Amazon Web Services Region with an
+     *        instance on an Amazon Web Services outpost, or the other way around.
+     */
+
+    public void setOutpostArn(String outpostArn) {
+        this.outpostArn = outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost on which to create the volume.
      * </p>
      * <p>
-     * Default: If you're creating the volume from a snapshot and don't specify a volume size, the default is the
+     * If you intend to use a volume with an instance running on an outpost, then you must create the volume on the same
+     * outpost as the instance. You can't use a volume created in an Amazon Web Services Region with an instance on an
+     * Amazon Web Services outpost, or the other way around.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the Outpost on which to create the volume.</p>
+     *         <p>
+     *         If you intend to use a volume with an instance running on an outpost, then you must create the volume on
+     *         the same outpost as the instance. You can't use a volume created in an Amazon Web Services Region with an
+     *         instance on an Amazon Web Services outpost, or the other way around.
+     */
+
+    public String getOutpostArn() {
+        return this.outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost on which to create the volume.
+     * </p>
+     * <p>
+     * If you intend to use a volume with an instance running on an outpost, then you must create the volume on the same
+     * outpost as the instance. You can't use a volume created in an Amazon Web Services Region with an instance on an
+     * Amazon Web Services outpost, or the other way around.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Outpost on which to create the volume.</p>
+     *        <p>
+     *        If you intend to use a volume with an instance running on an outpost, then you must create the volume on
+     *        the same outpost as the instance. You can't use a volume created in an Amazon Web Services Region with an
+     *        instance on an Amazon Web Services outpost, or the other way around.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateVolumeRequest withOutpostArn(String outpostArn) {
+        setOutpostArn(outpostArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The size of the volume, in GiBs. You must specify either a snapshot ID or a volume size. If you specify a
+     * snapshot, the default is the snapshot size. You can specify a volume size that is equal to or larger than the
      * snapshot size.
      * </p>
-     * <note>
      * <p>
-     * At least one of Size or SnapshotId is required.
+     * The following are the supported volumes sizes for each volume type:
      * </p>
-     * </note>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>gp2</code> and <code>gp3</code>: 1 - 16,384 GiB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>io1</code>: 4 - 16,384 GiB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>io2</code>: 4 - 65,536 GiB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>st1</code> and <code>sc1</code>: 125 - 16,384 GiB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>standard</code>: 1 - 1024 GiB
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param size
-     *        The size of the volume, in GiBs.</p>
+     *        The size of the volume, in GiBs. You must specify either a snapshot ID or a volume size. If you specify a
+     *        snapshot, the default is the snapshot size. You can specify a volume size that is equal to or larger than
+     *        the snapshot size.</p>
      *        <p>
-     *        Constraints: 1-16,384 for <code>gp2</code>, 4-16,384 for <code>io1</code>, 500-16,384 for <code>st1</code>
-     *        , 500-16,384 for <code>sc1</code>, and 1-1,024 for <code>standard</code>. If you specify a snapshot, the
-     *        volume size must be equal to or larger than the snapshot size.
+     *        The following are the supported volumes sizes for each volume type:
      *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        Default: If you're creating the volume from a snapshot and don't specify a volume size, the default is the
-     *        snapshot size.
+     *        <code>gp2</code> and <code>gp3</code>: 1 - 16,384 GiB
      *        </p>
-     *        <note>
+     *        </li>
+     *        <li>
      *        <p>
-     *        At least one of Size or SnapshotId is required.
+     *        <code>io1</code>: 4 - 16,384 GiB
      *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>io2</code>: 4 - 65,536 GiB
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>st1</code> and <code>sc1</code>: 125 - 16,384 GiB
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>standard</code>: 1 - 1024 GiB
+     *        </p>
+     *        </li>
      */
 
     public void setSize(Integer size) {
@@ -730,37 +1095,73 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The size of the volume, in GiBs.
-     * </p>
-     * <p>
-     * Constraints: 1-16,384 for <code>gp2</code>, 4-16,384 for <code>io1</code>, 500-16,384 for <code>st1</code>,
-     * 500-16,384 for <code>sc1</code>, and 1-1,024 for <code>standard</code>. If you specify a snapshot, the volume
-     * size must be equal to or larger than the snapshot size.
-     * </p>
-     * <p>
-     * Default: If you're creating the volume from a snapshot and don't specify a volume size, the default is the
+     * The size of the volume, in GiBs. You must specify either a snapshot ID or a volume size. If you specify a
+     * snapshot, the default is the snapshot size. You can specify a volume size that is equal to or larger than the
      * snapshot size.
      * </p>
-     * <note>
      * <p>
-     * At least one of Size or SnapshotId is required.
+     * The following are the supported volumes sizes for each volume type:
      * </p>
-     * </note>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>gp2</code> and <code>gp3</code>: 1 - 16,384 GiB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>io1</code>: 4 - 16,384 GiB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>io2</code>: 4 - 65,536 GiB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>st1</code> and <code>sc1</code>: 125 - 16,384 GiB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>standard</code>: 1 - 1024 GiB
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The size of the volume, in GiBs.</p>
+     * @return The size of the volume, in GiBs. You must specify either a snapshot ID or a volume size. If you specify a
+     *         snapshot, the default is the snapshot size. You can specify a volume size that is equal to or larger than
+     *         the snapshot size.</p>
      *         <p>
-     *         Constraints: 1-16,384 for <code>gp2</code>, 4-16,384 for <code>io1</code>, 500-16,384 for
-     *         <code>st1</code>, 500-16,384 for <code>sc1</code>, and 1-1,024 for <code>standard</code>. If you specify
-     *         a snapshot, the volume size must be equal to or larger than the snapshot size.
+     *         The following are the supported volumes sizes for each volume type:
      *         </p>
+     *         <ul>
+     *         <li>
      *         <p>
-     *         Default: If you're creating the volume from a snapshot and don't specify a volume size, the default is
-     *         the snapshot size.
+     *         <code>gp2</code> and <code>gp3</code>: 1 - 16,384 GiB
      *         </p>
-     *         <note>
+     *         </li>
+     *         <li>
      *         <p>
-     *         At least one of Size or SnapshotId is required.
+     *         <code>io1</code>: 4 - 16,384 GiB
      *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>io2</code>: 4 - 65,536 GiB
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>st1</code> and <code>sc1</code>: 125 - 16,384 GiB
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>standard</code>: 1 - 1024 GiB
+     *         </p>
+     *         </li>
      */
 
     public Integer getSize() {
@@ -769,38 +1170,74 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The size of the volume, in GiBs.
-     * </p>
-     * <p>
-     * Constraints: 1-16,384 for <code>gp2</code>, 4-16,384 for <code>io1</code>, 500-16,384 for <code>st1</code>,
-     * 500-16,384 for <code>sc1</code>, and 1-1,024 for <code>standard</code>. If you specify a snapshot, the volume
-     * size must be equal to or larger than the snapshot size.
-     * </p>
-     * <p>
-     * Default: If you're creating the volume from a snapshot and don't specify a volume size, the default is the
+     * The size of the volume, in GiBs. You must specify either a snapshot ID or a volume size. If you specify a
+     * snapshot, the default is the snapshot size. You can specify a volume size that is equal to or larger than the
      * snapshot size.
      * </p>
-     * <note>
      * <p>
-     * At least one of Size or SnapshotId is required.
+     * The following are the supported volumes sizes for each volume type:
      * </p>
-     * </note>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>gp2</code> and <code>gp3</code>: 1 - 16,384 GiB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>io1</code>: 4 - 16,384 GiB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>io2</code>: 4 - 65,536 GiB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>st1</code> and <code>sc1</code>: 125 - 16,384 GiB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>standard</code>: 1 - 1024 GiB
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param size
-     *        The size of the volume, in GiBs.</p>
+     *        The size of the volume, in GiBs. You must specify either a snapshot ID or a volume size. If you specify a
+     *        snapshot, the default is the snapshot size. You can specify a volume size that is equal to or larger than
+     *        the snapshot size.</p>
      *        <p>
-     *        Constraints: 1-16,384 for <code>gp2</code>, 4-16,384 for <code>io1</code>, 500-16,384 for <code>st1</code>
-     *        , 500-16,384 for <code>sc1</code>, and 1-1,024 for <code>standard</code>. If you specify a snapshot, the
-     *        volume size must be equal to or larger than the snapshot size.
+     *        The following are the supported volumes sizes for each volume type:
      *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        Default: If you're creating the volume from a snapshot and don't specify a volume size, the default is the
-     *        snapshot size.
+     *        <code>gp2</code> and <code>gp3</code>: 1 - 16,384 GiB
      *        </p>
-     *        <note>
+     *        </li>
+     *        <li>
      *        <p>
-     *        At least one of Size or SnapshotId is required.
+     *        <code>io1</code>: 4 - 16,384 GiB
      *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>io2</code>: 4 - 65,536 GiB
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>st1</code> and <code>sc1</code>: 125 - 16,384 GiB
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>standard</code>: 1 - 1024 GiB
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -811,19 +1248,11 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The snapshot from which to create the volume.
+     * The snapshot from which to create the volume. You must specify either a snapshot ID or a volume size.
      * </p>
-     * <note>
-     * <p>
-     * At least one of Size or SnapshotId are required.
-     * </p>
-     * </note>
      * 
      * @param snapshotId
-     *        The snapshot from which to create the volume.</p> <note>
-     *        <p>
-     *        At least one of Size or SnapshotId are required.
-     *        </p>
+     *        The snapshot from which to create the volume. You must specify either a snapshot ID or a volume size.
      */
 
     public void setSnapshotId(String snapshotId) {
@@ -832,18 +1261,10 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The snapshot from which to create the volume.
+     * The snapshot from which to create the volume. You must specify either a snapshot ID or a volume size.
      * </p>
-     * <note>
-     * <p>
-     * At least one of Size or SnapshotId are required.
-     * </p>
-     * </note>
      * 
-     * @return The snapshot from which to create the volume.</p> <note>
-     *         <p>
-     *         At least one of Size or SnapshotId are required.
-     *         </p>
+     * @return The snapshot from which to create the volume. You must specify either a snapshot ID or a volume size.
      */
 
     public String getSnapshotId() {
@@ -852,19 +1273,11 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The snapshot from which to create the volume.
+     * The snapshot from which to create the volume. You must specify either a snapshot ID or a volume size.
      * </p>
-     * <note>
-     * <p>
-     * At least one of Size or SnapshotId are required.
-     * </p>
-     * </note>
      * 
      * @param snapshotId
-     *        The snapshot from which to create the volume.</p> <note>
-     *        <p>
-     *        At least one of Size or SnapshotId are required.
-     *        </p>
+     *        The snapshot from which to create the volume. You must specify either a snapshot ID or a volume size.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -875,25 +1288,91 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned IOPS SSD,
-     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
-     * Magnetic volumes.
+     * The volume type. This parameter can be one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * General Purpose SSD: <code>gp2</code> | <code>gp3</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Provisioned IOPS SSD: <code>io1</code> | <code>io2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Throughput Optimized HDD: <code>st1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cold HDD: <code>sc1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Magnetic: <code>standard</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <important>
+     * <p>
+     * Throughput Optimized HDD (<code>st1</code>) and Cold HDD (<code>sc1</code>) volumes can't be used as boot
+     * volumes.
+     * </p>
+     * </important>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html">Amazon
+     * EBS volume types</a> in the <i>Amazon EBS User Guide</i>.
      * </p>
      * <p>
-     * Defaults: If no volume type is specified, the default is <code>standard</code> in us-east-1, eu-west-1,
-     * eu-central-1, us-west-2, us-west-1, sa-east-1, ap-northeast-1, ap-northeast-2, ap-southeast-1, ap-southeast-2,
-     * ap-south-1, us-gov-west-1, and cn-north-1. In all other Regions, EBS defaults to <code>gp2</code>.
+     * Default: <code>gp2</code>
      * </p>
      * 
      * @param volumeType
-     *        The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned
-     *        IOPS SSD, <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or
-     *        <code>standard</code> for Magnetic volumes.</p>
+     *        The volume type. This parameter can be one of the following values:</p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        Defaults: If no volume type is specified, the default is <code>standard</code> in us-east-1, eu-west-1,
-     *        eu-central-1, us-west-2, us-west-1, sa-east-1, ap-northeast-1, ap-northeast-2, ap-southeast-1,
-     *        ap-southeast-2, ap-south-1, us-gov-west-1, and cn-north-1. In all other Regions, EBS defaults to
-     *        <code>gp2</code>.
+     *        General Purpose SSD: <code>gp2</code> | <code>gp3</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Provisioned IOPS SSD: <code>io1</code> | <code>io2</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Throughput Optimized HDD: <code>st1</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Cold HDD: <code>sc1</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Magnetic: <code>standard</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <important>
+     *        <p>
+     *        Throughput Optimized HDD (<code>st1</code>) and Cold HDD (<code>sc1</code>) volumes can't be used as boot
+     *        volumes.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html">Amazon EBS volume types</a>
+     *        in the <i>Amazon EBS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Default: <code>gp2</code>
      * @see VolumeType
      */
 
@@ -903,24 +1382,90 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned IOPS SSD,
-     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
-     * Magnetic volumes.
+     * The volume type. This parameter can be one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * General Purpose SSD: <code>gp2</code> | <code>gp3</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Provisioned IOPS SSD: <code>io1</code> | <code>io2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Throughput Optimized HDD: <code>st1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cold HDD: <code>sc1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Magnetic: <code>standard</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <important>
+     * <p>
+     * Throughput Optimized HDD (<code>st1</code>) and Cold HDD (<code>sc1</code>) volumes can't be used as boot
+     * volumes.
+     * </p>
+     * </important>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html">Amazon
+     * EBS volume types</a> in the <i>Amazon EBS User Guide</i>.
      * </p>
      * <p>
-     * Defaults: If no volume type is specified, the default is <code>standard</code> in us-east-1, eu-west-1,
-     * eu-central-1, us-west-2, us-west-1, sa-east-1, ap-northeast-1, ap-northeast-2, ap-southeast-1, ap-southeast-2,
-     * ap-south-1, us-gov-west-1, and cn-north-1. In all other Regions, EBS defaults to <code>gp2</code>.
+     * Default: <code>gp2</code>
      * </p>
      * 
-     * @return The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned
-     *         IOPS SSD, <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or
-     *         <code>standard</code> for Magnetic volumes.</p>
+     * @return The volume type. This parameter can be one of the following values:</p>
+     *         <ul>
+     *         <li>
      *         <p>
-     *         Defaults: If no volume type is specified, the default is <code>standard</code> in us-east-1, eu-west-1,
-     *         eu-central-1, us-west-2, us-west-1, sa-east-1, ap-northeast-1, ap-northeast-2, ap-southeast-1,
-     *         ap-southeast-2, ap-south-1, us-gov-west-1, and cn-north-1. In all other Regions, EBS defaults to
-     *         <code>gp2</code>.
+     *         General Purpose SSD: <code>gp2</code> | <code>gp3</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Provisioned IOPS SSD: <code>io1</code> | <code>io2</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Throughput Optimized HDD: <code>st1</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Cold HDD: <code>sc1</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Magnetic: <code>standard</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <important>
+     *         <p>
+     *         Throughput Optimized HDD (<code>st1</code>) and Cold HDD (<code>sc1</code>) volumes can't be used as boot
+     *         volumes.
+     *         </p>
+     *         </important>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html">Amazon EBS volume types</a>
+     *         in the <i>Amazon EBS User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Default: <code>gp2</code>
      * @see VolumeType
      */
 
@@ -930,25 +1475,91 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned IOPS SSD,
-     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
-     * Magnetic volumes.
+     * The volume type. This parameter can be one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * General Purpose SSD: <code>gp2</code> | <code>gp3</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Provisioned IOPS SSD: <code>io1</code> | <code>io2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Throughput Optimized HDD: <code>st1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cold HDD: <code>sc1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Magnetic: <code>standard</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <important>
+     * <p>
+     * Throughput Optimized HDD (<code>st1</code>) and Cold HDD (<code>sc1</code>) volumes can't be used as boot
+     * volumes.
+     * </p>
+     * </important>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html">Amazon
+     * EBS volume types</a> in the <i>Amazon EBS User Guide</i>.
      * </p>
      * <p>
-     * Defaults: If no volume type is specified, the default is <code>standard</code> in us-east-1, eu-west-1,
-     * eu-central-1, us-west-2, us-west-1, sa-east-1, ap-northeast-1, ap-northeast-2, ap-southeast-1, ap-southeast-2,
-     * ap-south-1, us-gov-west-1, and cn-north-1. In all other Regions, EBS defaults to <code>gp2</code>.
+     * Default: <code>gp2</code>
      * </p>
      * 
      * @param volumeType
-     *        The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned
-     *        IOPS SSD, <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or
-     *        <code>standard</code> for Magnetic volumes.</p>
+     *        The volume type. This parameter can be one of the following values:</p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        Defaults: If no volume type is specified, the default is <code>standard</code> in us-east-1, eu-west-1,
-     *        eu-central-1, us-west-2, us-west-1, sa-east-1, ap-northeast-1, ap-northeast-2, ap-southeast-1,
-     *        ap-southeast-2, ap-south-1, us-gov-west-1, and cn-north-1. In all other Regions, EBS defaults to
-     *        <code>gp2</code>.
+     *        General Purpose SSD: <code>gp2</code> | <code>gp3</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Provisioned IOPS SSD: <code>io1</code> | <code>io2</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Throughput Optimized HDD: <code>st1</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Cold HDD: <code>sc1</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Magnetic: <code>standard</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <important>
+     *        <p>
+     *        Throughput Optimized HDD (<code>st1</code>) and Cold HDD (<code>sc1</code>) volumes can't be used as boot
+     *        volumes.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html">Amazon EBS volume types</a>
+     *        in the <i>Amazon EBS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Default: <code>gp2</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VolumeType
      */
@@ -960,25 +1571,91 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned IOPS SSD,
-     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
-     * Magnetic volumes.
+     * The volume type. This parameter can be one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * General Purpose SSD: <code>gp2</code> | <code>gp3</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Provisioned IOPS SSD: <code>io1</code> | <code>io2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Throughput Optimized HDD: <code>st1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cold HDD: <code>sc1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Magnetic: <code>standard</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <important>
+     * <p>
+     * Throughput Optimized HDD (<code>st1</code>) and Cold HDD (<code>sc1</code>) volumes can't be used as boot
+     * volumes.
+     * </p>
+     * </important>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html">Amazon
+     * EBS volume types</a> in the <i>Amazon EBS User Guide</i>.
      * </p>
      * <p>
-     * Defaults: If no volume type is specified, the default is <code>standard</code> in us-east-1, eu-west-1,
-     * eu-central-1, us-west-2, us-west-1, sa-east-1, ap-northeast-1, ap-northeast-2, ap-southeast-1, ap-southeast-2,
-     * ap-south-1, us-gov-west-1, and cn-north-1. In all other Regions, EBS defaults to <code>gp2</code>.
+     * Default: <code>gp2</code>
      * </p>
      * 
      * @param volumeType
-     *        The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned
-     *        IOPS SSD, <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or
-     *        <code>standard</code> for Magnetic volumes.</p>
+     *        The volume type. This parameter can be one of the following values:</p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        Defaults: If no volume type is specified, the default is <code>standard</code> in us-east-1, eu-west-1,
-     *        eu-central-1, us-west-2, us-west-1, sa-east-1, ap-northeast-1, ap-northeast-2, ap-southeast-1,
-     *        ap-southeast-2, ap-south-1, us-gov-west-1, and cn-north-1. In all other Regions, EBS defaults to
-     *        <code>gp2</code>.
+     *        General Purpose SSD: <code>gp2</code> | <code>gp3</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Provisioned IOPS SSD: <code>io1</code> | <code>io2</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Throughput Optimized HDD: <code>st1</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Cold HDD: <code>sc1</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Magnetic: <code>standard</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <important>
+     *        <p>
+     *        Throughput Optimized HDD (<code>st1</code>) and Cold HDD (<code>sc1</code>) volumes can't be used as boot
+     *        volumes.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html">Amazon EBS volume types</a>
+     *        in the <i>Amazon EBS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Default: <code>gp2</code>
      * @see VolumeType
      */
 
@@ -988,25 +1665,91 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned IOPS SSD,
-     * <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or <code>standard</code> for
-     * Magnetic volumes.
+     * The volume type. This parameter can be one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * General Purpose SSD: <code>gp2</code> | <code>gp3</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Provisioned IOPS SSD: <code>io1</code> | <code>io2</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Throughput Optimized HDD: <code>st1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cold HDD: <code>sc1</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Magnetic: <code>standard</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <important>
+     * <p>
+     * Throughput Optimized HDD (<code>st1</code>) and Cold HDD (<code>sc1</code>) volumes can't be used as boot
+     * volumes.
+     * </p>
+     * </important>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html">Amazon
+     * EBS volume types</a> in the <i>Amazon EBS User Guide</i>.
      * </p>
      * <p>
-     * Defaults: If no volume type is specified, the default is <code>standard</code> in us-east-1, eu-west-1,
-     * eu-central-1, us-west-2, us-west-1, sa-east-1, ap-northeast-1, ap-northeast-2, ap-southeast-1, ap-southeast-2,
-     * ap-south-1, us-gov-west-1, and cn-north-1. In all other Regions, EBS defaults to <code>gp2</code>.
+     * Default: <code>gp2</code>
      * </p>
      * 
      * @param volumeType
-     *        The volume type. This can be <code>gp2</code> for General Purpose SSD, <code>io1</code> for Provisioned
-     *        IOPS SSD, <code>st1</code> for Throughput Optimized HDD, <code>sc1</code> for Cold HDD, or
-     *        <code>standard</code> for Magnetic volumes.</p>
+     *        The volume type. This parameter can be one of the following values:</p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        Defaults: If no volume type is specified, the default is <code>standard</code> in us-east-1, eu-west-1,
-     *        eu-central-1, us-west-2, us-west-1, sa-east-1, ap-northeast-1, ap-northeast-2, ap-southeast-1,
-     *        ap-southeast-2, ap-south-1, us-gov-west-1, and cn-north-1. In all other Regions, EBS defaults to
-     *        <code>gp2</code>.
+     *        General Purpose SSD: <code>gp2</code> | <code>gp3</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Provisioned IOPS SSD: <code>io1</code> | <code>io2</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Throughput Optimized HDD: <code>st1</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Cold HDD: <code>sc1</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Magnetic: <code>standard</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <important>
+     *        <p>
+     *        Throughput Optimized HDD (<code>st1</code>) and Cold HDD (<code>sc1</code>) volumes can't be used as boot
+     *        volumes.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html">Amazon EBS volume types</a>
+     *        in the <i>Amazon EBS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Default: <code>gp2</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VolumeType
      */
@@ -1090,6 +1833,227 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
     }
 
     /**
+     * <p>
+     * Indicates whether to enable Amazon EBS Multi-Attach. If you enable Multi-Attach, you can attach the volume to up
+     * to 16 <a href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">Instances built on
+     * the Nitro System</a> in the same Availability Zone. This parameter is supported with <code>io1</code> and
+     * <code>io2</code> volumes only. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html"> Amazon EBS Multi-Attach</a> in
+     * the <i>Amazon EBS User Guide</i>.
+     * </p>
+     * 
+     * @param multiAttachEnabled
+     *        Indicates whether to enable Amazon EBS Multi-Attach. If you enable Multi-Attach, you can attach the volume
+     *        to up to 16 <a
+     *        href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">Instances built on
+     *        the Nitro System</a> in the same Availability Zone. This parameter is supported with <code>io1</code> and
+     *        <code>io2</code> volumes only. For more information, see <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html"> Amazon EBS
+     *        Multi-Attach</a> in the <i>Amazon EBS User Guide</i>.
+     */
+
+    public void setMultiAttachEnabled(Boolean multiAttachEnabled) {
+        this.multiAttachEnabled = multiAttachEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable Amazon EBS Multi-Attach. If you enable Multi-Attach, you can attach the volume to up
+     * to 16 <a href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">Instances built on
+     * the Nitro System</a> in the same Availability Zone. This parameter is supported with <code>io1</code> and
+     * <code>io2</code> volumes only. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html"> Amazon EBS Multi-Attach</a> in
+     * the <i>Amazon EBS User Guide</i>.
+     * </p>
+     * 
+     * @return Indicates whether to enable Amazon EBS Multi-Attach. If you enable Multi-Attach, you can attach the
+     *         volume to up to 16 <a
+     *         href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">Instances built on
+     *         the Nitro System</a> in the same Availability Zone. This parameter is supported with <code>io1</code> and
+     *         <code>io2</code> volumes only. For more information, see <a
+     *         href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html"> Amazon EBS
+     *         Multi-Attach</a> in the <i>Amazon EBS User Guide</i>.
+     */
+
+    public Boolean getMultiAttachEnabled() {
+        return this.multiAttachEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable Amazon EBS Multi-Attach. If you enable Multi-Attach, you can attach the volume to up
+     * to 16 <a href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">Instances built on
+     * the Nitro System</a> in the same Availability Zone. This parameter is supported with <code>io1</code> and
+     * <code>io2</code> volumes only. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html"> Amazon EBS Multi-Attach</a> in
+     * the <i>Amazon EBS User Guide</i>.
+     * </p>
+     * 
+     * @param multiAttachEnabled
+     *        Indicates whether to enable Amazon EBS Multi-Attach. If you enable Multi-Attach, you can attach the volume
+     *        to up to 16 <a
+     *        href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">Instances built on
+     *        the Nitro System</a> in the same Availability Zone. This parameter is supported with <code>io1</code> and
+     *        <code>io2</code> volumes only. For more information, see <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html"> Amazon EBS
+     *        Multi-Attach</a> in the <i>Amazon EBS User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateVolumeRequest withMultiAttachEnabled(Boolean multiAttachEnabled) {
+        setMultiAttachEnabled(multiAttachEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable Amazon EBS Multi-Attach. If you enable Multi-Attach, you can attach the volume to up
+     * to 16 <a href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">Instances built on
+     * the Nitro System</a> in the same Availability Zone. This parameter is supported with <code>io1</code> and
+     * <code>io2</code> volumes only. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html"> Amazon EBS Multi-Attach</a> in
+     * the <i>Amazon EBS User Guide</i>.
+     * </p>
+     * 
+     * @return Indicates whether to enable Amazon EBS Multi-Attach. If you enable Multi-Attach, you can attach the
+     *         volume to up to 16 <a
+     *         href="https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html">Instances built on
+     *         the Nitro System</a> in the same Availability Zone. This parameter is supported with <code>io1</code> and
+     *         <code>io2</code> volumes only. For more information, see <a
+     *         href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html"> Amazon EBS
+     *         Multi-Attach</a> in the <i>Amazon EBS User Guide</i>.
+     */
+
+    public Boolean isMultiAttachEnabled() {
+        return this.multiAttachEnabled;
+    }
+
+    /**
+     * <p>
+     * The throughput to provision for a volume, with a maximum of 1,000 MiB/s.
+     * </p>
+     * <p>
+     * This parameter is valid only for <code>gp3</code> volumes.
+     * </p>
+     * <p>
+     * Valid Range: Minimum value of 125. Maximum value of 1000.
+     * </p>
+     * 
+     * @param throughput
+     *        The throughput to provision for a volume, with a maximum of 1,000 MiB/s.</p>
+     *        <p>
+     *        This parameter is valid only for <code>gp3</code> volumes.
+     *        </p>
+     *        <p>
+     *        Valid Range: Minimum value of 125. Maximum value of 1000.
+     */
+
+    public void setThroughput(Integer throughput) {
+        this.throughput = throughput;
+    }
+
+    /**
+     * <p>
+     * The throughput to provision for a volume, with a maximum of 1,000 MiB/s.
+     * </p>
+     * <p>
+     * This parameter is valid only for <code>gp3</code> volumes.
+     * </p>
+     * <p>
+     * Valid Range: Minimum value of 125. Maximum value of 1000.
+     * </p>
+     * 
+     * @return The throughput to provision for a volume, with a maximum of 1,000 MiB/s.</p>
+     *         <p>
+     *         This parameter is valid only for <code>gp3</code> volumes.
+     *         </p>
+     *         <p>
+     *         Valid Range: Minimum value of 125. Maximum value of 1000.
+     */
+
+    public Integer getThroughput() {
+        return this.throughput;
+    }
+
+    /**
+     * <p>
+     * The throughput to provision for a volume, with a maximum of 1,000 MiB/s.
+     * </p>
+     * <p>
+     * This parameter is valid only for <code>gp3</code> volumes.
+     * </p>
+     * <p>
+     * Valid Range: Minimum value of 125. Maximum value of 1000.
+     * </p>
+     * 
+     * @param throughput
+     *        The throughput to provision for a volume, with a maximum of 1,000 MiB/s.</p>
+     *        <p>
+     *        This parameter is valid only for <code>gp3</code> volumes.
+     *        </p>
+     *        <p>
+     *        Valid Range: Minimum value of 125. Maximum value of 1000.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateVolumeRequest withThroughput(Integer throughput) {
+        setThroughput(throughput);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensure
+     * Idempotency</a>.
+     * </p>
+     * 
+     * @param clientToken
+     *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     *        information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensure
+     *        Idempotency</a>.
+     */
+
+    public void setClientToken(String clientToken) {
+        this.clientToken = clientToken;
+    }
+
+    /**
+     * <p>
+     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensure
+     * Idempotency</a>.
+     * </p>
+     * 
+     * @return Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensure Idempotency</a>.
+     */
+
+    public String getClientToken() {
+        return this.clientToken;
+    }
+
+    /**
+     * <p>
+     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensure
+     * Idempotency</a>.
+     * </p>
+     * 
+     * @param clientToken
+     *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     *        information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensure
+     *        Idempotency</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateVolumeRequest withClientToken(String clientToken) {
+        setClientToken(clientToken);
+        return this;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -1120,6 +2084,8 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
             sb.append("Iops: ").append(getIops()).append(",");
         if (getKmsKeyId() != null)
             sb.append("KmsKeyId: ").append(getKmsKeyId()).append(",");
+        if (getOutpostArn() != null)
+            sb.append("OutpostArn: ").append(getOutpostArn()).append(",");
         if (getSize() != null)
             sb.append("Size: ").append(getSize()).append(",");
         if (getSnapshotId() != null)
@@ -1127,7 +2093,13 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
         if (getVolumeType() != null)
             sb.append("VolumeType: ").append(getVolumeType()).append(",");
         if (getTagSpecifications() != null)
-            sb.append("TagSpecifications: ").append(getTagSpecifications());
+            sb.append("TagSpecifications: ").append(getTagSpecifications()).append(",");
+        if (getMultiAttachEnabled() != null)
+            sb.append("MultiAttachEnabled: ").append(getMultiAttachEnabled()).append(",");
+        if (getThroughput() != null)
+            sb.append("Throughput: ").append(getThroughput()).append(",");
+        if (getClientToken() != null)
+            sb.append("ClientToken: ").append(getClientToken());
         sb.append("}");
         return sb.toString();
     }
@@ -1158,6 +2130,10 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
             return false;
         if (other.getKmsKeyId() != null && other.getKmsKeyId().equals(this.getKmsKeyId()) == false)
             return false;
+        if (other.getOutpostArn() == null ^ this.getOutpostArn() == null)
+            return false;
+        if (other.getOutpostArn() != null && other.getOutpostArn().equals(this.getOutpostArn()) == false)
+            return false;
         if (other.getSize() == null ^ this.getSize() == null)
             return false;
         if (other.getSize() != null && other.getSize().equals(this.getSize()) == false)
@@ -1174,6 +2150,18 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
             return false;
         if (other.getTagSpecifications() != null && other.getTagSpecifications().equals(this.getTagSpecifications()) == false)
             return false;
+        if (other.getMultiAttachEnabled() == null ^ this.getMultiAttachEnabled() == null)
+            return false;
+        if (other.getMultiAttachEnabled() != null && other.getMultiAttachEnabled().equals(this.getMultiAttachEnabled()) == false)
+            return false;
+        if (other.getThroughput() == null ^ this.getThroughput() == null)
+            return false;
+        if (other.getThroughput() != null && other.getThroughput().equals(this.getThroughput()) == false)
+            return false;
+        if (other.getClientToken() == null ^ this.getClientToken() == null)
+            return false;
+        if (other.getClientToken() != null && other.getClientToken().equals(this.getClientToken()) == false)
+            return false;
         return true;
     }
 
@@ -1186,10 +2174,14 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
         hashCode = prime * hashCode + ((getEncrypted() == null) ? 0 : getEncrypted().hashCode());
         hashCode = prime * hashCode + ((getIops() == null) ? 0 : getIops().hashCode());
         hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
+        hashCode = prime * hashCode + ((getOutpostArn() == null) ? 0 : getOutpostArn().hashCode());
         hashCode = prime * hashCode + ((getSize() == null) ? 0 : getSize().hashCode());
         hashCode = prime * hashCode + ((getSnapshotId() == null) ? 0 : getSnapshotId().hashCode());
         hashCode = prime * hashCode + ((getVolumeType() == null) ? 0 : getVolumeType().hashCode());
         hashCode = prime * hashCode + ((getTagSpecifications() == null) ? 0 : getTagSpecifications().hashCode());
+        hashCode = prime * hashCode + ((getMultiAttachEnabled() == null) ? 0 : getMultiAttachEnabled().hashCode());
+        hashCode = prime * hashCode + ((getThroughput() == null) ? 0 : getThroughput().hashCode());
+        hashCode = prime * hashCode + ((getClientToken() == null) ? 0 : getClientToken().hashCode());
         return hashCode;
     }
 

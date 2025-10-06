@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,27 +17,35 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * A complex type that contains information about the Amazon S3 origin. If the origin is a custom origin, use the
- * <code>CustomOriginConfig</code> element instead.
+ * A complex type that contains information about the Amazon S3 origin. If the origin is a custom origin or an S3 bucket
+ * that is configured as a website endpoint, use the <code>CustomOriginConfig</code> element instead.
  * </p>
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/S3OriginConfig" target="_top">AWS API
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/S3OriginConfig" target="_top">AWS API
  *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class S3OriginConfig implements Serializable, Cloneable {
 
     /**
+     * <note>
+     * <p>
+     * If you're using origin access control (OAC) instead of origin access identity, specify an empty
+     * <code>OriginAccessIdentity</code> element. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-origin.html"
+     * >Restricting access to an Amazon Web Services</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * </note>
      * <p>
      * The CloudFront origin access identity to associate with the origin. Use an origin access identity to configure
      * the origin so that viewers can <i>only</i> access objects in an Amazon S3 bucket through CloudFront. The format
      * of the value is:
      * </p>
      * <p>
-     * origin-access-identity/cloudfront/<i>ID-of-origin-access-identity</i>
+     * <code>origin-access-identity/cloudfront/ID-of-origin-access-identity</code>
      * </p>
      * <p>
-     * where <code> <i>ID-of-origin-access-identity</i> </code> is the value that CloudFront returned in the
+     * The <code> <i>ID-of-origin-access-identity</i> </code> is the value that CloudFront returned in the
      * <code>ID</code> element when you created the origin access identity.
      * </p>
      * <p>
@@ -61,16 +69,24 @@ public class S3OriginConfig implements Serializable, Cloneable {
     private String originAccessIdentity;
 
     /**
+     * <note>
+     * <p>
+     * If you're using origin access control (OAC) instead of origin access identity, specify an empty
+     * <code>OriginAccessIdentity</code> element. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-origin.html"
+     * >Restricting access to an Amazon Web Services</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * </note>
      * <p>
      * The CloudFront origin access identity to associate with the origin. Use an origin access identity to configure
      * the origin so that viewers can <i>only</i> access objects in an Amazon S3 bucket through CloudFront. The format
      * of the value is:
      * </p>
      * <p>
-     * origin-access-identity/cloudfront/<i>ID-of-origin-access-identity</i>
+     * <code>origin-access-identity/cloudfront/ID-of-origin-access-identity</code>
      * </p>
      * <p>
-     * where <code> <i>ID-of-origin-access-identity</i> </code> is the value that CloudFront returned in the
+     * The <code> <i>ID-of-origin-access-identity</i> </code> is the value that CloudFront returned in the
      * <code>ID</code> element when you created the origin access identity.
      * </p>
      * <p>
@@ -92,14 +108,23 @@ public class S3OriginConfig implements Serializable, Cloneable {
      * </p>
      * 
      * @param originAccessIdentity
+     *        <p>
+     *        If you're using origin access control (OAC) instead of origin access identity, specify an empty
+     *        <code>OriginAccessIdentity</code> element. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-origin.html"
+     *        >Restricting access to an Amazon Web Services</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     *        </p>
+     *        </note>
+     *        <p>
      *        The CloudFront origin access identity to associate with the origin. Use an origin access identity to
      *        configure the origin so that viewers can <i>only</i> access objects in an Amazon S3 bucket through
-     *        CloudFront. The format of the value is:</p>
-     *        <p>
-     *        origin-access-identity/cloudfront/<i>ID-of-origin-access-identity</i>
+     *        CloudFront. The format of the value is:
      *        </p>
      *        <p>
-     *        where <code> <i>ID-of-origin-access-identity</i> </code> is the value that CloudFront returned in the
+     *        <code>origin-access-identity/cloudfront/ID-of-origin-access-identity</code>
+     *        </p>
+     *        <p>
+     *        The <code> <i>ID-of-origin-access-identity</i> </code> is the value that CloudFront returned in the
      *        <code>ID</code> element when you created the origin access identity.
      *        </p>
      *        <p>
@@ -125,16 +150,24 @@ public class S3OriginConfig implements Serializable, Cloneable {
     }
 
     /**
+     * <note>
+     * <p>
+     * If you're using origin access control (OAC) instead of origin access identity, specify an empty
+     * <code>OriginAccessIdentity</code> element. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-origin.html"
+     * >Restricting access to an Amazon Web Services</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * </note>
      * <p>
      * The CloudFront origin access identity to associate with the origin. Use an origin access identity to configure
      * the origin so that viewers can <i>only</i> access objects in an Amazon S3 bucket through CloudFront. The format
      * of the value is:
      * </p>
      * <p>
-     * origin-access-identity/cloudfront/<i>ID-of-origin-access-identity</i>
+     * <code>origin-access-identity/cloudfront/ID-of-origin-access-identity</code>
      * </p>
      * <p>
-     * where <code> <i>ID-of-origin-access-identity</i> </code> is the value that CloudFront returned in the
+     * The <code> <i>ID-of-origin-access-identity</i> </code> is the value that CloudFront returned in the
      * <code>ID</code> element when you created the origin access identity.
      * </p>
      * <p>
@@ -155,14 +188,23 @@ public class S3OriginConfig implements Serializable, Cloneable {
      * Content through CloudFront</a> in the <i>Amazon CloudFront Developer Guide</i>.
      * </p>
      * 
-     * @return The CloudFront origin access identity to associate with the origin. Use an origin access identity to
-     *         configure the origin so that viewers can <i>only</i> access objects in an Amazon S3 bucket through
-     *         CloudFront. The format of the value is:</p>
+     * @return <p>
+     *         If you're using origin access control (OAC) instead of origin access identity, specify an empty
+     *         <code>OriginAccessIdentity</code> element. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-origin.html"
+     *         >Restricting access to an Amazon Web Services</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     *         </p>
+     *         </note>
      *         <p>
-     *         origin-access-identity/cloudfront/<i>ID-of-origin-access-identity</i>
+     *         The CloudFront origin access identity to associate with the origin. Use an origin access identity to
+     *         configure the origin so that viewers can <i>only</i> access objects in an Amazon S3 bucket through
+     *         CloudFront. The format of the value is:
      *         </p>
      *         <p>
-     *         where <code> <i>ID-of-origin-access-identity</i> </code> is the value that CloudFront returned in the
+     *         <code>origin-access-identity/cloudfront/ID-of-origin-access-identity</code>
+     *         </p>
+     *         <p>
+     *         The <code> <i>ID-of-origin-access-identity</i> </code> is the value that CloudFront returned in the
      *         <code>ID</code> element when you created the origin access identity.
      *         </p>
      *         <p>
@@ -188,16 +230,24 @@ public class S3OriginConfig implements Serializable, Cloneable {
     }
 
     /**
+     * <note>
+     * <p>
+     * If you're using origin access control (OAC) instead of origin access identity, specify an empty
+     * <code>OriginAccessIdentity</code> element. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-origin.html"
+     * >Restricting access to an Amazon Web Services</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * </note>
      * <p>
      * The CloudFront origin access identity to associate with the origin. Use an origin access identity to configure
      * the origin so that viewers can <i>only</i> access objects in an Amazon S3 bucket through CloudFront. The format
      * of the value is:
      * </p>
      * <p>
-     * origin-access-identity/cloudfront/<i>ID-of-origin-access-identity</i>
+     * <code>origin-access-identity/cloudfront/ID-of-origin-access-identity</code>
      * </p>
      * <p>
-     * where <code> <i>ID-of-origin-access-identity</i> </code> is the value that CloudFront returned in the
+     * The <code> <i>ID-of-origin-access-identity</i> </code> is the value that CloudFront returned in the
      * <code>ID</code> element when you created the origin access identity.
      * </p>
      * <p>
@@ -219,14 +269,23 @@ public class S3OriginConfig implements Serializable, Cloneable {
      * </p>
      * 
      * @param originAccessIdentity
+     *        <p>
+     *        If you're using origin access control (OAC) instead of origin access identity, specify an empty
+     *        <code>OriginAccessIdentity</code> element. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-origin.html"
+     *        >Restricting access to an Amazon Web Services</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     *        </p>
+     *        </note>
+     *        <p>
      *        The CloudFront origin access identity to associate with the origin. Use an origin access identity to
      *        configure the origin so that viewers can <i>only</i> access objects in an Amazon S3 bucket through
-     *        CloudFront. The format of the value is:</p>
-     *        <p>
-     *        origin-access-identity/cloudfront/<i>ID-of-origin-access-identity</i>
+     *        CloudFront. The format of the value is:
      *        </p>
      *        <p>
-     *        where <code> <i>ID-of-origin-access-identity</i> </code> is the value that CloudFront returned in the
+     *        <code>origin-access-identity/cloudfront/ID-of-origin-access-identity</code>
+     *        </p>
+     *        <p>
+     *        The <code> <i>ID-of-origin-access-identity</i> </code> is the value that CloudFront returned in the
      *        <code>ID</code> element when you created the origin access identity.
      *        </p>
      *        <p>

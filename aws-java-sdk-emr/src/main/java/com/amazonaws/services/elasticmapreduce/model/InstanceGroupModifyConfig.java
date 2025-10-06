@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class InstanceGroupModifyConfig implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Unique ID of the instance group to expand or shrink.
+     * Unique ID of the instance group to modify.
      * </p>
      */
     private String instanceGroupId;
@@ -42,8 +42,8 @@ public class InstanceGroupModifyConfig implements Serializable, Cloneable, Struc
     private Integer instanceCount;
     /**
      * <p>
-     * The EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not return to its
-     * original requested size.
+     * The Amazon EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not return to
+     * its original requested size.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> eC2InstanceIdsToTerminate;
@@ -53,6 +53,12 @@ public class InstanceGroupModifyConfig implements Serializable, Cloneable, Struc
      * </p>
      */
     private ShrinkPolicy shrinkPolicy;
+    /**
+     * <p>
+     * Type of reconfiguration requested. Valid values are MERGE and OVERWRITE.
+     * </p>
+     */
+    private String reconfigurationType;
     /**
      * <p>
      * A list of new or modified configurations to apply for an instance group.
@@ -72,7 +78,7 @@ public class InstanceGroupModifyConfig implements Serializable, Cloneable, Struc
      * methods to initialize any additional object members.
      * 
      * @param instanceGroupId
-     *        Unique ID of the instance group to expand or shrink.
+     *        Unique ID of the instance group to modify.
      * @param instanceCount
      *        Target size for the instance group.
      */
@@ -83,11 +89,11 @@ public class InstanceGroupModifyConfig implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Unique ID of the instance group to expand or shrink.
+     * Unique ID of the instance group to modify.
      * </p>
      * 
      * @param instanceGroupId
-     *        Unique ID of the instance group to expand or shrink.
+     *        Unique ID of the instance group to modify.
      */
 
     public void setInstanceGroupId(String instanceGroupId) {
@@ -96,10 +102,10 @@ public class InstanceGroupModifyConfig implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Unique ID of the instance group to expand or shrink.
+     * Unique ID of the instance group to modify.
      * </p>
      * 
-     * @return Unique ID of the instance group to expand or shrink.
+     * @return Unique ID of the instance group to modify.
      */
 
     public String getInstanceGroupId() {
@@ -108,11 +114,11 @@ public class InstanceGroupModifyConfig implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Unique ID of the instance group to expand or shrink.
+     * Unique ID of the instance group to modify.
      * </p>
      * 
      * @param instanceGroupId
-     *        Unique ID of the instance group to expand or shrink.
+     *        Unique ID of the instance group to modify.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -163,12 +169,12 @@ public class InstanceGroupModifyConfig implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not return to its
-     * original requested size.
+     * The Amazon EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not return to
+     * its original requested size.
      * </p>
      * 
-     * @return The EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not return
-     *         to its original requested size.
+     * @return The Amazon EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not
+     *         return to its original requested size.
      */
 
     public java.util.List<String> getEC2InstanceIdsToTerminate() {
@@ -180,13 +186,13 @@ public class InstanceGroupModifyConfig implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not return to its
-     * original requested size.
+     * The Amazon EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not return to
+     * its original requested size.
      * </p>
      * 
      * @param eC2InstanceIdsToTerminate
-     *        The EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not return to
-     *        its original requested size.
+     *        The Amazon EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not
+     *        return to its original requested size.
      */
 
     public void setEC2InstanceIdsToTerminate(java.util.Collection<String> eC2InstanceIdsToTerminate) {
@@ -200,8 +206,8 @@ public class InstanceGroupModifyConfig implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not return to its
-     * original requested size.
+     * The Amazon EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not return to
+     * its original requested size.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -210,8 +216,8 @@ public class InstanceGroupModifyConfig implements Serializable, Cloneable, Struc
      * </p>
      * 
      * @param eC2InstanceIdsToTerminate
-     *        The EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not return to
-     *        its original requested size.
+     *        The Amazon EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not
+     *        return to its original requested size.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -227,13 +233,13 @@ public class InstanceGroupModifyConfig implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not return to its
-     * original requested size.
+     * The Amazon EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not return to
+     * its original requested size.
      * </p>
      * 
      * @param eC2InstanceIdsToTerminate
-     *        The EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not return to
-     *        its original requested size.
+     *        The Amazon EC2 InstanceIds to terminate. After you terminate the instances, the instance group will not
+     *        return to its original requested size.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -279,6 +285,65 @@ public class InstanceGroupModifyConfig implements Serializable, Cloneable, Struc
 
     public InstanceGroupModifyConfig withShrinkPolicy(ShrinkPolicy shrinkPolicy) {
         setShrinkPolicy(shrinkPolicy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Type of reconfiguration requested. Valid values are MERGE and OVERWRITE.
+     * </p>
+     * 
+     * @param reconfigurationType
+     *        Type of reconfiguration requested. Valid values are MERGE and OVERWRITE.
+     * @see ReconfigurationType
+     */
+
+    public void setReconfigurationType(String reconfigurationType) {
+        this.reconfigurationType = reconfigurationType;
+    }
+
+    /**
+     * <p>
+     * Type of reconfiguration requested. Valid values are MERGE and OVERWRITE.
+     * </p>
+     * 
+     * @return Type of reconfiguration requested. Valid values are MERGE and OVERWRITE.
+     * @see ReconfigurationType
+     */
+
+    public String getReconfigurationType() {
+        return this.reconfigurationType;
+    }
+
+    /**
+     * <p>
+     * Type of reconfiguration requested. Valid values are MERGE and OVERWRITE.
+     * </p>
+     * 
+     * @param reconfigurationType
+     *        Type of reconfiguration requested. Valid values are MERGE and OVERWRITE.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ReconfigurationType
+     */
+
+    public InstanceGroupModifyConfig withReconfigurationType(String reconfigurationType) {
+        setReconfigurationType(reconfigurationType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Type of reconfiguration requested. Valid values are MERGE and OVERWRITE.
+     * </p>
+     * 
+     * @param reconfigurationType
+     *        Type of reconfiguration requested. Valid values are MERGE and OVERWRITE.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ReconfigurationType
+     */
+
+    public InstanceGroupModifyConfig withReconfigurationType(ReconfigurationType reconfigurationType) {
+        this.reconfigurationType = reconfigurationType.toString();
         return this;
     }
 
@@ -375,6 +440,8 @@ public class InstanceGroupModifyConfig implements Serializable, Cloneable, Struc
             sb.append("EC2InstanceIdsToTerminate: ").append(getEC2InstanceIdsToTerminate()).append(",");
         if (getShrinkPolicy() != null)
             sb.append("ShrinkPolicy: ").append(getShrinkPolicy()).append(",");
+        if (getReconfigurationType() != null)
+            sb.append("ReconfigurationType: ").append(getReconfigurationType()).append(",");
         if (getConfigurations() != null)
             sb.append("Configurations: ").append(getConfigurations());
         sb.append("}");
@@ -407,6 +474,10 @@ public class InstanceGroupModifyConfig implements Serializable, Cloneable, Struc
             return false;
         if (other.getShrinkPolicy() != null && other.getShrinkPolicy().equals(this.getShrinkPolicy()) == false)
             return false;
+        if (other.getReconfigurationType() == null ^ this.getReconfigurationType() == null)
+            return false;
+        if (other.getReconfigurationType() != null && other.getReconfigurationType().equals(this.getReconfigurationType()) == false)
+            return false;
         if (other.getConfigurations() == null ^ this.getConfigurations() == null)
             return false;
         if (other.getConfigurations() != null && other.getConfigurations().equals(this.getConfigurations()) == false)
@@ -423,6 +494,7 @@ public class InstanceGroupModifyConfig implements Serializable, Cloneable, Struc
         hashCode = prime * hashCode + ((getInstanceCount() == null) ? 0 : getInstanceCount().hashCode());
         hashCode = prime * hashCode + ((getEC2InstanceIdsToTerminate() == null) ? 0 : getEC2InstanceIdsToTerminate().hashCode());
         hashCode = prime * hashCode + ((getShrinkPolicy() == null) ? 0 : getShrinkPolicy().hashCode());
+        hashCode = prime * hashCode + ((getReconfigurationType() == null) ? 0 : getReconfigurationType().hashCode());
         hashCode = prime * hashCode + ((getConfigurations() == null) ? 0 : getConfigurations().hashCode());
         return hashCode;
     }

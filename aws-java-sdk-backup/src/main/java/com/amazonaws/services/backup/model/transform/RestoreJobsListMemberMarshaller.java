@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,6 +27,8 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class RestoreJobsListMemberMarshaller {
 
+    private static final MarshallingInfo<String> ACCOUNTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("AccountId").build();
     private static final MarshallingInfo<String> RESTOREJOBID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RestoreJobId").build();
     private static final MarshallingInfo<String> RECOVERYPOINTARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -49,6 +51,20 @@ public class RestoreJobsListMemberMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExpectedCompletionTimeMinutes").build();
     private static final MarshallingInfo<String> CREATEDRESOURCEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CreatedResourceArn").build();
+    private static final MarshallingInfo<String> RESOURCETYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceType").build();
+    private static final MarshallingInfo<java.util.Date> RECOVERYPOINTCREATIONDATE_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RecoveryPointCreationDate").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<StructuredPojo> CREATEDBY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CreatedBy").build();
+    private static final MarshallingInfo<String> VALIDATIONSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ValidationStatus").build();
+    private static final MarshallingInfo<String> VALIDATIONSTATUSMESSAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ValidationStatusMessage").build();
+    private static final MarshallingInfo<String> DELETIONSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DeletionStatus").build();
+    private static final MarshallingInfo<String> DELETIONSTATUSMESSAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DeletionStatusMessage").build();
 
     private static final RestoreJobsListMemberMarshaller instance = new RestoreJobsListMemberMarshaller();
 
@@ -66,6 +82,7 @@ public class RestoreJobsListMemberMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(restoreJobsListMember.getAccountId(), ACCOUNTID_BINDING);
             protocolMarshaller.marshall(restoreJobsListMember.getRestoreJobId(), RESTOREJOBID_BINDING);
             protocolMarshaller.marshall(restoreJobsListMember.getRecoveryPointArn(), RECOVERYPOINTARN_BINDING);
             protocolMarshaller.marshall(restoreJobsListMember.getCreationDate(), CREATIONDATE_BINDING);
@@ -77,6 +94,13 @@ public class RestoreJobsListMemberMarshaller {
             protocolMarshaller.marshall(restoreJobsListMember.getIamRoleArn(), IAMROLEARN_BINDING);
             protocolMarshaller.marshall(restoreJobsListMember.getExpectedCompletionTimeMinutes(), EXPECTEDCOMPLETIONTIMEMINUTES_BINDING);
             protocolMarshaller.marshall(restoreJobsListMember.getCreatedResourceArn(), CREATEDRESOURCEARN_BINDING);
+            protocolMarshaller.marshall(restoreJobsListMember.getResourceType(), RESOURCETYPE_BINDING);
+            protocolMarshaller.marshall(restoreJobsListMember.getRecoveryPointCreationDate(), RECOVERYPOINTCREATIONDATE_BINDING);
+            protocolMarshaller.marshall(restoreJobsListMember.getCreatedBy(), CREATEDBY_BINDING);
+            protocolMarshaller.marshall(restoreJobsListMember.getValidationStatus(), VALIDATIONSTATUS_BINDING);
+            protocolMarshaller.marshall(restoreJobsListMember.getValidationStatusMessage(), VALIDATIONSTATUSMESSAGE_BINDING);
+            protocolMarshaller.marshall(restoreJobsListMember.getDeletionStatus(), DELETIONSTATUS_BINDING);
+            protocolMarshaller.marshall(restoreJobsListMember.getDeletionStatusMessage(), DELETIONSTATUSMESSAGE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

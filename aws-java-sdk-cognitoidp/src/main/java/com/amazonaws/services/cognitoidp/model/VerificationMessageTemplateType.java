@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,31 +30,55 @@ public class VerificationMessageTemplateType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The SMS message template.
+     * The template for SMS messages that Amazon Cognito sends to your users.
      * </p>
      */
     private String smsMessage;
     /**
      * <p>
-     * The email message template.
+     * The template for email messages that Amazon Cognito sends to your users. You can set an <code>EmailMessage</code>
+     * template only if the value of <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own Amazon SES
+     * configuration.
      * </p>
      */
     private String emailMessage;
     /**
      * <p>
-     * The subject line for the email message template.
+     * The subject line for the email message template. You can set an <code>EmailSubject</code> template only if the
+     * value of <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own Amazon SES
+     * configuration.
      * </p>
      */
     private String emailSubject;
     /**
      * <p>
-     * The email message template for sending a confirmation link to the user.
+     * The email message template for sending a confirmation link to the user. You can set an
+     * <code>EmailMessageByLink</code> template only if the value of <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own Amazon SES
+     * configuration.
      * </p>
      */
     private String emailMessageByLink;
     /**
      * <p>
-     * The subject line for the email message template for sending a confirmation link to the user.
+     * The subject line for the email message template for sending a confirmation link to the user. You can set an
+     * <code>EmailSubjectByLink</code> template only if the value of <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own Amazon SES
+     * configuration.
      * </p>
      */
     private String emailSubjectByLink;
@@ -67,11 +91,11 @@ public class VerificationMessageTemplateType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The SMS message template.
+     * The template for SMS messages that Amazon Cognito sends to your users.
      * </p>
      * 
      * @param smsMessage
-     *        The SMS message template.
+     *        The template for SMS messages that Amazon Cognito sends to your users.
      */
 
     public void setSmsMessage(String smsMessage) {
@@ -80,10 +104,10 @@ public class VerificationMessageTemplateType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The SMS message template.
+     * The template for SMS messages that Amazon Cognito sends to your users.
      * </p>
      * 
-     * @return The SMS message template.
+     * @return The template for SMS messages that Amazon Cognito sends to your users.
      */
 
     public String getSmsMessage() {
@@ -92,11 +116,11 @@ public class VerificationMessageTemplateType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The SMS message template.
+     * The template for SMS messages that Amazon Cognito sends to your users.
      * </p>
      * 
      * @param smsMessage
-     *        The SMS message template.
+     *        The template for SMS messages that Amazon Cognito sends to your users.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -107,11 +131,23 @@ public class VerificationMessageTemplateType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The email message template.
+     * The template for email messages that Amazon Cognito sends to your users. You can set an <code>EmailMessage</code>
+     * template only if the value of <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own Amazon SES
+     * configuration.
      * </p>
      * 
      * @param emailMessage
-     *        The email message template.
+     *        The template for email messages that Amazon Cognito sends to your users. You can set an
+     *        <code>EmailMessage</code> template only if the value of <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *        > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *        >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own
+     *        Amazon SES configuration.
      */
 
     public void setEmailMessage(String emailMessage) {
@@ -120,10 +156,22 @@ public class VerificationMessageTemplateType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The email message template.
+     * The template for email messages that Amazon Cognito sends to your users. You can set an <code>EmailMessage</code>
+     * template only if the value of <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own Amazon SES
+     * configuration.
      * </p>
      * 
-     * @return The email message template.
+     * @return The template for email messages that Amazon Cognito sends to your users. You can set an
+     *         <code>EmailMessage</code> template only if the value of <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *         > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *         >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own
+     *         Amazon SES configuration.
      */
 
     public String getEmailMessage() {
@@ -132,11 +180,23 @@ public class VerificationMessageTemplateType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The email message template.
+     * The template for email messages that Amazon Cognito sends to your users. You can set an <code>EmailMessage</code>
+     * template only if the value of <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own Amazon SES
+     * configuration.
      * </p>
      * 
      * @param emailMessage
-     *        The email message template.
+     *        The template for email messages that Amazon Cognito sends to your users. You can set an
+     *        <code>EmailMessage</code> template only if the value of <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *        > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *        >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own
+     *        Amazon SES configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -147,11 +207,23 @@ public class VerificationMessageTemplateType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The subject line for the email message template.
+     * The subject line for the email message template. You can set an <code>EmailSubject</code> template only if the
+     * value of <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own Amazon SES
+     * configuration.
      * </p>
      * 
      * @param emailSubject
-     *        The subject line for the email message template.
+     *        The subject line for the email message template. You can set an <code>EmailSubject</code> template only if
+     *        the value of <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *        > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *        >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own
+     *        Amazon SES configuration.
      */
 
     public void setEmailSubject(String emailSubject) {
@@ -160,10 +232,22 @@ public class VerificationMessageTemplateType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The subject line for the email message template.
+     * The subject line for the email message template. You can set an <code>EmailSubject</code> template only if the
+     * value of <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own Amazon SES
+     * configuration.
      * </p>
      * 
-     * @return The subject line for the email message template.
+     * @return The subject line for the email message template. You can set an <code>EmailSubject</code> template only
+     *         if the value of <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *         > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *         >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own
+     *         Amazon SES configuration.
      */
 
     public String getEmailSubject() {
@@ -172,11 +256,23 @@ public class VerificationMessageTemplateType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The subject line for the email message template.
+     * The subject line for the email message template. You can set an <code>EmailSubject</code> template only if the
+     * value of <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own Amazon SES
+     * configuration.
      * </p>
      * 
      * @param emailSubject
-     *        The subject line for the email message template.
+     *        The subject line for the email message template. You can set an <code>EmailSubject</code> template only if
+     *        the value of <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *        > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *        >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own
+     *        Amazon SES configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -187,11 +283,23 @@ public class VerificationMessageTemplateType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The email message template for sending a confirmation link to the user.
+     * The email message template for sending a confirmation link to the user. You can set an
+     * <code>EmailMessageByLink</code> template only if the value of <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own Amazon SES
+     * configuration.
      * </p>
      * 
      * @param emailMessageByLink
-     *        The email message template for sending a confirmation link to the user.
+     *        The email message template for sending a confirmation link to the user. You can set an
+     *        <code>EmailMessageByLink</code> template only if the value of <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *        > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *        >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own
+     *        Amazon SES configuration.
      */
 
     public void setEmailMessageByLink(String emailMessageByLink) {
@@ -200,10 +308,22 @@ public class VerificationMessageTemplateType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The email message template for sending a confirmation link to the user.
+     * The email message template for sending a confirmation link to the user. You can set an
+     * <code>EmailMessageByLink</code> template only if the value of <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own Amazon SES
+     * configuration.
      * </p>
      * 
-     * @return The email message template for sending a confirmation link to the user.
+     * @return The email message template for sending a confirmation link to the user. You can set an
+     *         <code>EmailMessageByLink</code> template only if the value of <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *         > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *         >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own
+     *         Amazon SES configuration.
      */
 
     public String getEmailMessageByLink() {
@@ -212,11 +332,23 @@ public class VerificationMessageTemplateType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The email message template for sending a confirmation link to the user.
+     * The email message template for sending a confirmation link to the user. You can set an
+     * <code>EmailMessageByLink</code> template only if the value of <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own Amazon SES
+     * configuration.
      * </p>
      * 
      * @param emailMessageByLink
-     *        The email message template for sending a confirmation link to the user.
+     *        The email message template for sending a confirmation link to the user. You can set an
+     *        <code>EmailMessageByLink</code> template only if the value of <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *        > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *        >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own
+     *        Amazon SES configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -227,11 +359,23 @@ public class VerificationMessageTemplateType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The subject line for the email message template for sending a confirmation link to the user.
+     * The subject line for the email message template for sending a confirmation link to the user. You can set an
+     * <code>EmailSubjectByLink</code> template only if the value of <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own Amazon SES
+     * configuration.
      * </p>
      * 
      * @param emailSubjectByLink
-     *        The subject line for the email message template for sending a confirmation link to the user.
+     *        The subject line for the email message template for sending a confirmation link to the user. You can set
+     *        an <code>EmailSubjectByLink</code> template only if the value of <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *        > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *        >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own
+     *        Amazon SES configuration.
      */
 
     public void setEmailSubjectByLink(String emailSubjectByLink) {
@@ -240,10 +384,22 @@ public class VerificationMessageTemplateType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The subject line for the email message template for sending a confirmation link to the user.
+     * The subject line for the email message template for sending a confirmation link to the user. You can set an
+     * <code>EmailSubjectByLink</code> template only if the value of <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own Amazon SES
+     * configuration.
      * </p>
      * 
-     * @return The subject line for the email message template for sending a confirmation link to the user.
+     * @return The subject line for the email message template for sending a confirmation link to the user. You can set
+     *         an <code>EmailSubjectByLink</code> template only if the value of <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *         > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *         >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own
+     *         Amazon SES configuration.
      */
 
     public String getEmailSubjectByLink() {
@@ -252,11 +408,23 @@ public class VerificationMessageTemplateType implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The subject line for the email message template for sending a confirmation link to the user.
+     * The subject line for the email message template for sending a confirmation link to the user. You can set an
+     * <code>EmailSubjectByLink</code> template only if the value of <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     * >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own Amazon SES
+     * configuration.
      * </p>
      * 
      * @param emailSubjectByLink
-     *        The subject line for the email message template for sending a confirmation link to the user.
+     *        The subject line for the email message template for sending a confirmation link to the user. You can set
+     *        an <code>EmailSubjectByLink</code> template only if the value of <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *        > EmailSendingAccount</a> is <code>DEVELOPER</code>. When your <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_EmailConfigurationType.html#CognitoUserPools-Type-EmailConfigurationType-EmailSendingAccount"
+     *        >EmailSendingAccount</a> is <code>DEVELOPER</code>, your user pool sends email messages with your own
+     *        Amazon SES configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,29 +30,35 @@ public class EvaluationResultIdentifier implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Identifies an AWS Config rule used to evaluate an AWS resource, and provides the type and ID of the evaluated
-     * resource.
+     * Identifies an Config rule used to evaluate an Amazon Web Services resource, and provides the type and ID of the
+     * evaluated resource.
      * </p>
      */
     private EvaluationResultQualifier evaluationResultQualifier;
     /**
      * <p>
-     * The time of the event that triggered the evaluation of your AWS resources. The time can indicate when AWS Config
-     * delivered a configuration item change notification, or it can indicate when AWS Config delivered the
+     * The time of the event that triggered the evaluation of your Amazon Web Services resources. The time can indicate
+     * when Config delivered a configuration item change notification, or it can indicate when Config delivered the
      * configuration snapshot, depending on which event triggered the evaluation.
      * </p>
      */
     private java.util.Date orderingTimestamp;
+    /**
+     * <p>
+     * A Unique ID for an evaluation result.
+     * </p>
+     */
+    private String resourceEvaluationId;
 
     /**
      * <p>
-     * Identifies an AWS Config rule used to evaluate an AWS resource, and provides the type and ID of the evaluated
-     * resource.
+     * Identifies an Config rule used to evaluate an Amazon Web Services resource, and provides the type and ID of the
+     * evaluated resource.
      * </p>
      * 
      * @param evaluationResultQualifier
-     *        Identifies an AWS Config rule used to evaluate an AWS resource, and provides the type and ID of the
-     *        evaluated resource.
+     *        Identifies an Config rule used to evaluate an Amazon Web Services resource, and provides the type and ID
+     *        of the evaluated resource.
      */
 
     public void setEvaluationResultQualifier(EvaluationResultQualifier evaluationResultQualifier) {
@@ -61,12 +67,12 @@ public class EvaluationResultIdentifier implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Identifies an AWS Config rule used to evaluate an AWS resource, and provides the type and ID of the evaluated
-     * resource.
+     * Identifies an Config rule used to evaluate an Amazon Web Services resource, and provides the type and ID of the
+     * evaluated resource.
      * </p>
      * 
-     * @return Identifies an AWS Config rule used to evaluate an AWS resource, and provides the type and ID of the
-     *         evaluated resource.
+     * @return Identifies an Config rule used to evaluate an Amazon Web Services resource, and provides the type and ID
+     *         of the evaluated resource.
      */
 
     public EvaluationResultQualifier getEvaluationResultQualifier() {
@@ -75,13 +81,13 @@ public class EvaluationResultIdentifier implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Identifies an AWS Config rule used to evaluate an AWS resource, and provides the type and ID of the evaluated
-     * resource.
+     * Identifies an Config rule used to evaluate an Amazon Web Services resource, and provides the type and ID of the
+     * evaluated resource.
      * </p>
      * 
      * @param evaluationResultQualifier
-     *        Identifies an AWS Config rule used to evaluate an AWS resource, and provides the type and ID of the
-     *        evaluated resource.
+     *        Identifies an Config rule used to evaluate an Amazon Web Services resource, and provides the type and ID
+     *        of the evaluated resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -92,15 +98,15 @@ public class EvaluationResultIdentifier implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time of the event that triggered the evaluation of your AWS resources. The time can indicate when AWS Config
-     * delivered a configuration item change notification, or it can indicate when AWS Config delivered the
+     * The time of the event that triggered the evaluation of your Amazon Web Services resources. The time can indicate
+     * when Config delivered a configuration item change notification, or it can indicate when Config delivered the
      * configuration snapshot, depending on which event triggered the evaluation.
      * </p>
      * 
      * @param orderingTimestamp
-     *        The time of the event that triggered the evaluation of your AWS resources. The time can indicate when AWS
-     *        Config delivered a configuration item change notification, or it can indicate when AWS Config delivered
-     *        the configuration snapshot, depending on which event triggered the evaluation.
+     *        The time of the event that triggered the evaluation of your Amazon Web Services resources. The time can
+     *        indicate when Config delivered a configuration item change notification, or it can indicate when Config
+     *        delivered the configuration snapshot, depending on which event triggered the evaluation.
      */
 
     public void setOrderingTimestamp(java.util.Date orderingTimestamp) {
@@ -109,14 +115,14 @@ public class EvaluationResultIdentifier implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time of the event that triggered the evaluation of your AWS resources. The time can indicate when AWS Config
-     * delivered a configuration item change notification, or it can indicate when AWS Config delivered the
+     * The time of the event that triggered the evaluation of your Amazon Web Services resources. The time can indicate
+     * when Config delivered a configuration item change notification, or it can indicate when Config delivered the
      * configuration snapshot, depending on which event triggered the evaluation.
      * </p>
      * 
-     * @return The time of the event that triggered the evaluation of your AWS resources. The time can indicate when AWS
-     *         Config delivered a configuration item change notification, or it can indicate when AWS Config delivered
-     *         the configuration snapshot, depending on which event triggered the evaluation.
+     * @return The time of the event that triggered the evaluation of your Amazon Web Services resources. The time can
+     *         indicate when Config delivered a configuration item change notification, or it can indicate when Config
+     *         delivered the configuration snapshot, depending on which event triggered the evaluation.
      */
 
     public java.util.Date getOrderingTimestamp() {
@@ -125,20 +131,60 @@ public class EvaluationResultIdentifier implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The time of the event that triggered the evaluation of your AWS resources. The time can indicate when AWS Config
-     * delivered a configuration item change notification, or it can indicate when AWS Config delivered the
+     * The time of the event that triggered the evaluation of your Amazon Web Services resources. The time can indicate
+     * when Config delivered a configuration item change notification, or it can indicate when Config delivered the
      * configuration snapshot, depending on which event triggered the evaluation.
      * </p>
      * 
      * @param orderingTimestamp
-     *        The time of the event that triggered the evaluation of your AWS resources. The time can indicate when AWS
-     *        Config delivered a configuration item change notification, or it can indicate when AWS Config delivered
-     *        the configuration snapshot, depending on which event triggered the evaluation.
+     *        The time of the event that triggered the evaluation of your Amazon Web Services resources. The time can
+     *        indicate when Config delivered a configuration item change notification, or it can indicate when Config
+     *        delivered the configuration snapshot, depending on which event triggered the evaluation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public EvaluationResultIdentifier withOrderingTimestamp(java.util.Date orderingTimestamp) {
         setOrderingTimestamp(orderingTimestamp);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A Unique ID for an evaluation result.
+     * </p>
+     * 
+     * @param resourceEvaluationId
+     *        A Unique ID for an evaluation result.
+     */
+
+    public void setResourceEvaluationId(String resourceEvaluationId) {
+        this.resourceEvaluationId = resourceEvaluationId;
+    }
+
+    /**
+     * <p>
+     * A Unique ID for an evaluation result.
+     * </p>
+     * 
+     * @return A Unique ID for an evaluation result.
+     */
+
+    public String getResourceEvaluationId() {
+        return this.resourceEvaluationId;
+    }
+
+    /**
+     * <p>
+     * A Unique ID for an evaluation result.
+     * </p>
+     * 
+     * @param resourceEvaluationId
+     *        A Unique ID for an evaluation result.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EvaluationResultIdentifier withResourceEvaluationId(String resourceEvaluationId) {
+        setResourceEvaluationId(resourceEvaluationId);
         return this;
     }
 
@@ -157,7 +203,9 @@ public class EvaluationResultIdentifier implements Serializable, Cloneable, Stru
         if (getEvaluationResultQualifier() != null)
             sb.append("EvaluationResultQualifier: ").append(getEvaluationResultQualifier()).append(",");
         if (getOrderingTimestamp() != null)
-            sb.append("OrderingTimestamp: ").append(getOrderingTimestamp());
+            sb.append("OrderingTimestamp: ").append(getOrderingTimestamp()).append(",");
+        if (getResourceEvaluationId() != null)
+            sb.append("ResourceEvaluationId: ").append(getResourceEvaluationId());
         sb.append("}");
         return sb.toString();
     }
@@ -180,6 +228,10 @@ public class EvaluationResultIdentifier implements Serializable, Cloneable, Stru
             return false;
         if (other.getOrderingTimestamp() != null && other.getOrderingTimestamp().equals(this.getOrderingTimestamp()) == false)
             return false;
+        if (other.getResourceEvaluationId() == null ^ this.getResourceEvaluationId() == null)
+            return false;
+        if (other.getResourceEvaluationId() != null && other.getResourceEvaluationId().equals(this.getResourceEvaluationId()) == false)
+            return false;
         return true;
     }
 
@@ -190,6 +242,7 @@ public class EvaluationResultIdentifier implements Serializable, Cloneable, Stru
 
         hashCode = prime * hashCode + ((getEvaluationResultQualifier() == null) ? 0 : getEvaluationResultQualifier().hashCode());
         hashCode = prime * hashCode + ((getOrderingTimestamp() == null) ? 0 : getOrderingTimestamp().hashCode());
+        hashCode = prime * hashCode + ((getResourceEvaluationId() == null) ? 0 : getResourceEvaluationId().hashCode());
         return hashCode;
     }
 

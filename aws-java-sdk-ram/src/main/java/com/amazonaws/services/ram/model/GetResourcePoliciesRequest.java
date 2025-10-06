@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,36 +27,46 @@ public class GetResourcePoliciesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the resources.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs)</a> of the resources whose policies you want to retrieve.
      * </p>
      */
     private java.util.List<String> resourceArns;
     /**
      * <p>
-     * The principal.
+     * Specifies the principal.
      * </p>
      */
     private String principal;
     /**
      * <p>
-     * The token for the next page of results.
+     * Specifies that you want to receive the next page of results. Valid only if you received a <code>NextToken</code>
+     * response in the previous request. If you did, it indicates that more output is available. Set this parameter to
+     * the value provided by the previous call's <code>NextToken</code> response to request the next page of results.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * Specifies the total number of results that you want included on each page of the response. If you do not include
+     * this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the
+     * number you specify, the <code>NextToken</code> response element is returned with a value (not null). Include the
+     * specified value as the <code>NextToken</code> request parameter in the next call to the operation to get the next
+     * part of the results. Note that the service might return fewer results than the maximum even when there are more
+     * results available. You should check <code>NextToken</code> after every operation to ensure that you receive all
+     * of the results.
      * </p>
      */
     private Integer maxResults;
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the resources.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs)</a> of the resources whose policies you want to retrieve.
      * </p>
      * 
-     * @return The Amazon Resource Names (ARN) of the resources.
+     * @return Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *         Resource Names (ARNs)</a> of the resources whose policies you want to retrieve.
      */
 
     public java.util.List<String> getResourceArns() {
@@ -65,11 +75,13 @@ public class GetResourcePoliciesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the resources.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs)</a> of the resources whose policies you want to retrieve.
      * </p>
      * 
      * @param resourceArns
-     *        The Amazon Resource Names (ARN) of the resources.
+     *        Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Names (ARNs)</a> of the resources whose policies you want to retrieve.
      */
 
     public void setResourceArns(java.util.Collection<String> resourceArns) {
@@ -83,7 +95,8 @@ public class GetResourcePoliciesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the resources.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs)</a> of the resources whose policies you want to retrieve.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -92,7 +105,8 @@ public class GetResourcePoliciesRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param resourceArns
-     *        The Amazon Resource Names (ARN) of the resources.
+     *        Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Names (ARNs)</a> of the resources whose policies you want to retrieve.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -108,11 +122,13 @@ public class GetResourcePoliciesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the resources.
+     * Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     * Resource Names (ARNs)</a> of the resources whose policies you want to retrieve.
      * </p>
      * 
      * @param resourceArns
-     *        The Amazon Resource Names (ARN) of the resources.
+     *        Specifies the <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon
+     *        Resource Names (ARNs)</a> of the resources whose policies you want to retrieve.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -123,11 +139,11 @@ public class GetResourcePoliciesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The principal.
+     * Specifies the principal.
      * </p>
      * 
      * @param principal
-     *        The principal.
+     *        Specifies the principal.
      */
 
     public void setPrincipal(String principal) {
@@ -136,10 +152,10 @@ public class GetResourcePoliciesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The principal.
+     * Specifies the principal.
      * </p>
      * 
-     * @return The principal.
+     * @return Specifies the principal.
      */
 
     public String getPrincipal() {
@@ -148,11 +164,11 @@ public class GetResourcePoliciesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The principal.
+     * Specifies the principal.
      * </p>
      * 
      * @param principal
-     *        The principal.
+     *        Specifies the principal.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -163,11 +179,16 @@ public class GetResourcePoliciesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The token for the next page of results.
+     * Specifies that you want to receive the next page of results. Valid only if you received a <code>NextToken</code>
+     * response in the previous request. If you did, it indicates that more output is available. Set this parameter to
+     * the value provided by the previous call's <code>NextToken</code> response to request the next page of results.
      * </p>
      * 
      * @param nextToken
-     *        The token for the next page of results.
+     *        Specifies that you want to receive the next page of results. Valid only if you received a
+     *        <code>NextToken</code> response in the previous request. If you did, it indicates that more output is
+     *        available. Set this parameter to the value provided by the previous call's <code>NextToken</code> response
+     *        to request the next page of results.
      */
 
     public void setNextToken(String nextToken) {
@@ -176,10 +197,15 @@ public class GetResourcePoliciesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The token for the next page of results.
+     * Specifies that you want to receive the next page of results. Valid only if you received a <code>NextToken</code>
+     * response in the previous request. If you did, it indicates that more output is available. Set this parameter to
+     * the value provided by the previous call's <code>NextToken</code> response to request the next page of results.
      * </p>
      * 
-     * @return The token for the next page of results.
+     * @return Specifies that you want to receive the next page of results. Valid only if you received a
+     *         <code>NextToken</code> response in the previous request. If you did, it indicates that more output is
+     *         available. Set this parameter to the value provided by the previous call's <code>NextToken</code>
+     *         response to request the next page of results.
      */
 
     public String getNextToken() {
@@ -188,11 +214,16 @@ public class GetResourcePoliciesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The token for the next page of results.
+     * Specifies that you want to receive the next page of results. Valid only if you received a <code>NextToken</code>
+     * response in the previous request. If you did, it indicates that more output is available. Set this parameter to
+     * the value provided by the previous call's <code>NextToken</code> response to request the next page of results.
      * </p>
      * 
      * @param nextToken
-     *        The token for the next page of results.
+     *        Specifies that you want to receive the next page of results. Valid only if you received a
+     *        <code>NextToken</code> response in the previous request. If you did, it indicates that more output is
+     *        available. Set this parameter to the value provided by the previous call's <code>NextToken</code> response
+     *        to request the next page of results.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -203,13 +234,23 @@ public class GetResourcePoliciesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * Specifies the total number of results that you want included on each page of the response. If you do not include
+     * this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the
+     * number you specify, the <code>NextToken</code> response element is returned with a value (not null). Include the
+     * specified value as the <code>NextToken</code> request parameter in the next call to the operation to get the next
+     * part of the results. Note that the service might return fewer results than the maximum even when there are more
+     * results available. You should check <code>NextToken</code> after every operation to ensure that you receive all
+     * of the results.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *        another call with the returned <code>nextToken</code> value.
+     *        Specifies the total number of results that you want included on each page of the response. If you do not
+     *        include this parameter, it defaults to a value that is specific to the operation. If additional items
+     *        exist beyond the number you specify, the <code>NextToken</code> response element is returned with a value
+     *        (not null). Include the specified value as the <code>NextToken</code> request parameter in the next call
+     *        to the operation to get the next part of the results. Note that the service might return fewer results
+     *        than the maximum even when there are more results available. You should check <code>NextToken</code> after
+     *        every operation to ensure that you receive all of the results.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -218,12 +259,22 @@ public class GetResourcePoliciesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * Specifies the total number of results that you want included on each page of the response. If you do not include
+     * this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the
+     * number you specify, the <code>NextToken</code> response element is returned with a value (not null). Include the
+     * specified value as the <code>NextToken</code> request parameter in the next call to the operation to get the next
+     * part of the results. Note that the service might return fewer results than the maximum even when there are more
+     * results available. You should check <code>NextToken</code> after every operation to ensure that you receive all
+     * of the results.
      * </p>
      * 
-     * @return The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *         another call with the returned <code>nextToken</code> value.
+     * @return Specifies the total number of results that you want included on each page of the response. If you do not
+     *         include this parameter, it defaults to a value that is specific to the operation. If additional items
+     *         exist beyond the number you specify, the <code>NextToken</code> response element is returned with a value
+     *         (not null). Include the specified value as the <code>NextToken</code> request parameter in the next call
+     *         to the operation to get the next part of the results. Note that the service might return fewer results
+     *         than the maximum even when there are more results available. You should check <code>NextToken</code>
+     *         after every operation to ensure that you receive all of the results.
      */
 
     public Integer getMaxResults() {
@@ -232,13 +283,23 @@ public class GetResourcePoliciesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * Specifies the total number of results that you want included on each page of the response. If you do not include
+     * this parameter, it defaults to a value that is specific to the operation. If additional items exist beyond the
+     * number you specify, the <code>NextToken</code> response element is returned with a value (not null). Include the
+     * specified value as the <code>NextToken</code> request parameter in the next call to the operation to get the next
+     * part of the results. Note that the service might return fewer results than the maximum even when there are more
+     * results available. You should check <code>NextToken</code> after every operation to ensure that you receive all
+     * of the results.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *        another call with the returned <code>nextToken</code> value.
+     *        Specifies the total number of results that you want included on each page of the response. If you do not
+     *        include this parameter, it defaults to a value that is specific to the operation. If additional items
+     *        exist beyond the number you specify, the <code>NextToken</code> response element is returned with a value
+     *        (not null). Include the specified value as the <code>NextToken</code> request parameter in the next call
+     *        to the operation to get the next part of the results. Note that the service might return fewer results
+     *        than the maximum even when there are more results available. You should check <code>NextToken</code> after
+     *        every operation to ensure that you receive all of the results.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

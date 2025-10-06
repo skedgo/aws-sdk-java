@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,11 +36,17 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String name;
     /**
      * <p>
-     * Sets the execution timeout value (in minutes) for a project. All test runs in this project will use the specified
+     * Sets the execution timeout value (in minutes) for a project. All test runs in this project use the specified
      * execution timeout value unless overridden when scheduling a run.
      * </p>
      */
     private Integer defaultJobTimeoutMinutes;
+    /**
+     * <p>
+     * The VPC security groups and subnets that are attached to a project.
+     * </p>
+     */
+    private VpcConfig vpcConfig;
 
     /**
      * <p>
@@ -84,12 +90,12 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Sets the execution timeout value (in minutes) for a project. All test runs in this project will use the specified
+     * Sets the execution timeout value (in minutes) for a project. All test runs in this project use the specified
      * execution timeout value unless overridden when scheduling a run.
      * </p>
      * 
      * @param defaultJobTimeoutMinutes
-     *        Sets the execution timeout value (in minutes) for a project. All test runs in this project will use the
+     *        Sets the execution timeout value (in minutes) for a project. All test runs in this project use the
      *        specified execution timeout value unless overridden when scheduling a run.
      */
 
@@ -99,11 +105,11 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Sets the execution timeout value (in minutes) for a project. All test runs in this project will use the specified
+     * Sets the execution timeout value (in minutes) for a project. All test runs in this project use the specified
      * execution timeout value unless overridden when scheduling a run.
      * </p>
      * 
-     * @return Sets the execution timeout value (in minutes) for a project. All test runs in this project will use the
+     * @return Sets the execution timeout value (in minutes) for a project. All test runs in this project use the
      *         specified execution timeout value unless overridden when scheduling a run.
      */
 
@@ -113,18 +119,58 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Sets the execution timeout value (in minutes) for a project. All test runs in this project will use the specified
+     * Sets the execution timeout value (in minutes) for a project. All test runs in this project use the specified
      * execution timeout value unless overridden when scheduling a run.
      * </p>
      * 
      * @param defaultJobTimeoutMinutes
-     *        Sets the execution timeout value (in minutes) for a project. All test runs in this project will use the
+     *        Sets the execution timeout value (in minutes) for a project. All test runs in this project use the
      *        specified execution timeout value unless overridden when scheduling a run.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateProjectRequest withDefaultJobTimeoutMinutes(Integer defaultJobTimeoutMinutes) {
         setDefaultJobTimeoutMinutes(defaultJobTimeoutMinutes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The VPC security groups and subnets that are attached to a project.
+     * </p>
+     * 
+     * @param vpcConfig
+     *        The VPC security groups and subnets that are attached to a project.
+     */
+
+    public void setVpcConfig(VpcConfig vpcConfig) {
+        this.vpcConfig = vpcConfig;
+    }
+
+    /**
+     * <p>
+     * The VPC security groups and subnets that are attached to a project.
+     * </p>
+     * 
+     * @return The VPC security groups and subnets that are attached to a project.
+     */
+
+    public VpcConfig getVpcConfig() {
+        return this.vpcConfig;
+    }
+
+    /**
+     * <p>
+     * The VPC security groups and subnets that are attached to a project.
+     * </p>
+     * 
+     * @param vpcConfig
+     *        The VPC security groups and subnets that are attached to a project.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateProjectRequest withVpcConfig(VpcConfig vpcConfig) {
+        setVpcConfig(vpcConfig);
         return this;
     }
 
@@ -143,7 +189,9 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getDefaultJobTimeoutMinutes() != null)
-            sb.append("DefaultJobTimeoutMinutes: ").append(getDefaultJobTimeoutMinutes());
+            sb.append("DefaultJobTimeoutMinutes: ").append(getDefaultJobTimeoutMinutes()).append(",");
+        if (getVpcConfig() != null)
+            sb.append("VpcConfig: ").append(getVpcConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -166,6 +214,10 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getDefaultJobTimeoutMinutes() != null && other.getDefaultJobTimeoutMinutes().equals(this.getDefaultJobTimeoutMinutes()) == false)
             return false;
+        if (other.getVpcConfig() == null ^ this.getVpcConfig() == null)
+            return false;
+        if (other.getVpcConfig() != null && other.getVpcConfig().equals(this.getVpcConfig()) == false)
+            return false;
         return true;
     }
 
@@ -176,6 +228,7 @@ public class CreateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getDefaultJobTimeoutMinutes() == null) ? 0 : getDefaultJobTimeoutMinutes().hashCode());
+        hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
         return hashCode;
     }
 

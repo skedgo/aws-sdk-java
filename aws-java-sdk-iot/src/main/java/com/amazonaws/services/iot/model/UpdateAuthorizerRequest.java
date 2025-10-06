@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,6 +50,13 @@ public class UpdateAuthorizerRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      */
     private String status;
+    /**
+     * <p>
+     * When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified in
+     * <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP connection.
+     * </p>
+     */
+    private Boolean enableCachingForHttp;
 
     /**
      * <p>
@@ -211,6 +218,13 @@ public class UpdateAuthorizerRequest extends com.amazonaws.AmazonWebServiceReque
         return this;
     }
 
+    /**
+     * Add a single TokenSigningPublicKeys entry
+     *
+     * @see UpdateAuthorizerRequest#withTokenSigningPublicKeys
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public UpdateAuthorizerRequest addTokenSigningPublicKeysEntry(String key, String value) {
         if (null == this.tokenSigningPublicKeys) {
             this.tokenSigningPublicKeys = new java.util.HashMap<String, String>();
@@ -292,6 +306,70 @@ public class UpdateAuthorizerRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
+     * <p>
+     * When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified in
+     * <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP connection.
+     * </p>
+     * 
+     * @param enableCachingForHttp
+     *        When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified
+     *        in <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP
+     *        connection.
+     */
+
+    public void setEnableCachingForHttp(Boolean enableCachingForHttp) {
+        this.enableCachingForHttp = enableCachingForHttp;
+    }
+
+    /**
+     * <p>
+     * When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified in
+     * <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP connection.
+     * </p>
+     * 
+     * @return When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified
+     *         in <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP
+     *         connection.
+     */
+
+    public Boolean getEnableCachingForHttp() {
+        return this.enableCachingForHttp;
+    }
+
+    /**
+     * <p>
+     * When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified in
+     * <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP connection.
+     * </p>
+     * 
+     * @param enableCachingForHttp
+     *        When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified
+     *        in <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP
+     *        connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateAuthorizerRequest withEnableCachingForHttp(Boolean enableCachingForHttp) {
+        setEnableCachingForHttp(enableCachingForHttp);
+        return this;
+    }
+
+    /**
+     * <p>
+     * When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified in
+     * <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP connection.
+     * </p>
+     * 
+     * @return When <code>true</code>, the result from the authorizer’s Lambda function is cached for the time specified
+     *         in <code>refreshAfterInSeconds</code>. The cached result is used while the device reuses the same HTTP
+     *         connection.
+     */
+
+    public Boolean isEnableCachingForHttp() {
+        return this.enableCachingForHttp;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -312,7 +390,9 @@ public class UpdateAuthorizerRequest extends com.amazonaws.AmazonWebServiceReque
         if (getTokenSigningPublicKeys() != null)
             sb.append("TokenSigningPublicKeys: ").append(getTokenSigningPublicKeys()).append(",");
         if (getStatus() != null)
-            sb.append("Status: ").append(getStatus());
+            sb.append("Status: ").append(getStatus()).append(",");
+        if (getEnableCachingForHttp() != null)
+            sb.append("EnableCachingForHttp: ").append(getEnableCachingForHttp());
         sb.append("}");
         return sb.toString();
     }
@@ -347,6 +427,10 @@ public class UpdateAuthorizerRequest extends com.amazonaws.AmazonWebServiceReque
             return false;
         if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
             return false;
+        if (other.getEnableCachingForHttp() == null ^ this.getEnableCachingForHttp() == null)
+            return false;
+        if (other.getEnableCachingForHttp() != null && other.getEnableCachingForHttp().equals(this.getEnableCachingForHttp()) == false)
+            return false;
         return true;
     }
 
@@ -360,6 +444,7 @@ public class UpdateAuthorizerRequest extends com.amazonaws.AmazonWebServiceReque
         hashCode = prime * hashCode + ((getTokenKeyName() == null) ? 0 : getTokenKeyName().hashCode());
         hashCode = prime * hashCode + ((getTokenSigningPublicKeys() == null) ? 0 : getTokenSigningPublicKeys().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        hashCode = prime * hashCode + ((getEnableCachingForHttp() == null) ? 0 : getEnableCachingForHttp().hashCode());
         return hashCode;
     }
 

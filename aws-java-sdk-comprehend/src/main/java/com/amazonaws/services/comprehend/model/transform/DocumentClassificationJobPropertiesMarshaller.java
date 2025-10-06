@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,8 @@ public class DocumentClassificationJobPropertiesMarshaller {
 
     private static final MarshallingInfo<String> JOBID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("JobId").build();
+    private static final MarshallingInfo<String> JOBARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("JobArn").build();
     private static final MarshallingInfo<String> JOBNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("JobName").build();
     private static final MarshallingInfo<String> JOBSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -51,6 +53,8 @@ public class DocumentClassificationJobPropertiesMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VolumeKmsKeyId").build();
     private static final MarshallingInfo<StructuredPojo> VPCCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VpcConfig").build();
+    private static final MarshallingInfo<String> FLYWHEELARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FlywheelArn").build();
 
     private static final DocumentClassificationJobPropertiesMarshaller instance = new DocumentClassificationJobPropertiesMarshaller();
 
@@ -69,6 +73,7 @@ public class DocumentClassificationJobPropertiesMarshaller {
 
         try {
             protocolMarshaller.marshall(documentClassificationJobProperties.getJobId(), JOBID_BINDING);
+            protocolMarshaller.marshall(documentClassificationJobProperties.getJobArn(), JOBARN_BINDING);
             protocolMarshaller.marshall(documentClassificationJobProperties.getJobName(), JOBNAME_BINDING);
             protocolMarshaller.marshall(documentClassificationJobProperties.getJobStatus(), JOBSTATUS_BINDING);
             protocolMarshaller.marshall(documentClassificationJobProperties.getMessage(), MESSAGE_BINDING);
@@ -80,6 +85,7 @@ public class DocumentClassificationJobPropertiesMarshaller {
             protocolMarshaller.marshall(documentClassificationJobProperties.getDataAccessRoleArn(), DATAACCESSROLEARN_BINDING);
             protocolMarshaller.marshall(documentClassificationJobProperties.getVolumeKmsKeyId(), VOLUMEKMSKEYID_BINDING);
             protocolMarshaller.marshall(documentClassificationJobProperties.getVpcConfig(), VPCCONFIG_BINDING);
+            protocolMarshaller.marshall(documentClassificationJobProperties.getFlywheelArn(), FLYWHEELARN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

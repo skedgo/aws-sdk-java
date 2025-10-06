@@ -1,0 +1,10 @@
+{
+  "userAgentTemplate": "foo2",
+  "defaultRetryMode": "bar2",
+  "serviceSigners" : [ {
+    "key" : "baz2",
+    "config" : {
+      "signerType" : "bud2"
+    }
+  } ]
+}

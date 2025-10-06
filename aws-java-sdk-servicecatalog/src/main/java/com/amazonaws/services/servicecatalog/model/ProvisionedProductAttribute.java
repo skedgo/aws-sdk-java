@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,7 +42,8 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
     private String arn;
     /**
      * <p>
-     * The type of provisioned product. The supported values are <code>CFN_STACK</code> and <code>CFN_STACKSET</code>.
+     * The type of provisioned product. The supported values are <code>CFN_STACK</code>, <code>CFN_STACKSET</code>,
+     * <code>TERRAFORM_OPEN_SOURCE</code>, <code>TERRAFORM_CLOUD</code>, and <code>EXTERNAL</code>.
      * </p>
      */
     private String type;
@@ -119,6 +120,63 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
     private String lastRecordId;
     /**
      * <p>
+     * The record identifier of the last request performed on this provisioned product of the following types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ProvisionProduct
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * UpdateProvisionedProduct
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ExecuteProvisionedProductPlan
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * TerminateProvisionedProduct
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String lastProvisioningRecordId;
+    /**
+     * <p>
+     * The record identifier of the last successful request performed on this provisioned product of the following
+     * types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ProvisionProduct
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * UpdateProvisionedProduct
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ExecuteProvisionedProductPlan
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * TerminateProvisionedProduct
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String lastSuccessfulProvisioningRecordId;
+    /**
+     * <p>
      * One or more tags.
      * </p>
      */
@@ -137,19 +195,31 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
     private String productId;
     /**
      * <p>
+     * The name of the product.
+     * </p>
+     */
+    private String productName;
+    /**
+     * <p>
      * The identifier of the provisioning artifact.
      * </p>
      */
     private String provisioningArtifactId;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the IAM user.
+     * The name of the provisioning artifact.
+     * </p>
+     */
+    private String provisioningArtifactName;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the user.
      * </p>
      */
     private String userArn;
     /**
      * <p>
-     * The ARN of the IAM user in the session. This ARN might contain a session ID.
+     * The ARN of the user in the session. This ARN might contain a session ID.
      * </p>
      */
     private String userArnSession;
@@ -236,12 +306,14 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The type of provisioned product. The supported values are <code>CFN_STACK</code> and <code>CFN_STACKSET</code>.
+     * The type of provisioned product. The supported values are <code>CFN_STACK</code>, <code>CFN_STACKSET</code>,
+     * <code>TERRAFORM_OPEN_SOURCE</code>, <code>TERRAFORM_CLOUD</code>, and <code>EXTERNAL</code>.
      * </p>
      * 
      * @param type
-     *        The type of provisioned product. The supported values are <code>CFN_STACK</code> and
-     *        <code>CFN_STACKSET</code>.
+     *        The type of provisioned product. The supported values are <code>CFN_STACK</code>,
+     *        <code>CFN_STACKSET</code>, <code>TERRAFORM_OPEN_SOURCE</code>, <code>TERRAFORM_CLOUD</code>, and
+     *        <code>EXTERNAL</code>.
      */
 
     public void setType(String type) {
@@ -250,11 +322,13 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The type of provisioned product. The supported values are <code>CFN_STACK</code> and <code>CFN_STACKSET</code>.
+     * The type of provisioned product. The supported values are <code>CFN_STACK</code>, <code>CFN_STACKSET</code>,
+     * <code>TERRAFORM_OPEN_SOURCE</code>, <code>TERRAFORM_CLOUD</code>, and <code>EXTERNAL</code>.
      * </p>
      * 
-     * @return The type of provisioned product. The supported values are <code>CFN_STACK</code> and
-     *         <code>CFN_STACKSET</code>.
+     * @return The type of provisioned product. The supported values are <code>CFN_STACK</code>,
+     *         <code>CFN_STACKSET</code>, <code>TERRAFORM_OPEN_SOURCE</code>, <code>TERRAFORM_CLOUD</code>, and
+     *         <code>EXTERNAL</code>.
      */
 
     public String getType() {
@@ -263,12 +337,14 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The type of provisioned product. The supported values are <code>CFN_STACK</code> and <code>CFN_STACKSET</code>.
+     * The type of provisioned product. The supported values are <code>CFN_STACK</code>, <code>CFN_STACKSET</code>,
+     * <code>TERRAFORM_OPEN_SOURCE</code>, <code>TERRAFORM_CLOUD</code>, and <code>EXTERNAL</code>.
      * </p>
      * 
      * @param type
-     *        The type of provisioned product. The supported values are <code>CFN_STACK</code> and
-     *        <code>CFN_STACKSET</code>.
+     *        The type of provisioned product. The supported values are <code>CFN_STACK</code>,
+     *        <code>CFN_STACKSET</code>, <code>TERRAFORM_OPEN_SOURCE</code>, <code>TERRAFORM_CLOUD</code>, and
+     *        <code>EXTERNAL</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -816,6 +892,353 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
 
     /**
      * <p>
+     * The record identifier of the last request performed on this provisioned product of the following types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ProvisionProduct
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * UpdateProvisionedProduct
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ExecuteProvisionedProductPlan
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * TerminateProvisionedProduct
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param lastProvisioningRecordId
+     *        The record identifier of the last request performed on this provisioned product of the following
+     *        types:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        ProvisionProduct
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        UpdateProvisionedProduct
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        ExecuteProvisionedProductPlan
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        TerminateProvisionedProduct
+     *        </p>
+     *        </li>
+     */
+
+    public void setLastProvisioningRecordId(String lastProvisioningRecordId) {
+        this.lastProvisioningRecordId = lastProvisioningRecordId;
+    }
+
+    /**
+     * <p>
+     * The record identifier of the last request performed on this provisioned product of the following types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ProvisionProduct
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * UpdateProvisionedProduct
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ExecuteProvisionedProductPlan
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * TerminateProvisionedProduct
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The record identifier of the last request performed on this provisioned product of the following
+     *         types:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         ProvisionProduct
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         UpdateProvisionedProduct
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         ExecuteProvisionedProductPlan
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         TerminateProvisionedProduct
+     *         </p>
+     *         </li>
+     */
+
+    public String getLastProvisioningRecordId() {
+        return this.lastProvisioningRecordId;
+    }
+
+    /**
+     * <p>
+     * The record identifier of the last request performed on this provisioned product of the following types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ProvisionProduct
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * UpdateProvisionedProduct
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ExecuteProvisionedProductPlan
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * TerminateProvisionedProduct
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param lastProvisioningRecordId
+     *        The record identifier of the last request performed on this provisioned product of the following
+     *        types:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        ProvisionProduct
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        UpdateProvisionedProduct
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        ExecuteProvisionedProductPlan
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        TerminateProvisionedProduct
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProvisionedProductAttribute withLastProvisioningRecordId(String lastProvisioningRecordId) {
+        setLastProvisioningRecordId(lastProvisioningRecordId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The record identifier of the last successful request performed on this provisioned product of the following
+     * types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ProvisionProduct
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * UpdateProvisionedProduct
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ExecuteProvisionedProductPlan
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * TerminateProvisionedProduct
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param lastSuccessfulProvisioningRecordId
+     *        The record identifier of the last successful request performed on this provisioned product of the
+     *        following types:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        ProvisionProduct
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        UpdateProvisionedProduct
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        ExecuteProvisionedProductPlan
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        TerminateProvisionedProduct
+     *        </p>
+     *        </li>
+     */
+
+    public void setLastSuccessfulProvisioningRecordId(String lastSuccessfulProvisioningRecordId) {
+        this.lastSuccessfulProvisioningRecordId = lastSuccessfulProvisioningRecordId;
+    }
+
+    /**
+     * <p>
+     * The record identifier of the last successful request performed on this provisioned product of the following
+     * types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ProvisionProduct
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * UpdateProvisionedProduct
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ExecuteProvisionedProductPlan
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * TerminateProvisionedProduct
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The record identifier of the last successful request performed on this provisioned product of the
+     *         following types:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         ProvisionProduct
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         UpdateProvisionedProduct
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         ExecuteProvisionedProductPlan
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         TerminateProvisionedProduct
+     *         </p>
+     *         </li>
+     */
+
+    public String getLastSuccessfulProvisioningRecordId() {
+        return this.lastSuccessfulProvisioningRecordId;
+    }
+
+    /**
+     * <p>
+     * The record identifier of the last successful request performed on this provisioned product of the following
+     * types:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ProvisionProduct
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * UpdateProvisionedProduct
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ExecuteProvisionedProductPlan
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * TerminateProvisionedProduct
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param lastSuccessfulProvisioningRecordId
+     *        The record identifier of the last successful request performed on this provisioned product of the
+     *        following types:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        ProvisionProduct
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        UpdateProvisionedProduct
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        ExecuteProvisionedProductPlan
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        TerminateProvisionedProduct
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProvisionedProductAttribute withLastSuccessfulProvisioningRecordId(String lastSuccessfulProvisioningRecordId) {
+        setLastSuccessfulProvisioningRecordId(lastSuccessfulProvisioningRecordId);
+        return this;
+    }
+
+    /**
+     * <p>
      * One or more tags.
      * </p>
      * 
@@ -966,6 +1389,46 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
 
     /**
      * <p>
+     * The name of the product.
+     * </p>
+     * 
+     * @param productName
+     *        The name of the product.
+     */
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    /**
+     * <p>
+     * The name of the product.
+     * </p>
+     * 
+     * @return The name of the product.
+     */
+
+    public String getProductName() {
+        return this.productName;
+    }
+
+    /**
+     * <p>
+     * The name of the product.
+     * </p>
+     * 
+     * @param productName
+     *        The name of the product.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProvisionedProductAttribute withProductName(String productName) {
+        setProductName(productName);
+        return this;
+    }
+
+    /**
+     * <p>
      * The identifier of the provisioning artifact.
      * </p>
      * 
@@ -1006,11 +1469,51 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the IAM user.
+     * The name of the provisioning artifact.
+     * </p>
+     * 
+     * @param provisioningArtifactName
+     *        The name of the provisioning artifact.
+     */
+
+    public void setProvisioningArtifactName(String provisioningArtifactName) {
+        this.provisioningArtifactName = provisioningArtifactName;
+    }
+
+    /**
+     * <p>
+     * The name of the provisioning artifact.
+     * </p>
+     * 
+     * @return The name of the provisioning artifact.
+     */
+
+    public String getProvisioningArtifactName() {
+        return this.provisioningArtifactName;
+    }
+
+    /**
+     * <p>
+     * The name of the provisioning artifact.
+     * </p>
+     * 
+     * @param provisioningArtifactName
+     *        The name of the provisioning artifact.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProvisionedProductAttribute withProvisioningArtifactName(String provisioningArtifactName) {
+        setProvisioningArtifactName(provisioningArtifactName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the user.
      * </p>
      * 
      * @param userArn
-     *        The Amazon Resource Name (ARN) of the IAM user.
+     *        The Amazon Resource Name (ARN) of the user.
      */
 
     public void setUserArn(String userArn) {
@@ -1019,10 +1522,10 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the IAM user.
+     * The Amazon Resource Name (ARN) of the user.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the IAM user.
+     * @return The Amazon Resource Name (ARN) of the user.
      */
 
     public String getUserArn() {
@@ -1031,11 +1534,11 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the IAM user.
+     * The Amazon Resource Name (ARN) of the user.
      * </p>
      * 
      * @param userArn
-     *        The Amazon Resource Name (ARN) of the IAM user.
+     *        The Amazon Resource Name (ARN) of the user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1046,11 +1549,11 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The ARN of the IAM user in the session. This ARN might contain a session ID.
+     * The ARN of the user in the session. This ARN might contain a session ID.
      * </p>
      * 
      * @param userArnSession
-     *        The ARN of the IAM user in the session. This ARN might contain a session ID.
+     *        The ARN of the user in the session. This ARN might contain a session ID.
      */
 
     public void setUserArnSession(String userArnSession) {
@@ -1059,10 +1562,10 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The ARN of the IAM user in the session. This ARN might contain a session ID.
+     * The ARN of the user in the session. This ARN might contain a session ID.
      * </p>
      * 
-     * @return The ARN of the IAM user in the session. This ARN might contain a session ID.
+     * @return The ARN of the user in the session. This ARN might contain a session ID.
      */
 
     public String getUserArnSession() {
@@ -1071,11 +1574,11 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The ARN of the IAM user in the session. This ARN might contain a session ID.
+     * The ARN of the user in the session. This ARN might contain a session ID.
      * </p>
      * 
      * @param userArnSession
-     *        The ARN of the IAM user in the session. This ARN might contain a session ID.
+     *        The ARN of the user in the session. This ARN might contain a session ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1114,14 +1617,22 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
             sb.append("IdempotencyToken: ").append(getIdempotencyToken()).append(",");
         if (getLastRecordId() != null)
             sb.append("LastRecordId: ").append(getLastRecordId()).append(",");
+        if (getLastProvisioningRecordId() != null)
+            sb.append("LastProvisioningRecordId: ").append(getLastProvisioningRecordId()).append(",");
+        if (getLastSuccessfulProvisioningRecordId() != null)
+            sb.append("LastSuccessfulProvisioningRecordId: ").append(getLastSuccessfulProvisioningRecordId()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getPhysicalId() != null)
             sb.append("PhysicalId: ").append(getPhysicalId()).append(",");
         if (getProductId() != null)
             sb.append("ProductId: ").append(getProductId()).append(",");
+        if (getProductName() != null)
+            sb.append("ProductName: ").append(getProductName()).append(",");
         if (getProvisioningArtifactId() != null)
             sb.append("ProvisioningArtifactId: ").append(getProvisioningArtifactId()).append(",");
+        if (getProvisioningArtifactName() != null)
+            sb.append("ProvisioningArtifactName: ").append(getProvisioningArtifactName()).append(",");
         if (getUserArn() != null)
             sb.append("UserArn: ").append(getUserArn()).append(",");
         if (getUserArnSession() != null)
@@ -1176,6 +1687,15 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
             return false;
         if (other.getLastRecordId() != null && other.getLastRecordId().equals(this.getLastRecordId()) == false)
             return false;
+        if (other.getLastProvisioningRecordId() == null ^ this.getLastProvisioningRecordId() == null)
+            return false;
+        if (other.getLastProvisioningRecordId() != null && other.getLastProvisioningRecordId().equals(this.getLastProvisioningRecordId()) == false)
+            return false;
+        if (other.getLastSuccessfulProvisioningRecordId() == null ^ this.getLastSuccessfulProvisioningRecordId() == null)
+            return false;
+        if (other.getLastSuccessfulProvisioningRecordId() != null
+                && other.getLastSuccessfulProvisioningRecordId().equals(this.getLastSuccessfulProvisioningRecordId()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
@@ -1188,9 +1708,17 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
             return false;
         if (other.getProductId() != null && other.getProductId().equals(this.getProductId()) == false)
             return false;
+        if (other.getProductName() == null ^ this.getProductName() == null)
+            return false;
+        if (other.getProductName() != null && other.getProductName().equals(this.getProductName()) == false)
+            return false;
         if (other.getProvisioningArtifactId() == null ^ this.getProvisioningArtifactId() == null)
             return false;
         if (other.getProvisioningArtifactId() != null && other.getProvisioningArtifactId().equals(this.getProvisioningArtifactId()) == false)
+            return false;
+        if (other.getProvisioningArtifactName() == null ^ this.getProvisioningArtifactName() == null)
+            return false;
+        if (other.getProvisioningArtifactName() != null && other.getProvisioningArtifactName().equals(this.getProvisioningArtifactName()) == false)
             return false;
         if (other.getUserArn() == null ^ this.getUserArn() == null)
             return false;
@@ -1217,10 +1745,14 @@ public class ProvisionedProductAttribute implements Serializable, Cloneable, Str
         hashCode = prime * hashCode + ((getCreatedTime() == null) ? 0 : getCreatedTime().hashCode());
         hashCode = prime * hashCode + ((getIdempotencyToken() == null) ? 0 : getIdempotencyToken().hashCode());
         hashCode = prime * hashCode + ((getLastRecordId() == null) ? 0 : getLastRecordId().hashCode());
+        hashCode = prime * hashCode + ((getLastProvisioningRecordId() == null) ? 0 : getLastProvisioningRecordId().hashCode());
+        hashCode = prime * hashCode + ((getLastSuccessfulProvisioningRecordId() == null) ? 0 : getLastSuccessfulProvisioningRecordId().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getPhysicalId() == null) ? 0 : getPhysicalId().hashCode());
         hashCode = prime * hashCode + ((getProductId() == null) ? 0 : getProductId().hashCode());
+        hashCode = prime * hashCode + ((getProductName() == null) ? 0 : getProductName().hashCode());
         hashCode = prime * hashCode + ((getProvisioningArtifactId() == null) ? 0 : getProvisioningArtifactId().hashCode());
+        hashCode = prime * hashCode + ((getProvisioningArtifactName() == null) ? 0 : getProvisioningArtifactName().hashCode());
         hashCode = prime * hashCode + ((getUserArn() == null) ? 0 : getUserArn().hashCode());
         hashCode = prime * hashCode + ((getUserArnSession() == null) ? 0 : getUserArnSession().hashCode());
         return hashCode;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,7 +56,7 @@ public class DescribeMitigationActionResult extends com.amazonaws.AmazonWebServi
     private MitigationActionParams actionParams;
     /**
      * <p>
-     * The date and time when the mitigation action was added to your AWS account.
+     * The date and time when the mitigation action was added to your Amazon Web Services accounts.
      * </p>
      */
     private java.util.Date creationDate;
@@ -328,11 +328,11 @@ public class DescribeMitigationActionResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The date and time when the mitigation action was added to your AWS account.
+     * The date and time when the mitigation action was added to your Amazon Web Services accounts.
      * </p>
      * 
      * @param creationDate
-     *        The date and time when the mitigation action was added to your AWS account.
+     *        The date and time when the mitigation action was added to your Amazon Web Services accounts.
      */
 
     public void setCreationDate(java.util.Date creationDate) {
@@ -341,10 +341,10 @@ public class DescribeMitigationActionResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The date and time when the mitigation action was added to your AWS account.
+     * The date and time when the mitigation action was added to your Amazon Web Services accounts.
      * </p>
      * 
-     * @return The date and time when the mitigation action was added to your AWS account.
+     * @return The date and time when the mitigation action was added to your Amazon Web Services accounts.
      */
 
     public java.util.Date getCreationDate() {
@@ -353,11 +353,11 @@ public class DescribeMitigationActionResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The date and time when the mitigation action was added to your AWS account.
+     * The date and time when the mitigation action was added to your Amazon Web Services accounts.
      * </p>
      * 
      * @param creationDate
-     *        The date and time when the mitigation action was added to your AWS account.
+     *        The date and time when the mitigation action was added to your Amazon Web Services accounts.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

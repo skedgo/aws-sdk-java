@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * When you update an SQL-based Amazon Kinesis Data Analytics application's output configuration using the
+ * When you update a SQL-based Kinesis Data Analytics application's output configuration using the
  * <a>UpdateApplication</a> operation, provides information about a Kinesis data stream that is configured as the
  * destination.
  * </p>

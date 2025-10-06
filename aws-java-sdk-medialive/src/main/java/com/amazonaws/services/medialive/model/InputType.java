@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -15,7 +15,7 @@ package com.amazonaws.services.medialive.model;
 import javax.annotation.Generated;
 
 /**
- * Placeholder documentation for InputType
+ * The different types of inputs that AWS Elemental MediaLive supports.
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum InputType {
@@ -26,7 +26,11 @@ public enum InputType {
     RTMP_PULL("RTMP_PULL"),
     URL_PULL("URL_PULL"),
     MP4_FILE("MP4_FILE"),
-    MEDIACONNECT("MEDIACONNECT");
+    MEDIACONNECT("MEDIACONNECT"),
+    INPUT_DEVICE("INPUT_DEVICE"),
+    AWS_CDI("AWS_CDI"),
+    TS_FILE("TS_FILE"),
+    SRT_CALLER("SRT_CALLER");
 
     private String value;
 

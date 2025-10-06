@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,6 +33,8 @@ public class StorageDescriptorMarshaller {
             .marshallLocationName("Columns").build();
     private static final MarshallingInfo<String> LOCATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Location").build();
+    private static final MarshallingInfo<List> ADDITIONALLOCATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AdditionalLocations").build();
     private static final MarshallingInfo<String> INPUTFORMAT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InputFormat").build();
     private static final MarshallingInfo<String> OUTPUTFORMAT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -53,6 +55,8 @@ public class StorageDescriptorMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SkewedInfo").build();
     private static final MarshallingInfo<Boolean> STOREDASSUBDIRECTORIES_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StoredAsSubDirectories").build();
+    private static final MarshallingInfo<StructuredPojo> SCHEMAREFERENCE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SchemaReference").build();
 
     private static final StorageDescriptorMarshaller instance = new StorageDescriptorMarshaller();
 
@@ -72,6 +76,7 @@ public class StorageDescriptorMarshaller {
         try {
             protocolMarshaller.marshall(storageDescriptor.getColumns(), COLUMNS_BINDING);
             protocolMarshaller.marshall(storageDescriptor.getLocation(), LOCATION_BINDING);
+            protocolMarshaller.marshall(storageDescriptor.getAdditionalLocations(), ADDITIONALLOCATIONS_BINDING);
             protocolMarshaller.marshall(storageDescriptor.getInputFormat(), INPUTFORMAT_BINDING);
             protocolMarshaller.marshall(storageDescriptor.getOutputFormat(), OUTPUTFORMAT_BINDING);
             protocolMarshaller.marshall(storageDescriptor.getCompressed(), COMPRESSED_BINDING);
@@ -82,6 +87,7 @@ public class StorageDescriptorMarshaller {
             protocolMarshaller.marshall(storageDescriptor.getParameters(), PARAMETERS_BINDING);
             protocolMarshaller.marshall(storageDescriptor.getSkewedInfo(), SKEWEDINFO_BINDING);
             protocolMarshaller.marshall(storageDescriptor.getStoredAsSubDirectories(), STOREDASSUBDIRECTORIES_BINDING);
+            protocolMarshaller.marshall(storageDescriptor.getSchemaReference(), SCHEMAREFERENCE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

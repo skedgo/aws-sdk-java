@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,7 @@ public class UpdateProvisioningArtifactResult extends com.amazonaws.AmazonWebSer
     private ProvisioningArtifactDetail provisioningArtifactDetail;
     /**
      * <p>
-     * The URL of the CloudFormation template in Amazon S3.
+     * The URL of the CloudFormation template in Amazon S3 or GitHub in JSON format.
      * </p>
      */
     private java.util.Map<String, String> info;
@@ -84,10 +84,10 @@ public class UpdateProvisioningArtifactResult extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The URL of the CloudFormation template in Amazon S3.
+     * The URL of the CloudFormation template in Amazon S3 or GitHub in JSON format.
      * </p>
      * 
-     * @return The URL of the CloudFormation template in Amazon S3.
+     * @return The URL of the CloudFormation template in Amazon S3 or GitHub in JSON format.
      */
 
     public java.util.Map<String, String> getInfo() {
@@ -96,11 +96,11 @@ public class UpdateProvisioningArtifactResult extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The URL of the CloudFormation template in Amazon S3.
+     * The URL of the CloudFormation template in Amazon S3 or GitHub in JSON format.
      * </p>
      * 
      * @param info
-     *        The URL of the CloudFormation template in Amazon S3.
+     *        The URL of the CloudFormation template in Amazon S3 or GitHub in JSON format.
      */
 
     public void setInfo(java.util.Map<String, String> info) {
@@ -109,11 +109,11 @@ public class UpdateProvisioningArtifactResult extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The URL of the CloudFormation template in Amazon S3.
+     * The URL of the CloudFormation template in Amazon S3 or GitHub in JSON format.
      * </p>
      * 
      * @param info
-     *        The URL of the CloudFormation template in Amazon S3.
+     *        The URL of the CloudFormation template in Amazon S3 or GitHub in JSON format.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -121,6 +121,13 @@ public class UpdateProvisioningArtifactResult extends com.amazonaws.AmazonWebSer
         setInfo(info);
         return this;
     }
+
+    /**
+     * Add a single Info entry
+     *
+     * @see UpdateProvisioningArtifactResult#withInfo
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public UpdateProvisioningArtifactResult addInfoEntry(String key, String value) {
         if (null == this.info) {

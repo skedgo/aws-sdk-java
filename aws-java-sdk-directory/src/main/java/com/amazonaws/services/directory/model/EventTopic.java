@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about SNS topic and AWS Directory Service directory associations.
+ * Information about Amazon SNS topic and Directory Service directory associations.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/EventTopic" target="_top">AWS API
@@ -30,25 +30,25 @@ public class EventTopic implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Directory ID of an AWS Directory Service directory that will publish status messages to an SNS topic.
+     * The Directory ID of an Directory Service directory that will publish status messages to an Amazon SNS topic.
      * </p>
      */
     private String directoryId;
     /**
      * <p>
-     * The name of an AWS SNS topic the receives status messages from the directory.
+     * The name of an Amazon SNS topic the receives status messages from the directory.
      * </p>
      */
     private String topicName;
     /**
      * <p>
-     * The SNS topic ARN (Amazon Resource Name).
+     * The Amazon SNS topic ARN (Amazon Resource Name).
      * </p>
      */
     private String topicArn;
     /**
      * <p>
-     * The date and time of when you associated your directory with the SNS topic.
+     * The date and time of when you associated your directory with the Amazon SNS topic.
      * </p>
      */
     private java.util.Date createdDateTime;
@@ -61,11 +61,12 @@ public class EventTopic implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Directory ID of an AWS Directory Service directory that will publish status messages to an SNS topic.
+     * The Directory ID of an Directory Service directory that will publish status messages to an Amazon SNS topic.
      * </p>
      * 
      * @param directoryId
-     *        The Directory ID of an AWS Directory Service directory that will publish status messages to an SNS topic.
+     *        The Directory ID of an Directory Service directory that will publish status messages to an Amazon SNS
+     *        topic.
      */
 
     public void setDirectoryId(String directoryId) {
@@ -74,10 +75,11 @@ public class EventTopic implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Directory ID of an AWS Directory Service directory that will publish status messages to an SNS topic.
+     * The Directory ID of an Directory Service directory that will publish status messages to an Amazon SNS topic.
      * </p>
      * 
-     * @return The Directory ID of an AWS Directory Service directory that will publish status messages to an SNS topic.
+     * @return The Directory ID of an Directory Service directory that will publish status messages to an Amazon SNS
+     *         topic.
      */
 
     public String getDirectoryId() {
@@ -86,11 +88,12 @@ public class EventTopic implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Directory ID of an AWS Directory Service directory that will publish status messages to an SNS topic.
+     * The Directory ID of an Directory Service directory that will publish status messages to an Amazon SNS topic.
      * </p>
      * 
      * @param directoryId
-     *        The Directory ID of an AWS Directory Service directory that will publish status messages to an SNS topic.
+     *        The Directory ID of an Directory Service directory that will publish status messages to an Amazon SNS
+     *        topic.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -101,11 +104,11 @@ public class EventTopic implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of an AWS SNS topic the receives status messages from the directory.
+     * The name of an Amazon SNS topic the receives status messages from the directory.
      * </p>
      * 
      * @param topicName
-     *        The name of an AWS SNS topic the receives status messages from the directory.
+     *        The name of an Amazon SNS topic the receives status messages from the directory.
      */
 
     public void setTopicName(String topicName) {
@@ -114,10 +117,10 @@ public class EventTopic implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of an AWS SNS topic the receives status messages from the directory.
+     * The name of an Amazon SNS topic the receives status messages from the directory.
      * </p>
      * 
-     * @return The name of an AWS SNS topic the receives status messages from the directory.
+     * @return The name of an Amazon SNS topic the receives status messages from the directory.
      */
 
     public String getTopicName() {
@@ -126,11 +129,11 @@ public class EventTopic implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of an AWS SNS topic the receives status messages from the directory.
+     * The name of an Amazon SNS topic the receives status messages from the directory.
      * </p>
      * 
      * @param topicName
-     *        The name of an AWS SNS topic the receives status messages from the directory.
+     *        The name of an Amazon SNS topic the receives status messages from the directory.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -141,11 +144,11 @@ public class EventTopic implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The SNS topic ARN (Amazon Resource Name).
+     * The Amazon SNS topic ARN (Amazon Resource Name).
      * </p>
      * 
      * @param topicArn
-     *        The SNS topic ARN (Amazon Resource Name).
+     *        The Amazon SNS topic ARN (Amazon Resource Name).
      */
 
     public void setTopicArn(String topicArn) {
@@ -154,10 +157,10 @@ public class EventTopic implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The SNS topic ARN (Amazon Resource Name).
+     * The Amazon SNS topic ARN (Amazon Resource Name).
      * </p>
      * 
-     * @return The SNS topic ARN (Amazon Resource Name).
+     * @return The Amazon SNS topic ARN (Amazon Resource Name).
      */
 
     public String getTopicArn() {
@@ -166,11 +169,11 @@ public class EventTopic implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The SNS topic ARN (Amazon Resource Name).
+     * The Amazon SNS topic ARN (Amazon Resource Name).
      * </p>
      * 
      * @param topicArn
-     *        The SNS topic ARN (Amazon Resource Name).
+     *        The Amazon SNS topic ARN (Amazon Resource Name).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -181,11 +184,11 @@ public class EventTopic implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date and time of when you associated your directory with the SNS topic.
+     * The date and time of when you associated your directory with the Amazon SNS topic.
      * </p>
      * 
      * @param createdDateTime
-     *        The date and time of when you associated your directory with the SNS topic.
+     *        The date and time of when you associated your directory with the Amazon SNS topic.
      */
 
     public void setCreatedDateTime(java.util.Date createdDateTime) {
@@ -194,10 +197,10 @@ public class EventTopic implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date and time of when you associated your directory with the SNS topic.
+     * The date and time of when you associated your directory with the Amazon SNS topic.
      * </p>
      * 
-     * @return The date and time of when you associated your directory with the SNS topic.
+     * @return The date and time of when you associated your directory with the Amazon SNS topic.
      */
 
     public java.util.Date getCreatedDateTime() {
@@ -206,11 +209,11 @@ public class EventTopic implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date and time of when you associated your directory with the SNS topic.
+     * The date and time of when you associated your directory with the Amazon SNS topic.
      * </p>
      * 
      * @param createdDateTime
-     *        The date and time of when you associated your directory with the SNS topic.
+     *        The date and time of when you associated your directory with the Amazon SNS topic.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

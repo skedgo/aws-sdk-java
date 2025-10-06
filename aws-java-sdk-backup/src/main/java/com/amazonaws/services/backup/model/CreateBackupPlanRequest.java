@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,9 +41,12 @@ public class CreateBackupPlanRequest extends com.amazonaws.AmazonWebServiceReque
     private java.util.Map<String, String> backupPlanTags;
     /**
      * <p>
-     * Identifies the request and allows failed requests to be retried without the risk of executing the operation
-     * twice. If the request includes a <code>CreatorRequestId</code> that matches an existing backup plan, that plan is
+     * Identifies the request and allows failed requests to be retried without the risk of running the operation twice.
+     * If the request includes a <code>CreatorRequestId</code> that matches an existing backup plan, that plan is
      * returned. This parameter is optional.
+     * </p>
+     * <p>
+     * If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      */
     private String creatorRequestId;
@@ -140,6 +143,13 @@ public class CreateBackupPlanRequest extends com.amazonaws.AmazonWebServiceReque
         return this;
     }
 
+    /**
+     * Add a single BackupPlanTags entry
+     *
+     * @see CreateBackupPlanRequest#withBackupPlanTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public CreateBackupPlanRequest addBackupPlanTagsEntry(String key, String value) {
         if (null == this.backupPlanTags) {
             this.backupPlanTags = new java.util.HashMap<String, String>();
@@ -163,15 +173,20 @@ public class CreateBackupPlanRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Identifies the request and allows failed requests to be retried without the risk of executing the operation
-     * twice. If the request includes a <code>CreatorRequestId</code> that matches an existing backup plan, that plan is
+     * Identifies the request and allows failed requests to be retried without the risk of running the operation twice.
+     * If the request includes a <code>CreatorRequestId</code> that matches an existing backup plan, that plan is
      * returned. This parameter is optional.
+     * </p>
+     * <p>
+     * If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      * 
      * @param creatorRequestId
-     *        Identifies the request and allows failed requests to be retried without the risk of executing the
-     *        operation twice. If the request includes a <code>CreatorRequestId</code> that matches an existing backup
-     *        plan, that plan is returned. This parameter is optional.
+     *        Identifies the request and allows failed requests to be retried without the risk of running the operation
+     *        twice. If the request includes a <code>CreatorRequestId</code> that matches an existing backup plan, that
+     *        plan is returned. This parameter is optional.</p>
+     *        <p>
+     *        If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      */
 
     public void setCreatorRequestId(String creatorRequestId) {
@@ -180,14 +195,19 @@ public class CreateBackupPlanRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Identifies the request and allows failed requests to be retried without the risk of executing the operation
-     * twice. If the request includes a <code>CreatorRequestId</code> that matches an existing backup plan, that plan is
+     * Identifies the request and allows failed requests to be retried without the risk of running the operation twice.
+     * If the request includes a <code>CreatorRequestId</code> that matches an existing backup plan, that plan is
      * returned. This parameter is optional.
      * </p>
+     * <p>
+     * If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
+     * </p>
      * 
-     * @return Identifies the request and allows failed requests to be retried without the risk of executing the
-     *         operation twice. If the request includes a <code>CreatorRequestId</code> that matches an existing backup
-     *         plan, that plan is returned. This parameter is optional.
+     * @return Identifies the request and allows failed requests to be retried without the risk of running the operation
+     *         twice. If the request includes a <code>CreatorRequestId</code> that matches an existing backup plan, that
+     *         plan is returned. This parameter is optional.</p>
+     *         <p>
+     *         If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      */
 
     public String getCreatorRequestId() {
@@ -196,15 +216,20 @@ public class CreateBackupPlanRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Identifies the request and allows failed requests to be retried without the risk of executing the operation
-     * twice. If the request includes a <code>CreatorRequestId</code> that matches an existing backup plan, that plan is
+     * Identifies the request and allows failed requests to be retried without the risk of running the operation twice.
+     * If the request includes a <code>CreatorRequestId</code> that matches an existing backup plan, that plan is
      * returned. This parameter is optional.
+     * </p>
+     * <p>
+     * If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      * </p>
      * 
      * @param creatorRequestId
-     *        Identifies the request and allows failed requests to be retried without the risk of executing the
-     *        operation twice. If the request includes a <code>CreatorRequestId</code> that matches an existing backup
-     *        plan, that plan is returned. This parameter is optional.
+     *        Identifies the request and allows failed requests to be retried without the risk of running the operation
+     *        twice. If the request includes a <code>CreatorRequestId</code> that matches an existing backup plan, that
+     *        plan is returned. This parameter is optional.</p>
+     *        <p>
+     *        If used, this parameter must contain 1 to 50 alphanumeric or '-_.' characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

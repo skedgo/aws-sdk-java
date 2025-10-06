@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,6 +56,10 @@ public class DescribeSMBSettingsResultJsonUnmarshaller implements Unmarshaller<D
                     context.nextToken();
                     describeSMBSettingsResult.setDomainName(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("ActiveDirectoryStatus", targetDepth)) {
+                    context.nextToken();
+                    describeSMBSettingsResult.setActiveDirectoryStatus(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("SMBGuestPasswordSet", targetDepth)) {
                     context.nextToken();
                     describeSMBSettingsResult.setSMBGuestPasswordSet(context.getUnmarshaller(Boolean.class).unmarshall(context));
@@ -63,6 +67,14 @@ public class DescribeSMBSettingsResultJsonUnmarshaller implements Unmarshaller<D
                 if (context.testExpression("SMBSecurityStrategy", targetDepth)) {
                     context.nextToken();
                     describeSMBSettingsResult.setSMBSecurityStrategy(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("FileSharesVisible", targetDepth)) {
+                    context.nextToken();
+                    describeSMBSettingsResult.setFileSharesVisible(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("SMBLocalGroups", targetDepth)) {
+                    context.nextToken();
+                    describeSMBSettingsResult.setSMBLocalGroups(SMBLocalGroupsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

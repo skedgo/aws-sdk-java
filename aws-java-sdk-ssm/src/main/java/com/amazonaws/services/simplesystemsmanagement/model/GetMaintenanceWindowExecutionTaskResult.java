@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,7 +38,7 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
     private String taskExecutionId;
     /**
      * <p>
-     * The ARN of the task that ran.
+     * The Amazon Resource Name (ARN) of the task that ran.
      * </p>
      */
     private String taskArn;
@@ -69,12 +69,18 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
      * <p>
      * The map has the following format:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Key: string, between 1 and 255 characters
+     * <code>Key</code>: string, between 1 and 255 characters
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * Value: an array of strings, each string is between 1 and 255 characters
+     * <code>Value</code>: an array of strings, each between 1 and 255 characters
      * </p>
+     * </li>
+     * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<java.util.Map<String, MaintenanceWindowTaskParameterValueExpression>> taskParameters;
     /**
@@ -104,7 +110,7 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
     private String status;
     /**
      * <p>
-     * The details explaining the Status. Only available for certain status values.
+     * The details explaining the status. Not available for all status values.
      * </p>
      */
     private String statusDetails;
@@ -120,6 +126,18 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
      * </p>
      */
     private java.util.Date endTime;
+    /**
+     * <p>
+     * The details for the CloudWatch alarm you applied to your maintenance window task.
+     * </p>
+     */
+    private AlarmConfiguration alarmConfiguration;
+    /**
+     * <p>
+     * The CloudWatch alarms that were invoked by the maintenance window task.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<AlarmStateInformation> triggeredAlarms;
 
     /**
      * <p>
@@ -203,11 +221,11 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The ARN of the task that ran.
+     * The Amazon Resource Name (ARN) of the task that ran.
      * </p>
      * 
      * @param taskArn
-     *        The ARN of the task that ran.
+     *        The Amazon Resource Name (ARN) of the task that ran.
      */
 
     public void setTaskArn(String taskArn) {
@@ -216,10 +234,10 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The ARN of the task that ran.
+     * The Amazon Resource Name (ARN) of the task that ran.
      * </p>
      * 
-     * @return The ARN of the task that ran.
+     * @return The Amazon Resource Name (ARN) of the task that ran.
      */
 
     public String getTaskArn() {
@@ -228,11 +246,11 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The ARN of the task that ran.
+     * The Amazon Resource Name (ARN) of the task that ran.
      * </p>
      * 
      * @param taskArn
-     *        The ARN of the task that ran.
+     *        The Amazon Resource Name (ARN) of the task that ran.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -369,12 +387,18 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
      * <p>
      * The map has the following format:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Key: string, between 1 and 255 characters
+     * <code>Key</code>: string, between 1 and 255 characters
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * Value: an array of strings, each string is between 1 and 255 characters
+     * <code>Value</code>: an array of strings, each between 1 and 255 characters
      * </p>
+     * </li>
+     * </ul>
      * 
      * @return The parameters passed to the task when it was run.</p> <note>
      *         <p>
@@ -387,11 +411,17 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
      *         <p>
      *         The map has the following format:
      *         </p>
+     *         <ul>
+     *         <li>
      *         <p>
-     *         Key: string, between 1 and 255 characters
+     *         <code>Key</code>: string, between 1 and 255 characters
      *         </p>
+     *         </li>
+     *         <li>
      *         <p>
-     *         Value: an array of strings, each string is between 1 and 255 characters
+     *         <code>Value</code>: an array of strings, each between 1 and 255 characters
+     *         </p>
+     *         </li>
      */
 
     public java.util.List<java.util.Map<String, MaintenanceWindowTaskParameterValueExpression>> getTaskParameters() {
@@ -416,12 +446,18 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
      * <p>
      * The map has the following format:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Key: string, between 1 and 255 characters
+     * <code>Key</code>: string, between 1 and 255 characters
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * Value: an array of strings, each string is between 1 and 255 characters
+     * <code>Value</code>: an array of strings, each between 1 and 255 characters
      * </p>
+     * </li>
+     * </ul>
      * 
      * @param taskParameters
      *        The parameters passed to the task when it was run.</p> <note>
@@ -435,11 +471,17 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
      *        <p>
      *        The map has the following format:
      *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        Key: string, between 1 and 255 characters
+     *        <code>Key</code>: string, between 1 and 255 characters
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        Value: an array of strings, each string is between 1 and 255 characters
+     *        <code>Value</code>: an array of strings, each between 1 and 255 characters
+     *        </p>
+     *        </li>
      */
 
     public void setTaskParameters(java.util.Collection<java.util.Map<String, MaintenanceWindowTaskParameterValueExpression>> taskParameters) {
@@ -466,12 +508,18 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
      * <p>
      * The map has the following format:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Key: string, between 1 and 255 characters
+     * <code>Key</code>: string, between 1 and 255 characters
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * Value: an array of strings, each string is between 1 and 255 characters
+     * <code>Value</code>: an array of strings, each between 1 and 255 characters
      * </p>
+     * </li>
+     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setTaskParameters(java.util.Collection)} or {@link #withTaskParameters(java.util.Collection)} if you want
@@ -490,11 +538,17 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
      *        <p>
      *        The map has the following format:
      *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        Key: string, between 1 and 255 characters
+     *        <code>Key</code>: string, between 1 and 255 characters
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        Value: an array of strings, each string is between 1 and 255 characters
+     *        <code>Value</code>: an array of strings, each between 1 and 255 characters
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -524,12 +578,18 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
      * <p>
      * The map has the following format:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Key: string, between 1 and 255 characters
+     * <code>Key</code>: string, between 1 and 255 characters
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * Value: an array of strings, each string is between 1 and 255 characters
+     * <code>Value</code>: an array of strings, each between 1 and 255 characters
      * </p>
+     * </li>
+     * </ul>
      * 
      * @param taskParameters
      *        The parameters passed to the task when it was run.</p> <note>
@@ -543,11 +603,17 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
      *        <p>
      *        The map has the following format:
      *        </p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        Key: string, between 1 and 255 characters
+     *        <code>Key</code>: string, between 1 and 255 characters
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        Value: an array of strings, each string is between 1 and 255 characters
+     *        <code>Value</code>: an array of strings, each between 1 and 255 characters
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -758,11 +824,11 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The details explaining the Status. Only available for certain status values.
+     * The details explaining the status. Not available for all status values.
      * </p>
      * 
      * @param statusDetails
-     *        The details explaining the Status. Only available for certain status values.
+     *        The details explaining the status. Not available for all status values.
      */
 
     public void setStatusDetails(String statusDetails) {
@@ -771,10 +837,10 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The details explaining the Status. Only available for certain status values.
+     * The details explaining the status. Not available for all status values.
      * </p>
      * 
-     * @return The details explaining the Status. Only available for certain status values.
+     * @return The details explaining the status. Not available for all status values.
      */
 
     public String getStatusDetails() {
@@ -783,11 +849,11 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The details explaining the Status. Only available for certain status values.
+     * The details explaining the status. Not available for all status values.
      * </p>
      * 
      * @param statusDetails
-     *        The details explaining the Status. Only available for certain status values.
+     *        The details explaining the status. Not available for all status values.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -877,6 +943,119 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
     }
 
     /**
+     * <p>
+     * The details for the CloudWatch alarm you applied to your maintenance window task.
+     * </p>
+     * 
+     * @param alarmConfiguration
+     *        The details for the CloudWatch alarm you applied to your maintenance window task.
+     */
+
+    public void setAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        this.alarmConfiguration = alarmConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm you applied to your maintenance window task.
+     * </p>
+     * 
+     * @return The details for the CloudWatch alarm you applied to your maintenance window task.
+     */
+
+    public AlarmConfiguration getAlarmConfiguration() {
+        return this.alarmConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details for the CloudWatch alarm you applied to your maintenance window task.
+     * </p>
+     * 
+     * @param alarmConfiguration
+     *        The details for the CloudWatch alarm you applied to your maintenance window task.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetMaintenanceWindowExecutionTaskResult withAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        setAlarmConfiguration(alarmConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarms that were invoked by the maintenance window task.
+     * </p>
+     * 
+     * @return The CloudWatch alarms that were invoked by the maintenance window task.
+     */
+
+    public java.util.List<AlarmStateInformation> getTriggeredAlarms() {
+        if (triggeredAlarms == null) {
+            triggeredAlarms = new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>();
+        }
+        return triggeredAlarms;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarms that were invoked by the maintenance window task.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarms that were invoked by the maintenance window task.
+     */
+
+    public void setTriggeredAlarms(java.util.Collection<AlarmStateInformation> triggeredAlarms) {
+        if (triggeredAlarms == null) {
+            this.triggeredAlarms = null;
+            return;
+        }
+
+        this.triggeredAlarms = new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>(triggeredAlarms);
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarms that were invoked by the maintenance window task.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTriggeredAlarms(java.util.Collection)} or {@link #withTriggeredAlarms(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarms that were invoked by the maintenance window task.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetMaintenanceWindowExecutionTaskResult withTriggeredAlarms(AlarmStateInformation... triggeredAlarms) {
+        if (this.triggeredAlarms == null) {
+            setTriggeredAlarms(new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>(triggeredAlarms.length));
+        }
+        for (AlarmStateInformation ele : triggeredAlarms) {
+            this.triggeredAlarms.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarms that were invoked by the maintenance window task.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarms that were invoked by the maintenance window task.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetMaintenanceWindowExecutionTaskResult withTriggeredAlarms(java.util.Collection<AlarmStateInformation> triggeredAlarms) {
+        setTriggeredAlarms(triggeredAlarms);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -913,7 +1092,11 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
         if (getStartTime() != null)
             sb.append("StartTime: ").append(getStartTime()).append(",");
         if (getEndTime() != null)
-            sb.append("EndTime: ").append(getEndTime());
+            sb.append("EndTime: ").append(getEndTime()).append(",");
+        if (getAlarmConfiguration() != null)
+            sb.append("AlarmConfiguration: ").append(getAlarmConfiguration()).append(",");
+        if (getTriggeredAlarms() != null)
+            sb.append("TriggeredAlarms: ").append(getTriggeredAlarms());
         sb.append("}");
         return sb.toString();
     }
@@ -980,6 +1163,14 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
             return false;
         if (other.getEndTime() != null && other.getEndTime().equals(this.getEndTime()) == false)
             return false;
+        if (other.getAlarmConfiguration() == null ^ this.getAlarmConfiguration() == null)
+            return false;
+        if (other.getAlarmConfiguration() != null && other.getAlarmConfiguration().equals(this.getAlarmConfiguration()) == false)
+            return false;
+        if (other.getTriggeredAlarms() == null ^ this.getTriggeredAlarms() == null)
+            return false;
+        if (other.getTriggeredAlarms() != null && other.getTriggeredAlarms().equals(this.getTriggeredAlarms()) == false)
+            return false;
         return true;
     }
 
@@ -1001,6 +1192,8 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
         hashCode = prime * hashCode + ((getStatusDetails() == null) ? 0 : getStatusDetails().hashCode());
         hashCode = prime * hashCode + ((getStartTime() == null) ? 0 : getStartTime().hashCode());
         hashCode = prime * hashCode + ((getEndTime() == null) ? 0 : getEndTime().hashCode());
+        hashCode = prime * hashCode + ((getAlarmConfiguration() == null) ? 0 : getAlarmConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getTriggeredAlarms() == null) ? 0 : getTriggeredAlarms().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -53,6 +53,12 @@ public class SecretVersionsListEntry implements Serializable, Cloneable, Structu
      * </p>
      */
     private java.util.Date createdDate;
+    /**
+     * <p>
+     * The KMS keys used to encrypt the secret version.
+     * </p>
+     */
+    private java.util.List<String> kmsKeyIds;
 
     /**
      * <p>
@@ -251,6 +257,76 @@ public class SecretVersionsListEntry implements Serializable, Cloneable, Structu
     }
 
     /**
+     * <p>
+     * The KMS keys used to encrypt the secret version.
+     * </p>
+     * 
+     * @return The KMS keys used to encrypt the secret version.
+     */
+
+    public java.util.List<String> getKmsKeyIds() {
+        return kmsKeyIds;
+    }
+
+    /**
+     * <p>
+     * The KMS keys used to encrypt the secret version.
+     * </p>
+     * 
+     * @param kmsKeyIds
+     *        The KMS keys used to encrypt the secret version.
+     */
+
+    public void setKmsKeyIds(java.util.Collection<String> kmsKeyIds) {
+        if (kmsKeyIds == null) {
+            this.kmsKeyIds = null;
+            return;
+        }
+
+        this.kmsKeyIds = new java.util.ArrayList<String>(kmsKeyIds);
+    }
+
+    /**
+     * <p>
+     * The KMS keys used to encrypt the secret version.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setKmsKeyIds(java.util.Collection)} or {@link #withKmsKeyIds(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param kmsKeyIds
+     *        The KMS keys used to encrypt the secret version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SecretVersionsListEntry withKmsKeyIds(String... kmsKeyIds) {
+        if (this.kmsKeyIds == null) {
+            setKmsKeyIds(new java.util.ArrayList<String>(kmsKeyIds.length));
+        }
+        for (String ele : kmsKeyIds) {
+            this.kmsKeyIds.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The KMS keys used to encrypt the secret version.
+     * </p>
+     * 
+     * @param kmsKeyIds
+     *        The KMS keys used to encrypt the secret version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SecretVersionsListEntry withKmsKeyIds(java.util.Collection<String> kmsKeyIds) {
+        setKmsKeyIds(kmsKeyIds);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -269,7 +345,9 @@ public class SecretVersionsListEntry implements Serializable, Cloneable, Structu
         if (getLastAccessedDate() != null)
             sb.append("LastAccessedDate: ").append(getLastAccessedDate()).append(",");
         if (getCreatedDate() != null)
-            sb.append("CreatedDate: ").append(getCreatedDate());
+            sb.append("CreatedDate: ").append(getCreatedDate()).append(",");
+        if (getKmsKeyIds() != null)
+            sb.append("KmsKeyIds: ").append(getKmsKeyIds());
         sb.append("}");
         return sb.toString();
     }
@@ -300,6 +378,10 @@ public class SecretVersionsListEntry implements Serializable, Cloneable, Structu
             return false;
         if (other.getCreatedDate() != null && other.getCreatedDate().equals(this.getCreatedDate()) == false)
             return false;
+        if (other.getKmsKeyIds() == null ^ this.getKmsKeyIds() == null)
+            return false;
+        if (other.getKmsKeyIds() != null && other.getKmsKeyIds().equals(this.getKmsKeyIds()) == false)
+            return false;
         return true;
     }
 
@@ -312,6 +394,7 @@ public class SecretVersionsListEntry implements Serializable, Cloneable, Structu
         hashCode = prime * hashCode + ((getVersionStages() == null) ? 0 : getVersionStages().hashCode());
         hashCode = prime * hashCode + ((getLastAccessedDate() == null) ? 0 : getLastAccessedDate().hashCode());
         hashCode = prime * hashCode + ((getCreatedDate() == null) ? 0 : getCreatedDate().hashCode());
+        hashCode = prime * hashCode + ((getKmsKeyIds() == null) ? 0 : getKmsKeyIds().hashCode());
         return hashCode;
     }
 

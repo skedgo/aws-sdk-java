@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,7 +26,24 @@ public enum BlockType {
     WORD("WORD"),
     TABLE("TABLE"),
     CELL("CELL"),
-    SELECTION_ELEMENT("SELECTION_ELEMENT");
+    SELECTION_ELEMENT("SELECTION_ELEMENT"),
+    MERGED_CELL("MERGED_CELL"),
+    TITLE("TITLE"),
+    QUERY("QUERY"),
+    QUERY_RESULT("QUERY_RESULT"),
+    SIGNATURE("SIGNATURE"),
+    TABLE_TITLE("TABLE_TITLE"),
+    TABLE_FOOTER("TABLE_FOOTER"),
+    LAYOUT_TEXT("LAYOUT_TEXT"),
+    LAYOUT_TITLE("LAYOUT_TITLE"),
+    LAYOUT_HEADER("LAYOUT_HEADER"),
+    LAYOUT_FOOTER("LAYOUT_FOOTER"),
+    LAYOUT_SECTION_HEADER("LAYOUT_SECTION_HEADER"),
+    LAYOUT_PAGE_NUMBER("LAYOUT_PAGE_NUMBER"),
+    LAYOUT_LIST("LAYOUT_LIST"),
+    LAYOUT_FIGURE("LAYOUT_FIGURE"),
+    LAYOUT_TABLE("LAYOUT_TABLE"),
+    LAYOUT_KEY_VALUE("LAYOUT_KEY_VALUE");
 
     private String value;
 

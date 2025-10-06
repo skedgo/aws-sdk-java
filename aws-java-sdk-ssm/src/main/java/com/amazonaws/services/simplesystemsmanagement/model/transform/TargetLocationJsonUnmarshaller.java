@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,11 +50,15 @@ public class TargetLocationJsonUnmarshaller implements Unmarshaller<TargetLocati
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("Accounts", targetDepth)) {
                     context.nextToken();
-                    targetLocation.setAccounts(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    targetLocation.setAccounts(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("Regions", targetDepth)) {
                     context.nextToken();
-                    targetLocation.setRegions(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    targetLocation.setRegions(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("TargetLocationMaxConcurrency", targetDepth)) {
                     context.nextToken();
@@ -67,6 +71,10 @@ public class TargetLocationJsonUnmarshaller implements Unmarshaller<TargetLocati
                 if (context.testExpression("ExecutionRoleName", targetDepth)) {
                     context.nextToken();
                     targetLocation.setExecutionRoleName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("TargetLocationAlarmConfiguration", targetDepth)) {
+                    context.nextToken();
+                    targetLocation.setTargetLocationAlarmConfiguration(AlarmConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

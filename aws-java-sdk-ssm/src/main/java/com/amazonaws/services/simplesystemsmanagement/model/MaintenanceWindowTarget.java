@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,10 +48,10 @@ public class MaintenanceWindowTarget implements Serializable, Cloneable, Structu
     private String resourceType;
     /**
      * <p>
-     * The targets, either instances or tags.
+     * The targets, either managed nodes or tags.
      * </p>
      * <p>
-     * Specify instances using the following format:
+     * Specify managed nodes using the following format:
      * </p>
      * <p>
      * <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>
@@ -66,8 +66,8 @@ public class MaintenanceWindowTarget implements Serializable, Cloneable, Structu
     private com.amazonaws.internal.SdkInternalList<Target> targets;
     /**
      * <p>
-     * A user-provided value that will be included in any CloudWatch events that are raised while running tasks for
-     * these targets in this maintenance window.
+     * A user-provided value that will be included in any Amazon CloudWatch Events events that are raised while running
+     * tasks for these targets in this maintenance window.
      * </p>
      */
     private String ownerInformation;
@@ -239,10 +239,10 @@ public class MaintenanceWindowTarget implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The targets, either instances or tags.
+     * The targets, either managed nodes or tags.
      * </p>
      * <p>
-     * Specify instances using the following format:
+     * Specify managed nodes using the following format:
      * </p>
      * <p>
      * <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>
@@ -254,9 +254,9 @@ public class MaintenanceWindowTarget implements Serializable, Cloneable, Structu
      * <code>Key=&lt;tag name&gt;,Values=&lt;tag value&gt;</code>.
      * </p>
      * 
-     * @return The targets, either instances or tags.</p>
+     * @return The targets, either managed nodes or tags.</p>
      *         <p>
-     *         Specify instances using the following format:
+     *         Specify managed nodes using the following format:
      *         </p>
      *         <p>
      *         <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>
@@ -277,10 +277,10 @@ public class MaintenanceWindowTarget implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The targets, either instances or tags.
+     * The targets, either managed nodes or tags.
      * </p>
      * <p>
-     * Specify instances using the following format:
+     * Specify managed nodes using the following format:
      * </p>
      * <p>
      * <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>
@@ -293,9 +293,9 @@ public class MaintenanceWindowTarget implements Serializable, Cloneable, Structu
      * </p>
      * 
      * @param targets
-     *        The targets, either instances or tags.</p>
+     *        The targets, either managed nodes or tags.</p>
      *        <p>
-     *        Specify instances using the following format:
+     *        Specify managed nodes using the following format:
      *        </p>
      *        <p>
      *        <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>
@@ -318,10 +318,10 @@ public class MaintenanceWindowTarget implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The targets, either instances or tags.
+     * The targets, either managed nodes or tags.
      * </p>
      * <p>
-     * Specify instances using the following format:
+     * Specify managed nodes using the following format:
      * </p>
      * <p>
      * <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>
@@ -339,9 +339,9 @@ public class MaintenanceWindowTarget implements Serializable, Cloneable, Structu
      * </p>
      * 
      * @param targets
-     *        The targets, either instances or tags.</p>
+     *        The targets, either managed nodes or tags.</p>
      *        <p>
-     *        Specify instances using the following format:
+     *        Specify managed nodes using the following format:
      *        </p>
      *        <p>
      *        <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>
@@ -366,10 +366,10 @@ public class MaintenanceWindowTarget implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The targets, either instances or tags.
+     * The targets, either managed nodes or tags.
      * </p>
      * <p>
-     * Specify instances using the following format:
+     * Specify managed nodes using the following format:
      * </p>
      * <p>
      * <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>
@@ -382,9 +382,9 @@ public class MaintenanceWindowTarget implements Serializable, Cloneable, Structu
      * </p>
      * 
      * @param targets
-     *        The targets, either instances or tags.</p>
+     *        The targets, either managed nodes or tags.</p>
      *        <p>
-     *        Specify instances using the following format:
+     *        Specify managed nodes using the following format:
      *        </p>
      *        <p>
      *        <code>Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;</code>
@@ -404,13 +404,13 @@ public class MaintenanceWindowTarget implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * A user-provided value that will be included in any CloudWatch events that are raised while running tasks for
-     * these targets in this maintenance window.
+     * A user-provided value that will be included in any Amazon CloudWatch Events events that are raised while running
+     * tasks for these targets in this maintenance window.
      * </p>
      * 
      * @param ownerInformation
-     *        A user-provided value that will be included in any CloudWatch events that are raised while running tasks
-     *        for these targets in this maintenance window.
+     *        A user-provided value that will be included in any Amazon CloudWatch Events events that are raised while
+     *        running tasks for these targets in this maintenance window.
      */
 
     public void setOwnerInformation(String ownerInformation) {
@@ -419,12 +419,12 @@ public class MaintenanceWindowTarget implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * A user-provided value that will be included in any CloudWatch events that are raised while running tasks for
-     * these targets in this maintenance window.
+     * A user-provided value that will be included in any Amazon CloudWatch Events events that are raised while running
+     * tasks for these targets in this maintenance window.
      * </p>
      * 
-     * @return A user-provided value that will be included in any CloudWatch events that are raised while running tasks
-     *         for these targets in this maintenance window.
+     * @return A user-provided value that will be included in any Amazon CloudWatch Events events that are raised while
+     *         running tasks for these targets in this maintenance window.
      */
 
     public String getOwnerInformation() {
@@ -433,13 +433,13 @@ public class MaintenanceWindowTarget implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * A user-provided value that will be included in any CloudWatch events that are raised while running tasks for
-     * these targets in this maintenance window.
+     * A user-provided value that will be included in any Amazon CloudWatch Events events that are raised while running
+     * tasks for these targets in this maintenance window.
      * </p>
      * 
      * @param ownerInformation
-     *        A user-provided value that will be included in any CloudWatch events that are raised while running tasks
-     *        for these targets in this maintenance window.
+     *        A user-provided value that will be included in any Amazon CloudWatch Events events that are raised while
+     *        running tasks for these targets in this maintenance window.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

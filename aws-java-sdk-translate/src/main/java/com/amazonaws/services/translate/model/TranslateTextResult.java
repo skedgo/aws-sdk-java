@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,7 @@ public class TranslateTextResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * The the translated text. The maximum length of this text is 5kb.
+     * The translated text.
      * </p>
      */
     private String translatedText;
@@ -48,14 +48,20 @@ public class TranslateTextResult extends com.amazonaws.AmazonWebServiceResult<co
      * </p>
      */
     private java.util.List<AppliedTerminology> appliedTerminologies;
+    /**
+     * <p>
+     * Optional settings that modify the translation output.
+     * </p>
+     */
+    private TranslationSettings appliedSettings;
 
     /**
      * <p>
-     * The the translated text. The maximum length of this text is 5kb.
+     * The translated text.
      * </p>
      * 
      * @param translatedText
-     *        The the translated text. The maximum length of this text is 5kb.
+     *        The translated text.
      */
 
     public void setTranslatedText(String translatedText) {
@@ -64,10 +70,10 @@ public class TranslateTextResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * The the translated text. The maximum length of this text is 5kb.
+     * The translated text.
      * </p>
      * 
-     * @return The the translated text. The maximum length of this text is 5kb.
+     * @return The translated text.
      */
 
     public String getTranslatedText() {
@@ -76,11 +82,11 @@ public class TranslateTextResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * The the translated text. The maximum length of this text is 5kb.
+     * The translated text.
      * </p>
      * 
      * @param translatedText
-     *        The the translated text. The maximum length of this text is 5kb.
+     *        The translated text.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -248,6 +254,46 @@ public class TranslateTextResult extends com.amazonaws.AmazonWebServiceResult<co
     }
 
     /**
+     * <p>
+     * Optional settings that modify the translation output.
+     * </p>
+     * 
+     * @param appliedSettings
+     *        Optional settings that modify the translation output.
+     */
+
+    public void setAppliedSettings(TranslationSettings appliedSettings) {
+        this.appliedSettings = appliedSettings;
+    }
+
+    /**
+     * <p>
+     * Optional settings that modify the translation output.
+     * </p>
+     * 
+     * @return Optional settings that modify the translation output.
+     */
+
+    public TranslationSettings getAppliedSettings() {
+        return this.appliedSettings;
+    }
+
+    /**
+     * <p>
+     * Optional settings that modify the translation output.
+     * </p>
+     * 
+     * @param appliedSettings
+     *        Optional settings that modify the translation output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TranslateTextResult withAppliedSettings(TranslationSettings appliedSettings) {
+        setAppliedSettings(appliedSettings);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -266,7 +312,9 @@ public class TranslateTextResult extends com.amazonaws.AmazonWebServiceResult<co
         if (getTargetLanguageCode() != null)
             sb.append("TargetLanguageCode: ").append(getTargetLanguageCode()).append(",");
         if (getAppliedTerminologies() != null)
-            sb.append("AppliedTerminologies: ").append(getAppliedTerminologies());
+            sb.append("AppliedTerminologies: ").append(getAppliedTerminologies()).append(",");
+        if (getAppliedSettings() != null)
+            sb.append("AppliedSettings: ").append(getAppliedSettings());
         sb.append("}");
         return sb.toString();
     }
@@ -297,6 +345,10 @@ public class TranslateTextResult extends com.amazonaws.AmazonWebServiceResult<co
             return false;
         if (other.getAppliedTerminologies() != null && other.getAppliedTerminologies().equals(this.getAppliedTerminologies()) == false)
             return false;
+        if (other.getAppliedSettings() == null ^ this.getAppliedSettings() == null)
+            return false;
+        if (other.getAppliedSettings() != null && other.getAppliedSettings().equals(this.getAppliedSettings()) == false)
+            return false;
         return true;
     }
 
@@ -309,6 +361,7 @@ public class TranslateTextResult extends com.amazonaws.AmazonWebServiceResult<co
         hashCode = prime * hashCode + ((getSourceLanguageCode() == null) ? 0 : getSourceLanguageCode().hashCode());
         hashCode = prime * hashCode + ((getTargetLanguageCode() == null) ? 0 : getTargetLanguageCode().hashCode());
         hashCode = prime * hashCode + ((getAppliedTerminologies() == null) ? 0 : getAppliedTerminologies().hashCode());
+        hashCode = prime * hashCode + ((getAppliedSettings() == null) ? 0 : getAppliedSettings().hashCode());
         return hashCode;
     }
 

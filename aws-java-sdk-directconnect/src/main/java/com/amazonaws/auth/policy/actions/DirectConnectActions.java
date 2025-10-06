@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,10 +41,14 @@ public enum DirectConnectActions implements Action {
     AssociateConnectionWithLag("directconnect:AssociateConnectionWithLag"),
     /** Action for the AssociateHostedConnection operation. */
     AssociateHostedConnection("directconnect:AssociateHostedConnection"),
+    /** Action for the AssociateMacSecKey operation. */
+    AssociateMacSecKey("directconnect:AssociateMacSecKey"),
     /** Action for the AssociateVirtualInterface operation. */
     AssociateVirtualInterface("directconnect:AssociateVirtualInterface"),
     /** Action for the ConfirmConnection operation. */
     ConfirmConnection("directconnect:ConfirmConnection"),
+    /** Action for the ConfirmCustomerAgreement operation. */
+    ConfirmCustomerAgreement("directconnect:ConfirmCustomerAgreement"),
     /** Action for the ConfirmPrivateVirtualInterface operation. */
     ConfirmPrivateVirtualInterface("directconnect:ConfirmPrivateVirtualInterface"),
     /** Action for the ConfirmPublicVirtualInterface operation. */
@@ -93,6 +97,8 @@ public enum DirectConnectActions implements Action {
     DescribeConnections("directconnect:DescribeConnections"),
     /** Action for the DescribeConnectionsOnInterconnect operation. */
     DescribeConnectionsOnInterconnect("directconnect:DescribeConnectionsOnInterconnect"),
+    /** Action for the DescribeCustomerMetadata operation. */
+    DescribeCustomerMetadata("directconnect:DescribeCustomerMetadata"),
     /** Action for the DescribeDirectConnectGatewayAssociationProposals operation. */
     DescribeDirectConnectGatewayAssociationProposals("directconnect:DescribeDirectConnectGatewayAssociationProposals"),
     /** Action for the DescribeDirectConnectGatewayAssociations operation. */
@@ -113,6 +119,8 @@ public enum DirectConnectActions implements Action {
     DescribeLoa("directconnect:DescribeLoa"),
     /** Action for the DescribeLocations operation. */
     DescribeLocations("directconnect:DescribeLocations"),
+    /** Action for the DescribeRouterConfiguration operation. */
+    DescribeRouterConfiguration("directconnect:DescribeRouterConfiguration"),
     /** Action for the DescribeTags operation. */
     DescribeTags("directconnect:DescribeTags"),
     /** Action for the DescribeVirtualGateways operation. */
@@ -121,10 +129,22 @@ public enum DirectConnectActions implements Action {
     DescribeVirtualInterfaces("directconnect:DescribeVirtualInterfaces"),
     /** Action for the DisassociateConnectionFromLag operation. */
     DisassociateConnectionFromLag("directconnect:DisassociateConnectionFromLag"),
+    /** Action for the DisassociateMacSecKey operation. */
+    DisassociateMacSecKey("directconnect:DisassociateMacSecKey"),
+    /** Action for the ListVirtualInterfaceTestHistory operation. */
+    ListVirtualInterfaceTestHistory("directconnect:ListVirtualInterfaceTestHistory"),
+    /** Action for the StartBgpFailoverTest operation. */
+    StartBgpFailoverTest("directconnect:StartBgpFailoverTest"),
+    /** Action for the StopBgpFailoverTest operation. */
+    StopBgpFailoverTest("directconnect:StopBgpFailoverTest"),
     /** Action for the TagResource operation. */
     TagResource("directconnect:TagResource"),
     /** Action for the UntagResource operation. */
     UntagResource("directconnect:UntagResource"),
+    /** Action for the UpdateConnection operation. */
+    UpdateConnection("directconnect:UpdateConnection"),
+    /** Action for the UpdateDirectConnectGateway operation. */
+    UpdateDirectConnectGateway("directconnect:UpdateDirectConnectGateway"),
     /** Action for the UpdateDirectConnectGatewayAssociation operation. */
     UpdateDirectConnectGatewayAssociation("directconnect:UpdateDirectConnectGatewayAssociation"),
     /** Action for the UpdateLag operation. */
@@ -142,5 +162,9 @@ public enum DirectConnectActions implements Action {
 
     public String getActionName() {
         return this.action;
+    }
+
+    public boolean isNotType() {
+        return false;
     }
 }

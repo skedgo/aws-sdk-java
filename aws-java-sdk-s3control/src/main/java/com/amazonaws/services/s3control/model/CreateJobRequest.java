@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,11 @@ import com.amazonaws.AmazonWebServiceRequest;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
-    /** <p/> */
+    /**
+     * <p>
+     * The Amazon Web Services account ID that creates the job.
+     * </p>
+     */
     private String accountId;
     /**
      * <p>
@@ -36,10 +40,10 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     private Boolean confirmationRequired;
     /**
      * <p>
-     * The operation that you want this job to perform on each object listed in the manifest. For more information about
-     * the available operations, see <a
-     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-operations.html">Available Operations</a> in the
-     * <i>Amazon Simple Storage Service Developer Guide</i>.
+     * The action that you want this job to perform on every object listed in the manifest. For more information about
+     * the available actions, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-actions.html">Operations</a> in the <i>Amazon S3
+     * User Guide</i>.
      * </p>
      */
     private JobOperation operation;
@@ -77,16 +81,32 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     private Integer priority;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) Role that batch operations will use
-     * to execute this job's operation on each object in the manifest.
+     * The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) role that Batch Operations will use
+     * to run this job's action on every object in the manifest.
      * </p>
      */
     private String roleArn;
+    /**
+     * <p>
+     * A set of tags to associate with the S3 Batch Operations job. This is an optional parameter.
+     * </p>
+     */
+    private java.util.List<S3Tag> tags;
+    /**
+     * <p>
+     * The attribute container for the ManifestGenerator details. Jobs must be created with either a manifest file or a
+     * ManifestGenerator, but not both.
+     * </p>
+     */
+    private JobManifestGenerator manifestGenerator;
 
     /**
-     * <p/>
+     * <p>
+     * The Amazon Web Services account ID that creates the job.
+     * </p>
      * 
      * @param accountId
+     *        The Amazon Web Services account ID that creates the job.
      */
 
     public void setAccountId(String accountId) {
@@ -94,9 +114,11 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     }
 
     /**
-     * <p/>
+     * <p>
+     * The Amazon Web Services account ID that creates the job.
+     * </p>
      * 
-     * @return
+     * @return The Amazon Web Services account ID that creates the job.
      */
 
     public String getAccountId() {
@@ -104,9 +126,12 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     }
 
     /**
-     * <p/>
+     * <p>
+     * The Amazon Web Services account ID that creates the job.
+     * </p>
      * 
      * @param accountId
+     *        The Amazon Web Services account ID that creates the job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -177,17 +202,17 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The operation that you want this job to perform on each object listed in the manifest. For more information about
-     * the available operations, see <a
-     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-operations.html">Available Operations</a> in the
-     * <i>Amazon Simple Storage Service Developer Guide</i>.
+     * The action that you want this job to perform on every object listed in the manifest. For more information about
+     * the available actions, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-actions.html">Operations</a> in the <i>Amazon S3
+     * User Guide</i>.
      * </p>
      * 
      * @param operation
-     *        The operation that you want this job to perform on each object listed in the manifest. For more
-     *        information about the available operations, see <a
-     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-operations.html">Available Operations</a>
-     *        in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     *        The action that you want this job to perform on every object listed in the manifest. For more information
+     *        about the available actions, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-actions.html">Operations</a> in the
+     *        <i>Amazon S3 User Guide</i>.
      */
 
     public void setOperation(JobOperation operation) {
@@ -196,16 +221,16 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The operation that you want this job to perform on each object listed in the manifest. For more information about
-     * the available operations, see <a
-     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-operations.html">Available Operations</a> in the
-     * <i>Amazon Simple Storage Service Developer Guide</i>.
+     * The action that you want this job to perform on every object listed in the manifest. For more information about
+     * the available actions, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-actions.html">Operations</a> in the <i>Amazon S3
+     * User Guide</i>.
      * </p>
      * 
-     * @return The operation that you want this job to perform on each object listed in the manifest. For more
-     *         information about the available operations, see <a
-     *         href="https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-operations.html">Available Operations</a>
-     *         in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * @return The action that you want this job to perform on every object listed in the manifest. For more information
+     *         about the available actions, see <a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-actions.html">Operations</a> in the
+     *         <i>Amazon S3 User Guide</i>.
      */
 
     public JobOperation getOperation() {
@@ -214,17 +239,17 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The operation that you want this job to perform on each object listed in the manifest. For more information about
-     * the available operations, see <a
-     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-operations.html">Available Operations</a> in the
-     * <i>Amazon Simple Storage Service Developer Guide</i>.
+     * The action that you want this job to perform on every object listed in the manifest. For more information about
+     * the available actions, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-actions.html">Operations</a> in the <i>Amazon S3
+     * User Guide</i>.
      * </p>
      * 
      * @param operation
-     *        The operation that you want this job to perform on each object listed in the manifest. For more
-     *        information about the available operations, see <a
-     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-operations.html">Available Operations</a>
-     *        in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     *        The action that you want this job to perform on every object listed in the manifest. For more information
+     *        about the available actions, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-actions.html">Operations</a> in the
+     *        <i>Amazon S3 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -447,13 +472,13 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) Role that batch operations will use
-     * to execute this job's operation on each object in the manifest.
+     * The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) role that Batch Operations will use
+     * to run this job's action on every object in the manifest.
      * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) Role that batch operations
-     *        will use to execute this job's operation on each object in the manifest.
+     *        The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) role that Batch Operations
+     *        will use to run this job's action on every object in the manifest.
      */
 
     public void setRoleArn(String roleArn) {
@@ -462,12 +487,12 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) Role that batch operations will use
-     * to execute this job's operation on each object in the manifest.
+     * The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) role that Batch Operations will use
+     * to run this job's action on every object in the manifest.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) Role that batch operations
-     *         will use to execute this job's operation on each object in the manifest.
+     * @return The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) role that Batch Operations
+     *         will use to run this job's action on every object in the manifest.
      */
 
     public String getRoleArn() {
@@ -476,18 +501,134 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) Role that batch operations will use
-     * to execute this job's operation on each object in the manifest.
+     * The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) role that Batch Operations will use
+     * to run this job's action on every object in the manifest.
      * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) Role that batch operations
-     *        will use to execute this job's operation on each object in the manifest.
+     *        The Amazon Resource Name (ARN) for the Identity and Access Management (IAM) role that Batch Operations
+     *        will use to run this job's action on every object in the manifest.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateJobRequest withRoleArn(String roleArn) {
         setRoleArn(roleArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A set of tags to associate with the S3 Batch Operations job. This is an optional parameter.
+     * </p>
+     * 
+     * @return A set of tags to associate with the S3 Batch Operations job. This is an optional parameter.
+     */
+
+    public java.util.List<S3Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * A set of tags to associate with the S3 Batch Operations job. This is an optional parameter.
+     * </p>
+     * 
+     * @param tags
+     *        A set of tags to associate with the S3 Batch Operations job. This is an optional parameter.
+     */
+
+    public void setTags(java.util.Collection<S3Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<S3Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * A set of tags to associate with the S3 Batch Operations job. This is an optional parameter.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        A set of tags to associate with the S3 Batch Operations job. This is an optional parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest withTags(S3Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<S3Tag>(tags.length));
+        }
+        for (S3Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A set of tags to associate with the S3 Batch Operations job. This is an optional parameter.
+     * </p>
+     * 
+     * @param tags
+     *        A set of tags to associate with the S3 Batch Operations job. This is an optional parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest withTags(java.util.Collection<S3Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The attribute container for the ManifestGenerator details. Jobs must be created with either a manifest file or a
+     * ManifestGenerator, but not both.
+     * </p>
+     * 
+     * @param manifestGenerator
+     *        The attribute container for the ManifestGenerator details. Jobs must be created with either a manifest
+     *        file or a ManifestGenerator, but not both.
+     */
+
+    public void setManifestGenerator(JobManifestGenerator manifestGenerator) {
+        this.manifestGenerator = manifestGenerator;
+    }
+
+    /**
+     * <p>
+     * The attribute container for the ManifestGenerator details. Jobs must be created with either a manifest file or a
+     * ManifestGenerator, but not both.
+     * </p>
+     * 
+     * @return The attribute container for the ManifestGenerator details. Jobs must be created with either a manifest
+     *         file or a ManifestGenerator, but not both.
+     */
+
+    public JobManifestGenerator getManifestGenerator() {
+        return this.manifestGenerator;
+    }
+
+    /**
+     * <p>
+     * The attribute container for the ManifestGenerator details. Jobs must be created with either a manifest file or a
+     * ManifestGenerator, but not both.
+     * </p>
+     * 
+     * @param manifestGenerator
+     *        The attribute container for the ManifestGenerator details. Jobs must be created with either a manifest
+     *        file or a ManifestGenerator, but not both.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobRequest withManifestGenerator(JobManifestGenerator manifestGenerator) {
+        setManifestGenerator(manifestGenerator);
         return this;
     }
 
@@ -520,7 +661,11 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
         if (getPriority() != null)
             sb.append("Priority: ").append(getPriority()).append(",");
         if (getRoleArn() != null)
-            sb.append("RoleArn: ").append(getRoleArn());
+            sb.append("RoleArn: ").append(getRoleArn()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getManifestGenerator() != null)
+            sb.append("ManifestGenerator: ").append(getManifestGenerator());
         sb.append("}");
         return sb.toString();
     }
@@ -571,6 +716,14 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
             return false;
         if (other.getRoleArn() != null && other.getRoleArn().equals(this.getRoleArn()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getManifestGenerator() == null ^ this.getManifestGenerator() == null)
+            return false;
+        if (other.getManifestGenerator() != null && other.getManifestGenerator().equals(this.getManifestGenerator()) == false)
+            return false;
         return true;
     }
 
@@ -588,6 +741,8 @@ public class CreateJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getPriority() == null) ? 0 : getPriority().hashCode());
         hashCode = prime * hashCode + ((getRoleArn() == null) ? 0 : getRoleArn().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getManifestGenerator() == null) ? 0 : getManifestGenerator().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -62,7 +62,9 @@ public class ThingDocumentJsonUnmarshaller implements Unmarshaller<ThingDocument
                 }
                 if (context.testExpression("thingGroupNames", targetDepth)) {
                     context.nextToken();
-                    thingDocument.setThingGroupNames(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    thingDocument.setThingGroupNames(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("attributes", targetDepth)) {
                     context.nextToken();
@@ -72,6 +74,10 @@ public class ThingDocumentJsonUnmarshaller implements Unmarshaller<ThingDocument
                 if (context.testExpression("shadow", targetDepth)) {
                     context.nextToken();
                     thingDocument.setShadow(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("deviceDefender", targetDepth)) {
+                    context.nextToken();
+                    thingDocument.setDeviceDefender(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("connectivity", targetDepth)) {
                     context.nextToken();

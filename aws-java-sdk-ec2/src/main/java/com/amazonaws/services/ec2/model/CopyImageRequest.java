@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,8 +30,8 @@ public class CopyImageRequest extends AmazonWebServiceRequest implements Seriali
     /**
      * <p>
      * Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     * idempotency</a> in the <i>Amazon EC2 API Reference</i>.
      * </p>
      */
     private String clientToken;
@@ -44,52 +44,54 @@ public class CopyImageRequest extends AmazonWebServiceRequest implements Seriali
     /**
      * <p>
      * Specifies whether the destination snapshots of the copied image should be encrypted. You can encrypt a copy of an
-     * unencrypted snapshot, but you cannot create an unencrypted copy of an encrypted snapshot. The default CMK for EBS
-     * is used unless you specify a non-default AWS Key Management Service (AWS KMS) CMK using <code>KmsKeyId</code>.
-     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon
-     * EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * unencrypted snapshot, but you cannot create an unencrypted copy of an encrypted snapshot. The default KMS key for
+     * Amazon EBS is used unless you specify a non-default Key Management Service (KMS) KMS key using
+     * <code>KmsKeyId</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html">Amazon EBS encryption</a> in the
+     * <i>Amazon EBS User Guide</i>.
      * </p>
      */
     private Boolean encrypted;
     /**
      * <p>
-     * An identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) to use when creating the
-     * encrypted volume. This parameter is only required if you want to use a non-default CMK; if this parameter is not
-     * specified, the default CMK for EBS is used. If a <code>KmsKeyId</code> is specified, the <code>Encrypted</code>
-     * flag must also be set.
+     * The identifier of the symmetric Key Management Service (KMS) KMS key to use when creating encrypted volumes. If
+     * this parameter is not specified, your Amazon Web Services managed KMS key for Amazon EBS is used. If you specify
+     * a KMS key, you must also set the encrypted state to <code>true</code>.
      * </p>
      * <p>
-     * To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. When using an alias name,
-     * prefix it with "alias/". For example:
+     * You can specify a KMS key using any of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Key ARN: <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * Key alias. For example, alias/ExampleAlias.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Alias name: <code>alias/ExampleAlias</code>
+     * Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Alias ARN: <code>arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</code>
+     * Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * AWS parses <code>KmsKeyId</code> asynchronously, meaning that the action you call may appear to complete even
-     * though you provided an invalid identifier. This action will eventually report failure.
+     * Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an identifier that is not
+     * valid, the action can appear to complete, but eventually fails.
      * </p>
      * <p>
-     * The specified CMK must exist in the Region that the snapshot is being copied to.
+     * The specified KMS key must exist in the destination Region.
+     * </p>
+     * <p>
+     * Amazon EBS does not support asymmetric KMS keys.
      * </p>
      */
     private String kmsKeyId;
@@ -111,18 +113,83 @@ public class CopyImageRequest extends AmazonWebServiceRequest implements Seriali
      * </p>
      */
     private String sourceRegion;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost to which to copy the AMI. Only specify this parameter when copying
+     * an AMI from an Amazon Web Services Region to an Outpost. The AMI must be in the Region of the destination
+     * Outpost. You cannot copy an AMI from an Outpost to a Region, from one Outpost to another, or within the same
+     * Outpost.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#copy-amis">Copy AMIs from an
+     * Amazon Web Services Region to an Outpost</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
+     */
+    private String destinationOutpostArn;
+    /**
+     * <p>
+     * Indicates whether to include your user-defined AMI tags when copying the AMI.
+     * </p>
+     * <p>
+     * The following tags will not be copied:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * System tags (prefixed with <code>aws:</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For public and shared AMIs, user-defined tags that are attached by other Amazon Web Services accounts
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: Your user-defined AMI tags are not copied.
+     * </p>
+     */
+    private Boolean copyImageTags;
+    /**
+     * <p>
+     * The tags to apply to the new AMI and new snapshots. You can tag the AMI, the snapshots, or both.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * To tag the new AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To tag the new snapshots, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same tag is
+     * applied to all the new snapshots.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you specify other values for <code>ResourceType</code>, the request fails.
+     * </p>
+     * <p>
+     * To tag an AMI or snapshot after it has been created, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<TagSpecification> tagSpecifications;
 
     /**
      * <p>
      * Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     * idempotency</a> in the <i>Amazon EC2 API Reference</i>.
      * </p>
      * 
      * @param clientToken
      *        Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information,
-     *        see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html">How to
-     *        Ensure Idempotency</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     *        idempotency</a> in the <i>Amazon EC2 API Reference</i>.
      */
 
     public void setClientToken(String clientToken) {
@@ -132,13 +199,14 @@ public class CopyImageRequest extends AmazonWebServiceRequest implements Seriali
     /**
      * <p>
      * Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     * idempotency</a> in the <i>Amazon EC2 API Reference</i>.
      * </p>
      * 
      * @return Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information,
-     *         see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html">How to
-     *         Ensure Idempotency</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *         see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     *         idempotency</a> in the <i>Amazon EC2 API Reference</i>.
      */
 
     public String getClientToken() {
@@ -148,14 +216,15 @@ public class CopyImageRequest extends AmazonWebServiceRequest implements Seriali
     /**
      * <p>
      * Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     * idempotency</a> in the <i>Amazon EC2 API Reference</i>.
      * </p>
      * 
      * @param clientToken
      *        Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information,
-     *        see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html">How to
-     *        Ensure Idempotency</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
+     *        idempotency</a> in the <i>Amazon EC2 API Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -207,19 +276,20 @@ public class CopyImageRequest extends AmazonWebServiceRequest implements Seriali
     /**
      * <p>
      * Specifies whether the destination snapshots of the copied image should be encrypted. You can encrypt a copy of an
-     * unencrypted snapshot, but you cannot create an unencrypted copy of an encrypted snapshot. The default CMK for EBS
-     * is used unless you specify a non-default AWS Key Management Service (AWS KMS) CMK using <code>KmsKeyId</code>.
-     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon
-     * EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * unencrypted snapshot, but you cannot create an unencrypted copy of an encrypted snapshot. The default KMS key for
+     * Amazon EBS is used unless you specify a non-default Key Management Service (KMS) KMS key using
+     * <code>KmsKeyId</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html">Amazon EBS encryption</a> in the
+     * <i>Amazon EBS User Guide</i>.
      * </p>
      * 
      * @param encrypted
      *        Specifies whether the destination snapshots of the copied image should be encrypted. You can encrypt a
      *        copy of an unencrypted snapshot, but you cannot create an unencrypted copy of an encrypted snapshot. The
-     *        default CMK for EBS is used unless you specify a non-default AWS Key Management Service (AWS KMS) CMK
-     *        using <code>KmsKeyId</code>. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in
-     *        the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        default KMS key for Amazon EBS is used unless you specify a non-default Key Management Service (KMS) KMS
+     *        key using <code>KmsKeyId</code>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html">Amazon EBS encryption</a> in
+     *        the <i>Amazon EBS User Guide</i>.
      */
 
     public void setEncrypted(Boolean encrypted) {
@@ -229,18 +299,19 @@ public class CopyImageRequest extends AmazonWebServiceRequest implements Seriali
     /**
      * <p>
      * Specifies whether the destination snapshots of the copied image should be encrypted. You can encrypt a copy of an
-     * unencrypted snapshot, but you cannot create an unencrypted copy of an encrypted snapshot. The default CMK for EBS
-     * is used unless you specify a non-default AWS Key Management Service (AWS KMS) CMK using <code>KmsKeyId</code>.
-     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon
-     * EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * unencrypted snapshot, but you cannot create an unencrypted copy of an encrypted snapshot. The default KMS key for
+     * Amazon EBS is used unless you specify a non-default Key Management Service (KMS) KMS key using
+     * <code>KmsKeyId</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html">Amazon EBS encryption</a> in the
+     * <i>Amazon EBS User Guide</i>.
      * </p>
      * 
      * @return Specifies whether the destination snapshots of the copied image should be encrypted. You can encrypt a
      *         copy of an unencrypted snapshot, but you cannot create an unencrypted copy of an encrypted snapshot. The
-     *         default CMK for EBS is used unless you specify a non-default AWS Key Management Service (AWS KMS) CMK
-     *         using <code>KmsKeyId</code>. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a>
-     *         in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *         default KMS key for Amazon EBS is used unless you specify a non-default Key Management Service (KMS) KMS
+     *         key using <code>KmsKeyId</code>. For more information, see <a
+     *         href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html">Amazon EBS encryption</a> in
+     *         the <i>Amazon EBS User Guide</i>.
      */
 
     public Boolean getEncrypted() {
@@ -250,19 +321,20 @@ public class CopyImageRequest extends AmazonWebServiceRequest implements Seriali
     /**
      * <p>
      * Specifies whether the destination snapshots of the copied image should be encrypted. You can encrypt a copy of an
-     * unencrypted snapshot, but you cannot create an unencrypted copy of an encrypted snapshot. The default CMK for EBS
-     * is used unless you specify a non-default AWS Key Management Service (AWS KMS) CMK using <code>KmsKeyId</code>.
-     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon
-     * EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * unencrypted snapshot, but you cannot create an unencrypted copy of an encrypted snapshot. The default KMS key for
+     * Amazon EBS is used unless you specify a non-default Key Management Service (KMS) KMS key using
+     * <code>KmsKeyId</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html">Amazon EBS encryption</a> in the
+     * <i>Amazon EBS User Guide</i>.
      * </p>
      * 
      * @param encrypted
      *        Specifies whether the destination snapshots of the copied image should be encrypted. You can encrypt a
      *        copy of an unencrypted snapshot, but you cannot create an unencrypted copy of an encrypted snapshot. The
-     *        default CMK for EBS is used unless you specify a non-default AWS Key Management Service (AWS KMS) CMK
-     *        using <code>KmsKeyId</code>. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in
-     *        the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        default KMS key for Amazon EBS is used unless you specify a non-default Key Management Service (KMS) KMS
+     *        key using <code>KmsKeyId</code>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html">Amazon EBS encryption</a> in
+     *        the <i>Amazon EBS User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -274,18 +346,19 @@ public class CopyImageRequest extends AmazonWebServiceRequest implements Seriali
     /**
      * <p>
      * Specifies whether the destination snapshots of the copied image should be encrypted. You can encrypt a copy of an
-     * unencrypted snapshot, but you cannot create an unencrypted copy of an encrypted snapshot. The default CMK for EBS
-     * is used unless you specify a non-default AWS Key Management Service (AWS KMS) CMK using <code>KmsKeyId</code>.
-     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon
-     * EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * unencrypted snapshot, but you cannot create an unencrypted copy of an encrypted snapshot. The default KMS key for
+     * Amazon EBS is used unless you specify a non-default Key Management Service (KMS) KMS key using
+     * <code>KmsKeyId</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html">Amazon EBS encryption</a> in the
+     * <i>Amazon EBS User Guide</i>.
      * </p>
      * 
      * @return Specifies whether the destination snapshots of the copied image should be encrypted. You can encrypt a
      *         copy of an unencrypted snapshot, but you cannot create an unencrypted copy of an encrypted snapshot. The
-     *         default CMK for EBS is used unless you specify a non-default AWS Key Management Service (AWS KMS) CMK
-     *         using <code>KmsKeyId</code>. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a>
-     *         in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *         default KMS key for Amazon EBS is used unless you specify a non-default Key Management Service (KMS) KMS
+     *         key using <code>KmsKeyId</code>. For more information, see <a
+     *         href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html">Amazon EBS encryption</a> in
+     *         the <i>Amazon EBS User Guide</i>.
      */
 
     public Boolean isEncrypted() {
@@ -294,82 +367,84 @@ public class CopyImageRequest extends AmazonWebServiceRequest implements Seriali
 
     /**
      * <p>
-     * An identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) to use when creating the
-     * encrypted volume. This parameter is only required if you want to use a non-default CMK; if this parameter is not
-     * specified, the default CMK for EBS is used. If a <code>KmsKeyId</code> is specified, the <code>Encrypted</code>
-     * flag must also be set.
+     * The identifier of the symmetric Key Management Service (KMS) KMS key to use when creating encrypted volumes. If
+     * this parameter is not specified, your Amazon Web Services managed KMS key for Amazon EBS is used. If you specify
+     * a KMS key, you must also set the encrypted state to <code>true</code>.
      * </p>
      * <p>
-     * To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. When using an alias name,
-     * prefix it with "alias/". For example:
+     * You can specify a KMS key using any of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Key ARN: <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * Key alias. For example, alias/ExampleAlias.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Alias name: <code>alias/ExampleAlias</code>
+     * Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Alias ARN: <code>arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</code>
+     * Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * AWS parses <code>KmsKeyId</code> asynchronously, meaning that the action you call may appear to complete even
-     * though you provided an invalid identifier. This action will eventually report failure.
+     * Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an identifier that is not
+     * valid, the action can appear to complete, but eventually fails.
      * </p>
      * <p>
-     * The specified CMK must exist in the Region that the snapshot is being copied to.
+     * The specified KMS key must exist in the destination Region.
+     * </p>
+     * <p>
+     * Amazon EBS does not support asymmetric KMS keys.
      * </p>
      * 
      * @param kmsKeyId
-     *        An identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) to use when creating
-     *        the encrypted volume. This parameter is only required if you want to use a non-default CMK; if this
-     *        parameter is not specified, the default CMK for EBS is used. If a <code>KmsKeyId</code> is specified, the
-     *        <code>Encrypted</code> flag must also be set. </p>
+     *        The identifier of the symmetric Key Management Service (KMS) KMS key to use when creating encrypted
+     *        volumes. If this parameter is not specified, your Amazon Web Services managed KMS key for Amazon EBS is
+     *        used. If you specify a KMS key, you must also set the encrypted state to <code>true</code>.</p>
      *        <p>
-     *        To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. When using an
-     *        alias name, prefix it with "alias/". For example:
+     *        You can specify a KMS key using any of the following:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *        Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Key ARN: <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *        Key alias. For example, alias/ExampleAlias.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Alias name: <code>alias/ExampleAlias</code>
+     *        Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Alias ARN: <code>arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</code>
+     *        Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
-     *        AWS parses <code>KmsKeyId</code> asynchronously, meaning that the action you call may appear to complete
-     *        even though you provided an invalid identifier. This action will eventually report failure.
+     *        Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an identifier that
+     *        is not valid, the action can appear to complete, but eventually fails.
      *        </p>
      *        <p>
-     *        The specified CMK must exist in the Region that the snapshot is being copied to.
+     *        The specified KMS key must exist in the destination Region.
+     *        </p>
+     *        <p>
+     *        Amazon EBS does not support asymmetric KMS keys.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -378,81 +453,83 @@ public class CopyImageRequest extends AmazonWebServiceRequest implements Seriali
 
     /**
      * <p>
-     * An identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) to use when creating the
-     * encrypted volume. This parameter is only required if you want to use a non-default CMK; if this parameter is not
-     * specified, the default CMK for EBS is used. If a <code>KmsKeyId</code> is specified, the <code>Encrypted</code>
-     * flag must also be set.
+     * The identifier of the symmetric Key Management Service (KMS) KMS key to use when creating encrypted volumes. If
+     * this parameter is not specified, your Amazon Web Services managed KMS key for Amazon EBS is used. If you specify
+     * a KMS key, you must also set the encrypted state to <code>true</code>.
      * </p>
      * <p>
-     * To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. When using an alias name,
-     * prefix it with "alias/". For example:
+     * You can specify a KMS key using any of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Key ARN: <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * Key alias. For example, alias/ExampleAlias.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Alias name: <code>alias/ExampleAlias</code>
+     * Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Alias ARN: <code>arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</code>
+     * Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * AWS parses <code>KmsKeyId</code> asynchronously, meaning that the action you call may appear to complete even
-     * though you provided an invalid identifier. This action will eventually report failure.
+     * Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an identifier that is not
+     * valid, the action can appear to complete, but eventually fails.
      * </p>
      * <p>
-     * The specified CMK must exist in the Region that the snapshot is being copied to.
+     * The specified KMS key must exist in the destination Region.
+     * </p>
+     * <p>
+     * Amazon EBS does not support asymmetric KMS keys.
      * </p>
      * 
-     * @return An identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) to use when creating
-     *         the encrypted volume. This parameter is only required if you want to use a non-default CMK; if this
-     *         parameter is not specified, the default CMK for EBS is used. If a <code>KmsKeyId</code> is specified, the
-     *         <code>Encrypted</code> flag must also be set. </p>
+     * @return The identifier of the symmetric Key Management Service (KMS) KMS key to use when creating encrypted
+     *         volumes. If this parameter is not specified, your Amazon Web Services managed KMS key for Amazon EBS is
+     *         used. If you specify a KMS key, you must also set the encrypted state to <code>true</code>.</p>
      *         <p>
-     *         To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. When using an
-     *         alias name, prefix it with "alias/". For example:
+     *         You can specify a KMS key using any of the following:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *         Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Key ARN: <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *         Key alias. For example, alias/ExampleAlias.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Alias name: <code>alias/ExampleAlias</code>
+     *         Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Alias ARN: <code>arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</code>
+     *         Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
      *         </p>
      *         </li>
      *         </ul>
      *         <p>
-     *         AWS parses <code>KmsKeyId</code> asynchronously, meaning that the action you call may appear to complete
-     *         even though you provided an invalid identifier. This action will eventually report failure.
+     *         Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an identifier
+     *         that is not valid, the action can appear to complete, but eventually fails.
      *         </p>
      *         <p>
-     *         The specified CMK must exist in the Region that the snapshot is being copied to.
+     *         The specified KMS key must exist in the destination Region.
+     *         </p>
+     *         <p>
+     *         Amazon EBS does not support asymmetric KMS keys.
      */
 
     public String getKmsKeyId() {
@@ -461,82 +538,84 @@ public class CopyImageRequest extends AmazonWebServiceRequest implements Seriali
 
     /**
      * <p>
-     * An identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) to use when creating the
-     * encrypted volume. This parameter is only required if you want to use a non-default CMK; if this parameter is not
-     * specified, the default CMK for EBS is used. If a <code>KmsKeyId</code> is specified, the <code>Encrypted</code>
-     * flag must also be set.
+     * The identifier of the symmetric Key Management Service (KMS) KMS key to use when creating encrypted volumes. If
+     * this parameter is not specified, your Amazon Web Services managed KMS key for Amazon EBS is used. If you specify
+     * a KMS key, you must also set the encrypted state to <code>true</code>.
      * </p>
      * <p>
-     * To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. When using an alias name,
-     * prefix it with "alias/". For example:
+     * You can specify a KMS key using any of the following:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Key ARN: <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * Key alias. For example, alias/ExampleAlias.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Alias name: <code>alias/ExampleAlias</code>
+     * Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Alias ARN: <code>arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</code>
+     * Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * AWS parses <code>KmsKeyId</code> asynchronously, meaning that the action you call may appear to complete even
-     * though you provided an invalid identifier. This action will eventually report failure.
+     * Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an identifier that is not
+     * valid, the action can appear to complete, but eventually fails.
      * </p>
      * <p>
-     * The specified CMK must exist in the Region that the snapshot is being copied to.
+     * The specified KMS key must exist in the destination Region.
+     * </p>
+     * <p>
+     * Amazon EBS does not support asymmetric KMS keys.
      * </p>
      * 
      * @param kmsKeyId
-     *        An identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) to use when creating
-     *        the encrypted volume. This parameter is only required if you want to use a non-default CMK; if this
-     *        parameter is not specified, the default CMK for EBS is used. If a <code>KmsKeyId</code> is specified, the
-     *        <code>Encrypted</code> flag must also be set. </p>
+     *        The identifier of the symmetric Key Management Service (KMS) KMS key to use when creating encrypted
+     *        volumes. If this parameter is not specified, your Amazon Web Services managed KMS key for Amazon EBS is
+     *        used. If you specify a KMS key, you must also set the encrypted state to <code>true</code>.</p>
      *        <p>
-     *        To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. When using an
-     *        alias name, prefix it with "alias/". For example:
+     *        You can specify a KMS key using any of the following:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *        Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Key ARN: <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *        Key alias. For example, alias/ExampleAlias.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Alias name: <code>alias/ExampleAlias</code>
+     *        Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Alias ARN: <code>arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</code>
+     *        Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
-     *        AWS parses <code>KmsKeyId</code> asynchronously, meaning that the action you call may appear to complete
-     *        even though you provided an invalid identifier. This action will eventually report failure.
+     *        Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an identifier that
+     *        is not valid, the action can appear to complete, but eventually fails.
      *        </p>
      *        <p>
-     *        The specified CMK must exist in the Region that the snapshot is being copied to.
+     *        The specified KMS key must exist in the destination Region.
+     *        </p>
+     *        <p>
+     *        Amazon EBS does not support asymmetric KMS keys.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -666,6 +745,512 @@ public class CopyImageRequest extends AmazonWebServiceRequest implements Seriali
     }
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost to which to copy the AMI. Only specify this parameter when copying
+     * an AMI from an Amazon Web Services Region to an Outpost. The AMI must be in the Region of the destination
+     * Outpost. You cannot copy an AMI from an Outpost to a Region, from one Outpost to another, or within the same
+     * Outpost.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#copy-amis">Copy AMIs from an
+     * Amazon Web Services Region to an Outpost</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
+     * 
+     * @param destinationOutpostArn
+     *        The Amazon Resource Name (ARN) of the Outpost to which to copy the AMI. Only specify this parameter when
+     *        copying an AMI from an Amazon Web Services Region to an Outpost. The AMI must be in the Region of the
+     *        destination Outpost. You cannot copy an AMI from an Outpost to a Region, from one Outpost to another, or
+     *        within the same Outpost.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#copy-amis">Copy AMIs from
+     *        an Amazon Web Services Region to an Outpost</a> in the <i>Amazon EBS User Guide</i>.
+     */
+
+    public void setDestinationOutpostArn(String destinationOutpostArn) {
+        this.destinationOutpostArn = destinationOutpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost to which to copy the AMI. Only specify this parameter when copying
+     * an AMI from an Amazon Web Services Region to an Outpost. The AMI must be in the Region of the destination
+     * Outpost. You cannot copy an AMI from an Outpost to a Region, from one Outpost to another, or within the same
+     * Outpost.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#copy-amis">Copy AMIs from an
+     * Amazon Web Services Region to an Outpost</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the Outpost to which to copy the AMI. Only specify this parameter when
+     *         copying an AMI from an Amazon Web Services Region to an Outpost. The AMI must be in the Region of the
+     *         destination Outpost. You cannot copy an AMI from an Outpost to a Region, from one Outpost to another, or
+     *         within the same Outpost.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#copy-amis">Copy AMIs from
+     *         an Amazon Web Services Region to an Outpost</a> in the <i>Amazon EBS User Guide</i>.
+     */
+
+    public String getDestinationOutpostArn() {
+        return this.destinationOutpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost to which to copy the AMI. Only specify this parameter when copying
+     * an AMI from an Amazon Web Services Region to an Outpost. The AMI must be in the Region of the destination
+     * Outpost. You cannot copy an AMI from an Outpost to a Region, from one Outpost to another, or within the same
+     * Outpost.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#copy-amis">Copy AMIs from an
+     * Amazon Web Services Region to an Outpost</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
+     * 
+     * @param destinationOutpostArn
+     *        The Amazon Resource Name (ARN) of the Outpost to which to copy the AMI. Only specify this parameter when
+     *        copying an AMI from an Amazon Web Services Region to an Outpost. The AMI must be in the Region of the
+     *        destination Outpost. You cannot copy an AMI from an Outpost to a Region, from one Outpost to another, or
+     *        within the same Outpost.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#copy-amis">Copy AMIs from
+     *        an Amazon Web Services Region to an Outpost</a> in the <i>Amazon EBS User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CopyImageRequest withDestinationOutpostArn(String destinationOutpostArn) {
+        setDestinationOutpostArn(destinationOutpostArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to include your user-defined AMI tags when copying the AMI.
+     * </p>
+     * <p>
+     * The following tags will not be copied:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * System tags (prefixed with <code>aws:</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For public and shared AMIs, user-defined tags that are attached by other Amazon Web Services accounts
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: Your user-defined AMI tags are not copied.
+     * </p>
+     * 
+     * @param copyImageTags
+     *        Indicates whether to include your user-defined AMI tags when copying the AMI.</p>
+     *        <p>
+     *        The following tags will not be copied:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        System tags (prefixed with <code>aws:</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For public and shared AMIs, user-defined tags that are attached by other Amazon Web Services accounts
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default: Your user-defined AMI tags are not copied.
+     */
+
+    public void setCopyImageTags(Boolean copyImageTags) {
+        this.copyImageTags = copyImageTags;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to include your user-defined AMI tags when copying the AMI.
+     * </p>
+     * <p>
+     * The following tags will not be copied:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * System tags (prefixed with <code>aws:</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For public and shared AMIs, user-defined tags that are attached by other Amazon Web Services accounts
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: Your user-defined AMI tags are not copied.
+     * </p>
+     * 
+     * @return Indicates whether to include your user-defined AMI tags when copying the AMI.</p>
+     *         <p>
+     *         The following tags will not be copied:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         System tags (prefixed with <code>aws:</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For public and shared AMIs, user-defined tags that are attached by other Amazon Web Services accounts
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Default: Your user-defined AMI tags are not copied.
+     */
+
+    public Boolean getCopyImageTags() {
+        return this.copyImageTags;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to include your user-defined AMI tags when copying the AMI.
+     * </p>
+     * <p>
+     * The following tags will not be copied:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * System tags (prefixed with <code>aws:</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For public and shared AMIs, user-defined tags that are attached by other Amazon Web Services accounts
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: Your user-defined AMI tags are not copied.
+     * </p>
+     * 
+     * @param copyImageTags
+     *        Indicates whether to include your user-defined AMI tags when copying the AMI.</p>
+     *        <p>
+     *        The following tags will not be copied:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        System tags (prefixed with <code>aws:</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For public and shared AMIs, user-defined tags that are attached by other Amazon Web Services accounts
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default: Your user-defined AMI tags are not copied.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CopyImageRequest withCopyImageTags(Boolean copyImageTags) {
+        setCopyImageTags(copyImageTags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to include your user-defined AMI tags when copying the AMI.
+     * </p>
+     * <p>
+     * The following tags will not be copied:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * System tags (prefixed with <code>aws:</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For public and shared AMIs, user-defined tags that are attached by other Amazon Web Services accounts
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default: Your user-defined AMI tags are not copied.
+     * </p>
+     * 
+     * @return Indicates whether to include your user-defined AMI tags when copying the AMI.</p>
+     *         <p>
+     *         The following tags will not be copied:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         System tags (prefixed with <code>aws:</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For public and shared AMIs, user-defined tags that are attached by other Amazon Web Services accounts
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Default: Your user-defined AMI tags are not copied.
+     */
+
+    public Boolean isCopyImageTags() {
+        return this.copyImageTags;
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the new AMI and new snapshots. You can tag the AMI, the snapshots, or both.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * To tag the new AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To tag the new snapshots, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same tag is
+     * applied to all the new snapshots.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you specify other values for <code>ResourceType</code>, the request fails.
+     * </p>
+     * <p>
+     * To tag an AMI or snapshot after it has been created, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * </p>
+     * 
+     * @return The tags to apply to the new AMI and new snapshots. You can tag the AMI, the snapshots, or both.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         To tag the new AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         To tag the new snapshots, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same
+     *         tag is applied to all the new snapshots.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         If you specify other values for <code>ResourceType</code>, the request fails.
+     *         </p>
+     *         <p>
+     *         To tag an AMI or snapshot after it has been created, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     */
+
+    public java.util.List<TagSpecification> getTagSpecifications() {
+        if (tagSpecifications == null) {
+            tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>();
+        }
+        return tagSpecifications;
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the new AMI and new snapshots. You can tag the AMI, the snapshots, or both.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * To tag the new AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To tag the new snapshots, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same tag is
+     * applied to all the new snapshots.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you specify other values for <code>ResourceType</code>, the request fails.
+     * </p>
+     * <p>
+     * To tag an AMI or snapshot after it has been created, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to apply to the new AMI and new snapshots. You can tag the AMI, the snapshots, or both.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        To tag the new AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        To tag the new snapshots, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same
+     *        tag is applied to all the new snapshots.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you specify other values for <code>ResourceType</code>, the request fails.
+     *        </p>
+     *        <p>
+     *        To tag an AMI or snapshot after it has been created, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     */
+
+    public void setTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        if (tagSpecifications == null) {
+            this.tagSpecifications = null;
+            return;
+        }
+
+        this.tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications);
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the new AMI and new snapshots. You can tag the AMI, the snapshots, or both.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * To tag the new AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To tag the new snapshots, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same tag is
+     * applied to all the new snapshots.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you specify other values for <code>ResourceType</code>, the request fails.
+     * </p>
+     * <p>
+     * To tag an AMI or snapshot after it has been created, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTagSpecifications(java.util.Collection)} or {@link #withTagSpecifications(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to apply to the new AMI and new snapshots. You can tag the AMI, the snapshots, or both.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        To tag the new AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        To tag the new snapshots, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same
+     *        tag is applied to all the new snapshots.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you specify other values for <code>ResourceType</code>, the request fails.
+     *        </p>
+     *        <p>
+     *        To tag an AMI or snapshot after it has been created, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CopyImageRequest withTagSpecifications(TagSpecification... tagSpecifications) {
+        if (this.tagSpecifications == null) {
+            setTagSpecifications(new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications.length));
+        }
+        for (TagSpecification ele : tagSpecifications) {
+            this.tagSpecifications.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the new AMI and new snapshots. You can tag the AMI, the snapshots, or both.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * To tag the new AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To tag the new snapshots, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same tag is
+     * applied to all the new snapshots.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you specify other values for <code>ResourceType</code>, the request fails.
+     * </p>
+     * <p>
+     * To tag an AMI or snapshot after it has been created, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to apply to the new AMI and new snapshots. You can tag the AMI, the snapshots, or both.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        To tag the new AMI, the value for <code>ResourceType</code> must be <code>image</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        To tag the new snapshots, the value for <code>ResourceType</code> must be <code>snapshot</code>. The same
+     *        tag is applied to all the new snapshots.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you specify other values for <code>ResourceType</code>, the request fails.
+     *        </p>
+     *        <p>
+     *        To tag an AMI or snapshot after it has been created, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CopyImageRequest withTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        setTagSpecifications(tagSpecifications);
+        return this;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -701,7 +1286,13 @@ public class CopyImageRequest extends AmazonWebServiceRequest implements Seriali
         if (getSourceImageId() != null)
             sb.append("SourceImageId: ").append(getSourceImageId()).append(",");
         if (getSourceRegion() != null)
-            sb.append("SourceRegion: ").append(getSourceRegion());
+            sb.append("SourceRegion: ").append(getSourceRegion()).append(",");
+        if (getDestinationOutpostArn() != null)
+            sb.append("DestinationOutpostArn: ").append(getDestinationOutpostArn()).append(",");
+        if (getCopyImageTags() != null)
+            sb.append("CopyImageTags: ").append(getCopyImageTags()).append(",");
+        if (getTagSpecifications() != null)
+            sb.append("TagSpecifications: ").append(getTagSpecifications());
         sb.append("}");
         return sb.toString();
     }
@@ -744,6 +1335,18 @@ public class CopyImageRequest extends AmazonWebServiceRequest implements Seriali
             return false;
         if (other.getSourceRegion() != null && other.getSourceRegion().equals(this.getSourceRegion()) == false)
             return false;
+        if (other.getDestinationOutpostArn() == null ^ this.getDestinationOutpostArn() == null)
+            return false;
+        if (other.getDestinationOutpostArn() != null && other.getDestinationOutpostArn().equals(this.getDestinationOutpostArn()) == false)
+            return false;
+        if (other.getCopyImageTags() == null ^ this.getCopyImageTags() == null)
+            return false;
+        if (other.getCopyImageTags() != null && other.getCopyImageTags().equals(this.getCopyImageTags()) == false)
+            return false;
+        if (other.getTagSpecifications() == null ^ this.getTagSpecifications() == null)
+            return false;
+        if (other.getTagSpecifications() != null && other.getTagSpecifications().equals(this.getTagSpecifications()) == false)
+            return false;
         return true;
     }
 
@@ -759,6 +1362,9 @@ public class CopyImageRequest extends AmazonWebServiceRequest implements Seriali
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getSourceImageId() == null) ? 0 : getSourceImageId().hashCode());
         hashCode = prime * hashCode + ((getSourceRegion() == null) ? 0 : getSourceRegion().hashCode());
+        hashCode = prime * hashCode + ((getDestinationOutpostArn() == null) ? 0 : getDestinationOutpostArn().hashCode());
+        hashCode = prime * hashCode + ((getCopyImageTags() == null) ? 0 : getCopyImageTags().hashCode());
+        hashCode = prime * hashCode + ((getTagSpecifications() == null) ? 0 : getTagSpecifications().hashCode());
         return hashCode;
     }
 

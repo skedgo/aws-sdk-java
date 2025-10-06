@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,6 +54,14 @@ public class ModifyCapacityReservationRequestMarshaller implements Marshaller<Re
 
         if (modifyCapacityReservationRequest.getEndDateType() != null) {
             request.addParameter("EndDateType", StringUtils.fromString(modifyCapacityReservationRequest.getEndDateType()));
+        }
+
+        if (modifyCapacityReservationRequest.getAccept() != null) {
+            request.addParameter("Accept", StringUtils.fromBoolean(modifyCapacityReservationRequest.getAccept()));
+        }
+
+        if (modifyCapacityReservationRequest.getAdditionalInfo() != null) {
+            request.addParameter("AdditionalInfo", StringUtils.fromString(modifyCapacityReservationRequest.getAdditionalInfo()));
         }
 
         return request;

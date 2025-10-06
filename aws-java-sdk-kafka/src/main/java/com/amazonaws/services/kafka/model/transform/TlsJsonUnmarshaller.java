@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,7 +50,13 @@ public class TlsJsonUnmarshaller implements Unmarshaller<Tls, JsonUnmarshallerCo
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("certificateAuthorityArnList", targetDepth)) {
                     context.nextToken();
-                    tls.setCertificateAuthorityArnList(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    tls.setCertificateAuthorityArnList(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("enabled", targetDepth)) {
+                    context.nextToken();
+                    tls.setEnabled(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

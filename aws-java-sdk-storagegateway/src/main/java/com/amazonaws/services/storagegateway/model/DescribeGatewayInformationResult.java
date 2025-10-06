@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -74,7 +74,8 @@ public class DescribeGatewayInformationResult extends com.amazonaws.AmazonWebSer
     /**
      * <p>
      * The date on which the last software update was applied to the gateway. If the gateway has never been updated,
-     * this field does not return a value in the response.
+     * this field does not return a value in the response. This only only exist and returns once it have been chosen and
+     * set by the SGW service, based on the OS version of the gateway VM
      * </p>
      */
     private String lastSoftwareUpdate;
@@ -86,7 +87,7 @@ public class DescribeGatewayInformationResult extends com.amazonaws.AmazonWebSer
     private String ec2InstanceId;
     /**
      * <p>
-     * The AWS Region where the Amazon EC2 instance is located.
+     * The Amazon Web Services Region where the Amazon EC2 instance is located.
      * </p>
      */
     private String ec2InstanceRegion;
@@ -104,6 +105,71 @@ public class DescribeGatewayInformationResult extends com.amazonaws.AmazonWebSer
      * </p>
      */
     private String vPCEndpoint;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that is used to monitor events in the gateway.
+     * This field only only exist and returns once it have been chosen and set by the SGW service, based on the OS
+     * version of the gateway VM
+     * </p>
+     */
+    private String cloudWatchLogGroupARN;
+    /**
+     * <p>
+     * The type of hardware or software platform on which the gateway is running.
+     * </p>
+     * <note>
+     * <p>
+     * Tape Gateway is no longer available on Snow Family devices.
+     * </p>
+     * </note>
+     */
+    private String hostEnvironment;
+    /**
+     * <p>
+     * The type of endpoint for your gateway.
+     * </p>
+     * <p>
+     * Valid Values: <code>STANDARD</code> | <code>FIPS</code>
+     * </p>
+     */
+    private String endpointType;
+    /**
+     * <p>
+     * Date after which this gateway will not receive software updates for new features.
+     * </p>
+     */
+    private String softwareUpdatesEndDate;
+    /**
+     * <p>
+     * Date after which this gateway will not receive software updates for new features and bug fixes.
+     * </p>
+     */
+    private String deprecationDate;
+    /**
+     * <p>
+     * Specifies the size of the gateway's metadata cache.
+     * </p>
+     */
+    private String gatewayCapacity;
+    /**
+     * <p>
+     * A list of the metadata cache sizes that the gateway can support based on its current hardware specifications.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> supportedGatewayCapacities;
+    /**
+     * <p>
+     * A unique identifier for the specific instance of the host platform running the gateway. This value is only
+     * available for certain host environments, and its format depends on the host environment type.
+     * </p>
+     */
+    private String hostEnvironmentId;
+    /**
+     * <p>
+     * The version number of the software running on the gateway appliance.
+     * </p>
+     */
+    private String softwareVersion;
 
     /**
      * @param gatewayARN
@@ -459,12 +525,14 @@ public class DescribeGatewayInformationResult extends com.amazonaws.AmazonWebSer
     /**
      * <p>
      * The date on which the last software update was applied to the gateway. If the gateway has never been updated,
-     * this field does not return a value in the response.
+     * this field does not return a value in the response. This only only exist and returns once it have been chosen and
+     * set by the SGW service, based on the OS version of the gateway VM
      * </p>
      * 
      * @param lastSoftwareUpdate
      *        The date on which the last software update was applied to the gateway. If the gateway has never been
-     *        updated, this field does not return a value in the response.
+     *        updated, this field does not return a value in the response. This only only exist and returns once it have
+     *        been chosen and set by the SGW service, based on the OS version of the gateway VM
      */
 
     public void setLastSoftwareUpdate(String lastSoftwareUpdate) {
@@ -474,11 +542,13 @@ public class DescribeGatewayInformationResult extends com.amazonaws.AmazonWebSer
     /**
      * <p>
      * The date on which the last software update was applied to the gateway. If the gateway has never been updated,
-     * this field does not return a value in the response.
+     * this field does not return a value in the response. This only only exist and returns once it have been chosen and
+     * set by the SGW service, based on the OS version of the gateway VM
      * </p>
      * 
      * @return The date on which the last software update was applied to the gateway. If the gateway has never been
-     *         updated, this field does not return a value in the response.
+     *         updated, this field does not return a value in the response. This only only exist and returns once it
+     *         have been chosen and set by the SGW service, based on the OS version of the gateway VM
      */
 
     public String getLastSoftwareUpdate() {
@@ -488,12 +558,14 @@ public class DescribeGatewayInformationResult extends com.amazonaws.AmazonWebSer
     /**
      * <p>
      * The date on which the last software update was applied to the gateway. If the gateway has never been updated,
-     * this field does not return a value in the response.
+     * this field does not return a value in the response. This only only exist and returns once it have been chosen and
+     * set by the SGW service, based on the OS version of the gateway VM
      * </p>
      * 
      * @param lastSoftwareUpdate
      *        The date on which the last software update was applied to the gateway. If the gateway has never been
-     *        updated, this field does not return a value in the response.
+     *        updated, this field does not return a value in the response. This only only exist and returns once it have
+     *        been chosen and set by the SGW service, based on the OS version of the gateway VM
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -544,11 +616,11 @@ public class DescribeGatewayInformationResult extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The AWS Region where the Amazon EC2 instance is located.
+     * The Amazon Web Services Region where the Amazon EC2 instance is located.
      * </p>
      * 
      * @param ec2InstanceRegion
-     *        The AWS Region where the Amazon EC2 instance is located.
+     *        The Amazon Web Services Region where the Amazon EC2 instance is located.
      */
 
     public void setEc2InstanceRegion(String ec2InstanceRegion) {
@@ -557,10 +629,10 @@ public class DescribeGatewayInformationResult extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The AWS Region where the Amazon EC2 instance is located.
+     * The Amazon Web Services Region where the Amazon EC2 instance is located.
      * </p>
      * 
-     * @return The AWS Region where the Amazon EC2 instance is located.
+     * @return The Amazon Web Services Region where the Amazon EC2 instance is located.
      */
 
     public String getEc2InstanceRegion() {
@@ -569,11 +641,11 @@ public class DescribeGatewayInformationResult extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The AWS Region where the Amazon EC2 instance is located.
+     * The Amazon Web Services Region where the Amazon EC2 instance is located.
      * </p>
      * 
      * @param ec2InstanceRegion
-     *        The AWS Region where the Amazon EC2 instance is located.
+     *        The Amazon Web Services Region where the Amazon EC2 instance is located.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -712,6 +784,536 @@ public class DescribeGatewayInformationResult extends com.amazonaws.AmazonWebSer
     }
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that is used to monitor events in the gateway.
+     * This field only only exist and returns once it have been chosen and set by the SGW service, based on the OS
+     * version of the gateway VM
+     * </p>
+     * 
+     * @param cloudWatchLogGroupARN
+     *        The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that is used to monitor events in the
+     *        gateway. This field only only exist and returns once it have been chosen and set by the SGW service, based
+     *        on the OS version of the gateway VM
+     */
+
+    public void setCloudWatchLogGroupARN(String cloudWatchLogGroupARN) {
+        this.cloudWatchLogGroupARN = cloudWatchLogGroupARN;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that is used to monitor events in the gateway.
+     * This field only only exist and returns once it have been chosen and set by the SGW service, based on the OS
+     * version of the gateway VM
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that is used to monitor events in the
+     *         gateway. This field only only exist and returns once it have been chosen and set by the SGW service,
+     *         based on the OS version of the gateway VM
+     */
+
+    public String getCloudWatchLogGroupARN() {
+        return this.cloudWatchLogGroupARN;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that is used to monitor events in the gateway.
+     * This field only only exist and returns once it have been chosen and set by the SGW service, based on the OS
+     * version of the gateway VM
+     * </p>
+     * 
+     * @param cloudWatchLogGroupARN
+     *        The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that is used to monitor events in the
+     *        gateway. This field only only exist and returns once it have been chosen and set by the SGW service, based
+     *        on the OS version of the gateway VM
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeGatewayInformationResult withCloudWatchLogGroupARN(String cloudWatchLogGroupARN) {
+        setCloudWatchLogGroupARN(cloudWatchLogGroupARN);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of hardware or software platform on which the gateway is running.
+     * </p>
+     * <note>
+     * <p>
+     * Tape Gateway is no longer available on Snow Family devices.
+     * </p>
+     * </note>
+     * 
+     * @param hostEnvironment
+     *        The type of hardware or software platform on which the gateway is running.</p> <note>
+     *        <p>
+     *        Tape Gateway is no longer available on Snow Family devices.
+     *        </p>
+     * @see HostEnvironment
+     */
+
+    public void setHostEnvironment(String hostEnvironment) {
+        this.hostEnvironment = hostEnvironment;
+    }
+
+    /**
+     * <p>
+     * The type of hardware or software platform on which the gateway is running.
+     * </p>
+     * <note>
+     * <p>
+     * Tape Gateway is no longer available on Snow Family devices.
+     * </p>
+     * </note>
+     * 
+     * @return The type of hardware or software platform on which the gateway is running.</p> <note>
+     *         <p>
+     *         Tape Gateway is no longer available on Snow Family devices.
+     *         </p>
+     * @see HostEnvironment
+     */
+
+    public String getHostEnvironment() {
+        return this.hostEnvironment;
+    }
+
+    /**
+     * <p>
+     * The type of hardware or software platform on which the gateway is running.
+     * </p>
+     * <note>
+     * <p>
+     * Tape Gateway is no longer available on Snow Family devices.
+     * </p>
+     * </note>
+     * 
+     * @param hostEnvironment
+     *        The type of hardware or software platform on which the gateway is running.</p> <note>
+     *        <p>
+     *        Tape Gateway is no longer available on Snow Family devices.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HostEnvironment
+     */
+
+    public DescribeGatewayInformationResult withHostEnvironment(String hostEnvironment) {
+        setHostEnvironment(hostEnvironment);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of hardware or software platform on which the gateway is running.
+     * </p>
+     * <note>
+     * <p>
+     * Tape Gateway is no longer available on Snow Family devices.
+     * </p>
+     * </note>
+     * 
+     * @param hostEnvironment
+     *        The type of hardware or software platform on which the gateway is running.</p> <note>
+     *        <p>
+     *        Tape Gateway is no longer available on Snow Family devices.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HostEnvironment
+     */
+
+    public DescribeGatewayInformationResult withHostEnvironment(HostEnvironment hostEnvironment) {
+        this.hostEnvironment = hostEnvironment.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of endpoint for your gateway.
+     * </p>
+     * <p>
+     * Valid Values: <code>STANDARD</code> | <code>FIPS</code>
+     * </p>
+     * 
+     * @param endpointType
+     *        The type of endpoint for your gateway.</p>
+     *        <p>
+     *        Valid Values: <code>STANDARD</code> | <code>FIPS</code>
+     */
+
+    public void setEndpointType(String endpointType) {
+        this.endpointType = endpointType;
+    }
+
+    /**
+     * <p>
+     * The type of endpoint for your gateway.
+     * </p>
+     * <p>
+     * Valid Values: <code>STANDARD</code> | <code>FIPS</code>
+     * </p>
+     * 
+     * @return The type of endpoint for your gateway.</p>
+     *         <p>
+     *         Valid Values: <code>STANDARD</code> | <code>FIPS</code>
+     */
+
+    public String getEndpointType() {
+        return this.endpointType;
+    }
+
+    /**
+     * <p>
+     * The type of endpoint for your gateway.
+     * </p>
+     * <p>
+     * Valid Values: <code>STANDARD</code> | <code>FIPS</code>
+     * </p>
+     * 
+     * @param endpointType
+     *        The type of endpoint for your gateway.</p>
+     *        <p>
+     *        Valid Values: <code>STANDARD</code> | <code>FIPS</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeGatewayInformationResult withEndpointType(String endpointType) {
+        setEndpointType(endpointType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Date after which this gateway will not receive software updates for new features.
+     * </p>
+     * 
+     * @param softwareUpdatesEndDate
+     *        Date after which this gateway will not receive software updates for new features.
+     */
+
+    public void setSoftwareUpdatesEndDate(String softwareUpdatesEndDate) {
+        this.softwareUpdatesEndDate = softwareUpdatesEndDate;
+    }
+
+    /**
+     * <p>
+     * Date after which this gateway will not receive software updates for new features.
+     * </p>
+     * 
+     * @return Date after which this gateway will not receive software updates for new features.
+     */
+
+    public String getSoftwareUpdatesEndDate() {
+        return this.softwareUpdatesEndDate;
+    }
+
+    /**
+     * <p>
+     * Date after which this gateway will not receive software updates for new features.
+     * </p>
+     * 
+     * @param softwareUpdatesEndDate
+     *        Date after which this gateway will not receive software updates for new features.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeGatewayInformationResult withSoftwareUpdatesEndDate(String softwareUpdatesEndDate) {
+        setSoftwareUpdatesEndDate(softwareUpdatesEndDate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Date after which this gateway will not receive software updates for new features and bug fixes.
+     * </p>
+     * 
+     * @param deprecationDate
+     *        Date after which this gateway will not receive software updates for new features and bug fixes.
+     */
+
+    public void setDeprecationDate(String deprecationDate) {
+        this.deprecationDate = deprecationDate;
+    }
+
+    /**
+     * <p>
+     * Date after which this gateway will not receive software updates for new features and bug fixes.
+     * </p>
+     * 
+     * @return Date after which this gateway will not receive software updates for new features and bug fixes.
+     */
+
+    public String getDeprecationDate() {
+        return this.deprecationDate;
+    }
+
+    /**
+     * <p>
+     * Date after which this gateway will not receive software updates for new features and bug fixes.
+     * </p>
+     * 
+     * @param deprecationDate
+     *        Date after which this gateway will not receive software updates for new features and bug fixes.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeGatewayInformationResult withDeprecationDate(String deprecationDate) {
+        setDeprecationDate(deprecationDate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the size of the gateway's metadata cache.
+     * </p>
+     * 
+     * @param gatewayCapacity
+     *        Specifies the size of the gateway's metadata cache.
+     * @see GatewayCapacity
+     */
+
+    public void setGatewayCapacity(String gatewayCapacity) {
+        this.gatewayCapacity = gatewayCapacity;
+    }
+
+    /**
+     * <p>
+     * Specifies the size of the gateway's metadata cache.
+     * </p>
+     * 
+     * @return Specifies the size of the gateway's metadata cache.
+     * @see GatewayCapacity
+     */
+
+    public String getGatewayCapacity() {
+        return this.gatewayCapacity;
+    }
+
+    /**
+     * <p>
+     * Specifies the size of the gateway's metadata cache.
+     * </p>
+     * 
+     * @param gatewayCapacity
+     *        Specifies the size of the gateway's metadata cache.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see GatewayCapacity
+     */
+
+    public DescribeGatewayInformationResult withGatewayCapacity(String gatewayCapacity) {
+        setGatewayCapacity(gatewayCapacity);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the size of the gateway's metadata cache.
+     * </p>
+     * 
+     * @param gatewayCapacity
+     *        Specifies the size of the gateway's metadata cache.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see GatewayCapacity
+     */
+
+    public DescribeGatewayInformationResult withGatewayCapacity(GatewayCapacity gatewayCapacity) {
+        this.gatewayCapacity = gatewayCapacity.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of the metadata cache sizes that the gateway can support based on its current hardware specifications.
+     * </p>
+     * 
+     * @return A list of the metadata cache sizes that the gateway can support based on its current hardware
+     *         specifications.
+     * @see GatewayCapacity
+     */
+
+    public java.util.List<String> getSupportedGatewayCapacities() {
+        if (supportedGatewayCapacities == null) {
+            supportedGatewayCapacities = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return supportedGatewayCapacities;
+    }
+
+    /**
+     * <p>
+     * A list of the metadata cache sizes that the gateway can support based on its current hardware specifications.
+     * </p>
+     * 
+     * @param supportedGatewayCapacities
+     *        A list of the metadata cache sizes that the gateway can support based on its current hardware
+     *        specifications.
+     * @see GatewayCapacity
+     */
+
+    public void setSupportedGatewayCapacities(java.util.Collection<String> supportedGatewayCapacities) {
+        if (supportedGatewayCapacities == null) {
+            this.supportedGatewayCapacities = null;
+            return;
+        }
+
+        this.supportedGatewayCapacities = new com.amazonaws.internal.SdkInternalList<String>(supportedGatewayCapacities);
+    }
+
+    /**
+     * <p>
+     * A list of the metadata cache sizes that the gateway can support based on its current hardware specifications.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSupportedGatewayCapacities(java.util.Collection)} or
+     * {@link #withSupportedGatewayCapacities(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param supportedGatewayCapacities
+     *        A list of the metadata cache sizes that the gateway can support based on its current hardware
+     *        specifications.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see GatewayCapacity
+     */
+
+    public DescribeGatewayInformationResult withSupportedGatewayCapacities(String... supportedGatewayCapacities) {
+        if (this.supportedGatewayCapacities == null) {
+            setSupportedGatewayCapacities(new com.amazonaws.internal.SdkInternalList<String>(supportedGatewayCapacities.length));
+        }
+        for (String ele : supportedGatewayCapacities) {
+            this.supportedGatewayCapacities.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of the metadata cache sizes that the gateway can support based on its current hardware specifications.
+     * </p>
+     * 
+     * @param supportedGatewayCapacities
+     *        A list of the metadata cache sizes that the gateway can support based on its current hardware
+     *        specifications.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see GatewayCapacity
+     */
+
+    public DescribeGatewayInformationResult withSupportedGatewayCapacities(java.util.Collection<String> supportedGatewayCapacities) {
+        setSupportedGatewayCapacities(supportedGatewayCapacities);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of the metadata cache sizes that the gateway can support based on its current hardware specifications.
+     * </p>
+     * 
+     * @param supportedGatewayCapacities
+     *        A list of the metadata cache sizes that the gateway can support based on its current hardware
+     *        specifications.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see GatewayCapacity
+     */
+
+    public DescribeGatewayInformationResult withSupportedGatewayCapacities(GatewayCapacity... supportedGatewayCapacities) {
+        com.amazonaws.internal.SdkInternalList<String> supportedGatewayCapacitiesCopy = new com.amazonaws.internal.SdkInternalList<String>(
+                supportedGatewayCapacities.length);
+        for (GatewayCapacity value : supportedGatewayCapacities) {
+            supportedGatewayCapacitiesCopy.add(value.toString());
+        }
+        if (getSupportedGatewayCapacities() == null) {
+            setSupportedGatewayCapacities(supportedGatewayCapacitiesCopy);
+        } else {
+            getSupportedGatewayCapacities().addAll(supportedGatewayCapacitiesCopy);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A unique identifier for the specific instance of the host platform running the gateway. This value is only
+     * available for certain host environments, and its format depends on the host environment type.
+     * </p>
+     * 
+     * @param hostEnvironmentId
+     *        A unique identifier for the specific instance of the host platform running the gateway. This value is only
+     *        available for certain host environments, and its format depends on the host environment type.
+     */
+
+    public void setHostEnvironmentId(String hostEnvironmentId) {
+        this.hostEnvironmentId = hostEnvironmentId;
+    }
+
+    /**
+     * <p>
+     * A unique identifier for the specific instance of the host platform running the gateway. This value is only
+     * available for certain host environments, and its format depends on the host environment type.
+     * </p>
+     * 
+     * @return A unique identifier for the specific instance of the host platform running the gateway. This value is
+     *         only available for certain host environments, and its format depends on the host environment type.
+     */
+
+    public String getHostEnvironmentId() {
+        return this.hostEnvironmentId;
+    }
+
+    /**
+     * <p>
+     * A unique identifier for the specific instance of the host platform running the gateway. This value is only
+     * available for certain host environments, and its format depends on the host environment type.
+     * </p>
+     * 
+     * @param hostEnvironmentId
+     *        A unique identifier for the specific instance of the host platform running the gateway. This value is only
+     *        available for certain host environments, and its format depends on the host environment type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeGatewayInformationResult withHostEnvironmentId(String hostEnvironmentId) {
+        setHostEnvironmentId(hostEnvironmentId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The version number of the software running on the gateway appliance.
+     * </p>
+     * 
+     * @param softwareVersion
+     *        The version number of the software running on the gateway appliance.
+     */
+
+    public void setSoftwareVersion(String softwareVersion) {
+        this.softwareVersion = softwareVersion;
+    }
+
+    /**
+     * <p>
+     * The version number of the software running on the gateway appliance.
+     * </p>
+     * 
+     * @return The version number of the software running on the gateway appliance.
+     */
+
+    public String getSoftwareVersion() {
+        return this.softwareVersion;
+    }
+
+    /**
+     * <p>
+     * The version number of the software running on the gateway appliance.
+     * </p>
+     * 
+     * @param softwareVersion
+     *        The version number of the software running on the gateway appliance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeGatewayInformationResult withSoftwareVersion(String softwareVersion) {
+        setSoftwareVersion(softwareVersion);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -734,7 +1336,7 @@ public class DescribeGatewayInformationResult extends com.amazonaws.AmazonWebSer
         if (getGatewayState() != null)
             sb.append("GatewayState: ").append(getGatewayState()).append(",");
         if (getGatewayNetworkInterfaces() != null)
-            sb.append("GatewayNetworkInterfaces: ").append(getGatewayNetworkInterfaces()).append(",");
+            sb.append("GatewayNetworkInterfaces: ").append("***Sensitive Data Redacted***").append(",");
         if (getGatewayType() != null)
             sb.append("GatewayType: ").append(getGatewayType()).append(",");
         if (getNextUpdateAvailabilityDate() != null)
@@ -748,7 +1350,25 @@ public class DescribeGatewayInformationResult extends com.amazonaws.AmazonWebSer
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getVPCEndpoint() != null)
-            sb.append("VPCEndpoint: ").append(getVPCEndpoint());
+            sb.append("VPCEndpoint: ").append(getVPCEndpoint()).append(",");
+        if (getCloudWatchLogGroupARN() != null)
+            sb.append("CloudWatchLogGroupARN: ").append(getCloudWatchLogGroupARN()).append(",");
+        if (getHostEnvironment() != null)
+            sb.append("HostEnvironment: ").append(getHostEnvironment()).append(",");
+        if (getEndpointType() != null)
+            sb.append("EndpointType: ").append(getEndpointType()).append(",");
+        if (getSoftwareUpdatesEndDate() != null)
+            sb.append("SoftwareUpdatesEndDate: ").append(getSoftwareUpdatesEndDate()).append(",");
+        if (getDeprecationDate() != null)
+            sb.append("DeprecationDate: ").append(getDeprecationDate()).append(",");
+        if (getGatewayCapacity() != null)
+            sb.append("GatewayCapacity: ").append(getGatewayCapacity()).append(",");
+        if (getSupportedGatewayCapacities() != null)
+            sb.append("SupportedGatewayCapacities: ").append(getSupportedGatewayCapacities()).append(",");
+        if (getHostEnvironmentId() != null)
+            sb.append("HostEnvironmentId: ").append(getHostEnvironmentId()).append(",");
+        if (getSoftwareVersion() != null)
+            sb.append("SoftwareVersion: ").append(getSoftwareVersion());
         sb.append("}");
         return sb.toString();
     }
@@ -815,6 +1435,42 @@ public class DescribeGatewayInformationResult extends com.amazonaws.AmazonWebSer
             return false;
         if (other.getVPCEndpoint() != null && other.getVPCEndpoint().equals(this.getVPCEndpoint()) == false)
             return false;
+        if (other.getCloudWatchLogGroupARN() == null ^ this.getCloudWatchLogGroupARN() == null)
+            return false;
+        if (other.getCloudWatchLogGroupARN() != null && other.getCloudWatchLogGroupARN().equals(this.getCloudWatchLogGroupARN()) == false)
+            return false;
+        if (other.getHostEnvironment() == null ^ this.getHostEnvironment() == null)
+            return false;
+        if (other.getHostEnvironment() != null && other.getHostEnvironment().equals(this.getHostEnvironment()) == false)
+            return false;
+        if (other.getEndpointType() == null ^ this.getEndpointType() == null)
+            return false;
+        if (other.getEndpointType() != null && other.getEndpointType().equals(this.getEndpointType()) == false)
+            return false;
+        if (other.getSoftwareUpdatesEndDate() == null ^ this.getSoftwareUpdatesEndDate() == null)
+            return false;
+        if (other.getSoftwareUpdatesEndDate() != null && other.getSoftwareUpdatesEndDate().equals(this.getSoftwareUpdatesEndDate()) == false)
+            return false;
+        if (other.getDeprecationDate() == null ^ this.getDeprecationDate() == null)
+            return false;
+        if (other.getDeprecationDate() != null && other.getDeprecationDate().equals(this.getDeprecationDate()) == false)
+            return false;
+        if (other.getGatewayCapacity() == null ^ this.getGatewayCapacity() == null)
+            return false;
+        if (other.getGatewayCapacity() != null && other.getGatewayCapacity().equals(this.getGatewayCapacity()) == false)
+            return false;
+        if (other.getSupportedGatewayCapacities() == null ^ this.getSupportedGatewayCapacities() == null)
+            return false;
+        if (other.getSupportedGatewayCapacities() != null && other.getSupportedGatewayCapacities().equals(this.getSupportedGatewayCapacities()) == false)
+            return false;
+        if (other.getHostEnvironmentId() == null ^ this.getHostEnvironmentId() == null)
+            return false;
+        if (other.getHostEnvironmentId() != null && other.getHostEnvironmentId().equals(this.getHostEnvironmentId()) == false)
+            return false;
+        if (other.getSoftwareVersion() == null ^ this.getSoftwareVersion() == null)
+            return false;
+        if (other.getSoftwareVersion() != null && other.getSoftwareVersion().equals(this.getSoftwareVersion()) == false)
+            return false;
         return true;
     }
 
@@ -836,6 +1492,15 @@ public class DescribeGatewayInformationResult extends com.amazonaws.AmazonWebSer
         hashCode = prime * hashCode + ((getEc2InstanceRegion() == null) ? 0 : getEc2InstanceRegion().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getVPCEndpoint() == null) ? 0 : getVPCEndpoint().hashCode());
+        hashCode = prime * hashCode + ((getCloudWatchLogGroupARN() == null) ? 0 : getCloudWatchLogGroupARN().hashCode());
+        hashCode = prime * hashCode + ((getHostEnvironment() == null) ? 0 : getHostEnvironment().hashCode());
+        hashCode = prime * hashCode + ((getEndpointType() == null) ? 0 : getEndpointType().hashCode());
+        hashCode = prime * hashCode + ((getSoftwareUpdatesEndDate() == null) ? 0 : getSoftwareUpdatesEndDate().hashCode());
+        hashCode = prime * hashCode + ((getDeprecationDate() == null) ? 0 : getDeprecationDate().hashCode());
+        hashCode = prime * hashCode + ((getGatewayCapacity() == null) ? 0 : getGatewayCapacity().hashCode());
+        hashCode = prime * hashCode + ((getSupportedGatewayCapacities() == null) ? 0 : getSupportedGatewayCapacities().hashCode());
+        hashCode = prime * hashCode + ((getHostEnvironmentId() == null) ? 0 : getHostEnvironmentId().hashCode());
+        hashCode = prime * hashCode + ((getSoftwareVersion() == null) ? 0 : getSoftwareVersion().hashCode());
         return hashCode;
     }
 

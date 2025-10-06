@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Represents an alarm.
+ * The details about a metric alarm.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/MetricAlarm" target="_top">AWS API
@@ -97,7 +97,8 @@ public class MetricAlarm implements Serializable, Cloneable {
     private String stateReasonData;
     /**
      * <p>
-     * The time stamp of the last update to the alarm state.
+     * The time stamp of the last update to the value of either the <code>StateValue</code> or
+     * <code>EvaluationState</code> parameters.
      * </p>
      */
     private java.util.Date stateUpdatedTimestamp;
@@ -152,7 +153,7 @@ public class MetricAlarm implements Serializable, Cloneable {
     private Integer evaluationPeriods;
     /**
      * <p>
-     * The number of datapoints that must be breaching to trigger the alarm.
+     * The number of data points that must be breaching to trigger the alarm.
      * </p>
      */
     private Integer datapointsToAlarm;
@@ -171,8 +172,13 @@ public class MetricAlarm implements Serializable, Cloneable {
     private String comparisonOperator;
     /**
      * <p>
-     * Sets how this alarm is to handle missing data points. If this parameter is omitted, the default behavior of
-     * <code>missing</code> is used.
+     * Sets how this alarm is to handle missing data points. The valid values are <code>breaching</code>,
+     * <code>notBreaching</code>, <code>ignore</code>, and <code>missing</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#alarms-and-missing-data"
+     * >Configuring how CloudWatch alarms treat missing data</a>.
+     * </p>
+     * <p>
+     * If this parameter is omitted, the default behavior of <code>missing</code> is used.
      * </p>
      */
     private String treatMissingData;
@@ -188,7 +194,7 @@ public class MetricAlarm implements Serializable, Cloneable {
      * <p>
      * An array of MetricDataQuery structures, used in an alarm based on a metric math expression. Each structure either
      * retrieves a metric or performs a math expression. One item in the Metrics array is the math expression that the
-     * alarm watches. This expression by designated by having <code>ReturnValue</code> set to true.
+     * alarm watches. This expression by designated by having <code>ReturnData</code> set to true.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<MetricDataQuery> metrics;
@@ -199,6 +205,21 @@ public class MetricAlarm implements Serializable, Cloneable {
      * </p>
      */
     private String thresholdMetricId;
+    /**
+     * <p>
+     * If the value of this field is <code>PARTIAL_DATA</code>, the alarm is being evaluated based on only partial data.
+     * This happens if the query used for the alarm returns more than 10,000 metrics. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Metrics_Insights_Alarm.html">Create
+     * alarms on Metrics Insights queries</a>.
+     * </p>
+     */
+    private String evaluationState;
+    /**
+     * <p>
+     * The date and time that the alarm's <code>StateValue</code> most recently changed.
+     * </p>
+     */
+    private java.util.Date stateTransitionedTimestamp;
 
     /**
      * <p>
@@ -810,11 +831,13 @@ public class MetricAlarm implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The time stamp of the last update to the alarm state.
+     * The time stamp of the last update to the value of either the <code>StateValue</code> or
+     * <code>EvaluationState</code> parameters.
      * </p>
      * 
      * @param stateUpdatedTimestamp
-     *        The time stamp of the last update to the alarm state.
+     *        The time stamp of the last update to the value of either the <code>StateValue</code> or
+     *        <code>EvaluationState</code> parameters.
      */
 
     public void setStateUpdatedTimestamp(java.util.Date stateUpdatedTimestamp) {
@@ -823,10 +846,12 @@ public class MetricAlarm implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The time stamp of the last update to the alarm state.
+     * The time stamp of the last update to the value of either the <code>StateValue</code> or
+     * <code>EvaluationState</code> parameters.
      * </p>
      * 
-     * @return The time stamp of the last update to the alarm state.
+     * @return The time stamp of the last update to the value of either the <code>StateValue</code> or
+     *         <code>EvaluationState</code> parameters.
      */
 
     public java.util.Date getStateUpdatedTimestamp() {
@@ -835,11 +860,13 @@ public class MetricAlarm implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The time stamp of the last update to the alarm state.
+     * The time stamp of the last update to the value of either the <code>StateValue</code> or
+     * <code>EvaluationState</code> parameters.
      * </p>
      * 
      * @param stateUpdatedTimestamp
-     *        The time stamp of the last update to the alarm state.
+     *        The time stamp of the last update to the value of either the <code>StateValue</code> or
+     *        <code>EvaluationState</code> parameters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1279,11 +1306,11 @@ public class MetricAlarm implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of datapoints that must be breaching to trigger the alarm.
+     * The number of data points that must be breaching to trigger the alarm.
      * </p>
      * 
      * @param datapointsToAlarm
-     *        The number of datapoints that must be breaching to trigger the alarm.
+     *        The number of data points that must be breaching to trigger the alarm.
      */
 
     public void setDatapointsToAlarm(Integer datapointsToAlarm) {
@@ -1292,10 +1319,10 @@ public class MetricAlarm implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of datapoints that must be breaching to trigger the alarm.
+     * The number of data points that must be breaching to trigger the alarm.
      * </p>
      * 
-     * @return The number of datapoints that must be breaching to trigger the alarm.
+     * @return The number of data points that must be breaching to trigger the alarm.
      */
 
     public Integer getDatapointsToAlarm() {
@@ -1304,11 +1331,11 @@ public class MetricAlarm implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of datapoints that must be breaching to trigger the alarm.
+     * The number of data points that must be breaching to trigger the alarm.
      * </p>
      * 
      * @param datapointsToAlarm
-     *        The number of datapoints that must be breaching to trigger the alarm.
+     *        The number of data points that must be breaching to trigger the alarm.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1442,13 +1469,23 @@ public class MetricAlarm implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Sets how this alarm is to handle missing data points. If this parameter is omitted, the default behavior of
-     * <code>missing</code> is used.
+     * Sets how this alarm is to handle missing data points. The valid values are <code>breaching</code>,
+     * <code>notBreaching</code>, <code>ignore</code>, and <code>missing</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#alarms-and-missing-data"
+     * >Configuring how CloudWatch alarms treat missing data</a>.
+     * </p>
+     * <p>
+     * If this parameter is omitted, the default behavior of <code>missing</code> is used.
      * </p>
      * 
      * @param treatMissingData
-     *        Sets how this alarm is to handle missing data points. If this parameter is omitted, the default behavior
-     *        of <code>missing</code> is used.
+     *        Sets how this alarm is to handle missing data points. The valid values are <code>breaching</code>,
+     *        <code>notBreaching</code>, <code>ignore</code>, and <code>missing</code>. For more information, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#alarms-and-missing-data"
+     *        >Configuring how CloudWatch alarms treat missing data</a>.</p>
+     *        <p>
+     *        If this parameter is omitted, the default behavior of <code>missing</code> is used.
      */
 
     public void setTreatMissingData(String treatMissingData) {
@@ -1457,12 +1494,22 @@ public class MetricAlarm implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Sets how this alarm is to handle missing data points. If this parameter is omitted, the default behavior of
-     * <code>missing</code> is used.
+     * Sets how this alarm is to handle missing data points. The valid values are <code>breaching</code>,
+     * <code>notBreaching</code>, <code>ignore</code>, and <code>missing</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#alarms-and-missing-data"
+     * >Configuring how CloudWatch alarms treat missing data</a>.
+     * </p>
+     * <p>
+     * If this parameter is omitted, the default behavior of <code>missing</code> is used.
      * </p>
      * 
-     * @return Sets how this alarm is to handle missing data points. If this parameter is omitted, the default behavior
-     *         of <code>missing</code> is used.
+     * @return Sets how this alarm is to handle missing data points. The valid values are <code>breaching</code>,
+     *         <code>notBreaching</code>, <code>ignore</code>, and <code>missing</code>. For more information, see <a
+     *         href=
+     *         "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#alarms-and-missing-data"
+     *         >Configuring how CloudWatch alarms treat missing data</a>.</p>
+     *         <p>
+     *         If this parameter is omitted, the default behavior of <code>missing</code> is used.
      */
 
     public String getTreatMissingData() {
@@ -1471,13 +1518,23 @@ public class MetricAlarm implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Sets how this alarm is to handle missing data points. If this parameter is omitted, the default behavior of
-     * <code>missing</code> is used.
+     * Sets how this alarm is to handle missing data points. The valid values are <code>breaching</code>,
+     * <code>notBreaching</code>, <code>ignore</code>, and <code>missing</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#alarms-and-missing-data"
+     * >Configuring how CloudWatch alarms treat missing data</a>.
+     * </p>
+     * <p>
+     * If this parameter is omitted, the default behavior of <code>missing</code> is used.
      * </p>
      * 
      * @param treatMissingData
-     *        Sets how this alarm is to handle missing data points. If this parameter is omitted, the default behavior
-     *        of <code>missing</code> is used.
+     *        Sets how this alarm is to handle missing data points. The valid values are <code>breaching</code>,
+     *        <code>notBreaching</code>, <code>ignore</code>, and <code>missing</code>. For more information, see <a
+     *        href=
+     *        "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#alarms-and-missing-data"
+     *        >Configuring how CloudWatch alarms treat missing data</a>.</p>
+     *        <p>
+     *        If this parameter is omitted, the default behavior of <code>missing</code> is used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1545,12 +1602,12 @@ public class MetricAlarm implements Serializable, Cloneable {
      * <p>
      * An array of MetricDataQuery structures, used in an alarm based on a metric math expression. Each structure either
      * retrieves a metric or performs a math expression. One item in the Metrics array is the math expression that the
-     * alarm watches. This expression by designated by having <code>ReturnValue</code> set to true.
+     * alarm watches. This expression by designated by having <code>ReturnData</code> set to true.
      * </p>
      * 
      * @return An array of MetricDataQuery structures, used in an alarm based on a metric math expression. Each
      *         structure either retrieves a metric or performs a math expression. One item in the Metrics array is the
-     *         math expression that the alarm watches. This expression by designated by having <code>ReturnValue</code>
+     *         math expression that the alarm watches. This expression by designated by having <code>ReturnData</code>
      *         set to true.
      */
 
@@ -1565,13 +1622,13 @@ public class MetricAlarm implements Serializable, Cloneable {
      * <p>
      * An array of MetricDataQuery structures, used in an alarm based on a metric math expression. Each structure either
      * retrieves a metric or performs a math expression. One item in the Metrics array is the math expression that the
-     * alarm watches. This expression by designated by having <code>ReturnValue</code> set to true.
+     * alarm watches. This expression by designated by having <code>ReturnData</code> set to true.
      * </p>
      * 
      * @param metrics
      *        An array of MetricDataQuery structures, used in an alarm based on a metric math expression. Each structure
      *        either retrieves a metric or performs a math expression. One item in the Metrics array is the math
-     *        expression that the alarm watches. This expression by designated by having <code>ReturnValue</code> set to
+     *        expression that the alarm watches. This expression by designated by having <code>ReturnData</code> set to
      *        true.
      */
 
@@ -1588,7 +1645,7 @@ public class MetricAlarm implements Serializable, Cloneable {
      * <p>
      * An array of MetricDataQuery structures, used in an alarm based on a metric math expression. Each structure either
      * retrieves a metric or performs a math expression. One item in the Metrics array is the math expression that the
-     * alarm watches. This expression by designated by having <code>ReturnValue</code> set to true.
+     * alarm watches. This expression by designated by having <code>ReturnData</code> set to true.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1599,7 +1656,7 @@ public class MetricAlarm implements Serializable, Cloneable {
      * @param metrics
      *        An array of MetricDataQuery structures, used in an alarm based on a metric math expression. Each structure
      *        either retrieves a metric or performs a math expression. One item in the Metrics array is the math
-     *        expression that the alarm watches. This expression by designated by having <code>ReturnValue</code> set to
+     *        expression that the alarm watches. This expression by designated by having <code>ReturnData</code> set to
      *        true.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1618,13 +1675,13 @@ public class MetricAlarm implements Serializable, Cloneable {
      * <p>
      * An array of MetricDataQuery structures, used in an alarm based on a metric math expression. Each structure either
      * retrieves a metric or performs a math expression. One item in the Metrics array is the math expression that the
-     * alarm watches. This expression by designated by having <code>ReturnValue</code> set to true.
+     * alarm watches. This expression by designated by having <code>ReturnData</code> set to true.
      * </p>
      * 
      * @param metrics
      *        An array of MetricDataQuery structures, used in an alarm based on a metric math expression. Each structure
      *        either retrieves a metric or performs a math expression. One item in the Metrics array is the math
-     *        expression that the alarm watches. This expression by designated by having <code>ReturnValue</code> set to
+     *        expression that the alarm watches. This expression by designated by having <code>ReturnData</code> set to
      *        true.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1677,6 +1734,154 @@ public class MetricAlarm implements Serializable, Cloneable {
 
     public MetricAlarm withThresholdMetricId(String thresholdMetricId) {
         setThresholdMetricId(thresholdMetricId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If the value of this field is <code>PARTIAL_DATA</code>, the alarm is being evaluated based on only partial data.
+     * This happens if the query used for the alarm returns more than 10,000 metrics. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Metrics_Insights_Alarm.html">Create
+     * alarms on Metrics Insights queries</a>.
+     * </p>
+     * 
+     * @param evaluationState
+     *        If the value of this field is <code>PARTIAL_DATA</code>, the alarm is being evaluated based on only
+     *        partial data. This happens if the query used for the alarm returns more than 10,000 metrics. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Metrics_Insights_Alarm.html"
+     *        >Create alarms on Metrics Insights queries</a>.
+     * @see EvaluationState
+     */
+
+    public void setEvaluationState(String evaluationState) {
+        this.evaluationState = evaluationState;
+    }
+
+    /**
+     * <p>
+     * If the value of this field is <code>PARTIAL_DATA</code>, the alarm is being evaluated based on only partial data.
+     * This happens if the query used for the alarm returns more than 10,000 metrics. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Metrics_Insights_Alarm.html">Create
+     * alarms on Metrics Insights queries</a>.
+     * </p>
+     * 
+     * @return If the value of this field is <code>PARTIAL_DATA</code>, the alarm is being evaluated based on only
+     *         partial data. This happens if the query used for the alarm returns more than 10,000 metrics. For more
+     *         information, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Metrics_Insights_Alarm.html"
+     *         >Create alarms on Metrics Insights queries</a>.
+     * @see EvaluationState
+     */
+
+    public String getEvaluationState() {
+        return this.evaluationState;
+    }
+
+    /**
+     * <p>
+     * If the value of this field is <code>PARTIAL_DATA</code>, the alarm is being evaluated based on only partial data.
+     * This happens if the query used for the alarm returns more than 10,000 metrics. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Metrics_Insights_Alarm.html">Create
+     * alarms on Metrics Insights queries</a>.
+     * </p>
+     * 
+     * @param evaluationState
+     *        If the value of this field is <code>PARTIAL_DATA</code>, the alarm is being evaluated based on only
+     *        partial data. This happens if the query used for the alarm returns more than 10,000 metrics. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Metrics_Insights_Alarm.html"
+     *        >Create alarms on Metrics Insights queries</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EvaluationState
+     */
+
+    public MetricAlarm withEvaluationState(String evaluationState) {
+        setEvaluationState(evaluationState);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If the value of this field is <code>PARTIAL_DATA</code>, the alarm is being evaluated based on only partial data.
+     * This happens if the query used for the alarm returns more than 10,000 metrics. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Metrics_Insights_Alarm.html">Create
+     * alarms on Metrics Insights queries</a>.
+     * </p>
+     * 
+     * @param evaluationState
+     *        If the value of this field is <code>PARTIAL_DATA</code>, the alarm is being evaluated based on only
+     *        partial data. This happens if the query used for the alarm returns more than 10,000 metrics. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Metrics_Insights_Alarm.html"
+     *        >Create alarms on Metrics Insights queries</a>.
+     * @see EvaluationState
+     */
+
+    public void setEvaluationState(EvaluationState evaluationState) {
+        withEvaluationState(evaluationState);
+    }
+
+    /**
+     * <p>
+     * If the value of this field is <code>PARTIAL_DATA</code>, the alarm is being evaluated based on only partial data.
+     * This happens if the query used for the alarm returns more than 10,000 metrics. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Metrics_Insights_Alarm.html">Create
+     * alarms on Metrics Insights queries</a>.
+     * </p>
+     * 
+     * @param evaluationState
+     *        If the value of this field is <code>PARTIAL_DATA</code>, the alarm is being evaluated based on only
+     *        partial data. This happens if the query used for the alarm returns more than 10,000 metrics. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Metrics_Insights_Alarm.html"
+     *        >Create alarms on Metrics Insights queries</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EvaluationState
+     */
+
+    public MetricAlarm withEvaluationState(EvaluationState evaluationState) {
+        this.evaluationState = evaluationState.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date and time that the alarm's <code>StateValue</code> most recently changed.
+     * </p>
+     * 
+     * @param stateTransitionedTimestamp
+     *        The date and time that the alarm's <code>StateValue</code> most recently changed.
+     */
+
+    public void setStateTransitionedTimestamp(java.util.Date stateTransitionedTimestamp) {
+        this.stateTransitionedTimestamp = stateTransitionedTimestamp;
+    }
+
+    /**
+     * <p>
+     * The date and time that the alarm's <code>StateValue</code> most recently changed.
+     * </p>
+     * 
+     * @return The date and time that the alarm's <code>StateValue</code> most recently changed.
+     */
+
+    public java.util.Date getStateTransitionedTimestamp() {
+        return this.stateTransitionedTimestamp;
+    }
+
+    /**
+     * <p>
+     * The date and time that the alarm's <code>StateValue</code> most recently changed.
+     * </p>
+     * 
+     * @param stateTransitionedTimestamp
+     *        The date and time that the alarm's <code>StateValue</code> most recently changed.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MetricAlarm withStateTransitionedTimestamp(java.util.Date stateTransitionedTimestamp) {
+        setStateTransitionedTimestamp(stateTransitionedTimestamp);
         return this;
     }
 
@@ -1745,7 +1950,11 @@ public class MetricAlarm implements Serializable, Cloneable {
         if (getMetrics() != null)
             sb.append("Metrics: ").append(getMetrics()).append(",");
         if (getThresholdMetricId() != null)
-            sb.append("ThresholdMetricId: ").append(getThresholdMetricId());
+            sb.append("ThresholdMetricId: ").append(getThresholdMetricId()).append(",");
+        if (getEvaluationState() != null)
+            sb.append("EvaluationState: ").append(getEvaluationState()).append(",");
+        if (getStateTransitionedTimestamp() != null)
+            sb.append("StateTransitionedTimestamp: ").append(getStateTransitionedTimestamp());
         sb.append("}");
         return sb.toString();
     }
@@ -1870,6 +2079,14 @@ public class MetricAlarm implements Serializable, Cloneable {
             return false;
         if (other.getThresholdMetricId() != null && other.getThresholdMetricId().equals(this.getThresholdMetricId()) == false)
             return false;
+        if (other.getEvaluationState() == null ^ this.getEvaluationState() == null)
+            return false;
+        if (other.getEvaluationState() != null && other.getEvaluationState().equals(this.getEvaluationState()) == false)
+            return false;
+        if (other.getStateTransitionedTimestamp() == null ^ this.getStateTransitionedTimestamp() == null)
+            return false;
+        if (other.getStateTransitionedTimestamp() != null && other.getStateTransitionedTimestamp().equals(this.getStateTransitionedTimestamp()) == false)
+            return false;
         return true;
     }
 
@@ -1905,6 +2122,8 @@ public class MetricAlarm implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getEvaluateLowSampleCountPercentile() == null) ? 0 : getEvaluateLowSampleCountPercentile().hashCode());
         hashCode = prime * hashCode + ((getMetrics() == null) ? 0 : getMetrics().hashCode());
         hashCode = prime * hashCode + ((getThresholdMetricId() == null) ? 0 : getThresholdMetricId().hashCode());
+        hashCode = prime * hashCode + ((getEvaluationState() == null) ? 0 : getEvaluationState().hashCode());
+        hashCode = prime * hashCode + ((getStateTransitionedTimestamp() == null) ? 0 : getStateTransitionedTimestamp().hashCode());
         return hashCode;
     }
 

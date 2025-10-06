@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,10 @@ public class EnableSecurityHubRequestMarshaller {
 
     private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Tags").build();
+    private static final MarshallingInfo<Boolean> ENABLEDEFAULTSTANDARDS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EnableDefaultStandards").build();
+    private static final MarshallingInfo<String> CONTROLFINDINGGENERATOR_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ControlFindingGenerator").build();
 
     private static final EnableSecurityHubRequestMarshaller instance = new EnableSecurityHubRequestMarshaller();
 
@@ -49,6 +53,8 @@ public class EnableSecurityHubRequestMarshaller {
 
         try {
             protocolMarshaller.marshall(enableSecurityHubRequest.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(enableSecurityHubRequest.getEnableDefaultStandards(), ENABLEDEFAULTSTANDARDS_BINDING);
+            protocolMarshaller.marshall(enableSecurityHubRequest.getControlFindingGenerator(), CONTROLFINDINGGENERATOR_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

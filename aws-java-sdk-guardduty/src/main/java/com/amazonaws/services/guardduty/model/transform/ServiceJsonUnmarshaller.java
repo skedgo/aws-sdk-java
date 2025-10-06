@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,10 @@ public class ServiceJsonUnmarshaller implements Unmarshaller<Service, JsonUnmars
                     context.nextToken();
                     service.setAction(ActionJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("evidence", targetDepth)) {
+                    context.nextToken();
+                    service.setEvidence(EvidenceJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("archived", targetDepth)) {
                     context.nextToken();
                     service.setArchived(context.getUnmarshaller(Boolean.class).unmarshall(context));
@@ -83,6 +87,30 @@ public class ServiceJsonUnmarshaller implements Unmarshaller<Service, JsonUnmars
                 if (context.testExpression("userFeedback", targetDepth)) {
                     context.nextToken();
                     service.setUserFeedback(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("additionalInfo", targetDepth)) {
+                    context.nextToken();
+                    service.setAdditionalInfo(ServiceAdditionalInfoJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("featureName", targetDepth)) {
+                    context.nextToken();
+                    service.setFeatureName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ebsVolumeScanDetails", targetDepth)) {
+                    context.nextToken();
+                    service.setEbsVolumeScanDetails(EbsVolumeScanDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("runtimeDetails", targetDepth)) {
+                    context.nextToken();
+                    service.setRuntimeDetails(RuntimeDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("detection", targetDepth)) {
+                    context.nextToken();
+                    service.setDetection(DetectionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("malwareScanDetails", targetDepth)) {
+                    context.nextToken();
+                    service.setMalwareScanDetails(MalwareScanDetailsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,33 +27,32 @@ public class UpdateUserIdentityInfoRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A <code>UserIdentityInfo</code> object.
+     * The identity information for the user.
      * </p>
      */
     private UserIdentityInfo identityInfo;
     /**
      * <p>
-     * The identifier for the user account to update identity information for.
+     * The identifier of the user account.
      * </p>
      */
     private String userId;
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      */
     private String instanceId;
 
     /**
      * <p>
-     * A <code>UserIdentityInfo</code> object.
+     * The identity information for the user.
      * </p>
      * 
      * @param identityInfo
-     *        A <code>UserIdentityInfo</code> object.
+     *        The identity information for the user.
      */
 
     public void setIdentityInfo(UserIdentityInfo identityInfo) {
@@ -62,10 +61,10 @@ public class UpdateUserIdentityInfoRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A <code>UserIdentityInfo</code> object.
+     * The identity information for the user.
      * </p>
      * 
-     * @return A <code>UserIdentityInfo</code> object.
+     * @return The identity information for the user.
      */
 
     public UserIdentityInfo getIdentityInfo() {
@@ -74,11 +73,11 @@ public class UpdateUserIdentityInfoRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A <code>UserIdentityInfo</code> object.
+     * The identity information for the user.
      * </p>
      * 
      * @param identityInfo
-     *        A <code>UserIdentityInfo</code> object.
+     *        The identity information for the user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -89,11 +88,11 @@ public class UpdateUserIdentityInfoRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The identifier for the user account to update identity information for.
+     * The identifier of the user account.
      * </p>
      * 
      * @param userId
-     *        The identifier for the user account to update identity information for.
+     *        The identifier of the user account.
      */
 
     public void setUserId(String userId) {
@@ -102,10 +101,10 @@ public class UpdateUserIdentityInfoRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The identifier for the user account to update identity information for.
+     * The identifier of the user account.
      * </p>
      * 
-     * @return The identifier for the user account to update identity information for.
+     * @return The identifier of the user account.
      */
 
     public String getUserId() {
@@ -114,11 +113,11 @@ public class UpdateUserIdentityInfoRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The identifier for the user account to update identity information for.
+     * The identifier of the user account.
      * </p>
      * 
      * @param userId
-     *        The identifier for the user account to update identity information for.
+     *        The identifier of the user account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -129,17 +128,15 @@ public class UpdateUserIdentityInfoRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      * 
      * @param instanceId
-     *        The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and
-     *        select Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is
-     *        displayed in the Overview section of your instance settings. For example, the instance ID is the set of
-     *        characters at the end of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     *        The identifier of the Amazon Connect instance. You can <a
+     *        href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance
+     *        ID</a> in the Amazon Resource Name (ARN) of the instance.
      */
 
     public void setInstanceId(String instanceId) {
@@ -148,17 +145,14 @@ public class UpdateUserIdentityInfoRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      * 
-     * @return The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console
-     *         and select Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID
-     *         is displayed in the Overview section of your instance settings. For example, the instance ID is the set
-     *         of characters at the end of the instance ARN, after instance/, such as
-     *         10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * @return The identifier of the Amazon Connect instance. You can <a
+     *         href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance
+     *         ID</a> in the Amazon Resource Name (ARN) of the instance.
      */
 
     public String getInstanceId() {
@@ -167,17 +161,15 @@ public class UpdateUserIdentityInfoRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      * 
      * @param instanceId
-     *        The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and
-     *        select Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is
-     *        displayed in the Overview section of your instance settings. For example, the instance ID is the set of
-     *        characters at the end of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     *        The identifier of the Amazon Connect instance. You can <a
+     *        href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance
+     *        ID</a> in the Amazon Resource Name (ARN) of the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

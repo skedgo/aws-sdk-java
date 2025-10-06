@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The Microsoft AD attributes of the Amazon FSx for Windows File Server file system.
+ * The Microsoft Active Directory attributes of the Amazon FSx for Windows File Server file system.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/ActiveDirectoryBackupAttributes"
@@ -30,24 +30,26 @@ public class ActiveDirectoryBackupAttributes implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The fully qualified domain name of the self-managed AD directory.
+     * The fully qualified domain name of the self-managed Active Directory directory.
      * </p>
      */
     private String domainName;
     /**
      * <p>
-     * The ID of the AWS Managed Microsoft Active Directory instance to which the file system is joined.
+     * The ID of the Amazon Web Services Managed Microsoft Active Directory instance to which the file system is joined.
      * </p>
      */
     private String activeDirectoryId;
 
+    private String resourceARN;
+
     /**
      * <p>
-     * The fully qualified domain name of the self-managed AD directory.
+     * The fully qualified domain name of the self-managed Active Directory directory.
      * </p>
      * 
      * @param domainName
-     *        The fully qualified domain name of the self-managed AD directory.
+     *        The fully qualified domain name of the self-managed Active Directory directory.
      */
 
     public void setDomainName(String domainName) {
@@ -56,10 +58,10 @@ public class ActiveDirectoryBackupAttributes implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The fully qualified domain name of the self-managed AD directory.
+     * The fully qualified domain name of the self-managed Active Directory directory.
      * </p>
      * 
-     * @return The fully qualified domain name of the self-managed AD directory.
+     * @return The fully qualified domain name of the self-managed Active Directory directory.
      */
 
     public String getDomainName() {
@@ -68,11 +70,11 @@ public class ActiveDirectoryBackupAttributes implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The fully qualified domain name of the self-managed AD directory.
+     * The fully qualified domain name of the self-managed Active Directory directory.
      * </p>
      * 
      * @param domainName
-     *        The fully qualified domain name of the self-managed AD directory.
+     *        The fully qualified domain name of the self-managed Active Directory directory.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -83,11 +85,12 @@ public class ActiveDirectoryBackupAttributes implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The ID of the AWS Managed Microsoft Active Directory instance to which the file system is joined.
+     * The ID of the Amazon Web Services Managed Microsoft Active Directory instance to which the file system is joined.
      * </p>
      * 
      * @param activeDirectoryId
-     *        The ID of the AWS Managed Microsoft Active Directory instance to which the file system is joined.
+     *        The ID of the Amazon Web Services Managed Microsoft Active Directory instance to which the file system is
+     *        joined.
      */
 
     public void setActiveDirectoryId(String activeDirectoryId) {
@@ -96,10 +99,11 @@ public class ActiveDirectoryBackupAttributes implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The ID of the AWS Managed Microsoft Active Directory instance to which the file system is joined.
+     * The ID of the Amazon Web Services Managed Microsoft Active Directory instance to which the file system is joined.
      * </p>
      * 
-     * @return The ID of the AWS Managed Microsoft Active Directory instance to which the file system is joined.
+     * @return The ID of the Amazon Web Services Managed Microsoft Active Directory instance to which the file system is
+     *         joined.
      */
 
     public String getActiveDirectoryId() {
@@ -108,16 +112,43 @@ public class ActiveDirectoryBackupAttributes implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The ID of the AWS Managed Microsoft Active Directory instance to which the file system is joined.
+     * The ID of the Amazon Web Services Managed Microsoft Active Directory instance to which the file system is joined.
      * </p>
      * 
      * @param activeDirectoryId
-     *        The ID of the AWS Managed Microsoft Active Directory instance to which the file system is joined.
+     *        The ID of the Amazon Web Services Managed Microsoft Active Directory instance to which the file system is
+     *        joined.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ActiveDirectoryBackupAttributes withActiveDirectoryId(String activeDirectoryId) {
         setActiveDirectoryId(activeDirectoryId);
+        return this;
+    }
+
+    /**
+     * @param resourceARN
+     */
+
+    public void setResourceARN(String resourceARN) {
+        this.resourceARN = resourceARN;
+    }
+
+    /**
+     * @return
+     */
+
+    public String getResourceARN() {
+        return this.resourceARN;
+    }
+
+    /**
+     * @param resourceARN
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ActiveDirectoryBackupAttributes withResourceARN(String resourceARN) {
+        setResourceARN(resourceARN);
         return this;
     }
 
@@ -136,7 +167,9 @@ public class ActiveDirectoryBackupAttributes implements Serializable, Cloneable,
         if (getDomainName() != null)
             sb.append("DomainName: ").append(getDomainName()).append(",");
         if (getActiveDirectoryId() != null)
-            sb.append("ActiveDirectoryId: ").append(getActiveDirectoryId());
+            sb.append("ActiveDirectoryId: ").append(getActiveDirectoryId()).append(",");
+        if (getResourceARN() != null)
+            sb.append("ResourceARN: ").append(getResourceARN());
         sb.append("}");
         return sb.toString();
     }
@@ -159,6 +192,10 @@ public class ActiveDirectoryBackupAttributes implements Serializable, Cloneable,
             return false;
         if (other.getActiveDirectoryId() != null && other.getActiveDirectoryId().equals(this.getActiveDirectoryId()) == false)
             return false;
+        if (other.getResourceARN() == null ^ this.getResourceARN() == null)
+            return false;
+        if (other.getResourceARN() != null && other.getResourceARN().equals(this.getResourceARN()) == false)
+            return false;
         return true;
     }
 
@@ -169,6 +206,7 @@ public class ActiveDirectoryBackupAttributes implements Serializable, Cloneable,
 
         hashCode = prime * hashCode + ((getDomainName() == null) ? 0 : getDomainName().hashCode());
         hashCode = prime * hashCode + ((getActiveDirectoryId() == null) ? 0 : getActiveDirectoryId().hashCode());
+        hashCode = prime * hashCode + ((getResourceARN() == null) ? 0 : getResourceARN().hashCode());
         return hashCode;
     }
 

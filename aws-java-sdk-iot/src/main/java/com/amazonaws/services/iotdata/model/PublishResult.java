@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -15,6 +15,11 @@ package com.amazonaws.services.iotdata.model;
 import java.io.Serializable;
 import javax.annotation.Generated;
 
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iot-data-2015-05-28/Publish" target="_top">AWS API
+ *      Documentation</a>
+ */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class PublishResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
 

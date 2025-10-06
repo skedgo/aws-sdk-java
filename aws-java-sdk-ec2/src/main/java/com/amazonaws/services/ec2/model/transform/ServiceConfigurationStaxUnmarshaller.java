@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -100,6 +100,26 @@ public class ServiceConfigurationStaxUnmarshaller implements Unmarshaller<Servic
                     continue;
                 }
 
+                if (context.testExpression("gatewayLoadBalancerArnSet", targetDepth)) {
+                    serviceConfiguration.withGatewayLoadBalancerArns(new ArrayList<String>());
+                    continue;
+                }
+
+                if (context.testExpression("gatewayLoadBalancerArnSet/item", targetDepth)) {
+                    serviceConfiguration.withGatewayLoadBalancerArns(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("supportedIpAddressTypeSet", targetDepth)) {
+                    serviceConfiguration.withSupportedIpAddressTypes(new ArrayList<String>());
+                    continue;
+                }
+
+                if (context.testExpression("supportedIpAddressTypeSet/item", targetDepth)) {
+                    serviceConfiguration.withSupportedIpAddressTypes(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("baseEndpointDnsNameSet", targetDepth)) {
                     serviceConfiguration.withBaseEndpointDnsNames(new ArrayList<String>());
                     continue;
@@ -112,6 +132,16 @@ public class ServiceConfigurationStaxUnmarshaller implements Unmarshaller<Servic
 
                 if (context.testExpression("privateDnsName", targetDepth)) {
                     serviceConfiguration.setPrivateDnsName(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("privateDnsNameConfiguration", targetDepth)) {
+                    serviceConfiguration.setPrivateDnsNameConfiguration(PrivateDnsNameConfigurationStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("payerResponsibility", targetDepth)) {
+                    serviceConfiguration.setPayerResponsibility(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
 

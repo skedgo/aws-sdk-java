@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -106,7 +106,9 @@ public class FleetJsonUnmarshaller implements Unmarshaller<Fleet, JsonUnmarshall
                 }
                 if (context.testExpression("FleetErrors", targetDepth)) {
                     context.nextToken();
-                    fleet.setFleetErrors(new ListUnmarshaller<FleetError>(FleetErrorJsonUnmarshaller.getInstance()).unmarshall(context));
+                    fleet.setFleetErrors(new ListUnmarshaller<FleetError>(FleetErrorJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("EnableDefaultInternetAccess", targetDepth)) {
                     context.nextToken();
@@ -119,6 +121,36 @@ public class FleetJsonUnmarshaller implements Unmarshaller<Fleet, JsonUnmarshall
                 if (context.testExpression("IdleDisconnectTimeoutInSeconds", targetDepth)) {
                     context.nextToken();
                     fleet.setIdleDisconnectTimeoutInSeconds(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("IamRoleArn", targetDepth)) {
+                    context.nextToken();
+                    fleet.setIamRoleArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("StreamView", targetDepth)) {
+                    context.nextToken();
+                    fleet.setStreamView(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Platform", targetDepth)) {
+                    context.nextToken();
+                    fleet.setPlatform(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("MaxConcurrentSessions", targetDepth)) {
+                    context.nextToken();
+                    fleet.setMaxConcurrentSessions(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("UsbDeviceFilterStrings", targetDepth)) {
+                    context.nextToken();
+                    fleet.setUsbDeviceFilterStrings(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("SessionScriptS3Location", targetDepth)) {
+                    context.nextToken();
+                    fleet.setSessionScriptS3Location(S3LocationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("MaxSessionsPerInstance", targetDepth)) {
+                    context.nextToken();
+                    fleet.setMaxSessionsPerInstance(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

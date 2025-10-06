@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,6 +40,50 @@ public class SqlParameter implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private Field value;
+    /**
+     * <p>
+     * A hint that specifies the correct object type for data type mapping. Possible values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DATE</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>DATE</code> type to the database. The accepted format is <code>YYYY-MM-DD</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DECIMAL</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>DECIMAL</code> type to the database.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>JSON</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>JSON</code> type to the database.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TIME</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>TIME</code> type to the database. The accepted format is <code>HH:MM:SS[.FFF]</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TIMESTAMP</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>TIMESTAMP</code> type to the database. The accepted format is <code>YYYY-MM-DD HH:MM:SS[.FFF]</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UUID</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>UUID</code> type to the database.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String typeHint;
 
     /**
      * <p>
@@ -122,6 +166,369 @@ public class SqlParameter implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * A hint that specifies the correct object type for data type mapping. Possible values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DATE</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>DATE</code> type to the database. The accepted format is <code>YYYY-MM-DD</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DECIMAL</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>DECIMAL</code> type to the database.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>JSON</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>JSON</code> type to the database.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TIME</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>TIME</code> type to the database. The accepted format is <code>HH:MM:SS[.FFF]</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TIMESTAMP</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>TIMESTAMP</code> type to the database. The accepted format is <code>YYYY-MM-DD HH:MM:SS[.FFF]</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UUID</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>UUID</code> type to the database.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param typeHint
+     *        A hint that specifies the correct object type for data type mapping. Possible values are as follows:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DATE</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>DATE</code> type to the database. The accepted format is <code>YYYY-MM-DD</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DECIMAL</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>DECIMAL</code> type to the database.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>JSON</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>JSON</code> type to the database.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TIME</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>TIME</code> type to the database. The accepted format is <code>HH:MM:SS[.FFF]</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TIMESTAMP</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>TIMESTAMP</code> type to the database. The accepted format is <code>YYYY-MM-DD HH:MM:SS[.FFF]</code>
+     *        .
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UUID</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>UUID</code> type to the database.
+     *        </p>
+     *        </li>
+     * @see TypeHint
+     */
+
+    public void setTypeHint(String typeHint) {
+        this.typeHint = typeHint;
+    }
+
+    /**
+     * <p>
+     * A hint that specifies the correct object type for data type mapping. Possible values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DATE</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>DATE</code> type to the database. The accepted format is <code>YYYY-MM-DD</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DECIMAL</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>DECIMAL</code> type to the database.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>JSON</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>JSON</code> type to the database.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TIME</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>TIME</code> type to the database. The accepted format is <code>HH:MM:SS[.FFF]</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TIMESTAMP</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>TIMESTAMP</code> type to the database. The accepted format is <code>YYYY-MM-DD HH:MM:SS[.FFF]</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UUID</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>UUID</code> type to the database.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return A hint that specifies the correct object type for data type mapping. Possible values are as follows:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>DATE</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *         <code>DATE</code> type to the database. The accepted format is <code>YYYY-MM-DD</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DECIMAL</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *         <code>DECIMAL</code> type to the database.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>JSON</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *         <code>JSON</code> type to the database.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TIME</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *         <code>TIME</code> type to the database. The accepted format is <code>HH:MM:SS[.FFF]</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TIMESTAMP</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *         <code>TIMESTAMP</code> type to the database. The accepted format is
+     *         <code>YYYY-MM-DD HH:MM:SS[.FFF]</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>UUID</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *         <code>UUID</code> type to the database.
+     *         </p>
+     *         </li>
+     * @see TypeHint
+     */
+
+    public String getTypeHint() {
+        return this.typeHint;
+    }
+
+    /**
+     * <p>
+     * A hint that specifies the correct object type for data type mapping. Possible values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DATE</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>DATE</code> type to the database. The accepted format is <code>YYYY-MM-DD</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DECIMAL</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>DECIMAL</code> type to the database.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>JSON</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>JSON</code> type to the database.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TIME</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>TIME</code> type to the database. The accepted format is <code>HH:MM:SS[.FFF]</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TIMESTAMP</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>TIMESTAMP</code> type to the database. The accepted format is <code>YYYY-MM-DD HH:MM:SS[.FFF]</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UUID</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>UUID</code> type to the database.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param typeHint
+     *        A hint that specifies the correct object type for data type mapping. Possible values are as follows:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DATE</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>DATE</code> type to the database. The accepted format is <code>YYYY-MM-DD</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DECIMAL</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>DECIMAL</code> type to the database.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>JSON</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>JSON</code> type to the database.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TIME</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>TIME</code> type to the database. The accepted format is <code>HH:MM:SS[.FFF]</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TIMESTAMP</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>TIMESTAMP</code> type to the database. The accepted format is <code>YYYY-MM-DD HH:MM:SS[.FFF]</code>
+     *        .
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UUID</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>UUID</code> type to the database.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TypeHint
+     */
+
+    public SqlParameter withTypeHint(String typeHint) {
+        setTypeHint(typeHint);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A hint that specifies the correct object type for data type mapping. Possible values are as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DATE</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>DATE</code> type to the database. The accepted format is <code>YYYY-MM-DD</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DECIMAL</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>DECIMAL</code> type to the database.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>JSON</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>JSON</code> type to the database.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TIME</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>TIME</code> type to the database. The accepted format is <code>HH:MM:SS[.FFF]</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TIMESTAMP</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>TIMESTAMP</code> type to the database. The accepted format is <code>YYYY-MM-DD HH:MM:SS[.FFF]</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>UUID</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     * <code>UUID</code> type to the database.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param typeHint
+     *        A hint that specifies the correct object type for data type mapping. Possible values are as follows:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DATE</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>DATE</code> type to the database. The accepted format is <code>YYYY-MM-DD</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DECIMAL</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>DECIMAL</code> type to the database.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>JSON</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>JSON</code> type to the database.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TIME</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>TIME</code> type to the database. The accepted format is <code>HH:MM:SS[.FFF]</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TIMESTAMP</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>TIMESTAMP</code> type to the database. The accepted format is <code>YYYY-MM-DD HH:MM:SS[.FFF]</code>
+     *        .
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>UUID</code> - The corresponding <code>String</code> parameter value is sent as an object of
+     *        <code>UUID</code> type to the database.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TypeHint
+     */
+
+    public SqlParameter withTypeHint(TypeHint typeHint) {
+        this.typeHint = typeHint.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -136,7 +543,9 @@ public class SqlParameter implements Serializable, Cloneable, StructuredPojo {
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getValue() != null)
-            sb.append("Value: ").append(getValue());
+            sb.append("Value: ").append(getValue()).append(",");
+        if (getTypeHint() != null)
+            sb.append("TypeHint: ").append(getTypeHint());
         sb.append("}");
         return sb.toString();
     }
@@ -159,6 +568,10 @@ public class SqlParameter implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getValue() != null && other.getValue().equals(this.getValue()) == false)
             return false;
+        if (other.getTypeHint() == null ^ this.getTypeHint() == null)
+            return false;
+        if (other.getTypeHint() != null && other.getTypeHint().equals(this.getTypeHint()) == false)
+            return false;
         return true;
     }
 
@@ -169,6 +582,7 @@ public class SqlParameter implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getValue() == null) ? 0 : getValue().hashCode());
+        hashCode = prime * hashCode + ((getTypeHint() == null) ? 0 : getTypeHint().hashCode());
         return hashCode;
     }
 

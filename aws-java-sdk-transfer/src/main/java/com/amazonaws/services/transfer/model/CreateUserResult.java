@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,24 +25,24 @@ public class CreateUserResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The ID of the SFTP server that the user is attached to.
+     * The identifier of the server that the user is attached to.
      * </p>
      */
     private String serverId;
     /**
      * <p>
-     * A unique string that identifies a user account associated with an SFTP server.
+     * A unique string that identifies a Transfer Family user.
      * </p>
      */
     private String userName;
 
     /**
      * <p>
-     * The ID of the SFTP server that the user is attached to.
+     * The identifier of the server that the user is attached to.
      * </p>
      * 
      * @param serverId
-     *        The ID of the SFTP server that the user is attached to.
+     *        The identifier of the server that the user is attached to.
      */
 
     public void setServerId(String serverId) {
@@ -51,10 +51,10 @@ public class CreateUserResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The ID of the SFTP server that the user is attached to.
+     * The identifier of the server that the user is attached to.
      * </p>
      * 
-     * @return The ID of the SFTP server that the user is attached to.
+     * @return The identifier of the server that the user is attached to.
      */
 
     public String getServerId() {
@@ -63,11 +63,11 @@ public class CreateUserResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * The ID of the SFTP server that the user is attached to.
+     * The identifier of the server that the user is attached to.
      * </p>
      * 
      * @param serverId
-     *        The ID of the SFTP server that the user is attached to.
+     *        The identifier of the server that the user is attached to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -78,11 +78,11 @@ public class CreateUserResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * A unique string that identifies a user account associated with an SFTP server.
+     * A unique string that identifies a Transfer Family user.
      * </p>
      * 
      * @param userName
-     *        A unique string that identifies a user account associated with an SFTP server.
+     *        A unique string that identifies a Transfer Family user.
      */
 
     public void setUserName(String userName) {
@@ -91,10 +91,10 @@ public class CreateUserResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * A unique string that identifies a user account associated with an SFTP server.
+     * A unique string that identifies a Transfer Family user.
      * </p>
      * 
-     * @return A unique string that identifies a user account associated with an SFTP server.
+     * @return A unique string that identifies a Transfer Family user.
      */
 
     public String getUserName() {
@@ -103,11 +103,11 @@ public class CreateUserResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * A unique string that identifies a user account associated with an SFTP server.
+     * A unique string that identifies a Transfer Family user.
      * </p>
      * 
      * @param userName
-     *        A unique string that identifies a user account associated with an SFTP server.
+     *        A unique string that identifies a Transfer Family user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

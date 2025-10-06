@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -221,7 +221,7 @@ public class UpdateDomainNameserversRequest extends com.amazonaws.AmazonWebServi
         if (getDomainName() != null)
             sb.append("DomainName: ").append(getDomainName()).append(",");
         if (getFIAuthKey() != null)
-            sb.append("FIAuthKey: ").append(getFIAuthKey()).append(",");
+            sb.append("FIAuthKey: ").append("***Sensitive Data Redacted***").append(",");
         if (getNameservers() != null)
             sb.append("Nameservers: ").append(getNameservers());
         sb.append("}");

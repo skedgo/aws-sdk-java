@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,17 +32,11 @@ public class CreateCustomActionTypeRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The category of the custom action, such as a build action or a test action.
      * </p>
-     * <note>
-     * <p>
-     * Although <code>Source</code> and <code>Approval</code> are listed as valid values, they are not currently
-     * functional. These values are reserved for future use.
-     * </p>
-     * </note>
      */
     private String category;
     /**
      * <p>
-     * The provider of the service used in the custom action, such as AWS CodeDeploy.
+     * The provider of the service used in the custom action, such as CodeDeploy.
      * </p>
      */
     private String provider;
@@ -96,19 +90,9 @@ public class CreateCustomActionTypeRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The category of the custom action, such as a build action or a test action.
      * </p>
-     * <note>
-     * <p>
-     * Although <code>Source</code> and <code>Approval</code> are listed as valid values, they are not currently
-     * functional. These values are reserved for future use.
-     * </p>
-     * </note>
      * 
      * @param category
-     *        The category of the custom action, such as a build action or a test action.</p> <note>
-     *        <p>
-     *        Although <code>Source</code> and <code>Approval</code> are listed as valid values, they are not currently
-     *        functional. These values are reserved for future use.
-     *        </p>
+     *        The category of the custom action, such as a build action or a test action.
      * @see ActionCategory
      */
 
@@ -120,18 +104,8 @@ public class CreateCustomActionTypeRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The category of the custom action, such as a build action or a test action.
      * </p>
-     * <note>
-     * <p>
-     * Although <code>Source</code> and <code>Approval</code> are listed as valid values, they are not currently
-     * functional. These values are reserved for future use.
-     * </p>
-     * </note>
      * 
-     * @return The category of the custom action, such as a build action or a test action.</p> <note>
-     *         <p>
-     *         Although <code>Source</code> and <code>Approval</code> are listed as valid values, they are not currently
-     *         functional. These values are reserved for future use.
-     *         </p>
+     * @return The category of the custom action, such as a build action or a test action.
      * @see ActionCategory
      */
 
@@ -143,19 +117,9 @@ public class CreateCustomActionTypeRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The category of the custom action, such as a build action or a test action.
      * </p>
-     * <note>
-     * <p>
-     * Although <code>Source</code> and <code>Approval</code> are listed as valid values, they are not currently
-     * functional. These values are reserved for future use.
-     * </p>
-     * </note>
      * 
      * @param category
-     *        The category of the custom action, such as a build action or a test action.</p> <note>
-     *        <p>
-     *        Although <code>Source</code> and <code>Approval</code> are listed as valid values, they are not currently
-     *        functional. These values are reserved for future use.
-     *        </p>
+     *        The category of the custom action, such as a build action or a test action.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ActionCategory
      */
@@ -169,19 +133,9 @@ public class CreateCustomActionTypeRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The category of the custom action, such as a build action or a test action.
      * </p>
-     * <note>
-     * <p>
-     * Although <code>Source</code> and <code>Approval</code> are listed as valid values, they are not currently
-     * functional. These values are reserved for future use.
-     * </p>
-     * </note>
      * 
      * @param category
-     *        The category of the custom action, such as a build action or a test action.</p> <note>
-     *        <p>
-     *        Although <code>Source</code> and <code>Approval</code> are listed as valid values, they are not currently
-     *        functional. These values are reserved for future use.
-     *        </p>
+     *        The category of the custom action, such as a build action or a test action.
      * @see ActionCategory
      */
 
@@ -193,19 +147,9 @@ public class CreateCustomActionTypeRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The category of the custom action, such as a build action or a test action.
      * </p>
-     * <note>
-     * <p>
-     * Although <code>Source</code> and <code>Approval</code> are listed as valid values, they are not currently
-     * functional. These values are reserved for future use.
-     * </p>
-     * </note>
      * 
      * @param category
-     *        The category of the custom action, such as a build action or a test action.</p> <note>
-     *        <p>
-     *        Although <code>Source</code> and <code>Approval</code> are listed as valid values, they are not currently
-     *        functional. These values are reserved for future use.
-     *        </p>
+     *        The category of the custom action, such as a build action or a test action.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ActionCategory
      */
@@ -217,11 +161,11 @@ public class CreateCustomActionTypeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The provider of the service used in the custom action, such as AWS CodeDeploy.
+     * The provider of the service used in the custom action, such as CodeDeploy.
      * </p>
      * 
      * @param provider
-     *        The provider of the service used in the custom action, such as AWS CodeDeploy.
+     *        The provider of the service used in the custom action, such as CodeDeploy.
      */
 
     public void setProvider(String provider) {
@@ -230,10 +174,10 @@ public class CreateCustomActionTypeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The provider of the service used in the custom action, such as AWS CodeDeploy.
+     * The provider of the service used in the custom action, such as CodeDeploy.
      * </p>
      * 
-     * @return The provider of the service used in the custom action, such as AWS CodeDeploy.
+     * @return The provider of the service used in the custom action, such as CodeDeploy.
      */
 
     public String getProvider() {
@@ -242,11 +186,11 @@ public class CreateCustomActionTypeRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The provider of the service used in the custom action, such as AWS CodeDeploy.
+     * The provider of the service used in the custom action, such as CodeDeploy.
      * </p>
      * 
      * @param provider
-     *        The provider of the service used in the custom action, such as AWS CodeDeploy.
+     *        The provider of the service used in the custom action, such as CodeDeploy.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

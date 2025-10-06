@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,13 +17,10 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * A complex type that specifies whether you want CloudFront to forward cookies to the origin and, if so, which ones.
- * For more information about forwarding cookies to the origin, see <a
- * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/header-caching.html"> Caching Content Based
- * on Request Headers</a> in the <i>Amazon CloudFront Developer Guide</i>.
+ * Contains a list of cookie names.
  * </p>
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CookieNames" target="_top">AWS API
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CookieNames" target="_top">AWS API
  *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -31,25 +28,24 @@ public class CookieNames implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of different cookies that you want CloudFront to forward to the origin for this cache behavior.
+     * The number of cookie names in the <code>Items</code> list.
      * </p>
      */
     private Integer quantity;
     /**
      * <p>
-     * A complex type that contains one <code>Name</code> element for each cookie that you want CloudFront to forward to
-     * the origin for this cache behavior.
+     * A list of cookie names.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> items;
 
     /**
      * <p>
-     * The number of different cookies that you want CloudFront to forward to the origin for this cache behavior.
+     * The number of cookie names in the <code>Items</code> list.
      * </p>
      * 
      * @param quantity
-     *        The number of different cookies that you want CloudFront to forward to the origin for this cache behavior.
+     *        The number of cookie names in the <code>Items</code> list.
      */
 
     public void setQuantity(Integer quantity) {
@@ -58,11 +54,10 @@ public class CookieNames implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of different cookies that you want CloudFront to forward to the origin for this cache behavior.
+     * The number of cookie names in the <code>Items</code> list.
      * </p>
      * 
-     * @return The number of different cookies that you want CloudFront to forward to the origin for this cache
-     *         behavior.
+     * @return The number of cookie names in the <code>Items</code> list.
      */
 
     public Integer getQuantity() {
@@ -71,11 +66,11 @@ public class CookieNames implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of different cookies that you want CloudFront to forward to the origin for this cache behavior.
+     * The number of cookie names in the <code>Items</code> list.
      * </p>
      * 
      * @param quantity
-     *        The number of different cookies that you want CloudFront to forward to the origin for this cache behavior.
+     *        The number of cookie names in the <code>Items</code> list.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -86,12 +81,10 @@ public class CookieNames implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A complex type that contains one <code>Name</code> element for each cookie that you want CloudFront to forward to
-     * the origin for this cache behavior.
+     * A list of cookie names.
      * </p>
      * 
-     * @return A complex type that contains one <code>Name</code> element for each cookie that you want CloudFront to
-     *         forward to the origin for this cache behavior.
+     * @return A list of cookie names.
      */
 
     public java.util.List<String> getItems() {
@@ -103,13 +96,11 @@ public class CookieNames implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A complex type that contains one <code>Name</code> element for each cookie that you want CloudFront to forward to
-     * the origin for this cache behavior.
+     * A list of cookie names.
      * </p>
      * 
      * @param items
-     *        A complex type that contains one <code>Name</code> element for each cookie that you want CloudFront to
-     *        forward to the origin for this cache behavior.
+     *        A list of cookie names.
      */
 
     public void setItems(java.util.Collection<String> items) {
@@ -123,8 +114,7 @@ public class CookieNames implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A complex type that contains one <code>Name</code> element for each cookie that you want CloudFront to forward to
-     * the origin for this cache behavior.
+     * A list of cookie names.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -133,8 +123,7 @@ public class CookieNames implements Serializable, Cloneable {
      * </p>
      * 
      * @param items
-     *        A complex type that contains one <code>Name</code> element for each cookie that you want CloudFront to
-     *        forward to the origin for this cache behavior.
+     *        A list of cookie names.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -150,13 +139,11 @@ public class CookieNames implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A complex type that contains one <code>Name</code> element for each cookie that you want CloudFront to forward to
-     * the origin for this cache behavior.
+     * A list of cookie names.
      * </p>
      * 
      * @param items
-     *        A complex type that contains one <code>Name</code> element for each cookie that you want CloudFront to
-     *        forward to the origin for this cache behavior.
+     *        A list of cookie names.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

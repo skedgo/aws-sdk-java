@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ public class PurchaseOfferingRequestMarshaller {
             .marshallLocationName("name").build();
     private static final MarshallingInfo<String> OFFERINGID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PATH)
             .marshallLocationName("offeringId").build();
+    private static final MarshallingInfo<StructuredPojo> RENEWALSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("renewalSettings").build();
     private static final MarshallingInfo<String> REQUESTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("requestId").defaultValueSupplier(com.amazonaws.util.IdempotentUtils.getGenerator()).build();
     private static final MarshallingInfo<String> START_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -63,6 +65,7 @@ public class PurchaseOfferingRequestMarshaller {
             protocolMarshaller.marshall(purchaseOfferingRequest.getCount(), COUNT_BINDING);
             protocolMarshaller.marshall(purchaseOfferingRequest.getName(), NAME_BINDING);
             protocolMarshaller.marshall(purchaseOfferingRequest.getOfferingId(), OFFERINGID_BINDING);
+            protocolMarshaller.marshall(purchaseOfferingRequest.getRenewalSettings(), RENEWALSETTINGS_BINDING);
             protocolMarshaller.marshall(purchaseOfferingRequest.getRequestId(), REQUESTID_BINDING);
             protocolMarshaller.marshall(purchaseOfferingRequest.getStart(), START_BINDING);
             protocolMarshaller.marshall(purchaseOfferingRequest.getTags(), TAGS_BINDING);

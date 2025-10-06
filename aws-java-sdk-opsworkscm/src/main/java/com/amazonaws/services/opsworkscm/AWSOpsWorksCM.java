@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -128,6 +128,10 @@ import com.amazonaws.services.opsworkscm.waiters.AWSOpsWorksCMWaiters;
  * </li>
  * </ul>
  * <p>
+ * For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/opsworks-service.html">AWS OpsWorks
+ * endpoints and quotas</a> in the AWS General Reference.
+ * </p>
+ * <p>
  * <b>Throttling limits</b>
  * </p>
  * <p>
@@ -214,7 +218,7 @@ public interface AWSOpsWorksCM {
      * Puppet node CSR.
      * </p>
      * <p>
-     * Example (Chef):
+     * Example (Puppet):
      * <code>aws opsworks-cm associate-node --server-name <i>MyServer</i> --node-name <i>MyManagedNode</i> --engine-attributes "Name=<i>PUPPET_NODE_CSR</i>,Value=<i>csr-pem</i>"</code>
      * </p>
      * <p>
@@ -305,6 +309,11 @@ public interface AWSOpsWorksCM {
      * By default, your server is accessible from any IP address. We recommend that you update your security group rules
      * to allow access from known IP addresses and address ranges only. To edit security group rules, open Security
      * Groups in the navigation pane of the EC2 management console.
+     * </p>
+     * <p>
+     * To specify your own domain for a server, and provide your own self-signed or CA-signed certificate and private
+     * key, specify values for <code>CustomDomain</code>, <code>CustomCertificate</code>, and
+     * <code>CustomPrivateKey</code>.
      * </p>
      * 
      * @param createServerRequest
@@ -554,10 +563,34 @@ public interface AWSOpsWorksCM {
 
     /**
      * <p>
+     * Returns a list of tags that are applied to the specified AWS OpsWorks for Chef Automate or AWS OpsWorks for
+     * Puppet Enterprise servers or backups.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The requested resource does not exist, or access was denied.
+     * @throws ValidationException
+     *         One or more of the provided request parameters are not valid.
+     * @sample AWSOpsWorksCM.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/opsworkscm-2016-11-01/ListTagsForResource" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest);
+
+    /**
+     * <p>
      * Restores a backup to a server that is in a <code>CONNECTION_LOST</code>, <code>HEALTHY</code>,
      * <code>RUNNING</code>, <code>UNHEALTHY</code>, or <code>TERMINATED</code> state. When you run RestoreServer, the
      * server's EC2 instance is deleted, and a new EC2 instance is configured. RestoreServer maintains the existing
      * server endpoint, so configuration management of the server's client devices (nodes) should continue to work.
+     * </p>
+     * <p>
+     * Restoring from a backup is performed by creating a new EC2 instance. If restoration is successful, and the server
+     * is in a <code>HEALTHY</code> state, AWS OpsWorks CM switches traffic over to the new instance. After restoration
+     * is finished, the old EC2 instance is maintained in a <code>Running</code> or <code>Stopped</code> state, but is
+     * eventually terminated.
      * </p>
      * <p>
      * This operation is asynchronous.
@@ -607,6 +640,45 @@ public interface AWSOpsWorksCM {
      *      API Documentation</a>
      */
     StartMaintenanceResult startMaintenance(StartMaintenanceRequest startMaintenanceRequest);
+
+    /**
+     * <p>
+     * Applies tags to an AWS OpsWorks for Chef Automate or AWS OpsWorks for Puppet Enterprise server, or to server
+     * backups.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The requested resource does not exist, or access was denied.
+     * @throws ValidationException
+     *         One or more of the provided request parameters are not valid.
+     * @throws InvalidStateException
+     *         The resource is in a state that does not allow you to perform a specified action.
+     * @sample AWSOpsWorksCM.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/opsworkscm-2016-11-01/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    TagResourceResult tagResource(TagResourceRequest tagResourceRequest);
+
+    /**
+     * <p>
+     * Removes specified tags from an AWS OpsWorks-CM server or backup.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The requested resource does not exist, or access was denied.
+     * @throws ValidationException
+     *         One or more of the provided request parameters are not valid.
+     * @throws InvalidStateException
+     *         The resource is in a state that does not allow you to perform a specified action.
+     * @sample AWSOpsWorksCM.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/opsworkscm-2016-11-01/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UntagResourceResult untagResource(UntagResourceRequest untagResourceRequest);
 
     /**
      * <p>

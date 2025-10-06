@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Details about a version of an <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">AWS
- * Lambda layer</a>.
+ * Details about a version of an <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">Lambda
+ * layer</a>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/LayerVersionsListItem" target="_top">AWS API
@@ -58,6 +58,11 @@ public class LayerVersionsListItem implements Serializable, Cloneable, Structure
      * <p>
      * The layer's compatible runtimes.
      * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
+     * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> compatibleRuntimes;
     /**
@@ -66,6 +71,13 @@ public class LayerVersionsListItem implements Serializable, Cloneable, Structure
      * </p>
      */
     private String licenseInfo;
+    /**
+     * <p>
+     * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architectures</a>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> compatibleArchitectures;
 
     /**
      * <p>
@@ -237,8 +249,17 @@ public class LayerVersionsListItem implements Serializable, Cloneable, Structure
      * <p>
      * The layer's compatible runtimes.
      * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
+     * </p>
      * 
-     * @return The layer's compatible runtimes.
+     * @return The layer's compatible runtimes.</p>
+     *         <p>
+     *         The following list includes deprecated runtimes. For more information, see <a
+     *         href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *         deprecation policy</a>.
      * @see Runtime
      */
 
@@ -253,9 +274,18 @@ public class LayerVersionsListItem implements Serializable, Cloneable, Structure
      * <p>
      * The layer's compatible runtimes.
      * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
+     * </p>
      * 
      * @param compatibleRuntimes
-     *        The layer's compatible runtimes.
+     *        The layer's compatible runtimes.</p>
+     *        <p>
+     *        The following list includes deprecated runtimes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *        deprecation policy</a>.
      * @see Runtime
      */
 
@@ -273,13 +303,22 @@ public class LayerVersionsListItem implements Serializable, Cloneable, Structure
      * The layer's compatible runtimes.
      * </p>
      * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
+     * </p>
+     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setCompatibleRuntimes(java.util.Collection)} or {@link #withCompatibleRuntimes(java.util.Collection)} if
      * you want to override the existing values.
      * </p>
      * 
      * @param compatibleRuntimes
-     *        The layer's compatible runtimes.
+     *        The layer's compatible runtimes.</p>
+     *        <p>
+     *        The following list includes deprecated runtimes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *        deprecation policy</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Runtime
      */
@@ -298,9 +337,18 @@ public class LayerVersionsListItem implements Serializable, Cloneable, Structure
      * <p>
      * The layer's compatible runtimes.
      * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
+     * </p>
      * 
      * @param compatibleRuntimes
-     *        The layer's compatible runtimes.
+     *        The layer's compatible runtimes.</p>
+     *        <p>
+     *        The following list includes deprecated runtimes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *        deprecation policy</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Runtime
      */
@@ -314,9 +362,18 @@ public class LayerVersionsListItem implements Serializable, Cloneable, Structure
      * <p>
      * The layer's compatible runtimes.
      * </p>
+     * <p>
+     * The following list includes deprecated runtimes. For more information, see <a
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     * deprecation policy</a>.
+     * </p>
      * 
      * @param compatibleRuntimes
-     *        The layer's compatible runtimes.
+     *        The layer's compatible runtimes.</p>
+     *        <p>
+     *        The following list includes deprecated runtimes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy">Runtime
+     *        deprecation policy</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Runtime
      */
@@ -375,6 +432,123 @@ public class LayerVersionsListItem implements Serializable, Cloneable, Structure
     }
 
     /**
+     * <p>
+     * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architectures</a>.
+     * </p>
+     * 
+     * @return A list of compatible <a
+     *         href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     *         architectures</a>.
+     * @see Architecture
+     */
+
+    public java.util.List<String> getCompatibleArchitectures() {
+        if (compatibleArchitectures == null) {
+            compatibleArchitectures = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return compatibleArchitectures;
+    }
+
+    /**
+     * <p>
+     * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architectures</a>.
+     * </p>
+     * 
+     * @param compatibleArchitectures
+     *        A list of compatible <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     *        architectures</a>.
+     * @see Architecture
+     */
+
+    public void setCompatibleArchitectures(java.util.Collection<String> compatibleArchitectures) {
+        if (compatibleArchitectures == null) {
+            this.compatibleArchitectures = null;
+            return;
+        }
+
+        this.compatibleArchitectures = new com.amazonaws.internal.SdkInternalList<String>(compatibleArchitectures);
+    }
+
+    /**
+     * <p>
+     * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architectures</a>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCompatibleArchitectures(java.util.Collection)} or
+     * {@link #withCompatibleArchitectures(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param compatibleArchitectures
+     *        A list of compatible <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     *        architectures</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Architecture
+     */
+
+    public LayerVersionsListItem withCompatibleArchitectures(String... compatibleArchitectures) {
+        if (this.compatibleArchitectures == null) {
+            setCompatibleArchitectures(new com.amazonaws.internal.SdkInternalList<String>(compatibleArchitectures.length));
+        }
+        for (String ele : compatibleArchitectures) {
+            this.compatibleArchitectures.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architectures</a>.
+     * </p>
+     * 
+     * @param compatibleArchitectures
+     *        A list of compatible <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     *        architectures</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Architecture
+     */
+
+    public LayerVersionsListItem withCompatibleArchitectures(java.util.Collection<String> compatibleArchitectures) {
+        setCompatibleArchitectures(compatibleArchitectures);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of compatible <a href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     * architectures</a>.
+     * </p>
+     * 
+     * @param compatibleArchitectures
+     *        A list of compatible <a
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html">instruction set
+     *        architectures</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Architecture
+     */
+
+    public LayerVersionsListItem withCompatibleArchitectures(Architecture... compatibleArchitectures) {
+        com.amazonaws.internal.SdkInternalList<String> compatibleArchitecturesCopy = new com.amazonaws.internal.SdkInternalList<String>(
+                compatibleArchitectures.length);
+        for (Architecture value : compatibleArchitectures) {
+            compatibleArchitecturesCopy.add(value.toString());
+        }
+        if (getCompatibleArchitectures() == null) {
+            setCompatibleArchitectures(compatibleArchitecturesCopy);
+        } else {
+            getCompatibleArchitectures().addAll(compatibleArchitecturesCopy);
+        }
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -397,7 +571,9 @@ public class LayerVersionsListItem implements Serializable, Cloneable, Structure
         if (getCompatibleRuntimes() != null)
             sb.append("CompatibleRuntimes: ").append(getCompatibleRuntimes()).append(",");
         if (getLicenseInfo() != null)
-            sb.append("LicenseInfo: ").append(getLicenseInfo());
+            sb.append("LicenseInfo: ").append(getLicenseInfo()).append(",");
+        if (getCompatibleArchitectures() != null)
+            sb.append("CompatibleArchitectures: ").append(getCompatibleArchitectures());
         sb.append("}");
         return sb.toString();
     }
@@ -436,6 +612,10 @@ public class LayerVersionsListItem implements Serializable, Cloneable, Structure
             return false;
         if (other.getLicenseInfo() != null && other.getLicenseInfo().equals(this.getLicenseInfo()) == false)
             return false;
+        if (other.getCompatibleArchitectures() == null ^ this.getCompatibleArchitectures() == null)
+            return false;
+        if (other.getCompatibleArchitectures() != null && other.getCompatibleArchitectures().equals(this.getCompatibleArchitectures()) == false)
+            return false;
         return true;
     }
 
@@ -450,6 +630,7 @@ public class LayerVersionsListItem implements Serializable, Cloneable, Structure
         hashCode = prime * hashCode + ((getCreatedDate() == null) ? 0 : getCreatedDate().hashCode());
         hashCode = prime * hashCode + ((getCompatibleRuntimes() == null) ? 0 : getCompatibleRuntimes().hashCode());
         hashCode = prime * hashCode + ((getLicenseInfo() == null) ? 0 : getLicenseInfo().hashCode());
+        hashCode = prime * hashCode + ((getCompatibleArchitectures() == null) ? 0 : getCompatibleArchitectures().hashCode());
         return hashCode;
     }
 

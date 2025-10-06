@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,12 +12,12 @@
  */
 
 /**
- * <fullname>AWS Shield Advanced</fullname>
+ * <fullname>Shield Advanced</fullname>
  * <p>
- * This is the <i>AWS Shield Advanced API Reference</i>. This guide is for developers who need detailed information
- * about the AWS Shield Advanced API actions, data types, and errors. For detailed information about AWS WAF and AWS
- * Shield Advanced features and an overview of how to use the AWS WAF and AWS Shield Advanced APIs, see the <a
- * href="https://docs.aws.amazon.com/waf/latest/developerguide/">AWS WAF and AWS Shield Developer Guide</a>.
+ * This is the <i>Shield Advanced API Reference</i>. This guide is for developers who need detailed information about
+ * the Shield Advanced API actions, data types, and errors. For detailed information about WAF and Shield Advanced
+ * features and an overview of how to use the WAF and Shield Advanced APIs, see the <a
+ * href="https://docs.aws.amazon.com/waf/latest/developerguide/">WAF and Shield Developer Guide</a>.
  * </p>
  */
 package com.amazonaws.services.shield;

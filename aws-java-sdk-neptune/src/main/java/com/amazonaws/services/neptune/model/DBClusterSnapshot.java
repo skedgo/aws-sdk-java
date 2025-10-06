@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,7 +37,19 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
     private java.util.List<String> availabilityZones;
     /**
      * <p>
-     * Specifies the identifier for the DB cluster snapshot.
+     * Specifies the identifier for a DB cluster snapshot. Must match the identifier of an existing snapshot.
+     * </p>
+     * <p>
+     * After you restore a DB cluster using a <code>DBClusterSnapshotIdentifier</code>, you must specify the same
+     * <code>DBClusterSnapshotIdentifier</code> for any future updates to the DB cluster. When you specify this property
+     * for an update, the DB cluster is not restored from the snapshot again, and the data in the database is not
+     * changed.
+     * </p>
+     * <p>
+     * However, if you don't specify the <code>DBClusterSnapshotIdentifier</code>, an empty DB cluster is created, and
+     * the original DB cluster is deleted. If you specify a property that is different from the previous snapshot
+     * restore property, the DB cluster is restored from the snapshot specified by the
+     * <code>DBClusterSnapshotIdentifier</code>, and the original DB cluster is deleted.
      * </p>
      */
     private String dBClusterSnapshotIdentifier;
@@ -91,7 +103,7 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
     private java.util.Date clusterCreateTime;
     /**
      * <p>
-     * Provides the master username for the DB cluster snapshot.
+     * Not supported by Neptune.
      * </p>
      */
     private String masterUsername;
@@ -127,7 +139,7 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
     private Boolean storageEncrypted;
     /**
      * <p>
-     * If <code>StorageEncrypted</code> is true, the AWS KMS key identifier for the encrypted DB cluster snapshot.
+     * If <code>StorageEncrypted</code> is true, the Amazon KMS key identifier for the encrypted DB cluster snapshot.
      * </p>
      */
     private String kmsKeyId;
@@ -146,11 +158,17 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
     private String sourceDBClusterSnapshotArn;
     /**
      * <p>
-     * True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
+     * True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled, and
      * otherwise false.
      * </p>
      */
     private Boolean iAMDatabaseAuthenticationEnabled;
+    /**
+     * <p>
+     * The storage type associated with the DB cluster snapshot.
+     * </p>
+     */
+    private String storageType;
 
     /**
      * <p>
@@ -224,11 +242,34 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the identifier for the DB cluster snapshot.
+     * Specifies the identifier for a DB cluster snapshot. Must match the identifier of an existing snapshot.
+     * </p>
+     * <p>
+     * After you restore a DB cluster using a <code>DBClusterSnapshotIdentifier</code>, you must specify the same
+     * <code>DBClusterSnapshotIdentifier</code> for any future updates to the DB cluster. When you specify this property
+     * for an update, the DB cluster is not restored from the snapshot again, and the data in the database is not
+     * changed.
+     * </p>
+     * <p>
+     * However, if you don't specify the <code>DBClusterSnapshotIdentifier</code>, an empty DB cluster is created, and
+     * the original DB cluster is deleted. If you specify a property that is different from the previous snapshot
+     * restore property, the DB cluster is restored from the snapshot specified by the
+     * <code>DBClusterSnapshotIdentifier</code>, and the original DB cluster is deleted.
      * </p>
      * 
      * @param dBClusterSnapshotIdentifier
-     *        Specifies the identifier for the DB cluster snapshot.
+     *        Specifies the identifier for a DB cluster snapshot. Must match the identifier of an existing snapshot.</p>
+     *        <p>
+     *        After you restore a DB cluster using a <code>DBClusterSnapshotIdentifier</code>, you must specify the same
+     *        <code>DBClusterSnapshotIdentifier</code> for any future updates to the DB cluster. When you specify this
+     *        property for an update, the DB cluster is not restored from the snapshot again, and the data in the
+     *        database is not changed.
+     *        </p>
+     *        <p>
+     *        However, if you don't specify the <code>DBClusterSnapshotIdentifier</code>, an empty DB cluster is
+     *        created, and the original DB cluster is deleted. If you specify a property that is different from the
+     *        previous snapshot restore property, the DB cluster is restored from the snapshot specified by the
+     *        <code>DBClusterSnapshotIdentifier</code>, and the original DB cluster is deleted.
      */
 
     public void setDBClusterSnapshotIdentifier(String dBClusterSnapshotIdentifier) {
@@ -237,10 +278,34 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the identifier for the DB cluster snapshot.
+     * Specifies the identifier for a DB cluster snapshot. Must match the identifier of an existing snapshot.
+     * </p>
+     * <p>
+     * After you restore a DB cluster using a <code>DBClusterSnapshotIdentifier</code>, you must specify the same
+     * <code>DBClusterSnapshotIdentifier</code> for any future updates to the DB cluster. When you specify this property
+     * for an update, the DB cluster is not restored from the snapshot again, and the data in the database is not
+     * changed.
+     * </p>
+     * <p>
+     * However, if you don't specify the <code>DBClusterSnapshotIdentifier</code>, an empty DB cluster is created, and
+     * the original DB cluster is deleted. If you specify a property that is different from the previous snapshot
+     * restore property, the DB cluster is restored from the snapshot specified by the
+     * <code>DBClusterSnapshotIdentifier</code>, and the original DB cluster is deleted.
      * </p>
      * 
-     * @return Specifies the identifier for the DB cluster snapshot.
+     * @return Specifies the identifier for a DB cluster snapshot. Must match the identifier of an existing
+     *         snapshot.</p>
+     *         <p>
+     *         After you restore a DB cluster using a <code>DBClusterSnapshotIdentifier</code>, you must specify the
+     *         same <code>DBClusterSnapshotIdentifier</code> for any future updates to the DB cluster. When you specify
+     *         this property for an update, the DB cluster is not restored from the snapshot again, and the data in the
+     *         database is not changed.
+     *         </p>
+     *         <p>
+     *         However, if you don't specify the <code>DBClusterSnapshotIdentifier</code>, an empty DB cluster is
+     *         created, and the original DB cluster is deleted. If you specify a property that is different from the
+     *         previous snapshot restore property, the DB cluster is restored from the snapshot specified by the
+     *         <code>DBClusterSnapshotIdentifier</code>, and the original DB cluster is deleted.
      */
 
     public String getDBClusterSnapshotIdentifier() {
@@ -249,11 +314,34 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the identifier for the DB cluster snapshot.
+     * Specifies the identifier for a DB cluster snapshot. Must match the identifier of an existing snapshot.
+     * </p>
+     * <p>
+     * After you restore a DB cluster using a <code>DBClusterSnapshotIdentifier</code>, you must specify the same
+     * <code>DBClusterSnapshotIdentifier</code> for any future updates to the DB cluster. When you specify this property
+     * for an update, the DB cluster is not restored from the snapshot again, and the data in the database is not
+     * changed.
+     * </p>
+     * <p>
+     * However, if you don't specify the <code>DBClusterSnapshotIdentifier</code>, an empty DB cluster is created, and
+     * the original DB cluster is deleted. If you specify a property that is different from the previous snapshot
+     * restore property, the DB cluster is restored from the snapshot specified by the
+     * <code>DBClusterSnapshotIdentifier</code>, and the original DB cluster is deleted.
      * </p>
      * 
      * @param dBClusterSnapshotIdentifier
-     *        Specifies the identifier for the DB cluster snapshot.
+     *        Specifies the identifier for a DB cluster snapshot. Must match the identifier of an existing snapshot.</p>
+     *        <p>
+     *        After you restore a DB cluster using a <code>DBClusterSnapshotIdentifier</code>, you must specify the same
+     *        <code>DBClusterSnapshotIdentifier</code> for any future updates to the DB cluster. When you specify this
+     *        property for an update, the DB cluster is not restored from the snapshot again, and the data in the
+     *        database is not changed.
+     *        </p>
+     *        <p>
+     *        However, if you don't specify the <code>DBClusterSnapshotIdentifier</code>, an empty DB cluster is
+     *        created, and the original DB cluster is deleted. If you specify a property that is different from the
+     *        previous snapshot restore property, the DB cluster is restored from the snapshot specified by the
+     *        <code>DBClusterSnapshotIdentifier</code>, and the original DB cluster is deleted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -584,11 +672,11 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the master username for the DB cluster snapshot.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param masterUsername
-     *        Provides the master username for the DB cluster snapshot.
+     *        Not supported by Neptune.
      */
 
     public void setMasterUsername(String masterUsername) {
@@ -597,10 +685,10 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the master username for the DB cluster snapshot.
+     * Not supported by Neptune.
      * </p>
      * 
-     * @return Provides the master username for the DB cluster snapshot.
+     * @return Not supported by Neptune.
      */
 
     public String getMasterUsername() {
@@ -609,11 +697,11 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the master username for the DB cluster snapshot.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param masterUsername
-     *        Provides the master username for the DB cluster snapshot.
+     *        Not supported by Neptune.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -836,11 +924,11 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>StorageEncrypted</code> is true, the AWS KMS key identifier for the encrypted DB cluster snapshot.
+     * If <code>StorageEncrypted</code> is true, the Amazon KMS key identifier for the encrypted DB cluster snapshot.
      * </p>
      * 
      * @param kmsKeyId
-     *        If <code>StorageEncrypted</code> is true, the AWS KMS key identifier for the encrypted DB cluster
+     *        If <code>StorageEncrypted</code> is true, the Amazon KMS key identifier for the encrypted DB cluster
      *        snapshot.
      */
 
@@ -850,10 +938,10 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>StorageEncrypted</code> is true, the AWS KMS key identifier for the encrypted DB cluster snapshot.
+     * If <code>StorageEncrypted</code> is true, the Amazon KMS key identifier for the encrypted DB cluster snapshot.
      * </p>
      * 
-     * @return If <code>StorageEncrypted</code> is true, the AWS KMS key identifier for the encrypted DB cluster
+     * @return If <code>StorageEncrypted</code> is true, the Amazon KMS key identifier for the encrypted DB cluster
      *         snapshot.
      */
 
@@ -863,11 +951,11 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>StorageEncrypted</code> is true, the AWS KMS key identifier for the encrypted DB cluster snapshot.
+     * If <code>StorageEncrypted</code> is true, the Amazon KMS key identifier for the encrypted DB cluster snapshot.
      * </p>
      * 
      * @param kmsKeyId
-     *        If <code>StorageEncrypted</code> is true, the AWS KMS key identifier for the encrypted DB cluster
+     *        If <code>StorageEncrypted</code> is true, the Amazon KMS key identifier for the encrypted DB cluster
      *        snapshot.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -965,13 +1053,13 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
+     * True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled, and
      * otherwise false.
      * </p>
      * 
      * @param iAMDatabaseAuthenticationEnabled
-     *        True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     *        otherwise false.
+     *        True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled,
+     *        and otherwise false.
      */
 
     public void setIAMDatabaseAuthenticationEnabled(Boolean iAMDatabaseAuthenticationEnabled) {
@@ -980,12 +1068,12 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
+     * True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled, and
      * otherwise false.
      * </p>
      * 
-     * @return True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     *         otherwise false.
+     * @return True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled,
+     *         and otherwise false.
      */
 
     public Boolean getIAMDatabaseAuthenticationEnabled() {
@@ -994,13 +1082,13 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
+     * True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled, and
      * otherwise false.
      * </p>
      * 
      * @param iAMDatabaseAuthenticationEnabled
-     *        True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     *        otherwise false.
+     *        True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled,
+     *        and otherwise false.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1011,16 +1099,56 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
+     * True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled, and
      * otherwise false.
      * </p>
      * 
-     * @return True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     *         otherwise false.
+     * @return True if mapping of Amazon Identity and Access Management (IAM) accounts to database accounts is enabled,
+     *         and otherwise false.
      */
 
     public Boolean isIAMDatabaseAuthenticationEnabled() {
         return this.iAMDatabaseAuthenticationEnabled;
+    }
+
+    /**
+     * <p>
+     * The storage type associated with the DB cluster snapshot.
+     * </p>
+     * 
+     * @param storageType
+     *        The storage type associated with the DB cluster snapshot.
+     */
+
+    public void setStorageType(String storageType) {
+        this.storageType = storageType;
+    }
+
+    /**
+     * <p>
+     * The storage type associated with the DB cluster snapshot.
+     * </p>
+     * 
+     * @return The storage type associated with the DB cluster snapshot.
+     */
+
+    public String getStorageType() {
+        return this.storageType;
+    }
+
+    /**
+     * <p>
+     * The storage type associated with the DB cluster snapshot.
+     * </p>
+     * 
+     * @param storageType
+     *        The storage type associated with the DB cluster snapshot.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBClusterSnapshot withStorageType(String storageType) {
+        setStorageType(storageType);
+        return this;
     }
 
     /**
@@ -1074,7 +1202,9 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
         if (getSourceDBClusterSnapshotArn() != null)
             sb.append("SourceDBClusterSnapshotArn: ").append(getSourceDBClusterSnapshotArn()).append(",");
         if (getIAMDatabaseAuthenticationEnabled() != null)
-            sb.append("IAMDatabaseAuthenticationEnabled: ").append(getIAMDatabaseAuthenticationEnabled());
+            sb.append("IAMDatabaseAuthenticationEnabled: ").append(getIAMDatabaseAuthenticationEnabled()).append(",");
+        if (getStorageType() != null)
+            sb.append("StorageType: ").append(getStorageType());
         sb.append("}");
         return sb.toString();
     }
@@ -1170,6 +1300,10 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
         if (other.getIAMDatabaseAuthenticationEnabled() != null
                 && other.getIAMDatabaseAuthenticationEnabled().equals(this.getIAMDatabaseAuthenticationEnabled()) == false)
             return false;
+        if (other.getStorageType() == null ^ this.getStorageType() == null)
+            return false;
+        if (other.getStorageType() != null && other.getStorageType().equals(this.getStorageType()) == false)
+            return false;
         return true;
     }
 
@@ -1198,6 +1332,7 @@ public class DBClusterSnapshot implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getDBClusterSnapshotArn() == null) ? 0 : getDBClusterSnapshotArn().hashCode());
         hashCode = prime * hashCode + ((getSourceDBClusterSnapshotArn() == null) ? 0 : getSourceDBClusterSnapshotArn().hashCode());
         hashCode = prime * hashCode + ((getIAMDatabaseAuthenticationEnabled() == null) ? 0 : getIAMDatabaseAuthenticationEnabled().hashCode());
+        hashCode = prime * hashCode + ((getStorageType() == null) ? 0 : getStorageType().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,21 +20,21 @@ public class StartContentModerationResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The identifier for the content moderation analysis job. Use <code>JobId</code> to identify the job in a
-     * subsequent call to <code>GetContentModeration</code>.
+     * The identifier for the content analysis job. Use <code>JobId</code> to identify the job in a subsequent call to
+     * <code>GetContentModeration</code>.
      * </p>
      */
     private String jobId;
 
     /**
      * <p>
-     * The identifier for the content moderation analysis job. Use <code>JobId</code> to identify the job in a
-     * subsequent call to <code>GetContentModeration</code>.
+     * The identifier for the content analysis job. Use <code>JobId</code> to identify the job in a subsequent call to
+     * <code>GetContentModeration</code>.
      * </p>
      * 
      * @param jobId
-     *        The identifier for the content moderation analysis job. Use <code>JobId</code> to identify the job in a
-     *        subsequent call to <code>GetContentModeration</code>.
+     *        The identifier for the content analysis job. Use <code>JobId</code> to identify the job in a subsequent
+     *        call to <code>GetContentModeration</code>.
      */
 
     public void setJobId(String jobId) {
@@ -43,12 +43,12 @@ public class StartContentModerationResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The identifier for the content moderation analysis job. Use <code>JobId</code> to identify the job in a
-     * subsequent call to <code>GetContentModeration</code>.
+     * The identifier for the content analysis job. Use <code>JobId</code> to identify the job in a subsequent call to
+     * <code>GetContentModeration</code>.
      * </p>
      * 
-     * @return The identifier for the content moderation analysis job. Use <code>JobId</code> to identify the job in a
-     *         subsequent call to <code>GetContentModeration</code>.
+     * @return The identifier for the content analysis job. Use <code>JobId</code> to identify the job in a subsequent
+     *         call to <code>GetContentModeration</code>.
      */
 
     public String getJobId() {
@@ -57,13 +57,13 @@ public class StartContentModerationResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The identifier for the content moderation analysis job. Use <code>JobId</code> to identify the job in a
-     * subsequent call to <code>GetContentModeration</code>.
+     * The identifier for the content analysis job. Use <code>JobId</code> to identify the job in a subsequent call to
+     * <code>GetContentModeration</code>.
      * </p>
      * 
      * @param jobId
-     *        The identifier for the content moderation analysis job. Use <code>JobId</code> to identify the job in a
-     *        subsequent call to <code>GetContentModeration</code>.
+     *        The identifier for the content analysis job. Use <code>JobId</code> to identify the job in a subsequent
+     *        call to <code>GetContentModeration</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

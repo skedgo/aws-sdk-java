@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,8 +33,31 @@ public class UpdateShardCountRequest extends com.amazonaws.AmazonWebServiceReque
     private String streamName;
     /**
      * <p>
-     * The new number of shards.
+     * The new number of shards. This value has the following default limits. By default, you cannot do the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Set this value to more than double your current shard count for a stream.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set this value below half your current shard count for a stream.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set this value to more than 10000 shards in a stream (the default limit for shard count per stream is 10000 per
+     * account per region), unless you request a limit increase.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Scale a stream with more than 10000 shards down unless you set this value to less than 10000 shards.
+     * </p>
+     * </li>
+     * </ul>
      */
     private Integer targetShardCount;
     /**
@@ -43,6 +66,12 @@ public class UpdateShardCountRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      */
     private String scalingType;
+    /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     */
+    private String streamARN;
 
     /**
      * <p>
@@ -86,11 +115,57 @@ public class UpdateShardCountRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new number of shards.
+     * The new number of shards. This value has the following default limits. By default, you cannot do the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Set this value to more than double your current shard count for a stream.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set this value below half your current shard count for a stream.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set this value to more than 10000 shards in a stream (the default limit for shard count per stream is 10000 per
+     * account per region), unless you request a limit increase.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Scale a stream with more than 10000 shards down unless you set this value to less than 10000 shards.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param targetShardCount
-     *        The new number of shards.
+     *        The new number of shards. This value has the following default limits. By default, you cannot do the
+     *        following: </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Set this value to more than double your current shard count for a stream.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Set this value below half your current shard count for a stream.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Set this value to more than 10000 shards in a stream (the default limit for shard count per stream is
+     *        10000 per account per region), unless you request a limit increase.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Scale a stream with more than 10000 shards down unless you set this value to less than 10000 shards.
+     *        </p>
+     *        </li>
      */
 
     public void setTargetShardCount(Integer targetShardCount) {
@@ -99,10 +174,56 @@ public class UpdateShardCountRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new number of shards.
+     * The new number of shards. This value has the following default limits. By default, you cannot do the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Set this value to more than double your current shard count for a stream.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set this value below half your current shard count for a stream.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set this value to more than 10000 shards in a stream (the default limit for shard count per stream is 10000 per
+     * account per region), unless you request a limit increase.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Scale a stream with more than 10000 shards down unless you set this value to less than 10000 shards.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The new number of shards.
+     * @return The new number of shards. This value has the following default limits. By default, you cannot do the
+     *         following: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Set this value to more than double your current shard count for a stream.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Set this value below half your current shard count for a stream.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Set this value to more than 10000 shards in a stream (the default limit for shard count per stream is
+     *         10000 per account per region), unless you request a limit increase.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Scale a stream with more than 10000 shards down unless you set this value to less than 10000 shards.
+     *         </p>
+     *         </li>
      */
 
     public Integer getTargetShardCount() {
@@ -111,11 +232,57 @@ public class UpdateShardCountRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new number of shards.
+     * The new number of shards. This value has the following default limits. By default, you cannot do the following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Set this value to more than double your current shard count for a stream.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set this value below half your current shard count for a stream.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Set this value to more than 10000 shards in a stream (the default limit for shard count per stream is 10000 per
+     * account per region), unless you request a limit increase.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Scale a stream with more than 10000 shards down unless you set this value to less than 10000 shards.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param targetShardCount
-     *        The new number of shards.
+     *        The new number of shards. This value has the following default limits. By default, you cannot do the
+     *        following: </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Set this value to more than double your current shard count for a stream.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Set this value below half your current shard count for a stream.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Set this value to more than 10000 shards in a stream (the default limit for shard count per stream is
+     *        10000 per account per region), unless you request a limit increase.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Scale a stream with more than 10000 shards down unless you set this value to less than 10000 shards.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -198,6 +365,46 @@ public class UpdateShardCountRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     * 
+     * @param streamARN
+     *        The ARN of the stream.
+     */
+
+    public void setStreamARN(String streamARN) {
+        this.streamARN = streamARN;
+    }
+
+    /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     * 
+     * @return The ARN of the stream.
+     */
+
+    public String getStreamARN() {
+        return this.streamARN;
+    }
+
+    /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     * 
+     * @param streamARN
+     *        The ARN of the stream.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateShardCountRequest withStreamARN(String streamARN) {
+        setStreamARN(streamARN);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -214,7 +421,9 @@ public class UpdateShardCountRequest extends com.amazonaws.AmazonWebServiceReque
         if (getTargetShardCount() != null)
             sb.append("TargetShardCount: ").append(getTargetShardCount()).append(",");
         if (getScalingType() != null)
-            sb.append("ScalingType: ").append(getScalingType());
+            sb.append("ScalingType: ").append(getScalingType()).append(",");
+        if (getStreamARN() != null)
+            sb.append("StreamARN: ").append(getStreamARN());
         sb.append("}");
         return sb.toString();
     }
@@ -241,6 +450,10 @@ public class UpdateShardCountRequest extends com.amazonaws.AmazonWebServiceReque
             return false;
         if (other.getScalingType() != null && other.getScalingType().equals(this.getScalingType()) == false)
             return false;
+        if (other.getStreamARN() == null ^ this.getStreamARN() == null)
+            return false;
+        if (other.getStreamARN() != null && other.getStreamARN().equals(this.getStreamARN()) == false)
+            return false;
         return true;
     }
 
@@ -252,6 +465,7 @@ public class UpdateShardCountRequest extends com.amazonaws.AmazonWebServiceReque
         hashCode = prime * hashCode + ((getStreamName() == null) ? 0 : getStreamName().hashCode());
         hashCode = prime * hashCode + ((getTargetShardCount() == null) ? 0 : getTargetShardCount().hashCode());
         hashCode = prime * hashCode + ((getScalingType() == null) ? 0 : getScalingType().hashCode());
+        hashCode = prime * hashCode + ((getStreamARN() == null) ? 0 : getStreamARN().hashCode());
         return hashCode;
     }
 

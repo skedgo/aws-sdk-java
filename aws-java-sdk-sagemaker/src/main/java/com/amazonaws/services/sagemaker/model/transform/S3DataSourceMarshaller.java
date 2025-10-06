@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,6 +36,8 @@ public class S3DataSourceMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("S3DataDistributionType").build();
     private static final MarshallingInfo<List> ATTRIBUTENAMES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AttributeNames").build();
+    private static final MarshallingInfo<List> INSTANCEGROUPNAMES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InstanceGroupNames").build();
 
     private static final S3DataSourceMarshaller instance = new S3DataSourceMarshaller();
 
@@ -57,6 +59,7 @@ public class S3DataSourceMarshaller {
             protocolMarshaller.marshall(s3DataSource.getS3Uri(), S3URI_BINDING);
             protocolMarshaller.marshall(s3DataSource.getS3DataDistributionType(), S3DATADISTRIBUTIONTYPE_BINDING);
             protocolMarshaller.marshall(s3DataSource.getAttributeNames(), ATTRIBUTENAMES_BINDING);
+            protocolMarshaller.marshall(s3DataSource.getInstanceGroupNames(), INSTANCEGROUPNAMES_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

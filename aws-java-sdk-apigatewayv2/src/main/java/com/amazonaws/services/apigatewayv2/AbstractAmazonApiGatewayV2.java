@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -83,6 +83,16 @@ public class AbstractAmazonApiGatewayV2 implements AmazonApiGatewayV2 {
     }
 
     @Override
+    public CreateVpcLinkResult createVpcLink(CreateVpcLinkRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteAccessLogSettingsResult deleteAccessLogSettings(DeleteAccessLogSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteApiResult deleteApi(DeleteApiRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -94,6 +104,11 @@ public class AbstractAmazonApiGatewayV2 implements AmazonApiGatewayV2 {
 
     @Override
     public DeleteAuthorizerResult deleteAuthorizer(DeleteAuthorizerRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteCorsConfigurationResult deleteCorsConfiguration(DeleteCorsConfigurationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -128,12 +143,32 @@ public class AbstractAmazonApiGatewayV2 implements AmazonApiGatewayV2 {
     }
 
     @Override
+    public DeleteRouteRequestParameterResult deleteRouteRequestParameter(DeleteRouteRequestParameterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteRouteResponseResult deleteRouteResponse(DeleteRouteResponseRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public DeleteRouteSettingsResult deleteRouteSettings(DeleteRouteSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteStageResult deleteStage(DeleteStageRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteVpcLinkResult deleteVpcLink(DeleteVpcLinkRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ExportApiResult exportApi(ExportApiRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -258,6 +293,31 @@ public class AbstractAmazonApiGatewayV2 implements AmazonApiGatewayV2 {
     }
 
     @Override
+    public GetVpcLinkResult getVpcLink(GetVpcLinkRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetVpcLinksResult getVpcLinks(GetVpcLinksRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ImportApiResult importApi(ImportApiRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ReimportApiResult reimportApi(ReimportApiRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ResetAuthorizersCacheResult resetAuthorizersCache(ResetAuthorizersCacheRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public TagResourceResult tagResource(TagResourceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -319,6 +379,11 @@ public class AbstractAmazonApiGatewayV2 implements AmazonApiGatewayV2 {
 
     @Override
     public UpdateStageResult updateStage(UpdateStageRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateVpcLinkResult updateVpcLink(UpdateVpcLinkRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

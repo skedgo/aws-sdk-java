@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -61,6 +61,20 @@ public class TableMarshaller {
             .marshallLocationName("Parameters").build();
     private static final MarshallingInfo<String> CREATEDBY_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("CreatedBy").build();
+    private static final MarshallingInfo<Boolean> ISREGISTEREDWITHLAKEFORMATION_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IsRegisteredWithLakeFormation").build();
+    private static final MarshallingInfo<StructuredPojo> TARGETTABLE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TargetTable").build();
+    private static final MarshallingInfo<String> CATALOGID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("CatalogId").build();
+    private static final MarshallingInfo<String> VERSIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("VersionId").build();
+    private static final MarshallingInfo<StructuredPojo> FEDERATEDTABLE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FederatedTable").build();
+    private static final MarshallingInfo<StructuredPojo> VIEWDEFINITION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ViewDefinition").build();
+    private static final MarshallingInfo<Boolean> ISMULTIDIALECTVIEW_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IsMultiDialectView").build();
 
     private static final TableMarshaller instance = new TableMarshaller();
 
@@ -94,6 +108,13 @@ public class TableMarshaller {
             protocolMarshaller.marshall(table.getTableType(), TABLETYPE_BINDING);
             protocolMarshaller.marshall(table.getParameters(), PARAMETERS_BINDING);
             protocolMarshaller.marshall(table.getCreatedBy(), CREATEDBY_BINDING);
+            protocolMarshaller.marshall(table.getIsRegisteredWithLakeFormation(), ISREGISTEREDWITHLAKEFORMATION_BINDING);
+            protocolMarshaller.marshall(table.getTargetTable(), TARGETTABLE_BINDING);
+            protocolMarshaller.marshall(table.getCatalogId(), CATALOGID_BINDING);
+            protocolMarshaller.marshall(table.getVersionId(), VERSIONID_BINDING);
+            protocolMarshaller.marshall(table.getFederatedTable(), FEDERATEDTABLE_BINDING);
+            protocolMarshaller.marshall(table.getViewDefinition(), VIEWDEFINITION_BINDING);
+            protocolMarshaller.marshall(table.getIsMultiDialectView(), ISMULTIDIALECTVIEW_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

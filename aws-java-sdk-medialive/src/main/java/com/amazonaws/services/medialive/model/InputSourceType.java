@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,8 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * There are two types of input sources, static and dynamic. If an input source is dynamic you can change the source url
- * of the input dynamically using an input switch action. However, the only input type to support a dynamic url at this
- * time is MP4_FILE. By default all input sources are static.
+ * of the input dynamically using an input switch action. Currently, two input types support a dynamic url at this time,
+ * MP4_FILE and TS_FILE. By default all input sources are static.
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum InputSourceType {

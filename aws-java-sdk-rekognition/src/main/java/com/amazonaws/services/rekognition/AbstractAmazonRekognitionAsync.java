@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,19 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     }
 
     @Override
+    public java.util.concurrent.Future<AssociateFacesResult> associateFacesAsync(AssociateFacesRequest request) {
+
+        return associateFacesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateFacesResult> associateFacesAsync(AssociateFacesRequest request,
+            com.amazonaws.handlers.AsyncHandler<AssociateFacesRequest, AssociateFacesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CompareFacesResult> compareFacesAsync(CompareFacesRequest request) {
 
         return compareFacesAsync(request, null);
@@ -36,6 +49,19 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     @Override
     public java.util.concurrent.Future<CompareFacesResult> compareFacesAsync(CompareFacesRequest request,
             com.amazonaws.handlers.AsyncHandler<CompareFacesRequest, CompareFacesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CopyProjectVersionResult> copyProjectVersionAsync(CopyProjectVersionRequest request) {
+
+        return copyProjectVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CopyProjectVersionResult> copyProjectVersionAsync(CopyProjectVersionRequest request,
+            com.amazonaws.handlers.AsyncHandler<CopyProjectVersionRequest, CopyProjectVersionResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -54,6 +80,58 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     }
 
     @Override
+    public java.util.concurrent.Future<CreateDatasetResult> createDatasetAsync(CreateDatasetRequest request) {
+
+        return createDatasetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDatasetResult> createDatasetAsync(CreateDatasetRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateDatasetRequest, CreateDatasetResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFaceLivenessSessionResult> createFaceLivenessSessionAsync(CreateFaceLivenessSessionRequest request) {
+
+        return createFaceLivenessSessionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFaceLivenessSessionResult> createFaceLivenessSessionAsync(CreateFaceLivenessSessionRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateFaceLivenessSessionRequest, CreateFaceLivenessSessionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateProjectResult> createProjectAsync(CreateProjectRequest request) {
+
+        return createProjectAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateProjectResult> createProjectAsync(CreateProjectRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateProjectRequest, CreateProjectResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateProjectVersionResult> createProjectVersionAsync(CreateProjectVersionRequest request) {
+
+        return createProjectVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateProjectVersionResult> createProjectVersionAsync(CreateProjectVersionRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateProjectVersionRequest, CreateProjectVersionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateStreamProcessorResult> createStreamProcessorAsync(CreateStreamProcessorRequest request) {
 
         return createStreamProcessorAsync(request, null);
@@ -62,6 +140,19 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     @Override
     public java.util.concurrent.Future<CreateStreamProcessorResult> createStreamProcessorAsync(CreateStreamProcessorRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateStreamProcessorRequest, CreateStreamProcessorResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateUserResult> createUserAsync(CreateUserRequest request) {
+
+        return createUserAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateUserResult> createUserAsync(CreateUserRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateUserRequest, CreateUserResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -80,6 +171,19 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteDatasetResult> deleteDatasetAsync(DeleteDatasetRequest request) {
+
+        return deleteDatasetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteDatasetResult> deleteDatasetAsync(DeleteDatasetRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteDatasetRequest, DeleteDatasetResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteFacesResult> deleteFacesAsync(DeleteFacesRequest request) {
 
         return deleteFacesAsync(request, null);
@@ -88,6 +192,45 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     @Override
     public java.util.concurrent.Future<DeleteFacesResult> deleteFacesAsync(DeleteFacesRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteFacesRequest, DeleteFacesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProjectResult> deleteProjectAsync(DeleteProjectRequest request) {
+
+        return deleteProjectAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProjectResult> deleteProjectAsync(DeleteProjectRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteProjectRequest, DeleteProjectResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProjectPolicyResult> deleteProjectPolicyAsync(DeleteProjectPolicyRequest request) {
+
+        return deleteProjectPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProjectPolicyResult> deleteProjectPolicyAsync(DeleteProjectPolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteProjectPolicyRequest, DeleteProjectPolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProjectVersionResult> deleteProjectVersionAsync(DeleteProjectVersionRequest request) {
+
+        return deleteProjectVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProjectVersionResult> deleteProjectVersionAsync(DeleteProjectVersionRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteProjectVersionRequest, DeleteProjectVersionResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -106,6 +249,19 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteUserResult> deleteUserAsync(DeleteUserRequest request) {
+
+        return deleteUserAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteUserResult> deleteUserAsync(DeleteUserRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteUserRequest, DeleteUserResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeCollectionResult> describeCollectionAsync(DescribeCollectionRequest request) {
 
         return describeCollectionAsync(request, null);
@@ -119,6 +275,45 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeDatasetResult> describeDatasetAsync(DescribeDatasetRequest request) {
+
+        return describeDatasetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDatasetResult> describeDatasetAsync(DescribeDatasetRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeDatasetRequest, DescribeDatasetResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeProjectVersionsResult> describeProjectVersionsAsync(DescribeProjectVersionsRequest request) {
+
+        return describeProjectVersionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeProjectVersionsResult> describeProjectVersionsAsync(DescribeProjectVersionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeProjectVersionsRequest, DescribeProjectVersionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeProjectsResult> describeProjectsAsync(DescribeProjectsRequest request) {
+
+        return describeProjectsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeProjectsResult> describeProjectsAsync(DescribeProjectsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeProjectsRequest, DescribeProjectsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeStreamProcessorResult> describeStreamProcessorAsync(DescribeStreamProcessorRequest request) {
 
         return describeStreamProcessorAsync(request, null);
@@ -127,6 +322,19 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     @Override
     public java.util.concurrent.Future<DescribeStreamProcessorResult> describeStreamProcessorAsync(DescribeStreamProcessorRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeStreamProcessorRequest, DescribeStreamProcessorResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetectCustomLabelsResult> detectCustomLabelsAsync(DetectCustomLabelsRequest request) {
+
+        return detectCustomLabelsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetectCustomLabelsResult> detectCustomLabelsAsync(DetectCustomLabelsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DetectCustomLabelsRequest, DetectCustomLabelsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -171,6 +379,19 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     }
 
     @Override
+    public java.util.concurrent.Future<DetectProtectiveEquipmentResult> detectProtectiveEquipmentAsync(DetectProtectiveEquipmentRequest request) {
+
+        return detectProtectiveEquipmentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetectProtectiveEquipmentResult> detectProtectiveEquipmentAsync(DetectProtectiveEquipmentRequest request,
+            com.amazonaws.handlers.AsyncHandler<DetectProtectiveEquipmentRequest, DetectProtectiveEquipmentResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DetectTextResult> detectTextAsync(DetectTextRequest request) {
 
         return detectTextAsync(request, null);
@@ -179,6 +400,32 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     @Override
     public java.util.concurrent.Future<DetectTextResult> detectTextAsync(DetectTextRequest request,
             com.amazonaws.handlers.AsyncHandler<DetectTextRequest, DetectTextResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateFacesResult> disassociateFacesAsync(DisassociateFacesRequest request) {
+
+        return disassociateFacesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateFacesResult> disassociateFacesAsync(DisassociateFacesRequest request,
+            com.amazonaws.handlers.AsyncHandler<DisassociateFacesRequest, DisassociateFacesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DistributeDatasetEntriesResult> distributeDatasetEntriesAsync(DistributeDatasetEntriesRequest request) {
+
+        return distributeDatasetEntriesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DistributeDatasetEntriesResult> distributeDatasetEntriesAsync(DistributeDatasetEntriesRequest request,
+            com.amazonaws.handlers.AsyncHandler<DistributeDatasetEntriesRequest, DistributeDatasetEntriesResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -236,6 +483,19 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     }
 
     @Override
+    public java.util.concurrent.Future<GetFaceLivenessSessionResultsResult> getFaceLivenessSessionResultsAsync(GetFaceLivenessSessionResultsRequest request) {
+
+        return getFaceLivenessSessionResultsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetFaceLivenessSessionResultsResult> getFaceLivenessSessionResultsAsync(GetFaceLivenessSessionResultsRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetFaceLivenessSessionResultsRequest, GetFaceLivenessSessionResultsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetFaceSearchResult> getFaceSearchAsync(GetFaceSearchRequest request) {
 
         return getFaceSearchAsync(request, null);
@@ -262,6 +522,19 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     }
 
     @Override
+    public java.util.concurrent.Future<GetMediaAnalysisJobResult> getMediaAnalysisJobAsync(GetMediaAnalysisJobRequest request) {
+
+        return getMediaAnalysisJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMediaAnalysisJobResult> getMediaAnalysisJobAsync(GetMediaAnalysisJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetMediaAnalysisJobRequest, GetMediaAnalysisJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetPersonTrackingResult> getPersonTrackingAsync(GetPersonTrackingRequest request) {
 
         return getPersonTrackingAsync(request, null);
@@ -270,6 +543,32 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     @Override
     public java.util.concurrent.Future<GetPersonTrackingResult> getPersonTrackingAsync(GetPersonTrackingRequest request,
             com.amazonaws.handlers.AsyncHandler<GetPersonTrackingRequest, GetPersonTrackingResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSegmentDetectionResult> getSegmentDetectionAsync(GetSegmentDetectionRequest request) {
+
+        return getSegmentDetectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSegmentDetectionResult> getSegmentDetectionAsync(GetSegmentDetectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetSegmentDetectionRequest, GetSegmentDetectionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTextDetectionResult> getTextDetectionAsync(GetTextDetectionRequest request) {
+
+        return getTextDetectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTextDetectionResult> getTextDetectionAsync(GetTextDetectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetTextDetectionRequest, GetTextDetectionResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -301,6 +600,32 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     }
 
     @Override
+    public java.util.concurrent.Future<ListDatasetEntriesResult> listDatasetEntriesAsync(ListDatasetEntriesRequest request) {
+
+        return listDatasetEntriesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDatasetEntriesResult> listDatasetEntriesAsync(ListDatasetEntriesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListDatasetEntriesRequest, ListDatasetEntriesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDatasetLabelsResult> listDatasetLabelsAsync(ListDatasetLabelsRequest request) {
+
+        return listDatasetLabelsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDatasetLabelsResult> listDatasetLabelsAsync(ListDatasetLabelsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListDatasetLabelsRequest, ListDatasetLabelsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListFacesResult> listFacesAsync(ListFacesRequest request) {
 
         return listFacesAsync(request, null);
@@ -314,6 +639,32 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     }
 
     @Override
+    public java.util.concurrent.Future<ListMediaAnalysisJobsResult> listMediaAnalysisJobsAsync(ListMediaAnalysisJobsRequest request) {
+
+        return listMediaAnalysisJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMediaAnalysisJobsResult> listMediaAnalysisJobsAsync(ListMediaAnalysisJobsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListMediaAnalysisJobsRequest, ListMediaAnalysisJobsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProjectPoliciesResult> listProjectPoliciesAsync(ListProjectPoliciesRequest request) {
+
+        return listProjectPoliciesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProjectPoliciesResult> listProjectPoliciesAsync(ListProjectPoliciesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListProjectPoliciesRequest, ListProjectPoliciesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListStreamProcessorsResult> listStreamProcessorsAsync(ListStreamProcessorsRequest request) {
 
         return listStreamProcessorsAsync(request, null);
@@ -322,6 +673,45 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     @Override
     public java.util.concurrent.Future<ListStreamProcessorsResult> listStreamProcessorsAsync(ListStreamProcessorsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListStreamProcessorsRequest, ListStreamProcessorsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListUsersResult> listUsersAsync(ListUsersRequest request) {
+
+        return listUsersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListUsersResult> listUsersAsync(ListUsersRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListUsersRequest, ListUsersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutProjectPolicyResult> putProjectPolicyAsync(PutProjectPolicyRequest request) {
+
+        return putProjectPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutProjectPolicyResult> putProjectPolicyAsync(PutProjectPolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<PutProjectPolicyRequest, PutProjectPolicyResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -361,6 +751,32 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     @Override
     public java.util.concurrent.Future<SearchFacesByImageResult> searchFacesByImageAsync(SearchFacesByImageRequest request,
             com.amazonaws.handlers.AsyncHandler<SearchFacesByImageRequest, SearchFacesByImageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<SearchUsersResult> searchUsersAsync(SearchUsersRequest request) {
+
+        return searchUsersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SearchUsersResult> searchUsersAsync(SearchUsersRequest request,
+            com.amazonaws.handlers.AsyncHandler<SearchUsersRequest, SearchUsersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<SearchUsersByImageResult> searchUsersByImageAsync(SearchUsersByImageRequest request) {
+
+        return searchUsersByImageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SearchUsersByImageResult> searchUsersByImageAsync(SearchUsersByImageRequest request,
+            com.amazonaws.handlers.AsyncHandler<SearchUsersByImageRequest, SearchUsersByImageResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -431,6 +847,19 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     }
 
     @Override
+    public java.util.concurrent.Future<StartMediaAnalysisJobResult> startMediaAnalysisJobAsync(StartMediaAnalysisJobRequest request) {
+
+        return startMediaAnalysisJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartMediaAnalysisJobResult> startMediaAnalysisJobAsync(StartMediaAnalysisJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartMediaAnalysisJobRequest, StartMediaAnalysisJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<StartPersonTrackingResult> startPersonTrackingAsync(StartPersonTrackingRequest request) {
 
         return startPersonTrackingAsync(request, null);
@@ -439,6 +868,32 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     @Override
     public java.util.concurrent.Future<StartPersonTrackingResult> startPersonTrackingAsync(StartPersonTrackingRequest request,
             com.amazonaws.handlers.AsyncHandler<StartPersonTrackingRequest, StartPersonTrackingResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartProjectVersionResult> startProjectVersionAsync(StartProjectVersionRequest request) {
+
+        return startProjectVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartProjectVersionResult> startProjectVersionAsync(StartProjectVersionRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartProjectVersionRequest, StartProjectVersionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartSegmentDetectionResult> startSegmentDetectionAsync(StartSegmentDetectionRequest request) {
+
+        return startSegmentDetectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartSegmentDetectionResult> startSegmentDetectionAsync(StartSegmentDetectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartSegmentDetectionRequest, StartSegmentDetectionResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -457,6 +912,32 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     }
 
     @Override
+    public java.util.concurrent.Future<StartTextDetectionResult> startTextDetectionAsync(StartTextDetectionRequest request) {
+
+        return startTextDetectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartTextDetectionResult> startTextDetectionAsync(StartTextDetectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartTextDetectionRequest, StartTextDetectionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopProjectVersionResult> stopProjectVersionAsync(StopProjectVersionRequest request) {
+
+        return stopProjectVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopProjectVersionResult> stopProjectVersionAsync(StopProjectVersionRequest request,
+            com.amazonaws.handlers.AsyncHandler<StopProjectVersionRequest, StopProjectVersionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<StopStreamProcessorResult> stopStreamProcessorAsync(StopStreamProcessorRequest request) {
 
         return stopStreamProcessorAsync(request, null);
@@ -465,6 +946,58 @@ public class AbstractAmazonRekognitionAsync extends AbstractAmazonRekognition im
     @Override
     public java.util.concurrent.Future<StopStreamProcessorResult> stopStreamProcessorAsync(StopStreamProcessorRequest request,
             com.amazonaws.handlers.AsyncHandler<StopStreamProcessorRequest, StopStreamProcessorResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDatasetEntriesResult> updateDatasetEntriesAsync(UpdateDatasetEntriesRequest request) {
+
+        return updateDatasetEntriesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDatasetEntriesResult> updateDatasetEntriesAsync(UpdateDatasetEntriesRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateDatasetEntriesRequest, UpdateDatasetEntriesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateStreamProcessorResult> updateStreamProcessorAsync(UpdateStreamProcessorRequest request) {
+
+        return updateStreamProcessorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateStreamProcessorResult> updateStreamProcessorAsync(UpdateStreamProcessorRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateStreamProcessorRequest, UpdateStreamProcessorResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -210,7 +210,8 @@ public class DownloadImpl extends AbstractTransfer implements Download {
                     getObjectRequest.getResponseHeaders(), getObjectRequest.isRequesterPays(),
                     file.getAbsolutePath(), getLastFullyDownloadedPartNumber(),
                     getObjectMetadata().getLastModified().getTime(),
-                    getLastFullyDownloadedFilePosition());
+                    getLastFullyDownloadedFilePosition(),
+                    getObjectMetadata().getETag());
         }
         return null;
     }

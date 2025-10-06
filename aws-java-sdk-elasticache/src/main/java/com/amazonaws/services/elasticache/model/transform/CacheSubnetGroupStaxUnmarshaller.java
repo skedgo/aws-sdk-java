@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -67,6 +67,21 @@ public class CacheSubnetGroupStaxUnmarshaller implements Unmarshaller<CacheSubne
 
                 if (context.testExpression("Subnets/Subnet", targetDepth)) {
                     cacheSubnetGroup.withSubnets(SubnetStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ARN", targetDepth)) {
+                    cacheSubnetGroup.setARN(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportedNetworkTypes", targetDepth)) {
+                    cacheSubnetGroup.withSupportedNetworkTypes(new ArrayList<String>());
+                    continue;
+                }
+
+                if (context.testExpression("SupportedNetworkTypes/member", targetDepth)) {
+                    cacheSubnetGroup.withSupportedNetworkTypes(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -75,6 +75,32 @@ public class AbstractAmazonSimpleWorkflowAsync extends AbstractAmazonSimpleWorkf
     @Override
     public java.util.concurrent.Future<PendingTaskCount> countPendingDecisionTasksAsync(CountPendingDecisionTasksRequest request,
             com.amazonaws.handlers.AsyncHandler<CountPendingDecisionTasksRequest, PendingTaskCount> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<Void> deleteActivityTypeAsync(DeleteActivityTypeRequest request) {
+
+        return deleteActivityTypeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<Void> deleteActivityTypeAsync(DeleteActivityTypeRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteActivityTypeRequest, Void> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<Void> deleteWorkflowTypeAsync(DeleteWorkflowTypeRequest request) {
+
+        return deleteWorkflowTypeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<Void> deleteWorkflowTypeAsync(DeleteWorkflowTypeRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteWorkflowTypeRequest, Void> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

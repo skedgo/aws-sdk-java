@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,7 +41,7 @@ public class StackDriftInformation implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected template
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
      * configuration.
      * </p>
      * </li>
@@ -79,7 +79,7 @@ public class StackDriftInformation implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected template
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
      * configuration.
      * </p>
      * </li>
@@ -96,7 +96,7 @@ public class StackDriftInformation implements Serializable, Cloneable {
      * </ul>
      * 
      * @param stackDriftStatus
-     *        Status of the stack's actual configuration compared to its expected template configuration. </p>
+     *        Status of the stack's actual configuration compared to its expected template configuration.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -106,8 +106,8 @@ public class StackDriftInformation implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected
-     *        template configuration.
+     *        <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
+     *        configuration.
      *        </p>
      *        </li>
      *        <li>
@@ -140,7 +140,7 @@ public class StackDriftInformation implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected template
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
      * configuration.
      * </p>
      * </li>
@@ -156,7 +156,7 @@ public class StackDriftInformation implements Serializable, Cloneable {
      * </li>
      * </ul>
      * 
-     * @return Status of the stack's actual configuration compared to its expected template configuration. </p>
+     * @return Status of the stack's actual configuration compared to its expected template configuration.</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -166,8 +166,8 @@ public class StackDriftInformation implements Serializable, Cloneable {
      *         </li>
      *         <li>
      *         <p>
-     *         <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected
-     *         template configuration.
+     *         <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
+     *         configuration.
      *         </p>
      *         </li>
      *         <li>
@@ -200,7 +200,7 @@ public class StackDriftInformation implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected template
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
      * configuration.
      * </p>
      * </li>
@@ -217,7 +217,7 @@ public class StackDriftInformation implements Serializable, Cloneable {
      * </ul>
      * 
      * @param stackDriftStatus
-     *        Status of the stack's actual configuration compared to its expected template configuration. </p>
+     *        Status of the stack's actual configuration compared to its expected template configuration.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -227,8 +227,8 @@ public class StackDriftInformation implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected
-     *        template configuration.
+     *        <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
+     *        configuration.
      *        </p>
      *        </li>
      *        <li>
@@ -263,7 +263,7 @@ public class StackDriftInformation implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected template
+     * <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
      * configuration.
      * </p>
      * </li>
@@ -280,7 +280,7 @@ public class StackDriftInformation implements Serializable, Cloneable {
      * </ul>
      * 
      * @param stackDriftStatus
-     *        Status of the stack's actual configuration compared to its expected template configuration. </p>
+     *        Status of the stack's actual configuration compared to its expected template configuration.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -290,8 +290,8 @@ public class StackDriftInformation implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>NOT_CHECKED</code>: AWS CloudFormation has not checked if the stack differs from its expected
-     *        template configuration.
+     *        <code>NOT_CHECKED</code>: CloudFormation hasn't checked if the stack differs from its expected template
+     *        configuration.
      *        </p>
      *        </li>
      *        <li>

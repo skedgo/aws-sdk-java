@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -24,10 +24,23 @@ import javax.annotation.Generated;
 public class UpdateDirectConnectGatewayAssociationResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable,
         Cloneable {
 
+    /**
+     * <p>
+     * Information about an association between a Direct Connect gateway and a virtual private gateway or transit
+     * gateway.
+     * </p>
+     */
     private DirectConnectGatewayAssociation directConnectGatewayAssociation;
 
     /**
+     * <p>
+     * Information about an association between a Direct Connect gateway and a virtual private gateway or transit
+     * gateway.
+     * </p>
+     * 
      * @param directConnectGatewayAssociation
+     *        Information about an association between a Direct Connect gateway and a virtual private gateway or transit
+     *        gateway.
      */
 
     public void setDirectConnectGatewayAssociation(DirectConnectGatewayAssociation directConnectGatewayAssociation) {
@@ -35,7 +48,13 @@ public class UpdateDirectConnectGatewayAssociationResult extends com.amazonaws.A
     }
 
     /**
-     * @return
+     * <p>
+     * Information about an association between a Direct Connect gateway and a virtual private gateway or transit
+     * gateway.
+     * </p>
+     * 
+     * @return Information about an association between a Direct Connect gateway and a virtual private gateway or
+     *         transit gateway.
      */
 
     public DirectConnectGatewayAssociation getDirectConnectGatewayAssociation() {
@@ -43,7 +62,14 @@ public class UpdateDirectConnectGatewayAssociationResult extends com.amazonaws.A
     }
 
     /**
+     * <p>
+     * Information about an association between a Direct Connect gateway and a virtual private gateway or transit
+     * gateway.
+     * </p>
+     * 
      * @param directConnectGatewayAssociation
+     *        Information about an association between a Direct Connect gateway and a virtual private gateway or transit
+     *        gateway.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

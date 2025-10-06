@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,17 +27,25 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name of your database to update.
+     * The name of your Lightsail database resource to update.
      * </p>
      */
     private String relationalDatabaseName;
     /**
      * <p>
-     * The password for the master user of your database. The password can include any printable ASCII character except
-     * "/", """, or "@".
+     * The password for the master user. The password can include any printable ASCII character except "/", """, or "@".
      * </p>
      * <p>
-     * Constraints: Must contain 8 to 41 characters.
+     * My<b>SQL</b>
+     * </p>
+     * <p>
+     * Constraints: Must contain from 8 to 41 characters.
+     * </p>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * Constraints: Must contain from 8 to 128 characters.
      * </p>
      */
     private String masterUserPassword;
@@ -69,7 +77,7 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Specified in Universal Coordinated Time (UTC).
+     * Specified in Coordinated Universal Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -90,8 +98,8 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * The weekly time range during which system maintenance can occur on your database.
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
-     * on a random day of the week.
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region, occurring on a random day of the week.
      * </p>
      * <p>
      * Constraints:
@@ -114,7 +122,7 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Specified in Universal Coordinated Time (UTC).
+     * Specified in Coordinated Universal Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -165,14 +173,32 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </p>
      */
     private Boolean applyImmediately;
+    /**
+     * <p>
+     * Indicates the certificate that needs to be associated with the database.
+     * </p>
+     */
+    private String caCertificateIdentifier;
+    /**
+     * <p>
+     * This parameter is used to update the major version of the database. Enter the <code>blueprintId</code> for the
+     * major version that you want to update to.
+     * </p>
+     * <p>
+     * Use the <a
+     * href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRelationalDatabaseBlueprints.html"
+     * >GetRelationalDatabaseBlueprints</a> action to get a list of available blueprint IDs.
+     * </p>
+     */
+    private String relationalDatabaseBlueprintId;
 
     /**
      * <p>
-     * The name of your database to update.
+     * The name of your Lightsail database resource to update.
      * </p>
      * 
      * @param relationalDatabaseName
-     *        The name of your database to update.
+     *        The name of your Lightsail database resource to update.
      */
 
     public void setRelationalDatabaseName(String relationalDatabaseName) {
@@ -181,10 +207,10 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name of your database to update.
+     * The name of your Lightsail database resource to update.
      * </p>
      * 
-     * @return The name of your database to update.
+     * @return The name of your Lightsail database resource to update.
      */
 
     public String getRelationalDatabaseName() {
@@ -193,11 +219,11 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name of your database to update.
+     * The name of your Lightsail database resource to update.
      * </p>
      * 
      * @param relationalDatabaseName
-     *        The name of your database to update.
+     *        The name of your Lightsail database resource to update.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -208,18 +234,35 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The password for the master user of your database. The password can include any printable ASCII character except
-     * "/", """, or "@".
+     * The password for the master user. The password can include any printable ASCII character except "/", """, or "@".
      * </p>
      * <p>
-     * Constraints: Must contain 8 to 41 characters.
+     * My<b>SQL</b>
+     * </p>
+     * <p>
+     * Constraints: Must contain from 8 to 41 characters.
+     * </p>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * Constraints: Must contain from 8 to 128 characters.
      * </p>
      * 
      * @param masterUserPassword
-     *        The password for the master user of your database. The password can include any printable ASCII character
-     *        except "/", """, or "@".</p>
+     *        The password for the master user. The password can include any printable ASCII character except "/",
+     *        """, or "@".</p>
      *        <p>
-     *        Constraints: Must contain 8 to 41 characters.
+     *        My<b>SQL</b>
+     *        </p>
+     *        <p>
+     *        Constraints: Must contain from 8 to 41 characters.
+     *        </p>
+     *        <p>
+     *        <b>PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        Constraints: Must contain from 8 to 128 characters.
      */
 
     public void setMasterUserPassword(String masterUserPassword) {
@@ -228,17 +271,34 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The password for the master user of your database. The password can include any printable ASCII character except
-     * "/", """, or "@".
+     * The password for the master user. The password can include any printable ASCII character except "/", """, or "@".
      * </p>
      * <p>
-     * Constraints: Must contain 8 to 41 characters.
+     * My<b>SQL</b>
+     * </p>
+     * <p>
+     * Constraints: Must contain from 8 to 41 characters.
+     * </p>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * Constraints: Must contain from 8 to 128 characters.
      * </p>
      * 
-     * @return The password for the master user of your database. The password can include any printable ASCII character
-     *         except "/", """, or "@".</p>
+     * @return The password for the master user. The password can include any printable ASCII character except "/",
+     *         """, or "@".</p>
      *         <p>
-     *         Constraints: Must contain 8 to 41 characters.
+     *         My<b>SQL</b>
+     *         </p>
+     *         <p>
+     *         Constraints: Must contain from 8 to 41 characters.
+     *         </p>
+     *         <p>
+     *         <b>PostgreSQL</b>
+     *         </p>
+     *         <p>
+     *         Constraints: Must contain from 8 to 128 characters.
      */
 
     public String getMasterUserPassword() {
@@ -247,18 +307,35 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The password for the master user of your database. The password can include any printable ASCII character except
-     * "/", """, or "@".
+     * The password for the master user. The password can include any printable ASCII character except "/", """, or "@".
      * </p>
      * <p>
-     * Constraints: Must contain 8 to 41 characters.
+     * My<b>SQL</b>
+     * </p>
+     * <p>
+     * Constraints: Must contain from 8 to 41 characters.
+     * </p>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * Constraints: Must contain from 8 to 128 characters.
      * </p>
      * 
      * @param masterUserPassword
-     *        The password for the master user of your database. The password can include any printable ASCII character
-     *        except "/", """, or "@".</p>
+     *        The password for the master user. The password can include any printable ASCII character except "/",
+     *        """, or "@".</p>
      *        <p>
-     *        Constraints: Must contain 8 to 41 characters.
+     *        My<b>SQL</b>
+     *        </p>
+     *        <p>
+     *        Constraints: Must contain from 8 to 41 characters.
+     *        </p>
+     *        <p>
+     *        <b>PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        Constraints: Must contain from 8 to 128 characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -362,7 +439,7 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Specified in Universal Coordinated Time (UTC).
+     * Specified in Coordinated Universal Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -394,7 +471,7 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        Specified in Universal Coordinated Time (UTC).
+     *        Specified in Coordinated Universal Time (UTC).
      *        </p>
      *        </li>
      *        <li>
@@ -432,7 +509,7 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Specified in Universal Coordinated Time (UTC).
+     * Specified in Coordinated Universal Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -463,7 +540,7 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      *         </li>
      *         <li>
      *         <p>
-     *         Specified in Universal Coordinated Time (UTC).
+     *         Specified in Coordinated Universal Time (UTC).
      *         </p>
      *         </li>
      *         <li>
@@ -501,7 +578,7 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Specified in Universal Coordinated Time (UTC).
+     * Specified in Coordinated Universal Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -533,7 +610,7 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        Specified in Universal Coordinated Time (UTC).
+     *        Specified in Coordinated Universal Time (UTC).
      *        </p>
      *        </li>
      *        <li>
@@ -559,8 +636,8 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * The weekly time range during which system maintenance can occur on your database.
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
-     * on a random day of the week.
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region, occurring on a random day of the week.
      * </p>
      * <p>
      * Constraints:
@@ -583,7 +660,7 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Specified in Universal Coordinated Time (UTC).
+     * Specified in Coordinated Universal Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -596,8 +673,8 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * @param preferredMaintenanceWindow
      *        The weekly time range during which system maintenance can occur on your database.</p>
      *        <p>
-     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region,
-     *        occurring on a random day of the week.
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web
+     *        Services Region, occurring on a random day of the week.
      *        </p>
      *        <p>
      *        Constraints:
@@ -620,7 +697,7 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        Specified in Universal Coordinated Time (UTC).
+     *        Specified in Coordinated Universal Time (UTC).
      *        </p>
      *        </li>
      *        <li>
@@ -639,8 +716,8 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * The weekly time range during which system maintenance can occur on your database.
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
-     * on a random day of the week.
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region, occurring on a random day of the week.
      * </p>
      * <p>
      * Constraints:
@@ -663,7 +740,7 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Specified in Universal Coordinated Time (UTC).
+     * Specified in Coordinated Universal Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -675,8 +752,8 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * 
      * @return The weekly time range during which system maintenance can occur on your database.</p>
      *         <p>
-     *         The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region,
-     *         occurring on a random day of the week.
+     *         The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web
+     *         Services Region, occurring on a random day of the week.
      *         </p>
      *         <p>
      *         Constraints:
@@ -699,7 +776,7 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      *         </li>
      *         <li>
      *         <p>
-     *         Specified in Universal Coordinated Time (UTC).
+     *         Specified in Coordinated Universal Time (UTC).
      *         </p>
      *         </li>
      *         <li>
@@ -718,8 +795,8 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * The weekly time range during which system maintenance can occur on your database.
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
-     * on a random day of the week.
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services
+     * Region, occurring on a random day of the week.
      * </p>
      * <p>
      * Constraints:
@@ -742,7 +819,7 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * </li>
      * <li>
      * <p>
-     * Specified in Universal Coordinated Time (UTC).
+     * Specified in Coordinated Universal Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -755,8 +832,8 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      * @param preferredMaintenanceWindow
      *        The weekly time range during which system maintenance can occur on your database.</p>
      *        <p>
-     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region,
-     *        occurring on a random day of the week.
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web
+     *        Services Region, occurring on a random day of the week.
      *        </p>
      *        <p>
      *        Constraints:
@@ -779,7 +856,7 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
      *        </li>
      *        <li>
      *        <p>
-     *        Specified in Universal Coordinated Time (UTC).
+     *        Specified in Coordinated Universal Time (UTC).
      *        </p>
      *        </li>
      *        <li>
@@ -1120,6 +1197,119 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
     }
 
     /**
+     * <p>
+     * Indicates the certificate that needs to be associated with the database.
+     * </p>
+     * 
+     * @param caCertificateIdentifier
+     *        Indicates the certificate that needs to be associated with the database.
+     */
+
+    public void setCaCertificateIdentifier(String caCertificateIdentifier) {
+        this.caCertificateIdentifier = caCertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * Indicates the certificate that needs to be associated with the database.
+     * </p>
+     * 
+     * @return Indicates the certificate that needs to be associated with the database.
+     */
+
+    public String getCaCertificateIdentifier() {
+        return this.caCertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * Indicates the certificate that needs to be associated with the database.
+     * </p>
+     * 
+     * @param caCertificateIdentifier
+     *        Indicates the certificate that needs to be associated with the database.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateRelationalDatabaseRequest withCaCertificateIdentifier(String caCertificateIdentifier) {
+        setCaCertificateIdentifier(caCertificateIdentifier);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This parameter is used to update the major version of the database. Enter the <code>blueprintId</code> for the
+     * major version that you want to update to.
+     * </p>
+     * <p>
+     * Use the <a
+     * href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRelationalDatabaseBlueprints.html"
+     * >GetRelationalDatabaseBlueprints</a> action to get a list of available blueprint IDs.
+     * </p>
+     * 
+     * @param relationalDatabaseBlueprintId
+     *        This parameter is used to update the major version of the database. Enter the <code>blueprintId</code> for
+     *        the major version that you want to update to.</p>
+     *        <p>
+     *        Use the <a href=
+     *        "https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRelationalDatabaseBlueprints.html"
+     *        >GetRelationalDatabaseBlueprints</a> action to get a list of available blueprint IDs.
+     */
+
+    public void setRelationalDatabaseBlueprintId(String relationalDatabaseBlueprintId) {
+        this.relationalDatabaseBlueprintId = relationalDatabaseBlueprintId;
+    }
+
+    /**
+     * <p>
+     * This parameter is used to update the major version of the database. Enter the <code>blueprintId</code> for the
+     * major version that you want to update to.
+     * </p>
+     * <p>
+     * Use the <a
+     * href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRelationalDatabaseBlueprints.html"
+     * >GetRelationalDatabaseBlueprints</a> action to get a list of available blueprint IDs.
+     * </p>
+     * 
+     * @return This parameter is used to update the major version of the database. Enter the <code>blueprintId</code>
+     *         for the major version that you want to update to.</p>
+     *         <p>
+     *         Use the <a href=
+     *         "https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRelationalDatabaseBlueprints.html"
+     *         >GetRelationalDatabaseBlueprints</a> action to get a list of available blueprint IDs.
+     */
+
+    public String getRelationalDatabaseBlueprintId() {
+        return this.relationalDatabaseBlueprintId;
+    }
+
+    /**
+     * <p>
+     * This parameter is used to update the major version of the database. Enter the <code>blueprintId</code> for the
+     * major version that you want to update to.
+     * </p>
+     * <p>
+     * Use the <a
+     * href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRelationalDatabaseBlueprints.html"
+     * >GetRelationalDatabaseBlueprints</a> action to get a list of available blueprint IDs.
+     * </p>
+     * 
+     * @param relationalDatabaseBlueprintId
+     *        This parameter is used to update the major version of the database. Enter the <code>blueprintId</code> for
+     *        the major version that you want to update to.</p>
+     *        <p>
+     *        Use the <a href=
+     *        "https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRelationalDatabaseBlueprints.html"
+     *        >GetRelationalDatabaseBlueprints</a> action to get a list of available blueprint IDs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateRelationalDatabaseRequest withRelationalDatabaseBlueprintId(String relationalDatabaseBlueprintId) {
+        setRelationalDatabaseBlueprintId(relationalDatabaseBlueprintId);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1148,7 +1338,11 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
         if (getPubliclyAccessible() != null)
             sb.append("PubliclyAccessible: ").append(getPubliclyAccessible()).append(",");
         if (getApplyImmediately() != null)
-            sb.append("ApplyImmediately: ").append(getApplyImmediately());
+            sb.append("ApplyImmediately: ").append(getApplyImmediately()).append(",");
+        if (getCaCertificateIdentifier() != null)
+            sb.append("CaCertificateIdentifier: ").append(getCaCertificateIdentifier()).append(",");
+        if (getRelationalDatabaseBlueprintId() != null)
+            sb.append("RelationalDatabaseBlueprintId: ").append(getRelationalDatabaseBlueprintId());
         sb.append("}");
         return sb.toString();
     }
@@ -1199,6 +1393,15 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
             return false;
         if (other.getApplyImmediately() != null && other.getApplyImmediately().equals(this.getApplyImmediately()) == false)
             return false;
+        if (other.getCaCertificateIdentifier() == null ^ this.getCaCertificateIdentifier() == null)
+            return false;
+        if (other.getCaCertificateIdentifier() != null && other.getCaCertificateIdentifier().equals(this.getCaCertificateIdentifier()) == false)
+            return false;
+        if (other.getRelationalDatabaseBlueprintId() == null ^ this.getRelationalDatabaseBlueprintId() == null)
+            return false;
+        if (other.getRelationalDatabaseBlueprintId() != null
+                && other.getRelationalDatabaseBlueprintId().equals(this.getRelationalDatabaseBlueprintId()) == false)
+            return false;
         return true;
     }
 
@@ -1216,6 +1419,8 @@ public class UpdateRelationalDatabaseRequest extends com.amazonaws.AmazonWebServ
         hashCode = prime * hashCode + ((getDisableBackupRetention() == null) ? 0 : getDisableBackupRetention().hashCode());
         hashCode = prime * hashCode + ((getPubliclyAccessible() == null) ? 0 : getPubliclyAccessible().hashCode());
         hashCode = prime * hashCode + ((getApplyImmediately() == null) ? 0 : getApplyImmediately().hashCode());
+        hashCode = prime * hashCode + ((getCaCertificateIdentifier() == null) ? 0 : getCaCertificateIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getRelationalDatabaseBlueprintId() == null) ? 0 : getRelationalDatabaseBlueprintId().hashCode());
         return hashCode;
     }
 

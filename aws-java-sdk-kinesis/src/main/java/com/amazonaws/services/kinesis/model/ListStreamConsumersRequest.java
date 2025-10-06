@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,7 +29,7 @@ public class ListStreamConsumersRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * The ARN of the Kinesis data stream for which you want to list the registered consumers. For more information, see
      * <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams">
-     * Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.
+     * Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.
      * </p>
      */
     private String streamARN;
@@ -63,7 +63,8 @@ public class ListStreamConsumersRequest extends com.amazonaws.AmazonWebServiceRe
     private String nextToken;
     /**
      * <p>
-     * The maximum number of consumers that you want a single call of <code>ListStreamConsumers</code> to return.
+     * The maximum number of consumers that you want a single call of <code>ListStreamConsumers</code> to return. The
+     * default value is 100. If you specify a value greater than 100, at most 100 results are returned.
      * </p>
      */
     private Integer maxResults;
@@ -83,14 +84,14 @@ public class ListStreamConsumersRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * The ARN of the Kinesis data stream for which you want to list the registered consumers. For more information, see
      * <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams">
-     * Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.
+     * Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.
      * </p>
      * 
      * @param streamARN
      *        The ARN of the Kinesis data stream for which you want to list the registered consumers. For more
      *        information, see <a href=
      *        "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams"
-     *        >Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.
+     *        >Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.
      */
 
     public void setStreamARN(String streamARN) {
@@ -101,13 +102,13 @@ public class ListStreamConsumersRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * The ARN of the Kinesis data stream for which you want to list the registered consumers. For more information, see
      * <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams">
-     * Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.
+     * Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.
      * </p>
      * 
      * @return The ARN of the Kinesis data stream for which you want to list the registered consumers. For more
      *         information, see <a href=
      *         "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams"
-     *         >Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.
+     *         >Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.
      */
 
     public String getStreamARN() {
@@ -118,14 +119,14 @@ public class ListStreamConsumersRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * The ARN of the Kinesis data stream for which you want to list the registered consumers. For more information, see
      * <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams">
-     * Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.
+     * Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.
      * </p>
      * 
      * @param streamARN
      *        The ARN of the Kinesis data stream for which you want to list the registered consumers. For more
      *        information, see <a href=
      *        "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams"
-     *        >Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.
+     *        >Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -311,11 +312,13 @@ public class ListStreamConsumersRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The maximum number of consumers that you want a single call of <code>ListStreamConsumers</code> to return.
+     * The maximum number of consumers that you want a single call of <code>ListStreamConsumers</code> to return. The
+     * default value is 100. If you specify a value greater than 100, at most 100 results are returned.
      * </p>
      * 
      * @param maxResults
      *        The maximum number of consumers that you want a single call of <code>ListStreamConsumers</code> to return.
+     *        The default value is 100. If you specify a value greater than 100, at most 100 results are returned.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -324,11 +327,13 @@ public class ListStreamConsumersRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The maximum number of consumers that you want a single call of <code>ListStreamConsumers</code> to return.
+     * The maximum number of consumers that you want a single call of <code>ListStreamConsumers</code> to return. The
+     * default value is 100. If you specify a value greater than 100, at most 100 results are returned.
      * </p>
      * 
      * @return The maximum number of consumers that you want a single call of <code>ListStreamConsumers</code> to
-     *         return.
+     *         return. The default value is 100. If you specify a value greater than 100, at most 100 results are
+     *         returned.
      */
 
     public Integer getMaxResults() {
@@ -337,11 +342,13 @@ public class ListStreamConsumersRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The maximum number of consumers that you want a single call of <code>ListStreamConsumers</code> to return.
+     * The maximum number of consumers that you want a single call of <code>ListStreamConsumers</code> to return. The
+     * default value is 100. If you specify a value greater than 100, at most 100 results are returned.
      * </p>
      * 
      * @param maxResults
      *        The maximum number of consumers that you want a single call of <code>ListStreamConsumers</code> to return.
+     *        The default value is 100. If you specify a value greater than 100, at most 100 results are returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

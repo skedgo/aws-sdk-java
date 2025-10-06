@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,20 +30,20 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive notification when
  * an asynchronous operation completes.
  * <p>
+ * <fullname>Batch</fullname>
  * <p>
- * AWS Batch enables you to run batch computing workloads on the AWS Cloud. Batch computing is a common way for
- * developers, scientists, and engineers to access large amounts of compute resources, and AWS Batch removes the
- * undifferentiated heavy lifting of configuring and managing the required infrastructure. AWS Batch will be familiar to
- * users of traditional batch computing software. This service can efficiently provision resources in response to jobs
- * submitted in order to eliminate capacity constraints, reduce compute costs, and deliver results quickly.
+ * Using Batch, you can run batch computing workloads on the Amazon Web Services Cloud. Batch computing is a common
+ * means for developers, scientists, and engineers to access large amounts of compute resources. Batch uses the
+ * advantages of the batch computing to remove the undifferentiated heavy lifting of configuring and managing required
+ * infrastructure. At the same time, it also adopts a familiar batch computing software approach. You can use Batch to
+ * efficiently provision resources, and work toward eliminating capacity constraints, reducing your overall compute
+ * costs, and delivering results more quickly.
  * </p>
  * <p>
- * As a fully managed service, AWS Batch enables developers, scientists, and engineers to run batch computing workloads
- * of any scale. AWS Batch automatically provisions compute resources and optimizes the workload distribution based on
- * the quantity and scale of the workloads. With AWS Batch, there is no need to install or manage batch computing
- * software, which allows you to focus on analyzing results and solving problems. AWS Batch reduces operational
- * complexities, saves time, and reduces costs, which makes it easy for developers, scientists, and engineers to run
- * their batch jobs in the AWS Cloud.
+ * As a fully managed service, Batch can run batch computing workloads of any scale. Batch automatically provisions
+ * compute resources and optimizes workload distribution based on the quantity and scale of your specific workloads.
+ * With Batch, there's no need to install or manage batch computing software. This means that you can focus on analyzing
+ * results and solving your specific problems instead.
  * </p>
  */
 @ThreadSafe
@@ -242,7 +242,19 @@ public class AWSBatchAsyncClient extends AWSBatchClient implements AWSBatchAsync
      *        Object providing client parameters.
      */
     AWSBatchAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWS Batch using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSBatchAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -355,6 +367,39 @@ public class AWSBatchAsyncClient extends AWSBatchClient implements AWSBatchAsync
     }
 
     @Override
+    public java.util.concurrent.Future<CreateSchedulingPolicyResult> createSchedulingPolicyAsync(CreateSchedulingPolicyRequest request) {
+
+        return createSchedulingPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateSchedulingPolicyResult> createSchedulingPolicyAsync(final CreateSchedulingPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateSchedulingPolicyRequest, CreateSchedulingPolicyResult> asyncHandler) {
+        final CreateSchedulingPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateSchedulingPolicyResult>() {
+            @Override
+            public CreateSchedulingPolicyResult call() throws Exception {
+                CreateSchedulingPolicyResult result = null;
+
+                try {
+                    result = executeCreateSchedulingPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteComputeEnvironmentResult> deleteComputeEnvironmentAsync(DeleteComputeEnvironmentRequest request) {
 
         return deleteComputeEnvironmentAsync(request, null);
@@ -405,6 +450,39 @@ public class AWSBatchAsyncClient extends AWSBatchClient implements AWSBatchAsync
 
                 try {
                     result = executeDeleteJobQueue(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteSchedulingPolicyResult> deleteSchedulingPolicyAsync(DeleteSchedulingPolicyRequest request) {
+
+        return deleteSchedulingPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteSchedulingPolicyResult> deleteSchedulingPolicyAsync(final DeleteSchedulingPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteSchedulingPolicyRequest, DeleteSchedulingPolicyResult> asyncHandler) {
+        final DeleteSchedulingPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteSchedulingPolicyResult>() {
+            @Override
+            public DeleteSchedulingPolicyResult call() throws Exception {
+                DeleteSchedulingPolicyResult result = null;
+
+                try {
+                    result = executeDeleteSchedulingPolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -586,6 +664,72 @@ public class AWSBatchAsyncClient extends AWSBatchClient implements AWSBatchAsync
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeSchedulingPoliciesResult> describeSchedulingPoliciesAsync(DescribeSchedulingPoliciesRequest request) {
+
+        return describeSchedulingPoliciesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeSchedulingPoliciesResult> describeSchedulingPoliciesAsync(final DescribeSchedulingPoliciesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeSchedulingPoliciesRequest, DescribeSchedulingPoliciesResult> asyncHandler) {
+        final DescribeSchedulingPoliciesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeSchedulingPoliciesResult>() {
+            @Override
+            public DescribeSchedulingPoliciesResult call() throws Exception {
+                DescribeSchedulingPoliciesResult result = null;
+
+                try {
+                    result = executeDescribeSchedulingPolicies(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetJobQueueSnapshotResult> getJobQueueSnapshotAsync(GetJobQueueSnapshotRequest request) {
+
+        return getJobQueueSnapshotAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetJobQueueSnapshotResult> getJobQueueSnapshotAsync(final GetJobQueueSnapshotRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetJobQueueSnapshotRequest, GetJobQueueSnapshotResult> asyncHandler) {
+        final GetJobQueueSnapshotRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetJobQueueSnapshotResult>() {
+            @Override
+            public GetJobQueueSnapshotResult call() throws Exception {
+                GetJobQueueSnapshotResult result = null;
+
+                try {
+                    result = executeGetJobQueueSnapshot(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListJobsResult> listJobsAsync(ListJobsRequest request) {
 
         return listJobsAsync(request, null);
@@ -603,6 +747,72 @@ public class AWSBatchAsyncClient extends AWSBatchClient implements AWSBatchAsync
 
                 try {
                     result = executeListJobs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSchedulingPoliciesResult> listSchedulingPoliciesAsync(ListSchedulingPoliciesRequest request) {
+
+        return listSchedulingPoliciesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSchedulingPoliciesResult> listSchedulingPoliciesAsync(final ListSchedulingPoliciesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListSchedulingPoliciesRequest, ListSchedulingPoliciesResult> asyncHandler) {
+        final ListSchedulingPoliciesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListSchedulingPoliciesResult>() {
+            @Override
+            public ListSchedulingPoliciesResult call() throws Exception {
+                ListSchedulingPoliciesResult result = null;
+
+                try {
+                    result = executeListSchedulingPolicies(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+        final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTagsForResourceResult>() {
+            @Override
+            public ListTagsForResourceResult call() throws Exception {
+                ListTagsForResourceResult result = null;
+
+                try {
+                    result = executeListTagsForResource(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -685,6 +895,39 @@ public class AWSBatchAsyncClient extends AWSBatchClient implements AWSBatchAsync
     }
 
     @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<TerminateJobResult> terminateJobAsync(TerminateJobRequest request) {
 
         return terminateJobAsync(request, null);
@@ -702,6 +945,39 @@ public class AWSBatchAsyncClient extends AWSBatchClient implements AWSBatchAsync
 
                 try {
                     result = executeTerminateJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -768,6 +1044,39 @@ public class AWSBatchAsyncClient extends AWSBatchClient implements AWSBatchAsync
 
                 try {
                     result = executeUpdateJobQueue(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSchedulingPolicyResult> updateSchedulingPolicyAsync(UpdateSchedulingPolicyRequest request) {
+
+        return updateSchedulingPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSchedulingPolicyResult> updateSchedulingPolicyAsync(final UpdateSchedulingPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateSchedulingPolicyRequest, UpdateSchedulingPolicyResult> asyncHandler) {
+        final UpdateSchedulingPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateSchedulingPolicyResult>() {
+            @Override
+            public UpdateSchedulingPolicyResult call() throws Exception {
+                UpdateSchedulingPolicyResult result = null;
+
+                try {
+                    result = executeUpdateSchedulingPolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

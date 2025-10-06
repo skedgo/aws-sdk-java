@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,7 @@ public class TagResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaw
     private String arn;
     /**
      * <p>
-     * The tags that have been added to the specified resource.
+     * The tags that have been added to the specified resource group.
      * </p>
      */
     private java.util.Map<String, String> tags;
@@ -78,10 +78,10 @@ public class TagResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaw
 
     /**
      * <p>
-     * The tags that have been added to the specified resource.
+     * The tags that have been added to the specified resource group.
      * </p>
      * 
-     * @return The tags that have been added to the specified resource.
+     * @return The tags that have been added to the specified resource group.
      */
 
     public java.util.Map<String, String> getTags() {
@@ -90,11 +90,11 @@ public class TagResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaw
 
     /**
      * <p>
-     * The tags that have been added to the specified resource.
+     * The tags that have been added to the specified resource group.
      * </p>
      * 
      * @param tags
-     *        The tags that have been added to the specified resource.
+     *        The tags that have been added to the specified resource group.
      */
 
     public void setTags(java.util.Map<String, String> tags) {
@@ -103,11 +103,11 @@ public class TagResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaw
 
     /**
      * <p>
-     * The tags that have been added to the specified resource.
+     * The tags that have been added to the specified resource group.
      * </p>
      * 
      * @param tags
-     *        The tags that have been added to the specified resource.
+     *        The tags that have been added to the specified resource group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -115,6 +115,13 @@ public class TagResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaw
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see TagResult#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public TagResult addTagsEntry(String key, String value) {
         if (null == this.tags) {

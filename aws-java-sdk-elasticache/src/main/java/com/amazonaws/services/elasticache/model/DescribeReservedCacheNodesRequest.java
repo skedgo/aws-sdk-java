@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -63,6 +63,24 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * Current generation:
      * </p>
      * <p>
+     * <b>M7g node types</b>: <code>cache.m7g.large</code>, <code>cache.m7g.xlarge</code>,
+     * <code>cache.m7g.2xlarge</code>, <code>cache.m7g.4xlarge</code>, <code>cache.m7g.8xlarge</code>,
+     * <code>cache.m7g.12xlarge</code>, <code>cache.m7g.16xlarge</code>
+     * </p>
+     * <note>
+     * <p>
+     * For region availability, see <a href=
+     * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     * >Supported Node Types</a>
+     * </p>
+     * </note>
+     * <p>
+     * <b>M6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     * 1.5.16 onward): <code>cache.m6g.large</code>, <code>cache.m6g.xlarge</code>, <code>cache.m6g.2xlarge</code>,
+     * <code>cache.m6g.4xlarge</code>, <code>cache.m6g.8xlarge</code>, <code>cache.m6g.12xlarge</code>,
+     * <code>cache.m6g.16xlarge</code>
+     * </p>
+     * <p>
      * <b>M5 node types:</b> <code>cache.m5.large</code>, <code>cache.m5.xlarge</code>, <code>cache.m5.2xlarge</code>,
      * <code>cache.m5.4xlarge</code>, <code>cache.m5.12xlarge</code>, <code>cache.m5.24xlarge</code>
      * </p>
@@ -71,12 +89,20 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      * </p>
      * <p>
+     * <b>T4g node types</b> (available only for Redis OSS engine version 5.0.6 onward and Memcached engine version
+     * 1.5.16 onward): <code>cache.t4g.micro</code>, <code>cache.t4g.small</code>, <code>cache.t4g.medium</code>
+     * </p>
+     * <p>
+     * <b>T3 node types:</b> <code>cache.t3.micro</code>, <code>cache.t3.small</code>, <code>cache.t3.medium</code>
+     * </p>
+     * <p>
      * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>T1 node types:</b> <code>cache.t1.micro</code>
@@ -99,7 +125,8 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
@@ -117,6 +144,24 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * Current generation:
      * </p>
      * <p>
+     * <b>R7g node types</b>: <code>cache.r7g.large</code>, <code>cache.r7g.xlarge</code>,
+     * <code>cache.r7g.2xlarge</code>, <code>cache.r7g.4xlarge</code>, <code>cache.r7g.8xlarge</code>,
+     * <code>cache.r7g.12xlarge</code>, <code>cache.r7g.16xlarge</code>
+     * </p>
+     * <note>
+     * <p>
+     * For region availability, see <a href=
+     * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     * >Supported Node Types</a>
+     * </p>
+     * </note>
+     * <p>
+     * <b>R6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     * 1.5.16 onward): <code>cache.r6g.large</code>, <code>cache.r6g.xlarge</code>, <code>cache.r6g.2xlarge</code>,
+     * <code>cache.r6g.4xlarge</code>, <code>cache.r6g.8xlarge</code>, <code>cache.r6g.12xlarge</code>,
+     * <code>cache.r6g.16xlarge</code>
+     * </p>
+     * <p>
      * <b>R5 node types:</b> <code>cache.r5.large</code>, <code>cache.r5.xlarge</code>, <code>cache.r5.2xlarge</code>,
      * <code>cache.r5.4xlarge</code>, <code>cache.r5.12xlarge</code>, <code>cache.r5.24xlarge</code>
      * </p>
@@ -127,7 +172,8 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * </li>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
@@ -151,18 +197,18 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * </li>
      * <li>
      * <p>
-     * Redis append-only files (AOF) are not supported for T1 or T2 instances.
+     * Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Redis Multi-AZ with automatic failover is not supported on T1 instances.
+     * Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Redis configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis
-     * version 2.8.22 and later.
+     * Redis OSS configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis
+     * OSS version 2.8.22 and later.
      * </p>
      * </li>
      * </ul>
@@ -191,7 +237,8 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * offering type.
      * </p>
      * <p>
-     * Valid values: <code>"Light Utilization"|"Medium Utilization"|"Heavy Utilization"</code>
+     * Valid values:
+     * <code>"Light Utilization"|"Medium Utilization"|"Heavy Utilization"|"All Upfront"|"Partial Upfront"| "No Upfront"</code>
      * </p>
      */
     private String offeringType;
@@ -331,6 +378,24 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * Current generation:
      * </p>
      * <p>
+     * <b>M7g node types</b>: <code>cache.m7g.large</code>, <code>cache.m7g.xlarge</code>,
+     * <code>cache.m7g.2xlarge</code>, <code>cache.m7g.4xlarge</code>, <code>cache.m7g.8xlarge</code>,
+     * <code>cache.m7g.12xlarge</code>, <code>cache.m7g.16xlarge</code>
+     * </p>
+     * <note>
+     * <p>
+     * For region availability, see <a href=
+     * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     * >Supported Node Types</a>
+     * </p>
+     * </note>
+     * <p>
+     * <b>M6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     * 1.5.16 onward): <code>cache.m6g.large</code>, <code>cache.m6g.xlarge</code>, <code>cache.m6g.2xlarge</code>,
+     * <code>cache.m6g.4xlarge</code>, <code>cache.m6g.8xlarge</code>, <code>cache.m6g.12xlarge</code>,
+     * <code>cache.m6g.16xlarge</code>
+     * </p>
+     * <p>
      * <b>M5 node types:</b> <code>cache.m5.large</code>, <code>cache.m5.xlarge</code>, <code>cache.m5.2xlarge</code>,
      * <code>cache.m5.4xlarge</code>, <code>cache.m5.12xlarge</code>, <code>cache.m5.24xlarge</code>
      * </p>
@@ -339,12 +404,20 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      * </p>
      * <p>
+     * <b>T4g node types</b> (available only for Redis OSS engine version 5.0.6 onward and Memcached engine version
+     * 1.5.16 onward): <code>cache.t4g.micro</code>, <code>cache.t4g.small</code>, <code>cache.t4g.medium</code>
+     * </p>
+     * <p>
+     * <b>T3 node types:</b> <code>cache.t3.micro</code>, <code>cache.t3.small</code>, <code>cache.t3.medium</code>
+     * </p>
+     * <p>
      * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>T1 node types:</b> <code>cache.t1.micro</code>
@@ -367,7 +440,8 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
@@ -385,6 +459,24 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * Current generation:
      * </p>
      * <p>
+     * <b>R7g node types</b>: <code>cache.r7g.large</code>, <code>cache.r7g.xlarge</code>,
+     * <code>cache.r7g.2xlarge</code>, <code>cache.r7g.4xlarge</code>, <code>cache.r7g.8xlarge</code>,
+     * <code>cache.r7g.12xlarge</code>, <code>cache.r7g.16xlarge</code>
+     * </p>
+     * <note>
+     * <p>
+     * For region availability, see <a href=
+     * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     * >Supported Node Types</a>
+     * </p>
+     * </note>
+     * <p>
+     * <b>R6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     * 1.5.16 onward): <code>cache.r6g.large</code>, <code>cache.r6g.xlarge</code>, <code>cache.r6g.2xlarge</code>,
+     * <code>cache.r6g.4xlarge</code>, <code>cache.r6g.8xlarge</code>, <code>cache.r6g.12xlarge</code>,
+     * <code>cache.r6g.16xlarge</code>
+     * </p>
+     * <p>
      * <b>R5 node types:</b> <code>cache.r5.large</code>, <code>cache.r5.xlarge</code>, <code>cache.r5.2xlarge</code>,
      * <code>cache.r5.4xlarge</code>, <code>cache.r5.12xlarge</code>, <code>cache.r5.24xlarge</code>
      * </p>
@@ -395,7 +487,8 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * </li>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
@@ -419,18 +512,18 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * </li>
      * <li>
      * <p>
-     * Redis append-only files (AOF) are not supported for T1 or T2 instances.
+     * Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Redis Multi-AZ with automatic failover is not supported on T1 instances.
+     * Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Redis configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis
-     * version 2.8.22 and later.
+     * Redis OSS configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis
+     * OSS version 2.8.22 and later.
      * </p>
      * </li>
      * </ul>
@@ -454,6 +547,24 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *        Current generation:
      *        </p>
      *        <p>
+     *        <b>M7g node types</b>: <code>cache.m7g.large</code>, <code>cache.m7g.xlarge</code>,
+     *        <code>cache.m7g.2xlarge</code>, <code>cache.m7g.4xlarge</code>, <code>cache.m7g.8xlarge</code>,
+     *        <code>cache.m7g.12xlarge</code>, <code>cache.m7g.16xlarge</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        For region availability, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     *        >Supported Node Types</a>
+     *        </p>
+     *        </note>
+     *        <p>
+     *        <b>M6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine
+     *        version 1.5.16 onward): <code>cache.m6g.large</code>, <code>cache.m6g.xlarge</code>,
+     *        <code>cache.m6g.2xlarge</code>, <code>cache.m6g.4xlarge</code>, <code>cache.m6g.8xlarge</code>,
+     *        <code>cache.m6g.12xlarge</code>, <code>cache.m6g.16xlarge</code>
+     *        </p>
+     *        <p>
      *        <b>M5 node types:</b> <code>cache.m5.large</code>, <code>cache.m5.xlarge</code>,
      *        <code>cache.m5.2xlarge</code>, <code>cache.m5.4xlarge</code>, <code>cache.m5.12xlarge</code>,
      *        <code>cache.m5.24xlarge</code>
@@ -463,13 +574,23 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *        <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      *        </p>
      *        <p>
+     *        <b>T4g node types</b> (available only for Redis OSS engine version 5.0.6 onward and Memcached engine
+     *        version 1.5.16 onward): <code>cache.t4g.micro</code>, <code>cache.t4g.small</code>,
+     *        <code>cache.t4g.medium</code>
+     *        </p>
+     *        <p>
+     *        <b>T3 node types:</b> <code>cache.t3.micro</code>, <code>cache.t3.small</code>,
+     *        <code>cache.t3.medium</code>
+     *        </p>
+     *        <p>
      *        <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>,
      *        <code>cache.t2.medium</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Previous generation: (not recommended)
+     *        Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *        is not supported for these types.)
      *        </p>
      *        <p>
      *        <b>T1 node types:</b> <code>cache.t1.micro</code>
@@ -492,7 +613,8 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *        <ul>
      *        <li>
      *        <p>
-     *        Previous generation: (not recommended)
+     *        Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *        is not supported for these types.)
      *        </p>
      *        <p>
      *        <b>C1 node types:</b> <code>cache.c1.xlarge</code>
@@ -510,6 +632,24 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *        Current generation:
      *        </p>
      *        <p>
+     *        <b>R7g node types</b>: <code>cache.r7g.large</code>, <code>cache.r7g.xlarge</code>,
+     *        <code>cache.r7g.2xlarge</code>, <code>cache.r7g.4xlarge</code>, <code>cache.r7g.8xlarge</code>,
+     *        <code>cache.r7g.12xlarge</code>, <code>cache.r7g.16xlarge</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        For region availability, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     *        >Supported Node Types</a>
+     *        </p>
+     *        </note>
+     *        <p>
+     *        <b>R6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine
+     *        version 1.5.16 onward): <code>cache.r6g.large</code>, <code>cache.r6g.xlarge</code>,
+     *        <code>cache.r6g.2xlarge</code>, <code>cache.r6g.4xlarge</code>, <code>cache.r6g.8xlarge</code>,
+     *        <code>cache.r6g.12xlarge</code>, <code>cache.r6g.16xlarge</code>
+     *        </p>
+     *        <p>
      *        <b>R5 node types:</b> <code>cache.r5.large</code>, <code>cache.r5.xlarge</code>,
      *        <code>cache.r5.2xlarge</code>, <code>cache.r5.4xlarge</code>, <code>cache.r5.12xlarge</code>,
      *        <code>cache.r5.24xlarge</code>
@@ -522,7 +662,8 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *        </li>
      *        <li>
      *        <p>
-     *        Previous generation: (not recommended)
+     *        Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *        is not supported for these types.)
      *        </p>
      *        <p>
      *        <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
@@ -547,18 +688,18 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *        </li>
      *        <li>
      *        <p>
-     *        Redis append-only files (AOF) are not supported for T1 or T2 instances.
+     *        Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Redis Multi-AZ with automatic failover is not supported on T1 instances.
+     *        Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Redis configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on
-     *        Redis version 2.8.22 and later.
+     *        Redis OSS configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported
+     *        on Redis OSS version 2.8.22 and later.
      *        </p>
      *        </li>
      */
@@ -588,6 +729,24 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * Current generation:
      * </p>
      * <p>
+     * <b>M7g node types</b>: <code>cache.m7g.large</code>, <code>cache.m7g.xlarge</code>,
+     * <code>cache.m7g.2xlarge</code>, <code>cache.m7g.4xlarge</code>, <code>cache.m7g.8xlarge</code>,
+     * <code>cache.m7g.12xlarge</code>, <code>cache.m7g.16xlarge</code>
+     * </p>
+     * <note>
+     * <p>
+     * For region availability, see <a href=
+     * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     * >Supported Node Types</a>
+     * </p>
+     * </note>
+     * <p>
+     * <b>M6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     * 1.5.16 onward): <code>cache.m6g.large</code>, <code>cache.m6g.xlarge</code>, <code>cache.m6g.2xlarge</code>,
+     * <code>cache.m6g.4xlarge</code>, <code>cache.m6g.8xlarge</code>, <code>cache.m6g.12xlarge</code>,
+     * <code>cache.m6g.16xlarge</code>
+     * </p>
+     * <p>
      * <b>M5 node types:</b> <code>cache.m5.large</code>, <code>cache.m5.xlarge</code>, <code>cache.m5.2xlarge</code>,
      * <code>cache.m5.4xlarge</code>, <code>cache.m5.12xlarge</code>, <code>cache.m5.24xlarge</code>
      * </p>
@@ -596,12 +755,20 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      * </p>
      * <p>
+     * <b>T4g node types</b> (available only for Redis OSS engine version 5.0.6 onward and Memcached engine version
+     * 1.5.16 onward): <code>cache.t4g.micro</code>, <code>cache.t4g.small</code>, <code>cache.t4g.medium</code>
+     * </p>
+     * <p>
+     * <b>T3 node types:</b> <code>cache.t3.micro</code>, <code>cache.t3.small</code>, <code>cache.t3.medium</code>
+     * </p>
+     * <p>
      * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>T1 node types:</b> <code>cache.t1.micro</code>
@@ -624,7 +791,8 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
@@ -642,6 +810,24 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * Current generation:
      * </p>
      * <p>
+     * <b>R7g node types</b>: <code>cache.r7g.large</code>, <code>cache.r7g.xlarge</code>,
+     * <code>cache.r7g.2xlarge</code>, <code>cache.r7g.4xlarge</code>, <code>cache.r7g.8xlarge</code>,
+     * <code>cache.r7g.12xlarge</code>, <code>cache.r7g.16xlarge</code>
+     * </p>
+     * <note>
+     * <p>
+     * For region availability, see <a href=
+     * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     * >Supported Node Types</a>
+     * </p>
+     * </note>
+     * <p>
+     * <b>R6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     * 1.5.16 onward): <code>cache.r6g.large</code>, <code>cache.r6g.xlarge</code>, <code>cache.r6g.2xlarge</code>,
+     * <code>cache.r6g.4xlarge</code>, <code>cache.r6g.8xlarge</code>, <code>cache.r6g.12xlarge</code>,
+     * <code>cache.r6g.16xlarge</code>
+     * </p>
+     * <p>
      * <b>R5 node types:</b> <code>cache.r5.large</code>, <code>cache.r5.xlarge</code>, <code>cache.r5.2xlarge</code>,
      * <code>cache.r5.4xlarge</code>, <code>cache.r5.12xlarge</code>, <code>cache.r5.24xlarge</code>
      * </p>
@@ -652,7 +838,8 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * </li>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
@@ -676,18 +863,18 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * </li>
      * <li>
      * <p>
-     * Redis append-only files (AOF) are not supported for T1 or T2 instances.
+     * Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Redis Multi-AZ with automatic failover is not supported on T1 instances.
+     * Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Redis configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis
-     * version 2.8.22 and later.
+     * Redis OSS configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis
+     * OSS version 2.8.22 and later.
      * </p>
      * </li>
      * </ul>
@@ -710,6 +897,24 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *         Current generation:
      *         </p>
      *         <p>
+     *         <b>M7g node types</b>: <code>cache.m7g.large</code>, <code>cache.m7g.xlarge</code>,
+     *         <code>cache.m7g.2xlarge</code>, <code>cache.m7g.4xlarge</code>, <code>cache.m7g.8xlarge</code>,
+     *         <code>cache.m7g.12xlarge</code>, <code>cache.m7g.16xlarge</code>
+     *         </p>
+     *         <note>
+     *         <p>
+     *         For region availability, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     *         >Supported Node Types</a>
+     *         </p>
+     *         </note>
+     *         <p>
+     *         <b>M6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine
+     *         version 1.5.16 onward): <code>cache.m6g.large</code>, <code>cache.m6g.xlarge</code>,
+     *         <code>cache.m6g.2xlarge</code>, <code>cache.m6g.4xlarge</code>, <code>cache.m6g.8xlarge</code>,
+     *         <code>cache.m6g.12xlarge</code>, <code>cache.m6g.16xlarge</code>
+     *         </p>
+     *         <p>
      *         <b>M5 node types:</b> <code>cache.m5.large</code>, <code>cache.m5.xlarge</code>,
      *         <code>cache.m5.2xlarge</code>, <code>cache.m5.4xlarge</code>, <code>cache.m5.12xlarge</code>,
      *         <code>cache.m5.24xlarge</code>
@@ -719,13 +924,23 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *         <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      *         </p>
      *         <p>
+     *         <b>T4g node types</b> (available only for Redis OSS engine version 5.0.6 onward and Memcached engine
+     *         version 1.5.16 onward): <code>cache.t4g.micro</code>, <code>cache.t4g.small</code>,
+     *         <code>cache.t4g.medium</code>
+     *         </p>
+     *         <p>
+     *         <b>T3 node types:</b> <code>cache.t3.micro</code>, <code>cache.t3.small</code>,
+     *         <code>cache.t3.medium</code>
+     *         </p>
+     *         <p>
      *         <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>,
      *         <code>cache.t2.medium</code>
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Previous generation: (not recommended)
+     *         Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *         is not supported for these types.)
      *         </p>
      *         <p>
      *         <b>T1 node types:</b> <code>cache.t1.micro</code>
@@ -748,7 +963,8 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *         <ul>
      *         <li>
      *         <p>
-     *         Previous generation: (not recommended)
+     *         Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *         is not supported for these types.)
      *         </p>
      *         <p>
      *         <b>C1 node types:</b> <code>cache.c1.xlarge</code>
@@ -766,6 +982,24 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *         Current generation:
      *         </p>
      *         <p>
+     *         <b>R7g node types</b>: <code>cache.r7g.large</code>, <code>cache.r7g.xlarge</code>,
+     *         <code>cache.r7g.2xlarge</code>, <code>cache.r7g.4xlarge</code>, <code>cache.r7g.8xlarge</code>,
+     *         <code>cache.r7g.12xlarge</code>, <code>cache.r7g.16xlarge</code>
+     *         </p>
+     *         <note>
+     *         <p>
+     *         For region availability, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     *         >Supported Node Types</a>
+     *         </p>
+     *         </note>
+     *         <p>
+     *         <b>R6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine
+     *         version 1.5.16 onward): <code>cache.r6g.large</code>, <code>cache.r6g.xlarge</code>,
+     *         <code>cache.r6g.2xlarge</code>, <code>cache.r6g.4xlarge</code>, <code>cache.r6g.8xlarge</code>,
+     *         <code>cache.r6g.12xlarge</code>, <code>cache.r6g.16xlarge</code>
+     *         </p>
+     *         <p>
      *         <b>R5 node types:</b> <code>cache.r5.large</code>, <code>cache.r5.xlarge</code>,
      *         <code>cache.r5.2xlarge</code>, <code>cache.r5.4xlarge</code>, <code>cache.r5.12xlarge</code>,
      *         <code>cache.r5.24xlarge</code>
@@ -778,7 +1012,8 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *         </li>
      *         <li>
      *         <p>
-     *         Previous generation: (not recommended)
+     *         Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *         is not supported for these types.)
      *         </p>
      *         <p>
      *         <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
@@ -803,18 +1038,18 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *         </li>
      *         <li>
      *         <p>
-     *         Redis append-only files (AOF) are not supported for T1 or T2 instances.
+     *         Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Redis Multi-AZ with automatic failover is not supported on T1 instances.
+     *         Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Redis configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on
-     *         Redis version 2.8.22 and later.
+     *         Redis OSS configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported
+     *         on Redis OSS version 2.8.22 and later.
      *         </p>
      *         </li>
      */
@@ -844,6 +1079,24 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * Current generation:
      * </p>
      * <p>
+     * <b>M7g node types</b>: <code>cache.m7g.large</code>, <code>cache.m7g.xlarge</code>,
+     * <code>cache.m7g.2xlarge</code>, <code>cache.m7g.4xlarge</code>, <code>cache.m7g.8xlarge</code>,
+     * <code>cache.m7g.12xlarge</code>, <code>cache.m7g.16xlarge</code>
+     * </p>
+     * <note>
+     * <p>
+     * For region availability, see <a href=
+     * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     * >Supported Node Types</a>
+     * </p>
+     * </note>
+     * <p>
+     * <b>M6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     * 1.5.16 onward): <code>cache.m6g.large</code>, <code>cache.m6g.xlarge</code>, <code>cache.m6g.2xlarge</code>,
+     * <code>cache.m6g.4xlarge</code>, <code>cache.m6g.8xlarge</code>, <code>cache.m6g.12xlarge</code>,
+     * <code>cache.m6g.16xlarge</code>
+     * </p>
+     * <p>
      * <b>M5 node types:</b> <code>cache.m5.large</code>, <code>cache.m5.xlarge</code>, <code>cache.m5.2xlarge</code>,
      * <code>cache.m5.4xlarge</code>, <code>cache.m5.12xlarge</code>, <code>cache.m5.24xlarge</code>
      * </p>
@@ -852,12 +1105,20 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      * </p>
      * <p>
+     * <b>T4g node types</b> (available only for Redis OSS engine version 5.0.6 onward and Memcached engine version
+     * 1.5.16 onward): <code>cache.t4g.micro</code>, <code>cache.t4g.small</code>, <code>cache.t4g.medium</code>
+     * </p>
+     * <p>
+     * <b>T3 node types:</b> <code>cache.t3.micro</code>, <code>cache.t3.small</code>, <code>cache.t3.medium</code>
+     * </p>
+     * <p>
      * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>T1 node types:</b> <code>cache.t1.micro</code>
@@ -880,7 +1141,8 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
@@ -898,6 +1160,24 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * Current generation:
      * </p>
      * <p>
+     * <b>R7g node types</b>: <code>cache.r7g.large</code>, <code>cache.r7g.xlarge</code>,
+     * <code>cache.r7g.2xlarge</code>, <code>cache.r7g.4xlarge</code>, <code>cache.r7g.8xlarge</code>,
+     * <code>cache.r7g.12xlarge</code>, <code>cache.r7g.16xlarge</code>
+     * </p>
+     * <note>
+     * <p>
+     * For region availability, see <a href=
+     * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     * >Supported Node Types</a>
+     * </p>
+     * </note>
+     * <p>
+     * <b>R6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     * 1.5.16 onward): <code>cache.r6g.large</code>, <code>cache.r6g.xlarge</code>, <code>cache.r6g.2xlarge</code>,
+     * <code>cache.r6g.4xlarge</code>, <code>cache.r6g.8xlarge</code>, <code>cache.r6g.12xlarge</code>,
+     * <code>cache.r6g.16xlarge</code>
+     * </p>
+     * <p>
      * <b>R5 node types:</b> <code>cache.r5.large</code>, <code>cache.r5.xlarge</code>, <code>cache.r5.2xlarge</code>,
      * <code>cache.r5.4xlarge</code>, <code>cache.r5.12xlarge</code>, <code>cache.r5.24xlarge</code>
      * </p>
@@ -908,7 +1188,8 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * </li>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
@@ -932,18 +1213,18 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * </li>
      * <li>
      * <p>
-     * Redis append-only files (AOF) are not supported for T1 or T2 instances.
+     * Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Redis Multi-AZ with automatic failover is not supported on T1 instances.
+     * Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Redis configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis
-     * version 2.8.22 and later.
+     * Redis OSS configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis
+     * OSS version 2.8.22 and later.
      * </p>
      * </li>
      * </ul>
@@ -967,6 +1248,24 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *        Current generation:
      *        </p>
      *        <p>
+     *        <b>M7g node types</b>: <code>cache.m7g.large</code>, <code>cache.m7g.xlarge</code>,
+     *        <code>cache.m7g.2xlarge</code>, <code>cache.m7g.4xlarge</code>, <code>cache.m7g.8xlarge</code>,
+     *        <code>cache.m7g.12xlarge</code>, <code>cache.m7g.16xlarge</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        For region availability, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     *        >Supported Node Types</a>
+     *        </p>
+     *        </note>
+     *        <p>
+     *        <b>M6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine
+     *        version 1.5.16 onward): <code>cache.m6g.large</code>, <code>cache.m6g.xlarge</code>,
+     *        <code>cache.m6g.2xlarge</code>, <code>cache.m6g.4xlarge</code>, <code>cache.m6g.8xlarge</code>,
+     *        <code>cache.m6g.12xlarge</code>, <code>cache.m6g.16xlarge</code>
+     *        </p>
+     *        <p>
      *        <b>M5 node types:</b> <code>cache.m5.large</code>, <code>cache.m5.xlarge</code>,
      *        <code>cache.m5.2xlarge</code>, <code>cache.m5.4xlarge</code>, <code>cache.m5.12xlarge</code>,
      *        <code>cache.m5.24xlarge</code>
@@ -976,13 +1275,23 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *        <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      *        </p>
      *        <p>
+     *        <b>T4g node types</b> (available only for Redis OSS engine version 5.0.6 onward and Memcached engine
+     *        version 1.5.16 onward): <code>cache.t4g.micro</code>, <code>cache.t4g.small</code>,
+     *        <code>cache.t4g.medium</code>
+     *        </p>
+     *        <p>
+     *        <b>T3 node types:</b> <code>cache.t3.micro</code>, <code>cache.t3.small</code>,
+     *        <code>cache.t3.medium</code>
+     *        </p>
+     *        <p>
      *        <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>,
      *        <code>cache.t2.medium</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Previous generation: (not recommended)
+     *        Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *        is not supported for these types.)
      *        </p>
      *        <p>
      *        <b>T1 node types:</b> <code>cache.t1.micro</code>
@@ -1005,7 +1314,8 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *        <ul>
      *        <li>
      *        <p>
-     *        Previous generation: (not recommended)
+     *        Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *        is not supported for these types.)
      *        </p>
      *        <p>
      *        <b>C1 node types:</b> <code>cache.c1.xlarge</code>
@@ -1023,6 +1333,24 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *        Current generation:
      *        </p>
      *        <p>
+     *        <b>R7g node types</b>: <code>cache.r7g.large</code>, <code>cache.r7g.xlarge</code>,
+     *        <code>cache.r7g.2xlarge</code>, <code>cache.r7g.4xlarge</code>, <code>cache.r7g.8xlarge</code>,
+     *        <code>cache.r7g.12xlarge</code>, <code>cache.r7g.16xlarge</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        For region availability, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     *        >Supported Node Types</a>
+     *        </p>
+     *        </note>
+     *        <p>
+     *        <b>R6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine
+     *        version 1.5.16 onward): <code>cache.r6g.large</code>, <code>cache.r6g.xlarge</code>,
+     *        <code>cache.r6g.2xlarge</code>, <code>cache.r6g.4xlarge</code>, <code>cache.r6g.8xlarge</code>,
+     *        <code>cache.r6g.12xlarge</code>, <code>cache.r6g.16xlarge</code>
+     *        </p>
+     *        <p>
      *        <b>R5 node types:</b> <code>cache.r5.large</code>, <code>cache.r5.xlarge</code>,
      *        <code>cache.r5.2xlarge</code>, <code>cache.r5.4xlarge</code>, <code>cache.r5.12xlarge</code>,
      *        <code>cache.r5.24xlarge</code>
@@ -1035,7 +1363,8 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *        </li>
      *        <li>
      *        <p>
-     *        Previous generation: (not recommended)
+     *        Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *        is not supported for these types.)
      *        </p>
      *        <p>
      *        <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
@@ -1060,18 +1389,18 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      *        </li>
      *        <li>
      *        <p>
-     *        Redis append-only files (AOF) are not supported for T1 or T2 instances.
+     *        Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Redis Multi-AZ with automatic failover is not supported on T1 instances.
+     *        Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Redis configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on
-     *        Redis version 2.8.22 and later.
+     *        Redis OSS configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported
+     *        on Redis OSS version 2.8.22 and later.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1195,14 +1524,16 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * offering type.
      * </p>
      * <p>
-     * Valid values: <code>"Light Utilization"|"Medium Utilization"|"Heavy Utilization"</code>
+     * Valid values:
+     * <code>"Light Utilization"|"Medium Utilization"|"Heavy Utilization"|"All Upfront"|"Partial Upfront"| "No Upfront"</code>
      * </p>
      * 
      * @param offeringType
      *        The offering type filter value. Use this parameter to show only the available offerings matching the
      *        specified offering type.</p>
      *        <p>
-     *        Valid values: <code>"Light Utilization"|"Medium Utilization"|"Heavy Utilization"</code>
+     *        Valid values:
+     *        <code>"Light Utilization"|"Medium Utilization"|"Heavy Utilization"|"All Upfront"|"Partial Upfront"| "No Upfront"</code>
      */
 
     public void setOfferingType(String offeringType) {
@@ -1215,13 +1546,15 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * offering type.
      * </p>
      * <p>
-     * Valid values: <code>"Light Utilization"|"Medium Utilization"|"Heavy Utilization"</code>
+     * Valid values:
+     * <code>"Light Utilization"|"Medium Utilization"|"Heavy Utilization"|"All Upfront"|"Partial Upfront"| "No Upfront"</code>
      * </p>
      * 
      * @return The offering type filter value. Use this parameter to show only the available offerings matching the
      *         specified offering type.</p>
      *         <p>
-     *         Valid values: <code>"Light Utilization"|"Medium Utilization"|"Heavy Utilization"</code>
+     *         Valid values:
+     *         <code>"Light Utilization"|"Medium Utilization"|"Heavy Utilization"|"All Upfront"|"Partial Upfront"| "No Upfront"</code>
      */
 
     public String getOfferingType() {
@@ -1234,14 +1567,16 @@ public class DescribeReservedCacheNodesRequest extends com.amazonaws.AmazonWebSe
      * offering type.
      * </p>
      * <p>
-     * Valid values: <code>"Light Utilization"|"Medium Utilization"|"Heavy Utilization"</code>
+     * Valid values:
+     * <code>"Light Utilization"|"Medium Utilization"|"Heavy Utilization"|"All Upfront"|"Partial Upfront"| "No Upfront"</code>
      * </p>
      * 
      * @param offeringType
      *        The offering type filter value. Use this parameter to show only the available offerings matching the
      *        specified offering type.</p>
      *        <p>
-     *        Valid values: <code>"Light Utilization"|"Medium Utilization"|"Heavy Utilization"</code>
+     *        Valid values:
+     *        <code>"Light Utilization"|"Medium Utilization"|"Heavy Utilization"|"All Upfront"|"Partial Upfront"| "No Upfront"</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

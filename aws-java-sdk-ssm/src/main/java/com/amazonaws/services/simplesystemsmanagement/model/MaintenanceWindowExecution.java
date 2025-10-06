@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,7 +48,7 @@ public class MaintenanceWindowExecution implements Serializable, Cloneable, Stru
     private String status;
     /**
      * <p>
-     * The details explaining the Status. Only available for certain status values.
+     * The details explaining the status. Not available for all status values.
      * </p>
      */
     private String statusDetails;
@@ -220,11 +220,11 @@ public class MaintenanceWindowExecution implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The details explaining the Status. Only available for certain status values.
+     * The details explaining the status. Not available for all status values.
      * </p>
      * 
      * @param statusDetails
-     *        The details explaining the Status. Only available for certain status values.
+     *        The details explaining the status. Not available for all status values.
      */
 
     public void setStatusDetails(String statusDetails) {
@@ -233,10 +233,10 @@ public class MaintenanceWindowExecution implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The details explaining the Status. Only available for certain status values.
+     * The details explaining the status. Not available for all status values.
      * </p>
      * 
-     * @return The details explaining the Status. Only available for certain status values.
+     * @return The details explaining the status. Not available for all status values.
      */
 
     public String getStatusDetails() {
@@ -245,11 +245,11 @@ public class MaintenanceWindowExecution implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The details explaining the Status. Only available for certain status values.
+     * The details explaining the status. Not available for all status values.
      * </p>
      * 
      * @param statusDetails
-     *        The details explaining the Status. Only available for certain status values.
+     *        The details explaining the status. Not available for all status values.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

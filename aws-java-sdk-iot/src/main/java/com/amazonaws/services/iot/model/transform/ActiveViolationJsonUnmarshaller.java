@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -67,6 +67,18 @@ public class ActiveViolationJsonUnmarshaller implements Unmarshaller<ActiveViola
                 if (context.testExpression("lastViolationValue", targetDepth)) {
                     context.nextToken();
                     activeViolation.setLastViolationValue(MetricValueJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("violationEventAdditionalInfo", targetDepth)) {
+                    context.nextToken();
+                    activeViolation.setViolationEventAdditionalInfo(ViolationEventAdditionalInfoJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("verificationState", targetDepth)) {
+                    context.nextToken();
+                    activeViolation.setVerificationState(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("verificationStateDescription", targetDepth)) {
+                    context.nextToken();
+                    activeViolation.setVerificationStateDescription(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("lastViolationTime", targetDepth)) {
                     context.nextToken();

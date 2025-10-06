@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An attribute is a name-value pair associated with an Amazon ECS object. Attributes enable you to extend the Amazon
+ * An attribute is a name-value pair that's associated with an Amazon ECS object. Use attributes to extend the Amazon
  * ECS data model by adding custom metadata to your resources. For more information, see <a
  * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html#attributes"
  * >Attributes</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
@@ -33,22 +33,24 @@ public class Attribute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores, and
-     * periods are allowed.
+     * The name of the attribute. The <code>name</code> must contain between 1 and 128 characters. The name may contain
+     * letters (uppercase and lowercase), numbers, hyphens (-), underscores (_), forward slashes (/), back slashes (\),
+     * or periods (.).
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The value of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores, periods,
-     * at signs (@), forward slashes, colons, and spaces are allowed.
+     * The value of the attribute. The <code>value</code> must contain between 1 and 128 characters. It can contain
+     * letters (uppercase and lowercase), numbers, hyphens (-), underscores (_), periods (.), at signs (@), forward
+     * slashes (/), back slashes (\), colons (:), or spaces. The value can't start or end with a space.
      * </p>
      */
     private String value;
     /**
      * <p>
-     * The type of the target with which to attach the attribute. This parameter is required if you use the short form
-     * ID for a resource instead of the full ARN.
+     * The type of the target to attach the attribute with. This parameter is required if you use the short form ID for
+     * a resource instead of the full ARN.
      * </p>
      */
     private String targetType;
@@ -61,13 +63,15 @@ public class Attribute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores, and
-     * periods are allowed.
+     * The name of the attribute. The <code>name</code> must contain between 1 and 128 characters. The name may contain
+     * letters (uppercase and lowercase), numbers, hyphens (-), underscores (_), forward slashes (/), back slashes (\),
+     * or periods (.).
      * </p>
      * 
      * @param name
-     *        The name of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores, and
-     *        periods are allowed.
+     *        The name of the attribute. The <code>name</code> must contain between 1 and 128 characters. The name may
+     *        contain letters (uppercase and lowercase), numbers, hyphens (-), underscores (_), forward slashes (/),
+     *        back slashes (\), or periods (.).
      */
 
     public void setName(String name) {
@@ -76,12 +80,14 @@ public class Attribute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores, and
-     * periods are allowed.
+     * The name of the attribute. The <code>name</code> must contain between 1 and 128 characters. The name may contain
+     * letters (uppercase and lowercase), numbers, hyphens (-), underscores (_), forward slashes (/), back slashes (\),
+     * or periods (.).
      * </p>
      * 
-     * @return The name of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores,
-     *         and periods are allowed.
+     * @return The name of the attribute. The <code>name</code> must contain between 1 and 128 characters. The name may
+     *         contain letters (uppercase and lowercase), numbers, hyphens (-), underscores (_), forward slashes (/),
+     *         back slashes (\), or periods (.).
      */
 
     public String getName() {
@@ -90,13 +96,15 @@ public class Attribute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores, and
-     * periods are allowed.
+     * The name of the attribute. The <code>name</code> must contain between 1 and 128 characters. The name may contain
+     * letters (uppercase and lowercase), numbers, hyphens (-), underscores (_), forward slashes (/), back slashes (\),
+     * or periods (.).
      * </p>
      * 
      * @param name
-     *        The name of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores, and
-     *        periods are allowed.
+     *        The name of the attribute. The <code>name</code> must contain between 1 and 128 characters. The name may
+     *        contain letters (uppercase and lowercase), numbers, hyphens (-), underscores (_), forward slashes (/),
+     *        back slashes (\), or periods (.).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -107,13 +115,16 @@ public class Attribute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores, periods,
-     * at signs (@), forward slashes, colons, and spaces are allowed.
+     * The value of the attribute. The <code>value</code> must contain between 1 and 128 characters. It can contain
+     * letters (uppercase and lowercase), numbers, hyphens (-), underscores (_), periods (.), at signs (@), forward
+     * slashes (/), back slashes (\), colons (:), or spaces. The value can't start or end with a space.
      * </p>
      * 
      * @param value
-     *        The value of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores,
-     *        periods, at signs (@), forward slashes, colons, and spaces are allowed.
+     *        The value of the attribute. The <code>value</code> must contain between 1 and 128 characters. It can
+     *        contain letters (uppercase and lowercase), numbers, hyphens (-), underscores (_), periods (.), at signs
+     *        (@), forward slashes (/), back slashes (\), colons (:), or spaces. The value can't start or end with a
+     *        space.
      */
 
     public void setValue(String value) {
@@ -122,12 +133,15 @@ public class Attribute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores, periods,
-     * at signs (@), forward slashes, colons, and spaces are allowed.
+     * The value of the attribute. The <code>value</code> must contain between 1 and 128 characters. It can contain
+     * letters (uppercase and lowercase), numbers, hyphens (-), underscores (_), periods (.), at signs (@), forward
+     * slashes (/), back slashes (\), colons (:), or spaces. The value can't start or end with a space.
      * </p>
      * 
-     * @return The value of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores,
-     *         periods, at signs (@), forward slashes, colons, and spaces are allowed.
+     * @return The value of the attribute. The <code>value</code> must contain between 1 and 128 characters. It can
+     *         contain letters (uppercase and lowercase), numbers, hyphens (-), underscores (_), periods (.), at signs
+     *         (@), forward slashes (/), back slashes (\), colons (:), or spaces. The value can't start or end with a
+     *         space.
      */
 
     public String getValue() {
@@ -136,13 +150,16 @@ public class Attribute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores, periods,
-     * at signs (@), forward slashes, colons, and spaces are allowed.
+     * The value of the attribute. The <code>value</code> must contain between 1 and 128 characters. It can contain
+     * letters (uppercase and lowercase), numbers, hyphens (-), underscores (_), periods (.), at signs (@), forward
+     * slashes (/), back slashes (\), colons (:), or spaces. The value can't start or end with a space.
      * </p>
      * 
      * @param value
-     *        The value of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores,
-     *        periods, at signs (@), forward slashes, colons, and spaces are allowed.
+     *        The value of the attribute. The <code>value</code> must contain between 1 and 128 characters. It can
+     *        contain letters (uppercase and lowercase), numbers, hyphens (-), underscores (_), periods (.), at signs
+     *        (@), forward slashes (/), back slashes (\), colons (:), or spaces. The value can't start or end with a
+     *        space.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -153,13 +170,13 @@ public class Attribute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of the target with which to attach the attribute. This parameter is required if you use the short form
-     * ID for a resource instead of the full ARN.
+     * The type of the target to attach the attribute with. This parameter is required if you use the short form ID for
+     * a resource instead of the full ARN.
      * </p>
      * 
      * @param targetType
-     *        The type of the target with which to attach the attribute. This parameter is required if you use the short
-     *        form ID for a resource instead of the full ARN.
+     *        The type of the target to attach the attribute with. This parameter is required if you use the short form
+     *        ID for a resource instead of the full ARN.
      * @see TargetType
      */
 
@@ -169,12 +186,12 @@ public class Attribute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of the target with which to attach the attribute. This parameter is required if you use the short form
-     * ID for a resource instead of the full ARN.
+     * The type of the target to attach the attribute with. This parameter is required if you use the short form ID for
+     * a resource instead of the full ARN.
      * </p>
      * 
-     * @return The type of the target with which to attach the attribute. This parameter is required if you use the
-     *         short form ID for a resource instead of the full ARN.
+     * @return The type of the target to attach the attribute with. This parameter is required if you use the short form
+     *         ID for a resource instead of the full ARN.
      * @see TargetType
      */
 
@@ -184,13 +201,13 @@ public class Attribute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of the target with which to attach the attribute. This parameter is required if you use the short form
-     * ID for a resource instead of the full ARN.
+     * The type of the target to attach the attribute with. This parameter is required if you use the short form ID for
+     * a resource instead of the full ARN.
      * </p>
      * 
      * @param targetType
-     *        The type of the target with which to attach the attribute. This parameter is required if you use the short
-     *        form ID for a resource instead of the full ARN.
+     *        The type of the target to attach the attribute with. This parameter is required if you use the short form
+     *        ID for a resource instead of the full ARN.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TargetType
      */
@@ -202,13 +219,13 @@ public class Attribute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of the target with which to attach the attribute. This parameter is required if you use the short form
-     * ID for a resource instead of the full ARN.
+     * The type of the target to attach the attribute with. This parameter is required if you use the short form ID for
+     * a resource instead of the full ARN.
      * </p>
      * 
      * @param targetType
-     *        The type of the target with which to attach the attribute. This parameter is required if you use the short
-     *        form ID for a resource instead of the full ARN.
+     *        The type of the target to attach the attribute with. This parameter is required if you use the short form
+     *        ID for a resource instead of the full ARN.
      * @see TargetType
      */
 
@@ -218,13 +235,13 @@ public class Attribute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of the target with which to attach the attribute. This parameter is required if you use the short form
-     * ID for a resource instead of the full ARN.
+     * The type of the target to attach the attribute with. This parameter is required if you use the short form ID for
+     * a resource instead of the full ARN.
      * </p>
      * 
      * @param targetType
-     *        The type of the target with which to attach the attribute. This parameter is required if you use the short
-     *        form ID for a resource instead of the full ARN.
+     *        The type of the target to attach the attribute with. This parameter is required if you use the short form
+     *        ID for a resource instead of the full ARN.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TargetType
      */

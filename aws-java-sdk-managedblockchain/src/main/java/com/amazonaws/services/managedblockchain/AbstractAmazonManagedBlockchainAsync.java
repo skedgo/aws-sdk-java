@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,6 +25,19 @@ import com.amazonaws.services.managedblockchain.model.*;
 public class AbstractAmazonManagedBlockchainAsync extends AbstractAmazonManagedBlockchain implements AmazonManagedBlockchainAsync {
 
     protected AbstractAmazonManagedBlockchainAsync() {
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAccessorResult> createAccessorAsync(CreateAccessorRequest request) {
+
+        return createAccessorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAccessorResult> createAccessorAsync(CreateAccessorRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateAccessorRequest, CreateAccessorResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -80,6 +93,19 @@ public class AbstractAmazonManagedBlockchainAsync extends AbstractAmazonManagedB
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteAccessorResult> deleteAccessorAsync(DeleteAccessorRequest request) {
+
+        return deleteAccessorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAccessorResult> deleteAccessorAsync(DeleteAccessorRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteAccessorRequest, DeleteAccessorResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteMemberResult> deleteMemberAsync(DeleteMemberRequest request) {
 
         return deleteMemberAsync(request, null);
@@ -101,6 +127,19 @@ public class AbstractAmazonManagedBlockchainAsync extends AbstractAmazonManagedB
     @Override
     public java.util.concurrent.Future<DeleteNodeResult> deleteNodeAsync(DeleteNodeRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteNodeRequest, DeleteNodeResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAccessorResult> getAccessorAsync(GetAccessorRequest request) {
+
+        return getAccessorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAccessorResult> getAccessorAsync(GetAccessorRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetAccessorRequest, GetAccessorResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -153,6 +192,19 @@ public class AbstractAmazonManagedBlockchainAsync extends AbstractAmazonManagedB
     @Override
     public java.util.concurrent.Future<GetProposalResult> getProposalAsync(GetProposalRequest request,
             com.amazonaws.handlers.AsyncHandler<GetProposalRequest, GetProposalResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAccessorsResult> listAccessorsAsync(ListAccessorsRequest request) {
+
+        return listAccessorsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAccessorsResult> listAccessorsAsync(ListAccessorsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListAccessorsRequest, ListAccessorsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -236,6 +288,19 @@ public class AbstractAmazonManagedBlockchainAsync extends AbstractAmazonManagedB
     }
 
     @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<RejectInvitationResult> rejectInvitationAsync(RejectInvitationRequest request) {
 
         return rejectInvitationAsync(request, null);
@@ -244,6 +309,58 @@ public class AbstractAmazonManagedBlockchainAsync extends AbstractAmazonManagedB
     @Override
     public java.util.concurrent.Future<RejectInvitationResult> rejectInvitationAsync(RejectInvitationRequest request,
             com.amazonaws.handlers.AsyncHandler<RejectInvitationRequest, RejectInvitationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMemberResult> updateMemberAsync(UpdateMemberRequest request) {
+
+        return updateMemberAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMemberResult> updateMemberAsync(UpdateMemberRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateMemberRequest, UpdateMemberResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateNodeResult> updateNodeAsync(UpdateNodeRequest request) {
+
+        return updateNodeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateNodeResult> updateNodeAsync(UpdateNodeRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateNodeRequest, UpdateNodeResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

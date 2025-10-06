@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,24 +27,24 @@ public class DescribeRouteTablesResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Information about one or more route tables.
+     * Information about the route tables.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<RouteTable> routeTables;
     /**
      * <p>
-     * The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more
-     * results to return.
+     * The token to include in another request to get the next page of items. This value is <code>null</code> when there
+     * are no more items to return.
      * </p>
      */
     private String nextToken;
 
     /**
      * <p>
-     * Information about one or more route tables.
+     * Information about the route tables.
      * </p>
      * 
-     * @return Information about one or more route tables.
+     * @return Information about the route tables.
      */
 
     public java.util.List<RouteTable> getRouteTables() {
@@ -56,11 +56,11 @@ public class DescribeRouteTablesResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Information about one or more route tables.
+     * Information about the route tables.
      * </p>
      * 
      * @param routeTables
-     *        Information about one or more route tables.
+     *        Information about the route tables.
      */
 
     public void setRouteTables(java.util.Collection<RouteTable> routeTables) {
@@ -74,7 +74,7 @@ public class DescribeRouteTablesResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Information about one or more route tables.
+     * Information about the route tables.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -83,7 +83,7 @@ public class DescribeRouteTablesResult extends com.amazonaws.AmazonWebServiceRes
      * </p>
      * 
      * @param routeTables
-     *        Information about one or more route tables.
+     *        Information about the route tables.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -99,11 +99,11 @@ public class DescribeRouteTablesResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Information about one or more route tables.
+     * Information about the route tables.
      * </p>
      * 
      * @param routeTables
-     *        Information about one or more route tables.
+     *        Information about the route tables.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -114,13 +114,13 @@ public class DescribeRouteTablesResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more
-     * results to return.
+     * The token to include in another request to get the next page of items. This value is <code>null</code> when there
+     * are no more items to return.
      * </p>
      * 
      * @param nextToken
-     *        The token to use to retrieve the next page of results. This value is <code>null</code> when there are no
-     *        more results to return.
+     *        The token to include in another request to get the next page of items. This value is <code>null</code>
+     *        when there are no more items to return.
      */
 
     public void setNextToken(String nextToken) {
@@ -129,12 +129,12 @@ public class DescribeRouteTablesResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more
-     * results to return.
+     * The token to include in another request to get the next page of items. This value is <code>null</code> when there
+     * are no more items to return.
      * </p>
      * 
-     * @return The token to use to retrieve the next page of results. This value is <code>null</code> when there are no
-     *         more results to return.
+     * @return The token to include in another request to get the next page of items. This value is <code>null</code>
+     *         when there are no more items to return.
      */
 
     public String getNextToken() {
@@ -143,13 +143,13 @@ public class DescribeRouteTablesResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more
-     * results to return.
+     * The token to include in another request to get the next page of items. This value is <code>null</code> when there
+     * are no more items to return.
      * </p>
      * 
      * @param nextToken
-     *        The token to use to retrieve the next page of results. This value is <code>null</code> when there are no
-     *        more results to return.
+     *        The token to include in another request to get the next page of items. This value is <code>null</code>
+     *        when there are no more items to return.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

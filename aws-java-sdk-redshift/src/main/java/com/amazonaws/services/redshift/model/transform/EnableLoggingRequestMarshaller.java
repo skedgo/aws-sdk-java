@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,6 +50,24 @@ public class EnableLoggingRequestMarshaller implements Marshaller<Request<Enable
 
         if (enableLoggingRequest.getS3KeyPrefix() != null) {
             request.addParameter("S3KeyPrefix", StringUtils.fromString(enableLoggingRequest.getS3KeyPrefix()));
+        }
+
+        if (enableLoggingRequest.getLogDestinationType() != null) {
+            request.addParameter("LogDestinationType", StringUtils.fromString(enableLoggingRequest.getLogDestinationType()));
+        }
+
+        if (!enableLoggingRequest.getLogExports().isEmpty()
+                || !((com.amazonaws.internal.SdkInternalList<String>) enableLoggingRequest.getLogExports()).isAutoConstruct()) {
+            com.amazonaws.internal.SdkInternalList<String> logExportsList = (com.amazonaws.internal.SdkInternalList<String>) enableLoggingRequest
+                    .getLogExports();
+            int logExportsListIndex = 1;
+
+            for (String logExportsListValue : logExportsList) {
+                if (logExportsListValue != null) {
+                    request.addParameter("LogExports.member." + logExportsListIndex, StringUtils.fromString(logExportsListValue));
+                }
+                logExportsListIndex++;
+            }
         }
 
         return request;

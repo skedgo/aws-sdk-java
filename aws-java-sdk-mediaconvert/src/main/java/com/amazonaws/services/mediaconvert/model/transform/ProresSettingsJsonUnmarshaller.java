@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,10 @@ public class ProresSettingsJsonUnmarshaller implements Unmarshaller<ProresSettin
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("chromaSampling", targetDepth)) {
+                    context.nextToken();
+                    proresSettings.setChromaSampling(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("codecProfile", targetDepth)) {
                     context.nextToken();
                     proresSettings.setCodecProfile(context.getUnmarshaller(String.class).unmarshall(context));
@@ -83,6 +87,10 @@ public class ProresSettingsJsonUnmarshaller implements Unmarshaller<ProresSettin
                 if (context.testExpression("parNumerator", targetDepth)) {
                     context.nextToken();
                     proresSettings.setParNumerator(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("scanTypeConversionMode", targetDepth)) {
+                    context.nextToken();
+                    proresSettings.setScanTypeConversionMode(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("slowPal", targetDepth)) {
                     context.nextToken();

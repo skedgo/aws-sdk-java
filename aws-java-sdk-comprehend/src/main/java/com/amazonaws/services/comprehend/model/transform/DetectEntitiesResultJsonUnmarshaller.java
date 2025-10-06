@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,7 +50,31 @@ public class DetectEntitiesResultJsonUnmarshaller implements Unmarshaller<Detect
             if (token == FIELD_NAME || token == START_OBJECT) {
                 if (context.testExpression("Entities", targetDepth)) {
                     context.nextToken();
-                    detectEntitiesResult.setEntities(new ListUnmarshaller<Entity>(EntityJsonUnmarshaller.getInstance()).unmarshall(context));
+                    detectEntitiesResult.setEntities(new ListUnmarshaller<Entity>(EntityJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("DocumentMetadata", targetDepth)) {
+                    context.nextToken();
+                    detectEntitiesResult.setDocumentMetadata(DocumentMetadataJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("DocumentType", targetDepth)) {
+                    context.nextToken();
+                    detectEntitiesResult.setDocumentType(new ListUnmarshaller<DocumentTypeListItem>(DocumentTypeListItemJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("Blocks", targetDepth)) {
+                    context.nextToken();
+                    detectEntitiesResult.setBlocks(new ListUnmarshaller<Block>(BlockJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("Errors", targetDepth)) {
+                    context.nextToken();
+                    detectEntitiesResult.setErrors(new ListUnmarshaller<ErrorsListItem>(ErrorsListItemJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

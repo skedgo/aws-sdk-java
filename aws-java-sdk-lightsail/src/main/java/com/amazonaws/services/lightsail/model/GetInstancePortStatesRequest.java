@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,18 @@ public class GetInstancePortStatesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The name of the instance.
+     * The name of the instance for which to return firewall port states.
      * </p>
      */
     private String instanceName;
 
     /**
      * <p>
-     * The name of the instance.
+     * The name of the instance for which to return firewall port states.
      * </p>
      * 
      * @param instanceName
-     *        The name of the instance.
+     *        The name of the instance for which to return firewall port states.
      */
 
     public void setInstanceName(String instanceName) {
@@ -47,10 +47,10 @@ public class GetInstancePortStatesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The name of the instance.
+     * The name of the instance for which to return firewall port states.
      * </p>
      * 
-     * @return The name of the instance.
+     * @return The name of the instance for which to return firewall port states.
      */
 
     public String getInstanceName() {
@@ -59,11 +59,11 @@ public class GetInstancePortStatesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The name of the instance.
+     * The name of the instance for which to return firewall port states.
      * </p>
      * 
      * @param instanceName
-     *        The name of the instance.
+     *        The name of the instance for which to return firewall port states.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

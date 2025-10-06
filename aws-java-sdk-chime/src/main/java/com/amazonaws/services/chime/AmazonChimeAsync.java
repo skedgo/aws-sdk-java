@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,15 +25,27 @@ import com.amazonaws.services.chime.model.*;
  * {@link com.amazonaws.services.chime.AbstractAmazonChimeAsync} instead.
  * </p>
  * <p>
+ * <important>
  * <p>
- * The Amazon Chime API (application programming interface) is designed for administrators to use to perform key tasks,
- * such as creating and managing Amazon Chime accounts and users. This guide provides detailed information about the
- * Amazon Chime API, including operations, types, inputs and outputs, and error codes.
+ * <b>Most of these APIs are no longer supported and will not be updated.</b> We recommend using the latest versions in
+ * the <a href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/welcome.html">Amazon Chime SDK API
+ * reference</a>, in the Amazon Chime SDK.
  * </p>
  * <p>
- * You can use an AWS SDK, the AWS Command Line Interface (AWS CLI), or the REST API to make API calls. We recommend
- * using an AWS SDK or the AWS CLI. Each API operation includes links to information about using it with a
- * language-specific AWS SDK or the AWS CLI.
+ * Using the latest versions requires migrating to dedicated namespaces. For more information, refer to <a
+ * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+ * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+ * </p>
+ * </important>
+ * <p>
+ * The Amazon Chime application programming interface (API) is designed so administrators can perform key tasks, such as
+ * creating and managing Amazon Chime accounts, users, and Voice Connectors. This guide provides detailed information
+ * about the Amazon Chime API, including operations, types, inputs and outputs, and error codes.
+ * </p>
+ * <p>
+ * You can use an AWS SDK, the AWS Command Line Interface (AWS CLI), or the REST API to make API calls for Amazon Chime.
+ * We recommend using an AWS SDK or the AWS CLI. The page for each API action contains a <i>See Also</i> section that
+ * includes links to information about using the action with a language-specific AWS SDK or the AWS CLI.
  * </p>
  * <dl>
  * <dt>Using an AWS SDK</dt>
@@ -54,11 +66,11 @@ import com.amazonaws.services.chime.model.*;
  * Command Reference</i>.
  * </p>
  * </dd>
- * <dt>Using REST API</dt>
+ * <dt>Using REST APIs</dt>
  * <dd>
  * <p>
  * If you use REST to make API calls, you must authenticate your request by providing a signature. Amazon Chime supports
- * signature version 4. For more information, see <a
+ * Signature Version 4. For more information, see <a
  * href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Signature Version 4 Signing Process</a>
  * in the <i>Amazon Web Services General Reference</i>.
  * </p>
@@ -70,8 +82,8 @@ import com.amazonaws.services.chime.model.*;
  * </dl>
  * <p>
  * Administrative permissions are controlled using AWS Identity and Access Management (IAM). For more information, see
- * <a href="https://docs.aws.amazon.com/chime/latest/ag/control-access.html">Control Access to the Amazon Chime
- * Console</a> in the <i>Amazon Chime Administration Guide</i>.
+ * <a href="https://docs.aws.amazon.com/chime/latest/ag/security-iam.html">Identity and Access Management for Amazon
+ * Chime</a> in the <i>Amazon Chime Administration Guide</i>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -114,8 +126,21 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Associates a phone number with the specified Amazon Chime Voice Connector.
+     * Associates phone numbers with the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_AssociatePhoneNumbersWithVoiceConnector.html"
+     * >AssociatePhoneNumbersWithVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param associatePhoneNumbersWithVoiceConnectorRequest
      * @return A Java Future containing the result of the AssociatePhoneNumbersWithVoiceConnector operation returned by
@@ -124,13 +149,27 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/AssociatePhoneNumbersWithVoiceConnector"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<AssociatePhoneNumbersWithVoiceConnectorResult> associatePhoneNumbersWithVoiceConnectorAsync(
             AssociatePhoneNumbersWithVoiceConnectorRequest associatePhoneNumbersWithVoiceConnectorRequest);
 
     /**
      * <p>
-     * Associates a phone number with the specified Amazon Chime Voice Connector.
+     * Associates phone numbers with the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_AssociatePhoneNumbersWithVoiceConnector.html"
+     * >AssociatePhoneNumbersWithVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param associatePhoneNumbersWithVoiceConnectorRequest
      * @param asyncHandler
@@ -143,9 +182,275 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/AssociatePhoneNumbersWithVoiceConnector"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<AssociatePhoneNumbersWithVoiceConnectorResult> associatePhoneNumbersWithVoiceConnectorAsync(
             AssociatePhoneNumbersWithVoiceConnectorRequest associatePhoneNumbersWithVoiceConnectorRequest,
             com.amazonaws.handlers.AsyncHandler<AssociatePhoneNumbersWithVoiceConnectorRequest, AssociatePhoneNumbersWithVoiceConnectorResult> asyncHandler);
+
+    /**
+     * <p>
+     * Associates phone numbers with the specified Amazon Chime Voice Connector group.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_AssociatePhoneNumbersWithVoiceConnectorGroup.html"
+     * >AssociatePhoneNumbersWithVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param associatePhoneNumbersWithVoiceConnectorGroupRequest
+     * @return A Java Future containing the result of the AssociatePhoneNumbersWithVoiceConnectorGroup operation
+     *         returned by the service.
+     * @sample AmazonChimeAsync.AssociatePhoneNumbersWithVoiceConnectorGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/AssociatePhoneNumbersWithVoiceConnectorGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<AssociatePhoneNumbersWithVoiceConnectorGroupResult> associatePhoneNumbersWithVoiceConnectorGroupAsync(
+            AssociatePhoneNumbersWithVoiceConnectorGroupRequest associatePhoneNumbersWithVoiceConnectorGroupRequest);
+
+    /**
+     * <p>
+     * Associates phone numbers with the specified Amazon Chime Voice Connector group.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_AssociatePhoneNumbersWithVoiceConnectorGroup.html"
+     * >AssociatePhoneNumbersWithVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param associatePhoneNumbersWithVoiceConnectorGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the AssociatePhoneNumbersWithVoiceConnectorGroup operation
+     *         returned by the service.
+     * @sample AmazonChimeAsyncHandler.AssociatePhoneNumbersWithVoiceConnectorGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/AssociatePhoneNumbersWithVoiceConnectorGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<AssociatePhoneNumbersWithVoiceConnectorGroupResult> associatePhoneNumbersWithVoiceConnectorGroupAsync(
+            AssociatePhoneNumbersWithVoiceConnectorGroupRequest associatePhoneNumbersWithVoiceConnectorGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<AssociatePhoneNumbersWithVoiceConnectorGroupRequest, AssociatePhoneNumbersWithVoiceConnectorGroupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Associates the specified sign-in delegate groups with the specified Amazon Chime account.
+     * </p>
+     * 
+     * @param associateSigninDelegateGroupsWithAccountRequest
+     * @return A Java Future containing the result of the AssociateSigninDelegateGroupsWithAccount operation returned by
+     *         the service.
+     * @sample AmazonChimeAsync.AssociateSigninDelegateGroupsWithAccount
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/AssociateSigninDelegateGroupsWithAccount"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<AssociateSigninDelegateGroupsWithAccountResult> associateSigninDelegateGroupsWithAccountAsync(
+            AssociateSigninDelegateGroupsWithAccountRequest associateSigninDelegateGroupsWithAccountRequest);
+
+    /**
+     * <p>
+     * Associates the specified sign-in delegate groups with the specified Amazon Chime account.
+     * </p>
+     * 
+     * @param associateSigninDelegateGroupsWithAccountRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the AssociateSigninDelegateGroupsWithAccount operation returned by
+     *         the service.
+     * @sample AmazonChimeAsyncHandler.AssociateSigninDelegateGroupsWithAccount
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/AssociateSigninDelegateGroupsWithAccount"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<AssociateSigninDelegateGroupsWithAccountResult> associateSigninDelegateGroupsWithAccountAsync(
+            AssociateSigninDelegateGroupsWithAccountRequest associateSigninDelegateGroupsWithAccountRequest,
+            com.amazonaws.handlers.AsyncHandler<AssociateSigninDelegateGroupsWithAccountRequest, AssociateSigninDelegateGroupsWithAccountResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates up to 100 new attendees for an active Amazon Chime SDK meeting.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_BatchCreateAttendee.html">
+     * BatchCreateAttendee</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * <p>
+     * For more information about the Amazon Chime SDK, see <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in the
+     * <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * 
+     * @param batchCreateAttendeeRequest
+     * @return A Java Future containing the result of the BatchCreateAttendee operation returned by the service.
+     * @sample AmazonChimeAsync.BatchCreateAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/BatchCreateAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<BatchCreateAttendeeResult> batchCreateAttendeeAsync(BatchCreateAttendeeRequest batchCreateAttendeeRequest);
+
+    /**
+     * <p>
+     * Creates up to 100 new attendees for an active Amazon Chime SDK meeting.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_BatchCreateAttendee.html">
+     * BatchCreateAttendee</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * <p>
+     * For more information about the Amazon Chime SDK, see <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in the
+     * <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * 
+     * @param batchCreateAttendeeRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the BatchCreateAttendee operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.BatchCreateAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/BatchCreateAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<BatchCreateAttendeeResult> batchCreateAttendeeAsync(BatchCreateAttendeeRequest batchCreateAttendeeRequest,
+            com.amazonaws.handlers.AsyncHandler<BatchCreateAttendeeRequest, BatchCreateAttendeeResult> asyncHandler);
+
+    /**
+     * <p>
+     * Adds a specified number of users to a channel.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_BatchCreateChannelMembership.html"
+     * >BatchCreateChannelMembership</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param batchCreateChannelMembershipRequest
+     * @return A Java Future containing the result of the BatchCreateChannelMembership operation returned by the
+     *         service.
+     * @sample AmazonChimeAsync.BatchCreateChannelMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/BatchCreateChannelMembership"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<BatchCreateChannelMembershipResult> batchCreateChannelMembershipAsync(
+            BatchCreateChannelMembershipRequest batchCreateChannelMembershipRequest);
+
+    /**
+     * <p>
+     * Adds a specified number of users to a channel.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_BatchCreateChannelMembership.html"
+     * >BatchCreateChannelMembership</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param batchCreateChannelMembershipRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the BatchCreateChannelMembership operation returned by the
+     *         service.
+     * @sample AmazonChimeAsyncHandler.BatchCreateChannelMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/BatchCreateChannelMembership"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<BatchCreateChannelMembershipResult> batchCreateChannelMembershipAsync(
+            BatchCreateChannelMembershipRequest batchCreateChannelMembershipRequest,
+            com.amazonaws.handlers.AsyncHandler<BatchCreateChannelMembershipRequest, BatchCreateChannelMembershipResult> asyncHandler);
+
+    /**
+     * <p>
+     * Adds up to 50 members to a chat room in an Amazon Chime Enterprise account. Members can be users or bots. The
+     * member role designates whether the member is a chat room administrator or a general chat room member.
+     * </p>
+     * 
+     * @param batchCreateRoomMembershipRequest
+     * @return A Java Future containing the result of the BatchCreateRoomMembership operation returned by the service.
+     * @sample AmazonChimeAsync.BatchCreateRoomMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/BatchCreateRoomMembership"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<BatchCreateRoomMembershipResult> batchCreateRoomMembershipAsync(
+            BatchCreateRoomMembershipRequest batchCreateRoomMembershipRequest);
+
+    /**
+     * <p>
+     * Adds up to 50 members to a chat room in an Amazon Chime Enterprise account. Members can be users or bots. The
+     * member role designates whether the member is a chat room administrator or a general chat room member.
+     * </p>
+     * 
+     * @param batchCreateRoomMembershipRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the BatchCreateRoomMembership operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.BatchCreateRoomMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/BatchCreateRoomMembership"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<BatchCreateRoomMembershipResult> batchCreateRoomMembershipAsync(
+            BatchCreateRoomMembershipRequest batchCreateRoomMembershipRequest,
+            com.amazonaws.handlers.AsyncHandler<BatchCreateRoomMembershipRequest, BatchCreateRoomMembershipResult> asyncHandler);
 
     /**
      * <p>
@@ -194,7 +499,7 @@ public interface AmazonChimeAsync extends AmazonChime {
      * Accounts</a> in the <i>Amazon Chime Administration Guide</i>.
      * </p>
      * <p>
-     * Users suspended from a <code>Team</code> account are dissasociated from the account, but they can continue to use
+     * Users suspended from a <code>Team</code> account are disassociated from the account,but they can continue to use
      * Amazon Chime as free users. To remove the suspension from suspended <code>Team</code> account users, invite them
      * to the <code>Team</code> account again. You can use the <a>InviteUsers</a> action to do so.
      * </p>
@@ -223,7 +528,7 @@ public interface AmazonChimeAsync extends AmazonChime {
      * Accounts</a> in the <i>Amazon Chime Administration Guide</i>.
      * </p>
      * <p>
-     * Users suspended from a <code>Team</code> account are dissasociated from the account, but they can continue to use
+     * Users suspended from a <code>Team</code> account are disassociated from the account,but they can continue to use
      * Amazon Chime as free users. To remove the suspension from suspended <code>Team</code> account users, invite them
      * to the <code>Team</code> account again. You can use the <a>InviteUsers</a> action to do so.
      * </p>
@@ -254,8 +559,8 @@ public interface AmazonChimeAsync extends AmazonChime {
      * Removes the suspension from up to 50 previously suspended users for the specified Amazon Chime
      * <code>EnterpriseLWA</code> account. Only users on <code>EnterpriseLWA</code> accounts can be unsuspended using
      * this action. For more information about different account types, see <a
-     * href="https://docs.aws.amazon.com/chime/latest/ag/manage-chime-account.html">Managing Your Amazon Chime
-     * Accounts</a> in the <i>Amazon Chime Administration Guide</i>.
+     * href="https://docs.aws.amazon.com/chime/latest/ag/manage-chime-account.html"> Managing Your Amazon Chime Accounts
+     * </a> in the account types, in the <i>Amazon Chime Administration Guide</i>.
      * </p>
      * <p>
      * Previously suspended users who are unsuspended using this action are returned to <code>Registered</code> status.
@@ -275,8 +580,8 @@ public interface AmazonChimeAsync extends AmazonChime {
      * Removes the suspension from up to 50 previously suspended users for the specified Amazon Chime
      * <code>EnterpriseLWA</code> account. Only users on <code>EnterpriseLWA</code> accounts can be unsuspended using
      * this action. For more information about different account types, see <a
-     * href="https://docs.aws.amazon.com/chime/latest/ag/manage-chime-account.html">Managing Your Amazon Chime
-     * Accounts</a> in the <i>Amazon Chime Administration Guide</i>.
+     * href="https://docs.aws.amazon.com/chime/latest/ag/manage-chime-account.html"> Managing Your Amazon Chime Accounts
+     * </a> in the account types, in the <i>Amazon Chime Administration Guide</i>.
      * </p>
      * <p>
      * Previously suspended users who are unsuspended using this action are returned to <code>Registered</code> status.
@@ -298,8 +603,16 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Updates phone number product types. Choose from Amazon Chime Business Calling and Amazon Chime Voice Connector
-     * product types. For toll-free numbers, you can use only the Amazon Chime Voice Connector product type.
+     * Updates phone number product types or calling names. You can update one attribute at a time for each
+     * <code>UpdatePhoneNumberRequestItem</code>. For example, you can update the product type or the calling name.
+     * </p>
+     * <p>
+     * For toll-free numbers, you cannot use the Amazon Chime Business Calling product type. For numbers outside the
+     * U.S., you must use the Amazon Chime SIP Media Application Dial-In product type.
+     * </p>
+     * <p>
+     * Updates to outbound calling names can take up to 72 hours to complete. Pending updates to outbound calling names
+     * must be complete before you can request another update.
      * </p>
      * 
      * @param batchUpdatePhoneNumberRequest
@@ -312,8 +625,16 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Updates phone number product types. Choose from Amazon Chime Business Calling and Amazon Chime Voice Connector
-     * product types. For toll-free numbers, you can use only the Amazon Chime Voice Connector product type.
+     * Updates phone number product types or calling names. You can update one attribute at a time for each
+     * <code>UpdatePhoneNumberRequestItem</code>. For example, you can update the product type or the calling name.
+     * </p>
+     * <p>
+     * For toll-free numbers, you cannot use the Amazon Chime Business Calling product type. For numbers outside the
+     * U.S., you must use the Amazon Chime SIP Media Application Dial-In product type.
+     * </p>
+     * <p>
+     * Updates to outbound calling names can take up to 72 hours to complete. Pending updates to outbound calling names
+     * must be complete before you can request another update.
      * </p>
      * 
      * @param batchUpdatePhoneNumberRequest
@@ -401,6 +722,276 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
+     * Creates an Amazon Chime SDK messaging <code>AppInstance</code> under an AWS account. Only SDK messaging customers
+     * use this API. <code>CreateAppInstance</code> supports idempotency behavior as described in the AWS API Standard.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_CreateAppInstance.html">
+     * CreateAppInstance</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createAppInstanceRequest
+     * @return A Java Future containing the result of the CreateAppInstance operation returned by the service.
+     * @sample AmazonChimeAsync.CreateAppInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateAppInstance" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateAppInstanceResult> createAppInstanceAsync(CreateAppInstanceRequest createAppInstanceRequest);
+
+    /**
+     * <p>
+     * Creates an Amazon Chime SDK messaging <code>AppInstance</code> under an AWS account. Only SDK messaging customers
+     * use this API. <code>CreateAppInstance</code> supports idempotency behavior as described in the AWS API Standard.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_CreateAppInstance.html">
+     * CreateAppInstance</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createAppInstanceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateAppInstance operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateAppInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateAppInstance" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateAppInstanceResult> createAppInstanceAsync(CreateAppInstanceRequest createAppInstanceRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateAppInstanceRequest, CreateAppInstanceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Promotes an <code>AppInstanceUser</code> to an <code>AppInstanceAdmin</code>. The promoted user can perform the
+     * following actions.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_CreateAppInstanceAdmin.html">
+     * CreateAppInstanceAdmin</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ChannelModerator</code> actions across all channels in the <code>AppInstance</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DeleteChannelMessage</code> actions.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Only an <code>AppInstanceUser</code> can be promoted to an <code>AppInstanceAdmin</code> role.
+     * </p>
+     * 
+     * @param createAppInstanceAdminRequest
+     * @return A Java Future containing the result of the CreateAppInstanceAdmin operation returned by the service.
+     * @sample AmazonChimeAsync.CreateAppInstanceAdmin
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateAppInstanceAdmin" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateAppInstanceAdminResult> createAppInstanceAdminAsync(CreateAppInstanceAdminRequest createAppInstanceAdminRequest);
+
+    /**
+     * <p>
+     * Promotes an <code>AppInstanceUser</code> to an <code>AppInstanceAdmin</code>. The promoted user can perform the
+     * following actions.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_CreateAppInstanceAdmin.html">
+     * CreateAppInstanceAdmin</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ChannelModerator</code> actions across all channels in the <code>AppInstance</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DeleteChannelMessage</code> actions.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Only an <code>AppInstanceUser</code> can be promoted to an <code>AppInstanceAdmin</code> role.
+     * </p>
+     * 
+     * @param createAppInstanceAdminRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateAppInstanceAdmin operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateAppInstanceAdmin
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateAppInstanceAdmin" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateAppInstanceAdminResult> createAppInstanceAdminAsync(CreateAppInstanceAdminRequest createAppInstanceAdminRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateAppInstanceAdminRequest, CreateAppInstanceAdminResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a user under an Amazon Chime <code>AppInstance</code>. The request consists of a unique
+     * <code>appInstanceUserId</code> and <code>Name</code> for that user.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_CreateAppInstanceUser.html">
+     * CreateAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createAppInstanceUserRequest
+     * @return A Java Future containing the result of the CreateAppInstanceUser operation returned by the service.
+     * @sample AmazonChimeAsync.CreateAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateAppInstanceUser" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateAppInstanceUserResult> createAppInstanceUserAsync(CreateAppInstanceUserRequest createAppInstanceUserRequest);
+
+    /**
+     * <p>
+     * Creates a user under an Amazon Chime <code>AppInstance</code>. The request consists of a unique
+     * <code>appInstanceUserId</code> and <code>Name</code> for that user.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_CreateAppInstanceUser.html">
+     * CreateAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createAppInstanceUserRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateAppInstanceUser operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateAppInstanceUser" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateAppInstanceUserResult> createAppInstanceUserAsync(CreateAppInstanceUserRequest createAppInstanceUserRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateAppInstanceUserRequest, CreateAppInstanceUserResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new attendee for an active Amazon Chime SDK meeting. For more information about the Amazon Chime SDK,
+     * see <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in
+     * the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_CreateAttendee.html">CreateAttendee
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createAttendeeRequest
+     * @return A Java Future containing the result of the CreateAttendee operation returned by the service.
+     * @sample AmazonChimeAsync.CreateAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateAttendeeResult> createAttendeeAsync(CreateAttendeeRequest createAttendeeRequest);
+
+    /**
+     * <p>
+     * Creates a new attendee for an active Amazon Chime SDK meeting. For more information about the Amazon Chime SDK,
+     * see <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in
+     * the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_CreateAttendee.html">CreateAttendee
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createAttendeeRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateAttendee operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateAttendeeResult> createAttendeeAsync(CreateAttendeeRequest createAttendeeRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateAttendeeRequest, CreateAttendeeResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates a bot for an Amazon Chime Enterprise account.
      * </p>
      * 
@@ -432,9 +1023,691 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Creates an order for phone numbers to be provisioned. Choose from Amazon Chime Business Calling and Amazon Chime
-     * Voice Connector product types. For toll-free numbers, you can use only the Amazon Chime Voice Connector product
-     * type.
+     * Creates a channel to which you can add users and send messages.
+     * </p>
+     * <p>
+     * <b>Restriction</b>: You can't change a channel's privacy.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_CreateChannel.html">CreateChannel
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createChannelRequest
+     * @return A Java Future containing the result of the CreateChannel operation returned by the service.
+     * @sample AmazonChimeAsync.CreateChannel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateChannel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateChannelResult> createChannelAsync(CreateChannelRequest createChannelRequest);
+
+    /**
+     * <p>
+     * Creates a channel to which you can add users and send messages.
+     * </p>
+     * <p>
+     * <b>Restriction</b>: You can't change a channel's privacy.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_CreateChannel.html">CreateChannel
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createChannelRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateChannel operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateChannel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateChannel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateChannelResult> createChannelAsync(CreateChannelRequest createChannelRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateChannelRequest, CreateChannelResult> asyncHandler);
+
+    /**
+     * <p>
+     * Permanently bans a member from a channel. Moderators can't add banned members to a channel. To undo a ban, you
+     * first have to <code>DeleteChannelBan</code>, and then <code>CreateChannelMembership</code>. Bans are cleaned up
+     * when you delete users or channels.
+     * </p>
+     * <p>
+     * If you ban a user who is already part of a channel, that user is automatically kicked from the channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_CreateChannelBan.html">
+     * CreateChannelBan</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createChannelBanRequest
+     * @return A Java Future containing the result of the CreateChannelBan operation returned by the service.
+     * @sample AmazonChimeAsync.CreateChannelBan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateChannelBan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateChannelBanResult> createChannelBanAsync(CreateChannelBanRequest createChannelBanRequest);
+
+    /**
+     * <p>
+     * Permanently bans a member from a channel. Moderators can't add banned members to a channel. To undo a ban, you
+     * first have to <code>DeleteChannelBan</code>, and then <code>CreateChannelMembership</code>. Bans are cleaned up
+     * when you delete users or channels.
+     * </p>
+     * <p>
+     * If you ban a user who is already part of a channel, that user is automatically kicked from the channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_CreateChannelBan.html">
+     * CreateChannelBan</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createChannelBanRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateChannelBan operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateChannelBan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateChannelBan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateChannelBanResult> createChannelBanAsync(CreateChannelBanRequest createChannelBanRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateChannelBanRequest, CreateChannelBanResult> asyncHandler);
+
+    /**
+     * <p>
+     * Adds a user to a channel. The <code>InvitedBy</code> response field is derived from the request header. A channel
+     * member can:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * List messages
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Send messages
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Receive messages
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Edit their own messages
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Leave the channel
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Privacy settings impact this action as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Public Channels: You do not need to be a member to list messages, but you must be a member to send messages.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Private Channels: You must be a member to list or send messages.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_CreateChannelMembership.html">
+     * CreateChannelMembership</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createChannelMembershipRequest
+     * @return A Java Future containing the result of the CreateChannelMembership operation returned by the service.
+     * @sample AmazonChimeAsync.CreateChannelMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateChannelMembership" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateChannelMembershipResult> createChannelMembershipAsync(CreateChannelMembershipRequest createChannelMembershipRequest);
+
+    /**
+     * <p>
+     * Adds a user to a channel. The <code>InvitedBy</code> response field is derived from the request header. A channel
+     * member can:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * List messages
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Send messages
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Receive messages
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Edit their own messages
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Leave the channel
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Privacy settings impact this action as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Public Channels: You do not need to be a member to list messages, but you must be a member to send messages.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Private Channels: You must be a member to list or send messages.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_CreateChannelMembership.html">
+     * CreateChannelMembership</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createChannelMembershipRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateChannelMembership operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateChannelMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateChannelMembership" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateChannelMembershipResult> createChannelMembershipAsync(CreateChannelMembershipRequest createChannelMembershipRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateChannelMembershipRequest, CreateChannelMembershipResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new <code>ChannelModerator</code>. A channel moderator can:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Add and remove other members of the channel.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Add and remove other moderators of the channel.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Add and remove user bans for the channel.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Redact messages in the channel.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * List messages in the channel.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_CreateChannelModerator.html">
+     * CreateChannelModerator</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createChannelModeratorRequest
+     * @return A Java Future containing the result of the CreateChannelModerator operation returned by the service.
+     * @sample AmazonChimeAsync.CreateChannelModerator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateChannelModerator" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateChannelModeratorResult> createChannelModeratorAsync(CreateChannelModeratorRequest createChannelModeratorRequest);
+
+    /**
+     * <p>
+     * Creates a new <code>ChannelModerator</code>. A channel moderator can:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Add and remove other members of the channel.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Add and remove other moderators of the channel.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Add and remove user bans for the channel.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Redact messages in the channel.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * List messages in the channel.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_CreateChannelModerator.html">
+     * CreateChannelModerator</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createChannelModeratorRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateChannelModerator operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateChannelModerator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateChannelModerator" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateChannelModeratorResult> createChannelModeratorAsync(CreateChannelModeratorRequest createChannelModeratorRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateChannelModeratorRequest, CreateChannelModeratorResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a media capture pipeline.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_media-pipelines-chime_CreateMediaCapturePipeline"
+     * >CreateMediaCapturePipeline</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createMediaCapturePipelineRequest
+     * @return A Java Future containing the result of the CreateMediaCapturePipeline operation returned by the service.
+     * @sample AmazonChimeAsync.CreateMediaCapturePipeline
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateMediaCapturePipeline"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateMediaCapturePipelineResult> createMediaCapturePipelineAsync(
+            CreateMediaCapturePipelineRequest createMediaCapturePipelineRequest);
+
+    /**
+     * <p>
+     * Creates a media capture pipeline.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_media-pipelines-chime_CreateMediaCapturePipeline"
+     * >CreateMediaCapturePipeline</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createMediaCapturePipelineRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateMediaCapturePipeline operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateMediaCapturePipeline
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateMediaCapturePipeline"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateMediaCapturePipelineResult> createMediaCapturePipelineAsync(
+            CreateMediaCapturePipelineRequest createMediaCapturePipelineRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateMediaCapturePipelineRequest, CreateMediaCapturePipelineResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new Amazon Chime SDK meeting in the specified media Region with no initial attendees. For more
+     * information about specifying media Regions, see <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/chime-sdk-meetings-regions.html">Amazon Chime SDK Media
+     * Regions</a> in the <i>Amazon Chime SDK Developer Guide</i> . For more information about the Amazon Chime SDK, see
+     * <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in the
+     * <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_CreateMeeting.html">CreateMeeting
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createMeetingRequest
+     * @return A Java Future containing the result of the CreateMeeting operation returned by the service.
+     * @sample AmazonChimeAsync.CreateMeeting
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateMeeting" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateMeetingResult> createMeetingAsync(CreateMeetingRequest createMeetingRequest);
+
+    /**
+     * <p>
+     * Creates a new Amazon Chime SDK meeting in the specified media Region with no initial attendees. For more
+     * information about specifying media Regions, see <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/chime-sdk-meetings-regions.html">Amazon Chime SDK Media
+     * Regions</a> in the <i>Amazon Chime SDK Developer Guide</i> . For more information about the Amazon Chime SDK, see
+     * <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in the
+     * <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_CreateMeeting.html">CreateMeeting
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createMeetingRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateMeeting operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateMeeting
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateMeeting" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateMeetingResult> createMeetingAsync(CreateMeetingRequest createMeetingRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateMeetingRequest, CreateMeetingResult> asyncHandler);
+
+    /**
+     * <p>
+     * Uses the join token and call metadata in a meeting request (From number, To number, and so forth) to initiate an
+     * outbound call to a public switched telephone network (PSTN) and join them into a Chime meeting. Also ensures that
+     * the From number belongs to the customer.
+     * </p>
+     * <p>
+     * To play welcome audio or implement an interactive voice response (IVR), use the
+     * <code>CreateSipMediaApplicationCall</code> action with the corresponding SIP media application ID.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is not available in a dedicated namespace.</b>
+     * </p>
+     * </important>
+     * 
+     * @param createMeetingDialOutRequest
+     * @return A Java Future containing the result of the CreateMeetingDialOut operation returned by the service.
+     * @sample AmazonChimeAsync.CreateMeetingDialOut
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateMeetingDialOut" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateMeetingDialOutResult> createMeetingDialOutAsync(CreateMeetingDialOutRequest createMeetingDialOutRequest);
+
+    /**
+     * <p>
+     * Uses the join token and call metadata in a meeting request (From number, To number, and so forth) to initiate an
+     * outbound call to a public switched telephone network (PSTN) and join them into a Chime meeting. Also ensures that
+     * the From number belongs to the customer.
+     * </p>
+     * <p>
+     * To play welcome audio or implement an interactive voice response (IVR), use the
+     * <code>CreateSipMediaApplicationCall</code> action with the corresponding SIP media application ID.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is not available in a dedicated namespace.</b>
+     * </p>
+     * </important>
+     * 
+     * @param createMeetingDialOutRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateMeetingDialOut operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateMeetingDialOut
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateMeetingDialOut" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateMeetingDialOutResult> createMeetingDialOutAsync(CreateMeetingDialOutRequest createMeetingDialOutRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateMeetingDialOutRequest, CreateMeetingDialOutResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new Amazon Chime SDK meeting in the specified media Region, with attendees. For more information about
+     * specifying media Regions, see <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/chime-sdk-meetings-regions.html">Amazon Chime SDK Media
+     * Regions</a> in the <i>Amazon Chime SDK Developer Guide</i> . For more information about the Amazon Chime SDK, see
+     * <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in the
+     * <i>Amazon Chime SDK Developer Guide</i> .
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_CreateMeetingWithAttendees.html"
+     * >CreateMeetingWithAttendees</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createMeetingWithAttendeesRequest
+     * @return A Java Future containing the result of the CreateMeetingWithAttendees operation returned by the service.
+     * @sample AmazonChimeAsync.CreateMeetingWithAttendees
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateMeetingWithAttendees"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateMeetingWithAttendeesResult> createMeetingWithAttendeesAsync(
+            CreateMeetingWithAttendeesRequest createMeetingWithAttendeesRequest);
+
+    /**
+     * <p>
+     * Creates a new Amazon Chime SDK meeting in the specified media Region, with attendees. For more information about
+     * specifying media Regions, see <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/chime-sdk-meetings-regions.html">Amazon Chime SDK Media
+     * Regions</a> in the <i>Amazon Chime SDK Developer Guide</i> . For more information about the Amazon Chime SDK, see
+     * <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in the
+     * <i>Amazon Chime SDK Developer Guide</i> .
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_CreateMeetingWithAttendees.html"
+     * >CreateMeetingWithAttendees</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createMeetingWithAttendeesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateMeetingWithAttendees operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateMeetingWithAttendees
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateMeetingWithAttendees"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateMeetingWithAttendeesResult> createMeetingWithAttendeesAsync(
+            CreateMeetingWithAttendeesRequest createMeetingWithAttendeesRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateMeetingWithAttendeesRequest, CreateMeetingWithAttendeesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates an order for phone numbers to be provisioned. For toll-free numbers, you cannot use the Amazon Chime
+     * Business Calling product type. For numbers outside the U.S., you must use the Amazon Chime SIP Media Application
+     * Dial-In product type.
      * </p>
      * 
      * @param createPhoneNumberOrderRequest
@@ -447,9 +1720,9 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Creates an order for phone numbers to be provisioned. Choose from Amazon Chime Business Calling and Amazon Chime
-     * Voice Connector product types. For toll-free numbers, you can use only the Amazon Chime Voice Connector product
-     * type.
+     * Creates an order for phone numbers to be provisioned. For toll-free numbers, you cannot use the Amazon Chime
+     * Business Calling product type. For numbers outside the U.S., you must use the Amazon Chime SIP Media Application
+     * Dial-In product type.
      * </p>
      * 
      * @param createPhoneNumberOrderRequest
@@ -467,11 +1740,363 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Creates an Amazon Chime Voice Connector under the administrator's AWS account. Enabling
-     * <a>CreateVoiceConnectorRequest$RequireEncryption</a> configures your Amazon Chime Voice Connector to use TLS
-     * transport for SIP signaling and Secure RTP (SRTP) for media. Inbound calls use TLS transport, and unencrypted
+     * Creates a proxy session on the specified Amazon Chime Voice Connector for the specified participant phone
+     * numbers.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateProxySession.html">
+     * CreateProxySession</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createProxySessionRequest
+     * @return A Java Future containing the result of the CreateProxySession operation returned by the service.
+     * @sample AmazonChimeAsync.CreateProxySession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateProxySession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateProxySessionResult> createProxySessionAsync(CreateProxySessionRequest createProxySessionRequest);
+
+    /**
+     * <p>
+     * Creates a proxy session on the specified Amazon Chime Voice Connector for the specified participant phone
+     * numbers.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateProxySession.html">
+     * CreateProxySession</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createProxySessionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateProxySession operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateProxySession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateProxySession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateProxySessionResult> createProxySessionAsync(CreateProxySessionRequest createProxySessionRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateProxySessionRequest, CreateProxySessionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a chat room for the specified Amazon Chime Enterprise account.
+     * </p>
+     * 
+     * @param createRoomRequest
+     * @return A Java Future containing the result of the CreateRoom operation returned by the service.
+     * @sample AmazonChimeAsync.CreateRoom
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateRoom" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateRoomResult> createRoomAsync(CreateRoomRequest createRoomRequest);
+
+    /**
+     * <p>
+     * Creates a chat room for the specified Amazon Chime Enterprise account.
+     * </p>
+     * 
+     * @param createRoomRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateRoom operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateRoom
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateRoom" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateRoomResult> createRoomAsync(CreateRoomRequest createRoomRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateRoomRequest, CreateRoomResult> asyncHandler);
+
+    /**
+     * <p>
+     * Adds a member to a chat room in an Amazon Chime Enterprise account. A member can be either a user or a bot. The
+     * member role designates whether the member is a chat room administrator or a general chat room member.
+     * </p>
+     * 
+     * @param createRoomMembershipRequest
+     * @return A Java Future containing the result of the CreateRoomMembership operation returned by the service.
+     * @sample AmazonChimeAsync.CreateRoomMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateRoomMembership" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateRoomMembershipResult> createRoomMembershipAsync(CreateRoomMembershipRequest createRoomMembershipRequest);
+
+    /**
+     * <p>
+     * Adds a member to a chat room in an Amazon Chime Enterprise account. A member can be either a user or a bot. The
+     * member role designates whether the member is a chat room administrator or a general chat room member.
+     * </p>
+     * 
+     * @param createRoomMembershipRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateRoomMembership operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateRoomMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateRoomMembership" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateRoomMembershipResult> createRoomMembershipAsync(CreateRoomMembershipRequest createRoomMembershipRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateRoomMembershipRequest, CreateRoomMembershipResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a SIP media application.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateSipMediaApplication.html">
+     * CreateSipMediaApplication</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createSipMediaApplicationRequest
+     * @return A Java Future containing the result of the CreateSipMediaApplication operation returned by the service.
+     * @sample AmazonChimeAsync.CreateSipMediaApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateSipMediaApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateSipMediaApplicationResult> createSipMediaApplicationAsync(
+            CreateSipMediaApplicationRequest createSipMediaApplicationRequest);
+
+    /**
+     * <p>
+     * Creates a SIP media application.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateSipMediaApplication.html">
+     * CreateSipMediaApplication</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createSipMediaApplicationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateSipMediaApplication operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateSipMediaApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateSipMediaApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateSipMediaApplicationResult> createSipMediaApplicationAsync(
+            CreateSipMediaApplicationRequest createSipMediaApplicationRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateSipMediaApplicationRequest, CreateSipMediaApplicationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates an outbound call to a phone number from the phone number specified in the request, and it invokes the
+     * endpoint of the specified <code>sipMediaApplicationId</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateSipMediaApplicationCall.html"
+     * >CreateSipMediaApplicationCall</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createSipMediaApplicationCallRequest
+     * @return A Java Future containing the result of the CreateSipMediaApplicationCall operation returned by the
+     *         service.
+     * @sample AmazonChimeAsync.CreateSipMediaApplicationCall
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateSipMediaApplicationCall"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateSipMediaApplicationCallResult> createSipMediaApplicationCallAsync(
+            CreateSipMediaApplicationCallRequest createSipMediaApplicationCallRequest);
+
+    /**
+     * <p>
+     * Creates an outbound call to a phone number from the phone number specified in the request, and it invokes the
+     * endpoint of the specified <code>sipMediaApplicationId</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateSipMediaApplicationCall.html"
+     * >CreateSipMediaApplicationCall</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createSipMediaApplicationCallRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateSipMediaApplicationCall operation returned by the
+     *         service.
+     * @sample AmazonChimeAsyncHandler.CreateSipMediaApplicationCall
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateSipMediaApplicationCall"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateSipMediaApplicationCallResult> createSipMediaApplicationCallAsync(
+            CreateSipMediaApplicationCallRequest createSipMediaApplicationCallRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateSipMediaApplicationCallRequest, CreateSipMediaApplicationCallResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a SIP rule which can be used to run a SIP media application as a target for a specific trigger type.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateSipRule.html">CreateSipRule</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createSipRuleRequest
+     * @return A Java Future containing the result of the CreateSipRule operation returned by the service.
+     * @sample AmazonChimeAsync.CreateSipRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateSipRule" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateSipRuleResult> createSipRuleAsync(CreateSipRuleRequest createSipRuleRequest);
+
+    /**
+     * <p>
+     * Creates a SIP rule which can be used to run a SIP media application as a target for a specific trigger type.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateSipRule.html">CreateSipRule</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createSipRuleRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateSipRule operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateSipRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateSipRule" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateSipRuleResult> createSipRuleAsync(CreateSipRuleRequest createSipRuleRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateSipRuleRequest, CreateSipRuleResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a user under the specified Amazon Chime account.
+     * </p>
+     * 
+     * @param createUserRequest
+     * @return A Java Future containing the result of the CreateUser operation returned by the service.
+     * @sample AmazonChimeAsync.CreateUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateUser" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateUserResult> createUserAsync(CreateUserRequest createUserRequest);
+
+    /**
+     * <p>
+     * Creates a user under the specified Amazon Chime account.
+     * </p>
+     * 
+     * @param createUserRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateUser operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateUser" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateUserResult> createUserAsync(CreateUserRequest createUserRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateUserRequest, CreateUserResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates an Amazon Chime Voice Connector under the administrator's AWS account. You can choose to create an Amazon
+     * Chime Voice Connector in a specific AWS Region.
+     * </p>
+     * <p>
+     * Enabling <a>CreateVoiceConnectorRequest$RequireEncryption</a> configures your Amazon Chime Voice Connector to use
+     * TLS transport for SIP signaling and Secure RTP (SRTP) for media. Inbound calls use TLS transport, and unencrypted
      * outbound calls are blocked.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateVoiceConnector.html">
+     * CreateVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param createVoiceConnectorRequest
      * @return A Java Future containing the result of the CreateVoiceConnector operation returned by the service.
@@ -479,15 +2104,31 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateVoiceConnector" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<CreateVoiceConnectorResult> createVoiceConnectorAsync(CreateVoiceConnectorRequest createVoiceConnectorRequest);
 
     /**
      * <p>
-     * Creates an Amazon Chime Voice Connector under the administrator's AWS account. Enabling
-     * <a>CreateVoiceConnectorRequest$RequireEncryption</a> configures your Amazon Chime Voice Connector to use TLS
-     * transport for SIP signaling and Secure RTP (SRTP) for media. Inbound calls use TLS transport, and unencrypted
+     * Creates an Amazon Chime Voice Connector under the administrator's AWS account. You can choose to create an Amazon
+     * Chime Voice Connector in a specific AWS Region.
+     * </p>
+     * <p>
+     * Enabling <a>CreateVoiceConnectorRequest$RequireEncryption</a> configures your Amazon Chime Voice Connector to use
+     * TLS transport for SIP signaling and Secure RTP (SRTP) for media. Inbound calls use TLS transport, and unencrypted
      * outbound calls are blocked.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateVoiceConnector.html">
+     * CreateVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param createVoiceConnectorRequest
      * @param asyncHandler
@@ -499,13 +2140,85 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateVoiceConnector" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<CreateVoiceConnectorResult> createVoiceConnectorAsync(CreateVoiceConnectorRequest createVoiceConnectorRequest,
             com.amazonaws.handlers.AsyncHandler<CreateVoiceConnectorRequest, CreateVoiceConnectorResult> asyncHandler);
 
     /**
      * <p>
-     * Deletes the specified Amazon Chime account. You must suspend all users before deleting a <code>Team</code>
-     * account. You can use the <a>BatchSuspendUser</a> action to do so.
+     * Creates an Amazon Chime Voice Connector group under the administrator's AWS account. You can associate Amazon
+     * Chime Voice Connectors with the Amazon Chime Voice Connector group by including <code>VoiceConnectorItems</code>
+     * in the request.
+     * </p>
+     * <p>
+     * You can include Amazon Chime Voice Connectors from different AWS Regions in your group. This creates a fault
+     * tolerant mechanism for fallback in case of availability events.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateVoiceConnectorGroup.html">
+     * CreateVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createVoiceConnectorGroupRequest
+     * @return A Java Future containing the result of the CreateVoiceConnectorGroup operation returned by the service.
+     * @sample AmazonChimeAsync.CreateVoiceConnectorGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateVoiceConnectorGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateVoiceConnectorGroupResult> createVoiceConnectorGroupAsync(
+            CreateVoiceConnectorGroupRequest createVoiceConnectorGroupRequest);
+
+    /**
+     * <p>
+     * Creates an Amazon Chime Voice Connector group under the administrator's AWS account. You can associate Amazon
+     * Chime Voice Connectors with the Amazon Chime Voice Connector group by including <code>VoiceConnectorItems</code>
+     * in the request.
+     * </p>
+     * <p>
+     * You can include Amazon Chime Voice Connectors from different AWS Regions in your group. This creates a fault
+     * tolerant mechanism for fallback in case of availability events.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_CreateVoiceConnectorGroup.html">
+     * CreateVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param createVoiceConnectorGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateVoiceConnectorGroup operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.CreateVoiceConnectorGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/CreateVoiceConnectorGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<CreateVoiceConnectorGroupResult> createVoiceConnectorGroupAsync(
+            CreateVoiceConnectorGroupRequest createVoiceConnectorGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateVoiceConnectorGroupRequest, CreateVoiceConnectorGroupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the specified Amazon Chime account. You must suspend all users before deleting <code>Team</code> account.
+     * You can use the <a>BatchSuspendUser</a> action to dodo.
      * </p>
      * <p>
      * For <code>EnterpriseLWA</code> and <code>EnterpriseAD</code> accounts, you must release the claimed domains for
@@ -513,8 +2226,8 @@ public interface AmazonChimeAsync extends AmazonChime {
      * suspended.
      * </p>
      * <p>
-     * Deleted accounts appear in your <code>Disabled</code> accounts list for 90 days. To restore a deleted account
-     * from your <code>Disabled</code> accounts list, you must contact AWS Support.
+     * Deleted accounts appear in your <code>Disabled</code> accounts list for 90 days. To restore deleted account from
+     * your <code>Disabled</code> accounts list, you must contact AWS Support.
      * </p>
      * <p>
      * After 90 days, deleted accounts are permanently removed from your <code>Disabled</code> accounts list.
@@ -530,8 +2243,8 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Deletes the specified Amazon Chime account. You must suspend all users before deleting a <code>Team</code>
-     * account. You can use the <a>BatchSuspendUser</a> action to do so.
+     * Deletes the specified Amazon Chime account. You must suspend all users before deleting <code>Team</code> account.
+     * You can use the <a>BatchSuspendUser</a> action to dodo.
      * </p>
      * <p>
      * For <code>EnterpriseLWA</code> and <code>EnterpriseAD</code> accounts, you must release the claimed domains for
@@ -539,8 +2252,8 @@ public interface AmazonChimeAsync extends AmazonChime {
      * suspended.
      * </p>
      * <p>
-     * Deleted accounts appear in your <code>Disabled</code> accounts list for 90 days. To restore a deleted account
-     * from your <code>Disabled</code> accounts list, you must contact AWS Support.
+     * Deleted accounts appear in your <code>Disabled</code> accounts list for 90 days. To restore deleted account from
+     * your <code>Disabled</code> accounts list, you must contact AWS Support.
      * </p>
      * <p>
      * After 90 days, deleted accounts are permanently removed from your <code>Disabled</code> accounts list.
@@ -558,6 +2271,650 @@ public interface AmazonChimeAsync extends AmazonChime {
      */
     java.util.concurrent.Future<DeleteAccountResult> deleteAccountAsync(DeleteAccountRequest deleteAccountRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteAccountRequest, DeleteAccountResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an <code>AppInstance</code> and all associated data asynchronously.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DeleteAppInstance.html">
+     * DeleteAppInstance</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteAppInstanceRequest
+     * @return A Java Future containing the result of the DeleteAppInstance operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteAppInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteAppInstance" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteAppInstanceResult> deleteAppInstanceAsync(DeleteAppInstanceRequest deleteAppInstanceRequest);
+
+    /**
+     * <p>
+     * Deletes an <code>AppInstance</code> and all associated data asynchronously.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DeleteAppInstance.html">
+     * DeleteAppInstance</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteAppInstanceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteAppInstance operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteAppInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteAppInstance" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteAppInstanceResult> deleteAppInstanceAsync(DeleteAppInstanceRequest deleteAppInstanceRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteAppInstanceRequest, DeleteAppInstanceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Demotes an <code>AppInstanceAdmin</code> to an <code>AppInstanceUser</code>. This action does not delete the
+     * user.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DeleteAppInstanceAdmin.html">
+     * DeleteAppInstanceAdmin</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteAppInstanceAdminRequest
+     * @return A Java Future containing the result of the DeleteAppInstanceAdmin operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteAppInstanceAdmin
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteAppInstanceAdmin" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteAppInstanceAdminResult> deleteAppInstanceAdminAsync(DeleteAppInstanceAdminRequest deleteAppInstanceAdminRequest);
+
+    /**
+     * <p>
+     * Demotes an <code>AppInstanceAdmin</code> to an <code>AppInstanceUser</code>. This action does not delete the
+     * user.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DeleteAppInstanceAdmin.html">
+     * DeleteAppInstanceAdmin</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteAppInstanceAdminRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteAppInstanceAdmin operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteAppInstanceAdmin
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteAppInstanceAdmin" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteAppInstanceAdminResult> deleteAppInstanceAdminAsync(DeleteAppInstanceAdminRequest deleteAppInstanceAdminRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteAppInstanceAdminRequest, DeleteAppInstanceAdminResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the streaming configurations of an <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DeleteAppInstanceStreamingConfigurations.html"
+     * >DeleteAppInstanceStreamingConfigurations</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteAppInstanceStreamingConfigurationsRequest
+     * @return A Java Future containing the result of the DeleteAppInstanceStreamingConfigurations operation returned by
+     *         the service.
+     * @sample AmazonChimeAsync.DeleteAppInstanceStreamingConfigurations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteAppInstanceStreamingConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteAppInstanceStreamingConfigurationsResult> deleteAppInstanceStreamingConfigurationsAsync(
+            DeleteAppInstanceStreamingConfigurationsRequest deleteAppInstanceStreamingConfigurationsRequest);
+
+    /**
+     * <p>
+     * Deletes the streaming configurations of an <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DeleteAppInstanceStreamingConfigurations.html"
+     * >DeleteAppInstanceStreamingConfigurations</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteAppInstanceStreamingConfigurationsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteAppInstanceStreamingConfigurations operation returned by
+     *         the service.
+     * @sample AmazonChimeAsyncHandler.DeleteAppInstanceStreamingConfigurations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteAppInstanceStreamingConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteAppInstanceStreamingConfigurationsResult> deleteAppInstanceStreamingConfigurationsAsync(
+            DeleteAppInstanceStreamingConfigurationsRequest deleteAppInstanceStreamingConfigurationsRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteAppInstanceStreamingConfigurationsRequest, DeleteAppInstanceStreamingConfigurationsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an <code>AppInstanceUser</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DeleteAppInstanceUser.html">
+     * DeleteAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteAppInstanceUserRequest
+     * @return A Java Future containing the result of the DeleteAppInstanceUser operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteAppInstanceUser" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteAppInstanceUserResult> deleteAppInstanceUserAsync(DeleteAppInstanceUserRequest deleteAppInstanceUserRequest);
+
+    /**
+     * <p>
+     * Deletes an <code>AppInstanceUser</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DeleteAppInstanceUser.html">
+     * DeleteAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteAppInstanceUserRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteAppInstanceUser operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteAppInstanceUser" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteAppInstanceUserResult> deleteAppInstanceUserAsync(DeleteAppInstanceUserRequest deleteAppInstanceUserRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteAppInstanceUserRequest, DeleteAppInstanceUserResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an attendee from the specified Amazon Chime SDK meeting and deletes their <code>JoinToken</code>.
+     * Attendees are automatically deleted when a Amazon Chime SDK meeting is deleted. For more information about the
+     * Amazon Chime SDK, see <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the
+     * Amazon Chime SDK</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_DeleteAttendee.html">DeleteAttendee
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteAttendeeRequest
+     * @return A Java Future containing the result of the DeleteAttendee operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteAttendeeResult> deleteAttendeeAsync(DeleteAttendeeRequest deleteAttendeeRequest);
+
+    /**
+     * <p>
+     * Deletes an attendee from the specified Amazon Chime SDK meeting and deletes their <code>JoinToken</code>.
+     * Attendees are automatically deleted when a Amazon Chime SDK meeting is deleted. For more information about the
+     * Amazon Chime SDK, see <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the
+     * Amazon Chime SDK</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_DeleteAttendee.html">DeleteAttendee
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteAttendeeRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteAttendee operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteAttendeeResult> deleteAttendeeAsync(DeleteAttendeeRequest deleteAttendeeRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteAttendeeRequest, DeleteAttendeeResult> asyncHandler);
+
+    /**
+     * <p>
+     * Immediately makes a channel and its memberships inaccessible and marks them for deletion. This is an irreversible
+     * process.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DeleteChannel.html">DeleteChannel
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteChannelRequest
+     * @return A Java Future containing the result of the DeleteChannel operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteChannel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteChannel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteChannelResult> deleteChannelAsync(DeleteChannelRequest deleteChannelRequest);
+
+    /**
+     * <p>
+     * Immediately makes a channel and its memberships inaccessible and marks them for deletion. This is an irreversible
+     * process.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DeleteChannel.html">DeleteChannel
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteChannelRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteChannel operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteChannel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteChannel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteChannelResult> deleteChannelAsync(DeleteChannelRequest deleteChannelRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteChannelRequest, DeleteChannelResult> asyncHandler);
+
+    /**
+     * <p>
+     * Removes a user from a channel's ban list.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DeleteChannelBan.html">
+     * DeleteChannelBan</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteChannelBanRequest
+     * @return A Java Future containing the result of the DeleteChannelBan operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteChannelBan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteChannelBan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteChannelBanResult> deleteChannelBanAsync(DeleteChannelBanRequest deleteChannelBanRequest);
+
+    /**
+     * <p>
+     * Removes a user from a channel's ban list.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DeleteChannelBan.html">
+     * DeleteChannelBan</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteChannelBanRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteChannelBan operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteChannelBan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteChannelBan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteChannelBanResult> deleteChannelBanAsync(DeleteChannelBanRequest deleteChannelBanRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteChannelBanRequest, DeleteChannelBanResult> asyncHandler);
+
+    /**
+     * <p>
+     * Removes a member from a channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DeleteChannelMembership.html">
+     * DeleteChannelMembership</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteChannelMembershipRequest
+     * @return A Java Future containing the result of the DeleteChannelMembership operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteChannelMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteChannelMembership" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteChannelMembershipResult> deleteChannelMembershipAsync(DeleteChannelMembershipRequest deleteChannelMembershipRequest);
+
+    /**
+     * <p>
+     * Removes a member from a channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DeleteChannelMembership.html">
+     * DeleteChannelMembership</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteChannelMembershipRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteChannelMembership operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteChannelMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteChannelMembership" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteChannelMembershipResult> deleteChannelMembershipAsync(DeleteChannelMembershipRequest deleteChannelMembershipRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteChannelMembershipRequest, DeleteChannelMembershipResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a channel message. Only admins can perform this action. Deletion makes messages inaccessible immediately.
+     * A background process deletes any revisions created by <code>UpdateChannelMessage</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DeleteChannelMessage.html">
+     * DeleteChannelMessage</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteChannelMessageRequest
+     * @return A Java Future containing the result of the DeleteChannelMessage operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteChannelMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteChannelMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteChannelMessageResult> deleteChannelMessageAsync(DeleteChannelMessageRequest deleteChannelMessageRequest);
+
+    /**
+     * <p>
+     * Deletes a channel message. Only admins can perform this action. Deletion makes messages inaccessible immediately.
+     * A background process deletes any revisions created by <code>UpdateChannelMessage</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DeleteChannelMessage.html">
+     * DeleteChannelMessage</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteChannelMessageRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteChannelMessage operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteChannelMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteChannelMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteChannelMessageResult> deleteChannelMessageAsync(DeleteChannelMessageRequest deleteChannelMessageRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteChannelMessageRequest, DeleteChannelMessageResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a channel moderator.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DeleteChannelModerator.html">
+     * DeleteChannelModerator</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteChannelModeratorRequest
+     * @return A Java Future containing the result of the DeleteChannelModerator operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteChannelModerator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteChannelModerator" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteChannelModeratorResult> deleteChannelModeratorAsync(DeleteChannelModeratorRequest deleteChannelModeratorRequest);
+
+    /**
+     * <p>
+     * Deletes a channel moderator.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DeleteChannelModerator.html">
+     * DeleteChannelModerator</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteChannelModeratorRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteChannelModerator operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteChannelModerator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteChannelModerator" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteChannelModeratorResult> deleteChannelModeratorAsync(DeleteChannelModeratorRequest deleteChannelModeratorRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteChannelModeratorRequest, DeleteChannelModeratorResult> asyncHandler);
 
     /**
      * <p>
@@ -591,6 +2948,132 @@ public interface AmazonChimeAsync extends AmazonChime {
     java.util.concurrent.Future<DeleteEventsConfigurationResult> deleteEventsConfigurationAsync(
             DeleteEventsConfigurationRequest deleteEventsConfigurationRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteEventsConfigurationRequest, DeleteEventsConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the media capture pipeline.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_media-pipelines-chime_DeleteMediaCapturePipeline.html"
+     * >DeleteMediaCapturePipeline</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteMediaCapturePipelineRequest
+     * @return A Java Future containing the result of the DeleteMediaCapturePipeline operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteMediaCapturePipeline
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteMediaCapturePipeline"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteMediaCapturePipelineResult> deleteMediaCapturePipelineAsync(
+            DeleteMediaCapturePipelineRequest deleteMediaCapturePipelineRequest);
+
+    /**
+     * <p>
+     * Deletes the media capture pipeline.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_media-pipelines-chime_DeleteMediaCapturePipeline.html"
+     * >DeleteMediaCapturePipeline</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteMediaCapturePipelineRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteMediaCapturePipeline operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteMediaCapturePipeline
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteMediaCapturePipeline"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteMediaCapturePipelineResult> deleteMediaCapturePipelineAsync(
+            DeleteMediaCapturePipelineRequest deleteMediaCapturePipelineRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteMediaCapturePipelineRequest, DeleteMediaCapturePipelineResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the specified Amazon Chime SDK meeting. The operation deletes all attendees, disconnects all clients, and
+     * prevents new clients from joining the meeting. For more information about the Amazon Chime SDK, see <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in the
+     * <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_DeleteMeeting.html">DeleteMeeting
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteMeetingRequest
+     * @return A Java Future containing the result of the DeleteMeeting operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteMeeting
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteMeeting" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteMeetingResult> deleteMeetingAsync(DeleteMeetingRequest deleteMeetingRequest);
+
+    /**
+     * <p>
+     * Deletes the specified Amazon Chime SDK meeting. The operation deletes all attendees, disconnects all clients, and
+     * prevents new clients from joining the meeting. For more information about the Amazon Chime SDK, see <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in the
+     * <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_DeleteMeeting.html">DeleteMeeting
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteMeetingRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteMeeting operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteMeeting
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteMeeting" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteMeetingResult> deleteMeetingAsync(DeleteMeetingRequest deleteMeetingRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteMeetingRequest, DeleteMeetingResult> asyncHandler);
 
     /**
      * <p>
@@ -633,9 +3116,258 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Deletes the specified Amazon Chime Voice Connector. Any phone numbers assigned to the Amazon Chime Voice
-     * Connector must be unassigned from it before it can be deleted.
+     * Deletes the specified proxy session from the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteProxySession.html">
+     * DeleteProxySession</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteProxySessionRequest
+     * @return A Java Future containing the result of the DeleteProxySession operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteProxySession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteProxySession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteProxySessionResult> deleteProxySessionAsync(DeleteProxySessionRequest deleteProxySessionRequest);
+
+    /**
+     * <p>
+     * Deletes the specified proxy session from the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteProxySession.html">
+     * DeleteProxySession</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteProxySessionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteProxySession operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteProxySession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteProxySession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteProxySessionResult> deleteProxySessionAsync(DeleteProxySessionRequest deleteProxySessionRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteProxySessionRequest, DeleteProxySessionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a chat room in an Amazon Chime Enterprise account.
+     * </p>
+     * 
+     * @param deleteRoomRequest
+     * @return A Java Future containing the result of the DeleteRoom operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteRoom
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteRoom" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteRoomResult> deleteRoomAsync(DeleteRoomRequest deleteRoomRequest);
+
+    /**
+     * <p>
+     * Deletes a chat room in an Amazon Chime Enterprise account.
+     * </p>
+     * 
+     * @param deleteRoomRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteRoom operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteRoom
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteRoom" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteRoomResult> deleteRoomAsync(DeleteRoomRequest deleteRoomRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteRoomRequest, DeleteRoomResult> asyncHandler);
+
+    /**
+     * <p>
+     * Removes a member from a chat room in an Amazon Chime Enterprise account.
+     * </p>
+     * 
+     * @param deleteRoomMembershipRequest
+     * @return A Java Future containing the result of the DeleteRoomMembership operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteRoomMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteRoomMembership" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteRoomMembershipResult> deleteRoomMembershipAsync(DeleteRoomMembershipRequest deleteRoomMembershipRequest);
+
+    /**
+     * <p>
+     * Removes a member from a chat room in an Amazon Chime Enterprise account.
+     * </p>
+     * 
+     * @param deleteRoomMembershipRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteRoomMembership operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteRoomMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteRoomMembership" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteRoomMembershipResult> deleteRoomMembershipAsync(DeleteRoomMembershipRequest deleteRoomMembershipRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteRoomMembershipRequest, DeleteRoomMembershipResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a SIP media application.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteSipMediaApplication.html">
+     * DeleteSipMediaApplication</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteSipMediaApplicationRequest
+     * @return A Java Future containing the result of the DeleteSipMediaApplication operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteSipMediaApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteSipMediaApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteSipMediaApplicationResult> deleteSipMediaApplicationAsync(
+            DeleteSipMediaApplicationRequest deleteSipMediaApplicationRequest);
+
+    /**
+     * <p>
+     * Deletes a SIP media application.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteSipMediaApplication.html">
+     * DeleteSipMediaApplication</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteSipMediaApplicationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteSipMediaApplication operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteSipMediaApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteSipMediaApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteSipMediaApplicationResult> deleteSipMediaApplicationAsync(
+            DeleteSipMediaApplicationRequest deleteSipMediaApplicationRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteSipMediaApplicationRequest, DeleteSipMediaApplicationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a SIP rule. You must disable a SIP rule before you can delete it.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteSipRule.html">DeleteSipRule</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteSipRuleRequest
+     * @return A Java Future containing the result of the DeleteSipRule operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteSipRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteSipRule" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteSipRuleResult> deleteSipRuleAsync(DeleteSipRuleRequest deleteSipRuleRequest);
+
+    /**
+     * <p>
+     * Deletes a SIP rule. You must disable a SIP rule before you can delete it.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteSipRule.html">DeleteSipRule</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteSipRuleRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteSipRule operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteSipRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteSipRule" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteSipRuleResult> deleteSipRuleAsync(DeleteSipRuleRequest deleteSipRuleRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteSipRuleRequest, DeleteSipRuleResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the specified Amazon Chime Voice Connector. Any phone numbers associated with the Amazon Chime Voice
+     * Connector must be disassociated from it before it can be deleted.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnector.html">
+     * DeleteVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param deleteVoiceConnectorRequest
      * @return A Java Future containing the result of the DeleteVoiceConnector operation returned by the service.
@@ -643,13 +3375,26 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnector" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DeleteVoiceConnectorResult> deleteVoiceConnectorAsync(DeleteVoiceConnectorRequest deleteVoiceConnectorRequest);
 
     /**
      * <p>
-     * Deletes the specified Amazon Chime Voice Connector. Any phone numbers assigned to the Amazon Chime Voice
-     * Connector must be unassigned from it before it can be deleted.
+     * Deletes the specified Amazon Chime Voice Connector. Any phone numbers associated with the Amazon Chime Voice
+     * Connector must be disassociated from it before it can be deleted.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnector.html">
+     * DeleteVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param deleteVoiceConnectorRequest
      * @param asyncHandler
@@ -661,13 +3406,158 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnector" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DeleteVoiceConnectorResult> deleteVoiceConnectorAsync(DeleteVoiceConnectorRequest deleteVoiceConnectorRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteVoiceConnectorRequest, DeleteVoiceConnectorResult> asyncHandler);
 
     /**
      * <p>
+     * Deletes the emergency calling configuration details from the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorEmergencyCallingConfiguration.html"
+     * >DeleteVoiceConnectorEmergencyCallingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteVoiceConnectorEmergencyCallingConfigurationRequest
+     * @return A Java Future containing the result of the DeleteVoiceConnectorEmergencyCallingConfiguration operation
+     *         returned by the service.
+     * @sample AmazonChimeAsync.DeleteVoiceConnectorEmergencyCallingConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorEmergencyCallingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteVoiceConnectorEmergencyCallingConfigurationResult> deleteVoiceConnectorEmergencyCallingConfigurationAsync(
+            DeleteVoiceConnectorEmergencyCallingConfigurationRequest deleteVoiceConnectorEmergencyCallingConfigurationRequest);
+
+    /**
+     * <p>
+     * Deletes the emergency calling configuration details from the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorEmergencyCallingConfiguration.html"
+     * >DeleteVoiceConnectorEmergencyCallingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteVoiceConnectorEmergencyCallingConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteVoiceConnectorEmergencyCallingConfiguration operation
+     *         returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteVoiceConnectorEmergencyCallingConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorEmergencyCallingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteVoiceConnectorEmergencyCallingConfigurationResult> deleteVoiceConnectorEmergencyCallingConfigurationAsync(
+            DeleteVoiceConnectorEmergencyCallingConfigurationRequest deleteVoiceConnectorEmergencyCallingConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteVoiceConnectorEmergencyCallingConfigurationRequest, DeleteVoiceConnectorEmergencyCallingConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the specified Amazon Chime Voice Connector group. Any <code>VoiceConnectorItems</code> and phone numbers
+     * associated with the group must be removed before it can be deleted.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorGroup.html">
+     * DeleteVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteVoiceConnectorGroupRequest
+     * @return A Java Future containing the result of the DeleteVoiceConnectorGroup operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteVoiceConnectorGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteVoiceConnectorGroupResult> deleteVoiceConnectorGroupAsync(
+            DeleteVoiceConnectorGroupRequest deleteVoiceConnectorGroupRequest);
+
+    /**
+     * <p>
+     * Deletes the specified Amazon Chime Voice Connector group. Any <code>VoiceConnectorItems</code> and phone numbers
+     * associated with the group must be removed before it can be deleted.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorGroup.html">
+     * DeleteVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteVoiceConnectorGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteVoiceConnectorGroup operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteVoiceConnectorGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteVoiceConnectorGroupResult> deleteVoiceConnectorGroupAsync(
+            DeleteVoiceConnectorGroupRequest deleteVoiceConnectorGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteVoiceConnectorGroupRequest, DeleteVoiceConnectorGroupResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes the origination settings for the specified Amazon Chime Voice Connector.
      * </p>
+     * <note>
+     * <p>
+     * If emergency calling is configured for the Amazon Chime Voice Connector, it must be deleted prior to deleting the
+     * origination settings.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorOrigination.html"
+     * >DeleteVoiceConnectorOrigination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param deleteVoiceConnectorOriginationRequest
      * @return A Java Future containing the result of the DeleteVoiceConnectorOrigination operation returned by the
@@ -676,6 +3566,7 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorOrigination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DeleteVoiceConnectorOriginationResult> deleteVoiceConnectorOriginationAsync(
             DeleteVoiceConnectorOriginationRequest deleteVoiceConnectorOriginationRequest);
 
@@ -683,6 +3574,24 @@ public interface AmazonChimeAsync extends AmazonChime {
      * <p>
      * Deletes the origination settings for the specified Amazon Chime Voice Connector.
      * </p>
+     * <note>
+     * <p>
+     * If emergency calling is configured for the Amazon Chime Voice Connector, it must be deleted prior to deleting the
+     * origination settings.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorOrigination.html"
+     * >DeleteVoiceConnectorOrigination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param deleteVoiceConnectorOriginationRequest
      * @param asyncHandler
@@ -695,14 +3604,155 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorOrigination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DeleteVoiceConnectorOriginationResult> deleteVoiceConnectorOriginationAsync(
             DeleteVoiceConnectorOriginationRequest deleteVoiceConnectorOriginationRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteVoiceConnectorOriginationRequest, DeleteVoiceConnectorOriginationResult> asyncHandler);
 
     /**
      * <p>
+     * Deletes the proxy configuration from the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorProxy.html">
+     * DeleteVoiceProxy</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteVoiceConnectorProxyRequest
+     * @return A Java Future containing the result of the DeleteVoiceConnectorProxy operation returned by the service.
+     * @sample AmazonChimeAsync.DeleteVoiceConnectorProxy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorProxy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteVoiceConnectorProxyResult> deleteVoiceConnectorProxyAsync(
+            DeleteVoiceConnectorProxyRequest deleteVoiceConnectorProxyRequest);
+
+    /**
+     * <p>
+     * Deletes the proxy configuration from the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorProxy.html">
+     * DeleteVoiceProxy</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteVoiceConnectorProxyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteVoiceConnectorProxy operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteVoiceConnectorProxy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorProxy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteVoiceConnectorProxyResult> deleteVoiceConnectorProxyAsync(
+            DeleteVoiceConnectorProxyRequest deleteVoiceConnectorProxyRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteVoiceConnectorProxyRequest, DeleteVoiceConnectorProxyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the streaming configuration for the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorStreamingConfiguration.html"
+     * >DeleteVoiceConnectorStreamingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteVoiceConnectorStreamingConfigurationRequest
+     * @return A Java Future containing the result of the DeleteVoiceConnectorStreamingConfiguration operation returned
+     *         by the service.
+     * @sample AmazonChimeAsync.DeleteVoiceConnectorStreamingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorStreamingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteVoiceConnectorStreamingConfigurationResult> deleteVoiceConnectorStreamingConfigurationAsync(
+            DeleteVoiceConnectorStreamingConfigurationRequest deleteVoiceConnectorStreamingConfigurationRequest);
+
+    /**
+     * <p>
+     * Deletes the streaming configuration for the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorStreamingConfiguration.html"
+     * >DeleteVoiceConnectorStreamingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteVoiceConnectorStreamingConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteVoiceConnectorStreamingConfiguration operation returned
+     *         by the service.
+     * @sample AmazonChimeAsyncHandler.DeleteVoiceConnectorStreamingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorStreamingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DeleteVoiceConnectorStreamingConfigurationResult> deleteVoiceConnectorStreamingConfigurationAsync(
+            DeleteVoiceConnectorStreamingConfigurationRequest deleteVoiceConnectorStreamingConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteVoiceConnectorStreamingConfigurationRequest, DeleteVoiceConnectorStreamingConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes the termination settings for the specified Amazon Chime Voice Connector.
      * </p>
+     * <note>
+     * <p>
+     * If emergency calling is configured for the Amazon Chime Voice Connector, it must be deleted prior to deleting the
+     * termination settings.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorTermination.html"
+     * >DeleteVoiceConnectorTermination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param deleteVoiceConnectorTerminationRequest
      * @return A Java Future containing the result of the DeleteVoiceConnectorTermination operation returned by the
@@ -711,6 +3761,7 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorTermination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DeleteVoiceConnectorTerminationResult> deleteVoiceConnectorTerminationAsync(
             DeleteVoiceConnectorTerminationRequest deleteVoiceConnectorTerminationRequest);
 
@@ -718,6 +3769,24 @@ public interface AmazonChimeAsync extends AmazonChime {
      * <p>
      * Deletes the termination settings for the specified Amazon Chime Voice Connector.
      * </p>
+     * <note>
+     * <p>
+     * If emergency calling is configured for the Amazon Chime Voice Connector, it must be deleted prior to deleting the
+     * termination settings.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorTermination.html"
+     * >DeleteVoiceConnectorTermination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param deleteVoiceConnectorTerminationRequest
      * @param asyncHandler
@@ -730,6 +3799,7 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorTermination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DeleteVoiceConnectorTerminationResult> deleteVoiceConnectorTerminationAsync(
             DeleteVoiceConnectorTerminationRequest deleteVoiceConnectorTerminationRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteVoiceConnectorTerminationRequest, DeleteVoiceConnectorTerminationResult> asyncHandler);
@@ -738,6 +3808,19 @@ public interface AmazonChimeAsync extends AmazonChime {
      * <p>
      * Deletes the specified SIP credentials used by your equipment to authenticate during call termination.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorTerminationCredentials.html"
+     * >DeleteVoiceConnectorTerminationCredentials</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param deleteVoiceConnectorTerminationCredentialsRequest
      * @return A Java Future containing the result of the DeleteVoiceConnectorTerminationCredentials operation returned
@@ -746,6 +3829,7 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorTerminationCredentials"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DeleteVoiceConnectorTerminationCredentialsResult> deleteVoiceConnectorTerminationCredentialsAsync(
             DeleteVoiceConnectorTerminationCredentialsRequest deleteVoiceConnectorTerminationCredentialsRequest);
 
@@ -753,6 +3837,19 @@ public interface AmazonChimeAsync extends AmazonChime {
      * <p>
      * Deletes the specified SIP credentials used by your equipment to authenticate during call termination.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DeleteVoiceConnectorTerminationCredentials.html"
+     * >DeleteVoiceConnectorTerminationCredentials</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param deleteVoiceConnectorTerminationCredentialsRequest
      * @param asyncHandler
@@ -765,9 +3862,605 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DeleteVoiceConnectorTerminationCredentials"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DeleteVoiceConnectorTerminationCredentialsResult> deleteVoiceConnectorTerminationCredentialsAsync(
             DeleteVoiceConnectorTerminationCredentialsRequest deleteVoiceConnectorTerminationCredentialsRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteVoiceConnectorTerminationCredentialsRequest, DeleteVoiceConnectorTerminationCredentialsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the full details of an <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DescribeAppInstance.html">
+     * DescribeAppInstance</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeAppInstanceRequest
+     * @return A Java Future containing the result of the DescribeAppInstance operation returned by the service.
+     * @sample AmazonChimeAsync.DescribeAppInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeAppInstance" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeAppInstanceResult> describeAppInstanceAsync(DescribeAppInstanceRequest describeAppInstanceRequest);
+
+    /**
+     * <p>
+     * Returns the full details of an <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DescribeAppInstance.html">
+     * DescribeAppInstance</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeAppInstanceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeAppInstance operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DescribeAppInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeAppInstance" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeAppInstanceResult> describeAppInstanceAsync(DescribeAppInstanceRequest describeAppInstanceRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeAppInstanceRequest, DescribeAppInstanceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the full details of an <code>AppInstanceAdmin</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DescribeAppInstanceAdmin.html">
+     * DescribeAppInstanceAdmin</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeAppInstanceAdminRequest
+     * @return A Java Future containing the result of the DescribeAppInstanceAdmin operation returned by the service.
+     * @sample AmazonChimeAsync.DescribeAppInstanceAdmin
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeAppInstanceAdmin" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeAppInstanceAdminResult> describeAppInstanceAdminAsync(DescribeAppInstanceAdminRequest describeAppInstanceAdminRequest);
+
+    /**
+     * <p>
+     * Returns the full details of an <code>AppInstanceAdmin</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DescribeAppInstanceAdmin.html">
+     * DescribeAppInstanceAdmin</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeAppInstanceAdminRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeAppInstanceAdmin operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DescribeAppInstanceAdmin
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeAppInstanceAdmin" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeAppInstanceAdminResult> describeAppInstanceAdminAsync(DescribeAppInstanceAdminRequest describeAppInstanceAdminRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeAppInstanceAdminRequest, DescribeAppInstanceAdminResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the full details of an <code>AppInstanceUser</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DescribeAppInstanceUser.html">
+     * DescribeAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeAppInstanceUserRequest
+     * @return A Java Future containing the result of the DescribeAppInstanceUser operation returned by the service.
+     * @sample AmazonChimeAsync.DescribeAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeAppInstanceUser" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeAppInstanceUserResult> describeAppInstanceUserAsync(DescribeAppInstanceUserRequest describeAppInstanceUserRequest);
+
+    /**
+     * <p>
+     * Returns the full details of an <code>AppInstanceUser</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_DescribeAppInstanceUser.html">
+     * DescribeAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeAppInstanceUserRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeAppInstanceUser operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DescribeAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeAppInstanceUser" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeAppInstanceUserResult> describeAppInstanceUserAsync(DescribeAppInstanceUserRequest describeAppInstanceUserRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeAppInstanceUserRequest, DescribeAppInstanceUserResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the full details of a channel in an Amazon Chime <code>AppInstance</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannel.html">
+     * DescribeChannel</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelRequest
+     * @return A Java Future containing the result of the DescribeChannel operation returned by the service.
+     * @sample AmazonChimeAsync.DescribeChannel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeChannelResult> describeChannelAsync(DescribeChannelRequest describeChannelRequest);
+
+    /**
+     * <p>
+     * Returns the full details of a channel in an Amazon Chime <code>AppInstance</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannel.html">
+     * DescribeChannel</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeChannel operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DescribeChannel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeChannelResult> describeChannelAsync(DescribeChannelRequest describeChannelRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeChannelRequest, DescribeChannelResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the full details of a channel ban.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannelBan.html">
+     * DescribeChannelBan</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelBanRequest
+     * @return A Java Future containing the result of the DescribeChannelBan operation returned by the service.
+     * @sample AmazonChimeAsync.DescribeChannelBan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannelBan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeChannelBanResult> describeChannelBanAsync(DescribeChannelBanRequest describeChannelBanRequest);
+
+    /**
+     * <p>
+     * Returns the full details of a channel ban.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannelBan.html">
+     * DescribeChannelBan</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelBanRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeChannelBan operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DescribeChannelBan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannelBan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeChannelBanResult> describeChannelBanAsync(DescribeChannelBanRequest describeChannelBanRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeChannelBanRequest, DescribeChannelBanResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the full details of a user's channel membership.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannelMembership.html"
+     * >DescribeChannelMembership</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelMembershipRequest
+     * @return A Java Future containing the result of the DescribeChannelMembership operation returned by the service.
+     * @sample AmazonChimeAsync.DescribeChannelMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannelMembership"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeChannelMembershipResult> describeChannelMembershipAsync(
+            DescribeChannelMembershipRequest describeChannelMembershipRequest);
+
+    /**
+     * <p>
+     * Returns the full details of a user's channel membership.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannelMembership.html"
+     * >DescribeChannelMembership</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelMembershipRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeChannelMembership operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DescribeChannelMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannelMembership"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeChannelMembershipResult> describeChannelMembershipAsync(
+            DescribeChannelMembershipRequest describeChannelMembershipRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeChannelMembershipRequest, DescribeChannelMembershipResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the details of a channel based on the membership of the specified <code>AppInstanceUser</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannelMembershipForAppInstanceUser.html"
+     * >DescribeChannelMembershipForAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelMembershipForAppInstanceUserRequest
+     * @return A Java Future containing the result of the DescribeChannelMembershipForAppInstanceUser operation returned
+     *         by the service.
+     * @sample AmazonChimeAsync.DescribeChannelMembershipForAppInstanceUser
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannelMembershipForAppInstanceUser"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeChannelMembershipForAppInstanceUserResult> describeChannelMembershipForAppInstanceUserAsync(
+            DescribeChannelMembershipForAppInstanceUserRequest describeChannelMembershipForAppInstanceUserRequest);
+
+    /**
+     * <p>
+     * Returns the details of a channel based on the membership of the specified <code>AppInstanceUser</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannelMembershipForAppInstanceUser.html"
+     * >DescribeChannelMembershipForAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelMembershipForAppInstanceUserRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeChannelMembershipForAppInstanceUser operation returned
+     *         by the service.
+     * @sample AmazonChimeAsyncHandler.DescribeChannelMembershipForAppInstanceUser
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannelMembershipForAppInstanceUser"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeChannelMembershipForAppInstanceUserResult> describeChannelMembershipForAppInstanceUserAsync(
+            DescribeChannelMembershipForAppInstanceUserRequest describeChannelMembershipForAppInstanceUserRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeChannelMembershipForAppInstanceUserRequest, DescribeChannelMembershipForAppInstanceUserResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the full details of a channel moderated by the specified <code>AppInstanceUser</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannelModeratedByAppInstanceUser.html"
+     * >DescribeChannelModeratedByAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelModeratedByAppInstanceUserRequest
+     * @return A Java Future containing the result of the DescribeChannelModeratedByAppInstanceUser operation returned
+     *         by the service.
+     * @sample AmazonChimeAsync.DescribeChannelModeratedByAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannelModeratedByAppInstanceUser"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeChannelModeratedByAppInstanceUserResult> describeChannelModeratedByAppInstanceUserAsync(
+            DescribeChannelModeratedByAppInstanceUserRequest describeChannelModeratedByAppInstanceUserRequest);
+
+    /**
+     * <p>
+     * Returns the full details of a channel moderated by the specified <code>AppInstanceUser</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannelModeratedByAppInstanceUser.html"
+     * >DescribeChannelModeratedByAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelModeratedByAppInstanceUserRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeChannelModeratedByAppInstanceUser operation returned
+     *         by the service.
+     * @sample AmazonChimeAsyncHandler.DescribeChannelModeratedByAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannelModeratedByAppInstanceUser"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeChannelModeratedByAppInstanceUserResult> describeChannelModeratedByAppInstanceUserAsync(
+            DescribeChannelModeratedByAppInstanceUserRequest describeChannelModeratedByAppInstanceUserRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeChannelModeratedByAppInstanceUserRequest, DescribeChannelModeratedByAppInstanceUserResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the full details of a single ChannelModerator.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannelModerator.html"
+     * >DescribeChannelModerator</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelModeratorRequest
+     * @return A Java Future containing the result of the DescribeChannelModerator operation returned by the service.
+     * @sample AmazonChimeAsync.DescribeChannelModerator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannelModerator" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeChannelModeratorResult> describeChannelModeratorAsync(DescribeChannelModeratorRequest describeChannelModeratorRequest);
+
+    /**
+     * <p>
+     * Returns the full details of a single ChannelModerator.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_DescribeChannelModerator.html"
+     * >DescribeChannelModerator</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param describeChannelModeratorRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeChannelModerator operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.DescribeChannelModerator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DescribeChannelModerator" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DescribeChannelModeratorResult> describeChannelModeratorAsync(DescribeChannelModeratorRequest describeChannelModeratorRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeChannelModeratorRequest, DescribeChannelModeratorResult> asyncHandler);
 
     /**
      * <p>
@@ -806,8 +4499,21 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Disassociates the specified phone number from the specified Amazon Chime Voice Connector.
+     * Disassociates the specified phone numbers from the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DisassociatePhoneNumbersFromVoiceConnector.html"
+     * >DisassociatePhoneNumbersFromVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param disassociatePhoneNumbersFromVoiceConnectorRequest
      * @return A Java Future containing the result of the DisassociatePhoneNumbersFromVoiceConnector operation returned
@@ -816,13 +4522,27 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DisassociatePhoneNumbersFromVoiceConnector"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DisassociatePhoneNumbersFromVoiceConnectorResult> disassociatePhoneNumbersFromVoiceConnectorAsync(
             DisassociatePhoneNumbersFromVoiceConnectorRequest disassociatePhoneNumbersFromVoiceConnectorRequest);
 
     /**
      * <p>
-     * Disassociates the specified phone number from the specified Amazon Chime Voice Connector.
+     * Disassociates the specified phone numbers from the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DisassociatePhoneNumbersFromVoiceConnector.html"
+     * >DisassociatePhoneNumbersFromVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param disassociatePhoneNumbersFromVoiceConnectorRequest
      * @param asyncHandler
@@ -835,9 +4555,112 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DisassociatePhoneNumbersFromVoiceConnector"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DisassociatePhoneNumbersFromVoiceConnectorResult> disassociatePhoneNumbersFromVoiceConnectorAsync(
             DisassociatePhoneNumbersFromVoiceConnectorRequest disassociatePhoneNumbersFromVoiceConnectorRequest,
             com.amazonaws.handlers.AsyncHandler<DisassociatePhoneNumbersFromVoiceConnectorRequest, DisassociatePhoneNumbersFromVoiceConnectorResult> asyncHandler);
+
+    /**
+     * <p>
+     * Disassociates the specified phone numbers from the specified Amazon Chime Voice Connector group.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DisassociatePhoneNumbersFromVoiceConnectorGroup.html"
+     * >DisassociatePhoneNumbersFromVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param disassociatePhoneNumbersFromVoiceConnectorGroupRequest
+     * @return A Java Future containing the result of the DisassociatePhoneNumbersFromVoiceConnectorGroup operation
+     *         returned by the service.
+     * @sample AmazonChimeAsync.DisassociatePhoneNumbersFromVoiceConnectorGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DisassociatePhoneNumbersFromVoiceConnectorGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DisassociatePhoneNumbersFromVoiceConnectorGroupResult> disassociatePhoneNumbersFromVoiceConnectorGroupAsync(
+            DisassociatePhoneNumbersFromVoiceConnectorGroupRequest disassociatePhoneNumbersFromVoiceConnectorGroupRequest);
+
+    /**
+     * <p>
+     * Disassociates the specified phone numbers from the specified Amazon Chime Voice Connector group.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_DisassociatePhoneNumbersFromVoiceConnectorGroup.html"
+     * >DisassociatePhoneNumbersFromVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param disassociatePhoneNumbersFromVoiceConnectorGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DisassociatePhoneNumbersFromVoiceConnectorGroup operation
+     *         returned by the service.
+     * @sample AmazonChimeAsyncHandler.DisassociatePhoneNumbersFromVoiceConnectorGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DisassociatePhoneNumbersFromVoiceConnectorGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<DisassociatePhoneNumbersFromVoiceConnectorGroupResult> disassociatePhoneNumbersFromVoiceConnectorGroupAsync(
+            DisassociatePhoneNumbersFromVoiceConnectorGroupRequest disassociatePhoneNumbersFromVoiceConnectorGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<DisassociatePhoneNumbersFromVoiceConnectorGroupRequest, DisassociatePhoneNumbersFromVoiceConnectorGroupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Disassociates the specified sign-in delegate groups from the specified Amazon Chime account.
+     * </p>
+     * 
+     * @param disassociateSigninDelegateGroupsFromAccountRequest
+     * @return A Java Future containing the result of the DisassociateSigninDelegateGroupsFromAccount operation returned
+     *         by the service.
+     * @sample AmazonChimeAsync.DisassociateSigninDelegateGroupsFromAccount
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DisassociateSigninDelegateGroupsFromAccount"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateSigninDelegateGroupsFromAccountResult> disassociateSigninDelegateGroupsFromAccountAsync(
+            DisassociateSigninDelegateGroupsFromAccountRequest disassociateSigninDelegateGroupsFromAccountRequest);
+
+    /**
+     * <p>
+     * Disassociates the specified sign-in delegate groups from the specified Amazon Chime account.
+     * </p>
+     * 
+     * @param disassociateSigninDelegateGroupsFromAccountRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DisassociateSigninDelegateGroupsFromAccount operation returned
+     *         by the service.
+     * @sample AmazonChimeAsyncHandler.DisassociateSigninDelegateGroupsFromAccount
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/DisassociateSigninDelegateGroupsFromAccount"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateSigninDelegateGroupsFromAccountResult> disassociateSigninDelegateGroupsFromAccountAsync(
+            DisassociateSigninDelegateGroupsFromAccountRequest disassociateSigninDelegateGroupsFromAccountRequest,
+            com.amazonaws.handlers.AsyncHandler<DisassociateSigninDelegateGroupsFromAccountRequest, DisassociateSigninDelegateGroupsFromAccountResult> asyncHandler);
 
     /**
      * <p>
@@ -872,7 +4695,7 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Retrieves account settings for the specified Amazon Chime account ID, such as remote control and dial out
+     * Retrieves account settings for the specified Amazon Chime account ID, such as remote control and dialout
      * settings. For more information about these settings, see <a
      * href="https://docs.aws.amazon.com/chime/latest/ag/policies.html">Use the Policies Page</a> in the <i>Amazon Chime
      * Administration Guide</i>.
@@ -888,7 +4711,7 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Retrieves account settings for the specified Amazon Chime account ID, such as remote control and dial out
+     * Retrieves account settings for the specified Amazon Chime account ID, such as remote control and dialout
      * settings. For more information about these settings, see <a
      * href="https://docs.aws.amazon.com/chime/latest/ag/policies.html">Use the Policies Page</a> in the <i>Amazon Chime
      * Administration Guide</i>.
@@ -906,6 +4729,195 @@ public interface AmazonChimeAsync extends AmazonChime {
      */
     java.util.concurrent.Future<GetAccountSettingsResult> getAccountSettingsAsync(GetAccountSettingsRequest getAccountSettingsRequest,
             com.amazonaws.handlers.AsyncHandler<GetAccountSettingsRequest, GetAccountSettingsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets the retention settings for an <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_GetAppInstanceRetentionSettings.html"
+     * >GetMessagingRetentionSettings</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getAppInstanceRetentionSettingsRequest
+     * @return A Java Future containing the result of the GetAppInstanceRetentionSettings operation returned by the
+     *         service.
+     * @sample AmazonChimeAsync.GetAppInstanceRetentionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetAppInstanceRetentionSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetAppInstanceRetentionSettingsResult> getAppInstanceRetentionSettingsAsync(
+            GetAppInstanceRetentionSettingsRequest getAppInstanceRetentionSettingsRequest);
+
+    /**
+     * <p>
+     * Gets the retention settings for an <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_GetAppInstanceRetentionSettings.html"
+     * >GetMessagingRetentionSettings</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getAppInstanceRetentionSettingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetAppInstanceRetentionSettings operation returned by the
+     *         service.
+     * @sample AmazonChimeAsyncHandler.GetAppInstanceRetentionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetAppInstanceRetentionSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetAppInstanceRetentionSettingsResult> getAppInstanceRetentionSettingsAsync(
+            GetAppInstanceRetentionSettingsRequest getAppInstanceRetentionSettingsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetAppInstanceRetentionSettingsRequest, GetAppInstanceRetentionSettingsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets the streaming settings for an <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_GetMessagingStreamingConfigurations.html"
+     * >GetMessagingStreamingConfigurations</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getAppInstanceStreamingConfigurationsRequest
+     * @return A Java Future containing the result of the GetAppInstanceStreamingConfigurations operation returned by
+     *         the service.
+     * @sample AmazonChimeAsync.GetAppInstanceStreamingConfigurations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetAppInstanceStreamingConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetAppInstanceStreamingConfigurationsResult> getAppInstanceStreamingConfigurationsAsync(
+            GetAppInstanceStreamingConfigurationsRequest getAppInstanceStreamingConfigurationsRequest);
+
+    /**
+     * <p>
+     * Gets the streaming settings for an <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_GetMessagingStreamingConfigurations.html"
+     * >GetMessagingStreamingConfigurations</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getAppInstanceStreamingConfigurationsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetAppInstanceStreamingConfigurations operation returned by
+     *         the service.
+     * @sample AmazonChimeAsyncHandler.GetAppInstanceStreamingConfigurations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetAppInstanceStreamingConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetAppInstanceStreamingConfigurationsResult> getAppInstanceStreamingConfigurationsAsync(
+            GetAppInstanceStreamingConfigurationsRequest getAppInstanceStreamingConfigurationsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetAppInstanceStreamingConfigurationsRequest, GetAppInstanceStreamingConfigurationsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets the Amazon Chime SDK attendee details for a specified meeting ID and attendee ID. For more information about
+     * the Amazon Chime SDK, see <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the
+     * Amazon Chime SDK</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_GetAttendee.html">GetAttendee</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getAttendeeRequest
+     * @return A Java Future containing the result of the GetAttendee operation returned by the service.
+     * @sample AmazonChimeAsync.GetAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetAttendeeResult> getAttendeeAsync(GetAttendeeRequest getAttendeeRequest);
+
+    /**
+     * <p>
+     * Gets the Amazon Chime SDK attendee details for a specified meeting ID and attendee ID. For more information about
+     * the Amazon Chime SDK, see <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the
+     * Amazon Chime SDK</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_GetAttendee.html">GetAttendee</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getAttendeeRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetAttendee operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.GetAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetAttendeeResult> getAttendeeAsync(GetAttendeeRequest getAttendeeRequest,
+            com.amazonaws.handlers.AsyncHandler<GetAttendeeRequest, GetAttendeeResult> asyncHandler);
 
     /**
      * <p>
@@ -937,6 +4949,73 @@ public interface AmazonChimeAsync extends AmazonChime {
      */
     java.util.concurrent.Future<GetBotResult> getBotAsync(GetBotRequest getBotRequest,
             com.amazonaws.handlers.AsyncHandler<GetBotRequest, GetBotResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets the full details of a channel message.
+     * </p>
+     * <note>
+     * <p>
+     * The x-amz-chime-bearer request header is mandatory. Use the <code>AppInstanceUserArn</code> of the user that
+     * makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_GetChannelMessage.html">
+     * GetChannelMessage</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getChannelMessageRequest
+     * @return A Java Future containing the result of the GetChannelMessage operation returned by the service.
+     * @sample AmazonChimeAsync.GetChannelMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetChannelMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetChannelMessageResult> getChannelMessageAsync(GetChannelMessageRequest getChannelMessageRequest);
+
+    /**
+     * <p>
+     * Gets the full details of a channel message.
+     * </p>
+     * <note>
+     * <p>
+     * The x-amz-chime-bearer request header is mandatory. Use the <code>AppInstanceUserArn</code> of the user that
+     * makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_GetChannelMessage.html">
+     * GetChannelMessage</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getChannelMessageRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetChannelMessage operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.GetChannelMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetChannelMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetChannelMessageResult> getChannelMessageAsync(GetChannelMessageRequest getChannelMessageRequest,
+            com.amazonaws.handlers.AsyncHandler<GetChannelMessageRequest, GetChannelMessageResult> asyncHandler);
 
     /**
      * <p>
@@ -1006,6 +5085,189 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
+     * Gets an existing media capture pipeline.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_media-pipelines-chime_GetMediaCapturePipeline.html"
+     * >GetMediaCapturePipeline</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getMediaCapturePipelineRequest
+     * @return A Java Future containing the result of the GetMediaCapturePipeline operation returned by the service.
+     * @sample AmazonChimeAsync.GetMediaCapturePipeline
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetMediaCapturePipeline" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetMediaCapturePipelineResult> getMediaCapturePipelineAsync(GetMediaCapturePipelineRequest getMediaCapturePipelineRequest);
+
+    /**
+     * <p>
+     * Gets an existing media capture pipeline.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_media-pipelines-chime_GetMediaCapturePipeline.html"
+     * >GetMediaCapturePipeline</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getMediaCapturePipelineRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetMediaCapturePipeline operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.GetMediaCapturePipeline
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetMediaCapturePipeline" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetMediaCapturePipelineResult> getMediaCapturePipelineAsync(GetMediaCapturePipelineRequest getMediaCapturePipelineRequest,
+            com.amazonaws.handlers.AsyncHandler<GetMediaCapturePipelineRequest, GetMediaCapturePipelineResult> asyncHandler);
+
+    /**
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_GetMeeting.html">GetMeeting</a>, in
+     * the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * <p>
+     * Gets the Amazon Chime SDK meeting details for the specified meeting ID. For more information about the Amazon
+     * Chime SDK, see <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime
+     * SDK</a> in the <i>Amazon Chime SDK Developer Guide</i> .
+     * </p>
+     * 
+     * @param getMeetingRequest
+     * @return A Java Future containing the result of the GetMeeting operation returned by the service.
+     * @sample AmazonChimeAsync.GetMeeting
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetMeeting" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetMeetingResult> getMeetingAsync(GetMeetingRequest getMeetingRequest);
+
+    /**
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_GetMeeting.html">GetMeeting</a>, in
+     * the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * <p>
+     * Gets the Amazon Chime SDK meeting details for the specified meeting ID. For more information about the Amazon
+     * Chime SDK, see <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime
+     * SDK</a> in the <i>Amazon Chime SDK Developer Guide</i> .
+     * </p>
+     * 
+     * @param getMeetingRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetMeeting operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.GetMeeting
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetMeeting" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetMeetingResult> getMeetingAsync(GetMeetingRequest getMeetingRequest,
+            com.amazonaws.handlers.AsyncHandler<GetMeetingRequest, GetMeetingResult> asyncHandler);
+
+    /**
+     * <p>
+     * The details of the endpoint for the messaging session.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_GetMessagingSessionEndpoint.html"
+     * >GetMessagingSessionEndpoint</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getMessagingSessionEndpointRequest
+     * @return A Java Future containing the result of the GetMessagingSessionEndpoint operation returned by the service.
+     * @sample AmazonChimeAsync.GetMessagingSessionEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetMessagingSessionEndpoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetMessagingSessionEndpointResult> getMessagingSessionEndpointAsync(
+            GetMessagingSessionEndpointRequest getMessagingSessionEndpointRequest);
+
+    /**
+     * <p>
+     * The details of the endpoint for the messaging session.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_GetMessagingSessionEndpoint.html"
+     * >GetMessagingSessionEndpoint</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getMessagingSessionEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetMessagingSessionEndpoint operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.GetMessagingSessionEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetMessagingSessionEndpoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetMessagingSessionEndpointResult> getMessagingSessionEndpointAsync(
+            GetMessagingSessionEndpointRequest getMessagingSessionEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<GetMessagingSessionEndpointRequest, GetMessagingSessionEndpointResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves details for the specified phone number ID, such as associations, capabilities, and product type.
      * </p>
      * 
@@ -1037,8 +5299,8 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Retrieves details for the specified phone number order, such as order creation timestamp, phone numbers in E.164
-     * format, product type, and order status.
+     * Retrieves details for the specified phone number order, such as the order creation timestamp, phone numbers in
+     * E.164 format, product type, and order status.
      * </p>
      * 
      * @param getPhoneNumberOrderRequest
@@ -1051,8 +5313,8 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Retrieves details for the specified phone number order, such as order creation timestamp, phone numbers in E.164
-     * format, product type, and order status.
+     * Retrieves details for the specified phone number order, such as the order creation timestamp, phone numbers in
+     * E.164 format, product type, and order status.
      * </p>
      * 
      * @param getPhoneNumberOrderRequest
@@ -1070,7 +5332,342 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Retrieves details for the specified user ID, such as primary email address, license type, and personal meeting
+     * Retrieves the phone number settings for the administrator's AWS account, such as the default outbound calling
+     * name.
+     * </p>
+     * 
+     * @param getPhoneNumberSettingsRequest
+     * @return A Java Future containing the result of the GetPhoneNumberSettings operation returned by the service.
+     * @sample AmazonChimeAsync.GetPhoneNumberSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetPhoneNumberSettings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GetPhoneNumberSettingsResult> getPhoneNumberSettingsAsync(GetPhoneNumberSettingsRequest getPhoneNumberSettingsRequest);
+
+    /**
+     * <p>
+     * Retrieves the phone number settings for the administrator's AWS account, such as the default outbound calling
+     * name.
+     * </p>
+     * 
+     * @param getPhoneNumberSettingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetPhoneNumberSettings operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.GetPhoneNumberSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetPhoneNumberSettings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GetPhoneNumberSettingsResult> getPhoneNumberSettingsAsync(GetPhoneNumberSettingsRequest getPhoneNumberSettingsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetPhoneNumberSettingsRequest, GetPhoneNumberSettingsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets the specified proxy session details for the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetProxySession.html">GetProxySession
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getProxySessionRequest
+     * @return A Java Future containing the result of the GetProxySession operation returned by the service.
+     * @sample AmazonChimeAsync.GetProxySession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetProxySession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetProxySessionResult> getProxySessionAsync(GetProxySessionRequest getProxySessionRequest);
+
+    /**
+     * <p>
+     * Gets the specified proxy session details for the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetProxySession.html">GetProxySession
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getProxySessionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetProxySession operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.GetProxySession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetProxySession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetProxySessionResult> getProxySessionAsync(GetProxySessionRequest getProxySessionRequest,
+            com.amazonaws.handlers.AsyncHandler<GetProxySessionRequest, GetProxySessionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets the retention settings for the specified Amazon Chime Enterprise account. For more information about
+     * retention settings, see <a href="https://docs.aws.amazon.com/chime/latest/ag/chat-retention.html">Managing Chat
+     * Retention Policies</a> in the <i>Amazon Chime Administration Guide</i>.
+     * </p>
+     * 
+     * @param getRetentionSettingsRequest
+     * @return A Java Future containing the result of the GetRetentionSettings operation returned by the service.
+     * @sample AmazonChimeAsync.GetRetentionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetRetentionSettings" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetRetentionSettingsResult> getRetentionSettingsAsync(GetRetentionSettingsRequest getRetentionSettingsRequest);
+
+    /**
+     * <p>
+     * Gets the retention settings for the specified Amazon Chime Enterprise account. For more information about
+     * retention settings, see <a href="https://docs.aws.amazon.com/chime/latest/ag/chat-retention.html">Managing Chat
+     * Retention Policies</a> in the <i>Amazon Chime Administration Guide</i>.
+     * </p>
+     * 
+     * @param getRetentionSettingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetRetentionSettings operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.GetRetentionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetRetentionSettings" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetRetentionSettingsResult> getRetentionSettingsAsync(GetRetentionSettingsRequest getRetentionSettingsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetRetentionSettingsRequest, GetRetentionSettingsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves room details, such as the room name, for a room in an Amazon Chime Enterprise account.
+     * </p>
+     * 
+     * @param getRoomRequest
+     * @return A Java Future containing the result of the GetRoom operation returned by the service.
+     * @sample AmazonChimeAsync.GetRoom
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetRoom" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetRoomResult> getRoomAsync(GetRoomRequest getRoomRequest);
+
+    /**
+     * <p>
+     * Retrieves room details, such as the room name, for a room in an Amazon Chime Enterprise account.
+     * </p>
+     * 
+     * @param getRoomRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetRoom operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.GetRoom
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetRoom" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetRoomResult> getRoomAsync(GetRoomRequest getRoomRequest,
+            com.amazonaws.handlers.AsyncHandler<GetRoomRequest, GetRoomResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the information for a SIP media application, including name, AWS Region, and endpoints.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetSipMediaApplication.html">
+     * GetSipMediaApplication</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getSipMediaApplicationRequest
+     * @return A Java Future containing the result of the GetSipMediaApplication operation returned by the service.
+     * @sample AmazonChimeAsync.GetSipMediaApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetSipMediaApplication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetSipMediaApplicationResult> getSipMediaApplicationAsync(GetSipMediaApplicationRequest getSipMediaApplicationRequest);
+
+    /**
+     * <p>
+     * Retrieves the information for a SIP media application, including name, AWS Region, and endpoints.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetSipMediaApplication.html">
+     * GetSipMediaApplication</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getSipMediaApplicationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetSipMediaApplication operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.GetSipMediaApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetSipMediaApplication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetSipMediaApplicationResult> getSipMediaApplicationAsync(GetSipMediaApplicationRequest getSipMediaApplicationRequest,
+            com.amazonaws.handlers.AsyncHandler<GetSipMediaApplicationRequest, GetSipMediaApplicationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the logging configuration for the specified SIP media application.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetSipMediaApplicationLoggingConfiguration.html"
+     * >GetSipMediaApplicationLoggingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getSipMediaApplicationLoggingConfigurationRequest
+     * @return A Java Future containing the result of the GetSipMediaApplicationLoggingConfiguration operation returned
+     *         by the service.
+     * @sample AmazonChimeAsync.GetSipMediaApplicationLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetSipMediaApplicationLoggingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetSipMediaApplicationLoggingConfigurationResult> getSipMediaApplicationLoggingConfigurationAsync(
+            GetSipMediaApplicationLoggingConfigurationRequest getSipMediaApplicationLoggingConfigurationRequest);
+
+    /**
+     * <p>
+     * Returns the logging configuration for the specified SIP media application.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetSipMediaApplicationLoggingConfiguration.html"
+     * >GetSipMediaApplicationLoggingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getSipMediaApplicationLoggingConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetSipMediaApplicationLoggingConfiguration operation returned
+     *         by the service.
+     * @sample AmazonChimeAsyncHandler.GetSipMediaApplicationLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetSipMediaApplicationLoggingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetSipMediaApplicationLoggingConfigurationResult> getSipMediaApplicationLoggingConfigurationAsync(
+            GetSipMediaApplicationLoggingConfigurationRequest getSipMediaApplicationLoggingConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<GetSipMediaApplicationLoggingConfigurationRequest, GetSipMediaApplicationLoggingConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the details of a SIP rule, such as the rule ID, name, triggers, and target endpoints.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetSipRule.html">GetSipRule</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getSipRuleRequest
+     * @return A Java Future containing the result of the GetSipRule operation returned by the service.
+     * @sample AmazonChimeAsync.GetSipRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetSipRule" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetSipRuleResult> getSipRuleAsync(GetSipRuleRequest getSipRuleRequest);
+
+    /**
+     * <p>
+     * Retrieves the details of a SIP rule, such as the rule ID, name, triggers, and target endpoints.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetSipRule.html">GetSipRule</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getSipRuleRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetSipRule operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.GetSipRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetSipRule" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetSipRuleResult> getSipRuleAsync(GetSipRuleRequest getSipRuleRequest,
+            com.amazonaws.handlers.AsyncHandler<GetSipRuleRequest, GetSipRuleResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves details for the specified user ID, such as primary email address, license type,and personal meeting
      * PIN.
      * </p>
      * <p>
@@ -1088,7 +5685,7 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Retrieves details for the specified user ID, such as primary email address, license type, and personal meeting
+     * Retrieves details for the specified user ID, such as primary email address, license type,and personal meeting
      * PIN.
      * </p>
      * <p>
@@ -1142,9 +5739,21 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Retrieves details for the specified Amazon Chime Voice Connector, such as timestamps, name, outbound host, and
+     * Retrieves details for the specified Amazon Chime Voice Connector, such as timestamps,name, outbound host, and
      * encryption requirements.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnector.html">
+     * GetVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param getVoiceConnectorRequest
      * @return A Java Future containing the result of the GetVoiceConnector operation returned by the service.
@@ -1152,13 +5761,26 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnector" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<GetVoiceConnectorResult> getVoiceConnectorAsync(GetVoiceConnectorRequest getVoiceConnectorRequest);
 
     /**
      * <p>
-     * Retrieves details for the specified Amazon Chime Voice Connector, such as timestamps, name, outbound host, and
+     * Retrieves details for the specified Amazon Chime Voice Connector, such as timestamps,name, outbound host, and
      * encryption requirements.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnector.html">
+     * GetVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param getVoiceConnectorRequest
      * @param asyncHandler
@@ -1170,13 +5792,216 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnector" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<GetVoiceConnectorResult> getVoiceConnectorAsync(GetVoiceConnectorRequest getVoiceConnectorRequest,
             com.amazonaws.handlers.AsyncHandler<GetVoiceConnectorRequest, GetVoiceConnectorResult> asyncHandler);
 
     /**
      * <p>
+     * Gets the emergency calling configuration details for the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorEmergencyCallingConfiguration.html"
+     * >GetVoiceConnectorEmergencyCallingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getVoiceConnectorEmergencyCallingConfigurationRequest
+     * @return A Java Future containing the result of the GetVoiceConnectorEmergencyCallingConfiguration operation
+     *         returned by the service.
+     * @sample AmazonChimeAsync.GetVoiceConnectorEmergencyCallingConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorEmergencyCallingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetVoiceConnectorEmergencyCallingConfigurationResult> getVoiceConnectorEmergencyCallingConfigurationAsync(
+            GetVoiceConnectorEmergencyCallingConfigurationRequest getVoiceConnectorEmergencyCallingConfigurationRequest);
+
+    /**
+     * <p>
+     * Gets the emergency calling configuration details for the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorEmergencyCallingConfiguration.html"
+     * >GetVoiceConnectorEmergencyCallingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getVoiceConnectorEmergencyCallingConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetVoiceConnectorEmergencyCallingConfiguration operation
+     *         returned by the service.
+     * @sample AmazonChimeAsyncHandler.GetVoiceConnectorEmergencyCallingConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorEmergencyCallingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetVoiceConnectorEmergencyCallingConfigurationResult> getVoiceConnectorEmergencyCallingConfigurationAsync(
+            GetVoiceConnectorEmergencyCallingConfigurationRequest getVoiceConnectorEmergencyCallingConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<GetVoiceConnectorEmergencyCallingConfigurationRequest, GetVoiceConnectorEmergencyCallingConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves details for the specified Amazon Chime Voice Connector group, such as timestamps,name, and associated
+     * <code>VoiceConnectorItems</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorGroup.html">
+     * GetVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getVoiceConnectorGroupRequest
+     * @return A Java Future containing the result of the GetVoiceConnectorGroup operation returned by the service.
+     * @sample AmazonChimeAsync.GetVoiceConnectorGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetVoiceConnectorGroupResult> getVoiceConnectorGroupAsync(GetVoiceConnectorGroupRequest getVoiceConnectorGroupRequest);
+
+    /**
+     * <p>
+     * Retrieves details for the specified Amazon Chime Voice Connector group, such as timestamps,name, and associated
+     * <code>VoiceConnectorItems</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorGroup.html">
+     * GetVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getVoiceConnectorGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetVoiceConnectorGroup operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.GetVoiceConnectorGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetVoiceConnectorGroupResult> getVoiceConnectorGroupAsync(GetVoiceConnectorGroupRequest getVoiceConnectorGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<GetVoiceConnectorGroupRequest, GetVoiceConnectorGroupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the logging configuration details for the specified Amazon Chime Voice Connector. Shows whether SIP
+     * message logs are enabled for sending to Amazon CloudWatch Logs.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorLoggingConfiguration.html"
+     * >GetVoiceConnectorLoggingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getVoiceConnectorLoggingConfigurationRequest
+     * @return A Java Future containing the result of the GetVoiceConnectorLoggingConfiguration operation returned by
+     *         the service.
+     * @sample AmazonChimeAsync.GetVoiceConnectorLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorLoggingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetVoiceConnectorLoggingConfigurationResult> getVoiceConnectorLoggingConfigurationAsync(
+            GetVoiceConnectorLoggingConfigurationRequest getVoiceConnectorLoggingConfigurationRequest);
+
+    /**
+     * <p>
+     * Retrieves the logging configuration details for the specified Amazon Chime Voice Connector. Shows whether SIP
+     * message logs are enabled for sending to Amazon CloudWatch Logs.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorLoggingConfiguration.html"
+     * >GetVoiceConnectorLoggingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getVoiceConnectorLoggingConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetVoiceConnectorLoggingConfiguration operation returned by
+     *         the service.
+     * @sample AmazonChimeAsyncHandler.GetVoiceConnectorLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorLoggingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetVoiceConnectorLoggingConfigurationResult> getVoiceConnectorLoggingConfigurationAsync(
+            GetVoiceConnectorLoggingConfigurationRequest getVoiceConnectorLoggingConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<GetVoiceConnectorLoggingConfigurationRequest, GetVoiceConnectorLoggingConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves origination setting details for the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorOrigination.html"
+     * >GetVoiceConnectorOrigination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param getVoiceConnectorOriginationRequest
      * @return A Java Future containing the result of the GetVoiceConnectorOrigination operation returned by the
@@ -1185,6 +6010,7 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorOrigination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<GetVoiceConnectorOriginationResult> getVoiceConnectorOriginationAsync(
             GetVoiceConnectorOriginationRequest getVoiceConnectorOriginationRequest);
 
@@ -1192,6 +6018,19 @@ public interface AmazonChimeAsync extends AmazonChime {
      * <p>
      * Retrieves origination setting details for the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorOrigination.html"
+     * >GetVoiceConnectorOrigination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param getVoiceConnectorOriginationRequest
      * @param asyncHandler
@@ -1204,14 +6043,152 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorOrigination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<GetVoiceConnectorOriginationResult> getVoiceConnectorOriginationAsync(
             GetVoiceConnectorOriginationRequest getVoiceConnectorOriginationRequest,
             com.amazonaws.handlers.AsyncHandler<GetVoiceConnectorOriginationRequest, GetVoiceConnectorOriginationResult> asyncHandler);
 
     /**
      * <p>
+     * Gets the proxy configuration details for the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorProxy.html">
+     * GetVoiceConnectorProxy</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getVoiceConnectorProxyRequest
+     * @return A Java Future containing the result of the GetVoiceConnectorProxy operation returned by the service.
+     * @sample AmazonChimeAsync.GetVoiceConnectorProxy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorProxy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetVoiceConnectorProxyResult> getVoiceConnectorProxyAsync(GetVoiceConnectorProxyRequest getVoiceConnectorProxyRequest);
+
+    /**
+     * <p>
+     * Gets the proxy configuration details for the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorProxy.html">
+     * GetVoiceConnectorProxy</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getVoiceConnectorProxyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetVoiceConnectorProxy operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.GetVoiceConnectorProxy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorProxy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetVoiceConnectorProxyResult> getVoiceConnectorProxyAsync(GetVoiceConnectorProxyRequest getVoiceConnectorProxyRequest,
+            com.amazonaws.handlers.AsyncHandler<GetVoiceConnectorProxyRequest, GetVoiceConnectorProxyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the streaming configuration details for the specified Amazon Chime Voice Connector. Shows whether media
+     * streaming is enabled for sending to Amazon Kinesis. It also shows the retention period, in hours, for the Amazon
+     * Kinesis data.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorStreamingConfiguration.html"
+     * >GetVoiceConnectorStreamingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getVoiceConnectorStreamingConfigurationRequest
+     * @return A Java Future containing the result of the GetVoiceConnectorStreamingConfiguration operation returned by
+     *         the service.
+     * @sample AmazonChimeAsync.GetVoiceConnectorStreamingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorStreamingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetVoiceConnectorStreamingConfigurationResult> getVoiceConnectorStreamingConfigurationAsync(
+            GetVoiceConnectorStreamingConfigurationRequest getVoiceConnectorStreamingConfigurationRequest);
+
+    /**
+     * <p>
+     * Retrieves the streaming configuration details for the specified Amazon Chime Voice Connector. Shows whether media
+     * streaming is enabled for sending to Amazon Kinesis. It also shows the retention period, in hours, for the Amazon
+     * Kinesis data.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorStreamingConfiguration.html"
+     * >GetVoiceConnectorStreamingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param getVoiceConnectorStreamingConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetVoiceConnectorStreamingConfiguration operation returned by
+     *         the service.
+     * @sample AmazonChimeAsyncHandler.GetVoiceConnectorStreamingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorStreamingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<GetVoiceConnectorStreamingConfigurationResult> getVoiceConnectorStreamingConfigurationAsync(
+            GetVoiceConnectorStreamingConfigurationRequest getVoiceConnectorStreamingConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<GetVoiceConnectorStreamingConfigurationRequest, GetVoiceConnectorStreamingConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves termination setting details for the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorTermination.html"
+     * >GetVoiceConnectorTermination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param getVoiceConnectorTerminationRequest
      * @return A Java Future containing the result of the GetVoiceConnectorTermination operation returned by the
@@ -1220,6 +6197,7 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorTermination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<GetVoiceConnectorTerminationResult> getVoiceConnectorTerminationAsync(
             GetVoiceConnectorTerminationRequest getVoiceConnectorTerminationRequest);
 
@@ -1227,6 +6205,19 @@ public interface AmazonChimeAsync extends AmazonChime {
      * <p>
      * Retrieves termination setting details for the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorTermination.html"
+     * >GetVoiceConnectorTermination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param getVoiceConnectorTerminationRequest
      * @param asyncHandler
@@ -1239,11 +6230,25 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorTermination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<GetVoiceConnectorTerminationResult> getVoiceConnectorTerminationAsync(
             GetVoiceConnectorTerminationRequest getVoiceConnectorTerminationRequest,
             com.amazonaws.handlers.AsyncHandler<GetVoiceConnectorTerminationRequest, GetVoiceConnectorTerminationResult> asyncHandler);
 
     /**
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorTerminationHealth.html"
+     * >GetVoiceConnectorTerminationHealth</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * <p>
      * Retrieves information about the last time a SIP <code>OPTIONS</code> ping was received from your SIP
      * infrastructure for the specified Amazon Chime Voice Connector.
@@ -1256,10 +6261,24 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorTerminationHealth"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<GetVoiceConnectorTerminationHealthResult> getVoiceConnectorTerminationHealthAsync(
             GetVoiceConnectorTerminationHealthRequest getVoiceConnectorTerminationHealthRequest);
 
     /**
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_GetVoiceConnectorTerminationHealth.html"
+     * >GetVoiceConnectorTerminationHealth</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * <p>
      * Retrieves information about the last time a SIP <code>OPTIONS</code> ping was received from your SIP
      * infrastructure for the specified Amazon Chime Voice Connector.
@@ -1276,14 +6295,15 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/GetVoiceConnectorTerminationHealth"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<GetVoiceConnectorTerminationHealthResult> getVoiceConnectorTerminationHealthAsync(
             GetVoiceConnectorTerminationHealthRequest getVoiceConnectorTerminationHealthRequest,
             com.amazonaws.handlers.AsyncHandler<GetVoiceConnectorTerminationHealthRequest, GetVoiceConnectorTerminationHealthResult> asyncHandler);
 
     /**
      * <p>
-     * Sends email invites to as many as 50 users, inviting them to the specified Amazon Chime <code>Team</code>
-     * account. Only <code>Team</code> account types are currently supported for this action.
+     * Sends email to a maximum of 50 users, inviting them to the specified Amazon Chime <code>Team</code> account. Only
+     * <code>Team</code> account types are currently supported for this action.
      * </p>
      * 
      * @param inviteUsersRequest
@@ -1296,8 +6316,8 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Sends email invites to as many as 50 users, inviting them to the specified Amazon Chime <code>Team</code>
-     * account. Only <code>Team</code> account types are currently supported for this action.
+     * Sends email to a maximum of 50 users, inviting them to the specified Amazon Chime <code>Team</code> account. Only
+     * <code>Team</code> account types are currently supported for this action.
      * </p>
      * 
      * @param inviteUsersRequest
@@ -1350,6 +6370,285 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
+     * Returns a list of the administrators in the <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_ListAppInstanceAdmins.html">
+     * ListAppInstanceAdmins</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listAppInstanceAdminsRequest
+     * @return A Java Future containing the result of the ListAppInstanceAdmins operation returned by the service.
+     * @sample AmazonChimeAsync.ListAppInstanceAdmins
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListAppInstanceAdmins" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListAppInstanceAdminsResult> listAppInstanceAdminsAsync(ListAppInstanceAdminsRequest listAppInstanceAdminsRequest);
+
+    /**
+     * <p>
+     * Returns a list of the administrators in the <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_ListAppInstanceAdmins.html">
+     * ListAppInstanceAdmins</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listAppInstanceAdminsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListAppInstanceAdmins operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListAppInstanceAdmins
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListAppInstanceAdmins" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListAppInstanceAdminsResult> listAppInstanceAdminsAsync(ListAppInstanceAdminsRequest listAppInstanceAdminsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListAppInstanceAdminsRequest, ListAppInstanceAdminsResult> asyncHandler);
+
+    /**
+     * <p>
+     * List all <code>AppInstanceUsers</code> created under a single <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_ListAppInstanceUsers.html">
+     * ListAppInstanceUsers</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listAppInstanceUsersRequest
+     * @return A Java Future containing the result of the ListAppInstanceUsers operation returned by the service.
+     * @sample AmazonChimeAsync.ListAppInstanceUsers
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListAppInstanceUsers" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListAppInstanceUsersResult> listAppInstanceUsersAsync(ListAppInstanceUsersRequest listAppInstanceUsersRequest);
+
+    /**
+     * <p>
+     * List all <code>AppInstanceUsers</code> created under a single <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_ListAppInstanceUsers.html">
+     * ListAppInstanceUsers</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listAppInstanceUsersRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListAppInstanceUsers operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListAppInstanceUsers
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListAppInstanceUsers" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListAppInstanceUsersResult> listAppInstanceUsersAsync(ListAppInstanceUsersRequest listAppInstanceUsersRequest,
+            com.amazonaws.handlers.AsyncHandler<ListAppInstanceUsersRequest, ListAppInstanceUsersResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists all Amazon Chime <code>AppInstance</code>s created under a single AWS account.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_ListAppInstances.html">
+     * ListAppInstances</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listAppInstancesRequest
+     * @return A Java Future containing the result of the ListAppInstances operation returned by the service.
+     * @sample AmazonChimeAsync.ListAppInstances
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListAppInstances" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListAppInstancesResult> listAppInstancesAsync(ListAppInstancesRequest listAppInstancesRequest);
+
+    /**
+     * <p>
+     * Lists all Amazon Chime <code>AppInstance</code>s created under a single AWS account.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_ListAppInstances.html">
+     * ListAppInstances</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listAppInstancesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListAppInstances operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListAppInstances
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListAppInstances" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListAppInstancesResult> listAppInstancesAsync(ListAppInstancesRequest listAppInstancesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListAppInstancesRequest, ListAppInstancesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists the tags applied to an Amazon Chime SDK attendee resource.
+     * </p>
+     * <important>
+     * <p>
+     * ListAttendeeTags is not supported in the Amazon Chime SDK Meetings Namespace. Update your application to remove
+     * calls to this API.
+     * </p>
+     * </important>
+     * 
+     * @param listAttendeeTagsRequest
+     * @return A Java Future containing the result of the ListAttendeeTags operation returned by the service.
+     * @sample AmazonChimeAsync.ListAttendeeTags
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListAttendeeTags" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListAttendeeTagsResult> listAttendeeTagsAsync(ListAttendeeTagsRequest listAttendeeTagsRequest);
+
+    /**
+     * <p>
+     * Lists the tags applied to an Amazon Chime SDK attendee resource.
+     * </p>
+     * <important>
+     * <p>
+     * ListAttendeeTags is not supported in the Amazon Chime SDK Meetings Namespace. Update your application to remove
+     * calls to this API.
+     * </p>
+     * </important>
+     * 
+     * @param listAttendeeTagsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListAttendeeTags operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListAttendeeTags
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListAttendeeTags" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListAttendeeTagsResult> listAttendeeTagsAsync(ListAttendeeTagsRequest listAttendeeTagsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListAttendeeTagsRequest, ListAttendeeTagsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists the attendees for the specified Amazon Chime SDK meeting. For more information about the Amazon Chime SDK,
+     * see <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in
+     * the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_ListAttendees.html">ListAttendees
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listAttendeesRequest
+     * @return A Java Future containing the result of the ListAttendees operation returned by the service.
+     * @sample AmazonChimeAsync.ListAttendees
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListAttendees" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListAttendeesResult> listAttendeesAsync(ListAttendeesRequest listAttendeesRequest);
+
+    /**
+     * <p>
+     * Lists the attendees for the specified Amazon Chime SDK meeting. For more information about the Amazon Chime SDK,
+     * see <a href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in
+     * the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_ListAttendees.html">ListAttendees
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listAttendeesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListAttendees operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListAttendees
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListAttendees" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListAttendeesResult> listAttendeesAsync(ListAttendeesRequest listAttendeesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListAttendeesRequest, ListAttendeesResult> asyncHandler);
+
+    /**
+     * <p>
      * Lists the bots associated with the administrator's Amazon Chime Enterprise account ID.
      * </p>
      * 
@@ -1378,6 +6677,708 @@ public interface AmazonChimeAsync extends AmazonChime {
      */
     java.util.concurrent.Future<ListBotsResult> listBotsAsync(ListBotsRequest listBotsRequest,
             com.amazonaws.handlers.AsyncHandler<ListBotsRequest, ListBotsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists all the users banned from a particular channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelBans.html">
+     * ListChannelBans</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelBansRequest
+     * @return A Java Future containing the result of the ListChannelBans operation returned by the service.
+     * @sample AmazonChimeAsync.ListChannelBans
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelBans" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListChannelBansResult> listChannelBansAsync(ListChannelBansRequest listChannelBansRequest);
+
+    /**
+     * <p>
+     * Lists all the users banned from a particular channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelBans.html">
+     * ListChannelBans</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelBansRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListChannelBans operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListChannelBans
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelBans" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListChannelBansResult> listChannelBansAsync(ListChannelBansRequest listChannelBansRequest,
+            com.amazonaws.handlers.AsyncHandler<ListChannelBansRequest, ListChannelBansResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists all channel memberships in a channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelMemberships.html">
+     * ListChannelMemberships</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelMembershipsRequest
+     * @return A Java Future containing the result of the ListChannelMemberships operation returned by the service.
+     * @sample AmazonChimeAsync.ListChannelMemberships
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelMemberships" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListChannelMembershipsResult> listChannelMembershipsAsync(ListChannelMembershipsRequest listChannelMembershipsRequest);
+
+    /**
+     * <p>
+     * Lists all channel memberships in a channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelMemberships.html">
+     * ListChannelMemberships</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelMembershipsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListChannelMemberships operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListChannelMemberships
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelMemberships" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListChannelMembershipsResult> listChannelMembershipsAsync(ListChannelMembershipsRequest listChannelMembershipsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListChannelMembershipsRequest, ListChannelMembershipsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists all channels that a particular <code>AppInstanceUser</code> is a part of. Only an
+     * <code>AppInstanceAdmin</code> can call the API with a user ARN that is not their own.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelMembershipsForAppInstanceUser.html"
+     * >ListChannelMembershipsForAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelMembershipsForAppInstanceUserRequest
+     * @return A Java Future containing the result of the ListChannelMembershipsForAppInstanceUser operation returned by
+     *         the service.
+     * @sample AmazonChimeAsync.ListChannelMembershipsForAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelMembershipsForAppInstanceUser"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListChannelMembershipsForAppInstanceUserResult> listChannelMembershipsForAppInstanceUserAsync(
+            ListChannelMembershipsForAppInstanceUserRequest listChannelMembershipsForAppInstanceUserRequest);
+
+    /**
+     * <p>
+     * Lists all channels that a particular <code>AppInstanceUser</code> is a part of. Only an
+     * <code>AppInstanceAdmin</code> can call the API with a user ARN that is not their own.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelMembershipsForAppInstanceUser.html"
+     * >ListChannelMembershipsForAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelMembershipsForAppInstanceUserRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListChannelMembershipsForAppInstanceUser operation returned by
+     *         the service.
+     * @sample AmazonChimeAsyncHandler.ListChannelMembershipsForAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelMembershipsForAppInstanceUser"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListChannelMembershipsForAppInstanceUserResult> listChannelMembershipsForAppInstanceUserAsync(
+            ListChannelMembershipsForAppInstanceUserRequest listChannelMembershipsForAppInstanceUserRequest,
+            com.amazonaws.handlers.AsyncHandler<ListChannelMembershipsForAppInstanceUserRequest, ListChannelMembershipsForAppInstanceUserResult> asyncHandler);
+
+    /**
+     * <p>
+     * List all the messages in a channel. Returns a paginated list of <code>ChannelMessages</code>. By default, sorted
+     * by creation timestamp in descending order.
+     * </p>
+     * <note>
+     * <p>
+     * Redacted messages appear in the results as empty, since they are only redacted, not deleted. Deleted messages do
+     * not appear in the results. This action always returns the latest version of an edited message.
+     * </p>
+     * <p>
+     * Also, the x-amz-chime-bearer request header is mandatory. Use the <code>AppInstanceUserArn</code> of the user
+     * that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelMessages.html">
+     * ListChannelMessages</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelMessagesRequest
+     * @return A Java Future containing the result of the ListChannelMessages operation returned by the service.
+     * @sample AmazonChimeAsync.ListChannelMessages
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelMessages" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListChannelMessagesResult> listChannelMessagesAsync(ListChannelMessagesRequest listChannelMessagesRequest);
+
+    /**
+     * <p>
+     * List all the messages in a channel. Returns a paginated list of <code>ChannelMessages</code>. By default, sorted
+     * by creation timestamp in descending order.
+     * </p>
+     * <note>
+     * <p>
+     * Redacted messages appear in the results as empty, since they are only redacted, not deleted. Deleted messages do
+     * not appear in the results. This action always returns the latest version of an edited message.
+     * </p>
+     * <p>
+     * Also, the x-amz-chime-bearer request header is mandatory. Use the <code>AppInstanceUserArn</code> of the user
+     * that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelMessages.html">
+     * ListChannelMessages</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelMessagesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListChannelMessages operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListChannelMessages
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelMessages" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListChannelMessagesResult> listChannelMessagesAsync(ListChannelMessagesRequest listChannelMessagesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListChannelMessagesRequest, ListChannelMessagesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists all the moderators for a channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelModerators.html">
+     * ListChannelModerators</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelModeratorsRequest
+     * @return A Java Future containing the result of the ListChannelModerators operation returned by the service.
+     * @sample AmazonChimeAsync.ListChannelModerators
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelModerators" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListChannelModeratorsResult> listChannelModeratorsAsync(ListChannelModeratorsRequest listChannelModeratorsRequest);
+
+    /**
+     * <p>
+     * Lists all the moderators for a channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelModerators.html">
+     * ListChannelModerators</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelModeratorsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListChannelModerators operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListChannelModerators
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelModerators" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListChannelModeratorsResult> listChannelModeratorsAsync(ListChannelModeratorsRequest listChannelModeratorsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListChannelModeratorsRequest, ListChannelModeratorsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists all Channels created under a single Chime App as a paginated list. You can specify filters to narrow
+     * results.
+     * </p>
+     * <p class="title">
+     * <b>Functionality &amp; restrictions</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Use privacy = <code>PUBLIC</code> to retrieve all public channels in the account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Only an <code>AppInstanceAdmin</code> can set privacy = <code>PRIVATE</code> to list the private channels in an
+     * account.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannels.html">ListChannels
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelsRequest
+     * @return A Java Future containing the result of the ListChannels operation returned by the service.
+     * @sample AmazonChimeAsync.ListChannels
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannels" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListChannelsResult> listChannelsAsync(ListChannelsRequest listChannelsRequest);
+
+    /**
+     * <p>
+     * Lists all Channels created under a single Chime App as a paginated list. You can specify filters to narrow
+     * results.
+     * </p>
+     * <p class="title">
+     * <b>Functionality &amp; restrictions</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Use privacy = <code>PUBLIC</code> to retrieve all public channels in the account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Only an <code>AppInstanceAdmin</code> can set privacy = <code>PRIVATE</code> to list the private channels in an
+     * account.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannels.html">ListChannels
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListChannels operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListChannels
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannels" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListChannelsResult> listChannelsAsync(ListChannelsRequest listChannelsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListChannelsRequest, ListChannelsResult> asyncHandler);
+
+    /**
+     * <p>
+     * A list of the channels moderated by an <code>AppInstanceUser</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelsModeratedByAppInstanceUser.html"
+     * >ListChannelsModeratedByAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelsModeratedByAppInstanceUserRequest
+     * @return A Java Future containing the result of the ListChannelsModeratedByAppInstanceUser operation returned by
+     *         the service.
+     * @sample AmazonChimeAsync.ListChannelsModeratedByAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelsModeratedByAppInstanceUser"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListChannelsModeratedByAppInstanceUserResult> listChannelsModeratedByAppInstanceUserAsync(
+            ListChannelsModeratedByAppInstanceUserRequest listChannelsModeratedByAppInstanceUserRequest);
+
+    /**
+     * <p>
+     * A list of the channels moderated by an <code>AppInstanceUser</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListChannelsModeratedByAppInstanceUser.html"
+     * >ListChannelsModeratedByAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listChannelsModeratedByAppInstanceUserRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListChannelsModeratedByAppInstanceUser operation returned by
+     *         the service.
+     * @sample AmazonChimeAsyncHandler.ListChannelsModeratedByAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListChannelsModeratedByAppInstanceUser"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListChannelsModeratedByAppInstanceUserResult> listChannelsModeratedByAppInstanceUserAsync(
+            ListChannelsModeratedByAppInstanceUserRequest listChannelsModeratedByAppInstanceUserRequest,
+            com.amazonaws.handlers.AsyncHandler<ListChannelsModeratedByAppInstanceUserRequest, ListChannelsModeratedByAppInstanceUserResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of media capture pipelines.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_media-pipelines-chime_ListMediaCapturePipelines.html"
+     * >ListMediaCapturePipelines</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listMediaCapturePipelinesRequest
+     * @return A Java Future containing the result of the ListMediaCapturePipelines operation returned by the service.
+     * @sample AmazonChimeAsync.ListMediaCapturePipelines
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListMediaCapturePipelines"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListMediaCapturePipelinesResult> listMediaCapturePipelinesAsync(
+            ListMediaCapturePipelinesRequest listMediaCapturePipelinesRequest);
+
+    /**
+     * <p>
+     * Returns a list of media capture pipelines.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_media-pipelines-chime_ListMediaCapturePipelines.html"
+     * >ListMediaCapturePipelines</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listMediaCapturePipelinesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListMediaCapturePipelines operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListMediaCapturePipelines
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListMediaCapturePipelines"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListMediaCapturePipelinesResult> listMediaCapturePipelinesAsync(
+            ListMediaCapturePipelinesRequest listMediaCapturePipelinesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListMediaCapturePipelinesRequest, ListMediaCapturePipelinesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists the tags applied to an Amazon Chime SDK meeting resource.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_ListTagsForResource.html">
+     * ListTagsForResource</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listMeetingTagsRequest
+     * @return A Java Future containing the result of the ListMeetingTags operation returned by the service.
+     * @sample AmazonChimeAsync.ListMeetingTags
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListMeetingTags" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListMeetingTagsResult> listMeetingTagsAsync(ListMeetingTagsRequest listMeetingTagsRequest);
+
+    /**
+     * <p>
+     * Lists the tags applied to an Amazon Chime SDK meeting resource.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_ListTagsForResource.html">
+     * ListTagsForResource</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listMeetingTagsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListMeetingTags operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListMeetingTags
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListMeetingTags" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListMeetingTagsResult> listMeetingTagsAsync(ListMeetingTagsRequest listMeetingTagsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListMeetingTagsRequest, ListMeetingTagsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists up to 100 active Amazon Chime SDK meetings.
+     * </p>
+     * <important>
+     * <p>
+     * ListMeetings is not supported in the Amazon Chime SDK Meetings Namespace. Update your application to remove calls
+     * to this API.
+     * </p>
+     * </important>
+     * <p>
+     * For more information about the Amazon Chime SDK, see <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in the
+     * <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * 
+     * @param listMeetingsRequest
+     * @return A Java Future containing the result of the ListMeetings operation returned by the service.
+     * @sample AmazonChimeAsync.ListMeetings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListMeetings" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListMeetingsResult> listMeetingsAsync(ListMeetingsRequest listMeetingsRequest);
+
+    /**
+     * <p>
+     * Lists up to 100 active Amazon Chime SDK meetings.
+     * </p>
+     * <important>
+     * <p>
+     * ListMeetings is not supported in the Amazon Chime SDK Meetings Namespace. Update your application to remove calls
+     * to this API.
+     * </p>
+     * </important>
+     * <p>
+     * For more information about the Amazon Chime SDK, see <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html">Using the Amazon Chime SDK</a> in the
+     * <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * 
+     * @param listMeetingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListMeetings operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListMeetings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListMeetings" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListMeetingsResult> listMeetingsAsync(ListMeetingsRequest listMeetingsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListMeetingsRequest, ListMeetingsResult> asyncHandler);
 
     /**
      * <p>
@@ -1412,8 +7413,8 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Lists the phone numbers for the specified Amazon Chime account, Amazon Chime user, or Amazon Chime Voice
-     * Connector.
+     * Lists the phone numbers for the specified Amazon Chime account, Amazon Chime user, Amazon Chime Voice Connector,
+     * or Amazon Chime Voice Connector group.
      * </p>
      * 
      * @param listPhoneNumbersRequest
@@ -1426,8 +7427,8 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Lists the phone numbers for the specified Amazon Chime account, Amazon Chime user, or Amazon Chime Voice
-     * Connector.
+     * Lists the phone numbers for the specified Amazon Chime account, Amazon Chime user, Amazon Chime Voice Connector,
+     * or Amazon Chime Voice Connector group.
      * </p>
      * 
      * @param listPhoneNumbersRequest
@@ -1442,6 +7443,367 @@ public interface AmazonChimeAsync extends AmazonChime {
      */
     java.util.concurrent.Future<ListPhoneNumbersResult> listPhoneNumbersAsync(ListPhoneNumbersRequest listPhoneNumbersRequest,
             com.amazonaws.handlers.AsyncHandler<ListPhoneNumbersRequest, ListPhoneNumbersResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists the proxy sessions for the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListProxySessions.html">
+     * ListProxySessions</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listProxySessionsRequest
+     * @return A Java Future containing the result of the ListProxySessions operation returned by the service.
+     * @sample AmazonChimeAsync.ListProxySessions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListProxySessions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListProxySessionsResult> listProxySessionsAsync(ListProxySessionsRequest listProxySessionsRequest);
+
+    /**
+     * <p>
+     * Lists the proxy sessions for the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListProxySessions.html">
+     * ListProxySessions</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listProxySessionsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListProxySessions operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListProxySessions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListProxySessions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListProxySessionsResult> listProxySessionsAsync(ListProxySessionsRequest listProxySessionsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListProxySessionsRequest, ListProxySessionsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists the membership details for the specified room in an Amazon Chime Enterprise account, such as the members'
+     * IDs, email addresses, and names.
+     * </p>
+     * 
+     * @param listRoomMembershipsRequest
+     * @return A Java Future containing the result of the ListRoomMemberships operation returned by the service.
+     * @sample AmazonChimeAsync.ListRoomMemberships
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListRoomMemberships" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListRoomMembershipsResult> listRoomMembershipsAsync(ListRoomMembershipsRequest listRoomMembershipsRequest);
+
+    /**
+     * <p>
+     * Lists the membership details for the specified room in an Amazon Chime Enterprise account, such as the members'
+     * IDs, email addresses, and names.
+     * </p>
+     * 
+     * @param listRoomMembershipsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListRoomMemberships operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListRoomMemberships
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListRoomMemberships" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListRoomMembershipsResult> listRoomMembershipsAsync(ListRoomMembershipsRequest listRoomMembershipsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListRoomMembershipsRequest, ListRoomMembershipsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists the room details for the specified Amazon Chime Enterprise account. Optionally, filter the results by a
+     * member ID (user ID or bot ID) to see a list of rooms that the member belongs to.
+     * </p>
+     * 
+     * @param listRoomsRequest
+     * @return A Java Future containing the result of the ListRooms operation returned by the service.
+     * @sample AmazonChimeAsync.ListRooms
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListRooms" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListRoomsResult> listRoomsAsync(ListRoomsRequest listRoomsRequest);
+
+    /**
+     * <p>
+     * Lists the room details for the specified Amazon Chime Enterprise account. Optionally, filter the results by a
+     * member ID (user ID or bot ID) to see a list of rooms that the member belongs to.
+     * </p>
+     * 
+     * @param listRoomsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListRooms operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListRooms
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListRooms" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListRoomsResult> listRoomsAsync(ListRoomsRequest listRoomsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListRoomsRequest, ListRoomsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists the SIP media applications under the administrator's AWS account.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListSipMediaApplications.html">
+     * ListSipMediaApplications</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listSipMediaApplicationsRequest
+     * @return A Java Future containing the result of the ListSipMediaApplications operation returned by the service.
+     * @sample AmazonChimeAsync.ListSipMediaApplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListSipMediaApplications" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListSipMediaApplicationsResult> listSipMediaApplicationsAsync(ListSipMediaApplicationsRequest listSipMediaApplicationsRequest);
+
+    /**
+     * <p>
+     * Lists the SIP media applications under the administrator's AWS account.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListSipMediaApplications.html">
+     * ListSipMediaApplications</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listSipMediaApplicationsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListSipMediaApplications operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListSipMediaApplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListSipMediaApplications" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListSipMediaApplicationsResult> listSipMediaApplicationsAsync(ListSipMediaApplicationsRequest listSipMediaApplicationsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListSipMediaApplicationsRequest, ListSipMediaApplicationsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists the SIP rules under the administrator's AWS account.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListSipRules.html">ListSipRules</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listSipRulesRequest
+     * @return A Java Future containing the result of the ListSipRules operation returned by the service.
+     * @sample AmazonChimeAsync.ListSipRules
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListSipRules" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListSipRulesResult> listSipRulesAsync(ListSipRulesRequest listSipRulesRequest);
+
+    /**
+     * <p>
+     * Lists the SIP rules under the administrator's AWS account.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListSipRules.html">ListSipRules</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listSipRulesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListSipRules operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListSipRules
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListSipRules" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListSipRulesResult> listSipRulesAsync(ListSipRulesRequest listSipRulesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListSipRulesRequest, ListSipRulesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists supported phone number countries.
+     * </p>
+     * 
+     * @param listSupportedPhoneNumberCountriesRequest
+     * @return A Java Future containing the result of the ListSupportedPhoneNumberCountries operation returned by the
+     *         service.
+     * @sample AmazonChimeAsync.ListSupportedPhoneNumberCountries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListSupportedPhoneNumberCountries"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListSupportedPhoneNumberCountriesResult> listSupportedPhoneNumberCountriesAsync(
+            ListSupportedPhoneNumberCountriesRequest listSupportedPhoneNumberCountriesRequest);
+
+    /**
+     * <p>
+     * Lists supported phone number countries.
+     * </p>
+     * 
+     * @param listSupportedPhoneNumberCountriesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListSupportedPhoneNumberCountries operation returned by the
+     *         service.
+     * @sample AmazonChimeAsyncHandler.ListSupportedPhoneNumberCountries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListSupportedPhoneNumberCountries"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListSupportedPhoneNumberCountriesResult> listSupportedPhoneNumberCountriesAsync(
+            ListSupportedPhoneNumberCountriesRequest listSupportedPhoneNumberCountriesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListSupportedPhoneNumberCountriesRequest, ListSupportedPhoneNumberCountriesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists the tags applied to an Amazon Chime SDK meeting and messaging resources.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the applicable latest
+     * version in the Amazon Chime SDK.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For meetings: <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_ListTagsForResource.html"
+     * >ListTagsForResource</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For messaging: <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListTagsForResource.html"
+     * >ListTagsForResource</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listTagsForResourceRequest
+     * @return A Java Future containing the result of the ListTagsForResource operation returned by the service.
+     * @sample AmazonChimeAsync.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListTagsForResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest listTagsForResourceRequest);
+
+    /**
+     * <p>
+     * Lists the tags applied to an Amazon Chime SDK meeting and messaging resources.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the applicable latest
+     * version in the Amazon Chime SDK.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For meetings: <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_ListTagsForResource.html"
+     * >ListTagsForResource</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For messaging: <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_ListTagsForResource.html"
+     * >ListTagsForResource</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listTagsForResourceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListTagsForResource operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListTagsForResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest listTagsForResourceRequest,
+            com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler);
 
     /**
      * <p>
@@ -1478,8 +7840,78 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
+     * Lists the Amazon Chime Voice Connector groups for the administrator's AWS account.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListVoiceConnectorGroups.html">
+     * ListVoiceConnectorGroups</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listVoiceConnectorGroupsRequest
+     * @return A Java Future containing the result of the ListVoiceConnectorGroups operation returned by the service.
+     * @sample AmazonChimeAsync.ListVoiceConnectorGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListVoiceConnectorGroups" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListVoiceConnectorGroupsResult> listVoiceConnectorGroupsAsync(ListVoiceConnectorGroupsRequest listVoiceConnectorGroupsRequest);
+
+    /**
+     * <p>
+     * Lists the Amazon Chime Voice Connector groups for the administrator's AWS account.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListVoiceConnectorGroups.html">
+     * ListVoiceConnectorGroups</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param listVoiceConnectorGroupsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListVoiceConnectorGroups operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ListVoiceConnectorGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListVoiceConnectorGroups" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ListVoiceConnectorGroupsResult> listVoiceConnectorGroupsAsync(ListVoiceConnectorGroupsRequest listVoiceConnectorGroupsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListVoiceConnectorGroupsRequest, ListVoiceConnectorGroupsResult> asyncHandler);
+
+    /**
+     * <p>
      * Lists the SIP credentials for the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListVoiceConnectorTerminationCredentials.html"
+     * >ListVoiceConnectorTerminationCredentials</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param listVoiceConnectorTerminationCredentialsRequest
      * @return A Java Future containing the result of the ListVoiceConnectorTerminationCredentials operation returned by
@@ -1488,6 +7920,7 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListVoiceConnectorTerminationCredentials"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<ListVoiceConnectorTerminationCredentialsResult> listVoiceConnectorTerminationCredentialsAsync(
             ListVoiceConnectorTerminationCredentialsRequest listVoiceConnectorTerminationCredentialsRequest);
 
@@ -1495,6 +7928,19 @@ public interface AmazonChimeAsync extends AmazonChime {
      * <p>
      * Lists the SIP credentials for the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListVoiceConnectorTerminationCredentials.html"
+     * >ListVoiceConnectorTerminationCredentials</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param listVoiceConnectorTerminationCredentialsRequest
      * @param asyncHandler
@@ -1507,6 +7953,7 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListVoiceConnectorTerminationCredentials"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<ListVoiceConnectorTerminationCredentialsResult> listVoiceConnectorTerminationCredentialsAsync(
             ListVoiceConnectorTerminationCredentialsRequest listVoiceConnectorTerminationCredentialsRequest,
             com.amazonaws.handlers.AsyncHandler<ListVoiceConnectorTerminationCredentialsRequest, ListVoiceConnectorTerminationCredentialsResult> asyncHandler);
@@ -1515,6 +7962,18 @@ public interface AmazonChimeAsync extends AmazonChime {
      * <p>
      * Lists the Amazon Chime Voice Connectors for the administrator's AWS account.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListVoiceConnectors.html">
+     * ListVoiceConnectors</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param listVoiceConnectorsRequest
      * @return A Java Future containing the result of the ListVoiceConnectors operation returned by the service.
@@ -1522,12 +7981,25 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListVoiceConnectors" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<ListVoiceConnectorsResult> listVoiceConnectorsAsync(ListVoiceConnectorsRequest listVoiceConnectorsRequest);
 
     /**
      * <p>
      * Lists the Amazon Chime Voice Connectors for the administrator's AWS account.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ListVoiceConnectors.html">
+     * ListVoiceConnectors</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param listVoiceConnectorsRequest
      * @param asyncHandler
@@ -1539,6 +8011,7 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ListVoiceConnectors" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<ListVoiceConnectorsResult> listVoiceConnectorsAsync(ListVoiceConnectorsRequest listVoiceConnectorsRequest,
             com.amazonaws.handlers.AsyncHandler<ListVoiceConnectorsRequest, ListVoiceConnectorsResult> asyncHandler);
 
@@ -1575,6 +8048,132 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
+     * Sets the amount of time in days that a given <code>AppInstance</code> retains data.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_PutAppInstanceRetentionSettings.html"
+     * >PutAppInstanceRetentionSettings</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putAppInstanceRetentionSettingsRequest
+     * @return A Java Future containing the result of the PutAppInstanceRetentionSettings operation returned by the
+     *         service.
+     * @sample AmazonChimeAsync.PutAppInstanceRetentionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutAppInstanceRetentionSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<PutAppInstanceRetentionSettingsResult> putAppInstanceRetentionSettingsAsync(
+            PutAppInstanceRetentionSettingsRequest putAppInstanceRetentionSettingsRequest);
+
+    /**
+     * <p>
+     * Sets the amount of time in days that a given <code>AppInstance</code> retains data.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_PutAppInstanceRetentionSettings.html"
+     * >PutAppInstanceRetentionSettings</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putAppInstanceRetentionSettingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutAppInstanceRetentionSettings operation returned by the
+     *         service.
+     * @sample AmazonChimeAsyncHandler.PutAppInstanceRetentionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutAppInstanceRetentionSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<PutAppInstanceRetentionSettingsResult> putAppInstanceRetentionSettingsAsync(
+            PutAppInstanceRetentionSettingsRequest putAppInstanceRetentionSettingsRequest,
+            com.amazonaws.handlers.AsyncHandler<PutAppInstanceRetentionSettingsRequest, PutAppInstanceRetentionSettingsResult> asyncHandler);
+
+    /**
+     * <p>
+     * The data streaming configurations of an <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_PutMessagingStreamingConfigurations.html"
+     * >PutMessagingStreamingConfigurations</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putAppInstanceStreamingConfigurationsRequest
+     * @return A Java Future containing the result of the PutAppInstanceStreamingConfigurations operation returned by
+     *         the service.
+     * @sample AmazonChimeAsync.PutAppInstanceStreamingConfigurations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutAppInstanceStreamingConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<PutAppInstanceStreamingConfigurationsResult> putAppInstanceStreamingConfigurationsAsync(
+            PutAppInstanceStreamingConfigurationsRequest putAppInstanceStreamingConfigurationsRequest);
+
+    /**
+     * <p>
+     * The data streaming configurations of an <code>AppInstance</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_PutMessagingStreamingConfigurations.html"
+     * >PutMessagingStreamingConfigurations</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putAppInstanceStreamingConfigurationsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutAppInstanceStreamingConfigurations operation returned by
+     *         the service.
+     * @sample AmazonChimeAsyncHandler.PutAppInstanceStreamingConfigurations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutAppInstanceStreamingConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<PutAppInstanceStreamingConfigurationsResult> putAppInstanceStreamingConfigurationsAsync(
+            PutAppInstanceStreamingConfigurationsRequest putAppInstanceStreamingConfigurationsRequest,
+            com.amazonaws.handlers.AsyncHandler<PutAppInstanceStreamingConfigurationsRequest, PutAppInstanceStreamingConfigurationsResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates an events configuration that allows a bot to receive outgoing events sent by Amazon Chime. Choose either
      * an HTTPS endpoint or a Lambda function ARN. For more information, see <a>Bot</a>.
      * </p>
@@ -1608,8 +8207,272 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
+     * Puts retention settings for the specified Amazon Chime Enterprise account. We recommend using AWS CloudTrail to
+     * monitor usage of this API for your account. For more information, see <a
+     * href="https://docs.aws.amazon.com/chime/latest/ag/cloudtrail.html">Logging Amazon Chime API Calls with AWS
+     * CloudTrail</a> in the <i>Amazon Chime Administration Guide</i>.
+     * </p>
+     * <p>
+     * To turn off existing retention settings, remove the number of days from the corresponding <b>RetentionDays</b>
+     * field in the <b>RetentionSettings</b> object. For more information about retention settings, see <a
+     * href="https://docs.aws.amazon.com/chime/latest/ag/chat-retention.html">Managing Chat Retention Policies</a> in
+     * the <i>Amazon Chime Administration Guide</i>.
+     * </p>
+     * 
+     * @param putRetentionSettingsRequest
+     * @return A Java Future containing the result of the PutRetentionSettings operation returned by the service.
+     * @sample AmazonChimeAsync.PutRetentionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutRetentionSettings" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<PutRetentionSettingsResult> putRetentionSettingsAsync(PutRetentionSettingsRequest putRetentionSettingsRequest);
+
+    /**
+     * <p>
+     * Puts retention settings for the specified Amazon Chime Enterprise account. We recommend using AWS CloudTrail to
+     * monitor usage of this API for your account. For more information, see <a
+     * href="https://docs.aws.amazon.com/chime/latest/ag/cloudtrail.html">Logging Amazon Chime API Calls with AWS
+     * CloudTrail</a> in the <i>Amazon Chime Administration Guide</i>.
+     * </p>
+     * <p>
+     * To turn off existing retention settings, remove the number of days from the corresponding <b>RetentionDays</b>
+     * field in the <b>RetentionSettings</b> object. For more information about retention settings, see <a
+     * href="https://docs.aws.amazon.com/chime/latest/ag/chat-retention.html">Managing Chat Retention Policies</a> in
+     * the <i>Amazon Chime Administration Guide</i>.
+     * </p>
+     * 
+     * @param putRetentionSettingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutRetentionSettings operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.PutRetentionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutRetentionSettings" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<PutRetentionSettingsResult> putRetentionSettingsAsync(PutRetentionSettingsRequest putRetentionSettingsRequest,
+            com.amazonaws.handlers.AsyncHandler<PutRetentionSettingsRequest, PutRetentionSettingsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the logging configuration for the specified SIP media application.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutSipMediaApplicationLoggingConfiguration.html"
+     * >PutSipMediaApplicationLoggingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putSipMediaApplicationLoggingConfigurationRequest
+     * @return A Java Future containing the result of the PutSipMediaApplicationLoggingConfiguration operation returned
+     *         by the service.
+     * @sample AmazonChimeAsync.PutSipMediaApplicationLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutSipMediaApplicationLoggingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<PutSipMediaApplicationLoggingConfigurationResult> putSipMediaApplicationLoggingConfigurationAsync(
+            PutSipMediaApplicationLoggingConfigurationRequest putSipMediaApplicationLoggingConfigurationRequest);
+
+    /**
+     * <p>
+     * Updates the logging configuration for the specified SIP media application.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutSipMediaApplicationLoggingConfiguration.html"
+     * >PutSipMediaApplicationLoggingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putSipMediaApplicationLoggingConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutSipMediaApplicationLoggingConfiguration operation returned
+     *         by the service.
+     * @sample AmazonChimeAsyncHandler.PutSipMediaApplicationLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutSipMediaApplicationLoggingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<PutSipMediaApplicationLoggingConfigurationResult> putSipMediaApplicationLoggingConfigurationAsync(
+            PutSipMediaApplicationLoggingConfigurationRequest putSipMediaApplicationLoggingConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<PutSipMediaApplicationLoggingConfigurationRequest, PutSipMediaApplicationLoggingConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Puts emergency calling configuration details to the specified Amazon Chime Voice Connector, such as emergency
+     * phone numbers and calling countries. Origination and termination settings must be enabled for the Amazon Chime
+     * Voice Connector before emergency calling can be configured.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorEmergencyCallingConfiguration.html"
+     * >PutVoiceConnectorEmergencyCallingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putVoiceConnectorEmergencyCallingConfigurationRequest
+     * @return A Java Future containing the result of the PutVoiceConnectorEmergencyCallingConfiguration operation
+     *         returned by the service.
+     * @sample AmazonChimeAsync.PutVoiceConnectorEmergencyCallingConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorEmergencyCallingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<PutVoiceConnectorEmergencyCallingConfigurationResult> putVoiceConnectorEmergencyCallingConfigurationAsync(
+            PutVoiceConnectorEmergencyCallingConfigurationRequest putVoiceConnectorEmergencyCallingConfigurationRequest);
+
+    /**
+     * <p>
+     * Puts emergency calling configuration details to the specified Amazon Chime Voice Connector, such as emergency
+     * phone numbers and calling countries. Origination and termination settings must be enabled for the Amazon Chime
+     * Voice Connector before emergency calling can be configured.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorEmergencyCallingConfiguration.html"
+     * >PutVoiceConnectorEmergencyCallingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putVoiceConnectorEmergencyCallingConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutVoiceConnectorEmergencyCallingConfiguration operation
+     *         returned by the service.
+     * @sample AmazonChimeAsyncHandler.PutVoiceConnectorEmergencyCallingConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorEmergencyCallingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<PutVoiceConnectorEmergencyCallingConfigurationResult> putVoiceConnectorEmergencyCallingConfigurationAsync(
+            PutVoiceConnectorEmergencyCallingConfigurationRequest putVoiceConnectorEmergencyCallingConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<PutVoiceConnectorEmergencyCallingConfigurationRequest, PutVoiceConnectorEmergencyCallingConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Adds a logging configuration for the specified Amazon Chime Voice Connector. The logging configuration specifies
+     * whether SIP message logs are enabled for sending to Amazon CloudWatch Logs.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorLoggingConfiguration.html"
+     * >PutVoiceConnectorLoggingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putVoiceConnectorLoggingConfigurationRequest
+     * @return A Java Future containing the result of the PutVoiceConnectorLoggingConfiguration operation returned by
+     *         the service.
+     * @sample AmazonChimeAsync.PutVoiceConnectorLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorLoggingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<PutVoiceConnectorLoggingConfigurationResult> putVoiceConnectorLoggingConfigurationAsync(
+            PutVoiceConnectorLoggingConfigurationRequest putVoiceConnectorLoggingConfigurationRequest);
+
+    /**
+     * <p>
+     * Adds a logging configuration for the specified Amazon Chime Voice Connector. The logging configuration specifies
+     * whether SIP message logs are enabled for sending to Amazon CloudWatch Logs.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorLoggingConfiguration.html"
+     * >PutVoiceConnectorLoggingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putVoiceConnectorLoggingConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutVoiceConnectorLoggingConfiguration operation returned by
+     *         the service.
+     * @sample AmazonChimeAsyncHandler.PutVoiceConnectorLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorLoggingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<PutVoiceConnectorLoggingConfigurationResult> putVoiceConnectorLoggingConfigurationAsync(
+            PutVoiceConnectorLoggingConfigurationRequest putVoiceConnectorLoggingConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<PutVoiceConnectorLoggingConfigurationRequest, PutVoiceConnectorLoggingConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
      * Adds origination settings for the specified Amazon Chime Voice Connector.
      * </p>
+     * <note>
+     * <p>
+     * If emergency calling is configured for the Amazon Chime Voice Connector, it must be deleted prior to turning off
+     * origination settings.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorOrigination.html"
+     * >PutVoiceConnectorOrigination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param putVoiceConnectorOriginationRequest
      * @return A Java Future containing the result of the PutVoiceConnectorOrigination operation returned by the
@@ -1618,6 +8481,7 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorOrigination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<PutVoiceConnectorOriginationResult> putVoiceConnectorOriginationAsync(
             PutVoiceConnectorOriginationRequest putVoiceConnectorOriginationRequest);
 
@@ -1625,6 +8489,24 @@ public interface AmazonChimeAsync extends AmazonChime {
      * <p>
      * Adds origination settings for the specified Amazon Chime Voice Connector.
      * </p>
+     * <note>
+     * <p>
+     * If emergency calling is configured for the Amazon Chime Voice Connector, it must be deleted prior to turning off
+     * origination settings.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorOrigination.html"
+     * >PutVoiceConnectorOrigination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param putVoiceConnectorOriginationRequest
      * @param asyncHandler
@@ -1637,14 +8519,157 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorOrigination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<PutVoiceConnectorOriginationResult> putVoiceConnectorOriginationAsync(
             PutVoiceConnectorOriginationRequest putVoiceConnectorOriginationRequest,
             com.amazonaws.handlers.AsyncHandler<PutVoiceConnectorOriginationRequest, PutVoiceConnectorOriginationResult> asyncHandler);
 
     /**
      * <p>
+     * Puts the specified proxy configuration to the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorProxy.html">
+     * PutVoiceConnectorProxy</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putVoiceConnectorProxyRequest
+     * @return A Java Future containing the result of the PutVoiceConnectorProxy operation returned by the service.
+     * @sample AmazonChimeAsync.PutVoiceConnectorProxy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorProxy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<PutVoiceConnectorProxyResult> putVoiceConnectorProxyAsync(PutVoiceConnectorProxyRequest putVoiceConnectorProxyRequest);
+
+    /**
+     * <p>
+     * Puts the specified proxy configuration to the specified Amazon Chime Voice Connector.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorProxy.html">
+     * PutVoiceConnectorProxy</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putVoiceConnectorProxyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutVoiceConnectorProxy operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.PutVoiceConnectorProxy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorProxy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<PutVoiceConnectorProxyResult> putVoiceConnectorProxyAsync(PutVoiceConnectorProxyRequest putVoiceConnectorProxyRequest,
+            com.amazonaws.handlers.AsyncHandler<PutVoiceConnectorProxyRequest, PutVoiceConnectorProxyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Adds a streaming configuration for the specified Amazon Chime Voice Connector. The streaming configuration
+     * specifies whether media streaming is enabled for sending to Kinesis. It also sets the retention period, in hours,
+     * for the Amazon Kinesis data.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorStreamingConfiguration.html"
+     * >PutVoiceConnectorStreamingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putVoiceConnectorStreamingConfigurationRequest
+     * @return A Java Future containing the result of the PutVoiceConnectorStreamingConfiguration operation returned by
+     *         the service.
+     * @sample AmazonChimeAsync.PutVoiceConnectorStreamingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorStreamingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<PutVoiceConnectorStreamingConfigurationResult> putVoiceConnectorStreamingConfigurationAsync(
+            PutVoiceConnectorStreamingConfigurationRequest putVoiceConnectorStreamingConfigurationRequest);
+
+    /**
+     * <p>
+     * Adds a streaming configuration for the specified Amazon Chime Voice Connector. The streaming configuration
+     * specifies whether media streaming is enabled for sending to Kinesis. It also sets the retention period, in hours,
+     * for the Amazon Kinesis data.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorStreamingConfiguration.html"
+     * >PutVoiceConnectorStreamingConfiguration</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param putVoiceConnectorStreamingConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutVoiceConnectorStreamingConfiguration operation returned by
+     *         the service.
+     * @sample AmazonChimeAsyncHandler.PutVoiceConnectorStreamingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorStreamingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<PutVoiceConnectorStreamingConfigurationResult> putVoiceConnectorStreamingConfigurationAsync(
+            PutVoiceConnectorStreamingConfigurationRequest putVoiceConnectorStreamingConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<PutVoiceConnectorStreamingConfigurationRequest, PutVoiceConnectorStreamingConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
      * Adds termination settings for the specified Amazon Chime Voice Connector.
      * </p>
+     * <note>
+     * <p>
+     * If emergency calling is configured for the Amazon Chime Voice Connector, it must be deleted prior to turning off
+     * termination settings.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorTermination.html"
+     * >PutVoiceConnectorTermination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param putVoiceConnectorTerminationRequest
      * @return A Java Future containing the result of the PutVoiceConnectorTermination operation returned by the
@@ -1653,6 +8678,7 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorTermination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<PutVoiceConnectorTerminationResult> putVoiceConnectorTerminationAsync(
             PutVoiceConnectorTerminationRequest putVoiceConnectorTerminationRequest);
 
@@ -1660,6 +8686,24 @@ public interface AmazonChimeAsync extends AmazonChime {
      * <p>
      * Adds termination settings for the specified Amazon Chime Voice Connector.
      * </p>
+     * <note>
+     * <p>
+     * If emergency calling is configured for the Amazon Chime Voice Connector, it must be deleted prior to turning off
+     * termination settings.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorTermination.html"
+     * >PutVoiceConnectorTermination</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param putVoiceConnectorTerminationRequest
      * @param asyncHandler
@@ -1672,6 +8716,7 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorTermination"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<PutVoiceConnectorTerminationResult> putVoiceConnectorTerminationAsync(
             PutVoiceConnectorTerminationRequest putVoiceConnectorTerminationRequest,
             com.amazonaws.handlers.AsyncHandler<PutVoiceConnectorTerminationRequest, PutVoiceConnectorTerminationResult> asyncHandler);
@@ -1680,6 +8725,19 @@ public interface AmazonChimeAsync extends AmazonChime {
      * <p>
      * Adds termination SIP credentials for the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorTerminationCredentials.html"
+     * >PutVoiceConnectorTerminationCredentials</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param putVoiceConnectorTerminationCredentialsRequest
      * @return A Java Future containing the result of the PutVoiceConnectorTerminationCredentials operation returned by
@@ -1688,6 +8746,7 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorTerminationCredentials"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<PutVoiceConnectorTerminationCredentialsResult> putVoiceConnectorTerminationCredentialsAsync(
             PutVoiceConnectorTerminationCredentialsRequest putVoiceConnectorTerminationCredentialsRequest);
 
@@ -1695,6 +8754,19 @@ public interface AmazonChimeAsync extends AmazonChime {
      * <p>
      * Adds termination SIP credentials for the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_PutVoiceConnectorTerminationCredentials.html"
+     * >PutVoiceConnectorTerminationCredentials</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param putVoiceConnectorTerminationCredentialsRequest
      * @param asyncHandler
@@ -1707,9 +8779,143 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/PutVoiceConnectorTerminationCredentials"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<PutVoiceConnectorTerminationCredentialsResult> putVoiceConnectorTerminationCredentialsAsync(
             PutVoiceConnectorTerminationCredentialsRequest putVoiceConnectorTerminationCredentialsRequest,
             com.amazonaws.handlers.AsyncHandler<PutVoiceConnectorTerminationCredentialsRequest, PutVoiceConnectorTerminationCredentialsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Redacts message content, but not metadata. The message exists in the back end, but the action returns null
+     * content, and the state shows as redacted.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_RedactChannelMessage.html">
+     * RedactChannelMessage</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param redactChannelMessageRequest
+     * @return A Java Future containing the result of the RedactChannelMessage operation returned by the service.
+     * @sample AmazonChimeAsync.RedactChannelMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/RedactChannelMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<RedactChannelMessageResult> redactChannelMessageAsync(RedactChannelMessageRequest redactChannelMessageRequest);
+
+    /**
+     * <p>
+     * Redacts message content, but not metadata. The message exists in the back end, but the action returns null
+     * content, and the state shows as redacted.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_RedactChannelMessage.html">
+     * RedactChannelMessage</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param redactChannelMessageRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RedactChannelMessage operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.RedactChannelMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/RedactChannelMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<RedactChannelMessageResult> redactChannelMessageAsync(RedactChannelMessageRequest redactChannelMessageRequest,
+            com.amazonaws.handlers.AsyncHandler<RedactChannelMessageRequest, RedactChannelMessageResult> asyncHandler);
+
+    /**
+     * <p>
+     * Redacts the specified message from the specified Amazon Chime conversation.
+     * </p>
+     * 
+     * @param redactConversationMessageRequest
+     * @return A Java Future containing the result of the RedactConversationMessage operation returned by the service.
+     * @sample AmazonChimeAsync.RedactConversationMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/RedactConversationMessage"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<RedactConversationMessageResult> redactConversationMessageAsync(
+            RedactConversationMessageRequest redactConversationMessageRequest);
+
+    /**
+     * <p>
+     * Redacts the specified message from the specified Amazon Chime conversation.
+     * </p>
+     * 
+     * @param redactConversationMessageRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RedactConversationMessage operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.RedactConversationMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/RedactConversationMessage"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<RedactConversationMessageResult> redactConversationMessageAsync(
+            RedactConversationMessageRequest redactConversationMessageRequest,
+            com.amazonaws.handlers.AsyncHandler<RedactConversationMessageRequest, RedactConversationMessageResult> asyncHandler);
+
+    /**
+     * <p>
+     * Redacts the specified message from the specified Amazon Chime channel.
+     * </p>
+     * 
+     * @param redactRoomMessageRequest
+     * @return A Java Future containing the result of the RedactRoomMessage operation returned by the service.
+     * @sample AmazonChimeAsync.RedactRoomMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/RedactRoomMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<RedactRoomMessageResult> redactRoomMessageAsync(RedactRoomMessageRequest redactRoomMessageRequest);
+
+    /**
+     * <p>
+     * Redacts the specified message from the specified Amazon Chime channel.
+     * </p>
+     * 
+     * @param redactRoomMessageRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RedactRoomMessage operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.RedactRoomMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/RedactRoomMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<RedactRoomMessageResult> redactRoomMessageAsync(RedactRoomMessageRequest redactRoomMessageRequest,
+            com.amazonaws.handlers.AsyncHandler<RedactRoomMessageRequest, RedactRoomMessageResult> asyncHandler);
 
     /**
      * <p>
@@ -1808,7 +9014,10 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Searches phone numbers that can be ordered.
+     * Searches for phone numbers that can be ordered. For US numbers, provide at least one of the following search
+     * filters: <code>AreaCode</code>, <code>City</code>, <code>State</code>, or <code>TollFreePrefix</code>. If you
+     * provide <code>City</code>, you must also provide <code>State</code>. Numbers outside the US only support the
+     * <code>PhoneNumberType</code> filter, which you must use.
      * </p>
      * 
      * @param searchAvailablePhoneNumbersRequest
@@ -1822,7 +9031,10 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Searches phone numbers that can be ordered.
+     * Searches for phone numbers that can be ordered. For US numbers, provide at least one of the following search
+     * filters: <code>AreaCode</code>, <code>City</code>, <code>State</code>, or <code>TollFreePrefix</code>. If you
+     * provide <code>City</code>, you must also provide <code>State</code>. Numbers outside the US only support the
+     * <code>PhoneNumberType</code> filter, which you must use.
      * </p>
      * 
      * @param searchAvailablePhoneNumbersRequest
@@ -1841,8 +9053,563 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Updates account details for the specified Amazon Chime account. Currently, only account name updates are
-     * supported for this action.
+     * Sends a message to a particular channel that the member is a part of.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * <p>
+     * Also, <code>STANDARD</code> messages can contain 4KB of data and the 1KB of metadata. <code>CONTROL</code>
+     * messages can contain 30 bytes of data and no metadata.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_SendChannelMessage.html">
+     * SendChannelMessage</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param sendChannelMessageRequest
+     * @return A Java Future containing the result of the SendChannelMessage operation returned by the service.
+     * @sample AmazonChimeAsync.SendChannelMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/SendChannelMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<SendChannelMessageResult> sendChannelMessageAsync(SendChannelMessageRequest sendChannelMessageRequest);
+
+    /**
+     * <p>
+     * Sends a message to a particular channel that the member is a part of.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * <p>
+     * Also, <code>STANDARD</code> messages can contain 4KB of data and the 1KB of metadata. <code>CONTROL</code>
+     * messages can contain 30 bytes of data and no metadata.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_SendChannelMessage.html">
+     * SendChannelMessage</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param sendChannelMessageRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the SendChannelMessage operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.SendChannelMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/SendChannelMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<SendChannelMessageResult> sendChannelMessageAsync(SendChannelMessageRequest sendChannelMessageRequest,
+            com.amazonaws.handlers.AsyncHandler<SendChannelMessageRequest, SendChannelMessageResult> asyncHandler);
+
+    /**
+     * <p>
+     * Starts transcription for the specified <code>meetingId</code>. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meeting-transcription.html"> Using Amazon Chime SDK live
+     * transcription </a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <p>
+     * If you specify an invalid configuration, a <code>TranscriptFailed</code> event will be sent with the contents of
+     * the <code>BadRequestException</code> generated by Amazon Transcribe. For more information on each parameter and
+     * which combinations are valid, refer to the <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/APIReference/API_streaming_StartStreamTranscription.html"
+     * >StartStreamTranscription</a> API in the <i>Amazon Transcribe Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * Amazon Chime SDK live transcription is powered by Amazon Transcribe. Use of Amazon Transcribe is subject to the
+     * <a href="https://aws.amazon.com/service-terms/">AWS Service Terms</a>, including the terms specific to the AWS
+     * Machine Learning and Artificial Intelligence Services.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_StartMeetingTranscription.html">
+     * StartMeetingTranscription</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param startMeetingTranscriptionRequest
+     * @return A Java Future containing the result of the StartMeetingTranscription operation returned by the service.
+     * @sample AmazonChimeAsync.StartMeetingTranscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/StartMeetingTranscription"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<StartMeetingTranscriptionResult> startMeetingTranscriptionAsync(
+            StartMeetingTranscriptionRequest startMeetingTranscriptionRequest);
+
+    /**
+     * <p>
+     * Starts transcription for the specified <code>meetingId</code>. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/meeting-transcription.html"> Using Amazon Chime SDK live
+     * transcription </a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * <p>
+     * If you specify an invalid configuration, a <code>TranscriptFailed</code> event will be sent with the contents of
+     * the <code>BadRequestException</code> generated by Amazon Transcribe. For more information on each parameter and
+     * which combinations are valid, refer to the <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/APIReference/API_streaming_StartStreamTranscription.html"
+     * >StartStreamTranscription</a> API in the <i>Amazon Transcribe Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * Amazon Chime SDK live transcription is powered by Amazon Transcribe. Use of Amazon Transcribe is subject to the
+     * <a href="https://aws.amazon.com/service-terms/">AWS Service Terms</a>, including the terms specific to the AWS
+     * Machine Learning and Artificial Intelligence Services.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_StartMeetingTranscription.html">
+     * StartMeetingTranscription</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param startMeetingTranscriptionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartMeetingTranscription operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.StartMeetingTranscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/StartMeetingTranscription"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<StartMeetingTranscriptionResult> startMeetingTranscriptionAsync(
+            StartMeetingTranscriptionRequest startMeetingTranscriptionRequest,
+            com.amazonaws.handlers.AsyncHandler<StartMeetingTranscriptionRequest, StartMeetingTranscriptionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Stops transcription for the specified <code>meetingId</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_StopMeetingTranscription.html">
+     * StopMeetingTranscription</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param stopMeetingTranscriptionRequest
+     * @return A Java Future containing the result of the StopMeetingTranscription operation returned by the service.
+     * @sample AmazonChimeAsync.StopMeetingTranscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/StopMeetingTranscription" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<StopMeetingTranscriptionResult> stopMeetingTranscriptionAsync(StopMeetingTranscriptionRequest stopMeetingTranscriptionRequest);
+
+    /**
+     * <p>
+     * Stops transcription for the specified <code>meetingId</code>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_StopMeetingTranscription.html">
+     * StopMeetingTranscription</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param stopMeetingTranscriptionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StopMeetingTranscription operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.StopMeetingTranscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/StopMeetingTranscription" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<StopMeetingTranscriptionResult> stopMeetingTranscriptionAsync(StopMeetingTranscriptionRequest stopMeetingTranscriptionRequest,
+            com.amazonaws.handlers.AsyncHandler<StopMeetingTranscriptionRequest, StopMeetingTranscriptionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Applies the specified tags to the specified Amazon Chime attendee.
+     * </p>
+     * <important>
+     * <p>
+     * TagAttendee is not supported in the Amazon Chime SDK Meetings Namespace. Update your application to remove calls
+     * to this API.
+     * </p>
+     * </important>
+     * 
+     * @param tagAttendeeRequest
+     * @return A Java Future containing the result of the TagAttendee operation returned by the service.
+     * @sample AmazonChimeAsync.TagAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/TagAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<TagAttendeeResult> tagAttendeeAsync(TagAttendeeRequest tagAttendeeRequest);
+
+    /**
+     * <p>
+     * Applies the specified tags to the specified Amazon Chime attendee.
+     * </p>
+     * <important>
+     * <p>
+     * TagAttendee is not supported in the Amazon Chime SDK Meetings Namespace. Update your application to remove calls
+     * to this API.
+     * </p>
+     * </important>
+     * 
+     * @param tagAttendeeRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the TagAttendee operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.TagAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/TagAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<TagAttendeeResult> tagAttendeeAsync(TagAttendeeRequest tagAttendeeRequest,
+            com.amazonaws.handlers.AsyncHandler<TagAttendeeRequest, TagAttendeeResult> asyncHandler);
+
+    /**
+     * <p>
+     * Applies the specified tags to the specified Amazon Chime SDK meeting.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_TagResource.html">TagResource</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param tagMeetingRequest
+     * @return A Java Future containing the result of the TagMeeting operation returned by the service.
+     * @sample AmazonChimeAsync.TagMeeting
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/TagMeeting" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<TagMeetingResult> tagMeetingAsync(TagMeetingRequest tagMeetingRequest);
+
+    /**
+     * <p>
+     * Applies the specified tags to the specified Amazon Chime SDK meeting.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_TagResource.html">TagResource</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param tagMeetingRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the TagMeeting operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.TagMeeting
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/TagMeeting" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<TagMeetingResult> tagMeetingAsync(TagMeetingRequest tagMeetingRequest,
+            com.amazonaws.handlers.AsyncHandler<TagMeetingRequest, TagMeetingResult> asyncHandler);
+
+    /**
+     * <p>
+     * Applies the specified tags to the specified Amazon Chime SDK meeting resource.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_TagResource.html">TagResource</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param tagResourceRequest
+     * @return A Java Future containing the result of the TagResource operation returned by the service.
+     * @sample AmazonChimeAsync.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest tagResourceRequest);
+
+    /**
+     * <p>
+     * Applies the specified tags to the specified Amazon Chime SDK meeting resource.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_TagResource.html">TagResource</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param tagResourceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the TagResource operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest tagResourceRequest,
+            com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Untags the specified tags from the specified Amazon Chime SDK attendee.
+     * </p>
+     * <important>
+     * <p>
+     * UntagAttendee is not supported in the Amazon Chime SDK Meetings Namespace. Update your application to remove
+     * calls to this API.
+     * </p>
+     * </important>
+     * 
+     * @param untagAttendeeRequest
+     * @return A Java Future containing the result of the UntagAttendee operation returned by the service.
+     * @sample AmazonChimeAsync.UntagAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UntagAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UntagAttendeeResult> untagAttendeeAsync(UntagAttendeeRequest untagAttendeeRequest);
+
+    /**
+     * <p>
+     * Untags the specified tags from the specified Amazon Chime SDK attendee.
+     * </p>
+     * <important>
+     * <p>
+     * UntagAttendee is not supported in the Amazon Chime SDK Meetings Namespace. Update your application to remove
+     * calls to this API.
+     * </p>
+     * </important>
+     * 
+     * @param untagAttendeeRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UntagAttendee operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.UntagAttendee
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UntagAttendee" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UntagAttendeeResult> untagAttendeeAsync(UntagAttendeeRequest untagAttendeeRequest,
+            com.amazonaws.handlers.AsyncHandler<UntagAttendeeRequest, UntagAttendeeResult> asyncHandler);
+
+    /**
+     * <p>
+     * Untags the specified tags from the specified Amazon Chime SDK meeting.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_UntagResource.html">UntagResource
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param untagMeetingRequest
+     * @return A Java Future containing the result of the UntagMeeting operation returned by the service.
+     * @sample AmazonChimeAsync.UntagMeeting
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UntagMeeting" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UntagMeetingResult> untagMeetingAsync(UntagMeetingRequest untagMeetingRequest);
+
+    /**
+     * <p>
+     * Untags the specified tags from the specified Amazon Chime SDK meeting.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_UntagResource.html">UntagResource
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param untagMeetingRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UntagMeeting operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.UntagMeeting
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UntagMeeting" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UntagMeetingResult> untagMeetingAsync(UntagMeetingRequest untagMeetingRequest,
+            com.amazonaws.handlers.AsyncHandler<UntagMeetingRequest, UntagMeetingResult> asyncHandler);
+
+    /**
+     * <p>
+     * Untags the specified tags from the specified Amazon Chime SDK meeting resource.
+     * </p>
+     * <p>
+     * Applies the specified tags to the specified Amazon Chime SDK meeting resource.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_UntagResource.html">UntagResource
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param untagResourceRequest
+     * @return A Java Future containing the result of the UntagResource operation returned by the service.
+     * @sample AmazonChimeAsync.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest untagResourceRequest);
+
+    /**
+     * <p>
+     * Untags the specified tags from the specified Amazon Chime SDK meeting resource.
+     * </p>
+     * <p>
+     * Applies the specified tags to the specified Amazon Chime SDK meeting resource.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_UntagResource.html">UntagResource
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param untagResourceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UntagResource operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest untagResourceRequest,
+            com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates account details for the specified Amazon Chime account. Currently, only account name and default license
+     * updates are supported for this action.
      * </p>
      * 
      * @param updateAccountRequest
@@ -1855,8 +9622,8 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Updates account details for the specified Amazon Chime account. Currently, only account name updates are
-     * supported for this action.
+     * Updates account details for the specified Amazon Chime account. Currently, only account name and default license
+     * updates are supported for this action.
      * </p>
      * 
      * @param updateAccountRequest
@@ -1911,6 +9678,120 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
+     * Updates <code>AppInstance</code> metadata.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_UpdateAppInstance.html">
+     * UpdateAppInstance</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateAppInstanceRequest
+     * @return A Java Future containing the result of the UpdateAppInstance operation returned by the service.
+     * @sample AmazonChimeAsync.UpdateAppInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateAppInstance" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateAppInstanceResult> updateAppInstanceAsync(UpdateAppInstanceRequest updateAppInstanceRequest);
+
+    /**
+     * <p>
+     * Updates <code>AppInstance</code> metadata.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_UpdateAppInstance.html">
+     * UpdateAppInstance</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateAppInstanceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateAppInstance operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.UpdateAppInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateAppInstance" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateAppInstanceResult> updateAppInstanceAsync(UpdateAppInstanceRequest updateAppInstanceRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateAppInstanceRequest, UpdateAppInstanceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the details of an <code>AppInstanceUser</code>. You can update names and metadata.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_UpdateAppInstanceUser.html">
+     * UpdateAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateAppInstanceUserRequest
+     * @return A Java Future containing the result of the UpdateAppInstanceUser operation returned by the service.
+     * @sample AmazonChimeAsync.UpdateAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateAppInstanceUser" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateAppInstanceUserResult> updateAppInstanceUserAsync(UpdateAppInstanceUserRequest updateAppInstanceUserRequest);
+
+    /**
+     * <p>
+     * Updates the details of an <code>AppInstanceUser</code>. You can update names and metadata.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_identity-chime_UpdateAppInstanceUser.html">
+     * UpdateAppInstanceUser</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateAppInstanceUserRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateAppInstanceUser operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.UpdateAppInstanceUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateAppInstanceUser" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateAppInstanceUserResult> updateAppInstanceUserAsync(UpdateAppInstanceUserRequest updateAppInstanceUserRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateAppInstanceUserRequest, UpdateAppInstanceUserResult> asyncHandler);
+
+    /**
+     * <p>
      * Updates the status of the specified bot, such as starting or stopping the bot from running in your Amazon Chime
      * Enterprise account.
      * </p>
@@ -1941,6 +9822,217 @@ public interface AmazonChimeAsync extends AmazonChime {
      */
     java.util.concurrent.Future<UpdateBotResult> updateBotAsync(UpdateBotRequest updateBotRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateBotRequest, UpdateBotResult> asyncHandler);
+
+    /**
+     * <p>
+     * Update a channel's attributes.
+     * </p>
+     * <p>
+     * <b>Restriction</b>: You can't change a channel's privacy.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_UpdateChannel.html">UpdateChannel
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateChannelRequest
+     * @return A Java Future containing the result of the UpdateChannel operation returned by the service.
+     * @sample AmazonChimeAsync.UpdateChannel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateChannel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateChannelResult> updateChannelAsync(UpdateChannelRequest updateChannelRequest);
+
+    /**
+     * <p>
+     * Update a channel's attributes.
+     * </p>
+     * <p>
+     * <b>Restriction</b>: You can't change a channel's privacy.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_UpdateChannel.html">UpdateChannel
+     * </a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateChannelRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateChannel operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.UpdateChannel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateChannel" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateChannelResult> updateChannelAsync(UpdateChannelRequest updateChannelRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateChannelRequest, UpdateChannelResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the content of a message.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_UpdateChannelMessage.html">
+     * UpdateChannelMessage</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateChannelMessageRequest
+     * @return A Java Future containing the result of the UpdateChannelMessage operation returned by the service.
+     * @sample AmazonChimeAsync.UpdateChannelMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateChannelMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateChannelMessageResult> updateChannelMessageAsync(UpdateChannelMessageRequest updateChannelMessageRequest);
+
+    /**
+     * <p>
+     * Updates the content of a message.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_UpdateChannelMessage.html">
+     * UpdateChannelMessage</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateChannelMessageRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateChannelMessage operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.UpdateChannelMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateChannelMessage" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateChannelMessageResult> updateChannelMessageAsync(UpdateChannelMessageRequest updateChannelMessageRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateChannelMessageRequest, UpdateChannelMessageResult> asyncHandler);
+
+    /**
+     * <p>
+     * The details of the time when a user last read messages in a channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_UpdateChannelReadMarker.html">
+     * UpdateChannelReadMarker</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateChannelReadMarkerRequest
+     * @return A Java Future containing the result of the UpdateChannelReadMarker operation returned by the service.
+     * @sample AmazonChimeAsync.UpdateChannelReadMarker
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateChannelReadMarker" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateChannelReadMarkerResult> updateChannelReadMarkerAsync(UpdateChannelReadMarkerRequest updateChannelReadMarkerRequest);
+
+    /**
+     * <p>
+     * The details of the time when a user last read messages in a channel.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>x-amz-chime-bearer</code> request header is mandatory. Use the <code>AppInstanceUserArn</code> of the
+     * user that makes the API call as the value in the header.
+     * </p>
+     * </note> <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_messaging-chime_UpdateChannelReadMarker.html">
+     * UpdateChannelReadMarker</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateChannelReadMarkerRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateChannelReadMarker operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.UpdateChannelReadMarker
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateChannelReadMarker" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateChannelReadMarkerResult> updateChannelReadMarkerAsync(UpdateChannelReadMarkerRequest updateChannelReadMarkerRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateChannelReadMarkerRequest, UpdateChannelReadMarkerResult> asyncHandler);
 
     /**
      * <p>
@@ -1977,8 +10069,17 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Updates phone number details, such as product type, for the specified phone number ID. For toll-free numbers, you
-     * can use only the Amazon Chime Voice Connector product type.
+     * Updates phone number details, such as product type or calling name, for the specified phone number ID. You can
+     * update one phone number detail at a time. For example, you can update either the product type or the calling name
+     * in one action.
+     * </p>
+     * <p>
+     * For toll-free numbers, you cannot use the Amazon Chime Business Calling product type. For numbers outside the
+     * U.S., you must use the Amazon Chime SIP Media Application Dial-In product type.
+     * </p>
+     * <p>
+     * Updates to outbound calling names can take 72 hours to complete. Pending updates to outbound calling names must
+     * be complete before you can request another update.
      * </p>
      * 
      * @param updatePhoneNumberRequest
@@ -1991,8 +10092,17 @@ public interface AmazonChimeAsync extends AmazonChime {
 
     /**
      * <p>
-     * Updates phone number details, such as product type, for the specified phone number ID. For toll-free numbers, you
-     * can use only the Amazon Chime Voice Connector product type.
+     * Updates phone number details, such as product type or calling name, for the specified phone number ID. You can
+     * update one phone number detail at a time. For example, you can update either the product type or the calling name
+     * in one action.
+     * </p>
+     * <p>
+     * For toll-free numbers, you cannot use the Amazon Chime Business Calling product type. For numbers outside the
+     * U.S., you must use the Amazon Chime SIP Media Application Dial-In product type.
+     * </p>
+     * <p>
+     * Updates to outbound calling names can take 72 hours to complete. Pending updates to outbound calling names must
+     * be complete before you can request another update.
      * </p>
      * 
      * @param updatePhoneNumberRequest
@@ -2007,6 +10117,349 @@ public interface AmazonChimeAsync extends AmazonChime {
      */
     java.util.concurrent.Future<UpdatePhoneNumberResult> updatePhoneNumberAsync(UpdatePhoneNumberRequest updatePhoneNumberRequest,
             com.amazonaws.handlers.AsyncHandler<UpdatePhoneNumberRequest, UpdatePhoneNumberResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the phone number settings for the administrator's AWS account, such as the default outbound calling name.
+     * You can update the default outbound calling name once every seven days. Outbound calling names can take up to 72
+     * hours to update.
+     * </p>
+     * 
+     * @param updatePhoneNumberSettingsRequest
+     * @return A Java Future containing the result of the UpdatePhoneNumberSettings operation returned by the service.
+     * @sample AmazonChimeAsync.UpdatePhoneNumberSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdatePhoneNumberSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdatePhoneNumberSettingsResult> updatePhoneNumberSettingsAsync(
+            UpdatePhoneNumberSettingsRequest updatePhoneNumberSettingsRequest);
+
+    /**
+     * <p>
+     * Updates the phone number settings for the administrator's AWS account, such as the default outbound calling name.
+     * You can update the default outbound calling name once every seven days. Outbound calling names can take up to 72
+     * hours to update.
+     * </p>
+     * 
+     * @param updatePhoneNumberSettingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdatePhoneNumberSettings operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.UpdatePhoneNumberSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdatePhoneNumberSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdatePhoneNumberSettingsResult> updatePhoneNumberSettingsAsync(
+            UpdatePhoneNumberSettingsRequest updatePhoneNumberSettingsRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdatePhoneNumberSettingsRequest, UpdatePhoneNumberSettingsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the specified proxy session details, such as voice or SMS capabilities.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateProxySession.html">
+     * UpdateProxySession</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateProxySessionRequest
+     * @return A Java Future containing the result of the UpdateProxySession operation returned by the service.
+     * @sample AmazonChimeAsync.UpdateProxySession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateProxySession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateProxySessionResult> updateProxySessionAsync(UpdateProxySessionRequest updateProxySessionRequest);
+
+    /**
+     * <p>
+     * Updates the specified proxy session details, such as voice or SMS capabilities.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateProxySession.html">
+     * UpdateProxySession</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateProxySessionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateProxySession operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.UpdateProxySession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateProxySession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateProxySessionResult> updateProxySessionAsync(UpdateProxySessionRequest updateProxySessionRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateProxySessionRequest, UpdateProxySessionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates room details, such as the room name, for a room in an Amazon Chime Enterprise account.
+     * </p>
+     * 
+     * @param updateRoomRequest
+     * @return A Java Future containing the result of the UpdateRoom operation returned by the service.
+     * @sample AmazonChimeAsync.UpdateRoom
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateRoom" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateRoomResult> updateRoomAsync(UpdateRoomRequest updateRoomRequest);
+
+    /**
+     * <p>
+     * Updates room details, such as the room name, for a room in an Amazon Chime Enterprise account.
+     * </p>
+     * 
+     * @param updateRoomRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateRoom operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.UpdateRoom
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateRoom" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateRoomResult> updateRoomAsync(UpdateRoomRequest updateRoomRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateRoomRequest, UpdateRoomResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates room membership details, such as the member role, for a room in an Amazon Chime Enterprise account. The
+     * member role designates whether the member is a chat room administrator or a general chat room member. The member
+     * role can be updated only for user IDs.
+     * </p>
+     * 
+     * @param updateRoomMembershipRequest
+     * @return A Java Future containing the result of the UpdateRoomMembership operation returned by the service.
+     * @sample AmazonChimeAsync.UpdateRoomMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateRoomMembership" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateRoomMembershipResult> updateRoomMembershipAsync(UpdateRoomMembershipRequest updateRoomMembershipRequest);
+
+    /**
+     * <p>
+     * Updates room membership details, such as the member role, for a room in an Amazon Chime Enterprise account. The
+     * member role designates whether the member is a chat room administrator or a general chat room member. The member
+     * role can be updated only for user IDs.
+     * </p>
+     * 
+     * @param updateRoomMembershipRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateRoomMembership operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.UpdateRoomMembership
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateRoomMembership" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateRoomMembershipResult> updateRoomMembershipAsync(UpdateRoomMembershipRequest updateRoomMembershipRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateRoomMembershipRequest, UpdateRoomMembershipResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the details of the specified SIP media application.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateSipMediaApplication.html">
+     * UpdateSipMediaApplication</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateSipMediaApplicationRequest
+     * @return A Java Future containing the result of the UpdateSipMediaApplication operation returned by the service.
+     * @sample AmazonChimeAsync.UpdateSipMediaApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateSipMediaApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateSipMediaApplicationResult> updateSipMediaApplicationAsync(
+            UpdateSipMediaApplicationRequest updateSipMediaApplicationRequest);
+
+    /**
+     * <p>
+     * Updates the details of the specified SIP media application.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateSipMediaApplication.html">
+     * UpdateSipMediaApplication</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateSipMediaApplicationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateSipMediaApplication operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.UpdateSipMediaApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateSipMediaApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateSipMediaApplicationResult> updateSipMediaApplicationAsync(
+            UpdateSipMediaApplicationRequest updateSipMediaApplicationRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateSipMediaApplicationRequest, UpdateSipMediaApplicationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Invokes the AWS Lambda function associated with the SIP media application and transaction ID in an update
+     * request. The Lambda function can then return a new set of actions.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateSipMediaApplicationCall.html"
+     * >UpdateSipMediaApplicationCall</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateSipMediaApplicationCallRequest
+     * @return A Java Future containing the result of the UpdateSipMediaApplicationCall operation returned by the
+     *         service.
+     * @sample AmazonChimeAsync.UpdateSipMediaApplicationCall
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateSipMediaApplicationCall"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateSipMediaApplicationCallResult> updateSipMediaApplicationCallAsync(
+            UpdateSipMediaApplicationCallRequest updateSipMediaApplicationCallRequest);
+
+    /**
+     * <p>
+     * Invokes the AWS Lambda function associated with the SIP media application and transaction ID in an update
+     * request. The Lambda function can then return a new set of actions.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateSipMediaApplicationCall.html"
+     * >UpdateSipMediaApplicationCall</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateSipMediaApplicationCallRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateSipMediaApplicationCall operation returned by the
+     *         service.
+     * @sample AmazonChimeAsyncHandler.UpdateSipMediaApplicationCall
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateSipMediaApplicationCall"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateSipMediaApplicationCallResult> updateSipMediaApplicationCallAsync(
+            UpdateSipMediaApplicationCallRequest updateSipMediaApplicationCallRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateSipMediaApplicationCallRequest, UpdateSipMediaApplicationCallResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the details of the specified SIP rule.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateSipRule.html">UpdateSipRule</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateSipRuleRequest
+     * @return A Java Future containing the result of the UpdateSipRule operation returned by the service.
+     * @sample AmazonChimeAsync.UpdateSipRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateSipRule" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateSipRuleResult> updateSipRuleAsync(UpdateSipRuleRequest updateSipRuleRequest);
+
+    /**
+     * <p>
+     * Updates the details of the specified SIP rule.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href=
+     * "https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateSipRule.html">UpdateSipRule</a>,
+     * in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateSipRuleRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateSipRule operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.UpdateSipRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateSipRule" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateSipRuleResult> updateSipRuleAsync(UpdateSipRuleRequest updateSipRuleRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateSipRuleRequest, UpdateSipRuleResult> asyncHandler);
 
     /**
      * <p>
@@ -2076,6 +10529,18 @@ public interface AmazonChimeAsync extends AmazonChime {
      * <p>
      * Updates details for the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateVoiceConnector.html">
+     * UpdateVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param updateVoiceConnectorRequest
      * @return A Java Future containing the result of the UpdateVoiceConnector operation returned by the service.
@@ -2083,12 +10548,25 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateVoiceConnector" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<UpdateVoiceConnectorResult> updateVoiceConnectorAsync(UpdateVoiceConnectorRequest updateVoiceConnectorRequest);
 
     /**
      * <p>
      * Updates details for the specified Amazon Chime Voice Connector.
      * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateVoiceConnector.html">
+     * UpdateVoiceConnector</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param updateVoiceConnectorRequest
      * @param asyncHandler
@@ -2100,7 +10578,130 @@ public interface AmazonChimeAsync extends AmazonChime {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateVoiceConnector" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<UpdateVoiceConnectorResult> updateVoiceConnectorAsync(UpdateVoiceConnectorRequest updateVoiceConnectorRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateVoiceConnectorRequest, UpdateVoiceConnectorResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates details of the specified Amazon Chime Voice Connector group, such as the name and Amazon Chime Voice
+     * Connector priority ranking.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateVoiceConnectorGroup.html">
+     * UpdateVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateVoiceConnectorGroupRequest
+     * @return A Java Future containing the result of the UpdateVoiceConnectorGroup operation returned by the service.
+     * @sample AmazonChimeAsync.UpdateVoiceConnectorGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateVoiceConnectorGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateVoiceConnectorGroupResult> updateVoiceConnectorGroupAsync(
+            UpdateVoiceConnectorGroupRequest updateVoiceConnectorGroupRequest);
+
+    /**
+     * <p>
+     * Updates details of the specified Amazon Chime Voice Connector group, such as the name and Amazon Chime Voice
+     * Connector priority ranking.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_UpdateVoiceConnectorGroup.html">
+     * UpdateVoiceConnectorGroup</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param updateVoiceConnectorGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateVoiceConnectorGroup operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.UpdateVoiceConnectorGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/UpdateVoiceConnectorGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<UpdateVoiceConnectorGroupResult> updateVoiceConnectorGroupAsync(
+            UpdateVoiceConnectorGroupRequest updateVoiceConnectorGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateVoiceConnectorGroupRequest, UpdateVoiceConnectorGroupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Validates an address to be used for 911 calls made with Amazon Chime Voice Connectors. You can use validated
+     * addresses in a Presence Information Data Format Location Object file that you include in SIP requests. That helps
+     * ensure that addresses are routed to the appropriate Public Safety Answering Point.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ValidateE911Address.html">
+     * ValidateE911Address</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param validateE911AddressRequest
+     * @return A Java Future containing the result of the ValidateE911Address operation returned by the service.
+     * @sample AmazonChimeAsync.ValidateE911Address
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ValidateE911Address" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ValidateE911AddressResult> validateE911AddressAsync(ValidateE911AddressRequest validateE911AddressRequest);
+
+    /**
+     * <p>
+     * Validates an address to be used for 911 calls made with Amazon Chime Voice Connectors. You can use validated
+     * addresses in a Presence Information Data Format Location Object file that you include in SIP requests. That helps
+     * ensure that addresses are routed to the appropriate Public Safety Answering Point.
+     * </p>
+     * <important>
+     * <p>
+     * <b>This API is is no longer supported and will not be updated.</b> We recommend using the latest version, <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_voice-chime_ValidateE911Address.html">
+     * ValidateE911Address</a>, in the Amazon Chime SDK.
+     * </p>
+     * <p>
+     * Using the latest version requires migrating to a dedicated namespace. For more information, refer to <a
+     * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+     * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param validateE911AddressRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ValidateE911Address operation returned by the service.
+     * @sample AmazonChimeAsyncHandler.ValidateE911Address
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/ValidateE911Address" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Deprecated
+    java.util.concurrent.Future<ValidateE911AddressResult> validateE911AddressAsync(ValidateE911AddressRequest validateE911AddressRequest,
+            com.amazonaws.handlers.AsyncHandler<ValidateE911AddressRequest, ValidateE911AddressResult> asyncHandler);
 
 }

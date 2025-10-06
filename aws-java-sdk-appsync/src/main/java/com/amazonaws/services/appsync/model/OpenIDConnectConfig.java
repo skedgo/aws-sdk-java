@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes an OpenID Connect configuration.
+ * Describes an OpenID Connect (OIDC) configuration.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/OpenIDConnectConfig" target="_top">AWS API
@@ -30,41 +30,41 @@ public class OpenIDConnectConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The issuer for the OpenID Connect configuration. The issuer returned by discovery must exactly match the value of
+     * The issuer for the OIDC configuration. The issuer returned by discovery must exactly match the value of
      * <code>iss</code> in the ID token.
      * </p>
      */
     private String issuer;
     /**
      * <p>
-     * The client identifier of the Relying party at the OpenID identity provider. This identifier is typically obtained
-     * when the Relying party is registered with the OpenID identity provider. You can specify a regular expression so
-     * the AWS AppSync can validate against multiple client identifiers at a time.
+     * The client identifier of the relying party at the OpenID identity provider. This identifier is typically obtained
+     * when the relying party is registered with the OpenID identity provider. You can specify a regular expression so
+     * that AppSync can validate against multiple client identifiers at a time.
      * </p>
      */
     private String clientId;
     /**
      * <p>
-     * The number of milliseconds a token is valid after being issued to a user.
+     * The number of milliseconds that a token is valid after it's issued to a user.
      * </p>
      */
     private Long iatTTL;
     /**
      * <p>
-     * The number of milliseconds a token is valid after being authenticated.
+     * The number of milliseconds that a token is valid after being authenticated.
      * </p>
      */
     private Long authTTL;
 
     /**
      * <p>
-     * The issuer for the OpenID Connect configuration. The issuer returned by discovery must exactly match the value of
+     * The issuer for the OIDC configuration. The issuer returned by discovery must exactly match the value of
      * <code>iss</code> in the ID token.
      * </p>
      * 
      * @param issuer
-     *        The issuer for the OpenID Connect configuration. The issuer returned by discovery must exactly match the
-     *        value of <code>iss</code> in the ID token.
+     *        The issuer for the OIDC configuration. The issuer returned by discovery must exactly match the value of
+     *        <code>iss</code> in the ID token.
      */
 
     public void setIssuer(String issuer) {
@@ -73,12 +73,12 @@ public class OpenIDConnectConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The issuer for the OpenID Connect configuration. The issuer returned by discovery must exactly match the value of
+     * The issuer for the OIDC configuration. The issuer returned by discovery must exactly match the value of
      * <code>iss</code> in the ID token.
      * </p>
      * 
-     * @return The issuer for the OpenID Connect configuration. The issuer returned by discovery must exactly match the
-     *         value of <code>iss</code> in the ID token.
+     * @return The issuer for the OIDC configuration. The issuer returned by discovery must exactly match the value of
+     *         <code>iss</code> in the ID token.
      */
 
     public String getIssuer() {
@@ -87,13 +87,13 @@ public class OpenIDConnectConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The issuer for the OpenID Connect configuration. The issuer returned by discovery must exactly match the value of
+     * The issuer for the OIDC configuration. The issuer returned by discovery must exactly match the value of
      * <code>iss</code> in the ID token.
      * </p>
      * 
      * @param issuer
-     *        The issuer for the OpenID Connect configuration. The issuer returned by discovery must exactly match the
-     *        value of <code>iss</code> in the ID token.
+     *        The issuer for the OIDC configuration. The issuer returned by discovery must exactly match the value of
+     *        <code>iss</code> in the ID token.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -104,15 +104,15 @@ public class OpenIDConnectConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The client identifier of the Relying party at the OpenID identity provider. This identifier is typically obtained
-     * when the Relying party is registered with the OpenID identity provider. You can specify a regular expression so
-     * the AWS AppSync can validate against multiple client identifiers at a time.
+     * The client identifier of the relying party at the OpenID identity provider. This identifier is typically obtained
+     * when the relying party is registered with the OpenID identity provider. You can specify a regular expression so
+     * that AppSync can validate against multiple client identifiers at a time.
      * </p>
      * 
      * @param clientId
-     *        The client identifier of the Relying party at the OpenID identity provider. This identifier is typically
-     *        obtained when the Relying party is registered with the OpenID identity provider. You can specify a regular
-     *        expression so the AWS AppSync can validate against multiple client identifiers at a time.
+     *        The client identifier of the relying party at the OpenID identity provider. This identifier is typically
+     *        obtained when the relying party is registered with the OpenID identity provider. You can specify a regular
+     *        expression so that AppSync can validate against multiple client identifiers at a time.
      */
 
     public void setClientId(String clientId) {
@@ -121,14 +121,14 @@ public class OpenIDConnectConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The client identifier of the Relying party at the OpenID identity provider. This identifier is typically obtained
-     * when the Relying party is registered with the OpenID identity provider. You can specify a regular expression so
-     * the AWS AppSync can validate against multiple client identifiers at a time.
+     * The client identifier of the relying party at the OpenID identity provider. This identifier is typically obtained
+     * when the relying party is registered with the OpenID identity provider. You can specify a regular expression so
+     * that AppSync can validate against multiple client identifiers at a time.
      * </p>
      * 
-     * @return The client identifier of the Relying party at the OpenID identity provider. This identifier is typically
-     *         obtained when the Relying party is registered with the OpenID identity provider. You can specify a
-     *         regular expression so the AWS AppSync can validate against multiple client identifiers at a time.
+     * @return The client identifier of the relying party at the OpenID identity provider. This identifier is typically
+     *         obtained when the relying party is registered with the OpenID identity provider. You can specify a
+     *         regular expression so that AppSync can validate against multiple client identifiers at a time.
      */
 
     public String getClientId() {
@@ -137,15 +137,15 @@ public class OpenIDConnectConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The client identifier of the Relying party at the OpenID identity provider. This identifier is typically obtained
-     * when the Relying party is registered with the OpenID identity provider. You can specify a regular expression so
-     * the AWS AppSync can validate against multiple client identifiers at a time.
+     * The client identifier of the relying party at the OpenID identity provider. This identifier is typically obtained
+     * when the relying party is registered with the OpenID identity provider. You can specify a regular expression so
+     * that AppSync can validate against multiple client identifiers at a time.
      * </p>
      * 
      * @param clientId
-     *        The client identifier of the Relying party at the OpenID identity provider. This identifier is typically
-     *        obtained when the Relying party is registered with the OpenID identity provider. You can specify a regular
-     *        expression so the AWS AppSync can validate against multiple client identifiers at a time.
+     *        The client identifier of the relying party at the OpenID identity provider. This identifier is typically
+     *        obtained when the relying party is registered with the OpenID identity provider. You can specify a regular
+     *        expression so that AppSync can validate against multiple client identifiers at a time.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -156,11 +156,11 @@ public class OpenIDConnectConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The number of milliseconds a token is valid after being issued to a user.
+     * The number of milliseconds that a token is valid after it's issued to a user.
      * </p>
      * 
      * @param iatTTL
-     *        The number of milliseconds a token is valid after being issued to a user.
+     *        The number of milliseconds that a token is valid after it's issued to a user.
      */
 
     public void setIatTTL(Long iatTTL) {
@@ -169,10 +169,10 @@ public class OpenIDConnectConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The number of milliseconds a token is valid after being issued to a user.
+     * The number of milliseconds that a token is valid after it's issued to a user.
      * </p>
      * 
-     * @return The number of milliseconds a token is valid after being issued to a user.
+     * @return The number of milliseconds that a token is valid after it's issued to a user.
      */
 
     public Long getIatTTL() {
@@ -181,11 +181,11 @@ public class OpenIDConnectConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The number of milliseconds a token is valid after being issued to a user.
+     * The number of milliseconds that a token is valid after it's issued to a user.
      * </p>
      * 
      * @param iatTTL
-     *        The number of milliseconds a token is valid after being issued to a user.
+     *        The number of milliseconds that a token is valid after it's issued to a user.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -196,11 +196,11 @@ public class OpenIDConnectConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The number of milliseconds a token is valid after being authenticated.
+     * The number of milliseconds that a token is valid after being authenticated.
      * </p>
      * 
      * @param authTTL
-     *        The number of milliseconds a token is valid after being authenticated.
+     *        The number of milliseconds that a token is valid after being authenticated.
      */
 
     public void setAuthTTL(Long authTTL) {
@@ -209,10 +209,10 @@ public class OpenIDConnectConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The number of milliseconds a token is valid after being authenticated.
+     * The number of milliseconds that a token is valid after being authenticated.
      * </p>
      * 
-     * @return The number of milliseconds a token is valid after being authenticated.
+     * @return The number of milliseconds that a token is valid after being authenticated.
      */
 
     public Long getAuthTTL() {
@@ -221,11 +221,11 @@ public class OpenIDConnectConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The number of milliseconds a token is valid after being authenticated.
+     * The number of milliseconds that a token is valid after being authenticated.
      * </p>
      * 
      * @param authTTL
-     *        The number of milliseconds a token is valid after being authenticated.
+     *        The number of milliseconds that a token is valid after being authenticated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

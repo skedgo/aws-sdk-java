@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@ package com.amazonaws.services.s3.model;
 import java.io.Serializable;
 
 import com.amazonaws.AmazonWebServiceRequest;
+import com.amazonaws.services.s3.TargetObjectKeyFormat;
 
 /**
  * <p>
@@ -47,7 +48,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  * 
  * @see SetBucketLoggingConfigurationRequest#SetBucketLoggingConfigurationRequest(String, BucketLoggingConfiguration)
  */
-public class SetBucketLoggingConfigurationRequest extends AmazonWebServiceRequest implements Serializable {
+public class SetBucketLoggingConfigurationRequest extends AmazonWebServiceRequest implements Serializable, ExpectedBucketOwnerRequest {
 
     /**
      * The name of the bucket whose logging configuration is being set.
@@ -59,12 +60,15 @@ public class SetBucketLoggingConfigurationRequest extends AmazonWebServiceReques
      */
     private BucketLoggingConfiguration loggingConfiguration;
 
-    
+    private String expectedBucketOwner;
+
+    private TargetObjectKeyFormat targetObjectKeyFormat;
+
     /**
-     * Constructs a new {@link SetBucketLoggingConfigurationRequest} 
+     * Constructs a new {@link SetBucketLoggingConfigurationRequest}
      * to set the bucket logging configuration of
      * the specified bucket.
-     * 
+     *
      * @param bucketName
      *            The name of the bucket whose logging configuration is being
      *            set.
@@ -74,6 +78,20 @@ public class SetBucketLoggingConfigurationRequest extends AmazonWebServiceReques
     public SetBucketLoggingConfigurationRequest(String bucketName, BucketLoggingConfiguration loggingConfiguration) {
         this.bucketName = bucketName;
         this.loggingConfiguration = loggingConfiguration;
+        this.targetObjectKeyFormat = loggingConfiguration.getTargetObjectKeyFormat();
+    }
+
+    public String getExpectedBucketOwner() {
+        return expectedBucketOwner;
+    }
+
+    public SetBucketLoggingConfigurationRequest withExpectedBucketOwner(String expectedBucketOwner) {
+        this.expectedBucketOwner = expectedBucketOwner;
+        return this;
+    }
+
+    public void setExpectedBucketOwner(String expectedBucketOwner) {
+        withExpectedBucketOwner(expectedBucketOwner);
     }
 
     /**
@@ -166,4 +184,31 @@ public class SetBucketLoggingConfigurationRequest extends AmazonWebServiceReques
         return this;
     }
 
+    /**
+     * Returns the {@link TargetObjectKeyFormat} for this logging configuration request.
+     *
+     * @return The {@link TargetObjectKeyFormat} for this logging configuration request.
+     */
+    public TargetObjectKeyFormat getTargetObjectKeyFormat() {
+        return targetObjectKeyFormat;
+    }
+
+    /**
+     * Sets the {@link TargetObjectKeyFormat} for this logging configuration request.
+     *
+     * @param targetObjectKeyFormat The {@link TargetObjectKeyFormat} for this logging configuration request.
+     */
+    public void setTargetObjectKeyFormat(TargetObjectKeyFormat targetObjectKeyFormat) {
+        this.targetObjectKeyFormat = targetObjectKeyFormat;
+    }
+
+    /**
+     * Sets the {@link TargetObjectKeyFormat} for this logging configuration request and returns this object for method chaining.
+     *
+     * @param targetObjectKeyFormat The {@link TargetObjectKeyFormat} for this logging configuration request.
+     */
+    public SetBucketLoggingConfigurationRequest withTargetObjectKeyFormat(TargetObjectKeyFormat targetObjectKeyFormat) {
+        setTargetObjectKeyFormat(targetObjectKeyFormat);
+        return this;
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,37 @@ import com.amazonaws.services.robomaker.model.*;
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public interface AWSRoboMakerAsync extends AWSRoboMaker {
+
+    /**
+     * <p>
+     * Deletes one or more worlds in a batch operation.
+     * </p>
+     * 
+     * @param batchDeleteWorldsRequest
+     * @return A Java Future containing the result of the BatchDeleteWorlds operation returned by the service.
+     * @sample AWSRoboMakerAsync.BatchDeleteWorlds
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/BatchDeleteWorlds" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<BatchDeleteWorldsResult> batchDeleteWorldsAsync(BatchDeleteWorldsRequest batchDeleteWorldsRequest);
+
+    /**
+     * <p>
+     * Deletes one or more worlds in a batch operation.
+     * </p>
+     * 
+     * @param batchDeleteWorldsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the BatchDeleteWorlds operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.BatchDeleteWorlds
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/BatchDeleteWorlds" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<BatchDeleteWorldsResult> batchDeleteWorldsAsync(BatchDeleteWorldsRequest batchDeleteWorldsRequest,
+            com.amazonaws.handlers.AsyncHandler<BatchDeleteWorldsRequest, BatchDeleteWorldsResult> asyncHandler);
 
     /**
      * <p>
@@ -69,6 +100,12 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * <p>
      * Cancels the specified deployment job.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param cancelDeploymentJobRequest
      * @return A Java Future containing the result of the CancelDeploymentJob operation returned by the service.
@@ -76,12 +113,19 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CancelDeploymentJob" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<CancelDeploymentJobResult> cancelDeploymentJobAsync(CancelDeploymentJobRequest cancelDeploymentJobRequest);
 
     /**
      * <p>
      * Cancels the specified deployment job.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param cancelDeploymentJobRequest
      * @param asyncHandler
@@ -93,6 +137,7 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CancelDeploymentJob" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<CancelDeploymentJobResult> cancelDeploymentJobAsync(CancelDeploymentJobRequest cancelDeploymentJobRequest,
             com.amazonaws.handlers.AsyncHandler<CancelDeploymentJobRequest, CancelDeploymentJobResult> asyncHandler);
 
@@ -129,8 +174,108 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
 
     /**
      * <p>
+     * Cancels a simulation job batch. When you cancel a simulation job batch, you are also cancelling all of the active
+     * simulation jobs created as part of the batch.
+     * </p>
+     * 
+     * @param cancelSimulationJobBatchRequest
+     * @return A Java Future containing the result of the CancelSimulationJobBatch operation returned by the service.
+     * @sample AWSRoboMakerAsync.CancelSimulationJobBatch
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CancelSimulationJobBatch"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CancelSimulationJobBatchResult> cancelSimulationJobBatchAsync(CancelSimulationJobBatchRequest cancelSimulationJobBatchRequest);
+
+    /**
+     * <p>
+     * Cancels a simulation job batch. When you cancel a simulation job batch, you are also cancelling all of the active
+     * simulation jobs created as part of the batch.
+     * </p>
+     * 
+     * @param cancelSimulationJobBatchRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CancelSimulationJobBatch operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.CancelSimulationJobBatch
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CancelSimulationJobBatch"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CancelSimulationJobBatchResult> cancelSimulationJobBatchAsync(CancelSimulationJobBatchRequest cancelSimulationJobBatchRequest,
+            com.amazonaws.handlers.AsyncHandler<CancelSimulationJobBatchRequest, CancelSimulationJobBatchResult> asyncHandler);
+
+    /**
+     * <p>
+     * Cancels the specified export job.
+     * </p>
+     * 
+     * @param cancelWorldExportJobRequest
+     * @return A Java Future containing the result of the CancelWorldExportJob operation returned by the service.
+     * @sample AWSRoboMakerAsync.CancelWorldExportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CancelWorldExportJob" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CancelWorldExportJobResult> cancelWorldExportJobAsync(CancelWorldExportJobRequest cancelWorldExportJobRequest);
+
+    /**
+     * <p>
+     * Cancels the specified export job.
+     * </p>
+     * 
+     * @param cancelWorldExportJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CancelWorldExportJob operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.CancelWorldExportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CancelWorldExportJob" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CancelWorldExportJobResult> cancelWorldExportJobAsync(CancelWorldExportJobRequest cancelWorldExportJobRequest,
+            com.amazonaws.handlers.AsyncHandler<CancelWorldExportJobRequest, CancelWorldExportJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Cancels the specified world generator job.
+     * </p>
+     * 
+     * @param cancelWorldGenerationJobRequest
+     * @return A Java Future containing the result of the CancelWorldGenerationJob operation returned by the service.
+     * @sample AWSRoboMakerAsync.CancelWorldGenerationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CancelWorldGenerationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CancelWorldGenerationJobResult> cancelWorldGenerationJobAsync(CancelWorldGenerationJobRequest cancelWorldGenerationJobRequest);
+
+    /**
+     * <p>
+     * Cancels the specified world generator job.
+     * </p>
+     * 
+     * @param cancelWorldGenerationJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CancelWorldGenerationJob operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.CancelWorldGenerationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CancelWorldGenerationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CancelWorldGenerationJobResult> cancelWorldGenerationJobAsync(CancelWorldGenerationJobRequest cancelWorldGenerationJobRequest,
+            com.amazonaws.handlers.AsyncHandler<CancelWorldGenerationJobRequest, CancelWorldGenerationJobResult> asyncHandler);
+
+    /**
+     * <p>
      * Deploys a specific version of a robot application to robots in a fleet.
      * </p>
+     * <important>
+     * <p>
+     * This API is no longer supported and will throw an error if used.
+     * </p>
+     * </important>
      * <p>
      * The robot application must have a numbered <code>applicationVersion</code> for consistency reasons. To create a
      * new version, use <code>CreateRobotApplicationVersion</code> or see <a
@@ -149,12 +294,18 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateDeploymentJob" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<CreateDeploymentJobResult> createDeploymentJobAsync(CreateDeploymentJobRequest createDeploymentJobRequest);
 
     /**
      * <p>
      * Deploys a specific version of a robot application to robots in a fleet.
      * </p>
+     * <important>
+     * <p>
+     * This API is no longer supported and will throw an error if used.
+     * </p>
+     * </important>
      * <p>
      * The robot application must have a numbered <code>applicationVersion</code> for consistency reasons. To create a
      * new version, use <code>CreateRobotApplicationVersion</code> or see <a
@@ -177,6 +328,7 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateDeploymentJob" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<CreateDeploymentJobResult> createDeploymentJobAsync(CreateDeploymentJobRequest createDeploymentJobRequest,
             com.amazonaws.handlers.AsyncHandler<CreateDeploymentJobRequest, CreateDeploymentJobResult> asyncHandler);
 
@@ -184,6 +336,11 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * <p>
      * Creates a fleet, a logical group of robots running the same robot application.
      * </p>
+     * <important>
+     * <p>
+     * This API is no longer supported and will throw an error if used.
+     * </p>
+     * </important>
      * 
      * @param createFleetRequest
      * @return A Java Future containing the result of the CreateFleet operation returned by the service.
@@ -191,12 +348,18 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateFleet" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<CreateFleetResult> createFleetAsync(CreateFleetRequest createFleetRequest);
 
     /**
      * <p>
      * Creates a fleet, a logical group of robots running the same robot application.
      * </p>
+     * <important>
+     * <p>
+     * This API is no longer supported and will throw an error if used.
+     * </p>
+     * </important>
      * 
      * @param createFleetRequest
      * @param asyncHandler
@@ -208,6 +371,7 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateFleet" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<CreateFleetResult> createFleetAsync(CreateFleetRequest createFleetRequest,
             com.amazonaws.handlers.AsyncHandler<CreateFleetRequest, CreateFleetResult> asyncHandler);
 
@@ -215,6 +379,11 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * <p>
      * Creates a robot.
      * </p>
+     * <important>
+     * <p>
+     * This API is no longer supported and will throw an error if used.
+     * </p>
+     * </important>
      * 
      * @param createRobotRequest
      * @return A Java Future containing the result of the CreateRobot operation returned by the service.
@@ -222,12 +391,18 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateRobot" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<CreateRobotResult> createRobotAsync(CreateRobotRequest createRobotRequest);
 
     /**
      * <p>
      * Creates a robot.
      * </p>
+     * <important>
+     * <p>
+     * This API is no longer supported and will throw an error if used.
+     * </p>
+     * </important>
      * 
      * @param createRobotRequest
      * @param asyncHandler
@@ -239,6 +414,7 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateRobot" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<CreateRobotResult> createRobotAsync(CreateRobotRequest createRobotRequest,
             com.amazonaws.handlers.AsyncHandler<CreateRobotRequest, CreateRobotResult> asyncHandler);
 
@@ -419,8 +595,107 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
 
     /**
      * <p>
+     * Creates a world export job.
+     * </p>
+     * 
+     * @param createWorldExportJobRequest
+     * @return A Java Future containing the result of the CreateWorldExportJob operation returned by the service.
+     * @sample AWSRoboMakerAsync.CreateWorldExportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateWorldExportJob" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateWorldExportJobResult> createWorldExportJobAsync(CreateWorldExportJobRequest createWorldExportJobRequest);
+
+    /**
+     * <p>
+     * Creates a world export job.
+     * </p>
+     * 
+     * @param createWorldExportJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateWorldExportJob operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.CreateWorldExportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateWorldExportJob" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateWorldExportJobResult> createWorldExportJobAsync(CreateWorldExportJobRequest createWorldExportJobRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateWorldExportJobRequest, CreateWorldExportJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates worlds using the specified template.
+     * </p>
+     * 
+     * @param createWorldGenerationJobRequest
+     * @return A Java Future containing the result of the CreateWorldGenerationJob operation returned by the service.
+     * @sample AWSRoboMakerAsync.CreateWorldGenerationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateWorldGenerationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateWorldGenerationJobResult> createWorldGenerationJobAsync(CreateWorldGenerationJobRequest createWorldGenerationJobRequest);
+
+    /**
+     * <p>
+     * Creates worlds using the specified template.
+     * </p>
+     * 
+     * @param createWorldGenerationJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateWorldGenerationJob operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.CreateWorldGenerationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateWorldGenerationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateWorldGenerationJobResult> createWorldGenerationJobAsync(CreateWorldGenerationJobRequest createWorldGenerationJobRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateWorldGenerationJobRequest, CreateWorldGenerationJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a world template.
+     * </p>
+     * 
+     * @param createWorldTemplateRequest
+     * @return A Java Future containing the result of the CreateWorldTemplate operation returned by the service.
+     * @sample AWSRoboMakerAsync.CreateWorldTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateWorldTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateWorldTemplateResult> createWorldTemplateAsync(CreateWorldTemplateRequest createWorldTemplateRequest);
+
+    /**
+     * <p>
+     * Creates a world template.
+     * </p>
+     * 
+     * @param createWorldTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateWorldTemplate operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.CreateWorldTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateWorldTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateWorldTemplateResult> createWorldTemplateAsync(CreateWorldTemplateRequest createWorldTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateWorldTemplateRequest, CreateWorldTemplateResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes a fleet.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param deleteFleetRequest
      * @return A Java Future containing the result of the DeleteFleet operation returned by the service.
@@ -428,12 +703,19 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DeleteFleet" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DeleteFleetResult> deleteFleetAsync(DeleteFleetRequest deleteFleetRequest);
 
     /**
      * <p>
      * Deletes a fleet.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param deleteFleetRequest
      * @param asyncHandler
@@ -445,6 +727,7 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DeleteFleet" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DeleteFleetResult> deleteFleetAsync(DeleteFleetRequest deleteFleetRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteFleetRequest, DeleteFleetResult> asyncHandler);
 
@@ -452,6 +735,12 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * <p>
      * Deletes a robot.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param deleteRobotRequest
      * @return A Java Future containing the result of the DeleteRobot operation returned by the service.
@@ -459,12 +748,19 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DeleteRobot" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DeleteRobotResult> deleteRobotAsync(DeleteRobotRequest deleteRobotRequest);
 
     /**
      * <p>
      * Deletes a robot.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param deleteRobotRequest
      * @param asyncHandler
@@ -476,6 +772,7 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DeleteRobot" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DeleteRobotResult> deleteRobotAsync(DeleteRobotRequest deleteRobotRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteRobotRequest, DeleteRobotResult> asyncHandler);
 
@@ -545,8 +842,45 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
 
     /**
      * <p>
+     * Deletes a world template.
+     * </p>
+     * 
+     * @param deleteWorldTemplateRequest
+     * @return A Java Future containing the result of the DeleteWorldTemplate operation returned by the service.
+     * @sample AWSRoboMakerAsync.DeleteWorldTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DeleteWorldTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteWorldTemplateResult> deleteWorldTemplateAsync(DeleteWorldTemplateRequest deleteWorldTemplateRequest);
+
+    /**
+     * <p>
+     * Deletes a world template.
+     * </p>
+     * 
+     * @param deleteWorldTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteWorldTemplate operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.DeleteWorldTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DeleteWorldTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteWorldTemplateResult> deleteWorldTemplateAsync(DeleteWorldTemplateRequest deleteWorldTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteWorldTemplateRequest, DeleteWorldTemplateResult> asyncHandler);
+
+    /**
+     * <p>
      * Deregisters a robot.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param deregisterRobotRequest
      * @return A Java Future containing the result of the DeregisterRobot operation returned by the service.
@@ -554,12 +888,19 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DeregisterRobot" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DeregisterRobotResult> deregisterRobotAsync(DeregisterRobotRequest deregisterRobotRequest);
 
     /**
      * <p>
      * Deregisters a robot.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param deregisterRobotRequest
      * @param asyncHandler
@@ -571,6 +912,7 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DeregisterRobot" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DeregisterRobotResult> deregisterRobotAsync(DeregisterRobotRequest deregisterRobotRequest,
             com.amazonaws.handlers.AsyncHandler<DeregisterRobotRequest, DeregisterRobotResult> asyncHandler);
 
@@ -578,6 +920,12 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * <p>
      * Describes a deployment job.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param describeDeploymentJobRequest
      * @return A Java Future containing the result of the DescribeDeploymentJob operation returned by the service.
@@ -585,12 +933,19 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeDeploymentJob"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DescribeDeploymentJobResult> describeDeploymentJobAsync(DescribeDeploymentJobRequest describeDeploymentJobRequest);
 
     /**
      * <p>
      * Describes a deployment job.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param describeDeploymentJobRequest
      * @param asyncHandler
@@ -602,6 +957,7 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeDeploymentJob"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DescribeDeploymentJobResult> describeDeploymentJobAsync(DescribeDeploymentJobRequest describeDeploymentJobRequest,
             com.amazonaws.handlers.AsyncHandler<DescribeDeploymentJobRequest, DescribeDeploymentJobResult> asyncHandler);
 
@@ -609,6 +965,12 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * <p>
      * Describes a fleet.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param describeFleetRequest
      * @return A Java Future containing the result of the DescribeFleet operation returned by the service.
@@ -616,12 +978,19 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeFleet" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DescribeFleetResult> describeFleetAsync(DescribeFleetRequest describeFleetRequest);
 
     /**
      * <p>
      * Describes a fleet.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param describeFleetRequest
      * @param asyncHandler
@@ -633,6 +1002,7 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeFleet" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DescribeFleetResult> describeFleetAsync(DescribeFleetRequest describeFleetRequest,
             com.amazonaws.handlers.AsyncHandler<DescribeFleetRequest, DescribeFleetResult> asyncHandler);
 
@@ -640,6 +1010,12 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * <p>
      * Describes a robot.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param describeRobotRequest
      * @return A Java Future containing the result of the DescribeRobot operation returned by the service.
@@ -647,12 +1023,19 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeRobot" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DescribeRobotResult> describeRobotAsync(DescribeRobotRequest describeRobotRequest);
 
     /**
      * <p>
      * Describes a robot.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param describeRobotRequest
      * @param asyncHandler
@@ -664,6 +1047,7 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeRobot" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<DescribeRobotResult> describeRobotAsync(DescribeRobotRequest describeRobotRequest,
             com.amazonaws.handlers.AsyncHandler<DescribeRobotRequest, DescribeRobotResult> asyncHandler);
 
@@ -766,13 +1150,205 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
 
     /**
      * <p>
+     * Describes a simulation job batch.
+     * </p>
+     * 
+     * @param describeSimulationJobBatchRequest
+     * @return A Java Future containing the result of the DescribeSimulationJobBatch operation returned by the service.
+     * @sample AWSRoboMakerAsync.DescribeSimulationJobBatch
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeSimulationJobBatch"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeSimulationJobBatchResult> describeSimulationJobBatchAsync(
+            DescribeSimulationJobBatchRequest describeSimulationJobBatchRequest);
+
+    /**
+     * <p>
+     * Describes a simulation job batch.
+     * </p>
+     * 
+     * @param describeSimulationJobBatchRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeSimulationJobBatch operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.DescribeSimulationJobBatch
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeSimulationJobBatch"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeSimulationJobBatchResult> describeSimulationJobBatchAsync(
+            DescribeSimulationJobBatchRequest describeSimulationJobBatchRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeSimulationJobBatchRequest, DescribeSimulationJobBatchResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes a world.
+     * </p>
+     * 
+     * @param describeWorldRequest
+     * @return A Java Future containing the result of the DescribeWorld operation returned by the service.
+     * @sample AWSRoboMakerAsync.DescribeWorld
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeWorld" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeWorldResult> describeWorldAsync(DescribeWorldRequest describeWorldRequest);
+
+    /**
+     * <p>
+     * Describes a world.
+     * </p>
+     * 
+     * @param describeWorldRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeWorld operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.DescribeWorld
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeWorld" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeWorldResult> describeWorldAsync(DescribeWorldRequest describeWorldRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeWorldRequest, DescribeWorldResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes a world export job.
+     * </p>
+     * 
+     * @param describeWorldExportJobRequest
+     * @return A Java Future containing the result of the DescribeWorldExportJob operation returned by the service.
+     * @sample AWSRoboMakerAsync.DescribeWorldExportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeWorldExportJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeWorldExportJobResult> describeWorldExportJobAsync(DescribeWorldExportJobRequest describeWorldExportJobRequest);
+
+    /**
+     * <p>
+     * Describes a world export job.
+     * </p>
+     * 
+     * @param describeWorldExportJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeWorldExportJob operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.DescribeWorldExportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeWorldExportJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeWorldExportJobResult> describeWorldExportJobAsync(DescribeWorldExportJobRequest describeWorldExportJobRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeWorldExportJobRequest, DescribeWorldExportJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes a world generation job.
+     * </p>
+     * 
+     * @param describeWorldGenerationJobRequest
+     * @return A Java Future containing the result of the DescribeWorldGenerationJob operation returned by the service.
+     * @sample AWSRoboMakerAsync.DescribeWorldGenerationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeWorldGenerationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeWorldGenerationJobResult> describeWorldGenerationJobAsync(
+            DescribeWorldGenerationJobRequest describeWorldGenerationJobRequest);
+
+    /**
+     * <p>
+     * Describes a world generation job.
+     * </p>
+     * 
+     * @param describeWorldGenerationJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeWorldGenerationJob operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.DescribeWorldGenerationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeWorldGenerationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeWorldGenerationJobResult> describeWorldGenerationJobAsync(
+            DescribeWorldGenerationJobRequest describeWorldGenerationJobRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeWorldGenerationJobRequest, DescribeWorldGenerationJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes a world template.
+     * </p>
+     * 
+     * @param describeWorldTemplateRequest
+     * @return A Java Future containing the result of the DescribeWorldTemplate operation returned by the service.
+     * @sample AWSRoboMakerAsync.DescribeWorldTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeWorldTemplate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeWorldTemplateResult> describeWorldTemplateAsync(DescribeWorldTemplateRequest describeWorldTemplateRequest);
+
+    /**
+     * <p>
+     * Describes a world template.
+     * </p>
+     * 
+     * @param describeWorldTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeWorldTemplate operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.DescribeWorldTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeWorldTemplate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeWorldTemplateResult> describeWorldTemplateAsync(DescribeWorldTemplateRequest describeWorldTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeWorldTemplateRequest, DescribeWorldTemplateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Gets the world template body.
+     * </p>
+     * 
+     * @param getWorldTemplateBodyRequest
+     * @return A Java Future containing the result of the GetWorldTemplateBody operation returned by the service.
+     * @sample AWSRoboMakerAsync.GetWorldTemplateBody
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/GetWorldTemplateBody" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GetWorldTemplateBodyResult> getWorldTemplateBodyAsync(GetWorldTemplateBodyRequest getWorldTemplateBodyRequest);
+
+    /**
+     * <p>
+     * Gets the world template body.
+     * </p>
+     * 
+     * @param getWorldTemplateBodyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetWorldTemplateBody operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.GetWorldTemplateBody
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/GetWorldTemplateBody" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GetWorldTemplateBodyResult> getWorldTemplateBodyAsync(GetWorldTemplateBodyRequest getWorldTemplateBodyRequest,
+            com.amazonaws.handlers.AsyncHandler<GetWorldTemplateBodyRequest, GetWorldTemplateBodyResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns a list of deployment jobs for a fleet. You can optionally provide filters to retrieve specific deployment
      * jobs.
      * </p>
-     * <note>
+     * <important>
      * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
      * </p>
-     * </note>
+     * </important>
      * 
      * @param listDeploymentJobsRequest
      * @return A Java Future containing the result of the ListDeploymentJobs operation returned by the service.
@@ -780,6 +1356,7 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListDeploymentJobs" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<ListDeploymentJobsResult> listDeploymentJobsAsync(ListDeploymentJobsRequest listDeploymentJobsRequest);
 
     /**
@@ -787,10 +1364,12 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * Returns a list of deployment jobs for a fleet. You can optionally provide filters to retrieve specific deployment
      * jobs.
      * </p>
-     * <note>
+     * <important>
      * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
      * </p>
-     * </note>
+     * </important>
      * 
      * @param listDeploymentJobsRequest
      * @param asyncHandler
@@ -802,6 +1381,7 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListDeploymentJobs" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<ListDeploymentJobsResult> listDeploymentJobsAsync(ListDeploymentJobsRequest listDeploymentJobsRequest,
             com.amazonaws.handlers.AsyncHandler<ListDeploymentJobsRequest, ListDeploymentJobsResult> asyncHandler);
 
@@ -809,6 +1389,12 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * <p>
      * Returns a list of fleets. You can optionally provide filters to retrieve specific fleets.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param listFleetsRequest
      * @return A Java Future containing the result of the ListFleets operation returned by the service.
@@ -816,12 +1402,19 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListFleets" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<ListFleetsResult> listFleetsAsync(ListFleetsRequest listFleetsRequest);
 
     /**
      * <p>
      * Returns a list of fleets. You can optionally provide filters to retrieve specific fleets.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param listFleetsRequest
      * @param asyncHandler
@@ -833,6 +1426,7 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListFleets" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<ListFleetsResult> listFleetsAsync(ListFleetsRequest listFleetsRequest,
             com.amazonaws.handlers.AsyncHandler<ListFleetsRequest, ListFleetsResult> asyncHandler);
 
@@ -871,6 +1465,12 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * <p>
      * Returns a list of robots. You can optionally provide filters to retrieve specific robots.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param listRobotsRequest
      * @return A Java Future containing the result of the ListRobots operation returned by the service.
@@ -878,12 +1478,19 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListRobots" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<ListRobotsResult> listRobotsAsync(ListRobotsRequest listRobotsRequest);
 
     /**
      * <p>
      * Returns a list of robots. You can optionally provide filters to retrieve specific robots.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param listRobotsRequest
      * @param asyncHandler
@@ -895,6 +1502,7 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListRobots" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<ListRobotsResult> listRobotsAsync(ListRobotsRequest listRobotsRequest,
             com.amazonaws.handlers.AsyncHandler<ListRobotsRequest, ListRobotsResult> asyncHandler);
 
@@ -932,6 +1540,39 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
     java.util.concurrent.Future<ListSimulationApplicationsResult> listSimulationApplicationsAsync(
             ListSimulationApplicationsRequest listSimulationApplicationsRequest,
             com.amazonaws.handlers.AsyncHandler<ListSimulationApplicationsRequest, ListSimulationApplicationsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list simulation job batches. You can optionally provide filters to retrieve specific simulation batch
+     * jobs.
+     * </p>
+     * 
+     * @param listSimulationJobBatchesRequest
+     * @return A Java Future containing the result of the ListSimulationJobBatches operation returned by the service.
+     * @sample AWSRoboMakerAsync.ListSimulationJobBatches
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListSimulationJobBatches"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListSimulationJobBatchesResult> listSimulationJobBatchesAsync(ListSimulationJobBatchesRequest listSimulationJobBatchesRequest);
+
+    /**
+     * <p>
+     * Returns a list simulation job batches. You can optionally provide filters to retrieve specific simulation batch
+     * jobs.
+     * </p>
+     * 
+     * @param listSimulationJobBatchesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListSimulationJobBatches operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.ListSimulationJobBatches
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListSimulationJobBatches"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListSimulationJobBatchesResult> listSimulationJobBatchesAsync(ListSimulationJobBatchesRequest listSimulationJobBatchesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListSimulationJobBatchesRequest, ListSimulationJobBatchesResult> asyncHandler);
 
     /**
      * <p>
@@ -997,8 +1638,137 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
 
     /**
      * <p>
+     * Lists world export jobs.
+     * </p>
+     * 
+     * @param listWorldExportJobsRequest
+     * @return A Java Future containing the result of the ListWorldExportJobs operation returned by the service.
+     * @sample AWSRoboMakerAsync.ListWorldExportJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListWorldExportJobs" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListWorldExportJobsResult> listWorldExportJobsAsync(ListWorldExportJobsRequest listWorldExportJobsRequest);
+
+    /**
+     * <p>
+     * Lists world export jobs.
+     * </p>
+     * 
+     * @param listWorldExportJobsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListWorldExportJobs operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.ListWorldExportJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListWorldExportJobs" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListWorldExportJobsResult> listWorldExportJobsAsync(ListWorldExportJobsRequest listWorldExportJobsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListWorldExportJobsRequest, ListWorldExportJobsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists world generator jobs.
+     * </p>
+     * 
+     * @param listWorldGenerationJobsRequest
+     * @return A Java Future containing the result of the ListWorldGenerationJobs operation returned by the service.
+     * @sample AWSRoboMakerAsync.ListWorldGenerationJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListWorldGenerationJobs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListWorldGenerationJobsResult> listWorldGenerationJobsAsync(ListWorldGenerationJobsRequest listWorldGenerationJobsRequest);
+
+    /**
+     * <p>
+     * Lists world generator jobs.
+     * </p>
+     * 
+     * @param listWorldGenerationJobsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListWorldGenerationJobs operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.ListWorldGenerationJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListWorldGenerationJobs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListWorldGenerationJobsResult> listWorldGenerationJobsAsync(ListWorldGenerationJobsRequest listWorldGenerationJobsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListWorldGenerationJobsRequest, ListWorldGenerationJobsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists world templates.
+     * </p>
+     * 
+     * @param listWorldTemplatesRequest
+     * @return A Java Future containing the result of the ListWorldTemplates operation returned by the service.
+     * @sample AWSRoboMakerAsync.ListWorldTemplates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListWorldTemplates" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListWorldTemplatesResult> listWorldTemplatesAsync(ListWorldTemplatesRequest listWorldTemplatesRequest);
+
+    /**
+     * <p>
+     * Lists world templates.
+     * </p>
+     * 
+     * @param listWorldTemplatesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListWorldTemplates operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.ListWorldTemplates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListWorldTemplates" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListWorldTemplatesResult> listWorldTemplatesAsync(ListWorldTemplatesRequest listWorldTemplatesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListWorldTemplatesRequest, ListWorldTemplatesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists worlds.
+     * </p>
+     * 
+     * @param listWorldsRequest
+     * @return A Java Future containing the result of the ListWorlds operation returned by the service.
+     * @sample AWSRoboMakerAsync.ListWorlds
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListWorlds" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListWorldsResult> listWorldsAsync(ListWorldsRequest listWorldsRequest);
+
+    /**
+     * <p>
+     * Lists worlds.
+     * </p>
+     * 
+     * @param listWorldsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListWorlds operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.ListWorlds
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListWorlds" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListWorldsResult> listWorldsAsync(ListWorldsRequest listWorldsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListWorldsRequest, ListWorldsResult> asyncHandler);
+
+    /**
+     * <p>
      * Registers a robot with a fleet.
      * </p>
+     * <important>
+     * <p>
+     * This API is no longer supported and will throw an error if used.
+     * </p>
+     * </important>
      * 
      * @param registerRobotRequest
      * @return A Java Future containing the result of the RegisterRobot operation returned by the service.
@@ -1006,12 +1776,18 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/RegisterRobot" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<RegisterRobotResult> registerRobotAsync(RegisterRobotRequest registerRobotRequest);
 
     /**
      * <p>
      * Registers a robot with a fleet.
      * </p>
+     * <important>
+     * <p>
+     * This API is no longer supported and will throw an error if used.
+     * </p>
+     * </important>
      * 
      * @param registerRobotRequest
      * @param asyncHandler
@@ -1023,6 +1799,7 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/RegisterRobot" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<RegisterRobotResult> registerRobotAsync(RegisterRobotRequest registerRobotRequest,
             com.amazonaws.handlers.AsyncHandler<RegisterRobotRequest, RegisterRobotResult> asyncHandler);
 
@@ -1059,8 +1836,47 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
 
     /**
      * <p>
+     * Starts a new simulation job batch. The batch is defined using one or more <code>SimulationJobRequest</code>
+     * objects.
+     * </p>
+     * 
+     * @param startSimulationJobBatchRequest
+     * @return A Java Future containing the result of the StartSimulationJobBatch operation returned by the service.
+     * @sample AWSRoboMakerAsync.StartSimulationJobBatch
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/StartSimulationJobBatch"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartSimulationJobBatchResult> startSimulationJobBatchAsync(StartSimulationJobBatchRequest startSimulationJobBatchRequest);
+
+    /**
+     * <p>
+     * Starts a new simulation job batch. The batch is defined using one or more <code>SimulationJobRequest</code>
+     * objects.
+     * </p>
+     * 
+     * @param startSimulationJobBatchRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartSimulationJobBatch operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.StartSimulationJobBatch
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/StartSimulationJobBatch"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartSimulationJobBatchResult> startSimulationJobBatchAsync(StartSimulationJobBatchRequest startSimulationJobBatchRequest,
+            com.amazonaws.handlers.AsyncHandler<StartSimulationJobBatchRequest, StartSimulationJobBatchResult> asyncHandler);
+
+    /**
+     * <p>
      * Syncrhonizes robots in a fleet to the latest deployment. This is helpful if robots were added after a deployment.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param syncDeploymentJobRequest
      * @return A Java Future containing the result of the SyncDeploymentJob operation returned by the service.
@@ -1068,12 +1884,19 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/SyncDeploymentJob" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<SyncDeploymentJobResult> syncDeploymentJobAsync(SyncDeploymentJobRequest syncDeploymentJobRequest);
 
     /**
      * <p>
      * Syncrhonizes robots in a fleet to the latest deployment. This is helpful if robots were added after a deployment.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param syncDeploymentJobRequest
      * @param asyncHandler
@@ -1085,6 +1908,7 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/SyncDeploymentJob" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     java.util.concurrent.Future<SyncDeploymentJobResult> syncDeploymentJobAsync(SyncDeploymentJobRequest syncDeploymentJobRequest,
             com.amazonaws.handlers.AsyncHandler<SyncDeploymentJobRequest, SyncDeploymentJobResult> asyncHandler);
 
@@ -1239,5 +2063,36 @@ public interface AWSRoboMakerAsync extends AWSRoboMaker {
     java.util.concurrent.Future<UpdateSimulationApplicationResult> updateSimulationApplicationAsync(
             UpdateSimulationApplicationRequest updateSimulationApplicationRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateSimulationApplicationRequest, UpdateSimulationApplicationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates a world template.
+     * </p>
+     * 
+     * @param updateWorldTemplateRequest
+     * @return A Java Future containing the result of the UpdateWorldTemplate operation returned by the service.
+     * @sample AWSRoboMakerAsync.UpdateWorldTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/UpdateWorldTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateWorldTemplateResult> updateWorldTemplateAsync(UpdateWorldTemplateRequest updateWorldTemplateRequest);
+
+    /**
+     * <p>
+     * Updates a world template.
+     * </p>
+     * 
+     * @param updateWorldTemplateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateWorldTemplate operation returned by the service.
+     * @sample AWSRoboMakerAsyncHandler.UpdateWorldTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/UpdateWorldTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateWorldTemplateResult> updateWorldTemplateAsync(UpdateWorldTemplateRequest updateWorldTemplateRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateWorldTemplateRequest, UpdateWorldTemplateResult> asyncHandler);
 
 }

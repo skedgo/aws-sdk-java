@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,6 +40,8 @@ public class ClusterMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InstanceCollectionType").build();
     private static final MarshallingInfo<String> LOGURI_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("LogUri").build();
+    private static final MarshallingInfo<String> LOGENCRYPTIONKMSKEYID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LogEncryptionKmsKeyId").build();
     private static final MarshallingInfo<String> REQUESTEDAMIVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RequestedAmiVersion").build();
     private static final MarshallingInfo<String> RUNNINGAMIVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -50,6 +52,8 @@ public class ClusterMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AutoTerminate").build();
     private static final MarshallingInfo<Boolean> TERMINATIONPROTECTED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TerminationProtected").build();
+    private static final MarshallingInfo<Boolean> UNHEALTHYNODEREPLACEMENT_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("UnhealthyNodeReplacement").build();
     private static final MarshallingInfo<Boolean> VISIBLETOALLUSERS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VisibleToAllUsers").build();
     private static final MarshallingInfo<List> APPLICATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
@@ -78,6 +82,20 @@ public class ClusterMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RepoUpgradeOnBoot").build();
     private static final MarshallingInfo<StructuredPojo> KERBEROSATTRIBUTES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("KerberosAttributes").build();
+    private static final MarshallingInfo<String> CLUSTERARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ClusterArn").build();
+    private static final MarshallingInfo<String> OUTPOSTARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OutpostArn").build();
+    private static final MarshallingInfo<Integer> STEPCONCURRENCYLEVEL_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StepConcurrencyLevel").build();
+    private static final MarshallingInfo<List> PLACEMENTGROUPS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PlacementGroups").build();
+    private static final MarshallingInfo<String> OSRELEASELABEL_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OSReleaseLabel").build();
+    private static final MarshallingInfo<Integer> EBSROOTVOLUMEIOPS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EbsRootVolumeIops").build();
+    private static final MarshallingInfo<Integer> EBSROOTVOLUMETHROUGHPUT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EbsRootVolumeThroughput").build();
 
     private static final ClusterMarshaller instance = new ClusterMarshaller();
 
@@ -101,11 +119,13 @@ public class ClusterMarshaller {
             protocolMarshaller.marshall(cluster.getEc2InstanceAttributes(), EC2INSTANCEATTRIBUTES_BINDING);
             protocolMarshaller.marshall(cluster.getInstanceCollectionType(), INSTANCECOLLECTIONTYPE_BINDING);
             protocolMarshaller.marshall(cluster.getLogUri(), LOGURI_BINDING);
+            protocolMarshaller.marshall(cluster.getLogEncryptionKmsKeyId(), LOGENCRYPTIONKMSKEYID_BINDING);
             protocolMarshaller.marshall(cluster.getRequestedAmiVersion(), REQUESTEDAMIVERSION_BINDING);
             protocolMarshaller.marshall(cluster.getRunningAmiVersion(), RUNNINGAMIVERSION_BINDING);
             protocolMarshaller.marshall(cluster.getReleaseLabel(), RELEASELABEL_BINDING);
             protocolMarshaller.marshall(cluster.getAutoTerminate(), AUTOTERMINATE_BINDING);
             protocolMarshaller.marshall(cluster.getTerminationProtected(), TERMINATIONPROTECTED_BINDING);
+            protocolMarshaller.marshall(cluster.getUnhealthyNodeReplacement(), UNHEALTHYNODEREPLACEMENT_BINDING);
             protocolMarshaller.marshall(cluster.getVisibleToAllUsers(), VISIBLETOALLUSERS_BINDING);
             protocolMarshaller.marshall(cluster.getApplications(), APPLICATIONS_BINDING);
             protocolMarshaller.marshall(cluster.getTags(), TAGS_BINDING);
@@ -120,6 +140,13 @@ public class ClusterMarshaller {
             protocolMarshaller.marshall(cluster.getEbsRootVolumeSize(), EBSROOTVOLUMESIZE_BINDING);
             protocolMarshaller.marshall(cluster.getRepoUpgradeOnBoot(), REPOUPGRADEONBOOT_BINDING);
             protocolMarshaller.marshall(cluster.getKerberosAttributes(), KERBEROSATTRIBUTES_BINDING);
+            protocolMarshaller.marshall(cluster.getClusterArn(), CLUSTERARN_BINDING);
+            protocolMarshaller.marshall(cluster.getOutpostArn(), OUTPOSTARN_BINDING);
+            protocolMarshaller.marshall(cluster.getStepConcurrencyLevel(), STEPCONCURRENCYLEVEL_BINDING);
+            protocolMarshaller.marshall(cluster.getPlacementGroups(), PLACEMENTGROUPS_BINDING);
+            protocolMarshaller.marshall(cluster.getOSReleaseLabel(), OSRELEASELABEL_BINDING);
+            protocolMarshaller.marshall(cluster.getEbsRootVolumeIops(), EBSROOTVOLUMEIOPS_BINDING);
+            protocolMarshaller.marshall(cluster.getEbsRootVolumeThroughput(), EBSROOTVOLUMETHROUGHPUT_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -53,6 +53,22 @@ public class CreateAssociationBatchRequestEntryMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MaxConcurrency").build();
     private static final MarshallingInfo<String> COMPLIANCESEVERITY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ComplianceSeverity").build();
+    private static final MarshallingInfo<String> SYNCCOMPLIANCE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SyncCompliance").build();
+    private static final MarshallingInfo<Boolean> APPLYONLYATCRONINTERVAL_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ApplyOnlyAtCronInterval").build();
+    private static final MarshallingInfo<List> CALENDARNAMES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("CalendarNames").build();
+    private static final MarshallingInfo<List> TARGETLOCATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TargetLocations").build();
+    private static final MarshallingInfo<Integer> SCHEDULEOFFSET_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ScheduleOffset").build();
+    private static final MarshallingInfo<Integer> DURATION_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Duration").build();
+    private static final MarshallingInfo<List> TARGETMAPS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("TargetMaps").build();
+    private static final MarshallingInfo<StructuredPojo> ALARMCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AlarmConfiguration").build();
 
     private static final CreateAssociationBatchRequestEntryMarshaller instance = new CreateAssociationBatchRequestEntryMarshaller();
 
@@ -82,6 +98,14 @@ public class CreateAssociationBatchRequestEntryMarshaller {
             protocolMarshaller.marshall(createAssociationBatchRequestEntry.getMaxErrors(), MAXERRORS_BINDING);
             protocolMarshaller.marshall(createAssociationBatchRequestEntry.getMaxConcurrency(), MAXCONCURRENCY_BINDING);
             protocolMarshaller.marshall(createAssociationBatchRequestEntry.getComplianceSeverity(), COMPLIANCESEVERITY_BINDING);
+            protocolMarshaller.marshall(createAssociationBatchRequestEntry.getSyncCompliance(), SYNCCOMPLIANCE_BINDING);
+            protocolMarshaller.marshall(createAssociationBatchRequestEntry.getApplyOnlyAtCronInterval(), APPLYONLYATCRONINTERVAL_BINDING);
+            protocolMarshaller.marshall(createAssociationBatchRequestEntry.getCalendarNames(), CALENDARNAMES_BINDING);
+            protocolMarshaller.marshall(createAssociationBatchRequestEntry.getTargetLocations(), TARGETLOCATIONS_BINDING);
+            protocolMarshaller.marshall(createAssociationBatchRequestEntry.getScheduleOffset(), SCHEDULEOFFSET_BINDING);
+            protocolMarshaller.marshall(createAssociationBatchRequestEntry.getDuration(), DURATION_BINDING);
+            protocolMarshaller.marshall(createAssociationBatchRequestEntry.getTargetMaps(), TARGETMAPS_BINDING);
+            protocolMarshaller.marshall(createAssociationBatchRequestEntry.getAlarmConfiguration(), ALARMCONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

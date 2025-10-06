@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,22 +36,22 @@ public class GetInstancesHealthStatusRequest extends com.amazonaws.AmazonWebServ
      * An array that contains the IDs of all the instances that you want to get the health status for.
      * </p>
      * <p>
-     * If you omit <code>Instances</code>, AWS Cloud Map returns the health status for all the instances that are
-     * associated with the specified service.
+     * If you omit <code>Instances</code>, Cloud Map returns the health status for all the instances that are associated
+     * with the specified service.
      * </p>
      * <note>
      * <p>
-     * To get the IDs for the instances that you've registered by using a specified service, submit a
-     * <a>ListInstances</a> request.
+     * To get the IDs for the instances that you've registered by using a specified service, submit a <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_ListInstances.html">ListInstances</a> request.
      * </p>
      * </note>
      */
     private java.util.List<String> instances;
     /**
      * <p>
-     * The maximum number of instances that you want AWS Cloud Map to return in the response to a
-     * <code>GetInstancesHealthStatus</code> request. If you don't specify a value for <code>MaxResults</code>, AWS
-     * Cloud Map returns up to 100 instances.
+     * The maximum number of instances that you want Cloud Map to return in the response to a
+     * <code>GetInstancesHealthStatus</code> request. If you don't specify a value for <code>MaxResults</code>, Cloud
+     * Map returns up to 100 instances.
      * </p>
      */
     private Integer maxResults;
@@ -112,25 +112,25 @@ public class GetInstancesHealthStatusRequest extends com.amazonaws.AmazonWebServ
      * An array that contains the IDs of all the instances that you want to get the health status for.
      * </p>
      * <p>
-     * If you omit <code>Instances</code>, AWS Cloud Map returns the health status for all the instances that are
-     * associated with the specified service.
+     * If you omit <code>Instances</code>, Cloud Map returns the health status for all the instances that are associated
+     * with the specified service.
      * </p>
      * <note>
      * <p>
-     * To get the IDs for the instances that you've registered by using a specified service, submit a
-     * <a>ListInstances</a> request.
+     * To get the IDs for the instances that you've registered by using a specified service, submit a <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_ListInstances.html">ListInstances</a> request.
      * </p>
      * </note>
      * 
      * @return An array that contains the IDs of all the instances that you want to get the health status for.</p>
      *         <p>
-     *         If you omit <code>Instances</code>, AWS Cloud Map returns the health status for all the instances that
-     *         are associated with the specified service.
+     *         If you omit <code>Instances</code>, Cloud Map returns the health status for all the instances that are
+     *         associated with the specified service.
      *         </p>
      *         <note>
      *         <p>
-     *         To get the IDs for the instances that you've registered by using a specified service, submit a
-     *         <a>ListInstances</a> request.
+     *         To get the IDs for the instances that you've registered by using a specified service, submit a <a
+     *         href="https://docs.aws.amazon.com/cloud-map/latest/api/API_ListInstances.html">ListInstances</a> request.
      *         </p>
      */
 
@@ -143,26 +143,26 @@ public class GetInstancesHealthStatusRequest extends com.amazonaws.AmazonWebServ
      * An array that contains the IDs of all the instances that you want to get the health status for.
      * </p>
      * <p>
-     * If you omit <code>Instances</code>, AWS Cloud Map returns the health status for all the instances that are
-     * associated with the specified service.
+     * If you omit <code>Instances</code>, Cloud Map returns the health status for all the instances that are associated
+     * with the specified service.
      * </p>
      * <note>
      * <p>
-     * To get the IDs for the instances that you've registered by using a specified service, submit a
-     * <a>ListInstances</a> request.
+     * To get the IDs for the instances that you've registered by using a specified service, submit a <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_ListInstances.html">ListInstances</a> request.
      * </p>
      * </note>
      * 
      * @param instances
      *        An array that contains the IDs of all the instances that you want to get the health status for.</p>
      *        <p>
-     *        If you omit <code>Instances</code>, AWS Cloud Map returns the health status for all the instances that are
+     *        If you omit <code>Instances</code>, Cloud Map returns the health status for all the instances that are
      *        associated with the specified service.
      *        </p>
      *        <note>
      *        <p>
-     *        To get the IDs for the instances that you've registered by using a specified service, submit a
-     *        <a>ListInstances</a> request.
+     *        To get the IDs for the instances that you've registered by using a specified service, submit a <a
+     *        href="https://docs.aws.amazon.com/cloud-map/latest/api/API_ListInstances.html">ListInstances</a> request.
      *        </p>
      */
 
@@ -180,13 +180,13 @@ public class GetInstancesHealthStatusRequest extends com.amazonaws.AmazonWebServ
      * An array that contains the IDs of all the instances that you want to get the health status for.
      * </p>
      * <p>
-     * If you omit <code>Instances</code>, AWS Cloud Map returns the health status for all the instances that are
-     * associated with the specified service.
+     * If you omit <code>Instances</code>, Cloud Map returns the health status for all the instances that are associated
+     * with the specified service.
      * </p>
      * <note>
      * <p>
-     * To get the IDs for the instances that you've registered by using a specified service, submit a
-     * <a>ListInstances</a> request.
+     * To get the IDs for the instances that you've registered by using a specified service, submit a <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_ListInstances.html">ListInstances</a> request.
      * </p>
      * </note>
      * <p>
@@ -198,13 +198,13 @@ public class GetInstancesHealthStatusRequest extends com.amazonaws.AmazonWebServ
      * @param instances
      *        An array that contains the IDs of all the instances that you want to get the health status for.</p>
      *        <p>
-     *        If you omit <code>Instances</code>, AWS Cloud Map returns the health status for all the instances that are
+     *        If you omit <code>Instances</code>, Cloud Map returns the health status for all the instances that are
      *        associated with the specified service.
      *        </p>
      *        <note>
      *        <p>
-     *        To get the IDs for the instances that you've registered by using a specified service, submit a
-     *        <a>ListInstances</a> request.
+     *        To get the IDs for the instances that you've registered by using a specified service, submit a <a
+     *        href="https://docs.aws.amazon.com/cloud-map/latest/api/API_ListInstances.html">ListInstances</a> request.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -224,26 +224,26 @@ public class GetInstancesHealthStatusRequest extends com.amazonaws.AmazonWebServ
      * An array that contains the IDs of all the instances that you want to get the health status for.
      * </p>
      * <p>
-     * If you omit <code>Instances</code>, AWS Cloud Map returns the health status for all the instances that are
-     * associated with the specified service.
+     * If you omit <code>Instances</code>, Cloud Map returns the health status for all the instances that are associated
+     * with the specified service.
      * </p>
      * <note>
      * <p>
-     * To get the IDs for the instances that you've registered by using a specified service, submit a
-     * <a>ListInstances</a> request.
+     * To get the IDs for the instances that you've registered by using a specified service, submit a <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_ListInstances.html">ListInstances</a> request.
      * </p>
      * </note>
      * 
      * @param instances
      *        An array that contains the IDs of all the instances that you want to get the health status for.</p>
      *        <p>
-     *        If you omit <code>Instances</code>, AWS Cloud Map returns the health status for all the instances that are
+     *        If you omit <code>Instances</code>, Cloud Map returns the health status for all the instances that are
      *        associated with the specified service.
      *        </p>
      *        <note>
      *        <p>
-     *        To get the IDs for the instances that you've registered by using a specified service, submit a
-     *        <a>ListInstances</a> request.
+     *        To get the IDs for the instances that you've registered by using a specified service, submit a <a
+     *        href="https://docs.aws.amazon.com/cloud-map/latest/api/API_ListInstances.html">ListInstances</a> request.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -255,15 +255,15 @@ public class GetInstancesHealthStatusRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The maximum number of instances that you want AWS Cloud Map to return in the response to a
-     * <code>GetInstancesHealthStatus</code> request. If you don't specify a value for <code>MaxResults</code>, AWS
-     * Cloud Map returns up to 100 instances.
+     * The maximum number of instances that you want Cloud Map to return in the response to a
+     * <code>GetInstancesHealthStatus</code> request. If you don't specify a value for <code>MaxResults</code>, Cloud
+     * Map returns up to 100 instances.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of instances that you want AWS Cloud Map to return in the response to a
+     *        The maximum number of instances that you want Cloud Map to return in the response to a
      *        <code>GetInstancesHealthStatus</code> request. If you don't specify a value for <code>MaxResults</code>,
-     *        AWS Cloud Map returns up to 100 instances.
+     *        Cloud Map returns up to 100 instances.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -272,14 +272,14 @@ public class GetInstancesHealthStatusRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The maximum number of instances that you want AWS Cloud Map to return in the response to a
-     * <code>GetInstancesHealthStatus</code> request. If you don't specify a value for <code>MaxResults</code>, AWS
-     * Cloud Map returns up to 100 instances.
+     * The maximum number of instances that you want Cloud Map to return in the response to a
+     * <code>GetInstancesHealthStatus</code> request. If you don't specify a value for <code>MaxResults</code>, Cloud
+     * Map returns up to 100 instances.
      * </p>
      * 
-     * @return The maximum number of instances that you want AWS Cloud Map to return in the response to a
+     * @return The maximum number of instances that you want Cloud Map to return in the response to a
      *         <code>GetInstancesHealthStatus</code> request. If you don't specify a value for <code>MaxResults</code>,
-     *         AWS Cloud Map returns up to 100 instances.
+     *         Cloud Map returns up to 100 instances.
      */
 
     public Integer getMaxResults() {
@@ -288,15 +288,15 @@ public class GetInstancesHealthStatusRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The maximum number of instances that you want AWS Cloud Map to return in the response to a
-     * <code>GetInstancesHealthStatus</code> request. If you don't specify a value for <code>MaxResults</code>, AWS
-     * Cloud Map returns up to 100 instances.
+     * The maximum number of instances that you want Cloud Map to return in the response to a
+     * <code>GetInstancesHealthStatus</code> request. If you don't specify a value for <code>MaxResults</code>, Cloud
+     * Map returns up to 100 instances.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of instances that you want AWS Cloud Map to return in the response to a
+     *        The maximum number of instances that you want Cloud Map to return in the response to a
      *        <code>GetInstancesHealthStatus</code> request. If you don't specify a value for <code>MaxResults</code>,
-     *        AWS Cloud Map returns up to 100 instances.
+     *        Cloud Map returns up to 100 instances.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

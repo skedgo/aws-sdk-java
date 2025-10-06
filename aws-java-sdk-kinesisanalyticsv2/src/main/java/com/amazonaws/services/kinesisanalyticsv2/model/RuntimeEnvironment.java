@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,7 +21,16 @@ import javax.annotation.Generated;
 public enum RuntimeEnvironment {
 
     SQL1_0("SQL-1_0"),
-    FLINK1_6("FLINK-1_6");
+    FLINK1_6("FLINK-1_6"),
+    FLINK1_8("FLINK-1_8"),
+    ZEPPELINFLINK1_0("ZEPPELIN-FLINK-1_0"),
+    FLINK1_11("FLINK-1_11"),
+    FLINK1_13("FLINK-1_13"),
+    ZEPPELINFLINK2_0("ZEPPELIN-FLINK-2_0"),
+    FLINK1_15("FLINK-1_15"),
+    ZEPPELINFLINK3_0("ZEPPELIN-FLINK-3_0"),
+    FLINK1_18("FLINK-1_18"),
+    FLINK1_19("FLINK-1_19");
 
     private String value;
 

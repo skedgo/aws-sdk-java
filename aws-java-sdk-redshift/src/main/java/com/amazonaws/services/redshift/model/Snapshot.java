@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -88,7 +88,7 @@ public class Snapshot implements Serializable, Cloneable {
     private java.util.Date clusterCreateTime;
     /**
      * <p>
-     * The master user name for the cluster.
+     * The admin user name for the cluster.
      * </p>
      */
     private String masterUsername;
@@ -98,6 +98,12 @@ public class Snapshot implements Serializable, Cloneable {
      * </p>
      */
     private String clusterVersion;
+    /**
+     * <p>
+     * The cluster version of the cluster used to create the snapshot. For example, 1.0.15503.
+     * </p>
+     */
+    private String engineFullVersion;
     /**
      * <p>
      * The snapshot type. Snapshots created using <a>CreateClusterSnapshot</a> and <a>CopyClusterSnapshot</a> are of
@@ -138,8 +144,8 @@ public class Snapshot implements Serializable, Cloneable {
     private Boolean encrypted;
     /**
      * <p>
-     * The AWS Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the cluster
-     * from which the snapshot was taken.
+     * The Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the cluster from
+     * which the snapshot was taken.
      * </p>
      */
     private String kmsKeyId;
@@ -152,15 +158,16 @@ public class Snapshot implements Serializable, Cloneable {
     private Boolean encryptedWithHSM;
     /**
      * <p>
-     * A list of the AWS customer accounts authorized to restore the snapshot. Returns <code>null</code> if no accounts
-     * are authorized. Visible only to the snapshot owner.
+     * A list of the Amazon Web Services accounts authorized to restore the snapshot. Returns <code>null</code> if no
+     * accounts are authorized. Visible only to the snapshot owner.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<AccountWithRestoreAccess> accountsWithRestoreAccess;
     /**
      * <p>
-     * For manual snapshots, the AWS customer account used to create or copy the snapshot. For automatic snapshots, the
-     * owner of the cluster. The owner can perform all snapshot actions, such as sharing a manual snapshot.
+     * For manual snapshots, the Amazon Web Services account used to create or copy the snapshot. For automatic
+     * snapshots, the owner of the cluster. The owner can perform all snapshot actions, such as sharing a manual
+     * snapshot.
      * </p>
      */
     private String ownerAccount;
@@ -264,6 +271,24 @@ public class Snapshot implements Serializable, Cloneable {
      * </p>
      */
     private java.util.Date snapshotRetentionStartTime;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the cluster's admin user credentials secret.
+     * </p>
+     */
+    private String masterPasswordSecretArn;
+    /**
+     * <p>
+     * The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials secret.
+     * </p>
+     */
+    private String masterPasswordSecretKmsKeyId;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the snapshot.
+     * </p>
+     */
+    private String snapshotArn;
 
     /**
      * <p>
@@ -652,11 +677,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The master user name for the cluster.
+     * The admin user name for the cluster.
      * </p>
      * 
      * @param masterUsername
-     *        The master user name for the cluster.
+     *        The admin user name for the cluster.
      */
 
     public void setMasterUsername(String masterUsername) {
@@ -665,10 +690,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The master user name for the cluster.
+     * The admin user name for the cluster.
      * </p>
      * 
-     * @return The master user name for the cluster.
+     * @return The admin user name for the cluster.
      */
 
     public String getMasterUsername() {
@@ -677,11 +702,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The master user name for the cluster.
+     * The admin user name for the cluster.
      * </p>
      * 
      * @param masterUsername
-     *        The master user name for the cluster.
+     *        The admin user name for the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -727,6 +752,46 @@ public class Snapshot implements Serializable, Cloneable {
 
     public Snapshot withClusterVersion(String clusterVersion) {
         setClusterVersion(clusterVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The cluster version of the cluster used to create the snapshot. For example, 1.0.15503.
+     * </p>
+     * 
+     * @param engineFullVersion
+     *        The cluster version of the cluster used to create the snapshot. For example, 1.0.15503.
+     */
+
+    public void setEngineFullVersion(String engineFullVersion) {
+        this.engineFullVersion = engineFullVersion;
+    }
+
+    /**
+     * <p>
+     * The cluster version of the cluster used to create the snapshot. For example, 1.0.15503.
+     * </p>
+     * 
+     * @return The cluster version of the cluster used to create the snapshot. For example, 1.0.15503.
+     */
+
+    public String getEngineFullVersion() {
+        return this.engineFullVersion;
+    }
+
+    /**
+     * <p>
+     * The cluster version of the cluster used to create the snapshot. For example, 1.0.15503.
+     * </p>
+     * 
+     * @param engineFullVersion
+     *        The cluster version of the cluster used to create the snapshot. For example, 1.0.15503.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Snapshot withEngineFullVersion(String engineFullVersion) {
+        setEngineFullVersion(engineFullVersion);
         return this;
     }
 
@@ -996,13 +1061,13 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the cluster
-     * from which the snapshot was taken.
+     * The Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the cluster from
+     * which the snapshot was taken.
      * </p>
      * 
      * @param kmsKeyId
-     *        The AWS Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the
-     *        cluster from which the snapshot was taken.
+     *        The Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the cluster
+     *        from which the snapshot was taken.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -1011,11 +1076,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the cluster
-     * from which the snapshot was taken.
+     * The Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the cluster from
+     * which the snapshot was taken.
      * </p>
      * 
-     * @return The AWS Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the
+     * @return The Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the
      *         cluster from which the snapshot was taken.
      */
 
@@ -1025,13 +1090,13 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the cluster
-     * from which the snapshot was taken.
+     * The Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the cluster from
+     * which the snapshot was taken.
      * </p>
      * 
      * @param kmsKeyId
-     *        The AWS Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the
-     *        cluster from which the snapshot was taken.
+     *        The Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the cluster
+     *        from which the snapshot was taken.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1102,12 +1167,12 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of the AWS customer accounts authorized to restore the snapshot. Returns <code>null</code> if no accounts
-     * are authorized. Visible only to the snapshot owner.
+     * A list of the Amazon Web Services accounts authorized to restore the snapshot. Returns <code>null</code> if no
+     * accounts are authorized. Visible only to the snapshot owner.
      * </p>
      * 
-     * @return A list of the AWS customer accounts authorized to restore the snapshot. Returns <code>null</code> if no
-     *         accounts are authorized. Visible only to the snapshot owner.
+     * @return A list of the Amazon Web Services accounts authorized to restore the snapshot. Returns <code>null</code>
+     *         if no accounts are authorized. Visible only to the snapshot owner.
      */
 
     public java.util.List<AccountWithRestoreAccess> getAccountsWithRestoreAccess() {
@@ -1119,13 +1184,13 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of the AWS customer accounts authorized to restore the snapshot. Returns <code>null</code> if no accounts
-     * are authorized. Visible only to the snapshot owner.
+     * A list of the Amazon Web Services accounts authorized to restore the snapshot. Returns <code>null</code> if no
+     * accounts are authorized. Visible only to the snapshot owner.
      * </p>
      * 
      * @param accountsWithRestoreAccess
-     *        A list of the AWS customer accounts authorized to restore the snapshot. Returns <code>null</code> if no
-     *        accounts are authorized. Visible only to the snapshot owner.
+     *        A list of the Amazon Web Services accounts authorized to restore the snapshot. Returns <code>null</code>
+     *        if no accounts are authorized. Visible only to the snapshot owner.
      */
 
     public void setAccountsWithRestoreAccess(java.util.Collection<AccountWithRestoreAccess> accountsWithRestoreAccess) {
@@ -1139,8 +1204,8 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of the AWS customer accounts authorized to restore the snapshot. Returns <code>null</code> if no accounts
-     * are authorized. Visible only to the snapshot owner.
+     * A list of the Amazon Web Services accounts authorized to restore the snapshot. Returns <code>null</code> if no
+     * accounts are authorized. Visible only to the snapshot owner.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1149,8 +1214,8 @@ public class Snapshot implements Serializable, Cloneable {
      * </p>
      * 
      * @param accountsWithRestoreAccess
-     *        A list of the AWS customer accounts authorized to restore the snapshot. Returns <code>null</code> if no
-     *        accounts are authorized. Visible only to the snapshot owner.
+     *        A list of the Amazon Web Services accounts authorized to restore the snapshot. Returns <code>null</code>
+     *        if no accounts are authorized. Visible only to the snapshot owner.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1166,13 +1231,13 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of the AWS customer accounts authorized to restore the snapshot. Returns <code>null</code> if no accounts
-     * are authorized. Visible only to the snapshot owner.
+     * A list of the Amazon Web Services accounts authorized to restore the snapshot. Returns <code>null</code> if no
+     * accounts are authorized. Visible only to the snapshot owner.
      * </p>
      * 
      * @param accountsWithRestoreAccess
-     *        A list of the AWS customer accounts authorized to restore the snapshot. Returns <code>null</code> if no
-     *        accounts are authorized. Visible only to the snapshot owner.
+     *        A list of the Amazon Web Services accounts authorized to restore the snapshot. Returns <code>null</code>
+     *        if no accounts are authorized. Visible only to the snapshot owner.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1183,12 +1248,13 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * For manual snapshots, the AWS customer account used to create or copy the snapshot. For automatic snapshots, the
-     * owner of the cluster. The owner can perform all snapshot actions, such as sharing a manual snapshot.
+     * For manual snapshots, the Amazon Web Services account used to create or copy the snapshot. For automatic
+     * snapshots, the owner of the cluster. The owner can perform all snapshot actions, such as sharing a manual
+     * snapshot.
      * </p>
      * 
      * @param ownerAccount
-     *        For manual snapshots, the AWS customer account used to create or copy the snapshot. For automatic
+     *        For manual snapshots, the Amazon Web Services account used to create or copy the snapshot. For automatic
      *        snapshots, the owner of the cluster. The owner can perform all snapshot actions, such as sharing a manual
      *        snapshot.
      */
@@ -1199,11 +1265,12 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * For manual snapshots, the AWS customer account used to create or copy the snapshot. For automatic snapshots, the
-     * owner of the cluster. The owner can perform all snapshot actions, such as sharing a manual snapshot.
+     * For manual snapshots, the Amazon Web Services account used to create or copy the snapshot. For automatic
+     * snapshots, the owner of the cluster. The owner can perform all snapshot actions, such as sharing a manual
+     * snapshot.
      * </p>
      * 
-     * @return For manual snapshots, the AWS customer account used to create or copy the snapshot. For automatic
+     * @return For manual snapshots, the Amazon Web Services account used to create or copy the snapshot. For automatic
      *         snapshots, the owner of the cluster. The owner can perform all snapshot actions, such as sharing a manual
      *         snapshot.
      */
@@ -1214,12 +1281,13 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * For manual snapshots, the AWS customer account used to create or copy the snapshot. For automatic snapshots, the
-     * owner of the cluster. The owner can perform all snapshot actions, such as sharing a manual snapshot.
+     * For manual snapshots, the Amazon Web Services account used to create or copy the snapshot. For automatic
+     * snapshots, the owner of the cluster. The owner can perform all snapshot actions, such as sharing a manual
+     * snapshot.
      * </p>
      * 
      * @param ownerAccount
-     *        For manual snapshots, the AWS customer account used to create or copy the snapshot. For automatic
+     *        For manual snapshots, the Amazon Web Services account used to create or copy the snapshot. For automatic
      *        snapshots, the owner of the cluster. The owner can perform all snapshot actions, such as sharing a manual
      *        snapshot.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1976,6 +2044,129 @@ public class Snapshot implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the cluster's admin user credentials secret.
+     * </p>
+     * 
+     * @param masterPasswordSecretArn
+     *        The Amazon Resource Name (ARN) for the cluster's admin user credentials secret.
+     */
+
+    public void setMasterPasswordSecretArn(String masterPasswordSecretArn) {
+        this.masterPasswordSecretArn = masterPasswordSecretArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the cluster's admin user credentials secret.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) for the cluster's admin user credentials secret.
+     */
+
+    public String getMasterPasswordSecretArn() {
+        return this.masterPasswordSecretArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the cluster's admin user credentials secret.
+     * </p>
+     * 
+     * @param masterPasswordSecretArn
+     *        The Amazon Resource Name (ARN) for the cluster's admin user credentials secret.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Snapshot withMasterPasswordSecretArn(String masterPasswordSecretArn) {
+        setMasterPasswordSecretArn(masterPasswordSecretArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials secret.
+     * </p>
+     * 
+     * @param masterPasswordSecretKmsKeyId
+     *        The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials
+     *        secret.
+     */
+
+    public void setMasterPasswordSecretKmsKeyId(String masterPasswordSecretKmsKeyId) {
+        this.masterPasswordSecretKmsKeyId = masterPasswordSecretKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials secret.
+     * </p>
+     * 
+     * @return The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials
+     *         secret.
+     */
+
+    public String getMasterPasswordSecretKmsKeyId() {
+        return this.masterPasswordSecretKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials secret.
+     * </p>
+     * 
+     * @param masterPasswordSecretKmsKeyId
+     *        The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin credentials
+     *        secret.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Snapshot withMasterPasswordSecretKmsKeyId(String masterPasswordSecretKmsKeyId) {
+        setMasterPasswordSecretKmsKeyId(masterPasswordSecretKmsKeyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the snapshot.
+     * </p>
+     * 
+     * @param snapshotArn
+     *        The Amazon Resource Name (ARN) of the snapshot.
+     */
+
+    public void setSnapshotArn(String snapshotArn) {
+        this.snapshotArn = snapshotArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the snapshot.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the snapshot.
+     */
+
+    public String getSnapshotArn() {
+        return this.snapshotArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the snapshot.
+     * </p>
+     * 
+     * @param snapshotArn
+     *        The Amazon Resource Name (ARN) of the snapshot.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Snapshot withSnapshotArn(String snapshotArn) {
+        setSnapshotArn(snapshotArn);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -2005,6 +2196,8 @@ public class Snapshot implements Serializable, Cloneable {
             sb.append("MasterUsername: ").append(getMasterUsername()).append(",");
         if (getClusterVersion() != null)
             sb.append("ClusterVersion: ").append(getClusterVersion()).append(",");
+        if (getEngineFullVersion() != null)
+            sb.append("EngineFullVersion: ").append(getEngineFullVersion()).append(",");
         if (getSnapshotType() != null)
             sb.append("SnapshotType: ").append(getSnapshotType()).append(",");
         if (getNodeType() != null)
@@ -2052,7 +2245,13 @@ public class Snapshot implements Serializable, Cloneable {
         if (getManualSnapshotRemainingDays() != null)
             sb.append("ManualSnapshotRemainingDays: ").append(getManualSnapshotRemainingDays()).append(",");
         if (getSnapshotRetentionStartTime() != null)
-            sb.append("SnapshotRetentionStartTime: ").append(getSnapshotRetentionStartTime());
+            sb.append("SnapshotRetentionStartTime: ").append(getSnapshotRetentionStartTime()).append(",");
+        if (getMasterPasswordSecretArn() != null)
+            sb.append("MasterPasswordSecretArn: ").append(getMasterPasswordSecretArn()).append(",");
+        if (getMasterPasswordSecretKmsKeyId() != null)
+            sb.append("MasterPasswordSecretKmsKeyId: ").append(getMasterPasswordSecretKmsKeyId()).append(",");
+        if (getSnapshotArn() != null)
+            sb.append("SnapshotArn: ").append(getSnapshotArn());
         sb.append("}");
         return sb.toString();
     }
@@ -2102,6 +2301,10 @@ public class Snapshot implements Serializable, Cloneable {
         if (other.getClusterVersion() == null ^ this.getClusterVersion() == null)
             return false;
         if (other.getClusterVersion() != null && other.getClusterVersion().equals(this.getClusterVersion()) == false)
+            return false;
+        if (other.getEngineFullVersion() == null ^ this.getEngineFullVersion() == null)
+            return false;
+        if (other.getEngineFullVersion() != null && other.getEngineFullVersion().equals(this.getEngineFullVersion()) == false)
             return false;
         if (other.getSnapshotType() == null ^ this.getSnapshotType() == null)
             return false;
@@ -2202,6 +2405,18 @@ public class Snapshot implements Serializable, Cloneable {
             return false;
         if (other.getSnapshotRetentionStartTime() != null && other.getSnapshotRetentionStartTime().equals(this.getSnapshotRetentionStartTime()) == false)
             return false;
+        if (other.getMasterPasswordSecretArn() == null ^ this.getMasterPasswordSecretArn() == null)
+            return false;
+        if (other.getMasterPasswordSecretArn() != null && other.getMasterPasswordSecretArn().equals(this.getMasterPasswordSecretArn()) == false)
+            return false;
+        if (other.getMasterPasswordSecretKmsKeyId() == null ^ this.getMasterPasswordSecretKmsKeyId() == null)
+            return false;
+        if (other.getMasterPasswordSecretKmsKeyId() != null && other.getMasterPasswordSecretKmsKeyId().equals(this.getMasterPasswordSecretKmsKeyId()) == false)
+            return false;
+        if (other.getSnapshotArn() == null ^ this.getSnapshotArn() == null)
+            return false;
+        if (other.getSnapshotArn() != null && other.getSnapshotArn().equals(this.getSnapshotArn()) == false)
+            return false;
         return true;
     }
 
@@ -2219,6 +2434,7 @@ public class Snapshot implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getClusterCreateTime() == null) ? 0 : getClusterCreateTime().hashCode());
         hashCode = prime * hashCode + ((getMasterUsername() == null) ? 0 : getMasterUsername().hashCode());
         hashCode = prime * hashCode + ((getClusterVersion() == null) ? 0 : getClusterVersion().hashCode());
+        hashCode = prime * hashCode + ((getEngineFullVersion() == null) ? 0 : getEngineFullVersion().hashCode());
         hashCode = prime * hashCode + ((getSnapshotType() == null) ? 0 : getSnapshotType().hashCode());
         hashCode = prime * hashCode + ((getNodeType() == null) ? 0 : getNodeType().hashCode());
         hashCode = prime * hashCode + ((getNumberOfNodes() == null) ? 0 : getNumberOfNodes().hashCode());
@@ -2243,6 +2459,9 @@ public class Snapshot implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getManualSnapshotRetentionPeriod() == null) ? 0 : getManualSnapshotRetentionPeriod().hashCode());
         hashCode = prime * hashCode + ((getManualSnapshotRemainingDays() == null) ? 0 : getManualSnapshotRemainingDays().hashCode());
         hashCode = prime * hashCode + ((getSnapshotRetentionStartTime() == null) ? 0 : getSnapshotRetentionStartTime().hashCode());
+        hashCode = prime * hashCode + ((getMasterPasswordSecretArn() == null) ? 0 : getMasterPasswordSecretArn().hashCode());
+        hashCode = prime * hashCode + ((getMasterPasswordSecretKmsKeyId() == null) ? 0 : getMasterPasswordSecretKmsKeyId().hashCode());
+        hashCode = prime * hashCode + ((getSnapshotArn() == null) ? 0 : getSnapshotArn().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes the format and location for an instance export task.
+ * Describes the format and location for the export task.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ExportToS3Task" target="_top">AWS API
@@ -41,8 +41,11 @@ public class ExportToS3Task implements Serializable, Cloneable {
     private String diskImageFormat;
     /**
      * <p>
-     * The S3 bucket for the destination image. The destination bucket must exist and grant WRITE and READ_ACP
-     * permissions to the AWS account <code>vm-import-export@amazon.com</code>.
+     * The Amazon S3 bucket for the destination image. The destination bucket must exist and have an access control list
+     * (ACL) attached that specifies the Region-specific canonical account ID for the <code>Grantee</code>. For more
+     * information about the ACL to your S3 bucket, see <a
+     * href="https://docs.aws.amazon.com/vm-import/latest/userguide/vmexport.html#vmexport-prerequisites"
+     * >Prerequisites</a> in the VM Import/Export User Guide.
      * </p>
      */
     private String s3Bucket;
@@ -211,13 +214,19 @@ public class ExportToS3Task implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The S3 bucket for the destination image. The destination bucket must exist and grant WRITE and READ_ACP
-     * permissions to the AWS account <code>vm-import-export@amazon.com</code>.
+     * The Amazon S3 bucket for the destination image. The destination bucket must exist and have an access control list
+     * (ACL) attached that specifies the Region-specific canonical account ID for the <code>Grantee</code>. For more
+     * information about the ACL to your S3 bucket, see <a
+     * href="https://docs.aws.amazon.com/vm-import/latest/userguide/vmexport.html#vmexport-prerequisites"
+     * >Prerequisites</a> in the VM Import/Export User Guide.
      * </p>
      * 
      * @param s3Bucket
-     *        The S3 bucket for the destination image. The destination bucket must exist and grant WRITE and READ_ACP
-     *        permissions to the AWS account <code>vm-import-export@amazon.com</code>.
+     *        The Amazon S3 bucket for the destination image. The destination bucket must exist and have an access
+     *        control list (ACL) attached that specifies the Region-specific canonical account ID for the
+     *        <code>Grantee</code>. For more information about the ACL to your S3 bucket, see <a
+     *        href="https://docs.aws.amazon.com/vm-import/latest/userguide/vmexport.html#vmexport-prerequisites"
+     *        >Prerequisites</a> in the VM Import/Export User Guide.
      */
 
     public void setS3Bucket(String s3Bucket) {
@@ -226,12 +235,18 @@ public class ExportToS3Task implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The S3 bucket for the destination image. The destination bucket must exist and grant WRITE and READ_ACP
-     * permissions to the AWS account <code>vm-import-export@amazon.com</code>.
+     * The Amazon S3 bucket for the destination image. The destination bucket must exist and have an access control list
+     * (ACL) attached that specifies the Region-specific canonical account ID for the <code>Grantee</code>. For more
+     * information about the ACL to your S3 bucket, see <a
+     * href="https://docs.aws.amazon.com/vm-import/latest/userguide/vmexport.html#vmexport-prerequisites"
+     * >Prerequisites</a> in the VM Import/Export User Guide.
      * </p>
      * 
-     * @return The S3 bucket for the destination image. The destination bucket must exist and grant WRITE and READ_ACP
-     *         permissions to the AWS account <code>vm-import-export@amazon.com</code>.
+     * @return The Amazon S3 bucket for the destination image. The destination bucket must exist and have an access
+     *         control list (ACL) attached that specifies the Region-specific canonical account ID for the
+     *         <code>Grantee</code>. For more information about the ACL to your S3 bucket, see <a
+     *         href="https://docs.aws.amazon.com/vm-import/latest/userguide/vmexport.html#vmexport-prerequisites"
+     *         >Prerequisites</a> in the VM Import/Export User Guide.
      */
 
     public String getS3Bucket() {
@@ -240,13 +255,19 @@ public class ExportToS3Task implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The S3 bucket for the destination image. The destination bucket must exist and grant WRITE and READ_ACP
-     * permissions to the AWS account <code>vm-import-export@amazon.com</code>.
+     * The Amazon S3 bucket for the destination image. The destination bucket must exist and have an access control list
+     * (ACL) attached that specifies the Region-specific canonical account ID for the <code>Grantee</code>. For more
+     * information about the ACL to your S3 bucket, see <a
+     * href="https://docs.aws.amazon.com/vm-import/latest/userguide/vmexport.html#vmexport-prerequisites"
+     * >Prerequisites</a> in the VM Import/Export User Guide.
      * </p>
      * 
      * @param s3Bucket
-     *        The S3 bucket for the destination image. The destination bucket must exist and grant WRITE and READ_ACP
-     *        permissions to the AWS account <code>vm-import-export@amazon.com</code>.
+     *        The Amazon S3 bucket for the destination image. The destination bucket must exist and have an access
+     *        control list (ACL) attached that specifies the Region-specific canonical account ID for the
+     *        <code>Grantee</code>. For more information about the ACL to your S3 bucket, see <a
+     *        href="https://docs.aws.amazon.com/vm-import/latest/userguide/vmexport.html#vmexport-prerequisites"
+     *        >Prerequisites</a> in the VM Import/Export User Guide.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

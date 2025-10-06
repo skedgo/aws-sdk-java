@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,9 +20,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * A description of the Amazon EC2 instance on which the cluster (job flow) runs. A valid JobFlowInstancesConfig must
- * contain either InstanceGroups or InstanceFleets, which is the recommended configuration. They cannot be used
- * together. You may also have MasterInstanceType, SlaveInstanceType, and InstanceCount (all three must be present), but
- * we don't recommend this configuration.
+ * contain either InstanceGroups or InstanceFleets. They cannot be used together. You may also have MasterInstanceType,
+ * SlaveInstanceType, and InstanceCount (all three must be present), but we don't recommend this configuration.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/JobFlowInstancesConfig"
@@ -33,19 +32,19 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The EC2 instance type of the master node.
+     * The Amazon EC2 instance type of the master node.
      * </p>
      */
     private String masterInstanceType;
     /**
      * <p>
-     * The EC2 instance type of the core and task nodes.
+     * The Amazon EC2 instance type of the core and task nodes.
      * </p>
      */
     private String slaveInstanceType;
     /**
      * <p>
-     * The number of EC2 instances in the cluster.
+     * The number of Amazon EC2 instances in the cluster.
      * </p>
      */
     private Integer instanceCount;
@@ -58,18 +57,20 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
     /**
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions.
      * </p>
      * </note>
      * <p>
-     * Describes the EC2 instances and instance configurations for clusters that use the instance fleet configuration.
+     * Describes the Amazon EC2 instances and instance configurations for clusters that use the instance fleet
+     * configuration.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<InstanceFleetConfig> instanceFleets;
     /**
      * <p>
-     * The name of the EC2 key pair that can be used to ssh to the master node as the user called "hadoop."
+     * The name of the Amazon EC2 key pair that can be used to connect to the master node using SSH as the user called
+     * "hadoop."
      * </p>
      */
     private String ec2KeyName;
@@ -81,7 +82,10 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
     private PlacementType placement;
     /**
      * <p>
-     * Specifies whether the cluster should remain available after completing all steps.
+     * Specifies whether the cluster should remain available after completing all steps. Defaults to <code>false</code>.
+     * For more information about configuring cluster termination, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-termination.html">Control Cluster
+     * Termination</a> in the <i>EMR Management Guide</i>.
      * </p>
      */
     private Boolean keepJobFlowAliveWhenNoSteps;
@@ -94,10 +98,17 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
     private Boolean terminationProtected;
     /**
      * <p>
+     * Indicates whether Amazon EMR should gracefully replace core nodes that have degraded within the cluster.
+     * </p>
+     */
+    private Boolean unhealthyNodeReplacement;
+    /**
+     * <p>
      * Applies only to Amazon EMR release versions earlier than 4.0. The Hadoop version for the cluster. Valid inputs
-     * are "0.18" (deprecated), "0.20" (deprecated), "0.20.205" (deprecated), "1.0.3", "2.2.0", or "2.4.0". If you do
-     * not set this value, the default of 0.18 is used, unless the <code>AmiVersion</code> parameter is set in the
-     * RunJobFlow call, in which case the default version of Hadoop for that AMI version is used.
+     * are "0.18" (no longer maintained), "0.20" (no longer maintained), "0.20.205" (no longer maintained), "1.0.3",
+     * "2.2.0", or "2.4.0". If you do not set this value, the default of 0.18 is used, unless the
+     * <code>AmiVersion</code> parameter is set in the RunJobFlow call, in which case the default version of Hadoop for
+     * that AMI version is used.
      * </p>
      */
     private String hadoopVersion;
@@ -105,24 +116,19 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
      * <p>
      * Applies to clusters that use the uniform instance group configuration. To launch the cluster in Amazon Virtual
      * Private Cloud (Amazon VPC), set this parameter to the identifier of the Amazon VPC subnet where you want the
-     * cluster to launch. If you do not specify this value, the cluster launches in the normal Amazon Web Services
-     * cloud, outside of an Amazon VPC, if the account launching the cluster supports EC2 Classic networks in the region
-     * where the cluster launches.
-     * </p>
-     * <p>
-     * Amazon VPC currently does not support cluster compute quadruple extra large (cc1.4xlarge) instances. Thus you
-     * cannot specify the cc1.4xlarge instance type for clusters launched in an Amazon VPC.
+     * cluster to launch. If you do not specify this value and your account supports EC2-Classic, the cluster launches
+     * in EC2-Classic.
      * </p>
      */
     private String ec2SubnetId;
     /**
      * <p>
-     * Applies to clusters that use the instance fleet configuration. When multiple EC2 subnet IDs are specified, Amazon
-     * EMR evaluates them and launches instances in the optimal subnet.
+     * Applies to clusters that use the instance fleet configuration. When multiple Amazon EC2 subnet IDs are specified,
+     * Amazon EMR evaluates them and launches instances in the optimal subnet.
      * </p>
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions.
      * </p>
      * </note>
@@ -130,13 +136,15 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
     private com.amazonaws.internal.SdkInternalList<String> ec2SubnetIds;
     /**
      * <p>
-     * The identifier of the Amazon EC2 security group for the master node.
+     * The identifier of the Amazon EC2 security group for the master node. If you specify
+     * <code>EmrManagedMasterSecurityGroup</code>, you must also specify <code>EmrManagedSlaveSecurityGroup</code>.
      * </p>
      */
     private String emrManagedMasterSecurityGroup;
     /**
      * <p>
-     * The identifier of the Amazon EC2 security group for the core and task nodes.
+     * The identifier of the Amazon EC2 security group for the core and task nodes. If you specify
+     * <code>EmrManagedSlaveSecurityGroup</code>, you must also specify <code>EmrManagedMasterSecurityGroup</code>.
      * </p>
      */
     private String emrManagedSlaveSecurityGroup;
@@ -162,11 +170,11 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The EC2 instance type of the master node.
+     * The Amazon EC2 instance type of the master node.
      * </p>
      * 
      * @param masterInstanceType
-     *        The EC2 instance type of the master node.
+     *        The Amazon EC2 instance type of the master node.
      */
 
     public void setMasterInstanceType(String masterInstanceType) {
@@ -175,10 +183,10 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The EC2 instance type of the master node.
+     * The Amazon EC2 instance type of the master node.
      * </p>
      * 
-     * @return The EC2 instance type of the master node.
+     * @return The Amazon EC2 instance type of the master node.
      */
 
     public String getMasterInstanceType() {
@@ -187,11 +195,11 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The EC2 instance type of the master node.
+     * The Amazon EC2 instance type of the master node.
      * </p>
      * 
      * @param masterInstanceType
-     *        The EC2 instance type of the master node.
+     *        The Amazon EC2 instance type of the master node.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -202,11 +210,11 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The EC2 instance type of the core and task nodes.
+     * The Amazon EC2 instance type of the core and task nodes.
      * </p>
      * 
      * @param slaveInstanceType
-     *        The EC2 instance type of the core and task nodes.
+     *        The Amazon EC2 instance type of the core and task nodes.
      */
 
     public void setSlaveInstanceType(String slaveInstanceType) {
@@ -215,10 +223,10 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The EC2 instance type of the core and task nodes.
+     * The Amazon EC2 instance type of the core and task nodes.
      * </p>
      * 
-     * @return The EC2 instance type of the core and task nodes.
+     * @return The Amazon EC2 instance type of the core and task nodes.
      */
 
     public String getSlaveInstanceType() {
@@ -227,11 +235,11 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The EC2 instance type of the core and task nodes.
+     * The Amazon EC2 instance type of the core and task nodes.
      * </p>
      * 
      * @param slaveInstanceType
-     *        The EC2 instance type of the core and task nodes.
+     *        The Amazon EC2 instance type of the core and task nodes.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -242,11 +250,11 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The number of EC2 instances in the cluster.
+     * The number of Amazon EC2 instances in the cluster.
      * </p>
      * 
      * @param instanceCount
-     *        The number of EC2 instances in the cluster.
+     *        The number of Amazon EC2 instances in the cluster.
      */
 
     public void setInstanceCount(Integer instanceCount) {
@@ -255,10 +263,10 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The number of EC2 instances in the cluster.
+     * The number of Amazon EC2 instances in the cluster.
      * </p>
      * 
-     * @return The number of EC2 instances in the cluster.
+     * @return The number of Amazon EC2 instances in the cluster.
      */
 
     public Integer getInstanceCount() {
@@ -267,11 +275,11 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The number of EC2 instances in the cluster.
+     * The number of Amazon EC2 instances in the cluster.
      * </p>
      * 
      * @param instanceCount
-     *        The number of EC2 instances in the cluster.
+     *        The number of Amazon EC2 instances in the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -356,21 +364,22 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
     /**
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions.
      * </p>
      * </note>
      * <p>
-     * Describes the EC2 instances and instance configurations for clusters that use the instance fleet configuration.
+     * Describes the Amazon EC2 instances and instance configurations for clusters that use the instance fleet
+     * configuration.
      * </p>
      * 
      * @return <p>
-     *         The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding
+     *         The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding
      *         5.0.x versions.
      *         </p>
      *         </note>
      *         <p>
-     *         Describes the EC2 instances and instance configurations for clusters that use the instance fleet
+     *         Describes the Amazon EC2 instances and instance configurations for clusters that use the instance fleet
      *         configuration.
      */
 
@@ -384,22 +393,23 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
     /**
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions.
      * </p>
      * </note>
      * <p>
-     * Describes the EC2 instances and instance configurations for clusters that use the instance fleet configuration.
+     * Describes the Amazon EC2 instances and instance configurations for clusters that use the instance fleet
+     * configuration.
      * </p>
      * 
      * @param instanceFleets
      *        <p>
-     *        The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     *        The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      *        versions.
      *        </p>
      *        </note>
      *        <p>
-     *        Describes the EC2 instances and instance configurations for clusters that use the instance fleet
+     *        Describes the Amazon EC2 instances and instance configurations for clusters that use the instance fleet
      *        configuration.
      */
 
@@ -415,12 +425,13 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
     /**
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions.
      * </p>
      * </note>
      * <p>
-     * Describes the EC2 instances and instance configurations for clusters that use the instance fleet configuration.
+     * Describes the Amazon EC2 instances and instance configurations for clusters that use the instance fleet
+     * configuration.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -430,12 +441,12 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
      * 
      * @param instanceFleets
      *        <p>
-     *        The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     *        The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      *        versions.
      *        </p>
      *        </note>
      *        <p>
-     *        Describes the EC2 instances and instance configurations for clusters that use the instance fleet
+     *        Describes the Amazon EC2 instances and instance configurations for clusters that use the instance fleet
      *        configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -453,22 +464,23 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
     /**
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions.
      * </p>
      * </note>
      * <p>
-     * Describes the EC2 instances and instance configurations for clusters that use the instance fleet configuration.
+     * Describes the Amazon EC2 instances and instance configurations for clusters that use the instance fleet
+     * configuration.
      * </p>
      * 
      * @param instanceFleets
      *        <p>
-     *        The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     *        The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      *        versions.
      *        </p>
      *        </note>
      *        <p>
-     *        Describes the EC2 instances and instance configurations for clusters that use the instance fleet
+     *        Describes the Amazon EC2 instances and instance configurations for clusters that use the instance fleet
      *        configuration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -480,11 +492,13 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The name of the EC2 key pair that can be used to ssh to the master node as the user called "hadoop."
+     * The name of the Amazon EC2 key pair that can be used to connect to the master node using SSH as the user called
+     * "hadoop."
      * </p>
      * 
      * @param ec2KeyName
-     *        The name of the EC2 key pair that can be used to ssh to the master node as the user called "hadoop."
+     *        The name of the Amazon EC2 key pair that can be used to connect to the master node using SSH as the user
+     *        called "hadoop."
      */
 
     public void setEc2KeyName(String ec2KeyName) {
@@ -493,10 +507,12 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The name of the EC2 key pair that can be used to ssh to the master node as the user called "hadoop."
+     * The name of the Amazon EC2 key pair that can be used to connect to the master node using SSH as the user called
+     * "hadoop."
      * </p>
      * 
-     * @return The name of the EC2 key pair that can be used to ssh to the master node as the user called "hadoop."
+     * @return The name of the Amazon EC2 key pair that can be used to connect to the master node using SSH as the user
+     *         called "hadoop."
      */
 
     public String getEc2KeyName() {
@@ -505,11 +521,13 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The name of the EC2 key pair that can be used to ssh to the master node as the user called "hadoop."
+     * The name of the Amazon EC2 key pair that can be used to connect to the master node using SSH as the user called
+     * "hadoop."
      * </p>
      * 
      * @param ec2KeyName
-     *        The name of the EC2 key pair that can be used to ssh to the master node as the user called "hadoop."
+     *        The name of the Amazon EC2 key pair that can be used to connect to the master node using SSH as the user
+     *        called "hadoop."
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -560,11 +578,17 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Specifies whether the cluster should remain available after completing all steps.
+     * Specifies whether the cluster should remain available after completing all steps. Defaults to <code>false</code>.
+     * For more information about configuring cluster termination, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-termination.html">Control Cluster
+     * Termination</a> in the <i>EMR Management Guide</i>.
      * </p>
      * 
      * @param keepJobFlowAliveWhenNoSteps
-     *        Specifies whether the cluster should remain available after completing all steps.
+     *        Specifies whether the cluster should remain available after completing all steps. Defaults to
+     *        <code>false</code>. For more information about configuring cluster termination, see <a
+     *        href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-termination.html">Control Cluster
+     *        Termination</a> in the <i>EMR Management Guide</i>.
      */
 
     public void setKeepJobFlowAliveWhenNoSteps(Boolean keepJobFlowAliveWhenNoSteps) {
@@ -573,10 +597,16 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Specifies whether the cluster should remain available after completing all steps.
+     * Specifies whether the cluster should remain available after completing all steps. Defaults to <code>false</code>.
+     * For more information about configuring cluster termination, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-termination.html">Control Cluster
+     * Termination</a> in the <i>EMR Management Guide</i>.
      * </p>
      * 
-     * @return Specifies whether the cluster should remain available after completing all steps.
+     * @return Specifies whether the cluster should remain available after completing all steps. Defaults to
+     *         <code>false</code>. For more information about configuring cluster termination, see <a
+     *         href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-termination.html">Control Cluster
+     *         Termination</a> in the <i>EMR Management Guide</i>.
      */
 
     public Boolean getKeepJobFlowAliveWhenNoSteps() {
@@ -585,11 +615,17 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Specifies whether the cluster should remain available after completing all steps.
+     * Specifies whether the cluster should remain available after completing all steps. Defaults to <code>false</code>.
+     * For more information about configuring cluster termination, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-termination.html">Control Cluster
+     * Termination</a> in the <i>EMR Management Guide</i>.
      * </p>
      * 
      * @param keepJobFlowAliveWhenNoSteps
-     *        Specifies whether the cluster should remain available after completing all steps.
+     *        Specifies whether the cluster should remain available after completing all steps. Defaults to
+     *        <code>false</code>. For more information about configuring cluster termination, see <a
+     *        href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-termination.html">Control Cluster
+     *        Termination</a> in the <i>EMR Management Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -600,10 +636,16 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Specifies whether the cluster should remain available after completing all steps.
+     * Specifies whether the cluster should remain available after completing all steps. Defaults to <code>false</code>.
+     * For more information about configuring cluster termination, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-termination.html">Control Cluster
+     * Termination</a> in the <i>EMR Management Guide</i>.
      * </p>
      * 
-     * @return Specifies whether the cluster should remain available after completing all steps.
+     * @return Specifies whether the cluster should remain available after completing all steps. Defaults to
+     *         <code>false</code>. For more information about configuring cluster termination, see <a
+     *         href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-termination.html">Control Cluster
+     *         Termination</a> in the <i>EMR Management Guide</i>.
      */
 
     public Boolean isKeepJobFlowAliveWhenNoSteps() {
@@ -672,18 +714,71 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
+     * Indicates whether Amazon EMR should gracefully replace core nodes that have degraded within the cluster.
+     * </p>
+     * 
+     * @param unhealthyNodeReplacement
+     *        Indicates whether Amazon EMR should gracefully replace core nodes that have degraded within the cluster.
+     */
+
+    public void setUnhealthyNodeReplacement(Boolean unhealthyNodeReplacement) {
+        this.unhealthyNodeReplacement = unhealthyNodeReplacement;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Amazon EMR should gracefully replace core nodes that have degraded within the cluster.
+     * </p>
+     * 
+     * @return Indicates whether Amazon EMR should gracefully replace core nodes that have degraded within the cluster.
+     */
+
+    public Boolean getUnhealthyNodeReplacement() {
+        return this.unhealthyNodeReplacement;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Amazon EMR should gracefully replace core nodes that have degraded within the cluster.
+     * </p>
+     * 
+     * @param unhealthyNodeReplacement
+     *        Indicates whether Amazon EMR should gracefully replace core nodes that have degraded within the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobFlowInstancesConfig withUnhealthyNodeReplacement(Boolean unhealthyNodeReplacement) {
+        setUnhealthyNodeReplacement(unhealthyNodeReplacement);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Amazon EMR should gracefully replace core nodes that have degraded within the cluster.
+     * </p>
+     * 
+     * @return Indicates whether Amazon EMR should gracefully replace core nodes that have degraded within the cluster.
+     */
+
+    public Boolean isUnhealthyNodeReplacement() {
+        return this.unhealthyNodeReplacement;
+    }
+
+    /**
+     * <p>
      * Applies only to Amazon EMR release versions earlier than 4.0. The Hadoop version for the cluster. Valid inputs
-     * are "0.18" (deprecated), "0.20" (deprecated), "0.20.205" (deprecated), "1.0.3", "2.2.0", or "2.4.0". If you do
-     * not set this value, the default of 0.18 is used, unless the <code>AmiVersion</code> parameter is set in the
-     * RunJobFlow call, in which case the default version of Hadoop for that AMI version is used.
+     * are "0.18" (no longer maintained), "0.20" (no longer maintained), "0.20.205" (no longer maintained), "1.0.3",
+     * "2.2.0", or "2.4.0". If you do not set this value, the default of 0.18 is used, unless the
+     * <code>AmiVersion</code> parameter is set in the RunJobFlow call, in which case the default version of Hadoop for
+     * that AMI version is used.
      * </p>
      * 
      * @param hadoopVersion
      *        Applies only to Amazon EMR release versions earlier than 4.0. The Hadoop version for the cluster. Valid
-     *        inputs are "0.18" (deprecated), "0.20" (deprecated), "0.20.205" (deprecated), "1.0.3", "2.2.0", or
-     *        "2.4.0". If you do not set this value, the default of 0.18 is used, unless the <code>AmiVersion</code>
-     *        parameter is set in the RunJobFlow call, in which case the default version of Hadoop for that AMI version
-     *        is used.
+     *        inputs are "0.18" (no longer maintained), "0.20" (no longer maintained), "0.20.205" (no longer
+     *        maintained), "1.0.3", "2.2.0", or "2.4.0". If you do not set this value, the default of 0.18 is used,
+     *        unless the <code>AmiVersion</code> parameter is set in the RunJobFlow call, in which case the default
+     *        version of Hadoop for that AMI version is used.
      */
 
     public void setHadoopVersion(String hadoopVersion) {
@@ -693,16 +788,17 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
     /**
      * <p>
      * Applies only to Amazon EMR release versions earlier than 4.0. The Hadoop version for the cluster. Valid inputs
-     * are "0.18" (deprecated), "0.20" (deprecated), "0.20.205" (deprecated), "1.0.3", "2.2.0", or "2.4.0". If you do
-     * not set this value, the default of 0.18 is used, unless the <code>AmiVersion</code> parameter is set in the
-     * RunJobFlow call, in which case the default version of Hadoop for that AMI version is used.
+     * are "0.18" (no longer maintained), "0.20" (no longer maintained), "0.20.205" (no longer maintained), "1.0.3",
+     * "2.2.0", or "2.4.0". If you do not set this value, the default of 0.18 is used, unless the
+     * <code>AmiVersion</code> parameter is set in the RunJobFlow call, in which case the default version of Hadoop for
+     * that AMI version is used.
      * </p>
      * 
      * @return Applies only to Amazon EMR release versions earlier than 4.0. The Hadoop version for the cluster. Valid
-     *         inputs are "0.18" (deprecated), "0.20" (deprecated), "0.20.205" (deprecated), "1.0.3", "2.2.0", or
-     *         "2.4.0". If you do not set this value, the default of 0.18 is used, unless the <code>AmiVersion</code>
-     *         parameter is set in the RunJobFlow call, in which case the default version of Hadoop for that AMI version
-     *         is used.
+     *         inputs are "0.18" (no longer maintained), "0.20" (no longer maintained), "0.20.205" (no longer
+     *         maintained), "1.0.3", "2.2.0", or "2.4.0". If you do not set this value, the default of 0.18 is used,
+     *         unless the <code>AmiVersion</code> parameter is set in the RunJobFlow call, in which case the default
+     *         version of Hadoop for that AMI version is used.
      */
 
     public String getHadoopVersion() {
@@ -712,17 +808,18 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
     /**
      * <p>
      * Applies only to Amazon EMR release versions earlier than 4.0. The Hadoop version for the cluster. Valid inputs
-     * are "0.18" (deprecated), "0.20" (deprecated), "0.20.205" (deprecated), "1.0.3", "2.2.0", or "2.4.0". If you do
-     * not set this value, the default of 0.18 is used, unless the <code>AmiVersion</code> parameter is set in the
-     * RunJobFlow call, in which case the default version of Hadoop for that AMI version is used.
+     * are "0.18" (no longer maintained), "0.20" (no longer maintained), "0.20.205" (no longer maintained), "1.0.3",
+     * "2.2.0", or "2.4.0". If you do not set this value, the default of 0.18 is used, unless the
+     * <code>AmiVersion</code> parameter is set in the RunJobFlow call, in which case the default version of Hadoop for
+     * that AMI version is used.
      * </p>
      * 
      * @param hadoopVersion
      *        Applies only to Amazon EMR release versions earlier than 4.0. The Hadoop version for the cluster. Valid
-     *        inputs are "0.18" (deprecated), "0.20" (deprecated), "0.20.205" (deprecated), "1.0.3", "2.2.0", or
-     *        "2.4.0". If you do not set this value, the default of 0.18 is used, unless the <code>AmiVersion</code>
-     *        parameter is set in the RunJobFlow call, in which case the default version of Hadoop for that AMI version
-     *        is used.
+     *        inputs are "0.18" (no longer maintained), "0.20" (no longer maintained), "0.20.205" (no longer
+     *        maintained), "1.0.3", "2.2.0", or "2.4.0". If you do not set this value, the default of 0.18 is used,
+     *        unless the <code>AmiVersion</code> parameter is set in the RunJobFlow call, in which case the default
+     *        version of Hadoop for that AMI version is used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -735,24 +832,15 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
      * <p>
      * Applies to clusters that use the uniform instance group configuration. To launch the cluster in Amazon Virtual
      * Private Cloud (Amazon VPC), set this parameter to the identifier of the Amazon VPC subnet where you want the
-     * cluster to launch. If you do not specify this value, the cluster launches in the normal Amazon Web Services
-     * cloud, outside of an Amazon VPC, if the account launching the cluster supports EC2 Classic networks in the region
-     * where the cluster launches.
-     * </p>
-     * <p>
-     * Amazon VPC currently does not support cluster compute quadruple extra large (cc1.4xlarge) instances. Thus you
-     * cannot specify the cc1.4xlarge instance type for clusters launched in an Amazon VPC.
+     * cluster to launch. If you do not specify this value and your account supports EC2-Classic, the cluster launches
+     * in EC2-Classic.
      * </p>
      * 
      * @param ec2SubnetId
      *        Applies to clusters that use the uniform instance group configuration. To launch the cluster in Amazon
      *        Virtual Private Cloud (Amazon VPC), set this parameter to the identifier of the Amazon VPC subnet where
-     *        you want the cluster to launch. If you do not specify this value, the cluster launches in the normal
-     *        Amazon Web Services cloud, outside of an Amazon VPC, if the account launching the cluster supports EC2
-     *        Classic networks in the region where the cluster launches.</p>
-     *        <p>
-     *        Amazon VPC currently does not support cluster compute quadruple extra large (cc1.4xlarge) instances. Thus
-     *        you cannot specify the cc1.4xlarge instance type for clusters launched in an Amazon VPC.
+     *        you want the cluster to launch. If you do not specify this value and your account supports EC2-Classic,
+     *        the cluster launches in EC2-Classic.
      */
 
     public void setEc2SubnetId(String ec2SubnetId) {
@@ -763,23 +851,14 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
      * <p>
      * Applies to clusters that use the uniform instance group configuration. To launch the cluster in Amazon Virtual
      * Private Cloud (Amazon VPC), set this parameter to the identifier of the Amazon VPC subnet where you want the
-     * cluster to launch. If you do not specify this value, the cluster launches in the normal Amazon Web Services
-     * cloud, outside of an Amazon VPC, if the account launching the cluster supports EC2 Classic networks in the region
-     * where the cluster launches.
-     * </p>
-     * <p>
-     * Amazon VPC currently does not support cluster compute quadruple extra large (cc1.4xlarge) instances. Thus you
-     * cannot specify the cc1.4xlarge instance type for clusters launched in an Amazon VPC.
+     * cluster to launch. If you do not specify this value and your account supports EC2-Classic, the cluster launches
+     * in EC2-Classic.
      * </p>
      * 
      * @return Applies to clusters that use the uniform instance group configuration. To launch the cluster in Amazon
      *         Virtual Private Cloud (Amazon VPC), set this parameter to the identifier of the Amazon VPC subnet where
-     *         you want the cluster to launch. If you do not specify this value, the cluster launches in the normal
-     *         Amazon Web Services cloud, outside of an Amazon VPC, if the account launching the cluster supports EC2
-     *         Classic networks in the region where the cluster launches.</p>
-     *         <p>
-     *         Amazon VPC currently does not support cluster compute quadruple extra large (cc1.4xlarge) instances. Thus
-     *         you cannot specify the cc1.4xlarge instance type for clusters launched in an Amazon VPC.
+     *         you want the cluster to launch. If you do not specify this value and your account supports EC2-Classic,
+     *         the cluster launches in EC2-Classic.
      */
 
     public String getEc2SubnetId() {
@@ -790,24 +869,15 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
      * <p>
      * Applies to clusters that use the uniform instance group configuration. To launch the cluster in Amazon Virtual
      * Private Cloud (Amazon VPC), set this parameter to the identifier of the Amazon VPC subnet where you want the
-     * cluster to launch. If you do not specify this value, the cluster launches in the normal Amazon Web Services
-     * cloud, outside of an Amazon VPC, if the account launching the cluster supports EC2 Classic networks in the region
-     * where the cluster launches.
-     * </p>
-     * <p>
-     * Amazon VPC currently does not support cluster compute quadruple extra large (cc1.4xlarge) instances. Thus you
-     * cannot specify the cc1.4xlarge instance type for clusters launched in an Amazon VPC.
+     * cluster to launch. If you do not specify this value and your account supports EC2-Classic, the cluster launches
+     * in EC2-Classic.
      * </p>
      * 
      * @param ec2SubnetId
      *        Applies to clusters that use the uniform instance group configuration. To launch the cluster in Amazon
      *        Virtual Private Cloud (Amazon VPC), set this parameter to the identifier of the Amazon VPC subnet where
-     *        you want the cluster to launch. If you do not specify this value, the cluster launches in the normal
-     *        Amazon Web Services cloud, outside of an Amazon VPC, if the account launching the cluster supports EC2
-     *        Classic networks in the region where the cluster launches.</p>
-     *        <p>
-     *        Amazon VPC currently does not support cluster compute quadruple extra large (cc1.4xlarge) instances. Thus
-     *        you cannot specify the cc1.4xlarge instance type for clusters launched in an Amazon VPC.
+     *        you want the cluster to launch. If you do not specify this value and your account supports EC2-Classic,
+     *        the cluster launches in EC2-Classic.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -818,20 +888,20 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Applies to clusters that use the instance fleet configuration. When multiple EC2 subnet IDs are specified, Amazon
-     * EMR evaluates them and launches instances in the optimal subnet.
+     * Applies to clusters that use the instance fleet configuration. When multiple Amazon EC2 subnet IDs are specified,
+     * Amazon EMR evaluates them and launches instances in the optimal subnet.
      * </p>
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions.
      * </p>
      * </note>
      * 
-     * @return Applies to clusters that use the instance fleet configuration. When multiple EC2 subnet IDs are
+     * @return Applies to clusters that use the instance fleet configuration. When multiple Amazon EC2 subnet IDs are
      *         specified, Amazon EMR evaluates them and launches instances in the optimal subnet.</p> <note>
      *         <p>
-     *         The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding
+     *         The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding
      *         5.0.x versions.
      *         </p>
      */
@@ -845,21 +915,21 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Applies to clusters that use the instance fleet configuration. When multiple EC2 subnet IDs are specified, Amazon
-     * EMR evaluates them and launches instances in the optimal subnet.
+     * Applies to clusters that use the instance fleet configuration. When multiple Amazon EC2 subnet IDs are specified,
+     * Amazon EMR evaluates them and launches instances in the optimal subnet.
      * </p>
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions.
      * </p>
      * </note>
      * 
      * @param ec2SubnetIds
-     *        Applies to clusters that use the instance fleet configuration. When multiple EC2 subnet IDs are specified,
-     *        Amazon EMR evaluates them and launches instances in the optimal subnet.</p> <note>
+     *        Applies to clusters that use the instance fleet configuration. When multiple Amazon EC2 subnet IDs are
+     *        specified, Amazon EMR evaluates them and launches instances in the optimal subnet.</p> <note>
      *        <p>
-     *        The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     *        The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      *        versions.
      *        </p>
      */
@@ -875,12 +945,12 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Applies to clusters that use the instance fleet configuration. When multiple EC2 subnet IDs are specified, Amazon
-     * EMR evaluates them and launches instances in the optimal subnet.
+     * Applies to clusters that use the instance fleet configuration. When multiple Amazon EC2 subnet IDs are specified,
+     * Amazon EMR evaluates them and launches instances in the optimal subnet.
      * </p>
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions.
      * </p>
      * </note>
@@ -891,10 +961,10 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
      * </p>
      * 
      * @param ec2SubnetIds
-     *        Applies to clusters that use the instance fleet configuration. When multiple EC2 subnet IDs are specified,
-     *        Amazon EMR evaluates them and launches instances in the optimal subnet.</p> <note>
+     *        Applies to clusters that use the instance fleet configuration. When multiple Amazon EC2 subnet IDs are
+     *        specified, Amazon EMR evaluates them and launches instances in the optimal subnet.</p> <note>
      *        <p>
-     *        The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     *        The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      *        versions.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -912,21 +982,21 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Applies to clusters that use the instance fleet configuration. When multiple EC2 subnet IDs are specified, Amazon
-     * EMR evaluates them and launches instances in the optimal subnet.
+     * Applies to clusters that use the instance fleet configuration. When multiple Amazon EC2 subnet IDs are specified,
+     * Amazon EMR evaluates them and launches instances in the optimal subnet.
      * </p>
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions.
      * </p>
      * </note>
      * 
      * @param ec2SubnetIds
-     *        Applies to clusters that use the instance fleet configuration. When multiple EC2 subnet IDs are specified,
-     *        Amazon EMR evaluates them and launches instances in the optimal subnet.</p> <note>
+     *        Applies to clusters that use the instance fleet configuration. When multiple Amazon EC2 subnet IDs are
+     *        specified, Amazon EMR evaluates them and launches instances in the optimal subnet.</p> <note>
      *        <p>
-     *        The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     *        The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      *        versions.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -939,11 +1009,14 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The identifier of the Amazon EC2 security group for the master node.
+     * The identifier of the Amazon EC2 security group for the master node. If you specify
+     * <code>EmrManagedMasterSecurityGroup</code>, you must also specify <code>EmrManagedSlaveSecurityGroup</code>.
      * </p>
      * 
      * @param emrManagedMasterSecurityGroup
-     *        The identifier of the Amazon EC2 security group for the master node.
+     *        The identifier of the Amazon EC2 security group for the master node. If you specify
+     *        <code>EmrManagedMasterSecurityGroup</code>, you must also specify
+     *        <code>EmrManagedSlaveSecurityGroup</code>.
      */
 
     public void setEmrManagedMasterSecurityGroup(String emrManagedMasterSecurityGroup) {
@@ -952,10 +1025,13 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The identifier of the Amazon EC2 security group for the master node.
+     * The identifier of the Amazon EC2 security group for the master node. If you specify
+     * <code>EmrManagedMasterSecurityGroup</code>, you must also specify <code>EmrManagedSlaveSecurityGroup</code>.
      * </p>
      * 
-     * @return The identifier of the Amazon EC2 security group for the master node.
+     * @return The identifier of the Amazon EC2 security group for the master node. If you specify
+     *         <code>EmrManagedMasterSecurityGroup</code>, you must also specify
+     *         <code>EmrManagedSlaveSecurityGroup</code>.
      */
 
     public String getEmrManagedMasterSecurityGroup() {
@@ -964,11 +1040,14 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The identifier of the Amazon EC2 security group for the master node.
+     * The identifier of the Amazon EC2 security group for the master node. If you specify
+     * <code>EmrManagedMasterSecurityGroup</code>, you must also specify <code>EmrManagedSlaveSecurityGroup</code>.
      * </p>
      * 
      * @param emrManagedMasterSecurityGroup
-     *        The identifier of the Amazon EC2 security group for the master node.
+     *        The identifier of the Amazon EC2 security group for the master node. If you specify
+     *        <code>EmrManagedMasterSecurityGroup</code>, you must also specify
+     *        <code>EmrManagedSlaveSecurityGroup</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -979,11 +1058,14 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The identifier of the Amazon EC2 security group for the core and task nodes.
+     * The identifier of the Amazon EC2 security group for the core and task nodes. If you specify
+     * <code>EmrManagedSlaveSecurityGroup</code>, you must also specify <code>EmrManagedMasterSecurityGroup</code>.
      * </p>
      * 
      * @param emrManagedSlaveSecurityGroup
-     *        The identifier of the Amazon EC2 security group for the core and task nodes.
+     *        The identifier of the Amazon EC2 security group for the core and task nodes. If you specify
+     *        <code>EmrManagedSlaveSecurityGroup</code>, you must also specify
+     *        <code>EmrManagedMasterSecurityGroup</code>.
      */
 
     public void setEmrManagedSlaveSecurityGroup(String emrManagedSlaveSecurityGroup) {
@@ -992,10 +1074,13 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The identifier of the Amazon EC2 security group for the core and task nodes.
+     * The identifier of the Amazon EC2 security group for the core and task nodes. If you specify
+     * <code>EmrManagedSlaveSecurityGroup</code>, you must also specify <code>EmrManagedMasterSecurityGroup</code>.
      * </p>
      * 
-     * @return The identifier of the Amazon EC2 security group for the core and task nodes.
+     * @return The identifier of the Amazon EC2 security group for the core and task nodes. If you specify
+     *         <code>EmrManagedSlaveSecurityGroup</code>, you must also specify
+     *         <code>EmrManagedMasterSecurityGroup</code>.
      */
 
     public String getEmrManagedSlaveSecurityGroup() {
@@ -1004,11 +1089,14 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The identifier of the Amazon EC2 security group for the core and task nodes.
+     * The identifier of the Amazon EC2 security group for the core and task nodes. If you specify
+     * <code>EmrManagedSlaveSecurityGroup</code>, you must also specify <code>EmrManagedMasterSecurityGroup</code>.
      * </p>
      * 
      * @param emrManagedSlaveSecurityGroup
-     *        The identifier of the Amazon EC2 security group for the core and task nodes.
+     *        The identifier of the Amazon EC2 security group for the core and task nodes. If you specify
+     *        <code>EmrManagedSlaveSecurityGroup</code>, you must also specify
+     *        <code>EmrManagedMasterSecurityGroup</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1239,6 +1327,8 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
             sb.append("KeepJobFlowAliveWhenNoSteps: ").append(getKeepJobFlowAliveWhenNoSteps()).append(",");
         if (getTerminationProtected() != null)
             sb.append("TerminationProtected: ").append(getTerminationProtected()).append(",");
+        if (getUnhealthyNodeReplacement() != null)
+            sb.append("UnhealthyNodeReplacement: ").append(getUnhealthyNodeReplacement()).append(",");
         if (getHadoopVersion() != null)
             sb.append("HadoopVersion: ").append(getHadoopVersion()).append(",");
         if (getEc2SubnetId() != null)
@@ -1305,6 +1395,10 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
             return false;
         if (other.getTerminationProtected() != null && other.getTerminationProtected().equals(this.getTerminationProtected()) == false)
             return false;
+        if (other.getUnhealthyNodeReplacement() == null ^ this.getUnhealthyNodeReplacement() == null)
+            return false;
+        if (other.getUnhealthyNodeReplacement() != null && other.getUnhealthyNodeReplacement().equals(this.getUnhealthyNodeReplacement()) == false)
+            return false;
         if (other.getHadoopVersion() == null ^ this.getHadoopVersion() == null)
             return false;
         if (other.getHadoopVersion() != null && other.getHadoopVersion().equals(this.getHadoopVersion()) == false)
@@ -1357,6 +1451,7 @@ public class JobFlowInstancesConfig implements Serializable, Cloneable, Structur
         hashCode = prime * hashCode + ((getPlacement() == null) ? 0 : getPlacement().hashCode());
         hashCode = prime * hashCode + ((getKeepJobFlowAliveWhenNoSteps() == null) ? 0 : getKeepJobFlowAliveWhenNoSteps().hashCode());
         hashCode = prime * hashCode + ((getTerminationProtected() == null) ? 0 : getTerminationProtected().hashCode());
+        hashCode = prime * hashCode + ((getUnhealthyNodeReplacement() == null) ? 0 : getUnhealthyNodeReplacement().hashCode());
         hashCode = prime * hashCode + ((getHadoopVersion() == null) ? 0 : getHadoopVersion().hashCode());
         hashCode = prime * hashCode + ((getEc2SubnetId() == null) ? 0 : getEc2SubnetId().hashCode());
         hashCode = prime * hashCode + ((getEc2SubnetIds() == null) ? 0 : getEc2SubnetIds().hashCode());

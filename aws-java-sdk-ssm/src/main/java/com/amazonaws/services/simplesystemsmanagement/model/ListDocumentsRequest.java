@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,14 +27,24 @@ public class ListDocumentsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * One or more filters. Use a filter to return a more specific list of results.
+     * This data type is deprecated. Instead, use <code>Filters</code>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<DocumentFilter> documentFilterList;
     /**
      * <p>
-     * One or more filters. Use a filter to return a more specific list of results.
+     * One or more <code>DocumentKeyValuesFilter</code> objects. Use a filter to return a more specific list of results.
+     * For keys, you can specify one or more key-value pair tags that have been applied to a document. Other valid keys
+     * include <code>Owner</code>, <code>Name</code>, <code>PlatformTypes</code>, <code>DocumentType</code>, and
+     * <code>TargetType</code>. For example, to return documents you own use <code>Key=Owner,Values=Self</code>. To
+     * specify a custom key-value pair, use the format <code>Key=tag:tagName,Values=valueName</code>.
      * </p>
+     * <note>
+     * <p>
+     * This API operation only supports filtering documents by using a single tag key and one or more tag values. For
+     * example: <code>Key=tag:tagName,Values=valueName1,valueName2</code>
+     * </p>
+     * </note>
      */
     private com.amazonaws.internal.SdkInternalList<DocumentKeyValuesFilter> filters;
     /**
@@ -53,10 +63,10 @@ public class ListDocumentsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * One or more filters. Use a filter to return a more specific list of results.
+     * This data type is deprecated. Instead, use <code>Filters</code>.
      * </p>
      * 
-     * @return One or more filters. Use a filter to return a more specific list of results.
+     * @return This data type is deprecated. Instead, use <code>Filters</code>.
      */
 
     public java.util.List<DocumentFilter> getDocumentFilterList() {
@@ -68,11 +78,11 @@ public class ListDocumentsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * One or more filters. Use a filter to return a more specific list of results.
+     * This data type is deprecated. Instead, use <code>Filters</code>.
      * </p>
      * 
      * @param documentFilterList
-     *        One or more filters. Use a filter to return a more specific list of results.
+     *        This data type is deprecated. Instead, use <code>Filters</code>.
      */
 
     public void setDocumentFilterList(java.util.Collection<DocumentFilter> documentFilterList) {
@@ -86,7 +96,7 @@ public class ListDocumentsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * One or more filters. Use a filter to return a more specific list of results.
+     * This data type is deprecated. Instead, use <code>Filters</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -95,7 +105,7 @@ public class ListDocumentsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param documentFilterList
-     *        One or more filters. Use a filter to return a more specific list of results.
+     *        This data type is deprecated. Instead, use <code>Filters</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -111,11 +121,11 @@ public class ListDocumentsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * One or more filters. Use a filter to return a more specific list of results.
+     * This data type is deprecated. Instead, use <code>Filters</code>.
      * </p>
      * 
      * @param documentFilterList
-     *        One or more filters. Use a filter to return a more specific list of results.
+     *        This data type is deprecated. Instead, use <code>Filters</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -126,10 +136,29 @@ public class ListDocumentsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * One or more filters. Use a filter to return a more specific list of results.
+     * One or more <code>DocumentKeyValuesFilter</code> objects. Use a filter to return a more specific list of results.
+     * For keys, you can specify one or more key-value pair tags that have been applied to a document. Other valid keys
+     * include <code>Owner</code>, <code>Name</code>, <code>PlatformTypes</code>, <code>DocumentType</code>, and
+     * <code>TargetType</code>. For example, to return documents you own use <code>Key=Owner,Values=Self</code>. To
+     * specify a custom key-value pair, use the format <code>Key=tag:tagName,Values=valueName</code>.
      * </p>
+     * <note>
+     * <p>
+     * This API operation only supports filtering documents by using a single tag key and one or more tag values. For
+     * example: <code>Key=tag:tagName,Values=valueName1,valueName2</code>
+     * </p>
+     * </note>
      * 
-     * @return One or more filters. Use a filter to return a more specific list of results.
+     * @return One or more <code>DocumentKeyValuesFilter</code> objects. Use a filter to return a more specific list of
+     *         results. For keys, you can specify one or more key-value pair tags that have been applied to a document.
+     *         Other valid keys include <code>Owner</code>, <code>Name</code>, <code>PlatformTypes</code>,
+     *         <code>DocumentType</code>, and <code>TargetType</code>. For example, to return documents you own use
+     *         <code>Key=Owner,Values=Self</code>. To specify a custom key-value pair, use the format
+     *         <code>Key=tag:tagName,Values=valueName</code>.</p> <note>
+     *         <p>
+     *         This API operation only supports filtering documents by using a single tag key and one or more tag
+     *         values. For example: <code>Key=tag:tagName,Values=valueName1,valueName2</code>
+     *         </p>
      */
 
     public java.util.List<DocumentKeyValuesFilter> getFilters() {
@@ -141,11 +170,30 @@ public class ListDocumentsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * One or more filters. Use a filter to return a more specific list of results.
+     * One or more <code>DocumentKeyValuesFilter</code> objects. Use a filter to return a more specific list of results.
+     * For keys, you can specify one or more key-value pair tags that have been applied to a document. Other valid keys
+     * include <code>Owner</code>, <code>Name</code>, <code>PlatformTypes</code>, <code>DocumentType</code>, and
+     * <code>TargetType</code>. For example, to return documents you own use <code>Key=Owner,Values=Self</code>. To
+     * specify a custom key-value pair, use the format <code>Key=tag:tagName,Values=valueName</code>.
      * </p>
+     * <note>
+     * <p>
+     * This API operation only supports filtering documents by using a single tag key and one or more tag values. For
+     * example: <code>Key=tag:tagName,Values=valueName1,valueName2</code>
+     * </p>
+     * </note>
      * 
      * @param filters
-     *        One or more filters. Use a filter to return a more specific list of results.
+     *        One or more <code>DocumentKeyValuesFilter</code> objects. Use a filter to return a more specific list of
+     *        results. For keys, you can specify one or more key-value pair tags that have been applied to a document.
+     *        Other valid keys include <code>Owner</code>, <code>Name</code>, <code>PlatformTypes</code>,
+     *        <code>DocumentType</code>, and <code>TargetType</code>. For example, to return documents you own use
+     *        <code>Key=Owner,Values=Self</code>. To specify a custom key-value pair, use the format
+     *        <code>Key=tag:tagName,Values=valueName</code>.</p> <note>
+     *        <p>
+     *        This API operation only supports filtering documents by using a single tag key and one or more tag values.
+     *        For example: <code>Key=tag:tagName,Values=valueName1,valueName2</code>
+     *        </p>
      */
 
     public void setFilters(java.util.Collection<DocumentKeyValuesFilter> filters) {
@@ -159,8 +207,18 @@ public class ListDocumentsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * One or more filters. Use a filter to return a more specific list of results.
+     * One or more <code>DocumentKeyValuesFilter</code> objects. Use a filter to return a more specific list of results.
+     * For keys, you can specify one or more key-value pair tags that have been applied to a document. Other valid keys
+     * include <code>Owner</code>, <code>Name</code>, <code>PlatformTypes</code>, <code>DocumentType</code>, and
+     * <code>TargetType</code>. For example, to return documents you own use <code>Key=Owner,Values=Self</code>. To
+     * specify a custom key-value pair, use the format <code>Key=tag:tagName,Values=valueName</code>.
      * </p>
+     * <note>
+     * <p>
+     * This API operation only supports filtering documents by using a single tag key and one or more tag values. For
+     * example: <code>Key=tag:tagName,Values=valueName1,valueName2</code>
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setFilters(java.util.Collection)} or {@link #withFilters(java.util.Collection)} if you want to override
@@ -168,7 +226,16 @@ public class ListDocumentsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param filters
-     *        One or more filters. Use a filter to return a more specific list of results.
+     *        One or more <code>DocumentKeyValuesFilter</code> objects. Use a filter to return a more specific list of
+     *        results. For keys, you can specify one or more key-value pair tags that have been applied to a document.
+     *        Other valid keys include <code>Owner</code>, <code>Name</code>, <code>PlatformTypes</code>,
+     *        <code>DocumentType</code>, and <code>TargetType</code>. For example, to return documents you own use
+     *        <code>Key=Owner,Values=Self</code>. To specify a custom key-value pair, use the format
+     *        <code>Key=tag:tagName,Values=valueName</code>.</p> <note>
+     *        <p>
+     *        This API operation only supports filtering documents by using a single tag key and one or more tag values.
+     *        For example: <code>Key=tag:tagName,Values=valueName1,valueName2</code>
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -184,11 +251,30 @@ public class ListDocumentsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * One or more filters. Use a filter to return a more specific list of results.
+     * One or more <code>DocumentKeyValuesFilter</code> objects. Use a filter to return a more specific list of results.
+     * For keys, you can specify one or more key-value pair tags that have been applied to a document. Other valid keys
+     * include <code>Owner</code>, <code>Name</code>, <code>PlatformTypes</code>, <code>DocumentType</code>, and
+     * <code>TargetType</code>. For example, to return documents you own use <code>Key=Owner,Values=Self</code>. To
+     * specify a custom key-value pair, use the format <code>Key=tag:tagName,Values=valueName</code>.
      * </p>
+     * <note>
+     * <p>
+     * This API operation only supports filtering documents by using a single tag key and one or more tag values. For
+     * example: <code>Key=tag:tagName,Values=valueName1,valueName2</code>
+     * </p>
+     * </note>
      * 
      * @param filters
-     *        One or more filters. Use a filter to return a more specific list of results.
+     *        One or more <code>DocumentKeyValuesFilter</code> objects. Use a filter to return a more specific list of
+     *        results. For keys, you can specify one or more key-value pair tags that have been applied to a document.
+     *        Other valid keys include <code>Owner</code>, <code>Name</code>, <code>PlatformTypes</code>,
+     *        <code>DocumentType</code>, and <code>TargetType</code>. For example, to return documents you own use
+     *        <code>Key=Owner,Values=Self</code>. To specify a custom key-value pair, use the format
+     *        <code>Key=tag:tagName,Values=valueName</code>.</p> <note>
+     *        <p>
+     *        This API operation only supports filtering documents by using a single tag key and one or more tag values.
+     *        For example: <code>Key=tag:tagName,Values=valueName1,valueName2</code>
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

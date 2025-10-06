@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,8 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * You must specify values for all required parameters in the Systems Manager document. You can only supply values to
- * parameters defined in the Systems Manager document.
+ * You must specify values for all required parameters in the Amazon Web Services Systems Manager document (SSM
+ * document). You can only supply values to parameters defined in the SSM document.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

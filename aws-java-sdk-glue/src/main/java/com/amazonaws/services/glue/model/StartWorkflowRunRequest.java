@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,12 @@ public class StartWorkflowRunRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      */
     private String name;
+    /**
+     * <p>
+     * The workflow run properties for the new workflow run.
+     * </p>
+     */
+    private java.util.Map<String, String> runProperties;
 
     /**
      * <p>
@@ -73,6 +79,74 @@ public class StartWorkflowRunRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
+     * <p>
+     * The workflow run properties for the new workflow run.
+     * </p>
+     * 
+     * @return The workflow run properties for the new workflow run.
+     */
+
+    public java.util.Map<String, String> getRunProperties() {
+        return runProperties;
+    }
+
+    /**
+     * <p>
+     * The workflow run properties for the new workflow run.
+     * </p>
+     * 
+     * @param runProperties
+     *        The workflow run properties for the new workflow run.
+     */
+
+    public void setRunProperties(java.util.Map<String, String> runProperties) {
+        this.runProperties = runProperties;
+    }
+
+    /**
+     * <p>
+     * The workflow run properties for the new workflow run.
+     * </p>
+     * 
+     * @param runProperties
+     *        The workflow run properties for the new workflow run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartWorkflowRunRequest withRunProperties(java.util.Map<String, String> runProperties) {
+        setRunProperties(runProperties);
+        return this;
+    }
+
+    /**
+     * Add a single RunProperties entry
+     *
+     * @see StartWorkflowRunRequest#withRunProperties
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartWorkflowRunRequest addRunPropertiesEntry(String key, String value) {
+        if (null == this.runProperties) {
+            this.runProperties = new java.util.HashMap<String, String>();
+        }
+        if (this.runProperties.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.runProperties.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into RunProperties.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartWorkflowRunRequest clearRunPropertiesEntries() {
+        this.runProperties = null;
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -85,7 +159,9 @@ public class StartWorkflowRunRequest extends com.amazonaws.AmazonWebServiceReque
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getName() != null)
-            sb.append("Name: ").append(getName());
+            sb.append("Name: ").append(getName()).append(",");
+        if (getRunProperties() != null)
+            sb.append("RunProperties: ").append(getRunProperties());
         sb.append("}");
         return sb.toString();
     }
@@ -104,6 +180,10 @@ public class StartWorkflowRunRequest extends com.amazonaws.AmazonWebServiceReque
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
             return false;
+        if (other.getRunProperties() == null ^ this.getRunProperties() == null)
+            return false;
+        if (other.getRunProperties() != null && other.getRunProperties().equals(this.getRunProperties()) == false)
+            return false;
         return true;
     }
 
@@ -113,6 +193,7 @@ public class StartWorkflowRunRequest extends com.amazonaws.AmazonWebServiceReque
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getRunProperties() == null) ? 0 : getRunProperties().hashCode());
         return hashCode;
     }
 

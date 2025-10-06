@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,7 +55,8 @@ public class DirectoryConfigJsonUnmarshaller implements Unmarshaller<DirectoryCo
                 if (context.testExpression("OrganizationalUnitDistinguishedNames", targetDepth)) {
                     context.nextToken();
                     directoryConfig.setOrganizationalUnitDistinguishedNames(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("ServiceAccountCredentials", targetDepth)) {
                     context.nextToken();
@@ -64,6 +65,10 @@ public class DirectoryConfigJsonUnmarshaller implements Unmarshaller<DirectoryCo
                 if (context.testExpression("CreatedTime", targetDepth)) {
                     context.nextToken();
                     directoryConfig.setCreatedTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("CertificateBasedAuthProperties", targetDepth)) {
+                    context.nextToken();
+                    directoryConfig.setCertificateBasedAuthProperties(CertificateBasedAuthPropertiesJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

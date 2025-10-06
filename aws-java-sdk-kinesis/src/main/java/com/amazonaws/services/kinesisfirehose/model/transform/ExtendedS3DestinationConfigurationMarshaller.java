@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,6 +51,12 @@ public class ExtendedS3DestinationConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("S3BackupConfiguration").build();
     private static final MarshallingInfo<StructuredPojo> DATAFORMATCONVERSIONCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DataFormatConversionConfiguration").build();
+    private static final MarshallingInfo<StructuredPojo> DYNAMICPARTITIONINGCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DynamicPartitioningConfiguration").build();
+    private static final MarshallingInfo<String> FILEEXTENSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FileExtension").build();
+    private static final MarshallingInfo<String> CUSTOMTIMEZONE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CustomTimeZone").build();
 
     private static final ExtendedS3DestinationConfigurationMarshaller instance = new ExtendedS3DestinationConfigurationMarshaller();
 
@@ -80,6 +86,9 @@ public class ExtendedS3DestinationConfigurationMarshaller {
             protocolMarshaller.marshall(extendedS3DestinationConfiguration.getS3BackupMode(), S3BACKUPMODE_BINDING);
             protocolMarshaller.marshall(extendedS3DestinationConfiguration.getS3BackupConfiguration(), S3BACKUPCONFIGURATION_BINDING);
             protocolMarshaller.marshall(extendedS3DestinationConfiguration.getDataFormatConversionConfiguration(), DATAFORMATCONVERSIONCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(extendedS3DestinationConfiguration.getDynamicPartitioningConfiguration(), DYNAMICPARTITIONINGCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(extendedS3DestinationConfiguration.getFileExtension(), FILEEXTENSION_BINDING);
+            protocolMarshaller.marshall(extendedS3DestinationConfiguration.getCustomTimeZone(), CUSTOMTIMEZONE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

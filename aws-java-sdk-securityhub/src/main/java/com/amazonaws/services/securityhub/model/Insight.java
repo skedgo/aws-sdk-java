@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,15 +42,17 @@ public class Insight implements Serializable, Cloneable, StructuredPojo {
     private String name;
     /**
      * <p>
-     * One or more attributes used to filter the findings included in the insight. Only findings that match the criteria
-     * defined in the filters are included in the insight.
+     * One or more attributes used to filter the findings included in the insight. You can filter by up to ten finding
+     * attributes. For each attribute, you can provide up to 20 filter values. The insight only includes findings that
+     * match the criteria defined in the filters.
      * </p>
      */
     private AwsSecurityFindingFilters filters;
     /**
      * <p>
-     * The attribute that the insight's findings are grouped by. This attribute is used as a findings aggregator for the
-     * purposes of viewing and managing multiple related findings under a single operand.
+     * The grouping attribute for the insight's findings. Indicates how to group the matching findings, and identifies
+     * the type of item that the insight applies to. For example, if an insight is grouped by resource identifier, then
+     * the insight produces a list of resource identifiers.
      * </p>
      */
     private String groupByAttribute;
@@ -137,13 +139,15 @@ public class Insight implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * One or more attributes used to filter the findings included in the insight. Only findings that match the criteria
-     * defined in the filters are included in the insight.
+     * One or more attributes used to filter the findings included in the insight. You can filter by up to ten finding
+     * attributes. For each attribute, you can provide up to 20 filter values. The insight only includes findings that
+     * match the criteria defined in the filters.
      * </p>
      * 
      * @param filters
-     *        One or more attributes used to filter the findings included in the insight. Only findings that match the
-     *        criteria defined in the filters are included in the insight.
+     *        One or more attributes used to filter the findings included in the insight. You can filter by up to ten
+     *        finding attributes. For each attribute, you can provide up to 20 filter values. The insight only includes
+     *        findings that match the criteria defined in the filters.
      */
 
     public void setFilters(AwsSecurityFindingFilters filters) {
@@ -152,12 +156,14 @@ public class Insight implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * One or more attributes used to filter the findings included in the insight. Only findings that match the criteria
-     * defined in the filters are included in the insight.
+     * One or more attributes used to filter the findings included in the insight. You can filter by up to ten finding
+     * attributes. For each attribute, you can provide up to 20 filter values. The insight only includes findings that
+     * match the criteria defined in the filters.
      * </p>
      * 
-     * @return One or more attributes used to filter the findings included in the insight. Only findings that match the
-     *         criteria defined in the filters are included in the insight.
+     * @return One or more attributes used to filter the findings included in the insight. You can filter by up to ten
+     *         finding attributes. For each attribute, you can provide up to 20 filter values. The insight only includes
+     *         findings that match the criteria defined in the filters.
      */
 
     public AwsSecurityFindingFilters getFilters() {
@@ -166,13 +172,15 @@ public class Insight implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * One or more attributes used to filter the findings included in the insight. Only findings that match the criteria
-     * defined in the filters are included in the insight.
+     * One or more attributes used to filter the findings included in the insight. You can filter by up to ten finding
+     * attributes. For each attribute, you can provide up to 20 filter values. The insight only includes findings that
+     * match the criteria defined in the filters.
      * </p>
      * 
      * @param filters
-     *        One or more attributes used to filter the findings included in the insight. Only findings that match the
-     *        criteria defined in the filters are included in the insight.
+     *        One or more attributes used to filter the findings included in the insight. You can filter by up to ten
+     *        finding attributes. For each attribute, you can provide up to 20 filter values. The insight only includes
+     *        findings that match the criteria defined in the filters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -183,13 +191,15 @@ public class Insight implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The attribute that the insight's findings are grouped by. This attribute is used as a findings aggregator for the
-     * purposes of viewing and managing multiple related findings under a single operand.
+     * The grouping attribute for the insight's findings. Indicates how to group the matching findings, and identifies
+     * the type of item that the insight applies to. For example, if an insight is grouped by resource identifier, then
+     * the insight produces a list of resource identifiers.
      * </p>
      * 
      * @param groupByAttribute
-     *        The attribute that the insight's findings are grouped by. This attribute is used as a findings aggregator
-     *        for the purposes of viewing and managing multiple related findings under a single operand.
+     *        The grouping attribute for the insight's findings. Indicates how to group the matching findings, and
+     *        identifies the type of item that the insight applies to. For example, if an insight is grouped by resource
+     *        identifier, then the insight produces a list of resource identifiers.
      */
 
     public void setGroupByAttribute(String groupByAttribute) {
@@ -198,12 +208,14 @@ public class Insight implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The attribute that the insight's findings are grouped by. This attribute is used as a findings aggregator for the
-     * purposes of viewing and managing multiple related findings under a single operand.
+     * The grouping attribute for the insight's findings. Indicates how to group the matching findings, and identifies
+     * the type of item that the insight applies to. For example, if an insight is grouped by resource identifier, then
+     * the insight produces a list of resource identifiers.
      * </p>
      * 
-     * @return The attribute that the insight's findings are grouped by. This attribute is used as a findings aggregator
-     *         for the purposes of viewing and managing multiple related findings under a single operand.
+     * @return The grouping attribute for the insight's findings. Indicates how to group the matching findings, and
+     *         identifies the type of item that the insight applies to. For example, if an insight is grouped by
+     *         resource identifier, then the insight produces a list of resource identifiers.
      */
 
     public String getGroupByAttribute() {
@@ -212,13 +224,15 @@ public class Insight implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The attribute that the insight's findings are grouped by. This attribute is used as a findings aggregator for the
-     * purposes of viewing and managing multiple related findings under a single operand.
+     * The grouping attribute for the insight's findings. Indicates how to group the matching findings, and identifies
+     * the type of item that the insight applies to. For example, if an insight is grouped by resource identifier, then
+     * the insight produces a list of resource identifiers.
      * </p>
      * 
      * @param groupByAttribute
-     *        The attribute that the insight's findings are grouped by. This attribute is used as a findings aggregator
-     *        for the purposes of viewing and managing multiple related findings under a single operand.
+     *        The grouping attribute for the insight's findings. Indicates how to group the matching findings, and
+     *        identifies the type of item that the insight applies to. For example, if an insight is grouped by resource
+     *        identifier, then the insight produces a list of resource identifiers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

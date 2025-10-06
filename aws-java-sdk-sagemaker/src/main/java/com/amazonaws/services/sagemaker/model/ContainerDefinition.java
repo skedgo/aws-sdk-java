@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,9 +33,9 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
      * This parameter is ignored for models that contain only a <code>PrimaryContainer</code>.
      * </p>
      * <p>
-     * When a <code>ContainerDefinition</code> is part of an inference pipeline, the value of ths parameter uniquely
+     * When a <code>ContainerDefinition</code> is part of an inference pipeline, the value of the parameter uniquely
      * identifies the container for the purposes of logging and metrics. For information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipeline-logs-metrics.html">Use Logs and Metrics
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipeline-logs-metrics.html">Use Logs and Metrics
      * to Monitor an Inference Pipeline</a>. If you don't specify a value for this parameter for a
      * <code>ContainerDefinition</code> that is part of an inference pipeline, a unique name is automatically assigned
      * based on the position of the <code>ContainerDefinition</code> in the pipeline. If you specify a value for the
@@ -47,43 +47,100 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
     private String containerHostname;
     /**
      * <p>
-     * The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored. If you are using your own
-     * custom algorithm instead of an algorithm provided by Amazon SageMaker, the inference code must meet Amazon
-     * SageMaker requirements. Amazon SageMaker supports both <code>registry/repository[:tag]</code> and
+     * The path where inference code is stored. This can be either in Amazon EC2 Container Registry or in a Docker
+     * registry that is accessible from the same VPC that you configure for your endpoint. If you are using your own
+     * custom algorithm instead of an algorithm provided by SageMaker, the inference code must meet SageMaker
+     * requirements. SageMaker supports both <code>registry/repository[:tag]</code> and
      * <code>registry/repository[@digest]</code> image path formats. For more information, see <a
      * href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own Algorithms with Amazon
-     * SageMaker</a>
+     * SageMaker</a>.
      * </p>
+     * <note>
+     * <p>
+     * The model artifacts in an Amazon S3 bucket and the Docker image for inference container in Amazon EC2 Container
+     * Registry must be in the same region as the model or endpoint you are creating.
+     * </p>
+     * </note>
      */
     private String image;
     /**
      * <p>
+     * Specifies whether the model container is in Amazon ECR or a private Docker registry accessible from your Amazon
+     * Virtual Private Cloud (VPC). For information about storing containers in a private Docker registry, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-containers-inference-private.html">Use a
+     * Private Docker Registry for Real-Time Inference Containers</a>.
+     * </p>
+     * <note>
+     * <p>
+     * The model artifacts in an Amazon S3 bucket and the Docker image for inference container in Amazon EC2 Container
+     * Registry must be in the same region as the model or endpoint you are creating.
+     * </p>
+     * </note>
+     */
+    private ImageConfig imageConfig;
+    /**
+     * <p>
+     * Whether the container hosts a single model or multiple models.
+     * </p>
+     */
+    private String mode;
+    /**
+     * <p>
      * The S3 path where the model artifacts, which result from model training, are stored. This path must point to a
-     * single gzip compressed tar archive (.tar.gz suffix). The S3 path is required for Amazon SageMaker built-in
-     * algorithms, but not if you use your own algorithms. For more information on built-in algorithms, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html">Common
+     * single gzip compressed tar archive (.tar.gz suffix). The S3 path is required for SageMaker built-in algorithms,
+     * but not if you use your own algorithms. For more information on built-in algorithms, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html">Common
      * Parameters</a>.
      * </p>
+     * <note>
      * <p>
-     * If you provide a value for this parameter, Amazon SageMaker uses AWS Security Token Service to download model
-     * artifacts from the S3 path you provide. AWS STS is activated in your IAM user account by default. If you
-     * previously deactivated AWS STS for a region, you need to reactivate AWS STS for that region. For more
-     * information, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating and
-     * Deactivating AWS STS in an AWS Region</a> in the <i>AWS Identity and Access Management User Guide</i>.
+     * The model artifacts must be in an S3 bucket that is in the same region as the model or endpoint you are creating.
+     * </p>
+     * </note>
+     * <p>
+     * If you provide a value for this parameter, SageMaker uses Amazon Web Services Security Token Service to download
+     * model artifacts from the S3 path you provide. Amazon Web Services STS is activated in your Amazon Web Services
+     * account by default. If you previously deactivated Amazon Web Services STS for a region, you need to reactivate
+     * Amazon Web Services STS for that region. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating and
+     * Deactivating Amazon Web Services STS in an Amazon Web Services Region</a> in the <i>Amazon Web Services Identity
+     * and Access Management User Guide</i>.
      * </p>
      * <important>
      * <p>
-     * If you use a built-in algorithm to create a model, Amazon SageMaker requires that you provide a S3 path to the
-     * model artifacts in <code>ModelDataUrl</code>.
+     * If you use a built-in algorithm to create a model, SageMaker requires that you provide a S3 path to the model
+     * artifacts in <code>ModelDataUrl</code>.
      * </p>
      * </important>
      */
     private String modelDataUrl;
     /**
      * <p>
-     * The environment variables to set in the Docker container. Each key and value in the <code>Environment</code>
-     * string to string map can have length of up to 1024. We support up to 16 entries in the map.
+     * Specifies the location of ML model data to deploy.
+     * </p>
+     * <note>
+     * <p>
+     * Currently you cannot use <code>ModelDataSource</code> in conjunction with SageMaker batch transform, SageMaker
+     * serverless endpoints, SageMaker multi-model endpoints, and SageMaker Marketplace.
+     * </p>
+     * </note>
+     */
+    private ModelDataSource modelDataSource;
+    /**
+     * <p>
+     * Data sources that are available to your model in addition to the one that you specify for
+     * <code>ModelDataSource</code> when you use the <code>CreateModel</code> action.
+     * </p>
+     */
+    private java.util.List<AdditionalModelDataSource> additionalModelDataSources;
+    /**
+     * <p>
+     * The environment variables to set in the Docker container.
+     * </p>
+     * <p>
+     * The maximum length of each key and value in the <code>Environment</code> map is 1024 bytes. The maximum length of
+     * all keys and values in the map, combined, is 32 KB. If you pass multiple containers to a <code>CreateModel</code>
+     * request, then the maximum length of all of their maps, combined, is also 32 KB.
      * </p>
      */
     private java.util.Map<String, String> environment;
@@ -93,15 +150,27 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
      * </p>
      */
     private String modelPackageName;
+    /**
+     * <p>
+     * The inference specification name in the model package version.
+     * </p>
+     */
+    private String inferenceSpecificationName;
+    /**
+     * <p>
+     * Specifies additional configuration for multi-model endpoints.
+     * </p>
+     */
+    private MultiModelConfig multiModelConfig;
 
     /**
      * <p>
      * This parameter is ignored for models that contain only a <code>PrimaryContainer</code>.
      * </p>
      * <p>
-     * When a <code>ContainerDefinition</code> is part of an inference pipeline, the value of ths parameter uniquely
+     * When a <code>ContainerDefinition</code> is part of an inference pipeline, the value of the parameter uniquely
      * identifies the container for the purposes of logging and metrics. For information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipeline-logs-metrics.html">Use Logs and Metrics
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipeline-logs-metrics.html">Use Logs and Metrics
      * to Monitor an Inference Pipeline</a>. If you don't specify a value for this parameter for a
      * <code>ContainerDefinition</code> that is part of an inference pipeline, a unique name is automatically assigned
      * based on the position of the <code>ContainerDefinition</code> in the pipeline. If you specify a value for the
@@ -113,9 +182,9 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
      * @param containerHostname
      *        This parameter is ignored for models that contain only a <code>PrimaryContainer</code>.</p>
      *        <p>
-     *        When a <code>ContainerDefinition</code> is part of an inference pipeline, the value of ths parameter
+     *        When a <code>ContainerDefinition</code> is part of an inference pipeline, the value of the parameter
      *        uniquely identifies the container for the purposes of logging and metrics. For information, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipeline-logs-metrics.html">Use Logs and
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipeline-logs-metrics.html">Use Logs and
      *        Metrics to Monitor an Inference Pipeline</a>. If you don't specify a value for this parameter for a
      *        <code>ContainerDefinition</code> that is part of an inference pipeline, a unique name is automatically
      *        assigned based on the position of the <code>ContainerDefinition</code> in the pipeline. If you specify a
@@ -133,9 +202,9 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
      * This parameter is ignored for models that contain only a <code>PrimaryContainer</code>.
      * </p>
      * <p>
-     * When a <code>ContainerDefinition</code> is part of an inference pipeline, the value of ths parameter uniquely
+     * When a <code>ContainerDefinition</code> is part of an inference pipeline, the value of the parameter uniquely
      * identifies the container for the purposes of logging and metrics. For information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipeline-logs-metrics.html">Use Logs and Metrics
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipeline-logs-metrics.html">Use Logs and Metrics
      * to Monitor an Inference Pipeline</a>. If you don't specify a value for this parameter for a
      * <code>ContainerDefinition</code> that is part of an inference pipeline, a unique name is automatically assigned
      * based on the position of the <code>ContainerDefinition</code> in the pipeline. If you specify a value for the
@@ -146,9 +215,9 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
      * 
      * @return This parameter is ignored for models that contain only a <code>PrimaryContainer</code>.</p>
      *         <p>
-     *         When a <code>ContainerDefinition</code> is part of an inference pipeline, the value of ths parameter
+     *         When a <code>ContainerDefinition</code> is part of an inference pipeline, the value of the parameter
      *         uniquely identifies the container for the purposes of logging and metrics. For information, see <a
-     *         href="http://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipeline-logs-metrics.html">Use Logs and
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipeline-logs-metrics.html">Use Logs and
      *         Metrics to Monitor an Inference Pipeline</a>. If you don't specify a value for this parameter for a
      *         <code>ContainerDefinition</code> that is part of an inference pipeline, a unique name is automatically
      *         assigned based on the position of the <code>ContainerDefinition</code> in the pipeline. If you specify a
@@ -166,9 +235,9 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
      * This parameter is ignored for models that contain only a <code>PrimaryContainer</code>.
      * </p>
      * <p>
-     * When a <code>ContainerDefinition</code> is part of an inference pipeline, the value of ths parameter uniquely
+     * When a <code>ContainerDefinition</code> is part of an inference pipeline, the value of the parameter uniquely
      * identifies the container for the purposes of logging and metrics. For information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipeline-logs-metrics.html">Use Logs and Metrics
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipeline-logs-metrics.html">Use Logs and Metrics
      * to Monitor an Inference Pipeline</a>. If you don't specify a value for this parameter for a
      * <code>ContainerDefinition</code> that is part of an inference pipeline, a unique name is automatically assigned
      * based on the position of the <code>ContainerDefinition</code> in the pipeline. If you specify a value for the
@@ -180,9 +249,9 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
      * @param containerHostname
      *        This parameter is ignored for models that contain only a <code>PrimaryContainer</code>.</p>
      *        <p>
-     *        When a <code>ContainerDefinition</code> is part of an inference pipeline, the value of ths parameter
+     *        When a <code>ContainerDefinition</code> is part of an inference pipeline, the value of the parameter
      *        uniquely identifies the container for the purposes of logging and metrics. For information, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipeline-logs-metrics.html">Use Logs and
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipeline-logs-metrics.html">Use Logs and
      *        Metrics to Monitor an Inference Pipeline</a>. If you don't specify a value for this parameter for a
      *        <code>ContainerDefinition</code> that is part of an inference pipeline, a unique name is automatically
      *        assigned based on the position of the <code>ContainerDefinition</code> in the pipeline. If you specify a
@@ -199,21 +268,33 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored. If you are using your own
-     * custom algorithm instead of an algorithm provided by Amazon SageMaker, the inference code must meet Amazon
-     * SageMaker requirements. Amazon SageMaker supports both <code>registry/repository[:tag]</code> and
+     * The path where inference code is stored. This can be either in Amazon EC2 Container Registry or in a Docker
+     * registry that is accessible from the same VPC that you configure for your endpoint. If you are using your own
+     * custom algorithm instead of an algorithm provided by SageMaker, the inference code must meet SageMaker
+     * requirements. SageMaker supports both <code>registry/repository[:tag]</code> and
      * <code>registry/repository[@digest]</code> image path formats. For more information, see <a
      * href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own Algorithms with Amazon
-     * SageMaker</a>
+     * SageMaker</a>.
      * </p>
+     * <note>
+     * <p>
+     * The model artifacts in an Amazon S3 bucket and the Docker image for inference container in Amazon EC2 Container
+     * Registry must be in the same region as the model or endpoint you are creating.
+     * </p>
+     * </note>
      * 
      * @param image
-     *        The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored. If you are using your
-     *        own custom algorithm instead of an algorithm provided by Amazon SageMaker, the inference code must meet
-     *        Amazon SageMaker requirements. Amazon SageMaker supports both <code>registry/repository[:tag]</code> and
+     *        The path where inference code is stored. This can be either in Amazon EC2 Container Registry or in a
+     *        Docker registry that is accessible from the same VPC that you configure for your endpoint. If you are
+     *        using your own custom algorithm instead of an algorithm provided by SageMaker, the inference code must
+     *        meet SageMaker requirements. SageMaker supports both <code>registry/repository[:tag]</code> and
      *        <code>registry/repository[@digest]</code> image path formats. For more information, see <a
      *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own Algorithms with
-     *        Amazon SageMaker</a>
+     *        Amazon SageMaker</a>. </p> <note>
+     *        <p>
+     *        The model artifacts in an Amazon S3 bucket and the Docker image for inference container in Amazon EC2
+     *        Container Registry must be in the same region as the model or endpoint you are creating.
+     *        </p>
      */
 
     public void setImage(String image) {
@@ -222,20 +303,32 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored. If you are using your own
-     * custom algorithm instead of an algorithm provided by Amazon SageMaker, the inference code must meet Amazon
-     * SageMaker requirements. Amazon SageMaker supports both <code>registry/repository[:tag]</code> and
+     * The path where inference code is stored. This can be either in Amazon EC2 Container Registry or in a Docker
+     * registry that is accessible from the same VPC that you configure for your endpoint. If you are using your own
+     * custom algorithm instead of an algorithm provided by SageMaker, the inference code must meet SageMaker
+     * requirements. SageMaker supports both <code>registry/repository[:tag]</code> and
      * <code>registry/repository[@digest]</code> image path formats. For more information, see <a
      * href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own Algorithms with Amazon
-     * SageMaker</a>
+     * SageMaker</a>.
      * </p>
+     * <note>
+     * <p>
+     * The model artifacts in an Amazon S3 bucket and the Docker image for inference container in Amazon EC2 Container
+     * Registry must be in the same region as the model or endpoint you are creating.
+     * </p>
+     * </note>
      * 
-     * @return The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored. If you are using your
-     *         own custom algorithm instead of an algorithm provided by Amazon SageMaker, the inference code must meet
-     *         Amazon SageMaker requirements. Amazon SageMaker supports both <code>registry/repository[:tag]</code> and
+     * @return The path where inference code is stored. This can be either in Amazon EC2 Container Registry or in a
+     *         Docker registry that is accessible from the same VPC that you configure for your endpoint. If you are
+     *         using your own custom algorithm instead of an algorithm provided by SageMaker, the inference code must
+     *         meet SageMaker requirements. SageMaker supports both <code>registry/repository[:tag]</code> and
      *         <code>registry/repository[@digest]</code> image path formats. For more information, see <a
      *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own Algorithms
-     *         with Amazon SageMaker</a>
+     *         with Amazon SageMaker</a>. </p> <note>
+     *         <p>
+     *         The model artifacts in an Amazon S3 bucket and the Docker image for inference container in Amazon EC2
+     *         Container Registry must be in the same region as the model or endpoint you are creating.
+     *         </p>
      */
 
     public String getImage() {
@@ -244,21 +337,33 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored. If you are using your own
-     * custom algorithm instead of an algorithm provided by Amazon SageMaker, the inference code must meet Amazon
-     * SageMaker requirements. Amazon SageMaker supports both <code>registry/repository[:tag]</code> and
+     * The path where inference code is stored. This can be either in Amazon EC2 Container Registry or in a Docker
+     * registry that is accessible from the same VPC that you configure for your endpoint. If you are using your own
+     * custom algorithm instead of an algorithm provided by SageMaker, the inference code must meet SageMaker
+     * requirements. SageMaker supports both <code>registry/repository[:tag]</code> and
      * <code>registry/repository[@digest]</code> image path formats. For more information, see <a
      * href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own Algorithms with Amazon
-     * SageMaker</a>
+     * SageMaker</a>.
      * </p>
+     * <note>
+     * <p>
+     * The model artifacts in an Amazon S3 bucket and the Docker image for inference container in Amazon EC2 Container
+     * Registry must be in the same region as the model or endpoint you are creating.
+     * </p>
+     * </note>
      * 
      * @param image
-     *        The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored. If you are using your
-     *        own custom algorithm instead of an algorithm provided by Amazon SageMaker, the inference code must meet
-     *        Amazon SageMaker requirements. Amazon SageMaker supports both <code>registry/repository[:tag]</code> and
+     *        The path where inference code is stored. This can be either in Amazon EC2 Container Registry or in a
+     *        Docker registry that is accessible from the same VPC that you configure for your endpoint. If you are
+     *        using your own custom algorithm instead of an algorithm provided by SageMaker, the inference code must
+     *        meet SageMaker requirements. SageMaker supports both <code>registry/repository[:tag]</code> and
      *        <code>registry/repository[@digest]</code> image path formats. For more information, see <a
      *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own Algorithms with
-     *        Amazon SageMaker</a>
+     *        Amazon SageMaker</a>. </p> <note>
+     *        <p>
+     *        The model artifacts in an Amazon S3 bucket and the Docker image for inference container in Amazon EC2
+     *        Container Registry must be in the same region as the model or endpoint you are creating.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -269,46 +374,207 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
+     * Specifies whether the model container is in Amazon ECR or a private Docker registry accessible from your Amazon
+     * Virtual Private Cloud (VPC). For information about storing containers in a private Docker registry, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-containers-inference-private.html">Use a
+     * Private Docker Registry for Real-Time Inference Containers</a>.
+     * </p>
+     * <note>
+     * <p>
+     * The model artifacts in an Amazon S3 bucket and the Docker image for inference container in Amazon EC2 Container
+     * Registry must be in the same region as the model or endpoint you are creating.
+     * </p>
+     * </note>
+     * 
+     * @param imageConfig
+     *        Specifies whether the model container is in Amazon ECR or a private Docker registry accessible from your
+     *        Amazon Virtual Private Cloud (VPC). For information about storing containers in a private Docker registry,
+     *        see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-containers-inference-private.html"
+     *        >Use a Private Docker Registry for Real-Time Inference Containers</a>. </p> <note>
+     *        <p>
+     *        The model artifacts in an Amazon S3 bucket and the Docker image for inference container in Amazon EC2
+     *        Container Registry must be in the same region as the model or endpoint you are creating.
+     *        </p>
+     */
+
+    public void setImageConfig(ImageConfig imageConfig) {
+        this.imageConfig = imageConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the model container is in Amazon ECR or a private Docker registry accessible from your Amazon
+     * Virtual Private Cloud (VPC). For information about storing containers in a private Docker registry, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-containers-inference-private.html">Use a
+     * Private Docker Registry for Real-Time Inference Containers</a>.
+     * </p>
+     * <note>
+     * <p>
+     * The model artifacts in an Amazon S3 bucket and the Docker image for inference container in Amazon EC2 Container
+     * Registry must be in the same region as the model or endpoint you are creating.
+     * </p>
+     * </note>
+     * 
+     * @return Specifies whether the model container is in Amazon ECR or a private Docker registry accessible from your
+     *         Amazon Virtual Private Cloud (VPC). For information about storing containers in a private Docker
+     *         registry, see <a href=
+     *         "https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-containers-inference-private.html">Use a
+     *         Private Docker Registry for Real-Time Inference Containers</a>. </p> <note>
+     *         <p>
+     *         The model artifacts in an Amazon S3 bucket and the Docker image for inference container in Amazon EC2
+     *         Container Registry must be in the same region as the model or endpoint you are creating.
+     *         </p>
+     */
+
+    public ImageConfig getImageConfig() {
+        return this.imageConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the model container is in Amazon ECR or a private Docker registry accessible from your Amazon
+     * Virtual Private Cloud (VPC). For information about storing containers in a private Docker registry, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-containers-inference-private.html">Use a
+     * Private Docker Registry for Real-Time Inference Containers</a>.
+     * </p>
+     * <note>
+     * <p>
+     * The model artifacts in an Amazon S3 bucket and the Docker image for inference container in Amazon EC2 Container
+     * Registry must be in the same region as the model or endpoint you are creating.
+     * </p>
+     * </note>
+     * 
+     * @param imageConfig
+     *        Specifies whether the model container is in Amazon ECR or a private Docker registry accessible from your
+     *        Amazon Virtual Private Cloud (VPC). For information about storing containers in a private Docker registry,
+     *        see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-containers-inference-private.html"
+     *        >Use a Private Docker Registry for Real-Time Inference Containers</a>. </p> <note>
+     *        <p>
+     *        The model artifacts in an Amazon S3 bucket and the Docker image for inference container in Amazon EC2
+     *        Container Registry must be in the same region as the model or endpoint you are creating.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerDefinition withImageConfig(ImageConfig imageConfig) {
+        setImageConfig(imageConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether the container hosts a single model or multiple models.
+     * </p>
+     * 
+     * @param mode
+     *        Whether the container hosts a single model or multiple models.
+     * @see ContainerMode
+     */
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    /**
+     * <p>
+     * Whether the container hosts a single model or multiple models.
+     * </p>
+     * 
+     * @return Whether the container hosts a single model or multiple models.
+     * @see ContainerMode
+     */
+
+    public String getMode() {
+        return this.mode;
+    }
+
+    /**
+     * <p>
+     * Whether the container hosts a single model or multiple models.
+     * </p>
+     * 
+     * @param mode
+     *        Whether the container hosts a single model or multiple models.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ContainerMode
+     */
+
+    public ContainerDefinition withMode(String mode) {
+        setMode(mode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether the container hosts a single model or multiple models.
+     * </p>
+     * 
+     * @param mode
+     *        Whether the container hosts a single model or multiple models.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ContainerMode
+     */
+
+    public ContainerDefinition withMode(ContainerMode mode) {
+        this.mode = mode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
      * The S3 path where the model artifacts, which result from model training, are stored. This path must point to a
-     * single gzip compressed tar archive (.tar.gz suffix). The S3 path is required for Amazon SageMaker built-in
-     * algorithms, but not if you use your own algorithms. For more information on built-in algorithms, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html">Common
+     * single gzip compressed tar archive (.tar.gz suffix). The S3 path is required for SageMaker built-in algorithms,
+     * but not if you use your own algorithms. For more information on built-in algorithms, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html">Common
      * Parameters</a>.
      * </p>
+     * <note>
      * <p>
-     * If you provide a value for this parameter, Amazon SageMaker uses AWS Security Token Service to download model
-     * artifacts from the S3 path you provide. AWS STS is activated in your IAM user account by default. If you
-     * previously deactivated AWS STS for a region, you need to reactivate AWS STS for that region. For more
-     * information, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating and
-     * Deactivating AWS STS in an AWS Region</a> in the <i>AWS Identity and Access Management User Guide</i>.
+     * The model artifacts must be in an S3 bucket that is in the same region as the model or endpoint you are creating.
+     * </p>
+     * </note>
+     * <p>
+     * If you provide a value for this parameter, SageMaker uses Amazon Web Services Security Token Service to download
+     * model artifacts from the S3 path you provide. Amazon Web Services STS is activated in your Amazon Web Services
+     * account by default. If you previously deactivated Amazon Web Services STS for a region, you need to reactivate
+     * Amazon Web Services STS for that region. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating and
+     * Deactivating Amazon Web Services STS in an Amazon Web Services Region</a> in the <i>Amazon Web Services Identity
+     * and Access Management User Guide</i>.
      * </p>
      * <important>
      * <p>
-     * If you use a built-in algorithm to create a model, Amazon SageMaker requires that you provide a S3 path to the
-     * model artifacts in <code>ModelDataUrl</code>.
+     * If you use a built-in algorithm to create a model, SageMaker requires that you provide a S3 path to the model
+     * artifacts in <code>ModelDataUrl</code>.
      * </p>
      * </important>
      * 
      * @param modelDataUrl
      *        The S3 path where the model artifacts, which result from model training, are stored. This path must point
-     *        to a single gzip compressed tar archive (.tar.gz suffix). The S3 path is required for Amazon SageMaker
-     *        built-in algorithms, but not if you use your own algorithms. For more information on built-in algorithms,
-     *        see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html">Common
-     *        Parameters</a>. </p>
+     *        to a single gzip compressed tar archive (.tar.gz suffix). The S3 path is required for SageMaker built-in
+     *        algorithms, but not if you use your own algorithms. For more information on built-in algorithms, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html">Common
+     *        Parameters</a>. </p> <note>
      *        <p>
-     *        If you provide a value for this parameter, Amazon SageMaker uses AWS Security Token Service to download
-     *        model artifacts from the S3 path you provide. AWS STS is activated in your IAM user account by default. If
-     *        you previously deactivated AWS STS for a region, you need to reactivate AWS STS for that region. For more
-     *        information, see <a
-     *        href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating
-     *        and Deactivating AWS STS in an AWS Region</a> in the <i>AWS Identity and Access Management User Guide</i>.
+     *        The model artifacts must be in an S3 bucket that is in the same region as the model or endpoint you are
+     *        creating.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        If you provide a value for this parameter, SageMaker uses Amazon Web Services Security Token Service to
+     *        download model artifacts from the S3 path you provide. Amazon Web Services STS is activated in your Amazon
+     *        Web Services account by default. If you previously deactivated Amazon Web Services STS for a region, you
+     *        need to reactivate Amazon Web Services STS for that region. For more information, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating
+     *        and Deactivating Amazon Web Services STS in an Amazon Web Services Region</a> in the <i>Amazon Web
+     *        Services Identity and Access Management User Guide</i>.
      *        </p>
      *        <important>
      *        <p>
-     *        If you use a built-in algorithm to create a model, Amazon SageMaker requires that you provide a S3 path to
-     *        the model artifacts in <code>ModelDataUrl</code>.
+     *        If you use a built-in algorithm to create a model, SageMaker requires that you provide a S3 path to the
+     *        model artifacts in <code>ModelDataUrl</code>.
      *        </p>
      */
 
@@ -319,45 +585,56 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
     /**
      * <p>
      * The S3 path where the model artifacts, which result from model training, are stored. This path must point to a
-     * single gzip compressed tar archive (.tar.gz suffix). The S3 path is required for Amazon SageMaker built-in
-     * algorithms, but not if you use your own algorithms. For more information on built-in algorithms, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html">Common
+     * single gzip compressed tar archive (.tar.gz suffix). The S3 path is required for SageMaker built-in algorithms,
+     * but not if you use your own algorithms. For more information on built-in algorithms, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html">Common
      * Parameters</a>.
      * </p>
+     * <note>
      * <p>
-     * If you provide a value for this parameter, Amazon SageMaker uses AWS Security Token Service to download model
-     * artifacts from the S3 path you provide. AWS STS is activated in your IAM user account by default. If you
-     * previously deactivated AWS STS for a region, you need to reactivate AWS STS for that region. For more
-     * information, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating and
-     * Deactivating AWS STS in an AWS Region</a> in the <i>AWS Identity and Access Management User Guide</i>.
+     * The model artifacts must be in an S3 bucket that is in the same region as the model or endpoint you are creating.
+     * </p>
+     * </note>
+     * <p>
+     * If you provide a value for this parameter, SageMaker uses Amazon Web Services Security Token Service to download
+     * model artifacts from the S3 path you provide. Amazon Web Services STS is activated in your Amazon Web Services
+     * account by default. If you previously deactivated Amazon Web Services STS for a region, you need to reactivate
+     * Amazon Web Services STS for that region. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating and
+     * Deactivating Amazon Web Services STS in an Amazon Web Services Region</a> in the <i>Amazon Web Services Identity
+     * and Access Management User Guide</i>.
      * </p>
      * <important>
      * <p>
-     * If you use a built-in algorithm to create a model, Amazon SageMaker requires that you provide a S3 path to the
-     * model artifacts in <code>ModelDataUrl</code>.
+     * If you use a built-in algorithm to create a model, SageMaker requires that you provide a S3 path to the model
+     * artifacts in <code>ModelDataUrl</code>.
      * </p>
      * </important>
      * 
      * @return The S3 path where the model artifacts, which result from model training, are stored. This path must point
-     *         to a single gzip compressed tar archive (.tar.gz suffix). The S3 path is required for Amazon SageMaker
-     *         built-in algorithms, but not if you use your own algorithms. For more information on built-in algorithms,
-     *         see <a
-     *         href="http://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html">Common
-     *         Parameters</a>. </p>
+     *         to a single gzip compressed tar archive (.tar.gz suffix). The S3 path is required for SageMaker built-in
+     *         algorithms, but not if you use your own algorithms. For more information on built-in algorithms, see <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html">Common
+     *         Parameters</a>. </p> <note>
      *         <p>
-     *         If you provide a value for this parameter, Amazon SageMaker uses AWS Security Token Service to download
-     *         model artifacts from the S3 path you provide. AWS STS is activated in your IAM user account by default.
-     *         If you previously deactivated AWS STS for a region, you need to reactivate AWS STS for that region. For
-     *         more information, see <a
-     *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating
-     *         and Deactivating AWS STS in an AWS Region</a> in the <i>AWS Identity and Access Management User
-     *         Guide</i>.
+     *         The model artifacts must be in an S3 bucket that is in the same region as the model or endpoint you are
+     *         creating.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         If you provide a value for this parameter, SageMaker uses Amazon Web Services Security Token Service to
+     *         download model artifacts from the S3 path you provide. Amazon Web Services STS is activated in your
+     *         Amazon Web Services account by default. If you previously deactivated Amazon Web Services STS for a
+     *         region, you need to reactivate Amazon Web Services STS for that region. For more information, see <a
+     *         href=
+     *         "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating and
+     *         Deactivating Amazon Web Services STS in an Amazon Web Services Region</a> in the <i>Amazon Web Services
+     *         Identity and Access Management User Guide</i>.
      *         </p>
      *         <important>
      *         <p>
-     *         If you use a built-in algorithm to create a model, Amazon SageMaker requires that you provide a S3 path
-     *         to the model artifacts in <code>ModelDataUrl</code>.
+     *         If you use a built-in algorithm to create a model, SageMaker requires that you provide a S3 path to the
+     *         model artifacts in <code>ModelDataUrl</code>.
      *         </p>
      */
 
@@ -368,45 +645,56 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
     /**
      * <p>
      * The S3 path where the model artifacts, which result from model training, are stored. This path must point to a
-     * single gzip compressed tar archive (.tar.gz suffix). The S3 path is required for Amazon SageMaker built-in
-     * algorithms, but not if you use your own algorithms. For more information on built-in algorithms, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html">Common
+     * single gzip compressed tar archive (.tar.gz suffix). The S3 path is required for SageMaker built-in algorithms,
+     * but not if you use your own algorithms. For more information on built-in algorithms, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html">Common
      * Parameters</a>.
      * </p>
+     * <note>
      * <p>
-     * If you provide a value for this parameter, Amazon SageMaker uses AWS Security Token Service to download model
-     * artifacts from the S3 path you provide. AWS STS is activated in your IAM user account by default. If you
-     * previously deactivated AWS STS for a region, you need to reactivate AWS STS for that region. For more
-     * information, see <a
-     * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating and
-     * Deactivating AWS STS in an AWS Region</a> in the <i>AWS Identity and Access Management User Guide</i>.
+     * The model artifacts must be in an S3 bucket that is in the same region as the model or endpoint you are creating.
+     * </p>
+     * </note>
+     * <p>
+     * If you provide a value for this parameter, SageMaker uses Amazon Web Services Security Token Service to download
+     * model artifacts from the S3 path you provide. Amazon Web Services STS is activated in your Amazon Web Services
+     * account by default. If you previously deactivated Amazon Web Services STS for a region, you need to reactivate
+     * Amazon Web Services STS for that region. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating and
+     * Deactivating Amazon Web Services STS in an Amazon Web Services Region</a> in the <i>Amazon Web Services Identity
+     * and Access Management User Guide</i>.
      * </p>
      * <important>
      * <p>
-     * If you use a built-in algorithm to create a model, Amazon SageMaker requires that you provide a S3 path to the
-     * model artifacts in <code>ModelDataUrl</code>.
+     * If you use a built-in algorithm to create a model, SageMaker requires that you provide a S3 path to the model
+     * artifacts in <code>ModelDataUrl</code>.
      * </p>
      * </important>
      * 
      * @param modelDataUrl
      *        The S3 path where the model artifacts, which result from model training, are stored. This path must point
-     *        to a single gzip compressed tar archive (.tar.gz suffix). The S3 path is required for Amazon SageMaker
-     *        built-in algorithms, but not if you use your own algorithms. For more information on built-in algorithms,
-     *        see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html">Common
-     *        Parameters</a>. </p>
+     *        to a single gzip compressed tar archive (.tar.gz suffix). The S3 path is required for SageMaker built-in
+     *        algorithms, but not if you use your own algorithms. For more information on built-in algorithms, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html">Common
+     *        Parameters</a>. </p> <note>
      *        <p>
-     *        If you provide a value for this parameter, Amazon SageMaker uses AWS Security Token Service to download
-     *        model artifacts from the S3 path you provide. AWS STS is activated in your IAM user account by default. If
-     *        you previously deactivated AWS STS for a region, you need to reactivate AWS STS for that region. For more
-     *        information, see <a
-     *        href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating
-     *        and Deactivating AWS STS in an AWS Region</a> in the <i>AWS Identity and Access Management User Guide</i>.
+     *        The model artifacts must be in an S3 bucket that is in the same region as the model or endpoint you are
+     *        creating.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        If you provide a value for this parameter, SageMaker uses Amazon Web Services Security Token Service to
+     *        download model artifacts from the S3 path you provide. Amazon Web Services STS is activated in your Amazon
+     *        Web Services account by default. If you previously deactivated Amazon Web Services STS for a region, you
+     *        need to reactivate Amazon Web Services STS for that region. For more information, see <a
+     *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating
+     *        and Deactivating Amazon Web Services STS in an Amazon Web Services Region</a> in the <i>Amazon Web
+     *        Services Identity and Access Management User Guide</i>.
      *        </p>
      *        <important>
      *        <p>
-     *        If you use a built-in algorithm to create a model, Amazon SageMaker requires that you provide a S3 path to
-     *        the model artifacts in <code>ModelDataUrl</code>.
+     *        If you use a built-in algorithm to create a model, SageMaker requires that you provide a S3 path to the
+     *        model artifacts in <code>ModelDataUrl</code>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -418,13 +706,167 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The environment variables to set in the Docker container. Each key and value in the <code>Environment</code>
-     * string to string map can have length of up to 1024. We support up to 16 entries in the map.
+     * Specifies the location of ML model data to deploy.
+     * </p>
+     * <note>
+     * <p>
+     * Currently you cannot use <code>ModelDataSource</code> in conjunction with SageMaker batch transform, SageMaker
+     * serverless endpoints, SageMaker multi-model endpoints, and SageMaker Marketplace.
+     * </p>
+     * </note>
+     * 
+     * @param modelDataSource
+     *        Specifies the location of ML model data to deploy.</p> <note>
+     *        <p>
+     *        Currently you cannot use <code>ModelDataSource</code> in conjunction with SageMaker batch transform,
+     *        SageMaker serverless endpoints, SageMaker multi-model endpoints, and SageMaker Marketplace.
+     *        </p>
+     */
+
+    public void setModelDataSource(ModelDataSource modelDataSource) {
+        this.modelDataSource = modelDataSource;
+    }
+
+    /**
+     * <p>
+     * Specifies the location of ML model data to deploy.
+     * </p>
+     * <note>
+     * <p>
+     * Currently you cannot use <code>ModelDataSource</code> in conjunction with SageMaker batch transform, SageMaker
+     * serverless endpoints, SageMaker multi-model endpoints, and SageMaker Marketplace.
+     * </p>
+     * </note>
+     * 
+     * @return Specifies the location of ML model data to deploy.</p> <note>
+     *         <p>
+     *         Currently you cannot use <code>ModelDataSource</code> in conjunction with SageMaker batch transform,
+     *         SageMaker serverless endpoints, SageMaker multi-model endpoints, and SageMaker Marketplace.
+     *         </p>
+     */
+
+    public ModelDataSource getModelDataSource() {
+        return this.modelDataSource;
+    }
+
+    /**
+     * <p>
+     * Specifies the location of ML model data to deploy.
+     * </p>
+     * <note>
+     * <p>
+     * Currently you cannot use <code>ModelDataSource</code> in conjunction with SageMaker batch transform, SageMaker
+     * serverless endpoints, SageMaker multi-model endpoints, and SageMaker Marketplace.
+     * </p>
+     * </note>
+     * 
+     * @param modelDataSource
+     *        Specifies the location of ML model data to deploy.</p> <note>
+     *        <p>
+     *        Currently you cannot use <code>ModelDataSource</code> in conjunction with SageMaker batch transform,
+     *        SageMaker serverless endpoints, SageMaker multi-model endpoints, and SageMaker Marketplace.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerDefinition withModelDataSource(ModelDataSource modelDataSource) {
+        setModelDataSource(modelDataSource);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Data sources that are available to your model in addition to the one that you specify for
+     * <code>ModelDataSource</code> when you use the <code>CreateModel</code> action.
      * </p>
      * 
-     * @return The environment variables to set in the Docker container. Each key and value in the
-     *         <code>Environment</code> string to string map can have length of up to 1024. We support up to 16 entries
-     *         in the map.
+     * @return Data sources that are available to your model in addition to the one that you specify for
+     *         <code>ModelDataSource</code> when you use the <code>CreateModel</code> action.
+     */
+
+    public java.util.List<AdditionalModelDataSource> getAdditionalModelDataSources() {
+        return additionalModelDataSources;
+    }
+
+    /**
+     * <p>
+     * Data sources that are available to your model in addition to the one that you specify for
+     * <code>ModelDataSource</code> when you use the <code>CreateModel</code> action.
+     * </p>
+     * 
+     * @param additionalModelDataSources
+     *        Data sources that are available to your model in addition to the one that you specify for
+     *        <code>ModelDataSource</code> when you use the <code>CreateModel</code> action.
+     */
+
+    public void setAdditionalModelDataSources(java.util.Collection<AdditionalModelDataSource> additionalModelDataSources) {
+        if (additionalModelDataSources == null) {
+            this.additionalModelDataSources = null;
+            return;
+        }
+
+        this.additionalModelDataSources = new java.util.ArrayList<AdditionalModelDataSource>(additionalModelDataSources);
+    }
+
+    /**
+     * <p>
+     * Data sources that are available to your model in addition to the one that you specify for
+     * <code>ModelDataSource</code> when you use the <code>CreateModel</code> action.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAdditionalModelDataSources(java.util.Collection)} or
+     * {@link #withAdditionalModelDataSources(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param additionalModelDataSources
+     *        Data sources that are available to your model in addition to the one that you specify for
+     *        <code>ModelDataSource</code> when you use the <code>CreateModel</code> action.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerDefinition withAdditionalModelDataSources(AdditionalModelDataSource... additionalModelDataSources) {
+        if (this.additionalModelDataSources == null) {
+            setAdditionalModelDataSources(new java.util.ArrayList<AdditionalModelDataSource>(additionalModelDataSources.length));
+        }
+        for (AdditionalModelDataSource ele : additionalModelDataSources) {
+            this.additionalModelDataSources.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Data sources that are available to your model in addition to the one that you specify for
+     * <code>ModelDataSource</code> when you use the <code>CreateModel</code> action.
+     * </p>
+     * 
+     * @param additionalModelDataSources
+     *        Data sources that are available to your model in addition to the one that you specify for
+     *        <code>ModelDataSource</code> when you use the <code>CreateModel</code> action.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerDefinition withAdditionalModelDataSources(java.util.Collection<AdditionalModelDataSource> additionalModelDataSources) {
+        setAdditionalModelDataSources(additionalModelDataSources);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The environment variables to set in the Docker container.
+     * </p>
+     * <p>
+     * The maximum length of each key and value in the <code>Environment</code> map is 1024 bytes. The maximum length of
+     * all keys and values in the map, combined, is 32 KB. If you pass multiple containers to a <code>CreateModel</code>
+     * request, then the maximum length of all of their maps, combined, is also 32 KB.
+     * </p>
+     * 
+     * @return The environment variables to set in the Docker container.</p>
+     *         <p>
+     *         The maximum length of each key and value in the <code>Environment</code> map is 1024 bytes. The maximum
+     *         length of all keys and values in the map, combined, is 32 KB. If you pass multiple containers to a
+     *         <code>CreateModel</code> request, then the maximum length of all of their maps, combined, is also 32 KB.
      */
 
     public java.util.Map<String, String> getEnvironment() {
@@ -433,14 +875,20 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The environment variables to set in the Docker container. Each key and value in the <code>Environment</code>
-     * string to string map can have length of up to 1024. We support up to 16 entries in the map.
+     * The environment variables to set in the Docker container.
+     * </p>
+     * <p>
+     * The maximum length of each key and value in the <code>Environment</code> map is 1024 bytes. The maximum length of
+     * all keys and values in the map, combined, is 32 KB. If you pass multiple containers to a <code>CreateModel</code>
+     * request, then the maximum length of all of their maps, combined, is also 32 KB.
      * </p>
      * 
      * @param environment
-     *        The environment variables to set in the Docker container. Each key and value in the
-     *        <code>Environment</code> string to string map can have length of up to 1024. We support up to 16 entries
-     *        in the map.
+     *        The environment variables to set in the Docker container.</p>
+     *        <p>
+     *        The maximum length of each key and value in the <code>Environment</code> map is 1024 bytes. The maximum
+     *        length of all keys and values in the map, combined, is 32 KB. If you pass multiple containers to a
+     *        <code>CreateModel</code> request, then the maximum length of all of their maps, combined, is also 32 KB.
      */
 
     public void setEnvironment(java.util.Map<String, String> environment) {
@@ -449,14 +897,20 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The environment variables to set in the Docker container. Each key and value in the <code>Environment</code>
-     * string to string map can have length of up to 1024. We support up to 16 entries in the map.
+     * The environment variables to set in the Docker container.
+     * </p>
+     * <p>
+     * The maximum length of each key and value in the <code>Environment</code> map is 1024 bytes. The maximum length of
+     * all keys and values in the map, combined, is 32 KB. If you pass multiple containers to a <code>CreateModel</code>
+     * request, then the maximum length of all of their maps, combined, is also 32 KB.
      * </p>
      * 
      * @param environment
-     *        The environment variables to set in the Docker container. Each key and value in the
-     *        <code>Environment</code> string to string map can have length of up to 1024. We support up to 16 entries
-     *        in the map.
+     *        The environment variables to set in the Docker container.</p>
+     *        <p>
+     *        The maximum length of each key and value in the <code>Environment</code> map is 1024 bytes. The maximum
+     *        length of all keys and values in the map, combined, is 32 KB. If you pass multiple containers to a
+     *        <code>CreateModel</code> request, then the maximum length of all of their maps, combined, is also 32 KB.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -464,6 +918,13 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
         setEnvironment(environment);
         return this;
     }
+
+    /**
+     * Add a single Environment entry
+     *
+     * @see ContainerDefinition#withEnvironment
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public ContainerDefinition addEnvironmentEntry(String key, String value) {
         if (null == this.environment) {
@@ -527,6 +988,86 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
     }
 
     /**
+     * <p>
+     * The inference specification name in the model package version.
+     * </p>
+     * 
+     * @param inferenceSpecificationName
+     *        The inference specification name in the model package version.
+     */
+
+    public void setInferenceSpecificationName(String inferenceSpecificationName) {
+        this.inferenceSpecificationName = inferenceSpecificationName;
+    }
+
+    /**
+     * <p>
+     * The inference specification name in the model package version.
+     * </p>
+     * 
+     * @return The inference specification name in the model package version.
+     */
+
+    public String getInferenceSpecificationName() {
+        return this.inferenceSpecificationName;
+    }
+
+    /**
+     * <p>
+     * The inference specification name in the model package version.
+     * </p>
+     * 
+     * @param inferenceSpecificationName
+     *        The inference specification name in the model package version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerDefinition withInferenceSpecificationName(String inferenceSpecificationName) {
+        setInferenceSpecificationName(inferenceSpecificationName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies additional configuration for multi-model endpoints.
+     * </p>
+     * 
+     * @param multiModelConfig
+     *        Specifies additional configuration for multi-model endpoints.
+     */
+
+    public void setMultiModelConfig(MultiModelConfig multiModelConfig) {
+        this.multiModelConfig = multiModelConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies additional configuration for multi-model endpoints.
+     * </p>
+     * 
+     * @return Specifies additional configuration for multi-model endpoints.
+     */
+
+    public MultiModelConfig getMultiModelConfig() {
+        return this.multiModelConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies additional configuration for multi-model endpoints.
+     * </p>
+     * 
+     * @param multiModelConfig
+     *        Specifies additional configuration for multi-model endpoints.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerDefinition withMultiModelConfig(MultiModelConfig multiModelConfig) {
+        setMultiModelConfig(multiModelConfig);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -542,12 +1083,24 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
             sb.append("ContainerHostname: ").append(getContainerHostname()).append(",");
         if (getImage() != null)
             sb.append("Image: ").append(getImage()).append(",");
+        if (getImageConfig() != null)
+            sb.append("ImageConfig: ").append(getImageConfig()).append(",");
+        if (getMode() != null)
+            sb.append("Mode: ").append(getMode()).append(",");
         if (getModelDataUrl() != null)
             sb.append("ModelDataUrl: ").append(getModelDataUrl()).append(",");
+        if (getModelDataSource() != null)
+            sb.append("ModelDataSource: ").append(getModelDataSource()).append(",");
+        if (getAdditionalModelDataSources() != null)
+            sb.append("AdditionalModelDataSources: ").append(getAdditionalModelDataSources()).append(",");
         if (getEnvironment() != null)
             sb.append("Environment: ").append(getEnvironment()).append(",");
         if (getModelPackageName() != null)
-            sb.append("ModelPackageName: ").append(getModelPackageName());
+            sb.append("ModelPackageName: ").append(getModelPackageName()).append(",");
+        if (getInferenceSpecificationName() != null)
+            sb.append("InferenceSpecificationName: ").append(getInferenceSpecificationName()).append(",");
+        if (getMultiModelConfig() != null)
+            sb.append("MultiModelConfig: ").append(getMultiModelConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -570,9 +1123,25 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getImage() != null && other.getImage().equals(this.getImage()) == false)
             return false;
+        if (other.getImageConfig() == null ^ this.getImageConfig() == null)
+            return false;
+        if (other.getImageConfig() != null && other.getImageConfig().equals(this.getImageConfig()) == false)
+            return false;
+        if (other.getMode() == null ^ this.getMode() == null)
+            return false;
+        if (other.getMode() != null && other.getMode().equals(this.getMode()) == false)
+            return false;
         if (other.getModelDataUrl() == null ^ this.getModelDataUrl() == null)
             return false;
         if (other.getModelDataUrl() != null && other.getModelDataUrl().equals(this.getModelDataUrl()) == false)
+            return false;
+        if (other.getModelDataSource() == null ^ this.getModelDataSource() == null)
+            return false;
+        if (other.getModelDataSource() != null && other.getModelDataSource().equals(this.getModelDataSource()) == false)
+            return false;
+        if (other.getAdditionalModelDataSources() == null ^ this.getAdditionalModelDataSources() == null)
+            return false;
+        if (other.getAdditionalModelDataSources() != null && other.getAdditionalModelDataSources().equals(this.getAdditionalModelDataSources()) == false)
             return false;
         if (other.getEnvironment() == null ^ this.getEnvironment() == null)
             return false;
@@ -581,6 +1150,14 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
         if (other.getModelPackageName() == null ^ this.getModelPackageName() == null)
             return false;
         if (other.getModelPackageName() != null && other.getModelPackageName().equals(this.getModelPackageName()) == false)
+            return false;
+        if (other.getInferenceSpecificationName() == null ^ this.getInferenceSpecificationName() == null)
+            return false;
+        if (other.getInferenceSpecificationName() != null && other.getInferenceSpecificationName().equals(this.getInferenceSpecificationName()) == false)
+            return false;
+        if (other.getMultiModelConfig() == null ^ this.getMultiModelConfig() == null)
+            return false;
+        if (other.getMultiModelConfig() != null && other.getMultiModelConfig().equals(this.getMultiModelConfig()) == false)
             return false;
         return true;
     }
@@ -592,9 +1169,15 @@ public class ContainerDefinition implements Serializable, Cloneable, StructuredP
 
         hashCode = prime * hashCode + ((getContainerHostname() == null) ? 0 : getContainerHostname().hashCode());
         hashCode = prime * hashCode + ((getImage() == null) ? 0 : getImage().hashCode());
+        hashCode = prime * hashCode + ((getImageConfig() == null) ? 0 : getImageConfig().hashCode());
+        hashCode = prime * hashCode + ((getMode() == null) ? 0 : getMode().hashCode());
         hashCode = prime * hashCode + ((getModelDataUrl() == null) ? 0 : getModelDataUrl().hashCode());
+        hashCode = prime * hashCode + ((getModelDataSource() == null) ? 0 : getModelDataSource().hashCode());
+        hashCode = prime * hashCode + ((getAdditionalModelDataSources() == null) ? 0 : getAdditionalModelDataSources().hashCode());
         hashCode = prime * hashCode + ((getEnvironment() == null) ? 0 : getEnvironment().hashCode());
         hashCode = prime * hashCode + ((getModelPackageName() == null) ? 0 : getModelPackageName().hashCode());
+        hashCode = prime * hashCode + ((getInferenceSpecificationName() == null) ? 0 : getInferenceSpecificationName().hashCode());
+        hashCode = prime * hashCode + ((getMultiModelConfig() == null) ? 0 : getMultiModelConfig().hashCode());
         return hashCode;
     }
 

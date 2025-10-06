@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,7 +23,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * topic or an email address.
  * </p>
  * <p>
- * For example, an email subscriber would have the following parameters:
+ * For example, an email subscriber has the following parameters:
  * </p>
  * <ul>
  * <li>
@@ -43,27 +43,27 @@ public class Subscriber implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of notification that AWS sends to a subscriber.
+     * The type of notification that Amazon Web Services sends to a subscriber.
      * </p>
      */
     private String subscriptionType;
     /**
      * <p>
-     * The address that AWS sends budget notifications to, either an SNS topic or an email.
+     * The address that Amazon Web Services sends budget notifications to, either an SNS topic or an email.
      * </p>
      * <p>
-     * AWS validates the address for a <code>CreateSubscriber</code> request with the <code>.*</code> regex.
+     * When you create a subscriber, the value of <code>Address</code> can't contain line breaks.
      * </p>
      */
     private String address;
 
     /**
      * <p>
-     * The type of notification that AWS sends to a subscriber.
+     * The type of notification that Amazon Web Services sends to a subscriber.
      * </p>
      * 
      * @param subscriptionType
-     *        The type of notification that AWS sends to a subscriber.
+     *        The type of notification that Amazon Web Services sends to a subscriber.
      * @see SubscriptionType
      */
 
@@ -73,10 +73,10 @@ public class Subscriber implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of notification that AWS sends to a subscriber.
+     * The type of notification that Amazon Web Services sends to a subscriber.
      * </p>
      * 
-     * @return The type of notification that AWS sends to a subscriber.
+     * @return The type of notification that Amazon Web Services sends to a subscriber.
      * @see SubscriptionType
      */
 
@@ -86,11 +86,11 @@ public class Subscriber implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of notification that AWS sends to a subscriber.
+     * The type of notification that Amazon Web Services sends to a subscriber.
      * </p>
      * 
      * @param subscriptionType
-     *        The type of notification that AWS sends to a subscriber.
+     *        The type of notification that Amazon Web Services sends to a subscriber.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SubscriptionType
      */
@@ -102,11 +102,11 @@ public class Subscriber implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of notification that AWS sends to a subscriber.
+     * The type of notification that Amazon Web Services sends to a subscriber.
      * </p>
      * 
      * @param subscriptionType
-     *        The type of notification that AWS sends to a subscriber.
+     *        The type of notification that Amazon Web Services sends to a subscriber.
      * @see SubscriptionType
      */
 
@@ -116,11 +116,11 @@ public class Subscriber implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of notification that AWS sends to a subscriber.
+     * The type of notification that Amazon Web Services sends to a subscriber.
      * </p>
      * 
      * @param subscriptionType
-     *        The type of notification that AWS sends to a subscriber.
+     *        The type of notification that Amazon Web Services sends to a subscriber.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SubscriptionType
      */
@@ -132,16 +132,16 @@ public class Subscriber implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The address that AWS sends budget notifications to, either an SNS topic or an email.
+     * The address that Amazon Web Services sends budget notifications to, either an SNS topic or an email.
      * </p>
      * <p>
-     * AWS validates the address for a <code>CreateSubscriber</code> request with the <code>.*</code> regex.
+     * When you create a subscriber, the value of <code>Address</code> can't contain line breaks.
      * </p>
      * 
      * @param address
-     *        The address that AWS sends budget notifications to, either an SNS topic or an email.</p>
+     *        The address that Amazon Web Services sends budget notifications to, either an SNS topic or an email.</p>
      *        <p>
-     *        AWS validates the address for a <code>CreateSubscriber</code> request with the <code>.*</code> regex.
+     *        When you create a subscriber, the value of <code>Address</code> can't contain line breaks.
      */
 
     public void setAddress(String address) {
@@ -150,15 +150,15 @@ public class Subscriber implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The address that AWS sends budget notifications to, either an SNS topic or an email.
+     * The address that Amazon Web Services sends budget notifications to, either an SNS topic or an email.
      * </p>
      * <p>
-     * AWS validates the address for a <code>CreateSubscriber</code> request with the <code>.*</code> regex.
+     * When you create a subscriber, the value of <code>Address</code> can't contain line breaks.
      * </p>
      * 
-     * @return The address that AWS sends budget notifications to, either an SNS topic or an email.</p>
+     * @return The address that Amazon Web Services sends budget notifications to, either an SNS topic or an email.</p>
      *         <p>
-     *         AWS validates the address for a <code>CreateSubscriber</code> request with the <code>.*</code> regex.
+     *         When you create a subscriber, the value of <code>Address</code> can't contain line breaks.
      */
 
     public String getAddress() {
@@ -167,16 +167,16 @@ public class Subscriber implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The address that AWS sends budget notifications to, either an SNS topic or an email.
+     * The address that Amazon Web Services sends budget notifications to, either an SNS topic or an email.
      * </p>
      * <p>
-     * AWS validates the address for a <code>CreateSubscriber</code> request with the <code>.*</code> regex.
+     * When you create a subscriber, the value of <code>Address</code> can't contain line breaks.
      * </p>
      * 
      * @param address
-     *        The address that AWS sends budget notifications to, either an SNS topic or an email.</p>
+     *        The address that Amazon Web Services sends budget notifications to, either an SNS topic or an email.</p>
      *        <p>
-     *        AWS validates the address for a <code>CreateSubscriber</code> request with the <code>.*</code> regex.
+     *        When you create a subscriber, the value of <code>Address</code> can't contain line breaks.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

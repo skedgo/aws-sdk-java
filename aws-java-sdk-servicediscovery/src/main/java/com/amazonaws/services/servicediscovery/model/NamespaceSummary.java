@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,14 +36,14 @@ public class NamespaceSummary implements Serializable, Cloneable, StructuredPojo
     private String id;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
+     * The Amazon Resource Name (ARN) that Cloud Map assigns to the namespace when you create it.
      * </p>
      */
     private String arn;
     /**
      * <p>
-     * The name of the namespace. When you create a namespace, AWS Cloud Map automatically creates a Route 53 hosted
-     * zone that has the same name as the namespace.
+     * The name of the namespace. When you create a namespace, Cloud Map automatically creates a Route 53 hosted zone
+     * that has the same name as the namespace.
      * </p>
      */
     private String name;
@@ -65,7 +65,11 @@ public class NamespaceSummary implements Serializable, Cloneable, StructuredPojo
      * </p>
      */
     private Integer serviceCount;
-
+    /**
+     * <p>
+     * The properties of the namespace.
+     * </p>
+     */
     private NamespaceProperties properties;
     /**
      * <p>
@@ -116,11 +120,11 @@ public class NamespaceSummary implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
+     * The Amazon Resource Name (ARN) that Cloud Map assigns to the namespace when you create it.
      * </p>
      * 
      * @param arn
-     *        The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
+     *        The Amazon Resource Name (ARN) that Cloud Map assigns to the namespace when you create it.
      */
 
     public void setArn(String arn) {
@@ -129,10 +133,10 @@ public class NamespaceSummary implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
+     * The Amazon Resource Name (ARN) that Cloud Map assigns to the namespace when you create it.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
+     * @return The Amazon Resource Name (ARN) that Cloud Map assigns to the namespace when you create it.
      */
 
     public String getArn() {
@@ -141,11 +145,11 @@ public class NamespaceSummary implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
+     * The Amazon Resource Name (ARN) that Cloud Map assigns to the namespace when you create it.
      * </p>
      * 
      * @param arn
-     *        The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the namespace when you create it.
+     *        The Amazon Resource Name (ARN) that Cloud Map assigns to the namespace when you create it.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -156,13 +160,13 @@ public class NamespaceSummary implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The name of the namespace. When you create a namespace, AWS Cloud Map automatically creates a Route 53 hosted
-     * zone that has the same name as the namespace.
+     * The name of the namespace. When you create a namespace, Cloud Map automatically creates a Route 53 hosted zone
+     * that has the same name as the namespace.
      * </p>
      * 
      * @param name
-     *        The name of the namespace. When you create a namespace, AWS Cloud Map automatically creates a Route 53
-     *        hosted zone that has the same name as the namespace.
+     *        The name of the namespace. When you create a namespace, Cloud Map automatically creates a Route 53 hosted
+     *        zone that has the same name as the namespace.
      */
 
     public void setName(String name) {
@@ -171,12 +175,12 @@ public class NamespaceSummary implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The name of the namespace. When you create a namespace, AWS Cloud Map automatically creates a Route 53 hosted
-     * zone that has the same name as the namespace.
+     * The name of the namespace. When you create a namespace, Cloud Map automatically creates a Route 53 hosted zone
+     * that has the same name as the namespace.
      * </p>
      * 
-     * @return The name of the namespace. When you create a namespace, AWS Cloud Map automatically creates a Route 53
-     *         hosted zone that has the same name as the namespace.
+     * @return The name of the namespace. When you create a namespace, Cloud Map automatically creates a Route 53 hosted
+     *         zone that has the same name as the namespace.
      */
 
     public String getName() {
@@ -185,13 +189,13 @@ public class NamespaceSummary implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The name of the namespace. When you create a namespace, AWS Cloud Map automatically creates a Route 53 hosted
-     * zone that has the same name as the namespace.
+     * The name of the namespace. When you create a namespace, Cloud Map automatically creates a Route 53 hosted zone
+     * that has the same name as the namespace.
      * </p>
      * 
      * @param name
-     *        The name of the namespace. When you create a namespace, AWS Cloud Map automatically creates a Route 53
-     *        hosted zone that has the same name as the namespace.
+     *        The name of the namespace. When you create a namespace, Cloud Map automatically creates a Route 53 hosted
+     *        zone that has the same name as the namespace.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -340,7 +344,12 @@ public class NamespaceSummary implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * <p>
+     * The properties of the namespace.
+     * </p>
+     * 
      * @param properties
+     *        The properties of the namespace.
      */
 
     public void setProperties(NamespaceProperties properties) {
@@ -348,7 +357,11 @@ public class NamespaceSummary implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * @return
+     * <p>
+     * The properties of the namespace.
+     * </p>
+     * 
+     * @return The properties of the namespace.
      */
 
     public NamespaceProperties getProperties() {
@@ -356,7 +369,12 @@ public class NamespaceSummary implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * <p>
+     * The properties of the namespace.
+     * </p>
+     * 
      * @param properties
+     *        The properties of the namespace.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,8 +31,8 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      */
     private String policyArn;
@@ -41,9 +41,15 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * The JSON policy document that you want to use as the content for this new version of the policy.
      * </p>
      * <p>
-     * You must provide policies in JSON format in IAM. However, for AWS CloudFormation templates formatted in YAML, you
-     * can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy to JSON format
-     * before submitting it to IAM.
+     * You must provide policies in JSON format in IAM. However, for CloudFormation templates formatted in YAML, you can
+     * provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON format before
+     * submitting it to IAM.
+     * </p>
+     * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
@@ -52,17 +58,19 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -78,8 +86,8 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * <p>
      * For more information about managed policy versions, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning for Managed
-     * Policies</a> in the <i>IAM User Guide</i>.
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning for managed
+     * policies</a> in the <i>IAM User Guide</i>.
      * </p>
      */
     private Boolean setAsDefault;
@@ -90,8 +98,8 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param policyArn
@@ -99,7 +107,7 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      *        <p>
      *        For more information about ARNs, see <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *        (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      */
 
     public void setPolicyArn(String policyArn) {
@@ -112,15 +120,15 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @return The Amazon Resource Name (ARN) of the IAM policy to which you want to add a new version.</p>
      *         <p>
      *         For more information about ARNs, see <a
      *         href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *         (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *         (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      */
 
     public String getPolicyArn() {
@@ -133,8 +141,8 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * <p>
      * For more information about ARNs, see <a
-     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs)
-     * and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
+     * (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param policyArn
@@ -142,7 +150,7 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      *        <p>
      *        For more information about ARNs, see <a
      *        href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names
-     *        (ARNs) and AWS Service Namespaces</a> in the <i>AWS General Reference</i>.
+     *        (ARNs)</a> in the <i>Amazon Web Services General Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -156,9 +164,15 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * The JSON policy document that you want to use as the content for this new version of the policy.
      * </p>
      * <p>
-     * You must provide policies in JSON format in IAM. However, for AWS CloudFormation templates formatted in YAML, you
-     * can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy to JSON format
-     * before submitting it to IAM.
+     * You must provide policies in JSON format in IAM. However, for CloudFormation templates formatted in YAML, you can
+     * provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON format before
+     * submitting it to IAM.
+     * </p>
+     * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
@@ -167,17 +181,19 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -185,9 +201,15 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * @param policyDocument
      *        The JSON policy document that you want to use as the content for this new version of the policy.</p>
      *        <p>
-     *        You must provide policies in JSON format in IAM. However, for AWS CloudFormation templates formatted in
-     *        YAML, you can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy
-     *        to JSON format before submitting it to IAM.
+     *        You must provide policies in JSON format in IAM. However, for CloudFormation templates formatted in YAML,
+     *        you can provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON
+     *        format before submitting it to IAM.
+     *        </p>
+     *        <p>
+     *        The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *        listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *        >IAM and STS character quotas</a>.
      *        </p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
@@ -196,18 +218,20 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      */
@@ -221,9 +245,15 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * The JSON policy document that you want to use as the content for this new version of the policy.
      * </p>
      * <p>
-     * You must provide policies in JSON format in IAM. However, for AWS CloudFormation templates formatted in YAML, you
-     * can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy to JSON format
-     * before submitting it to IAM.
+     * You must provide policies in JSON format in IAM. However, for CloudFormation templates formatted in YAML, you can
+     * provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON format before
+     * submitting it to IAM.
+     * </p>
+     * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
@@ -232,26 +262,34 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
      * 
      * @return The JSON policy document that you want to use as the content for this new version of the policy.</p>
      *         <p>
-     *         You must provide policies in JSON format in IAM. However, for AWS CloudFormation templates formatted in
-     *         YAML, you can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy
-     *         to JSON format before submitting it to IAM.
+     *         You must provide policies in JSON format in IAM. However, for CloudFormation templates formatted in YAML,
+     *         you can provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON
+     *         format before submitting it to IAM.
+     *         </p>
+     *         <p>
+     *         The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *         listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *         "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *         >IAM and STS character quotas</a>.
      *         </p>
      *         <p>
      *         The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
@@ -260,18 +298,20 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      *         <ul>
      *         <li>
      *         <p>
-     *         Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *         range
+     *         Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *         the ASCII character range
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *         The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *         <code>\u00FF</code>)
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         The special characters tab ( ), line feed ( ), and carriage return ( )
+     *         The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *         <code>\u000D</code>)
      *         </p>
      *         </li>
      */
@@ -285,9 +325,15 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * The JSON policy document that you want to use as the content for this new version of the policy.
      * </p>
      * <p>
-     * You must provide policies in JSON format in IAM. However, for AWS CloudFormation templates formatted in YAML, you
-     * can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy to JSON format
-     * before submitting it to IAM.
+     * You must provide policies in JSON format in IAM. However, for CloudFormation templates formatted in YAML, you can
+     * provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON format before
+     * submitting it to IAM.
+     * </p>
+     * <p>
+     * The maximum length of the policy document that you can pass in this operation, including whitespace, is listed
+     * below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     * >IAM and STS character quotas</a>.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of
@@ -296,17 +342,19 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character range
+     * Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of the ASCII
+     * character range
      * </p>
      * </li>
      * <li>
      * <p>
-     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     * The printable characters in the Basic Latin and Latin-1 Supplement character set (through <code>\u00FF</code>)
      * </p>
      * </li>
      * <li>
      * <p>
-     * The special characters tab ( ), line feed ( ), and carriage return ( )
+     * The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (<code>\u000D</code>
+     * )
      * </p>
      * </li>
      * </ul>
@@ -314,9 +362,15 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * @param policyDocument
      *        The JSON policy document that you want to use as the content for this new version of the policy.</p>
      *        <p>
-     *        You must provide policies in JSON format in IAM. However, for AWS CloudFormation templates formatted in
-     *        YAML, you can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy
-     *        to JSON format before submitting it to IAM.
+     *        You must provide policies in JSON format in IAM. However, for CloudFormation templates formatted in YAML,
+     *        you can provide the policy in JSON or YAML format. CloudFormation always converts a YAML policy to JSON
+     *        format before submitting it to IAM.
+     *        </p>
+     *        <p>
+     *        The maximum length of the policy document that you can pass in this operation, including whitespace, is
+     *        listed below. To view the maximum character counts of a managed policy with no whitespaces, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html#reference_iam-quotas-entity-length"
+     *        >IAM and STS character quotas</a>.
      *        </p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a
@@ -325,18 +379,20 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      *        <ul>
      *        <li>
      *        <p>
-     *        Any printable ASCII character ranging from the space character ( ) through the end of the ASCII character
-     *        range
+     *        Any printable ASCII character ranging from the space character (<code>\u0020</code>) through the end of
+     *        the ASCII character range
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through \u00FF)
+     *        The printable characters in the Basic Latin and Latin-1 Supplement character set (through
+     *        <code>\u00FF</code>)
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        The special characters tab ( ), line feed ( ), and carriage return ( )
+     *        The special characters tab (<code>\u0009</code>), line feed (<code>\u000A</code>), and carriage return (
+     *        <code>\u000D</code>)
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -357,8 +413,8 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * <p>
      * For more information about managed policy versions, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning for Managed
-     * Policies</a> in the <i>IAM User Guide</i>.
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning for managed
+     * policies</a> in the <i>IAM User Guide</i>.
      * </p>
      * 
      * @param setAsDefault
@@ -371,7 +427,7 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      *        <p>
      *        For more information about managed policy versions, see <a
      *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning for
-     *        Managed Policies</a> in the <i>IAM User Guide</i>.
+     *        managed policies</a> in the <i>IAM User Guide</i>.
      */
 
     public void setSetAsDefault(Boolean setAsDefault) {
@@ -388,8 +444,8 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * <p>
      * For more information about managed policy versions, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning for Managed
-     * Policies</a> in the <i>IAM User Guide</i>.
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning for managed
+     * policies</a> in the <i>IAM User Guide</i>.
      * </p>
      * 
      * @return Specifies whether to set this version as the policy's default version.</p>
@@ -401,7 +457,7 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      *         <p>
      *         For more information about managed policy versions, see <a
      *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning for
-     *         Managed Policies</a> in the <i>IAM User Guide</i>.
+     *         managed policies</a> in the <i>IAM User Guide</i>.
      */
 
     public Boolean getSetAsDefault() {
@@ -418,8 +474,8 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * <p>
      * For more information about managed policy versions, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning for Managed
-     * Policies</a> in the <i>IAM User Guide</i>.
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning for managed
+     * policies</a> in the <i>IAM User Guide</i>.
      * </p>
      * 
      * @param setAsDefault
@@ -432,7 +488,7 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      *        <p>
      *        For more information about managed policy versions, see <a
      *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning for
-     *        Managed Policies</a> in the <i>IAM User Guide</i>.
+     *        managed policies</a> in the <i>IAM User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -451,8 +507,8 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * <p>
      * For more information about managed policy versions, see <a
-     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning for Managed
-     * Policies</a> in the <i>IAM User Guide</i>.
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning for managed
+     * policies</a> in the <i>IAM User Guide</i>.
      * </p>
      * 
      * @return Specifies whether to set this version as the policy's default version.</p>
@@ -464,7 +520,7 @@ public class CreatePolicyVersionRequest extends com.amazonaws.AmazonWebServiceRe
      *         <p>
      *         For more information about managed policy versions, see <a
      *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning for
-     *         Managed Policies</a> in the <i>IAM User Guide</i>.
+     *         managed policies</a> in the <i>IAM User Guide</i>.
      */
 
     public Boolean isSetAsDefault() {

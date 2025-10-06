@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,14 +36,21 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
     private String name;
     /**
      * <p>
+     * The friendly name of the SSM document. This value can differ for each version of the document. If you want to
+     * update this value, see <a>UpdateDocument</a>.
+     * </p>
+     */
+    private String displayName;
+    /**
+     * <p>
      * The document version.
      * </p>
      */
     private String documentVersion;
     /**
      * <p>
-     * The version of the artifact associated with the document. For example, "Release 12, Update 6". This value is
-     * unique across all versions of a document, and cannot be changed.
+     * The version of the artifact associated with the document. For example, 12.6. This value is unique across all
+     * versions of a document, and can't be changed.
      * </p>
      */
     private String versionName;
@@ -67,19 +74,25 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
     private String documentFormat;
     /**
      * <p>
-     * The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     * <code>Failed</code>, and <code>Deleting</code>.
+     * The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Failed</code>, and
+     * <code>Deleting</code>.
      * </p>
      */
     private String status;
     /**
      * <p>
-     * A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     * <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     * "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     * A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     * example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     * "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      * </p>
      */
     private String statusInformation;
+    /**
+     * <p>
+     * The current status of the approval review for the latest version of the document.
+     * </p>
+     */
+    private String reviewStatus;
 
     /**
      * <p>
@@ -118,6 +131,52 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
 
     public DocumentVersionInfo withName(String name) {
         setName(name);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The friendly name of the SSM document. This value can differ for each version of the document. If you want to
+     * update this value, see <a>UpdateDocument</a>.
+     * </p>
+     * 
+     * @param displayName
+     *        The friendly name of the SSM document. This value can differ for each version of the document. If you want
+     *        to update this value, see <a>UpdateDocument</a>.
+     */
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    /**
+     * <p>
+     * The friendly name of the SSM document. This value can differ for each version of the document. If you want to
+     * update this value, see <a>UpdateDocument</a>.
+     * </p>
+     * 
+     * @return The friendly name of the SSM document. This value can differ for each version of the document. If you
+     *         want to update this value, see <a>UpdateDocument</a>.
+     */
+
+    public String getDisplayName() {
+        return this.displayName;
+    }
+
+    /**
+     * <p>
+     * The friendly name of the SSM document. This value can differ for each version of the document. If you want to
+     * update this value, see <a>UpdateDocument</a>.
+     * </p>
+     * 
+     * @param displayName
+     *        The friendly name of the SSM document. This value can differ for each version of the document. If you want
+     *        to update this value, see <a>UpdateDocument</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentVersionInfo withDisplayName(String displayName) {
+        setDisplayName(displayName);
         return this;
     }
 
@@ -163,13 +222,13 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The version of the artifact associated with the document. For example, "Release 12, Update 6". This value is
-     * unique across all versions of a document, and cannot be changed.
+     * The version of the artifact associated with the document. For example, 12.6. This value is unique across all
+     * versions of a document, and can't be changed.
      * </p>
      * 
      * @param versionName
-     *        The version of the artifact associated with the document. For example, "Release 12, Update 6". This value
-     *        is unique across all versions of a document, and cannot be changed.
+     *        The version of the artifact associated with the document. For example, 12.6. This value is unique across
+     *        all versions of a document, and can't be changed.
      */
 
     public void setVersionName(String versionName) {
@@ -178,12 +237,12 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The version of the artifact associated with the document. For example, "Release 12, Update 6". This value is
-     * unique across all versions of a document, and cannot be changed.
+     * The version of the artifact associated with the document. For example, 12.6. This value is unique across all
+     * versions of a document, and can't be changed.
      * </p>
      * 
-     * @return The version of the artifact associated with the document. For example, "Release 12, Update 6". This value
-     *         is unique across all versions of a document, and cannot be changed.
+     * @return The version of the artifact associated with the document. For example, 12.6. This value is unique across
+     *         all versions of a document, and can't be changed.
      */
 
     public String getVersionName() {
@@ -192,13 +251,13 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The version of the artifact associated with the document. For example, "Release 12, Update 6". This value is
-     * unique across all versions of a document, and cannot be changed.
+     * The version of the artifact associated with the document. For example, 12.6. This value is unique across all
+     * versions of a document, and can't be changed.
      * </p>
      * 
      * @param versionName
-     *        The version of the artifact associated with the document. For example, "Release 12, Update 6". This value
-     *        is unique across all versions of a document, and cannot be changed.
+     *        The version of the artifact associated with the document. For example, 12.6. This value is unique across
+     *        all versions of a document, and can't be changed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -360,13 +419,13 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     * <code>Failed</code>, and <code>Deleting</code>.
+     * The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Failed</code>, and
+     * <code>Deleting</code>.
      * </p>
      * 
      * @param status
-     *        The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     *        <code>Failed</code>, and <code>Deleting</code>.
+     *        The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Failed</code>,
+     *        and <code>Deleting</code>.
      * @see DocumentStatus
      */
 
@@ -376,12 +435,12 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     * <code>Failed</code>, and <code>Deleting</code>.
+     * The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Failed</code>, and
+     * <code>Deleting</code>.
      * </p>
      * 
-     * @return The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     *         <code>Failed</code>, and <code>Deleting</code>.
+     * @return The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Failed</code>,
+     *         and <code>Deleting</code>.
      * @see DocumentStatus
      */
 
@@ -391,13 +450,13 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     * <code>Failed</code>, and <code>Deleting</code>.
+     * The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Failed</code>, and
+     * <code>Deleting</code>.
      * </p>
      * 
      * @param status
-     *        The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     *        <code>Failed</code>, and <code>Deleting</code>.
+     *        The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Failed</code>,
+     *        and <code>Deleting</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DocumentStatus
      */
@@ -409,13 +468,13 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     * <code>Failed</code>, and <code>Deleting</code>.
+     * The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Failed</code>, and
+     * <code>Deleting</code>.
      * </p>
      * 
      * @param status
-     *        The status of the Systems Manager document, such as <code>Creating</code>, <code>Active</code>,
-     *        <code>Failed</code>, and <code>Deleting</code>.
+     *        The status of the SSM document, such as <code>Creating</code>, <code>Active</code>, <code>Failed</code>,
+     *        and <code>Deleting</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DocumentStatus
      */
@@ -427,15 +486,15 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     * <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     * "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     * A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     * example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     * "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      * </p>
      * 
      * @param statusInformation
-     *        A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     *        <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     *        "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     *        A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     *        example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     *        "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      */
 
     public void setStatusInformation(String statusInformation) {
@@ -444,14 +503,14 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     * <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     * "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     * A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     * example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     * "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      * </p>
      * 
-     * @return A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     *         <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     *         "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     * @return A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value.
+     *         For example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code>
+     *         message, "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      */
 
     public String getStatusInformation() {
@@ -460,20 +519,79 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     * <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     * "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     * A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     * example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     * "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      * </p>
      * 
      * @param statusInformation
-     *        A message returned by AWS Systems Manager that explains the <code>Status</code> value. For example, a
-     *        <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
-     *        "The specified S3 bucket does not exist. Verify that the URL of the S3 bucket is correct."
+     *        A message returned by Amazon Web Services Systems Manager that explains the <code>Status</code> value. For
+     *        example, a <code>Failed</code> status might be explained by the <code>StatusInformation</code> message,
+     *        "The specified S3 bucket doesn't exist. Verify that the URL of the S3 bucket is correct."
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DocumentVersionInfo withStatusInformation(String statusInformation) {
         setStatusInformation(statusInformation);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current status of the approval review for the latest version of the document.
+     * </p>
+     * 
+     * @param reviewStatus
+     *        The current status of the approval review for the latest version of the document.
+     * @see ReviewStatus
+     */
+
+    public void setReviewStatus(String reviewStatus) {
+        this.reviewStatus = reviewStatus;
+    }
+
+    /**
+     * <p>
+     * The current status of the approval review for the latest version of the document.
+     * </p>
+     * 
+     * @return The current status of the approval review for the latest version of the document.
+     * @see ReviewStatus
+     */
+
+    public String getReviewStatus() {
+        return this.reviewStatus;
+    }
+
+    /**
+     * <p>
+     * The current status of the approval review for the latest version of the document.
+     * </p>
+     * 
+     * @param reviewStatus
+     *        The current status of the approval review for the latest version of the document.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ReviewStatus
+     */
+
+    public DocumentVersionInfo withReviewStatus(String reviewStatus) {
+        setReviewStatus(reviewStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current status of the approval review for the latest version of the document.
+     * </p>
+     * 
+     * @param reviewStatus
+     *        The current status of the approval review for the latest version of the document.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ReviewStatus
+     */
+
+    public DocumentVersionInfo withReviewStatus(ReviewStatus reviewStatus) {
+        this.reviewStatus = reviewStatus.toString();
         return this;
     }
 
@@ -491,6 +609,8 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
         sb.append("{");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
+        if (getDisplayName() != null)
+            sb.append("DisplayName: ").append(getDisplayName()).append(",");
         if (getDocumentVersion() != null)
             sb.append("DocumentVersion: ").append(getDocumentVersion()).append(",");
         if (getVersionName() != null)
@@ -504,7 +624,9 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
         if (getStatus() != null)
             sb.append("Status: ").append(getStatus()).append(",");
         if (getStatusInformation() != null)
-            sb.append("StatusInformation: ").append(getStatusInformation());
+            sb.append("StatusInformation: ").append(getStatusInformation()).append(",");
+        if (getReviewStatus() != null)
+            sb.append("ReviewStatus: ").append(getReviewStatus());
         sb.append("}");
         return sb.toString();
     }
@@ -522,6 +644,10 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
         if (other.getName() == null ^ this.getName() == null)
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
+            return false;
+        if (other.getDisplayName() == null ^ this.getDisplayName() == null)
+            return false;
+        if (other.getDisplayName() != null && other.getDisplayName().equals(this.getDisplayName()) == false)
             return false;
         if (other.getDocumentVersion() == null ^ this.getDocumentVersion() == null)
             return false;
@@ -551,6 +677,10 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getStatusInformation() != null && other.getStatusInformation().equals(this.getStatusInformation()) == false)
             return false;
+        if (other.getReviewStatus() == null ^ this.getReviewStatus() == null)
+            return false;
+        if (other.getReviewStatus() != null && other.getReviewStatus().equals(this.getReviewStatus()) == false)
+            return false;
         return true;
     }
 
@@ -560,6 +690,7 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getDisplayName() == null) ? 0 : getDisplayName().hashCode());
         hashCode = prime * hashCode + ((getDocumentVersion() == null) ? 0 : getDocumentVersion().hashCode());
         hashCode = prime * hashCode + ((getVersionName() == null) ? 0 : getVersionName().hashCode());
         hashCode = prime * hashCode + ((getCreatedDate() == null) ? 0 : getCreatedDate().hashCode());
@@ -567,6 +698,7 @@ public class DocumentVersionInfo implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getDocumentFormat() == null) ? 0 : getDocumentFormat().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getStatusInformation() == null) ? 0 : getStatusInformation().hashCode());
+        hashCode = prime * hashCode + ((getReviewStatus() == null) ? 0 : getReviewStatus().hashCode());
         return hashCode;
     }
 

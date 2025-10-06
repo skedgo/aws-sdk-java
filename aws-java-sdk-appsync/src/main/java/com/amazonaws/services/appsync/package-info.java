@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -13,7 +13,7 @@
 
 /**
  * <p>
- * AWS AppSync provides API actions for creating and interacting with data sources using GraphQL from your application.
+ * AppSync provides API actions for creating and interacting with data sources using GraphQL from your application.
  * </p>
  */
 package com.amazonaws.services.appsync;

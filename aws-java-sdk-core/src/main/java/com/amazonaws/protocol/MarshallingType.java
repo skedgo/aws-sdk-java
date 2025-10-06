@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package com.amazonaws.protocol;
 import com.amazonaws.annotation.SdkProtectedApi;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.Date;
 import java.util.List;
@@ -51,6 +52,8 @@ public interface MarshallingType<T> {
     MarshallingType<Float> FLOAT = new DefaultMarshallingType<Float>(Float.class);
 
     MarshallingType<Double> DOUBLE = new DefaultMarshallingType<Double>(Double.class);
+
+    MarshallingType<BigInteger> BIG_INTEGER = new DefaultMarshallingType<BigInteger>(BigInteger.class);
 
     MarshallingType<BigDecimal> BIG_DECIMAL = new DefaultMarshallingType<BigDecimal>(BigDecimal.class);
 

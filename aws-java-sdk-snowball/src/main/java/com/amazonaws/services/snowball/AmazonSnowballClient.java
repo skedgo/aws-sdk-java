@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.snowball.AmazonSnowballClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.snowball.model.*;
+
 import com.amazonaws.services.snowball.model.transform.*;
 
 /**
@@ -51,11 +52,13 @@ import com.amazonaws.services.snowball.model.transform.*;
  * until the service call completes.
  * <p>
  * <p>
- * AWS Snowball is a petabyte-scale data transport solution that uses secure devices to transfer large amounts of data
- * between your on-premises data centers and Amazon Simple Storage Service (Amazon S3). The commands described here
- * provide access to the same functionality that is available in the AWS Snowball Management Console, which enables you
- * to create and manage jobs for Snowball and Snowball Edge devices. To transfer data locally with a device, you'll need
- * to use the Snowball client or the Amazon S3 API adapter for Snowball.
+ * The Amazon Web Services Snow Family provides a petabyte-scale data transport solution that uses secure devices to
+ * transfer large amounts of data between your on-premises data centers and Amazon Simple Storage Service (Amazon S3).
+ * The Snow Family commands described here provide access to the same functionality that is available in the Amazon Web
+ * Services Snow Family Management Console, which enables you to create and manage jobs for a Snow Family device. To
+ * transfer data locally with a Snow Family device, you'll need to use the Snowball Edge client or the Amazon S3 API
+ * Interface for Snowball or OpsHub for Snow Family. For more information, see the <a
+ * href="https://docs.aws.amazon.com/AWSImportExport/latest/ug/api-reference.html">User Guide</a>.
  * </p>
  */
 @ThreadSafe
@@ -81,32 +84,38 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidJobStateException").withModeledClass(
-                                    com.amazonaws.services.snowball.model.InvalidJobStateException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidJobStateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.snowball.model.transform.InvalidJobStateExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidResourceException").withModeledClass(
-                                    com.amazonaws.services.snowball.model.InvalidResourceException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ReturnShippingLabelAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.snowball.model.transform.ReturnShippingLabelAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("KMSRequestFailedException").withModeledClass(
-                                    com.amazonaws.services.snowball.model.KMSRequestFailedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("KMSRequestFailedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.snowball.model.transform.KMSRequestFailedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedAddressException").withModeledClass(
-                                    com.amazonaws.services.snowball.model.UnsupportedAddressException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedAddressException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.snowball.model.transform.UnsupportedAddressExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ClusterLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.snowball.model.ClusterLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("Ec2RequestFailedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.snowball.model.transform.Ec2RequestFailedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidInputCombinationException").withModeledClass(
-                                    com.amazonaws.services.snowball.model.InvalidInputCombinationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.snowball.model.transform.InvalidNextTokenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("Ec2RequestFailedException").withModeledClass(
-                                    com.amazonaws.services.snowball.model.Ec2RequestFailedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidAddressException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.snowball.model.transform.InvalidAddressExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withModeledClass(
-                                    com.amazonaws.services.snowball.model.InvalidNextTokenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.snowball.model.transform.ConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidAddressException").withModeledClass(
-                                    com.amazonaws.services.snowball.model.InvalidAddressException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidResourceException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.snowball.model.transform.InvalidResourceExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ClusterLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.snowball.model.transform.ClusterLimitExceededExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidInputCombinationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.snowball.model.transform.InvalidInputCombinationExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.snowball.model.AmazonSnowballException.class));
 
     /**
@@ -317,8 +326,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
      * @param cancelClusterRequest
      * @return Result of the CancelCluster operation returned by the service.
      * @throws KMSRequestFailedException
-     *         The provided AWS Key Management Service key lacks the permissions to perform the specified
-     *         <a>CreateJob</a> or <a>UpdateJob</a> action.
+     *         The provided Key Management Service key lacks the permissions to perform the specified <a>CreateJob</a>
+     *         or <a>UpdateJob</a> action.
      * @throws InvalidJobStateException
      *         The action can't be performed because the job's current state doesn't allow that action to be performed.
      * @throws InvalidResourceException
@@ -349,6 +358,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new CancelClusterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelCluster");
@@ -385,8 +396,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
      * @throws InvalidJobStateException
      *         The action can't be performed because the job's current state doesn't allow that action to be performed.
      * @throws KMSRequestFailedException
-     *         The provided AWS Key Management Service key lacks the permissions to perform the specified
-     *         <a>CreateJob</a> or <a>UpdateJob</a> action.
+     *         The provided Key Management Service key lacks the permissions to perform the specified <a>CreateJob</a>
+     *         or <a>UpdateJob</a> action.
      * @sample AmazonSnowball.CancelJob
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/CancelJob" target="_top">AWS API
      *      Documentation</a>
@@ -412,6 +423,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new CancelJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelJob");
@@ -435,9 +448,11 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
 
     /**
      * <p>
-     * Creates an address for a Snowball to be shipped to. In most regions, addresses are validated at the time of
+     * Creates an address for a Snow device to be shipped to. In most regions, addresses are validated at the time of
      * creation. The address you provide must be located within the serviceable area of your region. If the address is
-     * invalid or unsupported, then an exception is thrown.
+     * invalid or unsupported, then an exception is thrown. If providing an address as a JSON file through the
+     * <code>cli-input-json</code> option, include the full file path. For example,
+     * <code>--cli-input-json file://create-address.json</code>.
      * </p>
      * 
      * @param createAddressRequest
@@ -446,7 +461,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
      *         The address provided was invalid. Check the address with your region's carrier, and try again.
      * @throws UnsupportedAddressException
      *         The address is either outside the serviceable area for your region, or an error occurred. Check the
-     *         address with your region's carrier and try again. If the issue persists, contact AWS Support.
+     *         address with your region's carrier and try again. If the issue persists, contact Amazon Web Services
+     *         Support.
      * @sample AmazonSnowball.CreateAddress
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/CreateAddress" target="_top">AWS API
      *      Documentation</a>
@@ -472,6 +488,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new CreateAddressRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createAddressRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateAddress");
@@ -505,14 +523,14 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
      *         The specified resource can't be found. Check the information you provided in your last request, and try
      *         again.
      * @throws KMSRequestFailedException
-     *         The provided AWS Key Management Service key lacks the permissions to perform the specified
-     *         <a>CreateJob</a> or <a>UpdateJob</a> action.
+     *         The provided Key Management Service key lacks the permissions to perform the specified <a>CreateJob</a>
+     *         or <a>UpdateJob</a> action.
      * @throws InvalidInputCombinationException
-     *         Job or cluster creation failed. One ore more inputs were invalid. Confirm that the
+     *         Job or cluster creation failed. One or more inputs were invalid. Confirm that the
      *         <a>CreateClusterRequest$SnowballType</a> value supports your <a>CreateJobRequest$JobType</a>, and try
      *         again.
      * @throws Ec2RequestFailedException
-     *         Your IAM user lacks the necessary Amazon EC2 permissions to perform the attempted action.
+     *         Your user lacks the necessary Amazon EC2 permissions to perform the attempted action.
      * @sample AmazonSnowball.CreateCluster
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/CreateCluster" target="_top">AWS API
      *      Documentation</a>
@@ -538,6 +556,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new CreateClusterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCluster");
@@ -561,8 +581,214 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
 
     /**
      * <p>
-     * Creates a job to the other job attributes are inherited from the cluster.
+     * Creates a job to import or export data between Amazon S3 and your on-premises data center. Your Amazon Web
+     * Services account must have the right trust policies and permissions in place to create a job for a Snow device.
+     * If you're creating a job for a node in a cluster, you only need to provide the <code>clusterId</code> value; the
+     * other job attributes are inherited from the cluster.
      * </p>
+     * <note>
+     * <p>
+     * Only the Snowball; Edge device type is supported when ordering clustered jobs.
+     * </p>
+     * <p>
+     * The device capacity is optional.
+     * </p>
+     * <p>
+     * Availability of device types differ by Amazon Web Services Region. For more information about Region
+     * availability, see <a
+     * href="https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/?p=ngi&amp;loc=4">Amazon
+     * Web Services Regional Services</a>.
+     * </p>
+     * </note>
+     * <p/>
+     * <p class="title">
+     * <b>Snow Family devices and their capacities.</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Device type: <b>SNC1_SSD</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T14
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Snowcone
+     * </p>
+     * </li>
+     * </ul>
+     * <p/></li>
+     * <li>
+     * <p>
+     * Device type: <b>SNC1_HDD</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Snowcone
+     * </p>
+     * </li>
+     * </ul>
+     * <p/></li>
+     * <li>
+     * <p>
+     * Device type: <b>EDGE_S</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T98
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Snowball Edge Storage Optimized for data transfer only
+     * </p>
+     * </li>
+     * </ul>
+     * <p/></li>
+     * <li>
+     * <p>
+     * Device type: <b>EDGE_CG</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T42
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Snowball Edge Compute Optimized with GPU
+     * </p>
+     * </li>
+     * </ul>
+     * <p/></li>
+     * <li>
+     * <p>
+     * Device type: <b>EDGE_C</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T42
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Snowball Edge Compute Optimized without GPU
+     * </p>
+     * </li>
+     * </ul>
+     * <p/></li>
+     * <li>
+     * <p>
+     * Device type: <b>EDGE</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T100
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Snowball Edge Storage Optimized with EC2 Compute
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * This device is replaced with T98.
+     * </p>
+     * </note>
+     * <p/></li>
+     * <li>
+     * <p>
+     * Device type: <b>STANDARD</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Original Snowball device
+     * </p>
+     * <note>
+     * <p>
+     * This device is only available in the Ningxia, Beijing, and Singapore Amazon Web Services Region
+     * </p>
+     * </note></li>
+     * </ul>
+     * <p/></li>
+     * <li>
+     * <p>
+     * Device type: <b>STANDARD</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T80
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Original Snowball device
+     * </p>
+     * <note>
+     * <p>
+     * This device is only available in the Ningxia, Beijing, and Singapore Amazon Web Services Region.
+     * </p>
+     * </note></li>
+     * </ul>
+     * <p/></li>
+     * <li>
+     * <p>
+     * Snow Family device type: <b>RACK_5U_C</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T13
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Snowblade.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * Device type: <b>V3_5S</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T240
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Snowball Edge Storage Optimized 210TB
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
      * 
      * @param createJobRequest
      * @return Result of the CreateJob operation returned by the service.
@@ -570,18 +796,18 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
      *         The specified resource can't be found. Check the information you provided in your last request, and try
      *         again.
      * @throws KMSRequestFailedException
-     *         The provided AWS Key Management Service key lacks the permissions to perform the specified
-     *         <a>CreateJob</a> or <a>UpdateJob</a> action.
+     *         The provided Key Management Service key lacks the permissions to perform the specified <a>CreateJob</a>
+     *         or <a>UpdateJob</a> action.
      * @throws InvalidInputCombinationException
-     *         Job or cluster creation failed. One ore more inputs were invalid. Confirm that the
+     *         Job or cluster creation failed. One or more inputs were invalid. Confirm that the
      *         <a>CreateClusterRequest$SnowballType</a> value supports your <a>CreateJobRequest$JobType</a>, and try
      *         again.
      * @throws ClusterLimitExceededException
-     *         Job creation failed. Currently, clusters support five nodes. If you have less than five nodes for your
+     *         Job creation failed. Currently, clusters support five nodes. If you have fewer than five nodes for your
      *         cluster and you have more nodes to create for this cluster, try again and create jobs until your cluster
-     *         has exactly five notes.
+     *         has exactly five nodes.
      * @throws Ec2RequestFailedException
-     *         Your IAM user lacks the necessary Amazon EC2 permissions to perform the attempted action.
+     *         Your user lacks the necessary Amazon EC2 permissions to perform the attempted action.
      * @sample AmazonSnowball.CreateJob
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/CreateJob" target="_top">AWS API
      *      Documentation</a>
@@ -607,6 +833,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new CreateJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateJob");
@@ -618,6 +846,139 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
 
             HttpResponseHandler<AmazonWebServiceResponse<CreateJobResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
                     .withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a job with the long-term usage option for a device. The long-term usage is a 1-year or 3-year long-term
+     * pricing type for the device. You are billed upfront, and Amazon Web Services provides discounts for long-term
+     * pricing.
+     * </p>
+     * 
+     * @param createLongTermPricingRequest
+     * @return Result of the CreateLongTermPricing operation returned by the service.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @sample AmazonSnowball.CreateLongTermPricing
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/CreateLongTermPricing" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateLongTermPricingResult createLongTermPricing(CreateLongTermPricingRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateLongTermPricing(request);
+    }
+
+    @SdkInternalApi
+    final CreateLongTermPricingResult executeCreateLongTermPricing(CreateLongTermPricingRequest createLongTermPricingRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createLongTermPricingRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateLongTermPricingRequest> request = null;
+        Response<CreateLongTermPricingResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateLongTermPricingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createLongTermPricingRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateLongTermPricing");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateLongTermPricingResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new CreateLongTermPricingResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a shipping label that will be used to return the Snow device to Amazon Web Services.
+     * </p>
+     * 
+     * @param createReturnShippingLabelRequest
+     * @return Result of the CreateReturnShippingLabel operation returned by the service.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @throws InvalidJobStateException
+     *         The action can't be performed because the job's current state doesn't allow that action to be performed.
+     * @throws InvalidInputCombinationException
+     *         Job or cluster creation failed. One or more inputs were invalid. Confirm that the
+     *         <a>CreateClusterRequest$SnowballType</a> value supports your <a>CreateJobRequest$JobType</a>, and try
+     *         again.
+     * @throws ConflictException
+     *         You get this exception when you call <code>CreateReturnShippingLabel</code> more than once when other
+     *         requests are not completed.
+     * @throws ReturnShippingLabelAlreadyExistsException
+     *         You get this exception if you call <code>CreateReturnShippingLabel</code> and a valid return shipping
+     *         label already exists. In this case, use <code>DescribeReturnShippingLabel</code> to get the URL.
+     * @sample AmazonSnowball.CreateReturnShippingLabel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/CreateReturnShippingLabel"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateReturnShippingLabelResult createReturnShippingLabel(CreateReturnShippingLabelRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateReturnShippingLabel(request);
+    }
+
+    @SdkInternalApi
+    final CreateReturnShippingLabelResult executeCreateReturnShippingLabel(CreateReturnShippingLabelRequest createReturnShippingLabelRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createReturnShippingLabelRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateReturnShippingLabelRequest> request = null;
+        Response<CreateReturnShippingLabelResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateReturnShippingLabelRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createReturnShippingLabelRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateReturnShippingLabel");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateReturnShippingLabelResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateReturnShippingLabelResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -664,6 +1025,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new DescribeAddressRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeAddressRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAddress");
@@ -724,6 +1087,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new DescribeAddressesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeAddressesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAddresses");
@@ -781,6 +1146,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new DescribeClusterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCluster");
@@ -838,6 +1205,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new DescribeJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeJob");
@@ -861,6 +1230,71 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
 
     /**
      * <p>
+     * Information on the shipping label of a Snow device that is being returned to Amazon Web Services.
+     * </p>
+     * 
+     * @param describeReturnShippingLabelRequest
+     * @return Result of the DescribeReturnShippingLabel operation returned by the service.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @throws InvalidJobStateException
+     *         The action can't be performed because the job's current state doesn't allow that action to be performed.
+     * @throws ConflictException
+     *         You get this exception when you call <code>CreateReturnShippingLabel</code> more than once when other
+     *         requests are not completed.
+     * @sample AmazonSnowball.DescribeReturnShippingLabel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/DescribeReturnShippingLabel"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeReturnShippingLabelResult describeReturnShippingLabel(DescribeReturnShippingLabelRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeReturnShippingLabel(request);
+    }
+
+    @SdkInternalApi
+    final DescribeReturnShippingLabelResult executeDescribeReturnShippingLabel(DescribeReturnShippingLabelRequest describeReturnShippingLabelRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeReturnShippingLabelRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeReturnShippingLabelRequest> request = null;
+        Response<DescribeReturnShippingLabelResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeReturnShippingLabelRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeReturnShippingLabelRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReturnShippingLabel");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeReturnShippingLabelResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeReturnShippingLabelResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns a link to an Amazon S3 presigned URL for the manifest file associated with the specified
      * <code>JobId</code> value. You can access the manifest file for up to 60 minutes after this request has been made.
      * To access the manifest file after 60 minutes have passed, you'll have to make another call to the
@@ -868,16 +1302,18 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
      * </p>
      * <p>
      * The manifest is an encrypted file that you can download after your job enters the <code>WithCustomer</code>
-     * status. The manifest is decrypted by using the <code>UnlockCode</code> code value, when you pass both values to
-     * the Snowball through the Snowball client when the client is started for the first time.
+     * status. This is the only valid status for calling this API as the manifest and <code>UnlockCode</code> code value
+     * are used for securing your device and should only be used when you have the device. The manifest is decrypted by
+     * using the <code>UnlockCode</code> code value, when you pass both values to the Snow device through the Snowball
+     * client when the client is started for the first time.
      * </p>
      * <p>
      * As a best practice, we recommend that you don't save a copy of an <code>UnlockCode</code> value in the same
      * location as the manifest file for that job. Saving these separately helps prevent unauthorized parties from
-     * gaining access to the Snowball associated with that job.
+     * gaining access to the Snow device associated with that job.
      * </p>
      * <p>
-     * The credentials of a given job, including its manifest file and unlock code, expire 90 days after the job is
+     * The credentials of a given job, including its manifest file and unlock code, expire 360 days after the job is
      * created.
      * </p>
      * 
@@ -913,6 +1349,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new GetJobManifestRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getJobManifestRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetJobManifest");
@@ -937,17 +1375,19 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
     /**
      * <p>
      * Returns the <code>UnlockCode</code> code value for the specified job. A particular <code>UnlockCode</code> value
-     * can be accessed for up to 90 days after the associated job has been created.
+     * can be accessed for up to 360 days after the associated job has been created.
      * </p>
      * <p>
      * The <code>UnlockCode</code> value is a 29-character code with 25 alphanumeric characters and 4 hyphens. This code
-     * is used to decrypt the manifest file when it is passed along with the manifest to the Snowball through the
-     * Snowball client when the client is started for the first time.
+     * is used to decrypt the manifest file when it is passed along with the manifest to the Snow device through the
+     * Snowball client when the client is started for the first time. The only valid status for calling this API is
+     * <code>WithCustomer</code> as the manifest and <code>Unlock</code> code values are used for securing your device
+     * and should only be used when you have the device.
      * </p>
      * <p>
      * As a best practice, we recommend that you don't save a copy of the <code>UnlockCode</code> in the same location
      * as the manifest file for that job. Saving these separately helps prevent unauthorized parties from gaining access
-     * to the Snowball associated with that job.
+     * to the Snow device associated with that job.
      * </p>
      * 
      * @param getJobUnlockCodeRequest
@@ -982,6 +1422,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new GetJobUnlockCodeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getJobUnlockCodeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetJobUnlockCode");
@@ -1005,12 +1447,12 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
 
     /**
      * <p>
-     * Returns information about the Snowball service limit for your account, and also the number of Snowballs your
-     * account has in use.
+     * Returns information about the Snow Family service limit for your account, and also the number of Snow devices
+     * your account has in use.
      * </p>
      * <p>
-     * The default service limit for the number of Snowballs that you can have at one time is 1. If you want to increase
-     * your service limit, contact AWS Support.
+     * The default service limit for the number of Snow devices that you can have at one time is 1. If you want to
+     * increase your service limit, contact Amazon Web Services Support.
      * </p>
      * 
      * @param getSnowballUsageRequest
@@ -1040,6 +1482,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new GetSnowballUsageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSnowballUsageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSnowballUsage");
@@ -1051,6 +1495,66 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
 
             HttpResponseHandler<AmazonWebServiceResponse<GetSnowballUsageResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetSnowballUsageResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns an Amazon S3 presigned URL for an update file associated with a specified <code>JobId</code>.
+     * </p>
+     * 
+     * @param getSoftwareUpdatesRequest
+     * @return Result of the GetSoftwareUpdates operation returned by the service.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @throws InvalidJobStateException
+     *         The action can't be performed because the job's current state doesn't allow that action to be performed.
+     * @sample AmazonSnowball.GetSoftwareUpdates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/GetSoftwareUpdates" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public GetSoftwareUpdatesResult getSoftwareUpdates(GetSoftwareUpdatesRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetSoftwareUpdates(request);
+    }
+
+    @SdkInternalApi
+    final GetSoftwareUpdatesResult executeGetSoftwareUpdates(GetSoftwareUpdatesRequest getSoftwareUpdatesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getSoftwareUpdatesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetSoftwareUpdatesRequest> request = null;
+        Response<GetSoftwareUpdatesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetSoftwareUpdatesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSoftwareUpdatesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSoftwareUpdates");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetSoftwareUpdatesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetSoftwareUpdatesResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1100,6 +1604,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new ListClusterJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listClusterJobsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListClusterJobs");
@@ -1158,6 +1664,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new ListClustersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listClustersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListClusters");
@@ -1181,11 +1689,11 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
 
     /**
      * <p>
-     * This action returns a list of the different Amazon EC2 Amazon Machine Images (AMIs) that are owned by your AWS
-     * account that would be supported for use on <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>
-     * devices. For more information on compatible AMIs, see <a
-     * href="http://docs.aws.amazon.com/snowball/latest/developer-guide/using-ec2.html">Using Amazon EC2 Compute
-     * Instances</a> in the <i>AWS Snowball Developer Guide</i>.
+     * This action returns a list of the different Amazon EC2-compatible Amazon Machine Images (AMIs) that are owned by
+     * your Amazon Web Services accountthat would be supported for use on a Snow device. Currently, supported AMIs are
+     * based on the Amazon Linux-2, Ubuntu 20.04 LTS - Focal, or Ubuntu 22.04 LTS - Jammy images, available on the
+     * Amazon Web Services Marketplace. Ubuntu 16.04 LTS - Xenial (HVM) images are no longer supported in the Market,
+     * but still supported for use on devices through Amazon EC2 VM Import/Export and running locally in AMIs.
      * </p>
      * 
      * @param listCompatibleImagesRequest
@@ -1194,7 +1702,7 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
      *         The <code>NextToken</code> string was altered unexpectedly, and the operation has stopped. Run the
      *         operation without changing the <code>NextToken</code> string, and try again.
      * @throws Ec2RequestFailedException
-     *         Your IAM user lacks the necessary Amazon EC2 permissions to perform the attempted action.
+     *         Your user lacks the necessary Amazon EC2 permissions to perform the attempted action.
      * @sample AmazonSnowball.ListCompatibleImages
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/ListCompatibleImages" target="_top">AWS
      *      API Documentation</a>
@@ -1220,6 +1728,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new ListCompatibleImagesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listCompatibleImagesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCompatibleImages");
@@ -1279,6 +1789,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new ListJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listJobsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListJobs");
@@ -1290,6 +1802,187 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
 
             HttpResponseHandler<AmazonWebServiceResponse<ListJobsResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
                     .withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListJobsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists all long-term pricing types.
+     * </p>
+     * 
+     * @param listLongTermPricingRequest
+     * @return Result of the ListLongTermPricing operation returned by the service.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @throws InvalidNextTokenException
+     *         The <code>NextToken</code> string was altered unexpectedly, and the operation has stopped. Run the
+     *         operation without changing the <code>NextToken</code> string, and try again.
+     * @sample AmazonSnowball.ListLongTermPricing
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/ListLongTermPricing" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListLongTermPricingResult listLongTermPricing(ListLongTermPricingRequest request) {
+        request = beforeClientExecution(request);
+        return executeListLongTermPricing(request);
+    }
+
+    @SdkInternalApi
+    final ListLongTermPricingResult executeListLongTermPricing(ListLongTermPricingRequest listLongTermPricingRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listLongTermPricingRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListLongTermPricingRequest> request = null;
+        Response<ListLongTermPricingResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListLongTermPricingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listLongTermPricingRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListLongTermPricing");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListLongTermPricingResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListLongTermPricingResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * A list of locations from which the customer can choose to pickup a device.
+     * </p>
+     * 
+     * @param listPickupLocationsRequest
+     * @return Result of the ListPickupLocations operation returned by the service.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @sample AmazonSnowball.ListPickupLocations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/ListPickupLocations" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListPickupLocationsResult listPickupLocations(ListPickupLocationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListPickupLocations(request);
+    }
+
+    @SdkInternalApi
+    final ListPickupLocationsResult executeListPickupLocations(ListPickupLocationsRequest listPickupLocationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listPickupLocationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListPickupLocationsRequest> request = null;
+        Response<ListPickupLocationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListPickupLocationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPickupLocationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPickupLocations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListPickupLocationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListPickupLocationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists all supported versions for Snow on-device services. Returns an array of <code>ServiceVersion</code> object
+     * containing the supported versions for a particular service.
+     * </p>
+     * 
+     * @param listServiceVersionsRequest
+     * @return Result of the ListServiceVersions operation returned by the service.
+     * @throws InvalidNextTokenException
+     *         The <code>NextToken</code> string was altered unexpectedly, and the operation has stopped. Run the
+     *         operation without changing the <code>NextToken</code> string, and try again.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @sample AmazonSnowball.ListServiceVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/ListServiceVersions" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListServiceVersionsResult listServiceVersions(ListServiceVersionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListServiceVersions(request);
+    }
+
+    @SdkInternalApi
+    final ListServiceVersionsResult executeListServiceVersions(ListServiceVersionsRequest listServiceVersionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listServiceVersionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListServiceVersionsRequest> request = null;
+        Response<ListServiceVersionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListServiceVersionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listServiceVersionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListServiceVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListServiceVersionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListServiceVersionsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1315,14 +2008,14 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
      * @throws InvalidJobStateException
      *         The action can't be performed because the job's current state doesn't allow that action to be performed.
      * @throws KMSRequestFailedException
-     *         The provided AWS Key Management Service key lacks the permissions to perform the specified
-     *         <a>CreateJob</a> or <a>UpdateJob</a> action.
+     *         The provided Key Management Service key lacks the permissions to perform the specified <a>CreateJob</a>
+     *         or <a>UpdateJob</a> action.
      * @throws InvalidInputCombinationException
-     *         Job or cluster creation failed. One ore more inputs were invalid. Confirm that the
+     *         Job or cluster creation failed. One or more inputs were invalid. Confirm that the
      *         <a>CreateClusterRequest$SnowballType</a> value supports your <a>CreateJobRequest$JobType</a>, and try
      *         again.
      * @throws Ec2RequestFailedException
-     *         Your IAM user lacks the necessary Amazon EC2 permissions to perform the attempted action.
+     *         Your user lacks the necessary Amazon EC2 permissions to perform the attempted action.
      * @sample AmazonSnowball.UpdateCluster
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/UpdateCluster" target="_top">AWS API
      *      Documentation</a>
@@ -1348,6 +2041,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new UpdateClusterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateCluster");
@@ -1384,18 +2079,18 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
      * @throws InvalidJobStateException
      *         The action can't be performed because the job's current state doesn't allow that action to be performed.
      * @throws KMSRequestFailedException
-     *         The provided AWS Key Management Service key lacks the permissions to perform the specified
-     *         <a>CreateJob</a> or <a>UpdateJob</a> action.
+     *         The provided Key Management Service key lacks the permissions to perform the specified <a>CreateJob</a>
+     *         or <a>UpdateJob</a> action.
      * @throws InvalidInputCombinationException
-     *         Job or cluster creation failed. One ore more inputs were invalid. Confirm that the
+     *         Job or cluster creation failed. One or more inputs were invalid. Confirm that the
      *         <a>CreateClusterRequest$SnowballType</a> value supports your <a>CreateJobRequest$JobType</a>, and try
      *         again.
      * @throws ClusterLimitExceededException
-     *         Job creation failed. Currently, clusters support five nodes. If you have less than five nodes for your
+     *         Job creation failed. Currently, clusters support five nodes. If you have fewer than five nodes for your
      *         cluster and you have more nodes to create for this cluster, try again and create jobs until your cluster
-     *         has exactly five notes.
+     *         has exactly five nodes.
      * @throws Ec2RequestFailedException
-     *         Your IAM user lacks the necessary Amazon EC2 permissions to perform the attempted action.
+     *         Your user lacks the necessary Amazon EC2 permissions to perform the attempted action.
      * @sample AmazonSnowball.UpdateJob
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/UpdateJob" target="_top">AWS API
      *      Documentation</a>
@@ -1421,6 +2116,8 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
                 request = new UpdateJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateJob");
@@ -1432,6 +2129,126 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
 
             HttpResponseHandler<AmazonWebServiceResponse<UpdateJobResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
                     .withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the state when a shipment state changes to a different state.
+     * </p>
+     * 
+     * @param updateJobShipmentStateRequest
+     * @return Result of the UpdateJobShipmentState operation returned by the service.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @throws InvalidJobStateException
+     *         The action can't be performed because the job's current state doesn't allow that action to be performed.
+     * @sample AmazonSnowball.UpdateJobShipmentState
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/UpdateJobShipmentState"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateJobShipmentStateResult updateJobShipmentState(UpdateJobShipmentStateRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateJobShipmentState(request);
+    }
+
+    @SdkInternalApi
+    final UpdateJobShipmentStateResult executeUpdateJobShipmentState(UpdateJobShipmentStateRequest updateJobShipmentStateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateJobShipmentStateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateJobShipmentStateRequest> request = null;
+        Response<UpdateJobShipmentStateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateJobShipmentStateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateJobShipmentStateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateJobShipmentState");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateJobShipmentStateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateJobShipmentStateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the long-term pricing type.
+     * </p>
+     * 
+     * @param updateLongTermPricingRequest
+     * @return Result of the UpdateLongTermPricing operation returned by the service.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @sample AmazonSnowball.UpdateLongTermPricing
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/UpdateLongTermPricing" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UpdateLongTermPricingResult updateLongTermPricing(UpdateLongTermPricingRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateLongTermPricing(request);
+    }
+
+    @SdkInternalApi
+    final UpdateLongTermPricingResult executeUpdateLongTermPricing(UpdateLongTermPricingRequest updateLongTermPricingRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateLongTermPricingRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateLongTermPricingRequest> request = null;
+        Response<UpdateLongTermPricingResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateLongTermPricingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateLongTermPricingRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Snowball");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateLongTermPricing");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateLongTermPricingResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new UpdateLongTermPricingResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1516,6 +2333,11 @@ public class AmazonSnowballClient extends AmazonWebServiceClient implements Amaz
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

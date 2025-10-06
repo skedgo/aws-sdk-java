@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon Technologies, Inc.
+ * Copyright 2014-2025 Amazon Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@ package com.amazonaws.http.conn.ssl;
 
 import com.amazonaws.annotation.ThreadSafe;
 import com.amazonaws.http.apache.utils.HttpContextUtils;
+import com.amazonaws.internal.InputShutdownCheckingSslSocket;
 import com.amazonaws.internal.SdkMetricsSocket;
 import com.amazonaws.internal.SdkSSLMetricsSocket;
 import com.amazonaws.internal.SdkSSLSocket;
@@ -155,7 +156,7 @@ public class SdkTLSSocketFactory extends SSLConnectionSocketFactory {
         }
 
         if (connectedSocket instanceof SSLSocket) {
-            SdkSSLSocket sslSocket = new SdkSSLSocket((SSLSocket) connectedSocket);
+            SdkSSLSocket sslSocket = new InputShutdownCheckingSslSocket(new SdkSSLSocket((SSLSocket) connectedSocket));
             return AwsSdkMetrics.isHttpSocketReadMetricEnabled() ? new SdkSSLMetricsSocket(sslSocket) : sslSocket;
         }
         SdkSocket sdkSocket = new SdkSocket(connectedSocket);

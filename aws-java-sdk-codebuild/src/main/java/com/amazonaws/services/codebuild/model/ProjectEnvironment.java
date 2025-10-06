@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,6 +32,57 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * <p>
      * The type of build environment to use for related builds.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment type <code>ARM_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), EU (Ireland), Asia Pacific (Mumbai), Asia Pacific (Tokyo), Asia Pacific (Sydney), and
+     * EU (Frankfurt).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The environment type <code>LINUX_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific (Tokyo), Asia
+     * Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and China (Ningxia).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The environment type <code>LINUX_GPU_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific (Tokyo), Asia
+     * Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney) , China (Beijing), and China (Ningxia).
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment types <code>ARM_LAMBDA_CONTAINER</code> and <code>LINUX_LAMBDA_CONTAINER</code> are available
+     * only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), Asia Pacific (Mumbai), Asia Pacific
+     * (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), EU (Frankfurt), EU (Ireland), and South America (São
+     * Paulo).
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment types <code>WINDOWS_CONTAINER</code> and <code>WINDOWS_SERVER_2019_CONTAINER</code> are available
+     * only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), and EU (Ireland).
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * If you're using compute fleets during project creation, <code>type</code> will be ignored.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build environment
+     * compute types</a> in the <i>CodeBuild user guide</i>.
+     * </p>
      */
     private String type;
     /**
@@ -42,18 +93,25 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * <ul>
      * <li>
      * <p>
-     * For an image tag: <code>registry/repository:tag</code>. For example, to specify an image with the tag "latest,"
-     * use <code>registry/repository:latest</code>.
+     * For an image tag: <code>&lt;registry&gt;/&lt;repository&gt;:&lt;tag&gt;</code>. For example, in the Docker
+     * repository that CodeBuild uses to manage its Docker images, this would be <code>aws/codebuild/standard:4.0</code>
+     * .
      * </p>
      * </li>
      * <li>
      * <p>
-     * For an image digest: <code>registry/repository@digest</code>. For example, to specify an image with the digest
-     * "sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf," use
-     * <code>registry/repository@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf</code>.
+     * For an image digest: <code>&lt;registry&gt;/&lt;repository&gt;@&lt;digest&gt;</code>. For example, to specify an
+     * image with the digest "sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf," use
+     * <code>&lt;registry&gt;/&lt;repository&gt;@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf</code>
+     * .
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html">Docker images provided
+     * by CodeBuild</a> in the <i>CodeBuild user guide</i>.
+     * </p>
      */
     private String image;
     /**
@@ -73,12 +131,115 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * </li>
      * <li>
      * <p>
-     * <code>BUILD_GENERAL1_LARGE</code>: Use up to 15 GB memory and 8 vCPUs for builds.
+     * <code>BUILD_GENERAL1_LARGE</code>: Use up to 16 GB memory and 8 vCPUs for builds, depending on your environment
+     * type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_GENERAL1_XLARGE</code>: Use up to 70 GB memory and 36 vCPUs for builds, depending on your environment
+     * type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_GENERAL1_2XLARGE</code>: Use up to 145 GB memory, 72 vCPUs, and 824 GB of SSD storage for builds.
+     * This compute type supports Docker images up to 100 GB uncompressed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_1GB</code>: Use up to 1 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_2GB</code>: Use up to 2 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_4GB</code>: Use up to 4 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_8GB</code>: Use up to 8 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_10GB</code>: Use up to 10 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If you use <code>BUILD_GENERAL1_SMALL</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_CONTAINER</code>, you can use up to 3 GB memory and 2 vCPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 16 GB memory, 4 vCPUs, and 1 NVIDIA A10G
+     * Tensor Core GPU for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>ARM_CONTAINER</code>, you can use up to 4 GB memory and 2 vCPUs on ARM-based
+     * processors for builds.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you use <code>BUILD_GENERAL1_LARGE</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_CONTAINER</code>, you can use up to 15 GB memory and 8 vCPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 255 GB memory, 32 vCPUs, and 4 NVIDIA
+     * Tesla V100 GPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>ARM_CONTAINER</code>, you can use up to 16 GB memory and 8 vCPUs on ARM-based
+     * processors for builds.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * If you're using compute fleets during project creation, <code>computeType</code> will be ignored.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build Environment
+     * Compute Types</a> in the <i>CodeBuild User Guide.</i>
+     * </p>
      */
     private String computeType;
+    /**
+     * <p>
+     * A ProjectFleet object to use for this build project.
+     * </p>
+     */
+    private ProjectFleet fleet;
     /**
      * <p>
      * A set of environment variables to make available to builds for this build project.
@@ -87,12 +248,13 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
     private java.util.List<EnvironmentVariable> environmentVariables;
     /**
      * <p>
-     * Enables running the Docker daemon inside a Docker container. Set to true only if the build project is be used to
-     * build Docker images, and the specified build environment image is not provided by AWS CodeBuild with Docker
-     * support. Otherwise, all associated builds that attempt to interact with the Docker daemon fail. You must also
-     * start the Docker daemon so that builds can interact with it. One way to do this is to initialize the Docker
-     * daemon during the install phase of your build spec by running the following build commands. (Do not run these
-     * commands if the specified build environment image is provided by AWS CodeBuild with Docker support.)
+     * Enables running the Docker daemon inside a Docker container. Set to true only if the build project is used to
+     * build Docker images. Otherwise, a build that attempts to interact with the Docker daemon fails. The default
+     * setting is <code>false</code>.
+     * </p>
+     * <p>
+     * You can initialize the Docker daemon during the install phase of your build by adding one of the following sets
+     * of commands to the install phase of your buildspec file:
      * </p>
      * <p>
      * If the operating system's base image is Ubuntu Linux:
@@ -117,7 +279,10 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
     private Boolean privilegedMode;
     /**
      * <p>
-     * The certificate to use with this build project.
+     * The ARN of the Amazon S3 bucket, path prefix, and object key that contains the PEM-encoded certificate for the
+     * build project. For more information, see <a href=
+     * "https://docs.aws.amazon.com/codebuild/latest/userguide/create-project-cli.html#cli.environment.certificate"
+     * >certificate</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      */
     private String certificate;
@@ -129,24 +294,24 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
     private RegistryCredential registryCredential;
     /**
      * <p>
-     * The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values:
+     * The type of credentials CodeBuild uses to pull images in your build. There are two valid values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you modify your
-     * ECR repository policy to trust AWS CodeBuild's service principal.
+     * <code>CODEBUILD</code> specifies that CodeBuild uses its own credentials. This requires that you modify your ECR
+     * repository policy to trust CodeBuild service principal.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     * <code>SERVICE_ROLE</code> specifies that CodeBuild uses your build project's service role.
      * </p>
      * </li>
      * </ul>
      * <p>
      * When you use a cross-account or private registry image, you must use SERVICE_ROLE credentials. When you use an
-     * AWS CodeBuild curated image, you must use CODEBUILD credentials.
+     * CodeBuild curated image, you must use CODEBUILD credentials.
      * </p>
      */
     private String imagePullCredentialsType;
@@ -155,9 +320,112 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * <p>
      * The type of build environment to use for related builds.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment type <code>ARM_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), EU (Ireland), Asia Pacific (Mumbai), Asia Pacific (Tokyo), Asia Pacific (Sydney), and
+     * EU (Frankfurt).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The environment type <code>LINUX_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific (Tokyo), Asia
+     * Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and China (Ningxia).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The environment type <code>LINUX_GPU_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific (Tokyo), Asia
+     * Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney) , China (Beijing), and China (Ningxia).
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment types <code>ARM_LAMBDA_CONTAINER</code> and <code>LINUX_LAMBDA_CONTAINER</code> are available
+     * only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), Asia Pacific (Mumbai), Asia Pacific
+     * (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), EU (Frankfurt), EU (Ireland), and South America (São
+     * Paulo).
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment types <code>WINDOWS_CONTAINER</code> and <code>WINDOWS_SERVER_2019_CONTAINER</code> are available
+     * only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), and EU (Ireland).
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * If you're using compute fleets during project creation, <code>type</code> will be ignored.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build environment
+     * compute types</a> in the <i>CodeBuild user guide</i>.
+     * </p>
      * 
      * @param type
-     *        The type of build environment to use for related builds.
+     *        The type of build environment to use for related builds.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The environment type <code>ARM_CONTAINER</code> is available only in regions US East (N. Virginia), US
+     *        East (Ohio), US West (Oregon), EU (Ireland), Asia Pacific (Mumbai), Asia Pacific (Tokyo), Asia Pacific
+     *        (Sydney), and EU (Frankfurt).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The environment type <code>LINUX_CONTAINER</code> is available only in regions US East (N. Virginia), US
+     *        East (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific
+     *        (Tokyo), Asia Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and China
+     *        (Ningxia).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The environment type <code>LINUX_GPU_CONTAINER</code> is available only in regions US East (N. Virginia),
+     *        US East (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia
+     *        Pacific (Tokyo), Asia Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney) , China (Beijing),
+     *        and China (Ningxia).
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The environment types <code>ARM_LAMBDA_CONTAINER</code> and <code>LINUX_LAMBDA_CONTAINER</code> are
+     *        available only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), Asia Pacific (Mumbai),
+     *        Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), EU (Frankfurt), EU (Ireland), and
+     *        South America (São Paulo).
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The environment types <code>WINDOWS_CONTAINER</code> and <code>WINDOWS_SERVER_2019_CONTAINER</code> are
+     *        available only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), and EU (Ireland).
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        If you're using compute fleets during project creation, <code>type</code> will be ignored.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build
+     *        environment compute types</a> in the <i>CodeBuild user guide</i>.
      * @see EnvironmentType
      */
 
@@ -169,8 +437,111 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * <p>
      * The type of build environment to use for related builds.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment type <code>ARM_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), EU (Ireland), Asia Pacific (Mumbai), Asia Pacific (Tokyo), Asia Pacific (Sydney), and
+     * EU (Frankfurt).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The environment type <code>LINUX_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific (Tokyo), Asia
+     * Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and China (Ningxia).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The environment type <code>LINUX_GPU_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific (Tokyo), Asia
+     * Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney) , China (Beijing), and China (Ningxia).
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment types <code>ARM_LAMBDA_CONTAINER</code> and <code>LINUX_LAMBDA_CONTAINER</code> are available
+     * only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), Asia Pacific (Mumbai), Asia Pacific
+     * (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), EU (Frankfurt), EU (Ireland), and South America (São
+     * Paulo).
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment types <code>WINDOWS_CONTAINER</code> and <code>WINDOWS_SERVER_2019_CONTAINER</code> are available
+     * only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), and EU (Ireland).
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * If you're using compute fleets during project creation, <code>type</code> will be ignored.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build environment
+     * compute types</a> in the <i>CodeBuild user guide</i>.
+     * </p>
      * 
-     * @return The type of build environment to use for related builds.
+     * @return The type of build environment to use for related builds.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         The environment type <code>ARM_CONTAINER</code> is available only in regions US East (N. Virginia), US
+     *         East (Ohio), US West (Oregon), EU (Ireland), Asia Pacific (Mumbai), Asia Pacific (Tokyo), Asia Pacific
+     *         (Sydney), and EU (Frankfurt).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The environment type <code>LINUX_CONTAINER</code> is available only in regions US East (N. Virginia), US
+     *         East (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific
+     *         (Tokyo), Asia Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and
+     *         China (Ningxia).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The environment type <code>LINUX_GPU_CONTAINER</code> is available only in regions US East (N. Virginia),
+     *         US East (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia
+     *         Pacific (Tokyo), Asia Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney) , China (Beijing),
+     *         and China (Ningxia).
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         The environment types <code>ARM_LAMBDA_CONTAINER</code> and <code>LINUX_LAMBDA_CONTAINER</code> are
+     *         available only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), Asia Pacific (Mumbai),
+     *         Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), EU (Frankfurt), EU (Ireland), and
+     *         South America (São Paulo).
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         The environment types <code>WINDOWS_CONTAINER</code> and <code>WINDOWS_SERVER_2019_CONTAINER</code> are
+     *         available only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), and EU (Ireland).
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <note>
+     *         <p>
+     *         If you're using compute fleets during project creation, <code>type</code> will be ignored.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build
+     *         environment compute types</a> in the <i>CodeBuild user guide</i>.
      * @see EnvironmentType
      */
 
@@ -182,9 +553,112 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * <p>
      * The type of build environment to use for related builds.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment type <code>ARM_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), EU (Ireland), Asia Pacific (Mumbai), Asia Pacific (Tokyo), Asia Pacific (Sydney), and
+     * EU (Frankfurt).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The environment type <code>LINUX_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific (Tokyo), Asia
+     * Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and China (Ningxia).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The environment type <code>LINUX_GPU_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific (Tokyo), Asia
+     * Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney) , China (Beijing), and China (Ningxia).
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment types <code>ARM_LAMBDA_CONTAINER</code> and <code>LINUX_LAMBDA_CONTAINER</code> are available
+     * only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), Asia Pacific (Mumbai), Asia Pacific
+     * (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), EU (Frankfurt), EU (Ireland), and South America (São
+     * Paulo).
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment types <code>WINDOWS_CONTAINER</code> and <code>WINDOWS_SERVER_2019_CONTAINER</code> are available
+     * only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), and EU (Ireland).
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * If you're using compute fleets during project creation, <code>type</code> will be ignored.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build environment
+     * compute types</a> in the <i>CodeBuild user guide</i>.
+     * </p>
      * 
      * @param type
-     *        The type of build environment to use for related builds.
+     *        The type of build environment to use for related builds.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The environment type <code>ARM_CONTAINER</code> is available only in regions US East (N. Virginia), US
+     *        East (Ohio), US West (Oregon), EU (Ireland), Asia Pacific (Mumbai), Asia Pacific (Tokyo), Asia Pacific
+     *        (Sydney), and EU (Frankfurt).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The environment type <code>LINUX_CONTAINER</code> is available only in regions US East (N. Virginia), US
+     *        East (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific
+     *        (Tokyo), Asia Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and China
+     *        (Ningxia).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The environment type <code>LINUX_GPU_CONTAINER</code> is available only in regions US East (N. Virginia),
+     *        US East (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia
+     *        Pacific (Tokyo), Asia Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney) , China (Beijing),
+     *        and China (Ningxia).
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The environment types <code>ARM_LAMBDA_CONTAINER</code> and <code>LINUX_LAMBDA_CONTAINER</code> are
+     *        available only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), Asia Pacific (Mumbai),
+     *        Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), EU (Frankfurt), EU (Ireland), and
+     *        South America (São Paulo).
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The environment types <code>WINDOWS_CONTAINER</code> and <code>WINDOWS_SERVER_2019_CONTAINER</code> are
+     *        available only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), and EU (Ireland).
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        If you're using compute fleets during project creation, <code>type</code> will be ignored.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build
+     *        environment compute types</a> in the <i>CodeBuild user guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EnvironmentType
      */
@@ -198,9 +672,112 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * <p>
      * The type of build environment to use for related builds.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment type <code>ARM_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), EU (Ireland), Asia Pacific (Mumbai), Asia Pacific (Tokyo), Asia Pacific (Sydney), and
+     * EU (Frankfurt).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The environment type <code>LINUX_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific (Tokyo), Asia
+     * Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and China (Ningxia).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The environment type <code>LINUX_GPU_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific (Tokyo), Asia
+     * Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney) , China (Beijing), and China (Ningxia).
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment types <code>ARM_LAMBDA_CONTAINER</code> and <code>LINUX_LAMBDA_CONTAINER</code> are available
+     * only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), Asia Pacific (Mumbai), Asia Pacific
+     * (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), EU (Frankfurt), EU (Ireland), and South America (São
+     * Paulo).
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment types <code>WINDOWS_CONTAINER</code> and <code>WINDOWS_SERVER_2019_CONTAINER</code> are available
+     * only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), and EU (Ireland).
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * If you're using compute fleets during project creation, <code>type</code> will be ignored.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build environment
+     * compute types</a> in the <i>CodeBuild user guide</i>.
+     * </p>
      * 
      * @param type
-     *        The type of build environment to use for related builds.
+     *        The type of build environment to use for related builds.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The environment type <code>ARM_CONTAINER</code> is available only in regions US East (N. Virginia), US
+     *        East (Ohio), US West (Oregon), EU (Ireland), Asia Pacific (Mumbai), Asia Pacific (Tokyo), Asia Pacific
+     *        (Sydney), and EU (Frankfurt).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The environment type <code>LINUX_CONTAINER</code> is available only in regions US East (N. Virginia), US
+     *        East (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific
+     *        (Tokyo), Asia Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and China
+     *        (Ningxia).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The environment type <code>LINUX_GPU_CONTAINER</code> is available only in regions US East (N. Virginia),
+     *        US East (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia
+     *        Pacific (Tokyo), Asia Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney) , China (Beijing),
+     *        and China (Ningxia).
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The environment types <code>ARM_LAMBDA_CONTAINER</code> and <code>LINUX_LAMBDA_CONTAINER</code> are
+     *        available only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), Asia Pacific (Mumbai),
+     *        Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), EU (Frankfurt), EU (Ireland), and
+     *        South America (São Paulo).
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The environment types <code>WINDOWS_CONTAINER</code> and <code>WINDOWS_SERVER_2019_CONTAINER</code> are
+     *        available only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), and EU (Ireland).
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        If you're using compute fleets during project creation, <code>type</code> will be ignored.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build
+     *        environment compute types</a> in the <i>CodeBuild user guide</i>.
      * @see EnvironmentType
      */
 
@@ -212,9 +789,112 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * <p>
      * The type of build environment to use for related builds.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment type <code>ARM_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), EU (Ireland), Asia Pacific (Mumbai), Asia Pacific (Tokyo), Asia Pacific (Sydney), and
+     * EU (Frankfurt).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The environment type <code>LINUX_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific (Tokyo), Asia
+     * Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and China (Ningxia).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The environment type <code>LINUX_GPU_CONTAINER</code> is available only in regions US East (N. Virginia), US East
+     * (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific (Tokyo), Asia
+     * Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney) , China (Beijing), and China (Ningxia).
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment types <code>ARM_LAMBDA_CONTAINER</code> and <code>LINUX_LAMBDA_CONTAINER</code> are available
+     * only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), Asia Pacific (Mumbai), Asia Pacific
+     * (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), EU (Frankfurt), EU (Ireland), and South America (São
+     * Paulo).
+     * </p>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * The environment types <code>WINDOWS_CONTAINER</code> and <code>WINDOWS_SERVER_2019_CONTAINER</code> are available
+     * only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), and EU (Ireland).
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * If you're using compute fleets during project creation, <code>type</code> will be ignored.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build environment
+     * compute types</a> in the <i>CodeBuild user guide</i>.
+     * </p>
      * 
      * @param type
-     *        The type of build environment to use for related builds.
+     *        The type of build environment to use for related builds.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The environment type <code>ARM_CONTAINER</code> is available only in regions US East (N. Virginia), US
+     *        East (Ohio), US West (Oregon), EU (Ireland), Asia Pacific (Mumbai), Asia Pacific (Tokyo), Asia Pacific
+     *        (Sydney), and EU (Frankfurt).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The environment type <code>LINUX_CONTAINER</code> is available only in regions US East (N. Virginia), US
+     *        East (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia Pacific
+     *        (Tokyo), Asia Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney), China (Beijing), and China
+     *        (Ningxia).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The environment type <code>LINUX_GPU_CONTAINER</code> is available only in regions US East (N. Virginia),
+     *        US East (Ohio), US West (Oregon), Canada (Central), EU (Ireland), EU (London), EU (Frankfurt), Asia
+     *        Pacific (Tokyo), Asia Pacific (Seoul), Asia Pacific (Singapore), Asia Pacific (Sydney) , China (Beijing),
+     *        and China (Ningxia).
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The environment types <code>ARM_LAMBDA_CONTAINER</code> and <code>LINUX_LAMBDA_CONTAINER</code> are
+     *        available only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), Asia Pacific (Mumbai),
+     *        Asia Pacific (Singapore), Asia Pacific (Sydney), Asia Pacific (Tokyo), EU (Frankfurt), EU (Ireland), and
+     *        South America (São Paulo).
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The environment types <code>WINDOWS_CONTAINER</code> and <code>WINDOWS_SERVER_2019_CONTAINER</code> are
+     *        available only in regions US East (N. Virginia), US East (Ohio), US West (Oregon), and EU (Ireland).
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        If you're using compute fleets during project creation, <code>type</code> will be ignored.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build
+     *        environment compute types</a> in the <i>CodeBuild user guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EnvironmentType
      */
@@ -232,18 +912,25 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * <ul>
      * <li>
      * <p>
-     * For an image tag: <code>registry/repository:tag</code>. For example, to specify an image with the tag "latest,"
-     * use <code>registry/repository:latest</code>.
+     * For an image tag: <code>&lt;registry&gt;/&lt;repository&gt;:&lt;tag&gt;</code>. For example, in the Docker
+     * repository that CodeBuild uses to manage its Docker images, this would be <code>aws/codebuild/standard:4.0</code>
+     * .
      * </p>
      * </li>
      * <li>
      * <p>
-     * For an image digest: <code>registry/repository@digest</code>. For example, to specify an image with the digest
-     * "sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf," use
-     * <code>registry/repository@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf</code>.
+     * For an image digest: <code>&lt;registry&gt;/&lt;repository&gt;@&lt;digest&gt;</code>. For example, to specify an
+     * image with the digest "sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf," use
+     * <code>&lt;registry&gt;/&lt;repository&gt;@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf</code>
+     * .
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html">Docker images provided
+     * by CodeBuild</a> in the <i>CodeBuild user guide</i>.
+     * </p>
      * 
      * @param image
      *        The image tag or image digest that identifies the Docker image to use for this build project. Use the
@@ -251,17 +938,25 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      *        <ul>
      *        <li>
      *        <p>
-     *        For an image tag: <code>registry/repository:tag</code>. For example, to specify an image with the tag
-     *        "latest," use <code>registry/repository:latest</code>.
+     *        For an image tag: <code>&lt;registry&gt;/&lt;repository&gt;:&lt;tag&gt;</code>. For example, in the Docker
+     *        repository that CodeBuild uses to manage its Docker images, this would be
+     *        <code>aws/codebuild/standard:4.0</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For an image digest: <code>registry/repository@digest</code>. For example, to specify an image with the
-     *        digest "sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf," use
-     *        <code>registry/repository@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf</code>.
+     *        For an image digest: <code>&lt;registry&gt;/&lt;repository&gt;@&lt;digest&gt;</code>. For example, to
+     *        specify an image with the digest
+     *        "sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf," use
+     *        <code>&lt;registry&gt;/&lt;repository&gt;@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf</code>
+     *        .
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html">Docker images
+     *        provided by CodeBuild</a> in the <i>CodeBuild user guide</i>.
      */
 
     public void setImage(String image) {
@@ -276,35 +971,50 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * <ul>
      * <li>
      * <p>
-     * For an image tag: <code>registry/repository:tag</code>. For example, to specify an image with the tag "latest,"
-     * use <code>registry/repository:latest</code>.
+     * For an image tag: <code>&lt;registry&gt;/&lt;repository&gt;:&lt;tag&gt;</code>. For example, in the Docker
+     * repository that CodeBuild uses to manage its Docker images, this would be <code>aws/codebuild/standard:4.0</code>
+     * .
      * </p>
      * </li>
      * <li>
      * <p>
-     * For an image digest: <code>registry/repository@digest</code>. For example, to specify an image with the digest
-     * "sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf," use
-     * <code>registry/repository@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf</code>.
+     * For an image digest: <code>&lt;registry&gt;/&lt;repository&gt;@&lt;digest&gt;</code>. For example, to specify an
+     * image with the digest "sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf," use
+     * <code>&lt;registry&gt;/&lt;repository&gt;@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf</code>
+     * .
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html">Docker images provided
+     * by CodeBuild</a> in the <i>CodeBuild user guide</i>.
+     * </p>
      * 
      * @return The image tag or image digest that identifies the Docker image to use for this build project. Use the
      *         following formats:</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         For an image tag: <code>registry/repository:tag</code>. For example, to specify an image with the tag
-     *         "latest," use <code>registry/repository:latest</code>.
+     *         For an image tag: <code>&lt;registry&gt;/&lt;repository&gt;:&lt;tag&gt;</code>. For example, in the
+     *         Docker repository that CodeBuild uses to manage its Docker images, this would be
+     *         <code>aws/codebuild/standard:4.0</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         For an image digest: <code>registry/repository@digest</code>. For example, to specify an image with the
-     *         digest "sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf," use
-     *         <code>registry/repository@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf</code>.
+     *         For an image digest: <code>&lt;registry&gt;/&lt;repository&gt;@&lt;digest&gt;</code>. For example, to
+     *         specify an image with the digest
+     *         "sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf," use
+     *         <code>&lt;registry&gt;/&lt;repository&gt;@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf</code>
+     *         .
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html">Docker images
+     *         provided by CodeBuild</a> in the <i>CodeBuild user guide</i>.
      */
 
     public String getImage() {
@@ -319,18 +1029,25 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * <ul>
      * <li>
      * <p>
-     * For an image tag: <code>registry/repository:tag</code>. For example, to specify an image with the tag "latest,"
-     * use <code>registry/repository:latest</code>.
+     * For an image tag: <code>&lt;registry&gt;/&lt;repository&gt;:&lt;tag&gt;</code>. For example, in the Docker
+     * repository that CodeBuild uses to manage its Docker images, this would be <code>aws/codebuild/standard:4.0</code>
+     * .
      * </p>
      * </li>
      * <li>
      * <p>
-     * For an image digest: <code>registry/repository@digest</code>. For example, to specify an image with the digest
-     * "sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf," use
-     * <code>registry/repository@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf</code>.
+     * For an image digest: <code>&lt;registry&gt;/&lt;repository&gt;@&lt;digest&gt;</code>. For example, to specify an
+     * image with the digest "sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf," use
+     * <code>&lt;registry&gt;/&lt;repository&gt;@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf</code>
+     * .
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html">Docker images provided
+     * by CodeBuild</a> in the <i>CodeBuild user guide</i>.
+     * </p>
      * 
      * @param image
      *        The image tag or image digest that identifies the Docker image to use for this build project. Use the
@@ -338,17 +1055,25 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      *        <ul>
      *        <li>
      *        <p>
-     *        For an image tag: <code>registry/repository:tag</code>. For example, to specify an image with the tag
-     *        "latest," use <code>registry/repository:latest</code>.
+     *        For an image tag: <code>&lt;registry&gt;/&lt;repository&gt;:&lt;tag&gt;</code>. For example, in the Docker
+     *        repository that CodeBuild uses to manage its Docker images, this would be
+     *        <code>aws/codebuild/standard:4.0</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        For an image digest: <code>registry/repository@digest</code>. For example, to specify an image with the
-     *        digest "sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf," use
-     *        <code>registry/repository@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf</code>.
+     *        For an image digest: <code>&lt;registry&gt;/&lt;repository&gt;@&lt;digest&gt;</code>. For example, to
+     *        specify an image with the digest
+     *        "sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf," use
+     *        <code>&lt;registry&gt;/&lt;repository&gt;@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf</code>
+     *        .
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html">Docker images
+     *        provided by CodeBuild</a> in the <i>CodeBuild user guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -374,10 +1099,107 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * </li>
      * <li>
      * <p>
-     * <code>BUILD_GENERAL1_LARGE</code>: Use up to 15 GB memory and 8 vCPUs for builds.
+     * <code>BUILD_GENERAL1_LARGE</code>: Use up to 16 GB memory and 8 vCPUs for builds, depending on your environment
+     * type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_GENERAL1_XLARGE</code>: Use up to 70 GB memory and 36 vCPUs for builds, depending on your environment
+     * type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_GENERAL1_2XLARGE</code>: Use up to 145 GB memory, 72 vCPUs, and 824 GB of SSD storage for builds.
+     * This compute type supports Docker images up to 100 GB uncompressed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_1GB</code>: Use up to 1 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_2GB</code>: Use up to 2 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_4GB</code>: Use up to 4 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_8GB</code>: Use up to 8 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_10GB</code>: Use up to 10 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If you use <code>BUILD_GENERAL1_SMALL</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_CONTAINER</code>, you can use up to 3 GB memory and 2 vCPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 16 GB memory, 4 vCPUs, and 1 NVIDIA A10G
+     * Tensor Core GPU for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>ARM_CONTAINER</code>, you can use up to 4 GB memory and 2 vCPUs on ARM-based
+     * processors for builds.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you use <code>BUILD_GENERAL1_LARGE</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_CONTAINER</code>, you can use up to 15 GB memory and 8 vCPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 255 GB memory, 32 vCPUs, and 4 NVIDIA
+     * Tesla V100 GPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>ARM_CONTAINER</code>, you can use up to 16 GB memory and 8 vCPUs on ARM-based
+     * processors for builds.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * If you're using compute fleets during project creation, <code>computeType</code> will be ignored.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build Environment
+     * Compute Types</a> in the <i>CodeBuild User Guide.</i>
+     * </p>
      * 
      * @param computeType
      *        Information about the compute resources the build project uses. Available values include:</p>
@@ -394,9 +1216,106 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      *        </li>
      *        <li>
      *        <p>
-     *        <code>BUILD_GENERAL1_LARGE</code>: Use up to 15 GB memory and 8 vCPUs for builds.
+     *        <code>BUILD_GENERAL1_LARGE</code>: Use up to 16 GB memory and 8 vCPUs for builds, depending on your
+     *        environment type.
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_GENERAL1_XLARGE</code>: Use up to 70 GB memory and 36 vCPUs for builds, depending on your
+     *        environment type.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_GENERAL1_2XLARGE</code>: Use up to 145 GB memory, 72 vCPUs, and 824 GB of SSD storage for
+     *        builds. This compute type supports Docker images up to 100 GB uncompressed.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_1GB</code>: Use up to 1 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_2GB</code>: Use up to 2 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_4GB</code>: Use up to 4 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_8GB</code>: Use up to 8 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_10GB</code>: Use up to 10 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you use <code>BUILD_GENERAL1_SMALL</code>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For environment type <code>LINUX_CONTAINER</code>, you can use up to 3 GB memory and 2 vCPUs for builds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 16 GB memory, 4 vCPUs, and 1
+     *        NVIDIA A10G Tensor Core GPU for builds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For environment type <code>ARM_CONTAINER</code>, you can use up to 4 GB memory and 2 vCPUs on ARM-based
+     *        processors for builds.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you use <code>BUILD_GENERAL1_LARGE</code>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For environment type <code>LINUX_CONTAINER</code>, you can use up to 15 GB memory and 8 vCPUs for builds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 255 GB memory, 32 vCPUs, and 4
+     *        NVIDIA Tesla V100 GPUs for builds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For environment type <code>ARM_CONTAINER</code>, you can use up to 16 GB memory and 8 vCPUs on ARM-based
+     *        processors for builds.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        If you're using compute fleets during project creation, <code>computeType</code> will be ignored.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build
+     *        Environment Compute Types</a> in the <i>CodeBuild User Guide.</i>
      * @see ComputeType
      */
 
@@ -421,10 +1340,107 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * </li>
      * <li>
      * <p>
-     * <code>BUILD_GENERAL1_LARGE</code>: Use up to 15 GB memory and 8 vCPUs for builds.
+     * <code>BUILD_GENERAL1_LARGE</code>: Use up to 16 GB memory and 8 vCPUs for builds, depending on your environment
+     * type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_GENERAL1_XLARGE</code>: Use up to 70 GB memory and 36 vCPUs for builds, depending on your environment
+     * type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_GENERAL1_2XLARGE</code>: Use up to 145 GB memory, 72 vCPUs, and 824 GB of SSD storage for builds.
+     * This compute type supports Docker images up to 100 GB uncompressed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_1GB</code>: Use up to 1 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_2GB</code>: Use up to 2 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_4GB</code>: Use up to 4 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_8GB</code>: Use up to 8 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_10GB</code>: Use up to 10 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If you use <code>BUILD_GENERAL1_SMALL</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_CONTAINER</code>, you can use up to 3 GB memory and 2 vCPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 16 GB memory, 4 vCPUs, and 1 NVIDIA A10G
+     * Tensor Core GPU for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>ARM_CONTAINER</code>, you can use up to 4 GB memory and 2 vCPUs on ARM-based
+     * processors for builds.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you use <code>BUILD_GENERAL1_LARGE</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_CONTAINER</code>, you can use up to 15 GB memory and 8 vCPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 255 GB memory, 32 vCPUs, and 4 NVIDIA
+     * Tesla V100 GPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>ARM_CONTAINER</code>, you can use up to 16 GB memory and 8 vCPUs on ARM-based
+     * processors for builds.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * If you're using compute fleets during project creation, <code>computeType</code> will be ignored.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build Environment
+     * Compute Types</a> in the <i>CodeBuild User Guide.</i>
+     * </p>
      * 
      * @return Information about the compute resources the build project uses. Available values include:</p>
      *         <ul>
@@ -440,9 +1456,106 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      *         </li>
      *         <li>
      *         <p>
-     *         <code>BUILD_GENERAL1_LARGE</code>: Use up to 15 GB memory and 8 vCPUs for builds.
+     *         <code>BUILD_GENERAL1_LARGE</code>: Use up to 16 GB memory and 8 vCPUs for builds, depending on your
+     *         environment type.
      *         </p>
      *         </li>
+     *         <li>
+     *         <p>
+     *         <code>BUILD_GENERAL1_XLARGE</code>: Use up to 70 GB memory and 36 vCPUs for builds, depending on your
+     *         environment type.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>BUILD_GENERAL1_2XLARGE</code>: Use up to 145 GB memory, 72 vCPUs, and 824 GB of SSD storage for
+     *         builds. This compute type supports Docker images up to 100 GB uncompressed.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>BUILD_LAMBDA_1GB</code>: Use up to 1 GB memory for builds. Only available for environment type
+     *         <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>BUILD_LAMBDA_2GB</code>: Use up to 2 GB memory for builds. Only available for environment type
+     *         <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>BUILD_LAMBDA_4GB</code>: Use up to 4 GB memory for builds. Only available for environment type
+     *         <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>BUILD_LAMBDA_8GB</code>: Use up to 8 GB memory for builds. Only available for environment type
+     *         <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>BUILD_LAMBDA_10GB</code>: Use up to 10 GB memory for builds. Only available for environment type
+     *         <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         If you use <code>BUILD_GENERAL1_SMALL</code>:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         For environment type <code>LINUX_CONTAINER</code>, you can use up to 3 GB memory and 2 vCPUs for builds.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 16 GB memory, 4 vCPUs, and 1
+     *         NVIDIA A10G Tensor Core GPU for builds.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For environment type <code>ARM_CONTAINER</code>, you can use up to 4 GB memory and 2 vCPUs on ARM-based
+     *         processors for builds.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         If you use <code>BUILD_GENERAL1_LARGE</code>:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         For environment type <code>LINUX_CONTAINER</code>, you can use up to 15 GB memory and 8 vCPUs for builds.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 255 GB memory, 32 vCPUs, and 4
+     *         NVIDIA Tesla V100 GPUs for builds.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For environment type <code>ARM_CONTAINER</code>, you can use up to 16 GB memory and 8 vCPUs on ARM-based
+     *         processors for builds.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <note>
+     *         <p>
+     *         If you're using compute fleets during project creation, <code>computeType</code> will be ignored.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build
+     *         Environment Compute Types</a> in the <i>CodeBuild User Guide.</i>
      * @see ComputeType
      */
 
@@ -467,10 +1580,107 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * </li>
      * <li>
      * <p>
-     * <code>BUILD_GENERAL1_LARGE</code>: Use up to 15 GB memory and 8 vCPUs for builds.
+     * <code>BUILD_GENERAL1_LARGE</code>: Use up to 16 GB memory and 8 vCPUs for builds, depending on your environment
+     * type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_GENERAL1_XLARGE</code>: Use up to 70 GB memory and 36 vCPUs for builds, depending on your environment
+     * type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_GENERAL1_2XLARGE</code>: Use up to 145 GB memory, 72 vCPUs, and 824 GB of SSD storage for builds.
+     * This compute type supports Docker images up to 100 GB uncompressed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_1GB</code>: Use up to 1 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_2GB</code>: Use up to 2 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_4GB</code>: Use up to 4 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_8GB</code>: Use up to 8 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_10GB</code>: Use up to 10 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If you use <code>BUILD_GENERAL1_SMALL</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_CONTAINER</code>, you can use up to 3 GB memory and 2 vCPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 16 GB memory, 4 vCPUs, and 1 NVIDIA A10G
+     * Tensor Core GPU for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>ARM_CONTAINER</code>, you can use up to 4 GB memory and 2 vCPUs on ARM-based
+     * processors for builds.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you use <code>BUILD_GENERAL1_LARGE</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_CONTAINER</code>, you can use up to 15 GB memory and 8 vCPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 255 GB memory, 32 vCPUs, and 4 NVIDIA
+     * Tesla V100 GPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>ARM_CONTAINER</code>, you can use up to 16 GB memory and 8 vCPUs on ARM-based
+     * processors for builds.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * If you're using compute fleets during project creation, <code>computeType</code> will be ignored.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build Environment
+     * Compute Types</a> in the <i>CodeBuild User Guide.</i>
+     * </p>
      * 
      * @param computeType
      *        Information about the compute resources the build project uses. Available values include:</p>
@@ -487,9 +1697,106 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      *        </li>
      *        <li>
      *        <p>
-     *        <code>BUILD_GENERAL1_LARGE</code>: Use up to 15 GB memory and 8 vCPUs for builds.
+     *        <code>BUILD_GENERAL1_LARGE</code>: Use up to 16 GB memory and 8 vCPUs for builds, depending on your
+     *        environment type.
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_GENERAL1_XLARGE</code>: Use up to 70 GB memory and 36 vCPUs for builds, depending on your
+     *        environment type.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_GENERAL1_2XLARGE</code>: Use up to 145 GB memory, 72 vCPUs, and 824 GB of SSD storage for
+     *        builds. This compute type supports Docker images up to 100 GB uncompressed.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_1GB</code>: Use up to 1 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_2GB</code>: Use up to 2 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_4GB</code>: Use up to 4 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_8GB</code>: Use up to 8 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_10GB</code>: Use up to 10 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you use <code>BUILD_GENERAL1_SMALL</code>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For environment type <code>LINUX_CONTAINER</code>, you can use up to 3 GB memory and 2 vCPUs for builds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 16 GB memory, 4 vCPUs, and 1
+     *        NVIDIA A10G Tensor Core GPU for builds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For environment type <code>ARM_CONTAINER</code>, you can use up to 4 GB memory and 2 vCPUs on ARM-based
+     *        processors for builds.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you use <code>BUILD_GENERAL1_LARGE</code>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For environment type <code>LINUX_CONTAINER</code>, you can use up to 15 GB memory and 8 vCPUs for builds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 255 GB memory, 32 vCPUs, and 4
+     *        NVIDIA Tesla V100 GPUs for builds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For environment type <code>ARM_CONTAINER</code>, you can use up to 16 GB memory and 8 vCPUs on ARM-based
+     *        processors for builds.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        If you're using compute fleets during project creation, <code>computeType</code> will be ignored.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build
+     *        Environment Compute Types</a> in the <i>CodeBuild User Guide.</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ComputeType
      */
@@ -516,10 +1823,107 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * </li>
      * <li>
      * <p>
-     * <code>BUILD_GENERAL1_LARGE</code>: Use up to 15 GB memory and 8 vCPUs for builds.
+     * <code>BUILD_GENERAL1_LARGE</code>: Use up to 16 GB memory and 8 vCPUs for builds, depending on your environment
+     * type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_GENERAL1_XLARGE</code>: Use up to 70 GB memory and 36 vCPUs for builds, depending on your environment
+     * type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_GENERAL1_2XLARGE</code>: Use up to 145 GB memory, 72 vCPUs, and 824 GB of SSD storage for builds.
+     * This compute type supports Docker images up to 100 GB uncompressed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_1GB</code>: Use up to 1 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_2GB</code>: Use up to 2 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_4GB</code>: Use up to 4 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_8GB</code>: Use up to 8 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_10GB</code>: Use up to 10 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If you use <code>BUILD_GENERAL1_SMALL</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_CONTAINER</code>, you can use up to 3 GB memory and 2 vCPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 16 GB memory, 4 vCPUs, and 1 NVIDIA A10G
+     * Tensor Core GPU for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>ARM_CONTAINER</code>, you can use up to 4 GB memory and 2 vCPUs on ARM-based
+     * processors for builds.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you use <code>BUILD_GENERAL1_LARGE</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_CONTAINER</code>, you can use up to 15 GB memory and 8 vCPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 255 GB memory, 32 vCPUs, and 4 NVIDIA
+     * Tesla V100 GPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>ARM_CONTAINER</code>, you can use up to 16 GB memory and 8 vCPUs on ARM-based
+     * processors for builds.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * If you're using compute fleets during project creation, <code>computeType</code> will be ignored.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build Environment
+     * Compute Types</a> in the <i>CodeBuild User Guide.</i>
+     * </p>
      * 
      * @param computeType
      *        Information about the compute resources the build project uses. Available values include:</p>
@@ -536,9 +1940,106 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      *        </li>
      *        <li>
      *        <p>
-     *        <code>BUILD_GENERAL1_LARGE</code>: Use up to 15 GB memory and 8 vCPUs for builds.
+     *        <code>BUILD_GENERAL1_LARGE</code>: Use up to 16 GB memory and 8 vCPUs for builds, depending on your
+     *        environment type.
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_GENERAL1_XLARGE</code>: Use up to 70 GB memory and 36 vCPUs for builds, depending on your
+     *        environment type.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_GENERAL1_2XLARGE</code>: Use up to 145 GB memory, 72 vCPUs, and 824 GB of SSD storage for
+     *        builds. This compute type supports Docker images up to 100 GB uncompressed.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_1GB</code>: Use up to 1 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_2GB</code>: Use up to 2 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_4GB</code>: Use up to 4 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_8GB</code>: Use up to 8 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_10GB</code>: Use up to 10 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you use <code>BUILD_GENERAL1_SMALL</code>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For environment type <code>LINUX_CONTAINER</code>, you can use up to 3 GB memory and 2 vCPUs for builds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 16 GB memory, 4 vCPUs, and 1
+     *        NVIDIA A10G Tensor Core GPU for builds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For environment type <code>ARM_CONTAINER</code>, you can use up to 4 GB memory and 2 vCPUs on ARM-based
+     *        processors for builds.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you use <code>BUILD_GENERAL1_LARGE</code>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For environment type <code>LINUX_CONTAINER</code>, you can use up to 15 GB memory and 8 vCPUs for builds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 255 GB memory, 32 vCPUs, and 4
+     *        NVIDIA Tesla V100 GPUs for builds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For environment type <code>ARM_CONTAINER</code>, you can use up to 16 GB memory and 8 vCPUs on ARM-based
+     *        processors for builds.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        If you're using compute fleets during project creation, <code>computeType</code> will be ignored.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build
+     *        Environment Compute Types</a> in the <i>CodeBuild User Guide.</i>
      * @see ComputeType
      */
 
@@ -563,10 +2064,107 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * </li>
      * <li>
      * <p>
-     * <code>BUILD_GENERAL1_LARGE</code>: Use up to 15 GB memory and 8 vCPUs for builds.
+     * <code>BUILD_GENERAL1_LARGE</code>: Use up to 16 GB memory and 8 vCPUs for builds, depending on your environment
+     * type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_GENERAL1_XLARGE</code>: Use up to 70 GB memory and 36 vCPUs for builds, depending on your environment
+     * type.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_GENERAL1_2XLARGE</code>: Use up to 145 GB memory, 72 vCPUs, and 824 GB of SSD storage for builds.
+     * This compute type supports Docker images up to 100 GB uncompressed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_1GB</code>: Use up to 1 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_2GB</code>: Use up to 2 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_4GB</code>: Use up to 4 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_8GB</code>: Use up to 8 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>BUILD_LAMBDA_10GB</code>: Use up to 10 GB memory for builds. Only available for environment type
+     * <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If you use <code>BUILD_GENERAL1_SMALL</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_CONTAINER</code>, you can use up to 3 GB memory and 2 vCPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 16 GB memory, 4 vCPUs, and 1 NVIDIA A10G
+     * Tensor Core GPU for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>ARM_CONTAINER</code>, you can use up to 4 GB memory and 2 vCPUs on ARM-based
+     * processors for builds.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you use <code>BUILD_GENERAL1_LARGE</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_CONTAINER</code>, you can use up to 15 GB memory and 8 vCPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 255 GB memory, 32 vCPUs, and 4 NVIDIA
+     * Tesla V100 GPUs for builds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For environment type <code>ARM_CONTAINER</code>, you can use up to 16 GB memory and 8 vCPUs on ARM-based
+     * processors for builds.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * If you're using compute fleets during project creation, <code>computeType</code> will be ignored.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build Environment
+     * Compute Types</a> in the <i>CodeBuild User Guide.</i>
+     * </p>
      * 
      * @param computeType
      *        Information about the compute resources the build project uses. Available values include:</p>
@@ -583,15 +2181,152 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      *        </li>
      *        <li>
      *        <p>
-     *        <code>BUILD_GENERAL1_LARGE</code>: Use up to 15 GB memory and 8 vCPUs for builds.
+     *        <code>BUILD_GENERAL1_LARGE</code>: Use up to 16 GB memory and 8 vCPUs for builds, depending on your
+     *        environment type.
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_GENERAL1_XLARGE</code>: Use up to 70 GB memory and 36 vCPUs for builds, depending on your
+     *        environment type.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_GENERAL1_2XLARGE</code>: Use up to 145 GB memory, 72 vCPUs, and 824 GB of SSD storage for
+     *        builds. This compute type supports Docker images up to 100 GB uncompressed.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_1GB</code>: Use up to 1 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_2GB</code>: Use up to 2 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_4GB</code>: Use up to 4 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_8GB</code>: Use up to 8 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>BUILD_LAMBDA_10GB</code>: Use up to 10 GB memory for builds. Only available for environment type
+     *        <code>LINUX_LAMBDA_CONTAINER</code> and <code>ARM_LAMBDA_CONTAINER</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you use <code>BUILD_GENERAL1_SMALL</code>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For environment type <code>LINUX_CONTAINER</code>, you can use up to 3 GB memory and 2 vCPUs for builds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 16 GB memory, 4 vCPUs, and 1
+     *        NVIDIA A10G Tensor Core GPU for builds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For environment type <code>ARM_CONTAINER</code>, you can use up to 4 GB memory and 2 vCPUs on ARM-based
+     *        processors for builds.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you use <code>BUILD_GENERAL1_LARGE</code>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For environment type <code>LINUX_CONTAINER</code>, you can use up to 15 GB memory and 8 vCPUs for builds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For environment type <code>LINUX_GPU_CONTAINER</code>, you can use up to 255 GB memory, 32 vCPUs, and 4
+     *        NVIDIA Tesla V100 GPUs for builds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For environment type <code>ARM_CONTAINER</code>, you can use up to 16 GB memory and 8 vCPUs on ARM-based
+     *        processors for builds.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        If you're using compute fleets during project creation, <code>computeType</code> will be ignored.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html">Build
+     *        Environment Compute Types</a> in the <i>CodeBuild User Guide.</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ComputeType
      */
 
     public ProjectEnvironment withComputeType(ComputeType computeType) {
         this.computeType = computeType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * A ProjectFleet object to use for this build project.
+     * </p>
+     * 
+     * @param fleet
+     *        A ProjectFleet object to use for this build project.
+     */
+
+    public void setFleet(ProjectFleet fleet) {
+        this.fleet = fleet;
+    }
+
+    /**
+     * <p>
+     * A ProjectFleet object to use for this build project.
+     * </p>
+     * 
+     * @return A ProjectFleet object to use for this build project.
+     */
+
+    public ProjectFleet getFleet() {
+        return this.fleet;
+    }
+
+    /**
+     * <p>
+     * A ProjectFleet object to use for this build project.
+     * </p>
+     * 
+     * @param fleet
+     *        A ProjectFleet object to use for this build project.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProjectEnvironment withFleet(ProjectFleet fleet) {
+        setFleet(fleet);
         return this;
     }
 
@@ -667,12 +2402,13 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Enables running the Docker daemon inside a Docker container. Set to true only if the build project is be used to
-     * build Docker images, and the specified build environment image is not provided by AWS CodeBuild with Docker
-     * support. Otherwise, all associated builds that attempt to interact with the Docker daemon fail. You must also
-     * start the Docker daemon so that builds can interact with it. One way to do this is to initialize the Docker
-     * daemon during the install phase of your build spec by running the following build commands. (Do not run these
-     * commands if the specified build environment image is provided by AWS CodeBuild with Docker support.)
+     * Enables running the Docker daemon inside a Docker container. Set to true only if the build project is used to
+     * build Docker images. Otherwise, a build that attempts to interact with the Docker daemon fails. The default
+     * setting is <code>false</code>.
+     * </p>
+     * <p>
+     * You can initialize the Docker daemon during the install phase of your build by adding one of the following sets
+     * of commands to the install phase of your buildspec file:
      * </p>
      * <p>
      * If the operating system's base image is Ubuntu Linux:
@@ -695,13 +2431,13 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * </p>
      * 
      * @param privilegedMode
-     *        Enables running the Docker daemon inside a Docker container. Set to true only if the build project is be
-     *        used to build Docker images, and the specified build environment image is not provided by AWS CodeBuild
-     *        with Docker support. Otherwise, all associated builds that attempt to interact with the Docker daemon
-     *        fail. You must also start the Docker daemon so that builds can interact with it. One way to do this is to
-     *        initialize the Docker daemon during the install phase of your build spec by running the following build
-     *        commands. (Do not run these commands if the specified build environment image is provided by AWS CodeBuild
-     *        with Docker support.)</p>
+     *        Enables running the Docker daemon inside a Docker container. Set to true only if the build project is used
+     *        to build Docker images. Otherwise, a build that attempts to interact with the Docker daemon fails. The
+     *        default setting is <code>false</code>.</p>
+     *        <p>
+     *        You can initialize the Docker daemon during the install phase of your build by adding one of the following
+     *        sets of commands to the install phase of your buildspec file:
+     *        </p>
      *        <p>
      *        If the operating system's base image is Ubuntu Linux:
      *        </p>
@@ -728,12 +2464,13 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Enables running the Docker daemon inside a Docker container. Set to true only if the build project is be used to
-     * build Docker images, and the specified build environment image is not provided by AWS CodeBuild with Docker
-     * support. Otherwise, all associated builds that attempt to interact with the Docker daemon fail. You must also
-     * start the Docker daemon so that builds can interact with it. One way to do this is to initialize the Docker
-     * daemon during the install phase of your build spec by running the following build commands. (Do not run these
-     * commands if the specified build environment image is provided by AWS CodeBuild with Docker support.)
+     * Enables running the Docker daemon inside a Docker container. Set to true only if the build project is used to
+     * build Docker images. Otherwise, a build that attempts to interact with the Docker daemon fails. The default
+     * setting is <code>false</code>.
+     * </p>
+     * <p>
+     * You can initialize the Docker daemon during the install phase of your build by adding one of the following sets
+     * of commands to the install phase of your buildspec file:
      * </p>
      * <p>
      * If the operating system's base image is Ubuntu Linux:
@@ -755,13 +2492,13 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * <code>- timeout -t 15 sh -c "until docker info; do echo .; sleep 1; done"</code>
      * </p>
      * 
-     * @return Enables running the Docker daemon inside a Docker container. Set to true only if the build project is be
-     *         used to build Docker images, and the specified build environment image is not provided by AWS CodeBuild
-     *         with Docker support. Otherwise, all associated builds that attempt to interact with the Docker daemon
-     *         fail. You must also start the Docker daemon so that builds can interact with it. One way to do this is to
-     *         initialize the Docker daemon during the install phase of your build spec by running the following build
-     *         commands. (Do not run these commands if the specified build environment image is provided by AWS
-     *         CodeBuild with Docker support.)</p>
+     * @return Enables running the Docker daemon inside a Docker container. Set to true only if the build project is
+     *         used to build Docker images. Otherwise, a build that attempts to interact with the Docker daemon fails.
+     *         The default setting is <code>false</code>.</p>
+     *         <p>
+     *         You can initialize the Docker daemon during the install phase of your build by adding one of the
+     *         following sets of commands to the install phase of your buildspec file:
+     *         </p>
      *         <p>
      *         If the operating system's base image is Ubuntu Linux:
      *         </p>
@@ -788,12 +2525,13 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Enables running the Docker daemon inside a Docker container. Set to true only if the build project is be used to
-     * build Docker images, and the specified build environment image is not provided by AWS CodeBuild with Docker
-     * support. Otherwise, all associated builds that attempt to interact with the Docker daemon fail. You must also
-     * start the Docker daemon so that builds can interact with it. One way to do this is to initialize the Docker
-     * daemon during the install phase of your build spec by running the following build commands. (Do not run these
-     * commands if the specified build environment image is provided by AWS CodeBuild with Docker support.)
+     * Enables running the Docker daemon inside a Docker container. Set to true only if the build project is used to
+     * build Docker images. Otherwise, a build that attempts to interact with the Docker daemon fails. The default
+     * setting is <code>false</code>.
+     * </p>
+     * <p>
+     * You can initialize the Docker daemon during the install phase of your build by adding one of the following sets
+     * of commands to the install phase of your buildspec file:
      * </p>
      * <p>
      * If the operating system's base image is Ubuntu Linux:
@@ -816,13 +2554,13 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * </p>
      * 
      * @param privilegedMode
-     *        Enables running the Docker daemon inside a Docker container. Set to true only if the build project is be
-     *        used to build Docker images, and the specified build environment image is not provided by AWS CodeBuild
-     *        with Docker support. Otherwise, all associated builds that attempt to interact with the Docker daemon
-     *        fail. You must also start the Docker daemon so that builds can interact with it. One way to do this is to
-     *        initialize the Docker daemon during the install phase of your build spec by running the following build
-     *        commands. (Do not run these commands if the specified build environment image is provided by AWS CodeBuild
-     *        with Docker support.)</p>
+     *        Enables running the Docker daemon inside a Docker container. Set to true only if the build project is used
+     *        to build Docker images. Otherwise, a build that attempts to interact with the Docker daemon fails. The
+     *        default setting is <code>false</code>.</p>
+     *        <p>
+     *        You can initialize the Docker daemon during the install phase of your build by adding one of the following
+     *        sets of commands to the install phase of your buildspec file:
+     *        </p>
      *        <p>
      *        If the operating system's base image is Ubuntu Linux:
      *        </p>
@@ -851,12 +2589,13 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Enables running the Docker daemon inside a Docker container. Set to true only if the build project is be used to
-     * build Docker images, and the specified build environment image is not provided by AWS CodeBuild with Docker
-     * support. Otherwise, all associated builds that attempt to interact with the Docker daemon fail. You must also
-     * start the Docker daemon so that builds can interact with it. One way to do this is to initialize the Docker
-     * daemon during the install phase of your build spec by running the following build commands. (Do not run these
-     * commands if the specified build environment image is provided by AWS CodeBuild with Docker support.)
+     * Enables running the Docker daemon inside a Docker container. Set to true only if the build project is used to
+     * build Docker images. Otherwise, a build that attempts to interact with the Docker daemon fails. The default
+     * setting is <code>false</code>.
+     * </p>
+     * <p>
+     * You can initialize the Docker daemon during the install phase of your build by adding one of the following sets
+     * of commands to the install phase of your buildspec file:
      * </p>
      * <p>
      * If the operating system's base image is Ubuntu Linux:
@@ -878,13 +2617,13 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
      * <code>- timeout -t 15 sh -c "until docker info; do echo .; sleep 1; done"</code>
      * </p>
      * 
-     * @return Enables running the Docker daemon inside a Docker container. Set to true only if the build project is be
-     *         used to build Docker images, and the specified build environment image is not provided by AWS CodeBuild
-     *         with Docker support. Otherwise, all associated builds that attempt to interact with the Docker daemon
-     *         fail. You must also start the Docker daemon so that builds can interact with it. One way to do this is to
-     *         initialize the Docker daemon during the install phase of your build spec by running the following build
-     *         commands. (Do not run these commands if the specified build environment image is provided by AWS
-     *         CodeBuild with Docker support.)</p>
+     * @return Enables running the Docker daemon inside a Docker container. Set to true only if the build project is
+     *         used to build Docker images. Otherwise, a build that attempts to interact with the Docker daemon fails.
+     *         The default setting is <code>false</code>.</p>
+     *         <p>
+     *         You can initialize the Docker daemon during the install phase of your build by adding one of the
+     *         following sets of commands to the install phase of your buildspec file:
+     *         </p>
      *         <p>
      *         If the operating system's base image is Ubuntu Linux:
      *         </p>
@@ -911,11 +2650,17 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The certificate to use with this build project.
+     * The ARN of the Amazon S3 bucket, path prefix, and object key that contains the PEM-encoded certificate for the
+     * build project. For more information, see <a href=
+     * "https://docs.aws.amazon.com/codebuild/latest/userguide/create-project-cli.html#cli.environment.certificate"
+     * >certificate</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      * 
      * @param certificate
-     *        The certificate to use with this build project.
+     *        The ARN of the Amazon S3 bucket, path prefix, and object key that contains the PEM-encoded certificate for
+     *        the build project. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/codebuild/latest/userguide/create-project-cli.html#cli.environment.certificate"
+     *        >certificate</a> in the <i>CodeBuild User Guide</i>.
      */
 
     public void setCertificate(String certificate) {
@@ -924,10 +2669,16 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The certificate to use with this build project.
+     * The ARN of the Amazon S3 bucket, path prefix, and object key that contains the PEM-encoded certificate for the
+     * build project. For more information, see <a href=
+     * "https://docs.aws.amazon.com/codebuild/latest/userguide/create-project-cli.html#cli.environment.certificate"
+     * >certificate</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      * 
-     * @return The certificate to use with this build project.
+     * @return The ARN of the Amazon S3 bucket, path prefix, and object key that contains the PEM-encoded certificate
+     *         for the build project. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/codebuild/latest/userguide/create-project-cli.html#cli.environment.certificate"
+     *         >certificate</a> in the <i>CodeBuild User Guide</i>.
      */
 
     public String getCertificate() {
@@ -936,11 +2687,17 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The certificate to use with this build project.
+     * The ARN of the Amazon S3 bucket, path prefix, and object key that contains the PEM-encoded certificate for the
+     * build project. For more information, see <a href=
+     * "https://docs.aws.amazon.com/codebuild/latest/userguide/create-project-cli.html#cli.environment.certificate"
+     * >certificate</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      * 
      * @param certificate
-     *        The certificate to use with this build project.
+     *        The ARN of the Amazon S3 bucket, path prefix, and object key that contains the PEM-encoded certificate for
+     *        the build project. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/codebuild/latest/userguide/create-project-cli.html#cli.environment.certificate"
+     *        >certificate</a> in the <i>CodeBuild User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -991,44 +2748,44 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values:
+     * The type of credentials CodeBuild uses to pull images in your build. There are two valid values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you modify your
-     * ECR repository policy to trust AWS CodeBuild's service principal.
+     * <code>CODEBUILD</code> specifies that CodeBuild uses its own credentials. This requires that you modify your ECR
+     * repository policy to trust CodeBuild service principal.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     * <code>SERVICE_ROLE</code> specifies that CodeBuild uses your build project's service role.
      * </p>
      * </li>
      * </ul>
      * <p>
      * When you use a cross-account or private registry image, you must use SERVICE_ROLE credentials. When you use an
-     * AWS CodeBuild curated image, you must use CODEBUILD credentials.
+     * CodeBuild curated image, you must use CODEBUILD credentials.
      * </p>
      * 
      * @param imagePullCredentialsType
-     *        The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values: </p>
+     *        The type of credentials CodeBuild uses to pull images in your build. There are two valid values: </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you
-     *        modify your ECR repository policy to trust AWS CodeBuild's service principal.
+     *        <code>CODEBUILD</code> specifies that CodeBuild uses its own credentials. This requires that you modify
+     *        your ECR repository policy to trust CodeBuild service principal.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     *        <code>SERVICE_ROLE</code> specifies that CodeBuild uses your build project's service role.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
      *        When you use a cross-account or private registry image, you must use SERVICE_ROLE credentials. When you
-     *        use an AWS CodeBuild curated image, you must use CODEBUILD credentials.
+     *        use an CodeBuild curated image, you must use CODEBUILD credentials.
      * @see ImagePullCredentialsType
      */
 
@@ -1038,43 +2795,43 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values:
+     * The type of credentials CodeBuild uses to pull images in your build. There are two valid values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you modify your
-     * ECR repository policy to trust AWS CodeBuild's service principal.
+     * <code>CODEBUILD</code> specifies that CodeBuild uses its own credentials. This requires that you modify your ECR
+     * repository policy to trust CodeBuild service principal.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     * <code>SERVICE_ROLE</code> specifies that CodeBuild uses your build project's service role.
      * </p>
      * </li>
      * </ul>
      * <p>
      * When you use a cross-account or private registry image, you must use SERVICE_ROLE credentials. When you use an
-     * AWS CodeBuild curated image, you must use CODEBUILD credentials.
+     * CodeBuild curated image, you must use CODEBUILD credentials.
      * </p>
      * 
-     * @return The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values: </p>
+     * @return The type of credentials CodeBuild uses to pull images in your build. There are two valid values: </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you
-     *         modify your ECR repository policy to trust AWS CodeBuild's service principal.
+     *         <code>CODEBUILD</code> specifies that CodeBuild uses its own credentials. This requires that you modify
+     *         your ECR repository policy to trust CodeBuild service principal.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     *         <code>SERVICE_ROLE</code> specifies that CodeBuild uses your build project's service role.
      *         </p>
      *         </li>
      *         </ul>
      *         <p>
      *         When you use a cross-account or private registry image, you must use SERVICE_ROLE credentials. When you
-     *         use an AWS CodeBuild curated image, you must use CODEBUILD credentials.
+     *         use an CodeBuild curated image, you must use CODEBUILD credentials.
      * @see ImagePullCredentialsType
      */
 
@@ -1084,44 +2841,44 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values:
+     * The type of credentials CodeBuild uses to pull images in your build. There are two valid values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you modify your
-     * ECR repository policy to trust AWS CodeBuild's service principal.
+     * <code>CODEBUILD</code> specifies that CodeBuild uses its own credentials. This requires that you modify your ECR
+     * repository policy to trust CodeBuild service principal.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     * <code>SERVICE_ROLE</code> specifies that CodeBuild uses your build project's service role.
      * </p>
      * </li>
      * </ul>
      * <p>
      * When you use a cross-account or private registry image, you must use SERVICE_ROLE credentials. When you use an
-     * AWS CodeBuild curated image, you must use CODEBUILD credentials.
+     * CodeBuild curated image, you must use CODEBUILD credentials.
      * </p>
      * 
      * @param imagePullCredentialsType
-     *        The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values: </p>
+     *        The type of credentials CodeBuild uses to pull images in your build. There are two valid values: </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you
-     *        modify your ECR repository policy to trust AWS CodeBuild's service principal.
+     *        <code>CODEBUILD</code> specifies that CodeBuild uses its own credentials. This requires that you modify
+     *        your ECR repository policy to trust CodeBuild service principal.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     *        <code>SERVICE_ROLE</code> specifies that CodeBuild uses your build project's service role.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
      *        When you use a cross-account or private registry image, you must use SERVICE_ROLE credentials. When you
-     *        use an AWS CodeBuild curated image, you must use CODEBUILD credentials.
+     *        use an CodeBuild curated image, you must use CODEBUILD credentials.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ImagePullCredentialsType
      */
@@ -1133,44 +2890,44 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values:
+     * The type of credentials CodeBuild uses to pull images in your build. There are two valid values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you modify your
-     * ECR repository policy to trust AWS CodeBuild's service principal.
+     * <code>CODEBUILD</code> specifies that CodeBuild uses its own credentials. This requires that you modify your ECR
+     * repository policy to trust CodeBuild service principal.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     * <code>SERVICE_ROLE</code> specifies that CodeBuild uses your build project's service role.
      * </p>
      * </li>
      * </ul>
      * <p>
      * When you use a cross-account or private registry image, you must use SERVICE_ROLE credentials. When you use an
-     * AWS CodeBuild curated image, you must use CODEBUILD credentials.
+     * CodeBuild curated image, you must use CODEBUILD credentials.
      * </p>
      * 
      * @param imagePullCredentialsType
-     *        The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values: </p>
+     *        The type of credentials CodeBuild uses to pull images in your build. There are two valid values: </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you
-     *        modify your ECR repository policy to trust AWS CodeBuild's service principal.
+     *        <code>CODEBUILD</code> specifies that CodeBuild uses its own credentials. This requires that you modify
+     *        your ECR repository policy to trust CodeBuild service principal.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     *        <code>SERVICE_ROLE</code> specifies that CodeBuild uses your build project's service role.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
      *        When you use a cross-account or private registry image, you must use SERVICE_ROLE credentials. When you
-     *        use an AWS CodeBuild curated image, you must use CODEBUILD credentials.
+     *        use an CodeBuild curated image, you must use CODEBUILD credentials.
      * @see ImagePullCredentialsType
      */
 
@@ -1180,44 +2937,44 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values:
+     * The type of credentials CodeBuild uses to pull images in your build. There are two valid values:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you modify your
-     * ECR repository policy to trust AWS CodeBuild's service principal.
+     * <code>CODEBUILD</code> specifies that CodeBuild uses its own credentials. This requires that you modify your ECR
+     * repository policy to trust CodeBuild service principal.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     * <code>SERVICE_ROLE</code> specifies that CodeBuild uses your build project's service role.
      * </p>
      * </li>
      * </ul>
      * <p>
      * When you use a cross-account or private registry image, you must use SERVICE_ROLE credentials. When you use an
-     * AWS CodeBuild curated image, you must use CODEBUILD credentials.
+     * CodeBuild curated image, you must use CODEBUILD credentials.
      * </p>
      * 
      * @param imagePullCredentialsType
-     *        The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values: </p>
+     *        The type of credentials CodeBuild uses to pull images in your build. There are two valid values: </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you
-     *        modify your ECR repository policy to trust AWS CodeBuild's service principal.
+     *        <code>CODEBUILD</code> specifies that CodeBuild uses its own credentials. This requires that you modify
+     *        your ECR repository policy to trust CodeBuild service principal.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     *        <code>SERVICE_ROLE</code> specifies that CodeBuild uses your build project's service role.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
      *        When you use a cross-account or private registry image, you must use SERVICE_ROLE credentials. When you
-     *        use an AWS CodeBuild curated image, you must use CODEBUILD credentials.
+     *        use an CodeBuild curated image, you must use CODEBUILD credentials.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ImagePullCredentialsType
      */
@@ -1245,6 +3002,8 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
             sb.append("Image: ").append(getImage()).append(",");
         if (getComputeType() != null)
             sb.append("ComputeType: ").append(getComputeType()).append(",");
+        if (getFleet() != null)
+            sb.append("Fleet: ").append(getFleet()).append(",");
         if (getEnvironmentVariables() != null)
             sb.append("EnvironmentVariables: ").append(getEnvironmentVariables()).append(",");
         if (getPrivilegedMode() != null)
@@ -1281,6 +3040,10 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
             return false;
         if (other.getComputeType() != null && other.getComputeType().equals(this.getComputeType()) == false)
             return false;
+        if (other.getFleet() == null ^ this.getFleet() == null)
+            return false;
+        if (other.getFleet() != null && other.getFleet().equals(this.getFleet()) == false)
+            return false;
         if (other.getEnvironmentVariables() == null ^ this.getEnvironmentVariables() == null)
             return false;
         if (other.getEnvironmentVariables() != null && other.getEnvironmentVariables().equals(this.getEnvironmentVariables()) == false)
@@ -1312,6 +3075,7 @@ public class ProjectEnvironment implements Serializable, Cloneable, StructuredPo
         hashCode = prime * hashCode + ((getType() == null) ? 0 : getType().hashCode());
         hashCode = prime * hashCode + ((getImage() == null) ? 0 : getImage().hashCode());
         hashCode = prime * hashCode + ((getComputeType() == null) ? 0 : getComputeType().hashCode());
+        hashCode = prime * hashCode + ((getFleet() == null) ? 0 : getFleet().hashCode());
         hashCode = prime * hashCode + ((getEnvironmentVariables() == null) ? 0 : getEnvironmentVariables().hashCode());
         hashCode = prime * hashCode + ((getPrivilegedMode() == null) ? 0 : getPrivilegedMode().hashCode());
         hashCode = prime * hashCode + ((getCertificate() == null) ? 0 : getCertificate().hashCode());

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,8 +30,7 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The AWS account that created the file system. If the file system was created by an IAM user, the parent account
-     * to which the user belongs is the owner.
+     * The Amazon Web Services account that created the file system.
      * </p>
      */
     private String ownerId;
@@ -47,6 +46,15 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
      * </p>
      */
     private String fileSystemId;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the EFS file system, in the format
+     * <code>arn:aws:elasticfilesystem:<i>region</i>:<i>account-id</i>:file-system/<i>file-system-id</i> </code>.
+     * Example with sample data:
+     * <code>arn:aws:elasticfilesystem:us-west-2:1111333322228888:file-system/fs-01234567</code>
+     * </p>
+     */
+    private String fileSystemArn;
     /**
      * <p>
      * The time that the file system was created, in seconds (since 1970-01-01T00:00:00Z).
@@ -87,7 +95,7 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
     private FileSystemSize sizeInBytes;
     /**
      * <p>
-     * The performance mode of the file system.
+     * The Performance mode of the file system.
      * </p>
      */
     private String performanceMode;
@@ -99,47 +107,62 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
     private Boolean encrypted;
     /**
      * <p>
-     * The ID of an AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to protect the
-     * encrypted file system.
+     * The ID of an KMS key used to protect the encrypted file system.
      * </p>
      */
     private String kmsKeyId;
     /**
      * <p>
-     * The throughput mode for a file system. There are two throughput modes to choose from for your file system:
-     * <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You can
-     * decrease your file system's throughput in Provisioned Throughput mode or change between the throughput modes as
-     * long as it’s been more than 24 hours since the last decrease or throughput mode change.
+     * Displays the file system's throughput mode. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#throughput-modes">Throughput modes</a> in the
+     * <i>Amazon EFS User Guide</i>.
      * </p>
      */
     private String throughputMode;
     /**
      * <p>
-     * The throughput, measured in MiB/s, that you want to provision for a file system. Valid values are 1-1024.
-     * Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. The limit on throughput is 1024
-     * MiB/s. You can get these limits increased by contacting AWS Support. For more information, see <a
-     * href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS Limits That You Can
-     * Increase</a> in the <i>Amazon EFS User Guide.</i>
+     * The amount of provisioned throughput, measured in MiBps, for the file system. Valid for file systems using
+     * <code>ThroughputMode</code> set to <code>provisioned</code>.
      * </p>
      */
     private Double provisionedThroughputInMibps;
+    /**
+     * <p>
+     * Describes the Amazon Web Services Availability Zone in which the file system is located, and is valid only for
+     * One Zone file systems. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html">Using EFS storage classes</a> in the
+     * <i>Amazon EFS User Guide</i>.
+     * </p>
+     */
+    private String availabilityZoneName;
+    /**
+     * <p>
+     * The unique and consistent identifier of the Availability Zone in which the file system is located, and is valid
+     * only for One Zone file systems. For example, <code>use1-az1</code> is an Availability Zone ID for the us-east-1
+     * Amazon Web Services Region, and it has the same location in every Amazon Web Services account.
+     * </p>
+     */
+    private String availabilityZoneId;
     /**
      * <p>
      * The tags associated with the file system, presented as an array of <code>Tag</code> objects.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * Describes the protection on the file system.
+     * </p>
+     */
+    private FileSystemProtectionDescription fileSystemProtection;
 
     /**
      * <p>
-     * The AWS account that created the file system. If the file system was created by an IAM user, the parent account
-     * to which the user belongs is the owner.
+     * The Amazon Web Services account that created the file system.
      * </p>
      * 
      * @param ownerId
-     *        The AWS account that created the file system. If the file system was created by an IAM user, the parent
-     *        account to which the user belongs is the owner.
+     *        The Amazon Web Services account that created the file system.
      */
 
     public void setOwnerId(String ownerId) {
@@ -148,12 +171,10 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The AWS account that created the file system. If the file system was created by an IAM user, the parent account
-     * to which the user belongs is the owner.
+     * The Amazon Web Services account that created the file system.
      * </p>
      * 
-     * @return The AWS account that created the file system. If the file system was created by an IAM user, the parent
-     *         account to which the user belongs is the owner.
+     * @return The Amazon Web Services account that created the file system.
      */
 
     public String getOwnerId() {
@@ -162,13 +183,11 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The AWS account that created the file system. If the file system was created by an IAM user, the parent account
-     * to which the user belongs is the owner.
+     * The Amazon Web Services account that created the file system.
      * </p>
      * 
      * @param ownerId
-     *        The AWS account that created the file system. If the file system was created by an IAM user, the parent
-     *        account to which the user belongs is the owner.
+     *        The Amazon Web Services account that created the file system.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -254,6 +273,64 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     public FileSystemDescription withFileSystemId(String fileSystemId) {
         setFileSystemId(fileSystemId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the EFS file system, in the format
+     * <code>arn:aws:elasticfilesystem:<i>region</i>:<i>account-id</i>:file-system/<i>file-system-id</i> </code>.
+     * Example with sample data:
+     * <code>arn:aws:elasticfilesystem:us-west-2:1111333322228888:file-system/fs-01234567</code>
+     * </p>
+     * 
+     * @param fileSystemArn
+     *        The Amazon Resource Name (ARN) for the EFS file system, in the format
+     *        <code>arn:aws:elasticfilesystem:<i>region</i>:<i>account-id</i>:file-system/<i>file-system-id</i> </code>.
+     *        Example with sample data:
+     *        <code>arn:aws:elasticfilesystem:us-west-2:1111333322228888:file-system/fs-01234567</code>
+     */
+
+    public void setFileSystemArn(String fileSystemArn) {
+        this.fileSystemArn = fileSystemArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the EFS file system, in the format
+     * <code>arn:aws:elasticfilesystem:<i>region</i>:<i>account-id</i>:file-system/<i>file-system-id</i> </code>.
+     * Example with sample data:
+     * <code>arn:aws:elasticfilesystem:us-west-2:1111333322228888:file-system/fs-01234567</code>
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) for the EFS file system, in the format
+     *         <code>arn:aws:elasticfilesystem:<i>region</i>:<i>account-id</i>:file-system/<i>file-system-id</i> </code>
+     *         . Example with sample data:
+     *         <code>arn:aws:elasticfilesystem:us-west-2:1111333322228888:file-system/fs-01234567</code>
+     */
+
+    public String getFileSystemArn() {
+        return this.fileSystemArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the EFS file system, in the format
+     * <code>arn:aws:elasticfilesystem:<i>region</i>:<i>account-id</i>:file-system/<i>file-system-id</i> </code>.
+     * Example with sample data:
+     * <code>arn:aws:elasticfilesystem:us-west-2:1111333322228888:file-system/fs-01234567</code>
+     * </p>
+     * 
+     * @param fileSystemArn
+     *        The Amazon Resource Name (ARN) for the EFS file system, in the format
+     *        <code>arn:aws:elasticfilesystem:<i>region</i>:<i>account-id</i>:file-system/<i>file-system-id</i> </code>.
+     *        Example with sample data:
+     *        <code>arn:aws:elasticfilesystem:us-west-2:1111333322228888:file-system/fs-01234567</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public FileSystemDescription withFileSystemArn(String fileSystemArn) {
+        setFileSystemArn(fileSystemArn);
         return this;
     }
 
@@ -544,11 +621,11 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The performance mode of the file system.
+     * The Performance mode of the file system.
      * </p>
      * 
      * @param performanceMode
-     *        The performance mode of the file system.
+     *        The Performance mode of the file system.
      * @see PerformanceMode
      */
 
@@ -558,10 +635,10 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The performance mode of the file system.
+     * The Performance mode of the file system.
      * </p>
      * 
-     * @return The performance mode of the file system.
+     * @return The Performance mode of the file system.
      * @see PerformanceMode
      */
 
@@ -571,11 +648,11 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The performance mode of the file system.
+     * The Performance mode of the file system.
      * </p>
      * 
      * @param performanceMode
-     *        The performance mode of the file system.
+     *        The Performance mode of the file system.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PerformanceMode
      */
@@ -587,11 +664,11 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The performance mode of the file system.
+     * The Performance mode of the file system.
      * </p>
      * 
      * @param performanceMode
-     *        The performance mode of the file system.
+     *        The Performance mode of the file system.
      * @see PerformanceMode
      */
 
@@ -601,11 +678,11 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The performance mode of the file system.
+     * The Performance mode of the file system.
      * </p>
      * 
      * @param performanceMode
-     *        The performance mode of the file system.
+     *        The Performance mode of the file system.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PerformanceMode
      */
@@ -669,13 +746,11 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The ID of an AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to protect the
-     * encrypted file system.
+     * The ID of an KMS key used to protect the encrypted file system.
      * </p>
      * 
      * @param kmsKeyId
-     *        The ID of an AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to protect the
-     *        encrypted file system.
+     *        The ID of an KMS key used to protect the encrypted file system.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -684,12 +759,10 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The ID of an AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to protect the
-     * encrypted file system.
+     * The ID of an KMS key used to protect the encrypted file system.
      * </p>
      * 
-     * @return The ID of an AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to protect the
-     *         encrypted file system.
+     * @return The ID of an KMS key used to protect the encrypted file system.
      */
 
     public String getKmsKeyId() {
@@ -698,13 +771,11 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The ID of an AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to protect the
-     * encrypted file system.
+     * The ID of an KMS key used to protect the encrypted file system.
      * </p>
      * 
      * @param kmsKeyId
-     *        The ID of an AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to protect the
-     *        encrypted file system.
+     *        The ID of an KMS key used to protect the encrypted file system.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -715,19 +786,15 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The throughput mode for a file system. There are two throughput modes to choose from for your file system:
-     * <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You can
-     * decrease your file system's throughput in Provisioned Throughput mode or change between the throughput modes as
-     * long as it’s been more than 24 hours since the last decrease or throughput mode change.
+     * Displays the file system's throughput mode. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#throughput-modes">Throughput modes</a> in the
+     * <i>Amazon EFS User Guide</i>.
      * </p>
      * 
      * @param throughputMode
-     *        The throughput mode for a file system. There are two throughput modes to choose from for your file system:
-     *        <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     *        <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You can
-     *        decrease your file system's throughput in Provisioned Throughput mode or change between the throughput
-     *        modes as long as it’s been more than 24 hours since the last decrease or throughput mode change.
+     *        Displays the file system's throughput mode. For more information, see <a
+     *        href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#throughput-modes">Throughput modes</a> in
+     *        the <i>Amazon EFS User Guide</i>.
      * @see ThroughputMode
      */
 
@@ -737,19 +804,14 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The throughput mode for a file system. There are two throughput modes to choose from for your file system:
-     * <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You can
-     * decrease your file system's throughput in Provisioned Throughput mode or change between the throughput modes as
-     * long as it’s been more than 24 hours since the last decrease or throughput mode change.
+     * Displays the file system's throughput mode. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#throughput-modes">Throughput modes</a> in the
+     * <i>Amazon EFS User Guide</i>.
      * </p>
      * 
-     * @return The throughput mode for a file system. There are two throughput modes to choose from for your file
-     *         system: <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     *         <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You
-     *         can decrease your file system's throughput in Provisioned Throughput mode or change between the
-     *         throughput modes as long as it’s been more than 24 hours since the last decrease or throughput mode
-     *         change.
+     * @return Displays the file system's throughput mode. For more information, see <a
+     *         href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#throughput-modes">Throughput modes</a>
+     *         in the <i>Amazon EFS User Guide</i>.
      * @see ThroughputMode
      */
 
@@ -759,19 +821,15 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The throughput mode for a file system. There are two throughput modes to choose from for your file system:
-     * <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You can
-     * decrease your file system's throughput in Provisioned Throughput mode or change between the throughput modes as
-     * long as it’s been more than 24 hours since the last decrease or throughput mode change.
+     * Displays the file system's throughput mode. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#throughput-modes">Throughput modes</a> in the
+     * <i>Amazon EFS User Guide</i>.
      * </p>
      * 
      * @param throughputMode
-     *        The throughput mode for a file system. There are two throughput modes to choose from for your file system:
-     *        <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     *        <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You can
-     *        decrease your file system's throughput in Provisioned Throughput mode or change between the throughput
-     *        modes as long as it’s been more than 24 hours since the last decrease or throughput mode change.
+     *        Displays the file system's throughput mode. For more information, see <a
+     *        href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#throughput-modes">Throughput modes</a> in
+     *        the <i>Amazon EFS User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ThroughputMode
      */
@@ -783,19 +841,15 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The throughput mode for a file system. There are two throughput modes to choose from for your file system:
-     * <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You can
-     * decrease your file system's throughput in Provisioned Throughput mode or change between the throughput modes as
-     * long as it’s been more than 24 hours since the last decrease or throughput mode change.
+     * Displays the file system's throughput mode. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#throughput-modes">Throughput modes</a> in the
+     * <i>Amazon EFS User Guide</i>.
      * </p>
      * 
      * @param throughputMode
-     *        The throughput mode for a file system. There are two throughput modes to choose from for your file system:
-     *        <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     *        <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You can
-     *        decrease your file system's throughput in Provisioned Throughput mode or change between the throughput
-     *        modes as long as it’s been more than 24 hours since the last decrease or throughput mode change.
+     *        Displays the file system's throughput mode. For more information, see <a
+     *        href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#throughput-modes">Throughput modes</a> in
+     *        the <i>Amazon EFS User Guide</i>.
      * @see ThroughputMode
      */
 
@@ -805,19 +859,15 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The throughput mode for a file system. There are two throughput modes to choose from for your file system:
-     * <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     * <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You can
-     * decrease your file system's throughput in Provisioned Throughput mode or change between the throughput modes as
-     * long as it’s been more than 24 hours since the last decrease or throughput mode change.
+     * Displays the file system's throughput mode. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#throughput-modes">Throughput modes</a> in the
+     * <i>Amazon EFS User Guide</i>.
      * </p>
      * 
      * @param throughputMode
-     *        The throughput mode for a file system. There are two throughput modes to choose from for your file system:
-     *        <code>bursting</code> and <code>provisioned</code>. If you set <code>ThroughputMode</code> to
-     *        <code>provisioned</code>, you must also set a value for <code>ProvisionedThroughPutInMibps</code>. You can
-     *        decrease your file system's throughput in Provisioned Throughput mode or change between the throughput
-     *        modes as long as it’s been more than 24 hours since the last decrease or throughput mode change.
+     *        Displays the file system's throughput mode. For more information, see <a
+     *        href="https://docs.aws.amazon.com/efs/latest/ug/performance.html#throughput-modes">Throughput modes</a> in
+     *        the <i>Amazon EFS User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ThroughputMode
      */
@@ -829,19 +879,13 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The throughput, measured in MiB/s, that you want to provision for a file system. Valid values are 1-1024.
-     * Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. The limit on throughput is 1024
-     * MiB/s. You can get these limits increased by contacting AWS Support. For more information, see <a
-     * href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS Limits That You Can
-     * Increase</a> in the <i>Amazon EFS User Guide.</i>
+     * The amount of provisioned throughput, measured in MiBps, for the file system. Valid for file systems using
+     * <code>ThroughputMode</code> set to <code>provisioned</code>.
      * </p>
      * 
      * @param provisionedThroughputInMibps
-     *        The throughput, measured in MiB/s, that you want to provision for a file system. Valid values are 1-1024.
-     *        Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. The limit on throughput is
-     *        1024 MiB/s. You can get these limits increased by contacting AWS Support. For more information, see <a
-     *        href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS Limits That You Can
-     *        Increase</a> in the <i>Amazon EFS User Guide.</i>
+     *        The amount of provisioned throughput, measured in MiBps, for the file system. Valid for file systems using
+     *        <code>ThroughputMode</code> set to <code>provisioned</code>.
      */
 
     public void setProvisionedThroughputInMibps(Double provisionedThroughputInMibps) {
@@ -850,18 +894,12 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The throughput, measured in MiB/s, that you want to provision for a file system. Valid values are 1-1024.
-     * Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. The limit on throughput is 1024
-     * MiB/s. You can get these limits increased by contacting AWS Support. For more information, see <a
-     * href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS Limits That You Can
-     * Increase</a> in the <i>Amazon EFS User Guide.</i>
+     * The amount of provisioned throughput, measured in MiBps, for the file system. Valid for file systems using
+     * <code>ThroughputMode</code> set to <code>provisioned</code>.
      * </p>
      * 
-     * @return The throughput, measured in MiB/s, that you want to provision for a file system. Valid values are 1-1024.
-     *         Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. The limit on throughput is
-     *         1024 MiB/s. You can get these limits increased by contacting AWS Support. For more information, see <a
-     *         href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS Limits That You Can
-     *         Increase</a> in the <i>Amazon EFS User Guide.</i>
+     * @return The amount of provisioned throughput, measured in MiBps, for the file system. Valid for file systems
+     *         using <code>ThroughputMode</code> set to <code>provisioned</code>.
      */
 
     public Double getProvisionedThroughputInMibps() {
@@ -870,24 +908,131 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The throughput, measured in MiB/s, that you want to provision for a file system. Valid values are 1-1024.
-     * Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. The limit on throughput is 1024
-     * MiB/s. You can get these limits increased by contacting AWS Support. For more information, see <a
-     * href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS Limits That You Can
-     * Increase</a> in the <i>Amazon EFS User Guide.</i>
+     * The amount of provisioned throughput, measured in MiBps, for the file system. Valid for file systems using
+     * <code>ThroughputMode</code> set to <code>provisioned</code>.
      * </p>
      * 
      * @param provisionedThroughputInMibps
-     *        The throughput, measured in MiB/s, that you want to provision for a file system. Valid values are 1-1024.
-     *        Required if <code>ThroughputMode</code> is set to <code>provisioned</code>. The limit on throughput is
-     *        1024 MiB/s. You can get these limits increased by contacting AWS Support. For more information, see <a
-     *        href="https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits">Amazon EFS Limits That You Can
-     *        Increase</a> in the <i>Amazon EFS User Guide.</i>
+     *        The amount of provisioned throughput, measured in MiBps, for the file system. Valid for file systems using
+     *        <code>ThroughputMode</code> set to <code>provisioned</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public FileSystemDescription withProvisionedThroughputInMibps(Double provisionedThroughputInMibps) {
         setProvisionedThroughputInMibps(provisionedThroughputInMibps);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes the Amazon Web Services Availability Zone in which the file system is located, and is valid only for
+     * One Zone file systems. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html">Using EFS storage classes</a> in the
+     * <i>Amazon EFS User Guide</i>.
+     * </p>
+     * 
+     * @param availabilityZoneName
+     *        Describes the Amazon Web Services Availability Zone in which the file system is located, and is valid only
+     *        for One Zone file systems. For more information, see <a
+     *        href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html">Using EFS storage classes</a> in the
+     *        <i>Amazon EFS User Guide</i>.
+     */
+
+    public void setAvailabilityZoneName(String availabilityZoneName) {
+        this.availabilityZoneName = availabilityZoneName;
+    }
+
+    /**
+     * <p>
+     * Describes the Amazon Web Services Availability Zone in which the file system is located, and is valid only for
+     * One Zone file systems. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html">Using EFS storage classes</a> in the
+     * <i>Amazon EFS User Guide</i>.
+     * </p>
+     * 
+     * @return Describes the Amazon Web Services Availability Zone in which the file system is located, and is valid
+     *         only for One Zone file systems. For more information, see <a
+     *         href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html">Using EFS storage classes</a> in
+     *         the <i>Amazon EFS User Guide</i>.
+     */
+
+    public String getAvailabilityZoneName() {
+        return this.availabilityZoneName;
+    }
+
+    /**
+     * <p>
+     * Describes the Amazon Web Services Availability Zone in which the file system is located, and is valid only for
+     * One Zone file systems. For more information, see <a
+     * href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html">Using EFS storage classes</a> in the
+     * <i>Amazon EFS User Guide</i>.
+     * </p>
+     * 
+     * @param availabilityZoneName
+     *        Describes the Amazon Web Services Availability Zone in which the file system is located, and is valid only
+     *        for One Zone file systems. For more information, see <a
+     *        href="https://docs.aws.amazon.com/efs/latest/ug/storage-classes.html">Using EFS storage classes</a> in the
+     *        <i>Amazon EFS User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public FileSystemDescription withAvailabilityZoneName(String availabilityZoneName) {
+        setAvailabilityZoneName(availabilityZoneName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The unique and consistent identifier of the Availability Zone in which the file system is located, and is valid
+     * only for One Zone file systems. For example, <code>use1-az1</code> is an Availability Zone ID for the us-east-1
+     * Amazon Web Services Region, and it has the same location in every Amazon Web Services account.
+     * </p>
+     * 
+     * @param availabilityZoneId
+     *        The unique and consistent identifier of the Availability Zone in which the file system is located, and is
+     *        valid only for One Zone file systems. For example, <code>use1-az1</code> is an Availability Zone ID for
+     *        the us-east-1 Amazon Web Services Region, and it has the same location in every Amazon Web Services
+     *        account.
+     */
+
+    public void setAvailabilityZoneId(String availabilityZoneId) {
+        this.availabilityZoneId = availabilityZoneId;
+    }
+
+    /**
+     * <p>
+     * The unique and consistent identifier of the Availability Zone in which the file system is located, and is valid
+     * only for One Zone file systems. For example, <code>use1-az1</code> is an Availability Zone ID for the us-east-1
+     * Amazon Web Services Region, and it has the same location in every Amazon Web Services account.
+     * </p>
+     * 
+     * @return The unique and consistent identifier of the Availability Zone in which the file system is located, and is
+     *         valid only for One Zone file systems. For example, <code>use1-az1</code> is an Availability Zone ID for
+     *         the us-east-1 Amazon Web Services Region, and it has the same location in every Amazon Web Services
+     *         account.
+     */
+
+    public String getAvailabilityZoneId() {
+        return this.availabilityZoneId;
+    }
+
+    /**
+     * <p>
+     * The unique and consistent identifier of the Availability Zone in which the file system is located, and is valid
+     * only for One Zone file systems. For example, <code>use1-az1</code> is an Availability Zone ID for the us-east-1
+     * Amazon Web Services Region, and it has the same location in every Amazon Web Services account.
+     * </p>
+     * 
+     * @param availabilityZoneId
+     *        The unique and consistent identifier of the Availability Zone in which the file system is located, and is
+     *        valid only for One Zone file systems. For example, <code>use1-az1</code> is an Availability Zone ID for
+     *        the us-east-1 Amazon Web Services Region, and it has the same location in every Amazon Web Services
+     *        account.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public FileSystemDescription withAvailabilityZoneId(String availabilityZoneId) {
+        setAvailabilityZoneId(availabilityZoneId);
         return this;
     }
 
@@ -965,6 +1110,46 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
     }
 
     /**
+     * <p>
+     * Describes the protection on the file system.
+     * </p>
+     * 
+     * @param fileSystemProtection
+     *        Describes the protection on the file system.
+     */
+
+    public void setFileSystemProtection(FileSystemProtectionDescription fileSystemProtection) {
+        this.fileSystemProtection = fileSystemProtection;
+    }
+
+    /**
+     * <p>
+     * Describes the protection on the file system.
+     * </p>
+     * 
+     * @return Describes the protection on the file system.
+     */
+
+    public FileSystemProtectionDescription getFileSystemProtection() {
+        return this.fileSystemProtection;
+    }
+
+    /**
+     * <p>
+     * Describes the protection on the file system.
+     * </p>
+     * 
+     * @param fileSystemProtection
+     *        Describes the protection on the file system.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public FileSystemDescription withFileSystemProtection(FileSystemProtectionDescription fileSystemProtection) {
+        setFileSystemProtection(fileSystemProtection);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -982,6 +1167,8 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
             sb.append("CreationToken: ").append(getCreationToken()).append(",");
         if (getFileSystemId() != null)
             sb.append("FileSystemId: ").append(getFileSystemId()).append(",");
+        if (getFileSystemArn() != null)
+            sb.append("FileSystemArn: ").append(getFileSystemArn()).append(",");
         if (getCreationTime() != null)
             sb.append("CreationTime: ").append(getCreationTime()).append(",");
         if (getLifeCycleState() != null)
@@ -1002,8 +1189,14 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
             sb.append("ThroughputMode: ").append(getThroughputMode()).append(",");
         if (getProvisionedThroughputInMibps() != null)
             sb.append("ProvisionedThroughputInMibps: ").append(getProvisionedThroughputInMibps()).append(",");
+        if (getAvailabilityZoneName() != null)
+            sb.append("AvailabilityZoneName: ").append(getAvailabilityZoneName()).append(",");
+        if (getAvailabilityZoneId() != null)
+            sb.append("AvailabilityZoneId: ").append(getAvailabilityZoneId()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getFileSystemProtection() != null)
+            sb.append("FileSystemProtection: ").append(getFileSystemProtection());
         sb.append("}");
         return sb.toString();
     }
@@ -1029,6 +1222,10 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
         if (other.getFileSystemId() == null ^ this.getFileSystemId() == null)
             return false;
         if (other.getFileSystemId() != null && other.getFileSystemId().equals(this.getFileSystemId()) == false)
+            return false;
+        if (other.getFileSystemArn() == null ^ this.getFileSystemArn() == null)
+            return false;
+        if (other.getFileSystemArn() != null && other.getFileSystemArn().equals(this.getFileSystemArn()) == false)
             return false;
         if (other.getCreationTime() == null ^ this.getCreationTime() == null)
             return false;
@@ -1070,9 +1267,21 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
             return false;
         if (other.getProvisionedThroughputInMibps() != null && other.getProvisionedThroughputInMibps().equals(this.getProvisionedThroughputInMibps()) == false)
             return false;
+        if (other.getAvailabilityZoneName() == null ^ this.getAvailabilityZoneName() == null)
+            return false;
+        if (other.getAvailabilityZoneName() != null && other.getAvailabilityZoneName().equals(this.getAvailabilityZoneName()) == false)
+            return false;
+        if (other.getAvailabilityZoneId() == null ^ this.getAvailabilityZoneId() == null)
+            return false;
+        if (other.getAvailabilityZoneId() != null && other.getAvailabilityZoneId().equals(this.getAvailabilityZoneId()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getFileSystemProtection() == null ^ this.getFileSystemProtection() == null)
+            return false;
+        if (other.getFileSystemProtection() != null && other.getFileSystemProtection().equals(this.getFileSystemProtection()) == false)
             return false;
         return true;
     }
@@ -1085,6 +1294,7 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
         hashCode = prime * hashCode + ((getOwnerId() == null) ? 0 : getOwnerId().hashCode());
         hashCode = prime * hashCode + ((getCreationToken() == null) ? 0 : getCreationToken().hashCode());
         hashCode = prime * hashCode + ((getFileSystemId() == null) ? 0 : getFileSystemId().hashCode());
+        hashCode = prime * hashCode + ((getFileSystemArn() == null) ? 0 : getFileSystemArn().hashCode());
         hashCode = prime * hashCode + ((getCreationTime() == null) ? 0 : getCreationTime().hashCode());
         hashCode = prime * hashCode + ((getLifeCycleState() == null) ? 0 : getLifeCycleState().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
@@ -1095,7 +1305,10 @@ public class FileSystemDescription implements Serializable, Cloneable, Structure
         hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
         hashCode = prime * hashCode + ((getThroughputMode() == null) ? 0 : getThroughputMode().hashCode());
         hashCode = prime * hashCode + ((getProvisionedThroughputInMibps() == null) ? 0 : getProvisionedThroughputInMibps().hashCode());
+        hashCode = prime * hashCode + ((getAvailabilityZoneName() == null) ? 0 : getAvailabilityZoneName().hashCode());
+        hashCode = prime * hashCode + ((getAvailabilityZoneId() == null) ? 0 : getAvailabilityZoneId().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getFileSystemProtection() == null) ? 0 : getFileSystemProtection().hashCode());
         return hashCode;
     }
 

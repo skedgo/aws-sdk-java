@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,10 +26,15 @@ import com.amazonaws.services.kinesisanalyticsv2.model.*;
  * {@link com.amazonaws.services.kinesisanalyticsv2.AbstractAmazonKinesisAnalyticsV2} instead.
  * </p>
  * <p>
+ * <note>
  * <p>
- * Amazon Kinesis Data Analytics is a fully managed service that you can use to process and analyze streaming data using
- * SQL or Java. The service enables you to quickly author and run SQL or Java code against streaming sources to perform
- * time series analytics, feed real-time dashboards, and create real-time metrics.
+ * Amazon Managed Service for Apache Flink was previously known as Amazon Kinesis Data Analytics for Apache Flink.
+ * </p>
+ * </note>
+ * <p>
+ * Amazon Managed Service for Apache Flink is a fully managed service that you can use to process and analyze streaming
+ * data using Java, Python, SQL, or Scala. The service enables you to quickly author and run Java, SQL, or Scala code
+ * against streaming sources to perform time series analytics, feed real-time dashboards, and create real-time metrics.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -73,7 +78,7 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Adds a streaming source to your SQL-based Amazon Kinesis Data Analytics application.
+     * Adds a streaming source to your SQL-based Kinesis Data Analytics application.
      * </p>
      * <p>
      * You can add a streaming source when you create an application, or you can use this operation to add a streaming
@@ -107,9 +112,9 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Adds an <a>InputProcessingConfiguration</a> to an SQL-based Kinesis Data Analytics application. An input
-     * processor pre-processes records on the input stream before the application's SQL code executes. Currently, the
-     * only input processor available is <a href="https://aws.amazon.com/documentation/lambda/">AWS Lambda</a>.
+     * Adds an <a>InputProcessingConfiguration</a> to a SQL-based Kinesis Data Analytics application. An input processor
+     * pre-processes records on the input stream before the application's SQL code executes. Currently, the only input
+     * processor available is <a href="https://docs.aws.amazon.com/lambda/">Amazon Lambda</a>.
      * </p>
      * 
      * @param addApplicationInputProcessingConfigurationRequest
@@ -135,13 +140,13 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Adds an external destination to your SQL-based Amazon Kinesis Data Analytics application.
+     * Adds an external destination to your SQL-based Kinesis Data Analytics application.
      * </p>
      * <p>
      * If you want Kinesis Data Analytics to deliver data from an in-application stream within your application to an
-     * external destination (such as an Kinesis data stream, a Kinesis Data Firehose delivery stream, or an AWS Lambda
-     * function), you add the relevant configuration to your application using this operation. You can configure one or
-     * more outputs for your application. Each output configuration maps an in-application stream and an external
+     * external destination (such as an Kinesis data stream, a Kinesis Data Firehose delivery stream, or an Amazon
+     * Lambda function), you add the relevant configuration to your application using this operation. You can configure
+     * one or more outputs for your application. Each output configuration maps an in-application stream and an external
      * destination.
      * </p>
      * <p>
@@ -174,7 +179,7 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Adds a reference data source to an existing SQL-based Amazon Kinesis Data Analytics application.
+     * Adds a reference data source to an existing SQL-based Kinesis Data Analytics application.
      * </p>
      * <p>
      * Kinesis Data Analytics reads reference data (that is, an Amazon S3 object) and creates an in-application table
@@ -205,9 +210,51 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Creates an Amazon Kinesis Data Analytics application. For information about creating a Kinesis Data Analytics
-     * application, see <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/getting-started.html">Creating
-     * an Application</a>.
+     * Adds a Virtual Private Cloud (VPC) configuration to the application. Applications can use VPCs to store and
+     * access resources securely.
+     * </p>
+     * <p>
+     * Note the following about VPC configurations for Managed Service for Apache Flink applications:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * VPC configurations are not supported for SQL applications.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * When a VPC is added to a Managed Service for Apache Flink application, the application can no longer be accessed
+     * from the Internet directly. To enable Internet access to the application, add an Internet gateway to your VPC.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param addApplicationVpcConfigurationRequest
+     * @return Result of the AddApplicationVpcConfiguration operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         Specified application can't be found.
+     * @throws ResourceInUseException
+     *         The application is not available for this operation.
+     * @throws InvalidArgumentException
+     *         The specified input parameter value is not valid.
+     * @throws ConcurrentModificationException
+     *         Exception thrown as a result of concurrent modifications to an application. This error can be the result
+     *         of attempting to modify an application without using the current application ID.
+     * @throws InvalidApplicationConfigurationException
+     *         The user-provided application configuration is not valid.
+     * @sample AmazonKinesisAnalyticsV2.AddApplicationVpcConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/AddApplicationVpcConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    AddApplicationVpcConfigurationResult addApplicationVpcConfiguration(AddApplicationVpcConfigurationRequest addApplicationVpcConfigurationRequest);
+
+    /**
+     * <p>
+     * Creates a Managed Service for Apache Flink application. For information about creating a Managed Service for
+     * Apache Flink application, see <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/getting-started.html">Creating an Application</a>.
      * </p>
      * 
      * @param createApplicationRequest
@@ -229,11 +276,49 @@ public interface AmazonKinesisAnalyticsV2 {
      * @throws ConcurrentModificationException
      *         Exception thrown as a result of concurrent modifications to an application. This error can be the result
      *         of attempting to modify an application without using the current application ID.
+     * @throws UnsupportedOperationException
+     *         The request was rejected because a specified parameter is not supported or a specified resource is not
+     *         valid for this operation.
      * @sample AmazonKinesisAnalyticsV2.CreateApplication
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/CreateApplication"
      *      target="_top">AWS API Documentation</a>
      */
     CreateApplicationResult createApplication(CreateApplicationRequest createApplicationRequest);
+
+    /**
+     * <p>
+     * Creates and returns a URL that you can use to connect to an application's extension.
+     * </p>
+     * <p>
+     * The IAM role or user used to call this API defines the permissions to access the extension. After the presigned
+     * URL is created, no additional permission is required to access this URL. IAM authorization policies for this API
+     * are also enforced for every HTTP request that attempts to connect to the extension.
+     * </p>
+     * <p>
+     * You control the amount of time that the URL will be valid using the
+     * <code>SessionExpirationDurationInSeconds</code> parameter. If you do not provide this parameter, the returned URL
+     * is valid for twelve hours.
+     * </p>
+     * <note>
+     * <p>
+     * The URL that you get from a call to CreateApplicationPresignedUrl must be used within 3 minutes to be valid. If
+     * you first try to use the URL after the 3-minute limit expires, the service returns an HTTP 403 Forbidden error.
+     * </p>
+     * </note>
+     * 
+     * @param createApplicationPresignedUrlRequest
+     * @return Result of the CreateApplicationPresignedUrl operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         Specified application can't be found.
+     * @throws ResourceInUseException
+     *         The application is not available for this operation.
+     * @throws InvalidArgumentException
+     *         The specified input parameter value is not valid.
+     * @sample AmazonKinesisAnalyticsV2.CreateApplicationPresignedUrl
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/CreateApplicationPresignedUrl"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateApplicationPresignedUrlResult createApplicationPresignedUrl(CreateApplicationPresignedUrlRequest createApplicationPresignedUrlRequest);
 
     /**
      * <p>
@@ -255,6 +340,8 @@ public interface AmazonKinesisAnalyticsV2 {
      *         valid for this operation.
      * @throws InvalidRequestException
      *         The request JSON is not valid for the operation.
+     * @throws InvalidApplicationConfigurationException
+     *         The user-provided application configuration is not valid.
      * @sample AmazonKinesisAnalyticsV2.CreateApplicationSnapshot
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/CreateApplicationSnapshot"
      *      target="_top">AWS API Documentation</a>
@@ -263,7 +350,7 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Deletes the specified application. Kinesis Data Analytics halts application execution and deletes the
+     * Deletes the specified application. Managed Service for Apache Flink halts application execution and deletes the
      * application.
      * </p>
      * 
@@ -290,7 +377,7 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Deletes an Amazon CloudWatch log stream from an Amazon Kinesis Data Analytics application.
+     * Deletes an Amazon CloudWatch log stream from an SQL-based Kinesis Data Analytics application.
      * </p>
      * 
      * @param deleteApplicationCloudWatchLoggingOptionRequest
@@ -344,7 +431,7 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Deletes the output destination configuration from your SQL-based Amazon Kinesis Data Analytics application's
+     * Deletes the output destination configuration from your SQL-based Kinesis Data Analytics application's
      * configuration. Kinesis Data Analytics will no longer write data from the corresponding in-application stream to
      * the external output destination.
      * </p>
@@ -370,8 +457,8 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Deletes a reference data source configuration from the specified SQL-based Amazon Kinesis Data Analytics
-     * application's configuration.
+     * Deletes a reference data source configuration from the specified SQL-based Kinesis Data Analytics application's
+     * configuration.
      * </p>
      * <p>
      * If the application is running, Kinesis Data Analytics immediately removes the in-application table that you
@@ -417,6 +504,9 @@ public interface AmazonKinesisAnalyticsV2 {
      *         The request JSON is not valid for the operation.
      * @throws ResourceNotFoundException
      *         Specified application can't be found.
+     * @throws ConcurrentModificationException
+     *         Exception thrown as a result of concurrent modifications to an application. This error can be the result
+     *         of attempting to modify an application without using the current application ID.
      * @sample AmazonKinesisAnalyticsV2.DeleteApplicationSnapshot
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/DeleteApplicationSnapshot"
      *      target="_top">AWS API Documentation</a>
@@ -425,7 +515,32 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Returns information about a specific Amazon Kinesis Data Analytics application.
+     * Removes a VPC configuration from a Managed Service for Apache Flink application.
+     * </p>
+     * 
+     * @param deleteApplicationVpcConfigurationRequest
+     * @return Result of the DeleteApplicationVpcConfiguration operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         Specified application can't be found.
+     * @throws ResourceInUseException
+     *         The application is not available for this operation.
+     * @throws InvalidArgumentException
+     *         The specified input parameter value is not valid.
+     * @throws ConcurrentModificationException
+     *         Exception thrown as a result of concurrent modifications to an application. This error can be the result
+     *         of attempting to modify an application without using the current application ID.
+     * @throws InvalidApplicationConfigurationException
+     *         The user-provided application configuration is not valid.
+     * @sample AmazonKinesisAnalyticsV2.DeleteApplicationVpcConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/DeleteApplicationVpcConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteApplicationVpcConfigurationResult deleteApplicationVpcConfiguration(DeleteApplicationVpcConfigurationRequest deleteApplicationVpcConfigurationRequest);
+
+    /**
+     * <p>
+     * Returns information about a specific Managed Service for Apache Flink application.
      * </p>
      * <p>
      * If you want to retrieve a list of all applications in your account, use the <a>ListApplications</a> operation.
@@ -444,6 +559,26 @@ public interface AmazonKinesisAnalyticsV2 {
      *      target="_top">AWS API Documentation</a>
      */
     DescribeApplicationResult describeApplication(DescribeApplicationRequest describeApplicationRequest);
+
+    /**
+     * Returns information about a specific operation performed on a Managed Service for Apache Flink application
+     * 
+     * @param describeApplicationOperationRequest
+     *        Request for information about a specific operation performed on a Managed Service for Apache Flink
+     *        application
+     * @return Result of the DescribeApplicationOperation operation returned by the service.
+     * @throws InvalidArgumentException
+     *         The specified input parameter value is not valid.
+     * @throws ResourceNotFoundException
+     *         Specified application can't be found.
+     * @throws UnsupportedOperationException
+     *         The request was rejected because a specified parameter is not supported or a specified resource is not
+     *         valid for this operation.
+     * @sample AmazonKinesisAnalyticsV2.DescribeApplicationOperation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/DescribeApplicationOperation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeApplicationOperationResult describeApplicationOperation(DescribeApplicationOperationRequest describeApplicationOperationRequest);
 
     /**
      * <p>
@@ -467,10 +602,36 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Infers a schema for an SQL-based Amazon Kinesis Data Analytics application by evaluating sample records on the
-     * specified streaming source (Kinesis data stream or Kinesis Data Firehose delivery stream) or Amazon S3 object. In
-     * the response, the operation returns the inferred schema and also the sample records that the operation used to
-     * infer the schema.
+     * Provides a detailed description of a specified version of the application. To see a list of all the versions of
+     * an application, invoke the <a>ListApplicationVersions</a> operation.
+     * </p>
+     * <note>
+     * <p>
+     * This operation is supported only for Managed Service for Apache Flink.
+     * </p>
+     * </note>
+     * 
+     * @param describeApplicationVersionRequest
+     * @return Result of the DescribeApplicationVersion operation returned by the service.
+     * @throws InvalidArgumentException
+     *         The specified input parameter value is not valid.
+     * @throws ResourceNotFoundException
+     *         Specified application can't be found.
+     * @throws UnsupportedOperationException
+     *         The request was rejected because a specified parameter is not supported or a specified resource is not
+     *         valid for this operation.
+     * @sample AmazonKinesisAnalyticsV2.DescribeApplicationVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/DescribeApplicationVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeApplicationVersionResult describeApplicationVersion(DescribeApplicationVersionRequest describeApplicationVersionRequest);
+
+    /**
+     * <p>
+     * Infers a schema for a SQL-based Kinesis Data Analytics application by evaluating sample records on the specified
+     * streaming source (Kinesis data stream or Kinesis Data Firehose delivery stream) or Amazon S3 object. In the
+     * response, the operation returns the inferred schema and also the sample records that the operation used to infer
+     * the schema.
      * </p>
      * <p>
      * You can use the inferred schema when configuring a streaming source for your application. When you create an
@@ -483,10 +644,10 @@ public interface AmazonKinesisAnalyticsV2 {
      * @throws InvalidArgumentException
      *         The specified input parameter value is not valid.
      * @throws UnableToDetectSchemaException
-     *         The data format is not valid. Amazon Kinesis Data Analytics cannot detect the schema for the given
-     *         streaming source.
+     *         The data format is not valid. Kinesis Data Analytics cannot detect the schema for the given streaming
+     *         source.
      * @throws ResourceProvisionedThroughputExceededException
-     *         Discovery failed to get a record from the streaming source because of the Amazon Kinesis Streams
+     *         Discovery failed to get a record from the streaming source because of the Kinesis Streams
      *         <code>ProvisionedThroughputExceededException</code>. For more information, see <a
      *         href="http://docs.aws.amazon.com/kinesis/latest/APIReference/API_GetRecords.html">GetRecords</a> in the
      *         Amazon Kinesis Streams API Reference.
@@ -494,11 +655,33 @@ public interface AmazonKinesisAnalyticsV2 {
      *         The service cannot complete the request.
      * @throws InvalidRequestException
      *         The request JSON is not valid for the operation.
+     * @throws UnsupportedOperationException
+     *         The request was rejected because a specified parameter is not supported or a specified resource is not
+     *         valid for this operation.
      * @sample AmazonKinesisAnalyticsV2.DiscoverInputSchema
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/DiscoverInputSchema"
      *      target="_top">AWS API Documentation</a>
      */
     DiscoverInputSchemaResult discoverInputSchema(DiscoverInputSchemaRequest discoverInputSchemaRequest);
+
+    /**
+     * Lists information about operations performed on a Managed Service for Apache Flink application
+     * 
+     * @param listApplicationOperationsRequest
+     *        Request to list operations performed on an application
+     * @return Result of the ListApplicationOperations operation returned by the service.
+     * @throws InvalidArgumentException
+     *         The specified input parameter value is not valid.
+     * @throws ResourceNotFoundException
+     *         Specified application can't be found.
+     * @throws UnsupportedOperationException
+     *         The request was rejected because a specified parameter is not supported or a specified resource is not
+     *         valid for this operation.
+     * @sample AmazonKinesisAnalyticsV2.ListApplicationOperations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ListApplicationOperations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListApplicationOperationsResult listApplicationOperations(ListApplicationOperationsRequest listApplicationOperationsRequest);
 
     /**
      * <p>
@@ -520,8 +703,38 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Returns a list of Amazon Kinesis Data Analytics applications in your account. For each application, the response
-     * includes the application name, Amazon Resource Name (ARN), and status.
+     * Lists all the versions for the specified application, including versions that were rolled back. The response also
+     * includes a summary of the configuration associated with each version.
+     * </p>
+     * <p>
+     * To get the complete description of a specific application version, invoke the <a>DescribeApplicationVersion</a>
+     * operation.
+     * </p>
+     * <note>
+     * <p>
+     * This operation is supported only for Managed Service for Apache Flink.
+     * </p>
+     * </note>
+     * 
+     * @param listApplicationVersionsRequest
+     * @return Result of the ListApplicationVersions operation returned by the service.
+     * @throws InvalidArgumentException
+     *         The specified input parameter value is not valid.
+     * @throws ResourceNotFoundException
+     *         Specified application can't be found.
+     * @throws UnsupportedOperationException
+     *         The request was rejected because a specified parameter is not supported or a specified resource is not
+     *         valid for this operation.
+     * @sample AmazonKinesisAnalyticsV2.ListApplicationVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ListApplicationVersions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListApplicationVersionsResult listApplicationVersions(ListApplicationVersionsRequest listApplicationVersionsRequest);
+
+    /**
+     * <p>
+     * Returns a list of Managed Service for Apache Flink applications in your account. For each application, the
+     * response includes the application name, Amazon Resource Name (ARN), and status.
      * </p>
      * <p>
      * If you want detailed information about a specific application, use <a>DescribeApplication</a>.
@@ -539,7 +752,8 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Retrieves the list of key-value tags assigned to the application.
+     * Retrieves the list of key-value tags assigned to the application. For more information, see <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -559,7 +773,43 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Starts the specified Amazon Kinesis Data Analytics application. After creating an application, you must
+     * Reverts the application to the previous running version. You can roll back an application if you suspect it is
+     * stuck in a transient status or in the running status.
+     * </p>
+     * <p>
+     * You can roll back an application only if it is in the <code>UPDATING</code>, <code>AUTOSCALING</code>, or
+     * <code>RUNNING</code> statuses.
+     * </p>
+     * <p>
+     * When you rollback an application, it loads state data from the last successful snapshot. If the application has
+     * no snapshots, Managed Service for Apache Flink rejects the rollback request.
+     * </p>
+     * 
+     * @param rollbackApplicationRequest
+     * @return Result of the RollbackApplication operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         Specified application can't be found.
+     * @throws InvalidArgumentException
+     *         The specified input parameter value is not valid.
+     * @throws ResourceInUseException
+     *         The application is not available for this operation.
+     * @throws InvalidRequestException
+     *         The request JSON is not valid for the operation.
+     * @throws ConcurrentModificationException
+     *         Exception thrown as a result of concurrent modifications to an application. This error can be the result
+     *         of attempting to modify an application without using the current application ID.
+     * @throws UnsupportedOperationException
+     *         The request was rejected because a specified parameter is not supported or a specified resource is not
+     *         valid for this operation.
+     * @sample AmazonKinesisAnalyticsV2.RollbackApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/RollbackApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    RollbackApplicationResult rollbackApplication(RollbackApplicationRequest rollbackApplicationRequest);
+
+    /**
+     * <p>
+     * Starts the specified Managed Service for Apache Flink application. After creating an application, you must
      * exclusively call this operation to start your application.
      * </p>
      * 
@@ -583,8 +833,15 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Stops the application from processing data. You can stop an application only if it is in the running state. You
-     * can use the <a>DescribeApplication</a> operation to find the application state.
+     * Stops the application from processing data. You can stop an application only if it is in the running status,
+     * unless you set the <code>Force</code> parameter to <code>true</code>.
+     * </p>
+     * <p>
+     * You can use the <a>DescribeApplication</a> operation to find the application status.
+     * </p>
+     * <p>
+     * Managed Service for Apache Flink takes a snapshot when the application is stopped, unless <code>Force</code> is
+     * set to <code>true</code>.
      * </p>
      * 
      * @param stopApplicationRequest
@@ -599,6 +856,9 @@ public interface AmazonKinesisAnalyticsV2 {
      *         The request JSON is not valid for the operation.
      * @throws InvalidApplicationConfigurationException
      *         The user-provided application configuration is not valid.
+     * @throws ConcurrentModificationException
+     *         Exception thrown as a result of concurrent modifications to an application. This error can be the result
+     *         of attempting to modify an application without using the current application ID.
      * @sample AmazonKinesisAnalyticsV2.StopApplication
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/StopApplication"
      *      target="_top">AWS API Documentation</a>
@@ -607,8 +867,10 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Adds one or more key-value tags to a Kinesis Analytics application. Note that the maximum number of application
-     * tags includes system tags. The maximum number of user-defined application tags is 50.
+     * Adds one or more key-value tags to a Managed Service for Apache Flink application. Note that the maximum number
+     * of application tags includes system tags. The maximum number of user-defined application tags is 50. For more
+     * information, see <a href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using
+     * Tagging</a>.
      * </p>
      * 
      * @param tagResourceRequest
@@ -634,7 +896,8 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Removes one or more tags from a Kinesis Analytics application.
+     * Removes one or more tags from a Managed Service for Apache Flink application. For more information, see <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.
      * </p>
      * 
      * @param untagResourceRequest
@@ -660,11 +923,12 @@ public interface AmazonKinesisAnalyticsV2 {
 
     /**
      * <p>
-     * Updates an existing Amazon Kinesis Data Analytics application. Using this operation, you can update application
-     * code, input configuration, and output configuration.
+     * Updates an existing Managed Service for Apache Flink application. Using this operation, you can update
+     * application code, input configuration, and output configuration.
      * </p>
      * <p>
-     * Kinesis Data Analytics updates the <code>ApplicationVersionId</code> each time you update your application.
+     * Managed Service for Apache Flink updates the <code>ApplicationVersionId</code> each time you update your
+     * application.
      * </p>
      * 
      * @param updateApplicationRequest
@@ -684,11 +948,63 @@ public interface AmazonKinesisAnalyticsV2 {
      *         The request JSON is not valid for the operation.
      * @throws InvalidApplicationConfigurationException
      *         The user-provided application configuration is not valid.
+     * @throws LimitExceededException
+     *         The number of allowed resources has been exceeded.
      * @sample AmazonKinesisAnalyticsV2.UpdateApplication
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/UpdateApplication"
      *      target="_top">AWS API Documentation</a>
      */
     UpdateApplicationResult updateApplication(UpdateApplicationRequest updateApplicationRequest);
+
+    /**
+     * <p>
+     * Updates the maintenance configuration of the Managed Service for Apache Flink application.
+     * </p>
+     * <p>
+     * You can invoke this operation on an application that is in one of the two following states: <code>READY</code> or
+     * <code>RUNNING</code>. If you invoke it when the application is in a state other than these two states, it throws
+     * a <code>ResourceInUseException</code>. The service makes use of the updated configuration the next time it
+     * schedules maintenance for the application. If you invoke this operation after the service schedules maintenance,
+     * the service will apply the configuration update the next time it schedules maintenance for the application. This
+     * means that you might not see the maintenance configuration update applied to the maintenance process that follows
+     * a successful invocation of this operation, but to the following maintenance process instead.
+     * </p>
+     * <p>
+     * To see the current maintenance configuration of your application, invoke the <a>DescribeApplication</a>
+     * operation.
+     * </p>
+     * <p>
+     * For information about application maintenance, see <a
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/maintenance.html">Managed Service for Apache Flink
+     * for Apache Flink Maintenance</a>.
+     * </p>
+     * <note>
+     * <p>
+     * This operation is supported only for Managed Service for Apache Flink.
+     * </p>
+     * </note>
+     * 
+     * @param updateApplicationMaintenanceConfigurationRequest
+     * @return Result of the UpdateApplicationMaintenanceConfiguration operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         Specified application can't be found.
+     * @throws ResourceInUseException
+     *         The application is not available for this operation.
+     * @throws InvalidArgumentException
+     *         The specified input parameter value is not valid.
+     * @throws ConcurrentModificationException
+     *         Exception thrown as a result of concurrent modifications to an application. This error can be the result
+     *         of attempting to modify an application without using the current application ID.
+     * @throws UnsupportedOperationException
+     *         The request was rejected because a specified parameter is not supported or a specified resource is not
+     *         valid for this operation.
+     * @sample AmazonKinesisAnalyticsV2.UpdateApplicationMaintenanceConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/UpdateApplicationMaintenanceConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateApplicationMaintenanceConfigurationResult updateApplicationMaintenanceConfiguration(
+            UpdateApplicationMaintenanceConfigurationRequest updateApplicationMaintenanceConfigurationRequest);
 
     /**
      * Shuts down this client object, releasing any resources that might be held open. This is an optional method, and

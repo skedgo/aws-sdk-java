@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,23 +37,23 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Name of the Amazon S3 bucket into which CloudTrail delivers your trail files. See <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon S3 Bucket
-     * Naming Requirements</a>.
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Amazon S3 Bucket naming
+     * rules</a>.
      * </p>
      */
     private String s3BucketName;
     /**
      * <p>
      * Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file
-     * delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding Your
-     * CloudTrail Log Files</a>.The maximum length is 200 characters.
+     * delivery. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     * >Finding Your CloudTrail Log Files</a>. The maximum length is 200 characters.
      * </p>
      */
     private String s3KeyPrefix;
     /**
      * <p>
-     * This field is deprecated. Use SnsTopicARN.
+     * This field is no longer in use. Use <code>SnsTopicARN</code>.
      * </p>
      */
     @Deprecated
@@ -61,7 +61,7 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Specifies the ARN of the Amazon SNS topic that CloudTrail uses to send notifications when log files are
-     * delivered. The format of a topic ARN is:
+     * delivered. The following is the format of a topic ARN.
      * </p>
      * <p>
      * <code>arn:aws:sns:us-east-2:123456789012:MyTopic</code>
@@ -70,25 +70,26 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
     private String snsTopicARN;
     /**
      * <p>
-     * Set to <b>True</b> to include AWS API calls from AWS global services such as IAM. Otherwise, <b>False</b>.
+     * Set to <b>True</b> to include Amazon Web Services API calls from Amazon Web Services global services such as IAM.
+     * Otherwise, <b>False</b>.
      * </p>
      */
     private Boolean includeGlobalServiceEvents;
     /**
      * <p>
-     * Specifies whether the trail belongs only to one region or exists in all regions.
+     * Specifies whether the trail exists only in one Region or exists in all Regions.
      * </p>
      */
     private Boolean isMultiRegionTrail;
     /**
      * <p>
-     * The region in which the trail was created.
+     * The Region in which the trail was created.
      * </p>
      */
     private String homeRegion;
     /**
      * <p>
-     * Specifies the ARN of the trail. The format of a trail ARN is:
+     * Specifies the ARN of the trail. The following is the format of a trail ARN.
      * </p>
      * <p>
      * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
@@ -117,7 +118,7 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Specifies the KMS key ID that encrypts the logs delivered by CloudTrail. The value is a fully specified ARN to a
-     * KMS key in the format:
+     * KMS key in the following format.
      * </p>
      * <p>
      * <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
@@ -130,6 +131,12 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private Boolean hasCustomEventSelectors;
+    /**
+     * <p>
+     * Specifies whether a trail has insight types specified in an <code>InsightSelector</code> list.
+     * </p>
+     */
+    private Boolean hasInsightSelectors;
     /**
      * <p>
      * Specifies whether the trail is an organization trail.
@@ -180,14 +187,14 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Name of the Amazon S3 bucket into which CloudTrail delivers your trail files. See <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon S3 Bucket
-     * Naming Requirements</a>.
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Amazon S3 Bucket naming
+     * rules</a>.
      * </p>
      * 
      * @param s3BucketName
      *        Name of the Amazon S3 bucket into which CloudTrail delivers your trail files. See <a
-     *        href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon S3
-     *        Bucket Naming Requirements</a>.
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Amazon S3 Bucket
+     *        naming rules</a>.
      */
 
     public void setS3BucketName(String s3BucketName) {
@@ -197,13 +204,13 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Name of the Amazon S3 bucket into which CloudTrail delivers your trail files. See <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon S3 Bucket
-     * Naming Requirements</a>.
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Amazon S3 Bucket naming
+     * rules</a>.
      * </p>
      * 
      * @return Name of the Amazon S3 bucket into which CloudTrail delivers your trail files. See <a
-     *         href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon
-     *         S3 Bucket Naming Requirements</a>.
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Amazon S3 Bucket
+     *         naming rules</a>.
      */
 
     public String getS3BucketName() {
@@ -213,14 +220,14 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Name of the Amazon S3 bucket into which CloudTrail delivers your trail files. See <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon S3 Bucket
-     * Naming Requirements</a>.
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Amazon S3 Bucket naming
+     * rules</a>.
      * </p>
      * 
      * @param s3BucketName
      *        Name of the Amazon S3 bucket into which CloudTrail delivers your trail files. See <a
-     *        href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html">Amazon S3
-     *        Bucket Naming Requirements</a>.
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Amazon S3 Bucket
+     *        naming rules</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -232,16 +239,16 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file
-     * delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding Your
-     * CloudTrail Log Files</a>.The maximum length is 200 characters.
+     * delivery. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     * >Finding Your CloudTrail Log Files</a>. The maximum length is 200 characters.
      * </p>
      * 
      * @param s3KeyPrefix
      *        Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log
-     *        file delivery. For more information, see <a
-     *        href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
-     *        Your CloudTrail Log Files</a>.The maximum length is 200 characters.
+     *        file delivery. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     *        >Finding Your CloudTrail Log Files</a>. The maximum length is 200 characters.
      */
 
     public void setS3KeyPrefix(String s3KeyPrefix) {
@@ -251,15 +258,15 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file
-     * delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding Your
-     * CloudTrail Log Files</a>.The maximum length is 200 characters.
+     * delivery. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     * >Finding Your CloudTrail Log Files</a>. The maximum length is 200 characters.
      * </p>
      * 
      * @return Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log
-     *         file delivery. For more information, see <a
-     *         href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
-     *         Your CloudTrail Log Files</a>.The maximum length is 200 characters.
+     *         file delivery. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     *         >Finding Your CloudTrail Log Files</a>. The maximum length is 200 characters.
      */
 
     public String getS3KeyPrefix() {
@@ -269,16 +276,16 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file
-     * delivery. For more information, see <a
-     * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding Your
-     * CloudTrail Log Files</a>.The maximum length is 200 characters.
+     * delivery. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     * >Finding Your CloudTrail Log Files</a>. The maximum length is 200 characters.
      * </p>
      * 
      * @param s3KeyPrefix
      *        Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log
-     *        file delivery. For more information, see <a
-     *        href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html">Finding
-     *        Your CloudTrail Log Files</a>.The maximum length is 200 characters.
+     *        file delivery. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/get-and-view-cloudtrail-log-files.html#cloudtrail-find-log-files"
+     *        >Finding Your CloudTrail Log Files</a>. The maximum length is 200 characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -289,11 +296,11 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This field is deprecated. Use SnsTopicARN.
+     * This field is no longer in use. Use <code>SnsTopicARN</code>.
      * </p>
      * 
      * @param snsTopicName
-     *        This field is deprecated. Use SnsTopicARN.
+     *        This field is no longer in use. Use <code>SnsTopicARN</code>.
      */
     @Deprecated
     public void setSnsTopicName(String snsTopicName) {
@@ -302,10 +309,10 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This field is deprecated. Use SnsTopicARN.
+     * This field is no longer in use. Use <code>SnsTopicARN</code>.
      * </p>
      * 
-     * @return This field is deprecated. Use SnsTopicARN.
+     * @return This field is no longer in use. Use <code>SnsTopicARN</code>.
      */
     @Deprecated
     public String getSnsTopicName() {
@@ -314,11 +321,11 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This field is deprecated. Use SnsTopicARN.
+     * This field is no longer in use. Use <code>SnsTopicARN</code>.
      * </p>
      * 
      * @param snsTopicName
-     *        This field is deprecated. Use SnsTopicARN.
+     *        This field is no longer in use. Use <code>SnsTopicARN</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
     @Deprecated
@@ -330,7 +337,7 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Specifies the ARN of the Amazon SNS topic that CloudTrail uses to send notifications when log files are
-     * delivered. The format of a topic ARN is:
+     * delivered. The following is the format of a topic ARN.
      * </p>
      * <p>
      * <code>arn:aws:sns:us-east-2:123456789012:MyTopic</code>
@@ -338,7 +345,7 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param snsTopicARN
      *        Specifies the ARN of the Amazon SNS topic that CloudTrail uses to send notifications when log files are
-     *        delivered. The format of a topic ARN is:</p>
+     *        delivered. The following is the format of a topic ARN.</p>
      *        <p>
      *        <code>arn:aws:sns:us-east-2:123456789012:MyTopic</code>
      */
@@ -350,14 +357,14 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Specifies the ARN of the Amazon SNS topic that CloudTrail uses to send notifications when log files are
-     * delivered. The format of a topic ARN is:
+     * delivered. The following is the format of a topic ARN.
      * </p>
      * <p>
      * <code>arn:aws:sns:us-east-2:123456789012:MyTopic</code>
      * </p>
      * 
      * @return Specifies the ARN of the Amazon SNS topic that CloudTrail uses to send notifications when log files are
-     *         delivered. The format of a topic ARN is:</p>
+     *         delivered. The following is the format of a topic ARN.</p>
      *         <p>
      *         <code>arn:aws:sns:us-east-2:123456789012:MyTopic</code>
      */
@@ -369,7 +376,7 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Specifies the ARN of the Amazon SNS topic that CloudTrail uses to send notifications when log files are
-     * delivered. The format of a topic ARN is:
+     * delivered. The following is the format of a topic ARN.
      * </p>
      * <p>
      * <code>arn:aws:sns:us-east-2:123456789012:MyTopic</code>
@@ -377,7 +384,7 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param snsTopicARN
      *        Specifies the ARN of the Amazon SNS topic that CloudTrail uses to send notifications when log files are
-     *        delivered. The format of a topic ARN is:</p>
+     *        delivered. The following is the format of a topic ARN.</p>
      *        <p>
      *        <code>arn:aws:sns:us-east-2:123456789012:MyTopic</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -390,11 +397,13 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Set to <b>True</b> to include AWS API calls from AWS global services such as IAM. Otherwise, <b>False</b>.
+     * Set to <b>True</b> to include Amazon Web Services API calls from Amazon Web Services global services such as IAM.
+     * Otherwise, <b>False</b>.
      * </p>
      * 
      * @param includeGlobalServiceEvents
-     *        Set to <b>True</b> to include AWS API calls from AWS global services such as IAM. Otherwise, <b>False</b>.
+     *        Set to <b>True</b> to include Amazon Web Services API calls from Amazon Web Services global services such
+     *        as IAM. Otherwise, <b>False</b>.
      */
 
     public void setIncludeGlobalServiceEvents(Boolean includeGlobalServiceEvents) {
@@ -403,11 +412,12 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Set to <b>True</b> to include AWS API calls from AWS global services such as IAM. Otherwise, <b>False</b>.
+     * Set to <b>True</b> to include Amazon Web Services API calls from Amazon Web Services global services such as IAM.
+     * Otherwise, <b>False</b>.
      * </p>
      * 
-     * @return Set to <b>True</b> to include AWS API calls from AWS global services such as IAM. Otherwise,
-     *         <b>False</b>.
+     * @return Set to <b>True</b> to include Amazon Web Services API calls from Amazon Web Services global services such
+     *         as IAM. Otherwise, <b>False</b>.
      */
 
     public Boolean getIncludeGlobalServiceEvents() {
@@ -416,11 +426,13 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Set to <b>True</b> to include AWS API calls from AWS global services such as IAM. Otherwise, <b>False</b>.
+     * Set to <b>True</b> to include Amazon Web Services API calls from Amazon Web Services global services such as IAM.
+     * Otherwise, <b>False</b>.
      * </p>
      * 
      * @param includeGlobalServiceEvents
-     *        Set to <b>True</b> to include AWS API calls from AWS global services such as IAM. Otherwise, <b>False</b>.
+     *        Set to <b>True</b> to include Amazon Web Services API calls from Amazon Web Services global services such
+     *        as IAM. Otherwise, <b>False</b>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -431,11 +443,12 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Set to <b>True</b> to include AWS API calls from AWS global services such as IAM. Otherwise, <b>False</b>.
+     * Set to <b>True</b> to include Amazon Web Services API calls from Amazon Web Services global services such as IAM.
+     * Otherwise, <b>False</b>.
      * </p>
      * 
-     * @return Set to <b>True</b> to include AWS API calls from AWS global services such as IAM. Otherwise,
-     *         <b>False</b>.
+     * @return Set to <b>True</b> to include Amazon Web Services API calls from Amazon Web Services global services such
+     *         as IAM. Otherwise, <b>False</b>.
      */
 
     public Boolean isIncludeGlobalServiceEvents() {
@@ -444,11 +457,11 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether the trail belongs only to one region or exists in all regions.
+     * Specifies whether the trail exists only in one Region or exists in all Regions.
      * </p>
      * 
      * @param isMultiRegionTrail
-     *        Specifies whether the trail belongs only to one region or exists in all regions.
+     *        Specifies whether the trail exists only in one Region or exists in all Regions.
      */
 
     public void setIsMultiRegionTrail(Boolean isMultiRegionTrail) {
@@ -457,10 +470,10 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether the trail belongs only to one region or exists in all regions.
+     * Specifies whether the trail exists only in one Region or exists in all Regions.
      * </p>
      * 
-     * @return Specifies whether the trail belongs only to one region or exists in all regions.
+     * @return Specifies whether the trail exists only in one Region or exists in all Regions.
      */
 
     public Boolean getIsMultiRegionTrail() {
@@ -469,11 +482,11 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether the trail belongs only to one region or exists in all regions.
+     * Specifies whether the trail exists only in one Region or exists in all Regions.
      * </p>
      * 
      * @param isMultiRegionTrail
-     *        Specifies whether the trail belongs only to one region or exists in all regions.
+     *        Specifies whether the trail exists only in one Region or exists in all Regions.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -484,10 +497,10 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies whether the trail belongs only to one region or exists in all regions.
+     * Specifies whether the trail exists only in one Region or exists in all Regions.
      * </p>
      * 
-     * @return Specifies whether the trail belongs only to one region or exists in all regions.
+     * @return Specifies whether the trail exists only in one Region or exists in all Regions.
      */
 
     public Boolean isMultiRegionTrail() {
@@ -496,11 +509,11 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The region in which the trail was created.
+     * The Region in which the trail was created.
      * </p>
      * 
      * @param homeRegion
-     *        The region in which the trail was created.
+     *        The Region in which the trail was created.
      */
 
     public void setHomeRegion(String homeRegion) {
@@ -509,10 +522,10 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The region in which the trail was created.
+     * The Region in which the trail was created.
      * </p>
      * 
-     * @return The region in which the trail was created.
+     * @return The Region in which the trail was created.
      */
 
     public String getHomeRegion() {
@@ -521,11 +534,11 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The region in which the trail was created.
+     * The Region in which the trail was created.
      * </p>
      * 
      * @param homeRegion
-     *        The region in which the trail was created.
+     *        The Region in which the trail was created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -536,14 +549,14 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the ARN of the trail. The format of a trail ARN is:
+     * Specifies the ARN of the trail. The following is the format of a trail ARN.
      * </p>
      * <p>
      * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
      * </p>
      * 
      * @param trailARN
-     *        Specifies the ARN of the trail. The format of a trail ARN is:</p>
+     *        Specifies the ARN of the trail. The following is the format of a trail ARN.</p>
      *        <p>
      *        <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
      */
@@ -554,13 +567,13 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the ARN of the trail. The format of a trail ARN is:
+     * Specifies the ARN of the trail. The following is the format of a trail ARN.
      * </p>
      * <p>
      * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
      * </p>
      * 
-     * @return Specifies the ARN of the trail. The format of a trail ARN is:</p>
+     * @return Specifies the ARN of the trail. The following is the format of a trail ARN.</p>
      *         <p>
      *         <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
      */
@@ -571,14 +584,14 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies the ARN of the trail. The format of a trail ARN is:
+     * Specifies the ARN of the trail. The following is the format of a trail ARN.
      * </p>
      * <p>
      * <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
      * </p>
      * 
      * @param trailARN
-     *        Specifies the ARN of the trail. The format of a trail ARN is:</p>
+     *        Specifies the ARN of the trail. The following is the format of a trail ARN.</p>
      *        <p>
      *        <code>arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -730,7 +743,7 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Specifies the KMS key ID that encrypts the logs delivered by CloudTrail. The value is a fully specified ARN to a
-     * KMS key in the format:
+     * KMS key in the following format.
      * </p>
      * <p>
      * <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
@@ -738,7 +751,7 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param kmsKeyId
      *        Specifies the KMS key ID that encrypts the logs delivered by CloudTrail. The value is a fully specified
-     *        ARN to a KMS key in the format:</p>
+     *        ARN to a KMS key in the following format.</p>
      *        <p>
      *        <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      */
@@ -750,14 +763,14 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Specifies the KMS key ID that encrypts the logs delivered by CloudTrail. The value is a fully specified ARN to a
-     * KMS key in the format:
+     * KMS key in the following format.
      * </p>
      * <p>
      * <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      * </p>
      * 
      * @return Specifies the KMS key ID that encrypts the logs delivered by CloudTrail. The value is a fully specified
-     *         ARN to a KMS key in the format:</p>
+     *         ARN to a KMS key in the following format.</p>
      *         <p>
      *         <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      */
@@ -769,7 +782,7 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Specifies the KMS key ID that encrypts the logs delivered by CloudTrail. The value is a fully specified ARN to a
-     * KMS key in the format:
+     * KMS key in the following format.
      * </p>
      * <p>
      * <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
@@ -777,7 +790,7 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param kmsKeyId
      *        Specifies the KMS key ID that encrypts the logs delivered by CloudTrail. The value is a fully specified
-     *        ARN to a KMS key in the format:</p>
+     *        ARN to a KMS key in the following format.</p>
      *        <p>
      *        <code>arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -838,6 +851,58 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
 
     public Boolean isHasCustomEventSelectors() {
         return this.hasCustomEventSelectors;
+    }
+
+    /**
+     * <p>
+     * Specifies whether a trail has insight types specified in an <code>InsightSelector</code> list.
+     * </p>
+     * 
+     * @param hasInsightSelectors
+     *        Specifies whether a trail has insight types specified in an <code>InsightSelector</code> list.
+     */
+
+    public void setHasInsightSelectors(Boolean hasInsightSelectors) {
+        this.hasInsightSelectors = hasInsightSelectors;
+    }
+
+    /**
+     * <p>
+     * Specifies whether a trail has insight types specified in an <code>InsightSelector</code> list.
+     * </p>
+     * 
+     * @return Specifies whether a trail has insight types specified in an <code>InsightSelector</code> list.
+     */
+
+    public Boolean getHasInsightSelectors() {
+        return this.hasInsightSelectors;
+    }
+
+    /**
+     * <p>
+     * Specifies whether a trail has insight types specified in an <code>InsightSelector</code> list.
+     * </p>
+     * 
+     * @param hasInsightSelectors
+     *        Specifies whether a trail has insight types specified in an <code>InsightSelector</code> list.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Trail withHasInsightSelectors(Boolean hasInsightSelectors) {
+        setHasInsightSelectors(hasInsightSelectors);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether a trail has insight types specified in an <code>InsightSelector</code> list.
+     * </p>
+     * 
+     * @return Specifies whether a trail has insight types specified in an <code>InsightSelector</code> list.
+     */
+
+    public Boolean isHasInsightSelectors() {
+        return this.hasInsightSelectors;
     }
 
     /**
@@ -932,6 +997,8 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
             sb.append("KmsKeyId: ").append(getKmsKeyId()).append(",");
         if (getHasCustomEventSelectors() != null)
             sb.append("HasCustomEventSelectors: ").append(getHasCustomEventSelectors()).append(",");
+        if (getHasInsightSelectors() != null)
+            sb.append("HasInsightSelectors: ").append(getHasInsightSelectors()).append(",");
         if (getIsOrganizationTrail() != null)
             sb.append("IsOrganizationTrail: ").append(getIsOrganizationTrail());
         sb.append("}");
@@ -1004,6 +1071,10 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getHasCustomEventSelectors() != null && other.getHasCustomEventSelectors().equals(this.getHasCustomEventSelectors()) == false)
             return false;
+        if (other.getHasInsightSelectors() == null ^ this.getHasInsightSelectors() == null)
+            return false;
+        if (other.getHasInsightSelectors() != null && other.getHasInsightSelectors().equals(this.getHasInsightSelectors()) == false)
+            return false;
         if (other.getIsOrganizationTrail() == null ^ this.getIsOrganizationTrail() == null)
             return false;
         if (other.getIsOrganizationTrail() != null && other.getIsOrganizationTrail().equals(this.getIsOrganizationTrail()) == false)
@@ -1030,6 +1101,7 @@ public class Trail implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getCloudWatchLogsRoleArn() == null) ? 0 : getCloudWatchLogsRoleArn().hashCode());
         hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
         hashCode = prime * hashCode + ((getHasCustomEventSelectors() == null) ? 0 : getHasCustomEventSelectors().hashCode());
+        hashCode = prime * hashCode + ((getHasInsightSelectors() == null) ? 0 : getHasInsightSelectors().hashCode());
         hashCode = prime * hashCode + ((getIsOrganizationTrail() == null) ? 0 : getIsOrganizationTrail().hashCode());
         return hashCode;
     }

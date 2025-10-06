@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,8 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Throughput exceeds the current throughput limit for your account. Please contact AWS Support at <a
- * href="https://aws.amazon.com/support">AWS Support</a> to request a limit increase.
+ * Throughput exceeds the current throughput quota for your account. Please contact <a
+ * href="https://aws.amazon.com/support">Amazon Web Services Support</a> to request a quota increase.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes a resource share.
+ * Describes a resource share in RAM.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ram-2018-01-04/ResourceShare" target="_top">AWS API
@@ -30,7 +30,8 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource share.
+     * The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of the resource share
      * </p>
      */
     private String resourceShareArn;
@@ -42,19 +43,32 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
     private String name;
     /**
      * <p>
-     * The ID of the AWS account that owns the resource share.
+     * The ID of the Amazon Web Services account that owns the resource share.
      * </p>
      */
     private String owningAccountId;
     /**
      * <p>
-     * Indicates whether principals outside your organization can be associated with a resource share.
+     * Indicates whether principals outside your organization in Organizations can be associated with a resource share.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>True</code> – the resource share can be shared with any Amazon Web Services account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>False</code> – the resource share can be shared with only accounts in the same organization as the account
+     * that owns the resource share.
+     * </p>
+     * </li>
+     * </ul>
      */
     private Boolean allowExternalPrincipals;
     /**
      * <p>
-     * The status of the resource share.
+     * The current status of the resource share.
      * </p>
      */
     private String status;
@@ -66,30 +80,65 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
     private String statusMessage;
     /**
      * <p>
-     * The tags for the resource share.
+     * The tag key and value pairs attached to the resource share.
      * </p>
      */
     private java.util.List<Tag> tags;
     /**
      * <p>
-     * The time when the resource share was created.
+     * The date and time when the resource share was created.
      * </p>
      */
     private java.util.Date creationTime;
     /**
      * <p>
-     * The time when the resource share was last updated.
+     * The date and time when the resource share was last updated.
      * </p>
      */
     private java.util.Date lastUpdatedTime;
+    /**
+     * <p>
+     * Indicates what features are available for this resource share. This parameter can have one of the following
+     * values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>STANDARD</b> – A resource share that supports all functionality. These resource shares are visible to all
+     * principals you share the resource share with. You can modify these resource shares in RAM using the console or
+     * APIs. This resource share might have been created by RAM, or it might have been <b>CREATED_FROM_POLICY</b> and
+     * then promoted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>CREATED_FROM_POLICY</b> – The customer manually shared a resource by attaching a resource-based policy. That
+     * policy did not match any existing managed permissions, so RAM created this customer managed permission
+     * automatically on the customer's behalf based on the attached policy document. This type of resource share is
+     * visible only to the Amazon Web Services account that created it. You can't modify it in RAM unless you promote
+     * it. For more information, see <a>PromoteResourceShareCreatedFromPolicy</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>PROMOTING_TO_STANDARD</b> – This resource share was originally <code>CREATED_FROM_POLICY</code>, but the
+     * customer ran the <a>PromoteResourceShareCreatedFromPolicy</a> and that operation is still in progress. This value
+     * changes to <code>STANDARD</code> when complete.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String featureSet;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource share.
+     * The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of the resource share
      * </p>
      * 
      * @param resourceShareArn
-     *        The Amazon Resource Name (ARN) of the resource share.
+     *        The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource
+     *        Name (ARN)</a> of the resource share
      */
 
     public void setResourceShareArn(String resourceShareArn) {
@@ -98,10 +147,12 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource share.
+     * The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of the resource share
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the resource share.
+     * @return The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource
+     *         Name (ARN)</a> of the resource share
      */
 
     public String getResourceShareArn() {
@@ -110,11 +161,13 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the resource share.
+     * The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name
+     * (ARN)</a> of the resource share
      * </p>
      * 
      * @param resourceShareArn
-     *        The Amazon Resource Name (ARN) of the resource share.
+     *        The <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource
+     *        Name (ARN)</a> of the resource share
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -165,11 +218,11 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the resource share.
+     * The ID of the Amazon Web Services account that owns the resource share.
      * </p>
      * 
      * @param owningAccountId
-     *        The ID of the AWS account that owns the resource share.
+     *        The ID of the Amazon Web Services account that owns the resource share.
      */
 
     public void setOwningAccountId(String owningAccountId) {
@@ -178,10 +231,10 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the resource share.
+     * The ID of the Amazon Web Services account that owns the resource share.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the resource share.
+     * @return The ID of the Amazon Web Services account that owns the resource share.
      */
 
     public String getOwningAccountId() {
@@ -190,11 +243,11 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the resource share.
+     * The ID of the Amazon Web Services account that owns the resource share.
      * </p>
      * 
      * @param owningAccountId
-     *        The ID of the AWS account that owns the resource share.
+     *        The ID of the Amazon Web Services account that owns the resource share.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -205,11 +258,37 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether principals outside your organization can be associated with a resource share.
+     * Indicates whether principals outside your organization in Organizations can be associated with a resource share.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>True</code> – the resource share can be shared with any Amazon Web Services account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>False</code> – the resource share can be shared with only accounts in the same organization as the account
+     * that owns the resource share.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param allowExternalPrincipals
-     *        Indicates whether principals outside your organization can be associated with a resource share.
+     *        Indicates whether principals outside your organization in Organizations can be associated with a resource
+     *        share.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>True</code> – the resource share can be shared with any Amazon Web Services account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>False</code> – the resource share can be shared with only accounts in the same organization as the
+     *        account that owns the resource share.
+     *        </p>
+     *        </li>
      */
 
     public void setAllowExternalPrincipals(Boolean allowExternalPrincipals) {
@@ -218,10 +297,36 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether principals outside your organization can be associated with a resource share.
+     * Indicates whether principals outside your organization in Organizations can be associated with a resource share.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>True</code> – the resource share can be shared with any Amazon Web Services account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>False</code> – the resource share can be shared with only accounts in the same organization as the account
+     * that owns the resource share.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return Indicates whether principals outside your organization can be associated with a resource share.
+     * @return Indicates whether principals outside your organization in Organizations can be associated with a resource
+     *         share.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>True</code> – the resource share can be shared with any Amazon Web Services account.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>False</code> – the resource share can be shared with only accounts in the same organization as the
+     *         account that owns the resource share.
+     *         </p>
+     *         </li>
      */
 
     public Boolean getAllowExternalPrincipals() {
@@ -230,11 +335,37 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether principals outside your organization can be associated with a resource share.
+     * Indicates whether principals outside your organization in Organizations can be associated with a resource share.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>True</code> – the resource share can be shared with any Amazon Web Services account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>False</code> – the resource share can be shared with only accounts in the same organization as the account
+     * that owns the resource share.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param allowExternalPrincipals
-     *        Indicates whether principals outside your organization can be associated with a resource share.
+     *        Indicates whether principals outside your organization in Organizations can be associated with a resource
+     *        share.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>True</code> – the resource share can be shared with any Amazon Web Services account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>False</code> – the resource share can be shared with only accounts in the same organization as the
+     *        account that owns the resource share.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -245,10 +376,36 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether principals outside your organization can be associated with a resource share.
+     * Indicates whether principals outside your organization in Organizations can be associated with a resource share.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>True</code> – the resource share can be shared with any Amazon Web Services account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>False</code> – the resource share can be shared with only accounts in the same organization as the account
+     * that owns the resource share.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return Indicates whether principals outside your organization can be associated with a resource share.
+     * @return Indicates whether principals outside your organization in Organizations can be associated with a resource
+     *         share.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>True</code> – the resource share can be shared with any Amazon Web Services account.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>False</code> – the resource share can be shared with only accounts in the same organization as the
+     *         account that owns the resource share.
+     *         </p>
+     *         </li>
      */
 
     public Boolean isAllowExternalPrincipals() {
@@ -257,11 +414,11 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the resource share.
+     * The current status of the resource share.
      * </p>
      * 
      * @param status
-     *        The status of the resource share.
+     *        The current status of the resource share.
      * @see ResourceShareStatus
      */
 
@@ -271,10 +428,10 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the resource share.
+     * The current status of the resource share.
      * </p>
      * 
-     * @return The status of the resource share.
+     * @return The current status of the resource share.
      * @see ResourceShareStatus
      */
 
@@ -284,11 +441,11 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the resource share.
+     * The current status of the resource share.
      * </p>
      * 
      * @param status
-     *        The status of the resource share.
+     *        The current status of the resource share.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceShareStatus
      */
@@ -300,11 +457,11 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status of the resource share.
+     * The current status of the resource share.
      * </p>
      * 
      * @param status
-     *        The status of the resource share.
+     *        The current status of the resource share.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceShareStatus
      */
@@ -356,10 +513,10 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tags for the resource share.
+     * The tag key and value pairs attached to the resource share.
      * </p>
      * 
-     * @return The tags for the resource share.
+     * @return The tag key and value pairs attached to the resource share.
      */
 
     public java.util.List<Tag> getTags() {
@@ -368,11 +525,11 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tags for the resource share.
+     * The tag key and value pairs attached to the resource share.
      * </p>
      * 
      * @param tags
-     *        The tags for the resource share.
+     *        The tag key and value pairs attached to the resource share.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -386,7 +543,7 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tags for the resource share.
+     * The tag key and value pairs attached to the resource share.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -395,7 +552,7 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param tags
-     *        The tags for the resource share.
+     *        The tag key and value pairs attached to the resource share.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -411,11 +568,11 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tags for the resource share.
+     * The tag key and value pairs attached to the resource share.
      * </p>
      * 
      * @param tags
-     *        The tags for the resource share.
+     *        The tag key and value pairs attached to the resource share.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -426,11 +583,11 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time when the resource share was created.
+     * The date and time when the resource share was created.
      * </p>
      * 
      * @param creationTime
-     *        The time when the resource share was created.
+     *        The date and time when the resource share was created.
      */
 
     public void setCreationTime(java.util.Date creationTime) {
@@ -439,10 +596,10 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time when the resource share was created.
+     * The date and time when the resource share was created.
      * </p>
      * 
-     * @return The time when the resource share was created.
+     * @return The date and time when the resource share was created.
      */
 
     public java.util.Date getCreationTime() {
@@ -451,11 +608,11 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time when the resource share was created.
+     * The date and time when the resource share was created.
      * </p>
      * 
      * @param creationTime
-     *        The time when the resource share was created.
+     *        The date and time when the resource share was created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -466,11 +623,11 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time when the resource share was last updated.
+     * The date and time when the resource share was last updated.
      * </p>
      * 
      * @param lastUpdatedTime
-     *        The time when the resource share was last updated.
+     *        The date and time when the resource share was last updated.
      */
 
     public void setLastUpdatedTime(java.util.Date lastUpdatedTime) {
@@ -479,10 +636,10 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time when the resource share was last updated.
+     * The date and time when the resource share was last updated.
      * </p>
      * 
-     * @return The time when the resource share was last updated.
+     * @return The date and time when the resource share was last updated.
      */
 
     public java.util.Date getLastUpdatedTime() {
@@ -491,16 +648,287 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time when the resource share was last updated.
+     * The date and time when the resource share was last updated.
      * </p>
      * 
      * @param lastUpdatedTime
-     *        The time when the resource share was last updated.
+     *        The date and time when the resource share was last updated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ResourceShare withLastUpdatedTime(java.util.Date lastUpdatedTime) {
         setLastUpdatedTime(lastUpdatedTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates what features are available for this resource share. This parameter can have one of the following
+     * values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>STANDARD</b> – A resource share that supports all functionality. These resource shares are visible to all
+     * principals you share the resource share with. You can modify these resource shares in RAM using the console or
+     * APIs. This resource share might have been created by RAM, or it might have been <b>CREATED_FROM_POLICY</b> and
+     * then promoted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>CREATED_FROM_POLICY</b> – The customer manually shared a resource by attaching a resource-based policy. That
+     * policy did not match any existing managed permissions, so RAM created this customer managed permission
+     * automatically on the customer's behalf based on the attached policy document. This type of resource share is
+     * visible only to the Amazon Web Services account that created it. You can't modify it in RAM unless you promote
+     * it. For more information, see <a>PromoteResourceShareCreatedFromPolicy</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>PROMOTING_TO_STANDARD</b> – This resource share was originally <code>CREATED_FROM_POLICY</code>, but the
+     * customer ran the <a>PromoteResourceShareCreatedFromPolicy</a> and that operation is still in progress. This value
+     * changes to <code>STANDARD</code> when complete.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param featureSet
+     *        Indicates what features are available for this resource share. This parameter can have one of the
+     *        following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>STANDARD</b> – A resource share that supports all functionality. These resource shares are visible to
+     *        all principals you share the resource share with. You can modify these resource shares in RAM using the
+     *        console or APIs. This resource share might have been created by RAM, or it might have been
+     *        <b>CREATED_FROM_POLICY</b> and then promoted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>CREATED_FROM_POLICY</b> – The customer manually shared a resource by attaching a resource-based policy.
+     *        That policy did not match any existing managed permissions, so RAM created this customer managed
+     *        permission automatically on the customer's behalf based on the attached policy document. This type of
+     *        resource share is visible only to the Amazon Web Services account that created it. You can't modify it in
+     *        RAM unless you promote it. For more information, see <a>PromoteResourceShareCreatedFromPolicy</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>PROMOTING_TO_STANDARD</b> – This resource share was originally <code>CREATED_FROM_POLICY</code>, but
+     *        the customer ran the <a>PromoteResourceShareCreatedFromPolicy</a> and that operation is still in progress.
+     *        This value changes to <code>STANDARD</code> when complete.
+     *        </p>
+     *        </li>
+     * @see ResourceShareFeatureSet
+     */
+
+    public void setFeatureSet(String featureSet) {
+        this.featureSet = featureSet;
+    }
+
+    /**
+     * <p>
+     * Indicates what features are available for this resource share. This parameter can have one of the following
+     * values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>STANDARD</b> – A resource share that supports all functionality. These resource shares are visible to all
+     * principals you share the resource share with. You can modify these resource shares in RAM using the console or
+     * APIs. This resource share might have been created by RAM, or it might have been <b>CREATED_FROM_POLICY</b> and
+     * then promoted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>CREATED_FROM_POLICY</b> – The customer manually shared a resource by attaching a resource-based policy. That
+     * policy did not match any existing managed permissions, so RAM created this customer managed permission
+     * automatically on the customer's behalf based on the attached policy document. This type of resource share is
+     * visible only to the Amazon Web Services account that created it. You can't modify it in RAM unless you promote
+     * it. For more information, see <a>PromoteResourceShareCreatedFromPolicy</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>PROMOTING_TO_STANDARD</b> – This resource share was originally <code>CREATED_FROM_POLICY</code>, but the
+     * customer ran the <a>PromoteResourceShareCreatedFromPolicy</a> and that operation is still in progress. This value
+     * changes to <code>STANDARD</code> when complete.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Indicates what features are available for this resource share. This parameter can have one of the
+     *         following values:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <b>STANDARD</b> – A resource share that supports all functionality. These resource shares are visible to
+     *         all principals you share the resource share with. You can modify these resource shares in RAM using the
+     *         console or APIs. This resource share might have been created by RAM, or it might have been
+     *         <b>CREATED_FROM_POLICY</b> and then promoted.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>CREATED_FROM_POLICY</b> – The customer manually shared a resource by attaching a resource-based
+     *         policy. That policy did not match any existing managed permissions, so RAM created this customer managed
+     *         permission automatically on the customer's behalf based on the attached policy document. This type of
+     *         resource share is visible only to the Amazon Web Services account that created it. You can't modify it in
+     *         RAM unless you promote it. For more information, see <a>PromoteResourceShareCreatedFromPolicy</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>PROMOTING_TO_STANDARD</b> – This resource share was originally <code>CREATED_FROM_POLICY</code>, but
+     *         the customer ran the <a>PromoteResourceShareCreatedFromPolicy</a> and that operation is still in
+     *         progress. This value changes to <code>STANDARD</code> when complete.
+     *         </p>
+     *         </li>
+     * @see ResourceShareFeatureSet
+     */
+
+    public String getFeatureSet() {
+        return this.featureSet;
+    }
+
+    /**
+     * <p>
+     * Indicates what features are available for this resource share. This parameter can have one of the following
+     * values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>STANDARD</b> – A resource share that supports all functionality. These resource shares are visible to all
+     * principals you share the resource share with. You can modify these resource shares in RAM using the console or
+     * APIs. This resource share might have been created by RAM, or it might have been <b>CREATED_FROM_POLICY</b> and
+     * then promoted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>CREATED_FROM_POLICY</b> – The customer manually shared a resource by attaching a resource-based policy. That
+     * policy did not match any existing managed permissions, so RAM created this customer managed permission
+     * automatically on the customer's behalf based on the attached policy document. This type of resource share is
+     * visible only to the Amazon Web Services account that created it. You can't modify it in RAM unless you promote
+     * it. For more information, see <a>PromoteResourceShareCreatedFromPolicy</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>PROMOTING_TO_STANDARD</b> – This resource share was originally <code>CREATED_FROM_POLICY</code>, but the
+     * customer ran the <a>PromoteResourceShareCreatedFromPolicy</a> and that operation is still in progress. This value
+     * changes to <code>STANDARD</code> when complete.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param featureSet
+     *        Indicates what features are available for this resource share. This parameter can have one of the
+     *        following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>STANDARD</b> – A resource share that supports all functionality. These resource shares are visible to
+     *        all principals you share the resource share with. You can modify these resource shares in RAM using the
+     *        console or APIs. This resource share might have been created by RAM, or it might have been
+     *        <b>CREATED_FROM_POLICY</b> and then promoted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>CREATED_FROM_POLICY</b> – The customer manually shared a resource by attaching a resource-based policy.
+     *        That policy did not match any existing managed permissions, so RAM created this customer managed
+     *        permission automatically on the customer's behalf based on the attached policy document. This type of
+     *        resource share is visible only to the Amazon Web Services account that created it. You can't modify it in
+     *        RAM unless you promote it. For more information, see <a>PromoteResourceShareCreatedFromPolicy</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>PROMOTING_TO_STANDARD</b> – This resource share was originally <code>CREATED_FROM_POLICY</code>, but
+     *        the customer ran the <a>PromoteResourceShareCreatedFromPolicy</a> and that operation is still in progress.
+     *        This value changes to <code>STANDARD</code> when complete.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ResourceShareFeatureSet
+     */
+
+    public ResourceShare withFeatureSet(String featureSet) {
+        setFeatureSet(featureSet);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates what features are available for this resource share. This parameter can have one of the following
+     * values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>STANDARD</b> – A resource share that supports all functionality. These resource shares are visible to all
+     * principals you share the resource share with. You can modify these resource shares in RAM using the console or
+     * APIs. This resource share might have been created by RAM, or it might have been <b>CREATED_FROM_POLICY</b> and
+     * then promoted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>CREATED_FROM_POLICY</b> – The customer manually shared a resource by attaching a resource-based policy. That
+     * policy did not match any existing managed permissions, so RAM created this customer managed permission
+     * automatically on the customer's behalf based on the attached policy document. This type of resource share is
+     * visible only to the Amazon Web Services account that created it. You can't modify it in RAM unless you promote
+     * it. For more information, see <a>PromoteResourceShareCreatedFromPolicy</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>PROMOTING_TO_STANDARD</b> – This resource share was originally <code>CREATED_FROM_POLICY</code>, but the
+     * customer ran the <a>PromoteResourceShareCreatedFromPolicy</a> and that operation is still in progress. This value
+     * changes to <code>STANDARD</code> when complete.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param featureSet
+     *        Indicates what features are available for this resource share. This parameter can have one of the
+     *        following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>STANDARD</b> – A resource share that supports all functionality. These resource shares are visible to
+     *        all principals you share the resource share with. You can modify these resource shares in RAM using the
+     *        console or APIs. This resource share might have been created by RAM, or it might have been
+     *        <b>CREATED_FROM_POLICY</b> and then promoted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>CREATED_FROM_POLICY</b> – The customer manually shared a resource by attaching a resource-based policy.
+     *        That policy did not match any existing managed permissions, so RAM created this customer managed
+     *        permission automatically on the customer's behalf based on the attached policy document. This type of
+     *        resource share is visible only to the Amazon Web Services account that created it. You can't modify it in
+     *        RAM unless you promote it. For more information, see <a>PromoteResourceShareCreatedFromPolicy</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>PROMOTING_TO_STANDARD</b> – This resource share was originally <code>CREATED_FROM_POLICY</code>, but
+     *        the customer ran the <a>PromoteResourceShareCreatedFromPolicy</a> and that operation is still in progress.
+     *        This value changes to <code>STANDARD</code> when complete.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ResourceShareFeatureSet
+     */
+
+    public ResourceShare withFeatureSet(ResourceShareFeatureSet featureSet) {
+        this.featureSet = featureSet.toString();
         return this;
     }
 
@@ -533,7 +961,9 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
         if (getCreationTime() != null)
             sb.append("CreationTime: ").append(getCreationTime()).append(",");
         if (getLastUpdatedTime() != null)
-            sb.append("LastUpdatedTime: ").append(getLastUpdatedTime());
+            sb.append("LastUpdatedTime: ").append(getLastUpdatedTime()).append(",");
+        if (getFeatureSet() != null)
+            sb.append("FeatureSet: ").append(getFeatureSet());
         sb.append("}");
         return sb.toString();
     }
@@ -584,6 +1014,10 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getLastUpdatedTime() != null && other.getLastUpdatedTime().equals(this.getLastUpdatedTime()) == false)
             return false;
+        if (other.getFeatureSet() == null ^ this.getFeatureSet() == null)
+            return false;
+        if (other.getFeatureSet() != null && other.getFeatureSet().equals(this.getFeatureSet()) == false)
+            return false;
         return true;
     }
 
@@ -601,6 +1035,7 @@ public class ResourceShare implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getCreationTime() == null) ? 0 : getCreationTime().hashCode());
         hashCode = prime * hashCode + ((getLastUpdatedTime() == null) ? 0 : getLastUpdatedTime().hashCode());
+        hashCode = prime * hashCode + ((getFeatureSet() == null) ? 0 : getFeatureSet().hashCode());
         return hashCode;
     }
 

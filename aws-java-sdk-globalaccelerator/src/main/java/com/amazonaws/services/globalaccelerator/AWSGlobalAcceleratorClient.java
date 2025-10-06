@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,96 +44,85 @@ import com.amazonaws.services.globalaccelerator.AWSGlobalAcceleratorClientBuilde
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.globalaccelerator.model.*;
+
 import com.amazonaws.services.globalaccelerator.model.transform.*;
 
 /**
  * Client for accessing AWS Global Accelerator. All service calls made using this client are blocking, and will not
  * return until the service call completes.
  * <p>
- * <fullname>AWS Global Accelerator</fullname>
+ * <fullname>Global Accelerator</fullname>
  * <p>
- * This is the <i>AWS Global Accelerator API Reference</i>. This guide is for developers who need detailed information
- * about AWS Global Accelerator API actions, data types, and errors. For more information about Global Accelerator
- * features, see the <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/Welcome.html">AWS Global
+ * This is the <i>Global Accelerator API Reference</i>. This guide is for developers who need detailed information about
+ * Global Accelerator API actions, data types, and errors. For more information about Global Accelerator features, see
+ * the <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html">Global
  * Accelerator Developer Guide</a>.
  * </p>
  * <p>
- * AWS Global Accelerator is a network layer service in which you create accelerators to improve availability and
- * performance for internet applications used by a global audience.
+ * Global Accelerator is a service in which you create <i>accelerators</i> to improve the performance of your
+ * applications for local and global users. Depending on the type of accelerator you choose, you can gain additional
+ * benefits.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * By using a standard accelerator, you can improve availability of your internet applications that are used by a global
+ * audience. With a standard accelerator, Global Accelerator directs traffic to optimal endpoints over the Amazon Web
+ * Services global network.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * For other scenarios, you might choose a custom routing accelerator. With a custom routing accelerator, you can use
+ * application logic to directly map one or more users to a specific endpoint among many endpoints.
+ * </p>
+ * </li>
+ * </ul>
+ * <important>
+ * <p>
+ * Global Accelerator is a global service that supports endpoints in multiple Amazon Web Services Regions but you must
+ * specify the US West (Oregon) Region to create, update, or otherwise work with accelerators. That is, for example,
+ * specify <code>--region us-west-2</code> on Amazon Web Services CLI commands.
+ * </p>
+ * </important>
+ * <p>
+ * By default, Global Accelerator provides you with static IP addresses that you associate with your accelerator. The
+ * static IP addresses are anycast from the Amazon Web Services edge network. For IPv4, Global Accelerator provides two
+ * static IPv4 addresses. For dual-stack, Global Accelerator provides a total of four addresses: two static IPv4
+ * addresses and two static IPv6 addresses. With a standard accelerator for IPv4, instead of using the addresses that
+ * Global Accelerator provides, you can configure these entry points to be IPv4 addresses from your own IP address
+ * ranges that you bring to Global Accelerator (BYOIP).
  * </p>
  * <p>
- * Global Accelerator provides you with static IP addresses that you associate with your accelerator. These IP addresses
- * are anycast from the AWS edge network and distribute incoming application traffic across multiple endpoint resources
- * in multiple AWS Regions, which increases the availability of your applications. Endpoints can be Elastic IP
- * addresses, Network Load Balancers, and Application Load Balancers that are located in one AWS Region or multiple
- * Regions.
+ * For a standard accelerator, they distribute incoming application traffic across multiple endpoint resources in
+ * multiple Amazon Web Services Regions , which increases the availability of your applications. Endpoints for standard
+ * accelerators can be Network Load Balancers, Application Load Balancers, Amazon EC2 instances, or Elastic IP addresses
+ * that are located in one Amazon Web Services Region or multiple Amazon Web Services Regions. For custom routing
+ * accelerators, you map traffic that arrives to the static IP addresses to specific Amazon EC2 servers in endpoints
+ * that are virtual private cloud (VPC) subnets.
+ * </p>
+ * <important>
+ * <p>
+ * The static IP addresses remain assigned to your accelerator for as long as it exists, even if you disable the
+ * accelerator and it no longer accepts or routes traffic. However, when you <i>delete</i> an accelerator, you lose the
+ * static IP addresses that are assigned to it, so you can no longer route traffic by using them. You can use IAM
+ * policies like tag-based permissions with Global Accelerator to limit the users who have permissions to delete an
+ * accelerator. For more information, see <a
+ * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/access-control-manage-access-tag-policies.html"
+ * >Tag-based policies</a>.
+ * </p>
+ * </important>
+ * <p>
+ * For standard accelerators, Global Accelerator uses the Amazon Web Services global network to route traffic to the
+ * optimal regional endpoint based on health, client location, and policies that you configure. The service reacts
+ * instantly to changes in health or configuration to ensure that internet traffic from clients is always directed to
+ * healthy endpoints.
  * </p>
  * <p>
- * Global Accelerator uses the AWS global network to route traffic to the optimal regional endpoint based on health,
- * client location, and policies that you configure. The service reacts instantly to changes in health or configuration
- * to ensure that internet traffic from clients is directed to only healthy endpoints.
+ * For more information about understanding and using Global Accelerator, see the <a
+ * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html">Global Accelerator
+ * Developer Guide</a>.
  * </p>
- * <p>
- * Global Accelerator includes components that work together to help you improve performance and availability for your
- * applications:
- * </p>
- * <dl>
- * <dt>Static IP address</dt>
- * <dd>
- * <p>
- * AWS Global Accelerator provides you with a set of static IP addresses which are anycast from the AWS edge network and
- * serve as the single fixed entry points for your clients. If you already have Elastic Load Balancing or Elastic IP
- * address resources set up for your applications, you can easily add those to Global Accelerator to allow the resources
- * to be accessed by a Global Accelerator static IP address.
- * </p>
- * </dd>
- * <dt>Accelerator</dt>
- * <dd>
- * <p>
- * An accelerator directs traffic to optimal endpoints over the AWS global network to improve availability and
- * performance for your internet applications that have a global audience. Each accelerator includes one or more
- * listeners.
- * </p>
- * </dd>
- * <dt>Network zone</dt>
- * <dd>
- * <p>
- * A network zone services the static IP addresses for your accelerator from a unique IP subnet. Similar to an AWS
- * Availability Zone, a network zone is an isolated unit with its own set of physical infrastructure. When you configure
- * an accelerator, Global Accelerator allocates two IPv4 addresses for it. If one IP address from a network zone becomes
- * unavailable due to IP address blocking by certain client networks, or network disruptions, then client applications
- * can retry on the healthy static IP address from the other isolated network zone.
- * </p>
- * </dd>
- * <dt>Listener</dt>
- * <dd>
- * <p>
- * A listener processes inbound connections from clients to Global Accelerator, based on the protocol and port that you
- * configure. Each listener has one or more endpoint groups associated with it, and traffic is forwarded to endpoints in
- * one of the groups. You associate endpoint groups with listeners by specifying the Regions that you want to distribute
- * traffic to. Traffic is distributed to optimal endpoints within the endpoint groups associated with a listener.
- * </p>
- * </dd>
- * <dt>Endpoint group</dt>
- * <dd>
- * <p>
- * Each endpoint group is associated with a specific AWS Region. Endpoint groups include one or more endpoints in the
- * Region. You can increase or reduce the percentage of traffic that would be otherwise directed to an endpoint group by
- * adjusting a setting called a <i>traffic dial</i>. The traffic dial lets you easily do performance testing or
- * blue/green deployment testing for new releases across different AWS Regions, for example.
- * </p>
- * </dd>
- * <dt>Endpoint</dt>
- * <dd>
- * <p>
- * An endpoint is an Elastic IP address, Network Load Balancer, or Application Load Balancer. Traffic is routed to
- * endpoints based on several factors, including the geo-proximity to the user, the health of the endpoint, and the
- * configuration options that you choose, such as endpoint weights. For each endpoint, you can configure weights, which
- * are numbers that you can use to specify the proportion of traffic to route to each one. This can be useful, for
- * example, to do performance testing within a Region.
- * </p>
- * </dd>
- * </dl>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -158,41 +147,65 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidArgumentException").withModeledClass(
-                                    com.amazonaws.services.globalaccelerator.model.InvalidArgumentException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("EndpointNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.EndpointNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ListenerNotFoundException").withModeledClass(
-                                    com.amazonaws.services.globalaccelerator.model.ListenerNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AssociatedListenerFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.AssociatedListenerFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AcceleratorNotFoundException").withModeledClass(
-                                    com.amazonaws.services.globalaccelerator.model.AcceleratorNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AssociatedEndpointGroupFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.AssociatedEndpointGroupFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AssociatedListenerFoundException").withModeledClass(
-                                    com.amazonaws.services.globalaccelerator.model.AssociatedListenerFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.InvalidNextTokenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServiceErrorException").withModeledClass(
-                                    com.amazonaws.services.globalaccelerator.model.InternalServiceErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("EndpointGroupAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.EndpointGroupAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AssociatedEndpointGroupFoundException").withModeledClass(
-                                    com.amazonaws.services.globalaccelerator.model.AssociatedEndpointGroupFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidPortRangeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.InvalidPortRangeExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("EndpointGroupNotFoundException").withModeledClass(
-                                    com.amazonaws.services.globalaccelerator.model.EndpointGroupNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AcceleratorNotDisabledException").withModeledClass(
-                                    com.amazonaws.services.globalaccelerator.model.AcceleratorNotDisabledException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("EndpointAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.EndpointAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withModeledClass(
-                                    com.amazonaws.services.globalaccelerator.model.InvalidNextTokenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.AccessDeniedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("EndpointGroupAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.globalaccelerator.model.EndpointGroupAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AttachmentNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.AttachmentNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidPortRangeException").withModeledClass(
-                                    com.amazonaws.services.globalaccelerator.model.InvalidPortRangeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.ConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.globalaccelerator.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidArgumentException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.InvalidArgumentExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ListenerNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.ListenerNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AcceleratorNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.AcceleratorNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("IncorrectCidrStateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.IncorrectCidrStateExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TransactionInProgressException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.TransactionInProgressExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ByoipCidrNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.ByoipCidrNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServiceErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.InternalServiceErrorExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("EndpointGroupNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.EndpointGroupNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AcceleratorNotDisabledException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.globalaccelerator.model.transform.AcceleratorNotDisabledExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.globalaccelerator.model.AWSGlobalAcceleratorException.class));
 
     public static AWSGlobalAcceleratorClientBuilder builder() {
@@ -243,19 +256,357 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
 
     /**
      * <p>
-     * Create an accelerator. An accelerator includes one or more listeners that process inbound connections and direct
-     * traffic to one or more endpoint groups, each of which includes endpoints, such as Network Load Balancers. To see
-     * an AWS CLI example of creating an accelerator, scroll down to <b>Example</b>.
+     * Associate a virtual private cloud (VPC) subnet endpoint with your custom routing accelerator.
      * </p>
+     * <p>
+     * The listener port range must be large enough to support the number of IP addresses that can be specified in your
+     * subnet. The number of ports required is: subnet size times the number of ports per destination EC2 instances. For
+     * example, a subnet defined as /24 requires a listener port range of at least 255 ports.
+     * </p>
+     * <p>
+     * Note: You must have enough remaining listener ports available to map to the subnet ports, or the call will fail
+     * with a LimitExceededException.
+     * </p>
+     * <p>
+     * By default, all destinations in a subnet in a custom routing accelerator cannot receive traffic. To enable all
+     * destinations to receive traffic, or to specify individual port mappings that can receive traffic, see the <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/api/API_AllowCustomRoutingTraffic.html">
+     * AllowCustomRoutingTraffic</a> operation.
+     * </p>
+     * 
+     * @param addCustomRoutingEndpointsRequest
+     * @return Result of the AddCustomRoutingEndpoints operation returned by the service.
+     * @throws EndpointAlreadyExistsException
+     *         The endpoint that you specified doesn't exist.
+     * @throws EndpointGroupNotFoundException
+     *         The endpoint group that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws LimitExceededException
+     *         Processing your request would cause you to exceed an Global Accelerator limit.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws ConflictException
+     *         You can't use both of those options.
+     * @sample AWSGlobalAccelerator.AddCustomRoutingEndpoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/AddCustomRoutingEndpoints"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public AddCustomRoutingEndpointsResult addCustomRoutingEndpoints(AddCustomRoutingEndpointsRequest request) {
+        request = beforeClientExecution(request);
+        return executeAddCustomRoutingEndpoints(request);
+    }
+
+    @SdkInternalApi
+    final AddCustomRoutingEndpointsResult executeAddCustomRoutingEndpoints(AddCustomRoutingEndpointsRequest addCustomRoutingEndpointsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(addCustomRoutingEndpointsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AddCustomRoutingEndpointsRequest> request = null;
+        Response<AddCustomRoutingEndpointsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AddCustomRoutingEndpointsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(addCustomRoutingEndpointsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddCustomRoutingEndpoints");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AddCustomRoutingEndpointsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new AddCustomRoutingEndpointsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Add endpoints to an endpoint group. The <code>AddEndpoints</code> API operation is the recommended option for
+     * adding endpoints. The alternative options are to add endpoints when you create an endpoint group (with the <a
+     * href
+     * ="https://docs.aws.amazon.com/global-accelerator/latest/api/API_CreateEndpointGroup.html">CreateEndpointGroup</a>
+     * API) or when you update an endpoint group (with the <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/api/API_UpdateEndpointGroup.html"
+     * >UpdateEndpointGroup</a> API).
+     * </p>
+     * <p>
+     * There are two advantages to using <code>AddEndpoints</code> to add endpoints in Global Accelerator:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * It's faster, because Global Accelerator only has to resolve the new endpoints that you're adding, rather than
+     * resolving new and existing endpoints.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * It's more convenient, because you don't need to specify the current endpoints that are already in the endpoint
+     * group, in addition to the new endpoints that you want to add.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For information about endpoint types and requirements for endpoints that you can add to Global Accelerator, see
+     * <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoints.html"> Endpoints for standard
+     * accelerators</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @param addEndpointsRequest
+     * @return Result of the AddEndpoints operation returned by the service.
+     * @throws TransactionInProgressException
+     *         There's already a transaction in progress. Another transaction can't be processed.
+     * @throws EndpointGroupNotFoundException
+     *         The endpoint group that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws LimitExceededException
+     *         Processing your request would cause you to exceed an Global Accelerator limit.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @sample AWSGlobalAccelerator.AddEndpoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/AddEndpoints" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public AddEndpointsResult addEndpoints(AddEndpointsRequest request) {
+        request = beforeClientExecution(request);
+        return executeAddEndpoints(request);
+    }
+
+    @SdkInternalApi
+    final AddEndpointsResult executeAddEndpoints(AddEndpointsRequest addEndpointsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(addEndpointsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AddEndpointsRequest> request = null;
+        Response<AddEndpointsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AddEndpointsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addEndpointsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddEndpoints");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AddEndpointsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new AddEndpointsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Advertises an IPv4 address range that is provisioned for use with your Amazon Web Services resources through
+     * bring your own IP addresses (BYOIP). It can take a few minutes before traffic to the specified addresses starts
+     * routing to Amazon Web Services because of propagation delays.
+     * </p>
+     * <p>
+     * To stop advertising the BYOIP address range, use <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/api/WithdrawByoipCidr.html"> WithdrawByoipCidr</a>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html">Bring your own IP addresses
+     * (BYOIP)</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @param advertiseByoipCidrRequest
+     * @return Result of the AdvertiseByoipCidr operation returned by the service.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws ByoipCidrNotFoundException
+     *         The CIDR that you specified was not found or is incorrect.
+     * @throws IncorrectCidrStateException
+     *         The CIDR that you specified is not valid for this action. For example, the state of the CIDR might be
+     *         incorrect for this action.
+     * @sample AWSGlobalAccelerator.AdvertiseByoipCidr
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/AdvertiseByoipCidr"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public AdvertiseByoipCidrResult advertiseByoipCidr(AdvertiseByoipCidrRequest request) {
+        request = beforeClientExecution(request);
+        return executeAdvertiseByoipCidr(request);
+    }
+
+    @SdkInternalApi
+    final AdvertiseByoipCidrResult executeAdvertiseByoipCidr(AdvertiseByoipCidrRequest advertiseByoipCidrRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(advertiseByoipCidrRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AdvertiseByoipCidrRequest> request = null;
+        Response<AdvertiseByoipCidrResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AdvertiseByoipCidrRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(advertiseByoipCidrRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AdvertiseByoipCidr");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AdvertiseByoipCidrResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new AdvertiseByoipCidrResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Specify the Amazon EC2 instance (destination) IP addresses and ports for a VPC subnet endpoint that can receive
+     * traffic for a custom routing accelerator. You can allow traffic to all destinations in the subnet endpoint, or
+     * allow traffic to a specified list of destination IP addresses and ports in the subnet. Note that you cannot
+     * specify IP addresses or ports outside of the range that you configured for the endpoint group.
+     * </p>
+     * <p>
+     * After you make changes, you can verify that the updates are complete by checking the status of your accelerator:
+     * the status changes from IN_PROGRESS to DEPLOYED.
+     * </p>
+     * 
+     * @param allowCustomRoutingTrafficRequest
+     * @return Result of the AllowCustomRoutingTraffic operation returned by the service.
+     * @throws EndpointGroupNotFoundException
+     *         The endpoint group that you specified doesn't exist.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @sample AWSGlobalAccelerator.AllowCustomRoutingTraffic
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/AllowCustomRoutingTraffic"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public AllowCustomRoutingTrafficResult allowCustomRoutingTraffic(AllowCustomRoutingTrafficRequest request) {
+        request = beforeClientExecution(request);
+        return executeAllowCustomRoutingTraffic(request);
+    }
+
+    @SdkInternalApi
+    final AllowCustomRoutingTrafficResult executeAllowCustomRoutingTraffic(AllowCustomRoutingTrafficRequest allowCustomRoutingTrafficRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(allowCustomRoutingTrafficRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AllowCustomRoutingTrafficRequest> request = null;
+        Response<AllowCustomRoutingTrafficResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AllowCustomRoutingTrafficRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(allowCustomRoutingTrafficRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AllowCustomRoutingTraffic");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AllowCustomRoutingTrafficResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new AllowCustomRoutingTrafficResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Create an accelerator. An accelerator includes one or more listeners that process inbound connections and direct
+     * traffic to one or more endpoint groups, each of which includes endpoints, such as Network Load Balancers.
+     * </p>
+     * <important>
+     * <p>
+     * Global Accelerator is a global service that supports endpoints in multiple Amazon Web Services Regions but you
+     * must specify the US West (Oregon) Region to create, update, or otherwise work with accelerators. That is, for
+     * example, specify <code>--region us-west-2</code> on Amazon Web Services CLI commands.
+     * </p>
+     * </important>
      * 
      * @param createAcceleratorRequest
      * @return Result of the CreateAccelerator operation returned by the service.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @throws InvalidArgumentException
      *         An argument that you specified is invalid.
      * @throws LimitExceededException
-     *         Processing your request would cause you to exceed an AWS Global Accelerator limit.
+     *         Processing your request would cause you to exceed an Global Accelerator limit.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws TransactionInProgressException
+     *         There's already a transaction in progress. Another transaction can't be processed.
      * @sample AWSGlobalAccelerator.CreateAccelerator
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/CreateAccelerator"
      *      target="_top">AWS API Documentation</a>
@@ -281,6 +632,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                 request = new CreateAcceleratorRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createAcceleratorRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateAccelerator");
@@ -304,8 +657,328 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
 
     /**
      * <p>
-     * Create an endpoint group for the specified listener. An endpoint group is a collection of endpoints in one AWS
-     * Region. To see an AWS CLI example of creating an endpoint group, scroll down to <b>Example</b>.
+     * Create a cross-account attachment in Global Accelerator. You create a cross-account attachment to specify the
+     * <i>principals</i> who have permission to work with <i>resources</i> in accelerators in their own account. You
+     * specify, in the same attachment, the resources that are shared.
+     * </p>
+     * <p>
+     * A principal can be an Amazon Web Services account number or the Amazon Resource Name (ARN) for an accelerator.
+     * For account numbers that are listed as principals, to work with a resource listed in the attachment, you must
+     * sign in to an account specified as a principal. Then, you can work with resources that are listed, with any of
+     * your accelerators. If an accelerator ARN is listed in the cross-account attachment as a principal, anyone with
+     * permission to make updates to the accelerator can work with resources that are listed in the attachment.
+     * </p>
+     * <p>
+     * Specify each principal and resource separately. To specify two CIDR address pools, list them individually under
+     * <code>Resources</code>, and so on. For a command line operation, for example, you might use a statement like the
+     * following:
+     * </p>
+     * <p>
+     * <code> "Resources": [{"Cidr": "169.254.60.0/24"},{"Cidr": "169.254.59.0/24"}]</code>
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/cross-account-resources.html"> Working with
+     * cross-account attachments and resources in Global Accelerator</a> in the <i> Global Accelerator Developer
+     * Guide</i>.
+     * </p>
+     * 
+     * @param createCrossAccountAttachmentRequest
+     * @return Result of the CreateCrossAccountAttachment operation returned by the service.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws LimitExceededException
+     *         Processing your request would cause you to exceed an Global Accelerator limit.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws TransactionInProgressException
+     *         There's already a transaction in progress. Another transaction can't be processed.
+     * @sample AWSGlobalAccelerator.CreateCrossAccountAttachment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/CreateCrossAccountAttachment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateCrossAccountAttachmentResult createCrossAccountAttachment(CreateCrossAccountAttachmentRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateCrossAccountAttachment(request);
+    }
+
+    @SdkInternalApi
+    final CreateCrossAccountAttachmentResult executeCreateCrossAccountAttachment(CreateCrossAccountAttachmentRequest createCrossAccountAttachmentRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createCrossAccountAttachmentRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateCrossAccountAttachmentRequest> request = null;
+        Response<CreateCrossAccountAttachmentResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateCrossAccountAttachmentRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createCrossAccountAttachmentRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCrossAccountAttachment");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateCrossAccountAttachmentResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateCrossAccountAttachmentResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Create a custom routing accelerator. A custom routing accelerator directs traffic to one of possibly thousands of
+     * Amazon EC2 instance destinations running in a single or multiple virtual private clouds (VPC) subnet endpoints.
+     * </p>
+     * <p>
+     * Be aware that, by default, all destination EC2 instances in a VPC subnet endpoint cannot receive traffic. To
+     * enable all destinations to receive traffic, or to specify individual port mappings that can receive traffic, see
+     * the <a href="https://docs.aws.amazon.com/global-accelerator/latest/api/API_AllowCustomRoutingTraffic.html">
+     * AllowCustomRoutingTraffic</a> operation.
+     * </p>
+     * <important>
+     * <p>
+     * Global Accelerator is a global service that supports endpoints in multiple Amazon Web Services Regions but you
+     * must specify the US West (Oregon) Region to create, update, or otherwise work with accelerators. That is, for
+     * example, specify <code>--region us-west-2</code> on Amazon Web Services CLI commands.
+     * </p>
+     * </important>
+     * 
+     * @param createCustomRoutingAcceleratorRequest
+     * @return Result of the CreateCustomRoutingAccelerator operation returned by the service.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws LimitExceededException
+     *         Processing your request would cause you to exceed an Global Accelerator limit.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws TransactionInProgressException
+     *         There's already a transaction in progress. Another transaction can't be processed.
+     * @sample AWSGlobalAccelerator.CreateCustomRoutingAccelerator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/CreateCustomRoutingAccelerator"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateCustomRoutingAcceleratorResult createCustomRoutingAccelerator(CreateCustomRoutingAcceleratorRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateCustomRoutingAccelerator(request);
+    }
+
+    @SdkInternalApi
+    final CreateCustomRoutingAcceleratorResult executeCreateCustomRoutingAccelerator(CreateCustomRoutingAcceleratorRequest createCustomRoutingAcceleratorRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createCustomRoutingAcceleratorRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateCustomRoutingAcceleratorRequest> request = null;
+        Response<CreateCustomRoutingAcceleratorResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateCustomRoutingAcceleratorRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createCustomRoutingAcceleratorRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCustomRoutingAccelerator");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateCustomRoutingAcceleratorResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateCustomRoutingAcceleratorResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Create an endpoint group for the specified listener for a custom routing accelerator. An endpoint group is a
+     * collection of endpoints in one Amazon Web Services Region.
+     * </p>
+     * 
+     * @param createCustomRoutingEndpointGroupRequest
+     * @return Result of the CreateCustomRoutingEndpointGroup operation returned by the service.
+     * @throws AcceleratorNotFoundException
+     *         The accelerator that you specified doesn't exist.
+     * @throws EndpointGroupAlreadyExistsException
+     *         The endpoint group that you specified already exists.
+     * @throws ListenerNotFoundException
+     *         The listener that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws InvalidPortRangeException
+     *         The port numbers that you specified are not valid numbers or are not unique for this accelerator.
+     * @throws LimitExceededException
+     *         Processing your request would cause you to exceed an Global Accelerator limit.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @sample AWSGlobalAccelerator.CreateCustomRoutingEndpointGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/CreateCustomRoutingEndpointGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateCustomRoutingEndpointGroupResult createCustomRoutingEndpointGroup(CreateCustomRoutingEndpointGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateCustomRoutingEndpointGroup(request);
+    }
+
+    @SdkInternalApi
+    final CreateCustomRoutingEndpointGroupResult executeCreateCustomRoutingEndpointGroup(
+            CreateCustomRoutingEndpointGroupRequest createCustomRoutingEndpointGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createCustomRoutingEndpointGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateCustomRoutingEndpointGroupRequest> request = null;
+        Response<CreateCustomRoutingEndpointGroupResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateCustomRoutingEndpointGroupRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createCustomRoutingEndpointGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCustomRoutingEndpointGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateCustomRoutingEndpointGroupResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateCustomRoutingEndpointGroupResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Create a listener to process inbound connections from clients to a custom routing accelerator. Connections arrive
+     * to assigned static IP addresses on the port range that you specify.
+     * </p>
+     * 
+     * @param createCustomRoutingListenerRequest
+     * @return Result of the CreateCustomRoutingListener operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws AcceleratorNotFoundException
+     *         The accelerator that you specified doesn't exist.
+     * @throws InvalidPortRangeException
+     *         The port numbers that you specified are not valid numbers or are not unique for this accelerator.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws LimitExceededException
+     *         Processing your request would cause you to exceed an Global Accelerator limit.
+     * @sample AWSGlobalAccelerator.CreateCustomRoutingListener
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/CreateCustomRoutingListener"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateCustomRoutingListenerResult createCustomRoutingListener(CreateCustomRoutingListenerRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateCustomRoutingListener(request);
+    }
+
+    @SdkInternalApi
+    final CreateCustomRoutingListenerResult executeCreateCustomRoutingListener(CreateCustomRoutingListenerRequest createCustomRoutingListenerRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createCustomRoutingListenerRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateCustomRoutingListenerRequest> request = null;
+        Response<CreateCustomRoutingListenerResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateCustomRoutingListenerRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createCustomRoutingListenerRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCustomRoutingListener");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateCustomRoutingListenerResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateCustomRoutingListenerResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Create an endpoint group for the specified listener. An endpoint group is a collection of endpoints in one Amazon
+     * Web Services Region. A resource must be valid and active when you add it as an endpoint.
+     * </p>
+     * <p>
+     * For more information about endpoint types and requirements for endpoints that you can add to Global Accelerator,
+     * see <a href="https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoints.html"> Endpoints for
+     * standard accelerators</a> in the <i>Global Accelerator Developer Guide</i>.
      * </p>
      * 
      * @param createEndpointGroupRequest
@@ -317,11 +990,13 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
      * @throws ListenerNotFoundException
      *         The listener that you specified doesn't exist.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @throws InvalidArgumentException
      *         An argument that you specified is invalid.
      * @throws LimitExceededException
-     *         Processing your request would cause you to exceed an AWS Global Accelerator limit.
+     *         Processing your request would cause you to exceed an Global Accelerator limit.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
      * @sample AWSGlobalAccelerator.CreateEndpointGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/CreateEndpointGroup"
      *      target="_top">AWS API Documentation</a>
@@ -347,6 +1022,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                 request = new CreateEndpointGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createEndpointGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateEndpointGroup");
@@ -371,8 +1048,7 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
     /**
      * <p>
      * Create a listener to process inbound connections from clients to an accelerator. Connections arrive to assigned
-     * static IP addresses on a port, port range, or list of port ranges that you specify. To see an AWS CLI example of
-     * creating a listener, scroll down to <b>Example</b>.
+     * static IP addresses on a port, port range, or list of port ranges that you specify.
      * </p>
      * 
      * @param createListenerRequest
@@ -384,9 +1060,9 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
      * @throws InvalidPortRangeException
      *         The port numbers that you specified are not valid numbers or are not unique for this accelerator.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @throws LimitExceededException
-     *         Processing your request would cause you to exceed an AWS Global Accelerator limit.
+     *         Processing your request would cause you to exceed an Global Accelerator limit.
      * @sample AWSGlobalAccelerator.CreateListener
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/CreateListener"
      *      target="_top">AWS API Documentation</a>
@@ -412,6 +1088,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                 request = new CreateListenerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createListenerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateListener");
@@ -435,9 +1113,27 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
 
     /**
      * <p>
-     * Delete an accelerator. Note: before you can delete an accelerator, you must disable it and remove all dependent
-     * resources (listeners and endpoint groups).
+     * Delete an accelerator. Before you can delete an accelerator, you must disable it and remove all dependent
+     * resources (listeners and endpoint groups). To disable the accelerator, update the accelerator to set
+     * <code>Enabled</code> to false.
      * </p>
+     * <important>
+     * <p>
+     * When you create an accelerator, by default, Global Accelerator provides you with a set of two static IP
+     * addresses. Alternatively, you can bring your own IP address ranges to Global Accelerator and assign IP addresses
+     * from those ranges.
+     * </p>
+     * <p>
+     * The IP addresses are assigned to your accelerator for as long as it exists, even if you disable the accelerator
+     * and it no longer accepts or routes traffic. However, when you <i>delete</i> an accelerator, you lose the static
+     * IP addresses that are assigned to the accelerator, so you can no longer route traffic by using them. As a best
+     * practice, ensure that you have permissions in place to avoid inadvertently deleting accelerators. You can use IAM
+     * policies with Global Accelerator to limit the users who have permissions to delete an accelerator. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/auth-and-access-control.html">Identity and access
+     * management</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param deleteAcceleratorRequest
      * @return Result of the DeleteAccelerator operation returned by the service.
@@ -449,9 +1145,11 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
      *         The accelerator that you specified has a listener associated with it. You must remove all dependent
      *         resources from an accelerator before you can delete it.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @throws InvalidArgumentException
      *         An argument that you specified is invalid.
+     * @throws TransactionInProgressException
+     *         There's already a transaction in progress. Another transaction can't be processed.
      * @sample AWSGlobalAccelerator.DeleteAccelerator
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/DeleteAccelerator"
      *      target="_top">AWS API Documentation</a>
@@ -477,6 +1175,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                 request = new DeleteAcceleratorRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteAcceleratorRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAccelerator");
@@ -500,15 +1200,311 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
 
     /**
      * <p>
+     * Delete a cross-account attachment. When you delete an attachment, Global Accelerator revokes the permission to
+     * use the resources in the attachment from all principals in the list of principals. Global Accelerator revokes the
+     * permission for specific resources.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/cross-account-resources.html"> Working with
+     * cross-account attachments and resources in Global Accelerator</a> in the <i> Global Accelerator Developer
+     * Guide</i>.
+     * </p>
+     * 
+     * @param deleteCrossAccountAttachmentRequest
+     * @return Result of the DeleteCrossAccountAttachment operation returned by the service.
+     * @throws AttachmentNotFoundException
+     *         No cross-account attachment was found.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws TransactionInProgressException
+     *         There's already a transaction in progress. Another transaction can't be processed.
+     * @sample AWSGlobalAccelerator.DeleteCrossAccountAttachment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/DeleteCrossAccountAttachment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteCrossAccountAttachmentResult deleteCrossAccountAttachment(DeleteCrossAccountAttachmentRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteCrossAccountAttachment(request);
+    }
+
+    @SdkInternalApi
+    final DeleteCrossAccountAttachmentResult executeDeleteCrossAccountAttachment(DeleteCrossAccountAttachmentRequest deleteCrossAccountAttachmentRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteCrossAccountAttachmentRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteCrossAccountAttachmentRequest> request = null;
+        Response<DeleteCrossAccountAttachmentResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteCrossAccountAttachmentRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteCrossAccountAttachmentRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCrossAccountAttachment");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteCrossAccountAttachmentResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteCrossAccountAttachmentResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Delete a custom routing accelerator. Before you can delete an accelerator, you must disable it and remove all
+     * dependent resources (listeners and endpoint groups). To disable the accelerator, update the accelerator to set
+     * <code>Enabled</code> to false.
+     * </p>
+     * <important>
+     * <p>
+     * When you create a custom routing accelerator, by default, Global Accelerator provides you with a set of two
+     * static IP addresses.
+     * </p>
+     * <p>
+     * The IP addresses are assigned to your accelerator for as long as it exists, even if you disable the accelerator
+     * and it no longer accepts or routes traffic. However, when you <i>delete</i> an accelerator, you lose the static
+     * IP addresses that are assigned to the accelerator, so you can no longer route traffic by using them. As a best
+     * practice, ensure that you have permissions in place to avoid inadvertently deleting accelerators. You can use IAM
+     * policies with Global Accelerator to limit the users who have permissions to delete an accelerator. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/auth-and-access-control.html">Identity and access
+     * management</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * </important>
+     * 
+     * @param deleteCustomRoutingAcceleratorRequest
+     * @return Result of the DeleteCustomRoutingAccelerator operation returned by the service.
+     * @throws AcceleratorNotFoundException
+     *         The accelerator that you specified doesn't exist.
+     * @throws AcceleratorNotDisabledException
+     *         The accelerator that you specified could not be disabled.
+     * @throws AssociatedListenerFoundException
+     *         The accelerator that you specified has a listener associated with it. You must remove all dependent
+     *         resources from an accelerator before you can delete it.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws TransactionInProgressException
+     *         There's already a transaction in progress. Another transaction can't be processed.
+     * @sample AWSGlobalAccelerator.DeleteCustomRoutingAccelerator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/DeleteCustomRoutingAccelerator"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteCustomRoutingAcceleratorResult deleteCustomRoutingAccelerator(DeleteCustomRoutingAcceleratorRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteCustomRoutingAccelerator(request);
+    }
+
+    @SdkInternalApi
+    final DeleteCustomRoutingAcceleratorResult executeDeleteCustomRoutingAccelerator(DeleteCustomRoutingAcceleratorRequest deleteCustomRoutingAcceleratorRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteCustomRoutingAcceleratorRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteCustomRoutingAcceleratorRequest> request = null;
+        Response<DeleteCustomRoutingAcceleratorResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteCustomRoutingAcceleratorRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteCustomRoutingAcceleratorRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCustomRoutingAccelerator");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteCustomRoutingAcceleratorResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteCustomRoutingAcceleratorResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Delete an endpoint group from a listener for a custom routing accelerator.
+     * </p>
+     * 
+     * @param deleteCustomRoutingEndpointGroupRequest
+     * @return Result of the DeleteCustomRoutingEndpointGroup operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws EndpointGroupNotFoundException
+     *         The endpoint group that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @sample AWSGlobalAccelerator.DeleteCustomRoutingEndpointGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/DeleteCustomRoutingEndpointGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteCustomRoutingEndpointGroupResult deleteCustomRoutingEndpointGroup(DeleteCustomRoutingEndpointGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteCustomRoutingEndpointGroup(request);
+    }
+
+    @SdkInternalApi
+    final DeleteCustomRoutingEndpointGroupResult executeDeleteCustomRoutingEndpointGroup(
+            DeleteCustomRoutingEndpointGroupRequest deleteCustomRoutingEndpointGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteCustomRoutingEndpointGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteCustomRoutingEndpointGroupRequest> request = null;
+        Response<DeleteCustomRoutingEndpointGroupResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteCustomRoutingEndpointGroupRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteCustomRoutingEndpointGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCustomRoutingEndpointGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteCustomRoutingEndpointGroupResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteCustomRoutingEndpointGroupResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Delete a listener for a custom routing accelerator.
+     * </p>
+     * 
+     * @param deleteCustomRoutingListenerRequest
+     * @return Result of the DeleteCustomRoutingListener operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws ListenerNotFoundException
+     *         The listener that you specified doesn't exist.
+     * @throws AssociatedEndpointGroupFoundException
+     *         The listener that you specified has an endpoint group associated with it. You must remove all dependent
+     *         resources from a listener before you can delete it.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @sample AWSGlobalAccelerator.DeleteCustomRoutingListener
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/DeleteCustomRoutingListener"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteCustomRoutingListenerResult deleteCustomRoutingListener(DeleteCustomRoutingListenerRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteCustomRoutingListener(request);
+    }
+
+    @SdkInternalApi
+    final DeleteCustomRoutingListenerResult executeDeleteCustomRoutingListener(DeleteCustomRoutingListenerRequest deleteCustomRoutingListenerRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteCustomRoutingListenerRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteCustomRoutingListenerRequest> request = null;
+        Response<DeleteCustomRoutingListenerResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteCustomRoutingListenerRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteCustomRoutingListenerRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCustomRoutingListener");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteCustomRoutingListenerResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteCustomRoutingListenerResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Delete an endpoint group from a listener.
      * </p>
      * 
      * @param deleteEndpointGroupRequest
      * @return Result of the DeleteEndpointGroup operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
      * @throws EndpointGroupNotFoundException
      *         The endpoint group that you specified doesn't exist.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @sample AWSGlobalAccelerator.DeleteEndpointGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/DeleteEndpointGroup"
      *      target="_top">AWS API Documentation</a>
@@ -534,6 +1530,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                 request = new DeleteEndpointGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteEndpointGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteEndpointGroup");
@@ -562,13 +1560,15 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
      * 
      * @param deleteListenerRequest
      * @return Result of the DeleteListener operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
      * @throws ListenerNotFoundException
      *         The listener that you specified doesn't exist.
      * @throws AssociatedEndpointGroupFoundException
      *         The listener that you specified has an endpoint group associated with it. You must remove all dependent
      *         resources from a listener before you can delete it.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @sample AWSGlobalAccelerator.DeleteListener
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/DeleteListener"
      *      target="_top">AWS API Documentation</a>
@@ -594,6 +1594,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                 request = new DeleteListenerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteListenerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteListener");
@@ -617,7 +1619,154 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
 
     /**
      * <p>
-     * Describe an accelerator. To see an AWS CLI example of describing an accelerator, scroll down to <b>Example</b>.
+     * Specify the Amazon EC2 instance (destination) IP addresses and ports for a VPC subnet endpoint that cannot
+     * receive traffic for a custom routing accelerator. You can deny traffic to all destinations in the VPC endpoint,
+     * or deny traffic to a specified list of destination IP addresses and ports. Note that you cannot specify IP
+     * addresses or ports outside of the range that you configured for the endpoint group.
+     * </p>
+     * <p>
+     * After you make changes, you can verify that the updates are complete by checking the status of your accelerator:
+     * the status changes from IN_PROGRESS to DEPLOYED.
+     * </p>
+     * 
+     * @param denyCustomRoutingTrafficRequest
+     * @return Result of the DenyCustomRoutingTraffic operation returned by the service.
+     * @throws EndpointGroupNotFoundException
+     *         The endpoint group that you specified doesn't exist.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @sample AWSGlobalAccelerator.DenyCustomRoutingTraffic
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/DenyCustomRoutingTraffic"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DenyCustomRoutingTrafficResult denyCustomRoutingTraffic(DenyCustomRoutingTrafficRequest request) {
+        request = beforeClientExecution(request);
+        return executeDenyCustomRoutingTraffic(request);
+    }
+
+    @SdkInternalApi
+    final DenyCustomRoutingTrafficResult executeDenyCustomRoutingTraffic(DenyCustomRoutingTrafficRequest denyCustomRoutingTrafficRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(denyCustomRoutingTrafficRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DenyCustomRoutingTrafficRequest> request = null;
+        Response<DenyCustomRoutingTrafficResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DenyCustomRoutingTrafficRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(denyCustomRoutingTrafficRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DenyCustomRoutingTraffic");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DenyCustomRoutingTrafficResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DenyCustomRoutingTrafficResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Releases the specified address range that you provisioned to use with your Amazon Web Services resources through
+     * bring your own IP addresses (BYOIP) and deletes the corresponding address pool.
+     * </p>
+     * <p>
+     * Before you can release an address range, you must stop advertising it by using <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/api/WithdrawByoipCidr.html">WithdrawByoipCidr</a> and
+     * you must not have any accelerators that are using static IP addresses allocated from its address range.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html">Bring your own IP addresses
+     * (BYOIP)</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @param deprovisionByoipCidrRequest
+     * @return Result of the DeprovisionByoipCidr operation returned by the service.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws ByoipCidrNotFoundException
+     *         The CIDR that you specified was not found or is incorrect.
+     * @throws IncorrectCidrStateException
+     *         The CIDR that you specified is not valid for this action. For example, the state of the CIDR might be
+     *         incorrect for this action.
+     * @sample AWSGlobalAccelerator.DeprovisionByoipCidr
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/DeprovisionByoipCidr"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeprovisionByoipCidrResult deprovisionByoipCidr(DeprovisionByoipCidrRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeprovisionByoipCidr(request);
+    }
+
+    @SdkInternalApi
+    final DeprovisionByoipCidrResult executeDeprovisionByoipCidr(DeprovisionByoipCidrRequest deprovisionByoipCidrRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deprovisionByoipCidrRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeprovisionByoipCidrRequest> request = null;
+        Response<DeprovisionByoipCidrResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeprovisionByoipCidrRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deprovisionByoipCidrRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeprovisionByoipCidr");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeprovisionByoipCidrResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeprovisionByoipCidrResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describe an accelerator.
      * </p>
      * 
      * @param describeAcceleratorRequest
@@ -625,7 +1774,7 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
      * @throws AcceleratorNotFoundException
      *         The accelerator that you specified doesn't exist.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @throws InvalidArgumentException
      *         An argument that you specified is invalid.
      * @sample AWSGlobalAccelerator.DescribeAccelerator
@@ -653,6 +1802,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                 request = new DescribeAcceleratorRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeAcceleratorRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAccelerator");
@@ -684,7 +1835,7 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
      * @throws AcceleratorNotFoundException
      *         The accelerator that you specified doesn't exist.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @throws InvalidArgumentException
      *         An argument that you specified is invalid.
      * @sample AWSGlobalAccelerator.DescribeAcceleratorAttributes
@@ -713,6 +1864,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(describeAcceleratorAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAcceleratorAttributes");
@@ -737,15 +1890,340 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
 
     /**
      * <p>
+     * Gets configuration information about a cross-account attachment.
+     * </p>
+     * 
+     * @param describeCrossAccountAttachmentRequest
+     * @return Result of the DescribeCrossAccountAttachment operation returned by the service.
+     * @throws AttachmentNotFoundException
+     *         No cross-account attachment was found.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @sample AWSGlobalAccelerator.DescribeCrossAccountAttachment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/DescribeCrossAccountAttachment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeCrossAccountAttachmentResult describeCrossAccountAttachment(DescribeCrossAccountAttachmentRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeCrossAccountAttachment(request);
+    }
+
+    @SdkInternalApi
+    final DescribeCrossAccountAttachmentResult executeDescribeCrossAccountAttachment(DescribeCrossAccountAttachmentRequest describeCrossAccountAttachmentRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeCrossAccountAttachmentRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeCrossAccountAttachmentRequest> request = null;
+        Response<DescribeCrossAccountAttachmentResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeCrossAccountAttachmentRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeCrossAccountAttachmentRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCrossAccountAttachment");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeCrossAccountAttachmentResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeCrossAccountAttachmentResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describe a custom routing accelerator.
+     * </p>
+     * 
+     * @param describeCustomRoutingAcceleratorRequest
+     * @return Result of the DescribeCustomRoutingAccelerator operation returned by the service.
+     * @throws AcceleratorNotFoundException
+     *         The accelerator that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @sample AWSGlobalAccelerator.DescribeCustomRoutingAccelerator
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/DescribeCustomRoutingAccelerator"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeCustomRoutingAcceleratorResult describeCustomRoutingAccelerator(DescribeCustomRoutingAcceleratorRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeCustomRoutingAccelerator(request);
+    }
+
+    @SdkInternalApi
+    final DescribeCustomRoutingAcceleratorResult executeDescribeCustomRoutingAccelerator(
+            DescribeCustomRoutingAcceleratorRequest describeCustomRoutingAcceleratorRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeCustomRoutingAcceleratorRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeCustomRoutingAcceleratorRequest> request = null;
+        Response<DescribeCustomRoutingAcceleratorResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeCustomRoutingAcceleratorRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeCustomRoutingAcceleratorRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCustomRoutingAccelerator");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeCustomRoutingAcceleratorResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeCustomRoutingAcceleratorResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describe the attributes of a custom routing accelerator.
+     * </p>
+     * 
+     * @param describeCustomRoutingAcceleratorAttributesRequest
+     * @return Result of the DescribeCustomRoutingAcceleratorAttributes operation returned by the service.
+     * @throws AcceleratorNotFoundException
+     *         The accelerator that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @sample AWSGlobalAccelerator.DescribeCustomRoutingAcceleratorAttributes
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/DescribeCustomRoutingAcceleratorAttributes"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeCustomRoutingAcceleratorAttributesResult describeCustomRoutingAcceleratorAttributes(DescribeCustomRoutingAcceleratorAttributesRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeCustomRoutingAcceleratorAttributes(request);
+    }
+
+    @SdkInternalApi
+    final DescribeCustomRoutingAcceleratorAttributesResult executeDescribeCustomRoutingAcceleratorAttributes(
+            DescribeCustomRoutingAcceleratorAttributesRequest describeCustomRoutingAcceleratorAttributesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeCustomRoutingAcceleratorAttributesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeCustomRoutingAcceleratorAttributesRequest> request = null;
+        Response<DescribeCustomRoutingAcceleratorAttributesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeCustomRoutingAcceleratorAttributesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeCustomRoutingAcceleratorAttributesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCustomRoutingAcceleratorAttributes");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeCustomRoutingAcceleratorAttributesResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DescribeCustomRoutingAcceleratorAttributesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describe an endpoint group for a custom routing accelerator.
+     * </p>
+     * 
+     * @param describeCustomRoutingEndpointGroupRequest
+     * @return Result of the DescribeCustomRoutingEndpointGroup operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws EndpointGroupNotFoundException
+     *         The endpoint group that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @sample AWSGlobalAccelerator.DescribeCustomRoutingEndpointGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/DescribeCustomRoutingEndpointGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeCustomRoutingEndpointGroupResult describeCustomRoutingEndpointGroup(DescribeCustomRoutingEndpointGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeCustomRoutingEndpointGroup(request);
+    }
+
+    @SdkInternalApi
+    final DescribeCustomRoutingEndpointGroupResult executeDescribeCustomRoutingEndpointGroup(
+            DescribeCustomRoutingEndpointGroupRequest describeCustomRoutingEndpointGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeCustomRoutingEndpointGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeCustomRoutingEndpointGroupRequest> request = null;
+        Response<DescribeCustomRoutingEndpointGroupResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeCustomRoutingEndpointGroupRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeCustomRoutingEndpointGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCustomRoutingEndpointGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeCustomRoutingEndpointGroupResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeCustomRoutingEndpointGroupResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * The description of a listener for a custom routing accelerator.
+     * </p>
+     * 
+     * @param describeCustomRoutingListenerRequest
+     * @return Result of the DescribeCustomRoutingListener operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws ListenerNotFoundException
+     *         The listener that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @sample AWSGlobalAccelerator.DescribeCustomRoutingListener
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/DescribeCustomRoutingListener"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeCustomRoutingListenerResult describeCustomRoutingListener(DescribeCustomRoutingListenerRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeCustomRoutingListener(request);
+    }
+
+    @SdkInternalApi
+    final DescribeCustomRoutingListenerResult executeDescribeCustomRoutingListener(DescribeCustomRoutingListenerRequest describeCustomRoutingListenerRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeCustomRoutingListenerRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeCustomRoutingListenerRequest> request = null;
+        Response<DescribeCustomRoutingListenerResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeCustomRoutingListenerRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeCustomRoutingListenerRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCustomRoutingListener");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeCustomRoutingListenerResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeCustomRoutingListenerResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Describe an endpoint group.
      * </p>
      * 
      * @param describeEndpointGroupRequest
      * @return Result of the DescribeEndpointGroup operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
      * @throws EndpointGroupNotFoundException
      *         The endpoint group that you specified doesn't exist.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @sample AWSGlobalAccelerator.DescribeEndpointGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/DescribeEndpointGroup"
      *      target="_top">AWS API Documentation</a>
@@ -771,6 +2249,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                 request = new DescribeEndpointGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeEndpointGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEndpointGroup");
@@ -805,7 +2285,7 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
      * @throws ListenerNotFoundException
      *         The listener that you specified doesn't exist.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @sample AWSGlobalAccelerator.DescribeListener
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/DescribeListener"
      *      target="_top">AWS API Documentation</a>
@@ -831,6 +2311,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                 request = new DescribeListenerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeListenerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeListener");
@@ -854,15 +2336,17 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
 
     /**
      * <p>
-     * List the accelerators for an AWS account.
+     * List the accelerators for an Amazon Web Services account.
      * </p>
      * 
      * @param listAcceleratorsRequest
      * @return Result of the ListAccelerators operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
      * @throws InvalidNextTokenException
      *         There isn't another item to return.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @sample AWSGlobalAccelerator.ListAccelerators
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/ListAccelerators"
      *      target="_top">AWS API Documentation</a>
@@ -888,6 +2372,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                 request = new ListAcceleratorsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listAcceleratorsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAccelerators");
@@ -899,6 +2385,618 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
 
             HttpResponseHandler<AmazonWebServiceResponse<ListAcceleratorsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListAcceleratorsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the IP address ranges that were specified in calls to <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/api/ProvisionByoipCidr.html">ProvisionByoipCidr</a>,
+     * including the current state and a history of state changes.
+     * </p>
+     * 
+     * @param listByoipCidrsRequest
+     * @return Result of the ListByoipCidrs operation returned by the service.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws InvalidNextTokenException
+     *         There isn't another item to return.
+     * @sample AWSGlobalAccelerator.ListByoipCidrs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/ListByoipCidrs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListByoipCidrsResult listByoipCidrs(ListByoipCidrsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListByoipCidrs(request);
+    }
+
+    @SdkInternalApi
+    final ListByoipCidrsResult executeListByoipCidrs(ListByoipCidrsRequest listByoipCidrsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listByoipCidrsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListByoipCidrsRequest> request = null;
+        Response<ListByoipCidrsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListByoipCidrsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listByoipCidrsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListByoipCidrs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListByoipCidrsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListByoipCidrsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * List the cross-account attachments that have been created in Global Accelerator.
+     * </p>
+     * 
+     * @param listCrossAccountAttachmentsRequest
+     * @return Result of the ListCrossAccountAttachments operation returned by the service.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws InvalidNextTokenException
+     *         There isn't another item to return.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @sample AWSGlobalAccelerator.ListCrossAccountAttachments
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/ListCrossAccountAttachments"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListCrossAccountAttachmentsResult listCrossAccountAttachments(ListCrossAccountAttachmentsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCrossAccountAttachments(request);
+    }
+
+    @SdkInternalApi
+    final ListCrossAccountAttachmentsResult executeListCrossAccountAttachments(ListCrossAccountAttachmentsRequest listCrossAccountAttachmentsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCrossAccountAttachmentsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCrossAccountAttachmentsRequest> request = null;
+        Response<ListCrossAccountAttachmentsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCrossAccountAttachmentsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listCrossAccountAttachmentsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCrossAccountAttachments");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListCrossAccountAttachmentsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListCrossAccountAttachmentsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * List the accounts that have cross-account resources.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/cross-account-resources.html"> Working with
+     * cross-account attachments and resources in Global Accelerator</a> in the <i> Global Accelerator Developer
+     * Guide</i>.
+     * </p>
+     * 
+     * @param listCrossAccountResourceAccountsRequest
+     * @return Result of the ListCrossAccountResourceAccounts operation returned by the service.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @sample AWSGlobalAccelerator.ListCrossAccountResourceAccounts
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/ListCrossAccountResourceAccounts"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListCrossAccountResourceAccountsResult listCrossAccountResourceAccounts(ListCrossAccountResourceAccountsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCrossAccountResourceAccounts(request);
+    }
+
+    @SdkInternalApi
+    final ListCrossAccountResourceAccountsResult executeListCrossAccountResourceAccounts(
+            ListCrossAccountResourceAccountsRequest listCrossAccountResourceAccountsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCrossAccountResourceAccountsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCrossAccountResourceAccountsRequest> request = null;
+        Response<ListCrossAccountResourceAccountsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCrossAccountResourceAccountsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listCrossAccountResourceAccountsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCrossAccountResourceAccounts");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListCrossAccountResourceAccountsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListCrossAccountResourceAccountsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * List the cross-account resources available to work with.
+     * </p>
+     * 
+     * @param listCrossAccountResourcesRequest
+     * @return Result of the ListCrossAccountResources operation returned by the service.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws InvalidNextTokenException
+     *         There isn't another item to return.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws AcceleratorNotFoundException
+     *         The accelerator that you specified doesn't exist.
+     * @sample AWSGlobalAccelerator.ListCrossAccountResources
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/ListCrossAccountResources"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListCrossAccountResourcesResult listCrossAccountResources(ListCrossAccountResourcesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCrossAccountResources(request);
+    }
+
+    @SdkInternalApi
+    final ListCrossAccountResourcesResult executeListCrossAccountResources(ListCrossAccountResourcesRequest listCrossAccountResourcesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCrossAccountResourcesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCrossAccountResourcesRequest> request = null;
+        Response<ListCrossAccountResourcesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCrossAccountResourcesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listCrossAccountResourcesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCrossAccountResources");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListCrossAccountResourcesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListCrossAccountResourcesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * List the custom routing accelerators for an Amazon Web Services account.
+     * </p>
+     * 
+     * @param listCustomRoutingAcceleratorsRequest
+     * @return Result of the ListCustomRoutingAccelerators operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws InvalidNextTokenException
+     *         There isn't another item to return.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @sample AWSGlobalAccelerator.ListCustomRoutingAccelerators
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/ListCustomRoutingAccelerators"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListCustomRoutingAcceleratorsResult listCustomRoutingAccelerators(ListCustomRoutingAcceleratorsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCustomRoutingAccelerators(request);
+    }
+
+    @SdkInternalApi
+    final ListCustomRoutingAcceleratorsResult executeListCustomRoutingAccelerators(ListCustomRoutingAcceleratorsRequest listCustomRoutingAcceleratorsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCustomRoutingAcceleratorsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCustomRoutingAcceleratorsRequest> request = null;
+        Response<ListCustomRoutingAcceleratorsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCustomRoutingAcceleratorsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listCustomRoutingAcceleratorsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCustomRoutingAccelerators");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListCustomRoutingAcceleratorsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListCustomRoutingAcceleratorsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * List the endpoint groups that are associated with a listener for a custom routing accelerator.
+     * </p>
+     * 
+     * @param listCustomRoutingEndpointGroupsRequest
+     * @return Result of the ListCustomRoutingEndpointGroups operation returned by the service.
+     * @throws ListenerNotFoundException
+     *         The listener that you specified doesn't exist.
+     * @throws InvalidNextTokenException
+     *         There isn't another item to return.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @sample AWSGlobalAccelerator.ListCustomRoutingEndpointGroups
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/ListCustomRoutingEndpointGroups"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListCustomRoutingEndpointGroupsResult listCustomRoutingEndpointGroups(ListCustomRoutingEndpointGroupsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCustomRoutingEndpointGroups(request);
+    }
+
+    @SdkInternalApi
+    final ListCustomRoutingEndpointGroupsResult executeListCustomRoutingEndpointGroups(
+            ListCustomRoutingEndpointGroupsRequest listCustomRoutingEndpointGroupsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCustomRoutingEndpointGroupsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCustomRoutingEndpointGroupsRequest> request = null;
+        Response<ListCustomRoutingEndpointGroupsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCustomRoutingEndpointGroupsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listCustomRoutingEndpointGroupsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCustomRoutingEndpointGroups");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListCustomRoutingEndpointGroupsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListCustomRoutingEndpointGroupsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * List the listeners for a custom routing accelerator.
+     * </p>
+     * 
+     * @param listCustomRoutingListenersRequest
+     * @return Result of the ListCustomRoutingListeners operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws AcceleratorNotFoundException
+     *         The accelerator that you specified doesn't exist.
+     * @throws InvalidNextTokenException
+     *         There isn't another item to return.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @sample AWSGlobalAccelerator.ListCustomRoutingListeners
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/ListCustomRoutingListeners"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListCustomRoutingListenersResult listCustomRoutingListeners(ListCustomRoutingListenersRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCustomRoutingListeners(request);
+    }
+
+    @SdkInternalApi
+    final ListCustomRoutingListenersResult executeListCustomRoutingListeners(ListCustomRoutingListenersRequest listCustomRoutingListenersRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCustomRoutingListenersRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCustomRoutingListenersRequest> request = null;
+        Response<ListCustomRoutingListenersResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCustomRoutingListenersRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listCustomRoutingListenersRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCustomRoutingListeners");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListCustomRoutingListenersResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListCustomRoutingListenersResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides a complete mapping from the public accelerator IP address and port to destination EC2 instance IP
+     * addresses and ports in the virtual public cloud (VPC) subnet endpoint for a custom routing accelerator. For each
+     * subnet endpoint that you add, Global Accelerator creates a new static port mapping for the accelerator. The port
+     * mappings don't change after Global Accelerator generates them, so you can retrieve and cache the full mapping on
+     * your servers.
+     * </p>
+     * <p>
+     * If you remove a subnet from your accelerator, Global Accelerator removes (reclaims) the port mappings. If you add
+     * a subnet to your accelerator, Global Accelerator creates new port mappings (the existing ones don't change). If
+     * you add or remove EC2 instances in your subnet, the port mappings don't change, because the mappings are created
+     * when you add the subnet to Global Accelerator.
+     * </p>
+     * <p>
+     * The mappings also include a flag for each destination denoting which destination IP addresses and ports are
+     * allowed or denied traffic.
+     * </p>
+     * 
+     * @param listCustomRoutingPortMappingsRequest
+     * @return Result of the ListCustomRoutingPortMappings operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws InvalidNextTokenException
+     *         There isn't another item to return.
+     * @throws EndpointGroupNotFoundException
+     *         The endpoint group that you specified doesn't exist.
+     * @throws AcceleratorNotFoundException
+     *         The accelerator that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @sample AWSGlobalAccelerator.ListCustomRoutingPortMappings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/ListCustomRoutingPortMappings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListCustomRoutingPortMappingsResult listCustomRoutingPortMappings(ListCustomRoutingPortMappingsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCustomRoutingPortMappings(request);
+    }
+
+    @SdkInternalApi
+    final ListCustomRoutingPortMappingsResult executeListCustomRoutingPortMappings(ListCustomRoutingPortMappingsRequest listCustomRoutingPortMappingsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCustomRoutingPortMappingsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCustomRoutingPortMappingsRequest> request = null;
+        Response<ListCustomRoutingPortMappingsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCustomRoutingPortMappingsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listCustomRoutingPortMappingsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCustomRoutingPortMappings");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListCustomRoutingPortMappingsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListCustomRoutingPortMappingsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * List the port mappings for a specific EC2 instance (destination) in a VPC subnet endpoint. The response is the
+     * mappings for one destination IP address. This is useful when your subnet endpoint has mappings that span multiple
+     * custom routing accelerators in your account, or for scenarios where you only want to list the port mappings for a
+     * specific destination instance.
+     * </p>
+     * 
+     * @param listCustomRoutingPortMappingsByDestinationRequest
+     * @return Result of the ListCustomRoutingPortMappingsByDestination operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws InvalidNextTokenException
+     *         There isn't another item to return.
+     * @throws EndpointNotFoundException
+     *         The endpoint that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @sample AWSGlobalAccelerator.ListCustomRoutingPortMappingsByDestination
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/ListCustomRoutingPortMappingsByDestination"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListCustomRoutingPortMappingsByDestinationResult listCustomRoutingPortMappingsByDestination(ListCustomRoutingPortMappingsByDestinationRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCustomRoutingPortMappingsByDestination(request);
+    }
+
+    @SdkInternalApi
+    final ListCustomRoutingPortMappingsByDestinationResult executeListCustomRoutingPortMappingsByDestination(
+            ListCustomRoutingPortMappingsByDestinationRequest listCustomRoutingPortMappingsByDestinationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCustomRoutingPortMappingsByDestinationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCustomRoutingPortMappingsByDestinationRequest> request = null;
+        Response<ListCustomRoutingPortMappingsByDestinationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCustomRoutingPortMappingsByDestinationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listCustomRoutingPortMappingsByDestinationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCustomRoutingPortMappingsByDestination");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListCustomRoutingPortMappingsByDestinationResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new ListCustomRoutingPortMappingsByDestinationResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -923,7 +3021,7 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
      * @throws InvalidArgumentException
      *         An argument that you specified is invalid.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @sample AWSGlobalAccelerator.ListEndpointGroups
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/ListEndpointGroups"
      *      target="_top">AWS API Documentation</a>
@@ -949,6 +3047,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                 request = new ListEndpointGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listEndpointGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListEndpointGroups");
@@ -977,12 +3077,14 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
      * 
      * @param listListenersRequest
      * @return Result of the ListListeners operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
      * @throws AcceleratorNotFoundException
      *         The accelerator that you specified doesn't exist.
      * @throws InvalidNextTokenException
      *         There isn't another item to return.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @sample AWSGlobalAccelerator.ListListeners
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/ListListeners"
      *      target="_top">AWS API Documentation</a>
@@ -1008,6 +3110,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                 request = new ListListenersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listListenersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListListeners");
@@ -1031,17 +3135,494 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
 
     /**
      * <p>
-     * Update an accelerator.
+     * List all tags for an accelerator.
      * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/tagging-in-global-accelerator.html">Tagging in
+     * Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws AcceleratorNotFoundException
+     *         The accelerator that you specified doesn't exist.
+     * @throws AttachmentNotFoundException
+     *         No cross-account attachment was found.
+     * @throws EndpointGroupNotFoundException
+     *         The endpoint group that you specified doesn't exist.
+     * @throws ListenerNotFoundException
+     *         The listener that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @sample AWSGlobalAccelerator.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/ListTagsForResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTagsForResource(request);
+    }
+
+    @SdkInternalApi
+    final ListTagsForResourceResult executeListTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForResourceRequest> request = null;
+        Response<ListTagsForResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provisions an IP address range to use with your Amazon Web Services resources through bring your own IP addresses
+     * (BYOIP) and creates a corresponding address pool. After the address range is provisioned, it is ready to be
+     * advertised using <a href="https://docs.aws.amazon.com/global-accelerator/latest/api/AdvertiseByoipCidr.html">
+     * AdvertiseByoipCidr</a>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html">Bring your own IP addresses
+     * (BYOIP)</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @param provisionByoipCidrRequest
+     * @return Result of the ProvisionByoipCidr operation returned by the service.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws LimitExceededException
+     *         Processing your request would cause you to exceed an Global Accelerator limit.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws IncorrectCidrStateException
+     *         The CIDR that you specified is not valid for this action. For example, the state of the CIDR might be
+     *         incorrect for this action.
+     * @sample AWSGlobalAccelerator.ProvisionByoipCidr
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/ProvisionByoipCidr"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ProvisionByoipCidrResult provisionByoipCidr(ProvisionByoipCidrRequest request) {
+        request = beforeClientExecution(request);
+        return executeProvisionByoipCidr(request);
+    }
+
+    @SdkInternalApi
+    final ProvisionByoipCidrResult executeProvisionByoipCidr(ProvisionByoipCidrRequest provisionByoipCidrRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(provisionByoipCidrRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ProvisionByoipCidrRequest> request = null;
+        Response<ProvisionByoipCidrResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ProvisionByoipCidrRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(provisionByoipCidrRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ProvisionByoipCidr");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ProvisionByoipCidrResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ProvisionByoipCidrResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Remove endpoints from a custom routing accelerator.
+     * </p>
+     * 
+     * @param removeCustomRoutingEndpointsRequest
+     * @return Result of the RemoveCustomRoutingEndpoints operation returned by the service.
+     * @throws EndpointGroupNotFoundException
+     *         The endpoint group that you specified doesn't exist.
+     * @throws EndpointNotFoundException
+     *         The endpoint that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws ConflictException
+     *         You can't use both of those options.
+     * @sample AWSGlobalAccelerator.RemoveCustomRoutingEndpoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/RemoveCustomRoutingEndpoints"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public RemoveCustomRoutingEndpointsResult removeCustomRoutingEndpoints(RemoveCustomRoutingEndpointsRequest request) {
+        request = beforeClientExecution(request);
+        return executeRemoveCustomRoutingEndpoints(request);
+    }
+
+    @SdkInternalApi
+    final RemoveCustomRoutingEndpointsResult executeRemoveCustomRoutingEndpoints(RemoveCustomRoutingEndpointsRequest removeCustomRoutingEndpointsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(removeCustomRoutingEndpointsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RemoveCustomRoutingEndpointsRequest> request = null;
+        Response<RemoveCustomRoutingEndpointsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RemoveCustomRoutingEndpointsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(removeCustomRoutingEndpointsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveCustomRoutingEndpoints");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RemoveCustomRoutingEndpointsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new RemoveCustomRoutingEndpointsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Remove endpoints from an endpoint group.
+     * </p>
+     * <p>
+     * The <code>RemoveEndpoints</code> API operation is the recommended option for removing endpoints. The alternative
+     * is to remove endpoints by updating an endpoint group by using the <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/api/API_UpdateEndpointGroup.html"
+     * >UpdateEndpointGroup</a> API operation. There are two advantages to using <code>AddEndpoints</code> to remove
+     * endpoints instead:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * It's more convenient, because you only need to specify the endpoints that you want to remove. With the
+     * <code>UpdateEndpointGroup</code> API operation, you must specify all of the endpoints in the endpoint group
+     * except the ones that you want to remove from the group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * It's faster, because Global Accelerator doesn't need to resolve any endpoints. With the
+     * <code>UpdateEndpointGroup</code> API operation, Global Accelerator must resolve all of the endpoints that remain
+     * in the group.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param removeEndpointsRequest
+     * @return Result of the RemoveEndpoints operation returned by the service.
+     * @throws EndpointGroupNotFoundException
+     *         The endpoint group that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws TransactionInProgressException
+     *         There's already a transaction in progress. Another transaction can't be processed.
+     * @sample AWSGlobalAccelerator.RemoveEndpoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/RemoveEndpoints"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public RemoveEndpointsResult removeEndpoints(RemoveEndpointsRequest request) {
+        request = beforeClientExecution(request);
+        return executeRemoveEndpoints(request);
+    }
+
+    @SdkInternalApi
+    final RemoveEndpointsResult executeRemoveEndpoints(RemoveEndpointsRequest removeEndpointsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(removeEndpointsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RemoveEndpointsRequest> request = null;
+        Response<RemoveEndpointsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RemoveEndpointsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(removeEndpointsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveEndpoints");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RemoveEndpointsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new RemoveEndpointsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Add tags to an accelerator resource.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/tagging-in-global-accelerator.html">Tagging in
+     * Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws AcceleratorNotFoundException
+     *         The accelerator that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @sample AWSGlobalAccelerator.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/TagResource" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagResource(request);
+    }
+
+    @SdkInternalApi
+    final TagResourceResult executeTagResource(TagResourceRequest tagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagResourceRequest> request = null;
+        Response<TagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Remove tags from a Global Accelerator resource. When you specify a tag key, the action removes both that key and
+     * its associated value. The operation succeeds even if you attempt to remove tags from an accelerator that was
+     * already removed.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/tagging-in-global-accelerator.html">Tagging in
+     * Global Accelerator</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws AcceleratorNotFoundException
+     *         The accelerator that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @sample AWSGlobalAccelerator.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/UntagResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagResource(request);
+    }
+
+    @SdkInternalApi
+    final UntagResourceResult executeUntagResource(UntagResourceRequest untagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagResourceRequest> request = null;
+        Response<UntagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Update an accelerator to make changes, such as the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Change the name of the accelerator.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Disable the accelerator so that it no longer accepts or routes traffic, or so that you can delete it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Enable the accelerator, if it is disabled.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Change the IP address type to dual-stack if it is IPv4, or change the IP address type to IPv4 if it's dual-stack.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Be aware that static IP addresses remain assigned to your accelerator for as long as it exists, even if you
+     * disable the accelerator and it no longer accepts or routes traffic. However, when you delete the accelerator, you
+     * lose the static IP addresses that are assigned to it, so you can no longer route traffic by using them.
+     * </p>
+     * <important>
+     * <p>
+     * Global Accelerator is a global service that supports endpoints in multiple Amazon Web Services Regions but you
+     * must specify the US West (Oregon) Region to create, update, or otherwise work with accelerators. That is, for
+     * example, specify <code>--region us-west-2</code> on Amazon Web Services CLI commands.
+     * </p>
+     * </important>
      * 
      * @param updateAcceleratorRequest
      * @return Result of the UpdateAccelerator operation returned by the service.
      * @throws AcceleratorNotFoundException
      *         The accelerator that you specified doesn't exist.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @throws InvalidArgumentException
      *         An argument that you specified is invalid.
+     * @throws TransactionInProgressException
+     *         There's already a transaction in progress. Another transaction can't be processed.
+     * @throws ConflictException
+     *         You can't use both of those options.
      * @sample AWSGlobalAccelerator.UpdateAccelerator
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/UpdateAccelerator"
      *      target="_top">AWS API Documentation</a>
@@ -1067,6 +3648,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                 request = new UpdateAcceleratorRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateAcceleratorRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateAccelerator");
@@ -1090,8 +3673,7 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
 
     /**
      * <p>
-     * Update the attributes for an accelerator. To see an AWS CLI example of updating an accelerator to enable flow
-     * logs, scroll down to <b>Example</b>.
+     * Update the attributes for an accelerator.
      * </p>
      * 
      * @param updateAcceleratorAttributesRequest
@@ -1099,9 +3681,13 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
      * @throws AcceleratorNotFoundException
      *         The accelerator that you specified doesn't exist.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @throws InvalidArgumentException
      *         An argument that you specified is invalid.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws TransactionInProgressException
+     *         There's already a transaction in progress. Another transaction can't be processed.
      * @sample AWSGlobalAccelerator.UpdateAcceleratorAttributes
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/UpdateAcceleratorAttributes"
      *      target="_top">AWS API Documentation</a>
@@ -1128,6 +3714,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                         .beforeMarshalling(updateAcceleratorAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateAcceleratorAttributes");
@@ -1152,7 +3740,287 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
 
     /**
      * <p>
-     * Update an endpoint group. To see an AWS CLI example of updating an endpoint group, scroll down to <b>Example</b>.
+     * Update a cross-account attachment to add or remove principals or resources. When you update an attachment to
+     * remove a principal (account ID or accelerator) or a resource, Global Accelerator revokes the permission for
+     * specific resources.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/cross-account-resources.html"> Working with
+     * cross-account attachments and resources in Global Accelerator</a> in the <i> Global Accelerator Developer
+     * Guide</i>.
+     * </p>
+     * 
+     * @param updateCrossAccountAttachmentRequest
+     * @return Result of the UpdateCrossAccountAttachment operation returned by the service.
+     * @throws AttachmentNotFoundException
+     *         No cross-account attachment was found.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws LimitExceededException
+     *         Processing your request would cause you to exceed an Global Accelerator limit.
+     * @throws TransactionInProgressException
+     *         There's already a transaction in progress. Another transaction can't be processed.
+     * @sample AWSGlobalAccelerator.UpdateCrossAccountAttachment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/UpdateCrossAccountAttachment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateCrossAccountAttachmentResult updateCrossAccountAttachment(UpdateCrossAccountAttachmentRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateCrossAccountAttachment(request);
+    }
+
+    @SdkInternalApi
+    final UpdateCrossAccountAttachmentResult executeUpdateCrossAccountAttachment(UpdateCrossAccountAttachmentRequest updateCrossAccountAttachmentRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateCrossAccountAttachmentRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateCrossAccountAttachmentRequest> request = null;
+        Response<UpdateCrossAccountAttachmentResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateCrossAccountAttachmentRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateCrossAccountAttachmentRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateCrossAccountAttachment");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateCrossAccountAttachmentResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateCrossAccountAttachmentResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Update a custom routing accelerator.
+     * </p>
+     * 
+     * @param updateCustomRoutingAcceleratorRequest
+     * @return Result of the UpdateCustomRoutingAccelerator operation returned by the service.
+     * @throws AcceleratorNotFoundException
+     *         The accelerator that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws TransactionInProgressException
+     *         There's already a transaction in progress. Another transaction can't be processed.
+     * @throws ConflictException
+     *         You can't use both of those options.
+     * @sample AWSGlobalAccelerator.UpdateCustomRoutingAccelerator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/UpdateCustomRoutingAccelerator"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateCustomRoutingAcceleratorResult updateCustomRoutingAccelerator(UpdateCustomRoutingAcceleratorRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateCustomRoutingAccelerator(request);
+    }
+
+    @SdkInternalApi
+    final UpdateCustomRoutingAcceleratorResult executeUpdateCustomRoutingAccelerator(UpdateCustomRoutingAcceleratorRequest updateCustomRoutingAcceleratorRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateCustomRoutingAcceleratorRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateCustomRoutingAcceleratorRequest> request = null;
+        Response<UpdateCustomRoutingAcceleratorResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateCustomRoutingAcceleratorRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateCustomRoutingAcceleratorRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateCustomRoutingAccelerator");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateCustomRoutingAcceleratorResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateCustomRoutingAcceleratorResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Update the attributes for a custom routing accelerator.
+     * </p>
+     * 
+     * @param updateCustomRoutingAcceleratorAttributesRequest
+     * @return Result of the UpdateCustomRoutingAcceleratorAttributes operation returned by the service.
+     * @throws AcceleratorNotFoundException
+     *         The accelerator that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws TransactionInProgressException
+     *         There's already a transaction in progress. Another transaction can't be processed.
+     * @sample AWSGlobalAccelerator.UpdateCustomRoutingAcceleratorAttributes
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/UpdateCustomRoutingAcceleratorAttributes"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateCustomRoutingAcceleratorAttributesResult updateCustomRoutingAcceleratorAttributes(UpdateCustomRoutingAcceleratorAttributesRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateCustomRoutingAcceleratorAttributes(request);
+    }
+
+    @SdkInternalApi
+    final UpdateCustomRoutingAcceleratorAttributesResult executeUpdateCustomRoutingAcceleratorAttributes(
+            UpdateCustomRoutingAcceleratorAttributesRequest updateCustomRoutingAcceleratorAttributesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateCustomRoutingAcceleratorAttributesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateCustomRoutingAcceleratorAttributesRequest> request = null;
+        Response<UpdateCustomRoutingAcceleratorAttributesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateCustomRoutingAcceleratorAttributesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateCustomRoutingAcceleratorAttributesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateCustomRoutingAcceleratorAttributes");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateCustomRoutingAcceleratorAttributesResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new UpdateCustomRoutingAcceleratorAttributesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Update a listener for a custom routing accelerator.
+     * </p>
+     * 
+     * @param updateCustomRoutingListenerRequest
+     * @return Result of the UpdateCustomRoutingListener operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws InvalidPortRangeException
+     *         The port numbers that you specified are not valid numbers or are not unique for this accelerator.
+     * @throws ListenerNotFoundException
+     *         The listener that you specified doesn't exist.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws LimitExceededException
+     *         Processing your request would cause you to exceed an Global Accelerator limit.
+     * @sample AWSGlobalAccelerator.UpdateCustomRoutingListener
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/UpdateCustomRoutingListener"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateCustomRoutingListenerResult updateCustomRoutingListener(UpdateCustomRoutingListenerRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateCustomRoutingListener(request);
+    }
+
+    @SdkInternalApi
+    final UpdateCustomRoutingListenerResult executeUpdateCustomRoutingListener(UpdateCustomRoutingListenerRequest updateCustomRoutingListenerRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateCustomRoutingListenerRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateCustomRoutingListenerRequest> request = null;
+        Response<UpdateCustomRoutingListenerResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateCustomRoutingListenerRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateCustomRoutingListenerRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateCustomRoutingListener");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateCustomRoutingListenerResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateCustomRoutingListenerResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Update an endpoint group. A resource must be valid and active when you add it as an endpoint.
      * </p>
      * 
      * @param updateEndpointGroupRequest
@@ -1162,9 +4030,11 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
      * @throws EndpointGroupNotFoundException
      *         The endpoint group that you specified doesn't exist.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @throws LimitExceededException
-     *         Processing your request would cause you to exceed an AWS Global Accelerator limit.
+     *         Processing your request would cause you to exceed an Global Accelerator limit.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
      * @sample AWSGlobalAccelerator.UpdateEndpointGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/UpdateEndpointGroup"
      *      target="_top">AWS API Documentation</a>
@@ -1190,6 +4060,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                 request = new UpdateEndpointGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateEndpointGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateEndpointGroup");
@@ -1225,9 +4097,9 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
      * @throws ListenerNotFoundException
      *         The listener that you specified doesn't exist.
      * @throws InternalServiceErrorException
-     *         There was an internal error for AWS Global Accelerator.
+     *         There was an internal error for Global Accelerator.
      * @throws LimitExceededException
-     *         Processing your request would cause you to exceed an AWS Global Accelerator limit.
+     *         Processing your request would cause you to exceed an Global Accelerator limit.
      * @sample AWSGlobalAccelerator.UpdateListener
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/UpdateListener"
      *      target="_top">AWS API Documentation</a>
@@ -1253,6 +4125,8 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
                 request = new UpdateListenerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateListenerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateListener");
@@ -1264,6 +4138,82 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
 
             HttpResponseHandler<AmazonWebServiceResponse<UpdateListenerResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateListenerResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Stops advertising an address range that is provisioned as an address pool. You can perform this operation at most
+     * once every 10 seconds, even if you specify different address ranges each time.
+     * </p>
+     * <p>
+     * It can take a few minutes before traffic to the specified addresses stops routing to Amazon Web Services because
+     * of propagation delays.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html">Bring your own IP addresses
+     * (BYOIP)</a> in the <i>Global Accelerator Developer Guide</i>.
+     * </p>
+     * 
+     * @param withdrawByoipCidrRequest
+     * @return Result of the WithdrawByoipCidr operation returned by the service.
+     * @throws InternalServiceErrorException
+     *         There was an internal error for Global Accelerator.
+     * @throws InvalidArgumentException
+     *         An argument that you specified is invalid.
+     * @throws AccessDeniedException
+     *         You don't have access permission.
+     * @throws ByoipCidrNotFoundException
+     *         The CIDR that you specified was not found or is incorrect.
+     * @throws IncorrectCidrStateException
+     *         The CIDR that you specified is not valid for this action. For example, the state of the CIDR might be
+     *         incorrect for this action.
+     * @sample AWSGlobalAccelerator.WithdrawByoipCidr
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/globalaccelerator-2018-08-08/WithdrawByoipCidr"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public WithdrawByoipCidrResult withdrawByoipCidr(WithdrawByoipCidrRequest request) {
+        request = beforeClientExecution(request);
+        return executeWithdrawByoipCidr(request);
+    }
+
+    @SdkInternalApi
+    final WithdrawByoipCidrResult executeWithdrawByoipCidr(WithdrawByoipCidrRequest withdrawByoipCidrRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(withdrawByoipCidrRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<WithdrawByoipCidrRequest> request = null;
+        Response<WithdrawByoipCidrResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new WithdrawByoipCidrRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(withdrawByoipCidrRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Global Accelerator");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "WithdrawByoipCidr");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<WithdrawByoipCidrResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new WithdrawByoipCidrResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1348,6 +4298,11 @@ public class AWSGlobalAcceleratorClient extends AmazonWebServiceClient implement
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

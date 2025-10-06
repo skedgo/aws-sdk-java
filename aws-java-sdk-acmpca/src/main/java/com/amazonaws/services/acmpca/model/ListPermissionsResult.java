@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,18 +25,64 @@ public class ListPermissionsResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Summary information about each permission assigned by the specified private CA, including the action enabled, the
-     * policy provided, and the time of creation.
-     * </p>
-     */
-    private java.util.List<Permission> permissions;
-    /**
-     * <p>
      * When the list is truncated, this value is present and should be used for the <b>NextToken</b> parameter in a
      * subsequent pagination request.
      * </p>
      */
     private String nextToken;
+    /**
+     * <p>
+     * Summary information about each permission assigned by the specified private CA, including the action enabled, the
+     * policy provided, and the time of creation.
+     * </p>
+     */
+    private java.util.List<Permission> permissions;
+
+    /**
+     * <p>
+     * When the list is truncated, this value is present and should be used for the <b>NextToken</b> parameter in a
+     * subsequent pagination request.
+     * </p>
+     * 
+     * @param nextToken
+     *        When the list is truncated, this value is present and should be used for the <b>NextToken</b> parameter in
+     *        a subsequent pagination request.
+     */
+
+    public void setNextToken(String nextToken) {
+        this.nextToken = nextToken;
+    }
+
+    /**
+     * <p>
+     * When the list is truncated, this value is present and should be used for the <b>NextToken</b> parameter in a
+     * subsequent pagination request.
+     * </p>
+     * 
+     * @return When the list is truncated, this value is present and should be used for the <b>NextToken</b> parameter
+     *         in a subsequent pagination request.
+     */
+
+    public String getNextToken() {
+        return this.nextToken;
+    }
+
+    /**
+     * <p>
+     * When the list is truncated, this value is present and should be used for the <b>NextToken</b> parameter in a
+     * subsequent pagination request.
+     * </p>
+     * 
+     * @param nextToken
+     *        When the list is truncated, this value is present and should be used for the <b>NextToken</b> parameter in
+     *        a subsequent pagination request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListPermissionsResult withNextToken(String nextToken) {
+        setNextToken(nextToken);
+        return this;
+    }
 
     /**
      * <p>
@@ -117,52 +163,6 @@ public class ListPermissionsResult extends com.amazonaws.AmazonWebServiceResult<
     }
 
     /**
-     * <p>
-     * When the list is truncated, this value is present and should be used for the <b>NextToken</b> parameter in a
-     * subsequent pagination request.
-     * </p>
-     * 
-     * @param nextToken
-     *        When the list is truncated, this value is present and should be used for the <b>NextToken</b> parameter in
-     *        a subsequent pagination request.
-     */
-
-    public void setNextToken(String nextToken) {
-        this.nextToken = nextToken;
-    }
-
-    /**
-     * <p>
-     * When the list is truncated, this value is present and should be used for the <b>NextToken</b> parameter in a
-     * subsequent pagination request.
-     * </p>
-     * 
-     * @return When the list is truncated, this value is present and should be used for the <b>NextToken</b> parameter
-     *         in a subsequent pagination request.
-     */
-
-    public String getNextToken() {
-        return this.nextToken;
-    }
-
-    /**
-     * <p>
-     * When the list is truncated, this value is present and should be used for the <b>NextToken</b> parameter in a
-     * subsequent pagination request.
-     * </p>
-     * 
-     * @param nextToken
-     *        When the list is truncated, this value is present and should be used for the <b>NextToken</b> parameter in
-     *        a subsequent pagination request.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public ListPermissionsResult withNextToken(String nextToken) {
-        setNextToken(nextToken);
-        return this;
-    }
-
-    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -174,10 +174,10 @@ public class ListPermissionsResult extends com.amazonaws.AmazonWebServiceResult<
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        if (getPermissions() != null)
-            sb.append("Permissions: ").append(getPermissions()).append(",");
         if (getNextToken() != null)
-            sb.append("NextToken: ").append(getNextToken());
+            sb.append("NextToken: ").append(getNextToken()).append(",");
+        if (getPermissions() != null)
+            sb.append("Permissions: ").append(getPermissions());
         sb.append("}");
         return sb.toString();
     }
@@ -192,13 +192,13 @@ public class ListPermissionsResult extends com.amazonaws.AmazonWebServiceResult<
         if (obj instanceof ListPermissionsResult == false)
             return false;
         ListPermissionsResult other = (ListPermissionsResult) obj;
-        if (other.getPermissions() == null ^ this.getPermissions() == null)
-            return false;
-        if (other.getPermissions() != null && other.getPermissions().equals(this.getPermissions()) == false)
-            return false;
         if (other.getNextToken() == null ^ this.getNextToken() == null)
             return false;
         if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
+            return false;
+        if (other.getPermissions() == null ^ this.getPermissions() == null)
+            return false;
+        if (other.getPermissions() != null && other.getPermissions().equals(this.getPermissions()) == false)
             return false;
         return true;
     }
@@ -208,8 +208,8 @@ public class ListPermissionsResult extends com.amazonaws.AmazonWebServiceResult<
         final int prime = 31;
         int hashCode = 1;
 
-        hashCode = prime * hashCode + ((getPermissions() == null) ? 0 : getPermissions().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
+        hashCode = prime * hashCode + ((getPermissions() == null) ? 0 : getPermissions().hashCode());
         return hashCode;
     }
 

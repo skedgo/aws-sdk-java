@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,41 +27,59 @@ public class UpdateContactAttributesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The unique identifier of the contact for which to update attributes. This is the identifier for the contact
-     * associated with the first interaction with the contact center.
+     * The identifier of the contact. This is the identifier of the contact associated with the first interaction with
+     * the contact center.
      * </p>
      */
     private String initialContactId;
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      */
     private String instanceId;
     /**
      * <p>
-     * Specify a custom key-value pair using an attribute map. The attributes are standard Amazon Connect attributes,
-     * and can be accessed in contact flows just like any other contact attributes.
+     * The Amazon Connect attributes. These attributes can be accessed in flows just like any other contact attributes.
      * </p>
      * <p>
-     * There can be up to 32,768 UTF-8 bytes across all key-value pairs per contact. Attribute keys can include only
+     * You can have up to 32,768 UTF-8 bytes across all attributes for a contact. Attribute keys can include only
      * alphanumeric, dash, and underscore characters.
      * </p>
+     * <p>
+     * When the attributes for a contact exceed 32 KB, the contact is routed down the Error branch of the flow. As a
+     * mitigation, consider the following options:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Remove unnecessary attributes by setting their values to empty.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the attributes are only used in one flow and don't need to be referred to outside of that flow (for example,
+     * by a Lambda or another flow), then use flow attributes. This way you aren't needlessly persisting the 32 KB of
+     * information from one flow to another. For more information, see <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/set-contact-attributes.html">Flow block: Set contact
+     * attributes</a> in the <i>Amazon Connect Administrator Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
      */
     private java.util.Map<String, String> attributes;
 
     /**
      * <p>
-     * The unique identifier of the contact for which to update attributes. This is the identifier for the contact
-     * associated with the first interaction with the contact center.
+     * The identifier of the contact. This is the identifier of the contact associated with the first interaction with
+     * the contact center.
      * </p>
      * 
      * @param initialContactId
-     *        The unique identifier of the contact for which to update attributes. This is the identifier for the
-     *        contact associated with the first interaction with the contact center.
+     *        The identifier of the contact. This is the identifier of the contact associated with the first interaction
+     *        with the contact center.
      */
 
     public void setInitialContactId(String initialContactId) {
@@ -70,12 +88,12 @@ public class UpdateContactAttributesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The unique identifier of the contact for which to update attributes. This is the identifier for the contact
-     * associated with the first interaction with the contact center.
+     * The identifier of the contact. This is the identifier of the contact associated with the first interaction with
+     * the contact center.
      * </p>
      * 
-     * @return The unique identifier of the contact for which to update attributes. This is the identifier for the
-     *         contact associated with the first interaction with the contact center.
+     * @return The identifier of the contact. This is the identifier of the contact associated with the first
+     *         interaction with the contact center.
      */
 
     public String getInitialContactId() {
@@ -84,13 +102,13 @@ public class UpdateContactAttributesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The unique identifier of the contact for which to update attributes. This is the identifier for the contact
-     * associated with the first interaction with the contact center.
+     * The identifier of the contact. This is the identifier of the contact associated with the first interaction with
+     * the contact center.
      * </p>
      * 
      * @param initialContactId
-     *        The unique identifier of the contact for which to update attributes. This is the identifier for the
-     *        contact associated with the first interaction with the contact center.
+     *        The identifier of the contact. This is the identifier of the contact associated with the first interaction
+     *        with the contact center.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -101,17 +119,15 @@ public class UpdateContactAttributesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      * 
      * @param instanceId
-     *        The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and
-     *        select Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is
-     *        displayed in the Overview section of your instance settings. For example, the instance ID is the set of
-     *        characters at the end of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     *        The identifier of the Amazon Connect instance. You can <a
+     *        href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance
+     *        ID</a> in the Amazon Resource Name (ARN) of the instance.
      */
 
     public void setInstanceId(String instanceId) {
@@ -120,17 +136,14 @@ public class UpdateContactAttributesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      * 
-     * @return The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console
-     *         and select Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID
-     *         is displayed in the Overview section of your instance settings. For example, the instance ID is the set
-     *         of characters at the end of the instance ARN, after instance/, such as
-     *         10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * @return The identifier of the Amazon Connect instance. You can <a
+     *         href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance
+     *         ID</a> in the Amazon Resource Name (ARN) of the instance.
      */
 
     public String getInstanceId() {
@@ -139,17 +152,15 @@ public class UpdateContactAttributesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      * 
      * @param instanceId
-     *        The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and
-     *        select Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is
-     *        displayed in the Overview section of your instance settings. For example, the instance ID is the set of
-     *        characters at the end of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     *        The identifier of the Amazon Connect instance. You can <a
+     *        href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance
+     *        ID</a> in the Amazon Resource Name (ARN) of the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -160,19 +171,58 @@ public class UpdateContactAttributesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Specify a custom key-value pair using an attribute map. The attributes are standard Amazon Connect attributes,
-     * and can be accessed in contact flows just like any other contact attributes.
+     * The Amazon Connect attributes. These attributes can be accessed in flows just like any other contact attributes.
      * </p>
      * <p>
-     * There can be up to 32,768 UTF-8 bytes across all key-value pairs per contact. Attribute keys can include only
+     * You can have up to 32,768 UTF-8 bytes across all attributes for a contact. Attribute keys can include only
      * alphanumeric, dash, and underscore characters.
      * </p>
+     * <p>
+     * When the attributes for a contact exceed 32 KB, the contact is routed down the Error branch of the flow. As a
+     * mitigation, consider the following options:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Remove unnecessary attributes by setting their values to empty.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the attributes are only used in one flow and don't need to be referred to outside of that flow (for example,
+     * by a Lambda or another flow), then use flow attributes. This way you aren't needlessly persisting the 32 KB of
+     * information from one flow to another. For more information, see <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/set-contact-attributes.html">Flow block: Set contact
+     * attributes</a> in the <i>Amazon Connect Administrator Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return Specify a custom key-value pair using an attribute map. The attributes are standard Amazon Connect
-     *         attributes, and can be accessed in contact flows just like any other contact attributes.</p>
+     * @return The Amazon Connect attributes. These attributes can be accessed in flows just like any other contact
+     *         attributes.</p>
      *         <p>
-     *         There can be up to 32,768 UTF-8 bytes across all key-value pairs per contact. Attribute keys can include
+     *         You can have up to 32,768 UTF-8 bytes across all attributes for a contact. Attribute keys can include
      *         only alphanumeric, dash, and underscore characters.
+     *         </p>
+     *         <p>
+     *         When the attributes for a contact exceed 32 KB, the contact is routed down the Error branch of the flow.
+     *         As a mitigation, consider the following options:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Remove unnecessary attributes by setting their values to empty.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If the attributes are only used in one flow and don't need to be referred to outside of that flow (for
+     *         example, by a Lambda or another flow), then use flow attributes. This way you aren't needlessly
+     *         persisting the 32 KB of information from one flow to another. For more information, see <a
+     *         href="https://docs.aws.amazon.com/connect/latest/adminguide/set-contact-attributes.html">Flow block: Set
+     *         contact attributes</a> in the <i>Amazon Connect Administrator Guide</i>.
+     *         </p>
+     *         </li>
      */
 
     public java.util.Map<String, String> getAttributes() {
@@ -181,20 +231,59 @@ public class UpdateContactAttributesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Specify a custom key-value pair using an attribute map. The attributes are standard Amazon Connect attributes,
-     * and can be accessed in contact flows just like any other contact attributes.
+     * The Amazon Connect attributes. These attributes can be accessed in flows just like any other contact attributes.
      * </p>
      * <p>
-     * There can be up to 32,768 UTF-8 bytes across all key-value pairs per contact. Attribute keys can include only
+     * You can have up to 32,768 UTF-8 bytes across all attributes for a contact. Attribute keys can include only
      * alphanumeric, dash, and underscore characters.
      * </p>
+     * <p>
+     * When the attributes for a contact exceed 32 KB, the contact is routed down the Error branch of the flow. As a
+     * mitigation, consider the following options:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Remove unnecessary attributes by setting their values to empty.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the attributes are only used in one flow and don't need to be referred to outside of that flow (for example,
+     * by a Lambda or another flow), then use flow attributes. This way you aren't needlessly persisting the 32 KB of
+     * information from one flow to another. For more information, see <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/set-contact-attributes.html">Flow block: Set contact
+     * attributes</a> in the <i>Amazon Connect Administrator Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param attributes
-     *        Specify a custom key-value pair using an attribute map. The attributes are standard Amazon Connect
-     *        attributes, and can be accessed in contact flows just like any other contact attributes.</p>
+     *        The Amazon Connect attributes. These attributes can be accessed in flows just like any other contact
+     *        attributes.</p>
      *        <p>
-     *        There can be up to 32,768 UTF-8 bytes across all key-value pairs per contact. Attribute keys can include
-     *        only alphanumeric, dash, and underscore characters.
+     *        You can have up to 32,768 UTF-8 bytes across all attributes for a contact. Attribute keys can include only
+     *        alphanumeric, dash, and underscore characters.
+     *        </p>
+     *        <p>
+     *        When the attributes for a contact exceed 32 KB, the contact is routed down the Error branch of the flow.
+     *        As a mitigation, consider the following options:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Remove unnecessary attributes by setting their values to empty.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the attributes are only used in one flow and don't need to be referred to outside of that flow (for
+     *        example, by a Lambda or another flow), then use flow attributes. This way you aren't needlessly persisting
+     *        the 32 KB of information from one flow to another. For more information, see <a
+     *        href="https://docs.aws.amazon.com/connect/latest/adminguide/set-contact-attributes.html">Flow block: Set
+     *        contact attributes</a> in the <i>Amazon Connect Administrator Guide</i>.
+     *        </p>
+     *        </li>
      */
 
     public void setAttributes(java.util.Map<String, String> attributes) {
@@ -203,20 +292,59 @@ public class UpdateContactAttributesRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * Specify a custom key-value pair using an attribute map. The attributes are standard Amazon Connect attributes,
-     * and can be accessed in contact flows just like any other contact attributes.
+     * The Amazon Connect attributes. These attributes can be accessed in flows just like any other contact attributes.
      * </p>
      * <p>
-     * There can be up to 32,768 UTF-8 bytes across all key-value pairs per contact. Attribute keys can include only
+     * You can have up to 32,768 UTF-8 bytes across all attributes for a contact. Attribute keys can include only
      * alphanumeric, dash, and underscore characters.
      * </p>
+     * <p>
+     * When the attributes for a contact exceed 32 KB, the contact is routed down the Error branch of the flow. As a
+     * mitigation, consider the following options:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Remove unnecessary attributes by setting their values to empty.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the attributes are only used in one flow and don't need to be referred to outside of that flow (for example,
+     * by a Lambda or another flow), then use flow attributes. This way you aren't needlessly persisting the 32 KB of
+     * information from one flow to another. For more information, see <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/set-contact-attributes.html">Flow block: Set contact
+     * attributes</a> in the <i>Amazon Connect Administrator Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param attributes
-     *        Specify a custom key-value pair using an attribute map. The attributes are standard Amazon Connect
-     *        attributes, and can be accessed in contact flows just like any other contact attributes.</p>
+     *        The Amazon Connect attributes. These attributes can be accessed in flows just like any other contact
+     *        attributes.</p>
      *        <p>
-     *        There can be up to 32,768 UTF-8 bytes across all key-value pairs per contact. Attribute keys can include
-     *        only alphanumeric, dash, and underscore characters.
+     *        You can have up to 32,768 UTF-8 bytes across all attributes for a contact. Attribute keys can include only
+     *        alphanumeric, dash, and underscore characters.
+     *        </p>
+     *        <p>
+     *        When the attributes for a contact exceed 32 KB, the contact is routed down the Error branch of the flow.
+     *        As a mitigation, consider the following options:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Remove unnecessary attributes by setting their values to empty.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the attributes are only used in one flow and don't need to be referred to outside of that flow (for
+     *        example, by a Lambda or another flow), then use flow attributes. This way you aren't needlessly persisting
+     *        the 32 KB of information from one flow to another. For more information, see <a
+     *        href="https://docs.aws.amazon.com/connect/latest/adminguide/set-contact-attributes.html">Flow block: Set
+     *        contact attributes</a> in the <i>Amazon Connect Administrator Guide</i>.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -224,6 +352,13 @@ public class UpdateContactAttributesRequest extends com.amazonaws.AmazonWebServi
         setAttributes(attributes);
         return this;
     }
+
+    /**
+     * Add a single Attributes entry
+     *
+     * @see UpdateContactAttributesRequest#withAttributes
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public UpdateContactAttributesRequest addAttributesEntry(String key, String value) {
         if (null == this.attributes) {

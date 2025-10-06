@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -76,6 +76,10 @@ public class SessionJsonUnmarshaller implements Unmarshaller<Session, JsonUnmars
                     context.nextToken();
                     session.setOwner(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("Reason", targetDepth)) {
+                    context.nextToken();
+                    session.setReason(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("Details", targetDepth)) {
                     context.nextToken();
                     session.setDetails(context.getUnmarshaller(String.class).unmarshall(context));
@@ -83,6 +87,10 @@ public class SessionJsonUnmarshaller implements Unmarshaller<Session, JsonUnmars
                 if (context.testExpression("OutputUrl", targetDepth)) {
                     context.nextToken();
                     session.setOutputUrl(SessionManagerOutputUrlJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("MaxSessionDuration", targetDepth)) {
+                    context.nextToken();
+                    session.setMaxSessionDuration(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

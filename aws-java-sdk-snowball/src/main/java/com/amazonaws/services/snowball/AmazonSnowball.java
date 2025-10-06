@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,11 +27,13 @@ import com.amazonaws.services.snowball.model.*;
  * </p>
  * <p>
  * <p>
- * AWS Snowball is a petabyte-scale data transport solution that uses secure devices to transfer large amounts of data
- * between your on-premises data centers and Amazon Simple Storage Service (Amazon S3). The commands described here
- * provide access to the same functionality that is available in the AWS Snowball Management Console, which enables you
- * to create and manage jobs for Snowball and Snowball Edge devices. To transfer data locally with a device, you'll need
- * to use the Snowball client or the Amazon S3 API adapter for Snowball.
+ * The Amazon Web Services Snow Family provides a petabyte-scale data transport solution that uses secure devices to
+ * transfer large amounts of data between your on-premises data centers and Amazon Simple Storage Service (Amazon S3).
+ * The Snow Family commands described here provide access to the same functionality that is available in the Amazon Web
+ * Services Snow Family Management Console, which enables you to create and manage jobs for a Snow Family device. To
+ * transfer data locally with a Snow Family device, you'll need to use the Snowball Edge client or the Amazon S3 API
+ * Interface for Snowball or OpsHub for Snow Family. For more information, see the <a
+ * href="https://docs.aws.amazon.com/AWSImportExport/latest/ug/api-reference.html">User Guide</a>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -106,8 +108,8 @@ public interface AmazonSnowball {
      * @param cancelClusterRequest
      * @return Result of the CancelCluster operation returned by the service.
      * @throws KMSRequestFailedException
-     *         The provided AWS Key Management Service key lacks the permissions to perform the specified
-     *         <a>CreateJob</a> or <a>UpdateJob</a> action.
+     *         The provided Key Management Service key lacks the permissions to perform the specified <a>CreateJob</a>
+     *         or <a>UpdateJob</a> action.
      * @throws InvalidJobStateException
      *         The action can't be performed because the job's current state doesn't allow that action to be performed.
      * @throws InvalidResourceException
@@ -134,8 +136,8 @@ public interface AmazonSnowball {
      * @throws InvalidJobStateException
      *         The action can't be performed because the job's current state doesn't allow that action to be performed.
      * @throws KMSRequestFailedException
-     *         The provided AWS Key Management Service key lacks the permissions to perform the specified
-     *         <a>CreateJob</a> or <a>UpdateJob</a> action.
+     *         The provided Key Management Service key lacks the permissions to perform the specified <a>CreateJob</a>
+     *         or <a>UpdateJob</a> action.
      * @sample AmazonSnowball.CancelJob
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/CancelJob" target="_top">AWS API
      *      Documentation</a>
@@ -144,9 +146,11 @@ public interface AmazonSnowball {
 
     /**
      * <p>
-     * Creates an address for a Snowball to be shipped to. In most regions, addresses are validated at the time of
+     * Creates an address for a Snow device to be shipped to. In most regions, addresses are validated at the time of
      * creation. The address you provide must be located within the serviceable area of your region. If the address is
-     * invalid or unsupported, then an exception is thrown.
+     * invalid or unsupported, then an exception is thrown. If providing an address as a JSON file through the
+     * <code>cli-input-json</code> option, include the full file path. For example,
+     * <code>--cli-input-json file://create-address.json</code>.
      * </p>
      * 
      * @param createAddressRequest
@@ -155,7 +159,8 @@ public interface AmazonSnowball {
      *         The address provided was invalid. Check the address with your region's carrier, and try again.
      * @throws UnsupportedAddressException
      *         The address is either outside the serviceable area for your region, or an error occurred. Check the
-     *         address with your region's carrier and try again. If the issue persists, contact AWS Support.
+     *         address with your region's carrier and try again. If the issue persists, contact Amazon Web Services
+     *         Support.
      * @sample AmazonSnowball.CreateAddress
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/CreateAddress" target="_top">AWS API
      *      Documentation</a>
@@ -174,14 +179,14 @@ public interface AmazonSnowball {
      *         The specified resource can't be found. Check the information you provided in your last request, and try
      *         again.
      * @throws KMSRequestFailedException
-     *         The provided AWS Key Management Service key lacks the permissions to perform the specified
-     *         <a>CreateJob</a> or <a>UpdateJob</a> action.
+     *         The provided Key Management Service key lacks the permissions to perform the specified <a>CreateJob</a>
+     *         or <a>UpdateJob</a> action.
      * @throws InvalidInputCombinationException
-     *         Job or cluster creation failed. One ore more inputs were invalid. Confirm that the
+     *         Job or cluster creation failed. One or more inputs were invalid. Confirm that the
      *         <a>CreateClusterRequest$SnowballType</a> value supports your <a>CreateJobRequest$JobType</a>, and try
      *         again.
      * @throws Ec2RequestFailedException
-     *         Your IAM user lacks the necessary Amazon EC2 permissions to perform the attempted action.
+     *         Your user lacks the necessary Amazon EC2 permissions to perform the attempted action.
      * @sample AmazonSnowball.CreateCluster
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/CreateCluster" target="_top">AWS API
      *      Documentation</a>
@@ -190,8 +195,214 @@ public interface AmazonSnowball {
 
     /**
      * <p>
-     * Creates a job to the other job attributes are inherited from the cluster.
+     * Creates a job to import or export data between Amazon S3 and your on-premises data center. Your Amazon Web
+     * Services account must have the right trust policies and permissions in place to create a job for a Snow device.
+     * If you're creating a job for a node in a cluster, you only need to provide the <code>clusterId</code> value; the
+     * other job attributes are inherited from the cluster.
      * </p>
+     * <note>
+     * <p>
+     * Only the Snowball; Edge device type is supported when ordering clustered jobs.
+     * </p>
+     * <p>
+     * The device capacity is optional.
+     * </p>
+     * <p>
+     * Availability of device types differ by Amazon Web Services Region. For more information about Region
+     * availability, see <a
+     * href="https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/?p=ngi&amp;loc=4">Amazon
+     * Web Services Regional Services</a>.
+     * </p>
+     * </note>
+     * <p/>
+     * <p class="title">
+     * <b>Snow Family devices and their capacities.</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Device type: <b>SNC1_SSD</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T14
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Snowcone
+     * </p>
+     * </li>
+     * </ul>
+     * <p/></li>
+     * <li>
+     * <p>
+     * Device type: <b>SNC1_HDD</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Snowcone
+     * </p>
+     * </li>
+     * </ul>
+     * <p/></li>
+     * <li>
+     * <p>
+     * Device type: <b>EDGE_S</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T98
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Snowball Edge Storage Optimized for data transfer only
+     * </p>
+     * </li>
+     * </ul>
+     * <p/></li>
+     * <li>
+     * <p>
+     * Device type: <b>EDGE_CG</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T42
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Snowball Edge Compute Optimized with GPU
+     * </p>
+     * </li>
+     * </ul>
+     * <p/></li>
+     * <li>
+     * <p>
+     * Device type: <b>EDGE_C</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T42
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Snowball Edge Compute Optimized without GPU
+     * </p>
+     * </li>
+     * </ul>
+     * <p/></li>
+     * <li>
+     * <p>
+     * Device type: <b>EDGE</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T100
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Snowball Edge Storage Optimized with EC2 Compute
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * This device is replaced with T98.
+     * </p>
+     * </note>
+     * <p/></li>
+     * <li>
+     * <p>
+     * Device type: <b>STANDARD</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Original Snowball device
+     * </p>
+     * <note>
+     * <p>
+     * This device is only available in the Ningxia, Beijing, and Singapore Amazon Web Services Region
+     * </p>
+     * </note></li>
+     * </ul>
+     * <p/></li>
+     * <li>
+     * <p>
+     * Device type: <b>STANDARD</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T80
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Original Snowball device
+     * </p>
+     * <note>
+     * <p>
+     * This device is only available in the Ningxia, Beijing, and Singapore Amazon Web Services Region.
+     * </p>
+     * </note></li>
+     * </ul>
+     * <p/></li>
+     * <li>
+     * <p>
+     * Snow Family device type: <b>RACK_5U_C</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T13
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Snowblade.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * Device type: <b>V3_5S</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Capacity: T240
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Description: Snowball Edge Storage Optimized 210TB
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
      * 
      * @param createJobRequest
      * @return Result of the CreateJob operation returned by the service.
@@ -199,23 +410,69 @@ public interface AmazonSnowball {
      *         The specified resource can't be found. Check the information you provided in your last request, and try
      *         again.
      * @throws KMSRequestFailedException
-     *         The provided AWS Key Management Service key lacks the permissions to perform the specified
-     *         <a>CreateJob</a> or <a>UpdateJob</a> action.
+     *         The provided Key Management Service key lacks the permissions to perform the specified <a>CreateJob</a>
+     *         or <a>UpdateJob</a> action.
      * @throws InvalidInputCombinationException
-     *         Job or cluster creation failed. One ore more inputs were invalid. Confirm that the
+     *         Job or cluster creation failed. One or more inputs were invalid. Confirm that the
      *         <a>CreateClusterRequest$SnowballType</a> value supports your <a>CreateJobRequest$JobType</a>, and try
      *         again.
      * @throws ClusterLimitExceededException
-     *         Job creation failed. Currently, clusters support five nodes. If you have less than five nodes for your
+     *         Job creation failed. Currently, clusters support five nodes. If you have fewer than five nodes for your
      *         cluster and you have more nodes to create for this cluster, try again and create jobs until your cluster
-     *         has exactly five notes.
+     *         has exactly five nodes.
      * @throws Ec2RequestFailedException
-     *         Your IAM user lacks the necessary Amazon EC2 permissions to perform the attempted action.
+     *         Your user lacks the necessary Amazon EC2 permissions to perform the attempted action.
      * @sample AmazonSnowball.CreateJob
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/CreateJob" target="_top">AWS API
      *      Documentation</a>
      */
     CreateJobResult createJob(CreateJobRequest createJobRequest);
+
+    /**
+     * <p>
+     * Creates a job with the long-term usage option for a device. The long-term usage is a 1-year or 3-year long-term
+     * pricing type for the device. You are billed upfront, and Amazon Web Services provides discounts for long-term
+     * pricing.
+     * </p>
+     * 
+     * @param createLongTermPricingRequest
+     * @return Result of the CreateLongTermPricing operation returned by the service.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @sample AmazonSnowball.CreateLongTermPricing
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/CreateLongTermPricing" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreateLongTermPricingResult createLongTermPricing(CreateLongTermPricingRequest createLongTermPricingRequest);
+
+    /**
+     * <p>
+     * Creates a shipping label that will be used to return the Snow device to Amazon Web Services.
+     * </p>
+     * 
+     * @param createReturnShippingLabelRequest
+     * @return Result of the CreateReturnShippingLabel operation returned by the service.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @throws InvalidJobStateException
+     *         The action can't be performed because the job's current state doesn't allow that action to be performed.
+     * @throws InvalidInputCombinationException
+     *         Job or cluster creation failed. One or more inputs were invalid. Confirm that the
+     *         <a>CreateClusterRequest$SnowballType</a> value supports your <a>CreateJobRequest$JobType</a>, and try
+     *         again.
+     * @throws ConflictException
+     *         You get this exception when you call <code>CreateReturnShippingLabel</code> more than once when other
+     *         requests are not completed.
+     * @throws ReturnShippingLabelAlreadyExistsException
+     *         You get this exception if you call <code>CreateReturnShippingLabel</code> and a valid return shipping
+     *         label already exists. In this case, use <code>DescribeReturnShippingLabel</code> to get the URL.
+     * @sample AmazonSnowball.CreateReturnShippingLabel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/CreateReturnShippingLabel"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateReturnShippingLabelResult createReturnShippingLabel(CreateReturnShippingLabelRequest createReturnShippingLabelRequest);
 
     /**
      * <p>
@@ -290,6 +547,27 @@ public interface AmazonSnowball {
 
     /**
      * <p>
+     * Information on the shipping label of a Snow device that is being returned to Amazon Web Services.
+     * </p>
+     * 
+     * @param describeReturnShippingLabelRequest
+     * @return Result of the DescribeReturnShippingLabel operation returned by the service.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @throws InvalidJobStateException
+     *         The action can't be performed because the job's current state doesn't allow that action to be performed.
+     * @throws ConflictException
+     *         You get this exception when you call <code>CreateReturnShippingLabel</code> more than once when other
+     *         requests are not completed.
+     * @sample AmazonSnowball.DescribeReturnShippingLabel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/DescribeReturnShippingLabel"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeReturnShippingLabelResult describeReturnShippingLabel(DescribeReturnShippingLabelRequest describeReturnShippingLabelRequest);
+
+    /**
+     * <p>
      * Returns a link to an Amazon S3 presigned URL for the manifest file associated with the specified
      * <code>JobId</code> value. You can access the manifest file for up to 60 minutes after this request has been made.
      * To access the manifest file after 60 minutes have passed, you'll have to make another call to the
@@ -297,16 +575,18 @@ public interface AmazonSnowball {
      * </p>
      * <p>
      * The manifest is an encrypted file that you can download after your job enters the <code>WithCustomer</code>
-     * status. The manifest is decrypted by using the <code>UnlockCode</code> code value, when you pass both values to
-     * the Snowball through the Snowball client when the client is started for the first time.
+     * status. This is the only valid status for calling this API as the manifest and <code>UnlockCode</code> code value
+     * are used for securing your device and should only be used when you have the device. The manifest is decrypted by
+     * using the <code>UnlockCode</code> code value, when you pass both values to the Snow device through the Snowball
+     * client when the client is started for the first time.
      * </p>
      * <p>
      * As a best practice, we recommend that you don't save a copy of an <code>UnlockCode</code> value in the same
      * location as the manifest file for that job. Saving these separately helps prevent unauthorized parties from
-     * gaining access to the Snowball associated with that job.
+     * gaining access to the Snow device associated with that job.
      * </p>
      * <p>
-     * The credentials of a given job, including its manifest file and unlock code, expire 90 days after the job is
+     * The credentials of a given job, including its manifest file and unlock code, expire 360 days after the job is
      * created.
      * </p>
      * 
@@ -326,17 +606,19 @@ public interface AmazonSnowball {
     /**
      * <p>
      * Returns the <code>UnlockCode</code> code value for the specified job. A particular <code>UnlockCode</code> value
-     * can be accessed for up to 90 days after the associated job has been created.
+     * can be accessed for up to 360 days after the associated job has been created.
      * </p>
      * <p>
      * The <code>UnlockCode</code> value is a 29-character code with 25 alphanumeric characters and 4 hyphens. This code
-     * is used to decrypt the manifest file when it is passed along with the manifest to the Snowball through the
-     * Snowball client when the client is started for the first time.
+     * is used to decrypt the manifest file when it is passed along with the manifest to the Snow device through the
+     * Snowball client when the client is started for the first time. The only valid status for calling this API is
+     * <code>WithCustomer</code> as the manifest and <code>Unlock</code> code values are used for securing your device
+     * and should only be used when you have the device.
      * </p>
      * <p>
      * As a best practice, we recommend that you don't save a copy of the <code>UnlockCode</code> in the same location
      * as the manifest file for that job. Saving these separately helps prevent unauthorized parties from gaining access
-     * to the Snowball associated with that job.
+     * to the Snow device associated with that job.
      * </p>
      * 
      * @param getJobUnlockCodeRequest
@@ -354,12 +636,12 @@ public interface AmazonSnowball {
 
     /**
      * <p>
-     * Returns information about the Snowball service limit for your account, and also the number of Snowballs your
-     * account has in use.
+     * Returns information about the Snow Family service limit for your account, and also the number of Snow devices
+     * your account has in use.
      * </p>
      * <p>
-     * The default service limit for the number of Snowballs that you can have at one time is 1. If you want to increase
-     * your service limit, contact AWS Support.
+     * The default service limit for the number of Snow devices that you can have at one time is 1. If you want to
+     * increase your service limit, contact Amazon Web Services Support.
      * </p>
      * 
      * @param getSnowballUsageRequest
@@ -369,6 +651,24 @@ public interface AmazonSnowball {
      *      Documentation</a>
      */
     GetSnowballUsageResult getSnowballUsage(GetSnowballUsageRequest getSnowballUsageRequest);
+
+    /**
+     * <p>
+     * Returns an Amazon S3 presigned URL for an update file associated with a specified <code>JobId</code>.
+     * </p>
+     * 
+     * @param getSoftwareUpdatesRequest
+     * @return Result of the GetSoftwareUpdates operation returned by the service.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @throws InvalidJobStateException
+     *         The action can't be performed because the job's current state doesn't allow that action to be performed.
+     * @sample AmazonSnowball.GetSoftwareUpdates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/GetSoftwareUpdates" target="_top">AWS
+     *      API Documentation</a>
+     */
+    GetSoftwareUpdatesResult getSoftwareUpdates(GetSoftwareUpdatesRequest getSoftwareUpdatesRequest);
 
     /**
      * <p>
@@ -410,11 +710,11 @@ public interface AmazonSnowball {
 
     /**
      * <p>
-     * This action returns a list of the different Amazon EC2 Amazon Machine Images (AMIs) that are owned by your AWS
-     * account that would be supported for use on <code>EDGE</code>, <code>EDGE_C</code>, and <code>EDGE_CG</code>
-     * devices. For more information on compatible AMIs, see <a
-     * href="http://docs.aws.amazon.com/snowball/latest/developer-guide/using-ec2.html">Using Amazon EC2 Compute
-     * Instances</a> in the <i>AWS Snowball Developer Guide</i>.
+     * This action returns a list of the different Amazon EC2-compatible Amazon Machine Images (AMIs) that are owned by
+     * your Amazon Web Services accountthat would be supported for use on a Snow device. Currently, supported AMIs are
+     * based on the Amazon Linux-2, Ubuntu 20.04 LTS - Focal, or Ubuntu 22.04 LTS - Jammy images, available on the
+     * Amazon Web Services Marketplace. Ubuntu 16.04 LTS - Xenial (HVM) images are no longer supported in the Market,
+     * but still supported for use on devices through Amazon EC2 VM Import/Export and running locally in AMIs.
      * </p>
      * 
      * @param listCompatibleImagesRequest
@@ -423,7 +723,7 @@ public interface AmazonSnowball {
      *         The <code>NextToken</code> string was altered unexpectedly, and the operation has stopped. Run the
      *         operation without changing the <code>NextToken</code> string, and try again.
      * @throws Ec2RequestFailedException
-     *         Your IAM user lacks the necessary Amazon EC2 permissions to perform the attempted action.
+     *         Your user lacks the necessary Amazon EC2 permissions to perform the attempted action.
      * @sample AmazonSnowball.ListCompatibleImages
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/ListCompatibleImages" target="_top">AWS
      *      API Documentation</a>
@@ -451,6 +751,61 @@ public interface AmazonSnowball {
 
     /**
      * <p>
+     * Lists all long-term pricing types.
+     * </p>
+     * 
+     * @param listLongTermPricingRequest
+     * @return Result of the ListLongTermPricing operation returned by the service.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @throws InvalidNextTokenException
+     *         The <code>NextToken</code> string was altered unexpectedly, and the operation has stopped. Run the
+     *         operation without changing the <code>NextToken</code> string, and try again.
+     * @sample AmazonSnowball.ListLongTermPricing
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/ListLongTermPricing" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListLongTermPricingResult listLongTermPricing(ListLongTermPricingRequest listLongTermPricingRequest);
+
+    /**
+     * <p>
+     * A list of locations from which the customer can choose to pickup a device.
+     * </p>
+     * 
+     * @param listPickupLocationsRequest
+     * @return Result of the ListPickupLocations operation returned by the service.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @sample AmazonSnowball.ListPickupLocations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/ListPickupLocations" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListPickupLocationsResult listPickupLocations(ListPickupLocationsRequest listPickupLocationsRequest);
+
+    /**
+     * <p>
+     * Lists all supported versions for Snow on-device services. Returns an array of <code>ServiceVersion</code> object
+     * containing the supported versions for a particular service.
+     * </p>
+     * 
+     * @param listServiceVersionsRequest
+     * @return Result of the ListServiceVersions operation returned by the service.
+     * @throws InvalidNextTokenException
+     *         The <code>NextToken</code> string was altered unexpectedly, and the operation has stopped. Run the
+     *         operation without changing the <code>NextToken</code> string, and try again.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @sample AmazonSnowball.ListServiceVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/ListServiceVersions" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListServiceVersionsResult listServiceVersions(ListServiceVersionsRequest listServiceVersionsRequest);
+
+    /**
+     * <p>
      * While a cluster's <code>ClusterState</code> value is in the <code>AwaitingQuorum</code> state, you can update
      * some of the information associated with a cluster. Once the cluster changes to a different job state, usually 60
      * minutes after the cluster being created, this action is no longer available.
@@ -464,14 +819,14 @@ public interface AmazonSnowball {
      * @throws InvalidJobStateException
      *         The action can't be performed because the job's current state doesn't allow that action to be performed.
      * @throws KMSRequestFailedException
-     *         The provided AWS Key Management Service key lacks the permissions to perform the specified
-     *         <a>CreateJob</a> or <a>UpdateJob</a> action.
+     *         The provided Key Management Service key lacks the permissions to perform the specified <a>CreateJob</a>
+     *         or <a>UpdateJob</a> action.
      * @throws InvalidInputCombinationException
-     *         Job or cluster creation failed. One ore more inputs were invalid. Confirm that the
+     *         Job or cluster creation failed. One or more inputs were invalid. Confirm that the
      *         <a>CreateClusterRequest$SnowballType</a> value supports your <a>CreateJobRequest$JobType</a>, and try
      *         again.
      * @throws Ec2RequestFailedException
-     *         Your IAM user lacks the necessary Amazon EC2 permissions to perform the attempted action.
+     *         Your user lacks the necessary Amazon EC2 permissions to perform the attempted action.
      * @sample AmazonSnowball.UpdateCluster
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/UpdateCluster" target="_top">AWS API
      *      Documentation</a>
@@ -493,23 +848,57 @@ public interface AmazonSnowball {
      * @throws InvalidJobStateException
      *         The action can't be performed because the job's current state doesn't allow that action to be performed.
      * @throws KMSRequestFailedException
-     *         The provided AWS Key Management Service key lacks the permissions to perform the specified
-     *         <a>CreateJob</a> or <a>UpdateJob</a> action.
+     *         The provided Key Management Service key lacks the permissions to perform the specified <a>CreateJob</a>
+     *         or <a>UpdateJob</a> action.
      * @throws InvalidInputCombinationException
-     *         Job or cluster creation failed. One ore more inputs were invalid. Confirm that the
+     *         Job or cluster creation failed. One or more inputs were invalid. Confirm that the
      *         <a>CreateClusterRequest$SnowballType</a> value supports your <a>CreateJobRequest$JobType</a>, and try
      *         again.
      * @throws ClusterLimitExceededException
-     *         Job creation failed. Currently, clusters support five nodes. If you have less than five nodes for your
+     *         Job creation failed. Currently, clusters support five nodes. If you have fewer than five nodes for your
      *         cluster and you have more nodes to create for this cluster, try again and create jobs until your cluster
-     *         has exactly five notes.
+     *         has exactly five nodes.
      * @throws Ec2RequestFailedException
-     *         Your IAM user lacks the necessary Amazon EC2 permissions to perform the attempted action.
+     *         Your user lacks the necessary Amazon EC2 permissions to perform the attempted action.
      * @sample AmazonSnowball.UpdateJob
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/UpdateJob" target="_top">AWS API
      *      Documentation</a>
      */
     UpdateJobResult updateJob(UpdateJobRequest updateJobRequest);
+
+    /**
+     * <p>
+     * Updates the state when a shipment state changes to a different state.
+     * </p>
+     * 
+     * @param updateJobShipmentStateRequest
+     * @return Result of the UpdateJobShipmentState operation returned by the service.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @throws InvalidJobStateException
+     *         The action can't be performed because the job's current state doesn't allow that action to be performed.
+     * @sample AmazonSnowball.UpdateJobShipmentState
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/UpdateJobShipmentState"
+     *      target="_top">AWS API Documentation</a>
+     */
+    UpdateJobShipmentStateResult updateJobShipmentState(UpdateJobShipmentStateRequest updateJobShipmentStateRequest);
+
+    /**
+     * <p>
+     * Updates the long-term pricing type.
+     * </p>
+     * 
+     * @param updateLongTermPricingRequest
+     * @return Result of the UpdateLongTermPricing operation returned by the service.
+     * @throws InvalidResourceException
+     *         The specified resource can't be found. Check the information you provided in your last request, and try
+     *         again.
+     * @sample AmazonSnowball.UpdateLongTermPricing
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/snowball-2016-06-30/UpdateLongTermPricing" target="_top">AWS
+     *      API Documentation</a>
+     */
+    UpdateLongTermPricingResult updateLongTermPricing(UpdateLongTermPricingRequest updateLongTermPricingRequest);
 
     /**
      * Shuts down this client object, releasing any resources that might be held open. This is an optional method, and

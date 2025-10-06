@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,7 +29,7 @@ public class CreateClusterSnapshotRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A unique identifier for the snapshot that you are requesting. This identifier must be unique for all snapshots
-     * within the AWS account.
+     * within the Amazon Web Services account.
      * </p>
      * <p>
      * Constraints:
@@ -90,7 +90,7 @@ public class CreateClusterSnapshotRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A unique identifier for the snapshot that you are requesting. This identifier must be unique for all snapshots
-     * within the AWS account.
+     * within the Amazon Web Services account.
      * </p>
      * <p>
      * Constraints:
@@ -123,7 +123,7 @@ public class CreateClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * 
      * @param snapshotIdentifier
      *        A unique identifier for the snapshot that you are requesting. This identifier must be unique for all
-     *        snapshots within the AWS account.</p>
+     *        snapshots within the Amazon Web Services account.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -160,7 +160,7 @@ public class CreateClusterSnapshotRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A unique identifier for the snapshot that you are requesting. This identifier must be unique for all snapshots
-     * within the AWS account.
+     * within the Amazon Web Services account.
      * </p>
      * <p>
      * Constraints:
@@ -192,7 +192,7 @@ public class CreateClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @return A unique identifier for the snapshot that you are requesting. This identifier must be unique for all
-     *         snapshots within the AWS account.</p>
+     *         snapshots within the Amazon Web Services account.</p>
      *         <p>
      *         Constraints:
      *         </p>
@@ -229,7 +229,7 @@ public class CreateClusterSnapshotRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A unique identifier for the snapshot that you are requesting. This identifier must be unique for all snapshots
-     * within the AWS account.
+     * within the Amazon Web Services account.
      * </p>
      * <p>
      * Constraints:
@@ -262,7 +262,7 @@ public class CreateClusterSnapshotRequest extends com.amazonaws.AmazonWebService
      * 
      * @param snapshotIdentifier
      *        A unique identifier for the snapshot that you are requesting. This identifier must be unique for all
-     *        snapshots within the AWS account.</p>
+     *        snapshots within the Amazon Web Services account.</p>
      *        <p>
      *        Constraints:
      *        </p>

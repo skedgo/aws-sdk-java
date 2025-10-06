@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -66,9 +66,26 @@ public class CreateDatasetRequest extends com.amazonaws.AmazonWebServiceRequest 
      * Users
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * Actions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Action_Interactions
+     * </p>
+     * </li>
      * </ul>
      */
     private String datasetType;
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the dataset.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
 
     /**
      * <p>
@@ -213,6 +230,16 @@ public class CreateDatasetRequest extends com.amazonaws.AmazonWebServiceRequest 
      * Users
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * Actions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Action_Interactions
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param datasetType
@@ -234,6 +261,16 @@ public class CreateDatasetRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <li>
      *        <p>
      *        Users
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Actions
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Action_Interactions
      *        </p>
      *        </li>
      */
@@ -265,6 +302,16 @@ public class CreateDatasetRequest extends com.amazonaws.AmazonWebServiceRequest 
      * Users
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * Actions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Action_Interactions
+     * </p>
+     * </li>
      * </ul>
      * 
      * @return The type of dataset.</p>
@@ -285,6 +332,16 @@ public class CreateDatasetRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         <li>
      *         <p>
      *         Users
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Actions
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Action_Interactions
      *         </p>
      *         </li>
      */
@@ -316,6 +373,16 @@ public class CreateDatasetRequest extends com.amazonaws.AmazonWebServiceRequest 
      * Users
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * Actions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Action_Interactions
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param datasetType
@@ -339,11 +406,99 @@ public class CreateDatasetRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        Users
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        Actions
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Action_Interactions
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateDatasetRequest withDatasetType(String datasetType) {
         setDatasetType(datasetType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the dataset.
+     * </p>
+     * 
+     * @return A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to
+     *         apply to the dataset.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the dataset.
+     * </p>
+     * 
+     * @param tags
+     *        A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to
+     *        apply to the dataset.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the dataset.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to
+     *        apply to the dataset.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDatasetRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the dataset.
+     * </p>
+     * 
+     * @param tags
+     *        A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to
+     *        apply to the dataset.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDatasetRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
         return this;
     }
 
@@ -366,7 +521,9 @@ public class CreateDatasetRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getDatasetGroupArn() != null)
             sb.append("DatasetGroupArn: ").append(getDatasetGroupArn()).append(",");
         if (getDatasetType() != null)
-            sb.append("DatasetType: ").append(getDatasetType());
+            sb.append("DatasetType: ").append(getDatasetType()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -397,6 +554,10 @@ public class CreateDatasetRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getDatasetType() != null && other.getDatasetType().equals(this.getDatasetType()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -409,6 +570,7 @@ public class CreateDatasetRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getSchemaArn() == null) ? 0 : getSchemaArn().hashCode());
         hashCode = prime * hashCode + ((getDatasetGroupArn() == null) ? 0 : getDatasetGroupArn().hashCode());
         hashCode = prime * hashCode + ((getDatasetType() == null) ? 0 : getDatasetType().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

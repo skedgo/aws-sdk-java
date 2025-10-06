@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,21 +25,22 @@ import com.amazonaws.services.directory.model.*;
  * {@link com.amazonaws.services.directory.AbstractAWSDirectoryServiceAsync} instead.
  * </p>
  * <p>
- * <fullname>AWS Directory Service</fullname>
+ * <fullname>Directory Service</fullname>
  * <p>
- * AWS Directory Service is a web service that makes it easy for you to setup and run directories in the AWS cloud, or
- * connect your AWS resources with an existing on-premises Microsoft Active Directory. This guide provides detailed
- * information about AWS Directory Service operations, data types, parameters, and errors. For information about AWS
- * Directory Services features, see <a href="https://aws.amazon.com/directoryservice/">AWS Directory Service</a> and the
- * <a href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/what_is.html">AWS Directory Service
- * Administration Guide</a>.
+ * Directory Service is a web service that makes it easy for you to setup and run directories in the Amazon Web Services
+ * cloud, or connect your Amazon Web Services resources with an existing self-managed Microsoft Active Directory. This
+ * guide provides detailed information about Directory Service operations, data types, parameters, and errors. For
+ * information about Directory Services features, see <a href="https://aws.amazon.com/directoryservice/">Directory
+ * Service</a> and the <a href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/what_is.html">Directory
+ * Service Administration Guide</a>.
  * </p>
  * <note>
  * <p>
- * AWS provides SDKs that consist of libraries and sample code for various programming languages and platforms (Java,
- * Ruby, .Net, iOS, Android, etc.). The SDKs provide a convenient way to create programmatic access to AWS Directory
- * Service and other AWS services. For more information about the AWS SDKs, including how to download and install them,
- * see <a href="http://aws.amazon.com/tools/">Tools for Amazon Web Services</a>.
+ * Amazon Web Services provides SDKs that consist of libraries and sample code for various programming languages and
+ * platforms (Java, Ruby, .Net, iOS, Android, etc.). The SDKs provide a convenient way to create programmatic access to
+ * Directory Service and other Amazon Web Services services. For more information about the Amazon Web Services SDKs,
+ * including how to download and install them, see <a href="http://aws.amazon.com/tools/">Tools for Amazon Web
+ * Services</a>.
  * </p>
  * </note>
  */
@@ -79,16 +80,15 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * If the DNS server for your on-premises domain uses a publicly addressable IP address, you must add a CIDR address
-     * block to correctly route traffic to and from your Microsoft AD on Amazon Web Services. <i>AddIpRoutes</i> adds
-     * this address block. You can also use <i>AddIpRoutes</i> to facilitate routing traffic that uses public IP ranges
-     * from your Microsoft AD on AWS to a peer VPC.
+     * If the DNS server for your self-managed domain uses a publicly addressable IP address, you must add a CIDR
+     * address block to correctly route traffic to and from your Microsoft AD on Amazon Web Services. <i>AddIpRoutes</i>
+     * adds this address block. You can also use <i>AddIpRoutes</i> to facilitate routing traffic that uses public IP
+     * ranges from your Microsoft AD on Amazon Web Services to a peer VPC.
      * </p>
      * <p>
      * Before you call <i>AddIpRoutes</i>, ensure that all of the required permissions have been explicitly granted
      * through a policy. For details about what permissions are required to run the <i>AddIpRoutes</i> operation, see <a
-     * href
-     * ="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html">AWS
+     * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html">
      * Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
      * </p>
      * 
@@ -102,16 +102,15 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * If the DNS server for your on-premises domain uses a publicly addressable IP address, you must add a CIDR address
-     * block to correctly route traffic to and from your Microsoft AD on Amazon Web Services. <i>AddIpRoutes</i> adds
-     * this address block. You can also use <i>AddIpRoutes</i> to facilitate routing traffic that uses public IP ranges
-     * from your Microsoft AD on AWS to a peer VPC.
+     * If the DNS server for your self-managed domain uses a publicly addressable IP address, you must add a CIDR
+     * address block to correctly route traffic to and from your Microsoft AD on Amazon Web Services. <i>AddIpRoutes</i>
+     * adds this address block. You can also use <i>AddIpRoutes</i> to facilitate routing traffic that uses public IP
+     * ranges from your Microsoft AD on Amazon Web Services to a peer VPC.
      * </p>
      * <p>
      * Before you call <i>AddIpRoutes</i>, ensure that all of the required permissions have been explicitly granted
      * through a policy. For details about what permissions are required to run the <i>AddIpRoutes</i> operation, see <a
-     * href
-     * ="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html">AWS
+     * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html">
      * Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
      * </p>
      * 
@@ -127,6 +126,37 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
      */
     java.util.concurrent.Future<AddIpRoutesResult> addIpRoutesAsync(AddIpRoutesRequest addIpRoutesRequest,
             com.amazonaws.handlers.AsyncHandler<AddIpRoutesRequest, AddIpRoutesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Adds two domain controllers in the specified Region for the specified directory.
+     * </p>
+     * 
+     * @param addRegionRequest
+     * @return A Java Future containing the result of the AddRegion operation returned by the service.
+     * @sample AWSDirectoryServiceAsync.AddRegion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/AddRegion" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<AddRegionResult> addRegionAsync(AddRegionRequest addRegionRequest);
+
+    /**
+     * <p>
+     * Adds two domain controllers in the specified Region for the specified directory.
+     * </p>
+     * 
+     * @param addRegionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the AddRegion operation returned by the service.
+     * @sample AWSDirectoryServiceAsyncHandler.AddRegion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/AddRegion" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<AddRegionResult> addRegionAsync(AddRegionRequest addRegionRequest,
+            com.amazonaws.handlers.AsyncHandler<AddRegionRequest, AddRegionResult> asyncHandler);
 
     /**
      * <p>
@@ -200,14 +230,14 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Creates an AD Connector to connect to an on-premises directory.
+     * Creates an AD Connector to connect to a self-managed directory.
      * </p>
      * <p>
      * Before you call <code>ConnectDirectory</code>, ensure that all of the required permissions have been explicitly
      * granted through a policy. For details about what permissions are required to run the
      * <code>ConnectDirectory</code> operation, see <a
      * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html"
-     * >AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
+     * >Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
      * </p>
      * 
      * @param connectDirectoryRequest
@@ -221,14 +251,14 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Creates an AD Connector to connect to an on-premises directory.
+     * Creates an AD Connector to connect to a self-managed directory.
      * </p>
      * <p>
      * Before you call <code>ConnectDirectory</code>, ensure that all of the required permissions have been explicitly
      * granted through a policy. For details about what permissions are required to run the
      * <code>ConnectDirectory</code> operation, see <a
      * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html"
-     * >AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
+     * >Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
      * </p>
      * 
      * @param connectDirectoryRequest
@@ -294,7 +324,7 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Creates a computer account in the specified directory, and joins the computer to the directory.
+     * Creates an Active Directory computer object in the specified directory.
      * </p>
      * 
      * @param createComputerRequest
@@ -308,7 +338,7 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Creates a computer account in the specified directory, and joins the computer to the directory.
+     * Creates an Active Directory computer object in the specified directory.
      * </p>
      * 
      * @param createComputerRequest
@@ -327,12 +357,13 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Creates a conditional forwarder associated with your AWS directory. Conditional forwarders are required in order
-     * to set up a trust relationship with another domain. The conditional forwarder points to the trusted domain.
+     * Creates a conditional forwarder associated with your Amazon Web Services directory. Conditional forwarders are
+     * required in order to set up a trust relationship with another domain. The conditional forwarder points to the
+     * trusted domain.
      * </p>
      * 
      * @param createConditionalForwarderRequest
-     *        Initiates the creation of a conditional forwarder for your AWS Directory Service for Microsoft Active
+     *        Initiates the creation of a conditional forwarder for your Directory Service for Microsoft Active
      *        Directory. Conditional forwarders are required in order to set up a trust relationship with another
      *        domain.
      * @return A Java Future containing the result of the CreateConditionalForwarder operation returned by the service.
@@ -345,12 +376,13 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Creates a conditional forwarder associated with your AWS directory. Conditional forwarders are required in order
-     * to set up a trust relationship with another domain. The conditional forwarder points to the trusted domain.
+     * Creates a conditional forwarder associated with your Amazon Web Services directory. Conditional forwarders are
+     * required in order to set up a trust relationship with another domain. The conditional forwarder points to the
+     * trusted domain.
      * </p>
      * 
      * @param createConditionalForwarderRequest
-     *        Initiates the creation of a conditional forwarder for your AWS Directory Service for Microsoft Active
+     *        Initiates the creation of a conditional forwarder for your Directory Service for Microsoft Active
      *        Directory. Conditional forwarders are required in order to set up a trust relationship with another
      *        domain.
      * @param asyncHandler
@@ -368,14 +400,16 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Creates a Simple AD directory.
+     * Creates a Simple AD directory. For more information, see <a
+     * href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/directory_simple_ad.html">Simple Active
+     * Directory</a> in the <i>Directory Service Admin Guide</i>.
      * </p>
      * <p>
      * Before you call <code>CreateDirectory</code>, ensure that all of the required permissions have been explicitly
      * granted through a policy. For details about what permissions are required to run the <code>CreateDirectory</code>
      * operation, see <a
      * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html"
-     * >AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
+     * >Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
      * </p>
      * 
      * @param createDirectoryRequest
@@ -389,14 +423,16 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Creates a Simple AD directory.
+     * Creates a Simple AD directory. For more information, see <a
+     * href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/directory_simple_ad.html">Simple Active
+     * Directory</a> in the <i>Directory Service Admin Guide</i>.
      * </p>
      * <p>
      * Before you call <code>CreateDirectory</code>, ensure that all of the required permissions have been explicitly
      * granted through a policy. For details about what permissions are required to run the <code>CreateDirectory</code>
      * operation, see <a
      * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html"
-     * >AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
+     * >Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
      * </p>
      * 
      * @param createDirectoryRequest
@@ -415,8 +451,8 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Creates a subscription to forward real time Directory Service domain controller security logs to the specified
-     * CloudWatch log group in your AWS account.
+     * Creates a subscription to forward real-time Directory Service domain controller security logs to the specified
+     * Amazon CloudWatch log group in your Amazon Web Services account.
      * </p>
      * 
      * @param createLogSubscriptionRequest
@@ -429,8 +465,8 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Creates a subscription to forward real time Directory Service domain controller security logs to the specified
-     * CloudWatch log group in your AWS account.
+     * Creates a subscription to forward real-time Directory Service domain controller security logs to the specified
+     * Amazon CloudWatch log group in your Amazon Web Services account.
      * </p>
      * 
      * @param createLogSubscriptionRequest
@@ -448,18 +484,20 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Creates an AWS Managed Microsoft AD directory.
+     * Creates a Microsoft AD directory in the Amazon Web Services Cloud. For more information, see <a
+     * href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/directory_microsoft_ad.html">Managed
+     * Microsoft AD</a> in the <i>Directory Service Admin Guide</i>.
      * </p>
      * <p>
      * Before you call <i>CreateMicrosoftAD</i>, ensure that all of the required permissions have been explicitly
      * granted through a policy. For details about what permissions are required to run the <i>CreateMicrosoftAD</i>
      * operation, see <a
      * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html"
-     * >AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
+     * >Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
      * </p>
      * 
      * @param createMicrosoftADRequest
-     *        Creates an AWS Managed Microsoft AD directory.
+     *        Creates an Managed Microsoft AD directory.
      * @return A Java Future containing the result of the CreateMicrosoftAD operation returned by the service.
      * @sample AWSDirectoryServiceAsync.CreateMicrosoftAD
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/CreateMicrosoftAD" target="_top">AWS API
@@ -469,18 +507,20 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Creates an AWS Managed Microsoft AD directory.
+     * Creates a Microsoft AD directory in the Amazon Web Services Cloud. For more information, see <a
+     * href="https://docs.aws.amazon.com/directoryservice/latest/admin-guide/directory_microsoft_ad.html">Managed
+     * Microsoft AD</a> in the <i>Directory Service Admin Guide</i>.
      * </p>
      * <p>
      * Before you call <i>CreateMicrosoftAD</i>, ensure that all of the required permissions have been explicitly
      * granted through a policy. For details about what permissions are required to run the <i>CreateMicrosoftAD</i>
      * operation, see <a
      * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html"
-     * >AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
+     * >Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
      * </p>
      * 
      * @param createMicrosoftADRequest
-     *        Creates an AWS Managed Microsoft AD directory.
+     *        Creates an Managed Microsoft AD directory.
      * @param asyncHandler
      *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
      *        implementation of the callback methods in this interface to receive notification of successful or
@@ -495,7 +535,7 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Creates a snapshot of a Simple AD or Microsoft AD directory in the AWS cloud.
+     * Creates a snapshot of a Simple AD or Microsoft AD directory in the Amazon Web Services cloud.
      * </p>
      * <note>
      * <p>
@@ -514,7 +554,7 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Creates a snapshot of a Simple AD or Microsoft AD directory in the AWS cloud.
+     * Creates a snapshot of a Simple AD or Microsoft AD directory in the Amazon Web Services cloud.
      * </p>
      * <note>
      * <p>
@@ -538,24 +578,24 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * AWS Directory Service for Microsoft Active Directory allows you to configure trust relationships. For example,
-     * you can establish a trust between your AWS Managed Microsoft AD directory, and your existing on-premises
-     * Microsoft Active Directory. This would allow you to provide users and groups access to resources in either
-     * domain, with a single set of credentials.
+     * Directory Service for Microsoft Active Directory allows you to configure trust relationships. For example, you
+     * can establish a trust between your Managed Microsoft AD directory, and your existing self-managed Microsoft
+     * Active Directory. This would allow you to provide users and groups access to resources in either domain, with a
+     * single set of credentials.
      * </p>
      * <p>
-     * This action initiates the creation of the AWS side of a trust relationship between an AWS Managed Microsoft AD
-     * directory and an external domain. You can create either a forest trust or an external trust.
+     * This action initiates the creation of the Amazon Web Services side of a trust relationship between an Managed
+     * Microsoft AD directory and an external domain. You can create either a forest trust or an external trust.
      * </p>
      * 
      * @param createTrustRequest
-     *        AWS Directory Service for Microsoft Active Directory allows you to configure trust relationships. For
-     *        example, you can establish a trust between your AWS Managed Microsoft AD directory, and your existing
-     *        on-premises Microsoft Active Directory. This would allow you to provide users and groups access to
-     *        resources in either domain, with a single set of credentials.</p>
+     *        Directory Service for Microsoft Active Directory allows you to configure trust relationships. For example,
+     *        you can establish a trust between your Managed Microsoft AD directory, and your existing self-managed
+     *        Microsoft Active Directory. This would allow you to provide users and groups access to resources in either
+     *        domain, with a single set of credentials.</p>
      *        <p>
-     *        This action initiates the creation of the AWS side of a trust relationship between an AWS Managed
-     *        Microsoft AD directory and an external domain.
+     *        This action initiates the creation of the Amazon Web Services side of a trust relationship between an
+     *        Managed Microsoft AD directory and an external domain.
      * @return A Java Future containing the result of the CreateTrust operation returned by the service.
      * @sample AWSDirectoryServiceAsync.CreateTrust
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/CreateTrust" target="_top">AWS API
@@ -565,24 +605,24 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * AWS Directory Service for Microsoft Active Directory allows you to configure trust relationships. For example,
-     * you can establish a trust between your AWS Managed Microsoft AD directory, and your existing on-premises
-     * Microsoft Active Directory. This would allow you to provide users and groups access to resources in either
-     * domain, with a single set of credentials.
+     * Directory Service for Microsoft Active Directory allows you to configure trust relationships. For example, you
+     * can establish a trust between your Managed Microsoft AD directory, and your existing self-managed Microsoft
+     * Active Directory. This would allow you to provide users and groups access to resources in either domain, with a
+     * single set of credentials.
      * </p>
      * <p>
-     * This action initiates the creation of the AWS side of a trust relationship between an AWS Managed Microsoft AD
-     * directory and an external domain. You can create either a forest trust or an external trust.
+     * This action initiates the creation of the Amazon Web Services side of a trust relationship between an Managed
+     * Microsoft AD directory and an external domain. You can create either a forest trust or an external trust.
      * </p>
      * 
      * @param createTrustRequest
-     *        AWS Directory Service for Microsoft Active Directory allows you to configure trust relationships. For
-     *        example, you can establish a trust between your AWS Managed Microsoft AD directory, and your existing
-     *        on-premises Microsoft Active Directory. This would allow you to provide users and groups access to
-     *        resources in either domain, with a single set of credentials.</p>
+     *        Directory Service for Microsoft Active Directory allows you to configure trust relationships. For example,
+     *        you can establish a trust between your Managed Microsoft AD directory, and your existing self-managed
+     *        Microsoft Active Directory. This would allow you to provide users and groups access to resources in either
+     *        domain, with a single set of credentials.</p>
      *        <p>
-     *        This action initiates the creation of the AWS side of a trust relationship between an AWS Managed
-     *        Microsoft AD directory and an external domain.
+     *        This action initiates the creation of the Amazon Web Services side of a trust relationship between an
+     *        Managed Microsoft AD directory and an external domain.
      * @param asyncHandler
      *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
      *        implementation of the callback methods in this interface to receive notification of successful or
@@ -597,7 +637,7 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Deletes a conditional forwarder that has been set up for your AWS directory.
+     * Deletes a conditional forwarder that has been set up for your Amazon Web Services directory.
      * </p>
      * 
      * @param deleteConditionalForwarderRequest
@@ -612,7 +652,7 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Deletes a conditional forwarder that has been set up for your AWS directory.
+     * Deletes a conditional forwarder that has been set up for your Amazon Web Services directory.
      * </p>
      * 
      * @param deleteConditionalForwarderRequest
@@ -632,14 +672,14 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Deletes an AWS Directory Service directory.
+     * Deletes an Directory Service directory.
      * </p>
      * <p>
      * Before you call <code>DeleteDirectory</code>, ensure that all of the required permissions have been explicitly
      * granted through a policy. For details about what permissions are required to run the <code>DeleteDirectory</code>
      * operation, see <a
      * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html"
-     * >AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
+     * >Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
      * </p>
      * 
      * @param deleteDirectoryRequest
@@ -653,14 +693,14 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Deletes an AWS Directory Service directory.
+     * Deletes an Directory Service directory.
      * </p>
      * <p>
      * Before you call <code>DeleteDirectory</code>, ensure that all of the required permissions have been explicitly
      * granted through a policy. For details about what permissions are required to run the <code>DeleteDirectory</code>
      * operation, see <a
      * href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html"
-     * >AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
+     * >Directory Service API Permissions: Actions, Resources, and Conditions Reference</a>.
      * </p>
      * 
      * @param deleteDirectoryRequest
@@ -743,12 +783,12 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Deletes an existing trust relationship between your AWS Managed Microsoft AD directory and an external domain.
+     * Deletes an existing trust relationship between your Managed Microsoft AD directory and an external domain.
      * </p>
      * 
      * @param deleteTrustRequest
-     *        Deletes the local side of an existing trust relationship between the AWS Managed Microsoft AD directory
-     *        and the external domain.
+     *        Deletes the local side of an existing trust relationship between the Managed Microsoft AD directory and
+     *        the external domain.
      * @return A Java Future containing the result of the DeleteTrust operation returned by the service.
      * @sample AWSDirectoryServiceAsync.DeleteTrust
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DeleteTrust" target="_top">AWS API
@@ -758,12 +798,12 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Deletes an existing trust relationship between your AWS Managed Microsoft AD directory and an external domain.
+     * Deletes an existing trust relationship between your Managed Microsoft AD directory and an external domain.
      * </p>
      * 
      * @param deleteTrustRequest
-     *        Deletes the local side of an existing trust relationship between the AWS Managed Microsoft AD directory
-     *        and the external domain.
+     *        Deletes the local side of an existing trust relationship between the Managed Microsoft AD directory and
+     *        the external domain.
      * @param asyncHandler
      *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
      *        implementation of the callback methods in this interface to receive notification of successful or
@@ -778,11 +818,42 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Removes the specified directory as a publisher to the specified SNS topic.
+     * Deletes from the system the certificate that was registered for secure LDAP or client certificate authentication.
+     * </p>
+     * 
+     * @param deregisterCertificateRequest
+     * @return A Java Future containing the result of the DeregisterCertificate operation returned by the service.
+     * @sample AWSDirectoryServiceAsync.DeregisterCertificate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DeregisterCertificate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeregisterCertificateResult> deregisterCertificateAsync(DeregisterCertificateRequest deregisterCertificateRequest);
+
+    /**
+     * <p>
+     * Deletes from the system the certificate that was registered for secure LDAP or client certificate authentication.
+     * </p>
+     * 
+     * @param deregisterCertificateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeregisterCertificate operation returned by the service.
+     * @sample AWSDirectoryServiceAsyncHandler.DeregisterCertificate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DeregisterCertificate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeregisterCertificateResult> deregisterCertificateAsync(DeregisterCertificateRequest deregisterCertificateRequest,
+            com.amazonaws.handlers.AsyncHandler<DeregisterCertificateRequest, DeregisterCertificateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Removes the specified directory as a publisher to the specified Amazon SNS topic.
      * </p>
      * 
      * @param deregisterEventTopicRequest
-     *        Removes the specified directory as a publisher to the specified SNS topic.
+     *        Removes the specified directory as a publisher to the specified Amazon SNS topic.
      * @return A Java Future containing the result of the DeregisterEventTopic operation returned by the service.
      * @sample AWSDirectoryServiceAsync.DeregisterEventTopic
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DeregisterEventTopic" target="_top">AWS API
@@ -792,11 +863,11 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Removes the specified directory as a publisher to the specified SNS topic.
+     * Removes the specified directory as a publisher to the specified Amazon SNS topic.
      * </p>
      * 
      * @param deregisterEventTopicRequest
-     *        Removes the specified directory as a publisher to the specified SNS topic.
+     *        Removes the specified directory as a publisher to the specified Amazon SNS topic.
      * @param asyncHandler
      *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
      *        implementation of the callback methods in this interface to receive notification of successful or
@@ -808,6 +879,76 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
      */
     java.util.concurrent.Future<DeregisterEventTopicResult> deregisterEventTopicAsync(DeregisterEventTopicRequest deregisterEventTopicRequest,
             com.amazonaws.handlers.AsyncHandler<DeregisterEventTopicRequest, DeregisterEventTopicResult> asyncHandler);
+
+    /**
+     * <p>
+     * Displays information about the certificate registered for secure LDAP or client certificate authentication.
+     * </p>
+     * 
+     * @param describeCertificateRequest
+     * @return A Java Future containing the result of the DescribeCertificate operation returned by the service.
+     * @sample AWSDirectoryServiceAsync.DescribeCertificate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DescribeCertificate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeCertificateResult> describeCertificateAsync(DescribeCertificateRequest describeCertificateRequest);
+
+    /**
+     * <p>
+     * Displays information about the certificate registered for secure LDAP or client certificate authentication.
+     * </p>
+     * 
+     * @param describeCertificateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeCertificate operation returned by the service.
+     * @sample AWSDirectoryServiceAsyncHandler.DescribeCertificate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DescribeCertificate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeCertificateResult> describeCertificateAsync(DescribeCertificateRequest describeCertificateRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeCertificateRequest, DescribeCertificateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves information about the type of client authentication for the specified directory, if the type is
+     * specified. If no type is specified, information about all client authentication types that are supported for the
+     * specified directory is retrieved. Currently, only <code>SmartCard</code> is supported.
+     * </p>
+     * 
+     * @param describeClientAuthenticationSettingsRequest
+     * @return A Java Future containing the result of the DescribeClientAuthenticationSettings operation returned by the
+     *         service.
+     * @sample AWSDirectoryServiceAsync.DescribeClientAuthenticationSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DescribeClientAuthenticationSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeClientAuthenticationSettingsResult> describeClientAuthenticationSettingsAsync(
+            DescribeClientAuthenticationSettingsRequest describeClientAuthenticationSettingsRequest);
+
+    /**
+     * <p>
+     * Retrieves information about the type of client authentication for the specified directory, if the type is
+     * specified. If no type is specified, information about all client authentication types that are supported for the
+     * specified directory is retrieved. Currently, only <code>SmartCard</code> is supported.
+     * </p>
+     * 
+     * @param describeClientAuthenticationSettingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeClientAuthenticationSettings operation returned by the
+     *         service.
+     * @sample AWSDirectoryServiceAsyncHandler.DescribeClientAuthenticationSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DescribeClientAuthenticationSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeClientAuthenticationSettingsResult> describeClientAuthenticationSettingsAsync(
+            DescribeClientAuthenticationSettingsRequest describeClientAuthenticationSettingsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeClientAuthenticationSettingsRequest, DescribeClientAuthenticationSettingsResult> asyncHandler);
 
     /**
      * <p>
@@ -961,7 +1102,7 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Obtains information about which SNS topics receive status messages from the specified directory.
+     * Obtains information about which Amazon SNS topics receive status messages from the specified directory.
      * </p>
      * <p>
      * If no input parameters are provided, such as DirectoryId or TopicName, this request describes all of the
@@ -979,7 +1120,7 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Obtains information about which SNS topics receive status messages from the specified directory.
+     * Obtains information about which Amazon SNS topics receive status messages from the specified directory.
      * </p>
      * <p>
      * If no input parameters are provided, such as DirectoryId or TopicName, this request describes all of the
@@ -999,6 +1140,99 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
      */
     java.util.concurrent.Future<DescribeEventTopicsResult> describeEventTopicsAsync(DescribeEventTopicsRequest describeEventTopicsRequest,
             com.amazonaws.handlers.AsyncHandler<DescribeEventTopicsRequest, DescribeEventTopicsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes the status of LDAP security for the specified directory.
+     * </p>
+     * 
+     * @param describeLDAPSSettingsRequest
+     * @return A Java Future containing the result of the DescribeLDAPSSettings operation returned by the service.
+     * @sample AWSDirectoryServiceAsync.DescribeLDAPSSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DescribeLDAPSSettings" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeLDAPSSettingsResult> describeLDAPSSettingsAsync(DescribeLDAPSSettingsRequest describeLDAPSSettingsRequest);
+
+    /**
+     * <p>
+     * Describes the status of LDAP security for the specified directory.
+     * </p>
+     * 
+     * @param describeLDAPSSettingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeLDAPSSettings operation returned by the service.
+     * @sample AWSDirectoryServiceAsyncHandler.DescribeLDAPSSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DescribeLDAPSSettings" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeLDAPSSettingsResult> describeLDAPSSettingsAsync(DescribeLDAPSSettingsRequest describeLDAPSSettingsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeLDAPSSettingsRequest, DescribeLDAPSSettingsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Provides information about the Regions that are configured for multi-Region replication.
+     * </p>
+     * 
+     * @param describeRegionsRequest
+     * @return A Java Future containing the result of the DescribeRegions operation returned by the service.
+     * @sample AWSDirectoryServiceAsync.DescribeRegions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DescribeRegions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeRegionsResult> describeRegionsAsync(DescribeRegionsRequest describeRegionsRequest);
+
+    /**
+     * <p>
+     * Provides information about the Regions that are configured for multi-Region replication.
+     * </p>
+     * 
+     * @param describeRegionsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeRegions operation returned by the service.
+     * @sample AWSDirectoryServiceAsyncHandler.DescribeRegions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DescribeRegions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeRegionsResult> describeRegionsAsync(DescribeRegionsRequest describeRegionsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeRegionsRequest, DescribeRegionsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves information about the configurable settings for the specified directory.
+     * </p>
+     * 
+     * @param describeSettingsRequest
+     * @return A Java Future containing the result of the DescribeSettings operation returned by the service.
+     * @sample AWSDirectoryServiceAsync.DescribeSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DescribeSettings" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeSettingsResult> describeSettingsAsync(DescribeSettingsRequest describeSettingsRequest);
+
+    /**
+     * <p>
+     * Retrieves information about the configurable settings for the specified directory.
+     * </p>
+     * 
+     * @param describeSettingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeSettings operation returned by the service.
+     * @sample AWSDirectoryServiceAsyncHandler.DescribeSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DescribeSettings" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeSettingsResult> describeSettingsAsync(DescribeSettingsRequest describeSettingsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeSettingsRequest, DescribeSettingsResult> asyncHandler);
 
     /**
      * <p>
@@ -1107,9 +1341,8 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
      * </p>
      * 
      * @param describeTrustsRequest
-     *        Describes the trust relationships for a particular AWS Managed Microsoft AD directory. If no input
-     *        parameters are are provided, such as directory ID or trust ID, this request describes all the trust
-     *        relationships.
+     *        Describes the trust relationships for a particular Managed Microsoft AD directory. If no input parameters
+     *        are provided, such as directory ID or trust ID, this request describes all the trust relationships.
      * @return A Java Future containing the result of the DescribeTrusts operation returned by the service.
      * @sample AWSDirectoryServiceAsync.DescribeTrusts
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DescribeTrusts" target="_top">AWS API
@@ -1127,9 +1360,8 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
      * </p>
      * 
      * @param describeTrustsRequest
-     *        Describes the trust relationships for a particular AWS Managed Microsoft AD directory. If no input
-     *        parameters are are provided, such as directory ID or trust ID, this request describes all the trust
-     *        relationships.
+     *        Describes the trust relationships for a particular Managed Microsoft AD directory. If no input parameters
+     *        are provided, such as directory ID or trust ID, this request describes all the trust relationships.
      * @param asyncHandler
      *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
      *        implementation of the callback methods in this interface to receive notification of successful or
@@ -1141,6 +1373,101 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
      */
     java.util.concurrent.Future<DescribeTrustsResult> describeTrustsAsync(DescribeTrustsRequest describeTrustsRequest,
             com.amazonaws.handlers.AsyncHandler<DescribeTrustsRequest, DescribeTrustsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes the updates of a directory for a particular update type.
+     * </p>
+     * 
+     * @param describeUpdateDirectoryRequest
+     * @return A Java Future containing the result of the DescribeUpdateDirectory operation returned by the service.
+     * @sample AWSDirectoryServiceAsync.DescribeUpdateDirectory
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DescribeUpdateDirectory" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeUpdateDirectoryResult> describeUpdateDirectoryAsync(DescribeUpdateDirectoryRequest describeUpdateDirectoryRequest);
+
+    /**
+     * <p>
+     * Describes the updates of a directory for a particular update type.
+     * </p>
+     * 
+     * @param describeUpdateDirectoryRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeUpdateDirectory operation returned by the service.
+     * @sample AWSDirectoryServiceAsyncHandler.DescribeUpdateDirectory
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DescribeUpdateDirectory" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeUpdateDirectoryResult> describeUpdateDirectoryAsync(DescribeUpdateDirectoryRequest describeUpdateDirectoryRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeUpdateDirectoryRequest, DescribeUpdateDirectoryResult> asyncHandler);
+
+    /**
+     * <p>
+     * Disables alternative client authentication methods for the specified directory.
+     * </p>
+     * 
+     * @param disableClientAuthenticationRequest
+     * @return A Java Future containing the result of the DisableClientAuthentication operation returned by the service.
+     * @sample AWSDirectoryServiceAsync.DisableClientAuthentication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DisableClientAuthentication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DisableClientAuthenticationResult> disableClientAuthenticationAsync(
+            DisableClientAuthenticationRequest disableClientAuthenticationRequest);
+
+    /**
+     * <p>
+     * Disables alternative client authentication methods for the specified directory.
+     * </p>
+     * 
+     * @param disableClientAuthenticationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DisableClientAuthentication operation returned by the service.
+     * @sample AWSDirectoryServiceAsyncHandler.DisableClientAuthentication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DisableClientAuthentication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DisableClientAuthenticationResult> disableClientAuthenticationAsync(
+            DisableClientAuthenticationRequest disableClientAuthenticationRequest,
+            com.amazonaws.handlers.AsyncHandler<DisableClientAuthenticationRequest, DisableClientAuthenticationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deactivates LDAP secure calls for the specified directory.
+     * </p>
+     * 
+     * @param disableLDAPSRequest
+     * @return A Java Future containing the result of the DisableLDAPS operation returned by the service.
+     * @sample AWSDirectoryServiceAsync.DisableLDAPS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DisableLDAPS" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DisableLDAPSResult> disableLDAPSAsync(DisableLDAPSRequest disableLDAPSRequest);
+
+    /**
+     * <p>
+     * Deactivates LDAP secure calls for the specified directory.
+     * </p>
+     * 
+     * @param disableLDAPSRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DisableLDAPS operation returned by the service.
+     * @sample AWSDirectoryServiceAsyncHandler.DisableLDAPS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DisableLDAPS" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DisableLDAPSResult> disableLDAPSAsync(DisableLDAPSRequest disableLDAPSRequest,
+            com.amazonaws.handlers.AsyncHandler<DisableLDAPSRequest, DisableLDAPSResult> asyncHandler);
 
     /**
      * <p>
@@ -1212,6 +1539,70 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
+     * Enables alternative client authentication methods for the specified directory.
+     * </p>
+     * 
+     * @param enableClientAuthenticationRequest
+     * @return A Java Future containing the result of the EnableClientAuthentication operation returned by the service.
+     * @sample AWSDirectoryServiceAsync.EnableClientAuthentication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/EnableClientAuthentication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<EnableClientAuthenticationResult> enableClientAuthenticationAsync(
+            EnableClientAuthenticationRequest enableClientAuthenticationRequest);
+
+    /**
+     * <p>
+     * Enables alternative client authentication methods for the specified directory.
+     * </p>
+     * 
+     * @param enableClientAuthenticationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the EnableClientAuthentication operation returned by the service.
+     * @sample AWSDirectoryServiceAsyncHandler.EnableClientAuthentication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/EnableClientAuthentication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<EnableClientAuthenticationResult> enableClientAuthenticationAsync(
+            EnableClientAuthenticationRequest enableClientAuthenticationRequest,
+            com.amazonaws.handlers.AsyncHandler<EnableClientAuthenticationRequest, EnableClientAuthenticationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Activates the switch for the specific directory to always use LDAP secure calls.
+     * </p>
+     * 
+     * @param enableLDAPSRequest
+     * @return A Java Future containing the result of the EnableLDAPS operation returned by the service.
+     * @sample AWSDirectoryServiceAsync.EnableLDAPS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/EnableLDAPS" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<EnableLDAPSResult> enableLDAPSAsync(EnableLDAPSRequest enableLDAPSRequest);
+
+    /**
+     * <p>
+     * Activates the switch for the specific directory to always use LDAP secure calls.
+     * </p>
+     * 
+     * @param enableLDAPSRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the EnableLDAPS operation returned by the service.
+     * @sample AWSDirectoryServiceAsyncHandler.EnableLDAPS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/EnableLDAPS" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<EnableLDAPSResult> enableLDAPSAsync(EnableLDAPSRequest enableLDAPSRequest,
+            com.amazonaws.handlers.AsyncHandler<EnableLDAPSRequest, EnableLDAPSResult> asyncHandler);
+
+    /**
+     * <p>
      * Enables multi-factor authentication (MFA) with the Remote Authentication Dial In User Service (RADIUS) server for
      * an AD Connector or Microsoft AD directory.
      * </p>
@@ -1247,7 +1638,9 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Enables single sign-on for a directory.
+     * Enables single sign-on for a directory. Single sign-on allows users in your directory to access certain Amazon
+     * Web Services services from a computer joined to the directory without having to enter their credentials
+     * separately.
      * </p>
      * 
      * @param enableSsoRequest
@@ -1261,7 +1654,9 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Enables single sign-on for a directory.
+     * Enables single sign-on for a directory. Single sign-on allows users in your directory to access certain Amazon
+     * Web Services services from a computer joined to the directory without having to enter their credentials
+     * separately.
      * </p>
      * 
      * @param enableSsoRequest
@@ -1280,7 +1675,7 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Obtains directory limit information for the current region.
+     * Obtains directory limit information for the current Region.
      * </p>
      * 
      * @param getDirectoryLimitsRequest
@@ -1294,7 +1689,7 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Obtains directory limit information for the current region.
+     * Obtains directory limit information for the current Region.
      * </p>
      * 
      * @param getDirectoryLimitsRequest
@@ -1361,6 +1756,39 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
+     * For the specified directory, lists all the certificates registered for a secure LDAP or client certificate
+     * authentication.
+     * </p>
+     * 
+     * @param listCertificatesRequest
+     * @return A Java Future containing the result of the ListCertificates operation returned by the service.
+     * @sample AWSDirectoryServiceAsync.ListCertificates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/ListCertificates" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListCertificatesResult> listCertificatesAsync(ListCertificatesRequest listCertificatesRequest);
+
+    /**
+     * <p>
+     * For the specified directory, lists all the certificates registered for a secure LDAP or client certificate
+     * authentication.
+     * </p>
+     * 
+     * @param listCertificatesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListCertificates operation returned by the service.
+     * @sample AWSDirectoryServiceAsyncHandler.ListCertificates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/ListCertificates" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListCertificatesResult> listCertificatesAsync(ListCertificatesRequest listCertificatesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListCertificatesRequest, ListCertificatesResult> asyncHandler);
+
+    /**
+     * <p>
      * Lists the address blocks that you have added to a directory.
      * </p>
      * 
@@ -1392,7 +1820,7 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Lists the active log subscriptions for the AWS account.
+     * Lists the active log subscriptions for the Amazon Web Services account.
      * </p>
      * 
      * @param listLogSubscriptionsRequest
@@ -1405,7 +1833,7 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Lists the active log subscriptions for the AWS account.
+     * Lists the active log subscriptions for the Amazon Web Services account.
      * </p>
      * 
      * @param listLogSubscriptionsRequest
@@ -1485,10 +1913,41 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Associates a directory with an SNS topic. This establishes the directory as a publisher to the specified SNS
-     * topic. You can then receive email or text (SMS) messages when the status of your directory changes. You get
-     * notified if your directory goes from an Active status to an Impaired or Inoperable status. You also receive a
-     * notification when the directory returns to an Active status.
+     * Registers a certificate for a secure LDAP or client certificate authentication.
+     * </p>
+     * 
+     * @param registerCertificateRequest
+     * @return A Java Future containing the result of the RegisterCertificate operation returned by the service.
+     * @sample AWSDirectoryServiceAsync.RegisterCertificate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/RegisterCertificate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<RegisterCertificateResult> registerCertificateAsync(RegisterCertificateRequest registerCertificateRequest);
+
+    /**
+     * <p>
+     * Registers a certificate for a secure LDAP or client certificate authentication.
+     * </p>
+     * 
+     * @param registerCertificateRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RegisterCertificate operation returned by the service.
+     * @sample AWSDirectoryServiceAsyncHandler.RegisterCertificate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/RegisterCertificate" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<RegisterCertificateResult> registerCertificateAsync(RegisterCertificateRequest registerCertificateRequest,
+            com.amazonaws.handlers.AsyncHandler<RegisterCertificateRequest, RegisterCertificateResult> asyncHandler);
+
+    /**
+     * <p>
+     * Associates a directory with an Amazon SNS topic. This establishes the directory as a publisher to the specified
+     * Amazon SNS topic. You can then receive email or text (SMS) messages when the status of your directory changes.
+     * You get notified if your directory goes from an Active status to an Impaired or Inoperable status. You also
+     * receive a notification when the directory returns to an Active status.
      * </p>
      * 
      * @param registerEventTopicRequest
@@ -1502,10 +1961,10 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Associates a directory with an SNS topic. This establishes the directory as a publisher to the specified SNS
-     * topic. You can then receive email or text (SMS) messages when the status of your directory changes. You get
-     * notified if your directory goes from an Active status to an Impaired or Inoperable status. You also receive a
-     * notification when the directory returns to an Active status.
+     * Associates a directory with an Amazon SNS topic. This establishes the directory as a publisher to the specified
+     * Amazon SNS topic. You can then receive email or text (SMS) messages when the status of your directory changes.
+     * You get notified if your directory goes from an Active status to an Impaired or Inoperable status. You also
+     * receive a notification when the directory returns to an Active status.
      * </p>
      * 
      * @param registerEventTopicRequest
@@ -1586,6 +2045,39 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
+     * Stops all replication and removes the domain controllers from the specified Region. You cannot remove the primary
+     * Region with this operation. Instead, use the <code>DeleteDirectory</code> API.
+     * </p>
+     * 
+     * @param removeRegionRequest
+     * @return A Java Future containing the result of the RemoveRegion operation returned by the service.
+     * @sample AWSDirectoryServiceAsync.RemoveRegion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/RemoveRegion" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<RemoveRegionResult> removeRegionAsync(RemoveRegionRequest removeRegionRequest);
+
+    /**
+     * <p>
+     * Stops all replication and removes the domain controllers from the specified Region. You cannot remove the primary
+     * Region with this operation. Instead, use the <code>DeleteDirectory</code> API.
+     * </p>
+     * 
+     * @param removeRegionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RemoveRegion operation returned by the service.
+     * @sample AWSDirectoryServiceAsyncHandler.RemoveRegion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/RemoveRegion" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<RemoveRegionResult> removeRegionAsync(RemoveRegionRequest removeRegionRequest,
+            com.amazonaws.handlers.AsyncHandler<RemoveRegionRequest, RemoveRegionResult> asyncHandler);
+
+    /**
+     * <p>
      * Removes tags from a directory.
      * </p>
      * 
@@ -1617,8 +2109,29 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Resets the password for any user in your AWS Managed Microsoft AD or Simple AD directory.
+     * Resets the password for any user in your Managed Microsoft AD or Simple AD directory.
      * </p>
+     * <p>
+     * You can reset the password for any user in your directory with the following exceptions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For Simple AD, you cannot reset the password for any user that is a member of either the <b>Domain Admins</b> or
+     * <b>Enterprise Admins</b> group except for the administrator user.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Managed Microsoft AD, you can only reset the password for a user that is in an OU based off of the NetBIOS
+     * name that you typed when you created your directory. For example, you cannot reset the password for a user in the
+     * <b>Amazon Web Services Reserved</b> OU. For more information about the OU structure for an Managed Microsoft AD
+     * directory, see <a href=
+     * "https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ms_ad_getting_started_what_gets_created.html"
+     * >What Gets Created</a> in the <i>Directory Service Administration Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param resetUserPasswordRequest
      * @return A Java Future containing the result of the ResetUserPassword operation returned by the service.
@@ -1630,8 +2143,29 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Resets the password for any user in your AWS Managed Microsoft AD or Simple AD directory.
+     * Resets the password for any user in your Managed Microsoft AD or Simple AD directory.
      * </p>
+     * <p>
+     * You can reset the password for any user in your directory with the following exceptions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For Simple AD, you cannot reset the password for any user that is a member of either the <b>Domain Admins</b> or
+     * <b>Enterprise Admins</b> group except for the administrator user.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Managed Microsoft AD, you can only reset the password for a user that is in an OU based off of the NetBIOS
+     * name that you typed when you created your directory. For example, you cannot reset the password for a user in the
+     * <b>Amazon Web Services Reserved</b> OU. For more information about the OU structure for an Managed Microsoft AD
+     * directory, see <a href=
+     * "https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ms_ad_getting_started_what_gets_created.html"
+     * >What Gets Created</a> in the <i>Directory Service Administration Guide</i>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param resetUserPasswordRequest
      * @param asyncHandler
@@ -1699,19 +2233,20 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Shares a specified directory (<code>DirectoryId</code>) in your AWS account (directory owner) with another AWS
-     * account (directory consumer). With this operation you can use your directory from any AWS account and from any
-     * Amazon VPC within an AWS Region.
+     * Shares a specified directory (<code>DirectoryId</code>) in your Amazon Web Services account (directory owner)
+     * with another Amazon Web Services account (directory consumer). With this operation you can use your directory
+     * from any Amazon Web Services account and from any Amazon VPC within an Amazon Web Services Region.
      * </p>
      * <p>
-     * When you share your AWS Managed Microsoft AD directory, AWS Directory Service creates a shared directory in the
-     * directory consumer account. This shared directory contains the metadata to provide access to the directory within
-     * the directory owner account. The shared directory is visible in all VPCs in the directory consumer account.
+     * When you share your Managed Microsoft AD directory, Directory Service creates a shared directory in the directory
+     * consumer account. This shared directory contains the metadata to provide access to the directory within the
+     * directory owner account. The shared directory is visible in all VPCs in the directory consumer account.
      * </p>
      * <p>
-     * The <code>ShareMethod</code> parameter determines whether the specified directory can be shared between AWS
-     * accounts inside the same AWS organization (<code>ORGANIZATIONS</code>). It also determines whether you can share
-     * the directory with any other AWS account either inside or outside of the organization (<code>HANDSHAKE</code>).
+     * The <code>ShareMethod</code> parameter determines whether the specified directory can be shared between Amazon
+     * Web Services accounts inside the same Amazon Web Services organization (<code>ORGANIZATIONS</code>). It also
+     * determines whether you can share the directory with any other Amazon Web Services account either inside or
+     * outside of the organization (<code>HANDSHAKE</code>).
      * </p>
      * <p>
      * The <code>ShareNotes</code> parameter is only used when <code>HANDSHAKE</code> is called, which sends a directory
@@ -1728,19 +2263,20 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Shares a specified directory (<code>DirectoryId</code>) in your AWS account (directory owner) with another AWS
-     * account (directory consumer). With this operation you can use your directory from any AWS account and from any
-     * Amazon VPC within an AWS Region.
+     * Shares a specified directory (<code>DirectoryId</code>) in your Amazon Web Services account (directory owner)
+     * with another Amazon Web Services account (directory consumer). With this operation you can use your directory
+     * from any Amazon Web Services account and from any Amazon VPC within an Amazon Web Services Region.
      * </p>
      * <p>
-     * When you share your AWS Managed Microsoft AD directory, AWS Directory Service creates a shared directory in the
-     * directory consumer account. This shared directory contains the metadata to provide access to the directory within
-     * the directory owner account. The shared directory is visible in all VPCs in the directory consumer account.
+     * When you share your Managed Microsoft AD directory, Directory Service creates a shared directory in the directory
+     * consumer account. This shared directory contains the metadata to provide access to the directory within the
+     * directory owner account. The shared directory is visible in all VPCs in the directory consumer account.
      * </p>
      * <p>
-     * The <code>ShareMethod</code> parameter determines whether the specified directory can be shared between AWS
-     * accounts inside the same AWS organization (<code>ORGANIZATIONS</code>). It also determines whether you can share
-     * the directory with any other AWS account either inside or outside of the organization (<code>HANDSHAKE</code>).
+     * The <code>ShareMethod</code> parameter determines whether the specified directory can be shared between Amazon
+     * Web Services accounts inside the same Amazon Web Services organization (<code>ORGANIZATIONS</code>). It also
+     * determines whether you can share the directory with any other Amazon Web Services account either inside or
+     * outside of the organization (<code>HANDSHAKE</code>).
      * </p>
      * <p>
      * The <code>ShareNotes</code> parameter is only used when <code>HANDSHAKE</code> is called, which sends a directory
@@ -1824,7 +2360,7 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Updates a conditional forwarder that has been set up for your AWS directory.
+     * Updates a conditional forwarder that has been set up for your Amazon Web Services directory.
      * </p>
      * 
      * @param updateConditionalForwarderRequest
@@ -1839,7 +2375,7 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Updates a conditional forwarder that has been set up for your AWS directory.
+     * Updates a conditional forwarder that has been set up for your Amazon Web Services directory.
      * </p>
      * 
      * @param updateConditionalForwarderRequest
@@ -1856,6 +2392,37 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
     java.util.concurrent.Future<UpdateConditionalForwarderResult> updateConditionalForwarderAsync(
             UpdateConditionalForwarderRequest updateConditionalForwarderRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateConditionalForwarderRequest, UpdateConditionalForwarderResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the directory for a particular update type.
+     * </p>
+     * 
+     * @param updateDirectorySetupRequest
+     * @return A Java Future containing the result of the UpdateDirectorySetup operation returned by the service.
+     * @sample AWSDirectoryServiceAsync.UpdateDirectorySetup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/UpdateDirectorySetup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateDirectorySetupResult> updateDirectorySetupAsync(UpdateDirectorySetupRequest updateDirectorySetupRequest);
+
+    /**
+     * <p>
+     * Updates the directory for a particular update type.
+     * </p>
+     * 
+     * @param updateDirectorySetupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateDirectorySetup operation returned by the service.
+     * @sample AWSDirectoryServiceAsyncHandler.UpdateDirectorySetup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/UpdateDirectorySetup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateDirectorySetupResult> updateDirectorySetupAsync(UpdateDirectorySetupRequest updateDirectorySetupRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateDirectorySetupRequest, UpdateDirectorySetupResult> asyncHandler);
 
     /**
      * <p>
@@ -1935,7 +2502,38 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Updates the trust that has been set up between your AWS Managed Microsoft AD directory and an on-premises Active
+     * Updates the configurable settings for the specified directory.
+     * </p>
+     * 
+     * @param updateSettingsRequest
+     * @return A Java Future containing the result of the UpdateSettings operation returned by the service.
+     * @sample AWSDirectoryServiceAsync.UpdateSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/UpdateSettings" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateSettingsResult> updateSettingsAsync(UpdateSettingsRequest updateSettingsRequest);
+
+    /**
+     * <p>
+     * Updates the configurable settings for the specified directory.
+     * </p>
+     * 
+     * @param updateSettingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateSettings operation returned by the service.
+     * @sample AWSDirectoryServiceAsyncHandler.UpdateSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/UpdateSettings" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateSettingsResult> updateSettingsAsync(UpdateSettingsRequest updateSettingsRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateSettingsRequest, UpdateSettingsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the trust that has been set up between your Managed Microsoft AD directory and an self-managed Active
      * Directory.
      * </p>
      * 
@@ -1949,7 +2547,7 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * Updates the trust that has been set up between your AWS Managed Microsoft AD directory and an on-premises Active
+     * Updates the trust that has been set up between your Managed Microsoft AD directory and an self-managed Active
      * Directory.
      * </p>
      * 
@@ -1968,15 +2566,15 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * AWS Directory Service for Microsoft Active Directory allows you to configure and verify trust relationships.
+     * Directory Service for Microsoft Active Directory allows you to configure and verify trust relationships.
      * </p>
      * <p>
-     * This action verifies a trust relationship between your AWS Managed Microsoft AD directory and an external domain.
+     * This action verifies a trust relationship between your Managed Microsoft AD directory and an external domain.
      * </p>
      * 
      * @param verifyTrustRequest
-     *        Initiates the verification of an existing trust relationship between an AWS Managed Microsoft AD directory
-     *        and an external domain.
+     *        Initiates the verification of an existing trust relationship between an Managed Microsoft AD directory and
+     *        an external domain.
      * @return A Java Future containing the result of the VerifyTrust operation returned by the service.
      * @sample AWSDirectoryServiceAsync.VerifyTrust
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/VerifyTrust" target="_top">AWS API
@@ -1986,15 +2584,15 @@ public interface AWSDirectoryServiceAsync extends AWSDirectoryService {
 
     /**
      * <p>
-     * AWS Directory Service for Microsoft Active Directory allows you to configure and verify trust relationships.
+     * Directory Service for Microsoft Active Directory allows you to configure and verify trust relationships.
      * </p>
      * <p>
-     * This action verifies a trust relationship between your AWS Managed Microsoft AD directory and an external domain.
+     * This action verifies a trust relationship between your Managed Microsoft AD directory and an external domain.
      * </p>
      * 
      * @param verifyTrustRequest
-     *        Initiates the verification of an existing trust relationship between an AWS Managed Microsoft AD directory
-     *        and an external domain.
+     *        Initiates the verification of an existing trust relationship between an Managed Microsoft AD directory and
+     *        an external domain.
      * @param asyncHandler
      *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
      *        implementation of the callback methods in this interface to receive notification of successful or

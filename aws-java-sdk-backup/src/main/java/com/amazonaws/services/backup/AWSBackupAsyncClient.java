@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,9 +25,9 @@ import java.util.concurrent.ExecutorService;
  * representing the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive
  * notification when an asynchronous operation completes.
  * <p>
- * <fullname>AWS Backup</fullname>
+ * <fullname>Backup</fullname>
  * <p>
- * AWS Backup is a unified backup service designed to protect AWS services and their associated data. AWS Backup
+ * Backup is a unified backup service designed to protect Amazon Web Services services and their associated data. Backup
  * simplifies the creation, migration, restoration, and deletion of backups, while also providing reporting and
  * auditing.
  * </p>
@@ -51,7 +51,19 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
      *        Object providing client parameters.
      */
     AWSBackupAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWS Backup using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSBackupAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -62,6 +74,39 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelLegalHoldResult> cancelLegalHoldAsync(CancelLegalHoldRequest request) {
+
+        return cancelLegalHoldAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelLegalHoldResult> cancelLegalHoldAsync(final CancelLegalHoldRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CancelLegalHoldRequest, CancelLegalHoldResult> asyncHandler) {
+        final CancelLegalHoldRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CancelLegalHoldResult>() {
+            @Override
+            public CancelLegalHoldResult call() throws Exception {
+                CancelLegalHoldResult result = null;
+
+                try {
+                    result = executeCancelLegalHold(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -148,6 +193,207 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
 
                 try {
                     result = executeCreateBackupVault(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFrameworkResult> createFrameworkAsync(CreateFrameworkRequest request) {
+
+        return createFrameworkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFrameworkResult> createFrameworkAsync(final CreateFrameworkRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateFrameworkRequest, CreateFrameworkResult> asyncHandler) {
+        final CreateFrameworkRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateFrameworkResult>() {
+            @Override
+            public CreateFrameworkResult call() throws Exception {
+                CreateFrameworkResult result = null;
+
+                try {
+                    result = executeCreateFramework(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLegalHoldResult> createLegalHoldAsync(CreateLegalHoldRequest request) {
+
+        return createLegalHoldAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLegalHoldResult> createLegalHoldAsync(final CreateLegalHoldRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateLegalHoldRequest, CreateLegalHoldResult> asyncHandler) {
+        final CreateLegalHoldRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateLegalHoldResult>() {
+            @Override
+            public CreateLegalHoldResult call() throws Exception {
+                CreateLegalHoldResult result = null;
+
+                try {
+                    result = executeCreateLegalHold(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLogicallyAirGappedBackupVaultResult> createLogicallyAirGappedBackupVaultAsync(
+            CreateLogicallyAirGappedBackupVaultRequest request) {
+
+        return createLogicallyAirGappedBackupVaultAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLogicallyAirGappedBackupVaultResult> createLogicallyAirGappedBackupVaultAsync(
+            final CreateLogicallyAirGappedBackupVaultRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateLogicallyAirGappedBackupVaultRequest, CreateLogicallyAirGappedBackupVaultResult> asyncHandler) {
+        final CreateLogicallyAirGappedBackupVaultRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateLogicallyAirGappedBackupVaultResult>() {
+            @Override
+            public CreateLogicallyAirGappedBackupVaultResult call() throws Exception {
+                CreateLogicallyAirGappedBackupVaultResult result = null;
+
+                try {
+                    result = executeCreateLogicallyAirGappedBackupVault(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateReportPlanResult> createReportPlanAsync(CreateReportPlanRequest request) {
+
+        return createReportPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateReportPlanResult> createReportPlanAsync(final CreateReportPlanRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateReportPlanRequest, CreateReportPlanResult> asyncHandler) {
+        final CreateReportPlanRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateReportPlanResult>() {
+            @Override
+            public CreateReportPlanResult call() throws Exception {
+                CreateReportPlanResult result = null;
+
+                try {
+                    result = executeCreateReportPlan(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRestoreTestingPlanResult> createRestoreTestingPlanAsync(CreateRestoreTestingPlanRequest request) {
+
+        return createRestoreTestingPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRestoreTestingPlanResult> createRestoreTestingPlanAsync(final CreateRestoreTestingPlanRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateRestoreTestingPlanRequest, CreateRestoreTestingPlanResult> asyncHandler) {
+        final CreateRestoreTestingPlanRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateRestoreTestingPlanResult>() {
+            @Override
+            public CreateRestoreTestingPlanResult call() throws Exception {
+                CreateRestoreTestingPlanResult result = null;
+
+                try {
+                    result = executeCreateRestoreTestingPlan(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRestoreTestingSelectionResult> createRestoreTestingSelectionAsync(CreateRestoreTestingSelectionRequest request) {
+
+        return createRestoreTestingSelectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRestoreTestingSelectionResult> createRestoreTestingSelectionAsync(
+            final CreateRestoreTestingSelectionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateRestoreTestingSelectionRequest, CreateRestoreTestingSelectionResult> asyncHandler) {
+        final CreateRestoreTestingSelectionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateRestoreTestingSelectionResult>() {
+            @Override
+            public CreateRestoreTestingSelectionResult call() throws Exception {
+                CreateRestoreTestingSelectionResult result = null;
+
+                try {
+                    result = executeCreateRestoreTestingSelection(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -297,6 +543,41 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteBackupVaultLockConfigurationResult> deleteBackupVaultLockConfigurationAsync(
+            DeleteBackupVaultLockConfigurationRequest request) {
+
+        return deleteBackupVaultLockConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteBackupVaultLockConfigurationResult> deleteBackupVaultLockConfigurationAsync(
+            final DeleteBackupVaultLockConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteBackupVaultLockConfigurationRequest, DeleteBackupVaultLockConfigurationResult> asyncHandler) {
+        final DeleteBackupVaultLockConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteBackupVaultLockConfigurationResult>() {
+            @Override
+            public DeleteBackupVaultLockConfigurationResult call() throws Exception {
+                DeleteBackupVaultLockConfigurationResult result = null;
+
+                try {
+                    result = executeDeleteBackupVaultLockConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteBackupVaultNotificationsResult> deleteBackupVaultNotificationsAsync(DeleteBackupVaultNotificationsRequest request) {
 
         return deleteBackupVaultNotificationsAsync(request, null);
@@ -331,6 +612,39 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteFrameworkResult> deleteFrameworkAsync(DeleteFrameworkRequest request) {
+
+        return deleteFrameworkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFrameworkResult> deleteFrameworkAsync(final DeleteFrameworkRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteFrameworkRequest, DeleteFrameworkResult> asyncHandler) {
+        final DeleteFrameworkRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteFrameworkResult>() {
+            @Override
+            public DeleteFrameworkResult call() throws Exception {
+                DeleteFrameworkResult result = null;
+
+                try {
+                    result = executeDeleteFramework(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteRecoveryPointResult> deleteRecoveryPointAsync(DeleteRecoveryPointRequest request) {
 
         return deleteRecoveryPointAsync(request, null);
@@ -348,6 +662,106 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
 
                 try {
                     result = executeDeleteRecoveryPoint(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteReportPlanResult> deleteReportPlanAsync(DeleteReportPlanRequest request) {
+
+        return deleteReportPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteReportPlanResult> deleteReportPlanAsync(final DeleteReportPlanRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteReportPlanRequest, DeleteReportPlanResult> asyncHandler) {
+        final DeleteReportPlanRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteReportPlanResult>() {
+            @Override
+            public DeleteReportPlanResult call() throws Exception {
+                DeleteReportPlanResult result = null;
+
+                try {
+                    result = executeDeleteReportPlan(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRestoreTestingPlanResult> deleteRestoreTestingPlanAsync(DeleteRestoreTestingPlanRequest request) {
+
+        return deleteRestoreTestingPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRestoreTestingPlanResult> deleteRestoreTestingPlanAsync(final DeleteRestoreTestingPlanRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteRestoreTestingPlanRequest, DeleteRestoreTestingPlanResult> asyncHandler) {
+        final DeleteRestoreTestingPlanRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteRestoreTestingPlanResult>() {
+            @Override
+            public DeleteRestoreTestingPlanResult call() throws Exception {
+                DeleteRestoreTestingPlanResult result = null;
+
+                try {
+                    result = executeDeleteRestoreTestingPlan(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRestoreTestingSelectionResult> deleteRestoreTestingSelectionAsync(DeleteRestoreTestingSelectionRequest request) {
+
+        return deleteRestoreTestingSelectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRestoreTestingSelectionResult> deleteRestoreTestingSelectionAsync(
+            final DeleteRestoreTestingSelectionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteRestoreTestingSelectionRequest, DeleteRestoreTestingSelectionResult> asyncHandler) {
+        final DeleteRestoreTestingSelectionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteRestoreTestingSelectionResult>() {
+            @Override
+            public DeleteRestoreTestingSelectionResult call() throws Exception {
+                DeleteRestoreTestingSelectionResult result = null;
+
+                try {
+                    result = executeDeleteRestoreTestingSelection(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -430,6 +844,105 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeCopyJobResult> describeCopyJobAsync(DescribeCopyJobRequest request) {
+
+        return describeCopyJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCopyJobResult> describeCopyJobAsync(final DescribeCopyJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeCopyJobRequest, DescribeCopyJobResult> asyncHandler) {
+        final DescribeCopyJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeCopyJobResult>() {
+            @Override
+            public DescribeCopyJobResult call() throws Exception {
+                DescribeCopyJobResult result = null;
+
+                try {
+                    result = executeDescribeCopyJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFrameworkResult> describeFrameworkAsync(DescribeFrameworkRequest request) {
+
+        return describeFrameworkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFrameworkResult> describeFrameworkAsync(final DescribeFrameworkRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeFrameworkRequest, DescribeFrameworkResult> asyncHandler) {
+        final DescribeFrameworkRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeFrameworkResult>() {
+            @Override
+            public DescribeFrameworkResult call() throws Exception {
+                DescribeFrameworkResult result = null;
+
+                try {
+                    result = executeDescribeFramework(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeGlobalSettingsResult> describeGlobalSettingsAsync(DescribeGlobalSettingsRequest request) {
+
+        return describeGlobalSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeGlobalSettingsResult> describeGlobalSettingsAsync(final DescribeGlobalSettingsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeGlobalSettingsRequest, DescribeGlobalSettingsResult> asyncHandler) {
+        final DescribeGlobalSettingsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeGlobalSettingsResult>() {
+            @Override
+            public DescribeGlobalSettingsResult call() throws Exception {
+                DescribeGlobalSettingsResult result = null;
+
+                try {
+                    result = executeDescribeGlobalSettings(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeProtectedResourceResult> describeProtectedResourceAsync(DescribeProtectedResourceRequest request) {
 
         return describeProtectedResourceAsync(request, null);
@@ -496,6 +1009,105 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeRegionSettingsResult> describeRegionSettingsAsync(DescribeRegionSettingsRequest request) {
+
+        return describeRegionSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeRegionSettingsResult> describeRegionSettingsAsync(final DescribeRegionSettingsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeRegionSettingsRequest, DescribeRegionSettingsResult> asyncHandler) {
+        final DescribeRegionSettingsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeRegionSettingsResult>() {
+            @Override
+            public DescribeRegionSettingsResult call() throws Exception {
+                DescribeRegionSettingsResult result = null;
+
+                try {
+                    result = executeDescribeRegionSettings(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeReportJobResult> describeReportJobAsync(DescribeReportJobRequest request) {
+
+        return describeReportJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeReportJobResult> describeReportJobAsync(final DescribeReportJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeReportJobRequest, DescribeReportJobResult> asyncHandler) {
+        final DescribeReportJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeReportJobResult>() {
+            @Override
+            public DescribeReportJobResult call() throws Exception {
+                DescribeReportJobResult result = null;
+
+                try {
+                    result = executeDescribeReportJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeReportPlanResult> describeReportPlanAsync(DescribeReportPlanRequest request) {
+
+        return describeReportPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeReportPlanResult> describeReportPlanAsync(final DescribeReportPlanRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeReportPlanRequest, DescribeReportPlanResult> asyncHandler) {
+        final DescribeReportPlanRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeReportPlanResult>() {
+            @Override
+            public DescribeReportPlanResult call() throws Exception {
+                DescribeReportPlanResult result = null;
+
+                try {
+                    result = executeDescribeReportPlan(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeRestoreJobResult> describeRestoreJobAsync(DescribeRestoreJobRequest request) {
 
         return describeRestoreJobAsync(request, null);
@@ -513,6 +1125,74 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
 
                 try {
                     result = executeDescribeRestoreJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateRecoveryPointResult> disassociateRecoveryPointAsync(DisassociateRecoveryPointRequest request) {
+
+        return disassociateRecoveryPointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateRecoveryPointResult> disassociateRecoveryPointAsync(final DisassociateRecoveryPointRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisassociateRecoveryPointRequest, DisassociateRecoveryPointResult> asyncHandler) {
+        final DisassociateRecoveryPointRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisassociateRecoveryPointResult>() {
+            @Override
+            public DisassociateRecoveryPointResult call() throws Exception {
+                DisassociateRecoveryPointResult result = null;
+
+                try {
+                    result = executeDisassociateRecoveryPoint(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateRecoveryPointFromParentResult> disassociateRecoveryPointFromParentAsync(
+            DisassociateRecoveryPointFromParentRequest request) {
+
+        return disassociateRecoveryPointFromParentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateRecoveryPointFromParentResult> disassociateRecoveryPointFromParentAsync(
+            final DisassociateRecoveryPointFromParentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisassociateRecoveryPointFromParentRequest, DisassociateRecoveryPointFromParentResult> asyncHandler) {
+        final DisassociateRecoveryPointFromParentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisassociateRecoveryPointFromParentResult>() {
+            @Override
+            public DisassociateRecoveryPointFromParentResult call() throws Exception {
+                DisassociateRecoveryPointFromParentResult result = null;
+
+                try {
+                    result = executeDisassociateRecoveryPointFromParent(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -760,6 +1440,39 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
     }
 
     @Override
+    public java.util.concurrent.Future<GetLegalHoldResult> getLegalHoldAsync(GetLegalHoldRequest request) {
+
+        return getLegalHoldAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetLegalHoldResult> getLegalHoldAsync(final GetLegalHoldRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetLegalHoldRequest, GetLegalHoldResult> asyncHandler) {
+        final GetLegalHoldRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetLegalHoldResult>() {
+            @Override
+            public GetLegalHoldResult call() throws Exception {
+                GetLegalHoldResult result = null;
+
+                try {
+                    result = executeGetLegalHold(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetRecoveryPointRestoreMetadataResult> getRecoveryPointRestoreMetadataAsync(
             GetRecoveryPointRestoreMetadataRequest request) {
 
@@ -795,6 +1508,140 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
     }
 
     @Override
+    public java.util.concurrent.Future<GetRestoreJobMetadataResult> getRestoreJobMetadataAsync(GetRestoreJobMetadataRequest request) {
+
+        return getRestoreJobMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRestoreJobMetadataResult> getRestoreJobMetadataAsync(final GetRestoreJobMetadataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRestoreJobMetadataRequest, GetRestoreJobMetadataResult> asyncHandler) {
+        final GetRestoreJobMetadataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRestoreJobMetadataResult>() {
+            @Override
+            public GetRestoreJobMetadataResult call() throws Exception {
+                GetRestoreJobMetadataResult result = null;
+
+                try {
+                    result = executeGetRestoreJobMetadata(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRestoreTestingInferredMetadataResult> getRestoreTestingInferredMetadataAsync(
+            GetRestoreTestingInferredMetadataRequest request) {
+
+        return getRestoreTestingInferredMetadataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRestoreTestingInferredMetadataResult> getRestoreTestingInferredMetadataAsync(
+            final GetRestoreTestingInferredMetadataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRestoreTestingInferredMetadataRequest, GetRestoreTestingInferredMetadataResult> asyncHandler) {
+        final GetRestoreTestingInferredMetadataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRestoreTestingInferredMetadataResult>() {
+            @Override
+            public GetRestoreTestingInferredMetadataResult call() throws Exception {
+                GetRestoreTestingInferredMetadataResult result = null;
+
+                try {
+                    result = executeGetRestoreTestingInferredMetadata(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRestoreTestingPlanResult> getRestoreTestingPlanAsync(GetRestoreTestingPlanRequest request) {
+
+        return getRestoreTestingPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRestoreTestingPlanResult> getRestoreTestingPlanAsync(final GetRestoreTestingPlanRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRestoreTestingPlanRequest, GetRestoreTestingPlanResult> asyncHandler) {
+        final GetRestoreTestingPlanRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRestoreTestingPlanResult>() {
+            @Override
+            public GetRestoreTestingPlanResult call() throws Exception {
+                GetRestoreTestingPlanResult result = null;
+
+                try {
+                    result = executeGetRestoreTestingPlan(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRestoreTestingSelectionResult> getRestoreTestingSelectionAsync(GetRestoreTestingSelectionRequest request) {
+
+        return getRestoreTestingSelectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRestoreTestingSelectionResult> getRestoreTestingSelectionAsync(final GetRestoreTestingSelectionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRestoreTestingSelectionRequest, GetRestoreTestingSelectionResult> asyncHandler) {
+        final GetRestoreTestingSelectionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRestoreTestingSelectionResult>() {
+            @Override
+            public GetRestoreTestingSelectionResult call() throws Exception {
+                GetRestoreTestingSelectionResult result = null;
+
+                try {
+                    result = executeGetRestoreTestingSelection(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetSupportedResourceTypesResult> getSupportedResourceTypesAsync(GetSupportedResourceTypesRequest request) {
 
         return getSupportedResourceTypesAsync(request, null);
@@ -812,6 +1659,39 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
 
                 try {
                     result = executeGetSupportedResourceTypes(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListBackupJobSummariesResult> listBackupJobSummariesAsync(ListBackupJobSummariesRequest request) {
+
+        return listBackupJobSummariesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListBackupJobSummariesResult> listBackupJobSummariesAsync(final ListBackupJobSummariesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListBackupJobSummariesRequest, ListBackupJobSummariesResult> asyncHandler) {
+        final ListBackupJobSummariesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListBackupJobSummariesResult>() {
+            @Override
+            public ListBackupJobSummariesResult call() throws Exception {
+                ListBackupJobSummariesResult result = null;
+
+                try {
+                    result = executeListBackupJobSummaries(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1026,6 +1906,138 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
     }
 
     @Override
+    public java.util.concurrent.Future<ListCopyJobSummariesResult> listCopyJobSummariesAsync(ListCopyJobSummariesRequest request) {
+
+        return listCopyJobSummariesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCopyJobSummariesResult> listCopyJobSummariesAsync(final ListCopyJobSummariesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCopyJobSummariesRequest, ListCopyJobSummariesResult> asyncHandler) {
+        final ListCopyJobSummariesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCopyJobSummariesResult>() {
+            @Override
+            public ListCopyJobSummariesResult call() throws Exception {
+                ListCopyJobSummariesResult result = null;
+
+                try {
+                    result = executeListCopyJobSummaries(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCopyJobsResult> listCopyJobsAsync(ListCopyJobsRequest request) {
+
+        return listCopyJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCopyJobsResult> listCopyJobsAsync(final ListCopyJobsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCopyJobsRequest, ListCopyJobsResult> asyncHandler) {
+        final ListCopyJobsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListCopyJobsResult>() {
+            @Override
+            public ListCopyJobsResult call() throws Exception {
+                ListCopyJobsResult result = null;
+
+                try {
+                    result = executeListCopyJobs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFrameworksResult> listFrameworksAsync(ListFrameworksRequest request) {
+
+        return listFrameworksAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFrameworksResult> listFrameworksAsync(final ListFrameworksRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListFrameworksRequest, ListFrameworksResult> asyncHandler) {
+        final ListFrameworksRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListFrameworksResult>() {
+            @Override
+            public ListFrameworksResult call() throws Exception {
+                ListFrameworksResult result = null;
+
+                try {
+                    result = executeListFrameworks(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListLegalHoldsResult> listLegalHoldsAsync(ListLegalHoldsRequest request) {
+
+        return listLegalHoldsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListLegalHoldsResult> listLegalHoldsAsync(final ListLegalHoldsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListLegalHoldsRequest, ListLegalHoldsResult> asyncHandler) {
+        final ListLegalHoldsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListLegalHoldsResult>() {
+            @Override
+            public ListLegalHoldsResult call() throws Exception {
+                ListLegalHoldsResult result = null;
+
+                try {
+                    result = executeListLegalHolds(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListProtectedResourcesResult> listProtectedResourcesAsync(ListProtectedResourcesRequest request) {
 
         return listProtectedResourcesAsync(request, null);
@@ -1043,6 +2055,41 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
 
                 try {
                     result = executeListProtectedResources(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProtectedResourcesByBackupVaultResult> listProtectedResourcesByBackupVaultAsync(
+            ListProtectedResourcesByBackupVaultRequest request) {
+
+        return listProtectedResourcesByBackupVaultAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListProtectedResourcesByBackupVaultResult> listProtectedResourcesByBackupVaultAsync(
+            final ListProtectedResourcesByBackupVaultRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListProtectedResourcesByBackupVaultRequest, ListProtectedResourcesByBackupVaultResult> asyncHandler) {
+        final ListProtectedResourcesByBackupVaultRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListProtectedResourcesByBackupVaultResult>() {
+            @Override
+            public ListProtectedResourcesByBackupVaultResult call() throws Exception {
+                ListProtectedResourcesByBackupVaultResult result = null;
+
+                try {
+                    result = executeListProtectedResourcesByBackupVault(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1094,6 +2141,40 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
     }
 
     @Override
+    public java.util.concurrent.Future<ListRecoveryPointsByLegalHoldResult> listRecoveryPointsByLegalHoldAsync(ListRecoveryPointsByLegalHoldRequest request) {
+
+        return listRecoveryPointsByLegalHoldAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRecoveryPointsByLegalHoldResult> listRecoveryPointsByLegalHoldAsync(
+            final ListRecoveryPointsByLegalHoldRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListRecoveryPointsByLegalHoldRequest, ListRecoveryPointsByLegalHoldResult> asyncHandler) {
+        final ListRecoveryPointsByLegalHoldRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListRecoveryPointsByLegalHoldResult>() {
+            @Override
+            public ListRecoveryPointsByLegalHoldResult call() throws Exception {
+                ListRecoveryPointsByLegalHoldResult result = null;
+
+                try {
+                    result = executeListRecoveryPointsByLegalHold(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListRecoveryPointsByResourceResult> listRecoveryPointsByResourceAsync(ListRecoveryPointsByResourceRequest request) {
 
         return listRecoveryPointsByResourceAsync(request, null);
@@ -1127,6 +2208,105 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
     }
 
     @Override
+    public java.util.concurrent.Future<ListReportJobsResult> listReportJobsAsync(ListReportJobsRequest request) {
+
+        return listReportJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReportJobsResult> listReportJobsAsync(final ListReportJobsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListReportJobsRequest, ListReportJobsResult> asyncHandler) {
+        final ListReportJobsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListReportJobsResult>() {
+            @Override
+            public ListReportJobsResult call() throws Exception {
+                ListReportJobsResult result = null;
+
+                try {
+                    result = executeListReportJobs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReportPlansResult> listReportPlansAsync(ListReportPlansRequest request) {
+
+        return listReportPlansAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListReportPlansResult> listReportPlansAsync(final ListReportPlansRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListReportPlansRequest, ListReportPlansResult> asyncHandler) {
+        final ListReportPlansRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListReportPlansResult>() {
+            @Override
+            public ListReportPlansResult call() throws Exception {
+                ListReportPlansResult result = null;
+
+                try {
+                    result = executeListReportPlans(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRestoreJobSummariesResult> listRestoreJobSummariesAsync(ListRestoreJobSummariesRequest request) {
+
+        return listRestoreJobSummariesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRestoreJobSummariesResult> listRestoreJobSummariesAsync(final ListRestoreJobSummariesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListRestoreJobSummariesRequest, ListRestoreJobSummariesResult> asyncHandler) {
+        final ListRestoreJobSummariesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListRestoreJobSummariesResult>() {
+            @Override
+            public ListRestoreJobSummariesResult call() throws Exception {
+                ListRestoreJobSummariesResult result = null;
+
+                try {
+                    result = executeListRestoreJobSummaries(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListRestoreJobsResult> listRestoreJobsAsync(ListRestoreJobsRequest request) {
 
         return listRestoreJobsAsync(request, null);
@@ -1144,6 +2324,107 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
 
                 try {
                     result = executeListRestoreJobs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRestoreJobsByProtectedResourceResult> listRestoreJobsByProtectedResourceAsync(
+            ListRestoreJobsByProtectedResourceRequest request) {
+
+        return listRestoreJobsByProtectedResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRestoreJobsByProtectedResourceResult> listRestoreJobsByProtectedResourceAsync(
+            final ListRestoreJobsByProtectedResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListRestoreJobsByProtectedResourceRequest, ListRestoreJobsByProtectedResourceResult> asyncHandler) {
+        final ListRestoreJobsByProtectedResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListRestoreJobsByProtectedResourceResult>() {
+            @Override
+            public ListRestoreJobsByProtectedResourceResult call() throws Exception {
+                ListRestoreJobsByProtectedResourceResult result = null;
+
+                try {
+                    result = executeListRestoreJobsByProtectedResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRestoreTestingPlansResult> listRestoreTestingPlansAsync(ListRestoreTestingPlansRequest request) {
+
+        return listRestoreTestingPlansAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRestoreTestingPlansResult> listRestoreTestingPlansAsync(final ListRestoreTestingPlansRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListRestoreTestingPlansRequest, ListRestoreTestingPlansResult> asyncHandler) {
+        final ListRestoreTestingPlansRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListRestoreTestingPlansResult>() {
+            @Override
+            public ListRestoreTestingPlansResult call() throws Exception {
+                ListRestoreTestingPlansResult result = null;
+
+                try {
+                    result = executeListRestoreTestingPlans(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRestoreTestingSelectionsResult> listRestoreTestingSelectionsAsync(ListRestoreTestingSelectionsRequest request) {
+
+        return listRestoreTestingSelectionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRestoreTestingSelectionsResult> listRestoreTestingSelectionsAsync(final ListRestoreTestingSelectionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListRestoreTestingSelectionsRequest, ListRestoreTestingSelectionsResult> asyncHandler) {
+        final ListRestoreTestingSelectionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListRestoreTestingSelectionsResult>() {
+            @Override
+            public ListRestoreTestingSelectionsResult call() throws Exception {
+                ListRestoreTestingSelectionsResult result = null;
+
+                try {
+                    result = executeListRestoreTestingSelections(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1226,6 +2507,41 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
     }
 
     @Override
+    public java.util.concurrent.Future<PutBackupVaultLockConfigurationResult> putBackupVaultLockConfigurationAsync(
+            PutBackupVaultLockConfigurationRequest request) {
+
+        return putBackupVaultLockConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutBackupVaultLockConfigurationResult> putBackupVaultLockConfigurationAsync(
+            final PutBackupVaultLockConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutBackupVaultLockConfigurationRequest, PutBackupVaultLockConfigurationResult> asyncHandler) {
+        final PutBackupVaultLockConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutBackupVaultLockConfigurationResult>() {
+            @Override
+            public PutBackupVaultLockConfigurationResult call() throws Exception {
+                PutBackupVaultLockConfigurationResult result = null;
+
+                try {
+                    result = executePutBackupVaultLockConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<PutBackupVaultNotificationsResult> putBackupVaultNotificationsAsync(PutBackupVaultNotificationsRequest request) {
 
         return putBackupVaultNotificationsAsync(request, null);
@@ -1259,6 +2575,39 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
     }
 
     @Override
+    public java.util.concurrent.Future<PutRestoreValidationResultResult> putRestoreValidationResultAsync(PutRestoreValidationResultRequest request) {
+
+        return putRestoreValidationResultAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutRestoreValidationResultResult> putRestoreValidationResultAsync(final PutRestoreValidationResultRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutRestoreValidationResultRequest, PutRestoreValidationResultResult> asyncHandler) {
+        final PutRestoreValidationResultRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutRestoreValidationResultResult>() {
+            @Override
+            public PutRestoreValidationResultResult call() throws Exception {
+                PutRestoreValidationResultResult result = null;
+
+                try {
+                    result = executePutRestoreValidationResult(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<StartBackupJobResult> startBackupJobAsync(StartBackupJobRequest request) {
 
         return startBackupJobAsync(request, null);
@@ -1276,6 +2625,72 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
 
                 try {
                     result = executeStartBackupJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartCopyJobResult> startCopyJobAsync(StartCopyJobRequest request) {
+
+        return startCopyJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartCopyJobResult> startCopyJobAsync(final StartCopyJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartCopyJobRequest, StartCopyJobResult> asyncHandler) {
+        final StartCopyJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartCopyJobResult>() {
+            @Override
+            public StartCopyJobResult call() throws Exception {
+                StartCopyJobResult result = null;
+
+                try {
+                    result = executeStartCopyJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartReportJobResult> startReportJobAsync(StartReportJobRequest request) {
+
+        return startReportJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartReportJobResult> startReportJobAsync(final StartReportJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartReportJobRequest, StartReportJobResult> asyncHandler) {
+        final StartReportJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartReportJobResult>() {
+            @Override
+            public StartReportJobResult call() throws Exception {
+                StartReportJobResult result = null;
+
+                try {
+                    result = executeStartReportJob(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1457,6 +2872,72 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateFrameworkResult> updateFrameworkAsync(UpdateFrameworkRequest request) {
+
+        return updateFrameworkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateFrameworkResult> updateFrameworkAsync(final UpdateFrameworkRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateFrameworkRequest, UpdateFrameworkResult> asyncHandler) {
+        final UpdateFrameworkRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateFrameworkResult>() {
+            @Override
+            public UpdateFrameworkResult call() throws Exception {
+                UpdateFrameworkResult result = null;
+
+                try {
+                    result = executeUpdateFramework(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateGlobalSettingsResult> updateGlobalSettingsAsync(UpdateGlobalSettingsRequest request) {
+
+        return updateGlobalSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateGlobalSettingsResult> updateGlobalSettingsAsync(final UpdateGlobalSettingsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateGlobalSettingsRequest, UpdateGlobalSettingsResult> asyncHandler) {
+        final UpdateGlobalSettingsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateGlobalSettingsResult>() {
+            @Override
+            public UpdateGlobalSettingsResult call() throws Exception {
+                UpdateGlobalSettingsResult result = null;
+
+                try {
+                    result = executeUpdateGlobalSettings(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateRecoveryPointLifecycleResult> updateRecoveryPointLifecycleAsync(UpdateRecoveryPointLifecycleRequest request) {
 
         return updateRecoveryPointLifecycleAsync(request, null);
@@ -1474,6 +2955,139 @@ public class AWSBackupAsyncClient extends AWSBackupClient implements AWSBackupAs
 
                 try {
                     result = executeUpdateRecoveryPointLifecycle(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRegionSettingsResult> updateRegionSettingsAsync(UpdateRegionSettingsRequest request) {
+
+        return updateRegionSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRegionSettingsResult> updateRegionSettingsAsync(final UpdateRegionSettingsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateRegionSettingsRequest, UpdateRegionSettingsResult> asyncHandler) {
+        final UpdateRegionSettingsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateRegionSettingsResult>() {
+            @Override
+            public UpdateRegionSettingsResult call() throws Exception {
+                UpdateRegionSettingsResult result = null;
+
+                try {
+                    result = executeUpdateRegionSettings(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateReportPlanResult> updateReportPlanAsync(UpdateReportPlanRequest request) {
+
+        return updateReportPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateReportPlanResult> updateReportPlanAsync(final UpdateReportPlanRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateReportPlanRequest, UpdateReportPlanResult> asyncHandler) {
+        final UpdateReportPlanRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateReportPlanResult>() {
+            @Override
+            public UpdateReportPlanResult call() throws Exception {
+                UpdateReportPlanResult result = null;
+
+                try {
+                    result = executeUpdateReportPlan(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRestoreTestingPlanResult> updateRestoreTestingPlanAsync(UpdateRestoreTestingPlanRequest request) {
+
+        return updateRestoreTestingPlanAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRestoreTestingPlanResult> updateRestoreTestingPlanAsync(final UpdateRestoreTestingPlanRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateRestoreTestingPlanRequest, UpdateRestoreTestingPlanResult> asyncHandler) {
+        final UpdateRestoreTestingPlanRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateRestoreTestingPlanResult>() {
+            @Override
+            public UpdateRestoreTestingPlanResult call() throws Exception {
+                UpdateRestoreTestingPlanResult result = null;
+
+                try {
+                    result = executeUpdateRestoreTestingPlan(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRestoreTestingSelectionResult> updateRestoreTestingSelectionAsync(UpdateRestoreTestingSelectionRequest request) {
+
+        return updateRestoreTestingSelectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRestoreTestingSelectionResult> updateRestoreTestingSelectionAsync(
+            final UpdateRestoreTestingSelectionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateRestoreTestingSelectionRequest, UpdateRestoreTestingSelectionResult> asyncHandler) {
+        final UpdateRestoreTestingSelectionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateRestoreTestingSelectionResult>() {
+            @Override
+            public UpdateRestoreTestingSelectionResult call() throws Exception {
+                UpdateRestoreTestingSelectionResult result = null;
+
+                try {
+                    result = executeUpdateRestoreTestingSelection(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

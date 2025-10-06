@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,15 +25,99 @@ import com.amazonaws.services.mq.model.*;
  * {@link com.amazonaws.services.mq.AbstractAmazonMQAsync} instead.
  * </p>
  * <p>
- * Amazon MQ is a managed message broker service for Apache ActiveMQ that makes it easy to set up and operate message
- * brokers in the cloud. A message broker allows software applications and components to communicate using various
- * programming languages, operating systems, and formal messaging protocols.
+ * <p>
+ * Amazon MQ is a managed message broker service for Apache ActiveMQ and RabbitMQ that makes it easy to set up and
+ * operate message brokers in the cloud. A message broker allows software applications and components to communicate
+ * using various programming languages, operating systems, and formal messaging protocols.
+ * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public interface AmazonMQAsync extends AmazonMQ {
 
     /**
+     * <p>
      * Creates a broker. Note: This API is asynchronous.
+     * </p>
+     * <p>
+     * To create a broker, you must either use the AmazonMQFullAccess IAM policy or include the following EC2
+     * permissions in your IAM policy.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ec2:CreateNetworkInterface
+     * </p>
+     * <p>
+     * This permission is required to allow Amazon MQ to create an elastic network interface (ENI) on behalf of your
+     * account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:CreateNetworkInterfacePermission
+     * </p>
+     * <p>
+     * This permission is required to attach the ENI to the broker instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DeleteNetworkInterface
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DeleteNetworkInterfacePermission
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DetachNetworkInterface
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeInternetGateways
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeNetworkInterfaces
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeNetworkInterfacePermissions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeRouteTables
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeSecurityGroups
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeSubnets
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeVpcs
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/amazon-mq-setting-up.html#create-iam-user"
+     * >Create an IAM User and Get Your Amazon Web Services Credentials</a> and <a href=
+     * "https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/connecting-to-amazon-mq.html#never-modify-delete-elastic-network-interface"
+     * >Never Modify or Delete the Amazon MQ Elastic Network Interface</a> in the <i>Amazon MQ Developer Guide</i>.
+     * </p>
      * 
      * @param createBrokerRequest
      *        Creates a broker using the specified properties.
@@ -45,7 +129,89 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<CreateBrokerResult> createBrokerAsync(CreateBrokerRequest createBrokerRequest);
 
     /**
+     * <p>
      * Creates a broker. Note: This API is asynchronous.
+     * </p>
+     * <p>
+     * To create a broker, you must either use the AmazonMQFullAccess IAM policy or include the following EC2
+     * permissions in your IAM policy.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ec2:CreateNetworkInterface
+     * </p>
+     * <p>
+     * This permission is required to allow Amazon MQ to create an elastic network interface (ENI) on behalf of your
+     * account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:CreateNetworkInterfacePermission
+     * </p>
+     * <p>
+     * This permission is required to attach the ENI to the broker instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DeleteNetworkInterface
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DeleteNetworkInterfacePermission
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DetachNetworkInterface
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeInternetGateways
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeNetworkInterfaces
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeNetworkInterfacePermissions
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeRouteTables
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeSecurityGroups
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeSubnets
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ec2:DescribeVpcs
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/amazon-mq-setting-up.html#create-iam-user"
+     * >Create an IAM User and Get Your Amazon Web Services Credentials</a> and <a href=
+     * "https://docs.aws.amazon.com//amazon-mq/latest/developer-guide/connecting-to-amazon-mq.html#never-modify-delete-elastic-network-interface"
+     * >Never Modify or Delete the Amazon MQ Elastic Network Interface</a> in the <i>Amazon MQ Developer Guide</i>.
+     * </p>
      * 
      * @param createBrokerRequest
      *        Creates a broker using the specified properties.
@@ -62,8 +228,10 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<CreateBrokerRequest, CreateBrokerResult> asyncHandler);
 
     /**
+     * <p>
      * Creates a new configuration for the specified configuration name. Amazon MQ uses the default configuration (the
      * engine type and version).
+     * </p>
      * 
      * @param createConfigurationRequest
      *        Creates a new configuration for the specified configuration name. Amazon MQ uses the default configuration
@@ -76,8 +244,10 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<CreateConfigurationResult> createConfigurationAsync(CreateConfigurationRequest createConfigurationRequest);
 
     /**
+     * <p>
      * Creates a new configuration for the specified configuration name. Amazon MQ uses the default configuration (the
      * engine type and version).
+     * </p>
      * 
      * @param createConfigurationRequest
      *        Creates a new configuration for the specified configuration name. Amazon MQ uses the default configuration
@@ -95,7 +265,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<CreateConfigurationRequest, CreateConfigurationResult> asyncHandler);
 
     /**
+     * <p>
      * Add a tag to a resource.
+     * </p>
      * 
      * @param createTagsRequest
      *        A map of the key-value pairs for the resource tag.
@@ -107,7 +279,9 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<CreateTagsResult> createTagsAsync(CreateTagsRequest createTagsRequest);
 
     /**
+     * <p>
      * Add a tag to a resource.
+     * </p>
      * 
      * @param createTagsRequest
      *        A map of the key-value pairs for the resource tag.
@@ -124,7 +298,16 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<CreateTagsRequest, CreateTagsResult> asyncHandler);
 
     /**
+     * <p>
      * Creates an ActiveMQ user.
+     * </p>
+     * <important>
+     * <p>
+     * Do not add personally identifiable information (PII) or other confidential or sensitive information in broker
+     * usernames. Broker usernames are accessible to other Amazon Web Services services, including CloudWatch Logs.
+     * Broker usernames are not intended to be used for private or sensitive data.
+     * </p>
+     * </important>
      * 
      * @param createUserRequest
      *        Creates a new ActiveMQ user.
@@ -136,7 +319,16 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<CreateUserResult> createUserAsync(CreateUserRequest createUserRequest);
 
     /**
+     * <p>
      * Creates an ActiveMQ user.
+     * </p>
+     * <important>
+     * <p>
+     * Do not add personally identifiable information (PII) or other confidential or sensitive information in broker
+     * usernames. Broker usernames are accessible to other Amazon Web Services services, including CloudWatch Logs.
+     * Broker usernames are not intended to be used for private or sensitive data.
+     * </p>
+     * </important>
      * 
      * @param createUserRequest
      *        Creates a new ActiveMQ user.
@@ -153,7 +345,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<CreateUserRequest, CreateUserResult> asyncHandler);
 
     /**
+     * <p>
      * Deletes a broker. Note: This API is asynchronous.
+     * </p>
      * 
      * @param deleteBrokerRequest
      * @return A Java Future containing the result of the DeleteBroker operation returned by the service.
@@ -164,7 +358,9 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<DeleteBrokerResult> deleteBrokerAsync(DeleteBrokerRequest deleteBrokerRequest);
 
     /**
+     * <p>
      * Deletes a broker. Note: This API is asynchronous.
+     * </p>
      * 
      * @param deleteBrokerRequest
      * @param asyncHandler
@@ -180,7 +376,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<DeleteBrokerRequest, DeleteBrokerResult> asyncHandler);
 
     /**
+     * <p>
      * Removes a tag from a resource.
+     * </p>
      * 
      * @param deleteTagsRequest
      * @return A Java Future containing the result of the DeleteTags operation returned by the service.
@@ -191,7 +389,9 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<DeleteTagsResult> deleteTagsAsync(DeleteTagsRequest deleteTagsRequest);
 
     /**
+     * <p>
      * Removes a tag from a resource.
+     * </p>
      * 
      * @param deleteTagsRequest
      * @param asyncHandler
@@ -207,7 +407,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<DeleteTagsRequest, DeleteTagsResult> asyncHandler);
 
     /**
+     * <p>
      * Deletes an ActiveMQ user.
+     * </p>
      * 
      * @param deleteUserRequest
      * @return A Java Future containing the result of the DeleteUser operation returned by the service.
@@ -218,7 +420,9 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<DeleteUserResult> deleteUserAsync(DeleteUserRequest deleteUserRequest);
 
     /**
+     * <p>
      * Deletes an ActiveMQ user.
+     * </p>
      * 
      * @param deleteUserRequest
      * @param asyncHandler
@@ -234,7 +438,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<DeleteUserRequest, DeleteUserResult> asyncHandler);
 
     /**
+     * <p>
      * Returns information about the specified broker.
+     * </p>
      * 
      * @param describeBrokerRequest
      * @return A Java Future containing the result of the DescribeBroker operation returned by the service.
@@ -245,7 +451,9 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<DescribeBrokerResult> describeBrokerAsync(DescribeBrokerRequest describeBrokerRequest);
 
     /**
+     * <p>
      * Returns information about the specified broker.
+     * </p>
      * 
      * @param describeBrokerRequest
      * @param asyncHandler
@@ -261,7 +469,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<DescribeBrokerRequest, DescribeBrokerResult> asyncHandler);
 
     /**
+     * <p>
      * Describe available engine types and versions.
+     * </p>
      * 
      * @param describeBrokerEngineTypesRequest
      * @return A Java Future containing the result of the DescribeBrokerEngineTypes operation returned by the service.
@@ -273,7 +483,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             DescribeBrokerEngineTypesRequest describeBrokerEngineTypesRequest);
 
     /**
+     * <p>
      * Describe available engine types and versions.
+     * </p>
      * 
      * @param describeBrokerEngineTypesRequest
      * @param asyncHandler
@@ -290,7 +502,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<DescribeBrokerEngineTypesRequest, DescribeBrokerEngineTypesResult> asyncHandler);
 
     /**
+     * <p>
      * Describe available broker instance options.
+     * </p>
      * 
      * @param describeBrokerInstanceOptionsRequest
      * @return A Java Future containing the result of the DescribeBrokerInstanceOptions operation returned by the
@@ -303,7 +517,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             DescribeBrokerInstanceOptionsRequest describeBrokerInstanceOptionsRequest);
 
     /**
+     * <p>
      * Describe available broker instance options.
+     * </p>
      * 
      * @param describeBrokerInstanceOptionsRequest
      * @param asyncHandler
@@ -321,7 +537,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<DescribeBrokerInstanceOptionsRequest, DescribeBrokerInstanceOptionsResult> asyncHandler);
 
     /**
+     * <p>
      * Returns information about the specified configuration.
+     * </p>
      * 
      * @param describeConfigurationRequest
      * @return A Java Future containing the result of the DescribeConfiguration operation returned by the service.
@@ -332,7 +550,9 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<DescribeConfigurationResult> describeConfigurationAsync(DescribeConfigurationRequest describeConfigurationRequest);
 
     /**
+     * <p>
      * Returns information about the specified configuration.
+     * </p>
      * 
      * @param describeConfigurationRequest
      * @param asyncHandler
@@ -348,7 +568,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<DescribeConfigurationRequest, DescribeConfigurationResult> asyncHandler);
 
     /**
+     * <p>
      * Returns the specified configuration revision for the specified configuration.
+     * </p>
      * 
      * @param describeConfigurationRevisionRequest
      * @return A Java Future containing the result of the DescribeConfigurationRevision operation returned by the
@@ -361,7 +583,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             DescribeConfigurationRevisionRequest describeConfigurationRevisionRequest);
 
     /**
+     * <p>
      * Returns the specified configuration revision for the specified configuration.
+     * </p>
      * 
      * @param describeConfigurationRevisionRequest
      * @param asyncHandler
@@ -379,7 +603,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<DescribeConfigurationRevisionRequest, DescribeConfigurationRevisionResult> asyncHandler);
 
     /**
+     * <p>
      * Returns information about an ActiveMQ user.
+     * </p>
      * 
      * @param describeUserRequest
      * @return A Java Future containing the result of the DescribeUser operation returned by the service.
@@ -390,7 +616,9 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<DescribeUserResult> describeUserAsync(DescribeUserRequest describeUserRequest);
 
     /**
+     * <p>
      * Returns information about an ActiveMQ user.
+     * </p>
      * 
      * @param describeUserRequest
      * @param asyncHandler
@@ -406,7 +634,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<DescribeUserRequest, DescribeUserResult> asyncHandler);
 
     /**
+     * <p>
      * Returns a list of all brokers.
+     * </p>
      * 
      * @param listBrokersRequest
      * @return A Java Future containing the result of the ListBrokers operation returned by the service.
@@ -417,7 +647,9 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<ListBrokersResult> listBrokersAsync(ListBrokersRequest listBrokersRequest);
 
     /**
+     * <p>
      * Returns a list of all brokers.
+     * </p>
      * 
      * @param listBrokersRequest
      * @param asyncHandler
@@ -433,7 +665,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<ListBrokersRequest, ListBrokersResult> asyncHandler);
 
     /**
+     * <p>
      * Returns a list of all revisions for the specified configuration.
+     * </p>
      * 
      * @param listConfigurationRevisionsRequest
      * @return A Java Future containing the result of the ListConfigurationRevisions operation returned by the service.
@@ -445,7 +679,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             ListConfigurationRevisionsRequest listConfigurationRevisionsRequest);
 
     /**
+     * <p>
      * Returns a list of all revisions for the specified configuration.
+     * </p>
      * 
      * @param listConfigurationRevisionsRequest
      * @param asyncHandler
@@ -462,7 +698,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<ListConfigurationRevisionsRequest, ListConfigurationRevisionsResult> asyncHandler);
 
     /**
+     * <p>
      * Returns a list of all configurations.
+     * </p>
      * 
      * @param listConfigurationsRequest
      * @return A Java Future containing the result of the ListConfigurations operation returned by the service.
@@ -473,7 +711,9 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<ListConfigurationsResult> listConfigurationsAsync(ListConfigurationsRequest listConfigurationsRequest);
 
     /**
+     * <p>
      * Returns a list of all configurations.
+     * </p>
      * 
      * @param listConfigurationsRequest
      * @param asyncHandler
@@ -489,7 +729,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<ListConfigurationsRequest, ListConfigurationsResult> asyncHandler);
 
     /**
+     * <p>
      * Lists tags for a resource.
+     * </p>
      * 
      * @param listTagsRequest
      * @return A Java Future containing the result of the ListTags operation returned by the service.
@@ -500,7 +742,9 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<ListTagsResult> listTagsAsync(ListTagsRequest listTagsRequest);
 
     /**
+     * <p>
      * Lists tags for a resource.
+     * </p>
      * 
      * @param listTagsRequest
      * @param asyncHandler
@@ -516,7 +760,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<ListTagsRequest, ListTagsResult> asyncHandler);
 
     /**
+     * <p>
      * Returns a list of all ActiveMQ users.
+     * </p>
      * 
      * @param listUsersRequest
      * @return A Java Future containing the result of the ListUsers operation returned by the service.
@@ -527,7 +773,9 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<ListUsersResult> listUsersAsync(ListUsersRequest listUsersRequest);
 
     /**
+     * <p>
      * Returns a list of all ActiveMQ users.
+     * </p>
      * 
      * @param listUsersRequest
      * @param asyncHandler
@@ -543,7 +791,42 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<ListUsersRequest, ListUsersResult> asyncHandler);
 
     /**
+     * <p>
+     * Promotes a data replication replica broker to the primary broker role.
+     * </p>
+     * 
+     * @param promoteRequest
+     *        Promotes a data replication replica broker to the primary broker role.
+     * @return A Java Future containing the result of the Promote operation returned by the service.
+     * @sample AmazonMQAsync.Promote
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/Promote" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<PromoteResult> promoteAsync(PromoteRequest promoteRequest);
+
+    /**
+     * <p>
+     * Promotes a data replication replica broker to the primary broker role.
+     * </p>
+     * 
+     * @param promoteRequest
+     *        Promotes a data replication replica broker to the primary broker role.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the Promote operation returned by the service.
+     * @sample AmazonMQAsyncHandler.Promote
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/Promote" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<PromoteResult> promoteAsync(PromoteRequest promoteRequest,
+            com.amazonaws.handlers.AsyncHandler<PromoteRequest, PromoteResult> asyncHandler);
+
+    /**
+     * <p>
      * Reboots a broker. Note: This API is asynchronous.
+     * </p>
      * 
      * @param rebootBrokerRequest
      * @return A Java Future containing the result of the RebootBroker operation returned by the service.
@@ -554,7 +837,9 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<RebootBrokerResult> rebootBrokerAsync(RebootBrokerRequest rebootBrokerRequest);
 
     /**
+     * <p>
      * Reboots a broker. Note: This API is asynchronous.
+     * </p>
      * 
      * @param rebootBrokerRequest
      * @param asyncHandler
@@ -570,7 +855,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<RebootBrokerRequest, RebootBrokerResult> asyncHandler);
 
     /**
+     * <p>
      * Adds a pending configuration change to a broker.
+     * </p>
      * 
      * @param updateBrokerRequest
      *        Updates the broker using the specified properties.
@@ -582,7 +869,9 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<UpdateBrokerResult> updateBrokerAsync(UpdateBrokerRequest updateBrokerRequest);
 
     /**
+     * <p>
      * Adds a pending configuration change to a broker.
+     * </p>
      * 
      * @param updateBrokerRequest
      *        Updates the broker using the specified properties.
@@ -599,7 +888,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<UpdateBrokerRequest, UpdateBrokerResult> asyncHandler);
 
     /**
+     * <p>
      * Updates the specified configuration.
+     * </p>
      * 
      * @param updateConfigurationRequest
      *        Updates the specified configuration.
@@ -611,7 +902,9 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<UpdateConfigurationResult> updateConfigurationAsync(UpdateConfigurationRequest updateConfigurationRequest);
 
     /**
+     * <p>
      * Updates the specified configuration.
+     * </p>
      * 
      * @param updateConfigurationRequest
      *        Updates the specified configuration.
@@ -628,7 +921,9 @@ public interface AmazonMQAsync extends AmazonMQ {
             com.amazonaws.handlers.AsyncHandler<UpdateConfigurationRequest, UpdateConfigurationResult> asyncHandler);
 
     /**
+     * <p>
      * Updates the information for an ActiveMQ user.
+     * </p>
      * 
      * @param updateUserRequest
      *        Updates the information for an ActiveMQ user.
@@ -640,7 +935,9 @@ public interface AmazonMQAsync extends AmazonMQ {
     java.util.concurrent.Future<UpdateUserResult> updateUserAsync(UpdateUserRequest updateUserRequest);
 
     /**
+     * <p>
      * Updates the information for an ActiveMQ user.
+     * </p>
      * 
      * @param updateUserRequest
      *        Updates the information for an ActiveMQ user.

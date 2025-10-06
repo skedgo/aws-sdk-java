@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,6 +39,11 @@ public class AbstractAmazonECS implements AmazonECS {
     }
 
     @Override
+    public CreateCapacityProviderResult createCapacityProvider(CreateCapacityProviderRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateClusterResult createCluster(CreateClusterRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -69,12 +74,22 @@ public class AbstractAmazonECS implements AmazonECS {
     }
 
     @Override
+    public DeleteCapacityProviderResult deleteCapacityProvider(DeleteCapacityProviderRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteClusterResult deleteCluster(DeleteClusterRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public DeleteServiceResult deleteService(DeleteServiceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteTaskDefinitionsResult deleteTaskDefinitions(DeleteTaskDefinitionsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -90,6 +105,11 @@ public class AbstractAmazonECS implements AmazonECS {
 
     @Override
     public DeregisterTaskDefinitionResult deregisterTaskDefinition(DeregisterTaskDefinitionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeCapacityProvidersResult describeCapacityProviders(DescribeCapacityProvidersRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -139,6 +159,16 @@ public class AbstractAmazonECS implements AmazonECS {
     }
 
     @Override
+    public ExecuteCommandResult executeCommand(ExecuteCommandRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetTaskProtectionResult getTaskProtection(GetTaskProtectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListAccountSettingsResult listAccountSettings(ListAccountSettingsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -176,6 +206,11 @@ public class AbstractAmazonECS implements AmazonECS {
     @Override
     public ListServicesResult listServices() {
         return listServices(new ListServicesRequest());
+    }
+
+    @Override
+    public ListServicesByNamespaceResult listServicesByNamespace(ListServicesByNamespaceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -225,6 +260,11 @@ public class AbstractAmazonECS implements AmazonECS {
 
     @Override
     public PutAttributesResult putAttributes(PutAttributesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutClusterCapacityProvidersResult putClusterCapacityProviders(PutClusterCapacityProvidersRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -284,6 +324,21 @@ public class AbstractAmazonECS implements AmazonECS {
     }
 
     @Override
+    public UpdateCapacityProviderResult updateCapacityProvider(UpdateCapacityProviderRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateClusterResult updateCluster(UpdateClusterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateClusterSettingsResult updateClusterSettings(UpdateClusterSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateContainerAgentResult updateContainerAgent(UpdateContainerAgentRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -300,6 +355,11 @@ public class AbstractAmazonECS implements AmazonECS {
 
     @Override
     public UpdateServicePrimaryTaskSetResult updateServicePrimaryTaskSet(UpdateServicePrimaryTaskSetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateTaskProtectionResult updateTaskProtection(UpdateTaskProtectionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

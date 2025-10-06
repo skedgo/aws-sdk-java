@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,12 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class S3DestinationSettingsMarshaller {
 
+    private static final MarshallingInfo<StructuredPojo> ACCESSCONTROL_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("accessControl").build();
     private static final MarshallingInfo<StructuredPojo> ENCRYPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("encryption").build();
+    private static final MarshallingInfo<String> STORAGECLASS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("storageClass").build();
 
     private static final S3DestinationSettingsMarshaller instance = new S3DestinationSettingsMarshaller();
 
@@ -46,7 +50,9 @@ public class S3DestinationSettingsMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(s3DestinationSettings.getAccessControl(), ACCESSCONTROL_BINDING);
             protocolMarshaller.marshall(s3DestinationSettings.getEncryption(), ENCRYPTION_BINDING);
+            protocolMarshaller.marshall(s3DestinationSettings.getStorageClass(), STORAGECLASS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

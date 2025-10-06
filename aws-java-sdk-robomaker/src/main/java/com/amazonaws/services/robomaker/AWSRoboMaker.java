@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,6 +43,26 @@ public interface AWSRoboMaker {
 
     /**
      * <p>
+     * Deletes one or more worlds in a batch operation.
+     * </p>
+     * 
+     * @param batchDeleteWorldsRequest
+     * @return Result of the BatchDeleteWorlds operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.BatchDeleteWorlds
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/BatchDeleteWorlds" target="_top">AWS
+     *      API Documentation</a>
+     */
+    BatchDeleteWorldsResult batchDeleteWorlds(BatchDeleteWorldsRequest batchDeleteWorldsRequest);
+
+    /**
+     * <p>
      * Describes one or more simulation jobs.
      * </p>
      * 
@@ -67,6 +87,12 @@ public interface AWSRoboMaker {
      * <p>
      * Cancels the specified deployment job.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param cancelDeploymentJobRequest
      * @return Result of the CancelDeploymentJob operation returned by the service.
@@ -83,6 +109,7 @@ public interface AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CancelDeploymentJob" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     CancelDeploymentJobResult cancelDeploymentJob(CancelDeploymentJobRequest cancelDeploymentJobRequest);
 
     /**
@@ -109,8 +136,80 @@ public interface AWSRoboMaker {
 
     /**
      * <p>
+     * Cancels a simulation job batch. When you cancel a simulation job batch, you are also cancelling all of the active
+     * simulation jobs created as part of the batch.
+     * </p>
+     * 
+     * @param cancelSimulationJobBatchRequest
+     * @return Result of the CancelSimulationJobBatch operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @sample AWSRoboMaker.CancelSimulationJobBatch
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CancelSimulationJobBatch"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CancelSimulationJobBatchResult cancelSimulationJobBatch(CancelSimulationJobBatchRequest cancelSimulationJobBatchRequest);
+
+    /**
+     * <p>
+     * Cancels the specified export job.
+     * </p>
+     * 
+     * @param cancelWorldExportJobRequest
+     * @return Result of the CancelWorldExportJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @sample AWSRoboMaker.CancelWorldExportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CancelWorldExportJob" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CancelWorldExportJobResult cancelWorldExportJob(CancelWorldExportJobRequest cancelWorldExportJobRequest);
+
+    /**
+     * <p>
+     * Cancels the specified world generator job.
+     * </p>
+     * 
+     * @param cancelWorldGenerationJobRequest
+     * @return Result of the CancelWorldGenerationJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @sample AWSRoboMaker.CancelWorldGenerationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CancelWorldGenerationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CancelWorldGenerationJobResult cancelWorldGenerationJob(CancelWorldGenerationJobRequest cancelWorldGenerationJobRequest);
+
+    /**
+     * <p>
      * Deploys a specific version of a robot application to robots in a fleet.
      * </p>
+     * <important>
+     * <p>
+     * This API is no longer supported and will throw an error if used.
+     * </p>
+     * </important>
      * <p>
      * The robot application must have a numbered <code>applicationVersion</code> for consistency reasons. To create a
      * new version, use <code>CreateRobotApplicationVersion</code> or see <a
@@ -146,12 +245,18 @@ public interface AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateDeploymentJob" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     CreateDeploymentJobResult createDeploymentJob(CreateDeploymentJobRequest createDeploymentJobRequest);
 
     /**
      * <p>
      * Creates a fleet, a logical group of robots running the same robot application.
      * </p>
+     * <important>
+     * <p>
+     * This API is no longer supported and will throw an error if used.
+     * </p>
+     * </important>
      * 
      * @param createFleetRequest
      * @return Result of the CreateFleet operation returned by the service.
@@ -169,12 +274,18 @@ public interface AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateFleet" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     CreateFleetResult createFleet(CreateFleetRequest createFleetRequest);
 
     /**
      * <p>
      * Creates a robot.
      * </p>
+     * <important>
+     * <p>
+     * This API is no longer supported and will throw an error if used.
+     * </p>
+     * </important>
      * 
      * @param createRobotRequest
      * @return Result of the CreateRobot operation returned by the service.
@@ -194,6 +305,7 @@ public interface AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateRobot" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     CreateRobotResult createRobot(CreateRobotRequest createRobotRequest);
 
     /**
@@ -342,8 +454,98 @@ public interface AWSRoboMaker {
 
     /**
      * <p>
+     * Creates a world export job.
+     * </p>
+     * 
+     * @param createWorldExportJobRequest
+     * @return Result of the CreateWorldExportJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws IdempotentParameterMismatchException
+     *         The request uses the same client token as a previous, but non-identical request. Do not reuse a client
+     *         token with different requests, unless the requests are identical.
+     * @throws ServiceUnavailableException
+     *         The request has failed due to a temporary failure of the server.
+     * @sample AWSRoboMaker.CreateWorldExportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateWorldExportJob" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreateWorldExportJobResult createWorldExportJob(CreateWorldExportJobRequest createWorldExportJobRequest);
+
+    /**
+     * <p>
+     * Creates worlds using the specified template.
+     * </p>
+     * 
+     * @param createWorldGenerationJobRequest
+     * @return Result of the CreateWorldGenerationJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws LimitExceededException
+     *         The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests
+     *         exceeds the maximum number allowed.
+     * @throws IdempotentParameterMismatchException
+     *         The request uses the same client token as a previous, but non-identical request. Do not reuse a client
+     *         token with different requests, unless the requests are identical.
+     * @throws ServiceUnavailableException
+     *         The request has failed due to a temporary failure of the server.
+     * @sample AWSRoboMaker.CreateWorldGenerationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateWorldGenerationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateWorldGenerationJobResult createWorldGenerationJob(CreateWorldGenerationJobRequest createWorldGenerationJobRequest);
+
+    /**
+     * <p>
+     * Creates a world template.
+     * </p>
+     * 
+     * @param createWorldTemplateRequest
+     * @return Result of the CreateWorldTemplate operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws LimitExceededException
+     *         The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests
+     *         exceeds the maximum number allowed.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.CreateWorldTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/CreateWorldTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreateWorldTemplateResult createWorldTemplate(CreateWorldTemplateRequest createWorldTemplateRequest);
+
+    /**
+     * <p>
      * Deletes a fleet.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param deleteFleetRequest
      * @return Result of the DeleteFleet operation returned by the service.
@@ -358,12 +560,19 @@ public interface AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DeleteFleet" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     DeleteFleetResult deleteFleet(DeleteFleetRequest deleteFleetRequest);
 
     /**
      * <p>
      * Deletes a robot.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param deleteRobotRequest
      * @return Result of the DeleteRobot operation returned by the service.
@@ -378,6 +587,7 @@ public interface AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DeleteRobot" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     DeleteRobotResult deleteRobot(DeleteRobotRequest deleteRobotRequest);
 
     /**
@@ -422,8 +632,36 @@ public interface AWSRoboMaker {
 
     /**
      * <p>
+     * Deletes a world template.
+     * </p>
+     * 
+     * @param deleteWorldTemplateRequest
+     * @return Result of the DeleteWorldTemplate operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.DeleteWorldTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DeleteWorldTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteWorldTemplateResult deleteWorldTemplate(DeleteWorldTemplateRequest deleteWorldTemplateRequest);
+
+    /**
+     * <p>
      * Deregisters a robot.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param deregisterRobotRequest
      * @return Result of the DeregisterRobot operation returned by the service.
@@ -440,12 +678,19 @@ public interface AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DeregisterRobot" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     DeregisterRobotResult deregisterRobot(DeregisterRobotRequest deregisterRobotRequest);
 
     /**
      * <p>
      * Describes a deployment job.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param describeDeploymentJobRequest
      * @return Result of the DescribeDeploymentJob operation returned by the service.
@@ -462,12 +707,19 @@ public interface AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeDeploymentJob"
      *      target="_top">AWS API Documentation</a>
      */
+    @Deprecated
     DescribeDeploymentJobResult describeDeploymentJob(DescribeDeploymentJobRequest describeDeploymentJobRequest);
 
     /**
      * <p>
      * Describes a fleet.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param describeFleetRequest
      * @return Result of the DescribeFleet operation returned by the service.
@@ -484,12 +736,19 @@ public interface AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeFleet" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     DescribeFleetResult describeFleet(DescribeFleetRequest describeFleetRequest);
 
     /**
      * <p>
      * Describes a robot.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param describeRobotRequest
      * @return Result of the DescribeRobot operation returned by the service.
@@ -506,6 +765,7 @@ public interface AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeRobot" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     DescribeRobotResult describeRobot(DescribeRobotRequest describeRobotRequest);
 
     /**
@@ -576,13 +836,145 @@ public interface AWSRoboMaker {
 
     /**
      * <p>
+     * Describes a simulation job batch.
+     * </p>
+     * 
+     * @param describeSimulationJobBatchRequest
+     * @return Result of the DescribeSimulationJobBatch operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.DescribeSimulationJobBatch
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeSimulationJobBatch"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeSimulationJobBatchResult describeSimulationJobBatch(DescribeSimulationJobBatchRequest describeSimulationJobBatchRequest);
+
+    /**
+     * <p>
+     * Describes a world.
+     * </p>
+     * 
+     * @param describeWorldRequest
+     * @return Result of the DescribeWorld operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.DescribeWorld
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeWorld" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DescribeWorldResult describeWorld(DescribeWorldRequest describeWorldRequest);
+
+    /**
+     * <p>
+     * Describes a world export job.
+     * </p>
+     * 
+     * @param describeWorldExportJobRequest
+     * @return Result of the DescribeWorldExportJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @sample AWSRoboMaker.DescribeWorldExportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeWorldExportJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeWorldExportJobResult describeWorldExportJob(DescribeWorldExportJobRequest describeWorldExportJobRequest);
+
+    /**
+     * <p>
+     * Describes a world generation job.
+     * </p>
+     * 
+     * @param describeWorldGenerationJobRequest
+     * @return Result of the DescribeWorldGenerationJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @sample AWSRoboMaker.DescribeWorldGenerationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeWorldGenerationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeWorldGenerationJobResult describeWorldGenerationJob(DescribeWorldGenerationJobRequest describeWorldGenerationJobRequest);
+
+    /**
+     * <p>
+     * Describes a world template.
+     * </p>
+     * 
+     * @param describeWorldTemplateRequest
+     * @return Result of the DescribeWorldTemplate operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.DescribeWorldTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/DescribeWorldTemplate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeWorldTemplateResult describeWorldTemplate(DescribeWorldTemplateRequest describeWorldTemplateRequest);
+
+    /**
+     * <p>
+     * Gets the world template body.
+     * </p>
+     * 
+     * @param getWorldTemplateBodyRequest
+     * @return Result of the GetWorldTemplateBody operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.GetWorldTemplateBody
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/GetWorldTemplateBody" target="_top">AWS
+     *      API Documentation</a>
+     */
+    GetWorldTemplateBodyResult getWorldTemplateBody(GetWorldTemplateBodyRequest getWorldTemplateBodyRequest);
+
+    /**
+     * <p>
      * Returns a list of deployment jobs for a fleet. You can optionally provide filters to retrieve specific deployment
      * jobs.
      * </p>
-     * <note>
+     * <important>
      * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
      * </p>
-     * </note>
+     * </important>
      * 
      * @param listDeploymentJobsRequest
      * @return Result of the ListDeploymentJobs operation returned by the service.
@@ -599,12 +991,19 @@ public interface AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListDeploymentJobs" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     ListDeploymentJobsResult listDeploymentJobs(ListDeploymentJobsRequest listDeploymentJobsRequest);
 
     /**
      * <p>
      * Returns a list of fleets. You can optionally provide filters to retrieve specific fleets.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param listFleetsRequest
      * @return Result of the ListFleets operation returned by the service.
@@ -621,6 +1020,7 @@ public interface AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListFleets" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     ListFleetsResult listFleets(ListFleetsRequest listFleetsRequest);
 
     /**
@@ -647,6 +1047,12 @@ public interface AWSRoboMaker {
      * <p>
      * Returns a list of robots. You can optionally provide filters to retrieve specific robots.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param listRobotsRequest
      * @return Result of the ListRobots operation returned by the service.
@@ -663,6 +1069,7 @@ public interface AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListRobots" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     ListRobotsResult listRobots(ListRobotsRequest listRobotsRequest);
 
     /**
@@ -685,6 +1092,25 @@ public interface AWSRoboMaker {
      *      target="_top">AWS API Documentation</a>
      */
     ListSimulationApplicationsResult listSimulationApplications(ListSimulationApplicationsRequest listSimulationApplicationsRequest);
+
+    /**
+     * <p>
+     * Returns a list simulation job batches. You can optionally provide filters to retrieve specific simulation batch
+     * jobs.
+     * </p>
+     * 
+     * @param listSimulationJobBatchesRequest
+     * @return Result of the ListSimulationJobBatches operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.ListSimulationJobBatches
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListSimulationJobBatches"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListSimulationJobBatchesResult listSimulationJobBatches(ListSimulationJobBatchesRequest listSimulationJobBatchesRequest);
 
     /**
      * <p>
@@ -730,8 +1156,93 @@ public interface AWSRoboMaker {
 
     /**
      * <p>
+     * Lists world export jobs.
+     * </p>
+     * 
+     * @param listWorldExportJobsRequest
+     * @return Result of the ListWorldExportJobs operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @sample AWSRoboMaker.ListWorldExportJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListWorldExportJobs" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListWorldExportJobsResult listWorldExportJobs(ListWorldExportJobsRequest listWorldExportJobsRequest);
+
+    /**
+     * <p>
+     * Lists world generator jobs.
+     * </p>
+     * 
+     * @param listWorldGenerationJobsRequest
+     * @return Result of the ListWorldGenerationJobs operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @sample AWSRoboMaker.ListWorldGenerationJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListWorldGenerationJobs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListWorldGenerationJobsResult listWorldGenerationJobs(ListWorldGenerationJobsRequest listWorldGenerationJobsRequest);
+
+    /**
+     * <p>
+     * Lists world templates.
+     * </p>
+     * 
+     * @param listWorldTemplatesRequest
+     * @return Result of the ListWorldTemplates operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.ListWorldTemplates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListWorldTemplates" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListWorldTemplatesResult listWorldTemplates(ListWorldTemplatesRequest listWorldTemplatesRequest);
+
+    /**
+     * <p>
+     * Lists worlds.
+     * </p>
+     * 
+     * @param listWorldsRequest
+     * @return Result of the ListWorlds operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.ListWorlds
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/ListWorlds" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListWorldsResult listWorlds(ListWorldsRequest listWorldsRequest);
+
+    /**
+     * <p>
      * Registers a robot with a fleet.
      * </p>
+     * <important>
+     * <p>
+     * This API is no longer supported and will throw an error if used.
+     * </p>
+     * </important>
      * 
      * @param registerRobotRequest
      * @return Result of the RegisterRobot operation returned by the service.
@@ -751,6 +1262,7 @@ public interface AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/RegisterRobot" target="_top">AWS API
      *      Documentation</a>
      */
+    @Deprecated
     RegisterRobotResult registerRobot(RegisterRobotRequest registerRobotRequest);
 
     /**
@@ -780,8 +1292,41 @@ public interface AWSRoboMaker {
 
     /**
      * <p>
+     * Starts a new simulation job batch. The batch is defined using one or more <code>SimulationJobRequest</code>
+     * objects.
+     * </p>
+     * 
+     * @param startSimulationJobBatchRequest
+     * @return Result of the StartSimulationJobBatch operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws LimitExceededException
+     *         The requested resource exceeds the maximum number allowed, or the number of concurrent stream requests
+     *         exceeds the maximum number allowed.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws IdempotentParameterMismatchException
+     *         The request uses the same client token as a previous, but non-identical request. Do not reuse a client
+     *         token with different requests, unless the requests are identical.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.StartSimulationJobBatch
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/StartSimulationJobBatch"
+     *      target="_top">AWS API Documentation</a>
+     */
+    StartSimulationJobBatchResult startSimulationJobBatch(StartSimulationJobBatchRequest startSimulationJobBatchRequest);
+
+    /**
+     * <p>
      * Syncrhonizes robots in a fleet to the latest deployment. This is helpful if robots were added after a deployment.
      * </p>
+     * <important>
+     * <p>
+     * This API will no longer be supported as of May 2, 2022. Use it to remove resources that were created for
+     * Deployment Service.
+     * </p>
+     * </important>
      * 
      * @param syncDeploymentJobRequest
      * @return Result of the SyncDeploymentJob operation returned by the service.
@@ -806,6 +1351,7 @@ public interface AWSRoboMaker {
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/SyncDeploymentJob" target="_top">AWS
      *      API Documentation</a>
      */
+    @Deprecated
     SyncDeploymentJobResult syncDeploymentJob(SyncDeploymentJobRequest syncDeploymentJobRequest);
 
     /**
@@ -914,6 +1460,28 @@ public interface AWSRoboMaker {
      *      target="_top">AWS API Documentation</a>
      */
     UpdateSimulationApplicationResult updateSimulationApplication(UpdateSimulationApplicationRequest updateSimulationApplicationRequest);
+
+    /**
+     * <p>
+     * Updates a world template.
+     * </p>
+     * 
+     * @param updateWorldTemplateRequest
+     * @return Result of the UpdateWorldTemplate operation returned by the service.
+     * @throws InvalidParameterException
+     *         A parameter specified in a request is not valid, is unsupported, or cannot be used. The returned message
+     *         provides an explanation of the error value.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         AWS RoboMaker is temporarily unable to process the request. Try your call again.
+     * @throws InternalServerException
+     *         AWS RoboMaker experienced a service issue. Try your call again.
+     * @sample AWSRoboMaker.UpdateWorldTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/robomaker-2018-06-29/UpdateWorldTemplate" target="_top">AWS
+     *      API Documentation</a>
+     */
+    UpdateWorldTemplateResult updateWorldTemplate(UpdateWorldTemplateRequest updateWorldTemplateRequest);
 
     /**
      * Shuts down this client object, releasing any resources that might be held open. This is an optional method, and

@@ -35,7 +35,8 @@ public final class DefaultCustomizationProcessor {
                 new RenameShapesProcessor(config.getRenameShapes()),
                 new SendEmptyAutoConstructedListAsEmptyListProcessor(config.getSendEmptyAutoConstructedListAsEmptyList()),
                 new SendEmptyNonAutoConstructedListAsEmptyListProcessor(config),
-                new EmitLegacyEnumSetterProcessor(config)
+                new EmitLegacyEnumSetterProcessor(config),
+                new PruneUnsupportedShapesProcessor(config)
         );
     }
 }

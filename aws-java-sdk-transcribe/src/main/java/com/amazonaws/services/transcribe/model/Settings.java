@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Provides optional settings for the <code>StartTranscriptionJob</code> operation.
+ * Allows additional optional settings in your request, including channel identification, alternative transcriptions,
+ * and speaker partitioning. You can use that to apply custom vocabularies to your transcription job.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/transcribe-2017-10-26/Settings" target="_top">AWS API
@@ -30,55 +31,128 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of a vocabulary to use when processing the transcription job.
+     * The name of the custom vocabulary you want to use in your transcription job request. This name is case sensitive,
+     * cannot contain spaces, and must be unique within an Amazon Web Services account.
      * </p>
      */
     private String vocabularyName;
     /**
      * <p>
-     * Determines whether the transcription job uses speaker recognition to identify different speakers in the input
-     * audio. Speaker recognition labels individual speakers in the audio file. If you set the
-     * <code>ShowSpeakerLabels</code> field to true, you must also set the maximum number of speaker labels
-     * <code>MaxSpeakerLabels</code> field.
+     * Enables speaker partitioning (diarization) in your transcription output. Speaker partitioning labels the speech
+     * from individual speakers in your media file.
      * </p>
      * <p>
-     * You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same request. If
-     * you set both, your request returns a <code>BadRequestException</code>.
+     * If you enable <code>ShowSpeakerLabels</code> in your request, you must also include <code>MaxSpeakerLabels</code>
+     * .
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/dg/diarization.html">Partitioning speakers (diarization)</a>.
      * </p>
      */
     private Boolean showSpeakerLabels;
     /**
      * <p>
-     * The maximum number of speakers to identify in the input audio. If there are more speakers in the audio than this
-     * number, multiple speakers will be identified as a single speaker. If you specify the
-     * <code>MaxSpeakerLabels</code> field, you must set the <code>ShowSpeakerLabels</code> field to true.
+     * Specify the maximum number of speakers you want to partition in your media.
+     * </p>
+     * <p>
+     * Note that if your media contains more speakers than the specified number, multiple speakers are treated as a
+     * single speaker.
+     * </p>
+     * <p>
+     * If you specify the <code>MaxSpeakerLabels</code> field, you must set the <code>ShowSpeakerLabels</code> field to
+     * true.
      * </p>
      */
     private Integer maxSpeakerLabels;
     /**
      * <p>
-     * Instructs Amazon Transcribe to process each audio channel separately and then merge the transcription output of
-     * each channel into a single transcription.
+     * Enables channel identification in multi-channel audio.
      * </p>
      * <p>
-     * Amazon Transcribe also produces a transcription of each item detected on an audio channel, including the start
-     * time and end time of the item and alternative transcriptions of the item including the confidence that Amazon
-     * Transcribe has in the transcription.
+     * Channel identification transcribes the audio on each channel independently, then appends the output for each
+     * channel into one transcript.
      * </p>
      * <p>
-     * You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same request. If
-     * you set both, your request returns a <code>BadRequestException</code>.
+     * For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/channel-id.html">Transcribing
+     * multi-channel audio</a>.
      * </p>
      */
     private Boolean channelIdentification;
+    /**
+     * <p>
+     * To include alternative transcriptions within your transcription output, include <code>ShowAlternatives</code> in
+     * your transcription request.
+     * </p>
+     * <p>
+     * If you have multi-channel audio and do not enable channel identification, your audio is transcribed in a
+     * continuous manner and your transcript does not separate the speech by channel.
+     * </p>
+     * <p>
+     * If you include <code>ShowAlternatives</code>, you must also include <code>MaxAlternatives</code>, which is the
+     * maximum number of alternative transcriptions you want Amazon Transcribe to generate.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/dg/how-alternatives.html">Alternative transcriptions</a>.
+     * </p>
+     */
+    private Boolean showAlternatives;
+    /**
+     * <p>
+     * Indicate the maximum number of alternative transcriptions you want Amazon Transcribe to include in your
+     * transcript.
+     * </p>
+     * <p>
+     * If you select a number greater than the number of alternative transcriptions generated by Amazon Transcribe, only
+     * the actual number of alternative transcriptions are included.
+     * </p>
+     * <p>
+     * If you include <code>MaxAlternatives</code> in your request, you must also include <code>ShowAlternatives</code>
+     * with a value of <code>true</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/dg/how-alternatives.html">Alternative transcriptions</a>.
+     * </p>
+     */
+    private Integer maxAlternatives;
+    /**
+     * <p>
+     * The name of the custom vocabulary filter you want to use in your transcription job request. This name is case
+     * sensitive, cannot contain spaces, and must be unique within an Amazon Web Services account.
+     * </p>
+     * <p>
+     * Note that if you include <code>VocabularyFilterName</code> in your request, you must also include
+     * <code>VocabularyFilterMethod</code>.
+     * </p>
+     */
+    private String vocabularyFilterName;
+    /**
+     * <p>
+     * Specify how you want your custom vocabulary filter applied to your transcript.
+     * </p>
+     * <p>
+     * To replace words with <code>***</code>, choose <code>mask</code>.
+     * </p>
+     * <p>
+     * To delete words, choose <code>remove</code>.
+     * </p>
+     * <p>
+     * To flag words without changing them, choose <code>tag</code>.
+     * </p>
+     */
+    private String vocabularyFilterMethod;
 
     /**
      * <p>
-     * The name of a vocabulary to use when processing the transcription job.
+     * The name of the custom vocabulary you want to use in your transcription job request. This name is case sensitive,
+     * cannot contain spaces, and must be unique within an Amazon Web Services account.
      * </p>
      * 
      * @param vocabularyName
-     *        The name of a vocabulary to use when processing the transcription job.
+     *        The name of the custom vocabulary you want to use in your transcription job request. This name is case
+     *        sensitive, cannot contain spaces, and must be unique within an Amazon Web Services account.
      */
 
     public void setVocabularyName(String vocabularyName) {
@@ -87,10 +161,12 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of a vocabulary to use when processing the transcription job.
+     * The name of the custom vocabulary you want to use in your transcription job request. This name is case sensitive,
+     * cannot contain spaces, and must be unique within an Amazon Web Services account.
      * </p>
      * 
-     * @return The name of a vocabulary to use when processing the transcription job.
+     * @return The name of the custom vocabulary you want to use in your transcription job request. This name is case
+     *         sensitive, cannot contain spaces, and must be unique within an Amazon Web Services account.
      */
 
     public String getVocabularyName() {
@@ -99,11 +175,13 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of a vocabulary to use when processing the transcription job.
+     * The name of the custom vocabulary you want to use in your transcription job request. This name is case sensitive,
+     * cannot contain spaces, and must be unique within an Amazon Web Services account.
      * </p>
      * 
      * @param vocabularyName
-     *        The name of a vocabulary to use when processing the transcription job.
+     *        The name of the custom vocabulary you want to use in your transcription job request. This name is case
+     *        sensitive, cannot contain spaces, and must be unique within an Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -114,24 +192,29 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Determines whether the transcription job uses speaker recognition to identify different speakers in the input
-     * audio. Speaker recognition labels individual speakers in the audio file. If you set the
-     * <code>ShowSpeakerLabels</code> field to true, you must also set the maximum number of speaker labels
-     * <code>MaxSpeakerLabels</code> field.
+     * Enables speaker partitioning (diarization) in your transcription output. Speaker partitioning labels the speech
+     * from individual speakers in your media file.
      * </p>
      * <p>
-     * You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same request. If
-     * you set both, your request returns a <code>BadRequestException</code>.
+     * If you enable <code>ShowSpeakerLabels</code> in your request, you must also include <code>MaxSpeakerLabels</code>
+     * .
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/dg/diarization.html">Partitioning speakers (diarization)</a>.
      * </p>
      * 
      * @param showSpeakerLabels
-     *        Determines whether the transcription job uses speaker recognition to identify different speakers in the
-     *        input audio. Speaker recognition labels individual speakers in the audio file. If you set the
-     *        <code>ShowSpeakerLabels</code> field to true, you must also set the maximum number of speaker labels
-     *        <code>MaxSpeakerLabels</code> field.</p>
+     *        Enables speaker partitioning (diarization) in your transcription output. Speaker partitioning labels the
+     *        speech from individual speakers in your media file.</p>
      *        <p>
-     *        You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same
-     *        request. If you set both, your request returns a <code>BadRequestException</code>.
+     *        If you enable <code>ShowSpeakerLabels</code> in your request, you must also include
+     *        <code>MaxSpeakerLabels</code>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/transcribe/latest/dg/diarization.html">Partitioning speakers
+     *        (diarization)</a>.
      */
 
     public void setShowSpeakerLabels(Boolean showSpeakerLabels) {
@@ -140,23 +223,28 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Determines whether the transcription job uses speaker recognition to identify different speakers in the input
-     * audio. Speaker recognition labels individual speakers in the audio file. If you set the
-     * <code>ShowSpeakerLabels</code> field to true, you must also set the maximum number of speaker labels
-     * <code>MaxSpeakerLabels</code> field.
+     * Enables speaker partitioning (diarization) in your transcription output. Speaker partitioning labels the speech
+     * from individual speakers in your media file.
      * </p>
      * <p>
-     * You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same request. If
-     * you set both, your request returns a <code>BadRequestException</code>.
+     * If you enable <code>ShowSpeakerLabels</code> in your request, you must also include <code>MaxSpeakerLabels</code>
+     * .
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/dg/diarization.html">Partitioning speakers (diarization)</a>.
      * </p>
      * 
-     * @return Determines whether the transcription job uses speaker recognition to identify different speakers in the
-     *         input audio. Speaker recognition labels individual speakers in the audio file. If you set the
-     *         <code>ShowSpeakerLabels</code> field to true, you must also set the maximum number of speaker labels
-     *         <code>MaxSpeakerLabels</code> field.</p>
+     * @return Enables speaker partitioning (diarization) in your transcription output. Speaker partitioning labels the
+     *         speech from individual speakers in your media file.</p>
      *         <p>
-     *         You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same
-     *         request. If you set both, your request returns a <code>BadRequestException</code>.
+     *         If you enable <code>ShowSpeakerLabels</code> in your request, you must also include
+     *         <code>MaxSpeakerLabels</code>.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/transcribe/latest/dg/diarization.html">Partitioning speakers
+     *         (diarization)</a>.
      */
 
     public Boolean getShowSpeakerLabels() {
@@ -165,24 +253,29 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Determines whether the transcription job uses speaker recognition to identify different speakers in the input
-     * audio. Speaker recognition labels individual speakers in the audio file. If you set the
-     * <code>ShowSpeakerLabels</code> field to true, you must also set the maximum number of speaker labels
-     * <code>MaxSpeakerLabels</code> field.
+     * Enables speaker partitioning (diarization) in your transcription output. Speaker partitioning labels the speech
+     * from individual speakers in your media file.
      * </p>
      * <p>
-     * You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same request. If
-     * you set both, your request returns a <code>BadRequestException</code>.
+     * If you enable <code>ShowSpeakerLabels</code> in your request, you must also include <code>MaxSpeakerLabels</code>
+     * .
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/dg/diarization.html">Partitioning speakers (diarization)</a>.
      * </p>
      * 
      * @param showSpeakerLabels
-     *        Determines whether the transcription job uses speaker recognition to identify different speakers in the
-     *        input audio. Speaker recognition labels individual speakers in the audio file. If you set the
-     *        <code>ShowSpeakerLabels</code> field to true, you must also set the maximum number of speaker labels
-     *        <code>MaxSpeakerLabels</code> field.</p>
+     *        Enables speaker partitioning (diarization) in your transcription output. Speaker partitioning labels the
+     *        speech from individual speakers in your media file.</p>
      *        <p>
-     *        You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same
-     *        request. If you set both, your request returns a <code>BadRequestException</code>.
+     *        If you enable <code>ShowSpeakerLabels</code> in your request, you must also include
+     *        <code>MaxSpeakerLabels</code>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/transcribe/latest/dg/diarization.html">Partitioning speakers
+     *        (diarization)</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -193,23 +286,28 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Determines whether the transcription job uses speaker recognition to identify different speakers in the input
-     * audio. Speaker recognition labels individual speakers in the audio file. If you set the
-     * <code>ShowSpeakerLabels</code> field to true, you must also set the maximum number of speaker labels
-     * <code>MaxSpeakerLabels</code> field.
+     * Enables speaker partitioning (diarization) in your transcription output. Speaker partitioning labels the speech
+     * from individual speakers in your media file.
      * </p>
      * <p>
-     * You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same request. If
-     * you set both, your request returns a <code>BadRequestException</code>.
+     * If you enable <code>ShowSpeakerLabels</code> in your request, you must also include <code>MaxSpeakerLabels</code>
+     * .
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/dg/diarization.html">Partitioning speakers (diarization)</a>.
      * </p>
      * 
-     * @return Determines whether the transcription job uses speaker recognition to identify different speakers in the
-     *         input audio. Speaker recognition labels individual speakers in the audio file. If you set the
-     *         <code>ShowSpeakerLabels</code> field to true, you must also set the maximum number of speaker labels
-     *         <code>MaxSpeakerLabels</code> field.</p>
+     * @return Enables speaker partitioning (diarization) in your transcription output. Speaker partitioning labels the
+     *         speech from individual speakers in your media file.</p>
      *         <p>
-     *         You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same
-     *         request. If you set both, your request returns a <code>BadRequestException</code>.
+     *         If you enable <code>ShowSpeakerLabels</code> in your request, you must also include
+     *         <code>MaxSpeakerLabels</code>.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/transcribe/latest/dg/diarization.html">Partitioning speakers
+     *         (diarization)</a>.
      */
 
     public Boolean isShowSpeakerLabels() {
@@ -218,15 +316,26 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum number of speakers to identify in the input audio. If there are more speakers in the audio than this
-     * number, multiple speakers will be identified as a single speaker. If you specify the
-     * <code>MaxSpeakerLabels</code> field, you must set the <code>ShowSpeakerLabels</code> field to true.
+     * Specify the maximum number of speakers you want to partition in your media.
+     * </p>
+     * <p>
+     * Note that if your media contains more speakers than the specified number, multiple speakers are treated as a
+     * single speaker.
+     * </p>
+     * <p>
+     * If you specify the <code>MaxSpeakerLabels</code> field, you must set the <code>ShowSpeakerLabels</code> field to
+     * true.
      * </p>
      * 
      * @param maxSpeakerLabels
-     *        The maximum number of speakers to identify in the input audio. If there are more speakers in the audio
-     *        than this number, multiple speakers will be identified as a single speaker. If you specify the
-     *        <code>MaxSpeakerLabels</code> field, you must set the <code>ShowSpeakerLabels</code> field to true.
+     *        Specify the maximum number of speakers you want to partition in your media.</p>
+     *        <p>
+     *        Note that if your media contains more speakers than the specified number, multiple speakers are treated as
+     *        a single speaker.
+     *        </p>
+     *        <p>
+     *        If you specify the <code>MaxSpeakerLabels</code> field, you must set the <code>ShowSpeakerLabels</code>
+     *        field to true.
      */
 
     public void setMaxSpeakerLabels(Integer maxSpeakerLabels) {
@@ -235,14 +344,25 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum number of speakers to identify in the input audio. If there are more speakers in the audio than this
-     * number, multiple speakers will be identified as a single speaker. If you specify the
-     * <code>MaxSpeakerLabels</code> field, you must set the <code>ShowSpeakerLabels</code> field to true.
+     * Specify the maximum number of speakers you want to partition in your media.
+     * </p>
+     * <p>
+     * Note that if your media contains more speakers than the specified number, multiple speakers are treated as a
+     * single speaker.
+     * </p>
+     * <p>
+     * If you specify the <code>MaxSpeakerLabels</code> field, you must set the <code>ShowSpeakerLabels</code> field to
+     * true.
      * </p>
      * 
-     * @return The maximum number of speakers to identify in the input audio. If there are more speakers in the audio
-     *         than this number, multiple speakers will be identified as a single speaker. If you specify the
-     *         <code>MaxSpeakerLabels</code> field, you must set the <code>ShowSpeakerLabels</code> field to true.
+     * @return Specify the maximum number of speakers you want to partition in your media.</p>
+     *         <p>
+     *         Note that if your media contains more speakers than the specified number, multiple speakers are treated
+     *         as a single speaker.
+     *         </p>
+     *         <p>
+     *         If you specify the <code>MaxSpeakerLabels</code> field, you must set the <code>ShowSpeakerLabels</code>
+     *         field to true.
      */
 
     public Integer getMaxSpeakerLabels() {
@@ -251,15 +371,26 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum number of speakers to identify in the input audio. If there are more speakers in the audio than this
-     * number, multiple speakers will be identified as a single speaker. If you specify the
-     * <code>MaxSpeakerLabels</code> field, you must set the <code>ShowSpeakerLabels</code> field to true.
+     * Specify the maximum number of speakers you want to partition in your media.
+     * </p>
+     * <p>
+     * Note that if your media contains more speakers than the specified number, multiple speakers are treated as a
+     * single speaker.
+     * </p>
+     * <p>
+     * If you specify the <code>MaxSpeakerLabels</code> field, you must set the <code>ShowSpeakerLabels</code> field to
+     * true.
      * </p>
      * 
      * @param maxSpeakerLabels
-     *        The maximum number of speakers to identify in the input audio. If there are more speakers in the audio
-     *        than this number, multiple speakers will be identified as a single speaker. If you specify the
-     *        <code>MaxSpeakerLabels</code> field, you must set the <code>ShowSpeakerLabels</code> field to true.
+     *        Specify the maximum number of speakers you want to partition in your media.</p>
+     *        <p>
+     *        Note that if your media contains more speakers than the specified number, multiple speakers are treated as
+     *        a single speaker.
+     *        </p>
+     *        <p>
+     *        If you specify the <code>MaxSpeakerLabels</code> field, you must set the <code>ShowSpeakerLabels</code>
+     *        field to true.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -270,30 +401,27 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Instructs Amazon Transcribe to process each audio channel separately and then merge the transcription output of
-     * each channel into a single transcription.
+     * Enables channel identification in multi-channel audio.
      * </p>
      * <p>
-     * Amazon Transcribe also produces a transcription of each item detected on an audio channel, including the start
-     * time and end time of the item and alternative transcriptions of the item including the confidence that Amazon
-     * Transcribe has in the transcription.
+     * Channel identification transcribes the audio on each channel independently, then appends the output for each
+     * channel into one transcript.
      * </p>
      * <p>
-     * You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same request. If
-     * you set both, your request returns a <code>BadRequestException</code>.
+     * For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/channel-id.html">Transcribing
+     * multi-channel audio</a>.
      * </p>
      * 
      * @param channelIdentification
-     *        Instructs Amazon Transcribe to process each audio channel separately and then merge the transcription
-     *        output of each channel into a single transcription. </p>
+     *        Enables channel identification in multi-channel audio.</p>
      *        <p>
-     *        Amazon Transcribe also produces a transcription of each item detected on an audio channel, including the
-     *        start time and end time of the item and alternative transcriptions of the item including the confidence
-     *        that Amazon Transcribe has in the transcription.
+     *        Channel identification transcribes the audio on each channel independently, then appends the output for
+     *        each channel into one transcript.
      *        </p>
      *        <p>
-     *        You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same
-     *        request. If you set both, your request returns a <code>BadRequestException</code>.
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/transcribe/latest/dg/channel-id.html">Transcribing multi-channel
+     *        audio</a>.
      */
 
     public void setChannelIdentification(Boolean channelIdentification) {
@@ -302,29 +430,26 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Instructs Amazon Transcribe to process each audio channel separately and then merge the transcription output of
-     * each channel into a single transcription.
+     * Enables channel identification in multi-channel audio.
      * </p>
      * <p>
-     * Amazon Transcribe also produces a transcription of each item detected on an audio channel, including the start
-     * time and end time of the item and alternative transcriptions of the item including the confidence that Amazon
-     * Transcribe has in the transcription.
+     * Channel identification transcribes the audio on each channel independently, then appends the output for each
+     * channel into one transcript.
      * </p>
      * <p>
-     * You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same request. If
-     * you set both, your request returns a <code>BadRequestException</code>.
+     * For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/channel-id.html">Transcribing
+     * multi-channel audio</a>.
      * </p>
      * 
-     * @return Instructs Amazon Transcribe to process each audio channel separately and then merge the transcription
-     *         output of each channel into a single transcription. </p>
+     * @return Enables channel identification in multi-channel audio.</p>
      *         <p>
-     *         Amazon Transcribe also produces a transcription of each item detected on an audio channel, including the
-     *         start time and end time of the item and alternative transcriptions of the item including the confidence
-     *         that Amazon Transcribe has in the transcription.
+     *         Channel identification transcribes the audio on each channel independently, then appends the output for
+     *         each channel into one transcript.
      *         </p>
      *         <p>
-     *         You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same
-     *         request. If you set both, your request returns a <code>BadRequestException</code>.
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/transcribe/latest/dg/channel-id.html">Transcribing multi-channel
+     *         audio</a>.
      */
 
     public Boolean getChannelIdentification() {
@@ -333,30 +458,27 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Instructs Amazon Transcribe to process each audio channel separately and then merge the transcription output of
-     * each channel into a single transcription.
+     * Enables channel identification in multi-channel audio.
      * </p>
      * <p>
-     * Amazon Transcribe also produces a transcription of each item detected on an audio channel, including the start
-     * time and end time of the item and alternative transcriptions of the item including the confidence that Amazon
-     * Transcribe has in the transcription.
+     * Channel identification transcribes the audio on each channel independently, then appends the output for each
+     * channel into one transcript.
      * </p>
      * <p>
-     * You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same request. If
-     * you set both, your request returns a <code>BadRequestException</code>.
+     * For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/channel-id.html">Transcribing
+     * multi-channel audio</a>.
      * </p>
      * 
      * @param channelIdentification
-     *        Instructs Amazon Transcribe to process each audio channel separately and then merge the transcription
-     *        output of each channel into a single transcription. </p>
+     *        Enables channel identification in multi-channel audio.</p>
      *        <p>
-     *        Amazon Transcribe also produces a transcription of each item detected on an audio channel, including the
-     *        start time and end time of the item and alternative transcriptions of the item including the confidence
-     *        that Amazon Transcribe has in the transcription.
+     *        Channel identification transcribes the audio on each channel independently, then appends the output for
+     *        each channel into one transcript.
      *        </p>
      *        <p>
-     *        You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same
-     *        request. If you set both, your request returns a <code>BadRequestException</code>.
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/transcribe/latest/dg/channel-id.html">Transcribing multi-channel
+     *        audio</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -367,33 +489,498 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Instructs Amazon Transcribe to process each audio channel separately and then merge the transcription output of
-     * each channel into a single transcription.
+     * Enables channel identification in multi-channel audio.
      * </p>
      * <p>
-     * Amazon Transcribe also produces a transcription of each item detected on an audio channel, including the start
-     * time and end time of the item and alternative transcriptions of the item including the confidence that Amazon
-     * Transcribe has in the transcription.
+     * Channel identification transcribes the audio on each channel independently, then appends the output for each
+     * channel into one transcript.
      * </p>
      * <p>
-     * You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same request. If
-     * you set both, your request returns a <code>BadRequestException</code>.
+     * For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/channel-id.html">Transcribing
+     * multi-channel audio</a>.
      * </p>
      * 
-     * @return Instructs Amazon Transcribe to process each audio channel separately and then merge the transcription
-     *         output of each channel into a single transcription. </p>
+     * @return Enables channel identification in multi-channel audio.</p>
      *         <p>
-     *         Amazon Transcribe also produces a transcription of each item detected on an audio channel, including the
-     *         start time and end time of the item and alternative transcriptions of the item including the confidence
-     *         that Amazon Transcribe has in the transcription.
+     *         Channel identification transcribes the audio on each channel independently, then appends the output for
+     *         each channel into one transcript.
      *         </p>
      *         <p>
-     *         You can't set both <code>ShowSpeakerLabels</code> and <code>ChannelIdentification</code> in the same
-     *         request. If you set both, your request returns a <code>BadRequestException</code>.
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/transcribe/latest/dg/channel-id.html">Transcribing multi-channel
+     *         audio</a>.
      */
 
     public Boolean isChannelIdentification() {
         return this.channelIdentification;
+    }
+
+    /**
+     * <p>
+     * To include alternative transcriptions within your transcription output, include <code>ShowAlternatives</code> in
+     * your transcription request.
+     * </p>
+     * <p>
+     * If you have multi-channel audio and do not enable channel identification, your audio is transcribed in a
+     * continuous manner and your transcript does not separate the speech by channel.
+     * </p>
+     * <p>
+     * If you include <code>ShowAlternatives</code>, you must also include <code>MaxAlternatives</code>, which is the
+     * maximum number of alternative transcriptions you want Amazon Transcribe to generate.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/dg/how-alternatives.html">Alternative transcriptions</a>.
+     * </p>
+     * 
+     * @param showAlternatives
+     *        To include alternative transcriptions within your transcription output, include
+     *        <code>ShowAlternatives</code> in your transcription request.</p>
+     *        <p>
+     *        If you have multi-channel audio and do not enable channel identification, your audio is transcribed in a
+     *        continuous manner and your transcript does not separate the speech by channel.
+     *        </p>
+     *        <p>
+     *        If you include <code>ShowAlternatives</code>, you must also include <code>MaxAlternatives</code>, which is
+     *        the maximum number of alternative transcriptions you want Amazon Transcribe to generate.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/transcribe/latest/dg/how-alternatives.html">Alternative
+     *        transcriptions</a>.
+     */
+
+    public void setShowAlternatives(Boolean showAlternatives) {
+        this.showAlternatives = showAlternatives;
+    }
+
+    /**
+     * <p>
+     * To include alternative transcriptions within your transcription output, include <code>ShowAlternatives</code> in
+     * your transcription request.
+     * </p>
+     * <p>
+     * If you have multi-channel audio and do not enable channel identification, your audio is transcribed in a
+     * continuous manner and your transcript does not separate the speech by channel.
+     * </p>
+     * <p>
+     * If you include <code>ShowAlternatives</code>, you must also include <code>MaxAlternatives</code>, which is the
+     * maximum number of alternative transcriptions you want Amazon Transcribe to generate.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/dg/how-alternatives.html">Alternative transcriptions</a>.
+     * </p>
+     * 
+     * @return To include alternative transcriptions within your transcription output, include
+     *         <code>ShowAlternatives</code> in your transcription request.</p>
+     *         <p>
+     *         If you have multi-channel audio and do not enable channel identification, your audio is transcribed in a
+     *         continuous manner and your transcript does not separate the speech by channel.
+     *         </p>
+     *         <p>
+     *         If you include <code>ShowAlternatives</code>, you must also include <code>MaxAlternatives</code>, which
+     *         is the maximum number of alternative transcriptions you want Amazon Transcribe to generate.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/transcribe/latest/dg/how-alternatives.html">Alternative
+     *         transcriptions</a>.
+     */
+
+    public Boolean getShowAlternatives() {
+        return this.showAlternatives;
+    }
+
+    /**
+     * <p>
+     * To include alternative transcriptions within your transcription output, include <code>ShowAlternatives</code> in
+     * your transcription request.
+     * </p>
+     * <p>
+     * If you have multi-channel audio and do not enable channel identification, your audio is transcribed in a
+     * continuous manner and your transcript does not separate the speech by channel.
+     * </p>
+     * <p>
+     * If you include <code>ShowAlternatives</code>, you must also include <code>MaxAlternatives</code>, which is the
+     * maximum number of alternative transcriptions you want Amazon Transcribe to generate.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/dg/how-alternatives.html">Alternative transcriptions</a>.
+     * </p>
+     * 
+     * @param showAlternatives
+     *        To include alternative transcriptions within your transcription output, include
+     *        <code>ShowAlternatives</code> in your transcription request.</p>
+     *        <p>
+     *        If you have multi-channel audio and do not enable channel identification, your audio is transcribed in a
+     *        continuous manner and your transcript does not separate the speech by channel.
+     *        </p>
+     *        <p>
+     *        If you include <code>ShowAlternatives</code>, you must also include <code>MaxAlternatives</code>, which is
+     *        the maximum number of alternative transcriptions you want Amazon Transcribe to generate.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/transcribe/latest/dg/how-alternatives.html">Alternative
+     *        transcriptions</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Settings withShowAlternatives(Boolean showAlternatives) {
+        setShowAlternatives(showAlternatives);
+        return this;
+    }
+
+    /**
+     * <p>
+     * To include alternative transcriptions within your transcription output, include <code>ShowAlternatives</code> in
+     * your transcription request.
+     * </p>
+     * <p>
+     * If you have multi-channel audio and do not enable channel identification, your audio is transcribed in a
+     * continuous manner and your transcript does not separate the speech by channel.
+     * </p>
+     * <p>
+     * If you include <code>ShowAlternatives</code>, you must also include <code>MaxAlternatives</code>, which is the
+     * maximum number of alternative transcriptions you want Amazon Transcribe to generate.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/dg/how-alternatives.html">Alternative transcriptions</a>.
+     * </p>
+     * 
+     * @return To include alternative transcriptions within your transcription output, include
+     *         <code>ShowAlternatives</code> in your transcription request.</p>
+     *         <p>
+     *         If you have multi-channel audio and do not enable channel identification, your audio is transcribed in a
+     *         continuous manner and your transcript does not separate the speech by channel.
+     *         </p>
+     *         <p>
+     *         If you include <code>ShowAlternatives</code>, you must also include <code>MaxAlternatives</code>, which
+     *         is the maximum number of alternative transcriptions you want Amazon Transcribe to generate.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/transcribe/latest/dg/how-alternatives.html">Alternative
+     *         transcriptions</a>.
+     */
+
+    public Boolean isShowAlternatives() {
+        return this.showAlternatives;
+    }
+
+    /**
+     * <p>
+     * Indicate the maximum number of alternative transcriptions you want Amazon Transcribe to include in your
+     * transcript.
+     * </p>
+     * <p>
+     * If you select a number greater than the number of alternative transcriptions generated by Amazon Transcribe, only
+     * the actual number of alternative transcriptions are included.
+     * </p>
+     * <p>
+     * If you include <code>MaxAlternatives</code> in your request, you must also include <code>ShowAlternatives</code>
+     * with a value of <code>true</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/dg/how-alternatives.html">Alternative transcriptions</a>.
+     * </p>
+     * 
+     * @param maxAlternatives
+     *        Indicate the maximum number of alternative transcriptions you want Amazon Transcribe to include in your
+     *        transcript.</p>
+     *        <p>
+     *        If you select a number greater than the number of alternative transcriptions generated by Amazon
+     *        Transcribe, only the actual number of alternative transcriptions are included.
+     *        </p>
+     *        <p>
+     *        If you include <code>MaxAlternatives</code> in your request, you must also include
+     *        <code>ShowAlternatives</code> with a value of <code>true</code>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/transcribe/latest/dg/how-alternatives.html">Alternative
+     *        transcriptions</a>.
+     */
+
+    public void setMaxAlternatives(Integer maxAlternatives) {
+        this.maxAlternatives = maxAlternatives;
+    }
+
+    /**
+     * <p>
+     * Indicate the maximum number of alternative transcriptions you want Amazon Transcribe to include in your
+     * transcript.
+     * </p>
+     * <p>
+     * If you select a number greater than the number of alternative transcriptions generated by Amazon Transcribe, only
+     * the actual number of alternative transcriptions are included.
+     * </p>
+     * <p>
+     * If you include <code>MaxAlternatives</code> in your request, you must also include <code>ShowAlternatives</code>
+     * with a value of <code>true</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/dg/how-alternatives.html">Alternative transcriptions</a>.
+     * </p>
+     * 
+     * @return Indicate the maximum number of alternative transcriptions you want Amazon Transcribe to include in your
+     *         transcript.</p>
+     *         <p>
+     *         If you select a number greater than the number of alternative transcriptions generated by Amazon
+     *         Transcribe, only the actual number of alternative transcriptions are included.
+     *         </p>
+     *         <p>
+     *         If you include <code>MaxAlternatives</code> in your request, you must also include
+     *         <code>ShowAlternatives</code> with a value of <code>true</code>.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/transcribe/latest/dg/how-alternatives.html">Alternative
+     *         transcriptions</a>.
+     */
+
+    public Integer getMaxAlternatives() {
+        return this.maxAlternatives;
+    }
+
+    /**
+     * <p>
+     * Indicate the maximum number of alternative transcriptions you want Amazon Transcribe to include in your
+     * transcript.
+     * </p>
+     * <p>
+     * If you select a number greater than the number of alternative transcriptions generated by Amazon Transcribe, only
+     * the actual number of alternative transcriptions are included.
+     * </p>
+     * <p>
+     * If you include <code>MaxAlternatives</code> in your request, you must also include <code>ShowAlternatives</code>
+     * with a value of <code>true</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/transcribe/latest/dg/how-alternatives.html">Alternative transcriptions</a>.
+     * </p>
+     * 
+     * @param maxAlternatives
+     *        Indicate the maximum number of alternative transcriptions you want Amazon Transcribe to include in your
+     *        transcript.</p>
+     *        <p>
+     *        If you select a number greater than the number of alternative transcriptions generated by Amazon
+     *        Transcribe, only the actual number of alternative transcriptions are included.
+     *        </p>
+     *        <p>
+     *        If you include <code>MaxAlternatives</code> in your request, you must also include
+     *        <code>ShowAlternatives</code> with a value of <code>true</code>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/transcribe/latest/dg/how-alternatives.html">Alternative
+     *        transcriptions</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Settings withMaxAlternatives(Integer maxAlternatives) {
+        setMaxAlternatives(maxAlternatives);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the custom vocabulary filter you want to use in your transcription job request. This name is case
+     * sensitive, cannot contain spaces, and must be unique within an Amazon Web Services account.
+     * </p>
+     * <p>
+     * Note that if you include <code>VocabularyFilterName</code> in your request, you must also include
+     * <code>VocabularyFilterMethod</code>.
+     * </p>
+     * 
+     * @param vocabularyFilterName
+     *        The name of the custom vocabulary filter you want to use in your transcription job request. This name is
+     *        case sensitive, cannot contain spaces, and must be unique within an Amazon Web Services account.</p>
+     *        <p>
+     *        Note that if you include <code>VocabularyFilterName</code> in your request, you must also include
+     *        <code>VocabularyFilterMethod</code>.
+     */
+
+    public void setVocabularyFilterName(String vocabularyFilterName) {
+        this.vocabularyFilterName = vocabularyFilterName;
+    }
+
+    /**
+     * <p>
+     * The name of the custom vocabulary filter you want to use in your transcription job request. This name is case
+     * sensitive, cannot contain spaces, and must be unique within an Amazon Web Services account.
+     * </p>
+     * <p>
+     * Note that if you include <code>VocabularyFilterName</code> in your request, you must also include
+     * <code>VocabularyFilterMethod</code>.
+     * </p>
+     * 
+     * @return The name of the custom vocabulary filter you want to use in your transcription job request. This name is
+     *         case sensitive, cannot contain spaces, and must be unique within an Amazon Web Services account.</p>
+     *         <p>
+     *         Note that if you include <code>VocabularyFilterName</code> in your request, you must also include
+     *         <code>VocabularyFilterMethod</code>.
+     */
+
+    public String getVocabularyFilterName() {
+        return this.vocabularyFilterName;
+    }
+
+    /**
+     * <p>
+     * The name of the custom vocabulary filter you want to use in your transcription job request. This name is case
+     * sensitive, cannot contain spaces, and must be unique within an Amazon Web Services account.
+     * </p>
+     * <p>
+     * Note that if you include <code>VocabularyFilterName</code> in your request, you must also include
+     * <code>VocabularyFilterMethod</code>.
+     * </p>
+     * 
+     * @param vocabularyFilterName
+     *        The name of the custom vocabulary filter you want to use in your transcription job request. This name is
+     *        case sensitive, cannot contain spaces, and must be unique within an Amazon Web Services account.</p>
+     *        <p>
+     *        Note that if you include <code>VocabularyFilterName</code> in your request, you must also include
+     *        <code>VocabularyFilterMethod</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Settings withVocabularyFilterName(String vocabularyFilterName) {
+        setVocabularyFilterName(vocabularyFilterName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specify how you want your custom vocabulary filter applied to your transcript.
+     * </p>
+     * <p>
+     * To replace words with <code>***</code>, choose <code>mask</code>.
+     * </p>
+     * <p>
+     * To delete words, choose <code>remove</code>.
+     * </p>
+     * <p>
+     * To flag words without changing them, choose <code>tag</code>.
+     * </p>
+     * 
+     * @param vocabularyFilterMethod
+     *        Specify how you want your custom vocabulary filter applied to your transcript.</p>
+     *        <p>
+     *        To replace words with <code>***</code>, choose <code>mask</code>.
+     *        </p>
+     *        <p>
+     *        To delete words, choose <code>remove</code>.
+     *        </p>
+     *        <p>
+     *        To flag words without changing them, choose <code>tag</code>.
+     * @see VocabularyFilterMethod
+     */
+
+    public void setVocabularyFilterMethod(String vocabularyFilterMethod) {
+        this.vocabularyFilterMethod = vocabularyFilterMethod;
+    }
+
+    /**
+     * <p>
+     * Specify how you want your custom vocabulary filter applied to your transcript.
+     * </p>
+     * <p>
+     * To replace words with <code>***</code>, choose <code>mask</code>.
+     * </p>
+     * <p>
+     * To delete words, choose <code>remove</code>.
+     * </p>
+     * <p>
+     * To flag words without changing them, choose <code>tag</code>.
+     * </p>
+     * 
+     * @return Specify how you want your custom vocabulary filter applied to your transcript.</p>
+     *         <p>
+     *         To replace words with <code>***</code>, choose <code>mask</code>.
+     *         </p>
+     *         <p>
+     *         To delete words, choose <code>remove</code>.
+     *         </p>
+     *         <p>
+     *         To flag words without changing them, choose <code>tag</code>.
+     * @see VocabularyFilterMethod
+     */
+
+    public String getVocabularyFilterMethod() {
+        return this.vocabularyFilterMethod;
+    }
+
+    /**
+     * <p>
+     * Specify how you want your custom vocabulary filter applied to your transcript.
+     * </p>
+     * <p>
+     * To replace words with <code>***</code>, choose <code>mask</code>.
+     * </p>
+     * <p>
+     * To delete words, choose <code>remove</code>.
+     * </p>
+     * <p>
+     * To flag words without changing them, choose <code>tag</code>.
+     * </p>
+     * 
+     * @param vocabularyFilterMethod
+     *        Specify how you want your custom vocabulary filter applied to your transcript.</p>
+     *        <p>
+     *        To replace words with <code>***</code>, choose <code>mask</code>.
+     *        </p>
+     *        <p>
+     *        To delete words, choose <code>remove</code>.
+     *        </p>
+     *        <p>
+     *        To flag words without changing them, choose <code>tag</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see VocabularyFilterMethod
+     */
+
+    public Settings withVocabularyFilterMethod(String vocabularyFilterMethod) {
+        setVocabularyFilterMethod(vocabularyFilterMethod);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specify how you want your custom vocabulary filter applied to your transcript.
+     * </p>
+     * <p>
+     * To replace words with <code>***</code>, choose <code>mask</code>.
+     * </p>
+     * <p>
+     * To delete words, choose <code>remove</code>.
+     * </p>
+     * <p>
+     * To flag words without changing them, choose <code>tag</code>.
+     * </p>
+     * 
+     * @param vocabularyFilterMethod
+     *        Specify how you want your custom vocabulary filter applied to your transcript.</p>
+     *        <p>
+     *        To replace words with <code>***</code>, choose <code>mask</code>.
+     *        </p>
+     *        <p>
+     *        To delete words, choose <code>remove</code>.
+     *        </p>
+     *        <p>
+     *        To flag words without changing them, choose <code>tag</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see VocabularyFilterMethod
+     */
+
+    public Settings withVocabularyFilterMethod(VocabularyFilterMethod vocabularyFilterMethod) {
+        this.vocabularyFilterMethod = vocabularyFilterMethod.toString();
+        return this;
     }
 
     /**
@@ -415,7 +1002,15 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
         if (getMaxSpeakerLabels() != null)
             sb.append("MaxSpeakerLabels: ").append(getMaxSpeakerLabels()).append(",");
         if (getChannelIdentification() != null)
-            sb.append("ChannelIdentification: ").append(getChannelIdentification());
+            sb.append("ChannelIdentification: ").append(getChannelIdentification()).append(",");
+        if (getShowAlternatives() != null)
+            sb.append("ShowAlternatives: ").append(getShowAlternatives()).append(",");
+        if (getMaxAlternatives() != null)
+            sb.append("MaxAlternatives: ").append(getMaxAlternatives()).append(",");
+        if (getVocabularyFilterName() != null)
+            sb.append("VocabularyFilterName: ").append(getVocabularyFilterName()).append(",");
+        if (getVocabularyFilterMethod() != null)
+            sb.append("VocabularyFilterMethod: ").append(getVocabularyFilterMethod());
         sb.append("}");
         return sb.toString();
     }
@@ -446,6 +1041,22 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getChannelIdentification() != null && other.getChannelIdentification().equals(this.getChannelIdentification()) == false)
             return false;
+        if (other.getShowAlternatives() == null ^ this.getShowAlternatives() == null)
+            return false;
+        if (other.getShowAlternatives() != null && other.getShowAlternatives().equals(this.getShowAlternatives()) == false)
+            return false;
+        if (other.getMaxAlternatives() == null ^ this.getMaxAlternatives() == null)
+            return false;
+        if (other.getMaxAlternatives() != null && other.getMaxAlternatives().equals(this.getMaxAlternatives()) == false)
+            return false;
+        if (other.getVocabularyFilterName() == null ^ this.getVocabularyFilterName() == null)
+            return false;
+        if (other.getVocabularyFilterName() != null && other.getVocabularyFilterName().equals(this.getVocabularyFilterName()) == false)
+            return false;
+        if (other.getVocabularyFilterMethod() == null ^ this.getVocabularyFilterMethod() == null)
+            return false;
+        if (other.getVocabularyFilterMethod() != null && other.getVocabularyFilterMethod().equals(this.getVocabularyFilterMethod()) == false)
+            return false;
         return true;
     }
 
@@ -458,6 +1069,10 @@ public class Settings implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getShowSpeakerLabels() == null) ? 0 : getShowSpeakerLabels().hashCode());
         hashCode = prime * hashCode + ((getMaxSpeakerLabels() == null) ? 0 : getMaxSpeakerLabels().hashCode());
         hashCode = prime * hashCode + ((getChannelIdentification() == null) ? 0 : getChannelIdentification().hashCode());
+        hashCode = prime * hashCode + ((getShowAlternatives() == null) ? 0 : getShowAlternatives().hashCode());
+        hashCode = prime * hashCode + ((getMaxAlternatives() == null) ? 0 : getMaxAlternatives().hashCode());
+        hashCode = prime * hashCode + ((getVocabularyFilterName() == null) ? 0 : getVocabularyFilterName().hashCode());
+        hashCode = prime * hashCode + ((getVocabularyFilterMethod() == null) ? 0 : getVocabularyFilterMethod().hashCode());
         return hashCode;
     }
 

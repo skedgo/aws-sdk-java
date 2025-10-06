@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,14 +27,14 @@ public class GetDocumentRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * An optional field specifying the version of the artifact associated with the document. For example,
-     * "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * An optional field specifying the version of the artifact associated with the document. For example, 12.6. This
+     * value is unique across all versions of a document and can't be changed.
      * </p>
      */
     private String versionName;
@@ -54,11 +54,11 @@ public class GetDocumentRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      */
 
     public void setName(String name) {
@@ -67,10 +67,10 @@ public class GetDocumentRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
-     * @return The name of the Systems Manager document.
+     * @return The name of the SSM document.
      */
 
     public String getName() {
@@ -79,11 +79,11 @@ public class GetDocumentRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -94,13 +94,13 @@ public class GetDocumentRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * An optional field specifying the version of the artifact associated with the document. For example,
-     * "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * An optional field specifying the version of the artifact associated with the document. For example, 12.6. This
+     * value is unique across all versions of a document and can't be changed.
      * </p>
      * 
      * @param versionName
-     *        An optional field specifying the version of the artifact associated with the document. For example,
-     *        "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     *        An optional field specifying the version of the artifact associated with the document. For example, 12.6.
+     *        This value is unique across all versions of a document and can't be changed.
      */
 
     public void setVersionName(String versionName) {
@@ -109,12 +109,12 @@ public class GetDocumentRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * An optional field specifying the version of the artifact associated with the document. For example,
-     * "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * An optional field specifying the version of the artifact associated with the document. For example, 12.6. This
+     * value is unique across all versions of a document and can't be changed.
      * </p>
      * 
-     * @return An optional field specifying the version of the artifact associated with the document. For example,
-     *         "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * @return An optional field specifying the version of the artifact associated with the document. For example, 12.6.
+     *         This value is unique across all versions of a document and can't be changed.
      */
 
     public String getVersionName() {
@@ -123,13 +123,13 @@ public class GetDocumentRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * An optional field specifying the version of the artifact associated with the document. For example,
-     * "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * An optional field specifying the version of the artifact associated with the document. For example, 12.6. This
+     * value is unique across all versions of a document and can't be changed.
      * </p>
      * 
      * @param versionName
-     *        An optional field specifying the version of the artifact associated with the document. For example,
-     *        "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     *        An optional field specifying the version of the artifact associated with the document. For example, 12.6.
+     *        This value is unique across all versions of a document and can't be changed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,7 +39,7 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
     private String applicationDescription;
     /**
      * <p>
-     * The runtime environment for the application (<code>SQL-1.0</code> or <code>FLINK-1_6</code>).
+     * The runtime environment for the application.
      * </p>
      */
     private String runtimeEnvironment;
@@ -67,11 +67,17 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
      * A list of one or more tags to assign to the application. A tag is a key-value pair that identifies an
      * application. Note that the maximum number of application tags includes system tags. The maximum number of
      * user-defined application tags is 50. For more information, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
-     * Tags</a> in the <i>AWS Billing and Cost Management Guide</i>.
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.
      * </p>
      */
     private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * Use the <code>STREAMING</code> mode to create a Managed Service for Apache Flink application. To create a Managed
+     * Service for Apache Flink Studio notebook, use the <code>INTERACTIVE</code> mode.
+     * </p>
+     */
+    private String applicationMode;
 
     /**
      * <p>
@@ -155,11 +161,11 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The runtime environment for the application (<code>SQL-1.0</code> or <code>FLINK-1_6</code>).
+     * The runtime environment for the application.
      * </p>
      * 
      * @param runtimeEnvironment
-     *        The runtime environment for the application (<code>SQL-1.0</code> or <code>FLINK-1_6</code>).
+     *        The runtime environment for the application.
      * @see RuntimeEnvironment
      */
 
@@ -169,10 +175,10 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The runtime environment for the application (<code>SQL-1.0</code> or <code>FLINK-1_6</code>).
+     * The runtime environment for the application.
      * </p>
      * 
-     * @return The runtime environment for the application (<code>SQL-1.0</code> or <code>FLINK-1_6</code>).
+     * @return The runtime environment for the application.
      * @see RuntimeEnvironment
      */
 
@@ -182,11 +188,11 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The runtime environment for the application (<code>SQL-1.0</code> or <code>FLINK-1_6</code>).
+     * The runtime environment for the application.
      * </p>
      * 
      * @param runtimeEnvironment
-     *        The runtime environment for the application (<code>SQL-1.0</code> or <code>FLINK-1_6</code>).
+     *        The runtime environment for the application.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see RuntimeEnvironment
      */
@@ -198,11 +204,11 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The runtime environment for the application (<code>SQL-1.0</code> or <code>FLINK-1_6</code>).
+     * The runtime environment for the application.
      * </p>
      * 
      * @param runtimeEnvironment
-     *        The runtime environment for the application (<code>SQL-1.0</code> or <code>FLINK-1_6</code>).
+     *        The runtime environment for the application.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see RuntimeEnvironment
      */
@@ -377,15 +383,13 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
      * A list of one or more tags to assign to the application. A tag is a key-value pair that identifies an
      * application. Note that the maximum number of application tags includes system tags. The maximum number of
      * user-defined application tags is 50. For more information, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
-     * Tags</a> in the <i>AWS Billing and Cost Management Guide</i>.
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.
      * </p>
      * 
      * @return A list of one or more tags to assign to the application. A tag is a key-value pair that identifies an
      *         application. Note that the maximum number of application tags includes system tags. The maximum number of
      *         user-defined application tags is 50. For more information, see <a
-     *         href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
-     *         Allocation Tags</a> in the <i>AWS Billing and Cost Management Guide</i>.
+     *         href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.
      */
 
     public java.util.List<Tag> getTags() {
@@ -397,16 +401,14 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
      * A list of one or more tags to assign to the application. A tag is a key-value pair that identifies an
      * application. Note that the maximum number of application tags includes system tags. The maximum number of
      * user-defined application tags is 50. For more information, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
-     * Tags</a> in the <i>AWS Billing and Cost Management Guide</i>.
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.
      * </p>
      * 
      * @param tags
      *        A list of one or more tags to assign to the application. A tag is a key-value pair that identifies an
      *        application. Note that the maximum number of application tags includes system tags. The maximum number of
      *        user-defined application tags is 50. For more information, see <a
-     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
-     *        Allocation Tags</a> in the <i>AWS Billing and Cost Management Guide</i>.
+     *        href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -423,8 +425,7 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
      * A list of one or more tags to assign to the application. A tag is a key-value pair that identifies an
      * application. Note that the maximum number of application tags includes system tags. The maximum number of
      * user-defined application tags is 50. For more information, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
-     * Tags</a> in the <i>AWS Billing and Cost Management Guide</i>.
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -436,8 +437,7 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
      *        A list of one or more tags to assign to the application. A tag is a key-value pair that identifies an
      *        application. Note that the maximum number of application tags includes system tags. The maximum number of
      *        user-defined application tags is 50. For more information, see <a
-     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
-     *        Allocation Tags</a> in the <i>AWS Billing and Cost Management Guide</i>.
+     *        href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -456,21 +456,86 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
      * A list of one or more tags to assign to the application. A tag is a key-value pair that identifies an
      * application. Note that the maximum number of application tags includes system tags. The maximum number of
      * user-defined application tags is 50. For more information, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
-     * Tags</a> in the <i>AWS Billing and Cost Management Guide</i>.
+     * href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.
      * </p>
      * 
      * @param tags
      *        A list of one or more tags to assign to the application. A tag is a key-value pair that identifies an
      *        application. Note that the maximum number of application tags includes system tags. The maximum number of
      *        user-defined application tags is 50. For more information, see <a
-     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost
-     *        Allocation Tags</a> in the <i>AWS Billing and Cost Management Guide</i>.
+     *        href="https://docs.aws.amazon.com/kinesisanalytics/latest/java/how-tagging.html">Using Tagging</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateApplicationRequest withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Use the <code>STREAMING</code> mode to create a Managed Service for Apache Flink application. To create a Managed
+     * Service for Apache Flink Studio notebook, use the <code>INTERACTIVE</code> mode.
+     * </p>
+     * 
+     * @param applicationMode
+     *        Use the <code>STREAMING</code> mode to create a Managed Service for Apache Flink application. To create a
+     *        Managed Service for Apache Flink Studio notebook, use the <code>INTERACTIVE</code> mode.
+     * @see ApplicationMode
+     */
+
+    public void setApplicationMode(String applicationMode) {
+        this.applicationMode = applicationMode;
+    }
+
+    /**
+     * <p>
+     * Use the <code>STREAMING</code> mode to create a Managed Service for Apache Flink application. To create a Managed
+     * Service for Apache Flink Studio notebook, use the <code>INTERACTIVE</code> mode.
+     * </p>
+     * 
+     * @return Use the <code>STREAMING</code> mode to create a Managed Service for Apache Flink application. To create a
+     *         Managed Service for Apache Flink Studio notebook, use the <code>INTERACTIVE</code> mode.
+     * @see ApplicationMode
+     */
+
+    public String getApplicationMode() {
+        return this.applicationMode;
+    }
+
+    /**
+     * <p>
+     * Use the <code>STREAMING</code> mode to create a Managed Service for Apache Flink application. To create a Managed
+     * Service for Apache Flink Studio notebook, use the <code>INTERACTIVE</code> mode.
+     * </p>
+     * 
+     * @param applicationMode
+     *        Use the <code>STREAMING</code> mode to create a Managed Service for Apache Flink application. To create a
+     *        Managed Service for Apache Flink Studio notebook, use the <code>INTERACTIVE</code> mode.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ApplicationMode
+     */
+
+    public CreateApplicationRequest withApplicationMode(String applicationMode) {
+        setApplicationMode(applicationMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Use the <code>STREAMING</code> mode to create a Managed Service for Apache Flink application. To create a Managed
+     * Service for Apache Flink Studio notebook, use the <code>INTERACTIVE</code> mode.
+     * </p>
+     * 
+     * @param applicationMode
+     *        Use the <code>STREAMING</code> mode to create a Managed Service for Apache Flink application. To create a
+     *        Managed Service for Apache Flink Studio notebook, use the <code>INTERACTIVE</code> mode.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ApplicationMode
+     */
+
+    public CreateApplicationRequest withApplicationMode(ApplicationMode applicationMode) {
+        this.applicationMode = applicationMode.toString();
         return this;
     }
 
@@ -499,7 +564,9 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
         if (getCloudWatchLoggingOptions() != null)
             sb.append("CloudWatchLoggingOptions: ").append(getCloudWatchLoggingOptions()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getApplicationMode() != null)
+            sb.append("ApplicationMode: ").append(getApplicationMode());
         sb.append("}");
         return sb.toString();
     }
@@ -542,6 +609,10 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getApplicationMode() == null ^ this.getApplicationMode() == null)
+            return false;
+        if (other.getApplicationMode() != null && other.getApplicationMode().equals(this.getApplicationMode()) == false)
+            return false;
         return true;
     }
 
@@ -557,6 +628,7 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
         hashCode = prime * hashCode + ((getApplicationConfiguration() == null) ? 0 : getApplicationConfiguration().hashCode());
         hashCode = prime * hashCode + ((getCloudWatchLoggingOptions() == null) ? 0 : getCloudWatchLoggingOptions().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getApplicationMode() == null) ? 0 : getApplicationMode().hashCode());
         return hashCode;
     }
 

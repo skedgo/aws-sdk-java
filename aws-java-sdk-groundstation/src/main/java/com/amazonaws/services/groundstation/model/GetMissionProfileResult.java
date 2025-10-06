@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,7 +39,7 @@ public class GetMissionProfileResult extends com.amazonaws.AmazonWebServiceResul
     private Integer contactPrePassDurationSeconds;
     /**
      * <p>
-     * A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
+     * A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a <i>to</i>
      * <code>Config</code>.
      * </p>
      */
@@ -59,7 +59,7 @@ public class GetMissionProfileResult extends com.amazonaws.AmazonWebServiceResul
     private String missionProfileArn;
     /**
      * <p>
-     * ID of a mission profile.
+     * UUID of a mission profile.
      * </p>
      */
     private String missionProfileId;
@@ -75,6 +75,18 @@ public class GetMissionProfileResult extends com.amazonaws.AmazonWebServiceResul
      * </p>
      */
     private String region;
+    /**
+     * <p>
+     * KMS key to use for encrypting streams.
+     * </p>
+     */
+    private KmsKey streamsKmsKey;
+    /**
+     * <p>
+     * Role to use for encrypting streams with KMS key.
+     * </p>
+     */
+    private String streamsKmsRole;
     /**
      * <p>
      * Tags assigned to a mission profile.
@@ -179,12 +191,12 @@ public class GetMissionProfileResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
+     * A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a <i>to</i>
      * <code>Config</code>.
      * </p>
      * 
-     * @return A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
-     *         <code>Config</code>.
+     * @return A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a
+     *         <i>to</i> <code>Config</code>.
      */
 
     public java.util.List<java.util.List<String>> getDataflowEdges() {
@@ -193,13 +205,13 @@ public class GetMissionProfileResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
+     * A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a <i>to</i>
      * <code>Config</code>.
      * </p>
      * 
      * @param dataflowEdges
-     *        A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
-     *        <code>Config</code>.
+     *        A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a
+     *        <i>to</i> <code>Config</code>.
      */
 
     public void setDataflowEdges(java.util.Collection<java.util.List<String>> dataflowEdges) {
@@ -213,7 +225,7 @@ public class GetMissionProfileResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
+     * A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a <i>to</i>
      * <code>Config</code>.
      * </p>
      * <p>
@@ -223,8 +235,8 @@ public class GetMissionProfileResult extends com.amazonaws.AmazonWebServiceResul
      * </p>
      * 
      * @param dataflowEdges
-     *        A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
-     *        <code>Config</code>.
+     *        A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a
+     *        <i>to</i> <code>Config</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -240,13 +252,13 @@ public class GetMissionProfileResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
+     * A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a <i>to</i>
      * <code>Config</code>.
      * </p>
      * 
      * @param dataflowEdges
-     *        A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
-     *        <code>Config</code>.
+     *        A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a
+     *        <i>to</i> <code>Config</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -343,11 +355,11 @@ public class GetMissionProfileResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * ID of a mission profile.
+     * UUID of a mission profile.
      * </p>
      * 
      * @param missionProfileId
-     *        ID of a mission profile.
+     *        UUID of a mission profile.
      */
 
     public void setMissionProfileId(String missionProfileId) {
@@ -356,10 +368,10 @@ public class GetMissionProfileResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * ID of a mission profile.
+     * UUID of a mission profile.
      * </p>
      * 
-     * @return ID of a mission profile.
+     * @return UUID of a mission profile.
      */
 
     public String getMissionProfileId() {
@@ -368,11 +380,11 @@ public class GetMissionProfileResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * ID of a mission profile.
+     * UUID of a mission profile.
      * </p>
      * 
      * @param missionProfileId
-     *        ID of a mission profile.
+     *        UUID of a mission profile.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -463,6 +475,86 @@ public class GetMissionProfileResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
+     * KMS key to use for encrypting streams.
+     * </p>
+     * 
+     * @param streamsKmsKey
+     *        KMS key to use for encrypting streams.
+     */
+
+    public void setStreamsKmsKey(KmsKey streamsKmsKey) {
+        this.streamsKmsKey = streamsKmsKey;
+    }
+
+    /**
+     * <p>
+     * KMS key to use for encrypting streams.
+     * </p>
+     * 
+     * @return KMS key to use for encrypting streams.
+     */
+
+    public KmsKey getStreamsKmsKey() {
+        return this.streamsKmsKey;
+    }
+
+    /**
+     * <p>
+     * KMS key to use for encrypting streams.
+     * </p>
+     * 
+     * @param streamsKmsKey
+     *        KMS key to use for encrypting streams.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetMissionProfileResult withStreamsKmsKey(KmsKey streamsKmsKey) {
+        setStreamsKmsKey(streamsKmsKey);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Role to use for encrypting streams with KMS key.
+     * </p>
+     * 
+     * @param streamsKmsRole
+     *        Role to use for encrypting streams with KMS key.
+     */
+
+    public void setStreamsKmsRole(String streamsKmsRole) {
+        this.streamsKmsRole = streamsKmsRole;
+    }
+
+    /**
+     * <p>
+     * Role to use for encrypting streams with KMS key.
+     * </p>
+     * 
+     * @return Role to use for encrypting streams with KMS key.
+     */
+
+    public String getStreamsKmsRole() {
+        return this.streamsKmsRole;
+    }
+
+    /**
+     * <p>
+     * Role to use for encrypting streams with KMS key.
+     * </p>
+     * 
+     * @param streamsKmsRole
+     *        Role to use for encrypting streams with KMS key.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetMissionProfileResult withStreamsKmsRole(String streamsKmsRole) {
+        setStreamsKmsRole(streamsKmsRole);
+        return this;
+    }
+
+    /**
+     * <p>
      * Tags assigned to a mission profile.
      * </p>
      * 
@@ -500,6 +592,13 @@ public class GetMissionProfileResult extends com.amazonaws.AmazonWebServiceResul
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see GetMissionProfileResult#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public GetMissionProfileResult addTagsEntry(String key, String value) {
         if (null == this.tags) {
@@ -590,6 +689,10 @@ public class GetMissionProfileResult extends com.amazonaws.AmazonWebServiceResul
             sb.append("Name: ").append(getName()).append(",");
         if (getRegion() != null)
             sb.append("Region: ").append(getRegion()).append(",");
+        if (getStreamsKmsKey() != null)
+            sb.append("StreamsKmsKey: ").append(getStreamsKmsKey()).append(",");
+        if (getStreamsKmsRole() != null)
+            sb.append("StreamsKmsRole: ").append(getStreamsKmsRole()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getTrackingConfigArn() != null)
@@ -643,6 +746,14 @@ public class GetMissionProfileResult extends com.amazonaws.AmazonWebServiceResul
             return false;
         if (other.getRegion() != null && other.getRegion().equals(this.getRegion()) == false)
             return false;
+        if (other.getStreamsKmsKey() == null ^ this.getStreamsKmsKey() == null)
+            return false;
+        if (other.getStreamsKmsKey() != null && other.getStreamsKmsKey().equals(this.getStreamsKmsKey()) == false)
+            return false;
+        if (other.getStreamsKmsRole() == null ^ this.getStreamsKmsRole() == null)
+            return false;
+        if (other.getStreamsKmsRole() != null && other.getStreamsKmsRole().equals(this.getStreamsKmsRole()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
@@ -667,6 +778,8 @@ public class GetMissionProfileResult extends com.amazonaws.AmazonWebServiceResul
         hashCode = prime * hashCode + ((getMissionProfileId() == null) ? 0 : getMissionProfileId().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getRegion() == null) ? 0 : getRegion().hashCode());
+        hashCode = prime * hashCode + ((getStreamsKmsKey() == null) ? 0 : getStreamsKmsKey().hashCode());
+        hashCode = prime * hashCode + ((getStreamsKmsRole() == null) ? 0 : getStreamsKmsRole().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getTrackingConfigArn() == null) ? 0 : getTrackingConfigArn().hashCode());
         return hashCode;

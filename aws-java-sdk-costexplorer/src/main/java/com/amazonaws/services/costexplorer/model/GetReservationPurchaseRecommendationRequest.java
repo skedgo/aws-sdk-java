@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class GetReservationPurchaseRecommendationRequest extends com.amazonaws.A
 
     /**
      * <p>
-     * The account ID that is associated with the recommendation.
+     * The account ID that's associated with the recommendation.
      * </p>
      */
     private String accountId;
@@ -37,20 +37,20 @@ public class GetReservationPurchaseRecommendationRequest extends com.amazonaws.A
      * </p>
      */
     private String service;
+
+    private Expression filter;
     /**
      * <p>
-     * The account scope that you want recommendations for. <code>PAYER</code> means that AWS includes the master
-     * account and any member accounts when it calculates its recommendations. <code>LINKED</code> means that AWS
-     * includes only member accounts when it calculates its recommendations.
-     * </p>
-     * <p>
-     * Valid values are <code>PAYER</code> and <code>LINKED</code>.
+     * The account scope that you want your recommendations for. Amazon Web Services calculates recommendations
+     * including the management account and member accounts if the value is set to <code>PAYER</code>. If the value is
+     * <code>LINKED</code>, recommendations are calculated for individual member accounts only.
      * </p>
      */
     private String accountScope;
     /**
      * <p>
-     * The number of previous days that you want AWS to consider when it calculates your recommendations.
+     * The number of previous days that you want Amazon Web Services to consider when it calculates your
+     * recommendations.
      * </p>
      */
     private String lookbackPeriodInDays;
@@ -88,11 +88,11 @@ public class GetReservationPurchaseRecommendationRequest extends com.amazonaws.A
 
     /**
      * <p>
-     * The account ID that is associated with the recommendation.
+     * The account ID that's associated with the recommendation.
      * </p>
      * 
      * @param accountId
-     *        The account ID that is associated with the recommendation.
+     *        The account ID that's associated with the recommendation.
      */
 
     public void setAccountId(String accountId) {
@@ -101,10 +101,10 @@ public class GetReservationPurchaseRecommendationRequest extends com.amazonaws.A
 
     /**
      * <p>
-     * The account ID that is associated with the recommendation.
+     * The account ID that's associated with the recommendation.
      * </p>
      * 
-     * @return The account ID that is associated with the recommendation.
+     * @return The account ID that's associated with the recommendation.
      */
 
     public String getAccountId() {
@@ -113,11 +113,11 @@ public class GetReservationPurchaseRecommendationRequest extends com.amazonaws.A
 
     /**
      * <p>
-     * The account ID that is associated with the recommendation.
+     * The account ID that's associated with the recommendation.
      * </p>
      * 
      * @param accountId
-     *        The account ID that is associated with the recommendation.
+     *        The account ID that's associated with the recommendation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -167,21 +167,42 @@ public class GetReservationPurchaseRecommendationRequest extends com.amazonaws.A
     }
 
     /**
+     * @param filter
+     */
+
+    public void setFilter(Expression filter) {
+        this.filter = filter;
+    }
+
+    /**
+     * @return
+     */
+
+    public Expression getFilter() {
+        return this.filter;
+    }
+
+    /**
+     * @param filter
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetReservationPurchaseRecommendationRequest withFilter(Expression filter) {
+        setFilter(filter);
+        return this;
+    }
+
+    /**
      * <p>
-     * The account scope that you want recommendations for. <code>PAYER</code> means that AWS includes the master
-     * account and any member accounts when it calculates its recommendations. <code>LINKED</code> means that AWS
-     * includes only member accounts when it calculates its recommendations.
-     * </p>
-     * <p>
-     * Valid values are <code>PAYER</code> and <code>LINKED</code>.
+     * The account scope that you want your recommendations for. Amazon Web Services calculates recommendations
+     * including the management account and member accounts if the value is set to <code>PAYER</code>. If the value is
+     * <code>LINKED</code>, recommendations are calculated for individual member accounts only.
      * </p>
      * 
      * @param accountScope
-     *        The account scope that you want recommendations for. <code>PAYER</code> means that AWS includes the master
-     *        account and any member accounts when it calculates its recommendations. <code>LINKED</code> means that AWS
-     *        includes only member accounts when it calculates its recommendations.</p>
-     *        <p>
-     *        Valid values are <code>PAYER</code> and <code>LINKED</code>.
+     *        The account scope that you want your recommendations for. Amazon Web Services calculates recommendations
+     *        including the management account and member accounts if the value is set to <code>PAYER</code>. If the
+     *        value is <code>LINKED</code>, recommendations are calculated for individual member accounts only.
      * @see AccountScope
      */
 
@@ -191,19 +212,14 @@ public class GetReservationPurchaseRecommendationRequest extends com.amazonaws.A
 
     /**
      * <p>
-     * The account scope that you want recommendations for. <code>PAYER</code> means that AWS includes the master
-     * account and any member accounts when it calculates its recommendations. <code>LINKED</code> means that AWS
-     * includes only member accounts when it calculates its recommendations.
-     * </p>
-     * <p>
-     * Valid values are <code>PAYER</code> and <code>LINKED</code>.
+     * The account scope that you want your recommendations for. Amazon Web Services calculates recommendations
+     * including the management account and member accounts if the value is set to <code>PAYER</code>. If the value is
+     * <code>LINKED</code>, recommendations are calculated for individual member accounts only.
      * </p>
      * 
-     * @return The account scope that you want recommendations for. <code>PAYER</code> means that AWS includes the
-     *         master account and any member accounts when it calculates its recommendations. <code>LINKED</code> means
-     *         that AWS includes only member accounts when it calculates its recommendations.</p>
-     *         <p>
-     *         Valid values are <code>PAYER</code> and <code>LINKED</code>.
+     * @return The account scope that you want your recommendations for. Amazon Web Services calculates recommendations
+     *         including the management account and member accounts if the value is set to <code>PAYER</code>. If the
+     *         value is <code>LINKED</code>, recommendations are calculated for individual member accounts only.
      * @see AccountScope
      */
 
@@ -213,20 +229,15 @@ public class GetReservationPurchaseRecommendationRequest extends com.amazonaws.A
 
     /**
      * <p>
-     * The account scope that you want recommendations for. <code>PAYER</code> means that AWS includes the master
-     * account and any member accounts when it calculates its recommendations. <code>LINKED</code> means that AWS
-     * includes only member accounts when it calculates its recommendations.
-     * </p>
-     * <p>
-     * Valid values are <code>PAYER</code> and <code>LINKED</code>.
+     * The account scope that you want your recommendations for. Amazon Web Services calculates recommendations
+     * including the management account and member accounts if the value is set to <code>PAYER</code>. If the value is
+     * <code>LINKED</code>, recommendations are calculated for individual member accounts only.
      * </p>
      * 
      * @param accountScope
-     *        The account scope that you want recommendations for. <code>PAYER</code> means that AWS includes the master
-     *        account and any member accounts when it calculates its recommendations. <code>LINKED</code> means that AWS
-     *        includes only member accounts when it calculates its recommendations.</p>
-     *        <p>
-     *        Valid values are <code>PAYER</code> and <code>LINKED</code>.
+     *        The account scope that you want your recommendations for. Amazon Web Services calculates recommendations
+     *        including the management account and member accounts if the value is set to <code>PAYER</code>. If the
+     *        value is <code>LINKED</code>, recommendations are calculated for individual member accounts only.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AccountScope
      */
@@ -238,20 +249,15 @@ public class GetReservationPurchaseRecommendationRequest extends com.amazonaws.A
 
     /**
      * <p>
-     * The account scope that you want recommendations for. <code>PAYER</code> means that AWS includes the master
-     * account and any member accounts when it calculates its recommendations. <code>LINKED</code> means that AWS
-     * includes only member accounts when it calculates its recommendations.
-     * </p>
-     * <p>
-     * Valid values are <code>PAYER</code> and <code>LINKED</code>.
+     * The account scope that you want your recommendations for. Amazon Web Services calculates recommendations
+     * including the management account and member accounts if the value is set to <code>PAYER</code>. If the value is
+     * <code>LINKED</code>, recommendations are calculated for individual member accounts only.
      * </p>
      * 
      * @param accountScope
-     *        The account scope that you want recommendations for. <code>PAYER</code> means that AWS includes the master
-     *        account and any member accounts when it calculates its recommendations. <code>LINKED</code> means that AWS
-     *        includes only member accounts when it calculates its recommendations.</p>
-     *        <p>
-     *        Valid values are <code>PAYER</code> and <code>LINKED</code>.
+     *        The account scope that you want your recommendations for. Amazon Web Services calculates recommendations
+     *        including the management account and member accounts if the value is set to <code>PAYER</code>. If the
+     *        value is <code>LINKED</code>, recommendations are calculated for individual member accounts only.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AccountScope
      */
@@ -263,11 +269,13 @@ public class GetReservationPurchaseRecommendationRequest extends com.amazonaws.A
 
     /**
      * <p>
-     * The number of previous days that you want AWS to consider when it calculates your recommendations.
+     * The number of previous days that you want Amazon Web Services to consider when it calculates your
+     * recommendations.
      * </p>
      * 
      * @param lookbackPeriodInDays
-     *        The number of previous days that you want AWS to consider when it calculates your recommendations.
+     *        The number of previous days that you want Amazon Web Services to consider when it calculates your
+     *        recommendations.
      * @see LookbackPeriodInDays
      */
 
@@ -277,10 +285,12 @@ public class GetReservationPurchaseRecommendationRequest extends com.amazonaws.A
 
     /**
      * <p>
-     * The number of previous days that you want AWS to consider when it calculates your recommendations.
+     * The number of previous days that you want Amazon Web Services to consider when it calculates your
+     * recommendations.
      * </p>
      * 
-     * @return The number of previous days that you want AWS to consider when it calculates your recommendations.
+     * @return The number of previous days that you want Amazon Web Services to consider when it calculates your
+     *         recommendations.
      * @see LookbackPeriodInDays
      */
 
@@ -290,11 +300,13 @@ public class GetReservationPurchaseRecommendationRequest extends com.amazonaws.A
 
     /**
      * <p>
-     * The number of previous days that you want AWS to consider when it calculates your recommendations.
+     * The number of previous days that you want Amazon Web Services to consider when it calculates your
+     * recommendations.
      * </p>
      * 
      * @param lookbackPeriodInDays
-     *        The number of previous days that you want AWS to consider when it calculates your recommendations.
+     *        The number of previous days that you want Amazon Web Services to consider when it calculates your
+     *        recommendations.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LookbackPeriodInDays
      */
@@ -306,11 +318,13 @@ public class GetReservationPurchaseRecommendationRequest extends com.amazonaws.A
 
     /**
      * <p>
-     * The number of previous days that you want AWS to consider when it calculates your recommendations.
+     * The number of previous days that you want Amazon Web Services to consider when it calculates your
+     * recommendations.
      * </p>
      * 
      * @param lookbackPeriodInDays
-     *        The number of previous days that you want AWS to consider when it calculates your recommendations.
+     *        The number of previous days that you want Amazon Web Services to consider when it calculates your
+     *        recommendations.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LookbackPeriodInDays
      */
@@ -580,6 +594,8 @@ public class GetReservationPurchaseRecommendationRequest extends com.amazonaws.A
             sb.append("AccountId: ").append(getAccountId()).append(",");
         if (getService() != null)
             sb.append("Service: ").append(getService()).append(",");
+        if (getFilter() != null)
+            sb.append("Filter: ").append(getFilter()).append(",");
         if (getAccountScope() != null)
             sb.append("AccountScope: ").append(getAccountScope()).append(",");
         if (getLookbackPeriodInDays() != null)
@@ -615,6 +631,10 @@ public class GetReservationPurchaseRecommendationRequest extends com.amazonaws.A
         if (other.getService() == null ^ this.getService() == null)
             return false;
         if (other.getService() != null && other.getService().equals(this.getService()) == false)
+            return false;
+        if (other.getFilter() == null ^ this.getFilter() == null)
+            return false;
+        if (other.getFilter() != null && other.getFilter().equals(this.getFilter()) == false)
             return false;
         if (other.getAccountScope() == null ^ this.getAccountScope() == null)
             return false;
@@ -654,6 +674,7 @@ public class GetReservationPurchaseRecommendationRequest extends com.amazonaws.A
 
         hashCode = prime * hashCode + ((getAccountId() == null) ? 0 : getAccountId().hashCode());
         hashCode = prime * hashCode + ((getService() == null) ? 0 : getService().hashCode());
+        hashCode = prime * hashCode + ((getFilter() == null) ? 0 : getFilter().hashCode());
         hashCode = prime * hashCode + ((getAccountScope() == null) ? 0 : getAccountScope().hashCode());
         hashCode = prime * hashCode + ((getLookbackPeriodInDays() == null) ? 0 : getLookbackPeriodInDays().hashCode());
         hashCode = prime * hashCode + ((getTermInYears() == null) ? 0 : getTermInYears().hashCode());

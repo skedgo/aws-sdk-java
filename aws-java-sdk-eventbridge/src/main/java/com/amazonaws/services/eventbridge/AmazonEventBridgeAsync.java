@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,33 +26,33 @@ import com.amazonaws.services.eventbridge.model.*;
  * </p>
  * <p>
  * <p>
- * Amazon EventBridge helps you to respond to state changes in your AWS resources. When your resources change state,
- * they automatically send events into an event stream. You can create rules that match selected events in the stream
- * and route them to targets to take action. You can also use rules to take action on a predetermined schedule. For
- * example, you can configure rules to:
+ * Amazon EventBridge helps you to respond to state changes in your Amazon Web Services resources. When your resources
+ * change state, they automatically send events to an event stream. You can create rules that match selected events in
+ * the stream and route them to targets to take action. You can also use rules to take action on a predetermined
+ * schedule. For example, you can configure rules to:
  * </p>
  * <ul>
  * <li>
  * <p>
- * Automatically invoke an AWS Lambda function to update DNS entries when an event notifies you that Amazon EC2 instance
- * enters the running state
+ * Automatically invoke an Lambda function to update DNS entries when an event notifies you that Amazon EC2 instance
+ * enters the running state.
  * </p>
  * </li>
  * <li>
  * <p>
- * Direct specific API records from AWS CloudTrail to an Amazon Kinesis data stream for detailed analysis of potential
- * security or availability risks
+ * Direct specific API records from CloudTrail to an Amazon Kinesis data stream for detailed analysis of potential
+ * security or availability risks.
  * </p>
  * </li>
  * <li>
  * <p>
- * Periodically invoke a built-in target to create a snapshot of an Amazon EBS volume
+ * Periodically invoke a built-in target to create a snapshot of an Amazon EBS volume.
  * </p>
  * </li>
  * </ul>
  * <p>
  * For more information about the features of Amazon EventBridge, see the <a
- * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/">Amazon EventBridge User Guide</a>.
+ * href="https://docs.aws.amazon.com/eventbridge/latest/userguide">Amazon EventBridge User Guide</a>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -63,11 +63,6 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * Activates a partner event source that has been deactivated. Once activated, your matching event bus will start
      * receiving events from the event source.
      * </p>
-     * <note>
-     * <p>
-     * This operation is performed by AWS customers, not by SaaS partners.
-     * </p>
-     * </note>
      * 
      * @param activateEventSourceRequest
      * @return A Java Future containing the result of the ActivateEventSource operation returned by the service.
@@ -82,11 +77,6 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * Activates a partner event source that has been deactivated. Once activated, your matching event bus will start
      * receiving events from the event source.
      * </p>
-     * <note>
-     * <p>
-     * This operation is performed by AWS customers, not by SaaS partners.
-     * </p>
-     * </note>
      * 
      * @param activateEventSourceRequest
      * @param asyncHandler
@@ -103,15 +93,265 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Creates a new event bus within your account. This can be a custom event bus which you can use to receive events
-     * from your own custom applications and services, or it can be a partner event bus which can be matched to a
-     * partner event source.
+     * Cancels the specified replay.
+     * </p>
+     * 
+     * @param cancelReplayRequest
+     * @return A Java Future containing the result of the CancelReplay operation returned by the service.
+     * @sample AmazonEventBridgeAsync.CancelReplay
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/CancelReplay" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CancelReplayResult> cancelReplayAsync(CancelReplayRequest cancelReplayRequest);
+
+    /**
+     * <p>
+     * Cancels the specified replay.
+     * </p>
+     * 
+     * @param cancelReplayRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CancelReplay operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.CancelReplay
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/CancelReplay" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CancelReplayResult> cancelReplayAsync(CancelReplayRequest cancelReplayRequest,
+            com.amazonaws.handlers.AsyncHandler<CancelReplayRequest, CancelReplayResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates an API destination, which is an HTTP invocation endpoint configured as a target for events.
+     * </p>
+     * <p>
+     * API destinations do not support private destinations, such as interface VPC endpoints.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-api-destinations.html">API destinations</a> in
+     * the <i>EventBridge User Guide</i>.
+     * </p>
+     * 
+     * @param createApiDestinationRequest
+     * @return A Java Future containing the result of the CreateApiDestination operation returned by the service.
+     * @sample AmazonEventBridgeAsync.CreateApiDestination
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/CreateApiDestination"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateApiDestinationResult> createApiDestinationAsync(CreateApiDestinationRequest createApiDestinationRequest);
+
+    /**
+     * <p>
+     * Creates an API destination, which is an HTTP invocation endpoint configured as a target for events.
+     * </p>
+     * <p>
+     * API destinations do not support private destinations, such as interface VPC endpoints.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-api-destinations.html">API destinations</a> in
+     * the <i>EventBridge User Guide</i>.
+     * </p>
+     * 
+     * @param createApiDestinationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateApiDestination operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.CreateApiDestination
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/CreateApiDestination"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateApiDestinationResult> createApiDestinationAsync(CreateApiDestinationRequest createApiDestinationRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateApiDestinationRequest, CreateApiDestinationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates an archive of events with the specified settings. When you create an archive, incoming events might not
+     * immediately start being sent to the archive. Allow a short period of time for changes to take effect. If you do
+     * not specify a pattern to filter events sent to the archive, all events are sent to the archive except replayed
+     * events. Replayed events are not sent to an archive.
      * </p>
      * <note>
      * <p>
-     * This operation is used by AWS customers, not by SaaS partners.
+     * Archives and schema discovery are not supported for event buses encrypted using a customer managed key.
+     * EventBridge returns an error if:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You call
+     * <code> <a href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_CreateArchive.html">CreateArchive</a> </code>
+     * on an event bus set to use a customer managed key for encryption.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You call
+     * <code> <a href="https://docs.aws.amazon.com/eventbridge/latest/schema-reference/v1-discoverers.html#CreateDiscoverer">CreateDiscoverer</a> </code>
+     * on an event bus set to use a customer managed key for encryption.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You call
+     * <code> <a href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_UpdatedEventBus.html">UpdatedEventBus</a> </code>
+     * to set a customer managed key on an event bus with an archives or schema discovery enabled.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To enable archives or schema discovery on an event bus, choose to use an Amazon Web Services owned key. For more
+     * information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-encryption.html">Data
+     * encryption in EventBridge</a> in the <i>Amazon EventBridge User Guide</i>.
      * </p>
      * </note>
+     * 
+     * @param createArchiveRequest
+     * @return A Java Future containing the result of the CreateArchive operation returned by the service.
+     * @sample AmazonEventBridgeAsync.CreateArchive
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/CreateArchive" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateArchiveResult> createArchiveAsync(CreateArchiveRequest createArchiveRequest);
+
+    /**
+     * <p>
+     * Creates an archive of events with the specified settings. When you create an archive, incoming events might not
+     * immediately start being sent to the archive. Allow a short period of time for changes to take effect. If you do
+     * not specify a pattern to filter events sent to the archive, all events are sent to the archive except replayed
+     * events. Replayed events are not sent to an archive.
+     * </p>
+     * <note>
+     * <p>
+     * Archives and schema discovery are not supported for event buses encrypted using a customer managed key.
+     * EventBridge returns an error if:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You call
+     * <code> <a href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_CreateArchive.html">CreateArchive</a> </code>
+     * on an event bus set to use a customer managed key for encryption.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You call
+     * <code> <a href="https://docs.aws.amazon.com/eventbridge/latest/schema-reference/v1-discoverers.html#CreateDiscoverer">CreateDiscoverer</a> </code>
+     * on an event bus set to use a customer managed key for encryption.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You call
+     * <code> <a href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_UpdatedEventBus.html">UpdatedEventBus</a> </code>
+     * to set a customer managed key on an event bus with an archives or schema discovery enabled.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To enable archives or schema discovery on an event bus, choose to use an Amazon Web Services owned key. For more
+     * information, see <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-encryption.html">Data
+     * encryption in EventBridge</a> in the <i>Amazon EventBridge User Guide</i>.
+     * </p>
+     * </note>
+     * 
+     * @param createArchiveRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateArchive operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.CreateArchive
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/CreateArchive" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateArchiveResult> createArchiveAsync(CreateArchiveRequest createArchiveRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateArchiveRequest, CreateArchiveResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a connection. A connection defines the authorization type and credentials to use for authorization with
+     * an API destination HTTP endpoint.
+     * </p>
+     * 
+     * @param createConnectionRequest
+     * @return A Java Future containing the result of the CreateConnection operation returned by the service.
+     * @sample AmazonEventBridgeAsync.CreateConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/CreateConnection" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateConnectionResult> createConnectionAsync(CreateConnectionRequest createConnectionRequest);
+
+    /**
+     * <p>
+     * Creates a connection. A connection defines the authorization type and credentials to use for authorization with
+     * an API destination HTTP endpoint.
+     * </p>
+     * 
+     * @param createConnectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateConnection operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.CreateConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/CreateConnection" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateConnectionResult> createConnectionAsync(CreateConnectionRequest createConnectionRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateConnectionRequest, CreateConnectionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a global endpoint. Global endpoints improve your application's availability by making it regional-fault
+     * tolerant. To do this, you define a primary and secondary Region with event buses in each Region. You also create
+     * a Amazon Route 53 health check that will tell EventBridge to route events to the secondary Region when an
+     * "unhealthy" state is encountered and events will be routed back to the primary Region when the health check
+     * reports a "healthy" state.
+     * </p>
+     * 
+     * @param createEndpointRequest
+     * @return A Java Future containing the result of the CreateEndpoint operation returned by the service.
+     * @sample AmazonEventBridgeAsync.CreateEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/CreateEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateEndpointResult> createEndpointAsync(CreateEndpointRequest createEndpointRequest);
+
+    /**
+     * <p>
+     * Creates a global endpoint. Global endpoints improve your application's availability by making it regional-fault
+     * tolerant. To do this, you define a primary and secondary Region with event buses in each Region. You also create
+     * a Amazon Route 53 health check that will tell EventBridge to route events to the secondary Region when an
+     * "unhealthy" state is encountered and events will be routed back to the primary Region when the health check
+     * reports a "healthy" state.
+     * </p>
+     * 
+     * @param createEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateEndpoint operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.CreateEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/CreateEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateEndpointResult> createEndpointAsync(CreateEndpointRequest createEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateEndpointRequest, CreateEndpointResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new event bus within your account. This can be a custom event bus which you can use to receive events
+     * from your custom applications and services, or it can be a partner event bus which can be matched to a partner
+     * event source.
+     * </p>
      * 
      * @param createEventBusRequest
      * @return A Java Future containing the result of the CreateEventBus operation returned by the service.
@@ -124,14 +364,9 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
     /**
      * <p>
      * Creates a new event bus within your account. This can be a custom event bus which you can use to receive events
-     * from your own custom applications and services, or it can be a partner event bus which can be matched to a
-     * partner event source.
+     * from your custom applications and services, or it can be a partner event bus which can be matched to a partner
+     * event source.
      * </p>
-     * <note>
-     * <p>
-     * This operation is used by AWS customers, not by SaaS partners.
-     * </p>
-     * </note>
      * 
      * @param createEventBusRequest
      * @param asyncHandler
@@ -148,50 +383,56 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Called by an SaaS partner to create a partner event source.
-     * </p>
-     * <note>
-     * <p>
-     * This operation is not used by AWS customers.
-     * </p>
-     * </note>
-     * <p>
-     * Each partner event source can be used by one AWS account to create a matching partner event bus in that AWS
-     * account. A SaaS partner must create one partner event source for each AWS account that wants to receive those
-     * event types.
+     * Called by an SaaS partner to create a partner event source. This operation is not used by Amazon Web Services
+     * customers.
      * </p>
      * <p>
-     * A partner event source creates events based on resources in the SaaS partner's service or application.
+     * Each partner event source can be used by one Amazon Web Services account to create a matching partner event bus
+     * in that Amazon Web Services account. A SaaS partner must create one partner event source for each Amazon Web
+     * Services account that wants to receive those event types.
      * </p>
      * <p>
-     * An AWS account that creates a partner event bus that matches the partner event source can use that event bus to
-     * receive events from the partner, and then process them using AWS Events rules and targets.
+     * A partner event source creates events based on resources within the SaaS partner's service or application.
+     * </p>
+     * <p>
+     * An Amazon Web Services account that creates a partner event bus that matches the partner event source can use
+     * that event bus to receive events from the partner, and then process them using Amazon Web Services Events rules
+     * and targets.
      * </p>
      * <p>
      * Partner event source names follow this format:
      * </p>
      * <p>
-     * <code>aws.partner/<i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>
+     * <code> <i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <i>partner_name</i> is determined during partner registration and identifies the partner to AWS customers.
+     * <i>partner_name</i> is determined during partner registration, and identifies the partner to Amazon Web Services
+     * customers.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For <i>event_namespace</i>, we recommend that partners use a string that identifies the AWS customer within the
-     * partner's system. This should not be the customer's AWS account ID.
+     * <i>event_namespace</i> is determined by the partner, and is a way for the partner to categorize their events.
      * </p>
      * </li>
      * <li>
      * <p>
      * <i>event_name</i> is determined by the partner, and should uniquely identify an event-generating resource within
-     * the partner system. This should help AWS customers decide whether to create an event bus to receive these events.
+     * the partner system.
+     * </p>
+     * <p>
+     * The <i>event_name</i> must be unique across all Amazon Web Services customers. This is because the event source
+     * is a shared resource between the partner and customer accounts, and each partner event source unique in the
+     * partner account.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * The combination of <i>event_namespace</i> and <i>event_name</i> should help Amazon Web Services customers decide
+     * whether to create an event bus to receive these events.
+     * </p>
      * 
      * @param createPartnerEventSourceRequest
      * @return A Java Future containing the result of the CreatePartnerEventSource operation returned by the service.
@@ -203,50 +444,56 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Called by an SaaS partner to create a partner event source.
-     * </p>
-     * <note>
-     * <p>
-     * This operation is not used by AWS customers.
-     * </p>
-     * </note>
-     * <p>
-     * Each partner event source can be used by one AWS account to create a matching partner event bus in that AWS
-     * account. A SaaS partner must create one partner event source for each AWS account that wants to receive those
-     * event types.
+     * Called by an SaaS partner to create a partner event source. This operation is not used by Amazon Web Services
+     * customers.
      * </p>
      * <p>
-     * A partner event source creates events based on resources in the SaaS partner's service or application.
+     * Each partner event source can be used by one Amazon Web Services account to create a matching partner event bus
+     * in that Amazon Web Services account. A SaaS partner must create one partner event source for each Amazon Web
+     * Services account that wants to receive those event types.
      * </p>
      * <p>
-     * An AWS account that creates a partner event bus that matches the partner event source can use that event bus to
-     * receive events from the partner, and then process them using AWS Events rules and targets.
+     * A partner event source creates events based on resources within the SaaS partner's service or application.
+     * </p>
+     * <p>
+     * An Amazon Web Services account that creates a partner event bus that matches the partner event source can use
+     * that event bus to receive events from the partner, and then process them using Amazon Web Services Events rules
+     * and targets.
      * </p>
      * <p>
      * Partner event source names follow this format:
      * </p>
      * <p>
-     * <code>aws.partner/<i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>
+     * <code> <i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <i>partner_name</i> is determined during partner registration and identifies the partner to AWS customers.
+     * <i>partner_name</i> is determined during partner registration, and identifies the partner to Amazon Web Services
+     * customers.
      * </p>
      * </li>
      * <li>
      * <p>
-     * For <i>event_namespace</i>, we recommend that partners use a string that identifies the AWS customer within the
-     * partner's system. This should not be the customer's AWS account ID.
+     * <i>event_namespace</i> is determined by the partner, and is a way for the partner to categorize their events.
      * </p>
      * </li>
      * <li>
      * <p>
      * <i>event_name</i> is determined by the partner, and should uniquely identify an event-generating resource within
-     * the partner system. This should help AWS customers decide whether to create an event bus to receive these events.
+     * the partner system.
+     * </p>
+     * <p>
+     * The <i>event_name</i> must be unique across all Amazon Web Services customers. This is because the event source
+     * is a shared resource between the partner and customer accounts, and each partner event source unique in the
+     * partner account.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * The combination of <i>event_namespace</i> and <i>event_name</i> should help Amazon Web Services customers decide
+     * whether to create an event bus to receive these events.
+     * </p>
      * 
      * @param createPartnerEventSourceRequest
      * @param asyncHandler
@@ -263,15 +510,17 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * An AWS customer uses this operation to temporarily stop receiving events from the specified partner event source.
-     * The matching event bus isn't deleted.
+     * You can use this operation to temporarily stop receiving events from the specified partner event source. The
+     * matching event bus is not deleted.
      * </p>
      * <p>
-     * When you deactivate a partner event source, the source goes into <code>PENDING</code> state. If it remains in
-     * <code>PENDING</code> state for more than two weeks, it's deleted.
+     * When you deactivate a partner event source, the source goes into PENDING state. If it remains in PENDING state
+     * for more than two weeks, it is deleted.
      * </p>
      * <p>
-     * To activate a deactivated partner event source, use <a>ActivateEventSource</a>.
+     * To activate a deactivated partner event source, use <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_ActivateEventSource.html"
+     * >ActivateEventSource</a>.
      * </p>
      * 
      * @param deactivateEventSourceRequest
@@ -284,15 +533,17 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * An AWS customer uses this operation to temporarily stop receiving events from the specified partner event source.
-     * The matching event bus isn't deleted.
+     * You can use this operation to temporarily stop receiving events from the specified partner event source. The
+     * matching event bus is not deleted.
      * </p>
      * <p>
-     * When you deactivate a partner event source, the source goes into <code>PENDING</code> state. If it remains in
-     * <code>PENDING</code> state for more than two weeks, it's deleted.
+     * When you deactivate a partner event source, the source goes into PENDING state. If it remains in PENDING state
+     * for more than two weeks, it is deleted.
      * </p>
      * <p>
-     * To activate a deactivated partner event source, use <a>ActivateEventSource</a>.
+     * To activate a deactivated partner event source, use <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_ActivateEventSource.html"
+     * >ActivateEventSource</a>.
      * </p>
      * 
      * @param deactivateEventSourceRequest
@@ -310,14 +561,172 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Deletes the specified custom event bus or partner event bus. All rules associated with this event bus are also
+     * Removes all authorization parameters from the connection. This lets you remove the secret from the connection so
+     * you can reuse it without having to create a new connection.
+     * </p>
+     * 
+     * @param deauthorizeConnectionRequest
+     * @return A Java Future containing the result of the DeauthorizeConnection operation returned by the service.
+     * @sample AmazonEventBridgeAsync.DeauthorizeConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DeauthorizeConnection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeauthorizeConnectionResult> deauthorizeConnectionAsync(DeauthorizeConnectionRequest deauthorizeConnectionRequest);
+
+    /**
+     * <p>
+     * Removes all authorization parameters from the connection. This lets you remove the secret from the connection so
+     * you can reuse it without having to create a new connection.
+     * </p>
+     * 
+     * @param deauthorizeConnectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeauthorizeConnection operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.DeauthorizeConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DeauthorizeConnection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeauthorizeConnectionResult> deauthorizeConnectionAsync(DeauthorizeConnectionRequest deauthorizeConnectionRequest,
+            com.amazonaws.handlers.AsyncHandler<DeauthorizeConnectionRequest, DeauthorizeConnectionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the specified API destination.
+     * </p>
+     * 
+     * @param deleteApiDestinationRequest
+     * @return A Java Future containing the result of the DeleteApiDestination operation returned by the service.
+     * @sample AmazonEventBridgeAsync.DeleteApiDestination
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DeleteApiDestination"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteApiDestinationResult> deleteApiDestinationAsync(DeleteApiDestinationRequest deleteApiDestinationRequest);
+
+    /**
+     * <p>
+     * Deletes the specified API destination.
+     * </p>
+     * 
+     * @param deleteApiDestinationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteApiDestination operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.DeleteApiDestination
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DeleteApiDestination"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteApiDestinationResult> deleteApiDestinationAsync(DeleteApiDestinationRequest deleteApiDestinationRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteApiDestinationRequest, DeleteApiDestinationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the specified archive.
+     * </p>
+     * 
+     * @param deleteArchiveRequest
+     * @return A Java Future containing the result of the DeleteArchive operation returned by the service.
+     * @sample AmazonEventBridgeAsync.DeleteArchive
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DeleteArchive" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteArchiveResult> deleteArchiveAsync(DeleteArchiveRequest deleteArchiveRequest);
+
+    /**
+     * <p>
+     * Deletes the specified archive.
+     * </p>
+     * 
+     * @param deleteArchiveRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteArchive operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.DeleteArchive
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DeleteArchive" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteArchiveResult> deleteArchiveAsync(DeleteArchiveRequest deleteArchiveRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteArchiveRequest, DeleteArchiveResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a connection.
+     * </p>
+     * 
+     * @param deleteConnectionRequest
+     * @return A Java Future containing the result of the DeleteConnection operation returned by the service.
+     * @sample AmazonEventBridgeAsync.DeleteConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DeleteConnection" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteConnectionResult> deleteConnectionAsync(DeleteConnectionRequest deleteConnectionRequest);
+
+    /**
+     * <p>
+     * Deletes a connection.
+     * </p>
+     * 
+     * @param deleteConnectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteConnection operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.DeleteConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DeleteConnection" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteConnectionResult> deleteConnectionAsync(DeleteConnectionRequest deleteConnectionRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteConnectionRequest, DeleteConnectionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Delete an existing global endpoint. For more information about global endpoints, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-global-endpoints.html">Making applications
+     * Regional-fault tolerant with global endpoints and event replication</a> in the <i> <i>Amazon EventBridge User
+     * Guide</i> </i>.
+     * </p>
+     * 
+     * @param deleteEndpointRequest
+     * @return A Java Future containing the result of the DeleteEndpoint operation returned by the service.
+     * @sample AmazonEventBridgeAsync.DeleteEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DeleteEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteEndpointResult> deleteEndpointAsync(DeleteEndpointRequest deleteEndpointRequest);
+
+    /**
+     * <p>
+     * Delete an existing global endpoint. For more information about global endpoints, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-global-endpoints.html">Making applications
+     * Regional-fault tolerant with global endpoints and event replication</a> in the <i> <i>Amazon EventBridge User
+     * Guide</i> </i>.
+     * </p>
+     * 
+     * @param deleteEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteEndpoint operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.DeleteEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DeleteEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteEndpointResult> deleteEndpointAsync(DeleteEndpointRequest deleteEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteEndpointRequest, DeleteEndpointResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the specified custom event bus or partner event bus. All rules associated with this event bus need to be
      * deleted. You can't delete your account's default event bus.
      * </p>
-     * <note>
-     * <p>
-     * This operation is performed by AWS customers, not by SaaS partners.
-     * </p>
-     * </note>
      * 
      * @param deleteEventBusRequest
      * @return A Java Future containing the result of the DeleteEventBus operation returned by the service.
@@ -329,14 +738,9 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Deletes the specified custom event bus or partner event bus. All rules associated with this event bus are also
+     * Deletes the specified custom event bus or partner event bus. All rules associated with this event bus need to be
      * deleted. You can't delete your account's default event bus.
      * </p>
-     * <note>
-     * <p>
-     * This operation is performed by AWS customers, not by SaaS partners.
-     * </p>
-     * </note>
      * 
      * @param deleteEventBusRequest
      * @param asyncHandler
@@ -353,12 +757,14 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * This operation is used by SaaS partners to delete a partner event source. AWS customers don't use this operation.
+     * This operation is used by SaaS partners to delete a partner event source. This operation is not used by Amazon
+     * Web Services customers.
      * </p>
      * <p>
-     * When you delete an event source, the status of the corresponding partner event bus in the AWS customer account
-     * becomes <code>DELETED</code>.
+     * When you delete an event source, the status of the corresponding partner event bus in the Amazon Web Services
+     * customer account becomes DELETED.
      * </p>
+     * <p/>
      * 
      * @param deletePartnerEventSourceRequest
      * @return A Java Future containing the result of the DeletePartnerEventSource operation returned by the service.
@@ -370,12 +776,14 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * This operation is used by SaaS partners to delete a partner event source. AWS customers don't use this operation.
+     * This operation is used by SaaS partners to delete a partner event source. This operation is not used by Amazon
+     * Web Services customers.
      * </p>
      * <p>
-     * When you delete an event source, the status of the corresponding partner event bus in the AWS customer account
-     * becomes <code>DELETED</code>.
+     * When you delete an event source, the status of the corresponding partner event bus in the Amazon Web Services
+     * customer account becomes DELETED.
      * </p>
+     * <p/>
      * 
      * @param deletePartnerEventSourceRequest
      * @param asyncHandler
@@ -395,17 +803,22 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * Deletes the specified rule.
      * </p>
      * <p>
-     * Before you can delete the rule, you must remove all targets, using <a>RemoveTargets</a>.
+     * Before you can delete the rule, you must remove all targets, using <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_RemoveTargets.html">RemoveTargets</a>.
      * </p>
      * <p>
      * When you delete a rule, incoming events might continue to match to the deleted rule. Allow a short period of time
      * for changes to take effect.
      * </p>
      * <p>
-     * Managed rules are rules created and managed by another AWS service on your behalf. These rules are created by
-     * those other AWS services to support functionality in those services. You can delete these rules using the
-     * <code>Force</code> option, but you should do so only if you're sure that the other service isn't still using that
-     * rule.
+     * If you call delete rule multiple times for the same rule, all calls will succeed. When you call delete rule for a
+     * non-existent custom eventbus, <code>ResourceNotFoundException</code> is returned.
+     * </p>
+     * <p>
+     * Managed rules are rules created and managed by another Amazon Web Services service on your behalf. These rules
+     * are created by those other Amazon Web Services services to support functionality in those services. You can
+     * delete these rules using the <code>Force</code> option, but you should do so only if you are sure the other
+     * service is not still using that rule.
      * </p>
      * 
      * @param deleteRuleRequest
@@ -421,17 +834,22 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * Deletes the specified rule.
      * </p>
      * <p>
-     * Before you can delete the rule, you must remove all targets, using <a>RemoveTargets</a>.
+     * Before you can delete the rule, you must remove all targets, using <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_RemoveTargets.html">RemoveTargets</a>.
      * </p>
      * <p>
      * When you delete a rule, incoming events might continue to match to the deleted rule. Allow a short period of time
      * for changes to take effect.
      * </p>
      * <p>
-     * Managed rules are rules created and managed by another AWS service on your behalf. These rules are created by
-     * those other AWS services to support functionality in those services. You can delete these rules using the
-     * <code>Force</code> option, but you should do so only if you're sure that the other service isn't still using that
-     * rule.
+     * If you call delete rule multiple times for the same rule, all calls will succeed. When you call delete rule for a
+     * non-existent custom eventbus, <code>ResourceNotFoundException</code> is returned.
+     * </p>
+     * <p>
+     * Managed rules are rules created and managed by another Amazon Web Services service on your behalf. These rules
+     * are created by those other Amazon Web Services services to support functionality in those services. You can
+     * delete these rules using the <code>Force</code> option, but you should do so only if you are sure the other
+     * service is not still using that rule.
      * </p>
      * 
      * @param deleteRuleRequest
@@ -449,15 +867,147 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Displays details about an event bus in your account. This can include the external AWS accounts that are
-     * permitted to write events to your default event bus, and the associated policy. For custom event buses and
-     * partner event buses, it displays the name, ARN, policy, state, and creation time.
+     * Retrieves details about an API destination.
+     * </p>
+     * 
+     * @param describeApiDestinationRequest
+     * @return A Java Future containing the result of the DescribeApiDestination operation returned by the service.
+     * @sample AmazonEventBridgeAsync.DescribeApiDestination
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DescribeApiDestination"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeApiDestinationResult> describeApiDestinationAsync(DescribeApiDestinationRequest describeApiDestinationRequest);
+
+    /**
+     * <p>
+     * Retrieves details about an API destination.
+     * </p>
+     * 
+     * @param describeApiDestinationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeApiDestination operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.DescribeApiDestination
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DescribeApiDestination"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeApiDestinationResult> describeApiDestinationAsync(DescribeApiDestinationRequest describeApiDestinationRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeApiDestinationRequest, DescribeApiDestinationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves details about an archive.
+     * </p>
+     * 
+     * @param describeArchiveRequest
+     * @return A Java Future containing the result of the DescribeArchive operation returned by the service.
+     * @sample AmazonEventBridgeAsync.DescribeArchive
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DescribeArchive" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeArchiveResult> describeArchiveAsync(DescribeArchiveRequest describeArchiveRequest);
+
+    /**
+     * <p>
+     * Retrieves details about an archive.
+     * </p>
+     * 
+     * @param describeArchiveRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeArchive operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.DescribeArchive
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DescribeArchive" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeArchiveResult> describeArchiveAsync(DescribeArchiveRequest describeArchiveRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeArchiveRequest, DescribeArchiveResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves details about a connection.
+     * </p>
+     * 
+     * @param describeConnectionRequest
+     * @return A Java Future containing the result of the DescribeConnection operation returned by the service.
+     * @sample AmazonEventBridgeAsync.DescribeConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DescribeConnection" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeConnectionResult> describeConnectionAsync(DescribeConnectionRequest describeConnectionRequest);
+
+    /**
+     * <p>
+     * Retrieves details about a connection.
+     * </p>
+     * 
+     * @param describeConnectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeConnection operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.DescribeConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DescribeConnection" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeConnectionResult> describeConnectionAsync(DescribeConnectionRequest describeConnectionRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeConnectionRequest, DescribeConnectionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Get the information about an existing global endpoint. For more information about global endpoints, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-global-endpoints.html">Making applications
+     * Regional-fault tolerant with global endpoints and event replication</a> in the <i> <i>Amazon EventBridge User
+     * Guide</i> </i>.
+     * </p>
+     * 
+     * @param describeEndpointRequest
+     * @return A Java Future containing the result of the DescribeEndpoint operation returned by the service.
+     * @sample AmazonEventBridgeAsync.DescribeEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DescribeEndpoint" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeEndpointResult> describeEndpointAsync(DescribeEndpointRequest describeEndpointRequest);
+
+    /**
+     * <p>
+     * Get the information about an existing global endpoint. For more information about global endpoints, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-global-endpoints.html">Making applications
+     * Regional-fault tolerant with global endpoints and event replication</a> in the <i> <i>Amazon EventBridge User
+     * Guide</i> </i>.
+     * </p>
+     * 
+     * @param describeEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeEndpoint operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.DescribeEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DescribeEndpoint" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeEndpointResult> describeEndpointAsync(DescribeEndpointRequest describeEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeEndpointRequest, DescribeEndpointResult> asyncHandler);
+
+    /**
+     * <p>
+     * Displays details about an event bus in your account. This can include the external Amazon Web Services accounts
+     * that are permitted to write events to your default event bus, and the associated policy. For custom event buses
+     * and partner event buses, it displays the name, ARN, policy, state, and creation time.
      * </p>
      * <p>
-     * To enable your account to receive events from other accounts on its default event bus, use <a>PutPermission</a>.
+     * To enable your account to receive events from other accounts on its default event bus, use <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutPermission.html">PutPermission</a>.
      * </p>
      * <p>
-     * For more information about partner event buses, see <a>CreateEventBus</a>.
+     * For more information about partner event buses, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_CreateEventBus.html">CreateEventBus</a>.
      * </p>
      * 
      * @param describeEventBusRequest
@@ -470,15 +1020,17 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Displays details about an event bus in your account. This can include the external AWS accounts that are
-     * permitted to write events to your default event bus, and the associated policy. For custom event buses and
-     * partner event buses, it displays the name, ARN, policy, state, and creation time.
+     * Displays details about an event bus in your account. This can include the external Amazon Web Services accounts
+     * that are permitted to write events to your default event bus, and the associated policy. For custom event buses
+     * and partner event buses, it displays the name, ARN, policy, state, and creation time.
      * </p>
      * <p>
-     * To enable your account to receive events from other accounts on its default event bus, use <a>PutPermission</a>.
+     * To enable your account to receive events from other accounts on its default event bus, use <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutPermission.html">PutPermission</a>.
      * </p>
      * <p>
-     * For more information about partner event buses, see <a>CreateEventBus</a>.
+     * For more information about partner event buses, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_CreateEventBus.html">CreateEventBus</a>.
      * </p>
      * 
      * @param describeEventBusRequest
@@ -498,11 +1050,6 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * <p>
      * This operation lists details about a partner event source that is shared with your account.
      * </p>
-     * <note>
-     * <p>
-     * This operation is run by AWS customers, not by SaaS partners.
-     * </p>
-     * </note>
      * 
      * @param describeEventSourceRequest
      * @return A Java Future containing the result of the DescribeEventSource operation returned by the service.
@@ -516,11 +1063,6 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * <p>
      * This operation lists details about a partner event source that is shared with your account.
      * </p>
-     * <note>
-     * <p>
-     * This operation is run by AWS customers, not by SaaS partners.
-     * </p>
-     * </note>
      * 
      * @param describeEventSourceRequest
      * @param asyncHandler
@@ -538,13 +1080,10 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
     /**
      * <p>
      * An SaaS partner can use this operation to list details about a partner event source that they have created.
+     * Amazon Web Services customers do not use this operation. Instead, Amazon Web Services customers can use <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_DescribeEventSource.html"
+     * >DescribeEventSource</a> to see details about a partner event source that is shared with them.
      * </p>
-     * <note>
-     * <p>
-     * AWS customers do not use this operation. Instead, AWS customers can use <a>DescribeEventSource</a> to see details
-     * about a partner event source that is shared with them.
-     * </p>
-     * </note>
      * 
      * @param describePartnerEventSourceRequest
      * @return A Java Future containing the result of the DescribePartnerEventSource operation returned by the service.
@@ -558,13 +1097,10 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
     /**
      * <p>
      * An SaaS partner can use this operation to list details about a partner event source that they have created.
+     * Amazon Web Services customers do not use this operation. Instead, Amazon Web Services customers can use <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_DescribeEventSource.html"
+     * >DescribeEventSource</a> to see details about a partner event source that is shared with them.
      * </p>
-     * <note>
-     * <p>
-     * AWS customers do not use this operation. Instead, AWS customers can use <a>DescribeEventSource</a> to see details
-     * about a partner event source that is shared with them.
-     * </p>
-     * </note>
      * 
      * @param describePartnerEventSourceRequest
      * @param asyncHandler
@@ -582,11 +1118,55 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
+     * Retrieves details about a replay. Use <code>DescribeReplay</code> to determine the progress of a running replay.
+     * A replay processes events to replay based on the time in the event, and replays them using 1 minute intervals. If
+     * you use <code>StartReplay</code> and specify an <code>EventStartTime</code> and an <code>EventEndTime</code> that
+     * covers a 20 minute time range, the events are replayed from the first minute of that 20 minute range first. Then
+     * the events from the second minute are replayed. You can use <code>DescribeReplay</code> to determine the progress
+     * of a replay. The value returned for <code>EventLastReplayedTime</code> indicates the time within the specified
+     * time range associated with the last event replayed.
+     * </p>
+     * 
+     * @param describeReplayRequest
+     * @return A Java Future containing the result of the DescribeReplay operation returned by the service.
+     * @sample AmazonEventBridgeAsync.DescribeReplay
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DescribeReplay" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeReplayResult> describeReplayAsync(DescribeReplayRequest describeReplayRequest);
+
+    /**
+     * <p>
+     * Retrieves details about a replay. Use <code>DescribeReplay</code> to determine the progress of a running replay.
+     * A replay processes events to replay based on the time in the event, and replays them using 1 minute intervals. If
+     * you use <code>StartReplay</code> and specify an <code>EventStartTime</code> and an <code>EventEndTime</code> that
+     * covers a 20 minute time range, the events are replayed from the first minute of that 20 minute range first. Then
+     * the events from the second minute are replayed. You can use <code>DescribeReplay</code> to determine the progress
+     * of a replay. The value returned for <code>EventLastReplayedTime</code> indicates the time within the specified
+     * time range associated with the last event replayed.
+     * </p>
+     * 
+     * @param describeReplayRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeReplay operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.DescribeReplay
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/DescribeReplay" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeReplayResult> describeReplayAsync(DescribeReplayRequest describeReplayRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeReplayRequest, DescribeReplayResult> asyncHandler);
+
+    /**
+     * <p>
      * Describes the specified rule.
      * </p>
      * <p>
-     * <code>DescribeRule</code> doesn't list the targets of a rule. To see the targets associated with a rule, use
-     * <a>ListTargetsByRule</a>.
+     * DescribeRule does not list the targets of a rule. To see the targets associated with a rule, use <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_ListTargetsByRule.html"
+     * >ListTargetsByRule</a>.
      * </p>
      * 
      * @param describeRuleRequest
@@ -602,8 +1182,9 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * Describes the specified rule.
      * </p>
      * <p>
-     * <code>DescribeRule</code> doesn't list the targets of a rule. To see the targets associated with a rule, use
-     * <a>ListTargetsByRule</a>.
+     * DescribeRule does not list the targets of a rule. To see the targets associated with a rule, use <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_ListTargetsByRule.html"
+     * >ListTargetsByRule</a>.
      * </p>
      * 
      * @param describeRuleRequest
@@ -621,7 +1202,7 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Disables the specified rule. A disabled rule won't match any events and won't self-trigger if it has a schedule
+     * Disables the specified rule. A disabled rule won't match any events, and won't self-trigger if it has a schedule
      * expression.
      * </p>
      * <p>
@@ -639,7 +1220,7 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Disables the specified rule. A disabled rule won't match any events and won't self-trigger if it has a schedule
+     * Disables the specified rule. A disabled rule won't match any events, and won't self-trigger if it has a schedule
      * expression.
      * </p>
      * <p>
@@ -662,7 +1243,7 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Enables the specified rule. If the rule doesn't exist, the operation fails.
+     * Enables the specified rule. If the rule does not exist, the operation fails.
      * </p>
      * <p>
      * When you enable a rule, incoming events might not immediately start matching to a newly enabled rule. Allow a
@@ -679,7 +1260,7 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Enables the specified rule. If the rule doesn't exist, the operation fails.
+     * Enables the specified rule. If the rule does not exist, the operation fails.
      * </p>
      * <p>
      * When you enable a rule, incoming events might not immediately start matching to a newly enabled rule. Allow a
@@ -701,14 +1282,141 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
+     * Retrieves a list of API destination in the account in the current Region.
+     * </p>
+     * 
+     * @param listApiDestinationsRequest
+     * @return A Java Future containing the result of the ListApiDestinations operation returned by the service.
+     * @sample AmazonEventBridgeAsync.ListApiDestinations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/ListApiDestinations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListApiDestinationsResult> listApiDestinationsAsync(ListApiDestinationsRequest listApiDestinationsRequest);
+
+    /**
+     * <p>
+     * Retrieves a list of API destination in the account in the current Region.
+     * </p>
+     * 
+     * @param listApiDestinationsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListApiDestinations operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.ListApiDestinations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/ListApiDestinations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListApiDestinationsResult> listApiDestinationsAsync(ListApiDestinationsRequest listApiDestinationsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListApiDestinationsRequest, ListApiDestinationsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists your archives. You can either list all the archives or you can provide a prefix to match to the archive
+     * names. Filter parameters are exclusive.
+     * </p>
+     * 
+     * @param listArchivesRequest
+     * @return A Java Future containing the result of the ListArchives operation returned by the service.
+     * @sample AmazonEventBridgeAsync.ListArchives
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/ListArchives" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListArchivesResult> listArchivesAsync(ListArchivesRequest listArchivesRequest);
+
+    /**
+     * <p>
+     * Lists your archives. You can either list all the archives or you can provide a prefix to match to the archive
+     * names. Filter parameters are exclusive.
+     * </p>
+     * 
+     * @param listArchivesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListArchives operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.ListArchives
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/ListArchives" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListArchivesResult> listArchivesAsync(ListArchivesRequest listArchivesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListArchivesRequest, ListArchivesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves a list of connections from the account.
+     * </p>
+     * 
+     * @param listConnectionsRequest
+     * @return A Java Future containing the result of the ListConnections operation returned by the service.
+     * @sample AmazonEventBridgeAsync.ListConnections
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/ListConnections" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListConnectionsResult> listConnectionsAsync(ListConnectionsRequest listConnectionsRequest);
+
+    /**
+     * <p>
+     * Retrieves a list of connections from the account.
+     * </p>
+     * 
+     * @param listConnectionsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListConnections operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.ListConnections
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/ListConnections" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListConnectionsResult> listConnectionsAsync(ListConnectionsRequest listConnectionsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListConnectionsRequest, ListConnectionsResult> asyncHandler);
+
+    /**
+     * <p>
+     * List the global endpoints associated with this account. For more information about global endpoints, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-global-endpoints.html">Making applications
+     * Regional-fault tolerant with global endpoints and event replication</a> in the <i> <i>Amazon EventBridge User
+     * Guide</i> </i>.
+     * </p>
+     * 
+     * @param listEndpointsRequest
+     * @return A Java Future containing the result of the ListEndpoints operation returned by the service.
+     * @sample AmazonEventBridgeAsync.ListEndpoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/ListEndpoints" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListEndpointsResult> listEndpointsAsync(ListEndpointsRequest listEndpointsRequest);
+
+    /**
+     * <p>
+     * List the global endpoints associated with this account. For more information about global endpoints, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-global-endpoints.html">Making applications
+     * Regional-fault tolerant with global endpoints and event replication</a> in the <i> <i>Amazon EventBridge User
+     * Guide</i> </i>.
+     * </p>
+     * 
+     * @param listEndpointsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListEndpoints operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.ListEndpoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/ListEndpoints" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListEndpointsResult> listEndpointsAsync(ListEndpointsRequest listEndpointsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListEndpointsRequest, ListEndpointsResult> asyncHandler);
+
+    /**
+     * <p>
      * Lists all the event buses in your account, including the default event bus, custom event buses, and partner event
      * buses.
      * </p>
-     * <note>
-     * <p>
-     * This operation is run by AWS customers, not by SaaS partners.
-     * </p>
-     * </note>
      * 
      * @param listEventBusesRequest
      * @return A Java Future containing the result of the ListEventBuses operation returned by the service.
@@ -723,11 +1431,6 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * Lists all the event buses in your account, including the default event bus, custom event buses, and partner event
      * buses.
      * </p>
-     * <note>
-     * <p>
-     * This operation is run by AWS customers, not by SaaS partners.
-     * </p>
-     * </note>
      * 
      * @param listEventBusesRequest
      * @param asyncHandler
@@ -744,14 +1447,10 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * You can use this to see all the partner event sources that have been shared with your AWS account. For more
-     * information about partner event sources, see <a>CreateEventBus</a>.
+     * You can use this to see all the partner event sources that have been shared with your Amazon Web Services
+     * account. For more information about partner event sources, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_CreateEventBus.html">CreateEventBus</a>.
      * </p>
-     * <note>
-     * <p>
-     * This operation is run by AWS customers, not by SaaS partners.
-     * </p>
-     * </note>
      * 
      * @param listEventSourcesRequest
      * @return A Java Future containing the result of the ListEventSources operation returned by the service.
@@ -763,14 +1462,10 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * You can use this to see all the partner event sources that have been shared with your AWS account. For more
-     * information about partner event sources, see <a>CreateEventBus</a>.
+     * You can use this to see all the partner event sources that have been shared with your Amazon Web Services
+     * account. For more information about partner event sources, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_CreateEventBus.html">CreateEventBus</a>.
      * </p>
-     * <note>
-     * <p>
-     * This operation is run by AWS customers, not by SaaS partners.
-     * </p>
-     * </note>
      * 
      * @param listEventSourcesRequest
      * @param asyncHandler
@@ -787,14 +1482,9 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * An SaaS partner can use this operation to display the AWS account ID that a particular partner event source name
-     * is associated with.
+     * An SaaS partner can use this operation to display the Amazon Web Services account ID that a particular partner
+     * event source name is associated with. This operation is not used by Amazon Web Services customers.
      * </p>
-     * <note>
-     * <p>
-     * This operation is used by SaaS partners, not by AWS customers.
-     * </p>
-     * </note>
      * 
      * @param listPartnerEventSourceAccountsRequest
      * @return A Java Future containing the result of the ListPartnerEventSourceAccounts operation returned by the
@@ -808,14 +1498,9 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * An SaaS partner can use this operation to display the AWS account ID that a particular partner event source name
-     * is associated with.
+     * An SaaS partner can use this operation to display the Amazon Web Services account ID that a particular partner
+     * event source name is associated with. This operation is not used by Amazon Web Services customers.
      * </p>
-     * <note>
-     * <p>
-     * This operation is used by SaaS partners, not by AWS customers.
-     * </p>
-     * </note>
      * 
      * @param listPartnerEventSourceAccountsRequest
      * @param asyncHandler
@@ -834,13 +1519,9 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * An SaaS partner can use this operation to list all the partner event source names that they have created.
+     * An SaaS partner can use this operation to list all the partner event source names that they have created. This
+     * operation is not used by Amazon Web Services customers.
      * </p>
-     * <note>
-     * <p>
-     * This operation is not used by AWS customers.
-     * </p>
-     * </note>
      * 
      * @param listPartnerEventSourcesRequest
      * @return A Java Future containing the result of the ListPartnerEventSources operation returned by the service.
@@ -852,13 +1533,9 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * An SaaS partner can use this operation to list all the partner event source names that they have created.
+     * An SaaS partner can use this operation to list all the partner event source names that they have created. This
+     * operation is not used by Amazon Web Services customers.
      * </p>
-     * <note>
-     * <p>
-     * This operation is not used by AWS customers.
-     * </p>
-     * </note>
      * 
      * @param listPartnerEventSourcesRequest
      * @param asyncHandler
@@ -875,7 +1552,44 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Lists the rules for the specified target. You can see which rules can invoke a specific target in your account.
+     * Lists your replays. You can either list all the replays or you can provide a prefix to match to the replay names.
+     * Filter parameters are exclusive.
+     * </p>
+     * 
+     * @param listReplaysRequest
+     * @return A Java Future containing the result of the ListReplays operation returned by the service.
+     * @sample AmazonEventBridgeAsync.ListReplays
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/ListReplays" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListReplaysResult> listReplaysAsync(ListReplaysRequest listReplaysRequest);
+
+    /**
+     * <p>
+     * Lists your replays. You can either list all the replays or you can provide a prefix to match to the replay names.
+     * Filter parameters are exclusive.
+     * </p>
+     * 
+     * @param listReplaysRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListReplays operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.ListReplays
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/ListReplays" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListReplaysResult> listReplaysAsync(ListReplaysRequest listReplaysRequest,
+            com.amazonaws.handlers.AsyncHandler<ListReplaysRequest, ListReplaysResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists the rules for the specified target. You can see which of the rules in Amazon EventBridge can invoke a
+     * specific target in your account.
+     * </p>
+     * <p>
+     * The maximum number of results per page for requests is 100.
      * </p>
      * 
      * @param listRuleNamesByTargetRequest
@@ -888,7 +1602,11 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Lists the rules for the specified target. You can see which rules can invoke a specific target in your account.
+     * Lists the rules for the specified target. You can see which of the rules in Amazon EventBridge can invoke a
+     * specific target in your account.
+     * </p>
+     * <p>
+     * The maximum number of results per page for requests is 100.
      * </p>
      * 
      * @param listRuleNamesByTargetRequest
@@ -906,11 +1624,16 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Lists your EventBridge rules. You can either list all the rules or provide a prefix to match to the rule names.
+     * Lists your Amazon EventBridge rules. You can either list all the rules or you can provide a prefix to match to
+     * the rule names.
      * </p>
      * <p>
-     * <code>ListRules</code> doesn't list the targets of a rule. To see the targets associated with a rule, use
-     * <a>ListTargetsByRule</a>.
+     * The maximum number of results per page for requests is 100.
+     * </p>
+     * <p>
+     * ListRules does not list the targets of a rule. To see the targets associated with a rule, use <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_ListTargetsByRule.html"
+     * >ListTargetsByRule</a>.
      * </p>
      * 
      * @param listRulesRequest
@@ -923,11 +1646,16 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Lists your EventBridge rules. You can either list all the rules or provide a prefix to match to the rule names.
+     * Lists your Amazon EventBridge rules. You can either list all the rules or you can provide a prefix to match to
+     * the rule names.
      * </p>
      * <p>
-     * <code>ListRules</code> doesn't list the targets of a rule. To see the targets associated with a rule, use
-     * <a>ListTargetsByRule</a>.
+     * The maximum number of results per page for requests is 100.
+     * </p>
+     * <p>
+     * ListRules does not list the targets of a rule. To see the targets associated with a rule, use <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_ListTargetsByRule.html"
+     * >ListTargetsByRule</a>.
      * </p>
      * 
      * @param listRulesRequest
@@ -945,7 +1673,7 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Displays the tags associated with an EventBridge resource. In EventBridge, rules can be tagged.
+     * Displays the tags associated with an EventBridge resource. In EventBridge, rules and event buses can be tagged.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -958,7 +1686,7 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Displays the tags associated with an EventBridge resource. In EventBridge, rules can be tagged.
+     * Displays the tags associated with an EventBridge resource. In EventBridge, rules and event buses can be tagged.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -978,6 +1706,9 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * <p>
      * Lists the targets assigned to the specified rule.
      * </p>
+     * <p>
+     * The maximum number of results per page for requests is 100.
+     * </p>
      * 
      * @param listTargetsByRuleRequest
      * @return A Java Future containing the result of the ListTargetsByRule operation returned by the service.
@@ -990,6 +1721,9 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
     /**
      * <p>
      * Lists the targets assigned to the specified rule.
+     * </p>
+     * <p>
+     * The maximum number of results per page for requests is 100.
      * </p>
      * 
      * @param listTargetsByRuleRequest
@@ -1007,9 +1741,23 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Sends custom events to EventBridge so that they can be matched to rules. These events can be from your custom
-     * applications and services.
+     * Sends custom events to Amazon EventBridge so that they can be matched to rules.
      * </p>
+     * <p>
+     * The maximum size for a PutEvents event entry is 256 KB. Entry size is calculated including the event and any
+     * necessary characters and keys of the JSON representation of the event. To learn more, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-putevent-size.html">Calculating PutEvents event
+     * entry size</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>
+     * </p>
+     * <p>
+     * PutEvents accepts the data in JSON format. For the JSON number (integer) data type, the constraints are: a
+     * minimum value of -9,223,372,036,854,775,808 and a maximum value of 9,223,372,036,854,775,807.
+     * </p>
+     * <note>
+     * <p>
+     * PutEvents will only process nested JSON up to 1100 levels deep.
+     * </p>
+     * </note>
      * 
      * @param putEventsRequest
      * @return A Java Future containing the result of the PutEvents operation returned by the service.
@@ -1021,9 +1769,23 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Sends custom events to EventBridge so that they can be matched to rules. These events can be from your custom
-     * applications and services.
+     * Sends custom events to Amazon EventBridge so that they can be matched to rules.
      * </p>
+     * <p>
+     * The maximum size for a PutEvents event entry is 256 KB. Entry size is calculated including the event and any
+     * necessary characters and keys of the JSON representation of the event. To learn more, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-putevent-size.html">Calculating PutEvents event
+     * entry size</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>
+     * </p>
+     * <p>
+     * PutEvents accepts the data in JSON format. For the JSON number (integer) data type, the constraints are: a
+     * minimum value of -9,223,372,036,854,775,808 and a maximum value of 9,223,372,036,854,775,807.
+     * </p>
+     * <note>
+     * <p>
+     * PutEvents will only process nested JSON up to 1100 levels deep.
+     * </p>
+     * </note>
      * 
      * @param putEventsRequest
      * @param asyncHandler
@@ -1040,14 +1802,14 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * This is used by SaaS partners to write events to a customer's partner event bus.
+     * This is used by SaaS partners to write events to a customer's partner event bus. Amazon Web Services customers do
+     * not use this operation.
      * </p>
-     * <note>
      * <p>
-     * AWS customers do not use this operation. Instead, AWS customers can use <a>PutEvents</a> to write custom events
-     * from their own applications to an event bus.
+     * For information on calculating event batch size, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-putevent-size.html">Calculating EventBridge
+     * PutEvents event entry size</a> in the <i>EventBridge User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param putPartnerEventsRequest
      * @return A Java Future containing the result of the PutPartnerEvents operation returned by the service.
@@ -1059,14 +1821,14 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * This is used by SaaS partners to write events to a customer's partner event bus.
+     * This is used by SaaS partners to write events to a customer's partner event bus. Amazon Web Services customers do
+     * not use this operation.
      * </p>
-     * <note>
      * <p>
-     * AWS customers do not use this operation. Instead, AWS customers can use <a>PutEvents</a> to write custom events
-     * from their own applications to an event bus.
+     * For information on calculating event batch size, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-putevent-size.html">Calculating EventBridge
+     * PutEvents event entry size</a> in the <i>EventBridge User Guide</i>.
      * </p>
-     * </note>
      * 
      * @param putPartnerEventsRequest
      * @param asyncHandler
@@ -1083,29 +1845,31 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Running <code>PutPermission</code> permits the specified AWS account or AWS organization to put events to the
-     * specified <i>event bus</i>. Rules in your account are triggered by these events arriving to an event bus in your
-     * account.
+     * Running <code>PutPermission</code> permits the specified Amazon Web Services account or Amazon Web Services
+     * organization to put events to the specified <i>event bus</i>. Amazon EventBridge (CloudWatch Events) rules in
+     * your account are triggered by these events arriving to an event bus in your account.
      * </p>
      * <p>
-     * For another account to send events to your account, that external account must have a rule with your account's
-     * event bus as a target.
+     * For another account to send events to your account, that external account must have an EventBridge rule with your
+     * account's event bus as a target.
      * </p>
      * <p>
-     * To enable multiple AWS accounts to put events to an event bus, run <code>PutPermission</code> once for each of
-     * these accounts. Or, if all the accounts are members of the same AWS organization, you can run
-     * <code>PutPermission</code> once specifying <code>Principal</code> as "*" and specifying the AWS organization ID
-     * in <code>Condition</code>, to grant permissions to all accounts in that organization.
+     * To enable multiple Amazon Web Services accounts to put events to your event bus, run <code>PutPermission</code>
+     * once for each of these accounts. Or, if all the accounts are members of the same Amazon Web Services
+     * organization, you can run <code>PutPermission</code> once specifying <code>Principal</code> as "*" and specifying
+     * the Amazon Web Services organization ID in <code>Condition</code>, to grant permissions to all accounts in that
+     * organization.
      * </p>
      * <p>
      * If you grant permissions using an organization, then accounts in that organization must specify a
      * <code>RoleArn</code> with proper permissions when they use <code>PutTarget</code> to add your account's event bus
      * as a target. For more information, see <a
      * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-cross-account-event-delivery.html"
-     * >Sending and Receiving Events Between AWS Accounts</a> in the <i>Amazon EventBridge User Guide</i>.
+     * >Sending and Receiving Events Between Amazon Web Services Accounts</a> in the <i>Amazon EventBridge User
+     * Guide</i>.
      * </p>
      * <p>
-     * The permission policy on an event bus can't exceed 10 KB in size.
+     * The permission policy on the event bus cannot exceed 10 KB in size.
      * </p>
      * 
      * @param putPermissionRequest
@@ -1118,29 +1882,31 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Running <code>PutPermission</code> permits the specified AWS account or AWS organization to put events to the
-     * specified <i>event bus</i>. Rules in your account are triggered by these events arriving to an event bus in your
-     * account.
+     * Running <code>PutPermission</code> permits the specified Amazon Web Services account or Amazon Web Services
+     * organization to put events to the specified <i>event bus</i>. Amazon EventBridge (CloudWatch Events) rules in
+     * your account are triggered by these events arriving to an event bus in your account.
      * </p>
      * <p>
-     * For another account to send events to your account, that external account must have a rule with your account's
-     * event bus as a target.
+     * For another account to send events to your account, that external account must have an EventBridge rule with your
+     * account's event bus as a target.
      * </p>
      * <p>
-     * To enable multiple AWS accounts to put events to an event bus, run <code>PutPermission</code> once for each of
-     * these accounts. Or, if all the accounts are members of the same AWS organization, you can run
-     * <code>PutPermission</code> once specifying <code>Principal</code> as "*" and specifying the AWS organization ID
-     * in <code>Condition</code>, to grant permissions to all accounts in that organization.
+     * To enable multiple Amazon Web Services accounts to put events to your event bus, run <code>PutPermission</code>
+     * once for each of these accounts. Or, if all the accounts are members of the same Amazon Web Services
+     * organization, you can run <code>PutPermission</code> once specifying <code>Principal</code> as "*" and specifying
+     * the Amazon Web Services organization ID in <code>Condition</code>, to grant permissions to all accounts in that
+     * organization.
      * </p>
      * <p>
      * If you grant permissions using an organization, then accounts in that organization must specify a
      * <code>RoleArn</code> with proper permissions when they use <code>PutTarget</code> to add your account's event bus
      * as a target. For more information, see <a
      * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-cross-account-event-delivery.html"
-     * >Sending and Receiving Events Between AWS Accounts</a> in the <i>Amazon EventBridge User Guide</i>.
+     * >Sending and Receiving Events Between Amazon Web Services Accounts</a> in the <i>Amazon EventBridge User
+     * Guide</i>.
      * </p>
      * <p>
-     * The permission policy on an event bus can't exceed 10 KB in size.
+     * The permission policy on the event bus cannot exceed 10 KB in size.
      * </p>
      * 
      * @param putPermissionRequest
@@ -1158,30 +1924,31 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Creates or updates the specified rule. Rules are enabled by default or based on value of the state. You can
-     * disable a rule using <a>DisableRule</a>.
+     * Creates or updates the specified rule. Rules are enabled by default, or based on value of the state. You can
+     * disable a rule using <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_DisableRule.html">DisableRule</a>.
      * </p>
      * <p>
-     * A single rule watches for events from a single event bus. Events generated by AWS services go to your account's
-     * default event bus. Events generated by SaaS partner services or applications go to the matching partner event
-     * bus. If you have custom applications or services, you can specify whether their events go to your default event
-     * bus or a custom event bus that you have created. For more information, see <a>CreateEventBus</a>.
+     * A single rule watches for events from a single event bus. Events generated by Amazon Web Services services go to
+     * your account's default event bus. Events generated by SaaS partner services or applications go to the matching
+     * partner event bus. If you have custom applications or services, you can specify whether their events go to your
+     * default event bus or a custom event bus that you have created. For more information, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_CreateEventBus.html">CreateEventBus</a>.
      * </p>
      * <p>
-     * If you're updating an existing rule, the rule is replaced with what you specify in this <code>PutRule</code>
-     * command. If you omit arguments in <code>PutRule</code>, the old values for those arguments aren't kept. Instead,
-     * they're replaced with null values.
+     * If you are updating an existing rule, the rule is replaced with what you specify in this <code>PutRule</code>
+     * command. If you omit arguments in <code>PutRule</code>, the old values for those arguments are not kept. Instead,
+     * they are replaced with null values.
      * </p>
      * <p>
      * When you create or update a rule, incoming events might not immediately start matching to new or updated rules.
      * Allow a short period of time for changes to take effect.
      * </p>
      * <p>
-     * A rule must contain at least an <code>EventPattern</code> or <code>ScheduleExpression</code>. Rules with
-     * <code>EventPatterns</code> are triggered when a matching event is observed. Rules with
-     * <code>ScheduleExpressions</code> self-trigger based on the given schedule. A rule can have both an
-     * <code>EventPattern</code> and a <code>ScheduleExpression</code>, in which case the rule triggers on matching
-     * events as well as on a schedule.
+     * A rule must contain at least an EventPattern or ScheduleExpression. Rules with EventPatterns are triggered when a
+     * matching event is observed. Rules with ScheduleExpressions self-trigger based on the given schedule. A rule can
+     * have both an EventPattern and a ScheduleExpression, in which case the rule triggers on matching events as well as
+     * on a schedule.
      * </p>
      * <p>
      * When you initially create a rule, you can optionally assign one or more tags to the rule. Tags can help you
@@ -1191,22 +1958,24 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * </p>
      * <p>
      * If you are updating an existing rule, any tags you specify in the <code>PutRule</code> operation are ignored. To
-     * update the tags of an existing rule, use <a>TagResource</a> and <a>UntagResource</a>.
+     * update the tags of an existing rule, use <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_TagResource.html">TagResource</a> and <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_UntagResource.html">UntagResource</a>.
      * </p>
      * <p>
-     * Most services in AWS treat <code>:</code> or <code>/</code> as the same character in Amazon Resource Names
-     * (ARNs). However, EventBridge uses an exact match in event patterns and rules. Be sure to use the correct ARN
-     * characters when creating event patterns so that they match the ARN syntax in the event that you want to match.
+     * Most services in Amazon Web Services treat : or / as the same character in Amazon Resource Names (ARNs). However,
+     * EventBridge uses an exact match in event patterns and rules. Be sure to use the correct ARN characters when
+     * creating event patterns so that they match the ARN syntax in the event you want to match.
      * </p>
      * <p>
-     * In EventBridge, you could create rules that lead to infinite loops, where a rule is fired repeatedly. For
+     * In EventBridge, it is possible to create rules that lead to infinite loops, where a rule is fired repeatedly. For
      * example, a rule might detect that ACLs have changed on an S3 bucket, and trigger software to change them to the
-     * desired state. If you don't write the rule carefully, the subsequent change to the ACLs fires the rule again,
+     * desired state. If the rule is not written carefully, the subsequent change to the ACLs fires the rule again,
      * creating an infinite loop.
      * </p>
      * <p>
-     * To prevent this, write the rules so that the triggered actions don't refire the same rule. For example, your rule
-     * could fire only if ACLs are found to be in a bad state, instead of after any change.
+     * To prevent this, write the rules so that the triggered actions do not re-fire the same rule. For example, your
+     * rule could fire only if ACLs are found to be in a bad state, instead of after any change.
      * </p>
      * <p>
      * An infinite loop can quickly cause higher than expected charges. We recommend that you use budgeting, which
@@ -1225,30 +1994,31 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Creates or updates the specified rule. Rules are enabled by default or based on value of the state. You can
-     * disable a rule using <a>DisableRule</a>.
+     * Creates or updates the specified rule. Rules are enabled by default, or based on value of the state. You can
+     * disable a rule using <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_DisableRule.html">DisableRule</a>.
      * </p>
      * <p>
-     * A single rule watches for events from a single event bus. Events generated by AWS services go to your account's
-     * default event bus. Events generated by SaaS partner services or applications go to the matching partner event
-     * bus. If you have custom applications or services, you can specify whether their events go to your default event
-     * bus or a custom event bus that you have created. For more information, see <a>CreateEventBus</a>.
+     * A single rule watches for events from a single event bus. Events generated by Amazon Web Services services go to
+     * your account's default event bus. Events generated by SaaS partner services or applications go to the matching
+     * partner event bus. If you have custom applications or services, you can specify whether their events go to your
+     * default event bus or a custom event bus that you have created. For more information, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_CreateEventBus.html">CreateEventBus</a>.
      * </p>
      * <p>
-     * If you're updating an existing rule, the rule is replaced with what you specify in this <code>PutRule</code>
-     * command. If you omit arguments in <code>PutRule</code>, the old values for those arguments aren't kept. Instead,
-     * they're replaced with null values.
+     * If you are updating an existing rule, the rule is replaced with what you specify in this <code>PutRule</code>
+     * command. If you omit arguments in <code>PutRule</code>, the old values for those arguments are not kept. Instead,
+     * they are replaced with null values.
      * </p>
      * <p>
      * When you create or update a rule, incoming events might not immediately start matching to new or updated rules.
      * Allow a short period of time for changes to take effect.
      * </p>
      * <p>
-     * A rule must contain at least an <code>EventPattern</code> or <code>ScheduleExpression</code>. Rules with
-     * <code>EventPatterns</code> are triggered when a matching event is observed. Rules with
-     * <code>ScheduleExpressions</code> self-trigger based on the given schedule. A rule can have both an
-     * <code>EventPattern</code> and a <code>ScheduleExpression</code>, in which case the rule triggers on matching
-     * events as well as on a schedule.
+     * A rule must contain at least an EventPattern or ScheduleExpression. Rules with EventPatterns are triggered when a
+     * matching event is observed. Rules with ScheduleExpressions self-trigger based on the given schedule. A rule can
+     * have both an EventPattern and a ScheduleExpression, in which case the rule triggers on matching events as well as
+     * on a schedule.
      * </p>
      * <p>
      * When you initially create a rule, you can optionally assign one or more tags to the rule. Tags can help you
@@ -1258,22 +2028,24 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * </p>
      * <p>
      * If you are updating an existing rule, any tags you specify in the <code>PutRule</code> operation are ignored. To
-     * update the tags of an existing rule, use <a>TagResource</a> and <a>UntagResource</a>.
+     * update the tags of an existing rule, use <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_TagResource.html">TagResource</a> and <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_UntagResource.html">UntagResource</a>.
      * </p>
      * <p>
-     * Most services in AWS treat <code>:</code> or <code>/</code> as the same character in Amazon Resource Names
-     * (ARNs). However, EventBridge uses an exact match in event patterns and rules. Be sure to use the correct ARN
-     * characters when creating event patterns so that they match the ARN syntax in the event that you want to match.
+     * Most services in Amazon Web Services treat : or / as the same character in Amazon Resource Names (ARNs). However,
+     * EventBridge uses an exact match in event patterns and rules. Be sure to use the correct ARN characters when
+     * creating event patterns so that they match the ARN syntax in the event you want to match.
      * </p>
      * <p>
-     * In EventBridge, you could create rules that lead to infinite loops, where a rule is fired repeatedly. For
+     * In EventBridge, it is possible to create rules that lead to infinite loops, where a rule is fired repeatedly. For
      * example, a rule might detect that ACLs have changed on an S3 bucket, and trigger software to change them to the
-     * desired state. If you don't write the rule carefully, the subsequent change to the ACLs fires the rule again,
+     * desired state. If the rule is not written carefully, the subsequent change to the ACLs fires the rule again,
      * creating an infinite loop.
      * </p>
      * <p>
-     * To prevent this, write the rules so that the triggered actions don't refire the same rule. For example, your rule
-     * could fire only if ACLs are found to be in a bad state, instead of after any change.
+     * To prevent this, write the rules so that the triggered actions do not re-fire the same rule. For example, your
+     * rule could fire only if ACLs are found to be in a bad state, instead of after any change.
      * </p>
      * <p>
      * An infinite loop can quickly cause higher than expected charges. We recommend that you use budgeting, which
@@ -1297,97 +2069,51 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Adds the specified targets to the specified rule, or updates the targets if they're already associated with the
+     * Adds the specified targets to the specified rule, or updates the targets if they are already associated with the
      * rule.
      * </p>
      * <p>
      * Targets are the resources that are invoked when a rule is triggered.
      * </p>
      * <p>
-     * You can configure the following as targets in EventBridge:
+     * The maximum number of entries per request is 10.
+     * </p>
+     * <note>
+     * <p>
+     * Each rule can have up to five (5) targets associated with it at one time.
+     * </p>
+     * </note>
+     * <p>
+     * For a list of services you can configure as targets for events, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-targets.html">EventBridge targets</a> in the
+     * <i> <i>Amazon EventBridge User Guide</i> </i>.
+     * </p>
+     * <p>
+     * Creating rules with built-in targets is supported only in the Amazon Web Services Management Console. The
+     * built-in targets are:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * EC2 instances
+     * <code>Amazon EBS CreateSnapshot API call</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * SSM Run Command
+     * <code>Amazon EC2 RebootInstances API call</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * SSM Automation
+     * <code>Amazon EC2 StopInstances API call</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * AWS Lambda functions
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Data streams in Amazon Kinesis Data Streams
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Data delivery streams in Amazon Kinesis Data Firehose
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Amazon ECS tasks
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * AWS Step Functions state machines
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * AWS Batch jobs
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * AWS CodeBuild projects
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Pipelines in AWS CodePipeline
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Amazon Inspector assessment templates
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Amazon SNS topics
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Amazon SQS queues, including FIFO queues
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * The default event bus of another AWS account
+     * <code>Amazon EC2 TerminateInstances API call</code>
      * </p>
      * </li>
      * </ul>
-     * <p>
-     * Creating rules with built-in targets is supported only on the AWS Management Console. The built-in targets are
-     * <code>EC2 CreateSnapshot API call</code>, <code>EC2 RebootInstances API call</code>,
-     * <code>EC2 StopInstances API call</code>, and <code>EC2 TerminateInstances API call</code>.
-     * </p>
      * <p>
      * For some target types, <code>PutTargets</code> provides target-specific parameters. If the target is a Kinesis
      * data stream, you can optionally specify which shard the event goes to by using the <code>KinesisParameters</code>
@@ -1396,59 +2122,86 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * </p>
      * <p>
      * To be able to make API calls against the resources that you own, Amazon EventBridge needs the appropriate
-     * permissions. For AWS Lambda and Amazon SNS resources, EventBridge relies on resource-based policies. For EC2
-     * instances, Kinesis data streams, and AWS Step Functions state machines, EventBridge relies on IAM roles that you
-     * specify in the <code>RoleARN</code> argument in <code>PutTargets</code>. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/auth-and-access-control-eventbridge.html"
-     * >Authentication and Access Control</a> in the <i>Amazon EventBridge User Guide</i>.
-     * </p>
-     * <p>
-     * If another AWS account is in the same Region and has granted you permission (using <code>PutPermission</code>),
-     * you can send events to that account. Set that account's event bus as a target of the rules in your account. To
-     * send the matched events to the other account, specify that account's event bus as the <code>Arn</code> value when
-     * you run <code>PutTargets</code>. If your account sends events to another account, your account is charged for
-     * each sent event. Each event sent to another account is charged as a custom event. The account receiving the event
-     * isn't charged. For more information, see <a href="https://aws.amazon.com/eventbridge/pricing/">Amazon EventBridge
-     * Pricing</a>.
-     * </p>
-     * <p>
-     * If you're setting an event bus in another account as the target and that account granted permission to your
-     * account through an organization instead of directly by the account ID, you must specify a <code>RoleArn</code>
-     * with proper permissions in the <code>Target</code> structure. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-cross-account-event-delivery.html"
-     * >Sending and Receiving Events Between AWS Accounts</a> in the <i>Amazon EventBridge User Guide</i>.
-     * </p>
-     * <p>
-     * For more information about enabling cross-account events, see <a>PutPermission</a>.
-     * </p>
-     * <p>
-     * <code>Input</code>, <code>InputPath</code>, and <code>InputTransformer</code> are mutually exclusive and optional
-     * parameters of a target. When a rule is triggered due to a matched event:
+     * permissions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * If none of the following arguments are specified for a target, the entire event is passed to the target in JSON
-     * format (unless the target is Amazon EC2 Run Command or Amazon ECS task, in which case nothing from the event is
-     * passed to the target).
+     * For Lambda and Amazon SNS resources, EventBridge relies on resource-based policies.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If <code>Input</code> is specified in the form of valid JSON, then the matched event is overridden with this
-     * constant.
+     * For EC2 instances, Kinesis Data Streams, Step Functions state machines and API Gateway APIs, EventBridge relies
+     * on IAM roles that you specify in the <code>RoleARN</code> argument in <code>PutTargets</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/auth-and-access-control-eventbridge.html"
+     * >Authentication and Access Control</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
+     * </p>
+     * <p>
+     * If another Amazon Web Services account is in the same region and has granted you permission (using
+     * <code>PutPermission</code>), you can send events to that account. Set that account's event bus as a target of the
+     * rules in your account. To send the matched events to the other account, specify that account's event bus as the
+     * <code>Arn</code> value when you run <code>PutTargets</code>. If your account sends events to another account,
+     * your account is charged for each sent event. Each event sent to another account is charged as a custom event. The
+     * account receiving the event is not charged. For more information, see <a
+     * href="http://aws.amazon.com/eventbridge/pricing/">Amazon EventBridge Pricing</a>.
+     * </p>
+     * <note>
+     * <p>
+     * <code>Input</code>, <code>InputPath</code>, and <code>InputTransformer</code> are not available with
+     * <code>PutTarget</code> if the target is an event bus of a different Amazon Web Services account.
+     * </p>
+     * </note>
+     * <p>
+     * If you are setting the event bus of another account as the target, and that account granted permission to your
+     * account through an organization instead of directly by the account ID, then you must specify a
+     * <code>RoleArn</code> with proper permissions in the <code>Target</code> structure. For more information, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-cross-account-event-delivery.html">
+     * Sending and Receiving Events Between Amazon Web Services Accounts</a> in the <i>Amazon EventBridge User
+     * Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If you have an IAM role on a cross-account event bus target, a <code>PutTargets</code> call without a role on the
+     * same target (same <code>Id</code> and <code>Arn</code>) will not remove the role.
+     * </p>
+     * </note>
+     * <p>
+     * For more information about enabling cross-account events, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutPermission.html">PutPermission</a>.
+     * </p>
+     * <p>
+     * <b>Input</b>, <b>InputPath</b>, and <b>InputTransformer</b> are mutually exclusive and optional parameters of a
+     * target. When a rule is triggered due to a matched event:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If none of the following arguments are specified for a target, then the entire event is passed to the target in
+     * JSON format (unless the target is Amazon EC2 Run Command or Amazon ECS task, in which case nothing from the event
+     * is passed to the target).
      * </p>
      * </li>
      * <li>
      * <p>
-     * If <code>InputPath</code> is specified in the form of JSONPath (for example, <code>$.detail</code>), only the
-     * part of the event specified in the path is passed to the target (for example, only the detail part of the event
-     * is passed).
+     * If <b>Input</b> is specified in the form of valid JSON, then the matched event is overridden with this constant.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If <code>InputTransformer</code> is specified, one or more specified JSONPaths are extracted from the event and
+     * If <b>InputPath</b> is specified in the form of JSONPath (for example, <code>$.detail</code>), then only the part
+     * of the event specified in the path is passed to the target (for example, only the detail part of the event is
+     * passed).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If <b>InputTransformer</b> is specified, then one or more specified JSONPaths are extracted from the event and
      * used as values in a template that you specify as the input to the target.
      * </p>
      * </li>
@@ -1463,7 +2216,7 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * </p>
      * <p>
      * This action can partially fail if too many requests are made at the same time. If that happens,
-     * <code>FailedEntryCount</code> is nonzero in the response, and each entry in <code>FailedEntries</code> provides
+     * <code>FailedEntryCount</code> is non-zero in the response and each entry in <code>FailedEntries</code> provides
      * the ID of the failed target and the error code.
      * </p>
      * 
@@ -1477,97 +2230,51 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Adds the specified targets to the specified rule, or updates the targets if they're already associated with the
+     * Adds the specified targets to the specified rule, or updates the targets if they are already associated with the
      * rule.
      * </p>
      * <p>
      * Targets are the resources that are invoked when a rule is triggered.
      * </p>
      * <p>
-     * You can configure the following as targets in EventBridge:
+     * The maximum number of entries per request is 10.
+     * </p>
+     * <note>
+     * <p>
+     * Each rule can have up to five (5) targets associated with it at one time.
+     * </p>
+     * </note>
+     * <p>
+     * For a list of services you can configure as targets for events, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-targets.html">EventBridge targets</a> in the
+     * <i> <i>Amazon EventBridge User Guide</i> </i>.
+     * </p>
+     * <p>
+     * Creating rules with built-in targets is supported only in the Amazon Web Services Management Console. The
+     * built-in targets are:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * EC2 instances
+     * <code>Amazon EBS CreateSnapshot API call</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * SSM Run Command
+     * <code>Amazon EC2 RebootInstances API call</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * SSM Automation
+     * <code>Amazon EC2 StopInstances API call</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * AWS Lambda functions
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Data streams in Amazon Kinesis Data Streams
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Data delivery streams in Amazon Kinesis Data Firehose
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Amazon ECS tasks
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * AWS Step Functions state machines
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * AWS Batch jobs
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * AWS CodeBuild projects
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Pipelines in AWS CodePipeline
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Amazon Inspector assessment templates
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Amazon SNS topics
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Amazon SQS queues, including FIFO queues
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * The default event bus of another AWS account
+     * <code>Amazon EC2 TerminateInstances API call</code>
      * </p>
      * </li>
      * </ul>
-     * <p>
-     * Creating rules with built-in targets is supported only on the AWS Management Console. The built-in targets are
-     * <code>EC2 CreateSnapshot API call</code>, <code>EC2 RebootInstances API call</code>,
-     * <code>EC2 StopInstances API call</code>, and <code>EC2 TerminateInstances API call</code>.
-     * </p>
      * <p>
      * For some target types, <code>PutTargets</code> provides target-specific parameters. If the target is a Kinesis
      * data stream, you can optionally specify which shard the event goes to by using the <code>KinesisParameters</code>
@@ -1576,59 +2283,86 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * </p>
      * <p>
      * To be able to make API calls against the resources that you own, Amazon EventBridge needs the appropriate
-     * permissions. For AWS Lambda and Amazon SNS resources, EventBridge relies on resource-based policies. For EC2
-     * instances, Kinesis data streams, and AWS Step Functions state machines, EventBridge relies on IAM roles that you
-     * specify in the <code>RoleARN</code> argument in <code>PutTargets</code>. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/auth-and-access-control-eventbridge.html"
-     * >Authentication and Access Control</a> in the <i>Amazon EventBridge User Guide</i>.
-     * </p>
-     * <p>
-     * If another AWS account is in the same Region and has granted you permission (using <code>PutPermission</code>),
-     * you can send events to that account. Set that account's event bus as a target of the rules in your account. To
-     * send the matched events to the other account, specify that account's event bus as the <code>Arn</code> value when
-     * you run <code>PutTargets</code>. If your account sends events to another account, your account is charged for
-     * each sent event. Each event sent to another account is charged as a custom event. The account receiving the event
-     * isn't charged. For more information, see <a href="https://aws.amazon.com/eventbridge/pricing/">Amazon EventBridge
-     * Pricing</a>.
-     * </p>
-     * <p>
-     * If you're setting an event bus in another account as the target and that account granted permission to your
-     * account through an organization instead of directly by the account ID, you must specify a <code>RoleArn</code>
-     * with proper permissions in the <code>Target</code> structure. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-cross-account-event-delivery.html"
-     * >Sending and Receiving Events Between AWS Accounts</a> in the <i>Amazon EventBridge User Guide</i>.
-     * </p>
-     * <p>
-     * For more information about enabling cross-account events, see <a>PutPermission</a>.
-     * </p>
-     * <p>
-     * <code>Input</code>, <code>InputPath</code>, and <code>InputTransformer</code> are mutually exclusive and optional
-     * parameters of a target. When a rule is triggered due to a matched event:
+     * permissions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * If none of the following arguments are specified for a target, the entire event is passed to the target in JSON
-     * format (unless the target is Amazon EC2 Run Command or Amazon ECS task, in which case nothing from the event is
-     * passed to the target).
+     * For Lambda and Amazon SNS resources, EventBridge relies on resource-based policies.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If <code>Input</code> is specified in the form of valid JSON, then the matched event is overridden with this
-     * constant.
+     * For EC2 instances, Kinesis Data Streams, Step Functions state machines and API Gateway APIs, EventBridge relies
+     * on IAM roles that you specify in the <code>RoleARN</code> argument in <code>PutTargets</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/auth-and-access-control-eventbridge.html"
+     * >Authentication and Access Control</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
+     * </p>
+     * <p>
+     * If another Amazon Web Services account is in the same region and has granted you permission (using
+     * <code>PutPermission</code>), you can send events to that account. Set that account's event bus as a target of the
+     * rules in your account. To send the matched events to the other account, specify that account's event bus as the
+     * <code>Arn</code> value when you run <code>PutTargets</code>. If your account sends events to another account,
+     * your account is charged for each sent event. Each event sent to another account is charged as a custom event. The
+     * account receiving the event is not charged. For more information, see <a
+     * href="http://aws.amazon.com/eventbridge/pricing/">Amazon EventBridge Pricing</a>.
+     * </p>
+     * <note>
+     * <p>
+     * <code>Input</code>, <code>InputPath</code>, and <code>InputTransformer</code> are not available with
+     * <code>PutTarget</code> if the target is an event bus of a different Amazon Web Services account.
+     * </p>
+     * </note>
+     * <p>
+     * If you are setting the event bus of another account as the target, and that account granted permission to your
+     * account through an organization instead of directly by the account ID, then you must specify a
+     * <code>RoleArn</code> with proper permissions in the <code>Target</code> structure. For more information, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-cross-account-event-delivery.html">
+     * Sending and Receiving Events Between Amazon Web Services Accounts</a> in the <i>Amazon EventBridge User
+     * Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If you have an IAM role on a cross-account event bus target, a <code>PutTargets</code> call without a role on the
+     * same target (same <code>Id</code> and <code>Arn</code>) will not remove the role.
+     * </p>
+     * </note>
+     * <p>
+     * For more information about enabling cross-account events, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutPermission.html">PutPermission</a>.
+     * </p>
+     * <p>
+     * <b>Input</b>, <b>InputPath</b>, and <b>InputTransformer</b> are mutually exclusive and optional parameters of a
+     * target. When a rule is triggered due to a matched event:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If none of the following arguments are specified for a target, then the entire event is passed to the target in
+     * JSON format (unless the target is Amazon EC2 Run Command or Amazon ECS task, in which case nothing from the event
+     * is passed to the target).
      * </p>
      * </li>
      * <li>
      * <p>
-     * If <code>InputPath</code> is specified in the form of JSONPath (for example, <code>$.detail</code>), only the
-     * part of the event specified in the path is passed to the target (for example, only the detail part of the event
-     * is passed).
+     * If <b>Input</b> is specified in the form of valid JSON, then the matched event is overridden with this constant.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If <code>InputTransformer</code> is specified, one or more specified JSONPaths are extracted from the event and
+     * If <b>InputPath</b> is specified in the form of JSONPath (for example, <code>$.detail</code>), then only the part
+     * of the event specified in the path is passed to the target (for example, only the detail part of the event is
+     * passed).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If <b>InputTransformer</b> is specified, then one or more specified JSONPaths are extracted from the event and
      * used as values in a template that you specify as the input to the target.
      * </p>
      * </li>
@@ -1643,7 +2377,7 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * </p>
      * <p>
      * This action can partially fail if too many requests are made at the same time. If that happens,
-     * <code>FailedEntryCount</code> is nonzero in the response, and each entry in <code>FailedEntries</code> provides
+     * <code>FailedEntryCount</code> is non-zero in the response and each entry in <code>FailedEntries</code> provides
      * the ID of the failed target and the error code.
      * </p>
      * 
@@ -1662,10 +2396,12 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Revokes the permission of another AWS account to be able to put events to the specified event bus. Specify the
-     * account to revoke by the <code>StatementId</code> value that you associated with the account when you granted it
-     * permission with <code>PutPermission</code>. You can find the <code>StatementId</code> by using
-     * <a>DescribeEventBus</a>.
+     * Revokes the permission of another Amazon Web Services account to be able to put events to the specified event
+     * bus. Specify the account to revoke by the <code>StatementId</code> value that you associated with the account
+     * when you granted it permission with <code>PutPermission</code>. You can find the <code>StatementId</code> by
+     * using <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_DescribeEventBus.html">DescribeEventBus
+     * </a>.
      * </p>
      * 
      * @param removePermissionRequest
@@ -1678,10 +2414,12 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Revokes the permission of another AWS account to be able to put events to the specified event bus. Specify the
-     * account to revoke by the <code>StatementId</code> value that you associated with the account when you granted it
-     * permission with <code>PutPermission</code>. You can find the <code>StatementId</code> by using
-     * <a>DescribeEventBus</a>.
+     * Revokes the permission of another Amazon Web Services account to be able to put events to the specified event
+     * bus. Specify the account to revoke by the <code>StatementId</code> value that you associated with the account
+     * when you granted it permission with <code>PutPermission</code>. You can find the <code>StatementId</code> by
+     * using <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_DescribeEventBus.html">DescribeEventBus
+     * </a>.
      * </p>
      * 
      * @param removePermissionRequest
@@ -1702,6 +2440,12 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * Removes the specified targets from the specified rule. When the rule is triggered, those targets are no longer be
      * invoked.
      * </p>
+     * <note>
+     * <p>
+     * A successful execution of <code>RemoveTargets</code> doesn't guarantee all targets are removed from the rule, it
+     * means that the target(s) listed in the request are removed.
+     * </p>
+     * </note>
      * <p>
      * When you remove a target, when the associated rule triggers, removed targets might continue to be invoked. Allow
      * a short period of time for changes to take effect.
@@ -1710,6 +2454,9 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * This action can partially fail if too many requests are made at the same time. If that happens,
      * <code>FailedEntryCount</code> is non-zero in the response and each entry in <code>FailedEntries</code> provides
      * the ID of the failed target and the error code.
+     * </p>
+     * <p>
+     * The maximum number of entries per request is 10.
      * </p>
      * 
      * @param removeTargetsRequest
@@ -1725,6 +2472,12 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * Removes the specified targets from the specified rule. When the rule is triggered, those targets are no longer be
      * invoked.
      * </p>
+     * <note>
+     * <p>
+     * A successful execution of <code>RemoveTargets</code> doesn't guarantee all targets are removed from the rule, it
+     * means that the target(s) listed in the request are removed.
+     * </p>
+     * </note>
      * <p>
      * When you remove a target, when the associated rule triggers, removed targets might continue to be invoked. Allow
      * a short period of time for changes to take effect.
@@ -1733,6 +2486,9 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * This action can partially fail if too many requests are made at the same time. If that happens,
      * <code>FailedEntryCount</code> is non-zero in the response and each entry in <code>FailedEntries</code> provides
      * the ID of the failed target and the error code.
+     * </p>
+     * <p>
+     * The maximum number of entries per request is 10.
      * </p>
      * 
      * @param removeTargetsRequest
@@ -1750,17 +2506,62 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
+     * Starts the specified replay. Events are not necessarily replayed in the exact same order that they were added to
+     * the archive. A replay processes events to replay based on the time in the event, and replays them using 1 minute
+     * intervals. If you specify an <code>EventStartTime</code> and an <code>EventEndTime</code> that covers a 20 minute
+     * time range, the events are replayed from the first minute of that 20 minute range first. Then the events from the
+     * second minute are replayed. You can use <code>DescribeReplay</code> to determine the progress of a replay. The
+     * value returned for <code>EventLastReplayedTime</code> indicates the time within the specified time range
+     * associated with the last event replayed.
+     * </p>
+     * 
+     * @param startReplayRequest
+     * @return A Java Future containing the result of the StartReplay operation returned by the service.
+     * @sample AmazonEventBridgeAsync.StartReplay
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/StartReplay" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StartReplayResult> startReplayAsync(StartReplayRequest startReplayRequest);
+
+    /**
+     * <p>
+     * Starts the specified replay. Events are not necessarily replayed in the exact same order that they were added to
+     * the archive. A replay processes events to replay based on the time in the event, and replays them using 1 minute
+     * intervals. If you specify an <code>EventStartTime</code> and an <code>EventEndTime</code> that covers a 20 minute
+     * time range, the events are replayed from the first minute of that 20 minute range first. Then the events from the
+     * second minute are replayed. You can use <code>DescribeReplay</code> to determine the progress of a replay. The
+     * value returned for <code>EventLastReplayedTime</code> indicates the time within the specified time range
+     * associated with the last event replayed.
+     * </p>
+     * 
+     * @param startReplayRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartReplay operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.StartReplay
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/StartReplay" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StartReplayResult> startReplayAsync(StartReplayRequest startReplayRequest,
+            com.amazonaws.handlers.AsyncHandler<StartReplayRequest, StartReplayResult> asyncHandler);
+
+    /**
+     * <p>
      * Assigns one or more tags (key-value pairs) to the specified EventBridge resource. Tags can help you organize and
      * categorize your resources. You can also use them to scope user permissions by granting a user permission to
-     * access or change only resources with certain tag values. In EventBridge, rules can be tagged.
+     * access or change only resources with certain tag values. In EventBridge, rules and event buses can be tagged.
      * </p>
      * <p>
-     * Tags don't have any semantic meaning to AWS and are interpreted strictly as strings of characters.
+     * Tags don't have any semantic meaning to Amazon Web Services and are interpreted strictly as strings of
+     * characters.
      * </p>
      * <p>
-     * You can use the <code>TagResource</code> action with a rule that already has tags. If you specify a new tag key
-     * for the rule, this tag is appended to the list of tags associated with the rule. If you specify a tag key that is
-     * already associated with the rule, the new tag value that you specify replaces the previous value for that tag.
+     * You can use the <code>TagResource</code> action with a resource that already has tags. If you specify a new tag
+     * key, this tag is appended to the list of tags associated with the resource. If you specify a tag key that is
+     * already associated with the resource, the new tag value that you specify replaces the previous value for that
+     * tag.
      * </p>
      * <p>
      * You can associate as many as 50 tags with a resource.
@@ -1778,15 +2579,17 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * <p>
      * Assigns one or more tags (key-value pairs) to the specified EventBridge resource. Tags can help you organize and
      * categorize your resources. You can also use them to scope user permissions by granting a user permission to
-     * access or change only resources with certain tag values. In EventBridge, rules can be tagged.
+     * access or change only resources with certain tag values. In EventBridge, rules and event buses can be tagged.
      * </p>
      * <p>
-     * Tags don't have any semantic meaning to AWS and are interpreted strictly as strings of characters.
+     * Tags don't have any semantic meaning to Amazon Web Services and are interpreted strictly as strings of
+     * characters.
      * </p>
      * <p>
-     * You can use the <code>TagResource</code> action with a rule that already has tags. If you specify a new tag key
-     * for the rule, this tag is appended to the list of tags associated with the rule. If you specify a tag key that is
-     * already associated with the rule, the new tag value that you specify replaces the previous value for that tag.
+     * You can use the <code>TagResource</code> action with a resource that already has tags. If you specify a new tag
+     * key, this tag is appended to the list of tags associated with the resource. If you specify a tag key that is
+     * already associated with the resource, the new tag value that you specify replaces the previous value for that
+     * tag.
      * </p>
      * <p>
      * You can associate as many as 50 tags with a resource.
@@ -1810,9 +2613,9 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * Tests whether the specified event pattern matches the provided event.
      * </p>
      * <p>
-     * Most services in AWS treat <code>:</code> or <code>/</code> as the same character in Amazon Resource Names
-     * (ARNs). However, EventBridge uses an exact match in event patterns and rules. Be sure to use the correct ARN
-     * characters when creating event patterns so that they match the ARN syntax in the event that you want to match.
+     * Most services in Amazon Web Services treat : or / as the same character in Amazon Resource Names (ARNs). However,
+     * EventBridge uses an exact match in event patterns and rules. Be sure to use the correct ARN characters when
+     * creating event patterns so that they match the ARN syntax in the event you want to match.
      * </p>
      * 
      * @param testEventPatternRequest
@@ -1828,9 +2631,9 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      * Tests whether the specified event pattern matches the provided event.
      * </p>
      * <p>
-     * Most services in AWS treat <code>:</code> or <code>/</code> as the same character in Amazon Resource Names
-     * (ARNs). However, EventBridge uses an exact match in event patterns and rules. Be sure to use the correct ARN
-     * characters when creating event patterns so that they match the ARN syntax in the event that you want to match.
+     * Most services in Amazon Web Services treat : or / as the same character in Amazon Resource Names (ARNs). However,
+     * EventBridge uses an exact match in event patterns and rules. Be sure to use the correct ARN characters when
+     * creating event patterns so that they match the ARN syntax in the event you want to match.
      * </p>
      * 
      * @param testEventPatternRequest
@@ -1848,7 +2651,8 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Removes one or more tags from the specified EventBridge resource. In EventBridge, rules can be tagged.
+     * Removes one or more tags from the specified EventBridge resource. In Amazon EventBridge (CloudWatch Events),
+     * rules and event buses can be tagged.
      * </p>
      * 
      * @param untagResourceRequest
@@ -1861,7 +2665,8 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
 
     /**
      * <p>
-     * Removes one or more tags from the specified EventBridge resource. In EventBridge, rules can be tagged.
+     * Removes one or more tags from the specified EventBridge resource. In Amazon EventBridge (CloudWatch Events),
+     * rules and event buses can be tagged.
      * </p>
      * 
      * @param untagResourceRequest
@@ -1876,5 +2681,166 @@ public interface AmazonEventBridgeAsync extends AmazonEventBridge {
      */
     java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest untagResourceRequest,
             com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates an API destination.
+     * </p>
+     * 
+     * @param updateApiDestinationRequest
+     * @return A Java Future containing the result of the UpdateApiDestination operation returned by the service.
+     * @sample AmazonEventBridgeAsync.UpdateApiDestination
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/UpdateApiDestination"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateApiDestinationResult> updateApiDestinationAsync(UpdateApiDestinationRequest updateApiDestinationRequest);
+
+    /**
+     * <p>
+     * Updates an API destination.
+     * </p>
+     * 
+     * @param updateApiDestinationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateApiDestination operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.UpdateApiDestination
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/UpdateApiDestination"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateApiDestinationResult> updateApiDestinationAsync(UpdateApiDestinationRequest updateApiDestinationRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateApiDestinationRequest, UpdateApiDestinationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the specified archive.
+     * </p>
+     * 
+     * @param updateArchiveRequest
+     * @return A Java Future containing the result of the UpdateArchive operation returned by the service.
+     * @sample AmazonEventBridgeAsync.UpdateArchive
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/UpdateArchive" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateArchiveResult> updateArchiveAsync(UpdateArchiveRequest updateArchiveRequest);
+
+    /**
+     * <p>
+     * Updates the specified archive.
+     * </p>
+     * 
+     * @param updateArchiveRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateArchive operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.UpdateArchive
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/UpdateArchive" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateArchiveResult> updateArchiveAsync(UpdateArchiveRequest updateArchiveRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateArchiveRequest, UpdateArchiveResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates settings for a connection.
+     * </p>
+     * 
+     * @param updateConnectionRequest
+     * @return A Java Future containing the result of the UpdateConnection operation returned by the service.
+     * @sample AmazonEventBridgeAsync.UpdateConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/UpdateConnection" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateConnectionResult> updateConnectionAsync(UpdateConnectionRequest updateConnectionRequest);
+
+    /**
+     * <p>
+     * Updates settings for a connection.
+     * </p>
+     * 
+     * @param updateConnectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateConnection operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.UpdateConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/UpdateConnection" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateConnectionResult> updateConnectionAsync(UpdateConnectionRequest updateConnectionRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateConnectionRequest, UpdateConnectionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Update an existing endpoint. For more information about global endpoints, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-global-endpoints.html">Making applications
+     * Regional-fault tolerant with global endpoints and event replication</a> in the <i> <i>Amazon EventBridge User
+     * Guide</i> </i>.
+     * </p>
+     * 
+     * @param updateEndpointRequest
+     * @return A Java Future containing the result of the UpdateEndpoint operation returned by the service.
+     * @sample AmazonEventBridgeAsync.UpdateEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/UpdateEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateEndpointResult> updateEndpointAsync(UpdateEndpointRequest updateEndpointRequest);
+
+    /**
+     * <p>
+     * Update an existing endpoint. For more information about global endpoints, see <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-global-endpoints.html">Making applications
+     * Regional-fault tolerant with global endpoints and event replication</a> in the <i> <i>Amazon EventBridge User
+     * Guide</i> </i>.
+     * </p>
+     * 
+     * @param updateEndpointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateEndpoint operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.UpdateEndpoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/UpdateEndpoint" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateEndpointResult> updateEndpointAsync(UpdateEndpointRequest updateEndpointRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateEndpointRequest, UpdateEndpointResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the specified event bus.
+     * </p>
+     * 
+     * @param updateEventBusRequest
+     * @return A Java Future containing the result of the UpdateEventBus operation returned by the service.
+     * @sample AmazonEventBridgeAsync.UpdateEventBus
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/UpdateEventBus" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateEventBusResult> updateEventBusAsync(UpdateEventBusRequest updateEventBusRequest);
+
+    /**
+     * <p>
+     * Updates the specified event bus.
+     * </p>
+     * 
+     * @param updateEventBusRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateEventBus operation returned by the service.
+     * @sample AmazonEventBridgeAsyncHandler.UpdateEventBus
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/UpdateEventBus" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateEventBusResult> updateEventBusAsync(UpdateEventBusRequest updateEventBusRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateEventBusRequest, UpdateEventBusResult> asyncHandler);
 
 }

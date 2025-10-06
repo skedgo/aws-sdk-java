@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
      * <p>
      * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see
      * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     * Idempotency</a>.
+     * idempotency</a>.
      * </p>
      * <p>
      * Constraint: Maximum 128 ASCII characters.
@@ -39,22 +39,35 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
     private String clientToken;
     /**
      * <p>
-     * The ID of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The ID of the launch template.
+     * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
      * </p>
      */
     private String launchTemplateId;
     /**
      * <p>
-     * The name of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The name of the launch template.
+     * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
      * </p>
      */
     private String launchTemplateName;
     /**
      * <p>
-     * The version number of the launch template version on which to base the new version. The new version inherits the
-     * same launch parameters as the source version, except for parameters that you specify in LaunchTemplateData.
+     * The version of the launch template on which to base the new version. Snapshots applied to the block device
+     * mapping are ignored when creating a new version unless they are explicitly included.
+     * </p>
+     * <p>
+     * If you specify this parameter, the new version inherits the launch parameters from the source version. If you
+     * specify additional launch parameters for the new version, they overwrite any corresponding launch parameters
+     * inherited from the source version.
+     * </p>
+     * <p>
+     * If you omit this parameter, the new version contains only the launch parameters that you specify for the new
+     * version.
      * </p>
      */
     private String sourceVersion;
@@ -70,12 +83,24 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
      * </p>
      */
     private RequestLaunchTemplateData launchTemplateData;
+    /**
+     * <p>
+     * If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI ID is
+     * displayed in the response for <code>imageID</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     */
+    private Boolean resolveAlias;
 
     /**
      * <p>
      * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see
      * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     * Idempotency</a>.
+     * idempotency</a>.
      * </p>
      * <p>
      * Constraint: Maximum 128 ASCII characters.
@@ -85,7 +110,7 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
      *        Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more
      *        information, see <a
      *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     *        Idempotency</a>.</p>
+     *        idempotency</a>.</p>
      *        <p>
      *        Constraint: Maximum 128 ASCII characters.
      */
@@ -98,7 +123,7 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
      * <p>
      * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see
      * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     * Idempotency</a>.
+     * idempotency</a>.
      * </p>
      * <p>
      * Constraint: Maximum 128 ASCII characters.
@@ -107,7 +132,7 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
      * @return Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more
      *         information, see <a
      *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     *         Idempotency</a>.</p>
+     *         idempotency</a>.</p>
      *         <p>
      *         Constraint: Maximum 128 ASCII characters.
      */
@@ -120,7 +145,7 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
      * <p>
      * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see
      * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     * Idempotency</a>.
+     * idempotency</a>.
      * </p>
      * <p>
      * Constraint: Maximum 128 ASCII characters.
@@ -130,7 +155,7 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
      *        Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more
      *        information, see <a
      *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     *        Idempotency</a>.</p>
+     *        idempotency</a>.</p>
      *        <p>
      *        Constraint: Maximum 128 ASCII characters.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -143,13 +168,16 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The ID of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The ID of the launch template.
+     * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
      * </p>
      * 
      * @param launchTemplateId
-     *        The ID of the launch template. You must specify either the launch template ID or launch template name in
-     *        the request.
+     *        The ID of the launch template.</p>
+     *        <p>
+     *        You must specify either the launch template ID or the launch template name, but not both.
      */
 
     public void setLaunchTemplateId(String launchTemplateId) {
@@ -158,12 +186,15 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The ID of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The ID of the launch template.
+     * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
      * </p>
      * 
-     * @return The ID of the launch template. You must specify either the launch template ID or launch template name in
-     *         the request.
+     * @return The ID of the launch template.</p>
+     *         <p>
+     *         You must specify either the launch template ID or the launch template name, but not both.
      */
 
     public String getLaunchTemplateId() {
@@ -172,13 +203,16 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The ID of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The ID of the launch template.
+     * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
      * </p>
      * 
      * @param launchTemplateId
-     *        The ID of the launch template. You must specify either the launch template ID or launch template name in
-     *        the request.
+     *        The ID of the launch template.</p>
+     *        <p>
+     *        You must specify either the launch template ID or the launch template name, but not both.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -189,13 +223,16 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The name of the launch template.
+     * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
      * </p>
      * 
      * @param launchTemplateName
-     *        The name of the launch template. You must specify either the launch template ID or launch template name in
-     *        the request.
+     *        The name of the launch template.</p>
+     *        <p>
+     *        You must specify either the launch template ID or the launch template name, but not both.
      */
 
     public void setLaunchTemplateName(String launchTemplateName) {
@@ -204,12 +241,15 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The name of the launch template.
+     * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
      * </p>
      * 
-     * @return The name of the launch template. You must specify either the launch template ID or launch template name
-     *         in the request.
+     * @return The name of the launch template.</p>
+     *         <p>
+     *         You must specify either the launch template ID or the launch template name, but not both.
      */
 
     public String getLaunchTemplateName() {
@@ -218,13 +258,16 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The name of the launch template.
+     * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
      * </p>
      * 
      * @param launchTemplateName
-     *        The name of the launch template. You must specify either the launch template ID or launch template name in
-     *        the request.
+     *        The name of the launch template.</p>
+     *        <p>
+     *        You must specify either the launch template ID or the launch template name, but not both.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -235,14 +278,30 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The version number of the launch template version on which to base the new version. The new version inherits the
-     * same launch parameters as the source version, except for parameters that you specify in LaunchTemplateData.
+     * The version of the launch template on which to base the new version. Snapshots applied to the block device
+     * mapping are ignored when creating a new version unless they are explicitly included.
+     * </p>
+     * <p>
+     * If you specify this parameter, the new version inherits the launch parameters from the source version. If you
+     * specify additional launch parameters for the new version, they overwrite any corresponding launch parameters
+     * inherited from the source version.
+     * </p>
+     * <p>
+     * If you omit this parameter, the new version contains only the launch parameters that you specify for the new
+     * version.
      * </p>
      * 
      * @param sourceVersion
-     *        The version number of the launch template version on which to base the new version. The new version
-     *        inherits the same launch parameters as the source version, except for parameters that you specify in
-     *        LaunchTemplateData.
+     *        The version of the launch template on which to base the new version. Snapshots applied to the block device
+     *        mapping are ignored when creating a new version unless they are explicitly included.</p>
+     *        <p>
+     *        If you specify this parameter, the new version inherits the launch parameters from the source version. If
+     *        you specify additional launch parameters for the new version, they overwrite any corresponding launch
+     *        parameters inherited from the source version.
+     *        </p>
+     *        <p>
+     *        If you omit this parameter, the new version contains only the launch parameters that you specify for the
+     *        new version.
      */
 
     public void setSourceVersion(String sourceVersion) {
@@ -251,13 +310,29 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The version number of the launch template version on which to base the new version. The new version inherits the
-     * same launch parameters as the source version, except for parameters that you specify in LaunchTemplateData.
+     * The version of the launch template on which to base the new version. Snapshots applied to the block device
+     * mapping are ignored when creating a new version unless they are explicitly included.
+     * </p>
+     * <p>
+     * If you specify this parameter, the new version inherits the launch parameters from the source version. If you
+     * specify additional launch parameters for the new version, they overwrite any corresponding launch parameters
+     * inherited from the source version.
+     * </p>
+     * <p>
+     * If you omit this parameter, the new version contains only the launch parameters that you specify for the new
+     * version.
      * </p>
      * 
-     * @return The version number of the launch template version on which to base the new version. The new version
-     *         inherits the same launch parameters as the source version, except for parameters that you specify in
-     *         LaunchTemplateData.
+     * @return The version of the launch template on which to base the new version. Snapshots applied to the block
+     *         device mapping are ignored when creating a new version unless they are explicitly included.</p>
+     *         <p>
+     *         If you specify this parameter, the new version inherits the launch parameters from the source version. If
+     *         you specify additional launch parameters for the new version, they overwrite any corresponding launch
+     *         parameters inherited from the source version.
+     *         </p>
+     *         <p>
+     *         If you omit this parameter, the new version contains only the launch parameters that you specify for the
+     *         new version.
      */
 
     public String getSourceVersion() {
@@ -266,14 +341,30 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The version number of the launch template version on which to base the new version. The new version inherits the
-     * same launch parameters as the source version, except for parameters that you specify in LaunchTemplateData.
+     * The version of the launch template on which to base the new version. Snapshots applied to the block device
+     * mapping are ignored when creating a new version unless they are explicitly included.
+     * </p>
+     * <p>
+     * If you specify this parameter, the new version inherits the launch parameters from the source version. If you
+     * specify additional launch parameters for the new version, they overwrite any corresponding launch parameters
+     * inherited from the source version.
+     * </p>
+     * <p>
+     * If you omit this parameter, the new version contains only the launch parameters that you specify for the new
+     * version.
      * </p>
      * 
      * @param sourceVersion
-     *        The version number of the launch template version on which to base the new version. The new version
-     *        inherits the same launch parameters as the source version, except for parameters that you specify in
-     *        LaunchTemplateData.
+     *        The version of the launch template on which to base the new version. Snapshots applied to the block device
+     *        mapping are ignored when creating a new version unless they are explicitly included.</p>
+     *        <p>
+     *        If you specify this parameter, the new version inherits the launch parameters from the source version. If
+     *        you specify additional launch parameters for the new version, they overwrite any corresponding launch
+     *        parameters inherited from the source version.
+     *        </p>
+     *        <p>
+     *        If you omit this parameter, the new version contains only the launch parameters that you specify for the
+     *        new version.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -363,6 +454,102 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
     }
 
     /**
+     * <p>
+     * If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI ID is
+     * displayed in the response for <code>imageID</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @param resolveAlias
+     *        If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI ID
+     *        is displayed in the response for <code>imageID</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *        >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.</p>
+     *        <p>
+     *        Default: <code>false</code>
+     */
+
+    public void setResolveAlias(Boolean resolveAlias) {
+        this.resolveAlias = resolveAlias;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI ID is
+     * displayed in the response for <code>imageID</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @return If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI
+     *         ID is displayed in the response for <code>imageID</code>. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *         >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.</p>
+     *         <p>
+     *         Default: <code>false</code>
+     */
+
+    public Boolean getResolveAlias() {
+        return this.resolveAlias;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI ID is
+     * displayed in the response for <code>imageID</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @param resolveAlias
+     *        If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI ID
+     *        is displayed in the response for <code>imageID</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *        >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.</p>
+     *        <p>
+     *        Default: <code>false</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateLaunchTemplateVersionRequest withResolveAlias(Boolean resolveAlias) {
+        setResolveAlias(resolveAlias);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI ID is
+     * displayed in the response for <code>imageID</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @return If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI
+     *         ID is displayed in the response for <code>imageID</code>. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *         >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.</p>
+     *         <p>
+     *         Default: <code>false</code>
+     */
+
+    public Boolean isResolveAlias() {
+        return this.resolveAlias;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -396,7 +583,9 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
         if (getVersionDescription() != null)
             sb.append("VersionDescription: ").append(getVersionDescription()).append(",");
         if (getLaunchTemplateData() != null)
-            sb.append("LaunchTemplateData: ").append(getLaunchTemplateData());
+            sb.append("LaunchTemplateData: ").append(getLaunchTemplateData()).append(",");
+        if (getResolveAlias() != null)
+            sb.append("ResolveAlias: ").append(getResolveAlias());
         sb.append("}");
         return sb.toString();
     }
@@ -435,6 +624,10 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
             return false;
         if (other.getLaunchTemplateData() != null && other.getLaunchTemplateData().equals(this.getLaunchTemplateData()) == false)
             return false;
+        if (other.getResolveAlias() == null ^ this.getResolveAlias() == null)
+            return false;
+        if (other.getResolveAlias() != null && other.getResolveAlias().equals(this.getResolveAlias()) == false)
+            return false;
         return true;
     }
 
@@ -449,6 +642,7 @@ public class CreateLaunchTemplateVersionRequest extends AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getSourceVersion() == null) ? 0 : getSourceVersion().hashCode());
         hashCode = prime * hashCode + ((getVersionDescription() == null) ? 0 : getVersionDescription().hashCode());
         hashCode = prime * hashCode + ((getLaunchTemplateData() == null) ? 0 : getLaunchTemplateData().hashCode());
+        hashCode = prime * hashCode + ((getResolveAlias() == null) ? 0 : getResolveAlias().hashCode());
         return hashCode;
     }
 

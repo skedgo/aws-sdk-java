@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -78,12 +78,15 @@ public class DescribeTaskResultJsonUnmarshaller implements Unmarshaller<Describe
                 }
                 if (context.testExpression("SourceNetworkInterfaceArns", targetDepth)) {
                     context.nextToken();
-                    describeTaskResult.setSourceNetworkInterfaceArns(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    describeTaskResult.setSourceNetworkInterfaceArns(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("DestinationNetworkInterfaceArns", targetDepth)) {
                     context.nextToken();
                     describeTaskResult.setDestinationNetworkInterfaceArns(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("Options", targetDepth)) {
                     context.nextToken();
@@ -91,7 +94,13 @@ public class DescribeTaskResultJsonUnmarshaller implements Unmarshaller<Describe
                 }
                 if (context.testExpression("Excludes", targetDepth)) {
                     context.nextToken();
-                    describeTaskResult.setExcludes(new ListUnmarshaller<FilterRule>(FilterRuleJsonUnmarshaller.getInstance()).unmarshall(context));
+                    describeTaskResult.setExcludes(new ListUnmarshaller<FilterRule>(FilterRuleJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("Schedule", targetDepth)) {
+                    context.nextToken();
+                    describeTaskResult.setSchedule(TaskScheduleJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("ErrorCode", targetDepth)) {
                     context.nextToken();
@@ -104,6 +113,24 @@ public class DescribeTaskResultJsonUnmarshaller implements Unmarshaller<Describe
                 if (context.testExpression("CreationTime", targetDepth)) {
                     context.nextToken();
                     describeTaskResult.setCreationTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("Includes", targetDepth)) {
+                    context.nextToken();
+                    describeTaskResult.setIncludes(new ListUnmarshaller<FilterRule>(FilterRuleJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ManifestConfig", targetDepth)) {
+                    context.nextToken();
+                    describeTaskResult.setManifestConfig(ManifestConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("TaskReportConfig", targetDepth)) {
+                    context.nextToken();
+                    describeTaskResult.setTaskReportConfig(TaskReportConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ScheduleDetails", targetDepth)) {
+                    context.nextToken();
+                    describeTaskResult.setScheduleDetails(TaskScheduleDetailsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

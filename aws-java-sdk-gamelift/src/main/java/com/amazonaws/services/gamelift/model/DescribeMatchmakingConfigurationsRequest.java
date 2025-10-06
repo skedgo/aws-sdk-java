@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * Represents the input for a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribeMatchmakingConfigurations"
  *      target="_top">AWS API Documentation</a>
@@ -30,41 +27,41 @@ public class DescribeMatchmakingConfigurationsRequest extends com.amazonaws.Amaz
 
     /**
      * <p>
-     * Unique identifier for a matchmaking configuration(s) to retrieve. To request all existing configurations, leave
-     * this parameter empty.
+     * A unique identifier for the matchmaking configuration(s) to retrieve. You can use either the configuration name
+     * or ARN value. To request all existing configurations, leave this parameter empty.
      * </p>
      */
     private java.util.List<String> names;
     /**
      * <p>
-     * Unique identifier for a matchmaking rule set. Use this parameter to retrieve all matchmaking configurations that
-     * use this rule set.
+     * A unique identifier for the matchmaking rule set. You can use either the rule set name or ARN value. Use this
+     * parameter to retrieve all matchmaking configurations that use this rule set.
      * </p>
      */
     private String ruleSetName;
     /**
      * <p>
-     * Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of
-     * sequential pages. This parameter is limited to 10.
+     * The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set
+     * of sequential pages. This parameter is limited to 10.
      * </p>
      */
     private Integer limit;
     /**
      * <p>
-     * Token that indicates the start of the next sequential page of results. Use the token that is returned with a
-     * previous call to this action. To start at the beginning of the result set, do not specify a value.
+     * A token that indicates the start of the next sequential page of results. Use the token that is returned with a
+     * previous call to this operation. To start at the beginning of the result set, do not specify a value.
      * </p>
      */
     private String nextToken;
 
     /**
      * <p>
-     * Unique identifier for a matchmaking configuration(s) to retrieve. To request all existing configurations, leave
-     * this parameter empty.
+     * A unique identifier for the matchmaking configuration(s) to retrieve. You can use either the configuration name
+     * or ARN value. To request all existing configurations, leave this parameter empty.
      * </p>
      * 
-     * @return Unique identifier for a matchmaking configuration(s) to retrieve. To request all existing configurations,
-     *         leave this parameter empty.
+     * @return A unique identifier for the matchmaking configuration(s) to retrieve. You can use either the
+     *         configuration name or ARN value. To request all existing configurations, leave this parameter empty.
      */
 
     public java.util.List<String> getNames() {
@@ -73,13 +70,13 @@ public class DescribeMatchmakingConfigurationsRequest extends com.amazonaws.Amaz
 
     /**
      * <p>
-     * Unique identifier for a matchmaking configuration(s) to retrieve. To request all existing configurations, leave
-     * this parameter empty.
+     * A unique identifier for the matchmaking configuration(s) to retrieve. You can use either the configuration name
+     * or ARN value. To request all existing configurations, leave this parameter empty.
      * </p>
      * 
      * @param names
-     *        Unique identifier for a matchmaking configuration(s) to retrieve. To request all existing configurations,
-     *        leave this parameter empty.
+     *        A unique identifier for the matchmaking configuration(s) to retrieve. You can use either the configuration
+     *        name or ARN value. To request all existing configurations, leave this parameter empty.
      */
 
     public void setNames(java.util.Collection<String> names) {
@@ -93,8 +90,8 @@ public class DescribeMatchmakingConfigurationsRequest extends com.amazonaws.Amaz
 
     /**
      * <p>
-     * Unique identifier for a matchmaking configuration(s) to retrieve. To request all existing configurations, leave
-     * this parameter empty.
+     * A unique identifier for the matchmaking configuration(s) to retrieve. You can use either the configuration name
+     * or ARN value. To request all existing configurations, leave this parameter empty.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -103,8 +100,8 @@ public class DescribeMatchmakingConfigurationsRequest extends com.amazonaws.Amaz
      * </p>
      * 
      * @param names
-     *        Unique identifier for a matchmaking configuration(s) to retrieve. To request all existing configurations,
-     *        leave this parameter empty.
+     *        A unique identifier for the matchmaking configuration(s) to retrieve. You can use either the configuration
+     *        name or ARN value. To request all existing configurations, leave this parameter empty.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -120,13 +117,13 @@ public class DescribeMatchmakingConfigurationsRequest extends com.amazonaws.Amaz
 
     /**
      * <p>
-     * Unique identifier for a matchmaking configuration(s) to retrieve. To request all existing configurations, leave
-     * this parameter empty.
+     * A unique identifier for the matchmaking configuration(s) to retrieve. You can use either the configuration name
+     * or ARN value. To request all existing configurations, leave this parameter empty.
      * </p>
      * 
      * @param names
-     *        Unique identifier for a matchmaking configuration(s) to retrieve. To request all existing configurations,
-     *        leave this parameter empty.
+     *        A unique identifier for the matchmaking configuration(s) to retrieve. You can use either the configuration
+     *        name or ARN value. To request all existing configurations, leave this parameter empty.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -137,13 +134,13 @@ public class DescribeMatchmakingConfigurationsRequest extends com.amazonaws.Amaz
 
     /**
      * <p>
-     * Unique identifier for a matchmaking rule set. Use this parameter to retrieve all matchmaking configurations that
-     * use this rule set.
+     * A unique identifier for the matchmaking rule set. You can use either the rule set name or ARN value. Use this
+     * parameter to retrieve all matchmaking configurations that use this rule set.
      * </p>
      * 
      * @param ruleSetName
-     *        Unique identifier for a matchmaking rule set. Use this parameter to retrieve all matchmaking
-     *        configurations that use this rule set.
+     *        A unique identifier for the matchmaking rule set. You can use either the rule set name or ARN value. Use
+     *        this parameter to retrieve all matchmaking configurations that use this rule set.
      */
 
     public void setRuleSetName(String ruleSetName) {
@@ -152,12 +149,12 @@ public class DescribeMatchmakingConfigurationsRequest extends com.amazonaws.Amaz
 
     /**
      * <p>
-     * Unique identifier for a matchmaking rule set. Use this parameter to retrieve all matchmaking configurations that
-     * use this rule set.
+     * A unique identifier for the matchmaking rule set. You can use either the rule set name or ARN value. Use this
+     * parameter to retrieve all matchmaking configurations that use this rule set.
      * </p>
      * 
-     * @return Unique identifier for a matchmaking rule set. Use this parameter to retrieve all matchmaking
-     *         configurations that use this rule set.
+     * @return A unique identifier for the matchmaking rule set. You can use either the rule set name or ARN value. Use
+     *         this parameter to retrieve all matchmaking configurations that use this rule set.
      */
 
     public String getRuleSetName() {
@@ -166,13 +163,13 @@ public class DescribeMatchmakingConfigurationsRequest extends com.amazonaws.Amaz
 
     /**
      * <p>
-     * Unique identifier for a matchmaking rule set. Use this parameter to retrieve all matchmaking configurations that
-     * use this rule set.
+     * A unique identifier for the matchmaking rule set. You can use either the rule set name or ARN value. Use this
+     * parameter to retrieve all matchmaking configurations that use this rule set.
      * </p>
      * 
      * @param ruleSetName
-     *        Unique identifier for a matchmaking rule set. Use this parameter to retrieve all matchmaking
-     *        configurations that use this rule set.
+     *        A unique identifier for the matchmaking rule set. You can use either the rule set name or ARN value. Use
+     *        this parameter to retrieve all matchmaking configurations that use this rule set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -183,13 +180,13 @@ public class DescribeMatchmakingConfigurationsRequest extends com.amazonaws.Amaz
 
     /**
      * <p>
-     * Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of
-     * sequential pages. This parameter is limited to 10.
+     * The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set
+     * of sequential pages. This parameter is limited to 10.
      * </p>
      * 
      * @param limit
-     *        Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a
-     *        set of sequential pages. This parameter is limited to 10.
+     *        The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as
+     *        a set of sequential pages. This parameter is limited to 10.
      */
 
     public void setLimit(Integer limit) {
@@ -198,12 +195,12 @@ public class DescribeMatchmakingConfigurationsRequest extends com.amazonaws.Amaz
 
     /**
      * <p>
-     * Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of
-     * sequential pages. This parameter is limited to 10.
+     * The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set
+     * of sequential pages. This parameter is limited to 10.
      * </p>
      * 
-     * @return Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a
-     *         set of sequential pages. This parameter is limited to 10.
+     * @return The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as
+     *         a set of sequential pages. This parameter is limited to 10.
      */
 
     public Integer getLimit() {
@@ -212,13 +209,13 @@ public class DescribeMatchmakingConfigurationsRequest extends com.amazonaws.Amaz
 
     /**
      * <p>
-     * Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of
-     * sequential pages. This parameter is limited to 10.
+     * The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set
+     * of sequential pages. This parameter is limited to 10.
      * </p>
      * 
      * @param limit
-     *        Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a
-     *        set of sequential pages. This parameter is limited to 10.
+     *        The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as
+     *        a set of sequential pages. This parameter is limited to 10.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -229,13 +226,14 @@ public class DescribeMatchmakingConfigurationsRequest extends com.amazonaws.Amaz
 
     /**
      * <p>
-     * Token that indicates the start of the next sequential page of results. Use the token that is returned with a
-     * previous call to this action. To start at the beginning of the result set, do not specify a value.
+     * A token that indicates the start of the next sequential page of results. Use the token that is returned with a
+     * previous call to this operation. To start at the beginning of the result set, do not specify a value.
      * </p>
      * 
      * @param nextToken
-     *        Token that indicates the start of the next sequential page of results. Use the token that is returned with
-     *        a previous call to this action. To start at the beginning of the result set, do not specify a value.
+     *        A token that indicates the start of the next sequential page of results. Use the token that is returned
+     *        with a previous call to this operation. To start at the beginning of the result set, do not specify a
+     *        value.
      */
 
     public void setNextToken(String nextToken) {
@@ -244,12 +242,13 @@ public class DescribeMatchmakingConfigurationsRequest extends com.amazonaws.Amaz
 
     /**
      * <p>
-     * Token that indicates the start of the next sequential page of results. Use the token that is returned with a
-     * previous call to this action. To start at the beginning of the result set, do not specify a value.
+     * A token that indicates the start of the next sequential page of results. Use the token that is returned with a
+     * previous call to this operation. To start at the beginning of the result set, do not specify a value.
      * </p>
      * 
-     * @return Token that indicates the start of the next sequential page of results. Use the token that is returned
-     *         with a previous call to this action. To start at the beginning of the result set, do not specify a value.
+     * @return A token that indicates the start of the next sequential page of results. Use the token that is returned
+     *         with a previous call to this operation. To start at the beginning of the result set, do not specify a
+     *         value.
      */
 
     public String getNextToken() {
@@ -258,13 +257,14 @@ public class DescribeMatchmakingConfigurationsRequest extends com.amazonaws.Amaz
 
     /**
      * <p>
-     * Token that indicates the start of the next sequential page of results. Use the token that is returned with a
-     * previous call to this action. To start at the beginning of the result set, do not specify a value.
+     * A token that indicates the start of the next sequential page of results. Use the token that is returned with a
+     * previous call to this operation. To start at the beginning of the result set, do not specify a value.
      * </p>
      * 
      * @param nextToken
-     *        Token that indicates the start of the next sequential page of results. Use the token that is returned with
-     *        a previous call to this action. To start at the beginning of the result set, do not specify a value.
+     *        A token that indicates the start of the next sequential page of results. Use the token that is returned
+     *        with a previous call to this operation. To start at the beginning of the result set, do not specify a
+     *        value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

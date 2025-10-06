@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -74,6 +74,14 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
     private String streamStatus;
     /**
      * <p>
+     * Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams, you
+     * can choose between an <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode for your data
+     * streams.
+     * </p>
+     */
+    private StreamModeDetails streamModeDetails;
+    /**
+     * <p>
      * The shards that comprise the stream.
      * </p>
      */
@@ -86,7 +94,7 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
     private Boolean hasMoreShards;
     /**
      * <p>
-     * The current retention period, in hours.
+     * The current retention period, in hours. Minimum value of 24. Maximum value of 168.
      * </p>
      */
     private Integer retentionPeriodHours;
@@ -114,7 +122,8 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed AWS KMS key.
+     * <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed Amazon Web
+     * Services KMS key.
      * </p>
      * </li>
      * </ul>
@@ -122,9 +131,9 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
     private String encryptionType;
     /**
      * <p>
-     * The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     * identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You can also
-     * use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>.
+     * The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a globally
+     * unique identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You
+     * can also use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>.
      * </p>
      * <ul>
      * <li>
@@ -566,6 +575,58 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
+     * Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams, you
+     * can choose between an <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode for your data
+     * streams.
+     * </p>
+     * 
+     * @param streamModeDetails
+     *        Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams,
+     *        you can choose between an <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode for your
+     *        data streams.
+     */
+
+    public void setStreamModeDetails(StreamModeDetails streamModeDetails) {
+        this.streamModeDetails = streamModeDetails;
+    }
+
+    /**
+     * <p>
+     * Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams, you
+     * can choose between an <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode for your data
+     * streams.
+     * </p>
+     * 
+     * @return Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data
+     *         Streams, you can choose between an <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode
+     *         for your data streams.
+     */
+
+    public StreamModeDetails getStreamModeDetails() {
+        return this.streamModeDetails;
+    }
+
+    /**
+     * <p>
+     * Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams, you
+     * can choose between an <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode for your data
+     * streams.
+     * </p>
+     * 
+     * @param streamModeDetails
+     *        Specifies the capacity mode to which you want to set your data stream. Currently, in Kinesis Data Streams,
+     *        you can choose between an <b>on-demand</b> capacity mode and a <b>provisioned</b> capacity mode for your
+     *        data streams.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StreamDescription withStreamModeDetails(StreamModeDetails streamModeDetails) {
+        setStreamModeDetails(streamModeDetails);
+        return this;
+    }
+
+    /**
+     * <p>
      * The shards that comprise the stream.
      * </p>
      * 
@@ -691,11 +752,11 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The current retention period, in hours.
+     * The current retention period, in hours. Minimum value of 24. Maximum value of 168.
      * </p>
      * 
      * @param retentionPeriodHours
-     *        The current retention period, in hours.
+     *        The current retention period, in hours. Minimum value of 24. Maximum value of 168.
      */
 
     public void setRetentionPeriodHours(Integer retentionPeriodHours) {
@@ -704,10 +765,10 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The current retention period, in hours.
+     * The current retention period, in hours. Minimum value of 24. Maximum value of 168.
      * </p>
      * 
-     * @return The current retention period, in hours.
+     * @return The current retention period, in hours. Minimum value of 24. Maximum value of 168.
      */
 
     public Integer getRetentionPeriodHours() {
@@ -716,11 +777,11 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The current retention period, in hours.
+     * The current retention period, in hours. Minimum value of 24. Maximum value of 168.
      * </p>
      * 
      * @param retentionPeriodHours
-     *        The current retention period, in hours.
+     *        The current retention period, in hours. Minimum value of 24. Maximum value of 168.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -854,7 +915,8 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed AWS KMS key.
+     * <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed Amazon Web
+     * Services KMS key.
      * </p>
      * </li>
      * </ul>
@@ -869,8 +931,8 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
      *        </li>
      *        <li>
      *        <p>
-     *        <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed AWS KMS
-     *        key.
+     *        <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed Amazon
+     *        Web Services KMS key.
      *        </p>
      *        </li>
      * @see EncryptionType
@@ -892,7 +954,8 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed AWS KMS key.
+     * <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed Amazon Web
+     * Services KMS key.
      * </p>
      * </li>
      * </ul>
@@ -907,8 +970,8 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
      *         </li>
      *         <li>
      *         <p>
-     *         <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed AWS
-     *         KMS key.
+     *         <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed Amazon
+     *         Web Services KMS key.
      *         </p>
      *         </li>
      * @see EncryptionType
@@ -930,7 +993,8 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed AWS KMS key.
+     * <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed Amazon Web
+     * Services KMS key.
      * </p>
      * </li>
      * </ul>
@@ -945,8 +1009,8 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
      *        </li>
      *        <li>
      *        <p>
-     *        <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed AWS KMS
-     *        key.
+     *        <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed Amazon
+     *        Web Services KMS key.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -970,7 +1034,8 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed AWS KMS key.
+     * <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed Amazon Web
+     * Services KMS key.
      * </p>
      * </li>
      * </ul>
@@ -985,8 +1050,8 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
      *        </li>
      *        <li>
      *        <p>
-     *        <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed AWS KMS
-     *        key.
+     *        <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed Amazon
+     *        Web Services KMS key.
      *        </p>
      *        </li>
      * @see EncryptionType
@@ -1008,7 +1073,8 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed AWS KMS key.
+     * <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed Amazon Web
+     * Services KMS key.
      * </p>
      * </li>
      * </ul>
@@ -1023,8 +1089,8 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
      *        </li>
      *        <li>
      *        <p>
-     *        <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed AWS KMS
-     *        key.
+     *        <code>KMS</code>: Use server-side encryption on the records in the stream using a customer-managed Amazon
+     *        Web Services KMS key.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1038,9 +1104,9 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     * identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You can also
-     * use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>.
+     * The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a globally
+     * unique identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You
+     * can also use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>.
      * </p>
      * <ul>
      * <li>
@@ -1071,10 +1137,10 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
      * </ul>
      * 
      * @param keyId
-     *        The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     *        identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You
-     *        can also use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>
-     *        .</p>
+     *        The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a
+     *        globally unique identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed
+     *        by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
+     *        <code>aws/kinesis</code>.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1109,9 +1175,9 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     * identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You can also
-     * use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>.
+     * The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a globally
+     * unique identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You
+     * can also use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>.
      * </p>
      * <ul>
      * <li>
@@ -1141,10 +1207,10 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
      * </li>
      * </ul>
      * 
-     * @return The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     *         identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You
-     *         can also use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>
-     *         .</p>
+     * @return The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a
+     *         globally unique identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed
+     *         by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
+     *         <code>aws/kinesis</code>.</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -1179,9 +1245,9 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     * identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You can also
-     * use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>.
+     * The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a globally
+     * unique identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You
+     * can also use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>.
      * </p>
      * <ul>
      * <li>
@@ -1212,10 +1278,10 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
      * </ul>
      * 
      * @param keyId
-     *        The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     *        identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You
-     *        can also use a master key owned by Kinesis Data Streams by specifying the alias <code>aws/kinesis</code>
-     *        .</p>
+     *        The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a
+     *        globally unique identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed
+     *        by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
+     *        <code>aws/kinesis</code>.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1268,6 +1334,8 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
             sb.append("StreamARN: ").append(getStreamARN()).append(",");
         if (getStreamStatus() != null)
             sb.append("StreamStatus: ").append(getStreamStatus()).append(",");
+        if (getStreamModeDetails() != null)
+            sb.append("StreamModeDetails: ").append(getStreamModeDetails()).append(",");
         if (getShards() != null)
             sb.append("Shards: ").append(getShards()).append(",");
         if (getHasMoreShards() != null)
@@ -1308,6 +1376,10 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getStreamStatus() != null && other.getStreamStatus().equals(this.getStreamStatus()) == false)
             return false;
+        if (other.getStreamModeDetails() == null ^ this.getStreamModeDetails() == null)
+            return false;
+        if (other.getStreamModeDetails() != null && other.getStreamModeDetails().equals(this.getStreamModeDetails()) == false)
+            return false;
         if (other.getShards() == null ^ this.getShards() == null)
             return false;
         if (other.getShards() != null && other.getShards().equals(this.getShards()) == false)
@@ -1347,6 +1419,7 @@ public class StreamDescription implements Serializable, Cloneable, StructuredPoj
         hashCode = prime * hashCode + ((getStreamName() == null) ? 0 : getStreamName().hashCode());
         hashCode = prime * hashCode + ((getStreamARN() == null) ? 0 : getStreamARN().hashCode());
         hashCode = prime * hashCode + ((getStreamStatus() == null) ? 0 : getStreamStatus().hashCode());
+        hashCode = prime * hashCode + ((getStreamModeDetails() == null) ? 0 : getStreamModeDetails().hashCode());
         hashCode = prime * hashCode + ((getShards() == null) ? 0 : getShards().hashCode());
         hashCode = prime * hashCode + ((getHasMoreShards() == null) ? 0 : getHasMoreShards().hashCode());
         hashCode = prime * hashCode + ((getRetentionPeriodHours() == null) ? 0 : getRetentionPeriodHours().hashCode());

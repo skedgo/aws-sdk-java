@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,7 @@ import com.amazonaws.*;
 import com.amazonaws.regions.*;
 
 import com.amazonaws.services.elasticbeanstalk.model.*;
+import com.amazonaws.services.elasticbeanstalk.waiters.AWSElasticBeanstalkWaiters;
 
 /**
  * Interface for accessing Elastic Beanstalk.
@@ -34,8 +35,8 @@ import com.amazonaws.services.elasticbeanstalk.model.*;
  * <p>
  * For more information about this product, go to the <a href="http://aws.amazon.com/elasticbeanstalk/">AWS Elastic
  * Beanstalk</a> details page. The location of the latest AWS Elastic Beanstalk WSDL is <a
- * href="http://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl"
- * >http://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl</a>. To install the Software
+ * href="https://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl"
+ * >https://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl</a>. To install the Software
  * Development Kits (SDKs), Integrated Development Environment (IDE) Toolkits, and command line tools that enable you to
  * access the API, go to <a href="http://aws.amazon.com/tools/">Tools for Amazon Web Services</a>.
  * </p>
@@ -155,6 +156,28 @@ public interface AWSElasticBeanstalk {
 
     /**
      * <p>
+     * Add or change the operations role used by an environment. After this call is made, Elastic Beanstalk uses the
+     * associated operations role for permissions to downstream services during subsequent calls acting on this
+     * environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/iam-operationsrole.html">Operations roles</a> in the
+     * <i>AWS Elastic Beanstalk Developer Guide</i>.
+     * </p>
+     * 
+     * @param associateEnvironmentOperationsRoleRequest
+     *        Request to add or change the operations role used by an environment.
+     * @return Result of the AssociateEnvironmentOperationsRole operation returned by the service.
+     * @throws InsufficientPrivilegesException
+     *         The specified account does not have sufficient privileges for one or more AWS services.
+     * @sample AWSElasticBeanstalk.AssociateEnvironmentOperationsRole
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/AssociateEnvironmentOperationsRole"
+     *      target="_top">AWS API Documentation</a>
+     */
+    AssociateEnvironmentOperationsRoleResult associateEnvironmentOperationsRole(
+            AssociateEnvironmentOperationsRoleRequest associateEnvironmentOperationsRoleRequest);
+
+    /**
+     * <p>
      * Checks if the specified CNAME is available.
      * </p>
      * 
@@ -227,7 +250,7 @@ public interface AWSElasticBeanstalk {
      * </p>
      * <note>
      * <p>
-     * Once you create an application version with a specified Amazon S3 bucket and key location, you cannot change that
+     * After you create an application version with a specified Amazon S3 bucket and key location, you can't change that
      * Amazon S3 location. If you change the Amazon S3 location, you receive an exception when you attempt to launch an
      * environment from the application version.
      * </p>
@@ -270,8 +293,9 @@ public interface AWSElasticBeanstalk {
 
     /**
      * <p>
-     * Creates a configuration template. Templates are associated with a specific application and are used to deploy
-     * different versions of the application with the same configuration settings.
+     * Creates an AWS Elastic Beanstalk configuration template, associated with a specific Elastic Beanstalk
+     * application. You define application configuration settings in a configuration template. You can then use the
+     * configuration template to deploy different versions of the application with the same configuration settings.
      * </p>
      * <p>
      * Templates aren't associated with any environment. The <code>EnvironmentName</code> response element is always
@@ -315,7 +339,7 @@ public interface AWSElasticBeanstalk {
 
     /**
      * <p>
-     * Launches an environment for the specified application using the specified configuration.
+     * Launches an AWS Elastic Beanstalk environment for the specified application using the specified configuration.
      * </p>
      * 
      * @param createEnvironmentRequest
@@ -765,7 +789,13 @@ public interface AWSElasticBeanstalk {
 
     /**
      * <p>
-     * Describes the version of the platform.
+     * Describes a platform version. Provides full details. Compare to <a>ListPlatformVersions</a>, which provides
+     * summary information about a list of platform versions.
+     * </p>
+     * <p>
+     * For definitions of platform version and other platform-related terms, see <a
+     * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/platforms-glossary.html">AWS Elastic Beanstalk
+     * Platforms Glossary</a>.
      * </p>
      * 
      * @param describePlatformVersionRequest
@@ -779,6 +809,28 @@ public interface AWSElasticBeanstalk {
      *      target="_top">AWS API Documentation</a>
      */
     DescribePlatformVersionResult describePlatformVersion(DescribePlatformVersionRequest describePlatformVersionRequest);
+
+    /**
+     * <p>
+     * Disassociate the operations role from an environment. After this call is made, Elastic Beanstalk uses the
+     * caller's permissions for permissions to downstream services during subsequent calls acting on this environment.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/iam-operationsrole.html">Operations roles</a> in the
+     * <i>AWS Elastic Beanstalk Developer Guide</i>.
+     * </p>
+     * 
+     * @param disassociateEnvironmentOperationsRoleRequest
+     *        Request to disassociate the operations role from an environment.
+     * @return Result of the DisassociateEnvironmentOperationsRole operation returned by the service.
+     * @throws InsufficientPrivilegesException
+     *         The specified account does not have sufficient privileges for one or more AWS services.
+     * @sample AWSElasticBeanstalk.DisassociateEnvironmentOperationsRole
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/DisassociateEnvironmentOperationsRole"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DisassociateEnvironmentOperationsRoleResult disassociateEnvironmentOperationsRole(
+            DisassociateEnvironmentOperationsRoleRequest disassociateEnvironmentOperationsRoleRequest);
 
     /**
      * <p>
@@ -803,7 +855,33 @@ public interface AWSElasticBeanstalk {
 
     /**
      * <p>
-     * Lists the available platforms.
+     * Lists the platform branches available for your account in an AWS Region. Provides summary information about each
+     * platform branch.
+     * </p>
+     * <p>
+     * For definitions of platform branch and other platform-related terms, see <a
+     * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/platforms-glossary.html">AWS Elastic Beanstalk
+     * Platforms Glossary</a>.
+     * </p>
+     * 
+     * @param listPlatformBranchesRequest
+     * @return Result of the ListPlatformBranches operation returned by the service.
+     * @sample AWSElasticBeanstalk.ListPlatformBranches
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/ListPlatformBranches"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListPlatformBranchesResult listPlatformBranches(ListPlatformBranchesRequest listPlatformBranchesRequest);
+
+    /**
+     * <p>
+     * Lists the platform versions available for your account in an AWS Region. Provides summary information about each
+     * platform version. Compare to <a>DescribePlatformVersion</a>, which provides full details about a single platform
+     * version.
+     * </p>
+     * <p>
+     * For definitions of platform version and other platform-related terms, see <a
+     * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/platforms-glossary.html">AWS Elastic Beanstalk
+     * Platforms Glossary</a>.
      * </p>
      * 
      * @param listPlatformVersionsRequest
@@ -820,14 +898,13 @@ public interface AWSElasticBeanstalk {
 
     /**
      * <p>
-     * Returns the tags applied to an AWS Elastic Beanstalk resource. The response contains a list of tag key-value
+     * Return the tags applied to an AWS Elastic Beanstalk resource. The response contains a list of tag key-value
      * pairs.
      * </p>
      * <p>
-     * Currently, Elastic Beanstalk only supports tagging of Elastic Beanstalk environments. For details about
-     * environment tagging, see <a
-     * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html">Tagging Resources in
-     * Your Elastic Beanstalk Environment</a>.
+     * Elastic Beanstalk supports tagging of all of its resources. For details about resource tagging, see <a
+     * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/applications-tagging-resources.html">Tagging
+     * Application Resources</a>.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -1093,10 +1170,9 @@ public interface AWSElasticBeanstalk {
      * <code>TagsToAdd</code> for tags to add or update, and <code>TagsToRemove</code>.
      * </p>
      * <p>
-     * Currently, Elastic Beanstalk only supports tagging of Elastic Beanstalk environments. For details about
-     * environment tagging, see <a
-     * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html">Tagging Resources in
-     * Your Elastic Beanstalk Environment</a>.
+     * Elastic Beanstalk supports tagging of all of its resources. For details about resource tagging, see <a
+     * href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/applications-tagging-resources.html">Tagging
+     * Application Resources</a>.
      * </p>
      * <p>
      * If you create a custom IAM user policy to control permission to this operation, specify one of the following two
@@ -1191,5 +1267,7 @@ public interface AWSElasticBeanstalk {
      * @return The response metadata for the specified request, or null if none is available.
      */
     ResponseMetadata getCachedResponseMetadata(AmazonWebServiceRequest request);
+
+    AWSElasticBeanstalkWaiters waiters();
 
 }

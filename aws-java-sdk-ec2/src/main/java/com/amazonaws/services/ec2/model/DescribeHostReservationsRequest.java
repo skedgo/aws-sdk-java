@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,7 +50,7 @@ public class DescribeHostReservationsRequest extends AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag key in
      * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
      * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
      * and <code>TeamA</code> for the filter value.
@@ -110,7 +110,7 @@ public class DescribeHostReservationsRequest extends AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag key in
      * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
      * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
      * and <code>TeamA</code> for the filter value.
@@ -145,7 +145,7 @@ public class DescribeHostReservationsRequest extends AmazonWebServiceRequest imp
      *         </li>
      *         <li>
      *         <p>
-     *         <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *         <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag
      *         key in the filter name and the tag value as the filter value. For example, to find all resources that
      *         have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify
      *         <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.
@@ -190,7 +190,7 @@ public class DescribeHostReservationsRequest extends AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag key in
      * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
      * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
      * and <code>TeamA</code> for the filter value.
@@ -226,7 +226,7 @@ public class DescribeHostReservationsRequest extends AmazonWebServiceRequest imp
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag
      *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
      *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
      *        the filter name and <code>TeamA</code> for the filter value.
@@ -273,7 +273,7 @@ public class DescribeHostReservationsRequest extends AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag key in
      * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
      * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
      * and <code>TeamA</code> for the filter value.
@@ -314,7 +314,7 @@ public class DescribeHostReservationsRequest extends AmazonWebServiceRequest imp
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag
      *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
      *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
      *        the filter name and <code>TeamA</code> for the filter value.
@@ -363,7 +363,7 @@ public class DescribeHostReservationsRequest extends AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag key in
      * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
      * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
      * and <code>TeamA</code> for the filter value.
@@ -399,7 +399,7 @@ public class DescribeHostReservationsRequest extends AmazonWebServiceRequest imp
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag
      *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
      *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
      *        the filter name and <code>TeamA</code> for the filter value.

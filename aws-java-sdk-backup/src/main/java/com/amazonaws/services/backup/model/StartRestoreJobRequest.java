@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,24 +34,76 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
     private String recoveryPointArn;
     /**
      * <p>
-     * A set of metadata key-value pairs. Lists the metadata that the recovery point was created with.
+     * A set of metadata key-value pairs. Contains information, such as a resource name, required to restore a recovery
+     * point.
      * </p>
+     * <p>
+     * You can get configuration metadata about a resource at the time it was backed up by calling
+     * <code>GetRecoveryPointRestoreMetadata</code>. However, values in addition to those provided by
+     * <code>GetRecoveryPointRestoreMetadata</code> might be required to restore a resource. For example, you might need
+     * to provide a new resource name if the original already exists.
+     * </p>
+     * <p>
+     * You need to specify specific metadata to restore an Amazon Elastic File System (Amazon EFS) instance:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>file-system-id</code>: The ID of the Amazon EFS file system that is backed up by Backup. Returned in
+     * <code>GetRecoveryPointRestoreMetadata</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Encrypted</code>: A Boolean value that, if true, specifies that the file system is encrypted. If
+     * <code>KmsKeyId</code> is specified, <code>Encrypted</code> must be set to <code>true</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KmsKeyId</code>: Specifies the Amazon Web Services KMS key that is used to encrypt the restored file
+     * system. You can specify a key from another Amazon Web Services account provided that key it is properly shared
+     * with your account via Amazon Web Services KMS.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PerformanceMode</code>: Specifies the throughput mode of the file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CreationToken</code>: A user-supplied value that ensures the uniqueness (idempotency) of the request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>newFileSystem</code>: A Boolean value that, if true, specifies that the recovery point is restored to a new
+     * Amazon EFS file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ItemsToRestore</code>: An array of one to five strings where each string is a file path. Use
+     * <code>ItemsToRestore</code> to restore specific files or directories rather than the entire file system. This
+     * parameter is optional. For example, <code>"itemsToRestore":"[\"/my.test\"]"</code>.
+     * </p>
+     * </li>
+     * </ul>
      */
     private java.util.Map<String, String> metadata;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the IAM role that AWS Backup uses to create the target recovery point; for
-     * example, <code>arn:aws:iam::123456789012:role/S3Access</code>.
+     * The Amazon Resource Name (ARN) of the IAM role that Backup uses to create the target resource; for example:
+     * <code>arn:aws:iam::123456789012:role/S3Access</code>.
      * </p>
      */
     private String iamRoleArn;
     /**
      * <p>
-     * A customer chosen string that can be used to distinguish between calls to <code>StartRestoreJob</code>.
-     * Idempotency tokens time out after one hour. Therefore, if you call <code>StartRestoreJob</code> multiple times
-     * with the same idempotency token within one hour, AWS Backup recognizes that you are requesting only one restore
-     * job and initiates only one. If you change the idempotency token for each call, AWS Backup recognizes that you are
-     * requesting to start multiple restores.
+     * A customer-chosen string that you can use to distinguish between otherwise identical calls to
+     * <code>StartRestoreJob</code>. Retrying a successful request with the same idempotency token results in a success
+     * message with no action taken.
      * </p>
      */
     private String idempotencyToken;
@@ -62,12 +114,47 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
+     * <code>Aurora</code> for Amazon Aurora
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DocumentDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CloudFormation</code> for CloudFormation
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DynamoDB</code> for Amazon DynamoDB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>EBS</code> for Amazon Elastic Block Store
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SGW</code> for AWS Storage Gateway
+     * <code>EC2</code> for Amazon Elastic Compute Cloud
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EFS</code> for Amazon Elastic File System
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FSx</code> for Amazon FSx
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Neptune</code> for Amazon Neptune
      * </p>
      * </li>
      * <li>
@@ -77,17 +164,42 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * <code>DDB</code> for Amazon DynamoDB
+     * <code>Redshift</code> for Amazon Redshift
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EFS</code> for Amazon Elastic File System
+     * <code>Storage Gateway</code> for Storage Gateway
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>S3</code> for Amazon S3
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Timestream</code> for Amazon Timestream
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>VirtualMachine</code> for virtual machines
      * </p>
      * </li>
      * </ul>
      */
     private String resourceType;
+    /**
+     * <p>
+     * This is an optional parameter. If this equals <code>True</code>, tags included in the backup will be copied to
+     * the restored resource.
+     * </p>
+     * <p>
+     * This can only be applied to backups created through Backup.
+     * </p>
+     */
+    private Boolean copySourceTagsToRestoredResource;
 
     /**
      * <p>
@@ -137,10 +249,118 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A set of metadata key-value pairs. Lists the metadata that the recovery point was created with.
+     * A set of metadata key-value pairs. Contains information, such as a resource name, required to restore a recovery
+     * point.
      * </p>
+     * <p>
+     * You can get configuration metadata about a resource at the time it was backed up by calling
+     * <code>GetRecoveryPointRestoreMetadata</code>. However, values in addition to those provided by
+     * <code>GetRecoveryPointRestoreMetadata</code> might be required to restore a resource. For example, you might need
+     * to provide a new resource name if the original already exists.
+     * </p>
+     * <p>
+     * You need to specify specific metadata to restore an Amazon Elastic File System (Amazon EFS) instance:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>file-system-id</code>: The ID of the Amazon EFS file system that is backed up by Backup. Returned in
+     * <code>GetRecoveryPointRestoreMetadata</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Encrypted</code>: A Boolean value that, if true, specifies that the file system is encrypted. If
+     * <code>KmsKeyId</code> is specified, <code>Encrypted</code> must be set to <code>true</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KmsKeyId</code>: Specifies the Amazon Web Services KMS key that is used to encrypt the restored file
+     * system. You can specify a key from another Amazon Web Services account provided that key it is properly shared
+     * with your account via Amazon Web Services KMS.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PerformanceMode</code>: Specifies the throughput mode of the file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CreationToken</code>: A user-supplied value that ensures the uniqueness (idempotency) of the request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>newFileSystem</code>: A Boolean value that, if true, specifies that the recovery point is restored to a new
+     * Amazon EFS file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ItemsToRestore</code>: An array of one to five strings where each string is a file path. Use
+     * <code>ItemsToRestore</code> to restore specific files or directories rather than the entire file system. This
+     * parameter is optional. For example, <code>"itemsToRestore":"[\"/my.test\"]"</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return A set of metadata key-value pairs. Lists the metadata that the recovery point was created with.
+     * @return A set of metadata key-value pairs. Contains information, such as a resource name, required to restore a
+     *         recovery point.</p>
+     *         <p>
+     *         You can get configuration metadata about a resource at the time it was backed up by calling
+     *         <code>GetRecoveryPointRestoreMetadata</code>. However, values in addition to those provided by
+     *         <code>GetRecoveryPointRestoreMetadata</code> might be required to restore a resource. For example, you
+     *         might need to provide a new resource name if the original already exists.
+     *         </p>
+     *         <p>
+     *         You need to specify specific metadata to restore an Amazon Elastic File System (Amazon EFS) instance:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>file-system-id</code>: The ID of the Amazon EFS file system that is backed up by Backup. Returned
+     *         in <code>GetRecoveryPointRestoreMetadata</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Encrypted</code>: A Boolean value that, if true, specifies that the file system is encrypted. If
+     *         <code>KmsKeyId</code> is specified, <code>Encrypted</code> must be set to <code>true</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>KmsKeyId</code>: Specifies the Amazon Web Services KMS key that is used to encrypt the restored
+     *         file system. You can specify a key from another Amazon Web Services account provided that key it is
+     *         properly shared with your account via Amazon Web Services KMS.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>PerformanceMode</code>: Specifies the throughput mode of the file system.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>CreationToken</code>: A user-supplied value that ensures the uniqueness (idempotency) of the
+     *         request.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>newFileSystem</code>: A Boolean value that, if true, specifies that the recovery point is restored
+     *         to a new Amazon EFS file system.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ItemsToRestore</code>: An array of one to five strings where each string is a file path. Use
+     *         <code>ItemsToRestore</code> to restore specific files or directories rather than the entire file system.
+     *         This parameter is optional. For example, <code>"itemsToRestore":"[\"/my.test\"]"</code>.
+     *         </p>
+     *         </li>
      */
 
     public java.util.Map<String, String> getMetadata() {
@@ -149,11 +369,119 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A set of metadata key-value pairs. Lists the metadata that the recovery point was created with.
+     * A set of metadata key-value pairs. Contains information, such as a resource name, required to restore a recovery
+     * point.
      * </p>
+     * <p>
+     * You can get configuration metadata about a resource at the time it was backed up by calling
+     * <code>GetRecoveryPointRestoreMetadata</code>. However, values in addition to those provided by
+     * <code>GetRecoveryPointRestoreMetadata</code> might be required to restore a resource. For example, you might need
+     * to provide a new resource name if the original already exists.
+     * </p>
+     * <p>
+     * You need to specify specific metadata to restore an Amazon Elastic File System (Amazon EFS) instance:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>file-system-id</code>: The ID of the Amazon EFS file system that is backed up by Backup. Returned in
+     * <code>GetRecoveryPointRestoreMetadata</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Encrypted</code>: A Boolean value that, if true, specifies that the file system is encrypted. If
+     * <code>KmsKeyId</code> is specified, <code>Encrypted</code> must be set to <code>true</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KmsKeyId</code>: Specifies the Amazon Web Services KMS key that is used to encrypt the restored file
+     * system. You can specify a key from another Amazon Web Services account provided that key it is properly shared
+     * with your account via Amazon Web Services KMS.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PerformanceMode</code>: Specifies the throughput mode of the file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CreationToken</code>: A user-supplied value that ensures the uniqueness (idempotency) of the request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>newFileSystem</code>: A Boolean value that, if true, specifies that the recovery point is restored to a new
+     * Amazon EFS file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ItemsToRestore</code>: An array of one to five strings where each string is a file path. Use
+     * <code>ItemsToRestore</code> to restore specific files or directories rather than the entire file system. This
+     * parameter is optional. For example, <code>"itemsToRestore":"[\"/my.test\"]"</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param metadata
-     *        A set of metadata key-value pairs. Lists the metadata that the recovery point was created with.
+     *        A set of metadata key-value pairs. Contains information, such as a resource name, required to restore a
+     *        recovery point.</p>
+     *        <p>
+     *        You can get configuration metadata about a resource at the time it was backed up by calling
+     *        <code>GetRecoveryPointRestoreMetadata</code>. However, values in addition to those provided by
+     *        <code>GetRecoveryPointRestoreMetadata</code> might be required to restore a resource. For example, you
+     *        might need to provide a new resource name if the original already exists.
+     *        </p>
+     *        <p>
+     *        You need to specify specific metadata to restore an Amazon Elastic File System (Amazon EFS) instance:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>file-system-id</code>: The ID of the Amazon EFS file system that is backed up by Backup. Returned in
+     *        <code>GetRecoveryPointRestoreMetadata</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Encrypted</code>: A Boolean value that, if true, specifies that the file system is encrypted. If
+     *        <code>KmsKeyId</code> is specified, <code>Encrypted</code> must be set to <code>true</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KmsKeyId</code>: Specifies the Amazon Web Services KMS key that is used to encrypt the restored file
+     *        system. You can specify a key from another Amazon Web Services account provided that key it is properly
+     *        shared with your account via Amazon Web Services KMS.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PerformanceMode</code>: Specifies the throughput mode of the file system.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CreationToken</code>: A user-supplied value that ensures the uniqueness (idempotency) of the
+     *        request.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>newFileSystem</code>: A Boolean value that, if true, specifies that the recovery point is restored
+     *        to a new Amazon EFS file system.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ItemsToRestore</code>: An array of one to five strings where each string is a file path. Use
+     *        <code>ItemsToRestore</code> to restore specific files or directories rather than the entire file system.
+     *        This parameter is optional. For example, <code>"itemsToRestore":"[\"/my.test\"]"</code>.
+     *        </p>
+     *        </li>
      */
 
     public void setMetadata(java.util.Map<String, String> metadata) {
@@ -162,11 +490,119 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A set of metadata key-value pairs. Lists the metadata that the recovery point was created with.
+     * A set of metadata key-value pairs. Contains information, such as a resource name, required to restore a recovery
+     * point.
      * </p>
+     * <p>
+     * You can get configuration metadata about a resource at the time it was backed up by calling
+     * <code>GetRecoveryPointRestoreMetadata</code>. However, values in addition to those provided by
+     * <code>GetRecoveryPointRestoreMetadata</code> might be required to restore a resource. For example, you might need
+     * to provide a new resource name if the original already exists.
+     * </p>
+     * <p>
+     * You need to specify specific metadata to restore an Amazon Elastic File System (Amazon EFS) instance:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>file-system-id</code>: The ID of the Amazon EFS file system that is backed up by Backup. Returned in
+     * <code>GetRecoveryPointRestoreMetadata</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Encrypted</code>: A Boolean value that, if true, specifies that the file system is encrypted. If
+     * <code>KmsKeyId</code> is specified, <code>Encrypted</code> must be set to <code>true</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>KmsKeyId</code>: Specifies the Amazon Web Services KMS key that is used to encrypt the restored file
+     * system. You can specify a key from another Amazon Web Services account provided that key it is properly shared
+     * with your account via Amazon Web Services KMS.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PerformanceMode</code>: Specifies the throughput mode of the file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CreationToken</code>: A user-supplied value that ensures the uniqueness (idempotency) of the request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>newFileSystem</code>: A Boolean value that, if true, specifies that the recovery point is restored to a new
+     * Amazon EFS file system.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ItemsToRestore</code>: An array of one to five strings where each string is a file path. Use
+     * <code>ItemsToRestore</code> to restore specific files or directories rather than the entire file system. This
+     * parameter is optional. For example, <code>"itemsToRestore":"[\"/my.test\"]"</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param metadata
-     *        A set of metadata key-value pairs. Lists the metadata that the recovery point was created with.
+     *        A set of metadata key-value pairs. Contains information, such as a resource name, required to restore a
+     *        recovery point.</p>
+     *        <p>
+     *        You can get configuration metadata about a resource at the time it was backed up by calling
+     *        <code>GetRecoveryPointRestoreMetadata</code>. However, values in addition to those provided by
+     *        <code>GetRecoveryPointRestoreMetadata</code> might be required to restore a resource. For example, you
+     *        might need to provide a new resource name if the original already exists.
+     *        </p>
+     *        <p>
+     *        You need to specify specific metadata to restore an Amazon Elastic File System (Amazon EFS) instance:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>file-system-id</code>: The ID of the Amazon EFS file system that is backed up by Backup. Returned in
+     *        <code>GetRecoveryPointRestoreMetadata</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Encrypted</code>: A Boolean value that, if true, specifies that the file system is encrypted. If
+     *        <code>KmsKeyId</code> is specified, <code>Encrypted</code> must be set to <code>true</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>KmsKeyId</code>: Specifies the Amazon Web Services KMS key that is used to encrypt the restored file
+     *        system. You can specify a key from another Amazon Web Services account provided that key it is properly
+     *        shared with your account via Amazon Web Services KMS.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PerformanceMode</code>: Specifies the throughput mode of the file system.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CreationToken</code>: A user-supplied value that ensures the uniqueness (idempotency) of the
+     *        request.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>newFileSystem</code>: A Boolean value that, if true, specifies that the recovery point is restored
+     *        to a new Amazon EFS file system.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ItemsToRestore</code>: An array of one to five strings where each string is a file path. Use
+     *        <code>ItemsToRestore</code> to restore specific files or directories rather than the entire file system.
+     *        This parameter is optional. For example, <code>"itemsToRestore":"[\"/my.test\"]"</code>.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -174,6 +610,13 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
         setMetadata(metadata);
         return this;
     }
+
+    /**
+     * Add a single Metadata entry
+     *
+     * @see StartRestoreJobRequest#withMetadata
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public StartRestoreJobRequest addMetadataEntry(String key, String value) {
         if (null == this.metadata) {
@@ -198,13 +641,13 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the IAM role that AWS Backup uses to create the target recovery point; for
-     * example, <code>arn:aws:iam::123456789012:role/S3Access</code>.
+     * The Amazon Resource Name (ARN) of the IAM role that Backup uses to create the target resource; for example:
+     * <code>arn:aws:iam::123456789012:role/S3Access</code>.
      * </p>
      * 
      * @param iamRoleArn
-     *        The Amazon Resource Name (ARN) of the IAM role that AWS Backup uses to create the target recovery point;
-     *        for example, <code>arn:aws:iam::123456789012:role/S3Access</code>.
+     *        The Amazon Resource Name (ARN) of the IAM role that Backup uses to create the target resource; for
+     *        example: <code>arn:aws:iam::123456789012:role/S3Access</code>.
      */
 
     public void setIamRoleArn(String iamRoleArn) {
@@ -213,12 +656,12 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the IAM role that AWS Backup uses to create the target recovery point; for
-     * example, <code>arn:aws:iam::123456789012:role/S3Access</code>.
+     * The Amazon Resource Name (ARN) of the IAM role that Backup uses to create the target resource; for example:
+     * <code>arn:aws:iam::123456789012:role/S3Access</code>.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the IAM role that AWS Backup uses to create the target recovery point;
-     *         for example, <code>arn:aws:iam::123456789012:role/S3Access</code>.
+     * @return The Amazon Resource Name (ARN) of the IAM role that Backup uses to create the target resource; for
+     *         example: <code>arn:aws:iam::123456789012:role/S3Access</code>.
      */
 
     public String getIamRoleArn() {
@@ -227,13 +670,13 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the IAM role that AWS Backup uses to create the target recovery point; for
-     * example, <code>arn:aws:iam::123456789012:role/S3Access</code>.
+     * The Amazon Resource Name (ARN) of the IAM role that Backup uses to create the target resource; for example:
+     * <code>arn:aws:iam::123456789012:role/S3Access</code>.
      * </p>
      * 
      * @param iamRoleArn
-     *        The Amazon Resource Name (ARN) of the IAM role that AWS Backup uses to create the target recovery point;
-     *        for example, <code>arn:aws:iam::123456789012:role/S3Access</code>.
+     *        The Amazon Resource Name (ARN) of the IAM role that Backup uses to create the target resource; for
+     *        example: <code>arn:aws:iam::123456789012:role/S3Access</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -244,19 +687,15 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A customer chosen string that can be used to distinguish between calls to <code>StartRestoreJob</code>.
-     * Idempotency tokens time out after one hour. Therefore, if you call <code>StartRestoreJob</code> multiple times
-     * with the same idempotency token within one hour, AWS Backup recognizes that you are requesting only one restore
-     * job and initiates only one. If you change the idempotency token for each call, AWS Backup recognizes that you are
-     * requesting to start multiple restores.
+     * A customer-chosen string that you can use to distinguish between otherwise identical calls to
+     * <code>StartRestoreJob</code>. Retrying a successful request with the same idempotency token results in a success
+     * message with no action taken.
      * </p>
      * 
      * @param idempotencyToken
-     *        A customer chosen string that can be used to distinguish between calls to <code>StartRestoreJob</code>.
-     *        Idempotency tokens time out after one hour. Therefore, if you call <code>StartRestoreJob</code> multiple
-     *        times with the same idempotency token within one hour, AWS Backup recognizes that you are requesting only
-     *        one restore job and initiates only one. If you change the idempotency token for each call, AWS Backup
-     *        recognizes that you are requesting to start multiple restores.
+     *        A customer-chosen string that you can use to distinguish between otherwise identical calls to
+     *        <code>StartRestoreJob</code>. Retrying a successful request with the same idempotency token results in a
+     *        success message with no action taken.
      */
 
     public void setIdempotencyToken(String idempotencyToken) {
@@ -265,18 +704,14 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A customer chosen string that can be used to distinguish between calls to <code>StartRestoreJob</code>.
-     * Idempotency tokens time out after one hour. Therefore, if you call <code>StartRestoreJob</code> multiple times
-     * with the same idempotency token within one hour, AWS Backup recognizes that you are requesting only one restore
-     * job and initiates only one. If you change the idempotency token for each call, AWS Backup recognizes that you are
-     * requesting to start multiple restores.
+     * A customer-chosen string that you can use to distinguish between otherwise identical calls to
+     * <code>StartRestoreJob</code>. Retrying a successful request with the same idempotency token results in a success
+     * message with no action taken.
      * </p>
      * 
-     * @return A customer chosen string that can be used to distinguish between calls to <code>StartRestoreJob</code>.
-     *         Idempotency tokens time out after one hour. Therefore, if you call <code>StartRestoreJob</code> multiple
-     *         times with the same idempotency token within one hour, AWS Backup recognizes that you are requesting only
-     *         one restore job and initiates only one. If you change the idempotency token for each call, AWS Backup
-     *         recognizes that you are requesting to start multiple restores.
+     * @return A customer-chosen string that you can use to distinguish between otherwise identical calls to
+     *         <code>StartRestoreJob</code>. Retrying a successful request with the same idempotency token results in a
+     *         success message with no action taken.
      */
 
     public String getIdempotencyToken() {
@@ -285,19 +720,15 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A customer chosen string that can be used to distinguish between calls to <code>StartRestoreJob</code>.
-     * Idempotency tokens time out after one hour. Therefore, if you call <code>StartRestoreJob</code> multiple times
-     * with the same idempotency token within one hour, AWS Backup recognizes that you are requesting only one restore
-     * job and initiates only one. If you change the idempotency token for each call, AWS Backup recognizes that you are
-     * requesting to start multiple restores.
+     * A customer-chosen string that you can use to distinguish between otherwise identical calls to
+     * <code>StartRestoreJob</code>. Retrying a successful request with the same idempotency token results in a success
+     * message with no action taken.
      * </p>
      * 
      * @param idempotencyToken
-     *        A customer chosen string that can be used to distinguish between calls to <code>StartRestoreJob</code>.
-     *        Idempotency tokens time out after one hour. Therefore, if you call <code>StartRestoreJob</code> multiple
-     *        times with the same idempotency token within one hour, AWS Backup recognizes that you are requesting only
-     *        one restore job and initiates only one. If you change the idempotency token for each call, AWS Backup
-     *        recognizes that you are requesting to start multiple restores.
+     *        A customer-chosen string that you can use to distinguish between otherwise identical calls to
+     *        <code>StartRestoreJob</code>. Retrying a successful request with the same idempotency token results in a
+     *        success message with no action taken.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -313,12 +744,47 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
+     * <code>Aurora</code> for Amazon Aurora
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DocumentDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CloudFormation</code> for CloudFormation
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DynamoDB</code> for Amazon DynamoDB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>EBS</code> for Amazon Elastic Block Store
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SGW</code> for AWS Storage Gateway
+     * <code>EC2</code> for Amazon Elastic Compute Cloud
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EFS</code> for Amazon Elastic File System
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FSx</code> for Amazon FSx
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Neptune</code> for Amazon Neptune
      * </p>
      * </li>
      * <li>
@@ -328,12 +794,27 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * <code>DDB</code> for Amazon DynamoDB
+     * <code>Redshift</code> for Amazon Redshift
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EFS</code> for Amazon Elastic File System
+     * <code>Storage Gateway</code> for Storage Gateway
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>S3</code> for Amazon S3
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Timestream</code> for Amazon Timestream
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>VirtualMachine</code> for virtual machines
      * </p>
      * </li>
      * </ul>
@@ -343,12 +824,47 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
      *        <ul>
      *        <li>
      *        <p>
+     *        <code>Aurora</code> for Amazon Aurora
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DocumentDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CloudFormation</code> for CloudFormation
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DynamoDB</code> for Amazon DynamoDB
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>EBS</code> for Amazon Elastic Block Store
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SGW</code> for AWS Storage Gateway
+     *        <code>EC2</code> for Amazon Elastic Compute Cloud
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EFS</code> for Amazon Elastic File System
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>FSx</code> for Amazon FSx
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Neptune</code> for Amazon Neptune
      *        </p>
      *        </li>
      *        <li>
@@ -358,12 +874,27 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DDB</code> for Amazon DynamoDB
+     *        <code>Redshift</code> for Amazon Redshift
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>EFS</code> for Amazon Elastic File System
+     *        <code>Storage Gateway</code> for Storage Gateway
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>S3</code> for Amazon S3
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Timestream</code> for Amazon Timestream
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>VirtualMachine</code> for virtual machines
      *        </p>
      *        </li>
      */
@@ -379,12 +910,47 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
+     * <code>Aurora</code> for Amazon Aurora
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DocumentDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CloudFormation</code> for CloudFormation
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DynamoDB</code> for Amazon DynamoDB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>EBS</code> for Amazon Elastic Block Store
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SGW</code> for AWS Storage Gateway
+     * <code>EC2</code> for Amazon Elastic Compute Cloud
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EFS</code> for Amazon Elastic File System
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FSx</code> for Amazon FSx
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Neptune</code> for Amazon Neptune
      * </p>
      * </li>
      * <li>
@@ -394,12 +960,27 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * <code>DDB</code> for Amazon DynamoDB
+     * <code>Redshift</code> for Amazon Redshift
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EFS</code> for Amazon Elastic File System
+     * <code>Storage Gateway</code> for Storage Gateway
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>S3</code> for Amazon S3
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Timestream</code> for Amazon Timestream
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>VirtualMachine</code> for virtual machines
      * </p>
      * </li>
      * </ul>
@@ -408,12 +989,47 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
      *         <ul>
      *         <li>
      *         <p>
+     *         <code>Aurora</code> for Amazon Aurora
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DocumentDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>CloudFormation</code> for CloudFormation
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DynamoDB</code> for Amazon DynamoDB
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         <code>EBS</code> for Amazon Elastic Block Store
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>SGW</code> for AWS Storage Gateway
+     *         <code>EC2</code> for Amazon Elastic Compute Cloud
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>EFS</code> for Amazon Elastic File System
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>FSx</code> for Amazon FSx
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Neptune</code> for Amazon Neptune
      *         </p>
      *         </li>
      *         <li>
@@ -423,12 +1039,27 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
      *         </li>
      *         <li>
      *         <p>
-     *         <code>DDB</code> for Amazon DynamoDB
+     *         <code>Redshift</code> for Amazon Redshift
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>EFS</code> for Amazon Elastic File System
+     *         <code>Storage Gateway</code> for Storage Gateway
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>S3</code> for Amazon S3
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Timestream</code> for Amazon Timestream
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>VirtualMachine</code> for virtual machines
      *         </p>
      *         </li>
      */
@@ -444,12 +1075,47 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
+     * <code>Aurora</code> for Amazon Aurora
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DocumentDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>CloudFormation</code> for CloudFormation
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DynamoDB</code> for Amazon DynamoDB
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>EBS</code> for Amazon Elastic Block Store
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>SGW</code> for AWS Storage Gateway
+     * <code>EC2</code> for Amazon Elastic Compute Cloud
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EFS</code> for Amazon Elastic File System
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>FSx</code> for Amazon FSx
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Neptune</code> for Amazon Neptune
      * </p>
      * </li>
      * <li>
@@ -459,12 +1125,27 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * <code>DDB</code> for Amazon DynamoDB
+     * <code>Redshift</code> for Amazon Redshift
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EFS</code> for Amazon Elastic File System
+     * <code>Storage Gateway</code> for Storage Gateway
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>S3</code> for Amazon S3
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Timestream</code> for Amazon Timestream
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>VirtualMachine</code> for virtual machines
      * </p>
      * </li>
      * </ul>
@@ -474,12 +1155,47 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
      *        <ul>
      *        <li>
      *        <p>
+     *        <code>Aurora</code> for Amazon Aurora
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DocumentDB</code> for Amazon DocumentDB (with MongoDB compatibility)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>CloudFormation</code> for CloudFormation
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DynamoDB</code> for Amazon DynamoDB
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>EBS</code> for Amazon Elastic Block Store
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>SGW</code> for AWS Storage Gateway
+     *        <code>EC2</code> for Amazon Elastic Compute Cloud
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EFS</code> for Amazon Elastic File System
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>FSx</code> for Amazon FSx
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Neptune</code> for Amazon Neptune
      *        </p>
      *        </li>
      *        <li>
@@ -489,12 +1205,27 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DDB</code> for Amazon DynamoDB
+     *        <code>Redshift</code> for Amazon Redshift
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>EFS</code> for Amazon Elastic File System
+     *        <code>Storage Gateway</code> for Storage Gateway
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>S3</code> for Amazon S3
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Timestream</code> for Amazon Timestream
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>VirtualMachine</code> for virtual machines
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -503,6 +1234,86 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
     public StartRestoreJobRequest withResourceType(String resourceType) {
         setResourceType(resourceType);
         return this;
+    }
+
+    /**
+     * <p>
+     * This is an optional parameter. If this equals <code>True</code>, tags included in the backup will be copied to
+     * the restored resource.
+     * </p>
+     * <p>
+     * This can only be applied to backups created through Backup.
+     * </p>
+     * 
+     * @param copySourceTagsToRestoredResource
+     *        This is an optional parameter. If this equals <code>True</code>, tags included in the backup will be
+     *        copied to the restored resource.</p>
+     *        <p>
+     *        This can only be applied to backups created through Backup.
+     */
+
+    public void setCopySourceTagsToRestoredResource(Boolean copySourceTagsToRestoredResource) {
+        this.copySourceTagsToRestoredResource = copySourceTagsToRestoredResource;
+    }
+
+    /**
+     * <p>
+     * This is an optional parameter. If this equals <code>True</code>, tags included in the backup will be copied to
+     * the restored resource.
+     * </p>
+     * <p>
+     * This can only be applied to backups created through Backup.
+     * </p>
+     * 
+     * @return This is an optional parameter. If this equals <code>True</code>, tags included in the backup will be
+     *         copied to the restored resource.</p>
+     *         <p>
+     *         This can only be applied to backups created through Backup.
+     */
+
+    public Boolean getCopySourceTagsToRestoredResource() {
+        return this.copySourceTagsToRestoredResource;
+    }
+
+    /**
+     * <p>
+     * This is an optional parameter. If this equals <code>True</code>, tags included in the backup will be copied to
+     * the restored resource.
+     * </p>
+     * <p>
+     * This can only be applied to backups created through Backup.
+     * </p>
+     * 
+     * @param copySourceTagsToRestoredResource
+     *        This is an optional parameter. If this equals <code>True</code>, tags included in the backup will be
+     *        copied to the restored resource.</p>
+     *        <p>
+     *        This can only be applied to backups created through Backup.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartRestoreJobRequest withCopySourceTagsToRestoredResource(Boolean copySourceTagsToRestoredResource) {
+        setCopySourceTagsToRestoredResource(copySourceTagsToRestoredResource);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is an optional parameter. If this equals <code>True</code>, tags included in the backup will be copied to
+     * the restored resource.
+     * </p>
+     * <p>
+     * This can only be applied to backups created through Backup.
+     * </p>
+     * 
+     * @return This is an optional parameter. If this equals <code>True</code>, tags included in the backup will be
+     *         copied to the restored resource.</p>
+     *         <p>
+     *         This can only be applied to backups created through Backup.
+     */
+
+    public Boolean isCopySourceTagsToRestoredResource() {
+        return this.copySourceTagsToRestoredResource;
     }
 
     /**
@@ -520,13 +1331,15 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
         if (getRecoveryPointArn() != null)
             sb.append("RecoveryPointArn: ").append(getRecoveryPointArn()).append(",");
         if (getMetadata() != null)
-            sb.append("Metadata: ").append(getMetadata()).append(",");
+            sb.append("Metadata: ").append("***Sensitive Data Redacted***").append(",");
         if (getIamRoleArn() != null)
             sb.append("IamRoleArn: ").append(getIamRoleArn()).append(",");
         if (getIdempotencyToken() != null)
             sb.append("IdempotencyToken: ").append(getIdempotencyToken()).append(",");
         if (getResourceType() != null)
-            sb.append("ResourceType: ").append(getResourceType());
+            sb.append("ResourceType: ").append(getResourceType()).append(",");
+        if (getCopySourceTagsToRestoredResource() != null)
+            sb.append("CopySourceTagsToRestoredResource: ").append(getCopySourceTagsToRestoredResource());
         sb.append("}");
         return sb.toString();
     }
@@ -561,6 +1374,11 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
             return false;
         if (other.getResourceType() != null && other.getResourceType().equals(this.getResourceType()) == false)
             return false;
+        if (other.getCopySourceTagsToRestoredResource() == null ^ this.getCopySourceTagsToRestoredResource() == null)
+            return false;
+        if (other.getCopySourceTagsToRestoredResource() != null
+                && other.getCopySourceTagsToRestoredResource().equals(this.getCopySourceTagsToRestoredResource()) == false)
+            return false;
         return true;
     }
 
@@ -574,6 +1392,7 @@ public class StartRestoreJobRequest extends com.amazonaws.AmazonWebServiceReques
         hashCode = prime * hashCode + ((getIamRoleArn() == null) ? 0 : getIamRoleArn().hashCode());
         hashCode = prime * hashCode + ((getIdempotencyToken() == null) ? 0 : getIdempotencyToken().hashCode());
         hashCode = prime * hashCode + ((getResourceType() == null) ? 0 : getResourceType().hashCode());
+        hashCode = prime * hashCode + ((getCopySourceTagsToRestoredResource() == null) ? 0 : getCopySourceTagsToRestoredResource().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -83,11 +83,17 @@ public class InstanceFleetJsonUnmarshaller implements Unmarshaller<InstanceFleet
                 if (context.testExpression("InstanceTypeSpecifications", targetDepth)) {
                     context.nextToken();
                     instanceFleet.setInstanceTypeSpecifications(new ListUnmarshaller<InstanceTypeSpecification>(InstanceTypeSpecificationJsonUnmarshaller
-                            .getInstance()).unmarshall(context));
+                            .getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("LaunchSpecifications", targetDepth)) {
                     context.nextToken();
                     instanceFleet.setLaunchSpecifications(InstanceFleetProvisioningSpecificationsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ResizeSpecifications", targetDepth)) {
+                    context.nextToken();
+                    instanceFleet.setResizeSpecifications(InstanceFleetResizingSpecificationsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,6 +16,7 @@ import javax.annotation.Generated;
 
 import com.amazonaws.services.rekognition.model.*;
 import com.amazonaws.*;
+import com.amazonaws.services.rekognition.waiters.AmazonRekognitionWaiters;
 
 /**
  * Abstract implementation of {@code AmazonRekognition}. Convenient method forms pass through to the corresponding
@@ -38,7 +39,17 @@ public class AbstractAmazonRekognition implements AmazonRekognition {
     }
 
     @Override
+    public AssociateFacesResult associateFaces(AssociateFacesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CompareFacesResult compareFaces(CompareFacesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CopyProjectVersionResult copyProjectVersion(CopyProjectVersionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -48,7 +59,32 @@ public class AbstractAmazonRekognition implements AmazonRekognition {
     }
 
     @Override
+    public CreateDatasetResult createDataset(CreateDatasetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateFaceLivenessSessionResult createFaceLivenessSession(CreateFaceLivenessSessionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateProjectResult createProject(CreateProjectRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateProjectVersionResult createProjectVersion(CreateProjectVersionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateStreamProcessorResult createStreamProcessor(CreateStreamProcessorRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateUserResult createUser(CreateUserRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -58,7 +94,27 @@ public class AbstractAmazonRekognition implements AmazonRekognition {
     }
 
     @Override
+    public DeleteDatasetResult deleteDataset(DeleteDatasetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteFacesResult deleteFaces(DeleteFacesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteProjectResult deleteProject(DeleteProjectRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteProjectPolicyResult deleteProjectPolicy(DeleteProjectPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteProjectVersionResult deleteProjectVersion(DeleteProjectVersionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -68,12 +124,37 @@ public class AbstractAmazonRekognition implements AmazonRekognition {
     }
 
     @Override
+    public DeleteUserResult deleteUser(DeleteUserRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeCollectionResult describeCollection(DescribeCollectionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public DescribeDatasetResult describeDataset(DescribeDatasetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeProjectVersionsResult describeProjectVersions(DescribeProjectVersionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeProjectsResult describeProjects(DescribeProjectsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeStreamProcessorResult describeStreamProcessor(DescribeStreamProcessorRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DetectCustomLabelsResult detectCustomLabels(DetectCustomLabelsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -93,7 +174,22 @@ public class AbstractAmazonRekognition implements AmazonRekognition {
     }
 
     @Override
+    public DetectProtectiveEquipmentResult detectProtectiveEquipment(DetectProtectiveEquipmentRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DetectTextResult detectText(DetectTextRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateFacesResult disassociateFaces(DisassociateFacesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DistributeDatasetEntriesResult distributeDatasetEntries(DistributeDatasetEntriesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -118,6 +214,11 @@ public class AbstractAmazonRekognition implements AmazonRekognition {
     }
 
     @Override
+    public GetFaceLivenessSessionResultsResult getFaceLivenessSessionResults(GetFaceLivenessSessionResultsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetFaceSearchResult getFaceSearch(GetFaceSearchRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -128,7 +229,22 @@ public class AbstractAmazonRekognition implements AmazonRekognition {
     }
 
     @Override
+    public GetMediaAnalysisJobResult getMediaAnalysisJob(GetMediaAnalysisJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetPersonTrackingResult getPersonTracking(GetPersonTrackingRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetSegmentDetectionResult getSegmentDetection(GetSegmentDetectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetTextDetectionResult getTextDetection(GetTextDetectionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -143,12 +259,47 @@ public class AbstractAmazonRekognition implements AmazonRekognition {
     }
 
     @Override
+    public ListDatasetEntriesResult listDatasetEntries(ListDatasetEntriesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListDatasetLabelsResult listDatasetLabels(ListDatasetLabelsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListFacesResult listFaces(ListFacesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public ListMediaAnalysisJobsResult listMediaAnalysisJobs(ListMediaAnalysisJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListProjectPoliciesResult listProjectPolicies(ListProjectPoliciesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListStreamProcessorsResult listStreamProcessors(ListStreamProcessorsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListUsersResult listUsers(ListUsersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutProjectPolicyResult putProjectPolicy(PutProjectPolicyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -164,6 +315,16 @@ public class AbstractAmazonRekognition implements AmazonRekognition {
 
     @Override
     public SearchFacesByImageResult searchFacesByImage(SearchFacesByImageRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchUsersResult searchUsers(SearchUsersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchUsersByImageResult searchUsersByImage(SearchUsersByImageRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -193,7 +354,22 @@ public class AbstractAmazonRekognition implements AmazonRekognition {
     }
 
     @Override
+    public StartMediaAnalysisJobResult startMediaAnalysisJob(StartMediaAnalysisJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StartPersonTrackingResult startPersonTracking(StartPersonTrackingRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartProjectVersionResult startProjectVersion(StartProjectVersionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartSegmentDetectionResult startSegmentDetection(StartSegmentDetectionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -203,7 +379,37 @@ public class AbstractAmazonRekognition implements AmazonRekognition {
     }
 
     @Override
+    public StartTextDetectionResult startTextDetection(StartTextDetectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StopProjectVersionResult stopProjectVersion(StopProjectVersionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StopStreamProcessorResult stopStreamProcessor(StopStreamProcessorRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateDatasetEntriesResult updateDatasetEntries(UpdateDatasetEntriesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateStreamProcessorResult updateStreamProcessor(UpdateStreamProcessorRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -214,6 +420,11 @@ public class AbstractAmazonRekognition implements AmazonRekognition {
 
     @Override
     public com.amazonaws.ResponseMetadata getCachedResponseMetadata(com.amazonaws.AmazonWebServiceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AmazonRekognitionWaiters waiters() {
         throw new java.lang.UnsupportedOperationException();
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,20 +45,28 @@ public class UpdateIntegrationRequestMarshaller {
             .marshallLocation(MarshallLocation.PATH).marshallLocationName("integrationId").build();
     private static final MarshallingInfo<String> INTEGRATIONMETHOD_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("integrationMethod").build();
+    private static final MarshallingInfo<String> INTEGRATIONSUBTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("integrationSubtype").build();
     private static final MarshallingInfo<String> INTEGRATIONTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("integrationType").build();
     private static final MarshallingInfo<String> INTEGRATIONURI_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("integrationUri").build();
     private static final MarshallingInfo<String> PASSTHROUGHBEHAVIOR_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("passthroughBehavior").build();
+    private static final MarshallingInfo<String> PAYLOADFORMATVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("payloadFormatVersion").build();
     private static final MarshallingInfo<Map> REQUESTPARAMETERS_BINDING = MarshallingInfo.builder(MarshallingType.MAP)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("requestParameters").build();
     private static final MarshallingInfo<Map> REQUESTTEMPLATES_BINDING = MarshallingInfo.builder(MarshallingType.MAP)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("requestTemplates").build();
+    private static final MarshallingInfo<Map> RESPONSEPARAMETERS_BINDING = MarshallingInfo.builder(MarshallingType.MAP)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("responseParameters").build();
     private static final MarshallingInfo<String> TEMPLATESELECTIONEXPRESSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("templateSelectionExpression").build();
     private static final MarshallingInfo<Integer> TIMEOUTINMILLIS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("timeoutInMillis").build();
+    private static final MarshallingInfo<StructuredPojo> TLSCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("tlsConfig").build();
 
     private static final UpdateIntegrationRequestMarshaller instance = new UpdateIntegrationRequestMarshaller();
 
@@ -84,13 +92,17 @@ public class UpdateIntegrationRequestMarshaller {
             protocolMarshaller.marshall(updateIntegrationRequest.getDescription(), DESCRIPTION_BINDING);
             protocolMarshaller.marshall(updateIntegrationRequest.getIntegrationId(), INTEGRATIONID_BINDING);
             protocolMarshaller.marshall(updateIntegrationRequest.getIntegrationMethod(), INTEGRATIONMETHOD_BINDING);
+            protocolMarshaller.marshall(updateIntegrationRequest.getIntegrationSubtype(), INTEGRATIONSUBTYPE_BINDING);
             protocolMarshaller.marshall(updateIntegrationRequest.getIntegrationType(), INTEGRATIONTYPE_BINDING);
             protocolMarshaller.marshall(updateIntegrationRequest.getIntegrationUri(), INTEGRATIONURI_BINDING);
             protocolMarshaller.marshall(updateIntegrationRequest.getPassthroughBehavior(), PASSTHROUGHBEHAVIOR_BINDING);
+            protocolMarshaller.marshall(updateIntegrationRequest.getPayloadFormatVersion(), PAYLOADFORMATVERSION_BINDING);
             protocolMarshaller.marshall(updateIntegrationRequest.getRequestParameters(), REQUESTPARAMETERS_BINDING);
             protocolMarshaller.marshall(updateIntegrationRequest.getRequestTemplates(), REQUESTTEMPLATES_BINDING);
+            protocolMarshaller.marshall(updateIntegrationRequest.getResponseParameters(), RESPONSEPARAMETERS_BINDING);
             protocolMarshaller.marshall(updateIntegrationRequest.getTemplateSelectionExpression(), TEMPLATESELECTIONEXPRESSION_BINDING);
             protocolMarshaller.marshall(updateIntegrationRequest.getTimeoutInMillis(), TIMEOUTINMILLIS_BINDING);
+            protocolMarshaller.marshall(updateIntegrationRequest.getTlsConfig(), TLSCONFIG_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

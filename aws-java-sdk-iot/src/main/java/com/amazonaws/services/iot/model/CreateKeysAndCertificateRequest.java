@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,6 +20,11 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * <p>
  * The input for the CreateKeysAndCertificate operation.
+ * </p>
+ * <p>
+ * Requires permission to access the <a href=
+ * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+ * >CreateKeysAndCertificateRequest</a> action.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

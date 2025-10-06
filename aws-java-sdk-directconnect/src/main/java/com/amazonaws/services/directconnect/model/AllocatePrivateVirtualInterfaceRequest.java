@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,7 @@ public class AllocatePrivateVirtualInterfaceRequest extends com.amazonaws.Amazon
     private String connectionId;
     /**
      * <p>
-     * The ID of the AWS account that owns the virtual private interface.
+     * The ID of the Amazon Web Services account that owns the virtual private interface.
      * </p>
      */
     private String ownerAccount;
@@ -86,11 +86,11 @@ public class AllocatePrivateVirtualInterfaceRequest extends com.amazonaws.Amazon
 
     /**
      * <p>
-     * The ID of the AWS account that owns the virtual private interface.
+     * The ID of the Amazon Web Services account that owns the virtual private interface.
      * </p>
      * 
      * @param ownerAccount
-     *        The ID of the AWS account that owns the virtual private interface.
+     *        The ID of the Amazon Web Services account that owns the virtual private interface.
      */
 
     public void setOwnerAccount(String ownerAccount) {
@@ -99,10 +99,10 @@ public class AllocatePrivateVirtualInterfaceRequest extends com.amazonaws.Amazon
 
     /**
      * <p>
-     * The ID of the AWS account that owns the virtual private interface.
+     * The ID of the Amazon Web Services account that owns the virtual private interface.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the virtual private interface.
+     * @return The ID of the Amazon Web Services account that owns the virtual private interface.
      */
 
     public String getOwnerAccount() {
@@ -111,11 +111,11 @@ public class AllocatePrivateVirtualInterfaceRequest extends com.amazonaws.Amazon
 
     /**
      * <p>
-     * The ID of the AWS account that owns the virtual private interface.
+     * The ID of the Amazon Web Services account that owns the virtual private interface.
      * </p>
      * 
      * @param ownerAccount
-     *        The ID of the AWS account that owns the virtual private interface.
+     *        The ID of the Amazon Web Services account that owns the virtual private interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

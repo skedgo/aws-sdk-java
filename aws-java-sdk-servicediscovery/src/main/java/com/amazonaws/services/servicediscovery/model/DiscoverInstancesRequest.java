@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,10 @@ public class DiscoverInstancesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the namespace that you specified when you registered the instance.
+     * The <code>HttpName</code> name of the namespace. It's found in the <code>HttpProperties</code> member of the
+     * <code>Properties</code> member of the namespace. In most cases, <code>Name</code> and <code>HttpName</code>
+     * match. However, if you reuse <code>Name</code> for namespace creation, a generated hash is added to
+     * <code>HttpName</code> to distinguish the two.
      * </p>
      */
     private String namespaceName;
@@ -47,26 +50,68 @@ public class DiscoverInstancesRequest extends com.amazonaws.AmazonWebServiceRequ
     private Integer maxResults;
     /**
      * <p>
-     * A string map that contains attributes with values that you can use to filter instances by any custom attribute
-     * that you specified when you registered the instance. Only instances that match all the specified key/value pairs
-     * will be returned.
+     * Filters to scope the results based on custom attributes for the instance (for example,
+     * <code>{version=v1, az=1a}</code>). Only instances that match all the specified key-value pairs are returned.
      * </p>
      */
     private java.util.Map<String, String> queryParameters;
     /**
      * <p>
-     * The health status of the instances that you want to discover.
+     * Opportunistic filters to scope the results based on custom attributes. If there are instances that match both the
+     * filters specified in both the <code>QueryParameters</code> parameter and this parameter, all of these instances
+     * are returned. Otherwise, the filters are ignored, and only instances that match the filters that are specified in
+     * the <code>QueryParameters</code> parameter are returned.
      * </p>
+     */
+    private java.util.Map<String, String> optionalParameters;
+    /**
+     * <p>
+     * The health status of the instances that you want to discover. This parameter is ignored for services that don't
+     * have a health check configured, and all instances are returned.
+     * </p>
+     * <dl>
+     * <dt>HEALTHY</dt>
+     * <dd>
+     * <p>
+     * Returns healthy instances.
+     * </p>
+     * </dd>
+     * <dt>UNHEALTHY</dt>
+     * <dd>
+     * <p>
+     * Returns unhealthy instances.
+     * </p>
+     * </dd>
+     * <dt>ALL</dt>
+     * <dd>
+     * <p>
+     * Returns all instances.
+     * </p>
+     * </dd>
+     * <dt>HEALTHY_OR_ELSE_ALL</dt>
+     * <dd>
+     * <p>
+     * Returns healthy instances, unless none are reporting a healthy state. In that case, return all instances. This is
+     * also called failing open.
+     * </p>
+     * </dd>
+     * </dl>
      */
     private String healthStatus;
 
     /**
      * <p>
-     * The name of the namespace that you specified when you registered the instance.
+     * The <code>HttpName</code> name of the namespace. It's found in the <code>HttpProperties</code> member of the
+     * <code>Properties</code> member of the namespace. In most cases, <code>Name</code> and <code>HttpName</code>
+     * match. However, if you reuse <code>Name</code> for namespace creation, a generated hash is added to
+     * <code>HttpName</code> to distinguish the two.
      * </p>
      * 
      * @param namespaceName
-     *        The name of the namespace that you specified when you registered the instance.
+     *        The <code>HttpName</code> name of the namespace. It's found in the <code>HttpProperties</code> member of
+     *        the <code>Properties</code> member of the namespace. In most cases, <code>Name</code> and
+     *        <code>HttpName</code> match. However, if you reuse <code>Name</code> for namespace creation, a generated
+     *        hash is added to <code>HttpName</code> to distinguish the two.
      */
 
     public void setNamespaceName(String namespaceName) {
@@ -75,10 +120,16 @@ public class DiscoverInstancesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the namespace that you specified when you registered the instance.
+     * The <code>HttpName</code> name of the namespace. It's found in the <code>HttpProperties</code> member of the
+     * <code>Properties</code> member of the namespace. In most cases, <code>Name</code> and <code>HttpName</code>
+     * match. However, if you reuse <code>Name</code> for namespace creation, a generated hash is added to
+     * <code>HttpName</code> to distinguish the two.
      * </p>
      * 
-     * @return The name of the namespace that you specified when you registered the instance.
+     * @return The <code>HttpName</code> name of the namespace. It's found in the <code>HttpProperties</code> member of
+     *         the <code>Properties</code> member of the namespace. In most cases, <code>Name</code> and
+     *         <code>HttpName</code> match. However, if you reuse <code>Name</code> for namespace creation, a generated
+     *         hash is added to <code>HttpName</code> to distinguish the two.
      */
 
     public String getNamespaceName() {
@@ -87,11 +138,17 @@ public class DiscoverInstancesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The name of the namespace that you specified when you registered the instance.
+     * The <code>HttpName</code> name of the namespace. It's found in the <code>HttpProperties</code> member of the
+     * <code>Properties</code> member of the namespace. In most cases, <code>Name</code> and <code>HttpName</code>
+     * match. However, if you reuse <code>Name</code> for namespace creation, a generated hash is added to
+     * <code>HttpName</code> to distinguish the two.
      * </p>
      * 
      * @param namespaceName
-     *        The name of the namespace that you specified when you registered the instance.
+     *        The <code>HttpName</code> name of the namespace. It's found in the <code>HttpProperties</code> member of
+     *        the <code>Properties</code> member of the namespace. In most cases, <code>Name</code> and
+     *        <code>HttpName</code> match. However, if you reuse <code>Name</code> for namespace creation, a generated
+     *        hash is added to <code>HttpName</code> to distinguish the two.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -194,14 +251,13 @@ public class DiscoverInstancesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A string map that contains attributes with values that you can use to filter instances by any custom attribute
-     * that you specified when you registered the instance. Only instances that match all the specified key/value pairs
-     * will be returned.
+     * Filters to scope the results based on custom attributes for the instance (for example,
+     * <code>{version=v1, az=1a}</code>). Only instances that match all the specified key-value pairs are returned.
      * </p>
      * 
-     * @return A string map that contains attributes with values that you can use to filter instances by any custom
-     *         attribute that you specified when you registered the instance. Only instances that match all the
-     *         specified key/value pairs will be returned.
+     * @return Filters to scope the results based on custom attributes for the instance (for example,
+     *         <code>{version=v1, az=1a}</code>). Only instances that match all the specified key-value pairs are
+     *         returned.
      */
 
     public java.util.Map<String, String> getQueryParameters() {
@@ -210,15 +266,14 @@ public class DiscoverInstancesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A string map that contains attributes with values that you can use to filter instances by any custom attribute
-     * that you specified when you registered the instance. Only instances that match all the specified key/value pairs
-     * will be returned.
+     * Filters to scope the results based on custom attributes for the instance (for example,
+     * <code>{version=v1, az=1a}</code>). Only instances that match all the specified key-value pairs are returned.
      * </p>
      * 
      * @param queryParameters
-     *        A string map that contains attributes with values that you can use to filter instances by any custom
-     *        attribute that you specified when you registered the instance. Only instances that match all the specified
-     *        key/value pairs will be returned.
+     *        Filters to scope the results based on custom attributes for the instance (for example,
+     *        <code>{version=v1, az=1a}</code>). Only instances that match all the specified key-value pairs are
+     *        returned.
      */
 
     public void setQueryParameters(java.util.Map<String, String> queryParameters) {
@@ -227,15 +282,14 @@ public class DiscoverInstancesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A string map that contains attributes with values that you can use to filter instances by any custom attribute
-     * that you specified when you registered the instance. Only instances that match all the specified key/value pairs
-     * will be returned.
+     * Filters to scope the results based on custom attributes for the instance (for example,
+     * <code>{version=v1, az=1a}</code>). Only instances that match all the specified key-value pairs are returned.
      * </p>
      * 
      * @param queryParameters
-     *        A string map that contains attributes with values that you can use to filter instances by any custom
-     *        attribute that you specified when you registered the instance. Only instances that match all the specified
-     *        key/value pairs will be returned.
+     *        Filters to scope the results based on custom attributes for the instance (for example,
+     *        <code>{version=v1, az=1a}</code>). Only instances that match all the specified key-value pairs are
+     *        returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -243,6 +297,13 @@ public class DiscoverInstancesRequest extends com.amazonaws.AmazonWebServiceRequ
         setQueryParameters(queryParameters);
         return this;
     }
+
+    /**
+     * Add a single QueryParameters entry
+     *
+     * @see DiscoverInstancesRequest#withQueryParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public DiscoverInstancesRequest addQueryParametersEntry(String key, String value) {
         if (null == this.queryParameters) {
@@ -267,11 +328,152 @@ public class DiscoverInstancesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The health status of the instances that you want to discover.
+     * Opportunistic filters to scope the results based on custom attributes. If there are instances that match both the
+     * filters specified in both the <code>QueryParameters</code> parameter and this parameter, all of these instances
+     * are returned. Otherwise, the filters are ignored, and only instances that match the filters that are specified in
+     * the <code>QueryParameters</code> parameter are returned.
      * </p>
      * 
+     * @return Opportunistic filters to scope the results based on custom attributes. If there are instances that match
+     *         both the filters specified in both the <code>QueryParameters</code> parameter and this parameter, all of
+     *         these instances are returned. Otherwise, the filters are ignored, and only instances that match the
+     *         filters that are specified in the <code>QueryParameters</code> parameter are returned.
+     */
+
+    public java.util.Map<String, String> getOptionalParameters() {
+        return optionalParameters;
+    }
+
+    /**
+     * <p>
+     * Opportunistic filters to scope the results based on custom attributes. If there are instances that match both the
+     * filters specified in both the <code>QueryParameters</code> parameter and this parameter, all of these instances
+     * are returned. Otherwise, the filters are ignored, and only instances that match the filters that are specified in
+     * the <code>QueryParameters</code> parameter are returned.
+     * </p>
+     * 
+     * @param optionalParameters
+     *        Opportunistic filters to scope the results based on custom attributes. If there are instances that match
+     *        both the filters specified in both the <code>QueryParameters</code> parameter and this parameter, all of
+     *        these instances are returned. Otherwise, the filters are ignored, and only instances that match the
+     *        filters that are specified in the <code>QueryParameters</code> parameter are returned.
+     */
+
+    public void setOptionalParameters(java.util.Map<String, String> optionalParameters) {
+        this.optionalParameters = optionalParameters;
+    }
+
+    /**
+     * <p>
+     * Opportunistic filters to scope the results based on custom attributes. If there are instances that match both the
+     * filters specified in both the <code>QueryParameters</code> parameter and this parameter, all of these instances
+     * are returned. Otherwise, the filters are ignored, and only instances that match the filters that are specified in
+     * the <code>QueryParameters</code> parameter are returned.
+     * </p>
+     * 
+     * @param optionalParameters
+     *        Opportunistic filters to scope the results based on custom attributes. If there are instances that match
+     *        both the filters specified in both the <code>QueryParameters</code> parameter and this parameter, all of
+     *        these instances are returned. Otherwise, the filters are ignored, and only instances that match the
+     *        filters that are specified in the <code>QueryParameters</code> parameter are returned.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DiscoverInstancesRequest withOptionalParameters(java.util.Map<String, String> optionalParameters) {
+        setOptionalParameters(optionalParameters);
+        return this;
+    }
+
+    /**
+     * Add a single OptionalParameters entry
+     *
+     * @see DiscoverInstancesRequest#withOptionalParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DiscoverInstancesRequest addOptionalParametersEntry(String key, String value) {
+        if (null == this.optionalParameters) {
+            this.optionalParameters = new java.util.HashMap<String, String>();
+        }
+        if (this.optionalParameters.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.optionalParameters.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into OptionalParameters.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DiscoverInstancesRequest clearOptionalParametersEntries() {
+        this.optionalParameters = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The health status of the instances that you want to discover. This parameter is ignored for services that don't
+     * have a health check configured, and all instances are returned.
+     * </p>
+     * <dl>
+     * <dt>HEALTHY</dt>
+     * <dd>
+     * <p>
+     * Returns healthy instances.
+     * </p>
+     * </dd>
+     * <dt>UNHEALTHY</dt>
+     * <dd>
+     * <p>
+     * Returns unhealthy instances.
+     * </p>
+     * </dd>
+     * <dt>ALL</dt>
+     * <dd>
+     * <p>
+     * Returns all instances.
+     * </p>
+     * </dd>
+     * <dt>HEALTHY_OR_ELSE_ALL</dt>
+     * <dd>
+     * <p>
+     * Returns healthy instances, unless none are reporting a healthy state. In that case, return all instances. This is
+     * also called failing open.
+     * </p>
+     * </dd>
+     * </dl>
+     * 
      * @param healthStatus
-     *        The health status of the instances that you want to discover.
+     *        The health status of the instances that you want to discover. This parameter is ignored for services that
+     *        don't have a health check configured, and all instances are returned.</p>
+     *        <dl>
+     *        <dt>HEALTHY</dt>
+     *        <dd>
+     *        <p>
+     *        Returns healthy instances.
+     *        </p>
+     *        </dd>
+     *        <dt>UNHEALTHY</dt>
+     *        <dd>
+     *        <p>
+     *        Returns unhealthy instances.
+     *        </p>
+     *        </dd>
+     *        <dt>ALL</dt>
+     *        <dd>
+     *        <p>
+     *        Returns all instances.
+     *        </p>
+     *        </dd>
+     *        <dt>HEALTHY_OR_ELSE_ALL</dt>
+     *        <dd>
+     *        <p>
+     *        Returns healthy instances, unless none are reporting a healthy state. In that case, return all instances.
+     *        This is also called failing open.
+     *        </p>
+     *        </dd>
      * @see HealthStatusFilter
      */
 
@@ -281,10 +483,65 @@ public class DiscoverInstancesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The health status of the instances that you want to discover.
+     * The health status of the instances that you want to discover. This parameter is ignored for services that don't
+     * have a health check configured, and all instances are returned.
      * </p>
+     * <dl>
+     * <dt>HEALTHY</dt>
+     * <dd>
+     * <p>
+     * Returns healthy instances.
+     * </p>
+     * </dd>
+     * <dt>UNHEALTHY</dt>
+     * <dd>
+     * <p>
+     * Returns unhealthy instances.
+     * </p>
+     * </dd>
+     * <dt>ALL</dt>
+     * <dd>
+     * <p>
+     * Returns all instances.
+     * </p>
+     * </dd>
+     * <dt>HEALTHY_OR_ELSE_ALL</dt>
+     * <dd>
+     * <p>
+     * Returns healthy instances, unless none are reporting a healthy state. In that case, return all instances. This is
+     * also called failing open.
+     * </p>
+     * </dd>
+     * </dl>
      * 
-     * @return The health status of the instances that you want to discover.
+     * @return The health status of the instances that you want to discover. This parameter is ignored for services that
+     *         don't have a health check configured, and all instances are returned.</p>
+     *         <dl>
+     *         <dt>HEALTHY</dt>
+     *         <dd>
+     *         <p>
+     *         Returns healthy instances.
+     *         </p>
+     *         </dd>
+     *         <dt>UNHEALTHY</dt>
+     *         <dd>
+     *         <p>
+     *         Returns unhealthy instances.
+     *         </p>
+     *         </dd>
+     *         <dt>ALL</dt>
+     *         <dd>
+     *         <p>
+     *         Returns all instances.
+     *         </p>
+     *         </dd>
+     *         <dt>HEALTHY_OR_ELSE_ALL</dt>
+     *         <dd>
+     *         <p>
+     *         Returns healthy instances, unless none are reporting a healthy state. In that case, return all instances.
+     *         This is also called failing open.
+     *         </p>
+     *         </dd>
      * @see HealthStatusFilter
      */
 
@@ -294,11 +551,66 @@ public class DiscoverInstancesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The health status of the instances that you want to discover.
+     * The health status of the instances that you want to discover. This parameter is ignored for services that don't
+     * have a health check configured, and all instances are returned.
      * </p>
+     * <dl>
+     * <dt>HEALTHY</dt>
+     * <dd>
+     * <p>
+     * Returns healthy instances.
+     * </p>
+     * </dd>
+     * <dt>UNHEALTHY</dt>
+     * <dd>
+     * <p>
+     * Returns unhealthy instances.
+     * </p>
+     * </dd>
+     * <dt>ALL</dt>
+     * <dd>
+     * <p>
+     * Returns all instances.
+     * </p>
+     * </dd>
+     * <dt>HEALTHY_OR_ELSE_ALL</dt>
+     * <dd>
+     * <p>
+     * Returns healthy instances, unless none are reporting a healthy state. In that case, return all instances. This is
+     * also called failing open.
+     * </p>
+     * </dd>
+     * </dl>
      * 
      * @param healthStatus
-     *        The health status of the instances that you want to discover.
+     *        The health status of the instances that you want to discover. This parameter is ignored for services that
+     *        don't have a health check configured, and all instances are returned.</p>
+     *        <dl>
+     *        <dt>HEALTHY</dt>
+     *        <dd>
+     *        <p>
+     *        Returns healthy instances.
+     *        </p>
+     *        </dd>
+     *        <dt>UNHEALTHY</dt>
+     *        <dd>
+     *        <p>
+     *        Returns unhealthy instances.
+     *        </p>
+     *        </dd>
+     *        <dt>ALL</dt>
+     *        <dd>
+     *        <p>
+     *        Returns all instances.
+     *        </p>
+     *        </dd>
+     *        <dt>HEALTHY_OR_ELSE_ALL</dt>
+     *        <dd>
+     *        <p>
+     *        Returns healthy instances, unless none are reporting a healthy state. In that case, return all instances.
+     *        This is also called failing open.
+     *        </p>
+     *        </dd>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HealthStatusFilter
      */
@@ -310,11 +622,66 @@ public class DiscoverInstancesRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The health status of the instances that you want to discover.
+     * The health status of the instances that you want to discover. This parameter is ignored for services that don't
+     * have a health check configured, and all instances are returned.
      * </p>
+     * <dl>
+     * <dt>HEALTHY</dt>
+     * <dd>
+     * <p>
+     * Returns healthy instances.
+     * </p>
+     * </dd>
+     * <dt>UNHEALTHY</dt>
+     * <dd>
+     * <p>
+     * Returns unhealthy instances.
+     * </p>
+     * </dd>
+     * <dt>ALL</dt>
+     * <dd>
+     * <p>
+     * Returns all instances.
+     * </p>
+     * </dd>
+     * <dt>HEALTHY_OR_ELSE_ALL</dt>
+     * <dd>
+     * <p>
+     * Returns healthy instances, unless none are reporting a healthy state. In that case, return all instances. This is
+     * also called failing open.
+     * </p>
+     * </dd>
+     * </dl>
      * 
      * @param healthStatus
-     *        The health status of the instances that you want to discover.
+     *        The health status of the instances that you want to discover. This parameter is ignored for services that
+     *        don't have a health check configured, and all instances are returned.</p>
+     *        <dl>
+     *        <dt>HEALTHY</dt>
+     *        <dd>
+     *        <p>
+     *        Returns healthy instances.
+     *        </p>
+     *        </dd>
+     *        <dt>UNHEALTHY</dt>
+     *        <dd>
+     *        <p>
+     *        Returns unhealthy instances.
+     *        </p>
+     *        </dd>
+     *        <dt>ALL</dt>
+     *        <dd>
+     *        <p>
+     *        Returns all instances.
+     *        </p>
+     *        </dd>
+     *        <dt>HEALTHY_OR_ELSE_ALL</dt>
+     *        <dd>
+     *        <p>
+     *        Returns healthy instances, unless none are reporting a healthy state. In that case, return all instances.
+     *        This is also called failing open.
+     *        </p>
+     *        </dd>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HealthStatusFilter
      */
@@ -344,6 +711,8 @@ public class DiscoverInstancesRequest extends com.amazonaws.AmazonWebServiceRequ
             sb.append("MaxResults: ").append(getMaxResults()).append(",");
         if (getQueryParameters() != null)
             sb.append("QueryParameters: ").append(getQueryParameters()).append(",");
+        if (getOptionalParameters() != null)
+            sb.append("OptionalParameters: ").append(getOptionalParameters()).append(",");
         if (getHealthStatus() != null)
             sb.append("HealthStatus: ").append(getHealthStatus());
         sb.append("}");
@@ -376,6 +745,10 @@ public class DiscoverInstancesRequest extends com.amazonaws.AmazonWebServiceRequ
             return false;
         if (other.getQueryParameters() != null && other.getQueryParameters().equals(this.getQueryParameters()) == false)
             return false;
+        if (other.getOptionalParameters() == null ^ this.getOptionalParameters() == null)
+            return false;
+        if (other.getOptionalParameters() != null && other.getOptionalParameters().equals(this.getOptionalParameters()) == false)
+            return false;
         if (other.getHealthStatus() == null ^ this.getHealthStatus() == null)
             return false;
         if (other.getHealthStatus() != null && other.getHealthStatus().equals(this.getHealthStatus()) == false)
@@ -392,6 +765,7 @@ public class DiscoverInstancesRequest extends com.amazonaws.AmazonWebServiceRequ
         hashCode = prime * hashCode + ((getServiceName() == null) ? 0 : getServiceName().hashCode());
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
         hashCode = prime * hashCode + ((getQueryParameters() == null) ? 0 : getQueryParameters().hashCode());
+        hashCode = prime * hashCode + ((getOptionalParameters() == null) ? 0 : getOptionalParameters().hashCode());
         hashCode = prime * hashCode + ((getHealthStatus() == null) ? 0 : getHealthStatus().hashCode());
         return hashCode;
     }

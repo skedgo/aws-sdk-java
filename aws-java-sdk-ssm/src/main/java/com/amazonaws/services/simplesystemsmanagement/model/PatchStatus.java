@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class PatchStatus implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The approval status of a patch (APPROVED, PENDING_APPROVAL, EXPLICIT_APPROVED, EXPLICIT_REJECTED).
+     * The approval status of a patch.
      * </p>
      */
     private String deploymentStatus;
@@ -42,18 +42,18 @@ public class PatchStatus implements Serializable, Cloneable, StructuredPojo {
     private String complianceLevel;
     /**
      * <p>
-     * The date the patch was approved (or will be approved if the status is PENDING_APPROVAL).
+     * The date the patch was approved (or will be approved if the status is <code>PENDING_APPROVAL</code>).
      * </p>
      */
     private java.util.Date approvalDate;
 
     /**
      * <p>
-     * The approval status of a patch (APPROVED, PENDING_APPROVAL, EXPLICIT_APPROVED, EXPLICIT_REJECTED).
+     * The approval status of a patch.
      * </p>
      * 
      * @param deploymentStatus
-     *        The approval status of a patch (APPROVED, PENDING_APPROVAL, EXPLICIT_APPROVED, EXPLICIT_REJECTED).
+     *        The approval status of a patch.
      * @see PatchDeploymentStatus
      */
 
@@ -63,10 +63,10 @@ public class PatchStatus implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The approval status of a patch (APPROVED, PENDING_APPROVAL, EXPLICIT_APPROVED, EXPLICIT_REJECTED).
+     * The approval status of a patch.
      * </p>
      * 
-     * @return The approval status of a patch (APPROVED, PENDING_APPROVAL, EXPLICIT_APPROVED, EXPLICIT_REJECTED).
+     * @return The approval status of a patch.
      * @see PatchDeploymentStatus
      */
 
@@ -76,11 +76,11 @@ public class PatchStatus implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The approval status of a patch (APPROVED, PENDING_APPROVAL, EXPLICIT_APPROVED, EXPLICIT_REJECTED).
+     * The approval status of a patch.
      * </p>
      * 
      * @param deploymentStatus
-     *        The approval status of a patch (APPROVED, PENDING_APPROVAL, EXPLICIT_APPROVED, EXPLICIT_REJECTED).
+     *        The approval status of a patch.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PatchDeploymentStatus
      */
@@ -92,11 +92,11 @@ public class PatchStatus implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The approval status of a patch (APPROVED, PENDING_APPROVAL, EXPLICIT_APPROVED, EXPLICIT_REJECTED).
+     * The approval status of a patch.
      * </p>
      * 
      * @param deploymentStatus
-     *        The approval status of a patch (APPROVED, PENDING_APPROVAL, EXPLICIT_APPROVED, EXPLICIT_REJECTED).
+     *        The approval status of a patch.
      * @see PatchDeploymentStatus
      */
 
@@ -106,11 +106,11 @@ public class PatchStatus implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The approval status of a patch (APPROVED, PENDING_APPROVAL, EXPLICIT_APPROVED, EXPLICIT_REJECTED).
+     * The approval status of a patch.
      * </p>
      * 
      * @param deploymentStatus
-     *        The approval status of a patch (APPROVED, PENDING_APPROVAL, EXPLICIT_APPROVED, EXPLICIT_REJECTED).
+     *        The approval status of a patch.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PatchDeploymentStatus
      */
@@ -195,11 +195,11 @@ public class PatchStatus implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date the patch was approved (or will be approved if the status is PENDING_APPROVAL).
+     * The date the patch was approved (or will be approved if the status is <code>PENDING_APPROVAL</code>).
      * </p>
      * 
      * @param approvalDate
-     *        The date the patch was approved (or will be approved if the status is PENDING_APPROVAL).
+     *        The date the patch was approved (or will be approved if the status is <code>PENDING_APPROVAL</code>).
      */
 
     public void setApprovalDate(java.util.Date approvalDate) {
@@ -208,10 +208,10 @@ public class PatchStatus implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date the patch was approved (or will be approved if the status is PENDING_APPROVAL).
+     * The date the patch was approved (or will be approved if the status is <code>PENDING_APPROVAL</code>).
      * </p>
      * 
-     * @return The date the patch was approved (or will be approved if the status is PENDING_APPROVAL).
+     * @return The date the patch was approved (or will be approved if the status is <code>PENDING_APPROVAL</code>).
      */
 
     public java.util.Date getApprovalDate() {
@@ -220,11 +220,11 @@ public class PatchStatus implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The date the patch was approved (or will be approved if the status is PENDING_APPROVAL).
+     * The date the patch was approved (or will be approved if the status is <code>PENDING_APPROVAL</code>).
      * </p>
      * 
      * @param approvalDate
-     *        The date the patch was approved (or will be approved if the status is PENDING_APPROVAL).
+     *        The date the patch was approved (or will be approved if the status is <code>PENDING_APPROVAL</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

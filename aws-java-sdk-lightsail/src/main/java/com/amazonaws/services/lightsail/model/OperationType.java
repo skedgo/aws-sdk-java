@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -64,7 +64,45 @@ public enum OperationType {
     UpdateRelationalDatabaseParameters("UpdateRelationalDatabaseParameters"),
     StartRelationalDatabase("StartRelationalDatabase"),
     RebootRelationalDatabase("RebootRelationalDatabase"),
-    StopRelationalDatabase("StopRelationalDatabase");
+    StopRelationalDatabase("StopRelationalDatabase"),
+    EnableAddOn("EnableAddOn"),
+    DisableAddOn("DisableAddOn"),
+    PutAlarm("PutAlarm"),
+    GetAlarms("GetAlarms"),
+    DeleteAlarm("DeleteAlarm"),
+    TestAlarm("TestAlarm"),
+    CreateContactMethod("CreateContactMethod"),
+    GetContactMethods("GetContactMethods"),
+    SendContactMethodVerification("SendContactMethodVerification"),
+    DeleteContactMethod("DeleteContactMethod"),
+    CreateDistribution("CreateDistribution"),
+    UpdateDistribution("UpdateDistribution"),
+    DeleteDistribution("DeleteDistribution"),
+    ResetDistributionCache("ResetDistributionCache"),
+    AttachCertificateToDistribution("AttachCertificateToDistribution"),
+    DetachCertificateFromDistribution("DetachCertificateFromDistribution"),
+    UpdateDistributionBundle("UpdateDistributionBundle"),
+    SetIpAddressType("SetIpAddressType"),
+    CreateCertificate("CreateCertificate"),
+    DeleteCertificate("DeleteCertificate"),
+    CreateContainerService("CreateContainerService"),
+    UpdateContainerService("UpdateContainerService"),
+    DeleteContainerService("DeleteContainerService"),
+    CreateContainerServiceDeployment("CreateContainerServiceDeployment"),
+    CreateContainerServiceRegistryLogin("CreateContainerServiceRegistryLogin"),
+    RegisterContainerImage("RegisterContainerImage"),
+    DeleteContainerImage("DeleteContainerImage"),
+    CreateBucket("CreateBucket"),
+    DeleteBucket("DeleteBucket"),
+    CreateBucketAccessKey("CreateBucketAccessKey"),
+    DeleteBucketAccessKey("DeleteBucketAccessKey"),
+    UpdateBucketBundle("UpdateBucketBundle"),
+    UpdateBucket("UpdateBucket"),
+    SetResourceAccessForBucket("SetResourceAccessForBucket"),
+    UpdateInstanceMetadataOptions("UpdateInstanceMetadataOptions"),
+    StartGUISession("StartGUISession"),
+    StopGUISession("StopGUISession"),
+    SetupInstanceHttps("SetupInstanceHttps");
 
     private String value;
 

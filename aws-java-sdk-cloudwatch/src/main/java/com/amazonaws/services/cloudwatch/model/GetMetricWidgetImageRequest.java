@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,7 +32,9 @@ public class GetMetricWidgetImageRequest extends com.amazonaws.AmazonWebServiceR
      * parameter in each <code>GetMetricWidgetImage</code> call.
      * </p>
      * <p>
-     * For more information about the syntax of <code>MetricWidget</code> see <a>CloudWatch-Metric-Widget-Structure</a>.
+     * For more information about the syntax of <code>MetricWidget</code> see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/CloudWatch-Metric-Widget-Structure.html"
+     * >GetMetricWidgetImage: Metric Widget Structure and Syntax</a>.
      * </p>
      * <p>
      * If any metric on the graph could not load all the requested data points, an orange triangle with an exclamation
@@ -81,8 +83,8 @@ public class GetMetricWidgetImageRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * <p>
      * The <code>image/png</code> setting is intended only for custom HTTP requests. For most use cases, and all actions
-     * using an AWS SDK, you should use <code>png</code>. If you specify <code>image/png</code>, the HTTP response has a
-     * content-type set to <code>image/png</code>, and the body of the response is a PNG image.
+     * using an Amazon Web Services SDK, you should use <code>png</code>. If you specify <code>image/png</code>, the
+     * HTTP response has a content-type set to <code>image/png</code>, and the body of the response is a PNG image.
      * </p>
      */
     private String outputFormat;
@@ -94,7 +96,9 @@ public class GetMetricWidgetImageRequest extends com.amazonaws.AmazonWebServiceR
      * parameter in each <code>GetMetricWidgetImage</code> call.
      * </p>
      * <p>
-     * For more information about the syntax of <code>MetricWidget</code> see <a>CloudWatch-Metric-Widget-Structure</a>.
+     * For more information about the syntax of <code>MetricWidget</code> see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/CloudWatch-Metric-Widget-Structure.html"
+     * >GetMetricWidgetImage: Metric Widget Structure and Syntax</a>.
      * </p>
      * <p>
      * If any metric on the graph could not load all the requested data points, an orange triangle with an exclamation
@@ -106,8 +110,9 @@ public class GetMetricWidgetImageRequest extends com.amazonaws.AmazonWebServiceR
      *        the graph, statistics, annotations, title, axis limits, and so on. You can include only one
      *        <code>MetricWidget</code> parameter in each <code>GetMetricWidgetImage</code> call.</p>
      *        <p>
-     *        For more information about the syntax of <code>MetricWidget</code> see
-     *        <a>CloudWatch-Metric-Widget-Structure</a>.
+     *        For more information about the syntax of <code>MetricWidget</code> see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/CloudWatch-Metric-Widget-Structure.html"
+     *        >GetMetricWidgetImage: Metric Widget Structure and Syntax</a>.
      *        </p>
      *        <p>
      *        If any metric on the graph could not load all the requested data points, an orange triangle with an
@@ -125,7 +130,9 @@ public class GetMetricWidgetImageRequest extends com.amazonaws.AmazonWebServiceR
      * parameter in each <code>GetMetricWidgetImage</code> call.
      * </p>
      * <p>
-     * For more information about the syntax of <code>MetricWidget</code> see <a>CloudWatch-Metric-Widget-Structure</a>.
+     * For more information about the syntax of <code>MetricWidget</code> see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/CloudWatch-Metric-Widget-Structure.html"
+     * >GetMetricWidgetImage: Metric Widget Structure and Syntax</a>.
      * </p>
      * <p>
      * If any metric on the graph could not load all the requested data points, an orange triangle with an exclamation
@@ -136,8 +143,9 @@ public class GetMetricWidgetImageRequest extends com.amazonaws.AmazonWebServiceR
      *         in the graph, statistics, annotations, title, axis limits, and so on. You can include only one
      *         <code>MetricWidget</code> parameter in each <code>GetMetricWidgetImage</code> call.</p>
      *         <p>
-     *         For more information about the syntax of <code>MetricWidget</code> see
-     *         <a>CloudWatch-Metric-Widget-Structure</a>.
+     *         For more information about the syntax of <code>MetricWidget</code> see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/CloudWatch-Metric-Widget-Structure.html"
+     *         >GetMetricWidgetImage: Metric Widget Structure and Syntax</a>.
      *         </p>
      *         <p>
      *         If any metric on the graph could not load all the requested data points, an orange triangle with an
@@ -155,7 +163,9 @@ public class GetMetricWidgetImageRequest extends com.amazonaws.AmazonWebServiceR
      * parameter in each <code>GetMetricWidgetImage</code> call.
      * </p>
      * <p>
-     * For more information about the syntax of <code>MetricWidget</code> see <a>CloudWatch-Metric-Widget-Structure</a>.
+     * For more information about the syntax of <code>MetricWidget</code> see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/CloudWatch-Metric-Widget-Structure.html"
+     * >GetMetricWidgetImage: Metric Widget Structure and Syntax</a>.
      * </p>
      * <p>
      * If any metric on the graph could not load all the requested data points, an orange triangle with an exclamation
@@ -167,8 +177,9 @@ public class GetMetricWidgetImageRequest extends com.amazonaws.AmazonWebServiceR
      *        the graph, statistics, annotations, title, axis limits, and so on. You can include only one
      *        <code>MetricWidget</code> parameter in each <code>GetMetricWidgetImage</code> call.</p>
      *        <p>
-     *        For more information about the syntax of <code>MetricWidget</code> see
-     *        <a>CloudWatch-Metric-Widget-Structure</a>.
+     *        For more information about the syntax of <code>MetricWidget</code> see <a
+     *        href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/CloudWatch-Metric-Widget-Structure.html"
+     *        >GetMetricWidgetImage: Metric Widget Structure and Syntax</a>.
      *        </p>
      *        <p>
      *        If any metric on the graph could not load all the requested data points, an orange triangle with an
@@ -222,8 +233,8 @@ public class GetMetricWidgetImageRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * <p>
      * The <code>image/png</code> setting is intended only for custom HTTP requests. For most use cases, and all actions
-     * using an AWS SDK, you should use <code>png</code>. If you specify <code>image/png</code>, the HTTP response has a
-     * content-type set to <code>image/png</code>, and the body of the response is a PNG image.
+     * using an Amazon Web Services SDK, you should use <code>png</code>. If you specify <code>image/png</code>, the
+     * HTTP response has a content-type set to <code>image/png</code>, and the body of the response is a PNG image.
      * </p>
      * 
      * @param outputFormat
@@ -265,8 +276,9 @@ public class GetMetricWidgetImageRequest extends com.amazonaws.AmazonWebServiceR
      *        </p>
      *        <p>
      *        The <code>image/png</code> setting is intended only for custom HTTP requests. For most use cases, and all
-     *        actions using an AWS SDK, you should use <code>png</code>. If you specify <code>image/png</code>, the HTTP
-     *        response has a content-type set to <code>image/png</code>, and the body of the response is a PNG image.
+     *        actions using an Amazon Web Services SDK, you should use <code>png</code>. If you specify
+     *        <code>image/png</code>, the HTTP response has a content-type set to <code>image/png</code>, and the body
+     *        of the response is a PNG image.
      */
 
     public void setOutputFormat(String outputFormat) {
@@ -314,8 +326,8 @@ public class GetMetricWidgetImageRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * <p>
      * The <code>image/png</code> setting is intended only for custom HTTP requests. For most use cases, and all actions
-     * using an AWS SDK, you should use <code>png</code>. If you specify <code>image/png</code>, the HTTP response has a
-     * content-type set to <code>image/png</code>, and the body of the response is a PNG image.
+     * using an Amazon Web Services SDK, you should use <code>png</code>. If you specify <code>image/png</code>, the
+     * HTTP response has a content-type set to <code>image/png</code>, and the body of the response is a PNG image.
      * </p>
      * 
      * @return The format of the resulting image. Only PNG images are supported.</p>
@@ -356,9 +368,9 @@ public class GetMetricWidgetImageRequest extends com.amazonaws.AmazonWebServiceR
      *         </p>
      *         <p>
      *         The <code>image/png</code> setting is intended only for custom HTTP requests. For most use cases, and all
-     *         actions using an AWS SDK, you should use <code>png</code>. If you specify <code>image/png</code>, the
-     *         HTTP response has a content-type set to <code>image/png</code>, and the body of the response is a PNG
-     *         image.
+     *         actions using an Amazon Web Services SDK, you should use <code>png</code>. If you specify
+     *         <code>image/png</code>, the HTTP response has a content-type set to <code>image/png</code>, and the body
+     *         of the response is a PNG image.
      */
 
     public String getOutputFormat() {
@@ -406,8 +418,8 @@ public class GetMetricWidgetImageRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * <p>
      * The <code>image/png</code> setting is intended only for custom HTTP requests. For most use cases, and all actions
-     * using an AWS SDK, you should use <code>png</code>. If you specify <code>image/png</code>, the HTTP response has a
-     * content-type set to <code>image/png</code>, and the body of the response is a PNG image.
+     * using an Amazon Web Services SDK, you should use <code>png</code>. If you specify <code>image/png</code>, the
+     * HTTP response has a content-type set to <code>image/png</code>, and the body of the response is a PNG image.
      * </p>
      * 
      * @param outputFormat
@@ -449,8 +461,9 @@ public class GetMetricWidgetImageRequest extends com.amazonaws.AmazonWebServiceR
      *        </p>
      *        <p>
      *        The <code>image/png</code> setting is intended only for custom HTTP requests. For most use cases, and all
-     *        actions using an AWS SDK, you should use <code>png</code>. If you specify <code>image/png</code>, the HTTP
-     *        response has a content-type set to <code>image/png</code>, and the body of the response is a PNG image.
+     *        actions using an Amazon Web Services SDK, you should use <code>png</code>. If you specify
+     *        <code>image/png</code>, the HTTP response has a content-type set to <code>image/png</code>, and the body
+     *        of the response is a PNG image.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

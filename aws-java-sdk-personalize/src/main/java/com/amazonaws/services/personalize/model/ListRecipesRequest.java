@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,13 @@ public class ListRecipesRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      */
     private Integer maxResults;
+    /**
+     * <p>
+     * Filters returned recipes by domain for a Domain dataset group. Only recipes (Domain dataset group use cases) for
+     * this domain are included in the response. If you don't specify a domain, all recipes are returned.
+     * </p>
+     */
+    private String domain;
 
     /**
      * <p>
@@ -191,6 +198,77 @@ public class ListRecipesRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
+     * Filters returned recipes by domain for a Domain dataset group. Only recipes (Domain dataset group use cases) for
+     * this domain are included in the response. If you don't specify a domain, all recipes are returned.
+     * </p>
+     * 
+     * @param domain
+     *        Filters returned recipes by domain for a Domain dataset group. Only recipes (Domain dataset group use
+     *        cases) for this domain are included in the response. If you don't specify a domain, all recipes are
+     *        returned.
+     * @see Domain
+     */
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    /**
+     * <p>
+     * Filters returned recipes by domain for a Domain dataset group. Only recipes (Domain dataset group use cases) for
+     * this domain are included in the response. If you don't specify a domain, all recipes are returned.
+     * </p>
+     * 
+     * @return Filters returned recipes by domain for a Domain dataset group. Only recipes (Domain dataset group use
+     *         cases) for this domain are included in the response. If you don't specify a domain, all recipes are
+     *         returned.
+     * @see Domain
+     */
+
+    public String getDomain() {
+        return this.domain;
+    }
+
+    /**
+     * <p>
+     * Filters returned recipes by domain for a Domain dataset group. Only recipes (Domain dataset group use cases) for
+     * this domain are included in the response. If you don't specify a domain, all recipes are returned.
+     * </p>
+     * 
+     * @param domain
+     *        Filters returned recipes by domain for a Domain dataset group. Only recipes (Domain dataset group use
+     *        cases) for this domain are included in the response. If you don't specify a domain, all recipes are
+     *        returned.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Domain
+     */
+
+    public ListRecipesRequest withDomain(String domain) {
+        setDomain(domain);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Filters returned recipes by domain for a Domain dataset group. Only recipes (Domain dataset group use cases) for
+     * this domain are included in the response. If you don't specify a domain, all recipes are returned.
+     * </p>
+     * 
+     * @param domain
+     *        Filters returned recipes by domain for a Domain dataset group. Only recipes (Domain dataset group use
+     *        cases) for this domain are included in the response. If you don't specify a domain, all recipes are
+     *        returned.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Domain
+     */
+
+    public ListRecipesRequest withDomain(Domain domain) {
+        this.domain = domain.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -207,7 +285,9 @@ public class ListRecipesRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getNextToken() != null)
             sb.append("NextToken: ").append(getNextToken()).append(",");
         if (getMaxResults() != null)
-            sb.append("MaxResults: ").append(getMaxResults());
+            sb.append("MaxResults: ").append(getMaxResults()).append(",");
+        if (getDomain() != null)
+            sb.append("Domain: ").append(getDomain());
         sb.append("}");
         return sb.toString();
     }
@@ -234,6 +314,10 @@ public class ListRecipesRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false)
             return false;
+        if (other.getDomain() == null ^ this.getDomain() == null)
+            return false;
+        if (other.getDomain() != null && other.getDomain().equals(this.getDomain()) == false)
+            return false;
         return true;
     }
 
@@ -245,6 +329,7 @@ public class ListRecipesRequest extends com.amazonaws.AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getRecipeProvider() == null) ? 0 : getRecipeProvider().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
+        hashCode = prime * hashCode + ((getDomain() == null) ? 0 : getDomain().hashCode());
         return hashCode;
     }
 

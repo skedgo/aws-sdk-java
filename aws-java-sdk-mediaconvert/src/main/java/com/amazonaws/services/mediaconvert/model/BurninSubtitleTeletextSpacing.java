@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -15,16 +15,16 @@ package com.amazonaws.services.mediaconvert.model;
 import javax.annotation.Generated;
 
 /**
- * Only applies to jobs with input captions in Teletext or STL formats. Specify whether the spacing between letters in
- * your captions is set by the captions grid or varies depending on letter width. Choose fixed grid to conform to the
- * spacing specified in the captions file more accurately. Choose proportional to make the text easier to read if the
- * captions are closed caption.
+ * Specify whether the text spacing in your captions is set by the captions grid, or varies depending on letter width.
+ * Choose fixed grid to conform to the spacing specified in the captions file more accurately. Choose proportional to
+ * make the text easier to read for closed captions.
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum BurninSubtitleTeletextSpacing {
 
     FIXED_GRID("FIXED_GRID"),
-    PROPORTIONAL("PROPORTIONAL");
+    PROPORTIONAL("PROPORTIONAL"),
+    AUTO("AUTO");
 
     private String value;
 

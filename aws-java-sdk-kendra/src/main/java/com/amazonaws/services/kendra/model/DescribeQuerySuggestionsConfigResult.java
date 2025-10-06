@@ -1,0 +1,882 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.kendra.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kendra-2019-02-03/DescribeQuerySuggestionsConfig"
+ *      target="_top">AWS API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class DescribeQuerySuggestionsConfigResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable,
+        Cloneable {
+
+    /**
+     * <p>
+     * Whether query suggestions are currently in <code>ENABLED</code> mode or <code>LEARN_ONLY</code> mode.
+     * </p>
+     * <p>
+     * By default, Amazon Kendra enables query suggestions.<code>LEARN_ONLY</code> turns off query suggestions for your
+     * users. You can change the mode using the <a
+     * href="https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateQuerySuggestionsConfig.html"
+     * >UpdateQuerySuggestionsConfig</a> API.
+     * </p>
+     */
+    private String mode;
+    /**
+     * <p>
+     * Whether the status of query suggestions settings is currently <code>ACTIVE</code> or <code>UPDATING</code>.
+     * </p>
+     * <p>
+     * Active means the current settings apply and Updating means your changed settings are in the process of applying.
+     * </p>
+     */
+    private String status;
+    /**
+     * <p>
+     * How recent your queries are in your query log time window (in days).
+     * </p>
+     */
+    private Integer queryLogLookBackWindowInDays;
+    /**
+     * <p>
+     * <code>TRUE</code> to use all queries, otherwise use only queries that include user information to generate the
+     * query suggestions.
+     * </p>
+     */
+    private Boolean includeQueriesWithoutUserInformation;
+    /**
+     * <p>
+     * The minimum number of unique users who must search a query in order for the query to be eligible to suggest to
+     * your users.
+     * </p>
+     */
+    private Integer minimumNumberOfQueryingUsers;
+    /**
+     * <p>
+     * The minimum number of times a query must be searched in order for the query to be eligible to suggest to your
+     * users.
+     * </p>
+     */
+    private Integer minimumQueryCount;
+    /**
+     * <p>
+     * The Unix timestamp when query suggestions for an index was last updated.
+     * </p>
+     * <p>
+     * Amazon Kendra automatically updates suggestions every 24 hours, after you change a setting or after you apply a
+     * <a href="https://docs.aws.amazon.com/kendra/latest/dg/query-suggestions.html#query-suggestions-blocklist">block
+     * list</a>.
+     * </p>
+     */
+    private java.util.Date lastSuggestionsBuildTime;
+    /**
+     * <p>
+     * The Unix timestamp when query suggestions for an index was last cleared.
+     * </p>
+     * <p>
+     * After you clear suggestions, Amazon Kendra learns new suggestions based on new queries added to the query log
+     * from the time you cleared suggestions. Amazon Kendra only considers re-occurences of a query from the time you
+     * cleared suggestions.
+     * </p>
+     */
+    private java.util.Date lastClearTime;
+    /**
+     * <p>
+     * The current total count of query suggestions for an index.
+     * </p>
+     * <p>
+     * This count can change when you update your query suggestions settings, if you filter out certain queries from
+     * suggestions using a block list, and as the query log accumulates more queries for Amazon Kendra to learn from.
+     * </p>
+     * <p>
+     * If the count is much lower than you expected, it could be because Amazon Kendra needs more queries in the query
+     * history to learn from or your current query suggestions settings are too strict.
+     * </p>
+     */
+    private Integer totalSuggestionsCount;
+    /**
+     * <p>
+     * Configuration information for the document fields/attributes that you want to base query suggestions on.
+     * </p>
+     */
+    private AttributeSuggestionsDescribeConfig attributeSuggestionsConfig;
+
+    /**
+     * <p>
+     * Whether query suggestions are currently in <code>ENABLED</code> mode or <code>LEARN_ONLY</code> mode.
+     * </p>
+     * <p>
+     * By default, Amazon Kendra enables query suggestions.<code>LEARN_ONLY</code> turns off query suggestions for your
+     * users. You can change the mode using the <a
+     * href="https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateQuerySuggestionsConfig.html"
+     * >UpdateQuerySuggestionsConfig</a> API.
+     * </p>
+     * 
+     * @param mode
+     *        Whether query suggestions are currently in <code>ENABLED</code> mode or <code>LEARN_ONLY</code> mode.</p>
+     *        <p>
+     *        By default, Amazon Kendra enables query suggestions.<code>LEARN_ONLY</code> turns off query suggestions
+     *        for your users. You can change the mode using the <a
+     *        href="https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateQuerySuggestionsConfig.html"
+     *        >UpdateQuerySuggestionsConfig</a> API.
+     * @see Mode
+     */
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    /**
+     * <p>
+     * Whether query suggestions are currently in <code>ENABLED</code> mode or <code>LEARN_ONLY</code> mode.
+     * </p>
+     * <p>
+     * By default, Amazon Kendra enables query suggestions.<code>LEARN_ONLY</code> turns off query suggestions for your
+     * users. You can change the mode using the <a
+     * href="https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateQuerySuggestionsConfig.html"
+     * >UpdateQuerySuggestionsConfig</a> API.
+     * </p>
+     * 
+     * @return Whether query suggestions are currently in <code>ENABLED</code> mode or <code>LEARN_ONLY</code> mode.</p>
+     *         <p>
+     *         By default, Amazon Kendra enables query suggestions.<code>LEARN_ONLY</code> turns off query suggestions
+     *         for your users. You can change the mode using the <a
+     *         href="https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateQuerySuggestionsConfig.html"
+     *         >UpdateQuerySuggestionsConfig</a> API.
+     * @see Mode
+     */
+
+    public String getMode() {
+        return this.mode;
+    }
+
+    /**
+     * <p>
+     * Whether query suggestions are currently in <code>ENABLED</code> mode or <code>LEARN_ONLY</code> mode.
+     * </p>
+     * <p>
+     * By default, Amazon Kendra enables query suggestions.<code>LEARN_ONLY</code> turns off query suggestions for your
+     * users. You can change the mode using the <a
+     * href="https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateQuerySuggestionsConfig.html"
+     * >UpdateQuerySuggestionsConfig</a> API.
+     * </p>
+     * 
+     * @param mode
+     *        Whether query suggestions are currently in <code>ENABLED</code> mode or <code>LEARN_ONLY</code> mode.</p>
+     *        <p>
+     *        By default, Amazon Kendra enables query suggestions.<code>LEARN_ONLY</code> turns off query suggestions
+     *        for your users. You can change the mode using the <a
+     *        href="https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateQuerySuggestionsConfig.html"
+     *        >UpdateQuerySuggestionsConfig</a> API.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Mode
+     */
+
+    public DescribeQuerySuggestionsConfigResult withMode(String mode) {
+        setMode(mode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether query suggestions are currently in <code>ENABLED</code> mode or <code>LEARN_ONLY</code> mode.
+     * </p>
+     * <p>
+     * By default, Amazon Kendra enables query suggestions.<code>LEARN_ONLY</code> turns off query suggestions for your
+     * users. You can change the mode using the <a
+     * href="https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateQuerySuggestionsConfig.html"
+     * >UpdateQuerySuggestionsConfig</a> API.
+     * </p>
+     * 
+     * @param mode
+     *        Whether query suggestions are currently in <code>ENABLED</code> mode or <code>LEARN_ONLY</code> mode.</p>
+     *        <p>
+     *        By default, Amazon Kendra enables query suggestions.<code>LEARN_ONLY</code> turns off query suggestions
+     *        for your users. You can change the mode using the <a
+     *        href="https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateQuerySuggestionsConfig.html"
+     *        >UpdateQuerySuggestionsConfig</a> API.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Mode
+     */
+
+    public DescribeQuerySuggestionsConfigResult withMode(Mode mode) {
+        this.mode = mode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether the status of query suggestions settings is currently <code>ACTIVE</code> or <code>UPDATING</code>.
+     * </p>
+     * <p>
+     * Active means the current settings apply and Updating means your changed settings are in the process of applying.
+     * </p>
+     * 
+     * @param status
+     *        Whether the status of query suggestions settings is currently <code>ACTIVE</code> or <code>UPDATING</code>
+     *        .</p>
+     *        <p>
+     *        Active means the current settings apply and Updating means your changed settings are in the process of
+     *        applying.
+     * @see QuerySuggestionsStatus
+     */
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * <p>
+     * Whether the status of query suggestions settings is currently <code>ACTIVE</code> or <code>UPDATING</code>.
+     * </p>
+     * <p>
+     * Active means the current settings apply and Updating means your changed settings are in the process of applying.
+     * </p>
+     * 
+     * @return Whether the status of query suggestions settings is currently <code>ACTIVE</code> or
+     *         <code>UPDATING</code>.</p>
+     *         <p>
+     *         Active means the current settings apply and Updating means your changed settings are in the process of
+     *         applying.
+     * @see QuerySuggestionsStatus
+     */
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    /**
+     * <p>
+     * Whether the status of query suggestions settings is currently <code>ACTIVE</code> or <code>UPDATING</code>.
+     * </p>
+     * <p>
+     * Active means the current settings apply and Updating means your changed settings are in the process of applying.
+     * </p>
+     * 
+     * @param status
+     *        Whether the status of query suggestions settings is currently <code>ACTIVE</code> or <code>UPDATING</code>
+     *        .</p>
+     *        <p>
+     *        Active means the current settings apply and Updating means your changed settings are in the process of
+     *        applying.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see QuerySuggestionsStatus
+     */
+
+    public DescribeQuerySuggestionsConfigResult withStatus(String status) {
+        setStatus(status);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether the status of query suggestions settings is currently <code>ACTIVE</code> or <code>UPDATING</code>.
+     * </p>
+     * <p>
+     * Active means the current settings apply and Updating means your changed settings are in the process of applying.
+     * </p>
+     * 
+     * @param status
+     *        Whether the status of query suggestions settings is currently <code>ACTIVE</code> or <code>UPDATING</code>
+     *        .</p>
+     *        <p>
+     *        Active means the current settings apply and Updating means your changed settings are in the process of
+     *        applying.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see QuerySuggestionsStatus
+     */
+
+    public DescribeQuerySuggestionsConfigResult withStatus(QuerySuggestionsStatus status) {
+        this.status = status.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * How recent your queries are in your query log time window (in days).
+     * </p>
+     * 
+     * @param queryLogLookBackWindowInDays
+     *        How recent your queries are in your query log time window (in days).
+     */
+
+    public void setQueryLogLookBackWindowInDays(Integer queryLogLookBackWindowInDays) {
+        this.queryLogLookBackWindowInDays = queryLogLookBackWindowInDays;
+    }
+
+    /**
+     * <p>
+     * How recent your queries are in your query log time window (in days).
+     * </p>
+     * 
+     * @return How recent your queries are in your query log time window (in days).
+     */
+
+    public Integer getQueryLogLookBackWindowInDays() {
+        return this.queryLogLookBackWindowInDays;
+    }
+
+    /**
+     * <p>
+     * How recent your queries are in your query log time window (in days).
+     * </p>
+     * 
+     * @param queryLogLookBackWindowInDays
+     *        How recent your queries are in your query log time window (in days).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeQuerySuggestionsConfigResult withQueryLogLookBackWindowInDays(Integer queryLogLookBackWindowInDays) {
+        setQueryLogLookBackWindowInDays(queryLogLookBackWindowInDays);
+        return this;
+    }
+
+    /**
+     * <p>
+     * <code>TRUE</code> to use all queries, otherwise use only queries that include user information to generate the
+     * query suggestions.
+     * </p>
+     * 
+     * @param includeQueriesWithoutUserInformation
+     *        <code>TRUE</code> to use all queries, otherwise use only queries that include user information to generate
+     *        the query suggestions.
+     */
+
+    public void setIncludeQueriesWithoutUserInformation(Boolean includeQueriesWithoutUserInformation) {
+        this.includeQueriesWithoutUserInformation = includeQueriesWithoutUserInformation;
+    }
+
+    /**
+     * <p>
+     * <code>TRUE</code> to use all queries, otherwise use only queries that include user information to generate the
+     * query suggestions.
+     * </p>
+     * 
+     * @return <code>TRUE</code> to use all queries, otherwise use only queries that include user information to
+     *         generate the query suggestions.
+     */
+
+    public Boolean getIncludeQueriesWithoutUserInformation() {
+        return this.includeQueriesWithoutUserInformation;
+    }
+
+    /**
+     * <p>
+     * <code>TRUE</code> to use all queries, otherwise use only queries that include user information to generate the
+     * query suggestions.
+     * </p>
+     * 
+     * @param includeQueriesWithoutUserInformation
+     *        <code>TRUE</code> to use all queries, otherwise use only queries that include user information to generate
+     *        the query suggestions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeQuerySuggestionsConfigResult withIncludeQueriesWithoutUserInformation(Boolean includeQueriesWithoutUserInformation) {
+        setIncludeQueriesWithoutUserInformation(includeQueriesWithoutUserInformation);
+        return this;
+    }
+
+    /**
+     * <p>
+     * <code>TRUE</code> to use all queries, otherwise use only queries that include user information to generate the
+     * query suggestions.
+     * </p>
+     * 
+     * @return <code>TRUE</code> to use all queries, otherwise use only queries that include user information to
+     *         generate the query suggestions.
+     */
+
+    public Boolean isIncludeQueriesWithoutUserInformation() {
+        return this.includeQueriesWithoutUserInformation;
+    }
+
+    /**
+     * <p>
+     * The minimum number of unique users who must search a query in order for the query to be eligible to suggest to
+     * your users.
+     * </p>
+     * 
+     * @param minimumNumberOfQueryingUsers
+     *        The minimum number of unique users who must search a query in order for the query to be eligible to
+     *        suggest to your users.
+     */
+
+    public void setMinimumNumberOfQueryingUsers(Integer minimumNumberOfQueryingUsers) {
+        this.minimumNumberOfQueryingUsers = minimumNumberOfQueryingUsers;
+    }
+
+    /**
+     * <p>
+     * The minimum number of unique users who must search a query in order for the query to be eligible to suggest to
+     * your users.
+     * </p>
+     * 
+     * @return The minimum number of unique users who must search a query in order for the query to be eligible to
+     *         suggest to your users.
+     */
+
+    public Integer getMinimumNumberOfQueryingUsers() {
+        return this.minimumNumberOfQueryingUsers;
+    }
+
+    /**
+     * <p>
+     * The minimum number of unique users who must search a query in order for the query to be eligible to suggest to
+     * your users.
+     * </p>
+     * 
+     * @param minimumNumberOfQueryingUsers
+     *        The minimum number of unique users who must search a query in order for the query to be eligible to
+     *        suggest to your users.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeQuerySuggestionsConfigResult withMinimumNumberOfQueryingUsers(Integer minimumNumberOfQueryingUsers) {
+        setMinimumNumberOfQueryingUsers(minimumNumberOfQueryingUsers);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The minimum number of times a query must be searched in order for the query to be eligible to suggest to your
+     * users.
+     * </p>
+     * 
+     * @param minimumQueryCount
+     *        The minimum number of times a query must be searched in order for the query to be eligible to suggest to
+     *        your users.
+     */
+
+    public void setMinimumQueryCount(Integer minimumQueryCount) {
+        this.minimumQueryCount = minimumQueryCount;
+    }
+
+    /**
+     * <p>
+     * The minimum number of times a query must be searched in order for the query to be eligible to suggest to your
+     * users.
+     * </p>
+     * 
+     * @return The minimum number of times a query must be searched in order for the query to be eligible to suggest to
+     *         your users.
+     */
+
+    public Integer getMinimumQueryCount() {
+        return this.minimumQueryCount;
+    }
+
+    /**
+     * <p>
+     * The minimum number of times a query must be searched in order for the query to be eligible to suggest to your
+     * users.
+     * </p>
+     * 
+     * @param minimumQueryCount
+     *        The minimum number of times a query must be searched in order for the query to be eligible to suggest to
+     *        your users.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeQuerySuggestionsConfigResult withMinimumQueryCount(Integer minimumQueryCount) {
+        setMinimumQueryCount(minimumQueryCount);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Unix timestamp when query suggestions for an index was last updated.
+     * </p>
+     * <p>
+     * Amazon Kendra automatically updates suggestions every 24 hours, after you change a setting or after you apply a
+     * <a href="https://docs.aws.amazon.com/kendra/latest/dg/query-suggestions.html#query-suggestions-blocklist">block
+     * list</a>.
+     * </p>
+     * 
+     * @param lastSuggestionsBuildTime
+     *        The Unix timestamp when query suggestions for an index was last updated.</p>
+     *        <p>
+     *        Amazon Kendra automatically updates suggestions every 24 hours, after you change a setting or after you
+     *        apply a <a
+     *        href="https://docs.aws.amazon.com/kendra/latest/dg/query-suggestions.html#query-suggestions-blocklist"
+     *        >block list</a>.
+     */
+
+    public void setLastSuggestionsBuildTime(java.util.Date lastSuggestionsBuildTime) {
+        this.lastSuggestionsBuildTime = lastSuggestionsBuildTime;
+    }
+
+    /**
+     * <p>
+     * The Unix timestamp when query suggestions for an index was last updated.
+     * </p>
+     * <p>
+     * Amazon Kendra automatically updates suggestions every 24 hours, after you change a setting or after you apply a
+     * <a href="https://docs.aws.amazon.com/kendra/latest/dg/query-suggestions.html#query-suggestions-blocklist">block
+     * list</a>.
+     * </p>
+     * 
+     * @return The Unix timestamp when query suggestions for an index was last updated.</p>
+     *         <p>
+     *         Amazon Kendra automatically updates suggestions every 24 hours, after you change a setting or after you
+     *         apply a <a
+     *         href="https://docs.aws.amazon.com/kendra/latest/dg/query-suggestions.html#query-suggestions-blocklist"
+     *         >block list</a>.
+     */
+
+    public java.util.Date getLastSuggestionsBuildTime() {
+        return this.lastSuggestionsBuildTime;
+    }
+
+    /**
+     * <p>
+     * The Unix timestamp when query suggestions for an index was last updated.
+     * </p>
+     * <p>
+     * Amazon Kendra automatically updates suggestions every 24 hours, after you change a setting or after you apply a
+     * <a href="https://docs.aws.amazon.com/kendra/latest/dg/query-suggestions.html#query-suggestions-blocklist">block
+     * list</a>.
+     * </p>
+     * 
+     * @param lastSuggestionsBuildTime
+     *        The Unix timestamp when query suggestions for an index was last updated.</p>
+     *        <p>
+     *        Amazon Kendra automatically updates suggestions every 24 hours, after you change a setting or after you
+     *        apply a <a
+     *        href="https://docs.aws.amazon.com/kendra/latest/dg/query-suggestions.html#query-suggestions-blocklist"
+     *        >block list</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeQuerySuggestionsConfigResult withLastSuggestionsBuildTime(java.util.Date lastSuggestionsBuildTime) {
+        setLastSuggestionsBuildTime(lastSuggestionsBuildTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Unix timestamp when query suggestions for an index was last cleared.
+     * </p>
+     * <p>
+     * After you clear suggestions, Amazon Kendra learns new suggestions based on new queries added to the query log
+     * from the time you cleared suggestions. Amazon Kendra only considers re-occurences of a query from the time you
+     * cleared suggestions.
+     * </p>
+     * 
+     * @param lastClearTime
+     *        The Unix timestamp when query suggestions for an index was last cleared.</p>
+     *        <p>
+     *        After you clear suggestions, Amazon Kendra learns new suggestions based on new queries added to the query
+     *        log from the time you cleared suggestions. Amazon Kendra only considers re-occurences of a query from the
+     *        time you cleared suggestions.
+     */
+
+    public void setLastClearTime(java.util.Date lastClearTime) {
+        this.lastClearTime = lastClearTime;
+    }
+
+    /**
+     * <p>
+     * The Unix timestamp when query suggestions for an index was last cleared.
+     * </p>
+     * <p>
+     * After you clear suggestions, Amazon Kendra learns new suggestions based on new queries added to the query log
+     * from the time you cleared suggestions. Amazon Kendra only considers re-occurences of a query from the time you
+     * cleared suggestions.
+     * </p>
+     * 
+     * @return The Unix timestamp when query suggestions for an index was last cleared.</p>
+     *         <p>
+     *         After you clear suggestions, Amazon Kendra learns new suggestions based on new queries added to the query
+     *         log from the time you cleared suggestions. Amazon Kendra only considers re-occurences of a query from the
+     *         time you cleared suggestions.
+     */
+
+    public java.util.Date getLastClearTime() {
+        return this.lastClearTime;
+    }
+
+    /**
+     * <p>
+     * The Unix timestamp when query suggestions for an index was last cleared.
+     * </p>
+     * <p>
+     * After you clear suggestions, Amazon Kendra learns new suggestions based on new queries added to the query log
+     * from the time you cleared suggestions. Amazon Kendra only considers re-occurences of a query from the time you
+     * cleared suggestions.
+     * </p>
+     * 
+     * @param lastClearTime
+     *        The Unix timestamp when query suggestions for an index was last cleared.</p>
+     *        <p>
+     *        After you clear suggestions, Amazon Kendra learns new suggestions based on new queries added to the query
+     *        log from the time you cleared suggestions. Amazon Kendra only considers re-occurences of a query from the
+     *        time you cleared suggestions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeQuerySuggestionsConfigResult withLastClearTime(java.util.Date lastClearTime) {
+        setLastClearTime(lastClearTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current total count of query suggestions for an index.
+     * </p>
+     * <p>
+     * This count can change when you update your query suggestions settings, if you filter out certain queries from
+     * suggestions using a block list, and as the query log accumulates more queries for Amazon Kendra to learn from.
+     * </p>
+     * <p>
+     * If the count is much lower than you expected, it could be because Amazon Kendra needs more queries in the query
+     * history to learn from or your current query suggestions settings are too strict.
+     * </p>
+     * 
+     * @param totalSuggestionsCount
+     *        The current total count of query suggestions for an index.</p>
+     *        <p>
+     *        This count can change when you update your query suggestions settings, if you filter out certain queries
+     *        from suggestions using a block list, and as the query log accumulates more queries for Amazon Kendra to
+     *        learn from.
+     *        </p>
+     *        <p>
+     *        If the count is much lower than you expected, it could be because Amazon Kendra needs more queries in the
+     *        query history to learn from or your current query suggestions settings are too strict.
+     */
+
+    public void setTotalSuggestionsCount(Integer totalSuggestionsCount) {
+        this.totalSuggestionsCount = totalSuggestionsCount;
+    }
+
+    /**
+     * <p>
+     * The current total count of query suggestions for an index.
+     * </p>
+     * <p>
+     * This count can change when you update your query suggestions settings, if you filter out certain queries from
+     * suggestions using a block list, and as the query log accumulates more queries for Amazon Kendra to learn from.
+     * </p>
+     * <p>
+     * If the count is much lower than you expected, it could be because Amazon Kendra needs more queries in the query
+     * history to learn from or your current query suggestions settings are too strict.
+     * </p>
+     * 
+     * @return The current total count of query suggestions for an index.</p>
+     *         <p>
+     *         This count can change when you update your query suggestions settings, if you filter out certain queries
+     *         from suggestions using a block list, and as the query log accumulates more queries for Amazon Kendra to
+     *         learn from.
+     *         </p>
+     *         <p>
+     *         If the count is much lower than you expected, it could be because Amazon Kendra needs more queries in the
+     *         query history to learn from or your current query suggestions settings are too strict.
+     */
+
+    public Integer getTotalSuggestionsCount() {
+        return this.totalSuggestionsCount;
+    }
+
+    /**
+     * <p>
+     * The current total count of query suggestions for an index.
+     * </p>
+     * <p>
+     * This count can change when you update your query suggestions settings, if you filter out certain queries from
+     * suggestions using a block list, and as the query log accumulates more queries for Amazon Kendra to learn from.
+     * </p>
+     * <p>
+     * If the count is much lower than you expected, it could be because Amazon Kendra needs more queries in the query
+     * history to learn from or your current query suggestions settings are too strict.
+     * </p>
+     * 
+     * @param totalSuggestionsCount
+     *        The current total count of query suggestions for an index.</p>
+     *        <p>
+     *        This count can change when you update your query suggestions settings, if you filter out certain queries
+     *        from suggestions using a block list, and as the query log accumulates more queries for Amazon Kendra to
+     *        learn from.
+     *        </p>
+     *        <p>
+     *        If the count is much lower than you expected, it could be because Amazon Kendra needs more queries in the
+     *        query history to learn from or your current query suggestions settings are too strict.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeQuerySuggestionsConfigResult withTotalSuggestionsCount(Integer totalSuggestionsCount) {
+        setTotalSuggestionsCount(totalSuggestionsCount);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Configuration information for the document fields/attributes that you want to base query suggestions on.
+     * </p>
+     * 
+     * @param attributeSuggestionsConfig
+     *        Configuration information for the document fields/attributes that you want to base query suggestions on.
+     */
+
+    public void setAttributeSuggestionsConfig(AttributeSuggestionsDescribeConfig attributeSuggestionsConfig) {
+        this.attributeSuggestionsConfig = attributeSuggestionsConfig;
+    }
+
+    /**
+     * <p>
+     * Configuration information for the document fields/attributes that you want to base query suggestions on.
+     * </p>
+     * 
+     * @return Configuration information for the document fields/attributes that you want to base query suggestions on.
+     */
+
+    public AttributeSuggestionsDescribeConfig getAttributeSuggestionsConfig() {
+        return this.attributeSuggestionsConfig;
+    }
+
+    /**
+     * <p>
+     * Configuration information for the document fields/attributes that you want to base query suggestions on.
+     * </p>
+     * 
+     * @param attributeSuggestionsConfig
+     *        Configuration information for the document fields/attributes that you want to base query suggestions on.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeQuerySuggestionsConfigResult withAttributeSuggestionsConfig(AttributeSuggestionsDescribeConfig attributeSuggestionsConfig) {
+        setAttributeSuggestionsConfig(attributeSuggestionsConfig);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getMode() != null)
+            sb.append("Mode: ").append(getMode()).append(",");
+        if (getStatus() != null)
+            sb.append("Status: ").append(getStatus()).append(",");
+        if (getQueryLogLookBackWindowInDays() != null)
+            sb.append("QueryLogLookBackWindowInDays: ").append(getQueryLogLookBackWindowInDays()).append(",");
+        if (getIncludeQueriesWithoutUserInformation() != null)
+            sb.append("IncludeQueriesWithoutUserInformation: ").append(getIncludeQueriesWithoutUserInformation()).append(",");
+        if (getMinimumNumberOfQueryingUsers() != null)
+            sb.append("MinimumNumberOfQueryingUsers: ").append(getMinimumNumberOfQueryingUsers()).append(",");
+        if (getMinimumQueryCount() != null)
+            sb.append("MinimumQueryCount: ").append(getMinimumQueryCount()).append(",");
+        if (getLastSuggestionsBuildTime() != null)
+            sb.append("LastSuggestionsBuildTime: ").append(getLastSuggestionsBuildTime()).append(",");
+        if (getLastClearTime() != null)
+            sb.append("LastClearTime: ").append(getLastClearTime()).append(",");
+        if (getTotalSuggestionsCount() != null)
+            sb.append("TotalSuggestionsCount: ").append(getTotalSuggestionsCount()).append(",");
+        if (getAttributeSuggestionsConfig() != null)
+            sb.append("AttributeSuggestionsConfig: ").append(getAttributeSuggestionsConfig());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof DescribeQuerySuggestionsConfigResult == false)
+            return false;
+        DescribeQuerySuggestionsConfigResult other = (DescribeQuerySuggestionsConfigResult) obj;
+        if (other.getMode() == null ^ this.getMode() == null)
+            return false;
+        if (other.getMode() != null && other.getMode().equals(this.getMode()) == false)
+            return false;
+        if (other.getStatus() == null ^ this.getStatus() == null)
+            return false;
+        if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
+            return false;
+        if (other.getQueryLogLookBackWindowInDays() == null ^ this.getQueryLogLookBackWindowInDays() == null)
+            return false;
+        if (other.getQueryLogLookBackWindowInDays() != null && other.getQueryLogLookBackWindowInDays().equals(this.getQueryLogLookBackWindowInDays()) == false)
+            return false;
+        if (other.getIncludeQueriesWithoutUserInformation() == null ^ this.getIncludeQueriesWithoutUserInformation() == null)
+            return false;
+        if (other.getIncludeQueriesWithoutUserInformation() != null
+                && other.getIncludeQueriesWithoutUserInformation().equals(this.getIncludeQueriesWithoutUserInformation()) == false)
+            return false;
+        if (other.getMinimumNumberOfQueryingUsers() == null ^ this.getMinimumNumberOfQueryingUsers() == null)
+            return false;
+        if (other.getMinimumNumberOfQueryingUsers() != null && other.getMinimumNumberOfQueryingUsers().equals(this.getMinimumNumberOfQueryingUsers()) == false)
+            return false;
+        if (other.getMinimumQueryCount() == null ^ this.getMinimumQueryCount() == null)
+            return false;
+        if (other.getMinimumQueryCount() != null && other.getMinimumQueryCount().equals(this.getMinimumQueryCount()) == false)
+            return false;
+        if (other.getLastSuggestionsBuildTime() == null ^ this.getLastSuggestionsBuildTime() == null)
+            return false;
+        if (other.getLastSuggestionsBuildTime() != null && other.getLastSuggestionsBuildTime().equals(this.getLastSuggestionsBuildTime()) == false)
+            return false;
+        if (other.getLastClearTime() == null ^ this.getLastClearTime() == null)
+            return false;
+        if (other.getLastClearTime() != null && other.getLastClearTime().equals(this.getLastClearTime()) == false)
+            return false;
+        if (other.getTotalSuggestionsCount() == null ^ this.getTotalSuggestionsCount() == null)
+            return false;
+        if (other.getTotalSuggestionsCount() != null && other.getTotalSuggestionsCount().equals(this.getTotalSuggestionsCount()) == false)
+            return false;
+        if (other.getAttributeSuggestionsConfig() == null ^ this.getAttributeSuggestionsConfig() == null)
+            return false;
+        if (other.getAttributeSuggestionsConfig() != null && other.getAttributeSuggestionsConfig().equals(this.getAttributeSuggestionsConfig()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getMode() == null) ? 0 : getMode().hashCode());
+        hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        hashCode = prime * hashCode + ((getQueryLogLookBackWindowInDays() == null) ? 0 : getQueryLogLookBackWindowInDays().hashCode());
+        hashCode = prime * hashCode + ((getIncludeQueriesWithoutUserInformation() == null) ? 0 : getIncludeQueriesWithoutUserInformation().hashCode());
+        hashCode = prime * hashCode + ((getMinimumNumberOfQueryingUsers() == null) ? 0 : getMinimumNumberOfQueryingUsers().hashCode());
+        hashCode = prime * hashCode + ((getMinimumQueryCount() == null) ? 0 : getMinimumQueryCount().hashCode());
+        hashCode = prime * hashCode + ((getLastSuggestionsBuildTime() == null) ? 0 : getLastSuggestionsBuildTime().hashCode());
+        hashCode = prime * hashCode + ((getLastClearTime() == null) ? 0 : getLastClearTime().hashCode());
+        hashCode = prime * hashCode + ((getTotalSuggestionsCount() == null) ? 0 : getTotalSuggestionsCount().hashCode());
+        hashCode = prime * hashCode + ((getAttributeSuggestionsConfig() == null) ? 0 : getAttributeSuggestionsConfig().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public DescribeQuerySuggestionsConfigResult clone() {
+        try {
+            return (DescribeQuerySuggestionsConfigResult) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,8 +39,8 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String label;
     /**
      * <p>
-     * The AWS account IDs of the users (principals) who will be given access to the specified actions. The users must
-     * have AWS accounts, but do not need to be signed up for this service.
+     * The Amazon Web Services account IDs of the users (principals) who will be given access to the specified actions.
+     * The users must have Amazon Web Services account, but do not need to be signed up for this service.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> aWSAccountIds;
@@ -49,7 +49,7 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
      * The action you want to allow for the specified principal(s).
      * </p>
      * <p>
-     * Valid values: any Amazon SNS action name.
+     * Valid values: Any Amazon SNS action name, for example <code>Publish</code>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> actionNames;
@@ -70,12 +70,13 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
      * @param label
      *        A unique identifier for the new policy statement.
      * @param aWSAccountIds
-     *        The AWS account IDs of the users (principals) who will be given access to the specified actions. The users
-     *        must have AWS accounts, but do not need to be signed up for this service.
+     *        The Amazon Web Services account IDs of the users (principals) who will be given access to the specified
+     *        actions. The users must have Amazon Web Services account, but do not need to be signed up for this
+     *        service.
      * @param actionNames
      *        The action you want to allow for the specified principal(s).</p>
      *        <p>
-     *        Valid values: any Amazon SNS action name.
+     *        Valid values: Any Amazon SNS action name, for example <code>Publish</code>.
      */
     public AddPermissionRequest(String topicArn, String label, java.util.List<String> aWSAccountIds, java.util.List<String> actionNames) {
         setTopicArn(topicArn);
@@ -166,12 +167,13 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The AWS account IDs of the users (principals) who will be given access to the specified actions. The users must
-     * have AWS accounts, but do not need to be signed up for this service.
+     * The Amazon Web Services account IDs of the users (principals) who will be given access to the specified actions.
+     * The users must have Amazon Web Services account, but do not need to be signed up for this service.
      * </p>
      * 
-     * @return The AWS account IDs of the users (principals) who will be given access to the specified actions. The
-     *         users must have AWS accounts, but do not need to be signed up for this service.
+     * @return The Amazon Web Services account IDs of the users (principals) who will be given access to the specified
+     *         actions. The users must have Amazon Web Services account, but do not need to be signed up for this
+     *         service.
      */
 
     public java.util.List<String> getAWSAccountIds() {
@@ -183,13 +185,14 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The AWS account IDs of the users (principals) who will be given access to the specified actions. The users must
-     * have AWS accounts, but do not need to be signed up for this service.
+     * The Amazon Web Services account IDs of the users (principals) who will be given access to the specified actions.
+     * The users must have Amazon Web Services account, but do not need to be signed up for this service.
      * </p>
      * 
      * @param aWSAccountIds
-     *        The AWS account IDs of the users (principals) who will be given access to the specified actions. The users
-     *        must have AWS accounts, but do not need to be signed up for this service.
+     *        The Amazon Web Services account IDs of the users (principals) who will be given access to the specified
+     *        actions. The users must have Amazon Web Services account, but do not need to be signed up for this
+     *        service.
      */
 
     public void setAWSAccountIds(java.util.Collection<String> aWSAccountIds) {
@@ -203,8 +206,8 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The AWS account IDs of the users (principals) who will be given access to the specified actions. The users must
-     * have AWS accounts, but do not need to be signed up for this service.
+     * The Amazon Web Services account IDs of the users (principals) who will be given access to the specified actions.
+     * The users must have Amazon Web Services account, but do not need to be signed up for this service.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -213,8 +216,9 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param aWSAccountIds
-     *        The AWS account IDs of the users (principals) who will be given access to the specified actions. The users
-     *        must have AWS accounts, but do not need to be signed up for this service.
+     *        The Amazon Web Services account IDs of the users (principals) who will be given access to the specified
+     *        actions. The users must have Amazon Web Services account, but do not need to be signed up for this
+     *        service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -230,13 +234,14 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The AWS account IDs of the users (principals) who will be given access to the specified actions. The users must
-     * have AWS accounts, but do not need to be signed up for this service.
+     * The Amazon Web Services account IDs of the users (principals) who will be given access to the specified actions.
+     * The users must have Amazon Web Services account, but do not need to be signed up for this service.
      * </p>
      * 
      * @param aWSAccountIds
-     *        The AWS account IDs of the users (principals) who will be given access to the specified actions. The users
-     *        must have AWS accounts, but do not need to be signed up for this service.
+     *        The Amazon Web Services account IDs of the users (principals) who will be given access to the specified
+     *        actions. The users must have Amazon Web Services account, but do not need to be signed up for this
+     *        service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -250,12 +255,12 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
      * The action you want to allow for the specified principal(s).
      * </p>
      * <p>
-     * Valid values: any Amazon SNS action name.
+     * Valid values: Any Amazon SNS action name, for example <code>Publish</code>.
      * </p>
      * 
      * @return The action you want to allow for the specified principal(s).</p>
      *         <p>
-     *         Valid values: any Amazon SNS action name.
+     *         Valid values: Any Amazon SNS action name, for example <code>Publish</code>.
      */
 
     public java.util.List<String> getActionNames() {
@@ -270,13 +275,13 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
      * The action you want to allow for the specified principal(s).
      * </p>
      * <p>
-     * Valid values: any Amazon SNS action name.
+     * Valid values: Any Amazon SNS action name, for example <code>Publish</code>.
      * </p>
      * 
      * @param actionNames
      *        The action you want to allow for the specified principal(s).</p>
      *        <p>
-     *        Valid values: any Amazon SNS action name.
+     *        Valid values: Any Amazon SNS action name, for example <code>Publish</code>.
      */
 
     public void setActionNames(java.util.Collection<String> actionNames) {
@@ -293,7 +298,7 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
      * The action you want to allow for the specified principal(s).
      * </p>
      * <p>
-     * Valid values: any Amazon SNS action name.
+     * Valid values: Any Amazon SNS action name, for example <code>Publish</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -304,7 +309,7 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
      * @param actionNames
      *        The action you want to allow for the specified principal(s).</p>
      *        <p>
-     *        Valid values: any Amazon SNS action name.
+     *        Valid values: Any Amazon SNS action name, for example <code>Publish</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -323,13 +328,13 @@ public class AddPermissionRequest extends com.amazonaws.AmazonWebServiceRequest 
      * The action you want to allow for the specified principal(s).
      * </p>
      * <p>
-     * Valid values: any Amazon SNS action name.
+     * Valid values: Any Amazon SNS action name, for example <code>Publish</code>.
      * </p>
      * 
      * @param actionNames
      *        The action you want to allow for the specified principal(s).</p>
      *        <p>
-     *        Valid values: any Amazon SNS action name.
+     *        Valid values: Any Amazon SNS action name, for example <code>Publish</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

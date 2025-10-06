@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes a filter for a specific list of instances.
+ * Describes a filter for a specific list of managed nodes.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/InstanceInformation" target="_top">AWS API
@@ -30,7 +30,7 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The instance ID.
+     * The managed node ID.
      * </p>
      */
     private String instanceId;
@@ -38,25 +38,30 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
      * <p>
      * Connection status of SSM Agent.
      * </p>
+     * <note>
+     * <p>
+     * The status <code>Inactive</code> has been deprecated and is no longer in use.
+     * </p>
+     * </note>
      */
     private String pingStatus;
     /**
      * <p>
-     * The date and time when agent last pinged Systems Manager service.
+     * The date and time when the agent last pinged the Systems Manager service.
      * </p>
      */
     private java.util.Date lastPingDateTime;
     /**
      * <p>
-     * The version of SSM Agent running on your Linux instance.
+     * The version of SSM Agent running on your Linux managed node.
      * </p>
      */
     private String agentVersion;
     /**
      * <p>
-     * Indicates whether latest version of SSM Agent is running on your instance. Some older versions of Windows Server
-     * use the EC2Config service to process SSM requests. For this reason, this field does not indicate whether or not
-     * the latest version is installed on Windows managed instances.
+     * Indicates whether the latest version of SSM Agent is running on your Linux managed node. This field doesn't
+     * indicate whether or not the latest version is installed on Windows managed nodes, because some older versions of
+     * Windows Server use the EC2Config service to process Systems Manager requests.
      * </p>
      */
     private Boolean isLatestVersion;
@@ -68,32 +73,38 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
     private String platformType;
     /**
      * <p>
-     * The name of the operating system platform running on your instance.
+     * The name of the operating system platform running on your managed node.
      * </p>
      */
     private String platformName;
     /**
      * <p>
-     * The version of the OS platform running on your instance.
+     * The version of the OS platform running on your managed node.
      * </p>
      */
     private String platformVersion;
     /**
      * <p>
-     * The activation ID created by Systems Manager when the server or VM was registered.
+     * The activation ID created by Amazon Web Services Systems Manager when the server or virtual machine (VM) was
+     * registered.
      * </p>
      */
     private String activationId;
     /**
      * <p>
-     * The Amazon Identity and Access Management (IAM) role assigned to the on-premises Systems Manager managed
-     * instances. This call does not return the IAM role for Amazon EC2 instances.
+     * The Identity and Access Management (IAM) role assigned to the on-premises Systems Manager managed node. This call
+     * doesn't return the IAM role for Amazon Elastic Compute Cloud (Amazon EC2) instances. To retrieve the IAM role for
+     * an EC2 instance, use the Amazon EC2 <code>DescribeInstances</code> operation. For information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html">DescribeInstances</a> in
+     * the <i>Amazon EC2 API Reference</i> or <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html">describe-instances</a> in the
+     * <i>Amazon Web Services CLI Command Reference</i>.
      * </p>
      */
     private String iamRole;
     /**
      * <p>
-     * The date the server or VM was registered with AWS as a managed instance.
+     * The date the server or VM was registered with Amazon Web Services as a managed node.
      * </p>
      */
     private java.util.Date registrationDate;
@@ -105,19 +116,31 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
     private String resourceType;
     /**
      * <p>
-     * The name of the managed instance.
+     * The name assigned to an on-premises server, edge device, or virtual machine (VM) when it is activated as a
+     * Systems Manager managed node. The name is specified as the <code>DefaultInstanceName</code> property using the
+     * <a>CreateActivation</a> command. It is applied to the managed node by specifying the Activation Code and
+     * Activation ID when you install SSM Agent on the node, as explained in <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-managed-linux.html">Install SSM
+     * Agent for a hybrid and multicloud environment (Linux)</a> and <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-managed-win.html">Install SSM
+     * Agent for a hybrid and multicloud environment (Windows)</a>. To retrieve the <code>Name</code> tag of an EC2
+     * instance, use the Amazon EC2 <code>DescribeInstances</code> operation. For information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html">DescribeInstances</a> in
+     * the <i>Amazon EC2 API Reference</i> or <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html">describe-instances</a> in the
+     * <i>Amazon Web Services CLI Command Reference</i>.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The IP address of the managed instance.
+     * The IP address of the managed node.
      * </p>
      */
     private String iPAddress;
     /**
      * <p>
-     * The fully qualified host name of the managed instance.
+     * The fully qualified host name of the managed node.
      * </p>
      */
     private String computerName;
@@ -145,14 +168,27 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
      * </p>
      */
     private InstanceAggregatedAssociationOverview associationOverview;
+    /**
+     * <p>
+     * The ID of the source resource. For IoT Greengrass devices, <code>SourceId</code> is the Thing name.
+     * </p>
+     */
+    private String sourceId;
+    /**
+     * <p>
+     * The type of the source resource. For IoT Greengrass devices, <code>SourceType</code> is
+     * <code>AWS::IoT::Thing</code>.
+     * </p>
+     */
+    private String sourceType;
 
     /**
      * <p>
-     * The instance ID.
+     * The managed node ID.
      * </p>
      * 
      * @param instanceId
-     *        The instance ID.
+     *        The managed node ID.
      */
 
     public void setInstanceId(String instanceId) {
@@ -161,10 +197,10 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The instance ID.
+     * The managed node ID.
      * </p>
      * 
-     * @return The instance ID.
+     * @return The managed node ID.
      */
 
     public String getInstanceId() {
@@ -173,11 +209,11 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The instance ID.
+     * The managed node ID.
      * </p>
      * 
      * @param instanceId
-     *        The instance ID.
+     *        The managed node ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -190,9 +226,17 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
      * <p>
      * Connection status of SSM Agent.
      * </p>
+     * <note>
+     * <p>
+     * The status <code>Inactive</code> has been deprecated and is no longer in use.
+     * </p>
+     * </note>
      * 
      * @param pingStatus
-     *        Connection status of SSM Agent.
+     *        Connection status of SSM Agent. </p> <note>
+     *        <p>
+     *        The status <code>Inactive</code> has been deprecated and is no longer in use.
+     *        </p>
      * @see PingStatus
      */
 
@@ -204,8 +248,16 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
      * <p>
      * Connection status of SSM Agent.
      * </p>
+     * <note>
+     * <p>
+     * The status <code>Inactive</code> has been deprecated and is no longer in use.
+     * </p>
+     * </note>
      * 
-     * @return Connection status of SSM Agent.
+     * @return Connection status of SSM Agent. </p> <note>
+     *         <p>
+     *         The status <code>Inactive</code> has been deprecated and is no longer in use.
+     *         </p>
      * @see PingStatus
      */
 
@@ -217,9 +269,17 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
      * <p>
      * Connection status of SSM Agent.
      * </p>
+     * <note>
+     * <p>
+     * The status <code>Inactive</code> has been deprecated and is no longer in use.
+     * </p>
+     * </note>
      * 
      * @param pingStatus
-     *        Connection status of SSM Agent.
+     *        Connection status of SSM Agent. </p> <note>
+     *        <p>
+     *        The status <code>Inactive</code> has been deprecated and is no longer in use.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PingStatus
      */
@@ -233,9 +293,17 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
      * <p>
      * Connection status of SSM Agent.
      * </p>
+     * <note>
+     * <p>
+     * The status <code>Inactive</code> has been deprecated and is no longer in use.
+     * </p>
+     * </note>
      * 
      * @param pingStatus
-     *        Connection status of SSM Agent.
+     *        Connection status of SSM Agent. </p> <note>
+     *        <p>
+     *        The status <code>Inactive</code> has been deprecated and is no longer in use.
+     *        </p>
      * @see PingStatus
      */
 
@@ -247,9 +315,17 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
      * <p>
      * Connection status of SSM Agent.
      * </p>
+     * <note>
+     * <p>
+     * The status <code>Inactive</code> has been deprecated and is no longer in use.
+     * </p>
+     * </note>
      * 
      * @param pingStatus
-     *        Connection status of SSM Agent.
+     *        Connection status of SSM Agent. </p> <note>
+     *        <p>
+     *        The status <code>Inactive</code> has been deprecated and is no longer in use.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PingStatus
      */
@@ -261,11 +337,11 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The date and time when agent last pinged Systems Manager service.
+     * The date and time when the agent last pinged the Systems Manager service.
      * </p>
      * 
      * @param lastPingDateTime
-     *        The date and time when agent last pinged Systems Manager service.
+     *        The date and time when the agent last pinged the Systems Manager service.
      */
 
     public void setLastPingDateTime(java.util.Date lastPingDateTime) {
@@ -274,10 +350,10 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The date and time when agent last pinged Systems Manager service.
+     * The date and time when the agent last pinged the Systems Manager service.
      * </p>
      * 
-     * @return The date and time when agent last pinged Systems Manager service.
+     * @return The date and time when the agent last pinged the Systems Manager service.
      */
 
     public java.util.Date getLastPingDateTime() {
@@ -286,11 +362,11 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The date and time when agent last pinged Systems Manager service.
+     * The date and time when the agent last pinged the Systems Manager service.
      * </p>
      * 
      * @param lastPingDateTime
-     *        The date and time when agent last pinged Systems Manager service.
+     *        The date and time when the agent last pinged the Systems Manager service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -301,11 +377,11 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The version of SSM Agent running on your Linux instance.
+     * The version of SSM Agent running on your Linux managed node.
      * </p>
      * 
      * @param agentVersion
-     *        The version of SSM Agent running on your Linux instance.
+     *        The version of SSM Agent running on your Linux managed node.
      */
 
     public void setAgentVersion(String agentVersion) {
@@ -314,10 +390,10 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The version of SSM Agent running on your Linux instance.
+     * The version of SSM Agent running on your Linux managed node.
      * </p>
      * 
-     * @return The version of SSM Agent running on your Linux instance.
+     * @return The version of SSM Agent running on your Linux managed node.
      */
 
     public String getAgentVersion() {
@@ -326,11 +402,11 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The version of SSM Agent running on your Linux instance.
+     * The version of SSM Agent running on your Linux managed node.
      * </p>
      * 
      * @param agentVersion
-     *        The version of SSM Agent running on your Linux instance.
+     *        The version of SSM Agent running on your Linux managed node.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -341,15 +417,15 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Indicates whether latest version of SSM Agent is running on your instance. Some older versions of Windows Server
-     * use the EC2Config service to process SSM requests. For this reason, this field does not indicate whether or not
-     * the latest version is installed on Windows managed instances.
+     * Indicates whether the latest version of SSM Agent is running on your Linux managed node. This field doesn't
+     * indicate whether or not the latest version is installed on Windows managed nodes, because some older versions of
+     * Windows Server use the EC2Config service to process Systems Manager requests.
      * </p>
      * 
      * @param isLatestVersion
-     *        Indicates whether latest version of SSM Agent is running on your instance. Some older versions of Windows
-     *        Server use the EC2Config service to process SSM requests. For this reason, this field does not indicate
-     *        whether or not the latest version is installed on Windows managed instances.
+     *        Indicates whether the latest version of SSM Agent is running on your Linux managed node. This field
+     *        doesn't indicate whether or not the latest version is installed on Windows managed nodes, because some
+     *        older versions of Windows Server use the EC2Config service to process Systems Manager requests.
      */
 
     public void setIsLatestVersion(Boolean isLatestVersion) {
@@ -358,14 +434,14 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Indicates whether latest version of SSM Agent is running on your instance. Some older versions of Windows Server
-     * use the EC2Config service to process SSM requests. For this reason, this field does not indicate whether or not
-     * the latest version is installed on Windows managed instances.
+     * Indicates whether the latest version of SSM Agent is running on your Linux managed node. This field doesn't
+     * indicate whether or not the latest version is installed on Windows managed nodes, because some older versions of
+     * Windows Server use the EC2Config service to process Systems Manager requests.
      * </p>
      * 
-     * @return Indicates whether latest version of SSM Agent is running on your instance. Some older versions of Windows
-     *         Server use the EC2Config service to process SSM requests. For this reason, this field does not indicate
-     *         whether or not the latest version is installed on Windows managed instances.
+     * @return Indicates whether the latest version of SSM Agent is running on your Linux managed node. This field
+     *         doesn't indicate whether or not the latest version is installed on Windows managed nodes, because some
+     *         older versions of Windows Server use the EC2Config service to process Systems Manager requests.
      */
 
     public Boolean getIsLatestVersion() {
@@ -374,15 +450,15 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Indicates whether latest version of SSM Agent is running on your instance. Some older versions of Windows Server
-     * use the EC2Config service to process SSM requests. For this reason, this field does not indicate whether or not
-     * the latest version is installed on Windows managed instances.
+     * Indicates whether the latest version of SSM Agent is running on your Linux managed node. This field doesn't
+     * indicate whether or not the latest version is installed on Windows managed nodes, because some older versions of
+     * Windows Server use the EC2Config service to process Systems Manager requests.
      * </p>
      * 
      * @param isLatestVersion
-     *        Indicates whether latest version of SSM Agent is running on your instance. Some older versions of Windows
-     *        Server use the EC2Config service to process SSM requests. For this reason, this field does not indicate
-     *        whether or not the latest version is installed on Windows managed instances.
+     *        Indicates whether the latest version of SSM Agent is running on your Linux managed node. This field
+     *        doesn't indicate whether or not the latest version is installed on Windows managed nodes, because some
+     *        older versions of Windows Server use the EC2Config service to process Systems Manager requests.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -393,14 +469,14 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Indicates whether latest version of SSM Agent is running on your instance. Some older versions of Windows Server
-     * use the EC2Config service to process SSM requests. For this reason, this field does not indicate whether or not
-     * the latest version is installed on Windows managed instances.
+     * Indicates whether the latest version of SSM Agent is running on your Linux managed node. This field doesn't
+     * indicate whether or not the latest version is installed on Windows managed nodes, because some older versions of
+     * Windows Server use the EC2Config service to process Systems Manager requests.
      * </p>
      * 
-     * @return Indicates whether latest version of SSM Agent is running on your instance. Some older versions of Windows
-     *         Server use the EC2Config service to process SSM requests. For this reason, this field does not indicate
-     *         whether or not the latest version is installed on Windows managed instances.
+     * @return Indicates whether the latest version of SSM Agent is running on your Linux managed node. This field
+     *         doesn't indicate whether or not the latest version is installed on Windows managed nodes, because some
+     *         older versions of Windows Server use the EC2Config service to process Systems Manager requests.
      */
 
     public Boolean isLatestVersion() {
@@ -482,11 +558,11 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the operating system platform running on your instance.
+     * The name of the operating system platform running on your managed node.
      * </p>
      * 
      * @param platformName
-     *        The name of the operating system platform running on your instance.
+     *        The name of the operating system platform running on your managed node.
      */
 
     public void setPlatformName(String platformName) {
@@ -495,10 +571,10 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the operating system platform running on your instance.
+     * The name of the operating system platform running on your managed node.
      * </p>
      * 
-     * @return The name of the operating system platform running on your instance.
+     * @return The name of the operating system platform running on your managed node.
      */
 
     public String getPlatformName() {
@@ -507,11 +583,11 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the operating system platform running on your instance.
+     * The name of the operating system platform running on your managed node.
      * </p>
      * 
      * @param platformName
-     *        The name of the operating system platform running on your instance.
+     *        The name of the operating system platform running on your managed node.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -522,11 +598,11 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The version of the OS platform running on your instance.
+     * The version of the OS platform running on your managed node.
      * </p>
      * 
      * @param platformVersion
-     *        The version of the OS platform running on your instance.
+     *        The version of the OS platform running on your managed node.
      */
 
     public void setPlatformVersion(String platformVersion) {
@@ -535,10 +611,10 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The version of the OS platform running on your instance.
+     * The version of the OS platform running on your managed node.
      * </p>
      * 
-     * @return The version of the OS platform running on your instance.
+     * @return The version of the OS platform running on your managed node.
      */
 
     public String getPlatformVersion() {
@@ -547,11 +623,11 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The version of the OS platform running on your instance.
+     * The version of the OS platform running on your managed node.
      * </p>
      * 
      * @param platformVersion
-     *        The version of the OS platform running on your instance.
+     *        The version of the OS platform running on your managed node.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -562,11 +638,13 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The activation ID created by Systems Manager when the server or VM was registered.
+     * The activation ID created by Amazon Web Services Systems Manager when the server or virtual machine (VM) was
+     * registered.
      * </p>
      * 
      * @param activationId
-     *        The activation ID created by Systems Manager when the server or VM was registered.
+     *        The activation ID created by Amazon Web Services Systems Manager when the server or virtual machine (VM)
+     *        was registered.
      */
 
     public void setActivationId(String activationId) {
@@ -575,10 +653,12 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The activation ID created by Systems Manager when the server or VM was registered.
+     * The activation ID created by Amazon Web Services Systems Manager when the server or virtual machine (VM) was
+     * registered.
      * </p>
      * 
-     * @return The activation ID created by Systems Manager when the server or VM was registered.
+     * @return The activation ID created by Amazon Web Services Systems Manager when the server or virtual machine (VM)
+     *         was registered.
      */
 
     public String getActivationId() {
@@ -587,11 +667,13 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The activation ID created by Systems Manager when the server or VM was registered.
+     * The activation ID created by Amazon Web Services Systems Manager when the server or virtual machine (VM) was
+     * registered.
      * </p>
      * 
      * @param activationId
-     *        The activation ID created by Systems Manager when the server or VM was registered.
+     *        The activation ID created by Amazon Web Services Systems Manager when the server or virtual machine (VM)
+     *        was registered.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -602,13 +684,24 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Identity and Access Management (IAM) role assigned to the on-premises Systems Manager managed
-     * instances. This call does not return the IAM role for Amazon EC2 instances.
+     * The Identity and Access Management (IAM) role assigned to the on-premises Systems Manager managed node. This call
+     * doesn't return the IAM role for Amazon Elastic Compute Cloud (Amazon EC2) instances. To retrieve the IAM role for
+     * an EC2 instance, use the Amazon EC2 <code>DescribeInstances</code> operation. For information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html">DescribeInstances</a> in
+     * the <i>Amazon EC2 API Reference</i> or <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html">describe-instances</a> in the
+     * <i>Amazon Web Services CLI Command Reference</i>.
      * </p>
      * 
      * @param iamRole
-     *        The Amazon Identity and Access Management (IAM) role assigned to the on-premises Systems Manager managed
-     *        instances. This call does not return the IAM role for Amazon EC2 instances.
+     *        The Identity and Access Management (IAM) role assigned to the on-premises Systems Manager managed node.
+     *        This call doesn't return the IAM role for Amazon Elastic Compute Cloud (Amazon EC2) instances. To retrieve
+     *        the IAM role for an EC2 instance, use the Amazon EC2 <code>DescribeInstances</code> operation. For
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html"
+     *        >DescribeInstances</a> in the <i>Amazon EC2 API Reference</i> or <a
+     *        href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html">describe-instances</a>
+     *        in the <i>Amazon Web Services CLI Command Reference</i>.
      */
 
     public void setIamRole(String iamRole) {
@@ -617,12 +710,23 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Identity and Access Management (IAM) role assigned to the on-premises Systems Manager managed
-     * instances. This call does not return the IAM role for Amazon EC2 instances.
+     * The Identity and Access Management (IAM) role assigned to the on-premises Systems Manager managed node. This call
+     * doesn't return the IAM role for Amazon Elastic Compute Cloud (Amazon EC2) instances. To retrieve the IAM role for
+     * an EC2 instance, use the Amazon EC2 <code>DescribeInstances</code> operation. For information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html">DescribeInstances</a> in
+     * the <i>Amazon EC2 API Reference</i> or <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html">describe-instances</a> in the
+     * <i>Amazon Web Services CLI Command Reference</i>.
      * </p>
      * 
-     * @return The Amazon Identity and Access Management (IAM) role assigned to the on-premises Systems Manager managed
-     *         instances. This call does not return the IAM role for Amazon EC2 instances.
+     * @return The Identity and Access Management (IAM) role assigned to the on-premises Systems Manager managed node.
+     *         This call doesn't return the IAM role for Amazon Elastic Compute Cloud (Amazon EC2) instances. To
+     *         retrieve the IAM role for an EC2 instance, use the Amazon EC2 <code>DescribeInstances</code> operation.
+     *         For information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html"
+     *         >DescribeInstances</a> in the <i>Amazon EC2 API Reference</i> or <a
+     *         href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html"
+     *         >describe-instances</a> in the <i>Amazon Web Services CLI Command Reference</i>.
      */
 
     public String getIamRole() {
@@ -631,13 +735,24 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Identity and Access Management (IAM) role assigned to the on-premises Systems Manager managed
-     * instances. This call does not return the IAM role for Amazon EC2 instances.
+     * The Identity and Access Management (IAM) role assigned to the on-premises Systems Manager managed node. This call
+     * doesn't return the IAM role for Amazon Elastic Compute Cloud (Amazon EC2) instances. To retrieve the IAM role for
+     * an EC2 instance, use the Amazon EC2 <code>DescribeInstances</code> operation. For information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html">DescribeInstances</a> in
+     * the <i>Amazon EC2 API Reference</i> or <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html">describe-instances</a> in the
+     * <i>Amazon Web Services CLI Command Reference</i>.
      * </p>
      * 
      * @param iamRole
-     *        The Amazon Identity and Access Management (IAM) role assigned to the on-premises Systems Manager managed
-     *        instances. This call does not return the IAM role for Amazon EC2 instances.
+     *        The Identity and Access Management (IAM) role assigned to the on-premises Systems Manager managed node.
+     *        This call doesn't return the IAM role for Amazon Elastic Compute Cloud (Amazon EC2) instances. To retrieve
+     *        the IAM role for an EC2 instance, use the Amazon EC2 <code>DescribeInstances</code> operation. For
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html"
+     *        >DescribeInstances</a> in the <i>Amazon EC2 API Reference</i> or <a
+     *        href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html">describe-instances</a>
+     *        in the <i>Amazon Web Services CLI Command Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -648,11 +763,11 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The date the server or VM was registered with AWS as a managed instance.
+     * The date the server or VM was registered with Amazon Web Services as a managed node.
      * </p>
      * 
      * @param registrationDate
-     *        The date the server or VM was registered with AWS as a managed instance.
+     *        The date the server or VM was registered with Amazon Web Services as a managed node.
      */
 
     public void setRegistrationDate(java.util.Date registrationDate) {
@@ -661,10 +776,10 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The date the server or VM was registered with AWS as a managed instance.
+     * The date the server or VM was registered with Amazon Web Services as a managed node.
      * </p>
      * 
-     * @return The date the server or VM was registered with AWS as a managed instance.
+     * @return The date the server or VM was registered with Amazon Web Services as a managed node.
      */
 
     public java.util.Date getRegistrationDate() {
@@ -673,11 +788,11 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The date the server or VM was registered with AWS as a managed instance.
+     * The date the server or VM was registered with Amazon Web Services as a managed node.
      * </p>
      * 
      * @param registrationDate
-     *        The date the server or VM was registered with AWS as a managed instance.
+     *        The date the server or VM was registered with Amazon Web Services as a managed node.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -761,11 +876,36 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the managed instance.
+     * The name assigned to an on-premises server, edge device, or virtual machine (VM) when it is activated as a
+     * Systems Manager managed node. The name is specified as the <code>DefaultInstanceName</code> property using the
+     * <a>CreateActivation</a> command. It is applied to the managed node by specifying the Activation Code and
+     * Activation ID when you install SSM Agent on the node, as explained in <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-managed-linux.html">Install SSM
+     * Agent for a hybrid and multicloud environment (Linux)</a> and <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-managed-win.html">Install SSM
+     * Agent for a hybrid and multicloud environment (Windows)</a>. To retrieve the <code>Name</code> tag of an EC2
+     * instance, use the Amazon EC2 <code>DescribeInstances</code> operation. For information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html">DescribeInstances</a> in
+     * the <i>Amazon EC2 API Reference</i> or <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html">describe-instances</a> in the
+     * <i>Amazon Web Services CLI Command Reference</i>.
      * </p>
      * 
      * @param name
-     *        The name of the managed instance.
+     *        The name assigned to an on-premises server, edge device, or virtual machine (VM) when it is activated as a
+     *        Systems Manager managed node. The name is specified as the <code>DefaultInstanceName</code> property using
+     *        the <a>CreateActivation</a> command. It is applied to the managed node by specifying the Activation Code
+     *        and Activation ID when you install SSM Agent on the node, as explained in <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-managed-linux.html"
+     *        >Install SSM Agent for a hybrid and multicloud environment (Linux)</a> and <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-managed-win.html"
+     *        >Install SSM Agent for a hybrid and multicloud environment (Windows)</a>. To retrieve the
+     *        <code>Name</code> tag of an EC2 instance, use the Amazon EC2 <code>DescribeInstances</code> operation. For
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html"
+     *        >DescribeInstances</a> in the <i>Amazon EC2 API Reference</i> or <a
+     *        href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html">describe-instances</a>
+     *        in the <i>Amazon Web Services CLI Command Reference</i>.
      */
 
     public void setName(String name) {
@@ -774,10 +914,35 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the managed instance.
+     * The name assigned to an on-premises server, edge device, or virtual machine (VM) when it is activated as a
+     * Systems Manager managed node. The name is specified as the <code>DefaultInstanceName</code> property using the
+     * <a>CreateActivation</a> command. It is applied to the managed node by specifying the Activation Code and
+     * Activation ID when you install SSM Agent on the node, as explained in <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-managed-linux.html">Install SSM
+     * Agent for a hybrid and multicloud environment (Linux)</a> and <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-managed-win.html">Install SSM
+     * Agent for a hybrid and multicloud environment (Windows)</a>. To retrieve the <code>Name</code> tag of an EC2
+     * instance, use the Amazon EC2 <code>DescribeInstances</code> operation. For information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html">DescribeInstances</a> in
+     * the <i>Amazon EC2 API Reference</i> or <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html">describe-instances</a> in the
+     * <i>Amazon Web Services CLI Command Reference</i>.
      * </p>
      * 
-     * @return The name of the managed instance.
+     * @return The name assigned to an on-premises server, edge device, or virtual machine (VM) when it is activated as
+     *         a Systems Manager managed node. The name is specified as the <code>DefaultInstanceName</code> property
+     *         using the <a>CreateActivation</a> command. It is applied to the managed node by specifying the Activation
+     *         Code and Activation ID when you install SSM Agent on the node, as explained in <a
+     *         href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-managed-linux.html"
+     *         >Install SSM Agent for a hybrid and multicloud environment (Linux)</a> and <a
+     *         href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-managed-win.html"
+     *         >Install SSM Agent for a hybrid and multicloud environment (Windows)</a>. To retrieve the
+     *         <code>Name</code> tag of an EC2 instance, use the Amazon EC2 <code>DescribeInstances</code> operation.
+     *         For information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html"
+     *         >DescribeInstances</a> in the <i>Amazon EC2 API Reference</i> or <a
+     *         href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html"
+     *         >describe-instances</a> in the <i>Amazon Web Services CLI Command Reference</i>.
      */
 
     public String getName() {
@@ -786,11 +951,36 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The name of the managed instance.
+     * The name assigned to an on-premises server, edge device, or virtual machine (VM) when it is activated as a
+     * Systems Manager managed node. The name is specified as the <code>DefaultInstanceName</code> property using the
+     * <a>CreateActivation</a> command. It is applied to the managed node by specifying the Activation Code and
+     * Activation ID when you install SSM Agent on the node, as explained in <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-managed-linux.html">Install SSM
+     * Agent for a hybrid and multicloud environment (Linux)</a> and <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-managed-win.html">Install SSM
+     * Agent for a hybrid and multicloud environment (Windows)</a>. To retrieve the <code>Name</code> tag of an EC2
+     * instance, use the Amazon EC2 <code>DescribeInstances</code> operation. For information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html">DescribeInstances</a> in
+     * the <i>Amazon EC2 API Reference</i> or <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html">describe-instances</a> in the
+     * <i>Amazon Web Services CLI Command Reference</i>.
      * </p>
      * 
      * @param name
-     *        The name of the managed instance.
+     *        The name assigned to an on-premises server, edge device, or virtual machine (VM) when it is activated as a
+     *        Systems Manager managed node. The name is specified as the <code>DefaultInstanceName</code> property using
+     *        the <a>CreateActivation</a> command. It is applied to the managed node by specifying the Activation Code
+     *        and Activation ID when you install SSM Agent on the node, as explained in <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-managed-linux.html"
+     *        >Install SSM Agent for a hybrid and multicloud environment (Linux)</a> and <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-install-managed-win.html"
+     *        >Install SSM Agent for a hybrid and multicloud environment (Windows)</a>. To retrieve the
+     *        <code>Name</code> tag of an EC2 instance, use the Amazon EC2 <code>DescribeInstances</code> operation. For
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html"
+     *        >DescribeInstances</a> in the <i>Amazon EC2 API Reference</i> or <a
+     *        href="https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html">describe-instances</a>
+     *        in the <i>Amazon Web Services CLI Command Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -801,11 +991,11 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The IP address of the managed instance.
+     * The IP address of the managed node.
      * </p>
      * 
      * @param iPAddress
-     *        The IP address of the managed instance.
+     *        The IP address of the managed node.
      */
 
     public void setIPAddress(String iPAddress) {
@@ -814,10 +1004,10 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The IP address of the managed instance.
+     * The IP address of the managed node.
      * </p>
      * 
-     * @return The IP address of the managed instance.
+     * @return The IP address of the managed node.
      */
 
     public String getIPAddress() {
@@ -826,11 +1016,11 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The IP address of the managed instance.
+     * The IP address of the managed node.
      * </p>
      * 
      * @param iPAddress
-     *        The IP address of the managed instance.
+     *        The IP address of the managed node.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -841,11 +1031,11 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The fully qualified host name of the managed instance.
+     * The fully qualified host name of the managed node.
      * </p>
      * 
      * @param computerName
-     *        The fully qualified host name of the managed instance.
+     *        The fully qualified host name of the managed node.
      */
 
     public void setComputerName(String computerName) {
@@ -854,10 +1044,10 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The fully qualified host name of the managed instance.
+     * The fully qualified host name of the managed node.
      * </p>
      * 
-     * @return The fully qualified host name of the managed instance.
+     * @return The fully qualified host name of the managed node.
      */
 
     public String getComputerName() {
@@ -866,11 +1056,11 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The fully qualified host name of the managed instance.
+     * The fully qualified host name of the managed node.
      * </p>
      * 
      * @param computerName
-     *        The fully qualified host name of the managed instance.
+     *        The fully qualified host name of the managed node.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1040,6 +1230,129 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
     }
 
     /**
+     * <p>
+     * The ID of the source resource. For IoT Greengrass devices, <code>SourceId</code> is the Thing name.
+     * </p>
+     * 
+     * @param sourceId
+     *        The ID of the source resource. For IoT Greengrass devices, <code>SourceId</code> is the Thing name.
+     */
+
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
+    }
+
+    /**
+     * <p>
+     * The ID of the source resource. For IoT Greengrass devices, <code>SourceId</code> is the Thing name.
+     * </p>
+     * 
+     * @return The ID of the source resource. For IoT Greengrass devices, <code>SourceId</code> is the Thing name.
+     */
+
+    public String getSourceId() {
+        return this.sourceId;
+    }
+
+    /**
+     * <p>
+     * The ID of the source resource. For IoT Greengrass devices, <code>SourceId</code> is the Thing name.
+     * </p>
+     * 
+     * @param sourceId
+     *        The ID of the source resource. For IoT Greengrass devices, <code>SourceId</code> is the Thing name.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceInformation withSourceId(String sourceId) {
+        setSourceId(sourceId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of the source resource. For IoT Greengrass devices, <code>SourceType</code> is
+     * <code>AWS::IoT::Thing</code>.
+     * </p>
+     * 
+     * @param sourceType
+     *        The type of the source resource. For IoT Greengrass devices, <code>SourceType</code> is
+     *        <code>AWS::IoT::Thing</code>.
+     * @see SourceType
+     */
+
+    public void setSourceType(String sourceType) {
+        this.sourceType = sourceType;
+    }
+
+    /**
+     * <p>
+     * The type of the source resource. For IoT Greengrass devices, <code>SourceType</code> is
+     * <code>AWS::IoT::Thing</code>.
+     * </p>
+     * 
+     * @return The type of the source resource. For IoT Greengrass devices, <code>SourceType</code> is
+     *         <code>AWS::IoT::Thing</code>.
+     * @see SourceType
+     */
+
+    public String getSourceType() {
+        return this.sourceType;
+    }
+
+    /**
+     * <p>
+     * The type of the source resource. For IoT Greengrass devices, <code>SourceType</code> is
+     * <code>AWS::IoT::Thing</code>.
+     * </p>
+     * 
+     * @param sourceType
+     *        The type of the source resource. For IoT Greengrass devices, <code>SourceType</code> is
+     *        <code>AWS::IoT::Thing</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SourceType
+     */
+
+    public InstanceInformation withSourceType(String sourceType) {
+        setSourceType(sourceType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of the source resource. For IoT Greengrass devices, <code>SourceType</code> is
+     * <code>AWS::IoT::Thing</code>.
+     * </p>
+     * 
+     * @param sourceType
+     *        The type of the source resource. For IoT Greengrass devices, <code>SourceType</code> is
+     *        <code>AWS::IoT::Thing</code>.
+     * @see SourceType
+     */
+
+    public void setSourceType(SourceType sourceType) {
+        withSourceType(sourceType);
+    }
+
+    /**
+     * <p>
+     * The type of the source resource. For IoT Greengrass devices, <code>SourceType</code> is
+     * <code>AWS::IoT::Thing</code>.
+     * </p>
+     * 
+     * @param sourceType
+     *        The type of the source resource. For IoT Greengrass devices, <code>SourceType</code> is
+     *        <code>AWS::IoT::Thing</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SourceType
+     */
+
+    public InstanceInformation withSourceType(SourceType sourceType) {
+        this.sourceType = sourceType.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1078,7 +1391,7 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getIPAddress() != null)
-            sb.append("IPAddress: ").append(getIPAddress()).append(",");
+            sb.append("IPAddress: ").append("***Sensitive Data Redacted***").append(",");
         if (getComputerName() != null)
             sb.append("ComputerName: ").append(getComputerName()).append(",");
         if (getAssociationStatus() != null)
@@ -1088,7 +1401,11 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
         if (getLastSuccessfulAssociationExecutionDate() != null)
             sb.append("LastSuccessfulAssociationExecutionDate: ").append(getLastSuccessfulAssociationExecutionDate()).append(",");
         if (getAssociationOverview() != null)
-            sb.append("AssociationOverview: ").append(getAssociationOverview());
+            sb.append("AssociationOverview: ").append(getAssociationOverview()).append(",");
+        if (getSourceId() != null)
+            sb.append("SourceId: ").append(getSourceId()).append(",");
+        if (getSourceType() != null)
+            sb.append("SourceType: ").append(getSourceType());
         sb.append("}");
         return sb.toString();
     }
@@ -1180,6 +1497,14 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getAssociationOverview() != null && other.getAssociationOverview().equals(this.getAssociationOverview()) == false)
             return false;
+        if (other.getSourceId() == null ^ this.getSourceId() == null)
+            return false;
+        if (other.getSourceId() != null && other.getSourceId().equals(this.getSourceId()) == false)
+            return false;
+        if (other.getSourceType() == null ^ this.getSourceType() == null)
+            return false;
+        if (other.getSourceType() != null && other.getSourceType().equals(this.getSourceType()) == false)
+            return false;
         return true;
     }
 
@@ -1207,6 +1532,8 @@ public class InstanceInformation implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getLastAssociationExecutionDate() == null) ? 0 : getLastAssociationExecutionDate().hashCode());
         hashCode = prime * hashCode + ((getLastSuccessfulAssociationExecutionDate() == null) ? 0 : getLastSuccessfulAssociationExecutionDate().hashCode());
         hashCode = prime * hashCode + ((getAssociationOverview() == null) ? 0 : getAssociationOverview().hashCode());
+        hashCode = prime * hashCode + ((getSourceId() == null) ? 0 : getSourceId().hashCode());
+        hashCode = prime * hashCode + ((getSourceType() == null) ? 0 : getSourceType().hashCode());
         return hashCode;
     }
 

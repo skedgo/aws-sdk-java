@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  * A distribution configuration.
  * </p>
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/DistributionConfig" target="_top">AWS API
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DistributionConfig" target="_top">AWS API
  *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -49,8 +49,8 @@ public class DistributionConfig implements Serializable, Cloneable {
     /**
      * <p>
      * The object that you want CloudFront to request from your origin (for example, <code>index.html</code>) when a
-     * viewer requests the root URL for your distribution (<code>http://www.example.com</code>) instead of an object in
-     * your distribution (<code>http://www.example.com/product-description.html</code>). Specifying a default root
+     * viewer requests the root URL for your distribution (<code>https://www.example.com</code>) instead of an object in
+     * your distribution (<code>https://www.example.com/product-description.html</code>). Specifying a default root
      * object avoids exposing the contents of your distribution.
      * </p>
      * <p>
@@ -127,17 +127,7 @@ public class DistributionConfig implements Serializable, Cloneable {
     private CustomErrorResponses customErrorResponses;
     /**
      * <p>
-     * Any comments you want to include about the distribution.
-     * </p>
-     * <p>
-     * If you don't want to specify a comment, include an empty <code>Comment</code> element.
-     * </p>
-     * <p>
-     * To delete an existing comment, update the distribution configuration and include an empty <code>Comment</code>
-     * element.
-     * </p>
-     * <p>
-     * To add or change a comment, update the distribution configuration and specify the new comment.
+     * A comment to describe the distribution. The comment cannot be longer than 128 characters.
      * </p>
      */
     private String comment;
@@ -168,8 +158,7 @@ public class DistributionConfig implements Serializable, Cloneable {
      * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PriceClass.html">Choosing the Price
      * Class for a CloudFront Distribution</a> in the <i>Amazon CloudFront Developer Guide</i>. For information about
      * CloudFront pricing, including how price classes (such as Price Class 100) map to CloudFront regions, see <a
-     * href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront Pricing</a>. For price class information,
-     * scroll down to see the table at the bottom of the page.
+     * href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront Pricing</a>.
      * </p>
      */
     private String priceClass;
@@ -181,9 +170,7 @@ public class DistributionConfig implements Serializable, Cloneable {
     private Boolean enabled;
     /**
      * <p>
-     * A complex type that specifies whether you want viewers to use HTTP or HTTPS to request your objects, whether
-     * you're using an alternate domain name with HTTPS, and if so, if you're using AWS Certificate Manager (ACM) or a
-     * third-party certificate authority.
+     * A complex type that determines the distribution's SSL/TLS configuration for communicating with viewers.
      * </p>
      */
     private ViewerCertificate viewerCertificate;
@@ -195,31 +182,40 @@ public class DistributionConfig implements Serializable, Cloneable {
     private Restrictions restrictions;
     /**
      * <p>
-     * A unique identifier that specifies the AWS WAF web ACL, if any, to associate with this distribution.
+     * A unique identifier that specifies the WAF web ACL, if any, to associate with this distribution. To specify a web
+     * ACL created using the latest version of WAF, use the ACL ARN, for example
+     * <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>
+     * . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     * <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>.
      * </p>
      * <p>
-     * AWS WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded to
+     * WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded to
      * CloudFront, and lets you control access to your content. Based on conditions that you specify, such as the IP
      * addresses that requests originate from or the values of query strings, CloudFront responds to requests either
      * with the requested content or with an HTTP 403 status code (Forbidden). You can also configure CloudFront to
-     * return a custom error page when a request is blocked. For more information about AWS WAF, see the <a
-     * href="http://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">AWS WAF Developer Guide</a>.
+     * return a custom error page when a request is blocked. For more information about WAF, see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">WAF Developer Guide</a>.
      * </p>
      */
     private String webACLId;
     /**
      * <p>
-     * (Optional) Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront. The
-     * default value for new web distributions is http2. Viewers that don't support HTTP/2 automatically use an earlier
-     * HTTP version.
+     * (Optional) Specify the HTTP version(s) that you want viewers to use to communicate with CloudFront. The default
+     * value for new web distributions is <code>http2</code>. Viewers that don't support HTTP/2 automatically use an
+     * earlier HTTP version.
      * </p>
      * <p>
-     * For viewers and CloudFront to use HTTP/2, viewers must support TLS 1.2 or later, and must support Server Name
-     * Identification (SNI).
+     * For viewers and CloudFront to use HTTP/2, viewers must support TLSv1.2 or later, and must support Server Name
+     * Indication (SNI).
      * </p>
      * <p>
-     * In general, configuring CloudFront to communicate with viewers using HTTP/2 reduces latency. You can improve
-     * performance by optimizing for HTTP/2. For more information, do an Internet search for "http/2 optimization."
+     * For viewers and CloudFront to use HTTP/3, viewers must support TLSv1.3 and Server Name Indication (SNI).
+     * CloudFront supports HTTP/3 connection migration to allow the viewer to switch networks without losing connection.
+     * For more information about connection migration, see <a
+     * href="https://www.rfc-editor.org/rfc/rfc9000.html#name-connection-migration">Connection Migration</a> at RFC
+     * 9000. For more information about supported TLSv1.3 ciphers, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html"
+     * >Supported protocols and ciphers between viewers and CloudFront</a>.
      * </p>
      */
     private String httpVersion;
@@ -241,8 +237,9 @@ public class DistributionConfig implements Serializable, Cloneable {
      * >Creating a Signed URL Using a Custom Policy</a> in the <i>Amazon CloudFront Developer Guide</i>.
      * </p>
      * <p>
-     * If you're using an Amazon Route 53 alias resource record set to route traffic to your CloudFront distribution,
-     * you need to create a second alias resource record set when both of the following are true:
+     * If you're using an Route 53 Amazon Web Services Integration alias resource record set to route traffic to your
+     * CloudFront distribution, you need to create a second alias resource record set when both of the following are
+     * true:
      * </p>
      * <ul>
      * <li>
@@ -259,16 +256,30 @@ public class DistributionConfig implements Serializable, Cloneable {
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-cloudfront-distribution.html">Routing
-     * Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the <i>Amazon Route 53
-     * Developer Guide</i>.
+     * Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the <i>Route 53 Amazon Web
+     * Services Integration Developer Guide</i>.
      * </p>
      * <p>
-     * If you created a CNAME resource record set, either with Amazon Route 53 or with another DNS service, you don't
-     * need to make any changes. A CNAME record will route traffic to your distribution regardless of the IP address
-     * format of the viewer request.
+     * If you created a CNAME resource record set, either with Route 53 Amazon Web Services Integration or with another
+     * DNS service, you don't need to make any changes. A CNAME record will route traffic to your distribution
+     * regardless of the IP address format of the viewer request.
      * </p>
      */
     private Boolean isIPV6Enabled;
+    /**
+     * <p>
+     * The identifier of a continuous deployment policy. For more information, see
+     * <code>CreateContinuousDeploymentPolicy</code>.
+     * </p>
+     */
+    private String continuousDeploymentPolicyId;
+    /**
+     * <p>
+     * A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>, this is a
+     * staging distribution. When this value is <code>false</code>, this is not a staging distribution.
+     * </p>
+     */
+    private Boolean staging;
 
     /**
      * Default constructor for DistributionConfig object. Callers should use the setter or fluent setter (with...)
@@ -429,8 +440,8 @@ public class DistributionConfig implements Serializable, Cloneable {
     /**
      * <p>
      * The object that you want CloudFront to request from your origin (for example, <code>index.html</code>) when a
-     * viewer requests the root URL for your distribution (<code>http://www.example.com</code>) instead of an object in
-     * your distribution (<code>http://www.example.com/product-description.html</code>). Specifying a default root
+     * viewer requests the root URL for your distribution (<code>https://www.example.com</code>) instead of an object in
+     * your distribution (<code>https://www.example.com/product-description.html</code>). Specifying a default root
      * object avoids exposing the contents of your distribution.
      * </p>
      * <p>
@@ -456,9 +467,9 @@ public class DistributionConfig implements Serializable, Cloneable {
      * 
      * @param defaultRootObject
      *        The object that you want CloudFront to request from your origin (for example, <code>index.html</code>)
-     *        when a viewer requests the root URL for your distribution (<code>http://www.example.com</code>) instead of
-     *        an object in your distribution (<code>http://www.example.com/product-description.html</code>). Specifying
-     *        a default root object avoids exposing the contents of your distribution.</p>
+     *        when a viewer requests the root URL for your distribution (<code>https://www.example.com</code>) instead
+     *        of an object in your distribution (<code>https://www.example.com/product-description.html</code>).
+     *        Specifying a default root object avoids exposing the contents of your distribution.</p>
      *        <p>
      *        Specify only the object name, for example, <code>index.html</code>. Don't add a <code>/</code> before the
      *        object name.
@@ -487,8 +498,8 @@ public class DistributionConfig implements Serializable, Cloneable {
     /**
      * <p>
      * The object that you want CloudFront to request from your origin (for example, <code>index.html</code>) when a
-     * viewer requests the root URL for your distribution (<code>http://www.example.com</code>) instead of an object in
-     * your distribution (<code>http://www.example.com/product-description.html</code>). Specifying a default root
+     * viewer requests the root URL for your distribution (<code>https://www.example.com</code>) instead of an object in
+     * your distribution (<code>https://www.example.com/product-description.html</code>). Specifying a default root
      * object avoids exposing the contents of your distribution.
      * </p>
      * <p>
@@ -513,8 +524,8 @@ public class DistributionConfig implements Serializable, Cloneable {
      * </p>
      * 
      * @return The object that you want CloudFront to request from your origin (for example, <code>index.html</code>)
-     *         when a viewer requests the root URL for your distribution (<code>http://www.example.com</code>) instead
-     *         of an object in your distribution (<code>http://www.example.com/product-description.html</code>).
+     *         when a viewer requests the root URL for your distribution (<code>https://www.example.com</code>) instead
+     *         of an object in your distribution (<code>https://www.example.com/product-description.html</code>).
      *         Specifying a default root object avoids exposing the contents of your distribution.</p>
      *         <p>
      *         Specify only the object name, for example, <code>index.html</code>. Don't add a <code>/</code> before the
@@ -544,8 +555,8 @@ public class DistributionConfig implements Serializable, Cloneable {
     /**
      * <p>
      * The object that you want CloudFront to request from your origin (for example, <code>index.html</code>) when a
-     * viewer requests the root URL for your distribution (<code>http://www.example.com</code>) instead of an object in
-     * your distribution (<code>http://www.example.com/product-description.html</code>). Specifying a default root
+     * viewer requests the root URL for your distribution (<code>https://www.example.com</code>) instead of an object in
+     * your distribution (<code>https://www.example.com/product-description.html</code>). Specifying a default root
      * object avoids exposing the contents of your distribution.
      * </p>
      * <p>
@@ -571,9 +582,9 @@ public class DistributionConfig implements Serializable, Cloneable {
      * 
      * @param defaultRootObject
      *        The object that you want CloudFront to request from your origin (for example, <code>index.html</code>)
-     *        when a viewer requests the root URL for your distribution (<code>http://www.example.com</code>) instead of
-     *        an object in your distribution (<code>http://www.example.com/product-description.html</code>). Specifying
-     *        a default root object avoids exposing the contents of your distribution.</p>
+     *        when a viewer requests the root URL for your distribution (<code>https://www.example.com</code>) instead
+     *        of an object in your distribution (<code>https://www.example.com/product-description.html</code>).
+     *        Specifying a default root object avoids exposing the contents of your distribution.</p>
      *        <p>
      *        Specify only the object name, for example, <code>index.html</code>. Don't add a <code>/</code> before the
      *        object name.
@@ -920,30 +931,11 @@ public class DistributionConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any comments you want to include about the distribution.
-     * </p>
-     * <p>
-     * If you don't want to specify a comment, include an empty <code>Comment</code> element.
-     * </p>
-     * <p>
-     * To delete an existing comment, update the distribution configuration and include an empty <code>Comment</code>
-     * element.
-     * </p>
-     * <p>
-     * To add or change a comment, update the distribution configuration and specify the new comment.
+     * A comment to describe the distribution. The comment cannot be longer than 128 characters.
      * </p>
      * 
      * @param comment
-     *        Any comments you want to include about the distribution.</p>
-     *        <p>
-     *        If you don't want to specify a comment, include an empty <code>Comment</code> element.
-     *        </p>
-     *        <p>
-     *        To delete an existing comment, update the distribution configuration and include an empty
-     *        <code>Comment</code> element.
-     *        </p>
-     *        <p>
-     *        To add or change a comment, update the distribution configuration and specify the new comment.
+     *        A comment to describe the distribution. The comment cannot be longer than 128 characters.
      */
 
     public void setComment(String comment) {
@@ -952,29 +944,10 @@ public class DistributionConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any comments you want to include about the distribution.
-     * </p>
-     * <p>
-     * If you don't want to specify a comment, include an empty <code>Comment</code> element.
-     * </p>
-     * <p>
-     * To delete an existing comment, update the distribution configuration and include an empty <code>Comment</code>
-     * element.
-     * </p>
-     * <p>
-     * To add or change a comment, update the distribution configuration and specify the new comment.
+     * A comment to describe the distribution. The comment cannot be longer than 128 characters.
      * </p>
      * 
-     * @return Any comments you want to include about the distribution.</p>
-     *         <p>
-     *         If you don't want to specify a comment, include an empty <code>Comment</code> element.
-     *         </p>
-     *         <p>
-     *         To delete an existing comment, update the distribution configuration and include an empty
-     *         <code>Comment</code> element.
-     *         </p>
-     *         <p>
-     *         To add or change a comment, update the distribution configuration and specify the new comment.
+     * @return A comment to describe the distribution. The comment cannot be longer than 128 characters.
      */
 
     public String getComment() {
@@ -983,30 +956,11 @@ public class DistributionConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any comments you want to include about the distribution.
-     * </p>
-     * <p>
-     * If you don't want to specify a comment, include an empty <code>Comment</code> element.
-     * </p>
-     * <p>
-     * To delete an existing comment, update the distribution configuration and include an empty <code>Comment</code>
-     * element.
-     * </p>
-     * <p>
-     * To add or change a comment, update the distribution configuration and specify the new comment.
+     * A comment to describe the distribution. The comment cannot be longer than 128 characters.
      * </p>
      * 
      * @param comment
-     *        Any comments you want to include about the distribution.</p>
-     *        <p>
-     *        If you don't want to specify a comment, include an empty <code>Comment</code> element.
-     *        </p>
-     *        <p>
-     *        To delete an existing comment, update the distribution configuration and include an empty
-     *        <code>Comment</code> element.
-     *        </p>
-     *        <p>
-     *        To add or change a comment, update the distribution configuration and specify the new comment.
+     *        A comment to describe the distribution. The comment cannot be longer than 128 characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1098,8 +1052,7 @@ public class DistributionConfig implements Serializable, Cloneable {
      * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PriceClass.html">Choosing the Price
      * Class for a CloudFront Distribution</a> in the <i>Amazon CloudFront Developer Guide</i>. For information about
      * CloudFront pricing, including how price classes (such as Price Class 100) map to CloudFront regions, see <a
-     * href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront Pricing</a>. For price class information,
-     * scroll down to see the table at the bottom of the page.
+     * href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront Pricing</a>.
      * </p>
      * 
      * @param priceClass
@@ -1118,7 +1071,6 @@ public class DistributionConfig implements Serializable, Cloneable {
      *        Price Class for a CloudFront Distribution</a> in the <i>Amazon CloudFront Developer Guide</i>. For
      *        information about CloudFront pricing, including how price classes (such as Price Class 100) map to
      *        CloudFront regions, see <a href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront Pricing</a>.
-     *        For price class information, scroll down to see the table at the bottom of the page.
      * @see PriceClass
      */
 
@@ -1142,8 +1094,7 @@ public class DistributionConfig implements Serializable, Cloneable {
      * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PriceClass.html">Choosing the Price
      * Class for a CloudFront Distribution</a> in the <i>Amazon CloudFront Developer Guide</i>. For information about
      * CloudFront pricing, including how price classes (such as Price Class 100) map to CloudFront regions, see <a
-     * href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront Pricing</a>. For price class information,
-     * scroll down to see the table at the bottom of the page.
+     * href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront Pricing</a>.
      * </p>
      * 
      * @return The price class that corresponds with the maximum price that you want to pay for CloudFront service. If
@@ -1161,7 +1112,7 @@ public class DistributionConfig implements Serializable, Cloneable {
      *         Price Class for a CloudFront Distribution</a> in the <i>Amazon CloudFront Developer Guide</i>. For
      *         information about CloudFront pricing, including how price classes (such as Price Class 100) map to
      *         CloudFront regions, see <a href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront
-     *         Pricing</a>. For price class information, scroll down to see the table at the bottom of the page.
+     *         Pricing</a>.
      * @see PriceClass
      */
 
@@ -1185,8 +1136,7 @@ public class DistributionConfig implements Serializable, Cloneable {
      * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PriceClass.html">Choosing the Price
      * Class for a CloudFront Distribution</a> in the <i>Amazon CloudFront Developer Guide</i>. For information about
      * CloudFront pricing, including how price classes (such as Price Class 100) map to CloudFront regions, see <a
-     * href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront Pricing</a>. For price class information,
-     * scroll down to see the table at the bottom of the page.
+     * href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront Pricing</a>.
      * </p>
      * 
      * @param priceClass
@@ -1205,7 +1155,6 @@ public class DistributionConfig implements Serializable, Cloneable {
      *        Price Class for a CloudFront Distribution</a> in the <i>Amazon CloudFront Developer Guide</i>. For
      *        information about CloudFront pricing, including how price classes (such as Price Class 100) map to
      *        CloudFront regions, see <a href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront Pricing</a>.
-     *        For price class information, scroll down to see the table at the bottom of the page.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PriceClass
      */
@@ -1231,8 +1180,7 @@ public class DistributionConfig implements Serializable, Cloneable {
      * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PriceClass.html">Choosing the Price
      * Class for a CloudFront Distribution</a> in the <i>Amazon CloudFront Developer Guide</i>. For information about
      * CloudFront pricing, including how price classes (such as Price Class 100) map to CloudFront regions, see <a
-     * href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront Pricing</a>. For price class information,
-     * scroll down to see the table at the bottom of the page.
+     * href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront Pricing</a>.
      * </p>
      * 
      * @param priceClass
@@ -1251,7 +1199,6 @@ public class DistributionConfig implements Serializable, Cloneable {
      *        Price Class for a CloudFront Distribution</a> in the <i>Amazon CloudFront Developer Guide</i>. For
      *        information about CloudFront pricing, including how price classes (such as Price Class 100) map to
      *        CloudFront regions, see <a href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront Pricing</a>.
-     *        For price class information, scroll down to see the table at the bottom of the page.
      * @see PriceClass
      */
 
@@ -1275,8 +1222,7 @@ public class DistributionConfig implements Serializable, Cloneable {
      * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PriceClass.html">Choosing the Price
      * Class for a CloudFront Distribution</a> in the <i>Amazon CloudFront Developer Guide</i>. For information about
      * CloudFront pricing, including how price classes (such as Price Class 100) map to CloudFront regions, see <a
-     * href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront Pricing</a>. For price class information,
-     * scroll down to see the table at the bottom of the page.
+     * href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront Pricing</a>.
      * </p>
      * 
      * @param priceClass
@@ -1295,7 +1241,6 @@ public class DistributionConfig implements Serializable, Cloneable {
      *        Price Class for a CloudFront Distribution</a> in the <i>Amazon CloudFront Developer Guide</i>. For
      *        information about CloudFront pricing, including how price classes (such as Price Class 100) map to
      *        CloudFront regions, see <a href="http://aws.amazon.com/cloudfront/pricing/">Amazon CloudFront Pricing</a>.
-     *        For price class information, scroll down to see the table at the bottom of the page.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PriceClass
      */
@@ -1359,15 +1304,11 @@ public class DistributionConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A complex type that specifies whether you want viewers to use HTTP or HTTPS to request your objects, whether
-     * you're using an alternate domain name with HTTPS, and if so, if you're using AWS Certificate Manager (ACM) or a
-     * third-party certificate authority.
+     * A complex type that determines the distribution's SSL/TLS configuration for communicating with viewers.
      * </p>
      * 
      * @param viewerCertificate
-     *        A complex type that specifies whether you want viewers to use HTTP or HTTPS to request your objects,
-     *        whether you're using an alternate domain name with HTTPS, and if so, if you're using AWS Certificate
-     *        Manager (ACM) or a third-party certificate authority.
+     *        A complex type that determines the distribution's SSL/TLS configuration for communicating with viewers.
      */
 
     public void setViewerCertificate(ViewerCertificate viewerCertificate) {
@@ -1376,14 +1317,10 @@ public class DistributionConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A complex type that specifies whether you want viewers to use HTTP or HTTPS to request your objects, whether
-     * you're using an alternate domain name with HTTPS, and if so, if you're using AWS Certificate Manager (ACM) or a
-     * third-party certificate authority.
+     * A complex type that determines the distribution's SSL/TLS configuration for communicating with viewers.
      * </p>
      * 
-     * @return A complex type that specifies whether you want viewers to use HTTP or HTTPS to request your objects,
-     *         whether you're using an alternate domain name with HTTPS, and if so, if you're using AWS Certificate
-     *         Manager (ACM) or a third-party certificate authority.
+     * @return A complex type that determines the distribution's SSL/TLS configuration for communicating with viewers.
      */
 
     public ViewerCertificate getViewerCertificate() {
@@ -1392,15 +1329,11 @@ public class DistributionConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A complex type that specifies whether you want viewers to use HTTP or HTTPS to request your objects, whether
-     * you're using an alternate domain name with HTTPS, and if so, if you're using AWS Certificate Manager (ACM) or a
-     * third-party certificate authority.
+     * A complex type that determines the distribution's SSL/TLS configuration for communicating with viewers.
      * </p>
      * 
      * @param viewerCertificate
-     *        A complex type that specifies whether you want viewers to use HTTP or HTTPS to request your objects,
-     *        whether you're using an alternate domain name with HTTPS, and if so, if you're using AWS Certificate
-     *        Manager (ACM) or a third-party certificate authority.
+     *        A complex type that determines the distribution's SSL/TLS configuration for communicating with viewers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1451,27 +1384,35 @@ public class DistributionConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A unique identifier that specifies the AWS WAF web ACL, if any, to associate with this distribution.
+     * A unique identifier that specifies the WAF web ACL, if any, to associate with this distribution. To specify a web
+     * ACL created using the latest version of WAF, use the ACL ARN, for example
+     * <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>
+     * . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     * <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>.
      * </p>
      * <p>
-     * AWS WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded to
+     * WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded to
      * CloudFront, and lets you control access to your content. Based on conditions that you specify, such as the IP
      * addresses that requests originate from or the values of query strings, CloudFront responds to requests either
      * with the requested content or with an HTTP 403 status code (Forbidden). You can also configure CloudFront to
-     * return a custom error page when a request is blocked. For more information about AWS WAF, see the <a
-     * href="http://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">AWS WAF Developer Guide</a>.
+     * return a custom error page when a request is blocked. For more information about WAF, see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">WAF Developer Guide</a>.
      * </p>
      * 
      * @param webACLId
-     *        A unique identifier that specifies the AWS WAF web ACL, if any, to associate with this distribution.</p>
+     *        A unique identifier that specifies the WAF web ACL, if any, to associate with this distribution. To
+     *        specify a web ACL created using the latest version of WAF, use the ACL ARN, for example
+     *        <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>
+     *        . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     *        <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>.</p>
      *        <p>
-     *        AWS WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded
-     *        to CloudFront, and lets you control access to your content. Based on conditions that you specify, such as
-     *        the IP addresses that requests originate from or the values of query strings, CloudFront responds to
-     *        requests either with the requested content or with an HTTP 403 status code (Forbidden). You can also
-     *        configure CloudFront to return a custom error page when a request is blocked. For more information about
-     *        AWS WAF, see the <a href="http://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">AWS
-     *        WAF Developer Guide</a>.
+     *        WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded to
+     *        CloudFront, and lets you control access to your content. Based on conditions that you specify, such as the
+     *        IP addresses that requests originate from or the values of query strings, CloudFront responds to requests
+     *        either with the requested content or with an HTTP 403 status code (Forbidden). You can also configure
+     *        CloudFront to return a custom error page when a request is blocked. For more information about WAF, see
+     *        the <a href="https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">WAF Developer
+     *        Guide</a>.
      */
 
     public void setWebACLId(String webACLId) {
@@ -1480,27 +1421,34 @@ public class DistributionConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A unique identifier that specifies the AWS WAF web ACL, if any, to associate with this distribution.
+     * A unique identifier that specifies the WAF web ACL, if any, to associate with this distribution. To specify a web
+     * ACL created using the latest version of WAF, use the ACL ARN, for example
+     * <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>
+     * . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     * <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>.
      * </p>
      * <p>
-     * AWS WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded to
+     * WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded to
      * CloudFront, and lets you control access to your content. Based on conditions that you specify, such as the IP
      * addresses that requests originate from or the values of query strings, CloudFront responds to requests either
      * with the requested content or with an HTTP 403 status code (Forbidden). You can also configure CloudFront to
-     * return a custom error page when a request is blocked. For more information about AWS WAF, see the <a
-     * href="http://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">AWS WAF Developer Guide</a>.
+     * return a custom error page when a request is blocked. For more information about WAF, see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">WAF Developer Guide</a>.
      * </p>
      * 
-     * @return A unique identifier that specifies the AWS WAF web ACL, if any, to associate with this distribution.</p>
+     * @return A unique identifier that specifies the WAF web ACL, if any, to associate with this distribution. To
+     *         specify a web ACL created using the latest version of WAF, use the ACL ARN, for example
+     *         <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>
+     *         . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     *         <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>.</p>
      *         <p>
-     *         AWS WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are
-     *         forwarded to CloudFront, and lets you control access to your content. Based on conditions that you
-     *         specify, such as the IP addresses that requests originate from or the values of query strings, CloudFront
-     *         responds to requests either with the requested content or with an HTTP 403 status code (Forbidden). You
-     *         can also configure CloudFront to return a custom error page when a request is blocked. For more
-     *         information about AWS WAF, see the <a
-     *         href="http://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">AWS WAF Developer
-     *         Guide</a>.
+     *         WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded to
+     *         CloudFront, and lets you control access to your content. Based on conditions that you specify, such as
+     *         the IP addresses that requests originate from or the values of query strings, CloudFront responds to
+     *         requests either with the requested content or with an HTTP 403 status code (Forbidden). You can also
+     *         configure CloudFront to return a custom error page when a request is blocked. For more information about
+     *         WAF, see the <a href="https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">WAF
+     *         Developer Guide</a>.
      */
 
     public String getWebACLId() {
@@ -1509,27 +1457,35 @@ public class DistributionConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A unique identifier that specifies the AWS WAF web ACL, if any, to associate with this distribution.
+     * A unique identifier that specifies the WAF web ACL, if any, to associate with this distribution. To specify a web
+     * ACL created using the latest version of WAF, use the ACL ARN, for example
+     * <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>
+     * . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     * <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>.
      * </p>
      * <p>
-     * AWS WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded to
+     * WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded to
      * CloudFront, and lets you control access to your content. Based on conditions that you specify, such as the IP
      * addresses that requests originate from or the values of query strings, CloudFront responds to requests either
      * with the requested content or with an HTTP 403 status code (Forbidden). You can also configure CloudFront to
-     * return a custom error page when a request is blocked. For more information about AWS WAF, see the <a
-     * href="http://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">AWS WAF Developer Guide</a>.
+     * return a custom error page when a request is blocked. For more information about WAF, see the <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">WAF Developer Guide</a>.
      * </p>
      * 
      * @param webACLId
-     *        A unique identifier that specifies the AWS WAF web ACL, if any, to associate with this distribution.</p>
+     *        A unique identifier that specifies the WAF web ACL, if any, to associate with this distribution. To
+     *        specify a web ACL created using the latest version of WAF, use the ACL ARN, for example
+     *        <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>
+     *        . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     *        <code>a1b2c3d4-5678-90ab-cdef-EXAMPLE11111</code>.</p>
      *        <p>
-     *        AWS WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded
-     *        to CloudFront, and lets you control access to your content. Based on conditions that you specify, such as
-     *        the IP addresses that requests originate from or the values of query strings, CloudFront responds to
-     *        requests either with the requested content or with an HTTP 403 status code (Forbidden). You can also
-     *        configure CloudFront to return a custom error page when a request is blocked. For more information about
-     *        AWS WAF, see the <a href="http://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">AWS
-     *        WAF Developer Guide</a>.
+     *        WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded to
+     *        CloudFront, and lets you control access to your content. Based on conditions that you specify, such as the
+     *        IP addresses that requests originate from or the values of query strings, CloudFront responds to requests
+     *        either with the requested content or with an HTTP 403 status code (Forbidden). You can also configure
+     *        CloudFront to return a custom error page when a request is blocked. For more information about WAF, see
+     *        the <a href="https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">WAF Developer
+     *        Guide</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1540,31 +1496,40 @@ public class DistributionConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * (Optional) Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront. The
-     * default value for new web distributions is http2. Viewers that don't support HTTP/2 automatically use an earlier
-     * HTTP version.
+     * (Optional) Specify the HTTP version(s) that you want viewers to use to communicate with CloudFront. The default
+     * value for new web distributions is <code>http2</code>. Viewers that don't support HTTP/2 automatically use an
+     * earlier HTTP version.
      * </p>
      * <p>
-     * For viewers and CloudFront to use HTTP/2, viewers must support TLS 1.2 or later, and must support Server Name
-     * Identification (SNI).
+     * For viewers and CloudFront to use HTTP/2, viewers must support TLSv1.2 or later, and must support Server Name
+     * Indication (SNI).
      * </p>
      * <p>
-     * In general, configuring CloudFront to communicate with viewers using HTTP/2 reduces latency. You can improve
-     * performance by optimizing for HTTP/2. For more information, do an Internet search for "http/2 optimization."
+     * For viewers and CloudFront to use HTTP/3, viewers must support TLSv1.3 and Server Name Indication (SNI).
+     * CloudFront supports HTTP/3 connection migration to allow the viewer to switch networks without losing connection.
+     * For more information about connection migration, see <a
+     * href="https://www.rfc-editor.org/rfc/rfc9000.html#name-connection-migration">Connection Migration</a> at RFC
+     * 9000. For more information about supported TLSv1.3 ciphers, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html"
+     * >Supported protocols and ciphers between viewers and CloudFront</a>.
      * </p>
      * 
      * @param httpVersion
-     *        (Optional) Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.
-     *        The default value for new web distributions is http2. Viewers that don't support HTTP/2 automatically use
-     *        an earlier HTTP version.</p>
+     *        (Optional) Specify the HTTP version(s) that you want viewers to use to communicate with CloudFront. The
+     *        default value for new web distributions is <code>http2</code>. Viewers that don't support HTTP/2
+     *        automatically use an earlier HTTP version.</p>
      *        <p>
-     *        For viewers and CloudFront to use HTTP/2, viewers must support TLS 1.2 or later, and must support Server
-     *        Name Identification (SNI).
+     *        For viewers and CloudFront to use HTTP/2, viewers must support TLSv1.2 or later, and must support Server
+     *        Name Indication (SNI).
      *        </p>
      *        <p>
-     *        In general, configuring CloudFront to communicate with viewers using HTTP/2 reduces latency. You can
-     *        improve performance by optimizing for HTTP/2. For more information, do an Internet search for
-     *        "http/2 optimization."
+     *        For viewers and CloudFront to use HTTP/3, viewers must support TLSv1.3 and Server Name Indication (SNI).
+     *        CloudFront supports HTTP/3 connection migration to allow the viewer to switch networks without losing
+     *        connection. For more information about connection migration, see <a
+     *        href="https://www.rfc-editor.org/rfc/rfc9000.html#name-connection-migration">Connection Migration</a> at
+     *        RFC 9000. For more information about supported TLSv1.3 ciphers, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html"
+     *        >Supported protocols and ciphers between viewers and CloudFront</a>.
      * @see HttpVersion
      */
 
@@ -1574,30 +1539,39 @@ public class DistributionConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * (Optional) Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront. The
-     * default value for new web distributions is http2. Viewers that don't support HTTP/2 automatically use an earlier
-     * HTTP version.
+     * (Optional) Specify the HTTP version(s) that you want viewers to use to communicate with CloudFront. The default
+     * value for new web distributions is <code>http2</code>. Viewers that don't support HTTP/2 automatically use an
+     * earlier HTTP version.
      * </p>
      * <p>
-     * For viewers and CloudFront to use HTTP/2, viewers must support TLS 1.2 or later, and must support Server Name
-     * Identification (SNI).
+     * For viewers and CloudFront to use HTTP/2, viewers must support TLSv1.2 or later, and must support Server Name
+     * Indication (SNI).
      * </p>
      * <p>
-     * In general, configuring CloudFront to communicate with viewers using HTTP/2 reduces latency. You can improve
-     * performance by optimizing for HTTP/2. For more information, do an Internet search for "http/2 optimization."
+     * For viewers and CloudFront to use HTTP/3, viewers must support TLSv1.3 and Server Name Indication (SNI).
+     * CloudFront supports HTTP/3 connection migration to allow the viewer to switch networks without losing connection.
+     * For more information about connection migration, see <a
+     * href="https://www.rfc-editor.org/rfc/rfc9000.html#name-connection-migration">Connection Migration</a> at RFC
+     * 9000. For more information about supported TLSv1.3 ciphers, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html"
+     * >Supported protocols and ciphers between viewers and CloudFront</a>.
      * </p>
      * 
-     * @return (Optional) Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.
-     *         The default value for new web distributions is http2. Viewers that don't support HTTP/2 automatically use
-     *         an earlier HTTP version.</p>
+     * @return (Optional) Specify the HTTP version(s) that you want viewers to use to communicate with CloudFront. The
+     *         default value for new web distributions is <code>http2</code>. Viewers that don't support HTTP/2
+     *         automatically use an earlier HTTP version.</p>
      *         <p>
-     *         For viewers and CloudFront to use HTTP/2, viewers must support TLS 1.2 or later, and must support Server
-     *         Name Identification (SNI).
+     *         For viewers and CloudFront to use HTTP/2, viewers must support TLSv1.2 or later, and must support Server
+     *         Name Indication (SNI).
      *         </p>
      *         <p>
-     *         In general, configuring CloudFront to communicate with viewers using HTTP/2 reduces latency. You can
-     *         improve performance by optimizing for HTTP/2. For more information, do an Internet search for
-     *         "http/2 optimization."
+     *         For viewers and CloudFront to use HTTP/3, viewers must support TLSv1.3 and Server Name Indication (SNI).
+     *         CloudFront supports HTTP/3 connection migration to allow the viewer to switch networks without losing
+     *         connection. For more information about connection migration, see <a
+     *         href="https://www.rfc-editor.org/rfc/rfc9000.html#name-connection-migration">Connection Migration</a> at
+     *         RFC 9000. For more information about supported TLSv1.3 ciphers, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html"
+     *         >Supported protocols and ciphers between viewers and CloudFront</a>.
      * @see HttpVersion
      */
 
@@ -1607,31 +1581,40 @@ public class DistributionConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * (Optional) Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront. The
-     * default value for new web distributions is http2. Viewers that don't support HTTP/2 automatically use an earlier
-     * HTTP version.
+     * (Optional) Specify the HTTP version(s) that you want viewers to use to communicate with CloudFront. The default
+     * value for new web distributions is <code>http2</code>. Viewers that don't support HTTP/2 automatically use an
+     * earlier HTTP version.
      * </p>
      * <p>
-     * For viewers and CloudFront to use HTTP/2, viewers must support TLS 1.2 or later, and must support Server Name
-     * Identification (SNI).
+     * For viewers and CloudFront to use HTTP/2, viewers must support TLSv1.2 or later, and must support Server Name
+     * Indication (SNI).
      * </p>
      * <p>
-     * In general, configuring CloudFront to communicate with viewers using HTTP/2 reduces latency. You can improve
-     * performance by optimizing for HTTP/2. For more information, do an Internet search for "http/2 optimization."
+     * For viewers and CloudFront to use HTTP/3, viewers must support TLSv1.3 and Server Name Indication (SNI).
+     * CloudFront supports HTTP/3 connection migration to allow the viewer to switch networks without losing connection.
+     * For more information about connection migration, see <a
+     * href="https://www.rfc-editor.org/rfc/rfc9000.html#name-connection-migration">Connection Migration</a> at RFC
+     * 9000. For more information about supported TLSv1.3 ciphers, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html"
+     * >Supported protocols and ciphers between viewers and CloudFront</a>.
      * </p>
      * 
      * @param httpVersion
-     *        (Optional) Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.
-     *        The default value for new web distributions is http2. Viewers that don't support HTTP/2 automatically use
-     *        an earlier HTTP version.</p>
+     *        (Optional) Specify the HTTP version(s) that you want viewers to use to communicate with CloudFront. The
+     *        default value for new web distributions is <code>http2</code>. Viewers that don't support HTTP/2
+     *        automatically use an earlier HTTP version.</p>
      *        <p>
-     *        For viewers and CloudFront to use HTTP/2, viewers must support TLS 1.2 or later, and must support Server
-     *        Name Identification (SNI).
+     *        For viewers and CloudFront to use HTTP/2, viewers must support TLSv1.2 or later, and must support Server
+     *        Name Indication (SNI).
      *        </p>
      *        <p>
-     *        In general, configuring CloudFront to communicate with viewers using HTTP/2 reduces latency. You can
-     *        improve performance by optimizing for HTTP/2. For more information, do an Internet search for
-     *        "http/2 optimization."
+     *        For viewers and CloudFront to use HTTP/3, viewers must support TLSv1.3 and Server Name Indication (SNI).
+     *        CloudFront supports HTTP/3 connection migration to allow the viewer to switch networks without losing
+     *        connection. For more information about connection migration, see <a
+     *        href="https://www.rfc-editor.org/rfc/rfc9000.html#name-connection-migration">Connection Migration</a> at
+     *        RFC 9000. For more information about supported TLSv1.3 ciphers, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html"
+     *        >Supported protocols and ciphers between viewers and CloudFront</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HttpVersion
      */
@@ -1643,31 +1626,40 @@ public class DistributionConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * (Optional) Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront. The
-     * default value for new web distributions is http2. Viewers that don't support HTTP/2 automatically use an earlier
-     * HTTP version.
+     * (Optional) Specify the HTTP version(s) that you want viewers to use to communicate with CloudFront. The default
+     * value for new web distributions is <code>http2</code>. Viewers that don't support HTTP/2 automatically use an
+     * earlier HTTP version.
      * </p>
      * <p>
-     * For viewers and CloudFront to use HTTP/2, viewers must support TLS 1.2 or later, and must support Server Name
-     * Identification (SNI).
+     * For viewers and CloudFront to use HTTP/2, viewers must support TLSv1.2 or later, and must support Server Name
+     * Indication (SNI).
      * </p>
      * <p>
-     * In general, configuring CloudFront to communicate with viewers using HTTP/2 reduces latency. You can improve
-     * performance by optimizing for HTTP/2. For more information, do an Internet search for "http/2 optimization."
+     * For viewers and CloudFront to use HTTP/3, viewers must support TLSv1.3 and Server Name Indication (SNI).
+     * CloudFront supports HTTP/3 connection migration to allow the viewer to switch networks without losing connection.
+     * For more information about connection migration, see <a
+     * href="https://www.rfc-editor.org/rfc/rfc9000.html#name-connection-migration">Connection Migration</a> at RFC
+     * 9000. For more information about supported TLSv1.3 ciphers, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html"
+     * >Supported protocols and ciphers between viewers and CloudFront</a>.
      * </p>
      * 
      * @param httpVersion
-     *        (Optional) Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.
-     *        The default value for new web distributions is http2. Viewers that don't support HTTP/2 automatically use
-     *        an earlier HTTP version.</p>
+     *        (Optional) Specify the HTTP version(s) that you want viewers to use to communicate with CloudFront. The
+     *        default value for new web distributions is <code>http2</code>. Viewers that don't support HTTP/2
+     *        automatically use an earlier HTTP version.</p>
      *        <p>
-     *        For viewers and CloudFront to use HTTP/2, viewers must support TLS 1.2 or later, and must support Server
-     *        Name Identification (SNI).
+     *        For viewers and CloudFront to use HTTP/2, viewers must support TLSv1.2 or later, and must support Server
+     *        Name Indication (SNI).
      *        </p>
      *        <p>
-     *        In general, configuring CloudFront to communicate with viewers using HTTP/2 reduces latency. You can
-     *        improve performance by optimizing for HTTP/2. For more information, do an Internet search for
-     *        "http/2 optimization."
+     *        For viewers and CloudFront to use HTTP/3, viewers must support TLSv1.3 and Server Name Indication (SNI).
+     *        CloudFront supports HTTP/3 connection migration to allow the viewer to switch networks without losing
+     *        connection. For more information about connection migration, see <a
+     *        href="https://www.rfc-editor.org/rfc/rfc9000.html#name-connection-migration">Connection Migration</a> at
+     *        RFC 9000. For more information about supported TLSv1.3 ciphers, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html"
+     *        >Supported protocols and ciphers between viewers and CloudFront</a>.
      * @see HttpVersion
      */
 
@@ -1677,31 +1669,40 @@ public class DistributionConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * (Optional) Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront. The
-     * default value for new web distributions is http2. Viewers that don't support HTTP/2 automatically use an earlier
-     * HTTP version.
+     * (Optional) Specify the HTTP version(s) that you want viewers to use to communicate with CloudFront. The default
+     * value for new web distributions is <code>http2</code>. Viewers that don't support HTTP/2 automatically use an
+     * earlier HTTP version.
      * </p>
      * <p>
-     * For viewers and CloudFront to use HTTP/2, viewers must support TLS 1.2 or later, and must support Server Name
-     * Identification (SNI).
+     * For viewers and CloudFront to use HTTP/2, viewers must support TLSv1.2 or later, and must support Server Name
+     * Indication (SNI).
      * </p>
      * <p>
-     * In general, configuring CloudFront to communicate with viewers using HTTP/2 reduces latency. You can improve
-     * performance by optimizing for HTTP/2. For more information, do an Internet search for "http/2 optimization."
+     * For viewers and CloudFront to use HTTP/3, viewers must support TLSv1.3 and Server Name Indication (SNI).
+     * CloudFront supports HTTP/3 connection migration to allow the viewer to switch networks without losing connection.
+     * For more information about connection migration, see <a
+     * href="https://www.rfc-editor.org/rfc/rfc9000.html#name-connection-migration">Connection Migration</a> at RFC
+     * 9000. For more information about supported TLSv1.3 ciphers, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html"
+     * >Supported protocols and ciphers between viewers and CloudFront</a>.
      * </p>
      * 
      * @param httpVersion
-     *        (Optional) Specify the maximum HTTP version that you want viewers to use to communicate with CloudFront.
-     *        The default value for new web distributions is http2. Viewers that don't support HTTP/2 automatically use
-     *        an earlier HTTP version.</p>
+     *        (Optional) Specify the HTTP version(s) that you want viewers to use to communicate with CloudFront. The
+     *        default value for new web distributions is <code>http2</code>. Viewers that don't support HTTP/2
+     *        automatically use an earlier HTTP version.</p>
      *        <p>
-     *        For viewers and CloudFront to use HTTP/2, viewers must support TLS 1.2 or later, and must support Server
-     *        Name Identification (SNI).
+     *        For viewers and CloudFront to use HTTP/2, viewers must support TLSv1.2 or later, and must support Server
+     *        Name Indication (SNI).
      *        </p>
      *        <p>
-     *        In general, configuring CloudFront to communicate with viewers using HTTP/2 reduces latency. You can
-     *        improve performance by optimizing for HTTP/2. For more information, do an Internet search for
-     *        "http/2 optimization."
+     *        For viewers and CloudFront to use HTTP/3, viewers must support TLSv1.3 and Server Name Indication (SNI).
+     *        CloudFront supports HTTP/3 connection migration to allow the viewer to switch networks without losing
+     *        connection. For more information about connection migration, see <a
+     *        href="https://www.rfc-editor.org/rfc/rfc9000.html#name-connection-migration">Connection Migration</a> at
+     *        RFC 9000. For more information about supported TLSv1.3 ciphers, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html"
+     *        >Supported protocols and ciphers between viewers and CloudFront</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HttpVersion
      */
@@ -1729,8 +1730,9 @@ public class DistributionConfig implements Serializable, Cloneable {
      * >Creating a Signed URL Using a Custom Policy</a> in the <i>Amazon CloudFront Developer Guide</i>.
      * </p>
      * <p>
-     * If you're using an Amazon Route 53 alias resource record set to route traffic to your CloudFront distribution,
-     * you need to create a second alias resource record set when both of the following are true:
+     * If you're using an Route 53 Amazon Web Services Integration alias resource record set to route traffic to your
+     * CloudFront distribution, you need to create a second alias resource record set when both of the following are
+     * true:
      * </p>
      * <ul>
      * <li>
@@ -1747,20 +1749,20 @@ public class DistributionConfig implements Serializable, Cloneable {
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-cloudfront-distribution.html">Routing
-     * Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the <i>Amazon Route 53
-     * Developer Guide</i>.
+     * Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the <i>Route 53 Amazon Web
+     * Services Integration Developer Guide</i>.
      * </p>
      * <p>
-     * If you created a CNAME resource record set, either with Amazon Route 53 or with another DNS service, you don't
-     * need to make any changes. A CNAME record will route traffic to your distribution regardless of the IP address
-     * format of the viewer request.
+     * If you created a CNAME resource record set, either with Route 53 Amazon Web Services Integration or with another
+     * DNS service, you don't need to make any changes. A CNAME record will route traffic to your distribution
+     * regardless of the IP address format of the viewer request.
      * </p>
      * 
      * @param isIPV6Enabled
      *        If you want CloudFront to respond to IPv6 DNS requests with an IPv6 address for your distribution, specify
      *        <code>true</code>. If you specify <code>false</code>, CloudFront responds to IPv6 DNS requests with the
      *        DNS response code <code>NOERROR</code> and with no IP addresses. This allows viewers to submit a second
-     *        request, for an IPv4 address for your distribution. </p>
+     *        request, for an IPv4 address for your distribution.</p>
      *        <p>
      *        In general, you should enable IPv6 if you have users on IPv6 networks who want to access your content.
      *        However, if you're using signed URLs or signed cookies to restrict access to your content, and if you're
@@ -1772,8 +1774,9 @@ public class DistributionConfig implements Serializable, Cloneable {
      *        >Creating a Signed URL Using a Custom Policy</a> in the <i>Amazon CloudFront Developer Guide</i>.
      *        </p>
      *        <p>
-     *        If you're using an Amazon Route 53 alias resource record set to route traffic to your CloudFront
-     *        distribution, you need to create a second alias resource record set when both of the following are true:
+     *        If you're using an Route 53 Amazon Web Services Integration alias resource record set to route traffic to
+     *        your CloudFront distribution, you need to create a second alias resource record set when both of the
+     *        following are true:
      *        </p>
      *        <ul>
      *        <li>
@@ -1790,13 +1793,13 @@ public class DistributionConfig implements Serializable, Cloneable {
      *        <p>
      *        For more information, see <a
      *        href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-cloudfront-distribution.html"
-     *        >Routing Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the <i>Amazon
-     *        Route 53 Developer Guide</i>.
+     *        >Routing Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the <i>Route 53
+     *        Amazon Web Services Integration Developer Guide</i>.
      *        </p>
      *        <p>
-     *        If you created a CNAME resource record set, either with Amazon Route 53 or with another DNS service, you
-     *        don't need to make any changes. A CNAME record will route traffic to your distribution regardless of the
-     *        IP address format of the viewer request.
+     *        If you created a CNAME resource record set, either with Route 53 Amazon Web Services Integration or with
+     *        another DNS service, you don't need to make any changes. A CNAME record will route traffic to your
+     *        distribution regardless of the IP address format of the viewer request.
      */
 
     public void setIsIPV6Enabled(Boolean isIPV6Enabled) {
@@ -1821,8 +1824,9 @@ public class DistributionConfig implements Serializable, Cloneable {
      * >Creating a Signed URL Using a Custom Policy</a> in the <i>Amazon CloudFront Developer Guide</i>.
      * </p>
      * <p>
-     * If you're using an Amazon Route 53 alias resource record set to route traffic to your CloudFront distribution,
-     * you need to create a second alias resource record set when both of the following are true:
+     * If you're using an Route 53 Amazon Web Services Integration alias resource record set to route traffic to your
+     * CloudFront distribution, you need to create a second alias resource record set when both of the following are
+     * true:
      * </p>
      * <ul>
      * <li>
@@ -1839,19 +1843,19 @@ public class DistributionConfig implements Serializable, Cloneable {
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-cloudfront-distribution.html">Routing
-     * Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the <i>Amazon Route 53
-     * Developer Guide</i>.
+     * Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the <i>Route 53 Amazon Web
+     * Services Integration Developer Guide</i>.
      * </p>
      * <p>
-     * If you created a CNAME resource record set, either with Amazon Route 53 or with another DNS service, you don't
-     * need to make any changes. A CNAME record will route traffic to your distribution regardless of the IP address
-     * format of the viewer request.
+     * If you created a CNAME resource record set, either with Route 53 Amazon Web Services Integration or with another
+     * DNS service, you don't need to make any changes. A CNAME record will route traffic to your distribution
+     * regardless of the IP address format of the viewer request.
      * </p>
      * 
      * @return If you want CloudFront to respond to IPv6 DNS requests with an IPv6 address for your distribution,
      *         specify <code>true</code>. If you specify <code>false</code>, CloudFront responds to IPv6 DNS requests
      *         with the DNS response code <code>NOERROR</code> and with no IP addresses. This allows viewers to submit a
-     *         second request, for an IPv4 address for your distribution. </p>
+     *         second request, for an IPv4 address for your distribution.</p>
      *         <p>
      *         In general, you should enable IPv6 if you have users on IPv6 networks who want to access your content.
      *         However, if you're using signed URLs or signed cookies to restrict access to your content, and if you're
@@ -1863,8 +1867,9 @@ public class DistributionConfig implements Serializable, Cloneable {
      *         >Creating a Signed URL Using a Custom Policy</a> in the <i>Amazon CloudFront Developer Guide</i>.
      *         </p>
      *         <p>
-     *         If you're using an Amazon Route 53 alias resource record set to route traffic to your CloudFront
-     *         distribution, you need to create a second alias resource record set when both of the following are true:
+     *         If you're using an Route 53 Amazon Web Services Integration alias resource record set to route traffic to
+     *         your CloudFront distribution, you need to create a second alias resource record set when both of the
+     *         following are true:
      *         </p>
      *         <ul>
      *         <li>
@@ -1881,13 +1886,13 @@ public class DistributionConfig implements Serializable, Cloneable {
      *         <p>
      *         For more information, see <a href=
      *         "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-cloudfront-distribution.html"
-     *         >Routing Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the <i>Amazon
-     *         Route 53 Developer Guide</i>.
+     *         >Routing Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the
+     *         <i>Route 53 Amazon Web Services Integration Developer Guide</i>.
      *         </p>
      *         <p>
-     *         If you created a CNAME resource record set, either with Amazon Route 53 or with another DNS service, you
-     *         don't need to make any changes. A CNAME record will route traffic to your distribution regardless of the
-     *         IP address format of the viewer request.
+     *         If you created a CNAME resource record set, either with Route 53 Amazon Web Services Integration or with
+     *         another DNS service, you don't need to make any changes. A CNAME record will route traffic to your
+     *         distribution regardless of the IP address format of the viewer request.
      */
 
     public Boolean getIsIPV6Enabled() {
@@ -1912,8 +1917,9 @@ public class DistributionConfig implements Serializable, Cloneable {
      * >Creating a Signed URL Using a Custom Policy</a> in the <i>Amazon CloudFront Developer Guide</i>.
      * </p>
      * <p>
-     * If you're using an Amazon Route 53 alias resource record set to route traffic to your CloudFront distribution,
-     * you need to create a second alias resource record set when both of the following are true:
+     * If you're using an Route 53 Amazon Web Services Integration alias resource record set to route traffic to your
+     * CloudFront distribution, you need to create a second alias resource record set when both of the following are
+     * true:
      * </p>
      * <ul>
      * <li>
@@ -1930,20 +1936,20 @@ public class DistributionConfig implements Serializable, Cloneable {
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-cloudfront-distribution.html">Routing
-     * Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the <i>Amazon Route 53
-     * Developer Guide</i>.
+     * Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the <i>Route 53 Amazon Web
+     * Services Integration Developer Guide</i>.
      * </p>
      * <p>
-     * If you created a CNAME resource record set, either with Amazon Route 53 or with another DNS service, you don't
-     * need to make any changes. A CNAME record will route traffic to your distribution regardless of the IP address
-     * format of the viewer request.
+     * If you created a CNAME resource record set, either with Route 53 Amazon Web Services Integration or with another
+     * DNS service, you don't need to make any changes. A CNAME record will route traffic to your distribution
+     * regardless of the IP address format of the viewer request.
      * </p>
      * 
      * @param isIPV6Enabled
      *        If you want CloudFront to respond to IPv6 DNS requests with an IPv6 address for your distribution, specify
      *        <code>true</code>. If you specify <code>false</code>, CloudFront responds to IPv6 DNS requests with the
      *        DNS response code <code>NOERROR</code> and with no IP addresses. This allows viewers to submit a second
-     *        request, for an IPv4 address for your distribution. </p>
+     *        request, for an IPv4 address for your distribution.</p>
      *        <p>
      *        In general, you should enable IPv6 if you have users on IPv6 networks who want to access your content.
      *        However, if you're using signed URLs or signed cookies to restrict access to your content, and if you're
@@ -1955,8 +1961,9 @@ public class DistributionConfig implements Serializable, Cloneable {
      *        >Creating a Signed URL Using a Custom Policy</a> in the <i>Amazon CloudFront Developer Guide</i>.
      *        </p>
      *        <p>
-     *        If you're using an Amazon Route 53 alias resource record set to route traffic to your CloudFront
-     *        distribution, you need to create a second alias resource record set when both of the following are true:
+     *        If you're using an Route 53 Amazon Web Services Integration alias resource record set to route traffic to
+     *        your CloudFront distribution, you need to create a second alias resource record set when both of the
+     *        following are true:
      *        </p>
      *        <ul>
      *        <li>
@@ -1973,13 +1980,13 @@ public class DistributionConfig implements Serializable, Cloneable {
      *        <p>
      *        For more information, see <a
      *        href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-cloudfront-distribution.html"
-     *        >Routing Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the <i>Amazon
-     *        Route 53 Developer Guide</i>.
+     *        >Routing Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the <i>Route 53
+     *        Amazon Web Services Integration Developer Guide</i>.
      *        </p>
      *        <p>
-     *        If you created a CNAME resource record set, either with Amazon Route 53 or with another DNS service, you
-     *        don't need to make any changes. A CNAME record will route traffic to your distribution regardless of the
-     *        IP address format of the viewer request.
+     *        If you created a CNAME resource record set, either with Route 53 Amazon Web Services Integration or with
+     *        another DNS service, you don't need to make any changes. A CNAME record will route traffic to your
+     *        distribution regardless of the IP address format of the viewer request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2006,8 +2013,9 @@ public class DistributionConfig implements Serializable, Cloneable {
      * >Creating a Signed URL Using a Custom Policy</a> in the <i>Amazon CloudFront Developer Guide</i>.
      * </p>
      * <p>
-     * If you're using an Amazon Route 53 alias resource record set to route traffic to your CloudFront distribution,
-     * you need to create a second alias resource record set when both of the following are true:
+     * If you're using an Route 53 Amazon Web Services Integration alias resource record set to route traffic to your
+     * CloudFront distribution, you need to create a second alias resource record set when both of the following are
+     * true:
      * </p>
      * <ul>
      * <li>
@@ -2024,19 +2032,19 @@ public class DistributionConfig implements Serializable, Cloneable {
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-cloudfront-distribution.html">Routing
-     * Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the <i>Amazon Route 53
-     * Developer Guide</i>.
+     * Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the <i>Route 53 Amazon Web
+     * Services Integration Developer Guide</i>.
      * </p>
      * <p>
-     * If you created a CNAME resource record set, either with Amazon Route 53 or with another DNS service, you don't
-     * need to make any changes. A CNAME record will route traffic to your distribution regardless of the IP address
-     * format of the viewer request.
+     * If you created a CNAME resource record set, either with Route 53 Amazon Web Services Integration or with another
+     * DNS service, you don't need to make any changes. A CNAME record will route traffic to your distribution
+     * regardless of the IP address format of the viewer request.
      * </p>
      * 
      * @return If you want CloudFront to respond to IPv6 DNS requests with an IPv6 address for your distribution,
      *         specify <code>true</code>. If you specify <code>false</code>, CloudFront responds to IPv6 DNS requests
      *         with the DNS response code <code>NOERROR</code> and with no IP addresses. This allows viewers to submit a
-     *         second request, for an IPv4 address for your distribution. </p>
+     *         second request, for an IPv4 address for your distribution.</p>
      *         <p>
      *         In general, you should enable IPv6 if you have users on IPv6 networks who want to access your content.
      *         However, if you're using signed URLs or signed cookies to restrict access to your content, and if you're
@@ -2048,8 +2056,9 @@ public class DistributionConfig implements Serializable, Cloneable {
      *         >Creating a Signed URL Using a Custom Policy</a> in the <i>Amazon CloudFront Developer Guide</i>.
      *         </p>
      *         <p>
-     *         If you're using an Amazon Route 53 alias resource record set to route traffic to your CloudFront
-     *         distribution, you need to create a second alias resource record set when both of the following are true:
+     *         If you're using an Route 53 Amazon Web Services Integration alias resource record set to route traffic to
+     *         your CloudFront distribution, you need to create a second alias resource record set when both of the
+     *         following are true:
      *         </p>
      *         <ul>
      *         <li>
@@ -2066,17 +2075,125 @@ public class DistributionConfig implements Serializable, Cloneable {
      *         <p>
      *         For more information, see <a href=
      *         "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-cloudfront-distribution.html"
-     *         >Routing Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the <i>Amazon
-     *         Route 53 Developer Guide</i>.
+     *         >Routing Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name</a> in the
+     *         <i>Route 53 Amazon Web Services Integration Developer Guide</i>.
      *         </p>
      *         <p>
-     *         If you created a CNAME resource record set, either with Amazon Route 53 or with another DNS service, you
-     *         don't need to make any changes. A CNAME record will route traffic to your distribution regardless of the
-     *         IP address format of the viewer request.
+     *         If you created a CNAME resource record set, either with Route 53 Amazon Web Services Integration or with
+     *         another DNS service, you don't need to make any changes. A CNAME record will route traffic to your
+     *         distribution regardless of the IP address format of the viewer request.
      */
 
     public Boolean isIPV6Enabled() {
         return this.isIPV6Enabled;
+    }
+
+    /**
+     * <p>
+     * The identifier of a continuous deployment policy. For more information, see
+     * <code>CreateContinuousDeploymentPolicy</code>.
+     * </p>
+     * 
+     * @param continuousDeploymentPolicyId
+     *        The identifier of a continuous deployment policy. For more information, see
+     *        <code>CreateContinuousDeploymentPolicy</code>.
+     */
+
+    public void setContinuousDeploymentPolicyId(String continuousDeploymentPolicyId) {
+        this.continuousDeploymentPolicyId = continuousDeploymentPolicyId;
+    }
+
+    /**
+     * <p>
+     * The identifier of a continuous deployment policy. For more information, see
+     * <code>CreateContinuousDeploymentPolicy</code>.
+     * </p>
+     * 
+     * @return The identifier of a continuous deployment policy. For more information, see
+     *         <code>CreateContinuousDeploymentPolicy</code>.
+     */
+
+    public String getContinuousDeploymentPolicyId() {
+        return this.continuousDeploymentPolicyId;
+    }
+
+    /**
+     * <p>
+     * The identifier of a continuous deployment policy. For more information, see
+     * <code>CreateContinuousDeploymentPolicy</code>.
+     * </p>
+     * 
+     * @param continuousDeploymentPolicyId
+     *        The identifier of a continuous deployment policy. For more information, see
+     *        <code>CreateContinuousDeploymentPolicy</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DistributionConfig withContinuousDeploymentPolicyId(String continuousDeploymentPolicyId) {
+        setContinuousDeploymentPolicyId(continuousDeploymentPolicyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>, this is a
+     * staging distribution. When this value is <code>false</code>, this is not a staging distribution.
+     * </p>
+     * 
+     * @param staging
+     *        A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>,
+     *        this is a staging distribution. When this value is <code>false</code>, this is not a staging distribution.
+     */
+
+    public void setStaging(Boolean staging) {
+        this.staging = staging;
+    }
+
+    /**
+     * <p>
+     * A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>, this is a
+     * staging distribution. When this value is <code>false</code>, this is not a staging distribution.
+     * </p>
+     * 
+     * @return A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>,
+     *         this is a staging distribution. When this value is <code>false</code>, this is not a staging
+     *         distribution.
+     */
+
+    public Boolean getStaging() {
+        return this.staging;
+    }
+
+    /**
+     * <p>
+     * A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>, this is a
+     * staging distribution. When this value is <code>false</code>, this is not a staging distribution.
+     * </p>
+     * 
+     * @param staging
+     *        A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>,
+     *        this is a staging distribution. When this value is <code>false</code>, this is not a staging distribution.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DistributionConfig withStaging(Boolean staging) {
+        setStaging(staging);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>, this is a
+     * staging distribution. When this value is <code>false</code>, this is not a staging distribution.
+     * </p>
+     * 
+     * @return A Boolean that indicates whether this is a staging distribution. When this value is <code>true</code>,
+     *         this is a staging distribution. When this value is <code>false</code>, this is not a staging
+     *         distribution.
+     */
+
+    public Boolean isStaging() {
+        return this.staging;
     }
 
     /**
@@ -2124,7 +2241,11 @@ public class DistributionConfig implements Serializable, Cloneable {
         if (getHttpVersion() != null)
             sb.append("HttpVersion: ").append(getHttpVersion()).append(",");
         if (getIsIPV6Enabled() != null)
-            sb.append("IsIPV6Enabled: ").append(getIsIPV6Enabled());
+            sb.append("IsIPV6Enabled: ").append(getIsIPV6Enabled()).append(",");
+        if (getContinuousDeploymentPolicyId() != null)
+            sb.append("ContinuousDeploymentPolicyId: ").append(getContinuousDeploymentPolicyId()).append(",");
+        if (getStaging() != null)
+            sb.append("Staging: ").append(getStaging());
         sb.append("}");
         return sb.toString();
     }
@@ -2207,6 +2328,14 @@ public class DistributionConfig implements Serializable, Cloneable {
             return false;
         if (other.getIsIPV6Enabled() != null && other.getIsIPV6Enabled().equals(this.getIsIPV6Enabled()) == false)
             return false;
+        if (other.getContinuousDeploymentPolicyId() == null ^ this.getContinuousDeploymentPolicyId() == null)
+            return false;
+        if (other.getContinuousDeploymentPolicyId() != null && other.getContinuousDeploymentPolicyId().equals(this.getContinuousDeploymentPolicyId()) == false)
+            return false;
+        if (other.getStaging() == null ^ this.getStaging() == null)
+            return false;
+        if (other.getStaging() != null && other.getStaging().equals(this.getStaging()) == false)
+            return false;
         return true;
     }
 
@@ -2232,6 +2361,8 @@ public class DistributionConfig implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getWebACLId() == null) ? 0 : getWebACLId().hashCode());
         hashCode = prime * hashCode + ((getHttpVersion() == null) ? 0 : getHttpVersion().hashCode());
         hashCode = prime * hashCode + ((getIsIPV6Enabled() == null) ? 0 : getIsIPV6Enabled().hashCode());
+        hashCode = prime * hashCode + ((getContinuousDeploymentPolicyId() == null) ? 0 : getContinuousDeploymentPolicyId().hashCode());
+        hashCode = prime * hashCode + ((getStaging() == null) ? 0 : getStaging().hashCode());
         return hashCode;
     }
 

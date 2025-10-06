@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -64,9 +64,38 @@ public class ModelPackageContainerDefinitionJsonUnmarshaller implements Unmarsha
                     context.nextToken();
                     modelPackageContainerDefinition.setModelDataUrl(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("ModelDataSource", targetDepth)) {
+                    context.nextToken();
+                    modelPackageContainerDefinition.setModelDataSource(ModelDataSourceJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("ProductId", targetDepth)) {
                     context.nextToken();
                     modelPackageContainerDefinition.setProductId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Environment", targetDepth)) {
+                    context.nextToken();
+                    modelPackageContainerDefinition.setEnvironment(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
+                            .getUnmarshaller(String.class)).unmarshall(context));
+                }
+                if (context.testExpression("ModelInput", targetDepth)) {
+                    context.nextToken();
+                    modelPackageContainerDefinition.setModelInput(ModelInputJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("Framework", targetDepth)) {
+                    context.nextToken();
+                    modelPackageContainerDefinition.setFramework(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("FrameworkVersion", targetDepth)) {
+                    context.nextToken();
+                    modelPackageContainerDefinition.setFrameworkVersion(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("NearestModelName", targetDepth)) {
+                    context.nextToken();
+                    modelPackageContainerDefinition.setNearestModelName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("AdditionalS3DataSource", targetDepth)) {
+                    context.nextToken();
+                    modelPackageContainerDefinition.setAdditionalS3DataSource(AdditionalS3DataSourceJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

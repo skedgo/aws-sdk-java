@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -214,6 +214,39 @@ public class RequestLaunchTemplateDataStaxUnmarshaller implements Unmarshaller<R
 
                 if (context.testExpression("HibernationOptions", targetDepth)) {
                     requestLaunchTemplateData.setHibernationOptions(LaunchTemplateHibernationOptionsRequestStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MetadataOptions", targetDepth)) {
+                    requestLaunchTemplateData
+                            .setMetadataOptions(LaunchTemplateInstanceMetadataOptionsRequestStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("EnclaveOptions", targetDepth)) {
+                    requestLaunchTemplateData.setEnclaveOptions(LaunchTemplateEnclaveOptionsRequestStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("InstanceRequirements", targetDepth)) {
+                    requestLaunchTemplateData.setInstanceRequirements(InstanceRequirementsRequestStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("PrivateDnsNameOptions", targetDepth)) {
+                    requestLaunchTemplateData.setPrivateDnsNameOptions(LaunchTemplatePrivateDnsNameOptionsRequestStaxUnmarshaller.getInstance().unmarshall(
+                            context));
+                    continue;
+                }
+
+                if (context.testExpression("MaintenanceOptions", targetDepth)) {
+                    requestLaunchTemplateData.setMaintenanceOptions(LaunchTemplateInstanceMaintenanceOptionsRequestStaxUnmarshaller.getInstance().unmarshall(
+                            context));
+                    continue;
+                }
+
+                if (context.testExpression("DisableApiStop", targetDepth)) {
+                    requestLaunchTemplateData.setDisableApiStop(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

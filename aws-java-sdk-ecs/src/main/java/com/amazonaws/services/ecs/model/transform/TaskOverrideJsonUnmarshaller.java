@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,15 +51,35 @@ public class TaskOverrideJsonUnmarshaller implements Unmarshaller<TaskOverride, 
                 if (context.testExpression("containerOverrides", targetDepth)) {
                     context.nextToken();
                     taskOverride.setContainerOverrides(new ListUnmarshaller<ContainerOverride>(ContainerOverrideJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("cpu", targetDepth)) {
+                    context.nextToken();
+                    taskOverride.setCpu(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("inferenceAcceleratorOverrides", targetDepth)) {
+                    context.nextToken();
+                    taskOverride.setInferenceAcceleratorOverrides(new ListUnmarshaller<InferenceAcceleratorOverride>(
+                            InferenceAcceleratorOverrideJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("executionRoleArn", targetDepth)) {
+                    context.nextToken();
+                    taskOverride.setExecutionRoleArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("memory", targetDepth)) {
+                    context.nextToken();
+                    taskOverride.setMemory(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("taskRoleArn", targetDepth)) {
                     context.nextToken();
                     taskOverride.setTaskRoleArn(context.getUnmarshaller(String.class).unmarshall(context));
                 }
-                if (context.testExpression("executionRoleArn", targetDepth)) {
+                if (context.testExpression("ephemeralStorage", targetDepth)) {
                     context.nextToken();
-                    taskOverride.setExecutionRoleArn(context.getUnmarshaller(String.class).unmarshall(context));
+                    taskOverride.setEphemeralStorage(EphemeralStorageJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * Represents the input for a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/PutScalingPolicy" target="_top">AWS API
  *      Documentation</a>
@@ -30,15 +27,15 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Descriptive label that is associated with a scaling policy. Policy names do not need to be unique. A fleet can
-     * have only one scaling policy with the same name.
+     * A descriptive label that is associated with a fleet's scaling policy. Policy names do not need to be unique. A
+     * fleet can have only one scaling policy with the same name.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * Unique identifier for a fleet to apply this policy to. The fleet cannot be in any of the following statuses:
-     * ERROR or DELETING.
+     * A unique identifier for the fleet to apply this policy to. You can use either the fleet ID or ARN value. The
+     * fleet cannot be in any of the following statuses: ERROR or DELETING.
      * </p>
      */
     private String fleetId;
@@ -50,7 +47,7 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
     private Integer scalingAdjustment;
     /**
      * <p>
-     * Type of adjustment to make to a fleet's instance count (see <a>FleetCapacity</a>):
+     * The type of adjustment to make to a fleet's instance count:
      * </p>
      * <ul>
      * <li>
@@ -167,7 +164,7 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
     private String metricName;
     /**
      * <p>
-     * Type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
+     * The type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
      * 'PercentAvailableGameSessions' and specify a <i>TargetConfiguration</i>. For a rule-based policy set the
      * following parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>, <i>EvaluationPeriods</i>,
      * <i>ScalingAdjustmentType</i>, and <i>ScalingAdjustment</i>.
@@ -176,20 +173,20 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
     private String policyType;
     /**
      * <p>
-     * Object that contains settings for a target-based scaling policy.
+     * An object that contains settings for a target-based scaling policy.
      * </p>
      */
     private TargetConfiguration targetConfiguration;
 
     /**
      * <p>
-     * Descriptive label that is associated with a scaling policy. Policy names do not need to be unique. A fleet can
-     * have only one scaling policy with the same name.
+     * A descriptive label that is associated with a fleet's scaling policy. Policy names do not need to be unique. A
+     * fleet can have only one scaling policy with the same name.
      * </p>
      * 
      * @param name
-     *        Descriptive label that is associated with a scaling policy. Policy names do not need to be unique. A fleet
-     *        can have only one scaling policy with the same name.
+     *        A descriptive label that is associated with a fleet's scaling policy. Policy names do not need to be
+     *        unique. A fleet can have only one scaling policy with the same name.
      */
 
     public void setName(String name) {
@@ -198,12 +195,12 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Descriptive label that is associated with a scaling policy. Policy names do not need to be unique. A fleet can
-     * have only one scaling policy with the same name.
+     * A descriptive label that is associated with a fleet's scaling policy. Policy names do not need to be unique. A
+     * fleet can have only one scaling policy with the same name.
      * </p>
      * 
-     * @return Descriptive label that is associated with a scaling policy. Policy names do not need to be unique. A
-     *         fleet can have only one scaling policy with the same name.
+     * @return A descriptive label that is associated with a fleet's scaling policy. Policy names do not need to be
+     *         unique. A fleet can have only one scaling policy with the same name.
      */
 
     public String getName() {
@@ -212,13 +209,13 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Descriptive label that is associated with a scaling policy. Policy names do not need to be unique. A fleet can
-     * have only one scaling policy with the same name.
+     * A descriptive label that is associated with a fleet's scaling policy. Policy names do not need to be unique. A
+     * fleet can have only one scaling policy with the same name.
      * </p>
      * 
      * @param name
-     *        Descriptive label that is associated with a scaling policy. Policy names do not need to be unique. A fleet
-     *        can have only one scaling policy with the same name.
+     *        A descriptive label that is associated with a fleet's scaling policy. Policy names do not need to be
+     *        unique. A fleet can have only one scaling policy with the same name.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -229,13 +226,13 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Unique identifier for a fleet to apply this policy to. The fleet cannot be in any of the following statuses:
-     * ERROR or DELETING.
+     * A unique identifier for the fleet to apply this policy to. You can use either the fleet ID or ARN value. The
+     * fleet cannot be in any of the following statuses: ERROR or DELETING.
      * </p>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet to apply this policy to. The fleet cannot be in any of the following
-     *        statuses: ERROR or DELETING.
+     *        A unique identifier for the fleet to apply this policy to. You can use either the fleet ID or ARN value.
+     *        The fleet cannot be in any of the following statuses: ERROR or DELETING.
      */
 
     public void setFleetId(String fleetId) {
@@ -244,12 +241,12 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Unique identifier for a fleet to apply this policy to. The fleet cannot be in any of the following statuses:
-     * ERROR or DELETING.
+     * A unique identifier for the fleet to apply this policy to. You can use either the fleet ID or ARN value. The
+     * fleet cannot be in any of the following statuses: ERROR or DELETING.
      * </p>
      * 
-     * @return Unique identifier for a fleet to apply this policy to. The fleet cannot be in any of the following
-     *         statuses: ERROR or DELETING.
+     * @return A unique identifier for the fleet to apply this policy to. You can use either the fleet ID or ARN value.
+     *         The fleet cannot be in any of the following statuses: ERROR or DELETING.
      */
 
     public String getFleetId() {
@@ -258,13 +255,13 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Unique identifier for a fleet to apply this policy to. The fleet cannot be in any of the following statuses:
-     * ERROR or DELETING.
+     * A unique identifier for the fleet to apply this policy to. You can use either the fleet ID or ARN value. The
+     * fleet cannot be in any of the following statuses: ERROR or DELETING.
      * </p>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet to apply this policy to. The fleet cannot be in any of the following
-     *        statuses: ERROR or DELETING.
+     *        A unique identifier for the fleet to apply this policy to. You can use either the fleet ID or ARN value.
+     *        The fleet cannot be in any of the following statuses: ERROR or DELETING.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -315,7 +312,7 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Type of adjustment to make to a fleet's instance count (see <a>FleetCapacity</a>):
+     * The type of adjustment to make to a fleet's instance count:
      * </p>
      * <ul>
      * <li>
@@ -339,7 +336,7 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * </ul>
      * 
      * @param scalingAdjustmentType
-     *        Type of adjustment to make to a fleet's instance count (see <a>FleetCapacity</a>):</p>
+     *        The type of adjustment to make to a fleet's instance count:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -368,7 +365,7 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Type of adjustment to make to a fleet's instance count (see <a>FleetCapacity</a>):
+     * The type of adjustment to make to a fleet's instance count:
      * </p>
      * <ul>
      * <li>
@@ -391,7 +388,7 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * </li>
      * </ul>
      * 
-     * @return Type of adjustment to make to a fleet's instance count (see <a>FleetCapacity</a>):</p>
+     * @return The type of adjustment to make to a fleet's instance count:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -420,7 +417,7 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Type of adjustment to make to a fleet's instance count (see <a>FleetCapacity</a>):
+     * The type of adjustment to make to a fleet's instance count:
      * </p>
      * <ul>
      * <li>
@@ -444,7 +441,7 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * </ul>
      * 
      * @param scalingAdjustmentType
-     *        Type of adjustment to make to a fleet's instance count (see <a>FleetCapacity</a>):</p>
+     *        The type of adjustment to make to a fleet's instance count:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -475,7 +472,7 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Type of adjustment to make to a fleet's instance count (see <a>FleetCapacity</a>):
+     * The type of adjustment to make to a fleet's instance count:
      * </p>
      * <ul>
      * <li>
@@ -499,7 +496,7 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * </ul>
      * 
      * @param scalingAdjustmentType
-     *        Type of adjustment to make to a fleet's instance count (see <a>FleetCapacity</a>):</p>
+     *        The type of adjustment to make to a fleet's instance count:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -528,7 +525,7 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Type of adjustment to make to a fleet's instance count (see <a>FleetCapacity</a>):
+     * The type of adjustment to make to a fleet's instance count:
      * </p>
      * <ul>
      * <li>
@@ -552,7 +549,7 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * </ul>
      * 
      * @param scalingAdjustmentType
-     *        Type of adjustment to make to a fleet's instance count (see <a>FleetCapacity</a>):</p>
+     *        The type of adjustment to make to a fleet's instance count:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1478,14 +1475,14 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
+     * The type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
      * 'PercentAvailableGameSessions' and specify a <i>TargetConfiguration</i>. For a rule-based policy set the
      * following parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>, <i>EvaluationPeriods</i>,
      * <i>ScalingAdjustmentType</i>, and <i>ScalingAdjustment</i>.
      * </p>
      * 
      * @param policyType
-     *        Type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
+     *        The type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
      *        'PercentAvailableGameSessions' and specify a <i>TargetConfiguration</i>. For a rule-based policy set the
      *        following parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>,
      *        <i>EvaluationPeriods</i>, <i>ScalingAdjustmentType</i>, and <i>ScalingAdjustment</i>.
@@ -1498,13 +1495,13 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
+     * The type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
      * 'PercentAvailableGameSessions' and specify a <i>TargetConfiguration</i>. For a rule-based policy set the
      * following parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>, <i>EvaluationPeriods</i>,
      * <i>ScalingAdjustmentType</i>, and <i>ScalingAdjustment</i>.
      * </p>
      * 
-     * @return Type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
+     * @return The type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
      *         'PercentAvailableGameSessions' and specify a <i>TargetConfiguration</i>. For a rule-based policy set the
      *         following parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>,
      *         <i>EvaluationPeriods</i>, <i>ScalingAdjustmentType</i>, and <i>ScalingAdjustment</i>.
@@ -1517,14 +1514,14 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
+     * The type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
      * 'PercentAvailableGameSessions' and specify a <i>TargetConfiguration</i>. For a rule-based policy set the
      * following parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>, <i>EvaluationPeriods</i>,
      * <i>ScalingAdjustmentType</i>, and <i>ScalingAdjustment</i>.
      * </p>
      * 
      * @param policyType
-     *        Type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
+     *        The type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
      *        'PercentAvailableGameSessions' and specify a <i>TargetConfiguration</i>. For a rule-based policy set the
      *        following parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>,
      *        <i>EvaluationPeriods</i>, <i>ScalingAdjustmentType</i>, and <i>ScalingAdjustment</i>.
@@ -1539,14 +1536,14 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
+     * The type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
      * 'PercentAvailableGameSessions' and specify a <i>TargetConfiguration</i>. For a rule-based policy set the
      * following parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>, <i>EvaluationPeriods</i>,
      * <i>ScalingAdjustmentType</i>, and <i>ScalingAdjustment</i>.
      * </p>
      * 
      * @param policyType
-     *        Type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
+     *        The type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
      *        'PercentAvailableGameSessions' and specify a <i>TargetConfiguration</i>. For a rule-based policy set the
      *        following parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>,
      *        <i>EvaluationPeriods</i>, <i>ScalingAdjustmentType</i>, and <i>ScalingAdjustment</i>.
@@ -1559,14 +1556,14 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
+     * The type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
      * 'PercentAvailableGameSessions' and specify a <i>TargetConfiguration</i>. For a rule-based policy set the
      * following parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>, <i>EvaluationPeriods</i>,
      * <i>ScalingAdjustmentType</i>, and <i>ScalingAdjustment</i>.
      * </p>
      * 
      * @param policyType
-     *        Type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
+     *        The type of scaling policy to create. For a target-based policy, set the parameter <i>MetricName</i> to
      *        'PercentAvailableGameSessions' and specify a <i>TargetConfiguration</i>. For a rule-based policy set the
      *        following parameters: <i>MetricName</i>, <i>ComparisonOperator</i>, <i>Threshold</i>,
      *        <i>EvaluationPeriods</i>, <i>ScalingAdjustmentType</i>, and <i>ScalingAdjustment</i>.
@@ -1581,11 +1578,11 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Object that contains settings for a target-based scaling policy.
+     * An object that contains settings for a target-based scaling policy.
      * </p>
      * 
      * @param targetConfiguration
-     *        Object that contains settings for a target-based scaling policy.
+     *        An object that contains settings for a target-based scaling policy.
      */
 
     public void setTargetConfiguration(TargetConfiguration targetConfiguration) {
@@ -1594,10 +1591,10 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Object that contains settings for a target-based scaling policy.
+     * An object that contains settings for a target-based scaling policy.
      * </p>
      * 
-     * @return Object that contains settings for a target-based scaling policy.
+     * @return An object that contains settings for a target-based scaling policy.
      */
 
     public TargetConfiguration getTargetConfiguration() {
@@ -1606,11 +1603,11 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Object that contains settings for a target-based scaling policy.
+     * An object that contains settings for a target-based scaling policy.
      * </p>
      * 
      * @param targetConfiguration
-     *        Object that contains settings for a target-based scaling policy.
+     *        An object that contains settings for a target-based scaling policy.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

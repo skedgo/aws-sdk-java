@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,6 +34,8 @@ public class StreamDescriptionSummaryMarshaller {
             .marshallLocationName("StreamARN").build();
     private static final MarshallingInfo<String> STREAMSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StreamStatus").build();
+    private static final MarshallingInfo<StructuredPojo> STREAMMODEDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StreamModeDetails").build();
     private static final MarshallingInfo<Integer> RETENTIONPERIODHOURS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RetentionPeriodHours").build();
     private static final MarshallingInfo<java.util.Date> STREAMCREATIONTIMESTAMP_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
@@ -68,6 +70,7 @@ public class StreamDescriptionSummaryMarshaller {
             protocolMarshaller.marshall(streamDescriptionSummary.getStreamName(), STREAMNAME_BINDING);
             protocolMarshaller.marshall(streamDescriptionSummary.getStreamARN(), STREAMARN_BINDING);
             protocolMarshaller.marshall(streamDescriptionSummary.getStreamStatus(), STREAMSTATUS_BINDING);
+            protocolMarshaller.marshall(streamDescriptionSummary.getStreamModeDetails(), STREAMMODEDETAILS_BINDING);
             protocolMarshaller.marshall(streamDescriptionSummary.getRetentionPeriodHours(), RETENTIONPERIODHOURS_BINDING);
             protocolMarshaller.marshall(streamDescriptionSummary.getStreamCreationTimestamp(), STREAMCREATIONTIMESTAMP_BINDING);
             protocolMarshaller.marshall(streamDescriptionSummary.getEnhancedMonitoring(), ENHANCEDMONITORING_BINDING);

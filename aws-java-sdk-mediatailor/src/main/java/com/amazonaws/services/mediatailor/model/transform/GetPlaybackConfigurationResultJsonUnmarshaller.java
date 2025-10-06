@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.mediatailor.model.transform;
 
+import java.util.Map;
 import java.math.*;
 
 import javax.annotation.Generated;
@@ -52,9 +53,23 @@ public class GetPlaybackConfigurationResultJsonUnmarshaller implements Unmarshal
                     context.nextToken();
                     getPlaybackConfigurationResult.setAdDecisionServerUrl(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("AvailSuppression", targetDepth)) {
+                    context.nextToken();
+                    getPlaybackConfigurationResult.setAvailSuppression(AvailSuppressionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("Bumper", targetDepth)) {
+                    context.nextToken();
+                    getPlaybackConfigurationResult.setBumper(BumperJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("CdnConfiguration", targetDepth)) {
                     context.nextToken();
                     getPlaybackConfigurationResult.setCdnConfiguration(CdnConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ConfigurationAliases", targetDepth)) {
+                    context.nextToken();
+                    getPlaybackConfigurationResult.setConfigurationAliases(new MapUnmarshaller<String, java.util.Map<String, String>>(context
+                            .getUnmarshaller(String.class), new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
+                            .getUnmarshaller(String.class))).unmarshall(context));
                 }
                 if (context.testExpression("DashConfiguration", targetDepth)) {
                     context.nextToken();
@@ -64,9 +79,29 @@ public class GetPlaybackConfigurationResultJsonUnmarshaller implements Unmarshal
                     context.nextToken();
                     getPlaybackConfigurationResult.setHlsConfiguration(HlsConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("InsertionMode", targetDepth)) {
+                    context.nextToken();
+                    getPlaybackConfigurationResult.setInsertionMode(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("LivePreRollConfiguration", targetDepth)) {
+                    context.nextToken();
+                    getPlaybackConfigurationResult.setLivePreRollConfiguration(LivePreRollConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("LogConfiguration", targetDepth)) {
+                    context.nextToken();
+                    getPlaybackConfigurationResult.setLogConfiguration(LogConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ManifestProcessingRules", targetDepth)) {
+                    context.nextToken();
+                    getPlaybackConfigurationResult.setManifestProcessingRules(ManifestProcessingRulesJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("Name", targetDepth)) {
                     context.nextToken();
                     getPlaybackConfigurationResult.setName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("PersonalizationThresholdSeconds", targetDepth)) {
+                    context.nextToken();
+                    getPlaybackConfigurationResult.setPersonalizationThresholdSeconds(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
                 if (context.testExpression("PlaybackConfigurationArn", targetDepth)) {
                     context.nextToken();

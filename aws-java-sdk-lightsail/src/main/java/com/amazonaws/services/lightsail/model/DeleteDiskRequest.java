@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,24 @@ public class DeleteDiskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The unique name of the disk you want to delete (e.g., <code>my-disk</code>).
+     * The unique name of the disk you want to delete (<code>my-disk</code>).
      * </p>
      */
     private String diskName;
+    /**
+     * <p>
+     * A Boolean value to indicate whether to delete all add-ons for the disk.
+     * </p>
+     */
+    private Boolean forceDeleteAddOns;
 
     /**
      * <p>
-     * The unique name of the disk you want to delete (e.g., <code>my-disk</code>).
+     * The unique name of the disk you want to delete (<code>my-disk</code>).
      * </p>
      * 
      * @param diskName
-     *        The unique name of the disk you want to delete (e.g., <code>my-disk</code>).
+     *        The unique name of the disk you want to delete (<code>my-disk</code>).
      */
 
     public void setDiskName(String diskName) {
@@ -47,10 +53,10 @@ public class DeleteDiskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The unique name of the disk you want to delete (e.g., <code>my-disk</code>).
+     * The unique name of the disk you want to delete (<code>my-disk</code>).
      * </p>
      * 
-     * @return The unique name of the disk you want to delete (e.g., <code>my-disk</code>).
+     * @return The unique name of the disk you want to delete (<code>my-disk</code>).
      */
 
     public String getDiskName() {
@@ -59,17 +65,69 @@ public class DeleteDiskRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The unique name of the disk you want to delete (e.g., <code>my-disk</code>).
+     * The unique name of the disk you want to delete (<code>my-disk</code>).
      * </p>
      * 
      * @param diskName
-     *        The unique name of the disk you want to delete (e.g., <code>my-disk</code>).
+     *        The unique name of the disk you want to delete (<code>my-disk</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DeleteDiskRequest withDiskName(String diskName) {
         setDiskName(diskName);
         return this;
+    }
+
+    /**
+     * <p>
+     * A Boolean value to indicate whether to delete all add-ons for the disk.
+     * </p>
+     * 
+     * @param forceDeleteAddOns
+     *        A Boolean value to indicate whether to delete all add-ons for the disk.
+     */
+
+    public void setForceDeleteAddOns(Boolean forceDeleteAddOns) {
+        this.forceDeleteAddOns = forceDeleteAddOns;
+    }
+
+    /**
+     * <p>
+     * A Boolean value to indicate whether to delete all add-ons for the disk.
+     * </p>
+     * 
+     * @return A Boolean value to indicate whether to delete all add-ons for the disk.
+     */
+
+    public Boolean getForceDeleteAddOns() {
+        return this.forceDeleteAddOns;
+    }
+
+    /**
+     * <p>
+     * A Boolean value to indicate whether to delete all add-ons for the disk.
+     * </p>
+     * 
+     * @param forceDeleteAddOns
+     *        A Boolean value to indicate whether to delete all add-ons for the disk.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DeleteDiskRequest withForceDeleteAddOns(Boolean forceDeleteAddOns) {
+        setForceDeleteAddOns(forceDeleteAddOns);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A Boolean value to indicate whether to delete all add-ons for the disk.
+     * </p>
+     * 
+     * @return A Boolean value to indicate whether to delete all add-ons for the disk.
+     */
+
+    public Boolean isForceDeleteAddOns() {
+        return this.forceDeleteAddOns;
     }
 
     /**
@@ -85,7 +143,9 @@ public class DeleteDiskRequest extends com.amazonaws.AmazonWebServiceRequest imp
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getDiskName() != null)
-            sb.append("DiskName: ").append(getDiskName());
+            sb.append("DiskName: ").append(getDiskName()).append(",");
+        if (getForceDeleteAddOns() != null)
+            sb.append("ForceDeleteAddOns: ").append(getForceDeleteAddOns());
         sb.append("}");
         return sb.toString();
     }
@@ -104,6 +164,10 @@ public class DeleteDiskRequest extends com.amazonaws.AmazonWebServiceRequest imp
             return false;
         if (other.getDiskName() != null && other.getDiskName().equals(this.getDiskName()) == false)
             return false;
+        if (other.getForceDeleteAddOns() == null ^ this.getForceDeleteAddOns() == null)
+            return false;
+        if (other.getForceDeleteAddOns() != null && other.getForceDeleteAddOns().equals(this.getForceDeleteAddOns()) == false)
+            return false;
         return true;
     }
 
@@ -113,6 +177,7 @@ public class DeleteDiskRequest extends com.amazonaws.AmazonWebServiceRequest imp
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getDiskName() == null) ? 0 : getDiskName().hashCode());
+        hashCode = prime * hashCode + ((getForceDeleteAddOns() == null) ? 0 : getForceDeleteAddOns().hashCode());
         return hashCode;
     }
 

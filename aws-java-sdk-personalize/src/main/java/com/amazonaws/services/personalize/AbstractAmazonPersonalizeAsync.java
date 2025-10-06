@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,32 @@ public class AbstractAmazonPersonalizeAsync extends AbstractAmazonPersonalize im
     }
 
     @Override
+    public java.util.concurrent.Future<CreateBatchInferenceJobResult> createBatchInferenceJobAsync(CreateBatchInferenceJobRequest request) {
+
+        return createBatchInferenceJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateBatchInferenceJobResult> createBatchInferenceJobAsync(CreateBatchInferenceJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateBatchInferenceJobRequest, CreateBatchInferenceJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateBatchSegmentJobResult> createBatchSegmentJobAsync(CreateBatchSegmentJobRequest request) {
+
+        return createBatchSegmentJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateBatchSegmentJobResult> createBatchSegmentJobAsync(CreateBatchSegmentJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateBatchSegmentJobRequest, CreateBatchSegmentJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateCampaignResult> createCampaignAsync(CreateCampaignRequest request) {
 
         return createCampaignAsync(request, null);
@@ -41,6 +67,19 @@ public class AbstractAmazonPersonalizeAsync extends AbstractAmazonPersonalize im
     }
 
     @Override
+    public java.util.concurrent.Future<CreateDataDeletionJobResult> createDataDeletionJobAsync(CreateDataDeletionJobRequest request) {
+
+        return createDataDeletionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDataDeletionJobResult> createDataDeletionJobAsync(CreateDataDeletionJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateDataDeletionJobRequest, CreateDataDeletionJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateDatasetResult> createDatasetAsync(CreateDatasetRequest request) {
 
         return createDatasetAsync(request, null);
@@ -49,6 +88,19 @@ public class AbstractAmazonPersonalizeAsync extends AbstractAmazonPersonalize im
     @Override
     public java.util.concurrent.Future<CreateDatasetResult> createDatasetAsync(CreateDatasetRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateDatasetRequest, CreateDatasetResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDatasetExportJobResult> createDatasetExportJobAsync(CreateDatasetExportJobRequest request) {
+
+        return createDatasetExportJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDatasetExportJobResult> createDatasetExportJobAsync(CreateDatasetExportJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateDatasetExportJobRequest, CreateDatasetExportJobResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -88,6 +140,45 @@ public class AbstractAmazonPersonalizeAsync extends AbstractAmazonPersonalize im
     @Override
     public java.util.concurrent.Future<CreateEventTrackerResult> createEventTrackerAsync(CreateEventTrackerRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateEventTrackerRequest, CreateEventTrackerResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFilterResult> createFilterAsync(CreateFilterRequest request) {
+
+        return createFilterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFilterResult> createFilterAsync(CreateFilterRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateFilterRequest, CreateFilterResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateMetricAttributionResult> createMetricAttributionAsync(CreateMetricAttributionRequest request) {
+
+        return createMetricAttributionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateMetricAttributionResult> createMetricAttributionAsync(CreateMetricAttributionRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateMetricAttributionRequest, CreateMetricAttributionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRecommenderResult> createRecommenderAsync(CreateRecommenderRequest request) {
+
+        return createRecommenderAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRecommenderResult> createRecommenderAsync(CreateRecommenderRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateRecommenderRequest, CreateRecommenderResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -184,6 +275,45 @@ public class AbstractAmazonPersonalizeAsync extends AbstractAmazonPersonalize im
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteFilterResult> deleteFilterAsync(DeleteFilterRequest request) {
+
+        return deleteFilterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFilterResult> deleteFilterAsync(DeleteFilterRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteFilterRequest, DeleteFilterResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteMetricAttributionResult> deleteMetricAttributionAsync(DeleteMetricAttributionRequest request) {
+
+        return deleteMetricAttributionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteMetricAttributionResult> deleteMetricAttributionAsync(DeleteMetricAttributionRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteMetricAttributionRequest, DeleteMetricAttributionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRecommenderResult> deleteRecommenderAsync(DeleteRecommenderRequest request) {
+
+        return deleteRecommenderAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRecommenderResult> deleteRecommenderAsync(DeleteRecommenderRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteRecommenderRequest, DeleteRecommenderResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteSchemaResult> deleteSchemaAsync(DeleteSchemaRequest request) {
 
         return deleteSchemaAsync(request, null);
@@ -223,6 +353,32 @@ public class AbstractAmazonPersonalizeAsync extends AbstractAmazonPersonalize im
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeBatchInferenceJobResult> describeBatchInferenceJobAsync(DescribeBatchInferenceJobRequest request) {
+
+        return describeBatchInferenceJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeBatchInferenceJobResult> describeBatchInferenceJobAsync(DescribeBatchInferenceJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeBatchInferenceJobRequest, DescribeBatchInferenceJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeBatchSegmentJobResult> describeBatchSegmentJobAsync(DescribeBatchSegmentJobRequest request) {
+
+        return describeBatchSegmentJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeBatchSegmentJobResult> describeBatchSegmentJobAsync(DescribeBatchSegmentJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeBatchSegmentJobRequest, DescribeBatchSegmentJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeCampaignResult> describeCampaignAsync(DescribeCampaignRequest request) {
 
         return describeCampaignAsync(request, null);
@@ -236,6 +392,19 @@ public class AbstractAmazonPersonalizeAsync extends AbstractAmazonPersonalize im
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeDataDeletionJobResult> describeDataDeletionJobAsync(DescribeDataDeletionJobRequest request) {
+
+        return describeDataDeletionJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDataDeletionJobResult> describeDataDeletionJobAsync(DescribeDataDeletionJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeDataDeletionJobRequest, DescribeDataDeletionJobResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeDatasetResult> describeDatasetAsync(DescribeDatasetRequest request) {
 
         return describeDatasetAsync(request, null);
@@ -244,6 +413,19 @@ public class AbstractAmazonPersonalizeAsync extends AbstractAmazonPersonalize im
     @Override
     public java.util.concurrent.Future<DescribeDatasetResult> describeDatasetAsync(DescribeDatasetRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeDatasetRequest, DescribeDatasetResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDatasetExportJobResult> describeDatasetExportJobAsync(DescribeDatasetExportJobRequest request) {
+
+        return describeDatasetExportJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeDatasetExportJobResult> describeDatasetExportJobAsync(DescribeDatasetExportJobRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeDatasetExportJobRequest, DescribeDatasetExportJobResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -301,6 +483,32 @@ public class AbstractAmazonPersonalizeAsync extends AbstractAmazonPersonalize im
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeFilterResult> describeFilterAsync(DescribeFilterRequest request) {
+
+        return describeFilterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFilterResult> describeFilterAsync(DescribeFilterRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeFilterRequest, DescribeFilterResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeMetricAttributionResult> describeMetricAttributionAsync(DescribeMetricAttributionRequest request) {
+
+        return describeMetricAttributionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeMetricAttributionResult> describeMetricAttributionAsync(DescribeMetricAttributionRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeMetricAttributionRequest, DescribeMetricAttributionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeRecipeResult> describeRecipeAsync(DescribeRecipeRequest request) {
 
         return describeRecipeAsync(request, null);
@@ -309,6 +517,19 @@ public class AbstractAmazonPersonalizeAsync extends AbstractAmazonPersonalize im
     @Override
     public java.util.concurrent.Future<DescribeRecipeResult> describeRecipeAsync(DescribeRecipeRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeRecipeRequest, DescribeRecipeResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeRecommenderResult> describeRecommenderAsync(DescribeRecommenderRequest request) {
+
+        return describeRecommenderAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeRecommenderResult> describeRecommenderAsync(DescribeRecommenderRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeRecommenderRequest, DescribeRecommenderResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -366,6 +587,32 @@ public class AbstractAmazonPersonalizeAsync extends AbstractAmazonPersonalize im
     }
 
     @Override
+    public java.util.concurrent.Future<ListBatchInferenceJobsResult> listBatchInferenceJobsAsync(ListBatchInferenceJobsRequest request) {
+
+        return listBatchInferenceJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListBatchInferenceJobsResult> listBatchInferenceJobsAsync(ListBatchInferenceJobsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListBatchInferenceJobsRequest, ListBatchInferenceJobsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListBatchSegmentJobsResult> listBatchSegmentJobsAsync(ListBatchSegmentJobsRequest request) {
+
+        return listBatchSegmentJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListBatchSegmentJobsResult> listBatchSegmentJobsAsync(ListBatchSegmentJobsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListBatchSegmentJobsRequest, ListBatchSegmentJobsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListCampaignsResult> listCampaignsAsync(ListCampaignsRequest request) {
 
         return listCampaignsAsync(request, null);
@@ -374,6 +621,32 @@ public class AbstractAmazonPersonalizeAsync extends AbstractAmazonPersonalize im
     @Override
     public java.util.concurrent.Future<ListCampaignsResult> listCampaignsAsync(ListCampaignsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListCampaignsRequest, ListCampaignsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDataDeletionJobsResult> listDataDeletionJobsAsync(ListDataDeletionJobsRequest request) {
+
+        return listDataDeletionJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDataDeletionJobsResult> listDataDeletionJobsAsync(ListDataDeletionJobsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListDataDeletionJobsRequest, ListDataDeletionJobsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDatasetExportJobsResult> listDatasetExportJobsAsync(ListDatasetExportJobsRequest request) {
+
+        return listDatasetExportJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDatasetExportJobsResult> listDatasetExportJobsAsync(ListDatasetExportJobsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListDatasetExportJobsRequest, ListDatasetExportJobsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -431,6 +704,45 @@ public class AbstractAmazonPersonalizeAsync extends AbstractAmazonPersonalize im
     }
 
     @Override
+    public java.util.concurrent.Future<ListFiltersResult> listFiltersAsync(ListFiltersRequest request) {
+
+        return listFiltersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFiltersResult> listFiltersAsync(ListFiltersRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListFiltersRequest, ListFiltersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMetricAttributionMetricsResult> listMetricAttributionMetricsAsync(ListMetricAttributionMetricsRequest request) {
+
+        return listMetricAttributionMetricsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMetricAttributionMetricsResult> listMetricAttributionMetricsAsync(ListMetricAttributionMetricsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListMetricAttributionMetricsRequest, ListMetricAttributionMetricsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMetricAttributionsResult> listMetricAttributionsAsync(ListMetricAttributionsRequest request) {
+
+        return listMetricAttributionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMetricAttributionsResult> listMetricAttributionsAsync(ListMetricAttributionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListMetricAttributionsRequest, ListMetricAttributionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListRecipesResult> listRecipesAsync(ListRecipesRequest request) {
 
         return listRecipesAsync(request, null);
@@ -439,6 +751,19 @@ public class AbstractAmazonPersonalizeAsync extends AbstractAmazonPersonalize im
     @Override
     public java.util.concurrent.Future<ListRecipesResult> listRecipesAsync(ListRecipesRequest request,
             com.amazonaws.handlers.AsyncHandler<ListRecipesRequest, ListRecipesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRecommendersResult> listRecommendersAsync(ListRecommendersRequest request) {
+
+        return listRecommendersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRecommendersResult> listRecommendersAsync(ListRecommendersRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListRecommendersRequest, ListRecommendersResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -483,6 +808,84 @@ public class AbstractAmazonPersonalizeAsync extends AbstractAmazonPersonalize im
     }
 
     @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartRecommenderResult> startRecommenderAsync(StartRecommenderRequest request) {
+
+        return startRecommenderAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartRecommenderResult> startRecommenderAsync(StartRecommenderRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartRecommenderRequest, StartRecommenderResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopRecommenderResult> stopRecommenderAsync(StopRecommenderRequest request) {
+
+        return stopRecommenderAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopRecommenderResult> stopRecommenderAsync(StopRecommenderRequest request,
+            com.amazonaws.handlers.AsyncHandler<StopRecommenderRequest, StopRecommenderResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopSolutionVersionCreationResult> stopSolutionVersionCreationAsync(StopSolutionVersionCreationRequest request) {
+
+        return stopSolutionVersionCreationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopSolutionVersionCreationResult> stopSolutionVersionCreationAsync(StopSolutionVersionCreationRequest request,
+            com.amazonaws.handlers.AsyncHandler<StopSolutionVersionCreationRequest, StopSolutionVersionCreationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateCampaignResult> updateCampaignAsync(UpdateCampaignRequest request) {
 
         return updateCampaignAsync(request, null);
@@ -491,6 +894,45 @@ public class AbstractAmazonPersonalizeAsync extends AbstractAmazonPersonalize im
     @Override
     public java.util.concurrent.Future<UpdateCampaignResult> updateCampaignAsync(UpdateCampaignRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateCampaignRequest, UpdateCampaignResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDatasetResult> updateDatasetAsync(UpdateDatasetRequest request) {
+
+        return updateDatasetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDatasetResult> updateDatasetAsync(UpdateDatasetRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateDatasetRequest, UpdateDatasetResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMetricAttributionResult> updateMetricAttributionAsync(UpdateMetricAttributionRequest request) {
+
+        return updateMetricAttributionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMetricAttributionResult> updateMetricAttributionAsync(UpdateMetricAttributionRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateMetricAttributionRequest, UpdateMetricAttributionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRecommenderResult> updateRecommenderAsync(UpdateRecommenderRequest request) {
+
+        return updateRecommenderAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRecommenderResult> updateRecommenderAsync(UpdateRecommenderRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateRecommenderRequest, UpdateRecommenderResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

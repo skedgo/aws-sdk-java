@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes a block device mapping.
+ * Describes a block device mapping, which defines the EBS volumes and instance store volumes to attach to an instance
+ * at launch.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/BlockDeviceMapping" target="_top">AWS API
@@ -58,7 +59,8 @@ public class BlockDeviceMapping implements Serializable, Cloneable {
     private EbsBlockDevice ebs;
     /**
      * <p>
-     * Suppresses the specified device included in the block device mapping of the AMI.
+     * To omit the device from the block device mapping, specify an empty string. When this property is specified, the
+     * device is removed from the block device mapping regardless of the assigned value.
      * </p>
      */
     private String noDevice;
@@ -254,11 +256,13 @@ public class BlockDeviceMapping implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Suppresses the specified device included in the block device mapping of the AMI.
+     * To omit the device from the block device mapping, specify an empty string. When this property is specified, the
+     * device is removed from the block device mapping regardless of the assigned value.
      * </p>
      * 
      * @param noDevice
-     *        Suppresses the specified device included in the block device mapping of the AMI.
+     *        To omit the device from the block device mapping, specify an empty string. When this property is
+     *        specified, the device is removed from the block device mapping regardless of the assigned value.
      */
 
     public void setNoDevice(String noDevice) {
@@ -267,10 +271,12 @@ public class BlockDeviceMapping implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Suppresses the specified device included in the block device mapping of the AMI.
+     * To omit the device from the block device mapping, specify an empty string. When this property is specified, the
+     * device is removed from the block device mapping regardless of the assigned value.
      * </p>
      * 
-     * @return Suppresses the specified device included in the block device mapping of the AMI.
+     * @return To omit the device from the block device mapping, specify an empty string. When this property is
+     *         specified, the device is removed from the block device mapping regardless of the assigned value.
      */
 
     public String getNoDevice() {
@@ -279,11 +285,13 @@ public class BlockDeviceMapping implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Suppresses the specified device included in the block device mapping of the AMI.
+     * To omit the device from the block device mapping, specify an empty string. When this property is specified, the
+     * device is removed from the block device mapping regardless of the assigned value.
      * </p>
      * 
      * @param noDevice
-     *        Suppresses the specified device included in the block device mapping of the AMI.
+     *        To omit the device from the block device mapping, specify an empty string. When this property is
+     *        specified, the device is removed from the block device mapping regardless of the assigned value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,32 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     }
 
     @Override
+    public java.util.concurrent.Future<AcceptAccountLinkInvitationResult> acceptAccountLinkInvitationAsync(AcceptAccountLinkInvitationRequest request) {
+
+        return acceptAccountLinkInvitationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AcceptAccountLinkInvitationResult> acceptAccountLinkInvitationAsync(AcceptAccountLinkInvitationRequest request,
+            com.amazonaws.handlers.AsyncHandler<AcceptAccountLinkInvitationRequest, AcceptAccountLinkInvitationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateConnectionAliasResult> associateConnectionAliasAsync(AssociateConnectionAliasRequest request) {
+
+        return associateConnectionAliasAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateConnectionAliasResult> associateConnectionAliasAsync(AssociateConnectionAliasRequest request,
+            com.amazonaws.handlers.AsyncHandler<AssociateConnectionAliasRequest, AssociateConnectionAliasResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<AssociateIpGroupsResult> associateIpGroupsAsync(AssociateIpGroupsRequest request) {
 
         return associateIpGroupsAsync(request, null);
@@ -36,6 +62,19 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     @Override
     public java.util.concurrent.Future<AssociateIpGroupsResult> associateIpGroupsAsync(AssociateIpGroupsRequest request,
             com.amazonaws.handlers.AsyncHandler<AssociateIpGroupsRequest, AssociateIpGroupsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateWorkspaceApplicationResult> associateWorkspaceApplicationAsync(AssociateWorkspaceApplicationRequest request) {
+
+        return associateWorkspaceApplicationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateWorkspaceApplicationResult> associateWorkspaceApplicationAsync(AssociateWorkspaceApplicationRequest request,
+            com.amazonaws.handlers.AsyncHandler<AssociateWorkspaceApplicationRequest, AssociateWorkspaceApplicationResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -67,6 +106,45 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     }
 
     @Override
+    public java.util.concurrent.Future<CreateAccountLinkInvitationResult> createAccountLinkInvitationAsync(CreateAccountLinkInvitationRequest request) {
+
+        return createAccountLinkInvitationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAccountLinkInvitationResult> createAccountLinkInvitationAsync(CreateAccountLinkInvitationRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateAccountLinkInvitationRequest, CreateAccountLinkInvitationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateConnectClientAddInResult> createConnectClientAddInAsync(CreateConnectClientAddInRequest request) {
+
+        return createConnectClientAddInAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateConnectClientAddInResult> createConnectClientAddInAsync(CreateConnectClientAddInRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateConnectClientAddInRequest, CreateConnectClientAddInResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateConnectionAliasResult> createConnectionAliasAsync(CreateConnectionAliasRequest request) {
+
+        return createConnectionAliasAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateConnectionAliasResult> createConnectionAliasAsync(CreateConnectionAliasRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateConnectionAliasRequest, CreateConnectionAliasResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateIpGroupResult> createIpGroupAsync(CreateIpGroupRequest request) {
 
         return createIpGroupAsync(request, null);
@@ -75,6 +153,19 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     @Override
     public java.util.concurrent.Future<CreateIpGroupResult> createIpGroupAsync(CreateIpGroupRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateIpGroupRequest, CreateIpGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateStandbyWorkspacesResult> createStandbyWorkspacesAsync(CreateStandbyWorkspacesRequest request) {
+
+        return createStandbyWorkspacesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateStandbyWorkspacesResult> createStandbyWorkspacesAsync(CreateStandbyWorkspacesRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateStandbyWorkspacesRequest, CreateStandbyWorkspacesResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -93,6 +184,45 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     }
 
     @Override
+    public java.util.concurrent.Future<CreateUpdatedWorkspaceImageResult> createUpdatedWorkspaceImageAsync(CreateUpdatedWorkspaceImageRequest request) {
+
+        return createUpdatedWorkspaceImageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateUpdatedWorkspaceImageResult> createUpdatedWorkspaceImageAsync(CreateUpdatedWorkspaceImageRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateUpdatedWorkspaceImageRequest, CreateUpdatedWorkspaceImageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorkspaceBundleResult> createWorkspaceBundleAsync(CreateWorkspaceBundleRequest request) {
+
+        return createWorkspaceBundleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorkspaceBundleResult> createWorkspaceBundleAsync(CreateWorkspaceBundleRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateWorkspaceBundleRequest, CreateWorkspaceBundleResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorkspaceImageResult> createWorkspaceImageAsync(CreateWorkspaceImageRequest request) {
+
+        return createWorkspaceImageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorkspaceImageResult> createWorkspaceImageAsync(CreateWorkspaceImageRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateWorkspaceImageRequest, CreateWorkspaceImageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateWorkspacesResult> createWorkspacesAsync(CreateWorkspacesRequest request) {
 
         return createWorkspacesAsync(request, null);
@@ -101,6 +231,71 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     @Override
     public java.util.concurrent.Future<CreateWorkspacesResult> createWorkspacesAsync(CreateWorkspacesRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateWorkspacesRequest, CreateWorkspacesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorkspacesPoolResult> createWorkspacesPoolAsync(CreateWorkspacesPoolRequest request) {
+
+        return createWorkspacesPoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateWorkspacesPoolResult> createWorkspacesPoolAsync(CreateWorkspacesPoolRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateWorkspacesPoolRequest, CreateWorkspacesPoolResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAccountLinkInvitationResult> deleteAccountLinkInvitationAsync(DeleteAccountLinkInvitationRequest request) {
+
+        return deleteAccountLinkInvitationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAccountLinkInvitationResult> deleteAccountLinkInvitationAsync(DeleteAccountLinkInvitationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteAccountLinkInvitationRequest, DeleteAccountLinkInvitationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteClientBrandingResult> deleteClientBrandingAsync(DeleteClientBrandingRequest request) {
+
+        return deleteClientBrandingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteClientBrandingResult> deleteClientBrandingAsync(DeleteClientBrandingRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteClientBrandingRequest, DeleteClientBrandingResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteConnectClientAddInResult> deleteConnectClientAddInAsync(DeleteConnectClientAddInRequest request) {
+
+        return deleteConnectClientAddInAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteConnectClientAddInResult> deleteConnectClientAddInAsync(DeleteConnectClientAddInRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteConnectClientAddInRequest, DeleteConnectClientAddInResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteConnectionAliasResult> deleteConnectionAliasAsync(DeleteConnectionAliasRequest request) {
+
+        return deleteConnectionAliasAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteConnectionAliasResult> deleteConnectionAliasAsync(DeleteConnectionAliasRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteConnectionAliasRequest, DeleteConnectionAliasResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -132,6 +327,19 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteWorkspaceBundleResult> deleteWorkspaceBundleAsync(DeleteWorkspaceBundleRequest request) {
+
+        return deleteWorkspaceBundleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteWorkspaceBundleResult> deleteWorkspaceBundleAsync(DeleteWorkspaceBundleRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteWorkspaceBundleRequest, DeleteWorkspaceBundleResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteWorkspaceImageResult> deleteWorkspaceImageAsync(DeleteWorkspaceImageRequest request) {
 
         return deleteWorkspaceImageAsync(request, null);
@@ -140,6 +348,32 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     @Override
     public java.util.concurrent.Future<DeleteWorkspaceImageResult> deleteWorkspaceImageAsync(DeleteWorkspaceImageRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteWorkspaceImageRequest, DeleteWorkspaceImageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeployWorkspaceApplicationsResult> deployWorkspaceApplicationsAsync(DeployWorkspaceApplicationsRequest request) {
+
+        return deployWorkspaceApplicationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeployWorkspaceApplicationsResult> deployWorkspaceApplicationsAsync(DeployWorkspaceApplicationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeployWorkspaceApplicationsRequest, DeployWorkspaceApplicationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterWorkspaceDirectoryResult> deregisterWorkspaceDirectoryAsync(DeregisterWorkspaceDirectoryRequest request) {
+
+        return deregisterWorkspaceDirectoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterWorkspaceDirectoryResult> deregisterWorkspaceDirectoryAsync(DeregisterWorkspaceDirectoryRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeregisterWorkspaceDirectoryRequest, DeregisterWorkspaceDirectoryResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -171,6 +405,60 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeApplicationAssociationsResult> describeApplicationAssociationsAsync(
+            DescribeApplicationAssociationsRequest request) {
+
+        return describeApplicationAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeApplicationAssociationsResult> describeApplicationAssociationsAsync(
+            DescribeApplicationAssociationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeApplicationAssociationsRequest, DescribeApplicationAssociationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeApplicationsResult> describeApplicationsAsync(DescribeApplicationsRequest request) {
+
+        return describeApplicationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeApplicationsResult> describeApplicationsAsync(DescribeApplicationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeApplicationsRequest, DescribeApplicationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeBundleAssociationsResult> describeBundleAssociationsAsync(DescribeBundleAssociationsRequest request) {
+
+        return describeBundleAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeBundleAssociationsResult> describeBundleAssociationsAsync(DescribeBundleAssociationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeBundleAssociationsRequest, DescribeBundleAssociationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClientBrandingResult> describeClientBrandingAsync(DescribeClientBrandingRequest request) {
+
+        return describeClientBrandingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClientBrandingResult> describeClientBrandingAsync(DescribeClientBrandingRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeClientBrandingRequest, DescribeClientBrandingResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeClientPropertiesResult> describeClientPropertiesAsync(DescribeClientPropertiesRequest request) {
 
         return describeClientPropertiesAsync(request, null);
@@ -179,6 +467,60 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     @Override
     public java.util.concurrent.Future<DescribeClientPropertiesResult> describeClientPropertiesAsync(DescribeClientPropertiesRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeClientPropertiesRequest, DescribeClientPropertiesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeConnectClientAddInsResult> describeConnectClientAddInsAsync(DescribeConnectClientAddInsRequest request) {
+
+        return describeConnectClientAddInsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeConnectClientAddInsResult> describeConnectClientAddInsAsync(DescribeConnectClientAddInsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeConnectClientAddInsRequest, DescribeConnectClientAddInsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeConnectionAliasPermissionsResult> describeConnectionAliasPermissionsAsync(
+            DescribeConnectionAliasPermissionsRequest request) {
+
+        return describeConnectionAliasPermissionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeConnectionAliasPermissionsResult> describeConnectionAliasPermissionsAsync(
+            DescribeConnectionAliasPermissionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeConnectionAliasPermissionsRequest, DescribeConnectionAliasPermissionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeConnectionAliasesResult> describeConnectionAliasesAsync(DescribeConnectionAliasesRequest request) {
+
+        return describeConnectionAliasesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeConnectionAliasesResult> describeConnectionAliasesAsync(DescribeConnectionAliasesRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeConnectionAliasesRequest, DescribeConnectionAliasesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeImageAssociationsResult> describeImageAssociationsAsync(DescribeImageAssociationsRequest request) {
+
+        return describeImageAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeImageAssociationsResult> describeImageAssociationsAsync(DescribeImageAssociationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeImageAssociationsRequest, DescribeImageAssociationsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -205,6 +547,19 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     @Override
     public java.util.concurrent.Future<DescribeTagsResult> describeTagsAsync(DescribeTagsRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeTagsRequest, DescribeTagsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkspaceAssociationsResult> describeWorkspaceAssociationsAsync(DescribeWorkspaceAssociationsRequest request) {
+
+        return describeWorkspaceAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkspaceAssociationsResult> describeWorkspaceAssociationsAsync(DescribeWorkspaceAssociationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeWorkspaceAssociationsRequest, DescribeWorkspaceAssociationsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -282,6 +637,21 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeWorkspaceImagePermissionsResult> describeWorkspaceImagePermissionsAsync(
+            DescribeWorkspaceImagePermissionsRequest request) {
+
+        return describeWorkspaceImagePermissionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkspaceImagePermissionsResult> describeWorkspaceImagePermissionsAsync(
+            DescribeWorkspaceImagePermissionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeWorkspaceImagePermissionsRequest, DescribeWorkspaceImagePermissionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeWorkspaceImagesResult> describeWorkspaceImagesAsync(DescribeWorkspaceImagesRequest request) {
 
         return describeWorkspaceImagesAsync(request, null);
@@ -290,6 +660,19 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     @Override
     public java.util.concurrent.Future<DescribeWorkspaceImagesResult> describeWorkspaceImagesAsync(DescribeWorkspaceImagesRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeWorkspaceImagesRequest, DescribeWorkspaceImagesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkspaceSnapshotsResult> describeWorkspaceSnapshotsAsync(DescribeWorkspaceSnapshotsRequest request) {
+
+        return describeWorkspaceSnapshotsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkspaceSnapshotsResult> describeWorkspaceSnapshotsAsync(DescribeWorkspaceSnapshotsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeWorkspaceSnapshotsRequest, DescribeWorkspaceSnapshotsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -346,6 +729,45 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeWorkspacesPoolSessionsResult> describeWorkspacesPoolSessionsAsync(DescribeWorkspacesPoolSessionsRequest request) {
+
+        return describeWorkspacesPoolSessionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkspacesPoolSessionsResult> describeWorkspacesPoolSessionsAsync(DescribeWorkspacesPoolSessionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeWorkspacesPoolSessionsRequest, DescribeWorkspacesPoolSessionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkspacesPoolsResult> describeWorkspacesPoolsAsync(DescribeWorkspacesPoolsRequest request) {
+
+        return describeWorkspacesPoolsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeWorkspacesPoolsResult> describeWorkspacesPoolsAsync(DescribeWorkspacesPoolsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeWorkspacesPoolsRequest, DescribeWorkspacesPoolsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateConnectionAliasResult> disassociateConnectionAliasAsync(DisassociateConnectionAliasRequest request) {
+
+        return disassociateConnectionAliasAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateConnectionAliasResult> disassociateConnectionAliasAsync(DisassociateConnectionAliasRequest request,
+            com.amazonaws.handlers.AsyncHandler<DisassociateConnectionAliasRequest, DisassociateConnectionAliasResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DisassociateIpGroupsResult> disassociateIpGroupsAsync(DisassociateIpGroupsRequest request) {
 
         return disassociateIpGroupsAsync(request, null);
@@ -359,6 +781,47 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     }
 
     @Override
+    public java.util.concurrent.Future<DisassociateWorkspaceApplicationResult> disassociateWorkspaceApplicationAsync(
+            DisassociateWorkspaceApplicationRequest request) {
+
+        return disassociateWorkspaceApplicationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateWorkspaceApplicationResult> disassociateWorkspaceApplicationAsync(
+            DisassociateWorkspaceApplicationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DisassociateWorkspaceApplicationRequest, DisassociateWorkspaceApplicationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAccountLinkResult> getAccountLinkAsync(GetAccountLinkRequest request) {
+
+        return getAccountLinkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAccountLinkResult> getAccountLinkAsync(GetAccountLinkRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetAccountLinkRequest, GetAccountLinkResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportClientBrandingResult> importClientBrandingAsync(ImportClientBrandingRequest request) {
+
+        return importClientBrandingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportClientBrandingResult> importClientBrandingAsync(ImportClientBrandingRequest request,
+            com.amazonaws.handlers.AsyncHandler<ImportClientBrandingRequest, ImportClientBrandingResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ImportWorkspaceImageResult> importWorkspaceImageAsync(ImportWorkspaceImageRequest request) {
 
         return importWorkspaceImageAsync(request, null);
@@ -367,6 +830,19 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     @Override
     public java.util.concurrent.Future<ImportWorkspaceImageResult> importWorkspaceImageAsync(ImportWorkspaceImageRequest request,
             com.amazonaws.handlers.AsyncHandler<ImportWorkspaceImageRequest, ImportWorkspaceImageResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAccountLinksResult> listAccountLinksAsync(ListAccountLinksRequest request) {
+
+        return listAccountLinksAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAccountLinksResult> listAccountLinksAsync(ListAccountLinksRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListAccountLinksRequest, ListAccountLinksResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -387,6 +863,19 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     }
 
     @Override
+    public java.util.concurrent.Future<MigrateWorkspaceResult> migrateWorkspaceAsync(MigrateWorkspaceRequest request) {
+
+        return migrateWorkspaceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<MigrateWorkspaceResult> migrateWorkspaceAsync(MigrateWorkspaceRequest request,
+            com.amazonaws.handlers.AsyncHandler<MigrateWorkspaceRequest, MigrateWorkspaceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ModifyAccountResult> modifyAccountAsync(ModifyAccountRequest request) {
 
         return modifyAccountAsync(request, null);
@@ -400,6 +889,21 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     }
 
     @Override
+    public java.util.concurrent.Future<ModifyCertificateBasedAuthPropertiesResult> modifyCertificateBasedAuthPropertiesAsync(
+            ModifyCertificateBasedAuthPropertiesRequest request) {
+
+        return modifyCertificateBasedAuthPropertiesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyCertificateBasedAuthPropertiesResult> modifyCertificateBasedAuthPropertiesAsync(
+            ModifyCertificateBasedAuthPropertiesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ModifyCertificateBasedAuthPropertiesRequest, ModifyCertificateBasedAuthPropertiesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ModifyClientPropertiesResult> modifyClientPropertiesAsync(ModifyClientPropertiesRequest request) {
 
         return modifyClientPropertiesAsync(request, null);
@@ -408,6 +912,75 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     @Override
     public java.util.concurrent.Future<ModifyClientPropertiesResult> modifyClientPropertiesAsync(ModifyClientPropertiesRequest request,
             com.amazonaws.handlers.AsyncHandler<ModifyClientPropertiesRequest, ModifyClientPropertiesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifySamlPropertiesResult> modifySamlPropertiesAsync(ModifySamlPropertiesRequest request) {
+
+        return modifySamlPropertiesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifySamlPropertiesResult> modifySamlPropertiesAsync(ModifySamlPropertiesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ModifySamlPropertiesRequest, ModifySamlPropertiesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifySelfservicePermissionsResult> modifySelfservicePermissionsAsync(ModifySelfservicePermissionsRequest request) {
+
+        return modifySelfservicePermissionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifySelfservicePermissionsResult> modifySelfservicePermissionsAsync(ModifySelfservicePermissionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ModifySelfservicePermissionsRequest, ModifySelfservicePermissionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyStreamingPropertiesResult> modifyStreamingPropertiesAsync(ModifyStreamingPropertiesRequest request) {
+
+        return modifyStreamingPropertiesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyStreamingPropertiesResult> modifyStreamingPropertiesAsync(ModifyStreamingPropertiesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ModifyStreamingPropertiesRequest, ModifyStreamingPropertiesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyWorkspaceAccessPropertiesResult> modifyWorkspaceAccessPropertiesAsync(
+            ModifyWorkspaceAccessPropertiesRequest request) {
+
+        return modifyWorkspaceAccessPropertiesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyWorkspaceAccessPropertiesResult> modifyWorkspaceAccessPropertiesAsync(
+            ModifyWorkspaceAccessPropertiesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ModifyWorkspaceAccessPropertiesRequest, ModifyWorkspaceAccessPropertiesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyWorkspaceCreationPropertiesResult> modifyWorkspaceCreationPropertiesAsync(
+            ModifyWorkspaceCreationPropertiesRequest request) {
+
+        return modifyWorkspaceCreationPropertiesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyWorkspaceCreationPropertiesResult> modifyWorkspaceCreationPropertiesAsync(
+            ModifyWorkspaceCreationPropertiesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ModifyWorkspaceCreationPropertiesRequest, ModifyWorkspaceCreationPropertiesResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -465,6 +1038,45 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     }
 
     @Override
+    public java.util.concurrent.Future<RegisterWorkspaceDirectoryResult> registerWorkspaceDirectoryAsync(RegisterWorkspaceDirectoryRequest request) {
+
+        return registerWorkspaceDirectoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterWorkspaceDirectoryResult> registerWorkspaceDirectoryAsync(RegisterWorkspaceDirectoryRequest request,
+            com.amazonaws.handlers.AsyncHandler<RegisterWorkspaceDirectoryRequest, RegisterWorkspaceDirectoryResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<RejectAccountLinkInvitationResult> rejectAccountLinkInvitationAsync(RejectAccountLinkInvitationRequest request) {
+
+        return rejectAccountLinkInvitationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RejectAccountLinkInvitationResult> rejectAccountLinkInvitationAsync(RejectAccountLinkInvitationRequest request,
+            com.amazonaws.handlers.AsyncHandler<RejectAccountLinkInvitationRequest, RejectAccountLinkInvitationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<RestoreWorkspaceResult> restoreWorkspaceAsync(RestoreWorkspaceRequest request) {
+
+        return restoreWorkspaceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RestoreWorkspaceResult> restoreWorkspaceAsync(RestoreWorkspaceRequest request,
+            com.amazonaws.handlers.AsyncHandler<RestoreWorkspaceRequest, RestoreWorkspaceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<RevokeIpRulesResult> revokeIpRulesAsync(RevokeIpRulesRequest request) {
 
         return revokeIpRulesAsync(request, null);
@@ -491,6 +1103,19 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     }
 
     @Override
+    public java.util.concurrent.Future<StartWorkspacesPoolResult> startWorkspacesPoolAsync(StartWorkspacesPoolRequest request) {
+
+        return startWorkspacesPoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartWorkspacesPoolResult> startWorkspacesPoolAsync(StartWorkspacesPoolRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartWorkspacesPoolRequest, StartWorkspacesPoolResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<StopWorkspacesResult> stopWorkspacesAsync(StopWorkspacesRequest request) {
 
         return stopWorkspacesAsync(request, null);
@@ -499,6 +1124,19 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     @Override
     public java.util.concurrent.Future<StopWorkspacesResult> stopWorkspacesAsync(StopWorkspacesRequest request,
             com.amazonaws.handlers.AsyncHandler<StopWorkspacesRequest, StopWorkspacesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopWorkspacesPoolResult> stopWorkspacesPoolAsync(StopWorkspacesPoolRequest request) {
+
+        return stopWorkspacesPoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopWorkspacesPoolResult> stopWorkspacesPoolAsync(StopWorkspacesPoolRequest request,
+            com.amazonaws.handlers.AsyncHandler<StopWorkspacesPoolRequest, StopWorkspacesPoolResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -517,6 +1155,60 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     }
 
     @Override
+    public java.util.concurrent.Future<TerminateWorkspacesPoolResult> terminateWorkspacesPoolAsync(TerminateWorkspacesPoolRequest request) {
+
+        return terminateWorkspacesPoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TerminateWorkspacesPoolResult> terminateWorkspacesPoolAsync(TerminateWorkspacesPoolRequest request,
+            com.amazonaws.handlers.AsyncHandler<TerminateWorkspacesPoolRequest, TerminateWorkspacesPoolResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<TerminateWorkspacesPoolSessionResult> terminateWorkspacesPoolSessionAsync(TerminateWorkspacesPoolSessionRequest request) {
+
+        return terminateWorkspacesPoolSessionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TerminateWorkspacesPoolSessionResult> terminateWorkspacesPoolSessionAsync(TerminateWorkspacesPoolSessionRequest request,
+            com.amazonaws.handlers.AsyncHandler<TerminateWorkspacesPoolSessionRequest, TerminateWorkspacesPoolSessionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConnectClientAddInResult> updateConnectClientAddInAsync(UpdateConnectClientAddInRequest request) {
+
+        return updateConnectClientAddInAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConnectClientAddInResult> updateConnectClientAddInAsync(UpdateConnectClientAddInRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateConnectClientAddInRequest, UpdateConnectClientAddInResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConnectionAliasPermissionResult> updateConnectionAliasPermissionAsync(
+            UpdateConnectionAliasPermissionRequest request) {
+
+        return updateConnectionAliasPermissionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateConnectionAliasPermissionResult> updateConnectionAliasPermissionAsync(
+            UpdateConnectionAliasPermissionRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateConnectionAliasPermissionRequest, UpdateConnectionAliasPermissionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateRulesOfIpGroupResult> updateRulesOfIpGroupAsync(UpdateRulesOfIpGroupRequest request) {
 
         return updateRulesOfIpGroupAsync(request, null);
@@ -525,6 +1217,45 @@ public class AbstractAmazonWorkspacesAsync extends AbstractAmazonWorkspaces impl
     @Override
     public java.util.concurrent.Future<UpdateRulesOfIpGroupResult> updateRulesOfIpGroupAsync(UpdateRulesOfIpGroupRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateRulesOfIpGroupRequest, UpdateRulesOfIpGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateWorkspaceBundleResult> updateWorkspaceBundleAsync(UpdateWorkspaceBundleRequest request) {
+
+        return updateWorkspaceBundleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateWorkspaceBundleResult> updateWorkspaceBundleAsync(UpdateWorkspaceBundleRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateWorkspaceBundleRequest, UpdateWorkspaceBundleResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateWorkspaceImagePermissionResult> updateWorkspaceImagePermissionAsync(UpdateWorkspaceImagePermissionRequest request) {
+
+        return updateWorkspaceImagePermissionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateWorkspaceImagePermissionResult> updateWorkspaceImagePermissionAsync(UpdateWorkspaceImagePermissionRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateWorkspaceImagePermissionRequest, UpdateWorkspaceImagePermissionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateWorkspacesPoolResult> updateWorkspacesPoolAsync(UpdateWorkspacesPoolRequest request) {
+
+        return updateWorkspacesPoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateWorkspacesPoolResult> updateWorkspacesPoolAsync(UpdateWorkspacesPoolRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateWorkspacesPoolRequest, UpdateWorkspacesPoolResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

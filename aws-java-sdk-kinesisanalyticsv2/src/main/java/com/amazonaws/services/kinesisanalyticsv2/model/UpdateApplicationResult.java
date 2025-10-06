@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,8 @@ public class UpdateApplicationResult extends com.amazonaws.AmazonWebServiceResul
      * </p>
      */
     private ApplicationDetail applicationDetail;
+    /** Operation ID for tracking UpdateApplication request */
+    private String operationId;
 
     /**
      * <p>
@@ -71,6 +73,40 @@ public class UpdateApplicationResult extends com.amazonaws.AmazonWebServiceResul
     }
 
     /**
+     * Operation ID for tracking UpdateApplication request
+     * 
+     * @param operationId
+     *        Operation ID for tracking UpdateApplication request
+     */
+
+    public void setOperationId(String operationId) {
+        this.operationId = operationId;
+    }
+
+    /**
+     * Operation ID for tracking UpdateApplication request
+     * 
+     * @return Operation ID for tracking UpdateApplication request
+     */
+
+    public String getOperationId() {
+        return this.operationId;
+    }
+
+    /**
+     * Operation ID for tracking UpdateApplication request
+     * 
+     * @param operationId
+     *        Operation ID for tracking UpdateApplication request
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateApplicationResult withOperationId(String operationId) {
+        setOperationId(operationId);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -83,7 +119,9 @@ public class UpdateApplicationResult extends com.amazonaws.AmazonWebServiceResul
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getApplicationDetail() != null)
-            sb.append("ApplicationDetail: ").append(getApplicationDetail());
+            sb.append("ApplicationDetail: ").append(getApplicationDetail()).append(",");
+        if (getOperationId() != null)
+            sb.append("OperationId: ").append(getOperationId());
         sb.append("}");
         return sb.toString();
     }
@@ -102,6 +140,10 @@ public class UpdateApplicationResult extends com.amazonaws.AmazonWebServiceResul
             return false;
         if (other.getApplicationDetail() != null && other.getApplicationDetail().equals(this.getApplicationDetail()) == false)
             return false;
+        if (other.getOperationId() == null ^ this.getOperationId() == null)
+            return false;
+        if (other.getOperationId() != null && other.getOperationId().equals(this.getOperationId()) == false)
+            return false;
         return true;
     }
 
@@ -111,6 +153,7 @@ public class UpdateApplicationResult extends com.amazonaws.AmazonWebServiceResul
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getApplicationDetail() == null) ? 0 : getApplicationDetail().hashCode());
+        hashCode = prime * hashCode + ((getOperationId() == null) ? 0 : getOperationId().hashCode());
         return hashCode;
     }
 

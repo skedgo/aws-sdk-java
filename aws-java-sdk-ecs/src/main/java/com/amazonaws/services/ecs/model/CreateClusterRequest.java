@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,37 +27,146 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of your cluster. If you do not specify a name for your cluster, you create a cluster named
-     * <code>default</code>. Up to 255 letters (uppercase and lowercase), numbers, and hyphens are allowed.
+     * The name of your cluster. If you don't specify a name for your cluster, you create a cluster that's named
+     * <code>default</code>. Up to 255 letters (uppercase and lowercase), numbers, underscores, and hyphens are allowed.
      * </p>
      */
     private String clusterName;
     /**
      * <p>
      * The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of a key
-     * and an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters,
-     * and tag values can have a maximum length of 256 characters.
+     * and an optional value. You define both.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
     /**
      * <p>
-     * The setting to use when creating a cluster. This parameter is used to enable CloudWatch Container Insights for a
-     * cluster. If this value is specified, it will override the <code>containerInsights</code> value set with
+     * The setting to use when creating a cluster. This parameter is used to turn on CloudWatch Container Insights for a
+     * cluster. If this value is specified, it overrides the <code>containerInsights</code> value set with
      * <a>PutAccountSetting</a> or <a>PutAccountSettingDefault</a>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<ClusterSetting> settings;
+    /**
+     * <p>
+     * The <code>execute</code> command configuration for the cluster.
+     * </p>
+     */
+    private ClusterConfiguration configuration;
+    /**
+     * <p>
+     * The short name of one or more capacity providers to associate with the cluster. A capacity provider must be
+     * associated with a cluster before it can be included as part of the default capacity provider strategy of the
+     * cluster or used in a capacity provider strategy when calling the <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a> or <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a> actions.
+     * </p>
+     * <p>
+     * If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must be created but not
+     * associated with another cluster. New Auto Scaling group capacity providers can be created with the <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateCapacityProvider.html"
+     * >CreateCapacityProvider</a> API operation.
+     * </p>
+     * <p>
+     * To use a Fargate capacity provider, specify either the <code>FARGATE</code> or <code>FARGATE_SPOT</code> capacity
+     * providers. The Fargate capacity providers are available to all accounts and only need to be associated with a
+     * cluster to be used.
+     * </p>
+     * <p>
+     * The <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_PutCapacityProvider.html">
+     * PutCapacityProvider</a> API operation is used to update the list of available capacity providers for a cluster
+     * after the cluster is created.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> capacityProviders;
+    /**
+     * <p>
+     * The capacity provider strategy to set as the default for the cluster. After a default capacity provider strategy
+     * is set for a cluster, when you call the <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a> or <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a> APIs with no
+     * capacity provider strategy or launch type specified, the default capacity provider strategy for the cluster is
+     * used.
+     * </p>
+     * <p>
+     * If a default capacity provider strategy isn't defined for a cluster when it was created, it can be defined later
+     * with the <a>PutClusterCapacityProviders</a> API operation.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<CapacityProviderStrategyItem> defaultCapacityProviderStrategy;
+    /**
+     * <p>
+     * Use this parameter to set a default Service Connect namespace. After you set a default Service Connect namespace,
+     * any new services with Service Connect turned on that are created in the cluster are added as client services in
+     * the namespace. This setting only applies to new services that set the <code>enabled</code> parameter to
+     * <code>true</code> in the <code>ServiceConnectConfiguration</code>. You can set the namespace of each service
+     * individually in the <code>ServiceConnectConfiguration</code> to override this default parameter.
+     * </p>
+     * <p>
+     * Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to
+     * services across all of the clusters in the namespace. Tasks connect through a managed proxy container that
+     * collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported
+     * with Service Connect. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in
+     * the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     */
+    private ClusterServiceConnectDefaultsRequest serviceConnectDefaults;
 
     /**
      * <p>
-     * The name of your cluster. If you do not specify a name for your cluster, you create a cluster named
-     * <code>default</code>. Up to 255 letters (uppercase and lowercase), numbers, and hyphens are allowed.
+     * The name of your cluster. If you don't specify a name for your cluster, you create a cluster that's named
+     * <code>default</code>. Up to 255 letters (uppercase and lowercase), numbers, underscores, and hyphens are allowed.
      * </p>
      * 
      * @param clusterName
-     *        The name of your cluster. If you do not specify a name for your cluster, you create a cluster named
-     *        <code>default</code>. Up to 255 letters (uppercase and lowercase), numbers, and hyphens are allowed.
+     *        The name of your cluster. If you don't specify a name for your cluster, you create a cluster that's named
+     *        <code>default</code>. Up to 255 letters (uppercase and lowercase), numbers, underscores, and hyphens are
+     *        allowed.
      */
 
     public void setClusterName(String clusterName) {
@@ -66,12 +175,13 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of your cluster. If you do not specify a name for your cluster, you create a cluster named
-     * <code>default</code>. Up to 255 letters (uppercase and lowercase), numbers, and hyphens are allowed.
+     * The name of your cluster. If you don't specify a name for your cluster, you create a cluster that's named
+     * <code>default</code>. Up to 255 letters (uppercase and lowercase), numbers, underscores, and hyphens are allowed.
      * </p>
      * 
-     * @return The name of your cluster. If you do not specify a name for your cluster, you create a cluster named
-     *         <code>default</code>. Up to 255 letters (uppercase and lowercase), numbers, and hyphens are allowed.
+     * @return The name of your cluster. If you don't specify a name for your cluster, you create a cluster that's named
+     *         <code>default</code>. Up to 255 letters (uppercase and lowercase), numbers, underscores, and hyphens are
+     *         allowed.
      */
 
     public String getClusterName() {
@@ -80,13 +190,14 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of your cluster. If you do not specify a name for your cluster, you create a cluster named
-     * <code>default</code>. Up to 255 letters (uppercase and lowercase), numbers, and hyphens are allowed.
+     * The name of your cluster. If you don't specify a name for your cluster, you create a cluster that's named
+     * <code>default</code>. Up to 255 letters (uppercase and lowercase), numbers, underscores, and hyphens are allowed.
      * </p>
      * 
      * @param clusterName
-     *        The name of your cluster. If you do not specify a name for your cluster, you create a cluster named
-     *        <code>default</code>. Up to 255 letters (uppercase and lowercase), numbers, and hyphens are allowed.
+     *        The name of your cluster. If you don't specify a name for your cluster, you create a cluster that's named
+     *        <code>default</code>. Up to 255 letters (uppercase and lowercase), numbers, underscores, and hyphens are
+     *        allowed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -98,13 +209,99 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of a key
-     * and an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters,
-     * and tag values can have a maximum length of 256 characters.
+     * and an optional value. You define both.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @return The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of
-     *         a key and an optional value, both of which you define. Tag keys can have a maximum character length of
-     *         128 characters, and tag values can have a maximum length of 256 characters.
+     *         a key and an optional value. You define both.</p>
+     *         <p>
+     *         The following basic restrictions apply to tags:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Maximum number of tags per resource - 50
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For each resource, each tag key must be unique, and each tag key can have only one value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Maximum key length - 128 Unicode characters in UTF-8
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Maximum value length - 256 Unicode characters in UTF-8
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If your tagging schema is used across multiple services and resources, remember that other services may
+     *         have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *         representable in UTF-8, and the following characters: + - = . _ : / @.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Tag keys and values are case-sensitive.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a
+     *         prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete
+     *         tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource
+     *         limit.
+     *         </p>
+     *         </li>
      */
 
     public java.util.List<Tag> getTags() {
@@ -117,14 +314,99 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of a key
-     * and an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters,
-     * and tag values can have a maximum length of 256 characters.
+     * and an optional value. You define both.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param tags
      *        The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of
-     *        a key and an optional value, both of which you define. Tag keys can have a maximum character length of 128
-     *        characters, and tag values can have a maximum length of 256 characters.
+     *        a key and an optional value. You define both.</p>
+     *        <p>
+     *        The following basic restrictions apply to tags:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Maximum number of tags per resource - 50
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For each resource, each tag key must be unique, and each tag key can have only one value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum key length - 128 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum value length - 256 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If your tagging schema is used across multiple services and resources, remember that other services may
+     *        have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *        representable in UTF-8, and the following characters: + - = . _ : / @.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tag keys and values are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix
+     *        for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag
+     *        keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     *        </p>
+     *        </li>
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -139,9 +421,52 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of a key
-     * and an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters,
-     * and tag values can have a maximum length of 256 characters.
+     * and an optional value. You define both.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
@@ -150,8 +475,50 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * 
      * @param tags
      *        The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of
-     *        a key and an optional value, both of which you define. Tag keys can have a maximum character length of 128
-     *        characters, and tag values can have a maximum length of 256 characters.
+     *        a key and an optional value. You define both.</p>
+     *        <p>
+     *        The following basic restrictions apply to tags:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Maximum number of tags per resource - 50
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For each resource, each tag key must be unique, and each tag key can have only one value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum key length - 128 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum value length - 256 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If your tagging schema is used across multiple services and resources, remember that other services may
+     *        have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *        representable in UTF-8, and the following characters: + - = . _ : / @.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tag keys and values are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix
+     *        for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag
+     *        keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -168,14 +535,99 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of a key
-     * and an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters,
-     * and tag values can have a maximum length of 256 characters.
+     * and an optional value. You define both.
      * </p>
+     * <p>
+     * The following basic restrictions apply to tags:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Maximum number of tags per resource - 50
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For each resource, each tag key must be unique, and each tag key can have only one value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum key length - 128 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Maximum value length - 256 Unicode characters in UTF-8
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If your tagging schema is used across multiple services and resources, remember that other services may have
+     * restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable
+     * in UTF-8, and the following characters: + - = . _ : / @.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tag keys and values are case-sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix for
+     * either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values
+     * with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param tags
      *        The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of
-     *        a key and an optional value, both of which you define. Tag keys can have a maximum character length of 128
-     *        characters, and tag values can have a maximum length of 256 characters.
+     *        a key and an optional value. You define both.</p>
+     *        <p>
+     *        The following basic restrictions apply to tags:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Maximum number of tags per resource - 50
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For each resource, each tag key must be unique, and each tag key can have only one value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum key length - 128 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Maximum value length - 256 Unicode characters in UTF-8
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If your tagging schema is used across multiple services and resources, remember that other services may
+     *        have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces
+     *        representable in UTF-8, and the following characters: + - = . _ : / @.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Tag keys and values are case-sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Do not use <code>aws:</code>, <code>AWS:</code>, or any upper or lowercase combination of such as a prefix
+     *        for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag
+     *        keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -186,14 +638,14 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The setting to use when creating a cluster. This parameter is used to enable CloudWatch Container Insights for a
-     * cluster. If this value is specified, it will override the <code>containerInsights</code> value set with
+     * The setting to use when creating a cluster. This parameter is used to turn on CloudWatch Container Insights for a
+     * cluster. If this value is specified, it overrides the <code>containerInsights</code> value set with
      * <a>PutAccountSetting</a> or <a>PutAccountSettingDefault</a>.
      * </p>
      * 
-     * @return The setting to use when creating a cluster. This parameter is used to enable CloudWatch Container
-     *         Insights for a cluster. If this value is specified, it will override the <code>containerInsights</code>
-     *         value set with <a>PutAccountSetting</a> or <a>PutAccountSettingDefault</a>.
+     * @return The setting to use when creating a cluster. This parameter is used to turn on CloudWatch Container
+     *         Insights for a cluster. If this value is specified, it overrides the <code>containerInsights</code> value
+     *         set with <a>PutAccountSetting</a> or <a>PutAccountSettingDefault</a>.
      */
 
     public java.util.List<ClusterSetting> getSettings() {
@@ -205,15 +657,15 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The setting to use when creating a cluster. This parameter is used to enable CloudWatch Container Insights for a
-     * cluster. If this value is specified, it will override the <code>containerInsights</code> value set with
+     * The setting to use when creating a cluster. This parameter is used to turn on CloudWatch Container Insights for a
+     * cluster. If this value is specified, it overrides the <code>containerInsights</code> value set with
      * <a>PutAccountSetting</a> or <a>PutAccountSettingDefault</a>.
      * </p>
      * 
      * @param settings
-     *        The setting to use when creating a cluster. This parameter is used to enable CloudWatch Container Insights
-     *        for a cluster. If this value is specified, it will override the <code>containerInsights</code> value set
-     *        with <a>PutAccountSetting</a> or <a>PutAccountSettingDefault</a>.
+     *        The setting to use when creating a cluster. This parameter is used to turn on CloudWatch Container
+     *        Insights for a cluster. If this value is specified, it overrides the <code>containerInsights</code> value
+     *        set with <a>PutAccountSetting</a> or <a>PutAccountSettingDefault</a>.
      */
 
     public void setSettings(java.util.Collection<ClusterSetting> settings) {
@@ -227,8 +679,8 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The setting to use when creating a cluster. This parameter is used to enable CloudWatch Container Insights for a
-     * cluster. If this value is specified, it will override the <code>containerInsights</code> value set with
+     * The setting to use when creating a cluster. This parameter is used to turn on CloudWatch Container Insights for a
+     * cluster. If this value is specified, it overrides the <code>containerInsights</code> value set with
      * <a>PutAccountSetting</a> or <a>PutAccountSettingDefault</a>.
      * </p>
      * <p>
@@ -238,9 +690,9 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param settings
-     *        The setting to use when creating a cluster. This parameter is used to enable CloudWatch Container Insights
-     *        for a cluster. If this value is specified, it will override the <code>containerInsights</code> value set
-     *        with <a>PutAccountSetting</a> or <a>PutAccountSettingDefault</a>.
+     *        The setting to use when creating a cluster. This parameter is used to turn on CloudWatch Container
+     *        Insights for a cluster. If this value is specified, it overrides the <code>containerInsights</code> value
+     *        set with <a>PutAccountSetting</a> or <a>PutAccountSettingDefault</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -256,20 +708,546 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The setting to use when creating a cluster. This parameter is used to enable CloudWatch Container Insights for a
-     * cluster. If this value is specified, it will override the <code>containerInsights</code> value set with
+     * The setting to use when creating a cluster. This parameter is used to turn on CloudWatch Container Insights for a
+     * cluster. If this value is specified, it overrides the <code>containerInsights</code> value set with
      * <a>PutAccountSetting</a> or <a>PutAccountSettingDefault</a>.
      * </p>
      * 
      * @param settings
-     *        The setting to use when creating a cluster. This parameter is used to enable CloudWatch Container Insights
-     *        for a cluster. If this value is specified, it will override the <code>containerInsights</code> value set
-     *        with <a>PutAccountSetting</a> or <a>PutAccountSettingDefault</a>.
+     *        The setting to use when creating a cluster. This parameter is used to turn on CloudWatch Container
+     *        Insights for a cluster. If this value is specified, it overrides the <code>containerInsights</code> value
+     *        set with <a>PutAccountSetting</a> or <a>PutAccountSettingDefault</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateClusterRequest withSettings(java.util.Collection<ClusterSetting> settings) {
         setSettings(settings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The <code>execute</code> command configuration for the cluster.
+     * </p>
+     * 
+     * @param configuration
+     *        The <code>execute</code> command configuration for the cluster.
+     */
+
+    public void setConfiguration(ClusterConfiguration configuration) {
+        this.configuration = configuration;
+    }
+
+    /**
+     * <p>
+     * The <code>execute</code> command configuration for the cluster.
+     * </p>
+     * 
+     * @return The <code>execute</code> command configuration for the cluster.
+     */
+
+    public ClusterConfiguration getConfiguration() {
+        return this.configuration;
+    }
+
+    /**
+     * <p>
+     * The <code>execute</code> command configuration for the cluster.
+     * </p>
+     * 
+     * @param configuration
+     *        The <code>execute</code> command configuration for the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withConfiguration(ClusterConfiguration configuration) {
+        setConfiguration(configuration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The short name of one or more capacity providers to associate with the cluster. A capacity provider must be
+     * associated with a cluster before it can be included as part of the default capacity provider strategy of the
+     * cluster or used in a capacity provider strategy when calling the <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a> or <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a> actions.
+     * </p>
+     * <p>
+     * If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must be created but not
+     * associated with another cluster. New Auto Scaling group capacity providers can be created with the <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateCapacityProvider.html"
+     * >CreateCapacityProvider</a> API operation.
+     * </p>
+     * <p>
+     * To use a Fargate capacity provider, specify either the <code>FARGATE</code> or <code>FARGATE_SPOT</code> capacity
+     * providers. The Fargate capacity providers are available to all accounts and only need to be associated with a
+     * cluster to be used.
+     * </p>
+     * <p>
+     * The <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_PutCapacityProvider.html">
+     * PutCapacityProvider</a> API operation is used to update the list of available capacity providers for a cluster
+     * after the cluster is created.
+     * </p>
+     * 
+     * @return The short name of one or more capacity providers to associate with the cluster. A capacity provider must
+     *         be associated with a cluster before it can be included as part of the default capacity provider strategy
+     *         of the cluster or used in a capacity provider strategy when calling the <a
+     *         href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a>
+     *         or <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a>
+     *         actions.</p>
+     *         <p>
+     *         If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must be created
+     *         but not associated with another cluster. New Auto Scaling group capacity providers can be created with
+     *         the <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateCapacityProvider.html">
+     *         CreateCapacityProvider</a> API operation.
+     *         </p>
+     *         <p>
+     *         To use a Fargate capacity provider, specify either the <code>FARGATE</code> or <code>FARGATE_SPOT</code>
+     *         capacity providers. The Fargate capacity providers are available to all accounts and only need to be
+     *         associated with a cluster to be used.
+     *         </p>
+     *         <p>
+     *         The <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_PutCapacityProvider.html">
+     *         PutCapacityProvider</a> API operation is used to update the list of available capacity providers for a
+     *         cluster after the cluster is created.
+     */
+
+    public java.util.List<String> getCapacityProviders() {
+        if (capacityProviders == null) {
+            capacityProviders = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return capacityProviders;
+    }
+
+    /**
+     * <p>
+     * The short name of one or more capacity providers to associate with the cluster. A capacity provider must be
+     * associated with a cluster before it can be included as part of the default capacity provider strategy of the
+     * cluster or used in a capacity provider strategy when calling the <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a> or <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a> actions.
+     * </p>
+     * <p>
+     * If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must be created but not
+     * associated with another cluster. New Auto Scaling group capacity providers can be created with the <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateCapacityProvider.html"
+     * >CreateCapacityProvider</a> API operation.
+     * </p>
+     * <p>
+     * To use a Fargate capacity provider, specify either the <code>FARGATE</code> or <code>FARGATE_SPOT</code> capacity
+     * providers. The Fargate capacity providers are available to all accounts and only need to be associated with a
+     * cluster to be used.
+     * </p>
+     * <p>
+     * The <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_PutCapacityProvider.html">
+     * PutCapacityProvider</a> API operation is used to update the list of available capacity providers for a cluster
+     * after the cluster is created.
+     * </p>
+     * 
+     * @param capacityProviders
+     *        The short name of one or more capacity providers to associate with the cluster. A capacity provider must
+     *        be associated with a cluster before it can be included as part of the default capacity provider strategy
+     *        of the cluster or used in a capacity provider strategy when calling the <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a>
+     *        or <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a>
+     *        actions.</p>
+     *        <p>
+     *        If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must be created
+     *        but not associated with another cluster. New Auto Scaling group capacity providers can be created with the
+     *        <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateCapacityProvider.html">
+     *        CreateCapacityProvider</a> API operation.
+     *        </p>
+     *        <p>
+     *        To use a Fargate capacity provider, specify either the <code>FARGATE</code> or <code>FARGATE_SPOT</code>
+     *        capacity providers. The Fargate capacity providers are available to all accounts and only need to be
+     *        associated with a cluster to be used.
+     *        </p>
+     *        <p>
+     *        The <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_PutCapacityProvider.html">
+     *        PutCapacityProvider</a> API operation is used to update the list of available capacity providers for a
+     *        cluster after the cluster is created.
+     */
+
+    public void setCapacityProviders(java.util.Collection<String> capacityProviders) {
+        if (capacityProviders == null) {
+            this.capacityProviders = null;
+            return;
+        }
+
+        this.capacityProviders = new com.amazonaws.internal.SdkInternalList<String>(capacityProviders);
+    }
+
+    /**
+     * <p>
+     * The short name of one or more capacity providers to associate with the cluster. A capacity provider must be
+     * associated with a cluster before it can be included as part of the default capacity provider strategy of the
+     * cluster or used in a capacity provider strategy when calling the <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a> or <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a> actions.
+     * </p>
+     * <p>
+     * If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must be created but not
+     * associated with another cluster. New Auto Scaling group capacity providers can be created with the <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateCapacityProvider.html"
+     * >CreateCapacityProvider</a> API operation.
+     * </p>
+     * <p>
+     * To use a Fargate capacity provider, specify either the <code>FARGATE</code> or <code>FARGATE_SPOT</code> capacity
+     * providers. The Fargate capacity providers are available to all accounts and only need to be associated with a
+     * cluster to be used.
+     * </p>
+     * <p>
+     * The <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_PutCapacityProvider.html">
+     * PutCapacityProvider</a> API operation is used to update the list of available capacity providers for a cluster
+     * after the cluster is created.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCapacityProviders(java.util.Collection)} or {@link #withCapacityProviders(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param capacityProviders
+     *        The short name of one or more capacity providers to associate with the cluster. A capacity provider must
+     *        be associated with a cluster before it can be included as part of the default capacity provider strategy
+     *        of the cluster or used in a capacity provider strategy when calling the <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a>
+     *        or <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a>
+     *        actions.</p>
+     *        <p>
+     *        If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must be created
+     *        but not associated with another cluster. New Auto Scaling group capacity providers can be created with the
+     *        <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateCapacityProvider.html">
+     *        CreateCapacityProvider</a> API operation.
+     *        </p>
+     *        <p>
+     *        To use a Fargate capacity provider, specify either the <code>FARGATE</code> or <code>FARGATE_SPOT</code>
+     *        capacity providers. The Fargate capacity providers are available to all accounts and only need to be
+     *        associated with a cluster to be used.
+     *        </p>
+     *        <p>
+     *        The <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_PutCapacityProvider.html">
+     *        PutCapacityProvider</a> API operation is used to update the list of available capacity providers for a
+     *        cluster after the cluster is created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withCapacityProviders(String... capacityProviders) {
+        if (this.capacityProviders == null) {
+            setCapacityProviders(new com.amazonaws.internal.SdkInternalList<String>(capacityProviders.length));
+        }
+        for (String ele : capacityProviders) {
+            this.capacityProviders.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The short name of one or more capacity providers to associate with the cluster. A capacity provider must be
+     * associated with a cluster before it can be included as part of the default capacity provider strategy of the
+     * cluster or used in a capacity provider strategy when calling the <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a> or <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a> actions.
+     * </p>
+     * <p>
+     * If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must be created but not
+     * associated with another cluster. New Auto Scaling group capacity providers can be created with the <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateCapacityProvider.html"
+     * >CreateCapacityProvider</a> API operation.
+     * </p>
+     * <p>
+     * To use a Fargate capacity provider, specify either the <code>FARGATE</code> or <code>FARGATE_SPOT</code> capacity
+     * providers. The Fargate capacity providers are available to all accounts and only need to be associated with a
+     * cluster to be used.
+     * </p>
+     * <p>
+     * The <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_PutCapacityProvider.html">
+     * PutCapacityProvider</a> API operation is used to update the list of available capacity providers for a cluster
+     * after the cluster is created.
+     * </p>
+     * 
+     * @param capacityProviders
+     *        The short name of one or more capacity providers to associate with the cluster. A capacity provider must
+     *        be associated with a cluster before it can be included as part of the default capacity provider strategy
+     *        of the cluster or used in a capacity provider strategy when calling the <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a>
+     *        or <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a>
+     *        actions.</p>
+     *        <p>
+     *        If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must be created
+     *        but not associated with another cluster. New Auto Scaling group capacity providers can be created with the
+     *        <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateCapacityProvider.html">
+     *        CreateCapacityProvider</a> API operation.
+     *        </p>
+     *        <p>
+     *        To use a Fargate capacity provider, specify either the <code>FARGATE</code> or <code>FARGATE_SPOT</code>
+     *        capacity providers. The Fargate capacity providers are available to all accounts and only need to be
+     *        associated with a cluster to be used.
+     *        </p>
+     *        <p>
+     *        The <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_PutCapacityProvider.html">
+     *        PutCapacityProvider</a> API operation is used to update the list of available capacity providers for a
+     *        cluster after the cluster is created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withCapacityProviders(java.util.Collection<String> capacityProviders) {
+        setCapacityProviders(capacityProviders);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The capacity provider strategy to set as the default for the cluster. After a default capacity provider strategy
+     * is set for a cluster, when you call the <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a> or <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a> APIs with no
+     * capacity provider strategy or launch type specified, the default capacity provider strategy for the cluster is
+     * used.
+     * </p>
+     * <p>
+     * If a default capacity provider strategy isn't defined for a cluster when it was created, it can be defined later
+     * with the <a>PutClusterCapacityProviders</a> API operation.
+     * </p>
+     * 
+     * @return The capacity provider strategy to set as the default for the cluster. After a default capacity provider
+     *         strategy is set for a cluster, when you call the <a
+     *         href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a>
+     *         or <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a> APIs
+     *         with no capacity provider strategy or launch type specified, the default capacity provider strategy for
+     *         the cluster is used.</p>
+     *         <p>
+     *         If a default capacity provider strategy isn't defined for a cluster when it was created, it can be
+     *         defined later with the <a>PutClusterCapacityProviders</a> API operation.
+     */
+
+    public java.util.List<CapacityProviderStrategyItem> getDefaultCapacityProviderStrategy() {
+        if (defaultCapacityProviderStrategy == null) {
+            defaultCapacityProviderStrategy = new com.amazonaws.internal.SdkInternalList<CapacityProviderStrategyItem>();
+        }
+        return defaultCapacityProviderStrategy;
+    }
+
+    /**
+     * <p>
+     * The capacity provider strategy to set as the default for the cluster. After a default capacity provider strategy
+     * is set for a cluster, when you call the <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a> or <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a> APIs with no
+     * capacity provider strategy or launch type specified, the default capacity provider strategy for the cluster is
+     * used.
+     * </p>
+     * <p>
+     * If a default capacity provider strategy isn't defined for a cluster when it was created, it can be defined later
+     * with the <a>PutClusterCapacityProviders</a> API operation.
+     * </p>
+     * 
+     * @param defaultCapacityProviderStrategy
+     *        The capacity provider strategy to set as the default for the cluster. After a default capacity provider
+     *        strategy is set for a cluster, when you call the <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a>
+     *        or <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a> APIs
+     *        with no capacity provider strategy or launch type specified, the default capacity provider strategy for
+     *        the cluster is used.</p>
+     *        <p>
+     *        If a default capacity provider strategy isn't defined for a cluster when it was created, it can be defined
+     *        later with the <a>PutClusterCapacityProviders</a> API operation.
+     */
+
+    public void setDefaultCapacityProviderStrategy(java.util.Collection<CapacityProviderStrategyItem> defaultCapacityProviderStrategy) {
+        if (defaultCapacityProviderStrategy == null) {
+            this.defaultCapacityProviderStrategy = null;
+            return;
+        }
+
+        this.defaultCapacityProviderStrategy = new com.amazonaws.internal.SdkInternalList<CapacityProviderStrategyItem>(defaultCapacityProviderStrategy);
+    }
+
+    /**
+     * <p>
+     * The capacity provider strategy to set as the default for the cluster. After a default capacity provider strategy
+     * is set for a cluster, when you call the <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a> or <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a> APIs with no
+     * capacity provider strategy or launch type specified, the default capacity provider strategy for the cluster is
+     * used.
+     * </p>
+     * <p>
+     * If a default capacity provider strategy isn't defined for a cluster when it was created, it can be defined later
+     * with the <a>PutClusterCapacityProviders</a> API operation.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setDefaultCapacityProviderStrategy(java.util.Collection)} or
+     * {@link #withDefaultCapacityProviderStrategy(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param defaultCapacityProviderStrategy
+     *        The capacity provider strategy to set as the default for the cluster. After a default capacity provider
+     *        strategy is set for a cluster, when you call the <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a>
+     *        or <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a> APIs
+     *        with no capacity provider strategy or launch type specified, the default capacity provider strategy for
+     *        the cluster is used.</p>
+     *        <p>
+     *        If a default capacity provider strategy isn't defined for a cluster when it was created, it can be defined
+     *        later with the <a>PutClusterCapacityProviders</a> API operation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withDefaultCapacityProviderStrategy(CapacityProviderStrategyItem... defaultCapacityProviderStrategy) {
+        if (this.defaultCapacityProviderStrategy == null) {
+            setDefaultCapacityProviderStrategy(new com.amazonaws.internal.SdkInternalList<CapacityProviderStrategyItem>(defaultCapacityProviderStrategy.length));
+        }
+        for (CapacityProviderStrategyItem ele : defaultCapacityProviderStrategy) {
+            this.defaultCapacityProviderStrategy.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The capacity provider strategy to set as the default for the cluster. After a default capacity provider strategy
+     * is set for a cluster, when you call the <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a> or <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a> APIs with no
+     * capacity provider strategy or launch type specified, the default capacity provider strategy for the cluster is
+     * used.
+     * </p>
+     * <p>
+     * If a default capacity provider strategy isn't defined for a cluster when it was created, it can be defined later
+     * with the <a>PutClusterCapacityProviders</a> API operation.
+     * </p>
+     * 
+     * @param defaultCapacityProviderStrategy
+     *        The capacity provider strategy to set as the default for the cluster. After a default capacity provider
+     *        strategy is set for a cluster, when you call the <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html">CreateService</a>
+     *        or <a href="https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html">RunTask</a> APIs
+     *        with no capacity provider strategy or launch type specified, the default capacity provider strategy for
+     *        the cluster is used.</p>
+     *        <p>
+     *        If a default capacity provider strategy isn't defined for a cluster when it was created, it can be defined
+     *        later with the <a>PutClusterCapacityProviders</a> API operation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withDefaultCapacityProviderStrategy(java.util.Collection<CapacityProviderStrategyItem> defaultCapacityProviderStrategy) {
+        setDefaultCapacityProviderStrategy(defaultCapacityProviderStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Use this parameter to set a default Service Connect namespace. After you set a default Service Connect namespace,
+     * any new services with Service Connect turned on that are created in the cluster are added as client services in
+     * the namespace. This setting only applies to new services that set the <code>enabled</code> parameter to
+     * <code>true</code> in the <code>ServiceConnectConfiguration</code>. You can set the namespace of each service
+     * individually in the <code>ServiceConnectConfiguration</code> to override this default parameter.
+     * </p>
+     * <p>
+     * Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to
+     * services across all of the clusters in the namespace. Tasks connect through a managed proxy container that
+     * collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported
+     * with Service Connect. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in
+     * the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     * 
+     * @param serviceConnectDefaults
+     *        Use this parameter to set a default Service Connect namespace. After you set a default Service Connect
+     *        namespace, any new services with Service Connect turned on that are created in the cluster are added as
+     *        client services in the namespace. This setting only applies to new services that set the
+     *        <code>enabled</code> parameter to <code>true</code> in the <code>ServiceConnectConfiguration</code>. You
+     *        can set the namespace of each service individually in the <code>ServiceConnectConfiguration</code> to
+     *        override this default parameter.</p>
+     *        <p>
+     *        Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can
+     *        connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy
+     *        container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services
+     *        create are supported with Service Connect. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service
+     *        Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     */
+
+    public void setServiceConnectDefaults(ClusterServiceConnectDefaultsRequest serviceConnectDefaults) {
+        this.serviceConnectDefaults = serviceConnectDefaults;
+    }
+
+    /**
+     * <p>
+     * Use this parameter to set a default Service Connect namespace. After you set a default Service Connect namespace,
+     * any new services with Service Connect turned on that are created in the cluster are added as client services in
+     * the namespace. This setting only applies to new services that set the <code>enabled</code> parameter to
+     * <code>true</code> in the <code>ServiceConnectConfiguration</code>. You can set the namespace of each service
+     * individually in the <code>ServiceConnectConfiguration</code> to override this default parameter.
+     * </p>
+     * <p>
+     * Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to
+     * services across all of the clusters in the namespace. Tasks connect through a managed proxy container that
+     * collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported
+     * with Service Connect. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in
+     * the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     * 
+     * @return Use this parameter to set a default Service Connect namespace. After you set a default Service Connect
+     *         namespace, any new services with Service Connect turned on that are created in the cluster are added as
+     *         client services in the namespace. This setting only applies to new services that set the
+     *         <code>enabled</code> parameter to <code>true</code> in the <code>ServiceConnectConfiguration</code>. You
+     *         can set the namespace of each service individually in the <code>ServiceConnectConfiguration</code> to
+     *         override this default parameter.</p>
+     *         <p>
+     *         Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can
+     *         connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy
+     *         container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS
+     *         services create are supported with Service Connect. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service
+     *         Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     */
+
+    public ClusterServiceConnectDefaultsRequest getServiceConnectDefaults() {
+        return this.serviceConnectDefaults;
+    }
+
+    /**
+     * <p>
+     * Use this parameter to set a default Service Connect namespace. After you set a default Service Connect namespace,
+     * any new services with Service Connect turned on that are created in the cluster are added as client services in
+     * the namespace. This setting only applies to new services that set the <code>enabled</code> parameter to
+     * <code>true</code> in the <code>ServiceConnectConfiguration</code>. You can set the namespace of each service
+     * individually in the <code>ServiceConnectConfiguration</code> to override this default parameter.
+     * </p>
+     * <p>
+     * Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to
+     * services across all of the clusters in the namespace. Tasks connect through a managed proxy container that
+     * collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported
+     * with Service Connect. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service Connect</a> in
+     * the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * </p>
+     * 
+     * @param serviceConnectDefaults
+     *        Use this parameter to set a default Service Connect namespace. After you set a default Service Connect
+     *        namespace, any new services with Service Connect turned on that are created in the cluster are added as
+     *        client services in the namespace. This setting only applies to new services that set the
+     *        <code>enabled</code> parameter to <code>true</code> in the <code>ServiceConnectConfiguration</code>. You
+     *        can set the namespace of each service individually in the <code>ServiceConnectConfiguration</code> to
+     *        override this default parameter.</p>
+     *        <p>
+     *        Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can
+     *        connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy
+     *        container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services
+     *        create are supported with Service Connect. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html">Service
+     *        Connect</a> in the <i>Amazon Elastic Container Service Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateClusterRequest withServiceConnectDefaults(ClusterServiceConnectDefaultsRequest serviceConnectDefaults) {
+        setServiceConnectDefaults(serviceConnectDefaults);
         return this;
     }
 
@@ -290,7 +1268,15 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getSettings() != null)
-            sb.append("Settings: ").append(getSettings());
+            sb.append("Settings: ").append(getSettings()).append(",");
+        if (getConfiguration() != null)
+            sb.append("Configuration: ").append(getConfiguration()).append(",");
+        if (getCapacityProviders() != null)
+            sb.append("CapacityProviders: ").append(getCapacityProviders()).append(",");
+        if (getDefaultCapacityProviderStrategy() != null)
+            sb.append("DefaultCapacityProviderStrategy: ").append(getDefaultCapacityProviderStrategy()).append(",");
+        if (getServiceConnectDefaults() != null)
+            sb.append("ServiceConnectDefaults: ").append(getServiceConnectDefaults());
         sb.append("}");
         return sb.toString();
     }
@@ -317,6 +1303,23 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getSettings() != null && other.getSettings().equals(this.getSettings()) == false)
             return false;
+        if (other.getConfiguration() == null ^ this.getConfiguration() == null)
+            return false;
+        if (other.getConfiguration() != null && other.getConfiguration().equals(this.getConfiguration()) == false)
+            return false;
+        if (other.getCapacityProviders() == null ^ this.getCapacityProviders() == null)
+            return false;
+        if (other.getCapacityProviders() != null && other.getCapacityProviders().equals(this.getCapacityProviders()) == false)
+            return false;
+        if (other.getDefaultCapacityProviderStrategy() == null ^ this.getDefaultCapacityProviderStrategy() == null)
+            return false;
+        if (other.getDefaultCapacityProviderStrategy() != null
+                && other.getDefaultCapacityProviderStrategy().equals(this.getDefaultCapacityProviderStrategy()) == false)
+            return false;
+        if (other.getServiceConnectDefaults() == null ^ this.getServiceConnectDefaults() == null)
+            return false;
+        if (other.getServiceConnectDefaults() != null && other.getServiceConnectDefaults().equals(this.getServiceConnectDefaults()) == false)
+            return false;
         return true;
     }
 
@@ -328,6 +1331,10 @@ public class CreateClusterRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getClusterName() == null) ? 0 : getClusterName().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getSettings() == null) ? 0 : getSettings().hashCode());
+        hashCode = prime * hashCode + ((getConfiguration() == null) ? 0 : getConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getCapacityProviders() == null) ? 0 : getCapacityProviders().hashCode());
+        hashCode = prime * hashCode + ((getDefaultCapacityProviderStrategy() == null) ? 0 : getDefaultCapacityProviderStrategy().hashCode());
+        hashCode = prime * hashCode + ((getServiceConnectDefaults() == null) ? 0 : getServiceConnectDefaults().hashCode());
         return hashCode;
     }
 

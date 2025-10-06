@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.costandusagereport.AWSCostAndUsageReportClientBuil
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.costandusagereport.model.*;
+
 import com.amazonaws.services.costandusagereport.model.transform.*;
 
 /**
@@ -51,20 +52,21 @@ import com.amazonaws.services.costandusagereport.model.transform.*;
  * will not return until the service call completes.
  * <p>
  * <p>
- * The AWS Cost and Usage Report API enables you to programmatically create, query, and delete AWS Cost and Usage report
- * definitions.
+ * You can use the Amazon Web Services Cost and Usage Report API to programmatically create, query, and delete Amazon
+ * Web Services Cost and Usage Report definitions.
  * </p>
  * <p>
- * AWS Cost and Usage reports track the monthly AWS costs and usage associated with your AWS account. The report
- * contains line items for each unique combination of AWS product, usage type, and operation that your AWS account uses.
- * You can configure the AWS Cost and Usage report to show only the data that you want, using the AWS Cost and Usage
- * API.
+ * Amazon Web Services Cost and Usage Report track the monthly Amazon Web Services costs and usage associated with your
+ * Amazon Web Services account. The report contains line items for each unique combination of Amazon Web Services
+ * product, usage type, and operation that your Amazon Web Services account uses. You can configure the Amazon Web
+ * Services Cost and Usage Report to show only the data that you want, using the Amazon Web Services Cost and Usage
+ * Report API.
  * </p>
  * <p>
  * Service Endpoint
  * </p>
  * <p>
- * The AWS Cost and Usage Report API provides the following endpoint:
+ * The Amazon Web Services Cost and Usage Report API provides the following endpoint:
  * </p>
  * <ul>
  * <li>
@@ -97,17 +99,20 @@ public class AWSCostAndUsageReportClient extends AmazonWebServiceClient implemen
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withModeledClass(
-                                    com.amazonaws.services.costandusagereport.model.ValidationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.costandusagereport.model.transform.ValidationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ReportLimitReachedException").withModeledClass(
-                                    com.amazonaws.services.costandusagereport.model.ReportLimitReachedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.costandusagereport.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalErrorException").withModeledClass(
-                                    com.amazonaws.services.costandusagereport.model.InternalErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ReportLimitReachedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.costandusagereport.model.transform.ReportLimitReachedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DuplicateReportNameException").withModeledClass(
-                                    com.amazonaws.services.costandusagereport.model.DuplicateReportNameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.costandusagereport.model.transform.InternalErrorExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("DuplicateReportNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.costandusagereport.model.transform.DuplicateReportNameExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.costandusagereport.model.AWSCostAndUsageReportException.class));
 
     /**
@@ -314,7 +319,7 @@ public class AWSCostAndUsageReportClient extends AmazonWebServiceClient implemen
 
     /**
      * <p>
-     * Deletes the specified report.
+     * Deletes the specified report. Any tags associated with the report are also deleted.
      * </p>
      * 
      * @param deleteReportDefinitionRequest
@@ -323,7 +328,7 @@ public class AWSCostAndUsageReportClient extends AmazonWebServiceClient implemen
      * @throws InternalErrorException
      *         An error on the server occurred during the processing of your request. Try again later.
      * @throws ValidationException
-     *         The input fails to satisfy the constraints specified by an AWS service.
+     *         The input fails to satisfy the constraints specified by an Amazon Web Services service.
      * @sample AWSCostAndUsageReport.DeleteReportDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cur-2017-01-06/DeleteReportDefinition" target="_top">AWS API
      *      Documentation</a>
@@ -349,6 +354,8 @@ public class AWSCostAndUsageReportClient extends AmazonWebServiceClient implemen
                 request = new DeleteReportDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteReportDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cost and Usage Report Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteReportDefinition");
@@ -373,11 +380,11 @@ public class AWSCostAndUsageReportClient extends AmazonWebServiceClient implemen
 
     /**
      * <p>
-     * Lists the AWS Cost and Usage reports available to this account.
+     * Lists the Amazon Web Services Cost and Usage Report available to this account.
      * </p>
      * 
      * @param describeReportDefinitionsRequest
-     *        Requests a list of AWS Cost and Usage reports owned by the account.
+     *        Requests a Amazon Web Services Cost and Usage Report list owned by the account.
      * @return Result of the DescribeReportDefinitions operation returned by the service.
      * @throws InternalErrorException
      *         An error on the server occurred during the processing of your request. Try again later.
@@ -407,6 +414,8 @@ public class AWSCostAndUsageReportClient extends AmazonWebServiceClient implemen
                         .beforeMarshalling(describeReportDefinitionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cost and Usage Report Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReportDefinitions");
@@ -419,6 +428,127 @@ public class AWSCostAndUsageReportClient extends AmazonWebServiceClient implemen
             HttpResponseHandler<AmazonWebServiceResponse<DescribeReportDefinitionsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribeReportDefinitionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the tags associated with the specified report definition.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified report (<code>ReportName</code>) in the request doesn't exist.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws ValidationException
+     *         The input fails to satisfy the constraints specified by an Amazon Web Services service.
+     * @sample AWSCostAndUsageReport.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cur-2017-01-06/ListTagsForResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTagsForResource(request);
+    }
+
+    @SdkInternalApi
+    final ListTagsForResourceResult executeListTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForResourceRequest> request = null;
+        Response<ListTagsForResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cost and Usage Report Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Allows you to programmatically update your report preferences.
+     * </p>
+     * 
+     * @param modifyReportDefinitionRequest
+     * @return Result of the ModifyReportDefinition operation returned by the service.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws ValidationException
+     *         The input fails to satisfy the constraints specified by an Amazon Web Services service.
+     * @sample AWSCostAndUsageReport.ModifyReportDefinition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cur-2017-01-06/ModifyReportDefinition" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ModifyReportDefinitionResult modifyReportDefinition(ModifyReportDefinitionRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyReportDefinition(request);
+    }
+
+    @SdkInternalApi
+    final ModifyReportDefinitionResult executeModifyReportDefinition(ModifyReportDefinitionRequest modifyReportDefinitionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyReportDefinitionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyReportDefinitionRequest> request = null;
+        Response<ModifyReportDefinitionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyReportDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyReportDefinitionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cost and Usage Report Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyReportDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ModifyReportDefinitionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ModifyReportDefinitionResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -445,7 +575,9 @@ public class AWSCostAndUsageReportClient extends AmazonWebServiceClient implemen
      * @throws InternalErrorException
      *         An error on the server occurred during the processing of your request. Try again later.
      * @throws ValidationException
-     *         The input fails to satisfy the constraints specified by an AWS service.
+     *         The input fails to satisfy the constraints specified by an Amazon Web Services service.
+     * @throws ResourceNotFoundException
+     *         The specified report (<code>ReportName</code>) in the request doesn't exist.
      * @sample AWSCostAndUsageReport.PutReportDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cur-2017-01-06/PutReportDefinition" target="_top">AWS API
      *      Documentation</a>
@@ -471,6 +603,8 @@ public class AWSCostAndUsageReportClient extends AmazonWebServiceClient implemen
                 request = new PutReportDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putReportDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cost and Usage Report Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutReportDefinition");
@@ -482,6 +616,128 @@ public class AWSCostAndUsageReportClient extends AmazonWebServiceClient implemen
 
             HttpResponseHandler<AmazonWebServiceResponse<PutReportDefinitionResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new PutReportDefinitionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Associates a set of tags with a report definition.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified report (<code>ReportName</code>) in the request doesn't exist.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws ValidationException
+     *         The input fails to satisfy the constraints specified by an Amazon Web Services service.
+     * @sample AWSCostAndUsageReport.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cur-2017-01-06/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagResource(request);
+    }
+
+    @SdkInternalApi
+    final TagResourceResult executeTagResource(TagResourceRequest tagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagResourceRequest> request = null;
+        Response<TagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cost and Usage Report Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Disassociates a set of tags from a report definition.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified report (<code>ReportName</code>) in the request doesn't exist.
+     * @throws InternalErrorException
+     *         An error on the server occurred during the processing of your request. Try again later.
+     * @throws ValidationException
+     *         The input fails to satisfy the constraints specified by an Amazon Web Services service.
+     * @sample AWSCostAndUsageReport.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cur-2017-01-06/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagResource(request);
+    }
+
+    @SdkInternalApi
+    final UntagResourceResult executeUntagResource(UntagResourceRequest untagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagResourceRequest> request = null;
+        Response<UntagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Cost and Usage Report Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -566,6 +822,11 @@ public class AWSCostAndUsageReportClient extends AmazonWebServiceClient implemen
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,18 +28,24 @@ public class RunJobFlowResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * An unique identifier for the job flow.
+     * A unique identifier for the job flow.
      * </p>
      */
     private String jobFlowId;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the cluster.
+     * </p>
+     */
+    private String clusterArn;
 
     /**
      * <p>
-     * An unique identifier for the job flow.
+     * A unique identifier for the job flow.
      * </p>
      * 
      * @param jobFlowId
-     *        An unique identifier for the job flow.
+     *        A unique identifier for the job flow.
      */
 
     public void setJobFlowId(String jobFlowId) {
@@ -48,10 +54,10 @@ public class RunJobFlowResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * An unique identifier for the job flow.
+     * A unique identifier for the job flow.
      * </p>
      * 
-     * @return An unique identifier for the job flow.
+     * @return A unique identifier for the job flow.
      */
 
     public String getJobFlowId() {
@@ -60,16 +66,56 @@ public class RunJobFlowResult extends com.amazonaws.AmazonWebServiceResult<com.a
 
     /**
      * <p>
-     * An unique identifier for the job flow.
+     * A unique identifier for the job flow.
      * </p>
      * 
      * @param jobFlowId
-     *        An unique identifier for the job flow.
+     *        A unique identifier for the job flow.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public RunJobFlowResult withJobFlowId(String jobFlowId) {
         setJobFlowId(jobFlowId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the cluster.
+     * </p>
+     * 
+     * @param clusterArn
+     *        The Amazon Resource Name (ARN) of the cluster.
+     */
+
+    public void setClusterArn(String clusterArn) {
+        this.clusterArn = clusterArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the cluster.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the cluster.
+     */
+
+    public String getClusterArn() {
+        return this.clusterArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the cluster.
+     * </p>
+     * 
+     * @param clusterArn
+     *        The Amazon Resource Name (ARN) of the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RunJobFlowResult withClusterArn(String clusterArn) {
+        setClusterArn(clusterArn);
         return this;
     }
 
@@ -86,7 +132,9 @@ public class RunJobFlowResult extends com.amazonaws.AmazonWebServiceResult<com.a
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getJobFlowId() != null)
-            sb.append("JobFlowId: ").append(getJobFlowId());
+            sb.append("JobFlowId: ").append(getJobFlowId()).append(",");
+        if (getClusterArn() != null)
+            sb.append("ClusterArn: ").append(getClusterArn());
         sb.append("}");
         return sb.toString();
     }
@@ -105,6 +153,10 @@ public class RunJobFlowResult extends com.amazonaws.AmazonWebServiceResult<com.a
             return false;
         if (other.getJobFlowId() != null && other.getJobFlowId().equals(this.getJobFlowId()) == false)
             return false;
+        if (other.getClusterArn() == null ^ this.getClusterArn() == null)
+            return false;
+        if (other.getClusterArn() != null && other.getClusterArn().equals(this.getClusterArn()) == false)
+            return false;
         return true;
     }
 
@@ -114,6 +166,7 @@ public class RunJobFlowResult extends com.amazonaws.AmazonWebServiceResult<com.a
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getJobFlowId() == null) ? 0 : getJobFlowId().hashCode());
+        hashCode = prime * hashCode + ((getClusterArn() == null) ? 0 : getClusterArn().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class ContextDataType implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Source IP address of your user.
+     * The source IP address of your user's device.
      * </p>
      */
     private String ipAddress;
@@ -54,19 +54,21 @@ public class ContextDataType implements Serializable, Cloneable, StructuredPojo 
     private java.util.List<HttpHeader> httpHeaders;
     /**
      * <p>
-     * Encoded data containing device fingerprinting details, collected using the Amazon Cognito context data collection
-     * library.
+     * Encoded device-fingerprint details that your app collected with the Amazon Cognito context data collection
+     * library. For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html#user-pool-settings-adaptive-authentication-device-fingerprint"
+     * >Adding user device and session data to API requests</a>.
      * </p>
      */
     private String encodedData;
 
     /**
      * <p>
-     * Source IP address of your user.
+     * The source IP address of your user's device.
      * </p>
      * 
      * @param ipAddress
-     *        Source IP address of your user.
+     *        The source IP address of your user's device.
      */
 
     public void setIpAddress(String ipAddress) {
@@ -75,10 +77,10 @@ public class ContextDataType implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Source IP address of your user.
+     * The source IP address of your user's device.
      * </p>
      * 
-     * @return Source IP address of your user.
+     * @return The source IP address of your user's device.
      */
 
     public String getIpAddress() {
@@ -87,11 +89,11 @@ public class ContextDataType implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Source IP address of your user.
+     * The source IP address of your user's device.
      * </p>
      * 
      * @param ipAddress
-     *        Source IP address of your user.
+     *        The source IP address of your user's device.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -252,13 +254,17 @@ public class ContextDataType implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Encoded data containing device fingerprinting details, collected using the Amazon Cognito context data collection
-     * library.
+     * Encoded device-fingerprint details that your app collected with the Amazon Cognito context data collection
+     * library. For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html#user-pool-settings-adaptive-authentication-device-fingerprint"
+     * >Adding user device and session data to API requests</a>.
      * </p>
      * 
      * @param encodedData
-     *        Encoded data containing device fingerprinting details, collected using the Amazon Cognito context data
-     *        collection library.
+     *        Encoded device-fingerprint details that your app collected with the Amazon Cognito context data collection
+     *        library. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html#user-pool-settings-adaptive-authentication-device-fingerprint"
+     *        >Adding user device and session data to API requests</a>.
      */
 
     public void setEncodedData(String encodedData) {
@@ -267,12 +273,16 @@ public class ContextDataType implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Encoded data containing device fingerprinting details, collected using the Amazon Cognito context data collection
-     * library.
+     * Encoded device-fingerprint details that your app collected with the Amazon Cognito context data collection
+     * library. For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html#user-pool-settings-adaptive-authentication-device-fingerprint"
+     * >Adding user device and session data to API requests</a>.
      * </p>
      * 
-     * @return Encoded data containing device fingerprinting details, collected using the Amazon Cognito context data
-     *         collection library.
+     * @return Encoded device-fingerprint details that your app collected with the Amazon Cognito context data
+     *         collection library. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html#user-pool-settings-adaptive-authentication-device-fingerprint"
+     *         >Adding user device and session data to API requests</a>.
      */
 
     public String getEncodedData() {
@@ -281,13 +291,17 @@ public class ContextDataType implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Encoded data containing device fingerprinting details, collected using the Amazon Cognito context data collection
-     * library.
+     * Encoded device-fingerprint details that your app collected with the Amazon Cognito context data collection
+     * library. For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html#user-pool-settings-adaptive-authentication-device-fingerprint"
+     * >Adding user device and session data to API requests</a>.
      * </p>
      * 
      * @param encodedData
-     *        Encoded data containing device fingerprinting details, collected using the Amazon Cognito context data
-     *        collection library.
+     *        Encoded device-fingerprint details that your app collected with the Amazon Cognito context data collection
+     *        library. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html#user-pool-settings-adaptive-authentication-device-fingerprint"
+     *        >Adding user device and session data to API requests</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

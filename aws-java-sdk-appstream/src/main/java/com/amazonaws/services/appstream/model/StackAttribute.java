@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,11 @@ public enum StackAttribute {
     REDIRECT_URL("REDIRECT_URL"),
     FEEDBACK_URL("FEEDBACK_URL"),
     THEME_NAME("THEME_NAME"),
-    USER_SETTINGS("USER_SETTINGS");
+    USER_SETTINGS("USER_SETTINGS"),
+    EMBED_HOST_DOMAINS("EMBED_HOST_DOMAINS"),
+    IAM_ROLE_ARN("IAM_ROLE_ARN"),
+    ACCESS_ENDPOINTS("ACCESS_ENDPOINTS"),
+    STREAMING_EXPERIENCE_SETTINGS("STREAMING_EXPERIENCE_SETTINGS");
 
     private String value;
 

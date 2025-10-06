@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,7 +29,7 @@ public class RegisterStreamConsumerRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The ARN of the Kinesis data stream that you want to register the consumer with. For more info, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams"
-     * >Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.
+     * >Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.
      * </p>
      */
     private String streamARN;
@@ -45,14 +45,14 @@ public class RegisterStreamConsumerRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The ARN of the Kinesis data stream that you want to register the consumer with. For more info, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams"
-     * >Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.
+     * >Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.
      * </p>
      * 
      * @param streamARN
      *        The ARN of the Kinesis data stream that you want to register the consumer with. For more info, see <a
      *        href=
      *        "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams"
-     *        >Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.
+     *        >Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.
      */
 
     public void setStreamARN(String streamARN) {
@@ -63,13 +63,13 @@ public class RegisterStreamConsumerRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The ARN of the Kinesis data stream that you want to register the consumer with. For more info, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams"
-     * >Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.
+     * >Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.
      * </p>
      * 
      * @return The ARN of the Kinesis data stream that you want to register the consumer with. For more info, see <a
      *         href
      *         ="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams"
-     *         >Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.
+     *         >Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.
      */
 
     public String getStreamARN() {
@@ -80,14 +80,14 @@ public class RegisterStreamConsumerRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * The ARN of the Kinesis data stream that you want to register the consumer with. For more info, see <a
      * href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams"
-     * >Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.
+     * >Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.
      * </p>
      * 
      * @param streamARN
      *        The ARN of the Kinesis data stream that you want to register the consumer with. For more info, see <a
      *        href=
      *        "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams"
-     *        >Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.
+     *        >Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

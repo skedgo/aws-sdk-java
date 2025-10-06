@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information required to publish the MQTT message via the AWS IoT message broker.
+ * Information required to publish the MQTT message through the AWS IoT message broker.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iotevents-2018-07-27/IotTopicPublishAction" target="_top">AWS
@@ -30,18 +30,30 @@ public class IotTopicPublishAction implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The MQTT topic of the message.
+     * The MQTT topic of the message. You can use a string expression that includes variables (
+     * <code>$variable.&lt;variable-name&gt;</code>) and input values (
+     * <code>$input.&lt;input-name&gt;.&lt;path-to-datum&gt;</code>) as the topic string.
      * </p>
      */
     private String mqttTopic;
+    /**
+     * <p>
+     * You can configure the action payload when you publish a message to an AWS IoT Core topic.
+     * </p>
+     */
+    private Payload payload;
 
     /**
      * <p>
-     * The MQTT topic of the message.
+     * The MQTT topic of the message. You can use a string expression that includes variables (
+     * <code>$variable.&lt;variable-name&gt;</code>) and input values (
+     * <code>$input.&lt;input-name&gt;.&lt;path-to-datum&gt;</code>) as the topic string.
      * </p>
      * 
      * @param mqttTopic
-     *        The MQTT topic of the message.
+     *        The MQTT topic of the message. You can use a string expression that includes variables (
+     *        <code>$variable.&lt;variable-name&gt;</code>) and input values (
+     *        <code>$input.&lt;input-name&gt;.&lt;path-to-datum&gt;</code>) as the topic string.
      */
 
     public void setMqttTopic(String mqttTopic) {
@@ -50,10 +62,14 @@ public class IotTopicPublishAction implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The MQTT topic of the message.
+     * The MQTT topic of the message. You can use a string expression that includes variables (
+     * <code>$variable.&lt;variable-name&gt;</code>) and input values (
+     * <code>$input.&lt;input-name&gt;.&lt;path-to-datum&gt;</code>) as the topic string.
      * </p>
      * 
-     * @return The MQTT topic of the message.
+     * @return The MQTT topic of the message. You can use a string expression that includes variables (
+     *         <code>$variable.&lt;variable-name&gt;</code>) and input values (
+     *         <code>$input.&lt;input-name&gt;.&lt;path-to-datum&gt;</code>) as the topic string.
      */
 
     public String getMqttTopic() {
@@ -62,16 +78,60 @@ public class IotTopicPublishAction implements Serializable, Cloneable, Structure
 
     /**
      * <p>
-     * The MQTT topic of the message.
+     * The MQTT topic of the message. You can use a string expression that includes variables (
+     * <code>$variable.&lt;variable-name&gt;</code>) and input values (
+     * <code>$input.&lt;input-name&gt;.&lt;path-to-datum&gt;</code>) as the topic string.
      * </p>
      * 
      * @param mqttTopic
-     *        The MQTT topic of the message.
+     *        The MQTT topic of the message. You can use a string expression that includes variables (
+     *        <code>$variable.&lt;variable-name&gt;</code>) and input values (
+     *        <code>$input.&lt;input-name&gt;.&lt;path-to-datum&gt;</code>) as the topic string.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public IotTopicPublishAction withMqttTopic(String mqttTopic) {
         setMqttTopic(mqttTopic);
+        return this;
+    }
+
+    /**
+     * <p>
+     * You can configure the action payload when you publish a message to an AWS IoT Core topic.
+     * </p>
+     * 
+     * @param payload
+     *        You can configure the action payload when you publish a message to an AWS IoT Core topic.
+     */
+
+    public void setPayload(Payload payload) {
+        this.payload = payload;
+    }
+
+    /**
+     * <p>
+     * You can configure the action payload when you publish a message to an AWS IoT Core topic.
+     * </p>
+     * 
+     * @return You can configure the action payload when you publish a message to an AWS IoT Core topic.
+     */
+
+    public Payload getPayload() {
+        return this.payload;
+    }
+
+    /**
+     * <p>
+     * You can configure the action payload when you publish a message to an AWS IoT Core topic.
+     * </p>
+     * 
+     * @param payload
+     *        You can configure the action payload when you publish a message to an AWS IoT Core topic.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public IotTopicPublishAction withPayload(Payload payload) {
+        setPayload(payload);
         return this;
     }
 
@@ -88,7 +148,9 @@ public class IotTopicPublishAction implements Serializable, Cloneable, Structure
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getMqttTopic() != null)
-            sb.append("MqttTopic: ").append(getMqttTopic());
+            sb.append("MqttTopic: ").append(getMqttTopic()).append(",");
+        if (getPayload() != null)
+            sb.append("Payload: ").append(getPayload());
         sb.append("}");
         return sb.toString();
     }
@@ -107,6 +169,10 @@ public class IotTopicPublishAction implements Serializable, Cloneable, Structure
             return false;
         if (other.getMqttTopic() != null && other.getMqttTopic().equals(this.getMqttTopic()) == false)
             return false;
+        if (other.getPayload() == null ^ this.getPayload() == null)
+            return false;
+        if (other.getPayload() != null && other.getPayload().equals(this.getPayload()) == false)
+            return false;
         return true;
     }
 
@@ -116,6 +182,7 @@ public class IotTopicPublishAction implements Serializable, Cloneable, Structure
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getMqttTopic() == null) ? 0 : getMqttTopic().hashCode());
+        hashCode = prime * hashCode + ((getPayload() == null) ? 0 : getPayload().hashCode());
         return hashCode;
     }
 

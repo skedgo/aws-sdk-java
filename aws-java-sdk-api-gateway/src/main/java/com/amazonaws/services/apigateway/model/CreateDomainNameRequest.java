@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * [Required] The name of the <a>DomainName</a> resource.
+     * The name of the DomainName resource.
      * </p>
      */
     private String domainName;
@@ -62,8 +62,8 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
     private String certificateChain;
     /**
      * <p>
-     * The reference to an AWS-managed certificate that will be used by edge-optimized endpoint for this domain name.
-     * AWS Certificate Manager is the only supported source.
+     * The reference to an Amazon Web Services-managed certificate that will be used by edge-optimized endpoint for this
+     * domain name. Certificate Manager is the only supported source.
      * </p>
      */
     private String certificateArn;
@@ -75,14 +75,14 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
     private String regionalCertificateName;
     /**
      * <p>
-     * The reference to an AWS-managed certificate that will be used by regional endpoint for this domain name. AWS
-     * Certificate Manager is the only supported source.
+     * The reference to an Amazon Web Services-managed certificate that will be used by regional endpoint for this
+     * domain name. Certificate Manager is the only supported source.
      * </p>
      */
     private String regionalCertificateArn;
     /**
      * <p>
-     * The endpoint configuration of this <a>DomainName</a> showing the endpoint types of the domain name.
+     * The endpoint configuration of this DomainName showing the endpoint types of the domain name.
      * </p>
      */
     private EndpointConfiguration endpointConfiguration;
@@ -95,19 +95,28 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
     private java.util.Map<String, String> tags;
     /**
      * <p>
-     * The Transport Layer Security (TLS) version + cipher suite for this <a>DomainName</a>. The valid values are
+     * The Transport Layer Security (TLS) version + cipher suite for this DomainName. The valid values are
      * <code>TLS_1_0</code> and <code>TLS_1_2</code>.
      * </p>
      */
     private String securityPolicy;
 
+    private MutualTlsAuthenticationInput mutualTlsAuthentication;
     /**
      * <p>
-     * [Required] The name of the <a>DomainName</a> resource.
+     * The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required when
+     * configuring mutual TLS and using an ACM imported or private CA certificate ARN as the regionalCertificateArn.
+     * </p>
+     */
+    private String ownershipVerificationCertificateArn;
+
+    /**
+     * <p>
+     * The name of the DomainName resource.
      * </p>
      * 
      * @param domainName
-     *        [Required] The name of the <a>DomainName</a> resource.
+     *        The name of the DomainName resource.
      */
 
     public void setDomainName(String domainName) {
@@ -116,10 +125,10 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * [Required] The name of the <a>DomainName</a> resource.
+     * The name of the DomainName resource.
      * </p>
      * 
-     * @return [Required] The name of the <a>DomainName</a> resource.
+     * @return The name of the DomainName resource.
      */
 
     public String getDomainName() {
@@ -128,11 +137,11 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * [Required] The name of the <a>DomainName</a> resource.
+     * The name of the DomainName resource.
      * </p>
      * 
      * @param domainName
-     *        [Required] The name of the <a>DomainName</a> resource.
+     *        The name of the DomainName resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -336,13 +345,13 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The reference to an AWS-managed certificate that will be used by edge-optimized endpoint for this domain name.
-     * AWS Certificate Manager is the only supported source.
+     * The reference to an Amazon Web Services-managed certificate that will be used by edge-optimized endpoint for this
+     * domain name. Certificate Manager is the only supported source.
      * </p>
      * 
      * @param certificateArn
-     *        The reference to an AWS-managed certificate that will be used by edge-optimized endpoint for this domain
-     *        name. AWS Certificate Manager is the only supported source.
+     *        The reference to an Amazon Web Services-managed certificate that will be used by edge-optimized endpoint
+     *        for this domain name. Certificate Manager is the only supported source.
      */
 
     public void setCertificateArn(String certificateArn) {
@@ -351,12 +360,12 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The reference to an AWS-managed certificate that will be used by edge-optimized endpoint for this domain name.
-     * AWS Certificate Manager is the only supported source.
+     * The reference to an Amazon Web Services-managed certificate that will be used by edge-optimized endpoint for this
+     * domain name. Certificate Manager is the only supported source.
      * </p>
      * 
-     * @return The reference to an AWS-managed certificate that will be used by edge-optimized endpoint for this domain
-     *         name. AWS Certificate Manager is the only supported source.
+     * @return The reference to an Amazon Web Services-managed certificate that will be used by edge-optimized endpoint
+     *         for this domain name. Certificate Manager is the only supported source.
      */
 
     public String getCertificateArn() {
@@ -365,13 +374,13 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The reference to an AWS-managed certificate that will be used by edge-optimized endpoint for this domain name.
-     * AWS Certificate Manager is the only supported source.
+     * The reference to an Amazon Web Services-managed certificate that will be used by edge-optimized endpoint for this
+     * domain name. Certificate Manager is the only supported source.
      * </p>
      * 
      * @param certificateArn
-     *        The reference to an AWS-managed certificate that will be used by edge-optimized endpoint for this domain
-     *        name. AWS Certificate Manager is the only supported source.
+     *        The reference to an Amazon Web Services-managed certificate that will be used by edge-optimized endpoint
+     *        for this domain name. Certificate Manager is the only supported source.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -422,13 +431,13 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The reference to an AWS-managed certificate that will be used by regional endpoint for this domain name. AWS
-     * Certificate Manager is the only supported source.
+     * The reference to an Amazon Web Services-managed certificate that will be used by regional endpoint for this
+     * domain name. Certificate Manager is the only supported source.
      * </p>
      * 
      * @param regionalCertificateArn
-     *        The reference to an AWS-managed certificate that will be used by regional endpoint for this domain name.
-     *        AWS Certificate Manager is the only supported source.
+     *        The reference to an Amazon Web Services-managed certificate that will be used by regional endpoint for
+     *        this domain name. Certificate Manager is the only supported source.
      */
 
     public void setRegionalCertificateArn(String regionalCertificateArn) {
@@ -437,12 +446,12 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The reference to an AWS-managed certificate that will be used by regional endpoint for this domain name. AWS
-     * Certificate Manager is the only supported source.
+     * The reference to an Amazon Web Services-managed certificate that will be used by regional endpoint for this
+     * domain name. Certificate Manager is the only supported source.
      * </p>
      * 
-     * @return The reference to an AWS-managed certificate that will be used by regional endpoint for this domain name.
-     *         AWS Certificate Manager is the only supported source.
+     * @return The reference to an Amazon Web Services-managed certificate that will be used by regional endpoint for
+     *         this domain name. Certificate Manager is the only supported source.
      */
 
     public String getRegionalCertificateArn() {
@@ -451,13 +460,13 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The reference to an AWS-managed certificate that will be used by regional endpoint for this domain name. AWS
-     * Certificate Manager is the only supported source.
+     * The reference to an Amazon Web Services-managed certificate that will be used by regional endpoint for this
+     * domain name. Certificate Manager is the only supported source.
      * </p>
      * 
      * @param regionalCertificateArn
-     *        The reference to an AWS-managed certificate that will be used by regional endpoint for this domain name.
-     *        AWS Certificate Manager is the only supported source.
+     *        The reference to an Amazon Web Services-managed certificate that will be used by regional endpoint for
+     *        this domain name. Certificate Manager is the only supported source.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -468,11 +477,11 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The endpoint configuration of this <a>DomainName</a> showing the endpoint types of the domain name.
+     * The endpoint configuration of this DomainName showing the endpoint types of the domain name.
      * </p>
      * 
      * @param endpointConfiguration
-     *        The endpoint configuration of this <a>DomainName</a> showing the endpoint types of the domain name.
+     *        The endpoint configuration of this DomainName showing the endpoint types of the domain name.
      */
 
     public void setEndpointConfiguration(EndpointConfiguration endpointConfiguration) {
@@ -481,10 +490,10 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The endpoint configuration of this <a>DomainName</a> showing the endpoint types of the domain name.
+     * The endpoint configuration of this DomainName showing the endpoint types of the domain name.
      * </p>
      * 
-     * @return The endpoint configuration of this <a>DomainName</a> showing the endpoint types of the domain name.
+     * @return The endpoint configuration of this DomainName showing the endpoint types of the domain name.
      */
 
     public EndpointConfiguration getEndpointConfiguration() {
@@ -493,11 +502,11 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The endpoint configuration of this <a>DomainName</a> showing the endpoint types of the domain name.
+     * The endpoint configuration of this DomainName showing the endpoint types of the domain name.
      * </p>
      * 
      * @param endpointConfiguration
-     *        The endpoint configuration of this <a>DomainName</a> showing the endpoint types of the domain name.
+     *        The endpoint configuration of this DomainName showing the endpoint types of the domain name.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -552,6 +561,13 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
         return this;
     }
 
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateDomainNameRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public CreateDomainNameRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {
             this.tags = new java.util.HashMap<String, String>();
@@ -575,12 +591,12 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Transport Layer Security (TLS) version + cipher suite for this <a>DomainName</a>. The valid values are
+     * The Transport Layer Security (TLS) version + cipher suite for this DomainName. The valid values are
      * <code>TLS_1_0</code> and <code>TLS_1_2</code>.
      * </p>
      * 
      * @param securityPolicy
-     *        The Transport Layer Security (TLS) version + cipher suite for this <a>DomainName</a>. The valid values are
+     *        The Transport Layer Security (TLS) version + cipher suite for this DomainName. The valid values are
      *        <code>TLS_1_0</code> and <code>TLS_1_2</code>.
      * @see SecurityPolicy
      */
@@ -591,12 +607,12 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Transport Layer Security (TLS) version + cipher suite for this <a>DomainName</a>. The valid values are
+     * The Transport Layer Security (TLS) version + cipher suite for this DomainName. The valid values are
      * <code>TLS_1_0</code> and <code>TLS_1_2</code>.
      * </p>
      * 
-     * @return The Transport Layer Security (TLS) version + cipher suite for this <a>DomainName</a>. The valid values
-     *         are <code>TLS_1_0</code> and <code>TLS_1_2</code>.
+     * @return The Transport Layer Security (TLS) version + cipher suite for this DomainName. The valid values are
+     *         <code>TLS_1_0</code> and <code>TLS_1_2</code>.
      * @see SecurityPolicy
      */
 
@@ -606,12 +622,12 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Transport Layer Security (TLS) version + cipher suite for this <a>DomainName</a>. The valid values are
+     * The Transport Layer Security (TLS) version + cipher suite for this DomainName. The valid values are
      * <code>TLS_1_0</code> and <code>TLS_1_2</code>.
      * </p>
      * 
      * @param securityPolicy
-     *        The Transport Layer Security (TLS) version + cipher suite for this <a>DomainName</a>. The valid values are
+     *        The Transport Layer Security (TLS) version + cipher suite for this DomainName. The valid values are
      *        <code>TLS_1_0</code> and <code>TLS_1_2</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SecurityPolicy
@@ -624,12 +640,12 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The Transport Layer Security (TLS) version + cipher suite for this <a>DomainName</a>. The valid values are
+     * The Transport Layer Security (TLS) version + cipher suite for this DomainName. The valid values are
      * <code>TLS_1_0</code> and <code>TLS_1_2</code>.
      * </p>
      * 
      * @param securityPolicy
-     *        The Transport Layer Security (TLS) version + cipher suite for this <a>DomainName</a>. The valid values are
+     *        The Transport Layer Security (TLS) version + cipher suite for this DomainName. The valid values are
      *        <code>TLS_1_0</code> and <code>TLS_1_2</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SecurityPolicy
@@ -637,6 +653,81 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
 
     public CreateDomainNameRequest withSecurityPolicy(SecurityPolicy securityPolicy) {
         this.securityPolicy = securityPolicy.toString();
+        return this;
+    }
+
+    /**
+     * @param mutualTlsAuthentication
+     */
+
+    public void setMutualTlsAuthentication(MutualTlsAuthenticationInput mutualTlsAuthentication) {
+        this.mutualTlsAuthentication = mutualTlsAuthentication;
+    }
+
+    /**
+     * @return
+     */
+
+    public MutualTlsAuthenticationInput getMutualTlsAuthentication() {
+        return this.mutualTlsAuthentication;
+    }
+
+    /**
+     * @param mutualTlsAuthentication
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDomainNameRequest withMutualTlsAuthentication(MutualTlsAuthenticationInput mutualTlsAuthentication) {
+        setMutualTlsAuthentication(mutualTlsAuthentication);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required when
+     * configuring mutual TLS and using an ACM imported or private CA certificate ARN as the regionalCertificateArn.
+     * </p>
+     * 
+     * @param ownershipVerificationCertificateArn
+     *        The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required
+     *        when configuring mutual TLS and using an ACM imported or private CA certificate ARN as the
+     *        regionalCertificateArn.
+     */
+
+    public void setOwnershipVerificationCertificateArn(String ownershipVerificationCertificateArn) {
+        this.ownershipVerificationCertificateArn = ownershipVerificationCertificateArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required when
+     * configuring mutual TLS and using an ACM imported or private CA certificate ARN as the regionalCertificateArn.
+     * </p>
+     * 
+     * @return The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only
+     *         required when configuring mutual TLS and using an ACM imported or private CA certificate ARN as the
+     *         regionalCertificateArn.
+     */
+
+    public String getOwnershipVerificationCertificateArn() {
+        return this.ownershipVerificationCertificateArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required when
+     * configuring mutual TLS and using an ACM imported or private CA certificate ARN as the regionalCertificateArn.
+     * </p>
+     * 
+     * @param ownershipVerificationCertificateArn
+     *        The ARN of the public certificate issued by ACM to validate ownership of your custom domain. Only required
+     *        when configuring mutual TLS and using an ACM imported or private CA certificate ARN as the
+     *        regionalCertificateArn.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDomainNameRequest withOwnershipVerificationCertificateArn(String ownershipVerificationCertificateArn) {
+        setOwnershipVerificationCertificateArn(ownershipVerificationCertificateArn);
         return this;
     }
 
@@ -673,7 +764,11 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getSecurityPolicy() != null)
-            sb.append("SecurityPolicy: ").append(getSecurityPolicy());
+            sb.append("SecurityPolicy: ").append(getSecurityPolicy()).append(",");
+        if (getMutualTlsAuthentication() != null)
+            sb.append("MutualTlsAuthentication: ").append(getMutualTlsAuthentication()).append(",");
+        if (getOwnershipVerificationCertificateArn() != null)
+            sb.append("OwnershipVerificationCertificateArn: ").append(getOwnershipVerificationCertificateArn());
         sb.append("}");
         return sb.toString();
     }
@@ -732,6 +827,15 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
             return false;
         if (other.getSecurityPolicy() != null && other.getSecurityPolicy().equals(this.getSecurityPolicy()) == false)
             return false;
+        if (other.getMutualTlsAuthentication() == null ^ this.getMutualTlsAuthentication() == null)
+            return false;
+        if (other.getMutualTlsAuthentication() != null && other.getMutualTlsAuthentication().equals(this.getMutualTlsAuthentication()) == false)
+            return false;
+        if (other.getOwnershipVerificationCertificateArn() == null ^ this.getOwnershipVerificationCertificateArn() == null)
+            return false;
+        if (other.getOwnershipVerificationCertificateArn() != null
+                && other.getOwnershipVerificationCertificateArn().equals(this.getOwnershipVerificationCertificateArn()) == false)
+            return false;
         return true;
     }
 
@@ -751,6 +855,8 @@ public class CreateDomainNameRequest extends com.amazonaws.AmazonWebServiceReque
         hashCode = prime * hashCode + ((getEndpointConfiguration() == null) ? 0 : getEndpointConfiguration().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getSecurityPolicy() == null) ? 0 : getSecurityPolicy().hashCode());
+        hashCode = prime * hashCode + ((getMutualTlsAuthentication() == null) ? 0 : getMutualTlsAuthentication().hashCode());
+        hashCode = prime * hashCode + ((getOwnershipVerificationCertificateArn() == null) ? 0 : getOwnershipVerificationCertificateArn().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -92,9 +92,14 @@ public class HealthCheckConfig implements Serializable, Cloneable {
     private String iPAddress;
     /**
      * <p>
-     * The port on the endpoint on which you want Amazon Route 53 to perform health checks. Specify a value for
-     * <code>Port</code> only when you specify a value for <code>IPAddress</code>.
+     * The port on the endpoint that you want Amazon Route 53 to perform health checks on.
      * </p>
+     * <note>
+     * <p>
+     * Don't specify a value for <code>Port</code> when you specify a value for <code>Type</code> of
+     * <code>CLOUDWATCH_METRIC</code> or <code>CALCULATED</code>.
+     * </p>
+     * </note>
      */
     private Integer port;
     /**
@@ -164,6 +169,13 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * <code>HealthThreshold</code>.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <b>RECOVERY_CONTROL</b>: The health check is associated with a Route53 Application Recovery Controller routing
+     * control. If the routing control state is <code>ON</code>, the health check is considered healthy. If the state is
+     * <code>OFF</code>, the health check is considered unhealthy.
+     * </p>
+     * </li>
      * </ul>
      * <p>
      * For more information, see <a href=
@@ -224,7 +236,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * <code>IPAddress</code> in the <code>Host</code> header in each of the preceding cases.
      * </p>
      * <p>
-     * <b>If you don't specify a value for <code>IPAddress</code> </b>:
+     * <b>If you don't specify a value for</b> <code>IPAddress</code>:
      * </p>
      * <p>
      * Route 53 sends a DNS request to the domain that you specify for <code>FullyQualifiedDomainName</code> at the
@@ -263,7 +275,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
     private String fullyQualifiedDomainName;
     /**
      * <p>
-     * If the value of Type is <code>HTTP_STR_MATCH</code> or <code>HTTP_STR_MATCH</code>, the string that you want
+     * If the value of Type is <code>HTTP_STR_MATCH</code> or <code>HTTPS_STR_MATCH</code>, the string that you want
      * Amazon Route 53 to search for in the response body from the specified resource. If the string appears in the
      * response body, Route 53 considers the resource healthy.
      * </p>
@@ -291,7 +303,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * <p>
      * The number of consecutive health checks that an endpoint must pass or fail for Amazon Route 53 to change the
      * current status of the endpoint from unhealthy to healthy or vice versa. For more information, see <a href=
-     * "http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html">How
+     * "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html">How
      * Amazon Route 53 Determines Whether an Endpoint Is Healthy</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * <p>
@@ -301,9 +313,9 @@ public class HealthCheckConfig implements Serializable, Cloneable {
     private Integer failureThreshold;
     /**
      * <p>
-     * Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple AWS regions
-     * and your endpoint, and to display CloudWatch latency graphs on the <b>Health Checks</b> page in the Route 53
-     * console.
+     * Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple Amazon Web
+     * Services regions and your endpoint, and to display CloudWatch latency graphs on the <b>Health Checks</b> page in
+     * the Route 53 console.
      * </p>
      * <important>
      * <p>
@@ -460,6 +472,17 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * </ul>
      */
     private String insufficientDataHealthStatus;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the Route 53 Application Recovery Controller routing control.
+     * </p>
+     * <p>
+     * For more information about Route 53 Application Recovery Controller, see <a
+     * href="https://docs.aws.amazon.com/r53recovery/latest/dg/what-is-route-53-recovery.html">Route 53 Application
+     * Recovery Controller Developer Guide.</a>.
+     * </p>
+     */
+    private String routingControlArn;
 
     /**
      * <p>
@@ -851,13 +874,21 @@ public class HealthCheckConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The port on the endpoint on which you want Amazon Route 53 to perform health checks. Specify a value for
-     * <code>Port</code> only when you specify a value for <code>IPAddress</code>.
+     * The port on the endpoint that you want Amazon Route 53 to perform health checks on.
      * </p>
+     * <note>
+     * <p>
+     * Don't specify a value for <code>Port</code> when you specify a value for <code>Type</code> of
+     * <code>CLOUDWATCH_METRIC</code> or <code>CALCULATED</code>.
+     * </p>
+     * </note>
      * 
      * @param port
-     *        The port on the endpoint on which you want Amazon Route 53 to perform health checks. Specify a value for
-     *        <code>Port</code> only when you specify a value for <code>IPAddress</code>.
+     *        The port on the endpoint that you want Amazon Route 53 to perform health checks on.</p> <note>
+     *        <p>
+     *        Don't specify a value for <code>Port</code> when you specify a value for <code>Type</code> of
+     *        <code>CLOUDWATCH_METRIC</code> or <code>CALCULATED</code>.
+     *        </p>
      */
 
     public void setPort(Integer port) {
@@ -866,12 +897,20 @@ public class HealthCheckConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The port on the endpoint on which you want Amazon Route 53 to perform health checks. Specify a value for
-     * <code>Port</code> only when you specify a value for <code>IPAddress</code>.
+     * The port on the endpoint that you want Amazon Route 53 to perform health checks on.
      * </p>
+     * <note>
+     * <p>
+     * Don't specify a value for <code>Port</code> when you specify a value for <code>Type</code> of
+     * <code>CLOUDWATCH_METRIC</code> or <code>CALCULATED</code>.
+     * </p>
+     * </note>
      * 
-     * @return The port on the endpoint on which you want Amazon Route 53 to perform health checks. Specify a value for
-     *         <code>Port</code> only when you specify a value for <code>IPAddress</code>.
+     * @return The port on the endpoint that you want Amazon Route 53 to perform health checks on.</p> <note>
+     *         <p>
+     *         Don't specify a value for <code>Port</code> when you specify a value for <code>Type</code> of
+     *         <code>CLOUDWATCH_METRIC</code> or <code>CALCULATED</code>.
+     *         </p>
      */
 
     public Integer getPort() {
@@ -880,13 +919,21 @@ public class HealthCheckConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The port on the endpoint on which you want Amazon Route 53 to perform health checks. Specify a value for
-     * <code>Port</code> only when you specify a value for <code>IPAddress</code>.
+     * The port on the endpoint that you want Amazon Route 53 to perform health checks on.
      * </p>
+     * <note>
+     * <p>
+     * Don't specify a value for <code>Port</code> when you specify a value for <code>Type</code> of
+     * <code>CLOUDWATCH_METRIC</code> or <code>CALCULATED</code>.
+     * </p>
+     * </note>
      * 
      * @param port
-     *        The port on the endpoint on which you want Amazon Route 53 to perform health checks. Specify a value for
-     *        <code>Port</code> only when you specify a value for <code>IPAddress</code>.
+     *        The port on the endpoint that you want Amazon Route 53 to perform health checks on.</p> <note>
+     *        <p>
+     *        Don't specify a value for <code>Port</code> when you specify a value for <code>Type</code> of
+     *        <code>CLOUDWATCH_METRIC</code> or <code>CALCULATED</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -962,6 +1009,13 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * <code>HealthThreshold</code>.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <b>RECOVERY_CONTROL</b>: The health check is associated with a Route53 Application Recovery Controller routing
+     * control. If the routing control state is <code>ON</code>, the health check is considered healthy. If the state is
+     * <code>OFF</code>, the health check is considered unhealthy.
+     * </p>
+     * </li>
      * </ul>
      * <p>
      * For more information, see <a href=
@@ -1031,6 +1085,13 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      *        <b>CALCULATED</b>: For health checks that monitor the status of other health checks, Route 53 adds up the
      *        number of health checks that Route 53 health checkers consider to be healthy and compares that number with
      *        the value of <code>HealthThreshold</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>RECOVERY_CONTROL</b>: The health check is associated with a Route53 Application Recovery Controller
+     *        routing control. If the routing control state is <code>ON</code>, the health check is considered healthy.
+     *        If the state is <code>OFF</code>, the health check is considered unhealthy.
      *        </p>
      *        </li>
      *        </ul>
@@ -1112,6 +1173,13 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * <code>HealthThreshold</code>.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <b>RECOVERY_CONTROL</b>: The health check is associated with a Route53 Application Recovery Controller routing
+     * control. If the routing control state is <code>ON</code>, the health check is considered healthy. If the state is
+     * <code>OFF</code>, the health check is considered unhealthy.
+     * </p>
+     * </li>
      * </ul>
      * <p>
      * For more information, see <a href=
@@ -1180,6 +1248,13 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      *         <b>CALCULATED</b>: For health checks that monitor the status of other health checks, Route 53 adds up the
      *         number of health checks that Route 53 health checkers consider to be healthy and compares that number
      *         with the value of <code>HealthThreshold</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>RECOVERY_CONTROL</b>: The health check is associated with a Route53 Application Recovery Controller
+     *         routing control. If the routing control state is <code>ON</code>, the health check is considered healthy.
+     *         If the state is <code>OFF</code>, the health check is considered unhealthy.
      *         </p>
      *         </li>
      *         </ul>
@@ -1262,6 +1337,13 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * <code>HealthThreshold</code>.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <b>RECOVERY_CONTROL</b>: The health check is associated with a Route53 Application Recovery Controller routing
+     * control. If the routing control state is <code>ON</code>, the health check is considered healthy. If the state is
+     * <code>OFF</code>, the health check is considered unhealthy.
+     * </p>
+     * </li>
      * </ul>
      * <p>
      * For more information, see <a href=
@@ -1331,6 +1413,13 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      *        <b>CALCULATED</b>: For health checks that monitor the status of other health checks, Route 53 adds up the
      *        number of health checks that Route 53 health checkers consider to be healthy and compares that number with
      *        the value of <code>HealthThreshold</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>RECOVERY_CONTROL</b>: The health check is associated with a Route53 Application Recovery Controller
+     *        routing control. If the routing control state is <code>ON</code>, the health check is considered healthy.
+     *        If the state is <code>OFF</code>, the health check is considered unhealthy.
      *        </p>
      *        </li>
      *        </ul>
@@ -1414,6 +1503,13 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * <code>HealthThreshold</code>.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <b>RECOVERY_CONTROL</b>: The health check is associated with a Route53 Application Recovery Controller routing
+     * control. If the routing control state is <code>ON</code>, the health check is considered healthy. If the state is
+     * <code>OFF</code>, the health check is considered unhealthy.
+     * </p>
+     * </li>
      * </ul>
      * <p>
      * For more information, see <a href=
@@ -1483,6 +1579,13 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      *        <b>CALCULATED</b>: For health checks that monitor the status of other health checks, Route 53 adds up the
      *        number of health checks that Route 53 health checkers consider to be healthy and compares that number with
      *        the value of <code>HealthThreshold</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>RECOVERY_CONTROL</b>: The health check is associated with a Route53 Application Recovery Controller
+     *        routing control. If the routing control state is <code>ON</code>, the health check is considered healthy.
+     *        If the state is <code>OFF</code>, the health check is considered unhealthy.
      *        </p>
      *        </li>
      *        </ul>
@@ -1564,6 +1667,13 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * <code>HealthThreshold</code>.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <b>RECOVERY_CONTROL</b>: The health check is associated with a Route53 Application Recovery Controller routing
+     * control. If the routing control state is <code>ON</code>, the health check is considered healthy. If the state is
+     * <code>OFF</code>, the health check is considered unhealthy.
+     * </p>
+     * </li>
      * </ul>
      * <p>
      * For more information, see <a href=
@@ -1633,6 +1743,13 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      *        <b>CALCULATED</b>: For health checks that monitor the status of other health checks, Route 53 adds up the
      *        number of health checks that Route 53 health checkers consider to be healthy and compares that number with
      *        the value of <code>HealthThreshold</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>RECOVERY_CONTROL</b>: The health check is associated with a Route53 Application Recovery Controller
+     *        routing control. If the routing control state is <code>ON</code>, the health check is considered healthy.
+     *        If the state is <code>OFF</code>, the health check is considered unhealthy.
      *        </p>
      *        </li>
      *        </ul>
@@ -1750,7 +1867,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * <code>IPAddress</code> in the <code>Host</code> header in each of the preceding cases.
      * </p>
      * <p>
-     * <b>If you don't specify a value for <code>IPAddress</code> </b>:
+     * <b>If you don't specify a value for</b> <code>IPAddress</code>:
      * </p>
      * <p>
      * Route 53 sends a DNS request to the domain that you specify for <code>FullyQualifiedDomainName</code> at the
@@ -1828,7 +1945,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      *        <code>IPAddress</code> in the <code>Host</code> header in each of the preceding cases.
      *        </p>
      *        <p>
-     *        <b>If you don't specify a value for <code>IPAddress</code> </b>:
+     *        <b>If you don't specify a value for</b> <code>IPAddress</code>:
      *        </p>
      *        <p>
      *        Route 53 sends a DNS request to the domain that you specify for <code>FullyQualifiedDomainName</code> at
@@ -1912,7 +2029,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * <code>IPAddress</code> in the <code>Host</code> header in each of the preceding cases.
      * </p>
      * <p>
-     * <b>If you don't specify a value for <code>IPAddress</code> </b>:
+     * <b>If you don't specify a value for</b> <code>IPAddress</code>:
      * </p>
      * <p>
      * Route 53 sends a DNS request to the domain that you specify for <code>FullyQualifiedDomainName</code> at the
@@ -1989,7 +2106,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      *         <code>IPAddress</code> in the <code>Host</code> header in each of the preceding cases.
      *         </p>
      *         <p>
-     *         <b>If you don't specify a value for <code>IPAddress</code> </b>:
+     *         <b>If you don't specify a value for</b> <code>IPAddress</code>:
      *         </p>
      *         <p>
      *         Route 53 sends a DNS request to the domain that you specify for <code>FullyQualifiedDomainName</code> at
@@ -2072,7 +2189,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * <code>IPAddress</code> in the <code>Host</code> header in each of the preceding cases.
      * </p>
      * <p>
-     * <b>If you don't specify a value for <code>IPAddress</code> </b>:
+     * <b>If you don't specify a value for</b> <code>IPAddress</code>:
      * </p>
      * <p>
      * Route 53 sends a DNS request to the domain that you specify for <code>FullyQualifiedDomainName</code> at the
@@ -2150,7 +2267,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      *        <code>IPAddress</code> in the <code>Host</code> header in each of the preceding cases.
      *        </p>
      *        <p>
-     *        <b>If you don't specify a value for <code>IPAddress</code> </b>:
+     *        <b>If you don't specify a value for</b> <code>IPAddress</code>:
      *        </p>
      *        <p>
      *        Route 53 sends a DNS request to the domain that you specify for <code>FullyQualifiedDomainName</code> at
@@ -2195,7 +2312,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If the value of Type is <code>HTTP_STR_MATCH</code> or <code>HTTP_STR_MATCH</code>, the string that you want
+     * If the value of Type is <code>HTTP_STR_MATCH</code> or <code>HTTPS_STR_MATCH</code>, the string that you want
      * Amazon Route 53 to search for in the response body from the specified resource. If the string appears in the
      * response body, Route 53 considers the resource healthy.
      * </p>
@@ -2204,7 +2321,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * </p>
      * 
      * @param searchString
-     *        If the value of Type is <code>HTTP_STR_MATCH</code> or <code>HTTP_STR_MATCH</code>, the string that you
+     *        If the value of Type is <code>HTTP_STR_MATCH</code> or <code>HTTPS_STR_MATCH</code>, the string that you
      *        want Amazon Route 53 to search for in the response body from the specified resource. If the string appears
      *        in the response body, Route 53 considers the resource healthy.</p>
      *        <p>
@@ -2217,7 +2334,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If the value of Type is <code>HTTP_STR_MATCH</code> or <code>HTTP_STR_MATCH</code>, the string that you want
+     * If the value of Type is <code>HTTP_STR_MATCH</code> or <code>HTTPS_STR_MATCH</code>, the string that you want
      * Amazon Route 53 to search for in the response body from the specified resource. If the string appears in the
      * response body, Route 53 considers the resource healthy.
      * </p>
@@ -2225,7 +2342,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * Route 53 considers case when searching for <code>SearchString</code> in the response body.
      * </p>
      * 
-     * @return If the value of Type is <code>HTTP_STR_MATCH</code> or <code>HTTP_STR_MATCH</code>, the string that you
+     * @return If the value of Type is <code>HTTP_STR_MATCH</code> or <code>HTTPS_STR_MATCH</code>, the string that you
      *         want Amazon Route 53 to search for in the response body from the specified resource. If the string
      *         appears in the response body, Route 53 considers the resource healthy.</p>
      *         <p>
@@ -2238,7 +2355,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If the value of Type is <code>HTTP_STR_MATCH</code> or <code>HTTP_STR_MATCH</code>, the string that you want
+     * If the value of Type is <code>HTTP_STR_MATCH</code> or <code>HTTPS_STR_MATCH</code>, the string that you want
      * Amazon Route 53 to search for in the response body from the specified resource. If the string appears in the
      * response body, Route 53 considers the resource healthy.
      * </p>
@@ -2247,7 +2364,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * </p>
      * 
      * @param searchString
-     *        If the value of Type is <code>HTTP_STR_MATCH</code> or <code>HTTP_STR_MATCH</code>, the string that you
+     *        If the value of Type is <code>HTTP_STR_MATCH</code> or <code>HTTPS_STR_MATCH</code>, the string that you
      *        want Amazon Route 53 to search for in the response body from the specified resource. If the string appears
      *        in the response body, Route 53 considers the resource healthy.</p>
      *        <p>
@@ -2358,7 +2475,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * <p>
      * The number of consecutive health checks that an endpoint must pass or fail for Amazon Route 53 to change the
      * current status of the endpoint from unhealthy to healthy or vice versa. For more information, see <a href=
-     * "http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html">How
+     * "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html">How
      * Amazon Route 53 Determines Whether an Endpoint Is Healthy</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * <p>
@@ -2369,7 +2486,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      *        The number of consecutive health checks that an endpoint must pass or fail for Amazon Route 53 to change
      *        the current status of the endpoint from unhealthy to healthy or vice versa. For more information, see <a
      *        href=
-     *        "http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html"
+     *        "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html"
      *        >How Amazon Route 53 Determines Whether an Endpoint Is Healthy</a> in the <i>Amazon Route 53 Developer
      *        Guide</i>.</p>
      *        <p>
@@ -2384,7 +2501,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * <p>
      * The number of consecutive health checks that an endpoint must pass or fail for Amazon Route 53 to change the
      * current status of the endpoint from unhealthy to healthy or vice versa. For more information, see <a href=
-     * "http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html">How
+     * "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html">How
      * Amazon Route 53 Determines Whether an Endpoint Is Healthy</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * <p>
@@ -2394,7 +2511,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * @return The number of consecutive health checks that an endpoint must pass or fail for Amazon Route 53 to change
      *         the current status of the endpoint from unhealthy to healthy or vice versa. For more information, see <a
      *         href=
-     *         "http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html"
+     *         "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html"
      *         >How Amazon Route 53 Determines Whether an Endpoint Is Healthy</a> in the <i>Amazon Route 53 Developer
      *         Guide</i>.</p>
      *         <p>
@@ -2409,7 +2526,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * <p>
      * The number of consecutive health checks that an endpoint must pass or fail for Amazon Route 53 to change the
      * current status of the endpoint from unhealthy to healthy or vice versa. For more information, see <a href=
-     * "http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html">How
+     * "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html">How
      * Amazon Route 53 Determines Whether an Endpoint Is Healthy</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * <p>
@@ -2420,7 +2537,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      *        The number of consecutive health checks that an endpoint must pass or fail for Amazon Route 53 to change
      *        the current status of the endpoint from unhealthy to healthy or vice versa. For more information, see <a
      *        href=
-     *        "http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html"
+     *        "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html"
      *        >How Amazon Route 53 Determines Whether an Endpoint Is Healthy</a> in the <i>Amazon Route 53 Developer
      *        Guide</i>.</p>
      *        <p>
@@ -2435,9 +2552,9 @@ public class HealthCheckConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple AWS regions
-     * and your endpoint, and to display CloudWatch latency graphs on the <b>Health Checks</b> page in the Route 53
-     * console.
+     * Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple Amazon Web
+     * Services regions and your endpoint, and to display CloudWatch latency graphs on the <b>Health Checks</b> page in
+     * the Route 53 console.
      * </p>
      * <important>
      * <p>
@@ -2446,9 +2563,9 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * </important>
      * 
      * @param measureLatency
-     *        Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple AWS
-     *        regions and your endpoint, and to display CloudWatch latency graphs on the <b>Health Checks</b> page in
-     *        the Route 53 console.</p> <important>
+     *        Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple Amazon
+     *        Web Services regions and your endpoint, and to display CloudWatch latency graphs on the <b>Health
+     *        Checks</b> page in the Route 53 console.</p> <important>
      *        <p>
      *        You can't change the value of <code>MeasureLatency</code> after you create a health check.
      *        </p>
@@ -2460,9 +2577,9 @@ public class HealthCheckConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple AWS regions
-     * and your endpoint, and to display CloudWatch latency graphs on the <b>Health Checks</b> page in the Route 53
-     * console.
+     * Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple Amazon Web
+     * Services regions and your endpoint, and to display CloudWatch latency graphs on the <b>Health Checks</b> page in
+     * the Route 53 console.
      * </p>
      * <important>
      * <p>
@@ -2470,9 +2587,9 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * </p>
      * </important>
      * 
-     * @return Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple AWS
-     *         regions and your endpoint, and to display CloudWatch latency graphs on the <b>Health Checks</b> page in
-     *         the Route 53 console.</p> <important>
+     * @return Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple
+     *         Amazon Web Services regions and your endpoint, and to display CloudWatch latency graphs on the <b>Health
+     *         Checks</b> page in the Route 53 console.</p> <important>
      *         <p>
      *         You can't change the value of <code>MeasureLatency</code> after you create a health check.
      *         </p>
@@ -2484,9 +2601,9 @@ public class HealthCheckConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple AWS regions
-     * and your endpoint, and to display CloudWatch latency graphs on the <b>Health Checks</b> page in the Route 53
-     * console.
+     * Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple Amazon Web
+     * Services regions and your endpoint, and to display CloudWatch latency graphs on the <b>Health Checks</b> page in
+     * the Route 53 console.
      * </p>
      * <important>
      * <p>
@@ -2495,9 +2612,9 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * </important>
      * 
      * @param measureLatency
-     *        Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple AWS
-     *        regions and your endpoint, and to display CloudWatch latency graphs on the <b>Health Checks</b> page in
-     *        the Route 53 console.</p> <important>
+     *        Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple Amazon
+     *        Web Services regions and your endpoint, and to display CloudWatch latency graphs on the <b>Health
+     *        Checks</b> page in the Route 53 console.</p> <important>
      *        <p>
      *        You can't change the value of <code>MeasureLatency</code> after you create a health check.
      *        </p>
@@ -2511,9 +2628,9 @@ public class HealthCheckConfig implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple AWS regions
-     * and your endpoint, and to display CloudWatch latency graphs on the <b>Health Checks</b> page in the Route 53
-     * console.
+     * Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple Amazon Web
+     * Services regions and your endpoint, and to display CloudWatch latency graphs on the <b>Health Checks</b> page in
+     * the Route 53 console.
      * </p>
      * <important>
      * <p>
@@ -2521,9 +2638,9 @@ public class HealthCheckConfig implements Serializable, Cloneable {
      * </p>
      * </important>
      * 
-     * @return Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple AWS
-     *         regions and your endpoint, and to display CloudWatch latency graphs on the <b>Health Checks</b> page in
-     *         the Route 53 console.</p> <important>
+     * @return Specify whether you want Amazon Route 53 to measure the latency between health checkers in multiple
+     *         Amazon Web Services regions and your endpoint, and to display CloudWatch latency graphs on the <b>Health
+     *         Checks</b> page in the Route 53 console.</p> <important>
      *         <p>
      *         You can't change the value of <code>MeasureLatency</code> after you create a health check.
      *         </p>
@@ -3821,6 +3938,73 @@ public class HealthCheckConfig implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the Route 53 Application Recovery Controller routing control.
+     * </p>
+     * <p>
+     * For more information about Route 53 Application Recovery Controller, see <a
+     * href="https://docs.aws.amazon.com/r53recovery/latest/dg/what-is-route-53-recovery.html">Route 53 Application
+     * Recovery Controller Developer Guide.</a>.
+     * </p>
+     * 
+     * @param routingControlArn
+     *        The Amazon Resource Name (ARN) for the Route 53 Application Recovery Controller routing control.</p>
+     *        <p>
+     *        For more information about Route 53 Application Recovery Controller, see <a
+     *        href="https://docs.aws.amazon.com/r53recovery/latest/dg/what-is-route-53-recovery.html">Route 53
+     *        Application Recovery Controller Developer Guide.</a>.
+     */
+
+    public void setRoutingControlArn(String routingControlArn) {
+        this.routingControlArn = routingControlArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the Route 53 Application Recovery Controller routing control.
+     * </p>
+     * <p>
+     * For more information about Route 53 Application Recovery Controller, see <a
+     * href="https://docs.aws.amazon.com/r53recovery/latest/dg/what-is-route-53-recovery.html">Route 53 Application
+     * Recovery Controller Developer Guide.</a>.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) for the Route 53 Application Recovery Controller routing control.</p>
+     *         <p>
+     *         For more information about Route 53 Application Recovery Controller, see <a
+     *         href="https://docs.aws.amazon.com/r53recovery/latest/dg/what-is-route-53-recovery.html">Route 53
+     *         Application Recovery Controller Developer Guide.</a>.
+     */
+
+    public String getRoutingControlArn() {
+        return this.routingControlArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the Route 53 Application Recovery Controller routing control.
+     * </p>
+     * <p>
+     * For more information about Route 53 Application Recovery Controller, see <a
+     * href="https://docs.aws.amazon.com/r53recovery/latest/dg/what-is-route-53-recovery.html">Route 53 Application
+     * Recovery Controller Developer Guide.</a>.
+     * </p>
+     * 
+     * @param routingControlArn
+     *        The Amazon Resource Name (ARN) for the Route 53 Application Recovery Controller routing control.</p>
+     *        <p>
+     *        For more information about Route 53 Application Recovery Controller, see <a
+     *        href="https://docs.aws.amazon.com/r53recovery/latest/dg/what-is-route-53-recovery.html">Route 53
+     *        Application Recovery Controller Developer Guide.</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HealthCheckConfig withRoutingControlArn(String routingControlArn) {
+        setRoutingControlArn(routingControlArn);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -3865,7 +4049,9 @@ public class HealthCheckConfig implements Serializable, Cloneable {
         if (getAlarmIdentifier() != null)
             sb.append("AlarmIdentifier: ").append(getAlarmIdentifier()).append(",");
         if (getInsufficientDataHealthStatus() != null)
-            sb.append("InsufficientDataHealthStatus: ").append(getInsufficientDataHealthStatus());
+            sb.append("InsufficientDataHealthStatus: ").append(getInsufficientDataHealthStatus()).append(",");
+        if (getRoutingControlArn() != null)
+            sb.append("RoutingControlArn: ").append(getRoutingControlArn());
         sb.append("}");
         return sb.toString();
     }
@@ -3948,6 +4134,10 @@ public class HealthCheckConfig implements Serializable, Cloneable {
             return false;
         if (other.getInsufficientDataHealthStatus() != null && other.getInsufficientDataHealthStatus().equals(this.getInsufficientDataHealthStatus()) == false)
             return false;
+        if (other.getRoutingControlArn() == null ^ this.getRoutingControlArn() == null)
+            return false;
+        if (other.getRoutingControlArn() != null && other.getRoutingControlArn().equals(this.getRoutingControlArn()) == false)
+            return false;
         return true;
     }
 
@@ -3973,6 +4163,7 @@ public class HealthCheckConfig implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getRegions() == null) ? 0 : getRegions().hashCode());
         hashCode = prime * hashCode + ((getAlarmIdentifier() == null) ? 0 : getAlarmIdentifier().hashCode());
         hashCode = prime * hashCode + ((getInsufficientDataHealthStatus() == null) ? 0 : getInsufficientDataHealthStatus().hashCode());
+        hashCode = prime * hashCode + ((getRoutingControlArn() == null) ? 0 : getRoutingControlArn().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,12 +22,10 @@ import javax.annotation.Generated;
  * <p>
  * The result contains the <code>MLModelId</code> and the endpoint information for the <code>MLModel</code>.
  * </p>
- * <note>
  * <p>
- * The endpoint information includes the URI of the <code>MLModel</code>; that is, the location to send online
- * prediction requests for the specified <code>MLModel</code>.
+ * <b>Note:</b> The endpoint information includes the URI of the <code>MLModel</code>; that is, the location to send
+ * online prediction requests for the specified <code>MLModel</code>.
  * </p>
- * </note>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class CreateRealtimeEndpointResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {

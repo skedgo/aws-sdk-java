@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon Technologies, Inc.
+ * Copyright 2011-2025 Amazon Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,11 @@ package com.amazonaws.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public enum ClassLoaderHelper {
     ;
@@ -60,35 +64,53 @@ public enum ClassLoaderHelper {
      */
     public static URL getResource(String resource, boolean classesFirst,
             Class<?>... classes) {
-        URL url;
-        if (classesFirst) {
-            url = getResourceViaClasses(resource, classes);
-            if (url == null) {
-                url = getResourceViaContext(resource);
-            }
-        } else {
-            url = getResourceViaContext(resource);
-            if (url == null) {
-                url = getResourceViaClasses(resource, classes);
-            }
+        List<URL> resources = getResources(resource, classesFirst, classes);
+        if (resources.isEmpty()) {
+            return null;
         }
-        return url == null ? ClassLoaderHelper.class.getResource(resource) : url;
+        return resources.get(0);
     }
 
-    private static URL getResourceViaClasses(String resource, Class<?>[] classes) {
+    public static List<URL> getResources(String resource, boolean classesFirst,
+                                         Class<?>... classes) {
+        List<URL> urls = new ArrayList<>();
+        if (classesFirst) {
+            urls.addAll(getResourcesViaClasses(resource, classes));
+            urls.addAll(getResourcesViaContext(resource));
+        } else {
+            urls.addAll(getResourcesViaContext(resource));
+            urls.addAll(getResourcesViaClasses(resource, classes));
+        }
+
+        URL fallbackResource = ClassLoaderHelper.class.getResource(resource);
+        if (fallbackResource != null) {
+            urls.add(fallbackResource);
+        }
+        return urls;
+    }
+
+    private static List<URL> getResourcesViaClasses(String resource, Class<?>[] classes) {
+        List<URL> urls = new ArrayList<>();
         if (classes != null) {
-            for (Class<?> c: classes) {
+            for (Class<?> c : classes) {
                 URL url = c.getResource(resource);
                 if (url != null)
-                    return url;
+                    urls.add(url);
             }
         }
-        return null;
+        return urls;
     }
 
-    private static URL getResourceViaContext(String resource) {
+    private static List<URL> getResourcesViaContext(String resource) {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        return loader == null ? null : loader.getResource(resource);
+        if (loader == null) {
+            return Collections.emptyList();
+        }
+        try {
+            return Collections.list(loader.getResources(resource));
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     private static Class<?> loadClassViaClasses(String fqcn, Class<?>[] classes) {

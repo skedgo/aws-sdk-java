@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Represents the input of a CreateDeploymentGroup operation.
+ * Represents the input of a <code>CreateDeploymentGroup</code> operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/CreateDeploymentGroup" target="_top">AWS
@@ -30,7 +30,7 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
+     * The name of an CodeDeploy application associated with the user or Amazon Web Services account.
      * </p>
      */
     private String applicationName;
@@ -43,31 +43,31 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * If specified, the deployment configuration name can be either one of the predefined configurations provided with
-     * AWS CodeDeploy or a custom deployment configuration that you create by calling the create deployment
-     * configuration operation.
+     * CodeDeploy or a custom deployment configuration that you create by calling the create deployment configuration
+     * operation.
      * </p>
      * <p>
-     * CodeDeployDefault.OneAtATime is the default deployment configuration. It is used if a configuration isn't
-     * specified for the deployment or deployment group.
+     * <code>CodeDeployDefault.OneAtATime</code> is the default deployment configuration. It is used if a configuration
+     * isn't specified for the deployment or deployment group.
      * </p>
      * <p>
-     * For more information about the predefined deployment configurations in AWS CodeDeploy, see <a
+     * For more information about the predefined deployment configurations in CodeDeploy, see <a
      * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html">Working with
-     * Deployment Groups in AWS CodeDeploy</a> in the AWS CodeDeploy User Guide.
+     * Deployment Configurations in CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      */
     private String deploymentConfigName;
     /**
      * <p>
-     * The Amazon EC2 tags on which to filter. The deployment group includes EC2 instances with any of the specified
-     * tags. Cannot be used in the same call as ec2TagSet.
+     * The Amazon EC2 tags on which to filter. The deployment group includes Amazon EC2 instances with any of the
+     * specified tags. Cannot be used in the same call as ec2TagSet.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<EC2TagFilter> ec2TagFilters;
     /**
      * <p>
      * The on-premises instance tags on which to filter. The deployment group includes on-premises instances with any of
-     * the specified tags. Cannot be used in the same call as OnPremisesTagSet.
+     * the specified tags. Cannot be used in the same call as <code>OnPremisesTagSet</code>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<TagFilter> onPremisesInstanceTagFilters;
@@ -79,15 +79,16 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     private com.amazonaws.internal.SdkInternalList<String> autoScalingGroups;
     /**
      * <p>
-     * A service role ARN that allows AWS CodeDeploy to act on the user's behalf when interacting with AWS services.
+     * A service role Amazon Resource Name (ARN) that allows CodeDeploy to act on the user's behalf when interacting
+     * with Amazon Web Services services.
      * </p>
      */
     private String serviceRoleArn;
     /**
      * <p>
      * Information about triggers to create when the deployment group is created. For examples, see <a
-     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html">Create a Trigger for an AWS
-     * CodeDeploy Event</a> in the AWS CodeDeploy User Guide.
+     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html">Create a Trigger for an
+     * CodeDeploy Event</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<TriggerConfig> triggerConfigurations;
@@ -103,6 +104,21 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
      * </p>
      */
     private AutoRollbackConfiguration autoRollbackConfiguration;
+    /**
+     * <p>
+     * Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the deployed
+     * application revision.
+     * </p>
+     * <p>
+     * If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more 'auto-update
+     * outdated instances' deployments to apply the deployed application revision to the new Amazon EC2 instances.
+     * </p>
+     * <p>
+     * If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new Amazon
+     * EC2 instances. This may result in instances having different revisions.
+     * </p>
+     */
+    private String outdatedInstancesStrategy;
     /**
      * <p>
      * Information about the type of deployment, in-place or blue/green, that you want to run and whether to route
@@ -124,8 +140,8 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     private LoadBalancerInfo loadBalancerInfo;
     /**
      * <p>
-     * Information about groups of tags applied to EC2 instances. The deployment group includes only EC2 instances
-     * identified by all the tag groups. Cannot be used in the same call as ec2TagFilters.
+     * Information about groups of tags applied to Amazon EC2 instances. The deployment group includes only Amazon EC2
+     * instances identified by all the tag groups. Cannot be used in the same call as <code>ec2TagFilters</code>.
      * </p>
      */
     private EC2TagSet ec2TagSet;
@@ -140,7 +156,8 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Information about groups of tags applied to on-premises instances. The deployment group includes only on-premises
-     * instances identified by all of the tag groups. Cannot be used in the same call as onPremisesInstanceTagFilters.
+     * instances identified by all of the tag groups. Cannot be used in the same call as
+     * <code>onPremisesInstanceTagFilters</code>.
      * </p>
      */
     private OnPremisesTagSet onPremisesTagSet;
@@ -151,14 +168,37 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more information, see
+     * <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html">Integrating
+     * CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination hook into
+     * your Auto Scaling group when you create a deployment group. When this hook is installed, CodeDeploy will perform
+     * termination deployments.
+     * </p>
+     * <p>
+     * For information about termination deployments, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     * >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about Auto Scaling scale-in events, see the <a href=
+     * "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     * >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
+     */
+    private Boolean terminationHookEnabled;
 
     /**
      * <p>
-     * The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
+     * The name of an CodeDeploy application associated with the user or Amazon Web Services account.
      * </p>
      * 
      * @param applicationName
-     *        The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
+     *        The name of an CodeDeploy application associated with the user or Amazon Web Services account.
      */
 
     public void setApplicationName(String applicationName) {
@@ -167,10 +207,10 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
+     * The name of an CodeDeploy application associated with the user or Amazon Web Services account.
      * </p>
      * 
-     * @return The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
+     * @return The name of an CodeDeploy application associated with the user or Amazon Web Services account.
      */
 
     public String getApplicationName() {
@@ -179,11 +219,11 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
+     * The name of an CodeDeploy application associated with the user or Amazon Web Services account.
      * </p>
      * 
      * @param applicationName
-     *        The name of an AWS CodeDeploy application associated with the IAM user or AWS account.
+     *        The name of an CodeDeploy application associated with the user or Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -235,31 +275,31 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * If specified, the deployment configuration name can be either one of the predefined configurations provided with
-     * AWS CodeDeploy or a custom deployment configuration that you create by calling the create deployment
-     * configuration operation.
+     * CodeDeploy or a custom deployment configuration that you create by calling the create deployment configuration
+     * operation.
      * </p>
      * <p>
-     * CodeDeployDefault.OneAtATime is the default deployment configuration. It is used if a configuration isn't
-     * specified for the deployment or deployment group.
+     * <code>CodeDeployDefault.OneAtATime</code> is the default deployment configuration. It is used if a configuration
+     * isn't specified for the deployment or deployment group.
      * </p>
      * <p>
-     * For more information about the predefined deployment configurations in AWS CodeDeploy, see <a
+     * For more information about the predefined deployment configurations in CodeDeploy, see <a
      * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html">Working with
-     * Deployment Groups in AWS CodeDeploy</a> in the AWS CodeDeploy User Guide.
+     * Deployment Configurations in CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      * 
      * @param deploymentConfigName
      *        If specified, the deployment configuration name can be either one of the predefined configurations
-     *        provided with AWS CodeDeploy or a custom deployment configuration that you create by calling the create
+     *        provided with CodeDeploy or a custom deployment configuration that you create by calling the create
      *        deployment configuration operation.</p>
      *        <p>
-     *        CodeDeployDefault.OneAtATime is the default deployment configuration. It is used if a configuration isn't
-     *        specified for the deployment or deployment group.
+     *        <code>CodeDeployDefault.OneAtATime</code> is the default deployment configuration. It is used if a
+     *        configuration isn't specified for the deployment or deployment group.
      *        </p>
      *        <p>
-     *        For more information about the predefined deployment configurations in AWS CodeDeploy, see <a
+     *        For more information about the predefined deployment configurations in CodeDeploy, see <a
      *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html">Working with
-     *        Deployment Groups in AWS CodeDeploy</a> in the AWS CodeDeploy User Guide.
+     *        Deployment Configurations in CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
      */
 
     public void setDeploymentConfigName(String deploymentConfigName) {
@@ -269,30 +309,30 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * If specified, the deployment configuration name can be either one of the predefined configurations provided with
-     * AWS CodeDeploy or a custom deployment configuration that you create by calling the create deployment
-     * configuration operation.
+     * CodeDeploy or a custom deployment configuration that you create by calling the create deployment configuration
+     * operation.
      * </p>
      * <p>
-     * CodeDeployDefault.OneAtATime is the default deployment configuration. It is used if a configuration isn't
-     * specified for the deployment or deployment group.
+     * <code>CodeDeployDefault.OneAtATime</code> is the default deployment configuration. It is used if a configuration
+     * isn't specified for the deployment or deployment group.
      * </p>
      * <p>
-     * For more information about the predefined deployment configurations in AWS CodeDeploy, see <a
+     * For more information about the predefined deployment configurations in CodeDeploy, see <a
      * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html">Working with
-     * Deployment Groups in AWS CodeDeploy</a> in the AWS CodeDeploy User Guide.
+     * Deployment Configurations in CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      * 
      * @return If specified, the deployment configuration name can be either one of the predefined configurations
-     *         provided with AWS CodeDeploy or a custom deployment configuration that you create by calling the create
+     *         provided with CodeDeploy or a custom deployment configuration that you create by calling the create
      *         deployment configuration operation.</p>
      *         <p>
-     *         CodeDeployDefault.OneAtATime is the default deployment configuration. It is used if a configuration isn't
-     *         specified for the deployment or deployment group.
+     *         <code>CodeDeployDefault.OneAtATime</code> is the default deployment configuration. It is used if a
+     *         configuration isn't specified for the deployment or deployment group.
      *         </p>
      *         <p>
-     *         For more information about the predefined deployment configurations in AWS CodeDeploy, see <a
+     *         For more information about the predefined deployment configurations in CodeDeploy, see <a
      *         href="https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html">Working
-     *         with Deployment Groups in AWS CodeDeploy</a> in the AWS CodeDeploy User Guide.
+     *         with Deployment Configurations in CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
      */
 
     public String getDeploymentConfigName() {
@@ -302,31 +342,31 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * If specified, the deployment configuration name can be either one of the predefined configurations provided with
-     * AWS CodeDeploy or a custom deployment configuration that you create by calling the create deployment
-     * configuration operation.
+     * CodeDeploy or a custom deployment configuration that you create by calling the create deployment configuration
+     * operation.
      * </p>
      * <p>
-     * CodeDeployDefault.OneAtATime is the default deployment configuration. It is used if a configuration isn't
-     * specified for the deployment or deployment group.
+     * <code>CodeDeployDefault.OneAtATime</code> is the default deployment configuration. It is used if a configuration
+     * isn't specified for the deployment or deployment group.
      * </p>
      * <p>
-     * For more information about the predefined deployment configurations in AWS CodeDeploy, see <a
+     * For more information about the predefined deployment configurations in CodeDeploy, see <a
      * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html">Working with
-     * Deployment Groups in AWS CodeDeploy</a> in the AWS CodeDeploy User Guide.
+     * Deployment Configurations in CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      * 
      * @param deploymentConfigName
      *        If specified, the deployment configuration name can be either one of the predefined configurations
-     *        provided with AWS CodeDeploy or a custom deployment configuration that you create by calling the create
+     *        provided with CodeDeploy or a custom deployment configuration that you create by calling the create
      *        deployment configuration operation.</p>
      *        <p>
-     *        CodeDeployDefault.OneAtATime is the default deployment configuration. It is used if a configuration isn't
-     *        specified for the deployment or deployment group.
+     *        <code>CodeDeployDefault.OneAtATime</code> is the default deployment configuration. It is used if a
+     *        configuration isn't specified for the deployment or deployment group.
      *        </p>
      *        <p>
-     *        For more information about the predefined deployment configurations in AWS CodeDeploy, see <a
+     *        For more information about the predefined deployment configurations in CodeDeploy, see <a
      *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html">Working with
-     *        Deployment Groups in AWS CodeDeploy</a> in the AWS CodeDeploy User Guide.
+     *        Deployment Configurations in CodeDeploy</a> in the <i>CodeDeploy User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -337,12 +377,12 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The Amazon EC2 tags on which to filter. The deployment group includes EC2 instances with any of the specified
-     * tags. Cannot be used in the same call as ec2TagSet.
+     * The Amazon EC2 tags on which to filter. The deployment group includes Amazon EC2 instances with any of the
+     * specified tags. Cannot be used in the same call as ec2TagSet.
      * </p>
      * 
-     * @return The Amazon EC2 tags on which to filter. The deployment group includes EC2 instances with any of the
-     *         specified tags. Cannot be used in the same call as ec2TagSet.
+     * @return The Amazon EC2 tags on which to filter. The deployment group includes Amazon EC2 instances with any of
+     *         the specified tags. Cannot be used in the same call as ec2TagSet.
      */
 
     public java.util.List<EC2TagFilter> getEc2TagFilters() {
@@ -354,12 +394,12 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The Amazon EC2 tags on which to filter. The deployment group includes EC2 instances with any of the specified
-     * tags. Cannot be used in the same call as ec2TagSet.
+     * The Amazon EC2 tags on which to filter. The deployment group includes Amazon EC2 instances with any of the
+     * specified tags. Cannot be used in the same call as ec2TagSet.
      * </p>
      * 
      * @param ec2TagFilters
-     *        The Amazon EC2 tags on which to filter. The deployment group includes EC2 instances with any of the
+     *        The Amazon EC2 tags on which to filter. The deployment group includes Amazon EC2 instances with any of the
      *        specified tags. Cannot be used in the same call as ec2TagSet.
      */
 
@@ -374,8 +414,8 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The Amazon EC2 tags on which to filter. The deployment group includes EC2 instances with any of the specified
-     * tags. Cannot be used in the same call as ec2TagSet.
+     * The Amazon EC2 tags on which to filter. The deployment group includes Amazon EC2 instances with any of the
+     * specified tags. Cannot be used in the same call as ec2TagSet.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -384,7 +424,7 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @param ec2TagFilters
-     *        The Amazon EC2 tags on which to filter. The deployment group includes EC2 instances with any of the
+     *        The Amazon EC2 tags on which to filter. The deployment group includes Amazon EC2 instances with any of the
      *        specified tags. Cannot be used in the same call as ec2TagSet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -401,12 +441,12 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The Amazon EC2 tags on which to filter. The deployment group includes EC2 instances with any of the specified
-     * tags. Cannot be used in the same call as ec2TagSet.
+     * The Amazon EC2 tags on which to filter. The deployment group includes Amazon EC2 instances with any of the
+     * specified tags. Cannot be used in the same call as ec2TagSet.
      * </p>
      * 
      * @param ec2TagFilters
-     *        The Amazon EC2 tags on which to filter. The deployment group includes EC2 instances with any of the
+     *        The Amazon EC2 tags on which to filter. The deployment group includes Amazon EC2 instances with any of the
      *        specified tags. Cannot be used in the same call as ec2TagSet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -419,11 +459,11 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The on-premises instance tags on which to filter. The deployment group includes on-premises instances with any of
-     * the specified tags. Cannot be used in the same call as OnPremisesTagSet.
+     * the specified tags. Cannot be used in the same call as <code>OnPremisesTagSet</code>.
      * </p>
      * 
      * @return The on-premises instance tags on which to filter. The deployment group includes on-premises instances
-     *         with any of the specified tags. Cannot be used in the same call as OnPremisesTagSet.
+     *         with any of the specified tags. Cannot be used in the same call as <code>OnPremisesTagSet</code>.
      */
 
     public java.util.List<TagFilter> getOnPremisesInstanceTagFilters() {
@@ -436,12 +476,12 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The on-premises instance tags on which to filter. The deployment group includes on-premises instances with any of
-     * the specified tags. Cannot be used in the same call as OnPremisesTagSet.
+     * the specified tags. Cannot be used in the same call as <code>OnPremisesTagSet</code>.
      * </p>
      * 
      * @param onPremisesInstanceTagFilters
      *        The on-premises instance tags on which to filter. The deployment group includes on-premises instances with
-     *        any of the specified tags. Cannot be used in the same call as OnPremisesTagSet.
+     *        any of the specified tags. Cannot be used in the same call as <code>OnPremisesTagSet</code>.
      */
 
     public void setOnPremisesInstanceTagFilters(java.util.Collection<TagFilter> onPremisesInstanceTagFilters) {
@@ -456,7 +496,7 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The on-premises instance tags on which to filter. The deployment group includes on-premises instances with any of
-     * the specified tags. Cannot be used in the same call as OnPremisesTagSet.
+     * the specified tags. Cannot be used in the same call as <code>OnPremisesTagSet</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -466,7 +506,7 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
      * 
      * @param onPremisesInstanceTagFilters
      *        The on-premises instance tags on which to filter. The deployment group includes on-premises instances with
-     *        any of the specified tags. Cannot be used in the same call as OnPremisesTagSet.
+     *        any of the specified tags. Cannot be used in the same call as <code>OnPremisesTagSet</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -483,12 +523,12 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The on-premises instance tags on which to filter. The deployment group includes on-premises instances with any of
-     * the specified tags. Cannot be used in the same call as OnPremisesTagSet.
+     * the specified tags. Cannot be used in the same call as <code>OnPremisesTagSet</code>.
      * </p>
      * 
      * @param onPremisesInstanceTagFilters
      *        The on-premises instance tags on which to filter. The deployment group includes on-premises instances with
-     *        any of the specified tags. Cannot be used in the same call as OnPremisesTagSet.
+     *        any of the specified tags. Cannot be used in the same call as <code>OnPremisesTagSet</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -572,12 +612,13 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A service role ARN that allows AWS CodeDeploy to act on the user's behalf when interacting with AWS services.
+     * A service role Amazon Resource Name (ARN) that allows CodeDeploy to act on the user's behalf when interacting
+     * with Amazon Web Services services.
      * </p>
      * 
      * @param serviceRoleArn
-     *        A service role ARN that allows AWS CodeDeploy to act on the user's behalf when interacting with AWS
-     *        services.
+     *        A service role Amazon Resource Name (ARN) that allows CodeDeploy to act on the user's behalf when
+     *        interacting with Amazon Web Services services.
      */
 
     public void setServiceRoleArn(String serviceRoleArn) {
@@ -586,11 +627,12 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A service role ARN that allows AWS CodeDeploy to act on the user's behalf when interacting with AWS services.
+     * A service role Amazon Resource Name (ARN) that allows CodeDeploy to act on the user's behalf when interacting
+     * with Amazon Web Services services.
      * </p>
      * 
-     * @return A service role ARN that allows AWS CodeDeploy to act on the user's behalf when interacting with AWS
-     *         services.
+     * @return A service role Amazon Resource Name (ARN) that allows CodeDeploy to act on the user's behalf when
+     *         interacting with Amazon Web Services services.
      */
 
     public String getServiceRoleArn() {
@@ -599,12 +641,13 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * A service role ARN that allows AWS CodeDeploy to act on the user's behalf when interacting with AWS services.
+     * A service role Amazon Resource Name (ARN) that allows CodeDeploy to act on the user's behalf when interacting
+     * with Amazon Web Services services.
      * </p>
      * 
      * @param serviceRoleArn
-     *        A service role ARN that allows AWS CodeDeploy to act on the user's behalf when interacting with AWS
-     *        services.
+     *        A service role Amazon Resource Name (ARN) that allows CodeDeploy to act on the user's behalf when
+     *        interacting with Amazon Web Services services.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -616,13 +659,13 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Information about triggers to create when the deployment group is created. For examples, see <a
-     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html">Create a Trigger for an AWS
-     * CodeDeploy Event</a> in the AWS CodeDeploy User Guide.
+     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html">Create a Trigger for an
+     * CodeDeploy Event</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      * 
      * @return Information about triggers to create when the deployment group is created. For examples, see <a
      *         href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html">Create a Trigger
-     *         for an AWS CodeDeploy Event</a> in the AWS CodeDeploy User Guide.
+     *         for an CodeDeploy Event</a> in the <i>CodeDeploy User Guide</i>.
      */
 
     public java.util.List<TriggerConfig> getTriggerConfigurations() {
@@ -635,14 +678,14 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Information about triggers to create when the deployment group is created. For examples, see <a
-     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html">Create a Trigger for an AWS
-     * CodeDeploy Event</a> in the AWS CodeDeploy User Guide.
+     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html">Create a Trigger for an
+     * CodeDeploy Event</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      * 
      * @param triggerConfigurations
      *        Information about triggers to create when the deployment group is created. For examples, see <a
      *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html">Create a Trigger for
-     *        an AWS CodeDeploy Event</a> in the AWS CodeDeploy User Guide.
+     *        an CodeDeploy Event</a> in the <i>CodeDeploy User Guide</i>.
      */
 
     public void setTriggerConfigurations(java.util.Collection<TriggerConfig> triggerConfigurations) {
@@ -657,8 +700,8 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Information about triggers to create when the deployment group is created. For examples, see <a
-     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html">Create a Trigger for an AWS
-     * CodeDeploy Event</a> in the AWS CodeDeploy User Guide.
+     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html">Create a Trigger for an
+     * CodeDeploy Event</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -669,7 +712,7 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
      * @param triggerConfigurations
      *        Information about triggers to create when the deployment group is created. For examples, see <a
      *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html">Create a Trigger for
-     *        an AWS CodeDeploy Event</a> in the AWS CodeDeploy User Guide.
+     *        an CodeDeploy Event</a> in the <i>CodeDeploy User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -686,14 +729,14 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Information about triggers to create when the deployment group is created. For examples, see <a
-     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html">Create a Trigger for an AWS
-     * CodeDeploy Event</a> in the AWS CodeDeploy User Guide.
+     * href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html">Create a Trigger for an
+     * CodeDeploy Event</a> in the <i>CodeDeploy User Guide</i>.
      * </p>
      * 
      * @param triggerConfigurations
      *        Information about triggers to create when the deployment group is created. For examples, see <a
      *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html">Create a Trigger for
-     *        an AWS CodeDeploy Event</a> in the AWS CodeDeploy User Guide.
+     *        an CodeDeploy Event</a> in the <i>CodeDeploy User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -779,6 +822,137 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     public CreateDeploymentGroupRequest withAutoRollbackConfiguration(AutoRollbackConfiguration autoRollbackConfiguration) {
         setAutoRollbackConfiguration(autoRollbackConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the deployed
+     * application revision.
+     * </p>
+     * <p>
+     * If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more 'auto-update
+     * outdated instances' deployments to apply the deployed application revision to the new Amazon EC2 instances.
+     * </p>
+     * <p>
+     * If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new Amazon
+     * EC2 instances. This may result in instances having different revisions.
+     * </p>
+     * 
+     * @param outdatedInstancesStrategy
+     *        Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the
+     *        deployed application revision.</p>
+     *        <p>
+     *        If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more
+     *        'auto-update outdated instances' deployments to apply the deployed application revision to the new Amazon
+     *        EC2 instances.
+     *        </p>
+     *        <p>
+     *        If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new
+     *        Amazon EC2 instances. This may result in instances having different revisions.
+     * @see OutdatedInstancesStrategy
+     */
+
+    public void setOutdatedInstancesStrategy(String outdatedInstancesStrategy) {
+        this.outdatedInstancesStrategy = outdatedInstancesStrategy;
+    }
+
+    /**
+     * <p>
+     * Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the deployed
+     * application revision.
+     * </p>
+     * <p>
+     * If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more 'auto-update
+     * outdated instances' deployments to apply the deployed application revision to the new Amazon EC2 instances.
+     * </p>
+     * <p>
+     * If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new Amazon
+     * EC2 instances. This may result in instances having different revisions.
+     * </p>
+     * 
+     * @return Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the
+     *         deployed application revision.</p>
+     *         <p>
+     *         If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more
+     *         'auto-update outdated instances' deployments to apply the deployed application revision to the new Amazon
+     *         EC2 instances.
+     *         </p>
+     *         <p>
+     *         If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new
+     *         Amazon EC2 instances. This may result in instances having different revisions.
+     * @see OutdatedInstancesStrategy
+     */
+
+    public String getOutdatedInstancesStrategy() {
+        return this.outdatedInstancesStrategy;
+    }
+
+    /**
+     * <p>
+     * Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the deployed
+     * application revision.
+     * </p>
+     * <p>
+     * If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more 'auto-update
+     * outdated instances' deployments to apply the deployed application revision to the new Amazon EC2 instances.
+     * </p>
+     * <p>
+     * If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new Amazon
+     * EC2 instances. This may result in instances having different revisions.
+     * </p>
+     * 
+     * @param outdatedInstancesStrategy
+     *        Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the
+     *        deployed application revision.</p>
+     *        <p>
+     *        If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more
+     *        'auto-update outdated instances' deployments to apply the deployed application revision to the new Amazon
+     *        EC2 instances.
+     *        </p>
+     *        <p>
+     *        If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new
+     *        Amazon EC2 instances. This may result in instances having different revisions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see OutdatedInstancesStrategy
+     */
+
+    public CreateDeploymentGroupRequest withOutdatedInstancesStrategy(String outdatedInstancesStrategy) {
+        setOutdatedInstancesStrategy(outdatedInstancesStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the deployed
+     * application revision.
+     * </p>
+     * <p>
+     * If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more 'auto-update
+     * outdated instances' deployments to apply the deployed application revision to the new Amazon EC2 instances.
+     * </p>
+     * <p>
+     * If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new Amazon
+     * EC2 instances. This may result in instances having different revisions.
+     * </p>
+     * 
+     * @param outdatedInstancesStrategy
+     *        Indicates what happens when new Amazon EC2 instances are launched mid-deployment and do not receive the
+     *        deployed application revision.</p>
+     *        <p>
+     *        If this option is set to <code>UPDATE</code> or is unspecified, CodeDeploy initiates one or more
+     *        'auto-update outdated instances' deployments to apply the deployed application revision to the new Amazon
+     *        EC2 instances.
+     *        </p>
+     *        <p>
+     *        If this option is set to <code>IGNORE</code>, CodeDeploy does not initiate a deployment to update the new
+     *        Amazon EC2 instances. This may result in instances having different revisions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see OutdatedInstancesStrategy
+     */
+
+    public CreateDeploymentGroupRequest withOutdatedInstancesStrategy(OutdatedInstancesStrategy outdatedInstancesStrategy) {
+        this.outdatedInstancesStrategy = outdatedInstancesStrategy.toString();
         return this;
     }
 
@@ -910,13 +1084,14 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Information about groups of tags applied to EC2 instances. The deployment group includes only EC2 instances
-     * identified by all the tag groups. Cannot be used in the same call as ec2TagFilters.
+     * Information about groups of tags applied to Amazon EC2 instances. The deployment group includes only Amazon EC2
+     * instances identified by all the tag groups. Cannot be used in the same call as <code>ec2TagFilters</code>.
      * </p>
      * 
      * @param ec2TagSet
-     *        Information about groups of tags applied to EC2 instances. The deployment group includes only EC2
-     *        instances identified by all the tag groups. Cannot be used in the same call as ec2TagFilters.
+     *        Information about groups of tags applied to Amazon EC2 instances. The deployment group includes only
+     *        Amazon EC2 instances identified by all the tag groups. Cannot be used in the same call as
+     *        <code>ec2TagFilters</code>.
      */
 
     public void setEc2TagSet(EC2TagSet ec2TagSet) {
@@ -925,12 +1100,13 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Information about groups of tags applied to EC2 instances. The deployment group includes only EC2 instances
-     * identified by all the tag groups. Cannot be used in the same call as ec2TagFilters.
+     * Information about groups of tags applied to Amazon EC2 instances. The deployment group includes only Amazon EC2
+     * instances identified by all the tag groups. Cannot be used in the same call as <code>ec2TagFilters</code>.
      * </p>
      * 
-     * @return Information about groups of tags applied to EC2 instances. The deployment group includes only EC2
-     *         instances identified by all the tag groups. Cannot be used in the same call as ec2TagFilters.
+     * @return Information about groups of tags applied to Amazon EC2 instances. The deployment group includes only
+     *         Amazon EC2 instances identified by all the tag groups. Cannot be used in the same call as
+     *         <code>ec2TagFilters</code>.
      */
 
     public EC2TagSet getEc2TagSet() {
@@ -939,13 +1115,14 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Information about groups of tags applied to EC2 instances. The deployment group includes only EC2 instances
-     * identified by all the tag groups. Cannot be used in the same call as ec2TagFilters.
+     * Information about groups of tags applied to Amazon EC2 instances. The deployment group includes only Amazon EC2
+     * instances identified by all the tag groups. Cannot be used in the same call as <code>ec2TagFilters</code>.
      * </p>
      * 
      * @param ec2TagSet
-     *        Information about groups of tags applied to EC2 instances. The deployment group includes only EC2
-     *        instances identified by all the tag groups. Cannot be used in the same call as ec2TagFilters.
+     *        Information about groups of tags applied to Amazon EC2 instances. The deployment group includes only
+     *        Amazon EC2 instances identified by all the tag groups. Cannot be used in the same call as
+     *        <code>ec2TagFilters</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1046,13 +1223,14 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Information about groups of tags applied to on-premises instances. The deployment group includes only on-premises
-     * instances identified by all of the tag groups. Cannot be used in the same call as onPremisesInstanceTagFilters.
+     * instances identified by all of the tag groups. Cannot be used in the same call as
+     * <code>onPremisesInstanceTagFilters</code>.
      * </p>
      * 
      * @param onPremisesTagSet
      *        Information about groups of tags applied to on-premises instances. The deployment group includes only
      *        on-premises instances identified by all of the tag groups. Cannot be used in the same call as
-     *        onPremisesInstanceTagFilters.
+     *        <code>onPremisesInstanceTagFilters</code>.
      */
 
     public void setOnPremisesTagSet(OnPremisesTagSet onPremisesTagSet) {
@@ -1062,12 +1240,13 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Information about groups of tags applied to on-premises instances. The deployment group includes only on-premises
-     * instances identified by all of the tag groups. Cannot be used in the same call as onPremisesInstanceTagFilters.
+     * instances identified by all of the tag groups. Cannot be used in the same call as
+     * <code>onPremisesInstanceTagFilters</code>.
      * </p>
      * 
      * @return Information about groups of tags applied to on-premises instances. The deployment group includes only
      *         on-premises instances identified by all of the tag groups. Cannot be used in the same call as
-     *         onPremisesInstanceTagFilters.
+     *         <code>onPremisesInstanceTagFilters</code>.
      */
 
     public OnPremisesTagSet getOnPremisesTagSet() {
@@ -1077,13 +1256,14 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Information about groups of tags applied to on-premises instances. The deployment group includes only on-premises
-     * instances identified by all of the tag groups. Cannot be used in the same call as onPremisesInstanceTagFilters.
+     * instances identified by all of the tag groups. Cannot be used in the same call as
+     * <code>onPremisesInstanceTagFilters</code>.
      * </p>
      * 
      * @param onPremisesTagSet
      *        Information about groups of tags applied to on-premises instances. The deployment group includes only
      *        on-premises instances identified by all of the tag groups. Cannot be used in the same call as
-     *        onPremisesInstanceTagFilters.
+     *        <code>onPremisesInstanceTagFilters</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1174,6 +1354,198 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
     }
 
     /**
+     * <p>
+     * This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more information, see
+     * <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html">Integrating
+     * CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination hook into
+     * your Auto Scaling group when you create a deployment group. When this hook is installed, CodeDeploy will perform
+     * termination deployments.
+     * </p>
+     * <p>
+     * For information about termination deployments, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     * >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about Auto Scaling scale-in events, see the <a href=
+     * "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     * >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
+     * 
+     * @param terminationHookEnabled
+     *        This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html"
+     *        >Integrating CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.</p>
+     *        <p>
+     *        Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination hook
+     *        into your Auto Scaling group when you create a deployment group. When this hook is installed, CodeDeploy
+     *        will perform termination deployments.
+     *        </p>
+     *        <p>
+     *        For information about termination deployments, see <a href=
+     *        "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     *        >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User
+     *        Guide</i>.
+     *        </p>
+     *        <p>
+     *        For more information about Auto Scaling scale-in events, see the <a href=
+     *        "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     *        >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     */
+
+    public void setTerminationHookEnabled(Boolean terminationHookEnabled) {
+        this.terminationHookEnabled = terminationHookEnabled;
+    }
+
+    /**
+     * <p>
+     * This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more information, see
+     * <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html">Integrating
+     * CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination hook into
+     * your Auto Scaling group when you create a deployment group. When this hook is installed, CodeDeploy will perform
+     * termination deployments.
+     * </p>
+     * <p>
+     * For information about termination deployments, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     * >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about Auto Scaling scale-in events, see the <a href=
+     * "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     * >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
+     * 
+     * @return This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html"
+     *         >Integrating CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.</p>
+     *         <p>
+     *         Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination
+     *         hook into your Auto Scaling group when you create a deployment group. When this hook is installed,
+     *         CodeDeploy will perform termination deployments.
+     *         </p>
+     *         <p>
+     *         For information about termination deployments, see <a href=
+     *         "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     *         >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User
+     *         Guide</i>.
+     *         </p>
+     *         <p>
+     *         For more information about Auto Scaling scale-in events, see the <a href=
+     *         "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     *         >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     */
+
+    public Boolean getTerminationHookEnabled() {
+        return this.terminationHookEnabled;
+    }
+
+    /**
+     * <p>
+     * This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more information, see
+     * <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html">Integrating
+     * CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination hook into
+     * your Auto Scaling group when you create a deployment group. When this hook is installed, CodeDeploy will perform
+     * termination deployments.
+     * </p>
+     * <p>
+     * For information about termination deployments, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     * >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about Auto Scaling scale-in events, see the <a href=
+     * "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     * >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
+     * 
+     * @param terminationHookEnabled
+     *        This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html"
+     *        >Integrating CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.</p>
+     *        <p>
+     *        Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination hook
+     *        into your Auto Scaling group when you create a deployment group. When this hook is installed, CodeDeploy
+     *        will perform termination deployments.
+     *        </p>
+     *        <p>
+     *        For information about termination deployments, see <a href=
+     *        "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     *        >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User
+     *        Guide</i>.
+     *        </p>
+     *        <p>
+     *        For more information about Auto Scaling scale-in events, see the <a href=
+     *        "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     *        >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDeploymentGroupRequest withTerminationHookEnabled(Boolean terminationHookEnabled) {
+        setTerminationHookEnabled(terminationHookEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more information, see
+     * <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html">Integrating
+     * CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination hook into
+     * your Auto Scaling group when you create a deployment group. When this hook is installed, CodeDeploy will perform
+     * termination deployments.
+     * </p>
+     * <p>
+     * For information about termination deployments, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     * >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about Auto Scaling scale-in events, see the <a href=
+     * "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     * >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
+     * 
+     * @return This parameter only applies if you are using CodeDeploy with Amazon EC2 Auto Scaling. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html"
+     *         >Integrating CodeDeploy with Amazon EC2 Auto Scaling</a> in the <i>CodeDeploy User Guide</i>.</p>
+     *         <p>
+     *         Set <code>terminationHookEnabled</code> to <code>true</code> to have CodeDeploy install a termination
+     *         hook into your Auto Scaling group when you create a deployment group. When this hook is installed,
+     *         CodeDeploy will perform termination deployments.
+     *         </p>
+     *         <p>
+     *         For information about termination deployments, see <a href=
+     *         "https://docs.aws.amazon.com/codedeploy/latest/userguide/integrations-aws-auto-scaling.html#integrations-aws-auto-scaling-behaviors-hook-enable"
+     *         >Enabling termination deployments during Auto Scaling scale-in events</a> in the <i>CodeDeploy User
+     *         Guide</i>.
+     *         </p>
+     *         <p>
+     *         For more information about Auto Scaling scale-in events, see the <a href=
+     *         "https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-lifecycle.html#as-lifecycle-scale-in"
+     *         >Scale in</a> topic in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     */
+
+    public Boolean isTerminationHookEnabled() {
+        return this.terminationHookEnabled;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1205,6 +1577,8 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
             sb.append("AlarmConfiguration: ").append(getAlarmConfiguration()).append(",");
         if (getAutoRollbackConfiguration() != null)
             sb.append("AutoRollbackConfiguration: ").append(getAutoRollbackConfiguration()).append(",");
+        if (getOutdatedInstancesStrategy() != null)
+            sb.append("OutdatedInstancesStrategy: ").append(getOutdatedInstancesStrategy()).append(",");
         if (getDeploymentStyle() != null)
             sb.append("DeploymentStyle: ").append(getDeploymentStyle()).append(",");
         if (getBlueGreenDeploymentConfiguration() != null)
@@ -1218,7 +1592,9 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
         if (getOnPremisesTagSet() != null)
             sb.append("OnPremisesTagSet: ").append(getOnPremisesTagSet()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getTerminationHookEnabled() != null)
+            sb.append("TerminationHookEnabled: ").append(getTerminationHookEnabled());
         sb.append("}");
         return sb.toString();
     }
@@ -1273,6 +1649,10 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
             return false;
         if (other.getAutoRollbackConfiguration() != null && other.getAutoRollbackConfiguration().equals(this.getAutoRollbackConfiguration()) == false)
             return false;
+        if (other.getOutdatedInstancesStrategy() == null ^ this.getOutdatedInstancesStrategy() == null)
+            return false;
+        if (other.getOutdatedInstancesStrategy() != null && other.getOutdatedInstancesStrategy().equals(this.getOutdatedInstancesStrategy()) == false)
+            return false;
         if (other.getDeploymentStyle() == null ^ this.getDeploymentStyle() == null)
             return false;
         if (other.getDeploymentStyle() != null && other.getDeploymentStyle().equals(this.getDeploymentStyle()) == false)
@@ -1302,6 +1682,10 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getTerminationHookEnabled() == null ^ this.getTerminationHookEnabled() == null)
+            return false;
+        if (other.getTerminationHookEnabled() != null && other.getTerminationHookEnabled().equals(this.getTerminationHookEnabled()) == false)
+            return false;
         return true;
     }
 
@@ -1320,6 +1704,7 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
         hashCode = prime * hashCode + ((getTriggerConfigurations() == null) ? 0 : getTriggerConfigurations().hashCode());
         hashCode = prime * hashCode + ((getAlarmConfiguration() == null) ? 0 : getAlarmConfiguration().hashCode());
         hashCode = prime * hashCode + ((getAutoRollbackConfiguration() == null) ? 0 : getAutoRollbackConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getOutdatedInstancesStrategy() == null) ? 0 : getOutdatedInstancesStrategy().hashCode());
         hashCode = prime * hashCode + ((getDeploymentStyle() == null) ? 0 : getDeploymentStyle().hashCode());
         hashCode = prime * hashCode + ((getBlueGreenDeploymentConfiguration() == null) ? 0 : getBlueGreenDeploymentConfiguration().hashCode());
         hashCode = prime * hashCode + ((getLoadBalancerInfo() == null) ? 0 : getLoadBalancerInfo().hashCode());
@@ -1327,6 +1712,7 @@ public class CreateDeploymentGroupRequest extends com.amazonaws.AmazonWebService
         hashCode = prime * hashCode + ((getEcsServices() == null) ? 0 : getEcsServices().hashCode());
         hashCode = prime * hashCode + ((getOnPremisesTagSet() == null) ? 0 : getOnPremisesTagSet().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getTerminationHookEnabled() == null) ? 0 : getTerminationHookEnabled().hashCode());
         return hashCode;
     }
 

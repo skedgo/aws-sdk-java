@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,8 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The <code>Change</code> structure describes the changes AWS CloudFormation will perform if you execute the change
- * set.
+ * The <code>Change</code> structure describes the changes CloudFormation will perform if you execute the change set.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/Change" target="_top">AWS API
@@ -29,26 +28,51 @@ public class Change implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of entity that AWS CloudFormation changes. Currently, the only entity type is <code>Resource</code>.
+     * The type of entity that CloudFormation changes.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Resource</code> This change is for a resource.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String type;
     /**
      * <p>
-     * A <code>ResourceChange</code> structure that describes the resource and action that AWS CloudFormation will
-     * perform.
+     * Is either <code>null</code>, if no hooks invoke for the resource, or contains the number of hooks that will
+     * invoke for the resource.
+     * </p>
+     */
+    private Integer hookInvocationCount;
+    /**
+     * <p>
+     * A <code>ResourceChange</code> structure that describes the resource and action that CloudFormation will perform.
      * </p>
      */
     private ResourceChange resourceChange;
 
     /**
      * <p>
-     * The type of entity that AWS CloudFormation changes. Currently, the only entity type is <code>Resource</code>.
+     * The type of entity that CloudFormation changes.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Resource</code> This change is for a resource.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param type
-     *        The type of entity that AWS CloudFormation changes. Currently, the only entity type is
-     *        <code>Resource</code>.
+     *        The type of entity that CloudFormation changes.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Resource</code> This change is for a resource.
+     *        </p>
+     *        </li>
      * @see ChangeType
      */
 
@@ -58,11 +82,23 @@ public class Change implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of entity that AWS CloudFormation changes. Currently, the only entity type is <code>Resource</code>.
+     * The type of entity that CloudFormation changes.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Resource</code> This change is for a resource.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The type of entity that AWS CloudFormation changes. Currently, the only entity type is
-     *         <code>Resource</code>.
+     * @return The type of entity that CloudFormation changes.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>Resource</code> This change is for a resource.
+     *         </p>
+     *         </li>
      * @see ChangeType
      */
 
@@ -72,12 +108,24 @@ public class Change implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of entity that AWS CloudFormation changes. Currently, the only entity type is <code>Resource</code>.
+     * The type of entity that CloudFormation changes.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Resource</code> This change is for a resource.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param type
-     *        The type of entity that AWS CloudFormation changes. Currently, the only entity type is
-     *        <code>Resource</code>.
+     *        The type of entity that CloudFormation changes.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Resource</code> This change is for a resource.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ChangeType
      */
@@ -89,12 +137,24 @@ public class Change implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of entity that AWS CloudFormation changes. Currently, the only entity type is <code>Resource</code>.
+     * The type of entity that CloudFormation changes.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Resource</code> This change is for a resource.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param type
-     *        The type of entity that AWS CloudFormation changes. Currently, the only entity type is
-     *        <code>Resource</code>.
+     *        The type of entity that CloudFormation changes.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Resource</code> This change is for a resource.
+     *        </p>
+     *        </li>
      * @see ChangeType
      */
 
@@ -104,12 +164,24 @@ public class Change implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The type of entity that AWS CloudFormation changes. Currently, the only entity type is <code>Resource</code>.
+     * The type of entity that CloudFormation changes.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Resource</code> This change is for a resource.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param type
-     *        The type of entity that AWS CloudFormation changes. Currently, the only entity type is
-     *        <code>Resource</code>.
+     *        The type of entity that CloudFormation changes.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Resource</code> This change is for a resource.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ChangeType
      */
@@ -121,13 +193,58 @@ public class Change implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A <code>ResourceChange</code> structure that describes the resource and action that AWS CloudFormation will
-     * perform.
+     * Is either <code>null</code>, if no hooks invoke for the resource, or contains the number of hooks that will
+     * invoke for the resource.
+     * </p>
+     * 
+     * @param hookInvocationCount
+     *        Is either <code>null</code>, if no hooks invoke for the resource, or contains the number of hooks that
+     *        will invoke for the resource.
+     */
+
+    public void setHookInvocationCount(Integer hookInvocationCount) {
+        this.hookInvocationCount = hookInvocationCount;
+    }
+
+    /**
+     * <p>
+     * Is either <code>null</code>, if no hooks invoke for the resource, or contains the number of hooks that will
+     * invoke for the resource.
+     * </p>
+     * 
+     * @return Is either <code>null</code>, if no hooks invoke for the resource, or contains the number of hooks that
+     *         will invoke for the resource.
+     */
+
+    public Integer getHookInvocationCount() {
+        return this.hookInvocationCount;
+    }
+
+    /**
+     * <p>
+     * Is either <code>null</code>, if no hooks invoke for the resource, or contains the number of hooks that will
+     * invoke for the resource.
+     * </p>
+     * 
+     * @param hookInvocationCount
+     *        Is either <code>null</code>, if no hooks invoke for the resource, or contains the number of hooks that
+     *        will invoke for the resource.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Change withHookInvocationCount(Integer hookInvocationCount) {
+        setHookInvocationCount(hookInvocationCount);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A <code>ResourceChange</code> structure that describes the resource and action that CloudFormation will perform.
      * </p>
      * 
      * @param resourceChange
-     *        A <code>ResourceChange</code> structure that describes the resource and action that AWS CloudFormation
-     *        will perform.
+     *        A <code>ResourceChange</code> structure that describes the resource and action that CloudFormation will
+     *        perform.
      */
 
     public void setResourceChange(ResourceChange resourceChange) {
@@ -136,12 +253,11 @@ public class Change implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A <code>ResourceChange</code> structure that describes the resource and action that AWS CloudFormation will
-     * perform.
+     * A <code>ResourceChange</code> structure that describes the resource and action that CloudFormation will perform.
      * </p>
      * 
-     * @return A <code>ResourceChange</code> structure that describes the resource and action that AWS CloudFormation
-     *         will perform.
+     * @return A <code>ResourceChange</code> structure that describes the resource and action that CloudFormation will
+     *         perform.
      */
 
     public ResourceChange getResourceChange() {
@@ -150,13 +266,12 @@ public class Change implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A <code>ResourceChange</code> structure that describes the resource and action that AWS CloudFormation will
-     * perform.
+     * A <code>ResourceChange</code> structure that describes the resource and action that CloudFormation will perform.
      * </p>
      * 
      * @param resourceChange
-     *        A <code>ResourceChange</code> structure that describes the resource and action that AWS CloudFormation
-     *        will perform.
+     *        A <code>ResourceChange</code> structure that describes the resource and action that CloudFormation will
+     *        perform.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -179,6 +294,8 @@ public class Change implements Serializable, Cloneable {
         sb.append("{");
         if (getType() != null)
             sb.append("Type: ").append(getType()).append(",");
+        if (getHookInvocationCount() != null)
+            sb.append("HookInvocationCount: ").append(getHookInvocationCount()).append(",");
         if (getResourceChange() != null)
             sb.append("ResourceChange: ").append(getResourceChange());
         sb.append("}");
@@ -199,6 +316,10 @@ public class Change implements Serializable, Cloneable {
             return false;
         if (other.getType() != null && other.getType().equals(this.getType()) == false)
             return false;
+        if (other.getHookInvocationCount() == null ^ this.getHookInvocationCount() == null)
+            return false;
+        if (other.getHookInvocationCount() != null && other.getHookInvocationCount().equals(this.getHookInvocationCount()) == false)
+            return false;
         if (other.getResourceChange() == null ^ this.getResourceChange() == null)
             return false;
         if (other.getResourceChange() != null && other.getResourceChange().equals(this.getResourceChange()) == false)
@@ -212,6 +333,7 @@ public class Change implements Serializable, Cloneable {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getType() == null) ? 0 : getType().hashCode());
+        hashCode = prime * hashCode + ((getHookInvocationCount() == null) ? 0 : getHookInvocationCount().hashCode());
         hashCode = prime * hashCode + ((getResourceChange() == null) ? 0 : getResourceChange().hashCode());
         return hashCode;
     }

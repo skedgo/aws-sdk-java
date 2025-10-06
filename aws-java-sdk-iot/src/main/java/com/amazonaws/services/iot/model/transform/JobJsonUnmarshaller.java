@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -78,7 +78,9 @@ public class JobJsonUnmarshaller implements Unmarshaller<Job, JsonUnmarshallerCo
                 }
                 if (context.testExpression("targets", targetDepth)) {
                     context.nextToken();
-                    job.setTargets(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    job.setTargets(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("description", targetDepth)) {
                     context.nextToken();
@@ -115,6 +117,43 @@ public class JobJsonUnmarshaller implements Unmarshaller<Job, JsonUnmarshallerCo
                 if (context.testExpression("timeoutConfig", targetDepth)) {
                     context.nextToken();
                     job.setTimeoutConfig(TimeoutConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("namespaceId", targetDepth)) {
+                    context.nextToken();
+                    job.setNamespaceId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("jobTemplateArn", targetDepth)) {
+                    context.nextToken();
+                    job.setJobTemplateArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("jobExecutionsRetryConfig", targetDepth)) {
+                    context.nextToken();
+                    job.setJobExecutionsRetryConfig(JobExecutionsRetryConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("documentParameters", targetDepth)) {
+                    context.nextToken();
+                    job.setDocumentParameters(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
+                            .unmarshall(context));
+                }
+                if (context.testExpression("isConcurrent", targetDepth)) {
+                    context.nextToken();
+                    job.setIsConcurrent(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("schedulingConfig", targetDepth)) {
+                    context.nextToken();
+                    job.setSchedulingConfig(SchedulingConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("scheduledJobRollouts", targetDepth)) {
+                    context.nextToken();
+                    job.setScheduledJobRollouts(new ListUnmarshaller<ScheduledJobRollout>(ScheduledJobRolloutJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("destinationPackageVersions", targetDepth)) {
+                    context.nextToken();
+                    job.setDestinationPackageVersions(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

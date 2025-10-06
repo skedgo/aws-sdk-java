@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,6 +33,15 @@ import com.amazonaws.services.appstream.model.*;
  * AWS resources that are required to host and run your applications, scales automatically, and provides access to your
  * users on demand.
  * </p>
+ * <note>
+ * <p>
+ * You can call the AppStream 2.0 API operations by using an interface VPC endpoint (interface endpoint). For more
+ * information, see <a href=
+ * "https://docs.aws.amazon.com/appstream2/latest/developerguide/access-api-cli-through-interface-vpc-endpoint.html"
+ * >Access AppStream 2.0 API Operations and CLI Commands Through an Interface VPC Endpoint</a> in the <i>Amazon
+ * AppStream 2.0 Administration Guide</i>.
+ * </p>
+ * </note>
  * <p>
  * To learn more about AppStream 2.0, see the following resources:
  * </p>
@@ -51,6 +60,109 @@ import com.amazonaws.services.appstream.model.*;
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public interface AmazonAppStreamAsync extends AmazonAppStream {
+
+    /**
+     * <p>
+     * Associates the specified app block builder with the specified app block.
+     * </p>
+     * 
+     * @param associateAppBlockBuilderAppBlockRequest
+     * @return A Java Future containing the result of the AssociateAppBlockBuilderAppBlock operation returned by the
+     *         service.
+     * @sample AmazonAppStreamAsync.AssociateAppBlockBuilderAppBlock
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/AssociateAppBlockBuilderAppBlock"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<AssociateAppBlockBuilderAppBlockResult> associateAppBlockBuilderAppBlockAsync(
+            AssociateAppBlockBuilderAppBlockRequest associateAppBlockBuilderAppBlockRequest);
+
+    /**
+     * <p>
+     * Associates the specified app block builder with the specified app block.
+     * </p>
+     * 
+     * @param associateAppBlockBuilderAppBlockRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the AssociateAppBlockBuilderAppBlock operation returned by the
+     *         service.
+     * @sample AmazonAppStreamAsyncHandler.AssociateAppBlockBuilderAppBlock
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/AssociateAppBlockBuilderAppBlock"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<AssociateAppBlockBuilderAppBlockResult> associateAppBlockBuilderAppBlockAsync(
+            AssociateAppBlockBuilderAppBlockRequest associateAppBlockBuilderAppBlockRequest,
+            com.amazonaws.handlers.AsyncHandler<AssociateAppBlockBuilderAppBlockRequest, AssociateAppBlockBuilderAppBlockResult> asyncHandler);
+
+    /**
+     * <p>
+     * Associates the specified application with the specified fleet. This is only supported for Elastic fleets.
+     * </p>
+     * 
+     * @param associateApplicationFleetRequest
+     * @return A Java Future containing the result of the AssociateApplicationFleet operation returned by the service.
+     * @sample AmazonAppStreamAsync.AssociateApplicationFleet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/AssociateApplicationFleet"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<AssociateApplicationFleetResult> associateApplicationFleetAsync(
+            AssociateApplicationFleetRequest associateApplicationFleetRequest);
+
+    /**
+     * <p>
+     * Associates the specified application with the specified fleet. This is only supported for Elastic fleets.
+     * </p>
+     * 
+     * @param associateApplicationFleetRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the AssociateApplicationFleet operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.AssociateApplicationFleet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/AssociateApplicationFleet"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<AssociateApplicationFleetResult> associateApplicationFleetAsync(
+            AssociateApplicationFleetRequest associateApplicationFleetRequest,
+            com.amazonaws.handlers.AsyncHandler<AssociateApplicationFleetRequest, AssociateApplicationFleetResult> asyncHandler);
+
+    /**
+     * <p>
+     * Associates an application to entitle.
+     * </p>
+     * 
+     * @param associateApplicationToEntitlementRequest
+     * @return A Java Future containing the result of the AssociateApplicationToEntitlement operation returned by the
+     *         service.
+     * @sample AmazonAppStreamAsync.AssociateApplicationToEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/AssociateApplicationToEntitlement"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<AssociateApplicationToEntitlementResult> associateApplicationToEntitlementAsync(
+            AssociateApplicationToEntitlementRequest associateApplicationToEntitlementRequest);
+
+    /**
+     * <p>
+     * Associates an application to entitle.
+     * </p>
+     * 
+     * @param associateApplicationToEntitlementRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the AssociateApplicationToEntitlement operation returned by the
+     *         service.
+     * @sample AmazonAppStreamAsyncHandler.AssociateApplicationToEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/AssociateApplicationToEntitlement"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<AssociateApplicationToEntitlementResult> associateApplicationToEntitlementAsync(
+            AssociateApplicationToEntitlementRequest associateApplicationToEntitlementRequest,
+            com.amazonaws.handlers.AsyncHandler<AssociateApplicationToEntitlementRequest, AssociateApplicationToEntitlementResult> asyncHandler);
 
     /**
      * <p>
@@ -184,6 +296,170 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
 
     /**
      * <p>
+     * Creates an app block.
+     * </p>
+     * <p>
+     * App blocks are an Amazon AppStream 2.0 resource that stores the details about the virtual hard disk in an S3
+     * bucket. It also stores the setup script with details about how to mount the virtual hard disk. The virtual hard
+     * disk includes the application binaries and other files necessary to launch your applications. Multiple
+     * applications can be assigned to a single app block.
+     * </p>
+     * <p>
+     * This is only supported for Elastic fleets.
+     * </p>
+     * 
+     * @param createAppBlockRequest
+     * @return A Java Future containing the result of the CreateAppBlock operation returned by the service.
+     * @sample AmazonAppStreamAsync.CreateAppBlock
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateAppBlock" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateAppBlockResult> createAppBlockAsync(CreateAppBlockRequest createAppBlockRequest);
+
+    /**
+     * <p>
+     * Creates an app block.
+     * </p>
+     * <p>
+     * App blocks are an Amazon AppStream 2.0 resource that stores the details about the virtual hard disk in an S3
+     * bucket. It also stores the setup script with details about how to mount the virtual hard disk. The virtual hard
+     * disk includes the application binaries and other files necessary to launch your applications. Multiple
+     * applications can be assigned to a single app block.
+     * </p>
+     * <p>
+     * This is only supported for Elastic fleets.
+     * </p>
+     * 
+     * @param createAppBlockRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateAppBlock operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.CreateAppBlock
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateAppBlock" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateAppBlockResult> createAppBlockAsync(CreateAppBlockRequest createAppBlockRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateAppBlockRequest, CreateAppBlockResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates an app block builder.
+     * </p>
+     * 
+     * @param createAppBlockBuilderRequest
+     * @return A Java Future containing the result of the CreateAppBlockBuilder operation returned by the service.
+     * @sample AmazonAppStreamAsync.CreateAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateAppBlockBuilder"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateAppBlockBuilderResult> createAppBlockBuilderAsync(CreateAppBlockBuilderRequest createAppBlockBuilderRequest);
+
+    /**
+     * <p>
+     * Creates an app block builder.
+     * </p>
+     * 
+     * @param createAppBlockBuilderRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateAppBlockBuilder operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.CreateAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateAppBlockBuilder"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateAppBlockBuilderResult> createAppBlockBuilderAsync(CreateAppBlockBuilderRequest createAppBlockBuilderRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateAppBlockBuilderRequest, CreateAppBlockBuilderResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a URL to start a create app block builder streaming session.
+     * </p>
+     * 
+     * @param createAppBlockBuilderStreamingURLRequest
+     * @return A Java Future containing the result of the CreateAppBlockBuilderStreamingURL operation returned by the
+     *         service.
+     * @sample AmazonAppStreamAsync.CreateAppBlockBuilderStreamingURL
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateAppBlockBuilderStreamingURL"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateAppBlockBuilderStreamingURLResult> createAppBlockBuilderStreamingURLAsync(
+            CreateAppBlockBuilderStreamingURLRequest createAppBlockBuilderStreamingURLRequest);
+
+    /**
+     * <p>
+     * Creates a URL to start a create app block builder streaming session.
+     * </p>
+     * 
+     * @param createAppBlockBuilderStreamingURLRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateAppBlockBuilderStreamingURL operation returned by the
+     *         service.
+     * @sample AmazonAppStreamAsyncHandler.CreateAppBlockBuilderStreamingURL
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateAppBlockBuilderStreamingURL"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateAppBlockBuilderStreamingURLResult> createAppBlockBuilderStreamingURLAsync(
+            CreateAppBlockBuilderStreamingURLRequest createAppBlockBuilderStreamingURLRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateAppBlockBuilderStreamingURLRequest, CreateAppBlockBuilderStreamingURLResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates an application.
+     * </p>
+     * <p>
+     * Applications are an Amazon AppStream 2.0 resource that stores the details about how to launch applications on
+     * Elastic fleet streaming instances. An application consists of the launch details, icon, and display name.
+     * Applications are associated with an app block that contains the application binaries and other files. The
+     * applications assigned to an Elastic fleet are the applications users can launch.
+     * </p>
+     * <p>
+     * This is only supported for Elastic fleets.
+     * </p>
+     * 
+     * @param createApplicationRequest
+     * @return A Java Future containing the result of the CreateApplication operation returned by the service.
+     * @sample AmazonAppStreamAsync.CreateApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateApplication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateApplicationResult> createApplicationAsync(CreateApplicationRequest createApplicationRequest);
+
+    /**
+     * <p>
+     * Creates an application.
+     * </p>
+     * <p>
+     * Applications are an Amazon AppStream 2.0 resource that stores the details about how to launch applications on
+     * Elastic fleet streaming instances. An application consists of the launch details, icon, and display name.
+     * Applications are associated with an app block that contains the application binaries and other files. The
+     * applications assigned to an Elastic fleet are the applications users can launch.
+     * </p>
+     * <p>
+     * This is only supported for Elastic fleets.
+     * </p>
+     * 
+     * @param createApplicationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateApplication operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.CreateApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateApplication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateApplicationResult> createApplicationAsync(CreateApplicationRequest createApplicationRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateApplicationRequest, CreateApplicationResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates a Directory Config object in AppStream 2.0. This object includes the configuration information required
      * to join fleets and image builders to Microsoft Active Directory domains.
      * </p>
@@ -217,7 +493,45 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
 
     /**
      * <p>
-     * Creates a fleet. A fleet consists of streaming instances that run a specified image.
+     * Creates a new entitlement. Entitlements control access to specific applications within a stack, based on user
+     * attributes. Entitlements apply to SAML 2.0 federated user identities. Amazon AppStream 2.0 user pool and
+     * streaming URL users are entitled to all applications in a stack. Entitlements don't apply to the desktop stream
+     * view application, or to applications managed by a dynamic app provider using the Dynamic Application Framework.
+     * </p>
+     * 
+     * @param createEntitlementRequest
+     * @return A Java Future containing the result of the CreateEntitlement operation returned by the service.
+     * @sample AmazonAppStreamAsync.CreateEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateEntitlement" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateEntitlementResult> createEntitlementAsync(CreateEntitlementRequest createEntitlementRequest);
+
+    /**
+     * <p>
+     * Creates a new entitlement. Entitlements control access to specific applications within a stack, based on user
+     * attributes. Entitlements apply to SAML 2.0 federated user identities. Amazon AppStream 2.0 user pool and
+     * streaming URL users are entitled to all applications in a stack. Entitlements don't apply to the desktop stream
+     * view application, or to applications managed by a dynamic app provider using the Dynamic Application Framework.
+     * </p>
+     * 
+     * @param createEntitlementRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateEntitlement operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.CreateEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateEntitlement" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateEntitlementResult> createEntitlementAsync(CreateEntitlementRequest createEntitlementRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateEntitlementRequest, CreateEntitlementResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a fleet. A fleet consists of streaming instances that your users access for their applications and
+     * desktops.
      * </p>
      * 
      * @param createFleetRequest
@@ -230,7 +544,8 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
 
     /**
      * <p>
-     * Creates a fleet. A fleet consists of streaming instances that run a specified image.
+     * Creates a fleet. A fleet consists of streaming instances that your users access for their applications and
+     * desktops.
      * </p>
      * 
      * @param createFleetRequest
@@ -386,6 +701,49 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
 
     /**
      * <p>
+     * Creates a new image with the latest Windows operating system updates, driver updates, and AppStream 2.0 agent
+     * software.
+     * </p>
+     * <p>
+     * For more information, see the "Update an Image by Using Managed AppStream 2.0 Image Updates" section in <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/administer-images.html">Administer Your
+     * AppStream 2.0 Images</a>, in the <i>Amazon AppStream 2.0 Administration Guide</i>.
+     * </p>
+     * 
+     * @param createUpdatedImageRequest
+     * @return A Java Future containing the result of the CreateUpdatedImage operation returned by the service.
+     * @sample AmazonAppStreamAsync.CreateUpdatedImage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateUpdatedImage" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateUpdatedImageResult> createUpdatedImageAsync(CreateUpdatedImageRequest createUpdatedImageRequest);
+
+    /**
+     * <p>
+     * Creates a new image with the latest Windows operating system updates, driver updates, and AppStream 2.0 agent
+     * software.
+     * </p>
+     * <p>
+     * For more information, see the "Update an Image by Using Managed AppStream 2.0 Image Updates" section in <a
+     * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/administer-images.html">Administer Your
+     * AppStream 2.0 Images</a>, in the <i>Amazon AppStream 2.0 Administration Guide</i>.
+     * </p>
+     * 
+     * @param createUpdatedImageRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateUpdatedImage operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.CreateUpdatedImage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateUpdatedImage" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateUpdatedImageResult> createUpdatedImageAsync(CreateUpdatedImageRequest createUpdatedImageRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateUpdatedImageRequest, CreateUpdatedImageResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates a usage report subscription. Usage reports are generated daily.
      * </p>
      * 
@@ -452,6 +810,105 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
 
     /**
      * <p>
+     * Deletes an app block.
+     * </p>
+     * 
+     * @param deleteAppBlockRequest
+     * @return A Java Future containing the result of the DeleteAppBlock operation returned by the service.
+     * @sample AmazonAppStreamAsync.DeleteAppBlock
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteAppBlock" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteAppBlockResult> deleteAppBlockAsync(DeleteAppBlockRequest deleteAppBlockRequest);
+
+    /**
+     * <p>
+     * Deletes an app block.
+     * </p>
+     * 
+     * @param deleteAppBlockRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteAppBlock operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.DeleteAppBlock
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteAppBlock" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteAppBlockResult> deleteAppBlockAsync(DeleteAppBlockRequest deleteAppBlockRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteAppBlockRequest, DeleteAppBlockResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an app block builder.
+     * </p>
+     * <p>
+     * An app block builder can only be deleted when it has no association with an app block.
+     * </p>
+     * 
+     * @param deleteAppBlockBuilderRequest
+     * @return A Java Future containing the result of the DeleteAppBlockBuilder operation returned by the service.
+     * @sample AmazonAppStreamAsync.DeleteAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteAppBlockBuilder"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteAppBlockBuilderResult> deleteAppBlockBuilderAsync(DeleteAppBlockBuilderRequest deleteAppBlockBuilderRequest);
+
+    /**
+     * <p>
+     * Deletes an app block builder.
+     * </p>
+     * <p>
+     * An app block builder can only be deleted when it has no association with an app block.
+     * </p>
+     * 
+     * @param deleteAppBlockBuilderRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteAppBlockBuilder operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.DeleteAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteAppBlockBuilder"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteAppBlockBuilderResult> deleteAppBlockBuilderAsync(DeleteAppBlockBuilderRequest deleteAppBlockBuilderRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteAppBlockBuilderRequest, DeleteAppBlockBuilderResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an application.
+     * </p>
+     * 
+     * @param deleteApplicationRequest
+     * @return A Java Future containing the result of the DeleteApplication operation returned by the service.
+     * @sample AmazonAppStreamAsync.DeleteApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteApplication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteApplicationResult> deleteApplicationAsync(DeleteApplicationRequest deleteApplicationRequest);
+
+    /**
+     * <p>
+     * Deletes an application.
+     * </p>
+     * 
+     * @param deleteApplicationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteApplication operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.DeleteApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteApplication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteApplicationResult> deleteApplicationAsync(DeleteApplicationRequest deleteApplicationRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteApplicationRequest, DeleteApplicationResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes the specified Directory Config object from AppStream 2.0. This object includes the information required
      * to join streaming instances to an Active Directory domain.
      * </p>
@@ -482,6 +939,37 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
      */
     java.util.concurrent.Future<DeleteDirectoryConfigResult> deleteDirectoryConfigAsync(DeleteDirectoryConfigRequest deleteDirectoryConfigRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteDirectoryConfigRequest, DeleteDirectoryConfigResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the specified entitlement.
+     * </p>
+     * 
+     * @param deleteEntitlementRequest
+     * @return A Java Future containing the result of the DeleteEntitlement operation returned by the service.
+     * @sample AmazonAppStreamAsync.DeleteEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteEntitlement" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteEntitlementResult> deleteEntitlementAsync(DeleteEntitlementRequest deleteEntitlementRequest);
+
+    /**
+     * <p>
+     * Deletes the specified entitlement.
+     * </p>
+     * 
+     * @param deleteEntitlementRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteEntitlement operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.DeleteEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteEntitlement" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteEntitlementResult> deleteEntitlementAsync(DeleteEntitlementRequest deleteEntitlementRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteEntitlementRequest, DeleteEntitlementResult> asyncHandler);
 
     /**
      * <p>
@@ -714,6 +1202,173 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
 
     /**
      * <p>
+     * Retrieves a list that describes one or more app block builder associations.
+     * </p>
+     * 
+     * @param describeAppBlockBuilderAppBlockAssociationsRequest
+     * @return A Java Future containing the result of the DescribeAppBlockBuilderAppBlockAssociations operation returned
+     *         by the service.
+     * @sample AmazonAppStreamAsync.DescribeAppBlockBuilderAppBlockAssociations
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeAppBlockBuilderAppBlockAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeAppBlockBuilderAppBlockAssociationsResult> describeAppBlockBuilderAppBlockAssociationsAsync(
+            DescribeAppBlockBuilderAppBlockAssociationsRequest describeAppBlockBuilderAppBlockAssociationsRequest);
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more app block builder associations.
+     * </p>
+     * 
+     * @param describeAppBlockBuilderAppBlockAssociationsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeAppBlockBuilderAppBlockAssociations operation returned
+     *         by the service.
+     * @sample AmazonAppStreamAsyncHandler.DescribeAppBlockBuilderAppBlockAssociations
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeAppBlockBuilderAppBlockAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeAppBlockBuilderAppBlockAssociationsResult> describeAppBlockBuilderAppBlockAssociationsAsync(
+            DescribeAppBlockBuilderAppBlockAssociationsRequest describeAppBlockBuilderAppBlockAssociationsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeAppBlockBuilderAppBlockAssociationsRequest, DescribeAppBlockBuilderAppBlockAssociationsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more app block builders.
+     * </p>
+     * 
+     * @param describeAppBlockBuildersRequest
+     * @return A Java Future containing the result of the DescribeAppBlockBuilders operation returned by the service.
+     * @sample AmazonAppStreamAsync.DescribeAppBlockBuilders
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeAppBlockBuilders"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeAppBlockBuildersResult> describeAppBlockBuildersAsync(DescribeAppBlockBuildersRequest describeAppBlockBuildersRequest);
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more app block builders.
+     * </p>
+     * 
+     * @param describeAppBlockBuildersRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeAppBlockBuilders operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.DescribeAppBlockBuilders
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeAppBlockBuilders"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeAppBlockBuildersResult> describeAppBlockBuildersAsync(DescribeAppBlockBuildersRequest describeAppBlockBuildersRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeAppBlockBuildersRequest, DescribeAppBlockBuildersResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more app blocks.
+     * </p>
+     * 
+     * @param describeAppBlocksRequest
+     * @return A Java Future containing the result of the DescribeAppBlocks operation returned by the service.
+     * @sample AmazonAppStreamAsync.DescribeAppBlocks
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeAppBlocks" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeAppBlocksResult> describeAppBlocksAsync(DescribeAppBlocksRequest describeAppBlocksRequest);
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more app blocks.
+     * </p>
+     * 
+     * @param describeAppBlocksRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeAppBlocks operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.DescribeAppBlocks
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeAppBlocks" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeAppBlocksResult> describeAppBlocksAsync(DescribeAppBlocksRequest describeAppBlocksRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeAppBlocksRequest, DescribeAppBlocksResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more application fleet associations. Either ApplicationArn or FleetName
+     * must be specified.
+     * </p>
+     * 
+     * @param describeApplicationFleetAssociationsRequest
+     * @return A Java Future containing the result of the DescribeApplicationFleetAssociations operation returned by the
+     *         service.
+     * @sample AmazonAppStreamAsync.DescribeApplicationFleetAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeApplicationFleetAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeApplicationFleetAssociationsResult> describeApplicationFleetAssociationsAsync(
+            DescribeApplicationFleetAssociationsRequest describeApplicationFleetAssociationsRequest);
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more application fleet associations. Either ApplicationArn or FleetName
+     * must be specified.
+     * </p>
+     * 
+     * @param describeApplicationFleetAssociationsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeApplicationFleetAssociations operation returned by the
+     *         service.
+     * @sample AmazonAppStreamAsyncHandler.DescribeApplicationFleetAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeApplicationFleetAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeApplicationFleetAssociationsResult> describeApplicationFleetAssociationsAsync(
+            DescribeApplicationFleetAssociationsRequest describeApplicationFleetAssociationsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeApplicationFleetAssociationsRequest, DescribeApplicationFleetAssociationsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more applications.
+     * </p>
+     * 
+     * @param describeApplicationsRequest
+     * @return A Java Future containing the result of the DescribeApplications operation returned by the service.
+     * @sample AmazonAppStreamAsync.DescribeApplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeApplications" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeApplicationsResult> describeApplicationsAsync(DescribeApplicationsRequest describeApplicationsRequest);
+
+    /**
+     * <p>
+     * Retrieves a list that describes one or more applications.
+     * </p>
+     * 
+     * @param describeApplicationsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeApplications operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.DescribeApplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeApplications" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeApplicationsResult> describeApplicationsAsync(DescribeApplicationsRequest describeApplicationsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeApplicationsRequest, DescribeApplicationsResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves a list that describes one or more specified Directory Config objects for AppStream 2.0, if the names
      * for these objects are provided. Otherwise, all Directory Config objects in the account are described. These
      * objects include the configuration information required to join fleets and image builders to Microsoft Active
@@ -756,6 +1411,37 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
      */
     java.util.concurrent.Future<DescribeDirectoryConfigsResult> describeDirectoryConfigsAsync(DescribeDirectoryConfigsRequest describeDirectoryConfigsRequest,
             com.amazonaws.handlers.AsyncHandler<DescribeDirectoryConfigsRequest, DescribeDirectoryConfigsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves a list that describes one of more entitlements.
+     * </p>
+     * 
+     * @param describeEntitlementsRequest
+     * @return A Java Future containing the result of the DescribeEntitlements operation returned by the service.
+     * @sample AmazonAppStreamAsync.DescribeEntitlements
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeEntitlements" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeEntitlementsResult> describeEntitlementsAsync(DescribeEntitlementsRequest describeEntitlementsRequest);
+
+    /**
+     * <p>
+     * Retrieves a list that describes one of more entitlements.
+     * </p>
+     * 
+     * @param describeEntitlementsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeEntitlements operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.DescribeEntitlements
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeEntitlements" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeEntitlementsResult> describeEntitlementsAsync(DescribeEntitlementsRequest describeEntitlementsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeEntitlementsRequest, DescribeEntitlementsResult> asyncHandler);
 
     /**
      * <p>
@@ -1117,6 +1803,111 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
 
     /**
      * <p>
+     * Disassociates a specified app block builder from a specified app block.
+     * </p>
+     * 
+     * @param disassociateAppBlockBuilderAppBlockRequest
+     * @return A Java Future containing the result of the DisassociateAppBlockBuilderAppBlock operation returned by the
+     *         service.
+     * @sample AmazonAppStreamAsync.DisassociateAppBlockBuilderAppBlock
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DisassociateAppBlockBuilderAppBlock"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateAppBlockBuilderAppBlockResult> disassociateAppBlockBuilderAppBlockAsync(
+            DisassociateAppBlockBuilderAppBlockRequest disassociateAppBlockBuilderAppBlockRequest);
+
+    /**
+     * <p>
+     * Disassociates a specified app block builder from a specified app block.
+     * </p>
+     * 
+     * @param disassociateAppBlockBuilderAppBlockRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DisassociateAppBlockBuilderAppBlock operation returned by the
+     *         service.
+     * @sample AmazonAppStreamAsyncHandler.DisassociateAppBlockBuilderAppBlock
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DisassociateAppBlockBuilderAppBlock"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateAppBlockBuilderAppBlockResult> disassociateAppBlockBuilderAppBlockAsync(
+            DisassociateAppBlockBuilderAppBlockRequest disassociateAppBlockBuilderAppBlockRequest,
+            com.amazonaws.handlers.AsyncHandler<DisassociateAppBlockBuilderAppBlockRequest, DisassociateAppBlockBuilderAppBlockResult> asyncHandler);
+
+    /**
+     * <p>
+     * Disassociates the specified application from the fleet.
+     * </p>
+     * 
+     * @param disassociateApplicationFleetRequest
+     * @return A Java Future containing the result of the DisassociateApplicationFleet operation returned by the
+     *         service.
+     * @sample AmazonAppStreamAsync.DisassociateApplicationFleet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DisassociateApplicationFleet"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateApplicationFleetResult> disassociateApplicationFleetAsync(
+            DisassociateApplicationFleetRequest disassociateApplicationFleetRequest);
+
+    /**
+     * <p>
+     * Disassociates the specified application from the fleet.
+     * </p>
+     * 
+     * @param disassociateApplicationFleetRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DisassociateApplicationFleet operation returned by the
+     *         service.
+     * @sample AmazonAppStreamAsyncHandler.DisassociateApplicationFleet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DisassociateApplicationFleet"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateApplicationFleetResult> disassociateApplicationFleetAsync(
+            DisassociateApplicationFleetRequest disassociateApplicationFleetRequest,
+            com.amazonaws.handlers.AsyncHandler<DisassociateApplicationFleetRequest, DisassociateApplicationFleetResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the specified application from the specified entitlement.
+     * </p>
+     * 
+     * @param disassociateApplicationFromEntitlementRequest
+     * @return A Java Future containing the result of the DisassociateApplicationFromEntitlement operation returned by
+     *         the service.
+     * @sample AmazonAppStreamAsync.DisassociateApplicationFromEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DisassociateApplicationFromEntitlement"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateApplicationFromEntitlementResult> disassociateApplicationFromEntitlementAsync(
+            DisassociateApplicationFromEntitlementRequest disassociateApplicationFromEntitlementRequest);
+
+    /**
+     * <p>
+     * Deletes the specified application from the specified entitlement.
+     * </p>
+     * 
+     * @param disassociateApplicationFromEntitlementRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DisassociateApplicationFromEntitlement operation returned by
+     *         the service.
+     * @sample AmazonAppStreamAsyncHandler.DisassociateApplicationFromEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DisassociateApplicationFromEntitlement"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateApplicationFromEntitlementResult> disassociateApplicationFromEntitlementAsync(
+            DisassociateApplicationFromEntitlementRequest disassociateApplicationFromEntitlementRequest,
+            com.amazonaws.handlers.AsyncHandler<DisassociateApplicationFromEntitlementRequest, DisassociateApplicationFromEntitlementResult> asyncHandler);
+
+    /**
+     * <p>
      * Disassociates the specified fleet from the specified stack.
      * </p>
      * 
@@ -1274,13 +2065,44 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
 
     /**
      * <p>
+     * Retrieves a list of entitled applications.
+     * </p>
+     * 
+     * @param listEntitledApplicationsRequest
+     * @return A Java Future containing the result of the ListEntitledApplications operation returned by the service.
+     * @sample AmazonAppStreamAsync.ListEntitledApplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ListEntitledApplications"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListEntitledApplicationsResult> listEntitledApplicationsAsync(ListEntitledApplicationsRequest listEntitledApplicationsRequest);
+
+    /**
+     * <p>
+     * Retrieves a list of entitled applications.
+     * </p>
+     * 
+     * @param listEntitledApplicationsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListEntitledApplications operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.ListEntitledApplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ListEntitledApplications"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListEntitledApplicationsResult> listEntitledApplicationsAsync(ListEntitledApplicationsRequest listEntitledApplicationsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListEntitledApplicationsRequest, ListEntitledApplicationsResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves a list of all tags for the specified AppStream 2.0 resource. You can tag AppStream 2.0 image builders,
      * images, fleets, and stacks.
      * </p>
      * <p>
      * For more information about tags, see <a
      * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging Your Resources</a>
-     * in the <i>Amazon AppStream 2.0 Developer Guide</i>.
+     * in the <i>Amazon AppStream 2.0 Administration Guide</i>.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -1299,7 +2121,7 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
      * <p>
      * For more information about tags, see <a
      * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging Your Resources</a>
-     * in the <i>Amazon AppStream 2.0 Developer Guide</i>.
+     * in the <i>Amazon AppStream 2.0 Administration Guide</i>.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -1314,6 +2136,51 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
      */
     java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest listTagsForResourceRequest,
             com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Starts an app block builder.
+     * </p>
+     * <p>
+     * An app block builder can only be started when it's associated with an app block.
+     * </p>
+     * <p>
+     * Starting an app block builder starts a new instance, which is equivalent to an elastic fleet instance with
+     * application builder assistance functionality.
+     * </p>
+     * 
+     * @param startAppBlockBuilderRequest
+     * @return A Java Future containing the result of the StartAppBlockBuilder operation returned by the service.
+     * @sample AmazonAppStreamAsync.StartAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StartAppBlockBuilder" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<StartAppBlockBuilderResult> startAppBlockBuilderAsync(StartAppBlockBuilderRequest startAppBlockBuilderRequest);
+
+    /**
+     * <p>
+     * Starts an app block builder.
+     * </p>
+     * <p>
+     * An app block builder can only be started when it's associated with an app block.
+     * </p>
+     * <p>
+     * Starting an app block builder starts a new instance, which is equivalent to an elastic fleet instance with
+     * application builder assistance functionality.
+     * </p>
+     * 
+     * @param startAppBlockBuilderRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartAppBlockBuilder operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.StartAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StartAppBlockBuilder" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<StartAppBlockBuilderResult> startAppBlockBuilderAsync(StartAppBlockBuilderRequest startAppBlockBuilderRequest,
+            com.amazonaws.handlers.AsyncHandler<StartAppBlockBuilderRequest, StartAppBlockBuilderResult> asyncHandler);
 
     /**
      * <p>
@@ -1376,6 +2243,43 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
      */
     java.util.concurrent.Future<StartImageBuilderResult> startImageBuilderAsync(StartImageBuilderRequest startImageBuilderRequest,
             com.amazonaws.handlers.AsyncHandler<StartImageBuilderRequest, StartImageBuilderResult> asyncHandler);
+
+    /**
+     * <p>
+     * Stops an app block builder.
+     * </p>
+     * <p>
+     * Stopping an app block builder terminates the instance, and the instance state is not persisted.
+     * </p>
+     * 
+     * @param stopAppBlockBuilderRequest
+     * @return A Java Future containing the result of the StopAppBlockBuilder operation returned by the service.
+     * @sample AmazonAppStreamAsync.StopAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StopAppBlockBuilder" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<StopAppBlockBuilderResult> stopAppBlockBuilderAsync(StopAppBlockBuilderRequest stopAppBlockBuilderRequest);
+
+    /**
+     * <p>
+     * Stops an app block builder.
+     * </p>
+     * <p>
+     * Stopping an app block builder terminates the instance, and the instance state is not persisted.
+     * </p>
+     * 
+     * @param stopAppBlockBuilderRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StopAppBlockBuilder operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.StopAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StopAppBlockBuilder" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<StopAppBlockBuilderResult> stopAppBlockBuilderAsync(StopAppBlockBuilderRequest stopAppBlockBuilderRequest,
+            com.amazonaws.handlers.AsyncHandler<StopAppBlockBuilderRequest, StopAppBlockBuilderResult> asyncHandler);
 
     /**
      * <p>
@@ -1455,7 +2359,7 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
      * <p>
      * For more information about tags, see <a
      * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging Your Resources</a>
-     * in the <i>Amazon AppStream 2.0 Developer Guide</i>.
+     * in the <i>Amazon AppStream 2.0 Administration Guide</i>.
      * </p>
      * 
      * @param tagResourceRequest
@@ -1482,7 +2386,7 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
      * <p>
      * For more information about tags, see <a
      * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging Your Resources</a>
-     * in the <i>Amazon AppStream 2.0 Developer Guide</i>.
+     * in the <i>Amazon AppStream 2.0 Administration Guide</i>.
      * </p>
      * 
      * @param tagResourceRequest
@@ -1508,7 +2412,7 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
      * <p>
      * For more information about tags, see <a
      * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging Your Resources</a>
-     * in the <i>Amazon AppStream 2.0 Developer Guide</i>.
+     * in the <i>Amazon AppStream 2.0 Administration Guide</i>.
      * </p>
      * 
      * @param untagResourceRequest
@@ -1529,7 +2433,7 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
      * <p>
      * For more information about tags, see <a
      * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html">Tagging Your Resources</a>
-     * in the <i>Amazon AppStream 2.0 Developer Guide</i>.
+     * in the <i>Amazon AppStream 2.0 Administration Guide</i>.
      * </p>
      * 
      * @param untagResourceRequest
@@ -1544,6 +2448,78 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
      */
     java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest untagResourceRequest,
             com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates an app block builder.
+     * </p>
+     * <p>
+     * If the app block builder is in the <code>STARTING</code> or <code>STOPPING</code> state, you can't update it. If
+     * the app block builder is in the <code>RUNNING</code> state, you can only update the DisplayName and Description.
+     * If the app block builder is in the <code>STOPPED</code> state, you can update any attribute except the Name.
+     * </p>
+     * 
+     * @param updateAppBlockBuilderRequest
+     * @return A Java Future containing the result of the UpdateAppBlockBuilder operation returned by the service.
+     * @sample AmazonAppStreamAsync.UpdateAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/UpdateAppBlockBuilder"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateAppBlockBuilderResult> updateAppBlockBuilderAsync(UpdateAppBlockBuilderRequest updateAppBlockBuilderRequest);
+
+    /**
+     * <p>
+     * Updates an app block builder.
+     * </p>
+     * <p>
+     * If the app block builder is in the <code>STARTING</code> or <code>STOPPING</code> state, you can't update it. If
+     * the app block builder is in the <code>RUNNING</code> state, you can only update the DisplayName and Description.
+     * If the app block builder is in the <code>STOPPED</code> state, you can update any attribute except the Name.
+     * </p>
+     * 
+     * @param updateAppBlockBuilderRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateAppBlockBuilder operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.UpdateAppBlockBuilder
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/UpdateAppBlockBuilder"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateAppBlockBuilderResult> updateAppBlockBuilderAsync(UpdateAppBlockBuilderRequest updateAppBlockBuilderRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateAppBlockBuilderRequest, UpdateAppBlockBuilderResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the specified application.
+     * </p>
+     * 
+     * @param updateApplicationRequest
+     * @return A Java Future containing the result of the UpdateApplication operation returned by the service.
+     * @sample AmazonAppStreamAsync.UpdateApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/UpdateApplication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateApplicationResult> updateApplicationAsync(UpdateApplicationRequest updateApplicationRequest);
+
+    /**
+     * <p>
+     * Updates the specified application.
+     * </p>
+     * 
+     * @param updateApplicationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateApplication operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.UpdateApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/UpdateApplication" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateApplicationResult> updateApplicationAsync(UpdateApplicationRequest updateApplicationRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateApplicationRequest, UpdateApplicationResult> asyncHandler);
 
     /**
      * <p>
@@ -1580,14 +2556,69 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
 
     /**
      * <p>
+     * Updates the specified entitlement.
+     * </p>
+     * 
+     * @param updateEntitlementRequest
+     * @return A Java Future containing the result of the UpdateEntitlement operation returned by the service.
+     * @sample AmazonAppStreamAsync.UpdateEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/UpdateEntitlement" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateEntitlementResult> updateEntitlementAsync(UpdateEntitlementRequest updateEntitlementRequest);
+
+    /**
+     * <p>
+     * Updates the specified entitlement.
+     * </p>
+     * 
+     * @param updateEntitlementRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateEntitlement operation returned by the service.
+     * @sample AmazonAppStreamAsyncHandler.UpdateEntitlement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/UpdateEntitlement" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateEntitlementResult> updateEntitlementAsync(UpdateEntitlementRequest updateEntitlementRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateEntitlementRequest, UpdateEntitlementResult> asyncHandler);
+
+    /**
+     * <p>
      * Updates the specified fleet.
      * </p>
      * <p>
-     * If the fleet is in the <code>STOPPED</code> state, you can update any attribute except the fleet name. If the
-     * fleet is in the <code>RUNNING</code> state, you can update the <code>DisplayName</code>,
-     * <code>ComputeCapacity</code>, <code>ImageARN</code>, <code>ImageName</code>, and
-     * <code>DisconnectTimeoutInSeconds</code> attributes. If the fleet is in the <code>STARTING</code> or
-     * <code>STOPPING</code> state, you can't update it.
+     * If the fleet is in the <code>STOPPED</code> state, you can update any attribute except the fleet name.
+     * </p>
+     * <p>
+     * If the fleet is in the <code>RUNNING</code> state, you can update the following based on the fleet type:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Always-On and On-Demand fleet types
+     * </p>
+     * <p>
+     * You can update the <code>DisplayName</code>, <code>ComputeCapacity</code>, <code>ImageARN</code>,
+     * <code>ImageName</code>, <code>IdleDisconnectTimeoutInSeconds</code>, and <code>DisconnectTimeoutInSeconds</code>
+     * attributes.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Elastic fleet type
+     * </p>
+     * <p>
+     * You can update the <code>DisplayName</code>, <code>IdleDisconnectTimeoutInSeconds</code>,
+     * <code>DisconnectTimeoutInSeconds</code>, <code>MaxConcurrentSessions</code>, <code>SessionScriptS3Location</code>
+     * and <code>UsbDeviceFilterStrings</code> attributes.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If the fleet is in the <code>STARTING</code> or <code>STOPPED</code> state, you can't update it.
      * </p>
      * 
      * @param updateFleetRequest
@@ -1603,11 +2634,35 @@ public interface AmazonAppStreamAsync extends AmazonAppStream {
      * Updates the specified fleet.
      * </p>
      * <p>
-     * If the fleet is in the <code>STOPPED</code> state, you can update any attribute except the fleet name. If the
-     * fleet is in the <code>RUNNING</code> state, you can update the <code>DisplayName</code>,
-     * <code>ComputeCapacity</code>, <code>ImageARN</code>, <code>ImageName</code>, and
-     * <code>DisconnectTimeoutInSeconds</code> attributes. If the fleet is in the <code>STARTING</code> or
-     * <code>STOPPING</code> state, you can't update it.
+     * If the fleet is in the <code>STOPPED</code> state, you can update any attribute except the fleet name.
+     * </p>
+     * <p>
+     * If the fleet is in the <code>RUNNING</code> state, you can update the following based on the fleet type:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Always-On and On-Demand fleet types
+     * </p>
+     * <p>
+     * You can update the <code>DisplayName</code>, <code>ComputeCapacity</code>, <code>ImageARN</code>,
+     * <code>ImageName</code>, <code>IdleDisconnectTimeoutInSeconds</code>, and <code>DisconnectTimeoutInSeconds</code>
+     * attributes.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Elastic fleet type
+     * </p>
+     * <p>
+     * You can update the <code>DisplayName</code>, <code>IdleDisconnectTimeoutInSeconds</code>,
+     * <code>DisconnectTimeoutInSeconds</code>, <code>MaxConcurrentSessions</code>, <code>SessionScriptS3Location</code>
+     * and <code>UsbDeviceFilterStrings</code> attributes.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If the fleet is in the <code>STARTING</code> or <code>STOPPED</code> state, you can't update it.
      * </p>
      * 
      * @param updateFleetRequest

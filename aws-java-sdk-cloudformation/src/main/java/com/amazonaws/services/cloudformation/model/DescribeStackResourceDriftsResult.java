@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,13 +26,13 @@ public class DescribeStackResourceDriftsResult extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Drift information for the resources that have been checked for drift in the specified stack. This includes actual
-     * and expected configuration values for resources where AWS CloudFormation detects drift.
+     * and expected configuration values for resources where CloudFormation detects drift.
      * </p>
      * <p>
      * For a given stack, there will be one <code>StackResourceDrift</code> for each stack resource that has been
-     * checked for drift. Resources that have not yet been checked for drift are not included. Resources that do not
-     * currently support drift detection are not checked, and so not included. For a list of resources that support
-     * drift detection, see <a
+     * checked for drift. Resources that haven't yet been checked for drift aren't included. Resources that do not
+     * currently support drift detection aren't checked, and so not included. For a list of resources that support drift
+     * detection, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      * >Resources that Support Drift Detection</a>.
      * </p>
@@ -40,7 +40,7 @@ public class DescribeStackResourceDriftsResult extends com.amazonaws.AmazonWebSe
     private com.amazonaws.internal.SdkInternalList<StackResourceDrift> stackResourceDrifts;
     /**
      * <p>
-     * If the request doesn't return all of the remaining results, <code>NextToken</code> is set to a token. To retrieve
+     * If the request doesn't return all the remaining results, <code>NextToken</code> is set to a token. To retrieve
      * the next set of results, call <code>DescribeStackResourceDrifts</code> again and assign that token to the request
      * object's <code>NextToken</code> parameter. If the request returns all results, <code>NextToken</code> is set to
      * <code>null</code>.
@@ -51,25 +51,24 @@ public class DescribeStackResourceDriftsResult extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Drift information for the resources that have been checked for drift in the specified stack. This includes actual
-     * and expected configuration values for resources where AWS CloudFormation detects drift.
+     * and expected configuration values for resources where CloudFormation detects drift.
      * </p>
      * <p>
      * For a given stack, there will be one <code>StackResourceDrift</code> for each stack resource that has been
-     * checked for drift. Resources that have not yet been checked for drift are not included. Resources that do not
-     * currently support drift detection are not checked, and so not included. For a list of resources that support
-     * drift detection, see <a
+     * checked for drift. Resources that haven't yet been checked for drift aren't included. Resources that do not
+     * currently support drift detection aren't checked, and so not included. For a list of resources that support drift
+     * detection, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      * >Resources that Support Drift Detection</a>.
      * </p>
      * 
      * @return Drift information for the resources that have been checked for drift in the specified stack. This
-     *         includes actual and expected configuration values for resources where AWS CloudFormation detects
-     *         drift.</p>
+     *         includes actual and expected configuration values for resources where CloudFormation detects drift.</p>
      *         <p>
      *         For a given stack, there will be one <code>StackResourceDrift</code> for each stack resource that has
-     *         been checked for drift. Resources that have not yet been checked for drift are not included. Resources
-     *         that do not currently support drift detection are not checked, and so not included. For a list of
-     *         resources that support drift detection, see <a href=
+     *         been checked for drift. Resources that haven't yet been checked for drift aren't included. Resources that
+     *         do not currently support drift detection aren't checked, and so not included. For a list of resources
+     *         that support drift detection, see <a href=
      *         "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      *         >Resources that Support Drift Detection</a>.
      */
@@ -84,24 +83,24 @@ public class DescribeStackResourceDriftsResult extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Drift information for the resources that have been checked for drift in the specified stack. This includes actual
-     * and expected configuration values for resources where AWS CloudFormation detects drift.
+     * and expected configuration values for resources where CloudFormation detects drift.
      * </p>
      * <p>
      * For a given stack, there will be one <code>StackResourceDrift</code> for each stack resource that has been
-     * checked for drift. Resources that have not yet been checked for drift are not included. Resources that do not
-     * currently support drift detection are not checked, and so not included. For a list of resources that support
-     * drift detection, see <a
+     * checked for drift. Resources that haven't yet been checked for drift aren't included. Resources that do not
+     * currently support drift detection aren't checked, and so not included. For a list of resources that support drift
+     * detection, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      * >Resources that Support Drift Detection</a>.
      * </p>
      * 
      * @param stackResourceDrifts
      *        Drift information for the resources that have been checked for drift in the specified stack. This includes
-     *        actual and expected configuration values for resources where AWS CloudFormation detects drift.</p>
+     *        actual and expected configuration values for resources where CloudFormation detects drift.</p>
      *        <p>
      *        For a given stack, there will be one <code>StackResourceDrift</code> for each stack resource that has been
-     *        checked for drift. Resources that have not yet been checked for drift are not included. Resources that do
-     *        not currently support drift detection are not checked, and so not included. For a list of resources that
+     *        checked for drift. Resources that haven't yet been checked for drift aren't included. Resources that do
+     *        not currently support drift detection aren't checked, and so not included. For a list of resources that
      *        support drift detection, see <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      *        >Resources that Support Drift Detection</a>.
@@ -119,13 +118,13 @@ public class DescribeStackResourceDriftsResult extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Drift information for the resources that have been checked for drift in the specified stack. This includes actual
-     * and expected configuration values for resources where AWS CloudFormation detects drift.
+     * and expected configuration values for resources where CloudFormation detects drift.
      * </p>
      * <p>
      * For a given stack, there will be one <code>StackResourceDrift</code> for each stack resource that has been
-     * checked for drift. Resources that have not yet been checked for drift are not included. Resources that do not
-     * currently support drift detection are not checked, and so not included. For a list of resources that support
-     * drift detection, see <a
+     * checked for drift. Resources that haven't yet been checked for drift aren't included. Resources that do not
+     * currently support drift detection aren't checked, and so not included. For a list of resources that support drift
+     * detection, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      * >Resources that Support Drift Detection</a>.
      * </p>
@@ -137,11 +136,11 @@ public class DescribeStackResourceDriftsResult extends com.amazonaws.AmazonWebSe
      * 
      * @param stackResourceDrifts
      *        Drift information for the resources that have been checked for drift in the specified stack. This includes
-     *        actual and expected configuration values for resources where AWS CloudFormation detects drift.</p>
+     *        actual and expected configuration values for resources where CloudFormation detects drift.</p>
      *        <p>
      *        For a given stack, there will be one <code>StackResourceDrift</code> for each stack resource that has been
-     *        checked for drift. Resources that have not yet been checked for drift are not included. Resources that do
-     *        not currently support drift detection are not checked, and so not included. For a list of resources that
+     *        checked for drift. Resources that haven't yet been checked for drift aren't included. Resources that do
+     *        not currently support drift detection aren't checked, and so not included. For a list of resources that
      *        support drift detection, see <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      *        >Resources that Support Drift Detection</a>.
@@ -161,24 +160,24 @@ public class DescribeStackResourceDriftsResult extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Drift information for the resources that have been checked for drift in the specified stack. This includes actual
-     * and expected configuration values for resources where AWS CloudFormation detects drift.
+     * and expected configuration values for resources where CloudFormation detects drift.
      * </p>
      * <p>
      * For a given stack, there will be one <code>StackResourceDrift</code> for each stack resource that has been
-     * checked for drift. Resources that have not yet been checked for drift are not included. Resources that do not
-     * currently support drift detection are not checked, and so not included. For a list of resources that support
-     * drift detection, see <a
+     * checked for drift. Resources that haven't yet been checked for drift aren't included. Resources that do not
+     * currently support drift detection aren't checked, and so not included. For a list of resources that support drift
+     * detection, see <a
      * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      * >Resources that Support Drift Detection</a>.
      * </p>
      * 
      * @param stackResourceDrifts
      *        Drift information for the resources that have been checked for drift in the specified stack. This includes
-     *        actual and expected configuration values for resources where AWS CloudFormation detects drift.</p>
+     *        actual and expected configuration values for resources where CloudFormation detects drift.</p>
      *        <p>
      *        For a given stack, there will be one <code>StackResourceDrift</code> for each stack resource that has been
-     *        checked for drift. Resources that have not yet been checked for drift are not included. Resources that do
-     *        not currently support drift detection are not checked, and so not included. For a list of resources that
+     *        checked for drift. Resources that haven't yet been checked for drift aren't included. Resources that do
+     *        not currently support drift detection aren't checked, and so not included. For a list of resources that
      *        support drift detection, see <a href=
      *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
      *        >Resources that Support Drift Detection</a>.
@@ -192,14 +191,14 @@ public class DescribeStackResourceDriftsResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * If the request doesn't return all of the remaining results, <code>NextToken</code> is set to a token. To retrieve
+     * If the request doesn't return all the remaining results, <code>NextToken</code> is set to a token. To retrieve
      * the next set of results, call <code>DescribeStackResourceDrifts</code> again and assign that token to the request
      * object's <code>NextToken</code> parameter. If the request returns all results, <code>NextToken</code> is set to
      * <code>null</code>.
      * </p>
      * 
      * @param nextToken
-     *        If the request doesn't return all of the remaining results, <code>NextToken</code> is set to a token. To
+     *        If the request doesn't return all the remaining results, <code>NextToken</code> is set to a token. To
      *        retrieve the next set of results, call <code>DescribeStackResourceDrifts</code> again and assign that
      *        token to the request object's <code>NextToken</code> parameter. If the request returns all results,
      *        <code>NextToken</code> is set to <code>null</code>.
@@ -211,13 +210,13 @@ public class DescribeStackResourceDriftsResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * If the request doesn't return all of the remaining results, <code>NextToken</code> is set to a token. To retrieve
+     * If the request doesn't return all the remaining results, <code>NextToken</code> is set to a token. To retrieve
      * the next set of results, call <code>DescribeStackResourceDrifts</code> again and assign that token to the request
      * object's <code>NextToken</code> parameter. If the request returns all results, <code>NextToken</code> is set to
      * <code>null</code>.
      * </p>
      * 
-     * @return If the request doesn't return all of the remaining results, <code>NextToken</code> is set to a token. To
+     * @return If the request doesn't return all the remaining results, <code>NextToken</code> is set to a token. To
      *         retrieve the next set of results, call <code>DescribeStackResourceDrifts</code> again and assign that
      *         token to the request object's <code>NextToken</code> parameter. If the request returns all results,
      *         <code>NextToken</code> is set to <code>null</code>.
@@ -229,14 +228,14 @@ public class DescribeStackResourceDriftsResult extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * If the request doesn't return all of the remaining results, <code>NextToken</code> is set to a token. To retrieve
+     * If the request doesn't return all the remaining results, <code>NextToken</code> is set to a token. To retrieve
      * the next set of results, call <code>DescribeStackResourceDrifts</code> again and assign that token to the request
      * object's <code>NextToken</code> parameter. If the request returns all results, <code>NextToken</code> is set to
      * <code>null</code>.
      * </p>
      * 
      * @param nextToken
-     *        If the request doesn't return all of the remaining results, <code>NextToken</code> is set to a token. To
+     *        If the request doesn't return all the remaining results, <code>NextToken</code> is set to a token. To
      *        retrieve the next set of results, call <code>DescribeStackResourceDrifts</code> again and assign that
      *        token to the request object's <code>NextToken</code> parameter. If the request returns all results,
      *        <code>NextToken</code> is set to <code>null</code>.

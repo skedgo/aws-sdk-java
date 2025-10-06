@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ public class GetV2LoggingOptionsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The IAM role ARN AWS IoT uses to write to your CloudWatch logs.
+     * The IAM role ARN IoT uses to write to your CloudWatch logs.
      * </p>
      */
     private String roleArn;
@@ -39,11 +39,11 @@ public class GetV2LoggingOptionsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The IAM role ARN AWS IoT uses to write to your CloudWatch logs.
+     * The IAM role ARN IoT uses to write to your CloudWatch logs.
      * </p>
      * 
      * @param roleArn
-     *        The IAM role ARN AWS IoT uses to write to your CloudWatch logs.
+     *        The IAM role ARN IoT uses to write to your CloudWatch logs.
      */
 
     public void setRoleArn(String roleArn) {
@@ -52,10 +52,10 @@ public class GetV2LoggingOptionsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The IAM role ARN AWS IoT uses to write to your CloudWatch logs.
+     * The IAM role ARN IoT uses to write to your CloudWatch logs.
      * </p>
      * 
-     * @return The IAM role ARN AWS IoT uses to write to your CloudWatch logs.
+     * @return The IAM role ARN IoT uses to write to your CloudWatch logs.
      */
 
     public String getRoleArn() {
@@ -64,11 +64,11 @@ public class GetV2LoggingOptionsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The IAM role ARN AWS IoT uses to write to your CloudWatch logs.
+     * The IAM role ARN IoT uses to write to your CloudWatch logs.
      * </p>
      * 
      * @param roleArn
-     *        The IAM role ARN AWS IoT uses to write to your CloudWatch logs.
+     *        The IAM role ARN IoT uses to write to your CloudWatch logs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

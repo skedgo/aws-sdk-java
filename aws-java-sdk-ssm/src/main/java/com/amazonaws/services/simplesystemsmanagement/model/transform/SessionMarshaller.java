@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,10 +41,14 @@ public class SessionMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DocumentName").build();
     private static final MarshallingInfo<String> OWNER_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Owner").build();
+    private static final MarshallingInfo<String> REASON_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Reason").build();
     private static final MarshallingInfo<String> DETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Details").build();
     private static final MarshallingInfo<StructuredPojo> OUTPUTURL_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OutputUrl").build();
+    private static final MarshallingInfo<String> MAXSESSIONDURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MaxSessionDuration").build();
 
     private static final SessionMarshaller instance = new SessionMarshaller();
 
@@ -69,8 +73,10 @@ public class SessionMarshaller {
             protocolMarshaller.marshall(session.getEndDate(), ENDDATE_BINDING);
             protocolMarshaller.marshall(session.getDocumentName(), DOCUMENTNAME_BINDING);
             protocolMarshaller.marshall(session.getOwner(), OWNER_BINDING);
+            protocolMarshaller.marshall(session.getReason(), REASON_BINDING);
             protocolMarshaller.marshall(session.getDetails(), DETAILS_BINDING);
             protocolMarshaller.marshall(session.getOutputUrl(), OUTPUTURL_BINDING);
+            protocolMarshaller.marshall(session.getMaxSessionDuration(), MAXSESSIONDURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

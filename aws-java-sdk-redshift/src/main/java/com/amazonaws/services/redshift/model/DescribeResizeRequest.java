@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,7 @@ public class DescribeResizeRequest extends com.amazonaws.AmazonWebServiceRequest
      * The unique identifier of a cluster whose resize progress you are requesting. This parameter is case-sensitive.
      * </p>
      * <p>
-     * By default, resize operations for all clusters defined for an AWS account are returned.
+     * By default, resize operations for all clusters defined for an Amazon Web Services account are returned.
      * </p>
      */
     private String clusterIdentifier;
@@ -41,14 +41,14 @@ public class DescribeResizeRequest extends com.amazonaws.AmazonWebServiceRequest
      * The unique identifier of a cluster whose resize progress you are requesting. This parameter is case-sensitive.
      * </p>
      * <p>
-     * By default, resize operations for all clusters defined for an AWS account are returned.
+     * By default, resize operations for all clusters defined for an Amazon Web Services account are returned.
      * </p>
      * 
      * @param clusterIdentifier
      *        The unique identifier of a cluster whose resize progress you are requesting. This parameter is
      *        case-sensitive.</p>
      *        <p>
-     *        By default, resize operations for all clusters defined for an AWS account are returned.
+     *        By default, resize operations for all clusters defined for an Amazon Web Services account are returned.
      */
 
     public void setClusterIdentifier(String clusterIdentifier) {
@@ -60,13 +60,13 @@ public class DescribeResizeRequest extends com.amazonaws.AmazonWebServiceRequest
      * The unique identifier of a cluster whose resize progress you are requesting. This parameter is case-sensitive.
      * </p>
      * <p>
-     * By default, resize operations for all clusters defined for an AWS account are returned.
+     * By default, resize operations for all clusters defined for an Amazon Web Services account are returned.
      * </p>
      * 
      * @return The unique identifier of a cluster whose resize progress you are requesting. This parameter is
      *         case-sensitive.</p>
      *         <p>
-     *         By default, resize operations for all clusters defined for an AWS account are returned.
+     *         By default, resize operations for all clusters defined for an Amazon Web Services account are returned.
      */
 
     public String getClusterIdentifier() {
@@ -78,14 +78,14 @@ public class DescribeResizeRequest extends com.amazonaws.AmazonWebServiceRequest
      * The unique identifier of a cluster whose resize progress you are requesting. This parameter is case-sensitive.
      * </p>
      * <p>
-     * By default, resize operations for all clusters defined for an AWS account are returned.
+     * By default, resize operations for all clusters defined for an Amazon Web Services account are returned.
      * </p>
      * 
      * @param clusterIdentifier
      *        The unique identifier of a cluster whose resize progress you are requesting. This parameter is
      *        case-sensitive.</p>
      *        <p>
-     *        By default, resize operations for all clusters defined for an AWS account are returned.
+     *        By default, resize operations for all clusters defined for an Amazon Web Services account are returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

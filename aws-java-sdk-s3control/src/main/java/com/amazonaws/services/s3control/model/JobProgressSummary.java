@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes the total number of tasks that the specified job has executed, the number of tasks that succeeded, and the
+ * Describes the total number of tasks that the specified job has started, the number of tasks that succeeded, and the
  * number of tasks that failed.
  * </p>
  * 
@@ -33,6 +33,12 @@ public class JobProgressSummary implements Serializable, Cloneable {
     private Long numberOfTasksSucceeded;
     /** <p/> */
     private Long numberOfTasksFailed;
+    /**
+     * <p>
+     * The JobTimers attribute of a job's progress summary.
+     * </p>
+     */
+    private JobTimers timers;
 
     /**
      * <p/>
@@ -131,6 +137,46 @@ public class JobProgressSummary implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The JobTimers attribute of a job's progress summary.
+     * </p>
+     * 
+     * @param timers
+     *        The JobTimers attribute of a job's progress summary.
+     */
+
+    public void setTimers(JobTimers timers) {
+        this.timers = timers;
+    }
+
+    /**
+     * <p>
+     * The JobTimers attribute of a job's progress summary.
+     * </p>
+     * 
+     * @return The JobTimers attribute of a job's progress summary.
+     */
+
+    public JobTimers getTimers() {
+        return this.timers;
+    }
+
+    /**
+     * <p>
+     * The JobTimers attribute of a job's progress summary.
+     * </p>
+     * 
+     * @param timers
+     *        The JobTimers attribute of a job's progress summary.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobProgressSummary withTimers(JobTimers timers) {
+        setTimers(timers);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -147,7 +193,9 @@ public class JobProgressSummary implements Serializable, Cloneable {
         if (getNumberOfTasksSucceeded() != null)
             sb.append("NumberOfTasksSucceeded: ").append(getNumberOfTasksSucceeded()).append(",");
         if (getNumberOfTasksFailed() != null)
-            sb.append("NumberOfTasksFailed: ").append(getNumberOfTasksFailed());
+            sb.append("NumberOfTasksFailed: ").append(getNumberOfTasksFailed()).append(",");
+        if (getTimers() != null)
+            sb.append("Timers: ").append(getTimers());
         sb.append("}");
         return sb.toString();
     }
@@ -174,6 +222,10 @@ public class JobProgressSummary implements Serializable, Cloneable {
             return false;
         if (other.getNumberOfTasksFailed() != null && other.getNumberOfTasksFailed().equals(this.getNumberOfTasksFailed()) == false)
             return false;
+        if (other.getTimers() == null ^ this.getTimers() == null)
+            return false;
+        if (other.getTimers() != null && other.getTimers().equals(this.getTimers()) == false)
+            return false;
         return true;
     }
 
@@ -185,6 +237,7 @@ public class JobProgressSummary implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getTotalNumberOfTasks() == null) ? 0 : getTotalNumberOfTasks().hashCode());
         hashCode = prime * hashCode + ((getNumberOfTasksSucceeded() == null) ? 0 : getNumberOfTasksSucceeded().hashCode());
         hashCode = prime * hashCode + ((getNumberOfTasksFailed() == null) ? 0 : getNumberOfTasksFailed().hashCode());
+        hashCode = prime * hashCode + ((getTimers() == null) ? 0 : getTimers().hashCode());
         return hashCode;
     }
 

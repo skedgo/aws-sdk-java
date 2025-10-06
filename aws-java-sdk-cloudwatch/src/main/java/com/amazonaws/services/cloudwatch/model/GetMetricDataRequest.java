@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,15 +27,48 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 100
-     * <code>MetricDataQuery</code> structures. Each of these structures can specify either a metric to retrieve, or a
-     * math expression to perform on retrieved data.
+     * The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 500
+     * <code>MetricDataQuery</code> structures. Each of these structures can specify either a metric to retrieve, a
+     * Metrics Insights query, or a math expression to perform on retrieved data.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<MetricDataQuery> metricDataQueries;
     /**
      * <p>
      * The time stamp indicating the earliest data to be returned.
+     * </p>
+     * <p>
+     * The value specified is inclusive; results include data points with the specified time stamp.
+     * </p>
+     * <p>
+     * CloudWatch rounds the specified time stamp as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Start time less than 15 days ago - Round down to the nearest whole minute. For example, 12:32:34 is rounded down
+     * to 12:32:00.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Start time between 15 and 63 days ago - Round down to the nearest 5-minute clock interval. For example, 12:32:34
+     * is rounded down to 12:30:00.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Start time greater than 63 days ago - Round down to the nearest 1-hour clock interval. For example, 12:32:34 is
+     * rounded down to 12:00:00.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you set <code>Period</code> to 5, 10, or 30, the start time of your request is rounded down to the nearest
+     * time that corresponds to even 5-, 10-, or 30-second divisions of a minute. For example, if you make a query at
+     * (HH:mm:ss) 01:05:23 for the previous 10-second period, the start time of your request is rounded down and you
+     * receive data from 01:05:10 to 01:05:20. If you make a query at 15:07:17 for the previous 5 minutes of data, using
+     * a period of 5 seconds, you receive data timestamped between 15:02:15 and 15:07:15.
      * </p>
      * <p>
      * For better performance, specify <code>StartTime</code> and <code>EndTime</code> values that align with the value
@@ -50,6 +83,9 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * The time stamp indicating the latest data to be returned.
      * </p>
      * <p>
+     * The value specified is exclusive; results include data points up to the specified time stamp.
+     * </p>
+     * <p>
      * For better performance, specify <code>StartTime</code> and <code>EndTime</code> values that align with the value
      * of the metric's <code>Period</code> and sync up with the beginning and end of an hour. For example, if the
      * <code>Period</code> of a metric is 5 minutes, specifying 12:05 or 12:30 as <code>EndTime</code> can get a faster
@@ -59,7 +95,8 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
     private java.util.Date endTime;
     /**
      * <p>
-     * Include this value, if it was returned by the previous call, to get the next set of data points.
+     * Include this value, if it was returned by the previous <code>GetMetricData</code> operation, to get the next set
+     * of data points.
      * </p>
      */
     private String nextToken;
@@ -68,6 +105,9 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * The order in which data points should be returned. <code>TimestampDescending</code> returns the newest data first
      * and paginates when the <code>MaxDatapoints</code> limit is reached. <code>TimestampAscending</code> returns the
      * oldest data first and paginates when the <code>MaxDatapoints</code> limit is reached.
+     * </p>
+     * <p>
+     * If you omit this parameter, the default of <code>TimestampDescending</code> is used.
      * </p>
      */
     private String scanBy;
@@ -78,17 +118,24 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      */
     private Integer maxDatapoints;
+    /**
+     * <p>
+     * This structure includes the <code>Timezone</code> parameter, which you can use to specify your time zone so that
+     * the labels of returned data display the correct time for your time zone.
+     * </p>
+     */
+    private LabelOptions labelOptions;
 
     /**
      * <p>
-     * The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 100
-     * <code>MetricDataQuery</code> structures. Each of these structures can specify either a metric to retrieve, or a
-     * math expression to perform on retrieved data.
+     * The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 500
+     * <code>MetricDataQuery</code> structures. Each of these structures can specify either a metric to retrieve, a
+     * Metrics Insights query, or a math expression to perform on retrieved data.
      * </p>
      * 
-     * @return The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 100
+     * @return The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 500
      *         <code>MetricDataQuery</code> structures. Each of these structures can specify either a metric to
-     *         retrieve, or a math expression to perform on retrieved data.
+     *         retrieve, a Metrics Insights query, or a math expression to perform on retrieved data.
      */
 
     public java.util.List<MetricDataQuery> getMetricDataQueries() {
@@ -100,15 +147,15 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 100
-     * <code>MetricDataQuery</code> structures. Each of these structures can specify either a metric to retrieve, or a
-     * math expression to perform on retrieved data.
+     * The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 500
+     * <code>MetricDataQuery</code> structures. Each of these structures can specify either a metric to retrieve, a
+     * Metrics Insights query, or a math expression to perform on retrieved data.
      * </p>
      * 
      * @param metricDataQueries
-     *        The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 100
+     *        The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 500
      *        <code>MetricDataQuery</code> structures. Each of these structures can specify either a metric to retrieve,
-     *        or a math expression to perform on retrieved data.
+     *        a Metrics Insights query, or a math expression to perform on retrieved data.
      */
 
     public void setMetricDataQueries(java.util.Collection<MetricDataQuery> metricDataQueries) {
@@ -122,9 +169,9 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 100
-     * <code>MetricDataQuery</code> structures. Each of these structures can specify either a metric to retrieve, or a
-     * math expression to perform on retrieved data.
+     * The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 500
+     * <code>MetricDataQuery</code> structures. Each of these structures can specify either a metric to retrieve, a
+     * Metrics Insights query, or a math expression to perform on retrieved data.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -133,9 +180,9 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param metricDataQueries
-     *        The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 100
+     *        The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 500
      *        <code>MetricDataQuery</code> structures. Each of these structures can specify either a metric to retrieve,
-     *        or a math expression to perform on retrieved data.
+     *        a Metrics Insights query, or a math expression to perform on retrieved data.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -151,15 +198,15 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 100
-     * <code>MetricDataQuery</code> structures. Each of these structures can specify either a metric to retrieve, or a
-     * math expression to perform on retrieved data.
+     * The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 500
+     * <code>MetricDataQuery</code> structures. Each of these structures can specify either a metric to retrieve, a
+     * Metrics Insights query, or a math expression to perform on retrieved data.
      * </p>
      * 
      * @param metricDataQueries
-     *        The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 100
+     *        The metric queries to be returned. A single <code>GetMetricData</code> call can include as many as 500
      *        <code>MetricDataQuery</code> structures. Each of these structures can specify either a metric to retrieve,
-     *        or a math expression to perform on retrieved data.
+     *        a Metrics Insights query, or a math expression to perform on retrieved data.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -173,6 +220,39 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * The time stamp indicating the earliest data to be returned.
      * </p>
      * <p>
+     * The value specified is inclusive; results include data points with the specified time stamp.
+     * </p>
+     * <p>
+     * CloudWatch rounds the specified time stamp as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Start time less than 15 days ago - Round down to the nearest whole minute. For example, 12:32:34 is rounded down
+     * to 12:32:00.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Start time between 15 and 63 days ago - Round down to the nearest 5-minute clock interval. For example, 12:32:34
+     * is rounded down to 12:30:00.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Start time greater than 63 days ago - Round down to the nearest 1-hour clock interval. For example, 12:32:34 is
+     * rounded down to 12:00:00.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you set <code>Period</code> to 5, 10, or 30, the start time of your request is rounded down to the nearest
+     * time that corresponds to even 5-, 10-, or 30-second divisions of a minute. For example, if you make a query at
+     * (HH:mm:ss) 01:05:23 for the previous 10-second period, the start time of your request is rounded down and you
+     * receive data from 01:05:10 to 01:05:20. If you make a query at 15:07:17 for the previous 5 minutes of data, using
+     * a period of 5 seconds, you receive data timestamped between 15:02:15 and 15:07:15.
+     * </p>
+     * <p>
      * For better performance, specify <code>StartTime</code> and <code>EndTime</code> values that align with the value
      * of the metric's <code>Period</code> and sync up with the beginning and end of an hour. For example, if the
      * <code>Period</code> of a metric is 5 minutes, specifying 12:05 or 12:30 as <code>StartTime</code> can get a
@@ -181,6 +261,40 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * 
      * @param startTime
      *        The time stamp indicating the earliest data to be returned.</p>
+     *        <p>
+     *        The value specified is inclusive; results include data points with the specified time stamp.
+     *        </p>
+     *        <p>
+     *        CloudWatch rounds the specified time stamp as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Start time less than 15 days ago - Round down to the nearest whole minute. For example, 12:32:34 is
+     *        rounded down to 12:32:00.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Start time between 15 and 63 days ago - Round down to the nearest 5-minute clock interval. For example,
+     *        12:32:34 is rounded down to 12:30:00.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Start time greater than 63 days ago - Round down to the nearest 1-hour clock interval. For example,
+     *        12:32:34 is rounded down to 12:00:00.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you set <code>Period</code> to 5, 10, or 30, the start time of your request is rounded down to the
+     *        nearest time that corresponds to even 5-, 10-, or 30-second divisions of a minute. For example, if you
+     *        make a query at (HH:mm:ss) 01:05:23 for the previous 10-second period, the start time of your request is
+     *        rounded down and you receive data from 01:05:10 to 01:05:20. If you make a query at 15:07:17 for the
+     *        previous 5 minutes of data, using a period of 5 seconds, you receive data timestamped between 15:02:15 and
+     *        15:07:15.
+     *        </p>
      *        <p>
      *        For better performance, specify <code>StartTime</code> and <code>EndTime</code> values that align with the
      *        value of the metric's <code>Period</code> and sync up with the beginning and end of an hour. For example,
@@ -197,6 +311,39 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * The time stamp indicating the earliest data to be returned.
      * </p>
      * <p>
+     * The value specified is inclusive; results include data points with the specified time stamp.
+     * </p>
+     * <p>
+     * CloudWatch rounds the specified time stamp as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Start time less than 15 days ago - Round down to the nearest whole minute. For example, 12:32:34 is rounded down
+     * to 12:32:00.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Start time between 15 and 63 days ago - Round down to the nearest 5-minute clock interval. For example, 12:32:34
+     * is rounded down to 12:30:00.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Start time greater than 63 days ago - Round down to the nearest 1-hour clock interval. For example, 12:32:34 is
+     * rounded down to 12:00:00.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you set <code>Period</code> to 5, 10, or 30, the start time of your request is rounded down to the nearest
+     * time that corresponds to even 5-, 10-, or 30-second divisions of a minute. For example, if you make a query at
+     * (HH:mm:ss) 01:05:23 for the previous 10-second period, the start time of your request is rounded down and you
+     * receive data from 01:05:10 to 01:05:20. If you make a query at 15:07:17 for the previous 5 minutes of data, using
+     * a period of 5 seconds, you receive data timestamped between 15:02:15 and 15:07:15.
+     * </p>
+     * <p>
      * For better performance, specify <code>StartTime</code> and <code>EndTime</code> values that align with the value
      * of the metric's <code>Period</code> and sync up with the beginning and end of an hour. For example, if the
      * <code>Period</code> of a metric is 5 minutes, specifying 12:05 or 12:30 as <code>StartTime</code> can get a
@@ -204,6 +351,40 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @return The time stamp indicating the earliest data to be returned.</p>
+     *         <p>
+     *         The value specified is inclusive; results include data points with the specified time stamp.
+     *         </p>
+     *         <p>
+     *         CloudWatch rounds the specified time stamp as follows:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Start time less than 15 days ago - Round down to the nearest whole minute. For example, 12:32:34 is
+     *         rounded down to 12:32:00.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Start time between 15 and 63 days ago - Round down to the nearest 5-minute clock interval. For example,
+     *         12:32:34 is rounded down to 12:30:00.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Start time greater than 63 days ago - Round down to the nearest 1-hour clock interval. For example,
+     *         12:32:34 is rounded down to 12:00:00.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         If you set <code>Period</code> to 5, 10, or 30, the start time of your request is rounded down to the
+     *         nearest time that corresponds to even 5-, 10-, or 30-second divisions of a minute. For example, if you
+     *         make a query at (HH:mm:ss) 01:05:23 for the previous 10-second period, the start time of your request is
+     *         rounded down and you receive data from 01:05:10 to 01:05:20. If you make a query at 15:07:17 for the
+     *         previous 5 minutes of data, using a period of 5 seconds, you receive data timestamped between 15:02:15
+     *         and 15:07:15.
+     *         </p>
      *         <p>
      *         For better performance, specify <code>StartTime</code> and <code>EndTime</code> values that align with
      *         the value of the metric's <code>Period</code> and sync up with the beginning and end of an hour. For
@@ -221,6 +402,39 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * The time stamp indicating the earliest data to be returned.
      * </p>
      * <p>
+     * The value specified is inclusive; results include data points with the specified time stamp.
+     * </p>
+     * <p>
+     * CloudWatch rounds the specified time stamp as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Start time less than 15 days ago - Round down to the nearest whole minute. For example, 12:32:34 is rounded down
+     * to 12:32:00.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Start time between 15 and 63 days ago - Round down to the nearest 5-minute clock interval. For example, 12:32:34
+     * is rounded down to 12:30:00.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Start time greater than 63 days ago - Round down to the nearest 1-hour clock interval. For example, 12:32:34 is
+     * rounded down to 12:00:00.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you set <code>Period</code> to 5, 10, or 30, the start time of your request is rounded down to the nearest
+     * time that corresponds to even 5-, 10-, or 30-second divisions of a minute. For example, if you make a query at
+     * (HH:mm:ss) 01:05:23 for the previous 10-second period, the start time of your request is rounded down and you
+     * receive data from 01:05:10 to 01:05:20. If you make a query at 15:07:17 for the previous 5 minutes of data, using
+     * a period of 5 seconds, you receive data timestamped between 15:02:15 and 15:07:15.
+     * </p>
+     * <p>
      * For better performance, specify <code>StartTime</code> and <code>EndTime</code> values that align with the value
      * of the metric's <code>Period</code> and sync up with the beginning and end of an hour. For example, if the
      * <code>Period</code> of a metric is 5 minutes, specifying 12:05 or 12:30 as <code>StartTime</code> can get a
@@ -229,6 +443,40 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * 
      * @param startTime
      *        The time stamp indicating the earliest data to be returned.</p>
+     *        <p>
+     *        The value specified is inclusive; results include data points with the specified time stamp.
+     *        </p>
+     *        <p>
+     *        CloudWatch rounds the specified time stamp as follows:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Start time less than 15 days ago - Round down to the nearest whole minute. For example, 12:32:34 is
+     *        rounded down to 12:32:00.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Start time between 15 and 63 days ago - Round down to the nearest 5-minute clock interval. For example,
+     *        12:32:34 is rounded down to 12:30:00.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Start time greater than 63 days ago - Round down to the nearest 1-hour clock interval. For example,
+     *        12:32:34 is rounded down to 12:00:00.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you set <code>Period</code> to 5, 10, or 30, the start time of your request is rounded down to the
+     *        nearest time that corresponds to even 5-, 10-, or 30-second divisions of a minute. For example, if you
+     *        make a query at (HH:mm:ss) 01:05:23 for the previous 10-second period, the start time of your request is
+     *        rounded down and you receive data from 01:05:10 to 01:05:20. If you make a query at 15:07:17 for the
+     *        previous 5 minutes of data, using a period of 5 seconds, you receive data timestamped between 15:02:15 and
+     *        15:07:15.
+     *        </p>
      *        <p>
      *        For better performance, specify <code>StartTime</code> and <code>EndTime</code> values that align with the
      *        value of the metric's <code>Period</code> and sync up with the beginning and end of an hour. For example,
@@ -247,6 +495,9 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * The time stamp indicating the latest data to be returned.
      * </p>
      * <p>
+     * The value specified is exclusive; results include data points up to the specified time stamp.
+     * </p>
+     * <p>
      * For better performance, specify <code>StartTime</code> and <code>EndTime</code> values that align with the value
      * of the metric's <code>Period</code> and sync up with the beginning and end of an hour. For example, if the
      * <code>Period</code> of a metric is 5 minutes, specifying 12:05 or 12:30 as <code>EndTime</code> can get a faster
@@ -255,6 +506,9 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * 
      * @param endTime
      *        The time stamp indicating the latest data to be returned.</p>
+     *        <p>
+     *        The value specified is exclusive; results include data points up to the specified time stamp.
+     *        </p>
      *        <p>
      *        For better performance, specify <code>StartTime</code> and <code>EndTime</code> values that align with the
      *        value of the metric's <code>Period</code> and sync up with the beginning and end of an hour. For example,
@@ -271,6 +525,9 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * The time stamp indicating the latest data to be returned.
      * </p>
      * <p>
+     * The value specified is exclusive; results include data points up to the specified time stamp.
+     * </p>
+     * <p>
      * For better performance, specify <code>StartTime</code> and <code>EndTime</code> values that align with the value
      * of the metric's <code>Period</code> and sync up with the beginning and end of an hour. For example, if the
      * <code>Period</code> of a metric is 5 minutes, specifying 12:05 or 12:30 as <code>EndTime</code> can get a faster
@@ -278,6 +535,9 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @return The time stamp indicating the latest data to be returned.</p>
+     *         <p>
+     *         The value specified is exclusive; results include data points up to the specified time stamp.
+     *         </p>
      *         <p>
      *         For better performance, specify <code>StartTime</code> and <code>EndTime</code> values that align with
      *         the value of the metric's <code>Period</code> and sync up with the beginning and end of an hour. For
@@ -295,6 +555,9 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * The time stamp indicating the latest data to be returned.
      * </p>
      * <p>
+     * The value specified is exclusive; results include data points up to the specified time stamp.
+     * </p>
+     * <p>
      * For better performance, specify <code>StartTime</code> and <code>EndTime</code> values that align with the value
      * of the metric's <code>Period</code> and sync up with the beginning and end of an hour. For example, if the
      * <code>Period</code> of a metric is 5 minutes, specifying 12:05 or 12:30 as <code>EndTime</code> can get a faster
@@ -303,6 +566,9 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * 
      * @param endTime
      *        The time stamp indicating the latest data to be returned.</p>
+     *        <p>
+     *        The value specified is exclusive; results include data points up to the specified time stamp.
+     *        </p>
      *        <p>
      *        For better performance, specify <code>StartTime</code> and <code>EndTime</code> values that align with the
      *        value of the metric's <code>Period</code> and sync up with the beginning and end of an hour. For example,
@@ -318,11 +584,13 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Include this value, if it was returned by the previous call, to get the next set of data points.
+     * Include this value, if it was returned by the previous <code>GetMetricData</code> operation, to get the next set
+     * of data points.
      * </p>
      * 
      * @param nextToken
-     *        Include this value, if it was returned by the previous call, to get the next set of data points.
+     *        Include this value, if it was returned by the previous <code>GetMetricData</code> operation, to get the
+     *        next set of data points.
      */
 
     public void setNextToken(String nextToken) {
@@ -331,10 +599,12 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Include this value, if it was returned by the previous call, to get the next set of data points.
+     * Include this value, if it was returned by the previous <code>GetMetricData</code> operation, to get the next set
+     * of data points.
      * </p>
      * 
-     * @return Include this value, if it was returned by the previous call, to get the next set of data points.
+     * @return Include this value, if it was returned by the previous <code>GetMetricData</code> operation, to get the
+     *         next set of data points.
      */
 
     public String getNextToken() {
@@ -343,11 +613,13 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Include this value, if it was returned by the previous call, to get the next set of data points.
+     * Include this value, if it was returned by the previous <code>GetMetricData</code> operation, to get the next set
+     * of data points.
      * </p>
      * 
      * @param nextToken
-     *        Include this value, if it was returned by the previous call, to get the next set of data points.
+     *        Include this value, if it was returned by the previous <code>GetMetricData</code> operation, to get the
+     *        next set of data points.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -362,12 +634,17 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * and paginates when the <code>MaxDatapoints</code> limit is reached. <code>TimestampAscending</code> returns the
      * oldest data first and paginates when the <code>MaxDatapoints</code> limit is reached.
      * </p>
+     * <p>
+     * If you omit this parameter, the default of <code>TimestampDescending</code> is used.
+     * </p>
      * 
      * @param scanBy
      *        The order in which data points should be returned. <code>TimestampDescending</code> returns the newest
      *        data first and paginates when the <code>MaxDatapoints</code> limit is reached.
      *        <code>TimestampAscending</code> returns the oldest data first and paginates when the
-     *        <code>MaxDatapoints</code> limit is reached.
+     *        <code>MaxDatapoints</code> limit is reached.</p>
+     *        <p>
+     *        If you omit this parameter, the default of <code>TimestampDescending</code> is used.
      * @see ScanBy
      */
 
@@ -381,11 +658,16 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * and paginates when the <code>MaxDatapoints</code> limit is reached. <code>TimestampAscending</code> returns the
      * oldest data first and paginates when the <code>MaxDatapoints</code> limit is reached.
      * </p>
+     * <p>
+     * If you omit this parameter, the default of <code>TimestampDescending</code> is used.
+     * </p>
      * 
      * @return The order in which data points should be returned. <code>TimestampDescending</code> returns the newest
      *         data first and paginates when the <code>MaxDatapoints</code> limit is reached.
      *         <code>TimestampAscending</code> returns the oldest data first and paginates when the
-     *         <code>MaxDatapoints</code> limit is reached.
+     *         <code>MaxDatapoints</code> limit is reached.</p>
+     *         <p>
+     *         If you omit this parameter, the default of <code>TimestampDescending</code> is used.
      * @see ScanBy
      */
 
@@ -399,12 +681,17 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * and paginates when the <code>MaxDatapoints</code> limit is reached. <code>TimestampAscending</code> returns the
      * oldest data first and paginates when the <code>MaxDatapoints</code> limit is reached.
      * </p>
+     * <p>
+     * If you omit this parameter, the default of <code>TimestampDescending</code> is used.
+     * </p>
      * 
      * @param scanBy
      *        The order in which data points should be returned. <code>TimestampDescending</code> returns the newest
      *        data first and paginates when the <code>MaxDatapoints</code> limit is reached.
      *        <code>TimestampAscending</code> returns the oldest data first and paginates when the
-     *        <code>MaxDatapoints</code> limit is reached.
+     *        <code>MaxDatapoints</code> limit is reached.</p>
+     *        <p>
+     *        If you omit this parameter, the default of <code>TimestampDescending</code> is used.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ScanBy
      */
@@ -420,12 +707,17 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
      * and paginates when the <code>MaxDatapoints</code> limit is reached. <code>TimestampAscending</code> returns the
      * oldest data first and paginates when the <code>MaxDatapoints</code> limit is reached.
      * </p>
+     * <p>
+     * If you omit this parameter, the default of <code>TimestampDescending</code> is used.
+     * </p>
      * 
      * @param scanBy
      *        The order in which data points should be returned. <code>TimestampDescending</code> returns the newest
      *        data first and paginates when the <code>MaxDatapoints</code> limit is reached.
      *        <code>TimestampAscending</code> returns the oldest data first and paginates when the
-     *        <code>MaxDatapoints</code> limit is reached.
+     *        <code>MaxDatapoints</code> limit is reached.</p>
+     *        <p>
+     *        If you omit this parameter, the default of <code>TimestampDescending</code> is used.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ScanBy
      */
@@ -482,6 +774,52 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
+     * <p>
+     * This structure includes the <code>Timezone</code> parameter, which you can use to specify your time zone so that
+     * the labels of returned data display the correct time for your time zone.
+     * </p>
+     * 
+     * @param labelOptions
+     *        This structure includes the <code>Timezone</code> parameter, which you can use to specify your time zone
+     *        so that the labels of returned data display the correct time for your time zone.
+     */
+
+    public void setLabelOptions(LabelOptions labelOptions) {
+        this.labelOptions = labelOptions;
+    }
+
+    /**
+     * <p>
+     * This structure includes the <code>Timezone</code> parameter, which you can use to specify your time zone so that
+     * the labels of returned data display the correct time for your time zone.
+     * </p>
+     * 
+     * @return This structure includes the <code>Timezone</code> parameter, which you can use to specify your time zone
+     *         so that the labels of returned data display the correct time for your time zone.
+     */
+
+    public LabelOptions getLabelOptions() {
+        return this.labelOptions;
+    }
+
+    /**
+     * <p>
+     * This structure includes the <code>Timezone</code> parameter, which you can use to specify your time zone so that
+     * the labels of returned data display the correct time for your time zone.
+     * </p>
+     * 
+     * @param labelOptions
+     *        This structure includes the <code>Timezone</code> parameter, which you can use to specify your time zone
+     *        so that the labels of returned data display the correct time for your time zone.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetMetricDataRequest withLabelOptions(LabelOptions labelOptions) {
+        setLabelOptions(labelOptions);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -504,7 +842,9 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getScanBy() != null)
             sb.append("ScanBy: ").append(getScanBy()).append(",");
         if (getMaxDatapoints() != null)
-            sb.append("MaxDatapoints: ").append(getMaxDatapoints());
+            sb.append("MaxDatapoints: ").append(getMaxDatapoints()).append(",");
+        if (getLabelOptions() != null)
+            sb.append("LabelOptions: ").append(getLabelOptions());
         sb.append("}");
         return sb.toString();
     }
@@ -543,6 +883,10 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getMaxDatapoints() != null && other.getMaxDatapoints().equals(this.getMaxDatapoints()) == false)
             return false;
+        if (other.getLabelOptions() == null ^ this.getLabelOptions() == null)
+            return false;
+        if (other.getLabelOptions() != null && other.getLabelOptions().equals(this.getLabelOptions()) == false)
+            return false;
         return true;
     }
 
@@ -557,6 +901,7 @@ public class GetMetricDataRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getScanBy() == null) ? 0 : getScanBy().hashCode());
         hashCode = prime * hashCode + ((getMaxDatapoints() == null) ? 0 : getMaxDatapoints().hashCode());
+        hashCode = prime * hashCode + ((getLabelOptions() == null) ? 0 : getLabelOptions().hashCode());
         return hashCode;
     }
 

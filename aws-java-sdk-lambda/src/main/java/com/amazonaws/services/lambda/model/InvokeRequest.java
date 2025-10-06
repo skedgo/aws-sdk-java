@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The name of the Lambda function, version, or alias.
+     * The name or ARN of the Lambda function, version, or alias.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -35,17 +35,17 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * <ul>
      * <li>
      * <p>
-     * <b>Function name</b> - <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
+     * <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     * <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     * <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      * </p>
      * </li>
      * </ul>
@@ -62,19 +62,19 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * <ul>
      * <li>
      * <p>
-     * <code>RequestResponse</code> (default) - Invoke the function synchronously. Keep the connection open until the
+     * <code>RequestResponse</code> (default) – Invoke the function synchronously. Keep the connection open until the
      * function returns a response or times out. The API response includes the function response and additional data.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Event</code> - Invoke the function asynchronously. Send events that fail multiple times to the function's
-     * dead-letter queue (if it's configured). The API response only includes a status code.
+     * <code>Event</code> – Invoke the function asynchronously. Send events that fail multiple times to the function's
+     * dead-letter queue (if one is configured). The API response only includes a status code.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DryRun</code> - Validate parameter values and verify that the user or role has permission to invoke the
+     * <code>DryRun</code> – Validate parameter values and verify that the user or role has permission to invoke the
      * function.
      * </p>
      * </li>
@@ -83,19 +83,25 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
     private String invocationType;
     /**
      * <p>
-     * Set to <code>Tail</code> to include the execution log in the response.
+     * Set to <code>Tail</code> to include the execution log in the response. Applies to synchronously invoked functions
+     * only.
      * </p>
      */
     private String logType;
     /**
      * <p>
-     * Up to 3583 bytes of base64-encoded data about the invoking client to pass to the function in the context object.
+     * Up to 3,583 bytes of base64-encoded data about the invoking client to pass to the function in the context object.
+     * Lambda passes the <code>ClientContext</code> object to your function for synchronous invocations only.
      * </p>
      */
     private String clientContext;
     /**
      * <p>
      * The JSON that you want to provide to your Lambda function as input.
+     * </p>
+     * <p>
+     * You can enter the JSON directly. For example, <code>--payload '{ "key": "value" }'</code>. You can also specify a
+     * file path. For example, <code>--payload file://payload.json</code>.
      * </p>
      */
     private java.nio.ByteBuffer payload;
@@ -108,7 +114,7 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The name of the Lambda function, version, or alias.
+     * The name or ARN of the Lambda function, version, or alias.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -116,17 +122,17 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * <ul>
      * <li>
      * <p>
-     * <b>Function name</b> - <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
+     * <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     * <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     * <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      * </p>
      * </li>
      * </ul>
@@ -136,24 +142,24 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * </p>
      * 
      * @param functionName
-     *        The name of the Lambda function, version, or alias.</p>
+     *        The name or ARN of the Lambda function, version, or alias.</p>
      *        <p class="title">
      *        <b>Name formats</b>
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>Function name</b> - <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
+     *        <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     *        <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     *        <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      *        </p>
      *        </li>
      *        </ul>
@@ -168,7 +174,7 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The name of the Lambda function, version, or alias.
+     * The name or ARN of the Lambda function, version, or alias.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -176,17 +182,17 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * <ul>
      * <li>
      * <p>
-     * <b>Function name</b> - <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
+     * <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     * <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     * <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      * </p>
      * </li>
      * </ul>
@@ -195,24 +201,24 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * ARN. If you specify only the function name, it is limited to 64 characters in length.
      * </p>
      * 
-     * @return The name of the Lambda function, version, or alias.</p>
+     * @return The name or ARN of the Lambda function, version, or alias.</p>
      *         <p class="title">
      *         <b>Name formats</b>
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <b>Function name</b> - <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
+     *         <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     *         <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     *         <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      *         </p>
      *         </li>
      *         </ul>
@@ -227,7 +233,7 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The name of the Lambda function, version, or alias.
+     * The name or ARN of the Lambda function, version, or alias.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -235,17 +241,17 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * <ul>
      * <li>
      * <p>
-     * <b>Function name</b> - <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
+     * <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     * <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     * <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      * </p>
      * </li>
      * </ul>
@@ -255,24 +261,24 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * </p>
      * 
      * @param functionName
-     *        The name of the Lambda function, version, or alias.</p>
+     *        The name or ARN of the Lambda function, version, or alias.</p>
      *        <p class="title">
      *        <b>Name formats</b>
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>Function name</b> - <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
+     *        <b>Function name</b> – <code>my-function</code> (name-only), <code>my-function:v1</code> (with alias).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     *        <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     *        <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      *        </p>
      *        </li>
      *        </ul>
@@ -294,19 +300,19 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * <ul>
      * <li>
      * <p>
-     * <code>RequestResponse</code> (default) - Invoke the function synchronously. Keep the connection open until the
+     * <code>RequestResponse</code> (default) – Invoke the function synchronously. Keep the connection open until the
      * function returns a response or times out. The API response includes the function response and additional data.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Event</code> - Invoke the function asynchronously. Send events that fail multiple times to the function's
-     * dead-letter queue (if it's configured). The API response only includes a status code.
+     * <code>Event</code> – Invoke the function asynchronously. Send events that fail multiple times to the function's
+     * dead-letter queue (if one is configured). The API response only includes a status code.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DryRun</code> - Validate parameter values and verify that the user or role has permission to invoke the
+     * <code>DryRun</code> – Validate parameter values and verify that the user or role has permission to invoke the
      * function.
      * </p>
      * </li>
@@ -317,20 +323,20 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>RequestResponse</code> (default) - Invoke the function synchronously. Keep the connection open until
+     *        <code>RequestResponse</code> (default) – Invoke the function synchronously. Keep the connection open until
      *        the function returns a response or times out. The API response includes the function response and
      *        additional data.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Event</code> - Invoke the function asynchronously. Send events that fail multiple times to the
-     *        function's dead-letter queue (if it's configured). The API response only includes a status code.
+     *        <code>Event</code> – Invoke the function asynchronously. Send events that fail multiple times to the
+     *        function's dead-letter queue (if one is configured). The API response only includes a status code.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DryRun</code> - Validate parameter values and verify that the user or role has permission to invoke
+     *        <code>DryRun</code> – Validate parameter values and verify that the user or role has permission to invoke
      *        the function.
      *        </p>
      *        </li>
@@ -348,19 +354,19 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * <ul>
      * <li>
      * <p>
-     * <code>RequestResponse</code> (default) - Invoke the function synchronously. Keep the connection open until the
+     * <code>RequestResponse</code> (default) – Invoke the function synchronously. Keep the connection open until the
      * function returns a response or times out. The API response includes the function response and additional data.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Event</code> - Invoke the function asynchronously. Send events that fail multiple times to the function's
-     * dead-letter queue (if it's configured). The API response only includes a status code.
+     * <code>Event</code> – Invoke the function asynchronously. Send events that fail multiple times to the function's
+     * dead-letter queue (if one is configured). The API response only includes a status code.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DryRun</code> - Validate parameter values and verify that the user or role has permission to invoke the
+     * <code>DryRun</code> – Validate parameter values and verify that the user or role has permission to invoke the
      * function.
      * </p>
      * </li>
@@ -370,20 +376,20 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>RequestResponse</code> (default) - Invoke the function synchronously. Keep the connection open
+     *         <code>RequestResponse</code> (default) – Invoke the function synchronously. Keep the connection open
      *         until the function returns a response or times out. The API response includes the function response and
      *         additional data.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>Event</code> - Invoke the function asynchronously. Send events that fail multiple times to the
-     *         function's dead-letter queue (if it's configured). The API response only includes a status code.
+     *         <code>Event</code> – Invoke the function asynchronously. Send events that fail multiple times to the
+     *         function's dead-letter queue (if one is configured). The API response only includes a status code.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>DryRun</code> - Validate parameter values and verify that the user or role has permission to invoke
+     *         <code>DryRun</code> – Validate parameter values and verify that the user or role has permission to invoke
      *         the function.
      *         </p>
      *         </li>
@@ -401,19 +407,19 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * <ul>
      * <li>
      * <p>
-     * <code>RequestResponse</code> (default) - Invoke the function synchronously. Keep the connection open until the
+     * <code>RequestResponse</code> (default) – Invoke the function synchronously. Keep the connection open until the
      * function returns a response or times out. The API response includes the function response and additional data.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Event</code> - Invoke the function asynchronously. Send events that fail multiple times to the function's
-     * dead-letter queue (if it's configured). The API response only includes a status code.
+     * <code>Event</code> – Invoke the function asynchronously. Send events that fail multiple times to the function's
+     * dead-letter queue (if one is configured). The API response only includes a status code.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DryRun</code> - Validate parameter values and verify that the user or role has permission to invoke the
+     * <code>DryRun</code> – Validate parameter values and verify that the user or role has permission to invoke the
      * function.
      * </p>
      * </li>
@@ -424,20 +430,20 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>RequestResponse</code> (default) - Invoke the function synchronously. Keep the connection open until
+     *        <code>RequestResponse</code> (default) – Invoke the function synchronously. Keep the connection open until
      *        the function returns a response or times out. The API response includes the function response and
      *        additional data.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Event</code> - Invoke the function asynchronously. Send events that fail multiple times to the
-     *        function's dead-letter queue (if it's configured). The API response only includes a status code.
+     *        <code>Event</code> – Invoke the function asynchronously. Send events that fail multiple times to the
+     *        function's dead-letter queue (if one is configured). The API response only includes a status code.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DryRun</code> - Validate parameter values and verify that the user or role has permission to invoke
+     *        <code>DryRun</code> – Validate parameter values and verify that the user or role has permission to invoke
      *        the function.
      *        </p>
      *        </li>
@@ -457,19 +463,19 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * <ul>
      * <li>
      * <p>
-     * <code>RequestResponse</code> (default) - Invoke the function synchronously. Keep the connection open until the
+     * <code>RequestResponse</code> (default) – Invoke the function synchronously. Keep the connection open until the
      * function returns a response or times out. The API response includes the function response and additional data.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Event</code> - Invoke the function asynchronously. Send events that fail multiple times to the function's
-     * dead-letter queue (if it's configured). The API response only includes a status code.
+     * <code>Event</code> – Invoke the function asynchronously. Send events that fail multiple times to the function's
+     * dead-letter queue (if one is configured). The API response only includes a status code.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DryRun</code> - Validate parameter values and verify that the user or role has permission to invoke the
+     * <code>DryRun</code> – Validate parameter values and verify that the user or role has permission to invoke the
      * function.
      * </p>
      * </li>
@@ -480,20 +486,20 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>RequestResponse</code> (default) - Invoke the function synchronously. Keep the connection open until
+     *        <code>RequestResponse</code> (default) – Invoke the function synchronously. Keep the connection open until
      *        the function returns a response or times out. The API response includes the function response and
      *        additional data.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Event</code> - Invoke the function asynchronously. Send events that fail multiple times to the
-     *        function's dead-letter queue (if it's configured). The API response only includes a status code.
+     *        <code>Event</code> – Invoke the function asynchronously. Send events that fail multiple times to the
+     *        function's dead-letter queue (if one is configured). The API response only includes a status code.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DryRun</code> - Validate parameter values and verify that the user or role has permission to invoke
+     *        <code>DryRun</code> – Validate parameter values and verify that the user or role has permission to invoke
      *        the function.
      *        </p>
      *        </li>
@@ -511,19 +517,19 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * <ul>
      * <li>
      * <p>
-     * <code>RequestResponse</code> (default) - Invoke the function synchronously. Keep the connection open until the
+     * <code>RequestResponse</code> (default) – Invoke the function synchronously. Keep the connection open until the
      * function returns a response or times out. The API response includes the function response and additional data.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Event</code> - Invoke the function asynchronously. Send events that fail multiple times to the function's
-     * dead-letter queue (if it's configured). The API response only includes a status code.
+     * <code>Event</code> – Invoke the function asynchronously. Send events that fail multiple times to the function's
+     * dead-letter queue (if one is configured). The API response only includes a status code.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DryRun</code> - Validate parameter values and verify that the user or role has permission to invoke the
+     * <code>DryRun</code> – Validate parameter values and verify that the user or role has permission to invoke the
      * function.
      * </p>
      * </li>
@@ -534,20 +540,20 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>RequestResponse</code> (default) - Invoke the function synchronously. Keep the connection open until
+     *        <code>RequestResponse</code> (default) – Invoke the function synchronously. Keep the connection open until
      *        the function returns a response or times out. The API response includes the function response and
      *        additional data.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Event</code> - Invoke the function asynchronously. Send events that fail multiple times to the
-     *        function's dead-letter queue (if it's configured). The API response only includes a status code.
+     *        <code>Event</code> – Invoke the function asynchronously. Send events that fail multiple times to the
+     *        function's dead-letter queue (if one is configured). The API response only includes a status code.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DryRun</code> - Validate parameter values and verify that the user or role has permission to invoke
+     *        <code>DryRun</code> – Validate parameter values and verify that the user or role has permission to invoke
      *        the function.
      *        </p>
      *        </li>
@@ -562,11 +568,13 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * Set to <code>Tail</code> to include the execution log in the response.
+     * Set to <code>Tail</code> to include the execution log in the response. Applies to synchronously invoked functions
+     * only.
      * </p>
      * 
      * @param logType
-     *        Set to <code>Tail</code> to include the execution log in the response.
+     *        Set to <code>Tail</code> to include the execution log in the response. Applies to synchronously invoked
+     *        functions only.
      * @see LogType
      */
 
@@ -576,10 +584,12 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * Set to <code>Tail</code> to include the execution log in the response.
+     * Set to <code>Tail</code> to include the execution log in the response. Applies to synchronously invoked functions
+     * only.
      * </p>
      * 
-     * @return Set to <code>Tail</code> to include the execution log in the response.
+     * @return Set to <code>Tail</code> to include the execution log in the response. Applies to synchronously invoked
+     *         functions only.
      * @see LogType
      */
 
@@ -589,11 +599,13 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * Set to <code>Tail</code> to include the execution log in the response.
+     * Set to <code>Tail</code> to include the execution log in the response. Applies to synchronously invoked functions
+     * only.
      * </p>
      * 
      * @param logType
-     *        Set to <code>Tail</code> to include the execution log in the response.
+     *        Set to <code>Tail</code> to include the execution log in the response. Applies to synchronously invoked
+     *        functions only.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LogType
      */
@@ -605,11 +617,13 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * Set to <code>Tail</code> to include the execution log in the response.
+     * Set to <code>Tail</code> to include the execution log in the response. Applies to synchronously invoked functions
+     * only.
      * </p>
      * 
      * @param logType
-     *        Set to <code>Tail</code> to include the execution log in the response.
+     *        Set to <code>Tail</code> to include the execution log in the response. Applies to synchronously invoked
+     *        functions only.
      * @see LogType
      */
 
@@ -619,11 +633,13 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * Set to <code>Tail</code> to include the execution log in the response.
+     * Set to <code>Tail</code> to include the execution log in the response. Applies to synchronously invoked functions
+     * only.
      * </p>
      * 
      * @param logType
-     *        Set to <code>Tail</code> to include the execution log in the response.
+     *        Set to <code>Tail</code> to include the execution log in the response. Applies to synchronously invoked
+     *        functions only.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LogType
      */
@@ -635,12 +651,14 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * Up to 3583 bytes of base64-encoded data about the invoking client to pass to the function in the context object.
+     * Up to 3,583 bytes of base64-encoded data about the invoking client to pass to the function in the context object.
+     * Lambda passes the <code>ClientContext</code> object to your function for synchronous invocations only.
      * </p>
      * 
      * @param clientContext
-     *        Up to 3583 bytes of base64-encoded data about the invoking client to pass to the function in the context
-     *        object.
+     *        Up to 3,583 bytes of base64-encoded data about the invoking client to pass to the function in the context
+     *        object. Lambda passes the <code>ClientContext</code> object to your function for synchronous invocations
+     *        only.
      */
 
     public void setClientContext(String clientContext) {
@@ -649,11 +667,13 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * Up to 3583 bytes of base64-encoded data about the invoking client to pass to the function in the context object.
+     * Up to 3,583 bytes of base64-encoded data about the invoking client to pass to the function in the context object.
+     * Lambda passes the <code>ClientContext</code> object to your function for synchronous invocations only.
      * </p>
      * 
-     * @return Up to 3583 bytes of base64-encoded data about the invoking client to pass to the function in the context
-     *         object.
+     * @return Up to 3,583 bytes of base64-encoded data about the invoking client to pass to the function in the context
+     *         object. Lambda passes the <code>ClientContext</code> object to your function for synchronous invocations
+     *         only.
      */
 
     public String getClientContext() {
@@ -662,12 +682,14 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * Up to 3583 bytes of base64-encoded data about the invoking client to pass to the function in the context object.
+     * Up to 3,583 bytes of base64-encoded data about the invoking client to pass to the function in the context object.
+     * Lambda passes the <code>ClientContext</code> object to your function for synchronous invocations only.
      * </p>
      * 
      * @param clientContext
-     *        Up to 3583 bytes of base64-encoded data about the invoking client to pass to the function in the context
-     *        object.
+     *        Up to 3,583 bytes of base64-encoded data about the invoking client to pass to the function in the context
+     *        object. Lambda passes the <code>ClientContext</code> object to your function for synchronous invocations
+     *        only.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -681,6 +703,10 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * The JSON that you want to provide to your Lambda function as input.
      * </p>
      * <p>
+     * You can enter the JSON directly. For example, <code>--payload '{ "key": "value" }'</code>. You can also specify a
+     * file path. For example, <code>--payload file://payload.json</code>.
+     * </p>
+     * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
      * Users of the SDK should not perform Base64 encoding on this field.
      * </p>
@@ -692,7 +718,10 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * </p>
      * 
      * @param payload
-     *        The JSON that you want to provide to your Lambda function as input.
+     *        The JSON that you want to provide to your Lambda function as input.</p>
+     *        <p>
+     *        You can enter the JSON directly. For example, <code>--payload '{ "key": "value" }'</code>. You can also
+     *        specify a file path. For example, <code>--payload file://payload.json</code>.
      */
 
     public void setPayload(java.nio.ByteBuffer payload) {
@@ -704,6 +733,10 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * The JSON that you want to provide to your Lambda function as input.
      * </p>
      * <p>
+     * You can enter the JSON directly. For example, <code>--payload '{ "key": "value" }'</code>. You can also specify a
+     * file path. For example, <code>--payload file://payload.json</code>.
+     * </p>
+     * <p>
      * {@code ByteBuffer}s are stateful. Calling their {@code get} methods changes their {@code position}. We recommend
      * using {@link java.nio.ByteBuffer#asReadOnlyBuffer()} to create a read-only view of the buffer with an independent
      * {@code position}, and calling {@code get} methods on this rather than directly on the returned {@code ByteBuffer}.
@@ -711,7 +744,10 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * {@code position}.
      * </p>
      * 
-     * @return The JSON that you want to provide to your Lambda function as input.
+     * @return The JSON that you want to provide to your Lambda function as input.</p>
+     *         <p>
+     *         You can enter the JSON directly. For example, <code>--payload '{ "key": "value" }'</code>. You can also
+     *         specify a file path. For example, <code>--payload file://payload.json</code>.
      */
 
     public java.nio.ByteBuffer getPayload() {
@@ -721,6 +757,10 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
     /**
      * <p>
      * The JSON that you want to provide to your Lambda function as input.
+     * </p>
+     * <p>
+     * You can enter the JSON directly. For example, <code>--payload '{ "key": "value" }'</code>. You can also specify a
+     * file path. For example, <code>--payload file://payload.json</code>.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -734,7 +774,10 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * </p>
      * 
      * @param payload
-     *        The JSON that you want to provide to your Lambda function as input.
+     *        The JSON that you want to provide to your Lambda function as input.</p>
+     *        <p>
+     *        You can enter the JSON directly. For example, <code>--payload '{ "key": "value" }'</code>. You can also
+     *        specify a file path. For example, <code>--payload file://payload.json</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -748,6 +791,10 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * The JSON that you want to provide to your Lambda function as input.
      * </p>
      * <p>
+     * You can enter the JSON directly. For example, <code>--payload '{ "key": "value" }'</code>. You can also specify a
+     * file path. For example, <code>--payload file://payload.json</code>.
+     * </p>
+     * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
      * Users of the SDK should not perform Base64 encoding on this field.
      * </p>
@@ -759,7 +806,10 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * </p>
      * 
      * @param payload
-     *        The JSON that you want to provide to your Lambda function as input.
+     *        The JSON that you want to provide to your Lambda function as input.</p>
+     *        <p>
+     *        You can enter the JSON directly. For example, <code>--payload '{ "key": "value" }'</code>. You can also
+     *        specify a file path. For example, <code>--payload file://payload.json</code>.
      */
     public void setPayload(String payload) {
         setPayload(new com.amazonaws.adapters.types.StringToByteBufferAdapter().adapt(payload));
@@ -770,6 +820,10 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * The JSON that you want to provide to your Lambda function as input.
      * </p>
      * <p>
+     * You can enter the JSON directly. For example, <code>--payload '{ "key": "value" }'</code>. You can also specify a
+     * file path. For example, <code>--payload file://payload.json</code>.
+     * </p>
+     * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
      * Users of the SDK should not perform Base64 encoding on this field.
      * </p>
@@ -781,7 +835,10 @@ public class InvokeRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * </p>
      * 
      * @param payload
-     *        The JSON that you want to provide to your Lambda function as input.
+     *        The JSON that you want to provide to your Lambda function as input.</p>
+     *        <p>
+     *        You can enter the JSON directly. For example, <code>--payload '{ "key": "value" }'</code>. You can also
+     *        specify a file path. For example, <code>--payload file://payload.json</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
     public InvokeRequest withPayload(String payload) {

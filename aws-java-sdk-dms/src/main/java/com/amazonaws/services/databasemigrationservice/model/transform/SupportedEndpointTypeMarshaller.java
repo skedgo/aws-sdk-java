@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,6 +33,8 @@ public class SupportedEndpointTypeMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SupportsCDC").build();
     private static final MarshallingInfo<String> ENDPOINTTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EndpointType").build();
+    private static final MarshallingInfo<String> REPLICATIONINSTANCEENGINEMINIMUMVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ReplicationInstanceEngineMinimumVersion").build();
     private static final MarshallingInfo<String> ENGINEDISPLAYNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EngineDisplayName").build();
 
@@ -55,6 +57,7 @@ public class SupportedEndpointTypeMarshaller {
             protocolMarshaller.marshall(supportedEndpointType.getEngineName(), ENGINENAME_BINDING);
             protocolMarshaller.marshall(supportedEndpointType.getSupportsCDC(), SUPPORTSCDC_BINDING);
             protocolMarshaller.marshall(supportedEndpointType.getEndpointType(), ENDPOINTTYPE_BINDING);
+            protocolMarshaller.marshall(supportedEndpointType.getReplicationInstanceEngineMinimumVersion(), REPLICATIONINSTANCEENGINEMINIMUMVERSION_BINDING);
             protocolMarshaller.marshall(supportedEndpointType.getEngineDisplayName(), ENGINEDISPLAYNAME_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

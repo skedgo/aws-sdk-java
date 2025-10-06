@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,14 @@ public class DescribeExecutionRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      */
     private String executionArn;
+    /**
+     * <p>
+     * If your state machine definition is encrypted with a KMS key, callers must have <code>kms:Decrypt</code>
+     * permission to decrypt the definition. Alternatively, you can call DescribeStateMachine API with
+     * <code>includedData = METADATA_ONLY</code> to get a successful response without the encrypted definition.
+     * </p>
+     */
+    private String includedData;
 
     /**
      * <p>
@@ -73,6 +81,81 @@ public class DescribeExecutionRequest extends com.amazonaws.AmazonWebServiceRequ
     }
 
     /**
+     * <p>
+     * If your state machine definition is encrypted with a KMS key, callers must have <code>kms:Decrypt</code>
+     * permission to decrypt the definition. Alternatively, you can call DescribeStateMachine API with
+     * <code>includedData = METADATA_ONLY</code> to get a successful response without the encrypted definition.
+     * </p>
+     * 
+     * @param includedData
+     *        If your state machine definition is encrypted with a KMS key, callers must have <code>kms:Decrypt</code>
+     *        permission to decrypt the definition. Alternatively, you can call DescribeStateMachine API with
+     *        <code>includedData = METADATA_ONLY</code> to get a successful response without the encrypted definition.
+     * @see IncludedData
+     */
+
+    public void setIncludedData(String includedData) {
+        this.includedData = includedData;
+    }
+
+    /**
+     * <p>
+     * If your state machine definition is encrypted with a KMS key, callers must have <code>kms:Decrypt</code>
+     * permission to decrypt the definition. Alternatively, you can call DescribeStateMachine API with
+     * <code>includedData = METADATA_ONLY</code> to get a successful response without the encrypted definition.
+     * </p>
+     * 
+     * @return If your state machine definition is encrypted with a KMS key, callers must have <code>kms:Decrypt</code>
+     *         permission to decrypt the definition. Alternatively, you can call DescribeStateMachine API with
+     *         <code>includedData = METADATA_ONLY</code> to get a successful response without the encrypted definition.
+     * @see IncludedData
+     */
+
+    public String getIncludedData() {
+        return this.includedData;
+    }
+
+    /**
+     * <p>
+     * If your state machine definition is encrypted with a KMS key, callers must have <code>kms:Decrypt</code>
+     * permission to decrypt the definition. Alternatively, you can call DescribeStateMachine API with
+     * <code>includedData = METADATA_ONLY</code> to get a successful response without the encrypted definition.
+     * </p>
+     * 
+     * @param includedData
+     *        If your state machine definition is encrypted with a KMS key, callers must have <code>kms:Decrypt</code>
+     *        permission to decrypt the definition. Alternatively, you can call DescribeStateMachine API with
+     *        <code>includedData = METADATA_ONLY</code> to get a successful response without the encrypted definition.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IncludedData
+     */
+
+    public DescribeExecutionRequest withIncludedData(String includedData) {
+        setIncludedData(includedData);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If your state machine definition is encrypted with a KMS key, callers must have <code>kms:Decrypt</code>
+     * permission to decrypt the definition. Alternatively, you can call DescribeStateMachine API with
+     * <code>includedData = METADATA_ONLY</code> to get a successful response without the encrypted definition.
+     * </p>
+     * 
+     * @param includedData
+     *        If your state machine definition is encrypted with a KMS key, callers must have <code>kms:Decrypt</code>
+     *        permission to decrypt the definition. Alternatively, you can call DescribeStateMachine API with
+     *        <code>includedData = METADATA_ONLY</code> to get a successful response without the encrypted definition.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IncludedData
+     */
+
+    public DescribeExecutionRequest withIncludedData(IncludedData includedData) {
+        this.includedData = includedData.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -85,7 +168,9 @@ public class DescribeExecutionRequest extends com.amazonaws.AmazonWebServiceRequ
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getExecutionArn() != null)
-            sb.append("ExecutionArn: ").append(getExecutionArn());
+            sb.append("ExecutionArn: ").append(getExecutionArn()).append(",");
+        if (getIncludedData() != null)
+            sb.append("IncludedData: ").append(getIncludedData());
         sb.append("}");
         return sb.toString();
     }
@@ -104,6 +189,10 @@ public class DescribeExecutionRequest extends com.amazonaws.AmazonWebServiceRequ
             return false;
         if (other.getExecutionArn() != null && other.getExecutionArn().equals(this.getExecutionArn()) == false)
             return false;
+        if (other.getIncludedData() == null ^ this.getIncludedData() == null)
+            return false;
+        if (other.getIncludedData() != null && other.getIncludedData().equals(this.getIncludedData()) == false)
+            return false;
         return true;
     }
 
@@ -113,6 +202,7 @@ public class DescribeExecutionRequest extends com.amazonaws.AmazonWebServiceRequ
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getExecutionArn() == null) ? 0 : getExecutionArn().hashCode());
+        hashCode = prime * hashCode + ((getIncludedData() == null) ? 0 : getIncludedData().hashCode());
         return hashCode;
     }
 

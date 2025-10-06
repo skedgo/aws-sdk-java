@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,28 +27,67 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The name of the rule that you're creating or updating.
+     * The name of the rule that you are creating or updating.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or <code>"rate(5 minutes)"</code>.
+     * The scheduling expression. For example, "cron(0 20 * * ? *)" or "rate(5 minutes)".
      * </p>
      */
     private String scheduleExpression;
     /**
      * <p>
      * The event pattern. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-patterns.html">Amazon EventBridge event
+     * patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      * </p>
      */
     private String eventPattern;
     /**
      * <p>
-     * Indicates whether the rule is enabled or disabled.
+     * The state of the rule.
      * </p>
+     * <p>
+     * Valid values include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DISABLED</code>: The rule is disabled. EventBridge does not match any events against the rule.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENABLED</code>: The rule is enabled. EventBridge matches events against the rule, <i>except</i> for Amazon
+     * Web Services management events delivered through CloudTrail.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENABLED_WITH_ALL_CLOUDTRAIL_MANAGEMENT_EVENTS</code>: The rule is enabled for all events, including Amazon
+     * Web Services management events delivered through CloudTrail.
+     * </p>
+     * <p>
+     * Management events provide visibility into management operations that are performed on resources in your Amazon
+     * Web Services account. These are also known as control plane operations. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-events-with-cloudtrail.html#logging-management-events"
+     * >Logging management events</a> in the <i>CloudTrail User Guide</i>, and <a href=
+     * "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-cloudtrail"
+     * >Filtering management events from Amazon Web Services services</a> in the <i> <i>Amazon EventBridge User
+     * Guide</i> </i>.
+     * </p>
+     * <p>
+     * This value is only valid for rules on the <a href=
+     * "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is-how-it-works-concepts.html#eb-bus-concepts-buses"
+     * >default</a> event bus or <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-event-bus.html">custom event buses</a>.
+     * It does not apply to <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-saas.html">partner
+     * event buses</a>.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String state;
     /**
@@ -61,6 +100,11 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * <p>
      * The Amazon Resource Name (ARN) of the IAM role associated with the rule.
      * </p>
+     * <p>
+     * If you're setting an event bus in another account as the target and that account granted permission to your
+     * account through an organization instead of directly by the account ID, you must specify a <code>RoleArn</code>
+     * with proper permissions in the <code>Target</code> structure, instead of here in this parameter.
+     * </p>
      */
     private String roleArn;
     /**
@@ -71,18 +115,18 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
     private java.util.List<Tag> tags;
     /**
      * <p>
-     * The event bus to associate with this rule. If you omit this, the default event bus is used.
+     * The name or ARN of the event bus to associate with this rule. If you omit this, the default event bus is used.
      * </p>
      */
     private String eventBusName;
 
     /**
      * <p>
-     * The name of the rule that you're creating or updating.
+     * The name of the rule that you are creating or updating.
      * </p>
      * 
      * @param name
-     *        The name of the rule that you're creating or updating.
+     *        The name of the rule that you are creating or updating.
      */
 
     public void setName(String name) {
@@ -91,10 +135,10 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The name of the rule that you're creating or updating.
+     * The name of the rule that you are creating or updating.
      * </p>
      * 
-     * @return The name of the rule that you're creating or updating.
+     * @return The name of the rule that you are creating or updating.
      */
 
     public String getName() {
@@ -103,11 +147,11 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The name of the rule that you're creating or updating.
+     * The name of the rule that you are creating or updating.
      * </p>
      * 
      * @param name
-     *        The name of the rule that you're creating or updating.
+     *        The name of the rule that you are creating or updating.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -118,12 +162,11 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or <code>"rate(5 minutes)"</code>.
+     * The scheduling expression. For example, "cron(0 20 * * ? *)" or "rate(5 minutes)".
      * </p>
      * 
      * @param scheduleExpression
-     *        The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or
-     *        <code>"rate(5 minutes)"</code>.
+     *        The scheduling expression. For example, "cron(0 20 * * ? *)" or "rate(5 minutes)".
      */
 
     public void setScheduleExpression(String scheduleExpression) {
@@ -132,11 +175,10 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or <code>"rate(5 minutes)"</code>.
+     * The scheduling expression. For example, "cron(0 20 * * ? *)" or "rate(5 minutes)".
      * </p>
      * 
-     * @return The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or
-     *         <code>"rate(5 minutes)"</code>.
+     * @return The scheduling expression. For example, "cron(0 20 * * ? *)" or "rate(5 minutes)".
      */
 
     public String getScheduleExpression() {
@@ -145,12 +187,11 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or <code>"rate(5 minutes)"</code>.
+     * The scheduling expression. For example, "cron(0 20 * * ? *)" or "rate(5 minutes)".
      * </p>
      * 
      * @param scheduleExpression
-     *        The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or
-     *        <code>"rate(5 minutes)"</code>.
+     *        The scheduling expression. For example, "cron(0 20 * * ? *)" or "rate(5 minutes)".
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -162,14 +203,14 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
     /**
      * <p>
      * The event pattern. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-patterns.html">Amazon EventBridge event
+     * patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      * </p>
      * 
      * @param eventPattern
      *        The event pattern. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     *        Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-patterns.html">Amazon EventBridge
+     *        event patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      */
 
     public void setEventPattern(String eventPattern) {
@@ -179,13 +220,13 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
     /**
      * <p>
      * The event pattern. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-patterns.html">Amazon EventBridge event
+     * patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      * </p>
      * 
      * @return The event pattern. For more information, see <a
-     *         href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     *         Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     *         href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-patterns.html">Amazon EventBridge
+     *         event patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      */
 
     public String getEventPattern() {
@@ -195,14 +236,14 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
     /**
      * <p>
      * The event pattern. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-patterns.html">Amazon EventBridge event
+     * patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      * </p>
      * 
      * @param eventPattern
      *        The event pattern. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     *        Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-event-patterns.html">Amazon EventBridge
+     *        event patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -213,11 +254,89 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * Indicates whether the rule is enabled or disabled.
+     * The state of the rule.
      * </p>
+     * <p>
+     * Valid values include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DISABLED</code>: The rule is disabled. EventBridge does not match any events against the rule.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENABLED</code>: The rule is enabled. EventBridge matches events against the rule, <i>except</i> for Amazon
+     * Web Services management events delivered through CloudTrail.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENABLED_WITH_ALL_CLOUDTRAIL_MANAGEMENT_EVENTS</code>: The rule is enabled for all events, including Amazon
+     * Web Services management events delivered through CloudTrail.
+     * </p>
+     * <p>
+     * Management events provide visibility into management operations that are performed on resources in your Amazon
+     * Web Services account. These are also known as control plane operations. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-events-with-cloudtrail.html#logging-management-events"
+     * >Logging management events</a> in the <i>CloudTrail User Guide</i>, and <a href=
+     * "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-cloudtrail"
+     * >Filtering management events from Amazon Web Services services</a> in the <i> <i>Amazon EventBridge User
+     * Guide</i> </i>.
+     * </p>
+     * <p>
+     * This value is only valid for rules on the <a href=
+     * "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is-how-it-works-concepts.html#eb-bus-concepts-buses"
+     * >default</a> event bus or <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-event-bus.html">custom event buses</a>.
+     * It does not apply to <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-saas.html">partner
+     * event buses</a>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param state
-     *        Indicates whether the rule is enabled or disabled.
+     *        The state of the rule.</p>
+     *        <p>
+     *        Valid values include:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DISABLED</code>: The rule is disabled. EventBridge does not match any events against the rule.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ENABLED</code>: The rule is enabled. EventBridge matches events against the rule, <i>except</i> for
+     *        Amazon Web Services management events delivered through CloudTrail.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ENABLED_WITH_ALL_CLOUDTRAIL_MANAGEMENT_EVENTS</code>: The rule is enabled for all events, including
+     *        Amazon Web Services management events delivered through CloudTrail.
+     *        </p>
+     *        <p>
+     *        Management events provide visibility into management operations that are performed on resources in your
+     *        Amazon Web Services account. These are also known as control plane operations. For more information, see
+     *        <a href=
+     *        "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-events-with-cloudtrail.html#logging-management-events"
+     *        >Logging management events</a> in the <i>CloudTrail User Guide</i>, and <a href=
+     *        "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-cloudtrail"
+     *        >Filtering management events from Amazon Web Services services</a> in the <i> <i>Amazon EventBridge User
+     *        Guide</i> </i>.
+     *        </p>
+     *        <p>
+     *        This value is only valid for rules on the <a href=
+     *        "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is-how-it-works-concepts.html#eb-bus-concepts-buses"
+     *        >default</a> event bus or <a
+     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-event-bus.html">custom event
+     *        buses</a>. It does not apply to <a
+     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-saas.html">partner event buses</a>.
+     *        </p>
+     *        </li>
      * @see RuleState
      */
 
@@ -227,10 +346,88 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * Indicates whether the rule is enabled or disabled.
+     * The state of the rule.
      * </p>
+     * <p>
+     * Valid values include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DISABLED</code>: The rule is disabled. EventBridge does not match any events against the rule.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENABLED</code>: The rule is enabled. EventBridge matches events against the rule, <i>except</i> for Amazon
+     * Web Services management events delivered through CloudTrail.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENABLED_WITH_ALL_CLOUDTRAIL_MANAGEMENT_EVENTS</code>: The rule is enabled for all events, including Amazon
+     * Web Services management events delivered through CloudTrail.
+     * </p>
+     * <p>
+     * Management events provide visibility into management operations that are performed on resources in your Amazon
+     * Web Services account. These are also known as control plane operations. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-events-with-cloudtrail.html#logging-management-events"
+     * >Logging management events</a> in the <i>CloudTrail User Guide</i>, and <a href=
+     * "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-cloudtrail"
+     * >Filtering management events from Amazon Web Services services</a> in the <i> <i>Amazon EventBridge User
+     * Guide</i> </i>.
+     * </p>
+     * <p>
+     * This value is only valid for rules on the <a href=
+     * "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is-how-it-works-concepts.html#eb-bus-concepts-buses"
+     * >default</a> event bus or <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-event-bus.html">custom event buses</a>.
+     * It does not apply to <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-saas.html">partner
+     * event buses</a>.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return Indicates whether the rule is enabled or disabled.
+     * @return The state of the rule.</p>
+     *         <p>
+     *         Valid values include:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>DISABLED</code>: The rule is disabled. EventBridge does not match any events against the rule.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ENABLED</code>: The rule is enabled. EventBridge matches events against the rule, <i>except</i> for
+     *         Amazon Web Services management events delivered through CloudTrail.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ENABLED_WITH_ALL_CLOUDTRAIL_MANAGEMENT_EVENTS</code>: The rule is enabled for all events, including
+     *         Amazon Web Services management events delivered through CloudTrail.
+     *         </p>
+     *         <p>
+     *         Management events provide visibility into management operations that are performed on resources in your
+     *         Amazon Web Services account. These are also known as control plane operations. For more information, see
+     *         <a href=
+     *         "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-events-with-cloudtrail.html#logging-management-events"
+     *         >Logging management events</a> in the <i>CloudTrail User Guide</i>, and <a href=
+     *         "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-cloudtrail"
+     *         >Filtering management events from Amazon Web Services services</a> in the <i> <i>Amazon EventBridge User
+     *         Guide</i> </i>.
+     *         </p>
+     *         <p>
+     *         This value is only valid for rules on the <a href=
+     *         "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is-how-it-works-concepts.html#eb-bus-concepts-buses"
+     *         >default</a> event bus or <a
+     *         href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-event-bus.html">custom event
+     *         buses</a>. It does not apply to <a
+     *         href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-saas.html">partner event buses</a>.
+     *         </p>
+     *         </li>
      * @see RuleState
      */
 
@@ -240,11 +437,89 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * Indicates whether the rule is enabled or disabled.
+     * The state of the rule.
      * </p>
+     * <p>
+     * Valid values include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DISABLED</code>: The rule is disabled. EventBridge does not match any events against the rule.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENABLED</code>: The rule is enabled. EventBridge matches events against the rule, <i>except</i> for Amazon
+     * Web Services management events delivered through CloudTrail.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENABLED_WITH_ALL_CLOUDTRAIL_MANAGEMENT_EVENTS</code>: The rule is enabled for all events, including Amazon
+     * Web Services management events delivered through CloudTrail.
+     * </p>
+     * <p>
+     * Management events provide visibility into management operations that are performed on resources in your Amazon
+     * Web Services account. These are also known as control plane operations. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-events-with-cloudtrail.html#logging-management-events"
+     * >Logging management events</a> in the <i>CloudTrail User Guide</i>, and <a href=
+     * "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-cloudtrail"
+     * >Filtering management events from Amazon Web Services services</a> in the <i> <i>Amazon EventBridge User
+     * Guide</i> </i>.
+     * </p>
+     * <p>
+     * This value is only valid for rules on the <a href=
+     * "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is-how-it-works-concepts.html#eb-bus-concepts-buses"
+     * >default</a> event bus or <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-event-bus.html">custom event buses</a>.
+     * It does not apply to <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-saas.html">partner
+     * event buses</a>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param state
-     *        Indicates whether the rule is enabled or disabled.
+     *        The state of the rule.</p>
+     *        <p>
+     *        Valid values include:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DISABLED</code>: The rule is disabled. EventBridge does not match any events against the rule.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ENABLED</code>: The rule is enabled. EventBridge matches events against the rule, <i>except</i> for
+     *        Amazon Web Services management events delivered through CloudTrail.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ENABLED_WITH_ALL_CLOUDTRAIL_MANAGEMENT_EVENTS</code>: The rule is enabled for all events, including
+     *        Amazon Web Services management events delivered through CloudTrail.
+     *        </p>
+     *        <p>
+     *        Management events provide visibility into management operations that are performed on resources in your
+     *        Amazon Web Services account. These are also known as control plane operations. For more information, see
+     *        <a href=
+     *        "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-events-with-cloudtrail.html#logging-management-events"
+     *        >Logging management events</a> in the <i>CloudTrail User Guide</i>, and <a href=
+     *        "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-cloudtrail"
+     *        >Filtering management events from Amazon Web Services services</a> in the <i> <i>Amazon EventBridge User
+     *        Guide</i> </i>.
+     *        </p>
+     *        <p>
+     *        This value is only valid for rules on the <a href=
+     *        "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is-how-it-works-concepts.html#eb-bus-concepts-buses"
+     *        >default</a> event bus or <a
+     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-event-bus.html">custom event
+     *        buses</a>. It does not apply to <a
+     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-saas.html">partner event buses</a>.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see RuleState
      */
@@ -256,11 +531,89 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * Indicates whether the rule is enabled or disabled.
+     * The state of the rule.
      * </p>
+     * <p>
+     * Valid values include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>DISABLED</code>: The rule is disabled. EventBridge does not match any events against the rule.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENABLED</code>: The rule is enabled. EventBridge matches events against the rule, <i>except</i> for Amazon
+     * Web Services management events delivered through CloudTrail.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ENABLED_WITH_ALL_CLOUDTRAIL_MANAGEMENT_EVENTS</code>: The rule is enabled for all events, including Amazon
+     * Web Services management events delivered through CloudTrail.
+     * </p>
+     * <p>
+     * Management events provide visibility into management operations that are performed on resources in your Amazon
+     * Web Services account. These are also known as control plane operations. For more information, see <a href=
+     * "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-events-with-cloudtrail.html#logging-management-events"
+     * >Logging management events</a> in the <i>CloudTrail User Guide</i>, and <a href=
+     * "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-cloudtrail"
+     * >Filtering management events from Amazon Web Services services</a> in the <i> <i>Amazon EventBridge User
+     * Guide</i> </i>.
+     * </p>
+     * <p>
+     * This value is only valid for rules on the <a href=
+     * "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is-how-it-works-concepts.html#eb-bus-concepts-buses"
+     * >default</a> event bus or <a
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-event-bus.html">custom event buses</a>.
+     * It does not apply to <a href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-saas.html">partner
+     * event buses</a>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param state
-     *        Indicates whether the rule is enabled or disabled.
+     *        The state of the rule.</p>
+     *        <p>
+     *        Valid values include:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>DISABLED</code>: The rule is disabled. EventBridge does not match any events against the rule.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ENABLED</code>: The rule is enabled. EventBridge matches events against the rule, <i>except</i> for
+     *        Amazon Web Services management events delivered through CloudTrail.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ENABLED_WITH_ALL_CLOUDTRAIL_MANAGEMENT_EVENTS</code>: The rule is enabled for all events, including
+     *        Amazon Web Services management events delivered through CloudTrail.
+     *        </p>
+     *        <p>
+     *        Management events provide visibility into management operations that are performed on resources in your
+     *        Amazon Web Services account. These are also known as control plane operations. For more information, see
+     *        <a href=
+     *        "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-events-with-cloudtrail.html#logging-management-events"
+     *        >Logging management events</a> in the <i>CloudTrail User Guide</i>, and <a href=
+     *        "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html#eb-service-event-cloudtrail"
+     *        >Filtering management events from Amazon Web Services services</a> in the <i> <i>Amazon EventBridge User
+     *        Guide</i> </i>.
+     *        </p>
+     *        <p>
+     *        This value is only valid for rules on the <a href=
+     *        "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is-how-it-works-concepts.html#eb-bus-concepts-buses"
+     *        >default</a> event bus or <a
+     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-event-bus.html">custom event
+     *        buses</a>. It does not apply to <a
+     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-saas.html">partner event buses</a>.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see RuleState
      */
@@ -314,9 +667,19 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * <p>
      * The Amazon Resource Name (ARN) of the IAM role associated with the rule.
      * </p>
+     * <p>
+     * If you're setting an event bus in another account as the target and that account granted permission to your
+     * account through an organization instead of directly by the account ID, you must specify a <code>RoleArn</code>
+     * with proper permissions in the <code>Target</code> structure, instead of here in this parameter.
+     * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) of the IAM role associated with the rule.
+     *        The Amazon Resource Name (ARN) of the IAM role associated with the rule.</p>
+     *        <p>
+     *        If you're setting an event bus in another account as the target and that account granted permission to
+     *        your account through an organization instead of directly by the account ID, you must specify a
+     *        <code>RoleArn</code> with proper permissions in the <code>Target</code> structure, instead of here in this
+     *        parameter.
      */
 
     public void setRoleArn(String roleArn) {
@@ -327,8 +690,18 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * <p>
      * The Amazon Resource Name (ARN) of the IAM role associated with the rule.
      * </p>
+     * <p>
+     * If you're setting an event bus in another account as the target and that account granted permission to your
+     * account through an organization instead of directly by the account ID, you must specify a <code>RoleArn</code>
+     * with proper permissions in the <code>Target</code> structure, instead of here in this parameter.
+     * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the IAM role associated with the rule.
+     * @return The Amazon Resource Name (ARN) of the IAM role associated with the rule.</p>
+     *         <p>
+     *         If you're setting an event bus in another account as the target and that account granted permission to
+     *         your account through an organization instead of directly by the account ID, you must specify a
+     *         <code>RoleArn</code> with proper permissions in the <code>Target</code> structure, instead of here in
+     *         this parameter.
      */
 
     public String getRoleArn() {
@@ -339,9 +712,19 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * <p>
      * The Amazon Resource Name (ARN) of the IAM role associated with the rule.
      * </p>
+     * <p>
+     * If you're setting an event bus in another account as the target and that account granted permission to your
+     * account through an organization instead of directly by the account ID, you must specify a <code>RoleArn</code>
+     * with proper permissions in the <code>Target</code> structure, instead of here in this parameter.
+     * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) of the IAM role associated with the rule.
+     *        The Amazon Resource Name (ARN) of the IAM role associated with the rule.</p>
+     *        <p>
+     *        If you're setting an event bus in another account as the target and that account granted permission to
+     *        your account through an organization instead of directly by the account ID, you must specify a
+     *        <code>RoleArn</code> with proper permissions in the <code>Target</code> structure, instead of here in this
+     *        parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -422,11 +805,12 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The event bus to associate with this rule. If you omit this, the default event bus is used.
+     * The name or ARN of the event bus to associate with this rule. If you omit this, the default event bus is used.
      * </p>
      * 
      * @param eventBusName
-     *        The event bus to associate with this rule. If you omit this, the default event bus is used.
+     *        The name or ARN of the event bus to associate with this rule. If you omit this, the default event bus is
+     *        used.
      */
 
     public void setEventBusName(String eventBusName) {
@@ -435,10 +819,11 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The event bus to associate with this rule. If you omit this, the default event bus is used.
+     * The name or ARN of the event bus to associate with this rule. If you omit this, the default event bus is used.
      * </p>
      * 
-     * @return The event bus to associate with this rule. If you omit this, the default event bus is used.
+     * @return The name or ARN of the event bus to associate with this rule. If you omit this, the default event bus is
+     *         used.
      */
 
     public String getEventBusName() {
@@ -447,11 +832,12 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The event bus to associate with this rule. If you omit this, the default event bus is used.
+     * The name or ARN of the event bus to associate with this rule. If you omit this, the default event bus is used.
      * </p>
      * 
      * @param eventBusName
-     *        The event bus to associate with this rule. If you omit this, the default event bus is used.
+     *        The name or ARN of the event bus to associate with this rule. If you omit this, the default event bus is
+     *        used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

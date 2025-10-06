@@ -58,7 +58,7 @@ public class ${shape.shapeName}StaxUnmarshaller implements Unmarshaller<${shape.
         <#if memberModel.http.isHeader() >
             context.setCurrentHeader("${memberModel.http.unmarshallLocationName}");
             ${shape.variable.variableName}.${memberModel.setterMethodName}(
-            <#if memberModel.variable.simpleType == "Date">
+            <#if memberModel.variable.variableType == "java.util.Date">
                 DateStaxUnmarshallerFactory.getInstance("${memberModel.variable.timestampFormat}").unmarshall(context));
             <#else>
                 ${memberModel.variable.simpleType}StaxUnmarshaller.getInstance().unmarshall(context));
@@ -77,6 +77,15 @@ public class ${shape.shapeName}StaxUnmarshaller implements Unmarshaller<${shape.
     </#list>
 </#if>
 
+<#assign xmlPayloadMember = true />
+<#if shape.hasPayloadMember>
+<#assign explicitPayloadMember = shape.payloadMember />
+    <#if explicitPayloadMember.http.isStreaming || explicitPayloadMember.variable.variableType == "java.nio.ByteBuffer">
+        <#assign xmlPayloadMember = false />
+    </#if>
+</#if>
+
+<#if xmlPayloadMember>
         while (true) {
             XMLEvent xmlEvent = context.nextEvent();
             if (xmlEvent.isEndDocument()) return ${shape.variable.variableName};
@@ -106,6 +115,23 @@ public class ${shape.shapeName}StaxUnmarshaller implements Unmarshaller<${shape.
             }
         }
     }
+
+<#else>
+    <#if explicitPayloadMember.http.isStreaming>
+        ${shape.variable.variableName}.${explicitPayloadMember.setterMethodName}(context.getHttpResponse().getContent());
+    <#elseif explicitPayloadMember.variable.variableType == "java.nio.ByteBuffer">
+        java.io.InputStream is = context.getHttpResponse().getContent();
+        if(is != null) {
+            try {
+                ${shape.variable.variableName}.${explicitPayloadMember.setterMethodName}(java.nio.ByteBuffer.wrap(com.amazonaws.util.IOUtils.toByteArray(is)));
+            } finally {
+                com.amazonaws.util.IOUtils.closeQuietly(is, null);
+            }
+         }
+    </#if>
+        return ${shape.variable.variableName};
+    }
+</#if>
 
     private static ${shape.shapeName}StaxUnmarshaller instance;
     public static ${shape.shapeName}StaxUnmarshaller getInstance() {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,6 +60,10 @@ public class UpdateIdentityPoolResultJsonUnmarshaller implements Unmarshaller<Up
                     context.nextToken();
                     updateIdentityPoolResult.setAllowUnauthenticatedIdentities(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
+                if (context.testExpression("AllowClassicFlow", targetDepth)) {
+                    context.nextToken();
+                    updateIdentityPoolResult.setAllowClassicFlow(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
                 if (context.testExpression("SupportedLoginProviders", targetDepth)) {
                     context.nextToken();
                     updateIdentityPoolResult.setSupportedLoginProviders(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
@@ -72,16 +76,21 @@ public class UpdateIdentityPoolResultJsonUnmarshaller implements Unmarshaller<Up
                 if (context.testExpression("OpenIdConnectProviderARNs", targetDepth)) {
                     context.nextToken();
                     updateIdentityPoolResult.setOpenIdConnectProviderARNs(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("CognitoIdentityProviders", targetDepth)) {
                     context.nextToken();
                     updateIdentityPoolResult.setCognitoIdentityProviders(new ListUnmarshaller<CognitoIdentityProvider>(CognitoIdentityProviderJsonUnmarshaller
-                            .getInstance()).unmarshall(context));
+                            .getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("SamlProviderARNs", targetDepth)) {
                     context.nextToken();
-                    updateIdentityPoolResult.setSamlProviderARNs(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    updateIdentityPoolResult.setSamlProviderARNs(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("IdentityPoolTags", targetDepth)) {
                     context.nextToken();

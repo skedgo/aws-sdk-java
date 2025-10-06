@@ -26,6 +26,7 @@ import com.amazonaws.http.HttpResponseHandler;
 import com.amazonaws.protocol.OperationInfo;
 import com.amazonaws.protocol.Protocol;
 import com.amazonaws.protocol.ProtocolRequestMarshaller;
+import com.amazonaws.protocol.json.internal.EmptyBodyJsonMarshaller;
 import com.amazonaws.transform.JsonErrorUnmarshaller;
 import com.amazonaws.transform.JsonUnmarshallerContext;
 import com.amazonaws.transform.Unmarshaller;
@@ -65,7 +66,8 @@ public class SdkJsonProtocolFactory implements SdkJsonMarshallerFactory {
                 .contentType(getContentType())
                 .operationInfo(operationInfo)
                 .originalRequest(origRequest)
-                .sendExplicitNullForPayload(false)
+                .emptyBodyMarshaller(createEmptyBodyMarshaller(operationInfo))
+                .withAwsQueryCompatible(metadata.getAwsQueryCompatible())
                 .build();
     }
 
@@ -74,6 +76,24 @@ public class SdkJsonProtocolFactory implements SdkJsonMarshallerFactory {
             return createGenerator();
         } else {
             return StructuredJsonGenerator.NO_OP;
+        }
+    }
+
+    /**
+     * For requests with payloads, if it has an explicit payload member and that member is null,
+     * the body should be rendered as empty JSON.
+     *
+     * The API Gateway protocol has it's own factory and should not appear here.
+     */
+    private EmptyBodyJsonMarshaller createEmptyBodyMarshaller(OperationInfo operationInfo) {
+        if (operationInfo.protocol() == Protocol.API_GATEWAY) {
+            throw new IllegalStateException("Detected the API_GATEWAY protocol which should not be used with this "
+                                            + "protocol factory.");
+        }
+        if (!operationInfo.hasPayloadMembers() || operationInfo.protocol() == Protocol.API_GATEWAY) {
+            return EmptyBodyJsonMarshaller.NULL;
+        } else {
+            return EmptyBodyJsonMarshaller.EMPTY;
         }
     }
 
@@ -93,21 +113,25 @@ public class SdkJsonProtocolFactory implements SdkJsonMarshallerFactory {
      */
     public HttpResponseHandler<AmazonServiceException> createErrorResponseHandler(
             JsonErrorResponseMetadata errorResponsMetadata) {
-        return getSdkFactory().createErrorResponseHandler(errorUnmarshallers, errorResponsMetadata
-                .getCustomErrorCodeFieldName());
+        return getSdkFactory().createErrorResponseHandler(errorResponsMetadata, errorUnmarshallers);
     }
 
     @SuppressWarnings("unchecked")
     private void createErrorUnmarshallers() {
         for (JsonErrorShapeMetadata errorMetadata : metadata.getErrorShapeMetadata()) {
-            errorUnmarshallers.add(new JsonErrorUnmarshaller(
-                    (Class<? extends AmazonServiceException>) errorMetadata.getModeledClass(),
-                    errorMetadata.getErrorCode()));
-
+            if (errorMetadata.getExceptionUnmarshaller() != null) {
+                errorUnmarshallers.add(errorMetadata.getExceptionUnmarshaller());
+            } else if (errorMetadata.getModeledClass() != null) {
+                errorUnmarshallers.add(new JsonErrorUnmarshaller(
+                        (Class<? extends AmazonServiceException>) errorMetadata.getModeledClass(),
+                        errorMetadata.getErrorCode()));
+            }
         }
-        errorUnmarshallers.add(new JsonErrorUnmarshaller(
-                (Class<? extends AmazonServiceException>) metadata.getBaseServiceExceptionClass(),
-                null));
+
+        if (metadata.getBaseServiceExceptionClass() != null) {
+            errorUnmarshallers.add(new JsonErrorUnmarshaller(
+                    (Class<? extends AmazonServiceException>) metadata.getBaseServiceExceptionClass(), null));
+        }
     }
 
     /**
@@ -116,10 +140,6 @@ public class SdkJsonProtocolFactory implements SdkJsonMarshallerFactory {
     private SdkStructuredJsonFactory getSdkFactory() {
         if (isCborEnabled()) {
             return SdkStructuredCborFactory.SDK_CBOR_FACTORY;
-        } else if (isIonEnabled()) {
-            return isIonBinaryEnabled()
-                    ? SdkStructuredIonFactory.SDK_ION_BINARY_FACTORY
-                    : SdkStructuredIonFactory.SDK_ION_TEXT_FACTORY;
         } else {
             return SdkStructuredPlainJsonFactory.SDK_JSON_FACTORY;
         }
@@ -131,10 +151,6 @@ public class SdkJsonProtocolFactory implements SdkJsonMarshallerFactory {
     private JsonContentTypeResolver getContentTypeResolver() {
         if (isCborEnabled()) {
             return JsonContentTypeResolver.CBOR;
-        } else if (isIonEnabled()) {
-            return isIonBinaryEnabled()
-                    ? JsonContentTypeResolver.ION_BINARY
-                    : JsonContentTypeResolver.ION_TEXT;
         } else {
             return JsonContentTypeResolver.JSON;
         }
@@ -142,13 +158,5 @@ public class SdkJsonProtocolFactory implements SdkJsonMarshallerFactory {
 
     private boolean isCborEnabled() {
         return metadata.isSupportsCbor() && !SDKGlobalConfiguration.isCborDisabled();
-    }
-
-    private boolean isIonEnabled() {
-        return metadata.isSupportsIon();
-    }
-
-    boolean isIonBinaryEnabled() {
-        return !SDKGlobalConfiguration.isIonBinaryDisabled();
     }
 }

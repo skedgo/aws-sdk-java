@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBStreamsClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.dynamodbv2.model.*;
+
 import com.amazonaws.services.dynamodbv2.model.transform.*;
 
 /**
@@ -54,7 +55,7 @@ import com.amazonaws.services.dynamodbv2.model.transform.*;
  * <p>
  * Amazon DynamoDB Streams provides API actions for accessing streams and processing stream records. To learn more about
  * application development with Streams, see <a
- * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html">Capturing Table Activity with
+ * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html">Capturing Table Activity with
  * DynamoDB Streams</a> in the Amazon DynamoDB Developer Guide.
  * </p>
  */
@@ -81,20 +82,20 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient implemen
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TrimmedDataAccessException").withModeledClass(
-                                    com.amazonaws.services.dynamodbv2.model.TrimmedDataAccessException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TrimmedDataAccessException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.dynamodbv2.model.transform.TrimmedDataAccessExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.dynamodbv2.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ExpiredIteratorException").withModeledClass(
-                                    com.amazonaws.services.dynamodbv2.model.ExpiredIteratorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ExpiredIteratorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.dynamodbv2.model.transform.ExpiredIteratorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerError").withModeledClass(
-                                    com.amazonaws.services.dynamodbv2.model.InternalServerErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerError").withExceptionUnmarshaller(
+                                    com.amazonaws.services.dynamodbv2.model.transform.InternalServerErrorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.dynamodbv2.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.dynamodbv2.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.dynamodbv2.model.AmazonDynamoDBException.class));
 
     /**
@@ -319,7 +320,8 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient implemen
      *        Represents the input of a <code>DescribeStream</code> operation.
      * @return Result of the DescribeStream operation returned by the service.
      * @throws ResourceNotFoundException
-     *         The operation tried to access a nonexistent stream.
+     *         The operation tried to access a nonexistent table or index. The resource might not be specified
+     *         correctly, or its status might not be <code>ACTIVE</code>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AmazonDynamoDBStreams.DescribeStream
@@ -347,6 +349,8 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient implemen
                 request = new DescribeStreamRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeStreamRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "DynamoDB Streams");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeStream");
@@ -388,20 +392,41 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient implemen
      *        Represents the input of a <code>GetRecords</code> operation.
      * @return Result of the GetRecords operation returned by the service.
      * @throws ResourceNotFoundException
-     *         The operation tried to access a nonexistent stream.
+     *         The operation tried to access a nonexistent table or index. The resource might not be specified
+     *         correctly, or its status might not be <code>ACTIVE</code>.
      * @throws LimitExceededException
-     *         Your request rate is too high. The AWS SDKs for DynamoDB automatically retry requests that receive this
-     *         exception. Your request is eventually successful, unless your retry queue is too large to finish. Reduce
-     *         the frequency of requests and use exponential backoff. For more information, go to <a
-     *         href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ErrorHandling.html#APIRetries"
-     *         >Error Retries and Exponential Backoff</a> in the <i>Amazon DynamoDB Developer Guide</i>.
+     *         There is no limit to the number of daily on-demand backups that can be taken. </p>
+     *         <p>
+     *         For most purposes, up to 500 simultaneous table operations are allowed per account. These operations
+     *         include <code>CreateTable</code>, <code>UpdateTable</code>, <code>DeleteTable</code>,
+     *         <code>UpdateTimeToLive</code>, <code>RestoreTableFromBackup</code>, and
+     *         <code>RestoreTableToPointInTime</code>.
+     *         </p>
+     *         <p>
+     *         When you are creating a table with one or more secondary indexes, you can have up to 250 such requests
+     *         running at a time. However, if the table or index specifications are complex, then DynamoDB might
+     *         temporarily reduce the number of concurrent operations.
+     *         </p>
+     *         <p>
+     *         When importing into DynamoDB, up to 50 simultaneous import table operations are allowed per account.
+     *         </p>
+     *         <p>
+     *         There is a soft account quota of 2,500 tables.
+     *         </p>
+     *         <p>
+     *         GetRecords was called with a value of more than 1000 for the limit request parameter.
+     *         </p>
+     *         <p>
+     *         More than 2 processes are reading from the same streams shard at the same time. Exceeding this limit may
+     *         result in request throttling.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @throws ExpiredIteratorException
      *         The shard iterator has expired and can no longer be used to retrieve stream records. A shard iterator
      *         expires 15 minutes after it is retrieved using the <code>GetShardIterator</code> action.
      * @throws TrimmedDataAccessException
-     *         The operation attempted to read past the oldest stream record in a shard.</p>
+     *         The operation attempted to read past the oldest stream record in a shard.
+     *         </p>
      *         <p>
      *         In DynamoDB Streams, there is a 24 hour limit on data retention. Stream records whose age exceeds this
      *         limit are subject to removal (trimming) from the stream. You might receive a TrimmedDataAccessException
@@ -445,6 +470,8 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient implemen
                 request = new GetRecordsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRecordsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "DynamoDB Streams");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRecords");
@@ -482,7 +509,8 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient implemen
      *        Represents the input of a <code>GetShardIterator</code> operation.
      * @return Result of the GetShardIterator operation returned by the service.
      * @throws ResourceNotFoundException
-     *         The operation tried to access a nonexistent stream.
+     *         The operation tried to access a nonexistent table or index. The resource might not be specified
+     *         correctly, or its status might not be <code>ACTIVE</code>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @throws TrimmedDataAccessException
@@ -530,6 +558,8 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient implemen
                 request = new GetShardIteratorRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getShardIteratorRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "DynamoDB Streams");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetShardIterator");
@@ -566,7 +596,8 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient implemen
      *        Represents the input of a <code>ListStreams</code> operation.
      * @return Result of the ListStreams operation returned by the service.
      * @throws ResourceNotFoundException
-     *         The operation tried to access a nonexistent stream.
+     *         The operation tried to access a nonexistent table or index. The resource might not be specified
+     *         correctly, or its status might not be <code>ACTIVE</code>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AmazonDynamoDBStreams.ListStreams
@@ -594,6 +625,8 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient implemen
                 request = new ListStreamsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listStreamsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "DynamoDB Streams");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListStreams");
@@ -689,6 +722,11 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient implemen
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

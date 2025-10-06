@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,17 @@ public class AbstractAWSMediaPackage implements AWSMediaPackage {
     }
 
     @Override
+    public ConfigureLogsResult configureLogs(ConfigureLogsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateChannelResult createChannel(CreateChannelRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateHarvestJobResult createHarvestJob(CreateHarvestJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -53,12 +63,22 @@ public class AbstractAWSMediaPackage implements AWSMediaPackage {
     }
 
     @Override
+    public DescribeHarvestJobResult describeHarvestJob(DescribeHarvestJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeOriginEndpointResult describeOriginEndpoint(DescribeOriginEndpointRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public ListChannelsResult listChannels(ListChannelsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListHarvestJobsResult listHarvestJobs(ListHarvestJobsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

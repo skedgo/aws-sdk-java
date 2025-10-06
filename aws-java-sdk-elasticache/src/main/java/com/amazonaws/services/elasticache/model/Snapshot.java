@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Represents a copy of an entire Redis cluster as of the time when the snapshot was taken.
+ * Represents a copy of an entire Redis OSS cluster as of the time when the snapshot was taken.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/Snapshot" target="_top">AWS API
@@ -85,6 +85,24 @@ public class Snapshot implements Serializable, Cloneable {
      * Current generation:
      * </p>
      * <p>
+     * <b>M7g node types</b>: <code>cache.m7g.large</code>, <code>cache.m7g.xlarge</code>,
+     * <code>cache.m7g.2xlarge</code>, <code>cache.m7g.4xlarge</code>, <code>cache.m7g.8xlarge</code>,
+     * <code>cache.m7g.12xlarge</code>, <code>cache.m7g.16xlarge</code>
+     * </p>
+     * <note>
+     * <p>
+     * For region availability, see <a href=
+     * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     * >Supported Node Types</a>
+     * </p>
+     * </note>
+     * <p>
+     * <b>M6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     * 1.5.16 onward): <code>cache.m6g.large</code>, <code>cache.m6g.xlarge</code>, <code>cache.m6g.2xlarge</code>,
+     * <code>cache.m6g.4xlarge</code>, <code>cache.m6g.8xlarge</code>, <code>cache.m6g.12xlarge</code>,
+     * <code>cache.m6g.16xlarge</code>
+     * </p>
+     * <p>
      * <b>M5 node types:</b> <code>cache.m5.large</code>, <code>cache.m5.xlarge</code>, <code>cache.m5.2xlarge</code>,
      * <code>cache.m5.4xlarge</code>, <code>cache.m5.12xlarge</code>, <code>cache.m5.24xlarge</code>
      * </p>
@@ -93,12 +111,20 @@ public class Snapshot implements Serializable, Cloneable {
      * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      * </p>
      * <p>
+     * <b>T4g node types</b> (available only for Redis OSS engine version 5.0.6 onward and Memcached engine version
+     * 1.5.16 onward): <code>cache.t4g.micro</code>, <code>cache.t4g.small</code>, <code>cache.t4g.medium</code>
+     * </p>
+     * <p>
+     * <b>T3 node types:</b> <code>cache.t3.micro</code>, <code>cache.t3.small</code>, <code>cache.t3.medium</code>
+     * </p>
+     * <p>
      * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>T1 node types:</b> <code>cache.t1.micro</code>
@@ -121,7 +147,8 @@ public class Snapshot implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
@@ -139,6 +166,24 @@ public class Snapshot implements Serializable, Cloneable {
      * Current generation:
      * </p>
      * <p>
+     * <b>R7g node types</b>: <code>cache.r7g.large</code>, <code>cache.r7g.xlarge</code>,
+     * <code>cache.r7g.2xlarge</code>, <code>cache.r7g.4xlarge</code>, <code>cache.r7g.8xlarge</code>,
+     * <code>cache.r7g.12xlarge</code>, <code>cache.r7g.16xlarge</code>
+     * </p>
+     * <note>
+     * <p>
+     * For region availability, see <a href=
+     * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     * >Supported Node Types</a>
+     * </p>
+     * </note>
+     * <p>
+     * <b>R6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     * 1.5.16 onward): <code>cache.r6g.large</code>, <code>cache.r6g.xlarge</code>, <code>cache.r6g.2xlarge</code>,
+     * <code>cache.r6g.4xlarge</code>, <code>cache.r6g.8xlarge</code>, <code>cache.r6g.12xlarge</code>,
+     * <code>cache.r6g.16xlarge</code>
+     * </p>
+     * <p>
      * <b>R5 node types:</b> <code>cache.r5.large</code>, <code>cache.r5.xlarge</code>, <code>cache.r5.2xlarge</code>,
      * <code>cache.r5.4xlarge</code>, <code>cache.r5.12xlarge</code>, <code>cache.r5.24xlarge</code>
      * </p>
@@ -149,7 +194,8 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
@@ -173,18 +219,18 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis append-only files (AOF) are not supported for T1 or T2 instances.
+     * Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Redis Multi-AZ with automatic failover is not supported on T1 instances.
+     * Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Redis configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis
-     * version 2.8.22 and later.
+     * Redis OSS configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis
+     * OSS version 2.8.22 and later.
      * </p>
      * </li>
      * </ul>
@@ -207,8 +253,8 @@ public class Snapshot implements Serializable, Cloneable {
      * The number of cache nodes in the source cluster.
      * </p>
      * <p>
-     * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1
-     * and 20.
+     * For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be between
+     * 1 and 40.
      * </p>
      */
     private Integer numCacheNodes;
@@ -218,6 +264,12 @@ public class Snapshot implements Serializable, Cloneable {
      * </p>
      */
     private String preferredAvailabilityZone;
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) of the preferred outpost.
+     * </p>
+     */
+    private String preferredOutpostArn;
     /**
      * <p>
      * The date and time when the source cluster was created.
@@ -306,7 +358,8 @@ public class Snapshot implements Serializable, Cloneable {
     private String vpcId;
     /**
      * <p>
-     * This parameter is currently disabled.
+     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * </p>
      */
     private Boolean autoMinorVersionUpgrade;
@@ -339,28 +392,8 @@ public class Snapshot implements Serializable, Cloneable {
     private Integer numNodeGroups;
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.
+     * Indicates the status of automatic failover for the source Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      */
     private String automaticFailover;
     /**
@@ -369,6 +402,26 @@ public class Snapshot implements Serializable, Cloneable {
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<NodeSnapshot> nodeSnapshots;
+    /**
+     * <p>
+     * The ID of the KMS key used to encrypt the snapshot.
+     * </p>
+     */
+    private String kmsKeyId;
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) of the snapshot.
+     * </p>
+     */
+    private String aRN;
+    /**
+     * <p>
+     * Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     * parameter must be set to true when using r6gd nodes. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * </p>
+     */
+    private String dataTiering;
 
     /**
      * <p>
@@ -648,6 +701,24 @@ public class Snapshot implements Serializable, Cloneable {
      * Current generation:
      * </p>
      * <p>
+     * <b>M7g node types</b>: <code>cache.m7g.large</code>, <code>cache.m7g.xlarge</code>,
+     * <code>cache.m7g.2xlarge</code>, <code>cache.m7g.4xlarge</code>, <code>cache.m7g.8xlarge</code>,
+     * <code>cache.m7g.12xlarge</code>, <code>cache.m7g.16xlarge</code>
+     * </p>
+     * <note>
+     * <p>
+     * For region availability, see <a href=
+     * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     * >Supported Node Types</a>
+     * </p>
+     * </note>
+     * <p>
+     * <b>M6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     * 1.5.16 onward): <code>cache.m6g.large</code>, <code>cache.m6g.xlarge</code>, <code>cache.m6g.2xlarge</code>,
+     * <code>cache.m6g.4xlarge</code>, <code>cache.m6g.8xlarge</code>, <code>cache.m6g.12xlarge</code>,
+     * <code>cache.m6g.16xlarge</code>
+     * </p>
+     * <p>
      * <b>M5 node types:</b> <code>cache.m5.large</code>, <code>cache.m5.xlarge</code>, <code>cache.m5.2xlarge</code>,
      * <code>cache.m5.4xlarge</code>, <code>cache.m5.12xlarge</code>, <code>cache.m5.24xlarge</code>
      * </p>
@@ -656,12 +727,20 @@ public class Snapshot implements Serializable, Cloneable {
      * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      * </p>
      * <p>
+     * <b>T4g node types</b> (available only for Redis OSS engine version 5.0.6 onward and Memcached engine version
+     * 1.5.16 onward): <code>cache.t4g.micro</code>, <code>cache.t4g.small</code>, <code>cache.t4g.medium</code>
+     * </p>
+     * <p>
+     * <b>T3 node types:</b> <code>cache.t3.micro</code>, <code>cache.t3.small</code>, <code>cache.t3.medium</code>
+     * </p>
+     * <p>
      * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>T1 node types:</b> <code>cache.t1.micro</code>
@@ -684,7 +763,8 @@ public class Snapshot implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
@@ -702,6 +782,24 @@ public class Snapshot implements Serializable, Cloneable {
      * Current generation:
      * </p>
      * <p>
+     * <b>R7g node types</b>: <code>cache.r7g.large</code>, <code>cache.r7g.xlarge</code>,
+     * <code>cache.r7g.2xlarge</code>, <code>cache.r7g.4xlarge</code>, <code>cache.r7g.8xlarge</code>,
+     * <code>cache.r7g.12xlarge</code>, <code>cache.r7g.16xlarge</code>
+     * </p>
+     * <note>
+     * <p>
+     * For region availability, see <a href=
+     * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     * >Supported Node Types</a>
+     * </p>
+     * </note>
+     * <p>
+     * <b>R6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     * 1.5.16 onward): <code>cache.r6g.large</code>, <code>cache.r6g.xlarge</code>, <code>cache.r6g.2xlarge</code>,
+     * <code>cache.r6g.4xlarge</code>, <code>cache.r6g.8xlarge</code>, <code>cache.r6g.12xlarge</code>,
+     * <code>cache.r6g.16xlarge</code>
+     * </p>
+     * <p>
      * <b>R5 node types:</b> <code>cache.r5.large</code>, <code>cache.r5.xlarge</code>, <code>cache.r5.2xlarge</code>,
      * <code>cache.r5.4xlarge</code>, <code>cache.r5.12xlarge</code>, <code>cache.r5.24xlarge</code>
      * </p>
@@ -712,7 +810,8 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
@@ -736,18 +835,18 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis append-only files (AOF) are not supported for T1 or T2 instances.
+     * Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Redis Multi-AZ with automatic failover is not supported on T1 instances.
+     * Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Redis configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis
-     * version 2.8.22 and later.
+     * Redis OSS configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis
+     * OSS version 2.8.22 and later.
      * </p>
      * </li>
      * </ul>
@@ -770,6 +869,24 @@ public class Snapshot implements Serializable, Cloneable {
      *        Current generation:
      *        </p>
      *        <p>
+     *        <b>M7g node types</b>: <code>cache.m7g.large</code>, <code>cache.m7g.xlarge</code>,
+     *        <code>cache.m7g.2xlarge</code>, <code>cache.m7g.4xlarge</code>, <code>cache.m7g.8xlarge</code>,
+     *        <code>cache.m7g.12xlarge</code>, <code>cache.m7g.16xlarge</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        For region availability, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     *        >Supported Node Types</a>
+     *        </p>
+     *        </note>
+     *        <p>
+     *        <b>M6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine
+     *        version 1.5.16 onward): <code>cache.m6g.large</code>, <code>cache.m6g.xlarge</code>,
+     *        <code>cache.m6g.2xlarge</code>, <code>cache.m6g.4xlarge</code>, <code>cache.m6g.8xlarge</code>,
+     *        <code>cache.m6g.12xlarge</code>, <code>cache.m6g.16xlarge</code>
+     *        </p>
+     *        <p>
      *        <b>M5 node types:</b> <code>cache.m5.large</code>, <code>cache.m5.xlarge</code>,
      *        <code>cache.m5.2xlarge</code>, <code>cache.m5.4xlarge</code>, <code>cache.m5.12xlarge</code>,
      *        <code>cache.m5.24xlarge</code>
@@ -779,13 +896,23 @@ public class Snapshot implements Serializable, Cloneable {
      *        <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      *        </p>
      *        <p>
+     *        <b>T4g node types</b> (available only for Redis OSS engine version 5.0.6 onward and Memcached engine
+     *        version 1.5.16 onward): <code>cache.t4g.micro</code>, <code>cache.t4g.small</code>,
+     *        <code>cache.t4g.medium</code>
+     *        </p>
+     *        <p>
+     *        <b>T3 node types:</b> <code>cache.t3.micro</code>, <code>cache.t3.small</code>,
+     *        <code>cache.t3.medium</code>
+     *        </p>
+     *        <p>
      *        <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>,
      *        <code>cache.t2.medium</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Previous generation: (not recommended)
+     *        Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *        is not supported for these types.)
      *        </p>
      *        <p>
      *        <b>T1 node types:</b> <code>cache.t1.micro</code>
@@ -808,7 +935,8 @@ public class Snapshot implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        Previous generation: (not recommended)
+     *        Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *        is not supported for these types.)
      *        </p>
      *        <p>
      *        <b>C1 node types:</b> <code>cache.c1.xlarge</code>
@@ -826,6 +954,24 @@ public class Snapshot implements Serializable, Cloneable {
      *        Current generation:
      *        </p>
      *        <p>
+     *        <b>R7g node types</b>: <code>cache.r7g.large</code>, <code>cache.r7g.xlarge</code>,
+     *        <code>cache.r7g.2xlarge</code>, <code>cache.r7g.4xlarge</code>, <code>cache.r7g.8xlarge</code>,
+     *        <code>cache.r7g.12xlarge</code>, <code>cache.r7g.16xlarge</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        For region availability, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     *        >Supported Node Types</a>
+     *        </p>
+     *        </note>
+     *        <p>
+     *        <b>R6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine
+     *        version 1.5.16 onward): <code>cache.r6g.large</code>, <code>cache.r6g.xlarge</code>,
+     *        <code>cache.r6g.2xlarge</code>, <code>cache.r6g.4xlarge</code>, <code>cache.r6g.8xlarge</code>,
+     *        <code>cache.r6g.12xlarge</code>, <code>cache.r6g.16xlarge</code>
+     *        </p>
+     *        <p>
      *        <b>R5 node types:</b> <code>cache.r5.large</code>, <code>cache.r5.xlarge</code>,
      *        <code>cache.r5.2xlarge</code>, <code>cache.r5.4xlarge</code>, <code>cache.r5.12xlarge</code>,
      *        <code>cache.r5.24xlarge</code>
@@ -838,7 +984,8 @@ public class Snapshot implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        Previous generation: (not recommended)
+     *        Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *        is not supported for these types.)
      *        </p>
      *        <p>
      *        <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
@@ -863,18 +1010,18 @@ public class Snapshot implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        Redis append-only files (AOF) are not supported for T1 or T2 instances.
+     *        Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Redis Multi-AZ with automatic failover is not supported on T1 instances.
+     *        Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Redis configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on
-     *        Redis version 2.8.22 and later.
+     *        Redis OSS configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported
+     *        on Redis OSS version 2.8.22 and later.
      *        </p>
      *        </li>
      */
@@ -903,6 +1050,24 @@ public class Snapshot implements Serializable, Cloneable {
      * Current generation:
      * </p>
      * <p>
+     * <b>M7g node types</b>: <code>cache.m7g.large</code>, <code>cache.m7g.xlarge</code>,
+     * <code>cache.m7g.2xlarge</code>, <code>cache.m7g.4xlarge</code>, <code>cache.m7g.8xlarge</code>,
+     * <code>cache.m7g.12xlarge</code>, <code>cache.m7g.16xlarge</code>
+     * </p>
+     * <note>
+     * <p>
+     * For region availability, see <a href=
+     * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     * >Supported Node Types</a>
+     * </p>
+     * </note>
+     * <p>
+     * <b>M6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     * 1.5.16 onward): <code>cache.m6g.large</code>, <code>cache.m6g.xlarge</code>, <code>cache.m6g.2xlarge</code>,
+     * <code>cache.m6g.4xlarge</code>, <code>cache.m6g.8xlarge</code>, <code>cache.m6g.12xlarge</code>,
+     * <code>cache.m6g.16xlarge</code>
+     * </p>
+     * <p>
      * <b>M5 node types:</b> <code>cache.m5.large</code>, <code>cache.m5.xlarge</code>, <code>cache.m5.2xlarge</code>,
      * <code>cache.m5.4xlarge</code>, <code>cache.m5.12xlarge</code>, <code>cache.m5.24xlarge</code>
      * </p>
@@ -911,12 +1076,20 @@ public class Snapshot implements Serializable, Cloneable {
      * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      * </p>
      * <p>
+     * <b>T4g node types</b> (available only for Redis OSS engine version 5.0.6 onward and Memcached engine version
+     * 1.5.16 onward): <code>cache.t4g.micro</code>, <code>cache.t4g.small</code>, <code>cache.t4g.medium</code>
+     * </p>
+     * <p>
+     * <b>T3 node types:</b> <code>cache.t3.micro</code>, <code>cache.t3.small</code>, <code>cache.t3.medium</code>
+     * </p>
+     * <p>
      * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>T1 node types:</b> <code>cache.t1.micro</code>
@@ -939,7 +1112,8 @@ public class Snapshot implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
@@ -957,6 +1131,24 @@ public class Snapshot implements Serializable, Cloneable {
      * Current generation:
      * </p>
      * <p>
+     * <b>R7g node types</b>: <code>cache.r7g.large</code>, <code>cache.r7g.xlarge</code>,
+     * <code>cache.r7g.2xlarge</code>, <code>cache.r7g.4xlarge</code>, <code>cache.r7g.8xlarge</code>,
+     * <code>cache.r7g.12xlarge</code>, <code>cache.r7g.16xlarge</code>
+     * </p>
+     * <note>
+     * <p>
+     * For region availability, see <a href=
+     * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     * >Supported Node Types</a>
+     * </p>
+     * </note>
+     * <p>
+     * <b>R6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     * 1.5.16 onward): <code>cache.r6g.large</code>, <code>cache.r6g.xlarge</code>, <code>cache.r6g.2xlarge</code>,
+     * <code>cache.r6g.4xlarge</code>, <code>cache.r6g.8xlarge</code>, <code>cache.r6g.12xlarge</code>,
+     * <code>cache.r6g.16xlarge</code>
+     * </p>
+     * <p>
      * <b>R5 node types:</b> <code>cache.r5.large</code>, <code>cache.r5.xlarge</code>, <code>cache.r5.2xlarge</code>,
      * <code>cache.r5.4xlarge</code>, <code>cache.r5.12xlarge</code>, <code>cache.r5.24xlarge</code>
      * </p>
@@ -967,7 +1159,8 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
@@ -991,18 +1184,18 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis append-only files (AOF) are not supported for T1 or T2 instances.
+     * Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Redis Multi-AZ with automatic failover is not supported on T1 instances.
+     * Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Redis configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis
-     * version 2.8.22 and later.
+     * Redis OSS configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis
+     * OSS version 2.8.22 and later.
      * </p>
      * </li>
      * </ul>
@@ -1024,6 +1217,24 @@ public class Snapshot implements Serializable, Cloneable {
      *         Current generation:
      *         </p>
      *         <p>
+     *         <b>M7g node types</b>: <code>cache.m7g.large</code>, <code>cache.m7g.xlarge</code>,
+     *         <code>cache.m7g.2xlarge</code>, <code>cache.m7g.4xlarge</code>, <code>cache.m7g.8xlarge</code>,
+     *         <code>cache.m7g.12xlarge</code>, <code>cache.m7g.16xlarge</code>
+     *         </p>
+     *         <note>
+     *         <p>
+     *         For region availability, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     *         >Supported Node Types</a>
+     *         </p>
+     *         </note>
+     *         <p>
+     *         <b>M6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine
+     *         version 1.5.16 onward): <code>cache.m6g.large</code>, <code>cache.m6g.xlarge</code>,
+     *         <code>cache.m6g.2xlarge</code>, <code>cache.m6g.4xlarge</code>, <code>cache.m6g.8xlarge</code>,
+     *         <code>cache.m6g.12xlarge</code>, <code>cache.m6g.16xlarge</code>
+     *         </p>
+     *         <p>
      *         <b>M5 node types:</b> <code>cache.m5.large</code>, <code>cache.m5.xlarge</code>,
      *         <code>cache.m5.2xlarge</code>, <code>cache.m5.4xlarge</code>, <code>cache.m5.12xlarge</code>,
      *         <code>cache.m5.24xlarge</code>
@@ -1033,13 +1244,23 @@ public class Snapshot implements Serializable, Cloneable {
      *         <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      *         </p>
      *         <p>
+     *         <b>T4g node types</b> (available only for Redis OSS engine version 5.0.6 onward and Memcached engine
+     *         version 1.5.16 onward): <code>cache.t4g.micro</code>, <code>cache.t4g.small</code>,
+     *         <code>cache.t4g.medium</code>
+     *         </p>
+     *         <p>
+     *         <b>T3 node types:</b> <code>cache.t3.micro</code>, <code>cache.t3.small</code>,
+     *         <code>cache.t3.medium</code>
+     *         </p>
+     *         <p>
      *         <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>,
      *         <code>cache.t2.medium</code>
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Previous generation: (not recommended)
+     *         Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *         is not supported for these types.)
      *         </p>
      *         <p>
      *         <b>T1 node types:</b> <code>cache.t1.micro</code>
@@ -1062,7 +1283,8 @@ public class Snapshot implements Serializable, Cloneable {
      *         <ul>
      *         <li>
      *         <p>
-     *         Previous generation: (not recommended)
+     *         Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *         is not supported for these types.)
      *         </p>
      *         <p>
      *         <b>C1 node types:</b> <code>cache.c1.xlarge</code>
@@ -1080,6 +1302,24 @@ public class Snapshot implements Serializable, Cloneable {
      *         Current generation:
      *         </p>
      *         <p>
+     *         <b>R7g node types</b>: <code>cache.r7g.large</code>, <code>cache.r7g.xlarge</code>,
+     *         <code>cache.r7g.2xlarge</code>, <code>cache.r7g.4xlarge</code>, <code>cache.r7g.8xlarge</code>,
+     *         <code>cache.r7g.12xlarge</code>, <code>cache.r7g.16xlarge</code>
+     *         </p>
+     *         <note>
+     *         <p>
+     *         For region availability, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     *         >Supported Node Types</a>
+     *         </p>
+     *         </note>
+     *         <p>
+     *         <b>R6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine
+     *         version 1.5.16 onward): <code>cache.r6g.large</code>, <code>cache.r6g.xlarge</code>,
+     *         <code>cache.r6g.2xlarge</code>, <code>cache.r6g.4xlarge</code>, <code>cache.r6g.8xlarge</code>,
+     *         <code>cache.r6g.12xlarge</code>, <code>cache.r6g.16xlarge</code>
+     *         </p>
+     *         <p>
      *         <b>R5 node types:</b> <code>cache.r5.large</code>, <code>cache.r5.xlarge</code>,
      *         <code>cache.r5.2xlarge</code>, <code>cache.r5.4xlarge</code>, <code>cache.r5.12xlarge</code>,
      *         <code>cache.r5.24xlarge</code>
@@ -1092,7 +1332,8 @@ public class Snapshot implements Serializable, Cloneable {
      *         </li>
      *         <li>
      *         <p>
-     *         Previous generation: (not recommended)
+     *         Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *         is not supported for these types.)
      *         </p>
      *         <p>
      *         <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
@@ -1117,18 +1358,18 @@ public class Snapshot implements Serializable, Cloneable {
      *         </li>
      *         <li>
      *         <p>
-     *         Redis append-only files (AOF) are not supported for T1 or T2 instances.
+     *         Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Redis Multi-AZ with automatic failover is not supported on T1 instances.
+     *         Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Redis configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on
-     *         Redis version 2.8.22 and later.
+     *         Redis OSS configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported
+     *         on Redis OSS version 2.8.22 and later.
      *         </p>
      *         </li>
      */
@@ -1157,6 +1398,24 @@ public class Snapshot implements Serializable, Cloneable {
      * Current generation:
      * </p>
      * <p>
+     * <b>M7g node types</b>: <code>cache.m7g.large</code>, <code>cache.m7g.xlarge</code>,
+     * <code>cache.m7g.2xlarge</code>, <code>cache.m7g.4xlarge</code>, <code>cache.m7g.8xlarge</code>,
+     * <code>cache.m7g.12xlarge</code>, <code>cache.m7g.16xlarge</code>
+     * </p>
+     * <note>
+     * <p>
+     * For region availability, see <a href=
+     * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     * >Supported Node Types</a>
+     * </p>
+     * </note>
+     * <p>
+     * <b>M6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     * 1.5.16 onward): <code>cache.m6g.large</code>, <code>cache.m6g.xlarge</code>, <code>cache.m6g.2xlarge</code>,
+     * <code>cache.m6g.4xlarge</code>, <code>cache.m6g.8xlarge</code>, <code>cache.m6g.12xlarge</code>,
+     * <code>cache.m6g.16xlarge</code>
+     * </p>
+     * <p>
      * <b>M5 node types:</b> <code>cache.m5.large</code>, <code>cache.m5.xlarge</code>, <code>cache.m5.2xlarge</code>,
      * <code>cache.m5.4xlarge</code>, <code>cache.m5.12xlarge</code>, <code>cache.m5.24xlarge</code>
      * </p>
@@ -1165,12 +1424,20 @@ public class Snapshot implements Serializable, Cloneable {
      * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      * </p>
      * <p>
+     * <b>T4g node types</b> (available only for Redis OSS engine version 5.0.6 onward and Memcached engine version
+     * 1.5.16 onward): <code>cache.t4g.micro</code>, <code>cache.t4g.small</code>, <code>cache.t4g.medium</code>
+     * </p>
+     * <p>
+     * <b>T3 node types:</b> <code>cache.t3.micro</code>, <code>cache.t3.small</code>, <code>cache.t3.medium</code>
+     * </p>
+     * <p>
      * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>T1 node types:</b> <code>cache.t1.micro</code>
@@ -1193,7 +1460,8 @@ public class Snapshot implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
@@ -1211,6 +1479,24 @@ public class Snapshot implements Serializable, Cloneable {
      * Current generation:
      * </p>
      * <p>
+     * <b>R7g node types</b>: <code>cache.r7g.large</code>, <code>cache.r7g.xlarge</code>,
+     * <code>cache.r7g.2xlarge</code>, <code>cache.r7g.4xlarge</code>, <code>cache.r7g.8xlarge</code>,
+     * <code>cache.r7g.12xlarge</code>, <code>cache.r7g.16xlarge</code>
+     * </p>
+     * <note>
+     * <p>
+     * For region availability, see <a href=
+     * "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     * >Supported Node Types</a>
+     * </p>
+     * </note>
+     * <p>
+     * <b>R6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine version
+     * 1.5.16 onward): <code>cache.r6g.large</code>, <code>cache.r6g.xlarge</code>, <code>cache.r6g.2xlarge</code>,
+     * <code>cache.r6g.4xlarge</code>, <code>cache.r6g.8xlarge</code>, <code>cache.r6g.12xlarge</code>,
+     * <code>cache.r6g.16xlarge</code>
+     * </p>
+     * <p>
      * <b>R5 node types:</b> <code>cache.r5.large</code>, <code>cache.r5.xlarge</code>, <code>cache.r5.2xlarge</code>,
      * <code>cache.r5.4xlarge</code>, <code>cache.r5.12xlarge</code>, <code>cache.r5.24xlarge</code>
      * </p>
@@ -1221,7 +1507,8 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Previous generation: (not recommended)
+     * Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters is not
+     * supported for these types.)
      * </p>
      * <p>
      * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
@@ -1245,18 +1532,18 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis append-only files (AOF) are not supported for T1 or T2 instances.
+     * Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Redis Multi-AZ with automatic failover is not supported on T1 instances.
+     * Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Redis configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis
-     * version 2.8.22 and later.
+     * Redis OSS configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on Redis
+     * OSS version 2.8.22 and later.
      * </p>
      * </li>
      * </ul>
@@ -1279,6 +1566,24 @@ public class Snapshot implements Serializable, Cloneable {
      *        Current generation:
      *        </p>
      *        <p>
+     *        <b>M7g node types</b>: <code>cache.m7g.large</code>, <code>cache.m7g.xlarge</code>,
+     *        <code>cache.m7g.2xlarge</code>, <code>cache.m7g.4xlarge</code>, <code>cache.m7g.8xlarge</code>,
+     *        <code>cache.m7g.12xlarge</code>, <code>cache.m7g.16xlarge</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        For region availability, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     *        >Supported Node Types</a>
+     *        </p>
+     *        </note>
+     *        <p>
+     *        <b>M6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine
+     *        version 1.5.16 onward): <code>cache.m6g.large</code>, <code>cache.m6g.xlarge</code>,
+     *        <code>cache.m6g.2xlarge</code>, <code>cache.m6g.4xlarge</code>, <code>cache.m6g.8xlarge</code>,
+     *        <code>cache.m6g.12xlarge</code>, <code>cache.m6g.16xlarge</code>
+     *        </p>
+     *        <p>
      *        <b>M5 node types:</b> <code>cache.m5.large</code>, <code>cache.m5.xlarge</code>,
      *        <code>cache.m5.2xlarge</code>, <code>cache.m5.4xlarge</code>, <code>cache.m5.12xlarge</code>,
      *        <code>cache.m5.24xlarge</code>
@@ -1288,13 +1593,23 @@ public class Snapshot implements Serializable, Cloneable {
      *        <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      *        </p>
      *        <p>
+     *        <b>T4g node types</b> (available only for Redis OSS engine version 5.0.6 onward and Memcached engine
+     *        version 1.5.16 onward): <code>cache.t4g.micro</code>, <code>cache.t4g.small</code>,
+     *        <code>cache.t4g.medium</code>
+     *        </p>
+     *        <p>
+     *        <b>T3 node types:</b> <code>cache.t3.micro</code>, <code>cache.t3.small</code>,
+     *        <code>cache.t3.medium</code>
+     *        </p>
+     *        <p>
      *        <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>,
      *        <code>cache.t2.medium</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Previous generation: (not recommended)
+     *        Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *        is not supported for these types.)
      *        </p>
      *        <p>
      *        <b>T1 node types:</b> <code>cache.t1.micro</code>
@@ -1317,7 +1632,8 @@ public class Snapshot implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        Previous generation: (not recommended)
+     *        Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *        is not supported for these types.)
      *        </p>
      *        <p>
      *        <b>C1 node types:</b> <code>cache.c1.xlarge</code>
@@ -1335,6 +1651,24 @@ public class Snapshot implements Serializable, Cloneable {
      *        Current generation:
      *        </p>
      *        <p>
+     *        <b>R7g node types</b>: <code>cache.r7g.large</code>, <code>cache.r7g.xlarge</code>,
+     *        <code>cache.r7g.2xlarge</code>, <code>cache.r7g.4xlarge</code>, <code>cache.r7g.8xlarge</code>,
+     *        <code>cache.r7g.12xlarge</code>, <code>cache.r7g.16xlarge</code>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        For region availability, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion"
+     *        >Supported Node Types</a>
+     *        </p>
+     *        </note>
+     *        <p>
+     *        <b>R6g node types</b> (available only for Redis OSS engine version 5.0.6 onward and for Memcached engine
+     *        version 1.5.16 onward): <code>cache.r6g.large</code>, <code>cache.r6g.xlarge</code>,
+     *        <code>cache.r6g.2xlarge</code>, <code>cache.r6g.4xlarge</code>, <code>cache.r6g.8xlarge</code>,
+     *        <code>cache.r6g.12xlarge</code>, <code>cache.r6g.16xlarge</code>
+     *        </p>
+     *        <p>
      *        <b>R5 node types:</b> <code>cache.r5.large</code>, <code>cache.r5.xlarge</code>,
      *        <code>cache.r5.2xlarge</code>, <code>cache.r5.4xlarge</code>, <code>cache.r5.12xlarge</code>,
      *        <code>cache.r5.24xlarge</code>
@@ -1347,7 +1681,8 @@ public class Snapshot implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        Previous generation: (not recommended)
+     *        Previous generation: (not recommended. Existing clusters are still supported but creation of new clusters
+     *        is not supported for these types.)
      *        </p>
      *        <p>
      *        <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
@@ -1372,18 +1707,18 @@ public class Snapshot implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        Redis append-only files (AOF) are not supported for T1 or T2 instances.
+     *        Redis OSS append-only files (AOF) are not supported for T1 or T2 instances.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Redis Multi-AZ with automatic failover is not supported on T1 instances.
+     *        Redis OSS Multi-AZ with automatic failover is not supported on T1 instances.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Redis configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported on
-     *        Redis version 2.8.22 and later.
+     *        Redis OSS configuration variables <code>appendonly</code> and <code>appendfsync</code> are not supported
+     *        on Redis OSS version 2.8.22 and later.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1479,15 +1814,15 @@ public class Snapshot implements Serializable, Cloneable {
      * The number of cache nodes in the source cluster.
      * </p>
      * <p>
-     * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1
-     * and 20.
+     * For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be between
+     * 1 and 40.
      * </p>
      * 
      * @param numCacheNodes
      *        The number of cache nodes in the source cluster.</p>
      *        <p>
-     *        For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be
-     *        between 1 and 20.
+     *        For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be
+     *        between 1 and 40.
      */
 
     public void setNumCacheNodes(Integer numCacheNodes) {
@@ -1499,14 +1834,14 @@ public class Snapshot implements Serializable, Cloneable {
      * The number of cache nodes in the source cluster.
      * </p>
      * <p>
-     * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1
-     * and 20.
+     * For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be between
+     * 1 and 40.
      * </p>
      * 
      * @return The number of cache nodes in the source cluster.</p>
      *         <p>
-     *         For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be
-     *         between 1 and 20.
+     *         For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be
+     *         between 1 and 40.
      */
 
     public Integer getNumCacheNodes() {
@@ -1518,15 +1853,15 @@ public class Snapshot implements Serializable, Cloneable {
      * The number of cache nodes in the source cluster.
      * </p>
      * <p>
-     * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1
-     * and 20.
+     * For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be between
+     * 1 and 40.
      * </p>
      * 
      * @param numCacheNodes
      *        The number of cache nodes in the source cluster.</p>
      *        <p>
-     *        For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be
-     *        between 1 and 20.
+     *        For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be
+     *        between 1 and 40.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1572,6 +1907,46 @@ public class Snapshot implements Serializable, Cloneable {
 
     public Snapshot withPreferredAvailabilityZone(String preferredAvailabilityZone) {
         setPreferredAvailabilityZone(preferredAvailabilityZone);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) of the preferred outpost.
+     * </p>
+     * 
+     * @param preferredOutpostArn
+     *        The ARN (Amazon Resource Name) of the preferred outpost.
+     */
+
+    public void setPreferredOutpostArn(String preferredOutpostArn) {
+        this.preferredOutpostArn = preferredOutpostArn;
+    }
+
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) of the preferred outpost.
+     * </p>
+     * 
+     * @return The ARN (Amazon Resource Name) of the preferred outpost.
+     */
+
+    public String getPreferredOutpostArn() {
+        return this.preferredOutpostArn;
+    }
+
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) of the preferred outpost.
+     * </p>
+     * 
+     * @param preferredOutpostArn
+     *        The ARN (Amazon Resource Name) of the preferred outpost.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Snapshot withPreferredOutpostArn(String preferredOutpostArn) {
+        setPreferredOutpostArn(preferredOutpostArn);
         return this;
     }
 
@@ -2121,11 +2496,13 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * This parameter is currently disabled.
+     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        This parameter is currently disabled.
+     *         If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in
+     *        to the next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      */
 
     public void setAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
@@ -2134,10 +2511,13 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * This parameter is currently disabled.
+     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * </p>
      * 
-     * @return This parameter is currently disabled.
+     * @return  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to
+     *         opt-in to the next auto minor version upgrade campaign. This parameter is disabled for previous
+     *         versions. 
      */
 
     public Boolean getAutoMinorVersionUpgrade() {
@@ -2146,11 +2526,13 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * This parameter is currently disabled.
+     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        This parameter is currently disabled.
+     *         If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in
+     *        to the next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2161,10 +2543,13 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * This parameter is currently disabled.
+     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * </p>
      * 
-     * @return This parameter is currently disabled.
+     * @return  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to
+     *         opt-in to the next auto minor version upgrade campaign. This parameter is disabled for previous
+     *         versions. 
      */
 
     public Boolean isAutoMinorVersionUpgrade() {
@@ -2347,50 +2732,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.
+     * Indicates the status of automatic failover for the source Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param automaticFailover
-     *        Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.</p>
-     *        <p>
-     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        Redis versions earlier than 2.8.6.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode disabled): T1 node types.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode enabled): T1 node types.
-     *        </p>
-     *        </li>
+     *        Indicates the status of automatic failover for the source Redis OSS replication group.
      * @see AutomaticFailoverStatus
      */
 
@@ -2400,49 +2746,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.
+     * Indicates the status of automatic failover for the source Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
-     * @return Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.</p>
-     *         <p>
-     *         Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *         </p>
-     *         <ul>
-     *         <li>
-     *         <p>
-     *         Redis versions earlier than 2.8.6.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Redis (cluster mode disabled): T1 node types.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Redis (cluster mode enabled): T1 node types.
-     *         </p>
-     *         </li>
+     * @return Indicates the status of automatic failover for the source Redis OSS replication group.
      * @see AutomaticFailoverStatus
      */
 
@@ -2452,50 +2759,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.
+     * Indicates the status of automatic failover for the source Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param automaticFailover
-     *        Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.</p>
-     *        <p>
-     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        Redis versions earlier than 2.8.6.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode disabled): T1 node types.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode enabled): T1 node types.
-     *        </p>
-     *        </li>
+     *        Indicates the status of automatic failover for the source Redis OSS replication group.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AutomaticFailoverStatus
      */
@@ -2507,50 +2775,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.
+     * Indicates the status of automatic failover for the source Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param automaticFailover
-     *        Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.</p>
-     *        <p>
-     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        Redis versions earlier than 2.8.6.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode disabled): T1 node types.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode enabled): T1 node types.
-     *        </p>
-     *        </li>
+     *        Indicates the status of automatic failover for the source Redis OSS replication group.
      * @see AutomaticFailoverStatus
      */
 
@@ -2560,50 +2789,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.
+     * Indicates the status of automatic failover for the source Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param automaticFailover
-     *        Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.</p>
-     *        <p>
-     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        Redis versions earlier than 2.8.6.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode disabled): T1 node types.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode enabled): T1 node types.
-     *        </p>
-     *        </li>
+     *        Indicates the status of automatic failover for the source Redis OSS replication group.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AutomaticFailoverStatus
      */
@@ -2687,6 +2877,179 @@ public class Snapshot implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The ID of the KMS key used to encrypt the snapshot.
+     * </p>
+     * 
+     * @param kmsKeyId
+     *        The ID of the KMS key used to encrypt the snapshot.
+     */
+
+    public void setKmsKeyId(String kmsKeyId) {
+        this.kmsKeyId = kmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The ID of the KMS key used to encrypt the snapshot.
+     * </p>
+     * 
+     * @return The ID of the KMS key used to encrypt the snapshot.
+     */
+
+    public String getKmsKeyId() {
+        return this.kmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The ID of the KMS key used to encrypt the snapshot.
+     * </p>
+     * 
+     * @param kmsKeyId
+     *        The ID of the KMS key used to encrypt the snapshot.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Snapshot withKmsKeyId(String kmsKeyId) {
+        setKmsKeyId(kmsKeyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) of the snapshot.
+     * </p>
+     * 
+     * @param aRN
+     *        The ARN (Amazon Resource Name) of the snapshot.
+     */
+
+    public void setARN(String aRN) {
+        this.aRN = aRN;
+    }
+
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) of the snapshot.
+     * </p>
+     * 
+     * @return The ARN (Amazon Resource Name) of the snapshot.
+     */
+
+    public String getARN() {
+        return this.aRN;
+    }
+
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) of the snapshot.
+     * </p>
+     * 
+     * @param aRN
+     *        The ARN (Amazon Resource Name) of the snapshot.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Snapshot withARN(String aRN) {
+        setARN(aRN);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     * parameter must be set to true when using r6gd nodes. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * </p>
+     * 
+     * @param dataTiering
+     *        Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     *        parameter must be set to true when using r6gd nodes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * @see DataTieringStatus
+     */
+
+    public void setDataTiering(String dataTiering) {
+        this.dataTiering = dataTiering;
+    }
+
+    /**
+     * <p>
+     * Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     * parameter must be set to true when using r6gd nodes. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * </p>
+     * 
+     * @return Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type.
+     *         This parameter must be set to true when using r6gd nodes. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * @see DataTieringStatus
+     */
+
+    public String getDataTiering() {
+        return this.dataTiering;
+    }
+
+    /**
+     * <p>
+     * Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     * parameter must be set to true when using r6gd nodes. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * </p>
+     * 
+     * @param dataTiering
+     *        Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     *        parameter must be set to true when using r6gd nodes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DataTieringStatus
+     */
+
+    public Snapshot withDataTiering(String dataTiering) {
+        setDataTiering(dataTiering);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     * parameter must be set to true when using r6gd nodes. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * </p>
+     * 
+     * @param dataTiering
+     *        Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     *        parameter must be set to true when using r6gd nodes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * @see DataTieringStatus
+     */
+
+    public void setDataTiering(DataTieringStatus dataTiering) {
+        withDataTiering(dataTiering);
+    }
+
+    /**
+     * <p>
+     * Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     * parameter must be set to true when using r6gd nodes. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * </p>
+     * 
+     * @param dataTiering
+     *        Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     *        parameter must be set to true when using r6gd nodes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DataTieringStatus
+     */
+
+    public Snapshot withDataTiering(DataTieringStatus dataTiering) {
+        this.dataTiering = dataTiering.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -2720,6 +3083,8 @@ public class Snapshot implements Serializable, Cloneable {
             sb.append("NumCacheNodes: ").append(getNumCacheNodes()).append(",");
         if (getPreferredAvailabilityZone() != null)
             sb.append("PreferredAvailabilityZone: ").append(getPreferredAvailabilityZone()).append(",");
+        if (getPreferredOutpostArn() != null)
+            sb.append("PreferredOutpostArn: ").append(getPreferredOutpostArn()).append(",");
         if (getCacheClusterCreateTime() != null)
             sb.append("CacheClusterCreateTime: ").append(getCacheClusterCreateTime()).append(",");
         if (getPreferredMaintenanceWindow() != null)
@@ -2745,7 +3110,13 @@ public class Snapshot implements Serializable, Cloneable {
         if (getAutomaticFailover() != null)
             sb.append("AutomaticFailover: ").append(getAutomaticFailover()).append(",");
         if (getNodeSnapshots() != null)
-            sb.append("NodeSnapshots: ").append(getNodeSnapshots());
+            sb.append("NodeSnapshots: ").append(getNodeSnapshots()).append(",");
+        if (getKmsKeyId() != null)
+            sb.append("KmsKeyId: ").append(getKmsKeyId()).append(",");
+        if (getARN() != null)
+            sb.append("ARN: ").append(getARN()).append(",");
+        if (getDataTiering() != null)
+            sb.append("DataTiering: ").append(getDataTiering());
         sb.append("}");
         return sb.toString();
     }
@@ -2804,6 +3175,10 @@ public class Snapshot implements Serializable, Cloneable {
             return false;
         if (other.getPreferredAvailabilityZone() != null && other.getPreferredAvailabilityZone().equals(this.getPreferredAvailabilityZone()) == false)
             return false;
+        if (other.getPreferredOutpostArn() == null ^ this.getPreferredOutpostArn() == null)
+            return false;
+        if (other.getPreferredOutpostArn() != null && other.getPreferredOutpostArn().equals(this.getPreferredOutpostArn()) == false)
+            return false;
         if (other.getCacheClusterCreateTime() == null ^ this.getCacheClusterCreateTime() == null)
             return false;
         if (other.getCacheClusterCreateTime() != null && other.getCacheClusterCreateTime().equals(this.getCacheClusterCreateTime()) == false)
@@ -2856,6 +3231,18 @@ public class Snapshot implements Serializable, Cloneable {
             return false;
         if (other.getNodeSnapshots() != null && other.getNodeSnapshots().equals(this.getNodeSnapshots()) == false)
             return false;
+        if (other.getKmsKeyId() == null ^ this.getKmsKeyId() == null)
+            return false;
+        if (other.getKmsKeyId() != null && other.getKmsKeyId().equals(this.getKmsKeyId()) == false)
+            return false;
+        if (other.getARN() == null ^ this.getARN() == null)
+            return false;
+        if (other.getARN() != null && other.getARN().equals(this.getARN()) == false)
+            return false;
+        if (other.getDataTiering() == null ^ this.getDataTiering() == null)
+            return false;
+        if (other.getDataTiering() != null && other.getDataTiering().equals(this.getDataTiering()) == false)
+            return false;
         return true;
     }
 
@@ -2875,6 +3262,7 @@ public class Snapshot implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getEngineVersion() == null) ? 0 : getEngineVersion().hashCode());
         hashCode = prime * hashCode + ((getNumCacheNodes() == null) ? 0 : getNumCacheNodes().hashCode());
         hashCode = prime * hashCode + ((getPreferredAvailabilityZone() == null) ? 0 : getPreferredAvailabilityZone().hashCode());
+        hashCode = prime * hashCode + ((getPreferredOutpostArn() == null) ? 0 : getPreferredOutpostArn().hashCode());
         hashCode = prime * hashCode + ((getCacheClusterCreateTime() == null) ? 0 : getCacheClusterCreateTime().hashCode());
         hashCode = prime * hashCode + ((getPreferredMaintenanceWindow() == null) ? 0 : getPreferredMaintenanceWindow().hashCode());
         hashCode = prime * hashCode + ((getTopicArn() == null) ? 0 : getTopicArn().hashCode());
@@ -2888,6 +3276,9 @@ public class Snapshot implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getNumNodeGroups() == null) ? 0 : getNumNodeGroups().hashCode());
         hashCode = prime * hashCode + ((getAutomaticFailover() == null) ? 0 : getAutomaticFailover().hashCode());
         hashCode = prime * hashCode + ((getNodeSnapshots() == null) ? 0 : getNodeSnapshots().hashCode());
+        hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
+        hashCode = prime * hashCode + ((getARN() == null) ? 0 : getARN().hashCode());
+        hashCode = prime * hashCode + ((getDataTiering() == null) ? 0 : getDataTiering().hashCode());
         return hashCode;
     }
 

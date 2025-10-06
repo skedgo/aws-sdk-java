@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,25 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      * The name of the attribute.
      * </p>
      * <p>
+     * The following attributes are supported by all load balancers:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>deletion_protection.enabled</code> - Indicates whether deletion protection is enabled. The value is
+     * <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross-zone load balancing is enabled. The
+     * possible values are <code>true</code> and <code>false</code>. The default for Network Load Balancers and Gateway
+     * Load Balancers is <code>false</code>. The default for Application Load Balancers is <code>true</code>, and cannot
+     * be changed.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
      * The following attributes are supported by both Application Load Balancers and Network Load Balancers:
      * </p>
      * <ul>
@@ -54,8 +73,9 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>deletion_protection.enabled</code> - Indicates whether deletion protection is enabled. The value is
-     * <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * <code>ipv6.deny_all_igw_traffic</code> - Blocks internet gateway (IGW) access to the load balancer. It is set to
+     * <code>false</code> for internet-facing load balancers and <code>true</code> for internal load balancers,
+     * preventing unintended access to your internal load balancer through an internet gateway.
      * </p>
      * </li>
      * </ul>
@@ -71,8 +91,107 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>routing.http2.enabled</code> - Indicates whether HTTP/2 is enabled. The value is <code>true</code> or
-     * <code>false</code>. The default is <code>true</code>.
+     * <code>client_keep_alive.seconds</code> - The client keep alive value, in seconds. The valid range is 60-604800
+     * seconds. The default is 3600 seconds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>connection_logs.s3.enabled</code> - Indicates whether connection logs are enabled. The value is
+     * <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>connection_logs.s3.bucket</code> - The name of the S3 bucket for the connection logs. This attribute is
+     * required if connection logs are enabled. The bucket must exist in the same region as the load balancer and have a
+     * bucket policy that grants Elastic Load Balancing permissions to write to the bucket.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>connection_logs.s3.prefix</code> - The prefix for the location in the S3 bucket for the connection logs.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.desync_mitigation_mode</code> - Determines how the load balancer handles requests that might
+     * pose a security risk to your application. The possible values are <code>monitor</code>, <code>defensive</code>,
+     * and <code>strictest</code>. The default is <code>defensive</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.drop_invalid_header_fields.enabled</code> - Indicates whether HTTP headers with invalid header
+     * fields are removed by the load balancer (<code>true</code>) or routed to targets (<code>false</code>). The
+     * default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.preserve_host_header.enabled</code> - Indicates whether the Application Load Balancer should
+     * preserve the <code>Host</code> header in the HTTP request and send it to the target without any change. The
+     * possible values are <code>true</code> and <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.x_amzn_tls_version_and_cipher_suite.enabled</code> - Indicates whether the two headers (
+     * <code>x-amzn-tls-version</code> and <code>x-amzn-tls-cipher-suite</code>), which contain information about the
+     * negotiated TLS version and cipher suite, are added to the client request before sending it to the target. The
+     * <code>x-amzn-tls-version</code> header has information about the TLS protocol version negotiated with the client,
+     * and the <code>x-amzn-tls-cipher-suite</code> header has information about the cipher suite negotiated with the
+     * client. Both headers are in OpenSSL format. The possible values for the attribute are <code>true</code> and
+     * <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.xff_client_port.enabled</code> - Indicates whether the <code>X-Forwarded-For</code> header
+     * should preserve the source port that the client used to connect to the load balancer. The possible values are
+     * <code>true</code> and <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.xff_header_processing.mode</code> - Enables you to modify, preserve, or remove the
+     * <code>X-Forwarded-For</code> header in the HTTP request before the Application Load Balancer sends the request to
+     * the target. The possible values are <code>append</code>, <code>preserve</code>, and <code>remove</code>. The
+     * default is <code>append</code>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the value is <code>append</code>, the Application Load Balancer adds the client IP address (of the last hop)
+     * to the <code>X-Forwarded-For</code> header in the HTTP request before it sends it to targets.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the value is <code>preserve</code> the Application Load Balancer preserves the <code>X-Forwarded-For</code>
+     * header in the HTTP request, and sends it to targets without any change.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the value is <code>remove</code>, the Application Load Balancer removes the <code>X-Forwarded-For</code>
+     * header in the HTTP request before it sends it to targets.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http2.enabled</code> - Indicates whether HTTP/2 is enabled. The possible values are
+     * <code>true</code> and <code>false</code>. The default is <code>true</code>. Elastic Load Balancing requires that
+     * message header names contain only alphanumeric characters and hyphens.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>waf.fail_open.enabled</code> - Indicates whether to allow a WAF-enabled load balancer to route requests to
+     * targets if it is unable to forward the request to Amazon Web Services WAF. The possible values are
+     * <code>true</code> and <code>false</code>. The default is <code>false</code>.
      * </p>
      * </li>
      * </ul>
@@ -82,8 +201,10 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross-zone load balancing is enabled. The
-     * value is <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * <code>dns_record.client_routing_policy</code> - Indicates how traffic is distributed among the load balancer
+     * Availability Zones. The possible values are <code>availability_zone_affinity</code> with 100 percent zonal
+     * affinity, <code>partial_availability_zone_affinity</code> with 85 percent zonal affinity, and
+     * <code>any_availability_zone</code> with 0 percent zonal affinity.
      * </p>
      * </li>
      * </ul>
@@ -101,6 +222,25 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      * The name of the attribute.
      * </p>
      * <p>
+     * The following attributes are supported by all load balancers:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>deletion_protection.enabled</code> - Indicates whether deletion protection is enabled. The value is
+     * <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross-zone load balancing is enabled. The
+     * possible values are <code>true</code> and <code>false</code>. The default for Network Load Balancers and Gateway
+     * Load Balancers is <code>false</code>. The default for Application Load Balancers is <code>true</code>, and cannot
+     * be changed.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
      * The following attributes are supported by both Application Load Balancers and Network Load Balancers:
      * </p>
      * <ul>
@@ -124,8 +264,9 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>deletion_protection.enabled</code> - Indicates whether deletion protection is enabled. The value is
-     * <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * <code>ipv6.deny_all_igw_traffic</code> - Blocks internet gateway (IGW) access to the load balancer. It is set to
+     * <code>false</code> for internet-facing load balancers and <code>true</code> for internal load balancers,
+     * preventing unintended access to your internal load balancer through an internet gateway.
      * </p>
      * </li>
      * </ul>
@@ -141,8 +282,107 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>routing.http2.enabled</code> - Indicates whether HTTP/2 is enabled. The value is <code>true</code> or
-     * <code>false</code>. The default is <code>true</code>.
+     * <code>client_keep_alive.seconds</code> - The client keep alive value, in seconds. The valid range is 60-604800
+     * seconds. The default is 3600 seconds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>connection_logs.s3.enabled</code> - Indicates whether connection logs are enabled. The value is
+     * <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>connection_logs.s3.bucket</code> - The name of the S3 bucket for the connection logs. This attribute is
+     * required if connection logs are enabled. The bucket must exist in the same region as the load balancer and have a
+     * bucket policy that grants Elastic Load Balancing permissions to write to the bucket.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>connection_logs.s3.prefix</code> - The prefix for the location in the S3 bucket for the connection logs.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.desync_mitigation_mode</code> - Determines how the load balancer handles requests that might
+     * pose a security risk to your application. The possible values are <code>monitor</code>, <code>defensive</code>,
+     * and <code>strictest</code>. The default is <code>defensive</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.drop_invalid_header_fields.enabled</code> - Indicates whether HTTP headers with invalid header
+     * fields are removed by the load balancer (<code>true</code>) or routed to targets (<code>false</code>). The
+     * default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.preserve_host_header.enabled</code> - Indicates whether the Application Load Balancer should
+     * preserve the <code>Host</code> header in the HTTP request and send it to the target without any change. The
+     * possible values are <code>true</code> and <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.x_amzn_tls_version_and_cipher_suite.enabled</code> - Indicates whether the two headers (
+     * <code>x-amzn-tls-version</code> and <code>x-amzn-tls-cipher-suite</code>), which contain information about the
+     * negotiated TLS version and cipher suite, are added to the client request before sending it to the target. The
+     * <code>x-amzn-tls-version</code> header has information about the TLS protocol version negotiated with the client,
+     * and the <code>x-amzn-tls-cipher-suite</code> header has information about the cipher suite negotiated with the
+     * client. Both headers are in OpenSSL format. The possible values for the attribute are <code>true</code> and
+     * <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.xff_client_port.enabled</code> - Indicates whether the <code>X-Forwarded-For</code> header
+     * should preserve the source port that the client used to connect to the load balancer. The possible values are
+     * <code>true</code> and <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.xff_header_processing.mode</code> - Enables you to modify, preserve, or remove the
+     * <code>X-Forwarded-For</code> header in the HTTP request before the Application Load Balancer sends the request to
+     * the target. The possible values are <code>append</code>, <code>preserve</code>, and <code>remove</code>. The
+     * default is <code>append</code>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the value is <code>append</code>, the Application Load Balancer adds the client IP address (of the last hop)
+     * to the <code>X-Forwarded-For</code> header in the HTTP request before it sends it to targets.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the value is <code>preserve</code> the Application Load Balancer preserves the <code>X-Forwarded-For</code>
+     * header in the HTTP request, and sends it to targets without any change.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the value is <code>remove</code>, the Application Load Balancer removes the <code>X-Forwarded-For</code>
+     * header in the HTTP request before it sends it to targets.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http2.enabled</code> - Indicates whether HTTP/2 is enabled. The possible values are
+     * <code>true</code> and <code>false</code>. The default is <code>true</code>. Elastic Load Balancing requires that
+     * message header names contain only alphanumeric characters and hyphens.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>waf.fail_open.enabled</code> - Indicates whether to allow a WAF-enabled load balancer to route requests to
+     * targets if it is unable to forward the request to Amazon Web Services WAF. The possible values are
+     * <code>true</code> and <code>false</code>. The default is <code>false</code>.
      * </p>
      * </li>
      * </ul>
@@ -152,14 +392,35 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross-zone load balancing is enabled. The
-     * value is <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * <code>dns_record.client_routing_policy</code> - Indicates how traffic is distributed among the load balancer
+     * Availability Zones. The possible values are <code>availability_zone_affinity</code> with 100 percent zonal
+     * affinity, <code>partial_availability_zone_affinity</code> with 85 percent zonal affinity, and
+     * <code>any_availability_zone</code> with 0 percent zonal affinity.
      * </p>
      * </li>
      * </ul>
      * 
      * @param key
      *        The name of the attribute.</p>
+     *        <p>
+     *        The following attributes are supported by all load balancers:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>deletion_protection.enabled</code> - Indicates whether deletion protection is enabled. The value is
+     *        <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross-zone load balancing is enabled.
+     *        The possible values are <code>true</code> and <code>false</code>. The default for Network Load Balancers
+     *        and Gateway Load Balancers is <code>false</code>. The default for Application Load Balancers is
+     *        <code>true</code>, and cannot be changed.
+     *        </p>
+     *        </li>
+     *        </ul>
      *        <p>
      *        The following attributes are supported by both Application Load Balancers and Network Load Balancers:
      *        </p>
@@ -184,8 +445,9 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>deletion_protection.enabled</code> - Indicates whether deletion protection is enabled. The value is
-     *        <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     *        <code>ipv6.deny_all_igw_traffic</code> - Blocks internet gateway (IGW) access to the load balancer. It is
+     *        set to <code>false</code> for internet-facing load balancers and <code>true</code> for internal load
+     *        balancers, preventing unintended access to your internal load balancer through an internet gateway.
      *        </p>
      *        </li>
      *        </ul>
@@ -201,8 +463,109 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>routing.http2.enabled</code> - Indicates whether HTTP/2 is enabled. The value is <code>true</code>
-     *        or <code>false</code>. The default is <code>true</code>.
+     *        <code>client_keep_alive.seconds</code> - The client keep alive value, in seconds. The valid range is
+     *        60-604800 seconds. The default is 3600 seconds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>connection_logs.s3.enabled</code> - Indicates whether connection logs are enabled. The value is
+     *        <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>connection_logs.s3.bucket</code> - The name of the S3 bucket for the connection logs. This attribute
+     *        is required if connection logs are enabled. The bucket must exist in the same region as the load balancer
+     *        and have a bucket policy that grants Elastic Load Balancing permissions to write to the bucket.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>connection_logs.s3.prefix</code> - The prefix for the location in the S3 bucket for the connection
+     *        logs.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>routing.http.desync_mitigation_mode</code> - Determines how the load balancer handles requests that
+     *        might pose a security risk to your application. The possible values are <code>monitor</code>,
+     *        <code>defensive</code>, and <code>strictest</code>. The default is <code>defensive</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>routing.http.drop_invalid_header_fields.enabled</code> - Indicates whether HTTP headers with invalid
+     *        header fields are removed by the load balancer (<code>true</code>) or routed to targets (
+     *        <code>false</code>). The default is <code>false</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>routing.http.preserve_host_header.enabled</code> - Indicates whether the Application Load Balancer
+     *        should preserve the <code>Host</code> header in the HTTP request and send it to the target without any
+     *        change. The possible values are <code>true</code> and <code>false</code>. The default is
+     *        <code>false</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>routing.http.x_amzn_tls_version_and_cipher_suite.enabled</code> - Indicates whether the two headers
+     *        (<code>x-amzn-tls-version</code> and <code>x-amzn-tls-cipher-suite</code>), which contain information
+     *        about the negotiated TLS version and cipher suite, are added to the client request before sending it to
+     *        the target. The <code>x-amzn-tls-version</code> header has information about the TLS protocol version
+     *        negotiated with the client, and the <code>x-amzn-tls-cipher-suite</code> header has information about the
+     *        cipher suite negotiated with the client. Both headers are in OpenSSL format. The possible values for the
+     *        attribute are <code>true</code> and <code>false</code>. The default is <code>false</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>routing.http.xff_client_port.enabled</code> - Indicates whether the <code>X-Forwarded-For</code>
+     *        header should preserve the source port that the client used to connect to the load balancer. The possible
+     *        values are <code>true</code> and <code>false</code>. The default is <code>false</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>routing.http.xff_header_processing.mode</code> - Enables you to modify, preserve, or remove the
+     *        <code>X-Forwarded-For</code> header in the HTTP request before the Application Load Balancer sends the
+     *        request to the target. The possible values are <code>append</code>, <code>preserve</code>, and
+     *        <code>remove</code>. The default is <code>append</code>.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If the value is <code>append</code>, the Application Load Balancer adds the client IP address (of the last
+     *        hop) to the <code>X-Forwarded-For</code> header in the HTTP request before it sends it to targets.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the value is <code>preserve</code> the Application Load Balancer preserves the
+     *        <code>X-Forwarded-For</code> header in the HTTP request, and sends it to targets without any change.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the value is <code>remove</code>, the Application Load Balancer removes the
+     *        <code>X-Forwarded-For</code> header in the HTTP request before it sends it to targets.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>routing.http2.enabled</code> - Indicates whether HTTP/2 is enabled. The possible values are
+     *        <code>true</code> and <code>false</code>. The default is <code>true</code>. Elastic Load Balancing
+     *        requires that message header names contain only alphanumeric characters and hyphens.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>waf.fail_open.enabled</code> - Indicates whether to allow a WAF-enabled load balancer to route
+     *        requests to targets if it is unable to forward the request to Amazon Web Services WAF. The possible values
+     *        are <code>true</code> and <code>false</code>. The default is <code>false</code>.
      *        </p>
      *        </li>
      *        </ul>
@@ -212,8 +575,10 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross-zone load balancing is enabled.
-     *        The value is <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     *        <code>dns_record.client_routing_policy</code> - Indicates how traffic is distributed among the load
+     *        balancer Availability Zones. The possible values are <code>availability_zone_affinity</code> with 100
+     *        percent zonal affinity, <code>partial_availability_zone_affinity</code> with 85 percent zonal affinity,
+     *        and <code>any_availability_zone</code> with 0 percent zonal affinity.
      *        </p>
      *        </li>
      */
@@ -226,6 +591,25 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      * <p>
      * The name of the attribute.
      * </p>
+     * <p>
+     * The following attributes are supported by all load balancers:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>deletion_protection.enabled</code> - Indicates whether deletion protection is enabled. The value is
+     * <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross-zone load balancing is enabled. The
+     * possible values are <code>true</code> and <code>false</code>. The default for Network Load Balancers and Gateway
+     * Load Balancers is <code>false</code>. The default for Application Load Balancers is <code>true</code>, and cannot
+     * be changed.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * The following attributes are supported by both Application Load Balancers and Network Load Balancers:
      * </p>
@@ -250,8 +634,9 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>deletion_protection.enabled</code> - Indicates whether deletion protection is enabled. The value is
-     * <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * <code>ipv6.deny_all_igw_traffic</code> - Blocks internet gateway (IGW) access to the load balancer. It is set to
+     * <code>false</code> for internet-facing load balancers and <code>true</code> for internal load balancers,
+     * preventing unintended access to your internal load balancer through an internet gateway.
      * </p>
      * </li>
      * </ul>
@@ -267,8 +652,107 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>routing.http2.enabled</code> - Indicates whether HTTP/2 is enabled. The value is <code>true</code> or
-     * <code>false</code>. The default is <code>true</code>.
+     * <code>client_keep_alive.seconds</code> - The client keep alive value, in seconds. The valid range is 60-604800
+     * seconds. The default is 3600 seconds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>connection_logs.s3.enabled</code> - Indicates whether connection logs are enabled. The value is
+     * <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>connection_logs.s3.bucket</code> - The name of the S3 bucket for the connection logs. This attribute is
+     * required if connection logs are enabled. The bucket must exist in the same region as the load balancer and have a
+     * bucket policy that grants Elastic Load Balancing permissions to write to the bucket.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>connection_logs.s3.prefix</code> - The prefix for the location in the S3 bucket for the connection logs.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.desync_mitigation_mode</code> - Determines how the load balancer handles requests that might
+     * pose a security risk to your application. The possible values are <code>monitor</code>, <code>defensive</code>,
+     * and <code>strictest</code>. The default is <code>defensive</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.drop_invalid_header_fields.enabled</code> - Indicates whether HTTP headers with invalid header
+     * fields are removed by the load balancer (<code>true</code>) or routed to targets (<code>false</code>). The
+     * default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.preserve_host_header.enabled</code> - Indicates whether the Application Load Balancer should
+     * preserve the <code>Host</code> header in the HTTP request and send it to the target without any change. The
+     * possible values are <code>true</code> and <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.x_amzn_tls_version_and_cipher_suite.enabled</code> - Indicates whether the two headers (
+     * <code>x-amzn-tls-version</code> and <code>x-amzn-tls-cipher-suite</code>), which contain information about the
+     * negotiated TLS version and cipher suite, are added to the client request before sending it to the target. The
+     * <code>x-amzn-tls-version</code> header has information about the TLS protocol version negotiated with the client,
+     * and the <code>x-amzn-tls-cipher-suite</code> header has information about the cipher suite negotiated with the
+     * client. Both headers are in OpenSSL format. The possible values for the attribute are <code>true</code> and
+     * <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.xff_client_port.enabled</code> - Indicates whether the <code>X-Forwarded-For</code> header
+     * should preserve the source port that the client used to connect to the load balancer. The possible values are
+     * <code>true</code> and <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.xff_header_processing.mode</code> - Enables you to modify, preserve, or remove the
+     * <code>X-Forwarded-For</code> header in the HTTP request before the Application Load Balancer sends the request to
+     * the target. The possible values are <code>append</code>, <code>preserve</code>, and <code>remove</code>. The
+     * default is <code>append</code>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the value is <code>append</code>, the Application Load Balancer adds the client IP address (of the last hop)
+     * to the <code>X-Forwarded-For</code> header in the HTTP request before it sends it to targets.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the value is <code>preserve</code> the Application Load Balancer preserves the <code>X-Forwarded-For</code>
+     * header in the HTTP request, and sends it to targets without any change.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the value is <code>remove</code>, the Application Load Balancer removes the <code>X-Forwarded-For</code>
+     * header in the HTTP request before it sends it to targets.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http2.enabled</code> - Indicates whether HTTP/2 is enabled. The possible values are
+     * <code>true</code> and <code>false</code>. The default is <code>true</code>. Elastic Load Balancing requires that
+     * message header names contain only alphanumeric characters and hyphens.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>waf.fail_open.enabled</code> - Indicates whether to allow a WAF-enabled load balancer to route requests to
+     * targets if it is unable to forward the request to Amazon Web Services WAF. The possible values are
+     * <code>true</code> and <code>false</code>. The default is <code>false</code>.
      * </p>
      * </li>
      * </ul>
@@ -278,13 +762,34 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross-zone load balancing is enabled. The
-     * value is <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * <code>dns_record.client_routing_policy</code> - Indicates how traffic is distributed among the load balancer
+     * Availability Zones. The possible values are <code>availability_zone_affinity</code> with 100 percent zonal
+     * affinity, <code>partial_availability_zone_affinity</code> with 85 percent zonal affinity, and
+     * <code>any_availability_zone</code> with 0 percent zonal affinity.
      * </p>
      * </li>
      * </ul>
      * 
      * @return The name of the attribute.</p>
+     *         <p>
+     *         The following attributes are supported by all load balancers:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>deletion_protection.enabled</code> - Indicates whether deletion protection is enabled. The value is
+     *         <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross-zone load balancing is enabled.
+     *         The possible values are <code>true</code> and <code>false</code>. The default for Network Load Balancers
+     *         and Gateway Load Balancers is <code>false</code>. The default for Application Load Balancers is
+     *         <code>true</code>, and cannot be changed.
+     *         </p>
+     *         </li>
+     *         </ul>
      *         <p>
      *         The following attributes are supported by both Application Load Balancers and Network Load Balancers:
      *         </p>
@@ -309,8 +814,9 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      *         </li>
      *         <li>
      *         <p>
-     *         <code>deletion_protection.enabled</code> - Indicates whether deletion protection is enabled. The value is
-     *         <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     *         <code>ipv6.deny_all_igw_traffic</code> - Blocks internet gateway (IGW) access to the load balancer. It is
+     *         set to <code>false</code> for internet-facing load balancers and <code>true</code> for internal load
+     *         balancers, preventing unintended access to your internal load balancer through an internet gateway.
      *         </p>
      *         </li>
      *         </ul>
@@ -326,8 +832,110 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      *         </li>
      *         <li>
      *         <p>
-     *         <code>routing.http2.enabled</code> - Indicates whether HTTP/2 is enabled. The value is <code>true</code>
-     *         or <code>false</code>. The default is <code>true</code>.
+     *         <code>client_keep_alive.seconds</code> - The client keep alive value, in seconds. The valid range is
+     *         60-604800 seconds. The default is 3600 seconds.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>connection_logs.s3.enabled</code> - Indicates whether connection logs are enabled. The value is
+     *         <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>connection_logs.s3.bucket</code> - The name of the S3 bucket for the connection logs. This
+     *         attribute is required if connection logs are enabled. The bucket must exist in the same region as the
+     *         load balancer and have a bucket policy that grants Elastic Load Balancing permissions to write to the
+     *         bucket.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>connection_logs.s3.prefix</code> - The prefix for the location in the S3 bucket for the connection
+     *         logs.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>routing.http.desync_mitigation_mode</code> - Determines how the load balancer handles requests that
+     *         might pose a security risk to your application. The possible values are <code>monitor</code>,
+     *         <code>defensive</code>, and <code>strictest</code>. The default is <code>defensive</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>routing.http.drop_invalid_header_fields.enabled</code> - Indicates whether HTTP headers with
+     *         invalid header fields are removed by the load balancer (<code>true</code>) or routed to targets (
+     *         <code>false</code>). The default is <code>false</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>routing.http.preserve_host_header.enabled</code> - Indicates whether the Application Load Balancer
+     *         should preserve the <code>Host</code> header in the HTTP request and send it to the target without any
+     *         change. The possible values are <code>true</code> and <code>false</code>. The default is
+     *         <code>false</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>routing.http.x_amzn_tls_version_and_cipher_suite.enabled</code> - Indicates whether the two headers
+     *         (<code>x-amzn-tls-version</code> and <code>x-amzn-tls-cipher-suite</code>), which contain information
+     *         about the negotiated TLS version and cipher suite, are added to the client request before sending it to
+     *         the target. The <code>x-amzn-tls-version</code> header has information about the TLS protocol version
+     *         negotiated with the client, and the <code>x-amzn-tls-cipher-suite</code> header has information about the
+     *         cipher suite negotiated with the client. Both headers are in OpenSSL format. The possible values for the
+     *         attribute are <code>true</code> and <code>false</code>. The default is <code>false</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>routing.http.xff_client_port.enabled</code> - Indicates whether the <code>X-Forwarded-For</code>
+     *         header should preserve the source port that the client used to connect to the load balancer. The possible
+     *         values are <code>true</code> and <code>false</code>. The default is <code>false</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>routing.http.xff_header_processing.mode</code> - Enables you to modify, preserve, or remove the
+     *         <code>X-Forwarded-For</code> header in the HTTP request before the Application Load Balancer sends the
+     *         request to the target. The possible values are <code>append</code>, <code>preserve</code>, and
+     *         <code>remove</code>. The default is <code>append</code>.
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If the value is <code>append</code>, the Application Load Balancer adds the client IP address (of the
+     *         last hop) to the <code>X-Forwarded-For</code> header in the HTTP request before it sends it to targets.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If the value is <code>preserve</code> the Application Load Balancer preserves the
+     *         <code>X-Forwarded-For</code> header in the HTTP request, and sends it to targets without any change.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If the value is <code>remove</code>, the Application Load Balancer removes the
+     *         <code>X-Forwarded-For</code> header in the HTTP request before it sends it to targets.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>routing.http2.enabled</code> - Indicates whether HTTP/2 is enabled. The possible values are
+     *         <code>true</code> and <code>false</code>. The default is <code>true</code>. Elastic Load Balancing
+     *         requires that message header names contain only alphanumeric characters and hyphens.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>waf.fail_open.enabled</code> - Indicates whether to allow a WAF-enabled load balancer to route
+     *         requests to targets if it is unable to forward the request to Amazon Web Services WAF. The possible
+     *         values are <code>true</code> and <code>false</code>. The default is <code>false</code>.
      *         </p>
      *         </li>
      *         </ul>
@@ -337,8 +945,10 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross-zone load balancing is enabled.
-     *         The value is <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     *         <code>dns_record.client_routing_policy</code> - Indicates how traffic is distributed among the load
+     *         balancer Availability Zones. The possible values are <code>availability_zone_affinity</code> with 100
+     *         percent zonal affinity, <code>partial_availability_zone_affinity</code> with 85 percent zonal affinity,
+     *         and <code>any_availability_zone</code> with 0 percent zonal affinity.
      *         </p>
      *         </li>
      */
@@ -351,6 +961,25 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      * <p>
      * The name of the attribute.
      * </p>
+     * <p>
+     * The following attributes are supported by all load balancers:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>deletion_protection.enabled</code> - Indicates whether deletion protection is enabled. The value is
+     * <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross-zone load balancing is enabled. The
+     * possible values are <code>true</code> and <code>false</code>. The default for Network Load Balancers and Gateway
+     * Load Balancers is <code>false</code>. The default for Application Load Balancers is <code>true</code>, and cannot
+     * be changed.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * The following attributes are supported by both Application Load Balancers and Network Load Balancers:
      * </p>
@@ -375,8 +1004,9 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>deletion_protection.enabled</code> - Indicates whether deletion protection is enabled. The value is
-     * <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * <code>ipv6.deny_all_igw_traffic</code> - Blocks internet gateway (IGW) access to the load balancer. It is set to
+     * <code>false</code> for internet-facing load balancers and <code>true</code> for internal load balancers,
+     * preventing unintended access to your internal load balancer through an internet gateway.
      * </p>
      * </li>
      * </ul>
@@ -392,8 +1022,107 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>routing.http2.enabled</code> - Indicates whether HTTP/2 is enabled. The value is <code>true</code> or
-     * <code>false</code>. The default is <code>true</code>.
+     * <code>client_keep_alive.seconds</code> - The client keep alive value, in seconds. The valid range is 60-604800
+     * seconds. The default is 3600 seconds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>connection_logs.s3.enabled</code> - Indicates whether connection logs are enabled. The value is
+     * <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>connection_logs.s3.bucket</code> - The name of the S3 bucket for the connection logs. This attribute is
+     * required if connection logs are enabled. The bucket must exist in the same region as the load balancer and have a
+     * bucket policy that grants Elastic Load Balancing permissions to write to the bucket.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>connection_logs.s3.prefix</code> - The prefix for the location in the S3 bucket for the connection logs.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.desync_mitigation_mode</code> - Determines how the load balancer handles requests that might
+     * pose a security risk to your application. The possible values are <code>monitor</code>, <code>defensive</code>,
+     * and <code>strictest</code>. The default is <code>defensive</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.drop_invalid_header_fields.enabled</code> - Indicates whether HTTP headers with invalid header
+     * fields are removed by the load balancer (<code>true</code>) or routed to targets (<code>false</code>). The
+     * default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.preserve_host_header.enabled</code> - Indicates whether the Application Load Balancer should
+     * preserve the <code>Host</code> header in the HTTP request and send it to the target without any change. The
+     * possible values are <code>true</code> and <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.x_amzn_tls_version_and_cipher_suite.enabled</code> - Indicates whether the two headers (
+     * <code>x-amzn-tls-version</code> and <code>x-amzn-tls-cipher-suite</code>), which contain information about the
+     * negotiated TLS version and cipher suite, are added to the client request before sending it to the target. The
+     * <code>x-amzn-tls-version</code> header has information about the TLS protocol version negotiated with the client,
+     * and the <code>x-amzn-tls-cipher-suite</code> header has information about the cipher suite negotiated with the
+     * client. Both headers are in OpenSSL format. The possible values for the attribute are <code>true</code> and
+     * <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.xff_client_port.enabled</code> - Indicates whether the <code>X-Forwarded-For</code> header
+     * should preserve the source port that the client used to connect to the load balancer. The possible values are
+     * <code>true</code> and <code>false</code>. The default is <code>false</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http.xff_header_processing.mode</code> - Enables you to modify, preserve, or remove the
+     * <code>X-Forwarded-For</code> header in the HTTP request before the Application Load Balancer sends the request to
+     * the target. The possible values are <code>append</code>, <code>preserve</code>, and <code>remove</code>. The
+     * default is <code>append</code>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the value is <code>append</code>, the Application Load Balancer adds the client IP address (of the last hop)
+     * to the <code>X-Forwarded-For</code> header in the HTTP request before it sends it to targets.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the value is <code>preserve</code> the Application Load Balancer preserves the <code>X-Forwarded-For</code>
+     * header in the HTTP request, and sends it to targets without any change.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the value is <code>remove</code>, the Application Load Balancer removes the <code>X-Forwarded-For</code>
+     * header in the HTTP request before it sends it to targets.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * <code>routing.http2.enabled</code> - Indicates whether HTTP/2 is enabled. The possible values are
+     * <code>true</code> and <code>false</code>. The default is <code>true</code>. Elastic Load Balancing requires that
+     * message header names contain only alphanumeric characters and hyphens.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>waf.fail_open.enabled</code> - Indicates whether to allow a WAF-enabled load balancer to route requests to
+     * targets if it is unable to forward the request to Amazon Web Services WAF. The possible values are
+     * <code>true</code> and <code>false</code>. The default is <code>false</code>.
      * </p>
      * </li>
      * </ul>
@@ -403,14 +1132,35 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross-zone load balancing is enabled. The
-     * value is <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     * <code>dns_record.client_routing_policy</code> - Indicates how traffic is distributed among the load balancer
+     * Availability Zones. The possible values are <code>availability_zone_affinity</code> with 100 percent zonal
+     * affinity, <code>partial_availability_zone_affinity</code> with 85 percent zonal affinity, and
+     * <code>any_availability_zone</code> with 0 percent zonal affinity.
      * </p>
      * </li>
      * </ul>
      * 
      * @param key
      *        The name of the attribute.</p>
+     *        <p>
+     *        The following attributes are supported by all load balancers:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>deletion_protection.enabled</code> - Indicates whether deletion protection is enabled. The value is
+     *        <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross-zone load balancing is enabled.
+     *        The possible values are <code>true</code> and <code>false</code>. The default for Network Load Balancers
+     *        and Gateway Load Balancers is <code>false</code>. The default for Application Load Balancers is
+     *        <code>true</code>, and cannot be changed.
+     *        </p>
+     *        </li>
+     *        </ul>
      *        <p>
      *        The following attributes are supported by both Application Load Balancers and Network Load Balancers:
      *        </p>
@@ -435,8 +1185,9 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>deletion_protection.enabled</code> - Indicates whether deletion protection is enabled. The value is
-     *        <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     *        <code>ipv6.deny_all_igw_traffic</code> - Blocks internet gateway (IGW) access to the load balancer. It is
+     *        set to <code>false</code> for internet-facing load balancers and <code>true</code> for internal load
+     *        balancers, preventing unintended access to your internal load balancer through an internet gateway.
      *        </p>
      *        </li>
      *        </ul>
@@ -452,8 +1203,109 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>routing.http2.enabled</code> - Indicates whether HTTP/2 is enabled. The value is <code>true</code>
-     *        or <code>false</code>. The default is <code>true</code>.
+     *        <code>client_keep_alive.seconds</code> - The client keep alive value, in seconds. The valid range is
+     *        60-604800 seconds. The default is 3600 seconds.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>connection_logs.s3.enabled</code> - Indicates whether connection logs are enabled. The value is
+     *        <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>connection_logs.s3.bucket</code> - The name of the S3 bucket for the connection logs. This attribute
+     *        is required if connection logs are enabled. The bucket must exist in the same region as the load balancer
+     *        and have a bucket policy that grants Elastic Load Balancing permissions to write to the bucket.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>connection_logs.s3.prefix</code> - The prefix for the location in the S3 bucket for the connection
+     *        logs.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>routing.http.desync_mitigation_mode</code> - Determines how the load balancer handles requests that
+     *        might pose a security risk to your application. The possible values are <code>monitor</code>,
+     *        <code>defensive</code>, and <code>strictest</code>. The default is <code>defensive</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>routing.http.drop_invalid_header_fields.enabled</code> - Indicates whether HTTP headers with invalid
+     *        header fields are removed by the load balancer (<code>true</code>) or routed to targets (
+     *        <code>false</code>). The default is <code>false</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>routing.http.preserve_host_header.enabled</code> - Indicates whether the Application Load Balancer
+     *        should preserve the <code>Host</code> header in the HTTP request and send it to the target without any
+     *        change. The possible values are <code>true</code> and <code>false</code>. The default is
+     *        <code>false</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>routing.http.x_amzn_tls_version_and_cipher_suite.enabled</code> - Indicates whether the two headers
+     *        (<code>x-amzn-tls-version</code> and <code>x-amzn-tls-cipher-suite</code>), which contain information
+     *        about the negotiated TLS version and cipher suite, are added to the client request before sending it to
+     *        the target. The <code>x-amzn-tls-version</code> header has information about the TLS protocol version
+     *        negotiated with the client, and the <code>x-amzn-tls-cipher-suite</code> header has information about the
+     *        cipher suite negotiated with the client. Both headers are in OpenSSL format. The possible values for the
+     *        attribute are <code>true</code> and <code>false</code>. The default is <code>false</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>routing.http.xff_client_port.enabled</code> - Indicates whether the <code>X-Forwarded-For</code>
+     *        header should preserve the source port that the client used to connect to the load balancer. The possible
+     *        values are <code>true</code> and <code>false</code>. The default is <code>false</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>routing.http.xff_header_processing.mode</code> - Enables you to modify, preserve, or remove the
+     *        <code>X-Forwarded-For</code> header in the HTTP request before the Application Load Balancer sends the
+     *        request to the target. The possible values are <code>append</code>, <code>preserve</code>, and
+     *        <code>remove</code>. The default is <code>append</code>.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If the value is <code>append</code>, the Application Load Balancer adds the client IP address (of the last
+     *        hop) to the <code>X-Forwarded-For</code> header in the HTTP request before it sends it to targets.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the value is <code>preserve</code> the Application Load Balancer preserves the
+     *        <code>X-Forwarded-For</code> header in the HTTP request, and sends it to targets without any change.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the value is <code>remove</code>, the Application Load Balancer removes the
+     *        <code>X-Forwarded-For</code> header in the HTTP request before it sends it to targets.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>routing.http2.enabled</code> - Indicates whether HTTP/2 is enabled. The possible values are
+     *        <code>true</code> and <code>false</code>. The default is <code>true</code>. Elastic Load Balancing
+     *        requires that message header names contain only alphanumeric characters and hyphens.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>waf.fail_open.enabled</code> - Indicates whether to allow a WAF-enabled load balancer to route
+     *        requests to targets if it is unable to forward the request to Amazon Web Services WAF. The possible values
+     *        are <code>true</code> and <code>false</code>. The default is <code>false</code>.
      *        </p>
      *        </li>
      *        </ul>
@@ -463,8 +1315,10 @@ public class LoadBalancerAttribute implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>load_balancing.cross_zone.enabled</code> - Indicates whether cross-zone load balancing is enabled.
-     *        The value is <code>true</code> or <code>false</code>. The default is <code>false</code>.
+     *        <code>dns_record.client_routing_policy</code> - Indicates how traffic is distributed among the load
+     *        balancer Availability Zones. The possible values are <code>availability_zone_affinity</code> with 100
+     *        percent zonal affinity, <code>partial_availability_zone_affinity</code> with 85 percent zonal affinity,
+     *        and <code>any_availability_zone</code> with 0 percent zonal affinity.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

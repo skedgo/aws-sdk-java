@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,10 +27,10 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A unique identifier for the customer master key (CMK).
+     * Gets tags on the specified KMS key.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     * Specify the key ID or key ARN of the KMS key.
      * </p>
      * <p>
      * For example:
@@ -48,13 +48,13 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      */
     private String keyId;
     /**
      * <p>
-     * Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not
+     * Use this parameter to specify the maximum number of items to return. When this value is present, KMS does not
      * return more than the specified number of items, but it might return fewer.
      * </p>
      * <p>
@@ -77,10 +77,10 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A unique identifier for the customer master key (CMK).
+     * Gets tags on the specified KMS key.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     * Specify the key ID or key ARN of the KMS key.
      * </p>
      * <p>
      * For example:
@@ -98,13 +98,13 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
      * @param keyId
-     *        A unique identifier for the customer master key (CMK).</p>
+     *        Gets tags on the specified KMS key.</p>
      *        <p>
-     *        Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     *        Specify the key ID or key ARN of the KMS key.
      *        </p>
      *        <p>
      *        For example:
@@ -122,7 +122,7 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
      *        </li>
      *        </ul>
      *        <p>
-     *        To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *        To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      */
 
     public void setKeyId(String keyId) {
@@ -131,10 +131,10 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A unique identifier for the customer master key (CMK).
+     * Gets tags on the specified KMS key.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     * Specify the key ID or key ARN of the KMS key.
      * </p>
      * <p>
      * For example:
@@ -152,12 +152,12 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
-     * @return A unique identifier for the customer master key (CMK).</p>
+     * @return Gets tags on the specified KMS key.</p>
      *         <p>
-     *         Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     *         Specify the key ID or key ARN of the KMS key.
      *         </p>
      *         <p>
      *         For example:
@@ -175,7 +175,7 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
      *         </li>
      *         </ul>
      *         <p>
-     *         To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *         To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      */
 
     public String getKeyId() {
@@ -184,10 +184,10 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A unique identifier for the customer master key (CMK).
+     * Gets tags on the specified KMS key.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     * Specify the key ID or key ARN of the KMS key.
      * </p>
      * <p>
      * For example:
@@ -205,13 +205,13 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
      * @param keyId
-     *        A unique identifier for the customer master key (CMK).</p>
+     *        Gets tags on the specified KMS key.</p>
      *        <p>
-     *        Specify the key ID or the Amazon Resource Name (ARN) of the CMK.
+     *        Specify the key ID or key ARN of the KMS key.
      *        </p>
      *        <p>
      *        For example:
@@ -229,7 +229,7 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
      *        </li>
      *        </ul>
      *        <p>
-     *        To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *        To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -240,7 +240,7 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not
+     * Use this parameter to specify the maximum number of items to return. When this value is present, KMS does not
      * return more than the specified number of items, but it might return fewer.
      * </p>
      * <p>
@@ -249,8 +249,8 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param limit
-     *        Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS
-     *        does not return more than the specified number of items, but it might return fewer.</p>
+     *        Use this parameter to specify the maximum number of items to return. When this value is present, KMS does
+     *        not return more than the specified number of items, but it might return fewer.</p>
      *        <p>
      *        This value is optional. If you include a value, it must be between 1 and 50, inclusive. If you do not
      *        include a value, it defaults to 50.
@@ -262,7 +262,7 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not
+     * Use this parameter to specify the maximum number of items to return. When this value is present, KMS does not
      * return more than the specified number of items, but it might return fewer.
      * </p>
      * <p>
@@ -270,8 +270,8 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
      * value, it defaults to 50.
      * </p>
      * 
-     * @return Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS
-     *         does not return more than the specified number of items, but it might return fewer.</p>
+     * @return Use this parameter to specify the maximum number of items to return. When this value is present, KMS does
+     *         not return more than the specified number of items, but it might return fewer.</p>
      *         <p>
      *         This value is optional. If you include a value, it must be between 1 and 50, inclusive. If you do not
      *         include a value, it defaults to 50.
@@ -283,7 +283,7 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not
+     * Use this parameter to specify the maximum number of items to return. When this value is present, KMS does not
      * return more than the specified number of items, but it might return fewer.
      * </p>
      * <p>
@@ -292,8 +292,8 @@ public class ListResourceTagsRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param limit
-     *        Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS
-     *        does not return more than the specified number of items, but it might return fewer.</p>
+     *        Use this parameter to specify the maximum number of items to return. When this value is present, KMS does
+     *        not return more than the specified number of items, but it might return fewer.</p>
      *        <p>
      *        This value is optional. If you include a value, it must be between 1 and 50, inclusive. If you do not
      *        include a value, it defaults to 50.

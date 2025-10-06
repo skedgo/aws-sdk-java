@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -187,6 +187,51 @@ public class DBSnapshotStaxUnmarshaller implements Unmarshaller<DBSnapshot, Stax
 
                 if (context.testExpression("DbiResourceId", targetDepth)) {
                     dBSnapshot.setDbiResourceId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("TagList", targetDepth)) {
+                    dBSnapshot.withTagList(new ArrayList<Tag>());
+                    continue;
+                }
+
+                if (context.testExpression("TagList/Tag", targetDepth)) {
+                    dBSnapshot.withTagList(TagStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("OriginalSnapshotCreateTime", targetDepth)) {
+                    dBSnapshot.setOriginalSnapshotCreateTime(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SnapshotDatabaseTime", targetDepth)) {
+                    dBSnapshot.setSnapshotDatabaseTime(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SnapshotTarget", targetDepth)) {
+                    dBSnapshot.setSnapshotTarget(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("StorageThroughput", targetDepth)) {
+                    dBSnapshot.setStorageThroughput(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DBSystemId", targetDepth)) {
+                    dBSnapshot.setDBSystemId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DedicatedLogVolume", targetDepth)) {
+                    dBSnapshot.setDedicatedLogVolume(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MultiTenant", targetDepth)) {
+                    dBSnapshot.setMultiTenant(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

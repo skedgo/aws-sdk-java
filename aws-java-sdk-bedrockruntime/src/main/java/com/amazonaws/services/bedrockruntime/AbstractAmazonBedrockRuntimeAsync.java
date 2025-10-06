@@ -1,0 +1,69 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.bedrockruntime;
+
+import javax.annotation.Generated;
+
+import com.amazonaws.services.bedrockruntime.model.*;
+
+/**
+ * Abstract implementation of {@code AmazonBedrockRuntimeAsync}. Convenient method forms pass through to the
+ * corresponding overload that takes a request object and an {@code AsyncHandler}, which throws an
+ * {@code UnsupportedOperationException}.
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class AbstractAmazonBedrockRuntimeAsync extends AbstractAmazonBedrockRuntime implements AmazonBedrockRuntimeAsync {
+
+    protected AbstractAmazonBedrockRuntimeAsync() {
+    }
+
+    @Override
+    public java.util.concurrent.Future<ApplyGuardrailResult> applyGuardrailAsync(ApplyGuardrailRequest request) {
+
+        return applyGuardrailAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ApplyGuardrailResult> applyGuardrailAsync(ApplyGuardrailRequest request,
+            com.amazonaws.handlers.AsyncHandler<ApplyGuardrailRequest, ApplyGuardrailResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ConverseResult> converseAsync(ConverseRequest request) {
+
+        return converseAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ConverseResult> converseAsync(ConverseRequest request,
+            com.amazonaws.handlers.AsyncHandler<ConverseRequest, ConverseResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<InvokeModelResult> invokeModelAsync(InvokeModelRequest request) {
+
+        return invokeModelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<InvokeModelResult> invokeModelAsync(InvokeModelRequest request,
+            com.amazonaws.handlers.AsyncHandler<InvokeModelRequest, InvokeModelResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+}

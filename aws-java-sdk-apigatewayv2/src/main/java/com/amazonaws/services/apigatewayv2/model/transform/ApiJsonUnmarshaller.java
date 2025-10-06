@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,10 @@ public class ApiJsonUnmarshaller implements Unmarshaller<Api, JsonUnmarshallerCo
                     context.nextToken();
                     api.setApiEndpoint(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("apiGatewayManaged", targetDepth)) {
+                    context.nextToken();
+                    api.setApiGatewayManaged(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
                 if (context.testExpression("apiId", targetDepth)) {
                     context.nextToken();
                     api.setApiId(context.getUnmarshaller(String.class).unmarshall(context));
@@ -59,6 +63,10 @@ public class ApiJsonUnmarshaller implements Unmarshaller<Api, JsonUnmarshallerCo
                 if (context.testExpression("apiKeySelectionExpression", targetDepth)) {
                     context.nextToken();
                     api.setApiKeySelectionExpression(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("corsConfiguration", targetDepth)) {
+                    context.nextToken();
+                    api.setCorsConfiguration(CorsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("createdDate", targetDepth)) {
                     context.nextToken();
@@ -72,6 +80,16 @@ public class ApiJsonUnmarshaller implements Unmarshaller<Api, JsonUnmarshallerCo
                     context.nextToken();
                     api.setDisableSchemaValidation(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
+                if (context.testExpression("disableExecuteApiEndpoint", targetDepth)) {
+                    context.nextToken();
+                    api.setDisableExecuteApiEndpoint(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("importInfo", targetDepth)) {
+                    context.nextToken();
+                    api.setImportInfo(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
                 if (context.testExpression("name", targetDepth)) {
                     context.nextToken();
                     api.setName(context.getUnmarshaller(String.class).unmarshall(context));
@@ -84,18 +102,20 @@ public class ApiJsonUnmarshaller implements Unmarshaller<Api, JsonUnmarshallerCo
                     context.nextToken();
                     api.setRouteSelectionExpression(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("tags", targetDepth)) {
+                    context.nextToken();
+                    api.setTags(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
+                            .unmarshall(context));
+                }
                 if (context.testExpression("version", targetDepth)) {
                     context.nextToken();
                     api.setVersion(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("warnings", targetDepth)) {
                     context.nextToken();
-                    api.setWarnings(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
-                }
-                if (context.testExpression("tags", targetDepth)) {
-                    context.nextToken();
-                    api.setTags(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
-                            .unmarshall(context));
+                    api.setWarnings(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

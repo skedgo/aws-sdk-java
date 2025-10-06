@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,10 @@ public class ParameterMetadataJsonUnmarshaller implements Unmarshaller<Parameter
                     context.nextToken();
                     parameterMetadata.setName(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("ARN", targetDepth)) {
+                    context.nextToken();
+                    parameterMetadata.setARN(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("Type", targetDepth)) {
                     context.nextToken();
                     parameterMetadata.setType(context.getUnmarshaller(String.class).unmarshall(context));
@@ -87,7 +91,12 @@ public class ParameterMetadataJsonUnmarshaller implements Unmarshaller<Parameter
                 if (context.testExpression("Policies", targetDepth)) {
                     context.nextToken();
                     parameterMetadata.setPolicies(new ListUnmarshaller<ParameterInlinePolicy>(ParameterInlinePolicyJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("DataType", targetDepth)) {
+                    context.nextToken();
+                    parameterMetadata.setDataType(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

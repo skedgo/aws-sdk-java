@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,9 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Contains the information required to locate a manifest object.
+ * Contains the information required to locate a manifest object. Manifests can't be imported from directory buckets.
+ * For more information, see <a
+ * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-overview.html">Directory buckets</a>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/s3control-2018-08-20/JobManifestLocation" target="_top">AWS API
@@ -30,6 +32,14 @@ public class JobManifestLocation implements Serializable, Cloneable {
      * <p>
      * The Amazon Resource Name (ARN) for a manifest object.
      * </p>
+     * <important>
+     * <p>
+     * When you're using XML requests, you must replace special characters (such as carriage returns) in object keys
+     * with their equivalent XML entity codes. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints">
+     * XML-related object key constraints</a> in the <i>Amazon S3 User Guide</i>.
+     * </p>
+     * </important>
      */
     private String objectArn;
     /**
@@ -49,9 +59,23 @@ public class JobManifestLocation implements Serializable, Cloneable {
      * <p>
      * The Amazon Resource Name (ARN) for a manifest object.
      * </p>
+     * <important>
+     * <p>
+     * When you're using XML requests, you must replace special characters (such as carriage returns) in object keys
+     * with their equivalent XML entity codes. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints">
+     * XML-related object key constraints</a> in the <i>Amazon S3 User Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param objectArn
-     *        The Amazon Resource Name (ARN) for a manifest object.
+     *        The Amazon Resource Name (ARN) for a manifest object.</p> <important>
+     *        <p>
+     *        When you're using XML requests, you must replace special characters (such as carriage returns) in object
+     *        keys with their equivalent XML entity codes. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints"
+     *        > XML-related object key constraints</a> in the <i>Amazon S3 User Guide</i>.
+     *        </p>
      */
 
     public void setObjectArn(String objectArn) {
@@ -62,8 +86,22 @@ public class JobManifestLocation implements Serializable, Cloneable {
      * <p>
      * The Amazon Resource Name (ARN) for a manifest object.
      * </p>
+     * <important>
+     * <p>
+     * When you're using XML requests, you must replace special characters (such as carriage returns) in object keys
+     * with their equivalent XML entity codes. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints">
+     * XML-related object key constraints</a> in the <i>Amazon S3 User Guide</i>.
+     * </p>
+     * </important>
      * 
-     * @return The Amazon Resource Name (ARN) for a manifest object.
+     * @return The Amazon Resource Name (ARN) for a manifest object.</p> <important>
+     *         <p>
+     *         When you're using XML requests, you must replace special characters (such as carriage returns) in object
+     *         keys with their equivalent XML entity codes. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints"
+     *         > XML-related object key constraints</a> in the <i>Amazon S3 User Guide</i>.
+     *         </p>
      */
 
     public String getObjectArn() {
@@ -74,9 +112,23 @@ public class JobManifestLocation implements Serializable, Cloneable {
      * <p>
      * The Amazon Resource Name (ARN) for a manifest object.
      * </p>
+     * <important>
+     * <p>
+     * When you're using XML requests, you must replace special characters (such as carriage returns) in object keys
+     * with their equivalent XML entity codes. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints">
+     * XML-related object key constraints</a> in the <i>Amazon S3 User Guide</i>.
+     * </p>
+     * </important>
      * 
      * @param objectArn
-     *        The Amazon Resource Name (ARN) for a manifest object.
+     *        The Amazon Resource Name (ARN) for a manifest object.</p> <important>
+     *        <p>
+     *        When you're using XML requests, you must replace special characters (such as carriage returns) in object
+     *        keys with their equivalent XML entity codes. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-keys.html#object-key-xml-related-constraints"
+     *        > XML-related object key constraints</a> in the <i>Amazon S3 User Guide</i>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

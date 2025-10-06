@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -67,6 +67,22 @@ public class ApplicationConfigurationJsonUnmarshaller implements Unmarshaller<Ap
                 if (context.testExpression("ApplicationSnapshotConfiguration", targetDepth)) {
                     context.nextToken();
                     applicationConfiguration.setApplicationSnapshotConfiguration(ApplicationSnapshotConfigurationJsonUnmarshaller.getInstance().unmarshall(
+                            context));
+                }
+                if (context.testExpression("ApplicationSystemRollbackConfiguration", targetDepth)) {
+                    context.nextToken();
+                    applicationConfiguration.setApplicationSystemRollbackConfiguration(ApplicationSystemRollbackConfigurationJsonUnmarshaller.getInstance()
+                            .unmarshall(context));
+                }
+                if (context.testExpression("VpcConfigurations", targetDepth)) {
+                    context.nextToken();
+                    applicationConfiguration.setVpcConfigurations(new ListUnmarshaller<VpcConfiguration>(VpcConfigurationJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ZeppelinApplicationConfiguration", targetDepth)) {
+                    context.nextToken();
+                    applicationConfiguration.setZeppelinApplicationConfiguration(ZeppelinApplicationConfigurationJsonUnmarshaller.getInstance().unmarshall(
                             context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {

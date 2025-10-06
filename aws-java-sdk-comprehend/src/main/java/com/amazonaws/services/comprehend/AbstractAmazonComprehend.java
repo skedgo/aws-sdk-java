@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -53,7 +53,32 @@ public class AbstractAmazonComprehend implements AmazonComprehend {
     }
 
     @Override
+    public BatchDetectTargetedSentimentResult batchDetectTargetedSentiment(BatchDetectTargetedSentimentRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ClassifyDocumentResult classifyDocument(ClassifyDocumentRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ContainsPiiEntitiesResult containsPiiEntities(ContainsPiiEntitiesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateDatasetResult createDataset(CreateDatasetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateDocumentClassifierResult createDocumentClassifier(CreateDocumentClassifierRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateEndpointResult createEndpoint(CreateEndpointRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -63,12 +88,37 @@ public class AbstractAmazonComprehend implements AmazonComprehend {
     }
 
     @Override
+    public CreateFlywheelResult createFlywheel(CreateFlywheelRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteDocumentClassifierResult deleteDocumentClassifier(DeleteDocumentClassifierRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public DeleteEndpointResult deleteEndpoint(DeleteEndpointRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteEntityRecognizerResult deleteEntityRecognizer(DeleteEntityRecognizerRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteFlywheelResult deleteFlywheel(DeleteFlywheelRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteResourcePolicyResult deleteResourcePolicy(DeleteResourcePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeDatasetResult describeDataset(DescribeDatasetRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -88,6 +138,11 @@ public class AbstractAmazonComprehend implements AmazonComprehend {
     }
 
     @Override
+    public DescribeEndpointResult describeEndpoint(DescribeEndpointRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeEntitiesDetectionJobResult describeEntitiesDetectionJob(DescribeEntitiesDetectionJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -98,12 +153,42 @@ public class AbstractAmazonComprehend implements AmazonComprehend {
     }
 
     @Override
+    public DescribeEventsDetectionJobResult describeEventsDetectionJob(DescribeEventsDetectionJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeFlywheelResult describeFlywheel(DescribeFlywheelRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeFlywheelIterationResult describeFlywheelIteration(DescribeFlywheelIterationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeKeyPhrasesDetectionJobResult describeKeyPhrasesDetectionJob(DescribeKeyPhrasesDetectionJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public DescribePiiEntitiesDetectionJobResult describePiiEntitiesDetectionJob(DescribePiiEntitiesDetectionJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeResourcePolicyResult describeResourcePolicy(DescribeResourcePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeSentimentDetectionJobResult describeSentimentDetectionJob(DescribeSentimentDetectionJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeTargetedSentimentDetectionJobResult describeTargetedSentimentDetectionJob(DescribeTargetedSentimentDetectionJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -128,6 +213,11 @@ public class AbstractAmazonComprehend implements AmazonComprehend {
     }
 
     @Override
+    public DetectPiiEntitiesResult detectPiiEntities(DetectPiiEntitiesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DetectSentimentResult detectSentiment(DetectSentimentRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -138,7 +228,32 @@ public class AbstractAmazonComprehend implements AmazonComprehend {
     }
 
     @Override
+    public DetectTargetedSentimentResult detectTargetedSentiment(DetectTargetedSentimentRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DetectToxicContentResult detectToxicContent(DetectToxicContentRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ImportModelResult importModel(ImportModelRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListDatasetsResult listDatasets(ListDatasetsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListDocumentClassificationJobsResult listDocumentClassificationJobs(ListDocumentClassificationJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListDocumentClassifierSummariesResult listDocumentClassifierSummaries(ListDocumentClassifierSummariesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -153,7 +268,17 @@ public class AbstractAmazonComprehend implements AmazonComprehend {
     }
 
     @Override
+    public ListEndpointsResult listEndpoints(ListEndpointsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListEntitiesDetectionJobsResult listEntitiesDetectionJobs(ListEntitiesDetectionJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListEntityRecognizerSummariesResult listEntityRecognizerSummaries(ListEntityRecognizerSummariesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -163,7 +288,27 @@ public class AbstractAmazonComprehend implements AmazonComprehend {
     }
 
     @Override
+    public ListEventsDetectionJobsResult listEventsDetectionJobs(ListEventsDetectionJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListFlywheelIterationHistoryResult listFlywheelIterationHistory(ListFlywheelIterationHistoryRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListFlywheelsResult listFlywheels(ListFlywheelsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListKeyPhrasesDetectionJobsResult listKeyPhrasesDetectionJobs(ListKeyPhrasesDetectionJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListPiiEntitiesDetectionJobsResult listPiiEntitiesDetectionJobs(ListPiiEntitiesDetectionJobsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -178,7 +323,17 @@ public class AbstractAmazonComprehend implements AmazonComprehend {
     }
 
     @Override
+    public ListTargetedSentimentDetectionJobsResult listTargetedSentimentDetectionJobs(ListTargetedSentimentDetectionJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListTopicsDetectionJobsResult listTopicsDetectionJobs(ListTopicsDetectionJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutResourcePolicyResult putResourcePolicy(PutResourcePolicyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -198,12 +353,32 @@ public class AbstractAmazonComprehend implements AmazonComprehend {
     }
 
     @Override
+    public StartEventsDetectionJobResult startEventsDetectionJob(StartEventsDetectionJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartFlywheelIterationResult startFlywheelIteration(StartFlywheelIterationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StartKeyPhrasesDetectionJobResult startKeyPhrasesDetectionJob(StartKeyPhrasesDetectionJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public StartPiiEntitiesDetectionJobResult startPiiEntitiesDetectionJob(StartPiiEntitiesDetectionJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StartSentimentDetectionJobResult startSentimentDetectionJob(StartSentimentDetectionJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartTargetedSentimentDetectionJobResult startTargetedSentimentDetectionJob(StartTargetedSentimentDetectionJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -223,12 +398,27 @@ public class AbstractAmazonComprehend implements AmazonComprehend {
     }
 
     @Override
+    public StopEventsDetectionJobResult stopEventsDetectionJob(StopEventsDetectionJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StopKeyPhrasesDetectionJobResult stopKeyPhrasesDetectionJob(StopKeyPhrasesDetectionJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public StopPiiEntitiesDetectionJobResult stopPiiEntitiesDetectionJob(StopPiiEntitiesDetectionJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StopSentimentDetectionJobResult stopSentimentDetectionJob(StopSentimentDetectionJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StopTargetedSentimentDetectionJobResult stopTargetedSentimentDetectionJob(StopTargetedSentimentDetectionJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -249,6 +439,16 @@ public class AbstractAmazonComprehend implements AmazonComprehend {
 
     @Override
     public UntagResourceResult untagResource(UntagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateEndpointResult updateEndpoint(UpdateEndpointRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateFlywheelResult updateFlywheel(UpdateFlywheelRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

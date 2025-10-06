@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,10 +23,19 @@ import javax.annotation.Generated;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class ListTagsForResourceResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
 
+    /**
+     * <p>
+     * The tags associated with the resource.
+     * </p>
+     */
     private java.util.Map<String, String> tags;
 
     /**
-     * @return
+     * <p>
+     * The tags associated with the resource.
+     * </p>
+     * 
+     * @return The tags associated with the resource.
      */
 
     public java.util.Map<String, String> getTags() {
@@ -34,7 +43,12 @@ public class ListTagsForResourceResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
+     * <p>
+     * The tags associated with the resource.
+     * </p>
+     * 
      * @param tags
+     *        The tags associated with the resource.
      */
 
     public void setTags(java.util.Map<String, String> tags) {
@@ -42,7 +56,12 @@ public class ListTagsForResourceResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
+     * <p>
+     * The tags associated with the resource.
+     * </p>
+     * 
      * @param tags
+     *        The tags associated with the resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -50,6 +69,13 @@ public class ListTagsForResourceResult extends com.amazonaws.AmazonWebServiceRes
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see ListTagsForResourceResult#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public ListTagsForResourceResult addTagsEntry(String key, String value) {
         if (null == this.tags) {

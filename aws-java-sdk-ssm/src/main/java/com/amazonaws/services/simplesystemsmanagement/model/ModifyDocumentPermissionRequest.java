@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,19 +39,27 @@ public class ModifyDocumentPermissionRequest extends com.amazonaws.AmazonWebServ
     private String permissionType;
     /**
      * <p>
-     * The AWS user accounts that should have access to the document. The account IDs can either be a group of account
-     * IDs or <i>All</i>.
+     * The Amazon Web Services users that should have access to the document. The account IDs can either be a group of
+     * account IDs or <i>All</i>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> accountIdsToAdd;
     /**
      * <p>
-     * The AWS user accounts that should no longer have access to the document. The AWS user account can either be a
-     * group of account IDs or <i>All</i>. This action has a higher priority than <i>AccountIdsToAdd</i>. If you specify
-     * an account ID to add and the same ID to remove, the system removes access to the document.
+     * The Amazon Web Services users that should no longer have access to the document. The Amazon Web Services user can
+     * either be a group of account IDs or <i>All</i>. This action has a higher priority than
+     * <code>AccountIdsToAdd</code>. If you specify an ID to add and the same ID to remove, the system removes access to
+     * the document.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> accountIdsToRemove;
+    /**
+     * <p>
+     * (Optional) The version of the document to share. If it isn't specified, the system choose the
+     * <code>Default</code> version to share.
+     * </p>
+     */
+    private String sharedDocumentVersion;
 
     /**
      * <p>
@@ -168,12 +176,12 @@ public class ModifyDocumentPermissionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The AWS user accounts that should have access to the document. The account IDs can either be a group of account
-     * IDs or <i>All</i>.
+     * The Amazon Web Services users that should have access to the document. The account IDs can either be a group of
+     * account IDs or <i>All</i>.
      * </p>
      * 
-     * @return The AWS user accounts that should have access to the document. The account IDs can either be a group of
-     *         account IDs or <i>All</i>.
+     * @return The Amazon Web Services users that should have access to the document. The account IDs can either be a
+     *         group of account IDs or <i>All</i>.
      */
 
     public java.util.List<String> getAccountIdsToAdd() {
@@ -185,13 +193,13 @@ public class ModifyDocumentPermissionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The AWS user accounts that should have access to the document. The account IDs can either be a group of account
-     * IDs or <i>All</i>.
+     * The Amazon Web Services users that should have access to the document. The account IDs can either be a group of
+     * account IDs or <i>All</i>.
      * </p>
      * 
      * @param accountIdsToAdd
-     *        The AWS user accounts that should have access to the document. The account IDs can either be a group of
-     *        account IDs or <i>All</i>.
+     *        The Amazon Web Services users that should have access to the document. The account IDs can either be a
+     *        group of account IDs or <i>All</i>.
      */
 
     public void setAccountIdsToAdd(java.util.Collection<String> accountIdsToAdd) {
@@ -205,8 +213,8 @@ public class ModifyDocumentPermissionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The AWS user accounts that should have access to the document. The account IDs can either be a group of account
-     * IDs or <i>All</i>.
+     * The Amazon Web Services users that should have access to the document. The account IDs can either be a group of
+     * account IDs or <i>All</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -215,8 +223,8 @@ public class ModifyDocumentPermissionRequest extends com.amazonaws.AmazonWebServ
      * </p>
      * 
      * @param accountIdsToAdd
-     *        The AWS user accounts that should have access to the document. The account IDs can either be a group of
-     *        account IDs or <i>All</i>.
+     *        The Amazon Web Services users that should have access to the document. The account IDs can either be a
+     *        group of account IDs or <i>All</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -232,13 +240,13 @@ public class ModifyDocumentPermissionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The AWS user accounts that should have access to the document. The account IDs can either be a group of account
-     * IDs or <i>All</i>.
+     * The Amazon Web Services users that should have access to the document. The account IDs can either be a group of
+     * account IDs or <i>All</i>.
      * </p>
      * 
      * @param accountIdsToAdd
-     *        The AWS user accounts that should have access to the document. The account IDs can either be a group of
-     *        account IDs or <i>All</i>.
+     *        The Amazon Web Services users that should have access to the document. The account IDs can either be a
+     *        group of account IDs or <i>All</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -249,14 +257,16 @@ public class ModifyDocumentPermissionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The AWS user accounts that should no longer have access to the document. The AWS user account can either be a
-     * group of account IDs or <i>All</i>. This action has a higher priority than <i>AccountIdsToAdd</i>. If you specify
-     * an account ID to add and the same ID to remove, the system removes access to the document.
+     * The Amazon Web Services users that should no longer have access to the document. The Amazon Web Services user can
+     * either be a group of account IDs or <i>All</i>. This action has a higher priority than
+     * <code>AccountIdsToAdd</code>. If you specify an ID to add and the same ID to remove, the system removes access to
+     * the document.
      * </p>
      * 
-     * @return The AWS user accounts that should no longer have access to the document. The AWS user account can either
-     *         be a group of account IDs or <i>All</i>. This action has a higher priority than <i>AccountIdsToAdd</i>.
-     *         If you specify an account ID to add and the same ID to remove, the system removes access to the document.
+     * @return The Amazon Web Services users that should no longer have access to the document. The Amazon Web Services
+     *         user can either be a group of account IDs or <i>All</i>. This action has a higher priority than
+     *         <code>AccountIdsToAdd</code>. If you specify an ID to add and the same ID to remove, the system removes
+     *         access to the document.
      */
 
     public java.util.List<String> getAccountIdsToRemove() {
@@ -268,15 +278,17 @@ public class ModifyDocumentPermissionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The AWS user accounts that should no longer have access to the document. The AWS user account can either be a
-     * group of account IDs or <i>All</i>. This action has a higher priority than <i>AccountIdsToAdd</i>. If you specify
-     * an account ID to add and the same ID to remove, the system removes access to the document.
+     * The Amazon Web Services users that should no longer have access to the document. The Amazon Web Services user can
+     * either be a group of account IDs or <i>All</i>. This action has a higher priority than
+     * <code>AccountIdsToAdd</code>. If you specify an ID to add and the same ID to remove, the system removes access to
+     * the document.
      * </p>
      * 
      * @param accountIdsToRemove
-     *        The AWS user accounts that should no longer have access to the document. The AWS user account can either
-     *        be a group of account IDs or <i>All</i>. This action has a higher priority than <i>AccountIdsToAdd</i>. If
-     *        you specify an account ID to add and the same ID to remove, the system removes access to the document.
+     *        The Amazon Web Services users that should no longer have access to the document. The Amazon Web Services
+     *        user can either be a group of account IDs or <i>All</i>. This action has a higher priority than
+     *        <code>AccountIdsToAdd</code>. If you specify an ID to add and the same ID to remove, the system removes
+     *        access to the document.
      */
 
     public void setAccountIdsToRemove(java.util.Collection<String> accountIdsToRemove) {
@@ -290,9 +302,10 @@ public class ModifyDocumentPermissionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The AWS user accounts that should no longer have access to the document. The AWS user account can either be a
-     * group of account IDs or <i>All</i>. This action has a higher priority than <i>AccountIdsToAdd</i>. If you specify
-     * an account ID to add and the same ID to remove, the system removes access to the document.
+     * The Amazon Web Services users that should no longer have access to the document. The Amazon Web Services user can
+     * either be a group of account IDs or <i>All</i>. This action has a higher priority than
+     * <code>AccountIdsToAdd</code>. If you specify an ID to add and the same ID to remove, the system removes access to
+     * the document.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -301,9 +314,10 @@ public class ModifyDocumentPermissionRequest extends com.amazonaws.AmazonWebServ
      * </p>
      * 
      * @param accountIdsToRemove
-     *        The AWS user accounts that should no longer have access to the document. The AWS user account can either
-     *        be a group of account IDs or <i>All</i>. This action has a higher priority than <i>AccountIdsToAdd</i>. If
-     *        you specify an account ID to add and the same ID to remove, the system removes access to the document.
+     *        The Amazon Web Services users that should no longer have access to the document. The Amazon Web Services
+     *        user can either be a group of account IDs or <i>All</i>. This action has a higher priority than
+     *        <code>AccountIdsToAdd</code>. If you specify an ID to add and the same ID to remove, the system removes
+     *        access to the document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -319,20 +333,68 @@ public class ModifyDocumentPermissionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The AWS user accounts that should no longer have access to the document. The AWS user account can either be a
-     * group of account IDs or <i>All</i>. This action has a higher priority than <i>AccountIdsToAdd</i>. If you specify
-     * an account ID to add and the same ID to remove, the system removes access to the document.
+     * The Amazon Web Services users that should no longer have access to the document. The Amazon Web Services user can
+     * either be a group of account IDs or <i>All</i>. This action has a higher priority than
+     * <code>AccountIdsToAdd</code>. If you specify an ID to add and the same ID to remove, the system removes access to
+     * the document.
      * </p>
      * 
      * @param accountIdsToRemove
-     *        The AWS user accounts that should no longer have access to the document. The AWS user account can either
-     *        be a group of account IDs or <i>All</i>. This action has a higher priority than <i>AccountIdsToAdd</i>. If
-     *        you specify an account ID to add and the same ID to remove, the system removes access to the document.
+     *        The Amazon Web Services users that should no longer have access to the document. The Amazon Web Services
+     *        user can either be a group of account IDs or <i>All</i>. This action has a higher priority than
+     *        <code>AccountIdsToAdd</code>. If you specify an ID to add and the same ID to remove, the system removes
+     *        access to the document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ModifyDocumentPermissionRequest withAccountIdsToRemove(java.util.Collection<String> accountIdsToRemove) {
         setAccountIdsToRemove(accountIdsToRemove);
+        return this;
+    }
+
+    /**
+     * <p>
+     * (Optional) The version of the document to share. If it isn't specified, the system choose the
+     * <code>Default</code> version to share.
+     * </p>
+     * 
+     * @param sharedDocumentVersion
+     *        (Optional) The version of the document to share. If it isn't specified, the system choose the
+     *        <code>Default</code> version to share.
+     */
+
+    public void setSharedDocumentVersion(String sharedDocumentVersion) {
+        this.sharedDocumentVersion = sharedDocumentVersion;
+    }
+
+    /**
+     * <p>
+     * (Optional) The version of the document to share. If it isn't specified, the system choose the
+     * <code>Default</code> version to share.
+     * </p>
+     * 
+     * @return (Optional) The version of the document to share. If it isn't specified, the system choose the
+     *         <code>Default</code> version to share.
+     */
+
+    public String getSharedDocumentVersion() {
+        return this.sharedDocumentVersion;
+    }
+
+    /**
+     * <p>
+     * (Optional) The version of the document to share. If it isn't specified, the system choose the
+     * <code>Default</code> version to share.
+     * </p>
+     * 
+     * @param sharedDocumentVersion
+     *        (Optional) The version of the document to share. If it isn't specified, the system choose the
+     *        <code>Default</code> version to share.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDocumentPermissionRequest withSharedDocumentVersion(String sharedDocumentVersion) {
+        setSharedDocumentVersion(sharedDocumentVersion);
         return this;
     }
 
@@ -355,7 +417,9 @@ public class ModifyDocumentPermissionRequest extends com.amazonaws.AmazonWebServ
         if (getAccountIdsToAdd() != null)
             sb.append("AccountIdsToAdd: ").append(getAccountIdsToAdd()).append(",");
         if (getAccountIdsToRemove() != null)
-            sb.append("AccountIdsToRemove: ").append(getAccountIdsToRemove());
+            sb.append("AccountIdsToRemove: ").append(getAccountIdsToRemove()).append(",");
+        if (getSharedDocumentVersion() != null)
+            sb.append("SharedDocumentVersion: ").append(getSharedDocumentVersion());
         sb.append("}");
         return sb.toString();
     }
@@ -386,6 +450,10 @@ public class ModifyDocumentPermissionRequest extends com.amazonaws.AmazonWebServ
             return false;
         if (other.getAccountIdsToRemove() != null && other.getAccountIdsToRemove().equals(this.getAccountIdsToRemove()) == false)
             return false;
+        if (other.getSharedDocumentVersion() == null ^ this.getSharedDocumentVersion() == null)
+            return false;
+        if (other.getSharedDocumentVersion() != null && other.getSharedDocumentVersion().equals(this.getSharedDocumentVersion()) == false)
+            return false;
         return true;
     }
 
@@ -398,6 +466,7 @@ public class ModifyDocumentPermissionRequest extends com.amazonaws.AmazonWebServ
         hashCode = prime * hashCode + ((getPermissionType() == null) ? 0 : getPermissionType().hashCode());
         hashCode = prime * hashCode + ((getAccountIdsToAdd() == null) ? 0 : getAccountIdsToAdd().hashCode());
         hashCode = prime * hashCode + ((getAccountIdsToRemove() == null) ? 0 : getAccountIdsToRemove().hashCode());
+        hashCode = prime * hashCode + ((getSharedDocumentVersion() == null) ? 0 : getSharedDocumentVersion().hashCode());
         return hashCode;
     }
 

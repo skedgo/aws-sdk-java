@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,8 +30,8 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The scope to use for filtering the results.
      * </p>
      * <p>
-     * To list only AWS managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the customer managed
-     * policies in your AWS account, set <code>Scope</code> to <code>Local</code>.
+     * To list only Amazon Web Services managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the
+     * customer managed policies in your Amazon Web Services account, set <code>Scope</code> to <code>Local</code>.
      * </p>
      * <p>
      * This parameter is optional. If it is not included, or if it is set to <code>All</code>, all policies are
@@ -56,8 +56,8 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * slash (/), listing all policies. This parameter allows (through its <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of either a forward
      * slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any
-     * ASCII character from the ! (\u0021) through the DEL character (\u007F), including most punctuation characters,
-     * digits, and upper and lowercased letters.
+     * ASCII character from the ! (<code>\u0021</code>) through the DEL character (<code>\u007F</code>), including most
+     * punctuation characters, digits, and upper and lowercased letters.
      * </p>
      */
     private String pathPrefix;
@@ -102,8 +102,8 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The scope to use for filtering the results.
      * </p>
      * <p>
-     * To list only AWS managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the customer managed
-     * policies in your AWS account, set <code>Scope</code> to <code>Local</code>.
+     * To list only Amazon Web Services managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the
+     * customer managed policies in your Amazon Web Services account, set <code>Scope</code> to <code>Local</code>.
      * </p>
      * <p>
      * This parameter is optional. If it is not included, or if it is set to <code>All</code>, all policies are
@@ -113,8 +113,9 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * @param scope
      *        The scope to use for filtering the results.</p>
      *        <p>
-     *        To list only AWS managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the customer
-     *        managed policies in your AWS account, set <code>Scope</code> to <code>Local</code>.
+     *        To list only Amazon Web Services managed policies, set <code>Scope</code> to <code>AWS</code>. To list
+     *        only the customer managed policies in your Amazon Web Services account, set <code>Scope</code> to
+     *        <code>Local</code>.
      *        </p>
      *        <p>
      *        This parameter is optional. If it is not included, or if it is set to <code>All</code>, all policies are
@@ -131,8 +132,8 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The scope to use for filtering the results.
      * </p>
      * <p>
-     * To list only AWS managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the customer managed
-     * policies in your AWS account, set <code>Scope</code> to <code>Local</code>.
+     * To list only Amazon Web Services managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the
+     * customer managed policies in your Amazon Web Services account, set <code>Scope</code> to <code>Local</code>.
      * </p>
      * <p>
      * This parameter is optional. If it is not included, or if it is set to <code>All</code>, all policies are
@@ -141,8 +142,9 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * 
      * @return The scope to use for filtering the results.</p>
      *         <p>
-     *         To list only AWS managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the customer
-     *         managed policies in your AWS account, set <code>Scope</code> to <code>Local</code>.
+     *         To list only Amazon Web Services managed policies, set <code>Scope</code> to <code>AWS</code>. To list
+     *         only the customer managed policies in your Amazon Web Services account, set <code>Scope</code> to
+     *         <code>Local</code>.
      *         </p>
      *         <p>
      *         This parameter is optional. If it is not included, or if it is set to <code>All</code>, all policies are
@@ -159,8 +161,8 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The scope to use for filtering the results.
      * </p>
      * <p>
-     * To list only AWS managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the customer managed
-     * policies in your AWS account, set <code>Scope</code> to <code>Local</code>.
+     * To list only Amazon Web Services managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the
+     * customer managed policies in your Amazon Web Services account, set <code>Scope</code> to <code>Local</code>.
      * </p>
      * <p>
      * This parameter is optional. If it is not included, or if it is set to <code>All</code>, all policies are
@@ -170,8 +172,9 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * @param scope
      *        The scope to use for filtering the results.</p>
      *        <p>
-     *        To list only AWS managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the customer
-     *        managed policies in your AWS account, set <code>Scope</code> to <code>Local</code>.
+     *        To list only Amazon Web Services managed policies, set <code>Scope</code> to <code>AWS</code>. To list
+     *        only the customer managed policies in your Amazon Web Services account, set <code>Scope</code> to
+     *        <code>Local</code>.
      *        </p>
      *        <p>
      *        This parameter is optional. If it is not included, or if it is set to <code>All</code>, all policies are
@@ -190,8 +193,8 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The scope to use for filtering the results.
      * </p>
      * <p>
-     * To list only AWS managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the customer managed
-     * policies in your AWS account, set <code>Scope</code> to <code>Local</code>.
+     * To list only Amazon Web Services managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the
+     * customer managed policies in your Amazon Web Services account, set <code>Scope</code> to <code>Local</code>.
      * </p>
      * <p>
      * This parameter is optional. If it is not included, or if it is set to <code>All</code>, all policies are
@@ -201,8 +204,9 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * @param scope
      *        The scope to use for filtering the results.</p>
      *        <p>
-     *        To list only AWS managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the customer
-     *        managed policies in your AWS account, set <code>Scope</code> to <code>Local</code>.
+     *        To list only Amazon Web Services managed policies, set <code>Scope</code> to <code>AWS</code>. To list
+     *        only the customer managed policies in your Amazon Web Services account, set <code>Scope</code> to
+     *        <code>Local</code>.
      *        </p>
      *        <p>
      *        This parameter is optional. If it is not included, or if it is set to <code>All</code>, all policies are
@@ -219,8 +223,8 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The scope to use for filtering the results.
      * </p>
      * <p>
-     * To list only AWS managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the customer managed
-     * policies in your AWS account, set <code>Scope</code> to <code>Local</code>.
+     * To list only Amazon Web Services managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the
+     * customer managed policies in your Amazon Web Services account, set <code>Scope</code> to <code>Local</code>.
      * </p>
      * <p>
      * This parameter is optional. If it is not included, or if it is set to <code>All</code>, all policies are
@@ -230,8 +234,9 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * @param scope
      *        The scope to use for filtering the results.</p>
      *        <p>
-     *        To list only AWS managed policies, set <code>Scope</code> to <code>AWS</code>. To list only the customer
-     *        managed policies in your AWS account, set <code>Scope</code> to <code>Local</code>.
+     *        To list only Amazon Web Services managed policies, set <code>Scope</code> to <code>AWS</code>. To list
+     *        only the customer managed policies in your Amazon Web Services account, set <code>Scope</code> to
+     *        <code>Local</code>.
      *        </p>
      *        <p>
      *        This parameter is optional. If it is not included, or if it is set to <code>All</code>, all policies are
@@ -339,8 +344,8 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * slash (/), listing all policies. This parameter allows (through its <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of either a forward
      * slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any
-     * ASCII character from the ! (\u0021) through the DEL character (\u007F), including most punctuation characters,
-     * digits, and upper and lowercased letters.
+     * ASCII character from the ! (<code>\u0021</code>) through the DEL character (<code>\u007F</code>), including most
+     * punctuation characters, digits, and upper and lowercased letters.
      * </p>
      * 
      * @param pathPrefix
@@ -348,8 +353,8 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        to a slash (/), listing all policies. This parameter allows (through its <a
      *        href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of either a
      *        forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can
-     *        contain any ASCII character from the ! (\u0021) through the DEL character (\u007F), including most
-     *        punctuation characters, digits, and upper and lowercased letters.
+     *        contain any ASCII character from the ! (<code>\u0021</code>) through the DEL character (
+     *        <code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased letters.
      */
 
     public void setPathPrefix(String pathPrefix) {
@@ -362,16 +367,16 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * slash (/), listing all policies. This parameter allows (through its <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of either a forward
      * slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any
-     * ASCII character from the ! (\u0021) through the DEL character (\u007F), including most punctuation characters,
-     * digits, and upper and lowercased letters.
+     * ASCII character from the ! (<code>\u0021</code>) through the DEL character (<code>\u007F</code>), including most
+     * punctuation characters, digits, and upper and lowercased letters.
      * </p>
      * 
      * @return The path prefix for filtering the results. This parameter is optional. If it is not included, it defaults
      *         to a slash (/), listing all policies. This parameter allows (through its <a
      *         href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of either a
      *         forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can
-     *         contain any ASCII character from the ! (\u0021) through the DEL character (\u007F), including most
-     *         punctuation characters, digits, and upper and lowercased letters.
+     *         contain any ASCII character from the ! (<code>\u0021</code>) through the DEL character (
+     *         <code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased letters.
      */
 
     public String getPathPrefix() {
@@ -384,8 +389,8 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      * slash (/), listing all policies. This parameter allows (through its <a
      * href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of either a forward
      * slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can contain any
-     * ASCII character from the ! (\u0021) through the DEL character (\u007F), including most punctuation characters,
-     * digits, and upper and lowercased letters.
+     * ASCII character from the ! (<code>\u0021</code>) through the DEL character (<code>\u007F</code>), including most
+     * punctuation characters, digits, and upper and lowercased letters.
      * </p>
      * 
      * @param pathPrefix
@@ -393,8 +398,8 @@ public class ListPoliciesRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        to a slash (/), listing all policies. This parameter allows (through its <a
      *        href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of characters consisting of either a
      *        forward slash (/) by itself or a string that must begin and end with forward slashes. In addition, it can
-     *        contain any ASCII character from the ! (\u0021) through the DEL character (\u007F), including most
-     *        punctuation characters, digits, and upper and lowercased letters.
+     *        contain any ASCII character from the ! (<code>\u0021</code>) through the DEL character (
+     *        <code>\u007F</code>), including most punctuation characters, digits, and upper and lowercased letters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

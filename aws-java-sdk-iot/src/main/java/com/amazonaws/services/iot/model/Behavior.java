@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class Behavior implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name you have given to the behavior.
+     * The name you've given to the behavior.
      * </p>
      */
     private String name;
@@ -39,18 +39,44 @@ public class Behavior implements Serializable, Cloneable, StructuredPojo {
     private String metric;
     /**
      * <p>
-     * The criteria that determine if a device is behaving normally in regard to the <code>metric</code>.
+     * The dimension for a metric in your behavior. For example, using a <code>TOPIC_FILTER</code> dimension, you can
+     * narrow down the scope of the metric to only MQTT topics where the name matches the pattern specified in the
+     * dimension. This can't be used with custom metrics.
      * </p>
      */
+    private MetricDimension metricDimension;
+    /**
+     * <p>
+     * The criteria that determine if a device is behaving normally in regard to the <code>metric</code>.
+     * </p>
+     * <note>
+     * <p>
+     * In the IoT console, you can choose to be sent an alert through Amazon SNS when IoT Device Defender detects that a
+     * device is behaving anomalously.
+     * </p>
+     * </note>
+     */
     private BehaviorCriteria criteria;
+    /**
+     * <p>
+     * Suppresses alerts.
+     * </p>
+     */
+    private Boolean suppressAlerts;
+    /**
+     * <p>
+     * Value indicates exporting metrics related to the behavior when it is true.
+     * </p>
+     */
+    private Boolean exportMetric;
 
     /**
      * <p>
-     * The name you have given to the behavior.
+     * The name you've given to the behavior.
      * </p>
      * 
      * @param name
-     *        The name you have given to the behavior.
+     *        The name you've given to the behavior.
      */
 
     public void setName(String name) {
@@ -59,10 +85,10 @@ public class Behavior implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name you have given to the behavior.
+     * The name you've given to the behavior.
      * </p>
      * 
-     * @return The name you have given to the behavior.
+     * @return The name you've given to the behavior.
      */
 
     public String getName() {
@@ -71,11 +97,11 @@ public class Behavior implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name you have given to the behavior.
+     * The name you've given to the behavior.
      * </p>
      * 
      * @param name
-     *        The name you have given to the behavior.
+     *        The name you've given to the behavior.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -126,11 +152,74 @@ public class Behavior implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The criteria that determine if a device is behaving normally in regard to the <code>metric</code>.
+     * The dimension for a metric in your behavior. For example, using a <code>TOPIC_FILTER</code> dimension, you can
+     * narrow down the scope of the metric to only MQTT topics where the name matches the pattern specified in the
+     * dimension. This can't be used with custom metrics.
      * </p>
      * 
+     * @param metricDimension
+     *        The dimension for a metric in your behavior. For example, using a <code>TOPIC_FILTER</code> dimension, you
+     *        can narrow down the scope of the metric to only MQTT topics where the name matches the pattern specified
+     *        in the dimension. This can't be used with custom metrics.
+     */
+
+    public void setMetricDimension(MetricDimension metricDimension) {
+        this.metricDimension = metricDimension;
+    }
+
+    /**
+     * <p>
+     * The dimension for a metric in your behavior. For example, using a <code>TOPIC_FILTER</code> dimension, you can
+     * narrow down the scope of the metric to only MQTT topics where the name matches the pattern specified in the
+     * dimension. This can't be used with custom metrics.
+     * </p>
+     * 
+     * @return The dimension for a metric in your behavior. For example, using a <code>TOPIC_FILTER</code> dimension,
+     *         you can narrow down the scope of the metric to only MQTT topics where the name matches the pattern
+     *         specified in the dimension. This can't be used with custom metrics.
+     */
+
+    public MetricDimension getMetricDimension() {
+        return this.metricDimension;
+    }
+
+    /**
+     * <p>
+     * The dimension for a metric in your behavior. For example, using a <code>TOPIC_FILTER</code> dimension, you can
+     * narrow down the scope of the metric to only MQTT topics where the name matches the pattern specified in the
+     * dimension. This can't be used with custom metrics.
+     * </p>
+     * 
+     * @param metricDimension
+     *        The dimension for a metric in your behavior. For example, using a <code>TOPIC_FILTER</code> dimension, you
+     *        can narrow down the scope of the metric to only MQTT topics where the name matches the pattern specified
+     *        in the dimension. This can't be used with custom metrics.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Behavior withMetricDimension(MetricDimension metricDimension) {
+        setMetricDimension(metricDimension);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The criteria that determine if a device is behaving normally in regard to the <code>metric</code>.
+     * </p>
+     * <note>
+     * <p>
+     * In the IoT console, you can choose to be sent an alert through Amazon SNS when IoT Device Defender detects that a
+     * device is behaving anomalously.
+     * </p>
+     * </note>
+     * 
      * @param criteria
-     *        The criteria that determine if a device is behaving normally in regard to the <code>metric</code>.
+     *        The criteria that determine if a device is behaving normally in regard to the <code>metric</code>.</p>
+     *        <note>
+     *        <p>
+     *        In the IoT console, you can choose to be sent an alert through Amazon SNS when IoT Device Defender detects
+     *        that a device is behaving anomalously.
+     *        </p>
      */
 
     public void setCriteria(BehaviorCriteria criteria) {
@@ -141,8 +230,19 @@ public class Behavior implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The criteria that determine if a device is behaving normally in regard to the <code>metric</code>.
      * </p>
+     * <note>
+     * <p>
+     * In the IoT console, you can choose to be sent an alert through Amazon SNS when IoT Device Defender detects that a
+     * device is behaving anomalously.
+     * </p>
+     * </note>
      * 
-     * @return The criteria that determine if a device is behaving normally in regard to the <code>metric</code>.
+     * @return The criteria that determine if a device is behaving normally in regard to the <code>metric</code>.</p>
+     *         <note>
+     *         <p>
+     *         In the IoT console, you can choose to be sent an alert through Amazon SNS when IoT Device Defender
+     *         detects that a device is behaving anomalously.
+     *         </p>
      */
 
     public BehaviorCriteria getCriteria() {
@@ -153,15 +253,130 @@ public class Behavior implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The criteria that determine if a device is behaving normally in regard to the <code>metric</code>.
      * </p>
+     * <note>
+     * <p>
+     * In the IoT console, you can choose to be sent an alert through Amazon SNS when IoT Device Defender detects that a
+     * device is behaving anomalously.
+     * </p>
+     * </note>
      * 
      * @param criteria
-     *        The criteria that determine if a device is behaving normally in regard to the <code>metric</code>.
+     *        The criteria that determine if a device is behaving normally in regard to the <code>metric</code>.</p>
+     *        <note>
+     *        <p>
+     *        In the IoT console, you can choose to be sent an alert through Amazon SNS when IoT Device Defender detects
+     *        that a device is behaving anomalously.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Behavior withCriteria(BehaviorCriteria criteria) {
         setCriteria(criteria);
         return this;
+    }
+
+    /**
+     * <p>
+     * Suppresses alerts.
+     * </p>
+     * 
+     * @param suppressAlerts
+     *        Suppresses alerts.
+     */
+
+    public void setSuppressAlerts(Boolean suppressAlerts) {
+        this.suppressAlerts = suppressAlerts;
+    }
+
+    /**
+     * <p>
+     * Suppresses alerts.
+     * </p>
+     * 
+     * @return Suppresses alerts.
+     */
+
+    public Boolean getSuppressAlerts() {
+        return this.suppressAlerts;
+    }
+
+    /**
+     * <p>
+     * Suppresses alerts.
+     * </p>
+     * 
+     * @param suppressAlerts
+     *        Suppresses alerts.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Behavior withSuppressAlerts(Boolean suppressAlerts) {
+        setSuppressAlerts(suppressAlerts);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Suppresses alerts.
+     * </p>
+     * 
+     * @return Suppresses alerts.
+     */
+
+    public Boolean isSuppressAlerts() {
+        return this.suppressAlerts;
+    }
+
+    /**
+     * <p>
+     * Value indicates exporting metrics related to the behavior when it is true.
+     * </p>
+     * 
+     * @param exportMetric
+     *        Value indicates exporting metrics related to the behavior when it is true.
+     */
+
+    public void setExportMetric(Boolean exportMetric) {
+        this.exportMetric = exportMetric;
+    }
+
+    /**
+     * <p>
+     * Value indicates exporting metrics related to the behavior when it is true.
+     * </p>
+     * 
+     * @return Value indicates exporting metrics related to the behavior when it is true.
+     */
+
+    public Boolean getExportMetric() {
+        return this.exportMetric;
+    }
+
+    /**
+     * <p>
+     * Value indicates exporting metrics related to the behavior when it is true.
+     * </p>
+     * 
+     * @param exportMetric
+     *        Value indicates exporting metrics related to the behavior when it is true.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Behavior withExportMetric(Boolean exportMetric) {
+        setExportMetric(exportMetric);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Value indicates exporting metrics related to the behavior when it is true.
+     * </p>
+     * 
+     * @return Value indicates exporting metrics related to the behavior when it is true.
+     */
+
+    public Boolean isExportMetric() {
+        return this.exportMetric;
     }
 
     /**
@@ -180,8 +395,14 @@ public class Behavior implements Serializable, Cloneable, StructuredPojo {
             sb.append("Name: ").append(getName()).append(",");
         if (getMetric() != null)
             sb.append("Metric: ").append(getMetric()).append(",");
+        if (getMetricDimension() != null)
+            sb.append("MetricDimension: ").append(getMetricDimension()).append(",");
         if (getCriteria() != null)
-            sb.append("Criteria: ").append(getCriteria());
+            sb.append("Criteria: ").append(getCriteria()).append(",");
+        if (getSuppressAlerts() != null)
+            sb.append("SuppressAlerts: ").append(getSuppressAlerts()).append(",");
+        if (getExportMetric() != null)
+            sb.append("ExportMetric: ").append(getExportMetric());
         sb.append("}");
         return sb.toString();
     }
@@ -204,9 +425,21 @@ public class Behavior implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getMetric() != null && other.getMetric().equals(this.getMetric()) == false)
             return false;
+        if (other.getMetricDimension() == null ^ this.getMetricDimension() == null)
+            return false;
+        if (other.getMetricDimension() != null && other.getMetricDimension().equals(this.getMetricDimension()) == false)
+            return false;
         if (other.getCriteria() == null ^ this.getCriteria() == null)
             return false;
         if (other.getCriteria() != null && other.getCriteria().equals(this.getCriteria()) == false)
+            return false;
+        if (other.getSuppressAlerts() == null ^ this.getSuppressAlerts() == null)
+            return false;
+        if (other.getSuppressAlerts() != null && other.getSuppressAlerts().equals(this.getSuppressAlerts()) == false)
+            return false;
+        if (other.getExportMetric() == null ^ this.getExportMetric() == null)
+            return false;
+        if (other.getExportMetric() != null && other.getExportMetric().equals(this.getExportMetric()) == false)
             return false;
         return true;
     }
@@ -218,7 +451,10 @@ public class Behavior implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getMetric() == null) ? 0 : getMetric().hashCode());
+        hashCode = prime * hashCode + ((getMetricDimension() == null) ? 0 : getMetricDimension().hashCode());
         hashCode = prime * hashCode + ((getCriteria() == null) ? 0 : getCriteria().hashCode());
+        hashCode = prime * hashCode + ((getSuppressAlerts() == null) ? 0 : getSuppressAlerts().hashCode());
+        hashCode = prime * hashCode + ((getExportMetric() == null) ? 0 : getExportMetric().hashCode());
         return hashCode;
     }
 

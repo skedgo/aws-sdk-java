@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -79,6 +79,11 @@ public class AbstractAmazonSNS implements AmazonSNS {
     }
 
     @Override
+    public CreateSMSSandboxPhoneNumberResult createSMSSandboxPhoneNumber(CreateSMSSandboxPhoneNumberRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateTopicResult createTopic(CreateTopicRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -99,6 +104,11 @@ public class AbstractAmazonSNS implements AmazonSNS {
     }
 
     @Override
+    public DeleteSMSSandboxPhoneNumberResult deleteSMSSandboxPhoneNumber(DeleteSMSSandboxPhoneNumberRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteTopicResult deleteTopic(DeleteTopicRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -106,6 +116,11 @@ public class AbstractAmazonSNS implements AmazonSNS {
     @Override
     public DeleteTopicResult deleteTopic(String topicArn) {
         return deleteTopic(new DeleteTopicRequest().withTopicArn(topicArn));
+    }
+
+    @Override
+    public GetDataProtectionPolicyResult getDataProtectionPolicy(GetDataProtectionPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -120,6 +135,11 @@ public class AbstractAmazonSNS implements AmazonSNS {
 
     @Override
     public GetSMSAttributesResult getSMSAttributes(GetSMSAttributesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetSMSSandboxAccountStatusResult getSMSSandboxAccountStatus(GetSMSSandboxAccountStatusRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -149,6 +169,11 @@ public class AbstractAmazonSNS implements AmazonSNS {
     }
 
     @Override
+    public ListOriginationNumbersResult listOriginationNumbers(ListOriginationNumbersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListPhoneNumbersOptedOutResult listPhoneNumbersOptedOut(ListPhoneNumbersOptedOutRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -161,6 +186,11 @@ public class AbstractAmazonSNS implements AmazonSNS {
     @Override
     public ListPlatformApplicationsResult listPlatformApplications() {
         return listPlatformApplications(new ListPlatformApplicationsRequest());
+    }
+
+    @Override
+    public ListSMSSandboxPhoneNumbersResult listSMSSandboxPhoneNumbers(ListSMSSandboxPhoneNumbersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -231,6 +261,16 @@ public class AbstractAmazonSNS implements AmazonSNS {
     @Override
     public PublishResult publish(String topicArn, String message, String subject) {
         return publish(new PublishRequest().withTopicArn(topicArn).withMessage(message).withSubject(subject));
+    }
+
+    @Override
+    public PublishBatchResult publishBatch(PublishBatchRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutDataProtectionPolicyResult putDataProtectionPolicy(PutDataProtectionPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -306,6 +346,11 @@ public class AbstractAmazonSNS implements AmazonSNS {
 
     @Override
     public UntagResourceResult untagResource(UntagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public VerifySMSSandboxPhoneNumberResult verifySMSSandboxPhoneNumber(VerifySMSSandboxPhoneNumberRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

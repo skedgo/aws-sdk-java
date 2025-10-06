@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,32 +27,42 @@ public class StartSessionRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The instance to connect to for the session.
+     * The managed node to connect to for the session.
      * </p>
      */
     private String target;
     /**
      * <p>
-     * The name of the SSM document to define the parameters and plugin settings for the session. For example,
-     * <code>SSM-SessionManagerRunShell</code>. If no document name is provided, a shell to the instance is launched by
-     * default.
+     * The name of the SSM document you want to use to define the type of session, input parameters, or preferences for
+     * the session. For example, <code>SSM-SessionManagerRunShell</code>. You can call the <a>GetDocument</a> API to
+     * verify the document exists before attempting to start a session. If no document name is provided, a shell to the
+     * managed node is launched by default. For more information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html"
+     * >Start a session</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      */
     private String documentName;
     /**
      * <p>
-     * Reserved for future use.
+     * The reason for connecting to the instance. This value is included in the details for the Amazon CloudWatch Events
+     * event created when you start the session.
+     * </p>
+     */
+    private String reason;
+    /**
+     * <p>
+     * The values you want to specify for the parameters defined in the Session document.
      * </p>
      */
     private java.util.Map<String, java.util.List<String>> parameters;
 
     /**
      * <p>
-     * The instance to connect to for the session.
+     * The managed node to connect to for the session.
      * </p>
      * 
      * @param target
-     *        The instance to connect to for the session.
+     *        The managed node to connect to for the session.
      */
 
     public void setTarget(String target) {
@@ -61,10 +71,10 @@ public class StartSessionRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The instance to connect to for the session.
+     * The managed node to connect to for the session.
      * </p>
      * 
-     * @return The instance to connect to for the session.
+     * @return The managed node to connect to for the session.
      */
 
     public String getTarget() {
@@ -73,11 +83,11 @@ public class StartSessionRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The instance to connect to for the session.
+     * The managed node to connect to for the session.
      * </p>
      * 
      * @param target
-     *        The instance to connect to for the session.
+     *        The managed node to connect to for the session.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -88,15 +98,21 @@ public class StartSessionRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The name of the SSM document to define the parameters and plugin settings for the session. For example,
-     * <code>SSM-SessionManagerRunShell</code>. If no document name is provided, a shell to the instance is launched by
-     * default.
+     * The name of the SSM document you want to use to define the type of session, input parameters, or preferences for
+     * the session. For example, <code>SSM-SessionManagerRunShell</code>. You can call the <a>GetDocument</a> API to
+     * verify the document exists before attempting to start a session. If no document name is provided, a shell to the
+     * managed node is launched by default. For more information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html"
+     * >Start a session</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param documentName
-     *        The name of the SSM document to define the parameters and plugin settings for the session. For example,
-     *        <code>SSM-SessionManagerRunShell</code>. If no document name is provided, a shell to the instance is
-     *        launched by default.
+     *        The name of the SSM document you want to use to define the type of session, input parameters, or
+     *        preferences for the session. For example, <code>SSM-SessionManagerRunShell</code>. You can call the
+     *        <a>GetDocument</a> API to verify the document exists before attempting to start a session. If no document
+     *        name is provided, a shell to the managed node is launched by default. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html"
+     *        >Start a session</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public void setDocumentName(String documentName) {
@@ -105,14 +121,20 @@ public class StartSessionRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The name of the SSM document to define the parameters and plugin settings for the session. For example,
-     * <code>SSM-SessionManagerRunShell</code>. If no document name is provided, a shell to the instance is launched by
-     * default.
+     * The name of the SSM document you want to use to define the type of session, input parameters, or preferences for
+     * the session. For example, <code>SSM-SessionManagerRunShell</code>. You can call the <a>GetDocument</a> API to
+     * verify the document exists before attempting to start a session. If no document name is provided, a shell to the
+     * managed node is launched by default. For more information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html"
+     * >Start a session</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
-     * @return The name of the SSM document to define the parameters and plugin settings for the session. For example,
-     *         <code>SSM-SessionManagerRunShell</code>. If no document name is provided, a shell to the instance is
-     *         launched by default.
+     * @return The name of the SSM document you want to use to define the type of session, input parameters, or
+     *         preferences for the session. For example, <code>SSM-SessionManagerRunShell</code>. You can call the
+     *         <a>GetDocument</a> API to verify the document exists before attempting to start a session. If no document
+     *         name is provided, a shell to the managed node is launched by default. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html"
+     *         >Start a session</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public String getDocumentName() {
@@ -121,15 +143,21 @@ public class StartSessionRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The name of the SSM document to define the parameters and plugin settings for the session. For example,
-     * <code>SSM-SessionManagerRunShell</code>. If no document name is provided, a shell to the instance is launched by
-     * default.
+     * The name of the SSM document you want to use to define the type of session, input parameters, or preferences for
+     * the session. For example, <code>SSM-SessionManagerRunShell</code>. You can call the <a>GetDocument</a> API to
+     * verify the document exists before attempting to start a session. If no document name is provided, a shell to the
+     * managed node is launched by default. For more information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html"
+     * >Start a session</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param documentName
-     *        The name of the SSM document to define the parameters and plugin settings for the session. For example,
-     *        <code>SSM-SessionManagerRunShell</code>. If no document name is provided, a shell to the instance is
-     *        launched by default.
+     *        The name of the SSM document you want to use to define the type of session, input parameters, or
+     *        preferences for the session. For example, <code>SSM-SessionManagerRunShell</code>. You can call the
+     *        <a>GetDocument</a> API to verify the document exists before attempting to start a session. If no document
+     *        name is provided, a shell to the managed node is launched by default. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html"
+     *        >Start a session</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -140,10 +168,56 @@ public class StartSessionRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Reserved for future use.
+     * The reason for connecting to the instance. This value is included in the details for the Amazon CloudWatch Events
+     * event created when you start the session.
      * </p>
      * 
-     * @return Reserved for future use.
+     * @param reason
+     *        The reason for connecting to the instance. This value is included in the details for the Amazon CloudWatch
+     *        Events event created when you start the session.
+     */
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    /**
+     * <p>
+     * The reason for connecting to the instance. This value is included in the details for the Amazon CloudWatch Events
+     * event created when you start the session.
+     * </p>
+     * 
+     * @return The reason for connecting to the instance. This value is included in the details for the Amazon
+     *         CloudWatch Events event created when you start the session.
+     */
+
+    public String getReason() {
+        return this.reason;
+    }
+
+    /**
+     * <p>
+     * The reason for connecting to the instance. This value is included in the details for the Amazon CloudWatch Events
+     * event created when you start the session.
+     * </p>
+     * 
+     * @param reason
+     *        The reason for connecting to the instance. This value is included in the details for the Amazon CloudWatch
+     *        Events event created when you start the session.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartSessionRequest withReason(String reason) {
+        setReason(reason);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The values you want to specify for the parameters defined in the Session document.
+     * </p>
+     * 
+     * @return The values you want to specify for the parameters defined in the Session document.
      */
 
     public java.util.Map<String, java.util.List<String>> getParameters() {
@@ -152,11 +226,11 @@ public class StartSessionRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Reserved for future use.
+     * The values you want to specify for the parameters defined in the Session document.
      * </p>
      * 
      * @param parameters
-     *        Reserved for future use.
+     *        The values you want to specify for the parameters defined in the Session document.
      */
 
     public void setParameters(java.util.Map<String, java.util.List<String>> parameters) {
@@ -165,11 +239,11 @@ public class StartSessionRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Reserved for future use.
+     * The values you want to specify for the parameters defined in the Session document.
      * </p>
      * 
      * @param parameters
-     *        Reserved for future use.
+     *        The values you want to specify for the parameters defined in the Session document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -177,6 +251,13 @@ public class StartSessionRequest extends com.amazonaws.AmazonWebServiceRequest i
         setParameters(parameters);
         return this;
     }
+
+    /**
+     * Add a single Parameters entry
+     *
+     * @see StartSessionRequest#withParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public StartSessionRequest addParametersEntry(String key, java.util.List<String> value) {
         if (null == this.parameters) {
@@ -215,6 +296,8 @@ public class StartSessionRequest extends com.amazonaws.AmazonWebServiceRequest i
             sb.append("Target: ").append(getTarget()).append(",");
         if (getDocumentName() != null)
             sb.append("DocumentName: ").append(getDocumentName()).append(",");
+        if (getReason() != null)
+            sb.append("Reason: ").append(getReason()).append(",");
         if (getParameters() != null)
             sb.append("Parameters: ").append(getParameters());
         sb.append("}");
@@ -239,6 +322,10 @@ public class StartSessionRequest extends com.amazonaws.AmazonWebServiceRequest i
             return false;
         if (other.getDocumentName() != null && other.getDocumentName().equals(this.getDocumentName()) == false)
             return false;
+        if (other.getReason() == null ^ this.getReason() == null)
+            return false;
+        if (other.getReason() != null && other.getReason().equals(this.getReason()) == false)
+            return false;
         if (other.getParameters() == null ^ this.getParameters() == null)
             return false;
         if (other.getParameters() != null && other.getParameters().equals(this.getParameters()) == false)
@@ -253,6 +340,7 @@ public class StartSessionRequest extends com.amazonaws.AmazonWebServiceRequest i
 
         hashCode = prime * hashCode + ((getTarget() == null) ? 0 : getTarget().hashCode());
         hashCode = prime * hashCode + ((getDocumentName() == null) ? 0 : getDocumentName().hashCode());
+        hashCode = prime * hashCode + ((getReason() == null) ? 0 : getReason().hashCode());
         hashCode = prime * hashCode + ((getParameters() == null) ? 0 : getParameters().hashCode());
         return hashCode;
     }

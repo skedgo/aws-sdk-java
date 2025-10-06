@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,7 +42,7 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
     private String name;
     /**
      * <p>
-     * Market type of the EC2 instances used to create a cluster node.
+     * Market type of the Amazon EC2 instances used to create a cluster node.
      * </p>
      */
     private String market;
@@ -54,18 +54,15 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
     private String instanceRole;
     /**
      * <p>
-     * The maximum Spot price your are willing to pay for EC2 instances.
-     * </p>
-     * <p>
-     * An optional, nullable field that applies if the <code>MarketType</code> for the instance group is specified as
-     * <code>SPOT</code>. Specified in USD. If the value is NULL and <code>SPOT</code> is specified, the maximum Spot
-     * price is set equal to the On-Demand price.
+     * If specified, indicates that the instance group uses Spot Instances. This is the maximum price you are willing to
+     * pay for Spot Instances. Specify <code>OnDemandPrice</code> to set the amount equal to the On-Demand price, or
+     * specify an amount in USD.
      * </p>
      */
     private String bidPrice;
     /**
      * <p>
-     * EC2 instance type.
+     * Amazon EC2 instance type.
      * </p>
      */
     private String instanceType;
@@ -83,7 +80,7 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
     private Integer instanceRunningCount;
     /**
      * <p>
-     * State of instance group. The following values are deprecated: STARTING, TERMINATED, and FAILED.
+     * State of instance group. The following values are no longer supported: STARTING, TERMINATED, and FAILED.
      * </p>
      */
     private String state;
@@ -117,6 +114,12 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
      * </p>
      */
     private java.util.Date endDateTime;
+    /**
+     * <p>
+     * The custom AMI ID to use for the provisioned instance group.
+     * </p>
+     */
+    private String customAmiId;
 
     /**
      * Default constructor for InstanceGroupDetail object. Callers should use the setter or fluent setter (with...)
@@ -132,13 +135,13 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
      * @param instanceRole
      *        Instance group role in the cluster
      * @param instanceType
-     *        EC2 instance type.
+     *        Amazon EC2 instance type.
      * @param instanceRequestCount
      *        Target number of instances to run in the instance group.
      * @param instanceRunningCount
      *        Actual count of running instances.
      * @param state
-     *        State of instance group. The following values are deprecated: STARTING, TERMINATED, and FAILED.
+     *        State of instance group. The following values are no longer supported: STARTING, TERMINATED, and FAILED.
      * @param creationDateTime
      *        The date/time the instance group was created.
      */
@@ -159,13 +162,13 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
      * @param instanceRole
      *        Instance group role in the cluster
      * @param instanceType
-     *        EC2 instance type.
+     *        Amazon EC2 instance type.
      * @param instanceRequestCount
      *        Target number of instances to run in the instance group.
      * @param instanceRunningCount
      *        Actual count of running instances.
      * @param state
-     *        State of instance group. The following values are deprecated: STARTING, TERMINATED, and FAILED.
+     *        State of instance group. The following values are no longer supported: STARTING, TERMINATED, and FAILED.
      * @param creationDateTime
      *        The date/time the instance group was created.
      */
@@ -261,11 +264,11 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Market type of the EC2 instances used to create a cluster node.
+     * Market type of the Amazon EC2 instances used to create a cluster node.
      * </p>
      * 
      * @param market
-     *        Market type of the EC2 instances used to create a cluster node.
+     *        Market type of the Amazon EC2 instances used to create a cluster node.
      * @see MarketType
      */
 
@@ -275,10 +278,10 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Market type of the EC2 instances used to create a cluster node.
+     * Market type of the Amazon EC2 instances used to create a cluster node.
      * </p>
      * 
-     * @return Market type of the EC2 instances used to create a cluster node.
+     * @return Market type of the Amazon EC2 instances used to create a cluster node.
      * @see MarketType
      */
 
@@ -288,11 +291,11 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Market type of the EC2 instances used to create a cluster node.
+     * Market type of the Amazon EC2 instances used to create a cluster node.
      * </p>
      * 
      * @param market
-     *        Market type of the EC2 instances used to create a cluster node.
+     *        Market type of the Amazon EC2 instances used to create a cluster node.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see MarketType
      */
@@ -304,11 +307,11 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Market type of the EC2 instances used to create a cluster node.
+     * Market type of the Amazon EC2 instances used to create a cluster node.
      * </p>
      * 
      * @param market
-     *        Market type of the EC2 instances used to create a cluster node.
+     *        Market type of the Amazon EC2 instances used to create a cluster node.
      * @see MarketType
      */
 
@@ -318,11 +321,11 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Market type of the EC2 instances used to create a cluster node.
+     * Market type of the Amazon EC2 instances used to create a cluster node.
      * </p>
      * 
      * @param market
-     *        Market type of the EC2 instances used to create a cluster node.
+     *        Market type of the Amazon EC2 instances used to create a cluster node.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see MarketType
      */
@@ -407,20 +410,15 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The maximum Spot price your are willing to pay for EC2 instances.
-     * </p>
-     * <p>
-     * An optional, nullable field that applies if the <code>MarketType</code> for the instance group is specified as
-     * <code>SPOT</code>. Specified in USD. If the value is NULL and <code>SPOT</code> is specified, the maximum Spot
-     * price is set equal to the On-Demand price.
+     * If specified, indicates that the instance group uses Spot Instances. This is the maximum price you are willing to
+     * pay for Spot Instances. Specify <code>OnDemandPrice</code> to set the amount equal to the On-Demand price, or
+     * specify an amount in USD.
      * </p>
      * 
      * @param bidPrice
-     *        The maximum Spot price your are willing to pay for EC2 instances.</p>
-     *        <p>
-     *        An optional, nullable field that applies if the <code>MarketType</code> for the instance group is
-     *        specified as <code>SPOT</code>. Specified in USD. If the value is NULL and <code>SPOT</code> is specified,
-     *        the maximum Spot price is set equal to the On-Demand price.
+     *        If specified, indicates that the instance group uses Spot Instances. This is the maximum price you are
+     *        willing to pay for Spot Instances. Specify <code>OnDemandPrice</code> to set the amount equal to the
+     *        On-Demand price, or specify an amount in USD.
      */
 
     public void setBidPrice(String bidPrice) {
@@ -429,19 +427,14 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The maximum Spot price your are willing to pay for EC2 instances.
-     * </p>
-     * <p>
-     * An optional, nullable field that applies if the <code>MarketType</code> for the instance group is specified as
-     * <code>SPOT</code>. Specified in USD. If the value is NULL and <code>SPOT</code> is specified, the maximum Spot
-     * price is set equal to the On-Demand price.
+     * If specified, indicates that the instance group uses Spot Instances. This is the maximum price you are willing to
+     * pay for Spot Instances. Specify <code>OnDemandPrice</code> to set the amount equal to the On-Demand price, or
+     * specify an amount in USD.
      * </p>
      * 
-     * @return The maximum Spot price your are willing to pay for EC2 instances.</p>
-     *         <p>
-     *         An optional, nullable field that applies if the <code>MarketType</code> for the instance group is
-     *         specified as <code>SPOT</code>. Specified in USD. If the value is NULL and <code>SPOT</code> is
-     *         specified, the maximum Spot price is set equal to the On-Demand price.
+     * @return If specified, indicates that the instance group uses Spot Instances. This is the maximum price you are
+     *         willing to pay for Spot Instances. Specify <code>OnDemandPrice</code> to set the amount equal to the
+     *         On-Demand price, or specify an amount in USD.
      */
 
     public String getBidPrice() {
@@ -450,20 +443,15 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The maximum Spot price your are willing to pay for EC2 instances.
-     * </p>
-     * <p>
-     * An optional, nullable field that applies if the <code>MarketType</code> for the instance group is specified as
-     * <code>SPOT</code>. Specified in USD. If the value is NULL and <code>SPOT</code> is specified, the maximum Spot
-     * price is set equal to the On-Demand price.
+     * If specified, indicates that the instance group uses Spot Instances. This is the maximum price you are willing to
+     * pay for Spot Instances. Specify <code>OnDemandPrice</code> to set the amount equal to the On-Demand price, or
+     * specify an amount in USD.
      * </p>
      * 
      * @param bidPrice
-     *        The maximum Spot price your are willing to pay for EC2 instances.</p>
-     *        <p>
-     *        An optional, nullable field that applies if the <code>MarketType</code> for the instance group is
-     *        specified as <code>SPOT</code>. Specified in USD. If the value is NULL and <code>SPOT</code> is specified,
-     *        the maximum Spot price is set equal to the On-Demand price.
+     *        If specified, indicates that the instance group uses Spot Instances. This is the maximum price you are
+     *        willing to pay for Spot Instances. Specify <code>OnDemandPrice</code> to set the amount equal to the
+     *        On-Demand price, or specify an amount in USD.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -474,11 +462,11 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * EC2 instance type.
+     * Amazon EC2 instance type.
      * </p>
      * 
      * @param instanceType
-     *        EC2 instance type.
+     *        Amazon EC2 instance type.
      */
 
     public void setInstanceType(String instanceType) {
@@ -487,10 +475,10 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * EC2 instance type.
+     * Amazon EC2 instance type.
      * </p>
      * 
-     * @return EC2 instance type.
+     * @return Amazon EC2 instance type.
      */
 
     public String getInstanceType() {
@@ -499,11 +487,11 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * EC2 instance type.
+     * Amazon EC2 instance type.
      * </p>
      * 
      * @param instanceType
-     *        EC2 instance type.
+     *        Amazon EC2 instance type.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -594,11 +582,11 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * State of instance group. The following values are deprecated: STARTING, TERMINATED, and FAILED.
+     * State of instance group. The following values are no longer supported: STARTING, TERMINATED, and FAILED.
      * </p>
      * 
      * @param state
-     *        State of instance group. The following values are deprecated: STARTING, TERMINATED, and FAILED.
+     *        State of instance group. The following values are no longer supported: STARTING, TERMINATED, and FAILED.
      * @see InstanceGroupState
      */
 
@@ -608,10 +596,10 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * State of instance group. The following values are deprecated: STARTING, TERMINATED, and FAILED.
+     * State of instance group. The following values are no longer supported: STARTING, TERMINATED, and FAILED.
      * </p>
      * 
-     * @return State of instance group. The following values are deprecated: STARTING, TERMINATED, and FAILED.
+     * @return State of instance group. The following values are no longer supported: STARTING, TERMINATED, and FAILED.
      * @see InstanceGroupState
      */
 
@@ -621,11 +609,11 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * State of instance group. The following values are deprecated: STARTING, TERMINATED, and FAILED.
+     * State of instance group. The following values are no longer supported: STARTING, TERMINATED, and FAILED.
      * </p>
      * 
      * @param state
-     *        State of instance group. The following values are deprecated: STARTING, TERMINATED, and FAILED.
+     *        State of instance group. The following values are no longer supported: STARTING, TERMINATED, and FAILED.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceGroupState
      */
@@ -637,11 +625,11 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * State of instance group. The following values are deprecated: STARTING, TERMINATED, and FAILED.
+     * State of instance group. The following values are no longer supported: STARTING, TERMINATED, and FAILED.
      * </p>
      * 
      * @param state
-     *        State of instance group. The following values are deprecated: STARTING, TERMINATED, and FAILED.
+     *        State of instance group. The following values are no longer supported: STARTING, TERMINATED, and FAILED.
      * @see InstanceGroupState
      */
 
@@ -651,11 +639,11 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * State of instance group. The following values are deprecated: STARTING, TERMINATED, and FAILED.
+     * State of instance group. The following values are no longer supported: STARTING, TERMINATED, and FAILED.
      * </p>
      * 
      * @param state
-     *        State of instance group. The following values are deprecated: STARTING, TERMINATED, and FAILED.
+     *        State of instance group. The following values are no longer supported: STARTING, TERMINATED, and FAILED.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceGroupState
      */
@@ -866,6 +854,46 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
     }
 
     /**
+     * <p>
+     * The custom AMI ID to use for the provisioned instance group.
+     * </p>
+     * 
+     * @param customAmiId
+     *        The custom AMI ID to use for the provisioned instance group.
+     */
+
+    public void setCustomAmiId(String customAmiId) {
+        this.customAmiId = customAmiId;
+    }
+
+    /**
+     * <p>
+     * The custom AMI ID to use for the provisioned instance group.
+     * </p>
+     * 
+     * @return The custom AMI ID to use for the provisioned instance group.
+     */
+
+    public String getCustomAmiId() {
+        return this.customAmiId;
+    }
+
+    /**
+     * <p>
+     * The custom AMI ID to use for the provisioned instance group.
+     * </p>
+     * 
+     * @param customAmiId
+     *        The custom AMI ID to use for the provisioned instance group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceGroupDetail withCustomAmiId(String customAmiId) {
+        setCustomAmiId(customAmiId);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -904,7 +932,9 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
         if (getReadyDateTime() != null)
             sb.append("ReadyDateTime: ").append(getReadyDateTime()).append(",");
         if (getEndDateTime() != null)
-            sb.append("EndDateTime: ").append(getEndDateTime());
+            sb.append("EndDateTime: ").append(getEndDateTime()).append(",");
+        if (getCustomAmiId() != null)
+            sb.append("CustomAmiId: ").append(getCustomAmiId());
         sb.append("}");
         return sb.toString();
     }
@@ -975,6 +1005,10 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getEndDateTime() != null && other.getEndDateTime().equals(this.getEndDateTime()) == false)
             return false;
+        if (other.getCustomAmiId() == null ^ this.getCustomAmiId() == null)
+            return false;
+        if (other.getCustomAmiId() != null && other.getCustomAmiId().equals(this.getCustomAmiId()) == false)
+            return false;
         return true;
     }
 
@@ -997,6 +1031,7 @@ public class InstanceGroupDetail implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getStartDateTime() == null) ? 0 : getStartDateTime().hashCode());
         hashCode = prime * hashCode + ((getReadyDateTime() == null) ? 0 : getReadyDateTime().hashCode());
         hashCode = prime * hashCode + ((getEndDateTime() == null) ? 0 : getEndDateTime().hashCode());
+        hashCode = prime * hashCode + ((getCustomAmiId() == null) ? 0 : getCustomAmiId().hashCode());
         return hashCode;
     }
 

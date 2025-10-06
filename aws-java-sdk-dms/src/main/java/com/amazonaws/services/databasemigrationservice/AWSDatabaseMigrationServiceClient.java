@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,23 +45,23 @@ import com.amazonaws.services.databasemigrationservice.waiters.AWSDatabaseMigrat
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.databasemigrationservice.model.*;
+
 import com.amazonaws.services.databasemigrationservice.model.transform.*;
 
 /**
  * Client for accessing AWS Database Migration Service. All service calls made using this client are blocking, and will
  * not return until the service call completes.
  * <p>
- * <fullname>AWS Database Migration Service</fullname>
+ * <fullname>Database Migration Service</fullname>
  * <p>
- * AWS Database Migration Service (AWS DMS) can migrate your data to and from the most widely used commercial and
- * open-source databases such as Oracle, PostgreSQL, Microsoft SQL Server, Amazon Redshift, MariaDB, Amazon Aurora,
- * MySQL, and SAP Adaptive Server Enterprise (ASE). The service supports homogeneous migrations such as Oracle to
- * Oracle, as well as heterogeneous migrations between different database platforms, such as Oracle to MySQL or SQL
- * Server to PostgreSQL.
+ * Database Migration Service (DMS) can migrate your data to and from the most widely used commercial and open-source
+ * databases such as Oracle, PostgreSQL, Microsoft SQL Server, Amazon Redshift, MariaDB, Amazon Aurora, MySQL, and SAP
+ * Adaptive Server Enterprise (ASE). The service supports homogeneous migrations such as Oracle to Oracle, as well as
+ * heterogeneous migrations between different database platforms, such as Oracle to MySQL or SQL Server to PostgreSQL.
  * </p>
  * <p>
- * For more information about AWS DMS, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html">What
- * Is AWS Database Migration Service?</a> in the <i>AWS Database Migration User Guide.</i>
+ * For more information about DMS, see <a href="https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html">What Is
+ * Database Migration Service?</a> in the <i>Database Migration Service User Guide.</i>
  * </p>
  */
 @ThreadSafe
@@ -89,65 +89,86 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidCertificateFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.InvalidCertificateException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidOperationFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.InvalidOperationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("KMSAccessDeniedFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.KMSAccessDeniedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidCertificateFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.InvalidCertificateExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("KMSInvalidStateFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.KMSInvalidStateException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("KMSAccessDeniedFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.KMSAccessDeniedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("KMSDisabledFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.KMSDisabledException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("KMSDisabledFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.KMSDisabledExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UpgradeDependencyFailureFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.UpgradeDependencyFailureException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("SNSInvalidTopicFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.SNSInvalidTopicExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("SNSInvalidTopicFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.SNSInvalidTopicException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InsufficientResourceCapacityFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.InsufficientResourceCapacityExceptionUnmarshaller
+                                            .getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InsufficientResourceCapacityFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.InsufficientResourceCapacityException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceQuotaExceededFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.ResourceQuotaExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceQuotaExceededFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.ResourceQuotaExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("S3AccessDeniedFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.S3AccessDeniedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.AccessDeniedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidResourceStateFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.InvalidResourceStateException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("KMSKeyNotAccessibleFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.KMSKeyNotAccessibleExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("SubnetAlreadyInUse").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.SubnetAlreadyInUseExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("KMSKeyNotAccessibleFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.KMSKeyNotAccessibleException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("KMSNotFoundFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.KMSNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("SubnetAlreadyInUse").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.SubnetAlreadyInUseException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.ResourceAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("KMSNotFoundFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.KMSNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidSubnet").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.InvalidSubnetExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.ResourceAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CollectorNotFoundFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.CollectorNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidSubnet").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.InvalidSubnetException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("SNSNoAuthorizationFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.SNSNoAuthorizationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("KMSThrottlingFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.KMSThrottlingException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("KMSInvalidStateFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.KMSInvalidStateExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("StorageQuotaExceededFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.StorageQuotaExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UpgradeDependencyFailureFault")
+                                    .withExceptionUnmarshaller(
+                                            com.amazonaws.services.databasemigrationservice.model.transform.UpgradeDependencyFailureExceptionUnmarshaller
+                                                    .getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("SNSNoAuthorizationFault").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.SNSNoAuthorizationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("KMSFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.KMSExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ReplicationSubnetGroupDoesNotCoverEnoughAZs").withModeledClass(
-                                    com.amazonaws.services.databasemigrationservice.model.ReplicationSubnetGroupDoesNotCoverEnoughAZsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.AccessDeniedExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidResourceStateFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.InvalidResourceStateExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("KMSThrottlingFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.KMSThrottlingExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("StorageQuotaExceededFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.StorageQuotaExceededExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("S3ResourceNotFoundFault").withExceptionUnmarshaller(
+                                    com.amazonaws.services.databasemigrationservice.model.transform.S3ResourceNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata()
+                                    .withErrorCode("ReplicationSubnetGroupDoesNotCoverEnoughAZs")
+                                    .withExceptionUnmarshaller(
+                                            com.amazonaws.services.databasemigrationservice.model.transform.ReplicationSubnetGroupDoesNotCoverEnoughAZsExceptionUnmarshaller
+                                                    .getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.databasemigrationservice.model.AWSDatabaseMigrationServiceException.class));
 
     /**
@@ -355,13 +376,15 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
     /**
      * <p>
-     * Adds metadata tags to an AWS DMS resource, including replication instance, endpoint, security group, and
-     * migration task. These tags can also be used with cost allocation reporting to track cost associated with DMS
-     * resources, or used in a Condition statement in an IAM policy for DMS.
+     * Adds metadata tags to an DMS resource, including replication instance, endpoint, subnet group, and migration
+     * task. These tags can also be used with cost allocation reporting to track cost associated with DMS resources, or
+     * used in a Condition statement in an IAM policy for DMS. For more information, see <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_Tag.html"> <code>Tag</code> </a> data type
+     * description.
      * </p>
      * 
      * @param addTagsToResourceRequest
-     *        Associates a set of tags with an AWS DMS resource.
+     *        Associates a set of tags with an DMS resource.
      * @return Result of the AddTagsToResource operation returned by the service.
      * @throws ResourceNotFoundException
      *         The resource could not be found.
@@ -390,6 +413,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new AddTagsToResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addTagsToResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddTagsToResource");
@@ -446,6 +471,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(applyPendingMaintenanceActionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ApplyPendingMaintenanceAction");
@@ -470,13 +497,222 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
     /**
      * <p>
+     * Starts the analysis of up to 20 source databases to recommend target engines for each source database. This is a
+     * batch version of <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_StartRecommendations.html">StartRecommendations
+     * </a>.
+     * </p>
+     * <p>
+     * The result of analysis of each source database is reported individually in the response. Because the batch
+     * request can result in a combination of successful and unsuccessful actions, you should check for batch errors
+     * even when the call returns an HTTP status code of <code>200</code>.
+     * </p>
+     * 
+     * @param batchStartRecommendationsRequest
+     * @return Result of the BatchStartRecommendations operation returned by the service.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AWSDatabaseMigrationService.BatchStartRecommendations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/BatchStartRecommendations" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public BatchStartRecommendationsResult batchStartRecommendations(BatchStartRecommendationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeBatchStartRecommendations(request);
+    }
+
+    @SdkInternalApi
+    final BatchStartRecommendationsResult executeBatchStartRecommendations(BatchStartRecommendationsRequest batchStartRecommendationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(batchStartRecommendationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<BatchStartRecommendationsRequest> request = null;
+        Response<BatchStartRecommendationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new BatchStartRecommendationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(batchStartRecommendationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchStartRecommendations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<BatchStartRecommendationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new BatchStartRecommendationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Cancels a single premigration assessment run.
+     * </p>
+     * <p>
+     * This operation prevents any individual assessments from running if they haven't started running. It also attempts
+     * to cancel any individual assessments that are currently running.
+     * </p>
+     * 
+     * @param cancelReplicationTaskAssessmentRunRequest
+     * @return Result of the CancelReplicationTaskAssessmentRun operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.CancelReplicationTaskAssessmentRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CancelReplicationTaskAssessmentRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CancelReplicationTaskAssessmentRunResult cancelReplicationTaskAssessmentRun(CancelReplicationTaskAssessmentRunRequest request) {
+        request = beforeClientExecution(request);
+        return executeCancelReplicationTaskAssessmentRun(request);
+    }
+
+    @SdkInternalApi
+    final CancelReplicationTaskAssessmentRunResult executeCancelReplicationTaskAssessmentRun(
+            CancelReplicationTaskAssessmentRunRequest cancelReplicationTaskAssessmentRunRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(cancelReplicationTaskAssessmentRunRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CancelReplicationTaskAssessmentRunRequest> request = null;
+        Response<CancelReplicationTaskAssessmentRunResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CancelReplicationTaskAssessmentRunRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(cancelReplicationTaskAssessmentRunRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelReplicationTaskAssessmentRun");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CancelReplicationTaskAssessmentRunResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CancelReplicationTaskAssessmentRunResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a data provider using the provided settings. A data provider stores a data store type and location
+     * information about your database.
+     * </p>
+     * 
+     * @param createDataProviderRequest
+     * @return Result of the CreateDataProvider operation returned by the service.
+     * @throws ResourceQuotaExceededException
+     *         The quota for this resource quota has been exceeded.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceAlreadyExistsException
+     *         The resource you are attempting to create already exists.
+     * @sample AWSDatabaseMigrationService.CreateDataProvider
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CreateDataProvider" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateDataProviderResult createDataProvider(CreateDataProviderRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateDataProvider(request);
+    }
+
+    @SdkInternalApi
+    final CreateDataProviderResult executeCreateDataProvider(CreateDataProviderRequest createDataProviderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createDataProviderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateDataProviderRequest> request = null;
+        Response<CreateDataProviderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateDataProviderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDataProviderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDataProvider");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateDataProviderResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateDataProviderResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Creates an endpoint using the provided settings.
      * </p>
+     * <note>
+     * <p>
+     * For a MySQL source or target endpoint, don't explicitly specify the database using the <code>DatabaseName</code>
+     * request parameter on the <code>CreateEndpoint</code> API call. Specifying <code>DatabaseName</code> when you
+     * create a MySQL endpoint replicates all the task tables to this single database. For MySQL endpoints, you specify
+     * the database only when you specify the schema in the table-mapping rules of the DMS task.
+     * </p>
+     * </note>
      * 
      * @param createEndpointRequest
      * @return Result of the CreateEndpoint operation returned by the service.
      * @throws KMSKeyNotAccessibleException
-     *         AWS DMS cannot access the AWS KMS key.
+     *         DMS cannot access the KMS key.
      * @throws ResourceAlreadyExistsException
      *         The resource you are attempting to create already exists.
      * @throws ResourceQuotaExceededException
@@ -486,7 +722,9 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      * @throws ResourceNotFoundException
      *         The resource could not be found.
      * @throws AccessDeniedException
-     *         AWS DMS was denied access to the endpoint. Check that the role is correctly configured.
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws S3AccessDeniedException
+     *         Insufficient privileges are preventing access to an Amazon S3 object.
      * @sample AWSDatabaseMigrationService.CreateEndpoint
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CreateEndpoint" target="_top">AWS API
      *      Documentation</a>
@@ -512,6 +750,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new CreateEndpointRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createEndpointRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateEndpoint");
@@ -535,23 +775,23 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
     /**
      * <p>
-     * Creates an AWS DMS event notification subscription.
+     * Creates an DMS event notification subscription.
      * </p>
      * <p>
-     * You can specify the type of source (<code>SourceType</code>) you want to be notified of, provide a list of AWS
-     * DMS source IDs (<code>SourceIds</code>) that triggers the events, and provide a list of event categories (
+     * You can specify the type of source (<code>SourceType</code>) you want to be notified of, provide a list of DMS
+     * source IDs (<code>SourceIds</code>) that triggers the events, and provide a list of event categories (
      * <code>EventCategories</code>) for events you want to be notified of. If you specify both the
      * <code>SourceType</code> and <code>SourceIds</code>, such as <code>SourceType = replication-instance</code> and
      * <code>SourceIdentifier = my-replinstance</code>, you will be notified of all the replication instance events for
      * the specified source. If you specify a <code>SourceType</code> but don't specify a <code>SourceIdentifier</code>,
-     * you receive notice of the events for that source type for all your AWS DMS sources. If you don't specify either
-     * <code>SourceType</code> nor <code>SourceIdentifier</code>, you will be notified of events generated from all AWS
-     * DMS sources belonging to your customer account.
+     * you receive notice of the events for that source type for all your DMS sources. If you don't specify either
+     * <code>SourceType</code> nor <code>SourceIdentifier</code>, you will be notified of events generated from all DMS
+     * sources belonging to your customer account.
      * </p>
      * <p>
-     * For more information about AWS DMS events, see <a
+     * For more information about DMS events, see <a
      * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html">Working with Events and
-     * Notifications</a> in the <i>AWS Database Migration Service User Guide.</i>
+     * Notifications</a> in the <i>Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param createEventSubscriptionRequest
@@ -569,13 +809,13 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      * @throws KMSAccessDeniedException
      *         The ciphertext references a key that doesn't exist or that the DMS account doesn't have access to.
      * @throws KMSDisabledException
-     *         The specified master key (CMK) isn't enabled.
+     *         The specified KMS key isn't enabled.
      * @throws KMSInvalidStateException
-     *         The state of the specified AWS KMS resource isn't valid for this request.
+     *         The state of the specified KMS resource isn't valid for this request.
      * @throws KMSNotFoundException
-     *         The specified AWS KMS entity or resource can't be found.
+     *         The specified KMS entity or resource can't be found.
      * @throws KMSThrottlingException
-     *         This request triggered AWS KMS request throttling.
+     *         This request triggered KMS request throttling.
      * @sample AWSDatabaseMigrationService.CreateEventSubscription
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CreateEventSubscription" target="_top">AWS
      *      API Documentation</a>
@@ -602,6 +842,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(createEventSubscriptionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateEventSubscription");
@@ -626,13 +868,316 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
     /**
      * <p>
+     * Creates a Fleet Advisor collector using the specified parameters.
+     * </p>
+     * 
+     * @param createFleetAdvisorCollectorRequest
+     * @return Result of the CreateFleetAdvisorCollector operation returned by the service.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws S3AccessDeniedException
+     *         Insufficient privileges are preventing access to an Amazon S3 object.
+     * @throws S3ResourceNotFoundException
+     *         A specified Amazon S3 bucket, bucket folder, or other object can't be found.
+     * @throws ResourceQuotaExceededException
+     *         The quota for this resource quota has been exceeded.
+     * @sample AWSDatabaseMigrationService.CreateFleetAdvisorCollector
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CreateFleetAdvisorCollector"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateFleetAdvisorCollectorResult createFleetAdvisorCollector(CreateFleetAdvisorCollectorRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateFleetAdvisorCollector(request);
+    }
+
+    @SdkInternalApi
+    final CreateFleetAdvisorCollectorResult executeCreateFleetAdvisorCollector(CreateFleetAdvisorCollectorRequest createFleetAdvisorCollectorRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createFleetAdvisorCollectorRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateFleetAdvisorCollectorRequest> request = null;
+        Response<CreateFleetAdvisorCollectorResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateFleetAdvisorCollectorRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createFleetAdvisorCollectorRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateFleetAdvisorCollector");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateFleetAdvisorCollectorResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateFleetAdvisorCollectorResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates the instance profile using the specified parameters.
+     * </p>
+     * 
+     * @param createInstanceProfileRequest
+     * @return Result of the CreateInstanceProfile operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceAlreadyExistsException
+     *         The resource you are attempting to create already exists.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceQuotaExceededException
+     *         The quota for this resource quota has been exceeded.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws KMSKeyNotAccessibleException
+     *         DMS cannot access the KMS key.
+     * @throws S3ResourceNotFoundException
+     *         A specified Amazon S3 bucket, bucket folder, or other object can't be found.
+     * @throws S3AccessDeniedException
+     *         Insufficient privileges are preventing access to an Amazon S3 object.
+     * @sample AWSDatabaseMigrationService.CreateInstanceProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CreateInstanceProfile" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateInstanceProfileResult createInstanceProfile(CreateInstanceProfileRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateInstanceProfile(request);
+    }
+
+    @SdkInternalApi
+    final CreateInstanceProfileResult executeCreateInstanceProfile(CreateInstanceProfileRequest createInstanceProfileRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createInstanceProfileRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateInstanceProfileRequest> request = null;
+        Response<CreateInstanceProfileResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateInstanceProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createInstanceProfileRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateInstanceProfile");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateInstanceProfileResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new CreateInstanceProfileResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates the migration project using the specified parameters.
+     * </p>
+     * <p>
+     * You can run this action only after you create an instance profile and data providers using <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_CreateInstanceProfile.html"
+     * >CreateInstanceProfile</a> and <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_CreateDataProvider.html">CreateDataProvider</a>.
+     * </p>
+     * 
+     * @param createMigrationProjectRequest
+     * @return Result of the CreateMigrationProject operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceAlreadyExistsException
+     *         The resource you are attempting to create already exists.
+     * @throws ResourceQuotaExceededException
+     *         The quota for this resource quota has been exceeded.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws S3ResourceNotFoundException
+     *         A specified Amazon S3 bucket, bucket folder, or other object can't be found.
+     * @throws S3AccessDeniedException
+     *         Insufficient privileges are preventing access to an Amazon S3 object.
+     * @sample AWSDatabaseMigrationService.CreateMigrationProject
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CreateMigrationProject" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateMigrationProjectResult createMigrationProject(CreateMigrationProjectRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateMigrationProject(request);
+    }
+
+    @SdkInternalApi
+    final CreateMigrationProjectResult executeCreateMigrationProject(CreateMigrationProjectRequest createMigrationProjectRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createMigrationProjectRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateMigrationProjectRequest> request = null;
+        Response<CreateMigrationProjectResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateMigrationProjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createMigrationProjectRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateMigrationProject");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateMigrationProjectResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateMigrationProjectResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a configuration that you can later provide to configure and start an DMS Serverless replication. You can
+     * also provide options to validate the configuration inputs before you start the replication.
+     * </p>
+     * 
+     * @param createReplicationConfigRequest
+     * @return Result of the CreateReplicationConfig operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceAlreadyExistsException
+     *         The resource you are attempting to create already exists.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws ReplicationSubnetGroupDoesNotCoverEnoughAZsException
+     *         The replication subnet group does not cover enough Availability Zones (AZs). Edit the replication subnet
+     *         group and add more AZs.
+     * @throws InvalidSubnetException
+     *         The subnet provided isn't valid.
+     * @throws KMSKeyNotAccessibleException
+     *         DMS cannot access the KMS key.
+     * @throws ResourceQuotaExceededException
+     *         The quota for this resource quota has been exceeded.
+     * @sample AWSDatabaseMigrationService.CreateReplicationConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CreateReplicationConfig" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateReplicationConfigResult createReplicationConfig(CreateReplicationConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateReplicationConfig(request);
+    }
+
+    @SdkInternalApi
+    final CreateReplicationConfigResult executeCreateReplicationConfig(CreateReplicationConfigRequest createReplicationConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createReplicationConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateReplicationConfigRequest> request = null;
+        Response<CreateReplicationConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateReplicationConfigRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createReplicationConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateReplicationConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateReplicationConfigResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateReplicationConfigResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Creates the replication instance using the specified parameters.
      * </p>
+     * <p>
+     * DMS requires that your account have certain roles with appropriate permissions before you can create a
+     * replication instance. For information on the required roles, see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Security.html#CHAP_Security.APIRole">Creating the IAM
+     * Roles to Use With the CLI and DMS API</a>. For information on the required permissions, see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Security.html#CHAP_Security.IAMPermissions">IAM
+     * Permissions Needed to Use DMS</a>.
+     * </p>
+     * <note>
+     * <p>
+     * If you don't specify a version when creating a replication instance, DMS will create the instance using the
+     * default engine version. For information about the default engine version, see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_ReleaseNotes.html">Release Notes</a>.
+     * </p>
+     * </note>
      * 
      * @param createReplicationInstanceRequest
      * @return Result of the CreateReplicationInstance operation returned by the service.
      * @throws AccessDeniedException
-     *         AWS DMS was denied access to the endpoint. Check that the role is correctly configured.
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
      * @throws ResourceAlreadyExistsException
      *         The resource you are attempting to create already exists.
      * @throws InsufficientResourceCapacityException
@@ -649,9 +1194,9 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      * @throws InvalidResourceStateException
      *         The resource is in a state that prevents it from being used for database migration.
      * @throws InvalidSubnetException
-     *         The subnet provided is invalid.
+     *         The subnet provided isn't valid.
      * @throws KMSKeyNotAccessibleException
-     *         AWS DMS cannot access the AWS KMS key.
+     *         DMS cannot access the KMS key.
      * @sample AWSDatabaseMigrationService.CreateReplicationInstance
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CreateReplicationInstance" target="_top">AWS
      *      API Documentation</a>
@@ -678,6 +1223,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(createReplicationInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateReplicationInstance");
@@ -704,11 +1251,23 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      * <p>
      * Creates a replication subnet group given a list of the subnet IDs in a VPC.
      * </p>
+     * <p>
+     * The VPC needs to have at least one subnet in at least two availability zones in the Amazon Web Services Region,
+     * otherwise the service will throw a <code>ReplicationSubnetGroupDoesNotCoverEnoughAZs</code> exception.
+     * </p>
+     * <p>
+     * If a replication subnet group exists in your Amazon Web Services account, the CreateReplicationSubnetGroup action
+     * returns the following error message: The Replication Subnet Group already exists. In this case, delete the
+     * existing replication subnet group. To do so, use the <a
+     * href="https://docs.aws.amazon.com/en_us/dms/latest/APIReference/API_DeleteReplicationSubnetGroup.html"
+     * >DeleteReplicationSubnetGroup</a> action. Optionally, choose Subnet groups in the DMS console, then choose your
+     * subnet group. Next, choose Delete from Actions.
+     * </p>
      * 
      * @param createReplicationSubnetGroupRequest
      * @return Result of the CreateReplicationSubnetGroup operation returned by the service.
      * @throws AccessDeniedException
-     *         AWS DMS was denied access to the endpoint. Check that the role is correctly configured.
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
      * @throws ResourceAlreadyExistsException
      *         The resource you are attempting to create already exists.
      * @throws ResourceNotFoundException
@@ -719,7 +1278,7 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      *         The replication subnet group does not cover enough Availability Zones (AZs). Edit the replication subnet
      *         group and add more AZs.
      * @throws InvalidSubnetException
-     *         The subnet provided is invalid.
+     *         The subnet provided isn't valid.
      * @sample AWSDatabaseMigrationService.CreateReplicationSubnetGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CreateReplicationSubnetGroup"
      *      target="_top">AWS API Documentation</a>
@@ -746,6 +1305,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(createReplicationSubnetGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateReplicationSubnetGroup");
@@ -776,7 +1337,7 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      * @param createReplicationTaskRequest
      * @return Result of the CreateReplicationTask operation returned by the service.
      * @throws AccessDeniedException
-     *         AWS DMS was denied access to the endpoint. Check that the role is correctly configured.
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
      * @throws InvalidResourceStateException
      *         The resource is in a state that prevents it from being used for database migration.
      * @throws ResourceAlreadyExistsException
@@ -784,7 +1345,7 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      * @throws ResourceNotFoundException
      *         The resource could not be found.
      * @throws KMSKeyNotAccessibleException
-     *         AWS DMS cannot access the AWS KMS key.
+     *         DMS cannot access the KMS key.
      * @throws ResourceQuotaExceededException
      *         The quota for this resource quota has been exceeded.
      * @sample AWSDatabaseMigrationService.CreateReplicationTask
@@ -812,6 +1373,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new CreateReplicationTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createReplicationTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateReplicationTask");
@@ -870,6 +1433,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new DeleteCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCertificate");
@@ -881,6 +1446,134 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
             HttpResponseHandler<AmazonWebServiceResponse<DeleteCertificateResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteCertificateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the connection between a replication instance and an endpoint.
+     * </p>
+     * 
+     * @param deleteConnectionRequest
+     * @return Result of the DeleteConnection operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.DeleteConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DeleteConnection" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteConnectionResult deleteConnection(DeleteConnectionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteConnection(request);
+    }
+
+    @SdkInternalApi
+    final DeleteConnectionResult executeDeleteConnection(DeleteConnectionRequest deleteConnectionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteConnectionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteConnectionRequest> request = null;
+        Response<DeleteConnectionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteConnectionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteConnectionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteConnection");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteConnectionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteConnectionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified data provider.
+     * </p>
+     * <note>
+     * <p>
+     * All migration projects associated with the data provider must be deleted or modified before you can delete the
+     * data provider.
+     * </p>
+     * </note>
+     * 
+     * @param deleteDataProviderRequest
+     * @return Result of the DeleteDataProvider operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.DeleteDataProvider
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DeleteDataProvider" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteDataProviderResult deleteDataProvider(DeleteDataProviderRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteDataProvider(request);
+    }
+
+    @SdkInternalApi
+    final DeleteDataProviderResult executeDeleteDataProvider(DeleteDataProviderRequest deleteDataProviderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteDataProviderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteDataProviderRequest> request = null;
+        Response<DeleteDataProviderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteDataProviderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDataProviderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDataProvider");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteDataProviderResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteDataProviderResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -933,6 +1626,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new DeleteEndpointRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteEndpointRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteEndpoint");
@@ -956,7 +1651,7 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
     /**
      * <p>
-     * Deletes an AWS DMS event subscription.
+     * Deletes an DMS event subscription.
      * </p>
      * 
      * @param deleteEventSubscriptionRequest
@@ -991,6 +1686,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(deleteEventSubscriptionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteEventSubscription");
@@ -1003,6 +1700,328 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
             HttpResponseHandler<AmazonWebServiceResponse<DeleteEventSubscriptionResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DeleteEventSubscriptionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified Fleet Advisor collector.
+     * </p>
+     * 
+     * @param deleteFleetAdvisorCollectorRequest
+     * @return Result of the DeleteFleetAdvisorCollector operation returned by the service.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws CollectorNotFoundException
+     *         The specified collector doesn't exist.
+     * @sample AWSDatabaseMigrationService.DeleteFleetAdvisorCollector
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DeleteFleetAdvisorCollector"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteFleetAdvisorCollectorResult deleteFleetAdvisorCollector(DeleteFleetAdvisorCollectorRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteFleetAdvisorCollector(request);
+    }
+
+    @SdkInternalApi
+    final DeleteFleetAdvisorCollectorResult executeDeleteFleetAdvisorCollector(DeleteFleetAdvisorCollectorRequest deleteFleetAdvisorCollectorRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteFleetAdvisorCollectorRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteFleetAdvisorCollectorRequest> request = null;
+        Response<DeleteFleetAdvisorCollectorResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteFleetAdvisorCollectorRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteFleetAdvisorCollectorRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFleetAdvisorCollector");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteFleetAdvisorCollectorResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteFleetAdvisorCollectorResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified Fleet Advisor collector databases.
+     * </p>
+     * 
+     * @param deleteFleetAdvisorDatabasesRequest
+     * @return Result of the DeleteFleetAdvisorDatabases operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidOperationException
+     *         The action or operation requested isn't valid.
+     * @sample AWSDatabaseMigrationService.DeleteFleetAdvisorDatabases
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DeleteFleetAdvisorDatabases"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteFleetAdvisorDatabasesResult deleteFleetAdvisorDatabases(DeleteFleetAdvisorDatabasesRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteFleetAdvisorDatabases(request);
+    }
+
+    @SdkInternalApi
+    final DeleteFleetAdvisorDatabasesResult executeDeleteFleetAdvisorDatabases(DeleteFleetAdvisorDatabasesRequest deleteFleetAdvisorDatabasesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteFleetAdvisorDatabasesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteFleetAdvisorDatabasesRequest> request = null;
+        Response<DeleteFleetAdvisorDatabasesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteFleetAdvisorDatabasesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteFleetAdvisorDatabasesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFleetAdvisorDatabases");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteFleetAdvisorDatabasesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteFleetAdvisorDatabasesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified instance profile.
+     * </p>
+     * <note>
+     * <p>
+     * All migration projects associated with the instance profile must be deleted or modified before you can delete the
+     * instance profile.
+     * </p>
+     * </note>
+     * 
+     * @param deleteInstanceProfileRequest
+     * @return Result of the DeleteInstanceProfile operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.DeleteInstanceProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DeleteInstanceProfile" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteInstanceProfileResult deleteInstanceProfile(DeleteInstanceProfileRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteInstanceProfile(request);
+    }
+
+    @SdkInternalApi
+    final DeleteInstanceProfileResult executeDeleteInstanceProfile(DeleteInstanceProfileRequest deleteInstanceProfileRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteInstanceProfileRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteInstanceProfileRequest> request = null;
+        Response<DeleteInstanceProfileResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteInstanceProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteInstanceProfileRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteInstanceProfile");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteInstanceProfileResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DeleteInstanceProfileResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified migration project.
+     * </p>
+     * <note>
+     * <p>
+     * The migration project must be closed before you can delete it.
+     * </p>
+     * </note>
+     * 
+     * @param deleteMigrationProjectRequest
+     * @return Result of the DeleteMigrationProject operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.DeleteMigrationProject
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DeleteMigrationProject" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteMigrationProjectResult deleteMigrationProject(DeleteMigrationProjectRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteMigrationProject(request);
+    }
+
+    @SdkInternalApi
+    final DeleteMigrationProjectResult executeDeleteMigrationProject(DeleteMigrationProjectRequest deleteMigrationProjectRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteMigrationProjectRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteMigrationProjectRequest> request = null;
+        Response<DeleteMigrationProjectResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteMigrationProjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteMigrationProjectRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteMigrationProject");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteMigrationProjectResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteMigrationProjectResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes an DMS Serverless replication configuration. This effectively deprovisions any and all replications that
+     * use this configuration. You can't delete the configuration for an DMS Serverless replication that is ongoing. You
+     * can delete the configuration when the replication is in a non-RUNNING and non-STARTING state.
+     * </p>
+     * 
+     * @param deleteReplicationConfigRequest
+     * @return Result of the DeleteReplicationConfig operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.DeleteReplicationConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DeleteReplicationConfig" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeleteReplicationConfigResult deleteReplicationConfig(DeleteReplicationConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteReplicationConfig(request);
+    }
+
+    @SdkInternalApi
+    final DeleteReplicationConfigResult executeDeleteReplicationConfig(DeleteReplicationConfigRequest deleteReplicationConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteReplicationConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteReplicationConfigRequest> request = null;
+        Response<DeleteReplicationConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteReplicationConfigRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteReplicationConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteReplicationConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteReplicationConfigResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteReplicationConfigResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1056,6 +2075,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(deleteReplicationInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteReplicationInstance");
@@ -1115,6 +2136,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(deleteReplicationSubnetGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteReplicationSubnetGroup");
@@ -1173,6 +2196,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new DeleteReplicationTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteReplicationTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteReplicationTask");
@@ -1197,11 +2222,79 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
     /**
      * <p>
-     * Lists all of the AWS DMS attributes for a customer account. These attributes include AWS DMS quotas for the
-     * account and a unique account identifier in a particular DMS region. DMS quotas include a list of resource quotas
-     * supported by the account, such as the number of replication instances allowed. The description for each resource
-     * quota, includes the quota name, current usage toward that quota, and the quota's maximum value. DMS uses the
-     * unique account identifier to name each artifact used by DMS in the given region.
+     * Deletes the record of a single premigration assessment run.
+     * </p>
+     * <p>
+     * This operation removes all metadata that DMS maintains about this assessment run. However, the operation leaves
+     * untouched all information about this assessment run that is stored in your Amazon S3 bucket.
+     * </p>
+     * 
+     * @param deleteReplicationTaskAssessmentRunRequest
+     * @return Result of the DeleteReplicationTaskAssessmentRun operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.DeleteReplicationTaskAssessmentRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DeleteReplicationTaskAssessmentRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteReplicationTaskAssessmentRunResult deleteReplicationTaskAssessmentRun(DeleteReplicationTaskAssessmentRunRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteReplicationTaskAssessmentRun(request);
+    }
+
+    @SdkInternalApi
+    final DeleteReplicationTaskAssessmentRunResult executeDeleteReplicationTaskAssessmentRun(
+            DeleteReplicationTaskAssessmentRunRequest deleteReplicationTaskAssessmentRunRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteReplicationTaskAssessmentRunRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteReplicationTaskAssessmentRunRequest> request = null;
+        Response<DeleteReplicationTaskAssessmentRunResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteReplicationTaskAssessmentRunRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteReplicationTaskAssessmentRunRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteReplicationTaskAssessmentRun");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteReplicationTaskAssessmentRunResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteReplicationTaskAssessmentRunResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists all of the DMS attributes for a customer account. These attributes include DMS quotas for the account and a
+     * unique account identifier in a particular DMS region. DMS quotas include a list of resource quotas supported by
+     * the account, such as the number of replication instances allowed. The description for each resource quota,
+     * includes the quota name, current usage toward that quota, and the quota's maximum value. DMS uses the unique
+     * account identifier to name each artifact used by DMS in the given region.
      * </p>
      * <p>
      * This command does not take any parameters.
@@ -1235,6 +2328,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(describeAccountAttributesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAccountAttributes");
@@ -1247,6 +2342,89 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
             HttpResponseHandler<AmazonWebServiceResponse<DescribeAccountAttributesResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribeAccountAttributesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides a list of individual assessments that you can specify for a new premigration assessment run, given one
+     * or more parameters.
+     * </p>
+     * <p>
+     * If you specify an existing migration task, this operation provides the default individual assessments you can
+     * specify for that task. Otherwise, the specified parameters model elements of a possible migration task on which
+     * to base a premigration assessment run.
+     * </p>
+     * <p>
+     * To use these migration task modeling parameters, you must specify an existing replication instance, a source
+     * database engine, a target database engine, and a migration type. This combination of parameters potentially
+     * limits the default individual assessments available for an assessment run created for a corresponding migration
+     * task.
+     * </p>
+     * <p>
+     * If you specify no parameters, this operation provides a list of all possible individual assessments that you can
+     * specify for an assessment run. If you specify any one of the task modeling parameters, you must specify all of
+     * them or the operation cannot provide a list of individual assessments. The only parameter that you can specify
+     * alone is for an existing migration task. The specified task definition then determines the default list of
+     * individual assessments that you can specify in an assessment run for the task.
+     * </p>
+     * 
+     * @param describeApplicableIndividualAssessmentsRequest
+     * @return Result of the DescribeApplicableIndividualAssessments operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.DescribeApplicableIndividualAssessments
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeApplicableIndividualAssessments"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeApplicableIndividualAssessmentsResult describeApplicableIndividualAssessments(DescribeApplicableIndividualAssessmentsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeApplicableIndividualAssessments(request);
+    }
+
+    @SdkInternalApi
+    final DescribeApplicableIndividualAssessmentsResult executeDescribeApplicableIndividualAssessments(
+            DescribeApplicableIndividualAssessmentsRequest describeApplicableIndividualAssessmentsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeApplicableIndividualAssessmentsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeApplicableIndividualAssessmentsRequest> request = null;
+        Response<DescribeApplicableIndividualAssessmentsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeApplicableIndividualAssessmentsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeApplicableIndividualAssessmentsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeApplicableIndividualAssessments");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeApplicableIndividualAssessmentsResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DescribeApplicableIndividualAssessmentsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1291,6 +2469,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new DescribeCertificatesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeCertificatesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCertificates");
@@ -1347,6 +2527,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new DescribeConnectionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeConnectionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeConnections");
@@ -1358,6 +2540,184 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
             HttpResponseHandler<AmazonWebServiceResponse<DescribeConnectionsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeConnectionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns configuration parameters for a schema conversion project.
+     * </p>
+     * 
+     * @param describeConversionConfigurationRequest
+     * @return Result of the DescribeConversionConfiguration operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AWSDatabaseMigrationService.DescribeConversionConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeConversionConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeConversionConfigurationResult describeConversionConfiguration(DescribeConversionConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeConversionConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final DescribeConversionConfigurationResult executeDescribeConversionConfiguration(
+            DescribeConversionConfigurationRequest describeConversionConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeConversionConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeConversionConfigurationRequest> request = null;
+        Response<DescribeConversionConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeConversionConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeConversionConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeConversionConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeConversionConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeConversionConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a paginated list of data providers for your account in the current region.
+     * </p>
+     * 
+     * @param describeDataProvidersRequest
+     * @return Result of the DescribeDataProviders operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @sample AWSDatabaseMigrationService.DescribeDataProviders
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeDataProviders" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DescribeDataProvidersResult describeDataProviders(DescribeDataProvidersRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeDataProviders(request);
+    }
+
+    @SdkInternalApi
+    final DescribeDataProvidersResult executeDescribeDataProviders(DescribeDataProvidersRequest describeDataProvidersRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeDataProvidersRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeDataProvidersRequest> request = null;
+        Response<DescribeDataProvidersResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeDataProvidersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeDataProvidersRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDataProviders");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeDataProvidersResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DescribeDataProvidersResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns information about the possible endpoint settings available when you create an endpoint for a specific
+     * database engine.
+     * </p>
+     * 
+     * @param describeEndpointSettingsRequest
+     * @return Result of the DescribeEndpointSettings operation returned by the service.
+     * @sample AWSDatabaseMigrationService.DescribeEndpointSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeEndpointSettings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeEndpointSettingsResult describeEndpointSettings(DescribeEndpointSettingsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeEndpointSettings(request);
+    }
+
+    @SdkInternalApi
+    final DescribeEndpointSettingsResult executeDescribeEndpointSettings(DescribeEndpointSettingsRequest describeEndpointSettingsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeEndpointSettingsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeEndpointSettingsRequest> request = null;
+        Response<DescribeEndpointSettingsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeEndpointSettingsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeEndpointSettingsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEndpointSettings");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeEndpointSettingsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeEndpointSettingsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1400,6 +2760,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new DescribeEndpointTypesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeEndpointTypesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEndpointTypes");
@@ -1456,6 +2818,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new DescribeEndpointsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeEndpointsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEndpoints");
@@ -1479,10 +2843,66 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
     /**
      * <p>
+     * Returns information about the replication instance versions used in the project.
+     * </p>
+     * 
+     * @param describeEngineVersionsRequest
+     * @return Result of the DescribeEngineVersions operation returned by the service.
+     * @sample AWSDatabaseMigrationService.DescribeEngineVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeEngineVersions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DescribeEngineVersionsResult describeEngineVersions(DescribeEngineVersionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeEngineVersions(request);
+    }
+
+    @SdkInternalApi
+    final DescribeEngineVersionsResult executeDescribeEngineVersions(DescribeEngineVersionsRequest describeEngineVersionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeEngineVersionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeEngineVersionsRequest> request = null;
+        Response<DescribeEngineVersionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeEngineVersionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeEngineVersionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEngineVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeEngineVersionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeEngineVersionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Lists categories for all event source types, or, if specified, for a specified source type. You can see a list of
      * the event categories and source types in <a
      * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html">Working with Events and
-     * Notifications</a> in the <i>AWS Database Migration Service User Guide.</i>
+     * Notifications</a> in the <i>Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param describeEventCategoriesRequest
@@ -1513,6 +2933,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(describeEventCategoriesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEventCategories");
@@ -1575,6 +2997,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(describeEventSubscriptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEventSubscriptions");
@@ -1600,9 +3024,9 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
     /**
      * <p>
      * Lists events for a given source identifier and source type. You can also specify a start and end time. For more
-     * information on AWS DMS events, see <a
+     * information on DMS events, see <a
      * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html">Working with Events and
-     * Notifications</a> in the <i>AWS Database Migration User Guide.</i>
+     * Notifications</a> in the <i>Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param describeEventsRequest
@@ -1632,6 +3056,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new DescribeEventsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeEventsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEvents");
@@ -1643,6 +3069,784 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
             HttpResponseHandler<AmazonWebServiceResponse<DescribeEventsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeEventsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a paginated list of extension pack associations for the specified migration project. An extension pack is
+     * an add-on module that emulates functions present in a source database that are required when converting objects
+     * to the target database.
+     * </p>
+     * 
+     * @param describeExtensionPackAssociationsRequest
+     * @return Result of the DescribeExtensionPackAssociations operation returned by the service.
+     * @sample AWSDatabaseMigrationService.DescribeExtensionPackAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeExtensionPackAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeExtensionPackAssociationsResult describeExtensionPackAssociations(DescribeExtensionPackAssociationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeExtensionPackAssociations(request);
+    }
+
+    @SdkInternalApi
+    final DescribeExtensionPackAssociationsResult executeDescribeExtensionPackAssociations(
+            DescribeExtensionPackAssociationsRequest describeExtensionPackAssociationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeExtensionPackAssociationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeExtensionPackAssociationsRequest> request = null;
+        Response<DescribeExtensionPackAssociationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeExtensionPackAssociationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeExtensionPackAssociationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeExtensionPackAssociations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeExtensionPackAssociationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeExtensionPackAssociationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of the Fleet Advisor collectors in your account.
+     * </p>
+     * 
+     * @param describeFleetAdvisorCollectorsRequest
+     * @return Result of the DescribeFleetAdvisorCollectors operation returned by the service.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.DescribeFleetAdvisorCollectors
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeFleetAdvisorCollectors"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeFleetAdvisorCollectorsResult describeFleetAdvisorCollectors(DescribeFleetAdvisorCollectorsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeFleetAdvisorCollectors(request);
+    }
+
+    @SdkInternalApi
+    final DescribeFleetAdvisorCollectorsResult executeDescribeFleetAdvisorCollectors(DescribeFleetAdvisorCollectorsRequest describeFleetAdvisorCollectorsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeFleetAdvisorCollectorsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeFleetAdvisorCollectorsRequest> request = null;
+        Response<DescribeFleetAdvisorCollectorsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeFleetAdvisorCollectorsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeFleetAdvisorCollectorsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeFleetAdvisorCollectors");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeFleetAdvisorCollectorsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeFleetAdvisorCollectorsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of Fleet Advisor databases in your account.
+     * </p>
+     * 
+     * @param describeFleetAdvisorDatabasesRequest
+     * @return Result of the DescribeFleetAdvisorDatabases operation returned by the service.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.DescribeFleetAdvisorDatabases
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeFleetAdvisorDatabases"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeFleetAdvisorDatabasesResult describeFleetAdvisorDatabases(DescribeFleetAdvisorDatabasesRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeFleetAdvisorDatabases(request);
+    }
+
+    @SdkInternalApi
+    final DescribeFleetAdvisorDatabasesResult executeDescribeFleetAdvisorDatabases(DescribeFleetAdvisorDatabasesRequest describeFleetAdvisorDatabasesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeFleetAdvisorDatabasesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeFleetAdvisorDatabasesRequest> request = null;
+        Response<DescribeFleetAdvisorDatabasesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeFleetAdvisorDatabasesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeFleetAdvisorDatabasesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeFleetAdvisorDatabases");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeFleetAdvisorDatabasesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeFleetAdvisorDatabasesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides descriptions of large-scale assessment (LSA) analyses produced by your Fleet Advisor collectors.
+     * </p>
+     * 
+     * @param describeFleetAdvisorLsaAnalysisRequest
+     * @return Result of the DescribeFleetAdvisorLsaAnalysis operation returned by the service.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.DescribeFleetAdvisorLsaAnalysis
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeFleetAdvisorLsaAnalysis"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeFleetAdvisorLsaAnalysisResult describeFleetAdvisorLsaAnalysis(DescribeFleetAdvisorLsaAnalysisRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeFleetAdvisorLsaAnalysis(request);
+    }
+
+    @SdkInternalApi
+    final DescribeFleetAdvisorLsaAnalysisResult executeDescribeFleetAdvisorLsaAnalysis(
+            DescribeFleetAdvisorLsaAnalysisRequest describeFleetAdvisorLsaAnalysisRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeFleetAdvisorLsaAnalysisRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeFleetAdvisorLsaAnalysisRequest> request = null;
+        Response<DescribeFleetAdvisorLsaAnalysisResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeFleetAdvisorLsaAnalysisRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeFleetAdvisorLsaAnalysisRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeFleetAdvisorLsaAnalysis");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeFleetAdvisorLsaAnalysisResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeFleetAdvisorLsaAnalysisResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides descriptions of the schemas discovered by your Fleet Advisor collectors.
+     * </p>
+     * 
+     * @param describeFleetAdvisorSchemaObjectSummaryRequest
+     * @return Result of the DescribeFleetAdvisorSchemaObjectSummary operation returned by the service.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.DescribeFleetAdvisorSchemaObjectSummary
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeFleetAdvisorSchemaObjectSummary"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeFleetAdvisorSchemaObjectSummaryResult describeFleetAdvisorSchemaObjectSummary(DescribeFleetAdvisorSchemaObjectSummaryRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeFleetAdvisorSchemaObjectSummary(request);
+    }
+
+    @SdkInternalApi
+    final DescribeFleetAdvisorSchemaObjectSummaryResult executeDescribeFleetAdvisorSchemaObjectSummary(
+            DescribeFleetAdvisorSchemaObjectSummaryRequest describeFleetAdvisorSchemaObjectSummaryRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeFleetAdvisorSchemaObjectSummaryRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeFleetAdvisorSchemaObjectSummaryRequest> request = null;
+        Response<DescribeFleetAdvisorSchemaObjectSummaryResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeFleetAdvisorSchemaObjectSummaryRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeFleetAdvisorSchemaObjectSummaryRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeFleetAdvisorSchemaObjectSummary");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeFleetAdvisorSchemaObjectSummaryResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DescribeFleetAdvisorSchemaObjectSummaryResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of schemas detected by Fleet Advisor Collectors in your account.
+     * </p>
+     * 
+     * @param describeFleetAdvisorSchemasRequest
+     * @return Result of the DescribeFleetAdvisorSchemas operation returned by the service.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.DescribeFleetAdvisorSchemas
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeFleetAdvisorSchemas"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeFleetAdvisorSchemasResult describeFleetAdvisorSchemas(DescribeFleetAdvisorSchemasRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeFleetAdvisorSchemas(request);
+    }
+
+    @SdkInternalApi
+    final DescribeFleetAdvisorSchemasResult executeDescribeFleetAdvisorSchemas(DescribeFleetAdvisorSchemasRequest describeFleetAdvisorSchemasRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeFleetAdvisorSchemasRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeFleetAdvisorSchemasRequest> request = null;
+        Response<DescribeFleetAdvisorSchemasResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeFleetAdvisorSchemasRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeFleetAdvisorSchemasRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeFleetAdvisorSchemas");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeFleetAdvisorSchemasResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeFleetAdvisorSchemasResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a paginated list of instance profiles for your account in the current region.
+     * </p>
+     * 
+     * @param describeInstanceProfilesRequest
+     * @return Result of the DescribeInstanceProfiles operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @sample AWSDatabaseMigrationService.DescribeInstanceProfiles
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeInstanceProfiles" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeInstanceProfilesResult describeInstanceProfiles(DescribeInstanceProfilesRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeInstanceProfiles(request);
+    }
+
+    @SdkInternalApi
+    final DescribeInstanceProfilesResult executeDescribeInstanceProfiles(DescribeInstanceProfilesRequest describeInstanceProfilesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeInstanceProfilesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeInstanceProfilesRequest> request = null;
+        Response<DescribeInstanceProfilesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeInstanceProfilesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeInstanceProfilesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeInstanceProfiles");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeInstanceProfilesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeInstanceProfilesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a paginated list of metadata model assessments for your account in the current region.
+     * </p>
+     * 
+     * @param describeMetadataModelAssessmentsRequest
+     * @return Result of the DescribeMetadataModelAssessments operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AWSDatabaseMigrationService.DescribeMetadataModelAssessments
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeMetadataModelAssessments"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeMetadataModelAssessmentsResult describeMetadataModelAssessments(DescribeMetadataModelAssessmentsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeMetadataModelAssessments(request);
+    }
+
+    @SdkInternalApi
+    final DescribeMetadataModelAssessmentsResult executeDescribeMetadataModelAssessments(
+            DescribeMetadataModelAssessmentsRequest describeMetadataModelAssessmentsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeMetadataModelAssessmentsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeMetadataModelAssessmentsRequest> request = null;
+        Response<DescribeMetadataModelAssessmentsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeMetadataModelAssessmentsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeMetadataModelAssessmentsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMetadataModelAssessments");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeMetadataModelAssessmentsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeMetadataModelAssessmentsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a paginated list of metadata model conversions for a migration project.
+     * </p>
+     * 
+     * @param describeMetadataModelConversionsRequest
+     * @return Result of the DescribeMetadataModelConversions operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AWSDatabaseMigrationService.DescribeMetadataModelConversions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeMetadataModelConversions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeMetadataModelConversionsResult describeMetadataModelConversions(DescribeMetadataModelConversionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeMetadataModelConversions(request);
+    }
+
+    @SdkInternalApi
+    final DescribeMetadataModelConversionsResult executeDescribeMetadataModelConversions(
+            DescribeMetadataModelConversionsRequest describeMetadataModelConversionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeMetadataModelConversionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeMetadataModelConversionsRequest> request = null;
+        Response<DescribeMetadataModelConversionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeMetadataModelConversionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeMetadataModelConversionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMetadataModelConversions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeMetadataModelConversionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeMetadataModelConversionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a paginated list of metadata model exports.
+     * </p>
+     * 
+     * @param describeMetadataModelExportsAsScriptRequest
+     * @return Result of the DescribeMetadataModelExportsAsScript operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AWSDatabaseMigrationService.DescribeMetadataModelExportsAsScript
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeMetadataModelExportsAsScript"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeMetadataModelExportsAsScriptResult describeMetadataModelExportsAsScript(DescribeMetadataModelExportsAsScriptRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeMetadataModelExportsAsScript(request);
+    }
+
+    @SdkInternalApi
+    final DescribeMetadataModelExportsAsScriptResult executeDescribeMetadataModelExportsAsScript(
+            DescribeMetadataModelExportsAsScriptRequest describeMetadataModelExportsAsScriptRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeMetadataModelExportsAsScriptRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeMetadataModelExportsAsScriptRequest> request = null;
+        Response<DescribeMetadataModelExportsAsScriptResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeMetadataModelExportsAsScriptRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeMetadataModelExportsAsScriptRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMetadataModelExportsAsScript");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeMetadataModelExportsAsScriptResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeMetadataModelExportsAsScriptResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a paginated list of metadata model exports.
+     * </p>
+     * 
+     * @param describeMetadataModelExportsToTargetRequest
+     * @return Result of the DescribeMetadataModelExportsToTarget operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AWSDatabaseMigrationService.DescribeMetadataModelExportsToTarget
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeMetadataModelExportsToTarget"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeMetadataModelExportsToTargetResult describeMetadataModelExportsToTarget(DescribeMetadataModelExportsToTargetRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeMetadataModelExportsToTarget(request);
+    }
+
+    @SdkInternalApi
+    final DescribeMetadataModelExportsToTargetResult executeDescribeMetadataModelExportsToTarget(
+            DescribeMetadataModelExportsToTargetRequest describeMetadataModelExportsToTargetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeMetadataModelExportsToTargetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeMetadataModelExportsToTargetRequest> request = null;
+        Response<DescribeMetadataModelExportsToTargetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeMetadataModelExportsToTargetRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeMetadataModelExportsToTargetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMetadataModelExportsToTarget");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeMetadataModelExportsToTargetResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeMetadataModelExportsToTargetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a paginated list of metadata model imports.
+     * </p>
+     * 
+     * @param describeMetadataModelImportsRequest
+     * @return Result of the DescribeMetadataModelImports operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AWSDatabaseMigrationService.DescribeMetadataModelImports
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeMetadataModelImports"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeMetadataModelImportsResult describeMetadataModelImports(DescribeMetadataModelImportsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeMetadataModelImports(request);
+    }
+
+    @SdkInternalApi
+    final DescribeMetadataModelImportsResult executeDescribeMetadataModelImports(DescribeMetadataModelImportsRequest describeMetadataModelImportsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeMetadataModelImportsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeMetadataModelImportsRequest> request = null;
+        Response<DescribeMetadataModelImportsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeMetadataModelImportsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeMetadataModelImportsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMetadataModelImports");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeMetadataModelImportsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeMetadataModelImportsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a paginated list of migration projects for your account in the current region.
+     * </p>
+     * 
+     * @param describeMigrationProjectsRequest
+     * @return Result of the DescribeMigrationProjects operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @sample AWSDatabaseMigrationService.DescribeMigrationProjects
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeMigrationProjects" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeMigrationProjectsResult describeMigrationProjects(DescribeMigrationProjectsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeMigrationProjects(request);
+    }
+
+    @SdkInternalApi
+    final DescribeMigrationProjectsResult executeDescribeMigrationProjects(DescribeMigrationProjectsRequest describeMigrationProjectsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeMigrationProjectsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeMigrationProjectsRequest> request = null;
+        Response<DescribeMigrationProjectsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeMigrationProjectsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeMigrationProjectsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMigrationProjects");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeMigrationProjectsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeMigrationProjectsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1687,6 +3891,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(describeOrderableReplicationInstancesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeOrderableReplicationInstances");
@@ -1745,6 +3951,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(describePendingMaintenanceActionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribePendingMaintenanceActions");
@@ -1757,6 +3965,129 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
             HttpResponseHandler<AmazonWebServiceResponse<DescribePendingMaintenanceActionsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribePendingMaintenanceActionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a paginated list of limitations for recommendations of target Amazon Web Services engines.
+     * </p>
+     * 
+     * @param describeRecommendationLimitationsRequest
+     * @return Result of the DescribeRecommendationLimitations operation returned by the service.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @sample AWSDatabaseMigrationService.DescribeRecommendationLimitations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeRecommendationLimitations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeRecommendationLimitationsResult describeRecommendationLimitations(DescribeRecommendationLimitationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeRecommendationLimitations(request);
+    }
+
+    @SdkInternalApi
+    final DescribeRecommendationLimitationsResult executeDescribeRecommendationLimitations(
+            DescribeRecommendationLimitationsRequest describeRecommendationLimitationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeRecommendationLimitationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeRecommendationLimitationsRequest> request = null;
+        Response<DescribeRecommendationLimitationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeRecommendationLimitationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeRecommendationLimitationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRecommendationLimitations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeRecommendationLimitationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeRecommendationLimitationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a paginated list of target engine recommendations for your source databases.
+     * </p>
+     * 
+     * @param describeRecommendationsRequest
+     * @return Result of the DescribeRecommendations operation returned by the service.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @sample AWSDatabaseMigrationService.DescribeRecommendations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeRecommendations" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeRecommendationsResult describeRecommendations(DescribeRecommendationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeRecommendations(request);
+    }
+
+    @SdkInternalApi
+    final DescribeRecommendationsResult executeDescribeRecommendations(DescribeRecommendationsRequest describeRecommendationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeRecommendationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeRecommendationsRequest> request = null;
+        Response<DescribeRecommendationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeRecommendationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeRecommendationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRecommendations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeRecommendationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeRecommendationsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1804,6 +4135,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(describeRefreshSchemasStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRefreshSchemasStatus");
@@ -1816,6 +4149,65 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
             HttpResponseHandler<AmazonWebServiceResponse<DescribeRefreshSchemasStatusResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribeRefreshSchemasStatusResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns one or more existing DMS Serverless replication configurations as a list of structures.
+     * </p>
+     * 
+     * @param describeReplicationConfigsRequest
+     * @return Result of the DescribeReplicationConfigs operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AWSDatabaseMigrationService.DescribeReplicationConfigs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationConfigs" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeReplicationConfigsResult describeReplicationConfigs(DescribeReplicationConfigsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeReplicationConfigs(request);
+    }
+
+    @SdkInternalApi
+    final DescribeReplicationConfigsResult executeDescribeReplicationConfigs(DescribeReplicationConfigsRequest describeReplicationConfigsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeReplicationConfigsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeReplicationConfigsRequest> request = null;
+        Response<DescribeReplicationConfigsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeReplicationConfigsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeReplicationConfigsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReplicationConfigs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeReplicationConfigsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeReplicationConfigsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1864,6 +4256,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(describeReplicationInstanceTaskLogsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReplicationInstanceTaskLogs");
@@ -1921,6 +4315,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(describeReplicationInstancesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReplicationInstances");
@@ -1979,6 +4375,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(describeReplicationSubnetGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReplicationSubnetGroups");
@@ -2003,7 +4401,76 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
     /**
      * <p>
-     * Returns the task assessment results from Amazon S3. This action always returns the latest results.
+     * Returns table and schema statistics for one or more provisioned replications that use a given DMS Serverless
+     * replication configuration.
+     * </p>
+     * 
+     * @param describeReplicationTableStatisticsRequest
+     * @return Result of the DescribeReplicationTableStatistics operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.DescribeReplicationTableStatistics
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTableStatistics"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeReplicationTableStatisticsResult describeReplicationTableStatistics(DescribeReplicationTableStatisticsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeReplicationTableStatistics(request);
+    }
+
+    @SdkInternalApi
+    final DescribeReplicationTableStatisticsResult executeDescribeReplicationTableStatistics(
+            DescribeReplicationTableStatisticsRequest describeReplicationTableStatisticsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeReplicationTableStatisticsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeReplicationTableStatisticsRequest> request = null;
+        Response<DescribeReplicationTableStatisticsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeReplicationTableStatisticsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeReplicationTableStatisticsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReplicationTableStatistics");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeReplicationTableStatisticsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeReplicationTableStatisticsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the task assessment results from the Amazon S3 bucket that DMS creates in your Amazon Web Services
+     * account. This action always returns the latest results.
+     * </p>
+     * <p>
+     * For more information about DMS task assessments, see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.AssessmentReport.html">Creating a task
+     * assessment report</a> in the <i>Database Migration Service User Guide</i>.
      * </p>
      * 
      * @param describeReplicationTaskAssessmentResultsRequest
@@ -2037,6 +4504,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(describeReplicationTaskAssessmentResultsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReplicationTaskAssessmentResults");
@@ -2049,6 +4518,141 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
             HttpResponseHandler<AmazonWebServiceResponse<DescribeReplicationTaskAssessmentResultsResult>> responseHandler = protocolFactory
                     .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                             new DescribeReplicationTaskAssessmentResultsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a paginated list of premigration assessment runs based on filter settings.
+     * </p>
+     * <p>
+     * These filter settings can specify a combination of premigration assessment runs, migration tasks, replication
+     * instances, and assessment run status values.
+     * </p>
+     * <note>
+     * <p>
+     * This operation doesn't return information about individual assessments. For this information, see the
+     * <code>DescribeReplicationTaskIndividualAssessments</code> operation.
+     * </p>
+     * </note>
+     * 
+     * @param describeReplicationTaskAssessmentRunsRequest
+     * @return Result of the DescribeReplicationTaskAssessmentRuns operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AWSDatabaseMigrationService.DescribeReplicationTaskAssessmentRuns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentRuns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeReplicationTaskAssessmentRunsResult describeReplicationTaskAssessmentRuns(DescribeReplicationTaskAssessmentRunsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeReplicationTaskAssessmentRuns(request);
+    }
+
+    @SdkInternalApi
+    final DescribeReplicationTaskAssessmentRunsResult executeDescribeReplicationTaskAssessmentRuns(
+            DescribeReplicationTaskAssessmentRunsRequest describeReplicationTaskAssessmentRunsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeReplicationTaskAssessmentRunsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeReplicationTaskAssessmentRunsRequest> request = null;
+        Response<DescribeReplicationTaskAssessmentRunsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeReplicationTaskAssessmentRunsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeReplicationTaskAssessmentRunsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReplicationTaskAssessmentRuns");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeReplicationTaskAssessmentRunsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeReplicationTaskAssessmentRunsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a paginated list of individual assessments based on filter settings.
+     * </p>
+     * <p>
+     * These filter settings can specify a combination of premigration assessment runs, migration tasks, and assessment
+     * status values.
+     * </p>
+     * 
+     * @param describeReplicationTaskIndividualAssessmentsRequest
+     * @return Result of the DescribeReplicationTaskIndividualAssessments operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AWSDatabaseMigrationService.DescribeReplicationTaskIndividualAssessments
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskIndividualAssessments"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeReplicationTaskIndividualAssessmentsResult describeReplicationTaskIndividualAssessments(
+            DescribeReplicationTaskIndividualAssessmentsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeReplicationTaskIndividualAssessments(request);
+    }
+
+    @SdkInternalApi
+    final DescribeReplicationTaskIndividualAssessmentsResult executeDescribeReplicationTaskIndividualAssessments(
+            DescribeReplicationTaskIndividualAssessmentsRequest describeReplicationTaskIndividualAssessmentsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeReplicationTaskIndividualAssessmentsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeReplicationTaskIndividualAssessmentsRequest> request = null;
+        Response<DescribeReplicationTaskIndividualAssessmentsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeReplicationTaskIndividualAssessmentsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeReplicationTaskIndividualAssessmentsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReplicationTaskIndividualAssessments");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeReplicationTaskIndividualAssessmentsResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DescribeReplicationTaskIndividualAssessmentsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2094,6 +4698,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(describeReplicationTasksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReplicationTasks");
@@ -2106,6 +4712,64 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
             HttpResponseHandler<AmazonWebServiceResponse<DescribeReplicationTasksResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribeReplicationTasksResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides details on replication progress by returning status information for one or more provisioned DMS
+     * Serverless replications.
+     * </p>
+     * 
+     * @param describeReplicationsRequest
+     * @return Result of the DescribeReplications operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AWSDatabaseMigrationService.DescribeReplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplications" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DescribeReplicationsResult describeReplications(DescribeReplicationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeReplications(request);
+    }
+
+    @SdkInternalApi
+    final DescribeReplicationsResult executeDescribeReplications(DescribeReplicationsRequest describeReplicationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeReplicationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeReplicationsRequest> request = null;
+        Response<DescribeReplicationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeReplicationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeReplicationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReplications");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeReplicationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeReplicationsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2153,6 +4817,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new DescribeSchemasRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeSchemasRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSchemas");
@@ -2180,7 +4846,7 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      * rows deleted.
      * </p>
      * <p>
-     * Note that the "last updated" column the DMS console only indicates the time that AWS DMS last updated the table
+     * Note that the "last updated" column the DMS console only indicates the time that DMS last updated the table
      * statistics record for a table. It does not indicate the time of the last update to the table.
      * </p>
      * 
@@ -2216,6 +4882,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(describeTableStatisticsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeTableStatistics");
@@ -2228,6 +4896,66 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
             HttpResponseHandler<AmazonWebServiceResponse<DescribeTableStatisticsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribeTableStatisticsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Saves a copy of a database migration assessment report to your Amazon S3 bucket. DMS can save your assessment
+     * report as a comma-separated value (CSV) or a PDF file.
+     * </p>
+     * 
+     * @param exportMetadataModelAssessmentRequest
+     * @return Result of the ExportMetadataModelAssessment operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AWSDatabaseMigrationService.ExportMetadataModelAssessment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ExportMetadataModelAssessment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ExportMetadataModelAssessmentResult exportMetadataModelAssessment(ExportMetadataModelAssessmentRequest request) {
+        request = beforeClientExecution(request);
+        return executeExportMetadataModelAssessment(request);
+    }
+
+    @SdkInternalApi
+    final ExportMetadataModelAssessmentResult executeExportMetadataModelAssessment(ExportMetadataModelAssessmentRequest exportMetadataModelAssessmentRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(exportMetadataModelAssessmentRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ExportMetadataModelAssessmentRequest> request = null;
+        Response<ExportMetadataModelAssessmentResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ExportMetadataModelAssessmentRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(exportMetadataModelAssessmentRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ExportMetadataModelAssessment");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ExportMetadataModelAssessmentResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ExportMetadataModelAssessmentResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2276,6 +5004,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new ImportCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(importCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ImportCertificate");
@@ -2299,7 +5029,10 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
     /**
      * <p>
-     * Lists all tags for an AWS DMS resource.
+     * Lists all metadata tags attached to an DMS resource, including replication instance, endpoint, subnet group, and
+     * migration task. For more information, see <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_Tag.html"> <code>Tag</code> </a> data type
+     * description.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -2331,6 +5064,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -2354,8 +5089,143 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
     /**
      * <p>
+     * Modifies the specified schema conversion configuration using the provided parameters.
+     * </p>
+     * 
+     * @param modifyConversionConfigurationRequest
+     * @return Result of the ModifyConversionConfiguration operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.ModifyConversionConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ModifyConversionConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ModifyConversionConfigurationResult modifyConversionConfiguration(ModifyConversionConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyConversionConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final ModifyConversionConfigurationResult executeModifyConversionConfiguration(ModifyConversionConfigurationRequest modifyConversionConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyConversionConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyConversionConfigurationRequest> request = null;
+        Response<ModifyConversionConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyConversionConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(modifyConversionConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyConversionConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ModifyConversionConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ModifyConversionConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Modifies the specified data provider using the provided settings.
+     * </p>
+     * <note>
+     * <p>
+     * You must remove the data provider from all migration projects before you can modify it.
+     * </p>
+     * </note>
+     * 
+     * @param modifyDataProviderRequest
+     * @return Result of the ModifyDataProvider operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.ModifyDataProvider
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ModifyDataProvider" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ModifyDataProviderResult modifyDataProvider(ModifyDataProviderRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyDataProvider(request);
+    }
+
+    @SdkInternalApi
+    final ModifyDataProviderResult executeModifyDataProvider(ModifyDataProviderRequest modifyDataProviderRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyDataProviderRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyDataProviderRequest> request = null;
+        Response<ModifyDataProviderResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyDataProviderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyDataProviderRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyDataProvider");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ModifyDataProviderResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ModifyDataProviderResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Modifies the specified endpoint.
      * </p>
+     * <note>
+     * <p>
+     * For a MySQL source or target endpoint, don't explicitly specify the database using the <code>DatabaseName</code>
+     * request parameter on the <code>ModifyEndpoint</code> API call. Specifying <code>DatabaseName</code> when you
+     * modify a MySQL endpoint replicates all the task tables to this single database. For MySQL endpoints, you specify
+     * the database only when you specify the schema in the table-mapping rules of the DMS task.
+     * </p>
+     * </note>
      * 
      * @param modifyEndpointRequest
      * @return Result of the ModifyEndpoint operation returned by the service.
@@ -2366,9 +5236,9 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      * @throws ResourceAlreadyExistsException
      *         The resource you are attempting to create already exists.
      * @throws KMSKeyNotAccessibleException
-     *         AWS DMS cannot access the AWS KMS key.
+     *         DMS cannot access the KMS key.
      * @throws AccessDeniedException
-     *         AWS DMS was denied access to the endpoint. Check that the role is correctly configured.
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
      * @sample AWSDatabaseMigrationService.ModifyEndpoint
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ModifyEndpoint" target="_top">AWS API
      *      Documentation</a>
@@ -2394,6 +5264,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new ModifyEndpointRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyEndpointRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyEndpoint");
@@ -2417,7 +5289,7 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
     /**
      * <p>
-     * Modifies an existing AWS DMS event notification subscription.
+     * Modifies an existing DMS event notification subscription.
      * </p>
      * 
      * @param modifyEventSubscriptionRequest
@@ -2433,13 +5305,13 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      * @throws KMSAccessDeniedException
      *         The ciphertext references a key that doesn't exist or that the DMS account doesn't have access to.
      * @throws KMSDisabledException
-     *         The specified master key (CMK) isn't enabled.
+     *         The specified KMS key isn't enabled.
      * @throws KMSInvalidStateException
-     *         The state of the specified AWS KMS resource isn't valid for this request.
+     *         The state of the specified KMS resource isn't valid for this request.
      * @throws KMSNotFoundException
-     *         The specified AWS KMS entity or resource can't be found.
+     *         The specified KMS entity or resource can't be found.
      * @throws KMSThrottlingException
-     *         This request triggered AWS KMS request throttling.
+     *         This request triggered KMS request throttling.
      * @sample AWSDatabaseMigrationService.ModifyEventSubscription
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ModifyEventSubscription" target="_top">AWS
      *      API Documentation</a>
@@ -2466,6 +5338,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(modifyEventSubscriptionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyEventSubscription");
@@ -2490,6 +5364,229 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
     /**
      * <p>
+     * Modifies the specified instance profile using the provided parameters.
+     * </p>
+     * <note>
+     * <p>
+     * All migration projects associated with the instance profile must be deleted or modified before you can modify the
+     * instance profile.
+     * </p>
+     * </note>
+     * 
+     * @param modifyInstanceProfileRequest
+     * @return Result of the ModifyInstanceProfile operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws KMSKeyNotAccessibleException
+     *         DMS cannot access the KMS key.
+     * @throws S3ResourceNotFoundException
+     *         A specified Amazon S3 bucket, bucket folder, or other object can't be found.
+     * @throws S3AccessDeniedException
+     *         Insufficient privileges are preventing access to an Amazon S3 object.
+     * @sample AWSDatabaseMigrationService.ModifyInstanceProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ModifyInstanceProfile" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ModifyInstanceProfileResult modifyInstanceProfile(ModifyInstanceProfileRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyInstanceProfile(request);
+    }
+
+    @SdkInternalApi
+    final ModifyInstanceProfileResult executeModifyInstanceProfile(ModifyInstanceProfileRequest modifyInstanceProfileRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyInstanceProfileRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyInstanceProfileRequest> request = null;
+        Response<ModifyInstanceProfileResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyInstanceProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyInstanceProfileRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyInstanceProfile");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ModifyInstanceProfileResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new ModifyInstanceProfileResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Modifies the specified migration project using the provided parameters.
+     * </p>
+     * <note>
+     * <p>
+     * The migration project must be closed before you can modify it.
+     * </p>
+     * </note>
+     * 
+     * @param modifyMigrationProjectRequest
+     * @return Result of the ModifyMigrationProject operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws S3ResourceNotFoundException
+     *         A specified Amazon S3 bucket, bucket folder, or other object can't be found.
+     * @throws S3AccessDeniedException
+     *         Insufficient privileges are preventing access to an Amazon S3 object.
+     * @sample AWSDatabaseMigrationService.ModifyMigrationProject
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ModifyMigrationProject" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ModifyMigrationProjectResult modifyMigrationProject(ModifyMigrationProjectRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyMigrationProject(request);
+    }
+
+    @SdkInternalApi
+    final ModifyMigrationProjectResult executeModifyMigrationProject(ModifyMigrationProjectRequest modifyMigrationProjectRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyMigrationProjectRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyMigrationProjectRequest> request = null;
+        Response<ModifyMigrationProjectResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyMigrationProjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyMigrationProjectRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyMigrationProject");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ModifyMigrationProjectResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ModifyMigrationProjectResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Modifies an existing DMS Serverless replication configuration that you can use to start a replication. This
+     * command includes input validation and logic to check the state of any replication that uses this configuration.
+     * You can only modify a replication configuration before any replication that uses it has started. As soon as you
+     * have initially started a replication with a given configuiration, you can't modify that configuration, even if
+     * you stop it.
+     * </p>
+     * <p>
+     * Other run statuses that allow you to run this command include FAILED and CREATED. A provisioning state that
+     * allows you to run this command is FAILED_PROVISION.
+     * </p>
+     * 
+     * @param modifyReplicationConfigRequest
+     * @return Result of the ModifyReplicationConfig operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ReplicationSubnetGroupDoesNotCoverEnoughAZsException
+     *         The replication subnet group does not cover enough Availability Zones (AZs). Edit the replication subnet
+     *         group and add more AZs.
+     * @throws InvalidSubnetException
+     *         The subnet provided isn't valid.
+     * @throws KMSKeyNotAccessibleException
+     *         DMS cannot access the KMS key.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.ModifyReplicationConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ModifyReplicationConfig" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ModifyReplicationConfigResult modifyReplicationConfig(ModifyReplicationConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyReplicationConfig(request);
+    }
+
+    @SdkInternalApi
+    final ModifyReplicationConfigResult executeModifyReplicationConfig(ModifyReplicationConfigRequest modifyReplicationConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyReplicationConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyReplicationConfigRequest> request = null;
+        Response<ModifyReplicationConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyReplicationConfigRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(modifyReplicationConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyReplicationConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ModifyReplicationConfigResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ModifyReplicationConfigResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Modifies the replication instance to apply new settings. You can change one or more parameters by specifying
      * these parameters and the new values in the request.
      * </p>
@@ -2501,7 +5598,7 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      * @param modifyReplicationInstanceRequest
      * @return Result of the ModifyReplicationInstance operation returned by the service.
      * @throws AccessDeniedException
-     *         AWS DMS was denied access to the endpoint. Check that the role is correctly configured.
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
      * @throws InvalidResourceStateException
      *         The resource is in a state that prevents it from being used for database migration.
      * @throws ResourceAlreadyExistsException
@@ -2540,6 +5637,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(modifyReplicationInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyReplicationInstance");
@@ -2570,7 +5669,7 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      * @param modifyReplicationSubnetGroupRequest
      * @return Result of the ModifyReplicationSubnetGroup operation returned by the service.
      * @throws AccessDeniedException
-     *         AWS DMS was denied access to the endpoint. Check that the role is correctly configured.
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
      * @throws ResourceNotFoundException
      *         The resource could not be found.
      * @throws ResourceQuotaExceededException
@@ -2581,7 +5680,7 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      *         The replication subnet group does not cover enough Availability Zones (AZs). Edit the replication subnet
      *         group and add more AZs.
      * @throws InvalidSubnetException
-     *         The subnet provided is invalid.
+     *         The subnet provided isn't valid.
      * @sample AWSDatabaseMigrationService.ModifyReplicationSubnetGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ModifyReplicationSubnetGroup"
      *      target="_top">AWS API Documentation</a>
@@ -2608,6 +5707,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(modifyReplicationSubnetGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyReplicationSubnetGroup");
@@ -2638,9 +5739,9 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      * You can't modify the task endpoints. The task must be stopped before you can modify it.
      * </p>
      * <p>
-     * For more information about AWS DMS tasks, see <a
+     * For more information about DMS tasks, see <a
      * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html">Working with Migration Tasks</a> in the
-     * <i>AWS Database Migration Service User Guide</i>.
+     * <i>Database Migration Service User Guide</i>.
      * </p>
      * 
      * @param modifyReplicationTaskRequest
@@ -2652,7 +5753,7 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      * @throws ResourceAlreadyExistsException
      *         The resource you are attempting to create already exists.
      * @throws KMSKeyNotAccessibleException
-     *         AWS DMS cannot access the AWS KMS key.
+     *         DMS cannot access the KMS key.
      * @sample AWSDatabaseMigrationService.ModifyReplicationTask
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ModifyReplicationTask" target="_top">AWS API
      *      Documentation</a>
@@ -2678,6 +5779,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new ModifyReplicationTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyReplicationTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyReplicationTask");
@@ -2690,6 +5793,73 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
             HttpResponseHandler<AmazonWebServiceResponse<ModifyReplicationTaskResult>> responseHandler = protocolFactory
                     .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                             new ModifyReplicationTaskResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Moves a replication task from its current replication instance to a different target replication instance using
+     * the specified parameters. The target replication instance must be created with the same or later DMS version as
+     * the current replication instance.
+     * </p>
+     * 
+     * @param moveReplicationTaskRequest
+     * @return Result of the MoveReplicationTask operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws KMSKeyNotAccessibleException
+     *         DMS cannot access the KMS key.
+     * @throws ResourceQuotaExceededException
+     *         The quota for this resource quota has been exceeded.
+     * @sample AWSDatabaseMigrationService.MoveReplicationTask
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/MoveReplicationTask" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public MoveReplicationTaskResult moveReplicationTask(MoveReplicationTaskRequest request) {
+        request = beforeClientExecution(request);
+        return executeMoveReplicationTask(request);
+    }
+
+    @SdkInternalApi
+    final MoveReplicationTaskResult executeMoveReplicationTask(MoveReplicationTaskRequest moveReplicationTaskRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(moveReplicationTaskRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<MoveReplicationTaskRequest> request = null;
+        Response<MoveReplicationTaskResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new MoveReplicationTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(moveReplicationTaskRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "MoveReplicationTask");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<MoveReplicationTaskResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new MoveReplicationTaskResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2738,6 +5908,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(rebootReplicationInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RebootReplicationInstance");
@@ -2773,7 +5945,7 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      * @throws ResourceNotFoundException
      *         The resource could not be found.
      * @throws KMSKeyNotAccessibleException
-     *         AWS DMS cannot access the AWS KMS key.
+     *         DMS cannot access the KMS key.
      * @throws ResourceQuotaExceededException
      *         The quota for this resource quota has been exceeded.
      * @sample AWSDatabaseMigrationService.RefreshSchemas
@@ -2801,6 +5973,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new RefreshSchemasRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(refreshSchemasRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RefreshSchemas");
@@ -2824,7 +5998,76 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
     /**
      * <p>
+     * Reloads the target database table with the source data for a given DMS Serverless replication configuration.
+     * </p>
+     * <p>
+     * You can only use this operation with a task in the RUNNING state, otherwise the service will throw an
+     * <code>InvalidResourceStateFault</code> exception.
+     * </p>
+     * 
+     * @param reloadReplicationTablesRequest
+     * @return Result of the ReloadReplicationTables operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.ReloadReplicationTables
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ReloadReplicationTables" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ReloadReplicationTablesResult reloadReplicationTables(ReloadReplicationTablesRequest request) {
+        request = beforeClientExecution(request);
+        return executeReloadReplicationTables(request);
+    }
+
+    @SdkInternalApi
+    final ReloadReplicationTablesResult executeReloadReplicationTables(ReloadReplicationTablesRequest reloadReplicationTablesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(reloadReplicationTablesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ReloadReplicationTablesRequest> request = null;
+        Response<ReloadReplicationTablesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ReloadReplicationTablesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(reloadReplicationTablesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ReloadReplicationTables");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ReloadReplicationTablesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ReloadReplicationTablesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Reloads the target database table with the source data.
+     * </p>
+     * <p>
+     * You can only use this operation with a task in the <code>RUNNING</code> state, otherwise the service will throw
+     * an <code>InvalidResourceStateFault</code> exception.
      * </p>
      * 
      * @param reloadTablesRequest
@@ -2858,6 +6101,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new ReloadTablesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(reloadTablesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ReloadTables");
@@ -2881,11 +6126,13 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
     /**
      * <p>
-     * Removes metadata tags from a DMS resource.
+     * Removes metadata tags from an DMS resource, including replication instance, endpoint, subnet group, and migration
+     * task. For more information, see <a href="https://docs.aws.amazon.com/dms/latest/APIReference/API_Tag.html">
+     * <code>Tag</code> </a> data type description.
      * </p>
      * 
      * @param removeTagsFromResourceRequest
-     *        Removes one or more tags from an AWS DMS resource.
+     *        Removes one or more tags from an DMS resource.
      * @return Result of the RemoveTagsFromResource operation returned by the service.
      * @throws ResourceNotFoundException
      *         The resource could not be found.
@@ -2914,6 +6161,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new RemoveTagsFromResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(removeTagsFromResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveTagsFromResource");
@@ -2938,12 +6187,649 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
     /**
      * <p>
+     * Runs large-scale assessment (LSA) analysis on every Fleet Advisor collector in your account.
+     * </p>
+     * 
+     * @param runFleetAdvisorLsaAnalysisRequest
+     * @return Result of the RunFleetAdvisorLsaAnalysis operation returned by the service.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AWSDatabaseMigrationService.RunFleetAdvisorLsaAnalysis
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/RunFleetAdvisorLsaAnalysis" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public RunFleetAdvisorLsaAnalysisResult runFleetAdvisorLsaAnalysis(RunFleetAdvisorLsaAnalysisRequest request) {
+        request = beforeClientExecution(request);
+        return executeRunFleetAdvisorLsaAnalysis(request);
+    }
+
+    @SdkInternalApi
+    final RunFleetAdvisorLsaAnalysisResult executeRunFleetAdvisorLsaAnalysis(RunFleetAdvisorLsaAnalysisRequest runFleetAdvisorLsaAnalysisRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(runFleetAdvisorLsaAnalysisRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RunFleetAdvisorLsaAnalysisRequest> request = null;
+        Response<RunFleetAdvisorLsaAnalysisResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RunFleetAdvisorLsaAnalysisRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(runFleetAdvisorLsaAnalysisRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RunFleetAdvisorLsaAnalysis");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RunFleetAdvisorLsaAnalysisResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new RunFleetAdvisorLsaAnalysisResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Applies the extension pack to your target database. An extension pack is an add-on module that emulates functions
+     * present in a source database that are required when converting objects to the target database.
+     * </p>
+     * 
+     * @param startExtensionPackAssociationRequest
+     * @return Result of the StartExtensionPackAssociation operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws ResourceAlreadyExistsException
+     *         The resource you are attempting to create already exists.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws KMSKeyNotAccessibleException
+     *         DMS cannot access the KMS key.
+     * @throws ResourceQuotaExceededException
+     *         The quota for this resource quota has been exceeded.
+     * @throws S3ResourceNotFoundException
+     *         A specified Amazon S3 bucket, bucket folder, or other object can't be found.
+     * @throws S3AccessDeniedException
+     *         Insufficient privileges are preventing access to an Amazon S3 object.
+     * @sample AWSDatabaseMigrationService.StartExtensionPackAssociation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartExtensionPackAssociation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public StartExtensionPackAssociationResult startExtensionPackAssociation(StartExtensionPackAssociationRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartExtensionPackAssociation(request);
+    }
+
+    @SdkInternalApi
+    final StartExtensionPackAssociationResult executeStartExtensionPackAssociation(StartExtensionPackAssociationRequest startExtensionPackAssociationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startExtensionPackAssociationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartExtensionPackAssociationRequest> request = null;
+        Response<StartExtensionPackAssociationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartExtensionPackAssociationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(startExtensionPackAssociationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartExtensionPackAssociation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartExtensionPackAssociationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new StartExtensionPackAssociationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a database migration assessment report by assessing the migration complexity for your source database. A
+     * database migration assessment report summarizes all of the schema conversion tasks. It also details the action
+     * items for database objects that can't be converted to the database engine of your target database instance.
+     * </p>
+     * 
+     * @param startMetadataModelAssessmentRequest
+     * @return Result of the StartMetadataModelAssessment operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws ResourceAlreadyExistsException
+     *         The resource you are attempting to create already exists.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws KMSKeyNotAccessibleException
+     *         DMS cannot access the KMS key.
+     * @throws ResourceQuotaExceededException
+     *         The quota for this resource quota has been exceeded.
+     * @throws S3ResourceNotFoundException
+     *         A specified Amazon S3 bucket, bucket folder, or other object can't be found.
+     * @throws S3AccessDeniedException
+     *         Insufficient privileges are preventing access to an Amazon S3 object.
+     * @sample AWSDatabaseMigrationService.StartMetadataModelAssessment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartMetadataModelAssessment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public StartMetadataModelAssessmentResult startMetadataModelAssessment(StartMetadataModelAssessmentRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartMetadataModelAssessment(request);
+    }
+
+    @SdkInternalApi
+    final StartMetadataModelAssessmentResult executeStartMetadataModelAssessment(StartMetadataModelAssessmentRequest startMetadataModelAssessmentRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startMetadataModelAssessmentRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartMetadataModelAssessmentRequest> request = null;
+        Response<StartMetadataModelAssessmentResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartMetadataModelAssessmentRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(startMetadataModelAssessmentRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartMetadataModelAssessment");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartMetadataModelAssessmentResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new StartMetadataModelAssessmentResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Converts your source database objects to a format compatible with the target database.
+     * </p>
+     * 
+     * @param startMetadataModelConversionRequest
+     * @return Result of the StartMetadataModelConversion operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws ResourceAlreadyExistsException
+     *         The resource you are attempting to create already exists.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws KMSKeyNotAccessibleException
+     *         DMS cannot access the KMS key.
+     * @throws ResourceQuotaExceededException
+     *         The quota for this resource quota has been exceeded.
+     * @throws S3ResourceNotFoundException
+     *         A specified Amazon S3 bucket, bucket folder, or other object can't be found.
+     * @throws S3AccessDeniedException
+     *         Insufficient privileges are preventing access to an Amazon S3 object.
+     * @sample AWSDatabaseMigrationService.StartMetadataModelConversion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartMetadataModelConversion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public StartMetadataModelConversionResult startMetadataModelConversion(StartMetadataModelConversionRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartMetadataModelConversion(request);
+    }
+
+    @SdkInternalApi
+    final StartMetadataModelConversionResult executeStartMetadataModelConversion(StartMetadataModelConversionRequest startMetadataModelConversionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startMetadataModelConversionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartMetadataModelConversionRequest> request = null;
+        Response<StartMetadataModelConversionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartMetadataModelConversionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(startMetadataModelConversionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartMetadataModelConversion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartMetadataModelConversionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new StartMetadataModelConversionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Saves your converted code to a file as a SQL script, and stores this file on your Amazon S3 bucket.
+     * </p>
+     * 
+     * @param startMetadataModelExportAsScriptRequest
+     * @return Result of the StartMetadataModelExportAsScript operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws ResourceAlreadyExistsException
+     *         The resource you are attempting to create already exists.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws KMSKeyNotAccessibleException
+     *         DMS cannot access the KMS key.
+     * @throws ResourceQuotaExceededException
+     *         The quota for this resource quota has been exceeded.
+     * @throws S3ResourceNotFoundException
+     *         A specified Amazon S3 bucket, bucket folder, or other object can't be found.
+     * @throws S3AccessDeniedException
+     *         Insufficient privileges are preventing access to an Amazon S3 object.
+     * @sample AWSDatabaseMigrationService.StartMetadataModelExportAsScript
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartMetadataModelExportAsScript"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public StartMetadataModelExportAsScriptResult startMetadataModelExportAsScript(StartMetadataModelExportAsScriptRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartMetadataModelExportAsScript(request);
+    }
+
+    @SdkInternalApi
+    final StartMetadataModelExportAsScriptResult executeStartMetadataModelExportAsScript(
+            StartMetadataModelExportAsScriptRequest startMetadataModelExportAsScriptRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startMetadataModelExportAsScriptRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartMetadataModelExportAsScriptRequest> request = null;
+        Response<StartMetadataModelExportAsScriptResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartMetadataModelExportAsScriptRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(startMetadataModelExportAsScriptRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartMetadataModelExportAsScript");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartMetadataModelExportAsScriptResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new StartMetadataModelExportAsScriptResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Applies converted database objects to your target database.
+     * </p>
+     * 
+     * @param startMetadataModelExportToTargetRequest
+     * @return Result of the StartMetadataModelExportToTarget operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws ResourceAlreadyExistsException
+     *         The resource you are attempting to create already exists.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws KMSKeyNotAccessibleException
+     *         DMS cannot access the KMS key.
+     * @throws ResourceQuotaExceededException
+     *         The quota for this resource quota has been exceeded.
+     * @throws S3ResourceNotFoundException
+     *         A specified Amazon S3 bucket, bucket folder, or other object can't be found.
+     * @throws S3AccessDeniedException
+     *         Insufficient privileges are preventing access to an Amazon S3 object.
+     * @sample AWSDatabaseMigrationService.StartMetadataModelExportToTarget
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartMetadataModelExportToTarget"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public StartMetadataModelExportToTargetResult startMetadataModelExportToTarget(StartMetadataModelExportToTargetRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartMetadataModelExportToTarget(request);
+    }
+
+    @SdkInternalApi
+    final StartMetadataModelExportToTargetResult executeStartMetadataModelExportToTarget(
+            StartMetadataModelExportToTargetRequest startMetadataModelExportToTargetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startMetadataModelExportToTargetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartMetadataModelExportToTargetRequest> request = null;
+        Response<StartMetadataModelExportToTargetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartMetadataModelExportToTargetRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(startMetadataModelExportToTargetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartMetadataModelExportToTarget");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartMetadataModelExportToTargetResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new StartMetadataModelExportToTargetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Loads the metadata for all the dependent database objects of the parent object.
+     * </p>
+     * <p>
+     * This operation uses your project's Amazon S3 bucket as a metadata cache to improve performance.
+     * </p>
+     * 
+     * @param startMetadataModelImportRequest
+     * @return Result of the StartMetadataModelImport operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws ResourceAlreadyExistsException
+     *         The resource you are attempting to create already exists.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws KMSKeyNotAccessibleException
+     *         DMS cannot access the KMS key.
+     * @throws ResourceQuotaExceededException
+     *         The quota for this resource quota has been exceeded.
+     * @throws S3ResourceNotFoundException
+     *         A specified Amazon S3 bucket, bucket folder, or other object can't be found.
+     * @throws S3AccessDeniedException
+     *         Insufficient privileges are preventing access to an Amazon S3 object.
+     * @sample AWSDatabaseMigrationService.StartMetadataModelImport
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartMetadataModelImport" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public StartMetadataModelImportResult startMetadataModelImport(StartMetadataModelImportRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartMetadataModelImport(request);
+    }
+
+    @SdkInternalApi
+    final StartMetadataModelImportResult executeStartMetadataModelImport(StartMetadataModelImportRequest startMetadataModelImportRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startMetadataModelImportRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartMetadataModelImportRequest> request = null;
+        Response<StartMetadataModelImportResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartMetadataModelImportRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(startMetadataModelImportRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartMetadataModelImport");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartMetadataModelImportResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new StartMetadataModelImportResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Starts the analysis of your source database to provide recommendations of target engines.
+     * </p>
+     * <p>
+     * You can create recommendations for multiple source databases using <a
+     * href="https://docs.aws.amazon.com/dms/latest/APIReference/API_BatchStartRecommendations.html"
+     * >BatchStartRecommendations</a>.
+     * </p>
+     * 
+     * @param startRecommendationsRequest
+     * @return Result of the StartRecommendations operation returned by the service.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AWSDatabaseMigrationService.StartRecommendations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartRecommendations" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public StartRecommendationsResult startRecommendations(StartRecommendationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartRecommendations(request);
+    }
+
+    @SdkInternalApi
+    final StartRecommendationsResult executeStartRecommendations(StartRecommendationsRequest startRecommendationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startRecommendationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartRecommendationsRequest> request = null;
+        Response<StartRecommendationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartRecommendationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startRecommendationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartRecommendations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartRecommendationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StartRecommendationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * For a given DMS Serverless replication configuration, DMS connects to the source endpoint and collects the
+     * metadata to analyze the replication workload. Using this metadata, DMS then computes and provisions the required
+     * capacity and starts replicating to the target endpoint using the server resources that DMS has provisioned for
+     * the DMS Serverless replication.
+     * </p>
+     * 
+     * @param startReplicationRequest
+     * @return Result of the StartReplication operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @sample AWSDatabaseMigrationService.StartReplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplication" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public StartReplicationResult startReplication(StartReplicationRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartReplication(request);
+    }
+
+    @SdkInternalApi
+    final StartReplicationResult executeStartReplication(StartReplicationRequest startReplicationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startReplicationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartReplicationRequest> request = null;
+        Response<StartReplicationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartReplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startReplicationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartReplication");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartReplicationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StartReplicationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Starts the replication task.
      * </p>
      * <p>
-     * For more information about AWS DMS tasks, see <a
+     * For more information about DMS tasks, see <a
      * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html">Working with Migration Tasks </a> in the
-     * <i>AWS Database Migration Service User Guide.</i>
+     * <i>Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param startReplicationTaskRequest
@@ -2953,7 +6839,7 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      * @throws InvalidResourceStateException
      *         The resource is in a state that prevents it from being used for database migration.
      * @throws AccessDeniedException
-     *         AWS DMS was denied access to the endpoint. Check that the role is correctly configured.
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
      * @sample AWSDatabaseMigrationService.StartReplicationTask
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTask" target="_top">AWS API
      *      Documentation</a>
@@ -2979,6 +6865,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new StartReplicationTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startReplicationTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartReplicationTask");
@@ -3003,6 +6891,29 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
     /**
      * <p>
      * Starts the replication task assessment for unsupported data types in the source database.
+     * </p>
+     * <p>
+     * You can only use this operation for a task if the following conditions are true:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The task must be in the <code>stopped</code> state.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The task must have successful connections to the source and target.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If either of these conditions are not met, an <code>InvalidResourceStateFault</code> error will result.
+     * </p>
+     * <p>
+     * For information about DMS task assessments, see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.AssessmentReport.html">Creating a task
+     * assessment report</a> in the <i>Database Migration Service User Guide</i>.
      * </p>
      * 
      * @param startReplicationTaskAssessmentRequest
@@ -3037,6 +6948,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                         .beforeMarshalling(startReplicationTaskAssessmentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartReplicationTaskAssessment");
@@ -3061,9 +6974,158 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
     /**
      * <p>
+     * Starts a new premigration assessment run for one or more individual assessments of a migration task.
+     * </p>
+     * <p>
+     * The assessments that you can specify depend on the source and target database engine and the migration type
+     * defined for the given task. To run this operation, your migration task must already be created. After you run
+     * this operation, you can review the status of each individual assessment. You can also run the migration task
+     * manually after the assessment run and its individual assessments complete.
+     * </p>
+     * 
+     * @param startReplicationTaskAssessmentRunRequest
+     * @return Result of the StartReplicationTaskAssessmentRun operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws KMSAccessDeniedException
+     *         The ciphertext references a key that doesn't exist or that the DMS account doesn't have access to.
+     * @throws KMSDisabledException
+     *         The specified KMS key isn't enabled.
+     * @throws KMSException
+     *         An Key Management Service (KMS) error is preventing access to KMS.
+     * @throws KMSInvalidStateException
+     *         The state of the specified KMS resource isn't valid for this request.
+     * @throws KMSNotFoundException
+     *         The specified KMS entity or resource can't be found.
+     * @throws KMSKeyNotAccessibleException
+     *         DMS cannot access the KMS key.
+     * @throws S3AccessDeniedException
+     *         Insufficient privileges are preventing access to an Amazon S3 object.
+     * @throws S3ResourceNotFoundException
+     *         A specified Amazon S3 bucket, bucket folder, or other object can't be found.
+     * @throws ResourceAlreadyExistsException
+     *         The resource you are attempting to create already exists.
+     * @sample AWSDatabaseMigrationService.StartReplicationTaskAssessmentRun
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessmentRun"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public StartReplicationTaskAssessmentRunResult startReplicationTaskAssessmentRun(StartReplicationTaskAssessmentRunRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartReplicationTaskAssessmentRun(request);
+    }
+
+    @SdkInternalApi
+    final StartReplicationTaskAssessmentRunResult executeStartReplicationTaskAssessmentRun(
+            StartReplicationTaskAssessmentRunRequest startReplicationTaskAssessmentRunRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startReplicationTaskAssessmentRunRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartReplicationTaskAssessmentRunRequest> request = null;
+        Response<StartReplicationTaskAssessmentRunResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartReplicationTaskAssessmentRunRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(startReplicationTaskAssessmentRunRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartReplicationTaskAssessmentRun");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartReplicationTaskAssessmentRunResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new StartReplicationTaskAssessmentRunResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * For a given DMS Serverless replication configuration, DMS stops any and all ongoing DMS Serverless replications.
+     * This command doesn't deprovision the stopped replications.
+     * </p>
+     * 
+     * @param stopReplicationRequest
+     * @return Result of the StopReplication operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @sample AWSDatabaseMigrationService.StopReplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StopReplication" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public StopReplicationResult stopReplication(StopReplicationRequest request) {
+        request = beforeClientExecution(request);
+        return executeStopReplication(request);
+    }
+
+    @SdkInternalApi
+    final StopReplicationResult executeStopReplication(StopReplicationRequest stopReplicationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(stopReplicationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StopReplicationRequest> request = null;
+        Response<StopReplicationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StopReplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopReplicationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopReplication");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StopReplicationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StopReplicationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Stops the replication task.
      * </p>
-     * <p/>
      * 
      * @param stopReplicationTaskRequest
      * @return Result of the StopReplicationTask operation returned by the service.
@@ -3096,6 +7158,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new StopReplicationTaskRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopReplicationTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopReplicationTask");
@@ -3129,9 +7193,11 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
      * @throws InvalidResourceStateException
      *         The resource is in a state that prevents it from being used for database migration.
      * @throws KMSKeyNotAccessibleException
-     *         AWS DMS cannot access the AWS KMS key.
+     *         DMS cannot access the KMS key.
      * @throws ResourceQuotaExceededException
      *         The quota for this resource quota has been exceeded.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
      * @sample AWSDatabaseMigrationService.TestConnection
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/TestConnection" target="_top">AWS API
      *      Documentation</a>
@@ -3157,6 +7223,8 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
                 request = new TestConnectionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(testConnectionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TestConnection");
@@ -3168,6 +7236,80 @@ public class AWSDatabaseMigrationServiceClient extends AmazonWebServiceClient im
 
             HttpResponseHandler<AmazonWebServiceResponse<TestConnectionResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TestConnectionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Migrates 10 active and enabled Amazon SNS subscriptions at a time and converts them to corresponding Amazon
+     * EventBridge rules. By default, this operation migrates subscriptions only when all your replication instance
+     * versions are 3.4.5 or higher. If any replication instances are from versions earlier than 3.4.5, the operation
+     * raises an error and tells you to upgrade these instances to version 3.4.5 or higher. To enable migration
+     * regardless of version, set the <code>Force</code> option to true. However, if you don't upgrade instances earlier
+     * than version 3.4.5, some types of events might not be available when you use Amazon EventBridge.
+     * </p>
+     * <p>
+     * To call this operation, make sure that you have certain permissions added to your user account. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html#CHAP_Events-migrate-to-eventbridge"
+     * >Migrating event subscriptions to Amazon EventBridge</a> in the <i>Amazon Web Services Database Migration Service
+     * User Guide</i>.
+     * </p>
+     * 
+     * @param updateSubscriptionsToEventBridgeRequest
+     * @return Result of the UpdateSubscriptionsToEventBridge operation returned by the service.
+     * @throws AccessDeniedException
+     *         DMS was denied access to the endpoint. Check that the role is correctly configured.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.UpdateSubscriptionsToEventBridge
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/UpdateSubscriptionsToEventBridge"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateSubscriptionsToEventBridgeResult updateSubscriptionsToEventBridge(UpdateSubscriptionsToEventBridgeRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateSubscriptionsToEventBridge(request);
+    }
+
+    @SdkInternalApi
+    final UpdateSubscriptionsToEventBridgeResult executeUpdateSubscriptionsToEventBridge(
+            UpdateSubscriptionsToEventBridgeRequest updateSubscriptionsToEventBridgeRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateSubscriptionsToEventBridgeRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateSubscriptionsToEventBridgeRequest> request = null;
+        Response<UpdateSubscriptionsToEventBridgeResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateSubscriptionsToEventBridgeRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateSubscriptionsToEventBridgeRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Database Migration Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateSubscriptionsToEventBridge");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateSubscriptionsToEventBridgeResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateSubscriptionsToEventBridgeResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();

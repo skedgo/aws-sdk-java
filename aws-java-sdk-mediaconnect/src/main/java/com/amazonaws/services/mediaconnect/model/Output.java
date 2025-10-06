@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,6 +26,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class Output implements Serializable, Cloneable, StructuredPojo {
 
+    /** Percentage from 0-100 of the data transfer cost to be billed to the subscriber. */
+    private Integer dataTransferSubscriberFeePercent;
     /** A description of the output. */
     private String description;
     /** The address where you want to send the output. */
@@ -38,10 +40,19 @@ public class Output implements Serializable, Cloneable, StructuredPojo {
     /** The ARN of the entitlement on the originator''s flow. This value is relevant only on entitled flows. */
     private String entitlementArn;
     /**
+     * The IP address that the receiver requires in order to establish a connection with the flow. For public
+     * networking, the ListenerAddress is represented by the elastic IP address of the flow. For private networking, the
+     * ListenerAddress is represented by the elastic network interface IP address of the VPC. This field applies only to
+     * outputs that use the Zixi pull or SRT listener protocol.
+     */
+    private String listenerAddress;
+    /**
      * The input ARN of the AWS Elemental MediaLive channel. This parameter is relevant only for outputs that were added
      * by creating a MediaLive input.
      */
     private String mediaLiveInputArn;
+    /** The configuration for each media stream that is associated with the output. */
+    private java.util.List<MediaStreamOutputConfiguration> mediaStreamOutputConfigurations;
     /** The name of the output. This value must be unique within the current flow. */
     private String name;
     /** The ARN of the output. */
@@ -50,6 +61,48 @@ public class Output implements Serializable, Cloneable, StructuredPojo {
     private Integer port;
     /** Attributes related to the transport stream that are used in the output. */
     private Transport transport;
+    /** The name of the VPC interface attachment to use for this output. */
+    private VpcInterfaceAttachment vpcInterfaceAttachment;
+    /** The ARN of the bridge that added this output. */
+    private String bridgeArn;
+    /** The bridge output ports currently in use. */
+    private java.util.List<Integer> bridgePorts;
+    /** An indication of whether the output is transmitting data or not. */
+    private String outputStatus;
+
+    /**
+     * Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     * 
+     * @param dataTransferSubscriberFeePercent
+     *        Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     */
+
+    public void setDataTransferSubscriberFeePercent(Integer dataTransferSubscriberFeePercent) {
+        this.dataTransferSubscriberFeePercent = dataTransferSubscriberFeePercent;
+    }
+
+    /**
+     * Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     * 
+     * @return Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     */
+
+    public Integer getDataTransferSubscriberFeePercent() {
+        return this.dataTransferSubscriberFeePercent;
+    }
+
+    /**
+     * Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     * 
+     * @param dataTransferSubscriberFeePercent
+     *        Percentage from 0-100 of the data transfer cost to be billed to the subscriber.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Output withDataTransferSubscriberFeePercent(Integer dataTransferSubscriberFeePercent) {
+        setDataTransferSubscriberFeePercent(dataTransferSubscriberFeePercent);
+        return this;
+    }
 
     /**
      * A description of the output.
@@ -194,6 +247,58 @@ public class Output implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * The IP address that the receiver requires in order to establish a connection with the flow. For public
+     * networking, the ListenerAddress is represented by the elastic IP address of the flow. For private networking, the
+     * ListenerAddress is represented by the elastic network interface IP address of the VPC. This field applies only to
+     * outputs that use the Zixi pull or SRT listener protocol.
+     * 
+     * @param listenerAddress
+     *        The IP address that the receiver requires in order to establish a connection with the flow. For public
+     *        networking, the ListenerAddress is represented by the elastic IP address of the flow. For private
+     *        networking, the ListenerAddress is represented by the elastic network interface IP address of the VPC.
+     *        This field applies only to outputs that use the Zixi pull or SRT listener protocol.
+     */
+
+    public void setListenerAddress(String listenerAddress) {
+        this.listenerAddress = listenerAddress;
+    }
+
+    /**
+     * The IP address that the receiver requires in order to establish a connection with the flow. For public
+     * networking, the ListenerAddress is represented by the elastic IP address of the flow. For private networking, the
+     * ListenerAddress is represented by the elastic network interface IP address of the VPC. This field applies only to
+     * outputs that use the Zixi pull or SRT listener protocol.
+     * 
+     * @return The IP address that the receiver requires in order to establish a connection with the flow. For public
+     *         networking, the ListenerAddress is represented by the elastic IP address of the flow. For private
+     *         networking, the ListenerAddress is represented by the elastic network interface IP address of the VPC.
+     *         This field applies only to outputs that use the Zixi pull or SRT listener protocol.
+     */
+
+    public String getListenerAddress() {
+        return this.listenerAddress;
+    }
+
+    /**
+     * The IP address that the receiver requires in order to establish a connection with the flow. For public
+     * networking, the ListenerAddress is represented by the elastic IP address of the flow. For private networking, the
+     * ListenerAddress is represented by the elastic network interface IP address of the VPC. This field applies only to
+     * outputs that use the Zixi pull or SRT listener protocol.
+     * 
+     * @param listenerAddress
+     *        The IP address that the receiver requires in order to establish a connection with the flow. For public
+     *        networking, the ListenerAddress is represented by the elastic IP address of the flow. For private
+     *        networking, the ListenerAddress is represented by the elastic network interface IP address of the VPC.
+     *        This field applies only to outputs that use the Zixi pull or SRT listener protocol.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Output withListenerAddress(String listenerAddress) {
+        setListenerAddress(listenerAddress);
+        return this;
+    }
+
+    /**
      * The input ARN of the AWS Elemental MediaLive channel. This parameter is relevant only for outputs that were added
      * by creating a MediaLive input.
      * 
@@ -230,6 +335,68 @@ public class Output implements Serializable, Cloneable, StructuredPojo {
 
     public Output withMediaLiveInputArn(String mediaLiveInputArn) {
         setMediaLiveInputArn(mediaLiveInputArn);
+        return this;
+    }
+
+    /**
+     * The configuration for each media stream that is associated with the output.
+     * 
+     * @return The configuration for each media stream that is associated with the output.
+     */
+
+    public java.util.List<MediaStreamOutputConfiguration> getMediaStreamOutputConfigurations() {
+        return mediaStreamOutputConfigurations;
+    }
+
+    /**
+     * The configuration for each media stream that is associated with the output.
+     * 
+     * @param mediaStreamOutputConfigurations
+     *        The configuration for each media stream that is associated with the output.
+     */
+
+    public void setMediaStreamOutputConfigurations(java.util.Collection<MediaStreamOutputConfiguration> mediaStreamOutputConfigurations) {
+        if (mediaStreamOutputConfigurations == null) {
+            this.mediaStreamOutputConfigurations = null;
+            return;
+        }
+
+        this.mediaStreamOutputConfigurations = new java.util.ArrayList<MediaStreamOutputConfiguration>(mediaStreamOutputConfigurations);
+    }
+
+    /**
+     * The configuration for each media stream that is associated with the output.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setMediaStreamOutputConfigurations(java.util.Collection)} or
+     * {@link #withMediaStreamOutputConfigurations(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param mediaStreamOutputConfigurations
+     *        The configuration for each media stream that is associated with the output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Output withMediaStreamOutputConfigurations(MediaStreamOutputConfiguration... mediaStreamOutputConfigurations) {
+        if (this.mediaStreamOutputConfigurations == null) {
+            setMediaStreamOutputConfigurations(new java.util.ArrayList<MediaStreamOutputConfiguration>(mediaStreamOutputConfigurations.length));
+        }
+        for (MediaStreamOutputConfiguration ele : mediaStreamOutputConfigurations) {
+            this.mediaStreamOutputConfigurations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * The configuration for each media stream that is associated with the output.
+     * 
+     * @param mediaStreamOutputConfigurations
+     *        The configuration for each media stream that is associated with the output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Output withMediaStreamOutputConfigurations(java.util.Collection<MediaStreamOutputConfiguration> mediaStreamOutputConfigurations) {
+        setMediaStreamOutputConfigurations(mediaStreamOutputConfigurations);
         return this;
     }
 
@@ -370,6 +537,187 @@ public class Output implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * The name of the VPC interface attachment to use for this output.
+     * 
+     * @param vpcInterfaceAttachment
+     *        The name of the VPC interface attachment to use for this output.
+     */
+
+    public void setVpcInterfaceAttachment(VpcInterfaceAttachment vpcInterfaceAttachment) {
+        this.vpcInterfaceAttachment = vpcInterfaceAttachment;
+    }
+
+    /**
+     * The name of the VPC interface attachment to use for this output.
+     * 
+     * @return The name of the VPC interface attachment to use for this output.
+     */
+
+    public VpcInterfaceAttachment getVpcInterfaceAttachment() {
+        return this.vpcInterfaceAttachment;
+    }
+
+    /**
+     * The name of the VPC interface attachment to use for this output.
+     * 
+     * @param vpcInterfaceAttachment
+     *        The name of the VPC interface attachment to use for this output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Output withVpcInterfaceAttachment(VpcInterfaceAttachment vpcInterfaceAttachment) {
+        setVpcInterfaceAttachment(vpcInterfaceAttachment);
+        return this;
+    }
+
+    /**
+     * The ARN of the bridge that added this output.
+     * 
+     * @param bridgeArn
+     *        The ARN of the bridge that added this output.
+     */
+
+    public void setBridgeArn(String bridgeArn) {
+        this.bridgeArn = bridgeArn;
+    }
+
+    /**
+     * The ARN of the bridge that added this output.
+     * 
+     * @return The ARN of the bridge that added this output.
+     */
+
+    public String getBridgeArn() {
+        return this.bridgeArn;
+    }
+
+    /**
+     * The ARN of the bridge that added this output.
+     * 
+     * @param bridgeArn
+     *        The ARN of the bridge that added this output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Output withBridgeArn(String bridgeArn) {
+        setBridgeArn(bridgeArn);
+        return this;
+    }
+
+    /**
+     * The bridge output ports currently in use.
+     * 
+     * @return The bridge output ports currently in use.
+     */
+
+    public java.util.List<Integer> getBridgePorts() {
+        return bridgePorts;
+    }
+
+    /**
+     * The bridge output ports currently in use.
+     * 
+     * @param bridgePorts
+     *        The bridge output ports currently in use.
+     */
+
+    public void setBridgePorts(java.util.Collection<Integer> bridgePorts) {
+        if (bridgePorts == null) {
+            this.bridgePorts = null;
+            return;
+        }
+
+        this.bridgePorts = new java.util.ArrayList<Integer>(bridgePorts);
+    }
+
+    /**
+     * The bridge output ports currently in use.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setBridgePorts(java.util.Collection)} or {@link #withBridgePorts(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param bridgePorts
+     *        The bridge output ports currently in use.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Output withBridgePorts(Integer... bridgePorts) {
+        if (this.bridgePorts == null) {
+            setBridgePorts(new java.util.ArrayList<Integer>(bridgePorts.length));
+        }
+        for (Integer ele : bridgePorts) {
+            this.bridgePorts.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * The bridge output ports currently in use.
+     * 
+     * @param bridgePorts
+     *        The bridge output ports currently in use.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Output withBridgePorts(java.util.Collection<Integer> bridgePorts) {
+        setBridgePorts(bridgePorts);
+        return this;
+    }
+
+    /**
+     * An indication of whether the output is transmitting data or not.
+     * 
+     * @param outputStatus
+     *        An indication of whether the output is transmitting data or not.
+     * @see OutputStatus
+     */
+
+    public void setOutputStatus(String outputStatus) {
+        this.outputStatus = outputStatus;
+    }
+
+    /**
+     * An indication of whether the output is transmitting data or not.
+     * 
+     * @return An indication of whether the output is transmitting data or not.
+     * @see OutputStatus
+     */
+
+    public String getOutputStatus() {
+        return this.outputStatus;
+    }
+
+    /**
+     * An indication of whether the output is transmitting data or not.
+     * 
+     * @param outputStatus
+     *        An indication of whether the output is transmitting data or not.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see OutputStatus
+     */
+
+    public Output withOutputStatus(String outputStatus) {
+        setOutputStatus(outputStatus);
+        return this;
+    }
+
+    /**
+     * An indication of whether the output is transmitting data or not.
+     * 
+     * @param outputStatus
+     *        An indication of whether the output is transmitting data or not.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see OutputStatus
+     */
+
+    public Output withOutputStatus(OutputStatus outputStatus) {
+        this.outputStatus = outputStatus.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -381,6 +729,8 @@ public class Output implements Serializable, Cloneable, StructuredPojo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getDataTransferSubscriberFeePercent() != null)
+            sb.append("DataTransferSubscriberFeePercent: ").append(getDataTransferSubscriberFeePercent()).append(",");
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
         if (getDestination() != null)
@@ -389,8 +739,12 @@ public class Output implements Serializable, Cloneable, StructuredPojo {
             sb.append("Encryption: ").append(getEncryption()).append(",");
         if (getEntitlementArn() != null)
             sb.append("EntitlementArn: ").append(getEntitlementArn()).append(",");
+        if (getListenerAddress() != null)
+            sb.append("ListenerAddress: ").append(getListenerAddress()).append(",");
         if (getMediaLiveInputArn() != null)
             sb.append("MediaLiveInputArn: ").append(getMediaLiveInputArn()).append(",");
+        if (getMediaStreamOutputConfigurations() != null)
+            sb.append("MediaStreamOutputConfigurations: ").append(getMediaStreamOutputConfigurations()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getOutputArn() != null)
@@ -398,7 +752,15 @@ public class Output implements Serializable, Cloneable, StructuredPojo {
         if (getPort() != null)
             sb.append("Port: ").append(getPort()).append(",");
         if (getTransport() != null)
-            sb.append("Transport: ").append(getTransport());
+            sb.append("Transport: ").append(getTransport()).append(",");
+        if (getVpcInterfaceAttachment() != null)
+            sb.append("VpcInterfaceAttachment: ").append(getVpcInterfaceAttachment()).append(",");
+        if (getBridgeArn() != null)
+            sb.append("BridgeArn: ").append(getBridgeArn()).append(",");
+        if (getBridgePorts() != null)
+            sb.append("BridgePorts: ").append(getBridgePorts()).append(",");
+        if (getOutputStatus() != null)
+            sb.append("OutputStatus: ").append(getOutputStatus());
         sb.append("}");
         return sb.toString();
     }
@@ -413,6 +775,11 @@ public class Output implements Serializable, Cloneable, StructuredPojo {
         if (obj instanceof Output == false)
             return false;
         Output other = (Output) obj;
+        if (other.getDataTransferSubscriberFeePercent() == null ^ this.getDataTransferSubscriberFeePercent() == null)
+            return false;
+        if (other.getDataTransferSubscriberFeePercent() != null
+                && other.getDataTransferSubscriberFeePercent().equals(this.getDataTransferSubscriberFeePercent()) == false)
+            return false;
         if (other.getDescription() == null ^ this.getDescription() == null)
             return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
@@ -429,9 +796,18 @@ public class Output implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getEntitlementArn() != null && other.getEntitlementArn().equals(this.getEntitlementArn()) == false)
             return false;
+        if (other.getListenerAddress() == null ^ this.getListenerAddress() == null)
+            return false;
+        if (other.getListenerAddress() != null && other.getListenerAddress().equals(this.getListenerAddress()) == false)
+            return false;
         if (other.getMediaLiveInputArn() == null ^ this.getMediaLiveInputArn() == null)
             return false;
         if (other.getMediaLiveInputArn() != null && other.getMediaLiveInputArn().equals(this.getMediaLiveInputArn()) == false)
+            return false;
+        if (other.getMediaStreamOutputConfigurations() == null ^ this.getMediaStreamOutputConfigurations() == null)
+            return false;
+        if (other.getMediaStreamOutputConfigurations() != null
+                && other.getMediaStreamOutputConfigurations().equals(this.getMediaStreamOutputConfigurations()) == false)
             return false;
         if (other.getName() == null ^ this.getName() == null)
             return false;
@@ -449,6 +825,22 @@ public class Output implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getTransport() != null && other.getTransport().equals(this.getTransport()) == false)
             return false;
+        if (other.getVpcInterfaceAttachment() == null ^ this.getVpcInterfaceAttachment() == null)
+            return false;
+        if (other.getVpcInterfaceAttachment() != null && other.getVpcInterfaceAttachment().equals(this.getVpcInterfaceAttachment()) == false)
+            return false;
+        if (other.getBridgeArn() == null ^ this.getBridgeArn() == null)
+            return false;
+        if (other.getBridgeArn() != null && other.getBridgeArn().equals(this.getBridgeArn()) == false)
+            return false;
+        if (other.getBridgePorts() == null ^ this.getBridgePorts() == null)
+            return false;
+        if (other.getBridgePorts() != null && other.getBridgePorts().equals(this.getBridgePorts()) == false)
+            return false;
+        if (other.getOutputStatus() == null ^ this.getOutputStatus() == null)
+            return false;
+        if (other.getOutputStatus() != null && other.getOutputStatus().equals(this.getOutputStatus()) == false)
+            return false;
         return true;
     }
 
@@ -457,15 +849,22 @@ public class Output implements Serializable, Cloneable, StructuredPojo {
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getDataTransferSubscriberFeePercent() == null) ? 0 : getDataTransferSubscriberFeePercent().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getDestination() == null) ? 0 : getDestination().hashCode());
         hashCode = prime * hashCode + ((getEncryption() == null) ? 0 : getEncryption().hashCode());
         hashCode = prime * hashCode + ((getEntitlementArn() == null) ? 0 : getEntitlementArn().hashCode());
+        hashCode = prime * hashCode + ((getListenerAddress() == null) ? 0 : getListenerAddress().hashCode());
         hashCode = prime * hashCode + ((getMediaLiveInputArn() == null) ? 0 : getMediaLiveInputArn().hashCode());
+        hashCode = prime * hashCode + ((getMediaStreamOutputConfigurations() == null) ? 0 : getMediaStreamOutputConfigurations().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getOutputArn() == null) ? 0 : getOutputArn().hashCode());
         hashCode = prime * hashCode + ((getPort() == null) ? 0 : getPort().hashCode());
         hashCode = prime * hashCode + ((getTransport() == null) ? 0 : getTransport().hashCode());
+        hashCode = prime * hashCode + ((getVpcInterfaceAttachment() == null) ? 0 : getVpcInterfaceAttachment().hashCode());
+        hashCode = prime * hashCode + ((getBridgeArn() == null) ? 0 : getBridgeArn().hashCode());
+        hashCode = prime * hashCode + ((getBridgePorts() == null) ? 0 : getBridgePorts().hashCode());
+        hashCode = prime * hashCode + ((getOutputStatus() == null) ? 0 : getOutputStatus().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,9 +16,6 @@ import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
- * <p>
- * Represents the returned data in response to a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribeFleetEvents" target="_top">AWS API
  *      Documentation</a>
@@ -28,24 +25,24 @@ public class DescribeFleetEventsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Collection of objects containing event log entries for the specified fleet.
+     * A collection of objects containing event log entries for the specified fleet.
      * </p>
      */
     private java.util.List<Event> events;
     /**
      * <p>
-     * Token that indicates where to resume retrieving results on the next call to this action. If no token is returned,
-     * these results represent the end of the list.
+     * A token that indicates where to resume retrieving results on the next call to this operation. If no token is
+     * returned, these results represent the end of the list.
      * </p>
      */
     private String nextToken;
 
     /**
      * <p>
-     * Collection of objects containing event log entries for the specified fleet.
+     * A collection of objects containing event log entries for the specified fleet.
      * </p>
      * 
-     * @return Collection of objects containing event log entries for the specified fleet.
+     * @return A collection of objects containing event log entries for the specified fleet.
      */
 
     public java.util.List<Event> getEvents() {
@@ -54,11 +51,11 @@ public class DescribeFleetEventsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Collection of objects containing event log entries for the specified fleet.
+     * A collection of objects containing event log entries for the specified fleet.
      * </p>
      * 
      * @param events
-     *        Collection of objects containing event log entries for the specified fleet.
+     *        A collection of objects containing event log entries for the specified fleet.
      */
 
     public void setEvents(java.util.Collection<Event> events) {
@@ -72,7 +69,7 @@ public class DescribeFleetEventsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Collection of objects containing event log entries for the specified fleet.
+     * A collection of objects containing event log entries for the specified fleet.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -81,7 +78,7 @@ public class DescribeFleetEventsResult extends com.amazonaws.AmazonWebServiceRes
      * </p>
      * 
      * @param events
-     *        Collection of objects containing event log entries for the specified fleet.
+     *        A collection of objects containing event log entries for the specified fleet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -97,11 +94,11 @@ public class DescribeFleetEventsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Collection of objects containing event log entries for the specified fleet.
+     * A collection of objects containing event log entries for the specified fleet.
      * </p>
      * 
      * @param events
-     *        Collection of objects containing event log entries for the specified fleet.
+     *        A collection of objects containing event log entries for the specified fleet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -112,13 +109,13 @@ public class DescribeFleetEventsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Token that indicates where to resume retrieving results on the next call to this action. If no token is returned,
-     * these results represent the end of the list.
+     * A token that indicates where to resume retrieving results on the next call to this operation. If no token is
+     * returned, these results represent the end of the list.
      * </p>
      * 
      * @param nextToken
-     *        Token that indicates where to resume retrieving results on the next call to this action. If no token is
-     *        returned, these results represent the end of the list.
+     *        A token that indicates where to resume retrieving results on the next call to this operation. If no token
+     *        is returned, these results represent the end of the list.
      */
 
     public void setNextToken(String nextToken) {
@@ -127,12 +124,12 @@ public class DescribeFleetEventsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Token that indicates where to resume retrieving results on the next call to this action. If no token is returned,
-     * these results represent the end of the list.
+     * A token that indicates where to resume retrieving results on the next call to this operation. If no token is
+     * returned, these results represent the end of the list.
      * </p>
      * 
-     * @return Token that indicates where to resume retrieving results on the next call to this action. If no token is
-     *         returned, these results represent the end of the list.
+     * @return A token that indicates where to resume retrieving results on the next call to this operation. If no token
+     *         is returned, these results represent the end of the list.
      */
 
     public String getNextToken() {
@@ -141,13 +138,13 @@ public class DescribeFleetEventsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * Token that indicates where to resume retrieving results on the next call to this action. If no token is returned,
-     * these results represent the end of the list.
+     * A token that indicates where to resume retrieving results on the next call to this operation. If no token is
+     * returned, these results represent the end of the list.
      * </p>
      * 
      * @param nextToken
-     *        Token that indicates where to resume retrieving results on the next call to this action. If no token is
-     *        returned, these results represent the end of the list.
+     *        A token that indicates where to resume retrieving results on the next call to this operation. If no token
+     *        is returned, these results represent the end of the list.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

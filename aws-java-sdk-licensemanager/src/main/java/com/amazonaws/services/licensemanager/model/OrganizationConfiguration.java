@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Object containing configuration information for AWS Organizations.
+ * Configuration information for Organizations.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/license-manager-2018-08-01/OrganizationConfiguration"
@@ -30,18 +30,18 @@ public class OrganizationConfiguration implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Flag to activate AWS Organization integration.
+     * Enables Organizations integration.
      * </p>
      */
     private Boolean enableIntegration;
 
     /**
      * <p>
-     * Flag to activate AWS Organization integration.
+     * Enables Organizations integration.
      * </p>
      * 
      * @param enableIntegration
-     *        Flag to activate AWS Organization integration.
+     *        Enables Organizations integration.
      */
 
     public void setEnableIntegration(Boolean enableIntegration) {
@@ -50,10 +50,10 @@ public class OrganizationConfiguration implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Flag to activate AWS Organization integration.
+     * Enables Organizations integration.
      * </p>
      * 
-     * @return Flag to activate AWS Organization integration.
+     * @return Enables Organizations integration.
      */
 
     public Boolean getEnableIntegration() {
@@ -62,11 +62,11 @@ public class OrganizationConfiguration implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Flag to activate AWS Organization integration.
+     * Enables Organizations integration.
      * </p>
      * 
      * @param enableIntegration
-     *        Flag to activate AWS Organization integration.
+     *        Enables Organizations integration.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -77,10 +77,10 @@ public class OrganizationConfiguration implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Flag to activate AWS Organization integration.
+     * Enables Organizations integration.
      * </p>
      * 
-     * @return Flag to activate AWS Organization integration.
+     * @return Enables Organizations integration.
      */
 
     public Boolean isEnableIntegration() {

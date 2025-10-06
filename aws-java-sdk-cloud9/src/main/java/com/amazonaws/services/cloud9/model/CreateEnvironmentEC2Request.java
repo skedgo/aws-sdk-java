@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
      * The name of the environment to create.
      * </p>
      * <p>
-     * This name is visible to other AWS IAM users in the same AWS account.
+     * This name is visible to other IAM users in the same Amazon Web Services account.
      * </p>
      */
     private String name;
@@ -42,11 +42,11 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
     private String description;
     /**
      * <p>
-     * A unique, case-sensitive string that helps AWS Cloud9 to ensure this operation completes no more than one time.
+     * A unique, case-sensitive string that helps Cloud9 to ensure this operation completes no more than one time.
      * </p>
      * <p>
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Client Tokens</a> in
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Client Tokens</a> in
      * the <i>Amazon EC2 API Reference</i>.
      * </p>
      */
@@ -59,10 +59,79 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
     private String instanceType;
     /**
      * <p>
-     * The ID of the subnet in Amazon VPC that AWS Cloud9 will use to communicate with the Amazon EC2 instance.
+     * The ID of the subnet in Amazon VPC that Cloud9 will use to communicate with the Amazon EC2 instance.
      * </p>
      */
     private String subnetId;
+    /**
+     * <p>
+     * The identifier for the Amazon Machine Image (AMI) that's used to create the EC2 instance. To choose an AMI for
+     * the instance, you must specify a valid AMI alias or a valid Amazon EC2 Systems Manager (SSM) path.
+     * </p>
+     * <p>
+     * From December 04, 2023, you will be required to include the <code>imageId</code> parameter for the
+     * <code>CreateEnvironmentEC2</code> action. This change will be reflected across all direct methods of
+     * communicating with the API, such as Amazon Web Services SDK, Amazon Web Services CLI and Amazon Web Services
+     * CloudFormation. This change will only affect direct API consumers, and not Cloud9 console users.
+     * </p>
+     * <p>
+     * We recommend using Amazon Linux 2023 as the AMI to create your environment as it is fully supported.
+     * </p>
+     * <p>
+     * Since Ubuntu 18.04 has ended standard support as of May 31, 2023, we recommend you choose Ubuntu 22.04.
+     * </p>
+     * <p>
+     * <b>AMI aliases </b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Linux 2: <code>amazonlinux-2-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Linux 2023 (recommended): <code>amazonlinux-2023-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ubuntu 18.04: <code>ubuntu-18.04-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ubuntu 22.04: <code>ubuntu-22.04-x86_64</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>SSM paths</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Linux 2: <code>resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Linux 2023 (recommended): <code>resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2023-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ubuntu 18.04: <code>resolve:ssm:/aws/service/cloud9/amis/ubuntu-18.04-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ubuntu 22.04: <code>resolve:ssm:/aws/service/cloud9/amis/ubuntu-22.04-x86_64</code>
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String imageId;
     /**
      * <p>
      * The number of minutes until the running instance is shut down after the environment has last been used.
@@ -71,24 +140,49 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
     private Integer automaticStopTimeMinutes;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the environment owner. This ARN can be the ARN of any AWS IAM principal. If
-     * this value is not specified, the ARN defaults to this environment's creator.
+     * The Amazon Resource Name (ARN) of the environment owner. This ARN can be the ARN of any IAM principal. If this
+     * value is not specified, the ARN defaults to this environment's creator.
      * </p>
      */
     private String ownerArn;
+    /**
+     * <p>
+     * An array of key-value pairs that will be associated with the new Cloud9 development environment.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * The connection type used for connecting to an Amazon EC2 environment. Valid values are <code>CONNECT_SSH</code>
+     * (default) and <code>CONNECT_SSM</code> (connected through Amazon EC2 Systems Manager).
+     * </p>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/cloud9/latest/user-guide/ec2-ssm.html">Accessing
+     * no-ingress EC2 instances with Amazon EC2 Systems Manager</a> in the <i>Cloud9 User Guide</i>.
+     * </p>
+     */
+    private String connectionType;
+    /**
+     * <p>
+     * Checks whether you have the required permissions for the action, without actually making the request, and
+     * provides an error response. If you have the required permissions, the error response is
+     * <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.
+     * </p>
+     */
+    private Boolean dryRun;
 
     /**
      * <p>
      * The name of the environment to create.
      * </p>
      * <p>
-     * This name is visible to other AWS IAM users in the same AWS account.
+     * This name is visible to other IAM users in the same Amazon Web Services account.
      * </p>
      * 
      * @param name
      *        The name of the environment to create.</p>
      *        <p>
-     *        This name is visible to other AWS IAM users in the same AWS account.
+     *        This name is visible to other IAM users in the same Amazon Web Services account.
      */
 
     public void setName(String name) {
@@ -100,12 +194,12 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
      * The name of the environment to create.
      * </p>
      * <p>
-     * This name is visible to other AWS IAM users in the same AWS account.
+     * This name is visible to other IAM users in the same Amazon Web Services account.
      * </p>
      * 
      * @return The name of the environment to create.</p>
      *         <p>
-     *         This name is visible to other AWS IAM users in the same AWS account.
+     *         This name is visible to other IAM users in the same Amazon Web Services account.
      */
 
     public String getName() {
@@ -117,13 +211,13 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
      * The name of the environment to create.
      * </p>
      * <p>
-     * This name is visible to other AWS IAM users in the same AWS account.
+     * This name is visible to other IAM users in the same Amazon Web Services account.
      * </p>
      * 
      * @param name
      *        The name of the environment to create.</p>
      *        <p>
-     *        This name is visible to other AWS IAM users in the same AWS account.
+     *        This name is visible to other IAM users in the same Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -174,20 +268,20 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A unique, case-sensitive string that helps AWS Cloud9 to ensure this operation completes no more than one time.
+     * A unique, case-sensitive string that helps Cloud9 to ensure this operation completes no more than one time.
      * </p>
      * <p>
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Client Tokens</a> in
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Client Tokens</a> in
      * the <i>Amazon EC2 API Reference</i>.
      * </p>
      * 
      * @param clientRequestToken
-     *        A unique, case-sensitive string that helps AWS Cloud9 to ensure this operation completes no more than one
+     *        A unique, case-sensitive string that helps Cloud9 to ensure this operation completes no more than one
      *        time.</p>
      *        <p>
      *        For more information, see <a
-     *        href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Client
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Client
      *        Tokens</a> in the <i>Amazon EC2 API Reference</i>.
      */
 
@@ -197,19 +291,19 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A unique, case-sensitive string that helps AWS Cloud9 to ensure this operation completes no more than one time.
+     * A unique, case-sensitive string that helps Cloud9 to ensure this operation completes no more than one time.
      * </p>
      * <p>
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Client Tokens</a> in
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Client Tokens</a> in
      * the <i>Amazon EC2 API Reference</i>.
      * </p>
      * 
-     * @return A unique, case-sensitive string that helps AWS Cloud9 to ensure this operation completes no more than one
+     * @return A unique, case-sensitive string that helps Cloud9 to ensure this operation completes no more than one
      *         time.</p>
      *         <p>
      *         For more information, see <a
-     *         href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Client
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Client
      *         Tokens</a> in the <i>Amazon EC2 API Reference</i>.
      */
 
@@ -219,20 +313,20 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A unique, case-sensitive string that helps AWS Cloud9 to ensure this operation completes no more than one time.
+     * A unique, case-sensitive string that helps Cloud9 to ensure this operation completes no more than one time.
      * </p>
      * <p>
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Client Tokens</a> in
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Client Tokens</a> in
      * the <i>Amazon EC2 API Reference</i>.
      * </p>
      * 
      * @param clientRequestToken
-     *        A unique, case-sensitive string that helps AWS Cloud9 to ensure this operation completes no more than one
+     *        A unique, case-sensitive string that helps Cloud9 to ensure this operation completes no more than one
      *        time.</p>
      *        <p>
      *        For more information, see <a
-     *        href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Client
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Client
      *        Tokens</a> in the <i>Amazon EC2 API Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -284,11 +378,11 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The ID of the subnet in Amazon VPC that AWS Cloud9 will use to communicate with the Amazon EC2 instance.
+     * The ID of the subnet in Amazon VPC that Cloud9 will use to communicate with the Amazon EC2 instance.
      * </p>
      * 
      * @param subnetId
-     *        The ID of the subnet in Amazon VPC that AWS Cloud9 will use to communicate with the Amazon EC2 instance.
+     *        The ID of the subnet in Amazon VPC that Cloud9 will use to communicate with the Amazon EC2 instance.
      */
 
     public void setSubnetId(String subnetId) {
@@ -297,10 +391,10 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The ID of the subnet in Amazon VPC that AWS Cloud9 will use to communicate with the Amazon EC2 instance.
+     * The ID of the subnet in Amazon VPC that Cloud9 will use to communicate with the Amazon EC2 instance.
      * </p>
      * 
-     * @return The ID of the subnet in Amazon VPC that AWS Cloud9 will use to communicate with the Amazon EC2 instance.
+     * @return The ID of the subnet in Amazon VPC that Cloud9 will use to communicate with the Amazon EC2 instance.
      */
 
     public String getSubnetId() {
@@ -309,16 +403,433 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The ID of the subnet in Amazon VPC that AWS Cloud9 will use to communicate with the Amazon EC2 instance.
+     * The ID of the subnet in Amazon VPC that Cloud9 will use to communicate with the Amazon EC2 instance.
      * </p>
      * 
      * @param subnetId
-     *        The ID of the subnet in Amazon VPC that AWS Cloud9 will use to communicate with the Amazon EC2 instance.
+     *        The ID of the subnet in Amazon VPC that Cloud9 will use to communicate with the Amazon EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateEnvironmentEC2Request withSubnetId(String subnetId) {
         setSubnetId(subnetId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The identifier for the Amazon Machine Image (AMI) that's used to create the EC2 instance. To choose an AMI for
+     * the instance, you must specify a valid AMI alias or a valid Amazon EC2 Systems Manager (SSM) path.
+     * </p>
+     * <p>
+     * From December 04, 2023, you will be required to include the <code>imageId</code> parameter for the
+     * <code>CreateEnvironmentEC2</code> action. This change will be reflected across all direct methods of
+     * communicating with the API, such as Amazon Web Services SDK, Amazon Web Services CLI and Amazon Web Services
+     * CloudFormation. This change will only affect direct API consumers, and not Cloud9 console users.
+     * </p>
+     * <p>
+     * We recommend using Amazon Linux 2023 as the AMI to create your environment as it is fully supported.
+     * </p>
+     * <p>
+     * Since Ubuntu 18.04 has ended standard support as of May 31, 2023, we recommend you choose Ubuntu 22.04.
+     * </p>
+     * <p>
+     * <b>AMI aliases </b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Linux 2: <code>amazonlinux-2-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Linux 2023 (recommended): <code>amazonlinux-2023-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ubuntu 18.04: <code>ubuntu-18.04-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ubuntu 22.04: <code>ubuntu-22.04-x86_64</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>SSM paths</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Linux 2: <code>resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Linux 2023 (recommended): <code>resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2023-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ubuntu 18.04: <code>resolve:ssm:/aws/service/cloud9/amis/ubuntu-18.04-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ubuntu 22.04: <code>resolve:ssm:/aws/service/cloud9/amis/ubuntu-22.04-x86_64</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param imageId
+     *        The identifier for the Amazon Machine Image (AMI) that's used to create the EC2 instance. To choose an AMI
+     *        for the instance, you must specify a valid AMI alias or a valid Amazon EC2 Systems Manager (SSM) path.</p>
+     *        <p>
+     *        From December 04, 2023, you will be required to include the <code>imageId</code> parameter for the
+     *        <code>CreateEnvironmentEC2</code> action. This change will be reflected across all direct methods of
+     *        communicating with the API, such as Amazon Web Services SDK, Amazon Web Services CLI and Amazon Web
+     *        Services CloudFormation. This change will only affect direct API consumers, and not Cloud9 console users.
+     *        </p>
+     *        <p>
+     *        We recommend using Amazon Linux 2023 as the AMI to create your environment as it is fully supported.
+     *        </p>
+     *        <p>
+     *        Since Ubuntu 18.04 has ended standard support as of May 31, 2023, we recommend you choose Ubuntu 22.04.
+     *        </p>
+     *        <p>
+     *        <b>AMI aliases </b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Amazon Linux 2: <code>amazonlinux-2-x86_64</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Linux 2023 (recommended): <code>amazonlinux-2023-x86_64</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Ubuntu 18.04: <code>ubuntu-18.04-x86_64</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Ubuntu 22.04: <code>ubuntu-22.04-x86_64</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>SSM paths</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Amazon Linux 2: <code>resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2-x86_64</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Linux 2023 (recommended): <code>resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2023-x86_64</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Ubuntu 18.04: <code>resolve:ssm:/aws/service/cloud9/amis/ubuntu-18.04-x86_64</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Ubuntu 22.04: <code>resolve:ssm:/aws/service/cloud9/amis/ubuntu-22.04-x86_64</code>
+     *        </p>
+     *        </li>
+     */
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
+    }
+
+    /**
+     * <p>
+     * The identifier for the Amazon Machine Image (AMI) that's used to create the EC2 instance. To choose an AMI for
+     * the instance, you must specify a valid AMI alias or a valid Amazon EC2 Systems Manager (SSM) path.
+     * </p>
+     * <p>
+     * From December 04, 2023, you will be required to include the <code>imageId</code> parameter for the
+     * <code>CreateEnvironmentEC2</code> action. This change will be reflected across all direct methods of
+     * communicating with the API, such as Amazon Web Services SDK, Amazon Web Services CLI and Amazon Web Services
+     * CloudFormation. This change will only affect direct API consumers, and not Cloud9 console users.
+     * </p>
+     * <p>
+     * We recommend using Amazon Linux 2023 as the AMI to create your environment as it is fully supported.
+     * </p>
+     * <p>
+     * Since Ubuntu 18.04 has ended standard support as of May 31, 2023, we recommend you choose Ubuntu 22.04.
+     * </p>
+     * <p>
+     * <b>AMI aliases </b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Linux 2: <code>amazonlinux-2-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Linux 2023 (recommended): <code>amazonlinux-2023-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ubuntu 18.04: <code>ubuntu-18.04-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ubuntu 22.04: <code>ubuntu-22.04-x86_64</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>SSM paths</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Linux 2: <code>resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Linux 2023 (recommended): <code>resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2023-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ubuntu 18.04: <code>resolve:ssm:/aws/service/cloud9/amis/ubuntu-18.04-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ubuntu 22.04: <code>resolve:ssm:/aws/service/cloud9/amis/ubuntu-22.04-x86_64</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The identifier for the Amazon Machine Image (AMI) that's used to create the EC2 instance. To choose an
+     *         AMI for the instance, you must specify a valid AMI alias or a valid Amazon EC2 Systems Manager (SSM)
+     *         path.</p>
+     *         <p>
+     *         From December 04, 2023, you will be required to include the <code>imageId</code> parameter for the
+     *         <code>CreateEnvironmentEC2</code> action. This change will be reflected across all direct methods of
+     *         communicating with the API, such as Amazon Web Services SDK, Amazon Web Services CLI and Amazon Web
+     *         Services CloudFormation. This change will only affect direct API consumers, and not Cloud9 console users.
+     *         </p>
+     *         <p>
+     *         We recommend using Amazon Linux 2023 as the AMI to create your environment as it is fully supported.
+     *         </p>
+     *         <p>
+     *         Since Ubuntu 18.04 has ended standard support as of May 31, 2023, we recommend you choose Ubuntu 22.04.
+     *         </p>
+     *         <p>
+     *         <b>AMI aliases </b>
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Amazon Linux 2: <code>amazonlinux-2-x86_64</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon Linux 2023 (recommended): <code>amazonlinux-2023-x86_64</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Ubuntu 18.04: <code>ubuntu-18.04-x86_64</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Ubuntu 22.04: <code>ubuntu-22.04-x86_64</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         <b>SSM paths</b>
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Amazon Linux 2: <code>resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2-x86_64</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon Linux 2023 (recommended):
+     *         <code>resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2023-x86_64</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Ubuntu 18.04: <code>resolve:ssm:/aws/service/cloud9/amis/ubuntu-18.04-x86_64</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Ubuntu 22.04: <code>resolve:ssm:/aws/service/cloud9/amis/ubuntu-22.04-x86_64</code>
+     *         </p>
+     *         </li>
+     */
+
+    public String getImageId() {
+        return this.imageId;
+    }
+
+    /**
+     * <p>
+     * The identifier for the Amazon Machine Image (AMI) that's used to create the EC2 instance. To choose an AMI for
+     * the instance, you must specify a valid AMI alias or a valid Amazon EC2 Systems Manager (SSM) path.
+     * </p>
+     * <p>
+     * From December 04, 2023, you will be required to include the <code>imageId</code> parameter for the
+     * <code>CreateEnvironmentEC2</code> action. This change will be reflected across all direct methods of
+     * communicating with the API, such as Amazon Web Services SDK, Amazon Web Services CLI and Amazon Web Services
+     * CloudFormation. This change will only affect direct API consumers, and not Cloud9 console users.
+     * </p>
+     * <p>
+     * We recommend using Amazon Linux 2023 as the AMI to create your environment as it is fully supported.
+     * </p>
+     * <p>
+     * Since Ubuntu 18.04 has ended standard support as of May 31, 2023, we recommend you choose Ubuntu 22.04.
+     * </p>
+     * <p>
+     * <b>AMI aliases </b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Linux 2: <code>amazonlinux-2-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Linux 2023 (recommended): <code>amazonlinux-2023-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ubuntu 18.04: <code>ubuntu-18.04-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ubuntu 22.04: <code>ubuntu-22.04-x86_64</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>SSM paths</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Linux 2: <code>resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Linux 2023 (recommended): <code>resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2023-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ubuntu 18.04: <code>resolve:ssm:/aws/service/cloud9/amis/ubuntu-18.04-x86_64</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ubuntu 22.04: <code>resolve:ssm:/aws/service/cloud9/amis/ubuntu-22.04-x86_64</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param imageId
+     *        The identifier for the Amazon Machine Image (AMI) that's used to create the EC2 instance. To choose an AMI
+     *        for the instance, you must specify a valid AMI alias or a valid Amazon EC2 Systems Manager (SSM) path.</p>
+     *        <p>
+     *        From December 04, 2023, you will be required to include the <code>imageId</code> parameter for the
+     *        <code>CreateEnvironmentEC2</code> action. This change will be reflected across all direct methods of
+     *        communicating with the API, such as Amazon Web Services SDK, Amazon Web Services CLI and Amazon Web
+     *        Services CloudFormation. This change will only affect direct API consumers, and not Cloud9 console users.
+     *        </p>
+     *        <p>
+     *        We recommend using Amazon Linux 2023 as the AMI to create your environment as it is fully supported.
+     *        </p>
+     *        <p>
+     *        Since Ubuntu 18.04 has ended standard support as of May 31, 2023, we recommend you choose Ubuntu 22.04.
+     *        </p>
+     *        <p>
+     *        <b>AMI aliases </b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Amazon Linux 2: <code>amazonlinux-2-x86_64</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Linux 2023 (recommended): <code>amazonlinux-2023-x86_64</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Ubuntu 18.04: <code>ubuntu-18.04-x86_64</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Ubuntu 22.04: <code>ubuntu-22.04-x86_64</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>SSM paths</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Amazon Linux 2: <code>resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2-x86_64</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Linux 2023 (recommended): <code>resolve:ssm:/aws/service/cloud9/amis/amazonlinux-2023-x86_64</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Ubuntu 18.04: <code>resolve:ssm:/aws/service/cloud9/amis/ubuntu-18.04-x86_64</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Ubuntu 22.04: <code>resolve:ssm:/aws/service/cloud9/amis/ubuntu-22.04-x86_64</code>
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEnvironmentEC2Request withImageId(String imageId) {
+        setImageId(imageId);
         return this;
     }
 
@@ -364,13 +875,13 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the environment owner. This ARN can be the ARN of any AWS IAM principal. If
-     * this value is not specified, the ARN defaults to this environment's creator.
+     * The Amazon Resource Name (ARN) of the environment owner. This ARN can be the ARN of any IAM principal. If this
+     * value is not specified, the ARN defaults to this environment's creator.
      * </p>
      * 
      * @param ownerArn
-     *        The Amazon Resource Name (ARN) of the environment owner. This ARN can be the ARN of any AWS IAM principal.
-     *        If this value is not specified, the ARN defaults to this environment's creator.
+     *        The Amazon Resource Name (ARN) of the environment owner. This ARN can be the ARN of any IAM principal. If
+     *        this value is not specified, the ARN defaults to this environment's creator.
      */
 
     public void setOwnerArn(String ownerArn) {
@@ -379,12 +890,12 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the environment owner. This ARN can be the ARN of any AWS IAM principal. If
-     * this value is not specified, the ARN defaults to this environment's creator.
+     * The Amazon Resource Name (ARN) of the environment owner. This ARN can be the ARN of any IAM principal. If this
+     * value is not specified, the ARN defaults to this environment's creator.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the environment owner. This ARN can be the ARN of any AWS IAM
-     *         principal. If this value is not specified, the ARN defaults to this environment's creator.
+     * @return The Amazon Resource Name (ARN) of the environment owner. This ARN can be the ARN of any IAM principal. If
+     *         this value is not specified, the ARN defaults to this environment's creator.
      */
 
     public String getOwnerArn() {
@@ -393,19 +904,260 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the environment owner. This ARN can be the ARN of any AWS IAM principal. If
-     * this value is not specified, the ARN defaults to this environment's creator.
+     * The Amazon Resource Name (ARN) of the environment owner. This ARN can be the ARN of any IAM principal. If this
+     * value is not specified, the ARN defaults to this environment's creator.
      * </p>
      * 
      * @param ownerArn
-     *        The Amazon Resource Name (ARN) of the environment owner. This ARN can be the ARN of any AWS IAM principal.
-     *        If this value is not specified, the ARN defaults to this environment's creator.
+     *        The Amazon Resource Name (ARN) of the environment owner. This ARN can be the ARN of any IAM principal. If
+     *        this value is not specified, the ARN defaults to this environment's creator.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateEnvironmentEC2Request withOwnerArn(String ownerArn) {
         setOwnerArn(ownerArn);
         return this;
+    }
+
+    /**
+     * <p>
+     * An array of key-value pairs that will be associated with the new Cloud9 development environment.
+     * </p>
+     * 
+     * @return An array of key-value pairs that will be associated with the new Cloud9 development environment.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * An array of key-value pairs that will be associated with the new Cloud9 development environment.
+     * </p>
+     * 
+     * @param tags
+     *        An array of key-value pairs that will be associated with the new Cloud9 development environment.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * An array of key-value pairs that will be associated with the new Cloud9 development environment.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        An array of key-value pairs that will be associated with the new Cloud9 development environment.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEnvironmentEC2Request withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of key-value pairs that will be associated with the new Cloud9 development environment.
+     * </p>
+     * 
+     * @param tags
+     *        An array of key-value pairs that will be associated with the new Cloud9 development environment.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEnvironmentEC2Request withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The connection type used for connecting to an Amazon EC2 environment. Valid values are <code>CONNECT_SSH</code>
+     * (default) and <code>CONNECT_SSM</code> (connected through Amazon EC2 Systems Manager).
+     * </p>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/cloud9/latest/user-guide/ec2-ssm.html">Accessing
+     * no-ingress EC2 instances with Amazon EC2 Systems Manager</a> in the <i>Cloud9 User Guide</i>.
+     * </p>
+     * 
+     * @param connectionType
+     *        The connection type used for connecting to an Amazon EC2 environment. Valid values are
+     *        <code>CONNECT_SSH</code> (default) and <code>CONNECT_SSM</code> (connected through Amazon EC2 Systems
+     *        Manager).</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/cloud9/latest/user-guide/ec2-ssm.html">Accessing no-ingress EC2
+     *        instances with Amazon EC2 Systems Manager</a> in the <i>Cloud9 User Guide</i>.
+     * @see ConnectionType
+     */
+
+    public void setConnectionType(String connectionType) {
+        this.connectionType = connectionType;
+    }
+
+    /**
+     * <p>
+     * The connection type used for connecting to an Amazon EC2 environment. Valid values are <code>CONNECT_SSH</code>
+     * (default) and <code>CONNECT_SSM</code> (connected through Amazon EC2 Systems Manager).
+     * </p>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/cloud9/latest/user-guide/ec2-ssm.html">Accessing
+     * no-ingress EC2 instances with Amazon EC2 Systems Manager</a> in the <i>Cloud9 User Guide</i>.
+     * </p>
+     * 
+     * @return The connection type used for connecting to an Amazon EC2 environment. Valid values are
+     *         <code>CONNECT_SSH</code> (default) and <code>CONNECT_SSM</code> (connected through Amazon EC2 Systems
+     *         Manager).</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/cloud9/latest/user-guide/ec2-ssm.html">Accessing no-ingress EC2
+     *         instances with Amazon EC2 Systems Manager</a> in the <i>Cloud9 User Guide</i>.
+     * @see ConnectionType
+     */
+
+    public String getConnectionType() {
+        return this.connectionType;
+    }
+
+    /**
+     * <p>
+     * The connection type used for connecting to an Amazon EC2 environment. Valid values are <code>CONNECT_SSH</code>
+     * (default) and <code>CONNECT_SSM</code> (connected through Amazon EC2 Systems Manager).
+     * </p>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/cloud9/latest/user-guide/ec2-ssm.html">Accessing
+     * no-ingress EC2 instances with Amazon EC2 Systems Manager</a> in the <i>Cloud9 User Guide</i>.
+     * </p>
+     * 
+     * @param connectionType
+     *        The connection type used for connecting to an Amazon EC2 environment. Valid values are
+     *        <code>CONNECT_SSH</code> (default) and <code>CONNECT_SSM</code> (connected through Amazon EC2 Systems
+     *        Manager).</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/cloud9/latest/user-guide/ec2-ssm.html">Accessing no-ingress EC2
+     *        instances with Amazon EC2 Systems Manager</a> in the <i>Cloud9 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ConnectionType
+     */
+
+    public CreateEnvironmentEC2Request withConnectionType(String connectionType) {
+        setConnectionType(connectionType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The connection type used for connecting to an Amazon EC2 environment. Valid values are <code>CONNECT_SSH</code>
+     * (default) and <code>CONNECT_SSM</code> (connected through Amazon EC2 Systems Manager).
+     * </p>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/cloud9/latest/user-guide/ec2-ssm.html">Accessing
+     * no-ingress EC2 instances with Amazon EC2 Systems Manager</a> in the <i>Cloud9 User Guide</i>.
+     * </p>
+     * 
+     * @param connectionType
+     *        The connection type used for connecting to an Amazon EC2 environment. Valid values are
+     *        <code>CONNECT_SSH</code> (default) and <code>CONNECT_SSM</code> (connected through Amazon EC2 Systems
+     *        Manager).</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/cloud9/latest/user-guide/ec2-ssm.html">Accessing no-ingress EC2
+     *        instances with Amazon EC2 Systems Manager</a> in the <i>Cloud9 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ConnectionType
+     */
+
+    public CreateEnvironmentEC2Request withConnectionType(ConnectionType connectionType) {
+        this.connectionType = connectionType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Checks whether you have the required permissions for the action, without actually making the request, and
+     * provides an error response. If you have the required permissions, the error response is
+     * <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.
+     * </p>
+     * 
+     * @param dryRun
+     *        Checks whether you have the required permissions for the action, without actually making the request, and
+     *        provides an error response. If you have the required permissions, the error response is
+     *        <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.
+     */
+
+    public void setDryRun(Boolean dryRun) {
+        this.dryRun = dryRun;
+    }
+
+    /**
+     * <p>
+     * Checks whether you have the required permissions for the action, without actually making the request, and
+     * provides an error response. If you have the required permissions, the error response is
+     * <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.
+     * </p>
+     * 
+     * @return Checks whether you have the required permissions for the action, without actually making the request, and
+     *         provides an error response. If you have the required permissions, the error response is
+     *         <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.
+     */
+
+    public Boolean getDryRun() {
+        return this.dryRun;
+    }
+
+    /**
+     * <p>
+     * Checks whether you have the required permissions for the action, without actually making the request, and
+     * provides an error response. If you have the required permissions, the error response is
+     * <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.
+     * </p>
+     * 
+     * @param dryRun
+     *        Checks whether you have the required permissions for the action, without actually making the request, and
+     *        provides an error response. If you have the required permissions, the error response is
+     *        <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEnvironmentEC2Request withDryRun(Boolean dryRun) {
+        setDryRun(dryRun);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Checks whether you have the required permissions for the action, without actually making the request, and
+     * provides an error response. If you have the required permissions, the error response is
+     * <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.
+     * </p>
+     * 
+     * @return Checks whether you have the required permissions for the action, without actually making the request, and
+     *         provides an error response. If you have the required permissions, the error response is
+     *         <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.
+     */
+
+    public Boolean isDryRun() {
+        return this.dryRun;
     }
 
     /**
@@ -430,10 +1182,18 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
             sb.append("InstanceType: ").append(getInstanceType()).append(",");
         if (getSubnetId() != null)
             sb.append("SubnetId: ").append(getSubnetId()).append(",");
+        if (getImageId() != null)
+            sb.append("ImageId: ").append(getImageId()).append(",");
         if (getAutomaticStopTimeMinutes() != null)
             sb.append("AutomaticStopTimeMinutes: ").append(getAutomaticStopTimeMinutes()).append(",");
         if (getOwnerArn() != null)
-            sb.append("OwnerArn: ").append(getOwnerArn());
+            sb.append("OwnerArn: ").append(getOwnerArn()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append("***Sensitive Data Redacted***").append(",");
+        if (getConnectionType() != null)
+            sb.append("ConnectionType: ").append(getConnectionType()).append(",");
+        if (getDryRun() != null)
+            sb.append("DryRun: ").append(getDryRun());
         sb.append("}");
         return sb.toString();
     }
@@ -468,6 +1228,10 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getSubnetId() != null && other.getSubnetId().equals(this.getSubnetId()) == false)
             return false;
+        if (other.getImageId() == null ^ this.getImageId() == null)
+            return false;
+        if (other.getImageId() != null && other.getImageId().equals(this.getImageId()) == false)
+            return false;
         if (other.getAutomaticStopTimeMinutes() == null ^ this.getAutomaticStopTimeMinutes() == null)
             return false;
         if (other.getAutomaticStopTimeMinutes() != null && other.getAutomaticStopTimeMinutes().equals(this.getAutomaticStopTimeMinutes()) == false)
@@ -475,6 +1239,18 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
         if (other.getOwnerArn() == null ^ this.getOwnerArn() == null)
             return false;
         if (other.getOwnerArn() != null && other.getOwnerArn().equals(this.getOwnerArn()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getConnectionType() == null ^ this.getConnectionType() == null)
+            return false;
+        if (other.getConnectionType() != null && other.getConnectionType().equals(this.getConnectionType()) == false)
+            return false;
+        if (other.getDryRun() == null ^ this.getDryRun() == null)
+            return false;
+        if (other.getDryRun() != null && other.getDryRun().equals(this.getDryRun()) == false)
             return false;
         return true;
     }
@@ -489,8 +1265,12 @@ public class CreateEnvironmentEC2Request extends com.amazonaws.AmazonWebServiceR
         hashCode = prime * hashCode + ((getClientRequestToken() == null) ? 0 : getClientRequestToken().hashCode());
         hashCode = prime * hashCode + ((getInstanceType() == null) ? 0 : getInstanceType().hashCode());
         hashCode = prime * hashCode + ((getSubnetId() == null) ? 0 : getSubnetId().hashCode());
+        hashCode = prime * hashCode + ((getImageId() == null) ? 0 : getImageId().hashCode());
         hashCode = prime * hashCode + ((getAutomaticStopTimeMinutes() == null) ? 0 : getAutomaticStopTimeMinutes().hashCode());
         hashCode = prime * hashCode + ((getOwnerArn() == null) ? 0 : getOwnerArn().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getConnectionType() == null) ? 0 : getConnectionType().hashCode());
+        hashCode = prime * hashCode + ((getDryRun() == null) ? 0 : getDryRun().hashCode());
         return hashCode;
     }
 

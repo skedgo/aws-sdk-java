@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights
  * Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
@@ -57,7 +57,7 @@ public class ClientConfigurationMaxErrorRetryTest extends RetryPolicyTestBase {
         Assert.assertTrue(clientConfiguration.getRetryPolicy() == PredefinedRetryPolicies.DEFAULT);
         
         // Don't change any of the default settings in ClientConfiguration
-        testActualRetries(PredefinedRetryPolicies.DEFAULT_MAX_ERROR_RETRY);
+        testActualRetries(PredefinedRetryPolicies.DEFAULT_MAX_ERROR_RETRY_STANDARD_MODE);
     
         /* DynamoDB default */
         // Change to dynamodb default policy.

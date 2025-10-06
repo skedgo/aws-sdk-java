@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
+ * <p>
+ * Contains the parameters for <code>SubmitJob</code>.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/SubmitJob" target="_top">AWS API
  *      Documentation</a>
@@ -27,23 +30,44 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The name of the job. The first character must be alphanumeric, and up to 128 letters (uppercase and lowercase),
-     * numbers, hyphens, and underscores are allowed.
+     * The name of the job. It can be up to 128 letters long. The first character must be alphanumeric, can contain
+     * uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).
      * </p>
      */
     private String jobName;
     /**
      * <p>
-     * The job queue into which the job is submitted. You can specify either the name or the Amazon Resource Name (ARN)
-     * of the queue.
+     * The job queue where the job is submitted. You can specify either the name or the Amazon Resource Name (ARN) of
+     * the queue.
      * </p>
      */
     private String jobQueue;
     /**
      * <p>
+     * The share identifier for the job. Don't specify this parameter if the job queue doesn't have a scheduling policy.
+     * If the job queue has a scheduling policy, then this parameter must be specified.
+     * </p>
+     * <p>
+     * This string is limited to 255 alphanumeric characters, and can be followed by an asterisk (*).
+     * </p>
+     */
+    private String shareIdentifier;
+    /**
+     * <p>
+     * The scheduling priority for the job. This only affects jobs in job queues with a fair share policy. Jobs with a
+     * higher scheduling priority are scheduled before jobs with a lower scheduling priority. This overrides any
+     * scheduling priority in the job definition and works only within a single share identifier.
+     * </p>
+     * <p>
+     * The minimum supported value is 0 and the maximum supported value is 9999.
+     * </p>
+     */
+    private Integer schedulingPriorityOverride;
+    /**
+     * <p>
      * The array properties for the submitted job, such as the size of the array. The array size can be between 2 and
      * 10,000. If you specify array properties for a job, it becomes an array job. For more information, see <a
-     * href="https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html">Array Jobs</a> in the <i>AWS Batch User
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html">Array Jobs</a> in the <i>Batch User
      * Guide</i>.
      * </p>
      */
@@ -60,8 +84,14 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     private java.util.List<JobDependency> dependsOn;
     /**
      * <p>
-     * The job definition used by this job. This value can be either a <code>name:revision</code> or the Amazon Resource
-     * Name (ARN) for the job definition.
+     * The job definition used by this job. This value can be one of <code>definition-name</code>,
+     * <code>definition-name:revision</code>, or the Amazon Resource Name (ARN) for the job definition, with or without
+     * the revision (
+     * <code>arn:aws:batch:<i>region</i>:<i>account</i>:job-definition/<i>definition-name</i>:<i>revision</i> </code>,
+     * or <code>arn:aws:batch:<i>region</i>:<i>account</i>:job-definition/<i>definition-name</i> </code>).
+     * </p>
+     * <p>
+     * If the revision is not specified, then the latest active revision is used.
      * </p>
      */
     private String jobDefinition;
@@ -75,11 +105,11 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     private java.util.Map<String, String> parameters;
     /**
      * <p>
-     * A list of container overrides in JSON format that specify the name of a container in the specified job definition
-     * and the overrides it should receive. You can override the default command for a container (that is specified in
-     * the job definition or the Docker image) with a <code>command</code> override. You can also override existing
-     * environment variables (that are specified in the job definition or Docker image) on a container or add new
-     * environment variables to it with an <code>environment</code> override.
+     * An object with properties that override the defaults for the job definition that specify the name of a container
+     * in the specified job definition and the overrides it should receive. You can override the default command for a
+     * container, which is specified in the job definition or the Docker image, with a <code>command</code> override.
+     * You can also override existing environment variables on a container or add new environment variables to it with
+     * an <code>environment</code> override.
      * </p>
      */
     private ContainerOverrides containerOverrides;
@@ -88,6 +118,12 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * A list of node overrides in JSON format that specify the node range to target and the container overrides for
      * that node range.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources; use
+     * <code>containerOverrides</code> instead.
+     * </p>
+     * </note>
      */
     private NodeOverrides nodeOverrides;
     /**
@@ -99,8 +135,18 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
     private RetryStrategy retryStrategy;
     /**
      * <p>
-     * The timeout configuration for this <a>SubmitJob</a> operation. You can specify a timeout duration after which AWS
-     * Batch terminates your jobs if they have not finished. If a job is terminated due to a timeout, it is not retried.
+     * Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS task. If
+     * no value is specified, the tags aren't propagated. Tags can only be propagated to the tasks during task creation.
+     * For tags with the same name, job tags are given priority over job definitions tags. If the total number of
+     * combined tags from the job and job definition is over 50, the job is moved to the <code>FAILED</code> state. When
+     * specified, this overrides the tag propagation setting in the job definition.
+     * </p>
+     */
+    private Boolean propagateTags;
+    /**
+     * <p>
+     * The timeout configuration for this <a>SubmitJob</a> operation. You can specify a timeout duration after which
+     * Batch terminates your jobs if they haven't finished. If a job is terminated due to a timeout, it isn't retried.
      * The minimum value for the timeout is 60 seconds. This configuration overrides any timeout configuration specified
      * in the job definition. For array jobs, child jobs have the same timeout configuration as the parent job. For more
      * information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/job_timeouts.html">Job
@@ -108,16 +154,39 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </p>
      */
     private JobTimeout timeout;
+    /**
+     * <p>
+     * The tags that you apply to the job request to help you categorize and organize your resources. Each tag consists
+     * of a key and an optional value. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>
+     * in <i>Amazon Web Services General Reference</i>.
+     * </p>
+     */
+    private java.util.Map<String, String> tags;
+    /**
+     * <p>
+     * An object, with properties that override defaults for the job definition, can only be specified for jobs that are
+     * run on Amazon EKS resources.
+     * </p>
+     */
+    private EksPropertiesOverride eksPropertiesOverride;
+    /**
+     * <p>
+     * An object, with properties that override defaults for the job definition, can only be specified for jobs that are
+     * run on Amazon ECS resources.
+     * </p>
+     */
+    private EcsPropertiesOverride ecsPropertiesOverride;
 
     /**
      * <p>
-     * The name of the job. The first character must be alphanumeric, and up to 128 letters (uppercase and lowercase),
-     * numbers, hyphens, and underscores are allowed.
+     * The name of the job. It can be up to 128 letters long. The first character must be alphanumeric, can contain
+     * uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).
      * </p>
      * 
      * @param jobName
-     *        The name of the job. The first character must be alphanumeric, and up to 128 letters (uppercase and
-     *        lowercase), numbers, hyphens, and underscores are allowed.
+     *        The name of the job. It can be up to 128 letters long. The first character must be alphanumeric, can
+     *        contain uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).
      */
 
     public void setJobName(String jobName) {
@@ -126,12 +195,12 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The name of the job. The first character must be alphanumeric, and up to 128 letters (uppercase and lowercase),
-     * numbers, hyphens, and underscores are allowed.
+     * The name of the job. It can be up to 128 letters long. The first character must be alphanumeric, can contain
+     * uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).
      * </p>
      * 
-     * @return The name of the job. The first character must be alphanumeric, and up to 128 letters (uppercase and
-     *         lowercase), numbers, hyphens, and underscores are allowed.
+     * @return The name of the job. It can be up to 128 letters long. The first character must be alphanumeric, can
+     *         contain uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).
      */
 
     public String getJobName() {
@@ -140,13 +209,13 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The name of the job. The first character must be alphanumeric, and up to 128 letters (uppercase and lowercase),
-     * numbers, hyphens, and underscores are allowed.
+     * The name of the job. It can be up to 128 letters long. The first character must be alphanumeric, can contain
+     * uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).
      * </p>
      * 
      * @param jobName
-     *        The name of the job. The first character must be alphanumeric, and up to 128 letters (uppercase and
-     *        lowercase), numbers, hyphens, and underscores are allowed.
+     *        The name of the job. It can be up to 128 letters long. The first character must be alphanumeric, can
+     *        contain uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -157,12 +226,12 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The job queue into which the job is submitted. You can specify either the name or the Amazon Resource Name (ARN)
-     * of the queue.
+     * The job queue where the job is submitted. You can specify either the name or the Amazon Resource Name (ARN) of
+     * the queue.
      * </p>
      * 
      * @param jobQueue
-     *        The job queue into which the job is submitted. You can specify either the name or the Amazon Resource Name
+     *        The job queue where the job is submitted. You can specify either the name or the Amazon Resource Name
      *        (ARN) of the queue.
      */
 
@@ -172,12 +241,12 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The job queue into which the job is submitted. You can specify either the name or the Amazon Resource Name (ARN)
-     * of the queue.
+     * The job queue where the job is submitted. You can specify either the name or the Amazon Resource Name (ARN) of
+     * the queue.
      * </p>
      * 
-     * @return The job queue into which the job is submitted. You can specify either the name or the Amazon Resource
-     *         Name (ARN) of the queue.
+     * @return The job queue where the job is submitted. You can specify either the name or the Amazon Resource Name
+     *         (ARN) of the queue.
      */
 
     public String getJobQueue() {
@@ -186,12 +255,12 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The job queue into which the job is submitted. You can specify either the name or the Amazon Resource Name (ARN)
-     * of the queue.
+     * The job queue where the job is submitted. You can specify either the name or the Amazon Resource Name (ARN) of
+     * the queue.
      * </p>
      * 
      * @param jobQueue
-     *        The job queue into which the job is submitted. You can specify either the name or the Amazon Resource Name
+     *        The job queue where the job is submitted. You can specify either the name or the Amazon Resource Name
      *        (ARN) of the queue.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -203,17 +272,148 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
+     * The share identifier for the job. Don't specify this parameter if the job queue doesn't have a scheduling policy.
+     * If the job queue has a scheduling policy, then this parameter must be specified.
+     * </p>
+     * <p>
+     * This string is limited to 255 alphanumeric characters, and can be followed by an asterisk (*).
+     * </p>
+     * 
+     * @param shareIdentifier
+     *        The share identifier for the job. Don't specify this parameter if the job queue doesn't have a scheduling
+     *        policy. If the job queue has a scheduling policy, then this parameter must be specified.</p>
+     *        <p>
+     *        This string is limited to 255 alphanumeric characters, and can be followed by an asterisk (*).
+     */
+
+    public void setShareIdentifier(String shareIdentifier) {
+        this.shareIdentifier = shareIdentifier;
+    }
+
+    /**
+     * <p>
+     * The share identifier for the job. Don't specify this parameter if the job queue doesn't have a scheduling policy.
+     * If the job queue has a scheduling policy, then this parameter must be specified.
+     * </p>
+     * <p>
+     * This string is limited to 255 alphanumeric characters, and can be followed by an asterisk (*).
+     * </p>
+     * 
+     * @return The share identifier for the job. Don't specify this parameter if the job queue doesn't have a scheduling
+     *         policy. If the job queue has a scheduling policy, then this parameter must be specified.</p>
+     *         <p>
+     *         This string is limited to 255 alphanumeric characters, and can be followed by an asterisk (*).
+     */
+
+    public String getShareIdentifier() {
+        return this.shareIdentifier;
+    }
+
+    /**
+     * <p>
+     * The share identifier for the job. Don't specify this parameter if the job queue doesn't have a scheduling policy.
+     * If the job queue has a scheduling policy, then this parameter must be specified.
+     * </p>
+     * <p>
+     * This string is limited to 255 alphanumeric characters, and can be followed by an asterisk (*).
+     * </p>
+     * 
+     * @param shareIdentifier
+     *        The share identifier for the job. Don't specify this parameter if the job queue doesn't have a scheduling
+     *        policy. If the job queue has a scheduling policy, then this parameter must be specified.</p>
+     *        <p>
+     *        This string is limited to 255 alphanumeric characters, and can be followed by an asterisk (*).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SubmitJobRequest withShareIdentifier(String shareIdentifier) {
+        setShareIdentifier(shareIdentifier);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The scheduling priority for the job. This only affects jobs in job queues with a fair share policy. Jobs with a
+     * higher scheduling priority are scheduled before jobs with a lower scheduling priority. This overrides any
+     * scheduling priority in the job definition and works only within a single share identifier.
+     * </p>
+     * <p>
+     * The minimum supported value is 0 and the maximum supported value is 9999.
+     * </p>
+     * 
+     * @param schedulingPriorityOverride
+     *        The scheduling priority for the job. This only affects jobs in job queues with a fair share policy. Jobs
+     *        with a higher scheduling priority are scheduled before jobs with a lower scheduling priority. This
+     *        overrides any scheduling priority in the job definition and works only within a single share
+     *        identifier.</p>
+     *        <p>
+     *        The minimum supported value is 0 and the maximum supported value is 9999.
+     */
+
+    public void setSchedulingPriorityOverride(Integer schedulingPriorityOverride) {
+        this.schedulingPriorityOverride = schedulingPriorityOverride;
+    }
+
+    /**
+     * <p>
+     * The scheduling priority for the job. This only affects jobs in job queues with a fair share policy. Jobs with a
+     * higher scheduling priority are scheduled before jobs with a lower scheduling priority. This overrides any
+     * scheduling priority in the job definition and works only within a single share identifier.
+     * </p>
+     * <p>
+     * The minimum supported value is 0 and the maximum supported value is 9999.
+     * </p>
+     * 
+     * @return The scheduling priority for the job. This only affects jobs in job queues with a fair share policy. Jobs
+     *         with a higher scheduling priority are scheduled before jobs with a lower scheduling priority. This
+     *         overrides any scheduling priority in the job definition and works only within a single share
+     *         identifier.</p>
+     *         <p>
+     *         The minimum supported value is 0 and the maximum supported value is 9999.
+     */
+
+    public Integer getSchedulingPriorityOverride() {
+        return this.schedulingPriorityOverride;
+    }
+
+    /**
+     * <p>
+     * The scheduling priority for the job. This only affects jobs in job queues with a fair share policy. Jobs with a
+     * higher scheduling priority are scheduled before jobs with a lower scheduling priority. This overrides any
+     * scheduling priority in the job definition and works only within a single share identifier.
+     * </p>
+     * <p>
+     * The minimum supported value is 0 and the maximum supported value is 9999.
+     * </p>
+     * 
+     * @param schedulingPriorityOverride
+     *        The scheduling priority for the job. This only affects jobs in job queues with a fair share policy. Jobs
+     *        with a higher scheduling priority are scheduled before jobs with a lower scheduling priority. This
+     *        overrides any scheduling priority in the job definition and works only within a single share
+     *        identifier.</p>
+     *        <p>
+     *        The minimum supported value is 0 and the maximum supported value is 9999.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SubmitJobRequest withSchedulingPriorityOverride(Integer schedulingPriorityOverride) {
+        setSchedulingPriorityOverride(schedulingPriorityOverride);
+        return this;
+    }
+
+    /**
+     * <p>
      * The array properties for the submitted job, such as the size of the array. The array size can be between 2 and
      * 10,000. If you specify array properties for a job, it becomes an array job. For more information, see <a
-     * href="https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html">Array Jobs</a> in the <i>AWS Batch User
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html">Array Jobs</a> in the <i>Batch User
      * Guide</i>.
      * </p>
      * 
      * @param arrayProperties
      *        The array properties for the submitted job, such as the size of the array. The array size can be between 2
      *        and 10,000. If you specify array properties for a job, it becomes an array job. For more information, see
-     *        <a href="https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html">Array Jobs</a> in the <i>AWS
-     *        Batch User Guide</i>.
+     *        <a href="https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html">Array Jobs</a> in the
+     *        <i>Batch User Guide</i>.
      */
 
     public void setArrayProperties(ArrayProperties arrayProperties) {
@@ -224,14 +424,14 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * <p>
      * The array properties for the submitted job, such as the size of the array. The array size can be between 2 and
      * 10,000. If you specify array properties for a job, it becomes an array job. For more information, see <a
-     * href="https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html">Array Jobs</a> in the <i>AWS Batch User
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html">Array Jobs</a> in the <i>Batch User
      * Guide</i>.
      * </p>
      * 
      * @return The array properties for the submitted job, such as the size of the array. The array size can be between
      *         2 and 10,000. If you specify array properties for a job, it becomes an array job. For more information,
      *         see <a href="https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html">Array Jobs</a> in the
-     *         <i>AWS Batch User Guide</i>.
+     *         <i>Batch User Guide</i>.
      */
 
     public ArrayProperties getArrayProperties() {
@@ -242,15 +442,15 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * <p>
      * The array properties for the submitted job, such as the size of the array. The array size can be between 2 and
      * 10,000. If you specify array properties for a job, it becomes an array job. For more information, see <a
-     * href="https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html">Array Jobs</a> in the <i>AWS Batch User
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html">Array Jobs</a> in the <i>Batch User
      * Guide</i>.
      * </p>
      * 
      * @param arrayProperties
      *        The array properties for the submitted job, such as the size of the array. The array size can be between 2
      *        and 10,000. If you specify array properties for a job, it becomes an array job. For more information, see
-     *        <a href="https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html">Array Jobs</a> in the <i>AWS
-     *        Batch User Guide</i>.
+     *        <a href="https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html">Array Jobs</a> in the
+     *        <i>Batch User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -363,13 +563,24 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The job definition used by this job. This value can be either a <code>name:revision</code> or the Amazon Resource
-     * Name (ARN) for the job definition.
+     * The job definition used by this job. This value can be one of <code>definition-name</code>,
+     * <code>definition-name:revision</code>, or the Amazon Resource Name (ARN) for the job definition, with or without
+     * the revision (
+     * <code>arn:aws:batch:<i>region</i>:<i>account</i>:job-definition/<i>definition-name</i>:<i>revision</i> </code>,
+     * or <code>arn:aws:batch:<i>region</i>:<i>account</i>:job-definition/<i>definition-name</i> </code>).
+     * </p>
+     * <p>
+     * If the revision is not specified, then the latest active revision is used.
      * </p>
      * 
      * @param jobDefinition
-     *        The job definition used by this job. This value can be either a <code>name:revision</code> or the Amazon
-     *        Resource Name (ARN) for the job definition.
+     *        The job definition used by this job. This value can be one of <code>definition-name</code>,
+     *        <code>definition-name:revision</code>, or the Amazon Resource Name (ARN) for the job definition, with or
+     *        without the revision (
+     *        <code>arn:aws:batch:<i>region</i>:<i>account</i>:job-definition/<i>definition-name</i>:<i>revision</i> </code>
+     *        , or <code>arn:aws:batch:<i>region</i>:<i>account</i>:job-definition/<i>definition-name</i> </code>).</p>
+     *        <p>
+     *        If the revision is not specified, then the latest active revision is used.
      */
 
     public void setJobDefinition(String jobDefinition) {
@@ -378,12 +589,23 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The job definition used by this job. This value can be either a <code>name:revision</code> or the Amazon Resource
-     * Name (ARN) for the job definition.
+     * The job definition used by this job. This value can be one of <code>definition-name</code>,
+     * <code>definition-name:revision</code>, or the Amazon Resource Name (ARN) for the job definition, with or without
+     * the revision (
+     * <code>arn:aws:batch:<i>region</i>:<i>account</i>:job-definition/<i>definition-name</i>:<i>revision</i> </code>,
+     * or <code>arn:aws:batch:<i>region</i>:<i>account</i>:job-definition/<i>definition-name</i> </code>).
+     * </p>
+     * <p>
+     * If the revision is not specified, then the latest active revision is used.
      * </p>
      * 
-     * @return The job definition used by this job. This value can be either a <code>name:revision</code> or the Amazon
-     *         Resource Name (ARN) for the job definition.
+     * @return The job definition used by this job. This value can be one of <code>definition-name</code>,
+     *         <code>definition-name:revision</code>, or the Amazon Resource Name (ARN) for the job definition, with or
+     *         without the revision (
+     *         <code>arn:aws:batch:<i>region</i>:<i>account</i>:job-definition/<i>definition-name</i>:<i>revision</i> </code>
+     *         , or <code>arn:aws:batch:<i>region</i>:<i>account</i>:job-definition/<i>definition-name</i> </code>).</p>
+     *         <p>
+     *         If the revision is not specified, then the latest active revision is used.
      */
 
     public String getJobDefinition() {
@@ -392,13 +614,24 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The job definition used by this job. This value can be either a <code>name:revision</code> or the Amazon Resource
-     * Name (ARN) for the job definition.
+     * The job definition used by this job. This value can be one of <code>definition-name</code>,
+     * <code>definition-name:revision</code>, or the Amazon Resource Name (ARN) for the job definition, with or without
+     * the revision (
+     * <code>arn:aws:batch:<i>region</i>:<i>account</i>:job-definition/<i>definition-name</i>:<i>revision</i> </code>,
+     * or <code>arn:aws:batch:<i>region</i>:<i>account</i>:job-definition/<i>definition-name</i> </code>).
+     * </p>
+     * <p>
+     * If the revision is not specified, then the latest active revision is used.
      * </p>
      * 
      * @param jobDefinition
-     *        The job definition used by this job. This value can be either a <code>name:revision</code> or the Amazon
-     *        Resource Name (ARN) for the job definition.
+     *        The job definition used by this job. This value can be one of <code>definition-name</code>,
+     *        <code>definition-name:revision</code>, or the Amazon Resource Name (ARN) for the job definition, with or
+     *        without the revision (
+     *        <code>arn:aws:batch:<i>region</i>:<i>account</i>:job-definition/<i>definition-name</i>:<i>revision</i> </code>
+     *        , or <code>arn:aws:batch:<i>region</i>:<i>account</i>:job-definition/<i>definition-name</i> </code>).</p>
+     *        <p>
+     *        If the revision is not specified, then the latest active revision is used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -459,6 +692,13 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
         return this;
     }
 
+    /**
+     * Add a single Parameters entry
+     *
+     * @see SubmitJobRequest#withParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public SubmitJobRequest addParametersEntry(String key, String value) {
         if (null == this.parameters) {
             this.parameters = new java.util.HashMap<String, String>();
@@ -482,19 +722,19 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * A list of container overrides in JSON format that specify the name of a container in the specified job definition
-     * and the overrides it should receive. You can override the default command for a container (that is specified in
-     * the job definition or the Docker image) with a <code>command</code> override. You can also override existing
-     * environment variables (that are specified in the job definition or Docker image) on a container or add new
-     * environment variables to it with an <code>environment</code> override.
+     * An object with properties that override the defaults for the job definition that specify the name of a container
+     * in the specified job definition and the overrides it should receive. You can override the default command for a
+     * container, which is specified in the job definition or the Docker image, with a <code>command</code> override.
+     * You can also override existing environment variables on a container or add new environment variables to it with
+     * an <code>environment</code> override.
      * </p>
      * 
      * @param containerOverrides
-     *        A list of container overrides in JSON format that specify the name of a container in the specified job
-     *        definition and the overrides it should receive. You can override the default command for a container (that
-     *        is specified in the job definition or the Docker image) with a <code>command</code> override. You can also
-     *        override existing environment variables (that are specified in the job definition or Docker image) on a
-     *        container or add new environment variables to it with an <code>environment</code> override.
+     *        An object with properties that override the defaults for the job definition that specify the name of a
+     *        container in the specified job definition and the overrides it should receive. You can override the
+     *        default command for a container, which is specified in the job definition or the Docker image, with a
+     *        <code>command</code> override. You can also override existing environment variables on a container or add
+     *        new environment variables to it with an <code>environment</code> override.
      */
 
     public void setContainerOverrides(ContainerOverrides containerOverrides) {
@@ -503,18 +743,18 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * A list of container overrides in JSON format that specify the name of a container in the specified job definition
-     * and the overrides it should receive. You can override the default command for a container (that is specified in
-     * the job definition or the Docker image) with a <code>command</code> override. You can also override existing
-     * environment variables (that are specified in the job definition or Docker image) on a container or add new
-     * environment variables to it with an <code>environment</code> override.
+     * An object with properties that override the defaults for the job definition that specify the name of a container
+     * in the specified job definition and the overrides it should receive. You can override the default command for a
+     * container, which is specified in the job definition or the Docker image, with a <code>command</code> override.
+     * You can also override existing environment variables on a container or add new environment variables to it with
+     * an <code>environment</code> override.
      * </p>
      * 
-     * @return A list of container overrides in JSON format that specify the name of a container in the specified job
-     *         definition and the overrides it should receive. You can override the default command for a container
-     *         (that is specified in the job definition or the Docker image) with a <code>command</code> override. You
-     *         can also override existing environment variables (that are specified in the job definition or Docker
-     *         image) on a container or add new environment variables to it with an <code>environment</code> override.
+     * @return An object with properties that override the defaults for the job definition that specify the name of a
+     *         container in the specified job definition and the overrides it should receive. You can override the
+     *         default command for a container, which is specified in the job definition or the Docker image, with a
+     *         <code>command</code> override. You can also override existing environment variables on a container or add
+     *         new environment variables to it with an <code>environment</code> override.
      */
 
     public ContainerOverrides getContainerOverrides() {
@@ -523,19 +763,19 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * A list of container overrides in JSON format that specify the name of a container in the specified job definition
-     * and the overrides it should receive. You can override the default command for a container (that is specified in
-     * the job definition or the Docker image) with a <code>command</code> override. You can also override existing
-     * environment variables (that are specified in the job definition or Docker image) on a container or add new
-     * environment variables to it with an <code>environment</code> override.
+     * An object with properties that override the defaults for the job definition that specify the name of a container
+     * in the specified job definition and the overrides it should receive. You can override the default command for a
+     * container, which is specified in the job definition or the Docker image, with a <code>command</code> override.
+     * You can also override existing environment variables on a container or add new environment variables to it with
+     * an <code>environment</code> override.
      * </p>
      * 
      * @param containerOverrides
-     *        A list of container overrides in JSON format that specify the name of a container in the specified job
-     *        definition and the overrides it should receive. You can override the default command for a container (that
-     *        is specified in the job definition or the Docker image) with a <code>command</code> override. You can also
-     *        override existing environment variables (that are specified in the job definition or Docker image) on a
-     *        container or add new environment variables to it with an <code>environment</code> override.
+     *        An object with properties that override the defaults for the job definition that specify the name of a
+     *        container in the specified job definition and the overrides it should receive. You can override the
+     *        default command for a container, which is specified in the job definition or the Docker image, with a
+     *        <code>command</code> override. You can also override existing environment variables on a container or add
+     *        new environment variables to it with an <code>environment</code> override.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -549,10 +789,20 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * A list of node overrides in JSON format that specify the node range to target and the container overrides for
      * that node range.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources; use
+     * <code>containerOverrides</code> instead.
+     * </p>
+     * </note>
      * 
      * @param nodeOverrides
      *        A list of node overrides in JSON format that specify the node range to target and the container overrides
-     *        for that node range.
+     *        for that node range.</p> <note>
+     *        <p>
+     *        This parameter isn't applicable to jobs that are running on Fargate resources; use
+     *        <code>containerOverrides</code> instead.
+     *        </p>
      */
 
     public void setNodeOverrides(NodeOverrides nodeOverrides) {
@@ -564,9 +814,19 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * A list of node overrides in JSON format that specify the node range to target and the container overrides for
      * that node range.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources; use
+     * <code>containerOverrides</code> instead.
+     * </p>
+     * </note>
      * 
      * @return A list of node overrides in JSON format that specify the node range to target and the container overrides
-     *         for that node range.
+     *         for that node range.</p> <note>
+     *         <p>
+     *         This parameter isn't applicable to jobs that are running on Fargate resources; use
+     *         <code>containerOverrides</code> instead.
+     *         </p>
      */
 
     public NodeOverrides getNodeOverrides() {
@@ -578,10 +838,20 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * A list of node overrides in JSON format that specify the node range to target and the container overrides for
      * that node range.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to jobs that are running on Fargate resources; use
+     * <code>containerOverrides</code> instead.
+     * </p>
+     * </note>
      * 
      * @param nodeOverrides
      *        A list of node overrides in JSON format that specify the node range to target and the container overrides
-     *        for that node range.
+     *        for that node range.</p> <note>
+     *        <p>
+     *        This parameter isn't applicable to jobs that are running on Fargate resources; use
+     *        <code>containerOverrides</code> instead.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -638,8 +908,96 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The timeout configuration for this <a>SubmitJob</a> operation. You can specify a timeout duration after which AWS
-     * Batch terminates your jobs if they have not finished. If a job is terminated due to a timeout, it is not retried.
+     * Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS task. If
+     * no value is specified, the tags aren't propagated. Tags can only be propagated to the tasks during task creation.
+     * For tags with the same name, job tags are given priority over job definitions tags. If the total number of
+     * combined tags from the job and job definition is over 50, the job is moved to the <code>FAILED</code> state. When
+     * specified, this overrides the tag propagation setting in the job definition.
+     * </p>
+     * 
+     * @param propagateTags
+     *        Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS
+     *        task. If no value is specified, the tags aren't propagated. Tags can only be propagated to the tasks
+     *        during task creation. For tags with the same name, job tags are given priority over job definitions tags.
+     *        If the total number of combined tags from the job and job definition is over 50, the job is moved to the
+     *        <code>FAILED</code> state. When specified, this overrides the tag propagation setting in the job
+     *        definition.
+     */
+
+    public void setPropagateTags(Boolean propagateTags) {
+        this.propagateTags = propagateTags;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS task. If
+     * no value is specified, the tags aren't propagated. Tags can only be propagated to the tasks during task creation.
+     * For tags with the same name, job tags are given priority over job definitions tags. If the total number of
+     * combined tags from the job and job definition is over 50, the job is moved to the <code>FAILED</code> state. When
+     * specified, this overrides the tag propagation setting in the job definition.
+     * </p>
+     * 
+     * @return Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS
+     *         task. If no value is specified, the tags aren't propagated. Tags can only be propagated to the tasks
+     *         during task creation. For tags with the same name, job tags are given priority over job definitions tags.
+     *         If the total number of combined tags from the job and job definition is over 50, the job is moved to the
+     *         <code>FAILED</code> state. When specified, this overrides the tag propagation setting in the job
+     *         definition.
+     */
+
+    public Boolean getPropagateTags() {
+        return this.propagateTags;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS task. If
+     * no value is specified, the tags aren't propagated. Tags can only be propagated to the tasks during task creation.
+     * For tags with the same name, job tags are given priority over job definitions tags. If the total number of
+     * combined tags from the job and job definition is over 50, the job is moved to the <code>FAILED</code> state. When
+     * specified, this overrides the tag propagation setting in the job definition.
+     * </p>
+     * 
+     * @param propagateTags
+     *        Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS
+     *        task. If no value is specified, the tags aren't propagated. Tags can only be propagated to the tasks
+     *        during task creation. For tags with the same name, job tags are given priority over job definitions tags.
+     *        If the total number of combined tags from the job and job definition is over 50, the job is moved to the
+     *        <code>FAILED</code> state. When specified, this overrides the tag propagation setting in the job
+     *        definition.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SubmitJobRequest withPropagateTags(Boolean propagateTags) {
+        setPropagateTags(propagateTags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS task. If
+     * no value is specified, the tags aren't propagated. Tags can only be propagated to the tasks during task creation.
+     * For tags with the same name, job tags are given priority over job definitions tags. If the total number of
+     * combined tags from the job and job definition is over 50, the job is moved to the <code>FAILED</code> state. When
+     * specified, this overrides the tag propagation setting in the job definition.
+     * </p>
+     * 
+     * @return Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS
+     *         task. If no value is specified, the tags aren't propagated. Tags can only be propagated to the tasks
+     *         during task creation. For tags with the same name, job tags are given priority over job definitions tags.
+     *         If the total number of combined tags from the job and job definition is over 50, the job is moved to the
+     *         <code>FAILED</code> state. When specified, this overrides the tag propagation setting in the job
+     *         definition.
+     */
+
+    public Boolean isPropagateTags() {
+        return this.propagateTags;
+    }
+
+    /**
+     * <p>
+     * The timeout configuration for this <a>SubmitJob</a> operation. You can specify a timeout duration after which
+     * Batch terminates your jobs if they haven't finished. If a job is terminated due to a timeout, it isn't retried.
      * The minimum value for the timeout is 60 seconds. This configuration overrides any timeout configuration specified
      * in the job definition. For array jobs, child jobs have the same timeout configuration as the parent job. For more
      * information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/job_timeouts.html">Job
@@ -648,9 +1006,9 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * 
      * @param timeout
      *        The timeout configuration for this <a>SubmitJob</a> operation. You can specify a timeout duration after
-     *        which AWS Batch terminates your jobs if they have not finished. If a job is terminated due to a timeout,
-     *        it is not retried. The minimum value for the timeout is 60 seconds. This configuration overrides any
-     *        timeout configuration specified in the job definition. For array jobs, child jobs have the same timeout
+     *        which Batch terminates your jobs if they haven't finished. If a job is terminated due to a timeout, it
+     *        isn't retried. The minimum value for the timeout is 60 seconds. This configuration overrides any timeout
+     *        configuration specified in the job definition. For array jobs, child jobs have the same timeout
      *        configuration as the parent job. For more information, see <a
      *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/job_timeouts.html">Job Timeouts</a> in
      *        the <i>Amazon Elastic Container Service Developer Guide</i>.
@@ -662,8 +1020,8 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The timeout configuration for this <a>SubmitJob</a> operation. You can specify a timeout duration after which AWS
-     * Batch terminates your jobs if they have not finished. If a job is terminated due to a timeout, it is not retried.
+     * The timeout configuration for this <a>SubmitJob</a> operation. You can specify a timeout duration after which
+     * Batch terminates your jobs if they haven't finished. If a job is terminated due to a timeout, it isn't retried.
      * The minimum value for the timeout is 60 seconds. This configuration overrides any timeout configuration specified
      * in the job definition. For array jobs, child jobs have the same timeout configuration as the parent job. For more
      * information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/job_timeouts.html">Job
@@ -671,9 +1029,9 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </p>
      * 
      * @return The timeout configuration for this <a>SubmitJob</a> operation. You can specify a timeout duration after
-     *         which AWS Batch terminates your jobs if they have not finished. If a job is terminated due to a timeout,
-     *         it is not retried. The minimum value for the timeout is 60 seconds. This configuration overrides any
-     *         timeout configuration specified in the job definition. For array jobs, child jobs have the same timeout
+     *         which Batch terminates your jobs if they haven't finished. If a job is terminated due to a timeout, it
+     *         isn't retried. The minimum value for the timeout is 60 seconds. This configuration overrides any timeout
+     *         configuration specified in the job definition. For array jobs, child jobs have the same timeout
      *         configuration as the parent job. For more information, see <a
      *         href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/job_timeouts.html">Job Timeouts</a> in
      *         the <i>Amazon Elastic Container Service Developer Guide</i>.
@@ -685,8 +1043,8 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The timeout configuration for this <a>SubmitJob</a> operation. You can specify a timeout duration after which AWS
-     * Batch terminates your jobs if they have not finished. If a job is terminated due to a timeout, it is not retried.
+     * The timeout configuration for this <a>SubmitJob</a> operation. You can specify a timeout duration after which
+     * Batch terminates your jobs if they haven't finished. If a job is terminated due to a timeout, it isn't retried.
      * The minimum value for the timeout is 60 seconds. This configuration overrides any timeout configuration specified
      * in the job definition. For array jobs, child jobs have the same timeout configuration as the parent job. For more
      * information, see <a href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/job_timeouts.html">Job
@@ -695,9 +1053,9 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * 
      * @param timeout
      *        The timeout configuration for this <a>SubmitJob</a> operation. You can specify a timeout duration after
-     *        which AWS Batch terminates your jobs if they have not finished. If a job is terminated due to a timeout,
-     *        it is not retried. The minimum value for the timeout is 60 seconds. This configuration overrides any
-     *        timeout configuration specified in the job definition. For array jobs, child jobs have the same timeout
+     *        which Batch terminates your jobs if they haven't finished. If a job is terminated due to a timeout, it
+     *        isn't retried. The minimum value for the timeout is 60 seconds. This configuration overrides any timeout
+     *        configuration specified in the job definition. For array jobs, child jobs have the same timeout
      *        configuration as the parent job. For more information, see <a
      *        href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/job_timeouts.html">Job Timeouts</a> in
      *        the <i>Amazon Elastic Container Service Developer Guide</i>.
@@ -706,6 +1064,184 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     public SubmitJobRequest withTimeout(JobTimeout timeout) {
         setTimeout(timeout);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags that you apply to the job request to help you categorize and organize your resources. Each tag consists
+     * of a key and an optional value. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>
+     * in <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * 
+     * @return The tags that you apply to the job request to help you categorize and organize your resources. Each tag
+     *         consists of a key and an optional value. For more information, see <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *         Resources</a> in <i>Amazon Web Services General Reference</i>.
+     */
+
+    public java.util.Map<String, String> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * The tags that you apply to the job request to help you categorize and organize your resources. Each tag consists
+     * of a key and an optional value. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>
+     * in <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * 
+     * @param tags
+     *        The tags that you apply to the job request to help you categorize and organize your resources. Each tag
+     *        consists of a key and an optional value. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a> in <i>Amazon Web Services General Reference</i>.
+     */
+
+    public void setTags(java.util.Map<String, String> tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * <p>
+     * The tags that you apply to the job request to help you categorize and organize your resources. Each tag consists
+     * of a key and an optional value. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>
+     * in <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * 
+     * @param tags
+     *        The tags that you apply to the job request to help you categorize and organize your resources. Each tag
+     *        consists of a key and an optional value. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a> in <i>Amazon Web Services General Reference</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SubmitJobRequest withTags(java.util.Map<String, String> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see SubmitJobRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SubmitJobRequest addTagsEntry(String key, String value) {
+        if (null == this.tags) {
+            this.tags = new java.util.HashMap<String, String>();
+        }
+        if (this.tags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.tags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Tags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SubmitJobRequest clearTagsEntries() {
+        this.tags = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * An object, with properties that override defaults for the job definition, can only be specified for jobs that are
+     * run on Amazon EKS resources.
+     * </p>
+     * 
+     * @param eksPropertiesOverride
+     *        An object, with properties that override defaults for the job definition, can only be specified for jobs
+     *        that are run on Amazon EKS resources.
+     */
+
+    public void setEksPropertiesOverride(EksPropertiesOverride eksPropertiesOverride) {
+        this.eksPropertiesOverride = eksPropertiesOverride;
+    }
+
+    /**
+     * <p>
+     * An object, with properties that override defaults for the job definition, can only be specified for jobs that are
+     * run on Amazon EKS resources.
+     * </p>
+     * 
+     * @return An object, with properties that override defaults for the job definition, can only be specified for jobs
+     *         that are run on Amazon EKS resources.
+     */
+
+    public EksPropertiesOverride getEksPropertiesOverride() {
+        return this.eksPropertiesOverride;
+    }
+
+    /**
+     * <p>
+     * An object, with properties that override defaults for the job definition, can only be specified for jobs that are
+     * run on Amazon EKS resources.
+     * </p>
+     * 
+     * @param eksPropertiesOverride
+     *        An object, with properties that override defaults for the job definition, can only be specified for jobs
+     *        that are run on Amazon EKS resources.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SubmitJobRequest withEksPropertiesOverride(EksPropertiesOverride eksPropertiesOverride) {
+        setEksPropertiesOverride(eksPropertiesOverride);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An object, with properties that override defaults for the job definition, can only be specified for jobs that are
+     * run on Amazon ECS resources.
+     * </p>
+     * 
+     * @param ecsPropertiesOverride
+     *        An object, with properties that override defaults for the job definition, can only be specified for jobs
+     *        that are run on Amazon ECS resources.
+     */
+
+    public void setEcsPropertiesOverride(EcsPropertiesOverride ecsPropertiesOverride) {
+        this.ecsPropertiesOverride = ecsPropertiesOverride;
+    }
+
+    /**
+     * <p>
+     * An object, with properties that override defaults for the job definition, can only be specified for jobs that are
+     * run on Amazon ECS resources.
+     * </p>
+     * 
+     * @return An object, with properties that override defaults for the job definition, can only be specified for jobs
+     *         that are run on Amazon ECS resources.
+     */
+
+    public EcsPropertiesOverride getEcsPropertiesOverride() {
+        return this.ecsPropertiesOverride;
+    }
+
+    /**
+     * <p>
+     * An object, with properties that override defaults for the job definition, can only be specified for jobs that are
+     * run on Amazon ECS resources.
+     * </p>
+     * 
+     * @param ecsPropertiesOverride
+     *        An object, with properties that override defaults for the job definition, can only be specified for jobs
+     *        that are run on Amazon ECS resources.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SubmitJobRequest withEcsPropertiesOverride(EcsPropertiesOverride ecsPropertiesOverride) {
+        setEcsPropertiesOverride(ecsPropertiesOverride);
         return this;
     }
 
@@ -725,6 +1261,10 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
             sb.append("JobName: ").append(getJobName()).append(",");
         if (getJobQueue() != null)
             sb.append("JobQueue: ").append(getJobQueue()).append(",");
+        if (getShareIdentifier() != null)
+            sb.append("ShareIdentifier: ").append(getShareIdentifier()).append(",");
+        if (getSchedulingPriorityOverride() != null)
+            sb.append("SchedulingPriorityOverride: ").append(getSchedulingPriorityOverride()).append(",");
         if (getArrayProperties() != null)
             sb.append("ArrayProperties: ").append(getArrayProperties()).append(",");
         if (getDependsOn() != null)
@@ -739,8 +1279,16 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
             sb.append("NodeOverrides: ").append(getNodeOverrides()).append(",");
         if (getRetryStrategy() != null)
             sb.append("RetryStrategy: ").append(getRetryStrategy()).append(",");
+        if (getPropagateTags() != null)
+            sb.append("PropagateTags: ").append(getPropagateTags()).append(",");
         if (getTimeout() != null)
-            sb.append("Timeout: ").append(getTimeout());
+            sb.append("Timeout: ").append(getTimeout()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getEksPropertiesOverride() != null)
+            sb.append("EksPropertiesOverride: ").append(getEksPropertiesOverride()).append(",");
+        if (getEcsPropertiesOverride() != null)
+            sb.append("EcsPropertiesOverride: ").append(getEcsPropertiesOverride());
         sb.append("}");
         return sb.toString();
     }
@@ -762,6 +1310,14 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
         if (other.getJobQueue() == null ^ this.getJobQueue() == null)
             return false;
         if (other.getJobQueue() != null && other.getJobQueue().equals(this.getJobQueue()) == false)
+            return false;
+        if (other.getShareIdentifier() == null ^ this.getShareIdentifier() == null)
+            return false;
+        if (other.getShareIdentifier() != null && other.getShareIdentifier().equals(this.getShareIdentifier()) == false)
+            return false;
+        if (other.getSchedulingPriorityOverride() == null ^ this.getSchedulingPriorityOverride() == null)
+            return false;
+        if (other.getSchedulingPriorityOverride() != null && other.getSchedulingPriorityOverride().equals(this.getSchedulingPriorityOverride()) == false)
             return false;
         if (other.getArrayProperties() == null ^ this.getArrayProperties() == null)
             return false;
@@ -791,9 +1347,25 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
             return false;
         if (other.getRetryStrategy() != null && other.getRetryStrategy().equals(this.getRetryStrategy()) == false)
             return false;
+        if (other.getPropagateTags() == null ^ this.getPropagateTags() == null)
+            return false;
+        if (other.getPropagateTags() != null && other.getPropagateTags().equals(this.getPropagateTags()) == false)
+            return false;
         if (other.getTimeout() == null ^ this.getTimeout() == null)
             return false;
         if (other.getTimeout() != null && other.getTimeout().equals(this.getTimeout()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getEksPropertiesOverride() == null ^ this.getEksPropertiesOverride() == null)
+            return false;
+        if (other.getEksPropertiesOverride() != null && other.getEksPropertiesOverride().equals(this.getEksPropertiesOverride()) == false)
+            return false;
+        if (other.getEcsPropertiesOverride() == null ^ this.getEcsPropertiesOverride() == null)
+            return false;
+        if (other.getEcsPropertiesOverride() != null && other.getEcsPropertiesOverride().equals(this.getEcsPropertiesOverride()) == false)
             return false;
         return true;
     }
@@ -805,6 +1377,8 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
         hashCode = prime * hashCode + ((getJobName() == null) ? 0 : getJobName().hashCode());
         hashCode = prime * hashCode + ((getJobQueue() == null) ? 0 : getJobQueue().hashCode());
+        hashCode = prime * hashCode + ((getShareIdentifier() == null) ? 0 : getShareIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getSchedulingPriorityOverride() == null) ? 0 : getSchedulingPriorityOverride().hashCode());
         hashCode = prime * hashCode + ((getArrayProperties() == null) ? 0 : getArrayProperties().hashCode());
         hashCode = prime * hashCode + ((getDependsOn() == null) ? 0 : getDependsOn().hashCode());
         hashCode = prime * hashCode + ((getJobDefinition() == null) ? 0 : getJobDefinition().hashCode());
@@ -812,7 +1386,11 @@ public class SubmitJobRequest extends com.amazonaws.AmazonWebServiceRequest impl
         hashCode = prime * hashCode + ((getContainerOverrides() == null) ? 0 : getContainerOverrides().hashCode());
         hashCode = prime * hashCode + ((getNodeOverrides() == null) ? 0 : getNodeOverrides().hashCode());
         hashCode = prime * hashCode + ((getRetryStrategy() == null) ? 0 : getRetryStrategy().hashCode());
+        hashCode = prime * hashCode + ((getPropagateTags() == null) ? 0 : getPropagateTags().hashCode());
         hashCode = prime * hashCode + ((getTimeout() == null) ? 0 : getTimeout().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getEksPropertiesOverride() == null) ? 0 : getEksPropertiesOverride().hashCode());
+        hashCode = prime * hashCode + ((getEcsPropertiesOverride() == null) ? 0 : getEcsPropertiesOverride().hashCode());
         return hashCode;
     }
 

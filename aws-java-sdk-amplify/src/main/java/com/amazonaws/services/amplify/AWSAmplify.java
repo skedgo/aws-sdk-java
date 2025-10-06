@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,11 @@ import com.amazonaws.services.amplify.model.*;
  * </p>
  * <p>
  * <p>
- * Amplify is a fully managed continuous deployment and hosting service for modern web apps.
+ * Amplify enables developers to develop and deploy cloud-powered mobile and web apps. Amplify Hosting provides a
+ * continuous delivery and hosting service for web applications. For more information, see the <a
+ * href="https://docs.aws.amazon.com/amplify/latest/userguide/welcome.html">Amplify Hosting User Guide</a>. The Amplify
+ * Framework is a comprehensive set of SDKs, libraries, tools, and documentation for client app development. For more
+ * information, see the <a href="https://docs.amplify.aws/">Amplify Framework.</a>
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -43,22 +47,22 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Creates a new Amplify App.
+     * Creates a new Amplify app.
      * </p>
      * 
      * @param createAppRequest
-     *        Request structure used to create Apps in Amplify.
+     *        The request structure used to create apps in Amplify.
      * @return Result of the CreateApp operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws LimitExceededException
-     *         Exception thrown when a resource could not be created because of service limits.
+     *         A resource could not be created because service quotas were exceeded.
      * @throws DependentServiceFailureException
-     *         Exception thrown when an operation fails due to a dependent service throwing an exception.
+     *         An operation failed because a dependent service threw an exception.
      * @sample AWSAmplify.CreateApp
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/CreateApp" target="_top">AWS API
      *      Documentation</a>
@@ -67,24 +71,53 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Creates a new Branch for an Amplify App.
+     * Creates a new backend environment for an Amplify app.
+     * </p>
+     * <p>
+     * This API is available only to Amplify Gen 1 applications where the backend is created using Amplify Studio or the
+     * Amplify command line interface (CLI). This API isn’t available to Amplify Gen 2 applications. When you deploy an
+     * application with Amplify Gen 2, you provision the app's backend infrastructure using Typescript code.
+     * </p>
+     * 
+     * @param createBackendEnvironmentRequest
+     *        The request structure for the backend environment create request.
+     * @return Result of the CreateBackendEnvironment operation returned by the service.
+     * @throws BadRequestException
+     *         A request contains unexpected data.
+     * @throws UnauthorizedException
+     *         An operation failed due to a lack of access.
+     * @throws NotFoundException
+     *         An entity was not found during an operation.
+     * @throws InternalFailureException
+     *         The service failed to perform an operation due to an internal issue.
+     * @throws LimitExceededException
+     *         A resource could not be created because service quotas were exceeded.
+     * @sample AWSAmplify.CreateBackendEnvironment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/CreateBackendEnvironment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateBackendEnvironmentResult createBackendEnvironment(CreateBackendEnvironmentRequest createBackendEnvironmentRequest);
+
+    /**
+     * <p>
+     * Creates a new branch for an Amplify app.
      * </p>
      * 
      * @param createBranchRequest
-     *        Request structure for a branch create request.
+     *        The request structure for the create branch request.
      * @return Result of the CreateBranch operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws LimitExceededException
-     *         Exception thrown when a resource could not be created because of service limits.
+     *         A resource could not be created because service quotas were exceeded.
      * @throws DependentServiceFailureException
-     *         Exception thrown when an operation fails due to a dependent service throwing an exception.
+     *         An operation failed because a dependent service threw an exception.
      * @sample AWSAmplify.CreateBranch
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/CreateBranch" target="_top">AWS API
      *      Documentation</a>
@@ -93,20 +126,26 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Create a deployment for manual deploy apps. (Apps are not connected to repository)
+     * Creates a deployment for a manually deployed Amplify app. Manually deployed apps are not connected to a
+     * repository.
+     * </p>
+     * <p>
+     * The maximum duration between the <code>CreateDeployment</code> call and the <code>StartDeployment</code> call
+     * cannot exceed 8 hours. If the duration exceeds 8 hours, the <code>StartDeployment</code> call and the associated
+     * <code>Job</code> will fail.
      * </p>
      * 
      * @param createDeploymentRequest
-     *        Request structure for create a new deployment.
+     *        The request structure for the create a new deployment request.
      * @return Result of the CreateDeployment operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws LimitExceededException
-     *         Exception thrown when a resource could not be created because of service limits.
+     *         A resource could not be created because service quotas were exceeded.
      * @sample AWSAmplify.CreateDeployment
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/CreateDeployment" target="_top">AWS API
      *      Documentation</a>
@@ -115,24 +154,24 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Create a new DomainAssociation on an App
+     * Creates a new domain association for an Amplify app. This action associates a custom domain with the Amplify app
      * </p>
      * 
      * @param createDomainAssociationRequest
-     *        Request structure for create Domain Association request.
+     *        The request structure for the create domain association request.
      * @return Result of the CreateDomainAssociation operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws LimitExceededException
-     *         Exception thrown when a resource could not be created because of service limits.
+     *         A resource could not be created because service quotas were exceeded.
      * @throws DependentServiceFailureException
-     *         Exception thrown when an operation fails due to a dependent service throwing an exception.
+     *         An operation failed because a dependent service threw an exception.
      * @sample AWSAmplify.CreateDomainAssociation
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/CreateDomainAssociation"
      *      target="_top">AWS API Documentation</a>
@@ -141,24 +180,24 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Create a new webhook on an App.
+     * Creates a new webhook on an Amplify app.
      * </p>
      * 
      * @param createWebhookRequest
-     *        Request structure for create webhook request.
+     *        The request structure for the create webhook request.
      * @return Result of the CreateWebhook operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws LimitExceededException
-     *         Exception thrown when a resource could not be created because of service limits.
+     *         A resource could not be created because service quotas were exceeded.
      * @throws DependentServiceFailureException
-     *         Exception thrown when an operation fails due to a dependent service throwing an exception.
+     *         An operation failed because a dependent service threw an exception.
      * @sample AWSAmplify.CreateWebhook
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/CreateWebhook" target="_top">AWS API
      *      Documentation</a>
@@ -167,22 +206,22 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Delete an existing Amplify App by appId.
+     * Deletes an existing Amplify app specified by an app ID.
      * </p>
      * 
      * @param deleteAppRequest
-     *        Request structure for an Amplify App delete request.
+     *        Describes the request structure for the delete app request.
      * @return Result of the DeleteApp operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws DependentServiceFailureException
-     *         Exception thrown when an operation fails due to a dependent service throwing an exception.
+     *         An operation failed because a dependent service threw an exception.
      * @sample AWSAmplify.DeleteApp
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/DeleteApp" target="_top">AWS API
      *      Documentation</a>
@@ -191,22 +230,51 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Deletes a branch for an Amplify App.
+     * Deletes a backend environment for an Amplify app.
+     * </p>
+     * <p>
+     * This API is available only to Amplify Gen 1 applications where the backend is created using Amplify Studio or the
+     * Amplify command line interface (CLI). This API isn’t available to Amplify Gen 2 applications. When you deploy an
+     * application with Amplify Gen 2, you provision the app's backend infrastructure using Typescript code.
+     * </p>
+     * 
+     * @param deleteBackendEnvironmentRequest
+     *        The request structure for the delete backend environment request.
+     * @return Result of the DeleteBackendEnvironment operation returned by the service.
+     * @throws BadRequestException
+     *         A request contains unexpected data.
+     * @throws UnauthorizedException
+     *         An operation failed due to a lack of access.
+     * @throws NotFoundException
+     *         An entity was not found during an operation.
+     * @throws InternalFailureException
+     *         The service failed to perform an operation due to an internal issue.
+     * @throws DependentServiceFailureException
+     *         An operation failed because a dependent service threw an exception.
+     * @sample AWSAmplify.DeleteBackendEnvironment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/DeleteBackendEnvironment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteBackendEnvironmentResult deleteBackendEnvironment(DeleteBackendEnvironmentRequest deleteBackendEnvironmentRequest);
+
+    /**
+     * <p>
+     * Deletes a branch for an Amplify app.
      * </p>
      * 
      * @param deleteBranchRequest
-     *        Request structure for delete branch request.
+     *        The request structure for the delete branch request.
      * @return Result of the DeleteBranch operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws DependentServiceFailureException
-     *         Exception thrown when an operation fails due to a dependent service throwing an exception.
+     *         An operation failed because a dependent service threw an exception.
      * @sample AWSAmplify.DeleteBranch
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/DeleteBranch" target="_top">AWS API
      *      Documentation</a>
@@ -215,22 +283,22 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Deletes a DomainAssociation.
+     * Deletes a domain association for an Amplify app.
      * </p>
      * 
      * @param deleteDomainAssociationRequest
-     *        Request structure for the delete Domain Association request.
+     *        The request structure for the delete domain association request.
      * @return Result of the DeleteDomainAssociation operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws DependentServiceFailureException
-     *         Exception thrown when an operation fails due to a dependent service throwing an exception.
+     *         An operation failed because a dependent service threw an exception.
      * @sample AWSAmplify.DeleteDomainAssociation
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/DeleteDomainAssociation"
      *      target="_top">AWS API Documentation</a>
@@ -239,22 +307,22 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Delete a job, for an Amplify branch, part of Amplify App.
+     * Deletes a job for a branch of an Amplify app.
      * </p>
      * 
      * @param deleteJobRequest
-     *        Request structure for delete job request.
+     *        The request structure for the delete job request.
      * @return Result of the DeleteJob operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws LimitExceededException
-     *         Exception thrown when a resource could not be created because of service limits.
+     *         A resource could not be created because service quotas were exceeded.
      * @sample AWSAmplify.DeleteJob
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/DeleteJob" target="_top">AWS API
      *      Documentation</a>
@@ -267,18 +335,18 @@ public interface AWSAmplify {
      * </p>
      * 
      * @param deleteWebhookRequest
-     *        Request structure for the delete webhook request.
+     *        The request structure for the delete webhook request.
      * @return Result of the DeleteWebhook operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws LimitExceededException
-     *         Exception thrown when a resource could not be created because of service limits.
+     *         A resource could not be created because service quotas were exceeded.
      * @sample AWSAmplify.DeleteWebhook
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/DeleteWebhook" target="_top">AWS API
      *      Documentation</a>
@@ -287,20 +355,42 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Retrieves an existing Amplify App by appId.
+     * Returns the website access logs for a specific time range using a presigned URL.
+     * </p>
+     * 
+     * @param generateAccessLogsRequest
+     *        The request structure for the generate access logs request.
+     * @return Result of the GenerateAccessLogs operation returned by the service.
+     * @throws NotFoundException
+     *         An entity was not found during an operation.
+     * @throws BadRequestException
+     *         A request contains unexpected data.
+     * @throws UnauthorizedException
+     *         An operation failed due to a lack of access.
+     * @throws InternalFailureException
+     *         The service failed to perform an operation due to an internal issue.
+     * @sample AWSAmplify.GenerateAccessLogs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/GenerateAccessLogs" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GenerateAccessLogsResult generateAccessLogs(GenerateAccessLogsRequest generateAccessLogsRequest);
+
+    /**
+     * <p>
+     * Returns an existing Amplify app specified by an app ID.
      * </p>
      * 
      * @param getAppRequest
-     *        Request structure for get App request.
+     *        The request structure for the get app request.
      * @return Result of the GetApp operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @sample AWSAmplify.GetApp
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/GetApp" target="_top">AWS API
      *      Documentation</a>
@@ -309,20 +399,71 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Retrieves a branch for an Amplify App.
+     * Returns the artifact info that corresponds to an artifact id.
+     * </p>
+     * 
+     * @param getArtifactUrlRequest
+     *        Returns the request structure for the get artifact request.
+     * @return Result of the GetArtifactUrl operation returned by the service.
+     * @throws BadRequestException
+     *         A request contains unexpected data.
+     * @throws UnauthorizedException
+     *         An operation failed due to a lack of access.
+     * @throws InternalFailureException
+     *         The service failed to perform an operation due to an internal issue.
+     * @throws NotFoundException
+     *         An entity was not found during an operation.
+     * @throws LimitExceededException
+     *         A resource could not be created because service quotas were exceeded.
+     * @sample AWSAmplify.GetArtifactUrl
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/GetArtifactUrl" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetArtifactUrlResult getArtifactUrl(GetArtifactUrlRequest getArtifactUrlRequest);
+
+    /**
+     * <p>
+     * Returns a backend environment for an Amplify app.
+     * </p>
+     * <p>
+     * This API is available only to Amplify Gen 1 applications where the backend is created using Amplify Studio or the
+     * Amplify command line interface (CLI). This API isn’t available to Amplify Gen 2 applications. When you deploy an
+     * application with Amplify Gen 2, you provision the app's backend infrastructure using Typescript code.
+     * </p>
+     * 
+     * @param getBackendEnvironmentRequest
+     *        The request structure for the get backend environment request.
+     * @return Result of the GetBackendEnvironment operation returned by the service.
+     * @throws BadRequestException
+     *         A request contains unexpected data.
+     * @throws UnauthorizedException
+     *         An operation failed due to a lack of access.
+     * @throws NotFoundException
+     *         An entity was not found during an operation.
+     * @throws InternalFailureException
+     *         The service failed to perform an operation due to an internal issue.
+     * @sample AWSAmplify.GetBackendEnvironment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/GetBackendEnvironment" target="_top">AWS
+     *      API Documentation</a>
+     */
+    GetBackendEnvironmentResult getBackendEnvironment(GetBackendEnvironmentRequest getBackendEnvironmentRequest);
+
+    /**
+     * <p>
+     * Returns a branch for an Amplify app.
      * </p>
      * 
      * @param getBranchRequest
-     *        Result structure for get branch request.
+     *        The request structure for the get branch request.
      * @return Result of the GetBranch operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @sample AWSAmplify.GetBranch
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/GetBranch" target="_top">AWS API
      *      Documentation</a>
@@ -331,20 +472,20 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Retrieves domain info that corresponds to an appId and domainName.
+     * Returns the domain information for an Amplify app.
      * </p>
      * 
      * @param getDomainAssociationRequest
-     *        Request structure for the get Domain Association request.
+     *        The request structure for the get domain association request.
      * @return Result of the GetDomainAssociation operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @sample AWSAmplify.GetDomainAssociation
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/GetDomainAssociation" target="_top">AWS
      *      API Documentation</a>
@@ -353,22 +494,22 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Get a job for a branch, part of an Amplify App.
+     * Returns a job for a branch of an Amplify app.
      * </p>
      * 
      * @param getJobRequest
-     *        Request structure for get job request.
+     *        The request structure for the get job request.
      * @return Result of the GetJob operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws LimitExceededException
-     *         Exception thrown when a resource could not be created because of service limits.
+     *         A resource could not be created because service quotas were exceeded.
      * @sample AWSAmplify.GetJob
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/GetJob" target="_top">AWS API
      *      Documentation</a>
@@ -377,22 +518,22 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Retrieves webhook info that corresponds to a webhookId.
+     * Returns the webhook information that corresponds to a specified webhook ID.
      * </p>
      * 
      * @param getWebhookRequest
-     *        Request structure for the get webhook request.
+     *        The request structure for the get webhook request.
      * @return Result of the GetWebhook operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws LimitExceededException
-     *         Exception thrown when a resource could not be created because of service limits.
+     *         A resource could not be created because service quotas were exceeded.
      * @sample AWSAmplify.GetWebhook
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/GetWebhook" target="_top">AWS API
      *      Documentation</a>
@@ -401,18 +542,18 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Lists existing Amplify Apps.
+     * Returns a list of the existing Amplify apps.
      * </p>
      * 
      * @param listAppsRequest
-     *        Request structure for an Amplify App list request.
+     *        The request structure for the list apps request.
      * @return Result of the ListApps operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @sample AWSAmplify.ListApps
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/ListApps" target="_top">AWS API
      *      Documentation</a>
@@ -421,18 +562,65 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Lists branches for an Amplify App.
+     * Returns a list of artifacts for a specified app, branch, and job.
+     * </p>
+     * 
+     * @param listArtifactsRequest
+     *        Describes the request structure for the list artifacts request.
+     * @return Result of the ListArtifacts operation returned by the service.
+     * @throws BadRequestException
+     *         A request contains unexpected data.
+     * @throws UnauthorizedException
+     *         An operation failed due to a lack of access.
+     * @throws InternalFailureException
+     *         The service failed to perform an operation due to an internal issue.
+     * @throws LimitExceededException
+     *         A resource could not be created because service quotas were exceeded.
+     * @sample AWSAmplify.ListArtifacts
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/ListArtifacts" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListArtifactsResult listArtifacts(ListArtifactsRequest listArtifactsRequest);
+
+    /**
+     * <p>
+     * Lists the backend environments for an Amplify app.
+     * </p>
+     * <p>
+     * This API is available only to Amplify Gen 1 applications where the backend is created using Amplify Studio or the
+     * Amplify command line interface (CLI). This API isn’t available to Amplify Gen 2 applications. When you deploy an
+     * application with Amplify Gen 2, you provision the app's backend infrastructure using Typescript code.
+     * </p>
+     * 
+     * @param listBackendEnvironmentsRequest
+     *        The request structure for the list backend environments request.
+     * @return Result of the ListBackendEnvironments operation returned by the service.
+     * @throws BadRequestException
+     *         A request contains unexpected data.
+     * @throws UnauthorizedException
+     *         An operation failed due to a lack of access.
+     * @throws InternalFailureException
+     *         The service failed to perform an operation due to an internal issue.
+     * @sample AWSAmplify.ListBackendEnvironments
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/ListBackendEnvironments"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListBackendEnvironmentsResult listBackendEnvironments(ListBackendEnvironmentsRequest listBackendEnvironmentsRequest);
+
+    /**
+     * <p>
+     * Lists the branches of an Amplify app.
      * </p>
      * 
      * @param listBranchesRequest
-     *        Request structure for list branches request.
+     *        The request structure for the list branches request.
      * @return Result of the ListBranches operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @sample AWSAmplify.ListBranches
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/ListBranches" target="_top">AWS API
      *      Documentation</a>
@@ -441,18 +629,18 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * List domains with an app
+     * Returns the domain associations for an Amplify app.
      * </p>
      * 
      * @param listDomainAssociationsRequest
-     *        Request structure for the list Domain Associations request.
+     *        The request structure for the list domain associations request.
      * @return Result of the ListDomainAssociations operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @sample AWSAmplify.ListDomainAssociations
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/ListDomainAssociations" target="_top">AWS
      *      API Documentation</a>
@@ -461,20 +649,20 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * List Jobs for a branch, part of an Amplify App.
+     * Lists the jobs for a branch of an Amplify app.
      * </p>
      * 
      * @param listJobsRequest
-     *        Request structure for list job request.
+     *        The request structure for the list jobs request.
      * @return Result of the ListJobs operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws LimitExceededException
-     *         Exception thrown when a resource could not be created because of service limits.
+     *         A resource could not be created because service quotas were exceeded.
      * @sample AWSAmplify.ListJobs
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/ListJobs" target="_top">AWS API
      *      Documentation</a>
@@ -483,18 +671,18 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * List tags for resource.
+     * Returns a list of tags for a specified Amazon Resource Name (ARN).
      * </p>
      * 
      * @param listTagsForResourceRequest
-     *        Request structure used to list tags for resource.
+     *        The request structure to use to list tags for a resource.
      * @return Result of the ListTagsForResource operation returned by the service.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws ResourceNotFoundException
-     *         Exception thrown when an operation fails due to non-existent resource.
+     *         An operation failed due to a non-existent resource.
      * @sample AWSAmplify.ListTagsForResource
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/ListTagsForResource" target="_top">AWS
      *      API Documentation</a>
@@ -503,20 +691,20 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * List webhooks with an app.
+     * Returns a list of webhooks for an Amplify app.
      * </p>
      * 
      * @param listWebhooksRequest
-     *        Request structure for the list webhooks request.
+     *        The request structure for the list webhooks request.
      * @return Result of the ListWebhooks operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws LimitExceededException
-     *         Exception thrown when a resource could not be created because of service limits.
+     *         A resource could not be created because service quotas were exceeded.
      * @sample AWSAmplify.ListWebhooks
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/ListWebhooks" target="_top">AWS API
      *      Documentation</a>
@@ -525,22 +713,27 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Start a deployment for manual deploy apps. (Apps are not connected to repository)
+     * Starts a deployment for a manually deployed app. Manually deployed apps are not connected to a repository.
+     * </p>
+     * <p>
+     * The maximum duration between the <code>CreateDeployment</code> call and the <code>StartDeployment</code> call
+     * cannot exceed 8 hours. If the duration exceeds 8 hours, the <code>StartDeployment</code> call and the associated
+     * <code>Job</code> will fail.
      * </p>
      * 
      * @param startDeploymentRequest
-     *        Request structure for start a deployment.
+     *        The request structure for the start a deployment request.
      * @return Result of the StartDeployment operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws LimitExceededException
-     *         Exception thrown when a resource could not be created because of service limits.
+     *         A resource could not be created because service quotas were exceeded.
      * @sample AWSAmplify.StartDeployment
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/StartDeployment" target="_top">AWS API
      *      Documentation</a>
@@ -549,22 +742,22 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Starts a new job for a branch, part of an Amplify App.
+     * Starts a new job for a branch of an Amplify app.
      * </p>
      * 
      * @param startJobRequest
-     *        Request structure for Start job request.
+     *        The request structure for the start job request.
      * @return Result of the StartJob operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws LimitExceededException
-     *         Exception thrown when a resource could not be created because of service limits.
+     *         A resource could not be created because service quotas were exceeded.
      * @sample AWSAmplify.StartJob
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/StartJob" target="_top">AWS API
      *      Documentation</a>
@@ -573,22 +766,22 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Stop a job that is in progress, for an Amplify branch, part of Amplify App.
+     * Stops a job that is in progress for a branch of an Amplify app.
      * </p>
      * 
      * @param stopJobRequest
-     *        Request structure for stop job request.
+     *        The request structure for the stop job request.
      * @return Result of the StopJob operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws LimitExceededException
-     *         Exception thrown when a resource could not be created because of service limits.
+     *         A resource could not be created because service quotas were exceeded.
      * @sample AWSAmplify.StopJob
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/StopJob" target="_top">AWS API
      *      Documentation</a>
@@ -597,18 +790,18 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Tag resource with tag key and value.
+     * Tags the resource with a tag key and value.
      * </p>
      * 
      * @param tagResourceRequest
-     *        Request structure used to tag resource.
+     *        The request structure to tag a resource with a tag key and value.
      * @return Result of the TagResource operation returned by the service.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws ResourceNotFoundException
-     *         Exception thrown when an operation fails due to non-existent resource.
+     *         An operation failed due to a non-existent resource.
      * @sample AWSAmplify.TagResource
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/TagResource" target="_top">AWS API
      *      Documentation</a>
@@ -617,18 +810,18 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Untag resource with resourceArn.
+     * Untags a resource with a specified Amazon Resource Name (ARN).
      * </p>
      * 
      * @param untagResourceRequest
-     *        Request structure used to untag resource.
+     *        The request structure for the untag resource request.
      * @return Result of the UntagResource operation returned by the service.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws ResourceNotFoundException
-     *         Exception thrown when an operation fails due to non-existent resource.
+     *         An operation failed due to a non-existent resource.
      * @sample AWSAmplify.UntagResource
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/UntagResource" target="_top">AWS API
      *      Documentation</a>
@@ -637,20 +830,20 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Updates an existing Amplify App.
+     * Updates an existing Amplify app.
      * </p>
      * 
      * @param updateAppRequest
-     *        Request structure for update App request.
+     *        The request structure for the update app request.
      * @return Result of the UpdateApp operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @sample AWSAmplify.UpdateApp
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/UpdateApp" target="_top">AWS API
      *      Documentation</a>
@@ -659,22 +852,22 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Updates a branch for an Amplify App.
+     * Updates a branch for an Amplify app.
      * </p>
      * 
      * @param updateBranchRequest
-     *        Request structure for update branch request.
+     *        The request structure for the update branch request.
      * @return Result of the UpdateBranch operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws DependentServiceFailureException
-     *         Exception thrown when an operation fails due to a dependent service throwing an exception.
+     *         An operation failed because a dependent service threw an exception.
      * @sample AWSAmplify.UpdateBranch
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/UpdateBranch" target="_top">AWS API
      *      Documentation</a>
@@ -683,22 +876,22 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Create a new DomainAssociation on an App
+     * Creates a new domain association for an Amplify app.
      * </p>
      * 
      * @param updateDomainAssociationRequest
-     *        Request structure for update Domain Association request.
+     *        The request structure for the update domain association request.
      * @return Result of the UpdateDomainAssociation operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws DependentServiceFailureException
-     *         Exception thrown when an operation fails due to a dependent service throwing an exception.
+     *         An operation failed because a dependent service threw an exception.
      * @sample AWSAmplify.UpdateDomainAssociation
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/UpdateDomainAssociation"
      *      target="_top">AWS API Documentation</a>
@@ -707,22 +900,22 @@ public interface AWSAmplify {
 
     /**
      * <p>
-     * Update a webhook.
+     * Updates a webhook.
      * </p>
      * 
      * @param updateWebhookRequest
-     *        Request structure for update webhook request.
+     *        The request structure for the update webhook request.
      * @return Result of the UpdateWebhook operation returned by the service.
      * @throws BadRequestException
-     *         Exception thrown when a request contains unexpected data.
+     *         A request contains unexpected data.
      * @throws UnauthorizedException
-     *         Exception thrown when an operation fails due to a lack of access.
+     *         An operation failed due to a lack of access.
      * @throws NotFoundException
-     *         Exception thrown when an entity has not been found during an operation.
+     *         An entity was not found during an operation.
      * @throws InternalFailureException
-     *         Exception thrown when the service fails to perform an operation due to an internal issue.
+     *         The service failed to perform an operation due to an internal issue.
      * @throws DependentServiceFailureException
-     *         Exception thrown when an operation fails due to a dependent service throwing an exception.
+     *         An operation failed because a dependent service threw an exception.
      * @sample AWSAmplify.UpdateWebhook
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/amplify-2017-07-25/UpdateWebhook" target="_top">AWS API
      *      Documentation</a>

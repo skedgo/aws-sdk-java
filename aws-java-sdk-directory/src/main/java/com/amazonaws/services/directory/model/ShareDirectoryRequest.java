@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class ShareDirectoryRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Identifier of the AWS Managed Microsoft AD directory that you want to share with other AWS accounts.
+     * Identifier of the Managed Microsoft AD directory that you want to share with other Amazon Web Services accounts.
      * </p>
      */
     private String directoryId;
@@ -47,20 +47,21 @@ public class ShareDirectoryRequest extends com.amazonaws.AmazonWebServiceRequest
     private ShareTarget shareTarget;
     /**
      * <p>
-     * The method used when sharing a directory to determine whether the directory should be shared within your AWS
-     * organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a directory sharing request (
-     * <code>HANDSHAKE</code>).
+     * The method used when sharing a directory to determine whether the directory should be shared within your Amazon
+     * Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by sending a
+     * directory sharing request (<code>HANDSHAKE</code>).
      * </p>
      */
     private String shareMethod;
 
     /**
      * <p>
-     * Identifier of the AWS Managed Microsoft AD directory that you want to share with other AWS accounts.
+     * Identifier of the Managed Microsoft AD directory that you want to share with other Amazon Web Services accounts.
      * </p>
      * 
      * @param directoryId
-     *        Identifier of the AWS Managed Microsoft AD directory that you want to share with other AWS accounts.
+     *        Identifier of the Managed Microsoft AD directory that you want to share with other Amazon Web Services
+     *        accounts.
      */
 
     public void setDirectoryId(String directoryId) {
@@ -69,10 +70,11 @@ public class ShareDirectoryRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Identifier of the AWS Managed Microsoft AD directory that you want to share with other AWS accounts.
+     * Identifier of the Managed Microsoft AD directory that you want to share with other Amazon Web Services accounts.
      * </p>
      * 
-     * @return Identifier of the AWS Managed Microsoft AD directory that you want to share with other AWS accounts.
+     * @return Identifier of the Managed Microsoft AD directory that you want to share with other Amazon Web Services
+     *         accounts.
      */
 
     public String getDirectoryId() {
@@ -81,11 +83,12 @@ public class ShareDirectoryRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Identifier of the AWS Managed Microsoft AD directory that you want to share with other AWS accounts.
+     * Identifier of the Managed Microsoft AD directory that you want to share with other Amazon Web Services accounts.
      * </p>
      * 
      * @param directoryId
-     *        Identifier of the AWS Managed Microsoft AD directory that you want to share with other AWS accounts.
+     *        Identifier of the Managed Microsoft AD directory that you want to share with other Amazon Web Services
+     *        accounts.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -188,15 +191,15 @@ public class ShareDirectoryRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The method used when sharing a directory to determine whether the directory should be shared within your AWS
-     * organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a directory sharing request (
-     * <code>HANDSHAKE</code>).
+     * The method used when sharing a directory to determine whether the directory should be shared within your Amazon
+     * Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by sending a
+     * directory sharing request (<code>HANDSHAKE</code>).
      * </p>
      * 
      * @param shareMethod
      *        The method used when sharing a directory to determine whether the directory should be shared within your
-     *        AWS organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a directory sharing
-     *        request (<code>HANDSHAKE</code>).
+     *        Amazon Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by
+     *        sending a directory sharing request (<code>HANDSHAKE</code>).
      * @see ShareMethod
      */
 
@@ -206,14 +209,14 @@ public class ShareDirectoryRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The method used when sharing a directory to determine whether the directory should be shared within your AWS
-     * organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a directory sharing request (
-     * <code>HANDSHAKE</code>).
+     * The method used when sharing a directory to determine whether the directory should be shared within your Amazon
+     * Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by sending a
+     * directory sharing request (<code>HANDSHAKE</code>).
      * </p>
      * 
      * @return The method used when sharing a directory to determine whether the directory should be shared within your
-     *         AWS organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a directory sharing
-     *         request (<code>HANDSHAKE</code>).
+     *         Amazon Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by
+     *         sending a directory sharing request (<code>HANDSHAKE</code>).
      * @see ShareMethod
      */
 
@@ -223,15 +226,15 @@ public class ShareDirectoryRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The method used when sharing a directory to determine whether the directory should be shared within your AWS
-     * organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a directory sharing request (
-     * <code>HANDSHAKE</code>).
+     * The method used when sharing a directory to determine whether the directory should be shared within your Amazon
+     * Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by sending a
+     * directory sharing request (<code>HANDSHAKE</code>).
      * </p>
      * 
      * @param shareMethod
      *        The method used when sharing a directory to determine whether the directory should be shared within your
-     *        AWS organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a directory sharing
-     *        request (<code>HANDSHAKE</code>).
+     *        Amazon Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by
+     *        sending a directory sharing request (<code>HANDSHAKE</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ShareMethod
      */
@@ -243,15 +246,15 @@ public class ShareDirectoryRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The method used when sharing a directory to determine whether the directory should be shared within your AWS
-     * organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a directory sharing request (
-     * <code>HANDSHAKE</code>).
+     * The method used when sharing a directory to determine whether the directory should be shared within your Amazon
+     * Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by sending a
+     * directory sharing request (<code>HANDSHAKE</code>).
      * </p>
      * 
      * @param shareMethod
      *        The method used when sharing a directory to determine whether the directory should be shared within your
-     *        AWS organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a directory sharing
-     *        request (<code>HANDSHAKE</code>).
+     *        Amazon Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by
+     *        sending a directory sharing request (<code>HANDSHAKE</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ShareMethod
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,8 +31,9 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * <note>
      * <p>
-     * The ManagedInstance type for this API action is for on-premises managed instances. You must specify the name of
-     * the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     * The <code>ManagedInstance</code> type for this API operation is for on-premises managed nodes. You must specify
+     * the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For example,
+     * <code>mi-1a2b3c4d5e6f</code>.
      * </p>
      * </note>
      */
@@ -45,33 +46,45 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      * Use the ID of the resource. Here are some examples:
      * </p>
      * <p>
-     * ManagedInstance: mi-012345abcde
+     * <code>MaintenanceWindow</code>: <code>mw-012345abcde</code>
      * </p>
      * <p>
-     * MaintenanceWindow: mw-012345abcde
+     * <code>PatchBaseline</code>: <code>pb-012345abcde</code>
      * </p>
      * <p>
-     * PatchBaseline: pb-012345abcde
+     * <code>Automation</code>: <code>example-c160-4567-8519-012345abcde</code>
      * </p>
      * <p>
-     * For the Document and Parameter values, use the name of the resource.
+     * <code>OpsMetadata</code> object: <code>ResourceID</code> for tagging is created from the Amazon Resource Name
+     * (ARN) for the object. Specifically, <code>ResourceID</code> is created from the strings that come after the word
+     * <code>opsmetadata</code> in the ARN. For example, an OpsMetadata object with an ARN of
+     * <code>arn:aws:ssm:us-east-2:1234567890:opsmetadata/aws/ssm/MyGroup/appmanager</code> has a
+     * <code>ResourceID</code> of either <code>aws/ssm/MyGroup/appmanager</code> or
+     * <code>/aws/ssm/MyGroup/appmanager</code>.
+     * </p>
+     * <p>
+     * For the <code>Document</code> and <code>Parameter</code> values, use the name of the resource. If you're tagging
+     * a shared document, you must use the full ARN of the document.
+     * </p>
+     * <p>
+     * <code>ManagedInstance</code>: <code>mi-012345abcde</code>
      * </p>
      * <note>
      * <p>
-     * The ManagedInstance type for this API action is only for on-premises managed instances. You must specify the name
-     * of the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     * The <code>ManagedInstance</code> type for this API operation is only for on-premises managed nodes. You must
+     * specify the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For example,
+     * <code>mi-1a2b3c4d5e6f</code>.
      * </p>
      * </note>
      */
     private String resourceId;
     /**
      * <p>
-     * One or more tags. The value parameter is required, but if you don't want the tag to have a value, specify the
-     * parameter with no value, and we set the value to an empty string.
+     * One or more tags. The value parameter is required.
      * </p>
      * <important>
      * <p>
-     * Do not enter personally identifiable information in this field.
+     * Don't enter personally identifiable information in this field.
      * </p>
      * </important>
      */
@@ -83,16 +96,18 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * <note>
      * <p>
-     * The ManagedInstance type for this API action is for on-premises managed instances. You must specify the name of
-     * the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     * The <code>ManagedInstance</code> type for this API operation is for on-premises managed nodes. You must specify
+     * the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For example,
+     * <code>mi-1a2b3c4d5e6f</code>.
      * </p>
      * </note>
      * 
      * @param resourceType
      *        Specifies the type of resource you are tagging.</p> <note>
      *        <p>
-     *        The ManagedInstance type for this API action is for on-premises managed instances. You must specify the
-     *        name of the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     *        The <code>ManagedInstance</code> type for this API operation is for on-premises managed nodes. You must
+     *        specify the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For
+     *        example, <code>mi-1a2b3c4d5e6f</code>.
      *        </p>
      * @see ResourceTypeForTagging
      */
@@ -107,15 +122,17 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * <note>
      * <p>
-     * The ManagedInstance type for this API action is for on-premises managed instances. You must specify the name of
-     * the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     * The <code>ManagedInstance</code> type for this API operation is for on-premises managed nodes. You must specify
+     * the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For example,
+     * <code>mi-1a2b3c4d5e6f</code>.
      * </p>
      * </note>
      * 
      * @return Specifies the type of resource you are tagging.</p> <note>
      *         <p>
-     *         The ManagedInstance type for this API action is for on-premises managed instances. You must specify the
-     *         name of the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     *         The <code>ManagedInstance</code> type for this API operation is for on-premises managed nodes. You must
+     *         specify the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For
+     *         example, <code>mi-1a2b3c4d5e6f</code>.
      *         </p>
      * @see ResourceTypeForTagging
      */
@@ -130,16 +147,18 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * <note>
      * <p>
-     * The ManagedInstance type for this API action is for on-premises managed instances. You must specify the name of
-     * the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     * The <code>ManagedInstance</code> type for this API operation is for on-premises managed nodes. You must specify
+     * the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For example,
+     * <code>mi-1a2b3c4d5e6f</code>.
      * </p>
      * </note>
      * 
      * @param resourceType
      *        Specifies the type of resource you are tagging.</p> <note>
      *        <p>
-     *        The ManagedInstance type for this API action is for on-premises managed instances. You must specify the
-     *        name of the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     *        The <code>ManagedInstance</code> type for this API operation is for on-premises managed nodes. You must
+     *        specify the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For
+     *        example, <code>mi-1a2b3c4d5e6f</code>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceTypeForTagging
@@ -156,16 +175,18 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * <note>
      * <p>
-     * The ManagedInstance type for this API action is for on-premises managed instances. You must specify the name of
-     * the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     * The <code>ManagedInstance</code> type for this API operation is for on-premises managed nodes. You must specify
+     * the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For example,
+     * <code>mi-1a2b3c4d5e6f</code>.
      * </p>
      * </note>
      * 
      * @param resourceType
      *        Specifies the type of resource you are tagging.</p> <note>
      *        <p>
-     *        The ManagedInstance type for this API action is for on-premises managed instances. You must specify the
-     *        name of the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     *        The <code>ManagedInstance</code> type for this API operation is for on-premises managed nodes. You must
+     *        specify the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For
+     *        example, <code>mi-1a2b3c4d5e6f</code>.
      *        </p>
      * @see ResourceTypeForTagging
      */
@@ -180,16 +201,18 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * <note>
      * <p>
-     * The ManagedInstance type for this API action is for on-premises managed instances. You must specify the name of
-     * the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     * The <code>ManagedInstance</code> type for this API operation is for on-premises managed nodes. You must specify
+     * the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For example,
+     * <code>mi-1a2b3c4d5e6f</code>.
      * </p>
      * </note>
      * 
      * @param resourceType
      *        Specifies the type of resource you are tagging.</p> <note>
      *        <p>
-     *        The ManagedInstance type for this API action is for on-premises managed instances. You must specify the
-     *        name of the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     *        The <code>ManagedInstance</code> type for this API operation is for on-premises managed nodes. You must
+     *        specify the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For
+     *        example, <code>mi-1a2b3c4d5e6f</code>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceTypeForTagging
@@ -208,21 +231,34 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      * Use the ID of the resource. Here are some examples:
      * </p>
      * <p>
-     * ManagedInstance: mi-012345abcde
+     * <code>MaintenanceWindow</code>: <code>mw-012345abcde</code>
      * </p>
      * <p>
-     * MaintenanceWindow: mw-012345abcde
+     * <code>PatchBaseline</code>: <code>pb-012345abcde</code>
      * </p>
      * <p>
-     * PatchBaseline: pb-012345abcde
+     * <code>Automation</code>: <code>example-c160-4567-8519-012345abcde</code>
      * </p>
      * <p>
-     * For the Document and Parameter values, use the name of the resource.
+     * <code>OpsMetadata</code> object: <code>ResourceID</code> for tagging is created from the Amazon Resource Name
+     * (ARN) for the object. Specifically, <code>ResourceID</code> is created from the strings that come after the word
+     * <code>opsmetadata</code> in the ARN. For example, an OpsMetadata object with an ARN of
+     * <code>arn:aws:ssm:us-east-2:1234567890:opsmetadata/aws/ssm/MyGroup/appmanager</code> has a
+     * <code>ResourceID</code> of either <code>aws/ssm/MyGroup/appmanager</code> or
+     * <code>/aws/ssm/MyGroup/appmanager</code>.
+     * </p>
+     * <p>
+     * For the <code>Document</code> and <code>Parameter</code> values, use the name of the resource. If you're tagging
+     * a shared document, you must use the full ARN of the document.
+     * </p>
+     * <p>
+     * <code>ManagedInstance</code>: <code>mi-012345abcde</code>
      * </p>
      * <note>
      * <p>
-     * The ManagedInstance type for this API action is only for on-premises managed instances. You must specify the name
-     * of the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     * The <code>ManagedInstance</code> type for this API operation is only for on-premises managed nodes. You must
+     * specify the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For example,
+     * <code>mi-1a2b3c4d5e6f</code>.
      * </p>
      * </note>
      * 
@@ -232,21 +268,34 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      *        Use the ID of the resource. Here are some examples:
      *        </p>
      *        <p>
-     *        ManagedInstance: mi-012345abcde
+     *        <code>MaintenanceWindow</code>: <code>mw-012345abcde</code>
      *        </p>
      *        <p>
-     *        MaintenanceWindow: mw-012345abcde
+     *        <code>PatchBaseline</code>: <code>pb-012345abcde</code>
      *        </p>
      *        <p>
-     *        PatchBaseline: pb-012345abcde
+     *        <code>Automation</code>: <code>example-c160-4567-8519-012345abcde</code>
      *        </p>
      *        <p>
-     *        For the Document and Parameter values, use the name of the resource.
+     *        <code>OpsMetadata</code> object: <code>ResourceID</code> for tagging is created from the Amazon Resource
+     *        Name (ARN) for the object. Specifically, <code>ResourceID</code> is created from the strings that come
+     *        after the word <code>opsmetadata</code> in the ARN. For example, an OpsMetadata object with an ARN of
+     *        <code>arn:aws:ssm:us-east-2:1234567890:opsmetadata/aws/ssm/MyGroup/appmanager</code> has a
+     *        <code>ResourceID</code> of either <code>aws/ssm/MyGroup/appmanager</code> or
+     *        <code>/aws/ssm/MyGroup/appmanager</code>.
+     *        </p>
+     *        <p>
+     *        For the <code>Document</code> and <code>Parameter</code> values, use the name of the resource. If you're
+     *        tagging a shared document, you must use the full ARN of the document.
+     *        </p>
+     *        <p>
+     *        <code>ManagedInstance</code>: <code>mi-012345abcde</code>
      *        </p>
      *        <note>
      *        <p>
-     *        The ManagedInstance type for this API action is only for on-premises managed instances. You must specify
-     *        the name of the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     *        The <code>ManagedInstance</code> type for this API operation is only for on-premises managed nodes. You
+     *        must specify the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For
+     *        example, <code>mi-1a2b3c4d5e6f</code>.
      *        </p>
      */
 
@@ -262,21 +311,34 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      * Use the ID of the resource. Here are some examples:
      * </p>
      * <p>
-     * ManagedInstance: mi-012345abcde
+     * <code>MaintenanceWindow</code>: <code>mw-012345abcde</code>
      * </p>
      * <p>
-     * MaintenanceWindow: mw-012345abcde
+     * <code>PatchBaseline</code>: <code>pb-012345abcde</code>
      * </p>
      * <p>
-     * PatchBaseline: pb-012345abcde
+     * <code>Automation</code>: <code>example-c160-4567-8519-012345abcde</code>
      * </p>
      * <p>
-     * For the Document and Parameter values, use the name of the resource.
+     * <code>OpsMetadata</code> object: <code>ResourceID</code> for tagging is created from the Amazon Resource Name
+     * (ARN) for the object. Specifically, <code>ResourceID</code> is created from the strings that come after the word
+     * <code>opsmetadata</code> in the ARN. For example, an OpsMetadata object with an ARN of
+     * <code>arn:aws:ssm:us-east-2:1234567890:opsmetadata/aws/ssm/MyGroup/appmanager</code> has a
+     * <code>ResourceID</code> of either <code>aws/ssm/MyGroup/appmanager</code> or
+     * <code>/aws/ssm/MyGroup/appmanager</code>.
+     * </p>
+     * <p>
+     * For the <code>Document</code> and <code>Parameter</code> values, use the name of the resource. If you're tagging
+     * a shared document, you must use the full ARN of the document.
+     * </p>
+     * <p>
+     * <code>ManagedInstance</code>: <code>mi-012345abcde</code>
      * </p>
      * <note>
      * <p>
-     * The ManagedInstance type for this API action is only for on-premises managed instances. You must specify the name
-     * of the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     * The <code>ManagedInstance</code> type for this API operation is only for on-premises managed nodes. You must
+     * specify the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For example,
+     * <code>mi-1a2b3c4d5e6f</code>.
      * </p>
      * </note>
      * 
@@ -285,21 +347,34 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      *         Use the ID of the resource. Here are some examples:
      *         </p>
      *         <p>
-     *         ManagedInstance: mi-012345abcde
+     *         <code>MaintenanceWindow</code>: <code>mw-012345abcde</code>
      *         </p>
      *         <p>
-     *         MaintenanceWindow: mw-012345abcde
+     *         <code>PatchBaseline</code>: <code>pb-012345abcde</code>
      *         </p>
      *         <p>
-     *         PatchBaseline: pb-012345abcde
+     *         <code>Automation</code>: <code>example-c160-4567-8519-012345abcde</code>
      *         </p>
      *         <p>
-     *         For the Document and Parameter values, use the name of the resource.
+     *         <code>OpsMetadata</code> object: <code>ResourceID</code> for tagging is created from the Amazon Resource
+     *         Name (ARN) for the object. Specifically, <code>ResourceID</code> is created from the strings that come
+     *         after the word <code>opsmetadata</code> in the ARN. For example, an OpsMetadata object with an ARN of
+     *         <code>arn:aws:ssm:us-east-2:1234567890:opsmetadata/aws/ssm/MyGroup/appmanager</code> has a
+     *         <code>ResourceID</code> of either <code>aws/ssm/MyGroup/appmanager</code> or
+     *         <code>/aws/ssm/MyGroup/appmanager</code>.
+     *         </p>
+     *         <p>
+     *         For the <code>Document</code> and <code>Parameter</code> values, use the name of the resource. If you're
+     *         tagging a shared document, you must use the full ARN of the document.
+     *         </p>
+     *         <p>
+     *         <code>ManagedInstance</code>: <code>mi-012345abcde</code>
      *         </p>
      *         <note>
      *         <p>
-     *         The ManagedInstance type for this API action is only for on-premises managed instances. You must specify
-     *         the name of the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     *         The <code>ManagedInstance</code> type for this API operation is only for on-premises managed nodes. You
+     *         must specify the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For
+     *         example, <code>mi-1a2b3c4d5e6f</code>.
      *         </p>
      */
 
@@ -315,21 +390,34 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      * Use the ID of the resource. Here are some examples:
      * </p>
      * <p>
-     * ManagedInstance: mi-012345abcde
+     * <code>MaintenanceWindow</code>: <code>mw-012345abcde</code>
      * </p>
      * <p>
-     * MaintenanceWindow: mw-012345abcde
+     * <code>PatchBaseline</code>: <code>pb-012345abcde</code>
      * </p>
      * <p>
-     * PatchBaseline: pb-012345abcde
+     * <code>Automation</code>: <code>example-c160-4567-8519-012345abcde</code>
      * </p>
      * <p>
-     * For the Document and Parameter values, use the name of the resource.
+     * <code>OpsMetadata</code> object: <code>ResourceID</code> for tagging is created from the Amazon Resource Name
+     * (ARN) for the object. Specifically, <code>ResourceID</code> is created from the strings that come after the word
+     * <code>opsmetadata</code> in the ARN. For example, an OpsMetadata object with an ARN of
+     * <code>arn:aws:ssm:us-east-2:1234567890:opsmetadata/aws/ssm/MyGroup/appmanager</code> has a
+     * <code>ResourceID</code> of either <code>aws/ssm/MyGroup/appmanager</code> or
+     * <code>/aws/ssm/MyGroup/appmanager</code>.
+     * </p>
+     * <p>
+     * For the <code>Document</code> and <code>Parameter</code> values, use the name of the resource. If you're tagging
+     * a shared document, you must use the full ARN of the document.
+     * </p>
+     * <p>
+     * <code>ManagedInstance</code>: <code>mi-012345abcde</code>
      * </p>
      * <note>
      * <p>
-     * The ManagedInstance type for this API action is only for on-premises managed instances. You must specify the name
-     * of the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     * The <code>ManagedInstance</code> type for this API operation is only for on-premises managed nodes. You must
+     * specify the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For example,
+     * <code>mi-1a2b3c4d5e6f</code>.
      * </p>
      * </note>
      * 
@@ -339,21 +427,34 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      *        Use the ID of the resource. Here are some examples:
      *        </p>
      *        <p>
-     *        ManagedInstance: mi-012345abcde
+     *        <code>MaintenanceWindow</code>: <code>mw-012345abcde</code>
      *        </p>
      *        <p>
-     *        MaintenanceWindow: mw-012345abcde
+     *        <code>PatchBaseline</code>: <code>pb-012345abcde</code>
      *        </p>
      *        <p>
-     *        PatchBaseline: pb-012345abcde
+     *        <code>Automation</code>: <code>example-c160-4567-8519-012345abcde</code>
      *        </p>
      *        <p>
-     *        For the Document and Parameter values, use the name of the resource.
+     *        <code>OpsMetadata</code> object: <code>ResourceID</code> for tagging is created from the Amazon Resource
+     *        Name (ARN) for the object. Specifically, <code>ResourceID</code> is created from the strings that come
+     *        after the word <code>opsmetadata</code> in the ARN. For example, an OpsMetadata object with an ARN of
+     *        <code>arn:aws:ssm:us-east-2:1234567890:opsmetadata/aws/ssm/MyGroup/appmanager</code> has a
+     *        <code>ResourceID</code> of either <code>aws/ssm/MyGroup/appmanager</code> or
+     *        <code>/aws/ssm/MyGroup/appmanager</code>.
+     *        </p>
+     *        <p>
+     *        For the <code>Document</code> and <code>Parameter</code> values, use the name of the resource. If you're
+     *        tagging a shared document, you must use the full ARN of the document.
+     *        </p>
+     *        <p>
+     *        <code>ManagedInstance</code>: <code>mi-012345abcde</code>
      *        </p>
      *        <note>
      *        <p>
-     *        The ManagedInstance type for this API action is only for on-premises managed instances. You must specify
-     *        the name of the managed instance in the following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
+     *        The <code>ManagedInstance</code> type for this API operation is only for on-premises managed nodes. You
+     *        must specify the name of the managed node in the following format: <code>mi-<i>ID_number</i> </code>. For
+     *        example, <code>mi-1a2b3c4d5e6f</code>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -365,19 +466,17 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * One or more tags. The value parameter is required, but if you don't want the tag to have a value, specify the
-     * parameter with no value, and we set the value to an empty string.
+     * One or more tags. The value parameter is required.
      * </p>
      * <important>
      * <p>
-     * Do not enter personally identifiable information in this field.
+     * Don't enter personally identifiable information in this field.
      * </p>
      * </important>
      * 
-     * @return One or more tags. The value parameter is required, but if you don't want the tag to have a value, specify
-     *         the parameter with no value, and we set the value to an empty string. </p> <important>
+     * @return One or more tags. The value parameter is required.</p> <important>
      *         <p>
-     *         Do not enter personally identifiable information in this field.
+     *         Don't enter personally identifiable information in this field.
      *         </p>
      */
 
@@ -390,20 +489,18 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * One or more tags. The value parameter is required, but if you don't want the tag to have a value, specify the
-     * parameter with no value, and we set the value to an empty string.
+     * One or more tags. The value parameter is required.
      * </p>
      * <important>
      * <p>
-     * Do not enter personally identifiable information in this field.
+     * Don't enter personally identifiable information in this field.
      * </p>
      * </important>
      * 
      * @param tags
-     *        One or more tags. The value parameter is required, but if you don't want the tag to have a value, specify
-     *        the parameter with no value, and we set the value to an empty string. </p> <important>
+     *        One or more tags. The value parameter is required.</p> <important>
      *        <p>
-     *        Do not enter personally identifiable information in this field.
+     *        Don't enter personally identifiable information in this field.
      *        </p>
      */
 
@@ -418,12 +515,11 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * One or more tags. The value parameter is required, but if you don't want the tag to have a value, specify the
-     * parameter with no value, and we set the value to an empty string.
+     * One or more tags. The value parameter is required.
      * </p>
      * <important>
      * <p>
-     * Do not enter personally identifiable information in this field.
+     * Don't enter personally identifiable information in this field.
      * </p>
      * </important>
      * <p>
@@ -433,10 +529,9 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * 
      * @param tags
-     *        One or more tags. The value parameter is required, but if you don't want the tag to have a value, specify
-     *        the parameter with no value, and we set the value to an empty string. </p> <important>
+     *        One or more tags. The value parameter is required.</p> <important>
      *        <p>
-     *        Do not enter personally identifiable information in this field.
+     *        Don't enter personally identifiable information in this field.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -453,20 +548,18 @@ public class AddTagsToResourceRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * One or more tags. The value parameter is required, but if you don't want the tag to have a value, specify the
-     * parameter with no value, and we set the value to an empty string.
+     * One or more tags. The value parameter is required.
      * </p>
      * <important>
      * <p>
-     * Do not enter personally identifiable information in this field.
+     * Don't enter personally identifiable information in this field.
      * </p>
      * </important>
      * 
      * @param tags
-     *        One or more tags. The value parameter is required, but if you don't want the tag to have a value, specify
-     *        the parameter with no value, and we set the value to an empty string. </p> <important>
+     *        One or more tags. The value parameter is required.</p> <important>
      *        <p>
-     *        Do not enter personally identifiable information in this field.
+     *        Don't enter personally identifiable information in this field.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */

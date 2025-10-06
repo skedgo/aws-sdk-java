@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,7 +26,8 @@ public class PutFunctionConcurrencyResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The number of concurrent executions that are reserved for this function. For more information, see <a
-     * href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">Managing Concurrency</a>.
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html">Managing Lambda reserved
+     * concurrency</a>.
      * </p>
      */
     private Integer reservedConcurrentExecutions;
@@ -34,12 +35,14 @@ public class PutFunctionConcurrencyResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The number of concurrent executions that are reserved for this function. For more information, see <a
-     * href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">Managing Concurrency</a>.
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html">Managing Lambda reserved
+     * concurrency</a>.
      * </p>
      * 
      * @param reservedConcurrentExecutions
      *        The number of concurrent executions that are reserved for this function. For more information, see <a
-     *        href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">Managing Concurrency</a>.
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html">Managing Lambda
+     *        reserved concurrency</a>.
      */
 
     public void setReservedConcurrentExecutions(Integer reservedConcurrentExecutions) {
@@ -49,11 +52,13 @@ public class PutFunctionConcurrencyResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The number of concurrent executions that are reserved for this function. For more information, see <a
-     * href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">Managing Concurrency</a>.
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html">Managing Lambda reserved
+     * concurrency</a>.
      * </p>
      * 
      * @return The number of concurrent executions that are reserved for this function. For more information, see <a
-     *         href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">Managing Concurrency</a>.
+     *         href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html">Managing Lambda
+     *         reserved concurrency</a>.
      */
 
     public Integer getReservedConcurrentExecutions() {
@@ -63,12 +68,14 @@ public class PutFunctionConcurrencyResult extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * The number of concurrent executions that are reserved for this function. For more information, see <a
-     * href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">Managing Concurrency</a>.
+     * href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html">Managing Lambda reserved
+     * concurrency</a>.
      * </p>
      * 
      * @param reservedConcurrentExecutions
      *        The number of concurrent executions that are reserved for this function. For more information, see <a
-     *        href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">Managing Concurrency</a>.
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-concurrency.html">Managing Lambda
+     *        reserved concurrency</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

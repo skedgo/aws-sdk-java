@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,9 @@ public class Datastore implements Serializable, Cloneable, StructuredPojo {
     private String name;
     /**
      * <p>
-     * Where data store data is stored.
+     * Where data in a data store is stored.. You can choose <code>serviceManagedS3</code> storage,
+     * <code>customerManagedS3</code> storage, or <code>iotSiteWiseMultiLayerStorage</code> storage. The default is
+     * <code>serviceManagedS3</code>. You can't change the choice of Amazon S3 storage after your data store is created.
      * </p>
      */
     private DatastoreStorage storage;
@@ -74,7 +76,8 @@ public class Datastore implements Serializable, Cloneable, StructuredPojo {
     private String status;
     /**
      * <p>
-     * How long, in days, message data is kept for the data store.
+     * How long, in days, message data is kept for the data store. When <code>customerManagedS3</code> storage is
+     * selected, this parameter is ignored.
      * </p>
      */
     private RetentionPeriod retentionPeriod;
@@ -90,6 +93,38 @@ public class Datastore implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private java.util.Date lastUpdateTime;
+    /**
+     * <p>
+     * The last time when a new message arrived in the data store.
+     * </p>
+     * <p>
+     * IoT Analytics updates this value at most once per minute for Amazon Simple Storage Service one data store. Hence,
+     * the <code>lastMessageArrivalTime</code> value is an approximation.
+     * </p>
+     * <p>
+     * This feature only applies to messages that arrived in the data store after October 23, 2020.
+     * </p>
+     */
+    private java.util.Date lastMessageArrivalTime;
+    /**
+     * <p>
+     * Contains the configuration information of file formats. IoT Analytics data stores support JSON and <a
+     * href="https://parquet.apache.org/">Parquet</a>.
+     * </p>
+     * <p>
+     * The default file format is JSON. You can specify only one format.
+     * </p>
+     * <p>
+     * You can't change the file format after you create the data store.
+     * </p>
+     */
+    private FileFormatConfiguration fileFormatConfiguration;
+    /**
+     * <p>
+     * Contains information about the partition dimensions in a data store.
+     * </p>
+     */
+    private DatastorePartitions datastorePartitions;
 
     /**
      * <p>
@@ -133,11 +168,16 @@ public class Datastore implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Where data store data is stored.
+     * Where data in a data store is stored.. You can choose <code>serviceManagedS3</code> storage,
+     * <code>customerManagedS3</code> storage, or <code>iotSiteWiseMultiLayerStorage</code> storage. The default is
+     * <code>serviceManagedS3</code>. You can't change the choice of Amazon S3 storage after your data store is created.
      * </p>
      * 
      * @param storage
-     *        Where data store data is stored.
+     *        Where data in a data store is stored.. You can choose <code>serviceManagedS3</code> storage,
+     *        <code>customerManagedS3</code> storage, or <code>iotSiteWiseMultiLayerStorage</code> storage. The default
+     *        is <code>serviceManagedS3</code>. You can't change the choice of Amazon S3 storage after your data store
+     *        is created.
      */
 
     public void setStorage(DatastoreStorage storage) {
@@ -146,10 +186,15 @@ public class Datastore implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Where data store data is stored.
+     * Where data in a data store is stored.. You can choose <code>serviceManagedS3</code> storage,
+     * <code>customerManagedS3</code> storage, or <code>iotSiteWiseMultiLayerStorage</code> storage. The default is
+     * <code>serviceManagedS3</code>. You can't change the choice of Amazon S3 storage after your data store is created.
      * </p>
      * 
-     * @return Where data store data is stored.
+     * @return Where data in a data store is stored.. You can choose <code>serviceManagedS3</code> storage,
+     *         <code>customerManagedS3</code> storage, or <code>iotSiteWiseMultiLayerStorage</code> storage. The default
+     *         is <code>serviceManagedS3</code>. You can't change the choice of Amazon S3 storage after your data store
+     *         is created.
      */
 
     public DatastoreStorage getStorage() {
@@ -158,11 +203,16 @@ public class Datastore implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Where data store data is stored.
+     * Where data in a data store is stored.. You can choose <code>serviceManagedS3</code> storage,
+     * <code>customerManagedS3</code> storage, or <code>iotSiteWiseMultiLayerStorage</code> storage. The default is
+     * <code>serviceManagedS3</code>. You can't change the choice of Amazon S3 storage after your data store is created.
      * </p>
      * 
      * @param storage
-     *        Where data store data is stored.
+     *        Where data in a data store is stored.. You can choose <code>serviceManagedS3</code> storage,
+     *        <code>customerManagedS3</code> storage, or <code>iotSiteWiseMultiLayerStorage</code> storage. The default
+     *        is <code>serviceManagedS3</code>. You can't change the choice of Amazon S3 storage after your data store
+     *        is created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -428,11 +478,13 @@ public class Datastore implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * How long, in days, message data is kept for the data store.
+     * How long, in days, message data is kept for the data store. When <code>customerManagedS3</code> storage is
+     * selected, this parameter is ignored.
      * </p>
      * 
      * @param retentionPeriod
-     *        How long, in days, message data is kept for the data store.
+     *        How long, in days, message data is kept for the data store. When <code>customerManagedS3</code> storage is
+     *        selected, this parameter is ignored.
      */
 
     public void setRetentionPeriod(RetentionPeriod retentionPeriod) {
@@ -441,10 +493,12 @@ public class Datastore implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * How long, in days, message data is kept for the data store.
+     * How long, in days, message data is kept for the data store. When <code>customerManagedS3</code> storage is
+     * selected, this parameter is ignored.
      * </p>
      * 
-     * @return How long, in days, message data is kept for the data store.
+     * @return How long, in days, message data is kept for the data store. When <code>customerManagedS3</code> storage
+     *         is selected, this parameter is ignored.
      */
 
     public RetentionPeriod getRetentionPeriod() {
@@ -453,11 +507,13 @@ public class Datastore implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * How long, in days, message data is kept for the data store.
+     * How long, in days, message data is kept for the data store. When <code>customerManagedS3</code> storage is
+     * selected, this parameter is ignored.
      * </p>
      * 
      * @param retentionPeriod
-     *        How long, in days, message data is kept for the data store.
+     *        How long, in days, message data is kept for the data store. When <code>customerManagedS3</code> storage is
+     *        selected, this parameter is ignored.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -547,6 +603,204 @@ public class Datastore implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * The last time when a new message arrived in the data store.
+     * </p>
+     * <p>
+     * IoT Analytics updates this value at most once per minute for Amazon Simple Storage Service one data store. Hence,
+     * the <code>lastMessageArrivalTime</code> value is an approximation.
+     * </p>
+     * <p>
+     * This feature only applies to messages that arrived in the data store after October 23, 2020.
+     * </p>
+     * 
+     * @param lastMessageArrivalTime
+     *        The last time when a new message arrived in the data store.</p>
+     *        <p>
+     *        IoT Analytics updates this value at most once per minute for Amazon Simple Storage Service one data store.
+     *        Hence, the <code>lastMessageArrivalTime</code> value is an approximation.
+     *        </p>
+     *        <p>
+     *        This feature only applies to messages that arrived in the data store after October 23, 2020.
+     */
+
+    public void setLastMessageArrivalTime(java.util.Date lastMessageArrivalTime) {
+        this.lastMessageArrivalTime = lastMessageArrivalTime;
+    }
+
+    /**
+     * <p>
+     * The last time when a new message arrived in the data store.
+     * </p>
+     * <p>
+     * IoT Analytics updates this value at most once per minute for Amazon Simple Storage Service one data store. Hence,
+     * the <code>lastMessageArrivalTime</code> value is an approximation.
+     * </p>
+     * <p>
+     * This feature only applies to messages that arrived in the data store after October 23, 2020.
+     * </p>
+     * 
+     * @return The last time when a new message arrived in the data store.</p>
+     *         <p>
+     *         IoT Analytics updates this value at most once per minute for Amazon Simple Storage Service one data
+     *         store. Hence, the <code>lastMessageArrivalTime</code> value is an approximation.
+     *         </p>
+     *         <p>
+     *         This feature only applies to messages that arrived in the data store after October 23, 2020.
+     */
+
+    public java.util.Date getLastMessageArrivalTime() {
+        return this.lastMessageArrivalTime;
+    }
+
+    /**
+     * <p>
+     * The last time when a new message arrived in the data store.
+     * </p>
+     * <p>
+     * IoT Analytics updates this value at most once per minute for Amazon Simple Storage Service one data store. Hence,
+     * the <code>lastMessageArrivalTime</code> value is an approximation.
+     * </p>
+     * <p>
+     * This feature only applies to messages that arrived in the data store after October 23, 2020.
+     * </p>
+     * 
+     * @param lastMessageArrivalTime
+     *        The last time when a new message arrived in the data store.</p>
+     *        <p>
+     *        IoT Analytics updates this value at most once per minute for Amazon Simple Storage Service one data store.
+     *        Hence, the <code>lastMessageArrivalTime</code> value is an approximation.
+     *        </p>
+     *        <p>
+     *        This feature only applies to messages that arrived in the data store after October 23, 2020.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Datastore withLastMessageArrivalTime(java.util.Date lastMessageArrivalTime) {
+        setLastMessageArrivalTime(lastMessageArrivalTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains the configuration information of file formats. IoT Analytics data stores support JSON and <a
+     * href="https://parquet.apache.org/">Parquet</a>.
+     * </p>
+     * <p>
+     * The default file format is JSON. You can specify only one format.
+     * </p>
+     * <p>
+     * You can't change the file format after you create the data store.
+     * </p>
+     * 
+     * @param fileFormatConfiguration
+     *        Contains the configuration information of file formats. IoT Analytics data stores support JSON and <a
+     *        href="https://parquet.apache.org/">Parquet</a>.</p>
+     *        <p>
+     *        The default file format is JSON. You can specify only one format.
+     *        </p>
+     *        <p>
+     *        You can't change the file format after you create the data store.
+     */
+
+    public void setFileFormatConfiguration(FileFormatConfiguration fileFormatConfiguration) {
+        this.fileFormatConfiguration = fileFormatConfiguration;
+    }
+
+    /**
+     * <p>
+     * Contains the configuration information of file formats. IoT Analytics data stores support JSON and <a
+     * href="https://parquet.apache.org/">Parquet</a>.
+     * </p>
+     * <p>
+     * The default file format is JSON. You can specify only one format.
+     * </p>
+     * <p>
+     * You can't change the file format after you create the data store.
+     * </p>
+     * 
+     * @return Contains the configuration information of file formats. IoT Analytics data stores support JSON and <a
+     *         href="https://parquet.apache.org/">Parquet</a>.</p>
+     *         <p>
+     *         The default file format is JSON. You can specify only one format.
+     *         </p>
+     *         <p>
+     *         You can't change the file format after you create the data store.
+     */
+
+    public FileFormatConfiguration getFileFormatConfiguration() {
+        return this.fileFormatConfiguration;
+    }
+
+    /**
+     * <p>
+     * Contains the configuration information of file formats. IoT Analytics data stores support JSON and <a
+     * href="https://parquet.apache.org/">Parquet</a>.
+     * </p>
+     * <p>
+     * The default file format is JSON. You can specify only one format.
+     * </p>
+     * <p>
+     * You can't change the file format after you create the data store.
+     * </p>
+     * 
+     * @param fileFormatConfiguration
+     *        Contains the configuration information of file formats. IoT Analytics data stores support JSON and <a
+     *        href="https://parquet.apache.org/">Parquet</a>.</p>
+     *        <p>
+     *        The default file format is JSON. You can specify only one format.
+     *        </p>
+     *        <p>
+     *        You can't change the file format after you create the data store.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Datastore withFileFormatConfiguration(FileFormatConfiguration fileFormatConfiguration) {
+        setFileFormatConfiguration(fileFormatConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains information about the partition dimensions in a data store.
+     * </p>
+     * 
+     * @param datastorePartitions
+     *        Contains information about the partition dimensions in a data store.
+     */
+
+    public void setDatastorePartitions(DatastorePartitions datastorePartitions) {
+        this.datastorePartitions = datastorePartitions;
+    }
+
+    /**
+     * <p>
+     * Contains information about the partition dimensions in a data store.
+     * </p>
+     * 
+     * @return Contains information about the partition dimensions in a data store.
+     */
+
+    public DatastorePartitions getDatastorePartitions() {
+        return this.datastorePartitions;
+    }
+
+    /**
+     * <p>
+     * Contains information about the partition dimensions in a data store.
+     * </p>
+     * 
+     * @param datastorePartitions
+     *        Contains information about the partition dimensions in a data store.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Datastore withDatastorePartitions(DatastorePartitions datastorePartitions) {
+        setDatastorePartitions(datastorePartitions);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -571,7 +825,13 @@ public class Datastore implements Serializable, Cloneable, StructuredPojo {
         if (getCreationTime() != null)
             sb.append("CreationTime: ").append(getCreationTime()).append(",");
         if (getLastUpdateTime() != null)
-            sb.append("LastUpdateTime: ").append(getLastUpdateTime());
+            sb.append("LastUpdateTime: ").append(getLastUpdateTime()).append(",");
+        if (getLastMessageArrivalTime() != null)
+            sb.append("LastMessageArrivalTime: ").append(getLastMessageArrivalTime()).append(",");
+        if (getFileFormatConfiguration() != null)
+            sb.append("FileFormatConfiguration: ").append(getFileFormatConfiguration()).append(",");
+        if (getDatastorePartitions() != null)
+            sb.append("DatastorePartitions: ").append(getDatastorePartitions());
         sb.append("}");
         return sb.toString();
     }
@@ -614,6 +874,18 @@ public class Datastore implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getLastUpdateTime() != null && other.getLastUpdateTime().equals(this.getLastUpdateTime()) == false)
             return false;
+        if (other.getLastMessageArrivalTime() == null ^ this.getLastMessageArrivalTime() == null)
+            return false;
+        if (other.getLastMessageArrivalTime() != null && other.getLastMessageArrivalTime().equals(this.getLastMessageArrivalTime()) == false)
+            return false;
+        if (other.getFileFormatConfiguration() == null ^ this.getFileFormatConfiguration() == null)
+            return false;
+        if (other.getFileFormatConfiguration() != null && other.getFileFormatConfiguration().equals(this.getFileFormatConfiguration()) == false)
+            return false;
+        if (other.getDatastorePartitions() == null ^ this.getDatastorePartitions() == null)
+            return false;
+        if (other.getDatastorePartitions() != null && other.getDatastorePartitions().equals(this.getDatastorePartitions()) == false)
+            return false;
         return true;
     }
 
@@ -629,6 +901,9 @@ public class Datastore implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getRetentionPeriod() == null) ? 0 : getRetentionPeriod().hashCode());
         hashCode = prime * hashCode + ((getCreationTime() == null) ? 0 : getCreationTime().hashCode());
         hashCode = prime * hashCode + ((getLastUpdateTime() == null) ? 0 : getLastUpdateTime().hashCode());
+        hashCode = prime * hashCode + ((getLastMessageArrivalTime() == null) ? 0 : getLastMessageArrivalTime().hashCode());
+        hashCode = prime * hashCode + ((getFileFormatConfiguration() == null) ? 0 : getFileFormatConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getDatastorePartitions() == null) ? 0 : getDatastorePartitions().hashCode());
         return hashCode;
     }
 

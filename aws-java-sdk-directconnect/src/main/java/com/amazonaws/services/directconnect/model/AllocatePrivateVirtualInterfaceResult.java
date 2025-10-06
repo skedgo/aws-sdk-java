@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,7 +29,7 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The ID of the AWS account that owns the virtual interface.
+     * The ID of the Amazon Web Services account that owns the virtual interface.
      * </p>
      */
     private String ownerAccount;
@@ -53,13 +53,15 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
     private String connectionId;
     /**
      * <p>
-     * The type of virtual interface. The possible values are <code>private</code> and <code>public</code>.
+     * The type of virtual interface. The possible values are <code>private</code>, <code>public</code> and
+     * <code>transit</code>.
      * </p>
      */
     private String virtualInterfaceType;
     /**
      * <p>
-     * The name of the virtual interface assigned by the customer network.
+     * The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The
+     * following are valid characters: a-z, 0-9 and a hyphen (-).
      * </p>
      */
     private String virtualInterfaceName;
@@ -72,6 +74,9 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
     /**
      * <p>
      * The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
+     * </p>
+     * <p>
+     * The valid values are 1-2147483647.
      * </p>
      */
     private Integer asn;
@@ -175,13 +180,13 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
     private String customerRouterConfig;
     /**
      * <p>
-     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value is 1500.
+     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value is 1500
      * </p>
      */
     private Integer mtu;
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      */
     private Boolean jumboFrameCapable;
@@ -199,7 +204,8 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
     private String directConnectGatewayId;
     /**
      * <p>
-     * The routes to be advertised to the AWS network in this Region. Applies to public virtual interfaces.
+     * The routes to be advertised to the Amazon Web Services network in this Region. Applies to public virtual
+     * interfaces.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<RouteFilterPrefix> routeFilterPrefixes;
@@ -211,30 +217,43 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
     private com.amazonaws.internal.SdkInternalList<BGPPeer> bgpPeers;
     /**
      * <p>
-     * The AWS Region where the virtual interface is located.
+     * The Amazon Web Services Region where the virtual interface is located.
      * </p>
      */
     private String region;
     /**
      * <p>
-     * The Direct Connect endpoint on which the virtual interface terminates.
+     * The Direct Connect endpoint that terminates the physical connection.
      * </p>
      */
     private String awsDeviceV2;
     /**
      * <p>
-     * Any tags assigned to the virtual interface.
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     */
+    private String awsLogicalDeviceId;
+    /**
+     * <p>
+     * The tags associated with the virtual interface.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * Indicates whether SiteLink is enabled.
+     * </p>
+     */
+    private Boolean siteLinkEnabled;
 
     /**
      * <p>
-     * The ID of the AWS account that owns the virtual interface.
+     * The ID of the Amazon Web Services account that owns the virtual interface.
      * </p>
      * 
      * @param ownerAccount
-     *        The ID of the AWS account that owns the virtual interface.
+     *        The ID of the Amazon Web Services account that owns the virtual interface.
      */
 
     public void setOwnerAccount(String ownerAccount) {
@@ -243,10 +262,10 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The ID of the AWS account that owns the virtual interface.
+     * The ID of the Amazon Web Services account that owns the virtual interface.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the virtual interface.
+     * @return The ID of the Amazon Web Services account that owns the virtual interface.
      */
 
     public String getOwnerAccount() {
@@ -255,11 +274,11 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The ID of the AWS account that owns the virtual interface.
+     * The ID of the Amazon Web Services account that owns the virtual interface.
      * </p>
      * 
      * @param ownerAccount
-     *        The ID of the AWS account that owns the virtual interface.
+     *        The ID of the Amazon Web Services account that owns the virtual interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -390,11 +409,13 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The type of virtual interface. The possible values are <code>private</code> and <code>public</code>.
+     * The type of virtual interface. The possible values are <code>private</code>, <code>public</code> and
+     * <code>transit</code>.
      * </p>
      * 
      * @param virtualInterfaceType
-     *        The type of virtual interface. The possible values are <code>private</code> and <code>public</code>.
+     *        The type of virtual interface. The possible values are <code>private</code>, <code>public</code> and
+     *        <code>transit</code>.
      */
 
     public void setVirtualInterfaceType(String virtualInterfaceType) {
@@ -403,10 +424,12 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The type of virtual interface. The possible values are <code>private</code> and <code>public</code>.
+     * The type of virtual interface. The possible values are <code>private</code>, <code>public</code> and
+     * <code>transit</code>.
      * </p>
      * 
-     * @return The type of virtual interface. The possible values are <code>private</code> and <code>public</code>.
+     * @return The type of virtual interface. The possible values are <code>private</code>, <code>public</code> and
+     *         <code>transit</code>.
      */
 
     public String getVirtualInterfaceType() {
@@ -415,11 +438,13 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The type of virtual interface. The possible values are <code>private</code> and <code>public</code>.
+     * The type of virtual interface. The possible values are <code>private</code>, <code>public</code> and
+     * <code>transit</code>.
      * </p>
      * 
      * @param virtualInterfaceType
-     *        The type of virtual interface. The possible values are <code>private</code> and <code>public</code>.
+     *        The type of virtual interface. The possible values are <code>private</code>, <code>public</code> and
+     *        <code>transit</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -430,11 +455,13 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the virtual interface assigned by the customer network.
+     * The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The
+     * following are valid characters: a-z, 0-9 and a hyphen (-).
      * </p>
      * 
      * @param virtualInterfaceName
-     *        The name of the virtual interface assigned by the customer network.
+     *        The name of the virtual interface assigned by the customer network. The name has a maximum of 100
+     *        characters. The following are valid characters: a-z, 0-9 and a hyphen (-).
      */
 
     public void setVirtualInterfaceName(String virtualInterfaceName) {
@@ -443,10 +470,12 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the virtual interface assigned by the customer network.
+     * The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The
+     * following are valid characters: a-z, 0-9 and a hyphen (-).
      * </p>
      * 
-     * @return The name of the virtual interface assigned by the customer network.
+     * @return The name of the virtual interface assigned by the customer network. The name has a maximum of 100
+     *         characters. The following are valid characters: a-z, 0-9 and a hyphen (-).
      */
 
     public String getVirtualInterfaceName() {
@@ -455,11 +484,13 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The name of the virtual interface assigned by the customer network.
+     * The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The
+     * following are valid characters: a-z, 0-9 and a hyphen (-).
      * </p>
      * 
      * @param virtualInterfaceName
-     *        The name of the virtual interface assigned by the customer network.
+     *        The name of the virtual interface assigned by the customer network. The name has a maximum of 100
+     *        characters. The following are valid characters: a-z, 0-9 and a hyphen (-).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -512,9 +543,14 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
      * <p>
      * The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
      * </p>
+     * <p>
+     * The valid values are 1-2147483647.
+     * </p>
      * 
      * @param asn
-     *        The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
+     *        The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.</p>
+     *        <p>
+     *        The valid values are 1-2147483647.
      */
 
     public void setAsn(Integer asn) {
@@ -525,8 +561,13 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
      * <p>
      * The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
      * </p>
+     * <p>
+     * The valid values are 1-2147483647.
+     * </p>
      * 
-     * @return The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
+     * @return The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.</p>
+     *         <p>
+     *         The valid values are 1-2147483647.
      */
 
     public Integer getAsn() {
@@ -537,9 +578,14 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
      * <p>
      * The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
      * </p>
+     * <p>
+     * The valid values are 1-2147483647.
+     * </p>
      * 
      * @param asn
-     *        The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
+     *        The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.</p>
+     *        <p>
+     *        The valid values are 1-2147483647.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1447,12 +1493,12 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value is 1500.
+     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value is 1500
      * </p>
      * 
      * @param mtu
-     *        The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value
-     *        is 1500.
+     *        The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value
+     *        is 1500
      */
 
     public void setMtu(Integer mtu) {
@@ -1461,11 +1507,11 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value is 1500.
+     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value is 1500
      * </p>
      * 
-     * @return The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value
-     *         is 1500.
+     * @return The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value
+     *         is 1500
      */
 
     public Integer getMtu() {
@@ -1474,12 +1520,12 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value is 1500.
+     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value is 1500
      * </p>
      * 
      * @param mtu
-     *        The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value
-     *        is 1500.
+     *        The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value
+     *        is 1500
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1490,11 +1536,11 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      * 
      * @param jumboFrameCapable
-     *        Indicates whether jumbo frames (9001 MTU) are supported.
+     *        Indicates whether jumbo frames are supported.
      */
 
     public void setJumboFrameCapable(Boolean jumboFrameCapable) {
@@ -1503,10 +1549,10 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      * 
-     * @return Indicates whether jumbo frames (9001 MTU) are supported.
+     * @return Indicates whether jumbo frames are supported.
      */
 
     public Boolean getJumboFrameCapable() {
@@ -1515,11 +1561,11 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      * 
      * @param jumboFrameCapable
-     *        Indicates whether jumbo frames (9001 MTU) are supported.
+     *        Indicates whether jumbo frames are supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1530,10 +1576,10 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      * 
-     * @return Indicates whether jumbo frames (9001 MTU) are supported.
+     * @return Indicates whether jumbo frames are supported.
      */
 
     public Boolean isJumboFrameCapable() {
@@ -1622,10 +1668,12 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The routes to be advertised to the AWS network in this Region. Applies to public virtual interfaces.
+     * The routes to be advertised to the Amazon Web Services network in this Region. Applies to public virtual
+     * interfaces.
      * </p>
      * 
-     * @return The routes to be advertised to the AWS network in this Region. Applies to public virtual interfaces.
+     * @return The routes to be advertised to the Amazon Web Services network in this Region. Applies to public virtual
+     *         interfaces.
      */
 
     public java.util.List<RouteFilterPrefix> getRouteFilterPrefixes() {
@@ -1637,11 +1685,13 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The routes to be advertised to the AWS network in this Region. Applies to public virtual interfaces.
+     * The routes to be advertised to the Amazon Web Services network in this Region. Applies to public virtual
+     * interfaces.
      * </p>
      * 
      * @param routeFilterPrefixes
-     *        The routes to be advertised to the AWS network in this Region. Applies to public virtual interfaces.
+     *        The routes to be advertised to the Amazon Web Services network in this Region. Applies to public virtual
+     *        interfaces.
      */
 
     public void setRouteFilterPrefixes(java.util.Collection<RouteFilterPrefix> routeFilterPrefixes) {
@@ -1655,7 +1705,8 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The routes to be advertised to the AWS network in this Region. Applies to public virtual interfaces.
+     * The routes to be advertised to the Amazon Web Services network in this Region. Applies to public virtual
+     * interfaces.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1664,7 +1715,8 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
      * </p>
      * 
      * @param routeFilterPrefixes
-     *        The routes to be advertised to the AWS network in this Region. Applies to public virtual interfaces.
+     *        The routes to be advertised to the Amazon Web Services network in this Region. Applies to public virtual
+     *        interfaces.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1680,11 +1732,13 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The routes to be advertised to the AWS network in this Region. Applies to public virtual interfaces.
+     * The routes to be advertised to the Amazon Web Services network in this Region. Applies to public virtual
+     * interfaces.
      * </p>
      * 
      * @param routeFilterPrefixes
-     *        The routes to be advertised to the AWS network in this Region. Applies to public virtual interfaces.
+     *        The routes to be advertised to the Amazon Web Services network in this Region. Applies to public virtual
+     *        interfaces.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1768,11 +1822,11 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The AWS Region where the virtual interface is located.
+     * The Amazon Web Services Region where the virtual interface is located.
      * </p>
      * 
      * @param region
-     *        The AWS Region where the virtual interface is located.
+     *        The Amazon Web Services Region where the virtual interface is located.
      */
 
     public void setRegion(String region) {
@@ -1781,10 +1835,10 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The AWS Region where the virtual interface is located.
+     * The Amazon Web Services Region where the virtual interface is located.
      * </p>
      * 
-     * @return The AWS Region where the virtual interface is located.
+     * @return The Amazon Web Services Region where the virtual interface is located.
      */
 
     public String getRegion() {
@@ -1793,11 +1847,11 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The AWS Region where the virtual interface is located.
+     * The Amazon Web Services Region where the virtual interface is located.
      * </p>
      * 
      * @param region
-     *        The AWS Region where the virtual interface is located.
+     *        The Amazon Web Services Region where the virtual interface is located.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1808,11 +1862,11 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The Direct Connect endpoint on which the virtual interface terminates.
+     * The Direct Connect endpoint that terminates the physical connection.
      * </p>
      * 
      * @param awsDeviceV2
-     *        The Direct Connect endpoint on which the virtual interface terminates.
+     *        The Direct Connect endpoint that terminates the physical connection.
      */
 
     public void setAwsDeviceV2(String awsDeviceV2) {
@@ -1821,10 +1875,10 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The Direct Connect endpoint on which the virtual interface terminates.
+     * The Direct Connect endpoint that terminates the physical connection.
      * </p>
      * 
-     * @return The Direct Connect endpoint on which the virtual interface terminates.
+     * @return The Direct Connect endpoint that terminates the physical connection.
      */
 
     public String getAwsDeviceV2() {
@@ -1833,11 +1887,11 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * The Direct Connect endpoint on which the virtual interface terminates.
+     * The Direct Connect endpoint that terminates the physical connection.
      * </p>
      * 
      * @param awsDeviceV2
-     *        The Direct Connect endpoint on which the virtual interface terminates.
+     *        The Direct Connect endpoint that terminates the physical connection.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1848,10 +1902,56 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Any tags assigned to the virtual interface.
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
      * </p>
      * 
-     * @return Any tags assigned to the virtual interface.
+     * @param awsLogicalDeviceId
+     *        The Direct Connect endpoint that terminates the logical connection. This device might be different than
+     *        the device that terminates the physical connection.
+     */
+
+    public void setAwsLogicalDeviceId(String awsLogicalDeviceId) {
+        this.awsLogicalDeviceId = awsLogicalDeviceId;
+    }
+
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     * 
+     * @return The Direct Connect endpoint that terminates the logical connection. This device might be different than
+     *         the device that terminates the physical connection.
+     */
+
+    public String getAwsLogicalDeviceId() {
+        return this.awsLogicalDeviceId;
+    }
+
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     * 
+     * @param awsLogicalDeviceId
+     *        The Direct Connect endpoint that terminates the logical connection. This device might be different than
+     *        the device that terminates the physical connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AllocatePrivateVirtualInterfaceResult withAwsLogicalDeviceId(String awsLogicalDeviceId) {
+        setAwsLogicalDeviceId(awsLogicalDeviceId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags associated with the virtual interface.
+     * </p>
+     * 
+     * @return The tags associated with the virtual interface.
      */
 
     public java.util.List<Tag> getTags() {
@@ -1863,11 +1963,11 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Any tags assigned to the virtual interface.
+     * The tags associated with the virtual interface.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the virtual interface.
+     *        The tags associated with the virtual interface.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -1881,7 +1981,7 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Any tags assigned to the virtual interface.
+     * The tags associated with the virtual interface.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1890,7 +1990,7 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the virtual interface.
+     *        The tags associated with the virtual interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1906,17 +2006,69 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Any tags assigned to the virtual interface.
+     * The tags associated with the virtual interface.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the virtual interface.
+     *        The tags associated with the virtual interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public AllocatePrivateVirtualInterfaceResult withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
         return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether SiteLink is enabled.
+     * </p>
+     * 
+     * @param siteLinkEnabled
+     *        Indicates whether SiteLink is enabled.
+     */
+
+    public void setSiteLinkEnabled(Boolean siteLinkEnabled) {
+        this.siteLinkEnabled = siteLinkEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether SiteLink is enabled.
+     * </p>
+     * 
+     * @return Indicates whether SiteLink is enabled.
+     */
+
+    public Boolean getSiteLinkEnabled() {
+        return this.siteLinkEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether SiteLink is enabled.
+     * </p>
+     * 
+     * @param siteLinkEnabled
+     *        Indicates whether SiteLink is enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AllocatePrivateVirtualInterfaceResult withSiteLinkEnabled(Boolean siteLinkEnabled) {
+        setSiteLinkEnabled(siteLinkEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether SiteLink is enabled.
+     * </p>
+     * 
+     * @return Indicates whether SiteLink is enabled.
+     */
+
+    public Boolean isSiteLinkEnabled() {
+        return this.siteLinkEnabled;
     }
 
     /**
@@ -1977,8 +2129,12 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
             sb.append("Region: ").append(getRegion()).append(",");
         if (getAwsDeviceV2() != null)
             sb.append("AwsDeviceV2: ").append(getAwsDeviceV2()).append(",");
+        if (getAwsLogicalDeviceId() != null)
+            sb.append("AwsLogicalDeviceId: ").append(getAwsLogicalDeviceId()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getSiteLinkEnabled() != null)
+            sb.append("SiteLinkEnabled: ").append(getSiteLinkEnabled());
         sb.append("}");
         return sb.toString();
     }
@@ -2085,9 +2241,17 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
             return false;
         if (other.getAwsDeviceV2() != null && other.getAwsDeviceV2().equals(this.getAwsDeviceV2()) == false)
             return false;
+        if (other.getAwsLogicalDeviceId() == null ^ this.getAwsLogicalDeviceId() == null)
+            return false;
+        if (other.getAwsLogicalDeviceId() != null && other.getAwsLogicalDeviceId().equals(this.getAwsLogicalDeviceId()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getSiteLinkEnabled() == null ^ this.getSiteLinkEnabled() == null)
+            return false;
+        if (other.getSiteLinkEnabled() != null && other.getSiteLinkEnabled().equals(this.getSiteLinkEnabled()) == false)
             return false;
         return true;
     }
@@ -2120,7 +2284,9 @@ public class AllocatePrivateVirtualInterfaceResult extends com.amazonaws.AmazonW
         hashCode = prime * hashCode + ((getBgpPeers() == null) ? 0 : getBgpPeers().hashCode());
         hashCode = prime * hashCode + ((getRegion() == null) ? 0 : getRegion().hashCode());
         hashCode = prime * hashCode + ((getAwsDeviceV2() == null) ? 0 : getAwsDeviceV2().hashCode());
+        hashCode = prime * hashCode + ((getAwsLogicalDeviceId() == null) ? 0 : getAwsLogicalDeviceId().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getSiteLinkEnabled() == null) ? 0 : getSiteLinkEnabled().hashCode());
         return hashCode;
     }
 

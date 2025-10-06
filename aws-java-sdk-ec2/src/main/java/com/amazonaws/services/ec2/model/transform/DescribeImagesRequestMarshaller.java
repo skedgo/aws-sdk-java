@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -104,6 +104,22 @@ public class DescribeImagesRequestMarshaller implements Marshaller<Request<Descr
                 }
                 ownersListIndex++;
             }
+        }
+
+        if (describeImagesRequest.getIncludeDeprecated() != null) {
+            request.addParameter("IncludeDeprecated", StringUtils.fromBoolean(describeImagesRequest.getIncludeDeprecated()));
+        }
+
+        if (describeImagesRequest.getIncludeDisabled() != null) {
+            request.addParameter("IncludeDisabled", StringUtils.fromBoolean(describeImagesRequest.getIncludeDisabled()));
+        }
+
+        if (describeImagesRequest.getMaxResults() != null) {
+            request.addParameter("MaxResults", StringUtils.fromInteger(describeImagesRequest.getMaxResults()));
+        }
+
+        if (describeImagesRequest.getNextToken() != null) {
+            request.addParameter("NextToken", StringUtils.fromString(describeImagesRequest.getNextToken()));
         }
 
         return request;

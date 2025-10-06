@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,8 +36,8 @@ public class Destination implements Serializable, Cloneable, StructuredPojo {
     private String destinationName;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the physical target to where the log events are delivered (for example, a
-     * Kinesis stream).
+     * The Amazon Resource Name (ARN) of the physical target where the log events are delivered (for example, a Kinesis
+     * stream).
      * </p>
      */
     private String targetArn;
@@ -49,7 +49,8 @@ public class Destination implements Serializable, Cloneable, StructuredPojo {
     private String roleArn;
     /**
      * <p>
-     * An IAM policy document that governs which AWS accounts can create subscription filters against this destination.
+     * An IAM policy document that governs which Amazon Web Services accounts can create subscription filters against
+     * this destination.
      * </p>
      */
     private String accessPolicy;
@@ -108,13 +109,13 @@ public class Destination implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the physical target to where the log events are delivered (for example, a
-     * Kinesis stream).
+     * The Amazon Resource Name (ARN) of the physical target where the log events are delivered (for example, a Kinesis
+     * stream).
      * </p>
      * 
      * @param targetArn
-     *        The Amazon Resource Name (ARN) of the physical target to where the log events are delivered (for example,
-     *        a Kinesis stream).
+     *        The Amazon Resource Name (ARN) of the physical target where the log events are delivered (for example, a
+     *        Kinesis stream).
      */
 
     public void setTargetArn(String targetArn) {
@@ -123,12 +124,12 @@ public class Destination implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the physical target to where the log events are delivered (for example, a
-     * Kinesis stream).
+     * The Amazon Resource Name (ARN) of the physical target where the log events are delivered (for example, a Kinesis
+     * stream).
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the physical target to where the log events are delivered (for example,
-     *         a Kinesis stream).
+     * @return The Amazon Resource Name (ARN) of the physical target where the log events are delivered (for example, a
+     *         Kinesis stream).
      */
 
     public String getTargetArn() {
@@ -137,13 +138,13 @@ public class Destination implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the physical target to where the log events are delivered (for example, a
-     * Kinesis stream).
+     * The Amazon Resource Name (ARN) of the physical target where the log events are delivered (for example, a Kinesis
+     * stream).
      * </p>
      * 
      * @param targetArn
-     *        The Amazon Resource Name (ARN) of the physical target to where the log events are delivered (for example,
-     *        a Kinesis stream).
+     *        The Amazon Resource Name (ARN) of the physical target where the log events are delivered (for example, a
+     *        Kinesis stream).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -194,12 +195,13 @@ public class Destination implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An IAM policy document that governs which AWS accounts can create subscription filters against this destination.
+     * An IAM policy document that governs which Amazon Web Services accounts can create subscription filters against
+     * this destination.
      * </p>
      * 
      * @param accessPolicy
-     *        An IAM policy document that governs which AWS accounts can create subscription filters against this
-     *        destination.
+     *        An IAM policy document that governs which Amazon Web Services accounts can create subscription filters
+     *        against this destination.
      */
 
     public void setAccessPolicy(String accessPolicy) {
@@ -208,11 +210,12 @@ public class Destination implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An IAM policy document that governs which AWS accounts can create subscription filters against this destination.
+     * An IAM policy document that governs which Amazon Web Services accounts can create subscription filters against
+     * this destination.
      * </p>
      * 
-     * @return An IAM policy document that governs which AWS accounts can create subscription filters against this
-     *         destination.
+     * @return An IAM policy document that governs which Amazon Web Services accounts can create subscription filters
+     *         against this destination.
      */
 
     public String getAccessPolicy() {
@@ -221,12 +224,13 @@ public class Destination implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An IAM policy document that governs which AWS accounts can create subscription filters against this destination.
+     * An IAM policy document that governs which Amazon Web Services accounts can create subscription filters against
+     * this destination.
      * </p>
      * 
      * @param accessPolicy
-     *        An IAM policy document that governs which AWS accounts can create subscription filters against this
-     *        destination.
+     *        An IAM policy document that governs which Amazon Web Services accounts can create subscription filters
+     *        against this destination.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,53 +12,73 @@
  */
 
 /**
- * <fullname>Amazon GameLift Service</fullname>
  * <p>
- * Amazon GameLift is a managed service for developers who need a scalable, dedicated server solution for their
- * multiplayer games. Use Amazon GameLift for these tasks: (1) set up computing resources and deploy your game servers,
- * (2) run game sessions and get players into games, (3) automatically scale your resources to meet player demand and
- * manage costs, and (4) track in-depth metrics on game server performance and player usage.
+ * Amazon GameLift provides solutions for hosting session-based multiplayer game servers in the cloud, including tools
+ * for deploying, operating, and scaling game servers. Built on Amazon Web Services global computing infrastructure,
+ * GameLift helps you deliver high-performance, high-reliability, low-cost game servers while dynamically scaling your
+ * resource usage to meet player demand.
  * </p>
  * <p>
- * When setting up hosting resources, you can deploy your custom game server or use the Amazon GameLift Realtime
- * Servers. Realtime Servers gives you the ability to quickly stand up lightweight, efficient game servers with the core
- * Amazon GameLift infrastructure already built in.
+ * <b>About Amazon GameLift solutions</b>
  * </p>
  * <p>
- * <b>Get Amazon GameLift Tools and Resources</b>
- * </p>
- * <p>
- * This reference guide describes the low-level service API for Amazon GameLift and provides links to language-specific
- * SDK reference topics. See also <a
- * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-components.html"> Amazon GameLift Tools and
- * Resources</a>.
- * </p>
- * <p>
- * <b>API Summary</b>
- * </p>
- * <p>
- * The Amazon GameLift service API includes two key sets of actions:
+ * Get more information on these Amazon GameLift solutions in the <a
+ * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/">Amazon GameLift Developer Guide</a>.
  * </p>
  * <ul>
  * <li>
  * <p>
- * Manage game sessions and player access -- Integrate this functionality into game client services in order to create
- * new game sessions, retrieve information on existing game sessions; reserve a player slot in a game session, request
- * matchmaking, etc.
+ * Amazon GameLift managed hosting -- Amazon GameLift offers a fully managed service to set up and maintain computing
+ * machines for hosting, manage game session and player session life cycle, and handle security, storage, and
+ * performance tracking. You can use automatic scaling tools to balance player demand and hosting costs, configure your
+ * game session management to minimize player latency, and add FlexMatch for matchmaking.
  * </p>
  * </li>
  * <li>
  * <p>
- * Configure and manage game server resources -- Manage your Amazon GameLift hosting resources, including builds,
- * scripts, fleets, queues, and aliases. Set up matchmakers, configure auto-scaling, retrieve game logs, and get hosting
- * and game metrics.
+ * Managed hosting with Realtime Servers -- With Amazon GameLift Realtime Servers, you can quickly configure and set up
+ * ready-to-go game servers for your game. Realtime Servers provides a game server framework with core Amazon GameLift
+ * infrastructure already built in. Then use the full range of Amazon GameLift managed hosting features, including
+ * FlexMatch, for your game.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Amazon GameLift FleetIQ -- Use Amazon GameLift FleetIQ as a standalone service while hosting your games using EC2
+ * instances and Auto Scaling groups. Amazon GameLift FleetIQ provides optimizations for game hosting, including
+ * boosting the viability of low-cost Spot Instances gaming. For a complete solution, pair the Amazon GameLift FleetIQ
+ * and FlexMatch standalone services.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Amazon GameLift FlexMatch -- Add matchmaking to your game hosting solution. FlexMatch is a customizable matchmaking
+ * service for multiplayer games. Use FlexMatch as integrated with Amazon GameLift managed hosting or incorporate
+ * FlexMatch as a standalone service into your own hosting solution.
  * </p>
  * </li>
  * </ul>
  * <p>
- * <b> <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html"> Task-based list of
- * API actions</a> </b>
+ * <b>About this API Reference</b>
  * </p>
+ * <p>
+ * This reference guide describes the low-level service API for Amazon GameLift. With each topic in this guide, you can
+ * find links to language-specific SDK guides and the Amazon Web Services CLI reference. Useful links:
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html">Amazon GameLift API
+ * operations listed by tasks</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-components.html"> Amazon GameLift tools
+ * and resources</a>
+ * </p>
+ * </li>
+ * </ul>
  */
 package com.amazonaws.services.gamelift;
 

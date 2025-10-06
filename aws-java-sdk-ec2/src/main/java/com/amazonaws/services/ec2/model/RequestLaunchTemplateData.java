@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,6 +19,11 @@ import javax.annotation.Generated;
  * <p>
  * The information to include in the launch template.
  * </p>
+ * <note>
+ * <p>
+ * You must specify at least one parameter for the launch template data.
+ * </p>
+ * </note>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/RequestLaunchTemplateData" target="_top">AWS API
  *      Documentation</a>
@@ -33,8 +38,8 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * <important>
      * <p>
      * We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User Provided Kernels</a> in
-     * the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User provided kernels</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * </important>
      */
@@ -50,7 +55,7 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
     private Boolean ebsOptimized;
     /**
      * <p>
-     * The IAM instance profile.
+     * The name or Amazon Resource Name (ARN) of an IAM instance profile.
      * </p>
      */
     private LaunchTemplateIamInstanceProfileSpecificationRequest iamInstanceProfile;
@@ -58,34 +63,105 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * <p>
      * The block device mapping.
      * </p>
-     * <important>
-     * <p>
-     * Supplying both a snapshot ID and an encryption value as arguments for block-device mapping results in an error.
-     * This is because only blank volumes can be encrypted on start, and these are not created from a snapshot. If a
-     * snapshot is the basis for the volume, it contains data by definition and its encryption status cannot be changed
-     * using this action.
-     * </p>
-     * </important>
      */
     private com.amazonaws.internal.SdkInternalList<LaunchTemplateBlockDeviceMappingRequest> blockDeviceMappings;
     /**
      * <p>
-     * One or more network interfaces. If you specify a network interface, you must specify any security groups and
-     * subnets as part of the network interface.
+     * The network interfaces for the instance.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<LaunchTemplateInstanceNetworkInterfaceSpecificationRequest> networkInterfaces;
     /**
      * <p>
-     * The ID of the AMI.
+     * The ID of the AMI in the format <code>ami-17characters00000</code>.
      * </p>
+     * <p>
+     * Alternatively, you can specify a Systems Manager parameter, using one of the following formats. The Systems
+     * Manager parameter will resolve to an AMI ID on launch.
+     * </p>
+     * <p>
+     * To reference a public parameter:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>public-parameter</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To reference a parameter stored in the same account:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name:version-number</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name:label</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To reference a parameter shared from another Amazon Web Services account:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN:version-number</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN:label</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If the launch template will be used for an EC2 Fleet or Spot Fleet, note the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Only EC2 Fleets of type <code>instant</code> support specifying a Systems Manager parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For EC2 Fleets of type <code>maintain</code> or <code>request</code>, or for Spot Fleets, you must specify the
+     * AMI ID.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
      */
     private String imageId;
     /**
      * <p>
      * The instance type. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Amazon EC2 instance types</a> in
+     * the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
      * </p>
      */
     private String instanceType;
@@ -122,8 +198,8 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * <important>
      * <p>
      * We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User Provided Kernels</a> in
-     * the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User provided kernels</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * </important>
      */
@@ -150,46 +226,74 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
     private String instanceInitiatedShutdownBehavior;
     /**
      * <p>
-     * The Base64-encoded user data to make available to the instance. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html">Running Commands on Your Linux Instance
-     * at Launch</a> (Linux) and <a href=
-     * "https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-instance-metadata.html#instancedata-add-user-data"
-     * >Adding User Data</a> (Windows).
+     * The user data to make available to the instance. You must provide base64-encoded text. User data is limited to 16
+     * KB. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html">Run
+     * commands on your Amazon EC2 instance at launch</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * If you are creating the launch template for use with Batch, the user data must be provided in the <a
+     * href="https://cloudinit.readthedocs.io/en/latest/topics/format.html#mime-multi-part-archive">MIME multi-part
+     * archive format</a>. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/launch-templates.html">Amazon EC2 user data in launch
+     * templates</a> in the <i>Batch User Guide</i>.
      * </p>
      */
     private String userData;
     /**
      * <p>
-     * The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The specified
-     * tags are applied to all instances or volumes that are created during launch. To tag a resource after it has been
-     * created, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * The tags to apply to the resources that are created during instance launch. These tags are not applied to the
+     * launch template.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<LaunchTemplateTagSpecificationRequest> tagSpecifications;
     /**
      * <p>
-     * An elastic GPU to associate with the instance.
+     * Deprecated.
      * </p>
+     * <note>
+     * <p>
+     * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration,
+     * we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     * </p>
+     * </note>
      */
     private com.amazonaws.internal.SdkInternalList<ElasticGpuSpecification> elasticGpuSpecifications;
     /**
      * <p>
-     * The elastic inference accelerator for the instance.
+     * An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a resource
+     * you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference workloads.
      * </p>
+     * <p>
+     * You cannot specify accelerators from different generations in the same request.
+     * </p>
+     * <note>
+     * <p>
+     * Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference (EI), and
+     * will help current customers migrate their workloads to options that offer better price and performance. After
+     * April 15, 2023, new customers will not be able to launch instances with Amazon EI accelerators in Amazon
+     * SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI at least once during the past
+     * 30-day period are considered current customers and will be able to continue using the service.
+     * </p>
+     * </note>
      */
     private com.amazonaws.internal.SdkInternalList<LaunchTemplateElasticInferenceAccelerator> elasticInferenceAccelerators;
     /**
      * <p>
-     * One or more security group IDs. You can create a security group using <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateSecurityGroup.html"
-     * >CreateSecurityGroup</a>. You cannot specify both a security group ID and security name in the same request.
+     * The IDs of the security groups.
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any security groups as part of the network interface instead
+     * of using this parameter.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> securityGroupIds;
     /**
      * <p>
-     * [EC2-Classic, default VPC] One or more security group names. For a nondefault VPC, you must use security group
-     * IDs instead. You cannot specify both a security group ID and security name in the same request.
+     * The names of the security groups. For a nondefault VPC, you must use security group IDs instead.
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any security groups as part of the network interface instead
+     * of using this parameter.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> securityGroups;
@@ -201,15 +305,15 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
     private LaunchTemplateInstanceMarketOptionsRequest instanceMarketOptions;
     /**
      * <p>
-     * The credit option for CPU usage of the instance. Valid for T2 or T3 instances only.
+     * The credit option for CPU usage of the instance. Valid only for T instances.
      * </p>
      */
     private CreditSpecificationRequest creditSpecification;
     /**
      * <p>
      * The CPU options for the instance. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing CPU Options</a>
-     * in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimize CPU options</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      */
     private LaunchTemplateCpuOptionsRequest cpuOptions;
@@ -230,14 +334,108 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * Indicates whether an instance is enabled for hibernation. This parameter is valid only if the instance meets the
-     * <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation
-     * prerequisites</a>. Hibernation is currently supported only for Amazon Linux. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hibernating-prerequisites.html">hibernation
+     * prerequisites</a>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your Amazon EC2 instance</a>
+     * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      */
     private LaunchTemplateHibernationOptionsRequest hibernationOptions;
+    /**
+     * <p>
+     * The metadata options for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance metadata and user
+     * data</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private LaunchTemplateInstanceMetadataOptionsRequest metadataOptions;
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves. For more information, see <a
+     * href="https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html">What is Amazon Web Services Nitro
+     * Enclaves?</a> in the <i>Amazon Web Services Nitro Enclaves User Guide</i>.
+     * </p>
+     * <p>
+     * You can't enable Amazon Web Services Nitro Enclaves and hibernation on the same instance.
+     * </p>
+     */
+    private LaunchTemplateEnclaveOptionsRequest enclaveOptions;
+    /**
+     * <p>
+     * The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance
+     * types with these attributes.
+     * </p>
+     * <p>
+     * You must specify <code>VCpuCount</code> and <code>MemoryMiB</code>. All other attributes are optional. Any
+     * unspecified optional attribute is set to its default.
+     * </p>
+     * <p>
+     * When you specify multiple attributes, you get instance types that satisfy all of the specified attributes. If you
+     * specify multiple values for an attribute, you get instance types that satisfy any of the specified values.
+     * </p>
+     * <p>
+     * To limit the list of instance types from which Amazon EC2 can identify matching instance types, you can use one
+     * of the following parameters, but not both in the same request:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>AllowedInstanceTypes</code> - The instance types to include in the list. All other instance types are
+     * ignored, even if they match your specified attributes.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ExcludedInstanceTypes</code> - The instance types to exclude from the list, even if they match your
+     * specified attributes.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     * </p>
+     * <p>
+     * Attribute-based instance type selection is only supported when using Auto Scaling groups, EC2 Fleet, and Spot
+     * Fleet to launch instances. If you plan to use the launch template in the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-instance-wizard.html">launch instance
+     * wizard</a>, or with the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> API or <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html">AWS::EC2::
+     * Instance</a> Amazon Web Services CloudFormation resource, you can't specify <code>InstanceRequirements</code>.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-attribute-based-instance-type-selection.html"
+     * >Attribute-based instance type selection for EC2 Fleet</a>, <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-attribute-based-instance-type-selection.html"
+     * >Attribute-based instance type selection for Spot Fleet</a>, and <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-placement-score.html">Spot placement score</a> in
+     * the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private InstanceRequirementsRequest instanceRequirements;
+    /**
+     * <p>
+     * The options for the instance hostname. The default values are inherited from the subnet.
+     * </p>
+     */
+    private LaunchTemplatePrivateDnsNameOptionsRequest privateDnsNameOptions;
+    /**
+     * <p>
+     * The maintenance options for the instance.
+     * </p>
+     */
+    private LaunchTemplateInstanceMaintenanceOptionsRequest maintenanceOptions;
+    /**
+     * <p>
+     * Indicates whether to enable the instance for stop protection. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for
+     * your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private Boolean disableApiStop;
 
     /**
      * <p>
@@ -246,8 +444,8 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * <important>
      * <p>
      * We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User Provided Kernels</a> in
-     * the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User provided kernels</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * </important>
      * 
@@ -255,8 +453,8 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      *        The ID of the kernel.</p> <important>
      *        <p>
      *        We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User Provided
-     *        Kernels</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User provided
+     *        kernels</a> in the <i>Amazon EC2 User Guide</i>.
      *        </p>
      */
 
@@ -271,16 +469,16 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * <important>
      * <p>
      * We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User Provided Kernels</a> in
-     * the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User provided kernels</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * </important>
      * 
      * @return The ID of the kernel.</p> <important>
      *         <p>
      *         We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User Provided
-     *         Kernels</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User provided
+     *         kernels</a> in the <i>Amazon EC2 User Guide</i>.
      *         </p>
      */
 
@@ -295,8 +493,8 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * <important>
      * <p>
      * We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User Provided Kernels</a> in
-     * the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User provided kernels</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * </important>
      * 
@@ -304,8 +502,8 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      *        The ID of the kernel.</p> <important>
      *        <p>
      *        We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User Provided
-     *        Kernels</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User provided
+     *        kernels</a> in the <i>Amazon EC2 User Guide</i>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -393,11 +591,11 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The IAM instance profile.
+     * The name or Amazon Resource Name (ARN) of an IAM instance profile.
      * </p>
      * 
      * @param iamInstanceProfile
-     *        The IAM instance profile.
+     *        The name or Amazon Resource Name (ARN) of an IAM instance profile.
      */
 
     public void setIamInstanceProfile(LaunchTemplateIamInstanceProfileSpecificationRequest iamInstanceProfile) {
@@ -406,10 +604,10 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The IAM instance profile.
+     * The name or Amazon Resource Name (ARN) of an IAM instance profile.
      * </p>
      * 
-     * @return The IAM instance profile.
+     * @return The name or Amazon Resource Name (ARN) of an IAM instance profile.
      */
 
     public LaunchTemplateIamInstanceProfileSpecificationRequest getIamInstanceProfile() {
@@ -418,11 +616,11 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The IAM instance profile.
+     * The name or Amazon Resource Name (ARN) of an IAM instance profile.
      * </p>
      * 
      * @param iamInstanceProfile
-     *        The IAM instance profile.
+     *        The name or Amazon Resource Name (ARN) of an IAM instance profile.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -435,22 +633,8 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * <p>
      * The block device mapping.
      * </p>
-     * <important>
-     * <p>
-     * Supplying both a snapshot ID and an encryption value as arguments for block-device mapping results in an error.
-     * This is because only blank volumes can be encrypted on start, and these are not created from a snapshot. If a
-     * snapshot is the basis for the volume, it contains data by definition and its encryption status cannot be changed
-     * using this action.
-     * </p>
-     * </important>
      * 
-     * @return The block device mapping.</p> <important>
-     *         <p>
-     *         Supplying both a snapshot ID and an encryption value as arguments for block-device mapping results in an
-     *         error. This is because only blank volumes can be encrypted on start, and these are not created from a
-     *         snapshot. If a snapshot is the basis for the volume, it contains data by definition and its encryption
-     *         status cannot be changed using this action.
-     *         </p>
+     * @return The block device mapping.
      */
 
     public java.util.List<LaunchTemplateBlockDeviceMappingRequest> getBlockDeviceMappings() {
@@ -464,23 +648,9 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * <p>
      * The block device mapping.
      * </p>
-     * <important>
-     * <p>
-     * Supplying both a snapshot ID and an encryption value as arguments for block-device mapping results in an error.
-     * This is because only blank volumes can be encrypted on start, and these are not created from a snapshot. If a
-     * snapshot is the basis for the volume, it contains data by definition and its encryption status cannot be changed
-     * using this action.
-     * </p>
-     * </important>
      * 
      * @param blockDeviceMappings
-     *        The block device mapping.</p> <important>
-     *        <p>
-     *        Supplying both a snapshot ID and an encryption value as arguments for block-device mapping results in an
-     *        error. This is because only blank volumes can be encrypted on start, and these are not created from a
-     *        snapshot. If a snapshot is the basis for the volume, it contains data by definition and its encryption
-     *        status cannot be changed using this action.
-     *        </p>
+     *        The block device mapping.
      */
 
     public void setBlockDeviceMappings(java.util.Collection<LaunchTemplateBlockDeviceMappingRequest> blockDeviceMappings) {
@@ -496,14 +666,6 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * <p>
      * The block device mapping.
      * </p>
-     * <important>
-     * <p>
-     * Supplying both a snapshot ID and an encryption value as arguments for block-device mapping results in an error.
-     * This is because only blank volumes can be encrypted on start, and these are not created from a snapshot. If a
-     * snapshot is the basis for the volume, it contains data by definition and its encryption status cannot be changed
-     * using this action.
-     * </p>
-     * </important>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setBlockDeviceMappings(java.util.Collection)} or {@link #withBlockDeviceMappings(java.util.Collection)}
@@ -511,13 +673,7 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * </p>
      * 
      * @param blockDeviceMappings
-     *        The block device mapping.</p> <important>
-     *        <p>
-     *        Supplying both a snapshot ID and an encryption value as arguments for block-device mapping results in an
-     *        error. This is because only blank volumes can be encrypted on start, and these are not created from a
-     *        snapshot. If a snapshot is the basis for the volume, it contains data by definition and its encryption
-     *        status cannot be changed using this action.
-     *        </p>
+     *        The block device mapping.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -535,23 +691,9 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * <p>
      * The block device mapping.
      * </p>
-     * <important>
-     * <p>
-     * Supplying both a snapshot ID and an encryption value as arguments for block-device mapping results in an error.
-     * This is because only blank volumes can be encrypted on start, and these are not created from a snapshot. If a
-     * snapshot is the basis for the volume, it contains data by definition and its encryption status cannot be changed
-     * using this action.
-     * </p>
-     * </important>
      * 
      * @param blockDeviceMappings
-     *        The block device mapping.</p> <important>
-     *        <p>
-     *        Supplying both a snapshot ID and an encryption value as arguments for block-device mapping results in an
-     *        error. This is because only blank volumes can be encrypted on start, and these are not created from a
-     *        snapshot. If a snapshot is the basis for the volume, it contains data by definition and its encryption
-     *        status cannot be changed using this action.
-     *        </p>
+     *        The block device mapping.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -562,12 +704,10 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more network interfaces. If you specify a network interface, you must specify any security groups and
-     * subnets as part of the network interface.
+     * The network interfaces for the instance.
      * </p>
      * 
-     * @return One or more network interfaces. If you specify a network interface, you must specify any security groups
-     *         and subnets as part of the network interface.
+     * @return The network interfaces for the instance.
      */
 
     public java.util.List<LaunchTemplateInstanceNetworkInterfaceSpecificationRequest> getNetworkInterfaces() {
@@ -579,13 +719,11 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more network interfaces. If you specify a network interface, you must specify any security groups and
-     * subnets as part of the network interface.
+     * The network interfaces for the instance.
      * </p>
      * 
      * @param networkInterfaces
-     *        One or more network interfaces. If you specify a network interface, you must specify any security groups
-     *        and subnets as part of the network interface.
+     *        The network interfaces for the instance.
      */
 
     public void setNetworkInterfaces(java.util.Collection<LaunchTemplateInstanceNetworkInterfaceSpecificationRequest> networkInterfaces) {
@@ -599,8 +737,7 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more network interfaces. If you specify a network interface, you must specify any security groups and
-     * subnets as part of the network interface.
+     * The network interfaces for the instance.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -609,8 +746,7 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * </p>
      * 
      * @param networkInterfaces
-     *        One or more network interfaces. If you specify a network interface, you must specify any security groups
-     *        and subnets as part of the network interface.
+     *        The network interfaces for the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -627,13 +763,11 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more network interfaces. If you specify a network interface, you must specify any security groups and
-     * subnets as part of the network interface.
+     * The network interfaces for the instance.
      * </p>
      * 
      * @param networkInterfaces
-     *        One or more network interfaces. If you specify a network interface, you must specify any security groups
-     *        and subnets as part of the network interface.
+     *        The network interfaces for the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -644,11 +778,164 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AMI.
+     * The ID of the AMI in the format <code>ami-17characters00000</code>.
      * </p>
+     * <p>
+     * Alternatively, you can specify a Systems Manager parameter, using one of the following formats. The Systems
+     * Manager parameter will resolve to an AMI ID on launch.
+     * </p>
+     * <p>
+     * To reference a public parameter:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>public-parameter</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To reference a parameter stored in the same account:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name:version-number</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name:label</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To reference a parameter shared from another Amazon Web Services account:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN:version-number</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN:label</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If the launch template will be used for an EC2 Fleet or Spot Fleet, note the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Only EC2 Fleets of type <code>instant</code> support specifying a Systems Manager parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For EC2 Fleets of type <code>maintain</code> or <code>request</code>, or for Spot Fleets, you must specify the
+     * AMI ID.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
      * 
      * @param imageId
-     *        The ID of the AMI.
+     *        The ID of the AMI in the format <code>ami-17characters00000</code>.</p>
+     *        <p>
+     *        Alternatively, you can specify a Systems Manager parameter, using one of the following formats. The
+     *        Systems Manager parameter will resolve to an AMI ID on launch.
+     *        </p>
+     *        <p>
+     *        To reference a public parameter:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>public-parameter</i> </code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        To reference a parameter stored in the same account:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-name</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-name:version-number</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-name:label</i> </code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        To reference a parameter shared from another Amazon Web Services account:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-ARN</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-ARN:version-number</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-ARN:label</i> </code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *        >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If the launch template will be used for an EC2 Fleet or Spot Fleet, note the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Only EC2 Fleets of type <code>instant</code> support specifying a Systems Manager parameter.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For EC2 Fleets of type <code>maintain</code> or <code>request</code>, or for Spot Fleets, you must specify
+     *        the AMI ID.
+     *        </p>
+     *        </li>
+     *        </ul>
      */
 
     public void setImageId(String imageId) {
@@ -657,10 +944,163 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AMI.
+     * The ID of the AMI in the format <code>ami-17characters00000</code>.
      * </p>
+     * <p>
+     * Alternatively, you can specify a Systems Manager parameter, using one of the following formats. The Systems
+     * Manager parameter will resolve to an AMI ID on launch.
+     * </p>
+     * <p>
+     * To reference a public parameter:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>public-parameter</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To reference a parameter stored in the same account:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name:version-number</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name:label</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To reference a parameter shared from another Amazon Web Services account:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN:version-number</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN:label</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If the launch template will be used for an EC2 Fleet or Spot Fleet, note the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Only EC2 Fleets of type <code>instant</code> support specifying a Systems Manager parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For EC2 Fleets of type <code>maintain</code> or <code>request</code>, or for Spot Fleets, you must specify the
+     * AMI ID.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
      * 
-     * @return The ID of the AMI.
+     * @return The ID of the AMI in the format <code>ami-17characters00000</code>.</p>
+     *         <p>
+     *         Alternatively, you can specify a Systems Manager parameter, using one of the following formats. The
+     *         Systems Manager parameter will resolve to an AMI ID on launch.
+     *         </p>
+     *         <p>
+     *         To reference a public parameter:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>resolve:ssm:<i>public-parameter</i> </code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         To reference a parameter stored in the same account:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>resolve:ssm:<i>parameter-name</i> </code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>resolve:ssm:<i>parameter-name:version-number</i> </code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>resolve:ssm:<i>parameter-name:label</i> </code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         To reference a parameter shared from another Amazon Web Services account:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>resolve:ssm:<i>parameter-ARN</i> </code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>resolve:ssm:<i>parameter-ARN:version-number</i> </code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>resolve:ssm:<i>parameter-ARN:label</i> </code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *         >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         If the launch template will be used for an EC2 Fleet or Spot Fleet, note the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Only EC2 Fleets of type <code>instant</code> support specifying a Systems Manager parameter.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For EC2 Fleets of type <code>maintain</code> or <code>request</code>, or for Spot Fleets, you must
+     *         specify the AMI ID.
+     *         </p>
+     *         </li>
+     *         </ul>
      */
 
     public String getImageId() {
@@ -669,11 +1109,164 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AMI.
+     * The ID of the AMI in the format <code>ami-17characters00000</code>.
      * </p>
+     * <p>
+     * Alternatively, you can specify a Systems Manager parameter, using one of the following formats. The Systems
+     * Manager parameter will resolve to an AMI ID on launch.
+     * </p>
+     * <p>
+     * To reference a public parameter:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>public-parameter</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To reference a parameter stored in the same account:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name:version-number</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-name:label</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To reference a parameter shared from another Amazon Web Services account:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN:version-number</i> </code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>resolve:ssm:<i>parameter-ARN:label</i> </code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If the launch template will be used for an EC2 Fleet or Spot Fleet, note the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Only EC2 Fleets of type <code>instant</code> support specifying a Systems Manager parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For EC2 Fleets of type <code>maintain</code> or <code>request</code>, or for Spot Fleets, you must specify the
+     * AMI ID.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
      * 
      * @param imageId
-     *        The ID of the AMI.
+     *        The ID of the AMI in the format <code>ami-17characters00000</code>.</p>
+     *        <p>
+     *        Alternatively, you can specify a Systems Manager parameter, using one of the following formats. The
+     *        Systems Manager parameter will resolve to an AMI ID on launch.
+     *        </p>
+     *        <p>
+     *        To reference a public parameter:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>public-parameter</i> </code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        To reference a parameter stored in the same account:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-name</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-name:version-number</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-name:label</i> </code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        To reference a parameter shared from another Amazon Web Services account:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-ARN</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-ARN:version-number</i> </code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>resolve:ssm:<i>parameter-ARN:label</i> </code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *        >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If the launch template will be used for an EC2 Fleet or Spot Fleet, note the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Only EC2 Fleets of type <code>instant</code> support specifying a Systems Manager parameter.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For EC2 Fleets of type <code>maintain</code> or <code>request</code>, or for Spot Fleets, you must specify
+     *        the AMI ID.
+     *        </p>
+     *        </li>
+     *        </ul>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -685,14 +1278,19 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * The instance type. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Amazon EC2 instance types</a> in
+     * the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
      * </p>
      * 
      * @param instanceType
      *        The instance type. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the
-     *        <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Amazon EC2 instance
+     *        types</a> in the <i>Amazon EC2 User Guide</i>.</p>
+     *        <p>
+     *        If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
      * @see InstanceType
      */
 
@@ -703,13 +1301,18 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * The instance type. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Amazon EC2 instance types</a> in
+     * the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
      * </p>
      * 
      * @return The instance type. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the
-     *         <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Amazon EC2 instance
+     *         types</a> in the <i>Amazon EC2 User Guide</i>.</p>
+     *         <p>
+     *         If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
      * @see InstanceType
      */
 
@@ -720,14 +1323,19 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * The instance type. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Amazon EC2 instance types</a> in
+     * the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
      * </p>
      * 
      * @param instanceType
      *        The instance type. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the
-     *        <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Amazon EC2 instance
+     *        types</a> in the <i>Amazon EC2 User Guide</i>.</p>
+     *        <p>
+     *        If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceType
      */
@@ -740,14 +1348,19 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * The instance type. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Amazon EC2 instance types</a> in
+     * the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
      * </p>
      * 
      * @param instanceType
      *        The instance type. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the
-     *        <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Amazon EC2 instance
+     *        types</a> in the <i>Amazon EC2 User Guide</i>.</p>
+     *        <p>
+     *        If you specify <code>InstanceType</code>, you can't specify <code>InstanceRequirements</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceType
      */
@@ -932,8 +1545,8 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * <important>
      * <p>
      * We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User Provided Kernels</a> in
-     * the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User provided kernels</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * </important>
      * 
@@ -941,8 +1554,8 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      *        The ID of the RAM disk.</p> <important>
      *        <p>
      *        We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User Provided
-     *        Kernels</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User provided
+     *        kernels</a> in the <i>Amazon EC2 User Guide</i>.
      *        </p>
      */
 
@@ -957,16 +1570,16 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * <important>
      * <p>
      * We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User Provided Kernels</a> in
-     * the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User provided kernels</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * </important>
      * 
      * @return The ID of the RAM disk.</p> <important>
      *         <p>
      *         We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User Provided
-     *         Kernels</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User provided
+     *         kernels</a> in the <i>Amazon EC2 User Guide</i>.
      *         </p>
      */
 
@@ -981,8 +1594,8 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * <important>
      * <p>
      * We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User Provided Kernels</a> in
-     * the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User provided kernels</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * </important>
      * 
@@ -990,8 +1603,8 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      *        The ID of the RAM disk.</p> <important>
      *        <p>
      *        We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User Provided
-     *        Kernels</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html">User provided
+     *        kernels</a> in the <i>Amazon EC2 User Guide</i>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1174,19 +1787,29 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Base64-encoded user data to make available to the instance. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html">Running Commands on Your Linux Instance
-     * at Launch</a> (Linux) and <a href=
-     * "https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-instance-metadata.html#instancedata-add-user-data"
-     * >Adding User Data</a> (Windows).
+     * The user data to make available to the instance. You must provide base64-encoded text. User data is limited to 16
+     * KB. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html">Run
+     * commands on your Amazon EC2 instance at launch</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * If you are creating the launch template for use with Batch, the user data must be provided in the <a
+     * href="https://cloudinit.readthedocs.io/en/latest/topics/format.html#mime-multi-part-archive">MIME multi-part
+     * archive format</a>. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/launch-templates.html">Amazon EC2 user data in launch
+     * templates</a> in the <i>Batch User Guide</i>.
      * </p>
      * 
      * @param userData
-     *        The Base64-encoded user data to make available to the instance. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html">Running Commands on Your Linux
-     *        Instance at Launch</a> (Linux) and <a href=
-     *        "https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-instance-metadata.html#instancedata-add-user-data"
-     *        >Adding User Data</a> (Windows).
+     *        The user data to make available to the instance. You must provide base64-encoded text. User data is
+     *        limited to 16 KB. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html">Run commands on your Amazon EC2
+     *        instance at launch</a> in the <i>Amazon EC2 User Guide</i>.</p>
+     *        <p>
+     *        If you are creating the launch template for use with Batch, the user data must be provided in the <a
+     *        href="https://cloudinit.readthedocs.io/en/latest/topics/format.html#mime-multi-part-archive">MIME
+     *        multi-part archive format</a>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/launch-templates.html">Amazon EC2 user data in
+     *        launch templates</a> in the <i>Batch User Guide</i>.
      */
 
     public void setUserData(String userData) {
@@ -1195,18 +1818,28 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Base64-encoded user data to make available to the instance. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html">Running Commands on Your Linux Instance
-     * at Launch</a> (Linux) and <a href=
-     * "https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-instance-metadata.html#instancedata-add-user-data"
-     * >Adding User Data</a> (Windows).
+     * The user data to make available to the instance. You must provide base64-encoded text. User data is limited to 16
+     * KB. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html">Run
+     * commands on your Amazon EC2 instance at launch</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * If you are creating the launch template for use with Batch, the user data must be provided in the <a
+     * href="https://cloudinit.readthedocs.io/en/latest/topics/format.html#mime-multi-part-archive">MIME multi-part
+     * archive format</a>. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/launch-templates.html">Amazon EC2 user data in launch
+     * templates</a> in the <i>Batch User Guide</i>.
      * </p>
      * 
-     * @return The Base64-encoded user data to make available to the instance. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html">Running Commands on Your Linux
-     *         Instance at Launch</a> (Linux) and <a href=
-     *         "https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-instance-metadata.html#instancedata-add-user-data"
-     *         >Adding User Data</a> (Windows).
+     * @return The user data to make available to the instance. You must provide base64-encoded text. User data is
+     *         limited to 16 KB. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html">Run commands on your Amazon EC2
+     *         instance at launch</a> in the <i>Amazon EC2 User Guide</i>.</p>
+     *         <p>
+     *         If you are creating the launch template for use with Batch, the user data must be provided in the <a
+     *         href="https://cloudinit.readthedocs.io/en/latest/topics/format.html#mime-multi-part-archive">MIME
+     *         multi-part archive format</a>. For more information, see <a
+     *         href="https://docs.aws.amazon.com/batch/latest/userguide/launch-templates.html">Amazon EC2 user data in
+     *         launch templates</a> in the <i>Batch User Guide</i>.
      */
 
     public String getUserData() {
@@ -1215,19 +1848,29 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Base64-encoded user data to make available to the instance. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html">Running Commands on Your Linux Instance
-     * at Launch</a> (Linux) and <a href=
-     * "https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-instance-metadata.html#instancedata-add-user-data"
-     * >Adding User Data</a> (Windows).
+     * The user data to make available to the instance. You must provide base64-encoded text. User data is limited to 16
+     * KB. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html">Run
+     * commands on your Amazon EC2 instance at launch</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * If you are creating the launch template for use with Batch, the user data must be provided in the <a
+     * href="https://cloudinit.readthedocs.io/en/latest/topics/format.html#mime-multi-part-archive">MIME multi-part
+     * archive format</a>. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/launch-templates.html">Amazon EC2 user data in launch
+     * templates</a> in the <i>Batch User Guide</i>.
      * </p>
      * 
      * @param userData
-     *        The Base64-encoded user data to make available to the instance. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html">Running Commands on Your Linux
-     *        Instance at Launch</a> (Linux) and <a href=
-     *        "https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-instance-metadata.html#instancedata-add-user-data"
-     *        >Adding User Data</a> (Windows).
+     *        The user data to make available to the instance. You must provide base64-encoded text. User data is
+     *        limited to 16 KB. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html">Run commands on your Amazon EC2
+     *        instance at launch</a> in the <i>Amazon EC2 User Guide</i>.</p>
+     *        <p>
+     *        If you are creating the launch template for use with Batch, the user data must be provided in the <a
+     *        href="https://cloudinit.readthedocs.io/en/latest/topics/format.html#mime-multi-part-archive">MIME
+     *        multi-part archive format</a>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/launch-templates.html">Amazon EC2 user data in
+     *        launch templates</a> in the <i>Batch User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1238,15 +1881,12 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The specified
-     * tags are applied to all instances or volumes that are created during launch. To tag a resource after it has been
-     * created, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * The tags to apply to the resources that are created during instance launch. These tags are not applied to the
+     * launch template.
      * </p>
      * 
-     * @return The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The
-     *         specified tags are applied to all instances or volumes that are created during launch. To tag a resource
-     *         after it has been created, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * @return The tags to apply to the resources that are created during instance launch. These tags are not applied to
+     *         the launch template.
      */
 
     public java.util.List<LaunchTemplateTagSpecificationRequest> getTagSpecifications() {
@@ -1258,16 +1898,13 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The specified
-     * tags are applied to all instances or volumes that are created during launch. To tag a resource after it has been
-     * created, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * The tags to apply to the resources that are created during instance launch. These tags are not applied to the
+     * launch template.
      * </p>
      * 
      * @param tagSpecifications
-     *        The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The
-     *        specified tags are applied to all instances or volumes that are created during launch. To tag a resource
-     *        after it has been created, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     *        The tags to apply to the resources that are created during instance launch. These tags are not applied to
+     *        the launch template.
      */
 
     public void setTagSpecifications(java.util.Collection<LaunchTemplateTagSpecificationRequest> tagSpecifications) {
@@ -1281,9 +1918,8 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The specified
-     * tags are applied to all instances or volumes that are created during launch. To tag a resource after it has been
-     * created, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * The tags to apply to the resources that are created during instance launch. These tags are not applied to the
+     * launch template.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1292,10 +1928,8 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * </p>
      * 
      * @param tagSpecifications
-     *        The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The
-     *        specified tags are applied to all instances or volumes that are created during launch. To tag a resource
-     *        after it has been created, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     *        The tags to apply to the resources that are created during instance launch. These tags are not applied to
+     *        the launch template.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1311,16 +1945,13 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The specified
-     * tags are applied to all instances or volumes that are created during launch. To tag a resource after it has been
-     * created, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * The tags to apply to the resources that are created during instance launch. These tags are not applied to the
+     * launch template.
      * </p>
      * 
      * @param tagSpecifications
-     *        The tags to apply to the resources during launch. You can only tag instances and volumes on launch. The
-     *        specified tags are applied to all instances or volumes that are created during launch. To tag a resource
-     *        after it has been created, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     *        The tags to apply to the resources that are created during instance launch. These tags are not applied to
+     *        the launch template.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1331,10 +1962,20 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * An elastic GPU to associate with the instance.
+     * Deprecated.
      * </p>
+     * <note>
+     * <p>
+     * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration,
+     * we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     * </p>
+     * </note>
      * 
-     * @return An elastic GPU to associate with the instance.
+     * @return Deprecated.</p> <note>
+     *         <p>
+     *         Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics
+     *         acceleration, we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     *         </p>
      */
 
     public java.util.List<ElasticGpuSpecification> getElasticGpuSpecifications() {
@@ -1346,11 +1987,21 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * An elastic GPU to associate with the instance.
+     * Deprecated.
      * </p>
+     * <note>
+     * <p>
+     * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration,
+     * we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     * </p>
+     * </note>
      * 
      * @param elasticGpuSpecifications
-     *        An elastic GPU to associate with the instance.
+     *        Deprecated.</p> <note>
+     *        <p>
+     *        Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics
+     *        acceleration, we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     *        </p>
      */
 
     public void setElasticGpuSpecifications(java.util.Collection<ElasticGpuSpecification> elasticGpuSpecifications) {
@@ -1364,8 +2015,14 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * An elastic GPU to associate with the instance.
+     * Deprecated.
      * </p>
+     * <note>
+     * <p>
+     * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration,
+     * we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setElasticGpuSpecifications(java.util.Collection)} or
@@ -1373,7 +2030,11 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * </p>
      * 
      * @param elasticGpuSpecifications
-     *        An elastic GPU to associate with the instance.
+     *        Deprecated.</p> <note>
+     *        <p>
+     *        Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics
+     *        acceleration, we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1389,11 +2050,21 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * An elastic GPU to associate with the instance.
+     * Deprecated.
      * </p>
+     * <note>
+     * <p>
+     * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration,
+     * we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     * </p>
+     * </note>
      * 
      * @param elasticGpuSpecifications
-     *        An elastic GPU to associate with the instance.
+     *        Deprecated.</p> <note>
+     *        <p>
+     *        Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics
+     *        acceleration, we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1404,10 +2075,37 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The elastic inference accelerator for the instance.
+     * An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a resource
+     * you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference workloads.
      * </p>
+     * <p>
+     * You cannot specify accelerators from different generations in the same request.
+     * </p>
+     * <note>
+     * <p>
+     * Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference (EI), and
+     * will help current customers migrate their workloads to options that offer better price and performance. After
+     * April 15, 2023, new customers will not be able to launch instances with Amazon EI accelerators in Amazon
+     * SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI at least once during the past
+     * 30-day period are considered current customers and will be able to continue using the service.
+     * </p>
+     * </note>
      * 
-     * @return The elastic inference accelerator for the instance.
+     * @return An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a
+     *         resource you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference
+     *         workloads.</p>
+     *         <p>
+     *         You cannot specify accelerators from different generations in the same request.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference
+     *         (EI), and will help current customers migrate their workloads to options that offer better price and
+     *         performance. After April 15, 2023, new customers will not be able to launch instances with Amazon EI
+     *         accelerators in Amazon SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI
+     *         at least once during the past 30-day period are considered current customers and will be able to continue
+     *         using the service.
+     *         </p>
      */
 
     public java.util.List<LaunchTemplateElasticInferenceAccelerator> getElasticInferenceAccelerators() {
@@ -1419,11 +2117,38 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The elastic inference accelerator for the instance.
+     * An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a resource
+     * you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference workloads.
      * </p>
+     * <p>
+     * You cannot specify accelerators from different generations in the same request.
+     * </p>
+     * <note>
+     * <p>
+     * Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference (EI), and
+     * will help current customers migrate their workloads to options that offer better price and performance. After
+     * April 15, 2023, new customers will not be able to launch instances with Amazon EI accelerators in Amazon
+     * SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI at least once during the past
+     * 30-day period are considered current customers and will be able to continue using the service.
+     * </p>
+     * </note>
      * 
      * @param elasticInferenceAccelerators
-     *        The elastic inference accelerator for the instance.
+     *        An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a
+     *        resource you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference
+     *        workloads.</p>
+     *        <p>
+     *        You cannot specify accelerators from different generations in the same request.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference
+     *        (EI), and will help current customers migrate their workloads to options that offer better price and
+     *        performance. After April 15, 2023, new customers will not be able to launch instances with Amazon EI
+     *        accelerators in Amazon SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI at
+     *        least once during the past 30-day period are considered current customers and will be able to continue
+     *        using the service.
+     *        </p>
      */
 
     public void setElasticInferenceAccelerators(java.util.Collection<LaunchTemplateElasticInferenceAccelerator> elasticInferenceAccelerators) {
@@ -1437,8 +2162,21 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The elastic inference accelerator for the instance.
+     * An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a resource
+     * you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference workloads.
      * </p>
+     * <p>
+     * You cannot specify accelerators from different generations in the same request.
+     * </p>
+     * <note>
+     * <p>
+     * Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference (EI), and
+     * will help current customers migrate their workloads to options that offer better price and performance. After
+     * April 15, 2023, new customers will not be able to launch instances with Amazon EI accelerators in Amazon
+     * SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI at least once during the past
+     * 30-day period are considered current customers and will be able to continue using the service.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setElasticInferenceAccelerators(java.util.Collection)} or
@@ -1446,7 +2184,21 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * </p>
      * 
      * @param elasticInferenceAccelerators
-     *        The elastic inference accelerator for the instance.
+     *        An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a
+     *        resource you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference
+     *        workloads.</p>
+     *        <p>
+     *        You cannot specify accelerators from different generations in the same request.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference
+     *        (EI), and will help current customers migrate their workloads to options that offer better price and
+     *        performance. After April 15, 2023, new customers will not be able to launch instances with Amazon EI
+     *        accelerators in Amazon SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI at
+     *        least once during the past 30-day period are considered current customers and will be able to continue
+     *        using the service.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1463,11 +2215,38 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The elastic inference accelerator for the instance.
+     * An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a resource
+     * you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference workloads.
      * </p>
+     * <p>
+     * You cannot specify accelerators from different generations in the same request.
+     * </p>
+     * <note>
+     * <p>
+     * Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference (EI), and
+     * will help current customers migrate their workloads to options that offer better price and performance. After
+     * April 15, 2023, new customers will not be able to launch instances with Amazon EI accelerators in Amazon
+     * SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI at least once during the past
+     * 30-day period are considered current customers and will be able to continue using the service.
+     * </p>
+     * </note>
      * 
      * @param elasticInferenceAccelerators
-     *        The elastic inference accelerator for the instance.
+     *        An elastic inference accelerator to associate with the instance. Elastic inference accelerators are a
+     *        resource you can attach to your Amazon EC2 instances to accelerate your Deep Learning (DL) inference
+     *        workloads.</p>
+     *        <p>
+     *        You cannot specify accelerators from different generations in the same request.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference
+     *        (EI), and will help current customers migrate their workloads to options that offer better price and
+     *        performance. After April 15, 2023, new customers will not be able to launch instances with Amazon EI
+     *        accelerators in Amazon SageMaker, Amazon ECS, or Amazon EC2. However, customers who have used Amazon EI at
+     *        least once during the past 30-day period are considered current customers and will be able to continue
+     *        using the service.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1479,15 +2258,17 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more security group IDs. You can create a security group using <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateSecurityGroup.html"
-     * >CreateSecurityGroup</a>. You cannot specify both a security group ID and security name in the same request.
+     * The IDs of the security groups.
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any security groups as part of the network interface instead
+     * of using this parameter.
      * </p>
      * 
-     * @return One or more security group IDs. You can create a security group using <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateSecurityGroup.html"
-     *         >CreateSecurityGroup</a>. You cannot specify both a security group ID and security name in the same
-     *         request.
+     * @return The IDs of the security groups.</p>
+     *         <p>
+     *         If you specify a network interface, you must specify any security groups as part of the network interface
+     *         instead of using this parameter.
      */
 
     public java.util.List<String> getSecurityGroupIds() {
@@ -1499,16 +2280,18 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more security group IDs. You can create a security group using <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateSecurityGroup.html"
-     * >CreateSecurityGroup</a>. You cannot specify both a security group ID and security name in the same request.
+     * The IDs of the security groups.
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any security groups as part of the network interface instead
+     * of using this parameter.
      * </p>
      * 
      * @param securityGroupIds
-     *        One or more security group IDs. You can create a security group using <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateSecurityGroup.html"
-     *        >CreateSecurityGroup</a>. You cannot specify both a security group ID and security name in the same
-     *        request.
+     *        The IDs of the security groups.</p>
+     *        <p>
+     *        If you specify a network interface, you must specify any security groups as part of the network interface
+     *        instead of using this parameter.
      */
 
     public void setSecurityGroupIds(java.util.Collection<String> securityGroupIds) {
@@ -1522,9 +2305,11 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more security group IDs. You can create a security group using <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateSecurityGroup.html"
-     * >CreateSecurityGroup</a>. You cannot specify both a security group ID and security name in the same request.
+     * The IDs of the security groups.
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any security groups as part of the network interface instead
+     * of using this parameter.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1533,10 +2318,10 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * </p>
      * 
      * @param securityGroupIds
-     *        One or more security group IDs. You can create a security group using <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateSecurityGroup.html"
-     *        >CreateSecurityGroup</a>. You cannot specify both a security group ID and security name in the same
-     *        request.
+     *        The IDs of the security groups.</p>
+     *        <p>
+     *        If you specify a network interface, you must specify any security groups as part of the network interface
+     *        instead of using this parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1552,16 +2337,18 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * One or more security group IDs. You can create a security group using <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateSecurityGroup.html"
-     * >CreateSecurityGroup</a>. You cannot specify both a security group ID and security name in the same request.
+     * The IDs of the security groups.
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any security groups as part of the network interface instead
+     * of using this parameter.
      * </p>
      * 
      * @param securityGroupIds
-     *        One or more security group IDs. You can create a security group using <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateSecurityGroup.html"
-     *        >CreateSecurityGroup</a>. You cannot specify both a security group ID and security name in the same
-     *        request.
+     *        The IDs of the security groups.</p>
+     *        <p>
+     *        If you specify a network interface, you must specify any security groups as part of the network interface
+     *        instead of using this parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1572,12 +2359,17 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [EC2-Classic, default VPC] One or more security group names. For a nondefault VPC, you must use security group
-     * IDs instead. You cannot specify both a security group ID and security name in the same request.
+     * The names of the security groups. For a nondefault VPC, you must use security group IDs instead.
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any security groups as part of the network interface instead
+     * of using this parameter.
      * </p>
      * 
-     * @return [EC2-Classic, default VPC] One or more security group names. For a nondefault VPC, you must use security
-     *         group IDs instead. You cannot specify both a security group ID and security name in the same request.
+     * @return The names of the security groups. For a nondefault VPC, you must use security group IDs instead.</p>
+     *         <p>
+     *         If you specify a network interface, you must specify any security groups as part of the network interface
+     *         instead of using this parameter.
      */
 
     public java.util.List<String> getSecurityGroups() {
@@ -1589,13 +2381,18 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [EC2-Classic, default VPC] One or more security group names. For a nondefault VPC, you must use security group
-     * IDs instead. You cannot specify both a security group ID and security name in the same request.
+     * The names of the security groups. For a nondefault VPC, you must use security group IDs instead.
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any security groups as part of the network interface instead
+     * of using this parameter.
      * </p>
      * 
      * @param securityGroups
-     *        [EC2-Classic, default VPC] One or more security group names. For a nondefault VPC, you must use security
-     *        group IDs instead. You cannot specify both a security group ID and security name in the same request.
+     *        The names of the security groups. For a nondefault VPC, you must use security group IDs instead.</p>
+     *        <p>
+     *        If you specify a network interface, you must specify any security groups as part of the network interface
+     *        instead of using this parameter.
      */
 
     public void setSecurityGroups(java.util.Collection<String> securityGroups) {
@@ -1609,8 +2406,11 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [EC2-Classic, default VPC] One or more security group names. For a nondefault VPC, you must use security group
-     * IDs instead. You cannot specify both a security group ID and security name in the same request.
+     * The names of the security groups. For a nondefault VPC, you must use security group IDs instead.
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any security groups as part of the network interface instead
+     * of using this parameter.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1619,8 +2419,10 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
      * </p>
      * 
      * @param securityGroups
-     *        [EC2-Classic, default VPC] One or more security group names. For a nondefault VPC, you must use security
-     *        group IDs instead. You cannot specify both a security group ID and security name in the same request.
+     *        The names of the security groups. For a nondefault VPC, you must use security group IDs instead.</p>
+     *        <p>
+     *        If you specify a network interface, you must specify any security groups as part of the network interface
+     *        instead of using this parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1636,13 +2438,18 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [EC2-Classic, default VPC] One or more security group names. For a nondefault VPC, you must use security group
-     * IDs instead. You cannot specify both a security group ID and security name in the same request.
+     * The names of the security groups. For a nondefault VPC, you must use security group IDs instead.
+     * </p>
+     * <p>
+     * If you specify a network interface, you must specify any security groups as part of the network interface instead
+     * of using this parameter.
      * </p>
      * 
      * @param securityGroups
-     *        [EC2-Classic, default VPC] One or more security group names. For a nondefault VPC, you must use security
-     *        group IDs instead. You cannot specify both a security group ID and security name in the same request.
+     *        The names of the security groups. For a nondefault VPC, you must use security group IDs instead.</p>
+     *        <p>
+     *        If you specify a network interface, you must specify any security groups as part of the network interface
+     *        instead of using this parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1693,11 +2500,11 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The credit option for CPU usage of the instance. Valid for T2 or T3 instances only.
+     * The credit option for CPU usage of the instance. Valid only for T instances.
      * </p>
      * 
      * @param creditSpecification
-     *        The credit option for CPU usage of the instance. Valid for T2 or T3 instances only.
+     *        The credit option for CPU usage of the instance. Valid only for T instances.
      */
 
     public void setCreditSpecification(CreditSpecificationRequest creditSpecification) {
@@ -1706,10 +2513,10 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The credit option for CPU usage of the instance. Valid for T2 or T3 instances only.
+     * The credit option for CPU usage of the instance. Valid only for T instances.
      * </p>
      * 
-     * @return The credit option for CPU usage of the instance. Valid for T2 or T3 instances only.
+     * @return The credit option for CPU usage of the instance. Valid only for T instances.
      */
 
     public CreditSpecificationRequest getCreditSpecification() {
@@ -1718,11 +2525,11 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The credit option for CPU usage of the instance. Valid for T2 or T3 instances only.
+     * The credit option for CPU usage of the instance. Valid only for T instances.
      * </p>
      * 
      * @param creditSpecification
-     *        The credit option for CPU usage of the instance. Valid for T2 or T3 instances only.
+     *        The credit option for CPU usage of the instance. Valid only for T instances.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1734,14 +2541,14 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * The CPU options for the instance. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing CPU Options</a>
-     * in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimize CPU options</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param cpuOptions
      *        The CPU options for the instance. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing CPU
-     *        Options</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimize CPU
+     *        options</a> in the <i>Amazon EC2 User Guide</i>.
      */
 
     public void setCpuOptions(LaunchTemplateCpuOptionsRequest cpuOptions) {
@@ -1751,13 +2558,13 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * The CPU options for the instance. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing CPU Options</a>
-     * in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimize CPU options</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @return The CPU options for the instance. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing CPU
-     *         Options</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimize CPU
+     *         options</a> in the <i>Amazon EC2 User Guide</i>.
      */
 
     public LaunchTemplateCpuOptionsRequest getCpuOptions() {
@@ -1767,14 +2574,14 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * The CPU options for the instance. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing CPU Options</a>
-     * in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimize CPU options</a> in
+     * the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param cpuOptions
      *        The CPU options for the instance. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimizing CPU
-     *        Options</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html">Optimize CPU
+     *        options</a> in the <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1911,20 +2718,19 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * Indicates whether an instance is enabled for hibernation. This parameter is valid only if the instance meets the
-     * <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation
-     * prerequisites</a>. Hibernation is currently supported only for Amazon Linux. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hibernating-prerequisites.html">hibernation
+     * prerequisites</a>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your Amazon EC2 instance</a>
+     * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param hibernationOptions
      *        Indicates whether an instance is enabled for hibernation. This parameter is valid only if the instance
      *        meets the <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites"
-     *        >hibernation prerequisites</a>. Hibernation is currently supported only for Amazon Linux. For more
-     *        information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate
-     *        Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hibernating-prerequisites.html">hibernation
+     *        prerequisites</a>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your Amazon EC2
+     *        instance</a> in the <i>Amazon EC2 User Guide</i>.
      */
 
     public void setHibernationOptions(LaunchTemplateHibernationOptionsRequest hibernationOptions) {
@@ -1934,19 +2740,18 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * Indicates whether an instance is enabled for hibernation. This parameter is valid only if the instance meets the
-     * <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation
-     * prerequisites</a>. Hibernation is currently supported only for Amazon Linux. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hibernating-prerequisites.html">hibernation
+     * prerequisites</a>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your Amazon EC2 instance</a>
+     * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @return Indicates whether an instance is enabled for hibernation. This parameter is valid only if the instance
      *         meets the <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites"
-     *         >hibernation prerequisites</a>. Hibernation is currently supported only for Amazon Linux. For more
-     *         information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate
-     *         Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hibernating-prerequisites.html">hibernation
+     *         prerequisites</a>. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your Amazon EC2
+     *         instance</a> in the <i>Amazon EC2 User Guide</i>.
      */
 
     public LaunchTemplateHibernationOptionsRequest getHibernationOptions() {
@@ -1956,26 +2761,638 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
     /**
      * <p>
      * Indicates whether an instance is enabled for hibernation. This parameter is valid only if the instance meets the
-     * <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation
-     * prerequisites</a>. Hibernation is currently supported only for Amazon Linux. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hibernating-prerequisites.html">hibernation
+     * prerequisites</a>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your Amazon EC2 instance</a>
+     * in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param hibernationOptions
      *        Indicates whether an instance is enabled for hibernation. This parameter is valid only if the instance
      *        meets the <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites"
-     *        >hibernation prerequisites</a>. Hibernation is currently supported only for Amazon Linux. For more
-     *        information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate
-     *        Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hibernating-prerequisites.html">hibernation
+     *        prerequisites</a>. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your Amazon EC2
+     *        instance</a> in the <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public RequestLaunchTemplateData withHibernationOptions(LaunchTemplateHibernationOptionsRequest hibernationOptions) {
         setHibernationOptions(hibernationOptions);
         return this;
+    }
+
+    /**
+     * <p>
+     * The metadata options for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance metadata and user
+     * data</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param metadataOptions
+     *        The metadata options for the instance. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance metadata
+     *        and user data</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setMetadataOptions(LaunchTemplateInstanceMetadataOptionsRequest metadataOptions) {
+        this.metadataOptions = metadataOptions;
+    }
+
+    /**
+     * <p>
+     * The metadata options for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance metadata and user
+     * data</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return The metadata options for the instance. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance metadata
+     *         and user data</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public LaunchTemplateInstanceMetadataOptionsRequest getMetadataOptions() {
+        return this.metadataOptions;
+    }
+
+    /**
+     * <p>
+     * The metadata options for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance metadata and user
+     * data</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param metadataOptions
+     *        The metadata options for the instance. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance metadata
+     *        and user data</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RequestLaunchTemplateData withMetadataOptions(LaunchTemplateInstanceMetadataOptionsRequest metadataOptions) {
+        setMetadataOptions(metadataOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves. For more information, see <a
+     * href="https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html">What is Amazon Web Services Nitro
+     * Enclaves?</a> in the <i>Amazon Web Services Nitro Enclaves User Guide</i>.
+     * </p>
+     * <p>
+     * You can't enable Amazon Web Services Nitro Enclaves and hibernation on the same instance.
+     * </p>
+     * 
+     * @param enclaveOptions
+     *        Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves. For more information,
+     *        see <a href="https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html">What is Amazon Web
+     *        Services Nitro Enclaves?</a> in the <i>Amazon Web Services Nitro Enclaves User Guide</i>.</p>
+     *        <p>
+     *        You can't enable Amazon Web Services Nitro Enclaves and hibernation on the same instance.
+     */
+
+    public void setEnclaveOptions(LaunchTemplateEnclaveOptionsRequest enclaveOptions) {
+        this.enclaveOptions = enclaveOptions;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves. For more information, see <a
+     * href="https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html">What is Amazon Web Services Nitro
+     * Enclaves?</a> in the <i>Amazon Web Services Nitro Enclaves User Guide</i>.
+     * </p>
+     * <p>
+     * You can't enable Amazon Web Services Nitro Enclaves and hibernation on the same instance.
+     * </p>
+     * 
+     * @return Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves. For more information,
+     *         see <a href="https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html">What is Amazon Web
+     *         Services Nitro Enclaves?</a> in the <i>Amazon Web Services Nitro Enclaves User Guide</i>.</p>
+     *         <p>
+     *         You can't enable Amazon Web Services Nitro Enclaves and hibernation on the same instance.
+     */
+
+    public LaunchTemplateEnclaveOptionsRequest getEnclaveOptions() {
+        return this.enclaveOptions;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves. For more information, see <a
+     * href="https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html">What is Amazon Web Services Nitro
+     * Enclaves?</a> in the <i>Amazon Web Services Nitro Enclaves User Guide</i>.
+     * </p>
+     * <p>
+     * You can't enable Amazon Web Services Nitro Enclaves and hibernation on the same instance.
+     * </p>
+     * 
+     * @param enclaveOptions
+     *        Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves. For more information,
+     *        see <a href="https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html">What is Amazon Web
+     *        Services Nitro Enclaves?</a> in the <i>Amazon Web Services Nitro Enclaves User Guide</i>.</p>
+     *        <p>
+     *        You can't enable Amazon Web Services Nitro Enclaves and hibernation on the same instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RequestLaunchTemplateData withEnclaveOptions(LaunchTemplateEnclaveOptionsRequest enclaveOptions) {
+        setEnclaveOptions(enclaveOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance
+     * types with these attributes.
+     * </p>
+     * <p>
+     * You must specify <code>VCpuCount</code> and <code>MemoryMiB</code>. All other attributes are optional. Any
+     * unspecified optional attribute is set to its default.
+     * </p>
+     * <p>
+     * When you specify multiple attributes, you get instance types that satisfy all of the specified attributes. If you
+     * specify multiple values for an attribute, you get instance types that satisfy any of the specified values.
+     * </p>
+     * <p>
+     * To limit the list of instance types from which Amazon EC2 can identify matching instance types, you can use one
+     * of the following parameters, but not both in the same request:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>AllowedInstanceTypes</code> - The instance types to include in the list. All other instance types are
+     * ignored, even if they match your specified attributes.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ExcludedInstanceTypes</code> - The instance types to exclude from the list, even if they match your
+     * specified attributes.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     * </p>
+     * <p>
+     * Attribute-based instance type selection is only supported when using Auto Scaling groups, EC2 Fleet, and Spot
+     * Fleet to launch instances. If you plan to use the launch template in the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-instance-wizard.html">launch instance
+     * wizard</a>, or with the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> API or <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html">AWS::EC2::
+     * Instance</a> Amazon Web Services CloudFormation resource, you can't specify <code>InstanceRequirements</code>.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-attribute-based-instance-type-selection.html"
+     * >Attribute-based instance type selection for EC2 Fleet</a>, <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-attribute-based-instance-type-selection.html"
+     * >Attribute-based instance type selection for Spot Fleet</a>, and <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-placement-score.html">Spot placement score</a> in
+     * the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param instanceRequirements
+     *        The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify
+     *        instance types with these attributes.</p>
+     *        <p>
+     *        You must specify <code>VCpuCount</code> and <code>MemoryMiB</code>. All other attributes are optional. Any
+     *        unspecified optional attribute is set to its default.
+     *        </p>
+     *        <p>
+     *        When you specify multiple attributes, you get instance types that satisfy all of the specified attributes.
+     *        If you specify multiple values for an attribute, you get instance types that satisfy any of the specified
+     *        values.
+     *        </p>
+     *        <p>
+     *        To limit the list of instance types from which Amazon EC2 can identify matching instance types, you can
+     *        use one of the following parameters, but not both in the same request:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>AllowedInstanceTypes</code> - The instance types to include in the list. All other instance types
+     *        are ignored, even if they match your specified attributes.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ExcludedInstanceTypes</code> - The instance types to exclude from the list, even if they match your
+     *        specified attributes.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     *        </p>
+     *        <p>
+     *        Attribute-based instance type selection is only supported when using Auto Scaling groups, EC2 Fleet, and
+     *        Spot Fleet to launch instances. If you plan to use the launch template in the <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-instance-wizard.html">launch instance
+     *        wizard</a>, or with the <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> API
+     *        or <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html"
+     *        >AWS::EC2::Instance</a> Amazon Web Services CloudFormation resource, you can't specify
+     *        <code>InstanceRequirements</code>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-attribute-based-instance-type-selection.html"
+     *        >Attribute-based instance type selection for EC2 Fleet</a>, <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-attribute-based-instance-type-selection.html"
+     *        >Attribute-based instance type selection for Spot Fleet</a>, and <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-placement-score.html">Spot placement
+     *        score</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setInstanceRequirements(InstanceRequirementsRequest instanceRequirements) {
+        this.instanceRequirements = instanceRequirements;
+    }
+
+    /**
+     * <p>
+     * The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance
+     * types with these attributes.
+     * </p>
+     * <p>
+     * You must specify <code>VCpuCount</code> and <code>MemoryMiB</code>. All other attributes are optional. Any
+     * unspecified optional attribute is set to its default.
+     * </p>
+     * <p>
+     * When you specify multiple attributes, you get instance types that satisfy all of the specified attributes. If you
+     * specify multiple values for an attribute, you get instance types that satisfy any of the specified values.
+     * </p>
+     * <p>
+     * To limit the list of instance types from which Amazon EC2 can identify matching instance types, you can use one
+     * of the following parameters, but not both in the same request:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>AllowedInstanceTypes</code> - The instance types to include in the list. All other instance types are
+     * ignored, even if they match your specified attributes.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ExcludedInstanceTypes</code> - The instance types to exclude from the list, even if they match your
+     * specified attributes.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     * </p>
+     * <p>
+     * Attribute-based instance type selection is only supported when using Auto Scaling groups, EC2 Fleet, and Spot
+     * Fleet to launch instances. If you plan to use the launch template in the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-instance-wizard.html">launch instance
+     * wizard</a>, or with the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> API or <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html">AWS::EC2::
+     * Instance</a> Amazon Web Services CloudFormation resource, you can't specify <code>InstanceRequirements</code>.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-attribute-based-instance-type-selection.html"
+     * >Attribute-based instance type selection for EC2 Fleet</a>, <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-attribute-based-instance-type-selection.html"
+     * >Attribute-based instance type selection for Spot Fleet</a>, and <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-placement-score.html">Spot placement score</a> in
+     * the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify
+     *         instance types with these attributes.</p>
+     *         <p>
+     *         You must specify <code>VCpuCount</code> and <code>MemoryMiB</code>. All other attributes are optional.
+     *         Any unspecified optional attribute is set to its default.
+     *         </p>
+     *         <p>
+     *         When you specify multiple attributes, you get instance types that satisfy all of the specified
+     *         attributes. If you specify multiple values for an attribute, you get instance types that satisfy any of
+     *         the specified values.
+     *         </p>
+     *         <p>
+     *         To limit the list of instance types from which Amazon EC2 can identify matching instance types, you can
+     *         use one of the following parameters, but not both in the same request:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>AllowedInstanceTypes</code> - The instance types to include in the list. All other instance types
+     *         are ignored, even if they match your specified attributes.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ExcludedInstanceTypes</code> - The instance types to exclude from the list, even if they match your
+     *         specified attributes.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <note>
+     *         <p>
+     *         If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     *         </p>
+     *         <p>
+     *         Attribute-based instance type selection is only supported when using Auto Scaling groups, EC2 Fleet, and
+     *         Spot Fleet to launch instances. If you plan to use the launch template in the <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-instance-wizard.html">launch
+     *         instance wizard</a>, or with the <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> API
+     *         or <a
+     *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html"
+     *         >AWS::EC2::Instance</a> Amazon Web Services CloudFormation resource, you can't specify
+     *         <code>InstanceRequirements</code>.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-attribute-based-instance-type-selection.html"
+     *         >Attribute-based instance type selection for EC2 Fleet</a>, <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-attribute-based-instance-type-selection.html"
+     *         >Attribute-based instance type selection for Spot Fleet</a>, and <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-placement-score.html">Spot placement
+     *         score</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public InstanceRequirementsRequest getInstanceRequirements() {
+        return this.instanceRequirements;
+    }
+
+    /**
+     * <p>
+     * The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance
+     * types with these attributes.
+     * </p>
+     * <p>
+     * You must specify <code>VCpuCount</code> and <code>MemoryMiB</code>. All other attributes are optional. Any
+     * unspecified optional attribute is set to its default.
+     * </p>
+     * <p>
+     * When you specify multiple attributes, you get instance types that satisfy all of the specified attributes. If you
+     * specify multiple values for an attribute, you get instance types that satisfy any of the specified values.
+     * </p>
+     * <p>
+     * To limit the list of instance types from which Amazon EC2 can identify matching instance types, you can use one
+     * of the following parameters, but not both in the same request:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>AllowedInstanceTypes</code> - The instance types to include in the list. All other instance types are
+     * ignored, even if they match your specified attributes.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ExcludedInstanceTypes</code> - The instance types to exclude from the list, even if they match your
+     * specified attributes.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     * </p>
+     * <p>
+     * Attribute-based instance type selection is only supported when using Auto Scaling groups, EC2 Fleet, and Spot
+     * Fleet to launch instances. If you plan to use the launch template in the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-instance-wizard.html">launch instance
+     * wizard</a>, or with the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> API or <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html">AWS::EC2::
+     * Instance</a> Amazon Web Services CloudFormation resource, you can't specify <code>InstanceRequirements</code>.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-attribute-based-instance-type-selection.html"
+     * >Attribute-based instance type selection for EC2 Fleet</a>, <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-attribute-based-instance-type-selection.html"
+     * >Attribute-based instance type selection for Spot Fleet</a>, and <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-placement-score.html">Spot placement score</a> in
+     * the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param instanceRequirements
+     *        The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify
+     *        instance types with these attributes.</p>
+     *        <p>
+     *        You must specify <code>VCpuCount</code> and <code>MemoryMiB</code>. All other attributes are optional. Any
+     *        unspecified optional attribute is set to its default.
+     *        </p>
+     *        <p>
+     *        When you specify multiple attributes, you get instance types that satisfy all of the specified attributes.
+     *        If you specify multiple values for an attribute, you get instance types that satisfy any of the specified
+     *        values.
+     *        </p>
+     *        <p>
+     *        To limit the list of instance types from which Amazon EC2 can identify matching instance types, you can
+     *        use one of the following parameters, but not both in the same request:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>AllowedInstanceTypes</code> - The instance types to include in the list. All other instance types
+     *        are ignored, even if they match your specified attributes.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ExcludedInstanceTypes</code> - The instance types to exclude from the list, even if they match your
+     *        specified attributes.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        If you specify <code>InstanceRequirements</code>, you can't specify <code>InstanceType</code>.
+     *        </p>
+     *        <p>
+     *        Attribute-based instance type selection is only supported when using Auto Scaling groups, EC2 Fleet, and
+     *        Spot Fleet to launch instances. If you plan to use the launch template in the <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-instance-wizard.html">launch instance
+     *        wizard</a>, or with the <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> API
+     *        or <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html"
+     *        >AWS::EC2::Instance</a> Amazon Web Services CloudFormation resource, you can't specify
+     *        <code>InstanceRequirements</code>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-attribute-based-instance-type-selection.html"
+     *        >Attribute-based instance type selection for EC2 Fleet</a>, <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-attribute-based-instance-type-selection.html"
+     *        >Attribute-based instance type selection for Spot Fleet</a>, and <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-placement-score.html">Spot placement
+     *        score</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RequestLaunchTemplateData withInstanceRequirements(InstanceRequirementsRequest instanceRequirements) {
+        setInstanceRequirements(instanceRequirements);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The options for the instance hostname. The default values are inherited from the subnet.
+     * </p>
+     * 
+     * @param privateDnsNameOptions
+     *        The options for the instance hostname. The default values are inherited from the subnet.
+     */
+
+    public void setPrivateDnsNameOptions(LaunchTemplatePrivateDnsNameOptionsRequest privateDnsNameOptions) {
+        this.privateDnsNameOptions = privateDnsNameOptions;
+    }
+
+    /**
+     * <p>
+     * The options for the instance hostname. The default values are inherited from the subnet.
+     * </p>
+     * 
+     * @return The options for the instance hostname. The default values are inherited from the subnet.
+     */
+
+    public LaunchTemplatePrivateDnsNameOptionsRequest getPrivateDnsNameOptions() {
+        return this.privateDnsNameOptions;
+    }
+
+    /**
+     * <p>
+     * The options for the instance hostname. The default values are inherited from the subnet.
+     * </p>
+     * 
+     * @param privateDnsNameOptions
+     *        The options for the instance hostname. The default values are inherited from the subnet.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RequestLaunchTemplateData withPrivateDnsNameOptions(LaunchTemplatePrivateDnsNameOptionsRequest privateDnsNameOptions) {
+        setPrivateDnsNameOptions(privateDnsNameOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maintenance options for the instance.
+     * </p>
+     * 
+     * @param maintenanceOptions
+     *        The maintenance options for the instance.
+     */
+
+    public void setMaintenanceOptions(LaunchTemplateInstanceMaintenanceOptionsRequest maintenanceOptions) {
+        this.maintenanceOptions = maintenanceOptions;
+    }
+
+    /**
+     * <p>
+     * The maintenance options for the instance.
+     * </p>
+     * 
+     * @return The maintenance options for the instance.
+     */
+
+    public LaunchTemplateInstanceMaintenanceOptionsRequest getMaintenanceOptions() {
+        return this.maintenanceOptions;
+    }
+
+    /**
+     * <p>
+     * The maintenance options for the instance.
+     * </p>
+     * 
+     * @param maintenanceOptions
+     *        The maintenance options for the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RequestLaunchTemplateData withMaintenanceOptions(LaunchTemplateInstanceMaintenanceOptionsRequest maintenanceOptions) {
+        setMaintenanceOptions(maintenanceOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable the instance for stop protection. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for
+     * your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param disableApiStop
+     *        Indicates whether to enable the instance for stop protection. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection
+     *        for your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setDisableApiStop(Boolean disableApiStop) {
+        this.disableApiStop = disableApiStop;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable the instance for stop protection. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for
+     * your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return Indicates whether to enable the instance for stop protection. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop
+     *         protection for your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public Boolean getDisableApiStop() {
+        return this.disableApiStop;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable the instance for stop protection. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for
+     * your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param disableApiStop
+     *        Indicates whether to enable the instance for stop protection. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection
+     *        for your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RequestLaunchTemplateData withDisableApiStop(Boolean disableApiStop) {
+        setDisableApiStop(disableApiStop);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable the instance for stop protection. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for
+     * your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return Indicates whether to enable the instance for stop protection. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop
+     *         protection for your instance</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public Boolean isDisableApiStop() {
+        return this.disableApiStop;
     }
 
     /**
@@ -2017,7 +3434,7 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
         if (getInstanceInitiatedShutdownBehavior() != null)
             sb.append("InstanceInitiatedShutdownBehavior: ").append(getInstanceInitiatedShutdownBehavior()).append(",");
         if (getUserData() != null)
-            sb.append("UserData: ").append(getUserData()).append(",");
+            sb.append("UserData: ").append("***Sensitive Data Redacted***").append(",");
         if (getTagSpecifications() != null)
             sb.append("TagSpecifications: ").append(getTagSpecifications()).append(",");
         if (getElasticGpuSpecifications() != null)
@@ -2039,7 +3456,19 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
         if (getLicenseSpecifications() != null)
             sb.append("LicenseSpecifications: ").append(getLicenseSpecifications()).append(",");
         if (getHibernationOptions() != null)
-            sb.append("HibernationOptions: ").append(getHibernationOptions());
+            sb.append("HibernationOptions: ").append(getHibernationOptions()).append(",");
+        if (getMetadataOptions() != null)
+            sb.append("MetadataOptions: ").append(getMetadataOptions()).append(",");
+        if (getEnclaveOptions() != null)
+            sb.append("EnclaveOptions: ").append(getEnclaveOptions()).append(",");
+        if (getInstanceRequirements() != null)
+            sb.append("InstanceRequirements: ").append(getInstanceRequirements()).append(",");
+        if (getPrivateDnsNameOptions() != null)
+            sb.append("PrivateDnsNameOptions: ").append(getPrivateDnsNameOptions()).append(",");
+        if (getMaintenanceOptions() != null)
+            sb.append("MaintenanceOptions: ").append(getMaintenanceOptions()).append(",");
+        if (getDisableApiStop() != null)
+            sb.append("DisableApiStop: ").append(getDisableApiStop());
         sb.append("}");
         return sb.toString();
     }
@@ -2156,6 +3585,30 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
             return false;
         if (other.getHibernationOptions() != null && other.getHibernationOptions().equals(this.getHibernationOptions()) == false)
             return false;
+        if (other.getMetadataOptions() == null ^ this.getMetadataOptions() == null)
+            return false;
+        if (other.getMetadataOptions() != null && other.getMetadataOptions().equals(this.getMetadataOptions()) == false)
+            return false;
+        if (other.getEnclaveOptions() == null ^ this.getEnclaveOptions() == null)
+            return false;
+        if (other.getEnclaveOptions() != null && other.getEnclaveOptions().equals(this.getEnclaveOptions()) == false)
+            return false;
+        if (other.getInstanceRequirements() == null ^ this.getInstanceRequirements() == null)
+            return false;
+        if (other.getInstanceRequirements() != null && other.getInstanceRequirements().equals(this.getInstanceRequirements()) == false)
+            return false;
+        if (other.getPrivateDnsNameOptions() == null ^ this.getPrivateDnsNameOptions() == null)
+            return false;
+        if (other.getPrivateDnsNameOptions() != null && other.getPrivateDnsNameOptions().equals(this.getPrivateDnsNameOptions()) == false)
+            return false;
+        if (other.getMaintenanceOptions() == null ^ this.getMaintenanceOptions() == null)
+            return false;
+        if (other.getMaintenanceOptions() != null && other.getMaintenanceOptions().equals(this.getMaintenanceOptions()) == false)
+            return false;
+        if (other.getDisableApiStop() == null ^ this.getDisableApiStop() == null)
+            return false;
+        if (other.getDisableApiStop() != null && other.getDisableApiStop().equals(this.getDisableApiStop()) == false)
+            return false;
         return true;
     }
 
@@ -2189,6 +3642,12 @@ public class RequestLaunchTemplateData implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getCapacityReservationSpecification() == null) ? 0 : getCapacityReservationSpecification().hashCode());
         hashCode = prime * hashCode + ((getLicenseSpecifications() == null) ? 0 : getLicenseSpecifications().hashCode());
         hashCode = prime * hashCode + ((getHibernationOptions() == null) ? 0 : getHibernationOptions().hashCode());
+        hashCode = prime * hashCode + ((getMetadataOptions() == null) ? 0 : getMetadataOptions().hashCode());
+        hashCode = prime * hashCode + ((getEnclaveOptions() == null) ? 0 : getEnclaveOptions().hashCode());
+        hashCode = prime * hashCode + ((getInstanceRequirements() == null) ? 0 : getInstanceRequirements().hashCode());
+        hashCode = prime * hashCode + ((getPrivateDnsNameOptions() == null) ? 0 : getPrivateDnsNameOptions().hashCode());
+        hashCode = prime * hashCode + ((getMaintenanceOptions() == null) ? 0 : getMaintenanceOptions().hashCode());
+        hashCode = prime * hashCode + ((getDisableApiStop() == null) ? 0 : getDisableApiStop().hashCode());
         return hashCode;
     }
 

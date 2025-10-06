@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,23 +18,38 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
  * The list of information about logs to be enabled for the specified broker.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/Logs" target="_top">AWS API Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class Logs implements Serializable, Cloneable, StructuredPojo {
 
-    /** Enables audit logging. Every user management action made using JMX or the ActiveMQ Web Console is logged. */
+    /**
+     * <p>
+     * Enables audit logging. Every user management action made using JMX or the ActiveMQ Web Console is logged. Does
+     * not apply to RabbitMQ brokers.
+     * </p>
+     */
     private Boolean audit;
-    /** Enables general logging. */
+    /**
+     * <p>
+     * Enables general logging.
+     * </p>
+     */
     private Boolean general;
 
     /**
-     * Enables audit logging. Every user management action made using JMX or the ActiveMQ Web Console is logged.
+     * <p>
+     * Enables audit logging. Every user management action made using JMX or the ActiveMQ Web Console is logged. Does
+     * not apply to RabbitMQ brokers.
+     * </p>
      * 
      * @param audit
      *        Enables audit logging. Every user management action made using JMX or the ActiveMQ Web Console is logged.
+     *        Does not apply to RabbitMQ brokers.
      */
 
     public void setAudit(Boolean audit) {
@@ -42,9 +57,13 @@ public class Logs implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Enables audit logging. Every user management action made using JMX or the ActiveMQ Web Console is logged.
+     * <p>
+     * Enables audit logging. Every user management action made using JMX or the ActiveMQ Web Console is logged. Does
+     * not apply to RabbitMQ brokers.
+     * </p>
      * 
      * @return Enables audit logging. Every user management action made using JMX or the ActiveMQ Web Console is logged.
+     *         Does not apply to RabbitMQ brokers.
      */
 
     public Boolean getAudit() {
@@ -52,10 +71,14 @@ public class Logs implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Enables audit logging. Every user management action made using JMX or the ActiveMQ Web Console is logged.
+     * <p>
+     * Enables audit logging. Every user management action made using JMX or the ActiveMQ Web Console is logged. Does
+     * not apply to RabbitMQ brokers.
+     * </p>
      * 
      * @param audit
      *        Enables audit logging. Every user management action made using JMX or the ActiveMQ Web Console is logged.
+     *        Does not apply to RabbitMQ brokers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -65,9 +88,13 @@ public class Logs implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Enables audit logging. Every user management action made using JMX or the ActiveMQ Web Console is logged.
+     * <p>
+     * Enables audit logging. Every user management action made using JMX or the ActiveMQ Web Console is logged. Does
+     * not apply to RabbitMQ brokers.
+     * </p>
      * 
      * @return Enables audit logging. Every user management action made using JMX or the ActiveMQ Web Console is logged.
+     *         Does not apply to RabbitMQ brokers.
      */
 
     public Boolean isAudit() {
@@ -75,7 +102,9 @@ public class Logs implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
      * Enables general logging.
+     * </p>
      * 
      * @param general
      *        Enables general logging.
@@ -86,7 +115,9 @@ public class Logs implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
      * Enables general logging.
+     * </p>
      * 
      * @return Enables general logging.
      */
@@ -96,7 +127,9 @@ public class Logs implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
      * Enables general logging.
+     * </p>
      * 
      * @param general
      *        Enables general logging.
@@ -109,7 +142,9 @@ public class Logs implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
      * Enables general logging.
+     * </p>
      * 
      * @return Enables general logging.
      */

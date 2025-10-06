@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -62,7 +62,9 @@ public class ConnectionInputJsonUnmarshaller implements Unmarshaller<ConnectionI
                 }
                 if (context.testExpression("MatchCriteria", targetDepth)) {
                     context.nextToken();
-                    connectionInput.setMatchCriteria(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    connectionInput.setMatchCriteria(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("ConnectionProperties", targetDepth)) {
                     context.nextToken();
@@ -72,6 +74,14 @@ public class ConnectionInputJsonUnmarshaller implements Unmarshaller<ConnectionI
                 if (context.testExpression("PhysicalConnectionRequirements", targetDepth)) {
                     context.nextToken();
                     connectionInput.setPhysicalConnectionRequirements(PhysicalConnectionRequirementsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("AuthenticationConfiguration", targetDepth)) {
+                    context.nextToken();
+                    connectionInput.setAuthenticationConfiguration(AuthenticationConfigurationInputJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ValidateCredentials", targetDepth)) {
+                    context.nextToken();
+                    connectionInput.setValidateCredentials(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

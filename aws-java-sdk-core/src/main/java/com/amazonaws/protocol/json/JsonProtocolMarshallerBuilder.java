@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,9 +20,9 @@ import com.amazonaws.protocol.MarshallingType;
 import com.amazonaws.protocol.OperationInfo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 import com.amazonaws.protocol.ProtocolRequestMarshaller;
+import com.amazonaws.protocol.json.internal.EmptyBodyJsonMarshaller;
 import com.amazonaws.protocol.json.internal.JsonProtocolMarshaller;
 import com.amazonaws.protocol.json.internal.MarshallerRegistry;
-import com.amazonaws.protocol.json.internal.NullAsEmptyBodyProtocolRequestMarshaller;
 import com.amazonaws.protocol.json.internal.SimpleTypeJsonMarshallers;
 
 /**
@@ -36,9 +36,10 @@ public class JsonProtocolMarshallerBuilder<T> {
     private StructuredJsonGenerator jsonGenerator;
     private String contentType;
     private OperationInfo operationInfo;
-    private boolean sendExplicitNullForPayload;
     private T originalRequest;
     private MarshallerRegistry.Builder marshallerRegistry;
+    private EmptyBodyJsonMarshaller emptyBodyMarshaller;
+    private boolean hasAwsQueryCompatible;
 
     public static <T> JsonProtocolMarshallerBuilder<T> standard() {
         return new JsonProtocolMarshallerBuilder<T>();
@@ -59,17 +60,35 @@ public class JsonProtocolMarshallerBuilder<T> {
         return this;
     }
 
-    /**
-     * @param sendExplicitNullForPayload True if an explicit JSON null should be sent as the body when the
-     *                                   payload member is null. See {@link NullAsEmptyBodyProtocolRequestMarshaller}.
-     */
-    public JsonProtocolMarshallerBuilder<T> sendExplicitNullForPayload(boolean sendExplicitNullForPayload) {
-        this.sendExplicitNullForPayload = sendExplicitNullForPayload;
+    public JsonProtocolMarshallerBuilder<T> originalRequest(T originalRequest) {
+        this.originalRequest = originalRequest;
         return this;
     }
 
-    public JsonProtocolMarshallerBuilder<T> originalRequest(T originalRequest) {
-        this.originalRequest = originalRequest;
+    /**
+     * Has been used to direct whether an explicit JSON null should be sent as the body when the payload member is null,
+     * but now does nothing. Deprecated in favor of directly supplying a marshaller for empty bodies.
+     *
+     * @see #emptyBodyMarshaller(EmptyBodyJsonMarshaller)
+     */
+    @Deprecated
+    public JsonProtocolMarshallerBuilder<T> sendExplicitNullForPayload(boolean sendExplicitNullForPayload) {
+        return this;
+    }
+
+    /**
+     * Sets the marshaller to use when a request contains an explicit member but that member is null.
+     *
+     * @param emptyBodyMarshaller An empty body marshaller
+     * @return This builder for method chaining
+     */
+    public JsonProtocolMarshallerBuilder<T> emptyBodyMarshaller(EmptyBodyJsonMarshaller emptyBodyMarshaller) {
+        this.emptyBodyMarshaller = emptyBodyMarshaller;
+        return this;
+    }
+
+    public JsonProtocolMarshallerBuilder<T> withAwsQueryCompatible(boolean hasAwsQueryCompatible) {
+        this.hasAwsQueryCompatible = hasAwsQueryCompatible;
         return this;
     }
 
@@ -93,13 +112,13 @@ public class JsonProtocolMarshallerBuilder<T> {
     }
 
     public ProtocolRequestMarshaller<T> build() {
-        final ProtocolRequestMarshaller<T> protocolMarshaller = new JsonProtocolMarshaller<T>(jsonGenerator,
-                                                                                              contentType,
-                                                                                              operationInfo,
-                                                                                              originalRequest,
-                                                                                              marshallerRegistry);
-        return sendExplicitNullForPayload ? protocolMarshaller :
-                new NullAsEmptyBodyProtocolRequestMarshaller<T>(protocolMarshaller);
+        return new JsonProtocolMarshaller<T>(jsonGenerator,
+                                             contentType,
+                                             operationInfo,
+                                             originalRequest,
+                                             marshallerRegistry,
+                                             emptyBodyMarshaller,
+                                             hasAwsQueryCompatible);
     }
 
 }

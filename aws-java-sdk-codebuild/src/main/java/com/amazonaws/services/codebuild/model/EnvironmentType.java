@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,7 +21,12 @@ import javax.annotation.Generated;
 public enum EnvironmentType {
 
     WINDOWS_CONTAINER("WINDOWS_CONTAINER"),
-    LINUX_CONTAINER("LINUX_CONTAINER");
+    LINUX_CONTAINER("LINUX_CONTAINER"),
+    LINUX_GPU_CONTAINER("LINUX_GPU_CONTAINER"),
+    ARM_CONTAINER("ARM_CONTAINER"),
+    WINDOWS_SERVER_2019_CONTAINER("WINDOWS_SERVER_2019_CONTAINER"),
+    LINUX_LAMBDA_CONTAINER("LINUX_LAMBDA_CONTAINER"),
+    ARM_LAMBDA_CONTAINER("ARM_LAMBDA_CONTAINER");
 
     private String value;
 

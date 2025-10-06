@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,7 +46,9 @@ public class SetInstanceHealthRequest extends com.amazonaws.AmazonWebServiceRequ
      * respect the grace period associated with the group.
      * </p>
      * <p>
-     * For more information about the health check grace period, see <a>CreateAutoScalingGroup</a>.
+     * For more information about the health check grace period, see <a
+     * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/health-check-grace-period.html">Set the health check
+     * grace period for an Auto Scaling group</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      */
     private Boolean shouldRespectGracePeriod;
@@ -150,7 +152,9 @@ public class SetInstanceHealthRequest extends com.amazonaws.AmazonWebServiceRequ
      * respect the grace period associated with the group.
      * </p>
      * <p>
-     * For more information about the health check grace period, see <a>CreateAutoScalingGroup</a>.
+     * For more information about the health check grace period, see <a
+     * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/health-check-grace-period.html">Set the health check
+     * grace period for an Auto Scaling group</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      * 
      * @param shouldRespectGracePeriod
@@ -158,7 +162,9 @@ public class SetInstanceHealthRequest extends com.amazonaws.AmazonWebServiceRequ
      *        for the group, by default, this call respects the grace period. Set this to <code>False</code>, to have
      *        the call not respect the grace period associated with the group.</p>
      *        <p>
-     *        For more information about the health check grace period, see <a>CreateAutoScalingGroup</a>.
+     *        For more information about the health check grace period, see <a
+     *        href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/health-check-grace-period.html">Set the health
+     *        check grace period for an Auto Scaling group</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public void setShouldRespectGracePeriod(Boolean shouldRespectGracePeriod) {
@@ -172,14 +178,18 @@ public class SetInstanceHealthRequest extends com.amazonaws.AmazonWebServiceRequ
      * respect the grace period associated with the group.
      * </p>
      * <p>
-     * For more information about the health check grace period, see <a>CreateAutoScalingGroup</a>.
+     * For more information about the health check grace period, see <a
+     * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/health-check-grace-period.html">Set the health check
+     * grace period for an Auto Scaling group</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      * 
      * @return If the Auto Scaling group of the specified instance has a <code>HealthCheckGracePeriod</code> specified
      *         for the group, by default, this call respects the grace period. Set this to <code>False</code>, to have
      *         the call not respect the grace period associated with the group.</p>
      *         <p>
-     *         For more information about the health check grace period, see <a>CreateAutoScalingGroup</a>.
+     *         For more information about the health check grace period, see <a
+     *         href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/health-check-grace-period.html">Set the
+     *         health check grace period for an Auto Scaling group</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public Boolean getShouldRespectGracePeriod() {
@@ -193,7 +203,9 @@ public class SetInstanceHealthRequest extends com.amazonaws.AmazonWebServiceRequ
      * respect the grace period associated with the group.
      * </p>
      * <p>
-     * For more information about the health check grace period, see <a>CreateAutoScalingGroup</a>.
+     * For more information about the health check grace period, see <a
+     * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/health-check-grace-period.html">Set the health check
+     * grace period for an Auto Scaling group</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      * 
      * @param shouldRespectGracePeriod
@@ -201,7 +213,9 @@ public class SetInstanceHealthRequest extends com.amazonaws.AmazonWebServiceRequ
      *        for the group, by default, this call respects the grace period. Set this to <code>False</code>, to have
      *        the call not respect the grace period associated with the group.</p>
      *        <p>
-     *        For more information about the health check grace period, see <a>CreateAutoScalingGroup</a>.
+     *        For more information about the health check grace period, see <a
+     *        href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/health-check-grace-period.html">Set the health
+     *        check grace period for an Auto Scaling group</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -217,14 +231,18 @@ public class SetInstanceHealthRequest extends com.amazonaws.AmazonWebServiceRequ
      * respect the grace period associated with the group.
      * </p>
      * <p>
-     * For more information about the health check grace period, see <a>CreateAutoScalingGroup</a>.
+     * For more information about the health check grace period, see <a
+     * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/health-check-grace-period.html">Set the health check
+     * grace period for an Auto Scaling group</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      * 
      * @return If the Auto Scaling group of the specified instance has a <code>HealthCheckGracePeriod</code> specified
      *         for the group, by default, this call respects the grace period. Set this to <code>False</code>, to have
      *         the call not respect the grace period associated with the group.</p>
      *         <p>
-     *         For more information about the health check grace period, see <a>CreateAutoScalingGroup</a>.
+     *         For more information about the health check grace period, see <a
+     *         href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/health-check-grace-period.html">Set the
+     *         health check grace period for an Auto Scaling group</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public Boolean isShouldRespectGracePeriod() {

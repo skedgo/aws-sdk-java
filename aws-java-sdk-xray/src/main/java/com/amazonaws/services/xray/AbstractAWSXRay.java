@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,6 +58,11 @@ public class AbstractAWSXRay implements AWSXRay {
     }
 
     @Override
+    public DeleteResourcePolicyResult deleteResourcePolicy(DeleteResourcePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteSamplingRuleResult deleteSamplingRule(DeleteSamplingRuleRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -74,6 +79,26 @@ public class AbstractAWSXRay implements AWSXRay {
 
     @Override
     public GetGroupsResult getGroups(GetGroupsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetInsightResult getInsight(GetInsightRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetInsightEventsResult getInsightEvents(GetInsightEventsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetInsightImpactGraphResult getInsightImpactGraph(GetInsightImpactGraphRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetInsightSummariesResult getInsightSummaries(GetInsightSummariesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -113,7 +138,22 @@ public class AbstractAWSXRay implements AWSXRay {
     }
 
     @Override
+    public ListResourcePoliciesResult listResourcePolicies(ListResourcePoliciesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public PutEncryptionConfigResult putEncryptionConfig(PutEncryptionConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutResourcePolicyResult putResourcePolicy(PutResourcePolicyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -124,6 +164,16 @@ public class AbstractAWSXRay implements AWSXRay {
 
     @Override
     public PutTraceSegmentsResult putTraceSegments(PutTraceSegmentsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

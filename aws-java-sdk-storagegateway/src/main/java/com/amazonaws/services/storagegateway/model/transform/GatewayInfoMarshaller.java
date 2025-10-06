@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,6 +41,14 @@ public class GatewayInfoMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Ec2InstanceId").build();
     private static final MarshallingInfo<String> EC2INSTANCEREGION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Ec2InstanceRegion").build();
+    private static final MarshallingInfo<String> HOSTENVIRONMENT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("HostEnvironment").build();
+    private static final MarshallingInfo<String> HOSTENVIRONMENTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("HostEnvironmentId").build();
+    private static final MarshallingInfo<String> DEPRECATIONDATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DeprecationDate").build();
+    private static final MarshallingInfo<String> SOFTWAREVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SoftwareVersion").build();
 
     private static final GatewayInfoMarshaller instance = new GatewayInfoMarshaller();
 
@@ -65,6 +73,10 @@ public class GatewayInfoMarshaller {
             protocolMarshaller.marshall(gatewayInfo.getGatewayName(), GATEWAYNAME_BINDING);
             protocolMarshaller.marshall(gatewayInfo.getEc2InstanceId(), EC2INSTANCEID_BINDING);
             protocolMarshaller.marshall(gatewayInfo.getEc2InstanceRegion(), EC2INSTANCEREGION_BINDING);
+            protocolMarshaller.marshall(gatewayInfo.getHostEnvironment(), HOSTENVIRONMENT_BINDING);
+            protocolMarshaller.marshall(gatewayInfo.getHostEnvironmentId(), HOSTENVIRONMENTID_BINDING);
+            protocolMarshaller.marshall(gatewayInfo.getDeprecationDate(), DEPRECATIONDATE_BINDING);
+            protocolMarshaller.marshall(gatewayInfo.getSoftwareVersion(), SOFTWAREVERSION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

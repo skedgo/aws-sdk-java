@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -64,12 +64,16 @@ public class GetDeliverabilityDashboardOptionsResultJsonUnmarshaller implements 
                 if (context.testExpression("ActiveSubscribedDomains", targetDepth)) {
                     context.nextToken();
                     getDeliverabilityDashboardOptionsResult.setActiveSubscribedDomains(new ListUnmarshaller<DomainDeliverabilityTrackingOption>(
-                            DomainDeliverabilityTrackingOptionJsonUnmarshaller.getInstance()).unmarshall(context));
+                            DomainDeliverabilityTrackingOptionJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("PendingExpirationSubscribedDomains", targetDepth)) {
                     context.nextToken();
                     getDeliverabilityDashboardOptionsResult.setPendingExpirationSubscribedDomains(new ListUnmarshaller<DomainDeliverabilityTrackingOption>(
-                            DomainDeliverabilityTrackingOptionJsonUnmarshaller.getInstance()).unmarshall(context));
+                            DomainDeliverabilityTrackingOptionJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

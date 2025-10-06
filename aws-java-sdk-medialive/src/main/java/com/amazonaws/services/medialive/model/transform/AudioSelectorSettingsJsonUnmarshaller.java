@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,10 @@ public class AudioSelectorSettingsJsonUnmarshaller implements Unmarshaller<Audio
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("audioHlsRenditionSelection", targetDepth)) {
+                    context.nextToken();
+                    audioSelectorSettings.setAudioHlsRenditionSelection(AudioHlsRenditionSelectionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("audioLanguageSelection", targetDepth)) {
                     context.nextToken();
                     audioSelectorSettings.setAudioLanguageSelection(AudioLanguageSelectionJsonUnmarshaller.getInstance().unmarshall(context));
@@ -55,6 +59,10 @@ public class AudioSelectorSettingsJsonUnmarshaller implements Unmarshaller<Audio
                 if (context.testExpression("audioPidSelection", targetDepth)) {
                     context.nextToken();
                     audioSelectorSettings.setAudioPidSelection(AudioPidSelectionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("audioTrackSelection", targetDepth)) {
+                    context.nextToken();
+                    audioSelectorSettings.setAudioTrackSelection(AudioTrackSelectionJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

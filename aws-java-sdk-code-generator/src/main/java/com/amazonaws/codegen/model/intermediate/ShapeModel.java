@@ -35,6 +35,8 @@ public class ShapeModel extends DocumentationModel {
     // shapeName might be later modified by the customization.
     private String shapeName;
     // the local variable name inside marshaller/unmarshaller implementation
+    private String fullyQualifiedName;
+    private String packageName;
     private boolean deprecated;
     private String type;
     private List<String> required;
@@ -48,6 +50,8 @@ public class ShapeModel extends DocumentationModel {
     private String requestSignerClassFqcn;
     // For AWS service requests
     private String signerType;
+
+    private List<String> endpointDiscoveryMembers;
 
     private List<MemberModel> members;
     // Any constructor in addition to the default no-arg
@@ -73,6 +77,22 @@ public class ShapeModel extends DocumentationModel {
 
     public void setShapeName(String shapeName) {
         this.shapeName = shapeName;
+    }
+
+    public String getFullyQualifiedName() {
+        return fullyQualifiedName;
+    }
+
+    public void setFullyQualifiedName(String fullyQualifiedName) {
+        this.fullyQualifiedName = fullyQualifiedName;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 
     public boolean isDeprecated() {
@@ -266,6 +286,21 @@ public class ShapeModel extends DocumentationModel {
             }
         }
         return null;
+    }
+
+    public List<String> getEndpointDiscoveryMembers() {
+        return endpointDiscoveryMembers;
+    }
+
+    public void setEndpointDiscoveryMembers(List<String> endpointDiscoveryMembers) {
+        this.endpointDiscoveryMembers = endpointDiscoveryMembers;
+    }
+
+    public void addEndpointDiscoveryMember(String endpointDiscoveryMember) {
+        if (this.endpointDiscoveryMembers == null) {
+            this.endpointDiscoveryMembers = new ArrayList<String>();
+        }
+        endpointDiscoveryMembers.add(endpointDiscoveryMember);
     }
 
     public List<MemberModel> getMembers() {

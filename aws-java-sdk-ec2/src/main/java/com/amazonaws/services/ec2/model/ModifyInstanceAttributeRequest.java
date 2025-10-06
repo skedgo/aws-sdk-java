@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,30 +28,41 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Specifies whether source/destination checking is enabled. A value of <code>true</code> means that checking is
-     * enabled, and <code>false</code> means that checking is disabled. This value must be <code>false</code> for a NAT
-     * instance to perform NAT.
+     * Enable or disable source/destination checks, which ensure that the instance is either the source or the
+     * destination of any traffic that it receives. If the value is <code>true</code>, source/destination checks are
+     * enabled; otherwise, they are disabled. The default value is <code>true</code>. You must disable
+     * source/destination checks if the instance runs services such as network address translation, routing, or
+     * firewalls.
      * </p>
      */
     private Boolean sourceDestCheck;
     /**
      * <p>
-     * The name of the attribute.
+     * The name of the attribute to modify.
      * </p>
+     * <important>
+     * <p>
+     * You can modify the following attributes only: <code>disableApiTermination</code> | <code>instanceType</code> |
+     * <code>kernel</code> | <code>ramdisk</code> | <code>instanceInitiatedShutdownBehavior</code> |
+     * <code>blockDeviceMapping</code> | <code>userData</code> | <code>sourceDestCheck</code> | <code>groupSet</code> |
+     * <code>ebsOptimized</code> | <code>sriovNetSupport</code> | <code>enaSupport</code> | <code>nvmeSupport</code> |
+     * <code>disableApiStop</code> | <code>enclaveOptions</code>
+     * </p>
+     * </important>
      */
     private String attribute;
     /**
      * <p>
      * Modifies the <code>DeleteOnTermination</code> attribute for volumes that are currently attached. The volume must
      * be owned by the caller. If no value is specified for <code>DeleteOnTermination</code>, the default is
-     * <code>true</code> and the volume is deleted when the instance is terminated.
+     * <code>true</code> and the volume is deleted when the instance is terminated. You can't modify the
+     * <code>DeleteOnTermination</code> attribute for volumes that are attached to Fargate tasks.
      * </p>
      * <p>
      * To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the instance.
      * For more information, see <a href=
      * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
-     * >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud User
-     * Guide</i>.
+     * >Update the block device mapping when launching an instance</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<InstanceBlockDeviceMappingSpecification> blockDeviceMappings;
@@ -82,8 +93,8 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     private Boolean enaSupport;
     /**
      * <p>
-     * [EC2-VPC] Changes the security groups of the instance. You must specify at least one security group, even if it's
-     * just the default security group for the VPC. You must specify the security group ID, not the security group name.
+     * Replaces the security groups of the instance with the specified security groups. You must specify the ID of at
+     * least one security group, even if it's just the default security group for the VPC.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> groups;
@@ -103,8 +114,9 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Changes the instance type to the specified value. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
-     * instance type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the
+     * <i>Amazon EC2 User Guide</i>. If the instance type is not valid, the error returned is
+     * <code>InvalidInstanceAttributeValue</code>.
      * </p>
      */
     private String instanceType;
@@ -140,9 +152,10 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     private String sriovNetSupport;
     /**
      * <p>
-     * Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool,
-     * base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     * base64-encoded text.
+     * Changes the instance's user data to the specified value. User data must be base64-encoded. Depending on the tool
+     * or SDK that you're using, the base64-encoding might be performed for you. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-add-user-data.html">Work with instance
+     * user data</a>.
      * </p>
      */
     private String userData;
@@ -152,6 +165,15 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * </p>
      */
     private String value;
+    /**
+     * <p>
+     * Indicates whether an instance is enabled for stop protection. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for
+     * your instance</a>.
+     * </p>
+     * <p/>
+     */
+    private Boolean disableApiStop;
 
     /**
      * Default constructor for ModifyInstanceAttributeRequest object. Callers should use the setter or fluent setter
@@ -167,7 +189,15 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * @param instanceId
      *        The ID of the instance.
      * @param attribute
-     *        The name of the attribute.
+     *        The name of the attribute to modify.</p> <important>
+     *        <p>
+     *        You can modify the following attributes only: <code>disableApiTermination</code> |
+     *        <code>instanceType</code> | <code>kernel</code> | <code>ramdisk</code> |
+     *        <code>instanceInitiatedShutdownBehavior</code> | <code>blockDeviceMapping</code> | <code>userData</code> |
+     *        <code>sourceDestCheck</code> | <code>groupSet</code> | <code>ebsOptimized</code> |
+     *        <code>sriovNetSupport</code> | <code>enaSupport</code> | <code>nvmeSupport</code> |
+     *        <code>disableApiStop</code> | <code>enclaveOptions</code>
+     *        </p>
      */
     public ModifyInstanceAttributeRequest(String instanceId, String attribute) {
         setInstanceId(instanceId);
@@ -181,7 +211,15 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * @param instanceId
      *        The ID of the instance.
      * @param attribute
-     *        The name of the attribute.
+     *        The name of the attribute to modify.</p> <important>
+     *        <p>
+     *        You can modify the following attributes only: <code>disableApiTermination</code> |
+     *        <code>instanceType</code> | <code>kernel</code> | <code>ramdisk</code> |
+     *        <code>instanceInitiatedShutdownBehavior</code> | <code>blockDeviceMapping</code> | <code>userData</code> |
+     *        <code>sourceDestCheck</code> | <code>groupSet</code> | <code>ebsOptimized</code> |
+     *        <code>sriovNetSupport</code> | <code>enaSupport</code> | <code>nvmeSupport</code> |
+     *        <code>disableApiStop</code> | <code>enclaveOptions</code>
+     *        </p>
      */
     public ModifyInstanceAttributeRequest(String instanceId, InstanceAttributeName attribute) {
         setInstanceId(instanceId);
@@ -190,15 +228,19 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Specifies whether source/destination checking is enabled. A value of <code>true</code> means that checking is
-     * enabled, and <code>false</code> means that checking is disabled. This value must be <code>false</code> for a NAT
-     * instance to perform NAT.
+     * Enable or disable source/destination checks, which ensure that the instance is either the source or the
+     * destination of any traffic that it receives. If the value is <code>true</code>, source/destination checks are
+     * enabled; otherwise, they are disabled. The default value is <code>true</code>. You must disable
+     * source/destination checks if the instance runs services such as network address translation, routing, or
+     * firewalls.
      * </p>
      * 
      * @param sourceDestCheck
-     *        Specifies whether source/destination checking is enabled. A value of <code>true</code> means that checking
-     *        is enabled, and <code>false</code> means that checking is disabled. This value must be <code>false</code>
-     *        for a NAT instance to perform NAT.
+     *        Enable or disable source/destination checks, which ensure that the instance is either the source or the
+     *        destination of any traffic that it receives. If the value is <code>true</code>, source/destination checks
+     *        are enabled; otherwise, they are disabled. The default value is <code>true</code>. You must disable
+     *        source/destination checks if the instance runs services such as network address translation, routing, or
+     *        firewalls.
      */
 
     public void setSourceDestCheck(Boolean sourceDestCheck) {
@@ -207,14 +249,18 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Specifies whether source/destination checking is enabled. A value of <code>true</code> means that checking is
-     * enabled, and <code>false</code> means that checking is disabled. This value must be <code>false</code> for a NAT
-     * instance to perform NAT.
+     * Enable or disable source/destination checks, which ensure that the instance is either the source or the
+     * destination of any traffic that it receives. If the value is <code>true</code>, source/destination checks are
+     * enabled; otherwise, they are disabled. The default value is <code>true</code>. You must disable
+     * source/destination checks if the instance runs services such as network address translation, routing, or
+     * firewalls.
      * </p>
      * 
-     * @return Specifies whether source/destination checking is enabled. A value of <code>true</code> means that
-     *         checking is enabled, and <code>false</code> means that checking is disabled. This value must be
-     *         <code>false</code> for a NAT instance to perform NAT.
+     * @return Enable or disable source/destination checks, which ensure that the instance is either the source or the
+     *         destination of any traffic that it receives. If the value is <code>true</code>, source/destination checks
+     *         are enabled; otherwise, they are disabled. The default value is <code>true</code>. You must disable
+     *         source/destination checks if the instance runs services such as network address translation, routing, or
+     *         firewalls.
      */
 
     public Boolean getSourceDestCheck() {
@@ -223,15 +269,19 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Specifies whether source/destination checking is enabled. A value of <code>true</code> means that checking is
-     * enabled, and <code>false</code> means that checking is disabled. This value must be <code>false</code> for a NAT
-     * instance to perform NAT.
+     * Enable or disable source/destination checks, which ensure that the instance is either the source or the
+     * destination of any traffic that it receives. If the value is <code>true</code>, source/destination checks are
+     * enabled; otherwise, they are disabled. The default value is <code>true</code>. You must disable
+     * source/destination checks if the instance runs services such as network address translation, routing, or
+     * firewalls.
      * </p>
      * 
      * @param sourceDestCheck
-     *        Specifies whether source/destination checking is enabled. A value of <code>true</code> means that checking
-     *        is enabled, and <code>false</code> means that checking is disabled. This value must be <code>false</code>
-     *        for a NAT instance to perform NAT.
+     *        Enable or disable source/destination checks, which ensure that the instance is either the source or the
+     *        destination of any traffic that it receives. If the value is <code>true</code>, source/destination checks
+     *        are enabled; otherwise, they are disabled. The default value is <code>true</code>. You must disable
+     *        source/destination checks if the instance runs services such as network address translation, routing, or
+     *        firewalls.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -242,14 +292,18 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Specifies whether source/destination checking is enabled. A value of <code>true</code> means that checking is
-     * enabled, and <code>false</code> means that checking is disabled. This value must be <code>false</code> for a NAT
-     * instance to perform NAT.
+     * Enable or disable source/destination checks, which ensure that the instance is either the source or the
+     * destination of any traffic that it receives. If the value is <code>true</code>, source/destination checks are
+     * enabled; otherwise, they are disabled. The default value is <code>true</code>. You must disable
+     * source/destination checks if the instance runs services such as network address translation, routing, or
+     * firewalls.
      * </p>
      * 
-     * @return Specifies whether source/destination checking is enabled. A value of <code>true</code> means that
-     *         checking is enabled, and <code>false</code> means that checking is disabled. This value must be
-     *         <code>false</code> for a NAT instance to perform NAT.
+     * @return Enable or disable source/destination checks, which ensure that the instance is either the source or the
+     *         destination of any traffic that it receives. If the value is <code>true</code>, source/destination checks
+     *         are enabled; otherwise, they are disabled. The default value is <code>true</code>. You must disable
+     *         source/destination checks if the instance runs services such as network address translation, routing, or
+     *         firewalls.
      */
 
     public Boolean isSourceDestCheck() {
@@ -258,11 +312,28 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The name of the attribute.
+     * The name of the attribute to modify.
      * </p>
+     * <important>
+     * <p>
+     * You can modify the following attributes only: <code>disableApiTermination</code> | <code>instanceType</code> |
+     * <code>kernel</code> | <code>ramdisk</code> | <code>instanceInitiatedShutdownBehavior</code> |
+     * <code>blockDeviceMapping</code> | <code>userData</code> | <code>sourceDestCheck</code> | <code>groupSet</code> |
+     * <code>ebsOptimized</code> | <code>sriovNetSupport</code> | <code>enaSupport</code> | <code>nvmeSupport</code> |
+     * <code>disableApiStop</code> | <code>enclaveOptions</code>
+     * </p>
+     * </important>
      * 
      * @param attribute
-     *        The name of the attribute.
+     *        The name of the attribute to modify.</p> <important>
+     *        <p>
+     *        You can modify the following attributes only: <code>disableApiTermination</code> |
+     *        <code>instanceType</code> | <code>kernel</code> | <code>ramdisk</code> |
+     *        <code>instanceInitiatedShutdownBehavior</code> | <code>blockDeviceMapping</code> | <code>userData</code> |
+     *        <code>sourceDestCheck</code> | <code>groupSet</code> | <code>ebsOptimized</code> |
+     *        <code>sriovNetSupport</code> | <code>enaSupport</code> | <code>nvmeSupport</code> |
+     *        <code>disableApiStop</code> | <code>enclaveOptions</code>
+     *        </p>
      * @see InstanceAttributeName
      */
 
@@ -272,10 +343,27 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The name of the attribute.
+     * The name of the attribute to modify.
      * </p>
+     * <important>
+     * <p>
+     * You can modify the following attributes only: <code>disableApiTermination</code> | <code>instanceType</code> |
+     * <code>kernel</code> | <code>ramdisk</code> | <code>instanceInitiatedShutdownBehavior</code> |
+     * <code>blockDeviceMapping</code> | <code>userData</code> | <code>sourceDestCheck</code> | <code>groupSet</code> |
+     * <code>ebsOptimized</code> | <code>sriovNetSupport</code> | <code>enaSupport</code> | <code>nvmeSupport</code> |
+     * <code>disableApiStop</code> | <code>enclaveOptions</code>
+     * </p>
+     * </important>
      * 
-     * @return The name of the attribute.
+     * @return The name of the attribute to modify.</p> <important>
+     *         <p>
+     *         You can modify the following attributes only: <code>disableApiTermination</code> |
+     *         <code>instanceType</code> | <code>kernel</code> | <code>ramdisk</code> |
+     *         <code>instanceInitiatedShutdownBehavior</code> | <code>blockDeviceMapping</code> | <code>userData</code>
+     *         | <code>sourceDestCheck</code> | <code>groupSet</code> | <code>ebsOptimized</code> |
+     *         <code>sriovNetSupport</code> | <code>enaSupport</code> | <code>nvmeSupport</code> |
+     *         <code>disableApiStop</code> | <code>enclaveOptions</code>
+     *         </p>
      * @see InstanceAttributeName
      */
 
@@ -285,11 +373,28 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The name of the attribute.
+     * The name of the attribute to modify.
      * </p>
+     * <important>
+     * <p>
+     * You can modify the following attributes only: <code>disableApiTermination</code> | <code>instanceType</code> |
+     * <code>kernel</code> | <code>ramdisk</code> | <code>instanceInitiatedShutdownBehavior</code> |
+     * <code>blockDeviceMapping</code> | <code>userData</code> | <code>sourceDestCheck</code> | <code>groupSet</code> |
+     * <code>ebsOptimized</code> | <code>sriovNetSupport</code> | <code>enaSupport</code> | <code>nvmeSupport</code> |
+     * <code>disableApiStop</code> | <code>enclaveOptions</code>
+     * </p>
+     * </important>
      * 
      * @param attribute
-     *        The name of the attribute.
+     *        The name of the attribute to modify.</p> <important>
+     *        <p>
+     *        You can modify the following attributes only: <code>disableApiTermination</code> |
+     *        <code>instanceType</code> | <code>kernel</code> | <code>ramdisk</code> |
+     *        <code>instanceInitiatedShutdownBehavior</code> | <code>blockDeviceMapping</code> | <code>userData</code> |
+     *        <code>sourceDestCheck</code> | <code>groupSet</code> | <code>ebsOptimized</code> |
+     *        <code>sriovNetSupport</code> | <code>enaSupport</code> | <code>nvmeSupport</code> |
+     *        <code>disableApiStop</code> | <code>enclaveOptions</code>
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceAttributeName
      */
@@ -301,11 +406,28 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The name of the attribute.
+     * The name of the attribute to modify.
      * </p>
+     * <important>
+     * <p>
+     * You can modify the following attributes only: <code>disableApiTermination</code> | <code>instanceType</code> |
+     * <code>kernel</code> | <code>ramdisk</code> | <code>instanceInitiatedShutdownBehavior</code> |
+     * <code>blockDeviceMapping</code> | <code>userData</code> | <code>sourceDestCheck</code> | <code>groupSet</code> |
+     * <code>ebsOptimized</code> | <code>sriovNetSupport</code> | <code>enaSupport</code> | <code>nvmeSupport</code> |
+     * <code>disableApiStop</code> | <code>enclaveOptions</code>
+     * </p>
+     * </important>
      * 
      * @param attribute
-     *        The name of the attribute.
+     *        The name of the attribute to modify.</p> <important>
+     *        <p>
+     *        You can modify the following attributes only: <code>disableApiTermination</code> |
+     *        <code>instanceType</code> | <code>kernel</code> | <code>ramdisk</code> |
+     *        <code>instanceInitiatedShutdownBehavior</code> | <code>blockDeviceMapping</code> | <code>userData</code> |
+     *        <code>sourceDestCheck</code> | <code>groupSet</code> | <code>ebsOptimized</code> |
+     *        <code>sriovNetSupport</code> | <code>enaSupport</code> | <code>nvmeSupport</code> |
+     *        <code>disableApiStop</code> | <code>enclaveOptions</code>
+     *        </p>
      * @see InstanceAttributeName
      */
 
@@ -315,11 +437,28 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The name of the attribute.
+     * The name of the attribute to modify.
      * </p>
+     * <important>
+     * <p>
+     * You can modify the following attributes only: <code>disableApiTermination</code> | <code>instanceType</code> |
+     * <code>kernel</code> | <code>ramdisk</code> | <code>instanceInitiatedShutdownBehavior</code> |
+     * <code>blockDeviceMapping</code> | <code>userData</code> | <code>sourceDestCheck</code> | <code>groupSet</code> |
+     * <code>ebsOptimized</code> | <code>sriovNetSupport</code> | <code>enaSupport</code> | <code>nvmeSupport</code> |
+     * <code>disableApiStop</code> | <code>enclaveOptions</code>
+     * </p>
+     * </important>
      * 
      * @param attribute
-     *        The name of the attribute.
+     *        The name of the attribute to modify.</p> <important>
+     *        <p>
+     *        You can modify the following attributes only: <code>disableApiTermination</code> |
+     *        <code>instanceType</code> | <code>kernel</code> | <code>ramdisk</code> |
+     *        <code>instanceInitiatedShutdownBehavior</code> | <code>blockDeviceMapping</code> | <code>userData</code> |
+     *        <code>sourceDestCheck</code> | <code>groupSet</code> | <code>ebsOptimized</code> |
+     *        <code>sriovNetSupport</code> | <code>enaSupport</code> | <code>nvmeSupport</code> |
+     *        <code>disableApiStop</code> | <code>enclaveOptions</code>
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceAttributeName
      */
@@ -333,25 +472,25 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * Modifies the <code>DeleteOnTermination</code> attribute for volumes that are currently attached. The volume must
      * be owned by the caller. If no value is specified for <code>DeleteOnTermination</code>, the default is
-     * <code>true</code> and the volume is deleted when the instance is terminated.
+     * <code>true</code> and the volume is deleted when the instance is terminated. You can't modify the
+     * <code>DeleteOnTermination</code> attribute for volumes that are attached to Fargate tasks.
      * </p>
      * <p>
      * To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the instance.
      * For more information, see <a href=
      * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
-     * >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud User
-     * Guide</i>.
+     * >Update the block device mapping when launching an instance</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @return Modifies the <code>DeleteOnTermination</code> attribute for volumes that are currently attached. The
      *         volume must be owned by the caller. If no value is specified for <code>DeleteOnTermination</code>, the
-     *         default is <code>true</code> and the volume is deleted when the instance is terminated.</p>
+     *         default is <code>true</code> and the volume is deleted when the instance is terminated. You can't modify
+     *         the <code>DeleteOnTermination</code> attribute for volumes that are attached to Fargate tasks.</p>
      *         <p>
      *         To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the
      *         instance. For more information, see <a href=
      *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
-     *         >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud
-     *         User Guide</i>.
+     *         >Update the block device mapping when launching an instance</a> in the <i>Amazon EC2 User Guide</i>.
      */
 
     public java.util.List<InstanceBlockDeviceMappingSpecification> getBlockDeviceMappings() {
@@ -365,26 +504,26 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * Modifies the <code>DeleteOnTermination</code> attribute for volumes that are currently attached. The volume must
      * be owned by the caller. If no value is specified for <code>DeleteOnTermination</code>, the default is
-     * <code>true</code> and the volume is deleted when the instance is terminated.
+     * <code>true</code> and the volume is deleted when the instance is terminated. You can't modify the
+     * <code>DeleteOnTermination</code> attribute for volumes that are attached to Fargate tasks.
      * </p>
      * <p>
      * To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the instance.
      * For more information, see <a href=
      * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
-     * >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud User
-     * Guide</i>.
+     * >Update the block device mapping when launching an instance</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param blockDeviceMappings
      *        Modifies the <code>DeleteOnTermination</code> attribute for volumes that are currently attached. The
      *        volume must be owned by the caller. If no value is specified for <code>DeleteOnTermination</code>, the
-     *        default is <code>true</code> and the volume is deleted when the instance is terminated.</p>
+     *        default is <code>true</code> and the volume is deleted when the instance is terminated. You can't modify
+     *        the <code>DeleteOnTermination</code> attribute for volumes that are attached to Fargate tasks.</p>
      *        <p>
      *        To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the
      *        instance. For more information, see <a href=
      *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
-     *        >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud
-     *        User Guide</i>.
+     *        >Update the block device mapping when launching an instance</a> in the <i>Amazon EC2 User Guide</i>.
      */
 
     public void setBlockDeviceMappings(java.util.Collection<InstanceBlockDeviceMappingSpecification> blockDeviceMappings) {
@@ -400,14 +539,14 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * Modifies the <code>DeleteOnTermination</code> attribute for volumes that are currently attached. The volume must
      * be owned by the caller. If no value is specified for <code>DeleteOnTermination</code>, the default is
-     * <code>true</code> and the volume is deleted when the instance is terminated.
+     * <code>true</code> and the volume is deleted when the instance is terminated. You can't modify the
+     * <code>DeleteOnTermination</code> attribute for volumes that are attached to Fargate tasks.
      * </p>
      * <p>
      * To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the instance.
      * For more information, see <a href=
      * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
-     * >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud User
-     * Guide</i>.
+     * >Update the block device mapping when launching an instance</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -418,13 +557,13 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * @param blockDeviceMappings
      *        Modifies the <code>DeleteOnTermination</code> attribute for volumes that are currently attached. The
      *        volume must be owned by the caller. If no value is specified for <code>DeleteOnTermination</code>, the
-     *        default is <code>true</code> and the volume is deleted when the instance is terminated.</p>
+     *        default is <code>true</code> and the volume is deleted when the instance is terminated. You can't modify
+     *        the <code>DeleteOnTermination</code> attribute for volumes that are attached to Fargate tasks.</p>
      *        <p>
      *        To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the
      *        instance. For more information, see <a href=
      *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
-     *        >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud
-     *        User Guide</i>.
+     *        >Update the block device mapping when launching an instance</a> in the <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -442,26 +581,26 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * Modifies the <code>DeleteOnTermination</code> attribute for volumes that are currently attached. The volume must
      * be owned by the caller. If no value is specified for <code>DeleteOnTermination</code>, the default is
-     * <code>true</code> and the volume is deleted when the instance is terminated.
+     * <code>true</code> and the volume is deleted when the instance is terminated. You can't modify the
+     * <code>DeleteOnTermination</code> attribute for volumes that are attached to Fargate tasks.
      * </p>
      * <p>
      * To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the instance.
      * For more information, see <a href=
      * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
-     * >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud User
-     * Guide</i>.
+     * >Update the block device mapping when launching an instance</a> in the <i>Amazon EC2 User Guide</i>.
      * </p>
      * 
      * @param blockDeviceMappings
      *        Modifies the <code>DeleteOnTermination</code> attribute for volumes that are currently attached. The
      *        volume must be owned by the caller. If no value is specified for <code>DeleteOnTermination</code>, the
-     *        default is <code>true</code> and the volume is deleted when the instance is terminated.</p>
+     *        default is <code>true</code> and the volume is deleted when the instance is terminated. You can't modify
+     *        the <code>DeleteOnTermination</code> attribute for volumes that are attached to Fargate tasks.</p>
      *        <p>
      *        To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the
      *        instance. For more information, see <a href=
      *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
-     *        >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud
-     *        User Guide</i>.
+     *        >Update the block device mapping when launching an instance</a> in the <i>Amazon EC2 User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -684,13 +823,12 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * [EC2-VPC] Changes the security groups of the instance. You must specify at least one security group, even if it's
-     * just the default security group for the VPC. You must specify the security group ID, not the security group name.
+     * Replaces the security groups of the instance with the specified security groups. You must specify the ID of at
+     * least one security group, even if it's just the default security group for the VPC.
      * </p>
      * 
-     * @return [EC2-VPC] Changes the security groups of the instance. You must specify at least one security group, even
-     *         if it's just the default security group for the VPC. You must specify the security group ID, not the
-     *         security group name.
+     * @return Replaces the security groups of the instance with the specified security groups. You must specify the ID
+     *         of at least one security group, even if it's just the default security group for the VPC.
      */
 
     public java.util.List<String> getGroups() {
@@ -702,14 +840,13 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * [EC2-VPC] Changes the security groups of the instance. You must specify at least one security group, even if it's
-     * just the default security group for the VPC. You must specify the security group ID, not the security group name.
+     * Replaces the security groups of the instance with the specified security groups. You must specify the ID of at
+     * least one security group, even if it's just the default security group for the VPC.
      * </p>
      * 
      * @param groups
-     *        [EC2-VPC] Changes the security groups of the instance. You must specify at least one security group, even
-     *        if it's just the default security group for the VPC. You must specify the security group ID, not the
-     *        security group name.
+     *        Replaces the security groups of the instance with the specified security groups. You must specify the ID
+     *        of at least one security group, even if it's just the default security group for the VPC.
      */
 
     public void setGroups(java.util.Collection<String> groups) {
@@ -723,8 +860,8 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * [EC2-VPC] Changes the security groups of the instance. You must specify at least one security group, even if it's
-     * just the default security group for the VPC. You must specify the security group ID, not the security group name.
+     * Replaces the security groups of the instance with the specified security groups. You must specify the ID of at
+     * least one security group, even if it's just the default security group for the VPC.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -733,9 +870,8 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * </p>
      * 
      * @param groups
-     *        [EC2-VPC] Changes the security groups of the instance. You must specify at least one security group, even
-     *        if it's just the default security group for the VPC. You must specify the security group ID, not the
-     *        security group name.
+     *        Replaces the security groups of the instance with the specified security groups. You must specify the ID
+     *        of at least one security group, even if it's just the default security group for the VPC.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -751,14 +887,13 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * [EC2-VPC] Changes the security groups of the instance. You must specify at least one security group, even if it's
-     * just the default security group for the VPC. You must specify the security group ID, not the security group name.
+     * Replaces the security groups of the instance with the specified security groups. You must specify the ID of at
+     * least one security group, even if it's just the default security group for the VPC.
      * </p>
      * 
      * @param groups
-     *        [EC2-VPC] Changes the security groups of the instance. You must specify at least one security group, even
-     *        if it's just the default security group for the VPC. You must specify the security group ID, not the
-     *        security group name.
+     *        Replaces the security groups of the instance with the specified security groups. You must specify the ID
+     *        of at least one security group, even if it's just the default security group for the VPC.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -856,14 +991,16 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Changes the instance type to the specified value. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
-     * instance type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the
+     * <i>Amazon EC2 User Guide</i>. If the instance type is not valid, the error returned is
+     * <code>InvalidInstanceAttributeValue</code>.
      * </p>
      * 
      * @param instanceType
      *        Changes the instance type to the specified value. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
-     *        instance type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the
+     *        <i>Amazon EC2 User Guide</i>. If the instance type is not valid, the error returned is
+     *        <code>InvalidInstanceAttributeValue</code>.
      */
 
     public void setInstanceType(String instanceType) {
@@ -873,13 +1010,15 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Changes the instance type to the specified value. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
-     * instance type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the
+     * <i>Amazon EC2 User Guide</i>. If the instance type is not valid, the error returned is
+     * <code>InvalidInstanceAttributeValue</code>.
      * </p>
      * 
      * @return Changes the instance type to the specified value. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
-     *         instance type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the
+     *         <i>Amazon EC2 User Guide</i>. If the instance type is not valid, the error returned is
+     *         <code>InvalidInstanceAttributeValue</code>.
      */
 
     public String getInstanceType() {
@@ -889,14 +1028,16 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Changes the instance type to the specified value. For more information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
-     * instance type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the
+     * <i>Amazon EC2 User Guide</i>. If the instance type is not valid, the error returned is
+     * <code>InvalidInstanceAttributeValue</code>.
      * </p>
      * 
      * @param instanceType
      *        Changes the instance type to the specified value. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
-     *        instance type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance types</a> in the
+     *        <i>Amazon EC2 User Guide</i>. If the instance type is not valid, the error returned is
+     *        <code>InvalidInstanceAttributeValue</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1099,15 +1240,17 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool,
-     * base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     * base64-encoded text.
+     * Changes the instance's user data to the specified value. User data must be base64-encoded. Depending on the tool
+     * or SDK that you're using, the base64-encoding might be performed for you. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-add-user-data.html">Work with instance
+     * user data</a>.
      * </p>
      * 
      * @param userData
-     *        Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool,
-     *        base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     *        base64-encoded text.
+     *        Changes the instance's user data to the specified value. User data must be base64-encoded. Depending on
+     *        the tool or SDK that you're using, the base64-encoding might be performed for you. For more information,
+     *        see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-add-user-data.html">Work
+     *        with instance user data</a>.
      */
 
     public void setUserData(String userData) {
@@ -1116,14 +1259,16 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool,
-     * base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     * base64-encoded text.
+     * Changes the instance's user data to the specified value. User data must be base64-encoded. Depending on the tool
+     * or SDK that you're using, the base64-encoding might be performed for you. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-add-user-data.html">Work with instance
+     * user data</a>.
      * </p>
      * 
-     * @return Changes the instance's user data to the specified value. If you are using an AWS SDK or command line
-     *         tool, base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must
-     *         provide base64-encoded text.
+     * @return Changes the instance's user data to the specified value. User data must be base64-encoded. Depending on
+     *         the tool or SDK that you're using, the base64-encoding might be performed for you. For more information,
+     *         see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-add-user-data.html">Work
+     *         with instance user data</a>.
      */
 
     public String getUserData() {
@@ -1132,15 +1277,17 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool,
-     * base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     * base64-encoded text.
+     * Changes the instance's user data to the specified value. User data must be base64-encoded. Depending on the tool
+     * or SDK that you're using, the base64-encoding might be performed for you. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-add-user-data.html">Work with instance
+     * user data</a>.
      * </p>
      * 
      * @param userData
-     *        Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool,
-     *        base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     *        base64-encoded text.
+     *        Changes the instance's user data to the specified value. User data must be base64-encoded. Depending on
+     *        the tool or SDK that you're using, the base64-encoding might be performed for you. For more information,
+     *        see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-add-user-data.html">Work
+     *        with instance user data</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1196,6 +1343,82 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     }
 
     /**
+     * <p>
+     * Indicates whether an instance is enabled for stop protection. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for
+     * your instance</a>.
+     * </p>
+     * <p/>
+     * 
+     * @param disableApiStop
+     *        Indicates whether an instance is enabled for stop protection. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection
+     *        for your instance</a>.
+     *        </p>
+     */
+
+    public void setDisableApiStop(Boolean disableApiStop) {
+        this.disableApiStop = disableApiStop;
+    }
+
+    /**
+     * <p>
+     * Indicates whether an instance is enabled for stop protection. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for
+     * your instance</a>.
+     * </p>
+     * <p/>
+     * 
+     * @return Indicates whether an instance is enabled for stop protection. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop
+     *         protection for your instance</a>.
+     *         </p>
+     */
+
+    public Boolean getDisableApiStop() {
+        return this.disableApiStop;
+    }
+
+    /**
+     * <p>
+     * Indicates whether an instance is enabled for stop protection. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for
+     * your instance</a>.
+     * </p>
+     * <p/>
+     * 
+     * @param disableApiStop
+     *        Indicates whether an instance is enabled for stop protection. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection
+     *        for your instance</a>.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyInstanceAttributeRequest withDisableApiStop(Boolean disableApiStop) {
+        setDisableApiStop(disableApiStop);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether an instance is enabled for stop protection. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop protection for
+     * your instance</a>.
+     * </p>
+     * <p/>
+     * 
+     * @return Indicates whether an instance is enabled for stop protection. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html">Enable stop
+     *         protection for your instance</a>.
+     *         </p>
+     */
+
+    public Boolean isDisableApiStop() {
+        return this.disableApiStop;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -1247,7 +1470,9 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
         if (getUserData() != null)
             sb.append("UserData: ").append(getUserData()).append(",");
         if (getValue() != null)
-            sb.append("Value: ").append(getValue());
+            sb.append("Value: ").append(getValue()).append(",");
+        if (getDisableApiStop() != null)
+            sb.append("DisableApiStop: ").append(getDisableApiStop());
         sb.append("}");
         return sb.toString();
     }
@@ -1323,6 +1548,10 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
             return false;
         if (other.getValue() != null && other.getValue().equals(this.getValue()) == false)
             return false;
+        if (other.getDisableApiStop() == null ^ this.getDisableApiStop() == null)
+            return false;
+        if (other.getDisableApiStop() != null && other.getDisableApiStop().equals(this.getDisableApiStop()) == false)
+            return false;
         return true;
     }
 
@@ -1346,6 +1575,7 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
         hashCode = prime * hashCode + ((getSriovNetSupport() == null) ? 0 : getSriovNetSupport().hashCode());
         hashCode = prime * hashCode + ((getUserData() == null) ? 0 : getUserData().hashCode());
         hashCode = prime * hashCode + ((getValue() == null) ? 0 : getValue().hashCode());
+        hashCode = prime * hashCode + ((getDisableApiStop() == null) ? 0 : getDisableApiStop().hashCode());
         return hashCode;
     }
 

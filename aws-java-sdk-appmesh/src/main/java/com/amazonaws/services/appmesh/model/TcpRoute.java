@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An object representing the TCP routing specification for a route.
+ * An object that represents a TCP route type.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/TcpRoute" target="_top">AWS API
@@ -34,6 +34,18 @@ public class TcpRoute implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private TcpRouteAction action;
+    /**
+     * <p>
+     * An object that represents the criteria for determining a request match.
+     * </p>
+     */
+    private TcpRouteMatch match;
+    /**
+     * <p>
+     * An object that represents types of timeouts.
+     * </p>
+     */
+    private TcpTimeout timeout;
 
     /**
      * <p>
@@ -76,6 +88,86 @@ public class TcpRoute implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * An object that represents the criteria for determining a request match.
+     * </p>
+     * 
+     * @param match
+     *        An object that represents the criteria for determining a request match.
+     */
+
+    public void setMatch(TcpRouteMatch match) {
+        this.match = match;
+    }
+
+    /**
+     * <p>
+     * An object that represents the criteria for determining a request match.
+     * </p>
+     * 
+     * @return An object that represents the criteria for determining a request match.
+     */
+
+    public TcpRouteMatch getMatch() {
+        return this.match;
+    }
+
+    /**
+     * <p>
+     * An object that represents the criteria for determining a request match.
+     * </p>
+     * 
+     * @param match
+     *        An object that represents the criteria for determining a request match.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TcpRoute withMatch(TcpRouteMatch match) {
+        setMatch(match);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An object that represents types of timeouts.
+     * </p>
+     * 
+     * @param timeout
+     *        An object that represents types of timeouts.
+     */
+
+    public void setTimeout(TcpTimeout timeout) {
+        this.timeout = timeout;
+    }
+
+    /**
+     * <p>
+     * An object that represents types of timeouts.
+     * </p>
+     * 
+     * @return An object that represents types of timeouts.
+     */
+
+    public TcpTimeout getTimeout() {
+        return this.timeout;
+    }
+
+    /**
+     * <p>
+     * An object that represents types of timeouts.
+     * </p>
+     * 
+     * @param timeout
+     *        An object that represents types of timeouts.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TcpRoute withTimeout(TcpTimeout timeout) {
+        setTimeout(timeout);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -88,7 +180,11 @@ public class TcpRoute implements Serializable, Cloneable, StructuredPojo {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getAction() != null)
-            sb.append("Action: ").append(getAction());
+            sb.append("Action: ").append(getAction()).append(",");
+        if (getMatch() != null)
+            sb.append("Match: ").append(getMatch()).append(",");
+        if (getTimeout() != null)
+            sb.append("Timeout: ").append(getTimeout());
         sb.append("}");
         return sb.toString();
     }
@@ -107,6 +203,14 @@ public class TcpRoute implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getAction() != null && other.getAction().equals(this.getAction()) == false)
             return false;
+        if (other.getMatch() == null ^ this.getMatch() == null)
+            return false;
+        if (other.getMatch() != null && other.getMatch().equals(this.getMatch()) == false)
+            return false;
+        if (other.getTimeout() == null ^ this.getTimeout() == null)
+            return false;
+        if (other.getTimeout() != null && other.getTimeout().equals(this.getTimeout()) == false)
+            return false;
         return true;
     }
 
@@ -116,6 +220,8 @@ public class TcpRoute implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getAction() == null) ? 0 : getAction().hashCode());
+        hashCode = prime * hashCode + ((getMatch() == null) ? 0 : getMatch().hashCode());
+        hashCode = prime * hashCode + ((getTimeout() == null) ? 0 : getTimeout().hashCode());
         return hashCode;
     }
 

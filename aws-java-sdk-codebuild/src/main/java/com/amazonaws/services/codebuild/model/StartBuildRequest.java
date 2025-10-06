@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The name of the AWS CodeBuild build project to start running a build.
+     * The name of the CodeBuild build project to start running a build.
      * </p>
      */
     private String projectName;
@@ -46,37 +46,46 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
     private java.util.List<ProjectSourceVersion> secondarySourcesVersionOverride;
     /**
      * <p>
-     * A version of the build input to be built, for this build only. If not specified, the latest version is used. If
-     * specified, must be one of:
+     * The version of the build input to be built, for this build only. If not specified, the latest version is used. If
+     * specified, the contents depends on the source provider:
      * </p>
-     * <ul>
-     * <li>
+     * <dl>
+     * <dt>CodeCommit</dt>
+     * <dd>
      * <p>
-     * For AWS CodeCommit: the commit ID to use.
+     * The commit ID, branch, or Git tag to use.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>GitHub</dt>
+     * <dd>
      * <p>
-     * For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the
-     * source code you want to build. If a pull request ID is specified, it must use the format
-     * <code>pr/pull-request-ID</code> (for example <code>pr/25</code>). If a branch name is specified, the branch's
-     * HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.
+     * The commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source code you
+     * want to build. If a pull request ID is specified, it must use the format <code>pr/pull-request-ID</code> (for
+     * example <code>pr/25</code>). If a branch name is specified, the branch's HEAD commit ID is used. If not
+     * specified, the default branch's HEAD commit ID is used.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>GitLab</dt>
+     * <dd>
      * <p>
-     * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
-     * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
-     * branch's HEAD commit ID is used.
+     * The commit ID, branch, or Git tag to use.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>Bitbucket</dt>
+     * <dd>
      * <p>
-     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
-     * file to use.
+     * The commit ID, branch name, or tag name that corresponds to the version of the source code you want to build. If
+     * a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default branch's HEAD
+     * commit ID is used.
      * </p>
-     * </li>
-     * </ul>
+     * </dd>
+     * <dt>Amazon S3</dt>
+     * <dd>
+     * <p>
+     * The version ID of the object that represents the build input ZIP file to use.
+     * </p>
+     * </dd>
+     * </dl>
      * <p>
      * If <code>sourceVersion</code> is specified at the project level, then this <code>sourceVersion</code> (at the
      * build level) takes precedence.
@@ -84,7 +93,7 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version Sample
-     * with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     * with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      */
     private String sourceVersion;
@@ -123,7 +132,7 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * An authorization type for this build that overrides the one defined in the build project. This override applies
-     * only if the build project's source is BitBucket or GitHub.
+     * only if the build project's source is BitBucket, GitHub, GitLab, or GitLab Self Managed.
      * </p>
      */
     private SourceAuth sourceAuthOverride;
@@ -136,15 +145,33 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
     private Integer gitCloneDepthOverride;
     /**
      * <p>
-     * Information about the Git submodules configuration for this build of an AWS CodeBuild build project.
+     * Information about the Git submodules configuration for this build of an CodeBuild build project.
      * </p>
      */
     private GitSubmodulesConfig gitSubmodulesConfigOverride;
     /**
      * <p>
-     * A build spec declaration that overrides, for this build only, the latest one already defined in the build
-     * project.
+     * A buildspec file declaration that overrides the latest one defined in the build project, for this build only. The
+     * buildspec defined on the project is not changed.
      * </p>
+     * <p>
+     * If this value is set, it can be either an inline buildspec definition, the path to an alternate buildspec file
+     * relative to the value of the built-in <code>CODEBUILD_SRC_DIR</code> environment variable, or the path to an S3
+     * bucket. The bucket must be in the same Amazon Web Services Region as the build project. Specify the buildspec
+     * file using its ARN (for example, <code>arn:aws:s3:::my-codebuild-sample2/buildspec.yml</code>). If this value is
+     * not provided or is set to an empty string, the source code must contain a buildspec file in its root directory.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-name-storage"
+     * >Buildspec File Name and Storage Location</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Since this property allows you to change the build commands that will run in the container, you should note that
+     * an IAM principal with the ability to call this API and set this parameter can override the default settings.
+     * Moreover, we encourage that you use a trustworthy buildspec location like a file in your source repository or a
+     * Amazon S3 bucket.
+     * </p>
+     * </note>
      */
     private String buildspecOverride;
     /**
@@ -158,11 +185,30 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * Set to true to report to your source provider the status of a build's start and completion. If you use this
-     * option with a source provider other than GitHub, GitHub Enterprise, or Bitbucket, an invalidInputException is
-     * thrown.
+     * option with a source provider other than GitHub, GitHub Enterprise, or Bitbucket, an
+     * <code>invalidInputException</code> is thrown.
      * </p>
+     * <p>
+     * To be able to report the build status to the source provider, the user associated with the source provider must
+     * have write access to the repo. If the user does not have write access, the build status cannot be updated. For
+     * more information, see <a href="https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html">Source
+     * provider access</a> in the <i>CodeBuild User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * The status of a build triggered by a webhook is always reported to your source provider.
+     * </p>
+     * </note>
      */
     private Boolean reportBuildStatusOverride;
+    /**
+     * <p>
+     * Contains information that defines how the build project reports the build status to the source provider. This
+     * option is only used when the source provider is <code>GITHUB</code>, <code>GITHUB_ENTERPRISE</code>, or
+     * <code>BITBUCKET</code>.
+     * </p>
+     */
+    private BuildStatusConfig buildStatusConfigOverride;
     /**
      * <p>
      * A container type for this build that overrides the one specified in the build project.
@@ -207,7 +253,7 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
     private Boolean privilegedModeOverride;
     /**
      * <p>
-     * The number of build timeout minutes, from 5 to 480 (8 hours), that overrides, for this build only, the latest
+     * The number of build timeout minutes, from 5 to 2160 (36 hours), that overrides, for this build only, the latest
      * setting already defined in the build project.
      * </p>
      */
@@ -220,9 +266,26 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
     private Integer queuedTimeoutInMinutesOverride;
     /**
      * <p>
+     * The Key Management Service customer master key (CMK) that overrides the one specified in the build project. The
+     * CMK key encrypts the build output artifacts.
+     * </p>
+     * <note>
+     * <p>
+     * You can use a cross-account KMS key to encrypt the build output artifacts if your service role has permission to
+     * that key.
+     * </p>
+     * </note>
+     * <p>
+     * You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using the
+     * format <code>alias/&lt;alias-name&gt;</code>).
+     * </p>
+     */
+    private String encryptionKeyOverride;
+    /**
+     * <p>
      * A unique, case sensitive identifier you provide to ensure the idempotency of the StartBuild request. The token is
-     * included in the StartBuild request and is valid for 12 hours. If you repeat the StartBuild request with the same
-     * token, but change a parameter, AWS CodeBuild returns a parameter mismatch error.
+     * included in the StartBuild request and is valid for 5 minutes. If you repeat the StartBuild request with the same
+     * token, but change a parameter, CodeBuild returns a parameter mismatch error.
      * </p>
      */
     private String idempotencyToken;
@@ -240,35 +303,51 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
     private RegistryCredential registryCredentialOverride;
     /**
      * <p>
-     * The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values:
+     * The type of credentials CodeBuild uses to pull images in your build. There are two valid values:
      * </p>
-     * <ul>
-     * <li>
+     * <dl>
+     * <dt>CODEBUILD</dt>
+     * <dd>
      * <p>
-     * <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you modify your
-     * ECR repository policy to trust AWS CodeBuild's service principal.
+     * Specifies that CodeBuild uses its own credentials. This requires that you modify your ECR repository policy to
+     * trust CodeBuild's service principal.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>SERVICE_ROLE</dt>
+     * <dd>
      * <p>
-     * <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     * Specifies that CodeBuild uses your build project's service role.
      * </p>
-     * </li>
-     * </ul>
+     * </dd>
+     * </dl>
      * <p>
-     * When using a cross-account or private registry image, you must use SERVICE_ROLE credentials. When using an AWS
-     * CodeBuild curated image, you must use CODEBUILD credentials.
+     * When using a cross-account or private registry image, you must use <code>SERVICE_ROLE</code> credentials. When
+     * using an CodeBuild curated image, you must use <code>CODEBUILD</code> credentials.
      * </p>
      */
     private String imagePullCredentialsTypeOverride;
+    /**
+     * <p>
+     * Specifies if session debugging is enabled for this build. For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html">Viewing a running build in
+     * Session Manager</a>.
+     * </p>
+     */
+    private Boolean debugSessionEnabled;
+    /**
+     * <p>
+     * A ProjectFleet object specified for this build that overrides the one defined in the build project.
+     * </p>
+     */
+    private ProjectFleet fleetOverride;
 
     /**
      * <p>
-     * The name of the AWS CodeBuild build project to start running a build.
+     * The name of the CodeBuild build project to start running a build.
      * </p>
      * 
      * @param projectName
-     *        The name of the AWS CodeBuild build project to start running a build.
+     *        The name of the CodeBuild build project to start running a build.
      */
 
     public void setProjectName(String projectName) {
@@ -277,10 +356,10 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The name of the AWS CodeBuild build project to start running a build.
+     * The name of the CodeBuild build project to start running a build.
      * </p>
      * 
-     * @return The name of the AWS CodeBuild build project to start running a build.
+     * @return The name of the CodeBuild build project to start running a build.
      */
 
     public String getProjectName() {
@@ -289,11 +368,11 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The name of the AWS CodeBuild build project to start running a build.
+     * The name of the CodeBuild build project to start running a build.
      * </p>
      * 
      * @param projectName
-     *        The name of the AWS CodeBuild build project to start running a build.
+     *        The name of the CodeBuild build project to start running a build.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -452,37 +531,46 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A version of the build input to be built, for this build only. If not specified, the latest version is used. If
-     * specified, must be one of:
+     * The version of the build input to be built, for this build only. If not specified, the latest version is used. If
+     * specified, the contents depends on the source provider:
      * </p>
-     * <ul>
-     * <li>
+     * <dl>
+     * <dt>CodeCommit</dt>
+     * <dd>
      * <p>
-     * For AWS CodeCommit: the commit ID to use.
+     * The commit ID, branch, or Git tag to use.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>GitHub</dt>
+     * <dd>
      * <p>
-     * For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the
-     * source code you want to build. If a pull request ID is specified, it must use the format
-     * <code>pr/pull-request-ID</code> (for example <code>pr/25</code>). If a branch name is specified, the branch's
-     * HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.
+     * The commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source code you
+     * want to build. If a pull request ID is specified, it must use the format <code>pr/pull-request-ID</code> (for
+     * example <code>pr/25</code>). If a branch name is specified, the branch's HEAD commit ID is used. If not
+     * specified, the default branch's HEAD commit ID is used.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>GitLab</dt>
+     * <dd>
      * <p>
-     * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
-     * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
-     * branch's HEAD commit ID is used.
+     * The commit ID, branch, or Git tag to use.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>Bitbucket</dt>
+     * <dd>
      * <p>
-     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
-     * file to use.
+     * The commit ID, branch name, or tag name that corresponds to the version of the source code you want to build. If
+     * a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default branch's HEAD
+     * commit ID is used.
      * </p>
-     * </li>
-     * </ul>
+     * </dd>
+     * <dt>Amazon S3</dt>
+     * <dd>
+     * <p>
+     * The version ID of the object that represents the build input ZIP file to use.
+     * </p>
+     * </dd>
+     * </dl>
      * <p>
      * If <code>sourceVersion</code> is specified at the project level, then this <code>sourceVersion</code> (at the
      * build level) takes precedence.
@@ -490,40 +578,49 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version Sample
-     * with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     * with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      * 
      * @param sourceVersion
-     *        A version of the build input to be built, for this build only. If not specified, the latest version is
-     *        used. If specified, must be one of:</p>
-     *        <ul>
-     *        <li>
+     *        The version of the build input to be built, for this build only. If not specified, the latest version is
+     *        used. If specified, the contents depends on the source provider:</p>
+     *        <dl>
+     *        <dt>CodeCommit</dt>
+     *        <dd>
      *        <p>
-     *        For AWS CodeCommit: the commit ID to use.
+     *        The commit ID, branch, or Git tag to use.
      *        </p>
-     *        </li>
-     *        <li>
+     *        </dd>
+     *        <dt>GitHub</dt>
+     *        <dd>
      *        <p>
-     *        For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of
-     *        the source code you want to build. If a pull request ID is specified, it must use the format
+     *        The commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source
+     *        code you want to build. If a pull request ID is specified, it must use the format
      *        <code>pr/pull-request-ID</code> (for example <code>pr/25</code>). If a branch name is specified, the
      *        branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.
      *        </p>
-     *        </li>
-     *        <li>
+     *        </dd>
+     *        <dt>GitLab</dt>
+     *        <dd>
      *        <p>
-     *        For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code
-     *        you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified,
-     *        the default branch's HEAD commit ID is used.
+     *        The commit ID, branch, or Git tag to use.
      *        </p>
-     *        </li>
-     *        <li>
+     *        </dd>
+     *        <dt>Bitbucket</dt>
+     *        <dd>
      *        <p>
-     *        For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build
-     *        input ZIP file to use.
+     *        The commit ID, branch name, or tag name that corresponds to the version of the source code you want to
+     *        build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
+     *        branch's HEAD commit ID is used.
      *        </p>
-     *        </li>
-     *        </ul>
+     *        </dd>
+     *        <dt>Amazon S3</dt>
+     *        <dd>
+     *        <p>
+     *        The version ID of the object that represents the build input ZIP file to use.
+     *        </p>
+     *        </dd>
+     *        </dl>
      *        <p>
      *        If <code>sourceVersion</code> is specified at the project level, then this <code>sourceVersion</code> (at
      *        the build level) takes precedence.
@@ -531,7 +628,7 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *        <p>
      *        For more information, see <a
      *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version
-     *        Sample with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     *        Sample with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      */
 
     public void setSourceVersion(String sourceVersion) {
@@ -540,37 +637,46 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A version of the build input to be built, for this build only. If not specified, the latest version is used. If
-     * specified, must be one of:
+     * The version of the build input to be built, for this build only. If not specified, the latest version is used. If
+     * specified, the contents depends on the source provider:
      * </p>
-     * <ul>
-     * <li>
+     * <dl>
+     * <dt>CodeCommit</dt>
+     * <dd>
      * <p>
-     * For AWS CodeCommit: the commit ID to use.
+     * The commit ID, branch, or Git tag to use.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>GitHub</dt>
+     * <dd>
      * <p>
-     * For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the
-     * source code you want to build. If a pull request ID is specified, it must use the format
-     * <code>pr/pull-request-ID</code> (for example <code>pr/25</code>). If a branch name is specified, the branch's
-     * HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.
+     * The commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source code you
+     * want to build. If a pull request ID is specified, it must use the format <code>pr/pull-request-ID</code> (for
+     * example <code>pr/25</code>). If a branch name is specified, the branch's HEAD commit ID is used. If not
+     * specified, the default branch's HEAD commit ID is used.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>GitLab</dt>
+     * <dd>
      * <p>
-     * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
-     * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
-     * branch's HEAD commit ID is used.
+     * The commit ID, branch, or Git tag to use.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>Bitbucket</dt>
+     * <dd>
      * <p>
-     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
-     * file to use.
+     * The commit ID, branch name, or tag name that corresponds to the version of the source code you want to build. If
+     * a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default branch's HEAD
+     * commit ID is used.
      * </p>
-     * </li>
-     * </ul>
+     * </dd>
+     * <dt>Amazon S3</dt>
+     * <dd>
+     * <p>
+     * The version ID of the object that represents the build input ZIP file to use.
+     * </p>
+     * </dd>
+     * </dl>
      * <p>
      * If <code>sourceVersion</code> is specified at the project level, then this <code>sourceVersion</code> (at the
      * build level) takes precedence.
@@ -578,39 +684,48 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version Sample
-     * with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     * with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      * 
-     * @return A version of the build input to be built, for this build only. If not specified, the latest version is
-     *         used. If specified, must be one of:</p>
-     *         <ul>
-     *         <li>
+     * @return The version of the build input to be built, for this build only. If not specified, the latest version is
+     *         used. If specified, the contents depends on the source provider:</p>
+     *         <dl>
+     *         <dt>CodeCommit</dt>
+     *         <dd>
      *         <p>
-     *         For AWS CodeCommit: the commit ID to use.
+     *         The commit ID, branch, or Git tag to use.
      *         </p>
-     *         </li>
-     *         <li>
+     *         </dd>
+     *         <dt>GitHub</dt>
+     *         <dd>
      *         <p>
-     *         For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of
-     *         the source code you want to build. If a pull request ID is specified, it must use the format
+     *         The commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source
+     *         code you want to build. If a pull request ID is specified, it must use the format
      *         <code>pr/pull-request-ID</code> (for example <code>pr/25</code>). If a branch name is specified, the
      *         branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.
      *         </p>
-     *         </li>
-     *         <li>
+     *         </dd>
+     *         <dt>GitLab</dt>
+     *         <dd>
      *         <p>
-     *         For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code
-     *         you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified,
-     *         the default branch's HEAD commit ID is used.
+     *         The commit ID, branch, or Git tag to use.
      *         </p>
-     *         </li>
-     *         <li>
+     *         </dd>
+     *         <dt>Bitbucket</dt>
+     *         <dd>
      *         <p>
-     *         For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build
-     *         input ZIP file to use.
+     *         The commit ID, branch name, or tag name that corresponds to the version of the source code you want to
+     *         build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
+     *         branch's HEAD commit ID is used.
      *         </p>
-     *         </li>
-     *         </ul>
+     *         </dd>
+     *         <dt>Amazon S3</dt>
+     *         <dd>
+     *         <p>
+     *         The version ID of the object that represents the build input ZIP file to use.
+     *         </p>
+     *         </dd>
+     *         </dl>
      *         <p>
      *         If <code>sourceVersion</code> is specified at the project level, then this <code>sourceVersion</code> (at
      *         the build level) takes precedence.
@@ -618,7 +733,7 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *         <p>
      *         For more information, see <a
      *         href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version
-     *         Sample with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     *         Sample with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      */
 
     public String getSourceVersion() {
@@ -627,37 +742,46 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A version of the build input to be built, for this build only. If not specified, the latest version is used. If
-     * specified, must be one of:
+     * The version of the build input to be built, for this build only. If not specified, the latest version is used. If
+     * specified, the contents depends on the source provider:
      * </p>
-     * <ul>
-     * <li>
+     * <dl>
+     * <dt>CodeCommit</dt>
+     * <dd>
      * <p>
-     * For AWS CodeCommit: the commit ID to use.
+     * The commit ID, branch, or Git tag to use.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>GitHub</dt>
+     * <dd>
      * <p>
-     * For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the
-     * source code you want to build. If a pull request ID is specified, it must use the format
-     * <code>pr/pull-request-ID</code> (for example <code>pr/25</code>). If a branch name is specified, the branch's
-     * HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.
+     * The commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source code you
+     * want to build. If a pull request ID is specified, it must use the format <code>pr/pull-request-ID</code> (for
+     * example <code>pr/25</code>). If a branch name is specified, the branch's HEAD commit ID is used. If not
+     * specified, the default branch's HEAD commit ID is used.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>GitLab</dt>
+     * <dd>
      * <p>
-     * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
-     * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
-     * branch's HEAD commit ID is used.
+     * The commit ID, branch, or Git tag to use.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>Bitbucket</dt>
+     * <dd>
      * <p>
-     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
-     * file to use.
+     * The commit ID, branch name, or tag name that corresponds to the version of the source code you want to build. If
+     * a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default branch's HEAD
+     * commit ID is used.
      * </p>
-     * </li>
-     * </ul>
+     * </dd>
+     * <dt>Amazon S3</dt>
+     * <dd>
+     * <p>
+     * The version ID of the object that represents the build input ZIP file to use.
+     * </p>
+     * </dd>
+     * </dl>
      * <p>
      * If <code>sourceVersion</code> is specified at the project level, then this <code>sourceVersion</code> (at the
      * build level) takes precedence.
@@ -665,40 +789,49 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version Sample
-     * with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     * with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      * 
      * @param sourceVersion
-     *        A version of the build input to be built, for this build only. If not specified, the latest version is
-     *        used. If specified, must be one of:</p>
-     *        <ul>
-     *        <li>
+     *        The version of the build input to be built, for this build only. If not specified, the latest version is
+     *        used. If specified, the contents depends on the source provider:</p>
+     *        <dl>
+     *        <dt>CodeCommit</dt>
+     *        <dd>
      *        <p>
-     *        For AWS CodeCommit: the commit ID to use.
+     *        The commit ID, branch, or Git tag to use.
      *        </p>
-     *        </li>
-     *        <li>
+     *        </dd>
+     *        <dt>GitHub</dt>
+     *        <dd>
      *        <p>
-     *        For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of
-     *        the source code you want to build. If a pull request ID is specified, it must use the format
+     *        The commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source
+     *        code you want to build. If a pull request ID is specified, it must use the format
      *        <code>pr/pull-request-ID</code> (for example <code>pr/25</code>). If a branch name is specified, the
      *        branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.
      *        </p>
-     *        </li>
-     *        <li>
+     *        </dd>
+     *        <dt>GitLab</dt>
+     *        <dd>
      *        <p>
-     *        For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code
-     *        you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified,
-     *        the default branch's HEAD commit ID is used.
+     *        The commit ID, branch, or Git tag to use.
      *        </p>
-     *        </li>
-     *        <li>
+     *        </dd>
+     *        <dt>Bitbucket</dt>
+     *        <dd>
      *        <p>
-     *        For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build
-     *        input ZIP file to use.
+     *        The commit ID, branch name, or tag name that corresponds to the version of the source code you want to
+     *        build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
+     *        branch's HEAD commit ID is used.
      *        </p>
-     *        </li>
-     *        </ul>
+     *        </dd>
+     *        <dt>Amazon S3</dt>
+     *        <dd>
+     *        <p>
+     *        The version ID of the object that represents the build input ZIP file to use.
+     *        </p>
+     *        </dd>
+     *        </dl>
      *        <p>
      *        If <code>sourceVersion</code> is specified at the project level, then this <code>sourceVersion</code> (at
      *        the build level) takes precedence.
@@ -706,7 +839,7 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *        <p>
      *        For more information, see <a
      *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version
-     *        Sample with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     *        Sample with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1011,12 +1144,12 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * An authorization type for this build that overrides the one defined in the build project. This override applies
-     * only if the build project's source is BitBucket or GitHub.
+     * only if the build project's source is BitBucket, GitHub, GitLab, or GitLab Self Managed.
      * </p>
      * 
      * @param sourceAuthOverride
      *        An authorization type for this build that overrides the one defined in the build project. This override
-     *        applies only if the build project's source is BitBucket or GitHub.
+     *        applies only if the build project's source is BitBucket, GitHub, GitLab, or GitLab Self Managed.
      */
 
     public void setSourceAuthOverride(SourceAuth sourceAuthOverride) {
@@ -1026,11 +1159,11 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * An authorization type for this build that overrides the one defined in the build project. This override applies
-     * only if the build project's source is BitBucket or GitHub.
+     * only if the build project's source is BitBucket, GitHub, GitLab, or GitLab Self Managed.
      * </p>
      * 
      * @return An authorization type for this build that overrides the one defined in the build project. This override
-     *         applies only if the build project's source is BitBucket or GitHub.
+     *         applies only if the build project's source is BitBucket, GitHub, GitLab, or GitLab Self Managed.
      */
 
     public SourceAuth getSourceAuthOverride() {
@@ -1040,12 +1173,12 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * An authorization type for this build that overrides the one defined in the build project. This override applies
-     * only if the build project's source is BitBucket or GitHub.
+     * only if the build project's source is BitBucket, GitHub, GitLab, or GitLab Self Managed.
      * </p>
      * 
      * @param sourceAuthOverride
      *        An authorization type for this build that overrides the one defined in the build project. This override
-     *        applies only if the build project's source is BitBucket or GitHub.
+     *        applies only if the build project's source is BitBucket, GitHub, GitLab, or GitLab Self Managed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1102,11 +1235,11 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Information about the Git submodules configuration for this build of an AWS CodeBuild build project.
+     * Information about the Git submodules configuration for this build of an CodeBuild build project.
      * </p>
      * 
      * @param gitSubmodulesConfigOverride
-     *        Information about the Git submodules configuration for this build of an AWS CodeBuild build project.
+     *        Information about the Git submodules configuration for this build of an CodeBuild build project.
      */
 
     public void setGitSubmodulesConfigOverride(GitSubmodulesConfig gitSubmodulesConfigOverride) {
@@ -1115,10 +1248,10 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Information about the Git submodules configuration for this build of an AWS CodeBuild build project.
+     * Information about the Git submodules configuration for this build of an CodeBuild build project.
      * </p>
      * 
-     * @return Information about the Git submodules configuration for this build of an AWS CodeBuild build project.
+     * @return Information about the Git submodules configuration for this build of an CodeBuild build project.
      */
 
     public GitSubmodulesConfig getGitSubmodulesConfigOverride() {
@@ -1127,11 +1260,11 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Information about the Git submodules configuration for this build of an AWS CodeBuild build project.
+     * Information about the Git submodules configuration for this build of an CodeBuild build project.
      * </p>
      * 
      * @param gitSubmodulesConfigOverride
-     *        Information about the Git submodules configuration for this build of an AWS CodeBuild build project.
+     *        Information about the Git submodules configuration for this build of an CodeBuild build project.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1142,13 +1275,49 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A build spec declaration that overrides, for this build only, the latest one already defined in the build
-     * project.
+     * A buildspec file declaration that overrides the latest one defined in the build project, for this build only. The
+     * buildspec defined on the project is not changed.
      * </p>
+     * <p>
+     * If this value is set, it can be either an inline buildspec definition, the path to an alternate buildspec file
+     * relative to the value of the built-in <code>CODEBUILD_SRC_DIR</code> environment variable, or the path to an S3
+     * bucket. The bucket must be in the same Amazon Web Services Region as the build project. Specify the buildspec
+     * file using its ARN (for example, <code>arn:aws:s3:::my-codebuild-sample2/buildspec.yml</code>). If this value is
+     * not provided or is set to an empty string, the source code must contain a buildspec file in its root directory.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-name-storage"
+     * >Buildspec File Name and Storage Location</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Since this property allows you to change the build commands that will run in the container, you should note that
+     * an IAM principal with the ability to call this API and set this parameter can override the default settings.
+     * Moreover, we encourage that you use a trustworthy buildspec location like a file in your source repository or a
+     * Amazon S3 bucket.
+     * </p>
+     * </note>
      * 
      * @param buildspecOverride
-     *        A build spec declaration that overrides, for this build only, the latest one already defined in the build
-     *        project.
+     *        A buildspec file declaration that overrides the latest one defined in the build project, for this build
+     *        only. The buildspec defined on the project is not changed.</p>
+     *        <p>
+     *        If this value is set, it can be either an inline buildspec definition, the path to an alternate buildspec
+     *        file relative to the value of the built-in <code>CODEBUILD_SRC_DIR</code> environment variable, or the
+     *        path to an S3 bucket. The bucket must be in the same Amazon Web Services Region as the build project.
+     *        Specify the buildspec file using its ARN (for example,
+     *        <code>arn:aws:s3:::my-codebuild-sample2/buildspec.yml</code>). If this value is not provided or is set to
+     *        an empty string, the source code must contain a buildspec file in its root directory. For more
+     *        information, see <a href=
+     *        "https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-name-storage"
+     *        >Buildspec File Name and Storage Location</a>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Since this property allows you to change the build commands that will run in the container, you should
+     *        note that an IAM principal with the ability to call this API and set this parameter can override the
+     *        default settings. Moreover, we encourage that you use a trustworthy buildspec location like a file in your
+     *        source repository or a Amazon S3 bucket.
+     *        </p>
      */
 
     public void setBuildspecOverride(String buildspecOverride) {
@@ -1157,12 +1326,48 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A build spec declaration that overrides, for this build only, the latest one already defined in the build
-     * project.
+     * A buildspec file declaration that overrides the latest one defined in the build project, for this build only. The
+     * buildspec defined on the project is not changed.
      * </p>
+     * <p>
+     * If this value is set, it can be either an inline buildspec definition, the path to an alternate buildspec file
+     * relative to the value of the built-in <code>CODEBUILD_SRC_DIR</code> environment variable, or the path to an S3
+     * bucket. The bucket must be in the same Amazon Web Services Region as the build project. Specify the buildspec
+     * file using its ARN (for example, <code>arn:aws:s3:::my-codebuild-sample2/buildspec.yml</code>). If this value is
+     * not provided or is set to an empty string, the source code must contain a buildspec file in its root directory.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-name-storage"
+     * >Buildspec File Name and Storage Location</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Since this property allows you to change the build commands that will run in the container, you should note that
+     * an IAM principal with the ability to call this API and set this parameter can override the default settings.
+     * Moreover, we encourage that you use a trustworthy buildspec location like a file in your source repository or a
+     * Amazon S3 bucket.
+     * </p>
+     * </note>
      * 
-     * @return A build spec declaration that overrides, for this build only, the latest one already defined in the build
-     *         project.
+     * @return A buildspec file declaration that overrides the latest one defined in the build project, for this build
+     *         only. The buildspec defined on the project is not changed.</p>
+     *         <p>
+     *         If this value is set, it can be either an inline buildspec definition, the path to an alternate buildspec
+     *         file relative to the value of the built-in <code>CODEBUILD_SRC_DIR</code> environment variable, or the
+     *         path to an S3 bucket. The bucket must be in the same Amazon Web Services Region as the build project.
+     *         Specify the buildspec file using its ARN (for example,
+     *         <code>arn:aws:s3:::my-codebuild-sample2/buildspec.yml</code>). If this value is not provided or is set to
+     *         an empty string, the source code must contain a buildspec file in its root directory. For more
+     *         information, see <a href=
+     *         "https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-name-storage"
+     *         >Buildspec File Name and Storage Location</a>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Since this property allows you to change the build commands that will run in the container, you should
+     *         note that an IAM principal with the ability to call this API and set this parameter can override the
+     *         default settings. Moreover, we encourage that you use a trustworthy buildspec location like a file in
+     *         your source repository or a Amazon S3 bucket.
+     *         </p>
      */
 
     public String getBuildspecOverride() {
@@ -1171,13 +1376,49 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A build spec declaration that overrides, for this build only, the latest one already defined in the build
-     * project.
+     * A buildspec file declaration that overrides the latest one defined in the build project, for this build only. The
+     * buildspec defined on the project is not changed.
      * </p>
+     * <p>
+     * If this value is set, it can be either an inline buildspec definition, the path to an alternate buildspec file
+     * relative to the value of the built-in <code>CODEBUILD_SRC_DIR</code> environment variable, or the path to an S3
+     * bucket. The bucket must be in the same Amazon Web Services Region as the build project. Specify the buildspec
+     * file using its ARN (for example, <code>arn:aws:s3:::my-codebuild-sample2/buildspec.yml</code>). If this value is
+     * not provided or is set to an empty string, the source code must contain a buildspec file in its root directory.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-name-storage"
+     * >Buildspec File Name and Storage Location</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Since this property allows you to change the build commands that will run in the container, you should note that
+     * an IAM principal with the ability to call this API and set this parameter can override the default settings.
+     * Moreover, we encourage that you use a trustworthy buildspec location like a file in your source repository or a
+     * Amazon S3 bucket.
+     * </p>
+     * </note>
      * 
      * @param buildspecOverride
-     *        A build spec declaration that overrides, for this build only, the latest one already defined in the build
-     *        project.
+     *        A buildspec file declaration that overrides the latest one defined in the build project, for this build
+     *        only. The buildspec defined on the project is not changed.</p>
+     *        <p>
+     *        If this value is set, it can be either an inline buildspec definition, the path to an alternate buildspec
+     *        file relative to the value of the built-in <code>CODEBUILD_SRC_DIR</code> environment variable, or the
+     *        path to an S3 bucket. The bucket must be in the same Amazon Web Services Region as the build project.
+     *        Specify the buildspec file using its ARN (for example,
+     *        <code>arn:aws:s3:::my-codebuild-sample2/buildspec.yml</code>). If this value is not provided or is set to
+     *        an empty string, the source code must contain a buildspec file in its root directory. For more
+     *        information, see <a href=
+     *        "https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-name-storage"
+     *        >Buildspec File Name and Storage Location</a>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Since this property allows you to change the build commands that will run in the container, you should
+     *        note that an IAM principal with the ability to call this API and set this parameter can override the
+     *        default settings. Moreover, we encourage that you use a trustworthy buildspec location like a file in your
+     *        source repository or a Amazon S3 bucket.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1257,14 +1498,36 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * Set to true to report to your source provider the status of a build's start and completion. If you use this
-     * option with a source provider other than GitHub, GitHub Enterprise, or Bitbucket, an invalidInputException is
-     * thrown.
+     * option with a source provider other than GitHub, GitHub Enterprise, or Bitbucket, an
+     * <code>invalidInputException</code> is thrown.
      * </p>
+     * <p>
+     * To be able to report the build status to the source provider, the user associated with the source provider must
+     * have write access to the repo. If the user does not have write access, the build status cannot be updated. For
+     * more information, see <a href="https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html">Source
+     * provider access</a> in the <i>CodeBuild User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * The status of a build triggered by a webhook is always reported to your source provider.
+     * </p>
+     * </note>
      * 
      * @param reportBuildStatusOverride
      *        Set to true to report to your source provider the status of a build's start and completion. If you use
      *        this option with a source provider other than GitHub, GitHub Enterprise, or Bitbucket, an
-     *        invalidInputException is thrown.
+     *        <code>invalidInputException</code> is thrown. </p>
+     *        <p>
+     *        To be able to report the build status to the source provider, the user associated with the source provider
+     *        must have write access to the repo. If the user does not have write access, the build status cannot be
+     *        updated. For more information, see <a
+     *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html">Source provider
+     *        access</a> in the <i>CodeBuild User Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The status of a build triggered by a webhook is always reported to your source provider.
+     *        </p>
      */
 
     public void setReportBuildStatusOverride(Boolean reportBuildStatusOverride) {
@@ -1274,13 +1537,35 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * Set to true to report to your source provider the status of a build's start and completion. If you use this
-     * option with a source provider other than GitHub, GitHub Enterprise, or Bitbucket, an invalidInputException is
-     * thrown.
+     * option with a source provider other than GitHub, GitHub Enterprise, or Bitbucket, an
+     * <code>invalidInputException</code> is thrown.
      * </p>
+     * <p>
+     * To be able to report the build status to the source provider, the user associated with the source provider must
+     * have write access to the repo. If the user does not have write access, the build status cannot be updated. For
+     * more information, see <a href="https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html">Source
+     * provider access</a> in the <i>CodeBuild User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * The status of a build triggered by a webhook is always reported to your source provider.
+     * </p>
+     * </note>
      * 
      * @return Set to true to report to your source provider the status of a build's start and completion. If you use
      *         this option with a source provider other than GitHub, GitHub Enterprise, or Bitbucket, an
-     *         invalidInputException is thrown.
+     *         <code>invalidInputException</code> is thrown. </p>
+     *         <p>
+     *         To be able to report the build status to the source provider, the user associated with the source
+     *         provider must have write access to the repo. If the user does not have write access, the build status
+     *         cannot be updated. For more information, see <a
+     *         href="https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html">Source provider
+     *         access</a> in the <i>CodeBuild User Guide</i>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         The status of a build triggered by a webhook is always reported to your source provider.
+     *         </p>
      */
 
     public Boolean getReportBuildStatusOverride() {
@@ -1290,14 +1575,36 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * Set to true to report to your source provider the status of a build's start and completion. If you use this
-     * option with a source provider other than GitHub, GitHub Enterprise, or Bitbucket, an invalidInputException is
-     * thrown.
+     * option with a source provider other than GitHub, GitHub Enterprise, or Bitbucket, an
+     * <code>invalidInputException</code> is thrown.
      * </p>
+     * <p>
+     * To be able to report the build status to the source provider, the user associated with the source provider must
+     * have write access to the repo. If the user does not have write access, the build status cannot be updated. For
+     * more information, see <a href="https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html">Source
+     * provider access</a> in the <i>CodeBuild User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * The status of a build triggered by a webhook is always reported to your source provider.
+     * </p>
+     * </note>
      * 
      * @param reportBuildStatusOverride
      *        Set to true to report to your source provider the status of a build's start and completion. If you use
      *        this option with a source provider other than GitHub, GitHub Enterprise, or Bitbucket, an
-     *        invalidInputException is thrown.
+     *        <code>invalidInputException</code> is thrown. </p>
+     *        <p>
+     *        To be able to report the build status to the source provider, the user associated with the source provider
+     *        must have write access to the repo. If the user does not have write access, the build status cannot be
+     *        updated. For more information, see <a
+     *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html">Source provider
+     *        access</a> in the <i>CodeBuild User Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The status of a build triggered by a webhook is always reported to your source provider.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1309,17 +1616,91 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * Set to true to report to your source provider the status of a build's start and completion. If you use this
-     * option with a source provider other than GitHub, GitHub Enterprise, or Bitbucket, an invalidInputException is
-     * thrown.
+     * option with a source provider other than GitHub, GitHub Enterprise, or Bitbucket, an
+     * <code>invalidInputException</code> is thrown.
      * </p>
+     * <p>
+     * To be able to report the build status to the source provider, the user associated with the source provider must
+     * have write access to the repo. If the user does not have write access, the build status cannot be updated. For
+     * more information, see <a href="https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html">Source
+     * provider access</a> in the <i>CodeBuild User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * The status of a build triggered by a webhook is always reported to your source provider.
+     * </p>
+     * </note>
      * 
      * @return Set to true to report to your source provider the status of a build's start and completion. If you use
      *         this option with a source provider other than GitHub, GitHub Enterprise, or Bitbucket, an
-     *         invalidInputException is thrown.
+     *         <code>invalidInputException</code> is thrown. </p>
+     *         <p>
+     *         To be able to report the build status to the source provider, the user associated with the source
+     *         provider must have write access to the repo. If the user does not have write access, the build status
+     *         cannot be updated. For more information, see <a
+     *         href="https://docs.aws.amazon.com/codebuild/latest/userguide/access-tokens.html">Source provider
+     *         access</a> in the <i>CodeBuild User Guide</i>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         The status of a build triggered by a webhook is always reported to your source provider.
+     *         </p>
      */
 
     public Boolean isReportBuildStatusOverride() {
         return this.reportBuildStatusOverride;
+    }
+
+    /**
+     * <p>
+     * Contains information that defines how the build project reports the build status to the source provider. This
+     * option is only used when the source provider is <code>GITHUB</code>, <code>GITHUB_ENTERPRISE</code>, or
+     * <code>BITBUCKET</code>.
+     * </p>
+     * 
+     * @param buildStatusConfigOverride
+     *        Contains information that defines how the build project reports the build status to the source provider.
+     *        This option is only used when the source provider is <code>GITHUB</code>, <code>GITHUB_ENTERPRISE</code>,
+     *        or <code>BITBUCKET</code>.
+     */
+
+    public void setBuildStatusConfigOverride(BuildStatusConfig buildStatusConfigOverride) {
+        this.buildStatusConfigOverride = buildStatusConfigOverride;
+    }
+
+    /**
+     * <p>
+     * Contains information that defines how the build project reports the build status to the source provider. This
+     * option is only used when the source provider is <code>GITHUB</code>, <code>GITHUB_ENTERPRISE</code>, or
+     * <code>BITBUCKET</code>.
+     * </p>
+     * 
+     * @return Contains information that defines how the build project reports the build status to the source provider.
+     *         This option is only used when the source provider is <code>GITHUB</code>, <code>GITHUB_ENTERPRISE</code>,
+     *         or <code>BITBUCKET</code>.
+     */
+
+    public BuildStatusConfig getBuildStatusConfigOverride() {
+        return this.buildStatusConfigOverride;
+    }
+
+    /**
+     * <p>
+     * Contains information that defines how the build project reports the build status to the source provider. This
+     * option is only used when the source provider is <code>GITHUB</code>, <code>GITHUB_ENTERPRISE</code>, or
+     * <code>BITBUCKET</code>.
+     * </p>
+     * 
+     * @param buildStatusConfigOverride
+     *        Contains information that defines how the build project reports the build status to the source provider.
+     *        This option is only used when the source provider is <code>GITHUB</code>, <code>GITHUB_ENTERPRISE</code>,
+     *        or <code>BITBUCKET</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartBuildRequest withBuildStatusConfigOverride(BuildStatusConfig buildStatusConfigOverride) {
+        setBuildStatusConfigOverride(buildStatusConfigOverride);
+        return this;
     }
 
     /**
@@ -1654,12 +2035,12 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The number of build timeout minutes, from 5 to 480 (8 hours), that overrides, for this build only, the latest
+     * The number of build timeout minutes, from 5 to 2160 (36 hours), that overrides, for this build only, the latest
      * setting already defined in the build project.
      * </p>
      * 
      * @param timeoutInMinutesOverride
-     *        The number of build timeout minutes, from 5 to 480 (8 hours), that overrides, for this build only, the
+     *        The number of build timeout minutes, from 5 to 2160 (36 hours), that overrides, for this build only, the
      *        latest setting already defined in the build project.
      */
 
@@ -1669,11 +2050,11 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The number of build timeout minutes, from 5 to 480 (8 hours), that overrides, for this build only, the latest
+     * The number of build timeout minutes, from 5 to 2160 (36 hours), that overrides, for this build only, the latest
      * setting already defined in the build project.
      * </p>
      * 
-     * @return The number of build timeout minutes, from 5 to 480 (8 hours), that overrides, for this build only, the
+     * @return The number of build timeout minutes, from 5 to 2160 (36 hours), that overrides, for this build only, the
      *         latest setting already defined in the build project.
      */
 
@@ -1683,12 +2064,12 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The number of build timeout minutes, from 5 to 480 (8 hours), that overrides, for this build only, the latest
+     * The number of build timeout minutes, from 5 to 2160 (36 hours), that overrides, for this build only, the latest
      * setting already defined in the build project.
      * </p>
      * 
      * @param timeoutInMinutesOverride
-     *        The number of build timeout minutes, from 5 to 480 (8 hours), that overrides, for this build only, the
+     *        The number of build timeout minutes, from 5 to 2160 (36 hours), that overrides, for this build only, the
      *        latest setting already defined in the build project.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1740,15 +2121,115 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
+     * The Key Management Service customer master key (CMK) that overrides the one specified in the build project. The
+     * CMK key encrypts the build output artifacts.
+     * </p>
+     * <note>
+     * <p>
+     * You can use a cross-account KMS key to encrypt the build output artifacts if your service role has permission to
+     * that key.
+     * </p>
+     * </note>
+     * <p>
+     * You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using the
+     * format <code>alias/&lt;alias-name&gt;</code>).
+     * </p>
+     * 
+     * @param encryptionKeyOverride
+     *        The Key Management Service customer master key (CMK) that overrides the one specified in the build
+     *        project. The CMK key encrypts the build output artifacts.</p> <note>
+     *        <p>
+     *        You can use a cross-account KMS key to encrypt the build output artifacts if your service role has
+     *        permission to that key.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using
+     *        the format <code>alias/&lt;alias-name&gt;</code>).
+     */
+
+    public void setEncryptionKeyOverride(String encryptionKeyOverride) {
+        this.encryptionKeyOverride = encryptionKeyOverride;
+    }
+
+    /**
+     * <p>
+     * The Key Management Service customer master key (CMK) that overrides the one specified in the build project. The
+     * CMK key encrypts the build output artifacts.
+     * </p>
+     * <note>
+     * <p>
+     * You can use a cross-account KMS key to encrypt the build output artifacts if your service role has permission to
+     * that key.
+     * </p>
+     * </note>
+     * <p>
+     * You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using the
+     * format <code>alias/&lt;alias-name&gt;</code>).
+     * </p>
+     * 
+     * @return The Key Management Service customer master key (CMK) that overrides the one specified in the build
+     *         project. The CMK key encrypts the build output artifacts.</p> <note>
+     *         <p>
+     *         You can use a cross-account KMS key to encrypt the build output artifacts if your service role has
+     *         permission to that key.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using
+     *         the format <code>alias/&lt;alias-name&gt;</code>).
+     */
+
+    public String getEncryptionKeyOverride() {
+        return this.encryptionKeyOverride;
+    }
+
+    /**
+     * <p>
+     * The Key Management Service customer master key (CMK) that overrides the one specified in the build project. The
+     * CMK key encrypts the build output artifacts.
+     * </p>
+     * <note>
+     * <p>
+     * You can use a cross-account KMS key to encrypt the build output artifacts if your service role has permission to
+     * that key.
+     * </p>
+     * </note>
+     * <p>
+     * You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using the
+     * format <code>alias/&lt;alias-name&gt;</code>).
+     * </p>
+     * 
+     * @param encryptionKeyOverride
+     *        The Key Management Service customer master key (CMK) that overrides the one specified in the build
+     *        project. The CMK key encrypts the build output artifacts.</p> <note>
+     *        <p>
+     *        You can use a cross-account KMS key to encrypt the build output artifacts if your service role has
+     *        permission to that key.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using
+     *        the format <code>alias/&lt;alias-name&gt;</code>).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartBuildRequest withEncryptionKeyOverride(String encryptionKeyOverride) {
+        setEncryptionKeyOverride(encryptionKeyOverride);
+        return this;
+    }
+
+    /**
+     * <p>
      * A unique, case sensitive identifier you provide to ensure the idempotency of the StartBuild request. The token is
-     * included in the StartBuild request and is valid for 12 hours. If you repeat the StartBuild request with the same
-     * token, but change a parameter, AWS CodeBuild returns a parameter mismatch error.
+     * included in the StartBuild request and is valid for 5 minutes. If you repeat the StartBuild request with the same
+     * token, but change a parameter, CodeBuild returns a parameter mismatch error.
      * </p>
      * 
      * @param idempotencyToken
      *        A unique, case sensitive identifier you provide to ensure the idempotency of the StartBuild request. The
-     *        token is included in the StartBuild request and is valid for 12 hours. If you repeat the StartBuild
-     *        request with the same token, but change a parameter, AWS CodeBuild returns a parameter mismatch error.
+     *        token is included in the StartBuild request and is valid for 5 minutes. If you repeat the StartBuild
+     *        request with the same token, but change a parameter, CodeBuild returns a parameter mismatch error.
      */
 
     public void setIdempotencyToken(String idempotencyToken) {
@@ -1758,13 +2239,13 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * A unique, case sensitive identifier you provide to ensure the idempotency of the StartBuild request. The token is
-     * included in the StartBuild request and is valid for 12 hours. If you repeat the StartBuild request with the same
-     * token, but change a parameter, AWS CodeBuild returns a parameter mismatch error.
+     * included in the StartBuild request and is valid for 5 minutes. If you repeat the StartBuild request with the same
+     * token, but change a parameter, CodeBuild returns a parameter mismatch error.
      * </p>
      * 
      * @return A unique, case sensitive identifier you provide to ensure the idempotency of the StartBuild request. The
-     *         token is included in the StartBuild request and is valid for 12 hours. If you repeat the StartBuild
-     *         request with the same token, but change a parameter, AWS CodeBuild returns a parameter mismatch error.
+     *         token is included in the StartBuild request and is valid for 5 minutes. If you repeat the StartBuild
+     *         request with the same token, but change a parameter, CodeBuild returns a parameter mismatch error.
      */
 
     public String getIdempotencyToken() {
@@ -1774,14 +2255,14 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * A unique, case sensitive identifier you provide to ensure the idempotency of the StartBuild request. The token is
-     * included in the StartBuild request and is valid for 12 hours. If you repeat the StartBuild request with the same
-     * token, but change a parameter, AWS CodeBuild returns a parameter mismatch error.
+     * included in the StartBuild request and is valid for 5 minutes. If you repeat the StartBuild request with the same
+     * token, but change a parameter, CodeBuild returns a parameter mismatch error.
      * </p>
      * 
      * @param idempotencyToken
      *        A unique, case sensitive identifier you provide to ensure the idempotency of the StartBuild request. The
-     *        token is included in the StartBuild request and is valid for 12 hours. If you repeat the StartBuild
-     *        request with the same token, but change a parameter, AWS CodeBuild returns a parameter mismatch error.
+     *        token is included in the StartBuild request and is valid for 5 minutes. If you repeat the StartBuild
+     *        request with the same token, but change a parameter, CodeBuild returns a parameter mismatch error.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1872,44 +2353,48 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values:
+     * The type of credentials CodeBuild uses to pull images in your build. There are two valid values:
      * </p>
-     * <ul>
-     * <li>
+     * <dl>
+     * <dt>CODEBUILD</dt>
+     * <dd>
      * <p>
-     * <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you modify your
-     * ECR repository policy to trust AWS CodeBuild's service principal.
+     * Specifies that CodeBuild uses its own credentials. This requires that you modify your ECR repository policy to
+     * trust CodeBuild's service principal.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>SERVICE_ROLE</dt>
+     * <dd>
      * <p>
-     * <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     * Specifies that CodeBuild uses your build project's service role.
      * </p>
-     * </li>
-     * </ul>
+     * </dd>
+     * </dl>
      * <p>
-     * When using a cross-account or private registry image, you must use SERVICE_ROLE credentials. When using an AWS
-     * CodeBuild curated image, you must use CODEBUILD credentials.
+     * When using a cross-account or private registry image, you must use <code>SERVICE_ROLE</code> credentials. When
+     * using an CodeBuild curated image, you must use <code>CODEBUILD</code> credentials.
      * </p>
      * 
      * @param imagePullCredentialsTypeOverride
-     *        The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values: </p>
-     *        <ul>
-     *        <li>
+     *        The type of credentials CodeBuild uses to pull images in your build. There are two valid values: </p>
+     *        <dl>
+     *        <dt>CODEBUILD</dt>
+     *        <dd>
      *        <p>
-     *        <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you
-     *        modify your ECR repository policy to trust AWS CodeBuild's service principal.
+     *        Specifies that CodeBuild uses its own credentials. This requires that you modify your ECR repository
+     *        policy to trust CodeBuild's service principal.
      *        </p>
-     *        </li>
-     *        <li>
+     *        </dd>
+     *        <dt>SERVICE_ROLE</dt>
+     *        <dd>
      *        <p>
-     *        <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     *        Specifies that CodeBuild uses your build project's service role.
      *        </p>
-     *        </li>
-     *        </ul>
+     *        </dd>
+     *        </dl>
      *        <p>
-     *        When using a cross-account or private registry image, you must use SERVICE_ROLE credentials. When using an
-     *        AWS CodeBuild curated image, you must use CODEBUILD credentials.
+     *        When using a cross-account or private registry image, you must use <code>SERVICE_ROLE</code> credentials.
+     *        When using an CodeBuild curated image, you must use <code>CODEBUILD</code> credentials.
      * @see ImagePullCredentialsType
      */
 
@@ -1919,43 +2404,47 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values:
+     * The type of credentials CodeBuild uses to pull images in your build. There are two valid values:
      * </p>
-     * <ul>
-     * <li>
+     * <dl>
+     * <dt>CODEBUILD</dt>
+     * <dd>
      * <p>
-     * <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you modify your
-     * ECR repository policy to trust AWS CodeBuild's service principal.
+     * Specifies that CodeBuild uses its own credentials. This requires that you modify your ECR repository policy to
+     * trust CodeBuild's service principal.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>SERVICE_ROLE</dt>
+     * <dd>
      * <p>
-     * <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     * Specifies that CodeBuild uses your build project's service role.
      * </p>
-     * </li>
-     * </ul>
+     * </dd>
+     * </dl>
      * <p>
-     * When using a cross-account or private registry image, you must use SERVICE_ROLE credentials. When using an AWS
-     * CodeBuild curated image, you must use CODEBUILD credentials.
+     * When using a cross-account or private registry image, you must use <code>SERVICE_ROLE</code> credentials. When
+     * using an CodeBuild curated image, you must use <code>CODEBUILD</code> credentials.
      * </p>
      * 
-     * @return The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values: </p>
-     *         <ul>
-     *         <li>
+     * @return The type of credentials CodeBuild uses to pull images in your build. There are two valid values: </p>
+     *         <dl>
+     *         <dt>CODEBUILD</dt>
+     *         <dd>
      *         <p>
-     *         <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you
-     *         modify your ECR repository policy to trust AWS CodeBuild's service principal.
+     *         Specifies that CodeBuild uses its own credentials. This requires that you modify your ECR repository
+     *         policy to trust CodeBuild's service principal.
      *         </p>
-     *         </li>
-     *         <li>
+     *         </dd>
+     *         <dt>SERVICE_ROLE</dt>
+     *         <dd>
      *         <p>
-     *         <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     *         Specifies that CodeBuild uses your build project's service role.
      *         </p>
-     *         </li>
-     *         </ul>
+     *         </dd>
+     *         </dl>
      *         <p>
-     *         When using a cross-account or private registry image, you must use SERVICE_ROLE credentials. When using
-     *         an AWS CodeBuild curated image, you must use CODEBUILD credentials.
+     *         When using a cross-account or private registry image, you must use <code>SERVICE_ROLE</code> credentials.
+     *         When using an CodeBuild curated image, you must use <code>CODEBUILD</code> credentials.
      * @see ImagePullCredentialsType
      */
 
@@ -1965,44 +2454,48 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values:
+     * The type of credentials CodeBuild uses to pull images in your build. There are two valid values:
      * </p>
-     * <ul>
-     * <li>
+     * <dl>
+     * <dt>CODEBUILD</dt>
+     * <dd>
      * <p>
-     * <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you modify your
-     * ECR repository policy to trust AWS CodeBuild's service principal.
+     * Specifies that CodeBuild uses its own credentials. This requires that you modify your ECR repository policy to
+     * trust CodeBuild's service principal.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>SERVICE_ROLE</dt>
+     * <dd>
      * <p>
-     * <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     * Specifies that CodeBuild uses your build project's service role.
      * </p>
-     * </li>
-     * </ul>
+     * </dd>
+     * </dl>
      * <p>
-     * When using a cross-account or private registry image, you must use SERVICE_ROLE credentials. When using an AWS
-     * CodeBuild curated image, you must use CODEBUILD credentials.
+     * When using a cross-account or private registry image, you must use <code>SERVICE_ROLE</code> credentials. When
+     * using an CodeBuild curated image, you must use <code>CODEBUILD</code> credentials.
      * </p>
      * 
      * @param imagePullCredentialsTypeOverride
-     *        The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values: </p>
-     *        <ul>
-     *        <li>
+     *        The type of credentials CodeBuild uses to pull images in your build. There are two valid values: </p>
+     *        <dl>
+     *        <dt>CODEBUILD</dt>
+     *        <dd>
      *        <p>
-     *        <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you
-     *        modify your ECR repository policy to trust AWS CodeBuild's service principal.
+     *        Specifies that CodeBuild uses its own credentials. This requires that you modify your ECR repository
+     *        policy to trust CodeBuild's service principal.
      *        </p>
-     *        </li>
-     *        <li>
+     *        </dd>
+     *        <dt>SERVICE_ROLE</dt>
+     *        <dd>
      *        <p>
-     *        <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     *        Specifies that CodeBuild uses your build project's service role.
      *        </p>
-     *        </li>
-     *        </ul>
+     *        </dd>
+     *        </dl>
      *        <p>
-     *        When using a cross-account or private registry image, you must use SERVICE_ROLE credentials. When using an
-     *        AWS CodeBuild curated image, you must use CODEBUILD credentials.
+     *        When using a cross-account or private registry image, you must use <code>SERVICE_ROLE</code> credentials.
+     *        When using an CodeBuild curated image, you must use <code>CODEBUILD</code> credentials.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ImagePullCredentialsType
      */
@@ -2014,50 +2507,162 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values:
+     * The type of credentials CodeBuild uses to pull images in your build. There are two valid values:
      * </p>
-     * <ul>
-     * <li>
+     * <dl>
+     * <dt>CODEBUILD</dt>
+     * <dd>
      * <p>
-     * <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you modify your
-     * ECR repository policy to trust AWS CodeBuild's service principal.
+     * Specifies that CodeBuild uses its own credentials. This requires that you modify your ECR repository policy to
+     * trust CodeBuild's service principal.
      * </p>
-     * </li>
-     * <li>
+     * </dd>
+     * <dt>SERVICE_ROLE</dt>
+     * <dd>
      * <p>
-     * <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     * Specifies that CodeBuild uses your build project's service role.
      * </p>
-     * </li>
-     * </ul>
+     * </dd>
+     * </dl>
      * <p>
-     * When using a cross-account or private registry image, you must use SERVICE_ROLE credentials. When using an AWS
-     * CodeBuild curated image, you must use CODEBUILD credentials.
+     * When using a cross-account or private registry image, you must use <code>SERVICE_ROLE</code> credentials. When
+     * using an CodeBuild curated image, you must use <code>CODEBUILD</code> credentials.
      * </p>
      * 
      * @param imagePullCredentialsTypeOverride
-     *        The type of credentials AWS CodeBuild uses to pull images in your build. There are two valid values: </p>
-     *        <ul>
-     *        <li>
+     *        The type of credentials CodeBuild uses to pull images in your build. There are two valid values: </p>
+     *        <dl>
+     *        <dt>CODEBUILD</dt>
+     *        <dd>
      *        <p>
-     *        <code>CODEBUILD</code> specifies that AWS CodeBuild uses its own credentials. This requires that you
-     *        modify your ECR repository policy to trust AWS CodeBuild's service principal.
+     *        Specifies that CodeBuild uses its own credentials. This requires that you modify your ECR repository
+     *        policy to trust CodeBuild's service principal.
      *        </p>
-     *        </li>
-     *        <li>
+     *        </dd>
+     *        <dt>SERVICE_ROLE</dt>
+     *        <dd>
      *        <p>
-     *        <code>SERVICE_ROLE</code> specifies that AWS CodeBuild uses your build project's service role.
+     *        Specifies that CodeBuild uses your build project's service role.
      *        </p>
-     *        </li>
-     *        </ul>
+     *        </dd>
+     *        </dl>
      *        <p>
-     *        When using a cross-account or private registry image, you must use SERVICE_ROLE credentials. When using an
-     *        AWS CodeBuild curated image, you must use CODEBUILD credentials.
+     *        When using a cross-account or private registry image, you must use <code>SERVICE_ROLE</code> credentials.
+     *        When using an CodeBuild curated image, you must use <code>CODEBUILD</code> credentials.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ImagePullCredentialsType
      */
 
     public StartBuildRequest withImagePullCredentialsTypeOverride(ImagePullCredentialsType imagePullCredentialsTypeOverride) {
         this.imagePullCredentialsTypeOverride = imagePullCredentialsTypeOverride.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies if session debugging is enabled for this build. For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html">Viewing a running build in
+     * Session Manager</a>.
+     * </p>
+     * 
+     * @param debugSessionEnabled
+     *        Specifies if session debugging is enabled for this build. For more information, see <a
+     *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html">Viewing a running build
+     *        in Session Manager</a>.
+     */
+
+    public void setDebugSessionEnabled(Boolean debugSessionEnabled) {
+        this.debugSessionEnabled = debugSessionEnabled;
+    }
+
+    /**
+     * <p>
+     * Specifies if session debugging is enabled for this build. For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html">Viewing a running build in
+     * Session Manager</a>.
+     * </p>
+     * 
+     * @return Specifies if session debugging is enabled for this build. For more information, see <a
+     *         href="https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html">Viewing a running
+     *         build in Session Manager</a>.
+     */
+
+    public Boolean getDebugSessionEnabled() {
+        return this.debugSessionEnabled;
+    }
+
+    /**
+     * <p>
+     * Specifies if session debugging is enabled for this build. For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html">Viewing a running build in
+     * Session Manager</a>.
+     * </p>
+     * 
+     * @param debugSessionEnabled
+     *        Specifies if session debugging is enabled for this build. For more information, see <a
+     *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html">Viewing a running build
+     *        in Session Manager</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartBuildRequest withDebugSessionEnabled(Boolean debugSessionEnabled) {
+        setDebugSessionEnabled(debugSessionEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies if session debugging is enabled for this build. For more information, see <a
+     * href="https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html">Viewing a running build in
+     * Session Manager</a>.
+     * </p>
+     * 
+     * @return Specifies if session debugging is enabled for this build. For more information, see <a
+     *         href="https://docs.aws.amazon.com/codebuild/latest/userguide/session-manager.html">Viewing a running
+     *         build in Session Manager</a>.
+     */
+
+    public Boolean isDebugSessionEnabled() {
+        return this.debugSessionEnabled;
+    }
+
+    /**
+     * <p>
+     * A ProjectFleet object specified for this build that overrides the one defined in the build project.
+     * </p>
+     * 
+     * @param fleetOverride
+     *        A ProjectFleet object specified for this build that overrides the one defined in the build project.
+     */
+
+    public void setFleetOverride(ProjectFleet fleetOverride) {
+        this.fleetOverride = fleetOverride;
+    }
+
+    /**
+     * <p>
+     * A ProjectFleet object specified for this build that overrides the one defined in the build project.
+     * </p>
+     * 
+     * @return A ProjectFleet object specified for this build that overrides the one defined in the build project.
+     */
+
+    public ProjectFleet getFleetOverride() {
+        return this.fleetOverride;
+    }
+
+    /**
+     * <p>
+     * A ProjectFleet object specified for this build that overrides the one defined in the build project.
+     * </p>
+     * 
+     * @param fleetOverride
+     *        A ProjectFleet object specified for this build that overrides the one defined in the build project.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartBuildRequest withFleetOverride(ProjectFleet fleetOverride) {
+        setFleetOverride(fleetOverride);
         return this;
     }
 
@@ -2103,6 +2708,8 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
             sb.append("InsecureSslOverride: ").append(getInsecureSslOverride()).append(",");
         if (getReportBuildStatusOverride() != null)
             sb.append("ReportBuildStatusOverride: ").append(getReportBuildStatusOverride()).append(",");
+        if (getBuildStatusConfigOverride() != null)
+            sb.append("BuildStatusConfigOverride: ").append(getBuildStatusConfigOverride()).append(",");
         if (getEnvironmentTypeOverride() != null)
             sb.append("EnvironmentTypeOverride: ").append(getEnvironmentTypeOverride()).append(",");
         if (getImageOverride() != null)
@@ -2121,6 +2728,8 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
             sb.append("TimeoutInMinutesOverride: ").append(getTimeoutInMinutesOverride()).append(",");
         if (getQueuedTimeoutInMinutesOverride() != null)
             sb.append("QueuedTimeoutInMinutesOverride: ").append(getQueuedTimeoutInMinutesOverride()).append(",");
+        if (getEncryptionKeyOverride() != null)
+            sb.append("EncryptionKeyOverride: ").append(getEncryptionKeyOverride()).append(",");
         if (getIdempotencyToken() != null)
             sb.append("IdempotencyToken: ").append(getIdempotencyToken()).append(",");
         if (getLogsConfigOverride() != null)
@@ -2128,7 +2737,11 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
         if (getRegistryCredentialOverride() != null)
             sb.append("RegistryCredentialOverride: ").append(getRegistryCredentialOverride()).append(",");
         if (getImagePullCredentialsTypeOverride() != null)
-            sb.append("ImagePullCredentialsTypeOverride: ").append(getImagePullCredentialsTypeOverride());
+            sb.append("ImagePullCredentialsTypeOverride: ").append(getImagePullCredentialsTypeOverride()).append(",");
+        if (getDebugSessionEnabled() != null)
+            sb.append("DebugSessionEnabled: ").append(getDebugSessionEnabled()).append(",");
+        if (getFleetOverride() != null)
+            sb.append("FleetOverride: ").append(getFleetOverride());
         sb.append("}");
         return sb.toString();
     }
@@ -2204,6 +2817,10 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
             return false;
         if (other.getReportBuildStatusOverride() != null && other.getReportBuildStatusOverride().equals(this.getReportBuildStatusOverride()) == false)
             return false;
+        if (other.getBuildStatusConfigOverride() == null ^ this.getBuildStatusConfigOverride() == null)
+            return false;
+        if (other.getBuildStatusConfigOverride() != null && other.getBuildStatusConfigOverride().equals(this.getBuildStatusConfigOverride()) == false)
+            return false;
         if (other.getEnvironmentTypeOverride() == null ^ this.getEnvironmentTypeOverride() == null)
             return false;
         if (other.getEnvironmentTypeOverride() != null && other.getEnvironmentTypeOverride().equals(this.getEnvironmentTypeOverride()) == false)
@@ -2241,6 +2858,10 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
         if (other.getQueuedTimeoutInMinutesOverride() != null
                 && other.getQueuedTimeoutInMinutesOverride().equals(this.getQueuedTimeoutInMinutesOverride()) == false)
             return false;
+        if (other.getEncryptionKeyOverride() == null ^ this.getEncryptionKeyOverride() == null)
+            return false;
+        if (other.getEncryptionKeyOverride() != null && other.getEncryptionKeyOverride().equals(this.getEncryptionKeyOverride()) == false)
+            return false;
         if (other.getIdempotencyToken() == null ^ this.getIdempotencyToken() == null)
             return false;
         if (other.getIdempotencyToken() != null && other.getIdempotencyToken().equals(this.getIdempotencyToken()) == false)
@@ -2257,6 +2878,14 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
             return false;
         if (other.getImagePullCredentialsTypeOverride() != null
                 && other.getImagePullCredentialsTypeOverride().equals(this.getImagePullCredentialsTypeOverride()) == false)
+            return false;
+        if (other.getDebugSessionEnabled() == null ^ this.getDebugSessionEnabled() == null)
+            return false;
+        if (other.getDebugSessionEnabled() != null && other.getDebugSessionEnabled().equals(this.getDebugSessionEnabled()) == false)
+            return false;
+        if (other.getFleetOverride() == null ^ this.getFleetOverride() == null)
+            return false;
+        if (other.getFleetOverride() != null && other.getFleetOverride().equals(this.getFleetOverride()) == false)
             return false;
         return true;
     }
@@ -2281,6 +2910,7 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
         hashCode = prime * hashCode + ((getBuildspecOverride() == null) ? 0 : getBuildspecOverride().hashCode());
         hashCode = prime * hashCode + ((getInsecureSslOverride() == null) ? 0 : getInsecureSslOverride().hashCode());
         hashCode = prime * hashCode + ((getReportBuildStatusOverride() == null) ? 0 : getReportBuildStatusOverride().hashCode());
+        hashCode = prime * hashCode + ((getBuildStatusConfigOverride() == null) ? 0 : getBuildStatusConfigOverride().hashCode());
         hashCode = prime * hashCode + ((getEnvironmentTypeOverride() == null) ? 0 : getEnvironmentTypeOverride().hashCode());
         hashCode = prime * hashCode + ((getImageOverride() == null) ? 0 : getImageOverride().hashCode());
         hashCode = prime * hashCode + ((getComputeTypeOverride() == null) ? 0 : getComputeTypeOverride().hashCode());
@@ -2290,10 +2920,13 @@ public class StartBuildRequest extends com.amazonaws.AmazonWebServiceRequest imp
         hashCode = prime * hashCode + ((getPrivilegedModeOverride() == null) ? 0 : getPrivilegedModeOverride().hashCode());
         hashCode = prime * hashCode + ((getTimeoutInMinutesOverride() == null) ? 0 : getTimeoutInMinutesOverride().hashCode());
         hashCode = prime * hashCode + ((getQueuedTimeoutInMinutesOverride() == null) ? 0 : getQueuedTimeoutInMinutesOverride().hashCode());
+        hashCode = prime * hashCode + ((getEncryptionKeyOverride() == null) ? 0 : getEncryptionKeyOverride().hashCode());
         hashCode = prime * hashCode + ((getIdempotencyToken() == null) ? 0 : getIdempotencyToken().hashCode());
         hashCode = prime * hashCode + ((getLogsConfigOverride() == null) ? 0 : getLogsConfigOverride().hashCode());
         hashCode = prime * hashCode + ((getRegistryCredentialOverride() == null) ? 0 : getRegistryCredentialOverride().hashCode());
         hashCode = prime * hashCode + ((getImagePullCredentialsTypeOverride() == null) ? 0 : getImagePullCredentialsTypeOverride().hashCode());
+        hashCode = prime * hashCode + ((getDebugSessionEnabled() == null) ? 0 : getDebugSessionEnabled().hashCode());
+        hashCode = prime * hashCode + ((getFleetOverride() == null) ? 0 : getFleetOverride().hashCode());
         return hashCode;
     }
 

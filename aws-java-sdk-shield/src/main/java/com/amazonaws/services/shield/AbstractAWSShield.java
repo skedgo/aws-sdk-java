@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,7 +48,22 @@ public class AbstractAWSShield implements AWSShield {
     }
 
     @Override
+    public AssociateHealthCheckResult associateHealthCheck(AssociateHealthCheckRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateProactiveEngagementDetailsResult associateProactiveEngagementDetails(AssociateProactiveEngagementDetailsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateProtectionResult createProtection(CreateProtectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateProtectionGroupResult createProtectionGroup(CreateProtectionGroupRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -63,6 +78,11 @@ public class AbstractAWSShield implements AWSShield {
     }
 
     @Override
+    public DeleteProtectionGroupResult deleteProtectionGroup(DeleteProtectionGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     @Deprecated
     public DeleteSubscriptionResult deleteSubscription(DeleteSubscriptionRequest request) {
         throw new java.lang.UnsupportedOperationException();
@@ -70,6 +90,11 @@ public class AbstractAWSShield implements AWSShield {
 
     @Override
     public DescribeAttackResult describeAttack(DescribeAttackRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeAttackStatisticsResult describeAttackStatistics(DescribeAttackStatisticsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -89,7 +114,22 @@ public class AbstractAWSShield implements AWSShield {
     }
 
     @Override
+    public DescribeProtectionGroupResult describeProtectionGroup(DescribeProtectionGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeSubscriptionResult describeSubscription(DescribeSubscriptionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisableApplicationLayerAutomaticResponseResult disableApplicationLayerAutomaticResponse(DisableApplicationLayerAutomaticResponseRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisableProactiveEngagementResult disableProactiveEngagement(DisableProactiveEngagementRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -104,6 +144,21 @@ public class AbstractAWSShield implements AWSShield {
     }
 
     @Override
+    public DisassociateHealthCheckResult disassociateHealthCheck(DisassociateHealthCheckRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public EnableApplicationLayerAutomaticResponseResult enableApplicationLayerAutomaticResponse(EnableApplicationLayerAutomaticResponseRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public EnableProactiveEngagementResult enableProactiveEngagement(EnableProactiveEngagementRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetSubscriptionStateResult getSubscriptionState(GetSubscriptionStateRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -114,12 +169,47 @@ public class AbstractAWSShield implements AWSShield {
     }
 
     @Override
+    public ListProtectionGroupsResult listProtectionGroups(ListProtectionGroupsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListProtectionsResult listProtections(ListProtectionsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public ListResourcesInProtectionGroupResult listResourcesInProtectionGroup(ListResourcesInProtectionGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateApplicationLayerAutomaticResponseResult updateApplicationLayerAutomaticResponse(UpdateApplicationLayerAutomaticResponseRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateEmergencyContactSettingsResult updateEmergencyContactSettings(UpdateEmergencyContactSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateProtectionGroupResult updateProtectionGroup(UpdateProtectionGroupRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

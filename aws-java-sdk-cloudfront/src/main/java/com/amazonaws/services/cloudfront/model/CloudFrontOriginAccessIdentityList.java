@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,7 @@ import javax.annotation.Generated;
  * and <code>Marker</code> parameters.
  * </p>
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CloudFrontOriginAccessIdentityList"
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CloudFrontOriginAccessIdentityList"
  *      target="_top">AWS API Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -63,14 +63,14 @@ public class CloudFrontOriginAccessIdentityList implements Serializable, Cloneab
     private Boolean isTruncated;
     /**
      * <p>
-     * The number of CloudFront origin access identities that were created by the current AWS account.
+     * The number of CloudFront origin access identities that were created by the current Amazon Web Services account.
      * </p>
      */
     private Integer quantity;
     /**
      * <p>
      * A complex type that contains one <code>CloudFrontOriginAccessIdentitySummary</code> element for each origin
-     * access identity that was created by the current AWS account.
+     * access identity that was created by the current Amazon Web Services account.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<CloudFrontOriginAccessIdentitySummary> items;
@@ -292,11 +292,12 @@ public class CloudFrontOriginAccessIdentityList implements Serializable, Cloneab
 
     /**
      * <p>
-     * The number of CloudFront origin access identities that were created by the current AWS account.
+     * The number of CloudFront origin access identities that were created by the current Amazon Web Services account.
      * </p>
      * 
      * @param quantity
-     *        The number of CloudFront origin access identities that were created by the current AWS account.
+     *        The number of CloudFront origin access identities that were created by the current Amazon Web Services
+     *        account.
      */
 
     public void setQuantity(Integer quantity) {
@@ -305,10 +306,11 @@ public class CloudFrontOriginAccessIdentityList implements Serializable, Cloneab
 
     /**
      * <p>
-     * The number of CloudFront origin access identities that were created by the current AWS account.
+     * The number of CloudFront origin access identities that were created by the current Amazon Web Services account.
      * </p>
      * 
-     * @return The number of CloudFront origin access identities that were created by the current AWS account.
+     * @return The number of CloudFront origin access identities that were created by the current Amazon Web Services
+     *         account.
      */
 
     public Integer getQuantity() {
@@ -317,11 +319,12 @@ public class CloudFrontOriginAccessIdentityList implements Serializable, Cloneab
 
     /**
      * <p>
-     * The number of CloudFront origin access identities that were created by the current AWS account.
+     * The number of CloudFront origin access identities that were created by the current Amazon Web Services account.
      * </p>
      * 
      * @param quantity
-     *        The number of CloudFront origin access identities that were created by the current AWS account.
+     *        The number of CloudFront origin access identities that were created by the current Amazon Web Services
+     *        account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -333,11 +336,11 @@ public class CloudFrontOriginAccessIdentityList implements Serializable, Cloneab
     /**
      * <p>
      * A complex type that contains one <code>CloudFrontOriginAccessIdentitySummary</code> element for each origin
-     * access identity that was created by the current AWS account.
+     * access identity that was created by the current Amazon Web Services account.
      * </p>
      * 
      * @return A complex type that contains one <code>CloudFrontOriginAccessIdentitySummary</code> element for each
-     *         origin access identity that was created by the current AWS account.
+     *         origin access identity that was created by the current Amazon Web Services account.
      */
 
     public java.util.List<CloudFrontOriginAccessIdentitySummary> getItems() {
@@ -350,12 +353,12 @@ public class CloudFrontOriginAccessIdentityList implements Serializable, Cloneab
     /**
      * <p>
      * A complex type that contains one <code>CloudFrontOriginAccessIdentitySummary</code> element for each origin
-     * access identity that was created by the current AWS account.
+     * access identity that was created by the current Amazon Web Services account.
      * </p>
      * 
      * @param items
      *        A complex type that contains one <code>CloudFrontOriginAccessIdentitySummary</code> element for each
-     *        origin access identity that was created by the current AWS account.
+     *        origin access identity that was created by the current Amazon Web Services account.
      */
 
     public void setItems(java.util.Collection<CloudFrontOriginAccessIdentitySummary> items) {
@@ -370,7 +373,7 @@ public class CloudFrontOriginAccessIdentityList implements Serializable, Cloneab
     /**
      * <p>
      * A complex type that contains one <code>CloudFrontOriginAccessIdentitySummary</code> element for each origin
-     * access identity that was created by the current AWS account.
+     * access identity that was created by the current Amazon Web Services account.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -380,7 +383,7 @@ public class CloudFrontOriginAccessIdentityList implements Serializable, Cloneab
      * 
      * @param items
      *        A complex type that contains one <code>CloudFrontOriginAccessIdentitySummary</code> element for each
-     *        origin access identity that was created by the current AWS account.
+     *        origin access identity that was created by the current Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -397,12 +400,12 @@ public class CloudFrontOriginAccessIdentityList implements Serializable, Cloneab
     /**
      * <p>
      * A complex type that contains one <code>CloudFrontOriginAccessIdentitySummary</code> element for each origin
-     * access identity that was created by the current AWS account.
+     * access identity that was created by the current Amazon Web Services account.
      * </p>
      * 
      * @param items
      *        A complex type that contains one <code>CloudFrontOriginAccessIdentitySummary</code> element for each
-     *        origin access identity that was created by the current AWS account.
+     *        origin access identity that was created by the current Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

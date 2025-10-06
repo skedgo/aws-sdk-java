@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,6 +36,12 @@ public class BrokerEBSVolumeInfo implements Serializable, Cloneable, StructuredP
      * </p>
      */
     private String kafkaBrokerNodeId;
+    /**
+     * <p>
+     * EBS volume provisioned throughput information.
+     * </p>
+     */
+    private ProvisionedThroughput provisionedThroughput;
     /**
      * <p>
      * Size of the EBS volume to update.
@@ -86,6 +92,52 @@ public class BrokerEBSVolumeInfo implements Serializable, Cloneable, StructuredP
 
     public BrokerEBSVolumeInfo withKafkaBrokerNodeId(String kafkaBrokerNodeId) {
         setKafkaBrokerNodeId(kafkaBrokerNodeId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * EBS volume provisioned throughput information.
+     * </p>
+     * 
+     * @param provisionedThroughput
+     *        <p>
+     *        EBS volume provisioned throughput information.
+     *        </p>
+     */
+
+    public void setProvisionedThroughput(ProvisionedThroughput provisionedThroughput) {
+        this.provisionedThroughput = provisionedThroughput;
+    }
+
+    /**
+     * <p>
+     * EBS volume provisioned throughput information.
+     * </p>
+     * 
+     * @return <p>
+     *         EBS volume provisioned throughput information.
+     *         </p>
+     */
+
+    public ProvisionedThroughput getProvisionedThroughput() {
+        return this.provisionedThroughput;
+    }
+
+    /**
+     * <p>
+     * EBS volume provisioned throughput information.
+     * </p>
+     * 
+     * @param provisionedThroughput
+     *        <p>
+     *        EBS volume provisioned throughput information.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BrokerEBSVolumeInfo withProvisionedThroughput(ProvisionedThroughput provisionedThroughput) {
+        setProvisionedThroughput(provisionedThroughput);
         return this;
     }
 
@@ -149,6 +201,8 @@ public class BrokerEBSVolumeInfo implements Serializable, Cloneable, StructuredP
         sb.append("{");
         if (getKafkaBrokerNodeId() != null)
             sb.append("KafkaBrokerNodeId: ").append(getKafkaBrokerNodeId()).append(",");
+        if (getProvisionedThroughput() != null)
+            sb.append("ProvisionedThroughput: ").append(getProvisionedThroughput()).append(",");
         if (getVolumeSizeGB() != null)
             sb.append("VolumeSizeGB: ").append(getVolumeSizeGB());
         sb.append("}");
@@ -169,6 +223,10 @@ public class BrokerEBSVolumeInfo implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getKafkaBrokerNodeId() != null && other.getKafkaBrokerNodeId().equals(this.getKafkaBrokerNodeId()) == false)
             return false;
+        if (other.getProvisionedThroughput() == null ^ this.getProvisionedThroughput() == null)
+            return false;
+        if (other.getProvisionedThroughput() != null && other.getProvisionedThroughput().equals(this.getProvisionedThroughput()) == false)
+            return false;
         if (other.getVolumeSizeGB() == null ^ this.getVolumeSizeGB() == null)
             return false;
         if (other.getVolumeSizeGB() != null && other.getVolumeSizeGB().equals(this.getVolumeSizeGB()) == false)
@@ -182,6 +240,7 @@ public class BrokerEBSVolumeInfo implements Serializable, Cloneable, StructuredP
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getKafkaBrokerNodeId() == null) ? 0 : getKafkaBrokerNodeId().hashCode());
+        hashCode = prime * hashCode + ((getProvisionedThroughput() == null) ? 0 : getProvisionedThroughput().hashCode());
         hashCode = prime * hashCode + ((getVolumeSizeGB() == null) ? 0 : getVolumeSizeGB().hashCode());
         return hashCode;
     }

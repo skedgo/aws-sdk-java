@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes the SSH key pair.
+ * Describes an SSH key pair.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/KeyPair" target="_top">AWS API
@@ -36,7 +36,7 @@ public class KeyPair implements Serializable, Cloneable, StructuredPojo {
     private String name;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the key pair (e.g.,
+     * The Amazon Resource Name (ARN) of the key pair (
      * <code>arn:aws:lightsail:us-east-2:123456789101:KeyPair/05859e3d-331d-48ba-9034-12345EXAMPLE</code>).
      * </p>
      */
@@ -50,7 +50,7 @@ public class KeyPair implements Serializable, Cloneable, StructuredPojo {
     private String supportCode;
     /**
      * <p>
-     * The timestamp when the key pair was created (e.g., <code>1479816991.349</code>).
+     * The timestamp when the key pair was created (<code>1479816991.349</code>).
      * </p>
      */
     private java.util.Date createdAt;
@@ -69,7 +69,8 @@ public class KeyPair implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      */
     private java.util.List<Tag> tags;
@@ -122,12 +123,12 @@ public class KeyPair implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the key pair (e.g.,
+     * The Amazon Resource Name (ARN) of the key pair (
      * <code>arn:aws:lightsail:us-east-2:123456789101:KeyPair/05859e3d-331d-48ba-9034-12345EXAMPLE</code>).
      * </p>
      * 
      * @param arn
-     *        The Amazon Resource Name (ARN) of the key pair (e.g.,
+     *        The Amazon Resource Name (ARN) of the key pair (
      *        <code>arn:aws:lightsail:us-east-2:123456789101:KeyPair/05859e3d-331d-48ba-9034-12345EXAMPLE</code>).
      */
 
@@ -137,11 +138,11 @@ public class KeyPair implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the key pair (e.g.,
+     * The Amazon Resource Name (ARN) of the key pair (
      * <code>arn:aws:lightsail:us-east-2:123456789101:KeyPair/05859e3d-331d-48ba-9034-12345EXAMPLE</code>).
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the key pair (e.g.,
+     * @return The Amazon Resource Name (ARN) of the key pair (
      *         <code>arn:aws:lightsail:us-east-2:123456789101:KeyPair/05859e3d-331d-48ba-9034-12345EXAMPLE</code>).
      */
 
@@ -151,12 +152,12 @@ public class KeyPair implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the key pair (e.g.,
+     * The Amazon Resource Name (ARN) of the key pair (
      * <code>arn:aws:lightsail:us-east-2:123456789101:KeyPair/05859e3d-331d-48ba-9034-12345EXAMPLE</code>).
      * </p>
      * 
      * @param arn
-     *        The Amazon Resource Name (ARN) of the key pair (e.g.,
+     *        The Amazon Resource Name (ARN) of the key pair (
      *        <code>arn:aws:lightsail:us-east-2:123456789101:KeyPair/05859e3d-331d-48ba-9034-12345EXAMPLE</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -217,11 +218,11 @@ public class KeyPair implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The timestamp when the key pair was created (e.g., <code>1479816991.349</code>).
+     * The timestamp when the key pair was created (<code>1479816991.349</code>).
      * </p>
      * 
      * @param createdAt
-     *        The timestamp when the key pair was created (e.g., <code>1479816991.349</code>).
+     *        The timestamp when the key pair was created (<code>1479816991.349</code>).
      */
 
     public void setCreatedAt(java.util.Date createdAt) {
@@ -230,10 +231,10 @@ public class KeyPair implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The timestamp when the key pair was created (e.g., <code>1479816991.349</code>).
+     * The timestamp when the key pair was created (<code>1479816991.349</code>).
      * </p>
      * 
-     * @return The timestamp when the key pair was created (e.g., <code>1479816991.349</code>).
+     * @return The timestamp when the key pair was created (<code>1479816991.349</code>).
      */
 
     public java.util.Date getCreatedAt() {
@@ -242,11 +243,11 @@ public class KeyPair implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The timestamp when the key pair was created (e.g., <code>1479816991.349</code>).
+     * The timestamp when the key pair was created (<code>1479816991.349</code>).
      * </p>
      * 
      * @param createdAt
-     *        The timestamp when the key pair was created (e.g., <code>1479816991.349</code>).
+     *        The timestamp when the key pair was created (<code>1479816991.349</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -371,12 +372,13 @@ public class KeyPair implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * 
      * @return The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *         <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *         Guide</a>.
+     *         <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *         Developer Guide</a>.
      */
 
     public java.util.List<Tag> getTags() {
@@ -386,13 +388,14 @@ public class KeyPair implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *        Guide</a>.
+     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *        Developer Guide</a>.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -407,7 +410,8 @@ public class KeyPair implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -417,8 +421,8 @@ public class KeyPair implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param tags
      *        The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *        Guide</a>.
+     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *        Developer Guide</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -435,13 +439,14 @@ public class KeyPair implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *        Guide</a>.
+     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *        Developer Guide</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

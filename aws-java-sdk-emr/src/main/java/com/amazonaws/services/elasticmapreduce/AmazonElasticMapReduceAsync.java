@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,9 +26,9 @@ import com.amazonaws.services.elasticmapreduce.model.*;
  * </p>
  * <p>
  * <p>
- * Amazon EMR is a web service that makes it easy to process large amounts of data efficiently. Amazon EMR uses Hadoop
- * processing combined with several AWS products to do tasks such as web indexing, data mining, log file analysis,
- * machine learning, scientific simulation, and data warehousing.
+ * Amazon EMR is a web service that makes it easier to process large amounts of data efficiently. Amazon EMR uses Hadoop
+ * processing combined with several Amazon Web Services services to do tasks such as web indexing, data mining, log file
+ * analysis, machine learning, scientific simulation, and data warehouse management.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -40,7 +40,7 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * </p>
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x.
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x.
      * </p>
      * </note>
      * 
@@ -58,7 +58,7 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * </p>
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x.
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x.
      * </p>
      * </note>
      * 
@@ -116,9 +116,7 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * If your cluster is long-running (such as a Hive data warehouse) or complex, you may require more than 256 steps
      * to process your data. You can bypass the 256-step limitation in various ways, including using SSH to connect to
      * the master node and submitting queries directly to the software running on the master node, such as Hive and
-     * Hadoop. For more information on how to do this, see <a
-     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/AddMoreThan256Steps.html">Add More than 256 Steps to
-     * a Cluster</a> in the <i>Amazon EMR Management Guide</i>.
+     * Hadoop.
      * </p>
      * <p>
      * A step specifies the location of a JAR file stored either on the master node of the cluster or in Amazon S3. Each
@@ -134,6 +132,11 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * You can only add steps to a cluster that is in one of the following states: STARTING, BOOTSTRAPPING, RUNNING, or
      * WAITING.
      * </p>
+     * <note>
+     * <p>
+     * The string values passed into <code>HadoopJarStep</code> object cannot exceed a total of 10240 characters.
+     * </p>
+     * </note>
      * 
      * @param addJobFlowStepsRequest
      *        The input argument to the <a>AddJobFlowSteps</a> operation.
@@ -152,9 +155,7 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * If your cluster is long-running (such as a Hive data warehouse) or complex, you may require more than 256 steps
      * to process your data. You can bypass the 256-step limitation in various ways, including using SSH to connect to
      * the master node and submitting queries directly to the software running on the master node, such as Hive and
-     * Hadoop. For more information on how to do this, see <a
-     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/AddMoreThan256Steps.html">Add More than 256 Steps to
-     * a Cluster</a> in the <i>Amazon EMR Management Guide</i>.
+     * Hadoop.
      * </p>
      * <p>
      * A step specifies the location of a JAR file stored either on the master node of the cluster or in Amazon S3. Each
@@ -170,6 +171,11 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * You can only add steps to a cluster that is in one of the following states: STARTING, BOOTSTRAPPING, RUNNING, or
      * WAITING.
      * </p>
+     * <note>
+     * <p>
+     * The string values passed into <code>HadoopJarStep</code> object cannot exceed a total of 10240 characters.
+     * </p>
+     * </note>
      * 
      * @param addJobFlowStepsRequest
      *        The input argument to the <a>AddJobFlowSteps</a> operation.
@@ -187,13 +193,14 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * Adds tags to an Amazon EMR resource. Tags make it easier to associate clusters in various ways, such as grouping
-     * clusters to track your Amazon EMR resource allocation costs. For more information, see <a
-     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html">Tag Clusters</a>.
+     * Adds tags to an Amazon EMR resource, such as a cluster or an Amazon EMR Studio. Tags make it easier to associate
+     * resources in various ways, such as grouping clusters to track your Amazon EMR resource allocation costs. For more
+     * information, see <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html">Tag
+     * Clusters</a>.
      * </p>
      * 
      * @param addTagsRequest
-     *        This input identifies a cluster and a list of tags to attach.
+     *        This input identifies an Amazon EMR resource and a list of tags to attach.
      * @return A Java Future containing the result of the AddTags operation returned by the service.
      * @sample AmazonElasticMapReduceAsync.AddTags
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/AddTags" target="_top">AWS API
@@ -203,13 +210,14 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * Adds tags to an Amazon EMR resource. Tags make it easier to associate clusters in various ways, such as grouping
-     * clusters to track your Amazon EMR resource allocation costs. For more information, see <a
-     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html">Tag Clusters</a>.
+     * Adds tags to an Amazon EMR resource, such as a cluster or an Amazon EMR Studio. Tags make it easier to associate
+     * resources in various ways, such as grouping clusters to track your Amazon EMR resource allocation costs. For more
+     * information, see <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html">Tag
+     * Clusters</a>.
      * </p>
      * 
      * @param addTagsRequest
-     *        This input identifies a cluster and a list of tags to attach.
+     *        This input identifies an Amazon EMR resource and a list of tags to attach.
      * @param asyncHandler
      *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
      *        implementation of the callback methods in this interface to receive notification of successful or
@@ -226,8 +234,10 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * <p>
      * Cancels a pending step or steps in a running cluster. Available only in Amazon EMR versions 4.8.0 and later,
      * excluding version 5.0.0. A maximum of 256 steps are allowed in each CancelSteps request. CancelSteps is
-     * idempotent but asynchronous; it does not guarantee a step will be canceled, even if the request is successfully
-     * submitted. You can only cancel steps that are in a <code>PENDING</code> state.
+     * idempotent but asynchronous; it does not guarantee that a step will be canceled, even if the request is
+     * successfully submitted. When you use Amazon EMR releases 5.28.0 and later, you can cancel steps that are in a
+     * <code>PENDING</code> or <code>RUNNING</code> state. In earlier versions of Amazon EMR, you can only cancel steps
+     * that are in a <code>PENDING</code> state.
      * </p>
      * 
      * @param cancelStepsRequest
@@ -243,8 +253,10 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * <p>
      * Cancels a pending step or steps in a running cluster. Available only in Amazon EMR versions 4.8.0 and later,
      * excluding version 5.0.0. A maximum of 256 steps are allowed in each CancelSteps request. CancelSteps is
-     * idempotent but asynchronous; it does not guarantee a step will be canceled, even if the request is successfully
-     * submitted. You can only cancel steps that are in a <code>PENDING</code> state.
+     * idempotent but asynchronous; it does not guarantee that a step will be canceled, even if the request is
+     * successfully submitted. When you use Amazon EMR releases 5.28.0 and later, you can cancel steps that are in a
+     * <code>PENDING</code> or <code>RUNNING</code> state. In earlier versions of Amazon EMR, you can only cancel steps
+     * that are in a <code>PENDING</code> state.
      * </p>
      * 
      * @param cancelStepsRequest
@@ -296,6 +308,80 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
+     * Creates a new Amazon EMR Studio.
+     * </p>
+     * 
+     * @param createStudioRequest
+     * @return A Java Future containing the result of the CreateStudio operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.CreateStudio
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/CreateStudio" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateStudioResult> createStudioAsync(CreateStudioRequest createStudioRequest);
+
+    /**
+     * <p>
+     * Creates a new Amazon EMR Studio.
+     * </p>
+     * 
+     * @param createStudioRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateStudio operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.CreateStudio
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/CreateStudio" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateStudioResult> createStudioAsync(CreateStudioRequest createStudioRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateStudioRequest, CreateStudioResult> asyncHandler);
+
+    /**
+     * <p>
+     * Maps a user or group to the Amazon EMR Studio specified by <code>StudioId</code>, and applies a session policy to
+     * refine Studio permissions for that user or group. Use <code>CreateStudioSessionMapping</code> to assign users to
+     * a Studio when you use IAM Identity Center authentication. For instructions on how to assign users to a Studio
+     * when you use IAM authentication, see <a href=
+     * "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-studio-manage-users.html#emr-studio-assign-users-groups"
+     * >Assign a user or group to your EMR Studio</a>.
+     * </p>
+     * 
+     * @param createStudioSessionMappingRequest
+     * @return A Java Future containing the result of the CreateStudioSessionMapping operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.CreateStudioSessionMapping
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/CreateStudioSessionMapping"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateStudioSessionMappingResult> createStudioSessionMappingAsync(
+            CreateStudioSessionMappingRequest createStudioSessionMappingRequest);
+
+    /**
+     * <p>
+     * Maps a user or group to the Amazon EMR Studio specified by <code>StudioId</code>, and applies a session policy to
+     * refine Studio permissions for that user or group. Use <code>CreateStudioSessionMapping</code> to assign users to
+     * a Studio when you use IAM Identity Center authentication. For instructions on how to assign users to a Studio
+     * when you use IAM authentication, see <a href=
+     * "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-studio-manage-users.html#emr-studio-assign-users-groups"
+     * >Assign a user or group to your EMR Studio</a>.
+     * </p>
+     * 
+     * @param createStudioSessionMappingRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateStudioSessionMapping operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.CreateStudioSessionMapping
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/CreateStudioSessionMapping"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateStudioSessionMappingResult> createStudioSessionMappingAsync(
+            CreateStudioSessionMappingRequest createStudioSessionMappingRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateStudioSessionMappingRequest, CreateStudioSessionMappingResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes a security configuration.
      * </p>
      * 
@@ -326,6 +412,70 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
     java.util.concurrent.Future<DeleteSecurityConfigurationResult> deleteSecurityConfigurationAsync(
             DeleteSecurityConfigurationRequest deleteSecurityConfigurationRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteSecurityConfigurationRequest, DeleteSecurityConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Removes an Amazon EMR Studio from the Studio metadata store.
+     * </p>
+     * 
+     * @param deleteStudioRequest
+     * @return A Java Future containing the result of the DeleteStudio operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.DeleteStudio
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/DeleteStudio" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteStudioResult> deleteStudioAsync(DeleteStudioRequest deleteStudioRequest);
+
+    /**
+     * <p>
+     * Removes an Amazon EMR Studio from the Studio metadata store.
+     * </p>
+     * 
+     * @param deleteStudioRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteStudio operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.DeleteStudio
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/DeleteStudio" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteStudioResult> deleteStudioAsync(DeleteStudioRequest deleteStudioRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteStudioRequest, DeleteStudioResult> asyncHandler);
+
+    /**
+     * <p>
+     * Removes a user or group from an Amazon EMR Studio.
+     * </p>
+     * 
+     * @param deleteStudioSessionMappingRequest
+     * @return A Java Future containing the result of the DeleteStudioSessionMapping operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.DeleteStudioSessionMapping
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/DeleteStudioSessionMapping"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteStudioSessionMappingResult> deleteStudioSessionMappingAsync(
+            DeleteStudioSessionMappingRequest deleteStudioSessionMappingRequest);
+
+    /**
+     * <p>
+     * Removes a user or group from an Amazon EMR Studio.
+     * </p>
+     * 
+     * @param deleteStudioSessionMappingRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteStudioSessionMapping operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.DeleteStudioSessionMapping
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/DeleteStudioSessionMapping"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteStudioSessionMappingResult> deleteStudioSessionMappingAsync(
+            DeleteStudioSessionMappingRequest deleteStudioSessionMappingRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteStudioSessionMappingRequest, DeleteStudioSessionMappingResult> asyncHandler);
 
     /**
      * <p>
@@ -362,7 +512,7 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * This API is deprecated and will eventually be removed. We recommend you use <a>ListClusters</a>,
+     * This API is no longer supported and will eventually be removed. We recommend you use <a>ListClusters</a>,
      * <a>DescribeCluster</a>, <a>ListSteps</a>, <a>ListInstanceGroups</a> and <a>ListBootstrapActions</a> instead.
      * </p>
      * <p>
@@ -404,7 +554,7 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * This API is deprecated and will eventually be removed. We recommend you use <a>ListClusters</a>,
+     * This API is no longer supported and will eventually be removed. We recommend you use <a>ListClusters</a>,
      * <a>DescribeCluster</a>, <a>ListSteps</a>, <a>ListInstanceGroups</a> and <a>ListBootstrapActions</a> instead.
      * </p>
      * <p>
@@ -465,6 +615,74 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
     @Deprecated
     java.util.concurrent.Future<DescribeJobFlowsResult> describeJobFlowsAsync(
             com.amazonaws.handlers.AsyncHandler<DescribeJobFlowsRequest, DescribeJobFlowsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Provides details of a notebook execution.
+     * </p>
+     * 
+     * @param describeNotebookExecutionRequest
+     * @return A Java Future containing the result of the DescribeNotebookExecution operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.DescribeNotebookExecution
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/DescribeNotebookExecution"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeNotebookExecutionResult> describeNotebookExecutionAsync(
+            DescribeNotebookExecutionRequest describeNotebookExecutionRequest);
+
+    /**
+     * <p>
+     * Provides details of a notebook execution.
+     * </p>
+     * 
+     * @param describeNotebookExecutionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeNotebookExecution operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.DescribeNotebookExecution
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/DescribeNotebookExecution"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeNotebookExecutionResult> describeNotebookExecutionAsync(
+            DescribeNotebookExecutionRequest describeNotebookExecutionRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeNotebookExecutionRequest, DescribeNotebookExecutionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Provides Amazon EMR release label details, such as the releases available the Region where the API request is
+     * run, and the available applications for a specific Amazon EMR release label. Can also list Amazon EMR releases
+     * that support a specified version of Spark.
+     * </p>
+     * 
+     * @param describeReleaseLabelRequest
+     * @return A Java Future containing the result of the DescribeReleaseLabel operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.DescribeReleaseLabel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/DescribeReleaseLabel"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeReleaseLabelResult> describeReleaseLabelAsync(DescribeReleaseLabelRequest describeReleaseLabelRequest);
+
+    /**
+     * <p>
+     * Provides Amazon EMR release label details, such as the releases available the Region where the API request is
+     * run, and the available applications for a specific Amazon EMR release label. Can also list Amazon EMR releases
+     * that support a specified version of Spark.
+     * </p>
+     * 
+     * @param describeReleaseLabelRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeReleaseLabel operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.DescribeReleaseLabel
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/DescribeReleaseLabel"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeReleaseLabelResult> describeReleaseLabelAsync(DescribeReleaseLabelRequest describeReleaseLabelRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeReleaseLabelRequest, DescribeReleaseLabelResult> asyncHandler);
 
     /**
      * <p>
@@ -536,6 +754,212 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
+     * Returns details for the specified Amazon EMR Studio including ID, Name, VPC, Studio access URL, and so on.
+     * </p>
+     * 
+     * @param describeStudioRequest
+     * @return A Java Future containing the result of the DescribeStudio operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.DescribeStudio
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/DescribeStudio"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeStudioResult> describeStudioAsync(DescribeStudioRequest describeStudioRequest);
+
+    /**
+     * <p>
+     * Returns details for the specified Amazon EMR Studio including ID, Name, VPC, Studio access URL, and so on.
+     * </p>
+     * 
+     * @param describeStudioRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeStudio operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.DescribeStudio
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/DescribeStudio"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeStudioResult> describeStudioAsync(DescribeStudioRequest describeStudioRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeStudioRequest, DescribeStudioResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the auto-termination policy for an Amazon EMR cluster.
+     * </p>
+     * 
+     * @param getAutoTerminationPolicyRequest
+     * @return A Java Future containing the result of the GetAutoTerminationPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.GetAutoTerminationPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/GetAutoTerminationPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetAutoTerminationPolicyResult> getAutoTerminationPolicyAsync(GetAutoTerminationPolicyRequest getAutoTerminationPolicyRequest);
+
+    /**
+     * <p>
+     * Returns the auto-termination policy for an Amazon EMR cluster.
+     * </p>
+     * 
+     * @param getAutoTerminationPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetAutoTerminationPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.GetAutoTerminationPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/GetAutoTerminationPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetAutoTerminationPolicyResult> getAutoTerminationPolicyAsync(GetAutoTerminationPolicyRequest getAutoTerminationPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<GetAutoTerminationPolicyRequest, GetAutoTerminationPolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the Amazon EMR block public access configuration for your Amazon Web Services account in the current
+     * Region. For more information see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/configure-block-public-access.html">Configure Block
+     * Public Access for Amazon EMR</a> in the <i>Amazon EMR Management Guide</i>.
+     * </p>
+     * 
+     * @param getBlockPublicAccessConfigurationRequest
+     * @return A Java Future containing the result of the GetBlockPublicAccessConfiguration operation returned by the
+     *         service.
+     * @sample AmazonElasticMapReduceAsync.GetBlockPublicAccessConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/GetBlockPublicAccessConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetBlockPublicAccessConfigurationResult> getBlockPublicAccessConfigurationAsync(
+            GetBlockPublicAccessConfigurationRequest getBlockPublicAccessConfigurationRequest);
+
+    /**
+     * <p>
+     * Returns the Amazon EMR block public access configuration for your Amazon Web Services account in the current
+     * Region. For more information see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/configure-block-public-access.html">Configure Block
+     * Public Access for Amazon EMR</a> in the <i>Amazon EMR Management Guide</i>.
+     * </p>
+     * 
+     * @param getBlockPublicAccessConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetBlockPublicAccessConfiguration operation returned by the
+     *         service.
+     * @sample AmazonElasticMapReduceAsyncHandler.GetBlockPublicAccessConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/GetBlockPublicAccessConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetBlockPublicAccessConfigurationResult> getBlockPublicAccessConfigurationAsync(
+            GetBlockPublicAccessConfigurationRequest getBlockPublicAccessConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<GetBlockPublicAccessConfigurationRequest, GetBlockPublicAccessConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Provides temporary, HTTP basic credentials that are associated with a given runtime IAM role and used by a
+     * cluster with fine-grained access control activated. You can use these credentials to connect to cluster endpoints
+     * that support username and password authentication.
+     * </p>
+     * 
+     * @param getClusterSessionCredentialsRequest
+     * @return A Java Future containing the result of the GetClusterSessionCredentials operation returned by the
+     *         service.
+     * @sample AmazonElasticMapReduceAsync.GetClusterSessionCredentials
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/GetClusterSessionCredentials"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetClusterSessionCredentialsResult> getClusterSessionCredentialsAsync(
+            GetClusterSessionCredentialsRequest getClusterSessionCredentialsRequest);
+
+    /**
+     * <p>
+     * Provides temporary, HTTP basic credentials that are associated with a given runtime IAM role and used by a
+     * cluster with fine-grained access control activated. You can use these credentials to connect to cluster endpoints
+     * that support username and password authentication.
+     * </p>
+     * 
+     * @param getClusterSessionCredentialsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetClusterSessionCredentials operation returned by the
+     *         service.
+     * @sample AmazonElasticMapReduceAsyncHandler.GetClusterSessionCredentials
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/GetClusterSessionCredentials"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetClusterSessionCredentialsResult> getClusterSessionCredentialsAsync(
+            GetClusterSessionCredentialsRequest getClusterSessionCredentialsRequest,
+            com.amazonaws.handlers.AsyncHandler<GetClusterSessionCredentialsRequest, GetClusterSessionCredentialsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Fetches the attached managed scaling policy for an Amazon EMR cluster.
+     * </p>
+     * 
+     * @param getManagedScalingPolicyRequest
+     * @return A Java Future containing the result of the GetManagedScalingPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.GetManagedScalingPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/GetManagedScalingPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetManagedScalingPolicyResult> getManagedScalingPolicyAsync(GetManagedScalingPolicyRequest getManagedScalingPolicyRequest);
+
+    /**
+     * <p>
+     * Fetches the attached managed scaling policy for an Amazon EMR cluster.
+     * </p>
+     * 
+     * @param getManagedScalingPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetManagedScalingPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.GetManagedScalingPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/GetManagedScalingPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetManagedScalingPolicyResult> getManagedScalingPolicyAsync(GetManagedScalingPolicyRequest getManagedScalingPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<GetManagedScalingPolicyRequest, GetManagedScalingPolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Fetches mapping details for the specified Amazon EMR Studio and identity (user or group).
+     * </p>
+     * 
+     * @param getStudioSessionMappingRequest
+     * @return A Java Future containing the result of the GetStudioSessionMapping operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.GetStudioSessionMapping
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/GetStudioSessionMapping"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetStudioSessionMappingResult> getStudioSessionMappingAsync(GetStudioSessionMappingRequest getStudioSessionMappingRequest);
+
+    /**
+     * <p>
+     * Fetches mapping details for the specified Amazon EMR Studio and identity (user or group).
+     * </p>
+     * 
+     * @param getStudioSessionMappingRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetStudioSessionMapping operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.GetStudioSessionMapping
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/GetStudioSessionMapping"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetStudioSessionMappingResult> getStudioSessionMappingAsync(GetStudioSessionMappingRequest getStudioSessionMappingRequest,
+            com.amazonaws.handlers.AsyncHandler<GetStudioSessionMappingRequest, GetStudioSessionMappingResult> asyncHandler);
+
+    /**
+     * <p>
      * Provides information about the bootstrap actions associated with a cluster.
      * </p>
      * 
@@ -569,10 +993,10 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * Provides the status of all clusters visible to this AWS account. Allows you to filter the list of clusters based
-     * on certain criteria; for example, filtering by cluster creation date and time or by status. This call returns a
-     * maximum of 50 clusters per call, but returns a marker to track the paging of the cluster list across multiple
-     * ListClusters calls.
+     * Provides the status of all clusters visible to this Amazon Web Services account. Allows you to filter the list of
+     * clusters based on certain criteria; for example, filtering by cluster creation date and time or by status. This
+     * call returns a maximum of 50 clusters in unsorted order per call, but returns a marker to track the paging of the
+     * cluster list across multiple ListClusters calls.
      * </p>
      * 
      * @param listClustersRequest
@@ -586,10 +1010,10 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * Provides the status of all clusters visible to this AWS account. Allows you to filter the list of clusters based
-     * on certain criteria; for example, filtering by cluster creation date and time or by status. This call returns a
-     * maximum of 50 clusters per call, but returns a marker to track the paging of the cluster list across multiple
-     * ListClusters calls.
+     * Provides the status of all clusters visible to this Amazon Web Services account. Allows you to filter the list of
+     * clusters based on certain criteria; for example, filtering by cluster creation date and time or by status. This
+     * call returns a maximum of 50 clusters in unsorted order per call, but returns a marker to track the paging of the
+     * cluster list across multiple ListClusters calls.
      * </p>
      * 
      * @param listClustersRequest
@@ -626,7 +1050,7 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * </p>
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions.
      * </p>
      * </note>
@@ -645,7 +1069,7 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * </p>
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions.
      * </p>
      * </note>
@@ -698,9 +1122,9 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * Provides information for all active EC2 instances and EC2 instances terminated in the last 30 days, up to a
-     * maximum of 2,000. EC2 instances in any of the following states are considered active: AWAITING_FULFILLMENT,
-     * PROVISIONING, BOOTSTRAPPING, RUNNING.
+     * Provides information for all active Amazon EC2 instances and Amazon EC2 instances terminated in the last 30 days,
+     * up to a maximum of 2,000. Amazon EC2 instances in any of the following states are considered active:
+     * AWAITING_FULFILLMENT, PROVISIONING, BOOTSTRAPPING, RUNNING.
      * </p>
      * 
      * @param listInstancesRequest
@@ -714,9 +1138,9 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * Provides information for all active EC2 instances and EC2 instances terminated in the last 30 days, up to a
-     * maximum of 2,000. EC2 instances in any of the following states are considered active: AWAITING_FULFILLMENT,
-     * PROVISIONING, BOOTSTRAPPING, RUNNING.
+     * Provides information for all active Amazon EC2 instances and Amazon EC2 instances terminated in the last 30 days,
+     * up to a maximum of 2,000. Amazon EC2 instances in any of the following states are considered active:
+     * AWAITING_FULFILLMENT, PROVISIONING, BOOTSTRAPPING, RUNNING.
      * </p>
      * 
      * @param listInstancesRequest
@@ -732,6 +1156,72 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      */
     java.util.concurrent.Future<ListInstancesResult> listInstancesAsync(ListInstancesRequest listInstancesRequest,
             com.amazonaws.handlers.AsyncHandler<ListInstancesRequest, ListInstancesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Provides summaries of all notebook executions. You can filter the list based on multiple criteria such as status,
+     * time range, and editor id. Returns a maximum of 50 notebook executions and a marker to track the paging of a
+     * longer notebook execution list across multiple <code>ListNotebookExecutions</code> calls.
+     * </p>
+     * 
+     * @param listNotebookExecutionsRequest
+     * @return A Java Future containing the result of the ListNotebookExecutions operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.ListNotebookExecutions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListNotebookExecutions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListNotebookExecutionsResult> listNotebookExecutionsAsync(ListNotebookExecutionsRequest listNotebookExecutionsRequest);
+
+    /**
+     * <p>
+     * Provides summaries of all notebook executions. You can filter the list based on multiple criteria such as status,
+     * time range, and editor id. Returns a maximum of 50 notebook executions and a marker to track the paging of a
+     * longer notebook execution list across multiple <code>ListNotebookExecutions</code> calls.
+     * </p>
+     * 
+     * @param listNotebookExecutionsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListNotebookExecutions operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.ListNotebookExecutions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListNotebookExecutions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListNotebookExecutionsResult> listNotebookExecutionsAsync(ListNotebookExecutionsRequest listNotebookExecutionsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListNotebookExecutionsRequest, ListNotebookExecutionsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves release labels of Amazon EMR services in the Region where the API is called.
+     * </p>
+     * 
+     * @param listReleaseLabelsRequest
+     * @return A Java Future containing the result of the ListReleaseLabels operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.ListReleaseLabels
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListReleaseLabels"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListReleaseLabelsResult> listReleaseLabelsAsync(ListReleaseLabelsRequest listReleaseLabelsRequest);
+
+    /**
+     * <p>
+     * Retrieves release labels of Amazon EMR services in the Region where the API is called.
+     * </p>
+     * 
+     * @param listReleaseLabelsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListReleaseLabels operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.ListReleaseLabels
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListReleaseLabels"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListReleaseLabelsResult> listReleaseLabelsAsync(ListReleaseLabelsRequest listReleaseLabelsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListReleaseLabelsRequest, ListReleaseLabelsResult> asyncHandler);
 
     /**
      * <p>
@@ -772,7 +1262,10 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * Provides a list of steps for the cluster in reverse order unless you specify stepIds with the request.
+     * Provides a list of steps for the cluster in reverse order unless you specify <code>stepIds</code> with the
+     * request or filter by <code>StepStates</code>. You can specify a maximum of 10 <code>stepIDs</code>. The CLI
+     * automatically paginates results to return a list greater than 50 steps. To return more than 50 steps using the
+     * CLI, specify a <code>Marker</code>, which is a pagination token that indicates the next set of steps to retrieve.
      * </p>
      * 
      * @param listStepsRequest
@@ -786,7 +1279,10 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * Provides a list of steps for the cluster in reverse order unless you specify stepIds with the request.
+     * Provides a list of steps for the cluster in reverse order unless you specify <code>stepIds</code> with the
+     * request or filter by <code>StepStates</code>. You can specify a maximum of 10 <code>stepIDs</code>. The CLI
+     * automatically paginates results to return a list greater than 50 steps. To return more than 50 steps using the
+     * CLI, specify a <code>Marker</code>, which is a pagination token that indicates the next set of steps to retrieve.
      * </p>
      * 
      * @param listStepsRequest
@@ -805,12 +1301,146 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
+     * Returns a list of all user or group session mappings for the Amazon EMR Studio specified by <code>StudioId</code>
+     * .
+     * </p>
+     * 
+     * @param listStudioSessionMappingsRequest
+     * @return A Java Future containing the result of the ListStudioSessionMappings operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.ListStudioSessionMappings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListStudioSessionMappings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListStudioSessionMappingsResult> listStudioSessionMappingsAsync(
+            ListStudioSessionMappingsRequest listStudioSessionMappingsRequest);
+
+    /**
+     * <p>
+     * Returns a list of all user or group session mappings for the Amazon EMR Studio specified by <code>StudioId</code>
+     * .
+     * </p>
+     * 
+     * @param listStudioSessionMappingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListStudioSessionMappings operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.ListStudioSessionMappings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListStudioSessionMappings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListStudioSessionMappingsResult> listStudioSessionMappingsAsync(
+            ListStudioSessionMappingsRequest listStudioSessionMappingsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListStudioSessionMappingsRequest, ListStudioSessionMappingsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of all Amazon EMR Studios associated with the Amazon Web Services account. The list includes
+     * details such as ID, Studio Access URL, and creation time for each Studio.
+     * </p>
+     * 
+     * @param listStudiosRequest
+     * @return A Java Future containing the result of the ListStudios operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.ListStudios
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListStudios" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListStudiosResult> listStudiosAsync(ListStudiosRequest listStudiosRequest);
+
+    /**
+     * <p>
+     * Returns a list of all Amazon EMR Studios associated with the Amazon Web Services account. The list includes
+     * details such as ID, Studio Access URL, and creation time for each Studio.
+     * </p>
+     * 
+     * @param listStudiosRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListStudios operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.ListStudios
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListStudios" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListStudiosResult> listStudiosAsync(ListStudiosRequest listStudiosRequest,
+            com.amazonaws.handlers.AsyncHandler<ListStudiosRequest, ListStudiosResult> asyncHandler);
+
+    /**
+     * <p>
+     * A list of the instance types that Amazon EMR supports. You can filter the list by Amazon Web Services Region and
+     * Amazon EMR release.
+     * </p>
+     * 
+     * @param listSupportedInstanceTypesRequest
+     * @return A Java Future containing the result of the ListSupportedInstanceTypes operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.ListSupportedInstanceTypes
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListSupportedInstanceTypes"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListSupportedInstanceTypesResult> listSupportedInstanceTypesAsync(
+            ListSupportedInstanceTypesRequest listSupportedInstanceTypesRequest);
+
+    /**
+     * <p>
+     * A list of the instance types that Amazon EMR supports. You can filter the list by Amazon Web Services Region and
+     * Amazon EMR release.
+     * </p>
+     * 
+     * @param listSupportedInstanceTypesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListSupportedInstanceTypes operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.ListSupportedInstanceTypes
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListSupportedInstanceTypes"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListSupportedInstanceTypesResult> listSupportedInstanceTypesAsync(
+            ListSupportedInstanceTypesRequest listSupportedInstanceTypesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListSupportedInstanceTypesRequest, ListSupportedInstanceTypesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Modifies the number of steps that can be executed concurrently for the cluster specified using ClusterID.
+     * </p>
+     * 
+     * @param modifyClusterRequest
+     * @return A Java Future containing the result of the ModifyCluster operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.ModifyCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ModifyCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyClusterResult> modifyClusterAsync(ModifyClusterRequest modifyClusterRequest);
+
+    /**
+     * <p>
+     * Modifies the number of steps that can be executed concurrently for the cluster specified using ClusterID.
+     * </p>
+     * 
+     * @param modifyClusterRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyCluster operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.ModifyCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ModifyCluster" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyClusterResult> modifyClusterAsync(ModifyClusterRequest modifyClusterRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyClusterRequest, ModifyClusterResult> asyncHandler);
+
+    /**
+     * <p>
      * Modifies the target On-Demand and target Spot capacities for the instance fleet with the specified
      * InstanceFleetID within the cluster specified using ClusterID. The call either succeeds or fails atomically.
      * </p>
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions.
      * </p>
      * </note>
@@ -830,7 +1460,7 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * </p>
      * <note>
      * <p>
-     * The instance fleet configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleet configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions.
      * </p>
      * </note>
@@ -903,8 +1533,8 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
     /**
      * <p>
      * Creates or updates an automatic scaling policy for a core instance group or task instance group in an Amazon EMR
-     * cluster. The automatic scaling policy defines how an instance group dynamically adds and terminates EC2 instances
-     * in response to the value of a CloudWatch metric.
+     * cluster. The automatic scaling policy defines how an instance group dynamically adds and terminates Amazon EC2
+     * instances in response to the value of a CloudWatch metric.
      * </p>
      * 
      * @param putAutoScalingPolicyRequest
@@ -918,8 +1548,8 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
     /**
      * <p>
      * Creates or updates an automatic scaling policy for a core instance group or task instance group in an Amazon EMR
-     * cluster. The automatic scaling policy defines how an instance group dynamically adds and terminates EC2 instances
-     * in response to the value of a CloudWatch metric.
+     * cluster. The automatic scaling policy defines how an instance group dynamically adds and terminates Amazon EC2
+     * instances in response to the value of a CloudWatch metric.
      * </p>
      * 
      * @param putAutoScalingPolicyRequest
@@ -936,8 +1566,139 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
             com.amazonaws.handlers.AsyncHandler<PutAutoScalingPolicyRequest, PutAutoScalingPolicyResult> asyncHandler);
 
     /**
+     * <note>
      * <p>
-     * Removes an automatic scaling policy from a specified instance group within an EMR cluster.
+     * Auto-termination is supported in Amazon EMR releases 5.30.0 and 6.1.0 and later. For more information, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-auto-termination-policy.html">Using an
+     * auto-termination policy</a>.
+     * </p>
+     * </note>
+     * <p>
+     * Creates or updates an auto-termination policy for an Amazon EMR cluster. An auto-termination policy defines the
+     * amount of idle time in seconds after which a cluster automatically terminates. For alternative cluster
+     * termination options, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-termination.html">Control cluster
+     * termination</a>.
+     * </p>
+     * 
+     * @param putAutoTerminationPolicyRequest
+     * @return A Java Future containing the result of the PutAutoTerminationPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.PutAutoTerminationPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/PutAutoTerminationPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutAutoTerminationPolicyResult> putAutoTerminationPolicyAsync(PutAutoTerminationPolicyRequest putAutoTerminationPolicyRequest);
+
+    /**
+     * <note>
+     * <p>
+     * Auto-termination is supported in Amazon EMR releases 5.30.0 and 6.1.0 and later. For more information, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-auto-termination-policy.html">Using an
+     * auto-termination policy</a>.
+     * </p>
+     * </note>
+     * <p>
+     * Creates or updates an auto-termination policy for an Amazon EMR cluster. An auto-termination policy defines the
+     * amount of idle time in seconds after which a cluster automatically terminates. For alternative cluster
+     * termination options, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-termination.html">Control cluster
+     * termination</a>.
+     * </p>
+     * 
+     * @param putAutoTerminationPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutAutoTerminationPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.PutAutoTerminationPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/PutAutoTerminationPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutAutoTerminationPolicyResult> putAutoTerminationPolicyAsync(PutAutoTerminationPolicyRequest putAutoTerminationPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<PutAutoTerminationPolicyRequest, PutAutoTerminationPolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates or updates an Amazon EMR block public access configuration for your Amazon Web Services account in the
+     * current Region. For more information see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/configure-block-public-access.html">Configure Block
+     * Public Access for Amazon EMR</a> in the <i>Amazon EMR Management Guide</i>.
+     * </p>
+     * 
+     * @param putBlockPublicAccessConfigurationRequest
+     * @return A Java Future containing the result of the PutBlockPublicAccessConfiguration operation returned by the
+     *         service.
+     * @sample AmazonElasticMapReduceAsync.PutBlockPublicAccessConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/PutBlockPublicAccessConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutBlockPublicAccessConfigurationResult> putBlockPublicAccessConfigurationAsync(
+            PutBlockPublicAccessConfigurationRequest putBlockPublicAccessConfigurationRequest);
+
+    /**
+     * <p>
+     * Creates or updates an Amazon EMR block public access configuration for your Amazon Web Services account in the
+     * current Region. For more information see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/configure-block-public-access.html">Configure Block
+     * Public Access for Amazon EMR</a> in the <i>Amazon EMR Management Guide</i>.
+     * </p>
+     * 
+     * @param putBlockPublicAccessConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutBlockPublicAccessConfiguration operation returned by the
+     *         service.
+     * @sample AmazonElasticMapReduceAsyncHandler.PutBlockPublicAccessConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/PutBlockPublicAccessConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutBlockPublicAccessConfigurationResult> putBlockPublicAccessConfigurationAsync(
+            PutBlockPublicAccessConfigurationRequest putBlockPublicAccessConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<PutBlockPublicAccessConfigurationRequest, PutBlockPublicAccessConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates or updates a managed scaling policy for an Amazon EMR cluster. The managed scaling policy defines the
+     * limits for resources, such as Amazon EC2 instances that can be added or terminated from a cluster. The policy
+     * only applies to the core and task nodes. The master node cannot be scaled after initial configuration.
+     * </p>
+     * 
+     * @param putManagedScalingPolicyRequest
+     * @return A Java Future containing the result of the PutManagedScalingPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.PutManagedScalingPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/PutManagedScalingPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutManagedScalingPolicyResult> putManagedScalingPolicyAsync(PutManagedScalingPolicyRequest putManagedScalingPolicyRequest);
+
+    /**
+     * <p>
+     * Creates or updates a managed scaling policy for an Amazon EMR cluster. The managed scaling policy defines the
+     * limits for resources, such as Amazon EC2 instances that can be added or terminated from a cluster. The policy
+     * only applies to the core and task nodes. The master node cannot be scaled after initial configuration.
+     * </p>
+     * 
+     * @param putManagedScalingPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutManagedScalingPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.PutManagedScalingPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/PutManagedScalingPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutManagedScalingPolicyResult> putManagedScalingPolicyAsync(PutManagedScalingPolicyRequest putManagedScalingPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<PutManagedScalingPolicyRequest, PutManagedScalingPolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Removes an automatic scaling policy from a specified instance group within an Amazon EMR cluster.
      * </p>
      * 
      * @param removeAutoScalingPolicyRequest
@@ -950,7 +1711,7 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * Removes an automatic scaling policy from a specified instance group within an EMR cluster.
+     * Removes an automatic scaling policy from a specified instance group within an Amazon EMR cluster.
      * </p>
      * 
      * @param removeAutoScalingPolicyRequest
@@ -968,8 +1729,75 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * Removes tags from an Amazon EMR resource. Tags make it easier to associate clusters in various ways, such as
-     * grouping clusters to track your Amazon EMR resource allocation costs. For more information, see <a
+     * Removes an auto-termination policy from an Amazon EMR cluster.
+     * </p>
+     * 
+     * @param removeAutoTerminationPolicyRequest
+     * @return A Java Future containing the result of the RemoveAutoTerminationPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.RemoveAutoTerminationPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/RemoveAutoTerminationPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<RemoveAutoTerminationPolicyResult> removeAutoTerminationPolicyAsync(
+            RemoveAutoTerminationPolicyRequest removeAutoTerminationPolicyRequest);
+
+    /**
+     * <p>
+     * Removes an auto-termination policy from an Amazon EMR cluster.
+     * </p>
+     * 
+     * @param removeAutoTerminationPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RemoveAutoTerminationPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.RemoveAutoTerminationPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/RemoveAutoTerminationPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<RemoveAutoTerminationPolicyResult> removeAutoTerminationPolicyAsync(
+            RemoveAutoTerminationPolicyRequest removeAutoTerminationPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<RemoveAutoTerminationPolicyRequest, RemoveAutoTerminationPolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Removes a managed scaling policy from a specified Amazon EMR cluster.
+     * </p>
+     * 
+     * @param removeManagedScalingPolicyRequest
+     * @return A Java Future containing the result of the RemoveManagedScalingPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.RemoveManagedScalingPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/RemoveManagedScalingPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<RemoveManagedScalingPolicyResult> removeManagedScalingPolicyAsync(
+            RemoveManagedScalingPolicyRequest removeManagedScalingPolicyRequest);
+
+    /**
+     * <p>
+     * Removes a managed scaling policy from a specified Amazon EMR cluster.
+     * </p>
+     * 
+     * @param removeManagedScalingPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RemoveManagedScalingPolicy operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.RemoveManagedScalingPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/RemoveManagedScalingPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<RemoveManagedScalingPolicyResult> removeManagedScalingPolicyAsync(
+            RemoveManagedScalingPolicyRequest removeManagedScalingPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<RemoveManagedScalingPolicyRequest, RemoveManagedScalingPolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Removes tags from an Amazon EMR resource, such as a cluster or Amazon EMR Studio. Tags make it easier to
+     * associate resources in various ways, such as grouping clusters to track your Amazon EMR resource allocation
+     * costs. For more information, see <a
      * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html">Tag Clusters</a>.
      * </p>
      * <p>
@@ -977,7 +1805,7 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * </p>
      * 
      * @param removeTagsRequest
-     *        This input identifies a cluster and a list of tags to remove.
+     *        This input identifies an Amazon EMR resource and a list of tags to remove.
      * @return A Java Future containing the result of the RemoveTags operation returned by the service.
      * @sample AmazonElasticMapReduceAsync.RemoveTags
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/RemoveTags" target="_top">AWS
@@ -987,8 +1815,9 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * Removes tags from an Amazon EMR resource. Tags make it easier to associate clusters in various ways, such as
-     * grouping clusters to track your Amazon EMR resource allocation costs. For more information, see <a
+     * Removes tags from an Amazon EMR resource, such as a cluster or Amazon EMR Studio. Tags make it easier to
+     * associate resources in various ways, such as grouping clusters to track your Amazon EMR resource allocation
+     * costs. For more information, see <a
      * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html">Tag Clusters</a>.
      * </p>
      * <p>
@@ -996,7 +1825,7 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * </p>
      * 
      * @param removeTagsRequest
-     *        This input identifies a cluster and a list of tags to remove.
+     *        This input identifies an Amazon EMR resource and a list of tags to remove.
      * @param asyncHandler
      *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
      *        implementation of the callback methods in this interface to receive notification of successful or
@@ -1029,16 +1858,14 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * If your cluster is long-running (such as a Hive data warehouse) or complex, you may require more than 256 steps
      * to process your data. You can bypass the 256-step limitation in various ways, including using the SSH shell to
      * connect to the master node and submitting queries directly to the software running on the master node, such as
-     * Hive and Hadoop. For more information on how to do this, see <a
-     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/AddMoreThan256Steps.html">Add More than 256 Steps to
-     * a Cluster</a> in the <i>Amazon EMR Management Guide</i>.
+     * Hive and Hadoop.
      * </p>
      * <p>
-     * For long running clusters, we recommend that you periodically store your results.
+     * For long-running clusters, we recommend that you periodically store your results.
      * </p>
      * <note>
      * <p>
-     * The instance fleets configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleets configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions. The RunJobFlow request can contain InstanceFleets parameters or InstanceGroups parameters, but not
      * both.
      * </p>
@@ -1073,16 +1900,14 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * If your cluster is long-running (such as a Hive data warehouse) or complex, you may require more than 256 steps
      * to process your data. You can bypass the 256-step limitation in various ways, including using the SSH shell to
      * connect to the master node and submitting queries directly to the software running on the master node, such as
-     * Hive and Hadoop. For more information on how to do this, see <a
-     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/AddMoreThan256Steps.html">Add More than 256 Steps to
-     * a Cluster</a> in the <i>Amazon EMR Management Guide</i>.
+     * Hive and Hadoop.
      * </p>
      * <p>
-     * For long running clusters, we recommend that you periodically store your results.
+     * For long-running clusters, we recommend that you periodically store your results.
      * </p>
      * <note>
      * <p>
-     * The instance fleets configuration is available only in Amazon EMR versions 4.8.0 and later, excluding 5.0.x
+     * The instance fleets configuration is available only in Amazon EMR releases 4.8.0 and later, excluding 5.0.x
      * versions. The RunJobFlow request can contain InstanceFleets parameters or InstanceGroups parameters, but not
      * both.
      * </p>
@@ -1104,10 +1929,61 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * SetTerminationProtection locks a cluster (job flow) so the EC2 instances in the cluster cannot be terminated by
-     * user intervention, an API call, or in the event of a job-flow error. The cluster still terminates upon successful
-     * completion of the job flow. Calling <code>SetTerminationProtection</code> on a cluster is similar to calling the
-     * Amazon EC2 <code>DisableAPITermination</code> API on all EC2 instances in a cluster.
+     * You can use the <code>SetKeepJobFlowAliveWhenNoSteps</code> to configure a cluster (job flow) to terminate after
+     * the step execution, i.e., all your steps are executed. If you want a transient cluster that shuts down after the
+     * last of the current executing steps are completed, you can configure <code>SetKeepJobFlowAliveWhenNoSteps</code>
+     * to false. If you want a long running cluster, configure <code>SetKeepJobFlowAliveWhenNoSteps</code> to true.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/UsingEMR_TerminationProtection.html">Managing
+     * Cluster Termination</a> in the <i>Amazon EMR Management Guide</i>.
+     * </p>
+     * 
+     * @param setKeepJobFlowAliveWhenNoStepsRequest
+     * @return A Java Future containing the result of the SetKeepJobFlowAliveWhenNoSteps operation returned by the
+     *         service.
+     * @sample AmazonElasticMapReduceAsync.SetKeepJobFlowAliveWhenNoSteps
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/SetKeepJobFlowAliveWhenNoSteps"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<SetKeepJobFlowAliveWhenNoStepsResult> setKeepJobFlowAliveWhenNoStepsAsync(
+            SetKeepJobFlowAliveWhenNoStepsRequest setKeepJobFlowAliveWhenNoStepsRequest);
+
+    /**
+     * <p>
+     * You can use the <code>SetKeepJobFlowAliveWhenNoSteps</code> to configure a cluster (job flow) to terminate after
+     * the step execution, i.e., all your steps are executed. If you want a transient cluster that shuts down after the
+     * last of the current executing steps are completed, you can configure <code>SetKeepJobFlowAliveWhenNoSteps</code>
+     * to false. If you want a long running cluster, configure <code>SetKeepJobFlowAliveWhenNoSteps</code> to true.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/UsingEMR_TerminationProtection.html">Managing
+     * Cluster Termination</a> in the <i>Amazon EMR Management Guide</i>.
+     * </p>
+     * 
+     * @param setKeepJobFlowAliveWhenNoStepsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the SetKeepJobFlowAliveWhenNoSteps operation returned by the
+     *         service.
+     * @sample AmazonElasticMapReduceAsyncHandler.SetKeepJobFlowAliveWhenNoSteps
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/SetKeepJobFlowAliveWhenNoSteps"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<SetKeepJobFlowAliveWhenNoStepsResult> setKeepJobFlowAliveWhenNoStepsAsync(
+            SetKeepJobFlowAliveWhenNoStepsRequest setKeepJobFlowAliveWhenNoStepsRequest,
+            com.amazonaws.handlers.AsyncHandler<SetKeepJobFlowAliveWhenNoStepsRequest, SetKeepJobFlowAliveWhenNoStepsResult> asyncHandler);
+
+    /**
+     * <p>
+     * SetTerminationProtection locks a cluster (job flow) so the Amazon EC2 instances in the cluster cannot be
+     * terminated by user intervention, an API call, or in the event of a job-flow error. The cluster still terminates
+     * upon successful completion of the job flow. Calling <code>SetTerminationProtection</code> on a cluster is similar
+     * to calling the Amazon EC2 <code>DisableAPITermination</code> API on all Amazon EC2 instances in a cluster.
      * </p>
      * <p>
      * <code>SetTerminationProtection</code> is used to prevent accidental termination of a cluster and to ensure that
@@ -1120,7 +1996,7 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * set the value to <code>false</code>.
      * </p>
      * <p>
-     * For more information, see<a
+     * For more information, see <a
      * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/UsingEMR_TerminationProtection.html">Managing
      * Cluster Termination</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
@@ -1136,10 +2012,10 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * SetTerminationProtection locks a cluster (job flow) so the EC2 instances in the cluster cannot be terminated by
-     * user intervention, an API call, or in the event of a job-flow error. The cluster still terminates upon successful
-     * completion of the job flow. Calling <code>SetTerminationProtection</code> on a cluster is similar to calling the
-     * Amazon EC2 <code>DisableAPITermination</code> API on all EC2 instances in a cluster.
+     * SetTerminationProtection locks a cluster (job flow) so the Amazon EC2 instances in the cluster cannot be
+     * terminated by user intervention, an API call, or in the event of a job-flow error. The cluster still terminates
+     * upon successful completion of the job flow. Calling <code>SetTerminationProtection</code> on a cluster is similar
+     * to calling the Amazon EC2 <code>DisableAPITermination</code> API on all Amazon EC2 instances in a cluster.
      * </p>
      * <p>
      * <code>SetTerminationProtection</code> is used to prevent accidental termination of a cluster and to ensure that
@@ -1152,7 +2028,7 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      * set the value to <code>false</code>.
      * </p>
      * <p>
-     * For more information, see<a
+     * For more information, see <a
      * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/UsingEMR_TerminationProtection.html">Managing
      * Cluster Termination</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
@@ -1173,10 +2049,89 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
-     * Sets whether all AWS Identity and Access Management (IAM) users under your account can access the specified
-     * clusters (job flows). This action works on running clusters. You can also set the visibility of a cluster when
-     * you launch it using the <code>VisibleToAllUsers</code> parameter of <a>RunJobFlow</a>. The SetVisibleToAllUsers
-     * action can be called only by an IAM user who created the cluster or the AWS account that owns the cluster.
+     * Specify whether to enable unhealthy node replacement, which lets Amazon EMR gracefully replace core nodes on a
+     * cluster if any nodes become unhealthy. For example, a node becomes unhealthy if disk usage is above 90%. If
+     * unhealthy node replacement is on and <code>TerminationProtected</code> are off, Amazon EMR immediately terminates
+     * the unhealthy core nodes. To use unhealthy node replacement and retain unhealthy core nodes, use to turn on
+     * termination protection. In such cases, Amazon EMR adds the unhealthy nodes to a denylist, reducing job
+     * interruptions and failures.
+     * </p>
+     * <p>
+     * If unhealthy node replacement is on, Amazon EMR notifies YARN and other applications on the cluster to stop
+     * scheduling tasks with these nodes, moves the data, and then terminates the nodes.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-node-replacement.html">graceful node
+     * replacement</a> in the <i>Amazon EMR Management Guide</i>.
+     * </p>
+     * 
+     * @param setUnhealthyNodeReplacementRequest
+     * @return A Java Future containing the result of the SetUnhealthyNodeReplacement operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.SetUnhealthyNodeReplacement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/SetUnhealthyNodeReplacement"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<SetUnhealthyNodeReplacementResult> setUnhealthyNodeReplacementAsync(
+            SetUnhealthyNodeReplacementRequest setUnhealthyNodeReplacementRequest);
+
+    /**
+     * <p>
+     * Specify whether to enable unhealthy node replacement, which lets Amazon EMR gracefully replace core nodes on a
+     * cluster if any nodes become unhealthy. For example, a node becomes unhealthy if disk usage is above 90%. If
+     * unhealthy node replacement is on and <code>TerminationProtected</code> are off, Amazon EMR immediately terminates
+     * the unhealthy core nodes. To use unhealthy node replacement and retain unhealthy core nodes, use to turn on
+     * termination protection. In such cases, Amazon EMR adds the unhealthy nodes to a denylist, reducing job
+     * interruptions and failures.
+     * </p>
+     * <p>
+     * If unhealthy node replacement is on, Amazon EMR notifies YARN and other applications on the cluster to stop
+     * scheduling tasks with these nodes, moves the data, and then terminates the nodes.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-node-replacement.html">graceful node
+     * replacement</a> in the <i>Amazon EMR Management Guide</i>.
+     * </p>
+     * 
+     * @param setUnhealthyNodeReplacementRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the SetUnhealthyNodeReplacement operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.SetUnhealthyNodeReplacement
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/SetUnhealthyNodeReplacement"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<SetUnhealthyNodeReplacementResult> setUnhealthyNodeReplacementAsync(
+            SetUnhealthyNodeReplacementRequest setUnhealthyNodeReplacementRequest,
+            com.amazonaws.handlers.AsyncHandler<SetUnhealthyNodeReplacementRequest, SetUnhealthyNodeReplacementResult> asyncHandler);
+
+    /**
+     * <important>
+     * <p>
+     * The SetVisibleToAllUsers parameter is no longer supported. Your cluster may be visible to all users in your
+     * account. To restrict cluster access using an IAM policy, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-access-IAM.html">Identity and Access
+     * Management for Amazon EMR</a>.
+     * </p>
+     * </important>
+     * <p>
+     * Sets the <a>Cluster$VisibleToAllUsers</a> value for an Amazon EMR cluster. When <code>true</code>, IAM principals
+     * in the Amazon Web Services account can perform Amazon EMR cluster actions that their IAM policies allow. When
+     * <code>false</code>, only the IAM principal that created the cluster and the Amazon Web Services account root user
+     * can perform Amazon EMR actions on the cluster, regardless of IAM permissions policies attached to other IAM
+     * principals.
+     * </p>
+     * <p>
+     * This action works on running clusters. When you create a cluster, use the
+     * <a>RunJobFlowInput$VisibleToAllUsers</a> parameter.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/emr/latest/ManagementGuide/security_IAM_emr-with-IAM.html#security_set_visible_to_all_users"
+     * >Understanding the Amazon EMR Cluster VisibleToAllUsers Setting</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
      * 
      * @param setVisibleToAllUsersRequest
@@ -1189,11 +2144,29 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
     java.util.concurrent.Future<SetVisibleToAllUsersResult> setVisibleToAllUsersAsync(SetVisibleToAllUsersRequest setVisibleToAllUsersRequest);
 
     /**
+     * <important>
      * <p>
-     * Sets whether all AWS Identity and Access Management (IAM) users under your account can access the specified
-     * clusters (job flows). This action works on running clusters. You can also set the visibility of a cluster when
-     * you launch it using the <code>VisibleToAllUsers</code> parameter of <a>RunJobFlow</a>. The SetVisibleToAllUsers
-     * action can be called only by an IAM user who created the cluster or the AWS account that owns the cluster.
+     * The SetVisibleToAllUsers parameter is no longer supported. Your cluster may be visible to all users in your
+     * account. To restrict cluster access using an IAM policy, see <a
+     * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-access-IAM.html">Identity and Access
+     * Management for Amazon EMR</a>.
+     * </p>
+     * </important>
+     * <p>
+     * Sets the <a>Cluster$VisibleToAllUsers</a> value for an Amazon EMR cluster. When <code>true</code>, IAM principals
+     * in the Amazon Web Services account can perform Amazon EMR cluster actions that their IAM policies allow. When
+     * <code>false</code>, only the IAM principal that created the cluster and the Amazon Web Services account root user
+     * can perform Amazon EMR actions on the cluster, regardless of IAM permissions policies attached to other IAM
+     * principals.
+     * </p>
+     * <p>
+     * This action works on running clusters. When you create a cluster, use the
+     * <a>RunJobFlowInput$VisibleToAllUsers</a> parameter.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/emr/latest/ManagementGuide/security_IAM_emr-with-IAM.html#security_set_visible_to_all_users"
+     * >Understanding the Amazon EMR Cluster VisibleToAllUsers Setting</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
      * 
      * @param setVisibleToAllUsersRequest
@@ -1212,8 +2185,70 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
 
     /**
      * <p>
+     * Starts a notebook execution.
+     * </p>
+     * 
+     * @param startNotebookExecutionRequest
+     * @return A Java Future containing the result of the StartNotebookExecution operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.StartNotebookExecution
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/StartNotebookExecution"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartNotebookExecutionResult> startNotebookExecutionAsync(StartNotebookExecutionRequest startNotebookExecutionRequest);
+
+    /**
+     * <p>
+     * Starts a notebook execution.
+     * </p>
+     * 
+     * @param startNotebookExecutionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartNotebookExecution operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.StartNotebookExecution
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/StartNotebookExecution"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartNotebookExecutionResult> startNotebookExecutionAsync(StartNotebookExecutionRequest startNotebookExecutionRequest,
+            com.amazonaws.handlers.AsyncHandler<StartNotebookExecutionRequest, StartNotebookExecutionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Stops a notebook execution.
+     * </p>
+     * 
+     * @param stopNotebookExecutionRequest
+     * @return A Java Future containing the result of the StopNotebookExecution operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.StopNotebookExecution
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/StopNotebookExecution"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StopNotebookExecutionResult> stopNotebookExecutionAsync(StopNotebookExecutionRequest stopNotebookExecutionRequest);
+
+    /**
+     * <p>
+     * Stops a notebook execution.
+     * </p>
+     * 
+     * @param stopNotebookExecutionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StopNotebookExecution operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.StopNotebookExecution
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/StopNotebookExecution"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StopNotebookExecutionResult> stopNotebookExecutionAsync(StopNotebookExecutionRequest stopNotebookExecutionRequest,
+            com.amazonaws.handlers.AsyncHandler<StopNotebookExecutionRequest, StopNotebookExecutionResult> asyncHandler);
+
+    /**
+     * <p>
      * TerminateJobFlows shuts a list of clusters (job flows) down. When a job flow is shut down, any step not yet
-     * completed is canceled and the EC2 instances on which the cluster is running are stopped. Any log files not
+     * completed is canceled and the Amazon EC2 instances on which the cluster is running are stopped. Any log files not
      * already saved are uploaded to Amazon S3 if a LogUri was specified when the cluster was created.
      * </p>
      * <p>
@@ -1234,7 +2269,7 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
     /**
      * <p>
      * TerminateJobFlows shuts a list of clusters (job flows) down. When a job flow is shut down, any step not yet
-     * completed is canceled and the EC2 instances on which the cluster is running are stopped. Any log files not
+     * completed is canceled and the Amazon EC2 instances on which the cluster is running are stopped. Any log files not
      * already saved are uploaded to Amazon S3 if a LogUri was specified when the cluster was created.
      * </p>
      * <p>
@@ -1256,5 +2291,69 @@ public interface AmazonElasticMapReduceAsync extends AmazonElasticMapReduce {
      */
     java.util.concurrent.Future<TerminateJobFlowsResult> terminateJobFlowsAsync(TerminateJobFlowsRequest terminateJobFlowsRequest,
             com.amazonaws.handlers.AsyncHandler<TerminateJobFlowsRequest, TerminateJobFlowsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates an Amazon EMR Studio configuration, including attributes such as name, description, and subnets.
+     * </p>
+     * 
+     * @param updateStudioRequest
+     * @return A Java Future containing the result of the UpdateStudio operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.UpdateStudio
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/UpdateStudio" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateStudioResult> updateStudioAsync(UpdateStudioRequest updateStudioRequest);
+
+    /**
+     * <p>
+     * Updates an Amazon EMR Studio configuration, including attributes such as name, description, and subnets.
+     * </p>
+     * 
+     * @param updateStudioRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateStudio operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.UpdateStudio
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/UpdateStudio" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateStudioResult> updateStudioAsync(UpdateStudioRequest updateStudioRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateStudioRequest, UpdateStudioResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the session policy attached to the user or group for the specified Amazon EMR Studio.
+     * </p>
+     * 
+     * @param updateStudioSessionMappingRequest
+     * @return A Java Future containing the result of the UpdateStudioSessionMapping operation returned by the service.
+     * @sample AmazonElasticMapReduceAsync.UpdateStudioSessionMapping
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/UpdateStudioSessionMapping"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateStudioSessionMappingResult> updateStudioSessionMappingAsync(
+            UpdateStudioSessionMappingRequest updateStudioSessionMappingRequest);
+
+    /**
+     * <p>
+     * Updates the session policy attached to the user or group for the specified Amazon EMR Studio.
+     * </p>
+     * 
+     * @param updateStudioSessionMappingRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateStudioSessionMapping operation returned by the service.
+     * @sample AmazonElasticMapReduceAsyncHandler.UpdateStudioSessionMapping
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/UpdateStudioSessionMapping"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateStudioSessionMappingResult> updateStudioSessionMappingAsync(
+            UpdateStudioSessionMappingRequest updateStudioSessionMappingRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateStudioSessionMappingRequest, UpdateStudioSessionMappingResult> asyncHandler);
 
 }

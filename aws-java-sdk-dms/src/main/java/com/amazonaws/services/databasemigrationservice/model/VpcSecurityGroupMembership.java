@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,10 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * <p/>
+ * <p>
+ * Describes the status of a security group associated with the virtual private cloud (VPC) hosting your replication and
+ * DB instances.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/VpcSecurityGroupMembership" target="_top">AWS API
  *      Documentation</a>
@@ -28,7 +31,7 @@ public class VpcSecurityGroupMembership implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The VPC security group Id.
+     * The VPC security group ID.
      * </p>
      */
     private String vpcSecurityGroupId;
@@ -41,11 +44,11 @@ public class VpcSecurityGroupMembership implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The VPC security group Id.
+     * The VPC security group ID.
      * </p>
      * 
      * @param vpcSecurityGroupId
-     *        The VPC security group Id.
+     *        The VPC security group ID.
      */
 
     public void setVpcSecurityGroupId(String vpcSecurityGroupId) {
@@ -54,10 +57,10 @@ public class VpcSecurityGroupMembership implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The VPC security group Id.
+     * The VPC security group ID.
      * </p>
      * 
-     * @return The VPC security group Id.
+     * @return The VPC security group ID.
      */
 
     public String getVpcSecurityGroupId() {
@@ -66,11 +69,11 @@ public class VpcSecurityGroupMembership implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The VPC security group Id.
+     * The VPC security group ID.
      * </p>
      * 
      * @param vpcSecurityGroupId
-     *        The VPC security group Id.
+     *        The VPC security group ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

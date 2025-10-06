@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,8 +40,10 @@ public class DescribeMaintenanceWindowExecutionTaskInvocationsRequest extends co
     private String taskId;
     /**
      * <p>
-     * Optional filters used to scope down the returned task invocations. The supported filter key is STATUS with the
-     * corresponding values PENDING, IN_PROGRESS, SUCCESS, FAILED, TIMED_OUT, CANCELLING, and CANCELLED.
+     * Optional filters used to scope down the returned task invocations. The supported filter key is
+     * <code>STATUS</code> with the corresponding values <code>PENDING</code>, <code>IN_PROGRESS</code>,
+     * <code>SUCCESS</code>, <code>FAILED</code>, <code>TIMED_OUT</code>, <code>CANCELLING</code>, and
+     * <code>CANCELLED</code>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<MaintenanceWindowFilter> filters;
@@ -141,13 +143,16 @@ public class DescribeMaintenanceWindowExecutionTaskInvocationsRequest extends co
 
     /**
      * <p>
-     * Optional filters used to scope down the returned task invocations. The supported filter key is STATUS with the
-     * corresponding values PENDING, IN_PROGRESS, SUCCESS, FAILED, TIMED_OUT, CANCELLING, and CANCELLED.
+     * Optional filters used to scope down the returned task invocations. The supported filter key is
+     * <code>STATUS</code> with the corresponding values <code>PENDING</code>, <code>IN_PROGRESS</code>,
+     * <code>SUCCESS</code>, <code>FAILED</code>, <code>TIMED_OUT</code>, <code>CANCELLING</code>, and
+     * <code>CANCELLED</code>.
      * </p>
      * 
-     * @return Optional filters used to scope down the returned task invocations. The supported filter key is STATUS
-     *         with the corresponding values PENDING, IN_PROGRESS, SUCCESS, FAILED, TIMED_OUT, CANCELLING, and
-     *         CANCELLED.
+     * @return Optional filters used to scope down the returned task invocations. The supported filter key is
+     *         <code>STATUS</code> with the corresponding values <code>PENDING</code>, <code>IN_PROGRESS</code>,
+     *         <code>SUCCESS</code>, <code>FAILED</code>, <code>TIMED_OUT</code>, <code>CANCELLING</code>, and
+     *         <code>CANCELLED</code>.
      */
 
     public java.util.List<MaintenanceWindowFilter> getFilters() {
@@ -159,13 +164,17 @@ public class DescribeMaintenanceWindowExecutionTaskInvocationsRequest extends co
 
     /**
      * <p>
-     * Optional filters used to scope down the returned task invocations. The supported filter key is STATUS with the
-     * corresponding values PENDING, IN_PROGRESS, SUCCESS, FAILED, TIMED_OUT, CANCELLING, and CANCELLED.
+     * Optional filters used to scope down the returned task invocations. The supported filter key is
+     * <code>STATUS</code> with the corresponding values <code>PENDING</code>, <code>IN_PROGRESS</code>,
+     * <code>SUCCESS</code>, <code>FAILED</code>, <code>TIMED_OUT</code>, <code>CANCELLING</code>, and
+     * <code>CANCELLED</code>.
      * </p>
      * 
      * @param filters
-     *        Optional filters used to scope down the returned task invocations. The supported filter key is STATUS with
-     *        the corresponding values PENDING, IN_PROGRESS, SUCCESS, FAILED, TIMED_OUT, CANCELLING, and CANCELLED.
+     *        Optional filters used to scope down the returned task invocations. The supported filter key is
+     *        <code>STATUS</code> with the corresponding values <code>PENDING</code>, <code>IN_PROGRESS</code>,
+     *        <code>SUCCESS</code>, <code>FAILED</code>, <code>TIMED_OUT</code>, <code>CANCELLING</code>, and
+     *        <code>CANCELLED</code>.
      */
 
     public void setFilters(java.util.Collection<MaintenanceWindowFilter> filters) {
@@ -179,8 +188,10 @@ public class DescribeMaintenanceWindowExecutionTaskInvocationsRequest extends co
 
     /**
      * <p>
-     * Optional filters used to scope down the returned task invocations. The supported filter key is STATUS with the
-     * corresponding values PENDING, IN_PROGRESS, SUCCESS, FAILED, TIMED_OUT, CANCELLING, and CANCELLED.
+     * Optional filters used to scope down the returned task invocations. The supported filter key is
+     * <code>STATUS</code> with the corresponding values <code>PENDING</code>, <code>IN_PROGRESS</code>,
+     * <code>SUCCESS</code>, <code>FAILED</code>, <code>TIMED_OUT</code>, <code>CANCELLING</code>, and
+     * <code>CANCELLED</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -189,8 +200,10 @@ public class DescribeMaintenanceWindowExecutionTaskInvocationsRequest extends co
      * </p>
      * 
      * @param filters
-     *        Optional filters used to scope down the returned task invocations. The supported filter key is STATUS with
-     *        the corresponding values PENDING, IN_PROGRESS, SUCCESS, FAILED, TIMED_OUT, CANCELLING, and CANCELLED.
+     *        Optional filters used to scope down the returned task invocations. The supported filter key is
+     *        <code>STATUS</code> with the corresponding values <code>PENDING</code>, <code>IN_PROGRESS</code>,
+     *        <code>SUCCESS</code>, <code>FAILED</code>, <code>TIMED_OUT</code>, <code>CANCELLING</code>, and
+     *        <code>CANCELLED</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -206,13 +219,17 @@ public class DescribeMaintenanceWindowExecutionTaskInvocationsRequest extends co
 
     /**
      * <p>
-     * Optional filters used to scope down the returned task invocations. The supported filter key is STATUS with the
-     * corresponding values PENDING, IN_PROGRESS, SUCCESS, FAILED, TIMED_OUT, CANCELLING, and CANCELLED.
+     * Optional filters used to scope down the returned task invocations. The supported filter key is
+     * <code>STATUS</code> with the corresponding values <code>PENDING</code>, <code>IN_PROGRESS</code>,
+     * <code>SUCCESS</code>, <code>FAILED</code>, <code>TIMED_OUT</code>, <code>CANCELLING</code>, and
+     * <code>CANCELLED</code>.
      * </p>
      * 
      * @param filters
-     *        Optional filters used to scope down the returned task invocations. The supported filter key is STATUS with
-     *        the corresponding values PENDING, IN_PROGRESS, SUCCESS, FAILED, TIMED_OUT, CANCELLING, and CANCELLED.
+     *        Optional filters used to scope down the returned task invocations. The supported filter key is
+     *        <code>STATUS</code> with the corresponding values <code>PENDING</code>, <code>IN_PROGRESS</code>,
+     *        <code>SUCCESS</code>, <code>FAILED</code>, <code>TIMED_OUT</code>, <code>CANCELLING</code>, and
+     *        <code>CANCELLED</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

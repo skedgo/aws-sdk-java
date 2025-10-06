@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,18 +39,6 @@ public class CopyDBClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      * <li>
      * <p>
      * Must specify a valid DB cluster parameter group.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If the source DB cluster parameter group is in the same AWS Region as the copy, specify a valid DB parameter
-     * group identifier, for example <code>my-db-cluster-param-group</code>, or a valid ARN.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If the source DB parameter group is in a different AWS Region than the copy, specify a valid DB cluster parameter
-     * group ARN, for example <code>arn:aws:rds:us-east-1:123456789012:cluster-pg:custom-cluster-group1</code>.
      * </p>
      * </li>
      * </ul>
@@ -115,25 +103,13 @@ public class CopyDBClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      * Must specify a valid DB cluster parameter group.
      * </p>
      * </li>
-     * <li>
-     * <p>
-     * If the source DB cluster parameter group is in the same AWS Region as the copy, specify a valid DB parameter
-     * group identifier, for example <code>my-db-cluster-param-group</code>, or a valid ARN.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If the source DB parameter group is in a different AWS Region than the copy, specify a valid DB cluster parameter
-     * group ARN, for example <code>arn:aws:rds:us-east-1:123456789012:cluster-pg:custom-cluster-group1</code>.
-     * </p>
-     * </li>
      * </ul>
      * 
      * @param sourceDBClusterParameterGroupIdentifier
      *        The identifier or Amazon Resource Name (ARN) for the source DB cluster parameter group. For information
      *        about creating an ARN, see <a href=
      *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing"
-     *        > Constructing an ARN for Amazon RDS</a> in the <i>Amazon Aurora User Guide</i>. </p>
+     *        > Constructing an ARN for Amazon RDS</a> in the <i>Amazon Aurora User Guide</i>.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -141,19 +117,6 @@ public class CopyDBClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      *        <li>
      *        <p>
      *        Must specify a valid DB cluster parameter group.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        If the source DB cluster parameter group is in the same AWS Region as the copy, specify a valid DB
-     *        parameter group identifier, for example <code>my-db-cluster-param-group</code>, or a valid ARN.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        If the source DB parameter group is in a different AWS Region than the copy, specify a valid DB cluster
-     *        parameter group ARN, for example
-     *        <code>arn:aws:rds:us-east-1:123456789012:cluster-pg:custom-cluster-group1</code>.
      *        </p>
      *        </li>
      */
@@ -178,24 +141,12 @@ public class CopyDBClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      * Must specify a valid DB cluster parameter group.
      * </p>
      * </li>
-     * <li>
-     * <p>
-     * If the source DB cluster parameter group is in the same AWS Region as the copy, specify a valid DB parameter
-     * group identifier, for example <code>my-db-cluster-param-group</code>, or a valid ARN.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If the source DB parameter group is in a different AWS Region than the copy, specify a valid DB cluster parameter
-     * group ARN, for example <code>arn:aws:rds:us-east-1:123456789012:cluster-pg:custom-cluster-group1</code>.
-     * </p>
-     * </li>
      * </ul>
      * 
      * @return The identifier or Amazon Resource Name (ARN) for the source DB cluster parameter group. For information
      *         about creating an ARN, see <a href=
      *         "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing"
-     *         > Constructing an ARN for Amazon RDS</a> in the <i>Amazon Aurora User Guide</i>. </p>
+     *         > Constructing an ARN for Amazon RDS</a> in the <i>Amazon Aurora User Guide</i>.</p>
      *         <p>
      *         Constraints:
      *         </p>
@@ -203,19 +154,6 @@ public class CopyDBClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      *         <li>
      *         <p>
      *         Must specify a valid DB cluster parameter group.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         If the source DB cluster parameter group is in the same AWS Region as the copy, specify a valid DB
-     *         parameter group identifier, for example <code>my-db-cluster-param-group</code>, or a valid ARN.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         If the source DB parameter group is in a different AWS Region than the copy, specify a valid DB cluster
-     *         parameter group ARN, for example
-     *         <code>arn:aws:rds:us-east-1:123456789012:cluster-pg:custom-cluster-group1</code>.
      *         </p>
      *         </li>
      */
@@ -240,25 +178,13 @@ public class CopyDBClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      * Must specify a valid DB cluster parameter group.
      * </p>
      * </li>
-     * <li>
-     * <p>
-     * If the source DB cluster parameter group is in the same AWS Region as the copy, specify a valid DB parameter
-     * group identifier, for example <code>my-db-cluster-param-group</code>, or a valid ARN.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If the source DB parameter group is in a different AWS Region than the copy, specify a valid DB cluster parameter
-     * group ARN, for example <code>arn:aws:rds:us-east-1:123456789012:cluster-pg:custom-cluster-group1</code>.
-     * </p>
-     * </li>
      * </ul>
      * 
      * @param sourceDBClusterParameterGroupIdentifier
      *        The identifier or Amazon Resource Name (ARN) for the source DB cluster parameter group. For information
      *        about creating an ARN, see <a href=
      *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing"
-     *        > Constructing an ARN for Amazon RDS</a> in the <i>Amazon Aurora User Guide</i>. </p>
+     *        > Constructing an ARN for Amazon RDS</a> in the <i>Amazon Aurora User Guide</i>.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -266,19 +192,6 @@ public class CopyDBClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      *        <li>
      *        <p>
      *        Must specify a valid DB cluster parameter group.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        If the source DB cluster parameter group is in the same AWS Region as the copy, specify a valid DB
-     *        parameter group identifier, for example <code>my-db-cluster-param-group</code>, or a valid ARN.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        If the source DB parameter group is in a different AWS Region than the copy, specify a valid DB cluster
-     *        parameter group ARN, for example
-     *        <code>arn:aws:rds:us-east-1:123456789012:cluster-pg:custom-cluster-group1</code>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

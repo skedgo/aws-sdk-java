@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,8 @@ public enum ElasticBeanstalkActions implements Action {
     AbortEnvironmentUpdate("elasticbeanstalk:AbortEnvironmentUpdate"),
     /** Action for the ApplyEnvironmentManagedAction operation. */
     ApplyEnvironmentManagedAction("elasticbeanstalk:ApplyEnvironmentManagedAction"),
+    /** Action for the AssociateEnvironmentOperationsRole operation. */
+    AssociateEnvironmentOperationsRole("elasticbeanstalk:AssociateEnvironmentOperationsRole"),
     /** Action for the CheckDNSAvailability operation. */
     CheckDNSAvailability("elasticbeanstalk:CheckDNSAvailability"),
     /** Action for the ComposeEnvironments operation. */
@@ -81,8 +83,12 @@ public enum ElasticBeanstalkActions implements Action {
     DescribeInstancesHealth("elasticbeanstalk:DescribeInstancesHealth"),
     /** Action for the DescribePlatformVersion operation. */
     DescribePlatformVersion("elasticbeanstalk:DescribePlatformVersion"),
+    /** Action for the DisassociateEnvironmentOperationsRole operation. */
+    DisassociateEnvironmentOperationsRole("elasticbeanstalk:DisassociateEnvironmentOperationsRole"),
     /** Action for the ListAvailableSolutionStacks operation. */
     ListAvailableSolutionStacks("elasticbeanstalk:ListAvailableSolutionStacks"),
+    /** Action for the ListPlatformBranches operation. */
+    ListPlatformBranches("elasticbeanstalk:ListPlatformBranches"),
     /** Action for the ListPlatformVersions operation. */
     ListPlatformVersions("elasticbeanstalk:ListPlatformVersions"),
     /** Action for the ListTagsForResource operation. */
@@ -124,5 +130,9 @@ public enum ElasticBeanstalkActions implements Action {
 
     public String getActionName() {
         return this.action;
+    }
+
+    public boolean isNotType() {
+        return false;
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An object representing the specification of a service mesh.
+ * An object that represents the specification of a service mesh.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/MeshSpec" target="_top">AWS API
@@ -34,6 +34,8 @@ public class MeshSpec implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private EgressFilter egressFilter;
+
+    private MeshServiceDiscovery serviceDiscovery;
 
     /**
      * <p>
@@ -76,6 +78,32 @@ public class MeshSpec implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * @param serviceDiscovery
+     */
+
+    public void setServiceDiscovery(MeshServiceDiscovery serviceDiscovery) {
+        this.serviceDiscovery = serviceDiscovery;
+    }
+
+    /**
+     * @return
+     */
+
+    public MeshServiceDiscovery getServiceDiscovery() {
+        return this.serviceDiscovery;
+    }
+
+    /**
+     * @param serviceDiscovery
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MeshSpec withServiceDiscovery(MeshServiceDiscovery serviceDiscovery) {
+        setServiceDiscovery(serviceDiscovery);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -88,7 +116,9 @@ public class MeshSpec implements Serializable, Cloneable, StructuredPojo {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getEgressFilter() != null)
-            sb.append("EgressFilter: ").append(getEgressFilter());
+            sb.append("EgressFilter: ").append(getEgressFilter()).append(",");
+        if (getServiceDiscovery() != null)
+            sb.append("ServiceDiscovery: ").append(getServiceDiscovery());
         sb.append("}");
         return sb.toString();
     }
@@ -107,6 +137,10 @@ public class MeshSpec implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getEgressFilter() != null && other.getEgressFilter().equals(this.getEgressFilter()) == false)
             return false;
+        if (other.getServiceDiscovery() == null ^ this.getServiceDiscovery() == null)
+            return false;
+        if (other.getServiceDiscovery() != null && other.getServiceDiscovery().equals(this.getServiceDiscovery()) == false)
+            return false;
         return true;
     }
 
@@ -116,6 +150,7 @@ public class MeshSpec implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getEgressFilter() == null) ? 0 : getEgressFilter().hashCode());
+        hashCode = prime * hashCode + ((getServiceDiscovery() == null) ? 0 : getServiceDiscovery().hashCode());
         return hashCode;
     }
 

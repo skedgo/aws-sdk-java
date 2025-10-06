@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.personalize.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -33,6 +34,8 @@ public class CreateSolutionRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("performHPO").build();
     private static final MarshallingInfo<Boolean> PERFORMAUTOML_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("performAutoML").build();
+    private static final MarshallingInfo<Boolean> PERFORMAUTOTRAINING_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("performAutoTraining").build();
     private static final MarshallingInfo<String> RECIPEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("recipeArn").build();
     private static final MarshallingInfo<String> DATASETGROUPARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -41,6 +44,8 @@ public class CreateSolutionRequestMarshaller {
             .marshallLocationName("eventType").build();
     private static final MarshallingInfo<StructuredPojo> SOLUTIONCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("solutionConfig").build();
+    private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("tags").build();
 
     private static final CreateSolutionRequestMarshaller instance = new CreateSolutionRequestMarshaller();
 
@@ -61,10 +66,12 @@ public class CreateSolutionRequestMarshaller {
             protocolMarshaller.marshall(createSolutionRequest.getName(), NAME_BINDING);
             protocolMarshaller.marshall(createSolutionRequest.getPerformHPO(), PERFORMHPO_BINDING);
             protocolMarshaller.marshall(createSolutionRequest.getPerformAutoML(), PERFORMAUTOML_BINDING);
+            protocolMarshaller.marshall(createSolutionRequest.getPerformAutoTraining(), PERFORMAUTOTRAINING_BINDING);
             protocolMarshaller.marshall(createSolutionRequest.getRecipeArn(), RECIPEARN_BINDING);
             protocolMarshaller.marshall(createSolutionRequest.getDatasetGroupArn(), DATASETGROUPARN_BINDING);
             protocolMarshaller.marshall(createSolutionRequest.getEventType(), EVENTTYPE_BINDING);
             protocolMarshaller.marshall(createSolutionRequest.getSolutionConfig(), SOLUTIONCONFIG_BINDING);
+            protocolMarshaller.marshall(createSolutionRequest.getTags(), TAGS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

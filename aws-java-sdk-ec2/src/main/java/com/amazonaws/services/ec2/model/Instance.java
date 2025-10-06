@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -81,19 +81,19 @@ public class Instance implements Serializable, Cloneable {
     private Placement placement;
     /**
      * <p>
-     * The value is <code>Windows</code> for Windows instances; otherwise blank.
+     * The platform. This value is <code>windows</code> for Windows instances; otherwise, it is empty.
      * </p>
      */
     private String platform;
     /**
      * <p>
-     * (IPv4 only) The private DNS hostname name assigned to the instance. This DNS hostname can only be used inside the
+     * [IPv4 only] The private DNS hostname name assigned to the instance. This DNS hostname can only be used inside the
      * Amazon EC2 network. This name is not available until the instance enters the <code>running</code> state.
      * </p>
      * <p>
-     * [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS
-     * resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC, your
-     * custom domain name servers must resolve the hostname as appropriate.
+     * The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS resolution
+     * and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC, your custom
+     * domain name servers must resolve the hostname as appropriate.
      * </p>
      */
     private String privateDnsName;
@@ -111,15 +111,17 @@ public class Instance implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<ProductCode> productCodes;
     /**
      * <p>
-     * (IPv4 only) The public DNS name assigned to the instance. This name is not available until the instance enters
-     * the <code>running</code> state. For EC2-VPC, this name is only available if you've enabled DNS hostnames for your
-     * VPC.
+     * [IPv4 only] The public DNS name assigned to the instance. This name is not available until the instance enters
+     * the <code>running</code> state. This name is only available if you've enabled DNS hostnames for your VPC.
      * </p>
      */
     private String publicDnsName;
     /**
      * <p>
-     * The public IPv4 address assigned to the instance, if applicable.
+     * The public IPv4 address, or the Carrier IP address assigned to the instance, if applicable.
+     * </p>
+     * <p>
+     * A Carrier IP address only applies to an instance launched in a subnet associated with a Wavelength Zone.
      * </p>
      */
     private String publicIpAddress;
@@ -143,13 +145,13 @@ public class Instance implements Serializable, Cloneable {
     private String stateTransitionReason;
     /**
      * <p>
-     * [EC2-VPC] The ID of the subnet in which the instance is running.
+     * The ID of the subnet in which the instance is running.
      * </p>
      */
     private String subnetId;
     /**
      * <p>
-     * [EC2-VPC] The ID of the VPC in which the instance is running.
+     * The ID of the VPC in which the instance is running.
      * </p>
      */
     private String vpcId;
@@ -187,7 +189,7 @@ public class Instance implements Serializable, Cloneable {
     private Boolean enaSupport;
     /**
      * <p>
-     * The hypervisor type of the instance.
+     * The hypervisor type of the instance. The value <code>xen</code> is used for both Xen and Nitro hypervisors.
      * </p>
      */
     private String hypervisor;
@@ -205,8 +207,14 @@ public class Instance implements Serializable, Cloneable {
     private String instanceLifecycle;
     /**
      * <p>
-     * The Elastic GPU associated with the instance.
+     * Deprecated.
      * </p>
+     * <note>
+     * <p>
+     * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration,
+     * we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     * </p>
+     * </note>
      */
     private com.amazonaws.internal.SdkInternalList<ElasticGpuAssociation> elasticGpuAssociations;
     /**
@@ -217,10 +225,16 @@ public class Instance implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<ElasticInferenceAcceleratorAssociation> elasticInferenceAcceleratorAssociations;
     /**
      * <p>
-     * [EC2-VPC] The network interfaces for the instance.
+     * The network interfaces for the instance.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<InstanceNetworkInterface> networkInterfaces;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     */
+    private String outpostArn;
     /**
      * <p>
      * The device name of the root device volume (for example, <code>/dev/sda1</code>).
@@ -241,12 +255,7 @@ public class Instance implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<GroupIdentifier> securityGroups;
     /**
      * <p>
-     * Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     * source/destination checking is enabled on the instance. A value of <code>true</code> means that checking is
-     * enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code> for the
-     * instance to perform NAT. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in the
-     * <i>Amazon Virtual Private Cloud User Guide</i>.
+     * Indicates whether source/destination checking is enabled.
      * </p>
      */
     private Boolean sourceDestCheck;
@@ -306,10 +315,95 @@ public class Instance implements Serializable, Cloneable {
     private HibernationOptions hibernationOptions;
     /**
      * <p>
-     * The license configurations.
+     * The license configurations for the instance.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<LicenseConfiguration> licenses;
+    /**
+     * <p>
+     * The metadata options for the instance.
+     * </p>
+     */
+    private InstanceMetadataOptionsResponse metadataOptions;
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves.
+     * </p>
+     */
+    private EnclaveOptions enclaveOptions;
+    /**
+     * <p>
+     * The boot mode that was specified by the AMI. If the value is <code>uefi-preferred</code>, the AMI supports both
+     * UEFI and Legacy BIOS. The <code>currentInstanceBootMode</code> parameter is the boot mode that is used to boot
+     * the instance at launch or start.
+     * </p>
+     * <note>
+     * <p>
+     * The operating system contained in the AMI must be configured to support the specified boot mode.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     * modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private String bootMode;
+    /**
+     * <p>
+     * The platform details value for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info-fields.html">AMI billing information
+     * fields</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private String platformDetails;
+    /**
+     * <p>
+     * The usage operation value for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info-fields.html">AMI billing information
+     * fields</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private String usageOperation;
+    /**
+     * <p>
+     * The time that the usage operation was last updated.
+     * </p>
+     */
+    private java.util.Date usageOperationUpdateTime;
+    /**
+     * <p>
+     * The options for the instance hostname.
+     * </p>
+     */
+    private PrivateDnsNameOptionsResponse privateDnsNameOptions;
+    /**
+     * <p>
+     * The IPv6 address assigned to the instance.
+     * </p>
+     */
+    private String ipv6Address;
+    /**
+     * <p>
+     * If the instance is configured for NitroTPM support, the value is <code>v2.0</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     */
+    private String tpmSupport;
+    /**
+     * <p>
+     * Provides information on the recovery and maintenance options of your instance.
+     * </p>
+     */
+    private InstanceMaintenanceOptions maintenanceOptions;
+    /**
+     * <p>
+     * The boot mode that is used to boot the instance at launch or start. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     */
+    private String currentInstanceBootMode;
 
     /**
      * <p>
@@ -706,11 +800,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The value is <code>Windows</code> for Windows instances; otherwise blank.
+     * The platform. This value is <code>windows</code> for Windows instances; otherwise, it is empty.
      * </p>
      * 
      * @param platform
-     *        The value is <code>Windows</code> for Windows instances; otherwise blank.
+     *        The platform. This value is <code>windows</code> for Windows instances; otherwise, it is empty.
      * @see PlatformValues
      */
 
@@ -720,10 +814,10 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The value is <code>Windows</code> for Windows instances; otherwise blank.
+     * The platform. This value is <code>windows</code> for Windows instances; otherwise, it is empty.
      * </p>
      * 
-     * @return The value is <code>Windows</code> for Windows instances; otherwise blank.
+     * @return The platform. This value is <code>windows</code> for Windows instances; otherwise, it is empty.
      * @see PlatformValues
      */
 
@@ -733,11 +827,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The value is <code>Windows</code> for Windows instances; otherwise blank.
+     * The platform. This value is <code>windows</code> for Windows instances; otherwise, it is empty.
      * </p>
      * 
      * @param platform
-     *        The value is <code>Windows</code> for Windows instances; otherwise blank.
+     *        The platform. This value is <code>windows</code> for Windows instances; otherwise, it is empty.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PlatformValues
      */
@@ -749,11 +843,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The value is <code>Windows</code> for Windows instances; otherwise blank.
+     * The platform. This value is <code>windows</code> for Windows instances; otherwise, it is empty.
      * </p>
      * 
      * @param platform
-     *        The value is <code>Windows</code> for Windows instances; otherwise blank.
+     *        The platform. This value is <code>windows</code> for Windows instances; otherwise, it is empty.
      * @see PlatformValues
      */
 
@@ -763,11 +857,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The value is <code>Windows</code> for Windows instances; otherwise blank.
+     * The platform. This value is <code>windows</code> for Windows instances; otherwise, it is empty.
      * </p>
      * 
      * @param platform
-     *        The value is <code>Windows</code> for Windows instances; otherwise blank.
+     *        The platform. This value is <code>windows</code> for Windows instances; otherwise, it is empty.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PlatformValues
      */
@@ -779,23 +873,23 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * (IPv4 only) The private DNS hostname name assigned to the instance. This DNS hostname can only be used inside the
+     * [IPv4 only] The private DNS hostname name assigned to the instance. This DNS hostname can only be used inside the
      * Amazon EC2 network. This name is not available until the instance enters the <code>running</code> state.
      * </p>
      * <p>
-     * [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS
-     * resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC, your
-     * custom domain name servers must resolve the hostname as appropriate.
+     * The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS resolution
+     * and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC, your custom
+     * domain name servers must resolve the hostname as appropriate.
      * </p>
      * 
      * @param privateDnsName
-     *        (IPv4 only) The private DNS hostname name assigned to the instance. This DNS hostname can only be used
+     *        [IPv4 only] The private DNS hostname name assigned to the instance. This DNS hostname can only be used
      *        inside the Amazon EC2 network. This name is not available until the instance enters the
      *        <code>running</code> state. </p>
      *        <p>
-     *        [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled
-     *        DNS resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your
-     *        VPC, your custom domain name servers must resolve the hostname as appropriate.
+     *        The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS
+     *        resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC,
+     *        your custom domain name servers must resolve the hostname as appropriate.
      */
 
     public void setPrivateDnsName(String privateDnsName) {
@@ -804,21 +898,21 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * (IPv4 only) The private DNS hostname name assigned to the instance. This DNS hostname can only be used inside the
+     * [IPv4 only] The private DNS hostname name assigned to the instance. This DNS hostname can only be used inside the
      * Amazon EC2 network. This name is not available until the instance enters the <code>running</code> state.
      * </p>
      * <p>
-     * [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS
-     * resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC, your
-     * custom domain name servers must resolve the hostname as appropriate.
+     * The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS resolution
+     * and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC, your custom
+     * domain name servers must resolve the hostname as appropriate.
      * </p>
      * 
-     * @return (IPv4 only) The private DNS hostname name assigned to the instance. This DNS hostname can only be used
+     * @return [IPv4 only] The private DNS hostname name assigned to the instance. This DNS hostname can only be used
      *         inside the Amazon EC2 network. This name is not available until the instance enters the
      *         <code>running</code> state. </p>
      *         <p>
-     *         [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled
-     *         DNS resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your
+     *         The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS
+     *         resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your
      *         VPC, your custom domain name servers must resolve the hostname as appropriate.
      */
 
@@ -828,23 +922,23 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * (IPv4 only) The private DNS hostname name assigned to the instance. This DNS hostname can only be used inside the
+     * [IPv4 only] The private DNS hostname name assigned to the instance. This DNS hostname can only be used inside the
      * Amazon EC2 network. This name is not available until the instance enters the <code>running</code> state.
      * </p>
      * <p>
-     * [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS
-     * resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC, your
-     * custom domain name servers must resolve the hostname as appropriate.
+     * The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS resolution
+     * and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC, your custom
+     * domain name servers must resolve the hostname as appropriate.
      * </p>
      * 
      * @param privateDnsName
-     *        (IPv4 only) The private DNS hostname name assigned to the instance. This DNS hostname can only be used
+     *        [IPv4 only] The private DNS hostname name assigned to the instance. This DNS hostname can only be used
      *        inside the Amazon EC2 network. This name is not available until the instance enters the
      *        <code>running</code> state. </p>
      *        <p>
-     *        [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled
-     *        DNS resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your
-     *        VPC, your custom domain name servers must resolve the hostname as appropriate.
+     *        The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS
+     *        resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC,
+     *        your custom domain name servers must resolve the hostname as appropriate.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -968,15 +1062,14 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * (IPv4 only) The public DNS name assigned to the instance. This name is not available until the instance enters
-     * the <code>running</code> state. For EC2-VPC, this name is only available if you've enabled DNS hostnames for your
-     * VPC.
+     * [IPv4 only] The public DNS name assigned to the instance. This name is not available until the instance enters
+     * the <code>running</code> state. This name is only available if you've enabled DNS hostnames for your VPC.
      * </p>
      * 
      * @param publicDnsName
-     *        (IPv4 only) The public DNS name assigned to the instance. This name is not available until the instance
-     *        enters the <code>running</code> state. For EC2-VPC, this name is only available if you've enabled DNS
-     *        hostnames for your VPC.
+     *        [IPv4 only] The public DNS name assigned to the instance. This name is not available until the instance
+     *        enters the <code>running</code> state. This name is only available if you've enabled DNS hostnames for
+     *        your VPC.
      */
 
     public void setPublicDnsName(String publicDnsName) {
@@ -985,14 +1078,13 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * (IPv4 only) The public DNS name assigned to the instance. This name is not available until the instance enters
-     * the <code>running</code> state. For EC2-VPC, this name is only available if you've enabled DNS hostnames for your
-     * VPC.
+     * [IPv4 only] The public DNS name assigned to the instance. This name is not available until the instance enters
+     * the <code>running</code> state. This name is only available if you've enabled DNS hostnames for your VPC.
      * </p>
      * 
-     * @return (IPv4 only) The public DNS name assigned to the instance. This name is not available until the instance
-     *         enters the <code>running</code> state. For EC2-VPC, this name is only available if you've enabled DNS
-     *         hostnames for your VPC.
+     * @return [IPv4 only] The public DNS name assigned to the instance. This name is not available until the instance
+     *         enters the <code>running</code> state. This name is only available if you've enabled DNS hostnames for
+     *         your VPC.
      */
 
     public String getPublicDnsName() {
@@ -1001,15 +1093,14 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * (IPv4 only) The public DNS name assigned to the instance. This name is not available until the instance enters
-     * the <code>running</code> state. For EC2-VPC, this name is only available if you've enabled DNS hostnames for your
-     * VPC.
+     * [IPv4 only] The public DNS name assigned to the instance. This name is not available until the instance enters
+     * the <code>running</code> state. This name is only available if you've enabled DNS hostnames for your VPC.
      * </p>
      * 
      * @param publicDnsName
-     *        (IPv4 only) The public DNS name assigned to the instance. This name is not available until the instance
-     *        enters the <code>running</code> state. For EC2-VPC, this name is only available if you've enabled DNS
-     *        hostnames for your VPC.
+     *        [IPv4 only] The public DNS name assigned to the instance. This name is not available until the instance
+     *        enters the <code>running</code> state. This name is only available if you've enabled DNS hostnames for
+     *        your VPC.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1020,11 +1111,16 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The public IPv4 address assigned to the instance, if applicable.
+     * The public IPv4 address, or the Carrier IP address assigned to the instance, if applicable.
+     * </p>
+     * <p>
+     * A Carrier IP address only applies to an instance launched in a subnet associated with a Wavelength Zone.
      * </p>
      * 
      * @param publicIpAddress
-     *        The public IPv4 address assigned to the instance, if applicable.
+     *        The public IPv4 address, or the Carrier IP address assigned to the instance, if applicable.</p>
+     *        <p>
+     *        A Carrier IP address only applies to an instance launched in a subnet associated with a Wavelength Zone.
      */
 
     public void setPublicIpAddress(String publicIpAddress) {
@@ -1033,10 +1129,15 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The public IPv4 address assigned to the instance, if applicable.
+     * The public IPv4 address, or the Carrier IP address assigned to the instance, if applicable.
+     * </p>
+     * <p>
+     * A Carrier IP address only applies to an instance launched in a subnet associated with a Wavelength Zone.
      * </p>
      * 
-     * @return The public IPv4 address assigned to the instance, if applicable.
+     * @return The public IPv4 address, or the Carrier IP address assigned to the instance, if applicable.</p>
+     *         <p>
+     *         A Carrier IP address only applies to an instance launched in a subnet associated with a Wavelength Zone.
      */
 
     public String getPublicIpAddress() {
@@ -1045,11 +1146,16 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The public IPv4 address assigned to the instance, if applicable.
+     * The public IPv4 address, or the Carrier IP address assigned to the instance, if applicable.
+     * </p>
+     * <p>
+     * A Carrier IP address only applies to an instance launched in a subnet associated with a Wavelength Zone.
      * </p>
      * 
      * @param publicIpAddress
-     *        The public IPv4 address assigned to the instance, if applicable.
+     *        The public IPv4 address, or the Carrier IP address assigned to the instance, if applicable.</p>
+     *        <p>
+     *        A Carrier IP address only applies to an instance launched in a subnet associated with a Wavelength Zone.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1180,11 +1286,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [EC2-VPC] The ID of the subnet in which the instance is running.
+     * The ID of the subnet in which the instance is running.
      * </p>
      * 
      * @param subnetId
-     *        [EC2-VPC] The ID of the subnet in which the instance is running.
+     *        The ID of the subnet in which the instance is running.
      */
 
     public void setSubnetId(String subnetId) {
@@ -1193,10 +1299,10 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [EC2-VPC] The ID of the subnet in which the instance is running.
+     * The ID of the subnet in which the instance is running.
      * </p>
      * 
-     * @return [EC2-VPC] The ID of the subnet in which the instance is running.
+     * @return The ID of the subnet in which the instance is running.
      */
 
     public String getSubnetId() {
@@ -1205,11 +1311,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [EC2-VPC] The ID of the subnet in which the instance is running.
+     * The ID of the subnet in which the instance is running.
      * </p>
      * 
      * @param subnetId
-     *        [EC2-VPC] The ID of the subnet in which the instance is running.
+     *        The ID of the subnet in which the instance is running.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1220,11 +1326,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [EC2-VPC] The ID of the VPC in which the instance is running.
+     * The ID of the VPC in which the instance is running.
      * </p>
      * 
      * @param vpcId
-     *        [EC2-VPC] The ID of the VPC in which the instance is running.
+     *        The ID of the VPC in which the instance is running.
      */
 
     public void setVpcId(String vpcId) {
@@ -1233,10 +1339,10 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [EC2-VPC] The ID of the VPC in which the instance is running.
+     * The ID of the VPC in which the instance is running.
      * </p>
      * 
-     * @return [EC2-VPC] The ID of the VPC in which the instance is running.
+     * @return The ID of the VPC in which the instance is running.
      */
 
     public String getVpcId() {
@@ -1245,11 +1351,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [EC2-VPC] The ID of the VPC in which the instance is running.
+     * The ID of the VPC in which the instance is running.
      * </p>
      * 
      * @param vpcId
-     *        [EC2-VPC] The ID of the VPC in which the instance is running.
+     *        The ID of the VPC in which the instance is running.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1570,11 +1676,12 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The hypervisor type of the instance.
+     * The hypervisor type of the instance. The value <code>xen</code> is used for both Xen and Nitro hypervisors.
      * </p>
      * 
      * @param hypervisor
-     *        The hypervisor type of the instance.
+     *        The hypervisor type of the instance. The value <code>xen</code> is used for both Xen and Nitro
+     *        hypervisors.
      * @see HypervisorType
      */
 
@@ -1584,10 +1691,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The hypervisor type of the instance.
+     * The hypervisor type of the instance. The value <code>xen</code> is used for both Xen and Nitro hypervisors.
      * </p>
      * 
-     * @return The hypervisor type of the instance.
+     * @return The hypervisor type of the instance. The value <code>xen</code> is used for both Xen and Nitro
+     *         hypervisors.
      * @see HypervisorType
      */
 
@@ -1597,11 +1705,12 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The hypervisor type of the instance.
+     * The hypervisor type of the instance. The value <code>xen</code> is used for both Xen and Nitro hypervisors.
      * </p>
      * 
      * @param hypervisor
-     *        The hypervisor type of the instance.
+     *        The hypervisor type of the instance. The value <code>xen</code> is used for both Xen and Nitro
+     *        hypervisors.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HypervisorType
      */
@@ -1613,11 +1722,12 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The hypervisor type of the instance.
+     * The hypervisor type of the instance. The value <code>xen</code> is used for both Xen and Nitro hypervisors.
      * </p>
      * 
      * @param hypervisor
-     *        The hypervisor type of the instance.
+     *        The hypervisor type of the instance. The value <code>xen</code> is used for both Xen and Nitro
+     *        hypervisors.
      * @see HypervisorType
      */
 
@@ -1627,11 +1737,12 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The hypervisor type of the instance.
+     * The hypervisor type of the instance. The value <code>xen</code> is used for both Xen and Nitro hypervisors.
      * </p>
      * 
      * @param hypervisor
-     *        The hypervisor type of the instance.
+     *        The hypervisor type of the instance. The value <code>xen</code> is used for both Xen and Nitro
+     *        hypervisors.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HypervisorType
      */
@@ -1756,10 +1867,20 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Elastic GPU associated with the instance.
+     * Deprecated.
      * </p>
+     * <note>
+     * <p>
+     * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration,
+     * we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     * </p>
+     * </note>
      * 
-     * @return The Elastic GPU associated with the instance.
+     * @return Deprecated.</p> <note>
+     *         <p>
+     *         Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics
+     *         acceleration, we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     *         </p>
      */
 
     public java.util.List<ElasticGpuAssociation> getElasticGpuAssociations() {
@@ -1771,11 +1892,21 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Elastic GPU associated with the instance.
+     * Deprecated.
      * </p>
+     * <note>
+     * <p>
+     * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration,
+     * we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     * </p>
+     * </note>
      * 
      * @param elasticGpuAssociations
-     *        The Elastic GPU associated with the instance.
+     *        Deprecated.</p> <note>
+     *        <p>
+     *        Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics
+     *        acceleration, we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     *        </p>
      */
 
     public void setElasticGpuAssociations(java.util.Collection<ElasticGpuAssociation> elasticGpuAssociations) {
@@ -1789,8 +1920,14 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Elastic GPU associated with the instance.
+     * Deprecated.
      * </p>
+     * <note>
+     * <p>
+     * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration,
+     * we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setElasticGpuAssociations(java.util.Collection)} or
@@ -1798,7 +1935,11 @@ public class Instance implements Serializable, Cloneable {
      * </p>
      * 
      * @param elasticGpuAssociations
-     *        The Elastic GPU associated with the instance.
+     *        Deprecated.</p> <note>
+     *        <p>
+     *        Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics
+     *        acceleration, we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1814,11 +1955,21 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Elastic GPU associated with the instance.
+     * Deprecated.
      * </p>
+     * <note>
+     * <p>
+     * Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics acceleration,
+     * we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     * </p>
+     * </note>
      * 
      * @param elasticGpuAssociations
-     *        The Elastic GPU associated with the instance.
+     *        Deprecated.</p> <note>
+     *        <p>
+     *        Amazon Elastic Graphics reached end of life on January 8, 2024. For workloads that require graphics
+     *        acceleration, we recommend that you use Amazon EC2 G4ad, G4dn, or G5 instances.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1906,10 +2057,10 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [EC2-VPC] The network interfaces for the instance.
+     * The network interfaces for the instance.
      * </p>
      * 
-     * @return [EC2-VPC] The network interfaces for the instance.
+     * @return The network interfaces for the instance.
      */
 
     public java.util.List<InstanceNetworkInterface> getNetworkInterfaces() {
@@ -1921,11 +2072,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [EC2-VPC] The network interfaces for the instance.
+     * The network interfaces for the instance.
      * </p>
      * 
      * @param networkInterfaces
-     *        [EC2-VPC] The network interfaces for the instance.
+     *        The network interfaces for the instance.
      */
 
     public void setNetworkInterfaces(java.util.Collection<InstanceNetworkInterface> networkInterfaces) {
@@ -1939,7 +2090,7 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [EC2-VPC] The network interfaces for the instance.
+     * The network interfaces for the instance.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1948,7 +2099,7 @@ public class Instance implements Serializable, Cloneable {
      * </p>
      * 
      * @param networkInterfaces
-     *        [EC2-VPC] The network interfaces for the instance.
+     *        The network interfaces for the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1964,16 +2115,56 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * [EC2-VPC] The network interfaces for the instance.
+     * The network interfaces for the instance.
      * </p>
      * 
      * @param networkInterfaces
-     *        [EC2-VPC] The network interfaces for the instance.
+     *        The network interfaces for the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Instance withNetworkInterfaces(java.util.Collection<InstanceNetworkInterface> networkInterfaces) {
         setNetworkInterfaces(networkInterfaces);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Outpost.
+     */
+
+    public void setOutpostArn(String outpostArn) {
+        this.outpostArn = outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the Outpost.
+     */
+
+    public String getOutpostArn() {
+        return this.outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Outpost.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withOutpostArn(String outpostArn) {
+        setOutpostArn(outpostArn);
         return this;
     }
 
@@ -2165,21 +2356,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     * source/destination checking is enabled on the instance. A value of <code>true</code> means that checking is
-     * enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code> for the
-     * instance to perform NAT. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in the
-     * <i>Amazon Virtual Private Cloud User Guide</i>.
+     * Indicates whether source/destination checking is enabled.
      * </p>
      * 
      * @param sourceDestCheck
-     *        Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     *        source/destination checking is enabled on the instance. A value of <code>true</code> means that checking
-     *        is enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code>
-     *        for the instance to perform NAT. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in
-     *        the <i>Amazon Virtual Private Cloud User Guide</i>.
+     *        Indicates whether source/destination checking is enabled.
      */
 
     public void setSourceDestCheck(Boolean sourceDestCheck) {
@@ -2188,20 +2369,10 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     * source/destination checking is enabled on the instance. A value of <code>true</code> means that checking is
-     * enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code> for the
-     * instance to perform NAT. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in the
-     * <i>Amazon Virtual Private Cloud User Guide</i>.
+     * Indicates whether source/destination checking is enabled.
      * </p>
      * 
-     * @return Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     *         source/destination checking is enabled on the instance. A value of <code>true</code> means that checking
-     *         is enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code>
-     *         for the instance to perform NAT. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in
-     *         the <i>Amazon Virtual Private Cloud User Guide</i>.
+     * @return Indicates whether source/destination checking is enabled.
      */
 
     public Boolean getSourceDestCheck() {
@@ -2210,21 +2381,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     * source/destination checking is enabled on the instance. A value of <code>true</code> means that checking is
-     * enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code> for the
-     * instance to perform NAT. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in the
-     * <i>Amazon Virtual Private Cloud User Guide</i>.
+     * Indicates whether source/destination checking is enabled.
      * </p>
      * 
      * @param sourceDestCheck
-     *        Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     *        source/destination checking is enabled on the instance. A value of <code>true</code> means that checking
-     *        is enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code>
-     *        for the instance to perform NAT. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in
-     *        the <i>Amazon Virtual Private Cloud User Guide</i>.
+     *        Indicates whether source/destination checking is enabled.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2235,20 +2396,10 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     * source/destination checking is enabled on the instance. A value of <code>true</code> means that checking is
-     * enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code> for the
-     * instance to perform NAT. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in the
-     * <i>Amazon Virtual Private Cloud User Guide</i>.
+     * Indicates whether source/destination checking is enabled.
      * </p>
      * 
-     * @return Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     *         source/destination checking is enabled on the instance. A value of <code>true</code> means that checking
-     *         is enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code>
-     *         for the instance to perform NAT. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in
-     *         the <i>Amazon Virtual Private Cloud User Guide</i>.
+     * @return Indicates whether source/destination checking is enabled.
      */
 
     public Boolean isSourceDestCheck() {
@@ -2683,10 +2834,10 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The license configurations.
+     * The license configurations for the instance.
      * </p>
      * 
-     * @return The license configurations.
+     * @return The license configurations for the instance.
      */
 
     public java.util.List<LicenseConfiguration> getLicenses() {
@@ -2698,11 +2849,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The license configurations.
+     * The license configurations for the instance.
      * </p>
      * 
      * @param licenses
-     *        The license configurations.
+     *        The license configurations for the instance.
      */
 
     public void setLicenses(java.util.Collection<LicenseConfiguration> licenses) {
@@ -2716,7 +2867,7 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The license configurations.
+     * The license configurations for the instance.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -2725,7 +2876,7 @@ public class Instance implements Serializable, Cloneable {
      * </p>
      * 
      * @param licenses
-     *        The license configurations.
+     *        The license configurations for the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2741,16 +2892,679 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The license configurations.
+     * The license configurations for the instance.
      * </p>
      * 
      * @param licenses
-     *        The license configurations.
+     *        The license configurations for the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Instance withLicenses(java.util.Collection<LicenseConfiguration> licenses) {
         setLicenses(licenses);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The metadata options for the instance.
+     * </p>
+     * 
+     * @param metadataOptions
+     *        The metadata options for the instance.
+     */
+
+    public void setMetadataOptions(InstanceMetadataOptionsResponse metadataOptions) {
+        this.metadataOptions = metadataOptions;
+    }
+
+    /**
+     * <p>
+     * The metadata options for the instance.
+     * </p>
+     * 
+     * @return The metadata options for the instance.
+     */
+
+    public InstanceMetadataOptionsResponse getMetadataOptions() {
+        return this.metadataOptions;
+    }
+
+    /**
+     * <p>
+     * The metadata options for the instance.
+     * </p>
+     * 
+     * @param metadataOptions
+     *        The metadata options for the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withMetadataOptions(InstanceMetadataOptionsResponse metadataOptions) {
+        setMetadataOptions(metadataOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves.
+     * </p>
+     * 
+     * @param enclaveOptions
+     *        Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves.
+     */
+
+    public void setEnclaveOptions(EnclaveOptions enclaveOptions) {
+        this.enclaveOptions = enclaveOptions;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves.
+     * </p>
+     * 
+     * @return Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves.
+     */
+
+    public EnclaveOptions getEnclaveOptions() {
+        return this.enclaveOptions;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves.
+     * </p>
+     * 
+     * @param enclaveOptions
+     *        Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withEnclaveOptions(EnclaveOptions enclaveOptions) {
+        setEnclaveOptions(enclaveOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The boot mode that was specified by the AMI. If the value is <code>uefi-preferred</code>, the AMI supports both
+     * UEFI and Legacy BIOS. The <code>currentInstanceBootMode</code> parameter is the boot mode that is used to boot
+     * the instance at launch or start.
+     * </p>
+     * <note>
+     * <p>
+     * The operating system contained in the AMI must be configured to support the specified boot mode.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     * modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param bootMode
+     *        The boot mode that was specified by the AMI. If the value is <code>uefi-preferred</code>, the AMI supports
+     *        both UEFI and Legacy BIOS. The <code>currentInstanceBootMode</code> parameter is the boot mode that is
+     *        used to boot the instance at launch or start.</p> <note>
+     *        <p>
+     *        The operating system contained in the AMI must be configured to support the specified boot mode.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     *        modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * @see BootModeValues
+     */
+
+    public void setBootMode(String bootMode) {
+        this.bootMode = bootMode;
+    }
+
+    /**
+     * <p>
+     * The boot mode that was specified by the AMI. If the value is <code>uefi-preferred</code>, the AMI supports both
+     * UEFI and Legacy BIOS. The <code>currentInstanceBootMode</code> parameter is the boot mode that is used to boot
+     * the instance at launch or start.
+     * </p>
+     * <note>
+     * <p>
+     * The operating system contained in the AMI must be configured to support the specified boot mode.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     * modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return The boot mode that was specified by the AMI. If the value is <code>uefi-preferred</code>, the AMI
+     *         supports both UEFI and Legacy BIOS. The <code>currentInstanceBootMode</code> parameter is the boot mode
+     *         that is used to boot the instance at launch or start.</p> <note>
+     *         <p>
+     *         The operating system contained in the AMI must be configured to support the specified boot mode.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon
+     *         EC2 User Guide</i>.
+     * @see BootModeValues
+     */
+
+    public String getBootMode() {
+        return this.bootMode;
+    }
+
+    /**
+     * <p>
+     * The boot mode that was specified by the AMI. If the value is <code>uefi-preferred</code>, the AMI supports both
+     * UEFI and Legacy BIOS. The <code>currentInstanceBootMode</code> parameter is the boot mode that is used to boot
+     * the instance at launch or start.
+     * </p>
+     * <note>
+     * <p>
+     * The operating system contained in the AMI must be configured to support the specified boot mode.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     * modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param bootMode
+     *        The boot mode that was specified by the AMI. If the value is <code>uefi-preferred</code>, the AMI supports
+     *        both UEFI and Legacy BIOS. The <code>currentInstanceBootMode</code> parameter is the boot mode that is
+     *        used to boot the instance at launch or start.</p> <note>
+     *        <p>
+     *        The operating system contained in the AMI must be configured to support the specified boot mode.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     *        modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see BootModeValues
+     */
+
+    public Instance withBootMode(String bootMode) {
+        setBootMode(bootMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The boot mode that was specified by the AMI. If the value is <code>uefi-preferred</code>, the AMI supports both
+     * UEFI and Legacy BIOS. The <code>currentInstanceBootMode</code> parameter is the boot mode that is used to boot
+     * the instance at launch or start.
+     * </p>
+     * <note>
+     * <p>
+     * The operating system contained in the AMI must be configured to support the specified boot mode.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     * modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param bootMode
+     *        The boot mode that was specified by the AMI. If the value is <code>uefi-preferred</code>, the AMI supports
+     *        both UEFI and Legacy BIOS. The <code>currentInstanceBootMode</code> parameter is the boot mode that is
+     *        used to boot the instance at launch or start.</p> <note>
+     *        <p>
+     *        The operating system contained in the AMI must be configured to support the specified boot mode.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     *        modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * @see BootModeValues
+     */
+
+    public void setBootMode(BootModeValues bootMode) {
+        withBootMode(bootMode);
+    }
+
+    /**
+     * <p>
+     * The boot mode that was specified by the AMI. If the value is <code>uefi-preferred</code>, the AMI supports both
+     * UEFI and Legacy BIOS. The <code>currentInstanceBootMode</code> parameter is the boot mode that is used to boot
+     * the instance at launch or start.
+     * </p>
+     * <note>
+     * <p>
+     * The operating system contained in the AMI must be configured to support the specified boot mode.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     * modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param bootMode
+     *        The boot mode that was specified by the AMI. If the value is <code>uefi-preferred</code>, the AMI supports
+     *        both UEFI and Legacy BIOS. The <code>currentInstanceBootMode</code> parameter is the boot mode that is
+     *        used to boot the instance at launch or start.</p> <note>
+     *        <p>
+     *        The operating system contained in the AMI must be configured to support the specified boot mode.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     *        modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see BootModeValues
+     */
+
+    public Instance withBootMode(BootModeValues bootMode) {
+        this.bootMode = bootMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The platform details value for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info-fields.html">AMI billing information
+     * fields</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param platformDetails
+     *        The platform details value for the instance. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info-fields.html">AMI billing
+     *        information fields</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setPlatformDetails(String platformDetails) {
+        this.platformDetails = platformDetails;
+    }
+
+    /**
+     * <p>
+     * The platform details value for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info-fields.html">AMI billing information
+     * fields</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return The platform details value for the instance. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info-fields.html">AMI billing
+     *         information fields</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public String getPlatformDetails() {
+        return this.platformDetails;
+    }
+
+    /**
+     * <p>
+     * The platform details value for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info-fields.html">AMI billing information
+     * fields</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param platformDetails
+     *        The platform details value for the instance. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info-fields.html">AMI billing
+     *        information fields</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withPlatformDetails(String platformDetails) {
+        setPlatformDetails(platformDetails);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The usage operation value for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info-fields.html">AMI billing information
+     * fields</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param usageOperation
+     *        The usage operation value for the instance. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info-fields.html">AMI billing
+     *        information fields</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setUsageOperation(String usageOperation) {
+        this.usageOperation = usageOperation;
+    }
+
+    /**
+     * <p>
+     * The usage operation value for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info-fields.html">AMI billing information
+     * fields</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return The usage operation value for the instance. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info-fields.html">AMI billing
+     *         information fields</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public String getUsageOperation() {
+        return this.usageOperation;
+    }
+
+    /**
+     * <p>
+     * The usage operation value for the instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info-fields.html">AMI billing information
+     * fields</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param usageOperation
+     *        The usage operation value for the instance. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info-fields.html">AMI billing
+     *        information fields</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withUsageOperation(String usageOperation) {
+        setUsageOperation(usageOperation);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time that the usage operation was last updated.
+     * </p>
+     * 
+     * @param usageOperationUpdateTime
+     *        The time that the usage operation was last updated.
+     */
+
+    public void setUsageOperationUpdateTime(java.util.Date usageOperationUpdateTime) {
+        this.usageOperationUpdateTime = usageOperationUpdateTime;
+    }
+
+    /**
+     * <p>
+     * The time that the usage operation was last updated.
+     * </p>
+     * 
+     * @return The time that the usage operation was last updated.
+     */
+
+    public java.util.Date getUsageOperationUpdateTime() {
+        return this.usageOperationUpdateTime;
+    }
+
+    /**
+     * <p>
+     * The time that the usage operation was last updated.
+     * </p>
+     * 
+     * @param usageOperationUpdateTime
+     *        The time that the usage operation was last updated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withUsageOperationUpdateTime(java.util.Date usageOperationUpdateTime) {
+        setUsageOperationUpdateTime(usageOperationUpdateTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The options for the instance hostname.
+     * </p>
+     * 
+     * @param privateDnsNameOptions
+     *        The options for the instance hostname.
+     */
+
+    public void setPrivateDnsNameOptions(PrivateDnsNameOptionsResponse privateDnsNameOptions) {
+        this.privateDnsNameOptions = privateDnsNameOptions;
+    }
+
+    /**
+     * <p>
+     * The options for the instance hostname.
+     * </p>
+     * 
+     * @return The options for the instance hostname.
+     */
+
+    public PrivateDnsNameOptionsResponse getPrivateDnsNameOptions() {
+        return this.privateDnsNameOptions;
+    }
+
+    /**
+     * <p>
+     * The options for the instance hostname.
+     * </p>
+     * 
+     * @param privateDnsNameOptions
+     *        The options for the instance hostname.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withPrivateDnsNameOptions(PrivateDnsNameOptionsResponse privateDnsNameOptions) {
+        setPrivateDnsNameOptions(privateDnsNameOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv6 address assigned to the instance.
+     * </p>
+     * 
+     * @param ipv6Address
+     *        The IPv6 address assigned to the instance.
+     */
+
+    public void setIpv6Address(String ipv6Address) {
+        this.ipv6Address = ipv6Address;
+    }
+
+    /**
+     * <p>
+     * The IPv6 address assigned to the instance.
+     * </p>
+     * 
+     * @return The IPv6 address assigned to the instance.
+     */
+
+    public String getIpv6Address() {
+        return this.ipv6Address;
+    }
+
+    /**
+     * <p>
+     * The IPv6 address assigned to the instance.
+     * </p>
+     * 
+     * @param ipv6Address
+     *        The IPv6 address assigned to the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withIpv6Address(String ipv6Address) {
+        setIpv6Address(ipv6Address);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If the instance is configured for NitroTPM support, the value is <code>v2.0</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param tpmSupport
+     *        If the instance is configured for NitroTPM support, the value is <code>v2.0</code>. For more information,
+     *        see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the
+     *        <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setTpmSupport(String tpmSupport) {
+        this.tpmSupport = tpmSupport;
+    }
+
+    /**
+     * <p>
+     * If the instance is configured for NitroTPM support, the value is <code>v2.0</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @return If the instance is configured for NitroTPM support, the value is <code>v2.0</code>. For more information,
+     *         see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the
+     *         <i>Amazon EC2 User Guide</i>.
+     */
+
+    public String getTpmSupport() {
+        return this.tpmSupport;
+    }
+
+    /**
+     * <p>
+     * If the instance is configured for NitroTPM support, the value is <code>v2.0</code>. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param tpmSupport
+     *        If the instance is configured for NitroTPM support, the value is <code>v2.0</code>. For more information,
+     *        see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the
+     *        <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withTpmSupport(String tpmSupport) {
+        setTpmSupport(tpmSupport);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Provides information on the recovery and maintenance options of your instance.
+     * </p>
+     * 
+     * @param maintenanceOptions
+     *        Provides information on the recovery and maintenance options of your instance.
+     */
+
+    public void setMaintenanceOptions(InstanceMaintenanceOptions maintenanceOptions) {
+        this.maintenanceOptions = maintenanceOptions;
+    }
+
+    /**
+     * <p>
+     * Provides information on the recovery and maintenance options of your instance.
+     * </p>
+     * 
+     * @return Provides information on the recovery and maintenance options of your instance.
+     */
+
+    public InstanceMaintenanceOptions getMaintenanceOptions() {
+        return this.maintenanceOptions;
+    }
+
+    /**
+     * <p>
+     * Provides information on the recovery and maintenance options of your instance.
+     * </p>
+     * 
+     * @param maintenanceOptions
+     *        Provides information on the recovery and maintenance options of your instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withMaintenanceOptions(InstanceMaintenanceOptions maintenanceOptions) {
+        setMaintenanceOptions(maintenanceOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The boot mode that is used to boot the instance at launch or start. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param currentInstanceBootMode
+     *        The boot mode that is used to boot the instance at launch or start. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon
+     *        EC2 User Guide</i>.
+     * @see InstanceBootModeValues
+     */
+
+    public void setCurrentInstanceBootMode(String currentInstanceBootMode) {
+        this.currentInstanceBootMode = currentInstanceBootMode;
+    }
+
+    /**
+     * <p>
+     * The boot mode that is used to boot the instance at launch or start. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @return The boot mode that is used to boot the instance at launch or start. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon
+     *         EC2 User Guide</i>.
+     * @see InstanceBootModeValues
+     */
+
+    public String getCurrentInstanceBootMode() {
+        return this.currentInstanceBootMode;
+    }
+
+    /**
+     * <p>
+     * The boot mode that is used to boot the instance at launch or start. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param currentInstanceBootMode
+     *        The boot mode that is used to boot the instance at launch or start. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon
+     *        EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see InstanceBootModeValues
+     */
+
+    public Instance withCurrentInstanceBootMode(String currentInstanceBootMode) {
+        setCurrentInstanceBootMode(currentInstanceBootMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The boot mode that is used to boot the instance at launch or start. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param currentInstanceBootMode
+     *        The boot mode that is used to boot the instance at launch or start. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon
+     *        EC2 User Guide</i>.
+     * @see InstanceBootModeValues
+     */
+
+    public void setCurrentInstanceBootMode(InstanceBootModeValues currentInstanceBootMode) {
+        withCurrentInstanceBootMode(currentInstanceBootMode);
+    }
+
+    /**
+     * <p>
+     * The boot mode that is used to boot the instance at launch or start. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param currentInstanceBootMode
+     *        The boot mode that is used to boot the instance at launch or start. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon
+     *        EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see InstanceBootModeValues
+     */
+
+    public Instance withCurrentInstanceBootMode(InstanceBootModeValues currentInstanceBootMode) {
+        this.currentInstanceBootMode = currentInstanceBootMode.toString();
         return this;
     }
 
@@ -2828,6 +3642,8 @@ public class Instance implements Serializable, Cloneable {
             sb.append("ElasticInferenceAcceleratorAssociations: ").append(getElasticInferenceAcceleratorAssociations()).append(",");
         if (getNetworkInterfaces() != null)
             sb.append("NetworkInterfaces: ").append(getNetworkInterfaces()).append(",");
+        if (getOutpostArn() != null)
+            sb.append("OutpostArn: ").append(getOutpostArn()).append(",");
         if (getRootDeviceName() != null)
             sb.append("RootDeviceName: ").append(getRootDeviceName()).append(",");
         if (getRootDeviceType() != null)
@@ -2855,7 +3671,29 @@ public class Instance implements Serializable, Cloneable {
         if (getHibernationOptions() != null)
             sb.append("HibernationOptions: ").append(getHibernationOptions()).append(",");
         if (getLicenses() != null)
-            sb.append("Licenses: ").append(getLicenses());
+            sb.append("Licenses: ").append(getLicenses()).append(",");
+        if (getMetadataOptions() != null)
+            sb.append("MetadataOptions: ").append(getMetadataOptions()).append(",");
+        if (getEnclaveOptions() != null)
+            sb.append("EnclaveOptions: ").append(getEnclaveOptions()).append(",");
+        if (getBootMode() != null)
+            sb.append("BootMode: ").append(getBootMode()).append(",");
+        if (getPlatformDetails() != null)
+            sb.append("PlatformDetails: ").append(getPlatformDetails()).append(",");
+        if (getUsageOperation() != null)
+            sb.append("UsageOperation: ").append(getUsageOperation()).append(",");
+        if (getUsageOperationUpdateTime() != null)
+            sb.append("UsageOperationUpdateTime: ").append(getUsageOperationUpdateTime()).append(",");
+        if (getPrivateDnsNameOptions() != null)
+            sb.append("PrivateDnsNameOptions: ").append(getPrivateDnsNameOptions()).append(",");
+        if (getIpv6Address() != null)
+            sb.append("Ipv6Address: ").append(getIpv6Address()).append(",");
+        if (getTpmSupport() != null)
+            sb.append("TpmSupport: ").append(getTpmSupport()).append(",");
+        if (getMaintenanceOptions() != null)
+            sb.append("MaintenanceOptions: ").append(getMaintenanceOptions()).append(",");
+        if (getCurrentInstanceBootMode() != null)
+            sb.append("CurrentInstanceBootMode: ").append(getCurrentInstanceBootMode());
         sb.append("}");
         return sb.toString();
     }
@@ -2995,6 +3833,10 @@ public class Instance implements Serializable, Cloneable {
             return false;
         if (other.getNetworkInterfaces() != null && other.getNetworkInterfaces().equals(this.getNetworkInterfaces()) == false)
             return false;
+        if (other.getOutpostArn() == null ^ this.getOutpostArn() == null)
+            return false;
+        if (other.getOutpostArn() != null && other.getOutpostArn().equals(this.getOutpostArn()) == false)
+            return false;
         if (other.getRootDeviceName() == null ^ this.getRootDeviceName() == null)
             return false;
         if (other.getRootDeviceName() != null && other.getRootDeviceName().equals(this.getRootDeviceName()) == false)
@@ -3052,6 +3894,50 @@ public class Instance implements Serializable, Cloneable {
             return false;
         if (other.getLicenses() != null && other.getLicenses().equals(this.getLicenses()) == false)
             return false;
+        if (other.getMetadataOptions() == null ^ this.getMetadataOptions() == null)
+            return false;
+        if (other.getMetadataOptions() != null && other.getMetadataOptions().equals(this.getMetadataOptions()) == false)
+            return false;
+        if (other.getEnclaveOptions() == null ^ this.getEnclaveOptions() == null)
+            return false;
+        if (other.getEnclaveOptions() != null && other.getEnclaveOptions().equals(this.getEnclaveOptions()) == false)
+            return false;
+        if (other.getBootMode() == null ^ this.getBootMode() == null)
+            return false;
+        if (other.getBootMode() != null && other.getBootMode().equals(this.getBootMode()) == false)
+            return false;
+        if (other.getPlatformDetails() == null ^ this.getPlatformDetails() == null)
+            return false;
+        if (other.getPlatformDetails() != null && other.getPlatformDetails().equals(this.getPlatformDetails()) == false)
+            return false;
+        if (other.getUsageOperation() == null ^ this.getUsageOperation() == null)
+            return false;
+        if (other.getUsageOperation() != null && other.getUsageOperation().equals(this.getUsageOperation()) == false)
+            return false;
+        if (other.getUsageOperationUpdateTime() == null ^ this.getUsageOperationUpdateTime() == null)
+            return false;
+        if (other.getUsageOperationUpdateTime() != null && other.getUsageOperationUpdateTime().equals(this.getUsageOperationUpdateTime()) == false)
+            return false;
+        if (other.getPrivateDnsNameOptions() == null ^ this.getPrivateDnsNameOptions() == null)
+            return false;
+        if (other.getPrivateDnsNameOptions() != null && other.getPrivateDnsNameOptions().equals(this.getPrivateDnsNameOptions()) == false)
+            return false;
+        if (other.getIpv6Address() == null ^ this.getIpv6Address() == null)
+            return false;
+        if (other.getIpv6Address() != null && other.getIpv6Address().equals(this.getIpv6Address()) == false)
+            return false;
+        if (other.getTpmSupport() == null ^ this.getTpmSupport() == null)
+            return false;
+        if (other.getTpmSupport() != null && other.getTpmSupport().equals(this.getTpmSupport()) == false)
+            return false;
+        if (other.getMaintenanceOptions() == null ^ this.getMaintenanceOptions() == null)
+            return false;
+        if (other.getMaintenanceOptions() != null && other.getMaintenanceOptions().equals(this.getMaintenanceOptions()) == false)
+            return false;
+        if (other.getCurrentInstanceBootMode() == null ^ this.getCurrentInstanceBootMode() == null)
+            return false;
+        if (other.getCurrentInstanceBootMode() != null && other.getCurrentInstanceBootMode().equals(this.getCurrentInstanceBootMode()) == false)
+            return false;
         return true;
     }
 
@@ -3091,6 +3977,7 @@ public class Instance implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getElasticGpuAssociations() == null) ? 0 : getElasticGpuAssociations().hashCode());
         hashCode = prime * hashCode + ((getElasticInferenceAcceleratorAssociations() == null) ? 0 : getElasticInferenceAcceleratorAssociations().hashCode());
         hashCode = prime * hashCode + ((getNetworkInterfaces() == null) ? 0 : getNetworkInterfaces().hashCode());
+        hashCode = prime * hashCode + ((getOutpostArn() == null) ? 0 : getOutpostArn().hashCode());
         hashCode = prime * hashCode + ((getRootDeviceName() == null) ? 0 : getRootDeviceName().hashCode());
         hashCode = prime * hashCode + ((getRootDeviceType() == null) ? 0 : getRootDeviceType().hashCode());
         hashCode = prime * hashCode + ((getSecurityGroups() == null) ? 0 : getSecurityGroups().hashCode());
@@ -3105,6 +3992,17 @@ public class Instance implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getCapacityReservationSpecification() == null) ? 0 : getCapacityReservationSpecification().hashCode());
         hashCode = prime * hashCode + ((getHibernationOptions() == null) ? 0 : getHibernationOptions().hashCode());
         hashCode = prime * hashCode + ((getLicenses() == null) ? 0 : getLicenses().hashCode());
+        hashCode = prime * hashCode + ((getMetadataOptions() == null) ? 0 : getMetadataOptions().hashCode());
+        hashCode = prime * hashCode + ((getEnclaveOptions() == null) ? 0 : getEnclaveOptions().hashCode());
+        hashCode = prime * hashCode + ((getBootMode() == null) ? 0 : getBootMode().hashCode());
+        hashCode = prime * hashCode + ((getPlatformDetails() == null) ? 0 : getPlatformDetails().hashCode());
+        hashCode = prime * hashCode + ((getUsageOperation() == null) ? 0 : getUsageOperation().hashCode());
+        hashCode = prime * hashCode + ((getUsageOperationUpdateTime() == null) ? 0 : getUsageOperationUpdateTime().hashCode());
+        hashCode = prime * hashCode + ((getPrivateDnsNameOptions() == null) ? 0 : getPrivateDnsNameOptions().hashCode());
+        hashCode = prime * hashCode + ((getIpv6Address() == null) ? 0 : getIpv6Address().hashCode());
+        hashCode = prime * hashCode + ((getTpmSupport() == null) ? 0 : getTpmSupport().hashCode());
+        hashCode = prime * hashCode + ((getMaintenanceOptions() == null) ? 0 : getMaintenanceOptions().hashCode());
+        hashCode = prime * hashCode + ((getCurrentInstanceBootMode() == null) ? 0 : getCurrentInstanceBootMode().hashCode());
         return hashCode;
     }
 

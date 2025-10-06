@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,18 +17,18 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * AWS services in China customers must file for an Internet Content Provider (ICP) recordal if they want to serve
- * content publicly on an alternate domain name, also known as a CNAME, that they've added to CloudFront.
+ * Amazon Web Services services in China customers must file for an Internet Content Provider (ICP) recordal if they
+ * want to serve content publicly on an alternate domain name, also known as a CNAME, that they've added to CloudFront.
  * AliasICPRecordal provides the ICP recordal status for CNAMEs associated with distributions. The status is returned in
  * the CloudFront response; you can't configure it yourself.
  * </p>
  * <p>
  * For more information about ICP recordals, see <a
  * href="https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html"> Signup, Accounts, and
- * Credentials</a> in <i>Getting Started with AWS services in China</i>.
+ * Credentials</a> in <i>Getting Started with Amazon Web Services services in China</i>.
  * </p>
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/AliasICPRecordal" target="_top">AWS API
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/AliasICPRecordal" target="_top">AWS API
  *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -63,8 +63,9 @@ public class AliasICPRecordal implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <b>PENDING</b> indicates that at least one CNAME associated with the distribution does not have a valid ICP
-     * recordal number.
+     * <b>PENDING</b> indicates that CloudFront can't determine the ICP recordal status of the CNAME associated with the
+     * distribution because there was an error in trying to determine the status. You can try again to see if the error
+     * is resolved in which case CloudFront returns an APPROVED or SUSPENDED status.
      * </p>
      * </li>
      * </ul>
@@ -134,15 +135,16 @@ public class AliasICPRecordal implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <b>PENDING</b> indicates that at least one CNAME associated with the distribution does not have a valid ICP
-     * recordal number.
+     * <b>PENDING</b> indicates that CloudFront can't determine the ICP recordal status of the CNAME associated with the
+     * distribution because there was an error in trying to determine the status. You can try again to see if the error
+     * is resolved in which case CloudFront returns an APPROVED or SUSPENDED status.
      * </p>
      * </li>
      * </ul>
      * 
      * @param iCPRecordalStatus
      *        The Internet Content Provider (ICP) recordal status for a CNAME. The ICPRecordalStatus is set to APPROVED
-     *        for all CNAMEs (aliases) in regions outside of China. </p>
+     *        for all CNAMEs (aliases) in regions outside of China.</p>
      *        <p>
      *        The status values returned are the following:
      *        </p>
@@ -162,8 +164,9 @@ public class AliasICPRecordal implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <b>PENDING</b> indicates that at least one CNAME associated with the distribution does not have a valid
-     *        ICP recordal number.
+     *        <b>PENDING</b> indicates that CloudFront can't determine the ICP recordal status of the CNAME associated
+     *        with the distribution because there was an error in trying to determine the status. You can try again to
+     *        see if the error is resolved in which case CloudFront returns an APPROVED or SUSPENDED status.
      *        </p>
      *        </li>
      * @see ICPRecordalStatus
@@ -196,14 +199,15 @@ public class AliasICPRecordal implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <b>PENDING</b> indicates that at least one CNAME associated with the distribution does not have a valid ICP
-     * recordal number.
+     * <b>PENDING</b> indicates that CloudFront can't determine the ICP recordal status of the CNAME associated with the
+     * distribution because there was an error in trying to determine the status. You can try again to see if the error
+     * is resolved in which case CloudFront returns an APPROVED or SUSPENDED status.
      * </p>
      * </li>
      * </ul>
      * 
      * @return The Internet Content Provider (ICP) recordal status for a CNAME. The ICPRecordalStatus is set to APPROVED
-     *         for all CNAMEs (aliases) in regions outside of China. </p>
+     *         for all CNAMEs (aliases) in regions outside of China.</p>
      *         <p>
      *         The status values returned are the following:
      *         </p>
@@ -223,8 +227,9 @@ public class AliasICPRecordal implements Serializable, Cloneable {
      *         </li>
      *         <li>
      *         <p>
-     *         <b>PENDING</b> indicates that at least one CNAME associated with the distribution does not have a valid
-     *         ICP recordal number.
+     *         <b>PENDING</b> indicates that CloudFront can't determine the ICP recordal status of the CNAME associated
+     *         with the distribution because there was an error in trying to determine the status. You can try again to
+     *         see if the error is resolved in which case CloudFront returns an APPROVED or SUSPENDED status.
      *         </p>
      *         </li>
      * @see ICPRecordalStatus
@@ -257,15 +262,16 @@ public class AliasICPRecordal implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <b>PENDING</b> indicates that at least one CNAME associated with the distribution does not have a valid ICP
-     * recordal number.
+     * <b>PENDING</b> indicates that CloudFront can't determine the ICP recordal status of the CNAME associated with the
+     * distribution because there was an error in trying to determine the status. You can try again to see if the error
+     * is resolved in which case CloudFront returns an APPROVED or SUSPENDED status.
      * </p>
      * </li>
      * </ul>
      * 
      * @param iCPRecordalStatus
      *        The Internet Content Provider (ICP) recordal status for a CNAME. The ICPRecordalStatus is set to APPROVED
-     *        for all CNAMEs (aliases) in regions outside of China. </p>
+     *        for all CNAMEs (aliases) in regions outside of China.</p>
      *        <p>
      *        The status values returned are the following:
      *        </p>
@@ -285,8 +291,9 @@ public class AliasICPRecordal implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <b>PENDING</b> indicates that at least one CNAME associated with the distribution does not have a valid
-     *        ICP recordal number.
+     *        <b>PENDING</b> indicates that CloudFront can't determine the ICP recordal status of the CNAME associated
+     *        with the distribution because there was an error in trying to determine the status. You can try again to
+     *        see if the error is resolved in which case CloudFront returns an APPROVED or SUSPENDED status.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -321,15 +328,16 @@ public class AliasICPRecordal implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <b>PENDING</b> indicates that at least one CNAME associated with the distribution does not have a valid ICP
-     * recordal number.
+     * <b>PENDING</b> indicates that CloudFront can't determine the ICP recordal status of the CNAME associated with the
+     * distribution because there was an error in trying to determine the status. You can try again to see if the error
+     * is resolved in which case CloudFront returns an APPROVED or SUSPENDED status.
      * </p>
      * </li>
      * </ul>
      * 
      * @param iCPRecordalStatus
      *        The Internet Content Provider (ICP) recordal status for a CNAME. The ICPRecordalStatus is set to APPROVED
-     *        for all CNAMEs (aliases) in regions outside of China. </p>
+     *        for all CNAMEs (aliases) in regions outside of China.</p>
      *        <p>
      *        The status values returned are the following:
      *        </p>
@@ -349,8 +357,9 @@ public class AliasICPRecordal implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <b>PENDING</b> indicates that at least one CNAME associated with the distribution does not have a valid
-     *        ICP recordal number.
+     *        <b>PENDING</b> indicates that CloudFront can't determine the ICP recordal status of the CNAME associated
+     *        with the distribution because there was an error in trying to determine the status. You can try again to
+     *        see if the error is resolved in which case CloudFront returns an APPROVED or SUSPENDED status.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,7 +39,7 @@ public class CreateAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
      * The requested alias.
      * </p>
      * <p>
-     * The alias must be unique amongst all aliases in AWS. This operation throws an
+     * The alias must be unique amongst all aliases in Amazon Web Services. This operation throws an
      * <code>EntityAlreadyExistsException</code> error if the alias already exists.
      * </p>
      */
@@ -90,14 +90,14 @@ public class CreateAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
      * The requested alias.
      * </p>
      * <p>
-     * The alias must be unique amongst all aliases in AWS. This operation throws an
+     * The alias must be unique amongst all aliases in Amazon Web Services. This operation throws an
      * <code>EntityAlreadyExistsException</code> error if the alias already exists.
      * </p>
      * 
      * @param alias
      *        The requested alias.</p>
      *        <p>
-     *        The alias must be unique amongst all aliases in AWS. This operation throws an
+     *        The alias must be unique amongst all aliases in Amazon Web Services. This operation throws an
      *        <code>EntityAlreadyExistsException</code> error if the alias already exists.
      */
 
@@ -110,13 +110,13 @@ public class CreateAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
      * The requested alias.
      * </p>
      * <p>
-     * The alias must be unique amongst all aliases in AWS. This operation throws an
+     * The alias must be unique amongst all aliases in Amazon Web Services. This operation throws an
      * <code>EntityAlreadyExistsException</code> error if the alias already exists.
      * </p>
      * 
      * @return The requested alias.</p>
      *         <p>
-     *         The alias must be unique amongst all aliases in AWS. This operation throws an
+     *         The alias must be unique amongst all aliases in Amazon Web Services. This operation throws an
      *         <code>EntityAlreadyExistsException</code> error if the alias already exists.
      */
 
@@ -129,14 +129,14 @@ public class CreateAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
      * The requested alias.
      * </p>
      * <p>
-     * The alias must be unique amongst all aliases in AWS. This operation throws an
+     * The alias must be unique amongst all aliases in Amazon Web Services. This operation throws an
      * <code>EntityAlreadyExistsException</code> error if the alias already exists.
      * </p>
      * 
      * @param alias
      *        The requested alias.</p>
      *        <p>
-     *        The alias must be unique amongst all aliases in AWS. This operation throws an
+     *        The alias must be unique amongst all aliases in Amazon Web Services. This operation throws an
      *        <code>EntityAlreadyExistsException</code> error if the alias already exists.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@ package com.amazonaws.auth;
 
 import com.amazonaws.annotation.SdkInternalApi;
 import com.amazonaws.annotation.ThreadSafe;
+import com.amazonaws.arn.Arn;
 import com.amazonaws.services.securitytoken.model.Credentials;
 
 import java.util.Date;
@@ -31,12 +32,21 @@ final class SessionCredentialsHolder {
     private final Date sessionCredentialsExpiration;
 
     SessionCredentialsHolder(Credentials credentials) {
-        this.sessionCredentials = new BasicSessionCredentials(credentials.getAccessKeyId(),
-                                                              credentials.getSecretAccessKey(),
-                                                              credentials.getSessionToken());
-        this.sessionCredentialsExpiration = credentials.getExpiration();
+        this(credentials, null, null);
     }
 
+    SessionCredentialsHolder(Credentials credentials, String providerName) {
+        this(credentials, providerName, null);
+    }
+
+    SessionCredentialsHolder(Credentials credentials, String providerName, String accountId) {
+        this.sessionCredentials = new BasicSessionCredentials(credentials.getAccessKeyId(),
+                credentials.getSecretAccessKey(),
+                credentials.getSessionToken(),
+                accountId,
+                providerName);
+        this.sessionCredentialsExpiration = credentials.getExpiration();
+    }
     public AWSSessionCredentials getSessionCredentials() {
         return sessionCredentials;
     }

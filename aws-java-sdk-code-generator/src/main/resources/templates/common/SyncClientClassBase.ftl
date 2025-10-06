@@ -28,7 +28,11 @@ import com.amazonaws.metrics.*;
 import com.amazonaws.regions.*;
 import com.amazonaws.transform.*;
 import com.amazonaws.util.*;
+<#if metadata.isRpcV2CborProtocol()>
+import com.amazonaws.protocol.rpcv2cbor.*;
+<#else>
 import com.amazonaws.protocol.json.*;
+</#if>
 import com.amazonaws.util.AWSRequestMetrics.Field;
 import com.amazonaws.annotation.ThreadSafe;
 import com.amazonaws.client.AwsSyncClientParams;
@@ -46,7 +50,16 @@ import ${serviceBaseExceptionFqcn};
 
 
 import ${metadata.packageName}.model.*;
+
+<#if hasShapes>
 import ${transformPackage}.*;
+</#if>
+
+<#if customizationConfig.s3ArnableFields??>
+import com.amazonaws.arn.Arn;
+import com.amazonaws.arn.AwsResource;
+import static com.amazonaws.services.s3control.S3ControlHandlerContextKey.S3_ARNABLE_FIELD;
+</#if>
 
 <#assign documentation = (metadata.documentation)!""/>
 
@@ -437,20 +450,22 @@ public class ${metadata.syncClient} extends AmazonWebServiceClient implements ${
         }
         return waiters;
     }
+    </#if>
 
     @Override
     public void shutdown() {
         super.shutdown();
+        <#if hasWaiters>
         if (waiters != null) {
             waiters.shutdown();
         }
+        </#if>
         <#if endpointOperation?has_content>
         if (cache != null) {
             cache.shutdown();
         }
         </#if>
     }
-    </#if>
 
     <#if customizationConfig.presignersFqcn??>
     @Override

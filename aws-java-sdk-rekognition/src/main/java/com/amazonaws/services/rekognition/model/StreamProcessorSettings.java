@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Input parameters used to recognize faces in a streaming video analyzed by a Amazon Rekognition stream processor.
+ * Input parameters used in a streaming video analyzed by a Amazon Rekognition stream processor. You can use
+ * <code>FaceSearch</code> to recognize faces in a streaming video, or you can use <code>ConnectedHome</code> to detect
+ * labels.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -31,6 +33,8 @@ public class StreamProcessorSettings implements Serializable, Cloneable, Structu
      * </p>
      */
     private FaceSearchSettings faceSearch;
+
+    private ConnectedHomeSettings connectedHome;
 
     /**
      * <p>
@@ -73,6 +77,32 @@ public class StreamProcessorSettings implements Serializable, Cloneable, Structu
     }
 
     /**
+     * @param connectedHome
+     */
+
+    public void setConnectedHome(ConnectedHomeSettings connectedHome) {
+        this.connectedHome = connectedHome;
+    }
+
+    /**
+     * @return
+     */
+
+    public ConnectedHomeSettings getConnectedHome() {
+        return this.connectedHome;
+    }
+
+    /**
+     * @param connectedHome
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StreamProcessorSettings withConnectedHome(ConnectedHomeSettings connectedHome) {
+        setConnectedHome(connectedHome);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -85,7 +115,9 @@ public class StreamProcessorSettings implements Serializable, Cloneable, Structu
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getFaceSearch() != null)
-            sb.append("FaceSearch: ").append(getFaceSearch());
+            sb.append("FaceSearch: ").append(getFaceSearch()).append(",");
+        if (getConnectedHome() != null)
+            sb.append("ConnectedHome: ").append(getConnectedHome());
         sb.append("}");
         return sb.toString();
     }
@@ -104,6 +136,10 @@ public class StreamProcessorSettings implements Serializable, Cloneable, Structu
             return false;
         if (other.getFaceSearch() != null && other.getFaceSearch().equals(this.getFaceSearch()) == false)
             return false;
+        if (other.getConnectedHome() == null ^ this.getConnectedHome() == null)
+            return false;
+        if (other.getConnectedHome() != null && other.getConnectedHome().equals(this.getConnectedHome()) == false)
+            return false;
         return true;
     }
 
@@ -113,6 +149,7 @@ public class StreamProcessorSettings implements Serializable, Cloneable, Structu
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getFaceSearch() == null) ? 0 : getFaceSearch().hashCode());
+        hashCode = prime * hashCode + ((getConnectedHome() == null) ? 0 : getConnectedHome().hashCode());
         return hashCode;
     }
 

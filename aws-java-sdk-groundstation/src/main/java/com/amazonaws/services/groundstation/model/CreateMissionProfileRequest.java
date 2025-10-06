@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,20 +28,21 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Amount of time after a contact ends that you’d like to receive a CloudWatch event indicating the pass has
-     * finished.
+     * Amount of time after a contact ends that you’d like to receive a Ground Station Contact State Change event
+     * indicating the pass has finished.
      * </p>
      */
     private Integer contactPostPassDurationSeconds;
     /**
      * <p>
-     * Amount of time prior to contact start you’d like to receive a CloudWatch event indicating an upcoming pass.
+     * Amount of time prior to contact start you’d like to receive a Ground Station Contact State Change event
+     * indicating an upcoming pass.
      * </p>
      */
     private Integer contactPrePassDurationSeconds;
     /**
      * <p>
-     * A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
+     * A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a <i>to</i>
      * <code>Config</code>.
      * </p>
      */
@@ -61,6 +62,18 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
     private String name;
     /**
      * <p>
+     * KMS key to use for encrypting streams.
+     * </p>
+     */
+    private KmsKey streamsKmsKey;
+    /**
+     * <p>
+     * Role to use for encrypting streams with KMS key.
+     * </p>
+     */
+    private String streamsKmsRole;
+    /**
+     * <p>
      * Tags assigned to a mission profile.
      * </p>
      */
@@ -74,13 +87,13 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Amount of time after a contact ends that you’d like to receive a CloudWatch event indicating the pass has
-     * finished.
+     * Amount of time after a contact ends that you’d like to receive a Ground Station Contact State Change event
+     * indicating the pass has finished.
      * </p>
      * 
      * @param contactPostPassDurationSeconds
-     *        Amount of time after a contact ends that you’d like to receive a CloudWatch event indicating the pass has
-     *        finished.
+     *        Amount of time after a contact ends that you’d like to receive a Ground Station Contact State Change event
+     *        indicating the pass has finished.
      */
 
     public void setContactPostPassDurationSeconds(Integer contactPostPassDurationSeconds) {
@@ -89,12 +102,12 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Amount of time after a contact ends that you’d like to receive a CloudWatch event indicating the pass has
-     * finished.
+     * Amount of time after a contact ends that you’d like to receive a Ground Station Contact State Change event
+     * indicating the pass has finished.
      * </p>
      * 
-     * @return Amount of time after a contact ends that you’d like to receive a CloudWatch event indicating the pass has
-     *         finished.
+     * @return Amount of time after a contact ends that you’d like to receive a Ground Station Contact State Change
+     *         event indicating the pass has finished.
      */
 
     public Integer getContactPostPassDurationSeconds() {
@@ -103,13 +116,13 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Amount of time after a contact ends that you’d like to receive a CloudWatch event indicating the pass has
-     * finished.
+     * Amount of time after a contact ends that you’d like to receive a Ground Station Contact State Change event
+     * indicating the pass has finished.
      * </p>
      * 
      * @param contactPostPassDurationSeconds
-     *        Amount of time after a contact ends that you’d like to receive a CloudWatch event indicating the pass has
-     *        finished.
+     *        Amount of time after a contact ends that you’d like to receive a Ground Station Contact State Change event
+     *        indicating the pass has finished.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -120,12 +133,13 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Amount of time prior to contact start you’d like to receive a CloudWatch event indicating an upcoming pass.
+     * Amount of time prior to contact start you’d like to receive a Ground Station Contact State Change event
+     * indicating an upcoming pass.
      * </p>
      * 
      * @param contactPrePassDurationSeconds
-     *        Amount of time prior to contact start you’d like to receive a CloudWatch event indicating an upcoming
-     *        pass.
+     *        Amount of time prior to contact start you’d like to receive a Ground Station Contact State Change event
+     *        indicating an upcoming pass.
      */
 
     public void setContactPrePassDurationSeconds(Integer contactPrePassDurationSeconds) {
@@ -134,11 +148,12 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Amount of time prior to contact start you’d like to receive a CloudWatch event indicating an upcoming pass.
+     * Amount of time prior to contact start you’d like to receive a Ground Station Contact State Change event
+     * indicating an upcoming pass.
      * </p>
      * 
-     * @return Amount of time prior to contact start you’d like to receive a CloudWatch event indicating an upcoming
-     *         pass.
+     * @return Amount of time prior to contact start you’d like to receive a Ground Station Contact State Change event
+     *         indicating an upcoming pass.
      */
 
     public Integer getContactPrePassDurationSeconds() {
@@ -147,12 +162,13 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Amount of time prior to contact start you’d like to receive a CloudWatch event indicating an upcoming pass.
+     * Amount of time prior to contact start you’d like to receive a Ground Station Contact State Change event
+     * indicating an upcoming pass.
      * </p>
      * 
      * @param contactPrePassDurationSeconds
-     *        Amount of time prior to contact start you’d like to receive a CloudWatch event indicating an upcoming
-     *        pass.
+     *        Amount of time prior to contact start you’d like to receive a Ground Station Contact State Change event
+     *        indicating an upcoming pass.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -163,12 +179,12 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
+     * A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a <i>to</i>
      * <code>Config</code>.
      * </p>
      * 
-     * @return A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
-     *         <code>Config</code>.
+     * @return A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a
+     *         <i>to</i> <code>Config</code>.
      */
 
     public java.util.List<java.util.List<String>> getDataflowEdges() {
@@ -177,13 +193,13 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
+     * A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a <i>to</i>
      * <code>Config</code>.
      * </p>
      * 
      * @param dataflowEdges
-     *        A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
-     *        <code>Config</code>.
+     *        A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a
+     *        <i>to</i> <code>Config</code>.
      */
 
     public void setDataflowEdges(java.util.Collection<java.util.List<String>> dataflowEdges) {
@@ -197,7 +213,7 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
+     * A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a <i>to</i>
      * <code>Config</code>.
      * </p>
      * <p>
@@ -207,8 +223,8 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param dataflowEdges
-     *        A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
-     *        <code>Config</code>.
+     *        A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a
+     *        <i>to</i> <code>Config</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -224,13 +240,13 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
+     * A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a <i>to</i>
      * <code>Config</code>.
      * </p>
      * 
      * @param dataflowEdges
-     *        A list of lists of ARNs. Each list of ARNs is an edge, with a from <code>Config</code> and a to
-     *        <code>Config</code>.
+     *        A list of lists of ARNs. Each list of ARNs is an edge, with a <i>from</i> <code>Config</code> and a
+     *        <i>to</i> <code>Config</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -327,6 +343,86 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
+     * KMS key to use for encrypting streams.
+     * </p>
+     * 
+     * @param streamsKmsKey
+     *        KMS key to use for encrypting streams.
+     */
+
+    public void setStreamsKmsKey(KmsKey streamsKmsKey) {
+        this.streamsKmsKey = streamsKmsKey;
+    }
+
+    /**
+     * <p>
+     * KMS key to use for encrypting streams.
+     * </p>
+     * 
+     * @return KMS key to use for encrypting streams.
+     */
+
+    public KmsKey getStreamsKmsKey() {
+        return this.streamsKmsKey;
+    }
+
+    /**
+     * <p>
+     * KMS key to use for encrypting streams.
+     * </p>
+     * 
+     * @param streamsKmsKey
+     *        KMS key to use for encrypting streams.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateMissionProfileRequest withStreamsKmsKey(KmsKey streamsKmsKey) {
+        setStreamsKmsKey(streamsKmsKey);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Role to use for encrypting streams with KMS key.
+     * </p>
+     * 
+     * @param streamsKmsRole
+     *        Role to use for encrypting streams with KMS key.
+     */
+
+    public void setStreamsKmsRole(String streamsKmsRole) {
+        this.streamsKmsRole = streamsKmsRole;
+    }
+
+    /**
+     * <p>
+     * Role to use for encrypting streams with KMS key.
+     * </p>
+     * 
+     * @return Role to use for encrypting streams with KMS key.
+     */
+
+    public String getStreamsKmsRole() {
+        return this.streamsKmsRole;
+    }
+
+    /**
+     * <p>
+     * Role to use for encrypting streams with KMS key.
+     * </p>
+     * 
+     * @param streamsKmsRole
+     *        Role to use for encrypting streams with KMS key.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateMissionProfileRequest withStreamsKmsRole(String streamsKmsRole) {
+        setStreamsKmsRole(streamsKmsRole);
+        return this;
+    }
+
+    /**
+     * <p>
      * Tags assigned to a mission profile.
      * </p>
      * 
@@ -364,6 +460,13 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateMissionProfileRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateMissionProfileRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {
@@ -448,6 +551,10 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
             sb.append("MinimumViableContactDurationSeconds: ").append(getMinimumViableContactDurationSeconds()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
+        if (getStreamsKmsKey() != null)
+            sb.append("StreamsKmsKey: ").append(getStreamsKmsKey()).append(",");
+        if (getStreamsKmsRole() != null)
+            sb.append("StreamsKmsRole: ").append(getStreamsKmsRole()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getTrackingConfigArn() != null)
@@ -489,6 +596,14 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
             return false;
+        if (other.getStreamsKmsKey() == null ^ this.getStreamsKmsKey() == null)
+            return false;
+        if (other.getStreamsKmsKey() != null && other.getStreamsKmsKey().equals(this.getStreamsKmsKey()) == false)
+            return false;
+        if (other.getStreamsKmsRole() == null ^ this.getStreamsKmsRole() == null)
+            return false;
+        if (other.getStreamsKmsRole() != null && other.getStreamsKmsRole().equals(this.getStreamsKmsRole()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
@@ -510,6 +625,8 @@ public class CreateMissionProfileRequest extends com.amazonaws.AmazonWebServiceR
         hashCode = prime * hashCode + ((getDataflowEdges() == null) ? 0 : getDataflowEdges().hashCode());
         hashCode = prime * hashCode + ((getMinimumViableContactDurationSeconds() == null) ? 0 : getMinimumViableContactDurationSeconds().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getStreamsKmsKey() == null) ? 0 : getStreamsKmsKey().hashCode());
+        hashCode = prime * hashCode + ((getStreamsKmsRole() == null) ? 0 : getStreamsKmsRole().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getTrackingConfigArn() == null) ? 0 : getTrackingConfigArn().hashCode());
         return hashCode;

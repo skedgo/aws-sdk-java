@@ -1,0 +1,1440 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.emrserverless.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * Information about a job run. A job run is a unit of work, such as a Spark JAR, Hive query, or SparkSQL query, that
+ * you submit to an Amazon EMR Serverless application.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/emr-serverless-2021-07-13/JobRun" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class JobRun implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * The ID of the application the job is running on.
+     * </p>
+     */
+    private String applicationId;
+    /**
+     * <p>
+     * The ID of the job run.
+     * </p>
+     */
+    private String jobRunId;
+    /**
+     * <p>
+     * The optional job run name. This doesn't have to be unique.
+     * </p>
+     */
+    private String name;
+    /**
+     * <p>
+     * The execution role ARN of the job run.
+     * </p>
+     */
+    private String arn;
+    /**
+     * <p>
+     * The user who created the job run.
+     * </p>
+     */
+    private String createdBy;
+    /**
+     * <p>
+     * The date and time when the job run was created.
+     * </p>
+     */
+    private java.util.Date createdAt;
+    /**
+     * <p>
+     * The date and time when the job run was updated.
+     * </p>
+     */
+    private java.util.Date updatedAt;
+    /**
+     * <p>
+     * The execution role ARN of the job run.
+     * </p>
+     */
+    private String executionRole;
+    /**
+     * <p>
+     * The state of the job run.
+     * </p>
+     */
+    private String state;
+    /**
+     * <p>
+     * The state details of the job run.
+     * </p>
+     */
+    private String stateDetails;
+    /**
+     * <p>
+     * The Amazon EMR release associated with the application your job is running on.
+     * </p>
+     */
+    private String releaseLabel;
+    /**
+     * <p>
+     * The configuration settings that are used to override default configuration.
+     * </p>
+     */
+    private ConfigurationOverrides configurationOverrides;
+    /**
+     * <p>
+     * The job driver for the job run.
+     * </p>
+     */
+    private JobDriver jobDriver;
+    /**
+     * <p>
+     * The tags assigned to the job run.
+     * </p>
+     */
+    private java.util.Map<String, String> tags;
+    /**
+     * <p>
+     * The aggregate vCPU, memory, and storage resources used from the time the job starts to execute, until the time
+     * the job terminates, rounded up to the nearest second.
+     * </p>
+     */
+    private TotalResourceUtilization totalResourceUtilization;
+
+    private NetworkConfiguration networkConfiguration;
+    /**
+     * <p>
+     * The job run total execution duration in seconds. This field is only available for job runs in a
+     * <code>COMPLETED</code>, <code>FAILED</code>, or <code>CANCELLED</code> state.
+     * </p>
+     */
+    private Integer totalExecutionDurationSeconds;
+    /**
+     * <p>
+     * Returns the job run timeout value from the <code>StartJobRun</code> call. If no timeout was specified, then it
+     * returns the default timeout of 720 minutes.
+     * </p>
+     */
+    private Long executionTimeoutMinutes;
+    /**
+     * <p>
+     * The aggregate vCPU, memory, and storage that Amazon Web Services has billed for the job run. The billed resources
+     * include a 1-minute minimum usage for workers, plus additional storage over 20 GB per worker. Note that billed
+     * resources do not include usage for idle pre-initialized workers.
+     * </p>
+     */
+    private ResourceUtilization billedResourceUtilization;
+    /**
+     * <p>
+     * The mode of the job run.
+     * </p>
+     */
+    private String mode;
+    /**
+     * <p>
+     * The retry policy of the job run.
+     * </p>
+     */
+    private RetryPolicy retryPolicy;
+    /**
+     * <p>
+     * The attempt of the job run.
+     * </p>
+     */
+    private Integer attempt;
+    /**
+     * <p>
+     * The date and time of when the job run attempt was created.
+     * </p>
+     */
+    private java.util.Date attemptCreatedAt;
+    /**
+     * <p>
+     * The date and time of when the job run attempt was last updated.
+     * </p>
+     */
+    private java.util.Date attemptUpdatedAt;
+
+    /**
+     * <p>
+     * The ID of the application the job is running on.
+     * </p>
+     * 
+     * @param applicationId
+     *        The ID of the application the job is running on.
+     */
+
+    public void setApplicationId(String applicationId) {
+        this.applicationId = applicationId;
+    }
+
+    /**
+     * <p>
+     * The ID of the application the job is running on.
+     * </p>
+     * 
+     * @return The ID of the application the job is running on.
+     */
+
+    public String getApplicationId() {
+        return this.applicationId;
+    }
+
+    /**
+     * <p>
+     * The ID of the application the job is running on.
+     * </p>
+     * 
+     * @param applicationId
+     *        The ID of the application the job is running on.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withApplicationId(String applicationId) {
+        setApplicationId(applicationId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the job run.
+     * </p>
+     * 
+     * @param jobRunId
+     *        The ID of the job run.
+     */
+
+    public void setJobRunId(String jobRunId) {
+        this.jobRunId = jobRunId;
+    }
+
+    /**
+     * <p>
+     * The ID of the job run.
+     * </p>
+     * 
+     * @return The ID of the job run.
+     */
+
+    public String getJobRunId() {
+        return this.jobRunId;
+    }
+
+    /**
+     * <p>
+     * The ID of the job run.
+     * </p>
+     * 
+     * @param jobRunId
+     *        The ID of the job run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withJobRunId(String jobRunId) {
+        setJobRunId(jobRunId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The optional job run name. This doesn't have to be unique.
+     * </p>
+     * 
+     * @param name
+     *        The optional job run name. This doesn't have to be unique.
+     */
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * <p>
+     * The optional job run name. This doesn't have to be unique.
+     * </p>
+     * 
+     * @return The optional job run name. This doesn't have to be unique.
+     */
+
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * <p>
+     * The optional job run name. This doesn't have to be unique.
+     * </p>
+     * 
+     * @param name
+     *        The optional job run name. This doesn't have to be unique.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withName(String name) {
+        setName(name);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The execution role ARN of the job run.
+     * </p>
+     * 
+     * @param arn
+     *        The execution role ARN of the job run.
+     */
+
+    public void setArn(String arn) {
+        this.arn = arn;
+    }
+
+    /**
+     * <p>
+     * The execution role ARN of the job run.
+     * </p>
+     * 
+     * @return The execution role ARN of the job run.
+     */
+
+    public String getArn() {
+        return this.arn;
+    }
+
+    /**
+     * <p>
+     * The execution role ARN of the job run.
+     * </p>
+     * 
+     * @param arn
+     *        The execution role ARN of the job run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withArn(String arn) {
+        setArn(arn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The user who created the job run.
+     * </p>
+     * 
+     * @param createdBy
+     *        The user who created the job run.
+     */
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    /**
+     * <p>
+     * The user who created the job run.
+     * </p>
+     * 
+     * @return The user who created the job run.
+     */
+
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+
+    /**
+     * <p>
+     * The user who created the job run.
+     * </p>
+     * 
+     * @param createdBy
+     *        The user who created the job run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withCreatedBy(String createdBy) {
+        setCreatedBy(createdBy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date and time when the job run was created.
+     * </p>
+     * 
+     * @param createdAt
+     *        The date and time when the job run was created.
+     */
+
+    public void setCreatedAt(java.util.Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * <p>
+     * The date and time when the job run was created.
+     * </p>
+     * 
+     * @return The date and time when the job run was created.
+     */
+
+    public java.util.Date getCreatedAt() {
+        return this.createdAt;
+    }
+
+    /**
+     * <p>
+     * The date and time when the job run was created.
+     * </p>
+     * 
+     * @param createdAt
+     *        The date and time when the job run was created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withCreatedAt(java.util.Date createdAt) {
+        setCreatedAt(createdAt);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date and time when the job run was updated.
+     * </p>
+     * 
+     * @param updatedAt
+     *        The date and time when the job run was updated.
+     */
+
+    public void setUpdatedAt(java.util.Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * <p>
+     * The date and time when the job run was updated.
+     * </p>
+     * 
+     * @return The date and time when the job run was updated.
+     */
+
+    public java.util.Date getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    /**
+     * <p>
+     * The date and time when the job run was updated.
+     * </p>
+     * 
+     * @param updatedAt
+     *        The date and time when the job run was updated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withUpdatedAt(java.util.Date updatedAt) {
+        setUpdatedAt(updatedAt);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The execution role ARN of the job run.
+     * </p>
+     * 
+     * @param executionRole
+     *        The execution role ARN of the job run.
+     */
+
+    public void setExecutionRole(String executionRole) {
+        this.executionRole = executionRole;
+    }
+
+    /**
+     * <p>
+     * The execution role ARN of the job run.
+     * </p>
+     * 
+     * @return The execution role ARN of the job run.
+     */
+
+    public String getExecutionRole() {
+        return this.executionRole;
+    }
+
+    /**
+     * <p>
+     * The execution role ARN of the job run.
+     * </p>
+     * 
+     * @param executionRole
+     *        The execution role ARN of the job run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withExecutionRole(String executionRole) {
+        setExecutionRole(executionRole);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The state of the job run.
+     * </p>
+     * 
+     * @param state
+     *        The state of the job run.
+     * @see JobRunState
+     */
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    /**
+     * <p>
+     * The state of the job run.
+     * </p>
+     * 
+     * @return The state of the job run.
+     * @see JobRunState
+     */
+
+    public String getState() {
+        return this.state;
+    }
+
+    /**
+     * <p>
+     * The state of the job run.
+     * </p>
+     * 
+     * @param state
+     *        The state of the job run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see JobRunState
+     */
+
+    public JobRun withState(String state) {
+        setState(state);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The state of the job run.
+     * </p>
+     * 
+     * @param state
+     *        The state of the job run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see JobRunState
+     */
+
+    public JobRun withState(JobRunState state) {
+        this.state = state.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The state details of the job run.
+     * </p>
+     * 
+     * @param stateDetails
+     *        The state details of the job run.
+     */
+
+    public void setStateDetails(String stateDetails) {
+        this.stateDetails = stateDetails;
+    }
+
+    /**
+     * <p>
+     * The state details of the job run.
+     * </p>
+     * 
+     * @return The state details of the job run.
+     */
+
+    public String getStateDetails() {
+        return this.stateDetails;
+    }
+
+    /**
+     * <p>
+     * The state details of the job run.
+     * </p>
+     * 
+     * @param stateDetails
+     *        The state details of the job run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withStateDetails(String stateDetails) {
+        setStateDetails(stateDetails);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon EMR release associated with the application your job is running on.
+     * </p>
+     * 
+     * @param releaseLabel
+     *        The Amazon EMR release associated with the application your job is running on.
+     */
+
+    public void setReleaseLabel(String releaseLabel) {
+        this.releaseLabel = releaseLabel;
+    }
+
+    /**
+     * <p>
+     * The Amazon EMR release associated with the application your job is running on.
+     * </p>
+     * 
+     * @return The Amazon EMR release associated with the application your job is running on.
+     */
+
+    public String getReleaseLabel() {
+        return this.releaseLabel;
+    }
+
+    /**
+     * <p>
+     * The Amazon EMR release associated with the application your job is running on.
+     * </p>
+     * 
+     * @param releaseLabel
+     *        The Amazon EMR release associated with the application your job is running on.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withReleaseLabel(String releaseLabel) {
+        setReleaseLabel(releaseLabel);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The configuration settings that are used to override default configuration.
+     * </p>
+     * 
+     * @param configurationOverrides
+     *        The configuration settings that are used to override default configuration.
+     */
+
+    public void setConfigurationOverrides(ConfigurationOverrides configurationOverrides) {
+        this.configurationOverrides = configurationOverrides;
+    }
+
+    /**
+     * <p>
+     * The configuration settings that are used to override default configuration.
+     * </p>
+     * 
+     * @return The configuration settings that are used to override default configuration.
+     */
+
+    public ConfigurationOverrides getConfigurationOverrides() {
+        return this.configurationOverrides;
+    }
+
+    /**
+     * <p>
+     * The configuration settings that are used to override default configuration.
+     * </p>
+     * 
+     * @param configurationOverrides
+     *        The configuration settings that are used to override default configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withConfigurationOverrides(ConfigurationOverrides configurationOverrides) {
+        setConfigurationOverrides(configurationOverrides);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The job driver for the job run.
+     * </p>
+     * 
+     * @param jobDriver
+     *        The job driver for the job run.
+     */
+
+    public void setJobDriver(JobDriver jobDriver) {
+        this.jobDriver = jobDriver;
+    }
+
+    /**
+     * <p>
+     * The job driver for the job run.
+     * </p>
+     * 
+     * @return The job driver for the job run.
+     */
+
+    public JobDriver getJobDriver() {
+        return this.jobDriver;
+    }
+
+    /**
+     * <p>
+     * The job driver for the job run.
+     * </p>
+     * 
+     * @param jobDriver
+     *        The job driver for the job run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withJobDriver(JobDriver jobDriver) {
+        setJobDriver(jobDriver);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags assigned to the job run.
+     * </p>
+     * 
+     * @return The tags assigned to the job run.
+     */
+
+    public java.util.Map<String, String> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * The tags assigned to the job run.
+     * </p>
+     * 
+     * @param tags
+     *        The tags assigned to the job run.
+     */
+
+    public void setTags(java.util.Map<String, String> tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * <p>
+     * The tags assigned to the job run.
+     * </p>
+     * 
+     * @param tags
+     *        The tags assigned to the job run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withTags(java.util.Map<String, String> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see JobRun#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun addTagsEntry(String key, String value) {
+        if (null == this.tags) {
+            this.tags = new java.util.HashMap<String, String>();
+        }
+        if (this.tags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.tags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Tags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun clearTagsEntries() {
+        this.tags = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The aggregate vCPU, memory, and storage resources used from the time the job starts to execute, until the time
+     * the job terminates, rounded up to the nearest second.
+     * </p>
+     * 
+     * @param totalResourceUtilization
+     *        The aggregate vCPU, memory, and storage resources used from the time the job starts to execute, until the
+     *        time the job terminates, rounded up to the nearest second.
+     */
+
+    public void setTotalResourceUtilization(TotalResourceUtilization totalResourceUtilization) {
+        this.totalResourceUtilization = totalResourceUtilization;
+    }
+
+    /**
+     * <p>
+     * The aggregate vCPU, memory, and storage resources used from the time the job starts to execute, until the time
+     * the job terminates, rounded up to the nearest second.
+     * </p>
+     * 
+     * @return The aggregate vCPU, memory, and storage resources used from the time the job starts to execute, until the
+     *         time the job terminates, rounded up to the nearest second.
+     */
+
+    public TotalResourceUtilization getTotalResourceUtilization() {
+        return this.totalResourceUtilization;
+    }
+
+    /**
+     * <p>
+     * The aggregate vCPU, memory, and storage resources used from the time the job starts to execute, until the time
+     * the job terminates, rounded up to the nearest second.
+     * </p>
+     * 
+     * @param totalResourceUtilization
+     *        The aggregate vCPU, memory, and storage resources used from the time the job starts to execute, until the
+     *        time the job terminates, rounded up to the nearest second.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withTotalResourceUtilization(TotalResourceUtilization totalResourceUtilization) {
+        setTotalResourceUtilization(totalResourceUtilization);
+        return this;
+    }
+
+    /**
+     * @param networkConfiguration
+     */
+
+    public void setNetworkConfiguration(NetworkConfiguration networkConfiguration) {
+        this.networkConfiguration = networkConfiguration;
+    }
+
+    /**
+     * @return
+     */
+
+    public NetworkConfiguration getNetworkConfiguration() {
+        return this.networkConfiguration;
+    }
+
+    /**
+     * @param networkConfiguration
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withNetworkConfiguration(NetworkConfiguration networkConfiguration) {
+        setNetworkConfiguration(networkConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The job run total execution duration in seconds. This field is only available for job runs in a
+     * <code>COMPLETED</code>, <code>FAILED</code>, or <code>CANCELLED</code> state.
+     * </p>
+     * 
+     * @param totalExecutionDurationSeconds
+     *        The job run total execution duration in seconds. This field is only available for job runs in a
+     *        <code>COMPLETED</code>, <code>FAILED</code>, or <code>CANCELLED</code> state.
+     */
+
+    public void setTotalExecutionDurationSeconds(Integer totalExecutionDurationSeconds) {
+        this.totalExecutionDurationSeconds = totalExecutionDurationSeconds;
+    }
+
+    /**
+     * <p>
+     * The job run total execution duration in seconds. This field is only available for job runs in a
+     * <code>COMPLETED</code>, <code>FAILED</code>, or <code>CANCELLED</code> state.
+     * </p>
+     * 
+     * @return The job run total execution duration in seconds. This field is only available for job runs in a
+     *         <code>COMPLETED</code>, <code>FAILED</code>, or <code>CANCELLED</code> state.
+     */
+
+    public Integer getTotalExecutionDurationSeconds() {
+        return this.totalExecutionDurationSeconds;
+    }
+
+    /**
+     * <p>
+     * The job run total execution duration in seconds. This field is only available for job runs in a
+     * <code>COMPLETED</code>, <code>FAILED</code>, or <code>CANCELLED</code> state.
+     * </p>
+     * 
+     * @param totalExecutionDurationSeconds
+     *        The job run total execution duration in seconds. This field is only available for job runs in a
+     *        <code>COMPLETED</code>, <code>FAILED</code>, or <code>CANCELLED</code> state.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withTotalExecutionDurationSeconds(Integer totalExecutionDurationSeconds) {
+        setTotalExecutionDurationSeconds(totalExecutionDurationSeconds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Returns the job run timeout value from the <code>StartJobRun</code> call. If no timeout was specified, then it
+     * returns the default timeout of 720 minutes.
+     * </p>
+     * 
+     * @param executionTimeoutMinutes
+     *        Returns the job run timeout value from the <code>StartJobRun</code> call. If no timeout was specified,
+     *        then it returns the default timeout of 720 minutes.
+     */
+
+    public void setExecutionTimeoutMinutes(Long executionTimeoutMinutes) {
+        this.executionTimeoutMinutes = executionTimeoutMinutes;
+    }
+
+    /**
+     * <p>
+     * Returns the job run timeout value from the <code>StartJobRun</code> call. If no timeout was specified, then it
+     * returns the default timeout of 720 minutes.
+     * </p>
+     * 
+     * @return Returns the job run timeout value from the <code>StartJobRun</code> call. If no timeout was specified,
+     *         then it returns the default timeout of 720 minutes.
+     */
+
+    public Long getExecutionTimeoutMinutes() {
+        return this.executionTimeoutMinutes;
+    }
+
+    /**
+     * <p>
+     * Returns the job run timeout value from the <code>StartJobRun</code> call. If no timeout was specified, then it
+     * returns the default timeout of 720 minutes.
+     * </p>
+     * 
+     * @param executionTimeoutMinutes
+     *        Returns the job run timeout value from the <code>StartJobRun</code> call. If no timeout was specified,
+     *        then it returns the default timeout of 720 minutes.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withExecutionTimeoutMinutes(Long executionTimeoutMinutes) {
+        setExecutionTimeoutMinutes(executionTimeoutMinutes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The aggregate vCPU, memory, and storage that Amazon Web Services has billed for the job run. The billed resources
+     * include a 1-minute minimum usage for workers, plus additional storage over 20 GB per worker. Note that billed
+     * resources do not include usage for idle pre-initialized workers.
+     * </p>
+     * 
+     * @param billedResourceUtilization
+     *        The aggregate vCPU, memory, and storage that Amazon Web Services has billed for the job run. The billed
+     *        resources include a 1-minute minimum usage for workers, plus additional storage over 20 GB per worker.
+     *        Note that billed resources do not include usage for idle pre-initialized workers.
+     */
+
+    public void setBilledResourceUtilization(ResourceUtilization billedResourceUtilization) {
+        this.billedResourceUtilization = billedResourceUtilization;
+    }
+
+    /**
+     * <p>
+     * The aggregate vCPU, memory, and storage that Amazon Web Services has billed for the job run. The billed resources
+     * include a 1-minute minimum usage for workers, plus additional storage over 20 GB per worker. Note that billed
+     * resources do not include usage for idle pre-initialized workers.
+     * </p>
+     * 
+     * @return The aggregate vCPU, memory, and storage that Amazon Web Services has billed for the job run. The billed
+     *         resources include a 1-minute minimum usage for workers, plus additional storage over 20 GB per worker.
+     *         Note that billed resources do not include usage for idle pre-initialized workers.
+     */
+
+    public ResourceUtilization getBilledResourceUtilization() {
+        return this.billedResourceUtilization;
+    }
+
+    /**
+     * <p>
+     * The aggregate vCPU, memory, and storage that Amazon Web Services has billed for the job run. The billed resources
+     * include a 1-minute minimum usage for workers, plus additional storage over 20 GB per worker. Note that billed
+     * resources do not include usage for idle pre-initialized workers.
+     * </p>
+     * 
+     * @param billedResourceUtilization
+     *        The aggregate vCPU, memory, and storage that Amazon Web Services has billed for the job run. The billed
+     *        resources include a 1-minute minimum usage for workers, plus additional storage over 20 GB per worker.
+     *        Note that billed resources do not include usage for idle pre-initialized workers.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withBilledResourceUtilization(ResourceUtilization billedResourceUtilization) {
+        setBilledResourceUtilization(billedResourceUtilization);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mode of the job run.
+     * </p>
+     * 
+     * @param mode
+     *        The mode of the job run.
+     * @see JobRunMode
+     */
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    /**
+     * <p>
+     * The mode of the job run.
+     * </p>
+     * 
+     * @return The mode of the job run.
+     * @see JobRunMode
+     */
+
+    public String getMode() {
+        return this.mode;
+    }
+
+    /**
+     * <p>
+     * The mode of the job run.
+     * </p>
+     * 
+     * @param mode
+     *        The mode of the job run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see JobRunMode
+     */
+
+    public JobRun withMode(String mode) {
+        setMode(mode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mode of the job run.
+     * </p>
+     * 
+     * @param mode
+     *        The mode of the job run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see JobRunMode
+     */
+
+    public JobRun withMode(JobRunMode mode) {
+        this.mode = mode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The retry policy of the job run.
+     * </p>
+     * 
+     * @param retryPolicy
+     *        The retry policy of the job run.
+     */
+
+    public void setRetryPolicy(RetryPolicy retryPolicy) {
+        this.retryPolicy = retryPolicy;
+    }
+
+    /**
+     * <p>
+     * The retry policy of the job run.
+     * </p>
+     * 
+     * @return The retry policy of the job run.
+     */
+
+    public RetryPolicy getRetryPolicy() {
+        return this.retryPolicy;
+    }
+
+    /**
+     * <p>
+     * The retry policy of the job run.
+     * </p>
+     * 
+     * @param retryPolicy
+     *        The retry policy of the job run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withRetryPolicy(RetryPolicy retryPolicy) {
+        setRetryPolicy(retryPolicy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The attempt of the job run.
+     * </p>
+     * 
+     * @param attempt
+     *        The attempt of the job run.
+     */
+
+    public void setAttempt(Integer attempt) {
+        this.attempt = attempt;
+    }
+
+    /**
+     * <p>
+     * The attempt of the job run.
+     * </p>
+     * 
+     * @return The attempt of the job run.
+     */
+
+    public Integer getAttempt() {
+        return this.attempt;
+    }
+
+    /**
+     * <p>
+     * The attempt of the job run.
+     * </p>
+     * 
+     * @param attempt
+     *        The attempt of the job run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withAttempt(Integer attempt) {
+        setAttempt(attempt);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date and time of when the job run attempt was created.
+     * </p>
+     * 
+     * @param attemptCreatedAt
+     *        The date and time of when the job run attempt was created.
+     */
+
+    public void setAttemptCreatedAt(java.util.Date attemptCreatedAt) {
+        this.attemptCreatedAt = attemptCreatedAt;
+    }
+
+    /**
+     * <p>
+     * The date and time of when the job run attempt was created.
+     * </p>
+     * 
+     * @return The date and time of when the job run attempt was created.
+     */
+
+    public java.util.Date getAttemptCreatedAt() {
+        return this.attemptCreatedAt;
+    }
+
+    /**
+     * <p>
+     * The date and time of when the job run attempt was created.
+     * </p>
+     * 
+     * @param attemptCreatedAt
+     *        The date and time of when the job run attempt was created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withAttemptCreatedAt(java.util.Date attemptCreatedAt) {
+        setAttemptCreatedAt(attemptCreatedAt);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date and time of when the job run attempt was last updated.
+     * </p>
+     * 
+     * @param attemptUpdatedAt
+     *        The date and time of when the job run attempt was last updated.
+     */
+
+    public void setAttemptUpdatedAt(java.util.Date attemptUpdatedAt) {
+        this.attemptUpdatedAt = attemptUpdatedAt;
+    }
+
+    /**
+     * <p>
+     * The date and time of when the job run attempt was last updated.
+     * </p>
+     * 
+     * @return The date and time of when the job run attempt was last updated.
+     */
+
+    public java.util.Date getAttemptUpdatedAt() {
+        return this.attemptUpdatedAt;
+    }
+
+    /**
+     * <p>
+     * The date and time of when the job run attempt was last updated.
+     * </p>
+     * 
+     * @param attemptUpdatedAt
+     *        The date and time of when the job run attempt was last updated.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JobRun withAttemptUpdatedAt(java.util.Date attemptUpdatedAt) {
+        setAttemptUpdatedAt(attemptUpdatedAt);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getApplicationId() != null)
+            sb.append("ApplicationId: ").append(getApplicationId()).append(",");
+        if (getJobRunId() != null)
+            sb.append("JobRunId: ").append(getJobRunId()).append(",");
+        if (getName() != null)
+            sb.append("Name: ").append(getName()).append(",");
+        if (getArn() != null)
+            sb.append("Arn: ").append(getArn()).append(",");
+        if (getCreatedBy() != null)
+            sb.append("CreatedBy: ").append(getCreatedBy()).append(",");
+        if (getCreatedAt() != null)
+            sb.append("CreatedAt: ").append(getCreatedAt()).append(",");
+        if (getUpdatedAt() != null)
+            sb.append("UpdatedAt: ").append(getUpdatedAt()).append(",");
+        if (getExecutionRole() != null)
+            sb.append("ExecutionRole: ").append(getExecutionRole()).append(",");
+        if (getState() != null)
+            sb.append("State: ").append(getState()).append(",");
+        if (getStateDetails() != null)
+            sb.append("StateDetails: ").append(getStateDetails()).append(",");
+        if (getReleaseLabel() != null)
+            sb.append("ReleaseLabel: ").append(getReleaseLabel()).append(",");
+        if (getConfigurationOverrides() != null)
+            sb.append("ConfigurationOverrides: ").append(getConfigurationOverrides()).append(",");
+        if (getJobDriver() != null)
+            sb.append("JobDriver: ").append(getJobDriver()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getTotalResourceUtilization() != null)
+            sb.append("TotalResourceUtilization: ").append(getTotalResourceUtilization()).append(",");
+        if (getNetworkConfiguration() != null)
+            sb.append("NetworkConfiguration: ").append(getNetworkConfiguration()).append(",");
+        if (getTotalExecutionDurationSeconds() != null)
+            sb.append("TotalExecutionDurationSeconds: ").append(getTotalExecutionDurationSeconds()).append(",");
+        if (getExecutionTimeoutMinutes() != null)
+            sb.append("ExecutionTimeoutMinutes: ").append(getExecutionTimeoutMinutes()).append(",");
+        if (getBilledResourceUtilization() != null)
+            sb.append("BilledResourceUtilization: ").append(getBilledResourceUtilization()).append(",");
+        if (getMode() != null)
+            sb.append("Mode: ").append(getMode()).append(",");
+        if (getRetryPolicy() != null)
+            sb.append("RetryPolicy: ").append(getRetryPolicy()).append(",");
+        if (getAttempt() != null)
+            sb.append("Attempt: ").append(getAttempt()).append(",");
+        if (getAttemptCreatedAt() != null)
+            sb.append("AttemptCreatedAt: ").append(getAttemptCreatedAt()).append(",");
+        if (getAttemptUpdatedAt() != null)
+            sb.append("AttemptUpdatedAt: ").append(getAttemptUpdatedAt());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof JobRun == false)
+            return false;
+        JobRun other = (JobRun) obj;
+        if (other.getApplicationId() == null ^ this.getApplicationId() == null)
+            return false;
+        if (other.getApplicationId() != null && other.getApplicationId().equals(this.getApplicationId()) == false)
+            return false;
+        if (other.getJobRunId() == null ^ this.getJobRunId() == null)
+            return false;
+        if (other.getJobRunId() != null && other.getJobRunId().equals(this.getJobRunId()) == false)
+            return false;
+        if (other.getName() == null ^ this.getName() == null)
+            return false;
+        if (other.getName() != null && other.getName().equals(this.getName()) == false)
+            return false;
+        if (other.getArn() == null ^ this.getArn() == null)
+            return false;
+        if (other.getArn() != null && other.getArn().equals(this.getArn()) == false)
+            return false;
+        if (other.getCreatedBy() == null ^ this.getCreatedBy() == null)
+            return false;
+        if (other.getCreatedBy() != null && other.getCreatedBy().equals(this.getCreatedBy()) == false)
+            return false;
+        if (other.getCreatedAt() == null ^ this.getCreatedAt() == null)
+            return false;
+        if (other.getCreatedAt() != null && other.getCreatedAt().equals(this.getCreatedAt()) == false)
+            return false;
+        if (other.getUpdatedAt() == null ^ this.getUpdatedAt() == null)
+            return false;
+        if (other.getUpdatedAt() != null && other.getUpdatedAt().equals(this.getUpdatedAt()) == false)
+            return false;
+        if (other.getExecutionRole() == null ^ this.getExecutionRole() == null)
+            return false;
+        if (other.getExecutionRole() != null && other.getExecutionRole().equals(this.getExecutionRole()) == false)
+            return false;
+        if (other.getState() == null ^ this.getState() == null)
+            return false;
+        if (other.getState() != null && other.getState().equals(this.getState()) == false)
+            return false;
+        if (other.getStateDetails() == null ^ this.getStateDetails() == null)
+            return false;
+        if (other.getStateDetails() != null && other.getStateDetails().equals(this.getStateDetails()) == false)
+            return false;
+        if (other.getReleaseLabel() == null ^ this.getReleaseLabel() == null)
+            return false;
+        if (other.getReleaseLabel() != null && other.getReleaseLabel().equals(this.getReleaseLabel()) == false)
+            return false;
+        if (other.getConfigurationOverrides() == null ^ this.getConfigurationOverrides() == null)
+            return false;
+        if (other.getConfigurationOverrides() != null && other.getConfigurationOverrides().equals(this.getConfigurationOverrides()) == false)
+            return false;
+        if (other.getJobDriver() == null ^ this.getJobDriver() == null)
+            return false;
+        if (other.getJobDriver() != null && other.getJobDriver().equals(this.getJobDriver()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getTotalResourceUtilization() == null ^ this.getTotalResourceUtilization() == null)
+            return false;
+        if (other.getTotalResourceUtilization() != null && other.getTotalResourceUtilization().equals(this.getTotalResourceUtilization()) == false)
+            return false;
+        if (other.getNetworkConfiguration() == null ^ this.getNetworkConfiguration() == null)
+            return false;
+        if (other.getNetworkConfiguration() != null && other.getNetworkConfiguration().equals(this.getNetworkConfiguration()) == false)
+            return false;
+        if (other.getTotalExecutionDurationSeconds() == null ^ this.getTotalExecutionDurationSeconds() == null)
+            return false;
+        if (other.getTotalExecutionDurationSeconds() != null
+                && other.getTotalExecutionDurationSeconds().equals(this.getTotalExecutionDurationSeconds()) == false)
+            return false;
+        if (other.getExecutionTimeoutMinutes() == null ^ this.getExecutionTimeoutMinutes() == null)
+            return false;
+        if (other.getExecutionTimeoutMinutes() != null && other.getExecutionTimeoutMinutes().equals(this.getExecutionTimeoutMinutes()) == false)
+            return false;
+        if (other.getBilledResourceUtilization() == null ^ this.getBilledResourceUtilization() == null)
+            return false;
+        if (other.getBilledResourceUtilization() != null && other.getBilledResourceUtilization().equals(this.getBilledResourceUtilization()) == false)
+            return false;
+        if (other.getMode() == null ^ this.getMode() == null)
+            return false;
+        if (other.getMode() != null && other.getMode().equals(this.getMode()) == false)
+            return false;
+        if (other.getRetryPolicy() == null ^ this.getRetryPolicy() == null)
+            return false;
+        if (other.getRetryPolicy() != null && other.getRetryPolicy().equals(this.getRetryPolicy()) == false)
+            return false;
+        if (other.getAttempt() == null ^ this.getAttempt() == null)
+            return false;
+        if (other.getAttempt() != null && other.getAttempt().equals(this.getAttempt()) == false)
+            return false;
+        if (other.getAttemptCreatedAt() == null ^ this.getAttemptCreatedAt() == null)
+            return false;
+        if (other.getAttemptCreatedAt() != null && other.getAttemptCreatedAt().equals(this.getAttemptCreatedAt()) == false)
+            return false;
+        if (other.getAttemptUpdatedAt() == null ^ this.getAttemptUpdatedAt() == null)
+            return false;
+        if (other.getAttemptUpdatedAt() != null && other.getAttemptUpdatedAt().equals(this.getAttemptUpdatedAt()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getApplicationId() == null) ? 0 : getApplicationId().hashCode());
+        hashCode = prime * hashCode + ((getJobRunId() == null) ? 0 : getJobRunId().hashCode());
+        hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
+        hashCode = prime * hashCode + ((getCreatedBy() == null) ? 0 : getCreatedBy().hashCode());
+        hashCode = prime * hashCode + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
+        hashCode = prime * hashCode + ((getUpdatedAt() == null) ? 0 : getUpdatedAt().hashCode());
+        hashCode = prime * hashCode + ((getExecutionRole() == null) ? 0 : getExecutionRole().hashCode());
+        hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
+        hashCode = prime * hashCode + ((getStateDetails() == null) ? 0 : getStateDetails().hashCode());
+        hashCode = prime * hashCode + ((getReleaseLabel() == null) ? 0 : getReleaseLabel().hashCode());
+        hashCode = prime * hashCode + ((getConfigurationOverrides() == null) ? 0 : getConfigurationOverrides().hashCode());
+        hashCode = prime * hashCode + ((getJobDriver() == null) ? 0 : getJobDriver().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getTotalResourceUtilization() == null) ? 0 : getTotalResourceUtilization().hashCode());
+        hashCode = prime * hashCode + ((getNetworkConfiguration() == null) ? 0 : getNetworkConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getTotalExecutionDurationSeconds() == null) ? 0 : getTotalExecutionDurationSeconds().hashCode());
+        hashCode = prime * hashCode + ((getExecutionTimeoutMinutes() == null) ? 0 : getExecutionTimeoutMinutes().hashCode());
+        hashCode = prime * hashCode + ((getBilledResourceUtilization() == null) ? 0 : getBilledResourceUtilization().hashCode());
+        hashCode = prime * hashCode + ((getMode() == null) ? 0 : getMode().hashCode());
+        hashCode = prime * hashCode + ((getRetryPolicy() == null) ? 0 : getRetryPolicy().hashCode());
+        hashCode = prime * hashCode + ((getAttempt() == null) ? 0 : getAttempt().hashCode());
+        hashCode = prime * hashCode + ((getAttemptCreatedAt() == null) ? 0 : getAttemptCreatedAt().hashCode());
+        hashCode = prime * hashCode + ((getAttemptUpdatedAt() == null) ? 0 : getAttemptUpdatedAt().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public JobRun clone() {
+        try {
+            return (JobRun) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.emrserverless.model.transform.JobRunMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

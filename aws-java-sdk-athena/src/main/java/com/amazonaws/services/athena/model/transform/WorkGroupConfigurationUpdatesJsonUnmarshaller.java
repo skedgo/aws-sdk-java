@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -67,6 +67,40 @@ public class WorkGroupConfigurationUpdatesJsonUnmarshaller implements Unmarshall
                 if (context.testExpression("RemoveBytesScannedCutoffPerQuery", targetDepth)) {
                     context.nextToken();
                     workGroupConfigurationUpdates.setRemoveBytesScannedCutoffPerQuery(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("RequesterPaysEnabled", targetDepth)) {
+                    context.nextToken();
+                    workGroupConfigurationUpdates.setRequesterPaysEnabled(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("EngineVersion", targetDepth)) {
+                    context.nextToken();
+                    workGroupConfigurationUpdates.setEngineVersion(EngineVersionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("RemoveCustomerContentEncryptionConfiguration", targetDepth)) {
+                    context.nextToken();
+                    workGroupConfigurationUpdates.setRemoveCustomerContentEncryptionConfiguration(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("AdditionalConfiguration", targetDepth)) {
+                    context.nextToken();
+                    workGroupConfigurationUpdates.setAdditionalConfiguration(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ExecutionRole", targetDepth)) {
+                    context.nextToken();
+                    workGroupConfigurationUpdates.setExecutionRole(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("CustomerContentEncryptionConfiguration", targetDepth)) {
+                    context.nextToken();
+                    workGroupConfigurationUpdates.setCustomerContentEncryptionConfiguration(CustomerContentEncryptionConfigurationJsonUnmarshaller
+                            .getInstance().unmarshall(context));
+                }
+                if (context.testExpression("EnableMinimumEncryptionConfiguration", targetDepth)) {
+                    context.nextToken();
+                    workGroupConfigurationUpdates.setEnableMinimumEncryptionConfiguration(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("QueryResultsS3AccessGrantsConfiguration", targetDepth)) {
+                    context.nextToken();
+                    workGroupConfigurationUpdates.setQueryResultsS3AccessGrantsConfiguration(QueryResultsS3AccessGrantsConfigurationJsonUnmarshaller
+                            .getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

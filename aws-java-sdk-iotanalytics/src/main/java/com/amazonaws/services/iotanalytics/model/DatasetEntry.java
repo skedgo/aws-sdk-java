@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The reference to a data set entry.
+ * The reference to a dataset entry.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iotanalytics-2017-11-27/DatasetEntry" target="_top">AWS API
@@ -30,24 +30,24 @@ public class DatasetEntry implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the data set item.
+     * The name of the dataset item.
      * </p>
      */
     private String entryName;
     /**
      * <p>
-     * The pre-signed URI of the data set item.
+     * The presigned URI of the dataset item.
      * </p>
      */
     private String dataURI;
 
     /**
      * <p>
-     * The name of the data set item.
+     * The name of the dataset item.
      * </p>
      * 
      * @param entryName
-     *        The name of the data set item.
+     *        The name of the dataset item.
      */
 
     public void setEntryName(String entryName) {
@@ -56,10 +56,10 @@ public class DatasetEntry implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the data set item.
+     * The name of the dataset item.
      * </p>
      * 
-     * @return The name of the data set item.
+     * @return The name of the dataset item.
      */
 
     public String getEntryName() {
@@ -68,11 +68,11 @@ public class DatasetEntry implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the data set item.
+     * The name of the dataset item.
      * </p>
      * 
      * @param entryName
-     *        The name of the data set item.
+     *        The name of the dataset item.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -83,11 +83,11 @@ public class DatasetEntry implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The pre-signed URI of the data set item.
+     * The presigned URI of the dataset item.
      * </p>
      * 
      * @param dataURI
-     *        The pre-signed URI of the data set item.
+     *        The presigned URI of the dataset item.
      */
 
     public void setDataURI(String dataURI) {
@@ -96,10 +96,10 @@ public class DatasetEntry implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The pre-signed URI of the data set item.
+     * The presigned URI of the dataset item.
      * </p>
      * 
-     * @return The pre-signed URI of the data set item.
+     * @return The presigned URI of the dataset item.
      */
 
     public String getDataURI() {
@@ -108,11 +108,11 @@ public class DatasetEntry implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The pre-signed URI of the data set item.
+     * The presigned URI of the dataset item.
      * </p>
      * 
      * @param dataURI
-     *        The pre-signed URI of the data set item.
+     *        The presigned URI of the dataset item.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

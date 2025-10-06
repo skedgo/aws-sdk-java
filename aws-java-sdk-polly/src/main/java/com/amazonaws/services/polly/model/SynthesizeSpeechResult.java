@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,7 +55,7 @@ public class SynthesizeSpeechResult extends com.amazonaws.AmazonWebServiceResult
      * <li>
      * <p>
      * If you request <code>json</code> as the <code>OutputFormat</code>, the <code>ContentType</code> returned is
-     * audio/json.
+     * application/x-json-stream.
      * </p>
      * </li>
      * </ul>
@@ -136,7 +136,7 @@ public class SynthesizeSpeechResult extends com.amazonaws.AmazonWebServiceResult
      * <li>
      * <p>
      * If you request <code>json</code> as the <code>OutputFormat</code>, the <code>ContentType</code> returned is
-     * audio/json.
+     * application/x-json-stream.
      * </p>
      * </li>
      * </ul>
@@ -168,7 +168,7 @@ public class SynthesizeSpeechResult extends com.amazonaws.AmazonWebServiceResult
      *        <li>
      *        <p>
      *        If you request <code>json</code> as the <code>OutputFormat</code>, the <code>ContentType</code> returned
-     *        is audio/json.
+     *        is application/x-json-stream.
      *        </p>
      *        </li>
      *        </ul>
@@ -205,7 +205,7 @@ public class SynthesizeSpeechResult extends com.amazonaws.AmazonWebServiceResult
      * <li>
      * <p>
      * If you request <code>json</code> as the <code>OutputFormat</code>, the <code>ContentType</code> returned is
-     * audio/json.
+     * application/x-json-stream.
      * </p>
      * </li>
      * </ul>
@@ -236,7 +236,7 @@ public class SynthesizeSpeechResult extends com.amazonaws.AmazonWebServiceResult
      *         <li>
      *         <p>
      *         If you request <code>json</code> as the <code>OutputFormat</code>, the <code>ContentType</code> returned
-     *         is audio/json.
+     *         is application/x-json-stream.
      *         </p>
      *         </li>
      *         </ul>
@@ -273,7 +273,7 @@ public class SynthesizeSpeechResult extends com.amazonaws.AmazonWebServiceResult
      * <li>
      * <p>
      * If you request <code>json</code> as the <code>OutputFormat</code>, the <code>ContentType</code> returned is
-     * audio/json.
+     * application/x-json-stream.
      * </p>
      * </li>
      * </ul>
@@ -305,7 +305,7 @@ public class SynthesizeSpeechResult extends com.amazonaws.AmazonWebServiceResult
      *        <li>
      *        <p>
      *        If you request <code>json</code> as the <code>OutputFormat</code>, the <code>ContentType</code> returned
-     *        is audio/json.
+     *        is application/x-json-stream.
      *        </p>
      *        </li>
      *        </ul>

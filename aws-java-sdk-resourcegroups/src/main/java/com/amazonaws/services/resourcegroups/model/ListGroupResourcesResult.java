@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,46 +25,142 @@ public class ListGroupResourcesResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The ARNs and resource types of resources that are members of the group that you specified.
+     * An array of resources from which you can determine each resource's identity, type, and group membership status.
      * </p>
      */
+    private java.util.List<ListGroupResourcesItem> resources;
+    /**
+     * <important>
+     * <p>
+     * <b> <i>Deprecated - don't use this parameter. Use the <code>Resources</code> response field instead.</i> </b>
+     * </p>
+     * </important>
+     */
+    @Deprecated
     private java.util.List<ResourceIdentifier> resourceIdentifiers;
     /**
      * <p>
-     * The NextToken value to include in a subsequent <code>ListGroupResources</code> request, to get more results.
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * A list of <code>QueryError</code> objects. Each error is an object that contains <code>ErrorCode</code> and
-     * <code>Message</code> structures. Possible values for <code>ErrorCode</code> are
-     * <code>CLOUDFORMATION_STACK_INACTIVE</code> and <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>.
+     * A list of <code>QueryError</code> objects. Each error contains an <code>ErrorCode</code> and <code>Message</code>
+     * . Possible values for ErrorCode are <code>CLOUDFORMATION_STACK_INACTIVE</code>,
+     * <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>, <code>CLOUDFORMATION_STACK_UNASSUMABLE_ROLE</code> and
+     * <code>RESOURCE_TYPE_NOT_SUPPORTED</code>.
      * </p>
      */
     private java.util.List<QueryError> queryErrors;
 
     /**
      * <p>
-     * The ARNs and resource types of resources that are members of the group that you specified.
+     * An array of resources from which you can determine each resource's identity, type, and group membership status.
      * </p>
      * 
-     * @return The ARNs and resource types of resources that are members of the group that you specified.
+     * @return An array of resources from which you can determine each resource's identity, type, and group membership
+     *         status.
      */
 
+    public java.util.List<ListGroupResourcesItem> getResources() {
+        return resources;
+    }
+
+    /**
+     * <p>
+     * An array of resources from which you can determine each resource's identity, type, and group membership status.
+     * </p>
+     * 
+     * @param resources
+     *        An array of resources from which you can determine each resource's identity, type, and group membership
+     *        status.
+     */
+
+    public void setResources(java.util.Collection<ListGroupResourcesItem> resources) {
+        if (resources == null) {
+            this.resources = null;
+            return;
+        }
+
+        this.resources = new java.util.ArrayList<ListGroupResourcesItem>(resources);
+    }
+
+    /**
+     * <p>
+     * An array of resources from which you can determine each resource's identity, type, and group membership status.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setResources(java.util.Collection)} or {@link #withResources(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param resources
+     *        An array of resources from which you can determine each resource's identity, type, and group membership
+     *        status.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListGroupResourcesResult withResources(ListGroupResourcesItem... resources) {
+        if (this.resources == null) {
+            setResources(new java.util.ArrayList<ListGroupResourcesItem>(resources.length));
+        }
+        for (ListGroupResourcesItem ele : resources) {
+            this.resources.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of resources from which you can determine each resource's identity, type, and group membership status.
+     * </p>
+     * 
+     * @param resources
+     *        An array of resources from which you can determine each resource's identity, type, and group membership
+     *        status.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListGroupResourcesResult withResources(java.util.Collection<ListGroupResourcesItem> resources) {
+        setResources(resources);
+        return this;
+    }
+
+    /**
+     * <important>
+     * <p>
+     * <b> <i>Deprecated - don't use this parameter. Use the <code>Resources</code> response field instead.</i> </b>
+     * </p>
+     * </important>
+     * 
+     * @return <p>
+     *         <b> <i>Deprecated - don't use this parameter. Use the <code>Resources</code> response field instead.</i>
+     *         </b>
+     *         </p>
+     */
+    @Deprecated
     public java.util.List<ResourceIdentifier> getResourceIdentifiers() {
         return resourceIdentifiers;
     }
 
     /**
+     * <important>
      * <p>
-     * The ARNs and resource types of resources that are members of the group that you specified.
+     * <b> <i>Deprecated - don't use this parameter. Use the <code>Resources</code> response field instead.</i> </b>
      * </p>
+     * </important>
      * 
      * @param resourceIdentifiers
-     *        The ARNs and resource types of resources that are members of the group that you specified.
+     *        <p>
+     *        <b> <i>Deprecated - don't use this parameter. Use the <code>Resources</code> response field instead.</i>
+     *        </b>
+     *        </p>
      */
-
+    @Deprecated
     public void setResourceIdentifiers(java.util.Collection<ResourceIdentifier> resourceIdentifiers) {
         if (resourceIdentifiers == null) {
             this.resourceIdentifiers = null;
@@ -75,9 +171,11 @@ public class ListGroupResourcesResult extends com.amazonaws.AmazonWebServiceResu
     }
 
     /**
+     * <important>
      * <p>
-     * The ARNs and resource types of resources that are members of the group that you specified.
+     * <b> <i>Deprecated - don't use this parameter. Use the <code>Resources</code> response field instead.</i> </b>
      * </p>
+     * </important>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setResourceIdentifiers(java.util.Collection)} or {@link #withResourceIdentifiers(java.util.Collection)}
@@ -85,10 +183,13 @@ public class ListGroupResourcesResult extends com.amazonaws.AmazonWebServiceResu
      * </p>
      * 
      * @param resourceIdentifiers
-     *        The ARNs and resource types of resources that are members of the group that you specified.
+     *        <p>
+     *        <b> <i>Deprecated - don't use this parameter. Use the <code>Resources</code> response field instead.</i>
+     *        </b>
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public ListGroupResourcesResult withResourceIdentifiers(ResourceIdentifier... resourceIdentifiers) {
         if (this.resourceIdentifiers == null) {
             setResourceIdentifiers(new java.util.ArrayList<ResourceIdentifier>(resourceIdentifiers.length));
@@ -100,15 +201,20 @@ public class ListGroupResourcesResult extends com.amazonaws.AmazonWebServiceResu
     }
 
     /**
+     * <important>
      * <p>
-     * The ARNs and resource types of resources that are members of the group that you specified.
+     * <b> <i>Deprecated - don't use this parameter. Use the <code>Resources</code> response field instead.</i> </b>
      * </p>
+     * </important>
      * 
      * @param resourceIdentifiers
-     *        The ARNs and resource types of resources that are members of the group that you specified.
+     *        <p>
+     *        <b> <i>Deprecated - don't use this parameter. Use the <code>Resources</code> response field instead.</i>
+     *        </b>
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public ListGroupResourcesResult withResourceIdentifiers(java.util.Collection<ResourceIdentifier> resourceIdentifiers) {
         setResourceIdentifiers(resourceIdentifiers);
         return this;
@@ -116,12 +222,16 @@ public class ListGroupResourcesResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The NextToken value to include in a subsequent <code>ListGroupResources</code> request, to get more results.
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      * 
      * @param nextToken
-     *        The NextToken value to include in a subsequent <code>ListGroupResources</code> request, to get more
-     *        results.
+     *        If present, indicates that more output is available than is included in the current response. Use this
+     *        value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the
+     *        next part of the output. You should repeat this until the <code>NextToken</code> response element comes
+     *        back as <code>null</code>.
      */
 
     public void setNextToken(String nextToken) {
@@ -130,11 +240,15 @@ public class ListGroupResourcesResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The NextToken value to include in a subsequent <code>ListGroupResources</code> request, to get more results.
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      * 
-     * @return The NextToken value to include in a subsequent <code>ListGroupResources</code> request, to get more
-     *         results.
+     * @return If present, indicates that more output is available than is included in the current response. Use this
+     *         value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the
+     *         next part of the output. You should repeat this until the <code>NextToken</code> response element comes
+     *         back as <code>null</code>.
      */
 
     public String getNextToken() {
@@ -143,12 +257,16 @@ public class ListGroupResourcesResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The NextToken value to include in a subsequent <code>ListGroupResources</code> request, to get more results.
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      * 
      * @param nextToken
-     *        The NextToken value to include in a subsequent <code>ListGroupResources</code> request, to get more
-     *        results.
+     *        If present, indicates that more output is available than is included in the current response. Use this
+     *        value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the
+     *        next part of the output. You should repeat this until the <code>NextToken</code> response element comes
+     *        back as <code>null</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -159,14 +277,16 @@ public class ListGroupResourcesResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * A list of <code>QueryError</code> objects. Each error is an object that contains <code>ErrorCode</code> and
-     * <code>Message</code> structures. Possible values for <code>ErrorCode</code> are
-     * <code>CLOUDFORMATION_STACK_INACTIVE</code> and <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>.
+     * A list of <code>QueryError</code> objects. Each error contains an <code>ErrorCode</code> and <code>Message</code>
+     * . Possible values for ErrorCode are <code>CLOUDFORMATION_STACK_INACTIVE</code>,
+     * <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>, <code>CLOUDFORMATION_STACK_UNASSUMABLE_ROLE</code> and
+     * <code>RESOURCE_TYPE_NOT_SUPPORTED</code>.
      * </p>
      * 
-     * @return A list of <code>QueryError</code> objects. Each error is an object that contains <code>ErrorCode</code>
-     *         and <code>Message</code> structures. Possible values for <code>ErrorCode</code> are
-     *         <code>CLOUDFORMATION_STACK_INACTIVE</code> and <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>.
+     * @return A list of <code>QueryError</code> objects. Each error contains an <code>ErrorCode</code> and
+     *         <code>Message</code>. Possible values for ErrorCode are <code>CLOUDFORMATION_STACK_INACTIVE</code>,
+     *         <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>, <code>CLOUDFORMATION_STACK_UNASSUMABLE_ROLE</code> and
+     *         <code>RESOURCE_TYPE_NOT_SUPPORTED</code>.
      */
 
     public java.util.List<QueryError> getQueryErrors() {
@@ -175,15 +295,17 @@ public class ListGroupResourcesResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * A list of <code>QueryError</code> objects. Each error is an object that contains <code>ErrorCode</code> and
-     * <code>Message</code> structures. Possible values for <code>ErrorCode</code> are
-     * <code>CLOUDFORMATION_STACK_INACTIVE</code> and <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>.
+     * A list of <code>QueryError</code> objects. Each error contains an <code>ErrorCode</code> and <code>Message</code>
+     * . Possible values for ErrorCode are <code>CLOUDFORMATION_STACK_INACTIVE</code>,
+     * <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>, <code>CLOUDFORMATION_STACK_UNASSUMABLE_ROLE</code> and
+     * <code>RESOURCE_TYPE_NOT_SUPPORTED</code>.
      * </p>
      * 
      * @param queryErrors
-     *        A list of <code>QueryError</code> objects. Each error is an object that contains <code>ErrorCode</code>
-     *        and <code>Message</code> structures. Possible values for <code>ErrorCode</code> are
-     *        <code>CLOUDFORMATION_STACK_INACTIVE</code> and <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>.
+     *        A list of <code>QueryError</code> objects. Each error contains an <code>ErrorCode</code> and
+     *        <code>Message</code>. Possible values for ErrorCode are <code>CLOUDFORMATION_STACK_INACTIVE</code>,
+     *        <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>, <code>CLOUDFORMATION_STACK_UNASSUMABLE_ROLE</code> and
+     *        <code>RESOURCE_TYPE_NOT_SUPPORTED</code>.
      */
 
     public void setQueryErrors(java.util.Collection<QueryError> queryErrors) {
@@ -197,9 +319,10 @@ public class ListGroupResourcesResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * A list of <code>QueryError</code> objects. Each error is an object that contains <code>ErrorCode</code> and
-     * <code>Message</code> structures. Possible values for <code>ErrorCode</code> are
-     * <code>CLOUDFORMATION_STACK_INACTIVE</code> and <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>.
+     * A list of <code>QueryError</code> objects. Each error contains an <code>ErrorCode</code> and <code>Message</code>
+     * . Possible values for ErrorCode are <code>CLOUDFORMATION_STACK_INACTIVE</code>,
+     * <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>, <code>CLOUDFORMATION_STACK_UNASSUMABLE_ROLE</code> and
+     * <code>RESOURCE_TYPE_NOT_SUPPORTED</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -208,9 +331,10 @@ public class ListGroupResourcesResult extends com.amazonaws.AmazonWebServiceResu
      * </p>
      * 
      * @param queryErrors
-     *        A list of <code>QueryError</code> objects. Each error is an object that contains <code>ErrorCode</code>
-     *        and <code>Message</code> structures. Possible values for <code>ErrorCode</code> are
-     *        <code>CLOUDFORMATION_STACK_INACTIVE</code> and <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>.
+     *        A list of <code>QueryError</code> objects. Each error contains an <code>ErrorCode</code> and
+     *        <code>Message</code>. Possible values for ErrorCode are <code>CLOUDFORMATION_STACK_INACTIVE</code>,
+     *        <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>, <code>CLOUDFORMATION_STACK_UNASSUMABLE_ROLE</code> and
+     *        <code>RESOURCE_TYPE_NOT_SUPPORTED</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -226,15 +350,17 @@ public class ListGroupResourcesResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * A list of <code>QueryError</code> objects. Each error is an object that contains <code>ErrorCode</code> and
-     * <code>Message</code> structures. Possible values for <code>ErrorCode</code> are
-     * <code>CLOUDFORMATION_STACK_INACTIVE</code> and <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>.
+     * A list of <code>QueryError</code> objects. Each error contains an <code>ErrorCode</code> and <code>Message</code>
+     * . Possible values for ErrorCode are <code>CLOUDFORMATION_STACK_INACTIVE</code>,
+     * <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>, <code>CLOUDFORMATION_STACK_UNASSUMABLE_ROLE</code> and
+     * <code>RESOURCE_TYPE_NOT_SUPPORTED</code>.
      * </p>
      * 
      * @param queryErrors
-     *        A list of <code>QueryError</code> objects. Each error is an object that contains <code>ErrorCode</code>
-     *        and <code>Message</code> structures. Possible values for <code>ErrorCode</code> are
-     *        <code>CLOUDFORMATION_STACK_INACTIVE</code> and <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>.
+     *        A list of <code>QueryError</code> objects. Each error contains an <code>ErrorCode</code> and
+     *        <code>Message</code>. Possible values for ErrorCode are <code>CLOUDFORMATION_STACK_INACTIVE</code>,
+     *        <code>CLOUDFORMATION_STACK_NOT_EXISTING</code>, <code>CLOUDFORMATION_STACK_UNASSUMABLE_ROLE</code> and
+     *        <code>RESOURCE_TYPE_NOT_SUPPORTED</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -255,6 +381,8 @@ public class ListGroupResourcesResult extends com.amazonaws.AmazonWebServiceResu
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getResources() != null)
+            sb.append("Resources: ").append(getResources()).append(",");
         if (getResourceIdentifiers() != null)
             sb.append("ResourceIdentifiers: ").append(getResourceIdentifiers()).append(",");
         if (getNextToken() != null)
@@ -275,6 +403,10 @@ public class ListGroupResourcesResult extends com.amazonaws.AmazonWebServiceResu
         if (obj instanceof ListGroupResourcesResult == false)
             return false;
         ListGroupResourcesResult other = (ListGroupResourcesResult) obj;
+        if (other.getResources() == null ^ this.getResources() == null)
+            return false;
+        if (other.getResources() != null && other.getResources().equals(this.getResources()) == false)
+            return false;
         if (other.getResourceIdentifiers() == null ^ this.getResourceIdentifiers() == null)
             return false;
         if (other.getResourceIdentifiers() != null && other.getResourceIdentifiers().equals(this.getResourceIdentifiers()) == false)
@@ -295,6 +427,7 @@ public class ListGroupResourcesResult extends com.amazonaws.AmazonWebServiceResu
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getResources() == null) ? 0 : getResources().hashCode());
         hashCode = prime * hashCode + ((getResourceIdentifiers() == null) ? 0 : getResourceIdentifiers().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getQueryErrors() == null) ? 0 : getQueryErrors().hashCode());

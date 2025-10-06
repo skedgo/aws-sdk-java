@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,58 @@ public class AbstractAWSAppSyncAsync extends AbstractAWSAppSync implements AWSAp
     }
 
     @Override
+    public java.util.concurrent.Future<AssociateApiResult> associateApiAsync(AssociateApiRequest request) {
+
+        return associateApiAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateApiResult> associateApiAsync(AssociateApiRequest request,
+            com.amazonaws.handlers.AsyncHandler<AssociateApiRequest, AssociateApiResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateMergedGraphqlApiResult> associateMergedGraphqlApiAsync(AssociateMergedGraphqlApiRequest request) {
+
+        return associateMergedGraphqlApiAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateMergedGraphqlApiResult> associateMergedGraphqlApiAsync(AssociateMergedGraphqlApiRequest request,
+            com.amazonaws.handlers.AsyncHandler<AssociateMergedGraphqlApiRequest, AssociateMergedGraphqlApiResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateSourceGraphqlApiResult> associateSourceGraphqlApiAsync(AssociateSourceGraphqlApiRequest request) {
+
+        return associateSourceGraphqlApiAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateSourceGraphqlApiResult> associateSourceGraphqlApiAsync(AssociateSourceGraphqlApiRequest request,
+            com.amazonaws.handlers.AsyncHandler<AssociateSourceGraphqlApiRequest, AssociateSourceGraphqlApiResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateApiCacheResult> createApiCacheAsync(CreateApiCacheRequest request) {
+
+        return createApiCacheAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateApiCacheResult> createApiCacheAsync(CreateApiCacheRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateApiCacheRequest, CreateApiCacheResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateApiKeyResult> createApiKeyAsync(CreateApiKeyRequest request) {
 
         return createApiKeyAsync(request, null);
@@ -49,6 +101,19 @@ public class AbstractAWSAppSyncAsync extends AbstractAWSAppSync implements AWSAp
     @Override
     public java.util.concurrent.Future<CreateDataSourceResult> createDataSourceAsync(CreateDataSourceRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateDataSourceRequest, CreateDataSourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDomainNameResult> createDomainNameAsync(CreateDomainNameRequest request) {
+
+        return createDomainNameAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDomainNameResult> createDomainNameAsync(CreateDomainNameRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateDomainNameRequest, CreateDomainNameResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -106,6 +171,19 @@ public class AbstractAWSAppSyncAsync extends AbstractAWSAppSync implements AWSAp
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteApiCacheResult> deleteApiCacheAsync(DeleteApiCacheRequest request) {
+
+        return deleteApiCacheAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteApiCacheResult> deleteApiCacheAsync(DeleteApiCacheRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteApiCacheRequest, DeleteApiCacheResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteApiKeyResult> deleteApiKeyAsync(DeleteApiKeyRequest request) {
 
         return deleteApiKeyAsync(request, null);
@@ -127,6 +205,19 @@ public class AbstractAWSAppSyncAsync extends AbstractAWSAppSync implements AWSAp
     @Override
     public java.util.concurrent.Future<DeleteDataSourceResult> deleteDataSourceAsync(DeleteDataSourceRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteDataSourceRequest, DeleteDataSourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteDomainNameResult> deleteDomainNameAsync(DeleteDomainNameRequest request) {
+
+        return deleteDomainNameAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteDomainNameResult> deleteDomainNameAsync(DeleteDomainNameRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteDomainNameRequest, DeleteDomainNameResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -184,6 +275,110 @@ public class AbstractAWSAppSyncAsync extends AbstractAWSAppSync implements AWSAp
     }
 
     @Override
+    public java.util.concurrent.Future<DisassociateApiResult> disassociateApiAsync(DisassociateApiRequest request) {
+
+        return disassociateApiAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateApiResult> disassociateApiAsync(DisassociateApiRequest request,
+            com.amazonaws.handlers.AsyncHandler<DisassociateApiRequest, DisassociateApiResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateMergedGraphqlApiResult> disassociateMergedGraphqlApiAsync(DisassociateMergedGraphqlApiRequest request) {
+
+        return disassociateMergedGraphqlApiAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateMergedGraphqlApiResult> disassociateMergedGraphqlApiAsync(DisassociateMergedGraphqlApiRequest request,
+            com.amazonaws.handlers.AsyncHandler<DisassociateMergedGraphqlApiRequest, DisassociateMergedGraphqlApiResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateSourceGraphqlApiResult> disassociateSourceGraphqlApiAsync(DisassociateSourceGraphqlApiRequest request) {
+
+        return disassociateSourceGraphqlApiAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateSourceGraphqlApiResult> disassociateSourceGraphqlApiAsync(DisassociateSourceGraphqlApiRequest request,
+            com.amazonaws.handlers.AsyncHandler<DisassociateSourceGraphqlApiRequest, DisassociateSourceGraphqlApiResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<EvaluateCodeResult> evaluateCodeAsync(EvaluateCodeRequest request) {
+
+        return evaluateCodeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<EvaluateCodeResult> evaluateCodeAsync(EvaluateCodeRequest request,
+            com.amazonaws.handlers.AsyncHandler<EvaluateCodeRequest, EvaluateCodeResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<EvaluateMappingTemplateResult> evaluateMappingTemplateAsync(EvaluateMappingTemplateRequest request) {
+
+        return evaluateMappingTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<EvaluateMappingTemplateResult> evaluateMappingTemplateAsync(EvaluateMappingTemplateRequest request,
+            com.amazonaws.handlers.AsyncHandler<EvaluateMappingTemplateRequest, EvaluateMappingTemplateResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<FlushApiCacheResult> flushApiCacheAsync(FlushApiCacheRequest request) {
+
+        return flushApiCacheAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<FlushApiCacheResult> flushApiCacheAsync(FlushApiCacheRequest request,
+            com.amazonaws.handlers.AsyncHandler<FlushApiCacheRequest, FlushApiCacheResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetApiAssociationResult> getApiAssociationAsync(GetApiAssociationRequest request) {
+
+        return getApiAssociationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetApiAssociationResult> getApiAssociationAsync(GetApiAssociationRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetApiAssociationRequest, GetApiAssociationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetApiCacheResult> getApiCacheAsync(GetApiCacheRequest request) {
+
+        return getApiCacheAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetApiCacheResult> getApiCacheAsync(GetApiCacheRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetApiCacheRequest, GetApiCacheResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetDataSourceResult> getDataSourceAsync(GetDataSourceRequest request) {
 
         return getDataSourceAsync(request, null);
@@ -192,6 +387,32 @@ public class AbstractAWSAppSyncAsync extends AbstractAWSAppSync implements AWSAp
     @Override
     public java.util.concurrent.Future<GetDataSourceResult> getDataSourceAsync(GetDataSourceRequest request,
             com.amazonaws.handlers.AsyncHandler<GetDataSourceRequest, GetDataSourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDataSourceIntrospectionResult> getDataSourceIntrospectionAsync(GetDataSourceIntrospectionRequest request) {
+
+        return getDataSourceIntrospectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDataSourceIntrospectionResult> getDataSourceIntrospectionAsync(GetDataSourceIntrospectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetDataSourceIntrospectionRequest, GetDataSourceIntrospectionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDomainNameResult> getDomainNameAsync(GetDomainNameRequest request) {
+
+        return getDomainNameAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDomainNameResult> getDomainNameAsync(GetDomainNameRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetDomainNameRequest, GetDomainNameResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -218,6 +439,21 @@ public class AbstractAWSAppSyncAsync extends AbstractAWSAppSync implements AWSAp
     @Override
     public java.util.concurrent.Future<GetGraphqlApiResult> getGraphqlApiAsync(GetGraphqlApiRequest request,
             com.amazonaws.handlers.AsyncHandler<GetGraphqlApiRequest, GetGraphqlApiResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetGraphqlApiEnvironmentVariablesResult> getGraphqlApiEnvironmentVariablesAsync(
+            GetGraphqlApiEnvironmentVariablesRequest request) {
+
+        return getGraphqlApiEnvironmentVariablesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetGraphqlApiEnvironmentVariablesResult> getGraphqlApiEnvironmentVariablesAsync(
+            GetGraphqlApiEnvironmentVariablesRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetGraphqlApiEnvironmentVariablesRequest, GetGraphqlApiEnvironmentVariablesResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -262,6 +498,19 @@ public class AbstractAWSAppSyncAsync extends AbstractAWSAppSync implements AWSAp
     }
 
     @Override
+    public java.util.concurrent.Future<GetSourceApiAssociationResult> getSourceApiAssociationAsync(GetSourceApiAssociationRequest request) {
+
+        return getSourceApiAssociationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSourceApiAssociationResult> getSourceApiAssociationAsync(GetSourceApiAssociationRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetSourceApiAssociationRequest, GetSourceApiAssociationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetTypeResult> getTypeAsync(GetTypeRequest request) {
 
         return getTypeAsync(request, null);
@@ -296,6 +545,19 @@ public class AbstractAWSAppSyncAsync extends AbstractAWSAppSync implements AWSAp
     @Override
     public java.util.concurrent.Future<ListDataSourcesResult> listDataSourcesAsync(ListDataSourcesRequest request,
             com.amazonaws.handlers.AsyncHandler<ListDataSourcesRequest, ListDataSourcesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDomainNamesResult> listDomainNamesAsync(ListDomainNamesRequest request) {
+
+        return listDomainNamesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDomainNamesResult> listDomainNamesAsync(ListDomainNamesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListDomainNamesRequest, ListDomainNamesResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -353,6 +615,19 @@ public class AbstractAWSAppSyncAsync extends AbstractAWSAppSync implements AWSAp
     }
 
     @Override
+    public java.util.concurrent.Future<ListSourceApiAssociationsResult> listSourceApiAssociationsAsync(ListSourceApiAssociationsRequest request) {
+
+        return listSourceApiAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSourceApiAssociationsResult> listSourceApiAssociationsAsync(ListSourceApiAssociationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListSourceApiAssociationsRequest, ListSourceApiAssociationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
 
         return listTagsForResourceAsync(request, null);
@@ -379,6 +654,47 @@ public class AbstractAWSAppSyncAsync extends AbstractAWSAppSync implements AWSAp
     }
 
     @Override
+    public java.util.concurrent.Future<ListTypesByAssociationResult> listTypesByAssociationAsync(ListTypesByAssociationRequest request) {
+
+        return listTypesByAssociationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTypesByAssociationResult> listTypesByAssociationAsync(ListTypesByAssociationRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListTypesByAssociationRequest, ListTypesByAssociationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutGraphqlApiEnvironmentVariablesResult> putGraphqlApiEnvironmentVariablesAsync(
+            PutGraphqlApiEnvironmentVariablesRequest request) {
+
+        return putGraphqlApiEnvironmentVariablesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutGraphqlApiEnvironmentVariablesResult> putGraphqlApiEnvironmentVariablesAsync(
+            PutGraphqlApiEnvironmentVariablesRequest request,
+            com.amazonaws.handlers.AsyncHandler<PutGraphqlApiEnvironmentVariablesRequest, PutGraphqlApiEnvironmentVariablesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartDataSourceIntrospectionResult> startDataSourceIntrospectionAsync(StartDataSourceIntrospectionRequest request) {
+
+        return startDataSourceIntrospectionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartDataSourceIntrospectionResult> startDataSourceIntrospectionAsync(StartDataSourceIntrospectionRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartDataSourceIntrospectionRequest, StartDataSourceIntrospectionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<StartSchemaCreationResult> startSchemaCreationAsync(StartSchemaCreationRequest request) {
 
         return startSchemaCreationAsync(request, null);
@@ -387,6 +703,19 @@ public class AbstractAWSAppSyncAsync extends AbstractAWSAppSync implements AWSAp
     @Override
     public java.util.concurrent.Future<StartSchemaCreationResult> startSchemaCreationAsync(StartSchemaCreationRequest request,
             com.amazonaws.handlers.AsyncHandler<StartSchemaCreationRequest, StartSchemaCreationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartSchemaMergeResult> startSchemaMergeAsync(StartSchemaMergeRequest request) {
+
+        return startSchemaMergeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartSchemaMergeResult> startSchemaMergeAsync(StartSchemaMergeRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartSchemaMergeRequest, StartSchemaMergeResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -418,6 +747,19 @@ public class AbstractAWSAppSyncAsync extends AbstractAWSAppSync implements AWSAp
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateApiCacheResult> updateApiCacheAsync(UpdateApiCacheRequest request) {
+
+        return updateApiCacheAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateApiCacheResult> updateApiCacheAsync(UpdateApiCacheRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateApiCacheRequest, UpdateApiCacheResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateApiKeyResult> updateApiKeyAsync(UpdateApiKeyRequest request) {
 
         return updateApiKeyAsync(request, null);
@@ -439,6 +781,19 @@ public class AbstractAWSAppSyncAsync extends AbstractAWSAppSync implements AWSAp
     @Override
     public java.util.concurrent.Future<UpdateDataSourceResult> updateDataSourceAsync(UpdateDataSourceRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateDataSourceRequest, UpdateDataSourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDomainNameResult> updateDomainNameAsync(UpdateDomainNameRequest request) {
+
+        return updateDomainNameAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDomainNameResult> updateDomainNameAsync(UpdateDomainNameRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateDomainNameRequest, UpdateDomainNameResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -478,6 +833,19 @@ public class AbstractAWSAppSyncAsync extends AbstractAWSAppSync implements AWSAp
     @Override
     public java.util.concurrent.Future<UpdateResolverResult> updateResolverAsync(UpdateResolverRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateResolverRequest, UpdateResolverResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSourceApiAssociationResult> updateSourceApiAssociationAsync(UpdateSourceApiAssociationRequest request) {
+
+        return updateSourceApiAssociationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSourceApiAssociationResult> updateSourceApiAssociationAsync(UpdateSourceApiAssociationRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateSourceApiAssociationRequest, UpdateSourceApiAssociationResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

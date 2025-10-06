@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
  */
 package com.amazonaws.services.s3.transfer.internal;
 
+import com.amazonaws.SdkClientException;
 import com.amazonaws.annotation.SdkInternalApi;
 import com.amazonaws.services.s3.internal.FileLocks;
 import com.amazonaws.services.s3.transfer.Transfer;
@@ -27,16 +28,20 @@ import java.util.concurrent.Future;
  */
 @SdkInternalApi
 public class CompleteMultipartDownload implements Callable<File> {
+    
     private final List<Future<Long>> partFiles;
     private final File destinationFile;
     private final DownloadImpl download;
     private Integer currentPartNumber;
+    private final int expectedPartCount;
 
-    public CompleteMultipartDownload(List<Future<Long>> files, File destinationFile, DownloadImpl download, Integer currentPartNumber) {
+    public CompleteMultipartDownload(List<Future<Long>> files, File destinationFile, DownloadImpl download,
+                                   Integer currentPartNumber, int expectedPartCount) {
         this.partFiles = files;
         this.destinationFile = destinationFile;
         this.download = download;
         this.currentPartNumber = currentPartNumber;
+        this.expectedPartCount = expectedPartCount;
     }
 
     @Override
@@ -47,11 +52,40 @@ public class CompleteMultipartDownload implements Callable<File> {
                 download.updatePersistableTransfer(currentPartNumber++, filePosition);
             }
 
+            validatePartCount();
+
             download.setState(Transfer.TransferState.Completed);
+        } catch (Exception exception) {
+            cleanUpAfterException();
+            throw new SdkClientException("Unable to complete multipart download. Individual part download failed.", exception);
         } finally {
             FileLocks.unlock(destinationFile);
         }
 
         return destinationFile;
     }
+
+    private void cleanUpAfterException()  {
+        for (Future<Long> file : partFiles) {
+            file.cancel(false);
+        }
+        download.setState(Transfer.TransferState.Failed);
+    }
+
+    /**
+     * Validates that the number of part GET requests sent matches the expected part count.
+     * This validation ensures data integrity and completeness of multipart downloads.
+     */
+    private void validatePartCount() throws SdkClientException {
+
+        int actualPartCount = partFiles.size();
+
+        if (actualPartCount != expectedPartCount) {
+            String errorMessage = String.format("The number of actual downloaded parts (%d) does not match " +
+                    "the expected parts (%d)", actualPartCount, expectedPartCount);
+            throw new SdkClientException(errorMessage);
+        }
+    }
+
+
 }

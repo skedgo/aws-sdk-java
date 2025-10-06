@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -86,7 +86,9 @@ public class InstanceGroupJsonUnmarshaller implements Unmarshaller<InstanceGroup
                 }
                 if (context.testExpression("Configurations", targetDepth)) {
                     context.nextToken();
-                    instanceGroup.setConfigurations(new ListUnmarshaller<Configuration>(ConfigurationJsonUnmarshaller.getInstance()).unmarshall(context));
+                    instanceGroup.setConfigurations(new ListUnmarshaller<Configuration>(ConfigurationJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("ConfigurationsVersion", targetDepth)) {
                     context.nextToken();
@@ -95,7 +97,8 @@ public class InstanceGroupJsonUnmarshaller implements Unmarshaller<InstanceGroup
                 if (context.testExpression("LastSuccessfullyAppliedConfigurations", targetDepth)) {
                     context.nextToken();
                     instanceGroup.setLastSuccessfullyAppliedConfigurations(new ListUnmarshaller<Configuration>(ConfigurationJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("LastSuccessfullyAppliedConfigurationsVersion", targetDepth)) {
                     context.nextToken();
@@ -103,7 +106,9 @@ public class InstanceGroupJsonUnmarshaller implements Unmarshaller<InstanceGroup
                 }
                 if (context.testExpression("EbsBlockDevices", targetDepth)) {
                     context.nextToken();
-                    instanceGroup.setEbsBlockDevices(new ListUnmarshaller<EbsBlockDevice>(EbsBlockDeviceJsonUnmarshaller.getInstance()).unmarshall(context));
+                    instanceGroup.setEbsBlockDevices(new ListUnmarshaller<EbsBlockDevice>(EbsBlockDeviceJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("EbsOptimized", targetDepth)) {
                     context.nextToken();
@@ -116,6 +121,10 @@ public class InstanceGroupJsonUnmarshaller implements Unmarshaller<InstanceGroup
                 if (context.testExpression("AutoScalingPolicy", targetDepth)) {
                     context.nextToken();
                     instanceGroup.setAutoScalingPolicy(AutoScalingPolicyDescriptionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("CustomAmiId", targetDepth)) {
+                    context.nextToken();
+                    instanceGroup.setCustomAmiId(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

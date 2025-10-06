@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about an AWS Direct Connect connection.
+ * Information about an Direct Connect connection.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/Connection" target="_top">AWS API
@@ -30,7 +30,7 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the connection.
+     * The ID of the Amazon Web Services account that owns the connection.
      * </p>
      */
     private String ownerAccount;
@@ -104,7 +104,7 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
     private String connectionState;
     /**
      * <p>
-     * The AWS Region where the connection is located.
+     * The Amazon Web Services Region where the connection is located.
      * </p>
      */
     private String region;
@@ -128,7 +128,7 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
     private Integer vlan;
     /**
      * <p>
-     * The name of the AWS Direct Connect service provider associated with the connection.
+     * The name of the Direct Connect service provider associated with the connection.
      * </p>
      */
     private String partnerName;
@@ -152,16 +152,23 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
     private String awsDevice;
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      */
     private Boolean jumboFrameCapable;
     /**
      * <p>
-     * The Direct Connect endpoint on which the physical connection terminates.
+     * The Direct Connect endpoint that terminates the physical connection.
      * </p>
      */
     private String awsDeviceV2;
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     */
+    private String awsLogicalDeviceId;
     /**
      * <p>
      * Indicates whether the connection supports a secondary BGP peer in the same address family (IPv4/IPv6).
@@ -170,18 +177,55 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
     private String hasLogicalRedundancy;
     /**
      * <p>
-     * Any tags assigned to the connection.
+     * The tags associated with the connection.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * The name of the service provider associated with the connection.
+     * </p>
+     */
+    private String providerName;
+    /**
+     * <p>
+     * Indicates whether the connection supports MAC Security (MACsec).
+     * </p>
+     */
+    private Boolean macSecCapable;
+    /**
+     * <p>
+     * The MAC Security (MACsec) port link status of the connection.
+     * </p>
+     * <p>
+     * The valid values are <code>Encryption Up</code>, which means that there is an active Connection Key Name, or
+     * <code>Encryption Down</code>.
+     * </p>
+     */
+    private String portEncryptionStatus;
+    /**
+     * <p>
+     * The MAC Security (MACsec) connection encryption mode.
+     * </p>
+     * <p>
+     * The valid values are <code>no_encrypt</code>, <code>should_encrypt</code>, and <code>must_encrypt</code>.
+     * </p>
+     */
+    private String encryptionMode;
+    /**
+     * <p>
+     * The MAC Security (MACsec) security keys associated with the connection.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<MacSecKey> macSecKeys;
 
     /**
      * <p>
-     * The ID of the AWS account that owns the connection.
+     * The ID of the Amazon Web Services account that owns the connection.
      * </p>
      * 
      * @param ownerAccount
-     *        The ID of the AWS account that owns the connection.
+     *        The ID of the Amazon Web Services account that owns the connection.
      */
 
     public void setOwnerAccount(String ownerAccount) {
@@ -190,10 +234,10 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the connection.
+     * The ID of the Amazon Web Services account that owns the connection.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the connection.
+     * @return The ID of the Amazon Web Services account that owns the connection.
      */
 
     public String getOwnerAccount() {
@@ -202,11 +246,11 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the connection.
+     * The ID of the Amazon Web Services account that owns the connection.
      * </p>
      * 
      * @param ownerAccount
-     *        The ID of the AWS account that owns the connection.
+     *        The ID of the Amazon Web Services account that owns the connection.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -870,11 +914,11 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region where the connection is located.
+     * The Amazon Web Services Region where the connection is located.
      * </p>
      * 
      * @param region
-     *        The AWS Region where the connection is located.
+     *        The Amazon Web Services Region where the connection is located.
      */
 
     public void setRegion(String region) {
@@ -883,10 +927,10 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region where the connection is located.
+     * The Amazon Web Services Region where the connection is located.
      * </p>
      * 
-     * @return The AWS Region where the connection is located.
+     * @return The Amazon Web Services Region where the connection is located.
      */
 
     public String getRegion() {
@@ -895,11 +939,11 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Region where the connection is located.
+     * The Amazon Web Services Region where the connection is located.
      * </p>
      * 
      * @param region
-     *        The AWS Region where the connection is located.
+     *        The Amazon Web Services Region where the connection is located.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1030,11 +1074,11 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the AWS Direct Connect service provider associated with the connection.
+     * The name of the Direct Connect service provider associated with the connection.
      * </p>
      * 
      * @param partnerName
-     *        The name of the AWS Direct Connect service provider associated with the connection.
+     *        The name of the Direct Connect service provider associated with the connection.
      */
 
     public void setPartnerName(String partnerName) {
@@ -1043,10 +1087,10 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the AWS Direct Connect service provider associated with the connection.
+     * The name of the Direct Connect service provider associated with the connection.
      * </p>
      * 
-     * @return The name of the AWS Direct Connect service provider associated with the connection.
+     * @return The name of the Direct Connect service provider associated with the connection.
      */
 
     public String getPartnerName() {
@@ -1055,11 +1099,11 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the AWS Direct Connect service provider associated with the connection.
+     * The name of the Direct Connect service provider associated with the connection.
      * </p>
      * 
      * @param partnerName
-     *        The name of the AWS Direct Connect service provider associated with the connection.
+     *        The name of the Direct Connect service provider associated with the connection.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1190,11 +1234,11 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      * 
      * @param jumboFrameCapable
-     *        Indicates whether jumbo frames (9001 MTU) are supported.
+     *        Indicates whether jumbo frames are supported.
      */
 
     public void setJumboFrameCapable(Boolean jumboFrameCapable) {
@@ -1203,10 +1247,10 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      * 
-     * @return Indicates whether jumbo frames (9001 MTU) are supported.
+     * @return Indicates whether jumbo frames are supported.
      */
 
     public Boolean getJumboFrameCapable() {
@@ -1215,11 +1259,11 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      * 
      * @param jumboFrameCapable
-     *        Indicates whether jumbo frames (9001 MTU) are supported.
+     *        Indicates whether jumbo frames are supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1230,10 +1274,10 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Indicates whether jumbo frames (9001 MTU) are supported.
+     * Indicates whether jumbo frames are supported.
      * </p>
      * 
-     * @return Indicates whether jumbo frames (9001 MTU) are supported.
+     * @return Indicates whether jumbo frames are supported.
      */
 
     public Boolean isJumboFrameCapable() {
@@ -1242,11 +1286,11 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Direct Connect endpoint on which the physical connection terminates.
+     * The Direct Connect endpoint that terminates the physical connection.
      * </p>
      * 
      * @param awsDeviceV2
-     *        The Direct Connect endpoint on which the physical connection terminates.
+     *        The Direct Connect endpoint that terminates the physical connection.
      */
 
     public void setAwsDeviceV2(String awsDeviceV2) {
@@ -1255,10 +1299,10 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Direct Connect endpoint on which the physical connection terminates.
+     * The Direct Connect endpoint that terminates the physical connection.
      * </p>
      * 
-     * @return The Direct Connect endpoint on which the physical connection terminates.
+     * @return The Direct Connect endpoint that terminates the physical connection.
      */
 
     public String getAwsDeviceV2() {
@@ -1267,16 +1311,62 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Direct Connect endpoint on which the physical connection terminates.
+     * The Direct Connect endpoint that terminates the physical connection.
      * </p>
      * 
      * @param awsDeviceV2
-     *        The Direct Connect endpoint on which the physical connection terminates.
+     *        The Direct Connect endpoint that terminates the physical connection.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Connection withAwsDeviceV2(String awsDeviceV2) {
         setAwsDeviceV2(awsDeviceV2);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     * 
+     * @param awsLogicalDeviceId
+     *        The Direct Connect endpoint that terminates the logical connection. This device might be different than
+     *        the device that terminates the physical connection.
+     */
+
+    public void setAwsLogicalDeviceId(String awsLogicalDeviceId) {
+        this.awsLogicalDeviceId = awsLogicalDeviceId;
+    }
+
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     * 
+     * @return The Direct Connect endpoint that terminates the logical connection. This device might be different than
+     *         the device that terminates the physical connection.
+     */
+
+    public String getAwsLogicalDeviceId() {
+        return this.awsLogicalDeviceId;
+    }
+
+    /**
+     * <p>
+     * The Direct Connect endpoint that terminates the logical connection. This device might be different than the
+     * device that terminates the physical connection.
+     * </p>
+     * 
+     * @param awsLogicalDeviceId
+     *        The Direct Connect endpoint that terminates the logical connection. This device might be different than
+     *        the device that terminates the physical connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Connection withAwsLogicalDeviceId(String awsLogicalDeviceId) {
+        setAwsLogicalDeviceId(awsLogicalDeviceId);
         return this;
     }
 
@@ -1355,10 +1445,10 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Any tags assigned to the connection.
+     * The tags associated with the connection.
      * </p>
      * 
-     * @return Any tags assigned to the connection.
+     * @return The tags associated with the connection.
      */
 
     public java.util.List<Tag> getTags() {
@@ -1370,11 +1460,11 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Any tags assigned to the connection.
+     * The tags associated with the connection.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the connection.
+     *        The tags associated with the connection.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -1388,7 +1478,7 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Any tags assigned to the connection.
+     * The tags associated with the connection.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1397,7 +1487,7 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the connection.
+     *        The tags associated with the connection.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1413,16 +1503,297 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Any tags assigned to the connection.
+     * The tags associated with the connection.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the connection.
+     *        The tags associated with the connection.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Connection withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the service provider associated with the connection.
+     * </p>
+     * 
+     * @param providerName
+     *        The name of the service provider associated with the connection.
+     */
+
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
+    }
+
+    /**
+     * <p>
+     * The name of the service provider associated with the connection.
+     * </p>
+     * 
+     * @return The name of the service provider associated with the connection.
+     */
+
+    public String getProviderName() {
+        return this.providerName;
+    }
+
+    /**
+     * <p>
+     * The name of the service provider associated with the connection.
+     * </p>
+     * 
+     * @param providerName
+     *        The name of the service provider associated with the connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Connection withProviderName(String providerName) {
+        setProviderName(providerName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the connection supports MAC Security (MACsec).
+     * </p>
+     * 
+     * @param macSecCapable
+     *        Indicates whether the connection supports MAC Security (MACsec).
+     */
+
+    public void setMacSecCapable(Boolean macSecCapable) {
+        this.macSecCapable = macSecCapable;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the connection supports MAC Security (MACsec).
+     * </p>
+     * 
+     * @return Indicates whether the connection supports MAC Security (MACsec).
+     */
+
+    public Boolean getMacSecCapable() {
+        return this.macSecCapable;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the connection supports MAC Security (MACsec).
+     * </p>
+     * 
+     * @param macSecCapable
+     *        Indicates whether the connection supports MAC Security (MACsec).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Connection withMacSecCapable(Boolean macSecCapable) {
+        setMacSecCapable(macSecCapable);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the connection supports MAC Security (MACsec).
+     * </p>
+     * 
+     * @return Indicates whether the connection supports MAC Security (MACsec).
+     */
+
+    public Boolean isMacSecCapable() {
+        return this.macSecCapable;
+    }
+
+    /**
+     * <p>
+     * The MAC Security (MACsec) port link status of the connection.
+     * </p>
+     * <p>
+     * The valid values are <code>Encryption Up</code>, which means that there is an active Connection Key Name, or
+     * <code>Encryption Down</code>.
+     * </p>
+     * 
+     * @param portEncryptionStatus
+     *        The MAC Security (MACsec) port link status of the connection.</p>
+     *        <p>
+     *        The valid values are <code>Encryption Up</code>, which means that there is an active Connection Key Name,
+     *        or <code>Encryption Down</code>.
+     */
+
+    public void setPortEncryptionStatus(String portEncryptionStatus) {
+        this.portEncryptionStatus = portEncryptionStatus;
+    }
+
+    /**
+     * <p>
+     * The MAC Security (MACsec) port link status of the connection.
+     * </p>
+     * <p>
+     * The valid values are <code>Encryption Up</code>, which means that there is an active Connection Key Name, or
+     * <code>Encryption Down</code>.
+     * </p>
+     * 
+     * @return The MAC Security (MACsec) port link status of the connection.</p>
+     *         <p>
+     *         The valid values are <code>Encryption Up</code>, which means that there is an active Connection Key Name,
+     *         or <code>Encryption Down</code>.
+     */
+
+    public String getPortEncryptionStatus() {
+        return this.portEncryptionStatus;
+    }
+
+    /**
+     * <p>
+     * The MAC Security (MACsec) port link status of the connection.
+     * </p>
+     * <p>
+     * The valid values are <code>Encryption Up</code>, which means that there is an active Connection Key Name, or
+     * <code>Encryption Down</code>.
+     * </p>
+     * 
+     * @param portEncryptionStatus
+     *        The MAC Security (MACsec) port link status of the connection.</p>
+     *        <p>
+     *        The valid values are <code>Encryption Up</code>, which means that there is an active Connection Key Name,
+     *        or <code>Encryption Down</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Connection withPortEncryptionStatus(String portEncryptionStatus) {
+        setPortEncryptionStatus(portEncryptionStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The MAC Security (MACsec) connection encryption mode.
+     * </p>
+     * <p>
+     * The valid values are <code>no_encrypt</code>, <code>should_encrypt</code>, and <code>must_encrypt</code>.
+     * </p>
+     * 
+     * @param encryptionMode
+     *        The MAC Security (MACsec) connection encryption mode.</p>
+     *        <p>
+     *        The valid values are <code>no_encrypt</code>, <code>should_encrypt</code>, and <code>must_encrypt</code>.
+     */
+
+    public void setEncryptionMode(String encryptionMode) {
+        this.encryptionMode = encryptionMode;
+    }
+
+    /**
+     * <p>
+     * The MAC Security (MACsec) connection encryption mode.
+     * </p>
+     * <p>
+     * The valid values are <code>no_encrypt</code>, <code>should_encrypt</code>, and <code>must_encrypt</code>.
+     * </p>
+     * 
+     * @return The MAC Security (MACsec) connection encryption mode.</p>
+     *         <p>
+     *         The valid values are <code>no_encrypt</code>, <code>should_encrypt</code>, and <code>must_encrypt</code>.
+     */
+
+    public String getEncryptionMode() {
+        return this.encryptionMode;
+    }
+
+    /**
+     * <p>
+     * The MAC Security (MACsec) connection encryption mode.
+     * </p>
+     * <p>
+     * The valid values are <code>no_encrypt</code>, <code>should_encrypt</code>, and <code>must_encrypt</code>.
+     * </p>
+     * 
+     * @param encryptionMode
+     *        The MAC Security (MACsec) connection encryption mode.</p>
+     *        <p>
+     *        The valid values are <code>no_encrypt</code>, <code>should_encrypt</code>, and <code>must_encrypt</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Connection withEncryptionMode(String encryptionMode) {
+        setEncryptionMode(encryptionMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The MAC Security (MACsec) security keys associated with the connection.
+     * </p>
+     * 
+     * @return The MAC Security (MACsec) security keys associated with the connection.
+     */
+
+    public java.util.List<MacSecKey> getMacSecKeys() {
+        if (macSecKeys == null) {
+            macSecKeys = new com.amazonaws.internal.SdkInternalList<MacSecKey>();
+        }
+        return macSecKeys;
+    }
+
+    /**
+     * <p>
+     * The MAC Security (MACsec) security keys associated with the connection.
+     * </p>
+     * 
+     * @param macSecKeys
+     *        The MAC Security (MACsec) security keys associated with the connection.
+     */
+
+    public void setMacSecKeys(java.util.Collection<MacSecKey> macSecKeys) {
+        if (macSecKeys == null) {
+            this.macSecKeys = null;
+            return;
+        }
+
+        this.macSecKeys = new com.amazonaws.internal.SdkInternalList<MacSecKey>(macSecKeys);
+    }
+
+    /**
+     * <p>
+     * The MAC Security (MACsec) security keys associated with the connection.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setMacSecKeys(java.util.Collection)} or {@link #withMacSecKeys(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param macSecKeys
+     *        The MAC Security (MACsec) security keys associated with the connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Connection withMacSecKeys(MacSecKey... macSecKeys) {
+        if (this.macSecKeys == null) {
+            setMacSecKeys(new com.amazonaws.internal.SdkInternalList<MacSecKey>(macSecKeys.length));
+        }
+        for (MacSecKey ele : macSecKeys) {
+            this.macSecKeys.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The MAC Security (MACsec) security keys associated with the connection.
+     * </p>
+     * 
+     * @param macSecKeys
+     *        The MAC Security (MACsec) security keys associated with the connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Connection withMacSecKeys(java.util.Collection<MacSecKey> macSecKeys) {
+        setMacSecKeys(macSecKeys);
         return this;
     }
 
@@ -1466,10 +1837,22 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
             sb.append("JumboFrameCapable: ").append(getJumboFrameCapable()).append(",");
         if (getAwsDeviceV2() != null)
             sb.append("AwsDeviceV2: ").append(getAwsDeviceV2()).append(",");
+        if (getAwsLogicalDeviceId() != null)
+            sb.append("AwsLogicalDeviceId: ").append(getAwsLogicalDeviceId()).append(",");
         if (getHasLogicalRedundancy() != null)
             sb.append("HasLogicalRedundancy: ").append(getHasLogicalRedundancy()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getProviderName() != null)
+            sb.append("ProviderName: ").append(getProviderName()).append(",");
+        if (getMacSecCapable() != null)
+            sb.append("MacSecCapable: ").append(getMacSecCapable()).append(",");
+        if (getPortEncryptionStatus() != null)
+            sb.append("PortEncryptionStatus: ").append(getPortEncryptionStatus()).append(",");
+        if (getEncryptionMode() != null)
+            sb.append("EncryptionMode: ").append(getEncryptionMode()).append(",");
+        if (getMacSecKeys() != null)
+            sb.append("MacSecKeys: ").append(getMacSecKeys());
         sb.append("}");
         return sb.toString();
     }
@@ -1540,6 +1923,10 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getAwsDeviceV2() != null && other.getAwsDeviceV2().equals(this.getAwsDeviceV2()) == false)
             return false;
+        if (other.getAwsLogicalDeviceId() == null ^ this.getAwsLogicalDeviceId() == null)
+            return false;
+        if (other.getAwsLogicalDeviceId() != null && other.getAwsLogicalDeviceId().equals(this.getAwsLogicalDeviceId()) == false)
+            return false;
         if (other.getHasLogicalRedundancy() == null ^ this.getHasLogicalRedundancy() == null)
             return false;
         if (other.getHasLogicalRedundancy() != null && other.getHasLogicalRedundancy().equals(this.getHasLogicalRedundancy()) == false)
@@ -1547,6 +1934,26 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getProviderName() == null ^ this.getProviderName() == null)
+            return false;
+        if (other.getProviderName() != null && other.getProviderName().equals(this.getProviderName()) == false)
+            return false;
+        if (other.getMacSecCapable() == null ^ this.getMacSecCapable() == null)
+            return false;
+        if (other.getMacSecCapable() != null && other.getMacSecCapable().equals(this.getMacSecCapable()) == false)
+            return false;
+        if (other.getPortEncryptionStatus() == null ^ this.getPortEncryptionStatus() == null)
+            return false;
+        if (other.getPortEncryptionStatus() != null && other.getPortEncryptionStatus().equals(this.getPortEncryptionStatus()) == false)
+            return false;
+        if (other.getEncryptionMode() == null ^ this.getEncryptionMode() == null)
+            return false;
+        if (other.getEncryptionMode() != null && other.getEncryptionMode().equals(this.getEncryptionMode()) == false)
+            return false;
+        if (other.getMacSecKeys() == null ^ this.getMacSecKeys() == null)
+            return false;
+        if (other.getMacSecKeys() != null && other.getMacSecKeys().equals(this.getMacSecKeys()) == false)
             return false;
         return true;
     }
@@ -1570,8 +1977,14 @@ public class Connection implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getAwsDevice() == null) ? 0 : getAwsDevice().hashCode());
         hashCode = prime * hashCode + ((getJumboFrameCapable() == null) ? 0 : getJumboFrameCapable().hashCode());
         hashCode = prime * hashCode + ((getAwsDeviceV2() == null) ? 0 : getAwsDeviceV2().hashCode());
+        hashCode = prime * hashCode + ((getAwsLogicalDeviceId() == null) ? 0 : getAwsLogicalDeviceId().hashCode());
         hashCode = prime * hashCode + ((getHasLogicalRedundancy() == null) ? 0 : getHasLogicalRedundancy().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getProviderName() == null) ? 0 : getProviderName().hashCode());
+        hashCode = prime * hashCode + ((getMacSecCapable() == null) ? 0 : getMacSecCapable().hashCode());
+        hashCode = prime * hashCode + ((getPortEncryptionStatus() == null) ? 0 : getPortEncryptionStatus().hashCode());
+        hashCode = prime * hashCode + ((getEncryptionMode() == null) ? 0 : getEncryptionMode().hashCode());
+        hashCode = prime * hashCode + ((getMacSecKeys() == null) ? 0 : getMacSecKeys().hashCode());
         return hashCode;
     }
 

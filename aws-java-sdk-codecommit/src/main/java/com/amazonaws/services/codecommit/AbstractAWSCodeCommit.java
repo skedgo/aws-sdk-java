@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,12 +38,40 @@ public class AbstractAWSCodeCommit implements AWSCodeCommit {
     }
 
     @Override
+    public AssociateApprovalRuleTemplateWithRepositoryResult associateApprovalRuleTemplateWithRepository(
+            AssociateApprovalRuleTemplateWithRepositoryRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public BatchAssociateApprovalRuleTemplateWithRepositoriesResult batchAssociateApprovalRuleTemplateWithRepositories(
+            BatchAssociateApprovalRuleTemplateWithRepositoriesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public BatchDescribeMergeConflictsResult batchDescribeMergeConflicts(BatchDescribeMergeConflictsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public BatchDisassociateApprovalRuleTemplateFromRepositoriesResult batchDisassociateApprovalRuleTemplateFromRepositories(
+            BatchDisassociateApprovalRuleTemplateFromRepositoriesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public BatchGetCommitsResult batchGetCommits(BatchGetCommitsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public BatchGetRepositoriesResult batchGetRepositories(BatchGetRepositoriesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateApprovalRuleTemplateResult createApprovalRuleTemplate(CreateApprovalRuleTemplateRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -63,12 +91,22 @@ public class AbstractAWSCodeCommit implements AWSCodeCommit {
     }
 
     @Override
+    public CreatePullRequestApprovalRuleResult createPullRequestApprovalRule(CreatePullRequestApprovalRuleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateRepositoryResult createRepository(CreateRepositoryRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public CreateUnreferencedMergeCommitResult createUnreferencedMergeCommit(CreateUnreferencedMergeCommitRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteApprovalRuleTemplateResult deleteApprovalRuleTemplate(DeleteApprovalRuleTemplateRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -88,6 +126,11 @@ public class AbstractAWSCodeCommit implements AWSCodeCommit {
     }
 
     @Override
+    public DeletePullRequestApprovalRuleResult deletePullRequestApprovalRule(DeletePullRequestApprovalRuleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteRepositoryResult deleteRepository(DeleteRepositoryRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -103,6 +146,22 @@ public class AbstractAWSCodeCommit implements AWSCodeCommit {
     }
 
     @Override
+    public DisassociateApprovalRuleTemplateFromRepositoryResult disassociateApprovalRuleTemplateFromRepository(
+            DisassociateApprovalRuleTemplateFromRepositoryRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public EvaluatePullRequestApprovalRulesResult evaluatePullRequestApprovalRules(EvaluatePullRequestApprovalRulesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetApprovalRuleTemplateResult getApprovalRuleTemplate(GetApprovalRuleTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetBlobResult getBlob(GetBlobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -114,6 +173,11 @@ public class AbstractAWSCodeCommit implements AWSCodeCommit {
 
     @Override
     public GetCommentResult getComment(GetCommentRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetCommentReactionsResult getCommentReactions(GetCommentReactionsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -168,6 +232,16 @@ public class AbstractAWSCodeCommit implements AWSCodeCommit {
     }
 
     @Override
+    public GetPullRequestApprovalStatesResult getPullRequestApprovalStates(GetPullRequestApprovalStatesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetPullRequestOverrideStateResult getPullRequestOverrideState(GetPullRequestOverrideStateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetRepositoryResult getRepository(GetRepositoryRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -178,7 +252,23 @@ public class AbstractAWSCodeCommit implements AWSCodeCommit {
     }
 
     @Override
+    public ListApprovalRuleTemplatesResult listApprovalRuleTemplates(ListApprovalRuleTemplatesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListAssociatedApprovalRuleTemplatesForRepositoryResult listAssociatedApprovalRuleTemplatesForRepository(
+            ListAssociatedApprovalRuleTemplatesForRepositoryRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListBranchesResult listBranches(ListBranchesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListFileCommitHistoryResult listFileCommitHistory(ListFileCommitHistoryRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -189,6 +279,11 @@ public class AbstractAWSCodeCommit implements AWSCodeCommit {
 
     @Override
     public ListRepositoriesResult listRepositories(ListRepositoriesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListRepositoriesForApprovalRuleTemplateResult listRepositoriesForApprovalRuleTemplate(ListRepositoriesForApprovalRuleTemplateRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -228,6 +323,11 @@ public class AbstractAWSCodeCommit implements AWSCodeCommit {
     }
 
     @Override
+    public OverridePullRequestApprovalRulesResult overridePullRequestApprovalRules(OverridePullRequestApprovalRulesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public PostCommentForComparedCommitResult postCommentForComparedCommit(PostCommentForComparedCommitRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -239,6 +339,11 @@ public class AbstractAWSCodeCommit implements AWSCodeCommit {
 
     @Override
     public PostCommentReplyResult postCommentReply(PostCommentReplyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutCommentReactionResult putCommentReaction(PutCommentReactionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -268,12 +373,37 @@ public class AbstractAWSCodeCommit implements AWSCodeCommit {
     }
 
     @Override
+    public UpdateApprovalRuleTemplateContentResult updateApprovalRuleTemplateContent(UpdateApprovalRuleTemplateContentRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateApprovalRuleTemplateDescriptionResult updateApprovalRuleTemplateDescription(UpdateApprovalRuleTemplateDescriptionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateApprovalRuleTemplateNameResult updateApprovalRuleTemplateName(UpdateApprovalRuleTemplateNameRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateCommentResult updateComment(UpdateCommentRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public UpdateDefaultBranchResult updateDefaultBranch(UpdateDefaultBranchRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdatePullRequestApprovalRuleContentResult updatePullRequestApprovalRuleContent(UpdatePullRequestApprovalRuleContentRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdatePullRequestApprovalStateResult updatePullRequestApprovalState(UpdatePullRequestApprovalStateRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -294,6 +424,11 @@ public class AbstractAWSCodeCommit implements AWSCodeCommit {
 
     @Override
     public UpdateRepositoryDescriptionResult updateRepositoryDescription(UpdateRepositoryDescriptionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateRepositoryEncryptionKeyResult updateRepositoryEncryptionKey(UpdateRepositoryEncryptionKeyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

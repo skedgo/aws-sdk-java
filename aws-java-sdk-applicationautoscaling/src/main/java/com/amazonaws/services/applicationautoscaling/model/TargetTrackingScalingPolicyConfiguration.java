@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,6 +21,11 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <p>
  * Represents a target tracking scaling policy configuration to use with Application Auto Scaling.
  * </p>
+ * <p>
+ * For more information, see <a
+ * href="https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-target-tracking.html"
+ * >Target tracking scaling policies</a> in the <i>Application Auto Scaling User Guide</i>.
+ * </p>
  * 
  * @see <a
  *      href="http://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/TargetTrackingScalingPolicyConfiguration"
@@ -31,9 +36,17 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * The target value for the metric. The range is 8.515920e-109 to 1.174271e+108 (Base 10) or 2e-360 to 2e360 (Base
-     * 2).
+     * The target value for the metric. Although this property accepts numbers of type Double, it won't accept values
+     * that are either too small or too large. Values must be in the range of -2^360 to 2^360. The value must be a valid
+     * number based on the choice of metric. For example, if the metric is CPU utilization, then the target value is a
+     * percent value that represents how much of the CPU can be used before scaling out.
      * </p>
+     * <note>
+     * <p>
+     * If the scaling policy specifies the <code>ALBRequestCountPerTarget</code> predefined metric, specify the target
+     * utilization as the optimal average request count per target during any one-minute interval.
+     * </p>
+     * </note>
      */
     private Double targetValue;
     /**
@@ -50,46 +63,56 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
     private CustomizedMetricSpecification customizedMetricSpecification;
     /**
      * <p>
-     * The amount of time, in seconds, after a scale-out activity completes before another scale-out activity can start.
-     * </p>
-     * <p>
-     * While the cooldown period is in effect, the capacity that has been added by the previous scale-out event that
-     * initiated the cooldown is calculated as part of the desired capacity for the next scale out. The intention is to
-     * continuously (but not excessively) scale out.
+     * The amount of time, in seconds, to wait for a previous scale-out activity to take effect. For more information
+     * and for default values, see <a href=
+     * "https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown"
+     * >Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.
      * </p>
      */
     private Integer scaleOutCooldown;
     /**
      * <p>
-     * The amount of time, in seconds, after a scale-in activity completes before another scale in activity can start.
-     * </p>
-     * <p>
-     * The cooldown period is used to block subsequent scale-in requests until it has expired. The intention is to scale
-     * in conservatively to protect your application's availability. However, if another alarm triggers a scale-out
-     * policy during the cooldown period after a scale-in, Application Auto Scaling scales out your scalable target
-     * immediately.
+     * The amount of time, in seconds, after a scale-in activity completes before another scale-in activity can start.
+     * For more information and for default values, see <a href=
+     * "https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown"
+     * >Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.
      * </p>
      */
     private Integer scaleInCooldown;
     /**
      * <p>
      * Indicates whether scale in by the target tracking scaling policy is disabled. If the value is <code>true</code>,
-     * scale in is disabled and the target tracking scaling policy won't remove capacity from the scalable resource.
+     * scale in is disabled and the target tracking scaling policy won't remove capacity from the scalable target.
      * Otherwise, scale in is enabled and the target tracking scaling policy can remove capacity from the scalable
-     * resource. The default value is <code>false</code>.
+     * target. The default value is <code>false</code>.
      * </p>
      */
     private Boolean disableScaleIn;
 
     /**
      * <p>
-     * The target value for the metric. The range is 8.515920e-109 to 1.174271e+108 (Base 10) or 2e-360 to 2e360 (Base
-     * 2).
+     * The target value for the metric. Although this property accepts numbers of type Double, it won't accept values
+     * that are either too small or too large. Values must be in the range of -2^360 to 2^360. The value must be a valid
+     * number based on the choice of metric. For example, if the metric is CPU utilization, then the target value is a
+     * percent value that represents how much of the CPU can be used before scaling out.
      * </p>
+     * <note>
+     * <p>
+     * If the scaling policy specifies the <code>ALBRequestCountPerTarget</code> predefined metric, specify the target
+     * utilization as the optimal average request count per target during any one-minute interval.
+     * </p>
+     * </note>
      * 
      * @param targetValue
-     *        The target value for the metric. The range is 8.515920e-109 to 1.174271e+108 (Base 10) or 2e-360 to 2e360
-     *        (Base 2).
+     *        The target value for the metric. Although this property accepts numbers of type Double, it won't accept
+     *        values that are either too small or too large. Values must be in the range of -2^360 to 2^360. The value
+     *        must be a valid number based on the choice of metric. For example, if the metric is CPU utilization, then
+     *        the target value is a percent value that represents how much of the CPU can be used before scaling out.
+     *        </p> <note>
+     *        <p>
+     *        If the scaling policy specifies the <code>ALBRequestCountPerTarget</code> predefined metric, specify the
+     *        target utilization as the optimal average request count per target during any one-minute interval.
+     *        </p>
      */
 
     public void setTargetValue(Double targetValue) {
@@ -98,12 +121,27 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * The target value for the metric. The range is 8.515920e-109 to 1.174271e+108 (Base 10) or 2e-360 to 2e360 (Base
-     * 2).
+     * The target value for the metric. Although this property accepts numbers of type Double, it won't accept values
+     * that are either too small or too large. Values must be in the range of -2^360 to 2^360. The value must be a valid
+     * number based on the choice of metric. For example, if the metric is CPU utilization, then the target value is a
+     * percent value that represents how much of the CPU can be used before scaling out.
      * </p>
+     * <note>
+     * <p>
+     * If the scaling policy specifies the <code>ALBRequestCountPerTarget</code> predefined metric, specify the target
+     * utilization as the optimal average request count per target during any one-minute interval.
+     * </p>
+     * </note>
      * 
-     * @return The target value for the metric. The range is 8.515920e-109 to 1.174271e+108 (Base 10) or 2e-360 to 2e360
-     *         (Base 2).
+     * @return The target value for the metric. Although this property accepts numbers of type Double, it won't accept
+     *         values that are either too small or too large. Values must be in the range of -2^360 to 2^360. The value
+     *         must be a valid number based on the choice of metric. For example, if the metric is CPU utilization, then
+     *         the target value is a percent value that represents how much of the CPU can be used before scaling out.
+     *         </p> <note>
+     *         <p>
+     *         If the scaling policy specifies the <code>ALBRequestCountPerTarget</code> predefined metric, specify the
+     *         target utilization as the optimal average request count per target during any one-minute interval.
+     *         </p>
      */
 
     public Double getTargetValue() {
@@ -112,13 +150,28 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * The target value for the metric. The range is 8.515920e-109 to 1.174271e+108 (Base 10) or 2e-360 to 2e360 (Base
-     * 2).
+     * The target value for the metric. Although this property accepts numbers of type Double, it won't accept values
+     * that are either too small or too large. Values must be in the range of -2^360 to 2^360. The value must be a valid
+     * number based on the choice of metric. For example, if the metric is CPU utilization, then the target value is a
+     * percent value that represents how much of the CPU can be used before scaling out.
      * </p>
+     * <note>
+     * <p>
+     * If the scaling policy specifies the <code>ALBRequestCountPerTarget</code> predefined metric, specify the target
+     * utilization as the optimal average request count per target during any one-minute interval.
+     * </p>
+     * </note>
      * 
      * @param targetValue
-     *        The target value for the metric. The range is 8.515920e-109 to 1.174271e+108 (Base 10) or 2e-360 to 2e360
-     *        (Base 2).
+     *        The target value for the metric. Although this property accepts numbers of type Double, it won't accept
+     *        values that are either too small or too large. Values must be in the range of -2^360 to 2^360. The value
+     *        must be a valid number based on the choice of metric. For example, if the metric is CPU utilization, then
+     *        the target value is a percent value that represents how much of the CPU can be used before scaling out.
+     *        </p> <note>
+     *        <p>
+     *        If the scaling policy specifies the <code>ALBRequestCountPerTarget</code> predefined metric, specify the
+     *        target utilization as the optimal average request count per target during any one-minute interval.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -209,21 +262,17 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * The amount of time, in seconds, after a scale-out activity completes before another scale-out activity can start.
-     * </p>
-     * <p>
-     * While the cooldown period is in effect, the capacity that has been added by the previous scale-out event that
-     * initiated the cooldown is calculated as part of the desired capacity for the next scale out. The intention is to
-     * continuously (but not excessively) scale out.
+     * The amount of time, in seconds, to wait for a previous scale-out activity to take effect. For more information
+     * and for default values, see <a href=
+     * "https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown"
+     * >Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.
      * </p>
      * 
      * @param scaleOutCooldown
-     *        The amount of time, in seconds, after a scale-out activity completes before another scale-out activity can
-     *        start.</p>
-     *        <p>
-     *        While the cooldown period is in effect, the capacity that has been added by the previous scale-out event
-     *        that initiated the cooldown is calculated as part of the desired capacity for the next scale out. The
-     *        intention is to continuously (but not excessively) scale out.
+     *        The amount of time, in seconds, to wait for a previous scale-out activity to take effect. For more
+     *        information and for default values, see <a href=
+     *        "https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown"
+     *        >Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.
      */
 
     public void setScaleOutCooldown(Integer scaleOutCooldown) {
@@ -232,20 +281,16 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * The amount of time, in seconds, after a scale-out activity completes before another scale-out activity can start.
-     * </p>
-     * <p>
-     * While the cooldown period is in effect, the capacity that has been added by the previous scale-out event that
-     * initiated the cooldown is calculated as part of the desired capacity for the next scale out. The intention is to
-     * continuously (but not excessively) scale out.
+     * The amount of time, in seconds, to wait for a previous scale-out activity to take effect. For more information
+     * and for default values, see <a href=
+     * "https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown"
+     * >Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.
      * </p>
      * 
-     * @return The amount of time, in seconds, after a scale-out activity completes before another scale-out activity
-     *         can start.</p>
-     *         <p>
-     *         While the cooldown period is in effect, the capacity that has been added by the previous scale-out event
-     *         that initiated the cooldown is calculated as part of the desired capacity for the next scale out. The
-     *         intention is to continuously (but not excessively) scale out.
+     * @return The amount of time, in seconds, to wait for a previous scale-out activity to take effect. For more
+     *         information and for default values, see <a href=
+     *         "https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown"
+     *         >Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.
      */
 
     public Integer getScaleOutCooldown() {
@@ -254,21 +299,17 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * The amount of time, in seconds, after a scale-out activity completes before another scale-out activity can start.
-     * </p>
-     * <p>
-     * While the cooldown period is in effect, the capacity that has been added by the previous scale-out event that
-     * initiated the cooldown is calculated as part of the desired capacity for the next scale out. The intention is to
-     * continuously (but not excessively) scale out.
+     * The amount of time, in seconds, to wait for a previous scale-out activity to take effect. For more information
+     * and for default values, see <a href=
+     * "https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown"
+     * >Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.
      * </p>
      * 
      * @param scaleOutCooldown
-     *        The amount of time, in seconds, after a scale-out activity completes before another scale-out activity can
-     *        start.</p>
-     *        <p>
-     *        While the cooldown period is in effect, the capacity that has been added by the previous scale-out event
-     *        that initiated the cooldown is calculated as part of the desired capacity for the next scale out. The
-     *        intention is to continuously (but not excessively) scale out.
+     *        The amount of time, in seconds, to wait for a previous scale-out activity to take effect. For more
+     *        information and for default values, see <a href=
+     *        "https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown"
+     *        >Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -279,23 +320,17 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * The amount of time, in seconds, after a scale-in activity completes before another scale in activity can start.
-     * </p>
-     * <p>
-     * The cooldown period is used to block subsequent scale-in requests until it has expired. The intention is to scale
-     * in conservatively to protect your application's availability. However, if another alarm triggers a scale-out
-     * policy during the cooldown period after a scale-in, Application Auto Scaling scales out your scalable target
-     * immediately.
+     * The amount of time, in seconds, after a scale-in activity completes before another scale-in activity can start.
+     * For more information and for default values, see <a href=
+     * "https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown"
+     * >Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.
      * </p>
      * 
      * @param scaleInCooldown
-     *        The amount of time, in seconds, after a scale-in activity completes before another scale in activity can
-     *        start.</p>
-     *        <p>
-     *        The cooldown period is used to block subsequent scale-in requests until it has expired. The intention is
-     *        to scale in conservatively to protect your application's availability. However, if another alarm triggers
-     *        a scale-out policy during the cooldown period after a scale-in, Application Auto Scaling scales out your
-     *        scalable target immediately.
+     *        The amount of time, in seconds, after a scale-in activity completes before another scale-in activity can
+     *        start. For more information and for default values, see <a href=
+     *        "https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown"
+     *        >Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.
      */
 
     public void setScaleInCooldown(Integer scaleInCooldown) {
@@ -304,22 +339,16 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * The amount of time, in seconds, after a scale-in activity completes before another scale in activity can start.
-     * </p>
-     * <p>
-     * The cooldown period is used to block subsequent scale-in requests until it has expired. The intention is to scale
-     * in conservatively to protect your application's availability. However, if another alarm triggers a scale-out
-     * policy during the cooldown period after a scale-in, Application Auto Scaling scales out your scalable target
-     * immediately.
+     * The amount of time, in seconds, after a scale-in activity completes before another scale-in activity can start.
+     * For more information and for default values, see <a href=
+     * "https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown"
+     * >Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.
      * </p>
      * 
-     * @return The amount of time, in seconds, after a scale-in activity completes before another scale in activity can
-     *         start.</p>
-     *         <p>
-     *         The cooldown period is used to block subsequent scale-in requests until it has expired. The intention is
-     *         to scale in conservatively to protect your application's availability. However, if another alarm triggers
-     *         a scale-out policy during the cooldown period after a scale-in, Application Auto Scaling scales out your
-     *         scalable target immediately.
+     * @return The amount of time, in seconds, after a scale-in activity completes before another scale-in activity can
+     *         start. For more information and for default values, see <a href=
+     *         "https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown"
+     *         >Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.
      */
 
     public Integer getScaleInCooldown() {
@@ -328,23 +357,17 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * The amount of time, in seconds, after a scale-in activity completes before another scale in activity can start.
-     * </p>
-     * <p>
-     * The cooldown period is used to block subsequent scale-in requests until it has expired. The intention is to scale
-     * in conservatively to protect your application's availability. However, if another alarm triggers a scale-out
-     * policy during the cooldown period after a scale-in, Application Auto Scaling scales out your scalable target
-     * immediately.
+     * The amount of time, in seconds, after a scale-in activity completes before another scale-in activity can start.
+     * For more information and for default values, see <a href=
+     * "https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown"
+     * >Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.
      * </p>
      * 
      * @param scaleInCooldown
-     *        The amount of time, in seconds, after a scale-in activity completes before another scale in activity can
-     *        start.</p>
-     *        <p>
-     *        The cooldown period is used to block subsequent scale-in requests until it has expired. The intention is
-     *        to scale in conservatively to protect your application's availability. However, if another alarm triggers
-     *        a scale-out policy during the cooldown period after a scale-in, Application Auto Scaling scales out your
-     *        scalable target immediately.
+     *        The amount of time, in seconds, after a scale-in activity completes before another scale-in activity can
+     *        start. For more information and for default values, see <a href=
+     *        "https://docs.aws.amazon.com/autoscaling/application/userguide/target-tracking-scaling-policy-overview.html#target-tracking-cooldown"
+     *        >Define cooldown periods</a> in the <i>Application Auto Scaling User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -356,16 +379,16 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
     /**
      * <p>
      * Indicates whether scale in by the target tracking scaling policy is disabled. If the value is <code>true</code>,
-     * scale in is disabled and the target tracking scaling policy won't remove capacity from the scalable resource.
+     * scale in is disabled and the target tracking scaling policy won't remove capacity from the scalable target.
      * Otherwise, scale in is enabled and the target tracking scaling policy can remove capacity from the scalable
-     * resource. The default value is <code>false</code>.
+     * target. The default value is <code>false</code>.
      * </p>
      * 
      * @param disableScaleIn
      *        Indicates whether scale in by the target tracking scaling policy is disabled. If the value is
      *        <code>true</code>, scale in is disabled and the target tracking scaling policy won't remove capacity from
-     *        the scalable resource. Otherwise, scale in is enabled and the target tracking scaling policy can remove
-     *        capacity from the scalable resource. The default value is <code>false</code>.
+     *        the scalable target. Otherwise, scale in is enabled and the target tracking scaling policy can remove
+     *        capacity from the scalable target. The default value is <code>false</code>.
      */
 
     public void setDisableScaleIn(Boolean disableScaleIn) {
@@ -375,15 +398,15 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
     /**
      * <p>
      * Indicates whether scale in by the target tracking scaling policy is disabled. If the value is <code>true</code>,
-     * scale in is disabled and the target tracking scaling policy won't remove capacity from the scalable resource.
+     * scale in is disabled and the target tracking scaling policy won't remove capacity from the scalable target.
      * Otherwise, scale in is enabled and the target tracking scaling policy can remove capacity from the scalable
-     * resource. The default value is <code>false</code>.
+     * target. The default value is <code>false</code>.
      * </p>
      * 
      * @return Indicates whether scale in by the target tracking scaling policy is disabled. If the value is
      *         <code>true</code>, scale in is disabled and the target tracking scaling policy won't remove capacity from
-     *         the scalable resource. Otherwise, scale in is enabled and the target tracking scaling policy can remove
-     *         capacity from the scalable resource. The default value is <code>false</code>.
+     *         the scalable target. Otherwise, scale in is enabled and the target tracking scaling policy can remove
+     *         capacity from the scalable target. The default value is <code>false</code>.
      */
 
     public Boolean getDisableScaleIn() {
@@ -393,16 +416,16 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
     /**
      * <p>
      * Indicates whether scale in by the target tracking scaling policy is disabled. If the value is <code>true</code>,
-     * scale in is disabled and the target tracking scaling policy won't remove capacity from the scalable resource.
+     * scale in is disabled and the target tracking scaling policy won't remove capacity from the scalable target.
      * Otherwise, scale in is enabled and the target tracking scaling policy can remove capacity from the scalable
-     * resource. The default value is <code>false</code>.
+     * target. The default value is <code>false</code>.
      * </p>
      * 
      * @param disableScaleIn
      *        Indicates whether scale in by the target tracking scaling policy is disabled. If the value is
      *        <code>true</code>, scale in is disabled and the target tracking scaling policy won't remove capacity from
-     *        the scalable resource. Otherwise, scale in is enabled and the target tracking scaling policy can remove
-     *        capacity from the scalable resource. The default value is <code>false</code>.
+     *        the scalable target. Otherwise, scale in is enabled and the target tracking scaling policy can remove
+     *        capacity from the scalable target. The default value is <code>false</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -414,15 +437,15 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
     /**
      * <p>
      * Indicates whether scale in by the target tracking scaling policy is disabled. If the value is <code>true</code>,
-     * scale in is disabled and the target tracking scaling policy won't remove capacity from the scalable resource.
+     * scale in is disabled and the target tracking scaling policy won't remove capacity from the scalable target.
      * Otherwise, scale in is enabled and the target tracking scaling policy can remove capacity from the scalable
-     * resource. The default value is <code>false</code>.
+     * target. The default value is <code>false</code>.
      * </p>
      * 
      * @return Indicates whether scale in by the target tracking scaling policy is disabled. If the value is
      *         <code>true</code>, scale in is disabled and the target tracking scaling policy won't remove capacity from
-     *         the scalable resource. Otherwise, scale in is enabled and the target tracking scaling policy can remove
-     *         capacity from the scalable resource. The default value is <code>false</code>.
+     *         the scalable target. Otherwise, scale in is enabled and the target tracking scaling policy can remove
+     *         capacity from the scalable target. The default value is <code>false</code>.
      */
 
     public Boolean isDisableScaleIn() {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,16 +33,32 @@ public class UpdateDatastoreRequest extends com.amazonaws.AmazonWebServiceReques
     private String datastoreName;
     /**
      * <p>
-     * How long, in days, message data is kept for the data store.
+     * How long, in days, message data is kept for the data store. The retention period can't be updated if the data
+     * store's Amazon S3 storage is customer-managed.
      * </p>
      */
     private RetentionPeriod retentionPeriod;
     /**
      * <p>
-     * Where data store data is stored.
+     * Where data in a data store is stored.. You can choose <code>serviceManagedS3</code> storage,
+     * <code>customerManagedS3</code> storage, or <code>iotSiteWiseMultiLayerStorage</code> storage. The default is
+     * <code>serviceManagedS3</code>. You can't change the choice of Amazon S3 storage after your data store is created.
      * </p>
      */
     private DatastoreStorage datastoreStorage;
+    /**
+     * <p>
+     * Contains the configuration information of file formats. IoT Analytics data stores support JSON and <a
+     * href="https://parquet.apache.org/">Parquet</a>.
+     * </p>
+     * <p>
+     * The default file format is JSON. You can specify only one format.
+     * </p>
+     * <p>
+     * You can't change the file format after you create the data store.
+     * </p>
+     */
+    private FileFormatConfiguration fileFormatConfiguration;
 
     /**
      * <p>
@@ -86,11 +102,13 @@ public class UpdateDatastoreRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * How long, in days, message data is kept for the data store.
+     * How long, in days, message data is kept for the data store. The retention period can't be updated if the data
+     * store's Amazon S3 storage is customer-managed.
      * </p>
      * 
      * @param retentionPeriod
-     *        How long, in days, message data is kept for the data store.
+     *        How long, in days, message data is kept for the data store. The retention period can't be updated if the
+     *        data store's Amazon S3 storage is customer-managed.
      */
 
     public void setRetentionPeriod(RetentionPeriod retentionPeriod) {
@@ -99,10 +117,12 @@ public class UpdateDatastoreRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * How long, in days, message data is kept for the data store.
+     * How long, in days, message data is kept for the data store. The retention period can't be updated if the data
+     * store's Amazon S3 storage is customer-managed.
      * </p>
      * 
-     * @return How long, in days, message data is kept for the data store.
+     * @return How long, in days, message data is kept for the data store. The retention period can't be updated if the
+     *         data store's Amazon S3 storage is customer-managed.
      */
 
     public RetentionPeriod getRetentionPeriod() {
@@ -111,11 +131,13 @@ public class UpdateDatastoreRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * How long, in days, message data is kept for the data store.
+     * How long, in days, message data is kept for the data store. The retention period can't be updated if the data
+     * store's Amazon S3 storage is customer-managed.
      * </p>
      * 
      * @param retentionPeriod
-     *        How long, in days, message data is kept for the data store.
+     *        How long, in days, message data is kept for the data store. The retention period can't be updated if the
+     *        data store's Amazon S3 storage is customer-managed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -126,11 +148,16 @@ public class UpdateDatastoreRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Where data store data is stored.
+     * Where data in a data store is stored.. You can choose <code>serviceManagedS3</code> storage,
+     * <code>customerManagedS3</code> storage, or <code>iotSiteWiseMultiLayerStorage</code> storage. The default is
+     * <code>serviceManagedS3</code>. You can't change the choice of Amazon S3 storage after your data store is created.
      * </p>
      * 
      * @param datastoreStorage
-     *        Where data store data is stored.
+     *        Where data in a data store is stored.. You can choose <code>serviceManagedS3</code> storage,
+     *        <code>customerManagedS3</code> storage, or <code>iotSiteWiseMultiLayerStorage</code> storage. The default
+     *        is <code>serviceManagedS3</code>. You can't change the choice of Amazon S3 storage after your data store
+     *        is created.
      */
 
     public void setDatastoreStorage(DatastoreStorage datastoreStorage) {
@@ -139,10 +166,15 @@ public class UpdateDatastoreRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Where data store data is stored.
+     * Where data in a data store is stored.. You can choose <code>serviceManagedS3</code> storage,
+     * <code>customerManagedS3</code> storage, or <code>iotSiteWiseMultiLayerStorage</code> storage. The default is
+     * <code>serviceManagedS3</code>. You can't change the choice of Amazon S3 storage after your data store is created.
      * </p>
      * 
-     * @return Where data store data is stored.
+     * @return Where data in a data store is stored.. You can choose <code>serviceManagedS3</code> storage,
+     *         <code>customerManagedS3</code> storage, or <code>iotSiteWiseMultiLayerStorage</code> storage. The default
+     *         is <code>serviceManagedS3</code>. You can't change the choice of Amazon S3 storage after your data store
+     *         is created.
      */
 
     public DatastoreStorage getDatastoreStorage() {
@@ -151,16 +183,100 @@ public class UpdateDatastoreRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * Where data store data is stored.
+     * Where data in a data store is stored.. You can choose <code>serviceManagedS3</code> storage,
+     * <code>customerManagedS3</code> storage, or <code>iotSiteWiseMultiLayerStorage</code> storage. The default is
+     * <code>serviceManagedS3</code>. You can't change the choice of Amazon S3 storage after your data store is created.
      * </p>
      * 
      * @param datastoreStorage
-     *        Where data store data is stored.
+     *        Where data in a data store is stored.. You can choose <code>serviceManagedS3</code> storage,
+     *        <code>customerManagedS3</code> storage, or <code>iotSiteWiseMultiLayerStorage</code> storage. The default
+     *        is <code>serviceManagedS3</code>. You can't change the choice of Amazon S3 storage after your data store
+     *        is created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UpdateDatastoreRequest withDatastoreStorage(DatastoreStorage datastoreStorage) {
         setDatastoreStorage(datastoreStorage);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains the configuration information of file formats. IoT Analytics data stores support JSON and <a
+     * href="https://parquet.apache.org/">Parquet</a>.
+     * </p>
+     * <p>
+     * The default file format is JSON. You can specify only one format.
+     * </p>
+     * <p>
+     * You can't change the file format after you create the data store.
+     * </p>
+     * 
+     * @param fileFormatConfiguration
+     *        Contains the configuration information of file formats. IoT Analytics data stores support JSON and <a
+     *        href="https://parquet.apache.org/">Parquet</a>.</p>
+     *        <p>
+     *        The default file format is JSON. You can specify only one format.
+     *        </p>
+     *        <p>
+     *        You can't change the file format after you create the data store.
+     */
+
+    public void setFileFormatConfiguration(FileFormatConfiguration fileFormatConfiguration) {
+        this.fileFormatConfiguration = fileFormatConfiguration;
+    }
+
+    /**
+     * <p>
+     * Contains the configuration information of file formats. IoT Analytics data stores support JSON and <a
+     * href="https://parquet.apache.org/">Parquet</a>.
+     * </p>
+     * <p>
+     * The default file format is JSON. You can specify only one format.
+     * </p>
+     * <p>
+     * You can't change the file format after you create the data store.
+     * </p>
+     * 
+     * @return Contains the configuration information of file formats. IoT Analytics data stores support JSON and <a
+     *         href="https://parquet.apache.org/">Parquet</a>.</p>
+     *         <p>
+     *         The default file format is JSON. You can specify only one format.
+     *         </p>
+     *         <p>
+     *         You can't change the file format after you create the data store.
+     */
+
+    public FileFormatConfiguration getFileFormatConfiguration() {
+        return this.fileFormatConfiguration;
+    }
+
+    /**
+     * <p>
+     * Contains the configuration information of file formats. IoT Analytics data stores support JSON and <a
+     * href="https://parquet.apache.org/">Parquet</a>.
+     * </p>
+     * <p>
+     * The default file format is JSON. You can specify only one format.
+     * </p>
+     * <p>
+     * You can't change the file format after you create the data store.
+     * </p>
+     * 
+     * @param fileFormatConfiguration
+     *        Contains the configuration information of file formats. IoT Analytics data stores support JSON and <a
+     *        href="https://parquet.apache.org/">Parquet</a>.</p>
+     *        <p>
+     *        The default file format is JSON. You can specify only one format.
+     *        </p>
+     *        <p>
+     *        You can't change the file format after you create the data store.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateDatastoreRequest withFileFormatConfiguration(FileFormatConfiguration fileFormatConfiguration) {
+        setFileFormatConfiguration(fileFormatConfiguration);
         return this;
     }
 
@@ -181,7 +297,9 @@ public class UpdateDatastoreRequest extends com.amazonaws.AmazonWebServiceReques
         if (getRetentionPeriod() != null)
             sb.append("RetentionPeriod: ").append(getRetentionPeriod()).append(",");
         if (getDatastoreStorage() != null)
-            sb.append("DatastoreStorage: ").append(getDatastoreStorage());
+            sb.append("DatastoreStorage: ").append(getDatastoreStorage()).append(",");
+        if (getFileFormatConfiguration() != null)
+            sb.append("FileFormatConfiguration: ").append(getFileFormatConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -208,6 +326,10 @@ public class UpdateDatastoreRequest extends com.amazonaws.AmazonWebServiceReques
             return false;
         if (other.getDatastoreStorage() != null && other.getDatastoreStorage().equals(this.getDatastoreStorage()) == false)
             return false;
+        if (other.getFileFormatConfiguration() == null ^ this.getFileFormatConfiguration() == null)
+            return false;
+        if (other.getFileFormatConfiguration() != null && other.getFileFormatConfiguration().equals(this.getFileFormatConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -219,6 +341,7 @@ public class UpdateDatastoreRequest extends com.amazonaws.AmazonWebServiceReques
         hashCode = prime * hashCode + ((getDatastoreName() == null) ? 0 : getDatastoreName().hashCode());
         hashCode = prime * hashCode + ((getRetentionPeriod() == null) ? 0 : getRetentionPeriod().hashCode());
         hashCode = prime * hashCode + ((getDatastoreStorage() == null) ? 0 : getDatastoreStorage().hashCode());
+        hashCode = prime * hashCode + ((getFileFormatConfiguration() == null) ? 0 : getFileFormatConfiguration().hashCode());
         return hashCode;
     }
 

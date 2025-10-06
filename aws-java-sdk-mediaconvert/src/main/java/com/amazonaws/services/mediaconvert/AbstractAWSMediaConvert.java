@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -63,6 +63,11 @@ public class AbstractAWSMediaConvert implements AWSMediaConvert {
     }
 
     @Override
+    public DeletePolicyResult deletePolicy(DeletePolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeletePresetResult deletePreset(DeletePresetRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -73,6 +78,7 @@ public class AbstractAWSMediaConvert implements AWSMediaConvert {
     }
 
     @Override
+    @Deprecated
     public DescribeEndpointsResult describeEndpoints(DescribeEndpointsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -89,6 +95,11 @@ public class AbstractAWSMediaConvert implements AWSMediaConvert {
 
     @Override
     public GetJobTemplateResult getJobTemplate(GetJobTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetPolicyResult getPolicy(GetPolicyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -124,6 +135,16 @@ public class AbstractAWSMediaConvert implements AWSMediaConvert {
 
     @Override
     public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutPolicyResult putPolicy(PutPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchJobsResult searchJobs(SearchJobsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

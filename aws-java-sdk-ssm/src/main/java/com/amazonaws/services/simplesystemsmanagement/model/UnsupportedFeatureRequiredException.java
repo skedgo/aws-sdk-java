@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,10 +16,11 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Microsoft application patching is only available on EC2 instances and Advanced Instances. To patch Microsoft
- * applications on on-premises servers and VMs, you must enable Advanced Instances. For more information, see <a
- * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-managedinstances-advanced.html"
- * >Using the Advanced-Instances Tier</a> in the <i>AWS Systems Manager User Guide</i>.
+ * Patching for applications released by Microsoft is only available on EC2 instances and advanced instances. To patch
+ * applications released by Microsoft on on-premises servers and VMs, you must enable advanced instances. For more
+ * information, see <a
+ * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-managedinstances-advanced.html"
+ * >Turning on the advanced-instances tier</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,12 +35,18 @@ public class CaptionDestinationSettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dvbSubDestinationSettings").build();
     private static final MarshallingInfo<StructuredPojo> EMBEDDEDDESTINATIONSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("embeddedDestinationSettings").build();
+    private static final MarshallingInfo<StructuredPojo> IMSCDESTINATIONSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("imscDestinationSettings").build();
     private static final MarshallingInfo<StructuredPojo> SCCDESTINATIONSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("sccDestinationSettings").build();
+    private static final MarshallingInfo<StructuredPojo> SRTDESTINATIONSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("srtDestinationSettings").build();
     private static final MarshallingInfo<StructuredPojo> TELETEXTDESTINATIONSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("teletextDestinationSettings").build();
     private static final MarshallingInfo<StructuredPojo> TTMLDESTINATIONSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ttmlDestinationSettings").build();
+    private static final MarshallingInfo<StructuredPojo> WEBVTTDESTINATIONSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("webvttDestinationSettings").build();
 
     private static final CaptionDestinationSettingsMarshaller instance = new CaptionDestinationSettingsMarshaller();
 
@@ -62,9 +68,12 @@ public class CaptionDestinationSettingsMarshaller {
             protocolMarshaller.marshall(captionDestinationSettings.getDestinationType(), DESTINATIONTYPE_BINDING);
             protocolMarshaller.marshall(captionDestinationSettings.getDvbSubDestinationSettings(), DVBSUBDESTINATIONSETTINGS_BINDING);
             protocolMarshaller.marshall(captionDestinationSettings.getEmbeddedDestinationSettings(), EMBEDDEDDESTINATIONSETTINGS_BINDING);
+            protocolMarshaller.marshall(captionDestinationSettings.getImscDestinationSettings(), IMSCDESTINATIONSETTINGS_BINDING);
             protocolMarshaller.marshall(captionDestinationSettings.getSccDestinationSettings(), SCCDESTINATIONSETTINGS_BINDING);
+            protocolMarshaller.marshall(captionDestinationSettings.getSrtDestinationSettings(), SRTDESTINATIONSETTINGS_BINDING);
             protocolMarshaller.marshall(captionDestinationSettings.getTeletextDestinationSettings(), TELETEXTDESTINATIONSETTINGS_BINDING);
             protocolMarshaller.marshall(captionDestinationSettings.getTtmlDestinationSettings(), TTMLDESTINATIONSETTINGS_BINDING);
+            protocolMarshaller.marshall(captionDestinationSettings.getWebvttDestinationSettings(), WEBVTTDESTINATIONSETTINGS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

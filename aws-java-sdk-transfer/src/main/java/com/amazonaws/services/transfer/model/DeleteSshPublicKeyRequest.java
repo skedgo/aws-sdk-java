@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class DeleteSshPublicKeyRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * A system-assigned unique identifier for a Secure File Transfer Protocol (SFTP) server instance that has the user
+     * A system-assigned unique identifier for a file transfer protocol-enabled server instance that has the user
      * assigned to it.
      * </p>
      */
@@ -47,13 +47,13 @@ public class DeleteSshPublicKeyRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * A system-assigned unique identifier for a Secure File Transfer Protocol (SFTP) server instance that has the user
+     * A system-assigned unique identifier for a file transfer protocol-enabled server instance that has the user
      * assigned to it.
      * </p>
      * 
      * @param serverId
-     *        A system-assigned unique identifier for a Secure File Transfer Protocol (SFTP) server instance that has
-     *        the user assigned to it.
+     *        A system-assigned unique identifier for a file transfer protocol-enabled server instance that has the user
+     *        assigned to it.
      */
 
     public void setServerId(String serverId) {
@@ -62,12 +62,12 @@ public class DeleteSshPublicKeyRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * A system-assigned unique identifier for a Secure File Transfer Protocol (SFTP) server instance that has the user
+     * A system-assigned unique identifier for a file transfer protocol-enabled server instance that has the user
      * assigned to it.
      * </p>
      * 
-     * @return A system-assigned unique identifier for a Secure File Transfer Protocol (SFTP) server instance that has
-     *         the user assigned to it.
+     * @return A system-assigned unique identifier for a file transfer protocol-enabled server instance that has the
+     *         user assigned to it.
      */
 
     public String getServerId() {
@@ -76,13 +76,13 @@ public class DeleteSshPublicKeyRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * A system-assigned unique identifier for a Secure File Transfer Protocol (SFTP) server instance that has the user
+     * A system-assigned unique identifier for a file transfer protocol-enabled server instance that has the user
      * assigned to it.
      * </p>
      * 
      * @param serverId
-     *        A system-assigned unique identifier for a Secure File Transfer Protocol (SFTP) server instance that has
-     *        the user assigned to it.
+     *        A system-assigned unique identifier for a file transfer protocol-enabled server instance that has the user
+     *        assigned to it.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

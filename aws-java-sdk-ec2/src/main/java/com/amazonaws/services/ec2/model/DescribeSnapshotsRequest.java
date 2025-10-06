@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,14 +42,15 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>owner-alias</code> - Value from an Amazon-maintained list (<code>amazon</code> | <code>self</code> |
-     * <code>all</code> | <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused
-     * with the user-configured AWS account alias, which is set from the IAM console.
+     * <code>owner-alias</code> - The owner alias, from an Amazon-maintained list (<code>amazon</code>). This is not the
+     * user-configured Amazon Web Services account alias set using the IAM console. We recommend that you use the
+     * related parameter instead of this filter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the snapshot.
+     * <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the related
+     * parameter instead of this filter.
      * </p>
      * </li>
      * <li>
@@ -71,6 +72,11 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      * <p>
      * <code>status</code> - The status of the snapshot (<code>pending</code> | <code>completed</code> |
      * <code>error</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>storage-tier</code> - The storage tier of the snapshot (<code>archive</code> | <code>standard</code>).
      * </p>
      * </li>
      * <li>
@@ -102,34 +108,29 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
     /**
      * <p>
-     * The maximum number of snapshot results returned by <code>DescribeSnapshots</code> in paginated output. When this
-     * parameter is used, <code>DescribeSnapshots</code> only returns <code>MaxResults</code> results in a single page
-     * along with a <code>NextToken</code> response element. The remaining results of the initial request can be seen by
-     * sending another <code>DescribeSnapshots</code> request with the returned <code>NextToken</code> value. This value
-     * can be between 5 and 1000; if <code>MaxResults</code> is given a value larger than 1000, only 1000 results are
-     * returned. If this parameter is not used, then <code>DescribeSnapshots</code> returns all results. You cannot
-     * specify this parameter and the snapshot IDs parameter in the same request.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      */
     private Integer maxResults;
     /**
      * <p>
-     * The <code>NextToken</code> value returned from a previous paginated <code>DescribeSnapshots</code> request where
-     * <code>MaxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from
-     * the end of the previous results that returned the <code>NextToken</code> value. This value is <code>null</code>
-     * when there are no more results to return.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * Describes the snapshots owned by these owners.
+     * Scopes the results to snapshots with the specified owners. You can specify a combination of Amazon Web Services
+     * account IDs, <code>self</code>, and <code>amazon</code>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> ownerIds;
     /**
      * <p>
-     * The IDs of the AWS accounts that can create volumes from the snapshot.
+     * The IDs of the Amazon Web Services accounts that can create volumes from the snapshot.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> restorableByUserIds;
@@ -160,14 +161,15 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>owner-alias</code> - Value from an Amazon-maintained list (<code>amazon</code> | <code>self</code> |
-     * <code>all</code> | <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused
-     * with the user-configured AWS account alias, which is set from the IAM console.
+     * <code>owner-alias</code> - The owner alias, from an Amazon-maintained list (<code>amazon</code>). This is not the
+     * user-configured Amazon Web Services account alias set using the IAM console. We recommend that you use the
+     * related parameter instead of this filter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the snapshot.
+     * <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the related
+     * parameter instead of this filter.
      * </p>
      * </li>
      * <li>
@@ -189,6 +191,11 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      * <p>
      * <code>status</code> - The status of the snapshot (<code>pending</code> | <code>completed</code> |
      * <code>error</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>storage-tier</code> - The storage tier of the snapshot (<code>archive</code> | <code>standard</code>).
      * </p>
      * </li>
      * <li>
@@ -232,14 +239,15 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      *         </li>
      *         <li>
      *         <p>
-     *         <code>owner-alias</code> - Value from an Amazon-maintained list (<code>amazon</code> | <code>self</code>
-     *         | <code>all</code> | <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be
-     *         confused with the user-configured AWS account alias, which is set from the IAM console.
+     *         <code>owner-alias</code> - The owner alias, from an Amazon-maintained list (<code>amazon</code>). This is
+     *         not the user-configured Amazon Web Services account alias set using the IAM console. We recommend that
+     *         you use the related parameter instead of this filter.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>owner-id</code> - The ID of the AWS account that owns the snapshot.
+     *         <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the
+     *         related parameter instead of this filter.
      *         </p>
      *         </li>
      *         <li>
@@ -261,6 +269,12 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      *         <p>
      *         <code>status</code> - The status of the snapshot (<code>pending</code> | <code>completed</code> |
      *         <code>error</code>).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>storage-tier</code> - The storage tier of the snapshot (<code>archive</code> |
+     *         <code>standard</code>).
      *         </p>
      *         </li>
      *         <li>
@@ -313,14 +327,15 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>owner-alias</code> - Value from an Amazon-maintained list (<code>amazon</code> | <code>self</code> |
-     * <code>all</code> | <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused
-     * with the user-configured AWS account alias, which is set from the IAM console.
+     * <code>owner-alias</code> - The owner alias, from an Amazon-maintained list (<code>amazon</code>). This is not the
+     * user-configured Amazon Web Services account alias set using the IAM console. We recommend that you use the
+     * related parameter instead of this filter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the snapshot.
+     * <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the related
+     * parameter instead of this filter.
      * </p>
      * </li>
      * <li>
@@ -342,6 +357,11 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      * <p>
      * <code>status</code> - The status of the snapshot (<code>pending</code> | <code>completed</code> |
      * <code>error</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>storage-tier</code> - The storage tier of the snapshot (<code>archive</code> | <code>standard</code>).
      * </p>
      * </li>
      * <li>
@@ -386,14 +406,15 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-alias</code> - Value from an Amazon-maintained list (<code>amazon</code> | <code>self</code> |
-     *        <code>all</code> | <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be
-     *        confused with the user-configured AWS account alias, which is set from the IAM console.
+     *        <code>owner-alias</code> - The owner alias, from an Amazon-maintained list (<code>amazon</code>). This is
+     *        not the user-configured Amazon Web Services account alias set using the IAM console. We recommend that you
+     *        use the related parameter instead of this filter.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The ID of the AWS account that owns the snapshot.
+     *        <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the
+     *        related parameter instead of this filter.
      *        </p>
      *        </li>
      *        <li>
@@ -415,6 +436,12 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      *        <p>
      *        <code>status</code> - The status of the snapshot (<code>pending</code> | <code>completed</code> |
      *        <code>error</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>storage-tier</code> - The storage tier of the snapshot (<code>archive</code> | <code>standard</code>
+     *        ).
      *        </p>
      *        </li>
      *        <li>
@@ -469,14 +496,15 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>owner-alias</code> - Value from an Amazon-maintained list (<code>amazon</code> | <code>self</code> |
-     * <code>all</code> | <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused
-     * with the user-configured AWS account alias, which is set from the IAM console.
+     * <code>owner-alias</code> - The owner alias, from an Amazon-maintained list (<code>amazon</code>). This is not the
+     * user-configured Amazon Web Services account alias set using the IAM console. We recommend that you use the
+     * related parameter instead of this filter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the snapshot.
+     * <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the related
+     * parameter instead of this filter.
      * </p>
      * </li>
      * <li>
@@ -498,6 +526,11 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      * <p>
      * <code>status</code> - The status of the snapshot (<code>pending</code> | <code>completed</code> |
      * <code>error</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>storage-tier</code> - The storage tier of the snapshot (<code>archive</code> | <code>standard</code>).
      * </p>
      * </li>
      * <li>
@@ -547,14 +580,15 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-alias</code> - Value from an Amazon-maintained list (<code>amazon</code> | <code>self</code> |
-     *        <code>all</code> | <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be
-     *        confused with the user-configured AWS account alias, which is set from the IAM console.
+     *        <code>owner-alias</code> - The owner alias, from an Amazon-maintained list (<code>amazon</code>). This is
+     *        not the user-configured Amazon Web Services account alias set using the IAM console. We recommend that you
+     *        use the related parameter instead of this filter.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The ID of the AWS account that owns the snapshot.
+     *        <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the
+     *        related parameter instead of this filter.
      *        </p>
      *        </li>
      *        <li>
@@ -576,6 +610,12 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      *        <p>
      *        <code>status</code> - The status of the snapshot (<code>pending</code> | <code>completed</code> |
      *        <code>error</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>storage-tier</code> - The storage tier of the snapshot (<code>archive</code> | <code>standard</code>
+     *        ).
      *        </p>
      *        </li>
      *        <li>
@@ -632,14 +672,15 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>owner-alias</code> - Value from an Amazon-maintained list (<code>amazon</code> | <code>self</code> |
-     * <code>all</code> | <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused
-     * with the user-configured AWS account alias, which is set from the IAM console.
+     * <code>owner-alias</code> - The owner alias, from an Amazon-maintained list (<code>amazon</code>). This is not the
+     * user-configured Amazon Web Services account alias set using the IAM console. We recommend that you use the
+     * related parameter instead of this filter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The ID of the AWS account that owns the snapshot.
+     * <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the related
+     * parameter instead of this filter.
      * </p>
      * </li>
      * <li>
@@ -661,6 +702,11 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      * <p>
      * <code>status</code> - The status of the snapshot (<code>pending</code> | <code>completed</code> |
      * <code>error</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>storage-tier</code> - The storage tier of the snapshot (<code>archive</code> | <code>standard</code>).
      * </p>
      * </li>
      * <li>
@@ -705,14 +751,15 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-alias</code> - Value from an Amazon-maintained list (<code>amazon</code> | <code>self</code> |
-     *        <code>all</code> | <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be
-     *        confused with the user-configured AWS account alias, which is set from the IAM console.
+     *        <code>owner-alias</code> - The owner alias, from an Amazon-maintained list (<code>amazon</code>). This is
+     *        not the user-configured Amazon Web Services account alias set using the IAM console. We recommend that you
+     *        use the related parameter instead of this filter.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The ID of the AWS account that owns the snapshot.
+     *        <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the
+     *        related parameter instead of this filter.
      *        </p>
      *        </li>
      *        <li>
@@ -734,6 +781,12 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      *        <p>
      *        <code>status</code> - The status of the snapshot (<code>pending</code> | <code>completed</code> |
      *        <code>error</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>storage-tier</code> - The storage tier of the snapshot (<code>archive</code> | <code>standard</code>
+     *        ).
      *        </p>
      *        </li>
      *        <li>
@@ -770,24 +823,16 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * The maximum number of snapshot results returned by <code>DescribeSnapshots</code> in paginated output. When this
-     * parameter is used, <code>DescribeSnapshots</code> only returns <code>MaxResults</code> results in a single page
-     * along with a <code>NextToken</code> response element. The remaining results of the initial request can be seen by
-     * sending another <code>DescribeSnapshots</code> request with the returned <code>NextToken</code> value. This value
-     * can be between 5 and 1000; if <code>MaxResults</code> is given a value larger than 1000, only 1000 results are
-     * returned. If this parameter is not used, then <code>DescribeSnapshots</code> returns all results. You cannot
-     * specify this parameter and the snapshot IDs parameter in the same request.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of snapshot results returned by <code>DescribeSnapshots</code> in paginated output.
-     *        When this parameter is used, <code>DescribeSnapshots</code> only returns <code>MaxResults</code> results
-     *        in a single page along with a <code>NextToken</code> response element. The remaining results of the
-     *        initial request can be seen by sending another <code>DescribeSnapshots</code> request with the returned
-     *        <code>NextToken</code> value. This value can be between 5 and 1000; if <code>MaxResults</code> is given a
-     *        value larger than 1000, only 1000 results are returned. If this parameter is not used, then
-     *        <code>DescribeSnapshots</code> returns all results. You cannot specify this parameter and the snapshot IDs
-     *        parameter in the same request.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -796,23 +841,15 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * The maximum number of snapshot results returned by <code>DescribeSnapshots</code> in paginated output. When this
-     * parameter is used, <code>DescribeSnapshots</code> only returns <code>MaxResults</code> results in a single page
-     * along with a <code>NextToken</code> response element. The remaining results of the initial request can be seen by
-     * sending another <code>DescribeSnapshots</code> request with the returned <code>NextToken</code> value. This value
-     * can be between 5 and 1000; if <code>MaxResults</code> is given a value larger than 1000, only 1000 results are
-     * returned. If this parameter is not used, then <code>DescribeSnapshots</code> returns all results. You cannot
-     * specify this parameter and the snapshot IDs parameter in the same request.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
-     * @return The maximum number of snapshot results returned by <code>DescribeSnapshots</code> in paginated output.
-     *         When this parameter is used, <code>DescribeSnapshots</code> only returns <code>MaxResults</code> results
-     *         in a single page along with a <code>NextToken</code> response element. The remaining results of the
-     *         initial request can be seen by sending another <code>DescribeSnapshots</code> request with the returned
-     *         <code>NextToken</code> value. This value can be between 5 and 1000; if <code>MaxResults</code> is given a
-     *         value larger than 1000, only 1000 results are returned. If this parameter is not used, then
-     *         <code>DescribeSnapshots</code> returns all results. You cannot specify this parameter and the snapshot
-     *         IDs parameter in the same request.
+     * @return The maximum number of items to return for this request. To get the next page of items, make another
+     *         request with the token returned in the output. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *         >Pagination</a>.
      */
 
     public Integer getMaxResults() {
@@ -821,24 +858,16 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * The maximum number of snapshot results returned by <code>DescribeSnapshots</code> in paginated output. When this
-     * parameter is used, <code>DescribeSnapshots</code> only returns <code>MaxResults</code> results in a single page
-     * along with a <code>NextToken</code> response element. The remaining results of the initial request can be seen by
-     * sending another <code>DescribeSnapshots</code> request with the returned <code>NextToken</code> value. This value
-     * can be between 5 and 1000; if <code>MaxResults</code> is given a value larger than 1000, only 1000 results are
-     * returned. If this parameter is not used, then <code>DescribeSnapshots</code> returns all results. You cannot
-     * specify this parameter and the snapshot IDs parameter in the same request.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of snapshot results returned by <code>DescribeSnapshots</code> in paginated output.
-     *        When this parameter is used, <code>DescribeSnapshots</code> only returns <code>MaxResults</code> results
-     *        in a single page along with a <code>NextToken</code> response element. The remaining results of the
-     *        initial request can be seen by sending another <code>DescribeSnapshots</code> request with the returned
-     *        <code>NextToken</code> value. This value can be between 5 and 1000; if <code>MaxResults</code> is given a
-     *        value larger than 1000, only 1000 results are returned. If this parameter is not used, then
-     *        <code>DescribeSnapshots</code> returns all results. You cannot specify this parameter and the snapshot IDs
-     *        parameter in the same request.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -849,17 +878,13 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * The <code>NextToken</code> value returned from a previous paginated <code>DescribeSnapshots</code> request where
-     * <code>MaxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from
-     * the end of the previous results that returned the <code>NextToken</code> value. This value is <code>null</code>
-     * when there are no more results to return.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The <code>NextToken</code> value returned from a previous paginated <code>DescribeSnapshots</code> request
-     *        where <code>MaxResults</code> was used and the results exceeded the value of that parameter. Pagination
-     *        continues from the end of the previous results that returned the <code>NextToken</code> value. This value
-     *        is <code>null</code> when there are no more results to return.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      */
 
     public void setNextToken(String nextToken) {
@@ -868,16 +893,12 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * The <code>NextToken</code> value returned from a previous paginated <code>DescribeSnapshots</code> request where
-     * <code>MaxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from
-     * the end of the previous results that returned the <code>NextToken</code> value. This value is <code>null</code>
-     * when there are no more results to return.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
-     * @return The <code>NextToken</code> value returned from a previous paginated <code>DescribeSnapshots</code>
-     *         request where <code>MaxResults</code> was used and the results exceeded the value of that parameter.
-     *         Pagination continues from the end of the previous results that returned the <code>NextToken</code> value.
-     *         This value is <code>null</code> when there are no more results to return.
+     * @return The token returned from a previous paginated request. Pagination continues from the end of the items
+     *         returned by the previous request.
      */
 
     public String getNextToken() {
@@ -886,17 +907,13 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * The <code>NextToken</code> value returned from a previous paginated <code>DescribeSnapshots</code> request where
-     * <code>MaxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from
-     * the end of the previous results that returned the <code>NextToken</code> value. This value is <code>null</code>
-     * when there are no more results to return.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The <code>NextToken</code> value returned from a previous paginated <code>DescribeSnapshots</code> request
-     *        where <code>MaxResults</code> was used and the results exceeded the value of that parameter. Pagination
-     *        continues from the end of the previous results that returned the <code>NextToken</code> value. This value
-     *        is <code>null</code> when there are no more results to return.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -907,10 +924,12 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * Describes the snapshots owned by these owners.
+     * Scopes the results to snapshots with the specified owners. You can specify a combination of Amazon Web Services
+     * account IDs, <code>self</code>, and <code>amazon</code>.
      * </p>
      * 
-     * @return Describes the snapshots owned by these owners.
+     * @return Scopes the results to snapshots with the specified owners. You can specify a combination of Amazon Web
+     *         Services account IDs, <code>self</code>, and <code>amazon</code>.
      */
 
     public java.util.List<String> getOwnerIds() {
@@ -922,11 +941,13 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * Describes the snapshots owned by these owners.
+     * Scopes the results to snapshots with the specified owners. You can specify a combination of Amazon Web Services
+     * account IDs, <code>self</code>, and <code>amazon</code>.
      * </p>
      * 
      * @param ownerIds
-     *        Describes the snapshots owned by these owners.
+     *        Scopes the results to snapshots with the specified owners. You can specify a combination of Amazon Web
+     *        Services account IDs, <code>self</code>, and <code>amazon</code>.
      */
 
     public void setOwnerIds(java.util.Collection<String> ownerIds) {
@@ -940,7 +961,8 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * Describes the snapshots owned by these owners.
+     * Scopes the results to snapshots with the specified owners. You can specify a combination of Amazon Web Services
+     * account IDs, <code>self</code>, and <code>amazon</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -949,7 +971,8 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      * </p>
      * 
      * @param ownerIds
-     *        Describes the snapshots owned by these owners.
+     *        Scopes the results to snapshots with the specified owners. You can specify a combination of Amazon Web
+     *        Services account IDs, <code>self</code>, and <code>amazon</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -965,11 +988,13 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * Describes the snapshots owned by these owners.
+     * Scopes the results to snapshots with the specified owners. You can specify a combination of Amazon Web Services
+     * account IDs, <code>self</code>, and <code>amazon</code>.
      * </p>
      * 
      * @param ownerIds
-     *        Describes the snapshots owned by these owners.
+     *        Scopes the results to snapshots with the specified owners. You can specify a combination of Amazon Web
+     *        Services account IDs, <code>self</code>, and <code>amazon</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -980,10 +1005,10 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * The IDs of the AWS accounts that can create volumes from the snapshot.
+     * The IDs of the Amazon Web Services accounts that can create volumes from the snapshot.
      * </p>
      * 
-     * @return The IDs of the AWS accounts that can create volumes from the snapshot.
+     * @return The IDs of the Amazon Web Services accounts that can create volumes from the snapshot.
      */
 
     public java.util.List<String> getRestorableByUserIds() {
@@ -995,11 +1020,11 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * The IDs of the AWS accounts that can create volumes from the snapshot.
+     * The IDs of the Amazon Web Services accounts that can create volumes from the snapshot.
      * </p>
      * 
      * @param restorableByUserIds
-     *        The IDs of the AWS accounts that can create volumes from the snapshot.
+     *        The IDs of the Amazon Web Services accounts that can create volumes from the snapshot.
      */
 
     public void setRestorableByUserIds(java.util.Collection<String> restorableByUserIds) {
@@ -1013,7 +1038,7 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * The IDs of the AWS accounts that can create volumes from the snapshot.
+     * The IDs of the Amazon Web Services accounts that can create volumes from the snapshot.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1022,7 +1047,7 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      * </p>
      * 
      * @param restorableByUserIds
-     *        The IDs of the AWS accounts that can create volumes from the snapshot.
+     *        The IDs of the Amazon Web Services accounts that can create volumes from the snapshot.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1038,11 +1063,11 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * The IDs of the AWS accounts that can create volumes from the snapshot.
+     * The IDs of the Amazon Web Services accounts that can create volumes from the snapshot.
      * </p>
      * 
      * @param restorableByUserIds
-     *        The IDs of the AWS accounts that can create volumes from the snapshot.
+     *        The IDs of the Amazon Web Services accounts that can create volumes from the snapshot.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

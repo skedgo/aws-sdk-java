@@ -15,12 +15,14 @@
 
 package com.amazonaws.codegen;
 
+import com.amazonaws.codegen.model.intermediate.MemberModel;
 import com.amazonaws.codegen.model.intermediate.OperationModel;
 import com.amazonaws.codegen.model.intermediate.ShapeModel;
 import com.amazonaws.codegen.model.intermediate.ShapeType;
 import com.amazonaws.codegen.model.intermediate.ShapeUnmarshaller;
 import com.amazonaws.codegen.model.service.Shape;
 
+import com.amazonaws.protocol.Protocol;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -71,6 +73,8 @@ final class AddModelShapes extends AddShapes implements IntermediateModelShapePr
             }
         }
 
+        validateShapes(javaShapes, getProtocol());
+
         return javaShapes;
     }
 
@@ -85,5 +89,42 @@ final class AddModelShapes extends AddShapes implements IntermediateModelShapePr
             return ShapeType.Enum;
         }
         return null;
+    }
+
+    /**
+     * Ensures that shapes and their traits are valid for the resolved protocol.
+     *
+     * @param javaShapes
+     * @param protocol
+     * @throws IllegalArgumentException when shapes are invalid.
+     */
+    private void validateShapes(Map<String, ShapeModel> javaShapes, String protocol) {
+        // httpBinding traits are removed from RPCV2Cbor by Coral2Json, see:
+        // https://code.amazon.com/packages/Coral2JSON/blobs/c805bd0845d9ddc3f88e6c6acac369e24b807279/--/lib/coral2json/trait_filter.rb#L72-L75
+        // if shapes still contain http locations (like header/query) they are invalid.
+        // we can't ignore these since the locationName is set by the http binding traits in c2j and would be incorrect
+        // for a payload member.
+        if ("smithy-rpc-v2-cbor".equals(protocol)) {
+            validateNoHttpBindings(javaShapes);
+        }
+    }
+
+    /**
+     * Validates that there are no HTTP bindings applied to any of the model shapes.
+     *
+     * @param javaShapes
+     */
+    private void validateNoHttpBindings(Map<String, ShapeModel> javaShapes) {
+        for (Map.Entry<String, ShapeModel> entry : javaShapes.entrySet()) {
+            if (entry.getValue().getMembers() != null) {
+                for (MemberModel memberModel : entry.getValue().getMembers()) {
+                    if (memberModel.getHttp().getLocation() != null) {
+                        throw new IllegalArgumentException(
+                                String.format("Invalid HTTP binding to location `%s` applied to member `%s`",
+                                        memberModel.getHttp().getLocation(), memberModel.getName()));
+                    }
+                }
+            }
+        }
     }
 }

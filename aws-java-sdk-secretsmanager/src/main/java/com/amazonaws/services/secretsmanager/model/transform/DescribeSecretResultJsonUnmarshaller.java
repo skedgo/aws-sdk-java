@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -92,18 +92,40 @@ public class DescribeSecretResultJsonUnmarshaller implements Unmarshaller<Descri
                     context.nextToken();
                     describeSecretResult.setDeletedDate(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
                 }
+                if (context.testExpression("NextRotationDate", targetDepth)) {
+                    context.nextToken();
+                    describeSecretResult.setNextRotationDate(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
                 if (context.testExpression("Tags", targetDepth)) {
                     context.nextToken();
-                    describeSecretResult.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance()).unmarshall(context));
+                    describeSecretResult.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("VersionIdsToStages", targetDepth)) {
                     context.nextToken();
                     describeSecretResult.setVersionIdsToStages(new MapUnmarshaller<String, java.util.List<String>>(context.getUnmarshaller(String.class),
-                            new ListUnmarshaller<String>(context.getUnmarshaller(String.class))).unmarshall(context));
+                            new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    ).unmarshall(context));
                 }
                 if (context.testExpression("OwningService", targetDepth)) {
                     context.nextToken();
                     describeSecretResult.setOwningService(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("CreatedDate", targetDepth)) {
+                    context.nextToken();
+                    describeSecretResult.setCreatedDate(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("PrimaryRegion", targetDepth)) {
+                    context.nextToken();
+                    describeSecretResult.setPrimaryRegion(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ReplicationStatus", targetDepth)) {
+                    context.nextToken();
+                    describeSecretResult.setReplicationStatus(new ListUnmarshaller<ReplicationStatusType>(ReplicationStatusTypeJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

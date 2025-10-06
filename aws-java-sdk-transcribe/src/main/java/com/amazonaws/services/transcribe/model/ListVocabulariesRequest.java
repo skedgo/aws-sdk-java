@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,43 +27,49 @@ public class ListVocabulariesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * If the result of the previous request to <code>ListVocabularies</code> was truncated, include the
-     * <code>NextToken</code> to fetch the next set of jobs.
+     * If your <code>ListVocabularies</code> request returns more results than can be displayed, <code>NextToken</code>
+     * is displayed in the response with an associated string. To get the next page of results, copy this string and
+     * repeat your request, including <code>NextToken</code> with the value of the copied string. Repeat as needed to
+     * view all your results.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * The maximum number of vocabularies to return in the response. If there are fewer results in the list, this
-     * response contains only the actual results.
+     * The maximum number of custom vocabularies to return in each page of results. If there are fewer results than the
+     * value that you specify, only the actual results are returned. If you do not specify a value, a default of 5 is
+     * used.
      * </p>
      */
     private Integer maxResults;
     /**
      * <p>
-     * When specified, only returns vocabularies with the <code>VocabularyState</code> field equal to the specified
-     * state.
+     * Returns only custom vocabularies with the specified state. Vocabularies are ordered by creation date, with the
+     * newest vocabulary first. If you do not include <code>StateEquals</code>, all custom medical vocabularies are
+     * returned.
      * </p>
      */
     private String stateEquals;
     /**
      * <p>
-     * When specified, the vocabularies returned in the list are limited to vocabularies whose name contains the
-     * specified string. The search is case-insensitive, <code>ListVocabularies</code> will return both "vocabularyname"
-     * and "VocabularyName" in the response list.
+     * Returns only the custom vocabularies that contain the specified string. The search is not case sensitive.
      * </p>
      */
     private String nameContains;
 
     /**
      * <p>
-     * If the result of the previous request to <code>ListVocabularies</code> was truncated, include the
-     * <code>NextToken</code> to fetch the next set of jobs.
+     * If your <code>ListVocabularies</code> request returns more results than can be displayed, <code>NextToken</code>
+     * is displayed in the response with an associated string. To get the next page of results, copy this string and
+     * repeat your request, including <code>NextToken</code> with the value of the copied string. Repeat as needed to
+     * view all your results.
      * </p>
      * 
      * @param nextToken
-     *        If the result of the previous request to <code>ListVocabularies</code> was truncated, include the
-     *        <code>NextToken</code> to fetch the next set of jobs.
+     *        If your <code>ListVocabularies</code> request returns more results than can be displayed,
+     *        <code>NextToken</code> is displayed in the response with an associated string. To get the next page of
+     *        results, copy this string and repeat your request, including <code>NextToken</code> with the value of the
+     *        copied string. Repeat as needed to view all your results.
      */
 
     public void setNextToken(String nextToken) {
@@ -72,12 +78,16 @@ public class ListVocabulariesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * If the result of the previous request to <code>ListVocabularies</code> was truncated, include the
-     * <code>NextToken</code> to fetch the next set of jobs.
+     * If your <code>ListVocabularies</code> request returns more results than can be displayed, <code>NextToken</code>
+     * is displayed in the response with an associated string. To get the next page of results, copy this string and
+     * repeat your request, including <code>NextToken</code> with the value of the copied string. Repeat as needed to
+     * view all your results.
      * </p>
      * 
-     * @return If the result of the previous request to <code>ListVocabularies</code> was truncated, include the
-     *         <code>NextToken</code> to fetch the next set of jobs.
+     * @return If your <code>ListVocabularies</code> request returns more results than can be displayed,
+     *         <code>NextToken</code> is displayed in the response with an associated string. To get the next page of
+     *         results, copy this string and repeat your request, including <code>NextToken</code> with the value of the
+     *         copied string. Repeat as needed to view all your results.
      */
 
     public String getNextToken() {
@@ -86,13 +96,17 @@ public class ListVocabulariesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * If the result of the previous request to <code>ListVocabularies</code> was truncated, include the
-     * <code>NextToken</code> to fetch the next set of jobs.
+     * If your <code>ListVocabularies</code> request returns more results than can be displayed, <code>NextToken</code>
+     * is displayed in the response with an associated string. To get the next page of results, copy this string and
+     * repeat your request, including <code>NextToken</code> with the value of the copied string. Repeat as needed to
+     * view all your results.
      * </p>
      * 
      * @param nextToken
-     *        If the result of the previous request to <code>ListVocabularies</code> was truncated, include the
-     *        <code>NextToken</code> to fetch the next set of jobs.
+     *        If your <code>ListVocabularies</code> request returns more results than can be displayed,
+     *        <code>NextToken</code> is displayed in the response with an associated string. To get the next page of
+     *        results, copy this string and repeat your request, including <code>NextToken</code> with the value of the
+     *        copied string. Repeat as needed to view all your results.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -103,13 +117,15 @@ public class ListVocabulariesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The maximum number of vocabularies to return in the response. If there are fewer results in the list, this
-     * response contains only the actual results.
+     * The maximum number of custom vocabularies to return in each page of results. If there are fewer results than the
+     * value that you specify, only the actual results are returned. If you do not specify a value, a default of 5 is
+     * used.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of vocabularies to return in the response. If there are fewer results in the list, this
-     *        response contains only the actual results.
+     *        The maximum number of custom vocabularies to return in each page of results. If there are fewer results
+     *        than the value that you specify, only the actual results are returned. If you do not specify a value, a
+     *        default of 5 is used.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -118,12 +134,14 @@ public class ListVocabulariesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The maximum number of vocabularies to return in the response. If there are fewer results in the list, this
-     * response contains only the actual results.
+     * The maximum number of custom vocabularies to return in each page of results. If there are fewer results than the
+     * value that you specify, only the actual results are returned. If you do not specify a value, a default of 5 is
+     * used.
      * </p>
      * 
-     * @return The maximum number of vocabularies to return in the response. If there are fewer results in the list,
-     *         this response contains only the actual results.
+     * @return The maximum number of custom vocabularies to return in each page of results. If there are fewer results
+     *         than the value that you specify, only the actual results are returned. If you do not specify a value, a
+     *         default of 5 is used.
      */
 
     public Integer getMaxResults() {
@@ -132,13 +150,15 @@ public class ListVocabulariesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The maximum number of vocabularies to return in the response. If there are fewer results in the list, this
-     * response contains only the actual results.
+     * The maximum number of custom vocabularies to return in each page of results. If there are fewer results than the
+     * value that you specify, only the actual results are returned. If you do not specify a value, a default of 5 is
+     * used.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of vocabularies to return in the response. If there are fewer results in the list, this
-     *        response contains only the actual results.
+     *        The maximum number of custom vocabularies to return in each page of results. If there are fewer results
+     *        than the value that you specify, only the actual results are returned. If you do not specify a value, a
+     *        default of 5 is used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -149,13 +169,15 @@ public class ListVocabulariesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * When specified, only returns vocabularies with the <code>VocabularyState</code> field equal to the specified
-     * state.
+     * Returns only custom vocabularies with the specified state. Vocabularies are ordered by creation date, with the
+     * newest vocabulary first. If you do not include <code>StateEquals</code>, all custom medical vocabularies are
+     * returned.
      * </p>
      * 
      * @param stateEquals
-     *        When specified, only returns vocabularies with the <code>VocabularyState</code> field equal to the
-     *        specified state.
+     *        Returns only custom vocabularies with the specified state. Vocabularies are ordered by creation date, with
+     *        the newest vocabulary first. If you do not include <code>StateEquals</code>, all custom medical
+     *        vocabularies are returned.
      * @see VocabularyState
      */
 
@@ -165,12 +187,14 @@ public class ListVocabulariesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * When specified, only returns vocabularies with the <code>VocabularyState</code> field equal to the specified
-     * state.
+     * Returns only custom vocabularies with the specified state. Vocabularies are ordered by creation date, with the
+     * newest vocabulary first. If you do not include <code>StateEquals</code>, all custom medical vocabularies are
+     * returned.
      * </p>
      * 
-     * @return When specified, only returns vocabularies with the <code>VocabularyState</code> field equal to the
-     *         specified state.
+     * @return Returns only custom vocabularies with the specified state. Vocabularies are ordered by creation date,
+     *         with the newest vocabulary first. If you do not include <code>StateEquals</code>, all custom medical
+     *         vocabularies are returned.
      * @see VocabularyState
      */
 
@@ -180,13 +204,15 @@ public class ListVocabulariesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * When specified, only returns vocabularies with the <code>VocabularyState</code> field equal to the specified
-     * state.
+     * Returns only custom vocabularies with the specified state. Vocabularies are ordered by creation date, with the
+     * newest vocabulary first. If you do not include <code>StateEquals</code>, all custom medical vocabularies are
+     * returned.
      * </p>
      * 
      * @param stateEquals
-     *        When specified, only returns vocabularies with the <code>VocabularyState</code> field equal to the
-     *        specified state.
+     *        Returns only custom vocabularies with the specified state. Vocabularies are ordered by creation date, with
+     *        the newest vocabulary first. If you do not include <code>StateEquals</code>, all custom medical
+     *        vocabularies are returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VocabularyState
      */
@@ -198,13 +224,15 @@ public class ListVocabulariesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * When specified, only returns vocabularies with the <code>VocabularyState</code> field equal to the specified
-     * state.
+     * Returns only custom vocabularies with the specified state. Vocabularies are ordered by creation date, with the
+     * newest vocabulary first. If you do not include <code>StateEquals</code>, all custom medical vocabularies are
+     * returned.
      * </p>
      * 
      * @param stateEquals
-     *        When specified, only returns vocabularies with the <code>VocabularyState</code> field equal to the
-     *        specified state.
+     *        Returns only custom vocabularies with the specified state. Vocabularies are ordered by creation date, with
+     *        the newest vocabulary first. If you do not include <code>StateEquals</code>, all custom medical
+     *        vocabularies are returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see VocabularyState
      */
@@ -216,15 +244,11 @@ public class ListVocabulariesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * When specified, the vocabularies returned in the list are limited to vocabularies whose name contains the
-     * specified string. The search is case-insensitive, <code>ListVocabularies</code> will return both "vocabularyname"
-     * and "VocabularyName" in the response list.
+     * Returns only the custom vocabularies that contain the specified string. The search is not case sensitive.
      * </p>
      * 
      * @param nameContains
-     *        When specified, the vocabularies returned in the list are limited to vocabularies whose name contains the
-     *        specified string. The search is case-insensitive, <code>ListVocabularies</code> will return both
-     *        "vocabularyname" and "VocabularyName" in the response list.
+     *        Returns only the custom vocabularies that contain the specified string. The search is not case sensitive.
      */
 
     public void setNameContains(String nameContains) {
@@ -233,14 +257,10 @@ public class ListVocabulariesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * When specified, the vocabularies returned in the list are limited to vocabularies whose name contains the
-     * specified string. The search is case-insensitive, <code>ListVocabularies</code> will return both "vocabularyname"
-     * and "VocabularyName" in the response list.
+     * Returns only the custom vocabularies that contain the specified string. The search is not case sensitive.
      * </p>
      * 
-     * @return When specified, the vocabularies returned in the list are limited to vocabularies whose name contains the
-     *         specified string. The search is case-insensitive, <code>ListVocabularies</code> will return both
-     *         "vocabularyname" and "VocabularyName" in the response list.
+     * @return Returns only the custom vocabularies that contain the specified string. The search is not case sensitive.
      */
 
     public String getNameContains() {
@@ -249,15 +269,11 @@ public class ListVocabulariesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * When specified, the vocabularies returned in the list are limited to vocabularies whose name contains the
-     * specified string. The search is case-insensitive, <code>ListVocabularies</code> will return both "vocabularyname"
-     * and "VocabularyName" in the response list.
+     * Returns only the custom vocabularies that contain the specified string. The search is not case sensitive.
      * </p>
      * 
      * @param nameContains
-     *        When specified, the vocabularies returned in the list are limited to vocabularies whose name contains the
-     *        specified string. The search is case-insensitive, <code>ListVocabularies</code> will return both
-     *        "vocabularyname" and "VocabularyName" in the response list.
+     *        Returns only the custom vocabularies that contain the specified string. The search is not case sensitive.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,10 +34,26 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
      */
     private String baseUrlContent;
     /**
+     * Optional. One value per output group.
+     * 
+     * This field is required only if you are completing Base URL content A, and the downstream system has notified you
+     * that the media files for pipeline 1 of all outputs are in a location different from the media files for pipeline
+     * 0.
+     */
+    private String baseUrlContent1;
+    /**
      * A partial URI prefix that will be prepended to each output in the media .m3u8 file. Can be used if base manifest
      * is delivered from a different URL than the main .m3u8 file.
      */
     private String baseUrlManifest;
+    /**
+     * Optional. One value per output group.
+     * 
+     * Complete this field only if you are completing Base URL manifest A, and the downstream system has notified you
+     * that the child manifest files for pipeline 1 of all outputs are in a location different from the child manifest
+     * files for pipeline 0.
+     */
+    private String baseUrlManifest1;
     /**
      * Mapping of up to 4 caption channels to caption languages. Is only meaningful if captionLanguageSetting is set to
      * "insert".
@@ -68,10 +84,19 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     private OutputLocationRef destination;
     /** Place segments in subdirectories. */
     private String directoryStructure;
+    /**
+     * Specifies whether to insert EXT-X-DISCONTINUITY tags in the HLS child manifests for this output group. Typically,
+     * choose Insert because these tags are required in the manifest (according to the HLS specification) and serve an
+     * important purpose. Choose Never Insert only if the downstream system is doing real-time failover (without using
+     * the MediaLive automatic failover feature) and only if that downstream system has advised you to exclude the tags.
+     */
+    private String discontinuityTags;
     /** Encrypts the segments with the given encryption scheme. Exclude this parameter if no encryption is desired. */
     private String encryptionType;
     /** Parameters that control interactions with the CDN. */
     private HlsCdnSettings hlsCdnSettings;
+    /** State of HLS ID3 Segment Tagging */
+    private String hlsId3SegmentTagging;
     /**
      * DISABLED: Do not create an I-frame-only manifest, but do create the master and media manifests (according to the
      * Output Selection field).
@@ -83,9 +108,18 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
      */
     private String iFrameOnlyPlaylists;
     /**
-     * Applies only if Mode field is LIVE. Specifies the maximum number of segments in the media manifest file. After
-     * this maximum, older segments are removed from the media manifest. This number must be less than or equal to the
-     * Keep Segments field.
+     * Specifies whether to include the final (incomplete) segment in the media output when the pipeline stops producing
+     * output because of a channel stop, a channel pause or a loss of input to the pipeline. Auto means that MediaLive
+     * decides whether to include the final segment, depending on the channel class and the types of output groups.
+     * Suppress means to never include the incomplete segment. We recommend you choose Auto and let MediaLive control
+     * the behavior.
+     */
+    private String incompleteSegmentBehavior;
+    /**
+     * Applies only if Mode field is LIVE.
+     * 
+     * Specifies the maximum number of segments in the media manifest file. After this maximum, older segments are
+     * removed from the media manifest. This number must be smaller than the number in the Keep Segments field.
      */
     private Integer indexNSegments;
     /** Parameter that control output group behavior on input loss. */
@@ -103,8 +137,14 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
      */
     private String ivSource;
     /**
-     * Applies only if Mode field is LIVE. Specifies the number of media segments (.ts files) to retain in the
-     * destination directory.
+     * Applies only if Mode field is LIVE.
+     * 
+     * Specifies the number of media segments to retain in the destination directory. This number should be bigger than
+     * indexNSegments (Num segments). We recommend (value = (2 x indexNsegments) + 1).
+     * 
+     * If this "keep segments" number is too low, the following might happen: the player is still reading a media
+     * manifest file that lists this segment, but that segment has been removed from the destination directory (as
+     * directed by indexNSegments). This situation would result in a 404 HTTP error on the player.
      */
     private Integer keepSegments;
     /**
@@ -121,8 +161,8 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     /** Indicates whether the output manifest should use floating point or integer values for segment duration. */
     private String manifestDurationFormat;
     /**
-     * When set, minimumSegmentLength is enforced by looking ahead and back within the specified range for a nearby
-     * avail and extending the segment size if needed.
+     * Minimum length of MPEG-2 Transport Stream segments in seconds. When set, minimum segment length is enforced by
+     * looking ahead and back within the specified range for a nearby avail and extending the segment size if needed.
      */
     private Integer minSegmentLength;
     /**
@@ -135,18 +175,30 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
      */
     private String mode;
     /**
-     * MANIFESTSANDSEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this output
+     * MANIFESTS_AND_SEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this output
      * group.
      * 
-     * SEGMENTSONLY: Does not generate any manifests for this output group.
+     * VARIANT_MANIFESTS_AND_SEGMENTS: Generates media manifests for this output group, but not a master manifest.
+     * 
+     * SEGMENTS_ONLY: Does not generate any manifests for this output group.
      */
     private String outputSelection;
     /**
-     * Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated as follows:
-     * either the program date and time are initialized using the input timecode source, or the time is initialized
-     * using the input timecode source and the date is initialized using the timestampOffset.
+     * Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated using the
+     * program date time clock.
      */
     private String programDateTime;
+    /**
+     * Specifies the algorithm used to drive the HLS EXT-X-PROGRAM-DATE-TIME clock. Options include:
+     * 
+     * INITIALIZE_FROM_OUTPUT_TIMECODE: The PDT clock is initialized as a function of the first output timecode, then
+     * incremented by the EXTINF duration of each encoded segment.
+     * 
+     * SYSTEM_CLOCK: The PDT clock is initialized as a function of the UTC wall clock, then incremented by the EXTINF
+     * duration of each encoded segment. If the PDT clock diverges from the wall clock by more than 500ms, it is
+     * resynchronized to the wall clock.
+     */
+    private String programDateTimeClock;
     /** Period of insertion of EXT-X-PROGRAM-DATE-TIME entry, in seconds. */
     private Integer programDateTimePeriod;
     /**
@@ -163,8 +215,8 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
      */
     private String redundantManifest;
     /**
-     * Length of MPEG-2 Transport Stream segments to create (in seconds). Note that segments will end on the next
-     * keyframe after this number of seconds, so actual segment length may be longer.
+     * Length of MPEG-2 Transport Stream segments to create in seconds. Note that segments will end on the next keyframe
+     * after this duration, so actual segment length may be longer.
      */
     private Integer segmentLength;
     /** useInputSegmentation has been deprecated. The configured segment size is always used. */
@@ -183,9 +235,9 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     /** Provides an extra millisecond delta offset to fine tune the timestamps. */
     private Integer timestampDeltaMilliseconds;
     /**
-     * SEGMENTEDFILES: Emit the program as segments - multiple .ts media files.
+     * SEGMENTED_FILES: Emit the program as segments - multiple .ts media files.
      * 
-     * SINGLEFILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media manifest
+     * SINGLE_FILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media manifest
      * includes #EXT-X-BYTERANGE tags to index segments for playback. A typical use for this value is when sending the
      * output to AWS Elemental MediaConvert, which can accept only a single media file. Playback while the channel is
      * running is not guaranteed due to HTTP server caching.
@@ -321,6 +373,64 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * Optional. One value per output group.
+     * 
+     * This field is required only if you are completing Base URL content A, and the downstream system has notified you
+     * that the media files for pipeline 1 of all outputs are in a location different from the media files for pipeline
+     * 0.
+     * 
+     * @param baseUrlContent1
+     *        Optional. One value per output group.
+     * 
+     *        This field is required only if you are completing Base URL content A, and the downstream system has
+     *        notified you that the media files for pipeline 1 of all outputs are in a location different from the media
+     *        files for pipeline 0.
+     */
+
+    public void setBaseUrlContent1(String baseUrlContent1) {
+        this.baseUrlContent1 = baseUrlContent1;
+    }
+
+    /**
+     * Optional. One value per output group.
+     * 
+     * This field is required only if you are completing Base URL content A, and the downstream system has notified you
+     * that the media files for pipeline 1 of all outputs are in a location different from the media files for pipeline
+     * 0.
+     * 
+     * @return Optional. One value per output group.
+     * 
+     *         This field is required only if you are completing Base URL content A, and the downstream system has
+     *         notified you that the media files for pipeline 1 of all outputs are in a location different from the
+     *         media files for pipeline 0.
+     */
+
+    public String getBaseUrlContent1() {
+        return this.baseUrlContent1;
+    }
+
+    /**
+     * Optional. One value per output group.
+     * 
+     * This field is required only if you are completing Base URL content A, and the downstream system has notified you
+     * that the media files for pipeline 1 of all outputs are in a location different from the media files for pipeline
+     * 0.
+     * 
+     * @param baseUrlContent1
+     *        Optional. One value per output group.
+     * 
+     *        This field is required only if you are completing Base URL content A, and the downstream system has
+     *        notified you that the media files for pipeline 1 of all outputs are in a location different from the media
+     *        files for pipeline 0.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HlsGroupSettings withBaseUrlContent1(String baseUrlContent1) {
+        setBaseUrlContent1(baseUrlContent1);
+        return this;
+    }
+
+    /**
      * A partial URI prefix that will be prepended to each output in the media .m3u8 file. Can be used if base manifest
      * is delivered from a different URL than the main .m3u8 file.
      * 
@@ -357,6 +467,64 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
 
     public HlsGroupSettings withBaseUrlManifest(String baseUrlManifest) {
         setBaseUrlManifest(baseUrlManifest);
+        return this;
+    }
+
+    /**
+     * Optional. One value per output group.
+     * 
+     * Complete this field only if you are completing Base URL manifest A, and the downstream system has notified you
+     * that the child manifest files for pipeline 1 of all outputs are in a location different from the child manifest
+     * files for pipeline 0.
+     * 
+     * @param baseUrlManifest1
+     *        Optional. One value per output group.
+     * 
+     *        Complete this field only if you are completing Base URL manifest A, and the downstream system has notified
+     *        you that the child manifest files for pipeline 1 of all outputs are in a location different from the child
+     *        manifest files for pipeline 0.
+     */
+
+    public void setBaseUrlManifest1(String baseUrlManifest1) {
+        this.baseUrlManifest1 = baseUrlManifest1;
+    }
+
+    /**
+     * Optional. One value per output group.
+     * 
+     * Complete this field only if you are completing Base URL manifest A, and the downstream system has notified you
+     * that the child manifest files for pipeline 1 of all outputs are in a location different from the child manifest
+     * files for pipeline 0.
+     * 
+     * @return Optional. One value per output group.
+     * 
+     *         Complete this field only if you are completing Base URL manifest A, and the downstream system has
+     *         notified you that the child manifest files for pipeline 1 of all outputs are in a location different from
+     *         the child manifest files for pipeline 0.
+     */
+
+    public String getBaseUrlManifest1() {
+        return this.baseUrlManifest1;
+    }
+
+    /**
+     * Optional. One value per output group.
+     * 
+     * Complete this field only if you are completing Base URL manifest A, and the downstream system has notified you
+     * that the child manifest files for pipeline 1 of all outputs are in a location different from the child manifest
+     * files for pipeline 0.
+     * 
+     * @param baseUrlManifest1
+     *        Optional. One value per output group.
+     * 
+     *        Complete this field only if you are completing Base URL manifest A, and the downstream system has notified
+     *        you that the child manifest files for pipeline 1 of all outputs are in a location different from the child
+     *        manifest files for pipeline 0.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HlsGroupSettings withBaseUrlManifest1(String baseUrlManifest1) {
+        setBaseUrlManifest1(baseUrlManifest1);
         return this;
     }
 
@@ -764,6 +932,85 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * Specifies whether to insert EXT-X-DISCONTINUITY tags in the HLS child manifests for this output group. Typically,
+     * choose Insert because these tags are required in the manifest (according to the HLS specification) and serve an
+     * important purpose. Choose Never Insert only if the downstream system is doing real-time failover (without using
+     * the MediaLive automatic failover feature) and only if that downstream system has advised you to exclude the tags.
+     * 
+     * @param discontinuityTags
+     *        Specifies whether to insert EXT-X-DISCONTINUITY tags in the HLS child manifests for this output group.
+     *        Typically, choose Insert because these tags are required in the manifest (according to the HLS
+     *        specification) and serve an important purpose. Choose Never Insert only if the downstream system is doing
+     *        real-time failover (without using the MediaLive automatic failover feature) and only if that downstream
+     *        system has advised you to exclude the tags.
+     * @see HlsDiscontinuityTags
+     */
+
+    public void setDiscontinuityTags(String discontinuityTags) {
+        this.discontinuityTags = discontinuityTags;
+    }
+
+    /**
+     * Specifies whether to insert EXT-X-DISCONTINUITY tags in the HLS child manifests for this output group. Typically,
+     * choose Insert because these tags are required in the manifest (according to the HLS specification) and serve an
+     * important purpose. Choose Never Insert only if the downstream system is doing real-time failover (without using
+     * the MediaLive automatic failover feature) and only if that downstream system has advised you to exclude the tags.
+     * 
+     * @return Specifies whether to insert EXT-X-DISCONTINUITY tags in the HLS child manifests for this output group.
+     *         Typically, choose Insert because these tags are required in the manifest (according to the HLS
+     *         specification) and serve an important purpose. Choose Never Insert only if the downstream system is doing
+     *         real-time failover (without using the MediaLive automatic failover feature) and only if that downstream
+     *         system has advised you to exclude the tags.
+     * @see HlsDiscontinuityTags
+     */
+
+    public String getDiscontinuityTags() {
+        return this.discontinuityTags;
+    }
+
+    /**
+     * Specifies whether to insert EXT-X-DISCONTINUITY tags in the HLS child manifests for this output group. Typically,
+     * choose Insert because these tags are required in the manifest (according to the HLS specification) and serve an
+     * important purpose. Choose Never Insert only if the downstream system is doing real-time failover (without using
+     * the MediaLive automatic failover feature) and only if that downstream system has advised you to exclude the tags.
+     * 
+     * @param discontinuityTags
+     *        Specifies whether to insert EXT-X-DISCONTINUITY tags in the HLS child manifests for this output group.
+     *        Typically, choose Insert because these tags are required in the manifest (according to the HLS
+     *        specification) and serve an important purpose. Choose Never Insert only if the downstream system is doing
+     *        real-time failover (without using the MediaLive automatic failover feature) and only if that downstream
+     *        system has advised you to exclude the tags.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HlsDiscontinuityTags
+     */
+
+    public HlsGroupSettings withDiscontinuityTags(String discontinuityTags) {
+        setDiscontinuityTags(discontinuityTags);
+        return this;
+    }
+
+    /**
+     * Specifies whether to insert EXT-X-DISCONTINUITY tags in the HLS child manifests for this output group. Typically,
+     * choose Insert because these tags are required in the manifest (according to the HLS specification) and serve an
+     * important purpose. Choose Never Insert only if the downstream system is doing real-time failover (without using
+     * the MediaLive automatic failover feature) and only if that downstream system has advised you to exclude the tags.
+     * 
+     * @param discontinuityTags
+     *        Specifies whether to insert EXT-X-DISCONTINUITY tags in the HLS child manifests for this output group.
+     *        Typically, choose Insert because these tags are required in the manifest (according to the HLS
+     *        specification) and serve an important purpose. Choose Never Insert only if the downstream system is doing
+     *        real-time failover (without using the MediaLive automatic failover feature) and only if that downstream
+     *        system has advised you to exclude the tags.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HlsDiscontinuityTags
+     */
+
+    public HlsGroupSettings withDiscontinuityTags(HlsDiscontinuityTags discontinuityTags) {
+        this.discontinuityTags = discontinuityTags.toString();
+        return this;
+    }
+
+    /**
      * Encrypts the segments with the given encryption scheme. Exclude this parameter if no encryption is desired.
      * 
      * @param encryptionType
@@ -849,6 +1096,57 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
 
     public HlsGroupSettings withHlsCdnSettings(HlsCdnSettings hlsCdnSettings) {
         setHlsCdnSettings(hlsCdnSettings);
+        return this;
+    }
+
+    /**
+     * State of HLS ID3 Segment Tagging
+     * 
+     * @param hlsId3SegmentTagging
+     *        State of HLS ID3 Segment Tagging
+     * @see HlsId3SegmentTaggingState
+     */
+
+    public void setHlsId3SegmentTagging(String hlsId3SegmentTagging) {
+        this.hlsId3SegmentTagging = hlsId3SegmentTagging;
+    }
+
+    /**
+     * State of HLS ID3 Segment Tagging
+     * 
+     * @return State of HLS ID3 Segment Tagging
+     * @see HlsId3SegmentTaggingState
+     */
+
+    public String getHlsId3SegmentTagging() {
+        return this.hlsId3SegmentTagging;
+    }
+
+    /**
+     * State of HLS ID3 Segment Tagging
+     * 
+     * @param hlsId3SegmentTagging
+     *        State of HLS ID3 Segment Tagging
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HlsId3SegmentTaggingState
+     */
+
+    public HlsGroupSettings withHlsId3SegmentTagging(String hlsId3SegmentTagging) {
+        setHlsId3SegmentTagging(hlsId3SegmentTagging);
+        return this;
+    }
+
+    /**
+     * State of HLS ID3 Segment Tagging
+     * 
+     * @param hlsId3SegmentTagging
+     *        State of HLS ID3 Segment Tagging
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HlsId3SegmentTaggingState
+     */
+
+    public HlsGroupSettings withHlsId3SegmentTagging(HlsId3SegmentTaggingState hlsId3SegmentTagging) {
+        this.hlsId3SegmentTagging = hlsId3SegmentTagging.toString();
         return this;
     }
 
@@ -952,14 +1250,100 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Applies only if Mode field is LIVE. Specifies the maximum number of segments in the media manifest file. After
-     * this maximum, older segments are removed from the media manifest. This number must be less than or equal to the
-     * Keep Segments field.
+     * Specifies whether to include the final (incomplete) segment in the media output when the pipeline stops producing
+     * output because of a channel stop, a channel pause or a loss of input to the pipeline. Auto means that MediaLive
+     * decides whether to include the final segment, depending on the channel class and the types of output groups.
+     * Suppress means to never include the incomplete segment. We recommend you choose Auto and let MediaLive control
+     * the behavior.
+     * 
+     * @param incompleteSegmentBehavior
+     *        Specifies whether to include the final (incomplete) segment in the media output when the pipeline stops
+     *        producing output because of a channel stop, a channel pause or a loss of input to the pipeline. Auto means
+     *        that MediaLive decides whether to include the final segment, depending on the channel class and the types
+     *        of output groups. Suppress means to never include the incomplete segment. We recommend you choose Auto and
+     *        let MediaLive control the behavior.
+     * @see HlsIncompleteSegmentBehavior
+     */
+
+    public void setIncompleteSegmentBehavior(String incompleteSegmentBehavior) {
+        this.incompleteSegmentBehavior = incompleteSegmentBehavior;
+    }
+
+    /**
+     * Specifies whether to include the final (incomplete) segment in the media output when the pipeline stops producing
+     * output because of a channel stop, a channel pause or a loss of input to the pipeline. Auto means that MediaLive
+     * decides whether to include the final segment, depending on the channel class and the types of output groups.
+     * Suppress means to never include the incomplete segment. We recommend you choose Auto and let MediaLive control
+     * the behavior.
+     * 
+     * @return Specifies whether to include the final (incomplete) segment in the media output when the pipeline stops
+     *         producing output because of a channel stop, a channel pause or a loss of input to the pipeline. Auto
+     *         means that MediaLive decides whether to include the final segment, depending on the channel class and the
+     *         types of output groups. Suppress means to never include the incomplete segment. We recommend you choose
+     *         Auto and let MediaLive control the behavior.
+     * @see HlsIncompleteSegmentBehavior
+     */
+
+    public String getIncompleteSegmentBehavior() {
+        return this.incompleteSegmentBehavior;
+    }
+
+    /**
+     * Specifies whether to include the final (incomplete) segment in the media output when the pipeline stops producing
+     * output because of a channel stop, a channel pause or a loss of input to the pipeline. Auto means that MediaLive
+     * decides whether to include the final segment, depending on the channel class and the types of output groups.
+     * Suppress means to never include the incomplete segment. We recommend you choose Auto and let MediaLive control
+     * the behavior.
+     * 
+     * @param incompleteSegmentBehavior
+     *        Specifies whether to include the final (incomplete) segment in the media output when the pipeline stops
+     *        producing output because of a channel stop, a channel pause or a loss of input to the pipeline. Auto means
+     *        that MediaLive decides whether to include the final segment, depending on the channel class and the types
+     *        of output groups. Suppress means to never include the incomplete segment. We recommend you choose Auto and
+     *        let MediaLive control the behavior.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HlsIncompleteSegmentBehavior
+     */
+
+    public HlsGroupSettings withIncompleteSegmentBehavior(String incompleteSegmentBehavior) {
+        setIncompleteSegmentBehavior(incompleteSegmentBehavior);
+        return this;
+    }
+
+    /**
+     * Specifies whether to include the final (incomplete) segment in the media output when the pipeline stops producing
+     * output because of a channel stop, a channel pause or a loss of input to the pipeline. Auto means that MediaLive
+     * decides whether to include the final segment, depending on the channel class and the types of output groups.
+     * Suppress means to never include the incomplete segment. We recommend you choose Auto and let MediaLive control
+     * the behavior.
+     * 
+     * @param incompleteSegmentBehavior
+     *        Specifies whether to include the final (incomplete) segment in the media output when the pipeline stops
+     *        producing output because of a channel stop, a channel pause or a loss of input to the pipeline. Auto means
+     *        that MediaLive decides whether to include the final segment, depending on the channel class and the types
+     *        of output groups. Suppress means to never include the incomplete segment. We recommend you choose Auto and
+     *        let MediaLive control the behavior.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HlsIncompleteSegmentBehavior
+     */
+
+    public HlsGroupSettings withIncompleteSegmentBehavior(HlsIncompleteSegmentBehavior incompleteSegmentBehavior) {
+        this.incompleteSegmentBehavior = incompleteSegmentBehavior.toString();
+        return this;
+    }
+
+    /**
+     * Applies only if Mode field is LIVE.
+     * 
+     * Specifies the maximum number of segments in the media manifest file. After this maximum, older segments are
+     * removed from the media manifest. This number must be smaller than the number in the Keep Segments field.
      * 
      * @param indexNSegments
-     *        Applies only if Mode field is LIVE. Specifies the maximum number of segments in the media manifest file.
-     *        After this maximum, older segments are removed from the media manifest. This number must be less than or
-     *        equal to the Keep Segments field.
+     *        Applies only if Mode field is LIVE.
+     * 
+     *        Specifies the maximum number of segments in the media manifest file. After this maximum, older segments
+     *        are removed from the media manifest. This number must be smaller than the number in the Keep Segments
+     *        field.
      */
 
     public void setIndexNSegments(Integer indexNSegments) {
@@ -967,13 +1351,16 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Applies only if Mode field is LIVE. Specifies the maximum number of segments in the media manifest file. After
-     * this maximum, older segments are removed from the media manifest. This number must be less than or equal to the
-     * Keep Segments field.
+     * Applies only if Mode field is LIVE.
      * 
-     * @return Applies only if Mode field is LIVE. Specifies the maximum number of segments in the media manifest file.
-     *         After this maximum, older segments are removed from the media manifest. This number must be less than or
-     *         equal to the Keep Segments field.
+     * Specifies the maximum number of segments in the media manifest file. After this maximum, older segments are
+     * removed from the media manifest. This number must be smaller than the number in the Keep Segments field.
+     * 
+     * @return Applies only if Mode field is LIVE.
+     * 
+     *         Specifies the maximum number of segments in the media manifest file. After this maximum, older segments
+     *         are removed from the media manifest. This number must be smaller than the number in the Keep Segments
+     *         field.
      */
 
     public Integer getIndexNSegments() {
@@ -981,14 +1368,17 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Applies only if Mode field is LIVE. Specifies the maximum number of segments in the media manifest file. After
-     * this maximum, older segments are removed from the media manifest. This number must be less than or equal to the
-     * Keep Segments field.
+     * Applies only if Mode field is LIVE.
+     * 
+     * Specifies the maximum number of segments in the media manifest file. After this maximum, older segments are
+     * removed from the media manifest. This number must be smaller than the number in the Keep Segments field.
      * 
      * @param indexNSegments
-     *        Applies only if Mode field is LIVE. Specifies the maximum number of segments in the media manifest file.
-     *        After this maximum, older segments are removed from the media manifest. This number must be less than or
-     *        equal to the Keep Segments field.
+     *        Applies only if Mode field is LIVE.
+     * 
+     *        Specifies the maximum number of segments in the media manifest file. After this maximum, older segments
+     *        are removed from the media manifest. This number must be smaller than the number in the Keep Segments
+     *        field.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1187,12 +1577,24 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Applies only if Mode field is LIVE. Specifies the number of media segments (.ts files) to retain in the
-     * destination directory.
+     * Applies only if Mode field is LIVE.
+     * 
+     * Specifies the number of media segments to retain in the destination directory. This number should be bigger than
+     * indexNSegments (Num segments). We recommend (value = (2 x indexNsegments) + 1).
+     * 
+     * If this "keep segments" number is too low, the following might happen: the player is still reading a media
+     * manifest file that lists this segment, but that segment has been removed from the destination directory (as
+     * directed by indexNSegments). This situation would result in a 404 HTTP error on the player.
      * 
      * @param keepSegments
-     *        Applies only if Mode field is LIVE. Specifies the number of media segments (.ts files) to retain in the
-     *        destination directory.
+     *        Applies only if Mode field is LIVE.
+     * 
+     *        Specifies the number of media segments to retain in the destination directory. This number should be
+     *        bigger than indexNSegments (Num segments). We recommend (value = (2 x indexNsegments) + 1).
+     * 
+     *        If this "keep segments" number is too low, the following might happen: the player is still reading a media
+     *        manifest file that lists this segment, but that segment has been removed from the destination directory
+     *        (as directed by indexNSegments). This situation would result in a 404 HTTP error on the player.
      */
 
     public void setKeepSegments(Integer keepSegments) {
@@ -1200,11 +1602,23 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Applies only if Mode field is LIVE. Specifies the number of media segments (.ts files) to retain in the
-     * destination directory.
+     * Applies only if Mode field is LIVE.
      * 
-     * @return Applies only if Mode field is LIVE. Specifies the number of media segments (.ts files) to retain in the
-     *         destination directory.
+     * Specifies the number of media segments to retain in the destination directory. This number should be bigger than
+     * indexNSegments (Num segments). We recommend (value = (2 x indexNsegments) + 1).
+     * 
+     * If this "keep segments" number is too low, the following might happen: the player is still reading a media
+     * manifest file that lists this segment, but that segment has been removed from the destination directory (as
+     * directed by indexNSegments). This situation would result in a 404 HTTP error on the player.
+     * 
+     * @return Applies only if Mode field is LIVE.
+     * 
+     *         Specifies the number of media segments to retain in the destination directory. This number should be
+     *         bigger than indexNSegments (Num segments). We recommend (value = (2 x indexNsegments) + 1).
+     * 
+     *         If this "keep segments" number is too low, the following might happen: the player is still reading a
+     *         media manifest file that lists this segment, but that segment has been removed from the destination
+     *         directory (as directed by indexNSegments). This situation would result in a 404 HTTP error on the player.
      */
 
     public Integer getKeepSegments() {
@@ -1212,12 +1626,24 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Applies only if Mode field is LIVE. Specifies the number of media segments (.ts files) to retain in the
-     * destination directory.
+     * Applies only if Mode field is LIVE.
+     * 
+     * Specifies the number of media segments to retain in the destination directory. This number should be bigger than
+     * indexNSegments (Num segments). We recommend (value = (2 x indexNsegments) + 1).
+     * 
+     * If this "keep segments" number is too low, the following might happen: the player is still reading a media
+     * manifest file that lists this segment, but that segment has been removed from the destination directory (as
+     * directed by indexNSegments). This situation would result in a 404 HTTP error on the player.
      * 
      * @param keepSegments
-     *        Applies only if Mode field is LIVE. Specifies the number of media segments (.ts files) to retain in the
-     *        destination directory.
+     *        Applies only if Mode field is LIVE.
+     * 
+     *        Specifies the number of media segments to retain in the destination directory. This number should be
+     *        bigger than indexNSegments (Num segments). We recommend (value = (2 x indexNsegments) + 1).
+     * 
+     *        If this "keep segments" number is too low, the following might happen: the player is still reading a media
+     *        manifest file that lists this segment, but that segment has been removed from the destination directory
+     *        (as directed by indexNSegments). This situation would result in a 404 HTTP error on the player.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1437,12 +1863,13 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * When set, minimumSegmentLength is enforced by looking ahead and back within the specified range for a nearby
-     * avail and extending the segment size if needed.
+     * Minimum length of MPEG-2 Transport Stream segments in seconds. When set, minimum segment length is enforced by
+     * looking ahead and back within the specified range for a nearby avail and extending the segment size if needed.
      * 
      * @param minSegmentLength
-     *        When set, minimumSegmentLength is enforced by looking ahead and back within the specified range for a
-     *        nearby avail and extending the segment size if needed.
+     *        Minimum length of MPEG-2 Transport Stream segments in seconds. When set, minimum segment length is
+     *        enforced by looking ahead and back within the specified range for a nearby avail and extending the segment
+     *        size if needed.
      */
 
     public void setMinSegmentLength(Integer minSegmentLength) {
@@ -1450,11 +1877,12 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * When set, minimumSegmentLength is enforced by looking ahead and back within the specified range for a nearby
-     * avail and extending the segment size if needed.
+     * Minimum length of MPEG-2 Transport Stream segments in seconds. When set, minimum segment length is enforced by
+     * looking ahead and back within the specified range for a nearby avail and extending the segment size if needed.
      * 
-     * @return When set, minimumSegmentLength is enforced by looking ahead and back within the specified range for a
-     *         nearby avail and extending the segment size if needed.
+     * @return Minimum length of MPEG-2 Transport Stream segments in seconds. When set, minimum segment length is
+     *         enforced by looking ahead and back within the specified range for a nearby avail and extending the
+     *         segment size if needed.
      */
 
     public Integer getMinSegmentLength() {
@@ -1462,12 +1890,13 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * When set, minimumSegmentLength is enforced by looking ahead and back within the specified range for a nearby
-     * avail and extending the segment size if needed.
+     * Minimum length of MPEG-2 Transport Stream segments in seconds. When set, minimum segment length is enforced by
+     * looking ahead and back within the specified range for a nearby avail and extending the segment size if needed.
      * 
      * @param minSegmentLength
-     *        When set, minimumSegmentLength is enforced by looking ahead and back within the specified range for a
-     *        nearby avail and extending the segment size if needed.
+     *        Minimum length of MPEG-2 Transport Stream segments in seconds. When set, minimum segment length is
+     *        enforced by looking ahead and back within the specified range for a nearby avail and extending the segment
+     *        size if needed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1568,16 +1997,21 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * MANIFESTSANDSEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this output
+     * MANIFESTS_AND_SEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this output
      * group.
      * 
-     * SEGMENTSONLY: Does not generate any manifests for this output group.
+     * VARIANT_MANIFESTS_AND_SEGMENTS: Generates media manifests for this output group, but not a master manifest.
+     * 
+     * SEGMENTS_ONLY: Does not generate any manifests for this output group.
      * 
      * @param outputSelection
-     *        MANIFESTSANDSEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this
+     *        MANIFESTS_AND_SEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this
      *        output group.
      * 
-     *        SEGMENTSONLY: Does not generate any manifests for this output group.
+     *        VARIANT_MANIFESTS_AND_SEGMENTS: Generates media manifests for this output group, but not a master
+     *        manifest.
+     * 
+     *        SEGMENTS_ONLY: Does not generate any manifests for this output group.
      * @see HlsOutputSelection
      */
 
@@ -1586,15 +2020,20 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * MANIFESTSANDSEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this output
+     * MANIFESTS_AND_SEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this output
      * group.
      * 
-     * SEGMENTSONLY: Does not generate any manifests for this output group.
+     * VARIANT_MANIFESTS_AND_SEGMENTS: Generates media manifests for this output group, but not a master manifest.
      * 
-     * @return MANIFESTSANDSEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this
-     *         output group.
+     * SEGMENTS_ONLY: Does not generate any manifests for this output group.
      * 
-     *         SEGMENTSONLY: Does not generate any manifests for this output group.
+     * @return MANIFESTS_AND_SEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for
+     *         this output group.
+     * 
+     *         VARIANT_MANIFESTS_AND_SEGMENTS: Generates media manifests for this output group, but not a master
+     *         manifest.
+     * 
+     *         SEGMENTS_ONLY: Does not generate any manifests for this output group.
      * @see HlsOutputSelection
      */
 
@@ -1603,16 +2042,21 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * MANIFESTSANDSEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this output
+     * MANIFESTS_AND_SEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this output
      * group.
      * 
-     * SEGMENTSONLY: Does not generate any manifests for this output group.
+     * VARIANT_MANIFESTS_AND_SEGMENTS: Generates media manifests for this output group, but not a master manifest.
+     * 
+     * SEGMENTS_ONLY: Does not generate any manifests for this output group.
      * 
      * @param outputSelection
-     *        MANIFESTSANDSEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this
+     *        MANIFESTS_AND_SEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this
      *        output group.
      * 
-     *        SEGMENTSONLY: Does not generate any manifests for this output group.
+     *        VARIANT_MANIFESTS_AND_SEGMENTS: Generates media manifests for this output group, but not a master
+     *        manifest.
+     * 
+     *        SEGMENTS_ONLY: Does not generate any manifests for this output group.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HlsOutputSelection
      */
@@ -1623,16 +2067,21 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * MANIFESTSANDSEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this output
+     * MANIFESTS_AND_SEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this output
      * group.
      * 
-     * SEGMENTSONLY: Does not generate any manifests for this output group.
+     * VARIANT_MANIFESTS_AND_SEGMENTS: Generates media manifests for this output group, but not a master manifest.
+     * 
+     * SEGMENTS_ONLY: Does not generate any manifests for this output group.
      * 
      * @param outputSelection
-     *        MANIFESTSANDSEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this
+     *        MANIFESTS_AND_SEGMENTS: Generates manifests (master manifest, if applicable, and media manifests) for this
      *        output group.
      * 
-     *        SEGMENTSONLY: Does not generate any manifests for this output group.
+     *        VARIANT_MANIFESTS_AND_SEGMENTS: Generates media manifests for this output group, but not a master
+     *        manifest.
+     * 
+     *        SEGMENTS_ONLY: Does not generate any manifests for this output group.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HlsOutputSelection
      */
@@ -1643,14 +2092,12 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated as follows:
-     * either the program date and time are initialized using the input timecode source, or the time is initialized
-     * using the input timecode source and the date is initialized using the timestampOffset.
+     * Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated using the
+     * program date time clock.
      * 
      * @param programDateTime
-     *        Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated as
-     *        follows: either the program date and time are initialized using the input timecode source, or the time is
-     *        initialized using the input timecode source and the date is initialized using the timestampOffset.
+     *        Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated using
+     *        the program date time clock.
      * @see HlsProgramDateTime
      */
 
@@ -1659,13 +2106,11 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated as follows:
-     * either the program date and time are initialized using the input timecode source, or the time is initialized
-     * using the input timecode source and the date is initialized using the timestampOffset.
+     * Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated using the
+     * program date time clock.
      * 
-     * @return Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated as
-     *         follows: either the program date and time are initialized using the input timecode source, or the time is
-     *         initialized using the input timecode source and the date is initialized using the timestampOffset.
+     * @return Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated using
+     *         the program date time clock.
      * @see HlsProgramDateTime
      */
 
@@ -1674,14 +2119,12 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated as follows:
-     * either the program date and time are initialized using the input timecode source, or the time is initialized
-     * using the input timecode source and the date is initialized using the timestampOffset.
+     * Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated using the
+     * program date time clock.
      * 
      * @param programDateTime
-     *        Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated as
-     *        follows: either the program date and time are initialized using the input timecode source, or the time is
-     *        initialized using the input timecode source and the date is initialized using the timestampOffset.
+     *        Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated using
+     *        the program date time clock.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HlsProgramDateTime
      */
@@ -1692,20 +2135,125 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated as follows:
-     * either the program date and time are initialized using the input timecode source, or the time is initialized
-     * using the input timecode source and the date is initialized using the timestampOffset.
+     * Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated using the
+     * program date time clock.
      * 
      * @param programDateTime
-     *        Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated as
-     *        follows: either the program date and time are initialized using the input timecode source, or the time is
-     *        initialized using the input timecode source and the date is initialized using the timestampOffset.
+     *        Includes or excludes EXT-X-PROGRAM-DATE-TIME tag in .m3u8 manifest files. The value is calculated using
+     *        the program date time clock.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HlsProgramDateTime
      */
 
     public HlsGroupSettings withProgramDateTime(HlsProgramDateTime programDateTime) {
         this.programDateTime = programDateTime.toString();
+        return this;
+    }
+
+    /**
+     * Specifies the algorithm used to drive the HLS EXT-X-PROGRAM-DATE-TIME clock. Options include:
+     * 
+     * INITIALIZE_FROM_OUTPUT_TIMECODE: The PDT clock is initialized as a function of the first output timecode, then
+     * incremented by the EXTINF duration of each encoded segment.
+     * 
+     * SYSTEM_CLOCK: The PDT clock is initialized as a function of the UTC wall clock, then incremented by the EXTINF
+     * duration of each encoded segment. If the PDT clock diverges from the wall clock by more than 500ms, it is
+     * resynchronized to the wall clock.
+     * 
+     * @param programDateTimeClock
+     *        Specifies the algorithm used to drive the HLS EXT-X-PROGRAM-DATE-TIME clock. Options include:
+     * 
+     *        INITIALIZE_FROM_OUTPUT_TIMECODE: The PDT clock is initialized as a function of the first output timecode,
+     *        then incremented by the EXTINF duration of each encoded segment.
+     * 
+     *        SYSTEM_CLOCK: The PDT clock is initialized as a function of the UTC wall clock, then incremented by the
+     *        EXTINF duration of each encoded segment. If the PDT clock diverges from the wall clock by more than 500ms,
+     *        it is resynchronized to the wall clock.
+     * @see HlsProgramDateTimeClock
+     */
+
+    public void setProgramDateTimeClock(String programDateTimeClock) {
+        this.programDateTimeClock = programDateTimeClock;
+    }
+
+    /**
+     * Specifies the algorithm used to drive the HLS EXT-X-PROGRAM-DATE-TIME clock. Options include:
+     * 
+     * INITIALIZE_FROM_OUTPUT_TIMECODE: The PDT clock is initialized as a function of the first output timecode, then
+     * incremented by the EXTINF duration of each encoded segment.
+     * 
+     * SYSTEM_CLOCK: The PDT clock is initialized as a function of the UTC wall clock, then incremented by the EXTINF
+     * duration of each encoded segment. If the PDT clock diverges from the wall clock by more than 500ms, it is
+     * resynchronized to the wall clock.
+     * 
+     * @return Specifies the algorithm used to drive the HLS EXT-X-PROGRAM-DATE-TIME clock. Options include:
+     * 
+     *         INITIALIZE_FROM_OUTPUT_TIMECODE: The PDT clock is initialized as a function of the first output timecode,
+     *         then incremented by the EXTINF duration of each encoded segment.
+     * 
+     *         SYSTEM_CLOCK: The PDT clock is initialized as a function of the UTC wall clock, then incremented by the
+     *         EXTINF duration of each encoded segment. If the PDT clock diverges from the wall clock by more than
+     *         500ms, it is resynchronized to the wall clock.
+     * @see HlsProgramDateTimeClock
+     */
+
+    public String getProgramDateTimeClock() {
+        return this.programDateTimeClock;
+    }
+
+    /**
+     * Specifies the algorithm used to drive the HLS EXT-X-PROGRAM-DATE-TIME clock. Options include:
+     * 
+     * INITIALIZE_FROM_OUTPUT_TIMECODE: The PDT clock is initialized as a function of the first output timecode, then
+     * incremented by the EXTINF duration of each encoded segment.
+     * 
+     * SYSTEM_CLOCK: The PDT clock is initialized as a function of the UTC wall clock, then incremented by the EXTINF
+     * duration of each encoded segment. If the PDT clock diverges from the wall clock by more than 500ms, it is
+     * resynchronized to the wall clock.
+     * 
+     * @param programDateTimeClock
+     *        Specifies the algorithm used to drive the HLS EXT-X-PROGRAM-DATE-TIME clock. Options include:
+     * 
+     *        INITIALIZE_FROM_OUTPUT_TIMECODE: The PDT clock is initialized as a function of the first output timecode,
+     *        then incremented by the EXTINF duration of each encoded segment.
+     * 
+     *        SYSTEM_CLOCK: The PDT clock is initialized as a function of the UTC wall clock, then incremented by the
+     *        EXTINF duration of each encoded segment. If the PDT clock diverges from the wall clock by more than 500ms,
+     *        it is resynchronized to the wall clock.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HlsProgramDateTimeClock
+     */
+
+    public HlsGroupSettings withProgramDateTimeClock(String programDateTimeClock) {
+        setProgramDateTimeClock(programDateTimeClock);
+        return this;
+    }
+
+    /**
+     * Specifies the algorithm used to drive the HLS EXT-X-PROGRAM-DATE-TIME clock. Options include:
+     * 
+     * INITIALIZE_FROM_OUTPUT_TIMECODE: The PDT clock is initialized as a function of the first output timecode, then
+     * incremented by the EXTINF duration of each encoded segment.
+     * 
+     * SYSTEM_CLOCK: The PDT clock is initialized as a function of the UTC wall clock, then incremented by the EXTINF
+     * duration of each encoded segment. If the PDT clock diverges from the wall clock by more than 500ms, it is
+     * resynchronized to the wall clock.
+     * 
+     * @param programDateTimeClock
+     *        Specifies the algorithm used to drive the HLS EXT-X-PROGRAM-DATE-TIME clock. Options include:
+     * 
+     *        INITIALIZE_FROM_OUTPUT_TIMECODE: The PDT clock is initialized as a function of the first output timecode,
+     *        then incremented by the EXTINF duration of each encoded segment.
+     * 
+     *        SYSTEM_CLOCK: The PDT clock is initialized as a function of the UTC wall clock, then incremented by the
+     *        EXTINF duration of each encoded segment. If the PDT clock diverges from the wall clock by more than 500ms,
+     *        it is resynchronized to the wall clock.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HlsProgramDateTimeClock
+     */
+
+    public HlsGroupSettings withProgramDateTimeClock(HlsProgramDateTimeClock programDateTimeClock) {
+        this.programDateTimeClock = programDateTimeClock.toString();
         return this;
     }
 
@@ -1875,12 +2423,12 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Length of MPEG-2 Transport Stream segments to create (in seconds). Note that segments will end on the next
-     * keyframe after this number of seconds, so actual segment length may be longer.
+     * Length of MPEG-2 Transport Stream segments to create in seconds. Note that segments will end on the next keyframe
+     * after this duration, so actual segment length may be longer.
      * 
      * @param segmentLength
-     *        Length of MPEG-2 Transport Stream segments to create (in seconds). Note that segments will end on the next
-     *        keyframe after this number of seconds, so actual segment length may be longer.
+     *        Length of MPEG-2 Transport Stream segments to create in seconds. Note that segments will end on the next
+     *        keyframe after this duration, so actual segment length may be longer.
      */
 
     public void setSegmentLength(Integer segmentLength) {
@@ -1888,11 +2436,11 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Length of MPEG-2 Transport Stream segments to create (in seconds). Note that segments will end on the next
-     * keyframe after this number of seconds, so actual segment length may be longer.
+     * Length of MPEG-2 Transport Stream segments to create in seconds. Note that segments will end on the next keyframe
+     * after this duration, so actual segment length may be longer.
      * 
-     * @return Length of MPEG-2 Transport Stream segments to create (in seconds). Note that segments will end on the
-     *         next keyframe after this number of seconds, so actual segment length may be longer.
+     * @return Length of MPEG-2 Transport Stream segments to create in seconds. Note that segments will end on the next
+     *         keyframe after this duration, so actual segment length may be longer.
      */
 
     public Integer getSegmentLength() {
@@ -1900,12 +2448,12 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Length of MPEG-2 Transport Stream segments to create (in seconds). Note that segments will end on the next
-     * keyframe after this number of seconds, so actual segment length may be longer.
+     * Length of MPEG-2 Transport Stream segments to create in seconds. Note that segments will end on the next keyframe
+     * after this duration, so actual segment length may be longer.
      * 
      * @param segmentLength
-     *        Length of MPEG-2 Transport Stream segments to create (in seconds). Note that segments will end on the next
-     *        keyframe after this number of seconds, so actual segment length may be longer.
+     *        Length of MPEG-2 Transport Stream segments to create in seconds. Note that segments will end on the next
+     *        keyframe after this duration, so actual segment length may be longer.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2176,17 +2724,17 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * SEGMENTEDFILES: Emit the program as segments - multiple .ts media files.
+     * SEGMENTED_FILES: Emit the program as segments - multiple .ts media files.
      * 
-     * SINGLEFILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media manifest
+     * SINGLE_FILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media manifest
      * includes #EXT-X-BYTERANGE tags to index segments for playback. A typical use for this value is when sending the
      * output to AWS Elemental MediaConvert, which can accept only a single media file. Playback while the channel is
      * running is not guaranteed due to HTTP server caching.
      * 
      * @param tsFileMode
-     *        SEGMENTEDFILES: Emit the program as segments - multiple .ts media files.
+     *        SEGMENTED_FILES: Emit the program as segments - multiple .ts media files.
      * 
-     *        SINGLEFILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media
+     *        SINGLE_FILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media
      *        manifest includes #EXT-X-BYTERANGE tags to index segments for playback. A typical use for this value is
      *        when sending the output to AWS Elemental MediaConvert, which can accept only a single media file. Playback
      *        while the channel is running is not guaranteed due to HTTP server caching.
@@ -2198,16 +2746,16 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * SEGMENTEDFILES: Emit the program as segments - multiple .ts media files.
+     * SEGMENTED_FILES: Emit the program as segments - multiple .ts media files.
      * 
-     * SINGLEFILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media manifest
+     * SINGLE_FILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media manifest
      * includes #EXT-X-BYTERANGE tags to index segments for playback. A typical use for this value is when sending the
      * output to AWS Elemental MediaConvert, which can accept only a single media file. Playback while the channel is
      * running is not guaranteed due to HTTP server caching.
      * 
-     * @return SEGMENTEDFILES: Emit the program as segments - multiple .ts media files.
+     * @return SEGMENTED_FILES: Emit the program as segments - multiple .ts media files.
      * 
-     *         SINGLEFILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media
+     *         SINGLE_FILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media
      *         manifest includes #EXT-X-BYTERANGE tags to index segments for playback. A typical use for this value is
      *         when sending the output to AWS Elemental MediaConvert, which can accept only a single media file.
      *         Playback while the channel is running is not guaranteed due to HTTP server caching.
@@ -2219,17 +2767,17 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * SEGMENTEDFILES: Emit the program as segments - multiple .ts media files.
+     * SEGMENTED_FILES: Emit the program as segments - multiple .ts media files.
      * 
-     * SINGLEFILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media manifest
+     * SINGLE_FILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media manifest
      * includes #EXT-X-BYTERANGE tags to index segments for playback. A typical use for this value is when sending the
      * output to AWS Elemental MediaConvert, which can accept only a single media file. Playback while the channel is
      * running is not guaranteed due to HTTP server caching.
      * 
      * @param tsFileMode
-     *        SEGMENTEDFILES: Emit the program as segments - multiple .ts media files.
+     *        SEGMENTED_FILES: Emit the program as segments - multiple .ts media files.
      * 
-     *        SINGLEFILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media
+     *        SINGLE_FILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media
      *        manifest includes #EXT-X-BYTERANGE tags to index segments for playback. A typical use for this value is
      *        when sending the output to AWS Elemental MediaConvert, which can accept only a single media file. Playback
      *        while the channel is running is not guaranteed due to HTTP server caching.
@@ -2243,17 +2791,17 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * SEGMENTEDFILES: Emit the program as segments - multiple .ts media files.
+     * SEGMENTED_FILES: Emit the program as segments - multiple .ts media files.
      * 
-     * SINGLEFILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media manifest
+     * SINGLE_FILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media manifest
      * includes #EXT-X-BYTERANGE tags to index segments for playback. A typical use for this value is when sending the
      * output to AWS Elemental MediaConvert, which can accept only a single media file. Playback while the channel is
      * running is not guaranteed due to HTTP server caching.
      * 
      * @param tsFileMode
-     *        SEGMENTEDFILES: Emit the program as segments - multiple .ts media files.
+     *        SEGMENTED_FILES: Emit the program as segments - multiple .ts media files.
      * 
-     *        SINGLEFILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media
+     *        SINGLE_FILE: Applies only if Mode field is VOD. Emit the program as a single .ts media file. The media
      *        manifest includes #EXT-X-BYTERANGE tags to index segments for playback. A typical use for this value is
      *        when sending the output to AWS Elemental MediaConvert, which can accept only a single media file. Playback
      *        while the channel is running is not guaranteed due to HTTP server caching.
@@ -2282,8 +2830,12 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
             sb.append("AdMarkers: ").append(getAdMarkers()).append(",");
         if (getBaseUrlContent() != null)
             sb.append("BaseUrlContent: ").append(getBaseUrlContent()).append(",");
+        if (getBaseUrlContent1() != null)
+            sb.append("BaseUrlContent1: ").append(getBaseUrlContent1()).append(",");
         if (getBaseUrlManifest() != null)
             sb.append("BaseUrlManifest: ").append(getBaseUrlManifest()).append(",");
+        if (getBaseUrlManifest1() != null)
+            sb.append("BaseUrlManifest1: ").append(getBaseUrlManifest1()).append(",");
         if (getCaptionLanguageMappings() != null)
             sb.append("CaptionLanguageMappings: ").append(getCaptionLanguageMappings()).append(",");
         if (getCaptionLanguageSetting() != null)
@@ -2298,12 +2850,18 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
             sb.append("Destination: ").append(getDestination()).append(",");
         if (getDirectoryStructure() != null)
             sb.append("DirectoryStructure: ").append(getDirectoryStructure()).append(",");
+        if (getDiscontinuityTags() != null)
+            sb.append("DiscontinuityTags: ").append(getDiscontinuityTags()).append(",");
         if (getEncryptionType() != null)
             sb.append("EncryptionType: ").append(getEncryptionType()).append(",");
         if (getHlsCdnSettings() != null)
             sb.append("HlsCdnSettings: ").append(getHlsCdnSettings()).append(",");
+        if (getHlsId3SegmentTagging() != null)
+            sb.append("HlsId3SegmentTagging: ").append(getHlsId3SegmentTagging()).append(",");
         if (getIFrameOnlyPlaylists() != null)
             sb.append("IFrameOnlyPlaylists: ").append(getIFrameOnlyPlaylists()).append(",");
+        if (getIncompleteSegmentBehavior() != null)
+            sb.append("IncompleteSegmentBehavior: ").append(getIncompleteSegmentBehavior()).append(",");
         if (getIndexNSegments() != null)
             sb.append("IndexNSegments: ").append(getIndexNSegments()).append(",");
         if (getInputLossAction() != null)
@@ -2332,6 +2890,8 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
             sb.append("OutputSelection: ").append(getOutputSelection()).append(",");
         if (getProgramDateTime() != null)
             sb.append("ProgramDateTime: ").append(getProgramDateTime()).append(",");
+        if (getProgramDateTimeClock() != null)
+            sb.append("ProgramDateTimeClock: ").append(getProgramDateTimeClock()).append(",");
         if (getProgramDateTimePeriod() != null)
             sb.append("ProgramDateTimePeriod: ").append(getProgramDateTimePeriod()).append(",");
         if (getRedundantManifest() != null)
@@ -2374,9 +2934,17 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getBaseUrlContent() != null && other.getBaseUrlContent().equals(this.getBaseUrlContent()) == false)
             return false;
+        if (other.getBaseUrlContent1() == null ^ this.getBaseUrlContent1() == null)
+            return false;
+        if (other.getBaseUrlContent1() != null && other.getBaseUrlContent1().equals(this.getBaseUrlContent1()) == false)
+            return false;
         if (other.getBaseUrlManifest() == null ^ this.getBaseUrlManifest() == null)
             return false;
         if (other.getBaseUrlManifest() != null && other.getBaseUrlManifest().equals(this.getBaseUrlManifest()) == false)
+            return false;
+        if (other.getBaseUrlManifest1() == null ^ this.getBaseUrlManifest1() == null)
+            return false;
+        if (other.getBaseUrlManifest1() != null && other.getBaseUrlManifest1().equals(this.getBaseUrlManifest1()) == false)
             return false;
         if (other.getCaptionLanguageMappings() == null ^ this.getCaptionLanguageMappings() == null)
             return false;
@@ -2406,6 +2974,10 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getDirectoryStructure() != null && other.getDirectoryStructure().equals(this.getDirectoryStructure()) == false)
             return false;
+        if (other.getDiscontinuityTags() == null ^ this.getDiscontinuityTags() == null)
+            return false;
+        if (other.getDiscontinuityTags() != null && other.getDiscontinuityTags().equals(this.getDiscontinuityTags()) == false)
+            return false;
         if (other.getEncryptionType() == null ^ this.getEncryptionType() == null)
             return false;
         if (other.getEncryptionType() != null && other.getEncryptionType().equals(this.getEncryptionType()) == false)
@@ -2414,9 +2986,17 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getHlsCdnSettings() != null && other.getHlsCdnSettings().equals(this.getHlsCdnSettings()) == false)
             return false;
+        if (other.getHlsId3SegmentTagging() == null ^ this.getHlsId3SegmentTagging() == null)
+            return false;
+        if (other.getHlsId3SegmentTagging() != null && other.getHlsId3SegmentTagging().equals(this.getHlsId3SegmentTagging()) == false)
+            return false;
         if (other.getIFrameOnlyPlaylists() == null ^ this.getIFrameOnlyPlaylists() == null)
             return false;
         if (other.getIFrameOnlyPlaylists() != null && other.getIFrameOnlyPlaylists().equals(this.getIFrameOnlyPlaylists()) == false)
+            return false;
+        if (other.getIncompleteSegmentBehavior() == null ^ this.getIncompleteSegmentBehavior() == null)
+            return false;
+        if (other.getIncompleteSegmentBehavior() != null && other.getIncompleteSegmentBehavior().equals(this.getIncompleteSegmentBehavior()) == false)
             return false;
         if (other.getIndexNSegments() == null ^ this.getIndexNSegments() == null)
             return false;
@@ -2474,6 +3054,10 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getProgramDateTime() != null && other.getProgramDateTime().equals(this.getProgramDateTime()) == false)
             return false;
+        if (other.getProgramDateTimeClock() == null ^ this.getProgramDateTimeClock() == null)
+            return false;
+        if (other.getProgramDateTimeClock() != null && other.getProgramDateTimeClock().equals(this.getProgramDateTimeClock()) == false)
+            return false;
         if (other.getProgramDateTimePeriod() == null ^ this.getProgramDateTimePeriod() == null)
             return false;
         if (other.getProgramDateTimePeriod() != null && other.getProgramDateTimePeriod().equals(this.getProgramDateTimePeriod()) == false)
@@ -2524,7 +3108,9 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
 
         hashCode = prime * hashCode + ((getAdMarkers() == null) ? 0 : getAdMarkers().hashCode());
         hashCode = prime * hashCode + ((getBaseUrlContent() == null) ? 0 : getBaseUrlContent().hashCode());
+        hashCode = prime * hashCode + ((getBaseUrlContent1() == null) ? 0 : getBaseUrlContent1().hashCode());
         hashCode = prime * hashCode + ((getBaseUrlManifest() == null) ? 0 : getBaseUrlManifest().hashCode());
+        hashCode = prime * hashCode + ((getBaseUrlManifest1() == null) ? 0 : getBaseUrlManifest1().hashCode());
         hashCode = prime * hashCode + ((getCaptionLanguageMappings() == null) ? 0 : getCaptionLanguageMappings().hashCode());
         hashCode = prime * hashCode + ((getCaptionLanguageSetting() == null) ? 0 : getCaptionLanguageSetting().hashCode());
         hashCode = prime * hashCode + ((getClientCache() == null) ? 0 : getClientCache().hashCode());
@@ -2532,9 +3118,12 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
         hashCode = prime * hashCode + ((getConstantIv() == null) ? 0 : getConstantIv().hashCode());
         hashCode = prime * hashCode + ((getDestination() == null) ? 0 : getDestination().hashCode());
         hashCode = prime * hashCode + ((getDirectoryStructure() == null) ? 0 : getDirectoryStructure().hashCode());
+        hashCode = prime * hashCode + ((getDiscontinuityTags() == null) ? 0 : getDiscontinuityTags().hashCode());
         hashCode = prime * hashCode + ((getEncryptionType() == null) ? 0 : getEncryptionType().hashCode());
         hashCode = prime * hashCode + ((getHlsCdnSettings() == null) ? 0 : getHlsCdnSettings().hashCode());
+        hashCode = prime * hashCode + ((getHlsId3SegmentTagging() == null) ? 0 : getHlsId3SegmentTagging().hashCode());
         hashCode = prime * hashCode + ((getIFrameOnlyPlaylists() == null) ? 0 : getIFrameOnlyPlaylists().hashCode());
+        hashCode = prime * hashCode + ((getIncompleteSegmentBehavior() == null) ? 0 : getIncompleteSegmentBehavior().hashCode());
         hashCode = prime * hashCode + ((getIndexNSegments() == null) ? 0 : getIndexNSegments().hashCode());
         hashCode = prime * hashCode + ((getInputLossAction() == null) ? 0 : getInputLossAction().hashCode());
         hashCode = prime * hashCode + ((getIvInManifest() == null) ? 0 : getIvInManifest().hashCode());
@@ -2549,6 +3138,7 @@ public class HlsGroupSettings implements Serializable, Cloneable, StructuredPojo
         hashCode = prime * hashCode + ((getMode() == null) ? 0 : getMode().hashCode());
         hashCode = prime * hashCode + ((getOutputSelection() == null) ? 0 : getOutputSelection().hashCode());
         hashCode = prime * hashCode + ((getProgramDateTime() == null) ? 0 : getProgramDateTime().hashCode());
+        hashCode = prime * hashCode + ((getProgramDateTimeClock() == null) ? 0 : getProgramDateTimeClock().hashCode());
         hashCode = prime * hashCode + ((getProgramDateTimePeriod() == null) ? 0 : getProgramDateTimePeriod().hashCode());
         hashCode = prime * hashCode + ((getRedundantManifest() == null) ? 0 : getRedundantManifest().hashCode());
         hashCode = prime * hashCode + ((getSegmentLength() == null) ? 0 : getSegmentLength().hashCode());

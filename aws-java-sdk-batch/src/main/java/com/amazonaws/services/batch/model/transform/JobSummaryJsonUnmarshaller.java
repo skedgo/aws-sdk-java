@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,10 @@ public class JobSummaryJsonUnmarshaller implements Unmarshaller<JobSummary, Json
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("jobArn", targetDepth)) {
+                    context.nextToken();
+                    jobSummary.setJobArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("jobId", targetDepth)) {
                     context.nextToken();
                     jobSummary.setJobId(context.getUnmarshaller(String.class).unmarshall(context));
@@ -87,6 +91,10 @@ public class JobSummaryJsonUnmarshaller implements Unmarshaller<JobSummary, Json
                 if (context.testExpression("nodeProperties", targetDepth)) {
                     context.nextToken();
                     jobSummary.setNodeProperties(NodePropertiesSummaryJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("jobDefinition", targetDepth)) {
+                    context.nextToken();
+                    jobSummary.setJobDefinition(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

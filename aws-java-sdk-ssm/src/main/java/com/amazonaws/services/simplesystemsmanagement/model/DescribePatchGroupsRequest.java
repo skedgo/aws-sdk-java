@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,8 +33,29 @@ public class DescribePatchGroupsRequest extends com.amazonaws.AmazonWebServiceRe
     private Integer maxResults;
     /**
      * <p>
-     * One or more filters. Use a filter to return a more specific list of results.
+     * Each element in the array is a structure containing a key-value pair.
      * </p>
+     * <p>
+     * Supported keys for <code>DescribePatchGroups</code> include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>NAME_PREFIX</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>AWS-</code> | <code>My-</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>OPERATING_SYSTEM</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>AMAZON_LINUX</code> | <code>SUSE</code> | <code>WINDOWS</code>
+     * </p>
+     * </li>
+     * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<PatchOrchestratorFilter> filters;
     /**
@@ -86,10 +107,51 @@ public class DescribePatchGroupsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * One or more filters. Use a filter to return a more specific list of results.
+     * Each element in the array is a structure containing a key-value pair.
      * </p>
+     * <p>
+     * Supported keys for <code>DescribePatchGroups</code> include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>NAME_PREFIX</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>AWS-</code> | <code>My-</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>OPERATING_SYSTEM</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>AMAZON_LINUX</code> | <code>SUSE</code> | <code>WINDOWS</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return One or more filters. Use a filter to return a more specific list of results.
+     * @return Each element in the array is a structure containing a key-value pair.</p>
+     *         <p>
+     *         Supported keys for <code>DescribePatchGroups</code> include the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <b> <code>NAME_PREFIX</code> </b>
+     *         </p>
+     *         <p>
+     *         Sample values: <code>AWS-</code> | <code>My-</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b> <code>OPERATING_SYSTEM</code> </b>
+     *         </p>
+     *         <p>
+     *         Sample values: <code>AMAZON_LINUX</code> | <code>SUSE</code> | <code>WINDOWS</code>
+     *         </p>
+     *         </li>
      */
 
     public java.util.List<PatchOrchestratorFilter> getFilters() {
@@ -101,11 +163,52 @@ public class DescribePatchGroupsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * One or more filters. Use a filter to return a more specific list of results.
+     * Each element in the array is a structure containing a key-value pair.
      * </p>
+     * <p>
+     * Supported keys for <code>DescribePatchGroups</code> include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>NAME_PREFIX</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>AWS-</code> | <code>My-</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>OPERATING_SYSTEM</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>AMAZON_LINUX</code> | <code>SUSE</code> | <code>WINDOWS</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param filters
-     *        One or more filters. Use a filter to return a more specific list of results.
+     *        Each element in the array is a structure containing a key-value pair.</p>
+     *        <p>
+     *        Supported keys for <code>DescribePatchGroups</code> include the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b> <code>NAME_PREFIX</code> </b>
+     *        </p>
+     *        <p>
+     *        Sample values: <code>AWS-</code> | <code>My-</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b> <code>OPERATING_SYSTEM</code> </b>
+     *        </p>
+     *        <p>
+     *        Sample values: <code>AMAZON_LINUX</code> | <code>SUSE</code> | <code>WINDOWS</code>
+     *        </p>
+     *        </li>
      */
 
     public void setFilters(java.util.Collection<PatchOrchestratorFilter> filters) {
@@ -119,8 +222,29 @@ public class DescribePatchGroupsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * One or more filters. Use a filter to return a more specific list of results.
+     * Each element in the array is a structure containing a key-value pair.
      * </p>
+     * <p>
+     * Supported keys for <code>DescribePatchGroups</code> include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>NAME_PREFIX</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>AWS-</code> | <code>My-</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>OPERATING_SYSTEM</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>AMAZON_LINUX</code> | <code>SUSE</code> | <code>WINDOWS</code>
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setFilters(java.util.Collection)} or {@link #withFilters(java.util.Collection)} if you want to override
@@ -128,7 +252,27 @@ public class DescribePatchGroupsRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param filters
-     *        One or more filters. Use a filter to return a more specific list of results.
+     *        Each element in the array is a structure containing a key-value pair.</p>
+     *        <p>
+     *        Supported keys for <code>DescribePatchGroups</code> include the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b> <code>NAME_PREFIX</code> </b>
+     *        </p>
+     *        <p>
+     *        Sample values: <code>AWS-</code> | <code>My-</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b> <code>OPERATING_SYSTEM</code> </b>
+     *        </p>
+     *        <p>
+     *        Sample values: <code>AMAZON_LINUX</code> | <code>SUSE</code> | <code>WINDOWS</code>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -144,11 +288,52 @@ public class DescribePatchGroupsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * One or more filters. Use a filter to return a more specific list of results.
+     * Each element in the array is a structure containing a key-value pair.
      * </p>
+     * <p>
+     * Supported keys for <code>DescribePatchGroups</code> include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b> <code>NAME_PREFIX</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>AWS-</code> | <code>My-</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b> <code>OPERATING_SYSTEM</code> </b>
+     * </p>
+     * <p>
+     * Sample values: <code>AMAZON_LINUX</code> | <code>SUSE</code> | <code>WINDOWS</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param filters
-     *        One or more filters. Use a filter to return a more specific list of results.
+     *        Each element in the array is a structure containing a key-value pair.</p>
+     *        <p>
+     *        Supported keys for <code>DescribePatchGroups</code> include the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b> <code>NAME_PREFIX</code> </b>
+     *        </p>
+     *        <p>
+     *        Sample values: <code>AWS-</code> | <code>My-</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b> <code>OPERATING_SYSTEM</code> </b>
+     *        </p>
+     *        <p>
+     *        Sample values: <code>AMAZON_LINUX</code> | <code>SUSE</code> | <code>WINDOWS</code>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

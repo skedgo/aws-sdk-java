@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,8 +36,7 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
     private PatchFilterGroup patchFilterGroup;
     /**
      * <p>
-     * A compliance severity level for all approved patches in a patch baseline. Valid compliance severity levels
-     * include the following: Unspecified, Critical, High, Medium, Low, and Informational.
+     * A compliance severity level for all approved patches in a patch baseline.
      * </p>
      */
     private String complianceLevel;
@@ -45,14 +44,25 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The number of days after the release date of each patch matched by the rule that the patch is marked as approved
      * in the patch baseline. For example, a value of <code>7</code> means that patches are approved seven days after
-     * they are released.
+     * they are released. Not supported on Debian Server or Ubuntu Server.
      * </p>
      */
     private Integer approveAfterDays;
     /**
      * <p>
-     * For instances identified by the approval rule filters, enables a patch baseline to apply non-security updates
-     * available in the specified repository. The default value is 'false'. Applies to Linux instances only.
+     * The cutoff date for auto approval of released patches. Any patches released on or before this date are installed
+     * automatically. Not supported on Debian Server or Ubuntu Server.
+     * </p>
+     * <p>
+     * Enter dates in the format <code>YYYY-MM-DD</code>. For example, <code>2021-12-31</code>.
+     * </p>
+     */
+    private String approveUntilDate;
+    /**
+     * <p>
+     * For managed nodes identified by the approval rule filters, enables a patch baseline to apply non-security updates
+     * available in the specified repository. The default value is <code>false</code>. Applies to Linux managed nodes
+     * only.
      * </p>
      */
     private Boolean enableNonSecurity;
@@ -99,13 +109,11 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A compliance severity level for all approved patches in a patch baseline. Valid compliance severity levels
-     * include the following: Unspecified, Critical, High, Medium, Low, and Informational.
+     * A compliance severity level for all approved patches in a patch baseline.
      * </p>
      * 
      * @param complianceLevel
-     *        A compliance severity level for all approved patches in a patch baseline. Valid compliance severity levels
-     *        include the following: Unspecified, Critical, High, Medium, Low, and Informational.
+     *        A compliance severity level for all approved patches in a patch baseline.
      * @see PatchComplianceLevel
      */
 
@@ -115,12 +123,10 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A compliance severity level for all approved patches in a patch baseline. Valid compliance severity levels
-     * include the following: Unspecified, Critical, High, Medium, Low, and Informational.
+     * A compliance severity level for all approved patches in a patch baseline.
      * </p>
      * 
-     * @return A compliance severity level for all approved patches in a patch baseline. Valid compliance severity
-     *         levels include the following: Unspecified, Critical, High, Medium, Low, and Informational.
+     * @return A compliance severity level for all approved patches in a patch baseline.
      * @see PatchComplianceLevel
      */
 
@@ -130,13 +136,11 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A compliance severity level for all approved patches in a patch baseline. Valid compliance severity levels
-     * include the following: Unspecified, Critical, High, Medium, Low, and Informational.
+     * A compliance severity level for all approved patches in a patch baseline.
      * </p>
      * 
      * @param complianceLevel
-     *        A compliance severity level for all approved patches in a patch baseline. Valid compliance severity levels
-     *        include the following: Unspecified, Critical, High, Medium, Low, and Informational.
+     *        A compliance severity level for all approved patches in a patch baseline.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PatchComplianceLevel
      */
@@ -148,13 +152,11 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A compliance severity level for all approved patches in a patch baseline. Valid compliance severity levels
-     * include the following: Unspecified, Critical, High, Medium, Low, and Informational.
+     * A compliance severity level for all approved patches in a patch baseline.
      * </p>
      * 
      * @param complianceLevel
-     *        A compliance severity level for all approved patches in a patch baseline. Valid compliance severity levels
-     *        include the following: Unspecified, Critical, High, Medium, Low, and Informational.
+     *        A compliance severity level for all approved patches in a patch baseline.
      * @see PatchComplianceLevel
      */
 
@@ -164,13 +166,11 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A compliance severity level for all approved patches in a patch baseline. Valid compliance severity levels
-     * include the following: Unspecified, Critical, High, Medium, Low, and Informational.
+     * A compliance severity level for all approved patches in a patch baseline.
      * </p>
      * 
      * @param complianceLevel
-     *        A compliance severity level for all approved patches in a patch baseline. Valid compliance severity levels
-     *        include the following: Unspecified, Critical, High, Medium, Low, and Informational.
+     *        A compliance severity level for all approved patches in a patch baseline.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PatchComplianceLevel
      */
@@ -184,13 +184,13 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The number of days after the release date of each patch matched by the rule that the patch is marked as approved
      * in the patch baseline. For example, a value of <code>7</code> means that patches are approved seven days after
-     * they are released.
+     * they are released. Not supported on Debian Server or Ubuntu Server.
      * </p>
      * 
      * @param approveAfterDays
      *        The number of days after the release date of each patch matched by the rule that the patch is marked as
      *        approved in the patch baseline. For example, a value of <code>7</code> means that patches are approved
-     *        seven days after they are released.
+     *        seven days after they are released. Not supported on Debian Server or Ubuntu Server.
      */
 
     public void setApproveAfterDays(Integer approveAfterDays) {
@@ -201,12 +201,12 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The number of days after the release date of each patch matched by the rule that the patch is marked as approved
      * in the patch baseline. For example, a value of <code>7</code> means that patches are approved seven days after
-     * they are released.
+     * they are released. Not supported on Debian Server or Ubuntu Server.
      * </p>
      * 
      * @return The number of days after the release date of each patch matched by the rule that the patch is marked as
      *         approved in the patch baseline. For example, a value of <code>7</code> means that patches are approved
-     *         seven days after they are released.
+     *         seven days after they are released. Not supported on Debian Server or Ubuntu Server.
      */
 
     public Integer getApproveAfterDays() {
@@ -217,13 +217,13 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The number of days after the release date of each patch matched by the rule that the patch is marked as approved
      * in the patch baseline. For example, a value of <code>7</code> means that patches are approved seven days after
-     * they are released.
+     * they are released. Not supported on Debian Server or Ubuntu Server.
      * </p>
      * 
      * @param approveAfterDays
      *        The number of days after the release date of each patch matched by the rule that the patch is marked as
      *        approved in the patch baseline. For example, a value of <code>7</code> means that patches are approved
-     *        seven days after they are released.
+     *        seven days after they are released. Not supported on Debian Server or Ubuntu Server.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -234,14 +234,76 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * For instances identified by the approval rule filters, enables a patch baseline to apply non-security updates
-     * available in the specified repository. The default value is 'false'. Applies to Linux instances only.
+     * The cutoff date for auto approval of released patches. Any patches released on or before this date are installed
+     * automatically. Not supported on Debian Server or Ubuntu Server.
+     * </p>
+     * <p>
+     * Enter dates in the format <code>YYYY-MM-DD</code>. For example, <code>2021-12-31</code>.
+     * </p>
+     * 
+     * @param approveUntilDate
+     *        The cutoff date for auto approval of released patches. Any patches released on or before this date are
+     *        installed automatically. Not supported on Debian Server or Ubuntu Server.</p>
+     *        <p>
+     *        Enter dates in the format <code>YYYY-MM-DD</code>. For example, <code>2021-12-31</code>.
+     */
+
+    public void setApproveUntilDate(String approveUntilDate) {
+        this.approveUntilDate = approveUntilDate;
+    }
+
+    /**
+     * <p>
+     * The cutoff date for auto approval of released patches. Any patches released on or before this date are installed
+     * automatically. Not supported on Debian Server or Ubuntu Server.
+     * </p>
+     * <p>
+     * Enter dates in the format <code>YYYY-MM-DD</code>. For example, <code>2021-12-31</code>.
+     * </p>
+     * 
+     * @return The cutoff date for auto approval of released patches. Any patches released on or before this date are
+     *         installed automatically. Not supported on Debian Server or Ubuntu Server.</p>
+     *         <p>
+     *         Enter dates in the format <code>YYYY-MM-DD</code>. For example, <code>2021-12-31</code>.
+     */
+
+    public String getApproveUntilDate() {
+        return this.approveUntilDate;
+    }
+
+    /**
+     * <p>
+     * The cutoff date for auto approval of released patches. Any patches released on or before this date are installed
+     * automatically. Not supported on Debian Server or Ubuntu Server.
+     * </p>
+     * <p>
+     * Enter dates in the format <code>YYYY-MM-DD</code>. For example, <code>2021-12-31</code>.
+     * </p>
+     * 
+     * @param approveUntilDate
+     *        The cutoff date for auto approval of released patches. Any patches released on or before this date are
+     *        installed automatically. Not supported on Debian Server or Ubuntu Server.</p>
+     *        <p>
+     *        Enter dates in the format <code>YYYY-MM-DD</code>. For example, <code>2021-12-31</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PatchRule withApproveUntilDate(String approveUntilDate) {
+        setApproveUntilDate(approveUntilDate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * For managed nodes identified by the approval rule filters, enables a patch baseline to apply non-security updates
+     * available in the specified repository. The default value is <code>false</code>. Applies to Linux managed nodes
+     * only.
      * </p>
      * 
      * @param enableNonSecurity
-     *        For instances identified by the approval rule filters, enables a patch baseline to apply non-security
-     *        updates available in the specified repository. The default value is 'false'. Applies to Linux instances
-     *        only.
+     *        For managed nodes identified by the approval rule filters, enables a patch baseline to apply non-security
+     *        updates available in the specified repository. The default value is <code>false</code>. Applies to Linux
+     *        managed nodes only.
      */
 
     public void setEnableNonSecurity(Boolean enableNonSecurity) {
@@ -250,13 +312,14 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * For instances identified by the approval rule filters, enables a patch baseline to apply non-security updates
-     * available in the specified repository. The default value is 'false'. Applies to Linux instances only.
+     * For managed nodes identified by the approval rule filters, enables a patch baseline to apply non-security updates
+     * available in the specified repository. The default value is <code>false</code>. Applies to Linux managed nodes
+     * only.
      * </p>
      * 
-     * @return For instances identified by the approval rule filters, enables a patch baseline to apply non-security
-     *         updates available in the specified repository. The default value is 'false'. Applies to Linux instances
-     *         only.
+     * @return For managed nodes identified by the approval rule filters, enables a patch baseline to apply non-security
+     *         updates available in the specified repository. The default value is <code>false</code>. Applies to Linux
+     *         managed nodes only.
      */
 
     public Boolean getEnableNonSecurity() {
@@ -265,14 +328,15 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * For instances identified by the approval rule filters, enables a patch baseline to apply non-security updates
-     * available in the specified repository. The default value is 'false'. Applies to Linux instances only.
+     * For managed nodes identified by the approval rule filters, enables a patch baseline to apply non-security updates
+     * available in the specified repository. The default value is <code>false</code>. Applies to Linux managed nodes
+     * only.
      * </p>
      * 
      * @param enableNonSecurity
-     *        For instances identified by the approval rule filters, enables a patch baseline to apply non-security
-     *        updates available in the specified repository. The default value is 'false'. Applies to Linux instances
-     *        only.
+     *        For managed nodes identified by the approval rule filters, enables a patch baseline to apply non-security
+     *        updates available in the specified repository. The default value is <code>false</code>. Applies to Linux
+     *        managed nodes only.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -283,13 +347,14 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * For instances identified by the approval rule filters, enables a patch baseline to apply non-security updates
-     * available in the specified repository. The default value is 'false'. Applies to Linux instances only.
+     * For managed nodes identified by the approval rule filters, enables a patch baseline to apply non-security updates
+     * available in the specified repository. The default value is <code>false</code>. Applies to Linux managed nodes
+     * only.
      * </p>
      * 
-     * @return For instances identified by the approval rule filters, enables a patch baseline to apply non-security
-     *         updates available in the specified repository. The default value is 'false'. Applies to Linux instances
-     *         only.
+     * @return For managed nodes identified by the approval rule filters, enables a patch baseline to apply non-security
+     *         updates available in the specified repository. The default value is <code>false</code>. Applies to Linux
+     *         managed nodes only.
      */
 
     public Boolean isEnableNonSecurity() {
@@ -314,6 +379,8 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
             sb.append("ComplianceLevel: ").append(getComplianceLevel()).append(",");
         if (getApproveAfterDays() != null)
             sb.append("ApproveAfterDays: ").append(getApproveAfterDays()).append(",");
+        if (getApproveUntilDate() != null)
+            sb.append("ApproveUntilDate: ").append(getApproveUntilDate()).append(",");
         if (getEnableNonSecurity() != null)
             sb.append("EnableNonSecurity: ").append(getEnableNonSecurity());
         sb.append("}");
@@ -342,6 +409,10 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getApproveAfterDays() != null && other.getApproveAfterDays().equals(this.getApproveAfterDays()) == false)
             return false;
+        if (other.getApproveUntilDate() == null ^ this.getApproveUntilDate() == null)
+            return false;
+        if (other.getApproveUntilDate() != null && other.getApproveUntilDate().equals(this.getApproveUntilDate()) == false)
+            return false;
         if (other.getEnableNonSecurity() == null ^ this.getEnableNonSecurity() == null)
             return false;
         if (other.getEnableNonSecurity() != null && other.getEnableNonSecurity().equals(this.getEnableNonSecurity()) == false)
@@ -357,6 +428,7 @@ public class PatchRule implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getPatchFilterGroup() == null) ? 0 : getPatchFilterGroup().hashCode());
         hashCode = prime * hashCode + ((getComplianceLevel() == null) ? 0 : getComplianceLevel().hashCode());
         hashCode = prime * hashCode + ((getApproveAfterDays() == null) ? 0 : getApproveAfterDays().hashCode());
+        hashCode = prime * hashCode + ((getApproveUntilDate() == null) ? 0 : getApproveUntilDate().hashCode());
         hashCode = prime * hashCode + ((getEnableNonSecurity() == null) ? 0 : getEnableNonSecurity().hashCode());
         return hashCode;
     }

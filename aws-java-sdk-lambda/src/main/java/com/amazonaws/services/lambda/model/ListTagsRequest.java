@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,19 @@ public class ListTagsRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The function's Amazon Resource Name (ARN).
+     * The function's Amazon Resource Name (ARN). Note: Lambda does not support adding tags to aliases or versions.
      * </p>
      */
     private String resource;
 
     /**
      * <p>
-     * The function's Amazon Resource Name (ARN).
+     * The function's Amazon Resource Name (ARN). Note: Lambda does not support adding tags to aliases or versions.
      * </p>
      * 
      * @param resource
-     *        The function's Amazon Resource Name (ARN).
+     *        The function's Amazon Resource Name (ARN). Note: Lambda does not support adding tags to aliases or
+     *        versions.
      */
 
     public void setResource(String resource) {
@@ -47,10 +48,11 @@ public class ListTagsRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The function's Amazon Resource Name (ARN).
+     * The function's Amazon Resource Name (ARN). Note: Lambda does not support adding tags to aliases or versions.
      * </p>
      * 
-     * @return The function's Amazon Resource Name (ARN).
+     * @return The function's Amazon Resource Name (ARN). Note: Lambda does not support adding tags to aliases or
+     *         versions.
      */
 
     public String getResource() {
@@ -59,11 +61,12 @@ public class ListTagsRequest extends com.amazonaws.AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * The function's Amazon Resource Name (ARN).
+     * The function's Amazon Resource Name (ARN). Note: Lambda does not support adding tags to aliases or versions.
      * </p>
      * 
      * @param resource
-     *        The function's Amazon Resource Name (ARN).
+     *        The function's Amazon Resource Name (ARN). Note: Lambda does not support adding tags to aliases or
+     *        versions.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

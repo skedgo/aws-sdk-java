@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,7 @@ public class VerifySoftwareTokenResult extends com.amazonaws.AmazonWebServiceRes
     private String status;
     /**
      * <p>
-     * The session which should be passed both ways in challenge-response calls to the service.
+     * The session that should be passed both ways in challenge-response calls to the service.
      * </p>
      */
     private String session;
@@ -97,11 +97,11 @@ public class VerifySoftwareTokenResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The session which should be passed both ways in challenge-response calls to the service.
+     * The session that should be passed both ways in challenge-response calls to the service.
      * </p>
      * 
      * @param session
-     *        The session which should be passed both ways in challenge-response calls to the service.
+     *        The session that should be passed both ways in challenge-response calls to the service.
      */
 
     public void setSession(String session) {
@@ -110,10 +110,10 @@ public class VerifySoftwareTokenResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The session which should be passed both ways in challenge-response calls to the service.
+     * The session that should be passed both ways in challenge-response calls to the service.
      * </p>
      * 
-     * @return The session which should be passed both ways in challenge-response calls to the service.
+     * @return The session that should be passed both ways in challenge-response calls to the service.
      */
 
     public String getSession() {
@@ -122,11 +122,11 @@ public class VerifySoftwareTokenResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The session which should be passed both ways in challenge-response calls to the service.
+     * The session that should be passed both ways in challenge-response calls to the service.
      * </p>
      * 
      * @param session
-     *        The session which should be passed both ways in challenge-response calls to the service.
+     *        The session that should be passed both ways in challenge-response calls to the service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -150,7 +150,7 @@ public class VerifySoftwareTokenResult extends com.amazonaws.AmazonWebServiceRes
         if (getStatus() != null)
             sb.append("Status: ").append(getStatus()).append(",");
         if (getSession() != null)
-            sb.append("Session: ").append(getSession());
+            sb.append("Session: ").append("***Sensitive Data Redacted***");
         sb.append("}");
         return sb.toString();
     }

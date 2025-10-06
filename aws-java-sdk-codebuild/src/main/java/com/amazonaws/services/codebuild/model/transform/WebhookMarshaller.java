@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,8 +38,14 @@ public class WebhookMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("branchFilter").build();
     private static final MarshallingInfo<List> FILTERGROUPS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("filterGroups").build();
+    private static final MarshallingInfo<String> BUILDTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("buildType").build();
+    private static final MarshallingInfo<Boolean> MANUALCREATION_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("manualCreation").build();
     private static final MarshallingInfo<java.util.Date> LASTMODIFIEDSECRET_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("lastModifiedSecret").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<StructuredPojo> SCOPECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("scopeConfiguration").build();
 
     private static final WebhookMarshaller instance = new WebhookMarshaller();
 
@@ -62,7 +68,10 @@ public class WebhookMarshaller {
             protocolMarshaller.marshall(webhook.getSecret(), SECRET_BINDING);
             protocolMarshaller.marshall(webhook.getBranchFilter(), BRANCHFILTER_BINDING);
             protocolMarshaller.marshall(webhook.getFilterGroups(), FILTERGROUPS_BINDING);
+            protocolMarshaller.marshall(webhook.getBuildType(), BUILDTYPE_BINDING);
+            protocolMarshaller.marshall(webhook.getManualCreation(), MANUALCREATION_BINDING);
             protocolMarshaller.marshall(webhook.getLastModifiedSecret(), LASTMODIFIEDSECRET_BINDING);
+            protocolMarshaller.marshall(webhook.getScopeConfiguration(), SCOPECONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

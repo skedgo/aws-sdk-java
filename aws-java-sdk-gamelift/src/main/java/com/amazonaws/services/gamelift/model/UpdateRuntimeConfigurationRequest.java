@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * Represents the input for a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/UpdateRuntimeConfiguration"
  *      target="_top">AWS API Documentation</a>
@@ -30,28 +27,29 @@ public class UpdateRuntimeConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Unique identifier for a fleet to update run-time configuration for.
+     * A unique identifier for the fleet to update runtime configuration for. You can use either the fleet ID or ARN
+     * value.
      * </p>
      */
     private String fleetId;
     /**
      * <p>
-     * Instructions for launching server processes on each instance in the fleet. Server processes run either a custom
-     * game build executable or a Realtime Servers script. The run-time configuration lists the types of server
-     * processes to run on an instance and includes the following configuration settings: the server executable or
-     * launch script file, launch parameters, and the number of processes to run concurrently on each instance. A
-     * CreateFleet request must include a run-time configuration with at least one server process configuration.
+     * Instructions for launching server processes on fleet computes. Server processes run either a custom game build
+     * executable or a Realtime Servers script. The runtime configuration lists the types of server processes to run,
+     * how to launch them, and the number of processes to run concurrently.
      * </p>
      */
     private RuntimeConfiguration runtimeConfiguration;
 
     /**
      * <p>
-     * Unique identifier for a fleet to update run-time configuration for.
+     * A unique identifier for the fleet to update runtime configuration for. You can use either the fleet ID or ARN
+     * value.
      * </p>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet to update run-time configuration for.
+     *        A unique identifier for the fleet to update runtime configuration for. You can use either the fleet ID or
+     *        ARN value.
      */
 
     public void setFleetId(String fleetId) {
@@ -60,10 +58,12 @@ public class UpdateRuntimeConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Unique identifier for a fleet to update run-time configuration for.
+     * A unique identifier for the fleet to update runtime configuration for. You can use either the fleet ID or ARN
+     * value.
      * </p>
      * 
-     * @return Unique identifier for a fleet to update run-time configuration for.
+     * @return A unique identifier for the fleet to update runtime configuration for. You can use either the fleet ID or
+     *         ARN value.
      */
 
     public String getFleetId() {
@@ -72,11 +72,13 @@ public class UpdateRuntimeConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Unique identifier for a fleet to update run-time configuration for.
+     * A unique identifier for the fleet to update runtime configuration for. You can use either the fleet ID or ARN
+     * value.
      * </p>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet to update run-time configuration for.
+     *        A unique identifier for the fleet to update runtime configuration for. You can use either the fleet ID or
+     *        ARN value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -87,20 +89,15 @@ public class UpdateRuntimeConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Instructions for launching server processes on each instance in the fleet. Server processes run either a custom
-     * game build executable or a Realtime Servers script. The run-time configuration lists the types of server
-     * processes to run on an instance and includes the following configuration settings: the server executable or
-     * launch script file, launch parameters, and the number of processes to run concurrently on each instance. A
-     * CreateFleet request must include a run-time configuration with at least one server process configuration.
+     * Instructions for launching server processes on fleet computes. Server processes run either a custom game build
+     * executable or a Realtime Servers script. The runtime configuration lists the types of server processes to run,
+     * how to launch them, and the number of processes to run concurrently.
      * </p>
      * 
      * @param runtimeConfiguration
-     *        Instructions for launching server processes on each instance in the fleet. Server processes run either a
-     *        custom game build executable or a Realtime Servers script. The run-time configuration lists the types of
-     *        server processes to run on an instance and includes the following configuration settings: the server
-     *        executable or launch script file, launch parameters, and the number of processes to run concurrently on
-     *        each instance. A CreateFleet request must include a run-time configuration with at least one server
-     *        process configuration.
+     *        Instructions for launching server processes on fleet computes. Server processes run either a custom game
+     *        build executable or a Realtime Servers script. The runtime configuration lists the types of server
+     *        processes to run, how to launch them, and the number of processes to run concurrently.
      */
 
     public void setRuntimeConfiguration(RuntimeConfiguration runtimeConfiguration) {
@@ -109,19 +106,14 @@ public class UpdateRuntimeConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Instructions for launching server processes on each instance in the fleet. Server processes run either a custom
-     * game build executable or a Realtime Servers script. The run-time configuration lists the types of server
-     * processes to run on an instance and includes the following configuration settings: the server executable or
-     * launch script file, launch parameters, and the number of processes to run concurrently on each instance. A
-     * CreateFleet request must include a run-time configuration with at least one server process configuration.
+     * Instructions for launching server processes on fleet computes. Server processes run either a custom game build
+     * executable or a Realtime Servers script. The runtime configuration lists the types of server processes to run,
+     * how to launch them, and the number of processes to run concurrently.
      * </p>
      * 
-     * @return Instructions for launching server processes on each instance in the fleet. Server processes run either a
-     *         custom game build executable or a Realtime Servers script. The run-time configuration lists the types of
-     *         server processes to run on an instance and includes the following configuration settings: the server
-     *         executable or launch script file, launch parameters, and the number of processes to run concurrently on
-     *         each instance. A CreateFleet request must include a run-time configuration with at least one server
-     *         process configuration.
+     * @return Instructions for launching server processes on fleet computes. Server processes run either a custom game
+     *         build executable or a Realtime Servers script. The runtime configuration lists the types of server
+     *         processes to run, how to launch them, and the number of processes to run concurrently.
      */
 
     public RuntimeConfiguration getRuntimeConfiguration() {
@@ -130,20 +122,15 @@ public class UpdateRuntimeConfigurationRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Instructions for launching server processes on each instance in the fleet. Server processes run either a custom
-     * game build executable or a Realtime Servers script. The run-time configuration lists the types of server
-     * processes to run on an instance and includes the following configuration settings: the server executable or
-     * launch script file, launch parameters, and the number of processes to run concurrently on each instance. A
-     * CreateFleet request must include a run-time configuration with at least one server process configuration.
+     * Instructions for launching server processes on fleet computes. Server processes run either a custom game build
+     * executable or a Realtime Servers script. The runtime configuration lists the types of server processes to run,
+     * how to launch them, and the number of processes to run concurrently.
      * </p>
      * 
      * @param runtimeConfiguration
-     *        Instructions for launching server processes on each instance in the fleet. Server processes run either a
-     *        custom game build executable or a Realtime Servers script. The run-time configuration lists the types of
-     *        server processes to run on an instance and includes the following configuration settings: the server
-     *        executable or launch script file, launch parameters, and the number of processes to run concurrently on
-     *        each instance. A CreateFleet request must include a run-time configuration with at least one server
-     *        process configuration.
+     *        Instructions for launching server processes on fleet computes. Server processes run either a custom game
+     *        build executable or a Realtime Servers script. The runtime configuration lists the types of server
+     *        processes to run, how to launch them, and the number of processes to run concurrently.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

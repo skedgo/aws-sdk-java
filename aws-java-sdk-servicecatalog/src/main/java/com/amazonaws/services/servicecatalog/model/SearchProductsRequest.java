@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,11 +30,6 @@ public class SearchProductsRequest extends com.amazonaws.AmazonWebServiceRequest
      * The language code.
      * </p>
      * <ul>
-     * <li>
-     * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
      * <li>
      * <p>
      * <code>jp</code> - Japanese
@@ -87,11 +82,6 @@ public class SearchProductsRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -105,11 +95,6 @@ public class SearchProductsRequest extends com.amazonaws.AmazonWebServiceRequest
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -133,11 +118,6 @@ public class SearchProductsRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -150,11 +130,6 @@ public class SearchProductsRequest extends com.amazonaws.AmazonWebServiceRequest
      * 
      * @return The language code.</p>
      *         <ul>
-     *         <li>
-     *         <p>
-     *         <code>en</code> - English (default)
-     *         </p>
-     *         </li>
      *         <li>
      *         <p>
      *         <code>jp</code> - Japanese
@@ -178,11 +153,6 @@ public class SearchProductsRequest extends com.amazonaws.AmazonWebServiceRequest
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -196,11 +166,6 @@ public class SearchProductsRequest extends com.amazonaws.AmazonWebServiceRequest
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -264,6 +229,13 @@ public class SearchProductsRequest extends com.amazonaws.AmazonWebServiceRequest
         setFilters(filters);
         return this;
     }
+
+    /**
+     * Add a single Filters entry
+     *
+     * @see SearchProductsRequest#withFilters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public SearchProductsRequest addFiltersEntry(String key, java.util.List<String> value) {
         if (null == this.filters) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,9 +44,9 @@ public class SharedDirectory implements Serializable, Cloneable, StructuredPojo 
     private String ownerDirectoryId;
     /**
      * <p>
-     * The method used when sharing a directory to determine whether the directory should be shared within your AWS
-     * organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory request (
-     * <code>HANDSHAKE</code>).
+     * The method used when sharing a directory to determine whether the directory should be shared within your Amazon
+     * Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by sending a
+     * shared directory request (<code>HANDSHAKE</code>).
      * </p>
      */
     private String shareMethod;
@@ -66,7 +66,7 @@ public class SharedDirectory implements Serializable, Cloneable, StructuredPojo 
     private String sharedDirectoryId;
     /**
      * <p>
-     * Current directory status of the shared AWS Managed Microsoft AD directory.
+     * Current directory status of the shared Managed Microsoft AD directory.
      * </p>
      */
     private String shareStatus;
@@ -179,15 +179,15 @@ public class SharedDirectory implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The method used when sharing a directory to determine whether the directory should be shared within your AWS
-     * organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory request (
-     * <code>HANDSHAKE</code>).
+     * The method used when sharing a directory to determine whether the directory should be shared within your Amazon
+     * Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by sending a
+     * shared directory request (<code>HANDSHAKE</code>).
      * </p>
      * 
      * @param shareMethod
      *        The method used when sharing a directory to determine whether the directory should be shared within your
-     *        AWS organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory
-     *        request (<code>HANDSHAKE</code>).
+     *        Amazon Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by
+     *        sending a shared directory request (<code>HANDSHAKE</code>).
      * @see ShareMethod
      */
 
@@ -197,14 +197,14 @@ public class SharedDirectory implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The method used when sharing a directory to determine whether the directory should be shared within your AWS
-     * organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory request (
-     * <code>HANDSHAKE</code>).
+     * The method used when sharing a directory to determine whether the directory should be shared within your Amazon
+     * Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by sending a
+     * shared directory request (<code>HANDSHAKE</code>).
      * </p>
      * 
      * @return The method used when sharing a directory to determine whether the directory should be shared within your
-     *         AWS organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory
-     *         request (<code>HANDSHAKE</code>).
+     *         Amazon Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by
+     *         sending a shared directory request (<code>HANDSHAKE</code>).
      * @see ShareMethod
      */
 
@@ -214,15 +214,15 @@ public class SharedDirectory implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The method used when sharing a directory to determine whether the directory should be shared within your AWS
-     * organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory request (
-     * <code>HANDSHAKE</code>).
+     * The method used when sharing a directory to determine whether the directory should be shared within your Amazon
+     * Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by sending a
+     * shared directory request (<code>HANDSHAKE</code>).
      * </p>
      * 
      * @param shareMethod
      *        The method used when sharing a directory to determine whether the directory should be shared within your
-     *        AWS organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory
-     *        request (<code>HANDSHAKE</code>).
+     *        Amazon Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by
+     *        sending a shared directory request (<code>HANDSHAKE</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ShareMethod
      */
@@ -234,15 +234,15 @@ public class SharedDirectory implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The method used when sharing a directory to determine whether the directory should be shared within your AWS
-     * organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory request (
-     * <code>HANDSHAKE</code>).
+     * The method used when sharing a directory to determine whether the directory should be shared within your Amazon
+     * Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by sending a
+     * shared directory request (<code>HANDSHAKE</code>).
      * </p>
      * 
      * @param shareMethod
      *        The method used when sharing a directory to determine whether the directory should be shared within your
-     *        AWS organization (<code>ORGANIZATIONS</code>) or with any AWS account by sending a shared directory
-     *        request (<code>HANDSHAKE</code>).
+     *        Amazon Web Services organization (<code>ORGANIZATIONS</code>) or with any Amazon Web Services account by
+     *        sending a shared directory request (<code>HANDSHAKE</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ShareMethod
      */
@@ -346,11 +346,11 @@ public class SharedDirectory implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Current directory status of the shared AWS Managed Microsoft AD directory.
+     * Current directory status of the shared Managed Microsoft AD directory.
      * </p>
      * 
      * @param shareStatus
-     *        Current directory status of the shared AWS Managed Microsoft AD directory.
+     *        Current directory status of the shared Managed Microsoft AD directory.
      * @see ShareStatus
      */
 
@@ -360,10 +360,10 @@ public class SharedDirectory implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Current directory status of the shared AWS Managed Microsoft AD directory.
+     * Current directory status of the shared Managed Microsoft AD directory.
      * </p>
      * 
-     * @return Current directory status of the shared AWS Managed Microsoft AD directory.
+     * @return Current directory status of the shared Managed Microsoft AD directory.
      * @see ShareStatus
      */
 
@@ -373,11 +373,11 @@ public class SharedDirectory implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Current directory status of the shared AWS Managed Microsoft AD directory.
+     * Current directory status of the shared Managed Microsoft AD directory.
      * </p>
      * 
      * @param shareStatus
-     *        Current directory status of the shared AWS Managed Microsoft AD directory.
+     *        Current directory status of the shared Managed Microsoft AD directory.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ShareStatus
      */
@@ -389,11 +389,11 @@ public class SharedDirectory implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * Current directory status of the shared AWS Managed Microsoft AD directory.
+     * Current directory status of the shared Managed Microsoft AD directory.
      * </p>
      * 
      * @param shareStatus
-     *        Current directory status of the shared AWS Managed Microsoft AD directory.
+     *        Current directory status of the shared Managed Microsoft AD directory.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ShareStatus
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
     private String volumeARN;
     /**
      * <p>
-     * The unique identifier of the volume, e.g. vol-AE4B946D.
+     * The unique identifier of the volume, e.g., vol-AE4B946D.
      * </p>
      */
     private String volumeId;
@@ -57,7 +57,7 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
      * A value that indicates whether a storage volume is attached to or detached from a gateway. For more information,
      * see <a
      * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume"
-     * >Moving Your Volumes to a Different Gateway</a>.
+     * >Moving your volumes to a different gateway</a>.
      * </p>
      */
     private String volumeAttachmentStatus;
@@ -77,7 +77,7 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
     private Double volumeProgress;
     /**
      * <p>
-     * If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g. snap-78e22663.
+     * If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g., snap-78e22663.
      * Otherwise, this field is not included.
      * </p>
      */
@@ -90,7 +90,7 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
     private VolumeiSCSIAttributes volumeiSCSIAttributes;
     /**
      * <p>
-     * The date the volume was created. Volumes created prior to March 28, 2017 don’t have this time stamp.
+     * The date the volume was created. Volumes created prior to March 28, 2017 don’t have this timestamp.
      * </p>
      */
     private java.util.Date createdDate;
@@ -104,6 +104,12 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
      * <note>
      * <p>
      * This value is not available for volumes created prior to May 13, 2015, until you store data on the volume.
+     * </p>
+     * <p>
+     * If you use a delete tool that overwrites the data on your volume with random data, your usage will not be
+     * reduced. This is because the random data is not compressible. If you want to reduce the amount of billed storage
+     * on your volume, we recommend overwriting your files with zeros to compress the data to a negligible amount of
+     * actual storage.
      * </p>
      * </note>
      */
@@ -166,11 +172,11 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The unique identifier of the volume, e.g. vol-AE4B946D.
+     * The unique identifier of the volume, e.g., vol-AE4B946D.
      * </p>
      * 
      * @param volumeId
-     *        The unique identifier of the volume, e.g. vol-AE4B946D.
+     *        The unique identifier of the volume, e.g., vol-AE4B946D.
      */
 
     public void setVolumeId(String volumeId) {
@@ -179,10 +185,10 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The unique identifier of the volume, e.g. vol-AE4B946D.
+     * The unique identifier of the volume, e.g., vol-AE4B946D.
      * </p>
      * 
-     * @return The unique identifier of the volume, e.g. vol-AE4B946D.
+     * @return The unique identifier of the volume, e.g., vol-AE4B946D.
      */
 
     public String getVolumeId() {
@@ -191,11 +197,11 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The unique identifier of the volume, e.g. vol-AE4B946D.
+     * The unique identifier of the volume, e.g., vol-AE4B946D.
      * </p>
      * 
      * @param volumeId
-     *        The unique identifier of the volume, e.g. vol-AE4B946D.
+     *        The unique identifier of the volume, e.g., vol-AE4B946D.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -289,14 +295,14 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
      * A value that indicates whether a storage volume is attached to or detached from a gateway. For more information,
      * see <a
      * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume"
-     * >Moving Your Volumes to a Different Gateway</a>.
+     * >Moving your volumes to a different gateway</a>.
      * </p>
      * 
      * @param volumeAttachmentStatus
      *        A value that indicates whether a storage volume is attached to or detached from a gateway. For more
      *        information, see <a href=
      *        "https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume"
-     *        >Moving Your Volumes to a Different Gateway</a>.
+     *        >Moving your volumes to a different gateway</a>.
      */
 
     public void setVolumeAttachmentStatus(String volumeAttachmentStatus) {
@@ -308,13 +314,13 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
      * A value that indicates whether a storage volume is attached to or detached from a gateway. For more information,
      * see <a
      * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume"
-     * >Moving Your Volumes to a Different Gateway</a>.
+     * >Moving your volumes to a different gateway</a>.
      * </p>
      * 
      * @return A value that indicates whether a storage volume is attached to or detached from a gateway. For more
      *         information, see <a href=
      *         "https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume"
-     *         >Moving Your Volumes to a Different Gateway</a>.
+     *         >Moving your volumes to a different gateway</a>.
      */
 
     public String getVolumeAttachmentStatus() {
@@ -326,14 +332,14 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
      * A value that indicates whether a storage volume is attached to or detached from a gateway. For more information,
      * see <a
      * href="https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume"
-     * >Moving Your Volumes to a Different Gateway</a>.
+     * >Moving your volumes to a different gateway</a>.
      * </p>
      * 
      * @param volumeAttachmentStatus
      *        A value that indicates whether a storage volume is attached to or detached from a gateway. For more
      *        information, see <a href=
      *        "https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume"
-     *        >Moving Your Volumes to a Different Gateway</a>.
+     *        >Moving your volumes to a different gateway</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -436,12 +442,12 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g. snap-78e22663.
+     * If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g., snap-78e22663.
      * Otherwise, this field is not included.
      * </p>
      * 
      * @param sourceSnapshotId
-     *        If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g.
+     *        If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g.,
      *        snap-78e22663. Otherwise, this field is not included.
      */
 
@@ -451,11 +457,11 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g. snap-78e22663.
+     * If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g., snap-78e22663.
      * Otherwise, this field is not included.
      * </p>
      * 
-     * @return If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g.
+     * @return If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g.,
      *         snap-78e22663. Otherwise, this field is not included.
      */
 
@@ -465,12 +471,12 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g. snap-78e22663.
+     * If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g., snap-78e22663.
      * Otherwise, this field is not included.
      * </p>
      * 
      * @param sourceSnapshotId
-     *        If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g.
+     *        If the cached volume was created from a snapshot, this field contains the snapshot ID used, e.g.,
      *        snap-78e22663. Otherwise, this field is not included.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -525,11 +531,11 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The date the volume was created. Volumes created prior to March 28, 2017 don’t have this time stamp.
+     * The date the volume was created. Volumes created prior to March 28, 2017 don’t have this timestamp.
      * </p>
      * 
      * @param createdDate
-     *        The date the volume was created. Volumes created prior to March 28, 2017 don’t have this time stamp.
+     *        The date the volume was created. Volumes created prior to March 28, 2017 don’t have this timestamp.
      */
 
     public void setCreatedDate(java.util.Date createdDate) {
@@ -538,10 +544,10 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The date the volume was created. Volumes created prior to March 28, 2017 don’t have this time stamp.
+     * The date the volume was created. Volumes created prior to March 28, 2017 don’t have this timestamp.
      * </p>
      * 
-     * @return The date the volume was created. Volumes created prior to March 28, 2017 don’t have this time stamp.
+     * @return The date the volume was created. Volumes created prior to March 28, 2017 don’t have this timestamp.
      */
 
     public java.util.Date getCreatedDate() {
@@ -550,11 +556,11 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The date the volume was created. Volumes created prior to March 28, 2017 don’t have this time stamp.
+     * The date the volume was created. Volumes created prior to March 28, 2017 don’t have this timestamp.
      * </p>
      * 
      * @param createdDate
-     *        The date the volume was created. Volumes created prior to March 28, 2017 don’t have this time stamp.
+     *        The date the volume was created. Volumes created prior to March 28, 2017 don’t have this timestamp.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -574,6 +580,12 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
      * <p>
      * This value is not available for volumes created prior to May 13, 2015, until you store data on the volume.
      * </p>
+     * <p>
+     * If you use a delete tool that overwrites the data on your volume with random data, your usage will not be
+     * reduced. This is because the random data is not compressible. If you want to reduce the amount of billed storage
+     * on your volume, we recommend overwriting your files with zeros to compress the data to a negligible amount of
+     * actual storage.
+     * </p>
      * </note>
      * 
      * @param volumeUsedInBytes
@@ -583,6 +595,12 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
      *        from the compressed size of the volume, which is the value that is used to calculate your bill.</p> <note>
      *        <p>
      *        This value is not available for volumes created prior to May 13, 2015, until you store data on the volume.
+     *        </p>
+     *        <p>
+     *        If you use a delete tool that overwrites the data on your volume with random data, your usage will not be
+     *        reduced. This is because the random data is not compressible. If you want to reduce the amount of billed
+     *        storage on your volume, we recommend overwriting your files with zeros to compress the data to a
+     *        negligible amount of actual storage.
      *        </p>
      */
 
@@ -601,6 +619,12 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
      * <p>
      * This value is not available for volumes created prior to May 13, 2015, until you store data on the volume.
      * </p>
+     * <p>
+     * If you use a delete tool that overwrites the data on your volume with random data, your usage will not be
+     * reduced. This is because the random data is not compressible. If you want to reduce the amount of billed storage
+     * on your volume, we recommend overwriting your files with zeros to compress the data to a negligible amount of
+     * actual storage.
+     * </p>
      * </note>
      * 
      * @return The size of the data stored on the volume in bytes. This value is calculated based on the number of
@@ -611,6 +635,12 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
      *         <p>
      *         This value is not available for volumes created prior to May 13, 2015, until you store data on the
      *         volume.
+     *         </p>
+     *         <p>
+     *         If you use a delete tool that overwrites the data on your volume with random data, your usage will not be
+     *         reduced. This is because the random data is not compressible. If you want to reduce the amount of billed
+     *         storage on your volume, we recommend overwriting your files with zeros to compress the data to a
+     *         negligible amount of actual storage.
      *         </p>
      */
 
@@ -629,6 +659,12 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
      * <p>
      * This value is not available for volumes created prior to May 13, 2015, until you store data on the volume.
      * </p>
+     * <p>
+     * If you use a delete tool that overwrites the data on your volume with random data, your usage will not be
+     * reduced. This is because the random data is not compressible. If you want to reduce the amount of billed storage
+     * on your volume, we recommend overwriting your files with zeros to compress the data to a negligible amount of
+     * actual storage.
+     * </p>
      * </note>
      * 
      * @param volumeUsedInBytes
@@ -638,6 +674,12 @@ public class CachediSCSIVolume implements Serializable, Cloneable, StructuredPoj
      *        from the compressed size of the volume, which is the value that is used to calculate your bill.</p> <note>
      *        <p>
      *        This value is not available for volumes created prior to May 13, 2015, until you store data on the volume.
+     *        </p>
+     *        <p>
+     *        If you use a delete tool that overwrites the data on your volume with random data, your usage will not be
+     *        reduced. This is because the random data is not compressible. If you want to reduce the amount of billed
+     *        storage on your volume, we recommend overwriting your files with zeros to compress the data to a
+     *        negligible amount of actual storage.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */

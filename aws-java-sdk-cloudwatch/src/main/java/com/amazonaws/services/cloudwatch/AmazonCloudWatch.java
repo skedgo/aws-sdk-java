@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,9 +28,9 @@ import com.amazonaws.services.cloudwatch.waiters.AmazonCloudWatchWaiters;
  * </p>
  * <p>
  * <p>
- * Amazon CloudWatch monitors your Amazon Web Services (AWS) resources and the applications you run on AWS in real time.
- * You can use CloudWatch to collect and track metrics, which are the variables you want to measure for your resources
- * and applications.
+ * Amazon CloudWatch monitors your Amazon Web Services (Amazon Web Services) resources and the applications you run on
+ * Amazon Web Services in real time. You can use CloudWatch to collect and track metrics, which are the variables you
+ * want to measure for your resources and applications.
  * </p>
  * <p>
  * CloudWatch alarms send notifications or automatically change the resources you are monitoring based on rules that you
@@ -39,9 +39,9 @@ import com.amazonaws.services.cloudwatch.waiters.AmazonCloudWatchWaiters;
  * data to stop under-used instances to save money.
  * </p>
  * <p>
- * In addition to monitoring the built-in metrics that come with AWS, you can monitor your own custom metrics. With
- * CloudWatch, you gain system-wide visibility into resource utilization, application performance, and operational
- * health.
+ * In addition to monitoring the built-in metrics that come with Amazon Web Services, you can monitor your own custom
+ * metrics. With CloudWatch, you gain system-wide visibility into resource utilization, application performance, and
+ * operational health.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -109,8 +109,32 @@ public interface AmazonCloudWatch {
 
     /**
      * <p>
-     * Deletes the specified alarms. In the event of an error, no alarms are deleted.
+     * Deletes the specified alarms. You can delete up to 100 alarms in one operation. However, this total can include
+     * no more than one composite alarm. For example, you could delete 99 metric alarms and one composite alarms with
+     * one operation, but you can't delete two composite alarms with one operation.
      * </p>
+     * <p>
+     * If you specify an incorrect alarm name or make any other error in the operation, no alarms are deleted. To
+     * confirm that alarms were deleted successfully, you can use the <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeAlarms.html"
+     * >DescribeAlarms</a> operation after using <code>DeleteAlarms</code>.
+     * </p>
+     * <note>
+     * <p>
+     * It is possible to create a loop or cycle of composite alarms, where composite alarm A depends on composite alarm
+     * B, and composite alarm B also depends on composite alarm A. In this scenario, you can't delete any composite
+     * alarm that is part of the cycle because there is always still a composite alarm that depends on that alarm that
+     * you want to delete.
+     * </p>
+     * <p>
+     * To get out of such a situation, you must break the cycle by changing the rule of one of the composite alarms in
+     * the cycle to remove a dependency that creates the cycle. The simplest change to make to break a cycle is to
+     * change the <code>AlarmRule</code> of one of the alarms to <code>false</code>.
+     * </p>
+     * <p>
+     * Additionally, the evaluation of composite alarms stops if CloudWatch detects a cycle in the evaluation path.
+     * </p>
+     * </note>
      * 
      * @param deleteAlarmsRequest
      * @return Result of the DeleteAlarms operation returned by the service.
@@ -124,7 +148,10 @@ public interface AmazonCloudWatch {
 
     /**
      * <p>
-     * Deletes the specified anomaly detection model from your account.
+     * Deletes the specified anomaly detection model from your account. For more information about how to delete an
+     * anomaly detection model, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Anomaly_Detection_Alarm.html#Delete_Anomaly_Detection_Model"
+     * >Deleting an anomaly detection model</a> in the <i>CloudWatch User Guide</i>.
      * </p>
      * 
      * @param deleteAnomalyDetectorRequest
@@ -137,6 +164,8 @@ public interface AmazonCloudWatch {
      *         The value of an input parameter is bad or out-of-range.
      * @throws MissingRequiredParameterException
      *         An input parameter that is required is missing.
+     * @throws InvalidParameterCombinationException
+     *         Parameters were used together that cannot be used together.
      * @sample AmazonCloudWatch.DeleteAnomalyDetector
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DeleteAnomalyDetector"
      *      target="_top">AWS API Documentation</a>
@@ -145,7 +174,7 @@ public interface AmazonCloudWatch {
 
     /**
      * <p>
-     * Deletes all dashboards that you specify. You may specify up to 100 dashboards to delete. If there is an error
+     * Deletes all dashboards that you specify. You can specify up to 100 dashboards to delete. If there is an error
      * during this call, no dashboards are deleted.
      * </p>
      * 
@@ -165,11 +194,57 @@ public interface AmazonCloudWatch {
 
     /**
      * <p>
+     * Permanently deletes the specified Contributor Insights rules.
+     * </p>
+     * <p>
+     * If you create a rule, delete it, and then re-create it with the same name, historical data from the first time
+     * the rule was created might not be available.
+     * </p>
+     * 
+     * @param deleteInsightRulesRequest
+     * @return Result of the DeleteInsightRules operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of an input parameter is bad or out-of-range.
+     * @throws MissingRequiredParameterException
+     *         An input parameter that is required is missing.
+     * @sample AmazonCloudWatch.DeleteInsightRules
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DeleteInsightRules" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteInsightRulesResult deleteInsightRules(DeleteInsightRulesRequest deleteInsightRulesRequest);
+
+    /**
+     * <p>
+     * Permanently deletes the metric stream that you specify.
+     * </p>
+     * 
+     * @param deleteMetricStreamRequest
+     * @return Result of the DeleteMetricStream operation returned by the service.
+     * @throws InternalServiceException
+     *         Request processing has failed due to some unknown error, exception, or failure.
+     * @throws InvalidParameterValueException
+     *         The value of an input parameter is bad or out-of-range.
+     * @throws MissingRequiredParameterException
+     *         An input parameter that is required is missing.
+     * @sample AmazonCloudWatch.DeleteMetricStream
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DeleteMetricStream" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteMetricStreamResult deleteMetricStream(DeleteMetricStreamRequest deleteMetricStreamRequest);
+
+    /**
+     * <p>
      * Retrieves the history for the specified alarm. You can filter the results by date range or item type. If an alarm
-     * name is not specified, the histories for all alarms are returned.
+     * name is not specified, the histories for either all metric alarms or all composite alarms are returned.
      * </p>
      * <p>
      * CloudWatch retains the history of an alarm even if you delete the alarm.
+     * </p>
+     * <p>
+     * To use this operation and return information about a composite alarm, you must be signed on with the
+     * <code>cloudwatch:DescribeAlarmHistory</code> permission that is scoped to <code>*</code>. You can't return
+     * information about composite alarms if your <code>cloudwatch:DescribeAlarmHistory</code> permission has a narrower
+     * scope.
      * </p>
      * 
      * @param describeAlarmHistoryRequest
@@ -191,8 +266,13 @@ public interface AmazonCloudWatch {
 
     /**
      * <p>
-     * Retrieves the specified alarms. If no alarms are specified, all alarms are returned. Alarms can be retrieved by
-     * using only a prefix for the alarm name, the alarm state, or a prefix for any action.
+     * Retrieves the specified alarms. You can filter the results by specifying a prefix for the alarm name, the alarm
+     * state, or a prefix for any action.
+     * </p>
+     * <p>
+     * To use this operation and return information about composite alarms, you must be signed on with the
+     * <code>cloudwatch:DescribeAlarms</code> permission that is scoped to <code>*</code>. You can't return information
+     * about composite alarms if your <code>cloudwatch:DescribeAlarms</code> permission has a narrower scope.
      * </p>
      * 
      * @param describeAlarmsRequest
@@ -216,6 +296,10 @@ public interface AmazonCloudWatch {
      * <p>
      * Retrieves the alarms for the specified metric. To filter the results, specify a statistic, period, or unit.
      * </p>
+     * <p>
+     * This operation retrieves only standard alarms that are based on the specified metric. It does not return alarms
+     * based on math expressions that use the specified metric, or composite alarms that use the specified metric.
+     * </p>
      * 
      * @param describeAlarmsForMetricRequest
      * @return Result of the DescribeAlarmsForMetric operation returned by the service.
@@ -227,9 +311,11 @@ public interface AmazonCloudWatch {
 
     /**
      * <p>
-     * Lists the anomaly detection models that you have created in your account. You can list all models in your account
-     * or filter the results to only the models that are related to a certain namespace, metric name, or metric
-     * dimension.
+     * Lists the anomaly detection models that you have created in your account. For single metric anomaly detectors,
+     * you can list all of the models in your account or filter the results to only the models that are related to a
+     * certain namespace, metric name, or metric dimension. For metric math anomaly detectors, you can list them by
+     * adding <code>METRIC_MATH</code> to the <code>AnomalyDetectorTypes</code> array. This will return all metric math
+     * anomaly detectors in your account.
      * </p>
      * 
      * @param describeAnomalyDetectorsRequest
@@ -240,11 +326,33 @@ public interface AmazonCloudWatch {
      *         Request processing has failed due to some unknown error, exception, or failure.
      * @throws InvalidParameterValueException
      *         The value of an input parameter is bad or out-of-range.
+     * @throws InvalidParameterCombinationException
+     *         Parameters were used together that cannot be used together.
      * @sample AmazonCloudWatch.DescribeAnomalyDetectors
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DescribeAnomalyDetectors"
      *      target="_top">AWS API Documentation</a>
      */
     DescribeAnomalyDetectorsResult describeAnomalyDetectors(DescribeAnomalyDetectorsRequest describeAnomalyDetectorsRequest);
+
+    /**
+     * <p>
+     * Returns a list of all the Contributor Insights rules in your account.
+     * </p>
+     * <p>
+     * For more information about Contributor Insights, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContributorInsights.html">Using Contributor
+     * Insights to Analyze High-Cardinality Data</a>.
+     * </p>
+     * 
+     * @param describeInsightRulesRequest
+     * @return Result of the DescribeInsightRules operation returned by the service.
+     * @throws InvalidNextTokenException
+     *         The next token specified is invalid.
+     * @sample AmazonCloudWatch.DescribeInsightRules
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DescribeInsightRules"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeInsightRulesResult describeInsightRules(DescribeInsightRulesRequest describeInsightRulesRequest);
 
     /**
      * <p>
@@ -262,6 +370,24 @@ public interface AmazonCloudWatch {
 
     /**
      * <p>
+     * Disables the specified Contributor Insights rules. When rules are disabled, they do not analyze log groups and do
+     * not incur costs.
+     * </p>
+     * 
+     * @param disableInsightRulesRequest
+     * @return Result of the DisableInsightRules operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of an input parameter is bad or out-of-range.
+     * @throws MissingRequiredParameterException
+     *         An input parameter that is required is missing.
+     * @sample AmazonCloudWatch.DisableInsightRules
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/DisableInsightRules" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DisableInsightRulesResult disableInsightRules(DisableInsightRulesRequest disableInsightRulesRequest);
+
+    /**
+     * <p>
      * Enables the actions for the specified alarms.
      * </p>
      * 
@@ -272,6 +398,26 @@ public interface AmazonCloudWatch {
      *      API Documentation</a>
      */
     EnableAlarmActionsResult enableAlarmActions(EnableAlarmActionsRequest enableAlarmActionsRequest);
+
+    /**
+     * <p>
+     * Enables the specified Contributor Insights rules. When rules are enabled, they immediately begin analyzing log
+     * data.
+     * </p>
+     * 
+     * @param enableInsightRulesRequest
+     * @return Result of the EnableInsightRules operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of an input parameter is bad or out-of-range.
+     * @throws MissingRequiredParameterException
+     *         An input parameter that is required is missing.
+     * @throws LimitExceededException
+     *         The operation exceeded one or more limits.
+     * @sample AmazonCloudWatch.EnableInsightRules
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/EnableInsightRules" target="_top">AWS
+     *      API Documentation</a>
+     */
+    EnableInsightRulesResult enableInsightRules(EnableInsightRulesRequest enableInsightRulesRequest);
 
     /**
      * <p>
@@ -299,13 +445,95 @@ public interface AmazonCloudWatch {
 
     /**
      * <p>
-     * You can use the <code>GetMetricData</code> API to retrieve as many as 100 different metrics in a single request,
-     * with a total of as many as 100,800 datapoints. You can also optionally perform math expressions on the values of
-     * the returned statistics, to create new time series that represent new insights into your data. For example, using
-     * Lambda metrics, you could divide the Errors metric by the Invocations metric to get an error rate time series.
-     * For more information about metric math expressions, see <a
+     * This operation returns the time series data collected by a Contributor Insights rule. The data includes the
+     * identity and number of contributors to the log group.
+     * </p>
+     * <p>
+     * You can also optionally return one or more statistics about each data point in the time series. These statistics
+     * can include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>UniqueContributors</code> -- the number of unique contributors for each data point.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>MaxContributorValue</code> -- the value of the top contributor for each data point. The identity of the
+     * contributor might change for each data point in the graph.
+     * </p>
+     * <p>
+     * If this rule aggregates by COUNT, the top contributor for each data point is the contributor with the most
+     * occurrences in that period. If the rule aggregates by SUM, the top contributor is the contributor with the
+     * highest sum in the log field specified by the rule's <code>Value</code>, during that period.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SampleCount</code> -- the number of data points matched by the rule.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Sum</code> -- the sum of the values from all contributors during the time period represented by that data
+     * point.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Minimum</code> -- the minimum value from a single observation during the time period represented by that
+     * data point.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Maximum</code> -- the maximum value from a single observation during the time period represented by that
+     * data point.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Average</code> -- the average value from all contributors during the time period represented by that data
+     * point.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param getInsightRuleReportRequest
+     * @return Result of the GetInsightRuleReport operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of an input parameter is bad or out-of-range.
+     * @throws MissingRequiredParameterException
+     *         An input parameter that is required is missing.
+     * @throws ResourceNotFoundException
+     *         The named resource does not exist.
+     * @sample AmazonCloudWatch.GetInsightRuleReport
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/GetInsightRuleReport"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetInsightRuleReportResult getInsightRuleReport(GetInsightRuleReportRequest getInsightRuleReportRequest);
+
+    /**
+     * <p>
+     * You can use the <code>GetMetricData</code> API to retrieve CloudWatch metric values. The operation can also
+     * include a CloudWatch Metrics Insights query, and one or more metric math functions.
+     * </p>
+     * <p>
+     * A <code>GetMetricData</code> operation that does not include a query can retrieve as many as 500 different
+     * metrics in a single request, with a total of as many as 100,800 data points. You can also optionally perform
+     * metric math expressions on the values of the returned statistics, to create new time series that represent new
+     * insights into your data. For example, using Lambda metrics, you could divide the Errors metric by the Invocations
+     * metric to get an error rate time series. For more information about metric math expressions, see <a
      * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax"
      * >Metric Math Syntax and Functions</a> in the <i>Amazon CloudWatch User Guide</i>.
+     * </p>
+     * <p>
+     * If you include a Metrics Insights query, each <code>GetMetricData</code> operation can include only one query.
+     * But the same <code>GetMetricData</code> operation can also retrieve other metrics. Metrics Insights queries can
+     * query only the most recent three hours of metric data. For more information about Metrics Insights, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/query_with_cloudwatch-metrics-insights.html"
+     * >Query your metrics with CloudWatch Metrics Insights</a>.
      * </p>
      * <p>
      * Calls to the <code>GetMetricData</code> API have a different pricing structure than calls to
@@ -344,6 +572,22 @@ public interface AmazonCloudWatch {
      * example, if you collect data using a period of 1 minute, the data remains available for 15 days with 1-minute
      * resolution. After 15 days, this data is still available, but is aggregated and retrievable only with a resolution
      * of 5 minutes. After 63 days, the data is further aggregated and is available with a resolution of 1 hour.
+     * </p>
+     * <p>
+     * If you omit <code>Unit</code> in your request, all data that was collected with any unit is returned, along with
+     * the corresponding units that were specified when the data was reported to CloudWatch. If you specify a unit, the
+     * operation returns only data that was collected with that unit specified. If you specify a unit that does not
+     * match the data collected, the results of the operation are null. CloudWatch does not perform unit conversions.
+     * </p>
+     * <p>
+     * <b>Using Metrics Insights queries with metric math</b>
+     * </p>
+     * <p>
+     * You can't mix a Metric Insights query and metric math syntax in the same expression, but you can reference
+     * results from a Metrics Insights query within other Metric math expressions. A Metrics Insights query without a
+     * <b>GROUP BY</b> clause returns a single time-series (TS), and can be used as input for a metric math expression
+     * that expects a single time series. A Metrics Insights query with a <b>GROUP BY</b> clause returns an array of
+     * time-series (TS[]), and can be used as input for a metric math expression that expects an array of time series.
      * </p>
      * 
      * @param getMetricDataRequest
@@ -428,7 +672,7 @@ public interface AmazonCloudWatch {
      * CloudWatch started retaining 5-minute and 1-hour metric data as of July 9, 2016.
      * </p>
      * <p>
-     * For information about metrics and dimensions supported by AWS services, see the <a
+     * For information about metrics and dimensions supported by Amazon Web Services services, see the <a
      * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CW_Support_For_AWS.html">Amazon CloudWatch
      * Metrics and Dimensions Reference</a> in the <i>Amazon CloudWatch User Guide</i>.
      * </p>
@@ -448,6 +692,29 @@ public interface AmazonCloudWatch {
      *      API Documentation</a>
      */
     GetMetricStatisticsResult getMetricStatistics(GetMetricStatisticsRequest getMetricStatisticsRequest);
+
+    /**
+     * <p>
+     * Returns information about the metric stream that you specify.
+     * </p>
+     * 
+     * @param getMetricStreamRequest
+     * @return Result of the GetMetricStream operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The named resource does not exist.
+     * @throws InternalServiceException
+     *         Request processing has failed due to some unknown error, exception, or failure.
+     * @throws InvalidParameterValueException
+     *         The value of an input parameter is bad or out-of-range.
+     * @throws MissingRequiredParameterException
+     *         An input parameter that is required is missing.
+     * @throws InvalidParameterCombinationException
+     *         Parameters were used together that cannot be used together.
+     * @sample AmazonCloudWatch.GetMetricStream
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/GetMetricStream" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetMetricStreamResult getMetricStream(GetMetricStreamRequest getMetricStreamRequest);
 
     /**
      * <p>
@@ -510,16 +777,74 @@ public interface AmazonCloudWatch {
 
     /**
      * <p>
-     * List the specified metrics. You can use the returned metrics with <a>GetMetricData</a> or
-     * <a>GetMetricStatistics</a> to obtain statistical data.
+     * Returns a list that contains the number of managed Contributor Insights rules in your account.
+     * </p>
+     * 
+     * @param listManagedInsightRulesRequest
+     * @return Result of the ListManagedInsightRules operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of an input parameter is bad or out-of-range.
+     * @throws MissingRequiredParameterException
+     *         An input parameter that is required is missing.
+     * @throws InvalidNextTokenException
+     *         The next token specified is invalid.
+     * @sample AmazonCloudWatch.ListManagedInsightRules
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/ListManagedInsightRules"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListManagedInsightRulesResult listManagedInsightRules(ListManagedInsightRulesRequest listManagedInsightRulesRequest);
+
+    /**
+     * <p>
+     * Returns a list of metric streams in this account.
+     * </p>
+     * 
+     * @param listMetricStreamsRequest
+     * @return Result of the ListMetricStreams operation returned by the service.
+     * @throws InvalidNextTokenException
+     *         The next token specified is invalid.
+     * @throws InternalServiceException
+     *         Request processing has failed due to some unknown error, exception, or failure.
+     * @throws InvalidParameterValueException
+     *         The value of an input parameter is bad or out-of-range.
+     * @throws MissingRequiredParameterException
+     *         An input parameter that is required is missing.
+     * @sample AmazonCloudWatch.ListMetricStreams
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/ListMetricStreams" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListMetricStreamsResult listMetricStreams(ListMetricStreamsRequest listMetricStreamsRequest);
+
+    /**
+     * <p>
+     * List the specified metrics. You can use the returned metrics with <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html">GetMetricData</a>
+     * or <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html">
+     * GetMetricStatistics</a> to get statistical data.
      * </p>
      * <p>
      * Up to 500 results are returned for any one call. To retrieve additional results, use the returned token with
      * subsequent calls.
      * </p>
      * <p>
-     * After you create a metric, allow up to fifteen minutes before the metric appears. Statistics about the metric,
-     * however, are available sooner using <a>GetMetricData</a> or <a>GetMetricStatistics</a>.
+     * After you create a metric, allow up to 15 minutes for the metric to appear. To see metric statistics sooner, use
+     * <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html">GetMetricData</a>
+     * or <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html">
+     * GetMetricStatistics</a>.
+     * </p>
+     * <p>
+     * If you are using CloudWatch cross-account observability, you can use this operation in a monitoring account and
+     * view metrics from the linked source accounts. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Unified-Cross-Account.html"
+     * >CloudWatch cross-account observability</a>.
+     * </p>
+     * <p>
+     * <code>ListMetrics</code> doesn't return information about metrics if those metrics haven't reported data in the
+     * past two weeks. To retrieve those metrics, use <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html">GetMetricData</a>
+     * or <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html">
+     * GetMetricStatistics</a>.
      * </p>
      * 
      * @param listMetricsRequest
@@ -543,7 +868,8 @@ public interface AmazonCloudWatch {
 
     /**
      * <p>
-     * Displays the tags associated with a CloudWatch resource. Alarms support tagging.
+     * Displays the tags associated with a CloudWatch resource. Currently, alarms and Contributor Insights rules support
+     * tagging.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -566,6 +892,11 @@ public interface AmazonCloudWatch {
      * normal values when the metric is graphed.
      * </p>
      * <p>
+     * If you have enabled unified cross-account observability, and this account is a monitoring account, the metric can
+     * be in the same account or a source account. You can specify the account ID in the object you specify in the
+     * <code>SingleMetricAnomalyDetector</code> parameter.
+     * </p>
+     * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Anomaly_Detection.html"
      * >CloudWatch Anomaly Detection</a>.
@@ -581,11 +912,100 @@ public interface AmazonCloudWatch {
      *         The value of an input parameter is bad or out-of-range.
      * @throws MissingRequiredParameterException
      *         An input parameter that is required is missing.
+     * @throws InvalidParameterCombinationException
+     *         Parameters were used together that cannot be used together.
      * @sample AmazonCloudWatch.PutAnomalyDetector
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/PutAnomalyDetector" target="_top">AWS
      *      API Documentation</a>
      */
     PutAnomalyDetectorResult putAnomalyDetector(PutAnomalyDetectorRequest putAnomalyDetectorRequest);
+
+    /**
+     * <p>
+     * Creates or updates a <i>composite alarm</i>. When you create a composite alarm, you specify a rule expression for
+     * the alarm that takes into account the alarm states of other alarms that you have created. The composite alarm
+     * goes into ALARM state only if all conditions of the rule are met.
+     * </p>
+     * <p>
+     * The alarms specified in a composite alarm's rule expression can include metric alarms and other composite alarms.
+     * The rule expression of a composite alarm can include as many as 100 underlying alarms. Any single alarm can be
+     * included in the rule expressions of as many as 150 composite alarms.
+     * </p>
+     * <p>
+     * Using composite alarms can reduce alarm noise. You can create multiple metric alarms, and also create a composite
+     * alarm and set up alerts only for the composite alarm. For example, you could create a composite alarm that goes
+     * into ALARM state only when more than one of the underlying metric alarms are in ALARM state.
+     * </p>
+     * <p>
+     * Composite alarms can take the following actions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Notify Amazon SNS topics.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Invoke Lambda functions.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Create OpsItems in Systems Manager Ops Center.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Create incidents in Systems Manager Incident Manager.
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * It is possible to create a loop or cycle of composite alarms, where composite alarm A depends on composite alarm
+     * B, and composite alarm B also depends on composite alarm A. In this scenario, you can't delete any composite
+     * alarm that is part of the cycle because there is always still a composite alarm that depends on that alarm that
+     * you want to delete.
+     * </p>
+     * <p>
+     * To get out of such a situation, you must break the cycle by changing the rule of one of the composite alarms in
+     * the cycle to remove a dependency that creates the cycle. The simplest change to make to break a cycle is to
+     * change the <code>AlarmRule</code> of one of the alarms to <code>false</code>.
+     * </p>
+     * <p>
+     * Additionally, the evaluation of composite alarms stops if CloudWatch detects a cycle in the evaluation path.
+     * </p>
+     * </note>
+     * <p>
+     * When this operation creates an alarm, the alarm state is immediately set to <code>INSUFFICIENT_DATA</code>. The
+     * alarm is then evaluated and its state is set appropriately. Any actions associated with the new state are then
+     * executed. For a composite alarm, this initial time after creation is the only time that the alarm can be in
+     * <code>INSUFFICIENT_DATA</code> state.
+     * </p>
+     * <p>
+     * When you update an existing alarm, its state is left unchanged, but the update completely overwrites the previous
+     * configuration of the alarm.
+     * </p>
+     * <p>
+     * To use this operation, you must be signed on with the <code>cloudwatch:PutCompositeAlarm</code> permission that
+     * is scoped to <code>*</code>. You can't create a composite alarms if your
+     * <code>cloudwatch:PutCompositeAlarm</code> permission has a narrower scope.
+     * </p>
+     * <p>
+     * If you are an IAM user, you must have <code>iam:CreateServiceLinkedRole</code> to create a composite alarm that
+     * has Systems Manager OpsItem actions.
+     * </p>
+     * 
+     * @param putCompositeAlarmRequest
+     * @return Result of the PutCompositeAlarm operation returned by the service.
+     * @throws LimitExceededException
+     *         The quota for alarms for this customer has already been reached.
+     * @sample AmazonCloudWatch.PutCompositeAlarm
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/PutCompositeAlarm" target="_top">AWS
+     *      API Documentation</a>
+     */
+    PutCompositeAlarmResult putCompositeAlarm(PutCompositeAlarmRequest putCompositeAlarmRequest);
 
     /**
      * <p>
@@ -623,8 +1043,59 @@ public interface AmazonCloudWatch {
 
     /**
      * <p>
-     * Creates or updates an alarm and associates it with the specified metric, metric math expression, or anomaly
-     * detection model.
+     * Creates a Contributor Insights rule. Rules evaluate log events in a CloudWatch Logs log group, enabling you to
+     * find contributor data for the log events in that log group. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContributorInsights.html">Using Contributor
+     * Insights to Analyze High-Cardinality Data</a>.
+     * </p>
+     * <p>
+     * If you create a rule, delete it, and then re-create it with the same name, historical data from the first time
+     * the rule was created might not be available.
+     * </p>
+     * 
+     * @param putInsightRuleRequest
+     * @return Result of the PutInsightRule operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of an input parameter is bad or out-of-range.
+     * @throws MissingRequiredParameterException
+     *         An input parameter that is required is missing.
+     * @throws LimitExceededException
+     *         The operation exceeded one or more limits.
+     * @sample AmazonCloudWatch.PutInsightRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/PutInsightRule" target="_top">AWS API
+     *      Documentation</a>
+     */
+    PutInsightRuleResult putInsightRule(PutInsightRuleRequest putInsightRuleRequest);
+
+    /**
+     * <p>
+     * Creates a managed Contributor Insights rule for a specified Amazon Web Services resource. When you enable a
+     * managed rule, you create a Contributor Insights rule that collects data from Amazon Web Services services. You
+     * cannot edit these rules with <code>PutInsightRule</code>. The rules can be enabled, disabled, and deleted using
+     * <code>EnableInsightRules</code>, <code>DisableInsightRules</code>, and <code>DeleteInsightRules</code>. If a
+     * previously created managed rule is currently disabled, a subsequent call to this API will re-enable it. Use
+     * <code>ListManagedInsightRules</code> to describe all available rules.
+     * </p>
+     * 
+     * @param putManagedInsightRulesRequest
+     * @return Result of the PutManagedInsightRules operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of an input parameter is bad or out-of-range.
+     * @throws MissingRequiredParameterException
+     *         An input parameter that is required is missing.
+     * @sample AmazonCloudWatch.PutManagedInsightRules
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/PutManagedInsightRules"
+     *      target="_top">AWS API Documentation</a>
+     */
+    PutManagedInsightRulesResult putManagedInsightRules(PutManagedInsightRulesRequest putManagedInsightRulesRequest);
+
+    /**
+     * <p>
+     * Creates or updates an alarm and associates it with the specified metric, metric math expression, anomaly
+     * detection model, or Metrics Insights query. For more information about using a Metrics Insights query for an
+     * alarm, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Create_Metrics_Insights_Alarm.html">Create
+     * alarms on Metrics Insights queries</a>.
      * </p>
      * <p>
      * Alarms based on anomaly detection models cannot have Auto Scaling actions.
@@ -644,52 +1115,56 @@ public interface AmazonCloudWatch {
      * <ul>
      * <li>
      * <p>
-     * <code>iam:CreateServiceLinkedRole</code> for all alarms with EC2 actions
+     * The <code>iam:CreateServiceLinkedRole</code> permission for all alarms with EC2 actions
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>ec2:DescribeInstanceStatus</code> and <code>ec2:DescribeInstances</code> for all alarms on EC2 instance
-     * status metrics
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ec2:StopInstances</code> for alarms with stop actions
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ec2:TerminateInstances</code> for alarms with terminate actions
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * No specific permissions are needed for alarms with recover actions
+     * The <code>iam:CreateServiceLinkedRole</code> permissions to create an alarm with Systems Manager OpsItem or
+     * response plan actions.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * If you have read/write permissions for Amazon CloudWatch but not for Amazon EC2, you can still create an alarm,
-     * but the stop or terminate actions are not performed. However, if you are later granted the required permissions,
-     * the alarm actions that you created earlier are performed.
-     * </p>
-     * <p>
-     * If you are using an IAM role (for example, an EC2 instance profile), you cannot stop or terminate the instance
-     * using alarm actions. However, you can still see the alarm state and perform any other actions such as Amazon SNS
-     * notifications or Auto Scaling policies.
-     * </p>
-     * <p>
-     * If you are using temporary security credentials granted using AWS STS, you cannot stop or terminate an EC2
-     * instance using alarm actions.
-     * </p>
-     * <p>
-     * The first time you create an alarm in the AWS Management Console, the CLI, or by using the PutMetricAlarm API,
-     * CloudWatch creates the necessary service-linked role for you. The service-linked role is called
-     * <code>AWSServiceRoleForCloudWatchEvents</code>. For more information, see <a href=
+     * The first time you create an alarm in the Amazon Web Services Management Console, the CLI, or by using the
+     * PutMetricAlarm API, CloudWatch creates the necessary service-linked role for you. The service-linked roles are
+     * called <code>AWSServiceRoleForCloudWatchEvents</code> and
+     * <code>AWSServiceRoleForCloudWatchAlarms_ActionSSM</code>. For more information, see <a href=
      * "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role"
-     * >AWS service-linked role</a>.
+     * >Amazon Web Services service-linked role</a>.
      * </p>
+     * <p>
+     * Each <code>PutMetricAlarm</code> action has a maximum uncompressed payload of 120 KB.
+     * </p>
+     * <p>
+     * <b>Cross-account alarms</b>
+     * </p>
+     * <p>
+     * You can set an alarm on metrics in the current account, or in another account. To create a cross-account alarm
+     * that watches a metric in a different account, you must have completed the following pre-requisites:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The account where the metrics are located (the <i>sharing account</i>) must already have a sharing role named
+     * <b>CloudWatch-CrossAccountSharingRole</b>. If it does not already have this role, you must create it using the
+     * instructions in <b>Set up a sharing account</b> in <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Cross-Account-Cross-Region.html#enable-cross-account-cross-Region"
+     * > Cross-account cross-Region CloudWatch console</a>. The policy for that role must grant access to the ID of the
+     * account where you are creating the alarm.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The account where you are creating the alarm (the <i>monitoring account</i>) must already have a service-linked
+     * role named <b>AWSServiceRoleForCloudWatchCrossAccount</b> to allow CloudWatch to assume the sharing role in the
+     * sharing account. If it does not, you must create it following the directions in <b>Set up a monitoring
+     * account</b> in <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Cross-Account-Cross-Region.html#enable-cross-account-cross-Region"
+     * > Cross-account cross-Region CloudWatch console</a>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param putMetricAlarmRequest
      * @return Result of the PutMetricAlarm operation returned by the service.
@@ -705,34 +1180,44 @@ public interface AmazonCloudWatch {
      * <p>
      * Publishes metric data points to Amazon CloudWatch. CloudWatch associates the data points with the specified
      * metric. If the specified metric does not exist, CloudWatch creates the metric. When CloudWatch creates a metric,
-     * it can take up to fifteen minutes for the metric to appear in calls to <a>ListMetrics</a>.
+     * it can take up to fifteen minutes for the metric to appear in calls to <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_ListMetrics.html">ListMetrics</a>.
      * </p>
      * <p>
      * You can publish either individual data points in the <code>Value</code> field, or arrays of values and the number
      * of times each value occurred during the period by using the <code>Values</code> and <code>Counts</code> fields in
-     * the <code>MetricDatum</code> structure. Using the <code>Values</code> and <code>Counts</code> method enables you
+     * the <code>MetricData</code> structure. Using the <code>Values</code> and <code>Counts</code> method enables you
      * to publish up to 150 values per metric with one <code>PutMetricData</code> request, and supports retrieving
      * percentile statistics on this data.
      * </p>
      * <p>
-     * Each <code>PutMetricData</code> request is limited to 40 KB in size for HTTP POST requests. You can send a
-     * payload compressed by gzip. Each request is also limited to no more than 20 different metrics.
+     * Each <code>PutMetricData</code> request is limited to 1 MB in size for HTTP POST requests. You can send a payload
+     * compressed by gzip. Each request is also limited to no more than 1000 different metrics.
      * </p>
      * <p>
      * Although the <code>Value</code> parameter accepts numbers of type <code>Double</code>, CloudWatch rejects values
-     * that are either too small or too large. Values must be in the range of 8.515920e-109 to 1.174271e+108 (Base 10)
-     * or 2e-360 to 2e360 (Base 2). In addition, special values (for example, NaN, +Infinity, -Infinity) are not
-     * supported.
+     * that are either too small or too large. Values must be in the range of -2^360 to 2^360. In addition, special
+     * values (for example, NaN, +Infinity, -Infinity) are not supported.
      * </p>
      * <p>
-     * You can use up to 10 dimensions per metric to further clarify what data the metric collects. Each dimension
+     * You can use up to 30 dimensions per metric to further clarify what data the metric collects. Each dimension
      * consists of a Name and Value pair. For more information about specifying dimensions, see <a
      * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html">Publishing
      * Metrics</a> in the <i>Amazon CloudWatch User Guide</i>.
      * </p>
      * <p>
-     * Data points with time stamps from 24 hours ago or longer can take at least 48 hours to become available for
-     * <a>GetMetricData</a> or <a>GetMetricStatistics</a> from the time they are submitted.
+     * You specify the time stamp to be associated with each data point. You can specify time stamps that are as much as
+     * two weeks before the current date, and as much as 2 hours after the current day and time.
+     * </p>
+     * <p>
+     * Data points with time stamps from 24 hours ago or longer can take at least 48 hours to become available for <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html">GetMetricData</a>
+     * or <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html">
+     * GetMetricStatistics</a> from the time they are submitted. Data points with time stamps between 3 and 24 hours ago
+     * can take as much as 2 hours to become available for for <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html">GetMetricData</a>
+     * or <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html">
+     * GetMetricStatistics</a>.
      * </p>
      * <p>
      * CloudWatch needs raw data points to calculate percentile statistics. If you publish data using a statistic set
@@ -771,12 +1256,98 @@ public interface AmazonCloudWatch {
 
     /**
      * <p>
+     * Creates or updates a metric stream. Metric streams can automatically stream CloudWatch metrics to Amazon Web
+     * Services destinations, including Amazon S3, and to many third-party solutions.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Metric-Streams.html"> Using
+     * Metric Streams</a>.
+     * </p>
+     * <p>
+     * To create a metric stream, you must be signed in to an account that has the <code>iam:PassRole</code> permission
+     * and either the <code>CloudWatchFullAccess</code> policy or the <code>cloudwatch:PutMetricStream</code>
+     * permission.
+     * </p>
+     * <p>
+     * When you create or update a metric stream, you choose one of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Stream metrics from all metric namespaces in the account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Stream metrics from all metric namespaces in the account, except for the namespaces that you list in
+     * <code>ExcludeFilters</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Stream metrics from only the metric namespaces that you list in <code>IncludeFilters</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * By default, a metric stream always sends the <code>MAX</code>, <code>MIN</code>, <code>SUM</code>, and
+     * <code>SAMPLECOUNT</code> statistics for each metric that is streamed. You can use the
+     * <code>StatisticsConfigurations</code> parameter to have the metric stream send additional statistics in the
+     * stream. Streaming additional statistics incurs additional costs. For more information, see <a
+     * href="https://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch Pricing</a>.
+     * </p>
+     * <p>
+     * When you use <code>PutMetricStream</code> to create a new metric stream, the stream is created in the
+     * <code>running</code> state. If you use it to update an existing stream, the state of the stream is not changed.
+     * </p>
+     * <p>
+     * If you are using CloudWatch cross-account observability and you create a metric stream in a monitoring account,
+     * you can choose whether to include metrics from source accounts in the stream. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Unified-Cross-Account.html"
+     * >CloudWatch cross-account observability</a>.
+     * </p>
+     * 
+     * @param putMetricStreamRequest
+     * @return Result of the PutMetricStream operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         More than one process tried to modify a resource at the same time.
+     * @throws InternalServiceException
+     *         Request processing has failed due to some unknown error, exception, or failure.
+     * @throws InvalidParameterValueException
+     *         The value of an input parameter is bad or out-of-range.
+     * @throws MissingRequiredParameterException
+     *         An input parameter that is required is missing.
+     * @throws InvalidParameterCombinationException
+     *         Parameters were used together that cannot be used together.
+     * @sample AmazonCloudWatch.PutMetricStream
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/PutMetricStream" target="_top">AWS API
+     *      Documentation</a>
+     */
+    PutMetricStreamResult putMetricStream(PutMetricStreamRequest putMetricStreamRequest);
+
+    /**
+     * <p>
      * Temporarily sets the state of an alarm for testing purposes. When the updated state differs from the previous
      * value, the action configured for the appropriate state is invoked. For example, if your alarm is configured to
      * send an Amazon SNS message when an alarm is triggered, temporarily changing the alarm state to <code>ALARM</code>
-     * sends an SNS message. The alarm returns to its actual state (often within seconds). Because the alarm state
-     * change happens quickly, it is typically only visible in the alarm's <b>History</b> tab in the Amazon CloudWatch
-     * console or through <a>DescribeAlarmHistory</a>.
+     * sends an SNS message.
+     * </p>
+     * <p>
+     * Metric alarms returns to their actual state quickly, often within seconds. Because the metric alarm state change
+     * happens quickly, it is typically only visible in the alarm's <b>History</b> tab in the Amazon CloudWatch console
+     * or through <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DescribeAlarmHistory.html"
+     * >DescribeAlarmHistory</a>.
+     * </p>
+     * <p>
+     * If you use <code>SetAlarmState</code> on a composite alarm, the composite alarm is not guaranteed to return to
+     * its actual state. It returns to its actual state only once any of its children alarms change state. It is also
+     * reevaluated if you update its configuration.
+     * </p>
+     * <p>
+     * If an alarm triggers EC2 Auto Scaling policies or application Auto Scaling policies, you must include information
+     * in the <code>StateReasonData</code> parameter to enable the policy to take the correct action.
      * </p>
      * 
      * @param setAlarmStateRequest
@@ -793,21 +1364,63 @@ public interface AmazonCloudWatch {
 
     /**
      * <p>
-     * Assigns one or more tags (key-value pairs) to the specified CloudWatch resource. Tags can help you organize and
-     * categorize your resources. You can also use them to scope user permissions, by granting a user permission to
-     * access or change only resources with certain tag values. In CloudWatch, alarms can be tagged.
+     * Starts the streaming of metrics for one or more of your metric streams.
+     * </p>
+     * 
+     * @param startMetricStreamsRequest
+     * @return Result of the StartMetricStreams operation returned by the service.
+     * @throws InternalServiceException
+     *         Request processing has failed due to some unknown error, exception, or failure.
+     * @throws InvalidParameterValueException
+     *         The value of an input parameter is bad or out-of-range.
+     * @throws MissingRequiredParameterException
+     *         An input parameter that is required is missing.
+     * @sample AmazonCloudWatch.StartMetricStreams
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/StartMetricStreams" target="_top">AWS
+     *      API Documentation</a>
+     */
+    StartMetricStreamsResult startMetricStreams(StartMetricStreamsRequest startMetricStreamsRequest);
+
+    /**
+     * <p>
+     * Stops the streaming of metrics for one or more of your metric streams.
+     * </p>
+     * 
+     * @param stopMetricStreamsRequest
+     * @return Result of the StopMetricStreams operation returned by the service.
+     * @throws InternalServiceException
+     *         Request processing has failed due to some unknown error, exception, or failure.
+     * @throws InvalidParameterValueException
+     *         The value of an input parameter is bad or out-of-range.
+     * @throws MissingRequiredParameterException
+     *         An input parameter that is required is missing.
+     * @sample AmazonCloudWatch.StopMetricStreams
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/StopMetricStreams" target="_top">AWS
+     *      API Documentation</a>
+     */
+    StopMetricStreamsResult stopMetricStreams(StopMetricStreamsRequest stopMetricStreamsRequest);
+
+    /**
+     * <p>
+     * Assigns one or more tags (key-value pairs) to the specified CloudWatch resource. Currently, the only CloudWatch
+     * resources that can be tagged are alarms and Contributor Insights rules.
      * </p>
      * <p>
-     * Tags don't have any semantic meaning to AWS and are interpreted strictly as strings of characters.
+     * Tags can help you organize and categorize your resources. You can also use them to scope user permissions by
+     * granting a user permission to access or change only resources with certain tag values.
      * </p>
      * <p>
-     * You can use the <code>TagResource</code> action with a resource that already has tags. If you specify a new tag
-     * key for the resource, this tag is appended to the list of tags associated with the resource. If you specify a tag
-     * key that is already associated with the resource, the new tag value that you specify replaces the previous value
-     * for that tag.
+     * Tags don't have any semantic meaning to Amazon Web Services and are interpreted strictly as strings of
+     * characters.
      * </p>
      * <p>
-     * You can associate as many as 50 tags with a resource.
+     * You can use the <code>TagResource</code> action with an alarm that already has tags. If you specify a new tag key
+     * for the alarm, this tag is appended to the list of tags associated with the alarm. If you specify a tag key that
+     * is already associated with the alarm, the new tag value that you specify replaces the previous value for that
+     * tag.
+     * </p>
+     * <p>
+     * You can associate as many as 50 tags with a CloudWatch resource.
      * </p>
      * 
      * @param tagResourceRequest

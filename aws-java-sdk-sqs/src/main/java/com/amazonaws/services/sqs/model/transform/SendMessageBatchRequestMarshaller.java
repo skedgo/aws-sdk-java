@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,132 +12,48 @@
  */
 package com.amazonaws.services.sqs.model.transform;
 
-import java.util.Map;
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
-import com.amazonaws.Request;
-import com.amazonaws.DefaultRequest;
-import com.amazonaws.http.HttpMethodName;
 import com.amazonaws.services.sqs.model.*;
-import com.amazonaws.transform.Marshaller;
-import com.amazonaws.util.StringUtils;
+
+import com.amazonaws.protocol.*;
+import com.amazonaws.annotation.SdkInternalApi;
 
 /**
- * SendMessageBatchRequest Marshaller
+ * SendMessageBatchRequestMarshaller
  */
-
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
-public class SendMessageBatchRequestMarshaller implements Marshaller<Request<SendMessageBatchRequest>, SendMessageBatchRequest> {
+@SdkInternalApi
+public class SendMessageBatchRequestMarshaller {
 
-    public Request<SendMessageBatchRequest> marshall(SendMessageBatchRequest sendMessageBatchRequest) {
+    private static final MarshallingInfo<String> QUEUEURL_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("QueueUrl").build();
+    private static final MarshallingInfo<List> ENTRIES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Entries").build();
+
+    private static final SendMessageBatchRequestMarshaller instance = new SendMessageBatchRequestMarshaller();
+
+    public static SendMessageBatchRequestMarshaller getInstance() {
+        return instance;
+    }
+
+    /**
+     * Marshall the given parameter object.
+     */
+    public void marshall(SendMessageBatchRequest sendMessageBatchRequest, ProtocolMarshaller protocolMarshaller) {
 
         if (sendMessageBatchRequest == null) {
             throw new SdkClientException("Invalid argument passed to marshall(...)");
         }
 
-        Request<SendMessageBatchRequest> request = new DefaultRequest<SendMessageBatchRequest>(sendMessageBatchRequest, "AmazonSQS");
-        request.addParameter("Action", "SendMessageBatch");
-        request.addParameter("Version", "2012-11-05");
-        request.setHttpMethod(HttpMethodName.POST);
-
-        if (sendMessageBatchRequest.getQueueUrl() != null) {
-            request.addParameter("QueueUrl", StringUtils.fromString(sendMessageBatchRequest.getQueueUrl()));
+        try {
+            protocolMarshaller.marshall(sendMessageBatchRequest.getQueueUrl(), QUEUEURL_BINDING);
+            protocolMarshaller.marshall(sendMessageBatchRequest.getEntries(), ENTRIES_BINDING);
+        } catch (Exception e) {
+            throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }
-
-        if (!sendMessageBatchRequest.getEntries().isEmpty()
-                || !((com.amazonaws.internal.SdkInternalList<SendMessageBatchRequestEntry>) sendMessageBatchRequest.getEntries()).isAutoConstruct()) {
-            com.amazonaws.internal.SdkInternalList<SendMessageBatchRequestEntry> entriesList = (com.amazonaws.internal.SdkInternalList<SendMessageBatchRequestEntry>) sendMessageBatchRequest
-                    .getEntries();
-            int entriesListIndex = 1;
-
-            for (SendMessageBatchRequestEntry entriesListValue : entriesList) {
-
-                if (entriesListValue.getId() != null) {
-                    request.addParameter("SendMessageBatchRequestEntry." + entriesListIndex + ".Id", StringUtils.fromString(entriesListValue.getId()));
-                }
-
-                if (entriesListValue.getMessageBody() != null) {
-                    request.addParameter("SendMessageBatchRequestEntry." + entriesListIndex + ".MessageBody",
-                            StringUtils.fromString(entriesListValue.getMessageBody()));
-                }
-
-                if (entriesListValue.getDelaySeconds() != null) {
-                    request.addParameter("SendMessageBatchRequestEntry." + entriesListIndex + ".DelaySeconds",
-                            StringUtils.fromInteger(entriesListValue.getDelaySeconds()));
-                }
-
-                java.util.Map<String, MessageAttributeValue> messageAttributes = entriesListValue.getMessageAttributes();
-                int messageAttributesListIndex = 1;
-                for (Map.Entry<String, MessageAttributeValue> entry : messageAttributes.entrySet()) {
-                    if (entry.getKey() != null) {
-                        request.addParameter("SendMessageBatchRequestEntry." + entriesListIndex + ".MessageAttribute." + messageAttributesListIndex + ".Name",
-                                StringUtils.fromString(entry.getKey()));
-                    }
-                    if (entry.getValue() != null) {
-
-                        if (entry.getValue().getStringValue() != null) {
-                            request.addParameter("SendMessageBatchRequestEntry." + entriesListIndex + ".MessageAttribute." + messageAttributesListIndex
-                                    + ".Value.StringValue", StringUtils.fromString(entry.getValue().getStringValue()));
-                        }
-
-                        if (entry.getValue().getBinaryValue() != null) {
-                            request.addParameter("SendMessageBatchRequestEntry." + entriesListIndex + ".MessageAttribute." + messageAttributesListIndex
-                                    + ".Value.BinaryValue", StringUtils.fromByteBuffer(entry.getValue().getBinaryValue()));
-                        }
-
-                        if (!entry.getValue().getStringListValues().isEmpty()
-                                || !((com.amazonaws.internal.SdkInternalList<String>) entry.getValue().getStringListValues()).isAutoConstruct()) {
-                            com.amazonaws.internal.SdkInternalList<String> stringListValuesList = (com.amazonaws.internal.SdkInternalList<String>) entry
-                                    .getValue().getStringListValues();
-                            int stringListValuesListIndex = 1;
-
-                            for (String stringListValuesListValue : stringListValuesList) {
-                                if (stringListValuesListValue != null) {
-                                    request.addParameter("SendMessageBatchRequestEntry." + entriesListIndex + ".MessageAttribute." + messageAttributesListIndex
-                                            + ".Value.StringListValue." + stringListValuesListIndex, StringUtils.fromString(stringListValuesListValue));
-                                }
-                                stringListValuesListIndex++;
-                            }
-                        }
-
-                        if (!entry.getValue().getBinaryListValues().isEmpty()
-                                || !((com.amazonaws.internal.SdkInternalList<java.nio.ByteBuffer>) entry.getValue().getBinaryListValues()).isAutoConstruct()) {
-                            com.amazonaws.internal.SdkInternalList<java.nio.ByteBuffer> binaryListValuesList = (com.amazonaws.internal.SdkInternalList<java.nio.ByteBuffer>) entry
-                                    .getValue().getBinaryListValues();
-                            int binaryListValuesListIndex = 1;
-
-                            for (java.nio.ByteBuffer binaryListValuesListValue : binaryListValuesList) {
-                                if (binaryListValuesListValue != null) {
-                                    request.addParameter("SendMessageBatchRequestEntry." + entriesListIndex + ".MessageAttribute." + messageAttributesListIndex
-                                            + ".Value.BinaryListValue." + binaryListValuesListIndex, StringUtils.fromByteBuffer(binaryListValuesListValue));
-                                }
-                                binaryListValuesListIndex++;
-                            }
-                        }
-
-                        if (entry.getValue().getDataType() != null) {
-                            request.addParameter("SendMessageBatchRequestEntry." + entriesListIndex + ".MessageAttribute." + messageAttributesListIndex
-                                    + ".Value.DataType", StringUtils.fromString(entry.getValue().getDataType()));
-                        }
-                    }
-                    messageAttributesListIndex++;
-                }
-
-                if (entriesListValue.getMessageDeduplicationId() != null) {
-                    request.addParameter("SendMessageBatchRequestEntry." + entriesListIndex + ".MessageDeduplicationId",
-                            StringUtils.fromString(entriesListValue.getMessageDeduplicationId()));
-                }
-
-                if (entriesListValue.getMessageGroupId() != null) {
-                    request.addParameter("SendMessageBatchRequestEntry." + entriesListIndex + ".MessageGroupId",
-                            StringUtils.fromString(entriesListValue.getMessageGroupId()));
-                }
-                entriesListIndex++;
-            }
-        }
-
-        return request;
     }
 
 }

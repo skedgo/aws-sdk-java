@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,17 +35,23 @@ public class ModifyClusterIamRolesRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Zero or more IAM roles to associate with the cluster. The roles must be in their Amazon Resource Name (ARN)
-     * format. You can associate up to 10 IAM roles with a single cluster in a single request.
+     * format.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> addIamRoles;
     /**
      * <p>
-     * Zero or more IAM roles in ARN format to disassociate from the cluster. You can disassociate up to 10 IAM roles
-     * from a single cluster in a single request.
+     * Zero or more IAM roles in ARN format to disassociate from the cluster.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> removeIamRoles;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the IAM role that was set as default for the cluster when the cluster was last
+     * modified.
+     * </p>
+     */
+    private String defaultIamRoleArn;
 
     /**
      * <p>
@@ -90,11 +96,11 @@ public class ModifyClusterIamRolesRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Zero or more IAM roles to associate with the cluster. The roles must be in their Amazon Resource Name (ARN)
-     * format. You can associate up to 10 IAM roles with a single cluster in a single request.
+     * format.
      * </p>
      * 
      * @return Zero or more IAM roles to associate with the cluster. The roles must be in their Amazon Resource Name
-     *         (ARN) format. You can associate up to 10 IAM roles with a single cluster in a single request.
+     *         (ARN) format.
      */
 
     public java.util.List<String> getAddIamRoles() {
@@ -107,12 +113,12 @@ public class ModifyClusterIamRolesRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Zero or more IAM roles to associate with the cluster. The roles must be in their Amazon Resource Name (ARN)
-     * format. You can associate up to 10 IAM roles with a single cluster in a single request.
+     * format.
      * </p>
      * 
      * @param addIamRoles
      *        Zero or more IAM roles to associate with the cluster. The roles must be in their Amazon Resource Name
-     *        (ARN) format. You can associate up to 10 IAM roles with a single cluster in a single request.
+     *        (ARN) format.
      */
 
     public void setAddIamRoles(java.util.Collection<String> addIamRoles) {
@@ -127,7 +133,7 @@ public class ModifyClusterIamRolesRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Zero or more IAM roles to associate with the cluster. The roles must be in their Amazon Resource Name (ARN)
-     * format. You can associate up to 10 IAM roles with a single cluster in a single request.
+     * format.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -137,7 +143,7 @@ public class ModifyClusterIamRolesRequest extends com.amazonaws.AmazonWebService
      * 
      * @param addIamRoles
      *        Zero or more IAM roles to associate with the cluster. The roles must be in their Amazon Resource Name
-     *        (ARN) format. You can associate up to 10 IAM roles with a single cluster in a single request.
+     *        (ARN) format.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -154,12 +160,12 @@ public class ModifyClusterIamRolesRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * Zero or more IAM roles to associate with the cluster. The roles must be in their Amazon Resource Name (ARN)
-     * format. You can associate up to 10 IAM roles with a single cluster in a single request.
+     * format.
      * </p>
      * 
      * @param addIamRoles
      *        Zero or more IAM roles to associate with the cluster. The roles must be in their Amazon Resource Name
-     *        (ARN) format. You can associate up to 10 IAM roles with a single cluster in a single request.
+     *        (ARN) format.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -170,12 +176,10 @@ public class ModifyClusterIamRolesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Zero or more IAM roles in ARN format to disassociate from the cluster. You can disassociate up to 10 IAM roles
-     * from a single cluster in a single request.
+     * Zero or more IAM roles in ARN format to disassociate from the cluster.
      * </p>
      * 
-     * @return Zero or more IAM roles in ARN format to disassociate from the cluster. You can disassociate up to 10 IAM
-     *         roles from a single cluster in a single request.
+     * @return Zero or more IAM roles in ARN format to disassociate from the cluster.
      */
 
     public java.util.List<String> getRemoveIamRoles() {
@@ -187,13 +191,11 @@ public class ModifyClusterIamRolesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Zero or more IAM roles in ARN format to disassociate from the cluster. You can disassociate up to 10 IAM roles
-     * from a single cluster in a single request.
+     * Zero or more IAM roles in ARN format to disassociate from the cluster.
      * </p>
      * 
      * @param removeIamRoles
-     *        Zero or more IAM roles in ARN format to disassociate from the cluster. You can disassociate up to 10 IAM
-     *        roles from a single cluster in a single request.
+     *        Zero or more IAM roles in ARN format to disassociate from the cluster.
      */
 
     public void setRemoveIamRoles(java.util.Collection<String> removeIamRoles) {
@@ -207,8 +209,7 @@ public class ModifyClusterIamRolesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Zero or more IAM roles in ARN format to disassociate from the cluster. You can disassociate up to 10 IAM roles
-     * from a single cluster in a single request.
+     * Zero or more IAM roles in ARN format to disassociate from the cluster.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -217,8 +218,7 @@ public class ModifyClusterIamRolesRequest extends com.amazonaws.AmazonWebService
      * </p>
      * 
      * @param removeIamRoles
-     *        Zero or more IAM roles in ARN format to disassociate from the cluster. You can disassociate up to 10 IAM
-     *        roles from a single cluster in a single request.
+     *        Zero or more IAM roles in ARN format to disassociate from the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -234,18 +234,62 @@ public class ModifyClusterIamRolesRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * Zero or more IAM roles in ARN format to disassociate from the cluster. You can disassociate up to 10 IAM roles
-     * from a single cluster in a single request.
+     * Zero or more IAM roles in ARN format to disassociate from the cluster.
      * </p>
      * 
      * @param removeIamRoles
-     *        Zero or more IAM roles in ARN format to disassociate from the cluster. You can disassociate up to 10 IAM
-     *        roles from a single cluster in a single request.
+     *        Zero or more IAM roles in ARN format to disassociate from the cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ModifyClusterIamRolesRequest withRemoveIamRoles(java.util.Collection<String> removeIamRoles) {
         setRemoveIamRoles(removeIamRoles);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the IAM role that was set as default for the cluster when the cluster was last
+     * modified.
+     * </p>
+     * 
+     * @param defaultIamRoleArn
+     *        The Amazon Resource Name (ARN) for the IAM role that was set as default for the cluster when the cluster
+     *        was last modified.
+     */
+
+    public void setDefaultIamRoleArn(String defaultIamRoleArn) {
+        this.defaultIamRoleArn = defaultIamRoleArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the IAM role that was set as default for the cluster when the cluster was last
+     * modified.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) for the IAM role that was set as default for the cluster when the cluster
+     *         was last modified.
+     */
+
+    public String getDefaultIamRoleArn() {
+        return this.defaultIamRoleArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) for the IAM role that was set as default for the cluster when the cluster was last
+     * modified.
+     * </p>
+     * 
+     * @param defaultIamRoleArn
+     *        The Amazon Resource Name (ARN) for the IAM role that was set as default for the cluster when the cluster
+     *        was last modified.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyClusterIamRolesRequest withDefaultIamRoleArn(String defaultIamRoleArn) {
+        setDefaultIamRoleArn(defaultIamRoleArn);
         return this;
     }
 
@@ -266,7 +310,9 @@ public class ModifyClusterIamRolesRequest extends com.amazonaws.AmazonWebService
         if (getAddIamRoles() != null)
             sb.append("AddIamRoles: ").append(getAddIamRoles()).append(",");
         if (getRemoveIamRoles() != null)
-            sb.append("RemoveIamRoles: ").append(getRemoveIamRoles());
+            sb.append("RemoveIamRoles: ").append(getRemoveIamRoles()).append(",");
+        if (getDefaultIamRoleArn() != null)
+            sb.append("DefaultIamRoleArn: ").append(getDefaultIamRoleArn());
         sb.append("}");
         return sb.toString();
     }
@@ -293,6 +339,10 @@ public class ModifyClusterIamRolesRequest extends com.amazonaws.AmazonWebService
             return false;
         if (other.getRemoveIamRoles() != null && other.getRemoveIamRoles().equals(this.getRemoveIamRoles()) == false)
             return false;
+        if (other.getDefaultIamRoleArn() == null ^ this.getDefaultIamRoleArn() == null)
+            return false;
+        if (other.getDefaultIamRoleArn() != null && other.getDefaultIamRoleArn().equals(this.getDefaultIamRoleArn()) == false)
+            return false;
         return true;
     }
 
@@ -304,6 +354,7 @@ public class ModifyClusterIamRolesRequest extends com.amazonaws.AmazonWebService
         hashCode = prime * hashCode + ((getClusterIdentifier() == null) ? 0 : getClusterIdentifier().hashCode());
         hashCode = prime * hashCode + ((getAddIamRoles() == null) ? 0 : getAddIamRoles().hashCode());
         hashCode = prime * hashCode + ((getRemoveIamRoles() == null) ? 0 : getRemoveIamRoles().hashCode());
+        hashCode = prime * hashCode + ((getDefaultIamRoleArn() == null) ? 0 : getDefaultIamRoleArn().hashCode());
         return hashCode;
     }
 

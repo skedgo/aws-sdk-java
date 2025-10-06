@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,40 +27,148 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The landing directory (folder) for a user when they log in to the server using their SFTP client. An example is
-     * <code>/home/<i>username</i> </code>.
+     * The landing directory (folder) for a user when they log in to the server using the client.
      * </p>
+     * <p>
+     * A <code>HomeDirectory</code> example is <code>/bucket_name/home/mydirectory</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>HomeDirectory</code> parameter is only used if <code>HomeDirectoryType</code> is set to
+     * <code>PATH</code>.
+     * </p>
+     * </note>
      */
     private String homeDirectory;
     /**
      * <p>
-     * A scope-down policy for your user so you can use the same IAM role across multiple users. This policy scopes down
-     * user access to portions of their Amazon S3 bucket. Variables you can use inside this policy include
-     * <code>${Transfer:UserName}</code>, <code>${Transfer:HomeDirectory}</code>, and
+     * The type of landing directory (folder) that you want your users' home directory to be when they log in to the
+     * server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon EFS path as
+     * is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need to provide mappings
+     * in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or Amazon EFS paths visible to your
+     * users.
+     * </p>
+     * <note>
+     * <p>
+     * If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     * <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     * <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You cannot have
+     * both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     * </p>
+     * </note>
+     */
+    private String homeDirectoryType;
+    /**
+     * <p>
+     * Logical directory mappings that specify what Amazon S3 or Amazon EFS paths and keys should be visible to your
+     * user and how you want to make them visible. You must specify the <code>Entry</code> and <code>Target</code> pair,
+     * where <code>Entry</code> shows how the path is made visible and <code>Target</code> is the actual Amazon S3 or
+     * Amazon EFS path. If you only specify a target, it is displayed as is. You also must ensure that your Identity and
+     * Access Management (IAM) role provides access to paths in <code>Target</code>. This value can be set only when
+     * <code>HomeDirectoryType</code> is set to <i>LOGICAL</i>.
+     * </p>
+     * <p>
+     * The following is an <code>Entry</code> and <code>Target</code> pair example.
+     * </p>
+     * <p>
+     * <code>[ { "Entry": "/directory1", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     * </p>
+     * <p>
+     * In most cases, you can use this value instead of the session policy to lock your user down to the designated home
+     * directory ("<code>chroot</code>"). To do this, you can set <code>Entry</code> to <code>/</code> and set
+     * <code>Target</code> to the value the user should see for their home directory when they log in.
+     * </p>
+     * <p>
+     * The following is an <code>Entry</code> and <code>Target</code> pair example for <code>chroot</code>.
+     * </p>
+     * <p>
+     * <code>[ { "Entry": "/", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     * </p>
+     */
+    private java.util.List<HomeDirectoryMapEntry> homeDirectoryMappings;
+    /**
+     * <p>
+     * A session policy for your user so that you can use the same Identity and Access Management (IAM) role across
+     * multiple users. This policy scopes down a user's access to portions of their Amazon S3 bucket. Variables that you
+     * can use inside this policy include <code>${Transfer:UserName}</code>, <code>${Transfer:HomeDirectory}</code>, and
      * <code>${Transfer:HomeBucket}</code>.
      * </p>
+     * <note>
+     * <p>
+     * This policy applies only when the domain of <code>ServerId</code> is Amazon S3. Amazon EFS does not use session
+     * policies.
+     * </p>
+     * <p>
+     * For session policies, Transfer Family stores the policy as a JSON blob, instead of the Amazon Resource Name (ARN)
+     * of the policy. You save the policy as a JSON blob and pass it in the <code>Policy</code> argument.
+     * </p>
+     * <p>
+     * For an example of a session policy, see <a
+     * href="https://docs.aws.amazon.com/transfer/latest/userguide/session-policy.html">Example session policy</a>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html">AssumeRole</a> in the <i>Amazon
+     * Web Services Security Token Service API Reference</i>.
+     * </p>
+     * </note>
      */
     private String policy;
     /**
      * <p>
-     * The IAM role that controls your user's access to your Amazon S3 bucket. The policies attached to this role will
-     * determine the level of access you want to provide your users when transferring files into and out of your Amazon
-     * S3 bucket or buckets. The IAM role should also contain a trust relationship that allows the SFTP server to access
-     * your resources when servicing your SFTP user's transfer requests.
+     * Specifies the full POSIX identity, including user ID (<code>Uid</code>), group ID (<code>Gid</code>), and any
+     * secondary groups IDs (<code>SecondaryGids</code>), that controls your users' access to your Amazon EFS file
+     * systems. The POSIX permissions that are set on files and directories in Amazon EFS determine the level of access
+     * your users get when transferring files into and out of your Amazon EFS file systems.
+     * </p>
+     */
+    private PosixProfile posixProfile;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that controls your users' access
+     * to your Amazon S3 bucket or Amazon EFS file system. The policies attached to this role determine the level of
+     * access that you want to provide your users when transferring files into and out of your Amazon S3 bucket or
+     * Amazon EFS file system. The IAM role should also contain a trust relationship that allows the server to access
+     * your resources when servicing your users' transfer requests.
      * </p>
      */
     private String role;
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server instance. This is the specific SFTP server that you added
-     * your user to.
+     * A system-assigned unique identifier for a server instance. This is the specific server that you added your user
+     * to.
      * </p>
      */
     private String serverId;
     /**
      * <p>
-     * The public portion of the Secure Shall (SSH) key used to authenticate the user to the SFTP server.
+     * The public portion of the Secure Shell (SSH) key used to authenticate the user to the server.
      * </p>
+     * <p>
+     * The three standard SSH public key format elements are <code>&lt;key type&gt;</code>,
+     * <code>&lt;body base64&gt;</code>, and an optional <code>&lt;comment&gt;</code>, with spaces between each element.
+     * </p>
+     * <p>
+     * Transfer Family accepts RSA, ECDSA, and ED25519 keys.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For RSA keys, the key type is <code>ssh-rsa</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For ED25519 keys, the key type is <code>ssh-ed25519</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For ECDSA keys, the key type is either <code>ecdsa-sha2-nistp256</code>, <code>ecdsa-sha2-nistp384</code>, or
+     * <code>ecdsa-sha2-nistp521</code>, depending on the size of the key you generated.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String sshPublicKeyBody;
     /**
@@ -72,22 +180,37 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     private java.util.List<Tag> tags;
     /**
      * <p>
-     * A unique string that identifies a user and is associated with a server as specified by the <code>ServerId</code>.
-     * This user name must be a minimum of 3 and a maximum of 32 characters long. The following are valid characters:
-     * a-z, A-Z, 0-9, underscore, and hyphen. The user name can't start with a hyphen.
+     * A unique string that identifies a user and is associated with a <code>ServerId</code>. This user name must be a
+     * minimum of 3 and a maximum of 100 characters long. The following are valid characters: a-z, A-Z, 0-9, underscore
+     * '_', hyphen '-', period '.', and at sign '@'. The user name can't start with a hyphen, period, or at sign.
      * </p>
      */
     private String userName;
 
     /**
      * <p>
-     * The landing directory (folder) for a user when they log in to the server using their SFTP client. An example is
-     * <code>/home/<i>username</i> </code>.
+     * The landing directory (folder) for a user when they log in to the server using the client.
      * </p>
+     * <p>
+     * A <code>HomeDirectory</code> example is <code>/bucket_name/home/mydirectory</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>HomeDirectory</code> parameter is only used if <code>HomeDirectoryType</code> is set to
+     * <code>PATH</code>.
+     * </p>
+     * </note>
      * 
      * @param homeDirectory
-     *        The landing directory (folder) for a user when they log in to the server using their SFTP client. An
-     *        example is <code>/home/<i>username</i> </code>.
+     *        The landing directory (folder) for a user when they log in to the server using the client.</p>
+     *        <p>
+     *        A <code>HomeDirectory</code> example is <code>/bucket_name/home/mydirectory</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The <code>HomeDirectory</code> parameter is only used if <code>HomeDirectoryType</code> is set to
+     *        <code>PATH</code>.
+     *        </p>
      */
 
     public void setHomeDirectory(String homeDirectory) {
@@ -96,12 +219,27 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The landing directory (folder) for a user when they log in to the server using their SFTP client. An example is
-     * <code>/home/<i>username</i> </code>.
+     * The landing directory (folder) for a user when they log in to the server using the client.
      * </p>
+     * <p>
+     * A <code>HomeDirectory</code> example is <code>/bucket_name/home/mydirectory</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>HomeDirectory</code> parameter is only used if <code>HomeDirectoryType</code> is set to
+     * <code>PATH</code>.
+     * </p>
+     * </note>
      * 
-     * @return The landing directory (folder) for a user when they log in to the server using their SFTP client. An
-     *         example is <code>/home/<i>username</i> </code>.
+     * @return The landing directory (folder) for a user when they log in to the server using the client.</p>
+     *         <p>
+     *         A <code>HomeDirectory</code> example is <code>/bucket_name/home/mydirectory</code>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         The <code>HomeDirectory</code> parameter is only used if <code>HomeDirectoryType</code> is set to
+     *         <code>PATH</code>.
+     *         </p>
      */
 
     public String getHomeDirectory() {
@@ -110,13 +248,28 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The landing directory (folder) for a user when they log in to the server using their SFTP client. An example is
-     * <code>/home/<i>username</i> </code>.
+     * The landing directory (folder) for a user when they log in to the server using the client.
      * </p>
+     * <p>
+     * A <code>HomeDirectory</code> example is <code>/bucket_name/home/mydirectory</code>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>HomeDirectory</code> parameter is only used if <code>HomeDirectoryType</code> is set to
+     * <code>PATH</code>.
+     * </p>
+     * </note>
      * 
      * @param homeDirectory
-     *        The landing directory (folder) for a user when they log in to the server using their SFTP client. An
-     *        example is <code>/home/<i>username</i> </code>.
+     *        The landing directory (folder) for a user when they log in to the server using the client.</p>
+     *        <p>
+     *        A <code>HomeDirectory</code> example is <code>/bucket_name/home/mydirectory</code>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        The <code>HomeDirectory</code> parameter is only used if <code>HomeDirectoryType</code> is set to
+     *        <code>PATH</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -127,17 +280,452 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A scope-down policy for your user so you can use the same IAM role across multiple users. This policy scopes down
-     * user access to portions of their Amazon S3 bucket. Variables you can use inside this policy include
-     * <code>${Transfer:UserName}</code>, <code>${Transfer:HomeDirectory}</code>, and
-     * <code>${Transfer:HomeBucket}</code>.
+     * The type of landing directory (folder) that you want your users' home directory to be when they log in to the
+     * server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon EFS path as
+     * is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need to provide mappings
+     * in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or Amazon EFS paths visible to your
+     * users.
+     * </p>
+     * <note>
+     * <p>
+     * If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     * <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     * <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You cannot have
+     * both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     * </p>
+     * </note>
+     * 
+     * @param homeDirectoryType
+     *        The type of landing directory (folder) that you want your users' home directory to be when they log in to
+     *        the server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon
+     *        EFS path as is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need to
+     *        provide mappings in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or Amazon
+     *        EFS paths visible to your users.</p> <note>
+     *        <p>
+     *        If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     *        <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     *        <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You cannot
+     *        have both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     *        </p>
+     * @see HomeDirectoryType
+     */
+
+    public void setHomeDirectoryType(String homeDirectoryType) {
+        this.homeDirectoryType = homeDirectoryType;
+    }
+
+    /**
+     * <p>
+     * The type of landing directory (folder) that you want your users' home directory to be when they log in to the
+     * server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon EFS path as
+     * is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need to provide mappings
+     * in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or Amazon EFS paths visible to your
+     * users.
+     * </p>
+     * <note>
+     * <p>
+     * If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     * <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     * <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You cannot have
+     * both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     * </p>
+     * </note>
+     * 
+     * @return The type of landing directory (folder) that you want your users' home directory to be when they log in to
+     *         the server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon
+     *         EFS path as is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need
+     *         to provide mappings in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or
+     *         Amazon EFS paths visible to your users.</p> <note>
+     *         <p>
+     *         If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     *         <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     *         <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You
+     *         cannot have both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     *         </p>
+     * @see HomeDirectoryType
+     */
+
+    public String getHomeDirectoryType() {
+        return this.homeDirectoryType;
+    }
+
+    /**
+     * <p>
+     * The type of landing directory (folder) that you want your users' home directory to be when they log in to the
+     * server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon EFS path as
+     * is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need to provide mappings
+     * in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or Amazon EFS paths visible to your
+     * users.
+     * </p>
+     * <note>
+     * <p>
+     * If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     * <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     * <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You cannot have
+     * both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     * </p>
+     * </note>
+     * 
+     * @param homeDirectoryType
+     *        The type of landing directory (folder) that you want your users' home directory to be when they log in to
+     *        the server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon
+     *        EFS path as is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need to
+     *        provide mappings in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or Amazon
+     *        EFS paths visible to your users.</p> <note>
+     *        <p>
+     *        If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     *        <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     *        <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You cannot
+     *        have both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HomeDirectoryType
+     */
+
+    public CreateUserRequest withHomeDirectoryType(String homeDirectoryType) {
+        setHomeDirectoryType(homeDirectoryType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of landing directory (folder) that you want your users' home directory to be when they log in to the
+     * server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon EFS path as
+     * is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need to provide mappings
+     * in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or Amazon EFS paths visible to your
+     * users.
+     * </p>
+     * <note>
+     * <p>
+     * If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     * <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     * <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You cannot have
+     * both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     * </p>
+     * </note>
+     * 
+     * @param homeDirectoryType
+     *        The type of landing directory (folder) that you want your users' home directory to be when they log in to
+     *        the server. If you set it to <code>PATH</code>, the user will see the absolute Amazon S3 bucket or Amazon
+     *        EFS path as is in their file transfer protocol clients. If you set it to <code>LOGICAL</code>, you need to
+     *        provide mappings in the <code>HomeDirectoryMappings</code> for how you want to make Amazon S3 or Amazon
+     *        EFS paths visible to your users.</p> <note>
+     *        <p>
+     *        If <code>HomeDirectoryType</code> is <code>LOGICAL</code>, you must provide mappings, using the
+     *        <code>HomeDirectoryMappings</code> parameter. If, on the other hand, <code>HomeDirectoryType</code> is
+     *        <code>PATH</code>, you provide an absolute path using the <code>HomeDirectory</code> parameter. You cannot
+     *        have both <code>HomeDirectory</code> and <code>HomeDirectoryMappings</code> in your template.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see HomeDirectoryType
+     */
+
+    public CreateUserRequest withHomeDirectoryType(HomeDirectoryType homeDirectoryType) {
+        this.homeDirectoryType = homeDirectoryType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Logical directory mappings that specify what Amazon S3 or Amazon EFS paths and keys should be visible to your
+     * user and how you want to make them visible. You must specify the <code>Entry</code> and <code>Target</code> pair,
+     * where <code>Entry</code> shows how the path is made visible and <code>Target</code> is the actual Amazon S3 or
+     * Amazon EFS path. If you only specify a target, it is displayed as is. You also must ensure that your Identity and
+     * Access Management (IAM) role provides access to paths in <code>Target</code>. This value can be set only when
+     * <code>HomeDirectoryType</code> is set to <i>LOGICAL</i>.
+     * </p>
+     * <p>
+     * The following is an <code>Entry</code> and <code>Target</code> pair example.
+     * </p>
+     * <p>
+     * <code>[ { "Entry": "/directory1", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     * </p>
+     * <p>
+     * In most cases, you can use this value instead of the session policy to lock your user down to the designated home
+     * directory ("<code>chroot</code>"). To do this, you can set <code>Entry</code> to <code>/</code> and set
+     * <code>Target</code> to the value the user should see for their home directory when they log in.
+     * </p>
+     * <p>
+     * The following is an <code>Entry</code> and <code>Target</code> pair example for <code>chroot</code>.
+     * </p>
+     * <p>
+     * <code>[ { "Entry": "/", "Target": "/bucket_name/home/mydirectory" } ]</code>
      * </p>
      * 
+     * @return Logical directory mappings that specify what Amazon S3 or Amazon EFS paths and keys should be visible to
+     *         your user and how you want to make them visible. You must specify the <code>Entry</code> and
+     *         <code>Target</code> pair, where <code>Entry</code> shows how the path is made visible and
+     *         <code>Target</code> is the actual Amazon S3 or Amazon EFS path. If you only specify a target, it is
+     *         displayed as is. You also must ensure that your Identity and Access Management (IAM) role provides access
+     *         to paths in <code>Target</code>. This value can be set only when <code>HomeDirectoryType</code> is set to
+     *         <i>LOGICAL</i>.</p>
+     *         <p>
+     *         The following is an <code>Entry</code> and <code>Target</code> pair example.
+     *         </p>
+     *         <p>
+     *         <code>[ { "Entry": "/directory1", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     *         </p>
+     *         <p>
+     *         In most cases, you can use this value instead of the session policy to lock your user down to the
+     *         designated home directory ("<code>chroot</code>"). To do this, you can set <code>Entry</code> to
+     *         <code>/</code> and set <code>Target</code> to the value the user should see for their home directory when
+     *         they log in.
+     *         </p>
+     *         <p>
+     *         The following is an <code>Entry</code> and <code>Target</code> pair example for <code>chroot</code>.
+     *         </p>
+     *         <p>
+     *         <code>[ { "Entry": "/", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     */
+
+    public java.util.List<HomeDirectoryMapEntry> getHomeDirectoryMappings() {
+        return homeDirectoryMappings;
+    }
+
+    /**
+     * <p>
+     * Logical directory mappings that specify what Amazon S3 or Amazon EFS paths and keys should be visible to your
+     * user and how you want to make them visible. You must specify the <code>Entry</code> and <code>Target</code> pair,
+     * where <code>Entry</code> shows how the path is made visible and <code>Target</code> is the actual Amazon S3 or
+     * Amazon EFS path. If you only specify a target, it is displayed as is. You also must ensure that your Identity and
+     * Access Management (IAM) role provides access to paths in <code>Target</code>. This value can be set only when
+     * <code>HomeDirectoryType</code> is set to <i>LOGICAL</i>.
+     * </p>
+     * <p>
+     * The following is an <code>Entry</code> and <code>Target</code> pair example.
+     * </p>
+     * <p>
+     * <code>[ { "Entry": "/directory1", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     * </p>
+     * <p>
+     * In most cases, you can use this value instead of the session policy to lock your user down to the designated home
+     * directory ("<code>chroot</code>"). To do this, you can set <code>Entry</code> to <code>/</code> and set
+     * <code>Target</code> to the value the user should see for their home directory when they log in.
+     * </p>
+     * <p>
+     * The following is an <code>Entry</code> and <code>Target</code> pair example for <code>chroot</code>.
+     * </p>
+     * <p>
+     * <code>[ { "Entry": "/", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     * </p>
+     * 
+     * @param homeDirectoryMappings
+     *        Logical directory mappings that specify what Amazon S3 or Amazon EFS paths and keys should be visible to
+     *        your user and how you want to make them visible. You must specify the <code>Entry</code> and
+     *        <code>Target</code> pair, where <code>Entry</code> shows how the path is made visible and
+     *        <code>Target</code> is the actual Amazon S3 or Amazon EFS path. If you only specify a target, it is
+     *        displayed as is. You also must ensure that your Identity and Access Management (IAM) role provides access
+     *        to paths in <code>Target</code>. This value can be set only when <code>HomeDirectoryType</code> is set to
+     *        <i>LOGICAL</i>.</p>
+     *        <p>
+     *        The following is an <code>Entry</code> and <code>Target</code> pair example.
+     *        </p>
+     *        <p>
+     *        <code>[ { "Entry": "/directory1", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     *        </p>
+     *        <p>
+     *        In most cases, you can use this value instead of the session policy to lock your user down to the
+     *        designated home directory ("<code>chroot</code>"). To do this, you can set <code>Entry</code> to
+     *        <code>/</code> and set <code>Target</code> to the value the user should see for their home directory when
+     *        they log in.
+     *        </p>
+     *        <p>
+     *        The following is an <code>Entry</code> and <code>Target</code> pair example for <code>chroot</code>.
+     *        </p>
+     *        <p>
+     *        <code>[ { "Entry": "/", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     */
+
+    public void setHomeDirectoryMappings(java.util.Collection<HomeDirectoryMapEntry> homeDirectoryMappings) {
+        if (homeDirectoryMappings == null) {
+            this.homeDirectoryMappings = null;
+            return;
+        }
+
+        this.homeDirectoryMappings = new java.util.ArrayList<HomeDirectoryMapEntry>(homeDirectoryMappings);
+    }
+
+    /**
+     * <p>
+     * Logical directory mappings that specify what Amazon S3 or Amazon EFS paths and keys should be visible to your
+     * user and how you want to make them visible. You must specify the <code>Entry</code> and <code>Target</code> pair,
+     * where <code>Entry</code> shows how the path is made visible and <code>Target</code> is the actual Amazon S3 or
+     * Amazon EFS path. If you only specify a target, it is displayed as is. You also must ensure that your Identity and
+     * Access Management (IAM) role provides access to paths in <code>Target</code>. This value can be set only when
+     * <code>HomeDirectoryType</code> is set to <i>LOGICAL</i>.
+     * </p>
+     * <p>
+     * The following is an <code>Entry</code> and <code>Target</code> pair example.
+     * </p>
+     * <p>
+     * <code>[ { "Entry": "/directory1", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     * </p>
+     * <p>
+     * In most cases, you can use this value instead of the session policy to lock your user down to the designated home
+     * directory ("<code>chroot</code>"). To do this, you can set <code>Entry</code> to <code>/</code> and set
+     * <code>Target</code> to the value the user should see for their home directory when they log in.
+     * </p>
+     * <p>
+     * The following is an <code>Entry</code> and <code>Target</code> pair example for <code>chroot</code>.
+     * </p>
+     * <p>
+     * <code>[ { "Entry": "/", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setHomeDirectoryMappings(java.util.Collection)} or
+     * {@link #withHomeDirectoryMappings(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param homeDirectoryMappings
+     *        Logical directory mappings that specify what Amazon S3 or Amazon EFS paths and keys should be visible to
+     *        your user and how you want to make them visible. You must specify the <code>Entry</code> and
+     *        <code>Target</code> pair, where <code>Entry</code> shows how the path is made visible and
+     *        <code>Target</code> is the actual Amazon S3 or Amazon EFS path. If you only specify a target, it is
+     *        displayed as is. You also must ensure that your Identity and Access Management (IAM) role provides access
+     *        to paths in <code>Target</code>. This value can be set only when <code>HomeDirectoryType</code> is set to
+     *        <i>LOGICAL</i>.</p>
+     *        <p>
+     *        The following is an <code>Entry</code> and <code>Target</code> pair example.
+     *        </p>
+     *        <p>
+     *        <code>[ { "Entry": "/directory1", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     *        </p>
+     *        <p>
+     *        In most cases, you can use this value instead of the session policy to lock your user down to the
+     *        designated home directory ("<code>chroot</code>"). To do this, you can set <code>Entry</code> to
+     *        <code>/</code> and set <code>Target</code> to the value the user should see for their home directory when
+     *        they log in.
+     *        </p>
+     *        <p>
+     *        The following is an <code>Entry</code> and <code>Target</code> pair example for <code>chroot</code>.
+     *        </p>
+     *        <p>
+     *        <code>[ { "Entry": "/", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateUserRequest withHomeDirectoryMappings(HomeDirectoryMapEntry... homeDirectoryMappings) {
+        if (this.homeDirectoryMappings == null) {
+            setHomeDirectoryMappings(new java.util.ArrayList<HomeDirectoryMapEntry>(homeDirectoryMappings.length));
+        }
+        for (HomeDirectoryMapEntry ele : homeDirectoryMappings) {
+            this.homeDirectoryMappings.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Logical directory mappings that specify what Amazon S3 or Amazon EFS paths and keys should be visible to your
+     * user and how you want to make them visible. You must specify the <code>Entry</code> and <code>Target</code> pair,
+     * where <code>Entry</code> shows how the path is made visible and <code>Target</code> is the actual Amazon S3 or
+     * Amazon EFS path. If you only specify a target, it is displayed as is. You also must ensure that your Identity and
+     * Access Management (IAM) role provides access to paths in <code>Target</code>. This value can be set only when
+     * <code>HomeDirectoryType</code> is set to <i>LOGICAL</i>.
+     * </p>
+     * <p>
+     * The following is an <code>Entry</code> and <code>Target</code> pair example.
+     * </p>
+     * <p>
+     * <code>[ { "Entry": "/directory1", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     * </p>
+     * <p>
+     * In most cases, you can use this value instead of the session policy to lock your user down to the designated home
+     * directory ("<code>chroot</code>"). To do this, you can set <code>Entry</code> to <code>/</code> and set
+     * <code>Target</code> to the value the user should see for their home directory when they log in.
+     * </p>
+     * <p>
+     * The following is an <code>Entry</code> and <code>Target</code> pair example for <code>chroot</code>.
+     * </p>
+     * <p>
+     * <code>[ { "Entry": "/", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     * </p>
+     * 
+     * @param homeDirectoryMappings
+     *        Logical directory mappings that specify what Amazon S3 or Amazon EFS paths and keys should be visible to
+     *        your user and how you want to make them visible. You must specify the <code>Entry</code> and
+     *        <code>Target</code> pair, where <code>Entry</code> shows how the path is made visible and
+     *        <code>Target</code> is the actual Amazon S3 or Amazon EFS path. If you only specify a target, it is
+     *        displayed as is. You also must ensure that your Identity and Access Management (IAM) role provides access
+     *        to paths in <code>Target</code>. This value can be set only when <code>HomeDirectoryType</code> is set to
+     *        <i>LOGICAL</i>.</p>
+     *        <p>
+     *        The following is an <code>Entry</code> and <code>Target</code> pair example.
+     *        </p>
+     *        <p>
+     *        <code>[ { "Entry": "/directory1", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     *        </p>
+     *        <p>
+     *        In most cases, you can use this value instead of the session policy to lock your user down to the
+     *        designated home directory ("<code>chroot</code>"). To do this, you can set <code>Entry</code> to
+     *        <code>/</code> and set <code>Target</code> to the value the user should see for their home directory when
+     *        they log in.
+     *        </p>
+     *        <p>
+     *        The following is an <code>Entry</code> and <code>Target</code> pair example for <code>chroot</code>.
+     *        </p>
+     *        <p>
+     *        <code>[ { "Entry": "/", "Target": "/bucket_name/home/mydirectory" } ]</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateUserRequest withHomeDirectoryMappings(java.util.Collection<HomeDirectoryMapEntry> homeDirectoryMappings) {
+        setHomeDirectoryMappings(homeDirectoryMappings);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A session policy for your user so that you can use the same Identity and Access Management (IAM) role across
+     * multiple users. This policy scopes down a user's access to portions of their Amazon S3 bucket. Variables that you
+     * can use inside this policy include <code>${Transfer:UserName}</code>, <code>${Transfer:HomeDirectory}</code>, and
+     * <code>${Transfer:HomeBucket}</code>.
+     * </p>
+     * <note>
+     * <p>
+     * This policy applies only when the domain of <code>ServerId</code> is Amazon S3. Amazon EFS does not use session
+     * policies.
+     * </p>
+     * <p>
+     * For session policies, Transfer Family stores the policy as a JSON blob, instead of the Amazon Resource Name (ARN)
+     * of the policy. You save the policy as a JSON blob and pass it in the <code>Policy</code> argument.
+     * </p>
+     * <p>
+     * For an example of a session policy, see <a
+     * href="https://docs.aws.amazon.com/transfer/latest/userguide/session-policy.html">Example session policy</a>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html">AssumeRole</a> in the <i>Amazon
+     * Web Services Security Token Service API Reference</i>.
+     * </p>
+     * </note>
+     * 
      * @param policy
-     *        A scope-down policy for your user so you can use the same IAM role across multiple users. This policy
-     *        scopes down user access to portions of their Amazon S3 bucket. Variables you can use inside this policy
-     *        include <code>${Transfer:UserName}</code>, <code>${Transfer:HomeDirectory}</code>, and
-     *        <code>${Transfer:HomeBucket}</code>.
+     *        A session policy for your user so that you can use the same Identity and Access Management (IAM) role
+     *        across multiple users. This policy scopes down a user's access to portions of their Amazon S3 bucket.
+     *        Variables that you can use inside this policy include <code>${Transfer:UserName}</code>,
+     *        <code>${Transfer:HomeDirectory}</code>, and <code>${Transfer:HomeBucket}</code>.</p> <note>
+     *        <p>
+     *        This policy applies only when the domain of <code>ServerId</code> is Amazon S3. Amazon EFS does not use
+     *        session policies.
+     *        </p>
+     *        <p>
+     *        For session policies, Transfer Family stores the policy as a JSON blob, instead of the Amazon Resource
+     *        Name (ARN) of the policy. You save the policy as a JSON blob and pass it in the <code>Policy</code>
+     *        argument.
+     *        </p>
+     *        <p>
+     *        For an example of a session policy, see <a
+     *        href="https://docs.aws.amazon.com/transfer/latest/userguide/session-policy.html">Example session
+     *        policy</a>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html">AssumeRole</a> in the
+     *        <i>Amazon Web Services Security Token Service API Reference</i>.
+     *        </p>
      */
 
     public void setPolicy(String policy) {
@@ -146,16 +734,54 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A scope-down policy for your user so you can use the same IAM role across multiple users. This policy scopes down
-     * user access to portions of their Amazon S3 bucket. Variables you can use inside this policy include
-     * <code>${Transfer:UserName}</code>, <code>${Transfer:HomeDirectory}</code>, and
+     * A session policy for your user so that you can use the same Identity and Access Management (IAM) role across
+     * multiple users. This policy scopes down a user's access to portions of their Amazon S3 bucket. Variables that you
+     * can use inside this policy include <code>${Transfer:UserName}</code>, <code>${Transfer:HomeDirectory}</code>, and
      * <code>${Transfer:HomeBucket}</code>.
      * </p>
+     * <note>
+     * <p>
+     * This policy applies only when the domain of <code>ServerId</code> is Amazon S3. Amazon EFS does not use session
+     * policies.
+     * </p>
+     * <p>
+     * For session policies, Transfer Family stores the policy as a JSON blob, instead of the Amazon Resource Name (ARN)
+     * of the policy. You save the policy as a JSON blob and pass it in the <code>Policy</code> argument.
+     * </p>
+     * <p>
+     * For an example of a session policy, see <a
+     * href="https://docs.aws.amazon.com/transfer/latest/userguide/session-policy.html">Example session policy</a>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html">AssumeRole</a> in the <i>Amazon
+     * Web Services Security Token Service API Reference</i>.
+     * </p>
+     * </note>
      * 
-     * @return A scope-down policy for your user so you can use the same IAM role across multiple users. This policy
-     *         scopes down user access to portions of their Amazon S3 bucket. Variables you can use inside this policy
-     *         include <code>${Transfer:UserName}</code>, <code>${Transfer:HomeDirectory}</code>, and
-     *         <code>${Transfer:HomeBucket}</code>.
+     * @return A session policy for your user so that you can use the same Identity and Access Management (IAM) role
+     *         across multiple users. This policy scopes down a user's access to portions of their Amazon S3 bucket.
+     *         Variables that you can use inside this policy include <code>${Transfer:UserName}</code>,
+     *         <code>${Transfer:HomeDirectory}</code>, and <code>${Transfer:HomeBucket}</code>.</p> <note>
+     *         <p>
+     *         This policy applies only when the domain of <code>ServerId</code> is Amazon S3. Amazon EFS does not use
+     *         session policies.
+     *         </p>
+     *         <p>
+     *         For session policies, Transfer Family stores the policy as a JSON blob, instead of the Amazon Resource
+     *         Name (ARN) of the policy. You save the policy as a JSON blob and pass it in the <code>Policy</code>
+     *         argument.
+     *         </p>
+     *         <p>
+     *         For an example of a session policy, see <a
+     *         href="https://docs.aws.amazon.com/transfer/latest/userguide/session-policy.html">Example session
+     *         policy</a>.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html">AssumeRole</a> in the
+     *         <i>Amazon Web Services Security Token Service API Reference</i>.
+     *         </p>
      */
 
     public String getPolicy() {
@@ -164,17 +790,55 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A scope-down policy for your user so you can use the same IAM role across multiple users. This policy scopes down
-     * user access to portions of their Amazon S3 bucket. Variables you can use inside this policy include
-     * <code>${Transfer:UserName}</code>, <code>${Transfer:HomeDirectory}</code>, and
+     * A session policy for your user so that you can use the same Identity and Access Management (IAM) role across
+     * multiple users. This policy scopes down a user's access to portions of their Amazon S3 bucket. Variables that you
+     * can use inside this policy include <code>${Transfer:UserName}</code>, <code>${Transfer:HomeDirectory}</code>, and
      * <code>${Transfer:HomeBucket}</code>.
      * </p>
+     * <note>
+     * <p>
+     * This policy applies only when the domain of <code>ServerId</code> is Amazon S3. Amazon EFS does not use session
+     * policies.
+     * </p>
+     * <p>
+     * For session policies, Transfer Family stores the policy as a JSON blob, instead of the Amazon Resource Name (ARN)
+     * of the policy. You save the policy as a JSON blob and pass it in the <code>Policy</code> argument.
+     * </p>
+     * <p>
+     * For an example of a session policy, see <a
+     * href="https://docs.aws.amazon.com/transfer/latest/userguide/session-policy.html">Example session policy</a>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html">AssumeRole</a> in the <i>Amazon
+     * Web Services Security Token Service API Reference</i>.
+     * </p>
+     * </note>
      * 
      * @param policy
-     *        A scope-down policy for your user so you can use the same IAM role across multiple users. This policy
-     *        scopes down user access to portions of their Amazon S3 bucket. Variables you can use inside this policy
-     *        include <code>${Transfer:UserName}</code>, <code>${Transfer:HomeDirectory}</code>, and
-     *        <code>${Transfer:HomeBucket}</code>.
+     *        A session policy for your user so that you can use the same Identity and Access Management (IAM) role
+     *        across multiple users. This policy scopes down a user's access to portions of their Amazon S3 bucket.
+     *        Variables that you can use inside this policy include <code>${Transfer:UserName}</code>,
+     *        <code>${Transfer:HomeDirectory}</code>, and <code>${Transfer:HomeBucket}</code>.</p> <note>
+     *        <p>
+     *        This policy applies only when the domain of <code>ServerId</code> is Amazon S3. Amazon EFS does not use
+     *        session policies.
+     *        </p>
+     *        <p>
+     *        For session policies, Transfer Family stores the policy as a JSON blob, instead of the Amazon Resource
+     *        Name (ARN) of the policy. You save the policy as a JSON blob and pass it in the <code>Policy</code>
+     *        argument.
+     *        </p>
+     *        <p>
+     *        For an example of a session policy, see <a
+     *        href="https://docs.aws.amazon.com/transfer/latest/userguide/session-policy.html">Example session
+     *        policy</a>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html">AssumeRole</a> in the
+     *        <i>Amazon Web Services Security Token Service API Reference</i>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -185,17 +849,77 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The IAM role that controls your user's access to your Amazon S3 bucket. The policies attached to this role will
-     * determine the level of access you want to provide your users when transferring files into and out of your Amazon
-     * S3 bucket or buckets. The IAM role should also contain a trust relationship that allows the SFTP server to access
-     * your resources when servicing your SFTP user's transfer requests.
+     * Specifies the full POSIX identity, including user ID (<code>Uid</code>), group ID (<code>Gid</code>), and any
+     * secondary groups IDs (<code>SecondaryGids</code>), that controls your users' access to your Amazon EFS file
+     * systems. The POSIX permissions that are set on files and directories in Amazon EFS determine the level of access
+     * your users get when transferring files into and out of your Amazon EFS file systems.
+     * </p>
+     * 
+     * @param posixProfile
+     *        Specifies the full POSIX identity, including user ID (<code>Uid</code>), group ID (<code>Gid</code>), and
+     *        any secondary groups IDs (<code>SecondaryGids</code>), that controls your users' access to your Amazon EFS
+     *        file systems. The POSIX permissions that are set on files and directories in Amazon EFS determine the
+     *        level of access your users get when transferring files into and out of your Amazon EFS file systems.
+     */
+
+    public void setPosixProfile(PosixProfile posixProfile) {
+        this.posixProfile = posixProfile;
+    }
+
+    /**
+     * <p>
+     * Specifies the full POSIX identity, including user ID (<code>Uid</code>), group ID (<code>Gid</code>), and any
+     * secondary groups IDs (<code>SecondaryGids</code>), that controls your users' access to your Amazon EFS file
+     * systems. The POSIX permissions that are set on files and directories in Amazon EFS determine the level of access
+     * your users get when transferring files into and out of your Amazon EFS file systems.
+     * </p>
+     * 
+     * @return Specifies the full POSIX identity, including user ID (<code>Uid</code>), group ID (<code>Gid</code>), and
+     *         any secondary groups IDs (<code>SecondaryGids</code>), that controls your users' access to your Amazon
+     *         EFS file systems. The POSIX permissions that are set on files and directories in Amazon EFS determine the
+     *         level of access your users get when transferring files into and out of your Amazon EFS file systems.
+     */
+
+    public PosixProfile getPosixProfile() {
+        return this.posixProfile;
+    }
+
+    /**
+     * <p>
+     * Specifies the full POSIX identity, including user ID (<code>Uid</code>), group ID (<code>Gid</code>), and any
+     * secondary groups IDs (<code>SecondaryGids</code>), that controls your users' access to your Amazon EFS file
+     * systems. The POSIX permissions that are set on files and directories in Amazon EFS determine the level of access
+     * your users get when transferring files into and out of your Amazon EFS file systems.
+     * </p>
+     * 
+     * @param posixProfile
+     *        Specifies the full POSIX identity, including user ID (<code>Uid</code>), group ID (<code>Gid</code>), and
+     *        any secondary groups IDs (<code>SecondaryGids</code>), that controls your users' access to your Amazon EFS
+     *        file systems. The POSIX permissions that are set on files and directories in Amazon EFS determine the
+     *        level of access your users get when transferring files into and out of your Amazon EFS file systems.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateUserRequest withPosixProfile(PosixProfile posixProfile) {
+        setPosixProfile(posixProfile);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that controls your users' access
+     * to your Amazon S3 bucket or Amazon EFS file system. The policies attached to this role determine the level of
+     * access that you want to provide your users when transferring files into and out of your Amazon S3 bucket or
+     * Amazon EFS file system. The IAM role should also contain a trust relationship that allows the server to access
+     * your resources when servicing your users' transfer requests.
      * </p>
      * 
      * @param role
-     *        The IAM role that controls your user's access to your Amazon S3 bucket. The policies attached to this role
-     *        will determine the level of access you want to provide your users when transferring files into and out of
-     *        your Amazon S3 bucket or buckets. The IAM role should also contain a trust relationship that allows the
-     *        SFTP server to access your resources when servicing your SFTP user's transfer requests.
+     *        The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that controls your users'
+     *        access to your Amazon S3 bucket or Amazon EFS file system. The policies attached to this role determine
+     *        the level of access that you want to provide your users when transferring files into and out of your
+     *        Amazon S3 bucket or Amazon EFS file system. The IAM role should also contain a trust relationship that
+     *        allows the server to access your resources when servicing your users' transfer requests.
      */
 
     public void setRole(String role) {
@@ -204,16 +928,18 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The IAM role that controls your user's access to your Amazon S3 bucket. The policies attached to this role will
-     * determine the level of access you want to provide your users when transferring files into and out of your Amazon
-     * S3 bucket or buckets. The IAM role should also contain a trust relationship that allows the SFTP server to access
-     * your resources when servicing your SFTP user's transfer requests.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that controls your users' access
+     * to your Amazon S3 bucket or Amazon EFS file system. The policies attached to this role determine the level of
+     * access that you want to provide your users when transferring files into and out of your Amazon S3 bucket or
+     * Amazon EFS file system. The IAM role should also contain a trust relationship that allows the server to access
+     * your resources when servicing your users' transfer requests.
      * </p>
      * 
-     * @return The IAM role that controls your user's access to your Amazon S3 bucket. The policies attached to this
-     *         role will determine the level of access you want to provide your users when transferring files into and
-     *         out of your Amazon S3 bucket or buckets. The IAM role should also contain a trust relationship that
-     *         allows the SFTP server to access your resources when servicing your SFTP user's transfer requests.
+     * @return The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that controls your users'
+     *         access to your Amazon S3 bucket or Amazon EFS file system. The policies attached to this role determine
+     *         the level of access that you want to provide your users when transferring files into and out of your
+     *         Amazon S3 bucket or Amazon EFS file system. The IAM role should also contain a trust relationship that
+     *         allows the server to access your resources when servicing your users' transfer requests.
      */
 
     public String getRole() {
@@ -222,17 +948,19 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The IAM role that controls your user's access to your Amazon S3 bucket. The policies attached to this role will
-     * determine the level of access you want to provide your users when transferring files into and out of your Amazon
-     * S3 bucket or buckets. The IAM role should also contain a trust relationship that allows the SFTP server to access
-     * your resources when servicing your SFTP user's transfer requests.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that controls your users' access
+     * to your Amazon S3 bucket or Amazon EFS file system. The policies attached to this role determine the level of
+     * access that you want to provide your users when transferring files into and out of your Amazon S3 bucket or
+     * Amazon EFS file system. The IAM role should also contain a trust relationship that allows the server to access
+     * your resources when servicing your users' transfer requests.
      * </p>
      * 
      * @param role
-     *        The IAM role that controls your user's access to your Amazon S3 bucket. The policies attached to this role
-     *        will determine the level of access you want to provide your users when transferring files into and out of
-     *        your Amazon S3 bucket or buckets. The IAM role should also contain a trust relationship that allows the
-     *        SFTP server to access your resources when servicing your SFTP user's transfer requests.
+     *        The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) role that controls your users'
+     *        access to your Amazon S3 bucket or Amazon EFS file system. The policies attached to this role determine
+     *        the level of access that you want to provide your users when transferring files into and out of your
+     *        Amazon S3 bucket or Amazon EFS file system. The IAM role should also contain a trust relationship that
+     *        allows the server to access your resources when servicing your users' transfer requests.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -243,13 +971,13 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server instance. This is the specific SFTP server that you added
-     * your user to.
+     * A system-assigned unique identifier for a server instance. This is the specific server that you added your user
+     * to.
      * </p>
      * 
      * @param serverId
-     *        A system-assigned unique identifier for an SFTP server instance. This is the specific SFTP server that you
-     *        added your user to.
+     *        A system-assigned unique identifier for a server instance. This is the specific server that you added your
+     *        user to.
      */
 
     public void setServerId(String serverId) {
@@ -258,12 +986,12 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server instance. This is the specific SFTP server that you added
-     * your user to.
+     * A system-assigned unique identifier for a server instance. This is the specific server that you added your user
+     * to.
      * </p>
      * 
-     * @return A system-assigned unique identifier for an SFTP server instance. This is the specific SFTP server that
-     *         you added your user to.
+     * @return A system-assigned unique identifier for a server instance. This is the specific server that you added
+     *         your user to.
      */
 
     public String getServerId() {
@@ -272,13 +1000,13 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A system-assigned unique identifier for an SFTP server instance. This is the specific SFTP server that you added
-     * your user to.
+     * A system-assigned unique identifier for a server instance. This is the specific server that you added your user
+     * to.
      * </p>
      * 
      * @param serverId
-     *        A system-assigned unique identifier for an SFTP server instance. This is the specific SFTP server that you
-     *        added your user to.
+     *        A system-assigned unique identifier for a server instance. This is the specific server that you added your
+     *        user to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -289,11 +1017,61 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The public portion of the Secure Shall (SSH) key used to authenticate the user to the SFTP server.
+     * The public portion of the Secure Shell (SSH) key used to authenticate the user to the server.
      * </p>
+     * <p>
+     * The three standard SSH public key format elements are <code>&lt;key type&gt;</code>,
+     * <code>&lt;body base64&gt;</code>, and an optional <code>&lt;comment&gt;</code>, with spaces between each element.
+     * </p>
+     * <p>
+     * Transfer Family accepts RSA, ECDSA, and ED25519 keys.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For RSA keys, the key type is <code>ssh-rsa</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For ED25519 keys, the key type is <code>ssh-ed25519</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For ECDSA keys, the key type is either <code>ecdsa-sha2-nistp256</code>, <code>ecdsa-sha2-nistp384</code>, or
+     * <code>ecdsa-sha2-nistp521</code>, depending on the size of the key you generated.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param sshPublicKeyBody
-     *        The public portion of the Secure Shall (SSH) key used to authenticate the user to the SFTP server.
+     *        The public portion of the Secure Shell (SSH) key used to authenticate the user to the server.</p>
+     *        <p>
+     *        The three standard SSH public key format elements are <code>&lt;key type&gt;</code>,
+     *        <code>&lt;body base64&gt;</code>, and an optional <code>&lt;comment&gt;</code>, with spaces between each
+     *        element.
+     *        </p>
+     *        <p>
+     *        Transfer Family accepts RSA, ECDSA, and ED25519 keys.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For RSA keys, the key type is <code>ssh-rsa</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For ED25519 keys, the key type is <code>ssh-ed25519</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For ECDSA keys, the key type is either <code>ecdsa-sha2-nistp256</code>, <code>ecdsa-sha2-nistp384</code>,
+     *        or <code>ecdsa-sha2-nistp521</code>, depending on the size of the key you generated.
+     *        </p>
+     *        </li>
      */
 
     public void setSshPublicKeyBody(String sshPublicKeyBody) {
@@ -302,10 +1080,60 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The public portion of the Secure Shall (SSH) key used to authenticate the user to the SFTP server.
+     * The public portion of the Secure Shell (SSH) key used to authenticate the user to the server.
      * </p>
+     * <p>
+     * The three standard SSH public key format elements are <code>&lt;key type&gt;</code>,
+     * <code>&lt;body base64&gt;</code>, and an optional <code>&lt;comment&gt;</code>, with spaces between each element.
+     * </p>
+     * <p>
+     * Transfer Family accepts RSA, ECDSA, and ED25519 keys.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For RSA keys, the key type is <code>ssh-rsa</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For ED25519 keys, the key type is <code>ssh-ed25519</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For ECDSA keys, the key type is either <code>ecdsa-sha2-nistp256</code>, <code>ecdsa-sha2-nistp384</code>, or
+     * <code>ecdsa-sha2-nistp521</code>, depending on the size of the key you generated.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The public portion of the Secure Shall (SSH) key used to authenticate the user to the SFTP server.
+     * @return The public portion of the Secure Shell (SSH) key used to authenticate the user to the server.</p>
+     *         <p>
+     *         The three standard SSH public key format elements are <code>&lt;key type&gt;</code>,
+     *         <code>&lt;body base64&gt;</code>, and an optional <code>&lt;comment&gt;</code>, with spaces between each
+     *         element.
+     *         </p>
+     *         <p>
+     *         Transfer Family accepts RSA, ECDSA, and ED25519 keys.
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         For RSA keys, the key type is <code>ssh-rsa</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For ED25519 keys, the key type is <code>ssh-ed25519</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For ECDSA keys, the key type is either <code>ecdsa-sha2-nistp256</code>, <code>ecdsa-sha2-nistp384</code>
+     *         , or <code>ecdsa-sha2-nistp521</code>, depending on the size of the key you generated.
+     *         </p>
+     *         </li>
      */
 
     public String getSshPublicKeyBody() {
@@ -314,11 +1142,61 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The public portion of the Secure Shall (SSH) key used to authenticate the user to the SFTP server.
+     * The public portion of the Secure Shell (SSH) key used to authenticate the user to the server.
      * </p>
+     * <p>
+     * The three standard SSH public key format elements are <code>&lt;key type&gt;</code>,
+     * <code>&lt;body base64&gt;</code>, and an optional <code>&lt;comment&gt;</code>, with spaces between each element.
+     * </p>
+     * <p>
+     * Transfer Family accepts RSA, ECDSA, and ED25519 keys.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For RSA keys, the key type is <code>ssh-rsa</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For ED25519 keys, the key type is <code>ssh-ed25519</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For ECDSA keys, the key type is either <code>ecdsa-sha2-nistp256</code>, <code>ecdsa-sha2-nistp384</code>, or
+     * <code>ecdsa-sha2-nistp521</code>, depending on the size of the key you generated.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param sshPublicKeyBody
-     *        The public portion of the Secure Shall (SSH) key used to authenticate the user to the SFTP server.
+     *        The public portion of the Secure Shell (SSH) key used to authenticate the user to the server.</p>
+     *        <p>
+     *        The three standard SSH public key format elements are <code>&lt;key type&gt;</code>,
+     *        <code>&lt;body base64&gt;</code>, and an optional <code>&lt;comment&gt;</code>, with spaces between each
+     *        element.
+     *        </p>
+     *        <p>
+     *        Transfer Family accepts RSA, ECDSA, and ED25519 keys.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For RSA keys, the key type is <code>ssh-rsa</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For ED25519 keys, the key type is <code>ssh-ed25519</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For ECDSA keys, the key type is either <code>ecdsa-sha2-nistp256</code>, <code>ecdsa-sha2-nistp384</code>,
+     *        or <code>ecdsa-sha2-nistp521</code>, depending on the size of the key you generated.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -407,16 +1285,16 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A unique string that identifies a user and is associated with a server as specified by the <code>ServerId</code>.
-     * This user name must be a minimum of 3 and a maximum of 32 characters long. The following are valid characters:
-     * a-z, A-Z, 0-9, underscore, and hyphen. The user name can't start with a hyphen.
+     * A unique string that identifies a user and is associated with a <code>ServerId</code>. This user name must be a
+     * minimum of 3 and a maximum of 100 characters long. The following are valid characters: a-z, A-Z, 0-9, underscore
+     * '_', hyphen '-', period '.', and at sign '@'. The user name can't start with a hyphen, period, or at sign.
      * </p>
      * 
      * @param userName
-     *        A unique string that identifies a user and is associated with a server as specified by the
-     *        <code>ServerId</code>. This user name must be a minimum of 3 and a maximum of 32 characters long. The
-     *        following are valid characters: a-z, A-Z, 0-9, underscore, and hyphen. The user name can't start with a
-     *        hyphen.
+     *        A unique string that identifies a user and is associated with a <code>ServerId</code>. This user name must
+     *        be a minimum of 3 and a maximum of 100 characters long. The following are valid characters: a-z, A-Z, 0-9,
+     *        underscore '_', hyphen '-', period '.', and at sign '@'. The user name can't start with a hyphen, period,
+     *        or at sign.
      */
 
     public void setUserName(String userName) {
@@ -425,15 +1303,15 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A unique string that identifies a user and is associated with a server as specified by the <code>ServerId</code>.
-     * This user name must be a minimum of 3 and a maximum of 32 characters long. The following are valid characters:
-     * a-z, A-Z, 0-9, underscore, and hyphen. The user name can't start with a hyphen.
+     * A unique string that identifies a user and is associated with a <code>ServerId</code>. This user name must be a
+     * minimum of 3 and a maximum of 100 characters long. The following are valid characters: a-z, A-Z, 0-9, underscore
+     * '_', hyphen '-', period '.', and at sign '@'. The user name can't start with a hyphen, period, or at sign.
      * </p>
      * 
-     * @return A unique string that identifies a user and is associated with a server as specified by the
-     *         <code>ServerId</code>. This user name must be a minimum of 3 and a maximum of 32 characters long. The
-     *         following are valid characters: a-z, A-Z, 0-9, underscore, and hyphen. The user name can't start with a
-     *         hyphen.
+     * @return A unique string that identifies a user and is associated with a <code>ServerId</code>. This user name
+     *         must be a minimum of 3 and a maximum of 100 characters long. The following are valid characters: a-z,
+     *         A-Z, 0-9, underscore '_', hyphen '-', period '.', and at sign '@'. The user name can't start with a
+     *         hyphen, period, or at sign.
      */
 
     public String getUserName() {
@@ -442,16 +1320,16 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A unique string that identifies a user and is associated with a server as specified by the <code>ServerId</code>.
-     * This user name must be a minimum of 3 and a maximum of 32 characters long. The following are valid characters:
-     * a-z, A-Z, 0-9, underscore, and hyphen. The user name can't start with a hyphen.
+     * A unique string that identifies a user and is associated with a <code>ServerId</code>. This user name must be a
+     * minimum of 3 and a maximum of 100 characters long. The following are valid characters: a-z, A-Z, 0-9, underscore
+     * '_', hyphen '-', period '.', and at sign '@'. The user name can't start with a hyphen, period, or at sign.
      * </p>
      * 
      * @param userName
-     *        A unique string that identifies a user and is associated with a server as specified by the
-     *        <code>ServerId</code>. This user name must be a minimum of 3 and a maximum of 32 characters long. The
-     *        following are valid characters: a-z, A-Z, 0-9, underscore, and hyphen. The user name can't start with a
-     *        hyphen.
+     *        A unique string that identifies a user and is associated with a <code>ServerId</code>. This user name must
+     *        be a minimum of 3 and a maximum of 100 characters long. The following are valid characters: a-z, A-Z, 0-9,
+     *        underscore '_', hyphen '-', period '.', and at sign '@'. The user name can't start with a hyphen, period,
+     *        or at sign.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -474,8 +1352,14 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
         sb.append("{");
         if (getHomeDirectory() != null)
             sb.append("HomeDirectory: ").append(getHomeDirectory()).append(",");
+        if (getHomeDirectoryType() != null)
+            sb.append("HomeDirectoryType: ").append(getHomeDirectoryType()).append(",");
+        if (getHomeDirectoryMappings() != null)
+            sb.append("HomeDirectoryMappings: ").append(getHomeDirectoryMappings()).append(",");
         if (getPolicy() != null)
             sb.append("Policy: ").append(getPolicy()).append(",");
+        if (getPosixProfile() != null)
+            sb.append("PosixProfile: ").append(getPosixProfile()).append(",");
         if (getRole() != null)
             sb.append("Role: ").append(getRole()).append(",");
         if (getServerId() != null)
@@ -504,9 +1388,21 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
             return false;
         if (other.getHomeDirectory() != null && other.getHomeDirectory().equals(this.getHomeDirectory()) == false)
             return false;
+        if (other.getHomeDirectoryType() == null ^ this.getHomeDirectoryType() == null)
+            return false;
+        if (other.getHomeDirectoryType() != null && other.getHomeDirectoryType().equals(this.getHomeDirectoryType()) == false)
+            return false;
+        if (other.getHomeDirectoryMappings() == null ^ this.getHomeDirectoryMappings() == null)
+            return false;
+        if (other.getHomeDirectoryMappings() != null && other.getHomeDirectoryMappings().equals(this.getHomeDirectoryMappings()) == false)
+            return false;
         if (other.getPolicy() == null ^ this.getPolicy() == null)
             return false;
         if (other.getPolicy() != null && other.getPolicy().equals(this.getPolicy()) == false)
+            return false;
+        if (other.getPosixProfile() == null ^ this.getPosixProfile() == null)
+            return false;
+        if (other.getPosixProfile() != null && other.getPosixProfile().equals(this.getPosixProfile()) == false)
             return false;
         if (other.getRole() == null ^ this.getRole() == null)
             return false;
@@ -537,7 +1433,10 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getHomeDirectory() == null) ? 0 : getHomeDirectory().hashCode());
+        hashCode = prime * hashCode + ((getHomeDirectoryType() == null) ? 0 : getHomeDirectoryType().hashCode());
+        hashCode = prime * hashCode + ((getHomeDirectoryMappings() == null) ? 0 : getHomeDirectoryMappings().hashCode());
         hashCode = prime * hashCode + ((getPolicy() == null) ? 0 : getPolicy().hashCode());
+        hashCode = prime * hashCode + ((getPosixProfile() == null) ? 0 : getPosixProfile().hashCode());
         hashCode = prime * hashCode + ((getRole() == null) ? 0 : getRole().hashCode());
         hashCode = prime * hashCode + ((getServerId() == null) ? 0 : getServerId().hashCode());
         hashCode = prime * hashCode + ((getSshPublicKeyBody() == null) ? 0 : getSshPublicKeyBody().hashCode());

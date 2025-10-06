@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,9 +27,30 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * Scopes the images by users with explicit launch permissions. Specify an AWS account ID, <code>self</code> (the
-     * sender of the request), or <code>all</code> (public AMIs).
+     * Scopes the images by users with explicit launch permissions. Specify an Amazon Web Services account ID,
+     * <code>self</code> (the sender of the request), or <code>all</code> (public AMIs).
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify an Amazon Web Services account ID that is not your own, only AMIs shared with that specific Amazon
+     * Web Services account ID are returned. However, AMIs that are shared with the account’s organization or
+     * organizational unit (OU) are not returned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>self</code> or your own Amazon Web Services account ID, AMIs shared with your account are
+     * returned. In addition, AMIs that are shared with the organization or OU of which you are member are also
+     * returned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>all</code>, all public AMIs are returned.
+     * </p>
+     * </li>
+     * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<String> executableUsers;
     /**
@@ -40,7 +61,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * <li>
      * <p>
      * <code>architecture</code> - The image architecture (<code>i386</code> | <code>x86_64</code> | <code>arm64</code>
-     * ).
+     * | <code>x86_64_mac</code> | <code>arm64_mac</code>).
      * </p>
      * </li>
      * <li>
@@ -57,23 +78,32 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the EBS volume.
+     * <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the Amazon EBS volume.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.volume-size</code> - The volume size of the EBS volume, in GiB.
+     * <code>block-device-mapping.volume-size</code> - The volume size of the Amazon EBS volume, in GiB.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
-     * <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     * <code>block-device-mapping.volume-type</code> - The volume type of the Amazon EBS volume (<code>io1</code> |
+     * <code>io2</code> | <code>gp2</code> | <code>gp3</code> | <code>sc1 </code>| <code>st1</code> |
+     * <code>standard</code>).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is encrypted.
+     * <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the Amazon EBS volume is
+     * encrypted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>creation-date</code> - The time when the image was created, in the ISO 8601 format in the UTC time zone
+     * (YYYY-MM-DDThh:mm:ss.sssZ), for example, <code>2021-09-29T11:04:43.305Z</code>. You can use a wildcard (
+     * <code>*</code>), for example, <code>2021-09-29T*</code>, which matches an entire day.
      * </p>
      * </li>
      * <li>
@@ -123,19 +153,20 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>owner-alias</code> - String value from an Amazon-maintained list (<code>amazon</code> |
-     * <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused with the
-     * user-configured AWS account alias, which is set from the IAM console.
+     * <code>owner-alias</code> - The owner alias (<code>amazon</code> | <code>aws-marketplace</code>). The valid
+     * aliases are defined in an Amazon-maintained list. This is not the Amazon Web Services account alias that can be
+     * set using the IAM console. We recommend that you use the <b>Owner</b> request parameter instead of this filter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The AWS account ID of the image owner.
+     * <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the
+     * <b>Owner</b> request parameter instead of this filter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>platform</code> - The platform. To only list Windows-based AMIs, use <code>windows</code>.
+     * <code>platform</code> - The platform. The only supported value is <code>windows</code>.
      * </p>
      * </li>
      * <li>
@@ -145,7 +176,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>product-code.type</code> - The type of the product code (<code>devpay</code> | <code>marketplace</code>).
+     * <code>product-code.type</code> - The type of the product code (<code>marketplace</code>).
      * </p>
      * </li>
      * <li>
@@ -162,6 +193,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * <p>
      * <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      * <code>instance-store</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source-instance-id</code> - The ID of the instance that the AMI was created from if the AMI was created
+     * using CreateImage. This filter is applicable only if the AMI was created using <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>.
      * </p>
      * </li>
      * <li>
@@ -219,22 +257,101 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
     private com.amazonaws.internal.SdkInternalList<String> imageIds;
     /**
      * <p>
-     * Filters the images by the owner. Specify an AWS account ID, <code>self</code> (owner is the sender of the
-     * request), or an AWS owner alias (valid values are <code>amazon</code> | <code>aws-marketplace</code> |
-     * <code>microsoft</code>). Omitting this option returns all images for which you have launch permissions,
-     * regardless of ownership.
+     * Scopes the results to images with the specified owners. You can specify a combination of Amazon Web Services
+     * account IDs, <code>self</code>, <code>amazon</code>, and <code>aws-marketplace</code>. If you omit this
+     * parameter, the results include all images for which you have launch permissions, regardless of ownership.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> owners;
+    /**
+     * <p>
+     * Specifies whether to include deprecated AMIs.
+     * </p>
+     * <p>
+     * Default: No deprecated AMIs are included in the response.
+     * </p>
+     * <note>
+     * <p>
+     * If you are the AMI owner, all deprecated AMIs appear in the response regardless of what you specify for this
+     * parameter.
+     * </p>
+     * </note>
+     */
+    private Boolean includeDeprecated;
+    /**
+     * <p>
+     * Specifies whether to include disabled AMIs.
+     * </p>
+     * <p>
+     * Default: No disabled AMIs are included in the response.
+     * </p>
+     */
+    private Boolean includeDisabled;
+    /**
+     * <p>
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
+     * </p>
+     */
+    private Integer maxResults;
+    /**
+     * <p>
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
+     * </p>
+     */
+    private String nextToken;
 
     /**
      * <p>
-     * Scopes the images by users with explicit launch permissions. Specify an AWS account ID, <code>self</code> (the
-     * sender of the request), or <code>all</code> (public AMIs).
+     * Scopes the images by users with explicit launch permissions. Specify an Amazon Web Services account ID,
+     * <code>self</code> (the sender of the request), or <code>all</code> (public AMIs).
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify an Amazon Web Services account ID that is not your own, only AMIs shared with that specific Amazon
+     * Web Services account ID are returned. However, AMIs that are shared with the account’s organization or
+     * organizational unit (OU) are not returned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>self</code> or your own Amazon Web Services account ID, AMIs shared with your account are
+     * returned. In addition, AMIs that are shared with the organization or OU of which you are member are also
+     * returned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>all</code>, all public AMIs are returned.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return Scopes the images by users with explicit launch permissions. Specify an AWS account ID, <code>self</code>
-     *         (the sender of the request), or <code>all</code> (public AMIs).
+     * @return Scopes the images by users with explicit launch permissions. Specify an Amazon Web Services account ID,
+     *         <code>self</code> (the sender of the request), or <code>all</code> (public AMIs).</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If you specify an Amazon Web Services account ID that is not your own, only AMIs shared with that
+     *         specific Amazon Web Services account ID are returned. However, AMIs that are shared with the account’s
+     *         organization or organizational unit (OU) are not returned.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If you specify <code>self</code> or your own Amazon Web Services account ID, AMIs shared with your
+     *         account are returned. In addition, AMIs that are shared with the organization or OU of which you are
+     *         member are also returned.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If you specify <code>all</code>, all public AMIs are returned.
+     *         </p>
+     *         </li>
      */
 
     public java.util.List<String> getExecutableUsers() {
@@ -246,13 +363,54 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * Scopes the images by users with explicit launch permissions. Specify an AWS account ID, <code>self</code> (the
-     * sender of the request), or <code>all</code> (public AMIs).
+     * Scopes the images by users with explicit launch permissions. Specify an Amazon Web Services account ID,
+     * <code>self</code> (the sender of the request), or <code>all</code> (public AMIs).
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify an Amazon Web Services account ID that is not your own, only AMIs shared with that specific Amazon
+     * Web Services account ID are returned. However, AMIs that are shared with the account’s organization or
+     * organizational unit (OU) are not returned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>self</code> or your own Amazon Web Services account ID, AMIs shared with your account are
+     * returned. In addition, AMIs that are shared with the organization or OU of which you are member are also
+     * returned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>all</code>, all public AMIs are returned.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param executableUsers
-     *        Scopes the images by users with explicit launch permissions. Specify an AWS account ID, <code>self</code>
-     *        (the sender of the request), or <code>all</code> (public AMIs).
+     *        Scopes the images by users with explicit launch permissions. Specify an Amazon Web Services account ID,
+     *        <code>self</code> (the sender of the request), or <code>all</code> (public AMIs).</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you specify an Amazon Web Services account ID that is not your own, only AMIs shared with that specific
+     *        Amazon Web Services account ID are returned. However, AMIs that are shared with the account’s organization
+     *        or organizational unit (OU) are not returned.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you specify <code>self</code> or your own Amazon Web Services account ID, AMIs shared with your account
+     *        are returned. In addition, AMIs that are shared with the organization or OU of which you are member are
+     *        also returned.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you specify <code>all</code>, all public AMIs are returned.
+     *        </p>
+     *        </li>
      */
 
     public void setExecutableUsers(java.util.Collection<String> executableUsers) {
@@ -266,9 +424,30 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * Scopes the images by users with explicit launch permissions. Specify an AWS account ID, <code>self</code> (the
-     * sender of the request), or <code>all</code> (public AMIs).
+     * Scopes the images by users with explicit launch permissions. Specify an Amazon Web Services account ID,
+     * <code>self</code> (the sender of the request), or <code>all</code> (public AMIs).
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify an Amazon Web Services account ID that is not your own, only AMIs shared with that specific Amazon
+     * Web Services account ID are returned. However, AMIs that are shared with the account’s organization or
+     * organizational unit (OU) are not returned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>self</code> or your own Amazon Web Services account ID, AMIs shared with your account are
+     * returned. In addition, AMIs that are shared with the organization or OU of which you are member are also
+     * returned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>all</code>, all public AMIs are returned.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setExecutableUsers(java.util.Collection)} or {@link #withExecutableUsers(java.util.Collection)} if you
@@ -276,8 +455,28 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </p>
      * 
      * @param executableUsers
-     *        Scopes the images by users with explicit launch permissions. Specify an AWS account ID, <code>self</code>
-     *        (the sender of the request), or <code>all</code> (public AMIs).
+     *        Scopes the images by users with explicit launch permissions. Specify an Amazon Web Services account ID,
+     *        <code>self</code> (the sender of the request), or <code>all</code> (public AMIs).</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you specify an Amazon Web Services account ID that is not your own, only AMIs shared with that specific
+     *        Amazon Web Services account ID are returned. However, AMIs that are shared with the account’s organization
+     *        or organizational unit (OU) are not returned.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you specify <code>self</code> or your own Amazon Web Services account ID, AMIs shared with your account
+     *        are returned. In addition, AMIs that are shared with the organization or OU of which you are member are
+     *        also returned.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you specify <code>all</code>, all public AMIs are returned.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -293,13 +492,54 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * Scopes the images by users with explicit launch permissions. Specify an AWS account ID, <code>self</code> (the
-     * sender of the request), or <code>all</code> (public AMIs).
+     * Scopes the images by users with explicit launch permissions. Specify an Amazon Web Services account ID,
+     * <code>self</code> (the sender of the request), or <code>all</code> (public AMIs).
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you specify an Amazon Web Services account ID that is not your own, only AMIs shared with that specific Amazon
+     * Web Services account ID are returned. However, AMIs that are shared with the account’s organization or
+     * organizational unit (OU) are not returned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>self</code> or your own Amazon Web Services account ID, AMIs shared with your account are
+     * returned. In addition, AMIs that are shared with the organization or OU of which you are member are also
+     * returned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you specify <code>all</code>, all public AMIs are returned.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param executableUsers
-     *        Scopes the images by users with explicit launch permissions. Specify an AWS account ID, <code>self</code>
-     *        (the sender of the request), or <code>all</code> (public AMIs).
+     *        Scopes the images by users with explicit launch permissions. Specify an Amazon Web Services account ID,
+     *        <code>self</code> (the sender of the request), or <code>all</code> (public AMIs).</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If you specify an Amazon Web Services account ID that is not your own, only AMIs shared with that specific
+     *        Amazon Web Services account ID are returned. However, AMIs that are shared with the account’s organization
+     *        or organizational unit (OU) are not returned.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you specify <code>self</code> or your own Amazon Web Services account ID, AMIs shared with your account
+     *        are returned. In addition, AMIs that are shared with the organization or OU of which you are member are
+     *        also returned.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If you specify <code>all</code>, all public AMIs are returned.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -316,7 +556,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * <li>
      * <p>
      * <code>architecture</code> - The image architecture (<code>i386</code> | <code>x86_64</code> | <code>arm64</code>
-     * ).
+     * | <code>x86_64_mac</code> | <code>arm64_mac</code>).
      * </p>
      * </li>
      * <li>
@@ -333,23 +573,32 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the EBS volume.
+     * <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the Amazon EBS volume.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.volume-size</code> - The volume size of the EBS volume, in GiB.
+     * <code>block-device-mapping.volume-size</code> - The volume size of the Amazon EBS volume, in GiB.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
-     * <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     * <code>block-device-mapping.volume-type</code> - The volume type of the Amazon EBS volume (<code>io1</code> |
+     * <code>io2</code> | <code>gp2</code> | <code>gp3</code> | <code>sc1 </code>| <code>st1</code> |
+     * <code>standard</code>).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is encrypted.
+     * <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the Amazon EBS volume is
+     * encrypted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>creation-date</code> - The time when the image was created, in the ISO 8601 format in the UTC time zone
+     * (YYYY-MM-DDThh:mm:ss.sssZ), for example, <code>2021-09-29T11:04:43.305Z</code>. You can use a wildcard (
+     * <code>*</code>), for example, <code>2021-09-29T*</code>, which matches an entire day.
      * </p>
      * </li>
      * <li>
@@ -399,19 +648,20 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>owner-alias</code> - String value from an Amazon-maintained list (<code>amazon</code> |
-     * <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused with the
-     * user-configured AWS account alias, which is set from the IAM console.
+     * <code>owner-alias</code> - The owner alias (<code>amazon</code> | <code>aws-marketplace</code>). The valid
+     * aliases are defined in an Amazon-maintained list. This is not the Amazon Web Services account alias that can be
+     * set using the IAM console. We recommend that you use the <b>Owner</b> request parameter instead of this filter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The AWS account ID of the image owner.
+     * <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the
+     * <b>Owner</b> request parameter instead of this filter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>platform</code> - The platform. To only list Windows-based AMIs, use <code>windows</code>.
+     * <code>platform</code> - The platform. The only supported value is <code>windows</code>.
      * </p>
      * </li>
      * <li>
@@ -421,7 +671,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>product-code.type</code> - The type of the product code (<code>devpay</code> | <code>marketplace</code>).
+     * <code>product-code.type</code> - The type of the product code (<code>marketplace</code>).
      * </p>
      * </li>
      * <li>
@@ -438,6 +688,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * <p>
      * <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      * <code>instance-store</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source-instance-id</code> - The ID of the instance that the AMI was created from if the AMI was created
+     * using CreateImage. This filter is applicable only if the AMI was created using <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>.
      * </p>
      * </li>
      * <li>
@@ -488,7 +745,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *         <li>
      *         <p>
      *         <code>architecture</code> - The image architecture (<code>i386</code> | <code>x86_64</code> |
-     *         <code>arm64</code>).
+     *         <code>arm64</code> | <code>x86_64_mac</code> | <code>arm64_mac</code>).
      *         </p>
      *         </li>
      *         <li>
@@ -505,24 +762,32 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *         </li>
      *         <li>
      *         <p>
-     *         <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the EBS volume.
+     *         <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the Amazon EBS volume.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>block-device-mapping.volume-size</code> - The volume size of the EBS volume, in GiB.
+     *         <code>block-device-mapping.volume-size</code> - The volume size of the Amazon EBS volume, in GiB.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
-     *         <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     *         <code>block-device-mapping.volume-type</code> - The volume type of the Amazon EBS volume (
+     *         <code>io1</code> | <code>io2</code> | <code>gp2</code> | <code>gp3</code> | <code>sc1 </code>|
+     *         <code>st1</code> | <code>standard</code>).
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is
+     *         <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the Amazon EBS volume is
      *         encrypted.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>creation-date</code> - The time when the image was created, in the ISO 8601 format in the UTC time
+     *         zone (YYYY-MM-DDThh:mm:ss.sssZ), for example, <code>2021-09-29T11:04:43.305Z</code>. You can use a
+     *         wildcard (<code>*</code>), for example, <code>2021-09-29T*</code>, which matches an entire day.
      *         </p>
      *         </li>
      *         <li>
@@ -573,19 +838,21 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *         </li>
      *         <li>
      *         <p>
-     *         <code>owner-alias</code> - String value from an Amazon-maintained list (<code>amazon</code> |
-     *         <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused with the
-     *         user-configured AWS account alias, which is set from the IAM console.
+     *         <code>owner-alias</code> - The owner alias (<code>amazon</code> | <code>aws-marketplace</code>). The
+     *         valid aliases are defined in an Amazon-maintained list. This is not the Amazon Web Services account alias
+     *         that can be set using the IAM console. We recommend that you use the <b>Owner</b> request parameter
+     *         instead of this filter.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>owner-id</code> - The AWS account ID of the image owner.
+     *         <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the
+     *         <b>Owner</b> request parameter instead of this filter.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>platform</code> - The platform. To only list Windows-based AMIs, use <code>windows</code>.
+     *         <code>platform</code> - The platform. The only supported value is <code>windows</code>.
      *         </p>
      *         </li>
      *         <li>
@@ -595,8 +862,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *         </li>
      *         <li>
      *         <p>
-     *         <code>product-code.type</code> - The type of the product code (<code>devpay</code> |
-     *         <code>marketplace</code>).
+     *         <code>product-code.type</code> - The type of the product code (<code>marketplace</code>).
      *         </p>
      *         </li>
      *         <li>
@@ -614,6 +880,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *         <p>
      *         <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      *         <code>instance-store</code>).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>source-instance-id</code> - The ID of the instance that the AMI was created from if the AMI was
+     *         created using CreateImage. This filter is applicable only if the AMI was created using <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>.
      *         </p>
      *         </li>
      *         <li>
@@ -674,7 +947,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * <li>
      * <p>
      * <code>architecture</code> - The image architecture (<code>i386</code> | <code>x86_64</code> | <code>arm64</code>
-     * ).
+     * | <code>x86_64_mac</code> | <code>arm64_mac</code>).
      * </p>
      * </li>
      * <li>
@@ -691,23 +964,32 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the EBS volume.
+     * <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the Amazon EBS volume.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.volume-size</code> - The volume size of the EBS volume, in GiB.
+     * <code>block-device-mapping.volume-size</code> - The volume size of the Amazon EBS volume, in GiB.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
-     * <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     * <code>block-device-mapping.volume-type</code> - The volume type of the Amazon EBS volume (<code>io1</code> |
+     * <code>io2</code> | <code>gp2</code> | <code>gp3</code> | <code>sc1 </code>| <code>st1</code> |
+     * <code>standard</code>).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is encrypted.
+     * <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the Amazon EBS volume is
+     * encrypted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>creation-date</code> - The time when the image was created, in the ISO 8601 format in the UTC time zone
+     * (YYYY-MM-DDThh:mm:ss.sssZ), for example, <code>2021-09-29T11:04:43.305Z</code>. You can use a wildcard (
+     * <code>*</code>), for example, <code>2021-09-29T*</code>, which matches an entire day.
      * </p>
      * </li>
      * <li>
@@ -757,19 +1039,20 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>owner-alias</code> - String value from an Amazon-maintained list (<code>amazon</code> |
-     * <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused with the
-     * user-configured AWS account alias, which is set from the IAM console.
+     * <code>owner-alias</code> - The owner alias (<code>amazon</code> | <code>aws-marketplace</code>). The valid
+     * aliases are defined in an Amazon-maintained list. This is not the Amazon Web Services account alias that can be
+     * set using the IAM console. We recommend that you use the <b>Owner</b> request parameter instead of this filter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The AWS account ID of the image owner.
+     * <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the
+     * <b>Owner</b> request parameter instead of this filter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>platform</code> - The platform. To only list Windows-based AMIs, use <code>windows</code>.
+     * <code>platform</code> - The platform. The only supported value is <code>windows</code>.
      * </p>
      * </li>
      * <li>
@@ -779,7 +1062,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>product-code.type</code> - The type of the product code (<code>devpay</code> | <code>marketplace</code>).
+     * <code>product-code.type</code> - The type of the product code (<code>marketplace</code>).
      * </p>
      * </li>
      * <li>
@@ -796,6 +1079,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * <p>
      * <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      * <code>instance-store</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source-instance-id</code> - The ID of the instance that the AMI was created from if the AMI was created
+     * using CreateImage. This filter is applicable only if the AMI was created using <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>.
      * </p>
      * </li>
      * <li>
@@ -847,7 +1137,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        <li>
      *        <p>
      *        <code>architecture</code> - The image architecture (<code>i386</code> | <code>x86_64</code> |
-     *        <code>arm64</code>).
+     *        <code>arm64</code> | <code>x86_64_mac</code> | <code>arm64_mac</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -864,24 +1154,32 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the EBS volume.
+     *        <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the Amazon EBS volume.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.volume-size</code> - The volume size of the EBS volume, in GiB.
+     *        <code>block-device-mapping.volume-size</code> - The volume size of the Amazon EBS volume, in GiB.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
-     *        <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     *        <code>block-device-mapping.volume-type</code> - The volume type of the Amazon EBS volume (<code>io1</code>
+     *        | <code>io2</code> | <code>gp2</code> | <code>gp3</code> | <code>sc1 </code>| <code>st1</code> |
+     *        <code>standard</code>).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is
+     *        <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the Amazon EBS volume is
      *        encrypted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>creation-date</code> - The time when the image was created, in the ISO 8601 format in the UTC time
+     *        zone (YYYY-MM-DDThh:mm:ss.sssZ), for example, <code>2021-09-29T11:04:43.305Z</code>. You can use a
+     *        wildcard (<code>*</code>), for example, <code>2021-09-29T*</code>, which matches an entire day.
      *        </p>
      *        </li>
      *        <li>
@@ -932,19 +1230,21 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-alias</code> - String value from an Amazon-maintained list (<code>amazon</code> |
-     *        <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused with the
-     *        user-configured AWS account alias, which is set from the IAM console.
+     *        <code>owner-alias</code> - The owner alias (<code>amazon</code> | <code>aws-marketplace</code>). The valid
+     *        aliases are defined in an Amazon-maintained list. This is not the Amazon Web Services account alias that
+     *        can be set using the IAM console. We recommend that you use the <b>Owner</b> request parameter instead of
+     *        this filter.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The AWS account ID of the image owner.
+     *        <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the
+     *        <b>Owner</b> request parameter instead of this filter.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>platform</code> - The platform. To only list Windows-based AMIs, use <code>windows</code>.
+     *        <code>platform</code> - The platform. The only supported value is <code>windows</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -954,8 +1254,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>product-code.type</code> - The type of the product code (<code>devpay</code> |
-     *        <code>marketplace</code>).
+     *        <code>product-code.type</code> - The type of the product code (<code>marketplace</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -973,6 +1272,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        <p>
      *        <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      *        <code>instance-store</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>source-instance-id</code> - The ID of the instance that the AMI was created from if the AMI was
+     *        created using CreateImage. This filter is applicable only if the AMI was created using <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>.
      *        </p>
      *        </li>
      *        <li>
@@ -1035,7 +1341,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * <li>
      * <p>
      * <code>architecture</code> - The image architecture (<code>i386</code> | <code>x86_64</code> | <code>arm64</code>
-     * ).
+     * | <code>x86_64_mac</code> | <code>arm64_mac</code>).
      * </p>
      * </li>
      * <li>
@@ -1052,23 +1358,32 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the EBS volume.
+     * <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the Amazon EBS volume.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.volume-size</code> - The volume size of the EBS volume, in GiB.
+     * <code>block-device-mapping.volume-size</code> - The volume size of the Amazon EBS volume, in GiB.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
-     * <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     * <code>block-device-mapping.volume-type</code> - The volume type of the Amazon EBS volume (<code>io1</code> |
+     * <code>io2</code> | <code>gp2</code> | <code>gp3</code> | <code>sc1 </code>| <code>st1</code> |
+     * <code>standard</code>).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is encrypted.
+     * <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the Amazon EBS volume is
+     * encrypted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>creation-date</code> - The time when the image was created, in the ISO 8601 format in the UTC time zone
+     * (YYYY-MM-DDThh:mm:ss.sssZ), for example, <code>2021-09-29T11:04:43.305Z</code>. You can use a wildcard (
+     * <code>*</code>), for example, <code>2021-09-29T*</code>, which matches an entire day.
      * </p>
      * </li>
      * <li>
@@ -1118,19 +1433,20 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>owner-alias</code> - String value from an Amazon-maintained list (<code>amazon</code> |
-     * <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused with the
-     * user-configured AWS account alias, which is set from the IAM console.
+     * <code>owner-alias</code> - The owner alias (<code>amazon</code> | <code>aws-marketplace</code>). The valid
+     * aliases are defined in an Amazon-maintained list. This is not the Amazon Web Services account alias that can be
+     * set using the IAM console. We recommend that you use the <b>Owner</b> request parameter instead of this filter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The AWS account ID of the image owner.
+     * <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the
+     * <b>Owner</b> request parameter instead of this filter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>platform</code> - The platform. To only list Windows-based AMIs, use <code>windows</code>.
+     * <code>platform</code> - The platform. The only supported value is <code>windows</code>.
      * </p>
      * </li>
      * <li>
@@ -1140,7 +1456,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>product-code.type</code> - The type of the product code (<code>devpay</code> | <code>marketplace</code>).
+     * <code>product-code.type</code> - The type of the product code (<code>marketplace</code>).
      * </p>
      * </li>
      * <li>
@@ -1157,6 +1473,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * <p>
      * <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      * <code>instance-store</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source-instance-id</code> - The ID of the instance that the AMI was created from if the AMI was created
+     * using CreateImage. This filter is applicable only if the AMI was created using <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>.
      * </p>
      * </li>
      * <li>
@@ -1213,7 +1536,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        <li>
      *        <p>
      *        <code>architecture</code> - The image architecture (<code>i386</code> | <code>x86_64</code> |
-     *        <code>arm64</code>).
+     *        <code>arm64</code> | <code>x86_64_mac</code> | <code>arm64_mac</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -1230,24 +1553,32 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the EBS volume.
+     *        <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the Amazon EBS volume.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.volume-size</code> - The volume size of the EBS volume, in GiB.
+     *        <code>block-device-mapping.volume-size</code> - The volume size of the Amazon EBS volume, in GiB.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
-     *        <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     *        <code>block-device-mapping.volume-type</code> - The volume type of the Amazon EBS volume (<code>io1</code>
+     *        | <code>io2</code> | <code>gp2</code> | <code>gp3</code> | <code>sc1 </code>| <code>st1</code> |
+     *        <code>standard</code>).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is
+     *        <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the Amazon EBS volume is
      *        encrypted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>creation-date</code> - The time when the image was created, in the ISO 8601 format in the UTC time
+     *        zone (YYYY-MM-DDThh:mm:ss.sssZ), for example, <code>2021-09-29T11:04:43.305Z</code>. You can use a
+     *        wildcard (<code>*</code>), for example, <code>2021-09-29T*</code>, which matches an entire day.
      *        </p>
      *        </li>
      *        <li>
@@ -1298,19 +1629,21 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-alias</code> - String value from an Amazon-maintained list (<code>amazon</code> |
-     *        <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused with the
-     *        user-configured AWS account alias, which is set from the IAM console.
+     *        <code>owner-alias</code> - The owner alias (<code>amazon</code> | <code>aws-marketplace</code>). The valid
+     *        aliases are defined in an Amazon-maintained list. This is not the Amazon Web Services account alias that
+     *        can be set using the IAM console. We recommend that you use the <b>Owner</b> request parameter instead of
+     *        this filter.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The AWS account ID of the image owner.
+     *        <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the
+     *        <b>Owner</b> request parameter instead of this filter.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>platform</code> - The platform. To only list Windows-based AMIs, use <code>windows</code>.
+     *        <code>platform</code> - The platform. The only supported value is <code>windows</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -1320,8 +1653,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>product-code.type</code> - The type of the product code (<code>devpay</code> |
-     *        <code>marketplace</code>).
+     *        <code>product-code.type</code> - The type of the product code (<code>marketplace</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -1339,6 +1671,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        <p>
      *        <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      *        <code>instance-store</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>source-instance-id</code> - The ID of the instance that the AMI was created from if the AMI was
+     *        created using CreateImage. This filter is applicable only if the AMI was created using <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>.
      *        </p>
      *        </li>
      *        <li>
@@ -1403,7 +1742,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * <li>
      * <p>
      * <code>architecture</code> - The image architecture (<code>i386</code> | <code>x86_64</code> | <code>arm64</code>
-     * ).
+     * | <code>x86_64_mac</code> | <code>arm64_mac</code>).
      * </p>
      * </li>
      * <li>
@@ -1420,23 +1759,32 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the EBS volume.
+     * <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the Amazon EBS volume.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.volume-size</code> - The volume size of the EBS volume, in GiB.
+     * <code>block-device-mapping.volume-size</code> - The volume size of the Amazon EBS volume, in GiB.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
-     * <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     * <code>block-device-mapping.volume-type</code> - The volume type of the Amazon EBS volume (<code>io1</code> |
+     * <code>io2</code> | <code>gp2</code> | <code>gp3</code> | <code>sc1 </code>| <code>st1</code> |
+     * <code>standard</code>).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is encrypted.
+     * <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the Amazon EBS volume is
+     * encrypted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>creation-date</code> - The time when the image was created, in the ISO 8601 format in the UTC time zone
+     * (YYYY-MM-DDThh:mm:ss.sssZ), for example, <code>2021-09-29T11:04:43.305Z</code>. You can use a wildcard (
+     * <code>*</code>), for example, <code>2021-09-29T*</code>, which matches an entire day.
      * </p>
      * </li>
      * <li>
@@ -1486,19 +1834,20 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>owner-alias</code> - String value from an Amazon-maintained list (<code>amazon</code> |
-     * <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused with the
-     * user-configured AWS account alias, which is set from the IAM console.
+     * <code>owner-alias</code> - The owner alias (<code>amazon</code> | <code>aws-marketplace</code>). The valid
+     * aliases are defined in an Amazon-maintained list. This is not the Amazon Web Services account alias that can be
+     * set using the IAM console. We recommend that you use the <b>Owner</b> request parameter instead of this filter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>owner-id</code> - The AWS account ID of the image owner.
+     * <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the
+     * <b>Owner</b> request parameter instead of this filter.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>platform</code> - The platform. To only list Windows-based AMIs, use <code>windows</code>.
+     * <code>platform</code> - The platform. The only supported value is <code>windows</code>.
      * </p>
      * </li>
      * <li>
@@ -1508,7 +1857,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>product-code.type</code> - The type of the product code (<code>devpay</code> | <code>marketplace</code>).
+     * <code>product-code.type</code> - The type of the product code (<code>marketplace</code>).
      * </p>
      * </li>
      * <li>
@@ -1525,6 +1874,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * <p>
      * <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      * <code>instance-store</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>source-instance-id</code> - The ID of the instance that the AMI was created from if the AMI was created
+     * using CreateImage. This filter is applicable only if the AMI was created using <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>.
      * </p>
      * </li>
      * <li>
@@ -1576,7 +1932,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        <li>
      *        <p>
      *        <code>architecture</code> - The image architecture (<code>i386</code> | <code>x86_64</code> |
-     *        <code>arm64</code>).
+     *        <code>arm64</code> | <code>x86_64_mac</code> | <code>arm64_mac</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -1593,24 +1949,32 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the EBS volume.
+     *        <code>block-device-mapping.snapshot-id</code> - The ID of the snapshot used for the Amazon EBS volume.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.volume-size</code> - The volume size of the EBS volume, in GiB.
+     *        <code>block-device-mapping.volume-size</code> - The volume size of the Amazon EBS volume, in GiB.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
-     *        <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     *        <code>block-device-mapping.volume-type</code> - The volume type of the Amazon EBS volume (<code>io1</code>
+     *        | <code>io2</code> | <code>gp2</code> | <code>gp3</code> | <code>sc1 </code>| <code>st1</code> |
+     *        <code>standard</code>).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is
+     *        <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the Amazon EBS volume is
      *        encrypted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>creation-date</code> - The time when the image was created, in the ISO 8601 format in the UTC time
+     *        zone (YYYY-MM-DDThh:mm:ss.sssZ), for example, <code>2021-09-29T11:04:43.305Z</code>. You can use a
+     *        wildcard (<code>*</code>), for example, <code>2021-09-29T*</code>, which matches an entire day.
      *        </p>
      *        </li>
      *        <li>
@@ -1661,19 +2025,21 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-alias</code> - String value from an Amazon-maintained list (<code>amazon</code> |
-     *        <code>aws-marketplace</code> | <code>microsoft</code>) of snapshot owners. Not to be confused with the
-     *        user-configured AWS account alias, which is set from the IAM console.
+     *        <code>owner-alias</code> - The owner alias (<code>amazon</code> | <code>aws-marketplace</code>). The valid
+     *        aliases are defined in an Amazon-maintained list. This is not the Amazon Web Services account alias that
+     *        can be set using the IAM console. We recommend that you use the <b>Owner</b> request parameter instead of
+     *        this filter.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>owner-id</code> - The AWS account ID of the image owner.
+     *        <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the
+     *        <b>Owner</b> request parameter instead of this filter.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>platform</code> - The platform. To only list Windows-based AMIs, use <code>windows</code>.
+     *        <code>platform</code> - The platform. The only supported value is <code>windows</code>.
      *        </p>
      *        </li>
      *        <li>
@@ -1683,8 +2049,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>product-code.type</code> - The type of the product code (<code>devpay</code> |
-     *        <code>marketplace</code>).
+     *        <code>product-code.type</code> - The type of the product code (<code>marketplace</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -1702,6 +2067,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        <p>
      *        <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      *        <code>instance-store</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>source-instance-id</code> - The ID of the instance that the AMI was created from if the AMI was
+     *        created using CreateImage. This filter is applicable only if the AMI was created using <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html">CreateImage</a>.
      *        </p>
      *        </li>
      *        <li>
@@ -1848,16 +2220,15 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * Filters the images by the owner. Specify an AWS account ID, <code>self</code> (owner is the sender of the
-     * request), or an AWS owner alias (valid values are <code>amazon</code> | <code>aws-marketplace</code> |
-     * <code>microsoft</code>). Omitting this option returns all images for which you have launch permissions,
-     * regardless of ownership.
+     * Scopes the results to images with the specified owners. You can specify a combination of Amazon Web Services
+     * account IDs, <code>self</code>, <code>amazon</code>, and <code>aws-marketplace</code>. If you omit this
+     * parameter, the results include all images for which you have launch permissions, regardless of ownership.
      * </p>
      * 
-     * @return Filters the images by the owner. Specify an AWS account ID, <code>self</code> (owner is the sender of the
-     *         request), or an AWS owner alias (valid values are <code>amazon</code> | <code>aws-marketplace</code> |
-     *         <code>microsoft</code>). Omitting this option returns all images for which you have launch permissions,
-     *         regardless of ownership.
+     * @return Scopes the results to images with the specified owners. You can specify a combination of Amazon Web
+     *         Services account IDs, <code>self</code>, <code>amazon</code>, and <code>aws-marketplace</code>. If you
+     *         omit this parameter, the results include all images for which you have launch permissions, regardless of
+     *         ownership.
      */
 
     public java.util.List<String> getOwners() {
@@ -1869,17 +2240,16 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * Filters the images by the owner. Specify an AWS account ID, <code>self</code> (owner is the sender of the
-     * request), or an AWS owner alias (valid values are <code>amazon</code> | <code>aws-marketplace</code> |
-     * <code>microsoft</code>). Omitting this option returns all images for which you have launch permissions,
-     * regardless of ownership.
+     * Scopes the results to images with the specified owners. You can specify a combination of Amazon Web Services
+     * account IDs, <code>self</code>, <code>amazon</code>, and <code>aws-marketplace</code>. If you omit this
+     * parameter, the results include all images for which you have launch permissions, regardless of ownership.
      * </p>
      * 
      * @param owners
-     *        Filters the images by the owner. Specify an AWS account ID, <code>self</code> (owner is the sender of the
-     *        request), or an AWS owner alias (valid values are <code>amazon</code> | <code>aws-marketplace</code> |
-     *        <code>microsoft</code>). Omitting this option returns all images for which you have launch permissions,
-     *        regardless of ownership.
+     *        Scopes the results to images with the specified owners. You can specify a combination of Amazon Web
+     *        Services account IDs, <code>self</code>, <code>amazon</code>, and <code>aws-marketplace</code>. If you
+     *        omit this parameter, the results include all images for which you have launch permissions, regardless of
+     *        ownership.
      */
 
     public void setOwners(java.util.Collection<String> owners) {
@@ -1893,10 +2263,9 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * Filters the images by the owner. Specify an AWS account ID, <code>self</code> (owner is the sender of the
-     * request), or an AWS owner alias (valid values are <code>amazon</code> | <code>aws-marketplace</code> |
-     * <code>microsoft</code>). Omitting this option returns all images for which you have launch permissions,
-     * regardless of ownership.
+     * Scopes the results to images with the specified owners. You can specify a combination of Amazon Web Services
+     * account IDs, <code>self</code>, <code>amazon</code>, and <code>aws-marketplace</code>. If you omit this
+     * parameter, the results include all images for which you have launch permissions, regardless of ownership.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1905,10 +2274,10 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </p>
      * 
      * @param owners
-     *        Filters the images by the owner. Specify an AWS account ID, <code>self</code> (owner is the sender of the
-     *        request), or an AWS owner alias (valid values are <code>amazon</code> | <code>aws-marketplace</code> |
-     *        <code>microsoft</code>). Omitting this option returns all images for which you have launch permissions,
-     *        regardless of ownership.
+     *        Scopes the results to images with the specified owners. You can specify a combination of Amazon Web
+     *        Services account IDs, <code>self</code>, <code>amazon</code>, and <code>aws-marketplace</code>. If you
+     *        omit this parameter, the results include all images for which you have launch permissions, regardless of
+     *        ownership.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1924,22 +2293,314 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * <p>
-     * Filters the images by the owner. Specify an AWS account ID, <code>self</code> (owner is the sender of the
-     * request), or an AWS owner alias (valid values are <code>amazon</code> | <code>aws-marketplace</code> |
-     * <code>microsoft</code>). Omitting this option returns all images for which you have launch permissions,
-     * regardless of ownership.
+     * Scopes the results to images with the specified owners. You can specify a combination of Amazon Web Services
+     * account IDs, <code>self</code>, <code>amazon</code>, and <code>aws-marketplace</code>. If you omit this
+     * parameter, the results include all images for which you have launch permissions, regardless of ownership.
      * </p>
      * 
      * @param owners
-     *        Filters the images by the owner. Specify an AWS account ID, <code>self</code> (owner is the sender of the
-     *        request), or an AWS owner alias (valid values are <code>amazon</code> | <code>aws-marketplace</code> |
-     *        <code>microsoft</code>). Omitting this option returns all images for which you have launch permissions,
-     *        regardless of ownership.
+     *        Scopes the results to images with the specified owners. You can specify a combination of Amazon Web
+     *        Services account IDs, <code>self</code>, <code>amazon</code>, and <code>aws-marketplace</code>. If you
+     *        omit this parameter, the results include all images for which you have launch permissions, regardless of
+     *        ownership.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DescribeImagesRequest withOwners(java.util.Collection<String> owners) {
         setOwners(owners);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to include deprecated AMIs.
+     * </p>
+     * <p>
+     * Default: No deprecated AMIs are included in the response.
+     * </p>
+     * <note>
+     * <p>
+     * If you are the AMI owner, all deprecated AMIs appear in the response regardless of what you specify for this
+     * parameter.
+     * </p>
+     * </note>
+     * 
+     * @param includeDeprecated
+     *        Specifies whether to include deprecated AMIs.</p>
+     *        <p>
+     *        Default: No deprecated AMIs are included in the response.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If you are the AMI owner, all deprecated AMIs appear in the response regardless of what you specify for
+     *        this parameter.
+     *        </p>
+     */
+
+    public void setIncludeDeprecated(Boolean includeDeprecated) {
+        this.includeDeprecated = includeDeprecated;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to include deprecated AMIs.
+     * </p>
+     * <p>
+     * Default: No deprecated AMIs are included in the response.
+     * </p>
+     * <note>
+     * <p>
+     * If you are the AMI owner, all deprecated AMIs appear in the response regardless of what you specify for this
+     * parameter.
+     * </p>
+     * </note>
+     * 
+     * @return Specifies whether to include deprecated AMIs.</p>
+     *         <p>
+     *         Default: No deprecated AMIs are included in the response.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         If you are the AMI owner, all deprecated AMIs appear in the response regardless of what you specify for
+     *         this parameter.
+     *         </p>
+     */
+
+    public Boolean getIncludeDeprecated() {
+        return this.includeDeprecated;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to include deprecated AMIs.
+     * </p>
+     * <p>
+     * Default: No deprecated AMIs are included in the response.
+     * </p>
+     * <note>
+     * <p>
+     * If you are the AMI owner, all deprecated AMIs appear in the response regardless of what you specify for this
+     * parameter.
+     * </p>
+     * </note>
+     * 
+     * @param includeDeprecated
+     *        Specifies whether to include deprecated AMIs.</p>
+     *        <p>
+     *        Default: No deprecated AMIs are included in the response.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If you are the AMI owner, all deprecated AMIs appear in the response regardless of what you specify for
+     *        this parameter.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeImagesRequest withIncludeDeprecated(Boolean includeDeprecated) {
+        setIncludeDeprecated(includeDeprecated);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to include deprecated AMIs.
+     * </p>
+     * <p>
+     * Default: No deprecated AMIs are included in the response.
+     * </p>
+     * <note>
+     * <p>
+     * If you are the AMI owner, all deprecated AMIs appear in the response regardless of what you specify for this
+     * parameter.
+     * </p>
+     * </note>
+     * 
+     * @return Specifies whether to include deprecated AMIs.</p>
+     *         <p>
+     *         Default: No deprecated AMIs are included in the response.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         If you are the AMI owner, all deprecated AMIs appear in the response regardless of what you specify for
+     *         this parameter.
+     *         </p>
+     */
+
+    public Boolean isIncludeDeprecated() {
+        return this.includeDeprecated;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to include disabled AMIs.
+     * </p>
+     * <p>
+     * Default: No disabled AMIs are included in the response.
+     * </p>
+     * 
+     * @param includeDisabled
+     *        Specifies whether to include disabled AMIs.</p>
+     *        <p>
+     *        Default: No disabled AMIs are included in the response.
+     */
+
+    public void setIncludeDisabled(Boolean includeDisabled) {
+        this.includeDisabled = includeDisabled;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to include disabled AMIs.
+     * </p>
+     * <p>
+     * Default: No disabled AMIs are included in the response.
+     * </p>
+     * 
+     * @return Specifies whether to include disabled AMIs.</p>
+     *         <p>
+     *         Default: No disabled AMIs are included in the response.
+     */
+
+    public Boolean getIncludeDisabled() {
+        return this.includeDisabled;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to include disabled AMIs.
+     * </p>
+     * <p>
+     * Default: No disabled AMIs are included in the response.
+     * </p>
+     * 
+     * @param includeDisabled
+     *        Specifies whether to include disabled AMIs.</p>
+     *        <p>
+     *        Default: No disabled AMIs are included in the response.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeImagesRequest withIncludeDisabled(Boolean includeDisabled) {
+        setIncludeDisabled(includeDisabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to include disabled AMIs.
+     * </p>
+     * <p>
+     * Default: No disabled AMIs are included in the response.
+     * </p>
+     * 
+     * @return Specifies whether to include disabled AMIs.</p>
+     *         <p>
+     *         Default: No disabled AMIs are included in the response.
+     */
+
+    public Boolean isIncludeDisabled() {
+        return this.includeDisabled;
+    }
+
+    /**
+     * <p>
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
+     * </p>
+     * 
+     * @param maxResults
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
+     */
+
+    public void setMaxResults(Integer maxResults) {
+        this.maxResults = maxResults;
+    }
+
+    /**
+     * <p>
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
+     * </p>
+     * 
+     * @return The maximum number of items to return for this request. To get the next page of items, make another
+     *         request with the token returned in the output. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *         >Pagination</a>.
+     */
+
+    public Integer getMaxResults() {
+        return this.maxResults;
+    }
+
+    /**
+     * <p>
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
+     * </p>
+     * 
+     * @param maxResults
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeImagesRequest withMaxResults(Integer maxResults) {
+        setMaxResults(maxResults);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
+     * </p>
+     * 
+     * @param nextToken
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
+     */
+
+    public void setNextToken(String nextToken) {
+        this.nextToken = nextToken;
+    }
+
+    /**
+     * <p>
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
+     * </p>
+     * 
+     * @return The token returned from a previous paginated request. Pagination continues from the end of the items
+     *         returned by the previous request.
+     */
+
+    public String getNextToken() {
+        return this.nextToken;
+    }
+
+    /**
+     * <p>
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
+     * </p>
+     * 
+     * @param nextToken
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeImagesRequest withNextToken(String nextToken) {
+        setNextToken(nextToken);
         return this;
     }
 
@@ -1973,7 +2634,15 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
         if (getImageIds() != null)
             sb.append("ImageIds: ").append(getImageIds()).append(",");
         if (getOwners() != null)
-            sb.append("Owners: ").append(getOwners());
+            sb.append("Owners: ").append(getOwners()).append(",");
+        if (getIncludeDeprecated() != null)
+            sb.append("IncludeDeprecated: ").append(getIncludeDeprecated()).append(",");
+        if (getIncludeDisabled() != null)
+            sb.append("IncludeDisabled: ").append(getIncludeDisabled()).append(",");
+        if (getMaxResults() != null)
+            sb.append("MaxResults: ").append(getMaxResults()).append(",");
+        if (getNextToken() != null)
+            sb.append("NextToken: ").append(getNextToken());
         sb.append("}");
         return sb.toString();
     }
@@ -2004,6 +2673,22 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
             return false;
         if (other.getOwners() != null && other.getOwners().equals(this.getOwners()) == false)
             return false;
+        if (other.getIncludeDeprecated() == null ^ this.getIncludeDeprecated() == null)
+            return false;
+        if (other.getIncludeDeprecated() != null && other.getIncludeDeprecated().equals(this.getIncludeDeprecated()) == false)
+            return false;
+        if (other.getIncludeDisabled() == null ^ this.getIncludeDisabled() == null)
+            return false;
+        if (other.getIncludeDisabled() != null && other.getIncludeDisabled().equals(this.getIncludeDisabled()) == false)
+            return false;
+        if (other.getMaxResults() == null ^ this.getMaxResults() == null)
+            return false;
+        if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false)
+            return false;
+        if (other.getNextToken() == null ^ this.getNextToken() == null)
+            return false;
+        if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
+            return false;
         return true;
     }
 
@@ -2016,6 +2701,10 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
         hashCode = prime * hashCode + ((getFilters() == null) ? 0 : getFilters().hashCode());
         hashCode = prime * hashCode + ((getImageIds() == null) ? 0 : getImageIds().hashCode());
         hashCode = prime * hashCode + ((getOwners() == null) ? 0 : getOwners().hashCode());
+        hashCode = prime * hashCode + ((getIncludeDeprecated() == null) ? 0 : getIncludeDeprecated().hashCode());
+        hashCode = prime * hashCode + ((getIncludeDisabled() == null) ? 0 : getIncludeDisabled().hashCode());
+        hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
+        hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         return hashCode;
     }
 

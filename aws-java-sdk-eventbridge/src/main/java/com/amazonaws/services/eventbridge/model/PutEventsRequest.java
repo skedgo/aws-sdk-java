@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,6 +32,18 @@ public class PutEventsRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </p>
      */
     private java.util.List<PutEventsRequestEntry> entries;
+    /**
+     * <p>
+     * The URL subdomain of the endpoint. For example, if the URL for Endpoint is
+     * https://abcde.veo.endpoints.event.amazonaws.com, then the EndpointId is <code>abcde.veo</code>.
+     * </p>
+     * <important>
+     * <p>
+     * When using Java, you must include <code>auth-crt</code> on the class path.
+     * </p>
+     * </important>
+     */
+    private String endpointId;
 
     /**
      * <p>
@@ -112,6 +124,79 @@ public class PutEventsRequest extends com.amazonaws.AmazonWebServiceRequest impl
     }
 
     /**
+     * <p>
+     * The URL subdomain of the endpoint. For example, if the URL for Endpoint is
+     * https://abcde.veo.endpoints.event.amazonaws.com, then the EndpointId is <code>abcde.veo</code>.
+     * </p>
+     * <important>
+     * <p>
+     * When using Java, you must include <code>auth-crt</code> on the class path.
+     * </p>
+     * </important>
+     * 
+     * @param endpointId
+     *        The URL subdomain of the endpoint. For example, if the URL for Endpoint is
+     *        https://abcde.veo.endpoints.event.amazonaws.com, then the EndpointId is <code>abcde.veo</code>.</p>
+     *        <important>
+     *        <p>
+     *        When using Java, you must include <code>auth-crt</code> on the class path.
+     *        </p>
+     */
+
+    public void setEndpointId(String endpointId) {
+        this.endpointId = endpointId;
+    }
+
+    /**
+     * <p>
+     * The URL subdomain of the endpoint. For example, if the URL for Endpoint is
+     * https://abcde.veo.endpoints.event.amazonaws.com, then the EndpointId is <code>abcde.veo</code>.
+     * </p>
+     * <important>
+     * <p>
+     * When using Java, you must include <code>auth-crt</code> on the class path.
+     * </p>
+     * </important>
+     * 
+     * @return The URL subdomain of the endpoint. For example, if the URL for Endpoint is
+     *         https://abcde.veo.endpoints.event.amazonaws.com, then the EndpointId is <code>abcde.veo</code>.</p>
+     *         <important>
+     *         <p>
+     *         When using Java, you must include <code>auth-crt</code> on the class path.
+     *         </p>
+     */
+
+    public String getEndpointId() {
+        return this.endpointId;
+    }
+
+    /**
+     * <p>
+     * The URL subdomain of the endpoint. For example, if the URL for Endpoint is
+     * https://abcde.veo.endpoints.event.amazonaws.com, then the EndpointId is <code>abcde.veo</code>.
+     * </p>
+     * <important>
+     * <p>
+     * When using Java, you must include <code>auth-crt</code> on the class path.
+     * </p>
+     * </important>
+     * 
+     * @param endpointId
+     *        The URL subdomain of the endpoint. For example, if the URL for Endpoint is
+     *        https://abcde.veo.endpoints.event.amazonaws.com, then the EndpointId is <code>abcde.veo</code>.</p>
+     *        <important>
+     *        <p>
+     *        When using Java, you must include <code>auth-crt</code> on the class path.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutEventsRequest withEndpointId(String endpointId) {
+        setEndpointId(endpointId);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -124,7 +209,9 @@ public class PutEventsRequest extends com.amazonaws.AmazonWebServiceRequest impl
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getEntries() != null)
-            sb.append("Entries: ").append(getEntries());
+            sb.append("Entries: ").append(getEntries()).append(",");
+        if (getEndpointId() != null)
+            sb.append("EndpointId: ").append(getEndpointId());
         sb.append("}");
         return sb.toString();
     }
@@ -143,6 +230,10 @@ public class PutEventsRequest extends com.amazonaws.AmazonWebServiceRequest impl
             return false;
         if (other.getEntries() != null && other.getEntries().equals(this.getEntries()) == false)
             return false;
+        if (other.getEndpointId() == null ^ this.getEndpointId() == null)
+            return false;
+        if (other.getEndpointId() != null && other.getEndpointId().equals(this.getEndpointId()) == false)
+            return false;
         return true;
     }
 
@@ -152,6 +243,7 @@ public class PutEventsRequest extends com.amazonaws.AmazonWebServiceRequest impl
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getEntries() == null) ? 0 : getEntries().hashCode());
+        hashCode = prime * hashCode + ((getEndpointId() == null) ? 0 : getEndpointId().hashCode());
         return hashCode;
     }
 

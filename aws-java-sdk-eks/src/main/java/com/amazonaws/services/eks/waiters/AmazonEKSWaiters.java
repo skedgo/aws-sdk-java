@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,9 +51,22 @@ public class AmazonEKSWaiters {
 
         return new WaiterBuilder<DescribeClusterRequest, DescribeClusterResult>()
                 .withSdkFunction(new DescribeClusterFunction(client))
-                .withAcceptors(new ClusterDeleted.IsACTIVEMatcher(), new ClusterDeleted.IsCREATINGMatcher(),
+                .withAcceptors(new ClusterDeleted.IsACTIVEMatcher(), new ClusterDeleted.IsCREATINGMatcher(), new ClusterDeleted.IsPENDINGMatcher(),
                         new ClusterDeleted.IsResourceNotFoundExceptionMatcher())
                 .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(40), new FixedDelayStrategy(30)))
+                .withExecutorService(executorService).build();
+    }
+
+    /**
+     * Builds a FargateProfileDeleted waiter by using custom parameters waiterParameters and other parameters defined in
+     * the waiters specification, and then polls until it determines whether the resource entered the desired state or
+     * not, where polling criteria is bound by either default polling strategy or custom polling strategy.
+     */
+    public Waiter<DescribeFargateProfileRequest> fargateProfileDeleted() {
+
+        return new WaiterBuilder<DescribeFargateProfileRequest, DescribeFargateProfileResult>().withSdkFunction(new DescribeFargateProfileFunction(client))
+                .withAcceptors(new FargateProfileDeleted.IsDELETE_FAILEDMatcher(), new FargateProfileDeleted.IsResourceNotFoundExceptionMatcher())
+                .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(60), new FixedDelayStrategy(30)))
                 .withExecutorService(executorService).build();
     }
 
@@ -67,6 +80,71 @@ public class AmazonEKSWaiters {
         return new WaiterBuilder<DescribeClusterRequest, DescribeClusterResult>().withSdkFunction(new DescribeClusterFunction(client))
                 .withAcceptors(new ClusterActive.IsDELETINGMatcher(), new ClusterActive.IsFAILEDMatcher(), new ClusterActive.IsACTIVEMatcher())
                 .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(40), new FixedDelayStrategy(30)))
+                .withExecutorService(executorService).build();
+    }
+
+    /**
+     * Builds a NodegroupDeleted waiter by using custom parameters waiterParameters and other parameters defined in the
+     * waiters specification, and then polls until it determines whether the resource entered the desired state or not,
+     * where polling criteria is bound by either default polling strategy or custom polling strategy.
+     */
+    public Waiter<DescribeNodegroupRequest> nodegroupDeleted() {
+
+        return new WaiterBuilder<DescribeNodegroupRequest, DescribeNodegroupResult>().withSdkFunction(new DescribeNodegroupFunction(client))
+                .withAcceptors(new NodegroupDeleted.IsDELETE_FAILEDMatcher(), new NodegroupDeleted.IsResourceNotFoundExceptionMatcher())
+                .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(40), new FixedDelayStrategy(30)))
+                .withExecutorService(executorService).build();
+    }
+
+    /**
+     * Builds a NodegroupActive waiter by using custom parameters waiterParameters and other parameters defined in the
+     * waiters specification, and then polls until it determines whether the resource entered the desired state or not,
+     * where polling criteria is bound by either default polling strategy or custom polling strategy.
+     */
+    public Waiter<DescribeNodegroupRequest> nodegroupActive() {
+
+        return new WaiterBuilder<DescribeNodegroupRequest, DescribeNodegroupResult>().withSdkFunction(new DescribeNodegroupFunction(client))
+                .withAcceptors(new NodegroupActive.IsCREATE_FAILEDMatcher(), new NodegroupActive.IsACTIVEMatcher())
+                .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(80), new FixedDelayStrategy(30)))
+                .withExecutorService(executorService).build();
+    }
+
+    /**
+     * Builds a AddonActive waiter by using custom parameters waiterParameters and other parameters defined in the
+     * waiters specification, and then polls until it determines whether the resource entered the desired state or not,
+     * where polling criteria is bound by either default polling strategy or custom polling strategy.
+     */
+    public Waiter<DescribeAddonRequest> addonActive() {
+
+        return new WaiterBuilder<DescribeAddonRequest, DescribeAddonResult>().withSdkFunction(new DescribeAddonFunction(client))
+                .withAcceptors(new AddonActive.IsCREATE_FAILEDMatcher(), new AddonActive.IsDEGRADEDMatcher(), new AddonActive.IsACTIVEMatcher())
+                .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(60), new FixedDelayStrategy(10)))
+                .withExecutorService(executorService).build();
+    }
+
+    /**
+     * Builds a AddonDeleted waiter by using custom parameters waiterParameters and other parameters defined in the
+     * waiters specification, and then polls until it determines whether the resource entered the desired state or not,
+     * where polling criteria is bound by either default polling strategy or custom polling strategy.
+     */
+    public Waiter<DescribeAddonRequest> addonDeleted() {
+
+        return new WaiterBuilder<DescribeAddonRequest, DescribeAddonResult>().withSdkFunction(new DescribeAddonFunction(client))
+                .withAcceptors(new AddonDeleted.IsDELETE_FAILEDMatcher(), new AddonDeleted.IsResourceNotFoundExceptionMatcher())
+                .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(60), new FixedDelayStrategy(10)))
+                .withExecutorService(executorService).build();
+    }
+
+    /**
+     * Builds a FargateProfileActive waiter by using custom parameters waiterParameters and other parameters defined in
+     * the waiters specification, and then polls until it determines whether the resource entered the desired state or
+     * not, where polling criteria is bound by either default polling strategy or custom polling strategy.
+     */
+    public Waiter<DescribeFargateProfileRequest> fargateProfileActive() {
+
+        return new WaiterBuilder<DescribeFargateProfileRequest, DescribeFargateProfileResult>().withSdkFunction(new DescribeFargateProfileFunction(client))
+                .withAcceptors(new FargateProfileActive.IsCREATE_FAILEDMatcher(), new FargateProfileActive.IsACTIVEMatcher())
+                .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(60), new FixedDelayStrategy(10)))
                 .withExecutorService(executorService).build();
     }
 

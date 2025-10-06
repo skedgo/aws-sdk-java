@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,10 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
     private String autoScalingGroupName;
     /**
      * <p>
-     * One or more of the following metrics. If you omit this parameter, all metrics are enabled.
+     * Identifies the metrics to enable.
+     * </p>
+     * <p>
+     * You can specify one or more of the following metrics:
      * </p>
      * <ul>
      * <li>
@@ -76,12 +79,81 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
      * <code>GroupTotalInstances</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>GroupInServiceCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupStandbyCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolWarmedCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
      * </ul>
+     * <p>
+     * If you specify <code>Granularity</code> and don't specify any metrics, all metrics are enabled.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html">Amazon CloudWatch
+     * metrics for Amazon EC2 Auto Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> metrics;
     /**
      * <p>
-     * The granularity to associate with the metrics to collect. The only valid value is <code>1Minute</code>.
+     * The frequency at which Amazon EC2 Auto Scaling sends aggregated data to CloudWatch. The only valid value is
+     * <code>1Minute</code>.
      * </p>
      */
     private String granularity;
@@ -128,7 +200,10 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * One or more of the following metrics. If you omit this parameter, all metrics are enabled.
+     * Identifies the metrics to enable.
+     * </p>
+     * <p>
+     * You can specify one or more of the following metrics:
      * </p>
      * <ul>
      * <li>
@@ -171,9 +246,80 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
      * <code>GroupTotalInstances</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>GroupInServiceCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupStandbyCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolWarmedCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
      * </ul>
+     * <p>
+     * If you specify <code>Granularity</code> and don't specify any metrics, all metrics are enabled.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html">Amazon CloudWatch
+     * metrics for Amazon EC2 Auto Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
      * 
-     * @return One or more of the following metrics. If you omit this parameter, all metrics are enabled.</p>
+     * @return Identifies the metrics to enable.</p>
+     *         <p>
+     *         You can specify one or more of the following metrics:
+     *         </p>
      *         <ul>
      *         <li>
      *         <p>
@@ -215,6 +361,74 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
      *         <code>GroupTotalInstances</code>
      *         </p>
      *         </li>
+     *         <li>
+     *         <p>
+     *         <code>GroupInServiceCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>GroupPendingCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>GroupStandbyCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>GroupTerminatingCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>GroupTotalCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>WarmPoolDesiredCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>WarmPoolWarmedCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>WarmPoolPendingCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>WarmPoolTerminatingCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>WarmPoolTotalCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>GroupAndWarmPoolDesiredCapacity</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>GroupAndWarmPoolTotalCapacity</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         If you specify <code>Granularity</code> and don't specify any metrics, all metrics are enabled.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html">Amazon
+     *         CloudWatch metrics for Amazon EC2 Auto Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public java.util.List<String> getMetrics() {
@@ -226,7 +440,10 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * One or more of the following metrics. If you omit this parameter, all metrics are enabled.
+     * Identifies the metrics to enable.
+     * </p>
+     * <p>
+     * You can specify one or more of the following metrics:
      * </p>
      * <ul>
      * <li>
@@ -269,10 +486,81 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
      * <code>GroupTotalInstances</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>GroupInServiceCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupStandbyCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolWarmedCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
      * </ul>
+     * <p>
+     * If you specify <code>Granularity</code> and don't specify any metrics, all metrics are enabled.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html">Amazon CloudWatch
+     * metrics for Amazon EC2 Auto Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
      * 
      * @param metrics
-     *        One or more of the following metrics. If you omit this parameter, all metrics are enabled.</p>
+     *        Identifies the metrics to enable.</p>
+     *        <p>
+     *        You can specify one or more of the following metrics:
+     *        </p>
      *        <ul>
      *        <li>
      *        <p>
@@ -314,6 +602,74 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
      *        <code>GroupTotalInstances</code>
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupInServiceCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupPendingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupStandbyCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupTerminatingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupTotalCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolDesiredCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolWarmedCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolPendingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolTerminatingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolTotalCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupAndWarmPoolDesiredCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupAndWarmPoolTotalCapacity</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you specify <code>Granularity</code> and don't specify any metrics, all metrics are enabled.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html">Amazon
+     *        CloudWatch metrics for Amazon EC2 Auto Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public void setMetrics(java.util.Collection<String> metrics) {
@@ -327,7 +683,10 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * One or more of the following metrics. If you omit this parameter, all metrics are enabled.
+     * Identifies the metrics to enable.
+     * </p>
+     * <p>
+     * You can specify one or more of the following metrics:
      * </p>
      * <ul>
      * <li>
@@ -370,7 +729,75 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
      * <code>GroupTotalInstances</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>GroupInServiceCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupStandbyCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolWarmedCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
      * </ul>
+     * <p>
+     * If you specify <code>Granularity</code> and don't specify any metrics, all metrics are enabled.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html">Amazon CloudWatch
+     * metrics for Amazon EC2 Auto Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setMetrics(java.util.Collection)} or {@link #withMetrics(java.util.Collection)} if you want to override
@@ -378,7 +805,10 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
      * </p>
      * 
      * @param metrics
-     *        One or more of the following metrics. If you omit this parameter, all metrics are enabled.</p>
+     *        Identifies the metrics to enable.</p>
+     *        <p>
+     *        You can specify one or more of the following metrics:
+     *        </p>
      *        <ul>
      *        <li>
      *        <p>
@@ -420,6 +850,74 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
      *        <code>GroupTotalInstances</code>
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupInServiceCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupPendingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupStandbyCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupTerminatingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupTotalCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolDesiredCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolWarmedCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolPendingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolTerminatingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolTotalCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupAndWarmPoolDesiredCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupAndWarmPoolTotalCapacity</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you specify <code>Granularity</code> and don't specify any metrics, all metrics are enabled.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html">Amazon
+     *        CloudWatch metrics for Amazon EC2 Auto Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -435,7 +933,10 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * One or more of the following metrics. If you omit this parameter, all metrics are enabled.
+     * Identifies the metrics to enable.
+     * </p>
+     * <p>
+     * You can specify one or more of the following metrics:
      * </p>
      * <ul>
      * <li>
@@ -478,10 +979,81 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
      * <code>GroupTotalInstances</code>
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>GroupInServiceCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupStandbyCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolWarmedCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolPendingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTerminatingCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>WarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolDesiredCapacity</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>GroupAndWarmPoolTotalCapacity</code>
+     * </p>
+     * </li>
      * </ul>
+     * <p>
+     * If you specify <code>Granularity</code> and don't specify any metrics, all metrics are enabled.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html">Amazon CloudWatch
+     * metrics for Amazon EC2 Auto Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
      * 
      * @param metrics
-     *        One or more of the following metrics. If you omit this parameter, all metrics are enabled.</p>
+     *        Identifies the metrics to enable.</p>
+     *        <p>
+     *        You can specify one or more of the following metrics:
+     *        </p>
      *        <ul>
      *        <li>
      *        <p>
@@ -523,6 +1095,74 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
      *        <code>GroupTotalInstances</code>
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupInServiceCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupPendingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupStandbyCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupTerminatingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupTotalCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolDesiredCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolWarmedCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolPendingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolTerminatingCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>WarmPoolTotalCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupAndWarmPoolDesiredCapacity</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>GroupAndWarmPoolTotalCapacity</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you specify <code>Granularity</code> and don't specify any metrics, all metrics are enabled.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-metrics.html">Amazon
+     *        CloudWatch metrics for Amazon EC2 Auto Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -533,11 +1173,13 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The granularity to associate with the metrics to collect. The only valid value is <code>1Minute</code>.
+     * The frequency at which Amazon EC2 Auto Scaling sends aggregated data to CloudWatch. The only valid value is
+     * <code>1Minute</code>.
      * </p>
      * 
      * @param granularity
-     *        The granularity to associate with the metrics to collect. The only valid value is <code>1Minute</code>.
+     *        The frequency at which Amazon EC2 Auto Scaling sends aggregated data to CloudWatch. The only valid value
+     *        is <code>1Minute</code>.
      */
 
     public void setGranularity(String granularity) {
@@ -546,10 +1188,12 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The granularity to associate with the metrics to collect. The only valid value is <code>1Minute</code>.
+     * The frequency at which Amazon EC2 Auto Scaling sends aggregated data to CloudWatch. The only valid value is
+     * <code>1Minute</code>.
      * </p>
      * 
-     * @return The granularity to associate with the metrics to collect. The only valid value is <code>1Minute</code>.
+     * @return The frequency at which Amazon EC2 Auto Scaling sends aggregated data to CloudWatch. The only valid value
+     *         is <code>1Minute</code>.
      */
 
     public String getGranularity() {
@@ -558,11 +1202,13 @@ public class EnableMetricsCollectionRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The granularity to associate with the metrics to collect. The only valid value is <code>1Minute</code>.
+     * The frequency at which Amazon EC2 Auto Scaling sends aggregated data to CloudWatch. The only valid value is
+     * <code>1Minute</code>.
      * </p>
      * 
      * @param granularity
-     *        The granularity to associate with the metrics to collect. The only valid value is <code>1Minute</code>.
+     *        The frequency at which Amazon EC2 Auto Scaling sends aggregated data to CloudWatch. The only valid value
+     *        is <code>1Minute</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

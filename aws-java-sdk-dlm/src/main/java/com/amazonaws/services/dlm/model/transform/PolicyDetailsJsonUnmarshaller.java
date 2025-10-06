@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,19 +54,75 @@ public class PolicyDetailsJsonUnmarshaller implements Unmarshaller<PolicyDetails
                 }
                 if (context.testExpression("ResourceTypes", targetDepth)) {
                     context.nextToken();
-                    policyDetails.setResourceTypes(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    policyDetails.setResourceTypes(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ResourceLocations", targetDepth)) {
+                    context.nextToken();
+                    policyDetails.setResourceLocations(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("TargetTags", targetDepth)) {
                     context.nextToken();
-                    policyDetails.setTargetTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance()).unmarshall(context));
+                    policyDetails.setTargetTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("Schedules", targetDepth)) {
                     context.nextToken();
-                    policyDetails.setSchedules(new ListUnmarshaller<Schedule>(ScheduleJsonUnmarshaller.getInstance()).unmarshall(context));
+                    policyDetails.setSchedules(new ListUnmarshaller<Schedule>(ScheduleJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("Parameters", targetDepth)) {
                     context.nextToken();
                     policyDetails.setParameters(ParametersJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("EventSource", targetDepth)) {
+                    context.nextToken();
+                    policyDetails.setEventSource(EventSourceJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("Actions", targetDepth)) {
+                    context.nextToken();
+                    policyDetails.setActions(new ListUnmarshaller<Action>(ActionJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("PolicyLanguage", targetDepth)) {
+                    context.nextToken();
+                    policyDetails.setPolicyLanguage(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ResourceType", targetDepth)) {
+                    context.nextToken();
+                    policyDetails.setResourceType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("CreateInterval", targetDepth)) {
+                    context.nextToken();
+                    policyDetails.setCreateInterval(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("RetainInterval", targetDepth)) {
+                    context.nextToken();
+                    policyDetails.setRetainInterval(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("CopyTags", targetDepth)) {
+                    context.nextToken();
+                    policyDetails.setCopyTags(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("CrossRegionCopyTargets", targetDepth)) {
+                    context.nextToken();
+                    policyDetails.setCrossRegionCopyTargets(new ListUnmarshaller<CrossRegionCopyTarget>(CrossRegionCopyTargetJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ExtendDeletion", targetDepth)) {
+                    context.nextToken();
+                    policyDetails.setExtendDeletion(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("Exclusions", targetDepth)) {
+                    context.nextToken();
+                    policyDetails.setExclusions(ExclusionsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

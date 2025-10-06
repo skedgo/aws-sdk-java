@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,8 +31,8 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * an asynchronous operation completes.
  * <p>
  * <p>
- * AWS X-Ray provides APIs for managing debug traces and retrieving service maps and other data created by processing
- * those traces.
+ * Amazon Web Services X-Ray provides APIs for managing debug traces and retrieving service maps and other data created
+ * by processing those traces.
  * </p>
  */
 @ThreadSafe
@@ -231,7 +231,19 @@ public class AWSXRayAsyncClient extends AWSXRayClient implements AWSXRayAsync {
      *        Object providing client parameters.
      */
     AWSXRayAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AWS X-Ray using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSXRayAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -377,6 +389,39 @@ public class AWSXRayAsyncClient extends AWSXRayClient implements AWSXRayAsync {
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest request) {
+
+        return deleteResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(final DeleteResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteResourcePolicyRequest, DeleteResourcePolicyResult> asyncHandler) {
+        final DeleteResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteResourcePolicyResult>() {
+            @Override
+            public DeleteResourcePolicyResult call() throws Exception {
+                DeleteResourcePolicyResult result = null;
+
+                try {
+                    result = executeDeleteResourcePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteSamplingRuleResult> deleteSamplingRuleAsync(DeleteSamplingRuleRequest request) {
 
         return deleteSamplingRuleAsync(request, null);
@@ -493,6 +538,138 @@ public class AWSXRayAsyncClient extends AWSXRayClient implements AWSXRayAsync {
 
                 try {
                     result = executeGetGroups(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetInsightResult> getInsightAsync(GetInsightRequest request) {
+
+        return getInsightAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetInsightResult> getInsightAsync(final GetInsightRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetInsightRequest, GetInsightResult> asyncHandler) {
+        final GetInsightRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetInsightResult>() {
+            @Override
+            public GetInsightResult call() throws Exception {
+                GetInsightResult result = null;
+
+                try {
+                    result = executeGetInsight(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetInsightEventsResult> getInsightEventsAsync(GetInsightEventsRequest request) {
+
+        return getInsightEventsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetInsightEventsResult> getInsightEventsAsync(final GetInsightEventsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetInsightEventsRequest, GetInsightEventsResult> asyncHandler) {
+        final GetInsightEventsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetInsightEventsResult>() {
+            @Override
+            public GetInsightEventsResult call() throws Exception {
+                GetInsightEventsResult result = null;
+
+                try {
+                    result = executeGetInsightEvents(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetInsightImpactGraphResult> getInsightImpactGraphAsync(GetInsightImpactGraphRequest request) {
+
+        return getInsightImpactGraphAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetInsightImpactGraphResult> getInsightImpactGraphAsync(final GetInsightImpactGraphRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetInsightImpactGraphRequest, GetInsightImpactGraphResult> asyncHandler) {
+        final GetInsightImpactGraphRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetInsightImpactGraphResult>() {
+            @Override
+            public GetInsightImpactGraphResult call() throws Exception {
+                GetInsightImpactGraphResult result = null;
+
+                try {
+                    result = executeGetInsightImpactGraph(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetInsightSummariesResult> getInsightSummariesAsync(GetInsightSummariesRequest request) {
+
+        return getInsightSummariesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetInsightSummariesResult> getInsightSummariesAsync(final GetInsightSummariesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetInsightSummariesRequest, GetInsightSummariesResult> asyncHandler) {
+        final GetInsightSummariesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetInsightSummariesResult>() {
+            @Override
+            public GetInsightSummariesResult call() throws Exception {
+                GetInsightSummariesResult result = null;
+
+                try {
+                    result = executeGetInsightSummaries(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -742,6 +919,72 @@ public class AWSXRayAsyncClient extends AWSXRayClient implements AWSXRayAsync {
     }
 
     @Override
+    public java.util.concurrent.Future<ListResourcePoliciesResult> listResourcePoliciesAsync(ListResourcePoliciesRequest request) {
+
+        return listResourcePoliciesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListResourcePoliciesResult> listResourcePoliciesAsync(final ListResourcePoliciesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListResourcePoliciesRequest, ListResourcePoliciesResult> asyncHandler) {
+        final ListResourcePoliciesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListResourcePoliciesResult>() {
+            @Override
+            public ListResourcePoliciesResult call() throws Exception {
+                ListResourcePoliciesResult result = null;
+
+                try {
+                    result = executeListResourcePolicies(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+        final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTagsForResourceResult>() {
+            @Override
+            public ListTagsForResourceResult call() throws Exception {
+                ListTagsForResourceResult result = null;
+
+                try {
+                    result = executeListTagsForResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<PutEncryptionConfigResult> putEncryptionConfigAsync(PutEncryptionConfigRequest request) {
 
         return putEncryptionConfigAsync(request, null);
@@ -759,6 +1002,39 @@ public class AWSXRayAsyncClient extends AWSXRayClient implements AWSXRayAsync {
 
                 try {
                     result = executePutEncryptionConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest request) {
+
+        return putResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(final PutResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutResourcePolicyRequest, PutResourcePolicyResult> asyncHandler) {
+        final PutResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutResourcePolicyResult>() {
+            @Override
+            public PutResourcePolicyResult call() throws Exception {
+                PutResourcePolicyResult result = null;
+
+                try {
+                    result = executePutResourcePolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -825,6 +1101,72 @@ public class AWSXRayAsyncClient extends AWSXRayClient implements AWSXRayAsync {
 
                 try {
                     result = executePutTraceSegments(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

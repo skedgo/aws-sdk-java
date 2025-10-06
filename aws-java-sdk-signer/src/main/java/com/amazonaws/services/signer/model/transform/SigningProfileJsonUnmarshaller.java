@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,13 +52,29 @@ public class SigningProfileJsonUnmarshaller implements Unmarshaller<SigningProfi
                     context.nextToken();
                     signingProfile.setProfileName(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("profileVersion", targetDepth)) {
+                    context.nextToken();
+                    signingProfile.setProfileVersion(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("profileVersionArn", targetDepth)) {
+                    context.nextToken();
+                    signingProfile.setProfileVersionArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("signingMaterial", targetDepth)) {
                     context.nextToken();
                     signingProfile.setSigningMaterial(SigningMaterialJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("signatureValidityPeriod", targetDepth)) {
+                    context.nextToken();
+                    signingProfile.setSignatureValidityPeriod(SignatureValidityPeriodJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("platformId", targetDepth)) {
                     context.nextToken();
                     signingProfile.setPlatformId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("platformDisplayName", targetDepth)) {
+                    context.nextToken();
+                    signingProfile.setPlatformDisplayName(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("signingParameters", targetDepth)) {
                     context.nextToken();
@@ -68,6 +84,15 @@ public class SigningProfileJsonUnmarshaller implements Unmarshaller<SigningProfi
                 if (context.testExpression("status", targetDepth)) {
                     context.nextToken();
                     signingProfile.setStatus(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("arn", targetDepth)) {
+                    context.nextToken();
+                    signingProfile.setArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("tags", targetDepth)) {
+                    context.nextToken();
+                    signingProfile.setTags(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
+                            .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

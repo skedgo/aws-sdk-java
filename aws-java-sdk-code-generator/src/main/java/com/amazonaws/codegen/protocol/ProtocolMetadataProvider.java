@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -33,6 +33,11 @@ public interface ProtocolMetadataProvider {
      * @return True if protocol uses CBOR as the wire format. False otherwise.
      */
     boolean isCborProtocol();
+
+    /**
+     * @return True if protocol uses Smithy RPC v2 CBOR as the wire format. False otherwise.
+     */
+    boolean isRpcV2CborProtocol();
 
     /**
      * @return True if protocol uses Ion as the wire format. False otherwise.

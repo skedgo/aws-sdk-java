@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,6 +54,21 @@ public class GetTemplateSummaryRequestMarshaller implements Marshaller<Request<G
 
         if (getTemplateSummaryRequest.getStackSetName() != null) {
             request.addParameter("StackSetName", StringUtils.fromString(getTemplateSummaryRequest.getStackSetName()));
+        }
+
+        if (getTemplateSummaryRequest.getCallAs() != null) {
+            request.addParameter("CallAs", StringUtils.fromString(getTemplateSummaryRequest.getCallAs()));
+        }
+
+        {
+            TemplateSummaryConfig templateSummaryConfig = getTemplateSummaryRequest.getTemplateSummaryConfig();
+            if (templateSummaryConfig != null) {
+
+                if (templateSummaryConfig.getTreatUnrecognizedResourceTypesAsWarnings() != null) {
+                    request.addParameter("TemplateSummaryConfig.TreatUnrecognizedResourceTypesAsWarnings",
+                            StringUtils.fromBoolean(templateSummaryConfig.getTreatUnrecognizedResourceTypesAsWarnings()));
+                }
+            }
         }
 
         return request;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
  */
 package com.amazonaws.services.s3.transfer;
 
+import static com.amazonaws.services.s3.Headers.GET_OBJECT_IF_MATCH;
 import static com.amazonaws.services.s3.internal.ServiceUtils.APPEND_MODE;
 import static com.amazonaws.services.s3.internal.ServiceUtils.OVERWRITE_MODE;
 
@@ -31,6 +32,7 @@ import com.amazonaws.event.ProgressListenerChain;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3Encryption;
+import com.amazonaws.services.s3.AmazonS3EncryptionV2;
 import com.amazonaws.services.s3.internal.FileLocks;
 import com.amazonaws.services.s3.internal.Mimetypes;
 import com.amazonaws.services.s3.internal.RequestCopyUtils;
@@ -51,6 +53,8 @@ import com.amazonaws.services.s3.model.ObjectTagging;
 import com.amazonaws.services.s3.model.PresignedUrlDownloadConfig;
 import com.amazonaws.services.s3.model.PresignedUrlDownloadRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.amazonaws.services.s3.transfer.Transfer.TransferState;
 import com.amazonaws.services.s3.transfer.exception.FileLockException;
@@ -73,14 +77,18 @@ import com.amazonaws.services.s3.transfer.internal.TransferStateChangeListener;
 import com.amazonaws.services.s3.transfer.internal.UploadCallable;
 import com.amazonaws.services.s3.transfer.internal.UploadImpl;
 import com.amazonaws.services.s3.transfer.internal.UploadMonitor;
+import com.amazonaws.util.IOUtils;
 import com.amazonaws.util.VersionInfoUtils;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -107,7 +115,7 @@ import org.apache.commons.logging.LogFactory;
  * <code>TransferManager</code> is responsible for managing resources such as
  * connections and threads; share a single instance of
  * <code>TransferManager</code> whenever possible. <code>TransferManager</code>,
- * like all the client classes in the AWS SDK for Java, is thread safe. Call
+ * like all the client classes in the Amazon Web Services SDK for Java, is thread safe. Call
  * <code> TransferManager.shutdownNow()</code> to release the resources once the
  * transfer is complete.
  * <p>
@@ -142,7 +150,18 @@ import org.apache.commons.logging.LogFactory;
  * <p>
  * Transfers can be paused and resumed at a later time. It can also survive JVM
  * crash, provided the information that is required to resume the transfer is
- * given as input to the resume operation. For more information on pause and resume,
+ * given as input to the resume operation. For more information on pause and resume.
+ *
+ * <p>
+ * <b>Migrating to the AWS SDK for Java v2</b>
+ * <p>
+ * The v2 equivalent of this class is
+ * <a href="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</a>
+ *
+ * <p>
+ * See <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/migration-transfer-manager.html">Migration Guide</a>
+ * for more information.
+ *
  * @see Upload#pause()
  * @see Download#pause()
  * @see TransferManager#resumeUpload(PersistableUpload)
@@ -182,7 +201,7 @@ public class TransferManager {
      * threads. Reuse <code>TransferManager</code> and client objects and share
      * them throughout applications.
      * <p>
-     * TransferManager and all AWS client objects are thread safe.
+     * TransferManager and all Amazon Web Services client objects are thread safe.
      * @deprecated use {@link TransferManagerBuilder#defaultTransferManager()}
      */
     @Deprecated
@@ -192,16 +211,16 @@ public class TransferManager {
 
     /**
      * Constructs a new <code>TransferManager</code> and Amazon S3 client using
-     * the specified AWS security credentials provider.
+     * the specified Amazon Web Services security credentials provider.
      * <p>
      * <code>TransferManager</code> and client objects may pool connections and
      * threads. Reuse <code>TransferManager</code> and client objects and share
      * them throughout applications.
      * <p>
-     * TransferManager and all AWS client objects are thread safe.
+     * TransferManager and all Amazon Web Services client objects are thread safe.
      *
      * @param credentialsProvider
-     *            The AWS security credentials provider to use when making
+     *            The Amazon Web Services security credentials provider to use when making
      *            authenticated requests.
      * @deprecated use {@link TransferManagerBuilder#withS3Client(AmazonS3)} for example:
      * {@code TransferManagerBuilder.standard().withS3Client(AmazonS3ClientBuilder.standard.withCredentials(credentialsProvider).build()).build(); }
@@ -213,17 +232,17 @@ public class TransferManager {
 
     /**
      * Constructs a new <code>TransferManager</code> and Amazon S3 client using
-     * the specified AWS security credentials.
+     * the specified Amazon Web Services security credentials.
      * <p>
      * <code>TransferManager</code> and client objects
      * may pool connections and threads.
      * Reuse <code>TransferManager</code> and client objects
      * and share them throughout applications.
      * <p>
-     * TransferManager and all AWS client objects are thread safe.
+     * TransferManager and all Amazon Web Services client objects are thread safe.
      *
      * @param credentials
-     *            The AWS security credentials to use when making authenticated
+     *            The Amazon Web Services security credentials to use when making authenticated
      *            requests.
      * @deprecated use {@link TransferManagerBuilder#withS3Client(AmazonS3)} for example:
      * {@code TransferManagerBuilder.standard().withS3Client(AmazonS3ClientBuilder.standard.withCredentials(credentials).build()).build(); }
@@ -243,7 +262,7 @@ public class TransferManager {
      * Reuse <code>TransferManager</code> and client objects
      * and share them throughout applications.
      * <p>
-     * TransferManager and all AWS client objects are thread safe.
+     * TransferManager and all Amazon Web Services client objects are thread safe.
      * </p>
      *
      * @param s3
@@ -263,7 +282,7 @@ public class TransferManager {
      * threads. Reuse <code>TransferManager</code> and client objects and share
      * them throughout applications.
      * <p>
-     * TransferManager and all AWS client objects are thread safe.
+     * TransferManager and all Amazon Web Services client objects are thread safe.
      * <p>
      * By default, the thread pool will shutdown when the transfer manager
      * instance is garbage collected.
@@ -296,7 +315,7 @@ public class TransferManager {
      * threads. Reuse <code>TransferManager</code> and client objects and share
      * them throughout applications.
      * <p>
-     * TransferManager and all AWS client objects are thread safe.
+     * TransferManager and all Amazon Web Services client objects are thread safe.
      *
      * @param s3
      *            The client to use when making requests to Amazon S3.
@@ -407,9 +426,9 @@ public class TransferManager {
      * resources become available.
      * </p>
      * <p>
-     * If you are uploading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are uploading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -455,9 +474,9 @@ public class TransferManager {
      * If resources are available, the upload will begin immediately, otherwise
      * it will be scheduled and started as soon as resources become available.
      * <p>
-     * If you are uploading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are uploading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -504,9 +523,9 @@ public class TransferManager {
      * resources become available.
      * </p>
      * <p>
-     * If you are uploading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are uploading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -548,9 +567,9 @@ public class TransferManager {
      * available.
      * </p>
      * <p>
-     * If you are uploading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are uploading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -596,9 +615,9 @@ public class TransferManager {
      * available.
      * </p>
      * <p>
-     * If you are uploading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are uploading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -628,6 +647,8 @@ public class TransferManager {
             final S3ProgressListener progressListener,
             final PersistableUpload persistableUpload) throws AmazonServiceException,
             AmazonClientException {
+
+        assertNotObjectLambdaArn(putObjectRequest.getBucketName(), "upload");
 
         appendSingleObjectUserAgent(putObjectRequest);
 
@@ -695,9 +716,9 @@ public class TransferManager {
      * add listeners for progress events, and wait for the download to complete.
      * </p>
      * <p>
-     * If you are downloading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are downloading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -734,9 +755,9 @@ public class TransferManager {
      * add listeners for progress events, and wait for the download to complete.
      * </p>
      * <p>
-     * If you are downloading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are downloading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -781,9 +802,9 @@ public class TransferManager {
      * add listeners for progress events, and wait for the download to complete.
      * </p>
      * <p>
-     * If you are downloading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are downloading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -818,9 +839,9 @@ public class TransferManager {
      * add listeners for progress events, and wait for the download to complete.
      * </p>
      * <p>
-     * If you are downloading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are downloading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -863,9 +884,9 @@ public class TransferManager {
      * add listeners for progress events, and wait for the download to complete.
      * </p>
      * <p>
-     * If you are downloading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are downloading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -905,9 +926,9 @@ public class TransferManager {
      * add listeners for progress events, and wait for the download to complete.
      * </p>
      * <p>
-     * If you are downloading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are downloading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -954,9 +975,9 @@ public class TransferManager {
      * add listeners for progress events, and wait for the download to complete.
      * </p>
      * <p>
-     * If you are downloading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are downloading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -995,7 +1016,7 @@ public class TransferManager {
                              final File file, final S3ProgressListener progressListener,
                              final long timeoutMillis, final boolean resumeOnRetry) {
         return doDownload(getObjectRequest, file, null, progressListener,
-                OVERWRITE_MODE, timeoutMillis, null, 0L, resumeOnRetry, 0L);
+                OVERWRITE_MODE, timeoutMillis, null, 0L, resumeOnRetry, 0L, null);
     }
 
     private Download doDownload(final GetObjectRequest getObjectRequest,
@@ -1004,19 +1025,24 @@ public class TransferManager {
                                 final boolean resumeExistingDownload,
                                 final long timeoutMillis,
                                 final PersistableDownload persistableDownload) {
+        assertNotObjectLambdaArn(getObjectRequest.getBucketName(), "download");
+
         long lastModifiedTimeRecordedDuringPause = 0L;
         Integer lastFullyDownloadedPartNumber = null;
         Long lastFullyDownloadedFilePosition = null;
+        String lastEtagDuringPause = null;
 
         if (persistableDownload != null) {
             lastModifiedTimeRecordedDuringPause = persistableDownload.getlastModifiedTime();
             lastFullyDownloadedPartNumber = persistableDownload.getLastFullyDownloadedPartNumber();
             lastFullyDownloadedFilePosition = persistableDownload.getLastFullyDownloadedFilePosition();
+            lastEtagDuringPause = persistableDownload.getEtag();
         }
 
         return doDownload(getObjectRequest, file, stateListener, s3progressListener,
                           resumeExistingDownload, timeoutMillis, lastFullyDownloadedPartNumber,
-                          lastModifiedTimeRecordedDuringPause, false, lastFullyDownloadedFilePosition);
+                          lastModifiedTimeRecordedDuringPause, false, lastFullyDownloadedFilePosition,
+                lastEtagDuringPause);
     }
 
     /**
@@ -1033,7 +1059,10 @@ public class TransferManager {
             final Integer lastFullyDownloadedPart,
             final long lastModifiedTimeRecordedDuringPause,
             final boolean resumeOnRetry,
-            final Long lastFullyDownloadedPartPosition) {
+            final Long lastFullyDownloadedPartPosition,
+                                final String lastEtagDuringPause) {
+
+        assertNotObjectLambdaArn(getObjectRequest.getBucketName(), "download");
 
         PreparedDownloadContext prepared = prepareDownload(getObjectRequest,
                                                            file,
@@ -1044,7 +1073,8 @@ public class TransferManager {
                                                            lastFullyDownloadedPart,
                                                            lastModifiedTimeRecordedDuringPause,
                                                            resumeOnRetry,
-                                                           lastFullyDownloadedPartPosition);
+                                                           lastFullyDownloadedPartPosition,
+                                                           lastEtagDuringPause);
         return submitDownload(prepared);
     }
 
@@ -1056,7 +1086,8 @@ public class TransferManager {
                                                     final Integer lastFullyDownloadedPart,
                                                     final long lastModifiedTimeRecordedDuringPause,
                                                     final boolean resumeOnRetry,
-                                                    final Long lastFullyDownloadedPartPosition) {
+                                                    final Long lastFullyDownloadedPartPosition,
+                                                    final String lastEtagDuringPause) {
         assertParameterNotNull(getObjectRequest,
                 "A valid GetObjectRequest must be provided to initiate download");
         assertParameterNotNull(file,
@@ -1083,6 +1114,20 @@ public class TransferManager {
 
         // Used to check if the object is modified between pause and resume
         long lastModifiedTime = objectMetadata.getLastModified().getTime();
+        final String etag = objectMetadata.getETag();
+        if (getObjectRequest.getMatchingETagConstraints() != null
+                && getObjectRequest.getMatchingETagConstraints().isEmpty()) {
+            if (etag != null) {
+                if (log.isDebugEnabled()) {
+                    log.debug("Setting matching ETag constraint: " + etag);
+                }
+                getObjectRequest.withMatchingETagConstraint(etag);
+            } else {
+                if (log.isDebugEnabled()) {
+                    log.debug("ETag constraint not set - value missing in metadata");
+                }
+            }
+        }
 
         long startingByte = 0;
         long lastByte;
@@ -1126,6 +1171,20 @@ public class TransferManager {
             if (isS3ObjectModifiedSincePause(lastModifiedTime, lastModifiedTimeRecordedDuringPause)) {
                 throw new AmazonClientException("The requested object in bucket " + getObjectRequest.getBucketName()
                         + " with key " + getObjectRequest.getKey() + " is modified on Amazon S3 since the last pause.");
+            }
+
+            if (etag != null && lastEtagDuringPause != null) {
+                //this check is done for backward compatible were etag is not stubbed in getObjectMetaData response
+                // lastEtagDuringPause can be null if downloads were paused when Etag was not persisted as a part of pause.
+                if (isS3ObjectEtagModifiedSincePause(etag, lastEtagDuringPause)) {
+                    throw new AmazonClientException(
+                            String.format("The requested object in bucket '%s' with key '%s' has been modified " +
+                                            "on Amazon S3 since the last pause. Expected ETag: %s, Found: %s",
+                                    getObjectRequest.getBucketName(), getObjectRequest.getKey(),
+                                    lastEtagDuringPause, etag)
+                    );
+
+                }
             }
             // There's still a chance the object is modified while the request
             // is in flight. Set this header so S3 fails the request if this happens.
@@ -1172,7 +1231,7 @@ public class TransferManager {
     }
 
     private DownloadImpl submitDownload(PreparedDownloadContext preparedDownloadContext) {
-        Future<?> future = executorService.submit(preparedDownloadContext.getCallable());
+        Future<File> future = executorService.submit(preparedDownloadContext.getCallable());
         DownloadImpl transfer = preparedDownloadContext.getTransfer();
         transfer.setMonitor(new DownloadMonitor(transfer, future));
         preparedDownloadContext.getLatch().countDown();
@@ -1182,6 +1241,11 @@ public class TransferManager {
     private boolean isS3ObjectModifiedSincePause(final long lastModifiedTimeRecordedDuringResume,
             long lastModifiedTimeRecordedDuringPause) {
         return lastModifiedTimeRecordedDuringResume != lastModifiedTimeRecordedDuringPause;
+    }
+
+    private boolean isS3ObjectEtagModifiedSincePause(final String etagRecordedDuringResume,
+                                                     String etagRecordedDuringPause) {
+        return !etagRecordedDuringResume.equals(etagRecordedDuringPause);
     }
 
     /**
@@ -1202,6 +1266,7 @@ public class TransferManager {
      *         listen for progress notifications, and otherwise manage the download.
      */
     public PresignedUrlDownload download(final PresignedUrlDownloadRequest request, final File destFile) {
+
         return download(request, destFile, new PresignedUrlDownloadConfig());
     }
 
@@ -1234,6 +1299,8 @@ public class TransferManager {
         assertParameterNotNull(downloadContext,
                                "A valid PresignedUrlDownloadContext must be provided");
 
+        assertNotObjectLambdaUrl(request.getPresignedUrl(), "download");
+
         appendSingleObjectUserAgent(request);
         String description = "Downloading from the given presigned url: " + request.getPresignedUrl();
 
@@ -1246,16 +1313,24 @@ public class TransferManager {
         Long startByte = 0L;
         Long endByte = null;
 
+        final ObjectMetadata objectMetadata = getObjectMetadataUsingRange(request);
         long[] range = request.getRange();
         if (range != null && range.length == 2) {
             startByte = range[0];
             endByte = range[1];
         } else {
-            // Get content length by making a range GET call
-            final ObjectMetadata objectMetadata = getObjectMetadataUsingRange(request);
             if (objectMetadata != null) {
                 Long contentLength = TransferManagerUtils.getContentLengthFromContentRange(objectMetadata);
                 endByte = contentLength != null ? contentLength - 1 : null;
+            }
+        }
+
+        if (objectMetadata != null && objectMetadata.getETag() != null) {
+            // Add ETag header if not already present
+            if (request.getMatchingETagConstraints() != null
+                    && request.getMatchingETagConstraints().isEmpty()) {
+                request.withMatchingETagConstraint(objectMetadata.getETag());
+
             }
         }
 
@@ -1270,7 +1345,7 @@ public class TransferManager {
         }
 
         final CountDownLatch latch = new CountDownLatch(1);
-        Future<?> future = executorService.submit(
+        Future<File> future = executorService.submit(
             new PresignUrlDownloadCallable(executorService, destFile, latch, download, isDownloadParallel, timedThreadPool,
                                            downloadContext.getTimeoutMillis(), s3, request, perRequestDownloadSize,
                                            startByte, endByte, downloadContext.isResumeOnRetry()));
@@ -1286,17 +1361,24 @@ public class TransferManager {
      */
     private ObjectMetadata getObjectMetadataUsingRange(final PresignedUrlDownloadRequest request) {
         PresignedUrlDownloadRequest copy = request.clone();
-
+        S3Object s3Object = null;
         try {
-            return s3.download(copy.withRange(0, 1))
-                     .getS3Object()
-                     .getObjectMetadata();
+            s3Object = s3.download(copy.withRange(0, 0))
+                     .getS3Object();
+
+            return s3Object.getObjectMetadata();
         } catch (AmazonS3Exception exception) {
             // This handles error case when trying a range GET on object with zero size
             if (exception.getStatusCode() == 416 && "InvalidRange".equals(exception.getErrorCode())) {
                 return null;
             }
             throw exception;
+        } finally {
+            if (s3Object != null) {
+                S3ObjectInputStream objectContent = s3Object.getObjectContent();
+                IOUtils.drainInputStream(objectContent);
+                IOUtils.closeQuietly(objectContent, log);
+            }
         }
     }
 
@@ -1307,6 +1389,7 @@ public class TransferManager {
     private boolean isDownloadParallel(PresignedUrlDownloadRequest request, Long startByte, Long endByte,
                                        long partialObjectMaxSize) {
         return !configuration.isDisableParallelDownloads() && !(s3 instanceof AmazonS3Encryption)
+               && !(s3 instanceof AmazonS3EncryptionV2)
                // Can't rely on set range as endbyte can be set to random number longer than actual size. This results in
                // making large number of partial requests even after the entire file is read from S3
                && request.getRange() == null
@@ -1332,9 +1415,9 @@ public class TransferManager {
      * keyPrefix given to the destination directory given. All virtual
      * subdirectories will be downloaded recursively.
      * <p>
-     * If you are downloading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are downloading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -1359,6 +1442,8 @@ public class TransferManager {
      */
     public MultipleFileDownload downloadDirectory(String bucketName, String keyPrefix, File destinationDirectory,
                                                   boolean resumeOnRetry, KeyFilter filter) {
+        assertNotObjectLambdaArn(bucketName, "downloadDirectory");
+
         if ( keyPrefix == null )
             keyPrefix = "";
         if ( filter == null ) {
@@ -1460,8 +1545,7 @@ public class TransferManager {
                                             listener);
 
 
-            PreparedDownloadContext ctx = prepareDownload(req, f, transferListener, null, false, 0,
-                                                          null, 0L, resumeOnRetry, null);
+            PreparedDownloadContext ctx = prepareDownload(req, f, transferListener, null, false, 0, null, 0L, resumeOnRetry, null, null);
             preparedDownloadContexts.add(ctx);
         }
 
@@ -1488,7 +1572,9 @@ public class TransferManager {
 
     private boolean leavesRoot(File localBaseDirectory, String key) {
         try {
-            return !new File(localBaseDirectory, key).getCanonicalPath().startsWith(localBaseDirectory.getCanonicalPath());
+            Path targetPath = new File(localBaseDirectory, key).getCanonicalFile().toPath();
+            Path rootPath = localBaseDirectory.getCanonicalFile().toPath();
+            return !targetPath.startsWith(rootPath);
         } catch (IOException e) {
             throw new RuntimeException("Unable to canonicalize paths",  e);
         }
@@ -1502,9 +1588,9 @@ public class TransferManager {
      * just as when uploading individual files, so use with caution.
      * </p>
      * <p>
-     * If you are uploading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are uploading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -1535,9 +1621,9 @@ public class TransferManager {
      * just as when uploading individual files, so use with caution.
      * </p>
      * <p>
-     * If you are uploading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are uploading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -1572,9 +1658,9 @@ public class TransferManager {
      * just as when uploading individual files, so use with caution.
      * </p>
      * <p>
-     * If you are uploading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are uploading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -1611,9 +1697,9 @@ public class TransferManager {
      * just as when uploading individual files, so use with caution.
      * </p>
      * <p>
-     * If you are uploading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are uploading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -1647,6 +1733,8 @@ public class TransferManager {
             throw new IllegalArgumentException("Must provide a directory to upload");
         }
 
+        assertNotObjectLambdaArn(bucketName, "uploadDirectory");
+
         List<File> files = new LinkedList<File>();
         listFiles(directory, files, includeSubdirectories);
 
@@ -1661,9 +1749,9 @@ public class TransferManager {
      * just as when uploading individual files, so use with caution.
      * </p>
      * <p>
-     * If you are uploading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are uploading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -1696,9 +1784,9 @@ public class TransferManager {
      * just as when uploading individual files, so use with caution.
      * </p>
      * <p>
-     * If you are uploading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are uploading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -1734,9 +1822,9 @@ public class TransferManager {
      * just as when uploading individual files, so use with caution.
      * </p>
      * <p>
-     * If you are uploading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are uploading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -1776,9 +1864,9 @@ public class TransferManager {
      * just as when uploading individual files, so use with caution.
      * </p>
      * <p>
-     * If you are uploading <a href="http://aws.amazon.com/kms/">AWS
+     * If you are uploading <a href="http://aws.amazon.com/kms/">Amazon Web Services
      * KMS</a>-encrypted objects, you need to specify the correct region of the
-     * bucket on your client and configure AWS Signature Version 4 for added
+     * bucket on your client and configure Amazon Web Services Signature Version 4 for added
      * security. For more information on how to do this, see
      * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#
      * specify-signature-version
@@ -1815,6 +1903,8 @@ public class TransferManager {
         if ( directory == null || !directory.exists() || !directory.isDirectory() ) {
             throw new IllegalArgumentException("Must provide a common base directory for uploaded files");
         }
+
+        assertNotObjectLambdaArn(bucketName, "uploadFileList");
 
         if (virtualDirectoryKeyPrefix == null || virtualDirectoryKeyPrefix.length() == 0) {
             virtualDirectoryKeyPrefix = "";
@@ -1947,6 +2037,8 @@ public class TransferManager {
      */
     public void abortMultipartUploads(String bucketName, Date date)
             throws AmazonServiceException, AmazonClientException {
+        assertNotObjectLambdaArn(bucketName, "abortMultipartUploads");
+
         MultipartUploadListing uploadListing = s3.listMultipartUploads(appendSingleObjectUserAgent(
                 new ListMultipartUploadsRequest(bucketName)));
         do {
@@ -2233,6 +2325,8 @@ public class TransferManager {
                      final TransferStateChangeListener stateChangeListener) throws
                                                                             AmazonServiceException,
                                                                             AmazonClientException {
+        assertNotObjectLambdaArn(copyObjectRequest.getDestinationBucketName(), "copy");
+        assertNotObjectLambdaArn(copyObjectRequest.getSourceBucketName(), "copy");
 
         appendSingleObjectUserAgent(copyObjectRequest);
 
@@ -2256,7 +2350,8 @@ public class TransferManager {
                 copyObjectRequest.getSourceBucketName(), copyObjectRequest.getSourceKey())
                 .withSSECustomerKey(copyObjectRequest.getSourceSSECustomerKey())
                 .withRequesterPays(copyObjectRequest.isRequesterPays())
-                .withVersionId(copyObjectRequest.getSourceVersionId());
+                .withVersionId(copyObjectRequest.getSourceVersionId())
+                .withRequestCredentialsProvider(copyObjectRequest.getRequestCredentialsProvider());
 
         ObjectMetadata metadata = srcS3.getObjectMetadata(getObjectMetadataRequest);
 
@@ -2298,6 +2393,9 @@ public class TransferManager {
     public Upload resumeUpload(PersistableUpload persistableUpload) {
         assertParameterNotNull(persistableUpload,
                 "PauseUpload is mandatory to resume a upload.");
+
+        assertNotObjectLambdaArn(persistableUpload.getBucketName(), "resumeUpload");
+
         configuration.setMinimumUploadPartSize(persistableUpload.getPartSize());
         configuration.setMultipartUploadThreshold(persistableUpload
                 .getMutlipartUploadThreshold());
@@ -2327,6 +2425,8 @@ public class TransferManager {
     public Download resumeDownload(PersistableDownload persistableDownload) {
         assertParameterNotNull(persistableDownload,
                 "PausedDownload is mandatory to resume a download.");
+        assertNotObjectLambdaArn(persistableDownload.getBucketName(), "resumeDownload");
+
         GetObjectRequest request = new GetObjectRequest(
                 persistableDownload.getBucketName(), persistableDownload.getKey(),
                 persistableDownload.getVersionId());
@@ -2378,5 +2478,37 @@ public class TransferManager {
             throw new UnsupportedOperationException(
                     "TransferManager is immutable when created with the builder.");
         }
+    }
+
+    private static void assertNotObjectLambdaArn(String arn, String operation) {
+        if (isObjectLambdaArn(arn)) {
+            String error = String.format("%s does not support S3 Object Lambda resources", operation);
+            throw new IllegalArgumentException(error);
+        }
+    }
+
+    private static void assertNotObjectLambdaUrl(URL url, String operation) {
+        if (isObjectLambdaHost(url)) {
+            String error = String.format("%s does not support S3 Object Lambda resources", operation);
+            throw new IllegalArgumentException(error);
+        }
+    }
+
+    private static boolean isObjectLambdaArn(String arn) {
+        if (arn == null) {
+            return false;
+        }
+
+        return arn.startsWith("arn:") && arn.contains(":s3-object-lambda");
+    }
+
+    private static boolean isObjectLambdaHost(URL url) {
+        String host = url.getHost();
+
+        if (host == null) {
+            return false;
+        }
+
+        return host.contains(".s3-object-lambda.");
     }
 }

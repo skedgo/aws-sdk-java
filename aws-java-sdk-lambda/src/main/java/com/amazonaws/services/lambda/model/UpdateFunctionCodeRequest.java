@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the Lambda function.
+     * The name or ARN of the Lambda function.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -35,17 +35,17 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * <b>Function name</b> - <code>my-function</code>.
+     * <b>Function name</b> – <code>my-function</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     * <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     * <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      * </p>
      * </li>
      * </ul>
@@ -57,19 +57,22 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
     private String functionName;
     /**
      * <p>
-     * The base64-encoded contents of the deployment package. AWS SDK and AWS CLI clients handle the encoding for you.
+     * The base64-encoded contents of the deployment package. Amazon Web Services SDK and CLI clients handle the
+     * encoding for you. Use only with a function defined with a .zip file archive deployment package.
      * </p>
      */
     private java.nio.ByteBuffer zipFile;
     /**
      * <p>
-     * An Amazon S3 bucket in the same AWS Region as your function. The bucket can be in a different AWS account.
+     * An Amazon S3 bucket in the same Amazon Web Services Region as your function. The bucket can be in a different
+     * Amazon Web Services account. Use only with a function defined with a .zip file archive deployment package.
      * </p>
      */
     private String s3Bucket;
     /**
      * <p>
-     * The Amazon S3 key of the deployment package.
+     * The Amazon S3 key of the deployment package. Use only with a function defined with a .zip file archive deployment
+     * package.
      * </p>
      */
     private String s3Key;
@@ -79,6 +82,12 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      */
     private String s3ObjectVersion;
+    /**
+     * <p>
+     * URI of a container image in the Amazon ECR registry. Do not use for a function defined with a .zip file archive.
+     * </p>
+     */
+    private String imageUri;
     /**
      * <p>
      * Set to true to publish a new version of the function after updating the code. This has the same effect as calling
@@ -94,15 +103,22 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
     private Boolean dryRun;
     /**
      * <p>
-     * Only update the function if the revision ID matches the ID that's specified. Use this option to avoid modifying a
+     * Update the function only if the revision ID matches the ID that's specified. Use this option to avoid modifying a
      * function that has changed since you last read it.
      * </p>
      */
     private String revisionId;
+    /**
+     * <p>
+     * The instruction set architecture that the function supports. Enter a string array with one of the valid values
+     * (arm64 or x86_64). The default value is <code>x86_64</code>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> architectures;
 
     /**
      * <p>
-     * The name of the Lambda function.
+     * The name or ARN of the Lambda function.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -110,17 +126,17 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * <b>Function name</b> - <code>my-function</code>.
+     * <b>Function name</b> – <code>my-function</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     * <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     * <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      * </p>
      * </li>
      * </ul>
@@ -130,24 +146,24 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * 
      * @param functionName
-     *        The name of the Lambda function.</p>
+     *        The name or ARN of the Lambda function.</p>
      *        <p class="title">
      *        <b>Name formats</b>
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>Function name</b> - <code>my-function</code>.
+     *        <b>Function name</b> – <code>my-function</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     *        <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     *        <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      *        </p>
      *        </li>
      *        </ul>
@@ -162,7 +178,7 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the Lambda function.
+     * The name or ARN of the Lambda function.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -170,17 +186,17 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * <b>Function name</b> - <code>my-function</code>.
+     * <b>Function name</b> – <code>my-function</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     * <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     * <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      * </p>
      * </li>
      * </ul>
@@ -189,24 +205,24 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
      * characters in length.
      * </p>
      * 
-     * @return The name of the Lambda function.</p>
+     * @return The name or ARN of the Lambda function.</p>
      *         <p class="title">
      *         <b>Name formats</b>
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <b>Function name</b> - <code>my-function</code>.
+     *         <b>Function name</b> – <code>my-function</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     *         <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     *         <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      *         </p>
      *         </li>
      *         </ul>
@@ -221,7 +237,7 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the Lambda function.
+     * The name or ARN of the Lambda function.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -229,17 +245,17 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * <b>Function name</b> - <code>my-function</code>.
+     * <b>Function name</b> – <code>my-function</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     * <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     * <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      * </p>
      * </li>
      * </ul>
@@ -249,24 +265,24 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * 
      * @param functionName
-     *        The name of the Lambda function.</p>
+     *        The name or ARN of the Lambda function.</p>
      *        <p class="title">
      *        <b>Name formats</b>
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>Function name</b> - <code>my-function</code>.
+     *        <b>Function name</b> – <code>my-function</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>Function ARN</b> - <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
+     *        <b>Function ARN</b> – <code>arn:aws:lambda:us-west-2:123456789012:function:my-function</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>Partial ARN</b> - <code>123456789012:function:my-function</code>.
+     *        <b>Partial ARN</b> – <code>123456789012:function:my-function</code>.
      *        </p>
      *        </li>
      *        </ul>
@@ -283,7 +299,8 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The base64-encoded contents of the deployment package. AWS SDK and AWS CLI clients handle the encoding for you.
+     * The base64-encoded contents of the deployment package. Amazon Web Services SDK and CLI clients handle the
+     * encoding for you. Use only with a function defined with a .zip file archive deployment package.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -297,8 +314,8 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * 
      * @param zipFile
-     *        The base64-encoded contents of the deployment package. AWS SDK and AWS CLI clients handle the encoding for
-     *        you.
+     *        The base64-encoded contents of the deployment package. Amazon Web Services SDK and CLI clients handle the
+     *        encoding for you. Use only with a function defined with a .zip file archive deployment package.
      */
 
     public void setZipFile(java.nio.ByteBuffer zipFile) {
@@ -307,7 +324,8 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The base64-encoded contents of the deployment package. AWS SDK and AWS CLI clients handle the encoding for you.
+     * The base64-encoded contents of the deployment package. Amazon Web Services SDK and CLI clients handle the
+     * encoding for you. Use only with a function defined with a .zip file archive deployment package.
      * </p>
      * <p>
      * {@code ByteBuffer}s are stateful. Calling their {@code get} methods changes their {@code position}. We recommend
@@ -317,8 +335,8 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
      * {@code position}.
      * </p>
      * 
-     * @return The base64-encoded contents of the deployment package. AWS SDK and AWS CLI clients handle the encoding
-     *         for you.
+     * @return The base64-encoded contents of the deployment package. Amazon Web Services SDK and CLI clients handle the
+     *         encoding for you. Use only with a function defined with a .zip file archive deployment package.
      */
 
     public java.nio.ByteBuffer getZipFile() {
@@ -327,7 +345,8 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The base64-encoded contents of the deployment package. AWS SDK and AWS CLI clients handle the encoding for you.
+     * The base64-encoded contents of the deployment package. Amazon Web Services SDK and CLI clients handle the
+     * encoding for you. Use only with a function defined with a .zip file archive deployment package.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -341,8 +360,8 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * 
      * @param zipFile
-     *        The base64-encoded contents of the deployment package. AWS SDK and AWS CLI clients handle the encoding for
-     *        you.
+     *        The base64-encoded contents of the deployment package. Amazon Web Services SDK and CLI clients handle the
+     *        encoding for you. Use only with a function defined with a .zip file archive deployment package.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -353,11 +372,14 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * An Amazon S3 bucket in the same AWS Region as your function. The bucket can be in a different AWS account.
+     * An Amazon S3 bucket in the same Amazon Web Services Region as your function. The bucket can be in a different
+     * Amazon Web Services account. Use only with a function defined with a .zip file archive deployment package.
      * </p>
      * 
      * @param s3Bucket
-     *        An Amazon S3 bucket in the same AWS Region as your function. The bucket can be in a different AWS account.
+     *        An Amazon S3 bucket in the same Amazon Web Services Region as your function. The bucket can be in a
+     *        different Amazon Web Services account. Use only with a function defined with a .zip file archive
+     *        deployment package.
      */
 
     public void setS3Bucket(String s3Bucket) {
@@ -366,11 +388,13 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * An Amazon S3 bucket in the same AWS Region as your function. The bucket can be in a different AWS account.
+     * An Amazon S3 bucket in the same Amazon Web Services Region as your function. The bucket can be in a different
+     * Amazon Web Services account. Use only with a function defined with a .zip file archive deployment package.
      * </p>
      * 
-     * @return An Amazon S3 bucket in the same AWS Region as your function. The bucket can be in a different AWS
-     *         account.
+     * @return An Amazon S3 bucket in the same Amazon Web Services Region as your function. The bucket can be in a
+     *         different Amazon Web Services account. Use only with a function defined with a .zip file archive
+     *         deployment package.
      */
 
     public String getS3Bucket() {
@@ -379,11 +403,14 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * An Amazon S3 bucket in the same AWS Region as your function. The bucket can be in a different AWS account.
+     * An Amazon S3 bucket in the same Amazon Web Services Region as your function. The bucket can be in a different
+     * Amazon Web Services account. Use only with a function defined with a .zip file archive deployment package.
      * </p>
      * 
      * @param s3Bucket
-     *        An Amazon S3 bucket in the same AWS Region as your function. The bucket can be in a different AWS account.
+     *        An Amazon S3 bucket in the same Amazon Web Services Region as your function. The bucket can be in a
+     *        different Amazon Web Services account. Use only with a function defined with a .zip file archive
+     *        deployment package.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -394,11 +421,13 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The Amazon S3 key of the deployment package.
+     * The Amazon S3 key of the deployment package. Use only with a function defined with a .zip file archive deployment
+     * package.
      * </p>
      * 
      * @param s3Key
-     *        The Amazon S3 key of the deployment package.
+     *        The Amazon S3 key of the deployment package. Use only with a function defined with a .zip file archive
+     *        deployment package.
      */
 
     public void setS3Key(String s3Key) {
@@ -407,10 +436,12 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The Amazon S3 key of the deployment package.
+     * The Amazon S3 key of the deployment package. Use only with a function defined with a .zip file archive deployment
+     * package.
      * </p>
      * 
-     * @return The Amazon S3 key of the deployment package.
+     * @return The Amazon S3 key of the deployment package. Use only with a function defined with a .zip file archive
+     *         deployment package.
      */
 
     public String getS3Key() {
@@ -419,11 +450,13 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The Amazon S3 key of the deployment package.
+     * The Amazon S3 key of the deployment package. Use only with a function defined with a .zip file archive deployment
+     * package.
      * </p>
      * 
      * @param s3Key
-     *        The Amazon S3 key of the deployment package.
+     *        The Amazon S3 key of the deployment package. Use only with a function defined with a .zip file archive
+     *        deployment package.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -469,6 +502,49 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
 
     public UpdateFunctionCodeRequest withS3ObjectVersion(String s3ObjectVersion) {
         setS3ObjectVersion(s3ObjectVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * URI of a container image in the Amazon ECR registry. Do not use for a function defined with a .zip file archive.
+     * </p>
+     * 
+     * @param imageUri
+     *        URI of a container image in the Amazon ECR registry. Do not use for a function defined with a .zip file
+     *        archive.
+     */
+
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
+    }
+
+    /**
+     * <p>
+     * URI of a container image in the Amazon ECR registry. Do not use for a function defined with a .zip file archive.
+     * </p>
+     * 
+     * @return URI of a container image in the Amazon ECR registry. Do not use for a function defined with a .zip file
+     *         archive.
+     */
+
+    public String getImageUri() {
+        return this.imageUri;
+    }
+
+    /**
+     * <p>
+     * URI of a container image in the Amazon ECR registry. Do not use for a function defined with a .zip file archive.
+     * </p>
+     * 
+     * @param imageUri
+     *        URI of a container image in the Amazon ECR registry. Do not use for a function defined with a .zip file
+     *        archive.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFunctionCodeRequest withImageUri(String imageUri) {
+        setImageUri(imageUri);
         return this;
     }
 
@@ -588,12 +664,12 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * Only update the function if the revision ID matches the ID that's specified. Use this option to avoid modifying a
+     * Update the function only if the revision ID matches the ID that's specified. Use this option to avoid modifying a
      * function that has changed since you last read it.
      * </p>
      * 
      * @param revisionId
-     *        Only update the function if the revision ID matches the ID that's specified. Use this option to avoid
+     *        Update the function only if the revision ID matches the ID that's specified. Use this option to avoid
      *        modifying a function that has changed since you last read it.
      */
 
@@ -603,11 +679,11 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * Only update the function if the revision ID matches the ID that's specified. Use this option to avoid modifying a
+     * Update the function only if the revision ID matches the ID that's specified. Use this option to avoid modifying a
      * function that has changed since you last read it.
      * </p>
      * 
-     * @return Only update the function if the revision ID matches the ID that's specified. Use this option to avoid
+     * @return Update the function only if the revision ID matches the ID that's specified. Use this option to avoid
      *         modifying a function that has changed since you last read it.
      */
 
@@ -617,18 +693,129 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * Only update the function if the revision ID matches the ID that's specified. Use this option to avoid modifying a
+     * Update the function only if the revision ID matches the ID that's specified. Use this option to avoid modifying a
      * function that has changed since you last read it.
      * </p>
      * 
      * @param revisionId
-     *        Only update the function if the revision ID matches the ID that's specified. Use this option to avoid
+     *        Update the function only if the revision ID matches the ID that's specified. Use this option to avoid
      *        modifying a function that has changed since you last read it.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UpdateFunctionCodeRequest withRevisionId(String revisionId) {
         setRevisionId(revisionId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The instruction set architecture that the function supports. Enter a string array with one of the valid values
+     * (arm64 or x86_64). The default value is <code>x86_64</code>.
+     * </p>
+     * 
+     * @return The instruction set architecture that the function supports. Enter a string array with one of the valid
+     *         values (arm64 or x86_64). The default value is <code>x86_64</code>.
+     * @see Architecture
+     */
+
+    public java.util.List<String> getArchitectures() {
+        if (architectures == null) {
+            architectures = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return architectures;
+    }
+
+    /**
+     * <p>
+     * The instruction set architecture that the function supports. Enter a string array with one of the valid values
+     * (arm64 or x86_64). The default value is <code>x86_64</code>.
+     * </p>
+     * 
+     * @param architectures
+     *        The instruction set architecture that the function supports. Enter a string array with one of the valid
+     *        values (arm64 or x86_64). The default value is <code>x86_64</code>.
+     * @see Architecture
+     */
+
+    public void setArchitectures(java.util.Collection<String> architectures) {
+        if (architectures == null) {
+            this.architectures = null;
+            return;
+        }
+
+        this.architectures = new com.amazonaws.internal.SdkInternalList<String>(architectures);
+    }
+
+    /**
+     * <p>
+     * The instruction set architecture that the function supports. Enter a string array with one of the valid values
+     * (arm64 or x86_64). The default value is <code>x86_64</code>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setArchitectures(java.util.Collection)} or {@link #withArchitectures(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param architectures
+     *        The instruction set architecture that the function supports. Enter a string array with one of the valid
+     *        values (arm64 or x86_64). The default value is <code>x86_64</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Architecture
+     */
+
+    public UpdateFunctionCodeRequest withArchitectures(String... architectures) {
+        if (this.architectures == null) {
+            setArchitectures(new com.amazonaws.internal.SdkInternalList<String>(architectures.length));
+        }
+        for (String ele : architectures) {
+            this.architectures.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The instruction set architecture that the function supports. Enter a string array with one of the valid values
+     * (arm64 or x86_64). The default value is <code>x86_64</code>.
+     * </p>
+     * 
+     * @param architectures
+     *        The instruction set architecture that the function supports. Enter a string array with one of the valid
+     *        values (arm64 or x86_64). The default value is <code>x86_64</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Architecture
+     */
+
+    public UpdateFunctionCodeRequest withArchitectures(java.util.Collection<String> architectures) {
+        setArchitectures(architectures);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The instruction set architecture that the function supports. Enter a string array with one of the valid values
+     * (arm64 or x86_64). The default value is <code>x86_64</code>.
+     * </p>
+     * 
+     * @param architectures
+     *        The instruction set architecture that the function supports. Enter a string array with one of the valid
+     *        values (arm64 or x86_64). The default value is <code>x86_64</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Architecture
+     */
+
+    public UpdateFunctionCodeRequest withArchitectures(Architecture... architectures) {
+        com.amazonaws.internal.SdkInternalList<String> architecturesCopy = new com.amazonaws.internal.SdkInternalList<String>(architectures.length);
+        for (Architecture value : architectures) {
+            architecturesCopy.add(value.toString());
+        }
+        if (getArchitectures() == null) {
+            setArchitectures(architecturesCopy);
+        } else {
+            getArchitectures().addAll(architecturesCopy);
+        }
         return this;
     }
 
@@ -654,12 +841,16 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
             sb.append("S3Key: ").append(getS3Key()).append(",");
         if (getS3ObjectVersion() != null)
             sb.append("S3ObjectVersion: ").append(getS3ObjectVersion()).append(",");
+        if (getImageUri() != null)
+            sb.append("ImageUri: ").append(getImageUri()).append(",");
         if (getPublish() != null)
             sb.append("Publish: ").append(getPublish()).append(",");
         if (getDryRun() != null)
             sb.append("DryRun: ").append(getDryRun()).append(",");
         if (getRevisionId() != null)
-            sb.append("RevisionId: ").append(getRevisionId());
+            sb.append("RevisionId: ").append(getRevisionId()).append(",");
+        if (getArchitectures() != null)
+            sb.append("Architectures: ").append(getArchitectures());
         sb.append("}");
         return sb.toString();
     }
@@ -694,6 +885,10 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
             return false;
         if (other.getS3ObjectVersion() != null && other.getS3ObjectVersion().equals(this.getS3ObjectVersion()) == false)
             return false;
+        if (other.getImageUri() == null ^ this.getImageUri() == null)
+            return false;
+        if (other.getImageUri() != null && other.getImageUri().equals(this.getImageUri()) == false)
+            return false;
         if (other.getPublish() == null ^ this.getPublish() == null)
             return false;
         if (other.getPublish() != null && other.getPublish().equals(this.getPublish()) == false)
@@ -705,6 +900,10 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
         if (other.getRevisionId() == null ^ this.getRevisionId() == null)
             return false;
         if (other.getRevisionId() != null && other.getRevisionId().equals(this.getRevisionId()) == false)
+            return false;
+        if (other.getArchitectures() == null ^ this.getArchitectures() == null)
+            return false;
+        if (other.getArchitectures() != null && other.getArchitectures().equals(this.getArchitectures()) == false)
             return false;
         return true;
     }
@@ -719,9 +918,11 @@ public class UpdateFunctionCodeRequest extends com.amazonaws.AmazonWebServiceReq
         hashCode = prime * hashCode + ((getS3Bucket() == null) ? 0 : getS3Bucket().hashCode());
         hashCode = prime * hashCode + ((getS3Key() == null) ? 0 : getS3Key().hashCode());
         hashCode = prime * hashCode + ((getS3ObjectVersion() == null) ? 0 : getS3ObjectVersion().hashCode());
+        hashCode = prime * hashCode + ((getImageUri() == null) ? 0 : getImageUri().hashCode());
         hashCode = prime * hashCode + ((getPublish() == null) ? 0 : getPublish().hashCode());
         hashCode = prime * hashCode + ((getDryRun() == null) ? 0 : getDryRun().hashCode());
         hashCode = prime * hashCode + ((getRevisionId() == null) ? 0 : getRevisionId().hashCode());
+        hashCode = prime * hashCode + ((getArchitectures() == null) ? 0 : getArchitectures().hashCode());
         return hashCode;
     }
 

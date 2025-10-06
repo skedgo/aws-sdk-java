@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,17 +25,26 @@ public class GetRecommendationsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * A list of recommendations.
+     * A list of recommendations sorted in descending order by prediction score. There can be a maximum of 500 items in
+     * the list.
      * </p>
      */
     private java.util.List<PredictedItem> itemList;
+    /**
+     * <p>
+     * The ID of the recommendation.
+     * </p>
+     */
+    private String recommendationId;
 
     /**
      * <p>
-     * A list of recommendations.
+     * A list of recommendations sorted in descending order by prediction score. There can be a maximum of 500 items in
+     * the list.
      * </p>
      * 
-     * @return A list of recommendations.
+     * @return A list of recommendations sorted in descending order by prediction score. There can be a maximum of 500
+     *         items in the list.
      */
 
     public java.util.List<PredictedItem> getItemList() {
@@ -44,11 +53,13 @@ public class GetRecommendationsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * A list of recommendations.
+     * A list of recommendations sorted in descending order by prediction score. There can be a maximum of 500 items in
+     * the list.
      * </p>
      * 
      * @param itemList
-     *        A list of recommendations.
+     *        A list of recommendations sorted in descending order by prediction score. There can be a maximum of 500
+     *        items in the list.
      */
 
     public void setItemList(java.util.Collection<PredictedItem> itemList) {
@@ -62,7 +73,8 @@ public class GetRecommendationsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * A list of recommendations.
+     * A list of recommendations sorted in descending order by prediction score. There can be a maximum of 500 items in
+     * the list.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -71,7 +83,8 @@ public class GetRecommendationsResult extends com.amazonaws.AmazonWebServiceResu
      * </p>
      * 
      * @param itemList
-     *        A list of recommendations.
+     *        A list of recommendations sorted in descending order by prediction score. There can be a maximum of 500
+     *        items in the list.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -87,16 +100,58 @@ public class GetRecommendationsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * A list of recommendations.
+     * A list of recommendations sorted in descending order by prediction score. There can be a maximum of 500 items in
+     * the list.
      * </p>
      * 
      * @param itemList
-     *        A list of recommendations.
+     *        A list of recommendations sorted in descending order by prediction score. There can be a maximum of 500
+     *        items in the list.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GetRecommendationsResult withItemList(java.util.Collection<PredictedItem> itemList) {
         setItemList(itemList);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the recommendation.
+     * </p>
+     * 
+     * @param recommendationId
+     *        The ID of the recommendation.
+     */
+
+    public void setRecommendationId(String recommendationId) {
+        this.recommendationId = recommendationId;
+    }
+
+    /**
+     * <p>
+     * The ID of the recommendation.
+     * </p>
+     * 
+     * @return The ID of the recommendation.
+     */
+
+    public String getRecommendationId() {
+        return this.recommendationId;
+    }
+
+    /**
+     * <p>
+     * The ID of the recommendation.
+     * </p>
+     * 
+     * @param recommendationId
+     *        The ID of the recommendation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetRecommendationsResult withRecommendationId(String recommendationId) {
+        setRecommendationId(recommendationId);
         return this;
     }
 
@@ -113,7 +168,9 @@ public class GetRecommendationsResult extends com.amazonaws.AmazonWebServiceResu
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getItemList() != null)
-            sb.append("ItemList: ").append(getItemList());
+            sb.append("ItemList: ").append(getItemList()).append(",");
+        if (getRecommendationId() != null)
+            sb.append("RecommendationId: ").append(getRecommendationId());
         sb.append("}");
         return sb.toString();
     }
@@ -132,6 +189,10 @@ public class GetRecommendationsResult extends com.amazonaws.AmazonWebServiceResu
             return false;
         if (other.getItemList() != null && other.getItemList().equals(this.getItemList()) == false)
             return false;
+        if (other.getRecommendationId() == null ^ this.getRecommendationId() == null)
+            return false;
+        if (other.getRecommendationId() != null && other.getRecommendationId().equals(this.getRecommendationId()) == false)
+            return false;
         return true;
     }
 
@@ -141,6 +202,7 @@ public class GetRecommendationsResult extends com.amazonaws.AmazonWebServiceResu
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getItemList() == null) ? 0 : getItemList().hashCode());
+        hashCode = prime * hashCode + ((getRecommendationId() == null) ? 0 : getRecommendationId().hashCode());
         return hashCode;
     }
 

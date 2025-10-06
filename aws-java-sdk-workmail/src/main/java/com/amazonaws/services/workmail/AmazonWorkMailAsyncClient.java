@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,10 +26,10 @@ import java.util.concurrent.ExecutorService;
  * notification when an asynchronous operation completes.
  * <p>
  * <p>
- * Amazon WorkMail is a secure, managed business email and calendaring service with support for existing desktop and
- * mobile email clients. You can access your email, contacts, and calendars using Microsoft Outlook, your browser, or
- * other native iOS and Android email applications. You can integrate WorkMail with your existing corporate directory
- * and control both the keys that encrypt your data and the location in which your data is stored.
+ * WorkMail is a secure, managed business email and calendaring service with support for existing desktop and mobile
+ * email clients. You can access your email, contacts, and calendars using Microsoft Outlook, your browser, or other
+ * native iOS and Android email applications. You can integrate WorkMail with your existing corporate directory and
+ * control both the keys that encrypt your data and the location in which your data is stored.
  * </p>
  * <p>
  * The WorkMail API is designed for the following scenarios:
@@ -91,7 +91,19 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
      *        Object providing client parameters.
      */
     AmazonWorkMailAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Amazon WorkMail using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonWorkMailAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -171,6 +183,72 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<AssumeImpersonationRoleResult> assumeImpersonationRoleAsync(AssumeImpersonationRoleRequest request) {
+
+        return assumeImpersonationRoleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssumeImpersonationRoleResult> assumeImpersonationRoleAsync(final AssumeImpersonationRoleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssumeImpersonationRoleRequest, AssumeImpersonationRoleResult> asyncHandler) {
+        final AssumeImpersonationRoleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssumeImpersonationRoleResult>() {
+            @Override
+            public AssumeImpersonationRoleResult call() throws Exception {
+                AssumeImpersonationRoleResult result = null;
+
+                try {
+                    result = executeAssumeImpersonationRole(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelMailboxExportJobResult> cancelMailboxExportJobAsync(CancelMailboxExportJobRequest request) {
+
+        return cancelMailboxExportJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelMailboxExportJobResult> cancelMailboxExportJobAsync(final CancelMailboxExportJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CancelMailboxExportJobRequest, CancelMailboxExportJobResult> asyncHandler) {
+        final CancelMailboxExportJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CancelMailboxExportJobResult>() {
+            @Override
+            public CancelMailboxExportJobResult call() throws Exception {
+                CancelMailboxExportJobResult result = null;
+
+                try {
+                    result = executeCancelMailboxExportJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateAliasResult> createAliasAsync(CreateAliasRequest request) {
 
         return createAliasAsync(request, null);
@@ -204,6 +282,41 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<CreateAvailabilityConfigurationResult> createAvailabilityConfigurationAsync(
+            CreateAvailabilityConfigurationRequest request) {
+
+        return createAvailabilityConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAvailabilityConfigurationResult> createAvailabilityConfigurationAsync(
+            final CreateAvailabilityConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateAvailabilityConfigurationRequest, CreateAvailabilityConfigurationResult> asyncHandler) {
+        final CreateAvailabilityConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateAvailabilityConfigurationResult>() {
+            @Override
+            public CreateAvailabilityConfigurationResult call() throws Exception {
+                CreateAvailabilityConfigurationResult result = null;
+
+                try {
+                    result = executeCreateAvailabilityConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateGroupResult> createGroupAsync(CreateGroupRequest request) {
 
         return createGroupAsync(request, null);
@@ -221,6 +334,105 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
 
                 try {
                     result = executeCreateGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateImpersonationRoleResult> createImpersonationRoleAsync(CreateImpersonationRoleRequest request) {
+
+        return createImpersonationRoleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateImpersonationRoleResult> createImpersonationRoleAsync(final CreateImpersonationRoleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateImpersonationRoleRequest, CreateImpersonationRoleResult> asyncHandler) {
+        final CreateImpersonationRoleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateImpersonationRoleResult>() {
+            @Override
+            public CreateImpersonationRoleResult call() throws Exception {
+                CreateImpersonationRoleResult result = null;
+
+                try {
+                    result = executeCreateImpersonationRole(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateMobileDeviceAccessRuleResult> createMobileDeviceAccessRuleAsync(CreateMobileDeviceAccessRuleRequest request) {
+
+        return createMobileDeviceAccessRuleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateMobileDeviceAccessRuleResult> createMobileDeviceAccessRuleAsync(final CreateMobileDeviceAccessRuleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateMobileDeviceAccessRuleRequest, CreateMobileDeviceAccessRuleResult> asyncHandler) {
+        final CreateMobileDeviceAccessRuleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateMobileDeviceAccessRuleResult>() {
+            @Override
+            public CreateMobileDeviceAccessRuleResult call() throws Exception {
+                CreateMobileDeviceAccessRuleResult result = null;
+
+                try {
+                    result = executeCreateMobileDeviceAccessRule(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateOrganizationResult> createOrganizationAsync(CreateOrganizationRequest request) {
+
+        return createOrganizationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateOrganizationResult> createOrganizationAsync(final CreateOrganizationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateOrganizationRequest, CreateOrganizationResult> asyncHandler) {
+        final CreateOrganizationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateOrganizationResult>() {
+            @Override
+            public CreateOrganizationResult call() throws Exception {
+                CreateOrganizationResult result = null;
+
+                try {
+                    result = executeCreateOrganization(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -303,6 +515,39 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteAccessControlRuleResult> deleteAccessControlRuleAsync(DeleteAccessControlRuleRequest request) {
+
+        return deleteAccessControlRuleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAccessControlRuleResult> deleteAccessControlRuleAsync(final DeleteAccessControlRuleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteAccessControlRuleRequest, DeleteAccessControlRuleResult> asyncHandler) {
+        final DeleteAccessControlRuleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteAccessControlRuleResult>() {
+            @Override
+            public DeleteAccessControlRuleResult call() throws Exception {
+                DeleteAccessControlRuleResult result = null;
+
+                try {
+                    result = executeDeleteAccessControlRule(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteAliasResult> deleteAliasAsync(DeleteAliasRequest request) {
 
         return deleteAliasAsync(request, null);
@@ -320,6 +565,76 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
 
                 try {
                     result = executeDeleteAlias(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAvailabilityConfigurationResult> deleteAvailabilityConfigurationAsync(
+            DeleteAvailabilityConfigurationRequest request) {
+
+        return deleteAvailabilityConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAvailabilityConfigurationResult> deleteAvailabilityConfigurationAsync(
+            final DeleteAvailabilityConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteAvailabilityConfigurationRequest, DeleteAvailabilityConfigurationResult> asyncHandler) {
+        final DeleteAvailabilityConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteAvailabilityConfigurationResult>() {
+            @Override
+            public DeleteAvailabilityConfigurationResult call() throws Exception {
+                DeleteAvailabilityConfigurationResult result = null;
+
+                try {
+                    result = executeDeleteAvailabilityConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteEmailMonitoringConfigurationResult> deleteEmailMonitoringConfigurationAsync(
+            DeleteEmailMonitoringConfigurationRequest request) {
+
+        return deleteEmailMonitoringConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteEmailMonitoringConfigurationResult> deleteEmailMonitoringConfigurationAsync(
+            final DeleteEmailMonitoringConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteEmailMonitoringConfigurationRequest, DeleteEmailMonitoringConfigurationResult> asyncHandler) {
+        final DeleteEmailMonitoringConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteEmailMonitoringConfigurationResult>() {
+            @Override
+            public DeleteEmailMonitoringConfigurationResult call() throws Exception {
+                DeleteEmailMonitoringConfigurationResult result = null;
+
+                try {
+                    result = executeDeleteEmailMonitoringConfiguration(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -369,6 +684,39 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteImpersonationRoleResult> deleteImpersonationRoleAsync(DeleteImpersonationRoleRequest request) {
+
+        return deleteImpersonationRoleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteImpersonationRoleResult> deleteImpersonationRoleAsync(final DeleteImpersonationRoleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteImpersonationRoleRequest, DeleteImpersonationRoleResult> asyncHandler) {
+        final DeleteImpersonationRoleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteImpersonationRoleResult>() {
+            @Override
+            public DeleteImpersonationRoleResult call() throws Exception {
+                DeleteImpersonationRoleResult result = null;
+
+                try {
+                    result = executeDeleteImpersonationRole(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteMailboxPermissionsResult> deleteMailboxPermissionsAsync(DeleteMailboxPermissionsRequest request) {
 
         return deleteMailboxPermissionsAsync(request, null);
@@ -402,6 +750,107 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteMobileDeviceAccessOverrideResult> deleteMobileDeviceAccessOverrideAsync(
+            DeleteMobileDeviceAccessOverrideRequest request) {
+
+        return deleteMobileDeviceAccessOverrideAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteMobileDeviceAccessOverrideResult> deleteMobileDeviceAccessOverrideAsync(
+            final DeleteMobileDeviceAccessOverrideRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteMobileDeviceAccessOverrideRequest, DeleteMobileDeviceAccessOverrideResult> asyncHandler) {
+        final DeleteMobileDeviceAccessOverrideRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteMobileDeviceAccessOverrideResult>() {
+            @Override
+            public DeleteMobileDeviceAccessOverrideResult call() throws Exception {
+                DeleteMobileDeviceAccessOverrideResult result = null;
+
+                try {
+                    result = executeDeleteMobileDeviceAccessOverride(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteMobileDeviceAccessRuleResult> deleteMobileDeviceAccessRuleAsync(DeleteMobileDeviceAccessRuleRequest request) {
+
+        return deleteMobileDeviceAccessRuleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteMobileDeviceAccessRuleResult> deleteMobileDeviceAccessRuleAsync(final DeleteMobileDeviceAccessRuleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteMobileDeviceAccessRuleRequest, DeleteMobileDeviceAccessRuleResult> asyncHandler) {
+        final DeleteMobileDeviceAccessRuleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteMobileDeviceAccessRuleResult>() {
+            @Override
+            public DeleteMobileDeviceAccessRuleResult call() throws Exception {
+                DeleteMobileDeviceAccessRuleResult result = null;
+
+                try {
+                    result = executeDeleteMobileDeviceAccessRule(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteOrganizationResult> deleteOrganizationAsync(DeleteOrganizationRequest request) {
+
+        return deleteOrganizationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteOrganizationResult> deleteOrganizationAsync(final DeleteOrganizationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteOrganizationRequest, DeleteOrganizationResult> asyncHandler) {
+        final DeleteOrganizationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteOrganizationResult>() {
+            @Override
+            public DeleteOrganizationResult call() throws Exception {
+                DeleteOrganizationResult result = null;
+
+                try {
+                    result = executeDeleteOrganization(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteResourceResult> deleteResourceAsync(DeleteResourceRequest request) {
 
         return deleteResourceAsync(request, null);
@@ -419,6 +868,39 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
 
                 try {
                     result = executeDeleteResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRetentionPolicyResult> deleteRetentionPolicyAsync(DeleteRetentionPolicyRequest request) {
+
+        return deleteRetentionPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRetentionPolicyResult> deleteRetentionPolicyAsync(final DeleteRetentionPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteRetentionPolicyRequest, DeleteRetentionPolicyResult> asyncHandler) {
+        final DeleteRetentionPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteRetentionPolicyResult>() {
+            @Override
+            public DeleteRetentionPolicyResult call() throws Exception {
+                DeleteRetentionPolicyResult result = null;
+
+                try {
+                    result = executeDeleteRetentionPolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -501,6 +983,107 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DeregisterMailDomainResult> deregisterMailDomainAsync(DeregisterMailDomainRequest request) {
+
+        return deregisterMailDomainAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterMailDomainResult> deregisterMailDomainAsync(final DeregisterMailDomainRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeregisterMailDomainRequest, DeregisterMailDomainResult> asyncHandler) {
+        final DeregisterMailDomainRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeregisterMailDomainResult>() {
+            @Override
+            public DeregisterMailDomainResult call() throws Exception {
+                DeregisterMailDomainResult result = null;
+
+                try {
+                    result = executeDeregisterMailDomain(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEmailMonitoringConfigurationResult> describeEmailMonitoringConfigurationAsync(
+            DescribeEmailMonitoringConfigurationRequest request) {
+
+        return describeEmailMonitoringConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEmailMonitoringConfigurationResult> describeEmailMonitoringConfigurationAsync(
+            final DescribeEmailMonitoringConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeEmailMonitoringConfigurationRequest, DescribeEmailMonitoringConfigurationResult> asyncHandler) {
+        final DescribeEmailMonitoringConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeEmailMonitoringConfigurationResult>() {
+            @Override
+            public DescribeEmailMonitoringConfigurationResult call() throws Exception {
+                DescribeEmailMonitoringConfigurationResult result = null;
+
+                try {
+                    result = executeDescribeEmailMonitoringConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEntityResult> describeEntityAsync(DescribeEntityRequest request) {
+
+        return describeEntityAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEntityResult> describeEntityAsync(final DescribeEntityRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeEntityRequest, DescribeEntityResult> asyncHandler) {
+        final DescribeEntityRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeEntityResult>() {
+            @Override
+            public DescribeEntityResult call() throws Exception {
+                DescribeEntityResult result = null;
+
+                try {
+                    result = executeDescribeEntity(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeGroupResult> describeGroupAsync(DescribeGroupRequest request) {
 
         return describeGroupAsync(request, null);
@@ -518,6 +1101,72 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
 
                 try {
                     result = executeDescribeGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeInboundDmarcSettingsResult> describeInboundDmarcSettingsAsync(DescribeInboundDmarcSettingsRequest request) {
+
+        return describeInboundDmarcSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeInboundDmarcSettingsResult> describeInboundDmarcSettingsAsync(final DescribeInboundDmarcSettingsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeInboundDmarcSettingsRequest, DescribeInboundDmarcSettingsResult> asyncHandler) {
+        final DescribeInboundDmarcSettingsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeInboundDmarcSettingsResult>() {
+            @Override
+            public DescribeInboundDmarcSettingsResult call() throws Exception {
+                DescribeInboundDmarcSettingsResult result = null;
+
+                try {
+                    result = executeDescribeInboundDmarcSettings(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeMailboxExportJobResult> describeMailboxExportJobAsync(DescribeMailboxExportJobRequest request) {
+
+        return describeMailboxExportJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeMailboxExportJobResult> describeMailboxExportJobAsync(final DescribeMailboxExportJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeMailboxExportJobRequest, DescribeMailboxExportJobResult> asyncHandler) {
+        final DescribeMailboxExportJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeMailboxExportJobResult>() {
+            @Override
+            public DescribeMailboxExportJobResult call() throws Exception {
+                DescribeMailboxExportJobResult result = null;
+
+                try {
+                    result = executeDescribeMailboxExportJob(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -701,6 +1350,171 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<GetAccessControlEffectResult> getAccessControlEffectAsync(GetAccessControlEffectRequest request) {
+
+        return getAccessControlEffectAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAccessControlEffectResult> getAccessControlEffectAsync(final GetAccessControlEffectRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetAccessControlEffectRequest, GetAccessControlEffectResult> asyncHandler) {
+        final GetAccessControlEffectRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetAccessControlEffectResult>() {
+            @Override
+            public GetAccessControlEffectResult call() throws Exception {
+                GetAccessControlEffectResult result = null;
+
+                try {
+                    result = executeGetAccessControlEffect(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDefaultRetentionPolicyResult> getDefaultRetentionPolicyAsync(GetDefaultRetentionPolicyRequest request) {
+
+        return getDefaultRetentionPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDefaultRetentionPolicyResult> getDefaultRetentionPolicyAsync(final GetDefaultRetentionPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetDefaultRetentionPolicyRequest, GetDefaultRetentionPolicyResult> asyncHandler) {
+        final GetDefaultRetentionPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetDefaultRetentionPolicyResult>() {
+            @Override
+            public GetDefaultRetentionPolicyResult call() throws Exception {
+                GetDefaultRetentionPolicyResult result = null;
+
+                try {
+                    result = executeGetDefaultRetentionPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetImpersonationRoleResult> getImpersonationRoleAsync(GetImpersonationRoleRequest request) {
+
+        return getImpersonationRoleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetImpersonationRoleResult> getImpersonationRoleAsync(final GetImpersonationRoleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetImpersonationRoleRequest, GetImpersonationRoleResult> asyncHandler) {
+        final GetImpersonationRoleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetImpersonationRoleResult>() {
+            @Override
+            public GetImpersonationRoleResult call() throws Exception {
+                GetImpersonationRoleResult result = null;
+
+                try {
+                    result = executeGetImpersonationRole(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetImpersonationRoleEffectResult> getImpersonationRoleEffectAsync(GetImpersonationRoleEffectRequest request) {
+
+        return getImpersonationRoleEffectAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetImpersonationRoleEffectResult> getImpersonationRoleEffectAsync(final GetImpersonationRoleEffectRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetImpersonationRoleEffectRequest, GetImpersonationRoleEffectResult> asyncHandler) {
+        final GetImpersonationRoleEffectRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetImpersonationRoleEffectResult>() {
+            @Override
+            public GetImpersonationRoleEffectResult call() throws Exception {
+                GetImpersonationRoleEffectResult result = null;
+
+                try {
+                    result = executeGetImpersonationRoleEffect(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMailDomainResult> getMailDomainAsync(GetMailDomainRequest request) {
+
+        return getMailDomainAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMailDomainResult> getMailDomainAsync(final GetMailDomainRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetMailDomainRequest, GetMailDomainResult> asyncHandler) {
+        final GetMailDomainRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetMailDomainResult>() {
+            @Override
+            public GetMailDomainResult call() throws Exception {
+                GetMailDomainResult result = null;
+
+                try {
+                    result = executeGetMailDomain(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetMailboxDetailsResult> getMailboxDetailsAsync(GetMailboxDetailsRequest request) {
 
         return getMailboxDetailsAsync(request, null);
@@ -734,6 +1548,106 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<GetMobileDeviceAccessEffectResult> getMobileDeviceAccessEffectAsync(GetMobileDeviceAccessEffectRequest request) {
+
+        return getMobileDeviceAccessEffectAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMobileDeviceAccessEffectResult> getMobileDeviceAccessEffectAsync(final GetMobileDeviceAccessEffectRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetMobileDeviceAccessEffectRequest, GetMobileDeviceAccessEffectResult> asyncHandler) {
+        final GetMobileDeviceAccessEffectRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetMobileDeviceAccessEffectResult>() {
+            @Override
+            public GetMobileDeviceAccessEffectResult call() throws Exception {
+                GetMobileDeviceAccessEffectResult result = null;
+
+                try {
+                    result = executeGetMobileDeviceAccessEffect(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMobileDeviceAccessOverrideResult> getMobileDeviceAccessOverrideAsync(GetMobileDeviceAccessOverrideRequest request) {
+
+        return getMobileDeviceAccessOverrideAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetMobileDeviceAccessOverrideResult> getMobileDeviceAccessOverrideAsync(
+            final GetMobileDeviceAccessOverrideRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetMobileDeviceAccessOverrideRequest, GetMobileDeviceAccessOverrideResult> asyncHandler) {
+        final GetMobileDeviceAccessOverrideRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetMobileDeviceAccessOverrideResult>() {
+            @Override
+            public GetMobileDeviceAccessOverrideResult call() throws Exception {
+                GetMobileDeviceAccessOverrideResult result = null;
+
+                try {
+                    result = executeGetMobileDeviceAccessOverride(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAccessControlRulesResult> listAccessControlRulesAsync(ListAccessControlRulesRequest request) {
+
+        return listAccessControlRulesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAccessControlRulesResult> listAccessControlRulesAsync(final ListAccessControlRulesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListAccessControlRulesRequest, ListAccessControlRulesResult> asyncHandler) {
+        final ListAccessControlRulesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListAccessControlRulesResult>() {
+            @Override
+            public ListAccessControlRulesResult call() throws Exception {
+                ListAccessControlRulesResult result = null;
+
+                try {
+                    result = executeListAccessControlRules(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListAliasesResult> listAliasesAsync(ListAliasesRequest request) {
 
         return listAliasesAsync(request, null);
@@ -751,6 +1665,40 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
 
                 try {
                     result = executeListAliases(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAvailabilityConfigurationsResult> listAvailabilityConfigurationsAsync(ListAvailabilityConfigurationsRequest request) {
+
+        return listAvailabilityConfigurationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAvailabilityConfigurationsResult> listAvailabilityConfigurationsAsync(
+            final ListAvailabilityConfigurationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListAvailabilityConfigurationsRequest, ListAvailabilityConfigurationsResult> asyncHandler) {
+        final ListAvailabilityConfigurationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListAvailabilityConfigurationsResult>() {
+            @Override
+            public ListAvailabilityConfigurationsResult call() throws Exception {
+                ListAvailabilityConfigurationsResult result = null;
+
+                try {
+                    result = executeListAvailabilityConfigurations(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -833,6 +1781,138 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<ListGroupsForEntityResult> listGroupsForEntityAsync(ListGroupsForEntityRequest request) {
+
+        return listGroupsForEntityAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListGroupsForEntityResult> listGroupsForEntityAsync(final ListGroupsForEntityRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListGroupsForEntityRequest, ListGroupsForEntityResult> asyncHandler) {
+        final ListGroupsForEntityRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListGroupsForEntityResult>() {
+            @Override
+            public ListGroupsForEntityResult call() throws Exception {
+                ListGroupsForEntityResult result = null;
+
+                try {
+                    result = executeListGroupsForEntity(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListImpersonationRolesResult> listImpersonationRolesAsync(ListImpersonationRolesRequest request) {
+
+        return listImpersonationRolesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListImpersonationRolesResult> listImpersonationRolesAsync(final ListImpersonationRolesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListImpersonationRolesRequest, ListImpersonationRolesResult> asyncHandler) {
+        final ListImpersonationRolesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListImpersonationRolesResult>() {
+            @Override
+            public ListImpersonationRolesResult call() throws Exception {
+                ListImpersonationRolesResult result = null;
+
+                try {
+                    result = executeListImpersonationRoles(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMailDomainsResult> listMailDomainsAsync(ListMailDomainsRequest request) {
+
+        return listMailDomainsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMailDomainsResult> listMailDomainsAsync(final ListMailDomainsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListMailDomainsRequest, ListMailDomainsResult> asyncHandler) {
+        final ListMailDomainsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListMailDomainsResult>() {
+            @Override
+            public ListMailDomainsResult call() throws Exception {
+                ListMailDomainsResult result = null;
+
+                try {
+                    result = executeListMailDomains(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMailboxExportJobsResult> listMailboxExportJobsAsync(ListMailboxExportJobsRequest request) {
+
+        return listMailboxExportJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMailboxExportJobsResult> listMailboxExportJobsAsync(final ListMailboxExportJobsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListMailboxExportJobsRequest, ListMailboxExportJobsResult> asyncHandler) {
+        final ListMailboxExportJobsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListMailboxExportJobsResult>() {
+            @Override
+            public ListMailboxExportJobsResult call() throws Exception {
+                ListMailboxExportJobsResult result = null;
+
+                try {
+                    result = executeListMailboxExportJobs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListMailboxPermissionsResult> listMailboxPermissionsAsync(ListMailboxPermissionsRequest request) {
 
         return listMailboxPermissionsAsync(request, null);
@@ -850,6 +1930,74 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
 
                 try {
                     result = executeListMailboxPermissions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMobileDeviceAccessOverridesResult> listMobileDeviceAccessOverridesAsync(
+            ListMobileDeviceAccessOverridesRequest request) {
+
+        return listMobileDeviceAccessOverridesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMobileDeviceAccessOverridesResult> listMobileDeviceAccessOverridesAsync(
+            final ListMobileDeviceAccessOverridesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListMobileDeviceAccessOverridesRequest, ListMobileDeviceAccessOverridesResult> asyncHandler) {
+        final ListMobileDeviceAccessOverridesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListMobileDeviceAccessOverridesResult>() {
+            @Override
+            public ListMobileDeviceAccessOverridesResult call() throws Exception {
+                ListMobileDeviceAccessOverridesResult result = null;
+
+                try {
+                    result = executeListMobileDeviceAccessOverrides(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMobileDeviceAccessRulesResult> listMobileDeviceAccessRulesAsync(ListMobileDeviceAccessRulesRequest request) {
+
+        return listMobileDeviceAccessRulesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMobileDeviceAccessRulesResult> listMobileDeviceAccessRulesAsync(final ListMobileDeviceAccessRulesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListMobileDeviceAccessRulesRequest, ListMobileDeviceAccessRulesResult> asyncHandler) {
+        final ListMobileDeviceAccessRulesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListMobileDeviceAccessRulesResult>() {
+            @Override
+            public ListMobileDeviceAccessRulesResult call() throws Exception {
+                ListMobileDeviceAccessRulesResult result = null;
+
+                try {
+                    result = executeListMobileDeviceAccessRules(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -965,6 +2113,39 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+        final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTagsForResourceResult>() {
+            @Override
+            public ListTagsForResourceResult call() throws Exception {
+                ListTagsForResourceResult result = null;
+
+                try {
+                    result = executeListTagsForResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListUsersResult> listUsersAsync(ListUsersRequest request) {
 
         return listUsersAsync(request, null);
@@ -998,6 +2179,107 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<PutAccessControlRuleResult> putAccessControlRuleAsync(PutAccessControlRuleRequest request) {
+
+        return putAccessControlRuleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutAccessControlRuleResult> putAccessControlRuleAsync(final PutAccessControlRuleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutAccessControlRuleRequest, PutAccessControlRuleResult> asyncHandler) {
+        final PutAccessControlRuleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutAccessControlRuleResult>() {
+            @Override
+            public PutAccessControlRuleResult call() throws Exception {
+                PutAccessControlRuleResult result = null;
+
+                try {
+                    result = executePutAccessControlRule(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutEmailMonitoringConfigurationResult> putEmailMonitoringConfigurationAsync(
+            PutEmailMonitoringConfigurationRequest request) {
+
+        return putEmailMonitoringConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutEmailMonitoringConfigurationResult> putEmailMonitoringConfigurationAsync(
+            final PutEmailMonitoringConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutEmailMonitoringConfigurationRequest, PutEmailMonitoringConfigurationResult> asyncHandler) {
+        final PutEmailMonitoringConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutEmailMonitoringConfigurationResult>() {
+            @Override
+            public PutEmailMonitoringConfigurationResult call() throws Exception {
+                PutEmailMonitoringConfigurationResult result = null;
+
+                try {
+                    result = executePutEmailMonitoringConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutInboundDmarcSettingsResult> putInboundDmarcSettingsAsync(PutInboundDmarcSettingsRequest request) {
+
+        return putInboundDmarcSettingsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutInboundDmarcSettingsResult> putInboundDmarcSettingsAsync(final PutInboundDmarcSettingsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutInboundDmarcSettingsRequest, PutInboundDmarcSettingsResult> asyncHandler) {
+        final PutInboundDmarcSettingsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutInboundDmarcSettingsResult>() {
+            @Override
+            public PutInboundDmarcSettingsResult call() throws Exception {
+                PutInboundDmarcSettingsResult result = null;
+
+                try {
+                    result = executePutInboundDmarcSettings(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<PutMailboxPermissionsResult> putMailboxPermissionsAsync(PutMailboxPermissionsRequest request) {
 
         return putMailboxPermissionsAsync(request, null);
@@ -1015,6 +2297,106 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
 
                 try {
                     result = executePutMailboxPermissions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutMobileDeviceAccessOverrideResult> putMobileDeviceAccessOverrideAsync(PutMobileDeviceAccessOverrideRequest request) {
+
+        return putMobileDeviceAccessOverrideAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutMobileDeviceAccessOverrideResult> putMobileDeviceAccessOverrideAsync(
+            final PutMobileDeviceAccessOverrideRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutMobileDeviceAccessOverrideRequest, PutMobileDeviceAccessOverrideResult> asyncHandler) {
+        final PutMobileDeviceAccessOverrideRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutMobileDeviceAccessOverrideResult>() {
+            @Override
+            public PutMobileDeviceAccessOverrideResult call() throws Exception {
+                PutMobileDeviceAccessOverrideResult result = null;
+
+                try {
+                    result = executePutMobileDeviceAccessOverride(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutRetentionPolicyResult> putRetentionPolicyAsync(PutRetentionPolicyRequest request) {
+
+        return putRetentionPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutRetentionPolicyResult> putRetentionPolicyAsync(final PutRetentionPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutRetentionPolicyRequest, PutRetentionPolicyResult> asyncHandler) {
+        final PutRetentionPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutRetentionPolicyResult>() {
+            @Override
+            public PutRetentionPolicyResult call() throws Exception {
+                PutRetentionPolicyResult result = null;
+
+                try {
+                    result = executePutRetentionPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterMailDomainResult> registerMailDomainAsync(RegisterMailDomainRequest request) {
+
+        return registerMailDomainAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterMailDomainResult> registerMailDomainAsync(final RegisterMailDomainRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RegisterMailDomainRequest, RegisterMailDomainResult> asyncHandler) {
+        final RegisterMailDomainRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RegisterMailDomainResult>() {
+            @Override
+            public RegisterMailDomainResult call() throws Exception {
+                RegisterMailDomainResult result = null;
+
+                try {
+                    result = executeRegisterMailDomain(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1097,6 +2479,273 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<StartMailboxExportJobResult> startMailboxExportJobAsync(StartMailboxExportJobRequest request) {
+
+        return startMailboxExportJobAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartMailboxExportJobResult> startMailboxExportJobAsync(final StartMailboxExportJobRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartMailboxExportJobRequest, StartMailboxExportJobResult> asyncHandler) {
+        final StartMailboxExportJobRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartMailboxExportJobResult>() {
+            @Override
+            public StartMailboxExportJobResult call() throws Exception {
+                StartMailboxExportJobResult result = null;
+
+                try {
+                    result = executeStartMailboxExportJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TestAvailabilityConfigurationResult> testAvailabilityConfigurationAsync(TestAvailabilityConfigurationRequest request) {
+
+        return testAvailabilityConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TestAvailabilityConfigurationResult> testAvailabilityConfigurationAsync(
+            final TestAvailabilityConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TestAvailabilityConfigurationRequest, TestAvailabilityConfigurationResult> asyncHandler) {
+        final TestAvailabilityConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TestAvailabilityConfigurationResult>() {
+            @Override
+            public TestAvailabilityConfigurationResult call() throws Exception {
+                TestAvailabilityConfigurationResult result = null;
+
+                try {
+                    result = executeTestAvailabilityConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAvailabilityConfigurationResult> updateAvailabilityConfigurationAsync(
+            UpdateAvailabilityConfigurationRequest request) {
+
+        return updateAvailabilityConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAvailabilityConfigurationResult> updateAvailabilityConfigurationAsync(
+            final UpdateAvailabilityConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateAvailabilityConfigurationRequest, UpdateAvailabilityConfigurationResult> asyncHandler) {
+        final UpdateAvailabilityConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateAvailabilityConfigurationResult>() {
+            @Override
+            public UpdateAvailabilityConfigurationResult call() throws Exception {
+                UpdateAvailabilityConfigurationResult result = null;
+
+                try {
+                    result = executeUpdateAvailabilityConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDefaultMailDomainResult> updateDefaultMailDomainAsync(UpdateDefaultMailDomainRequest request) {
+
+        return updateDefaultMailDomainAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDefaultMailDomainResult> updateDefaultMailDomainAsync(final UpdateDefaultMailDomainRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateDefaultMailDomainRequest, UpdateDefaultMailDomainResult> asyncHandler) {
+        final UpdateDefaultMailDomainRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateDefaultMailDomainResult>() {
+            @Override
+            public UpdateDefaultMailDomainResult call() throws Exception {
+                UpdateDefaultMailDomainResult result = null;
+
+                try {
+                    result = executeUpdateDefaultMailDomain(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateGroupResult> updateGroupAsync(UpdateGroupRequest request) {
+
+        return updateGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateGroupResult> updateGroupAsync(final UpdateGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateGroupRequest, UpdateGroupResult> asyncHandler) {
+        final UpdateGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateGroupResult>() {
+            @Override
+            public UpdateGroupResult call() throws Exception {
+                UpdateGroupResult result = null;
+
+                try {
+                    result = executeUpdateGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateImpersonationRoleResult> updateImpersonationRoleAsync(UpdateImpersonationRoleRequest request) {
+
+        return updateImpersonationRoleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateImpersonationRoleResult> updateImpersonationRoleAsync(final UpdateImpersonationRoleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateImpersonationRoleRequest, UpdateImpersonationRoleResult> asyncHandler) {
+        final UpdateImpersonationRoleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateImpersonationRoleResult>() {
+            @Override
+            public UpdateImpersonationRoleResult call() throws Exception {
+                UpdateImpersonationRoleResult result = null;
+
+                try {
+                    result = executeUpdateImpersonationRole(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateMailboxQuotaResult> updateMailboxQuotaAsync(UpdateMailboxQuotaRequest request) {
 
         return updateMailboxQuotaAsync(request, null);
@@ -1114,6 +2763,39 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
 
                 try {
                     result = executeUpdateMailboxQuota(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMobileDeviceAccessRuleResult> updateMobileDeviceAccessRuleAsync(UpdateMobileDeviceAccessRuleRequest request) {
+
+        return updateMobileDeviceAccessRuleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMobileDeviceAccessRuleResult> updateMobileDeviceAccessRuleAsync(final UpdateMobileDeviceAccessRuleRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateMobileDeviceAccessRuleRequest, UpdateMobileDeviceAccessRuleResult> asyncHandler) {
+        final UpdateMobileDeviceAccessRuleRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateMobileDeviceAccessRuleResult>() {
+            @Override
+            public UpdateMobileDeviceAccessRuleResult call() throws Exception {
+                UpdateMobileDeviceAccessRuleResult result = null;
+
+                try {
+                    result = executeUpdateMobileDeviceAccessRule(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1180,6 +2862,39 @@ public class AmazonWorkMailAsyncClient extends AmazonWorkMailClient implements A
 
                 try {
                     result = executeUpdateResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateUserResult> updateUserAsync(UpdateUserRequest request) {
+
+        return updateUserAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateUserResult> updateUserAsync(final UpdateUserRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateUserRequest, UpdateUserResult> asyncHandler) {
+        final UpdateUserRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateUserResult>() {
+            @Override
+            public UpdateUserResult call() throws Exception {
+                UpdateUserResult result = null;
+
+                try {
+                    result = executeUpdateUser(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,11 +40,23 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
     private String destination;
     /**
      * The type of key used for the encryption. If no keyType is provided, the service will use the default setting
-     * (static-key).
+     * (static-key). Allowable encryption types: static-key.
      */
     private Encryption encryption;
-    /** The maximum latency in milliseconds for Zixi-based streams. */
+    /**
+     * The maximum latency in milliseconds. This parameter applies only to RIST-based, Zixi-based, and Fujitsu-based
+     * streams.
+     */
     private Integer maxLatency;
+    /** The media streams that are associated with the output, and the parameters for those associations. */
+    private java.util.List<MediaStreamOutputConfigurationRequest> mediaStreamOutputConfigurations;
+    /**
+     * The minimum latency in milliseconds for SRT-based streams. In streams that use the SRT protocol, this value that
+     * you set on your MediaConnect source or output represents the minimal potential latency of that connection. The
+     * latency of the stream is set to the highest number between the sender’s minimum latency and the receiver’s minimum
+     * latency.
+     */
+    private Integer minLatency;
     /** The name of the output. This value must be unique within the current flow. */
     private String name;
     /** The port to use when content is distributed to this output. */
@@ -53,10 +65,22 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
     private String protocol;
     /** The remote ID for the Zixi-pull output stream. */
     private String remoteId;
-    /** The smoothing latency in milliseconds for RTP and RTP-FEC streams. */
+    /** The port that the flow uses to send outbound requests to initiate connection with the sender. */
+    private Integer senderControlPort;
+    /** The smoothing latency in milliseconds for RIST, RTP, and RTP-FEC streams. */
     private Integer smoothingLatency;
-    /** The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams. */
+    /**
+     * The stream ID that you want to use for this transport. This parameter applies only to Zixi and SRT caller-based
+     * streams.
+     */
     private String streamId;
+    /** The name of the VPC interface attachment to use for this output. */
+    private VpcInterfaceAttachment vpcInterfaceAttachment;
+    /**
+     * An indication of whether the new output should be enabled or disabled as soon as it is created. If you don't
+     * specify the outputStatus field in your request, MediaConnect sets it to ENABLED.
+     */
+    private String outputStatus;
 
     /**
      * The range of IP addresses that should be allowed to initiate output requests to this flow. These IP addresses
@@ -208,11 +232,11 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * The type of key used for the encryption. If no keyType is provided, the service will use the default setting
-     * (static-key).
+     * (static-key). Allowable encryption types: static-key.
      * 
      * @param encryption
      *        The type of key used for the encryption. If no keyType is provided, the service will use the default
-     *        setting (static-key).
+     *        setting (static-key). Allowable encryption types: static-key.
      */
 
     public void setEncryption(Encryption encryption) {
@@ -221,10 +245,10 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * The type of key used for the encryption. If no keyType is provided, the service will use the default setting
-     * (static-key).
+     * (static-key). Allowable encryption types: static-key.
      * 
      * @return The type of key used for the encryption. If no keyType is provided, the service will use the default
-     *         setting (static-key).
+     *         setting (static-key). Allowable encryption types: static-key.
      */
 
     public Encryption getEncryption() {
@@ -233,11 +257,11 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * The type of key used for the encryption. If no keyType is provided, the service will use the default setting
-     * (static-key).
+     * (static-key). Allowable encryption types: static-key.
      * 
      * @param encryption
      *        The type of key used for the encryption. If no keyType is provided, the service will use the default
-     *        setting (static-key).
+     *        setting (static-key). Allowable encryption types: static-key.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -247,10 +271,12 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * The maximum latency in milliseconds for Zixi-based streams.
+     * The maximum latency in milliseconds. This parameter applies only to RIST-based, Zixi-based, and Fujitsu-based
+     * streams.
      * 
      * @param maxLatency
-     *        The maximum latency in milliseconds for Zixi-based streams.
+     *        The maximum latency in milliseconds. This parameter applies only to RIST-based, Zixi-based, and
+     *        Fujitsu-based streams.
      */
 
     public void setMaxLatency(Integer maxLatency) {
@@ -258,9 +284,11 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * The maximum latency in milliseconds for Zixi-based streams.
+     * The maximum latency in milliseconds. This parameter applies only to RIST-based, Zixi-based, and Fujitsu-based
+     * streams.
      * 
-     * @return The maximum latency in milliseconds for Zixi-based streams.
+     * @return The maximum latency in milliseconds. This parameter applies only to RIST-based, Zixi-based, and
+     *         Fujitsu-based streams.
      */
 
     public Integer getMaxLatency() {
@@ -268,15 +296,131 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * The maximum latency in milliseconds for Zixi-based streams.
+     * The maximum latency in milliseconds. This parameter applies only to RIST-based, Zixi-based, and Fujitsu-based
+     * streams.
      * 
      * @param maxLatency
-     *        The maximum latency in milliseconds for Zixi-based streams.
+     *        The maximum latency in milliseconds. This parameter applies only to RIST-based, Zixi-based, and
+     *        Fujitsu-based streams.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public AddOutputRequest withMaxLatency(Integer maxLatency) {
         setMaxLatency(maxLatency);
+        return this;
+    }
+
+    /**
+     * The media streams that are associated with the output, and the parameters for those associations.
+     * 
+     * @return The media streams that are associated with the output, and the parameters for those associations.
+     */
+
+    public java.util.List<MediaStreamOutputConfigurationRequest> getMediaStreamOutputConfigurations() {
+        return mediaStreamOutputConfigurations;
+    }
+
+    /**
+     * The media streams that are associated with the output, and the parameters for those associations.
+     * 
+     * @param mediaStreamOutputConfigurations
+     *        The media streams that are associated with the output, and the parameters for those associations.
+     */
+
+    public void setMediaStreamOutputConfigurations(java.util.Collection<MediaStreamOutputConfigurationRequest> mediaStreamOutputConfigurations) {
+        if (mediaStreamOutputConfigurations == null) {
+            this.mediaStreamOutputConfigurations = null;
+            return;
+        }
+
+        this.mediaStreamOutputConfigurations = new java.util.ArrayList<MediaStreamOutputConfigurationRequest>(mediaStreamOutputConfigurations);
+    }
+
+    /**
+     * The media streams that are associated with the output, and the parameters for those associations.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setMediaStreamOutputConfigurations(java.util.Collection)} or
+     * {@link #withMediaStreamOutputConfigurations(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param mediaStreamOutputConfigurations
+     *        The media streams that are associated with the output, and the parameters for those associations.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AddOutputRequest withMediaStreamOutputConfigurations(MediaStreamOutputConfigurationRequest... mediaStreamOutputConfigurations) {
+        if (this.mediaStreamOutputConfigurations == null) {
+            setMediaStreamOutputConfigurations(new java.util.ArrayList<MediaStreamOutputConfigurationRequest>(mediaStreamOutputConfigurations.length));
+        }
+        for (MediaStreamOutputConfigurationRequest ele : mediaStreamOutputConfigurations) {
+            this.mediaStreamOutputConfigurations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * The media streams that are associated with the output, and the parameters for those associations.
+     * 
+     * @param mediaStreamOutputConfigurations
+     *        The media streams that are associated with the output, and the parameters for those associations.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AddOutputRequest withMediaStreamOutputConfigurations(java.util.Collection<MediaStreamOutputConfigurationRequest> mediaStreamOutputConfigurations) {
+        setMediaStreamOutputConfigurations(mediaStreamOutputConfigurations);
+        return this;
+    }
+
+    /**
+     * The minimum latency in milliseconds for SRT-based streams. In streams that use the SRT protocol, this value that
+     * you set on your MediaConnect source or output represents the minimal potential latency of that connection. The
+     * latency of the stream is set to the highest number between the sender’s minimum latency and the receiver’s minimum
+     * latency.
+     * 
+     * @param minLatency
+     *        The minimum latency in milliseconds for SRT-based streams. In streams that use the SRT protocol, this
+     *        value that you set on your MediaConnect source or output represents the minimal potential latency of that
+     *        connection. The latency of the stream is set to the highest number between the sender’s minimum latency
+     *        and the receiver’s minimum latency.
+     */
+
+    public void setMinLatency(Integer minLatency) {
+        this.minLatency = minLatency;
+    }
+
+    /**
+     * The minimum latency in milliseconds for SRT-based streams. In streams that use the SRT protocol, this value that
+     * you set on your MediaConnect source or output represents the minimal potential latency of that connection. The
+     * latency of the stream is set to the highest number between the sender’s minimum latency and the receiver’s minimum
+     * latency.
+     * 
+     * @return The minimum latency in milliseconds for SRT-based streams. In streams that use the SRT protocol, this
+     *         value that you set on your MediaConnect source or output represents the minimal potential latency of that
+     *         connection. The latency of the stream is set to the highest number between the sender’s minimum latency
+     *         and the receiver’s minimum latency.
+     */
+
+    public Integer getMinLatency() {
+        return this.minLatency;
+    }
+
+    /**
+     * The minimum latency in milliseconds for SRT-based streams. In streams that use the SRT protocol, this value that
+     * you set on your MediaConnect source or output represents the minimal potential latency of that connection. The
+     * latency of the stream is set to the highest number between the sender’s minimum latency and the receiver’s minimum
+     * latency.
+     * 
+     * @param minLatency
+     *        The minimum latency in milliseconds for SRT-based streams. In streams that use the SRT protocol, this
+     *        value that you set on your MediaConnect source or output represents the minimal potential latency of that
+     *        connection. The latency of the stream is set to the highest number between the sender’s minimum latency
+     *        and the receiver’s minimum latency.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AddOutputRequest withMinLatency(Integer minLatency) {
+        setMinLatency(minLatency);
         return this;
     }
 
@@ -434,10 +578,44 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * The smoothing latency in milliseconds for RTP and RTP-FEC streams.
+     * The port that the flow uses to send outbound requests to initiate connection with the sender.
+     * 
+     * @param senderControlPort
+     *        The port that the flow uses to send outbound requests to initiate connection with the sender.
+     */
+
+    public void setSenderControlPort(Integer senderControlPort) {
+        this.senderControlPort = senderControlPort;
+    }
+
+    /**
+     * The port that the flow uses to send outbound requests to initiate connection with the sender.
+     * 
+     * @return The port that the flow uses to send outbound requests to initiate connection with the sender.
+     */
+
+    public Integer getSenderControlPort() {
+        return this.senderControlPort;
+    }
+
+    /**
+     * The port that the flow uses to send outbound requests to initiate connection with the sender.
+     * 
+     * @param senderControlPort
+     *        The port that the flow uses to send outbound requests to initiate connection with the sender.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AddOutputRequest withSenderControlPort(Integer senderControlPort) {
+        setSenderControlPort(senderControlPort);
+        return this;
+    }
+
+    /**
+     * The smoothing latency in milliseconds for RIST, RTP, and RTP-FEC streams.
      * 
      * @param smoothingLatency
-     *        The smoothing latency in milliseconds for RTP and RTP-FEC streams.
+     *        The smoothing latency in milliseconds for RIST, RTP, and RTP-FEC streams.
      */
 
     public void setSmoothingLatency(Integer smoothingLatency) {
@@ -445,9 +623,9 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * The smoothing latency in milliseconds for RTP and RTP-FEC streams.
+     * The smoothing latency in milliseconds for RIST, RTP, and RTP-FEC streams.
      * 
-     * @return The smoothing latency in milliseconds for RTP and RTP-FEC streams.
+     * @return The smoothing latency in milliseconds for RIST, RTP, and RTP-FEC streams.
      */
 
     public Integer getSmoothingLatency() {
@@ -455,10 +633,10 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * The smoothing latency in milliseconds for RTP and RTP-FEC streams.
+     * The smoothing latency in milliseconds for RIST, RTP, and RTP-FEC streams.
      * 
      * @param smoothingLatency
-     *        The smoothing latency in milliseconds for RTP and RTP-FEC streams.
+     *        The smoothing latency in milliseconds for RIST, RTP, and RTP-FEC streams.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -468,10 +646,12 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams.
+     * The stream ID that you want to use for this transport. This parameter applies only to Zixi and SRT caller-based
+     * streams.
      * 
      * @param streamId
-     *        The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams.
+     *        The stream ID that you want to use for this transport. This parameter applies only to Zixi and SRT
+     *        caller-based streams.
      */
 
     public void setStreamId(String streamId) {
@@ -479,9 +659,11 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams.
+     * The stream ID that you want to use for this transport. This parameter applies only to Zixi and SRT caller-based
+     * streams.
      * 
-     * @return The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams.
+     * @return The stream ID that you want to use for this transport. This parameter applies only to Zixi and SRT
+     *         caller-based streams.
      */
 
     public String getStreamId() {
@@ -489,15 +671,110 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams.
+     * The stream ID that you want to use for this transport. This parameter applies only to Zixi and SRT caller-based
+     * streams.
      * 
      * @param streamId
-     *        The stream ID that you want to use for this transport. This parameter applies only to Zixi-based streams.
+     *        The stream ID that you want to use for this transport. This parameter applies only to Zixi and SRT
+     *        caller-based streams.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public AddOutputRequest withStreamId(String streamId) {
         setStreamId(streamId);
+        return this;
+    }
+
+    /**
+     * The name of the VPC interface attachment to use for this output.
+     * 
+     * @param vpcInterfaceAttachment
+     *        The name of the VPC interface attachment to use for this output.
+     */
+
+    public void setVpcInterfaceAttachment(VpcInterfaceAttachment vpcInterfaceAttachment) {
+        this.vpcInterfaceAttachment = vpcInterfaceAttachment;
+    }
+
+    /**
+     * The name of the VPC interface attachment to use for this output.
+     * 
+     * @return The name of the VPC interface attachment to use for this output.
+     */
+
+    public VpcInterfaceAttachment getVpcInterfaceAttachment() {
+        return this.vpcInterfaceAttachment;
+    }
+
+    /**
+     * The name of the VPC interface attachment to use for this output.
+     * 
+     * @param vpcInterfaceAttachment
+     *        The name of the VPC interface attachment to use for this output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AddOutputRequest withVpcInterfaceAttachment(VpcInterfaceAttachment vpcInterfaceAttachment) {
+        setVpcInterfaceAttachment(vpcInterfaceAttachment);
+        return this;
+    }
+
+    /**
+     * An indication of whether the new output should be enabled or disabled as soon as it is created. If you don't
+     * specify the outputStatus field in your request, MediaConnect sets it to ENABLED.
+     * 
+     * @param outputStatus
+     *        An indication of whether the new output should be enabled or disabled as soon as it is created. If you
+     *        don't specify the outputStatus field in your request, MediaConnect sets it to ENABLED.
+     * @see OutputStatus
+     */
+
+    public void setOutputStatus(String outputStatus) {
+        this.outputStatus = outputStatus;
+    }
+
+    /**
+     * An indication of whether the new output should be enabled or disabled as soon as it is created. If you don't
+     * specify the outputStatus field in your request, MediaConnect sets it to ENABLED.
+     * 
+     * @return An indication of whether the new output should be enabled or disabled as soon as it is created. If you
+     *         don't specify the outputStatus field in your request, MediaConnect sets it to ENABLED.
+     * @see OutputStatus
+     */
+
+    public String getOutputStatus() {
+        return this.outputStatus;
+    }
+
+    /**
+     * An indication of whether the new output should be enabled or disabled as soon as it is created. If you don't
+     * specify the outputStatus field in your request, MediaConnect sets it to ENABLED.
+     * 
+     * @param outputStatus
+     *        An indication of whether the new output should be enabled or disabled as soon as it is created. If you
+     *        don't specify the outputStatus field in your request, MediaConnect sets it to ENABLED.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see OutputStatus
+     */
+
+    public AddOutputRequest withOutputStatus(String outputStatus) {
+        setOutputStatus(outputStatus);
+        return this;
+    }
+
+    /**
+     * An indication of whether the new output should be enabled or disabled as soon as it is created. If you don't
+     * specify the outputStatus field in your request, MediaConnect sets it to ENABLED.
+     * 
+     * @param outputStatus
+     *        An indication of whether the new output should be enabled or disabled as soon as it is created. If you
+     *        don't specify the outputStatus field in your request, MediaConnect sets it to ENABLED.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see OutputStatus
+     */
+
+    public AddOutputRequest withOutputStatus(OutputStatus outputStatus) {
+        this.outputStatus = outputStatus.toString();
         return this;
     }
 
@@ -523,6 +800,10 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
             sb.append("Encryption: ").append(getEncryption()).append(",");
         if (getMaxLatency() != null)
             sb.append("MaxLatency: ").append(getMaxLatency()).append(",");
+        if (getMediaStreamOutputConfigurations() != null)
+            sb.append("MediaStreamOutputConfigurations: ").append(getMediaStreamOutputConfigurations()).append(",");
+        if (getMinLatency() != null)
+            sb.append("MinLatency: ").append(getMinLatency()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getPort() != null)
@@ -531,10 +812,16 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
             sb.append("Protocol: ").append(getProtocol()).append(",");
         if (getRemoteId() != null)
             sb.append("RemoteId: ").append(getRemoteId()).append(",");
+        if (getSenderControlPort() != null)
+            sb.append("SenderControlPort: ").append(getSenderControlPort()).append(",");
         if (getSmoothingLatency() != null)
             sb.append("SmoothingLatency: ").append(getSmoothingLatency()).append(",");
         if (getStreamId() != null)
-            sb.append("StreamId: ").append(getStreamId());
+            sb.append("StreamId: ").append(getStreamId()).append(",");
+        if (getVpcInterfaceAttachment() != null)
+            sb.append("VpcInterfaceAttachment: ").append(getVpcInterfaceAttachment()).append(",");
+        if (getOutputStatus() != null)
+            sb.append("OutputStatus: ").append(getOutputStatus());
         sb.append("}");
         return sb.toString();
     }
@@ -569,6 +856,15 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getMaxLatency() != null && other.getMaxLatency().equals(this.getMaxLatency()) == false)
             return false;
+        if (other.getMediaStreamOutputConfigurations() == null ^ this.getMediaStreamOutputConfigurations() == null)
+            return false;
+        if (other.getMediaStreamOutputConfigurations() != null
+                && other.getMediaStreamOutputConfigurations().equals(this.getMediaStreamOutputConfigurations()) == false)
+            return false;
+        if (other.getMinLatency() == null ^ this.getMinLatency() == null)
+            return false;
+        if (other.getMinLatency() != null && other.getMinLatency().equals(this.getMinLatency()) == false)
+            return false;
         if (other.getName() == null ^ this.getName() == null)
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
@@ -585,6 +881,10 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getRemoteId() != null && other.getRemoteId().equals(this.getRemoteId()) == false)
             return false;
+        if (other.getSenderControlPort() == null ^ this.getSenderControlPort() == null)
+            return false;
+        if (other.getSenderControlPort() != null && other.getSenderControlPort().equals(this.getSenderControlPort()) == false)
+            return false;
         if (other.getSmoothingLatency() == null ^ this.getSmoothingLatency() == null)
             return false;
         if (other.getSmoothingLatency() != null && other.getSmoothingLatency().equals(this.getSmoothingLatency()) == false)
@@ -592,6 +892,14 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
         if (other.getStreamId() == null ^ this.getStreamId() == null)
             return false;
         if (other.getStreamId() != null && other.getStreamId().equals(this.getStreamId()) == false)
+            return false;
+        if (other.getVpcInterfaceAttachment() == null ^ this.getVpcInterfaceAttachment() == null)
+            return false;
+        if (other.getVpcInterfaceAttachment() != null && other.getVpcInterfaceAttachment().equals(this.getVpcInterfaceAttachment()) == false)
+            return false;
+        if (other.getOutputStatus() == null ^ this.getOutputStatus() == null)
+            return false;
+        if (other.getOutputStatus() != null && other.getOutputStatus().equals(this.getOutputStatus()) == false)
             return false;
         return true;
     }
@@ -606,12 +914,17 @@ public class AddOutputRequest implements Serializable, Cloneable, StructuredPojo
         hashCode = prime * hashCode + ((getDestination() == null) ? 0 : getDestination().hashCode());
         hashCode = prime * hashCode + ((getEncryption() == null) ? 0 : getEncryption().hashCode());
         hashCode = prime * hashCode + ((getMaxLatency() == null) ? 0 : getMaxLatency().hashCode());
+        hashCode = prime * hashCode + ((getMediaStreamOutputConfigurations() == null) ? 0 : getMediaStreamOutputConfigurations().hashCode());
+        hashCode = prime * hashCode + ((getMinLatency() == null) ? 0 : getMinLatency().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getPort() == null) ? 0 : getPort().hashCode());
         hashCode = prime * hashCode + ((getProtocol() == null) ? 0 : getProtocol().hashCode());
         hashCode = prime * hashCode + ((getRemoteId() == null) ? 0 : getRemoteId().hashCode());
+        hashCode = prime * hashCode + ((getSenderControlPort() == null) ? 0 : getSenderControlPort().hashCode());
         hashCode = prime * hashCode + ((getSmoothingLatency() == null) ? 0 : getSmoothingLatency().hashCode());
         hashCode = prime * hashCode + ((getStreamId() == null) ? 0 : getStreamId().hashCode());
+        hashCode = prime * hashCode + ((getVpcInterfaceAttachment() == null) ? 0 : getVpcInterfaceAttachment().hashCode());
+        hashCode = prime * hashCode + ((getOutputStatus() == null) ? 0 : getOutputStatus().hashCode());
         return hashCode;
     }
 

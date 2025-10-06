@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,8 +52,7 @@ public class SnapshotTaskDetail implements Serializable, Cloneable {
     private String format;
     /**
      * <p>
-     * The identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to create the
-     * encrypted snapshot.
+     * The identifier for the KMS key that was used to create the encrypted snapshot.
      * </p>
      */
     private String kmsKeyId;
@@ -89,7 +88,7 @@ public class SnapshotTaskDetail implements Serializable, Cloneable {
     private String url;
     /**
      * <p>
-     * The S3 bucket for the disk image.
+     * The Amazon S3 bucket for the disk image.
      * </p>
      */
     private UserBucketDetails userBucket;
@@ -268,13 +267,11 @@ public class SnapshotTaskDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to create the
-     * encrypted snapshot.
+     * The identifier for the KMS key that was used to create the encrypted snapshot.
      * </p>
      * 
      * @param kmsKeyId
-     *        The identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to
-     *        create the encrypted snapshot.
+     *        The identifier for the KMS key that was used to create the encrypted snapshot.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -283,12 +280,10 @@ public class SnapshotTaskDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to create the
-     * encrypted snapshot.
+     * The identifier for the KMS key that was used to create the encrypted snapshot.
      * </p>
      * 
-     * @return The identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to
-     *         create the encrypted snapshot.
+     * @return The identifier for the KMS key that was used to create the encrypted snapshot.
      */
 
     public String getKmsKeyId() {
@@ -297,13 +292,11 @@ public class SnapshotTaskDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to create the
-     * encrypted snapshot.
+     * The identifier for the KMS key that was used to create the encrypted snapshot.
      * </p>
      * 
      * @param kmsKeyId
-     *        The identifier for the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to
-     *        create the encrypted snapshot.
+     *        The identifier for the KMS key that was used to create the encrypted snapshot.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -514,11 +507,11 @@ public class SnapshotTaskDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The S3 bucket for the disk image.
+     * The Amazon S3 bucket for the disk image.
      * </p>
      * 
      * @param userBucket
-     *        The S3 bucket for the disk image.
+     *        The Amazon S3 bucket for the disk image.
      */
 
     public void setUserBucket(UserBucketDetails userBucket) {
@@ -527,10 +520,10 @@ public class SnapshotTaskDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The S3 bucket for the disk image.
+     * The Amazon S3 bucket for the disk image.
      * </p>
      * 
-     * @return The S3 bucket for the disk image.
+     * @return The Amazon S3 bucket for the disk image.
      */
 
     public UserBucketDetails getUserBucket() {
@@ -539,11 +532,11 @@ public class SnapshotTaskDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The S3 bucket for the disk image.
+     * The Amazon S3 bucket for the disk image.
      * </p>
      * 
      * @param userBucket
-     *        The S3 bucket for the disk image.
+     *        The Amazon S3 bucket for the disk image.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -583,7 +576,7 @@ public class SnapshotTaskDetail implements Serializable, Cloneable {
         if (getStatusMessage() != null)
             sb.append("StatusMessage: ").append(getStatusMessage()).append(",");
         if (getUrl() != null)
-            sb.append("Url: ").append(getUrl()).append(",");
+            sb.append("Url: ").append("***Sensitive Data Redacted***").append(",");
         if (getUserBucket() != null)
             sb.append("UserBucket: ").append(getUserBucket());
         sb.append("}");

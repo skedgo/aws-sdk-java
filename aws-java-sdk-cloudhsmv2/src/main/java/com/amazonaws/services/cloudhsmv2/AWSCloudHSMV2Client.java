@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.cloudhsmv2.AWSCloudHSMV2ClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.cloudhsmv2.model.*;
+
 import com.amazonaws.services.cloudhsmv2.model.transform.*;
 
 /**
@@ -51,8 +52,8 @@ import com.amazonaws.services.cloudhsmv2.model.transform.*;
  * the service call completes.
  * <p>
  * <p>
- * For more information about AWS CloudHSM, see <a href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a> and the <a
- * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>.
+ * For more information about CloudHSM, see <a href="http://aws.amazon.com/cloudhsm/">CloudHSM</a> and the <a
+ * href="https://docs.aws.amazon.com/cloudhsm/latest/userguide/"> CloudHSM User Guide</a>.
  * </p>
  */
 @ThreadSafe
@@ -78,20 +79,23 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CloudHsmInternalFailureException").withModeledClass(
-                                    com.amazonaws.services.cloudhsmv2.model.CloudHsmInternalFailureException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CloudHsmInternalFailureException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cloudhsmv2.model.transform.CloudHsmInternalFailureExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CloudHsmServiceException").withModeledClass(
-                                    com.amazonaws.services.cloudhsmv2.model.CloudHsmServiceException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CloudHsmTagException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cloudhsmv2.model.transform.CloudHsmTagExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CloudHsmAccessDeniedException").withModeledClass(
-                                    com.amazonaws.services.cloudhsmv2.model.CloudHsmAccessDeniedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CloudHsmServiceException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cloudhsmv2.model.transform.CloudHsmServiceExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CloudHsmResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.cloudhsmv2.model.CloudHsmResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CloudHsmAccessDeniedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cloudhsmv2.model.transform.CloudHsmAccessDeniedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CloudHsmInvalidRequestException").withModeledClass(
-                                    com.amazonaws.services.cloudhsmv2.model.CloudHsmInvalidRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CloudHsmResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cloudhsmv2.model.transform.CloudHsmResourceNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("CloudHsmInvalidRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.cloudhsmv2.model.transform.CloudHsmInvalidRequestExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.cloudhsmv2.model.AWSCloudHSMV2Exception.class));
 
     public static AWSCloudHSMV2ClientBuilder builder() {
@@ -142,22 +146,29 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
 
     /**
      * <p>
-     * Copy an AWS CloudHSM cluster backup to a different region.
+     * Copy an CloudHSM cluster backup to a different region.
+     * </p>
+     * <p>
+     * <b>Cross-account use:</b> No. You cannot perform this operation on an CloudHSM backup in a different Amazon Web
+     * Services account.
      * </p>
      * 
      * @param copyBackupToRegionRequest
      * @return Result of the CopyBackupToRegion operation returned by the service.
-     * @throws CloudHsmInternalFailureException
-     *         The request was rejected because of an AWS CloudHSM internal failure. The request can be retried.
-     * @throws CloudHsmServiceException
-     *         The request was rejected because an error occurred.
-     * @throws CloudHsmResourceNotFoundException
-     *         The request was rejected because it refers to a resource that cannot be found.
-     * @throws CloudHsmInvalidRequestException
-     *         The request was rejected because it is not a valid request.
      * @throws CloudHsmAccessDeniedException
      *         The request was rejected because the requester does not have permission to perform the requested
      *         operation.
+     * @throws CloudHsmInternalFailureException
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
+     * @throws CloudHsmInvalidRequestException
+     *         The request was rejected because it is not a valid request.
+     * @throws CloudHsmResourceNotFoundException
+     *         The request was rejected because it refers to a resource that cannot be found.
+     * @throws CloudHsmServiceException
+     *         The request was rejected because an error occurred.
+     * @throws CloudHsmTagException
+     *         The request was rejected because of a tagging failure. Verify the tag conditions in all applicable
+     *         policies, and then retry the request.
      * @sample AWSCloudHSMV2.CopyBackupToRegion
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/CopyBackupToRegion" target="_top">AWS
      *      API Documentation</a>
@@ -183,6 +194,8 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
                 request = new CopyBackupToRegionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(copyBackupToRegionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CopyBackupToRegion");
@@ -206,22 +219,29 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
 
     /**
      * <p>
-     * Creates a new AWS CloudHSM cluster.
+     * Creates a new CloudHSM cluster.
+     * </p>
+     * <p>
+     * <b>Cross-account use:</b> Yes. To perform this operation with an CloudHSM backup in a different AWS account,
+     * specify the full backup ARN in the value of the SourceBackupId parameter.
      * </p>
      * 
      * @param createClusterRequest
      * @return Result of the CreateCluster operation returned by the service.
-     * @throws CloudHsmInternalFailureException
-     *         The request was rejected because of an AWS CloudHSM internal failure. The request can be retried.
-     * @throws CloudHsmServiceException
-     *         The request was rejected because an error occurred.
-     * @throws CloudHsmResourceNotFoundException
-     *         The request was rejected because it refers to a resource that cannot be found.
-     * @throws CloudHsmInvalidRequestException
-     *         The request was rejected because it is not a valid request.
      * @throws CloudHsmAccessDeniedException
      *         The request was rejected because the requester does not have permission to perform the requested
      *         operation.
+     * @throws CloudHsmInternalFailureException
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
+     * @throws CloudHsmInvalidRequestException
+     *         The request was rejected because it is not a valid request.
+     * @throws CloudHsmResourceNotFoundException
+     *         The request was rejected because it refers to a resource that cannot be found.
+     * @throws CloudHsmServiceException
+     *         The request was rejected because an error occurred.
+     * @throws CloudHsmTagException
+     *         The request was rejected because of a tagging failure. Verify the tag conditions in all applicable
+     *         policies, and then retry the request.
      * @sample AWSCloudHSMV2.CreateCluster
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/CreateCluster" target="_top">AWS API
      *      Documentation</a>
@@ -247,6 +267,8 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
                 request = new CreateClusterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCluster");
@@ -270,13 +292,17 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
 
     /**
      * <p>
-     * Creates a new hardware security module (HSM) in the specified AWS CloudHSM cluster.
+     * Creates a new hardware security module (HSM) in the specified CloudHSM cluster.
+     * </p>
+     * <p>
+     * <b>Cross-account use:</b> No. You cannot perform this operation on an CloudHSM cluster in a different Amazon Web
+     * Service account.
      * </p>
      * 
      * @param createHsmRequest
      * @return Result of the CreateHsm operation returned by the service.
      * @throws CloudHsmInternalFailureException
-     *         The request was rejected because of an AWS CloudHSM internal failure. The request can be retried.
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
      * @throws CloudHsmServiceException
      *         The request was rejected because an error occurred.
      * @throws CloudHsmInvalidRequestException
@@ -311,6 +337,8 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
                 request = new CreateHsmRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createHsmRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateHsm");
@@ -334,23 +362,27 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
 
     /**
      * <p>
-     * Deletes a specified AWS CloudHSM backup. A backup can be restored up to 7 days after the DeleteBackup request.
-     * For more information on restoring a backup, see <a>RestoreBackup</a>
+     * Deletes a specified CloudHSM backup. A backup can be restored up to 7 days after the DeleteBackup request is
+     * made. For more information on restoring a backup, see <a>RestoreBackup</a>.
+     * </p>
+     * <p>
+     * <b>Cross-account use:</b> No. You cannot perform this operation on an CloudHSM backup in a different Amazon Web
+     * Services account.
      * </p>
      * 
      * @param deleteBackupRequest
      * @return Result of the DeleteBackup operation returned by the service.
-     * @throws CloudHsmInternalFailureException
-     *         The request was rejected because of an AWS CloudHSM internal failure. The request can be retried.
-     * @throws CloudHsmServiceException
-     *         The request was rejected because an error occurred.
-     * @throws CloudHsmResourceNotFoundException
-     *         The request was rejected because it refers to a resource that cannot be found.
-     * @throws CloudHsmInvalidRequestException
-     *         The request was rejected because it is not a valid request.
      * @throws CloudHsmAccessDeniedException
      *         The request was rejected because the requester does not have permission to perform the requested
      *         operation.
+     * @throws CloudHsmInternalFailureException
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
+     * @throws CloudHsmInvalidRequestException
+     *         The request was rejected because it is not a valid request.
+     * @throws CloudHsmResourceNotFoundException
+     *         The request was rejected because it refers to a resource that cannot be found.
+     * @throws CloudHsmServiceException
+     *         The request was rejected because an error occurred.
      * @sample AWSCloudHSMV2.DeleteBackup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/DeleteBackup" target="_top">AWS API
      *      Documentation</a>
@@ -376,6 +408,8 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
                 request = new DeleteBackupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteBackupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteBackup");
@@ -399,24 +433,30 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
 
     /**
      * <p>
-     * Deletes the specified AWS CloudHSM cluster. Before you can delete a cluster, you must delete all HSMs in the
-     * cluster. To see if the cluster contains any HSMs, use <a>DescribeClusters</a>. To delete an HSM, use
-     * <a>DeleteHsm</a>.
+     * Deletes the specified CloudHSM cluster. Before you can delete a cluster, you must delete all HSMs in the cluster.
+     * To see if the cluster contains any HSMs, use <a>DescribeClusters</a>. To delete an HSM, use <a>DeleteHsm</a>.
+     * </p>
+     * <p>
+     * <b>Cross-account use:</b> No. You cannot perform this operation on an CloudHSM cluster in a different Amazon Web
+     * Services account.
      * </p>
      * 
      * @param deleteClusterRequest
      * @return Result of the DeleteCluster operation returned by the service.
-     * @throws CloudHsmInternalFailureException
-     *         The request was rejected because of an AWS CloudHSM internal failure. The request can be retried.
-     * @throws CloudHsmServiceException
-     *         The request was rejected because an error occurred.
-     * @throws CloudHsmResourceNotFoundException
-     *         The request was rejected because it refers to a resource that cannot be found.
-     * @throws CloudHsmInvalidRequestException
-     *         The request was rejected because it is not a valid request.
      * @throws CloudHsmAccessDeniedException
      *         The request was rejected because the requester does not have permission to perform the requested
      *         operation.
+     * @throws CloudHsmInternalFailureException
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
+     * @throws CloudHsmInvalidRequestException
+     *         The request was rejected because it is not a valid request.
+     * @throws CloudHsmResourceNotFoundException
+     *         The request was rejected because it refers to a resource that cannot be found.
+     * @throws CloudHsmServiceException
+     *         The request was rejected because an error occurred.
+     * @throws CloudHsmTagException
+     *         The request was rejected because of a tagging failure. Verify the tag conditions in all applicable
+     *         policies, and then retry the request.
      * @sample AWSCloudHSMV2.DeleteCluster
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/DeleteCluster" target="_top">AWS API
      *      Documentation</a>
@@ -442,6 +482,8 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
                 request = new DeleteClusterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCluster");
@@ -469,11 +511,15 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
      * elastic network interface (ENI), or the ID of the HSM's ENI. You need to specify only one of these values. To
      * find these values, use <a>DescribeClusters</a>.
      * </p>
+     * <p>
+     * <b>Cross-account use:</b> No. You cannot perform this operation on an CloudHSM hsm in a different Amazon Web
+     * Services account.
+     * </p>
      * 
      * @param deleteHsmRequest
      * @return Result of the DeleteHsm operation returned by the service.
      * @throws CloudHsmInternalFailureException
-     *         The request was rejected because of an AWS CloudHSM internal failure. The request can be retried.
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
      * @throws CloudHsmServiceException
      *         The request was rejected because an error occurred.
      * @throws CloudHsmResourceNotFoundException
@@ -508,6 +554,8 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
                 request = new DeleteHsmRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteHsmRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteHsm");
@@ -531,7 +579,80 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
 
     /**
      * <p>
-     * Gets information about backups of AWS CloudHSM clusters.
+     * Deletes an CloudHSM resource policy. Deleting a resource policy will result in the resource being unshared and
+     * removed from any RAM resource shares. Deleting the resource policy attached to a backup will not impact any
+     * clusters created from that backup.
+     * </p>
+     * <p>
+     * <b>Cross-account use:</b> No. You cannot perform this operation on an CloudHSM resource in a different Amazon Web
+     * Services account.
+     * </p>
+     * 
+     * @param deleteResourcePolicyRequest
+     * @return Result of the DeleteResourcePolicy operation returned by the service.
+     * @throws CloudHsmInternalFailureException
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
+     * @throws CloudHsmServiceException
+     *         The request was rejected because an error occurred.
+     * @throws CloudHsmInvalidRequestException
+     *         The request was rejected because it is not a valid request.
+     * @throws CloudHsmResourceNotFoundException
+     *         The request was rejected because it refers to a resource that cannot be found.
+     * @throws CloudHsmAccessDeniedException
+     *         The request was rejected because the requester does not have permission to perform the requested
+     *         operation.
+     * @sample AWSCloudHSMV2.DeleteResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/DeleteResourcePolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteResourcePolicyResult deleteResourcePolicy(DeleteResourcePolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteResourcePolicy(request);
+    }
+
+    @SdkInternalApi
+    final DeleteResourcePolicyResult executeDeleteResourcePolicy(DeleteResourcePolicyRequest deleteResourcePolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteResourcePolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteResourcePolicyRequest> request = null;
+        Response<DeleteResourcePolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteResourcePolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteResourcePolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteResourcePolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteResourcePolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteResourcePolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets information about backups of CloudHSM clusters. Lists either the backups you own or the backups shared with
+     * you when the Shared parameter is true.
      * </p>
      * <p>
      * This is a paginated operation, which means that each response might contain only a subset of all the backups.
@@ -539,20 +660,27 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
      * in a subsequent <code>DescribeBackups</code> request to get more backups. When you receive a response with no
      * <code>NextToken</code> (or an empty or null value), that means there are no more backups to get.
      * </p>
+     * <p>
+     * <b>Cross-account use:</b> Yes. Customers can describe backups in other Amazon Web Services accounts that are
+     * shared with them.
+     * </p>
      * 
      * @param describeBackupsRequest
      * @return Result of the DescribeBackups operation returned by the service.
-     * @throws CloudHsmInternalFailureException
-     *         The request was rejected because of an AWS CloudHSM internal failure. The request can be retried.
-     * @throws CloudHsmServiceException
-     *         The request was rejected because an error occurred.
-     * @throws CloudHsmResourceNotFoundException
-     *         The request was rejected because it refers to a resource that cannot be found.
-     * @throws CloudHsmInvalidRequestException
-     *         The request was rejected because it is not a valid request.
      * @throws CloudHsmAccessDeniedException
      *         The request was rejected because the requester does not have permission to perform the requested
      *         operation.
+     * @throws CloudHsmInternalFailureException
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
+     * @throws CloudHsmInvalidRequestException
+     *         The request was rejected because it is not a valid request.
+     * @throws CloudHsmResourceNotFoundException
+     *         The request was rejected because it refers to a resource that cannot be found.
+     * @throws CloudHsmServiceException
+     *         The request was rejected because an error occurred.
+     * @throws CloudHsmTagException
+     *         The request was rejected because of a tagging failure. Verify the tag conditions in all applicable
+     *         policies, and then retry the request.
      * @sample AWSCloudHSMV2.DescribeBackups
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/DescribeBackups" target="_top">AWS API
      *      Documentation</a>
@@ -578,6 +706,8 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
                 request = new DescribeBackupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeBackupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBackups");
@@ -601,7 +731,7 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
 
     /**
      * <p>
-     * Gets information about AWS CloudHSM clusters.
+     * Gets information about CloudHSM clusters.
      * </p>
      * <p>
      * This is a paginated operation, which means that each response might contain only a subset of all the clusters.
@@ -609,18 +739,25 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
      * in a subsequent <code>DescribeClusters</code> request to get more clusters. When you receive a response with no
      * <code>NextToken</code> (or an empty or null value), that means there are no more clusters to get.
      * </p>
+     * <p>
+     * <b>Cross-account use:</b> No. You cannot perform this operation on CloudHSM clusters in a different Amazon Web
+     * Services account.
+     * </p>
      * 
      * @param describeClustersRequest
      * @return Result of the DescribeClusters operation returned by the service.
-     * @throws CloudHsmInternalFailureException
-     *         The request was rejected because of an AWS CloudHSM internal failure. The request can be retried.
-     * @throws CloudHsmServiceException
-     *         The request was rejected because an error occurred.
-     * @throws CloudHsmInvalidRequestException
-     *         The request was rejected because it is not a valid request.
      * @throws CloudHsmAccessDeniedException
      *         The request was rejected because the requester does not have permission to perform the requested
      *         operation.
+     * @throws CloudHsmInternalFailureException
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
+     * @throws CloudHsmInvalidRequestException
+     *         The request was rejected because it is not a valid request.
+     * @throws CloudHsmServiceException
+     *         The request was rejected because an error occurred.
+     * @throws CloudHsmTagException
+     *         The request was rejected because of a tagging failure. Verify the tag conditions in all applicable
+     *         policies, and then retry the request.
      * @sample AWSCloudHSMV2.DescribeClusters
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/DescribeClusters" target="_top">AWS
      *      API Documentation</a>
@@ -646,6 +783,8 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
                 request = new DescribeClustersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeClustersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeClusters");
@@ -669,24 +808,98 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
 
     /**
      * <p>
-     * Claims an AWS CloudHSM cluster by submitting the cluster certificate issued by your issuing certificate authority
+     * Retrieves the resource policy document attached to a given resource.
+     * </p>
+     * <p>
+     * <b>Cross-account use:</b> No. You cannot perform this operation on an CloudHSM resource in a different Amazon Web
+     * Services account.
+     * </p>
+     * 
+     * @param getResourcePolicyRequest
+     * @return Result of the GetResourcePolicy operation returned by the service.
+     * @throws CloudHsmInternalFailureException
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
+     * @throws CloudHsmServiceException
+     *         The request was rejected because an error occurred.
+     * @throws CloudHsmInvalidRequestException
+     *         The request was rejected because it is not a valid request.
+     * @throws CloudHsmResourceNotFoundException
+     *         The request was rejected because it refers to a resource that cannot be found.
+     * @throws CloudHsmAccessDeniedException
+     *         The request was rejected because the requester does not have permission to perform the requested
+     *         operation.
+     * @sample AWSCloudHSMV2.GetResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/GetResourcePolicy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public GetResourcePolicyResult getResourcePolicy(GetResourcePolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetResourcePolicy(request);
+    }
+
+    @SdkInternalApi
+    final GetResourcePolicyResult executeGetResourcePolicy(GetResourcePolicyRequest getResourcePolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getResourcePolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetResourcePolicyRequest> request = null;
+        Response<GetResourcePolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetResourcePolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getResourcePolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetResourcePolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetResourcePolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetResourcePolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Claims an CloudHSM cluster by submitting the cluster certificate issued by your issuing certificate authority
      * (CA) and the CA's root certificate. Before you can claim a cluster, you must sign the cluster's certificate
      * signing request (CSR) with your issuing CA. To get the cluster's CSR, use <a>DescribeClusters</a>.
+     * </p>
+     * <p>
+     * <b>Cross-account use:</b> No. You cannot perform this operation on an CloudHSM cluster in a different Amazon Web
+     * Services account.
      * </p>
      * 
      * @param initializeClusterRequest
      * @return Result of the InitializeCluster operation returned by the service.
-     * @throws CloudHsmInternalFailureException
-     *         The request was rejected because of an AWS CloudHSM internal failure. The request can be retried.
-     * @throws CloudHsmServiceException
-     *         The request was rejected because an error occurred.
-     * @throws CloudHsmResourceNotFoundException
-     *         The request was rejected because it refers to a resource that cannot be found.
-     * @throws CloudHsmInvalidRequestException
-     *         The request was rejected because it is not a valid request.
      * @throws CloudHsmAccessDeniedException
      *         The request was rejected because the requester does not have permission to perform the requested
      *         operation.
+     * @throws CloudHsmInternalFailureException
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
+     * @throws CloudHsmInvalidRequestException
+     *         The request was rejected because it is not a valid request.
+     * @throws CloudHsmResourceNotFoundException
+     *         The request was rejected because it refers to a resource that cannot be found.
+     * @throws CloudHsmServiceException
+     *         The request was rejected because an error occurred.
      * @sample AWSCloudHSMV2.InitializeCluster
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/InitializeCluster" target="_top">AWS
      *      API Documentation</a>
@@ -712,6 +925,8 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
                 request = new InitializeClusterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(initializeClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "InitializeCluster");
@@ -735,7 +950,7 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
 
     /**
      * <p>
-     * Gets a list of tags for the specified AWS CloudHSM cluster.
+     * Gets a list of tags for the specified CloudHSM cluster.
      * </p>
      * <p>
      * This is a paginated operation, which means that each response might contain only a subset of all the tags. When
@@ -743,20 +958,27 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
      * subsequent <code>ListTags</code> request to get more tags. When you receive a response with no
      * <code>NextToken</code> (or an empty or null value), that means there are no more tags to get.
      * </p>
+     * <p>
+     * <b>Cross-account use:</b> No. You cannot perform this operation on an CloudHSM resource in a different Amazon Web
+     * Services account.
+     * </p>
      * 
      * @param listTagsRequest
      * @return Result of the ListTags operation returned by the service.
-     * @throws CloudHsmInternalFailureException
-     *         The request was rejected because of an AWS CloudHSM internal failure. The request can be retried.
-     * @throws CloudHsmServiceException
-     *         The request was rejected because an error occurred.
-     * @throws CloudHsmResourceNotFoundException
-     *         The request was rejected because it refers to a resource that cannot be found.
-     * @throws CloudHsmInvalidRequestException
-     *         The request was rejected because it is not a valid request.
      * @throws CloudHsmAccessDeniedException
      *         The request was rejected because the requester does not have permission to perform the requested
      *         operation.
+     * @throws CloudHsmInternalFailureException
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
+     * @throws CloudHsmInvalidRequestException
+     *         The request was rejected because it is not a valid request.
+     * @throws CloudHsmResourceNotFoundException
+     *         The request was rejected because it refers to a resource that cannot be found.
+     * @throws CloudHsmServiceException
+     *         The request was rejected because an error occurred.
+     * @throws CloudHsmTagException
+     *         The request was rejected because of a tagging failure. Verify the tag conditions in all applicable
+     *         policies, and then retry the request.
      * @sample AWSCloudHSMV2.ListTags
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/ListTags" target="_top">AWS API
      *      Documentation</a>
@@ -782,6 +1004,8 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
                 request = new ListTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTags");
@@ -805,23 +1029,262 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
 
     /**
      * <p>
-     * Restores a specified AWS CloudHSM backup that is in the <code>PENDING_DELETION</code> state. For more information
-     * on deleting a backup, see <a>DeleteBackup</a>.
+     * Modifies attributes for CloudHSM backup.
+     * </p>
+     * <p>
+     * <b>Cross-account use:</b> No. You cannot perform this operation on an CloudHSM backup in a different Amazon Web
+     * Services account.
+     * </p>
+     * 
+     * @param modifyBackupAttributesRequest
+     * @return Result of the ModifyBackupAttributes operation returned by the service.
+     * @throws CloudHsmAccessDeniedException
+     *         The request was rejected because the requester does not have permission to perform the requested
+     *         operation.
+     * @throws CloudHsmInternalFailureException
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
+     * @throws CloudHsmInvalidRequestException
+     *         The request was rejected because it is not a valid request.
+     * @throws CloudHsmResourceNotFoundException
+     *         The request was rejected because it refers to a resource that cannot be found.
+     * @throws CloudHsmServiceException
+     *         The request was rejected because an error occurred.
+     * @sample AWSCloudHSMV2.ModifyBackupAttributes
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/ModifyBackupAttributes"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ModifyBackupAttributesResult modifyBackupAttributes(ModifyBackupAttributesRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyBackupAttributes(request);
+    }
+
+    @SdkInternalApi
+    final ModifyBackupAttributesResult executeModifyBackupAttributes(ModifyBackupAttributesRequest modifyBackupAttributesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyBackupAttributesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyBackupAttributesRequest> request = null;
+        Response<ModifyBackupAttributesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyBackupAttributesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyBackupAttributesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyBackupAttributes");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ModifyBackupAttributesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ModifyBackupAttributesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Modifies CloudHSM cluster.
+     * </p>
+     * <p>
+     * <b>Cross-account use:</b> No. You cannot perform this operation on an CloudHSM cluster in a different Amazon Web
+     * Services account.
+     * </p>
+     * 
+     * @param modifyClusterRequest
+     * @return Result of the ModifyCluster operation returned by the service.
+     * @throws CloudHsmAccessDeniedException
+     *         The request was rejected because the requester does not have permission to perform the requested
+     *         operation.
+     * @throws CloudHsmInternalFailureException
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
+     * @throws CloudHsmInvalidRequestException
+     *         The request was rejected because it is not a valid request.
+     * @throws CloudHsmResourceNotFoundException
+     *         The request was rejected because it refers to a resource that cannot be found.
+     * @throws CloudHsmServiceException
+     *         The request was rejected because an error occurred.
+     * @sample AWSCloudHSMV2.ModifyCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/ModifyCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ModifyClusterResult modifyCluster(ModifyClusterRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyCluster(request);
+    }
+
+    @SdkInternalApi
+    final ModifyClusterResult executeModifyCluster(ModifyClusterRequest modifyClusterRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyClusterRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyClusterRequest> request = null;
+        Response<ModifyClusterResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyClusterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyClusterRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyCluster");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ModifyClusterResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ModifyClusterResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates or updates an CloudHSM resource policy. A resource policy helps you to define the IAM entity (for
+     * example, an Amazon Web Services account) that can manage your CloudHSM resources. The following resources support
+     * CloudHSM resource policies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Backup - The resource policy allows you to describe the backup and restore a cluster from the backup in another
+     * Amazon Web Services account.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * In order to share a backup, it must be in a 'READY' state and you must own it.
+     * </p>
+     * <important>
+     * <p>
+     * While you can share a backup using the CloudHSM PutResourcePolicy operation, we recommend using Resource Access
+     * Manager (RAM) instead. Using RAM provides multiple benefits as it creates the policy for you, allows multiple
+     * resources to be shared at one time, and increases the discoverability of shared resources. If you use
+     * PutResourcePolicy and want consumers to be able to describe the backups you share with them, you must promote the
+     * backup to a standard RAM Resource Share using the RAM PromoteResourceShareCreatedFromPolicy API operation. For
+     * more information, see <a href="https://docs.aws.amazon.com/cloudhsm/latest/userguide/sharing.html"> Working with
+     * shared backups</a> in the CloudHSM User Guide
+     * </p>
+     * </important>
+     * <p>
+     * <b>Cross-account use:</b> No. You cannot perform this operation on an CloudHSM resource in a different Amazon Web
+     * Services account.
+     * </p>
+     * 
+     * @param putResourcePolicyRequest
+     * @return Result of the PutResourcePolicy operation returned by the service.
+     * @throws CloudHsmInternalFailureException
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
+     * @throws CloudHsmServiceException
+     *         The request was rejected because an error occurred.
+     * @throws CloudHsmInvalidRequestException
+     *         The request was rejected because it is not a valid request.
+     * @throws CloudHsmResourceNotFoundException
+     *         The request was rejected because it refers to a resource that cannot be found.
+     * @throws CloudHsmAccessDeniedException
+     *         The request was rejected because the requester does not have permission to perform the requested
+     *         operation.
+     * @sample AWSCloudHSMV2.PutResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/PutResourcePolicy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public PutResourcePolicyResult putResourcePolicy(PutResourcePolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executePutResourcePolicy(request);
+    }
+
+    @SdkInternalApi
+    final PutResourcePolicyResult executePutResourcePolicy(PutResourcePolicyRequest putResourcePolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putResourcePolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutResourcePolicyRequest> request = null;
+        Response<PutResourcePolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutResourcePolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putResourcePolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutResourcePolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutResourcePolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new PutResourcePolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Restores a specified CloudHSM backup that is in the <code>PENDING_DELETION</code> state. For more information on
+     * deleting a backup, see <a>DeleteBackup</a>.
+     * </p>
+     * <p>
+     * <b>Cross-account use:</b> No. You cannot perform this operation on an CloudHSM backup in a different Amazon Web
+     * Services account.
      * </p>
      * 
      * @param restoreBackupRequest
      * @return Result of the RestoreBackup operation returned by the service.
-     * @throws CloudHsmInternalFailureException
-     *         The request was rejected because of an AWS CloudHSM internal failure. The request can be retried.
-     * @throws CloudHsmServiceException
-     *         The request was rejected because an error occurred.
-     * @throws CloudHsmResourceNotFoundException
-     *         The request was rejected because it refers to a resource that cannot be found.
-     * @throws CloudHsmInvalidRequestException
-     *         The request was rejected because it is not a valid request.
      * @throws CloudHsmAccessDeniedException
      *         The request was rejected because the requester does not have permission to perform the requested
      *         operation.
+     * @throws CloudHsmInternalFailureException
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
+     * @throws CloudHsmInvalidRequestException
+     *         The request was rejected because it is not a valid request.
+     * @throws CloudHsmResourceNotFoundException
+     *         The request was rejected because it refers to a resource that cannot be found.
+     * @throws CloudHsmServiceException
+     *         The request was rejected because an error occurred.
      * @sample AWSCloudHSMV2.RestoreBackup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/RestoreBackup" target="_top">AWS API
      *      Documentation</a>
@@ -847,6 +1310,8 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
                 request = new RestoreBackupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(restoreBackupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RestoreBackup");
@@ -870,22 +1335,29 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
 
     /**
      * <p>
-     * Adds or overwrites one or more tags for the specified AWS CloudHSM cluster.
+     * Adds or overwrites one or more tags for the specified CloudHSM cluster.
+     * </p>
+     * <p>
+     * <b>Cross-account use:</b> No. You cannot perform this operation on an CloudHSM resource in a different Amazon Web
+     * Services account.
      * </p>
      * 
      * @param tagResourceRequest
      * @return Result of the TagResource operation returned by the service.
-     * @throws CloudHsmInternalFailureException
-     *         The request was rejected because of an AWS CloudHSM internal failure. The request can be retried.
-     * @throws CloudHsmServiceException
-     *         The request was rejected because an error occurred.
-     * @throws CloudHsmResourceNotFoundException
-     *         The request was rejected because it refers to a resource that cannot be found.
-     * @throws CloudHsmInvalidRequestException
-     *         The request was rejected because it is not a valid request.
      * @throws CloudHsmAccessDeniedException
      *         The request was rejected because the requester does not have permission to perform the requested
      *         operation.
+     * @throws CloudHsmInternalFailureException
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
+     * @throws CloudHsmInvalidRequestException
+     *         The request was rejected because it is not a valid request.
+     * @throws CloudHsmResourceNotFoundException
+     *         The request was rejected because it refers to a resource that cannot be found.
+     * @throws CloudHsmServiceException
+     *         The request was rejected because an error occurred.
+     * @throws CloudHsmTagException
+     *         The request was rejected because of a tagging failure. Verify the tag conditions in all applicable
+     *         policies, and then retry the request.
      * @sample AWSCloudHSMV2.TagResource
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/TagResource" target="_top">AWS API
      *      Documentation</a>
@@ -911,6 +1383,8 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -934,22 +1408,29 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
 
     /**
      * <p>
-     * Removes the specified tag or tags from the specified AWS CloudHSM cluster.
+     * Removes the specified tag or tags from the specified CloudHSM cluster.
+     * </p>
+     * <p>
+     * <b>Cross-account use:</b> No. You cannot perform this operation on an CloudHSM resource in a different Amazon Web
+     * Services account.
      * </p>
      * 
      * @param untagResourceRequest
      * @return Result of the UntagResource operation returned by the service.
-     * @throws CloudHsmInternalFailureException
-     *         The request was rejected because of an AWS CloudHSM internal failure. The request can be retried.
-     * @throws CloudHsmServiceException
-     *         The request was rejected because an error occurred.
-     * @throws CloudHsmResourceNotFoundException
-     *         The request was rejected because it refers to a resource that cannot be found.
-     * @throws CloudHsmInvalidRequestException
-     *         The request was rejected because it is not a valid request.
      * @throws CloudHsmAccessDeniedException
      *         The request was rejected because the requester does not have permission to perform the requested
      *         operation.
+     * @throws CloudHsmInternalFailureException
+     *         The request was rejected because of an CloudHSM internal failure. The request can be retried.
+     * @throws CloudHsmInvalidRequestException
+     *         The request was rejected because it is not a valid request.
+     * @throws CloudHsmResourceNotFoundException
+     *         The request was rejected because it refers to a resource that cannot be found.
+     * @throws CloudHsmServiceException
+     *         The request was rejected because an error occurred.
+     * @throws CloudHsmTagException
+     *         The request was rejected because of a tagging failure. Verify the tag conditions in all applicable
+     *         policies, and then retry the request.
      * @sample AWSCloudHSMV2.UntagResource
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/UntagResource" target="_top">AWS API
      *      Documentation</a>
@@ -975,6 +1456,8 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM V2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -1070,6 +1553,11 @@ public class AWSCloudHSMV2Client extends AmazonWebServiceClient implements AWSCl
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

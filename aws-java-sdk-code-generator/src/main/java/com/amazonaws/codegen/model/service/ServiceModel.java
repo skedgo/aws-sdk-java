@@ -24,9 +24,9 @@ public class ServiceModel {
 
     private final ServiceMetadata metadata;
 
-    private final Map<String, Operation> operations;
+    private Map<String, Operation> operations;
 
-    private final Map<String, Shape> shapes;
+    private Map<String, Shape> shapes;
     private final Map<String, Authorizer> authorizers;
 
     private String documentation;
@@ -49,6 +49,11 @@ public class ServiceModel {
         return operations;
     }
 
+    public ServiceModel setOperations(Map<String, Operation> operations) {
+        this.operations = operations;
+        return this;
+    }
+
     /**
      * Convenience getter to retrieve an {@link Operation} by name.
      *
@@ -61,6 +66,11 @@ public class ServiceModel {
 
     public Map<String, Shape> getShapes() {
         return shapes;
+    }
+
+    public ServiceModel setShapes(Map<String, Shape> shapes) {
+        this.shapes = shapes;
+        return this;
     }
 
     /**

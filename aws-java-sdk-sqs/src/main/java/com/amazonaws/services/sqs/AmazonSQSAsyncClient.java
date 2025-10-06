@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,16 +31,21 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * notification when an asynchronous operation completes.
  * <p>
  * <p>
- * Welcome to the <i>Amazon Simple Queue Service API Reference</i>.
+ * Welcome to the <i>Amazon SQS API Reference</i>.
  * </p>
  * <p>
- * Amazon Simple Queue Service (Amazon SQS) is a reliable, highly-scalable hosted queue for storing messages as they
- * travel between applications or microservices. Amazon SQS moves data between distributed application components and
- * helps you decouple these components.
+ * Amazon SQS is a reliable, highly-scalable hosted queue for storing messages as they travel between applications or
+ * microservices. Amazon SQS moves data between distributed application components and helps you decouple these
+ * components.
  * </p>
  * <p>
- * You can use <a href="http://aws.amazon.com/tools/#sdk">AWS SDKs</a> to access Amazon SQS using your favorite
- * programming language. The SDKs perform tasks such as the following automatically:
+ * For information on the permissions you need to use this API, see <a href=
+ * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-authentication-and-access-control.html"
+ * >Identity and access management</a> in the <i>Amazon SQS Developer Guide.</i>
+ * </p>
+ * <p>
+ * You can use <a href="http://aws.amazon.com/tools/#sdk">Amazon Web Services SDKs</a> to access Amazon SQS using your
+ * favorite programming language. The SDKs perform tasks such as the following automatically:
  * </p>
  * <ul>
  * <li>
@@ -60,7 +65,7 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * </li>
  * </ul>
  * <p>
- * <b>Additional Information</b>
+ * <b>Additional information</b>
  * </p>
  * <ul>
  * <li>
@@ -70,7 +75,7 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * </li>
  * <li>
  * <p>
- * <i>Amazon Simple Queue Service Developer Guide</i>
+ * <i>Amazon SQS Developer Guide</i>
  * </p>
  * <ul>
  * <li>
@@ -81,8 +86,9 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * </li>
  * <li>
  * <p>
- * <a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html">
- * Amazon SQS Message Attributes</a>
+ * <a href=
+ * "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-metadata.html#sqs-message-attributes"
+ * >Amazon SQS Message Attributes</a>
  * </p>
  * </li>
  * <li>
@@ -95,8 +101,8 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * </li>
  * <li>
  * <p>
- * <a href="http://docs.aws.amazon.com/cli/latest/reference/sqs/index.html">Amazon SQS in the <i>AWS CLI Command
- * Reference</i> </a>
+ * <a href="http://docs.aws.amazon.com/cli/latest/reference/sqs/index.html">Amazon SQS in the <i>Command Line
+ * Interface</i> </a>
  * </p>
  * </li>
  * <li>
@@ -309,7 +315,19 @@ public class AmazonSQSAsyncClient extends AmazonSQSClient implements AmazonSQSAs
      *        Object providing client parameters.
      */
     AmazonSQSAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Amazon SQS using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonSQSAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -378,6 +396,39 @@ public class AmazonSQSAsyncClient extends AmazonSQSClient implements AmazonSQSAs
 
         return addPermissionAsync(new AddPermissionRequest().withQueueUrl(queueUrl).withLabel(label).withAWSAccountIds(aWSAccountIds).withActions(actions),
                 asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelMessageMoveTaskResult> cancelMessageMoveTaskAsync(CancelMessageMoveTaskRequest request) {
+
+        return cancelMessageMoveTaskAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelMessageMoveTaskResult> cancelMessageMoveTaskAsync(final CancelMessageMoveTaskRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CancelMessageMoveTaskRequest, CancelMessageMoveTaskResult> asyncHandler) {
+        final CancelMessageMoveTaskRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CancelMessageMoveTaskResult>() {
+            @Override
+            public CancelMessageMoveTaskResult call() throws Exception {
+                CancelMessageMoveTaskResult result = null;
+
+                try {
+                    result = executeCancelMessageMoveTask(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -869,6 +920,39 @@ public class AmazonSQSAsyncClient extends AmazonSQSClient implements AmazonSQSAs
     }
 
     @Override
+    public java.util.concurrent.Future<ListMessageMoveTasksResult> listMessageMoveTasksAsync(ListMessageMoveTasksRequest request) {
+
+        return listMessageMoveTasksAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMessageMoveTasksResult> listMessageMoveTasksAsync(final ListMessageMoveTasksRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListMessageMoveTasksRequest, ListMessageMoveTasksResult> asyncHandler) {
+        final ListMessageMoveTasksRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListMessageMoveTasksResult>() {
+            @Override
+            public ListMessageMoveTasksResult call() throws Exception {
+                ListMessageMoveTasksResult result = null;
+
+                try {
+                    result = executeListMessageMoveTasks(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListQueueTagsResult> listQueueTagsAsync(ListQueueTagsRequest request) {
 
         return listQueueTagsAsync(request, null);
@@ -1313,6 +1397,39 @@ public class AmazonSQSAsyncClient extends AmazonSQSClient implements AmazonSQSAs
             com.amazonaws.handlers.AsyncHandler<SetQueueAttributesRequest, SetQueueAttributesResult> asyncHandler) {
 
         return setQueueAttributesAsync(new SetQueueAttributesRequest().withQueueUrl(queueUrl).withAttributes(attributes), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartMessageMoveTaskResult> startMessageMoveTaskAsync(StartMessageMoveTaskRequest request) {
+
+        return startMessageMoveTaskAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartMessageMoveTaskResult> startMessageMoveTaskAsync(final StartMessageMoveTaskRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartMessageMoveTaskRequest, StartMessageMoveTaskResult> asyncHandler) {
+        final StartMessageMoveTaskRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartMessageMoveTaskResult>() {
+            @Override
+            public StartMessageMoveTaskResult call() throws Exception {
+                StartMessageMoveTaskResult result = null;
+
+                try {
+                    result = executeStartMessageMoveTask(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override

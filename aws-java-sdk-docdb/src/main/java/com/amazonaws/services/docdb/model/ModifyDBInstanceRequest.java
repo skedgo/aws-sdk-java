@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The DB instance identifier. This value is stored as a lowercase string.
+     * The instance identifier. This value is stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -46,11 +46,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     private String dBInstanceIdentifier;
     /**
      * <p>
-     * The new compute and memory capacity of the DB instance; for example, <code>db.r5.large</code>. Not all DB
-     * instance classes are available in all AWS Regions.
+     * The new compute and memory capacity of the instance; for example, <code>db.r5.large</code>. Not all instance
+     * classes are available in all Amazon Web Services Regions.
      * </p>
      * <p>
-     * If you modify the DB instance class, an outage occurs during the change. The change is applied during the next
+     * If you modify the instance class, an outage occurs during the change. The change is applied during the next
      * maintenance window, unless <code>ApplyImmediately</code> is specified as <code>true</code> for this request.
      * </p>
      * <p>
@@ -61,11 +61,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * Specifies whether the modifications in this request and any pending modifications are asynchronously applied as
-     * soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB instance.
+     * soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the instance.
      * </p>
      * <p>
-     * If this parameter is set to <code>false</code>, changes to the DB instance are applied during the next
-     * maintenance window. Some parameter changes can cause an outage and are applied on the next reboot.
+     * If this parameter is set to <code>false</code>, changes to the instance are applied during the next maintenance
+     * window. Some parameter changes can cause an outage and are applied on the next reboot.
      * </p>
      * <p>
      * Default: <code>false</code>
@@ -77,7 +77,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * The weekly time range (in UTC) during which system maintenance can occur, which might result in an outage.
      * Changing this parameter doesn't result in an outage except in the following situation, and the change is
      * asynchronously applied as soon as possible. If there are pending actions that cause a reboot, and the maintenance
-     * window is changed to include the current time, changing this parameter causes a reboot of the DB instance. If you
+     * window is changed to include the current time, changing this parameter causes a reboot of the instance. If you
      * are moving this window to the current time, there must be at least 30 minutes between the current time and end of
      * the window to ensure that pending changes are applied.
      * </p>
@@ -97,20 +97,17 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     private String preferredMaintenanceWindow;
     /**
      * <p>
-     * Indicates that minor version upgrades are applied automatically to the DB instance during the maintenance window.
-     * Changing this parameter doesn't result in an outage except in the following case, and the change is
-     * asynchronously applied as soon as possible. An outage results if this parameter is set to <code>true</code>
-     * during the maintenance window, and a newer minor version is available, and Amazon DocumentDB has enabled
-     * automatic patching for that engine version.
+     * This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version upgrades
+     * regardless of the value set.
      * </p>
      */
     private Boolean autoMinorVersionUpgrade;
     /**
      * <p>
-     * The new DB instance identifier for the DB instance when renaming a DB instance. When you change the DB instance
-     * identifier, an instance reboot occurs immediately if you set <code>Apply Immediately</code> to <code>true</code>.
-     * It occurs during the next maintenance window if you set <code>Apply Immediately</code> to <code>false</code>.
-     * This value is stored as a lowercase string.
+     * The new instance identifier for the instance when renaming an instance. When you change the instance identifier,
+     * an instance reboot occurs immediately if you set <code>Apply Immediately</code> to <code>true</code>. It occurs
+     * during the next maintenance window if you set <code>Apply Immediately</code> to <code>false</code>. This value is
+     * stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -139,6 +136,19 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     private String newDBInstanceIdentifier;
     /**
      * <p>
+     * Indicates the certificate that needs to be associated with the instance.
+     * </p>
+     */
+    private String cACertificateIdentifier;
+    /**
+     * <p>
+     * A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
+     * </p>
+     */
+    private Boolean copyTagsToSnapshot;
+    /**
+     * <p>
      * A value that specifies the order in which an Amazon DocumentDB replica is promoted to the primary instance after
      * a failure of the existing primary instance.
      * </p>
@@ -150,10 +160,54 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      */
     private Integer promotionTier;
+    /**
+     * <p>
+     * A value that indicates whether to enable Performance Insights for the DB Instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using Amazon
+     * Performance Insights</a>.
+     * </p>
+     */
+    private Boolean enablePerformanceInsights;
+    /**
+     * <p>
+     * The KMS key identifier for encryption of Performance Insights data.
+     * </p>
+     * <p>
+     * The KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     * </p>
+     * <p>
+     * If you do not specify a value for PerformanceInsightsKMSKeyId, then Amazon DocumentDB uses your default KMS key.
+     * There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different
+     * default KMS key for each Amazon Web Services region.
+     * </p>
+     */
+    private String performanceInsightsKMSKeyId;
+    /**
+     * <p>
+     * Specifies whether the DB instance is restarted when you rotate your SSL/TLS certificate.
+     * </p>
+     * <p>
+     * By default, the DB instance is restarted when you rotate your SSL/TLS certificate. The certificate is not updated
+     * until the DB instance is restarted.
+     * </p>
+     * <important>
+     * <p>
+     * Set this parameter only if you are <i>not</i> using SSL/TLS to connect to the DB instance.
+     * </p>
+     * </important>
+     * <p>
+     * If you are using SSL/TLS to connect to the DB instance, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your Amazon
+     * DocumentDB TLS Certificates</a> and <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html"> Encrypting Data
+     * in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     */
+    private Boolean certificateRotationRestart;
 
     /**
      * <p>
-     * The DB instance identifier. This value is stored as a lowercase string.
+     * The instance identifier. This value is stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -167,7 +221,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * </ul>
      * 
      * @param dBInstanceIdentifier
-     *        The DB instance identifier. This value is stored as a lowercase string.</p>
+     *        The instance identifier. This value is stored as a lowercase string.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -185,7 +239,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The DB instance identifier. This value is stored as a lowercase string.
+     * The instance identifier. This value is stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -198,7 +252,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * </li>
      * </ul>
      * 
-     * @return The DB instance identifier. This value is stored as a lowercase string.</p>
+     * @return The instance identifier. This value is stored as a lowercase string.</p>
      *         <p>
      *         Constraints:
      *         </p>
@@ -216,7 +270,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The DB instance identifier. This value is stored as a lowercase string.
+     * The instance identifier. This value is stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -230,7 +284,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * </ul>
      * 
      * @param dBInstanceIdentifier
-     *        The DB instance identifier. This value is stored as a lowercase string.</p>
+     *        The instance identifier. This value is stored as a lowercase string.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -250,11 +304,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new compute and memory capacity of the DB instance; for example, <code>db.r5.large</code>. Not all DB
-     * instance classes are available in all AWS Regions.
+     * The new compute and memory capacity of the instance; for example, <code>db.r5.large</code>. Not all instance
+     * classes are available in all Amazon Web Services Regions.
      * </p>
      * <p>
-     * If you modify the DB instance class, an outage occurs during the change. The change is applied during the next
+     * If you modify the instance class, an outage occurs during the change. The change is applied during the next
      * maintenance window, unless <code>ApplyImmediately</code> is specified as <code>true</code> for this request.
      * </p>
      * <p>
@@ -262,10 +316,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param dBInstanceClass
-     *        The new compute and memory capacity of the DB instance; for example, <code>db.r5.large</code>. Not all DB
-     *        instance classes are available in all AWS Regions. </p>
+     *        The new compute and memory capacity of the instance; for example, <code>db.r5.large</code>. Not all
+     *        instance classes are available in all Amazon Web Services Regions. </p>
      *        <p>
-     *        If you modify the DB instance class, an outage occurs during the change. The change is applied during the
+     *        If you modify the instance class, an outage occurs during the change. The change is applied during the
      *        next maintenance window, unless <code>ApplyImmediately</code> is specified as <code>true</code> for this
      *        request.
      *        </p>
@@ -279,21 +333,21 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new compute and memory capacity of the DB instance; for example, <code>db.r5.large</code>. Not all DB
-     * instance classes are available in all AWS Regions.
+     * The new compute and memory capacity of the instance; for example, <code>db.r5.large</code>. Not all instance
+     * classes are available in all Amazon Web Services Regions.
      * </p>
      * <p>
-     * If you modify the DB instance class, an outage occurs during the change. The change is applied during the next
+     * If you modify the instance class, an outage occurs during the change. The change is applied during the next
      * maintenance window, unless <code>ApplyImmediately</code> is specified as <code>true</code> for this request.
      * </p>
      * <p>
      * Default: Uses existing setting.
      * </p>
      * 
-     * @return The new compute and memory capacity of the DB instance; for example, <code>db.r5.large</code>. Not all DB
-     *         instance classes are available in all AWS Regions. </p>
+     * @return The new compute and memory capacity of the instance; for example, <code>db.r5.large</code>. Not all
+     *         instance classes are available in all Amazon Web Services Regions. </p>
      *         <p>
-     *         If you modify the DB instance class, an outage occurs during the change. The change is applied during the
+     *         If you modify the instance class, an outage occurs during the change. The change is applied during the
      *         next maintenance window, unless <code>ApplyImmediately</code> is specified as <code>true</code> for this
      *         request.
      *         </p>
@@ -307,11 +361,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new compute and memory capacity of the DB instance; for example, <code>db.r5.large</code>. Not all DB
-     * instance classes are available in all AWS Regions.
+     * The new compute and memory capacity of the instance; for example, <code>db.r5.large</code>. Not all instance
+     * classes are available in all Amazon Web Services Regions.
      * </p>
      * <p>
-     * If you modify the DB instance class, an outage occurs during the change. The change is applied during the next
+     * If you modify the instance class, an outage occurs during the change. The change is applied during the next
      * maintenance window, unless <code>ApplyImmediately</code> is specified as <code>true</code> for this request.
      * </p>
      * <p>
@@ -319,10 +373,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param dBInstanceClass
-     *        The new compute and memory capacity of the DB instance; for example, <code>db.r5.large</code>. Not all DB
-     *        instance classes are available in all AWS Regions. </p>
+     *        The new compute and memory capacity of the instance; for example, <code>db.r5.large</code>. Not all
+     *        instance classes are available in all Amazon Web Services Regions. </p>
      *        <p>
-     *        If you modify the DB instance class, an outage occurs during the change. The change is applied during the
+     *        If you modify the instance class, an outage occurs during the change. The change is applied during the
      *        next maintenance window, unless <code>ApplyImmediately</code> is specified as <code>true</code> for this
      *        request.
      *        </p>
@@ -339,11 +393,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * Specifies whether the modifications in this request and any pending modifications are asynchronously applied as
-     * soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB instance.
+     * soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the instance.
      * </p>
      * <p>
-     * If this parameter is set to <code>false</code>, changes to the DB instance are applied during the next
-     * maintenance window. Some parameter changes can cause an outage and are applied on the next reboot.
+     * If this parameter is set to <code>false</code>, changes to the instance are applied during the next maintenance
+     * window. Some parameter changes can cause an outage and are applied on the next reboot.
      * </p>
      * <p>
      * Default: <code>false</code>
@@ -351,10 +405,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * 
      * @param applyImmediately
      *        Specifies whether the modifications in this request and any pending modifications are asynchronously
-     *        applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB
+     *        applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the
      *        instance. </p>
      *        <p>
-     *        If this parameter is set to <code>false</code>, changes to the DB instance are applied during the next
+     *        If this parameter is set to <code>false</code>, changes to the instance are applied during the next
      *        maintenance window. Some parameter changes can cause an outage and are applied on the next reboot.
      *        </p>
      *        <p>
@@ -368,21 +422,21 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * Specifies whether the modifications in this request and any pending modifications are asynchronously applied as
-     * soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB instance.
+     * soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the instance.
      * </p>
      * <p>
-     * If this parameter is set to <code>false</code>, changes to the DB instance are applied during the next
-     * maintenance window. Some parameter changes can cause an outage and are applied on the next reboot.
+     * If this parameter is set to <code>false</code>, changes to the instance are applied during the next maintenance
+     * window. Some parameter changes can cause an outage and are applied on the next reboot.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
      * @return Specifies whether the modifications in this request and any pending modifications are asynchronously
-     *         applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB
+     *         applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the
      *         instance. </p>
      *         <p>
-     *         If this parameter is set to <code>false</code>, changes to the DB instance are applied during the next
+     *         If this parameter is set to <code>false</code>, changes to the instance are applied during the next
      *         maintenance window. Some parameter changes can cause an outage and are applied on the next reboot.
      *         </p>
      *         <p>
@@ -396,11 +450,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * Specifies whether the modifications in this request and any pending modifications are asynchronously applied as
-     * soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB instance.
+     * soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the instance.
      * </p>
      * <p>
-     * If this parameter is set to <code>false</code>, changes to the DB instance are applied during the next
-     * maintenance window. Some parameter changes can cause an outage and are applied on the next reboot.
+     * If this parameter is set to <code>false</code>, changes to the instance are applied during the next maintenance
+     * window. Some parameter changes can cause an outage and are applied on the next reboot.
      * </p>
      * <p>
      * Default: <code>false</code>
@@ -408,10 +462,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * 
      * @param applyImmediately
      *        Specifies whether the modifications in this request and any pending modifications are asynchronously
-     *        applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB
+     *        applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the
      *        instance. </p>
      *        <p>
-     *        If this parameter is set to <code>false</code>, changes to the DB instance are applied during the next
+     *        If this parameter is set to <code>false</code>, changes to the instance are applied during the next
      *        maintenance window. Some parameter changes can cause an outage and are applied on the next reboot.
      *        </p>
      *        <p>
@@ -427,21 +481,21 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * Specifies whether the modifications in this request and any pending modifications are asynchronously applied as
-     * soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB instance.
+     * soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the instance.
      * </p>
      * <p>
-     * If this parameter is set to <code>false</code>, changes to the DB instance are applied during the next
-     * maintenance window. Some parameter changes can cause an outage and are applied on the next reboot.
+     * If this parameter is set to <code>false</code>, changes to the instance are applied during the next maintenance
+     * window. Some parameter changes can cause an outage and are applied on the next reboot.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
      * @return Specifies whether the modifications in this request and any pending modifications are asynchronously
-     *         applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the DB
+     *         applied as soon as possible, regardless of the <code>PreferredMaintenanceWindow</code> setting for the
      *         instance. </p>
      *         <p>
-     *         If this parameter is set to <code>false</code>, changes to the DB instance are applied during the next
+     *         If this parameter is set to <code>false</code>, changes to the instance are applied during the next
      *         maintenance window. Some parameter changes can cause an outage and are applied on the next reboot.
      *         </p>
      *         <p>
@@ -457,7 +511,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * The weekly time range (in UTC) during which system maintenance can occur, which might result in an outage.
      * Changing this parameter doesn't result in an outage except in the following situation, and the change is
      * asynchronously applied as soon as possible. If there are pending actions that cause a reboot, and the maintenance
-     * window is changed to include the current time, changing this parameter causes a reboot of the DB instance. If you
+     * window is changed to include the current time, changing this parameter causes a reboot of the instance. If you
      * are moving this window to the current time, there must be at least 30 minutes between the current time and end of
      * the window to ensure that pending changes are applied.
      * </p>
@@ -479,8 +533,8 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      *        Changing this parameter doesn't result in an outage except in the following situation, and the change is
      *        asynchronously applied as soon as possible. If there are pending actions that cause a reboot, and the
      *        maintenance window is changed to include the current time, changing this parameter causes a reboot of the
-     *        DB instance. If you are moving this window to the current time, there must be at least 30 minutes between
-     *        the current time and end of the window to ensure that pending changes are applied.</p>
+     *        instance. If you are moving this window to the current time, there must be at least 30 minutes between the
+     *        current time and end of the window to ensure that pending changes are applied.</p>
      *        <p>
      *        Default: Uses existing setting.
      *        </p>
@@ -503,7 +557,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * The weekly time range (in UTC) during which system maintenance can occur, which might result in an outage.
      * Changing this parameter doesn't result in an outage except in the following situation, and the change is
      * asynchronously applied as soon as possible. If there are pending actions that cause a reboot, and the maintenance
-     * window is changed to include the current time, changing this parameter causes a reboot of the DB instance. If you
+     * window is changed to include the current time, changing this parameter causes a reboot of the instance. If you
      * are moving this window to the current time, there must be at least 30 minutes between the current time and end of
      * the window to ensure that pending changes are applied.
      * </p>
@@ -524,7 +578,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      *         outage. Changing this parameter doesn't result in an outage except in the following situation, and the
      *         change is asynchronously applied as soon as possible. If there are pending actions that cause a reboot,
      *         and the maintenance window is changed to include the current time, changing this parameter causes a
-     *         reboot of the DB instance. If you are moving this window to the current time, there must be at least 30
+     *         reboot of the instance. If you are moving this window to the current time, there must be at least 30
      *         minutes between the current time and end of the window to ensure that pending changes are applied.</p>
      *         <p>
      *         Default: Uses existing setting.
@@ -548,7 +602,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * The weekly time range (in UTC) during which system maintenance can occur, which might result in an outage.
      * Changing this parameter doesn't result in an outage except in the following situation, and the change is
      * asynchronously applied as soon as possible. If there are pending actions that cause a reboot, and the maintenance
-     * window is changed to include the current time, changing this parameter causes a reboot of the DB instance. If you
+     * window is changed to include the current time, changing this parameter causes a reboot of the instance. If you
      * are moving this window to the current time, there must be at least 30 minutes between the current time and end of
      * the window to ensure that pending changes are applied.
      * </p>
@@ -570,8 +624,8 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      *        Changing this parameter doesn't result in an outage except in the following situation, and the change is
      *        asynchronously applied as soon as possible. If there are pending actions that cause a reboot, and the
      *        maintenance window is changed to include the current time, changing this parameter causes a reboot of the
-     *        DB instance. If you are moving this window to the current time, there must be at least 30 minutes between
-     *        the current time and end of the window to ensure that pending changes are applied.</p>
+     *        instance. If you are moving this window to the current time, there must be at least 30 minutes between the
+     *        current time and end of the window to ensure that pending changes are applied.</p>
      *        <p>
      *        Default: Uses existing setting.
      *        </p>
@@ -593,19 +647,13 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Indicates that minor version upgrades are applied automatically to the DB instance during the maintenance window.
-     * Changing this parameter doesn't result in an outage except in the following case, and the change is
-     * asynchronously applied as soon as possible. An outage results if this parameter is set to <code>true</code>
-     * during the maintenance window, and a newer minor version is available, and Amazon DocumentDB has enabled
-     * automatic patching for that engine version.
+     * This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version upgrades
+     * regardless of the value set.
      * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        Indicates that minor version upgrades are applied automatically to the DB instance during the maintenance
-     *        window. Changing this parameter doesn't result in an outage except in the following case, and the change
-     *        is asynchronously applied as soon as possible. An outage results if this parameter is set to
-     *        <code>true</code> during the maintenance window, and a newer minor version is available, and Amazon
-     *        DocumentDB has enabled automatic patching for that engine version.
+     *        This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version
+     *        upgrades regardless of the value set.
      */
 
     public void setAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
@@ -614,18 +662,12 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Indicates that minor version upgrades are applied automatically to the DB instance during the maintenance window.
-     * Changing this parameter doesn't result in an outage except in the following case, and the change is
-     * asynchronously applied as soon as possible. An outage results if this parameter is set to <code>true</code>
-     * during the maintenance window, and a newer minor version is available, and Amazon DocumentDB has enabled
-     * automatic patching for that engine version.
+     * This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version upgrades
+     * regardless of the value set.
      * </p>
      * 
-     * @return Indicates that minor version upgrades are applied automatically to the DB instance during the maintenance
-     *         window. Changing this parameter doesn't result in an outage except in the following case, and the change
-     *         is asynchronously applied as soon as possible. An outage results if this parameter is set to
-     *         <code>true</code> during the maintenance window, and a newer minor version is available, and Amazon
-     *         DocumentDB has enabled automatic patching for that engine version.
+     * @return This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version
+     *         upgrades regardless of the value set.
      */
 
     public Boolean getAutoMinorVersionUpgrade() {
@@ -634,19 +676,13 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Indicates that minor version upgrades are applied automatically to the DB instance during the maintenance window.
-     * Changing this parameter doesn't result in an outage except in the following case, and the change is
-     * asynchronously applied as soon as possible. An outage results if this parameter is set to <code>true</code>
-     * during the maintenance window, and a newer minor version is available, and Amazon DocumentDB has enabled
-     * automatic patching for that engine version.
+     * This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version upgrades
+     * regardless of the value set.
      * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        Indicates that minor version upgrades are applied automatically to the DB instance during the maintenance
-     *        window. Changing this parameter doesn't result in an outage except in the following case, and the change
-     *        is asynchronously applied as soon as possible. An outage results if this parameter is set to
-     *        <code>true</code> during the maintenance window, and a newer minor version is available, and Amazon
-     *        DocumentDB has enabled automatic patching for that engine version.
+     *        This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version
+     *        upgrades regardless of the value set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -657,18 +693,12 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Indicates that minor version upgrades are applied automatically to the DB instance during the maintenance window.
-     * Changing this parameter doesn't result in an outage except in the following case, and the change is
-     * asynchronously applied as soon as possible. An outage results if this parameter is set to <code>true</code>
-     * during the maintenance window, and a newer minor version is available, and Amazon DocumentDB has enabled
-     * automatic patching for that engine version.
+     * This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version upgrades
+     * regardless of the value set.
      * </p>
      * 
-     * @return Indicates that minor version upgrades are applied automatically to the DB instance during the maintenance
-     *         window. Changing this parameter doesn't result in an outage except in the following case, and the change
-     *         is asynchronously applied as soon as possible. An outage results if this parameter is set to
-     *         <code>true</code> during the maintenance window, and a newer minor version is available, and Amazon
-     *         DocumentDB has enabled automatic patching for that engine version.
+     * @return This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB does not perform minor version
+     *         upgrades regardless of the value set.
      */
 
     public Boolean isAutoMinorVersionUpgrade() {
@@ -677,10 +707,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new DB instance identifier for the DB instance when renaming a DB instance. When you change the DB instance
-     * identifier, an instance reboot occurs immediately if you set <code>Apply Immediately</code> to <code>true</code>.
-     * It occurs during the next maintenance window if you set <code>Apply Immediately</code> to <code>false</code>.
-     * This value is stored as a lowercase string.
+     * The new instance identifier for the instance when renaming an instance. When you change the instance identifier,
+     * an instance reboot occurs immediately if you set <code>Apply Immediately</code> to <code>true</code>. It occurs
+     * during the next maintenance window if you set <code>Apply Immediately</code> to <code>false</code>. This value is
+     * stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -707,8 +737,8 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param newDBInstanceIdentifier
-     *        The new DB instance identifier for the DB instance when renaming a DB instance. When you change the DB
-     *        instance identifier, an instance reboot occurs immediately if you set <code>Apply Immediately</code> to
+     *        The new instance identifier for the instance when renaming an instance. When you change the instance
+     *        identifier, an instance reboot occurs immediately if you set <code>Apply Immediately</code> to
      *        <code>true</code>. It occurs during the next maintenance window if you set <code>Apply Immediately</code>
      *        to <code>false</code>. This value is stored as a lowercase string. </p>
      *        <p>
@@ -741,10 +771,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new DB instance identifier for the DB instance when renaming a DB instance. When you change the DB instance
-     * identifier, an instance reboot occurs immediately if you set <code>Apply Immediately</code> to <code>true</code>.
-     * It occurs during the next maintenance window if you set <code>Apply Immediately</code> to <code>false</code>.
-     * This value is stored as a lowercase string.
+     * The new instance identifier for the instance when renaming an instance. When you change the instance identifier,
+     * an instance reboot occurs immediately if you set <code>Apply Immediately</code> to <code>true</code>. It occurs
+     * during the next maintenance window if you set <code>Apply Immediately</code> to <code>false</code>. This value is
+     * stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -770,8 +800,8 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * Example: <code>mydbinstance</code>
      * </p>
      * 
-     * @return The new DB instance identifier for the DB instance when renaming a DB instance. When you change the DB
-     *         instance identifier, an instance reboot occurs immediately if you set <code>Apply Immediately</code> to
+     * @return The new instance identifier for the instance when renaming an instance. When you change the instance
+     *         identifier, an instance reboot occurs immediately if you set <code>Apply Immediately</code> to
      *         <code>true</code>. It occurs during the next maintenance window if you set <code>Apply Immediately</code>
      *         to <code>false</code>. This value is stored as a lowercase string. </p>
      *         <p>
@@ -804,10 +834,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new DB instance identifier for the DB instance when renaming a DB instance. When you change the DB instance
-     * identifier, an instance reboot occurs immediately if you set <code>Apply Immediately</code> to <code>true</code>.
-     * It occurs during the next maintenance window if you set <code>Apply Immediately</code> to <code>false</code>.
-     * This value is stored as a lowercase string.
+     * The new instance identifier for the instance when renaming an instance. When you change the instance identifier,
+     * an instance reboot occurs immediately if you set <code>Apply Immediately</code> to <code>true</code>. It occurs
+     * during the next maintenance window if you set <code>Apply Immediately</code> to <code>false</code>. This value is
+     * stored as a lowercase string.
      * </p>
      * <p>
      * Constraints:
@@ -834,8 +864,8 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @param newDBInstanceIdentifier
-     *        The new DB instance identifier for the DB instance when renaming a DB instance. When you change the DB
-     *        instance identifier, an instance reboot occurs immediately if you set <code>Apply Immediately</code> to
+     *        The new instance identifier for the instance when renaming an instance. When you change the instance
+     *        identifier, an instance reboot occurs immediately if you set <code>Apply Immediately</code> to
      *        <code>true</code>. It occurs during the next maintenance window if you set <code>Apply Immediately</code>
      *        to <code>false</code>. This value is stored as a lowercase string. </p>
      *        <p>
@@ -866,6 +896,106 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     public ModifyDBInstanceRequest withNewDBInstanceIdentifier(String newDBInstanceIdentifier) {
         setNewDBInstanceIdentifier(newDBInstanceIdentifier);
         return this;
+    }
+
+    /**
+     * <p>
+     * Indicates the certificate that needs to be associated with the instance.
+     * </p>
+     * 
+     * @param cACertificateIdentifier
+     *        Indicates the certificate that needs to be associated with the instance.
+     */
+
+    public void setCACertificateIdentifier(String cACertificateIdentifier) {
+        this.cACertificateIdentifier = cACertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * Indicates the certificate that needs to be associated with the instance.
+     * </p>
+     * 
+     * @return Indicates the certificate that needs to be associated with the instance.
+     */
+
+    public String getCACertificateIdentifier() {
+        return this.cACertificateIdentifier;
+    }
+
+    /**
+     * <p>
+     * Indicates the certificate that needs to be associated with the instance.
+     * </p>
+     * 
+     * @param cACertificateIdentifier
+     *        Indicates the certificate that needs to be associated with the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBInstanceRequest withCACertificateIdentifier(String cACertificateIdentifier) {
+        setCACertificateIdentifier(cACertificateIdentifier);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
+     * </p>
+     * 
+     * @param copyTagsToSnapshot
+     *        A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By
+     *        default, tags are not copied.
+     */
+
+    public void setCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        this.copyTagsToSnapshot = copyTagsToSnapshot;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
+     * </p>
+     * 
+     * @return A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By
+     *         default, tags are not copied.
+     */
+
+    public Boolean getCopyTagsToSnapshot() {
+        return this.copyTagsToSnapshot;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
+     * </p>
+     * 
+     * @param copyTagsToSnapshot
+     *        A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By
+     *        default, tags are not copied.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBInstanceRequest withCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        setCopyTagsToSnapshot(copyTagsToSnapshot);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By default,
+     * tags are not copied.
+     * </p>
+     * 
+     * @return A value that indicates whether to copy all tags from the DB instance to snapshots of the DB instance. By
+     *         default, tags are not copied.
+     */
+
+    public Boolean isCopyTagsToSnapshot() {
+        return this.copyTagsToSnapshot;
     }
 
     /**
@@ -948,6 +1078,337 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
+     * <p>
+     * A value that indicates whether to enable Performance Insights for the DB Instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using Amazon
+     * Performance Insights</a>.
+     * </p>
+     * 
+     * @param enablePerformanceInsights
+     *        A value that indicates whether to enable Performance Insights for the DB Instance. For more information,
+     *        see <a href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using
+     *        Amazon Performance Insights</a>.
+     */
+
+    public void setEnablePerformanceInsights(Boolean enablePerformanceInsights) {
+        this.enablePerformanceInsights = enablePerformanceInsights;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to enable Performance Insights for the DB Instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using Amazon
+     * Performance Insights</a>.
+     * </p>
+     * 
+     * @return A value that indicates whether to enable Performance Insights for the DB Instance. For more information,
+     *         see <a
+     *         href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using
+     *         Amazon Performance Insights</a>.
+     */
+
+    public Boolean getEnablePerformanceInsights() {
+        return this.enablePerformanceInsights;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to enable Performance Insights for the DB Instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using Amazon
+     * Performance Insights</a>.
+     * </p>
+     * 
+     * @param enablePerformanceInsights
+     *        A value that indicates whether to enable Performance Insights for the DB Instance. For more information,
+     *        see <a href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using
+     *        Amazon Performance Insights</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBInstanceRequest withEnablePerformanceInsights(Boolean enablePerformanceInsights) {
+        setEnablePerformanceInsights(enablePerformanceInsights);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether to enable Performance Insights for the DB Instance. For more information, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using Amazon
+     * Performance Insights</a>.
+     * </p>
+     * 
+     * @return A value that indicates whether to enable Performance Insights for the DB Instance. For more information,
+     *         see <a
+     *         href="https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html">Using
+     *         Amazon Performance Insights</a>.
+     */
+
+    public Boolean isEnablePerformanceInsights() {
+        return this.enablePerformanceInsights;
+    }
+
+    /**
+     * <p>
+     * The KMS key identifier for encryption of Performance Insights data.
+     * </p>
+     * <p>
+     * The KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     * </p>
+     * <p>
+     * If you do not specify a value for PerformanceInsightsKMSKeyId, then Amazon DocumentDB uses your default KMS key.
+     * There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different
+     * default KMS key for each Amazon Web Services region.
+     * </p>
+     * 
+     * @param performanceInsightsKMSKeyId
+     *        The KMS key identifier for encryption of Performance Insights data.</p>
+     *        <p>
+     *        The KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     *        </p>
+     *        <p>
+     *        If you do not specify a value for PerformanceInsightsKMSKeyId, then Amazon DocumentDB uses your default
+     *        KMS key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account
+     *        has a different default KMS key for each Amazon Web Services region.
+     */
+
+    public void setPerformanceInsightsKMSKeyId(String performanceInsightsKMSKeyId) {
+        this.performanceInsightsKMSKeyId = performanceInsightsKMSKeyId;
+    }
+
+    /**
+     * <p>
+     * The KMS key identifier for encryption of Performance Insights data.
+     * </p>
+     * <p>
+     * The KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     * </p>
+     * <p>
+     * If you do not specify a value for PerformanceInsightsKMSKeyId, then Amazon DocumentDB uses your default KMS key.
+     * There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different
+     * default KMS key for each Amazon Web Services region.
+     * </p>
+     * 
+     * @return The KMS key identifier for encryption of Performance Insights data.</p>
+     *         <p>
+     *         The KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     *         </p>
+     *         <p>
+     *         If you do not specify a value for PerformanceInsightsKMSKeyId, then Amazon DocumentDB uses your default
+     *         KMS key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services
+     *         account has a different default KMS key for each Amazon Web Services region.
+     */
+
+    public String getPerformanceInsightsKMSKeyId() {
+        return this.performanceInsightsKMSKeyId;
+    }
+
+    /**
+     * <p>
+     * The KMS key identifier for encryption of Performance Insights data.
+     * </p>
+     * <p>
+     * The KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     * </p>
+     * <p>
+     * If you do not specify a value for PerformanceInsightsKMSKeyId, then Amazon DocumentDB uses your default KMS key.
+     * There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account has a different
+     * default KMS key for each Amazon Web Services region.
+     * </p>
+     * 
+     * @param performanceInsightsKMSKeyId
+     *        The KMS key identifier for encryption of Performance Insights data.</p>
+     *        <p>
+     *        The KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
+     *        </p>
+     *        <p>
+     *        If you do not specify a value for PerformanceInsightsKMSKeyId, then Amazon DocumentDB uses your default
+     *        KMS key. There is a default KMS key for your Amazon Web Services account. Your Amazon Web Services account
+     *        has a different default KMS key for each Amazon Web Services region.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBInstanceRequest withPerformanceInsightsKMSKeyId(String performanceInsightsKMSKeyId) {
+        setPerformanceInsightsKMSKeyId(performanceInsightsKMSKeyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the DB instance is restarted when you rotate your SSL/TLS certificate.
+     * </p>
+     * <p>
+     * By default, the DB instance is restarted when you rotate your SSL/TLS certificate. The certificate is not updated
+     * until the DB instance is restarted.
+     * </p>
+     * <important>
+     * <p>
+     * Set this parameter only if you are <i>not</i> using SSL/TLS to connect to the DB instance.
+     * </p>
+     * </important>
+     * <p>
+     * If you are using SSL/TLS to connect to the DB instance, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your Amazon
+     * DocumentDB TLS Certificates</a> and <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html"> Encrypting Data
+     * in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     * 
+     * @param certificateRotationRestart
+     *        Specifies whether the DB instance is restarted when you rotate your SSL/TLS certificate.</p>
+     *        <p>
+     *        By default, the DB instance is restarted when you rotate your SSL/TLS certificate. The certificate is not
+     *        updated until the DB instance is restarted.
+     *        </p>
+     *        <important>
+     *        <p>
+     *        Set this parameter only if you are <i>not</i> using SSL/TLS to connect to the DB instance.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        If you are using SSL/TLS to connect to the DB instance, see <a
+     *        href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your
+     *        Amazon DocumentDB TLS Certificates</a> and <a
+     *        href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html">
+     *        Encrypting Data in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     */
+
+    public void setCertificateRotationRestart(Boolean certificateRotationRestart) {
+        this.certificateRotationRestart = certificateRotationRestart;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the DB instance is restarted when you rotate your SSL/TLS certificate.
+     * </p>
+     * <p>
+     * By default, the DB instance is restarted when you rotate your SSL/TLS certificate. The certificate is not updated
+     * until the DB instance is restarted.
+     * </p>
+     * <important>
+     * <p>
+     * Set this parameter only if you are <i>not</i> using SSL/TLS to connect to the DB instance.
+     * </p>
+     * </important>
+     * <p>
+     * If you are using SSL/TLS to connect to the DB instance, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your Amazon
+     * DocumentDB TLS Certificates</a> and <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html"> Encrypting Data
+     * in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     * 
+     * @return Specifies whether the DB instance is restarted when you rotate your SSL/TLS certificate.</p>
+     *         <p>
+     *         By default, the DB instance is restarted when you rotate your SSL/TLS certificate. The certificate is not
+     *         updated until the DB instance is restarted.
+     *         </p>
+     *         <important>
+     *         <p>
+     *         Set this parameter only if you are <i>not</i> using SSL/TLS to connect to the DB instance.
+     *         </p>
+     *         </important>
+     *         <p>
+     *         If you are using SSL/TLS to connect to the DB instance, see <a
+     *         href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your
+     *         Amazon DocumentDB TLS Certificates</a> and <a
+     *         href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html">
+     *         Encrypting Data in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     */
+
+    public Boolean getCertificateRotationRestart() {
+        return this.certificateRotationRestart;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the DB instance is restarted when you rotate your SSL/TLS certificate.
+     * </p>
+     * <p>
+     * By default, the DB instance is restarted when you rotate your SSL/TLS certificate. The certificate is not updated
+     * until the DB instance is restarted.
+     * </p>
+     * <important>
+     * <p>
+     * Set this parameter only if you are <i>not</i> using SSL/TLS to connect to the DB instance.
+     * </p>
+     * </important>
+     * <p>
+     * If you are using SSL/TLS to connect to the DB instance, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your Amazon
+     * DocumentDB TLS Certificates</a> and <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html"> Encrypting Data
+     * in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     * 
+     * @param certificateRotationRestart
+     *        Specifies whether the DB instance is restarted when you rotate your SSL/TLS certificate.</p>
+     *        <p>
+     *        By default, the DB instance is restarted when you rotate your SSL/TLS certificate. The certificate is not
+     *        updated until the DB instance is restarted.
+     *        </p>
+     *        <important>
+     *        <p>
+     *        Set this parameter only if you are <i>not</i> using SSL/TLS to connect to the DB instance.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        If you are using SSL/TLS to connect to the DB instance, see <a
+     *        href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your
+     *        Amazon DocumentDB TLS Certificates</a> and <a
+     *        href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html">
+     *        Encrypting Data in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBInstanceRequest withCertificateRotationRestart(Boolean certificateRotationRestart) {
+        setCertificateRotationRestart(certificateRotationRestart);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the DB instance is restarted when you rotate your SSL/TLS certificate.
+     * </p>
+     * <p>
+     * By default, the DB instance is restarted when you rotate your SSL/TLS certificate. The certificate is not updated
+     * until the DB instance is restarted.
+     * </p>
+     * <important>
+     * <p>
+     * Set this parameter only if you are <i>not</i> using SSL/TLS to connect to the DB instance.
+     * </p>
+     * </important>
+     * <p>
+     * If you are using SSL/TLS to connect to the DB instance, see <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your Amazon
+     * DocumentDB TLS Certificates</a> and <a
+     * href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html"> Encrypting Data
+     * in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     * </p>
+     * 
+     * @return Specifies whether the DB instance is restarted when you rotate your SSL/TLS certificate.</p>
+     *         <p>
+     *         By default, the DB instance is restarted when you rotate your SSL/TLS certificate. The certificate is not
+     *         updated until the DB instance is restarted.
+     *         </p>
+     *         <important>
+     *         <p>
+     *         Set this parameter only if you are <i>not</i> using SSL/TLS to connect to the DB instance.
+     *         </p>
+     *         </important>
+     *         <p>
+     *         If you are using SSL/TLS to connect to the DB instance, see <a
+     *         href="https://docs.aws.amazon.com/documentdb/latest/developerguide/ca_cert_rotation.html">Updating Your
+     *         Amazon DocumentDB TLS Certificates</a> and <a
+     *         href="https://docs.aws.amazon.com/documentdb/latest/developerguide/security.encryption.ssl.html">
+     *         Encrypting Data in Transit</a> in the <i>Amazon DocumentDB Developer Guide</i>.
+     */
+
+    public Boolean isCertificateRotationRestart() {
+        return this.certificateRotationRestart;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -971,8 +1432,18 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
             sb.append("AutoMinorVersionUpgrade: ").append(getAutoMinorVersionUpgrade()).append(",");
         if (getNewDBInstanceIdentifier() != null)
             sb.append("NewDBInstanceIdentifier: ").append(getNewDBInstanceIdentifier()).append(",");
+        if (getCACertificateIdentifier() != null)
+            sb.append("CACertificateIdentifier: ").append(getCACertificateIdentifier()).append(",");
+        if (getCopyTagsToSnapshot() != null)
+            sb.append("CopyTagsToSnapshot: ").append(getCopyTagsToSnapshot()).append(",");
         if (getPromotionTier() != null)
-            sb.append("PromotionTier: ").append(getPromotionTier());
+            sb.append("PromotionTier: ").append(getPromotionTier()).append(",");
+        if (getEnablePerformanceInsights() != null)
+            sb.append("EnablePerformanceInsights: ").append(getEnablePerformanceInsights()).append(",");
+        if (getPerformanceInsightsKMSKeyId() != null)
+            sb.append("PerformanceInsightsKMSKeyId: ").append(getPerformanceInsightsKMSKeyId()).append(",");
+        if (getCertificateRotationRestart() != null)
+            sb.append("CertificateRotationRestart: ").append(getCertificateRotationRestart());
         sb.append("}");
         return sb.toString();
     }
@@ -1011,9 +1482,29 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
             return false;
         if (other.getNewDBInstanceIdentifier() != null && other.getNewDBInstanceIdentifier().equals(this.getNewDBInstanceIdentifier()) == false)
             return false;
+        if (other.getCACertificateIdentifier() == null ^ this.getCACertificateIdentifier() == null)
+            return false;
+        if (other.getCACertificateIdentifier() != null && other.getCACertificateIdentifier().equals(this.getCACertificateIdentifier()) == false)
+            return false;
+        if (other.getCopyTagsToSnapshot() == null ^ this.getCopyTagsToSnapshot() == null)
+            return false;
+        if (other.getCopyTagsToSnapshot() != null && other.getCopyTagsToSnapshot().equals(this.getCopyTagsToSnapshot()) == false)
+            return false;
         if (other.getPromotionTier() == null ^ this.getPromotionTier() == null)
             return false;
         if (other.getPromotionTier() != null && other.getPromotionTier().equals(this.getPromotionTier()) == false)
+            return false;
+        if (other.getEnablePerformanceInsights() == null ^ this.getEnablePerformanceInsights() == null)
+            return false;
+        if (other.getEnablePerformanceInsights() != null && other.getEnablePerformanceInsights().equals(this.getEnablePerformanceInsights()) == false)
+            return false;
+        if (other.getPerformanceInsightsKMSKeyId() == null ^ this.getPerformanceInsightsKMSKeyId() == null)
+            return false;
+        if (other.getPerformanceInsightsKMSKeyId() != null && other.getPerformanceInsightsKMSKeyId().equals(this.getPerformanceInsightsKMSKeyId()) == false)
+            return false;
+        if (other.getCertificateRotationRestart() == null ^ this.getCertificateRotationRestart() == null)
+            return false;
+        if (other.getCertificateRotationRestart() != null && other.getCertificateRotationRestart().equals(this.getCertificateRotationRestart()) == false)
             return false;
         return true;
     }
@@ -1029,7 +1520,12 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
         hashCode = prime * hashCode + ((getPreferredMaintenanceWindow() == null) ? 0 : getPreferredMaintenanceWindow().hashCode());
         hashCode = prime * hashCode + ((getAutoMinorVersionUpgrade() == null) ? 0 : getAutoMinorVersionUpgrade().hashCode());
         hashCode = prime * hashCode + ((getNewDBInstanceIdentifier() == null) ? 0 : getNewDBInstanceIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getCACertificateIdentifier() == null) ? 0 : getCACertificateIdentifier().hashCode());
+        hashCode = prime * hashCode + ((getCopyTagsToSnapshot() == null) ? 0 : getCopyTagsToSnapshot().hashCode());
         hashCode = prime * hashCode + ((getPromotionTier() == null) ? 0 : getPromotionTier().hashCode());
+        hashCode = prime * hashCode + ((getEnablePerformanceInsights() == null) ? 0 : getEnablePerformanceInsights().hashCode());
+        hashCode = prime * hashCode + ((getPerformanceInsightsKMSKeyId() == null) ? 0 : getPerformanceInsightsKMSKeyId().hashCode());
+        hashCode = prime * hashCode + ((getCertificateRotationRestart() == null) ? 0 : getCertificateRotationRestart().hashCode());
         return hashCode;
     }
 

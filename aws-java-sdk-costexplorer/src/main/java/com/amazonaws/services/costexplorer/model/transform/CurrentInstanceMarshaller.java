@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,6 +30,8 @@ public class CurrentInstanceMarshaller {
 
     private static final MarshallingInfo<String> RESOURCEID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceId").build();
+    private static final MarshallingInfo<String> INSTANCENAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InstanceName").build();
     private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Tags").build();
     private static final MarshallingInfo<StructuredPojo> RESOURCEDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -38,6 +40,8 @@ public class CurrentInstanceMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceUtilization").build();
     private static final MarshallingInfo<String> RESERVATIONCOVEREDHOURSINLOOKBACKPERIOD_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ReservationCoveredHoursInLookbackPeriod").build();
+    private static final MarshallingInfo<String> SAVINGSPLANSCOVEREDHOURSINLOOKBACKPERIOD_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SavingsPlansCoveredHoursInLookbackPeriod").build();
     private static final MarshallingInfo<String> ONDEMANDHOURSINLOOKBACKPERIOD_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OnDemandHoursInLookbackPeriod").build();
     private static final MarshallingInfo<String> TOTALRUNNINGHOURSINLOOKBACKPERIOD_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -64,10 +68,12 @@ public class CurrentInstanceMarshaller {
 
         try {
             protocolMarshaller.marshall(currentInstance.getResourceId(), RESOURCEID_BINDING);
+            protocolMarshaller.marshall(currentInstance.getInstanceName(), INSTANCENAME_BINDING);
             protocolMarshaller.marshall(currentInstance.getTags(), TAGS_BINDING);
             protocolMarshaller.marshall(currentInstance.getResourceDetails(), RESOURCEDETAILS_BINDING);
             protocolMarshaller.marshall(currentInstance.getResourceUtilization(), RESOURCEUTILIZATION_BINDING);
             protocolMarshaller.marshall(currentInstance.getReservationCoveredHoursInLookbackPeriod(), RESERVATIONCOVEREDHOURSINLOOKBACKPERIOD_BINDING);
+            protocolMarshaller.marshall(currentInstance.getSavingsPlansCoveredHoursInLookbackPeriod(), SAVINGSPLANSCOVEREDHOURSINLOOKBACKPERIOD_BINDING);
             protocolMarshaller.marshall(currentInstance.getOnDemandHoursInLookbackPeriod(), ONDEMANDHOURSINLOOKBACKPERIOD_BINDING);
             protocolMarshaller.marshall(currentInstance.getTotalRunningHoursInLookbackPeriod(), TOTALRUNNINGHOURSINLOOKBACKPERIOD_BINDING);
             protocolMarshaller.marshall(currentInstance.getMonthlyCost(), MONTHLYCOST_BINDING);

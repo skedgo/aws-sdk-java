@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,18 @@ public class ResourceInUseException extends com.amazonaws.services.eks.model.Ama
      * </p>
      */
     private String clusterName;
+    /**
+     * <p>
+     * The Amazon EKS managed node group associated with the exception.
+     * </p>
+     */
+    private String nodegroupName;
+    /**
+     * <p>
+     * The specified add-on name is in use.
+     * </p>
+     */
+    private String addonName;
 
     /**
      * Constructs a new ResourceInUseException with the specified error message.
@@ -79,6 +91,90 @@ public class ResourceInUseException extends com.amazonaws.services.eks.model.Ama
 
     public ResourceInUseException withClusterName(String clusterName) {
         setClusterName(clusterName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon EKS managed node group associated with the exception.
+     * </p>
+     * 
+     * @param nodegroupName
+     *        The Amazon EKS managed node group associated with the exception.
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("nodegroupName")
+    public void setNodegroupName(String nodegroupName) {
+        this.nodegroupName = nodegroupName;
+    }
+
+    /**
+     * <p>
+     * The Amazon EKS managed node group associated with the exception.
+     * </p>
+     * 
+     * @return The Amazon EKS managed node group associated with the exception.
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("nodegroupName")
+    public String getNodegroupName() {
+        return this.nodegroupName;
+    }
+
+    /**
+     * <p>
+     * The Amazon EKS managed node group associated with the exception.
+     * </p>
+     * 
+     * @param nodegroupName
+     *        The Amazon EKS managed node group associated with the exception.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResourceInUseException withNodegroupName(String nodegroupName) {
+        setNodegroupName(nodegroupName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The specified add-on name is in use.
+     * </p>
+     * 
+     * @param addonName
+     *        The specified add-on name is in use.
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("addonName")
+    public void setAddonName(String addonName) {
+        this.addonName = addonName;
+    }
+
+    /**
+     * <p>
+     * The specified add-on name is in use.
+     * </p>
+     * 
+     * @return The specified add-on name is in use.
+     */
+
+    @com.fasterxml.jackson.annotation.JsonProperty("addonName")
+    public String getAddonName() {
+        return this.addonName;
+    }
+
+    /**
+     * <p>
+     * The specified add-on name is in use.
+     * </p>
+     * 
+     * @param addonName
+     *        The specified add-on name is in use.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResourceInUseException withAddonName(String addonName) {
+        setAddonName(addonName);
         return this;
     }
 

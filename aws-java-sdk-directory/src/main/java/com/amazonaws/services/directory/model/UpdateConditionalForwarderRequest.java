@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class UpdateConditionalForwarderRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The directory ID of the AWS directory for which to update the conditional forwarder.
+     * The directory ID of the Amazon Web Services directory for which to update the conditional forwarder.
      * </p>
      */
     private String directoryId;
@@ -49,11 +49,11 @@ public class UpdateConditionalForwarderRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The directory ID of the AWS directory for which to update the conditional forwarder.
+     * The directory ID of the Amazon Web Services directory for which to update the conditional forwarder.
      * </p>
      * 
      * @param directoryId
-     *        The directory ID of the AWS directory for which to update the conditional forwarder.
+     *        The directory ID of the Amazon Web Services directory for which to update the conditional forwarder.
      */
 
     public void setDirectoryId(String directoryId) {
@@ -62,10 +62,10 @@ public class UpdateConditionalForwarderRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The directory ID of the AWS directory for which to update the conditional forwarder.
+     * The directory ID of the Amazon Web Services directory for which to update the conditional forwarder.
      * </p>
      * 
-     * @return The directory ID of the AWS directory for which to update the conditional forwarder.
+     * @return The directory ID of the Amazon Web Services directory for which to update the conditional forwarder.
      */
 
     public String getDirectoryId() {
@@ -74,11 +74,11 @@ public class UpdateConditionalForwarderRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The directory ID of the AWS directory for which to update the conditional forwarder.
+     * The directory ID of the Amazon Web Services directory for which to update the conditional forwarder.
      * </p>
      * 
      * @param directoryId
-     *        The directory ID of the AWS directory for which to update the conditional forwarder.
+     *        The directory ID of the Amazon Web Services directory for which to update the conditional forwarder.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -63,6 +63,52 @@ public class CreateFileSystemLustreConfigurationJsonUnmarshaller implements Unma
                 if (context.testExpression("ImportedFileChunkSize", targetDepth)) {
                     context.nextToken();
                     createFileSystemLustreConfiguration.setImportedFileChunkSize(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("DeploymentType", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemLustreConfiguration.setDeploymentType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("AutoImportPolicy", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemLustreConfiguration.setAutoImportPolicy(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("PerUnitStorageThroughput", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemLustreConfiguration.setPerUnitStorageThroughput(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("DailyAutomaticBackupStartTime", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemLustreConfiguration.setDailyAutomaticBackupStartTime(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("AutomaticBackupRetentionDays", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemLustreConfiguration.setAutomaticBackupRetentionDays(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("CopyTagsToBackups", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemLustreConfiguration.setCopyTagsToBackups(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("DriveCacheType", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemLustreConfiguration.setDriveCacheType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("DataCompressionType", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemLustreConfiguration.setDataCompressionType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("LogConfiguration", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemLustreConfiguration.setLogConfiguration(LustreLogCreateConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("RootSquashConfiguration", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemLustreConfiguration.setRootSquashConfiguration(LustreRootSquashConfigurationJsonUnmarshaller.getInstance().unmarshall(
+                            context));
+                }
+                if (context.testExpression("MetadataConfiguration", targetDepth)) {
+                    context.nextToken();
+                    createFileSystemLustreConfiguration.setMetadataConfiguration(CreateFileSystemLustreMetadataConfigurationJsonUnmarshaller.getInstance()
+                            .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,18 +44,29 @@ import com.amazonaws.services.iotdata.AWSIotDataClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.iotdata.model.*;
+
 import com.amazonaws.services.iotdata.model.transform.*;
 
 /**
  * Client for accessing AWS IoT Data Plane. All service calls made using this client are blocking, and will not return
  * until the service call completes.
  * <p>
- * <fullname>AWS IoT</fullname>
+ * <fullname>IoT data</fullname>
  * <p>
- * AWS IoT-Data enables secure, bi-directional communication between Internet-connected things (such as sensors,
- * actuators, embedded devices, or smart appliances) and the AWS cloud. It implements a broker for applications and
- * things to publish messages over HTTP (Publish) and retrieve, update, and delete thing shadows. A thing shadow is a
- * persistent representation of your things and their state in the AWS cloud.
+ * IoT data enables secure, bi-directional communication between Internet-connected things (such as sensors, actuators,
+ * embedded devices, or smart appliances) and the Amazon Web Services cloud. It implements a broker for applications and
+ * things to publish messages over HTTP (Publish) and retrieve, update, and delete shadows. A shadow is a persistent
+ * representation of your things and their state in the Amazon Web Services cloud.
+ * </p>
+ * <p>
+ * Find the endpoint address for actions in IoT data by running this CLI command:
+ * </p>
+ * <p>
+ * <code>aws iot describe-endpoint --endpoint-type iot:Data-ATS</code>
+ * </p>
+ * <p>
+ * The service name used by <a href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Amazon Web
+ * ServicesSignature Version 4</a> to sign requests is: <i>iotdevicegateway</i>.
  * </p>
  */
 @ThreadSafe
@@ -80,37 +91,37 @@ public class AWSIotDataClient extends AmazonWebServiceClient implements AWSIotDa
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedDocumentEncodingException").withModeledClass(
-                                    com.amazonaws.services.iotdata.model.UnsupportedDocumentEncodingException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotdata.model.transform.ConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MethodNotAllowedException").withModeledClass(
-                                    com.amazonaws.services.iotdata.model.MethodNotAllowedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotdata.model.transform.ServiceUnavailableExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withModeledClass(
-                                    com.amazonaws.services.iotdata.model.ConflictException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalFailureException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotdata.model.transform.InternalFailureExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withModeledClass(
-                                    com.amazonaws.services.iotdata.model.ServiceUnavailableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnauthorizedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotdata.model.transform.UnauthorizedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalFailureException").withModeledClass(
-                                    com.amazonaws.services.iotdata.model.InternalFailureException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RequestEntityTooLargeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotdata.model.transform.RequestEntityTooLargeExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnauthorizedException").withModeledClass(
-                                    com.amazonaws.services.iotdata.model.UnauthorizedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotdata.model.transform.InvalidRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RequestEntityTooLargeException").withModeledClass(
-                                    com.amazonaws.services.iotdata.model.RequestEntityTooLargeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotdata.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withModeledClass(
-                                    com.amazonaws.services.iotdata.model.InvalidRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedDocumentEncodingException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotdata.model.transform.UnsupportedDocumentEncodingExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withModeledClass(
-                                    com.amazonaws.services.iotdata.model.ThrottlingException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MethodNotAllowedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotdata.model.transform.MethodNotAllowedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.iotdata.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotdata.model.transform.ThrottlingExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.iotdata.model.AWSIotDataException.class));
 
     /**
@@ -315,12 +326,17 @@ public class AWSIotDataClient extends AmazonWebServiceClient implements AWSIotDa
 
     /**
      * <p>
-     * Deletes the thing shadow for the specified thing.
+     * Deletes the shadow for the specified thing.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >DeleteThingShadow</a> action.
      * </p>
      * <p>
      * For more information, see <a
      * href="http://docs.aws.amazon.com/iot/latest/developerguide/API_DeleteThingShadow.html">DeleteThingShadow</a> in
-     * the <i>AWS IoT Developer Guide</i>.
+     * the IoT Developer Guide.
      * </p>
      * 
      * @param deleteThingShadowRequest
@@ -343,6 +359,8 @@ public class AWSIotDataClient extends AmazonWebServiceClient implements AWSIotDa
      * @throws UnsupportedDocumentEncodingException
      *         The document encoding is not supported.
      * @sample AWSIotData.DeleteThingShadow
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iot-data-2015-05-28/DeleteThingShadow" target="_top">AWS API
+     *      Documentation</a>
      */
     @Override
     public DeleteThingShadowResult deleteThingShadow(DeleteThingShadowRequest request) {
@@ -365,6 +383,8 @@ public class AWSIotDataClient extends AmazonWebServiceClient implements AWSIotDa
                 request = new DeleteThingShadowRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteThingShadowRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT Data Plane");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteThingShadow");
@@ -388,12 +408,102 @@ public class AWSIotDataClient extends AmazonWebServiceClient implements AWSIotDa
 
     /**
      * <p>
-     * Gets the thing shadow for the specified thing.
+     * Gets the details of a single retained message for the specified topic.
+     * </p>
+     * <p>
+     * This action returns the message payload of the retained message, which can incur messaging costs. To list only
+     * the topic names of the retained messages, call <a
+     * href="https://docs.aws.amazon.com/iot/latest/apireference/API_iotdata_ListRetainedMessages.html"
+     * >ListRetainedMessages</a>.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiotfleethubfordevicemanagement.html#awsiotfleethubfordevicemanagement-actions-as-permissions"
+     * >GetRetainedMessage</a> action.
+     * </p>
+     * <p>
+     * For more information about messaging costs, see <a
+     * href="http://aws.amazon.com/iot-core/pricing/#Messaging">Amazon Web Services IoT Core pricing - Messaging</a>.
+     * </p>
+     * 
+     * @param getRetainedMessageRequest
+     *        The input for the GetRetainedMessage operation.
+     * @return Result of the GetRetainedMessage operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws MethodNotAllowedException
+     *         The specified combination of HTTP verb and URI is not supported.
+     * @sample AWSIotData.GetRetainedMessage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iot-data-2015-05-28/GetRetainedMessage" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public GetRetainedMessageResult getRetainedMessage(GetRetainedMessageRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetRetainedMessage(request);
+    }
+
+    @SdkInternalApi
+    final GetRetainedMessageResult executeGetRetainedMessage(GetRetainedMessageRequest getRetainedMessageRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getRetainedMessageRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetRetainedMessageRequest> request = null;
+        Response<GetRetainedMessageResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetRetainedMessageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRetainedMessageRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT Data Plane");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRetainedMessage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetRetainedMessageResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetRetainedMessageResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets the shadow for the specified thing.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >GetThingShadow</a> action.
      * </p>
      * <p>
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/iot/latest/developerguide/API_GetThingShadow.html">GetThingShadow</a> in the
-     * <i>AWS IoT Developer Guide</i>.
+     * href="http://docs.aws.amazon.com/iot/latest/developerguide/API_GetThingShadow.html">GetThingShadow</a> in the IoT
+     * Developer Guide.
      * </p>
      * 
      * @param getThingShadowRequest
@@ -416,6 +526,8 @@ public class AWSIotDataClient extends AmazonWebServiceClient implements AWSIotDa
      * @throws UnsupportedDocumentEncodingException
      *         The document encoding is not supported.
      * @sample AWSIotData.GetThingShadow
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iot-data-2015-05-28/GetThingShadow" target="_top">AWS API
+     *      Documentation</a>
      */
     @Override
     public GetThingShadowResult getThingShadow(GetThingShadowRequest request) {
@@ -438,6 +550,8 @@ public class AWSIotDataClient extends AmazonWebServiceClient implements AWSIotDa
                 request = new GetThingShadowRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getThingShadowRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT Data Plane");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetThingShadow");
@@ -461,11 +575,182 @@ public class AWSIotDataClient extends AmazonWebServiceClient implements AWSIotDa
 
     /**
      * <p>
-     * Publishes state information.
+     * Lists the shadows for the specified thing.
      * </p>
      * <p>
-     * For more information, see <a href="http://docs.aws.amazon.com/iot/latest/developerguide/protocols.html#http">HTTP
-     * Protocol</a> in the <i>AWS IoT Developer Guide</i>.
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >ListNamedShadowsForThing</a> action.
+     * </p>
+     * 
+     * @param listNamedShadowsForThingRequest
+     * @return Result of the ListNamedShadowsForThing operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The specified resource does not exist.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws MethodNotAllowedException
+     *         The specified combination of HTTP verb and URI is not supported.
+     * @sample AWSIotData.ListNamedShadowsForThing
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iot-data-2015-05-28/ListNamedShadowsForThing"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListNamedShadowsForThingResult listNamedShadowsForThing(ListNamedShadowsForThingRequest request) {
+        request = beforeClientExecution(request);
+        return executeListNamedShadowsForThing(request);
+    }
+
+    @SdkInternalApi
+    final ListNamedShadowsForThingResult executeListNamedShadowsForThing(ListNamedShadowsForThingRequest listNamedShadowsForThingRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listNamedShadowsForThingRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListNamedShadowsForThingRequest> request = null;
+        Response<ListNamedShadowsForThingResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListNamedShadowsForThingRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listNamedShadowsForThingRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT Data Plane");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListNamedShadowsForThing");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListNamedShadowsForThingResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListNamedShadowsForThingResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists summary information about the retained messages stored for the account.
+     * </p>
+     * <p>
+     * This action returns only the topic names of the retained messages. It doesn't return any message payloads.
+     * Although this action doesn't return a message payload, it can still incur messaging costs.
+     * </p>
+     * <p>
+     * To get the message payload of a retained message, call <a
+     * href="https://docs.aws.amazon.com/iot/latest/apireference/API_iotdata_GetRetainedMessage.html"
+     * >GetRetainedMessage</a> with the topic name of the retained message.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiotfleethubfordevicemanagement.html#awsiotfleethubfordevicemanagement-actions-as-permissions"
+     * >ListRetainedMessages</a> action.
+     * </p>
+     * <p>
+     * For more information about messaging costs, see <a
+     * href="http://aws.amazon.com/iot-core/pricing/#Messaging">Amazon Web Services IoT Core pricing - Messaging</a>.
+     * </p>
+     * 
+     * @param listRetainedMessagesRequest
+     * @return Result of the ListRetainedMessages operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request is not valid.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
+     * @throws UnauthorizedException
+     *         You are not authorized to perform this operation.
+     * @throws ServiceUnavailableException
+     *         The service is temporarily unavailable.
+     * @throws InternalFailureException
+     *         An unexpected error has occurred.
+     * @throws MethodNotAllowedException
+     *         The specified combination of HTTP verb and URI is not supported.
+     * @sample AWSIotData.ListRetainedMessages
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iot-data-2015-05-28/ListRetainedMessages" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListRetainedMessagesResult listRetainedMessages(ListRetainedMessagesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListRetainedMessages(request);
+    }
+
+    @SdkInternalApi
+    final ListRetainedMessagesResult executeListRetainedMessages(ListRetainedMessagesRequest listRetainedMessagesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listRetainedMessagesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListRetainedMessagesRequest> request = null;
+        Response<ListRetainedMessagesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListRetainedMessagesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listRetainedMessagesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT Data Plane");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRetainedMessages");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListRetainedMessagesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListRetainedMessagesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Publishes an MQTT message.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >Publish</a> action.
+     * </p>
+     * <p>
+     * For more information about MQTT messages, see <a
+     * href="http://docs.aws.amazon.com/iot/latest/developerguide/mqtt.html">MQTT Protocol</a> in the IoT Developer
+     * Guide.
+     * </p>
+     * <p>
+     * For more information about messaging costs, see <a
+     * href="http://aws.amazon.com/iot-core/pricing/#Messaging">Amazon Web Services IoT Core pricing - Messaging</a>.
      * </p>
      * 
      * @param publishRequest
@@ -479,7 +764,11 @@ public class AWSIotDataClient extends AmazonWebServiceClient implements AWSIotDa
      *         You are not authorized to perform this operation.
      * @throws MethodNotAllowedException
      *         The specified combination of HTTP verb and URI is not supported.
+     * @throws ThrottlingException
+     *         The rate exceeds the limit.
      * @sample AWSIotData.Publish
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iot-data-2015-05-28/Publish" target="_top">AWS API
+     *      Documentation</a>
      */
     @Override
     public PublishResult publish(PublishRequest request) {
@@ -502,6 +791,8 @@ public class AWSIotDataClient extends AmazonWebServiceClient implements AWSIotDa
                 request = new PublishRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(publishRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT Data Plane");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "Publish");
@@ -525,12 +816,17 @@ public class AWSIotDataClient extends AmazonWebServiceClient implements AWSIotDa
 
     /**
      * <p>
-     * Updates the thing shadow for the specified thing.
+     * Updates the shadow for the specified thing.
+     * </p>
+     * <p>
+     * Requires permission to access the <a href=
+     * "https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions"
+     * >UpdateThingShadow</a> action.
      * </p>
      * <p>
      * For more information, see <a
      * href="http://docs.aws.amazon.com/iot/latest/developerguide/API_UpdateThingShadow.html">UpdateThingShadow</a> in
-     * the <i>AWS IoT Developer Guide</i>.
+     * the IoT Developer Guide.
      * </p>
      * 
      * @param updateThingShadowRequest
@@ -555,6 +851,8 @@ public class AWSIotDataClient extends AmazonWebServiceClient implements AWSIotDa
      * @throws UnsupportedDocumentEncodingException
      *         The document encoding is not supported.
      * @sample AWSIotData.UpdateThingShadow
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iot-data-2015-05-28/UpdateThingShadow" target="_top">AWS API
+     *      Documentation</a>
      */
     @Override
     public UpdateThingShadowResult updateThingShadow(UpdateThingShadowRequest request) {
@@ -577,6 +875,8 @@ public class AWSIotDataClient extends AmazonWebServiceClient implements AWSIotDa
                 request = new UpdateThingShadowRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateThingShadowRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT Data Plane");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateThingShadow");
@@ -672,6 +972,11 @@ public class AWSIotDataClient extends AmazonWebServiceClient implements AWSIotDa
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

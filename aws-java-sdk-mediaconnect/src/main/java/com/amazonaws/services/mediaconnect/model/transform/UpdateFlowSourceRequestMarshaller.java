@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.mediaconnect.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -41,14 +42,32 @@ public class UpdateFlowSourceRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("maxBitrate").build();
     private static final MarshallingInfo<Integer> MAXLATENCY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("maxLatency").build();
+    private static final MarshallingInfo<Integer> MAXSYNCBUFFER_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("maxSyncBuffer").build();
+    private static final MarshallingInfo<List> MEDIASTREAMSOURCECONFIGURATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("mediaStreamSourceConfigurations").build();
+    private static final MarshallingInfo<Integer> MINLATENCY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("minLatency").build();
     private static final MarshallingInfo<String> PROTOCOL_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("protocol").build();
+    private static final MarshallingInfo<Integer> SENDERCONTROLPORT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("senderControlPort").build();
+    private static final MarshallingInfo<String> SENDERIPADDRESS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("senderIpAddress").build();
     private static final MarshallingInfo<String> SOURCEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PATH)
             .marshallLocationName("sourceArn").build();
+    private static final MarshallingInfo<String> SOURCELISTENERADDRESS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("sourceListenerAddress").build();
+    private static final MarshallingInfo<Integer> SOURCELISTENERPORT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("sourceListenerPort").build();
     private static final MarshallingInfo<String> STREAMID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("streamId").build();
+    private static final MarshallingInfo<String> VPCINTERFACENAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("vpcInterfaceName").build();
     private static final MarshallingInfo<String> WHITELISTCIDR_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("whitelistCidr").build();
+    private static final MarshallingInfo<StructuredPojo> GATEWAYBRIDGESOURCE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("gatewayBridgeSource").build();
 
     private static final UpdateFlowSourceRequestMarshaller instance = new UpdateFlowSourceRequestMarshaller();
 
@@ -73,10 +92,19 @@ public class UpdateFlowSourceRequestMarshaller {
             protocolMarshaller.marshall(updateFlowSourceRequest.getIngestPort(), INGESTPORT_BINDING);
             protocolMarshaller.marshall(updateFlowSourceRequest.getMaxBitrate(), MAXBITRATE_BINDING);
             protocolMarshaller.marshall(updateFlowSourceRequest.getMaxLatency(), MAXLATENCY_BINDING);
+            protocolMarshaller.marshall(updateFlowSourceRequest.getMaxSyncBuffer(), MAXSYNCBUFFER_BINDING);
+            protocolMarshaller.marshall(updateFlowSourceRequest.getMediaStreamSourceConfigurations(), MEDIASTREAMSOURCECONFIGURATIONS_BINDING);
+            protocolMarshaller.marshall(updateFlowSourceRequest.getMinLatency(), MINLATENCY_BINDING);
             protocolMarshaller.marshall(updateFlowSourceRequest.getProtocol(), PROTOCOL_BINDING);
+            protocolMarshaller.marshall(updateFlowSourceRequest.getSenderControlPort(), SENDERCONTROLPORT_BINDING);
+            protocolMarshaller.marshall(updateFlowSourceRequest.getSenderIpAddress(), SENDERIPADDRESS_BINDING);
             protocolMarshaller.marshall(updateFlowSourceRequest.getSourceArn(), SOURCEARN_BINDING);
+            protocolMarshaller.marshall(updateFlowSourceRequest.getSourceListenerAddress(), SOURCELISTENERADDRESS_BINDING);
+            protocolMarshaller.marshall(updateFlowSourceRequest.getSourceListenerPort(), SOURCELISTENERPORT_BINDING);
             protocolMarshaller.marshall(updateFlowSourceRequest.getStreamId(), STREAMID_BINDING);
+            protocolMarshaller.marshall(updateFlowSourceRequest.getVpcInterfaceName(), VPCINTERFACENAME_BINDING);
             protocolMarshaller.marshall(updateFlowSourceRequest.getWhitelistCidr(), WHITELISTCIDR_BINDING);
+            protocolMarshaller.marshall(updateFlowSourceRequest.getGatewayBridgeSource(), GATEWAYBRIDGESOURCE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

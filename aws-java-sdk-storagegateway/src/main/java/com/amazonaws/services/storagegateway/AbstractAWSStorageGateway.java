@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -68,6 +68,11 @@ public class AbstractAWSStorageGateway implements AWSStorageGateway {
     }
 
     @Override
+    public AssociateFileSystemResult associateFileSystem(AssociateFileSystemRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public AttachVolumeResult attachVolume(AttachVolumeRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -113,12 +118,22 @@ public class AbstractAWSStorageGateway implements AWSStorageGateway {
     }
 
     @Override
+    public CreateTapePoolResult createTapePool(CreateTapePoolRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateTapeWithBarcodeResult createTapeWithBarcode(CreateTapeWithBarcodeRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public CreateTapesResult createTapes(CreateTapesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteAutomaticTapeCreationPolicyResult deleteAutomaticTapeCreationPolicy(DeleteAutomaticTapeCreationPolicyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -158,12 +173,27 @@ public class AbstractAWSStorageGateway implements AWSStorageGateway {
     }
 
     @Override
+    public DeleteTapePoolResult deleteTapePool(DeleteTapePoolRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteVolumeResult deleteVolume(DeleteVolumeRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public DescribeAvailabilityMonitorTestResult describeAvailabilityMonitorTest(DescribeAvailabilityMonitorTestRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeBandwidthRateLimitResult describeBandwidthRateLimit(DescribeBandwidthRateLimitRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeBandwidthRateLimitScheduleResult describeBandwidthRateLimitSchedule(DescribeBandwidthRateLimitScheduleRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -179,6 +209,11 @@ public class AbstractAWSStorageGateway implements AWSStorageGateway {
 
     @Override
     public DescribeChapCredentialsResult describeChapCredentials(DescribeChapCredentialsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeFileSystemAssociationsResult describeFileSystemAssociations(DescribeFileSystemAssociationsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -263,12 +298,27 @@ public class AbstractAWSStorageGateway implements AWSStorageGateway {
     }
 
     @Override
+    public DisassociateFileSystemResult disassociateFileSystem(DisassociateFileSystemRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public JoinDomainResult joinDomain(JoinDomainRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public ListAutomaticTapeCreationPoliciesResult listAutomaticTapeCreationPolicies(ListAutomaticTapeCreationPoliciesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListFileSharesResult listFileShares(ListFileSharesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListFileSystemAssociationsResult listFileSystemAssociations(ListFileSystemAssociationsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -295,6 +345,11 @@ public class AbstractAWSStorageGateway implements AWSStorageGateway {
     @Override
     public ListTagsForResourceResult listTagsForResource() {
         return listTagsForResource(new ListTagsForResourceRequest());
+    }
+
+    @Override
+    public ListTapePoolsResult listTapePools(ListTapePoolsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -368,7 +423,17 @@ public class AbstractAWSStorageGateway implements AWSStorageGateway {
     }
 
     @Override
+    public StartAvailabilityMonitorTestResult startAvailabilityMonitorTest(StartAvailabilityMonitorTestRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StartGatewayResult startGateway(StartGatewayRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateAutomaticTapeCreationPolicyResult updateAutomaticTapeCreationPolicy(UpdateAutomaticTapeCreationPolicyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -378,7 +443,17 @@ public class AbstractAWSStorageGateway implements AWSStorageGateway {
     }
 
     @Override
+    public UpdateBandwidthRateLimitScheduleResult updateBandwidthRateLimitSchedule(UpdateBandwidthRateLimitScheduleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateChapCredentialsResult updateChapCredentials(UpdateChapCredentialsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateFileSystemAssociationResult updateFileSystemAssociation(UpdateFileSystemAssociationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -404,6 +479,16 @@ public class AbstractAWSStorageGateway implements AWSStorageGateway {
 
     @Override
     public UpdateSMBFileShareResult updateSMBFileShare(UpdateSMBFileShareRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateSMBFileShareVisibilityResult updateSMBFileShareVisibility(UpdateSMBFileShareVisibilityRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateSMBLocalGroupsResult updateSMBLocalGroups(UpdateSMBLocalGroupsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

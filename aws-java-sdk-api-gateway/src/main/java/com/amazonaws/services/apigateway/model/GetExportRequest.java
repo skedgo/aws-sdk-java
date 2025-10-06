@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Request a new export of a <a>RestApi</a> for a particular <a>Stage</a>.
+ * Request a new export of a RestApi for a particular Stage.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -27,20 +27,19 @@ public class GetExportRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      */
     private String restApiId;
     /**
      * <p>
-     * [Required] The name of the <a>Stage</a> that will be exported.
+     * The name of the Stage that will be exported.
      * </p>
      */
     private String stageName;
     /**
      * <p>
-     * [Required] The type of export. Acceptable values are 'oas30' for OpenAPI 3.0.x and 'swagger' for Swagger/OpenAPI
-     * 2.0.
+     * The type of export. Acceptable values are 'oas30' for OpenAPI 3.0.x and 'swagger' for Swagger/OpenAPI 2.0.
      * </p>
      */
     private String exportType;
@@ -67,11 +66,11 @@ public class GetExportRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      */
 
     public void setRestApiId(String restApiId) {
@@ -80,10 +79,10 @@ public class GetExportRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
-     * @return [Required] The string identifier of the associated <a>RestApi</a>.
+     * @return The string identifier of the associated RestApi.
      */
 
     public String getRestApiId() {
@@ -92,11 +91,11 @@ public class GetExportRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -107,11 +106,11 @@ public class GetExportRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * [Required] The name of the <a>Stage</a> that will be exported.
+     * The name of the Stage that will be exported.
      * </p>
      * 
      * @param stageName
-     *        [Required] The name of the <a>Stage</a> that will be exported.
+     *        The name of the Stage that will be exported.
      */
 
     public void setStageName(String stageName) {
@@ -120,10 +119,10 @@ public class GetExportRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * [Required] The name of the <a>Stage</a> that will be exported.
+     * The name of the Stage that will be exported.
      * </p>
      * 
-     * @return [Required] The name of the <a>Stage</a> that will be exported.
+     * @return The name of the Stage that will be exported.
      */
 
     public String getStageName() {
@@ -132,11 +131,11 @@ public class GetExportRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * [Required] The name of the <a>Stage</a> that will be exported.
+     * The name of the Stage that will be exported.
      * </p>
      * 
      * @param stageName
-     *        [Required] The name of the <a>Stage</a> that will be exported.
+     *        The name of the Stage that will be exported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -147,13 +146,11 @@ public class GetExportRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * [Required] The type of export. Acceptable values are 'oas30' for OpenAPI 3.0.x and 'swagger' for Swagger/OpenAPI
-     * 2.0.
+     * The type of export. Acceptable values are 'oas30' for OpenAPI 3.0.x and 'swagger' for Swagger/OpenAPI 2.0.
      * </p>
      * 
      * @param exportType
-     *        [Required] The type of export. Acceptable values are 'oas30' for OpenAPI 3.0.x and 'swagger' for
-     *        Swagger/OpenAPI 2.0.
+     *        The type of export. Acceptable values are 'oas30' for OpenAPI 3.0.x and 'swagger' for Swagger/OpenAPI 2.0.
      */
 
     public void setExportType(String exportType) {
@@ -162,12 +159,11 @@ public class GetExportRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * [Required] The type of export. Acceptable values are 'oas30' for OpenAPI 3.0.x and 'swagger' for Swagger/OpenAPI
-     * 2.0.
+     * The type of export. Acceptable values are 'oas30' for OpenAPI 3.0.x and 'swagger' for Swagger/OpenAPI 2.0.
      * </p>
      * 
-     * @return [Required] The type of export. Acceptable values are 'oas30' for OpenAPI 3.0.x and 'swagger' for
-     *         Swagger/OpenAPI 2.0.
+     * @return The type of export. Acceptable values are 'oas30' for OpenAPI 3.0.x and 'swagger' for Swagger/OpenAPI
+     *         2.0.
      */
 
     public String getExportType() {
@@ -176,13 +172,11 @@ public class GetExportRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * [Required] The type of export. Acceptable values are 'oas30' for OpenAPI 3.0.x and 'swagger' for Swagger/OpenAPI
-     * 2.0.
+     * The type of export. Acceptable values are 'oas30' for OpenAPI 3.0.x and 'swagger' for Swagger/OpenAPI 2.0.
      * </p>
      * 
      * @param exportType
-     *        [Required] The type of export. Acceptable values are 'oas30' for OpenAPI 3.0.x and 'swagger' for
-     *        Swagger/OpenAPI 2.0.
+     *        The type of export. Acceptable values are 'oas30' for OpenAPI 3.0.x and 'swagger' for Swagger/OpenAPI 2.0.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -261,6 +255,13 @@ public class GetExportRequest extends com.amazonaws.AmazonWebServiceRequest impl
         setParameters(parameters);
         return this;
     }
+
+    /**
+     * Add a single Parameters entry
+     *
+     * @see GetExportRequest#withParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public GetExportRequest addParametersEntry(String key, String value) {
         if (null == this.parameters) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,9 +25,11 @@ import java.util.concurrent.ExecutorService;
  * the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive notification when
  * an asynchronous operation completes.
  * <p>
- * Amazon MQ is a managed message broker service for Apache ActiveMQ that makes it easy to set up and operate message
- * brokers in the cloud. A message broker allows software applications and components to communicate using various
- * programming languages, operating systems, and formal messaging protocols.
+ * <p>
+ * Amazon MQ is a managed message broker service for Apache ActiveMQ and RabbitMQ that makes it easy to set up and
+ * operate message brokers in the cloud. A message broker allows software applications and components to communicate
+ * using various programming languages, operating systems, and formal messaging protocols.
+ * </p>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -48,7 +50,19 @@ public class AmazonMQAsyncClient extends AmazonMQClient implements AmazonMQAsync
      *        Object providing client parameters.
      */
     AmazonMQAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on AmazonMQ using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonMQAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -642,6 +656,39 @@ public class AmazonMQAsyncClient extends AmazonMQClient implements AmazonMQAsync
 
                 try {
                     result = executeListUsers(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PromoteResult> promoteAsync(PromoteRequest request) {
+
+        return promoteAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PromoteResult> promoteAsync(final PromoteRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PromoteRequest, PromoteResult> asyncHandler) {
+        final PromoteRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PromoteResult>() {
+            @Override
+            public PromoteResult call() throws Exception {
+                PromoteResult result = null;
+
+                try {
+                    result = executePromote(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

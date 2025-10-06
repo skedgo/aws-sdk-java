@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -47,6 +47,30 @@ public class CreatePlacementGroupRequest extends AmazonWebServiceRequest impleme
      * </p>
      */
     private Integer partitionCount;
+    /**
+     * <p>
+     * The tags to apply to the new placement group.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<TagSpecification> tagSpecifications;
+    /**
+     * <p>
+     * Determines how placement groups spread instances.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Host – You can use <code>host</code> only with Outpost placement groups.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Rack – No usage restrictions.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String spreadLevel;
 
     /**
      * Default constructor for CreatePlacementGroupRequest object. Callers should use the setter or fluent setter
@@ -256,6 +280,267 @@ public class CreatePlacementGroupRequest extends AmazonWebServiceRequest impleme
     }
 
     /**
+     * <p>
+     * The tags to apply to the new placement group.
+     * </p>
+     * 
+     * @return The tags to apply to the new placement group.
+     */
+
+    public java.util.List<TagSpecification> getTagSpecifications() {
+        if (tagSpecifications == null) {
+            tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>();
+        }
+        return tagSpecifications;
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the new placement group.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to apply to the new placement group.
+     */
+
+    public void setTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        if (tagSpecifications == null) {
+            this.tagSpecifications = null;
+            return;
+        }
+
+        this.tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications);
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the new placement group.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTagSpecifications(java.util.Collection)} or {@link #withTagSpecifications(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to apply to the new placement group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreatePlacementGroupRequest withTagSpecifications(TagSpecification... tagSpecifications) {
+        if (this.tagSpecifications == null) {
+            setTagSpecifications(new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications.length));
+        }
+        for (TagSpecification ele : tagSpecifications) {
+            this.tagSpecifications.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the new placement group.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to apply to the new placement group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreatePlacementGroupRequest withTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        setTagSpecifications(tagSpecifications);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Determines how placement groups spread instances.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Host – You can use <code>host</code> only with Outpost placement groups.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Rack – No usage restrictions.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param spreadLevel
+     *        Determines how placement groups spread instances. </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Host – You can use <code>host</code> only with Outpost placement groups.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Rack – No usage restrictions.
+     *        </p>
+     *        </li>
+     * @see SpreadLevel
+     */
+
+    public void setSpreadLevel(String spreadLevel) {
+        this.spreadLevel = spreadLevel;
+    }
+
+    /**
+     * <p>
+     * Determines how placement groups spread instances.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Host – You can use <code>host</code> only with Outpost placement groups.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Rack – No usage restrictions.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Determines how placement groups spread instances. </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Host – You can use <code>host</code> only with Outpost placement groups.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Rack – No usage restrictions.
+     *         </p>
+     *         </li>
+     * @see SpreadLevel
+     */
+
+    public String getSpreadLevel() {
+        return this.spreadLevel;
+    }
+
+    /**
+     * <p>
+     * Determines how placement groups spread instances.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Host – You can use <code>host</code> only with Outpost placement groups.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Rack – No usage restrictions.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param spreadLevel
+     *        Determines how placement groups spread instances. </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Host – You can use <code>host</code> only with Outpost placement groups.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Rack – No usage restrictions.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SpreadLevel
+     */
+
+    public CreatePlacementGroupRequest withSpreadLevel(String spreadLevel) {
+        setSpreadLevel(spreadLevel);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Determines how placement groups spread instances.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Host – You can use <code>host</code> only with Outpost placement groups.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Rack – No usage restrictions.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param spreadLevel
+     *        Determines how placement groups spread instances. </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Host – You can use <code>host</code> only with Outpost placement groups.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Rack – No usage restrictions.
+     *        </p>
+     *        </li>
+     * @see SpreadLevel
+     */
+
+    public void setSpreadLevel(SpreadLevel spreadLevel) {
+        withSpreadLevel(spreadLevel);
+    }
+
+    /**
+     * <p>
+     * Determines how placement groups spread instances.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Host – You can use <code>host</code> only with Outpost placement groups.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Rack – No usage restrictions.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param spreadLevel
+     *        Determines how placement groups spread instances. </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Host – You can use <code>host</code> only with Outpost placement groups.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Rack – No usage restrictions.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SpreadLevel
+     */
+
+    public CreatePlacementGroupRequest withSpreadLevel(SpreadLevel spreadLevel) {
+        this.spreadLevel = spreadLevel.toString();
+        return this;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -283,7 +568,11 @@ public class CreatePlacementGroupRequest extends AmazonWebServiceRequest impleme
         if (getStrategy() != null)
             sb.append("Strategy: ").append(getStrategy()).append(",");
         if (getPartitionCount() != null)
-            sb.append("PartitionCount: ").append(getPartitionCount());
+            sb.append("PartitionCount: ").append(getPartitionCount()).append(",");
+        if (getTagSpecifications() != null)
+            sb.append("TagSpecifications: ").append(getTagSpecifications()).append(",");
+        if (getSpreadLevel() != null)
+            sb.append("SpreadLevel: ").append(getSpreadLevel());
         sb.append("}");
         return sb.toString();
     }
@@ -310,6 +599,14 @@ public class CreatePlacementGroupRequest extends AmazonWebServiceRequest impleme
             return false;
         if (other.getPartitionCount() != null && other.getPartitionCount().equals(this.getPartitionCount()) == false)
             return false;
+        if (other.getTagSpecifications() == null ^ this.getTagSpecifications() == null)
+            return false;
+        if (other.getTagSpecifications() != null && other.getTagSpecifications().equals(this.getTagSpecifications()) == false)
+            return false;
+        if (other.getSpreadLevel() == null ^ this.getSpreadLevel() == null)
+            return false;
+        if (other.getSpreadLevel() != null && other.getSpreadLevel().equals(this.getSpreadLevel()) == false)
+            return false;
         return true;
     }
 
@@ -321,6 +618,8 @@ public class CreatePlacementGroupRequest extends AmazonWebServiceRequest impleme
         hashCode = prime * hashCode + ((getGroupName() == null) ? 0 : getGroupName().hashCode());
         hashCode = prime * hashCode + ((getStrategy() == null) ? 0 : getStrategy().hashCode());
         hashCode = prime * hashCode + ((getPartitionCount() == null) ? 0 : getPartitionCount().hashCode());
+        hashCode = prime * hashCode + ((getTagSpecifications() == null) ? 0 : getTagSpecifications().hashCode());
+        hashCode = prime * hashCode + ((getSpreadLevel() == null) ? 0 : getSpreadLevel().hashCode());
         return hashCode;
     }
 

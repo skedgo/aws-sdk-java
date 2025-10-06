@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * Specifies an algorithm that was used to create the model package. The algorithm must be either an algorithm resource
- * in your Amazon SageMaker account or an algorithm in AWS Marketplace that you are subscribed to.
+ * in your SageMaker account or an algorithm in Amazon Web Services Marketplace that you are subscribed to.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/SourceAlgorithm" target="_top">AWS API
@@ -34,12 +34,23 @@ public class SourceAlgorithm implements Serializable, Cloneable, StructuredPojo 
      * The Amazon S3 path where the model artifacts, which result from model training, are stored. This path must point
      * to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).
      * </p>
+     * <note>
+     * <p>
+     * The model artifacts must be in an S3 bucket that is in the same Amazon Web Services region as the algorithm.
+     * </p>
+     * </note>
      */
     private String modelDataUrl;
     /**
      * <p>
+     * Specifies the location of ML model data to deploy during endpoint creation.
+     * </p>
+     */
+    private ModelDataSource modelDataSource;
+    /**
+     * <p>
      * The name of an algorithm that was used to create the model package. The algorithm must be either an algorithm
-     * resource in your Amazon SageMaker account or an algorithm in AWS Marketplace that you are subscribed to.
+     * resource in your SageMaker account or an algorithm in Amazon Web Services Marketplace that you are subscribed to.
      * </p>
      */
     private String algorithmName;
@@ -49,10 +60,19 @@ public class SourceAlgorithm implements Serializable, Cloneable, StructuredPojo 
      * The Amazon S3 path where the model artifacts, which result from model training, are stored. This path must point
      * to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).
      * </p>
+     * <note>
+     * <p>
+     * The model artifacts must be in an S3 bucket that is in the same Amazon Web Services region as the algorithm.
+     * </p>
+     * </note>
      * 
      * @param modelDataUrl
      *        The Amazon S3 path where the model artifacts, which result from model training, are stored. This path must
-     *        point to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).
+     *        point to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).</p> <note>
+     *        <p>
+     *        The model artifacts must be in an S3 bucket that is in the same Amazon Web Services region as the
+     *        algorithm.
+     *        </p>
      */
 
     public void setModelDataUrl(String modelDataUrl) {
@@ -64,9 +84,18 @@ public class SourceAlgorithm implements Serializable, Cloneable, StructuredPojo 
      * The Amazon S3 path where the model artifacts, which result from model training, are stored. This path must point
      * to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).
      * </p>
+     * <note>
+     * <p>
+     * The model artifacts must be in an S3 bucket that is in the same Amazon Web Services region as the algorithm.
+     * </p>
+     * </note>
      * 
      * @return The Amazon S3 path where the model artifacts, which result from model training, are stored. This path
-     *         must point to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).
+     *         must point to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).</p> <note>
+     *         <p>
+     *         The model artifacts must be in an S3 bucket that is in the same Amazon Web Services region as the
+     *         algorithm.
+     *         </p>
      */
 
     public String getModelDataUrl() {
@@ -78,10 +107,19 @@ public class SourceAlgorithm implements Serializable, Cloneable, StructuredPojo 
      * The Amazon S3 path where the model artifacts, which result from model training, are stored. This path must point
      * to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).
      * </p>
+     * <note>
+     * <p>
+     * The model artifacts must be in an S3 bucket that is in the same Amazon Web Services region as the algorithm.
+     * </p>
+     * </note>
      * 
      * @param modelDataUrl
      *        The Amazon S3 path where the model artifacts, which result from model training, are stored. This path must
-     *        point to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).
+     *        point to a single <code>gzip</code> compressed tar archive (<code>.tar.gz</code> suffix).</p> <note>
+     *        <p>
+     *        The model artifacts must be in an S3 bucket that is in the same Amazon Web Services region as the
+     *        algorithm.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -92,14 +130,54 @@ public class SourceAlgorithm implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
+     * Specifies the location of ML model data to deploy during endpoint creation.
+     * </p>
+     * 
+     * @param modelDataSource
+     *        Specifies the location of ML model data to deploy during endpoint creation.
+     */
+
+    public void setModelDataSource(ModelDataSource modelDataSource) {
+        this.modelDataSource = modelDataSource;
+    }
+
+    /**
+     * <p>
+     * Specifies the location of ML model data to deploy during endpoint creation.
+     * </p>
+     * 
+     * @return Specifies the location of ML model data to deploy during endpoint creation.
+     */
+
+    public ModelDataSource getModelDataSource() {
+        return this.modelDataSource;
+    }
+
+    /**
+     * <p>
+     * Specifies the location of ML model data to deploy during endpoint creation.
+     * </p>
+     * 
+     * @param modelDataSource
+     *        Specifies the location of ML model data to deploy during endpoint creation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SourceAlgorithm withModelDataSource(ModelDataSource modelDataSource) {
+        setModelDataSource(modelDataSource);
+        return this;
+    }
+
+    /**
+     * <p>
      * The name of an algorithm that was used to create the model package. The algorithm must be either an algorithm
-     * resource in your Amazon SageMaker account or an algorithm in AWS Marketplace that you are subscribed to.
+     * resource in your SageMaker account or an algorithm in Amazon Web Services Marketplace that you are subscribed to.
      * </p>
      * 
      * @param algorithmName
      *        The name of an algorithm that was used to create the model package. The algorithm must be either an
-     *        algorithm resource in your Amazon SageMaker account or an algorithm in AWS Marketplace that you are
-     *        subscribed to.
+     *        algorithm resource in your SageMaker account or an algorithm in Amazon Web Services Marketplace that you
+     *        are subscribed to.
      */
 
     public void setAlgorithmName(String algorithmName) {
@@ -109,12 +187,12 @@ public class SourceAlgorithm implements Serializable, Cloneable, StructuredPojo 
     /**
      * <p>
      * The name of an algorithm that was used to create the model package. The algorithm must be either an algorithm
-     * resource in your Amazon SageMaker account or an algorithm in AWS Marketplace that you are subscribed to.
+     * resource in your SageMaker account or an algorithm in Amazon Web Services Marketplace that you are subscribed to.
      * </p>
      * 
      * @return The name of an algorithm that was used to create the model package. The algorithm must be either an
-     *         algorithm resource in your Amazon SageMaker account or an algorithm in AWS Marketplace that you are
-     *         subscribed to.
+     *         algorithm resource in your SageMaker account or an algorithm in Amazon Web Services Marketplace that you
+     *         are subscribed to.
      */
 
     public String getAlgorithmName() {
@@ -124,13 +202,13 @@ public class SourceAlgorithm implements Serializable, Cloneable, StructuredPojo 
     /**
      * <p>
      * The name of an algorithm that was used to create the model package. The algorithm must be either an algorithm
-     * resource in your Amazon SageMaker account or an algorithm in AWS Marketplace that you are subscribed to.
+     * resource in your SageMaker account or an algorithm in Amazon Web Services Marketplace that you are subscribed to.
      * </p>
      * 
      * @param algorithmName
      *        The name of an algorithm that was used to create the model package. The algorithm must be either an
-     *        algorithm resource in your Amazon SageMaker account or an algorithm in AWS Marketplace that you are
-     *        subscribed to.
+     *        algorithm resource in your SageMaker account or an algorithm in Amazon Web Services Marketplace that you
+     *        are subscribed to.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -153,6 +231,8 @@ public class SourceAlgorithm implements Serializable, Cloneable, StructuredPojo 
         sb.append("{");
         if (getModelDataUrl() != null)
             sb.append("ModelDataUrl: ").append(getModelDataUrl()).append(",");
+        if (getModelDataSource() != null)
+            sb.append("ModelDataSource: ").append(getModelDataSource()).append(",");
         if (getAlgorithmName() != null)
             sb.append("AlgorithmName: ").append(getAlgorithmName());
         sb.append("}");
@@ -173,6 +253,10 @@ public class SourceAlgorithm implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getModelDataUrl() != null && other.getModelDataUrl().equals(this.getModelDataUrl()) == false)
             return false;
+        if (other.getModelDataSource() == null ^ this.getModelDataSource() == null)
+            return false;
+        if (other.getModelDataSource() != null && other.getModelDataSource().equals(this.getModelDataSource()) == false)
+            return false;
         if (other.getAlgorithmName() == null ^ this.getAlgorithmName() == null)
             return false;
         if (other.getAlgorithmName() != null && other.getAlgorithmName().equals(this.getAlgorithmName()) == false)
@@ -186,6 +270,7 @@ public class SourceAlgorithm implements Serializable, Cloneable, StructuredPojo 
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getModelDataUrl() == null) ? 0 : getModelDataUrl().hashCode());
+        hashCode = prime * hashCode + ((getModelDataSource() == null) ? 0 : getModelDataSource().hashCode());
         hashCode = prime * hashCode + ((getAlgorithmName() == null) ? 0 : getAlgorithmName().hashCode());
         return hashCode;
     }

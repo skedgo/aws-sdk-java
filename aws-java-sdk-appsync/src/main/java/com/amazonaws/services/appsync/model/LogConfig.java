@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The CloudWatch Logs configuration.
+ * The Amazon CloudWatch Logs configuration.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/LogConfig" target="_top">AWS API
@@ -82,10 +82,17 @@ public class LogConfig implements Serializable, Cloneable, StructuredPojo {
     private String fieldLogLevel;
     /**
      * <p>
-     * The service role that AWS AppSync will assume to publish to Amazon CloudWatch logs in your account.
+     * The service role that AppSync assumes to publish to CloudWatch logs in your account.
      * </p>
      */
     private String cloudWatchLogsRoleArn;
+    /**
+     * <p>
+     * Set to TRUE to exclude sections that contain information such as headers, context, and evaluated mapping
+     * templates, regardless of logging level.
+     * </p>
+     */
+    private Boolean excludeVerboseContent;
 
     /**
      * <p>
@@ -139,7 +146,7 @@ public class LogConfig implements Serializable, Cloneable, StructuredPojo {
      * </ul>
      * 
      * @param fieldLogLevel
-     *        The field logging level. Values can be NONE, ERROR, or ALL. </p>
+     *        The field logging level. Values can be NONE, ERROR, or ALL.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -243,7 +250,7 @@ public class LogConfig implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * </ul>
      * 
-     * @return The field logging level. Values can be NONE, ERROR, or ALL. </p>
+     * @return The field logging level. Values can be NONE, ERROR, or ALL.</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -348,7 +355,7 @@ public class LogConfig implements Serializable, Cloneable, StructuredPojo {
      * </ul>
      * 
      * @param fieldLogLevel
-     *        The field logging level. Values can be NONE, ERROR, or ALL. </p>
+     *        The field logging level. Values can be NONE, ERROR, or ALL.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -455,7 +462,7 @@ public class LogConfig implements Serializable, Cloneable, StructuredPojo {
      * </ul>
      * 
      * @param fieldLogLevel
-     *        The field logging level. Values can be NONE, ERROR, or ALL. </p>
+     *        The field logging level. Values can be NONE, ERROR, or ALL.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -512,11 +519,11 @@ public class LogConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The service role that AWS AppSync will assume to publish to Amazon CloudWatch logs in your account.
+     * The service role that AppSync assumes to publish to CloudWatch logs in your account.
      * </p>
      * 
      * @param cloudWatchLogsRoleArn
-     *        The service role that AWS AppSync will assume to publish to Amazon CloudWatch logs in your account.
+     *        The service role that AppSync assumes to publish to CloudWatch logs in your account.
      */
 
     public void setCloudWatchLogsRoleArn(String cloudWatchLogsRoleArn) {
@@ -525,10 +532,10 @@ public class LogConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The service role that AWS AppSync will assume to publish to Amazon CloudWatch logs in your account.
+     * The service role that AppSync assumes to publish to CloudWatch logs in your account.
      * </p>
      * 
-     * @return The service role that AWS AppSync will assume to publish to Amazon CloudWatch logs in your account.
+     * @return The service role that AppSync assumes to publish to CloudWatch logs in your account.
      */
 
     public String getCloudWatchLogsRoleArn() {
@@ -537,17 +544,77 @@ public class LogConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The service role that AWS AppSync will assume to publish to Amazon CloudWatch logs in your account.
+     * The service role that AppSync assumes to publish to CloudWatch logs in your account.
      * </p>
      * 
      * @param cloudWatchLogsRoleArn
-     *        The service role that AWS AppSync will assume to publish to Amazon CloudWatch logs in your account.
+     *        The service role that AppSync assumes to publish to CloudWatch logs in your account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public LogConfig withCloudWatchLogsRoleArn(String cloudWatchLogsRoleArn) {
         setCloudWatchLogsRoleArn(cloudWatchLogsRoleArn);
         return this;
+    }
+
+    /**
+     * <p>
+     * Set to TRUE to exclude sections that contain information such as headers, context, and evaluated mapping
+     * templates, regardless of logging level.
+     * </p>
+     * 
+     * @param excludeVerboseContent
+     *        Set to TRUE to exclude sections that contain information such as headers, context, and evaluated mapping
+     *        templates, regardless of logging level.
+     */
+
+    public void setExcludeVerboseContent(Boolean excludeVerboseContent) {
+        this.excludeVerboseContent = excludeVerboseContent;
+    }
+
+    /**
+     * <p>
+     * Set to TRUE to exclude sections that contain information such as headers, context, and evaluated mapping
+     * templates, regardless of logging level.
+     * </p>
+     * 
+     * @return Set to TRUE to exclude sections that contain information such as headers, context, and evaluated mapping
+     *         templates, regardless of logging level.
+     */
+
+    public Boolean getExcludeVerboseContent() {
+        return this.excludeVerboseContent;
+    }
+
+    /**
+     * <p>
+     * Set to TRUE to exclude sections that contain information such as headers, context, and evaluated mapping
+     * templates, regardless of logging level.
+     * </p>
+     * 
+     * @param excludeVerboseContent
+     *        Set to TRUE to exclude sections that contain information such as headers, context, and evaluated mapping
+     *        templates, regardless of logging level.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LogConfig withExcludeVerboseContent(Boolean excludeVerboseContent) {
+        setExcludeVerboseContent(excludeVerboseContent);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Set to TRUE to exclude sections that contain information such as headers, context, and evaluated mapping
+     * templates, regardless of logging level.
+     * </p>
+     * 
+     * @return Set to TRUE to exclude sections that contain information such as headers, context, and evaluated mapping
+     *         templates, regardless of logging level.
+     */
+
+    public Boolean isExcludeVerboseContent() {
+        return this.excludeVerboseContent;
     }
 
     /**
@@ -565,7 +632,9 @@ public class LogConfig implements Serializable, Cloneable, StructuredPojo {
         if (getFieldLogLevel() != null)
             sb.append("FieldLogLevel: ").append(getFieldLogLevel()).append(",");
         if (getCloudWatchLogsRoleArn() != null)
-            sb.append("CloudWatchLogsRoleArn: ").append(getCloudWatchLogsRoleArn());
+            sb.append("CloudWatchLogsRoleArn: ").append(getCloudWatchLogsRoleArn()).append(",");
+        if (getExcludeVerboseContent() != null)
+            sb.append("ExcludeVerboseContent: ").append(getExcludeVerboseContent());
         sb.append("}");
         return sb.toString();
     }
@@ -588,6 +657,10 @@ public class LogConfig implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getCloudWatchLogsRoleArn() != null && other.getCloudWatchLogsRoleArn().equals(this.getCloudWatchLogsRoleArn()) == false)
             return false;
+        if (other.getExcludeVerboseContent() == null ^ this.getExcludeVerboseContent() == null)
+            return false;
+        if (other.getExcludeVerboseContent() != null && other.getExcludeVerboseContent().equals(this.getExcludeVerboseContent()) == false)
+            return false;
         return true;
     }
 
@@ -598,6 +671,7 @@ public class LogConfig implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getFieldLogLevel() == null) ? 0 : getFieldLogLevel().hashCode());
         hashCode = prime * hashCode + ((getCloudWatchLogsRoleArn() == null) ? 0 : getCloudWatchLogsRoleArn().hashCode());
+        hashCode = prime * hashCode + ((getExcludeVerboseContent() == null) ? 0 : getExcludeVerboseContent().hashCode());
         return hashCode;
     }
 

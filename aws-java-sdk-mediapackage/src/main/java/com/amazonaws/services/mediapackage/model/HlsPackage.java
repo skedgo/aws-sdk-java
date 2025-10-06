@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,9 @@ public class HlsPackage implements Serializable, Cloneable, StructuredPojo {
      * This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all SCTE-35 ad
      * markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad markers (comments)
      * taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED" generates ad markers and
-     * blackout tags based on SCTE-35 messages in the input source.
+     * blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts EXT-X-DATERANGE tags to signal
+     * ad and program transition events in HLS and CMAF manifests. For this option, you must set a
+     * programDateTimeIntervalSeconds value that is greater than 0.
      */
     private String adMarkers;
 
@@ -39,6 +41,8 @@ public class HlsPackage implements Serializable, Cloneable, StructuredPojo {
     private String adsOnDeliveryRestrictions;
 
     private HlsEncryption encryption;
+    /** When enabled, MediaPackage passes through digital video broadcasting (DVB) subtitles into the output. */
+    private Boolean includeDvbSubtitles;
     /** When enabled, an I-Frame only stream will be included in the output. */
     private Boolean includeIframeOnlyStream;
     /**
@@ -70,13 +74,17 @@ public class HlsPackage implements Serializable, Cloneable, StructuredPojo {
      * This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all SCTE-35 ad
      * markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad markers (comments)
      * taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED" generates ad markers and
-     * blackout tags based on SCTE-35 messages in the input source.
+     * blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts EXT-X-DATERANGE tags to signal
+     * ad and program transition events in HLS and CMAF manifests. For this option, you must set a
+     * programDateTimeIntervalSeconds value that is greater than 0.
      * 
      * @param adMarkers
      *        This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all
      *        SCTE-35 ad markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad
      *        markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED"
-     *        generates ad markers and blackout tags based on SCTE-35 messages in the input source.
+     *        generates ad markers and blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts
+     *        EXT-X-DATERANGE tags to signal ad and program transition events in HLS and CMAF manifests. For this
+     *        option, you must set a programDateTimeIntervalSeconds value that is greater than 0.
      * @see AdMarkers
      */
 
@@ -88,12 +96,16 @@ public class HlsPackage implements Serializable, Cloneable, StructuredPojo {
      * This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all SCTE-35 ad
      * markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad markers (comments)
      * taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED" generates ad markers and
-     * blackout tags based on SCTE-35 messages in the input source.
+     * blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts EXT-X-DATERANGE tags to signal
+     * ad and program transition events in HLS and CMAF manifests. For this option, you must set a
+     * programDateTimeIntervalSeconds value that is greater than 0.
      * 
      * @return This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all
      *         SCTE-35 ad markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad
      *         markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED"
-     *         generates ad markers and blackout tags based on SCTE-35 messages in the input source.
+     *         generates ad markers and blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts
+     *         EXT-X-DATERANGE tags to signal ad and program transition events in HLS and CMAF manifests. For this
+     *         option, you must set a programDateTimeIntervalSeconds value that is greater than 0.
      * @see AdMarkers
      */
 
@@ -105,13 +117,17 @@ public class HlsPackage implements Serializable, Cloneable, StructuredPojo {
      * This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all SCTE-35 ad
      * markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad markers (comments)
      * taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED" generates ad markers and
-     * blackout tags based on SCTE-35 messages in the input source.
+     * blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts EXT-X-DATERANGE tags to signal
+     * ad and program transition events in HLS and CMAF manifests. For this option, you must set a
+     * programDateTimeIntervalSeconds value that is greater than 0.
      * 
      * @param adMarkers
      *        This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all
      *        SCTE-35 ad markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad
      *        markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED"
-     *        generates ad markers and blackout tags based on SCTE-35 messages in the input source.
+     *        generates ad markers and blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts
+     *        EXT-X-DATERANGE tags to signal ad and program transition events in HLS and CMAF manifests. For this
+     *        option, you must set a programDateTimeIntervalSeconds value that is greater than 0.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AdMarkers
      */
@@ -125,13 +141,17 @@ public class HlsPackage implements Serializable, Cloneable, StructuredPojo {
      * This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all SCTE-35 ad
      * markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad markers (comments)
      * taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED" generates ad markers and
-     * blackout tags based on SCTE-35 messages in the input source.
+     * blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts EXT-X-DATERANGE tags to signal
+     * ad and program transition events in HLS and CMAF manifests. For this option, you must set a
+     * programDateTimeIntervalSeconds value that is greater than 0.
      * 
      * @param adMarkers
      *        This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all
      *        SCTE-35 ad markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad
      *        markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED"
-     *        generates ad markers and blackout tags based on SCTE-35 messages in the input source.
+     *        generates ad markers and blackout tags based on SCTE-35 messages in the input source. "DATERANGE" inserts
+     *        EXT-X-DATERANGE tags to signal ad and program transition events in HLS and CMAF manifests. For this
+     *        option, you must set a programDateTimeIntervalSeconds value that is greater than 0.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AdMarkers
      */
@@ -280,6 +300,50 @@ public class HlsPackage implements Serializable, Cloneable, StructuredPojo {
     public HlsPackage withEncryption(HlsEncryption encryption) {
         setEncryption(encryption);
         return this;
+    }
+
+    /**
+     * When enabled, MediaPackage passes through digital video broadcasting (DVB) subtitles into the output.
+     * 
+     * @param includeDvbSubtitles
+     *        When enabled, MediaPackage passes through digital video broadcasting (DVB) subtitles into the output.
+     */
+
+    public void setIncludeDvbSubtitles(Boolean includeDvbSubtitles) {
+        this.includeDvbSubtitles = includeDvbSubtitles;
+    }
+
+    /**
+     * When enabled, MediaPackage passes through digital video broadcasting (DVB) subtitles into the output.
+     * 
+     * @return When enabled, MediaPackage passes through digital video broadcasting (DVB) subtitles into the output.
+     */
+
+    public Boolean getIncludeDvbSubtitles() {
+        return this.includeDvbSubtitles;
+    }
+
+    /**
+     * When enabled, MediaPackage passes through digital video broadcasting (DVB) subtitles into the output.
+     * 
+     * @param includeDvbSubtitles
+     *        When enabled, MediaPackage passes through digital video broadcasting (DVB) subtitles into the output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HlsPackage withIncludeDvbSubtitles(Boolean includeDvbSubtitles) {
+        setIncludeDvbSubtitles(includeDvbSubtitles);
+        return this;
+    }
+
+    /**
+     * When enabled, MediaPackage passes through digital video broadcasting (DVB) subtitles into the output.
+     * 
+     * @return When enabled, MediaPackage passes through digital video broadcasting (DVB) subtitles into the output.
+     */
+
+    public Boolean isIncludeDvbSubtitles() {
+        return this.includeDvbSubtitles;
     }
 
     /**
@@ -610,6 +674,8 @@ public class HlsPackage implements Serializable, Cloneable, StructuredPojo {
             sb.append("AdsOnDeliveryRestrictions: ").append(getAdsOnDeliveryRestrictions()).append(",");
         if (getEncryption() != null)
             sb.append("Encryption: ").append(getEncryption()).append(",");
+        if (getIncludeDvbSubtitles() != null)
+            sb.append("IncludeDvbSubtitles: ").append(getIncludeDvbSubtitles()).append(",");
         if (getIncludeIframeOnlyStream() != null)
             sb.append("IncludeIframeOnlyStream: ").append(getIncludeIframeOnlyStream()).append(",");
         if (getPlaylistType() != null)
@@ -654,6 +720,10 @@ public class HlsPackage implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getEncryption() != null && other.getEncryption().equals(this.getEncryption()) == false)
             return false;
+        if (other.getIncludeDvbSubtitles() == null ^ this.getIncludeDvbSubtitles() == null)
+            return false;
+        if (other.getIncludeDvbSubtitles() != null && other.getIncludeDvbSubtitles().equals(this.getIncludeDvbSubtitles()) == false)
+            return false;
         if (other.getIncludeIframeOnlyStream() == null ^ this.getIncludeIframeOnlyStream() == null)
             return false;
         if (other.getIncludeIframeOnlyStream() != null && other.getIncludeIframeOnlyStream().equals(this.getIncludeIframeOnlyStream()) == false)
@@ -695,6 +765,7 @@ public class HlsPackage implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getAdTriggers() == null) ? 0 : getAdTriggers().hashCode());
         hashCode = prime * hashCode + ((getAdsOnDeliveryRestrictions() == null) ? 0 : getAdsOnDeliveryRestrictions().hashCode());
         hashCode = prime * hashCode + ((getEncryption() == null) ? 0 : getEncryption().hashCode());
+        hashCode = prime * hashCode + ((getIncludeDvbSubtitles() == null) ? 0 : getIncludeDvbSubtitles().hashCode());
         hashCode = prime * hashCode + ((getIncludeIframeOnlyStream() == null) ? 0 : getIncludeIframeOnlyStream().hashCode());
         hashCode = prime * hashCode + ((getPlaylistType() == null) ? 0 : getPlaylistType().hashCode());
         hashCode = prime * hashCode + ((getPlaylistWindowSeconds() == null) ? 0 : getPlaylistWindowSeconds().hashCode());

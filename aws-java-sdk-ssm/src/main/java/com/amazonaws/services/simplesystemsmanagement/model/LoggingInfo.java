@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,14 +19,15 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about an Amazon S3 bucket to write instance-level logs to.
+ * Information about an Amazon Simple Storage Service (Amazon S3) bucket to write managed node-level logs to.
  * </p>
  * <note>
  * <p>
- * <code>LoggingInfo</code> has been deprecated. To specify an S3 bucket to contain logs, instead use the
- * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
- * <code>TaskInvocationParameters</code> structure. For information about how Systems Manager handles these options for
- * the supported maintenance window task types, see <a>MaintenanceWindowTaskInvocationParameters</a>.
+ * <code>LoggingInfo</code> has been deprecated. To specify an Amazon Simple Storage Service (Amazon S3) bucket to
+ * contain logs, instead use the <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
+ * <code>TaskInvocationParameters</code> structure. For information about how Amazon Web Services Systems Manager
+ * handles these options for the supported maintenance window task types, see
+ * <a>MaintenanceWindowTaskInvocationParameters</a>.
  * </p>
  * </note>
  * 
@@ -38,30 +39,30 @@ public class LoggingInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of an Amazon S3 bucket where execution logs are stored .
+     * The name of an S3 bucket where execution logs are stored.
      * </p>
      */
     private String s3BucketName;
     /**
      * <p>
-     * (Optional) The Amazon S3 bucket subfolder.
+     * (Optional) The S3 bucket subfolder.
      * </p>
      */
     private String s3KeyPrefix;
     /**
      * <p>
-     * The region where the Amazon S3 bucket is located.
+     * The Amazon Web Services Region where the S3 bucket is located.
      * </p>
      */
     private String s3Region;
 
     /**
      * <p>
-     * The name of an Amazon S3 bucket where execution logs are stored .
+     * The name of an S3 bucket where execution logs are stored.
      * </p>
      * 
      * @param s3BucketName
-     *        The name of an Amazon S3 bucket where execution logs are stored .
+     *        The name of an S3 bucket where execution logs are stored.
      */
 
     public void setS3BucketName(String s3BucketName) {
@@ -70,10 +71,10 @@ public class LoggingInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of an Amazon S3 bucket where execution logs are stored .
+     * The name of an S3 bucket where execution logs are stored.
      * </p>
      * 
-     * @return The name of an Amazon S3 bucket where execution logs are stored .
+     * @return The name of an S3 bucket where execution logs are stored.
      */
 
     public String getS3BucketName() {
@@ -82,11 +83,11 @@ public class LoggingInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of an Amazon S3 bucket where execution logs are stored .
+     * The name of an S3 bucket where execution logs are stored.
      * </p>
      * 
      * @param s3BucketName
-     *        The name of an Amazon S3 bucket where execution logs are stored .
+     *        The name of an S3 bucket where execution logs are stored.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -97,11 +98,11 @@ public class LoggingInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * (Optional) The Amazon S3 bucket subfolder.
+     * (Optional) The S3 bucket subfolder.
      * </p>
      * 
      * @param s3KeyPrefix
-     *        (Optional) The Amazon S3 bucket subfolder.
+     *        (Optional) The S3 bucket subfolder.
      */
 
     public void setS3KeyPrefix(String s3KeyPrefix) {
@@ -110,10 +111,10 @@ public class LoggingInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * (Optional) The Amazon S3 bucket subfolder.
+     * (Optional) The S3 bucket subfolder.
      * </p>
      * 
-     * @return (Optional) The Amazon S3 bucket subfolder.
+     * @return (Optional) The S3 bucket subfolder.
      */
 
     public String getS3KeyPrefix() {
@@ -122,11 +123,11 @@ public class LoggingInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * (Optional) The Amazon S3 bucket subfolder.
+     * (Optional) The S3 bucket subfolder.
      * </p>
      * 
      * @param s3KeyPrefix
-     *        (Optional) The Amazon S3 bucket subfolder.
+     *        (Optional) The S3 bucket subfolder.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -137,11 +138,11 @@ public class LoggingInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The region where the Amazon S3 bucket is located.
+     * The Amazon Web Services Region where the S3 bucket is located.
      * </p>
      * 
      * @param s3Region
-     *        The region where the Amazon S3 bucket is located.
+     *        The Amazon Web Services Region where the S3 bucket is located.
      */
 
     public void setS3Region(String s3Region) {
@@ -150,10 +151,10 @@ public class LoggingInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The region where the Amazon S3 bucket is located.
+     * The Amazon Web Services Region where the S3 bucket is located.
      * </p>
      * 
-     * @return The region where the Amazon S3 bucket is located.
+     * @return The Amazon Web Services Region where the S3 bucket is located.
      */
 
     public String getS3Region() {
@@ -162,11 +163,11 @@ public class LoggingInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The region where the Amazon S3 bucket is located.
+     * The Amazon Web Services Region where the S3 bucket is located.
      * </p>
      * 
      * @param s3Region
-     *        The region where the Amazon S3 bucket is located.
+     *        The Amazon Web Services Region where the S3 bucket is located.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

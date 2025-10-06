@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,10 +16,11 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The calling account has reached the limit for elastic network interfaces for the specific AWS Region. The client
- * should try to delete some elastic network interfaces or get the account limit raised. For more information, see <a
- * href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Appendix_Limits.html">Amazon VPC Limits</a> in the
- * <i>Amazon VPC User Guide </i> (see the Network interfaces per VPC entry in the table).
+ * The calling account has reached the limit for elastic network interfaces for the specific Amazon Web Services Region.
+ * Either delete some network interfaces or request that the account quota be raised. For more information, see <a
+ * href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Appendix_Limits.html">Amazon VPC Quotas</a> in the
+ * <i>Amazon VPC User Guide</i> (see the <b>Network interfaces per Region</b> entry in the <b>Network interfaces</b>
+ * table).
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

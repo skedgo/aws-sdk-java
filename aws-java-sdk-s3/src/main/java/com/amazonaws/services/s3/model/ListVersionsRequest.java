@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,6 +14,9 @@
  */
 package com.amazonaws.services.s3.model;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import com.amazonaws.AmazonWebServiceRequest;
 import com.amazonaws.services.s3.AmazonS3;
@@ -82,9 +85,23 @@ import com.amazonaws.services.s3.internal.Constants;
  * {@link AmazonS3#setBucketVersioningConfiguration(SetBucketVersioningConfigurationRequest)}.
  * </p>
  */
-public class ListVersionsRequest extends AmazonWebServiceRequest implements Serializable {
+public class ListVersionsRequest extends AmazonWebServiceRequest implements Serializable, ExpectedBucketOwnerRequest {
 
-    /** The name of the Amazon S3 bucket whose versions are to be listed. */
+    /**
+     * The name of the Amazon S3 bucket whose versions are to be listed.
+     *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     */
     private String bucketName;
 
     /**
@@ -159,6 +176,20 @@ public class ListVersionsRequest extends AmazonWebServiceRequest implements Seri
      */
     private String encodingType;
 
+    private String expectedBucketOwner;
+
+    /**
+     * If enabled, the requester is charged for conducting this operation from
+     * Requester Pays Buckets.
+     */
+    private boolean isRequesterPays;
+
+    /**
+     * Optional parameter indicating to include some attributes of an object in
+     * the response.
+     */
+    private List<String> optionalObjectAttributes;
+
 
     /**
      * Constructs a new {@link ListVersionsRequest} object.
@@ -173,8 +204,20 @@ public class ListVersionsRequest extends AmazonWebServiceRequest implements Seri
      * Constructs a new {@link ListVersionsRequest} object and initializes all required
      * and optional fields.
      *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     *
      * @param bucketName
-     *            The name of the bucket whose versions are to be listed.
+     *            The name of the bucket, or access point ARN, whose versions are to be listed.
      * @param prefix
      *            The prefix restricting what keys will be listed.
      * @param keyMarker
@@ -198,6 +241,18 @@ public class ListVersionsRequest extends AmazonWebServiceRequest implements Seri
         setMaxResults(maxResults);
     }
 
+    public String getExpectedBucketOwner() {
+        return expectedBucketOwner;
+    }
+
+    public ListVersionsRequest withExpectedBucketOwner(String expectedBucketOwner) {
+        this.expectedBucketOwner = expectedBucketOwner;
+        return this;
+    }
+
+    public void setExpectedBucketOwner(String expectedBucketOwner) {
+        withExpectedBucketOwner(expectedBucketOwner);
+    }
 
     /**
      * Gets the name of the Amazon S3 bucket whose versions are to be listed.
@@ -214,8 +269,20 @@ public class ListVersionsRequest extends AmazonWebServiceRequest implements Seri
     /**
      * Sets the name of the Amazon S3 bucket whose versions are to be listed.
      *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     *
      * @param bucketName
-     *            The name of the Amazon S3 bucket whose versions are to be
+     *            The name of the Amazon S3 bucket, or access point ARN, whose versions are to be
      *            listed.
      *
      * @see ListVersionsRequest#getBucketName()
@@ -230,8 +297,20 @@ public class ListVersionsRequest extends AmazonWebServiceRequest implements Seri
      * Returns this {@link ListVersionsRequest}, enabling additional method
      * calls to be chained together.
      *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     *
      * @param bucketName
-     *            The name of the Amazon S3 bucket whose versions are to be
+     *            The name of the Amazon S3 bucket, or access point ARN, whose versions are to be
      *            listed.
      *
      * @return This {@link ListVersionsRequest}, enabling additional method
@@ -586,5 +665,89 @@ public class ListVersionsRequest extends AmazonWebServiceRequest implements Seri
     public ListVersionsRequest withEncodingType(String encodingType) {
         setEncodingType(encodingType);
         return this;
+    }
+
+    /**
+     * Returns whether the requester knows that they will be charged for the request.
+     *
+     * @return true if the user has enabled Requester Pays option for
+     *         conducting this operation from Requester Pays Bucket.
+     */
+    public boolean isRequesterPays() {
+        return isRequesterPays;
+    }
+
+    /**
+     * Confirms whether the requester knows that they will be charged for the request. Bucket owners need not specify this
+     * parameter in their requests.
+     *
+     * @param isRequesterPays if Requester Pays option is enabled for the operation.
+     */
+    public void setRequesterPays(boolean isRequesterPays) {
+        this.isRequesterPays = isRequesterPays;
+    }
+
+    /**
+     * Confirms whether the requester knows that they will be charged for the request. Bucket owners need not specify this
+     * parameter in their requests.
+     *
+     * @param isRequesterPays if Requester Pays option is enabled for the operation.
+     *
+     * @return The updated ListVersionsRequest object.
+     */
+    public ListVersionsRequest withRequesterPays(boolean isRequesterPays) {
+        setRequesterPays(isRequesterPays);
+        return this;
+    }
+
+    /**
+     * Gets the optional object attribute parameter indicating that customer also need
+     * some extra information about an object in the response like Restore Status.
+     *
+     * @return The optional parameter indicating that customer also need
+     *      some extra information about an object on the response
+     *
+     * @see ListVersionsRequest#setOptionalObjectAttributes(List)
+     * @see ListVersionsRequest#withOptionalObjectAttributes(List)
+     */
+    public List<String> getOptionalObjectAttributes() {
+        if(optionalObjectAttributes != null) {
+            return Collections.unmodifiableList(optionalObjectAttributes);
+        }
+        return null;
+    }
+
+    /**
+     * Sets the optional object attribute parameter indicating that customer also need
+     * some extra information about an object in the response like Restore Status.
+     *
+     * @param optionalObjectAttributes
+     *                  The optional parameter indicating to include
+     *                  some extra object information in the response.
+     *                  Valid values: null or "RestoreStatus".
+     *
+     * @see ListVersionsRequest#getOptionalObjectAttributes()
+     * @see ListVersionsRequest#setOptionalObjectAttributes(List)
+     *
+     */
+    public ListVersionsRequest withOptionalObjectAttributes(List<String> optionalObjectAttributes) {
+        this.optionalObjectAttributes = optionalObjectAttributes != null ? new ArrayList(optionalObjectAttributes) : null;
+        return this;
+    }
+
+    /**
+     * Sets the optional object attribute parameter indicating that customer also need
+     * some extra information about an object in the response like Restore Status.
+     *
+     * @param optionalObjectAttributes
+     *                  The optional parameter indicating to include
+     *                  some extra object information in the response.
+     *                  Valid values: null or "RestoreStatus".
+     *
+     * @see ListVersionsRequest#getOptionalObjectAttributes()
+     * @see ListVersionsRequest#withOptionalObjectAttributes(List)
+     */
+    public void setOptionalObjectAttributes(List<String> optionalObjectAttributes) {
+        withOptionalObjectAttributes(optionalObjectAttributes);
     }
 }

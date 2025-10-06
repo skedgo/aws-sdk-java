@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * Contains an array of triplets made up of a condition type (such as <code>StringEquals</code>), a key, and a value.
- * Conditions are used to filter resources in a selection that is assigned to a backup plan.
+ * Used to filter resources using their tags and assign them to a backup plan. Case sensitive.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/Condition" target="_top">AWS API
@@ -31,35 +31,45 @@ public class Condition implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An operation, such as <code>StringEquals</code>, that is applied to a key-value pair used to filter resources in
-     * a selection.
+     * An operation applied to a key-value pair used to assign resources to your backup plan. Condition only supports
+     * <code>StringEquals</code>. For more flexible assignment options, including <code>StringLike</code> and the
+     * ability to exclude resources from your backup plan, use <code>Conditions</code> (with an "s" on the end) for your
+     * <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BackupSelection.html">
+     * <code>BackupSelection</code> </a>.
      * </p>
      */
     private String conditionType;
     /**
      * <p>
-     * The key in a key-value pair. For example, in <code>"ec2:ResourceTag/Department": "accounting"</code>,
-     * <code>"ec2:ResourceTag/Department"</code> is the key.
+     * The key in a key-value pair. For example, in the tag <code>Department: Accounting</code>, <code>Department</code>
+     * is the key.
      * </p>
      */
     private String conditionKey;
     /**
      * <p>
-     * The value in a key-value pair. For example, in <code>"ec2:ResourceTag/Department": "accounting"</code>,
-     * <code>"accounting"</code> is the value.
+     * The value in a key-value pair. For example, in the tag <code>Department: Accounting</code>,
+     * <code>Accounting</code> is the value.
      * </p>
      */
     private String conditionValue;
 
     /**
      * <p>
-     * An operation, such as <code>StringEquals</code>, that is applied to a key-value pair used to filter resources in
-     * a selection.
+     * An operation applied to a key-value pair used to assign resources to your backup plan. Condition only supports
+     * <code>StringEquals</code>. For more flexible assignment options, including <code>StringLike</code> and the
+     * ability to exclude resources from your backup plan, use <code>Conditions</code> (with an "s" on the end) for your
+     * <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BackupSelection.html">
+     * <code>BackupSelection</code> </a>.
      * </p>
      * 
      * @param conditionType
-     *        An operation, such as <code>StringEquals</code>, that is applied to a key-value pair used to filter
-     *        resources in a selection.
+     *        An operation applied to a key-value pair used to assign resources to your backup plan. Condition only
+     *        supports <code>StringEquals</code>. For more flexible assignment options, including
+     *        <code>StringLike</code> and the ability to exclude resources from your backup plan, use
+     *        <code>Conditions</code> (with an "s" on the end) for your <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BackupSelection.html">
+     *        <code>BackupSelection</code> </a>.
      * @see ConditionType
      */
 
@@ -69,12 +79,19 @@ public class Condition implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An operation, such as <code>StringEquals</code>, that is applied to a key-value pair used to filter resources in
-     * a selection.
+     * An operation applied to a key-value pair used to assign resources to your backup plan. Condition only supports
+     * <code>StringEquals</code>. For more flexible assignment options, including <code>StringLike</code> and the
+     * ability to exclude resources from your backup plan, use <code>Conditions</code> (with an "s" on the end) for your
+     * <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BackupSelection.html">
+     * <code>BackupSelection</code> </a>.
      * </p>
      * 
-     * @return An operation, such as <code>StringEquals</code>, that is applied to a key-value pair used to filter
-     *         resources in a selection.
+     * @return An operation applied to a key-value pair used to assign resources to your backup plan. Condition only
+     *         supports <code>StringEquals</code>. For more flexible assignment options, including
+     *         <code>StringLike</code> and the ability to exclude resources from your backup plan, use
+     *         <code>Conditions</code> (with an "s" on the end) for your <a
+     *         href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BackupSelection.html">
+     *         <code>BackupSelection</code> </a>.
      * @see ConditionType
      */
 
@@ -84,13 +101,20 @@ public class Condition implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An operation, such as <code>StringEquals</code>, that is applied to a key-value pair used to filter resources in
-     * a selection.
+     * An operation applied to a key-value pair used to assign resources to your backup plan. Condition only supports
+     * <code>StringEquals</code>. For more flexible assignment options, including <code>StringLike</code> and the
+     * ability to exclude resources from your backup plan, use <code>Conditions</code> (with an "s" on the end) for your
+     * <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BackupSelection.html">
+     * <code>BackupSelection</code> </a>.
      * </p>
      * 
      * @param conditionType
-     *        An operation, such as <code>StringEquals</code>, that is applied to a key-value pair used to filter
-     *        resources in a selection.
+     *        An operation applied to a key-value pair used to assign resources to your backup plan. Condition only
+     *        supports <code>StringEquals</code>. For more flexible assignment options, including
+     *        <code>StringLike</code> and the ability to exclude resources from your backup plan, use
+     *        <code>Conditions</code> (with an "s" on the end) for your <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BackupSelection.html">
+     *        <code>BackupSelection</code> </a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ConditionType
      */
@@ -102,13 +126,20 @@ public class Condition implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An operation, such as <code>StringEquals</code>, that is applied to a key-value pair used to filter resources in
-     * a selection.
+     * An operation applied to a key-value pair used to assign resources to your backup plan. Condition only supports
+     * <code>StringEquals</code>. For more flexible assignment options, including <code>StringLike</code> and the
+     * ability to exclude resources from your backup plan, use <code>Conditions</code> (with an "s" on the end) for your
+     * <a href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BackupSelection.html">
+     * <code>BackupSelection</code> </a>.
      * </p>
      * 
      * @param conditionType
-     *        An operation, such as <code>StringEquals</code>, that is applied to a key-value pair used to filter
-     *        resources in a selection.
+     *        An operation applied to a key-value pair used to assign resources to your backup plan. Condition only
+     *        supports <code>StringEquals</code>. For more flexible assignment options, including
+     *        <code>StringLike</code> and the ability to exclude resources from your backup plan, use
+     *        <code>Conditions</code> (with an "s" on the end) for your <a
+     *        href="https://docs.aws.amazon.com/aws-backup/latest/devguide/API_BackupSelection.html">
+     *        <code>BackupSelection</code> </a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ConditionType
      */
@@ -120,13 +151,13 @@ public class Condition implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The key in a key-value pair. For example, in <code>"ec2:ResourceTag/Department": "accounting"</code>,
-     * <code>"ec2:ResourceTag/Department"</code> is the key.
+     * The key in a key-value pair. For example, in the tag <code>Department: Accounting</code>, <code>Department</code>
+     * is the key.
      * </p>
      * 
      * @param conditionKey
-     *        The key in a key-value pair. For example, in <code>"ec2:ResourceTag/Department": "accounting"</code>,
-     *        <code>"ec2:ResourceTag/Department"</code> is the key.
+     *        The key in a key-value pair. For example, in the tag <code>Department: Accounting</code>,
+     *        <code>Department</code> is the key.
      */
 
     public void setConditionKey(String conditionKey) {
@@ -135,12 +166,12 @@ public class Condition implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The key in a key-value pair. For example, in <code>"ec2:ResourceTag/Department": "accounting"</code>,
-     * <code>"ec2:ResourceTag/Department"</code> is the key.
+     * The key in a key-value pair. For example, in the tag <code>Department: Accounting</code>, <code>Department</code>
+     * is the key.
      * </p>
      * 
-     * @return The key in a key-value pair. For example, in <code>"ec2:ResourceTag/Department": "accounting"</code>,
-     *         <code>"ec2:ResourceTag/Department"</code> is the key.
+     * @return The key in a key-value pair. For example, in the tag <code>Department: Accounting</code>,
+     *         <code>Department</code> is the key.
      */
 
     public String getConditionKey() {
@@ -149,13 +180,13 @@ public class Condition implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The key in a key-value pair. For example, in <code>"ec2:ResourceTag/Department": "accounting"</code>,
-     * <code>"ec2:ResourceTag/Department"</code> is the key.
+     * The key in a key-value pair. For example, in the tag <code>Department: Accounting</code>, <code>Department</code>
+     * is the key.
      * </p>
      * 
      * @param conditionKey
-     *        The key in a key-value pair. For example, in <code>"ec2:ResourceTag/Department": "accounting"</code>,
-     *        <code>"ec2:ResourceTag/Department"</code> is the key.
+     *        The key in a key-value pair. For example, in the tag <code>Department: Accounting</code>,
+     *        <code>Department</code> is the key.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -166,13 +197,13 @@ public class Condition implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value in a key-value pair. For example, in <code>"ec2:ResourceTag/Department": "accounting"</code>,
-     * <code>"accounting"</code> is the value.
+     * The value in a key-value pair. For example, in the tag <code>Department: Accounting</code>,
+     * <code>Accounting</code> is the value.
      * </p>
      * 
      * @param conditionValue
-     *        The value in a key-value pair. For example, in <code>"ec2:ResourceTag/Department": "accounting"</code>,
-     *        <code>"accounting"</code> is the value.
+     *        The value in a key-value pair. For example, in the tag <code>Department: Accounting</code>,
+     *        <code>Accounting</code> is the value.
      */
 
     public void setConditionValue(String conditionValue) {
@@ -181,12 +212,12 @@ public class Condition implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value in a key-value pair. For example, in <code>"ec2:ResourceTag/Department": "accounting"</code>,
-     * <code>"accounting"</code> is the value.
+     * The value in a key-value pair. For example, in the tag <code>Department: Accounting</code>,
+     * <code>Accounting</code> is the value.
      * </p>
      * 
-     * @return The value in a key-value pair. For example, in <code>"ec2:ResourceTag/Department": "accounting"</code>,
-     *         <code>"accounting"</code> is the value.
+     * @return The value in a key-value pair. For example, in the tag <code>Department: Accounting</code>,
+     *         <code>Accounting</code> is the value.
      */
 
     public String getConditionValue() {
@@ -195,13 +226,13 @@ public class Condition implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value in a key-value pair. For example, in <code>"ec2:ResourceTag/Department": "accounting"</code>,
-     * <code>"accounting"</code> is the value.
+     * The value in a key-value pair. For example, in the tag <code>Department: Accounting</code>,
+     * <code>Accounting</code> is the value.
      * </p>
      * 
      * @param conditionValue
-     *        The value in a key-value pair. For example, in <code>"ec2:ResourceTag/Department": "accounting"</code>,
-     *        <code>"accounting"</code> is the value.
+     *        The value in a key-value pair. For example, in the tag <code>Department: Accounting</code>,
+     *        <code>Accounting</code> is the value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

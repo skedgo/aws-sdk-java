@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * For an SQL-based Amazon Kinesis Data Analytics application, describes updates to the output configuration identified
- * by the <code>OutputId</code>.
+ * For a SQL-based Kinesis Data Analytics application, describes updates to the output configuration identified by the
+ * <code>OutputId</code>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/OutputUpdate" target="_top">AWS
@@ -56,7 +56,7 @@ public class OutputUpdate implements Serializable, Cloneable, StructuredPojo {
     private KinesisFirehoseOutputUpdate kinesisFirehoseOutputUpdate;
     /**
      * <p>
-     * Describes an AWS Lambda function as the destination for the output.
+     * Describes an Amazon Lambda function as the destination for the output.
      * </p>
      */
     private LambdaOutputUpdate lambdaOutputUpdate;
@@ -235,11 +235,11 @@ public class OutputUpdate implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Describes an AWS Lambda function as the destination for the output.
+     * Describes an Amazon Lambda function as the destination for the output.
      * </p>
      * 
      * @param lambdaOutputUpdate
-     *        Describes an AWS Lambda function as the destination for the output.
+     *        Describes an Amazon Lambda function as the destination for the output.
      */
 
     public void setLambdaOutputUpdate(LambdaOutputUpdate lambdaOutputUpdate) {
@@ -248,10 +248,10 @@ public class OutputUpdate implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Describes an AWS Lambda function as the destination for the output.
+     * Describes an Amazon Lambda function as the destination for the output.
      * </p>
      * 
-     * @return Describes an AWS Lambda function as the destination for the output.
+     * @return Describes an Amazon Lambda function as the destination for the output.
      */
 
     public LambdaOutputUpdate getLambdaOutputUpdate() {
@@ -260,11 +260,11 @@ public class OutputUpdate implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Describes an AWS Lambda function as the destination for the output.
+     * Describes an Amazon Lambda function as the destination for the output.
      * </p>
      * 
      * @param lambdaOutputUpdate
-     *        Describes an AWS Lambda function as the destination for the output.
+     *        Describes an Amazon Lambda function as the destination for the output.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

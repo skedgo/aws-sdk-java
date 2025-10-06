@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,21 +27,21 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The name of the rule that you're creating or updating.
+     * The name of the rule that you are creating or updating.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or <code>"rate(5 minutes)"</code>.
+     * The scheduling expression. For example, "cron(0 20 * * ? *)" or "rate(5 minutes)".
      * </p>
      */
     private String scheduleExpression;
     /**
      * <p>
      * The event pattern. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and
+     * Event Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
      * </p>
      */
     private String eventPattern;
@@ -61,6 +61,11 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * <p>
      * The Amazon Resource Name (ARN) of the IAM role associated with the rule.
      * </p>
+     * <p>
+     * If you're setting an event bus in another account as the target and that account granted permission to your
+     * account through an organization instead of directly by the account ID, you must specify a <code>RoleArn</code>
+     * with proper permissions in the <code>Target</code> structure, instead of here in this parameter.
+     * </p>
      */
     private String roleArn;
     /**
@@ -71,18 +76,18 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
     private java.util.List<Tag> tags;
     /**
      * <p>
-     * The event bus to associate with this rule. If you omit this, the default event bus is used.
+     * The name or ARN of the event bus to associate with this rule. If you omit this, the default event bus is used.
      * </p>
      */
     private String eventBusName;
 
     /**
      * <p>
-     * The name of the rule that you're creating or updating.
+     * The name of the rule that you are creating or updating.
      * </p>
      * 
      * @param name
-     *        The name of the rule that you're creating or updating.
+     *        The name of the rule that you are creating or updating.
      */
 
     public void setName(String name) {
@@ -91,10 +96,10 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The name of the rule that you're creating or updating.
+     * The name of the rule that you are creating or updating.
      * </p>
      * 
-     * @return The name of the rule that you're creating or updating.
+     * @return The name of the rule that you are creating or updating.
      */
 
     public String getName() {
@@ -103,11 +108,11 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The name of the rule that you're creating or updating.
+     * The name of the rule that you are creating or updating.
      * </p>
      * 
      * @param name
-     *        The name of the rule that you're creating or updating.
+     *        The name of the rule that you are creating or updating.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -118,12 +123,11 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or <code>"rate(5 minutes)"</code>.
+     * The scheduling expression. For example, "cron(0 20 * * ? *)" or "rate(5 minutes)".
      * </p>
      * 
      * @param scheduleExpression
-     *        The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or
-     *        <code>"rate(5 minutes)"</code>.
+     *        The scheduling expression. For example, "cron(0 20 * * ? *)" or "rate(5 minutes)".
      */
 
     public void setScheduleExpression(String scheduleExpression) {
@@ -132,11 +136,10 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or <code>"rate(5 minutes)"</code>.
+     * The scheduling expression. For example, "cron(0 20 * * ? *)" or "rate(5 minutes)".
      * </p>
      * 
-     * @return The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or
-     *         <code>"rate(5 minutes)"</code>.
+     * @return The scheduling expression. For example, "cron(0 20 * * ? *)" or "rate(5 minutes)".
      */
 
     public String getScheduleExpression() {
@@ -145,12 +148,11 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or <code>"rate(5 minutes)"</code>.
+     * The scheduling expression. For example, "cron(0 20 * * ? *)" or "rate(5 minutes)".
      * </p>
      * 
      * @param scheduleExpression
-     *        The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or
-     *        <code>"rate(5 minutes)"</code>.
+     *        The scheduling expression. For example, "cron(0 20 * * ? *)" or "rate(5 minutes)".
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -162,14 +164,14 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
     /**
      * <p>
      * The event pattern. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and
+     * Event Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
      * </p>
      * 
      * @param eventPattern
      *        The event pattern. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     *        Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events
+     *        and Event Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
      */
 
     public void setEventPattern(String eventPattern) {
@@ -179,13 +181,13 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
     /**
      * <p>
      * The event pattern. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and
+     * Event Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
      * </p>
      * 
      * @return The event pattern. For more information, see <a
-     *         href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     *         Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     *         href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html"
+     *         >Events and Event Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
      */
 
     public String getEventPattern() {
@@ -195,14 +197,14 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
     /**
      * <p>
      * The event pattern. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and
+     * Event Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
      * </p>
      * 
      * @param eventPattern
      *        The event pattern. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     *        Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events
+     *        and Event Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -328,9 +330,19 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * <p>
      * The Amazon Resource Name (ARN) of the IAM role associated with the rule.
      * </p>
+     * <p>
+     * If you're setting an event bus in another account as the target and that account granted permission to your
+     * account through an organization instead of directly by the account ID, you must specify a <code>RoleArn</code>
+     * with proper permissions in the <code>Target</code> structure, instead of here in this parameter.
+     * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) of the IAM role associated with the rule.
+     *        The Amazon Resource Name (ARN) of the IAM role associated with the rule.</p>
+     *        <p>
+     *        If you're setting an event bus in another account as the target and that account granted permission to
+     *        your account through an organization instead of directly by the account ID, you must specify a
+     *        <code>RoleArn</code> with proper permissions in the <code>Target</code> structure, instead of here in this
+     *        parameter.
      */
 
     public void setRoleArn(String roleArn) {
@@ -341,8 +353,18 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * <p>
      * The Amazon Resource Name (ARN) of the IAM role associated with the rule.
      * </p>
+     * <p>
+     * If you're setting an event bus in another account as the target and that account granted permission to your
+     * account through an organization instead of directly by the account ID, you must specify a <code>RoleArn</code>
+     * with proper permissions in the <code>Target</code> structure, instead of here in this parameter.
+     * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the IAM role associated with the rule.
+     * @return The Amazon Resource Name (ARN) of the IAM role associated with the rule.</p>
+     *         <p>
+     *         If you're setting an event bus in another account as the target and that account granted permission to
+     *         your account through an organization instead of directly by the account ID, you must specify a
+     *         <code>RoleArn</code> with proper permissions in the <code>Target</code> structure, instead of here in
+     *         this parameter.
      */
 
     public String getRoleArn() {
@@ -353,9 +375,19 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
      * <p>
      * The Amazon Resource Name (ARN) of the IAM role associated with the rule.
      * </p>
+     * <p>
+     * If you're setting an event bus in another account as the target and that account granted permission to your
+     * account through an organization instead of directly by the account ID, you must specify a <code>RoleArn</code>
+     * with proper permissions in the <code>Target</code> structure, instead of here in this parameter.
+     * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) of the IAM role associated with the rule.
+     *        The Amazon Resource Name (ARN) of the IAM role associated with the rule.</p>
+     *        <p>
+     *        If you're setting an event bus in another account as the target and that account granted permission to
+     *        your account through an organization instead of directly by the account ID, you must specify a
+     *        <code>RoleArn</code> with proper permissions in the <code>Target</code> structure, instead of here in this
+     *        parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -436,11 +468,12 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The event bus to associate with this rule. If you omit this, the default event bus is used.
+     * The name or ARN of the event bus to associate with this rule. If you omit this, the default event bus is used.
      * </p>
      * 
      * @param eventBusName
-     *        The event bus to associate with this rule. If you omit this, the default event bus is used.
+     *        The name or ARN of the event bus to associate with this rule. If you omit this, the default event bus is
+     *        used.
      */
 
     public void setEventBusName(String eventBusName) {
@@ -449,10 +482,11 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The event bus to associate with this rule. If you omit this, the default event bus is used.
+     * The name or ARN of the event bus to associate with this rule. If you omit this, the default event bus is used.
      * </p>
      * 
-     * @return The event bus to associate with this rule. If you omit this, the default event bus is used.
+     * @return The name or ARN of the event bus to associate with this rule. If you omit this, the default event bus is
+     *         used.
      */
 
     public String getEventBusName() {
@@ -461,11 +495,12 @@ public class PutRuleRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The event bus to associate with this rule. If you omit this, the default event bus is used.
+     * The name or ARN of the event bus to associate with this rule. If you omit this, the default event bus is used.
      * </p>
      * 
      * @param eventBusName
-     *        The event bus to associate with this rule. If you omit this, the default event bus is used.
+     *        The name or ARN of the event bus to associate with this rule. If you omit this, the default event bus is
+     *        used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

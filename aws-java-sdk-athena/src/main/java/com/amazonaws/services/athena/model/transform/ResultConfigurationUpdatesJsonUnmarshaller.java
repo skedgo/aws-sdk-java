@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -63,6 +63,22 @@ public class ResultConfigurationUpdatesJsonUnmarshaller implements Unmarshaller<
                 if (context.testExpression("RemoveEncryptionConfiguration", targetDepth)) {
                     context.nextToken();
                     resultConfigurationUpdates.setRemoveEncryptionConfiguration(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("ExpectedBucketOwner", targetDepth)) {
+                    context.nextToken();
+                    resultConfigurationUpdates.setExpectedBucketOwner(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("RemoveExpectedBucketOwner", targetDepth)) {
+                    context.nextToken();
+                    resultConfigurationUpdates.setRemoveExpectedBucketOwner(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("AclConfiguration", targetDepth)) {
+                    context.nextToken();
+                    resultConfigurationUpdates.setAclConfiguration(AclConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("RemoveAclConfiguration", targetDepth)) {
+                    context.nextToken();
+                    resultConfigurationUpdates.setRemoveAclConfiguration(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

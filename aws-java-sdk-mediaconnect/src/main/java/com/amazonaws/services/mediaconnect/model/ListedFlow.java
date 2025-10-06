@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,6 +42,8 @@ public class ListedFlow implements Serializable, Cloneable, StructuredPojo {
     private String sourceType;
     /** The current status of the flow. */
     private String status;
+
+    private Maintenance maintenance;
 
     /**
      * The Availability Zone that the flow was created in.
@@ -298,6 +300,32 @@ public class ListedFlow implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * @param maintenance
+     */
+
+    public void setMaintenance(Maintenance maintenance) {
+        this.maintenance = maintenance;
+    }
+
+    /**
+     * @return
+     */
+
+    public Maintenance getMaintenance() {
+        return this.maintenance;
+    }
+
+    /**
+     * @param maintenance
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListedFlow withMaintenance(Maintenance maintenance) {
+        setMaintenance(maintenance);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -320,7 +348,9 @@ public class ListedFlow implements Serializable, Cloneable, StructuredPojo {
         if (getSourceType() != null)
             sb.append("SourceType: ").append(getSourceType()).append(",");
         if (getStatus() != null)
-            sb.append("Status: ").append(getStatus());
+            sb.append("Status: ").append(getStatus()).append(",");
+        if (getMaintenance() != null)
+            sb.append("Maintenance: ").append(getMaintenance());
         sb.append("}");
         return sb.toString();
     }
@@ -359,6 +389,10 @@ public class ListedFlow implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
             return false;
+        if (other.getMaintenance() == null ^ this.getMaintenance() == null)
+            return false;
+        if (other.getMaintenance() != null && other.getMaintenance().equals(this.getMaintenance()) == false)
+            return false;
         return true;
     }
 
@@ -373,6 +407,7 @@ public class ListedFlow implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getSourceType() == null) ? 0 : getSourceType().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        hashCode = prime * hashCode + ((getMaintenance() == null) ? 0 : getMaintenance().hashCode());
         return hashCode;
     }
 

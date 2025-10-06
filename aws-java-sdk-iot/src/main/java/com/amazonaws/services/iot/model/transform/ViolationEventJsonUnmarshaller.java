@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -68,9 +68,21 @@ public class ViolationEventJsonUnmarshaller implements Unmarshaller<ViolationEve
                     context.nextToken();
                     violationEvent.setMetricValue(MetricValueJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("violationEventAdditionalInfo", targetDepth)) {
+                    context.nextToken();
+                    violationEvent.setViolationEventAdditionalInfo(ViolationEventAdditionalInfoJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("violationEventType", targetDepth)) {
                     context.nextToken();
                     violationEvent.setViolationEventType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("verificationState", targetDepth)) {
+                    context.nextToken();
+                    violationEvent.setVerificationState(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("verificationStateDescription", targetDepth)) {
+                    context.nextToken();
+                    violationEvent.setVerificationStateDescription(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("violationEventTime", targetDepth)) {
                     context.nextToken();

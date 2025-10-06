@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains information about the location of the remote IP address.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/GeoLocation" target="_top">AWS API
  *      Documentation</a>
@@ -27,24 +30,24 @@ public class GeoLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Latitude information of remote IP address.
+     * The latitude information of the remote IP address.
      * </p>
      */
     private Double lat;
     /**
      * <p>
-     * Longitude information of remote IP address.
+     * The longitude information of the remote IP address.
      * </p>
      */
     private Double lon;
 
     /**
      * <p>
-     * Latitude information of remote IP address.
+     * The latitude information of the remote IP address.
      * </p>
      * 
      * @param lat
-     *        Latitude information of remote IP address.
+     *        The latitude information of the remote IP address.
      */
 
     public void setLat(Double lat) {
@@ -53,10 +56,10 @@ public class GeoLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Latitude information of remote IP address.
+     * The latitude information of the remote IP address.
      * </p>
      * 
-     * @return Latitude information of remote IP address.
+     * @return The latitude information of the remote IP address.
      */
 
     public Double getLat() {
@@ -65,11 +68,11 @@ public class GeoLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Latitude information of remote IP address.
+     * The latitude information of the remote IP address.
      * </p>
      * 
      * @param lat
-     *        Latitude information of remote IP address.
+     *        The latitude information of the remote IP address.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,11 +83,11 @@ public class GeoLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Longitude information of remote IP address.
+     * The longitude information of the remote IP address.
      * </p>
      * 
      * @param lon
-     *        Longitude information of remote IP address.
+     *        The longitude information of the remote IP address.
      */
 
     public void setLon(Double lon) {
@@ -93,10 +96,10 @@ public class GeoLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Longitude information of remote IP address.
+     * The longitude information of the remote IP address.
      * </p>
      * 
-     * @return Longitude information of remote IP address.
+     * @return The longitude information of the remote IP address.
      */
 
     public Double getLon() {
@@ -105,11 +108,11 @@ public class GeoLocation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Longitude information of remote IP address.
+     * The longitude information of the remote IP address.
      * </p>
      * 
      * @param lon
-     *        Longitude information of remote IP address.
+     *        The longitude information of the remote IP address.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

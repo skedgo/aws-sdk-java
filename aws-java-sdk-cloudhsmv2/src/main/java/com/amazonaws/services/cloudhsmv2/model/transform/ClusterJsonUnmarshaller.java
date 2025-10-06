@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,10 @@ public class ClusterJsonUnmarshaller implements Unmarshaller<Cluster, JsonUnmars
                     context.nextToken();
                     cluster.setBackupPolicy(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("BackupRetentionPolicy", targetDepth)) {
+                    context.nextToken();
+                    cluster.setBackupRetentionPolicy(BackupRetentionPolicyJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("ClusterId", targetDepth)) {
                     context.nextToken();
                     cluster.setClusterId(context.getUnmarshaller(String.class).unmarshall(context));
@@ -62,7 +66,9 @@ public class ClusterJsonUnmarshaller implements Unmarshaller<Cluster, JsonUnmars
                 }
                 if (context.testExpression("Hsms", targetDepth)) {
                     context.nextToken();
-                    cluster.setHsms(new ListUnmarshaller<Hsm>(HsmJsonUnmarshaller.getInstance()).unmarshall(context));
+                    cluster.setHsms(new ListUnmarshaller<Hsm>(HsmJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("HsmType", targetDepth)) {
                     context.nextToken();
@@ -100,6 +106,16 @@ public class ClusterJsonUnmarshaller implements Unmarshaller<Cluster, JsonUnmars
                 if (context.testExpression("Certificates", targetDepth)) {
                     context.nextToken();
                     cluster.setCertificates(CertificatesJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("TagList", targetDepth)) {
+                    context.nextToken();
+                    cluster.setTagList(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("Mode", targetDepth)) {
+                    context.nextToken();
+                    cluster.setMode(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

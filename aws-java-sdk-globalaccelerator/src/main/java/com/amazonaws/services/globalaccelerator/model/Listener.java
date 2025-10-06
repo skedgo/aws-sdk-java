@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,12 +49,12 @@ public class Listener implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Client affinity lets you direct all requests from a user to the same endpoint, if you have stateful applications,
-     * regardless of the port and protocol of the client request. Clienty affinity gives you control over whether to
+     * regardless of the port and protocol of the client request. Client affinity gives you control over whether to
      * always route each client to the same specific endpoint.
      * </p>
      * <p>
-     * AWS Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a connection.
-     * If client affinity is <code>NONE</code>, Global Accelerator uses the "five-tuple" (5-tuple) properties—source IP
+     * Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a connection. If
+     * client affinity is <code>NONE</code>, Global Accelerator uses the "five-tuple" (5-tuple) properties—source IP
      * address, source port, destination IP address, destination port, and protocol—to select the hash value, and then
      * chooses the best endpoint. However, with this setting, if someone uses different ports to connect to Global
      * Accelerator, their connections might not be always routed to the same endpoint because the hash value changes.
@@ -242,12 +242,12 @@ public class Listener implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Client affinity lets you direct all requests from a user to the same endpoint, if you have stateful applications,
-     * regardless of the port and protocol of the client request. Clienty affinity gives you control over whether to
+     * regardless of the port and protocol of the client request. Client affinity gives you control over whether to
      * always route each client to the same specific endpoint.
      * </p>
      * <p>
-     * AWS Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a connection.
-     * If client affinity is <code>NONE</code>, Global Accelerator uses the "five-tuple" (5-tuple) properties—source IP
+     * Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a connection. If
+     * client affinity is <code>NONE</code>, Global Accelerator uses the "five-tuple" (5-tuple) properties—source IP
      * address, source port, destination IP address, destination port, and protocol—to select the hash value, and then
      * chooses the best endpoint. However, with this setting, if someone uses different ports to connect to Global
      * Accelerator, their connections might not be always routed to the same endpoint because the hash value changes.
@@ -263,10 +263,10 @@ public class Listener implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param clientAffinity
      *        Client affinity lets you direct all requests from a user to the same endpoint, if you have stateful
-     *        applications, regardless of the port and protocol of the client request. Clienty affinity gives you
-     *        control over whether to always route each client to the same specific endpoint.</p>
+     *        applications, regardless of the port and protocol of the client request. Client affinity gives you control
+     *        over whether to always route each client to the same specific endpoint.</p>
      *        <p>
-     *        AWS Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a
+     *        Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a
      *        connection. If client affinity is <code>NONE</code>, Global Accelerator uses the "five-tuple" (5-tuple)
      *        properties—source IP address, source port, destination IP address, destination port, and protocol—to
      *        select the hash value, and then chooses the best endpoint. However, with this setting, if someone uses
@@ -291,12 +291,12 @@ public class Listener implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Client affinity lets you direct all requests from a user to the same endpoint, if you have stateful applications,
-     * regardless of the port and protocol of the client request. Clienty affinity gives you control over whether to
+     * regardless of the port and protocol of the client request. Client affinity gives you control over whether to
      * always route each client to the same specific endpoint.
      * </p>
      * <p>
-     * AWS Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a connection.
-     * If client affinity is <code>NONE</code>, Global Accelerator uses the "five-tuple" (5-tuple) properties—source IP
+     * Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a connection. If
+     * client affinity is <code>NONE</code>, Global Accelerator uses the "five-tuple" (5-tuple) properties—source IP
      * address, source port, destination IP address, destination port, and protocol—to select the hash value, and then
      * chooses the best endpoint. However, with this setting, if someone uses different ports to connect to Global
      * Accelerator, their connections might not be always routed to the same endpoint because the hash value changes.
@@ -311,10 +311,10 @@ public class Listener implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @return Client affinity lets you direct all requests from a user to the same endpoint, if you have stateful
-     *         applications, regardless of the port and protocol of the client request. Clienty affinity gives you
+     *         applications, regardless of the port and protocol of the client request. Client affinity gives you
      *         control over whether to always route each client to the same specific endpoint.</p>
      *         <p>
-     *         AWS Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a
+     *         Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a
      *         connection. If client affinity is <code>NONE</code>, Global Accelerator uses the "five-tuple" (5-tuple)
      *         properties—source IP address, source port, destination IP address, destination port, and protocol—to
      *         select the hash value, and then chooses the best endpoint. However, with this setting, if someone uses
@@ -339,12 +339,12 @@ public class Listener implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Client affinity lets you direct all requests from a user to the same endpoint, if you have stateful applications,
-     * regardless of the port and protocol of the client request. Clienty affinity gives you control over whether to
+     * regardless of the port and protocol of the client request. Client affinity gives you control over whether to
      * always route each client to the same specific endpoint.
      * </p>
      * <p>
-     * AWS Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a connection.
-     * If client affinity is <code>NONE</code>, Global Accelerator uses the "five-tuple" (5-tuple) properties—source IP
+     * Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a connection. If
+     * client affinity is <code>NONE</code>, Global Accelerator uses the "five-tuple" (5-tuple) properties—source IP
      * address, source port, destination IP address, destination port, and protocol—to select the hash value, and then
      * chooses the best endpoint. However, with this setting, if someone uses different ports to connect to Global
      * Accelerator, their connections might not be always routed to the same endpoint because the hash value changes.
@@ -360,10 +360,10 @@ public class Listener implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param clientAffinity
      *        Client affinity lets you direct all requests from a user to the same endpoint, if you have stateful
-     *        applications, regardless of the port and protocol of the client request. Clienty affinity gives you
-     *        control over whether to always route each client to the same specific endpoint.</p>
+     *        applications, regardless of the port and protocol of the client request. Client affinity gives you control
+     *        over whether to always route each client to the same specific endpoint.</p>
      *        <p>
-     *        AWS Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a
+     *        Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a
      *        connection. If client affinity is <code>NONE</code>, Global Accelerator uses the "five-tuple" (5-tuple)
      *        properties—source IP address, source port, destination IP address, destination port, and protocol—to
      *        select the hash value, and then chooses the best endpoint. However, with this setting, if someone uses
@@ -390,12 +390,12 @@ public class Listener implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * Client affinity lets you direct all requests from a user to the same endpoint, if you have stateful applications,
-     * regardless of the port and protocol of the client request. Clienty affinity gives you control over whether to
+     * regardless of the port and protocol of the client request. Client affinity gives you control over whether to
      * always route each client to the same specific endpoint.
      * </p>
      * <p>
-     * AWS Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a connection.
-     * If client affinity is <code>NONE</code>, Global Accelerator uses the "five-tuple" (5-tuple) properties—source IP
+     * Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a connection. If
+     * client affinity is <code>NONE</code>, Global Accelerator uses the "five-tuple" (5-tuple) properties—source IP
      * address, source port, destination IP address, destination port, and protocol—to select the hash value, and then
      * chooses the best endpoint. However, with this setting, if someone uses different ports to connect to Global
      * Accelerator, their connections might not be always routed to the same endpoint because the hash value changes.
@@ -411,10 +411,10 @@ public class Listener implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param clientAffinity
      *        Client affinity lets you direct all requests from a user to the same endpoint, if you have stateful
-     *        applications, regardless of the port and protocol of the client request. Clienty affinity gives you
-     *        control over whether to always route each client to the same specific endpoint.</p>
+     *        applications, regardless of the port and protocol of the client request. Client affinity gives you control
+     *        over whether to always route each client to the same specific endpoint.</p>
      *        <p>
-     *        AWS Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a
+     *        Global Accelerator uses a consistent-flow hashing algorithm to choose the optimal endpoint for a
      *        connection. If client affinity is <code>NONE</code>, Global Accelerator uses the "five-tuple" (5-tuple)
      *        properties—source IP address, source port, destination IP address, destination port, and protocol—to
      *        select the hash value, and then chooses the best endpoint. However, with this setting, if someone uses

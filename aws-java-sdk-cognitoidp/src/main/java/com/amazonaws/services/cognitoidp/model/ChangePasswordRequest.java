@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,7 +42,7 @@ public class ChangePasswordRequest extends com.amazonaws.AmazonWebServiceRequest
     private String proposedPassword;
     /**
      * <p>
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose password you want to change.
      * </p>
      */
     private String accessToken;
@@ -129,11 +129,11 @@ public class ChangePasswordRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose password you want to change.
      * </p>
      * 
      * @param accessToken
-     *        The access token.
+     *        A valid access token that Amazon Cognito issued to the user whose password you want to change.
      */
 
     public void setAccessToken(String accessToken) {
@@ -142,10 +142,10 @@ public class ChangePasswordRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose password you want to change.
      * </p>
      * 
-     * @return The access token.
+     * @return A valid access token that Amazon Cognito issued to the user whose password you want to change.
      */
 
     public String getAccessToken() {
@@ -154,11 +154,11 @@ public class ChangePasswordRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose password you want to change.
      * </p>
      * 
      * @param accessToken
-     *        The access token.
+     *        A valid access token that Amazon Cognito issued to the user whose password you want to change.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

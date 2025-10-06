@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,10 +31,16 @@ public class VideoPreprocessorMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("colorCorrector").build();
     private static final MarshallingInfo<StructuredPojo> DEINTERLACER_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("deinterlacer").build();
+    private static final MarshallingInfo<StructuredPojo> DOLBYVISION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dolbyVision").build();
+    private static final MarshallingInfo<StructuredPojo> HDR10PLUS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("hdr10Plus").build();
     private static final MarshallingInfo<StructuredPojo> IMAGEINSERTER_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("imageInserter").build();
     private static final MarshallingInfo<StructuredPojo> NOISEREDUCER_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("noiseReducer").build();
+    private static final MarshallingInfo<StructuredPojo> PARTNERWATERMARKING_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("partnerWatermarking").build();
     private static final MarshallingInfo<StructuredPojo> TIMECODEBURNIN_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("timecodeBurnin").build();
 
@@ -56,8 +62,11 @@ public class VideoPreprocessorMarshaller {
         try {
             protocolMarshaller.marshall(videoPreprocessor.getColorCorrector(), COLORCORRECTOR_BINDING);
             protocolMarshaller.marshall(videoPreprocessor.getDeinterlacer(), DEINTERLACER_BINDING);
+            protocolMarshaller.marshall(videoPreprocessor.getDolbyVision(), DOLBYVISION_BINDING);
+            protocolMarshaller.marshall(videoPreprocessor.getHdr10Plus(), HDR10PLUS_BINDING);
             protocolMarshaller.marshall(videoPreprocessor.getImageInserter(), IMAGEINSERTER_BINDING);
             protocolMarshaller.marshall(videoPreprocessor.getNoiseReducer(), NOISEREDUCER_BINDING);
+            protocolMarshaller.marshall(videoPreprocessor.getPartnerWatermarking(), PARTNERWATERMARKING_BINDING);
             protocolMarshaller.marshall(videoPreprocessor.getTimecodeBurnin(), TIMECODEBURNIN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

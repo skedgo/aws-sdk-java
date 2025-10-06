@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,18 +28,18 @@ public class CreateLocationEfsResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the Amazon EFS file system location that is created.
+     * The Amazon Resource Name (ARN) of the Amazon EFS file system location that you create.
      * </p>
      */
     private String locationArn;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the Amazon EFS file system location that is created.
+     * The Amazon Resource Name (ARN) of the Amazon EFS file system location that you create.
      * </p>
      * 
      * @param locationArn
-     *        The Amazon Resource Name (ARN) of the Amazon EFS file system location that is created.
+     *        The Amazon Resource Name (ARN) of the Amazon EFS file system location that you create.
      */
 
     public void setLocationArn(String locationArn) {
@@ -48,10 +48,10 @@ public class CreateLocationEfsResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the Amazon EFS file system location that is created.
+     * The Amazon Resource Name (ARN) of the Amazon EFS file system location that you create.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the Amazon EFS file system location that is created.
+     * @return The Amazon Resource Name (ARN) of the Amazon EFS file system location that you create.
      */
 
     public String getLocationArn() {
@@ -60,11 +60,11 @@ public class CreateLocationEfsResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the Amazon EFS file system location that is created.
+     * The Amazon Resource Name (ARN) of the Amazon EFS file system location that you create.
      * </p>
      * 
      * @param locationArn
-     *        The Amazon Resource Name (ARN) of the Amazon EFS file system location that is created.
+     *        The Amazon Resource Name (ARN) of the Amazon EFS file system location that you create.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

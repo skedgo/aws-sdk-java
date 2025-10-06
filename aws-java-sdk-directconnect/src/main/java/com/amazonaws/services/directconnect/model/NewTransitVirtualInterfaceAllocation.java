@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about a transit virtual interface.
+ * Information about a transit virtual interface to be provisioned on a connection.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/NewTransitVirtualInterfaceAllocation"
@@ -30,7 +30,8 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
 
     /**
      * <p>
-     * The name of the virtual interface assigned by the customer network.
+     * The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The
+     * following are valid characters: a-z, 0-9 and a hyphen (-).
      * </p>
      */
     private String virtualInterfaceName;
@@ -44,17 +45,21 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
      * <p>
      * The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
      * </p>
+     * <p>
+     * The valid values are 1-2147483647.
+     * </p>
      */
     private Integer asn;
     /**
      * <p>
-     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value is 1500.
+     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value is 1500
      * </p>
      */
     private Integer mtu;
     /**
      * <p>
-     * The authentication key for BGP configuration.
+     * The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun
+     * lenth of 80 characters.
      * </p>
      */
     private String authKey;
@@ -78,18 +83,20 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
     private String addressFamily;
     /**
      * <p>
-     * Any tags assigned to the transit virtual interface.
+     * The tags associated with the transitive virtual interface.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
 
     /**
      * <p>
-     * The name of the virtual interface assigned by the customer network.
+     * The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The
+     * following are valid characters: a-z, 0-9 and a hyphen (-).
      * </p>
      * 
      * @param virtualInterfaceName
-     *        The name of the virtual interface assigned by the customer network.
+     *        The name of the virtual interface assigned by the customer network. The name has a maximum of 100
+     *        characters. The following are valid characters: a-z, 0-9 and a hyphen (-).
      */
 
     public void setVirtualInterfaceName(String virtualInterfaceName) {
@@ -98,10 +105,12 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
 
     /**
      * <p>
-     * The name of the virtual interface assigned by the customer network.
+     * The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The
+     * following are valid characters: a-z, 0-9 and a hyphen (-).
      * </p>
      * 
-     * @return The name of the virtual interface assigned by the customer network.
+     * @return The name of the virtual interface assigned by the customer network. The name has a maximum of 100
+     *         characters. The following are valid characters: a-z, 0-9 and a hyphen (-).
      */
 
     public String getVirtualInterfaceName() {
@@ -110,11 +119,13 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
 
     /**
      * <p>
-     * The name of the virtual interface assigned by the customer network.
+     * The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The
+     * following are valid characters: a-z, 0-9 and a hyphen (-).
      * </p>
      * 
      * @param virtualInterfaceName
-     *        The name of the virtual interface assigned by the customer network.
+     *        The name of the virtual interface assigned by the customer network. The name has a maximum of 100
+     *        characters. The following are valid characters: a-z, 0-9 and a hyphen (-).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -167,9 +178,14 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
      * <p>
      * The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
      * </p>
+     * <p>
+     * The valid values are 1-2147483647.
+     * </p>
      * 
      * @param asn
-     *        The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
+     *        The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.</p>
+     *        <p>
+     *        The valid values are 1-2147483647.
      */
 
     public void setAsn(Integer asn) {
@@ -180,8 +196,13 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
      * <p>
      * The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
      * </p>
+     * <p>
+     * The valid values are 1-2147483647.
+     * </p>
      * 
-     * @return The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
+     * @return The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.</p>
+     *         <p>
+     *         The valid values are 1-2147483647.
      */
 
     public Integer getAsn() {
@@ -192,9 +213,14 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
      * <p>
      * The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
      * </p>
+     * <p>
+     * The valid values are 1-2147483647.
+     * </p>
      * 
      * @param asn
-     *        The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
+     *        The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.</p>
+     *        <p>
+     *        The valid values are 1-2147483647.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -205,12 +231,12 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
 
     /**
      * <p>
-     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value is 1500.
+     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value is 1500
      * </p>
      * 
      * @param mtu
      *        The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value
-     *        is 1500.
+     *        is 1500
      */
 
     public void setMtu(Integer mtu) {
@@ -219,11 +245,11 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
 
     /**
      * <p>
-     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value is 1500.
+     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value is 1500
      * </p>
      * 
      * @return The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value
-     *         is 1500.
+     *         is 1500
      */
 
     public Integer getMtu() {
@@ -232,12 +258,12 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
 
     /**
      * <p>
-     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value is 1500.
+     * The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value is 1500
      * </p>
      * 
      * @param mtu
      *        The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 8500. The default value
-     *        is 1500.
+     *        is 1500
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -248,11 +274,13 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
 
     /**
      * <p>
-     * The authentication key for BGP configuration.
+     * The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun
+     * lenth of 80 characters.
      * </p>
      * 
      * @param authKey
-     *        The authentication key for BGP configuration.
+     *        The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a
+     *        maximun lenth of 80 characters.
      */
 
     public void setAuthKey(String authKey) {
@@ -261,10 +289,12 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
 
     /**
      * <p>
-     * The authentication key for BGP configuration.
+     * The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun
+     * lenth of 80 characters.
      * </p>
      * 
-     * @return The authentication key for BGP configuration.
+     * @return The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a
+     *         maximun lenth of 80 characters.
      */
 
     public String getAuthKey() {
@@ -273,11 +303,13 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
 
     /**
      * <p>
-     * The authentication key for BGP configuration.
+     * The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun
+     * lenth of 80 characters.
      * </p>
      * 
      * @param authKey
-     *        The authentication key for BGP configuration.
+     *        The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a
+     *        maximun lenth of 80 characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -427,10 +459,10 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
 
     /**
      * <p>
-     * Any tags assigned to the transit virtual interface.
+     * The tags associated with the transitive virtual interface.
      * </p>
      * 
-     * @return Any tags assigned to the transit virtual interface.
+     * @return The tags associated with the transitive virtual interface.
      */
 
     public java.util.List<Tag> getTags() {
@@ -442,11 +474,11 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
 
     /**
      * <p>
-     * Any tags assigned to the transit virtual interface.
+     * The tags associated with the transitive virtual interface.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the transit virtual interface.
+     *        The tags associated with the transitive virtual interface.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -460,7 +492,7 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
 
     /**
      * <p>
-     * Any tags assigned to the transit virtual interface.
+     * The tags associated with the transitive virtual interface.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -469,7 +501,7 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the transit virtual interface.
+     *        The tags associated with the transitive virtual interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -485,11 +517,11 @@ public class NewTransitVirtualInterfaceAllocation implements Serializable, Clone
 
     /**
      * <p>
-     * Any tags assigned to the transit virtual interface.
+     * The tags associated with the transitive virtual interface.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the transit virtual interface.
+     *        The tags associated with the transitive virtual interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -62,6 +62,38 @@ public class DescribeAutoScalingGroupsRequestMarshaller implements Marshaller<Re
 
         if (describeAutoScalingGroupsRequest.getMaxRecords() != null) {
             request.addParameter("MaxRecords", StringUtils.fromInteger(describeAutoScalingGroupsRequest.getMaxRecords()));
+        }
+
+        if (!describeAutoScalingGroupsRequest.getFilters().isEmpty()
+                || !((com.amazonaws.internal.SdkInternalList<Filter>) describeAutoScalingGroupsRequest.getFilters()).isAutoConstruct()) {
+            com.amazonaws.internal.SdkInternalList<Filter> filtersList = (com.amazonaws.internal.SdkInternalList<Filter>) describeAutoScalingGroupsRequest
+                    .getFilters();
+            int filtersListIndex = 1;
+
+            for (Filter filtersListValue : filtersList) {
+                if (filtersListValue != null) {
+
+                    if (filtersListValue.getName() != null) {
+                        request.addParameter("Filters.member." + filtersListIndex + ".Name", StringUtils.fromString(filtersListValue.getName()));
+                    }
+
+                    if (!filtersListValue.getValues().isEmpty()
+                            || !((com.amazonaws.internal.SdkInternalList<String>) filtersListValue.getValues()).isAutoConstruct()) {
+                        com.amazonaws.internal.SdkInternalList<String> valuesList = (com.amazonaws.internal.SdkInternalList<String>) filtersListValue
+                                .getValues();
+                        int valuesListIndex = 1;
+
+                        for (String valuesListValue : valuesList) {
+                            if (valuesListValue != null) {
+                                request.addParameter("Filters.member." + filtersListIndex + ".Values.member." + valuesListIndex,
+                                        StringUtils.fromString(valuesListValue));
+                            }
+                            valuesListIndex++;
+                        }
+                    }
+                }
+                filtersListIndex++;
+            }
         }
 
         return request;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -39,6 +39,8 @@ public class InternalConfigJsonHelper {
     private String userAgentTemplate;
 
     private boolean endpointDiscoveryEnabled;
+
+    private String defaultRetryMode;
 
     public SignerConfigJsonHelper getDefaultSigner() {
         return defaultSigner;
@@ -102,5 +104,13 @@ public class InternalConfigJsonHelper {
 
     public void setEndpointDiscoveryEnabled(boolean endpointDiscoveryEnabled) {
         this.endpointDiscoveryEnabled = endpointDiscoveryEnabled;
+    }
+
+    public String getDefaultRetryMode() {
+        return defaultRetryMode;
+    }
+
+    public void setDefaultRetryMode(String defaultRetryMode) {
+        this.defaultRetryMode = defaultRetryMode;
     }
 }

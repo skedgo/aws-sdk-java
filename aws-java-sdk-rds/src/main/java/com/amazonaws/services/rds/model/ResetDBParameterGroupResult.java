@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,7 @@ import javax.annotation.Generated;
 /**
  * <p>
  * Contains the result of a successful invocation of the <code>ModifyDBParameterGroup</code> or
- * <code>ResetDBParameterGroup</code> action.
+ * <code>ResetDBParameterGroup</code> operation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ResetDBParameterGroup" target="_top">AWS API
@@ -29,18 +29,18 @@ public class ResetDBParameterGroupResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Provides the name of the DB parameter group.
+     * The name of the DB parameter group.
      * </p>
      */
     private String dBParameterGroupName;
 
     /**
      * <p>
-     * Provides the name of the DB parameter group.
+     * The name of the DB parameter group.
      * </p>
      * 
      * @param dBParameterGroupName
-     *        Provides the name of the DB parameter group.
+     *        The name of the DB parameter group.
      */
 
     public void setDBParameterGroupName(String dBParameterGroupName) {
@@ -49,10 +49,10 @@ public class ResetDBParameterGroupResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Provides the name of the DB parameter group.
+     * The name of the DB parameter group.
      * </p>
      * 
-     * @return Provides the name of the DB parameter group.
+     * @return The name of the DB parameter group.
      */
 
     public String getDBParameterGroupName() {
@@ -61,11 +61,11 @@ public class ResetDBParameterGroupResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Provides the name of the DB parameter group.
+     * The name of the DB parameter group.
      * </p>
      * 
      * @param dBParameterGroupName
-     *        Provides the name of the DB parameter group.
+     *        The name of the DB parameter group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

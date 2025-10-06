@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class DescribeStackEventsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name or the unique stack ID that is associated with the stack, which are not always interchangeable:
+     * The name or the unique stack ID that's associated with the stack, which aren't always interchangeable:
      * </p>
      * <ul>
      * <li>
@@ -58,7 +58,7 @@ public class DescribeStackEventsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name or the unique stack ID that is associated with the stack, which are not always interchangeable:
+     * The name or the unique stack ID that's associated with the stack, which aren't always interchangeable:
      * </p>
      * <ul>
      * <li>
@@ -77,8 +77,7 @@ public class DescribeStackEventsRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param stackName
-     *        The name or the unique stack ID that is associated with the stack, which are not always
-     *        interchangeable:</p>
+     *        The name or the unique stack ID that's associated with the stack, which aren't always interchangeable:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -101,7 +100,7 @@ public class DescribeStackEventsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name or the unique stack ID that is associated with the stack, which are not always interchangeable:
+     * The name or the unique stack ID that's associated with the stack, which aren't always interchangeable:
      * </p>
      * <ul>
      * <li>
@@ -119,7 +118,7 @@ public class DescribeStackEventsRequest extends com.amazonaws.AmazonWebServiceRe
      * Default: There is no default value.
      * </p>
      * 
-     * @return The name or the unique stack ID that is associated with the stack, which are not always
+     * @return The name or the unique stack ID that's associated with the stack, which aren't always
      *         interchangeable:</p>
      *         <ul>
      *         <li>
@@ -143,7 +142,7 @@ public class DescribeStackEventsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The name or the unique stack ID that is associated with the stack, which are not always interchangeable:
+     * The name or the unique stack ID that's associated with the stack, which aren't always interchangeable:
      * </p>
      * <ul>
      * <li>
@@ -162,8 +161,7 @@ public class DescribeStackEventsRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param stackName
-     *        The name or the unique stack ID that is associated with the stack, which are not always
-     *        interchangeable:</p>
+     *        The name or the unique stack ID that's associated with the stack, which aren't always interchangeable:</p>
      *        <ul>
      *        <li>
      *        <p>

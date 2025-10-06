@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Specifies the settings for a campaign treatment. A treatment is a variation of a campaign that's used for A/B testing
- * of a campaign.
+ * Specifies the settings for a campaign treatment. A <i>treatment</i> is a variation of a campaign that's used for A/B
+ * testing of a campaign.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/TreatmentResource" target="_top">AWS API
@@ -29,6 +29,13 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class TreatmentResource implements Serializable, Cloneable, StructuredPojo {
 
+    /**
+     * <p>
+     * The delivery configuration settings for sending the treatment through a custom channel. This object is required
+     * if the MessageConfiguration object for the treatment specifies a CustomMessage object.
+     * </p>
+     */
+    private CustomDeliveryConfiguration customDeliveryConfiguration;
     /**
      * <p>
      * The unique identifier for the treatment.
@@ -55,10 +62,16 @@ public class TreatmentResource implements Serializable, Cloneable, StructuredPoj
     private Integer sizePercent;
     /**
      * <p>
-     * The status of the treatment.
+     * The current status of the treatment.
      * </p>
      */
     private CampaignState state;
+    /**
+     * <p>
+     * The message template to use for the treatment.
+     * </p>
+     */
+    private TemplateConfiguration templateConfiguration;
     /**
      * <p>
      * The custom description of the treatment.
@@ -67,11 +80,56 @@ public class TreatmentResource implements Serializable, Cloneable, StructuredPoj
     private String treatmentDescription;
     /**
      * <p>
-     * The custom name of the treatment. A treatment is a variation of a campaign that's used for A/B testing of a
-     * campaign.
+     * The custom name of the treatment.
      * </p>
      */
     private String treatmentName;
+
+    /**
+     * <p>
+     * The delivery configuration settings for sending the treatment through a custom channel. This object is required
+     * if the MessageConfiguration object for the treatment specifies a CustomMessage object.
+     * </p>
+     * 
+     * @param customDeliveryConfiguration
+     *        The delivery configuration settings for sending the treatment through a custom channel. This object is
+     *        required if the MessageConfiguration object for the treatment specifies a CustomMessage object.
+     */
+
+    public void setCustomDeliveryConfiguration(CustomDeliveryConfiguration customDeliveryConfiguration) {
+        this.customDeliveryConfiguration = customDeliveryConfiguration;
+    }
+
+    /**
+     * <p>
+     * The delivery configuration settings for sending the treatment through a custom channel. This object is required
+     * if the MessageConfiguration object for the treatment specifies a CustomMessage object.
+     * </p>
+     * 
+     * @return The delivery configuration settings for sending the treatment through a custom channel. This object is
+     *         required if the MessageConfiguration object for the treatment specifies a CustomMessage object.
+     */
+
+    public CustomDeliveryConfiguration getCustomDeliveryConfiguration() {
+        return this.customDeliveryConfiguration;
+    }
+
+    /**
+     * <p>
+     * The delivery configuration settings for sending the treatment through a custom channel. This object is required
+     * if the MessageConfiguration object for the treatment specifies a CustomMessage object.
+     * </p>
+     * 
+     * @param customDeliveryConfiguration
+     *        The delivery configuration settings for sending the treatment through a custom channel. This object is
+     *        required if the MessageConfiguration object for the treatment specifies a CustomMessage object.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TreatmentResource withCustomDeliveryConfiguration(CustomDeliveryConfiguration customDeliveryConfiguration) {
+        setCustomDeliveryConfiguration(customDeliveryConfiguration);
+        return this;
+    }
 
     /**
      * <p>
@@ -235,11 +293,11 @@ public class TreatmentResource implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The status of the treatment.
+     * The current status of the treatment.
      * </p>
      * 
      * @param state
-     *        The status of the treatment.
+     *        The current status of the treatment.
      */
 
     public void setState(CampaignState state) {
@@ -248,10 +306,10 @@ public class TreatmentResource implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The status of the treatment.
+     * The current status of the treatment.
      * </p>
      * 
-     * @return The status of the treatment.
+     * @return The current status of the treatment.
      */
 
     public CampaignState getState() {
@@ -260,16 +318,56 @@ public class TreatmentResource implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The status of the treatment.
+     * The current status of the treatment.
      * </p>
      * 
      * @param state
-     *        The status of the treatment.
+     *        The current status of the treatment.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public TreatmentResource withState(CampaignState state) {
         setState(state);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The message template to use for the treatment.
+     * </p>
+     * 
+     * @param templateConfiguration
+     *        The message template to use for the treatment.
+     */
+
+    public void setTemplateConfiguration(TemplateConfiguration templateConfiguration) {
+        this.templateConfiguration = templateConfiguration;
+    }
+
+    /**
+     * <p>
+     * The message template to use for the treatment.
+     * </p>
+     * 
+     * @return The message template to use for the treatment.
+     */
+
+    public TemplateConfiguration getTemplateConfiguration() {
+        return this.templateConfiguration;
+    }
+
+    /**
+     * <p>
+     * The message template to use for the treatment.
+     * </p>
+     * 
+     * @param templateConfiguration
+     *        The message template to use for the treatment.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TreatmentResource withTemplateConfiguration(TemplateConfiguration templateConfiguration) {
+        setTemplateConfiguration(templateConfiguration);
         return this;
     }
 
@@ -315,13 +413,11 @@ public class TreatmentResource implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The custom name of the treatment. A treatment is a variation of a campaign that's used for A/B testing of a
-     * campaign.
+     * The custom name of the treatment.
      * </p>
      * 
      * @param treatmentName
-     *        The custom name of the treatment. A treatment is a variation of a campaign that's used for A/B testing of
-     *        a campaign.
+     *        The custom name of the treatment.
      */
 
     public void setTreatmentName(String treatmentName) {
@@ -330,12 +426,10 @@ public class TreatmentResource implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The custom name of the treatment. A treatment is a variation of a campaign that's used for A/B testing of a
-     * campaign.
+     * The custom name of the treatment.
      * </p>
      * 
-     * @return The custom name of the treatment. A treatment is a variation of a campaign that's used for A/B testing of
-     *         a campaign.
+     * @return The custom name of the treatment.
      */
 
     public String getTreatmentName() {
@@ -344,13 +438,11 @@ public class TreatmentResource implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The custom name of the treatment. A treatment is a variation of a campaign that's used for A/B testing of a
-     * campaign.
+     * The custom name of the treatment.
      * </p>
      * 
      * @param treatmentName
-     *        The custom name of the treatment. A treatment is a variation of a campaign that's used for A/B testing of
-     *        a campaign.
+     *        The custom name of the treatment.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -371,6 +463,8 @@ public class TreatmentResource implements Serializable, Cloneable, StructuredPoj
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getCustomDeliveryConfiguration() != null)
+            sb.append("CustomDeliveryConfiguration: ").append(getCustomDeliveryConfiguration()).append(",");
         if (getId() != null)
             sb.append("Id: ").append(getId()).append(",");
         if (getMessageConfiguration() != null)
@@ -381,6 +475,8 @@ public class TreatmentResource implements Serializable, Cloneable, StructuredPoj
             sb.append("SizePercent: ").append(getSizePercent()).append(",");
         if (getState() != null)
             sb.append("State: ").append(getState()).append(",");
+        if (getTemplateConfiguration() != null)
+            sb.append("TemplateConfiguration: ").append(getTemplateConfiguration()).append(",");
         if (getTreatmentDescription() != null)
             sb.append("TreatmentDescription: ").append(getTreatmentDescription()).append(",");
         if (getTreatmentName() != null)
@@ -399,6 +495,10 @@ public class TreatmentResource implements Serializable, Cloneable, StructuredPoj
         if (obj instanceof TreatmentResource == false)
             return false;
         TreatmentResource other = (TreatmentResource) obj;
+        if (other.getCustomDeliveryConfiguration() == null ^ this.getCustomDeliveryConfiguration() == null)
+            return false;
+        if (other.getCustomDeliveryConfiguration() != null && other.getCustomDeliveryConfiguration().equals(this.getCustomDeliveryConfiguration()) == false)
+            return false;
         if (other.getId() == null ^ this.getId() == null)
             return false;
         if (other.getId() != null && other.getId().equals(this.getId()) == false)
@@ -419,6 +519,10 @@ public class TreatmentResource implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getState() != null && other.getState().equals(this.getState()) == false)
             return false;
+        if (other.getTemplateConfiguration() == null ^ this.getTemplateConfiguration() == null)
+            return false;
+        if (other.getTemplateConfiguration() != null && other.getTemplateConfiguration().equals(this.getTemplateConfiguration()) == false)
+            return false;
         if (other.getTreatmentDescription() == null ^ this.getTreatmentDescription() == null)
             return false;
         if (other.getTreatmentDescription() != null && other.getTreatmentDescription().equals(this.getTreatmentDescription()) == false)
@@ -435,11 +539,13 @@ public class TreatmentResource implements Serializable, Cloneable, StructuredPoj
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getCustomDeliveryConfiguration() == null) ? 0 : getCustomDeliveryConfiguration().hashCode());
         hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
         hashCode = prime * hashCode + ((getMessageConfiguration() == null) ? 0 : getMessageConfiguration().hashCode());
         hashCode = prime * hashCode + ((getSchedule() == null) ? 0 : getSchedule().hashCode());
         hashCode = prime * hashCode + ((getSizePercent() == null) ? 0 : getSizePercent().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
+        hashCode = prime * hashCode + ((getTemplateConfiguration() == null) ? 0 : getTemplateConfiguration().hashCode());
         hashCode = prime * hashCode + ((getTreatmentDescription() == null) ? 0 : getTreatmentDescription().hashCode());
         hashCode = prime * hashCode + ((getTreatmentName() == null) ? 0 : getTreatmentName().hashCode());
         return hashCode;

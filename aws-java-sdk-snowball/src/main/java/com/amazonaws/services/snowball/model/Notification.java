@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,12 +39,12 @@ public class Notification implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The new SNS <code>TopicArn</code> that you want to associate with this job. You can create Amazon Resource Names
      * (ARNs) for topics by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a> Amazon SNS API action.
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a> Amazon SNS API action.
      * </p>
      * <p>
-     * You can subscribe email addresses to an Amazon SNS topic through the AWS Management Console, or by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a> AWS Simple Notification Service
-     * (SNS) API action.
+     * You can subscribe email addresses to an Amazon SNS topic through the Amazon Web Services Management Console, or
+     * by using the <a href="https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a> Amazon Simple
+     * Notification Service (Amazon SNS) API action.
      * </p>
      */
     private String snsTopicARN;
@@ -60,28 +60,35 @@ public class Notification implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private Boolean notifyAll;
+    /**
+     * <p>
+     * Used to send SNS notifications for the person picking up the device (identified during job creation).
+     * </p>
+     */
+    private String devicePickupSnsTopicARN;
 
     /**
      * <p>
      * The new SNS <code>TopicArn</code> that you want to associate with this job. You can create Amazon Resource Names
      * (ARNs) for topics by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a> Amazon SNS API action.
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a> Amazon SNS API action.
      * </p>
      * <p>
-     * You can subscribe email addresses to an Amazon SNS topic through the AWS Management Console, or by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a> AWS Simple Notification Service
-     * (SNS) API action.
+     * You can subscribe email addresses to an Amazon SNS topic through the Amazon Web Services Management Console, or
+     * by using the <a href="https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a> Amazon Simple
+     * Notification Service (Amazon SNS) API action.
      * </p>
      * 
      * @param snsTopicARN
      *        The new SNS <code>TopicArn</code> that you want to associate with this job. You can create Amazon Resource
      *        Names (ARNs) for topics by using the <a
-     *        href="http://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a> Amazon SNS API
+     *        href="https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a> Amazon SNS API
      *        action.</p>
      *        <p>
-     *        You can subscribe email addresses to an Amazon SNS topic through the AWS Management Console, or by using
-     *        the <a href="http://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a> AWS Simple
-     *        Notification Service (SNS) API action.
+     *        You can subscribe email addresses to an Amazon SNS topic through the Amazon Web Services Management
+     *        Console, or by using the <a
+     *        href="https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a> Amazon Simple
+     *        Notification Service (Amazon SNS) API action.
      */
 
     public void setSnsTopicARN(String snsTopicARN) {
@@ -92,22 +99,23 @@ public class Notification implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The new SNS <code>TopicArn</code> that you want to associate with this job. You can create Amazon Resource Names
      * (ARNs) for topics by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a> Amazon SNS API action.
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a> Amazon SNS API action.
      * </p>
      * <p>
-     * You can subscribe email addresses to an Amazon SNS topic through the AWS Management Console, or by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a> AWS Simple Notification Service
-     * (SNS) API action.
+     * You can subscribe email addresses to an Amazon SNS topic through the Amazon Web Services Management Console, or
+     * by using the <a href="https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a> Amazon Simple
+     * Notification Service (Amazon SNS) API action.
      * </p>
      * 
      * @return The new SNS <code>TopicArn</code> that you want to associate with this job. You can create Amazon
      *         Resource Names (ARNs) for topics by using the <a
-     *         href="http://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a> Amazon SNS API
+     *         href="https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a> Amazon SNS API
      *         action.</p>
      *         <p>
-     *         You can subscribe email addresses to an Amazon SNS topic through the AWS Management Console, or by using
-     *         the <a href="http://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a> AWS Simple
-     *         Notification Service (SNS) API action.
+     *         You can subscribe email addresses to an Amazon SNS topic through the Amazon Web Services Management
+     *         Console, or by using the <a
+     *         href="https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a> Amazon Simple
+     *         Notification Service (Amazon SNS) API action.
      */
 
     public String getSnsTopicARN() {
@@ -118,23 +126,24 @@ public class Notification implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The new SNS <code>TopicArn</code> that you want to associate with this job. You can create Amazon Resource Names
      * (ARNs) for topics by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a> Amazon SNS API action.
+     * href="https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a> Amazon SNS API action.
      * </p>
      * <p>
-     * You can subscribe email addresses to an Amazon SNS topic through the AWS Management Console, or by using the <a
-     * href="http://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a> AWS Simple Notification Service
-     * (SNS) API action.
+     * You can subscribe email addresses to an Amazon SNS topic through the Amazon Web Services Management Console, or
+     * by using the <a href="https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a> Amazon Simple
+     * Notification Service (Amazon SNS) API action.
      * </p>
      * 
      * @param snsTopicARN
      *        The new SNS <code>TopicArn</code> that you want to associate with this job. You can create Amazon Resource
      *        Names (ARNs) for topics by using the <a
-     *        href="http://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a> Amazon SNS API
+     *        href="https://docs.aws.amazon.com/sns/latest/api/API_CreateTopic.html">CreateTopic</a> Amazon SNS API
      *        action.</p>
      *        <p>
-     *        You can subscribe email addresses to an Amazon SNS topic through the AWS Management Console, or by using
-     *        the <a href="http://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a> AWS Simple
-     *        Notification Service (SNS) API action.
+     *        You can subscribe email addresses to an Amazon SNS topic through the Amazon Web Services Management
+     *        Console, or by using the <a
+     *        href="https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html">Subscribe</a> Amazon Simple
+     *        Notification Service (Amazon SNS) API action.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -294,6 +303,46 @@ public class Notification implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * Used to send SNS notifications for the person picking up the device (identified during job creation).
+     * </p>
+     * 
+     * @param devicePickupSnsTopicARN
+     *        Used to send SNS notifications for the person picking up the device (identified during job creation).
+     */
+
+    public void setDevicePickupSnsTopicARN(String devicePickupSnsTopicARN) {
+        this.devicePickupSnsTopicARN = devicePickupSnsTopicARN;
+    }
+
+    /**
+     * <p>
+     * Used to send SNS notifications for the person picking up the device (identified during job creation).
+     * </p>
+     * 
+     * @return Used to send SNS notifications for the person picking up the device (identified during job creation).
+     */
+
+    public String getDevicePickupSnsTopicARN() {
+        return this.devicePickupSnsTopicARN;
+    }
+
+    /**
+     * <p>
+     * Used to send SNS notifications for the person picking up the device (identified during job creation).
+     * </p>
+     * 
+     * @param devicePickupSnsTopicARN
+     *        Used to send SNS notifications for the person picking up the device (identified during job creation).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Notification withDevicePickupSnsTopicARN(String devicePickupSnsTopicARN) {
+        setDevicePickupSnsTopicARN(devicePickupSnsTopicARN);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -310,7 +359,9 @@ public class Notification implements Serializable, Cloneable, StructuredPojo {
         if (getJobStatesToNotify() != null)
             sb.append("JobStatesToNotify: ").append(getJobStatesToNotify()).append(",");
         if (getNotifyAll() != null)
-            sb.append("NotifyAll: ").append(getNotifyAll());
+            sb.append("NotifyAll: ").append(getNotifyAll()).append(",");
+        if (getDevicePickupSnsTopicARN() != null)
+            sb.append("DevicePickupSnsTopicARN: ").append(getDevicePickupSnsTopicARN());
         sb.append("}");
         return sb.toString();
     }
@@ -337,6 +388,10 @@ public class Notification implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getNotifyAll() != null && other.getNotifyAll().equals(this.getNotifyAll()) == false)
             return false;
+        if (other.getDevicePickupSnsTopicARN() == null ^ this.getDevicePickupSnsTopicARN() == null)
+            return false;
+        if (other.getDevicePickupSnsTopicARN() != null && other.getDevicePickupSnsTopicARN().equals(this.getDevicePickupSnsTopicARN()) == false)
+            return false;
         return true;
     }
 
@@ -348,6 +403,7 @@ public class Notification implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getSnsTopicARN() == null) ? 0 : getSnsTopicARN().hashCode());
         hashCode = prime * hashCode + ((getJobStatesToNotify() == null) ? 0 : getJobStatesToNotify().hashCode());
         hashCode = prime * hashCode + ((getNotifyAll() == null) ? 0 : getNotifyAll().hashCode());
+        hashCode = prime * hashCode + ((getDevicePickupSnsTopicARN() == null) ? 0 : getDevicePickupSnsTopicARN().hashCode());
         return hashCode;
     }
 

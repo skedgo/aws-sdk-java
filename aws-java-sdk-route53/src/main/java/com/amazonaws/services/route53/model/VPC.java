@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,11 @@ import javax.annotation.Generated;
 /**
  * <p>
  * (Private hosted zones only) A complex type that contains information about an Amazon VPC.
+ * </p>
+ * <p>
+ * If you associate a private hosted zone with an Amazon VPC when you make a <a
+ * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateHostedZone.html">CreateHostedZone</a>
+ * request, the following parameters are also required.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/VPC" target="_top">AWS API Documentation</a>

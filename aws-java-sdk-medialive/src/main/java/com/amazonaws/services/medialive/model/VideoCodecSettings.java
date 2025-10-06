@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,10 @@ public class VideoCodecSettings implements Serializable, Cloneable, StructuredPo
     private FrameCaptureSettings frameCaptureSettings;
 
     private H264Settings h264Settings;
+
+    private H265Settings h265Settings;
+
+    private Mpeg2Settings mpeg2Settings;
 
     /**
      * @param frameCaptureSettings
@@ -83,6 +87,58 @@ public class VideoCodecSettings implements Serializable, Cloneable, StructuredPo
     }
 
     /**
+     * @param h265Settings
+     */
+
+    public void setH265Settings(H265Settings h265Settings) {
+        this.h265Settings = h265Settings;
+    }
+
+    /**
+     * @return
+     */
+
+    public H265Settings getH265Settings() {
+        return this.h265Settings;
+    }
+
+    /**
+     * @param h265Settings
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VideoCodecSettings withH265Settings(H265Settings h265Settings) {
+        setH265Settings(h265Settings);
+        return this;
+    }
+
+    /**
+     * @param mpeg2Settings
+     */
+
+    public void setMpeg2Settings(Mpeg2Settings mpeg2Settings) {
+        this.mpeg2Settings = mpeg2Settings;
+    }
+
+    /**
+     * @return
+     */
+
+    public Mpeg2Settings getMpeg2Settings() {
+        return this.mpeg2Settings;
+    }
+
+    /**
+     * @param mpeg2Settings
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VideoCodecSettings withMpeg2Settings(Mpeg2Settings mpeg2Settings) {
+        setMpeg2Settings(mpeg2Settings);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -97,7 +153,11 @@ public class VideoCodecSettings implements Serializable, Cloneable, StructuredPo
         if (getFrameCaptureSettings() != null)
             sb.append("FrameCaptureSettings: ").append(getFrameCaptureSettings()).append(",");
         if (getH264Settings() != null)
-            sb.append("H264Settings: ").append(getH264Settings());
+            sb.append("H264Settings: ").append(getH264Settings()).append(",");
+        if (getH265Settings() != null)
+            sb.append("H265Settings: ").append(getH265Settings()).append(",");
+        if (getMpeg2Settings() != null)
+            sb.append("Mpeg2Settings: ").append(getMpeg2Settings());
         sb.append("}");
         return sb.toString();
     }
@@ -120,6 +180,14 @@ public class VideoCodecSettings implements Serializable, Cloneable, StructuredPo
             return false;
         if (other.getH264Settings() != null && other.getH264Settings().equals(this.getH264Settings()) == false)
             return false;
+        if (other.getH265Settings() == null ^ this.getH265Settings() == null)
+            return false;
+        if (other.getH265Settings() != null && other.getH265Settings().equals(this.getH265Settings()) == false)
+            return false;
+        if (other.getMpeg2Settings() == null ^ this.getMpeg2Settings() == null)
+            return false;
+        if (other.getMpeg2Settings() != null && other.getMpeg2Settings().equals(this.getMpeg2Settings()) == false)
+            return false;
         return true;
     }
 
@@ -130,6 +198,8 @@ public class VideoCodecSettings implements Serializable, Cloneable, StructuredPo
 
         hashCode = prime * hashCode + ((getFrameCaptureSettings() == null) ? 0 : getFrameCaptureSettings().hashCode());
         hashCode = prime * hashCode + ((getH264Settings() == null) ? 0 : getH264Settings().hashCode());
+        hashCode = prime * hashCode + ((getH265Settings() == null) ? 0 : getH265Settings().hashCode());
+        hashCode = prime * hashCode + ((getMpeg2Settings() == null) ? 0 : getMpeg2Settings().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,6 +46,15 @@ public class NetworkInterface implements Serializable, Cloneable {
     private String availabilityZone;
     /**
      * <p>
+     * A security group connection tracking configuration that enables you to set the timeout for connection tracking on
+     * an Elastic network interface. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     * >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private ConnectionTrackingConfiguration connectionTrackingConfiguration;
+    /**
+     * <p>
      * A description.
      * </p>
      */
@@ -82,7 +91,13 @@ public class NetworkInterface implements Serializable, Cloneable {
     private String networkInterfaceId;
     /**
      * <p>
-     * The AWS account ID of the owner of the network interface.
+     * The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     */
+    private String outpostArn;
+    /**
+     * <p>
+     * The Amazon Web Services account ID of the owner of the network interface.
      * </p>
      */
     private String ownerId;
@@ -106,20 +121,31 @@ public class NetworkInterface implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<NetworkInterfacePrivateIpAddress> privateIpAddresses;
     /**
      * <p>
-     * The ID of the entity that launched the instance on your behalf (for example, AWS Management Console or Auto
-     * Scaling).
+     * The IPv4 prefixes that are assigned to the network interface.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecification> ipv4Prefixes;
+    /**
+     * <p>
+     * The IPv6 prefixes that are assigned to the network interface.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecification> ipv6Prefixes;
+    /**
+     * <p>
+     * The alias or Amazon Web Services account ID of the principal or service that created the network interface.
      * </p>
      */
     private String requesterId;
     /**
      * <p>
-     * Indicates whether the network interface is being managed by AWS.
+     * Indicates whether the network interface is being managed by Amazon Web Services.
      * </p>
      */
     private Boolean requesterManaged;
     /**
      * <p>
-     * Indicates whether traffic to or from the instance is validated.
+     * Indicates whether source/destination checking is enabled.
      * </p>
      */
     private Boolean sourceDestCheck;
@@ -147,6 +173,27 @@ public class NetworkInterface implements Serializable, Cloneable {
      * </p>
      */
     private String vpcId;
+    /**
+     * <p>
+     * Indicates whether a network interface with an IPv6 address is unreachable from the public internet. If the value
+     * is <code>true</code>, inbound traffic from the internet is dropped and you cannot assign an elastic IP address to
+     * the network interface. The network interface is reachable from peered VPCs and resources connected through a
+     * transit gateway, including on-premises networks.
+     * </p>
+     */
+    private Boolean denyAllIgwTraffic;
+    /**
+     * <p>
+     * Indicates whether this is an IPv6 only network interface.
+     * </p>
+     */
+    private Boolean ipv6Native;
+    /**
+     * <p>
+     * The IPv6 globally unique address associated with the network interface.
+     * </p>
+     */
+    private String ipv6Address;
 
     /**
      * <p>
@@ -265,6 +312,64 @@ public class NetworkInterface implements Serializable, Cloneable {
 
     public NetworkInterface withAvailabilityZone(String availabilityZone) {
         setAvailabilityZone(availabilityZone);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A security group connection tracking configuration that enables you to set the timeout for connection tracking on
+     * an Elastic network interface. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     * >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param connectionTrackingConfiguration
+     *        A security group connection tracking configuration that enables you to set the timeout for connection
+     *        tracking on an Elastic network interface. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     *        >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setConnectionTrackingConfiguration(ConnectionTrackingConfiguration connectionTrackingConfiguration) {
+        this.connectionTrackingConfiguration = connectionTrackingConfiguration;
+    }
+
+    /**
+     * <p>
+     * A security group connection tracking configuration that enables you to set the timeout for connection tracking on
+     * an Elastic network interface. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     * >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return A security group connection tracking configuration that enables you to set the timeout for connection
+     *         tracking on an Elastic network interface. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     *         >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public ConnectionTrackingConfiguration getConnectionTrackingConfiguration() {
+        return this.connectionTrackingConfiguration;
+    }
+
+    /**
+     * <p>
+     * A security group connection tracking configuration that enables you to set the timeout for connection tracking on
+     * an Elastic network interface. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     * >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param connectionTrackingConfiguration
+     *        A security group connection tracking configuration that enables you to set the timeout for connection
+     *        tracking on an Elastic network interface. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-connection-tracking.html#connection-tracking-timeouts"
+     *        >Connection tracking timeouts</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NetworkInterface withConnectionTrackingConfiguration(ConnectionTrackingConfiguration connectionTrackingConfiguration) {
+        setConnectionTrackingConfiguration(connectionTrackingConfiguration);
         return this;
     }
 
@@ -609,11 +714,51 @@ public class NetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the owner of the network interface.
+     * The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Outpost.
+     */
+
+    public void setOutpostArn(String outpostArn) {
+        this.outpostArn = outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the Outpost.
+     */
+
+    public String getOutpostArn() {
+        return this.outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Outpost.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NetworkInterface withOutpostArn(String outpostArn) {
+        setOutpostArn(outpostArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services account ID of the owner of the network interface.
      * </p>
      * 
      * @param ownerId
-     *        The AWS account ID of the owner of the network interface.
+     *        The Amazon Web Services account ID of the owner of the network interface.
      */
 
     public void setOwnerId(String ownerId) {
@@ -622,10 +767,10 @@ public class NetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the owner of the network interface.
+     * The Amazon Web Services account ID of the owner of the network interface.
      * </p>
      * 
-     * @return The AWS account ID of the owner of the network interface.
+     * @return The Amazon Web Services account ID of the owner of the network interface.
      */
 
     public String getOwnerId() {
@@ -634,11 +779,11 @@ public class NetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the owner of the network interface.
+     * The Amazon Web Services account ID of the owner of the network interface.
      * </p>
      * 
      * @param ownerId
-     *        The AWS account ID of the owner of the network interface.
+     *        The Amazon Web Services account ID of the owner of the network interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -802,13 +947,158 @@ public class NetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the entity that launched the instance on your behalf (for example, AWS Management Console or Auto
-     * Scaling).
+     * The IPv4 prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @return The IPv4 prefixes that are assigned to the network interface.
+     */
+
+    public java.util.List<Ipv4PrefixSpecification> getIpv4Prefixes() {
+        if (ipv4Prefixes == null) {
+            ipv4Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecification>();
+        }
+        return ipv4Prefixes;
+    }
+
+    /**
+     * <p>
+     * The IPv4 prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        The IPv4 prefixes that are assigned to the network interface.
+     */
+
+    public void setIpv4Prefixes(java.util.Collection<Ipv4PrefixSpecification> ipv4Prefixes) {
+        if (ipv4Prefixes == null) {
+            this.ipv4Prefixes = null;
+            return;
+        }
+
+        this.ipv4Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecification>(ipv4Prefixes);
+    }
+
+    /**
+     * <p>
+     * The IPv4 prefixes that are assigned to the network interface.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setIpv4Prefixes(java.util.Collection)} or {@link #withIpv4Prefixes(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        The IPv4 prefixes that are assigned to the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NetworkInterface withIpv4Prefixes(Ipv4PrefixSpecification... ipv4Prefixes) {
+        if (this.ipv4Prefixes == null) {
+            setIpv4Prefixes(new com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecification>(ipv4Prefixes.length));
+        }
+        for (Ipv4PrefixSpecification ele : ipv4Prefixes) {
+            this.ipv4Prefixes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv4 prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        The IPv4 prefixes that are assigned to the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NetworkInterface withIpv4Prefixes(java.util.Collection<Ipv4PrefixSpecification> ipv4Prefixes) {
+        setIpv4Prefixes(ipv4Prefixes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv6 prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @return The IPv6 prefixes that are assigned to the network interface.
+     */
+
+    public java.util.List<Ipv6PrefixSpecification> getIpv6Prefixes() {
+        if (ipv6Prefixes == null) {
+            ipv6Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecification>();
+        }
+        return ipv6Prefixes;
+    }
+
+    /**
+     * <p>
+     * The IPv6 prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        The IPv6 prefixes that are assigned to the network interface.
+     */
+
+    public void setIpv6Prefixes(java.util.Collection<Ipv6PrefixSpecification> ipv6Prefixes) {
+        if (ipv6Prefixes == null) {
+            this.ipv6Prefixes = null;
+            return;
+        }
+
+        this.ipv6Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecification>(ipv6Prefixes);
+    }
+
+    /**
+     * <p>
+     * The IPv6 prefixes that are assigned to the network interface.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setIpv6Prefixes(java.util.Collection)} or {@link #withIpv6Prefixes(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        The IPv6 prefixes that are assigned to the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NetworkInterface withIpv6Prefixes(Ipv6PrefixSpecification... ipv6Prefixes) {
+        if (this.ipv6Prefixes == null) {
+            setIpv6Prefixes(new com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecification>(ipv6Prefixes.length));
+        }
+        for (Ipv6PrefixSpecification ele : ipv6Prefixes) {
+            this.ipv6Prefixes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv6 prefixes that are assigned to the network interface.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        The IPv6 prefixes that are assigned to the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NetworkInterface withIpv6Prefixes(java.util.Collection<Ipv6PrefixSpecification> ipv6Prefixes) {
+        setIpv6Prefixes(ipv6Prefixes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The alias or Amazon Web Services account ID of the principal or service that created the network interface.
      * </p>
      * 
      * @param requesterId
-     *        The ID of the entity that launched the instance on your behalf (for example, AWS Management Console or
-     *        Auto Scaling).
+     *        The alias or Amazon Web Services account ID of the principal or service that created the network
+     *        interface.
      */
 
     public void setRequesterId(String requesterId) {
@@ -817,12 +1107,11 @@ public class NetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the entity that launched the instance on your behalf (for example, AWS Management Console or Auto
-     * Scaling).
+     * The alias or Amazon Web Services account ID of the principal or service that created the network interface.
      * </p>
      * 
-     * @return The ID of the entity that launched the instance on your behalf (for example, AWS Management Console or
-     *         Auto Scaling).
+     * @return The alias or Amazon Web Services account ID of the principal or service that created the network
+     *         interface.
      */
 
     public String getRequesterId() {
@@ -831,13 +1120,12 @@ public class NetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the entity that launched the instance on your behalf (for example, AWS Management Console or Auto
-     * Scaling).
+     * The alias or Amazon Web Services account ID of the principal or service that created the network interface.
      * </p>
      * 
      * @param requesterId
-     *        The ID of the entity that launched the instance on your behalf (for example, AWS Management Console or
-     *        Auto Scaling).
+     *        The alias or Amazon Web Services account ID of the principal or service that created the network
+     *        interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -848,11 +1136,11 @@ public class NetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the network interface is being managed by AWS.
+     * Indicates whether the network interface is being managed by Amazon Web Services.
      * </p>
      * 
      * @param requesterManaged
-     *        Indicates whether the network interface is being managed by AWS.
+     *        Indicates whether the network interface is being managed by Amazon Web Services.
      */
 
     public void setRequesterManaged(Boolean requesterManaged) {
@@ -861,10 +1149,10 @@ public class NetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the network interface is being managed by AWS.
+     * Indicates whether the network interface is being managed by Amazon Web Services.
      * </p>
      * 
-     * @return Indicates whether the network interface is being managed by AWS.
+     * @return Indicates whether the network interface is being managed by Amazon Web Services.
      */
 
     public Boolean getRequesterManaged() {
@@ -873,11 +1161,11 @@ public class NetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the network interface is being managed by AWS.
+     * Indicates whether the network interface is being managed by Amazon Web Services.
      * </p>
      * 
      * @param requesterManaged
-     *        Indicates whether the network interface is being managed by AWS.
+     *        Indicates whether the network interface is being managed by Amazon Web Services.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -888,10 +1176,10 @@ public class NetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the network interface is being managed by AWS.
+     * Indicates whether the network interface is being managed by Amazon Web Services.
      * </p>
      * 
-     * @return Indicates whether the network interface is being managed by AWS.
+     * @return Indicates whether the network interface is being managed by Amazon Web Services.
      */
 
     public Boolean isRequesterManaged() {
@@ -900,11 +1188,11 @@ public class NetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether traffic to or from the instance is validated.
+     * Indicates whether source/destination checking is enabled.
      * </p>
      * 
      * @param sourceDestCheck
-     *        Indicates whether traffic to or from the instance is validated.
+     *        Indicates whether source/destination checking is enabled.
      */
 
     public void setSourceDestCheck(Boolean sourceDestCheck) {
@@ -913,10 +1201,10 @@ public class NetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether traffic to or from the instance is validated.
+     * Indicates whether source/destination checking is enabled.
      * </p>
      * 
-     * @return Indicates whether traffic to or from the instance is validated.
+     * @return Indicates whether source/destination checking is enabled.
      */
 
     public Boolean getSourceDestCheck() {
@@ -925,11 +1213,11 @@ public class NetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether traffic to or from the instance is validated.
+     * Indicates whether source/destination checking is enabled.
      * </p>
      * 
      * @param sourceDestCheck
-     *        Indicates whether traffic to or from the instance is validated.
+     *        Indicates whether source/destination checking is enabled.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -940,10 +1228,10 @@ public class NetworkInterface implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether traffic to or from the instance is validated.
+     * Indicates whether source/destination checking is enabled.
      * </p>
      * 
-     * @return Indicates whether traffic to or from the instance is validated.
+     * @return Indicates whether source/destination checking is enabled.
      */
 
     public Boolean isSourceDestCheck() {
@@ -1177,6 +1465,174 @@ public class NetworkInterface implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * Indicates whether a network interface with an IPv6 address is unreachable from the public internet. If the value
+     * is <code>true</code>, inbound traffic from the internet is dropped and you cannot assign an elastic IP address to
+     * the network interface. The network interface is reachable from peered VPCs and resources connected through a
+     * transit gateway, including on-premises networks.
+     * </p>
+     * 
+     * @param denyAllIgwTraffic
+     *        Indicates whether a network interface with an IPv6 address is unreachable from the public internet. If the
+     *        value is <code>true</code>, inbound traffic from the internet is dropped and you cannot assign an elastic
+     *        IP address to the network interface. The network interface is reachable from peered VPCs and resources
+     *        connected through a transit gateway, including on-premises networks.
+     */
+
+    public void setDenyAllIgwTraffic(Boolean denyAllIgwTraffic) {
+        this.denyAllIgwTraffic = denyAllIgwTraffic;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a network interface with an IPv6 address is unreachable from the public internet. If the value
+     * is <code>true</code>, inbound traffic from the internet is dropped and you cannot assign an elastic IP address to
+     * the network interface. The network interface is reachable from peered VPCs and resources connected through a
+     * transit gateway, including on-premises networks.
+     * </p>
+     * 
+     * @return Indicates whether a network interface with an IPv6 address is unreachable from the public internet. If
+     *         the value is <code>true</code>, inbound traffic from the internet is dropped and you cannot assign an
+     *         elastic IP address to the network interface. The network interface is reachable from peered VPCs and
+     *         resources connected through a transit gateway, including on-premises networks.
+     */
+
+    public Boolean getDenyAllIgwTraffic() {
+        return this.denyAllIgwTraffic;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a network interface with an IPv6 address is unreachable from the public internet. If the value
+     * is <code>true</code>, inbound traffic from the internet is dropped and you cannot assign an elastic IP address to
+     * the network interface. The network interface is reachable from peered VPCs and resources connected through a
+     * transit gateway, including on-premises networks.
+     * </p>
+     * 
+     * @param denyAllIgwTraffic
+     *        Indicates whether a network interface with an IPv6 address is unreachable from the public internet. If the
+     *        value is <code>true</code>, inbound traffic from the internet is dropped and you cannot assign an elastic
+     *        IP address to the network interface. The network interface is reachable from peered VPCs and resources
+     *        connected through a transit gateway, including on-premises networks.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NetworkInterface withDenyAllIgwTraffic(Boolean denyAllIgwTraffic) {
+        setDenyAllIgwTraffic(denyAllIgwTraffic);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether a network interface with an IPv6 address is unreachable from the public internet. If the value
+     * is <code>true</code>, inbound traffic from the internet is dropped and you cannot assign an elastic IP address to
+     * the network interface. The network interface is reachable from peered VPCs and resources connected through a
+     * transit gateway, including on-premises networks.
+     * </p>
+     * 
+     * @return Indicates whether a network interface with an IPv6 address is unreachable from the public internet. If
+     *         the value is <code>true</code>, inbound traffic from the internet is dropped and you cannot assign an
+     *         elastic IP address to the network interface. The network interface is reachable from peered VPCs and
+     *         resources connected through a transit gateway, including on-premises networks.
+     */
+
+    public Boolean isDenyAllIgwTraffic() {
+        return this.denyAllIgwTraffic;
+    }
+
+    /**
+     * <p>
+     * Indicates whether this is an IPv6 only network interface.
+     * </p>
+     * 
+     * @param ipv6Native
+     *        Indicates whether this is an IPv6 only network interface.
+     */
+
+    public void setIpv6Native(Boolean ipv6Native) {
+        this.ipv6Native = ipv6Native;
+    }
+
+    /**
+     * <p>
+     * Indicates whether this is an IPv6 only network interface.
+     * </p>
+     * 
+     * @return Indicates whether this is an IPv6 only network interface.
+     */
+
+    public Boolean getIpv6Native() {
+        return this.ipv6Native;
+    }
+
+    /**
+     * <p>
+     * Indicates whether this is an IPv6 only network interface.
+     * </p>
+     * 
+     * @param ipv6Native
+     *        Indicates whether this is an IPv6 only network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NetworkInterface withIpv6Native(Boolean ipv6Native) {
+        setIpv6Native(ipv6Native);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether this is an IPv6 only network interface.
+     * </p>
+     * 
+     * @return Indicates whether this is an IPv6 only network interface.
+     */
+
+    public Boolean isIpv6Native() {
+        return this.ipv6Native;
+    }
+
+    /**
+     * <p>
+     * The IPv6 globally unique address associated with the network interface.
+     * </p>
+     * 
+     * @param ipv6Address
+     *        The IPv6 globally unique address associated with the network interface.
+     */
+
+    public void setIpv6Address(String ipv6Address) {
+        this.ipv6Address = ipv6Address;
+    }
+
+    /**
+     * <p>
+     * The IPv6 globally unique address associated with the network interface.
+     * </p>
+     * 
+     * @return The IPv6 globally unique address associated with the network interface.
+     */
+
+    public String getIpv6Address() {
+        return this.ipv6Address;
+    }
+
+    /**
+     * <p>
+     * The IPv6 globally unique address associated with the network interface.
+     * </p>
+     * 
+     * @param ipv6Address
+     *        The IPv6 globally unique address associated with the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NetworkInterface withIpv6Address(String ipv6Address) {
+        setIpv6Address(ipv6Address);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1194,6 +1650,8 @@ public class NetworkInterface implements Serializable, Cloneable {
             sb.append("Attachment: ").append(getAttachment()).append(",");
         if (getAvailabilityZone() != null)
             sb.append("AvailabilityZone: ").append(getAvailabilityZone()).append(",");
+        if (getConnectionTrackingConfiguration() != null)
+            sb.append("ConnectionTrackingConfiguration: ").append(getConnectionTrackingConfiguration()).append(",");
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
         if (getGroups() != null)
@@ -1206,6 +1664,8 @@ public class NetworkInterface implements Serializable, Cloneable {
             sb.append("MacAddress: ").append(getMacAddress()).append(",");
         if (getNetworkInterfaceId() != null)
             sb.append("NetworkInterfaceId: ").append(getNetworkInterfaceId()).append(",");
+        if (getOutpostArn() != null)
+            sb.append("OutpostArn: ").append(getOutpostArn()).append(",");
         if (getOwnerId() != null)
             sb.append("OwnerId: ").append(getOwnerId()).append(",");
         if (getPrivateDnsName() != null)
@@ -1214,6 +1674,10 @@ public class NetworkInterface implements Serializable, Cloneable {
             sb.append("PrivateIpAddress: ").append(getPrivateIpAddress()).append(",");
         if (getPrivateIpAddresses() != null)
             sb.append("PrivateIpAddresses: ").append(getPrivateIpAddresses()).append(",");
+        if (getIpv4Prefixes() != null)
+            sb.append("Ipv4Prefixes: ").append(getIpv4Prefixes()).append(",");
+        if (getIpv6Prefixes() != null)
+            sb.append("Ipv6Prefixes: ").append(getIpv6Prefixes()).append(",");
         if (getRequesterId() != null)
             sb.append("RequesterId: ").append(getRequesterId()).append(",");
         if (getRequesterManaged() != null)
@@ -1227,7 +1691,13 @@ public class NetworkInterface implements Serializable, Cloneable {
         if (getTagSet() != null)
             sb.append("TagSet: ").append(getTagSet()).append(",");
         if (getVpcId() != null)
-            sb.append("VpcId: ").append(getVpcId());
+            sb.append("VpcId: ").append(getVpcId()).append(",");
+        if (getDenyAllIgwTraffic() != null)
+            sb.append("DenyAllIgwTraffic: ").append(getDenyAllIgwTraffic()).append(",");
+        if (getIpv6Native() != null)
+            sb.append("Ipv6Native: ").append(getIpv6Native()).append(",");
+        if (getIpv6Address() != null)
+            sb.append("Ipv6Address: ").append(getIpv6Address());
         sb.append("}");
         return sb.toString();
     }
@@ -1254,6 +1724,11 @@ public class NetworkInterface implements Serializable, Cloneable {
             return false;
         if (other.getAvailabilityZone() != null && other.getAvailabilityZone().equals(this.getAvailabilityZone()) == false)
             return false;
+        if (other.getConnectionTrackingConfiguration() == null ^ this.getConnectionTrackingConfiguration() == null)
+            return false;
+        if (other.getConnectionTrackingConfiguration() != null
+                && other.getConnectionTrackingConfiguration().equals(this.getConnectionTrackingConfiguration()) == false)
+            return false;
         if (other.getDescription() == null ^ this.getDescription() == null)
             return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
@@ -1278,6 +1753,10 @@ public class NetworkInterface implements Serializable, Cloneable {
             return false;
         if (other.getNetworkInterfaceId() != null && other.getNetworkInterfaceId().equals(this.getNetworkInterfaceId()) == false)
             return false;
+        if (other.getOutpostArn() == null ^ this.getOutpostArn() == null)
+            return false;
+        if (other.getOutpostArn() != null && other.getOutpostArn().equals(this.getOutpostArn()) == false)
+            return false;
         if (other.getOwnerId() == null ^ this.getOwnerId() == null)
             return false;
         if (other.getOwnerId() != null && other.getOwnerId().equals(this.getOwnerId()) == false)
@@ -1293,6 +1772,14 @@ public class NetworkInterface implements Serializable, Cloneable {
         if (other.getPrivateIpAddresses() == null ^ this.getPrivateIpAddresses() == null)
             return false;
         if (other.getPrivateIpAddresses() != null && other.getPrivateIpAddresses().equals(this.getPrivateIpAddresses()) == false)
+            return false;
+        if (other.getIpv4Prefixes() == null ^ this.getIpv4Prefixes() == null)
+            return false;
+        if (other.getIpv4Prefixes() != null && other.getIpv4Prefixes().equals(this.getIpv4Prefixes()) == false)
+            return false;
+        if (other.getIpv6Prefixes() == null ^ this.getIpv6Prefixes() == null)
+            return false;
+        if (other.getIpv6Prefixes() != null && other.getIpv6Prefixes().equals(this.getIpv6Prefixes()) == false)
             return false;
         if (other.getRequesterId() == null ^ this.getRequesterId() == null)
             return false;
@@ -1322,6 +1809,18 @@ public class NetworkInterface implements Serializable, Cloneable {
             return false;
         if (other.getVpcId() != null && other.getVpcId().equals(this.getVpcId()) == false)
             return false;
+        if (other.getDenyAllIgwTraffic() == null ^ this.getDenyAllIgwTraffic() == null)
+            return false;
+        if (other.getDenyAllIgwTraffic() != null && other.getDenyAllIgwTraffic().equals(this.getDenyAllIgwTraffic()) == false)
+            return false;
+        if (other.getIpv6Native() == null ^ this.getIpv6Native() == null)
+            return false;
+        if (other.getIpv6Native() != null && other.getIpv6Native().equals(this.getIpv6Native()) == false)
+            return false;
+        if (other.getIpv6Address() == null ^ this.getIpv6Address() == null)
+            return false;
+        if (other.getIpv6Address() != null && other.getIpv6Address().equals(this.getIpv6Address()) == false)
+            return false;
         return true;
     }
 
@@ -1333,16 +1832,20 @@ public class NetworkInterface implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getAssociation() == null) ? 0 : getAssociation().hashCode());
         hashCode = prime * hashCode + ((getAttachment() == null) ? 0 : getAttachment().hashCode());
         hashCode = prime * hashCode + ((getAvailabilityZone() == null) ? 0 : getAvailabilityZone().hashCode());
+        hashCode = prime * hashCode + ((getConnectionTrackingConfiguration() == null) ? 0 : getConnectionTrackingConfiguration().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getGroups() == null) ? 0 : getGroups().hashCode());
         hashCode = prime * hashCode + ((getInterfaceType() == null) ? 0 : getInterfaceType().hashCode());
         hashCode = prime * hashCode + ((getIpv6Addresses() == null) ? 0 : getIpv6Addresses().hashCode());
         hashCode = prime * hashCode + ((getMacAddress() == null) ? 0 : getMacAddress().hashCode());
         hashCode = prime * hashCode + ((getNetworkInterfaceId() == null) ? 0 : getNetworkInterfaceId().hashCode());
+        hashCode = prime * hashCode + ((getOutpostArn() == null) ? 0 : getOutpostArn().hashCode());
         hashCode = prime * hashCode + ((getOwnerId() == null) ? 0 : getOwnerId().hashCode());
         hashCode = prime * hashCode + ((getPrivateDnsName() == null) ? 0 : getPrivateDnsName().hashCode());
         hashCode = prime * hashCode + ((getPrivateIpAddress() == null) ? 0 : getPrivateIpAddress().hashCode());
         hashCode = prime * hashCode + ((getPrivateIpAddresses() == null) ? 0 : getPrivateIpAddresses().hashCode());
+        hashCode = prime * hashCode + ((getIpv4Prefixes() == null) ? 0 : getIpv4Prefixes().hashCode());
+        hashCode = prime * hashCode + ((getIpv6Prefixes() == null) ? 0 : getIpv6Prefixes().hashCode());
         hashCode = prime * hashCode + ((getRequesterId() == null) ? 0 : getRequesterId().hashCode());
         hashCode = prime * hashCode + ((getRequesterManaged() == null) ? 0 : getRequesterManaged().hashCode());
         hashCode = prime * hashCode + ((getSourceDestCheck() == null) ? 0 : getSourceDestCheck().hashCode());
@@ -1350,6 +1853,9 @@ public class NetworkInterface implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getSubnetId() == null) ? 0 : getSubnetId().hashCode());
         hashCode = prime * hashCode + ((getTagSet() == null) ? 0 : getTagSet().hashCode());
         hashCode = prime * hashCode + ((getVpcId() == null) ? 0 : getVpcId().hashCode());
+        hashCode = prime * hashCode + ((getDenyAllIgwTraffic() == null) ? 0 : getDenyAllIgwTraffic().hashCode());
+        hashCode = prime * hashCode + ((getIpv6Native() == null) ? 0 : getIpv6Native().hashCode());
+        hashCode = prime * hashCode + ((getIpv6Address() == null) ? 0 : getIpv6Address().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,7 @@ public class DescribeAnomalyDetectorsRequest extends com.amazonaws.AmazonWebServ
     private String nextToken;
     /**
      * <p>
-     * The maximum number of results to return in one operation. The maximum value you can specify is 10.
+     * The maximum number of results to return in one operation. The maximum value that you can specify is 100.
      * </p>
      * <p>
      * To retrieve the remaining results, make another call with the returned <code>NextToken</code> value.
@@ -62,6 +62,13 @@ public class DescribeAnomalyDetectorsRequest extends com.amazonaws.AmazonWebServ
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Dimension> dimensions;
+    /**
+     * <p>
+     * The anomaly detector types to request when using <code>DescribeAnomalyDetectorsInput</code>. If empty, defaults
+     * to <code>SINGLE_METRIC</code>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> anomalyDetectorTypes;
 
     /**
      * <p>
@@ -105,14 +112,15 @@ public class DescribeAnomalyDetectorsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The maximum number of results to return in one operation. The maximum value you can specify is 10.
+     * The maximum number of results to return in one operation. The maximum value that you can specify is 100.
      * </p>
      * <p>
      * To retrieve the remaining results, make another call with the returned <code>NextToken</code> value.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return in one operation. The maximum value you can specify is 10.</p>
+     *        The maximum number of results to return in one operation. The maximum value that you can specify is
+     *        100.</p>
      *        <p>
      *        To retrieve the remaining results, make another call with the returned <code>NextToken</code> value.
      */
@@ -123,13 +131,14 @@ public class DescribeAnomalyDetectorsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The maximum number of results to return in one operation. The maximum value you can specify is 10.
+     * The maximum number of results to return in one operation. The maximum value that you can specify is 100.
      * </p>
      * <p>
      * To retrieve the remaining results, make another call with the returned <code>NextToken</code> value.
      * </p>
      * 
-     * @return The maximum number of results to return in one operation. The maximum value you can specify is 10.</p>
+     * @return The maximum number of results to return in one operation. The maximum value that you can specify is
+     *         100.</p>
      *         <p>
      *         To retrieve the remaining results, make another call with the returned <code>NextToken</code> value.
      */
@@ -140,14 +149,15 @@ public class DescribeAnomalyDetectorsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The maximum number of results to return in one operation. The maximum value you can specify is 10.
+     * The maximum number of results to return in one operation. The maximum value that you can specify is 100.
      * </p>
      * <p>
      * To retrieve the remaining results, make another call with the returned <code>NextToken</code> value.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return in one operation. The maximum value you can specify is 10.</p>
+     *        The maximum number of results to return in one operation. The maximum value that you can specify is
+     *        100.</p>
      *        <p>
      *        To retrieve the remaining results, make another call with the returned <code>NextToken</code> value.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -340,6 +350,118 @@ public class DescribeAnomalyDetectorsRequest extends com.amazonaws.AmazonWebServ
     }
 
     /**
+     * <p>
+     * The anomaly detector types to request when using <code>DescribeAnomalyDetectorsInput</code>. If empty, defaults
+     * to <code>SINGLE_METRIC</code>.
+     * </p>
+     * 
+     * @return The anomaly detector types to request when using <code>DescribeAnomalyDetectorsInput</code>. If empty,
+     *         defaults to <code>SINGLE_METRIC</code>.
+     * @see AnomalyDetectorType
+     */
+
+    public java.util.List<String> getAnomalyDetectorTypes() {
+        if (anomalyDetectorTypes == null) {
+            anomalyDetectorTypes = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return anomalyDetectorTypes;
+    }
+
+    /**
+     * <p>
+     * The anomaly detector types to request when using <code>DescribeAnomalyDetectorsInput</code>. If empty, defaults
+     * to <code>SINGLE_METRIC</code>.
+     * </p>
+     * 
+     * @param anomalyDetectorTypes
+     *        The anomaly detector types to request when using <code>DescribeAnomalyDetectorsInput</code>. If empty,
+     *        defaults to <code>SINGLE_METRIC</code>.
+     * @see AnomalyDetectorType
+     */
+
+    public void setAnomalyDetectorTypes(java.util.Collection<String> anomalyDetectorTypes) {
+        if (anomalyDetectorTypes == null) {
+            this.anomalyDetectorTypes = null;
+            return;
+        }
+
+        this.anomalyDetectorTypes = new com.amazonaws.internal.SdkInternalList<String>(anomalyDetectorTypes);
+    }
+
+    /**
+     * <p>
+     * The anomaly detector types to request when using <code>DescribeAnomalyDetectorsInput</code>. If empty, defaults
+     * to <code>SINGLE_METRIC</code>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAnomalyDetectorTypes(java.util.Collection)} or {@link #withAnomalyDetectorTypes(java.util.Collection)}
+     * if you want to override the existing values.
+     * </p>
+     * 
+     * @param anomalyDetectorTypes
+     *        The anomaly detector types to request when using <code>DescribeAnomalyDetectorsInput</code>. If empty,
+     *        defaults to <code>SINGLE_METRIC</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AnomalyDetectorType
+     */
+
+    public DescribeAnomalyDetectorsRequest withAnomalyDetectorTypes(String... anomalyDetectorTypes) {
+        if (this.anomalyDetectorTypes == null) {
+            setAnomalyDetectorTypes(new com.amazonaws.internal.SdkInternalList<String>(anomalyDetectorTypes.length));
+        }
+        for (String ele : anomalyDetectorTypes) {
+            this.anomalyDetectorTypes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The anomaly detector types to request when using <code>DescribeAnomalyDetectorsInput</code>. If empty, defaults
+     * to <code>SINGLE_METRIC</code>.
+     * </p>
+     * 
+     * @param anomalyDetectorTypes
+     *        The anomaly detector types to request when using <code>DescribeAnomalyDetectorsInput</code>. If empty,
+     *        defaults to <code>SINGLE_METRIC</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AnomalyDetectorType
+     */
+
+    public DescribeAnomalyDetectorsRequest withAnomalyDetectorTypes(java.util.Collection<String> anomalyDetectorTypes) {
+        setAnomalyDetectorTypes(anomalyDetectorTypes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The anomaly detector types to request when using <code>DescribeAnomalyDetectorsInput</code>. If empty, defaults
+     * to <code>SINGLE_METRIC</code>.
+     * </p>
+     * 
+     * @param anomalyDetectorTypes
+     *        The anomaly detector types to request when using <code>DescribeAnomalyDetectorsInput</code>. If empty,
+     *        defaults to <code>SINGLE_METRIC</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AnomalyDetectorType
+     */
+
+    public DescribeAnomalyDetectorsRequest withAnomalyDetectorTypes(AnomalyDetectorType... anomalyDetectorTypes) {
+        com.amazonaws.internal.SdkInternalList<String> anomalyDetectorTypesCopy = new com.amazonaws.internal.SdkInternalList<String>(
+                anomalyDetectorTypes.length);
+        for (AnomalyDetectorType value : anomalyDetectorTypes) {
+            anomalyDetectorTypesCopy.add(value.toString());
+        }
+        if (getAnomalyDetectorTypes() == null) {
+            setAnomalyDetectorTypes(anomalyDetectorTypesCopy);
+        } else {
+            getAnomalyDetectorTypes().addAll(anomalyDetectorTypesCopy);
+        }
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -360,7 +482,9 @@ public class DescribeAnomalyDetectorsRequest extends com.amazonaws.AmazonWebServ
         if (getMetricName() != null)
             sb.append("MetricName: ").append(getMetricName()).append(",");
         if (getDimensions() != null)
-            sb.append("Dimensions: ").append(getDimensions());
+            sb.append("Dimensions: ").append(getDimensions()).append(",");
+        if (getAnomalyDetectorTypes() != null)
+            sb.append("AnomalyDetectorTypes: ").append(getAnomalyDetectorTypes());
         sb.append("}");
         return sb.toString();
     }
@@ -395,6 +519,10 @@ public class DescribeAnomalyDetectorsRequest extends com.amazonaws.AmazonWebServ
             return false;
         if (other.getDimensions() != null && other.getDimensions().equals(this.getDimensions()) == false)
             return false;
+        if (other.getAnomalyDetectorTypes() == null ^ this.getAnomalyDetectorTypes() == null)
+            return false;
+        if (other.getAnomalyDetectorTypes() != null && other.getAnomalyDetectorTypes().equals(this.getAnomalyDetectorTypes()) == false)
+            return false;
         return true;
     }
 
@@ -408,6 +536,7 @@ public class DescribeAnomalyDetectorsRequest extends com.amazonaws.AmazonWebServ
         hashCode = prime * hashCode + ((getNamespace() == null) ? 0 : getNamespace().hashCode());
         hashCode = prime * hashCode + ((getMetricName() == null) ? 0 : getMetricName().hashCode());
         hashCode = prime * hashCode + ((getDimensions() == null) ? 0 : getDimensions().hashCode());
+        hashCode = prime * hashCode + ((getAnomalyDetectorTypes() == null) ? 0 : getAnomalyDetectorTypes().hashCode());
         return hashCode;
     }
 

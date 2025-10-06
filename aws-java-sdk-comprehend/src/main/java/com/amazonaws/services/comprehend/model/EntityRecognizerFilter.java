@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * Provides information for filtering a list of entity recognizers. You can only specify one filtering parameter in a
- * request. For more information, see the operation./&gt;
+ * request. For more information, see the <code>ListEntityRecognizers</code> operation./&gt;
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/EntityRecognizerFilter" target="_top">AWS
@@ -35,6 +35,12 @@ public class EntityRecognizerFilter implements Serializable, Cloneable, Structur
      * </p>
      */
     private String status;
+    /**
+     * <p>
+     * The name that you assigned the entity recognizer.
+     * </p>
+     */
+    private String recognizerName;
     /**
      * <p>
      * Filters the list of entities based on the time that the list was submitted for processing. Returns only jobs
@@ -106,6 +112,46 @@ public class EntityRecognizerFilter implements Serializable, Cloneable, Structur
 
     public EntityRecognizerFilter withStatus(ModelStatus status) {
         this.status = status.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name that you assigned the entity recognizer.
+     * </p>
+     * 
+     * @param recognizerName
+     *        The name that you assigned the entity recognizer.
+     */
+
+    public void setRecognizerName(String recognizerName) {
+        this.recognizerName = recognizerName;
+    }
+
+    /**
+     * <p>
+     * The name that you assigned the entity recognizer.
+     * </p>
+     * 
+     * @return The name that you assigned the entity recognizer.
+     */
+
+    public String getRecognizerName() {
+        return this.recognizerName;
+    }
+
+    /**
+     * <p>
+     * The name that you assigned the entity recognizer.
+     * </p>
+     * 
+     * @param recognizerName
+     *        The name that you assigned the entity recognizer.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public EntityRecognizerFilter withRecognizerName(String recognizerName) {
+        setRecognizerName(recognizerName);
         return this;
     }
 
@@ -215,6 +261,8 @@ public class EntityRecognizerFilter implements Serializable, Cloneable, Structur
         sb.append("{");
         if (getStatus() != null)
             sb.append("Status: ").append(getStatus()).append(",");
+        if (getRecognizerName() != null)
+            sb.append("RecognizerName: ").append(getRecognizerName()).append(",");
         if (getSubmitTimeBefore() != null)
             sb.append("SubmitTimeBefore: ").append(getSubmitTimeBefore()).append(",");
         if (getSubmitTimeAfter() != null)
@@ -237,6 +285,10 @@ public class EntityRecognizerFilter implements Serializable, Cloneable, Structur
             return false;
         if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false)
             return false;
+        if (other.getRecognizerName() == null ^ this.getRecognizerName() == null)
+            return false;
+        if (other.getRecognizerName() != null && other.getRecognizerName().equals(this.getRecognizerName()) == false)
+            return false;
         if (other.getSubmitTimeBefore() == null ^ this.getSubmitTimeBefore() == null)
             return false;
         if (other.getSubmitTimeBefore() != null && other.getSubmitTimeBefore().equals(this.getSubmitTimeBefore()) == false)
@@ -254,6 +306,7 @@ public class EntityRecognizerFilter implements Serializable, Cloneable, Structur
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        hashCode = prime * hashCode + ((getRecognizerName() == null) ? 0 : getRecognizerName().hashCode());
         hashCode = prime * hashCode + ((getSubmitTimeBefore() == null) ? 0 : getSubmitTimeBefore().hashCode());
         hashCode = prime * hashCode + ((getSubmitTimeAfter() == null) ? 0 : getSubmitTimeAfter().hashCode());
         return hashCode;

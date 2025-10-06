@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * Represents a single entry in a list of locations. <code>LocationListEntry</code> returns an array that contains a
- * list of locations when the <a>ListLocations</a> operation is called.
+ * list of locations when the <a
+ * href="https://docs.aws.amazon.com/datasync/latest/userguide/API_ListLocations.html">ListLocations</a> operation is
+ * called.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/datasync-2018-11-09/LocationListEntry" target="_top">AWS API
@@ -39,19 +41,21 @@ public class LocationListEntry implements Serializable, Cloneable, StructuredPoj
     private String locationArn;
     /**
      * <p>
-     * Represents a list of URLs of a location. <code>LocationUri</code> returns an array that contains a list of
-     * locations when the <a>ListLocations</a> operation is called.
+     * Represents a list of URIs of a location. <code>LocationUri</code> returns an array that contains a list of
+     * locations when the <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/API_ListLocations.html">ListLocations</a> operation
+     * is called.
      * </p>
      * <p>
      * Format: <code>TYPE://GLOBAL_ID/SUBDIR</code>.
      * </p>
      * <p>
-     * TYPE designates the type of location. Valid values: NFS | EFS | S3.
+     * TYPE designates the type of location (for example, <code>nfs</code> or <code>s3</code>).
      * </p>
      * <p>
      * GLOBAL_ID is the globally unique identifier of the resource that backs the location. An example for EFS is
      * <code>us-east-2.fs-abcd1234</code>. An example for Amazon S3 is the bucket name, such as <code>myBucket</code>.
-     * An example for NFS is a valid IPv4 address or a host name compliant with Domain Name Service (DNS).
+     * An example for NFS is a valid IPv4 address or a hostname that is compliant with Domain Name Service (DNS).
      * </p>
      * <p>
      * SUBDIR is a valid file system path, delimited by forward slashes as is the *nix convention. For NFS and Amazon
@@ -116,19 +120,21 @@ public class LocationListEntry implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Represents a list of URLs of a location. <code>LocationUri</code> returns an array that contains a list of
-     * locations when the <a>ListLocations</a> operation is called.
+     * Represents a list of URIs of a location. <code>LocationUri</code> returns an array that contains a list of
+     * locations when the <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/API_ListLocations.html">ListLocations</a> operation
+     * is called.
      * </p>
      * <p>
      * Format: <code>TYPE://GLOBAL_ID/SUBDIR</code>.
      * </p>
      * <p>
-     * TYPE designates the type of location. Valid values: NFS | EFS | S3.
+     * TYPE designates the type of location (for example, <code>nfs</code> or <code>s3</code>).
      * </p>
      * <p>
      * GLOBAL_ID is the globally unique identifier of the resource that backs the location. An example for EFS is
      * <code>us-east-2.fs-abcd1234</code>. An example for Amazon S3 is the bucket name, such as <code>myBucket</code>.
-     * An example for NFS is a valid IPv4 address or a host name compliant with Domain Name Service (DNS).
+     * An example for NFS is a valid IPv4 address or a hostname that is compliant with Domain Name Service (DNS).
      * </p>
      * <p>
      * SUBDIR is a valid file system path, delimited by forward slashes as is the *nix convention. For NFS and Amazon
@@ -138,20 +144,22 @@ public class LocationListEntry implements Serializable, Cloneable, StructuredPoj
      * <p/>
      * 
      * @param locationUri
-     *        Represents a list of URLs of a location. <code>LocationUri</code> returns an array that contains a list of
-     *        locations when the <a>ListLocations</a> operation is called.
+     *        Represents a list of URIs of a location. <code>LocationUri</code> returns an array that contains a list of
+     *        locations when the <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/API_ListLocations.html">ListLocations</a>
+     *        operation is called.
      *        </p>
      *        <p>
      *        Format: <code>TYPE://GLOBAL_ID/SUBDIR</code>.
      *        </p>
      *        <p>
-     *        TYPE designates the type of location. Valid values: NFS | EFS | S3.
+     *        TYPE designates the type of location (for example, <code>nfs</code> or <code>s3</code>).
      *        </p>
      *        <p>
      *        GLOBAL_ID is the globally unique identifier of the resource that backs the location. An example for EFS is
      *        <code>us-east-2.fs-abcd1234</code>. An example for Amazon S3 is the bucket name, such as
-     *        <code>myBucket</code>. An example for NFS is a valid IPv4 address or a host name compliant with Domain
-     *        Name Service (DNS).
+     *        <code>myBucket</code>. An example for NFS is a valid IPv4 address or a hostname that is compliant with
+     *        Domain Name Service (DNS).
      *        </p>
      *        <p>
      *        SUBDIR is a valid file system path, delimited by forward slashes as is the *nix convention. For NFS and
@@ -166,19 +174,21 @@ public class LocationListEntry implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Represents a list of URLs of a location. <code>LocationUri</code> returns an array that contains a list of
-     * locations when the <a>ListLocations</a> operation is called.
+     * Represents a list of URIs of a location. <code>LocationUri</code> returns an array that contains a list of
+     * locations when the <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/API_ListLocations.html">ListLocations</a> operation
+     * is called.
      * </p>
      * <p>
      * Format: <code>TYPE://GLOBAL_ID/SUBDIR</code>.
      * </p>
      * <p>
-     * TYPE designates the type of location. Valid values: NFS | EFS | S3.
+     * TYPE designates the type of location (for example, <code>nfs</code> or <code>s3</code>).
      * </p>
      * <p>
      * GLOBAL_ID is the globally unique identifier of the resource that backs the location. An example for EFS is
      * <code>us-east-2.fs-abcd1234</code>. An example for Amazon S3 is the bucket name, such as <code>myBucket</code>.
-     * An example for NFS is a valid IPv4 address or a host name compliant with Domain Name Service (DNS).
+     * An example for NFS is a valid IPv4 address or a hostname that is compliant with Domain Name Service (DNS).
      * </p>
      * <p>
      * SUBDIR is a valid file system path, delimited by forward slashes as is the *nix convention. For NFS and Amazon
@@ -187,20 +197,22 @@ public class LocationListEntry implements Serializable, Cloneable, StructuredPoj
      * </p>
      * <p/>
      * 
-     * @return Represents a list of URLs of a location. <code>LocationUri</code> returns an array that contains a list
-     *         of locations when the <a>ListLocations</a> operation is called.
+     * @return Represents a list of URIs of a location. <code>LocationUri</code> returns an array that contains a list
+     *         of locations when the <a
+     *         href="https://docs.aws.amazon.com/datasync/latest/userguide/API_ListLocations.html">ListLocations</a>
+     *         operation is called.
      *         </p>
      *         <p>
      *         Format: <code>TYPE://GLOBAL_ID/SUBDIR</code>.
      *         </p>
      *         <p>
-     *         TYPE designates the type of location. Valid values: NFS | EFS | S3.
+     *         TYPE designates the type of location (for example, <code>nfs</code> or <code>s3</code>).
      *         </p>
      *         <p>
      *         GLOBAL_ID is the globally unique identifier of the resource that backs the location. An example for EFS
      *         is <code>us-east-2.fs-abcd1234</code>. An example for Amazon S3 is the bucket name, such as
-     *         <code>myBucket</code>. An example for NFS is a valid IPv4 address or a host name compliant with Domain
-     *         Name Service (DNS).
+     *         <code>myBucket</code>. An example for NFS is a valid IPv4 address or a hostname that is compliant with
+     *         Domain Name Service (DNS).
      *         </p>
      *         <p>
      *         SUBDIR is a valid file system path, delimited by forward slashes as is the *nix convention. For NFS and
@@ -215,19 +227,21 @@ public class LocationListEntry implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Represents a list of URLs of a location. <code>LocationUri</code> returns an array that contains a list of
-     * locations when the <a>ListLocations</a> operation is called.
+     * Represents a list of URIs of a location. <code>LocationUri</code> returns an array that contains a list of
+     * locations when the <a
+     * href="https://docs.aws.amazon.com/datasync/latest/userguide/API_ListLocations.html">ListLocations</a> operation
+     * is called.
      * </p>
      * <p>
      * Format: <code>TYPE://GLOBAL_ID/SUBDIR</code>.
      * </p>
      * <p>
-     * TYPE designates the type of location. Valid values: NFS | EFS | S3.
+     * TYPE designates the type of location (for example, <code>nfs</code> or <code>s3</code>).
      * </p>
      * <p>
      * GLOBAL_ID is the globally unique identifier of the resource that backs the location. An example for EFS is
      * <code>us-east-2.fs-abcd1234</code>. An example for Amazon S3 is the bucket name, such as <code>myBucket</code>.
-     * An example for NFS is a valid IPv4 address or a host name compliant with Domain Name Service (DNS).
+     * An example for NFS is a valid IPv4 address or a hostname that is compliant with Domain Name Service (DNS).
      * </p>
      * <p>
      * SUBDIR is a valid file system path, delimited by forward slashes as is the *nix convention. For NFS and Amazon
@@ -237,20 +251,22 @@ public class LocationListEntry implements Serializable, Cloneable, StructuredPoj
      * <p/>
      * 
      * @param locationUri
-     *        Represents a list of URLs of a location. <code>LocationUri</code> returns an array that contains a list of
-     *        locations when the <a>ListLocations</a> operation is called.
+     *        Represents a list of URIs of a location. <code>LocationUri</code> returns an array that contains a list of
+     *        locations when the <a
+     *        href="https://docs.aws.amazon.com/datasync/latest/userguide/API_ListLocations.html">ListLocations</a>
+     *        operation is called.
      *        </p>
      *        <p>
      *        Format: <code>TYPE://GLOBAL_ID/SUBDIR</code>.
      *        </p>
      *        <p>
-     *        TYPE designates the type of location. Valid values: NFS | EFS | S3.
+     *        TYPE designates the type of location (for example, <code>nfs</code> or <code>s3</code>).
      *        </p>
      *        <p>
      *        GLOBAL_ID is the globally unique identifier of the resource that backs the location. An example for EFS is
      *        <code>us-east-2.fs-abcd1234</code>. An example for Amazon S3 is the bucket name, such as
-     *        <code>myBucket</code>. An example for NFS is a valid IPv4 address or a host name compliant with Domain
-     *        Name Service (DNS).
+     *        <code>myBucket</code>. An example for NFS is a valid IPv4 address or a hostname that is compliant with
+     *        Domain Name Service (DNS).
      *        </p>
      *        <p>
      *        SUBDIR is a valid file system path, delimited by forward slashes as is the *nix convention. For NFS and

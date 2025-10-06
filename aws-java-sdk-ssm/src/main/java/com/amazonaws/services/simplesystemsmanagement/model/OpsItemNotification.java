@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,21 +30,21 @@ public class OpsItemNotification implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an SNS topic where notifications are sent when this OpsItem is edited or
-     * changed.
+     * The Amazon Resource Name (ARN) of an Amazon Simple Notification Service (Amazon SNS) topic where notifications
+     * are sent when this OpsItem is edited or changed.
      * </p>
      */
     private String arn;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an SNS topic where notifications are sent when this OpsItem is edited or
-     * changed.
+     * The Amazon Resource Name (ARN) of an Amazon Simple Notification Service (Amazon SNS) topic where notifications
+     * are sent when this OpsItem is edited or changed.
      * </p>
      * 
      * @param arn
-     *        The Amazon Resource Name (ARN) of an SNS topic where notifications are sent when this OpsItem is edited or
-     *        changed.
+     *        The Amazon Resource Name (ARN) of an Amazon Simple Notification Service (Amazon SNS) topic where
+     *        notifications are sent when this OpsItem is edited or changed.
      */
 
     public void setArn(String arn) {
@@ -53,12 +53,12 @@ public class OpsItemNotification implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an SNS topic where notifications are sent when this OpsItem is edited or
-     * changed.
+     * The Amazon Resource Name (ARN) of an Amazon Simple Notification Service (Amazon SNS) topic where notifications
+     * are sent when this OpsItem is edited or changed.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of an SNS topic where notifications are sent when this OpsItem is edited
-     *         or changed.
+     * @return The Amazon Resource Name (ARN) of an Amazon Simple Notification Service (Amazon SNS) topic where
+     *         notifications are sent when this OpsItem is edited or changed.
      */
 
     public String getArn() {
@@ -67,13 +67,13 @@ public class OpsItemNotification implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of an SNS topic where notifications are sent when this OpsItem is edited or
-     * changed.
+     * The Amazon Resource Name (ARN) of an Amazon Simple Notification Service (Amazon SNS) topic where notifications
+     * are sent when this OpsItem is edited or changed.
      * </p>
      * 
      * @param arn
-     *        The Amazon Resource Name (ARN) of an SNS topic where notifications are sent when this OpsItem is edited or
-     *        changed.
+     *        The Amazon Resource Name (ARN) of an Amazon Simple Notification Service (Amazon SNS) topic where
+     *        notifications are sent when this OpsItem is edited or changed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

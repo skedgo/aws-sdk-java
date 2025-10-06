@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -76,6 +76,10 @@ public class InstanceDetailsJsonUnmarshaller implements Unmarshaller<InstanceDet
                     context.nextToken();
                     instanceDetails.setInstanceType(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("outpostArn", targetDepth)) {
+                    context.nextToken();
+                    instanceDetails.setOutpostArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("launchTime", targetDepth)) {
                     context.nextToken();
                     instanceDetails.setLaunchTime(context.getUnmarshaller(String.class).unmarshall(context));
@@ -83,7 +87,8 @@ public class InstanceDetailsJsonUnmarshaller implements Unmarshaller<InstanceDet
                 if (context.testExpression("networkInterfaces", targetDepth)) {
                     context.nextToken();
                     instanceDetails.setNetworkInterfaces(new ListUnmarshaller<NetworkInterface>(NetworkInterfaceJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("platform", targetDepth)) {
                     context.nextToken();
@@ -91,11 +96,15 @@ public class InstanceDetailsJsonUnmarshaller implements Unmarshaller<InstanceDet
                 }
                 if (context.testExpression("productCodes", targetDepth)) {
                     context.nextToken();
-                    instanceDetails.setProductCodes(new ListUnmarshaller<ProductCode>(ProductCodeJsonUnmarshaller.getInstance()).unmarshall(context));
+                    instanceDetails.setProductCodes(new ListUnmarshaller<ProductCode>(ProductCodeJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("tags", targetDepth)) {
                     context.nextToken();
-                    instanceDetails.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance()).unmarshall(context));
+                    instanceDetails.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

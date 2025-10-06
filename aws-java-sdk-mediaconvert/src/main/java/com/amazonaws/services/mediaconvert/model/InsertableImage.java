@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,7 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * Settings that specify how your still graphic overlay appears.
+ * These settings apply to a specific graphic overlay. You can include multiple overlays in your job.
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/InsertableImage" target="_top">AWS API
  *      Documentation</a>
@@ -49,7 +49,10 @@ public class InsertableImage implements Serializable, Cloneable, StructuredPojo 
      * this setting blank.
      */
     private Integer height;
-    /** Specify the Amazon S3 location of the image that you want to overlay on the video. Use a PNG or TGA file. */
+    /**
+     * Specify the HTTP, HTTPS, or Amazon S3 location of the image that you want to overlay on the video. Use a PNG or
+     * TGA file.
+     */
     private String imageInserterInput;
     /**
      * Specify the distance, in pixels, between the inserted image and the left edge of the video frame. Required for
@@ -67,8 +70,8 @@ public class InsertableImage implements Serializable, Cloneable, StructuredPojo 
      */
     private Integer layer;
     /**
-     * Use Opacity (Opacity) to specify how much of the underlying video shows through the inserted image. 0 is
-     * transparent and 100 is fully opaque. Default is 50.
+     * Use Opacity to specify how much of the underlying video shows through the inserted image. 0 is transparent and
+     * 100 is fully opaque. Default is 50.
      */
     private Integer opacity;
     /**
@@ -265,10 +268,12 @@ public class InsertableImage implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
-     * Specify the Amazon S3 location of the image that you want to overlay on the video. Use a PNG or TGA file.
+     * Specify the HTTP, HTTPS, or Amazon S3 location of the image that you want to overlay on the video. Use a PNG or
+     * TGA file.
      * 
      * @param imageInserterInput
-     *        Specify the Amazon S3 location of the image that you want to overlay on the video. Use a PNG or TGA file.
+     *        Specify the HTTP, HTTPS, or Amazon S3 location of the image that you want to overlay on the video. Use a
+     *        PNG or TGA file.
      */
 
     public void setImageInserterInput(String imageInserterInput) {
@@ -276,9 +281,11 @@ public class InsertableImage implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
-     * Specify the Amazon S3 location of the image that you want to overlay on the video. Use a PNG or TGA file.
+     * Specify the HTTP, HTTPS, or Amazon S3 location of the image that you want to overlay on the video. Use a PNG or
+     * TGA file.
      * 
-     * @return Specify the Amazon S3 location of the image that you want to overlay on the video. Use a PNG or TGA file.
+     * @return Specify the HTTP, HTTPS, or Amazon S3 location of the image that you want to overlay on the video. Use a
+     *         PNG or TGA file.
      */
 
     public String getImageInserterInput() {
@@ -286,10 +293,12 @@ public class InsertableImage implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
-     * Specify the Amazon S3 location of the image that you want to overlay on the video. Use a PNG or TGA file.
+     * Specify the HTTP, HTTPS, or Amazon S3 location of the image that you want to overlay on the video. Use a PNG or
+     * TGA file.
      * 
      * @param imageInserterInput
-     *        Specify the Amazon S3 location of the image that you want to overlay on the video. Use a PNG or TGA file.
+     *        Specify the HTTP, HTTPS, or Amazon S3 location of the image that you want to overlay on the video. Use a
+     *        PNG or TGA file.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -419,12 +428,12 @@ public class InsertableImage implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
-     * Use Opacity (Opacity) to specify how much of the underlying video shows through the inserted image. 0 is
-     * transparent and 100 is fully opaque. Default is 50.
+     * Use Opacity to specify how much of the underlying video shows through the inserted image. 0 is transparent and
+     * 100 is fully opaque. Default is 50.
      * 
      * @param opacity
-     *        Use Opacity (Opacity) to specify how much of the underlying video shows through the inserted image. 0 is
-     *        transparent and 100 is fully opaque. Default is 50.
+     *        Use Opacity to specify how much of the underlying video shows through the inserted image. 0 is transparent
+     *        and 100 is fully opaque. Default is 50.
      */
 
     public void setOpacity(Integer opacity) {
@@ -432,10 +441,10 @@ public class InsertableImage implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
-     * Use Opacity (Opacity) to specify how much of the underlying video shows through the inserted image. 0 is
-     * transparent and 100 is fully opaque. Default is 50.
+     * Use Opacity to specify how much of the underlying video shows through the inserted image. 0 is transparent and
+     * 100 is fully opaque. Default is 50.
      * 
-     * @return Use Opacity (Opacity) to specify how much of the underlying video shows through the inserted image. 0 is
+     * @return Use Opacity to specify how much of the underlying video shows through the inserted image. 0 is
      *         transparent and 100 is fully opaque. Default is 50.
      */
 
@@ -444,12 +453,12 @@ public class InsertableImage implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
-     * Use Opacity (Opacity) to specify how much of the underlying video shows through the inserted image. 0 is
-     * transparent and 100 is fully opaque. Default is 50.
+     * Use Opacity to specify how much of the underlying video shows through the inserted image. 0 is transparent and
+     * 100 is fully opaque. Default is 50.
      * 
      * @param opacity
-     *        Use Opacity (Opacity) to specify how much of the underlying video shows through the inserted image. 0 is
-     *        transparent and 100 is fully opaque. Default is 50.
+     *        Use Opacity to specify how much of the underlying video shows through the inserted image. 0 is transparent
+     *        and 100 is fully opaque. Default is 50.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

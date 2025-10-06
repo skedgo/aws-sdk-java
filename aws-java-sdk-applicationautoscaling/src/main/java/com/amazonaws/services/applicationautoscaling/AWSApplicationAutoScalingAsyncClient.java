@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,97 +31,130 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * notification when an asynchronous operation completes.
  * <p>
  * <p>
- * With Application Auto Scaling, you can configure automatic scaling for your scalable resources. You can use
- * Application Auto Scaling to accomplish the following tasks:
+ * With Application Auto Scaling, you can configure automatic scaling for the following resources:
  * </p>
  * <ul>
  * <li>
  * <p>
- * Define scaling policies to automatically scale your AWS or custom resources
+ * Amazon AppStream 2.0 fleets
  * </p>
  * </li>
  * <li>
  * <p>
- * Scale your resources in response to CloudWatch alarms
+ * Amazon Aurora Replicas
  * </p>
  * </li>
  * <li>
  * <p>
- * Schedule one-time or recurring scaling actions
+ * Amazon Comprehend document classification and entity recognizer endpoints
  * </p>
  * </li>
  * <li>
  * <p>
- * View the history of your scaling events
+ * Amazon DynamoDB tables and global secondary indexes throughput capacity
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Amazon ECS services
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Amazon ElastiCache for Redis clusters (replication groups)
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Amazon EMR clusters
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Amazon Keyspaces (for Apache Cassandra) tables
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Lambda function provisioned concurrency
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Amazon Managed Streaming for Apache Kafka broker storage
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Amazon Neptune clusters
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Amazon SageMaker endpoint variants
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Amazon SageMaker inference components
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Amazon SageMaker serverless endpoint provisioned concurrency
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Spot Fleets (Amazon EC2)
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Pool of WorkSpaces
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Custom resources provided by your own applications or services
  * </p>
  * </li>
  * </ul>
  * <p>
- * Application Auto Scaling can scale the following resources:
- * </p>
- * <ul>
- * <li>
- * <p>
- * Amazon ECS services. For more information, see <a
- * href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-auto-scaling.html">Service Auto Scaling</a>
- * in the <i>Amazon Elastic Container Service Developer Guide</i>.
- * </p>
- * </li>
- * <li>
- * <p>
- * Amazon EC2 Spot fleets. For more information, see <a
- * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/fleet-auto-scaling.html">Automatic Scaling for Spot
- * Fleet</a> in the <i>Amazon EC2 User Guide</i>.
- * </p>
- * </li>
- * <li>
- * <p>
- * Amazon EMR clusters. For more information, see <a
- * href="https://docs.aws.amazon.com/ElasticMapReduce/latest/ManagementGuide/emr-automatic-scaling.html">Using Automatic
- * Scaling in Amazon EMR</a> in the <i>Amazon EMR Management Guide</i>.
- * </p>
- * </li>
- * <li>
- * <p>
- * AppStream 2.0 fleets. For more information, see <a
- * href="https://docs.aws.amazon.com/appstream2/latest/developerguide/autoscaling.html">Fleet Auto Scaling for Amazon
- * AppStream 2.0</a> in the <i>Amazon AppStream 2.0 Developer Guide</i>.
- * </p>
- * </li>
- * <li>
- * <p>
- * Provisioned read and write capacity for Amazon DynamoDB tables and global secondary indexes. For more information,
- * see <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/AutoScaling.html">Managing Throughput
- * Capacity Automatically with DynamoDB Auto Scaling</a> in the <i>Amazon DynamoDB Developer Guide</i>.
- * </p>
- * </li>
- * <li>
- * <p>
- * Amazon Aurora Replicas. For more information, see <a
- * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Integrating.AutoScaling.html">Using Amazon
- * Aurora Auto Scaling with Aurora Replicas</a>.
- * </p>
- * </li>
- * <li>
- * <p>
- * Amazon SageMaker endpoint variants. For more information, see <a
- * href="https://docs.aws.amazon.com/sagemaker/latest/dg/endpoint-auto-scaling.html">Automatically Scaling Amazon
- * SageMaker Models</a>.
- * </p>
- * </li>
- * <li>
- * <p>
- * Custom resources provided by your own applications or services. More information is available in our <a
- * href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
- * </p>
- * </li>
- * </ul>
- * <p>
- * To learn more about Application Auto Scaling, including information about granting IAM users required permissions for
- * Application Auto Scaling actions, see the <a
+ * To learn more about Application Auto Scaling, see the <a
  * href="https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html"
  * >Application Auto Scaling User Guide</a>.
  * </p>
+ * <p>
+ * <b>API Summary</b>
+ * </p>
+ * <p>
+ * The Application Auto Scaling service API includes three key sets of actions:
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * Register and manage scalable targets - Register Amazon Web Services or custom resources as scalable targets (a
+ * resource that Application Auto Scaling can scale), set minimum and maximum capacity limits, and retrieve information
+ * on existing scalable targets.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Configure and manage automatic scaling - Define scaling policies to dynamically scale your resources in response to
+ * CloudWatch alarms, schedule one-time or recurring scaling actions, and retrieve your recent scaling activity history.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Suspend and resume scaling - Temporarily suspend and later resume automatic scaling by calling the <a
+ * href="https://docs.aws.amazon.com/autoscaling/application/APIReference/API_RegisterScalableTarget.html"
+ * >RegisterScalableTarget</a> API action for any Application Auto Scaling scalable target. You can suspend and resume
+ * (individually or in combination) scale-out activities that are triggered by a scaling policy, scale-in activities
+ * that are triggered by a scaling policy, and scheduled scaling.
+ * </p>
+ * </li>
+ * </ul>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -321,7 +354,20 @@ public class AWSApplicationAutoScalingAsyncClient extends AWSApplicationAutoScal
      *        Object providing client parameters.
      */
     AWSApplicationAutoScalingAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Application Auto Scaling using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSApplicationAutoScalingAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -566,6 +612,39 @@ public class AWSApplicationAutoScalingAsyncClient extends AWSApplicationAutoScal
     }
 
     @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+        final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTagsForResourceResult>() {
+            @Override
+            public ListTagsForResourceResult call() throws Exception {
+                ListTagsForResourceResult result = null;
+
+                try {
+                    result = executeListTagsForResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<PutScalingPolicyResult> putScalingPolicyAsync(PutScalingPolicyRequest request) {
 
         return putScalingPolicyAsync(request, null);
@@ -649,6 +728,72 @@ public class AWSApplicationAutoScalingAsyncClient extends AWSApplicationAutoScal
 
                 try {
                     result = executeRegisterScalableTarget(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

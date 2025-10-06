@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -66,7 +66,13 @@ public class AcceleratorJsonUnmarshaller implements Unmarshaller<Accelerator, Js
                 }
                 if (context.testExpression("IpSets", targetDepth)) {
                     context.nextToken();
-                    accelerator.setIpSets(new ListUnmarshaller<IpSet>(IpSetJsonUnmarshaller.getInstance()).unmarshall(context));
+                    accelerator.setIpSets(new ListUnmarshaller<IpSet>(IpSetJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("DnsName", targetDepth)) {
+                    context.nextToken();
+                    accelerator.setDnsName(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("Status", targetDepth)) {
                     context.nextToken();
@@ -79,6 +85,16 @@ public class AcceleratorJsonUnmarshaller implements Unmarshaller<Accelerator, Js
                 if (context.testExpression("LastModifiedTime", targetDepth)) {
                     context.nextToken();
                     accelerator.setLastModifiedTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("DualStackDnsName", targetDepth)) {
+                    context.nextToken();
+                    accelerator.setDualStackDnsName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Events", targetDepth)) {
+                    context.nextToken();
+                    accelerator.setEvents(new ListUnmarshaller<AcceleratorEvent>(AcceleratorEventJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

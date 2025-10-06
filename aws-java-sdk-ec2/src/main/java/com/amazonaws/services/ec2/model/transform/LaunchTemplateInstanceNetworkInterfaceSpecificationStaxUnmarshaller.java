@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,6 +45,11 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationStaxUnmarshaller
                 return launchTemplateInstanceNetworkInterfaceSpecification;
 
             if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
+
+                if (context.testExpression("associateCarrierIpAddress", targetDepth)) {
+                    launchTemplateInstanceNetworkInterfaceSpecification.setAssociateCarrierIpAddress(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
 
                 if (context.testExpression("associatePublicIpAddress", targetDepth)) {
                     launchTemplateInstanceNetworkInterfaceSpecification.setAssociatePublicIpAddress(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
@@ -126,6 +131,60 @@ public class LaunchTemplateInstanceNetworkInterfaceSpecificationStaxUnmarshaller
 
                 if (context.testExpression("subnetId", targetDepth)) {
                     launchTemplateInstanceNetworkInterfaceSpecification.setSubnetId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("networkCardIndex", targetDepth)) {
+                    launchTemplateInstanceNetworkInterfaceSpecification.setNetworkCardIndex(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ipv4PrefixSet", targetDepth)) {
+                    launchTemplateInstanceNetworkInterfaceSpecification.withIpv4Prefixes(new ArrayList<Ipv4PrefixSpecificationResponse>());
+                    continue;
+                }
+
+                if (context.testExpression("ipv4PrefixSet/item", targetDepth)) {
+                    launchTemplateInstanceNetworkInterfaceSpecification.withIpv4Prefixes(Ipv4PrefixSpecificationResponseStaxUnmarshaller.getInstance()
+                            .unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ipv4PrefixCount", targetDepth)) {
+                    launchTemplateInstanceNetworkInterfaceSpecification.setIpv4PrefixCount(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ipv6PrefixSet", targetDepth)) {
+                    launchTemplateInstanceNetworkInterfaceSpecification.withIpv6Prefixes(new ArrayList<Ipv6PrefixSpecificationResponse>());
+                    continue;
+                }
+
+                if (context.testExpression("ipv6PrefixSet/item", targetDepth)) {
+                    launchTemplateInstanceNetworkInterfaceSpecification.withIpv6Prefixes(Ipv6PrefixSpecificationResponseStaxUnmarshaller.getInstance()
+                            .unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ipv6PrefixCount", targetDepth)) {
+                    launchTemplateInstanceNetworkInterfaceSpecification.setIpv6PrefixCount(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("primaryIpv6", targetDepth)) {
+                    launchTemplateInstanceNetworkInterfaceSpecification.setPrimaryIpv6(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("enaSrdSpecification", targetDepth)) {
+                    launchTemplateInstanceNetworkInterfaceSpecification.setEnaSrdSpecification(LaunchTemplateEnaSrdSpecificationStaxUnmarshaller.getInstance()
+                            .unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("connectionTrackingSpecification", targetDepth)) {
+                    launchTemplateInstanceNetworkInterfaceSpecification.setConnectionTrackingSpecification(ConnectionTrackingSpecificationStaxUnmarshaller
+                            .getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

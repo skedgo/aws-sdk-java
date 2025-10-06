@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes an association of a Systems Manager document and an instance.
+ * Describes an association of a Amazon Web Services Systems Manager document (SSM document) and a managed node.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/Association" target="_top">AWS API
@@ -30,13 +30,13 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      */
     private String instanceId;
@@ -55,13 +55,25 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
     private String associationVersion;
     /**
      * <p>
-     * The version of the document used in the association.
+     * The version of the document used in the association. If you change a document version for a State Manager
+     * association, Systems Manager immediately runs the association unless you previously specifed the
+     * <code>apply-only-at-cron-interval</code> parameter.
      * </p>
+     * <important>
+     * <p>
+     * State Manager doesn't support running associations that use a new version of a document if that document is
+     * shared from another account. State Manager always runs the <code>default</code> version of a document if shared
+     * from another account, even though the Systems Manager console shows that a new version was processed. If you want
+     * to run an association using a new version of a document shared form another account, you must set the document
+     * version to <code>default</code>.
+     * </p>
+     * </important>
      */
     private String documentVersion;
     /**
      * <p>
-     * The instances targeted by the request to create an association.
+     * The managed nodes targeted by the request to create an association. You can target all managed nodes in an Amazon
+     * Web Services account by specifying the <code>InstanceIds</code> key with a value of <code>*</code>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Target> targets;
@@ -79,7 +91,8 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
     private AssociationOverview overview;
     /**
      * <p>
-     * A cron expression that specifies a schedule when the association runs.
+     * A cron expression that specifies a schedule when the association runs. The schedule runs in Coordinated Universal
+     * Time (UTC).
      * </p>
      */
     private String scheduleExpression;
@@ -89,14 +102,35 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String associationName;
+    /**
+     * <p>
+     * Number of days to wait after the scheduled day to run an association.
+     * </p>
+     */
+    private Integer scheduleOffset;
+    /**
+     * <p>
+     * The number of hours that an association can run on specified targets. After the resulting cutoff time passes,
+     * associations that are currently running are cancelled, and no pending executions are started on remaining
+     * targets.
+     * </p>
+     */
+    private Integer duration;
+    /**
+     * <p>
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
+     * together.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<java.util.Map<String, java.util.List<String>>> targetMaps;
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      */
 
     public void setName(String name) {
@@ -105,10 +139,10 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
-     * @return The name of the Systems Manager document.
+     * @return The name of the SSM document.
      */
 
     public String getName() {
@@ -117,11 +151,11 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -132,11 +166,11 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      * 
      * @param instanceId
-     *        The ID of the instance.
+     *        The managed node ID.
      */
 
     public void setInstanceId(String instanceId) {
@@ -145,10 +179,10 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      * 
-     * @return The ID of the instance.
+     * @return The managed node ID.
      */
 
     public String getInstanceId() {
@@ -157,11 +191,11 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      * 
      * @param instanceId
-     *        The ID of the instance.
+     *        The managed node ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -258,11 +292,31 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The version of the document used in the association.
+     * The version of the document used in the association. If you change a document version for a State Manager
+     * association, Systems Manager immediately runs the association unless you previously specifed the
+     * <code>apply-only-at-cron-interval</code> parameter.
      * </p>
+     * <important>
+     * <p>
+     * State Manager doesn't support running associations that use a new version of a document if that document is
+     * shared from another account. State Manager always runs the <code>default</code> version of a document if shared
+     * from another account, even though the Systems Manager console shows that a new version was processed. If you want
+     * to run an association using a new version of a document shared form another account, you must set the document
+     * version to <code>default</code>.
+     * </p>
+     * </important>
      * 
      * @param documentVersion
-     *        The version of the document used in the association.
+     *        The version of the document used in the association. If you change a document version for a State Manager
+     *        association, Systems Manager immediately runs the association unless you previously specifed the
+     *        <code>apply-only-at-cron-interval</code> parameter.</p> <important>
+     *        <p>
+     *        State Manager doesn't support running associations that use a new version of a document if that document
+     *        is shared from another account. State Manager always runs the <code>default</code> version of a document
+     *        if shared from another account, even though the Systems Manager console shows that a new version was
+     *        processed. If you want to run an association using a new version of a document shared form another
+     *        account, you must set the document version to <code>default</code>.
+     *        </p>
      */
 
     public void setDocumentVersion(String documentVersion) {
@@ -271,10 +325,30 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The version of the document used in the association.
+     * The version of the document used in the association. If you change a document version for a State Manager
+     * association, Systems Manager immediately runs the association unless you previously specifed the
+     * <code>apply-only-at-cron-interval</code> parameter.
      * </p>
+     * <important>
+     * <p>
+     * State Manager doesn't support running associations that use a new version of a document if that document is
+     * shared from another account. State Manager always runs the <code>default</code> version of a document if shared
+     * from another account, even though the Systems Manager console shows that a new version was processed. If you want
+     * to run an association using a new version of a document shared form another account, you must set the document
+     * version to <code>default</code>.
+     * </p>
+     * </important>
      * 
-     * @return The version of the document used in the association.
+     * @return The version of the document used in the association. If you change a document version for a State Manager
+     *         association, Systems Manager immediately runs the association unless you previously specifed the
+     *         <code>apply-only-at-cron-interval</code> parameter.</p> <important>
+     *         <p>
+     *         State Manager doesn't support running associations that use a new version of a document if that document
+     *         is shared from another account. State Manager always runs the <code>default</code> version of a document
+     *         if shared from another account, even though the Systems Manager console shows that a new version was
+     *         processed. If you want to run an association using a new version of a document shared form another
+     *         account, you must set the document version to <code>default</code>.
+     *         </p>
      */
 
     public String getDocumentVersion() {
@@ -283,11 +357,31 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The version of the document used in the association.
+     * The version of the document used in the association. If you change a document version for a State Manager
+     * association, Systems Manager immediately runs the association unless you previously specifed the
+     * <code>apply-only-at-cron-interval</code> parameter.
      * </p>
+     * <important>
+     * <p>
+     * State Manager doesn't support running associations that use a new version of a document if that document is
+     * shared from another account. State Manager always runs the <code>default</code> version of a document if shared
+     * from another account, even though the Systems Manager console shows that a new version was processed. If you want
+     * to run an association using a new version of a document shared form another account, you must set the document
+     * version to <code>default</code>.
+     * </p>
+     * </important>
      * 
      * @param documentVersion
-     *        The version of the document used in the association.
+     *        The version of the document used in the association. If you change a document version for a State Manager
+     *        association, Systems Manager immediately runs the association unless you previously specifed the
+     *        <code>apply-only-at-cron-interval</code> parameter.</p> <important>
+     *        <p>
+     *        State Manager doesn't support running associations that use a new version of a document if that document
+     *        is shared from another account. State Manager always runs the <code>default</code> version of a document
+     *        if shared from another account, even though the Systems Manager console shows that a new version was
+     *        processed. If you want to run an association using a new version of a document shared form another
+     *        account, you must set the document version to <code>default</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -298,10 +392,13 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The instances targeted by the request to create an association.
+     * The managed nodes targeted by the request to create an association. You can target all managed nodes in an Amazon
+     * Web Services account by specifying the <code>InstanceIds</code> key with a value of <code>*</code>.
      * </p>
      * 
-     * @return The instances targeted by the request to create an association.
+     * @return The managed nodes targeted by the request to create an association. You can target all managed nodes in
+     *         an Amazon Web Services account by specifying the <code>InstanceIds</code> key with a value of
+     *         <code>*</code>.
      */
 
     public java.util.List<Target> getTargets() {
@@ -313,11 +410,13 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The instances targeted by the request to create an association.
+     * The managed nodes targeted by the request to create an association. You can target all managed nodes in an Amazon
+     * Web Services account by specifying the <code>InstanceIds</code> key with a value of <code>*</code>.
      * </p>
      * 
      * @param targets
-     *        The instances targeted by the request to create an association.
+     *        The managed nodes targeted by the request to create an association. You can target all managed nodes in an
+     *        Amazon Web Services account by specifying the <code>InstanceIds</code> key with a value of <code>*</code>.
      */
 
     public void setTargets(java.util.Collection<Target> targets) {
@@ -331,7 +430,8 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The instances targeted by the request to create an association.
+     * The managed nodes targeted by the request to create an association. You can target all managed nodes in an Amazon
+     * Web Services account by specifying the <code>InstanceIds</code> key with a value of <code>*</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -340,7 +440,8 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param targets
-     *        The instances targeted by the request to create an association.
+     *        The managed nodes targeted by the request to create an association. You can target all managed nodes in an
+     *        Amazon Web Services account by specifying the <code>InstanceIds</code> key with a value of <code>*</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -356,11 +457,13 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The instances targeted by the request to create an association.
+     * The managed nodes targeted by the request to create an association. You can target all managed nodes in an Amazon
+     * Web Services account by specifying the <code>InstanceIds</code> key with a value of <code>*</code>.
      * </p>
      * 
      * @param targets
-     *        The instances targeted by the request to create an association.
+     *        The managed nodes targeted by the request to create an association. You can target all managed nodes in an
+     *        Amazon Web Services account by specifying the <code>InstanceIds</code> key with a value of <code>*</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -451,11 +554,13 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A cron expression that specifies a schedule when the association runs.
+     * A cron expression that specifies a schedule when the association runs. The schedule runs in Coordinated Universal
+     * Time (UTC).
      * </p>
      * 
      * @param scheduleExpression
-     *        A cron expression that specifies a schedule when the association runs.
+     *        A cron expression that specifies a schedule when the association runs. The schedule runs in Coordinated
+     *        Universal Time (UTC).
      */
 
     public void setScheduleExpression(String scheduleExpression) {
@@ -464,10 +569,12 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A cron expression that specifies a schedule when the association runs.
+     * A cron expression that specifies a schedule when the association runs. The schedule runs in Coordinated Universal
+     * Time (UTC).
      * </p>
      * 
-     * @return A cron expression that specifies a schedule when the association runs.
+     * @return A cron expression that specifies a schedule when the association runs. The schedule runs in Coordinated
+     *         Universal Time (UTC).
      */
 
     public String getScheduleExpression() {
@@ -476,11 +583,13 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A cron expression that specifies a schedule when the association runs.
+     * A cron expression that specifies a schedule when the association runs. The schedule runs in Coordinated Universal
+     * Time (UTC).
      * </p>
      * 
      * @param scheduleExpression
-     *        A cron expression that specifies a schedule when the association runs.
+     *        A cron expression that specifies a schedule when the association runs. The schedule runs in Coordinated
+     *        Universal Time (UTC).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -530,6 +639,179 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * Number of days to wait after the scheduled day to run an association.
+     * </p>
+     * 
+     * @param scheduleOffset
+     *        Number of days to wait after the scheduled day to run an association.
+     */
+
+    public void setScheduleOffset(Integer scheduleOffset) {
+        this.scheduleOffset = scheduleOffset;
+    }
+
+    /**
+     * <p>
+     * Number of days to wait after the scheduled day to run an association.
+     * </p>
+     * 
+     * @return Number of days to wait after the scheduled day to run an association.
+     */
+
+    public Integer getScheduleOffset() {
+        return this.scheduleOffset;
+    }
+
+    /**
+     * <p>
+     * Number of days to wait after the scheduled day to run an association.
+     * </p>
+     * 
+     * @param scheduleOffset
+     *        Number of days to wait after the scheduled day to run an association.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Association withScheduleOffset(Integer scheduleOffset) {
+        setScheduleOffset(scheduleOffset);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of hours that an association can run on specified targets. After the resulting cutoff time passes,
+     * associations that are currently running are cancelled, and no pending executions are started on remaining
+     * targets.
+     * </p>
+     * 
+     * @param duration
+     *        The number of hours that an association can run on specified targets. After the resulting cutoff time
+     *        passes, associations that are currently running are cancelled, and no pending executions are started on
+     *        remaining targets.
+     */
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
+    /**
+     * <p>
+     * The number of hours that an association can run on specified targets. After the resulting cutoff time passes,
+     * associations that are currently running are cancelled, and no pending executions are started on remaining
+     * targets.
+     * </p>
+     * 
+     * @return The number of hours that an association can run on specified targets. After the resulting cutoff time
+     *         passes, associations that are currently running are cancelled, and no pending executions are started on
+     *         remaining targets.
+     */
+
+    public Integer getDuration() {
+        return this.duration;
+    }
+
+    /**
+     * <p>
+     * The number of hours that an association can run on specified targets. After the resulting cutoff time passes,
+     * associations that are currently running are cancelled, and no pending executions are started on remaining
+     * targets.
+     * </p>
+     * 
+     * @param duration
+     *        The number of hours that an association can run on specified targets. After the resulting cutoff time
+     *        passes, associations that are currently running are cancelled, and no pending executions are started on
+     *        remaining targets.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Association withDuration(Integer duration) {
+        setDuration(duration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
+     * together.
+     * </p>
+     * 
+     * @return A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be
+     *         specified together.
+     */
+
+    public java.util.List<java.util.Map<String, java.util.List<String>>> getTargetMaps() {
+        if (targetMaps == null) {
+            targetMaps = new com.amazonaws.internal.SdkInternalList<java.util.Map<String, java.util.List<String>>>();
+        }
+        return targetMaps;
+    }
+
+    /**
+     * <p>
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
+     * together.
+     * </p>
+     * 
+     * @param targetMaps
+     *        A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be
+     *        specified together.
+     */
+
+    public void setTargetMaps(java.util.Collection<java.util.Map<String, java.util.List<String>>> targetMaps) {
+        if (targetMaps == null) {
+            this.targetMaps = null;
+            return;
+        }
+
+        this.targetMaps = new com.amazonaws.internal.SdkInternalList<java.util.Map<String, java.util.List<String>>>(targetMaps);
+    }
+
+    /**
+     * <p>
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
+     * together.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTargetMaps(java.util.Collection)} or {@link #withTargetMaps(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param targetMaps
+     *        A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be
+     *        specified together.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Association withTargetMaps(java.util.Map<String, java.util.List<String>>... targetMaps) {
+        if (this.targetMaps == null) {
+            setTargetMaps(new com.amazonaws.internal.SdkInternalList<java.util.Map<String, java.util.List<String>>>(targetMaps.length));
+        }
+        for (java.util.Map<String, java.util.List<String>> ele : targetMaps) {
+            this.targetMaps.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
+     * together.
+     * </p>
+     * 
+     * @param targetMaps
+     *        A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be
+     *        specified together.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Association withTargetMaps(java.util.Collection<java.util.Map<String, java.util.List<String>>> targetMaps) {
+        setTargetMaps(targetMaps);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -560,7 +842,13 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
         if (getScheduleExpression() != null)
             sb.append("ScheduleExpression: ").append(getScheduleExpression()).append(",");
         if (getAssociationName() != null)
-            sb.append("AssociationName: ").append(getAssociationName());
+            sb.append("AssociationName: ").append(getAssociationName()).append(",");
+        if (getScheduleOffset() != null)
+            sb.append("ScheduleOffset: ").append(getScheduleOffset()).append(",");
+        if (getDuration() != null)
+            sb.append("Duration: ").append(getDuration()).append(",");
+        if (getTargetMaps() != null)
+            sb.append("TargetMaps: ").append(getTargetMaps());
         sb.append("}");
         return sb.toString();
     }
@@ -615,6 +903,18 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getAssociationName() != null && other.getAssociationName().equals(this.getAssociationName()) == false)
             return false;
+        if (other.getScheduleOffset() == null ^ this.getScheduleOffset() == null)
+            return false;
+        if (other.getScheduleOffset() != null && other.getScheduleOffset().equals(this.getScheduleOffset()) == false)
+            return false;
+        if (other.getDuration() == null ^ this.getDuration() == null)
+            return false;
+        if (other.getDuration() != null && other.getDuration().equals(this.getDuration()) == false)
+            return false;
+        if (other.getTargetMaps() == null ^ this.getTargetMaps() == null)
+            return false;
+        if (other.getTargetMaps() != null && other.getTargetMaps().equals(this.getTargetMaps()) == false)
+            return false;
         return true;
     }
 
@@ -633,6 +933,9 @@ public class Association implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getOverview() == null) ? 0 : getOverview().hashCode());
         hashCode = prime * hashCode + ((getScheduleExpression() == null) ? 0 : getScheduleExpression().hashCode());
         hashCode = prime * hashCode + ((getAssociationName() == null) ? 0 : getAssociationName().hashCode());
+        hashCode = prime * hashCode + ((getScheduleOffset() == null) ? 0 : getScheduleOffset().hashCode());
+        hashCode = prime * hashCode + ((getDuration() == null) ? 0 : getDuration().hashCode());
+        hashCode = prime * hashCode + ((getTargetMaps() == null) ? 0 : getTargetMaps().hashCode());
         return hashCode;
     }
 

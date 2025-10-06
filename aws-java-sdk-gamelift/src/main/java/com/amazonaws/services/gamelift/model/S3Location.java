@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Location in Amazon Simple Storage Service (Amazon S3) where build or script files are stored for access by Amazon
- * GameLift. This location is specified in <a>CreateBuild</a>, <a>CreateScript</a>, and <a>UpdateScript</a> requests.
+ * The location in Amazon S3 where build or script files are stored for access by Amazon GameLift.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/S3Location" target="_top">AWS API
@@ -31,39 +30,52 @@ public class S3Location implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Amazon S3 bucket identifier. This is the name of the S3 bucket.
+     * An Amazon S3 bucket identifier. Thename of the S3 bucket.
      * </p>
+     * <note>
+     * <p>
+     * Amazon GameLift doesn't support uploading from Amazon S3 buckets with names that contain a dot (.).
+     * </p>
+     * </note>
      */
     private String bucket;
     /**
      * <p>
-     * Name of the zip file containing the build files or script files.
+     * The name of the zip file that contains the build files or script files.
      * </p>
      */
     private String key;
     /**
      * <p>
-     * Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) for
-     * an IAM role that allows Amazon GameLift to access the S3 bucket.
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * for an IAM role that allows Amazon GameLift to access the S3 bucket.
      * </p>
      */
     private String roleArn;
     /**
      * <p>
-     * Version of the file, if object versioning is turned on for the bucket. Amazon GameLift uses this information when
-     * retrieving files from an S3 bucket that you own. Use this parameter to specify a specific version of the file; if
-     * not set, the latest version of the file is retrieved.
+     * The version of the file, if object versioning is turned on for the bucket. Amazon GameLift uses this information
+     * when retrieving files from an S3 bucket that you own. Use this parameter to specify a specific version of the
+     * file. If not set, the latest version of the file is retrieved.
      * </p>
      */
     private String objectVersion;
 
     /**
      * <p>
-     * Amazon S3 bucket identifier. This is the name of the S3 bucket.
+     * An Amazon S3 bucket identifier. Thename of the S3 bucket.
      * </p>
+     * <note>
+     * <p>
+     * Amazon GameLift doesn't support uploading from Amazon S3 buckets with names that contain a dot (.).
+     * </p>
+     * </note>
      * 
      * @param bucket
-     *        Amazon S3 bucket identifier. This is the name of the S3 bucket.
+     *        An Amazon S3 bucket identifier. Thename of the S3 bucket.</p> <note>
+     *        <p>
+     *        Amazon GameLift doesn't support uploading from Amazon S3 buckets with names that contain a dot (.).
+     *        </p>
      */
 
     public void setBucket(String bucket) {
@@ -72,10 +84,18 @@ public class S3Location implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Amazon S3 bucket identifier. This is the name of the S3 bucket.
+     * An Amazon S3 bucket identifier. Thename of the S3 bucket.
      * </p>
+     * <note>
+     * <p>
+     * Amazon GameLift doesn't support uploading from Amazon S3 buckets with names that contain a dot (.).
+     * </p>
+     * </note>
      * 
-     * @return Amazon S3 bucket identifier. This is the name of the S3 bucket.
+     * @return An Amazon S3 bucket identifier. Thename of the S3 bucket.</p> <note>
+     *         <p>
+     *         Amazon GameLift doesn't support uploading from Amazon S3 buckets with names that contain a dot (.).
+     *         </p>
      */
 
     public String getBucket() {
@@ -84,11 +104,19 @@ public class S3Location implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Amazon S3 bucket identifier. This is the name of the S3 bucket.
+     * An Amazon S3 bucket identifier. Thename of the S3 bucket.
      * </p>
+     * <note>
+     * <p>
+     * Amazon GameLift doesn't support uploading from Amazon S3 buckets with names that contain a dot (.).
+     * </p>
+     * </note>
      * 
      * @param bucket
-     *        Amazon S3 bucket identifier. This is the name of the S3 bucket.
+     *        An Amazon S3 bucket identifier. Thename of the S3 bucket.</p> <note>
+     *        <p>
+     *        Amazon GameLift doesn't support uploading from Amazon S3 buckets with names that contain a dot (.).
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -99,11 +127,11 @@ public class S3Location implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the zip file containing the build files or script files.
+     * The name of the zip file that contains the build files or script files.
      * </p>
      * 
      * @param key
-     *        Name of the zip file containing the build files or script files.
+     *        The name of the zip file that contains the build files or script files.
      */
 
     public void setKey(String key) {
@@ -112,10 +140,10 @@ public class S3Location implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the zip file containing the build files or script files.
+     * The name of the zip file that contains the build files or script files.
      * </p>
      * 
-     * @return Name of the zip file containing the build files or script files.
+     * @return The name of the zip file that contains the build files or script files.
      */
 
     public String getKey() {
@@ -124,11 +152,11 @@ public class S3Location implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name of the zip file containing the build files or script files.
+     * The name of the zip file that contains the build files or script files.
      * </p>
      * 
      * @param key
-     *        Name of the zip file containing the build files or script files.
+     *        The name of the zip file that contains the build files or script files.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -139,12 +167,12 @@ public class S3Location implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) for
-     * an IAM role that allows Amazon GameLift to access the S3 bucket.
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * for an IAM role that allows Amazon GameLift to access the S3 bucket.
      * </p>
      * 
      * @param roleArn
-     *        Amazon Resource Name (<a
+     *        The Amazon Resource Name (<a
      *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) for an IAM role that
      *        allows Amazon GameLift to access the S3 bucket.
      */
@@ -155,11 +183,11 @@ public class S3Location implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) for
-     * an IAM role that allows Amazon GameLift to access the S3 bucket.
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * for an IAM role that allows Amazon GameLift to access the S3 bucket.
      * </p>
      * 
-     * @return Amazon Resource Name (<a
+     * @return The Amazon Resource Name (<a
      *         href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) for an IAM role that
      *         allows Amazon GameLift to access the S3 bucket.
      */
@@ -170,12 +198,12 @@ public class S3Location implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) for
-     * an IAM role that allows Amazon GameLift to access the S3 bucket.
+     * The Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
+     * for an IAM role that allows Amazon GameLift to access the S3 bucket.
      * </p>
      * 
      * @param roleArn
-     *        Amazon Resource Name (<a
+     *        The Amazon Resource Name (<a
      *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) for an IAM role that
      *        allows Amazon GameLift to access the S3 bucket.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -188,15 +216,15 @@ public class S3Location implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Version of the file, if object versioning is turned on for the bucket. Amazon GameLift uses this information when
-     * retrieving files from an S3 bucket that you own. Use this parameter to specify a specific version of the file; if
-     * not set, the latest version of the file is retrieved.
+     * The version of the file, if object versioning is turned on for the bucket. Amazon GameLift uses this information
+     * when retrieving files from an S3 bucket that you own. Use this parameter to specify a specific version of the
+     * file. If not set, the latest version of the file is retrieved.
      * </p>
      * 
      * @param objectVersion
-     *        Version of the file, if object versioning is turned on for the bucket. Amazon GameLift uses this
+     *        The version of the file, if object versioning is turned on for the bucket. Amazon GameLift uses this
      *        information when retrieving files from an S3 bucket that you own. Use this parameter to specify a specific
-     *        version of the file; if not set, the latest version of the file is retrieved.
+     *        version of the file. If not set, the latest version of the file is retrieved.
      */
 
     public void setObjectVersion(String objectVersion) {
@@ -205,14 +233,14 @@ public class S3Location implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Version of the file, if object versioning is turned on for the bucket. Amazon GameLift uses this information when
-     * retrieving files from an S3 bucket that you own. Use this parameter to specify a specific version of the file; if
-     * not set, the latest version of the file is retrieved.
+     * The version of the file, if object versioning is turned on for the bucket. Amazon GameLift uses this information
+     * when retrieving files from an S3 bucket that you own. Use this parameter to specify a specific version of the
+     * file. If not set, the latest version of the file is retrieved.
      * </p>
      * 
-     * @return Version of the file, if object versioning is turned on for the bucket. Amazon GameLift uses this
+     * @return The version of the file, if object versioning is turned on for the bucket. Amazon GameLift uses this
      *         information when retrieving files from an S3 bucket that you own. Use this parameter to specify a
-     *         specific version of the file; if not set, the latest version of the file is retrieved.
+     *         specific version of the file. If not set, the latest version of the file is retrieved.
      */
 
     public String getObjectVersion() {
@@ -221,15 +249,15 @@ public class S3Location implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Version of the file, if object versioning is turned on for the bucket. Amazon GameLift uses this information when
-     * retrieving files from an S3 bucket that you own. Use this parameter to specify a specific version of the file; if
-     * not set, the latest version of the file is retrieved.
+     * The version of the file, if object versioning is turned on for the bucket. Amazon GameLift uses this information
+     * when retrieving files from an S3 bucket that you own. Use this parameter to specify a specific version of the
+     * file. If not set, the latest version of the file is retrieved.
      * </p>
      * 
      * @param objectVersion
-     *        Version of the file, if object versioning is turned on for the bucket. Amazon GameLift uses this
+     *        The version of the file, if object versioning is turned on for the bucket. Amazon GameLift uses this
      *        information when retrieving files from an S3 bucket that you own. Use this parameter to specify a specific
-     *        version of the file; if not set, the latest version of the file is retrieved.
+     *        version of the file. If not set, the latest version of the file is retrieved.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

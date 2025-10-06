@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,14 +36,13 @@ public class SolutionConfig implements Serializable, Cloneable, StructuredPojo {
     private String eventValueThreshold;
     /**
      * <p>
-     * Describes the properties for hyperparameter optimization (HPO). For use with the bring-your-own-recipe feature.
-     * Not used with Amazon Personalize predefined recipes.
+     * Describes the properties for hyperparameter optimization (HPO).
      * </p>
      */
     private HPOConfig hpoConfig;
     /**
      * <p>
-     * Lists the hyperparameter names and ranges.
+     * Lists the algorithm hyperparameters and their values.
      * </p>
      */
     private java.util.Map<String, String> algorithmHyperParameters;
@@ -55,10 +54,32 @@ public class SolutionConfig implements Serializable, Cloneable, StructuredPojo {
     private java.util.Map<String, String> featureTransformationParameters;
     /**
      * <p>
-     * The <a>AutoMLConfig</a> object containing a list of recipes to search when AutoML is performed.
+     * The <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_AutoMLConfig.html">AutoMLConfig</a> object
+     * containing a list of recipes to search when AutoML is performed.
      * </p>
      */
     private AutoMLConfig autoMLConfig;
+    /**
+     * <p>
+     * Describes the additional objective for the solution, such as maximizing streaming minutes or increasing revenue.
+     * For more information see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/optimizing-solution-for-objective.html">Optimizing a
+     * solution</a>.
+     * </p>
+     */
+    private OptimizationObjective optimizationObjective;
+    /**
+     * <p>
+     * Specifies the training data configuration to use when creating a custom solution version (trained model).
+     * </p>
+     */
+    private TrainingDataConfig trainingDataConfig;
+    /**
+     * <p>
+     * Specifies the automatic training configuration to use.
+     * </p>
+     */
+    private AutoTrainingConfig autoTrainingConfig;
 
     /**
      * <p>
@@ -102,13 +123,11 @@ public class SolutionConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Describes the properties for hyperparameter optimization (HPO). For use with the bring-your-own-recipe feature.
-     * Not used with Amazon Personalize predefined recipes.
+     * Describes the properties for hyperparameter optimization (HPO).
      * </p>
      * 
      * @param hpoConfig
-     *        Describes the properties for hyperparameter optimization (HPO). For use with the bring-your-own-recipe
-     *        feature. Not used with Amazon Personalize predefined recipes.
+     *        Describes the properties for hyperparameter optimization (HPO).
      */
 
     public void setHpoConfig(HPOConfig hpoConfig) {
@@ -117,12 +136,10 @@ public class SolutionConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Describes the properties for hyperparameter optimization (HPO). For use with the bring-your-own-recipe feature.
-     * Not used with Amazon Personalize predefined recipes.
+     * Describes the properties for hyperparameter optimization (HPO).
      * </p>
      * 
-     * @return Describes the properties for hyperparameter optimization (HPO). For use with the bring-your-own-recipe
-     *         feature. Not used with Amazon Personalize predefined recipes.
+     * @return Describes the properties for hyperparameter optimization (HPO).
      */
 
     public HPOConfig getHpoConfig() {
@@ -131,13 +148,11 @@ public class SolutionConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Describes the properties for hyperparameter optimization (HPO). For use with the bring-your-own-recipe feature.
-     * Not used with Amazon Personalize predefined recipes.
+     * Describes the properties for hyperparameter optimization (HPO).
      * </p>
      * 
      * @param hpoConfig
-     *        Describes the properties for hyperparameter optimization (HPO). For use with the bring-your-own-recipe
-     *        feature. Not used with Amazon Personalize predefined recipes.
+     *        Describes the properties for hyperparameter optimization (HPO).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -148,10 +163,10 @@ public class SolutionConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Lists the hyperparameter names and ranges.
+     * Lists the algorithm hyperparameters and their values.
      * </p>
      * 
-     * @return Lists the hyperparameter names and ranges.
+     * @return Lists the algorithm hyperparameters and their values.
      */
 
     public java.util.Map<String, String> getAlgorithmHyperParameters() {
@@ -160,11 +175,11 @@ public class SolutionConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Lists the hyperparameter names and ranges.
+     * Lists the algorithm hyperparameters and their values.
      * </p>
      * 
      * @param algorithmHyperParameters
-     *        Lists the hyperparameter names and ranges.
+     *        Lists the algorithm hyperparameters and their values.
      */
 
     public void setAlgorithmHyperParameters(java.util.Map<String, String> algorithmHyperParameters) {
@@ -173,11 +188,11 @@ public class SolutionConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Lists the hyperparameter names and ranges.
+     * Lists the algorithm hyperparameters and their values.
      * </p>
      * 
      * @param algorithmHyperParameters
-     *        Lists the hyperparameter names and ranges.
+     *        Lists the algorithm hyperparameters and their values.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -185,6 +200,13 @@ public class SolutionConfig implements Serializable, Cloneable, StructuredPojo {
         setAlgorithmHyperParameters(algorithmHyperParameters);
         return this;
     }
+
+    /**
+     * Add a single AlgorithmHyperParameters entry
+     *
+     * @see SolutionConfig#withAlgorithmHyperParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public SolutionConfig addAlgorithmHyperParametersEntry(String key, String value) {
         if (null == this.algorithmHyperParameters) {
@@ -247,6 +269,13 @@ public class SolutionConfig implements Serializable, Cloneable, StructuredPojo {
         return this;
     }
 
+    /**
+     * Add a single FeatureTransformationParameters entry
+     *
+     * @see SolutionConfig#withFeatureTransformationParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public SolutionConfig addFeatureTransformationParametersEntry(String key, String value) {
         if (null == this.featureTransformationParameters) {
             this.featureTransformationParameters = new java.util.HashMap<String, String>();
@@ -270,11 +299,13 @@ public class SolutionConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The <a>AutoMLConfig</a> object containing a list of recipes to search when AutoML is performed.
+     * The <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_AutoMLConfig.html">AutoMLConfig</a> object
+     * containing a list of recipes to search when AutoML is performed.
      * </p>
      * 
      * @param autoMLConfig
-     *        The <a>AutoMLConfig</a> object containing a list of recipes to search when AutoML is performed.
+     *        The <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_AutoMLConfig.html">AutoMLConfig</a>
+     *        object containing a list of recipes to search when AutoML is performed.
      */
 
     public void setAutoMLConfig(AutoMLConfig autoMLConfig) {
@@ -283,10 +314,12 @@ public class SolutionConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The <a>AutoMLConfig</a> object containing a list of recipes to search when AutoML is performed.
+     * The <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_AutoMLConfig.html">AutoMLConfig</a> object
+     * containing a list of recipes to search when AutoML is performed.
      * </p>
      * 
-     * @return The <a>AutoMLConfig</a> object containing a list of recipes to search when AutoML is performed.
+     * @return The <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_AutoMLConfig.html">AutoMLConfig</a>
+     *         object containing a list of recipes to search when AutoML is performed.
      */
 
     public AutoMLConfig getAutoMLConfig() {
@@ -295,16 +328,156 @@ public class SolutionConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The <a>AutoMLConfig</a> object containing a list of recipes to search when AutoML is performed.
+     * The <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_AutoMLConfig.html">AutoMLConfig</a> object
+     * containing a list of recipes to search when AutoML is performed.
      * </p>
      * 
      * @param autoMLConfig
-     *        The <a>AutoMLConfig</a> object containing a list of recipes to search when AutoML is performed.
+     *        The <a href="https://docs.aws.amazon.com/personalize/latest/dg/API_AutoMLConfig.html">AutoMLConfig</a>
+     *        object containing a list of recipes to search when AutoML is performed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public SolutionConfig withAutoMLConfig(AutoMLConfig autoMLConfig) {
         setAutoMLConfig(autoMLConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes the additional objective for the solution, such as maximizing streaming minutes or increasing revenue.
+     * For more information see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/optimizing-solution-for-objective.html">Optimizing a
+     * solution</a>.
+     * </p>
+     * 
+     * @param optimizationObjective
+     *        Describes the additional objective for the solution, such as maximizing streaming minutes or increasing
+     *        revenue. For more information see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/optimizing-solution-for-objective.html">Optimizing
+     *        a solution</a>.
+     */
+
+    public void setOptimizationObjective(OptimizationObjective optimizationObjective) {
+        this.optimizationObjective = optimizationObjective;
+    }
+
+    /**
+     * <p>
+     * Describes the additional objective for the solution, such as maximizing streaming minutes or increasing revenue.
+     * For more information see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/optimizing-solution-for-objective.html">Optimizing a
+     * solution</a>.
+     * </p>
+     * 
+     * @return Describes the additional objective for the solution, such as maximizing streaming minutes or increasing
+     *         revenue. For more information see <a
+     *         href="https://docs.aws.amazon.com/personalize/latest/dg/optimizing-solution-for-objective.html"
+     *         >Optimizing a solution</a>.
+     */
+
+    public OptimizationObjective getOptimizationObjective() {
+        return this.optimizationObjective;
+    }
+
+    /**
+     * <p>
+     * Describes the additional objective for the solution, such as maximizing streaming minutes or increasing revenue.
+     * For more information see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/optimizing-solution-for-objective.html">Optimizing a
+     * solution</a>.
+     * </p>
+     * 
+     * @param optimizationObjective
+     *        Describes the additional objective for the solution, such as maximizing streaming minutes or increasing
+     *        revenue. For more information see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/optimizing-solution-for-objective.html">Optimizing
+     *        a solution</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SolutionConfig withOptimizationObjective(OptimizationObjective optimizationObjective) {
+        setOptimizationObjective(optimizationObjective);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the training data configuration to use when creating a custom solution version (trained model).
+     * </p>
+     * 
+     * @param trainingDataConfig
+     *        Specifies the training data configuration to use when creating a custom solution version (trained model).
+     */
+
+    public void setTrainingDataConfig(TrainingDataConfig trainingDataConfig) {
+        this.trainingDataConfig = trainingDataConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies the training data configuration to use when creating a custom solution version (trained model).
+     * </p>
+     * 
+     * @return Specifies the training data configuration to use when creating a custom solution version (trained model).
+     */
+
+    public TrainingDataConfig getTrainingDataConfig() {
+        return this.trainingDataConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies the training data configuration to use when creating a custom solution version (trained model).
+     * </p>
+     * 
+     * @param trainingDataConfig
+     *        Specifies the training data configuration to use when creating a custom solution version (trained model).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SolutionConfig withTrainingDataConfig(TrainingDataConfig trainingDataConfig) {
+        setTrainingDataConfig(trainingDataConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the automatic training configuration to use.
+     * </p>
+     * 
+     * @param autoTrainingConfig
+     *        Specifies the automatic training configuration to use.
+     */
+
+    public void setAutoTrainingConfig(AutoTrainingConfig autoTrainingConfig) {
+        this.autoTrainingConfig = autoTrainingConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies the automatic training configuration to use.
+     * </p>
+     * 
+     * @return Specifies the automatic training configuration to use.
+     */
+
+    public AutoTrainingConfig getAutoTrainingConfig() {
+        return this.autoTrainingConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies the automatic training configuration to use.
+     * </p>
+     * 
+     * @param autoTrainingConfig
+     *        Specifies the automatic training configuration to use.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SolutionConfig withAutoTrainingConfig(AutoTrainingConfig autoTrainingConfig) {
+        setAutoTrainingConfig(autoTrainingConfig);
         return this;
     }
 
@@ -329,7 +502,13 @@ public class SolutionConfig implements Serializable, Cloneable, StructuredPojo {
         if (getFeatureTransformationParameters() != null)
             sb.append("FeatureTransformationParameters: ").append(getFeatureTransformationParameters()).append(",");
         if (getAutoMLConfig() != null)
-            sb.append("AutoMLConfig: ").append(getAutoMLConfig());
+            sb.append("AutoMLConfig: ").append(getAutoMLConfig()).append(",");
+        if (getOptimizationObjective() != null)
+            sb.append("OptimizationObjective: ").append(getOptimizationObjective()).append(",");
+        if (getTrainingDataConfig() != null)
+            sb.append("TrainingDataConfig: ").append(getTrainingDataConfig()).append(",");
+        if (getAutoTrainingConfig() != null)
+            sb.append("AutoTrainingConfig: ").append(getAutoTrainingConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -365,6 +544,18 @@ public class SolutionConfig implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getAutoMLConfig() != null && other.getAutoMLConfig().equals(this.getAutoMLConfig()) == false)
             return false;
+        if (other.getOptimizationObjective() == null ^ this.getOptimizationObjective() == null)
+            return false;
+        if (other.getOptimizationObjective() != null && other.getOptimizationObjective().equals(this.getOptimizationObjective()) == false)
+            return false;
+        if (other.getTrainingDataConfig() == null ^ this.getTrainingDataConfig() == null)
+            return false;
+        if (other.getTrainingDataConfig() != null && other.getTrainingDataConfig().equals(this.getTrainingDataConfig()) == false)
+            return false;
+        if (other.getAutoTrainingConfig() == null ^ this.getAutoTrainingConfig() == null)
+            return false;
+        if (other.getAutoTrainingConfig() != null && other.getAutoTrainingConfig().equals(this.getAutoTrainingConfig()) == false)
+            return false;
         return true;
     }
 
@@ -378,6 +569,9 @@ public class SolutionConfig implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getAlgorithmHyperParameters() == null) ? 0 : getAlgorithmHyperParameters().hashCode());
         hashCode = prime * hashCode + ((getFeatureTransformationParameters() == null) ? 0 : getFeatureTransformationParameters().hashCode());
         hashCode = prime * hashCode + ((getAutoMLConfig() == null) ? 0 : getAutoMLConfig().hashCode());
+        hashCode = prime * hashCode + ((getOptimizationObjective() == null) ? 0 : getOptimizationObjective().hashCode());
+        hashCode = prime * hashCode + ((getTrainingDataConfig() == null) ? 0 : getTrainingDataConfig().hashCode());
+        hashCode = prime * hashCode + ((getAutoTrainingConfig() == null) ? 0 : getAutoTrainingConfig().hashCode());
         return hashCode;
     }
 

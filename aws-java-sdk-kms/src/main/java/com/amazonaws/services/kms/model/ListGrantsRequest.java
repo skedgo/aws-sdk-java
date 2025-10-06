@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not
+     * Use this parameter to specify the maximum number of items to return. When this value is present, KMS does not
      * return more than the specified number of items, but it might return fewer.
      * </p>
      * <p>
@@ -45,11 +45,11 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     private String marker;
     /**
      * <p>
-     * A unique identifier for the customer master key (CMK).
+     * Returns only grants for the specified KMS key. This parameter is required.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you
-     * must use the key ARN.
+     * Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services account,
+     * you must use the key ARN.
      * </p>
      * <p>
      * For example:
@@ -67,14 +67,26 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      */
     private String keyId;
+    /**
+     * <p>
+     * Returns only the grant with the specified grant ID. The grant ID uniquely identifies the grant.
+     * </p>
+     */
+    private String grantId;
+    /**
+     * <p>
+     * Returns only grants where the specified principal is the grantee principal for the grant.
+     * </p>
+     */
+    private String granteePrincipal;
 
     /**
      * <p>
-     * Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not
+     * Use this parameter to specify the maximum number of items to return. When this value is present, KMS does not
      * return more than the specified number of items, but it might return fewer.
      * </p>
      * <p>
@@ -83,8 +95,8 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </p>
      * 
      * @param limit
-     *        Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS
-     *        does not return more than the specified number of items, but it might return fewer.</p>
+     *        Use this parameter to specify the maximum number of items to return. When this value is present, KMS does
+     *        not return more than the specified number of items, but it might return fewer.</p>
      *        <p>
      *        This value is optional. If you include a value, it must be between 1 and 100, inclusive. If you do not
      *        include a value, it defaults to 50.
@@ -96,7 +108,7 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not
+     * Use this parameter to specify the maximum number of items to return. When this value is present, KMS does not
      * return more than the specified number of items, but it might return fewer.
      * </p>
      * <p>
@@ -104,8 +116,8 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * value, it defaults to 50.
      * </p>
      * 
-     * @return Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS
-     *         does not return more than the specified number of items, but it might return fewer.</p>
+     * @return Use this parameter to specify the maximum number of items to return. When this value is present, KMS does
+     *         not return more than the specified number of items, but it might return fewer.</p>
      *         <p>
      *         This value is optional. If you include a value, it must be between 1 and 100, inclusive. If you do not
      *         include a value, it defaults to 50.
@@ -117,7 +129,7 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS does not
+     * Use this parameter to specify the maximum number of items to return. When this value is present, KMS does not
      * return more than the specified number of items, but it might return fewer.
      * </p>
      * <p>
@@ -126,8 +138,8 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </p>
      * 
      * @param limit
-     *        Use this parameter to specify the maximum number of items to return. When this value is present, AWS KMS
-     *        does not return more than the specified number of items, but it might return fewer.</p>
+     *        Use this parameter to specify the maximum number of items to return. When this value is present, KMS does
+     *        not return more than the specified number of items, but it might return fewer.</p>
      *        <p>
      *        This value is optional. If you include a value, it must be between 1 and 100, inclusive. If you do not
      *        include a value, it defaults to 50.
@@ -187,11 +199,11 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A unique identifier for the customer master key (CMK).
+     * Returns only grants for the specified KMS key. This parameter is required.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you
-     * must use the key ARN.
+     * Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services account,
+     * you must use the key ARN.
      * </p>
      * <p>
      * For example:
@@ -209,13 +221,13 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
      * @param keyId
-     *        A unique identifier for the customer master key (CMK).</p>
+     *        Returns only grants for the specified KMS key. This parameter is required.</p>
      *        <p>
-     *        Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS
+     *        Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services
      *        account, you must use the key ARN.
      *        </p>
      *        <p>
@@ -234,7 +246,7 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *        </li>
      *        </ul>
      *        <p>
-     *        To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *        To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      */
 
     public void setKeyId(String keyId) {
@@ -243,11 +255,11 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A unique identifier for the customer master key (CMK).
+     * Returns only grants for the specified KMS key. This parameter is required.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you
-     * must use the key ARN.
+     * Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services account,
+     * you must use the key ARN.
      * </p>
      * <p>
      * For example:
@@ -265,12 +277,12 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
-     * @return A unique identifier for the customer master key (CMK).</p>
+     * @return Returns only grants for the specified KMS key. This parameter is required.</p>
      *         <p>
-     *         Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS
+     *         Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services
      *         account, you must use the key ARN.
      *         </p>
      *         <p>
@@ -289,7 +301,7 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *         </li>
      *         </ul>
      *         <p>
-     *         To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *         To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      */
 
     public String getKeyId() {
@@ -298,11 +310,11 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A unique identifier for the customer master key (CMK).
+     * Returns only grants for the specified KMS key. This parameter is required.
      * </p>
      * <p>
-     * Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you
-     * must use the key ARN.
+     * Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services account,
+     * you must use the key ARN.
      * </p>
      * <p>
      * For example:
@@ -320,13 +332,13 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </li>
      * </ul>
      * <p>
-     * To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     * To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * </p>
      * 
      * @param keyId
-     *        A unique identifier for the customer master key (CMK).</p>
+     *        Returns only grants for the specified KMS key. This parameter is required.</p>
      *        <p>
-     *        Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS
+     *        Specify the key ID or key ARN of the KMS key. To specify a KMS key in a different Amazon Web Services
      *        account, you must use the key ARN.
      *        </p>
      *        <p>
@@ -345,12 +357,92 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *        </li>
      *        </ul>
      *        <p>
-     *        To get the key ID and key ARN for a CMK, use <a>ListKeys</a> or <a>DescribeKey</a>.
+     *        To get the key ID and key ARN for a KMS key, use <a>ListKeys</a> or <a>DescribeKey</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ListGrantsRequest withKeyId(String keyId) {
         setKeyId(keyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Returns only the grant with the specified grant ID. The grant ID uniquely identifies the grant.
+     * </p>
+     * 
+     * @param grantId
+     *        Returns only the grant with the specified grant ID. The grant ID uniquely identifies the grant.
+     */
+
+    public void setGrantId(String grantId) {
+        this.grantId = grantId;
+    }
+
+    /**
+     * <p>
+     * Returns only the grant with the specified grant ID. The grant ID uniquely identifies the grant.
+     * </p>
+     * 
+     * @return Returns only the grant with the specified grant ID. The grant ID uniquely identifies the grant.
+     */
+
+    public String getGrantId() {
+        return this.grantId;
+    }
+
+    /**
+     * <p>
+     * Returns only the grant with the specified grant ID. The grant ID uniquely identifies the grant.
+     * </p>
+     * 
+     * @param grantId
+     *        Returns only the grant with the specified grant ID. The grant ID uniquely identifies the grant.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListGrantsRequest withGrantId(String grantId) {
+        setGrantId(grantId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Returns only grants where the specified principal is the grantee principal for the grant.
+     * </p>
+     * 
+     * @param granteePrincipal
+     *        Returns only grants where the specified principal is the grantee principal for the grant.
+     */
+
+    public void setGranteePrincipal(String granteePrincipal) {
+        this.granteePrincipal = granteePrincipal;
+    }
+
+    /**
+     * <p>
+     * Returns only grants where the specified principal is the grantee principal for the grant.
+     * </p>
+     * 
+     * @return Returns only grants where the specified principal is the grantee principal for the grant.
+     */
+
+    public String getGranteePrincipal() {
+        return this.granteePrincipal;
+    }
+
+    /**
+     * <p>
+     * Returns only grants where the specified principal is the grantee principal for the grant.
+     * </p>
+     * 
+     * @param granteePrincipal
+     *        Returns only grants where the specified principal is the grantee principal for the grant.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListGrantsRequest withGranteePrincipal(String granteePrincipal) {
+        setGranteePrincipal(granteePrincipal);
         return this;
     }
 
@@ -371,7 +463,11 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
         if (getMarker() != null)
             sb.append("Marker: ").append(getMarker()).append(",");
         if (getKeyId() != null)
-            sb.append("KeyId: ").append(getKeyId());
+            sb.append("KeyId: ").append(getKeyId()).append(",");
+        if (getGrantId() != null)
+            sb.append("GrantId: ").append(getGrantId()).append(",");
+        if (getGranteePrincipal() != null)
+            sb.append("GranteePrincipal: ").append(getGranteePrincipal());
         sb.append("}");
         return sb.toString();
     }
@@ -398,6 +494,14 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
             return false;
         if (other.getKeyId() != null && other.getKeyId().equals(this.getKeyId()) == false)
             return false;
+        if (other.getGrantId() == null ^ this.getGrantId() == null)
+            return false;
+        if (other.getGrantId() != null && other.getGrantId().equals(this.getGrantId()) == false)
+            return false;
+        if (other.getGranteePrincipal() == null ^ this.getGranteePrincipal() == null)
+            return false;
+        if (other.getGranteePrincipal() != null && other.getGranteePrincipal().equals(this.getGranteePrincipal()) == false)
+            return false;
         return true;
     }
 
@@ -409,6 +513,8 @@ public class ListGrantsRequest extends com.amazonaws.AmazonWebServiceRequest imp
         hashCode = prime * hashCode + ((getLimit() == null) ? 0 : getLimit().hashCode());
         hashCode = prime * hashCode + ((getMarker() == null) ? 0 : getMarker().hashCode());
         hashCode = prime * hashCode + ((getKeyId() == null) ? 0 : getKeyId().hashCode());
+        hashCode = prime * hashCode + ((getGrantId() == null) ? 0 : getGrantId().hashCode());
+        hashCode = prime * hashCode + ((getGranteePrincipal() == null) ? 0 : getGranteePrincipal().hashCode());
         return hashCode;
     }
 

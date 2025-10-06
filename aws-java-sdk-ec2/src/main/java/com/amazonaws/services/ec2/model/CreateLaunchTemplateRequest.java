@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class CreateLaunchTemplateRequest extends AmazonWebServiceRequest impleme
      * <p>
      * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see
      * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     * Idempotency</a>.
+     * idempotency</a>.
      * </p>
      * <p>
      * Constraint: Maximum 128 ASCII characters.
@@ -57,7 +57,14 @@ public class CreateLaunchTemplateRequest extends AmazonWebServiceRequest impleme
     private RequestLaunchTemplateData launchTemplateData;
     /**
      * <p>
-     * The tags to apply to the launch template during creation.
+     * The tags to apply to the launch template on creation. To tag the launch template, the resource type must be
+     * <code>launch-template</code>.
+     * </p>
+     * <p>
+     * To specify the tags for the resources that are created when an instance is launched, you must use the
+     * <code>TagSpecifications</code> parameter in the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestLaunchTemplateData.html">launch template
+     * data</a> structure.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<TagSpecification> tagSpecifications;
@@ -66,7 +73,7 @@ public class CreateLaunchTemplateRequest extends AmazonWebServiceRequest impleme
      * <p>
      * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see
      * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     * Idempotency</a>.
+     * idempotency</a>.
      * </p>
      * <p>
      * Constraint: Maximum 128 ASCII characters.
@@ -76,7 +83,7 @@ public class CreateLaunchTemplateRequest extends AmazonWebServiceRequest impleme
      *        Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more
      *        information, see <a
      *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     *        Idempotency</a>.</p>
+     *        idempotency</a>.</p>
      *        <p>
      *        Constraint: Maximum 128 ASCII characters.
      */
@@ -89,7 +96,7 @@ public class CreateLaunchTemplateRequest extends AmazonWebServiceRequest impleme
      * <p>
      * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see
      * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     * Idempotency</a>.
+     * idempotency</a>.
      * </p>
      * <p>
      * Constraint: Maximum 128 ASCII characters.
@@ -98,7 +105,7 @@ public class CreateLaunchTemplateRequest extends AmazonWebServiceRequest impleme
      * @return Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more
      *         information, see <a
      *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     *         Idempotency</a>.</p>
+     *         idempotency</a>.</p>
      *         <p>
      *         Constraint: Maximum 128 ASCII characters.
      */
@@ -111,7 +118,7 @@ public class CreateLaunchTemplateRequest extends AmazonWebServiceRequest impleme
      * <p>
      * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see
      * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     * Idempotency</a>.
+     * idempotency</a>.
      * </p>
      * <p>
      * Constraint: Maximum 128 ASCII characters.
@@ -121,7 +128,7 @@ public class CreateLaunchTemplateRequest extends AmazonWebServiceRequest impleme
      *        Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more
      *        information, see <a
      *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring
-     *        Idempotency</a>.</p>
+     *        idempotency</a>.</p>
      *        <p>
      *        Constraint: Maximum 128 ASCII characters.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -254,10 +261,23 @@ public class CreateLaunchTemplateRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The tags to apply to the launch template during creation.
+     * The tags to apply to the launch template on creation. To tag the launch template, the resource type must be
+     * <code>launch-template</code>.
+     * </p>
+     * <p>
+     * To specify the tags for the resources that are created when an instance is launched, you must use the
+     * <code>TagSpecifications</code> parameter in the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestLaunchTemplateData.html">launch template
+     * data</a> structure.
      * </p>
      * 
-     * @return The tags to apply to the launch template during creation.
+     * @return The tags to apply to the launch template on creation. To tag the launch template, the resource type must
+     *         be <code>launch-template</code>.</p>
+     *         <p>
+     *         To specify the tags for the resources that are created when an instance is launched, you must use the
+     *         <code>TagSpecifications</code> parameter in the <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestLaunchTemplateData.html">launch
+     *         template data</a> structure.
      */
 
     public java.util.List<TagSpecification> getTagSpecifications() {
@@ -269,11 +289,24 @@ public class CreateLaunchTemplateRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The tags to apply to the launch template during creation.
+     * The tags to apply to the launch template on creation. To tag the launch template, the resource type must be
+     * <code>launch-template</code>.
+     * </p>
+     * <p>
+     * To specify the tags for the resources that are created when an instance is launched, you must use the
+     * <code>TagSpecifications</code> parameter in the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestLaunchTemplateData.html">launch template
+     * data</a> structure.
      * </p>
      * 
      * @param tagSpecifications
-     *        The tags to apply to the launch template during creation.
+     *        The tags to apply to the launch template on creation. To tag the launch template, the resource type must
+     *        be <code>launch-template</code>.</p>
+     *        <p>
+     *        To specify the tags for the resources that are created when an instance is launched, you must use the
+     *        <code>TagSpecifications</code> parameter in the <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestLaunchTemplateData.html">launch
+     *        template data</a> structure.
      */
 
     public void setTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
@@ -287,7 +320,14 @@ public class CreateLaunchTemplateRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The tags to apply to the launch template during creation.
+     * The tags to apply to the launch template on creation. To tag the launch template, the resource type must be
+     * <code>launch-template</code>.
+     * </p>
+     * <p>
+     * To specify the tags for the resources that are created when an instance is launched, you must use the
+     * <code>TagSpecifications</code> parameter in the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestLaunchTemplateData.html">launch template
+     * data</a> structure.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -296,7 +336,13 @@ public class CreateLaunchTemplateRequest extends AmazonWebServiceRequest impleme
      * </p>
      * 
      * @param tagSpecifications
-     *        The tags to apply to the launch template during creation.
+     *        The tags to apply to the launch template on creation. To tag the launch template, the resource type must
+     *        be <code>launch-template</code>.</p>
+     *        <p>
+     *        To specify the tags for the resources that are created when an instance is launched, you must use the
+     *        <code>TagSpecifications</code> parameter in the <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestLaunchTemplateData.html">launch
+     *        template data</a> structure.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -312,11 +358,24 @@ public class CreateLaunchTemplateRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The tags to apply to the launch template during creation.
+     * The tags to apply to the launch template on creation. To tag the launch template, the resource type must be
+     * <code>launch-template</code>.
+     * </p>
+     * <p>
+     * To specify the tags for the resources that are created when an instance is launched, you must use the
+     * <code>TagSpecifications</code> parameter in the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestLaunchTemplateData.html">launch template
+     * data</a> structure.
      * </p>
      * 
      * @param tagSpecifications
-     *        The tags to apply to the launch template during creation.
+     *        The tags to apply to the launch template on creation. To tag the launch template, the resource type must
+     *        be <code>launch-template</code>.</p>
+     *        <p>
+     *        To specify the tags for the resources that are created when an instance is launched, you must use the
+     *        <code>TagSpecifications</code> parameter in the <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestLaunchTemplateData.html">launch
+     *        template data</a> structure.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,7 +41,8 @@ public class ObjectReference implements Serializable, Cloneable, StructuredPojo 
      * <p>
      * <i>$ObjectIdentifier</i> - An object identifier is an opaque string provided by Amazon Cloud Directory. When
      * creating objects, the system will provide you with the identifier of the created object. An object’s identifier
-     * is immutable and no two objects will ever share the same object identifier
+     * is immutable and no two objects will ever share the same object identifier. To identify an object with
+     * ObjectIdentifier, the ObjectIdentifier must be wrapped in double quotes.
      * </p>
      * </li>
      * <li>
@@ -71,7 +72,8 @@ public class ObjectReference implements Serializable, Cloneable, StructuredPojo 
      * <p>
      * <i>$ObjectIdentifier</i> - An object identifier is an opaque string provided by Amazon Cloud Directory. When
      * creating objects, the system will provide you with the identifier of the created object. An object’s identifier
-     * is immutable and no two objects will ever share the same object identifier
+     * is immutable and no two objects will ever share the same object identifier. To identify an object with
+     * ObjectIdentifier, the ObjectIdentifier must be wrapped in double quotes.
      * </p>
      * </li>
      * <li>
@@ -97,7 +99,8 @@ public class ObjectReference implements Serializable, Cloneable, StructuredPojo 
      *        <p>
      *        <i>$ObjectIdentifier</i> - An object identifier is an opaque string provided by Amazon Cloud Directory.
      *        When creating objects, the system will provide you with the identifier of the created object. An object’s
-     *        identifier is immutable and no two objects will ever share the same object identifier
+     *        identifier is immutable and no two objects will ever share the same object identifier. To identify an
+     *        object with ObjectIdentifier, the ObjectIdentifier must be wrapped in double quotes.
      *        </p>
      *        </li>
      *        <li>
@@ -129,7 +132,8 @@ public class ObjectReference implements Serializable, Cloneable, StructuredPojo 
      * <p>
      * <i>$ObjectIdentifier</i> - An object identifier is an opaque string provided by Amazon Cloud Directory. When
      * creating objects, the system will provide you with the identifier of the created object. An object’s identifier
-     * is immutable and no two objects will ever share the same object identifier
+     * is immutable and no two objects will ever share the same object identifier. To identify an object with
+     * ObjectIdentifier, the ObjectIdentifier must be wrapped in double quotes.
      * </p>
      * </li>
      * <li>
@@ -155,7 +159,8 @@ public class ObjectReference implements Serializable, Cloneable, StructuredPojo 
      *         <p>
      *         <i>$ObjectIdentifier</i> - An object identifier is an opaque string provided by Amazon Cloud Directory.
      *         When creating objects, the system will provide you with the identifier of the created object. An object’s
-     *         identifier is immutable and no two objects will ever share the same object identifier
+     *         identifier is immutable and no two objects will ever share the same object identifier. To identify an
+     *         object with ObjectIdentifier, the ObjectIdentifier must be wrapped in double quotes.
      *         </p>
      *         </li>
      *         <li>
@@ -187,7 +192,8 @@ public class ObjectReference implements Serializable, Cloneable, StructuredPojo 
      * <p>
      * <i>$ObjectIdentifier</i> - An object identifier is an opaque string provided by Amazon Cloud Directory. When
      * creating objects, the system will provide you with the identifier of the created object. An object’s identifier
-     * is immutable and no two objects will ever share the same object identifier
+     * is immutable and no two objects will ever share the same object identifier. To identify an object with
+     * ObjectIdentifier, the ObjectIdentifier must be wrapped in double quotes.
      * </p>
      * </li>
      * <li>
@@ -213,7 +219,8 @@ public class ObjectReference implements Serializable, Cloneable, StructuredPojo 
      *        <p>
      *        <i>$ObjectIdentifier</i> - An object identifier is an opaque string provided by Amazon Cloud Directory.
      *        When creating objects, the system will provide you with the identifier of the created object. An object’s
-     *        identifier is immutable and no two objects will ever share the same object identifier
+     *        identifier is immutable and no two objects will ever share the same object identifier. To identify an
+     *        object with ObjectIdentifier, the ObjectIdentifier must be wrapped in double quotes.
      *        </p>
      *        </li>
      *        <li>

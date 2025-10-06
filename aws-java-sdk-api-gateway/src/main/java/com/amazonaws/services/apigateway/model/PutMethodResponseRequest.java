@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Request to add a <a>MethodResponse</a> to an existing <a>Method</a> resource.
+ * Request to add a MethodResponse to an existing Method resource.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -27,25 +27,25 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      */
     private String restApiId;
     /**
      * <p>
-     * [Required] The <a>Resource</a> identifier for the <a>Method</a> resource.
+     * The Resource identifier for the Method resource.
      * </p>
      */
     private String resourceId;
     /**
      * <p>
-     * [Required] The HTTP verb of the <a>Method</a> resource.
+     * The HTTP verb of the Method resource.
      * </p>
      */
     private String httpMethod;
     /**
      * <p>
-     * [Required] The method response's status code.
+     * The method response's status code.
      * </p>
      */
     private String statusCode;
@@ -65,19 +65,19 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
     private java.util.Map<String, Boolean> responseParameters;
     /**
      * <p>
-     * Specifies the <a>Model</a> resources used for the response's content type. Response models are represented as a
-     * key/value map, with a content type as the key and a <a>Model</a> name as the value.
+     * Specifies the Model resources used for the response's content type. Response models are represented as a
+     * key/value map, with a content type as the key and a Model name as the value.
      * </p>
      */
     private java.util.Map<String, String> responseModels;
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      */
 
     public void setRestApiId(String restApiId) {
@@ -86,10 +86,10 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
-     * @return [Required] The string identifier of the associated <a>RestApi</a>.
+     * @return The string identifier of the associated RestApi.
      */
 
     public String getRestApiId() {
@@ -98,11 +98,11 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -113,11 +113,11 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [Required] The <a>Resource</a> identifier for the <a>Method</a> resource.
+     * The Resource identifier for the Method resource.
      * </p>
      * 
      * @param resourceId
-     *        [Required] The <a>Resource</a> identifier for the <a>Method</a> resource.
+     *        The Resource identifier for the Method resource.
      */
 
     public void setResourceId(String resourceId) {
@@ -126,10 +126,10 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [Required] The <a>Resource</a> identifier for the <a>Method</a> resource.
+     * The Resource identifier for the Method resource.
      * </p>
      * 
-     * @return [Required] The <a>Resource</a> identifier for the <a>Method</a> resource.
+     * @return The Resource identifier for the Method resource.
      */
 
     public String getResourceId() {
@@ -138,11 +138,11 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [Required] The <a>Resource</a> identifier for the <a>Method</a> resource.
+     * The Resource identifier for the Method resource.
      * </p>
      * 
      * @param resourceId
-     *        [Required] The <a>Resource</a> identifier for the <a>Method</a> resource.
+     *        The Resource identifier for the Method resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -153,11 +153,11 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [Required] The HTTP verb of the <a>Method</a> resource.
+     * The HTTP verb of the Method resource.
      * </p>
      * 
      * @param httpMethod
-     *        [Required] The HTTP verb of the <a>Method</a> resource.
+     *        The HTTP verb of the Method resource.
      */
 
     public void setHttpMethod(String httpMethod) {
@@ -166,10 +166,10 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [Required] The HTTP verb of the <a>Method</a> resource.
+     * The HTTP verb of the Method resource.
      * </p>
      * 
-     * @return [Required] The HTTP verb of the <a>Method</a> resource.
+     * @return The HTTP verb of the Method resource.
      */
 
     public String getHttpMethod() {
@@ -178,11 +178,11 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [Required] The HTTP verb of the <a>Method</a> resource.
+     * The HTTP verb of the Method resource.
      * </p>
      * 
      * @param httpMethod
-     *        [Required] The HTTP verb of the <a>Method</a> resource.
+     *        The HTTP verb of the Method resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -193,11 +193,11 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [Required] The method response's status code.
+     * The method response's status code.
      * </p>
      * 
      * @param statusCode
-     *        [Required] The method response's status code.
+     *        The method response's status code.
      */
 
     public void setStatusCode(String statusCode) {
@@ -206,10 +206,10 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [Required] The method response's status code.
+     * The method response's status code.
      * </p>
      * 
-     * @return [Required] The method response's status code.
+     * @return The method response's status code.
      */
 
     public String getStatusCode() {
@@ -218,11 +218,11 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * [Required] The method response's status code.
+     * The method response's status code.
      * </p>
      * 
      * @param statusCode
-     *        [Required] The method response's status code.
+     *        The method response's status code.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -322,6 +322,13 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
         return this;
     }
 
+    /**
+     * Add a single ResponseParameters entry
+     *
+     * @see PutMethodResponseRequest#withResponseParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public PutMethodResponseRequest addResponseParametersEntry(String key, Boolean value) {
         if (null == this.responseParameters) {
             this.responseParameters = new java.util.HashMap<String, Boolean>();
@@ -345,12 +352,12 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies the <a>Model</a> resources used for the response's content type. Response models are represented as a
-     * key/value map, with a content type as the key and a <a>Model</a> name as the value.
+     * Specifies the Model resources used for the response's content type. Response models are represented as a
+     * key/value map, with a content type as the key and a Model name as the value.
      * </p>
      * 
-     * @return Specifies the <a>Model</a> resources used for the response's content type. Response models are
-     *         represented as a key/value map, with a content type as the key and a <a>Model</a> name as the value.
+     * @return Specifies the Model resources used for the response's content type. Response models are represented as a
+     *         key/value map, with a content type as the key and a Model name as the value.
      */
 
     public java.util.Map<String, String> getResponseModels() {
@@ -359,13 +366,13 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies the <a>Model</a> resources used for the response's content type. Response models are represented as a
-     * key/value map, with a content type as the key and a <a>Model</a> name as the value.
+     * Specifies the Model resources used for the response's content type. Response models are represented as a
+     * key/value map, with a content type as the key and a Model name as the value.
      * </p>
      * 
      * @param responseModels
-     *        Specifies the <a>Model</a> resources used for the response's content type. Response models are represented
-     *        as a key/value map, with a content type as the key and a <a>Model</a> name as the value.
+     *        Specifies the Model resources used for the response's content type. Response models are represented as a
+     *        key/value map, with a content type as the key and a Model name as the value.
      */
 
     public void setResponseModels(java.util.Map<String, String> responseModels) {
@@ -374,13 +381,13 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies the <a>Model</a> resources used for the response's content type. Response models are represented as a
-     * key/value map, with a content type as the key and a <a>Model</a> name as the value.
+     * Specifies the Model resources used for the response's content type. Response models are represented as a
+     * key/value map, with a content type as the key and a Model name as the value.
      * </p>
      * 
      * @param responseModels
-     *        Specifies the <a>Model</a> resources used for the response's content type. Response models are represented
-     *        as a key/value map, with a content type as the key and a <a>Model</a> name as the value.
+     *        Specifies the Model resources used for the response's content type. Response models are represented as a
+     *        key/value map, with a content type as the key and a Model name as the value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -388,6 +395,13 @@ public class PutMethodResponseRequest extends com.amazonaws.AmazonWebServiceRequ
         setResponseModels(responseModels);
         return this;
     }
+
+    /**
+     * Add a single ResponseModels entry
+     *
+     * @see PutMethodResponseRequest#withResponseModels
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public PutMethodResponseRequest addResponseModelsEntry(String key, String value) {
         if (null == this.responseModels) {

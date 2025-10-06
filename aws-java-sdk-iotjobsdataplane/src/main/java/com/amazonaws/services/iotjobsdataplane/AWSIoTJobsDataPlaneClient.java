@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.iotjobsdataplane.AWSIoTJobsDataPlaneClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.iotjobsdataplane.model.*;
+
 import com.amazonaws.services.iotjobsdataplane.model.transform.*;
 
 /**
@@ -90,28 +91,28 @@ public class AWSIoTJobsDataPlaneClient extends AmazonWebServiceClient implements
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidStateTransitionException").withModeledClass(
-                                    com.amazonaws.services.iotjobsdataplane.model.InvalidStateTransitionException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidStateTransitionException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotjobsdataplane.model.transform.InvalidStateTransitionExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TerminalStateException").withModeledClass(
-                                    com.amazonaws.services.iotjobsdataplane.model.TerminalStateException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TerminalStateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotjobsdataplane.model.transform.TerminalStateExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withModeledClass(
-                                    com.amazonaws.services.iotjobsdataplane.model.ServiceUnavailableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotjobsdataplane.model.transform.ServiceUnavailableExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withModeledClass(
-                                    com.amazonaws.services.iotjobsdataplane.model.InvalidRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotjobsdataplane.model.transform.InvalidRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withModeledClass(
-                                    com.amazonaws.services.iotjobsdataplane.model.ThrottlingException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotjobsdataplane.model.transform.ThrottlingExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CertificateValidationException").withModeledClass(
-                                    com.amazonaws.services.iotjobsdataplane.model.CertificateValidationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CertificateValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotjobsdataplane.model.transform.CertificateValidationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.iotjobsdataplane.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.iotjobsdataplane.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.iotjobsdataplane.model.AWSIoTJobsDataPlaneException.class));
 
     public static AWSIoTJobsDataPlaneClientBuilder builder() {
@@ -205,6 +206,8 @@ public class AWSIoTJobsDataPlaneClient extends AmazonWebServiceClient implements
                 request = new DescribeJobExecutionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeJobExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT Jobs Data Plane");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeJobExecution");
@@ -270,6 +273,8 @@ public class AWSIoTJobsDataPlaneClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(getPendingJobExecutionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT Jobs Data Plane");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPendingJobExecutions");
@@ -336,6 +341,8 @@ public class AWSIoTJobsDataPlaneClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(startNextPendingJobExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT Jobs Data Plane");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartNextPendingJobExecution");
@@ -405,6 +412,8 @@ public class AWSIoTJobsDataPlaneClient extends AmazonWebServiceClient implements
                 request = new UpdateJobExecutionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateJobExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "IoT Jobs Data Plane");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateJobExecution");
@@ -500,6 +509,11 @@ public class AWSIoTJobsDataPlaneClient extends AmazonWebServiceClient implements
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

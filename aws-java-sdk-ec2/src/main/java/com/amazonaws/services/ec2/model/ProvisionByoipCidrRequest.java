@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,10 @@ public class ProvisionByoipCidrRequest extends AmazonWebServiceRequest implement
 
     /**
      * <p>
-     * The public IPv4 address range, in CIDR notation. The most specific prefix that you can specify is /24. The
-     * address range cannot overlap with another address range that you've brought to this or another Region.
+     * The public IPv4 or IPv6 address range, in CIDR notation. The most specific IPv4 prefix that you can specify is
+     * /24. The most specific IPv6 address range that you can bring is /48 for CIDRs that are publicly advertisable and
+     * /56 for CIDRs that are not publicly advertisable. The address range cannot overlap with another address range
+     * that you've brought to this or another Region.
      * </p>
      */
     private String cidr;
@@ -41,20 +43,79 @@ public class ProvisionByoipCidrRequest extends AmazonWebServiceRequest implement
     private CidrAuthorizationContext cidrAuthorizationContext;
     /**
      * <p>
+     * (IPv6 only) Indicate whether the address range will be publicly advertised to the internet.
+     * </p>
+     * <p>
+     * Default: true
+     * </p>
+     */
+    private Boolean publiclyAdvertisable;
+    /**
+     * <p>
      * A description for the address range and the address pool.
      * </p>
      */
     private String description;
+    /**
+     * <p>
+     * The tags to apply to the address pool.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<TagSpecification> poolTagSpecifications;
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     */
+    private Boolean multiRegion;
+    /**
+     * <p>
+     * If you have <a href="https://docs.aws.amazon.com/local-zones/latest/ug/how-local-zones-work.html">Local Zones</a>
+     * enabled, you can choose a network border group for Local Zones when you provision and advertise a BYOIPv4 CIDR.
+     * Choose the network border group carefully as the EIP and the Amazon Web Services resource it is associated with
+     * must reside in the same network border group.
+     * </p>
+     * <p>
+     * You can provision BYOIP address ranges to and advertise them in the following Local Zone network border groups:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * us-east-1-dfw-2
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * us-west-2-lax-1
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * us-west-2-phx-2
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * You cannot provision or advertise BYOIPv6 address ranges in Local Zones at this time.
+     * </p>
+     * </note>
+     */
+    private String networkBorderGroup;
 
     /**
      * <p>
-     * The public IPv4 address range, in CIDR notation. The most specific prefix that you can specify is /24. The
-     * address range cannot overlap with another address range that you've brought to this or another Region.
+     * The public IPv4 or IPv6 address range, in CIDR notation. The most specific IPv4 prefix that you can specify is
+     * /24. The most specific IPv6 address range that you can bring is /48 for CIDRs that are publicly advertisable and
+     * /56 for CIDRs that are not publicly advertisable. The address range cannot overlap with another address range
+     * that you've brought to this or another Region.
      * </p>
      * 
      * @param cidr
-     *        The public IPv4 address range, in CIDR notation. The most specific prefix that you can specify is /24. The
-     *        address range cannot overlap with another address range that you've brought to this or another Region.
+     *        The public IPv4 or IPv6 address range, in CIDR notation. The most specific IPv4 prefix that you can
+     *        specify is /24. The most specific IPv6 address range that you can bring is /48 for CIDRs that are publicly
+     *        advertisable and /56 for CIDRs that are not publicly advertisable. The address range cannot overlap with
+     *        another address range that you've brought to this or another Region.
      */
 
     public void setCidr(String cidr) {
@@ -63,13 +124,16 @@ public class ProvisionByoipCidrRequest extends AmazonWebServiceRequest implement
 
     /**
      * <p>
-     * The public IPv4 address range, in CIDR notation. The most specific prefix that you can specify is /24. The
-     * address range cannot overlap with another address range that you've brought to this or another Region.
+     * The public IPv4 or IPv6 address range, in CIDR notation. The most specific IPv4 prefix that you can specify is
+     * /24. The most specific IPv6 address range that you can bring is /48 for CIDRs that are publicly advertisable and
+     * /56 for CIDRs that are not publicly advertisable. The address range cannot overlap with another address range
+     * that you've brought to this or another Region.
      * </p>
      * 
-     * @return The public IPv4 address range, in CIDR notation. The most specific prefix that you can specify is /24.
-     *         The address range cannot overlap with another address range that you've brought to this or another
-     *         Region.
+     * @return The public IPv4 or IPv6 address range, in CIDR notation. The most specific IPv4 prefix that you can
+     *         specify is /24. The most specific IPv6 address range that you can bring is /48 for CIDRs that are
+     *         publicly advertisable and /56 for CIDRs that are not publicly advertisable. The address range cannot
+     *         overlap with another address range that you've brought to this or another Region.
      */
 
     public String getCidr() {
@@ -78,13 +142,17 @@ public class ProvisionByoipCidrRequest extends AmazonWebServiceRequest implement
 
     /**
      * <p>
-     * The public IPv4 address range, in CIDR notation. The most specific prefix that you can specify is /24. The
-     * address range cannot overlap with another address range that you've brought to this or another Region.
+     * The public IPv4 or IPv6 address range, in CIDR notation. The most specific IPv4 prefix that you can specify is
+     * /24. The most specific IPv6 address range that you can bring is /48 for CIDRs that are publicly advertisable and
+     * /56 for CIDRs that are not publicly advertisable. The address range cannot overlap with another address range
+     * that you've brought to this or another Region.
      * </p>
      * 
      * @param cidr
-     *        The public IPv4 address range, in CIDR notation. The most specific prefix that you can specify is /24. The
-     *        address range cannot overlap with another address range that you've brought to this or another Region.
+     *        The public IPv4 or IPv6 address range, in CIDR notation. The most specific IPv4 prefix that you can
+     *        specify is /24. The most specific IPv6 address range that you can bring is /48 for CIDRs that are publicly
+     *        advertisable and /56 for CIDRs that are not publicly advertisable. The address range cannot overlap with
+     *        another address range that you've brought to this or another Region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -141,6 +209,78 @@ public class ProvisionByoipCidrRequest extends AmazonWebServiceRequest implement
 
     /**
      * <p>
+     * (IPv6 only) Indicate whether the address range will be publicly advertised to the internet.
+     * </p>
+     * <p>
+     * Default: true
+     * </p>
+     * 
+     * @param publiclyAdvertisable
+     *        (IPv6 only) Indicate whether the address range will be publicly advertised to the internet.</p>
+     *        <p>
+     *        Default: true
+     */
+
+    public void setPubliclyAdvertisable(Boolean publiclyAdvertisable) {
+        this.publiclyAdvertisable = publiclyAdvertisable;
+    }
+
+    /**
+     * <p>
+     * (IPv6 only) Indicate whether the address range will be publicly advertised to the internet.
+     * </p>
+     * <p>
+     * Default: true
+     * </p>
+     * 
+     * @return (IPv6 only) Indicate whether the address range will be publicly advertised to the internet.</p>
+     *         <p>
+     *         Default: true
+     */
+
+    public Boolean getPubliclyAdvertisable() {
+        return this.publiclyAdvertisable;
+    }
+
+    /**
+     * <p>
+     * (IPv6 only) Indicate whether the address range will be publicly advertised to the internet.
+     * </p>
+     * <p>
+     * Default: true
+     * </p>
+     * 
+     * @param publiclyAdvertisable
+     *        (IPv6 only) Indicate whether the address range will be publicly advertised to the internet.</p>
+     *        <p>
+     *        Default: true
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProvisionByoipCidrRequest withPubliclyAdvertisable(Boolean publiclyAdvertisable) {
+        setPubliclyAdvertisable(publiclyAdvertisable);
+        return this;
+    }
+
+    /**
+     * <p>
+     * (IPv6 only) Indicate whether the address range will be publicly advertised to the internet.
+     * </p>
+     * <p>
+     * Default: true
+     * </p>
+     * 
+     * @return (IPv6 only) Indicate whether the address range will be publicly advertised to the internet.</p>
+     *         <p>
+     *         Default: true
+     */
+
+    public Boolean isPubliclyAdvertisable() {
+        return this.publiclyAdvertisable;
+    }
+
+    /**
+     * <p>
      * A description for the address range and the address pool.
      * </p>
      * 
@@ -180,6 +320,339 @@ public class ProvisionByoipCidrRequest extends AmazonWebServiceRequest implement
     }
 
     /**
+     * <p>
+     * The tags to apply to the address pool.
+     * </p>
+     * 
+     * @return The tags to apply to the address pool.
+     */
+
+    public java.util.List<TagSpecification> getPoolTagSpecifications() {
+        if (poolTagSpecifications == null) {
+            poolTagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>();
+        }
+        return poolTagSpecifications;
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the address pool.
+     * </p>
+     * 
+     * @param poolTagSpecifications
+     *        The tags to apply to the address pool.
+     */
+
+    public void setPoolTagSpecifications(java.util.Collection<TagSpecification> poolTagSpecifications) {
+        if (poolTagSpecifications == null) {
+            this.poolTagSpecifications = null;
+            return;
+        }
+
+        this.poolTagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>(poolTagSpecifications);
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the address pool.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setPoolTagSpecifications(java.util.Collection)} or
+     * {@link #withPoolTagSpecifications(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param poolTagSpecifications
+     *        The tags to apply to the address pool.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProvisionByoipCidrRequest withPoolTagSpecifications(TagSpecification... poolTagSpecifications) {
+        if (this.poolTagSpecifications == null) {
+            setPoolTagSpecifications(new com.amazonaws.internal.SdkInternalList<TagSpecification>(poolTagSpecifications.length));
+        }
+        for (TagSpecification ele : poolTagSpecifications) {
+            this.poolTagSpecifications.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the address pool.
+     * </p>
+     * 
+     * @param poolTagSpecifications
+     *        The tags to apply to the address pool.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProvisionByoipCidrRequest withPoolTagSpecifications(java.util.Collection<TagSpecification> poolTagSpecifications) {
+        setPoolTagSpecifications(poolTagSpecifications);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     * 
+     * @param multiRegion
+     *        Reserved.
+     */
+
+    public void setMultiRegion(Boolean multiRegion) {
+        this.multiRegion = multiRegion;
+    }
+
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     * 
+     * @return Reserved.
+     */
+
+    public Boolean getMultiRegion() {
+        return this.multiRegion;
+    }
+
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     * 
+     * @param multiRegion
+     *        Reserved.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProvisionByoipCidrRequest withMultiRegion(Boolean multiRegion) {
+        setMultiRegion(multiRegion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     * 
+     * @return Reserved.
+     */
+
+    public Boolean isMultiRegion() {
+        return this.multiRegion;
+    }
+
+    /**
+     * <p>
+     * If you have <a href="https://docs.aws.amazon.com/local-zones/latest/ug/how-local-zones-work.html">Local Zones</a>
+     * enabled, you can choose a network border group for Local Zones when you provision and advertise a BYOIPv4 CIDR.
+     * Choose the network border group carefully as the EIP and the Amazon Web Services resource it is associated with
+     * must reside in the same network border group.
+     * </p>
+     * <p>
+     * You can provision BYOIP address ranges to and advertise them in the following Local Zone network border groups:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * us-east-1-dfw-2
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * us-west-2-lax-1
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * us-west-2-phx-2
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * You cannot provision or advertise BYOIPv6 address ranges in Local Zones at this time.
+     * </p>
+     * </note>
+     * 
+     * @param networkBorderGroup
+     *        If you have <a href="https://docs.aws.amazon.com/local-zones/latest/ug/how-local-zones-work.html">Local
+     *        Zones</a> enabled, you can choose a network border group for Local Zones when you provision and advertise
+     *        a BYOIPv4 CIDR. Choose the network border group carefully as the EIP and the Amazon Web Services resource
+     *        it is associated with must reside in the same network border group.</p>
+     *        <p>
+     *        You can provision BYOIP address ranges to and advertise them in the following Local Zone network border
+     *        groups:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        us-east-1-dfw-2
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        us-west-2-lax-1
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        us-west-2-phx-2
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        You cannot provision or advertise BYOIPv6 address ranges in Local Zones at this time.
+     *        </p>
+     */
+
+    public void setNetworkBorderGroup(String networkBorderGroup) {
+        this.networkBorderGroup = networkBorderGroup;
+    }
+
+    /**
+     * <p>
+     * If you have <a href="https://docs.aws.amazon.com/local-zones/latest/ug/how-local-zones-work.html">Local Zones</a>
+     * enabled, you can choose a network border group for Local Zones when you provision and advertise a BYOIPv4 CIDR.
+     * Choose the network border group carefully as the EIP and the Amazon Web Services resource it is associated with
+     * must reside in the same network border group.
+     * </p>
+     * <p>
+     * You can provision BYOIP address ranges to and advertise them in the following Local Zone network border groups:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * us-east-1-dfw-2
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * us-west-2-lax-1
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * us-west-2-phx-2
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * You cannot provision or advertise BYOIPv6 address ranges in Local Zones at this time.
+     * </p>
+     * </note>
+     * 
+     * @return If you have <a href="https://docs.aws.amazon.com/local-zones/latest/ug/how-local-zones-work.html">Local
+     *         Zones</a> enabled, you can choose a network border group for Local Zones when you provision and advertise
+     *         a BYOIPv4 CIDR. Choose the network border group carefully as the EIP and the Amazon Web Services resource
+     *         it is associated with must reside in the same network border group.</p>
+     *         <p>
+     *         You can provision BYOIP address ranges to and advertise them in the following Local Zone network border
+     *         groups:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         us-east-1-dfw-2
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         us-west-2-lax-1
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         us-west-2-phx-2
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <note>
+     *         <p>
+     *         You cannot provision or advertise BYOIPv6 address ranges in Local Zones at this time.
+     *         </p>
+     */
+
+    public String getNetworkBorderGroup() {
+        return this.networkBorderGroup;
+    }
+
+    /**
+     * <p>
+     * If you have <a href="https://docs.aws.amazon.com/local-zones/latest/ug/how-local-zones-work.html">Local Zones</a>
+     * enabled, you can choose a network border group for Local Zones when you provision and advertise a BYOIPv4 CIDR.
+     * Choose the network border group carefully as the EIP and the Amazon Web Services resource it is associated with
+     * must reside in the same network border group.
+     * </p>
+     * <p>
+     * You can provision BYOIP address ranges to and advertise them in the following Local Zone network border groups:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * us-east-1-dfw-2
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * us-west-2-lax-1
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * us-west-2-phx-2
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * You cannot provision or advertise BYOIPv6 address ranges in Local Zones at this time.
+     * </p>
+     * </note>
+     * 
+     * @param networkBorderGroup
+     *        If you have <a href="https://docs.aws.amazon.com/local-zones/latest/ug/how-local-zones-work.html">Local
+     *        Zones</a> enabled, you can choose a network border group for Local Zones when you provision and advertise
+     *        a BYOIPv4 CIDR. Choose the network border group carefully as the EIP and the Amazon Web Services resource
+     *        it is associated with must reside in the same network border group.</p>
+     *        <p>
+     *        You can provision BYOIP address ranges to and advertise them in the following Local Zone network border
+     *        groups:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        us-east-1-dfw-2
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        us-west-2-lax-1
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        us-west-2-phx-2
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        You cannot provision or advertise BYOIPv6 address ranges in Local Zones at this time.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProvisionByoipCidrRequest withNetworkBorderGroup(String networkBorderGroup) {
+        setNetworkBorderGroup(networkBorderGroup);
+        return this;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -206,8 +679,16 @@ public class ProvisionByoipCidrRequest extends AmazonWebServiceRequest implement
             sb.append("Cidr: ").append(getCidr()).append(",");
         if (getCidrAuthorizationContext() != null)
             sb.append("CidrAuthorizationContext: ").append(getCidrAuthorizationContext()).append(",");
+        if (getPubliclyAdvertisable() != null)
+            sb.append("PubliclyAdvertisable: ").append(getPubliclyAdvertisable()).append(",");
         if (getDescription() != null)
-            sb.append("Description: ").append(getDescription());
+            sb.append("Description: ").append(getDescription()).append(",");
+        if (getPoolTagSpecifications() != null)
+            sb.append("PoolTagSpecifications: ").append(getPoolTagSpecifications()).append(",");
+        if (getMultiRegion() != null)
+            sb.append("MultiRegion: ").append(getMultiRegion()).append(",");
+        if (getNetworkBorderGroup() != null)
+            sb.append("NetworkBorderGroup: ").append(getNetworkBorderGroup());
         sb.append("}");
         return sb.toString();
     }
@@ -230,9 +711,25 @@ public class ProvisionByoipCidrRequest extends AmazonWebServiceRequest implement
             return false;
         if (other.getCidrAuthorizationContext() != null && other.getCidrAuthorizationContext().equals(this.getCidrAuthorizationContext()) == false)
             return false;
+        if (other.getPubliclyAdvertisable() == null ^ this.getPubliclyAdvertisable() == null)
+            return false;
+        if (other.getPubliclyAdvertisable() != null && other.getPubliclyAdvertisable().equals(this.getPubliclyAdvertisable()) == false)
+            return false;
         if (other.getDescription() == null ^ this.getDescription() == null)
             return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
+            return false;
+        if (other.getPoolTagSpecifications() == null ^ this.getPoolTagSpecifications() == null)
+            return false;
+        if (other.getPoolTagSpecifications() != null && other.getPoolTagSpecifications().equals(this.getPoolTagSpecifications()) == false)
+            return false;
+        if (other.getMultiRegion() == null ^ this.getMultiRegion() == null)
+            return false;
+        if (other.getMultiRegion() != null && other.getMultiRegion().equals(this.getMultiRegion()) == false)
+            return false;
+        if (other.getNetworkBorderGroup() == null ^ this.getNetworkBorderGroup() == null)
+            return false;
+        if (other.getNetworkBorderGroup() != null && other.getNetworkBorderGroup().equals(this.getNetworkBorderGroup()) == false)
             return false;
         return true;
     }
@@ -244,7 +741,11 @@ public class ProvisionByoipCidrRequest extends AmazonWebServiceRequest implement
 
         hashCode = prime * hashCode + ((getCidr() == null) ? 0 : getCidr().hashCode());
         hashCode = prime * hashCode + ((getCidrAuthorizationContext() == null) ? 0 : getCidrAuthorizationContext().hashCode());
+        hashCode = prime * hashCode + ((getPubliclyAdvertisable() == null) ? 0 : getPubliclyAdvertisable().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        hashCode = prime * hashCode + ((getPoolTagSpecifications() == null) ? 0 : getPoolTagSpecifications().hashCode());
+        hashCode = prime * hashCode + ((getMultiRegion() == null) ? 0 : getMultiRegion().hashCode());
+        hashCode = prime * hashCode + ((getNetworkBorderGroup() == null) ? 0 : getNetworkBorderGroup().hashCode());
         return hashCode;
     }
 

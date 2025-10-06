@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,8 +17,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Information about an address range that is provisioned for use with your AWS resources through bring your own IP
- * addresses (BYOIP).
+ * Information about an address range that is provisioned for use with your Amazon Web Services resources through bring
+ * your own IP addresses (BYOIP).
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ByoipCidr" target="_top">AWS API
@@ -29,7 +29,7 @@ public class ByoipCidr implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The public IPv4 address range, in CIDR notation.
+     * The address range, in CIDR notation.
      * </p>
      */
     private String cidr;
@@ -41,24 +41,108 @@ public class ByoipCidr implements Serializable, Cloneable {
     private String description;
     /**
      * <p>
+     * The BYOIP CIDR associations with ASNs.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<AsnAssociation> asnAssociations;
+    /**
+     * <p>
      * Upon success, contains the ID of the address pool. Otherwise, contains an error message.
      * </p>
      */
     private String statusMessage;
     /**
      * <p>
-     * The state of the address pool.
+     * The state of the address range.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>advertised</code>: The address range is being advertised to the internet by Amazon Web Services.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>deprovisioned</code>: The address range is deprovisioned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>failed-deprovision</code>: The request to deprovision the address range was unsuccessful. Ensure that all
+     * EIPs from the range have been deallocated and try again.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>failed-provision</code>: The request to provision the address range was unsuccessful.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>pending-deprovision</code>: You’ve submitted a request to deprovision an address range and it's pending.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>pending-provision</code>: You’ve submitted a request to provision an address range and it's pending.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>provisioned</code>: The address range is provisioned and can be advertised. The range is not currently
+     * advertised.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>provisioned-not-publicly-advertisable</code>: The address range is provisioned and cannot be advertised.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String state;
+    /**
+     * <p>
+     * If you have <a href="https://docs.aws.amazon.com/local-zones/latest/ug/how-local-zones-work.html">Local Zones</a>
+     * enabled, you can choose a network border group for Local Zones when you provision and advertise a BYOIPv4 CIDR.
+     * Choose the network border group carefully as the EIP and the Amazon Web Services resource it is associated with
+     * must reside in the same network border group.
+     * </p>
+     * <p>
+     * You can provision BYOIP address ranges to and advertise them in the following Local Zone network border groups:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * us-east-1-dfw-2
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * us-west-2-lax-1
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * us-west-2-phx-2
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * You cannot provision or advertise BYOIPv6 address ranges in Local Zones at this time.
+     * </p>
+     * </note>
+     */
+    private String networkBorderGroup;
 
     /**
      * <p>
-     * The public IPv4 address range, in CIDR notation.
+     * The address range, in CIDR notation.
      * </p>
      * 
      * @param cidr
-     *        The public IPv4 address range, in CIDR notation.
+     *        The address range, in CIDR notation.
      */
 
     public void setCidr(String cidr) {
@@ -67,10 +151,10 @@ public class ByoipCidr implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The public IPv4 address range, in CIDR notation.
+     * The address range, in CIDR notation.
      * </p>
      * 
-     * @return The public IPv4 address range, in CIDR notation.
+     * @return The address range, in CIDR notation.
      */
 
     public String getCidr() {
@@ -79,11 +163,11 @@ public class ByoipCidr implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The public IPv4 address range, in CIDR notation.
+     * The address range, in CIDR notation.
      * </p>
      * 
      * @param cidr
-     *        The public IPv4 address range, in CIDR notation.
+     *        The address range, in CIDR notation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -134,6 +218,79 @@ public class ByoipCidr implements Serializable, Cloneable {
 
     /**
      * <p>
+     * The BYOIP CIDR associations with ASNs.
+     * </p>
+     * 
+     * @return The BYOIP CIDR associations with ASNs.
+     */
+
+    public java.util.List<AsnAssociation> getAsnAssociations() {
+        if (asnAssociations == null) {
+            asnAssociations = new com.amazonaws.internal.SdkInternalList<AsnAssociation>();
+        }
+        return asnAssociations;
+    }
+
+    /**
+     * <p>
+     * The BYOIP CIDR associations with ASNs.
+     * </p>
+     * 
+     * @param asnAssociations
+     *        The BYOIP CIDR associations with ASNs.
+     */
+
+    public void setAsnAssociations(java.util.Collection<AsnAssociation> asnAssociations) {
+        if (asnAssociations == null) {
+            this.asnAssociations = null;
+            return;
+        }
+
+        this.asnAssociations = new com.amazonaws.internal.SdkInternalList<AsnAssociation>(asnAssociations);
+    }
+
+    /**
+     * <p>
+     * The BYOIP CIDR associations with ASNs.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAsnAssociations(java.util.Collection)} or {@link #withAsnAssociations(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param asnAssociations
+     *        The BYOIP CIDR associations with ASNs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ByoipCidr withAsnAssociations(AsnAssociation... asnAssociations) {
+        if (this.asnAssociations == null) {
+            setAsnAssociations(new com.amazonaws.internal.SdkInternalList<AsnAssociation>(asnAssociations.length));
+        }
+        for (AsnAssociation ele : asnAssociations) {
+            this.asnAssociations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The BYOIP CIDR associations with ASNs.
+     * </p>
+     * 
+     * @param asnAssociations
+     *        The BYOIP CIDR associations with ASNs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ByoipCidr withAsnAssociations(java.util.Collection<AsnAssociation> asnAssociations) {
+        setAsnAssociations(asnAssociations);
+        return this;
+    }
+
+    /**
+     * <p>
      * Upon success, contains the ID of the address pool. Otherwise, contains an error message.
      * </p>
      * 
@@ -174,11 +331,100 @@ public class ByoipCidr implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The state of the address pool.
+     * The state of the address range.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>advertised</code>: The address range is being advertised to the internet by Amazon Web Services.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>deprovisioned</code>: The address range is deprovisioned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>failed-deprovision</code>: The request to deprovision the address range was unsuccessful. Ensure that all
+     * EIPs from the range have been deallocated and try again.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>failed-provision</code>: The request to provision the address range was unsuccessful.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>pending-deprovision</code>: You’ve submitted a request to deprovision an address range and it's pending.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>pending-provision</code>: You’ve submitted a request to provision an address range and it's pending.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>provisioned</code>: The address range is provisioned and can be advertised. The range is not currently
+     * advertised.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>provisioned-not-publicly-advertisable</code>: The address range is provisioned and cannot be advertised.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param state
-     *        The state of the address pool.
+     *        The state of the address range.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>advertised</code>: The address range is being advertised to the internet by Amazon Web Services.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>deprovisioned</code>: The address range is deprovisioned.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>failed-deprovision</code>: The request to deprovision the address range was unsuccessful. Ensure
+     *        that all EIPs from the range have been deallocated and try again.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>failed-provision</code>: The request to provision the address range was unsuccessful.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>pending-deprovision</code>: You’ve submitted a request to deprovision an address range and it's
+     *        pending.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>pending-provision</code>: You’ve submitted a request to provision an address range and it's pending.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>provisioned</code>: The address range is provisioned and can be advertised. The range is not
+     *        currently advertised.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>provisioned-not-publicly-advertisable</code>: The address range is provisioned and cannot be
+     *        advertised.
+     *        </p>
+     *        </li>
      * @see ByoipCidrState
      */
 
@@ -188,10 +434,100 @@ public class ByoipCidr implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The state of the address pool.
+     * The state of the address range.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>advertised</code>: The address range is being advertised to the internet by Amazon Web Services.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>deprovisioned</code>: The address range is deprovisioned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>failed-deprovision</code>: The request to deprovision the address range was unsuccessful. Ensure that all
+     * EIPs from the range have been deallocated and try again.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>failed-provision</code>: The request to provision the address range was unsuccessful.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>pending-deprovision</code>: You’ve submitted a request to deprovision an address range and it's pending.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>pending-provision</code>: You’ve submitted a request to provision an address range and it's pending.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>provisioned</code>: The address range is provisioned and can be advertised. The range is not currently
+     * advertised.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>provisioned-not-publicly-advertisable</code>: The address range is provisioned and cannot be advertised.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The state of the address pool.
+     * @return The state of the address range.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>advertised</code>: The address range is being advertised to the internet by Amazon Web Services.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>deprovisioned</code>: The address range is deprovisioned.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>failed-deprovision</code>: The request to deprovision the address range was unsuccessful. Ensure
+     *         that all EIPs from the range have been deallocated and try again.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>failed-provision</code>: The request to provision the address range was unsuccessful.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>pending-deprovision</code>: You’ve submitted a request to deprovision an address range and it's
+     *         pending.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>pending-provision</code>: You’ve submitted a request to provision an address range and it's
+     *         pending.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>provisioned</code>: The address range is provisioned and can be advertised. The range is not
+     *         currently advertised.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>provisioned-not-publicly-advertisable</code>: The address range is provisioned and cannot be
+     *         advertised.
+     *         </p>
+     *         </li>
      * @see ByoipCidrState
      */
 
@@ -201,11 +537,100 @@ public class ByoipCidr implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The state of the address pool.
+     * The state of the address range.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>advertised</code>: The address range is being advertised to the internet by Amazon Web Services.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>deprovisioned</code>: The address range is deprovisioned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>failed-deprovision</code>: The request to deprovision the address range was unsuccessful. Ensure that all
+     * EIPs from the range have been deallocated and try again.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>failed-provision</code>: The request to provision the address range was unsuccessful.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>pending-deprovision</code>: You’ve submitted a request to deprovision an address range and it's pending.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>pending-provision</code>: You’ve submitted a request to provision an address range and it's pending.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>provisioned</code>: The address range is provisioned and can be advertised. The range is not currently
+     * advertised.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>provisioned-not-publicly-advertisable</code>: The address range is provisioned and cannot be advertised.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param state
-     *        The state of the address pool.
+     *        The state of the address range.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>advertised</code>: The address range is being advertised to the internet by Amazon Web Services.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>deprovisioned</code>: The address range is deprovisioned.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>failed-deprovision</code>: The request to deprovision the address range was unsuccessful. Ensure
+     *        that all EIPs from the range have been deallocated and try again.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>failed-provision</code>: The request to provision the address range was unsuccessful.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>pending-deprovision</code>: You’ve submitted a request to deprovision an address range and it's
+     *        pending.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>pending-provision</code>: You’ve submitted a request to provision an address range and it's pending.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>provisioned</code>: The address range is provisioned and can be advertised. The range is not
+     *        currently advertised.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>provisioned-not-publicly-advertisable</code>: The address range is provisioned and cannot be
+     *        advertised.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ByoipCidrState
      */
@@ -217,17 +642,314 @@ public class ByoipCidr implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The state of the address pool.
+     * The state of the address range.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>advertised</code>: The address range is being advertised to the internet by Amazon Web Services.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>deprovisioned</code>: The address range is deprovisioned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>failed-deprovision</code>: The request to deprovision the address range was unsuccessful. Ensure that all
+     * EIPs from the range have been deallocated and try again.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>failed-provision</code>: The request to provision the address range was unsuccessful.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>pending-deprovision</code>: You’ve submitted a request to deprovision an address range and it's pending.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>pending-provision</code>: You’ve submitted a request to provision an address range and it's pending.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>provisioned</code>: The address range is provisioned and can be advertised. The range is not currently
+     * advertised.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>provisioned-not-publicly-advertisable</code>: The address range is provisioned and cannot be advertised.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param state
-     *        The state of the address pool.
+     *        The state of the address range.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>advertised</code>: The address range is being advertised to the internet by Amazon Web Services.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>deprovisioned</code>: The address range is deprovisioned.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>failed-deprovision</code>: The request to deprovision the address range was unsuccessful. Ensure
+     *        that all EIPs from the range have been deallocated and try again.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>failed-provision</code>: The request to provision the address range was unsuccessful.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>pending-deprovision</code>: You’ve submitted a request to deprovision an address range and it's
+     *        pending.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>pending-provision</code>: You’ve submitted a request to provision an address range and it's pending.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>provisioned</code>: The address range is provisioned and can be advertised. The range is not
+     *        currently advertised.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>provisioned-not-publicly-advertisable</code>: The address range is provisioned and cannot be
+     *        advertised.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ByoipCidrState
      */
 
     public ByoipCidr withState(ByoipCidrState state) {
         this.state = state.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * If you have <a href="https://docs.aws.amazon.com/local-zones/latest/ug/how-local-zones-work.html">Local Zones</a>
+     * enabled, you can choose a network border group for Local Zones when you provision and advertise a BYOIPv4 CIDR.
+     * Choose the network border group carefully as the EIP and the Amazon Web Services resource it is associated with
+     * must reside in the same network border group.
+     * </p>
+     * <p>
+     * You can provision BYOIP address ranges to and advertise them in the following Local Zone network border groups:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * us-east-1-dfw-2
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * us-west-2-lax-1
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * us-west-2-phx-2
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * You cannot provision or advertise BYOIPv6 address ranges in Local Zones at this time.
+     * </p>
+     * </note>
+     * 
+     * @param networkBorderGroup
+     *        If you have <a href="https://docs.aws.amazon.com/local-zones/latest/ug/how-local-zones-work.html">Local
+     *        Zones</a> enabled, you can choose a network border group for Local Zones when you provision and advertise
+     *        a BYOIPv4 CIDR. Choose the network border group carefully as the EIP and the Amazon Web Services resource
+     *        it is associated with must reside in the same network border group.</p>
+     *        <p>
+     *        You can provision BYOIP address ranges to and advertise them in the following Local Zone network border
+     *        groups:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        us-east-1-dfw-2
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        us-west-2-lax-1
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        us-west-2-phx-2
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        You cannot provision or advertise BYOIPv6 address ranges in Local Zones at this time.
+     *        </p>
+     */
+
+    public void setNetworkBorderGroup(String networkBorderGroup) {
+        this.networkBorderGroup = networkBorderGroup;
+    }
+
+    /**
+     * <p>
+     * If you have <a href="https://docs.aws.amazon.com/local-zones/latest/ug/how-local-zones-work.html">Local Zones</a>
+     * enabled, you can choose a network border group for Local Zones when you provision and advertise a BYOIPv4 CIDR.
+     * Choose the network border group carefully as the EIP and the Amazon Web Services resource it is associated with
+     * must reside in the same network border group.
+     * </p>
+     * <p>
+     * You can provision BYOIP address ranges to and advertise them in the following Local Zone network border groups:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * us-east-1-dfw-2
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * us-west-2-lax-1
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * us-west-2-phx-2
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * You cannot provision or advertise BYOIPv6 address ranges in Local Zones at this time.
+     * </p>
+     * </note>
+     * 
+     * @return If you have <a href="https://docs.aws.amazon.com/local-zones/latest/ug/how-local-zones-work.html">Local
+     *         Zones</a> enabled, you can choose a network border group for Local Zones when you provision and advertise
+     *         a BYOIPv4 CIDR. Choose the network border group carefully as the EIP and the Amazon Web Services resource
+     *         it is associated with must reside in the same network border group.</p>
+     *         <p>
+     *         You can provision BYOIP address ranges to and advertise them in the following Local Zone network border
+     *         groups:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         us-east-1-dfw-2
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         us-west-2-lax-1
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         us-west-2-phx-2
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <note>
+     *         <p>
+     *         You cannot provision or advertise BYOIPv6 address ranges in Local Zones at this time.
+     *         </p>
+     */
+
+    public String getNetworkBorderGroup() {
+        return this.networkBorderGroup;
+    }
+
+    /**
+     * <p>
+     * If you have <a href="https://docs.aws.amazon.com/local-zones/latest/ug/how-local-zones-work.html">Local Zones</a>
+     * enabled, you can choose a network border group for Local Zones when you provision and advertise a BYOIPv4 CIDR.
+     * Choose the network border group carefully as the EIP and the Amazon Web Services resource it is associated with
+     * must reside in the same network border group.
+     * </p>
+     * <p>
+     * You can provision BYOIP address ranges to and advertise them in the following Local Zone network border groups:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * us-east-1-dfw-2
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * us-west-2-lax-1
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * us-west-2-phx-2
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * You cannot provision or advertise BYOIPv6 address ranges in Local Zones at this time.
+     * </p>
+     * </note>
+     * 
+     * @param networkBorderGroup
+     *        If you have <a href="https://docs.aws.amazon.com/local-zones/latest/ug/how-local-zones-work.html">Local
+     *        Zones</a> enabled, you can choose a network border group for Local Zones when you provision and advertise
+     *        a BYOIPv4 CIDR. Choose the network border group carefully as the EIP and the Amazon Web Services resource
+     *        it is associated with must reside in the same network border group.</p>
+     *        <p>
+     *        You can provision BYOIP address ranges to and advertise them in the following Local Zone network border
+     *        groups:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        us-east-1-dfw-2
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        us-west-2-lax-1
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        us-west-2-phx-2
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        You cannot provision or advertise BYOIPv6 address ranges in Local Zones at this time.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ByoipCidr withNetworkBorderGroup(String networkBorderGroup) {
+        setNetworkBorderGroup(networkBorderGroup);
         return this;
     }
 
@@ -247,10 +969,14 @@ public class ByoipCidr implements Serializable, Cloneable {
             sb.append("Cidr: ").append(getCidr()).append(",");
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
+        if (getAsnAssociations() != null)
+            sb.append("AsnAssociations: ").append(getAsnAssociations()).append(",");
         if (getStatusMessage() != null)
             sb.append("StatusMessage: ").append(getStatusMessage()).append(",");
         if (getState() != null)
-            sb.append("State: ").append(getState());
+            sb.append("State: ").append(getState()).append(",");
+        if (getNetworkBorderGroup() != null)
+            sb.append("NetworkBorderGroup: ").append(getNetworkBorderGroup());
         sb.append("}");
         return sb.toString();
     }
@@ -273,6 +999,10 @@ public class ByoipCidr implements Serializable, Cloneable {
             return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
             return false;
+        if (other.getAsnAssociations() == null ^ this.getAsnAssociations() == null)
+            return false;
+        if (other.getAsnAssociations() != null && other.getAsnAssociations().equals(this.getAsnAssociations()) == false)
+            return false;
         if (other.getStatusMessage() == null ^ this.getStatusMessage() == null)
             return false;
         if (other.getStatusMessage() != null && other.getStatusMessage().equals(this.getStatusMessage()) == false)
@@ -280,6 +1010,10 @@ public class ByoipCidr implements Serializable, Cloneable {
         if (other.getState() == null ^ this.getState() == null)
             return false;
         if (other.getState() != null && other.getState().equals(this.getState()) == false)
+            return false;
+        if (other.getNetworkBorderGroup() == null ^ this.getNetworkBorderGroup() == null)
+            return false;
+        if (other.getNetworkBorderGroup() != null && other.getNetworkBorderGroup().equals(this.getNetworkBorderGroup()) == false)
             return false;
         return true;
     }
@@ -291,8 +1025,10 @@ public class ByoipCidr implements Serializable, Cloneable {
 
         hashCode = prime * hashCode + ((getCidr() == null) ? 0 : getCidr().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        hashCode = prime * hashCode + ((getAsnAssociations() == null) ? 0 : getAsnAssociations().hashCode());
         hashCode = prime * hashCode + ((getStatusMessage() == null) ? 0 : getStatusMessage().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
+        hashCode = prime * hashCode + ((getNetworkBorderGroup() == null) ? 0 : getNetworkBorderGroup().hashCode());
         return hashCode;
     }
 

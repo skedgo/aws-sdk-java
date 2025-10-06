@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * In an <a>UpdateResolverEndpoint</a> request, information about an IP address to update.
+ * In an <a
+ * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_UpdateResolverEndpoint.html"
+ * >UpdateResolverEndpoint</a> request, information about an IP address to update.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53resolver-2018-04-01/IpAddressUpdate" target="_top">AWS
@@ -30,34 +32,47 @@ public class IpAddressUpdate implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * <i>Only when removing an IP address from a resolver endpoint</i>: The ID of the IP address that you want to
-     * remove. To get this ID, use <a>GetResolverEndpoint</a>.
+     * <i>Only when removing an IP address from a Resolver endpoint</i>: The ID of the IP address that you want to
+     * remove. To get this ID, use <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_GetResolverEndpoint.html"
+     * >GetResolverEndpoint</a>.
      * </p>
      */
     private String ipId;
     /**
      * <p>
-     * The ID of the subnet that includes the IP address that you want to update. To get this ID, use
-     * <a>GetResolverEndpoint</a>.
+     * The ID of the subnet that includes the IP address that you want to update. To get this ID, use <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_GetResolverEndpoint.html"
+     * >GetResolverEndpoint</a>.
      * </p>
      */
     private String subnetId;
     /**
      * <p>
-     * The new IP address.
+     * The new IPv4 address.
      * </p>
      */
     private String ip;
+    /**
+     * <p>
+     * The new IPv6 address.
+     * </p>
+     */
+    private String ipv6;
 
     /**
      * <p>
-     * <i>Only when removing an IP address from a resolver endpoint</i>: The ID of the IP address that you want to
-     * remove. To get this ID, use <a>GetResolverEndpoint</a>.
+     * <i>Only when removing an IP address from a Resolver endpoint</i>: The ID of the IP address that you want to
+     * remove. To get this ID, use <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_GetResolverEndpoint.html"
+     * >GetResolverEndpoint</a>.
      * </p>
      * 
      * @param ipId
-     *        <i>Only when removing an IP address from a resolver endpoint</i>: The ID of the IP address that you want
-     *        to remove. To get this ID, use <a>GetResolverEndpoint</a>.
+     *        <i>Only when removing an IP address from a Resolver endpoint</i>: The ID of the IP address that you want
+     *        to remove. To get this ID, use <a href=
+     *        "https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_GetResolverEndpoint.html"
+     *        >GetResolverEndpoint</a>.
      */
 
     public void setIpId(String ipId) {
@@ -66,12 +81,16 @@ public class IpAddressUpdate implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * <i>Only when removing an IP address from a resolver endpoint</i>: The ID of the IP address that you want to
-     * remove. To get this ID, use <a>GetResolverEndpoint</a>.
+     * <i>Only when removing an IP address from a Resolver endpoint</i>: The ID of the IP address that you want to
+     * remove. To get this ID, use <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_GetResolverEndpoint.html"
+     * >GetResolverEndpoint</a>.
      * </p>
      * 
-     * @return <i>Only when removing an IP address from a resolver endpoint</i>: The ID of the IP address that you want
-     *         to remove. To get this ID, use <a>GetResolverEndpoint</a>.
+     * @return <i>Only when removing an IP address from a Resolver endpoint</i>: The ID of the IP address that you want
+     *         to remove. To get this ID, use <a href=
+     *         "https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_GetResolverEndpoint.html"
+     *         >GetResolverEndpoint</a>.
      */
 
     public String getIpId() {
@@ -80,13 +99,17 @@ public class IpAddressUpdate implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * <i>Only when removing an IP address from a resolver endpoint</i>: The ID of the IP address that you want to
-     * remove. To get this ID, use <a>GetResolverEndpoint</a>.
+     * <i>Only when removing an IP address from a Resolver endpoint</i>: The ID of the IP address that you want to
+     * remove. To get this ID, use <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_GetResolverEndpoint.html"
+     * >GetResolverEndpoint</a>.
      * </p>
      * 
      * @param ipId
-     *        <i>Only when removing an IP address from a resolver endpoint</i>: The ID of the IP address that you want
-     *        to remove. To get this ID, use <a>GetResolverEndpoint</a>.
+     *        <i>Only when removing an IP address from a Resolver endpoint</i>: The ID of the IP address that you want
+     *        to remove. To get this ID, use <a href=
+     *        "https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_GetResolverEndpoint.html"
+     *        >GetResolverEndpoint</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -97,13 +120,15 @@ public class IpAddressUpdate implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The ID of the subnet that includes the IP address that you want to update. To get this ID, use
-     * <a>GetResolverEndpoint</a>.
+     * The ID of the subnet that includes the IP address that you want to update. To get this ID, use <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_GetResolverEndpoint.html"
+     * >GetResolverEndpoint</a>.
      * </p>
      * 
      * @param subnetId
-     *        The ID of the subnet that includes the IP address that you want to update. To get this ID, use
-     *        <a>GetResolverEndpoint</a>.
+     *        The ID of the subnet that includes the IP address that you want to update. To get this ID, use <a href=
+     *        "https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_GetResolverEndpoint.html"
+     *        >GetResolverEndpoint</a>.
      */
 
     public void setSubnetId(String subnetId) {
@@ -112,12 +137,14 @@ public class IpAddressUpdate implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The ID of the subnet that includes the IP address that you want to update. To get this ID, use
-     * <a>GetResolverEndpoint</a>.
+     * The ID of the subnet that includes the IP address that you want to update. To get this ID, use <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_GetResolverEndpoint.html"
+     * >GetResolverEndpoint</a>.
      * </p>
      * 
-     * @return The ID of the subnet that includes the IP address that you want to update. To get this ID, use
-     *         <a>GetResolverEndpoint</a>.
+     * @return The ID of the subnet that includes the IP address that you want to update. To get this ID, use <a
+     *         href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_GetResolverEndpoint.html"
+     *         >GetResolverEndpoint</a>.
      */
 
     public String getSubnetId() {
@@ -126,13 +153,15 @@ public class IpAddressUpdate implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The ID of the subnet that includes the IP address that you want to update. To get this ID, use
-     * <a>GetResolverEndpoint</a>.
+     * The ID of the subnet that includes the IP address that you want to update. To get this ID, use <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_GetResolverEndpoint.html"
+     * >GetResolverEndpoint</a>.
      * </p>
      * 
      * @param subnetId
-     *        The ID of the subnet that includes the IP address that you want to update. To get this ID, use
-     *        <a>GetResolverEndpoint</a>.
+     *        The ID of the subnet that includes the IP address that you want to update. To get this ID, use <a href=
+     *        "https://docs.aws.amazon.com/Route53/latest/APIReference/API_route53resolver_GetResolverEndpoint.html"
+     *        >GetResolverEndpoint</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -143,11 +172,11 @@ public class IpAddressUpdate implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The new IP address.
+     * The new IPv4 address.
      * </p>
      * 
      * @param ip
-     *        The new IP address.
+     *        The new IPv4 address.
      */
 
     public void setIp(String ip) {
@@ -156,10 +185,10 @@ public class IpAddressUpdate implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The new IP address.
+     * The new IPv4 address.
      * </p>
      * 
-     * @return The new IP address.
+     * @return The new IPv4 address.
      */
 
     public String getIp() {
@@ -168,16 +197,56 @@ public class IpAddressUpdate implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The new IP address.
+     * The new IPv4 address.
      * </p>
      * 
      * @param ip
-     *        The new IP address.
+     *        The new IPv4 address.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public IpAddressUpdate withIp(String ip) {
         setIp(ip);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The new IPv6 address.
+     * </p>
+     * 
+     * @param ipv6
+     *        The new IPv6 address.
+     */
+
+    public void setIpv6(String ipv6) {
+        this.ipv6 = ipv6;
+    }
+
+    /**
+     * <p>
+     * The new IPv6 address.
+     * </p>
+     * 
+     * @return The new IPv6 address.
+     */
+
+    public String getIpv6() {
+        return this.ipv6;
+    }
+
+    /**
+     * <p>
+     * The new IPv6 address.
+     * </p>
+     * 
+     * @param ipv6
+     *        The new IPv6 address.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public IpAddressUpdate withIpv6(String ipv6) {
+        setIpv6(ipv6);
         return this;
     }
 
@@ -198,7 +267,9 @@ public class IpAddressUpdate implements Serializable, Cloneable, StructuredPojo 
         if (getSubnetId() != null)
             sb.append("SubnetId: ").append(getSubnetId()).append(",");
         if (getIp() != null)
-            sb.append("Ip: ").append(getIp());
+            sb.append("Ip: ").append(getIp()).append(",");
+        if (getIpv6() != null)
+            sb.append("Ipv6: ").append(getIpv6());
         sb.append("}");
         return sb.toString();
     }
@@ -225,6 +296,10 @@ public class IpAddressUpdate implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getIp() != null && other.getIp().equals(this.getIp()) == false)
             return false;
+        if (other.getIpv6() == null ^ this.getIpv6() == null)
+            return false;
+        if (other.getIpv6() != null && other.getIpv6().equals(this.getIpv6()) == false)
+            return false;
         return true;
     }
 
@@ -236,6 +311,7 @@ public class IpAddressUpdate implements Serializable, Cloneable, StructuredPojo 
         hashCode = prime * hashCode + ((getIpId() == null) ? 0 : getIpId().hashCode());
         hashCode = prime * hashCode + ((getSubnetId() == null) ? 0 : getSubnetId().hashCode());
         hashCode = prime * hashCode + ((getIp() == null) ? 0 : getIp().hashCode());
+        hashCode = prime * hashCode + ((getIpv6() == null) ? 0 : getIpv6().hashCode());
         return hashCode;
     }
 

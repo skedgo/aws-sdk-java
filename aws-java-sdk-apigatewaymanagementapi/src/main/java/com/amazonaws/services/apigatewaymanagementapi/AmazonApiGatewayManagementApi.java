@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,6 +46,46 @@ public interface AmazonApiGatewayManagementApi {
 
     /**
      * <p>
+     * Delete the connection with the provided id.
+     * </p>
+     * 
+     * @param deleteConnectionRequest
+     * @return Result of the DeleteConnection operation returned by the service.
+     * @throws GoneException
+     *         The connection with the provided id no longer exists.
+     * @throws LimitExceededException
+     *         The client is sending more than the allowed number of requests per unit of time or the WebSocket client
+     *         side buffer is full.
+     * @throws ForbiddenException
+     *         The caller is not authorized to invoke this operation.
+     * @sample AmazonApiGatewayManagementApi.DeleteConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/apigatewaymanagementapi-2018-11-29/DeleteConnection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteConnectionResult deleteConnection(DeleteConnectionRequest deleteConnectionRequest);
+
+    /**
+     * <p>
+     * Get information about the connection with the provided id.
+     * </p>
+     * 
+     * @param getConnectionRequest
+     * @return Result of the GetConnection operation returned by the service.
+     * @throws GoneException
+     *         The connection with the provided id no longer exists.
+     * @throws LimitExceededException
+     *         The client is sending more than the allowed number of requests per unit of time or the WebSocket client
+     *         side buffer is full.
+     * @throws ForbiddenException
+     *         The caller is not authorized to invoke this operation.
+     * @sample AmazonApiGatewayManagementApi.GetConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/apigatewaymanagementapi-2018-11-29/GetConnection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetConnectionResult getConnection(GetConnectionRequest getConnectionRequest);
+
+    /**
+     * <p>
      * Sends the provided data to the specified connection.
      * </p>
      * 
@@ -54,7 +94,8 @@ public interface AmazonApiGatewayManagementApi {
      * @throws GoneException
      *         The connection with the provided id no longer exists.
      * @throws LimitExceededException
-     *         The client is sending more than the allowed number of requests per unit of time.
+     *         The client is sending more than the allowed number of requests per unit of time or the WebSocket client
+     *         side buffer is full.
      * @throws PayloadTooLargeException
      *         The data has exceeded the maximum size allowed.
      * @throws ForbiddenException

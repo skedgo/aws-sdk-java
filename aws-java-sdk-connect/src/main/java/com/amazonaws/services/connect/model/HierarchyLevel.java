@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A <code>HierarchyLevel</code> object that contains information about the levels in a hierarchy group, including ARN,
- * Id, and Name.
+ * Contains information about a hierarchy level.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/HierarchyLevel" target="_top">AWS API
@@ -31,30 +30,42 @@ public class HierarchyLevel implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier for the hierarchy group level.
+     * The identifier of the hierarchy level.
      * </p>
      */
     private String id;
     /**
      * <p>
-     * The ARN for the hierarchy group level.
+     * The Amazon Resource Name (ARN) of the hierarchy level.
      * </p>
      */
     private String arn;
     /**
      * <p>
-     * The name of the hierarchy group level.
+     * The name of the hierarchy level.
      * </p>
      */
     private String name;
+    /**
+     * <p>
+     * The timestamp when this resource was last modified.
+     * </p>
+     */
+    private java.util.Date lastModifiedTime;
+    /**
+     * <p>
+     * The Amazon Web Services Region where this resource was last modified.
+     * </p>
+     */
+    private String lastModifiedRegion;
 
     /**
      * <p>
-     * The identifier for the hierarchy group level.
+     * The identifier of the hierarchy level.
      * </p>
      * 
      * @param id
-     *        The identifier for the hierarchy group level.
+     *        The identifier of the hierarchy level.
      */
 
     public void setId(String id) {
@@ -63,10 +74,10 @@ public class HierarchyLevel implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier for the hierarchy group level.
+     * The identifier of the hierarchy level.
      * </p>
      * 
-     * @return The identifier for the hierarchy group level.
+     * @return The identifier of the hierarchy level.
      */
 
     public String getId() {
@@ -75,11 +86,11 @@ public class HierarchyLevel implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier for the hierarchy group level.
+     * The identifier of the hierarchy level.
      * </p>
      * 
      * @param id
-     *        The identifier for the hierarchy group level.
+     *        The identifier of the hierarchy level.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -90,11 +101,11 @@ public class HierarchyLevel implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN for the hierarchy group level.
+     * The Amazon Resource Name (ARN) of the hierarchy level.
      * </p>
      * 
      * @param arn
-     *        The ARN for the hierarchy group level.
+     *        The Amazon Resource Name (ARN) of the hierarchy level.
      */
 
     public void setArn(String arn) {
@@ -103,10 +114,10 @@ public class HierarchyLevel implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN for the hierarchy group level.
+     * The Amazon Resource Name (ARN) of the hierarchy level.
      * </p>
      * 
-     * @return The ARN for the hierarchy group level.
+     * @return The Amazon Resource Name (ARN) of the hierarchy level.
      */
 
     public String getArn() {
@@ -115,11 +126,11 @@ public class HierarchyLevel implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN for the hierarchy group level.
+     * The Amazon Resource Name (ARN) of the hierarchy level.
      * </p>
      * 
      * @param arn
-     *        The ARN for the hierarchy group level.
+     *        The Amazon Resource Name (ARN) of the hierarchy level.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -130,11 +141,11 @@ public class HierarchyLevel implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the hierarchy group level.
+     * The name of the hierarchy level.
      * </p>
      * 
      * @param name
-     *        The name of the hierarchy group level.
+     *        The name of the hierarchy level.
      */
 
     public void setName(String name) {
@@ -143,10 +154,10 @@ public class HierarchyLevel implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the hierarchy group level.
+     * The name of the hierarchy level.
      * </p>
      * 
-     * @return The name of the hierarchy group level.
+     * @return The name of the hierarchy level.
      */
 
     public String getName() {
@@ -155,16 +166,96 @@ public class HierarchyLevel implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the hierarchy group level.
+     * The name of the hierarchy level.
      * </p>
      * 
      * @param name
-     *        The name of the hierarchy group level.
+     *        The name of the hierarchy level.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public HierarchyLevel withName(String name) {
         setName(name);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The timestamp when this resource was last modified.
+     * </p>
+     * 
+     * @param lastModifiedTime
+     *        The timestamp when this resource was last modified.
+     */
+
+    public void setLastModifiedTime(java.util.Date lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
+    }
+
+    /**
+     * <p>
+     * The timestamp when this resource was last modified.
+     * </p>
+     * 
+     * @return The timestamp when this resource was last modified.
+     */
+
+    public java.util.Date getLastModifiedTime() {
+        return this.lastModifiedTime;
+    }
+
+    /**
+     * <p>
+     * The timestamp when this resource was last modified.
+     * </p>
+     * 
+     * @param lastModifiedTime
+     *        The timestamp when this resource was last modified.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HierarchyLevel withLastModifiedTime(java.util.Date lastModifiedTime) {
+        setLastModifiedTime(lastModifiedTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services Region where this resource was last modified.
+     * </p>
+     * 
+     * @param lastModifiedRegion
+     *        The Amazon Web Services Region where this resource was last modified.
+     */
+
+    public void setLastModifiedRegion(String lastModifiedRegion) {
+        this.lastModifiedRegion = lastModifiedRegion;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services Region where this resource was last modified.
+     * </p>
+     * 
+     * @return The Amazon Web Services Region where this resource was last modified.
+     */
+
+    public String getLastModifiedRegion() {
+        return this.lastModifiedRegion;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services Region where this resource was last modified.
+     * </p>
+     * 
+     * @param lastModifiedRegion
+     *        The Amazon Web Services Region where this resource was last modified.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HierarchyLevel withLastModifiedRegion(String lastModifiedRegion) {
+        setLastModifiedRegion(lastModifiedRegion);
         return this;
     }
 
@@ -185,7 +276,11 @@ public class HierarchyLevel implements Serializable, Cloneable, StructuredPojo {
         if (getArn() != null)
             sb.append("Arn: ").append(getArn()).append(",");
         if (getName() != null)
-            sb.append("Name: ").append(getName());
+            sb.append("Name: ").append(getName()).append(",");
+        if (getLastModifiedTime() != null)
+            sb.append("LastModifiedTime: ").append(getLastModifiedTime()).append(",");
+        if (getLastModifiedRegion() != null)
+            sb.append("LastModifiedRegion: ").append(getLastModifiedRegion());
         sb.append("}");
         return sb.toString();
     }
@@ -212,6 +307,14 @@ public class HierarchyLevel implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
             return false;
+        if (other.getLastModifiedTime() == null ^ this.getLastModifiedTime() == null)
+            return false;
+        if (other.getLastModifiedTime() != null && other.getLastModifiedTime().equals(this.getLastModifiedTime()) == false)
+            return false;
+        if (other.getLastModifiedRegion() == null ^ this.getLastModifiedRegion() == null)
+            return false;
+        if (other.getLastModifiedRegion() != null && other.getLastModifiedRegion().equals(this.getLastModifiedRegion()) == false)
+            return false;
         return true;
     }
 
@@ -223,6 +326,8 @@ public class HierarchyLevel implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
         hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getLastModifiedTime() == null) ? 0 : getLastModifiedTime().hashCode());
+        hashCode = prime * hashCode + ((getLastModifiedRegion() == null) ? 0 : getLastModifiedRegion().hashCode());
         return hashCode;
     }
 

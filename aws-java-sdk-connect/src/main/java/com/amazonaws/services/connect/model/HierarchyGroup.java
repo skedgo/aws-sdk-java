@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A <code>HierarchyGroup</code> object that contains information about a hierarchy group in your Amazon Connect
- * instance.
+ * Contains information about a hierarchy group.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/HierarchyGroup" target="_top">AWS API
@@ -31,42 +30,61 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier for the hierarchy group.
+     * The identifier of the hierarchy group.
      * </p>
      */
     private String id;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the hierarchy group.
+     * The Amazon Resource Name (ARN) of the hierarchy group.
      * </p>
      */
     private String arn;
     /**
      * <p>
-     * The name of the hierarchy group in your instance.
+     * The name of the hierarchy group.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The identifier for the level in the hierarchy group.
+     * The identifier of the level in the hierarchy group.
      * </p>
      */
     private String levelId;
     /**
      * <p>
-     * A <code>HierarchyPath</code> object that contains information about the levels in the hierarchy group.
+     * Information about the levels in the hierarchy group.
      * </p>
      */
     private HierarchyPath hierarchyPath;
+    /**
+     * <p>
+     * The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1",
+     * "key2":"value2"} }.
+     * </p>
+     */
+    private java.util.Map<String, String> tags;
+    /**
+     * <p>
+     * The timestamp when this resource was last modified.
+     * </p>
+     */
+    private java.util.Date lastModifiedTime;
+    /**
+     * <p>
+     * The Amazon Web Services Region where this resource was last modified.
+     * </p>
+     */
+    private String lastModifiedRegion;
 
     /**
      * <p>
-     * The identifier for the hierarchy group.
+     * The identifier of the hierarchy group.
      * </p>
      * 
      * @param id
-     *        The identifier for the hierarchy group.
+     *        The identifier of the hierarchy group.
      */
 
     public void setId(String id) {
@@ -75,10 +93,10 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier for the hierarchy group.
+     * The identifier of the hierarchy group.
      * </p>
      * 
-     * @return The identifier for the hierarchy group.
+     * @return The identifier of the hierarchy group.
      */
 
     public String getId() {
@@ -87,11 +105,11 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier for the hierarchy group.
+     * The identifier of the hierarchy group.
      * </p>
      * 
      * @param id
-     *        The identifier for the hierarchy group.
+     *        The identifier of the hierarchy group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -102,11 +120,11 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the hierarchy group.
+     * The Amazon Resource Name (ARN) of the hierarchy group.
      * </p>
      * 
      * @param arn
-     *        The Amazon Resource Name (ARN) for the hierarchy group.
+     *        The Amazon Resource Name (ARN) of the hierarchy group.
      */
 
     public void setArn(String arn) {
@@ -115,10 +133,10 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the hierarchy group.
+     * The Amazon Resource Name (ARN) of the hierarchy group.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) for the hierarchy group.
+     * @return The Amazon Resource Name (ARN) of the hierarchy group.
      */
 
     public String getArn() {
@@ -127,11 +145,11 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the hierarchy group.
+     * The Amazon Resource Name (ARN) of the hierarchy group.
      * </p>
      * 
      * @param arn
-     *        The Amazon Resource Name (ARN) for the hierarchy group.
+     *        The Amazon Resource Name (ARN) of the hierarchy group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -142,11 +160,11 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the hierarchy group in your instance.
+     * The name of the hierarchy group.
      * </p>
      * 
      * @param name
-     *        The name of the hierarchy group in your instance.
+     *        The name of the hierarchy group.
      */
 
     public void setName(String name) {
@@ -155,10 +173,10 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the hierarchy group in your instance.
+     * The name of the hierarchy group.
      * </p>
      * 
-     * @return The name of the hierarchy group in your instance.
+     * @return The name of the hierarchy group.
      */
 
     public String getName() {
@@ -167,11 +185,11 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the hierarchy group in your instance.
+     * The name of the hierarchy group.
      * </p>
      * 
      * @param name
-     *        The name of the hierarchy group in your instance.
+     *        The name of the hierarchy group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -182,11 +200,11 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier for the level in the hierarchy group.
+     * The identifier of the level in the hierarchy group.
      * </p>
      * 
      * @param levelId
-     *        The identifier for the level in the hierarchy group.
+     *        The identifier of the level in the hierarchy group.
      */
 
     public void setLevelId(String levelId) {
@@ -195,10 +213,10 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier for the level in the hierarchy group.
+     * The identifier of the level in the hierarchy group.
      * </p>
      * 
-     * @return The identifier for the level in the hierarchy group.
+     * @return The identifier of the level in the hierarchy group.
      */
 
     public String getLevelId() {
@@ -207,11 +225,11 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The identifier for the level in the hierarchy group.
+     * The identifier of the level in the hierarchy group.
      * </p>
      * 
      * @param levelId
-     *        The identifier for the level in the hierarchy group.
+     *        The identifier of the level in the hierarchy group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -222,11 +240,11 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A <code>HierarchyPath</code> object that contains information about the levels in the hierarchy group.
+     * Information about the levels in the hierarchy group.
      * </p>
      * 
      * @param hierarchyPath
-     *        A <code>HierarchyPath</code> object that contains information about the levels in the hierarchy group.
+     *        Information about the levels in the hierarchy group.
      */
 
     public void setHierarchyPath(HierarchyPath hierarchyPath) {
@@ -235,10 +253,10 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A <code>HierarchyPath</code> object that contains information about the levels in the hierarchy group.
+     * Information about the levels in the hierarchy group.
      * </p>
      * 
-     * @return A <code>HierarchyPath</code> object that contains information about the levels in the hierarchy group.
+     * @return Information about the levels in the hierarchy group.
      */
 
     public HierarchyPath getHierarchyPath() {
@@ -247,16 +265,170 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A <code>HierarchyPath</code> object that contains information about the levels in the hierarchy group.
+     * Information about the levels in the hierarchy group.
      * </p>
      * 
      * @param hierarchyPath
-     *        A <code>HierarchyPath</code> object that contains information about the levels in the hierarchy group.
+     *        Information about the levels in the hierarchy group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public HierarchyGroup withHierarchyPath(HierarchyPath hierarchyPath) {
         setHierarchyPath(hierarchyPath);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1",
+     * "key2":"value2"} }.
+     * </p>
+     * 
+     * @return The tags used to organize, track, or control access for this resource. For example, { "Tags":
+     *         {"key1":"value1", "key2":"value2"} }.
+     */
+
+    public java.util.Map<String, String> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1",
+     * "key2":"value2"} }.
+     * </p>
+     * 
+     * @param tags
+     *        The tags used to organize, track, or control access for this resource. For example, { "Tags":
+     *        {"key1":"value1", "key2":"value2"} }.
+     */
+
+    public void setTags(java.util.Map<String, String> tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * <p>
+     * The tags used to organize, track, or control access for this resource. For example, { "Tags": {"key1":"value1",
+     * "key2":"value2"} }.
+     * </p>
+     * 
+     * @param tags
+     *        The tags used to organize, track, or control access for this resource. For example, { "Tags":
+     *        {"key1":"value1", "key2":"value2"} }.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HierarchyGroup withTags(java.util.Map<String, String> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see HierarchyGroup#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HierarchyGroup addTagsEntry(String key, String value) {
+        if (null == this.tags) {
+            this.tags = new java.util.HashMap<String, String>();
+        }
+        if (this.tags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.tags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Tags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HierarchyGroup clearTagsEntries() {
+        this.tags = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The timestamp when this resource was last modified.
+     * </p>
+     * 
+     * @param lastModifiedTime
+     *        The timestamp when this resource was last modified.
+     */
+
+    public void setLastModifiedTime(java.util.Date lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
+    }
+
+    /**
+     * <p>
+     * The timestamp when this resource was last modified.
+     * </p>
+     * 
+     * @return The timestamp when this resource was last modified.
+     */
+
+    public java.util.Date getLastModifiedTime() {
+        return this.lastModifiedTime;
+    }
+
+    /**
+     * <p>
+     * The timestamp when this resource was last modified.
+     * </p>
+     * 
+     * @param lastModifiedTime
+     *        The timestamp when this resource was last modified.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HierarchyGroup withLastModifiedTime(java.util.Date lastModifiedTime) {
+        setLastModifiedTime(lastModifiedTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services Region where this resource was last modified.
+     * </p>
+     * 
+     * @param lastModifiedRegion
+     *        The Amazon Web Services Region where this resource was last modified.
+     */
+
+    public void setLastModifiedRegion(String lastModifiedRegion) {
+        this.lastModifiedRegion = lastModifiedRegion;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services Region where this resource was last modified.
+     * </p>
+     * 
+     * @return The Amazon Web Services Region where this resource was last modified.
+     */
+
+    public String getLastModifiedRegion() {
+        return this.lastModifiedRegion;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services Region where this resource was last modified.
+     * </p>
+     * 
+     * @param lastModifiedRegion
+     *        The Amazon Web Services Region where this resource was last modified.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HierarchyGroup withLastModifiedRegion(String lastModifiedRegion) {
+        setLastModifiedRegion(lastModifiedRegion);
         return this;
     }
 
@@ -281,7 +453,13 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
         if (getLevelId() != null)
             sb.append("LevelId: ").append(getLevelId()).append(",");
         if (getHierarchyPath() != null)
-            sb.append("HierarchyPath: ").append(getHierarchyPath());
+            sb.append("HierarchyPath: ").append(getHierarchyPath()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getLastModifiedTime() != null)
+            sb.append("LastModifiedTime: ").append(getLastModifiedTime()).append(",");
+        if (getLastModifiedRegion() != null)
+            sb.append("LastModifiedRegion: ").append(getLastModifiedRegion());
         sb.append("}");
         return sb.toString();
     }
@@ -316,6 +494,18 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getHierarchyPath() != null && other.getHierarchyPath().equals(this.getHierarchyPath()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getLastModifiedTime() == null ^ this.getLastModifiedTime() == null)
+            return false;
+        if (other.getLastModifiedTime() != null && other.getLastModifiedTime().equals(this.getLastModifiedTime()) == false)
+            return false;
+        if (other.getLastModifiedRegion() == null ^ this.getLastModifiedRegion() == null)
+            return false;
+        if (other.getLastModifiedRegion() != null && other.getLastModifiedRegion().equals(this.getLastModifiedRegion()) == false)
+            return false;
         return true;
     }
 
@@ -329,6 +519,9 @@ public class HierarchyGroup implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getLevelId() == null) ? 0 : getLevelId().hashCode());
         hashCode = prime * hashCode + ((getHierarchyPath() == null) ? 0 : getHierarchyPath().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getLastModifiedTime() == null) ? 0 : getLastModifiedTime().hashCode());
+        hashCode = prime * hashCode + ((getLastModifiedRegion() == null) ? 0 : getLastModifiedRegion().hashCode());
         return hashCode;
     }
 

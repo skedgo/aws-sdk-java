@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class DeleteTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set exists
+     * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set found
      * in to delete.
      * </p>
      */
@@ -46,20 +46,20 @@ public class DeleteTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String taskSet;
     /**
      * <p>
-     * If <code>true</code>, this allows you to delete a task set even if it hasn't been scaled down to zero.
+     * If <code>true</code>, you can delete a task set even if it hasn't been scaled down to zero.
      * </p>
      */
     private Boolean force;
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set exists
+     * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set found
      * in to delete.
      * </p>
      * 
      * @param cluster
      *        The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set
-     *        exists in to delete.
+     *        found in to delete.
      */
 
     public void setCluster(String cluster) {
@@ -68,12 +68,12 @@ public class DeleteTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set exists
+     * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set found
      * in to delete.
      * </p>
      * 
      * @return The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set
-     *         exists in to delete.
+     *         found in to delete.
      */
 
     public String getCluster() {
@@ -82,13 +82,13 @@ public class DeleteTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set exists
+     * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set found
      * in to delete.
      * </p>
      * 
      * @param cluster
      *        The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set
-     *        exists in to delete.
+     *        found in to delete.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -179,11 +179,11 @@ public class DeleteTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * If <code>true</code>, this allows you to delete a task set even if it hasn't been scaled down to zero.
+     * If <code>true</code>, you can delete a task set even if it hasn't been scaled down to zero.
      * </p>
      * 
      * @param force
-     *        If <code>true</code>, this allows you to delete a task set even if it hasn't been scaled down to zero.
+     *        If <code>true</code>, you can delete a task set even if it hasn't been scaled down to zero.
      */
 
     public void setForce(Boolean force) {
@@ -192,10 +192,10 @@ public class DeleteTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * If <code>true</code>, this allows you to delete a task set even if it hasn't been scaled down to zero.
+     * If <code>true</code>, you can delete a task set even if it hasn't been scaled down to zero.
      * </p>
      * 
-     * @return If <code>true</code>, this allows you to delete a task set even if it hasn't been scaled down to zero.
+     * @return If <code>true</code>, you can delete a task set even if it hasn't been scaled down to zero.
      */
 
     public Boolean getForce() {
@@ -204,11 +204,11 @@ public class DeleteTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * If <code>true</code>, this allows you to delete a task set even if it hasn't been scaled down to zero.
+     * If <code>true</code>, you can delete a task set even if it hasn't been scaled down to zero.
      * </p>
      * 
      * @param force
-     *        If <code>true</code>, this allows you to delete a task set even if it hasn't been scaled down to zero.
+     *        If <code>true</code>, you can delete a task set even if it hasn't been scaled down to zero.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -219,10 +219,10 @@ public class DeleteTaskSetRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * If <code>true</code>, this allows you to delete a task set even if it hasn't been scaled down to zero.
+     * If <code>true</code>, you can delete a task set even if it hasn't been scaled down to zero.
      * </p>
      * 
-     * @return If <code>true</code>, this allows you to delete a task set even if it hasn't been scaled down to zero.
+     * @return If <code>true</code>, you can delete a task set even if it hasn't been scaled down to zero.
      */
 
     public Boolean isForce() {

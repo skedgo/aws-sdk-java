@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,6 +34,12 @@ public class StageDeclarationMarshaller {
             .marshallLocationName("blockers").build();
     private static final MarshallingInfo<List> ACTIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("actions").build();
+    private static final MarshallingInfo<StructuredPojo> ONFAILURE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("onFailure").build();
+    private static final MarshallingInfo<StructuredPojo> ONSUCCESS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("onSuccess").build();
+    private static final MarshallingInfo<StructuredPojo> BEFOREENTRY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("beforeEntry").build();
 
     private static final StageDeclarationMarshaller instance = new StageDeclarationMarshaller();
 
@@ -54,6 +60,9 @@ public class StageDeclarationMarshaller {
             protocolMarshaller.marshall(stageDeclaration.getName(), NAME_BINDING);
             protocolMarshaller.marshall(stageDeclaration.getBlockers(), BLOCKERS_BINDING);
             protocolMarshaller.marshall(stageDeclaration.getActions(), ACTIONS_BINDING);
+            protocolMarshaller.marshall(stageDeclaration.getOnFailure(), ONFAILURE_BINDING);
+            protocolMarshaller.marshall(stageDeclaration.getOnSuccess(), ONSUCCESS_BINDING);
+            protocolMarshaller.marshall(stageDeclaration.getBeforeEntry(), BEFOREENTRY_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

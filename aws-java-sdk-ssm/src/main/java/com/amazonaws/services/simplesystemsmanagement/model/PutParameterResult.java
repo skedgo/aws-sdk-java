@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,25 +26,31 @@ public class PutParameterResult extends com.amazonaws.AmazonWebServiceResult<com
     /**
      * <p>
      * The new version number of a parameter. If you edit a parameter value, Parameter Store automatically creates a new
-     * version and assigns this new version a unique ID. You can reference a parameter version ID in API actions or in
-     * Systems Manager documents (SSM documents). By default, if you don't specify a specific version, the system
+     * version and assigns this new version a unique ID. You can reference a parameter version ID in API operations or
+     * in Systems Manager documents (SSM documents). By default, if you don't specify a specific version, the system
      * returns the latest parameter value when a parameter is called.
      * </p>
      */
     private Long version;
+    /**
+     * <p>
+     * The tier assigned to the parameter.
+     * </p>
+     */
+    private String tier;
 
     /**
      * <p>
      * The new version number of a parameter. If you edit a parameter value, Parameter Store automatically creates a new
-     * version and assigns this new version a unique ID. You can reference a parameter version ID in API actions or in
-     * Systems Manager documents (SSM documents). By default, if you don't specify a specific version, the system
+     * version and assigns this new version a unique ID. You can reference a parameter version ID in API operations or
+     * in Systems Manager documents (SSM documents). By default, if you don't specify a specific version, the system
      * returns the latest parameter value when a parameter is called.
      * </p>
      * 
      * @param version
      *        The new version number of a parameter. If you edit a parameter value, Parameter Store automatically
      *        creates a new version and assigns this new version a unique ID. You can reference a parameter version ID
-     *        in API actions or in Systems Manager documents (SSM documents). By default, if you don't specify a
+     *        in API operations or in Systems Manager documents (SSM documents). By default, if you don't specify a
      *        specific version, the system returns the latest parameter value when a parameter is called.
      */
 
@@ -55,14 +61,14 @@ public class PutParameterResult extends com.amazonaws.AmazonWebServiceResult<com
     /**
      * <p>
      * The new version number of a parameter. If you edit a parameter value, Parameter Store automatically creates a new
-     * version and assigns this new version a unique ID. You can reference a parameter version ID in API actions or in
-     * Systems Manager documents (SSM documents). By default, if you don't specify a specific version, the system
+     * version and assigns this new version a unique ID. You can reference a parameter version ID in API operations or
+     * in Systems Manager documents (SSM documents). By default, if you don't specify a specific version, the system
      * returns the latest parameter value when a parameter is called.
      * </p>
      * 
      * @return The new version number of a parameter. If you edit a parameter value, Parameter Store automatically
      *         creates a new version and assigns this new version a unique ID. You can reference a parameter version ID
-     *         in API actions or in Systems Manager documents (SSM documents). By default, if you don't specify a
+     *         in API operations or in Systems Manager documents (SSM documents). By default, if you don't specify a
      *         specific version, the system returns the latest parameter value when a parameter is called.
      */
 
@@ -73,21 +79,80 @@ public class PutParameterResult extends com.amazonaws.AmazonWebServiceResult<com
     /**
      * <p>
      * The new version number of a parameter. If you edit a parameter value, Parameter Store automatically creates a new
-     * version and assigns this new version a unique ID. You can reference a parameter version ID in API actions or in
-     * Systems Manager documents (SSM documents). By default, if you don't specify a specific version, the system
+     * version and assigns this new version a unique ID. You can reference a parameter version ID in API operations or
+     * in Systems Manager documents (SSM documents). By default, if you don't specify a specific version, the system
      * returns the latest parameter value when a parameter is called.
      * </p>
      * 
      * @param version
      *        The new version number of a parameter. If you edit a parameter value, Parameter Store automatically
      *        creates a new version and assigns this new version a unique ID. You can reference a parameter version ID
-     *        in API actions or in Systems Manager documents (SSM documents). By default, if you don't specify a
+     *        in API operations or in Systems Manager documents (SSM documents). By default, if you don't specify a
      *        specific version, the system returns the latest parameter value when a parameter is called.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public PutParameterResult withVersion(Long version) {
         setVersion(version);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tier assigned to the parameter.
+     * </p>
+     * 
+     * @param tier
+     *        The tier assigned to the parameter.
+     * @see ParameterTier
+     */
+
+    public void setTier(String tier) {
+        this.tier = tier;
+    }
+
+    /**
+     * <p>
+     * The tier assigned to the parameter.
+     * </p>
+     * 
+     * @return The tier assigned to the parameter.
+     * @see ParameterTier
+     */
+
+    public String getTier() {
+        return this.tier;
+    }
+
+    /**
+     * <p>
+     * The tier assigned to the parameter.
+     * </p>
+     * 
+     * @param tier
+     *        The tier assigned to the parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ParameterTier
+     */
+
+    public PutParameterResult withTier(String tier) {
+        setTier(tier);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tier assigned to the parameter.
+     * </p>
+     * 
+     * @param tier
+     *        The tier assigned to the parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ParameterTier
+     */
+
+    public PutParameterResult withTier(ParameterTier tier) {
+        this.tier = tier.toString();
         return this;
     }
 
@@ -104,7 +169,9 @@ public class PutParameterResult extends com.amazonaws.AmazonWebServiceResult<com
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getVersion() != null)
-            sb.append("Version: ").append(getVersion());
+            sb.append("Version: ").append(getVersion()).append(",");
+        if (getTier() != null)
+            sb.append("Tier: ").append(getTier());
         sb.append("}");
         return sb.toString();
     }
@@ -123,6 +190,10 @@ public class PutParameterResult extends com.amazonaws.AmazonWebServiceResult<com
             return false;
         if (other.getVersion() != null && other.getVersion().equals(this.getVersion()) == false)
             return false;
+        if (other.getTier() == null ^ this.getTier() == null)
+            return false;
+        if (other.getTier() != null && other.getTier().equals(this.getTier()) == false)
+            return false;
         return true;
     }
 
@@ -132,6 +203,7 @@ public class PutParameterResult extends com.amazonaws.AmazonWebServiceResult<com
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getVersion() == null) ? 0 : getVersion().hashCode());
+        hashCode = prime * hashCode + ((getTier() == null) ? 0 : getTier().hashCode());
         return hashCode;
     }
 

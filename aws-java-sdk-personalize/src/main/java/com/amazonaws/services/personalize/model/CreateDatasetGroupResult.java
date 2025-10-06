@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,12 @@ public class CreateDatasetGroupResult extends com.amazonaws.AmazonWebServiceResu
      * </p>
      */
     private String datasetGroupArn;
+    /**
+     * <p>
+     * The domain for the new Domain dataset group.
+     * </p>
+     */
+    private String domain;
 
     /**
      * <p>
@@ -71,6 +77,65 @@ public class CreateDatasetGroupResult extends com.amazonaws.AmazonWebServiceResu
     }
 
     /**
+     * <p>
+     * The domain for the new Domain dataset group.
+     * </p>
+     * 
+     * @param domain
+     *        The domain for the new Domain dataset group.
+     * @see Domain
+     */
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    /**
+     * <p>
+     * The domain for the new Domain dataset group.
+     * </p>
+     * 
+     * @return The domain for the new Domain dataset group.
+     * @see Domain
+     */
+
+    public String getDomain() {
+        return this.domain;
+    }
+
+    /**
+     * <p>
+     * The domain for the new Domain dataset group.
+     * </p>
+     * 
+     * @param domain
+     *        The domain for the new Domain dataset group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Domain
+     */
+
+    public CreateDatasetGroupResult withDomain(String domain) {
+        setDomain(domain);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The domain for the new Domain dataset group.
+     * </p>
+     * 
+     * @param domain
+     *        The domain for the new Domain dataset group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Domain
+     */
+
+    public CreateDatasetGroupResult withDomain(Domain domain) {
+        this.domain = domain.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -83,7 +148,9 @@ public class CreateDatasetGroupResult extends com.amazonaws.AmazonWebServiceResu
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getDatasetGroupArn() != null)
-            sb.append("DatasetGroupArn: ").append(getDatasetGroupArn());
+            sb.append("DatasetGroupArn: ").append(getDatasetGroupArn()).append(",");
+        if (getDomain() != null)
+            sb.append("Domain: ").append(getDomain());
         sb.append("}");
         return sb.toString();
     }
@@ -102,6 +169,10 @@ public class CreateDatasetGroupResult extends com.amazonaws.AmazonWebServiceResu
             return false;
         if (other.getDatasetGroupArn() != null && other.getDatasetGroupArn().equals(this.getDatasetGroupArn()) == false)
             return false;
+        if (other.getDomain() == null ^ this.getDomain() == null)
+            return false;
+        if (other.getDomain() != null && other.getDomain().equals(this.getDomain()) == false)
+            return false;
         return true;
     }
 
@@ -111,6 +182,7 @@ public class CreateDatasetGroupResult extends com.amazonaws.AmazonWebServiceResu
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getDatasetGroupArn() == null) ? 0 : getDatasetGroupArn().hashCode());
+        hashCode = prime * hashCode + ((getDomain() == null) ? 0 : getDomain().hashCode());
         return hashCode;
     }
 

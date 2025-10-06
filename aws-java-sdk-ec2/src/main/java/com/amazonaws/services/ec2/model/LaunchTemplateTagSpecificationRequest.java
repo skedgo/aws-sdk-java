@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The tags specification for the launch template.
+ * The tags specification for the resources that are created during instance launch.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateTagSpecificationRequest"
@@ -28,8 +28,16 @@ public class LaunchTemplateTagSpecificationRequest implements Serializable, Clon
 
     /**
      * <p>
-     * The type of resource to tag. Currently, the resource types that support tagging on creation are
-     * <code>instance</code> and <code>volume</code>. To tag a resource after it has been created, see <a
+     * The type of resource to tag.
+     * </p>
+     * <p>
+     * Valid Values lists all resource types for Amazon EC2 that can be tagged. When you create a launch template, you
+     * can specify tags for the following resource types only: <code>instance</code> | <code>volume</code> |
+     * <code>network-interface</code> | <code>spot-instances-request</code>. If the instance does not include the
+     * resource type that you specify, the instance launch fails. For example, not all instance types include a volume.
+     * </p>
+     * <p>
+     * To tag a resource after it has been created, see <a
      * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
      * </p>
      */
@@ -43,14 +51,30 @@ public class LaunchTemplateTagSpecificationRequest implements Serializable, Clon
 
     /**
      * <p>
-     * The type of resource to tag. Currently, the resource types that support tagging on creation are
-     * <code>instance</code> and <code>volume</code>. To tag a resource after it has been created, see <a
+     * The type of resource to tag.
+     * </p>
+     * <p>
+     * Valid Values lists all resource types for Amazon EC2 that can be tagged. When you create a launch template, you
+     * can specify tags for the following resource types only: <code>instance</code> | <code>volume</code> |
+     * <code>network-interface</code> | <code>spot-instances-request</code>. If the instance does not include the
+     * resource type that you specify, the instance launch fails. For example, not all instance types include a volume.
+     * </p>
+     * <p>
+     * To tag a resource after it has been created, see <a
      * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
      * </p>
      * 
      * @param resourceType
-     *        The type of resource to tag. Currently, the resource types that support tagging on creation are
-     *        <code>instance</code> and <code>volume</code>. To tag a resource after it has been created, see <a
+     *        The type of resource to tag.</p>
+     *        <p>
+     *        Valid Values lists all resource types for Amazon EC2 that can be tagged. When you create a launch
+     *        template, you can specify tags for the following resource types only: <code>instance</code> |
+     *        <code>volume</code> | <code>network-interface</code> | <code>spot-instances-request</code>. If the
+     *        instance does not include the resource type that you specify, the instance launch fails. For example, not
+     *        all instance types include a volume.
+     *        </p>
+     *        <p>
+     *        To tag a resource after it has been created, see <a
      *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
      * @see ResourceType
      */
@@ -61,13 +85,29 @@ public class LaunchTemplateTagSpecificationRequest implements Serializable, Clon
 
     /**
      * <p>
-     * The type of resource to tag. Currently, the resource types that support tagging on creation are
-     * <code>instance</code> and <code>volume</code>. To tag a resource after it has been created, see <a
+     * The type of resource to tag.
+     * </p>
+     * <p>
+     * Valid Values lists all resource types for Amazon EC2 that can be tagged. When you create a launch template, you
+     * can specify tags for the following resource types only: <code>instance</code> | <code>volume</code> |
+     * <code>network-interface</code> | <code>spot-instances-request</code>. If the instance does not include the
+     * resource type that you specify, the instance launch fails. For example, not all instance types include a volume.
+     * </p>
+     * <p>
+     * To tag a resource after it has been created, see <a
      * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
      * </p>
      * 
-     * @return The type of resource to tag. Currently, the resource types that support tagging on creation are
-     *         <code>instance</code> and <code>volume</code>. To tag a resource after it has been created, see <a
+     * @return The type of resource to tag.</p>
+     *         <p>
+     *         Valid Values lists all resource types for Amazon EC2 that can be tagged. When you create a launch
+     *         template, you can specify tags for the following resource types only: <code>instance</code> |
+     *         <code>volume</code> | <code>network-interface</code> | <code>spot-instances-request</code>. If the
+     *         instance does not include the resource type that you specify, the instance launch fails. For example, not
+     *         all instance types include a volume.
+     *         </p>
+     *         <p>
+     *         To tag a resource after it has been created, see <a
      *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
      * @see ResourceType
      */
@@ -78,14 +118,30 @@ public class LaunchTemplateTagSpecificationRequest implements Serializable, Clon
 
     /**
      * <p>
-     * The type of resource to tag. Currently, the resource types that support tagging on creation are
-     * <code>instance</code> and <code>volume</code>. To tag a resource after it has been created, see <a
+     * The type of resource to tag.
+     * </p>
+     * <p>
+     * Valid Values lists all resource types for Amazon EC2 that can be tagged. When you create a launch template, you
+     * can specify tags for the following resource types only: <code>instance</code> | <code>volume</code> |
+     * <code>network-interface</code> | <code>spot-instances-request</code>. If the instance does not include the
+     * resource type that you specify, the instance launch fails. For example, not all instance types include a volume.
+     * </p>
+     * <p>
+     * To tag a resource after it has been created, see <a
      * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
      * </p>
      * 
      * @param resourceType
-     *        The type of resource to tag. Currently, the resource types that support tagging on creation are
-     *        <code>instance</code> and <code>volume</code>. To tag a resource after it has been created, see <a
+     *        The type of resource to tag.</p>
+     *        <p>
+     *        Valid Values lists all resource types for Amazon EC2 that can be tagged. When you create a launch
+     *        template, you can specify tags for the following resource types only: <code>instance</code> |
+     *        <code>volume</code> | <code>network-interface</code> | <code>spot-instances-request</code>. If the
+     *        instance does not include the resource type that you specify, the instance launch fails. For example, not
+     *        all instance types include a volume.
+     *        </p>
+     *        <p>
+     *        To tag a resource after it has been created, see <a
      *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceType
@@ -98,14 +154,30 @@ public class LaunchTemplateTagSpecificationRequest implements Serializable, Clon
 
     /**
      * <p>
-     * The type of resource to tag. Currently, the resource types that support tagging on creation are
-     * <code>instance</code> and <code>volume</code>. To tag a resource after it has been created, see <a
+     * The type of resource to tag.
+     * </p>
+     * <p>
+     * Valid Values lists all resource types for Amazon EC2 that can be tagged. When you create a launch template, you
+     * can specify tags for the following resource types only: <code>instance</code> | <code>volume</code> |
+     * <code>network-interface</code> | <code>spot-instances-request</code>. If the instance does not include the
+     * resource type that you specify, the instance launch fails. For example, not all instance types include a volume.
+     * </p>
+     * <p>
+     * To tag a resource after it has been created, see <a
      * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
      * </p>
      * 
      * @param resourceType
-     *        The type of resource to tag. Currently, the resource types that support tagging on creation are
-     *        <code>instance</code> and <code>volume</code>. To tag a resource after it has been created, see <a
+     *        The type of resource to tag.</p>
+     *        <p>
+     *        Valid Values lists all resource types for Amazon EC2 that can be tagged. When you create a launch
+     *        template, you can specify tags for the following resource types only: <code>instance</code> |
+     *        <code>volume</code> | <code>network-interface</code> | <code>spot-instances-request</code>. If the
+     *        instance does not include the resource type that you specify, the instance launch fails. For example, not
+     *        all instance types include a volume.
+     *        </p>
+     *        <p>
+     *        To tag a resource after it has been created, see <a
      *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceType

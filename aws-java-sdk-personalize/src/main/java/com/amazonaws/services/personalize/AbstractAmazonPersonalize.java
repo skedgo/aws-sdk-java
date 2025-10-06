@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,12 +28,32 @@ public class AbstractAmazonPersonalize implements AmazonPersonalize {
     }
 
     @Override
+    public CreateBatchInferenceJobResult createBatchInferenceJob(CreateBatchInferenceJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateBatchSegmentJobResult createBatchSegmentJob(CreateBatchSegmentJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateCampaignResult createCampaign(CreateCampaignRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public CreateDataDeletionJobResult createDataDeletionJob(CreateDataDeletionJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateDatasetResult createDataset(CreateDatasetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateDatasetExportJobResult createDatasetExportJob(CreateDatasetExportJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -49,6 +69,21 @@ public class AbstractAmazonPersonalize implements AmazonPersonalize {
 
     @Override
     public CreateEventTrackerResult createEventTracker(CreateEventTrackerRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateFilterResult createFilter(CreateFilterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateMetricAttributionResult createMetricAttribution(CreateMetricAttributionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateRecommenderResult createRecommender(CreateRecommenderRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -88,6 +123,21 @@ public class AbstractAmazonPersonalize implements AmazonPersonalize {
     }
 
     @Override
+    public DeleteFilterResult deleteFilter(DeleteFilterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteMetricAttributionResult deleteMetricAttribution(DeleteMetricAttributionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteRecommenderResult deleteRecommender(DeleteRecommenderRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteSchemaResult deleteSchema(DeleteSchemaRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -103,12 +153,32 @@ public class AbstractAmazonPersonalize implements AmazonPersonalize {
     }
 
     @Override
+    public DescribeBatchInferenceJobResult describeBatchInferenceJob(DescribeBatchInferenceJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeBatchSegmentJobResult describeBatchSegmentJob(DescribeBatchSegmentJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeCampaignResult describeCampaign(DescribeCampaignRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public DescribeDataDeletionJobResult describeDataDeletionJob(DescribeDataDeletionJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeDatasetResult describeDataset(DescribeDatasetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeDatasetExportJobResult describeDatasetExportJob(DescribeDatasetExportJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -133,7 +203,22 @@ public class AbstractAmazonPersonalize implements AmazonPersonalize {
     }
 
     @Override
+    public DescribeFilterResult describeFilter(DescribeFilterRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeMetricAttributionResult describeMetricAttribution(DescribeMetricAttributionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeRecipeResult describeRecipe(DescribeRecipeRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeRecommenderResult describeRecommender(DescribeRecommenderRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -158,7 +243,27 @@ public class AbstractAmazonPersonalize implements AmazonPersonalize {
     }
 
     @Override
+    public ListBatchInferenceJobsResult listBatchInferenceJobs(ListBatchInferenceJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListBatchSegmentJobsResult listBatchSegmentJobs(ListBatchSegmentJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListCampaignsResult listCampaigns(ListCampaignsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListDataDeletionJobsResult listDataDeletionJobs(ListDataDeletionJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListDatasetExportJobsResult listDatasetExportJobs(ListDatasetExportJobsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -183,7 +288,27 @@ public class AbstractAmazonPersonalize implements AmazonPersonalize {
     }
 
     @Override
+    public ListFiltersResult listFilters(ListFiltersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListMetricAttributionMetricsResult listMetricAttributionMetrics(ListMetricAttributionMetricsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListMetricAttributionsResult listMetricAttributions(ListMetricAttributionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListRecipesResult listRecipes(ListRecipesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListRecommendersResult listRecommenders(ListRecommendersRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -203,7 +328,52 @@ public class AbstractAmazonPersonalize implements AmazonPersonalize {
     }
 
     @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartRecommenderResult startRecommender(StartRecommenderRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StopRecommenderResult stopRecommender(StopRecommenderRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StopSolutionVersionCreationResult stopSolutionVersionCreation(StopSolutionVersionCreationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateCampaignResult updateCampaign(UpdateCampaignRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateDatasetResult updateDataset(UpdateDatasetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateMetricAttributionResult updateMetricAttribution(UpdateMetricAttributionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateRecommenderResult updateRecommender(UpdateRecommenderRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

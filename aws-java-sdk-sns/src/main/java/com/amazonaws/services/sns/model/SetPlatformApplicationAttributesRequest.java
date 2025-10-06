@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Input for SetPlatformApplicationAttributes action.
+ * Input for <code>SetPlatformApplicationAttributes</code> action.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/SetPlatformApplicationAttributes"
@@ -30,7 +30,7 @@ public class SetPlatformApplicationAttributesRequest extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * PlatformApplicationArn for SetPlatformApplicationAttributes action.
+     * <code>PlatformApplicationArn</code> for <code>SetPlatformApplicationAttributes</code> action.
      * </p>
      */
     private String platformApplicationArn;
@@ -41,37 +41,90 @@ public class SetPlatformApplicationAttributesRequest extends com.amazonaws.Amazo
      * <ul>
      * <li>
      * <p>
-     * <code>PlatformCredential</code> – The credential received from the notification service. For APNS/APNS_SANDBOX,
-     * PlatformCredential is private key. For GCM, PlatformCredential is "API key". For ADM, PlatformCredential is
-     * "client secret".
+     * <code>PlatformCredential</code> – The credential received from the notification service.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For ADM, <code>PlatformCredential</code>is client secret.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>PlatformPrincipal</code> – The principal received from the notification service. For APNS/APNS_SANDBOX,
-     * PlatformPrincipal is SSL certificate. For GCM, PlatformPrincipal is not applicable. For ADM, PlatformPrincipal is
-     * "client id".
+     * For Apple Services using certificate credentials, <code>PlatformCredential</code> is private key.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EventEndpointCreated</code> – Topic ARN to which EndpointCreated event notifications should be sent.
+     * For Apple Services using token credentials, <code>PlatformCredential</code> is signing key.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EventEndpointDeleted</code> – Topic ARN to which EndpointDeleted event notifications should be sent.
+     * For GCM (Firebase Cloud Messaging) using key credentials, there is no <code>PlatformPrincipal</code>. The
+     * <code>PlatformCredential</code> is <code>API key</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EventEndpointUpdated</code> – Topic ARN to which EndpointUpdate event notifications should be sent.
+     * For GCM (Firebase Cloud Messaging) using token credentials, there is no <code>PlatformPrincipal</code>. The
+     * <code>PlatformCredential</code> is a JSON formatted private key file. When using the Amazon Web Services CLI, the
+     * file must be in string format and special characters must be ignored. To format the file correctly, Amazon SNS
+     * recommends using the following command: <code>SERVICE_JSON=`jq @json &lt;&lt;&lt; cat service.json`</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PlatformPrincipal</code> – The principal received from the notification service.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For ADM, <code>PlatformPrincipal</code>is client id.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EventDeliveryFailure</code> – Topic ARN to which DeliveryFailure event notifications should be sent upon
-     * Direct Publish delivery failure (permanent) to one of the application's endpoints.
+     * For Apple Services using certificate credentials, <code>PlatformPrincipal</code> is SSL certificate.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Apple Services using token credentials, <code>PlatformPrincipal</code> is signing key ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For GCM (Firebase Cloud Messaging), there is no <code>PlatformPrincipal</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>EventEndpointCreated</code> – Topic ARN to which <code>EndpointCreated</code> event notifications are sent.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EventEndpointDeleted</code> – Topic ARN to which <code>EndpointDeleted</code> event notifications are sent.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EventEndpointUpdated</code> – Topic ARN to which <code>EndpointUpdate</code> event notifications are sent.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EventDeliveryFailure</code> – Topic ARN to which <code>DeliveryFailure</code> event notifications are sent
+     * upon Direct Publish delivery failure (permanent) to one of the application's endpoints.
      * </p>
      * </li>
      * <li>
@@ -92,16 +145,31 @@ public class SetPlatformApplicationAttributesRequest extends com.amazonaws.Amazo
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * The following attributes only apply to <code>APNs</code> token-based authentication:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ApplePlatformTeamID</code> – The identifier that's assigned to your Apple developer account team.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ApplePlatformBundleID</code> – The bundle identifier that's assigned to your iOS app.
+     * </p>
+     * </li>
+     * </ul>
      */
     private com.amazonaws.internal.SdkInternalMap<String, String> attributes;
 
     /**
      * <p>
-     * PlatformApplicationArn for SetPlatformApplicationAttributes action.
+     * <code>PlatformApplicationArn</code> for <code>SetPlatformApplicationAttributes</code> action.
      * </p>
      * 
      * @param platformApplicationArn
-     *        PlatformApplicationArn for SetPlatformApplicationAttributes action.
+     *        <code>PlatformApplicationArn</code> for <code>SetPlatformApplicationAttributes</code> action.
      */
 
     public void setPlatformApplicationArn(String platformApplicationArn) {
@@ -110,10 +178,10 @@ public class SetPlatformApplicationAttributesRequest extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * PlatformApplicationArn for SetPlatformApplicationAttributes action.
+     * <code>PlatformApplicationArn</code> for <code>SetPlatformApplicationAttributes</code> action.
      * </p>
      * 
-     * @return PlatformApplicationArn for SetPlatformApplicationAttributes action.
+     * @return <code>PlatformApplicationArn</code> for <code>SetPlatformApplicationAttributes</code> action.
      */
 
     public String getPlatformApplicationArn() {
@@ -122,11 +190,11 @@ public class SetPlatformApplicationAttributesRequest extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * PlatformApplicationArn for SetPlatformApplicationAttributes action.
+     * <code>PlatformApplicationArn</code> for <code>SetPlatformApplicationAttributes</code> action.
      * </p>
      * 
      * @param platformApplicationArn
-     *        PlatformApplicationArn for SetPlatformApplicationAttributes action.
+     *        <code>PlatformApplicationArn</code> for <code>SetPlatformApplicationAttributes</code> action.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -142,37 +210,90 @@ public class SetPlatformApplicationAttributesRequest extends com.amazonaws.Amazo
      * <ul>
      * <li>
      * <p>
-     * <code>PlatformCredential</code> – The credential received from the notification service. For APNS/APNS_SANDBOX,
-     * PlatformCredential is private key. For GCM, PlatformCredential is "API key". For ADM, PlatformCredential is
-     * "client secret".
+     * <code>PlatformCredential</code> – The credential received from the notification service.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For ADM, <code>PlatformCredential</code>is client secret.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>PlatformPrincipal</code> – The principal received from the notification service. For APNS/APNS_SANDBOX,
-     * PlatformPrincipal is SSL certificate. For GCM, PlatformPrincipal is not applicable. For ADM, PlatformPrincipal is
-     * "client id".
+     * For Apple Services using certificate credentials, <code>PlatformCredential</code> is private key.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EventEndpointCreated</code> – Topic ARN to which EndpointCreated event notifications should be sent.
+     * For Apple Services using token credentials, <code>PlatformCredential</code> is signing key.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EventEndpointDeleted</code> – Topic ARN to which EndpointDeleted event notifications should be sent.
+     * For GCM (Firebase Cloud Messaging) using key credentials, there is no <code>PlatformPrincipal</code>. The
+     * <code>PlatformCredential</code> is <code>API key</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EventEndpointUpdated</code> – Topic ARN to which EndpointUpdate event notifications should be sent.
+     * For GCM (Firebase Cloud Messaging) using token credentials, there is no <code>PlatformPrincipal</code>. The
+     * <code>PlatformCredential</code> is a JSON formatted private key file. When using the Amazon Web Services CLI, the
+     * file must be in string format and special characters must be ignored. To format the file correctly, Amazon SNS
+     * recommends using the following command: <code>SERVICE_JSON=`jq @json &lt;&lt;&lt; cat service.json`</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PlatformPrincipal</code> – The principal received from the notification service.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For ADM, <code>PlatformPrincipal</code>is client id.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EventDeliveryFailure</code> – Topic ARN to which DeliveryFailure event notifications should be sent upon
-     * Direct Publish delivery failure (permanent) to one of the application's endpoints.
+     * For Apple Services using certificate credentials, <code>PlatformPrincipal</code> is SSL certificate.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Apple Services using token credentials, <code>PlatformPrincipal</code> is signing key ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For GCM (Firebase Cloud Messaging), there is no <code>PlatformPrincipal</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>EventEndpointCreated</code> – Topic ARN to which <code>EndpointCreated</code> event notifications are sent.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EventEndpointDeleted</code> – Topic ARN to which <code>EndpointDeleted</code> event notifications are sent.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EventEndpointUpdated</code> – Topic ARN to which <code>EndpointUpdate</code> event notifications are sent.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EventDeliveryFailure</code> – Topic ARN to which <code>DeliveryFailure</code> event notifications are sent
+     * upon Direct Publish delivery failure (permanent) to one of the application's endpoints.
      * </p>
      * </li>
      * <li>
@@ -193,44 +314,114 @@ public class SetPlatformApplicationAttributesRequest extends com.amazonaws.Amazo
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * The following attributes only apply to <code>APNs</code> token-based authentication:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ApplePlatformTeamID</code> – The identifier that's assigned to your Apple developer account team.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ApplePlatformBundleID</code> – The bundle identifier that's assigned to your iOS app.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @return A map of the platform application attributes. Attributes in this map include the following:</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>PlatformCredential</code> – The credential received from the notification service. For
-     *         APNS/APNS_SANDBOX, PlatformCredential is private key. For GCM, PlatformCredential is "API key". For ADM,
-     *         PlatformCredential is "client secret".
+     *         <code>PlatformCredential</code> – The credential received from the notification service.
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         For ADM, <code>PlatformCredential</code>is client secret.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>PlatformPrincipal</code> – The principal received from the notification service. For
-     *         APNS/APNS_SANDBOX, PlatformPrincipal is SSL certificate. For GCM, PlatformPrincipal is not applicable.
-     *         For ADM, PlatformPrincipal is "client id".
+     *         For Apple Services using certificate credentials, <code>PlatformCredential</code> is private key.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>EventEndpointCreated</code> – Topic ARN to which EndpointCreated event notifications should be
-     *         sent.
+     *         For Apple Services using token credentials, <code>PlatformCredential</code> is signing key.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>EventEndpointDeleted</code> – Topic ARN to which EndpointDeleted event notifications should be
-     *         sent.
+     *         For GCM (Firebase Cloud Messaging) using key credentials, there is no <code>PlatformPrincipal</code>. The
+     *         <code>PlatformCredential</code> is <code>API key</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>EventEndpointUpdated</code> – Topic ARN to which EndpointUpdate event notifications should be sent.
+     *         For GCM (Firebase Cloud Messaging) using token credentials, there is no <code>PlatformPrincipal</code>.
+     *         The <code>PlatformCredential</code> is a JSON formatted private key file. When using the Amazon Web
+     *         Services CLI, the file must be in string format and special characters must be ignored. To format the
+     *         file correctly, Amazon SNS recommends using the following command:
+     *         <code>SERVICE_JSON=`jq @json &lt;&lt;&lt; cat service.json`</code>.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         </li>
+     *         </ul>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>PlatformPrincipal</code> – The principal received from the notification service.
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         For ADM, <code>PlatformPrincipal</code>is client id.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>EventDeliveryFailure</code> – Topic ARN to which DeliveryFailure event notifications should be sent
-     *         upon Direct Publish delivery failure (permanent) to one of the application's endpoints.
+     *         For Apple Services using certificate credentials, <code>PlatformPrincipal</code> is SSL certificate.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For Apple Services using token credentials, <code>PlatformPrincipal</code> is signing key ID.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For GCM (Firebase Cloud Messaging), there is no <code>PlatformPrincipal</code>.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         </li>
+     *         </ul>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>EventEndpointCreated</code> – Topic ARN to which <code>EndpointCreated</code> event notifications
+     *         are sent.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>EventEndpointDeleted</code> – Topic ARN to which <code>EndpointDeleted</code> event notifications
+     *         are sent.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>EventEndpointUpdated</code> – Topic ARN to which <code>EndpointUpdate</code> event notifications
+     *         are sent.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>EventDeliveryFailure</code> – Topic ARN to which <code>DeliveryFailure</code> event notifications
+     *         are sent upon Direct Publish delivery failure (permanent) to one of the application's endpoints.
      *         </p>
      *         </li>
      *         <li>
@@ -251,6 +442,21 @@ public class SetPlatformApplicationAttributesRequest extends com.amazonaws.Amazo
      *         messages.
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         The following attributes only apply to <code>APNs</code> token-based authentication:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>ApplePlatformTeamID</code> – The identifier that's assigned to your Apple developer account team.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ApplePlatformBundleID</code> – The bundle identifier that's assigned to your iOS app.
+     *         </p>
+     *         </li>
      */
 
     public java.util.Map<String, String> getAttributes() {
@@ -267,37 +473,90 @@ public class SetPlatformApplicationAttributesRequest extends com.amazonaws.Amazo
      * <ul>
      * <li>
      * <p>
-     * <code>PlatformCredential</code> – The credential received from the notification service. For APNS/APNS_SANDBOX,
-     * PlatformCredential is private key. For GCM, PlatformCredential is "API key". For ADM, PlatformCredential is
-     * "client secret".
+     * <code>PlatformCredential</code> – The credential received from the notification service.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For ADM, <code>PlatformCredential</code>is client secret.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>PlatformPrincipal</code> – The principal received from the notification service. For APNS/APNS_SANDBOX,
-     * PlatformPrincipal is SSL certificate. For GCM, PlatformPrincipal is not applicable. For ADM, PlatformPrincipal is
-     * "client id".
+     * For Apple Services using certificate credentials, <code>PlatformCredential</code> is private key.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EventEndpointCreated</code> – Topic ARN to which EndpointCreated event notifications should be sent.
+     * For Apple Services using token credentials, <code>PlatformCredential</code> is signing key.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EventEndpointDeleted</code> – Topic ARN to which EndpointDeleted event notifications should be sent.
+     * For GCM (Firebase Cloud Messaging) using key credentials, there is no <code>PlatformPrincipal</code>. The
+     * <code>PlatformCredential</code> is <code>API key</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EventEndpointUpdated</code> – Topic ARN to which EndpointUpdate event notifications should be sent.
+     * For GCM (Firebase Cloud Messaging) using token credentials, there is no <code>PlatformPrincipal</code>. The
+     * <code>PlatformCredential</code> is a JSON formatted private key file. When using the Amazon Web Services CLI, the
+     * file must be in string format and special characters must be ignored. To format the file correctly, Amazon SNS
+     * recommends using the following command: <code>SERVICE_JSON=`jq @json &lt;&lt;&lt; cat service.json`</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PlatformPrincipal</code> – The principal received from the notification service.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For ADM, <code>PlatformPrincipal</code>is client id.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EventDeliveryFailure</code> – Topic ARN to which DeliveryFailure event notifications should be sent upon
-     * Direct Publish delivery failure (permanent) to one of the application's endpoints.
+     * For Apple Services using certificate credentials, <code>PlatformPrincipal</code> is SSL certificate.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Apple Services using token credentials, <code>PlatformPrincipal</code> is signing key ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For GCM (Firebase Cloud Messaging), there is no <code>PlatformPrincipal</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>EventEndpointCreated</code> – Topic ARN to which <code>EndpointCreated</code> event notifications are sent.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EventEndpointDeleted</code> – Topic ARN to which <code>EndpointDeleted</code> event notifications are sent.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EventEndpointUpdated</code> – Topic ARN to which <code>EndpointUpdate</code> event notifications are sent.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EventDeliveryFailure</code> – Topic ARN to which <code>DeliveryFailure</code> event notifications are sent
+     * upon Direct Publish delivery failure (permanent) to one of the application's endpoints.
      * </p>
      * </li>
      * <li>
@@ -318,43 +577,115 @@ public class SetPlatformApplicationAttributesRequest extends com.amazonaws.Amazo
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * The following attributes only apply to <code>APNs</code> token-based authentication:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ApplePlatformTeamID</code> – The identifier that's assigned to your Apple developer account team.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ApplePlatformBundleID</code> – The bundle identifier that's assigned to your iOS app.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param attributes
      *        A map of the platform application attributes. Attributes in this map include the following:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>PlatformCredential</code> – The credential received from the notification service. For
-     *        APNS/APNS_SANDBOX, PlatformCredential is private key. For GCM, PlatformCredential is "API key". For ADM,
-     *        PlatformCredential is "client secret".
+     *        <code>PlatformCredential</code> – The credential received from the notification service.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For ADM, <code>PlatformCredential</code>is client secret.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>PlatformPrincipal</code> – The principal received from the notification service. For
-     *        APNS/APNS_SANDBOX, PlatformPrincipal is SSL certificate. For GCM, PlatformPrincipal is not applicable. For
-     *        ADM, PlatformPrincipal is "client id".
+     *        For Apple Services using certificate credentials, <code>PlatformCredential</code> is private key.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>EventEndpointCreated</code> – Topic ARN to which EndpointCreated event notifications should be sent.
+     *        For Apple Services using token credentials, <code>PlatformCredential</code> is signing key.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>EventEndpointDeleted</code> – Topic ARN to which EndpointDeleted event notifications should be sent.
+     *        For GCM (Firebase Cloud Messaging) using key credentials, there is no <code>PlatformPrincipal</code>. The
+     *        <code>PlatformCredential</code> is <code>API key</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>EventEndpointUpdated</code> – Topic ARN to which EndpointUpdate event notifications should be sent.
+     *        For GCM (Firebase Cloud Messaging) using token credentials, there is no <code>PlatformPrincipal</code>.
+     *        The <code>PlatformCredential</code> is a JSON formatted private key file. When using the Amazon Web
+     *        Services CLI, the file must be in string format and special characters must be ignored. To format the file
+     *        correctly, Amazon SNS recommends using the following command:
+     *        <code>SERVICE_JSON=`jq @json &lt;&lt;&lt; cat service.json`</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        </ul>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>PlatformPrincipal</code> – The principal received from the notification service.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For ADM, <code>PlatformPrincipal</code>is client id.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>EventDeliveryFailure</code> – Topic ARN to which DeliveryFailure event notifications should be sent
-     *        upon Direct Publish delivery failure (permanent) to one of the application's endpoints.
+     *        For Apple Services using certificate credentials, <code>PlatformPrincipal</code> is SSL certificate.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For Apple Services using token credentials, <code>PlatformPrincipal</code> is signing key ID.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For GCM (Firebase Cloud Messaging), there is no <code>PlatformPrincipal</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        </ul>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>EventEndpointCreated</code> – Topic ARN to which <code>EndpointCreated</code> event notifications
+     *        are sent.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EventEndpointDeleted</code> – Topic ARN to which <code>EndpointDeleted</code> event notifications
+     *        are sent.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EventEndpointUpdated</code> – Topic ARN to which <code>EndpointUpdate</code> event notifications are
+     *        sent.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EventDeliveryFailure</code> – Topic ARN to which <code>DeliveryFailure</code> event notifications
+     *        are sent upon Direct Publish delivery failure (permanent) to one of the application's endpoints.
      *        </p>
      *        </li>
      *        <li>
@@ -373,6 +704,21 @@ public class SetPlatformApplicationAttributesRequest extends com.amazonaws.Amazo
      *        <p>
      *        <code>SuccessFeedbackSampleRate</code> – Sample rate percentage (0-100) of successfully delivered
      *        messages.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attributes only apply to <code>APNs</code> token-based authentication:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ApplePlatformTeamID</code> – The identifier that's assigned to your Apple developer account team.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ApplePlatformBundleID</code> – The bundle identifier that's assigned to your iOS app.
      *        </p>
      *        </li>
      */
@@ -388,37 +734,90 @@ public class SetPlatformApplicationAttributesRequest extends com.amazonaws.Amazo
      * <ul>
      * <li>
      * <p>
-     * <code>PlatformCredential</code> – The credential received from the notification service. For APNS/APNS_SANDBOX,
-     * PlatformCredential is private key. For GCM, PlatformCredential is "API key". For ADM, PlatformCredential is
-     * "client secret".
+     * <code>PlatformCredential</code> – The credential received from the notification service.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For ADM, <code>PlatformCredential</code>is client secret.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>PlatformPrincipal</code> – The principal received from the notification service. For APNS/APNS_SANDBOX,
-     * PlatformPrincipal is SSL certificate. For GCM, PlatformPrincipal is not applicable. For ADM, PlatformPrincipal is
-     * "client id".
+     * For Apple Services using certificate credentials, <code>PlatformCredential</code> is private key.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EventEndpointCreated</code> – Topic ARN to which EndpointCreated event notifications should be sent.
+     * For Apple Services using token credentials, <code>PlatformCredential</code> is signing key.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EventEndpointDeleted</code> – Topic ARN to which EndpointDeleted event notifications should be sent.
+     * For GCM (Firebase Cloud Messaging) using key credentials, there is no <code>PlatformPrincipal</code>. The
+     * <code>PlatformCredential</code> is <code>API key</code>.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EventEndpointUpdated</code> – Topic ARN to which EndpointUpdate event notifications should be sent.
+     * For GCM (Firebase Cloud Messaging) using token credentials, there is no <code>PlatformPrincipal</code>. The
+     * <code>PlatformCredential</code> is a JSON formatted private key file. When using the Amazon Web Services CLI, the
+     * file must be in string format and special characters must be ignored. To format the file correctly, Amazon SNS
+     * recommends using the following command: <code>SERVICE_JSON=`jq @json &lt;&lt;&lt; cat service.json`</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PlatformPrincipal</code> – The principal received from the notification service.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For ADM, <code>PlatformPrincipal</code>is client id.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>EventDeliveryFailure</code> – Topic ARN to which DeliveryFailure event notifications should be sent upon
-     * Direct Publish delivery failure (permanent) to one of the application's endpoints.
+     * For Apple Services using certificate credentials, <code>PlatformPrincipal</code> is SSL certificate.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Apple Services using token credentials, <code>PlatformPrincipal</code> is signing key ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For GCM (Firebase Cloud Messaging), there is no <code>PlatformPrincipal</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>EventEndpointCreated</code> – Topic ARN to which <code>EndpointCreated</code> event notifications are sent.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EventEndpointDeleted</code> – Topic ARN to which <code>EndpointDeleted</code> event notifications are sent.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EventEndpointUpdated</code> – Topic ARN to which <code>EndpointUpdate</code> event notifications are sent.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EventDeliveryFailure</code> – Topic ARN to which <code>DeliveryFailure</code> event notifications are sent
+     * upon Direct Publish delivery failure (permanent) to one of the application's endpoints.
      * </p>
      * </li>
      * <li>
@@ -439,43 +838,115 @@ public class SetPlatformApplicationAttributesRequest extends com.amazonaws.Amazo
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * The following attributes only apply to <code>APNs</code> token-based authentication:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ApplePlatformTeamID</code> – The identifier that's assigned to your Apple developer account team.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ApplePlatformBundleID</code> – The bundle identifier that's assigned to your iOS app.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param attributes
      *        A map of the platform application attributes. Attributes in this map include the following:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>PlatformCredential</code> – The credential received from the notification service. For
-     *        APNS/APNS_SANDBOX, PlatformCredential is private key. For GCM, PlatformCredential is "API key". For ADM,
-     *        PlatformCredential is "client secret".
+     *        <code>PlatformCredential</code> – The credential received from the notification service.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For ADM, <code>PlatformCredential</code>is client secret.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>PlatformPrincipal</code> – The principal received from the notification service. For
-     *        APNS/APNS_SANDBOX, PlatformPrincipal is SSL certificate. For GCM, PlatformPrincipal is not applicable. For
-     *        ADM, PlatformPrincipal is "client id".
+     *        For Apple Services using certificate credentials, <code>PlatformCredential</code> is private key.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>EventEndpointCreated</code> – Topic ARN to which EndpointCreated event notifications should be sent.
+     *        For Apple Services using token credentials, <code>PlatformCredential</code> is signing key.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>EventEndpointDeleted</code> – Topic ARN to which EndpointDeleted event notifications should be sent.
+     *        For GCM (Firebase Cloud Messaging) using key credentials, there is no <code>PlatformPrincipal</code>. The
+     *        <code>PlatformCredential</code> is <code>API key</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>EventEndpointUpdated</code> – Topic ARN to which EndpointUpdate event notifications should be sent.
+     *        For GCM (Firebase Cloud Messaging) using token credentials, there is no <code>PlatformPrincipal</code>.
+     *        The <code>PlatformCredential</code> is a JSON formatted private key file. When using the Amazon Web
+     *        Services CLI, the file must be in string format and special characters must be ignored. To format the file
+     *        correctly, Amazon SNS recommends using the following command:
+     *        <code>SERVICE_JSON=`jq @json &lt;&lt;&lt; cat service.json`</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        </ul>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>PlatformPrincipal</code> – The principal received from the notification service.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For ADM, <code>PlatformPrincipal</code>is client id.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>EventDeliveryFailure</code> – Topic ARN to which DeliveryFailure event notifications should be sent
-     *        upon Direct Publish delivery failure (permanent) to one of the application's endpoints.
+     *        For Apple Services using certificate credentials, <code>PlatformPrincipal</code> is SSL certificate.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For Apple Services using token credentials, <code>PlatformPrincipal</code> is signing key ID.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For GCM (Firebase Cloud Messaging), there is no <code>PlatformPrincipal</code>.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </li>
+     *        </ul>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>EventEndpointCreated</code> – Topic ARN to which <code>EndpointCreated</code> event notifications
+     *        are sent.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EventEndpointDeleted</code> – Topic ARN to which <code>EndpointDeleted</code> event notifications
+     *        are sent.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EventEndpointUpdated</code> – Topic ARN to which <code>EndpointUpdate</code> event notifications are
+     *        sent.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EventDeliveryFailure</code> – Topic ARN to which <code>DeliveryFailure</code> event notifications
+     *        are sent upon Direct Publish delivery failure (permanent) to one of the application's endpoints.
      *        </p>
      *        </li>
      *        <li>
@@ -496,6 +967,21 @@ public class SetPlatformApplicationAttributesRequest extends com.amazonaws.Amazo
      *        messages.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        The following attributes only apply to <code>APNs</code> token-based authentication:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ApplePlatformTeamID</code> – The identifier that's assigned to your Apple developer account team.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ApplePlatformBundleID</code> – The bundle identifier that's assigned to your iOS app.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -503,6 +989,13 @@ public class SetPlatformApplicationAttributesRequest extends com.amazonaws.Amazo
         setAttributes(attributes);
         return this;
     }
+
+    /**
+     * Add a single Attributes entry
+     *
+     * @see SetPlatformApplicationAttributesRequest#withAttributes
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public SetPlatformApplicationAttributesRequest addAttributesEntry(String key, String value) {
         if (null == this.attributes) {

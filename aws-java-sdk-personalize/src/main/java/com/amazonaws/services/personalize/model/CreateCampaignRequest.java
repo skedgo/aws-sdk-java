@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,17 +33,44 @@ public class CreateCampaignRequest extends com.amazonaws.AmazonWebServiceRequest
     private String name;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the solution version to deploy.
+     * The Amazon Resource Name (ARN) of the trained model to deploy with the campaign. To specify the latest solution
+     * version of your solution, specify the ARN of your <i>solution</i> in <code>SolutionArn/$LATEST</code> format. You
+     * must use this format if you set <code>syncWithLatestSolutionVersion</code> to <code>True</code> in the <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CampaignConfig.html">CampaignConfig</a>.
+     * </p>
+     * <p>
+     * To deploy a model that isn't the latest solution version of your solution, specify the ARN of the solution
+     * version.
+     * </p>
+     * <p>
+     * For more information about automatic campaign updates, see <a href=
+     * "https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html#create-campaign-automatic-latest-sv-update"
+     * >Enabling automatic campaign updates</a>.
      * </p>
      */
     private String solutionVersionArn;
     /**
      * <p>
      * Specifies the requested minimum provisioned transactions (recommendations) per second that Amazon Personalize
-     * will support.
+     * will support. A high <code>minProvisionedTPS</code> will increase your bill. We recommend starting with 1 for
+     * <code>minProvisionedTPS</code> (the default). Track your usage using Amazon CloudWatch metrics, and increase the
+     * <code>minProvisionedTPS</code> as necessary.
      * </p>
      */
     private Integer minProvisionedTPS;
+    /**
+     * <p>
+     * The configuration details of a campaign.
+     * </p>
+     */
+    private CampaignConfig campaignConfig;
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the campaign.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
 
     /**
      * <p>
@@ -87,11 +114,35 @@ public class CreateCampaignRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the solution version to deploy.
+     * The Amazon Resource Name (ARN) of the trained model to deploy with the campaign. To specify the latest solution
+     * version of your solution, specify the ARN of your <i>solution</i> in <code>SolutionArn/$LATEST</code> format. You
+     * must use this format if you set <code>syncWithLatestSolutionVersion</code> to <code>True</code> in the <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CampaignConfig.html">CampaignConfig</a>.
+     * </p>
+     * <p>
+     * To deploy a model that isn't the latest solution version of your solution, specify the ARN of the solution
+     * version.
+     * </p>
+     * <p>
+     * For more information about automatic campaign updates, see <a href=
+     * "https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html#create-campaign-automatic-latest-sv-update"
+     * >Enabling automatic campaign updates</a>.
      * </p>
      * 
      * @param solutionVersionArn
-     *        The Amazon Resource Name (ARN) of the solution version to deploy.
+     *        The Amazon Resource Name (ARN) of the trained model to deploy with the campaign. To specify the latest
+     *        solution version of your solution, specify the ARN of your <i>solution</i> in
+     *        <code>SolutionArn/$LATEST</code> format. You must use this format if you set
+     *        <code>syncWithLatestSolutionVersion</code> to <code>True</code> in the <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/API_CampaignConfig.html">CampaignConfig</a>. </p>
+     *        <p>
+     *        To deploy a model that isn't the latest solution version of your solution, specify the ARN of the solution
+     *        version.
+     *        </p>
+     *        <p>
+     *        For more information about automatic campaign updates, see <a href=
+     *        "https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html#create-campaign-automatic-latest-sv-update"
+     *        >Enabling automatic campaign updates</a>.
      */
 
     public void setSolutionVersionArn(String solutionVersionArn) {
@@ -100,10 +151,34 @@ public class CreateCampaignRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the solution version to deploy.
+     * The Amazon Resource Name (ARN) of the trained model to deploy with the campaign. To specify the latest solution
+     * version of your solution, specify the ARN of your <i>solution</i> in <code>SolutionArn/$LATEST</code> format. You
+     * must use this format if you set <code>syncWithLatestSolutionVersion</code> to <code>True</code> in the <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CampaignConfig.html">CampaignConfig</a>.
+     * </p>
+     * <p>
+     * To deploy a model that isn't the latest solution version of your solution, specify the ARN of the solution
+     * version.
+     * </p>
+     * <p>
+     * For more information about automatic campaign updates, see <a href=
+     * "https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html#create-campaign-automatic-latest-sv-update"
+     * >Enabling automatic campaign updates</a>.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the solution version to deploy.
+     * @return The Amazon Resource Name (ARN) of the trained model to deploy with the campaign. To specify the latest
+     *         solution version of your solution, specify the ARN of your <i>solution</i> in
+     *         <code>SolutionArn/$LATEST</code> format. You must use this format if you set
+     *         <code>syncWithLatestSolutionVersion</code> to <code>True</code> in the <a
+     *         href="https://docs.aws.amazon.com/personalize/latest/dg/API_CampaignConfig.html">CampaignConfig</a>. </p>
+     *         <p>
+     *         To deploy a model that isn't the latest solution version of your solution, specify the ARN of the
+     *         solution version.
+     *         </p>
+     *         <p>
+     *         For more information about automatic campaign updates, see <a href=
+     *         "https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html#create-campaign-automatic-latest-sv-update"
+     *         >Enabling automatic campaign updates</a>.
      */
 
     public String getSolutionVersionArn() {
@@ -112,11 +187,35 @@ public class CreateCampaignRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the solution version to deploy.
+     * The Amazon Resource Name (ARN) of the trained model to deploy with the campaign. To specify the latest solution
+     * version of your solution, specify the ARN of your <i>solution</i> in <code>SolutionArn/$LATEST</code> format. You
+     * must use this format if you set <code>syncWithLatestSolutionVersion</code> to <code>True</code> in the <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/API_CampaignConfig.html">CampaignConfig</a>.
+     * </p>
+     * <p>
+     * To deploy a model that isn't the latest solution version of your solution, specify the ARN of the solution
+     * version.
+     * </p>
+     * <p>
+     * For more information about automatic campaign updates, see <a href=
+     * "https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html#create-campaign-automatic-latest-sv-update"
+     * >Enabling automatic campaign updates</a>.
      * </p>
      * 
      * @param solutionVersionArn
-     *        The Amazon Resource Name (ARN) of the solution version to deploy.
+     *        The Amazon Resource Name (ARN) of the trained model to deploy with the campaign. To specify the latest
+     *        solution version of your solution, specify the ARN of your <i>solution</i> in
+     *        <code>SolutionArn/$LATEST</code> format. You must use this format if you set
+     *        <code>syncWithLatestSolutionVersion</code> to <code>True</code> in the <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/API_CampaignConfig.html">CampaignConfig</a>. </p>
+     *        <p>
+     *        To deploy a model that isn't the latest solution version of your solution, specify the ARN of the solution
+     *        version.
+     *        </p>
+     *        <p>
+     *        For more information about automatic campaign updates, see <a href=
+     *        "https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html#create-campaign-automatic-latest-sv-update"
+     *        >Enabling automatic campaign updates</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -128,12 +227,16 @@ public class CreateCampaignRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Specifies the requested minimum provisioned transactions (recommendations) per second that Amazon Personalize
-     * will support.
+     * will support. A high <code>minProvisionedTPS</code> will increase your bill. We recommend starting with 1 for
+     * <code>minProvisionedTPS</code> (the default). Track your usage using Amazon CloudWatch metrics, and increase the
+     * <code>minProvisionedTPS</code> as necessary.
      * </p>
      * 
      * @param minProvisionedTPS
      *        Specifies the requested minimum provisioned transactions (recommendations) per second that Amazon
-     *        Personalize will support.
+     *        Personalize will support. A high <code>minProvisionedTPS</code> will increase your bill. We recommend
+     *        starting with 1 for <code>minProvisionedTPS</code> (the default). Track your usage using Amazon CloudWatch
+     *        metrics, and increase the <code>minProvisionedTPS</code> as necessary.
      */
 
     public void setMinProvisionedTPS(Integer minProvisionedTPS) {
@@ -143,11 +246,15 @@ public class CreateCampaignRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Specifies the requested minimum provisioned transactions (recommendations) per second that Amazon Personalize
-     * will support.
+     * will support. A high <code>minProvisionedTPS</code> will increase your bill. We recommend starting with 1 for
+     * <code>minProvisionedTPS</code> (the default). Track your usage using Amazon CloudWatch metrics, and increase the
+     * <code>minProvisionedTPS</code> as necessary.
      * </p>
      * 
      * @return Specifies the requested minimum provisioned transactions (recommendations) per second that Amazon
-     *         Personalize will support.
+     *         Personalize will support. A high <code>minProvisionedTPS</code> will increase your bill. We recommend
+     *         starting with 1 for <code>minProvisionedTPS</code> (the default). Track your usage using Amazon
+     *         CloudWatch metrics, and increase the <code>minProvisionedTPS</code> as necessary.
      */
 
     public Integer getMinProvisionedTPS() {
@@ -157,17 +264,139 @@ public class CreateCampaignRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Specifies the requested minimum provisioned transactions (recommendations) per second that Amazon Personalize
-     * will support.
+     * will support. A high <code>minProvisionedTPS</code> will increase your bill. We recommend starting with 1 for
+     * <code>minProvisionedTPS</code> (the default). Track your usage using Amazon CloudWatch metrics, and increase the
+     * <code>minProvisionedTPS</code> as necessary.
      * </p>
      * 
      * @param minProvisionedTPS
      *        Specifies the requested minimum provisioned transactions (recommendations) per second that Amazon
-     *        Personalize will support.
+     *        Personalize will support. A high <code>minProvisionedTPS</code> will increase your bill. We recommend
+     *        starting with 1 for <code>minProvisionedTPS</code> (the default). Track your usage using Amazon CloudWatch
+     *        metrics, and increase the <code>minProvisionedTPS</code> as necessary.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateCampaignRequest withMinProvisionedTPS(Integer minProvisionedTPS) {
         setMinProvisionedTPS(minProvisionedTPS);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The configuration details of a campaign.
+     * </p>
+     * 
+     * @param campaignConfig
+     *        The configuration details of a campaign.
+     */
+
+    public void setCampaignConfig(CampaignConfig campaignConfig) {
+        this.campaignConfig = campaignConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration details of a campaign.
+     * </p>
+     * 
+     * @return The configuration details of a campaign.
+     */
+
+    public CampaignConfig getCampaignConfig() {
+        return this.campaignConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration details of a campaign.
+     * </p>
+     * 
+     * @param campaignConfig
+     *        The configuration details of a campaign.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateCampaignRequest withCampaignConfig(CampaignConfig campaignConfig) {
+        setCampaignConfig(campaignConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the campaign.
+     * </p>
+     * 
+     * @return A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to
+     *         apply to the campaign.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the campaign.
+     * </p>
+     * 
+     * @param tags
+     *        A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to
+     *        apply to the campaign.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the campaign.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to
+     *        apply to the campaign.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateCampaignRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to apply to
+     * the campaign.
+     * </p>
+     * 
+     * @param tags
+     *        A list of <a href="https://docs.aws.amazon.com/personalize/latest/dg/tagging-resources.html">tags</a> to
+     *        apply to the campaign.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateCampaignRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
         return this;
     }
 
@@ -188,7 +417,11 @@ public class CreateCampaignRequest extends com.amazonaws.AmazonWebServiceRequest
         if (getSolutionVersionArn() != null)
             sb.append("SolutionVersionArn: ").append(getSolutionVersionArn()).append(",");
         if (getMinProvisionedTPS() != null)
-            sb.append("MinProvisionedTPS: ").append(getMinProvisionedTPS());
+            sb.append("MinProvisionedTPS: ").append(getMinProvisionedTPS()).append(",");
+        if (getCampaignConfig() != null)
+            sb.append("CampaignConfig: ").append(getCampaignConfig()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -215,6 +448,14 @@ public class CreateCampaignRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getMinProvisionedTPS() != null && other.getMinProvisionedTPS().equals(this.getMinProvisionedTPS()) == false)
             return false;
+        if (other.getCampaignConfig() == null ^ this.getCampaignConfig() == null)
+            return false;
+        if (other.getCampaignConfig() != null && other.getCampaignConfig().equals(this.getCampaignConfig()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -226,6 +467,8 @@ public class CreateCampaignRequest extends com.amazonaws.AmazonWebServiceRequest
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getSolutionVersionArn() == null) ? 0 : getSolutionVersionArn().hashCode());
         hashCode = prime * hashCode + ((getMinProvisionedTPS() == null) ? 0 : getMinProvisionedTPS().hashCode());
+        hashCode = prime * hashCode + ((getCampaignConfig() == null) ? 0 : getCampaignConfig().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,6 +30,10 @@ public class ContainerStateChangeMarshaller {
 
     private static final MarshallingInfo<String> CONTAINERNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("containerName").build();
+    private static final MarshallingInfo<String> IMAGEDIGEST_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("imageDigest").build();
+    private static final MarshallingInfo<String> RUNTIMEID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("runtimeId").build();
     private static final MarshallingInfo<Integer> EXITCODE_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("exitCode").build();
     private static final MarshallingInfo<List> NETWORKBINDINGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
@@ -56,6 +60,8 @@ public class ContainerStateChangeMarshaller {
 
         try {
             protocolMarshaller.marshall(containerStateChange.getContainerName(), CONTAINERNAME_BINDING);
+            protocolMarshaller.marshall(containerStateChange.getImageDigest(), IMAGEDIGEST_BINDING);
+            protocolMarshaller.marshall(containerStateChange.getRuntimeId(), RUNTIMEID_BINDING);
             protocolMarshaller.marshall(containerStateChange.getExitCode(), EXITCODE_BINDING);
             protocolMarshaller.marshall(containerStateChange.getNetworkBindings(), NETWORKBINDINGS_BINDING);
             protocolMarshaller.marshall(containerStateChange.getReason(), REASON_BINDING);

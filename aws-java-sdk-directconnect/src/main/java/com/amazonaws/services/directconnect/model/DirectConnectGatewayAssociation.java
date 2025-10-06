@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
     private String directConnectGatewayId;
     /**
      * <p>
-     * The ID of the AWS account that owns the associated gateway.
+     * The ID of the Amazon Web Services account that owns the associated gateway.
      * </p>
      */
     private String directConnectGatewayOwnerAccount;
@@ -66,6 +66,12 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
      * <code>disassociated</code>: The virtual private gateway or transit gateway is disassociated from the Direct
      * Connect gateway. Traffic flow between the Direct Connect gateway and virtual private gateway or transit gateway
      * is stopped.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>updating</code>: The CIDR blocks for the virtual private gateway or transit gateway are currently being
+     * updated. This could be new CIDR blocks added or current CIDR blocks removed.
      * </p>
      * </li>
      * </ul>
@@ -103,13 +109,13 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
     private String virtualGatewayId;
     /**
      * <p>
-     * The AWS Region where the virtual private gateway is located.
+     * The Amazon Web Services Region where the virtual private gateway is located.
      * </p>
      */
     private String virtualGatewayRegion;
     /**
      * <p>
-     * The ID of the AWS account that owns the virtual private gateway.
+     * The ID of the Amazon Web Services account that owns the virtual private gateway.
      * </p>
      */
     private String virtualGatewayOwnerAccount;
@@ -156,11 +162,11 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The ID of the AWS account that owns the associated gateway.
+     * The ID of the Amazon Web Services account that owns the associated gateway.
      * </p>
      * 
      * @param directConnectGatewayOwnerAccount
-     *        The ID of the AWS account that owns the associated gateway.
+     *        The ID of the Amazon Web Services account that owns the associated gateway.
      */
 
     public void setDirectConnectGatewayOwnerAccount(String directConnectGatewayOwnerAccount) {
@@ -169,10 +175,10 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The ID of the AWS account that owns the associated gateway.
+     * The ID of the Amazon Web Services account that owns the associated gateway.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the associated gateway.
+     * @return The ID of the Amazon Web Services account that owns the associated gateway.
      */
 
     public String getDirectConnectGatewayOwnerAccount() {
@@ -181,11 +187,11 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The ID of the AWS account that owns the associated gateway.
+     * The ID of the Amazon Web Services account that owns the associated gateway.
      * </p>
      * 
      * @param directConnectGatewayOwnerAccount
-     *        The ID of the AWS account that owns the associated gateway.
+     *        The ID of the Amazon Web Services account that owns the associated gateway.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -222,6 +228,12 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
      * is stopped.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>updating</code>: The CIDR blocks for the virtual private gateway or transit gateway are currently being
+     * updated. This could be new CIDR blocks added or current CIDR blocks removed.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param associationState
@@ -248,6 +260,12 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
      *        <code>disassociated</code>: The virtual private gateway or transit gateway is disassociated from the
      *        Direct Connect gateway. Traffic flow between the Direct Connect gateway and virtual private gateway or
      *        transit gateway is stopped.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>updating</code>: The CIDR blocks for the virtual private gateway or transit gateway are currently
+     *        being updated. This could be new CIDR blocks added or current CIDR blocks removed.
      *        </p>
      *        </li>
      * @see DirectConnectGatewayAssociationState
@@ -285,6 +303,12 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
      * is stopped.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>updating</code>: The CIDR blocks for the virtual private gateway or transit gateway are currently being
+     * updated. This could be new CIDR blocks added or current CIDR blocks removed.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @return The state of the association. The following are the possible values:</p>
@@ -311,6 +335,12 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
      *         <code>disassociated</code>: The virtual private gateway or transit gateway is disassociated from the
      *         Direct Connect gateway. Traffic flow between the Direct Connect gateway and virtual private gateway or
      *         transit gateway is stopped.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>updating</code>: The CIDR blocks for the virtual private gateway or transit gateway are currently
+     *         being updated. This could be new CIDR blocks added or current CIDR blocks removed.
      *         </p>
      *         </li>
      * @see DirectConnectGatewayAssociationState
@@ -348,6 +378,12 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
      * is stopped.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>updating</code>: The CIDR blocks for the virtual private gateway or transit gateway are currently being
+     * updated. This could be new CIDR blocks added or current CIDR blocks removed.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param associationState
@@ -374,6 +410,12 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
      *        <code>disassociated</code>: The virtual private gateway or transit gateway is disassociated from the
      *        Direct Connect gateway. Traffic flow between the Direct Connect gateway and virtual private gateway or
      *        transit gateway is stopped.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>updating</code>: The CIDR blocks for the virtual private gateway or transit gateway are currently
+     *        being updated. This could be new CIDR blocks added or current CIDR blocks removed.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -413,6 +455,12 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
      * is stopped.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>updating</code>: The CIDR blocks for the virtual private gateway or transit gateway are currently being
+     * updated. This could be new CIDR blocks added or current CIDR blocks removed.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param associationState
@@ -439,6 +487,12 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
      *        <code>disassociated</code>: The virtual private gateway or transit gateway is disassociated from the
      *        Direct Connect gateway. Traffic flow between the Direct Connect gateway and virtual private gateway or
      *        transit gateway is stopped.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>updating</code>: The CIDR blocks for the virtual private gateway or transit gateway are currently
+     *        being updated. This could be new CIDR blocks added or current CIDR blocks removed.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -687,11 +741,11 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The AWS Region where the virtual private gateway is located.
+     * The Amazon Web Services Region where the virtual private gateway is located.
      * </p>
      * 
      * @param virtualGatewayRegion
-     *        The AWS Region where the virtual private gateway is located.
+     *        The Amazon Web Services Region where the virtual private gateway is located.
      */
 
     public void setVirtualGatewayRegion(String virtualGatewayRegion) {
@@ -700,10 +754,10 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The AWS Region where the virtual private gateway is located.
+     * The Amazon Web Services Region where the virtual private gateway is located.
      * </p>
      * 
-     * @return The AWS Region where the virtual private gateway is located.
+     * @return The Amazon Web Services Region where the virtual private gateway is located.
      */
 
     public String getVirtualGatewayRegion() {
@@ -712,11 +766,11 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The AWS Region where the virtual private gateway is located.
+     * The Amazon Web Services Region where the virtual private gateway is located.
      * </p>
      * 
      * @param virtualGatewayRegion
-     *        The AWS Region where the virtual private gateway is located.
+     *        The Amazon Web Services Region where the virtual private gateway is located.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -727,11 +781,11 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The ID of the AWS account that owns the virtual private gateway.
+     * The ID of the Amazon Web Services account that owns the virtual private gateway.
      * </p>
      * 
      * @param virtualGatewayOwnerAccount
-     *        The ID of the AWS account that owns the virtual private gateway.
+     *        The ID of the Amazon Web Services account that owns the virtual private gateway.
      */
 
     public void setVirtualGatewayOwnerAccount(String virtualGatewayOwnerAccount) {
@@ -740,10 +794,10 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The ID of the AWS account that owns the virtual private gateway.
+     * The ID of the Amazon Web Services account that owns the virtual private gateway.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the virtual private gateway.
+     * @return The ID of the Amazon Web Services account that owns the virtual private gateway.
      */
 
     public String getVirtualGatewayOwnerAccount() {
@@ -752,11 +806,11 @@ public class DirectConnectGatewayAssociation implements Serializable, Cloneable,
 
     /**
      * <p>
-     * The ID of the AWS account that owns the virtual private gateway.
+     * The ID of the Amazon Web Services account that owns the virtual private gateway.
      * </p>
      * 
      * @param virtualGatewayOwnerAccount
-     *        The ID of the AWS account that owns the virtual private gateway.
+     *        The ID of the Amazon Web Services account that owns the virtual private gateway.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

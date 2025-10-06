@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class TerminateRecommendationDetail implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Estimated savings resulting from modification, on a monthly basis.
+     * The estimated savings that result from modification, on a monthly basis.
      * </p>
      */
     private String estimatedMonthlySavings;
@@ -43,11 +43,11 @@ public class TerminateRecommendationDetail implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Estimated savings resulting from modification, on a monthly basis.
+     * The estimated savings that result from modification, on a monthly basis.
      * </p>
      * 
      * @param estimatedMonthlySavings
-     *        Estimated savings resulting from modification, on a monthly basis.
+     *        The estimated savings that result from modification, on a monthly basis.
      */
 
     public void setEstimatedMonthlySavings(String estimatedMonthlySavings) {
@@ -56,10 +56,10 @@ public class TerminateRecommendationDetail implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Estimated savings resulting from modification, on a monthly basis.
+     * The estimated savings that result from modification, on a monthly basis.
      * </p>
      * 
-     * @return Estimated savings resulting from modification, on a monthly basis.
+     * @return The estimated savings that result from modification, on a monthly basis.
      */
 
     public String getEstimatedMonthlySavings() {
@@ -68,11 +68,11 @@ public class TerminateRecommendationDetail implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Estimated savings resulting from modification, on a monthly basis.
+     * The estimated savings that result from modification, on a monthly basis.
      * </p>
      * 
      * @param estimatedMonthlySavings
-     *        Estimated savings resulting from modification, on a monthly basis.
+     *        The estimated savings that result from modification, on a monthly basis.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

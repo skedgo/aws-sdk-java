@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,13 +28,14 @@ import com.amazonaws.services.dlm.model.*;
  * <p>
  * <fullname>Amazon Data Lifecycle Manager</fullname>
  * <p>
- * With Amazon Data Lifecycle Manager, you can manage the lifecycle of your AWS resources. You create lifecycle
- * policies, which are used to automate operations on the specified resources.
+ * With Amazon Data Lifecycle Manager, you can manage the lifecycle of your Amazon Web Services resources. You create
+ * lifecycle policies, which are used to automate operations on the specified resources.
  * </p>
  * <p>
- * Amazon DLM supports Amazon EBS volumes and snapshots. For information about using Amazon DLM with Amazon EBS, see <a
- * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-lifecycle.html">Automating the Amazon EBS Snapshot
- * Lifecycle</a> in the <i>Amazon EC2 User Guide</i>.
+ * Amazon Data Lifecycle Manager supports Amazon EBS volumes and snapshots. For information about using Amazon Data
+ * Lifecycle Manager with Amazon EBS, see <a
+ * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-lifecycle.html"> Amazon Data Lifecycle Manager</a>
+ * in the <i>Amazon EC2 User Guide</i>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -50,9 +51,46 @@ public interface AmazonDLM {
 
     /**
      * <p>
-     * Creates a policy to manage the lifecycle of the specified AWS resources. You can create up to 100 lifecycle
-     * policies.
+     * Creates an Amazon Data Lifecycle Manager lifecycle policy. Amazon Data Lifecycle Manager supports the following
+     * policy types:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Custom EBS snapshot policy
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Custom EBS-backed AMI policy
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cross-account copy event policy
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Default policy for EBS snapshots
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Default policy for EBS-backed AMIs
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/policy-differences.html">
+     * Default policies vs custom policies</a>.
+     * </p>
+     * <important>
+     * <p>
+     * If you create a default policy, you can specify the request parameters either in the request body, or in the
+     * PolicyDetails request structure, but not both.
+     * </p>
+     * </important>
      * 
      * @param createLifecyclePolicyRequest
      * @return Result of the CreateLifecyclePolicy operation returned by the service.
@@ -71,6 +109,11 @@ public interface AmazonDLM {
     /**
      * <p>
      * Deletes the specified lifecycle policy and halts the automated operations that the policy specified.
+     * </p>
+     * <p>
+     * For more information about deleting a policy, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/view-modify-delete.html#delete">Delete lifecycle
+     * policies</a>.
      * </p>
      * 
      * @param deleteLifecyclePolicyRequest
@@ -92,7 +135,8 @@ public interface AmazonDLM {
      * Gets summary information about all or the specified data lifecycle policies.
      * </p>
      * <p>
-     * To get complete information about a policy, use <a>GetLifecyclePolicy</a>.
+     * To get complete information about a policy, use <a
+     * href="https://docs.aws.amazon.com/dlm/latest/APIReference/API_GetLifecyclePolicy.html">GetLifecyclePolicy</a>.
      * </p>
      * 
      * @param getLifecyclePoliciesRequest
@@ -132,7 +176,69 @@ public interface AmazonDLM {
 
     /**
      * <p>
+     * Lists the tags for the specified resource.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws InternalServerException
+     *         The service failed in an unexpected way.
+     * @throws InvalidRequestException
+     *         Bad request. The request is missing required parameters or has invalid parameters.
+     * @throws ResourceNotFoundException
+     *         A requested resource was not found.
+     * @sample AmazonDLM.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dlm-2018-01-12/ListTagsForResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest);
+
+    /**
+     * <p>
+     * Adds the specified tags to the specified resource.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws InternalServerException
+     *         The service failed in an unexpected way.
+     * @throws InvalidRequestException
+     *         Bad request. The request is missing required parameters or has invalid parameters.
+     * @throws ResourceNotFoundException
+     *         A requested resource was not found.
+     * @sample AmazonDLM.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dlm-2018-01-12/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    TagResourceResult tagResource(TagResourceRequest tagResourceRequest);
+
+    /**
+     * <p>
+     * Removes the specified tags from the specified resource.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws InternalServerException
+     *         The service failed in an unexpected way.
+     * @throws InvalidRequestException
+     *         Bad request. The request is missing required parameters or has invalid parameters.
+     * @throws ResourceNotFoundException
+     *         A requested resource was not found.
+     * @sample AmazonDLM.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dlm-2018-01-12/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UntagResourceResult untagResource(UntagResourceRequest untagResourceRequest);
+
+    /**
+     * <p>
      * Updates the specified lifecycle policy.
+     * </p>
+     * <p>
+     * For more information about updating a policy, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/view-modify-delete.html#modify">Modify lifecycle
+     * policies</a>.
      * </p>
      * 
      * @param updateLifecyclePolicyRequest

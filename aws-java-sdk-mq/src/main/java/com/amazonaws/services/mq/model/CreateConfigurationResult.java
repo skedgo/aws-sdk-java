@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,22 +23,48 @@ import javax.annotation.Generated;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
 
-    /** Required. The Amazon Resource Name (ARN) of the configuration. */
+    /**
+     * <p>
+     * Required. The Amazon Resource Name (ARN) of the configuration.
+     * </p>
+     */
     private String arn;
-    /** Required. The date and time of the configuration. */
+    /**
+     * <p>
+     * Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * </p>
+     */
+    private String authenticationStrategy;
+    /**
+     * <p>
+     * Required. The date and time of the configuration.
+     * </p>
+     */
     private java.util.Date created;
-    /** Required. The unique ID that Amazon MQ generates for the configuration. */
+    /**
+     * <p>
+     * Required. The unique ID that Amazon MQ generates for the configuration.
+     * </p>
+     */
     private String id;
-    /** The latest revision of the configuration. */
+    /**
+     * <p>
+     * The latest revision of the configuration.
+     * </p>
+     */
     private ConfigurationRevision latestRevision;
     /**
+     * <p>
      * Required. The name of the configuration. This value can contain only alphanumeric characters, dashes, periods,
      * underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
+     * </p>
      */
     private String name;
 
     /**
+     * <p>
      * Required. The Amazon Resource Name (ARN) of the configuration.
+     * </p>
      * 
      * @param arn
      *        Required. The Amazon Resource Name (ARN) of the configuration.
@@ -49,7 +75,9 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
+     * <p>
      * Required. The Amazon Resource Name (ARN) of the configuration.
+     * </p>
      * 
      * @return Required. The Amazon Resource Name (ARN) of the configuration.
      */
@@ -59,7 +87,9 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
+     * <p>
      * Required. The Amazon Resource Name (ARN) of the configuration.
+     * </p>
      * 
      * @param arn
      *        Required. The Amazon Resource Name (ARN) of the configuration.
@@ -72,7 +102,68 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
+     * <p>
+     * Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * </p>
+     * 
+     * @param authenticationStrategy
+     *        Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * @see AuthenticationStrategy
+     */
+
+    public void setAuthenticationStrategy(String authenticationStrategy) {
+        this.authenticationStrategy = authenticationStrategy;
+    }
+
+    /**
+     * <p>
+     * Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * </p>
+     * 
+     * @return Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * @see AuthenticationStrategy
+     */
+
+    public String getAuthenticationStrategy() {
+        return this.authenticationStrategy;
+    }
+
+    /**
+     * <p>
+     * Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * </p>
+     * 
+     * @param authenticationStrategy
+     *        Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthenticationStrategy
+     */
+
+    public CreateConfigurationResult withAuthenticationStrategy(String authenticationStrategy) {
+        setAuthenticationStrategy(authenticationStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * </p>
+     * 
+     * @param authenticationStrategy
+     *        Optional. The authentication strategy associated with the configuration. The default is SIMPLE.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthenticationStrategy
+     */
+
+    public CreateConfigurationResult withAuthenticationStrategy(AuthenticationStrategy authenticationStrategy) {
+        this.authenticationStrategy = authenticationStrategy.toString();
+        return this;
+    }
+
+    /**
+     * <p>
      * Required. The date and time of the configuration.
+     * </p>
      * 
      * @param created
      *        Required. The date and time of the configuration.
@@ -83,7 +174,9 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
+     * <p>
      * Required. The date and time of the configuration.
+     * </p>
      * 
      * @return Required. The date and time of the configuration.
      */
@@ -93,7 +186,9 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
+     * <p>
      * Required. The date and time of the configuration.
+     * </p>
      * 
      * @param created
      *        Required. The date and time of the configuration.
@@ -106,7 +201,9 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
+     * <p>
      * Required. The unique ID that Amazon MQ generates for the configuration.
+     * </p>
      * 
      * @param id
      *        Required. The unique ID that Amazon MQ generates for the configuration.
@@ -117,7 +214,9 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
+     * <p>
      * Required. The unique ID that Amazon MQ generates for the configuration.
+     * </p>
      * 
      * @return Required. The unique ID that Amazon MQ generates for the configuration.
      */
@@ -127,7 +226,9 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
+     * <p>
      * Required. The unique ID that Amazon MQ generates for the configuration.
+     * </p>
      * 
      * @param id
      *        Required. The unique ID that Amazon MQ generates for the configuration.
@@ -140,7 +241,9 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
+     * <p>
      * The latest revision of the configuration.
+     * </p>
      * 
      * @param latestRevision
      *        The latest revision of the configuration.
@@ -151,7 +254,9 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
+     * <p>
      * The latest revision of the configuration.
+     * </p>
      * 
      * @return The latest revision of the configuration.
      */
@@ -161,7 +266,9 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
+     * <p>
      * The latest revision of the configuration.
+     * </p>
      * 
      * @param latestRevision
      *        The latest revision of the configuration.
@@ -174,8 +281,10 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
+     * <p>
      * Required. The name of the configuration. This value can contain only alphanumeric characters, dashes, periods,
      * underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
+     * </p>
      * 
      * @param name
      *        Required. The name of the configuration. This value can contain only alphanumeric characters, dashes,
@@ -187,8 +296,10 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
+     * <p>
      * Required. The name of the configuration. This value can contain only alphanumeric characters, dashes, periods,
      * underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
+     * </p>
      * 
      * @return Required. The name of the configuration. This value can contain only alphanumeric characters, dashes,
      *         periods, underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
@@ -199,8 +310,10 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
+     * <p>
      * Required. The name of the configuration. This value can contain only alphanumeric characters, dashes, periods,
      * underscores, and tildes (- . _ ~). This value must be 1-150 characters long.
+     * </p>
      * 
      * @param name
      *        Required. The name of the configuration. This value can contain only alphanumeric characters, dashes,
@@ -227,6 +340,8 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
         sb.append("{");
         if (getArn() != null)
             sb.append("Arn: ").append(getArn()).append(",");
+        if (getAuthenticationStrategy() != null)
+            sb.append("AuthenticationStrategy: ").append(getAuthenticationStrategy()).append(",");
         if (getCreated() != null)
             sb.append("Created: ").append(getCreated()).append(",");
         if (getId() != null)
@@ -253,6 +368,10 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
             return false;
         if (other.getArn() != null && other.getArn().equals(this.getArn()) == false)
             return false;
+        if (other.getAuthenticationStrategy() == null ^ this.getAuthenticationStrategy() == null)
+            return false;
+        if (other.getAuthenticationStrategy() != null && other.getAuthenticationStrategy().equals(this.getAuthenticationStrategy()) == false)
+            return false;
         if (other.getCreated() == null ^ this.getCreated() == null)
             return false;
         if (other.getCreated() != null && other.getCreated().equals(this.getCreated()) == false)
@@ -278,6 +397,7 @@ public class CreateConfigurationResult extends com.amazonaws.AmazonWebServiceRes
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
+        hashCode = prime * hashCode + ((getAuthenticationStrategy() == null) ? 0 : getAuthenticationStrategy().hashCode());
         hashCode = prime * hashCode + ((getCreated() == null) ? 0 : getCreated().hashCode());
         hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
         hashCode = prime * hashCode + ((getLatestRevision() == null) ? 0 : getLatestRevision().hashCode());

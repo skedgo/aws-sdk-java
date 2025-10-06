@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,34 @@ public class AssignIpv6AddressesRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * The number of IPv6 addresses to assign to the network interface. Amazon EC2 automatically selects the IPv6
-     * addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses.
+     * The number of additional IPv6 addresses to assign to the network interface. The specified number of IPv6
+     * addresses are assigned in addition to the existing IPv6 addresses that are already assigned to the network
+     * interface. Amazon EC2 automatically selects the IPv6 addresses from the subnet range. You can't use this option
+     * if specifying specific IPv6 addresses.
      * </p>
      */
     private Integer ipv6AddressCount;
     /**
      * <p>
-     * One or more specific IPv6 addresses to be assigned to the network interface. You can't use this option if you're
-     * specifying a number of IPv6 addresses.
+     * The IPv6 addresses to be assigned to the network interface. You can't use this option if you're specifying a
+     * number of IPv6 addresses.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> ipv6Addresses;
+    /**
+     * <p>
+     * The number of IPv6 prefixes that Amazon Web Services automatically assigns to the network interface. You cannot
+     * use this option if you use the <code>Ipv6Prefixes</code> option.
+     * </p>
+     */
+    private Integer ipv6PrefixCount;
+    /**
+     * <p>
+     * One or more IPv6 prefixes assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv6PrefixCount</code> option.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> ipv6Prefixes;
     /**
      * <p>
      * The ID of the network interface.
@@ -48,13 +64,17 @@ public class AssignIpv6AddressesRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * The number of IPv6 addresses to assign to the network interface. Amazon EC2 automatically selects the IPv6
-     * addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses.
+     * The number of additional IPv6 addresses to assign to the network interface. The specified number of IPv6
+     * addresses are assigned in addition to the existing IPv6 addresses that are already assigned to the network
+     * interface. Amazon EC2 automatically selects the IPv6 addresses from the subnet range. You can't use this option
+     * if specifying specific IPv6 addresses.
      * </p>
      * 
      * @param ipv6AddressCount
-     *        The number of IPv6 addresses to assign to the network interface. Amazon EC2 automatically selects the IPv6
-     *        addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses.
+     *        The number of additional IPv6 addresses to assign to the network interface. The specified number of IPv6
+     *        addresses are assigned in addition to the existing IPv6 addresses that are already assigned to the network
+     *        interface. Amazon EC2 automatically selects the IPv6 addresses from the subnet range. You can't use this
+     *        option if specifying specific IPv6 addresses.
      */
 
     public void setIpv6AddressCount(Integer ipv6AddressCount) {
@@ -63,12 +83,16 @@ public class AssignIpv6AddressesRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * The number of IPv6 addresses to assign to the network interface. Amazon EC2 automatically selects the IPv6
-     * addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses.
+     * The number of additional IPv6 addresses to assign to the network interface. The specified number of IPv6
+     * addresses are assigned in addition to the existing IPv6 addresses that are already assigned to the network
+     * interface. Amazon EC2 automatically selects the IPv6 addresses from the subnet range. You can't use this option
+     * if specifying specific IPv6 addresses.
      * </p>
      * 
-     * @return The number of IPv6 addresses to assign to the network interface. Amazon EC2 automatically selects the
-     *         IPv6 addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses.
+     * @return The number of additional IPv6 addresses to assign to the network interface. The specified number of IPv6
+     *         addresses are assigned in addition to the existing IPv6 addresses that are already assigned to the
+     *         network interface. Amazon EC2 automatically selects the IPv6 addresses from the subnet range. You can't
+     *         use this option if specifying specific IPv6 addresses.
      */
 
     public Integer getIpv6AddressCount() {
@@ -77,13 +101,17 @@ public class AssignIpv6AddressesRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * The number of IPv6 addresses to assign to the network interface. Amazon EC2 automatically selects the IPv6
-     * addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses.
+     * The number of additional IPv6 addresses to assign to the network interface. The specified number of IPv6
+     * addresses are assigned in addition to the existing IPv6 addresses that are already assigned to the network
+     * interface. Amazon EC2 automatically selects the IPv6 addresses from the subnet range. You can't use this option
+     * if specifying specific IPv6 addresses.
      * </p>
      * 
      * @param ipv6AddressCount
-     *        The number of IPv6 addresses to assign to the network interface. Amazon EC2 automatically selects the IPv6
-     *        addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses.
+     *        The number of additional IPv6 addresses to assign to the network interface. The specified number of IPv6
+     *        addresses are assigned in addition to the existing IPv6 addresses that are already assigned to the network
+     *        interface. Amazon EC2 automatically selects the IPv6 addresses from the subnet range. You can't use this
+     *        option if specifying specific IPv6 addresses.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -94,12 +122,12 @@ public class AssignIpv6AddressesRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * One or more specific IPv6 addresses to be assigned to the network interface. You can't use this option if you're
-     * specifying a number of IPv6 addresses.
+     * The IPv6 addresses to be assigned to the network interface. You can't use this option if you're specifying a
+     * number of IPv6 addresses.
      * </p>
      * 
-     * @return One or more specific IPv6 addresses to be assigned to the network interface. You can't use this option if
-     *         you're specifying a number of IPv6 addresses.
+     * @return The IPv6 addresses to be assigned to the network interface. You can't use this option if you're
+     *         specifying a number of IPv6 addresses.
      */
 
     public java.util.List<String> getIpv6Addresses() {
@@ -111,13 +139,13 @@ public class AssignIpv6AddressesRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * One or more specific IPv6 addresses to be assigned to the network interface. You can't use this option if you're
-     * specifying a number of IPv6 addresses.
+     * The IPv6 addresses to be assigned to the network interface. You can't use this option if you're specifying a
+     * number of IPv6 addresses.
      * </p>
      * 
      * @param ipv6Addresses
-     *        One or more specific IPv6 addresses to be assigned to the network interface. You can't use this option if
-     *        you're specifying a number of IPv6 addresses.
+     *        The IPv6 addresses to be assigned to the network interface. You can't use this option if you're specifying
+     *        a number of IPv6 addresses.
      */
 
     public void setIpv6Addresses(java.util.Collection<String> ipv6Addresses) {
@@ -131,8 +159,8 @@ public class AssignIpv6AddressesRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * One or more specific IPv6 addresses to be assigned to the network interface. You can't use this option if you're
-     * specifying a number of IPv6 addresses.
+     * The IPv6 addresses to be assigned to the network interface. You can't use this option if you're specifying a
+     * number of IPv6 addresses.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -141,8 +169,8 @@ public class AssignIpv6AddressesRequest extends AmazonWebServiceRequest implemen
      * </p>
      * 
      * @param ipv6Addresses
-     *        One or more specific IPv6 addresses to be assigned to the network interface. You can't use this option if
-     *        you're specifying a number of IPv6 addresses.
+     *        The IPv6 addresses to be assigned to the network interface. You can't use this option if you're specifying
+     *        a number of IPv6 addresses.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -158,18 +186,145 @@ public class AssignIpv6AddressesRequest extends AmazonWebServiceRequest implemen
 
     /**
      * <p>
-     * One or more specific IPv6 addresses to be assigned to the network interface. You can't use this option if you're
-     * specifying a number of IPv6 addresses.
+     * The IPv6 addresses to be assigned to the network interface. You can't use this option if you're specifying a
+     * number of IPv6 addresses.
      * </p>
      * 
      * @param ipv6Addresses
-     *        One or more specific IPv6 addresses to be assigned to the network interface. You can't use this option if
-     *        you're specifying a number of IPv6 addresses.
+     *        The IPv6 addresses to be assigned to the network interface. You can't use this option if you're specifying
+     *        a number of IPv6 addresses.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public AssignIpv6AddressesRequest withIpv6Addresses(java.util.Collection<String> ipv6Addresses) {
         setIpv6Addresses(ipv6Addresses);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of IPv6 prefixes that Amazon Web Services automatically assigns to the network interface. You cannot
+     * use this option if you use the <code>Ipv6Prefixes</code> option.
+     * </p>
+     * 
+     * @param ipv6PrefixCount
+     *        The number of IPv6 prefixes that Amazon Web Services automatically assigns to the network interface. You
+     *        cannot use this option if you use the <code>Ipv6Prefixes</code> option.
+     */
+
+    public void setIpv6PrefixCount(Integer ipv6PrefixCount) {
+        this.ipv6PrefixCount = ipv6PrefixCount;
+    }
+
+    /**
+     * <p>
+     * The number of IPv6 prefixes that Amazon Web Services automatically assigns to the network interface. You cannot
+     * use this option if you use the <code>Ipv6Prefixes</code> option.
+     * </p>
+     * 
+     * @return The number of IPv6 prefixes that Amazon Web Services automatically assigns to the network interface. You
+     *         cannot use this option if you use the <code>Ipv6Prefixes</code> option.
+     */
+
+    public Integer getIpv6PrefixCount() {
+        return this.ipv6PrefixCount;
+    }
+
+    /**
+     * <p>
+     * The number of IPv6 prefixes that Amazon Web Services automatically assigns to the network interface. You cannot
+     * use this option if you use the <code>Ipv6Prefixes</code> option.
+     * </p>
+     * 
+     * @param ipv6PrefixCount
+     *        The number of IPv6 prefixes that Amazon Web Services automatically assigns to the network interface. You
+     *        cannot use this option if you use the <code>Ipv6Prefixes</code> option.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssignIpv6AddressesRequest withIpv6PrefixCount(Integer ipv6PrefixCount) {
+        setIpv6PrefixCount(ipv6PrefixCount);
+        return this;
+    }
+
+    /**
+     * <p>
+     * One or more IPv6 prefixes assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv6PrefixCount</code> option.
+     * </p>
+     * 
+     * @return One or more IPv6 prefixes assigned to the network interface. You cannot use this option if you use the
+     *         <code>Ipv6PrefixCount</code> option.
+     */
+
+    public java.util.List<String> getIpv6Prefixes() {
+        if (ipv6Prefixes == null) {
+            ipv6Prefixes = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return ipv6Prefixes;
+    }
+
+    /**
+     * <p>
+     * One or more IPv6 prefixes assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv6PrefixCount</code> option.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        One or more IPv6 prefixes assigned to the network interface. You cannot use this option if you use the
+     *        <code>Ipv6PrefixCount</code> option.
+     */
+
+    public void setIpv6Prefixes(java.util.Collection<String> ipv6Prefixes) {
+        if (ipv6Prefixes == null) {
+            this.ipv6Prefixes = null;
+            return;
+        }
+
+        this.ipv6Prefixes = new com.amazonaws.internal.SdkInternalList<String>(ipv6Prefixes);
+    }
+
+    /**
+     * <p>
+     * One or more IPv6 prefixes assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv6PrefixCount</code> option.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setIpv6Prefixes(java.util.Collection)} or {@link #withIpv6Prefixes(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        One or more IPv6 prefixes assigned to the network interface. You cannot use this option if you use the
+     *        <code>Ipv6PrefixCount</code> option.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssignIpv6AddressesRequest withIpv6Prefixes(String... ipv6Prefixes) {
+        if (this.ipv6Prefixes == null) {
+            setIpv6Prefixes(new com.amazonaws.internal.SdkInternalList<String>(ipv6Prefixes.length));
+        }
+        for (String ele : ipv6Prefixes) {
+            this.ipv6Prefixes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * One or more IPv6 prefixes assigned to the network interface. You cannot use this option if you use the
+     * <code>Ipv6PrefixCount</code> option.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        One or more IPv6 prefixes assigned to the network interface. You cannot use this option if you use the
+     *        <code>Ipv6PrefixCount</code> option.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssignIpv6AddressesRequest withIpv6Prefixes(java.util.Collection<String> ipv6Prefixes) {
+        setIpv6Prefixes(ipv6Prefixes);
         return this;
     }
 
@@ -240,6 +395,10 @@ public class AssignIpv6AddressesRequest extends AmazonWebServiceRequest implemen
             sb.append("Ipv6AddressCount: ").append(getIpv6AddressCount()).append(",");
         if (getIpv6Addresses() != null)
             sb.append("Ipv6Addresses: ").append(getIpv6Addresses()).append(",");
+        if (getIpv6PrefixCount() != null)
+            sb.append("Ipv6PrefixCount: ").append(getIpv6PrefixCount()).append(",");
+        if (getIpv6Prefixes() != null)
+            sb.append("Ipv6Prefixes: ").append(getIpv6Prefixes()).append(",");
         if (getNetworkInterfaceId() != null)
             sb.append("NetworkInterfaceId: ").append(getNetworkInterfaceId());
         sb.append("}");
@@ -264,6 +423,14 @@ public class AssignIpv6AddressesRequest extends AmazonWebServiceRequest implemen
             return false;
         if (other.getIpv6Addresses() != null && other.getIpv6Addresses().equals(this.getIpv6Addresses()) == false)
             return false;
+        if (other.getIpv6PrefixCount() == null ^ this.getIpv6PrefixCount() == null)
+            return false;
+        if (other.getIpv6PrefixCount() != null && other.getIpv6PrefixCount().equals(this.getIpv6PrefixCount()) == false)
+            return false;
+        if (other.getIpv6Prefixes() == null ^ this.getIpv6Prefixes() == null)
+            return false;
+        if (other.getIpv6Prefixes() != null && other.getIpv6Prefixes().equals(this.getIpv6Prefixes()) == false)
+            return false;
         if (other.getNetworkInterfaceId() == null ^ this.getNetworkInterfaceId() == null)
             return false;
         if (other.getNetworkInterfaceId() != null && other.getNetworkInterfaceId().equals(this.getNetworkInterfaceId()) == false)
@@ -278,6 +445,8 @@ public class AssignIpv6AddressesRequest extends AmazonWebServiceRequest implemen
 
         hashCode = prime * hashCode + ((getIpv6AddressCount() == null) ? 0 : getIpv6AddressCount().hashCode());
         hashCode = prime * hashCode + ((getIpv6Addresses() == null) ? 0 : getIpv6Addresses().hashCode());
+        hashCode = prime * hashCode + ((getIpv6PrefixCount() == null) ? 0 : getIpv6PrefixCount().hashCode());
+        hashCode = prime * hashCode + ((getIpv6Prefixes() == null) ? 0 : getIpv6Prefixes().hashCode());
         hashCode = prime * hashCode + ((getNetworkInterfaceId() == null) ? 0 : getNetworkInterfaceId().hashCode());
         return hashCode;
     }

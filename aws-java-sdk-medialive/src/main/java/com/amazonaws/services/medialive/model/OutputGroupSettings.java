@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,9 +36,13 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
 
     private MsSmoothGroupSettings msSmoothGroupSettings;
 
+    private MultiplexGroupSettings multiplexGroupSettings;
+
     private RtmpGroupSettings rtmpGroupSettings;
 
     private UdpGroupSettings udpGroupSettings;
+
+    private CmafIngestGroupSettings cmafIngestGroupSettings;
 
     /**
      * @param archiveGroupSettings
@@ -171,6 +175,32 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
     }
 
     /**
+     * @param multiplexGroupSettings
+     */
+
+    public void setMultiplexGroupSettings(MultiplexGroupSettings multiplexGroupSettings) {
+        this.multiplexGroupSettings = multiplexGroupSettings;
+    }
+
+    /**
+     * @return
+     */
+
+    public MultiplexGroupSettings getMultiplexGroupSettings() {
+        return this.multiplexGroupSettings;
+    }
+
+    /**
+     * @param multiplexGroupSettings
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OutputGroupSettings withMultiplexGroupSettings(MultiplexGroupSettings multiplexGroupSettings) {
+        setMultiplexGroupSettings(multiplexGroupSettings);
+        return this;
+    }
+
+    /**
      * @param rtmpGroupSettings
      */
 
@@ -223,6 +253,32 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
     }
 
     /**
+     * @param cmafIngestGroupSettings
+     */
+
+    public void setCmafIngestGroupSettings(CmafIngestGroupSettings cmafIngestGroupSettings) {
+        this.cmafIngestGroupSettings = cmafIngestGroupSettings;
+    }
+
+    /**
+     * @return
+     */
+
+    public CmafIngestGroupSettings getCmafIngestGroupSettings() {
+        return this.cmafIngestGroupSettings;
+    }
+
+    /**
+     * @param cmafIngestGroupSettings
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OutputGroupSettings withCmafIngestGroupSettings(CmafIngestGroupSettings cmafIngestGroupSettings) {
+        setCmafIngestGroupSettings(cmafIngestGroupSettings);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -244,10 +300,14 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
             sb.append("MediaPackageGroupSettings: ").append(getMediaPackageGroupSettings()).append(",");
         if (getMsSmoothGroupSettings() != null)
             sb.append("MsSmoothGroupSettings: ").append(getMsSmoothGroupSettings()).append(",");
+        if (getMultiplexGroupSettings() != null)
+            sb.append("MultiplexGroupSettings: ").append(getMultiplexGroupSettings()).append(",");
         if (getRtmpGroupSettings() != null)
             sb.append("RtmpGroupSettings: ").append(getRtmpGroupSettings()).append(",");
         if (getUdpGroupSettings() != null)
-            sb.append("UdpGroupSettings: ").append(getUdpGroupSettings());
+            sb.append("UdpGroupSettings: ").append(getUdpGroupSettings()).append(",");
+        if (getCmafIngestGroupSettings() != null)
+            sb.append("CmafIngestGroupSettings: ").append(getCmafIngestGroupSettings());
         sb.append("}");
         return sb.toString();
     }
@@ -282,6 +342,10 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getMsSmoothGroupSettings() != null && other.getMsSmoothGroupSettings().equals(this.getMsSmoothGroupSettings()) == false)
             return false;
+        if (other.getMultiplexGroupSettings() == null ^ this.getMultiplexGroupSettings() == null)
+            return false;
+        if (other.getMultiplexGroupSettings() != null && other.getMultiplexGroupSettings().equals(this.getMultiplexGroupSettings()) == false)
+            return false;
         if (other.getRtmpGroupSettings() == null ^ this.getRtmpGroupSettings() == null)
             return false;
         if (other.getRtmpGroupSettings() != null && other.getRtmpGroupSettings().equals(this.getRtmpGroupSettings()) == false)
@@ -289,6 +353,10 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
         if (other.getUdpGroupSettings() == null ^ this.getUdpGroupSettings() == null)
             return false;
         if (other.getUdpGroupSettings() != null && other.getUdpGroupSettings().equals(this.getUdpGroupSettings()) == false)
+            return false;
+        if (other.getCmafIngestGroupSettings() == null ^ this.getCmafIngestGroupSettings() == null)
+            return false;
+        if (other.getCmafIngestGroupSettings() != null && other.getCmafIngestGroupSettings().equals(this.getCmafIngestGroupSettings()) == false)
             return false;
         return true;
     }
@@ -303,8 +371,10 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getHlsGroupSettings() == null) ? 0 : getHlsGroupSettings().hashCode());
         hashCode = prime * hashCode + ((getMediaPackageGroupSettings() == null) ? 0 : getMediaPackageGroupSettings().hashCode());
         hashCode = prime * hashCode + ((getMsSmoothGroupSettings() == null) ? 0 : getMsSmoothGroupSettings().hashCode());
+        hashCode = prime * hashCode + ((getMultiplexGroupSettings() == null) ? 0 : getMultiplexGroupSettings().hashCode());
         hashCode = prime * hashCode + ((getRtmpGroupSettings() == null) ? 0 : getRtmpGroupSettings().hashCode());
         hashCode = prime * hashCode + ((getUdpGroupSettings() == null) ? 0 : getUdpGroupSettings().hashCode());
+        hashCode = prime * hashCode + ((getCmafIngestGroupSettings() == null) ? 0 : getCmafIngestGroupSettings().hashCode());
         return hashCode;
     }
 

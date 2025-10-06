@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,8 +30,8 @@ public class NotifyConfigurationType implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The email address that is sending the email. It must be either individually verified with Amazon SES, or from a
-     * domain that has been verified with Amazon SES.
+     * The email address that is sending the email. The address must be either individually verified with Amazon Simple
+     * Email Service, or from a domain that has been verified with Amazon SES.
      * </p>
      */
     private String from;
@@ -43,8 +43,8 @@ public class NotifyConfigurationType implements Serializable, Cloneable, Structu
     private String replyTo;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the identity that is associated with the sending authorization policy. It
-     * permits Amazon Cognito to send for the email address specified in the <code>From</code> parameter.
+     * The Amazon Resource Name (ARN) of the identity that is associated with the sending authorization policy. This
+     * identity permits Amazon Cognito to send for the email address specified in the <code>From</code> parameter.
      * </p>
      */
     private String sourceArn;
@@ -62,20 +62,20 @@ public class NotifyConfigurationType implements Serializable, Cloneable, Structu
     private NotifyEmailType noActionEmail;
     /**
      * <p>
-     * The MFA email template used when MFA is challenged as part of a detected risk.
+     * The multi-factor authentication (MFA) email template used when MFA is challenged as part of a detected risk.
      * </p>
      */
     private NotifyEmailType mfaEmail;
 
     /**
      * <p>
-     * The email address that is sending the email. It must be either individually verified with Amazon SES, or from a
-     * domain that has been verified with Amazon SES.
+     * The email address that is sending the email. The address must be either individually verified with Amazon Simple
+     * Email Service, or from a domain that has been verified with Amazon SES.
      * </p>
      * 
      * @param from
-     *        The email address that is sending the email. It must be either individually verified with Amazon SES, or
-     *        from a domain that has been verified with Amazon SES.
+     *        The email address that is sending the email. The address must be either individually verified with Amazon
+     *        Simple Email Service, or from a domain that has been verified with Amazon SES.
      */
 
     public void setFrom(String from) {
@@ -84,12 +84,12 @@ public class NotifyConfigurationType implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The email address that is sending the email. It must be either individually verified with Amazon SES, or from a
-     * domain that has been verified with Amazon SES.
+     * The email address that is sending the email. The address must be either individually verified with Amazon Simple
+     * Email Service, or from a domain that has been verified with Amazon SES.
      * </p>
      * 
-     * @return The email address that is sending the email. It must be either individually verified with Amazon SES, or
-     *         from a domain that has been verified with Amazon SES.
+     * @return The email address that is sending the email. The address must be either individually verified with Amazon
+     *         Simple Email Service, or from a domain that has been verified with Amazon SES.
      */
 
     public String getFrom() {
@@ -98,13 +98,13 @@ public class NotifyConfigurationType implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The email address that is sending the email. It must be either individually verified with Amazon SES, or from a
-     * domain that has been verified with Amazon SES.
+     * The email address that is sending the email. The address must be either individually verified with Amazon Simple
+     * Email Service, or from a domain that has been verified with Amazon SES.
      * </p>
      * 
      * @param from
-     *        The email address that is sending the email. It must be either individually verified with Amazon SES, or
-     *        from a domain that has been verified with Amazon SES.
+     *        The email address that is sending the email. The address must be either individually verified with Amazon
+     *        Simple Email Service, or from a domain that has been verified with Amazon SES.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -155,13 +155,14 @@ public class NotifyConfigurationType implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the identity that is associated with the sending authorization policy. It
-     * permits Amazon Cognito to send for the email address specified in the <code>From</code> parameter.
+     * The Amazon Resource Name (ARN) of the identity that is associated with the sending authorization policy. This
+     * identity permits Amazon Cognito to send for the email address specified in the <code>From</code> parameter.
      * </p>
      * 
      * @param sourceArn
      *        The Amazon Resource Name (ARN) of the identity that is associated with the sending authorization policy.
-     *        It permits Amazon Cognito to send for the email address specified in the <code>From</code> parameter.
+     *        This identity permits Amazon Cognito to send for the email address specified in the <code>From</code>
+     *        parameter.
      */
 
     public void setSourceArn(String sourceArn) {
@@ -170,12 +171,13 @@ public class NotifyConfigurationType implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the identity that is associated with the sending authorization policy. It
-     * permits Amazon Cognito to send for the email address specified in the <code>From</code> parameter.
+     * The Amazon Resource Name (ARN) of the identity that is associated with the sending authorization policy. This
+     * identity permits Amazon Cognito to send for the email address specified in the <code>From</code> parameter.
      * </p>
      * 
      * @return The Amazon Resource Name (ARN) of the identity that is associated with the sending authorization policy.
-     *         It permits Amazon Cognito to send for the email address specified in the <code>From</code> parameter.
+     *         This identity permits Amazon Cognito to send for the email address specified in the <code>From</code>
+     *         parameter.
      */
 
     public String getSourceArn() {
@@ -184,13 +186,14 @@ public class NotifyConfigurationType implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the identity that is associated with the sending authorization policy. It
-     * permits Amazon Cognito to send for the email address specified in the <code>From</code> parameter.
+     * The Amazon Resource Name (ARN) of the identity that is associated with the sending authorization policy. This
+     * identity permits Amazon Cognito to send for the email address specified in the <code>From</code> parameter.
      * </p>
      * 
      * @param sourceArn
      *        The Amazon Resource Name (ARN) of the identity that is associated with the sending authorization policy.
-     *        It permits Amazon Cognito to send for the email address specified in the <code>From</code> parameter.
+     *        This identity permits Amazon Cognito to send for the email address specified in the <code>From</code>
+     *        parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -281,11 +284,12 @@ public class NotifyConfigurationType implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The MFA email template used when MFA is challenged as part of a detected risk.
+     * The multi-factor authentication (MFA) email template used when MFA is challenged as part of a detected risk.
      * </p>
      * 
      * @param mfaEmail
-     *        The MFA email template used when MFA is challenged as part of a detected risk.
+     *        The multi-factor authentication (MFA) email template used when MFA is challenged as part of a detected
+     *        risk.
      */
 
     public void setMfaEmail(NotifyEmailType mfaEmail) {
@@ -294,10 +298,11 @@ public class NotifyConfigurationType implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The MFA email template used when MFA is challenged as part of a detected risk.
+     * The multi-factor authentication (MFA) email template used when MFA is challenged as part of a detected risk.
      * </p>
      * 
-     * @return The MFA email template used when MFA is challenged as part of a detected risk.
+     * @return The multi-factor authentication (MFA) email template used when MFA is challenged as part of a detected
+     *         risk.
      */
 
     public NotifyEmailType getMfaEmail() {
@@ -306,11 +311,12 @@ public class NotifyConfigurationType implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * The MFA email template used when MFA is challenged as part of a detected risk.
+     * The multi-factor authentication (MFA) email template used when MFA is challenged as part of a detected risk.
      * </p>
      * 
      * @param mfaEmail
-     *        The MFA email template used when MFA is challenged as part of a detected risk.
+     *        The multi-factor authentication (MFA) email template used when MFA is challenged as part of a detected
+     *        risk.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * This input identifies a cluster and a list of tags to remove.
+ * This input identifies an Amazon EMR resource and a list of tags to remove.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/RemoveTags" target="_top">AWS API
@@ -30,13 +30,14 @@ public class RemoveTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The Amazon EMR resource identifier from which tags will be removed. This value must be a cluster identifier.
+     * The Amazon EMR resource identifier from which tags will be removed. For example, a cluster identifier or an
+     * Amazon EMR Studio ID.
      * </p>
      */
     private String resourceId;
     /**
      * <p>
-     * A list of tag keys to remove from a resource.
+     * A list of tag keys to remove from the resource.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> tagKeys;
@@ -53,8 +54,8 @@ public class RemoveTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * initialize any additional object members.
      * 
      * @param resourceId
-     *        The Amazon EMR resource identifier from which tags will be removed. This value must be a cluster
-     *        identifier.
+     *        The Amazon EMR resource identifier from which tags will be removed. For example, a cluster identifier or
+     *        an Amazon EMR Studio ID.
      */
     public RemoveTagsRequest(String resourceId) {
         setResourceId(resourceId);
@@ -65,10 +66,10 @@ public class RemoveTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * initialize any additional object members.
      * 
      * @param resourceId
-     *        The Amazon EMR resource identifier from which tags will be removed. This value must be a cluster
-     *        identifier.
+     *        The Amazon EMR resource identifier from which tags will be removed. For example, a cluster identifier or
+     *        an Amazon EMR Studio ID.
      * @param tagKeys
-     *        A list of tag keys to remove from a resource.
+     *        A list of tag keys to remove from the resource.
      */
     public RemoveTagsRequest(String resourceId, java.util.List<String> tagKeys) {
         setResourceId(resourceId);
@@ -77,12 +78,13 @@ public class RemoveTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The Amazon EMR resource identifier from which tags will be removed. This value must be a cluster identifier.
+     * The Amazon EMR resource identifier from which tags will be removed. For example, a cluster identifier or an
+     * Amazon EMR Studio ID.
      * </p>
      * 
      * @param resourceId
-     *        The Amazon EMR resource identifier from which tags will be removed. This value must be a cluster
-     *        identifier.
+     *        The Amazon EMR resource identifier from which tags will be removed. For example, a cluster identifier or
+     *        an Amazon EMR Studio ID.
      */
 
     public void setResourceId(String resourceId) {
@@ -91,11 +93,12 @@ public class RemoveTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The Amazon EMR resource identifier from which tags will be removed. This value must be a cluster identifier.
+     * The Amazon EMR resource identifier from which tags will be removed. For example, a cluster identifier or an
+     * Amazon EMR Studio ID.
      * </p>
      * 
-     * @return The Amazon EMR resource identifier from which tags will be removed. This value must be a cluster
-     *         identifier.
+     * @return The Amazon EMR resource identifier from which tags will be removed. For example, a cluster identifier or
+     *         an Amazon EMR Studio ID.
      */
 
     public String getResourceId() {
@@ -104,12 +107,13 @@ public class RemoveTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The Amazon EMR resource identifier from which tags will be removed. This value must be a cluster identifier.
+     * The Amazon EMR resource identifier from which tags will be removed. For example, a cluster identifier or an
+     * Amazon EMR Studio ID.
      * </p>
      * 
      * @param resourceId
-     *        The Amazon EMR resource identifier from which tags will be removed. This value must be a cluster
-     *        identifier.
+     *        The Amazon EMR resource identifier from which tags will be removed. For example, a cluster identifier or
+     *        an Amazon EMR Studio ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -120,10 +124,10 @@ public class RemoveTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A list of tag keys to remove from a resource.
+     * A list of tag keys to remove from the resource.
      * </p>
      * 
-     * @return A list of tag keys to remove from a resource.
+     * @return A list of tag keys to remove from the resource.
      */
 
     public java.util.List<String> getTagKeys() {
@@ -135,11 +139,11 @@ public class RemoveTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A list of tag keys to remove from a resource.
+     * A list of tag keys to remove from the resource.
      * </p>
      * 
      * @param tagKeys
-     *        A list of tag keys to remove from a resource.
+     *        A list of tag keys to remove from the resource.
      */
 
     public void setTagKeys(java.util.Collection<String> tagKeys) {
@@ -153,7 +157,7 @@ public class RemoveTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A list of tag keys to remove from a resource.
+     * A list of tag keys to remove from the resource.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -162,7 +166,7 @@ public class RemoveTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </p>
      * 
      * @param tagKeys
-     *        A list of tag keys to remove from a resource.
+     *        A list of tag keys to remove from the resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -178,11 +182,11 @@ public class RemoveTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * A list of tag keys to remove from a resource.
+     * A list of tag keys to remove from the resource.
      * </p>
      * 
      * @param tagKeys
-     *        A list of tag keys to remove from a resource.
+     *        A list of tag keys to remove from the resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

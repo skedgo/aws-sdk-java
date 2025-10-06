@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -89,6 +89,8 @@ public class RunMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("testSpecArn").build();
     private static final MarshallingInfo<StructuredPojo> DEVICESELECTIONRESULT_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("deviceSelectionResult").build();
+    private static final MarshallingInfo<StructuredPojo> VPCCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("vpcConfig").build();
 
     private static final RunMarshaller instance = new RunMarshaller();
 
@@ -137,6 +139,7 @@ public class RunMarshaller {
             protocolMarshaller.marshall(run.getSkipAppResign(), SKIPAPPRESIGN_BINDING);
             protocolMarshaller.marshall(run.getTestSpecArn(), TESTSPECARN_BINDING);
             protocolMarshaller.marshall(run.getDeviceSelectionResult(), DEVICESELECTIONRESULT_BINDING);
+            protocolMarshaller.marshall(run.getVpcConfig(), VPCCONFIG_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

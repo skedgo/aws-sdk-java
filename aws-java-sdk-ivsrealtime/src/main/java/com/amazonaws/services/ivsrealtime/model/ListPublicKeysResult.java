@@ -1,0 +1,216 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.ivsrealtime.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ivs-realtime-2020-07-14/ListPublicKeys" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class ListPublicKeysResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * List of the matching public keys (summary information only).
+     * </p>
+     */
+    private java.util.List<PublicKeySummary> publicKeys;
+    /**
+     * <p>
+     * If there are more public keys than <code>maxResults</code>, use <code>nextToken</code> in the request to get the
+     * next set.
+     * </p>
+     */
+    private String nextToken;
+
+    /**
+     * <p>
+     * List of the matching public keys (summary information only).
+     * </p>
+     * 
+     * @return List of the matching public keys (summary information only).
+     */
+
+    public java.util.List<PublicKeySummary> getPublicKeys() {
+        return publicKeys;
+    }
+
+    /**
+     * <p>
+     * List of the matching public keys (summary information only).
+     * </p>
+     * 
+     * @param publicKeys
+     *        List of the matching public keys (summary information only).
+     */
+
+    public void setPublicKeys(java.util.Collection<PublicKeySummary> publicKeys) {
+        if (publicKeys == null) {
+            this.publicKeys = null;
+            return;
+        }
+
+        this.publicKeys = new java.util.ArrayList<PublicKeySummary>(publicKeys);
+    }
+
+    /**
+     * <p>
+     * List of the matching public keys (summary information only).
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setPublicKeys(java.util.Collection)} or {@link #withPublicKeys(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param publicKeys
+     *        List of the matching public keys (summary information only).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListPublicKeysResult withPublicKeys(PublicKeySummary... publicKeys) {
+        if (this.publicKeys == null) {
+            setPublicKeys(new java.util.ArrayList<PublicKeySummary>(publicKeys.length));
+        }
+        for (PublicKeySummary ele : publicKeys) {
+            this.publicKeys.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * List of the matching public keys (summary information only).
+     * </p>
+     * 
+     * @param publicKeys
+     *        List of the matching public keys (summary information only).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListPublicKeysResult withPublicKeys(java.util.Collection<PublicKeySummary> publicKeys) {
+        setPublicKeys(publicKeys);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If there are more public keys than <code>maxResults</code>, use <code>nextToken</code> in the request to get the
+     * next set.
+     * </p>
+     * 
+     * @param nextToken
+     *        If there are more public keys than <code>maxResults</code>, use <code>nextToken</code> in the request to
+     *        get the next set.
+     */
+
+    public void setNextToken(String nextToken) {
+        this.nextToken = nextToken;
+    }
+
+    /**
+     * <p>
+     * If there are more public keys than <code>maxResults</code>, use <code>nextToken</code> in the request to get the
+     * next set.
+     * </p>
+     * 
+     * @return If there are more public keys than <code>maxResults</code>, use <code>nextToken</code> in the request to
+     *         get the next set.
+     */
+
+    public String getNextToken() {
+        return this.nextToken;
+    }
+
+    /**
+     * <p>
+     * If there are more public keys than <code>maxResults</code>, use <code>nextToken</code> in the request to get the
+     * next set.
+     * </p>
+     * 
+     * @param nextToken
+     *        If there are more public keys than <code>maxResults</code>, use <code>nextToken</code> in the request to
+     *        get the next set.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListPublicKeysResult withNextToken(String nextToken) {
+        setNextToken(nextToken);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getPublicKeys() != null)
+            sb.append("PublicKeys: ").append(getPublicKeys()).append(",");
+        if (getNextToken() != null)
+            sb.append("NextToken: ").append(getNextToken());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof ListPublicKeysResult == false)
+            return false;
+        ListPublicKeysResult other = (ListPublicKeysResult) obj;
+        if (other.getPublicKeys() == null ^ this.getPublicKeys() == null)
+            return false;
+        if (other.getPublicKeys() != null && other.getPublicKeys().equals(this.getPublicKeys()) == false)
+            return false;
+        if (other.getNextToken() == null ^ this.getNextToken() == null)
+            return false;
+        if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getPublicKeys() == null) ? 0 : getPublicKeys().hashCode());
+        hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public ListPublicKeysResult clone() {
+        try {
+            return (ListPublicKeysResult) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+}

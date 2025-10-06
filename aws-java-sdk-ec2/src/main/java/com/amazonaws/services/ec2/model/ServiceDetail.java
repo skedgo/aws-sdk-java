@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class ServiceDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the service.
+     * The name of the service.
      * </p>
      */
     private String serviceName;
@@ -52,7 +52,7 @@ public class ServiceDetail implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<String> availabilityZones;
     /**
      * <p>
-     * The AWS account ID of the service owner.
+     * The Amazon Web Services account ID of the service owner.
      * </p>
      */
     private String owner;
@@ -70,6 +70,12 @@ public class ServiceDetail implements Serializable, Cloneable {
     private String privateDnsName;
     /**
      * <p>
+     * The private DNS names assigned to the VPC endpoint service.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<PrivateDnsDetails> privateDnsNames;
+    /**
+     * <p>
      * Indicates whether the service supports endpoint policies.
      * </p>
      */
@@ -82,25 +88,46 @@ public class ServiceDetail implements Serializable, Cloneable {
     private Boolean acceptanceRequired;
     /**
      * <p>
-     * Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using the VPC
+     * Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using the VPC
      * endpoint API is restricted.
      * </p>
      */
     private Boolean managesVpcEndpoints;
     /**
      * <p>
-     * Any tags assigned to the service.
+     * The payer responsibility.
+     * </p>
+     */
+    private String payerResponsibility;
+    /**
+     * <p>
+     * The tags assigned to the service.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * The verification state of the VPC endpoint service.
+     * </p>
+     * <p>
+     * Consumers of the endpoint service cannot use the private name when the state is not <code>verified</code>.
+     * </p>
+     */
+    private String privateDnsNameVerificationState;
+    /**
+     * <p>
+     * The supported IP address types.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> supportedIpAddressTypes;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the service.
+     * The name of the service.
      * </p>
      * 
      * @param serviceName
-     *        The Amazon Resource Name (ARN) of the service.
+     *        The name of the service.
      */
 
     public void setServiceName(String serviceName) {
@@ -109,10 +136,10 @@ public class ServiceDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the service.
+     * The name of the service.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the service.
+     * @return The name of the service.
      */
 
     public String getServiceName() {
@@ -121,11 +148,11 @@ public class ServiceDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the service.
+     * The name of the service.
      * </p>
      * 
      * @param serviceName
-     *        The Amazon Resource Name (ARN) of the service.
+     *        The name of the service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -322,11 +349,11 @@ public class ServiceDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the service owner.
+     * The Amazon Web Services account ID of the service owner.
      * </p>
      * 
      * @param owner
-     *        The AWS account ID of the service owner.
+     *        The Amazon Web Services account ID of the service owner.
      */
 
     public void setOwner(String owner) {
@@ -335,10 +362,10 @@ public class ServiceDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the service owner.
+     * The Amazon Web Services account ID of the service owner.
      * </p>
      * 
-     * @return The AWS account ID of the service owner.
+     * @return The Amazon Web Services account ID of the service owner.
      */
 
     public String getOwner() {
@@ -347,11 +374,11 @@ public class ServiceDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID of the service owner.
+     * The Amazon Web Services account ID of the service owner.
      * </p>
      * 
      * @param owner
-     *        The AWS account ID of the service owner.
+     *        The Amazon Web Services account ID of the service owner.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -475,6 +502,79 @@ public class ServiceDetail implements Serializable, Cloneable {
 
     /**
      * <p>
+     * The private DNS names assigned to the VPC endpoint service.
+     * </p>
+     * 
+     * @return The private DNS names assigned to the VPC endpoint service.
+     */
+
+    public java.util.List<PrivateDnsDetails> getPrivateDnsNames() {
+        if (privateDnsNames == null) {
+            privateDnsNames = new com.amazonaws.internal.SdkInternalList<PrivateDnsDetails>();
+        }
+        return privateDnsNames;
+    }
+
+    /**
+     * <p>
+     * The private DNS names assigned to the VPC endpoint service.
+     * </p>
+     * 
+     * @param privateDnsNames
+     *        The private DNS names assigned to the VPC endpoint service.
+     */
+
+    public void setPrivateDnsNames(java.util.Collection<PrivateDnsDetails> privateDnsNames) {
+        if (privateDnsNames == null) {
+            this.privateDnsNames = null;
+            return;
+        }
+
+        this.privateDnsNames = new com.amazonaws.internal.SdkInternalList<PrivateDnsDetails>(privateDnsNames);
+    }
+
+    /**
+     * <p>
+     * The private DNS names assigned to the VPC endpoint service.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setPrivateDnsNames(java.util.Collection)} or {@link #withPrivateDnsNames(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param privateDnsNames
+     *        The private DNS names assigned to the VPC endpoint service.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ServiceDetail withPrivateDnsNames(PrivateDnsDetails... privateDnsNames) {
+        if (this.privateDnsNames == null) {
+            setPrivateDnsNames(new com.amazonaws.internal.SdkInternalList<PrivateDnsDetails>(privateDnsNames.length));
+        }
+        for (PrivateDnsDetails ele : privateDnsNames) {
+            this.privateDnsNames.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The private DNS names assigned to the VPC endpoint service.
+     * </p>
+     * 
+     * @param privateDnsNames
+     *        The private DNS names assigned to the VPC endpoint service.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ServiceDetail withPrivateDnsNames(java.util.Collection<PrivateDnsDetails> privateDnsNames) {
+        setPrivateDnsNames(privateDnsNames);
+        return this;
+    }
+
+    /**
+     * <p>
      * Indicates whether the service supports endpoint policies.
      * </p>
      * 
@@ -579,13 +679,13 @@ public class ServiceDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using the VPC
+     * Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using the VPC
      * endpoint API is restricted.
      * </p>
      * 
      * @param managesVpcEndpoints
-     *        Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using
-     *        the VPC endpoint API is restricted.
+     *        Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using the
+     *        VPC endpoint API is restricted.
      */
 
     public void setManagesVpcEndpoints(Boolean managesVpcEndpoints) {
@@ -594,11 +694,11 @@ public class ServiceDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using the VPC
+     * Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using the VPC
      * endpoint API is restricted.
      * </p>
      * 
-     * @return Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using
+     * @return Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using
      *         the VPC endpoint API is restricted.
      */
 
@@ -608,13 +708,13 @@ public class ServiceDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using the VPC
+     * Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using the VPC
      * endpoint API is restricted.
      * </p>
      * 
      * @param managesVpcEndpoints
-     *        Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using
-     *        the VPC endpoint API is restricted.
+     *        Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using the
+     *        VPC endpoint API is restricted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -625,11 +725,11 @@ public class ServiceDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using the VPC
+     * Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using the VPC
      * endpoint API is restricted.
      * </p>
      * 
-     * @return Indicates whether the service manages it's VPC endpoints. Management of the service VPC endpoints using
+     * @return Indicates whether the service manages its VPC endpoints. Management of the service VPC endpoints using
      *         the VPC endpoint API is restricted.
      */
 
@@ -639,10 +739,69 @@ public class ServiceDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any tags assigned to the service.
+     * The payer responsibility.
      * </p>
      * 
-     * @return Any tags assigned to the service.
+     * @param payerResponsibility
+     *        The payer responsibility.
+     * @see PayerResponsibility
+     */
+
+    public void setPayerResponsibility(String payerResponsibility) {
+        this.payerResponsibility = payerResponsibility;
+    }
+
+    /**
+     * <p>
+     * The payer responsibility.
+     * </p>
+     * 
+     * @return The payer responsibility.
+     * @see PayerResponsibility
+     */
+
+    public String getPayerResponsibility() {
+        return this.payerResponsibility;
+    }
+
+    /**
+     * <p>
+     * The payer responsibility.
+     * </p>
+     * 
+     * @param payerResponsibility
+     *        The payer responsibility.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PayerResponsibility
+     */
+
+    public ServiceDetail withPayerResponsibility(String payerResponsibility) {
+        setPayerResponsibility(payerResponsibility);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The payer responsibility.
+     * </p>
+     * 
+     * @param payerResponsibility
+     *        The payer responsibility.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see PayerResponsibility
+     */
+
+    public ServiceDetail withPayerResponsibility(PayerResponsibility payerResponsibility) {
+        this.payerResponsibility = payerResponsibility.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags assigned to the service.
+     * </p>
+     * 
+     * @return The tags assigned to the service.
      */
 
     public java.util.List<Tag> getTags() {
@@ -654,11 +813,11 @@ public class ServiceDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any tags assigned to the service.
+     * The tags assigned to the service.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the service.
+     *        The tags assigned to the service.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -672,7 +831,7 @@ public class ServiceDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any tags assigned to the service.
+     * The tags assigned to the service.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -681,7 +840,7 @@ public class ServiceDetail implements Serializable, Cloneable {
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the service.
+     *        The tags assigned to the service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -697,16 +856,197 @@ public class ServiceDetail implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Any tags assigned to the service.
+     * The tags assigned to the service.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the service.
+     *        The tags assigned to the service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ServiceDetail withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The verification state of the VPC endpoint service.
+     * </p>
+     * <p>
+     * Consumers of the endpoint service cannot use the private name when the state is not <code>verified</code>.
+     * </p>
+     * 
+     * @param privateDnsNameVerificationState
+     *        The verification state of the VPC endpoint service.</p>
+     *        <p>
+     *        Consumers of the endpoint service cannot use the private name when the state is not <code>verified</code>.
+     * @see DnsNameState
+     */
+
+    public void setPrivateDnsNameVerificationState(String privateDnsNameVerificationState) {
+        this.privateDnsNameVerificationState = privateDnsNameVerificationState;
+    }
+
+    /**
+     * <p>
+     * The verification state of the VPC endpoint service.
+     * </p>
+     * <p>
+     * Consumers of the endpoint service cannot use the private name when the state is not <code>verified</code>.
+     * </p>
+     * 
+     * @return The verification state of the VPC endpoint service.</p>
+     *         <p>
+     *         Consumers of the endpoint service cannot use the private name when the state is not <code>verified</code>.
+     * @see DnsNameState
+     */
+
+    public String getPrivateDnsNameVerificationState() {
+        return this.privateDnsNameVerificationState;
+    }
+
+    /**
+     * <p>
+     * The verification state of the VPC endpoint service.
+     * </p>
+     * <p>
+     * Consumers of the endpoint service cannot use the private name when the state is not <code>verified</code>.
+     * </p>
+     * 
+     * @param privateDnsNameVerificationState
+     *        The verification state of the VPC endpoint service.</p>
+     *        <p>
+     *        Consumers of the endpoint service cannot use the private name when the state is not <code>verified</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DnsNameState
+     */
+
+    public ServiceDetail withPrivateDnsNameVerificationState(String privateDnsNameVerificationState) {
+        setPrivateDnsNameVerificationState(privateDnsNameVerificationState);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The verification state of the VPC endpoint service.
+     * </p>
+     * <p>
+     * Consumers of the endpoint service cannot use the private name when the state is not <code>verified</code>.
+     * </p>
+     * 
+     * @param privateDnsNameVerificationState
+     *        The verification state of the VPC endpoint service.</p>
+     *        <p>
+     *        Consumers of the endpoint service cannot use the private name when the state is not <code>verified</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DnsNameState
+     */
+
+    public ServiceDetail withPrivateDnsNameVerificationState(DnsNameState privateDnsNameVerificationState) {
+        this.privateDnsNameVerificationState = privateDnsNameVerificationState.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The supported IP address types.
+     * </p>
+     * 
+     * @return The supported IP address types.
+     * @see ServiceConnectivityType
+     */
+
+    public java.util.List<String> getSupportedIpAddressTypes() {
+        if (supportedIpAddressTypes == null) {
+            supportedIpAddressTypes = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return supportedIpAddressTypes;
+    }
+
+    /**
+     * <p>
+     * The supported IP address types.
+     * </p>
+     * 
+     * @param supportedIpAddressTypes
+     *        The supported IP address types.
+     * @see ServiceConnectivityType
+     */
+
+    public void setSupportedIpAddressTypes(java.util.Collection<String> supportedIpAddressTypes) {
+        if (supportedIpAddressTypes == null) {
+            this.supportedIpAddressTypes = null;
+            return;
+        }
+
+        this.supportedIpAddressTypes = new com.amazonaws.internal.SdkInternalList<String>(supportedIpAddressTypes);
+    }
+
+    /**
+     * <p>
+     * The supported IP address types.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSupportedIpAddressTypes(java.util.Collection)} or
+     * {@link #withSupportedIpAddressTypes(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param supportedIpAddressTypes
+     *        The supported IP address types.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ServiceConnectivityType
+     */
+
+    public ServiceDetail withSupportedIpAddressTypes(String... supportedIpAddressTypes) {
+        if (this.supportedIpAddressTypes == null) {
+            setSupportedIpAddressTypes(new com.amazonaws.internal.SdkInternalList<String>(supportedIpAddressTypes.length));
+        }
+        for (String ele : supportedIpAddressTypes) {
+            this.supportedIpAddressTypes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The supported IP address types.
+     * </p>
+     * 
+     * @param supportedIpAddressTypes
+     *        The supported IP address types.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ServiceConnectivityType
+     */
+
+    public ServiceDetail withSupportedIpAddressTypes(java.util.Collection<String> supportedIpAddressTypes) {
+        setSupportedIpAddressTypes(supportedIpAddressTypes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The supported IP address types.
+     * </p>
+     * 
+     * @param supportedIpAddressTypes
+     *        The supported IP address types.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ServiceConnectivityType
+     */
+
+    public ServiceDetail withSupportedIpAddressTypes(ServiceConnectivityType... supportedIpAddressTypes) {
+        com.amazonaws.internal.SdkInternalList<String> supportedIpAddressTypesCopy = new com.amazonaws.internal.SdkInternalList<String>(
+                supportedIpAddressTypes.length);
+        for (ServiceConnectivityType value : supportedIpAddressTypes) {
+            supportedIpAddressTypesCopy.add(value.toString());
+        }
+        if (getSupportedIpAddressTypes() == null) {
+            setSupportedIpAddressTypes(supportedIpAddressTypesCopy);
+        } else {
+            getSupportedIpAddressTypes().addAll(supportedIpAddressTypesCopy);
+        }
         return this;
     }
 
@@ -736,14 +1076,22 @@ public class ServiceDetail implements Serializable, Cloneable {
             sb.append("BaseEndpointDnsNames: ").append(getBaseEndpointDnsNames()).append(",");
         if (getPrivateDnsName() != null)
             sb.append("PrivateDnsName: ").append(getPrivateDnsName()).append(",");
+        if (getPrivateDnsNames() != null)
+            sb.append("PrivateDnsNames: ").append(getPrivateDnsNames()).append(",");
         if (getVpcEndpointPolicySupported() != null)
             sb.append("VpcEndpointPolicySupported: ").append(getVpcEndpointPolicySupported()).append(",");
         if (getAcceptanceRequired() != null)
             sb.append("AcceptanceRequired: ").append(getAcceptanceRequired()).append(",");
         if (getManagesVpcEndpoints() != null)
             sb.append("ManagesVpcEndpoints: ").append(getManagesVpcEndpoints()).append(",");
+        if (getPayerResponsibility() != null)
+            sb.append("PayerResponsibility: ").append(getPayerResponsibility()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getPrivateDnsNameVerificationState() != null)
+            sb.append("PrivateDnsNameVerificationState: ").append(getPrivateDnsNameVerificationState()).append(",");
+        if (getSupportedIpAddressTypes() != null)
+            sb.append("SupportedIpAddressTypes: ").append(getSupportedIpAddressTypes());
         sb.append("}");
         return sb.toString();
     }
@@ -786,6 +1134,10 @@ public class ServiceDetail implements Serializable, Cloneable {
             return false;
         if (other.getPrivateDnsName() != null && other.getPrivateDnsName().equals(this.getPrivateDnsName()) == false)
             return false;
+        if (other.getPrivateDnsNames() == null ^ this.getPrivateDnsNames() == null)
+            return false;
+        if (other.getPrivateDnsNames() != null && other.getPrivateDnsNames().equals(this.getPrivateDnsNames()) == false)
+            return false;
         if (other.getVpcEndpointPolicySupported() == null ^ this.getVpcEndpointPolicySupported() == null)
             return false;
         if (other.getVpcEndpointPolicySupported() != null && other.getVpcEndpointPolicySupported().equals(this.getVpcEndpointPolicySupported()) == false)
@@ -798,9 +1150,22 @@ public class ServiceDetail implements Serializable, Cloneable {
             return false;
         if (other.getManagesVpcEndpoints() != null && other.getManagesVpcEndpoints().equals(this.getManagesVpcEndpoints()) == false)
             return false;
+        if (other.getPayerResponsibility() == null ^ this.getPayerResponsibility() == null)
+            return false;
+        if (other.getPayerResponsibility() != null && other.getPayerResponsibility().equals(this.getPayerResponsibility()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getPrivateDnsNameVerificationState() == null ^ this.getPrivateDnsNameVerificationState() == null)
+            return false;
+        if (other.getPrivateDnsNameVerificationState() != null
+                && other.getPrivateDnsNameVerificationState().equals(this.getPrivateDnsNameVerificationState()) == false)
+            return false;
+        if (other.getSupportedIpAddressTypes() == null ^ this.getSupportedIpAddressTypes() == null)
+            return false;
+        if (other.getSupportedIpAddressTypes() != null && other.getSupportedIpAddressTypes().equals(this.getSupportedIpAddressTypes()) == false)
             return false;
         return true;
     }
@@ -817,10 +1182,14 @@ public class ServiceDetail implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getOwner() == null) ? 0 : getOwner().hashCode());
         hashCode = prime * hashCode + ((getBaseEndpointDnsNames() == null) ? 0 : getBaseEndpointDnsNames().hashCode());
         hashCode = prime * hashCode + ((getPrivateDnsName() == null) ? 0 : getPrivateDnsName().hashCode());
+        hashCode = prime * hashCode + ((getPrivateDnsNames() == null) ? 0 : getPrivateDnsNames().hashCode());
         hashCode = prime * hashCode + ((getVpcEndpointPolicySupported() == null) ? 0 : getVpcEndpointPolicySupported().hashCode());
         hashCode = prime * hashCode + ((getAcceptanceRequired() == null) ? 0 : getAcceptanceRequired().hashCode());
         hashCode = prime * hashCode + ((getManagesVpcEndpoints() == null) ? 0 : getManagesVpcEndpoints().hashCode());
+        hashCode = prime * hashCode + ((getPayerResponsibility() == null) ? 0 : getPayerResponsibility().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getPrivateDnsNameVerificationState() == null) ? 0 : getPrivateDnsNameVerificationState().hashCode());
+        hashCode = prime * hashCode + ((getSupportedIpAddressTypes() == null) ? 0 : getSupportedIpAddressTypes().hashCode());
         return hashCode;
     }
 

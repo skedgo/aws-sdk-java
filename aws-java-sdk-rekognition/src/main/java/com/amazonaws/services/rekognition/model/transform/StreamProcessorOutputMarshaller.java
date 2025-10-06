@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,8 @@ public class StreamProcessorOutputMarshaller {
 
     private static final MarshallingInfo<StructuredPojo> KINESISDATASTREAM_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("KinesisDataStream").build();
+    private static final MarshallingInfo<StructuredPojo> S3DESTINATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("S3Destination").build();
 
     private static final StreamProcessorOutputMarshaller instance = new StreamProcessorOutputMarshaller();
 
@@ -47,6 +49,7 @@ public class StreamProcessorOutputMarshaller {
 
         try {
             protocolMarshaller.marshall(streamProcessorOutput.getKinesisDataStream(), KINESISDATASTREAM_BINDING);
+            protocolMarshaller.marshall(streamProcessorOutput.getS3Destination(), S3DESTINATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

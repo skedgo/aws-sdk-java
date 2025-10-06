@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,7 +34,7 @@ public class TestFailoverRequest extends com.amazonaws.AmazonWebServiceRequest i
     /**
      * <p>
      * The name of the node group (called shard in the console) in this replication group on which automatic failover is
-     * to be tested. You may test automatic failover on up to 5 node groups in any rolling 24-hour period.
+     * to be tested. You may test automatic failover on up to 15 node groups in any rolling 24-hour period.
      * </p>
      */
     private String nodeGroupId;
@@ -85,12 +85,12 @@ public class TestFailoverRequest extends com.amazonaws.AmazonWebServiceRequest i
     /**
      * <p>
      * The name of the node group (called shard in the console) in this replication group on which automatic failover is
-     * to be tested. You may test automatic failover on up to 5 node groups in any rolling 24-hour period.
+     * to be tested. You may test automatic failover on up to 15 node groups in any rolling 24-hour period.
      * </p>
      * 
      * @param nodeGroupId
      *        The name of the node group (called shard in the console) in this replication group on which automatic
-     *        failover is to be tested. You may test automatic failover on up to 5 node groups in any rolling 24-hour
+     *        failover is to be tested. You may test automatic failover on up to 15 node groups in any rolling 24-hour
      *        period.
      */
 
@@ -101,11 +101,11 @@ public class TestFailoverRequest extends com.amazonaws.AmazonWebServiceRequest i
     /**
      * <p>
      * The name of the node group (called shard in the console) in this replication group on which automatic failover is
-     * to be tested. You may test automatic failover on up to 5 node groups in any rolling 24-hour period.
+     * to be tested. You may test automatic failover on up to 15 node groups in any rolling 24-hour period.
      * </p>
      * 
      * @return The name of the node group (called shard in the console) in this replication group on which automatic
-     *         failover is to be tested. You may test automatic failover on up to 5 node groups in any rolling 24-hour
+     *         failover is to be tested. You may test automatic failover on up to 15 node groups in any rolling 24-hour
      *         period.
      */
 
@@ -116,12 +116,12 @@ public class TestFailoverRequest extends com.amazonaws.AmazonWebServiceRequest i
     /**
      * <p>
      * The name of the node group (called shard in the console) in this replication group on which automatic failover is
-     * to be tested. You may test automatic failover on up to 5 node groups in any rolling 24-hour period.
+     * to be tested. You may test automatic failover on up to 15 node groups in any rolling 24-hour period.
      * </p>
      * 
      * @param nodeGroupId
      *        The name of the node group (called shard in the console) in this replication group on which automatic
-     *        failover is to be tested. You may test automatic failover on up to 5 node groups in any rolling 24-hour
+     *        failover is to be tested. You may test automatic failover on up to 15 node groups in any rolling 24-hour
      *        period.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

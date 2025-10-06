@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,13 +31,13 @@ public class RotateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
     private String aRN;
     /**
      * <p>
-     * The friendly name of the secret.
+     * The name of the secret.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The ID of the new version of the secret created by the rotation started by this request.
+     * The ID of the new version of the secret.
      * </p>
      */
     private String versionId;
@@ -84,11 +84,11 @@ public class RotateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The friendly name of the secret.
+     * The name of the secret.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret.
+     *        The name of the secret.
      */
 
     public void setName(String name) {
@@ -97,10 +97,10 @@ public class RotateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The friendly name of the secret.
+     * The name of the secret.
      * </p>
      * 
-     * @return The friendly name of the secret.
+     * @return The name of the secret.
      */
 
     public String getName() {
@@ -109,11 +109,11 @@ public class RotateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The friendly name of the secret.
+     * The name of the secret.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret.
+     *        The name of the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -124,11 +124,11 @@ public class RotateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The ID of the new version of the secret created by the rotation started by this request.
+     * The ID of the new version of the secret.
      * </p>
      * 
      * @param versionId
-     *        The ID of the new version of the secret created by the rotation started by this request.
+     *        The ID of the new version of the secret.
      */
 
     public void setVersionId(String versionId) {
@@ -137,10 +137,10 @@ public class RotateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The ID of the new version of the secret created by the rotation started by this request.
+     * The ID of the new version of the secret.
      * </p>
      * 
-     * @return The ID of the new version of the secret created by the rotation started by this request.
+     * @return The ID of the new version of the secret.
      */
 
     public String getVersionId() {
@@ -149,11 +149,11 @@ public class RotateSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The ID of the new version of the secret created by the rotation started by this request.
+     * The ID of the new version of the secret.
      * </p>
      * 
      * @param versionId
-     *        The ID of the new version of the secret created by the rotation started by this request.
+     *        The ID of the new version of the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

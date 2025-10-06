@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,14 +30,11 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive notification when an
  * asynchronous operation completes.
  * <p>
- * <fullname>AWS Certificate Manager</fullname>
+ * <fullname>Certificate Manager</fullname>
  * <p>
- * Welcome to the AWS Certificate Manager (ACM) API documentation.
- * </p>
- * <p>
- * You can use ACM to manage SSL/TLS certificates for your AWS-based websites and applications. For general information
- * about using ACM, see the <a href="https://docs.aws.amazon.com/acm/latest/userguide/"> <i>AWS Certificate Manager User
- * Guide</i> </a>.
+ * You can use Certificate Manager (ACM) to manage SSL/TLS certificates for your Amazon Web Services-based websites and
+ * applications. For more information about using ACM, see the <a
+ * href="https://docs.aws.amazon.com/acm/latest/userguide/">Certificate Manager User Guide</a>.
  * </p>
  */
 @ThreadSafe
@@ -237,7 +234,19 @@ public class AWSCertificateManagerAsyncClient extends AWSCertificateManagerClien
      *        Object providing client parameters.
      */
     AWSCertificateManagerAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on ACM using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSCertificateManagerAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -383,6 +392,39 @@ public class AWSCertificateManagerAsyncClient extends AWSCertificateManagerClien
     }
 
     @Override
+    public java.util.concurrent.Future<GetAccountConfigurationResult> getAccountConfigurationAsync(GetAccountConfigurationRequest request) {
+
+        return getAccountConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAccountConfigurationResult> getAccountConfigurationAsync(final GetAccountConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetAccountConfigurationRequest, GetAccountConfigurationResult> asyncHandler) {
+        final GetAccountConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetAccountConfigurationResult>() {
+            @Override
+            public GetAccountConfigurationResult call() throws Exception {
+                GetAccountConfigurationResult result = null;
+
+                try {
+                    result = executeGetAccountConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetCertificateResult> getCertificateAsync(GetCertificateRequest request) {
 
         return getCertificateAsync(request, null);
@@ -499,6 +541,39 @@ public class AWSCertificateManagerAsyncClient extends AWSCertificateManagerClien
 
                 try {
                     result = executeListTagsForCertificate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutAccountConfigurationResult> putAccountConfigurationAsync(PutAccountConfigurationRequest request) {
+
+        return putAccountConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutAccountConfigurationResult> putAccountConfigurationAsync(final PutAccountConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutAccountConfigurationRequest, PutAccountConfigurationResult> asyncHandler) {
+        final PutAccountConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutAccountConfigurationResult>() {
+            @Override
+            public PutAccountConfigurationResult call() throws Exception {
+                PutAccountConfigurationResult result = null;
+
+                try {
+                    result = executePutAccountConfiguration(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

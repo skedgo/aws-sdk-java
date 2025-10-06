@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.workspaces.AmazonWorkspacesClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.workspaces.model.*;
+
 import com.amazonaws.services.workspaces.model.transform.*;
 
 /**
@@ -52,8 +53,27 @@ import com.amazonaws.services.workspaces.model.transform.*;
  * <p>
  * <fullname>Amazon WorkSpaces Service</fullname>
  * <p>
- * Amazon WorkSpaces enables you to provision virtual, cloud-based Microsoft Windows and Amazon Linux desktops for your
- * users.
+ * Amazon WorkSpaces enables you to provision virtual, cloud-based Microsoft Windows or Amazon Linux desktops for your
+ * users, known as <i>WorkSpaces</i>. WorkSpaces eliminates the need to procure and deploy hardware or install complex
+ * software. You can quickly add or remove users as your needs change. Users can access their virtual desktops from
+ * multiple devices or web browsers.
+ * </p>
+ * <p>
+ * This API Reference provides detailed information about the actions, data types, parameters, and errors of the
+ * WorkSpaces service. For more information about the supported Amazon Web Services Regions, endpoints, and service
+ * quotas of the Amazon WorkSpaces service, see <a
+ * href="https://docs.aws.amazon.com/general/latest/gr/wsp.html">WorkSpaces endpoints and quotas</a> in the <i>Amazon
+ * Web Services General Reference</i>.
+ * </p>
+ * <p>
+ * You can also manage your WorkSpaces resources using the WorkSpaces console, Command Line Interface (CLI), and SDKs.
+ * For more information about administering WorkSpaces, see the <a
+ * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/">Amazon WorkSpaces Administration Guide</a>. For more
+ * information about using the Amazon WorkSpaces client application or web browser to access provisioned WorkSpaces, see
+ * the <a href="https://docs.aws.amazon.com/workspaces/latest/userguide/">Amazon WorkSpaces User Guide</a>. For more
+ * information about using the CLI to manage your WorkSpaces resources, see the <a
+ * href="https://docs.aws.amazon.com/cli/latest/reference/workspaces/index.html">WorkSpaces section of the CLI
+ * Reference</a>.
  * </p>
  */
 @ThreadSafe
@@ -79,41 +99,71 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedWorkspaceConfigurationException").withModeledClass(
-                                    com.amazonaws.services.workspaces.model.UnsupportedWorkspaceConfigurationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("OperationNotSupportedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.OperationNotSupportedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("OperationNotSupportedException").withModeledClass(
-                                    com.amazonaws.services.workspaces.model.OperationNotSupportedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.InternalServerExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withModeledClass(
-                                    com.amazonaws.services.workspaces.model.AccessDeniedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ComputeNotCompatibleException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.ComputeNotCompatibleExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceAssociatedException").withModeledClass(
-                                    com.amazonaws.services.workspaces.model.ResourceAssociatedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ApplicationNotSupportedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.ApplicationNotSupportedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidResourceStateException").withModeledClass(
-                                    com.amazonaws.services.workspaces.model.InvalidResourceStateException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceAssociatedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.ResourceAssociatedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.workspaces.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterValuesException").withModeledClass(
-                                    com.amazonaws.services.workspaces.model.InvalidParameterValuesException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterValuesException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.InvalidParameterValuesExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("OperationInProgressException").withModeledClass(
-                                    com.amazonaws.services.workspaces.model.OperationInProgressException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("OperationInProgressException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.OperationInProgressExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceUnavailableException").withModeledClass(
-                                    com.amazonaws.services.workspaces.model.ResourceUnavailableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceUnavailableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.ResourceUnavailableExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.workspaces.model.ResourceAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.ValidationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceCreationFailedException").withModeledClass(
-                                    com.amazonaws.services.workspaces.model.ResourceCreationFailedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.ResourceAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.workspaces.model.ResourceLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceCreationFailedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.ResourceCreationFailedExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.ResourceLimitExceededExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("OperatingSystemNotCompatibleException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.OperatingSystemNotCompatibleExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedWorkspaceConfigurationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.UnsupportedWorkspaceConfigurationExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("IncompatibleApplicationsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.IncompatibleApplicationsExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedNetworkConfigurationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.UnsupportedNetworkConfigurationExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.ResourceInUseExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WorkspacesDefaultRoleNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.WorkspacesDefaultRoleNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.AccessDeniedExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.ConflictExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidResourceStateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.workspaces.model.transform.InvalidResourceStateExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.workspaces.model.AmazonWorkspacesException.class));
 
     /**
@@ -318,6 +368,159 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
+     * Accepts the account link invitation.
+     * </p>
+     * <important>
+     * <p>
+     * There's currently no unlinking capability after you accept the account linking invitation.
+     * </p>
+     * </important>
+     * 
+     * @param acceptAccountLinkInvitationRequest
+     * @return Result of the AcceptAccountLinkInvitation operation returned by the service.
+     * @throws ValidationException
+     *         You either haven't provided a <code>TargetAccountId</code> or are using the same value for
+     *         <code>TargetAccountId</code> and <code>SourceAccountId</code>.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws ConflictException
+     *         The <code>TargetAccountId</code> is already linked or invited.
+     * @throws InternalServerException
+     *         Unexpected server error occured.
+     * @sample AmazonWorkspaces.AcceptAccountLinkInvitation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/AcceptAccountLinkInvitation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public AcceptAccountLinkInvitationResult acceptAccountLinkInvitation(AcceptAccountLinkInvitationRequest request) {
+        request = beforeClientExecution(request);
+        return executeAcceptAccountLinkInvitation(request);
+    }
+
+    @SdkInternalApi
+    final AcceptAccountLinkInvitationResult executeAcceptAccountLinkInvitation(AcceptAccountLinkInvitationRequest acceptAccountLinkInvitationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(acceptAccountLinkInvitationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AcceptAccountLinkInvitationRequest> request = null;
+        Response<AcceptAccountLinkInvitationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AcceptAccountLinkInvitationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(acceptAccountLinkInvitationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AcceptAccountLinkInvitation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AcceptAccountLinkInvitationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new AcceptAccountLinkInvitationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Associates the specified connection alias with the specified directory to enable cross-Region redirection. For
+     * more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region
+     * Redirection for Amazon WorkSpaces</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Before performing this operation, call <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeConnectionAliases.html">
+     * DescribeConnectionAliases</a> to make sure that the current state of the connection alias is <code>CREATED</code>
+     * .
+     * </p>
+     * </note>
+     * 
+     * @param associateConnectionAliasRequest
+     * @return Result of the AssociateConnectionAlias operation returned by the service.
+     * @throws ResourceAssociatedException
+     *         The resource is associated with a directory.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.AssociateConnectionAlias
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/AssociateConnectionAlias"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public AssociateConnectionAliasResult associateConnectionAlias(AssociateConnectionAliasRequest request) {
+        request = beforeClientExecution(request);
+        return executeAssociateConnectionAlias(request);
+    }
+
+    @SdkInternalApi
+    final AssociateConnectionAliasResult executeAssociateConnectionAlias(AssociateConnectionAliasRequest associateConnectionAliasRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(associateConnectionAliasRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AssociateConnectionAliasRequest> request = null;
+        Response<AssociateConnectionAliasResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AssociateConnectionAliasRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(associateConnectionAliasRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateConnectionAlias");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AssociateConnectionAliasResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new AssociateConnectionAliasResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Associates the specified IP access control group with the specified directory.
      * </p>
      * 
@@ -360,6 +563,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new AssociateIpGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(associateIpGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateIpGroups");
@@ -371,6 +576,83 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
             HttpResponseHandler<AmazonWebServiceResponse<AssociateIpGroupsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new AssociateIpGroupsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Associates the specified application to the specified WorkSpace.
+     * </p>
+     * 
+     * @param associateWorkspaceApplicationRequest
+     * @return Result of the AssociateWorkspaceApplication operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceInUseException
+     *         The specified resource is currently in use.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ComputeNotCompatibleException
+     *         The compute type of the WorkSpace is not compatible with the application.
+     * @throws OperatingSystemNotCompatibleException
+     *         The operating system of the WorkSpace is not compatible with the application.
+     * @throws ApplicationNotSupportedException
+     *         The specified application is not supported.
+     * @throws IncompatibleApplicationsException
+     *         The specified application is not compatible with the resource.
+     * @sample AmazonWorkspaces.AssociateWorkspaceApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/AssociateWorkspaceApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public AssociateWorkspaceApplicationResult associateWorkspaceApplication(AssociateWorkspaceApplicationRequest request) {
+        request = beforeClientExecution(request);
+        return executeAssociateWorkspaceApplication(request);
+    }
+
+    @SdkInternalApi
+    final AssociateWorkspaceApplicationResult executeAssociateWorkspaceApplication(AssociateWorkspaceApplicationRequest associateWorkspaceApplicationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(associateWorkspaceApplicationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AssociateWorkspaceApplicationRequest> request = null;
+        Response<AssociateWorkspaceApplicationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AssociateWorkspaceApplicationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(associateWorkspaceApplicationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateWorkspaceApplication");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AssociateWorkspaceApplicationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new AssociateWorkspaceApplicationResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -427,6 +709,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new AuthorizeIpRulesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(authorizeIpRulesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AuthorizeIpRules");
@@ -450,8 +734,27 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Copies the specified image from the specified Region to the current Region.
+     * Copies the specified image from the specified Region to the current Region. For more information about copying
+     * images, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/copy-custom-image.html"> Copy a
+     * Custom WorkSpaces Image</a>.
      * </p>
+     * <p>
+     * In the China (Ningxia) Region, you can copy images only within the same Region.
+     * </p>
+     * <p>
+     * In Amazon Web Services GovCloud (US), to copy images to and from other Regions, contact Amazon Web Services
+     * Support.
+     * </p>
+     * <important>
+     * <p>
+     * Before copying a shared image, be sure to verify that it has been shared from the correct Amazon Web Services
+     * account. To determine if an image has been shared and to see the ID of the Amazon Web Services account that owns
+     * an image, use the <a href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImages.html">
+     * DescribeWorkSpaceImages</a> and <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImagePermissions.html"
+     * >DescribeWorkspaceImagePermissions</a> API operations.
+     * </p>
+     * </important>
      * 
      * @param copyWorkspaceImageRequest
      * @return Result of the CopyWorkspaceImage operation returned by the service.
@@ -494,6 +797,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new CopyWorkspaceImageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(copyWorkspaceImageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CopyWorkspaceImage");
@@ -505,6 +810,213 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
             HttpResponseHandler<AmazonWebServiceResponse<CopyWorkspaceImageResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CopyWorkspaceImageResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates the account link invitation.
+     * </p>
+     * 
+     * @param createAccountLinkInvitationRequest
+     * @return Result of the CreateAccountLinkInvitation operation returned by the service.
+     * @throws ValidationException
+     *         You either haven't provided a <code>TargetAccountId</code> or are using the same value for
+     *         <code>TargetAccountId</code> and <code>SourceAccountId</code>.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws ConflictException
+     *         The <code>TargetAccountId</code> is already linked or invited.
+     * @throws InternalServerException
+     *         Unexpected server error occured.
+     * @sample AmazonWorkspaces.CreateAccountLinkInvitation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/CreateAccountLinkInvitation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateAccountLinkInvitationResult createAccountLinkInvitation(CreateAccountLinkInvitationRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateAccountLinkInvitation(request);
+    }
+
+    @SdkInternalApi
+    final CreateAccountLinkInvitationResult executeCreateAccountLinkInvitation(CreateAccountLinkInvitationRequest createAccountLinkInvitationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createAccountLinkInvitationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateAccountLinkInvitationRequest> request = null;
+        Response<CreateAccountLinkInvitationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateAccountLinkInvitationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createAccountLinkInvitationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateAccountLinkInvitation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateAccountLinkInvitationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateAccountLinkInvitationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a client-add-in for Amazon Connect within a directory. You can create only one Amazon Connect client
+     * add-in within a directory.
+     * </p>
+     * <p>
+     * This client add-in allows WorkSpaces users to seamlessly connect to Amazon Connect.
+     * </p>
+     * 
+     * @param createConnectClientAddInRequest
+     * @return Result of the CreateConnectClientAddIn operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceCreationFailedException
+     *         The resource could not be created.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.CreateConnectClientAddIn
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/CreateConnectClientAddIn"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateConnectClientAddInResult createConnectClientAddIn(CreateConnectClientAddInRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateConnectClientAddIn(request);
+    }
+
+    @SdkInternalApi
+    final CreateConnectClientAddInResult executeCreateConnectClientAddIn(CreateConnectClientAddInRequest createConnectClientAddInRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createConnectClientAddInRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateConnectClientAddInRequest> request = null;
+        Response<CreateConnectClientAddInResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateConnectClientAddInRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createConnectClientAddInRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateConnectClientAddIn");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateConnectClientAddInResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateConnectClientAddInResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates the specified connection alias for use with cross-Region redirection. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region
+     * Redirection for Amazon WorkSpaces</a>.
+     * </p>
+     * 
+     * @param createConnectionAliasRequest
+     * @return Result of the CreateConnectionAlias operation returned by the service.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.CreateConnectionAlias
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/CreateConnectionAlias"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateConnectionAliasResult createConnectionAlias(CreateConnectionAliasRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateConnectionAlias(request);
+    }
+
+    @SdkInternalApi
+    final CreateConnectionAliasResult executeCreateConnectionAlias(CreateConnectionAliasRequest createConnectionAliasRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createConnectionAliasRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateConnectionAliasRequest> request = null;
+        Response<CreateConnectionAliasResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateConnectionAliasRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createConnectionAliasRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateConnectionAlias");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateConnectionAliasResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new CreateConnectionAliasResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -569,6 +1081,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new CreateIpGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createIpGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateIpGroup");
@@ -580,6 +1094,73 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
             HttpResponseHandler<AmazonWebServiceResponse<CreateIpGroupResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateIpGroupResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a standby WorkSpace in a secondary Region.
+     * </p>
+     * 
+     * @param createStandbyWorkspacesRequest
+     * @return Result of the CreateStandbyWorkspaces operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @sample AmazonWorkspaces.CreateStandbyWorkspaces
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/CreateStandbyWorkspaces"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateStandbyWorkspacesResult createStandbyWorkspaces(CreateStandbyWorkspacesRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateStandbyWorkspaces(request);
+    }
+
+    @SdkInternalApi
+    final CreateStandbyWorkspacesResult executeCreateStandbyWorkspaces(CreateStandbyWorkspacesRequest createStandbyWorkspacesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createStandbyWorkspacesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateStandbyWorkspacesRequest> request = null;
+        Response<CreateStandbyWorkspacesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateStandbyWorkspacesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createStandbyWorkspacesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateStandbyWorkspaces");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateStandbyWorkspacesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateStandbyWorkspacesResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -628,6 +1209,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new CreateTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateTags");
@@ -651,11 +1234,278 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
+     * Creates a new updated WorkSpace image based on the specified source image. The new updated WorkSpace image has
+     * the latest drivers and other updates required by the Amazon WorkSpaces components.
+     * </p>
+     * <p>
+     * To determine which WorkSpace images need to be updated with the latest Amazon WorkSpaces requirements, use <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaceImages.html">
+     * DescribeWorkspaceImages</a>.
+     * </p>
+     * <note>
+     * <ul>
+     * <li>
+     * <p>
+     * Only Windows 10, Windows Server 2016, and Windows Server 2019 WorkSpace images can be programmatically updated at
+     * this time.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Microsoft Windows updates and other application updates are not included in the update process.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The source WorkSpace image is not deleted. You can delete the source image after you've verified your new updated
+     * image and created a new bundle.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param createUpdatedWorkspaceImageRequest
+     * @return Result of the CreateUpdatedWorkspaceImage operation returned by the service.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @sample AmazonWorkspaces.CreateUpdatedWorkspaceImage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/CreateUpdatedWorkspaceImage"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateUpdatedWorkspaceImageResult createUpdatedWorkspaceImage(CreateUpdatedWorkspaceImageRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateUpdatedWorkspaceImage(request);
+    }
+
+    @SdkInternalApi
+    final CreateUpdatedWorkspaceImageResult executeCreateUpdatedWorkspaceImage(CreateUpdatedWorkspaceImageRequest createUpdatedWorkspaceImageRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createUpdatedWorkspaceImageRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateUpdatedWorkspaceImageRequest> request = null;
+        Response<CreateUpdatedWorkspaceImageResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateUpdatedWorkspaceImageRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createUpdatedWorkspaceImageRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateUpdatedWorkspaceImage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateUpdatedWorkspaceImageResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateUpdatedWorkspaceImageResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates the specified WorkSpace bundle. For more information about creating WorkSpace bundles, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/create-custom-bundle.html"> Create a Custom
+     * WorkSpaces Image and Bundle</a>.
+     * </p>
+     * 
+     * @param createWorkspaceBundleRequest
+     * @return Result of the CreateWorkspaceBundle operation returned by the service.
+     * @throws ResourceUnavailableException
+     *         The specified resource is not available.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.CreateWorkspaceBundle
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/CreateWorkspaceBundle"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateWorkspaceBundleResult createWorkspaceBundle(CreateWorkspaceBundleRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateWorkspaceBundle(request);
+    }
+
+    @SdkInternalApi
+    final CreateWorkspaceBundleResult executeCreateWorkspaceBundle(CreateWorkspaceBundleRequest createWorkspaceBundleRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createWorkspaceBundleRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateWorkspaceBundleRequest> request = null;
+        Response<CreateWorkspaceBundleResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateWorkspaceBundleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createWorkspaceBundleRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateWorkspaceBundle");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateWorkspaceBundleResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new CreateWorkspaceBundleResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a new WorkSpace image from an existing WorkSpace.
+     * </p>
+     * 
+     * @param createWorkspaceImageRequest
+     * @return Result of the CreateWorkspaceImage operation returned by the service.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @sample AmazonWorkspaces.CreateWorkspaceImage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/CreateWorkspaceImage"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateWorkspaceImageResult createWorkspaceImage(CreateWorkspaceImageRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateWorkspaceImage(request);
+    }
+
+    @SdkInternalApi
+    final CreateWorkspaceImageResult executeCreateWorkspaceImage(CreateWorkspaceImageRequest createWorkspaceImageRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createWorkspaceImageRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateWorkspaceImageRequest> request = null;
+        Response<CreateWorkspaceImageResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateWorkspaceImageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createWorkspaceImageRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateWorkspaceImage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateWorkspaceImageResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateWorkspaceImageResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Creates one or more WorkSpaces.
      * </p>
      * <p>
      * This operation is asynchronous and returns before the WorkSpaces are created.
      * </p>
+     * <note>
+     * <ul>
+     * <li>
+     * <p>
+     * The <code>MANUAL</code> running mode value is only supported by Amazon WorkSpaces Core. Contact your account team
+     * to be allow-listed to use this value. For more information, see <a
+     * href="http://aws.amazon.com/workspaces/core/">Amazon WorkSpaces Core</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You don't need to specify the <code>PCOIP</code> protocol for Linux bundles because <code>WSP</code> is the
+     * default protocol for those bundles.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * User-decoupled WorkSpaces are only supported by Amazon WorkSpaces Core.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Review your running mode to ensure you are using one that is optimal for your needs and budget. For more
+     * information on switching running modes, see <a href=
+     * "http://aws.amazon.com/workspaces-family/workspaces/faqs/#:~:text=Can%20I%20switch%20between%20hourly%20and%20monthly%20billing%20on%20WorkSpaces%20Personal%3F"
+     * > Can I switch between hourly and monthly billing?</a>
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
      * 
      * @param createWorkspacesRequest
      * @return Result of the CreateWorkspaces operation returned by the service.
@@ -688,6 +1538,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new CreateWorkspacesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createWorkspacesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateWorkspaces");
@@ -699,6 +1551,356 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
             HttpResponseHandler<AmazonWebServiceResponse<CreateWorkspacesResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateWorkspacesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a pool of WorkSpaces.
+     * </p>
+     * 
+     * @param createWorkspacesPoolRequest
+     * @return Result of the CreateWorkspacesPool operation returned by the service.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.CreateWorkspacesPool
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/CreateWorkspacesPool"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateWorkspacesPoolResult createWorkspacesPool(CreateWorkspacesPoolRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateWorkspacesPool(request);
+    }
+
+    @SdkInternalApi
+    final CreateWorkspacesPoolResult executeCreateWorkspacesPool(CreateWorkspacesPoolRequest createWorkspacesPoolRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createWorkspacesPoolRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateWorkspacesPoolRequest> request = null;
+        Response<CreateWorkspacesPoolResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateWorkspacesPoolRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createWorkspacesPoolRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateWorkspacesPool");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateWorkspacesPoolResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateWorkspacesPoolResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the account link invitation.
+     * </p>
+     * 
+     * @param deleteAccountLinkInvitationRequest
+     * @return Result of the DeleteAccountLinkInvitation operation returned by the service.
+     * @throws ValidationException
+     *         You either haven't provided a <code>TargetAccountId</code> or are using the same value for
+     *         <code>TargetAccountId</code> and <code>SourceAccountId</code>.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ConflictException
+     *         The <code>TargetAccountId</code> is already linked or invited.
+     * @throws InternalServerException
+     *         Unexpected server error occured.
+     * @sample AmazonWorkspaces.DeleteAccountLinkInvitation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DeleteAccountLinkInvitation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteAccountLinkInvitationResult deleteAccountLinkInvitation(DeleteAccountLinkInvitationRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteAccountLinkInvitation(request);
+    }
+
+    @SdkInternalApi
+    final DeleteAccountLinkInvitationResult executeDeleteAccountLinkInvitation(DeleteAccountLinkInvitationRequest deleteAccountLinkInvitationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteAccountLinkInvitationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteAccountLinkInvitationRequest> request = null;
+        Response<DeleteAccountLinkInvitationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteAccountLinkInvitationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteAccountLinkInvitationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAccountLinkInvitation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteAccountLinkInvitationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteAccountLinkInvitationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes customized client branding. Client branding allows you to customize your WorkSpace's client login portal.
+     * You can tailor your login portal company logo, the support email address, support link, link to reset password,
+     * and a custom message for users trying to sign in.
+     * </p>
+     * <p>
+     * After you delete your customized client branding, your login portal reverts to the default client branding.
+     * </p>
+     * 
+     * @param deleteClientBrandingRequest
+     * @return Result of the DeleteClientBranding operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.DeleteClientBranding
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DeleteClientBranding"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteClientBrandingResult deleteClientBranding(DeleteClientBrandingRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteClientBranding(request);
+    }
+
+    @SdkInternalApi
+    final DeleteClientBrandingResult executeDeleteClientBranding(DeleteClientBrandingRequest deleteClientBrandingRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteClientBrandingRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteClientBrandingRequest> request = null;
+        Response<DeleteClientBrandingResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteClientBrandingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteClientBrandingRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteClientBranding");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteClientBrandingResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteClientBrandingResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a client-add-in for Amazon Connect that is configured within a directory.
+     * </p>
+     * 
+     * @param deleteConnectClientAddInRequest
+     * @return Result of the DeleteConnectClientAddIn operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.DeleteConnectClientAddIn
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DeleteConnectClientAddIn"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteConnectClientAddInResult deleteConnectClientAddIn(DeleteConnectClientAddInRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteConnectClientAddIn(request);
+    }
+
+    @SdkInternalApi
+    final DeleteConnectClientAddInResult executeDeleteConnectClientAddIn(DeleteConnectClientAddInRequest deleteConnectClientAddInRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteConnectClientAddInRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteConnectClientAddInRequest> request = null;
+        Response<DeleteConnectClientAddInResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteConnectClientAddInRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteConnectClientAddInRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteConnectClientAddIn");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteConnectClientAddInResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteConnectClientAddInResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified connection alias. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region
+     * Redirection for Amazon WorkSpaces</a>.
+     * </p>
+     * <important>
+     * <p>
+     * <b>If you will no longer be using a fully qualified domain name (FQDN) as the registration code for your
+     * WorkSpaces users, you must take certain precautions to prevent potential security issues.</b> For more
+     * information, see <a href=
+     * "https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html#cross-region-redirection-security-considerations"
+     * > Security Considerations if You Stop Using Cross-Region Redirection</a>.
+     * </p>
+     * </important> <note>
+     * <p>
+     * To delete a connection alias that has been shared, the shared account must first disassociate the connection
+     * alias from any directories it has been associated with. Then you must unshare the connection alias from the
+     * account it has been shared with. You can delete a connection alias only after it is no longer shared with any
+     * accounts or associated with any directories.
+     * </p>
+     * </note>
+     * 
+     * @param deleteConnectionAliasRequest
+     * @return Result of the DeleteConnectionAlias operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceAssociatedException
+     *         The resource is associated with a directory.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.DeleteConnectionAlias
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DeleteConnectionAlias"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteConnectionAliasResult deleteConnectionAlias(DeleteConnectionAliasRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteConnectionAlias(request);
+    }
+
+    @SdkInternalApi
+    final DeleteConnectionAliasResult executeDeleteConnectionAlias(DeleteConnectionAliasRequest deleteConnectionAliasRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteConnectionAliasRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteConnectionAliasRequest> request = null;
+        Response<DeleteConnectionAliasResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteConnectionAliasRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteConnectionAliasRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteConnectionAlias");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteConnectionAliasResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DeleteConnectionAliasResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -752,6 +1954,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new DeleteIpGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteIpGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteIpGroup");
@@ -809,6 +2013,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new DeleteTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteTags");
@@ -832,8 +2038,74 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
+     * Deletes the specified WorkSpace bundle. For more information about deleting WorkSpace bundles, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/delete_bundle.html"> Delete a Custom WorkSpaces
+     * Bundle or Image</a>.
+     * </p>
+     * 
+     * @param deleteWorkspaceBundleRequest
+     * @return Result of the DeleteWorkspaceBundle operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceAssociatedException
+     *         The resource is associated with a directory.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.DeleteWorkspaceBundle
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DeleteWorkspaceBundle"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteWorkspaceBundleResult deleteWorkspaceBundle(DeleteWorkspaceBundleRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteWorkspaceBundle(request);
+    }
+
+    @SdkInternalApi
+    final DeleteWorkspaceBundleResult executeDeleteWorkspaceBundle(DeleteWorkspaceBundleRequest deleteWorkspaceBundleRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteWorkspaceBundleRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteWorkspaceBundleRequest> request = null;
+        Response<DeleteWorkspaceBundleResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteWorkspaceBundleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteWorkspaceBundleRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteWorkspaceBundle");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteWorkspaceBundleResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DeleteWorkspaceBundleResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deletes the specified image from your account. To delete an image, you must first delete any bundles that are
-     * associated with the image and un-share the image if it is shared with other accounts.
+     * associated with the image and unshare the image if it is shared with other accounts.
      * </p>
      * 
      * @param deleteWorkspaceImageRequest
@@ -869,6 +2141,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new DeleteWorkspaceImageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteWorkspaceImageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteWorkspaceImage");
@@ -892,7 +2166,159 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Retrieves a list that describes the configuration of bring your own license (BYOL) for the specified account.
+     * Deploys associated applications to the specified WorkSpace
+     * </p>
+     * 
+     * @param deployWorkspaceApplicationsRequest
+     * @return Result of the DeployWorkspaceApplications operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceInUseException
+     *         The specified resource is currently in use.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws IncompatibleApplicationsException
+     *         The specified application is not compatible with the resource.
+     * @sample AmazonWorkspaces.DeployWorkspaceApplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DeployWorkspaceApplications"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeployWorkspaceApplicationsResult deployWorkspaceApplications(DeployWorkspaceApplicationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeployWorkspaceApplications(request);
+    }
+
+    @SdkInternalApi
+    final DeployWorkspaceApplicationsResult executeDeployWorkspaceApplications(DeployWorkspaceApplicationsRequest deployWorkspaceApplicationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deployWorkspaceApplicationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeployWorkspaceApplicationsRequest> request = null;
+        Response<DeployWorkspaceApplicationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeployWorkspaceApplicationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deployWorkspaceApplicationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeployWorkspaceApplications");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeployWorkspaceApplicationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeployWorkspaceApplicationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deregisters the specified directory. This operation is asynchronous and returns before the WorkSpace directory is
+     * deregistered. If any WorkSpaces are registered to this directory, you must remove them before you can deregister
+     * the directory.
+     * </p>
+     * <note>
+     * <p>
+     * Simple AD and AD Connector are made available to you free of charge to use with WorkSpaces. If there are no
+     * WorkSpaces being used with your Simple AD or AD Connector directory for 30 consecutive days, this directory will
+     * be automatically deregistered for use with Amazon WorkSpaces, and you will be charged for this directory as per
+     * the <a href="http://aws.amazon.com/directoryservice/pricing/">Directory Service pricing terms</a>.
+     * </p>
+     * <p>
+     * To delete empty directories, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/delete-workspaces-directory.html"> Delete the
+     * Directory for Your WorkSpaces</a>. If you delete your Simple AD or AD Connector directory, you can always create
+     * a new one when you want to start using WorkSpaces again.
+     * </p>
+     * </note>
+     * 
+     * @param deregisterWorkspaceDirectoryRequest
+     * @return Result of the DeregisterWorkspaceDirectory operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @sample AmazonWorkspaces.DeregisterWorkspaceDirectory
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DeregisterWorkspaceDirectory"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeregisterWorkspaceDirectoryResult deregisterWorkspaceDirectory(DeregisterWorkspaceDirectoryRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeregisterWorkspaceDirectory(request);
+    }
+
+    @SdkInternalApi
+    final DeregisterWorkspaceDirectoryResult executeDeregisterWorkspaceDirectory(DeregisterWorkspaceDirectoryRequest deregisterWorkspaceDirectoryRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deregisterWorkspaceDirectoryRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeregisterWorkspaceDirectoryRequest> request = null;
+        Response<DeregisterWorkspaceDirectoryResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeregisterWorkspaceDirectoryRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deregisterWorkspaceDirectoryRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeregisterWorkspaceDirectory");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeregisterWorkspaceDirectoryResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeregisterWorkspaceDirectoryResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a list that describes the configuration of Bring Your Own License (BYOL) for the specified account.
      * </p>
      * 
      * @param describeAccountRequest
@@ -924,6 +2350,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new DescribeAccountRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeAccountRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAccount");
@@ -947,7 +2375,7 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Retrieves a list that describes modifications to the configuration of bring your own license (BYOL) for the
+     * Retrieves a list that describes modifications to the configuration of Bring Your Own License (BYOL) for the
      * specified account.
      * </p>
      * 
@@ -981,6 +2409,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(describeAccountModificationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAccountModifications");
@@ -993,6 +2423,270 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
             HttpResponseHandler<AmazonWebServiceResponse<DescribeAccountModificationsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribeAccountModificationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes the associations between the application and the specified associated resources.
+     * </p>
+     * 
+     * @param describeApplicationAssociationsRequest
+     * @return Result of the DescribeApplicationAssociations operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AmazonWorkspaces.DescribeApplicationAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeApplicationAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeApplicationAssociationsResult describeApplicationAssociations(DescribeApplicationAssociationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeApplicationAssociations(request);
+    }
+
+    @SdkInternalApi
+    final DescribeApplicationAssociationsResult executeDescribeApplicationAssociations(
+            DescribeApplicationAssociationsRequest describeApplicationAssociationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeApplicationAssociationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeApplicationAssociationsRequest> request = null;
+        Response<DescribeApplicationAssociationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeApplicationAssociationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeApplicationAssociationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeApplicationAssociations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeApplicationAssociationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeApplicationAssociationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes the specified applications by filtering based on their compute types, license availability, operating
+     * systems, and owners.
+     * </p>
+     * 
+     * @param describeApplicationsRequest
+     * @return Result of the DescribeApplications operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AmazonWorkspaces.DescribeApplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeApplications"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeApplicationsResult describeApplications(DescribeApplicationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeApplications(request);
+    }
+
+    @SdkInternalApi
+    final DescribeApplicationsResult executeDescribeApplications(DescribeApplicationsRequest describeApplicationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeApplicationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeApplicationsRequest> request = null;
+        Response<DescribeApplicationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeApplicationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeApplicationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeApplications");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeApplicationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeApplicationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes the associations between the applications and the specified bundle.
+     * </p>
+     * 
+     * @param describeBundleAssociationsRequest
+     * @return Result of the DescribeBundleAssociations operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AmazonWorkspaces.DescribeBundleAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeBundleAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeBundleAssociationsResult describeBundleAssociations(DescribeBundleAssociationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeBundleAssociations(request);
+    }
+
+    @SdkInternalApi
+    final DescribeBundleAssociationsResult executeDescribeBundleAssociations(DescribeBundleAssociationsRequest describeBundleAssociationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeBundleAssociationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeBundleAssociationsRequest> request = null;
+        Response<DescribeBundleAssociationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeBundleAssociationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeBundleAssociationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeBundleAssociations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeBundleAssociationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeBundleAssociationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes the specified client branding. Client branding allows you to customize the log in page of various
+     * device types for your users. You can add your company logo, the support email address, support link, link to
+     * reset password, and a custom message for users trying to sign in.
+     * </p>
+     * <note>
+     * <p>
+     * Only device types that have branding information configured will be shown in the response.
+     * </p>
+     * </note>
+     * 
+     * @param describeClientBrandingRequest
+     * @return Result of the DescribeClientBranding operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.DescribeClientBranding
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeClientBranding"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeClientBrandingResult describeClientBranding(DescribeClientBrandingRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeClientBranding(request);
+    }
+
+    @SdkInternalApi
+    final DescribeClientBrandingResult executeDescribeClientBranding(DescribeClientBrandingRequest describeClientBrandingRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeClientBrandingRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeClientBrandingRequest> request = null;
+        Response<DescribeClientBrandingResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeClientBrandingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeClientBrandingRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeClientBranding");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeClientBrandingResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeClientBrandingResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1042,6 +2736,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(describeClientPropertiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeClientProperties");
@@ -1054,6 +2750,268 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
             HttpResponseHandler<AmazonWebServiceResponse<DescribeClientPropertiesResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribeClientPropertiesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a list of Amazon Connect client add-ins that have been created.
+     * </p>
+     * 
+     * @param describeConnectClientAddInsRequest
+     * @return Result of the DescribeConnectClientAddIns operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.DescribeConnectClientAddIns
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeConnectClientAddIns"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeConnectClientAddInsResult describeConnectClientAddIns(DescribeConnectClientAddInsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeConnectClientAddIns(request);
+    }
+
+    @SdkInternalApi
+    final DescribeConnectClientAddInsResult executeDescribeConnectClientAddIns(DescribeConnectClientAddInsRequest describeConnectClientAddInsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeConnectClientAddInsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeConnectClientAddInsRequest> request = null;
+        Response<DescribeConnectClientAddInsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeConnectClientAddInsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeConnectClientAddInsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeConnectClientAddIns");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeConnectClientAddInsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeConnectClientAddInsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes the permissions that the owner of a connection alias has granted to another Amazon Web Services account
+     * for the specified connection alias. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region
+     * Redirection for Amazon WorkSpaces</a>.
+     * </p>
+     * 
+     * @param describeConnectionAliasPermissionsRequest
+     * @return Result of the DescribeConnectionAliasPermissions operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.DescribeConnectionAliasPermissions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeConnectionAliasPermissions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeConnectionAliasPermissionsResult describeConnectionAliasPermissions(DescribeConnectionAliasPermissionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeConnectionAliasPermissions(request);
+    }
+
+    @SdkInternalApi
+    final DescribeConnectionAliasPermissionsResult executeDescribeConnectionAliasPermissions(
+            DescribeConnectionAliasPermissionsRequest describeConnectionAliasPermissionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeConnectionAliasPermissionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeConnectionAliasPermissionsRequest> request = null;
+        Response<DescribeConnectionAliasPermissionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeConnectionAliasPermissionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeConnectionAliasPermissionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeConnectionAliasPermissions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeConnectionAliasPermissionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeConnectionAliasPermissionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a list that describes the connection aliases used for cross-Region redirection. For more information,
+     * see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html">
+     * Cross-Region Redirection for Amazon WorkSpaces</a>.
+     * </p>
+     * 
+     * @param describeConnectionAliasesRequest
+     * @return Result of the DescribeConnectionAliases operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.DescribeConnectionAliases
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeConnectionAliases"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeConnectionAliasesResult describeConnectionAliases(DescribeConnectionAliasesRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeConnectionAliases(request);
+    }
+
+    @SdkInternalApi
+    final DescribeConnectionAliasesResult executeDescribeConnectionAliases(DescribeConnectionAliasesRequest describeConnectionAliasesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeConnectionAliasesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeConnectionAliasesRequest> request = null;
+        Response<DescribeConnectionAliasesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeConnectionAliasesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeConnectionAliasesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeConnectionAliases");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeConnectionAliasesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeConnectionAliasesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes the associations between the applications and the specified image.
+     * </p>
+     * 
+     * @param describeImageAssociationsRequest
+     * @return Result of the DescribeImageAssociations operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AmazonWorkspaces.DescribeImageAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeImageAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeImageAssociationsResult describeImageAssociations(DescribeImageAssociationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeImageAssociations(request);
+    }
+
+    @SdkInternalApi
+    final DescribeImageAssociationsResult executeDescribeImageAssociations(DescribeImageAssociationsRequest describeImageAssociationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeImageAssociationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeImageAssociationsRequest> request = null;
+        Response<DescribeImageAssociationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeImageAssociationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeImageAssociationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeImageAssociations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeImageAssociationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeImageAssociationsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1100,6 +3058,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new DescribeIpGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeIpGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeIpGroups");
@@ -1155,6 +3115,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new DescribeTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeTags");
@@ -1166,6 +3128,71 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
             HttpResponseHandler<AmazonWebServiceResponse<DescribeTagsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeTagsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes the associations betweens applications and the specified WorkSpace.
+     * </p>
+     * 
+     * @param describeWorkspaceAssociationsRequest
+     * @return Result of the DescribeWorkspaceAssociations operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AmazonWorkspaces.DescribeWorkspaceAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeWorkspaceAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeWorkspaceAssociationsResult describeWorkspaceAssociations(DescribeWorkspaceAssociationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeWorkspaceAssociations(request);
+    }
+
+    @SdkInternalApi
+    final DescribeWorkspaceAssociationsResult executeDescribeWorkspaceAssociations(DescribeWorkspaceAssociationsRequest describeWorkspaceAssociationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeWorkspaceAssociationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeWorkspaceAssociationsRequest> request = null;
+        Response<DescribeWorkspaceAssociationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeWorkspaceAssociationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeWorkspaceAssociationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorkspaceAssociations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeWorkspaceAssociationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeWorkspaceAssociationsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1214,6 +3241,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(describeWorkspaceBundlesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorkspaceBundles");
@@ -1243,7 +3272,7 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Describes the available AWS Directory Service directories that are registered with Amazon WorkSpaces.
+     * Describes the available directories that are registered with Amazon WorkSpaces.
      * </p>
      * 
      * @param describeWorkspaceDirectoriesRequest
@@ -1276,6 +3305,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(describeWorkspaceDirectoriesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorkspaceDirectories");
@@ -1301,6 +3332,71 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
     @Override
     public DescribeWorkspaceDirectoriesResult describeWorkspaceDirectories() {
         return describeWorkspaceDirectories(new DescribeWorkspaceDirectoriesRequest());
+    }
+
+    /**
+     * <p>
+     * Describes the permissions that the owner of an image has granted to other Amazon Web Services accounts for an
+     * image.
+     * </p>
+     * 
+     * @param describeWorkspaceImagePermissionsRequest
+     * @return Result of the DescribeWorkspaceImagePermissions operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @sample AmazonWorkspaces.DescribeWorkspaceImagePermissions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeWorkspaceImagePermissions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeWorkspaceImagePermissionsResult describeWorkspaceImagePermissions(DescribeWorkspaceImagePermissionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeWorkspaceImagePermissions(request);
+    }
+
+    @SdkInternalApi
+    final DescribeWorkspaceImagePermissionsResult executeDescribeWorkspaceImagePermissions(
+            DescribeWorkspaceImagePermissionsRequest describeWorkspaceImagePermissionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeWorkspaceImagePermissionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeWorkspaceImagePermissionsRequest> request = null;
+        Response<DescribeWorkspaceImagePermissionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeWorkspaceImagePermissionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeWorkspaceImagePermissionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorkspaceImagePermissions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeWorkspaceImagePermissionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeWorkspaceImagePermissionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
     }
 
     /**
@@ -1339,6 +3435,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(describeWorkspaceImagesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorkspaceImages");
@@ -1351,6 +3449,69 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
             HttpResponseHandler<AmazonWebServiceResponse<DescribeWorkspaceImagesResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribeWorkspaceImagesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes the snapshots for the specified WorkSpace.
+     * </p>
+     * 
+     * @param describeWorkspaceSnapshotsRequest
+     * @return Result of the DescribeWorkspaceSnapshots operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.DescribeWorkspaceSnapshots
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeWorkspaceSnapshots"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeWorkspaceSnapshotsResult describeWorkspaceSnapshots(DescribeWorkspaceSnapshotsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeWorkspaceSnapshots(request);
+    }
+
+    @SdkInternalApi
+    final DescribeWorkspaceSnapshotsResult executeDescribeWorkspaceSnapshots(DescribeWorkspaceSnapshotsRequest describeWorkspaceSnapshotsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeWorkspaceSnapshotsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeWorkspaceSnapshotsRequest> request = null;
+        Response<DescribeWorkspaceSnapshotsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeWorkspaceSnapshotsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeWorkspaceSnapshotsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorkspaceSnapshots");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeWorkspaceSnapshotsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeWorkspaceSnapshotsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1401,6 +3562,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new DescribeWorkspacesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeWorkspacesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorkspaces");
@@ -1463,6 +3626,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(describeWorkspacesConnectionStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorkspacesConnectionStatus");
@@ -1475,6 +3640,210 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
             HttpResponseHandler<AmazonWebServiceResponse<DescribeWorkspacesConnectionStatusResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribeWorkspacesConnectionStatusResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a list that describes the streaming sessions for a specified pool.
+     * </p>
+     * 
+     * @param describeWorkspacesPoolSessionsRequest
+     * @return Result of the DescribeWorkspacesPoolSessions operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.DescribeWorkspacesPoolSessions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeWorkspacesPoolSessions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeWorkspacesPoolSessionsResult describeWorkspacesPoolSessions(DescribeWorkspacesPoolSessionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeWorkspacesPoolSessions(request);
+    }
+
+    @SdkInternalApi
+    final DescribeWorkspacesPoolSessionsResult executeDescribeWorkspacesPoolSessions(DescribeWorkspacesPoolSessionsRequest describeWorkspacesPoolSessionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeWorkspacesPoolSessionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeWorkspacesPoolSessionsRequest> request = null;
+        Response<DescribeWorkspacesPoolSessionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeWorkspacesPoolSessionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeWorkspacesPoolSessionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorkspacesPoolSessions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeWorkspacesPoolSessionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeWorkspacesPoolSessionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes the specified WorkSpaces Pools.
+     * </p>
+     * 
+     * @param describeWorkspacesPoolsRequest
+     * @return Result of the DescribeWorkspacesPools operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.DescribeWorkspacesPools
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DescribeWorkspacesPools"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeWorkspacesPoolsResult describeWorkspacesPools(DescribeWorkspacesPoolsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeWorkspacesPools(request);
+    }
+
+    @SdkInternalApi
+    final DescribeWorkspacesPoolsResult executeDescribeWorkspacesPools(DescribeWorkspacesPoolsRequest describeWorkspacesPoolsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeWorkspacesPoolsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeWorkspacesPoolsRequest> request = null;
+        Response<DescribeWorkspacesPoolsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeWorkspacesPoolsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeWorkspacesPoolsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeWorkspacesPools");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeWorkspacesPoolsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeWorkspacesPoolsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Disassociates a connection alias from a directory. Disassociating a connection alias disables cross-Region
+     * redirection between two directories in different Regions. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region
+     * Redirection for Amazon WorkSpaces</a>.
+     * </p>
+     * <note>
+     * <p>
+     * Before performing this operation, call <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeConnectionAliases.html">
+     * DescribeConnectionAliases</a> to make sure that the current state of the connection alias is <code>CREATED</code>
+     * .
+     * </p>
+     * </note>
+     * 
+     * @param disassociateConnectionAliasRequest
+     * @return Result of the DisassociateConnectionAlias operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.DisassociateConnectionAlias
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DisassociateConnectionAlias"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DisassociateConnectionAliasResult disassociateConnectionAlias(DisassociateConnectionAliasRequest request) {
+        request = beforeClientExecution(request);
+        return executeDisassociateConnectionAlias(request);
+    }
+
+    @SdkInternalApi
+    final DisassociateConnectionAliasResult executeDisassociateConnectionAlias(DisassociateConnectionAliasRequest disassociateConnectionAliasRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(disassociateConnectionAliasRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DisassociateConnectionAliasRequest> request = null;
+        Response<DisassociateConnectionAliasResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DisassociateConnectionAliasRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(disassociateConnectionAliasRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateConnectionAlias");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DisassociateConnectionAliasResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DisassociateConnectionAliasResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1500,6 +3869,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
      *         The state of the resource is not valid for this operation.
      * @throws AccessDeniedException
      *         The user is not authorized to access a resource.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
      * @sample AmazonWorkspaces.DisassociateIpGroups
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DisassociateIpGroups"
      *      target="_top">AWS API Documentation</a>
@@ -1525,6 +3896,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new DisassociateIpGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(disassociateIpGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateIpGroups");
@@ -1548,8 +3921,238 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Imports the specified Windows 7 or Windows 10 bring your own license (BYOL) image into Amazon WorkSpaces. The
-     * image must be an already licensed EC2 image that is in your AWS account, and you must own the image.
+     * Disassociates the specified application from a WorkSpace.
+     * </p>
+     * 
+     * @param disassociateWorkspaceApplicationRequest
+     * @return Result of the DisassociateWorkspaceApplication operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceInUseException
+     *         The specified resource is currently in use.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AmazonWorkspaces.DisassociateWorkspaceApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DisassociateWorkspaceApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DisassociateWorkspaceApplicationResult disassociateWorkspaceApplication(DisassociateWorkspaceApplicationRequest request) {
+        request = beforeClientExecution(request);
+        return executeDisassociateWorkspaceApplication(request);
+    }
+
+    @SdkInternalApi
+    final DisassociateWorkspaceApplicationResult executeDisassociateWorkspaceApplication(
+            DisassociateWorkspaceApplicationRequest disassociateWorkspaceApplicationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(disassociateWorkspaceApplicationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DisassociateWorkspaceApplicationRequest> request = null;
+        Response<DisassociateWorkspaceApplicationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DisassociateWorkspaceApplicationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(disassociateWorkspaceApplicationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateWorkspaceApplication");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DisassociateWorkspaceApplicationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DisassociateWorkspaceApplicationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves account link information.
+     * </p>
+     * 
+     * @param getAccountLinkRequest
+     * @return Result of the GetAccountLink operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws ValidationException
+     *         You either haven't provided a <code>TargetAccountId</code> or are using the same value for
+     *         <code>TargetAccountId</code> and <code>SourceAccountId</code>.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InternalServerException
+     *         Unexpected server error occured.
+     * @sample AmazonWorkspaces.GetAccountLink
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/GetAccountLink" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetAccountLinkResult getAccountLink(GetAccountLinkRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetAccountLink(request);
+    }
+
+    @SdkInternalApi
+    final GetAccountLinkResult executeGetAccountLink(GetAccountLinkRequest getAccountLinkRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getAccountLinkRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetAccountLinkRequest> request = null;
+        Response<GetAccountLinkResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetAccountLinkRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getAccountLinkRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAccountLink");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetAccountLinkResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetAccountLinkResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Imports client branding. Client branding allows you to customize your WorkSpace's client login portal. You can
+     * tailor your login portal company logo, the support email address, support link, link to reset password, and a
+     * custom message for users trying to sign in.
+     * </p>
+     * <p>
+     * After you import client branding, the default branding experience for the specified platform type is replaced
+     * with the imported experience
+     * </p>
+     * <note>
+     * <ul>
+     * <li>
+     * <p>
+     * You must specify at least one platform type when importing client branding.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You can import up to 6 MB of data with each request. If your request exceeds this limit, you can import client
+     * branding for different platform types using separate requests.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In each platform type, the <code>SupportEmail</code> and <code>SupportLink</code> parameters are mutually
+     * exclusive. You can specify only one parameter for each platform type, but not both.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Imported data can take up to a minute to appear in the WorkSpaces client.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param importClientBrandingRequest
+     * @return Result of the ImportClientBranding operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.ImportClientBranding
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ImportClientBranding"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ImportClientBrandingResult importClientBranding(ImportClientBrandingRequest request) {
+        request = beforeClientExecution(request);
+        return executeImportClientBranding(request);
+    }
+
+    @SdkInternalApi
+    final ImportClientBrandingResult executeImportClientBranding(ImportClientBrandingRequest importClientBrandingRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(importClientBrandingRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ImportClientBrandingRequest> request = null;
+        Response<ImportClientBrandingResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ImportClientBrandingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(importClientBrandingRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ImportClientBranding");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ImportClientBrandingResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ImportClientBrandingResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Imports the specified Windows 10 or 11 Bring Your Own License (BYOL) image into Amazon WorkSpaces. The image must
+     * be an already licensed Amazon EC2 image that is in your Amazon Web Services account, and you must own the image.
+     * For more information about creating BYOL images, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/byol-windows-images.html"> Bring Your Own Windows
+     * Desktop Licenses</a>.
      * </p>
      * 
      * @param importWorkspaceImageRequest
@@ -1591,6 +4194,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new ImportWorkspaceImageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(importWorkspaceImageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ImportWorkspaceImage");
@@ -1614,8 +4219,74 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
+     * Lists all account links.
+     * </p>
+     * 
+     * @param listAccountLinksRequest
+     * @return Result of the ListAccountLinks operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws ValidationException
+     *         You either haven't provided a <code>TargetAccountId</code> or are using the same value for
+     *         <code>TargetAccountId</code> and <code>SourceAccountId</code>.
+     * @throws InternalServerException
+     *         Unexpected server error occured.
+     * @sample AmazonWorkspaces.ListAccountLinks
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ListAccountLinks" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListAccountLinksResult listAccountLinks(ListAccountLinksRequest request) {
+        request = beforeClientExecution(request);
+        return executeListAccountLinks(request);
+    }
+
+    @SdkInternalApi
+    final ListAccountLinksResult executeListAccountLinks(ListAccountLinksRequest listAccountLinksRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listAccountLinksRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListAccountLinksRequest> request = null;
+        Response<ListAccountLinksResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListAccountLinksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listAccountLinksRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAccountLinks");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListAccountLinksResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListAccountLinksResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Retrieves a list of IP address ranges, specified as IPv4 CIDR blocks, that you can use for the network management
-     * interface when you enable bring your own license (BYOL).
+     * interface when you enable Bring Your Own License (BYOL).
+     * </p>
+     * <p>
+     * This operation can be run only by Amazon Web Services accounts that are enabled for BYOL. If your account isn't
+     * enabled for BYOL, you'll receive an <code>AccessDeniedException</code> error.
      * </p>
      * <p>
      * The management network interface is connected to a secure Amazon WorkSpaces management network. It is used for
@@ -1656,6 +4327,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(listAvailableManagementCidrRangesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAvailableManagementCidrRanges");
@@ -1680,7 +4353,86 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Modifies the configuration of bring your own license (BYOL) for the specified account.
+     * Migrates a WorkSpace from one operating system or bundle type to another, while retaining the data on the user
+     * volume.
+     * </p>
+     * <p>
+     * The migration process recreates the WorkSpace by using a new root volume from the target bundle image and the
+     * user volume from the last available snapshot of the original WorkSpace. During migration, the original
+     * <code>D:\Users\%USERNAME%</code> user profile folder is renamed to
+     * <code>D:\Users\%USERNAME%MMddyyTHHmmss%.NotMigrated</code>. A new <code>D:\Users\%USERNAME%\</code> folder is
+     * generated by the new OS. Certain files in the old user profile are moved to the new user profile.
+     * </p>
+     * <p>
+     * For available migration scenarios, details about what happens during migration, and best practices, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/migrate-workspaces.html">Migrate a WorkSpace</a>.
+     * </p>
+     * 
+     * @param migrateWorkspaceRequest
+     * @return Result of the MigrateWorkspace operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws OperationInProgressException
+     *         The properties of this WorkSpace are currently being modified. Try again in a moment.
+     * @throws ResourceUnavailableException
+     *         The specified resource is not available.
+     * @sample AmazonWorkspaces.MigrateWorkspace
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/MigrateWorkspace" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public MigrateWorkspaceResult migrateWorkspace(MigrateWorkspaceRequest request) {
+        request = beforeClientExecution(request);
+        return executeMigrateWorkspace(request);
+    }
+
+    @SdkInternalApi
+    final MigrateWorkspaceResult executeMigrateWorkspace(MigrateWorkspaceRequest migrateWorkspaceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(migrateWorkspaceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<MigrateWorkspaceRequest> request = null;
+        Response<MigrateWorkspaceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new MigrateWorkspaceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(migrateWorkspaceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "MigrateWorkspace");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<MigrateWorkspaceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new MigrateWorkspaceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Modifies the configuration of Bring Your Own License (BYOL) for the specified account.
      * </p>
      * 
      * @param modifyAccountRequest
@@ -1720,6 +4472,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new ModifyAccountRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyAccountRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyAccount");
@@ -1743,6 +4497,72 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
+     * Modifies the properties of the certificate-based authentication you want to use with your WorkSpaces.
+     * </p>
+     * 
+     * @param modifyCertificateBasedAuthPropertiesRequest
+     * @return Result of the ModifyCertificateBasedAuthProperties operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AmazonWorkspaces.ModifyCertificateBasedAuthProperties
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ModifyCertificateBasedAuthProperties"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ModifyCertificateBasedAuthPropertiesResult modifyCertificateBasedAuthProperties(ModifyCertificateBasedAuthPropertiesRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyCertificateBasedAuthProperties(request);
+    }
+
+    @SdkInternalApi
+    final ModifyCertificateBasedAuthPropertiesResult executeModifyCertificateBasedAuthProperties(
+            ModifyCertificateBasedAuthPropertiesRequest modifyCertificateBasedAuthPropertiesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyCertificateBasedAuthPropertiesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyCertificateBasedAuthPropertiesRequest> request = null;
+        Response<ModifyCertificateBasedAuthPropertiesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyCertificateBasedAuthPropertiesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(modifyCertificateBasedAuthPropertiesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyCertificateBasedAuthProperties");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ModifyCertificateBasedAuthPropertiesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ModifyCertificateBasedAuthPropertiesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Modifies the properties of the specified Amazon WorkSpaces clients.
      * </p>
      * 
@@ -1754,6 +4574,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
      *         The resource could not be found.
      * @throws AccessDeniedException
      *         The user is not authorized to access a resource.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
      * @sample AmazonWorkspaces.ModifyClientProperties
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ModifyClientProperties"
      *      target="_top">AWS API Documentation</a>
@@ -1779,6 +4601,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new ModifyClientPropertiesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyClientPropertiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyClientProperties");
@@ -1803,8 +4627,344 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Modifies the specified WorkSpace properties.
+     * Modifies multiple properties related to SAML 2.0 authentication, including the enablement status, user access
+     * URL, and relay state parameter name that are used for configuring federation with an SAML 2.0 identity provider.
      * </p>
+     * 
+     * @param modifySamlPropertiesRequest
+     * @return Result of the ModifySamlProperties operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AmazonWorkspaces.ModifySamlProperties
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ModifySamlProperties"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ModifySamlPropertiesResult modifySamlProperties(ModifySamlPropertiesRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifySamlProperties(request);
+    }
+
+    @SdkInternalApi
+    final ModifySamlPropertiesResult executeModifySamlProperties(ModifySamlPropertiesRequest modifySamlPropertiesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifySamlPropertiesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifySamlPropertiesRequest> request = null;
+        Response<ModifySamlPropertiesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifySamlPropertiesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifySamlPropertiesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifySamlProperties");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ModifySamlPropertiesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ModifySamlPropertiesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Modifies the self-service WorkSpace management capabilities for your users. For more information, see <a href=
+     * "https://docs.aws.amazon.com/workspaces/latest/adminguide/enable-user-self-service-workspace-management.html"
+     * >Enable Self-Service WorkSpace Management Capabilities for Your Users</a>.
+     * </p>
+     * 
+     * @param modifySelfservicePermissionsRequest
+     * @return Result of the ModifySelfservicePermissions operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.ModifySelfservicePermissions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ModifySelfservicePermissions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ModifySelfservicePermissionsResult modifySelfservicePermissions(ModifySelfservicePermissionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifySelfservicePermissions(request);
+    }
+
+    @SdkInternalApi
+    final ModifySelfservicePermissionsResult executeModifySelfservicePermissions(ModifySelfservicePermissionsRequest modifySelfservicePermissionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifySelfservicePermissionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifySelfservicePermissionsRequest> request = null;
+        Response<ModifySelfservicePermissionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifySelfservicePermissionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(modifySelfservicePermissionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifySelfservicePermissions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ModifySelfservicePermissionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ModifySelfservicePermissionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Modifies the specified streaming properties.
+     * </p>
+     * 
+     * @param modifyStreamingPropertiesRequest
+     * @return Result of the ModifyStreamingProperties operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.ModifyStreamingProperties
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ModifyStreamingProperties"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ModifyStreamingPropertiesResult modifyStreamingProperties(ModifyStreamingPropertiesRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyStreamingProperties(request);
+    }
+
+    @SdkInternalApi
+    final ModifyStreamingPropertiesResult executeModifyStreamingProperties(ModifyStreamingPropertiesRequest modifyStreamingPropertiesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyStreamingPropertiesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyStreamingPropertiesRequest> request = null;
+        Response<ModifyStreamingPropertiesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyStreamingPropertiesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(modifyStreamingPropertiesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyStreamingProperties");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ModifyStreamingPropertiesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ModifyStreamingPropertiesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Specifies which devices and operating systems users can use to access their WorkSpaces. For more information, see
+     * <a href=
+     * "https://docs.aws.amazon.com/workspaces/latest/adminguide/update-directory-details.html#control-device-access">
+     * Control Device Access</a>.
+     * </p>
+     * 
+     * @param modifyWorkspaceAccessPropertiesRequest
+     * @return Result of the ModifyWorkspaceAccessProperties operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.ModifyWorkspaceAccessProperties
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ModifyWorkspaceAccessProperties"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ModifyWorkspaceAccessPropertiesResult modifyWorkspaceAccessProperties(ModifyWorkspaceAccessPropertiesRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyWorkspaceAccessProperties(request);
+    }
+
+    @SdkInternalApi
+    final ModifyWorkspaceAccessPropertiesResult executeModifyWorkspaceAccessProperties(
+            ModifyWorkspaceAccessPropertiesRequest modifyWorkspaceAccessPropertiesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyWorkspaceAccessPropertiesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyWorkspaceAccessPropertiesRequest> request = null;
+        Response<ModifyWorkspaceAccessPropertiesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyWorkspaceAccessPropertiesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(modifyWorkspaceAccessPropertiesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyWorkspaceAccessProperties");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ModifyWorkspaceAccessPropertiesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ModifyWorkspaceAccessPropertiesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Modify the default properties used to create WorkSpaces.
+     * </p>
+     * 
+     * @param modifyWorkspaceCreationPropertiesRequest
+     * @return Result of the ModifyWorkspaceCreationProperties operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.ModifyWorkspaceCreationProperties
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ModifyWorkspaceCreationProperties"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ModifyWorkspaceCreationPropertiesResult modifyWorkspaceCreationProperties(ModifyWorkspaceCreationPropertiesRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyWorkspaceCreationProperties(request);
+    }
+
+    @SdkInternalApi
+    final ModifyWorkspaceCreationPropertiesResult executeModifyWorkspaceCreationProperties(
+            ModifyWorkspaceCreationPropertiesRequest modifyWorkspaceCreationPropertiesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyWorkspaceCreationPropertiesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyWorkspaceCreationPropertiesRequest> request = null;
+        Response<ModifyWorkspaceCreationPropertiesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyWorkspaceCreationPropertiesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(modifyWorkspaceCreationPropertiesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyWorkspaceCreationProperties");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ModifyWorkspaceCreationPropertiesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ModifyWorkspaceCreationPropertiesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Modifies the specified WorkSpace properties. For important information about how to modify the size of the root
+     * and user volumes, see <a href="https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html">
+     * Modify a WorkSpace</a>.
+     * </p>
+     * <note>
+     * <p>
+     * The <code>MANUAL</code> running mode value is only supported by Amazon WorkSpaces Core. Contact your account team
+     * to be allow-listed to use this value. For more information, see <a
+     * href="http://aws.amazon.com/workspaces/core/">Amazon WorkSpaces Core</a>.
+     * </p>
+     * </note>
      * 
      * @param modifyWorkspacePropertiesRequest
      * @return Result of the ModifyWorkspaceProperties operation returned by the service.
@@ -1815,9 +4975,9 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
      * @throws OperationInProgressException
      *         The properties of this WorkSpace are currently being modified. Try again in a moment.
      * @throws UnsupportedWorkspaceConfigurationException
-     *         The configuration of this WorkSpace is not supported for this operation. For more information, see the <a
-     *         href="https://docs.aws.amazon.com/workspaces/latest/adminguide/">Amazon WorkSpaces Administration
-     *         Guide</a>.
+     *         The configuration of this WorkSpace is not supported for this operation. For more information, see <a
+     *         href="https://docs.aws.amazon.com/workspaces/latest/adminguide/required-service-components.html">Required
+     *         Configuration and Service Components for WorkSpaces </a>.
      * @throws ResourceNotFoundException
      *         The resource could not be found.
      * @throws AccessDeniedException
@@ -1850,6 +5010,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(modifyWorkspacePropertiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyWorkspaceProperties");
@@ -1891,6 +5053,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
      *         The state of the resource is not valid for this operation.
      * @throws ResourceNotFoundException
      *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
      * @sample AmazonWorkspaces.ModifyWorkspaceState
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/ModifyWorkspaceState"
      *      target="_top">AWS API Documentation</a>
@@ -1916,6 +5080,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new ModifyWorkspaceStateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyWorkspaceStateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyWorkspaceState");
@@ -1942,7 +5108,9 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
      * Reboots the specified WorkSpaces.
      * </p>
      * <p>
-     * You cannot reboot a WorkSpace unless its state is <code>AVAILABLE</code> or <code>UNHEALTHY</code>.
+     * You cannot reboot a WorkSpace unless its state is <code>AVAILABLE</code>, <code>UNHEALTHY</code>, or
+     * <code>REBOOTING</code>. Reboot a WorkSpace in the <code>REBOOTING</code> state only if your WorkSpace has been
+     * stuck in the <code>REBOOTING</code> state for over 20 minutes.
      * </p>
      * <p>
      * This operation is asynchronous and returns before the WorkSpaces have rebooted.
@@ -1950,6 +5118,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
      * 
      * @param rebootWorkspacesRequest
      * @return Result of the RebootWorkspaces operation returned by the service.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
      * @sample AmazonWorkspaces.RebootWorkspaces
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/RebootWorkspaces" target="_top">AWS
      *      API Documentation</a>
@@ -1975,6 +5145,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new RebootWorkspacesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(rebootWorkspacesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RebootWorkspaces");
@@ -2001,8 +5173,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
      * Rebuilds the specified WorkSpace.
      * </p>
      * <p>
-     * You cannot rebuild a WorkSpace unless its state is <code>AVAILABLE</code>, <code>ERROR</code>, or
-     * <code>UNHEALTHY</code>.
+     * You cannot rebuild a WorkSpace unless its state is <code>AVAILABLE</code>, <code>ERROR</code>,
+     * <code>UNHEALTHY</code>, <code>STOPPED</code>, or <code>REBOOTING</code>.
      * </p>
      * <p>
      * Rebuilding a WorkSpace is a potentially destructive action that can result in the loss of data. For more
@@ -2015,6 +5187,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
      * 
      * @param rebuildWorkspacesRequest
      * @return Result of the RebuildWorkspaces operation returned by the service.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
      * @sample AmazonWorkspaces.RebuildWorkspaces
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/RebuildWorkspaces" target="_top">AWS
      *      API Documentation</a>
@@ -2040,6 +5214,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new RebuildWorkspacesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(rebuildWorkspacesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RebuildWorkspaces");
@@ -2051,6 +5227,235 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
             HttpResponseHandler<AmazonWebServiceResponse<RebuildWorkspacesResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new RebuildWorkspacesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Registers the specified directory. This operation is asynchronous and returns before the WorkSpace directory is
+     * registered. If this is the first time you are registering a directory, you will need to create the
+     * workspaces_DefaultRole role before you can register a directory. For more information, see <a href=
+     * "https://docs.aws.amazon.com/workspaces/latest/adminguide/workspaces-access-control.html#create-default-role">
+     * Creating the workspaces_DefaultRole Role</a>.
+     * </p>
+     * 
+     * @param registerWorkspaceDirectoryRequest
+     * @return Result of the RegisterWorkspaceDirectory operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws WorkspacesDefaultRoleNotFoundException
+     *         The workspaces_DefaultRole role could not be found. If this is the first time you are registering a
+     *         directory, you will need to create the workspaces_DefaultRole role before you can register a directory.
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/workspaces/latest/adminguide/workspaces-access-control.html#create-default-role"
+     *         >Creating the workspaces_DefaultRole Role</a>.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws UnsupportedNetworkConfigurationException
+     *         The configuration of this network is not supported for this operation, or your network configuration
+     *         conflicts with the Amazon WorkSpaces management network IP range. For more information, see <a
+     *         href="https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces-vpc.html"> Configure a
+     *         VPC for Amazon WorkSpaces</a>.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws ResourceAlreadyExistsException
+     *         The specified resource already exists.
+     * @sample AmazonWorkspaces.RegisterWorkspaceDirectory
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/RegisterWorkspaceDirectory"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public RegisterWorkspaceDirectoryResult registerWorkspaceDirectory(RegisterWorkspaceDirectoryRequest request) {
+        request = beforeClientExecution(request);
+        return executeRegisterWorkspaceDirectory(request);
+    }
+
+    @SdkInternalApi
+    final RegisterWorkspaceDirectoryResult executeRegisterWorkspaceDirectory(RegisterWorkspaceDirectoryRequest registerWorkspaceDirectoryRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(registerWorkspaceDirectoryRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RegisterWorkspaceDirectoryRequest> request = null;
+        Response<RegisterWorkspaceDirectoryResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RegisterWorkspaceDirectoryRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(registerWorkspaceDirectoryRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterWorkspaceDirectory");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RegisterWorkspaceDirectoryResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new RegisterWorkspaceDirectoryResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Rejects the account link invitation.
+     * </p>
+     * 
+     * @param rejectAccountLinkInvitationRequest
+     * @return Result of the RejectAccountLinkInvitation operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws ValidationException
+     *         You either haven't provided a <code>TargetAccountId</code> or are using the same value for
+     *         <code>TargetAccountId</code> and <code>SourceAccountId</code>.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ConflictException
+     *         The <code>TargetAccountId</code> is already linked or invited.
+     * @throws InternalServerException
+     *         Unexpected server error occured.
+     * @sample AmazonWorkspaces.RejectAccountLinkInvitation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/RejectAccountLinkInvitation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public RejectAccountLinkInvitationResult rejectAccountLinkInvitation(RejectAccountLinkInvitationRequest request) {
+        request = beforeClientExecution(request);
+        return executeRejectAccountLinkInvitation(request);
+    }
+
+    @SdkInternalApi
+    final RejectAccountLinkInvitationResult executeRejectAccountLinkInvitation(RejectAccountLinkInvitationRequest rejectAccountLinkInvitationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(rejectAccountLinkInvitationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RejectAccountLinkInvitationRequest> request = null;
+        Response<RejectAccountLinkInvitationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RejectAccountLinkInvitationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(rejectAccountLinkInvitationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RejectAccountLinkInvitation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RejectAccountLinkInvitationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new RejectAccountLinkInvitationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Restores the specified WorkSpace to its last known healthy state.
+     * </p>
+     * <p>
+     * You cannot restore a WorkSpace unless its state is <code> AVAILABLE</code>, <code>ERROR</code>,
+     * <code>UNHEALTHY</code>, or <code>STOPPED</code>.
+     * </p>
+     * <p>
+     * Restoring a WorkSpace is a potentially destructive action that can result in the loss of data. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/restore-workspace.html">Restore a WorkSpace</a>.
+     * </p>
+     * <p>
+     * This operation is asynchronous and returns before the WorkSpace is completely restored.
+     * </p>
+     * 
+     * @param restoreWorkspaceRequest
+     * @return Result of the RestoreWorkspace operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.RestoreWorkspace
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/RestoreWorkspace" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public RestoreWorkspaceResult restoreWorkspace(RestoreWorkspaceRequest request) {
+        request = beforeClientExecution(request);
+        return executeRestoreWorkspace(request);
+    }
+
+    @SdkInternalApi
+    final RestoreWorkspaceResult executeRestoreWorkspace(RestoreWorkspaceRequest restoreWorkspaceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(restoreWorkspaceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RestoreWorkspaceRequest> request = null;
+        Response<RestoreWorkspaceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RestoreWorkspaceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(restoreWorkspaceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RestoreWorkspace");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RestoreWorkspaceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new RestoreWorkspaceResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2101,6 +5506,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new RevokeIpRulesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(revokeIpRulesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RevokeIpRules");
@@ -2158,6 +5565,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new StartWorkspacesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startWorkspacesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartWorkspaces");
@@ -2169,6 +5578,79 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
             HttpResponseHandler<AmazonWebServiceResponse<StartWorkspacesResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StartWorkspacesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Starts the specified pool.
+     * </p>
+     * <p>
+     * You cannot start a pool unless it has a running mode of <code>AutoStop</code> and a state of <code>STOPPED</code>
+     * .
+     * </p>
+     * 
+     * @param startWorkspacesPoolRequest
+     * @return Result of the StartWorkspacesPool operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws OperationInProgressException
+     *         The properties of this WorkSpace are currently being modified. Try again in a moment.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.StartWorkspacesPool
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/StartWorkspacesPool" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public StartWorkspacesPoolResult startWorkspacesPool(StartWorkspacesPoolRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartWorkspacesPool(request);
+    }
+
+    @SdkInternalApi
+    final StartWorkspacesPoolResult executeStartWorkspacesPool(StartWorkspacesPoolRequest startWorkspacesPoolRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startWorkspacesPoolRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartWorkspacesPoolRequest> request = null;
+        Response<StartWorkspacesPoolResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartWorkspacesPoolRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startWorkspacesPoolRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartWorkspacesPool");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartWorkspacesPoolResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StartWorkspacesPoolResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2215,6 +5697,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new StopWorkspacesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopWorkspacesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopWorkspaces");
@@ -2238,18 +5722,108 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Terminates the specified WorkSpaces.
+     * Stops the specified pool.
      * </p>
      * <p>
-     * Terminating a WorkSpace is a permanent action and cannot be undone. The user's data is destroyed. If you need to
-     * archive any user data, contact Amazon Web Services before terminating the WorkSpace.
+     * You cannot stop a WorkSpace pool unless it has a running mode of <code>AutoStop</code> and a state of
+     * <code>AVAILABLE</code>, <code>IMPAIRED</code>, <code>UNHEALTHY</code>, or <code>ERROR</code>.
      * </p>
+     * 
+     * @param stopWorkspacesPoolRequest
+     * @return Result of the StopWorkspacesPool operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationInProgressException
+     *         The properties of this WorkSpace are currently being modified. Try again in a moment.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.StopWorkspacesPool
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/StopWorkspacesPool" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public StopWorkspacesPoolResult stopWorkspacesPool(StopWorkspacesPoolRequest request) {
+        request = beforeClientExecution(request);
+        return executeStopWorkspacesPool(request);
+    }
+
+    @SdkInternalApi
+    final StopWorkspacesPoolResult executeStopWorkspacesPool(StopWorkspacesPoolRequest stopWorkspacesPoolRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(stopWorkspacesPoolRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StopWorkspacesPoolRequest> request = null;
+        Response<StopWorkspacesPoolResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StopWorkspacesPoolRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopWorkspacesPoolRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopWorkspacesPool");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StopWorkspacesPoolResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StopWorkspacesPoolResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Terminates the specified WorkSpaces.
+     * </p>
+     * <important>
+     * <p>
+     * Terminating a WorkSpace is a permanent action and cannot be undone. The user's data is destroyed. If you need to
+     * archive any user data, contact Amazon Web Services Support before terminating the WorkSpace.
+     * </p>
+     * </important>
      * <p>
      * You can terminate a WorkSpace that is in any state except <code>SUSPENDED</code>.
      * </p>
      * <p>
-     * This operation is asynchronous and returns before the WorkSpaces have been completely terminated.
+     * This operation is asynchronous and returns before the WorkSpaces have been completely terminated. After a
+     * WorkSpace is terminated, the <code>TERMINATED</code> state is returned only briefly before the WorkSpace
+     * directory metadata is cleaned up, so this state is rarely returned. To confirm that a WorkSpace is terminated,
+     * check for the WorkSpace ID by using <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeWorkspaces.html"> DescribeWorkSpaces</a>. If
+     * the WorkSpace ID isn't returned, then the WorkSpace has been successfully terminated.
      * </p>
+     * <note>
+     * <p>
+     * Simple AD and AD Connector are made available to you free of charge to use with WorkSpaces. If there are no
+     * WorkSpaces being used with your Simple AD or AD Connector directory for 30 consecutive days, this directory will
+     * be automatically deregistered for use with Amazon WorkSpaces, and you will be charged for this directory as per
+     * the <a href="http://aws.amazon.com/directoryservice/pricing/">Directory Service pricing terms</a>.
+     * </p>
+     * <p>
+     * To delete empty directories, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/delete-workspaces-directory.html"> Delete the
+     * Directory for Your WorkSpaces</a>. If you delete your Simple AD or AD Connector directory, you can always create
+     * a new one when you want to start using WorkSpaces again.
+     * </p>
+     * </note>
      * 
      * @param terminateWorkspacesRequest
      * @return Result of the TerminateWorkspaces operation returned by the service.
@@ -2278,6 +5852,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new TerminateWorkspacesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(terminateWorkspacesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TerminateWorkspaces");
@@ -2289,6 +5865,301 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
             HttpResponseHandler<AmazonWebServiceResponse<TerminateWorkspacesResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TerminateWorkspacesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Terminates the specified pool.
+     * </p>
+     * 
+     * @param terminateWorkspacesPoolRequest
+     * @return Result of the TerminateWorkspacesPool operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationInProgressException
+     *         The properties of this WorkSpace are currently being modified. Try again in a moment.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.TerminateWorkspacesPool
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/TerminateWorkspacesPool"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public TerminateWorkspacesPoolResult terminateWorkspacesPool(TerminateWorkspacesPoolRequest request) {
+        request = beforeClientExecution(request);
+        return executeTerminateWorkspacesPool(request);
+    }
+
+    @SdkInternalApi
+    final TerminateWorkspacesPoolResult executeTerminateWorkspacesPool(TerminateWorkspacesPoolRequest terminateWorkspacesPoolRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(terminateWorkspacesPoolRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TerminateWorkspacesPoolRequest> request = null;
+        Response<TerminateWorkspacesPoolResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TerminateWorkspacesPoolRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(terminateWorkspacesPoolRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TerminateWorkspacesPool");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TerminateWorkspacesPoolResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new TerminateWorkspacesPoolResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Terminates the pool session.
+     * </p>
+     * 
+     * @param terminateWorkspacesPoolSessionRequest
+     * @return Result of the TerminateWorkspacesPoolSession operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws OperationInProgressException
+     *         The properties of this WorkSpace are currently being modified. Try again in a moment.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.TerminateWorkspacesPoolSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/TerminateWorkspacesPoolSession"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public TerminateWorkspacesPoolSessionResult terminateWorkspacesPoolSession(TerminateWorkspacesPoolSessionRequest request) {
+        request = beforeClientExecution(request);
+        return executeTerminateWorkspacesPoolSession(request);
+    }
+
+    @SdkInternalApi
+    final TerminateWorkspacesPoolSessionResult executeTerminateWorkspacesPoolSession(TerminateWorkspacesPoolSessionRequest terminateWorkspacesPoolSessionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(terminateWorkspacesPoolSessionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TerminateWorkspacesPoolSessionRequest> request = null;
+        Response<TerminateWorkspacesPoolSessionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TerminateWorkspacesPoolSessionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(terminateWorkspacesPoolSessionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TerminateWorkspacesPoolSession");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TerminateWorkspacesPoolSessionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new TerminateWorkspacesPoolSessionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a Amazon Connect client add-in. Use this action to update the name and endpoint URL of a Amazon Connect
+     * client add-in.
+     * </p>
+     * 
+     * @param updateConnectClientAddInRequest
+     * @return Result of the UpdateConnectClientAddIn operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.UpdateConnectClientAddIn
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/UpdateConnectClientAddIn"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateConnectClientAddInResult updateConnectClientAddIn(UpdateConnectClientAddInRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateConnectClientAddIn(request);
+    }
+
+    @SdkInternalApi
+    final UpdateConnectClientAddInResult executeUpdateConnectClientAddIn(UpdateConnectClientAddInRequest updateConnectClientAddInRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateConnectClientAddInRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateConnectClientAddInRequest> request = null;
+        Response<UpdateConnectClientAddInResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateConnectClientAddInRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateConnectClientAddInRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateConnectClientAddIn");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateConnectClientAddInResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateConnectClientAddInResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Shares or unshares a connection alias with one account by specifying whether that account has permission to
+     * associate the connection alias with a directory. If the association permission is granted, the connection alias
+     * is shared with that account. If the association permission is revoked, the connection alias is unshared with the
+     * account. For more information, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/cross-region-redirection.html"> Cross-Region
+     * Redirection for Amazon WorkSpaces</a>.
+     * </p>
+     * <note>
+     * <ul>
+     * <li>
+     * <p>
+     * Before performing this operation, call <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/api/API_DescribeConnectionAliases.html">
+     * DescribeConnectionAliases</a> to make sure that the current state of the connection alias is <code>CREATED</code>
+     * .
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To delete a connection alias that has been shared, the shared account must first disassociate the connection
+     * alias from any directories it has been associated with. Then you must unshare the connection alias from the
+     * account it has been shared with. You can delete a connection alias only after it is no longer shared with any
+     * accounts or associated with any directories.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param updateConnectionAliasPermissionRequest
+     * @return Result of the UpdateConnectionAliasPermission operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceAssociatedException
+     *         The resource is associated with a directory.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.UpdateConnectionAliasPermission
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/UpdateConnectionAliasPermission"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateConnectionAliasPermissionResult updateConnectionAliasPermission(UpdateConnectionAliasPermissionRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateConnectionAliasPermission(request);
+    }
+
+    @SdkInternalApi
+    final UpdateConnectionAliasPermissionResult executeUpdateConnectionAliasPermission(
+            UpdateConnectionAliasPermissionRequest updateConnectionAliasPermissionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateConnectionAliasPermissionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateConnectionAliasPermissionRequest> request = null;
+        Response<UpdateConnectionAliasPermissionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateConnectionAliasPermissionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateConnectionAliasPermissionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateConnectionAliasPermission");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateConnectionAliasPermissionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateConnectionAliasPermissionResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2341,6 +6212,8 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
                 request = new UpdateRulesOfIpGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRulesOfIpGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRulesOfIpGroup");
@@ -2352,6 +6225,250 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
 
             HttpResponseHandler<AmazonWebServiceResponse<UpdateRulesOfIpGroupResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateRulesOfIpGroupResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a WorkSpace bundle with a new image. For more information about updating WorkSpace bundles, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/update-custom-bundle.html"> Update a Custom
+     * WorkSpaces Bundle</a>.
+     * </p>
+     * <important>
+     * <p>
+     * Existing WorkSpaces aren't automatically updated when you update the bundle that they're based on. To update
+     * existing WorkSpaces that are based on a bundle that you've updated, you must either rebuild the WorkSpaces or
+     * delete and recreate them.
+     * </p>
+     * </important>
+     * 
+     * @param updateWorkspaceBundleRequest
+     * @return Result of the UpdateWorkspaceBundle operation returned by the service.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceUnavailableException
+     *         The specified resource is not available.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.UpdateWorkspaceBundle
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/UpdateWorkspaceBundle"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateWorkspaceBundleResult updateWorkspaceBundle(UpdateWorkspaceBundleRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateWorkspaceBundle(request);
+    }
+
+    @SdkInternalApi
+    final UpdateWorkspaceBundleResult executeUpdateWorkspaceBundle(UpdateWorkspaceBundleRequest updateWorkspaceBundleRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateWorkspaceBundleRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateWorkspaceBundleRequest> request = null;
+        Response<UpdateWorkspaceBundleResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateWorkspaceBundleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateWorkspaceBundleRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateWorkspaceBundle");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateWorkspaceBundleResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new UpdateWorkspaceBundleResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Shares or unshares an image with one account in the same Amazon Web Services Region by specifying whether that
+     * account has permission to copy the image. If the copy image permission is granted, the image is shared with that
+     * account. If the copy image permission is revoked, the image is unshared with the account.
+     * </p>
+     * <p>
+     * After an image has been shared, the recipient account can copy the image to other Regions as needed.
+     * </p>
+     * <p>
+     * In the China (Ningxia) Region, you can copy images only within the same Region.
+     * </p>
+     * <p>
+     * In Amazon Web Services GovCloud (US), to copy images to and from other Regions, contact Amazon Web Services
+     * Support.
+     * </p>
+     * <p>
+     * For more information about sharing images, see <a
+     * href="https://docs.aws.amazon.com/workspaces/latest/adminguide/share-custom-image.html"> Share or Unshare a
+     * Custom WorkSpaces Image</a>.
+     * </p>
+     * <note>
+     * <ul>
+     * <li>
+     * <p>
+     * To delete an image that has been shared, you must unshare the image before you delete it.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Sharing Bring Your Own License (BYOL) images across Amazon Web Services accounts isn't supported at this time in
+     * Amazon Web Services GovCloud (US). To share BYOL images across accounts in Amazon Web Services GovCloud (US),
+     * contact Amazon Web Services Support.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param updateWorkspaceImagePermissionRequest
+     * @return Result of the UpdateWorkspaceImagePermission operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceUnavailableException
+     *         The specified resource is not available.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @sample AmazonWorkspaces.UpdateWorkspaceImagePermission
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/UpdateWorkspaceImagePermission"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateWorkspaceImagePermissionResult updateWorkspaceImagePermission(UpdateWorkspaceImagePermissionRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateWorkspaceImagePermission(request);
+    }
+
+    @SdkInternalApi
+    final UpdateWorkspaceImagePermissionResult executeUpdateWorkspaceImagePermission(UpdateWorkspaceImagePermissionRequest updateWorkspaceImagePermissionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateWorkspaceImagePermissionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateWorkspaceImagePermissionRequest> request = null;
+        Response<UpdateWorkspaceImagePermissionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateWorkspaceImagePermissionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateWorkspaceImagePermissionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateWorkspaceImagePermission");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateWorkspaceImagePermissionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateWorkspaceImagePermissionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the specified pool.
+     * </p>
+     * 
+     * @param updateWorkspacesPoolRequest
+     * @return Result of the UpdateWorkspacesPool operation returned by the service.
+     * @throws InvalidParameterValuesException
+     *         One or more parameter values are not valid.
+     * @throws InvalidResourceStateException
+     *         The state of the resource is not valid for this operation.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws ResourceLimitExceededException
+     *         Your resource limits have been exceeded.
+     * @throws OperationNotSupportedException
+     *         This operation is not supported.
+     * @throws OperationInProgressException
+     *         The properties of this WorkSpace are currently being modified. Try again in a moment.
+     * @throws AccessDeniedException
+     *         The user is not authorized to access a resource.
+     * @sample AmazonWorkspaces.UpdateWorkspacesPool
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/UpdateWorkspacesPool"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateWorkspacesPoolResult updateWorkspacesPool(UpdateWorkspacesPoolRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateWorkspacesPool(request);
+    }
+
+    @SdkInternalApi
+    final UpdateWorkspacesPoolResult executeUpdateWorkspacesPool(UpdateWorkspacesPoolRequest updateWorkspacesPoolRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateWorkspacesPoolRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateWorkspacesPoolRequest> request = null;
+        Response<UpdateWorkspacesPoolResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateWorkspacesPoolRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateWorkspacesPoolRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkSpaces");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateWorkspacesPool");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateWorkspacesPoolResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateWorkspacesPoolResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2436,6 +6553,11 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements Am
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

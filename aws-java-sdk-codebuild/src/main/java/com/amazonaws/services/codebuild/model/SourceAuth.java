@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,11 +19,10 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about the authorization settings for AWS CodeBuild to access the source code to be built.
+ * Information about the authorization settings for CodeBuild to access the source code to be built.
  * </p>
  * <p>
- * This information is for the AWS CodeBuild console's use only. Your code should not get or set this information
- * directly.
+ * This information is for the CodeBuild console's use only. Your code should not get or set this information directly.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/SourceAuth" target="_top">AWS API
@@ -33,14 +32,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 public class SourceAuth implements Serializable, Cloneable, StructuredPojo {
 
     /**
-     * <note>
      * <p>
-     * This data type is deprecated and is no longer accurate or used.
-     * </p>
-     * </note>
-     * <p>
-     * The authorization type to use. The only valid value is <code>OAUTH</code>, which represents the OAuth
-     * authorization type.
+     * The authorization type to use. Valid options are OAUTH or CODECONNECTIONS.
      * </p>
      */
     private String type;
@@ -52,24 +45,12 @@ public class SourceAuth implements Serializable, Cloneable, StructuredPojo {
     private String resource;
 
     /**
-     * <note>
      * <p>
-     * This data type is deprecated and is no longer accurate or used.
-     * </p>
-     * </note>
-     * <p>
-     * The authorization type to use. The only valid value is <code>OAUTH</code>, which represents the OAuth
-     * authorization type.
+     * The authorization type to use. Valid options are OAUTH or CODECONNECTIONS.
      * </p>
      * 
      * @param type
-     *        <p>
-     *        This data type is deprecated and is no longer accurate or used.
-     *        </p>
-     *        </note>
-     *        <p>
-     *        The authorization type to use. The only valid value is <code>OAUTH</code>, which represents the OAuth
-     *        authorization type.
+     *        The authorization type to use. Valid options are OAUTH or CODECONNECTIONS.
      * @see SourceAuthType
      */
 
@@ -78,23 +59,11 @@ public class SourceAuth implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * <note>
      * <p>
-     * This data type is deprecated and is no longer accurate or used.
-     * </p>
-     * </note>
-     * <p>
-     * The authorization type to use. The only valid value is <code>OAUTH</code>, which represents the OAuth
-     * authorization type.
+     * The authorization type to use. Valid options are OAUTH or CODECONNECTIONS.
      * </p>
      * 
-     * @return <p>
-     *         This data type is deprecated and is no longer accurate or used.
-     *         </p>
-     *         </note>
-     *         <p>
-     *         The authorization type to use. The only valid value is <code>OAUTH</code>, which represents the OAuth
-     *         authorization type.
+     * @return The authorization type to use. Valid options are OAUTH or CODECONNECTIONS.
      * @see SourceAuthType
      */
 
@@ -103,24 +72,12 @@ public class SourceAuth implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * <note>
      * <p>
-     * This data type is deprecated and is no longer accurate or used.
-     * </p>
-     * </note>
-     * <p>
-     * The authorization type to use. The only valid value is <code>OAUTH</code>, which represents the OAuth
-     * authorization type.
+     * The authorization type to use. Valid options are OAUTH or CODECONNECTIONS.
      * </p>
      * 
      * @param type
-     *        <p>
-     *        This data type is deprecated and is no longer accurate or used.
-     *        </p>
-     *        </note>
-     *        <p>
-     *        The authorization type to use. The only valid value is <code>OAUTH</code>, which represents the OAuth
-     *        authorization type.
+     *        The authorization type to use. Valid options are OAUTH or CODECONNECTIONS.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SourceAuthType
      */
@@ -131,24 +88,12 @@ public class SourceAuth implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * <note>
      * <p>
-     * This data type is deprecated and is no longer accurate or used.
-     * </p>
-     * </note>
-     * <p>
-     * The authorization type to use. The only valid value is <code>OAUTH</code>, which represents the OAuth
-     * authorization type.
+     * The authorization type to use. Valid options are OAUTH or CODECONNECTIONS.
      * </p>
      * 
      * @param type
-     *        <p>
-     *        This data type is deprecated and is no longer accurate or used.
-     *        </p>
-     *        </note>
-     *        <p>
-     *        The authorization type to use. The only valid value is <code>OAUTH</code>, which represents the OAuth
-     *        authorization type.
+     *        The authorization type to use. Valid options are OAUTH or CODECONNECTIONS.
      * @see SourceAuthType
      */
 
@@ -157,24 +102,12 @@ public class SourceAuth implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * <note>
      * <p>
-     * This data type is deprecated and is no longer accurate or used.
-     * </p>
-     * </note>
-     * <p>
-     * The authorization type to use. The only valid value is <code>OAUTH</code>, which represents the OAuth
-     * authorization type.
+     * The authorization type to use. Valid options are OAUTH or CODECONNECTIONS.
      * </p>
      * 
      * @param type
-     *        <p>
-     *        This data type is deprecated and is no longer accurate or used.
-     *        </p>
-     *        </note>
-     *        <p>
-     *        The authorization type to use. The only valid value is <code>OAUTH</code>, which represents the OAuth
-     *        authorization type.
+     *        The authorization type to use. Valid options are OAUTH or CODECONNECTIONS.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SourceAuthType
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Represents the output of a <a>ListObjectParents</a> response operation.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2017-01-11/BatchListObjectParentsResponse"
  *      target="_top">AWS API Documentation</a>
@@ -25,12 +28,25 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class BatchListObjectParentsResponse implements Serializable, Cloneable, StructuredPojo {
 
+    /**
+     * <p>
+     * Returns a list of parent reference and LinkName Tuples.
+     * </p>
+     */
     private java.util.List<ObjectIdentifierAndLinkNameTuple> parentLinks;
-
+    /**
+     * <p>
+     * The pagination token.
+     * </p>
+     */
     private String nextToken;
 
     /**
-     * @return
+     * <p>
+     * Returns a list of parent reference and LinkName Tuples.
+     * </p>
+     * 
+     * @return Returns a list of parent reference and LinkName Tuples.
      */
 
     public java.util.List<ObjectIdentifierAndLinkNameTuple> getParentLinks() {
@@ -38,7 +54,12 @@ public class BatchListObjectParentsResponse implements Serializable, Cloneable, 
     }
 
     /**
+     * <p>
+     * Returns a list of parent reference and LinkName Tuples.
+     * </p>
+     * 
      * @param parentLinks
+     *        Returns a list of parent reference and LinkName Tuples.
      */
 
     public void setParentLinks(java.util.Collection<ObjectIdentifierAndLinkNameTuple> parentLinks) {
@@ -52,12 +73,16 @@ public class BatchListObjectParentsResponse implements Serializable, Cloneable, 
 
     /**
      * <p>
+     * Returns a list of parent reference and LinkName Tuples.
+     * </p>
+     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setParentLinks(java.util.Collection)} or {@link #withParentLinks(java.util.Collection)} if you want to
      * override the existing values.
      * </p>
      * 
      * @param parentLinks
+     *        Returns a list of parent reference and LinkName Tuples.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -72,7 +97,12 @@ public class BatchListObjectParentsResponse implements Serializable, Cloneable, 
     }
 
     /**
+     * <p>
+     * Returns a list of parent reference and LinkName Tuples.
+     * </p>
+     * 
      * @param parentLinks
+     *        Returns a list of parent reference and LinkName Tuples.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -82,7 +112,12 @@ public class BatchListObjectParentsResponse implements Serializable, Cloneable, 
     }
 
     /**
+     * <p>
+     * The pagination token.
+     * </p>
+     * 
      * @param nextToken
+     *        The pagination token.
      */
 
     public void setNextToken(String nextToken) {
@@ -90,7 +125,11 @@ public class BatchListObjectParentsResponse implements Serializable, Cloneable, 
     }
 
     /**
-     * @return
+     * <p>
+     * The pagination token.
+     * </p>
+     * 
+     * @return The pagination token.
      */
 
     public String getNextToken() {
@@ -98,7 +137,12 @@ public class BatchListObjectParentsResponse implements Serializable, Cloneable, 
     }
 
     /**
+     * <p>
+     * The pagination token.
+     * </p>
+     * 
      * @param nextToken
+     *        The pagination token.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

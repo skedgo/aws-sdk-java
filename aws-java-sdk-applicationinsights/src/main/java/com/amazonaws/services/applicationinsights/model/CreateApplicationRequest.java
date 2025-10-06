@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,11 +39,52 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
     private Boolean opsCenterEnabled;
     /**
      * <p>
+     * Indicates whether Application Insights can listen to CloudWatch events for the application resources, such as
+     * <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     * </p>
+     */
+    private Boolean cWEMonitorEnabled;
+    /**
+     * <p>
      * The SNS topic provided to Application Insights that is associated to the created opsItem. Allows you to receive
      * notifications for updates to the opsItem.
      * </p>
      */
     private String opsItemSNSTopicArn;
+    /**
+     * <p>
+     * List of tags to add to the application. tag key (<code>Key</code>) and an associated tag value (
+     * <code>Value</code>). The maximum length of a tag key is 128 characters. The maximum length of a tag value is 256
+     * characters.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * Indicates whether Application Insights automatically configures unmonitored resources in the resource group.
+     * </p>
+     */
+    private Boolean autoConfigEnabled;
+    /**
+     * <p>
+     * Configures all of the resources in the resource group by applying the recommended configurations.
+     * </p>
+     */
+    private Boolean autoCreate;
+    /**
+     * <p>
+     * Application Insights can create applications based on a resource group or on an account. To create an
+     * account-based application using all of the resources in the account, set this parameter to
+     * <code>ACCOUNT_BASED</code>.
+     * </p>
+     */
+    private String groupingType;
+    /**
+     * <p>
+     * If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing.
+     * </p>
+     */
+    private Boolean attachMissingPermission;
 
     /**
      * <p>
@@ -139,6 +180,66 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
+     * Indicates whether Application Insights can listen to CloudWatch events for the application resources, such as
+     * <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     * </p>
+     * 
+     * @param cWEMonitorEnabled
+     *        Indicates whether Application Insights can listen to CloudWatch events for the application resources, such
+     *        as <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     */
+
+    public void setCWEMonitorEnabled(Boolean cWEMonitorEnabled) {
+        this.cWEMonitorEnabled = cWEMonitorEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Application Insights can listen to CloudWatch events for the application resources, such as
+     * <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     * </p>
+     * 
+     * @return Indicates whether Application Insights can listen to CloudWatch events for the application resources,
+     *         such as <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     */
+
+    public Boolean getCWEMonitorEnabled() {
+        return this.cWEMonitorEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Application Insights can listen to CloudWatch events for the application resources, such as
+     * <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     * </p>
+     * 
+     * @param cWEMonitorEnabled
+     *        Indicates whether Application Insights can listen to CloudWatch events for the application resources, such
+     *        as <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateApplicationRequest withCWEMonitorEnabled(Boolean cWEMonitorEnabled) {
+        setCWEMonitorEnabled(cWEMonitorEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Application Insights can listen to CloudWatch events for the application resources, such as
+     * <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     * </p>
+     * 
+     * @return Indicates whether Application Insights can listen to CloudWatch events for the application resources,
+     *         such as <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     */
+
+    public Boolean isCWEMonitorEnabled() {
+        return this.cWEMonitorEnabled;
+    }
+
+    /**
+     * <p>
      * The SNS topic provided to Application Insights that is associated to the created opsItem. Allows you to receive
      * notifications for updates to the opsItem.
      * </p>
@@ -184,6 +285,331 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
     }
 
     /**
+     * <p>
+     * List of tags to add to the application. tag key (<code>Key</code>) and an associated tag value (
+     * <code>Value</code>). The maximum length of a tag key is 128 characters. The maximum length of a tag value is 256
+     * characters.
+     * </p>
+     * 
+     * @return List of tags to add to the application. tag key (<code>Key</code>) and an associated tag value (
+     *         <code>Value</code>). The maximum length of a tag key is 128 characters. The maximum length of a tag value
+     *         is 256 characters.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * List of tags to add to the application. tag key (<code>Key</code>) and an associated tag value (
+     * <code>Value</code>). The maximum length of a tag key is 128 characters. The maximum length of a tag value is 256
+     * characters.
+     * </p>
+     * 
+     * @param tags
+     *        List of tags to add to the application. tag key (<code>Key</code>) and an associated tag value (
+     *        <code>Value</code>). The maximum length of a tag key is 128 characters. The maximum length of a tag value
+     *        is 256 characters.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * List of tags to add to the application. tag key (<code>Key</code>) and an associated tag value (
+     * <code>Value</code>). The maximum length of a tag key is 128 characters. The maximum length of a tag value is 256
+     * characters.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        List of tags to add to the application. tag key (<code>Key</code>) and an associated tag value (
+     *        <code>Value</code>). The maximum length of a tag key is 128 characters. The maximum length of a tag value
+     *        is 256 characters.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateApplicationRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * List of tags to add to the application. tag key (<code>Key</code>) and an associated tag value (
+     * <code>Value</code>). The maximum length of a tag key is 128 characters. The maximum length of a tag value is 256
+     * characters.
+     * </p>
+     * 
+     * @param tags
+     *        List of tags to add to the application. tag key (<code>Key</code>) and an associated tag value (
+     *        <code>Value</code>). The maximum length of a tag key is 128 characters. The maximum length of a tag value
+     *        is 256 characters.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateApplicationRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Application Insights automatically configures unmonitored resources in the resource group.
+     * </p>
+     * 
+     * @param autoConfigEnabled
+     *        Indicates whether Application Insights automatically configures unmonitored resources in the resource
+     *        group.
+     */
+
+    public void setAutoConfigEnabled(Boolean autoConfigEnabled) {
+        this.autoConfigEnabled = autoConfigEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Application Insights automatically configures unmonitored resources in the resource group.
+     * </p>
+     * 
+     * @return Indicates whether Application Insights automatically configures unmonitored resources in the resource
+     *         group.
+     */
+
+    public Boolean getAutoConfigEnabled() {
+        return this.autoConfigEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Application Insights automatically configures unmonitored resources in the resource group.
+     * </p>
+     * 
+     * @param autoConfigEnabled
+     *        Indicates whether Application Insights automatically configures unmonitored resources in the resource
+     *        group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateApplicationRequest withAutoConfigEnabled(Boolean autoConfigEnabled) {
+        setAutoConfigEnabled(autoConfigEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Application Insights automatically configures unmonitored resources in the resource group.
+     * </p>
+     * 
+     * @return Indicates whether Application Insights automatically configures unmonitored resources in the resource
+     *         group.
+     */
+
+    public Boolean isAutoConfigEnabled() {
+        return this.autoConfigEnabled;
+    }
+
+    /**
+     * <p>
+     * Configures all of the resources in the resource group by applying the recommended configurations.
+     * </p>
+     * 
+     * @param autoCreate
+     *        Configures all of the resources in the resource group by applying the recommended configurations.
+     */
+
+    public void setAutoCreate(Boolean autoCreate) {
+        this.autoCreate = autoCreate;
+    }
+
+    /**
+     * <p>
+     * Configures all of the resources in the resource group by applying the recommended configurations.
+     * </p>
+     * 
+     * @return Configures all of the resources in the resource group by applying the recommended configurations.
+     */
+
+    public Boolean getAutoCreate() {
+        return this.autoCreate;
+    }
+
+    /**
+     * <p>
+     * Configures all of the resources in the resource group by applying the recommended configurations.
+     * </p>
+     * 
+     * @param autoCreate
+     *        Configures all of the resources in the resource group by applying the recommended configurations.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateApplicationRequest withAutoCreate(Boolean autoCreate) {
+        setAutoCreate(autoCreate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Configures all of the resources in the resource group by applying the recommended configurations.
+     * </p>
+     * 
+     * @return Configures all of the resources in the resource group by applying the recommended configurations.
+     */
+
+    public Boolean isAutoCreate() {
+        return this.autoCreate;
+    }
+
+    /**
+     * <p>
+     * Application Insights can create applications based on a resource group or on an account. To create an
+     * account-based application using all of the resources in the account, set this parameter to
+     * <code>ACCOUNT_BASED</code>.
+     * </p>
+     * 
+     * @param groupingType
+     *        Application Insights can create applications based on a resource group or on an account. To create an
+     *        account-based application using all of the resources in the account, set this parameter to
+     *        <code>ACCOUNT_BASED</code>.
+     * @see GroupingType
+     */
+
+    public void setGroupingType(String groupingType) {
+        this.groupingType = groupingType;
+    }
+
+    /**
+     * <p>
+     * Application Insights can create applications based on a resource group or on an account. To create an
+     * account-based application using all of the resources in the account, set this parameter to
+     * <code>ACCOUNT_BASED</code>.
+     * </p>
+     * 
+     * @return Application Insights can create applications based on a resource group or on an account. To create an
+     *         account-based application using all of the resources in the account, set this parameter to
+     *         <code>ACCOUNT_BASED</code>.
+     * @see GroupingType
+     */
+
+    public String getGroupingType() {
+        return this.groupingType;
+    }
+
+    /**
+     * <p>
+     * Application Insights can create applications based on a resource group or on an account. To create an
+     * account-based application using all of the resources in the account, set this parameter to
+     * <code>ACCOUNT_BASED</code>.
+     * </p>
+     * 
+     * @param groupingType
+     *        Application Insights can create applications based on a resource group or on an account. To create an
+     *        account-based application using all of the resources in the account, set this parameter to
+     *        <code>ACCOUNT_BASED</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see GroupingType
+     */
+
+    public CreateApplicationRequest withGroupingType(String groupingType) {
+        setGroupingType(groupingType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Application Insights can create applications based on a resource group or on an account. To create an
+     * account-based application using all of the resources in the account, set this parameter to
+     * <code>ACCOUNT_BASED</code>.
+     * </p>
+     * 
+     * @param groupingType
+     *        Application Insights can create applications based on a resource group or on an account. To create an
+     *        account-based application using all of the resources in the account, set this parameter to
+     *        <code>ACCOUNT_BASED</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see GroupingType
+     */
+
+    public CreateApplicationRequest withGroupingType(GroupingType groupingType) {
+        this.groupingType = groupingType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing.
+     * </p>
+     * 
+     * @param attachMissingPermission
+     *        If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are
+     *        missing.
+     */
+
+    public void setAttachMissingPermission(Boolean attachMissingPermission) {
+        this.attachMissingPermission = attachMissingPermission;
+    }
+
+    /**
+     * <p>
+     * If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing.
+     * </p>
+     * 
+     * @return If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are
+     *         missing.
+     */
+
+    public Boolean getAttachMissingPermission() {
+        return this.attachMissingPermission;
+    }
+
+    /**
+     * <p>
+     * If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing.
+     * </p>
+     * 
+     * @param attachMissingPermission
+     *        If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are
+     *        missing.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateApplicationRequest withAttachMissingPermission(Boolean attachMissingPermission) {
+        setAttachMissingPermission(attachMissingPermission);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing.
+     * </p>
+     * 
+     * @return If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are
+     *         missing.
+     */
+
+    public Boolean isAttachMissingPermission() {
+        return this.attachMissingPermission;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -199,8 +625,20 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
             sb.append("ResourceGroupName: ").append(getResourceGroupName()).append(",");
         if (getOpsCenterEnabled() != null)
             sb.append("OpsCenterEnabled: ").append(getOpsCenterEnabled()).append(",");
+        if (getCWEMonitorEnabled() != null)
+            sb.append("CWEMonitorEnabled: ").append(getCWEMonitorEnabled()).append(",");
         if (getOpsItemSNSTopicArn() != null)
-            sb.append("OpsItemSNSTopicArn: ").append(getOpsItemSNSTopicArn());
+            sb.append("OpsItemSNSTopicArn: ").append(getOpsItemSNSTopicArn()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getAutoConfigEnabled() != null)
+            sb.append("AutoConfigEnabled: ").append(getAutoConfigEnabled()).append(",");
+        if (getAutoCreate() != null)
+            sb.append("AutoCreate: ").append(getAutoCreate()).append(",");
+        if (getGroupingType() != null)
+            sb.append("GroupingType: ").append(getGroupingType()).append(",");
+        if (getAttachMissingPermission() != null)
+            sb.append("AttachMissingPermission: ").append(getAttachMissingPermission());
         sb.append("}");
         return sb.toString();
     }
@@ -223,9 +661,33 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
             return false;
         if (other.getOpsCenterEnabled() != null && other.getOpsCenterEnabled().equals(this.getOpsCenterEnabled()) == false)
             return false;
+        if (other.getCWEMonitorEnabled() == null ^ this.getCWEMonitorEnabled() == null)
+            return false;
+        if (other.getCWEMonitorEnabled() != null && other.getCWEMonitorEnabled().equals(this.getCWEMonitorEnabled()) == false)
+            return false;
         if (other.getOpsItemSNSTopicArn() == null ^ this.getOpsItemSNSTopicArn() == null)
             return false;
         if (other.getOpsItemSNSTopicArn() != null && other.getOpsItemSNSTopicArn().equals(this.getOpsItemSNSTopicArn()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getAutoConfigEnabled() == null ^ this.getAutoConfigEnabled() == null)
+            return false;
+        if (other.getAutoConfigEnabled() != null && other.getAutoConfigEnabled().equals(this.getAutoConfigEnabled()) == false)
+            return false;
+        if (other.getAutoCreate() == null ^ this.getAutoCreate() == null)
+            return false;
+        if (other.getAutoCreate() != null && other.getAutoCreate().equals(this.getAutoCreate()) == false)
+            return false;
+        if (other.getGroupingType() == null ^ this.getGroupingType() == null)
+            return false;
+        if (other.getGroupingType() != null && other.getGroupingType().equals(this.getGroupingType()) == false)
+            return false;
+        if (other.getAttachMissingPermission() == null ^ this.getAttachMissingPermission() == null)
+            return false;
+        if (other.getAttachMissingPermission() != null && other.getAttachMissingPermission().equals(this.getAttachMissingPermission()) == false)
             return false;
         return true;
     }
@@ -237,7 +699,13 @@ public class CreateApplicationRequest extends com.amazonaws.AmazonWebServiceRequ
 
         hashCode = prime * hashCode + ((getResourceGroupName() == null) ? 0 : getResourceGroupName().hashCode());
         hashCode = prime * hashCode + ((getOpsCenterEnabled() == null) ? 0 : getOpsCenterEnabled().hashCode());
+        hashCode = prime * hashCode + ((getCWEMonitorEnabled() == null) ? 0 : getCWEMonitorEnabled().hashCode());
         hashCode = prime * hashCode + ((getOpsItemSNSTopicArn() == null) ? 0 : getOpsItemSNSTopicArn().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getAutoConfigEnabled() == null) ? 0 : getAutoConfigEnabled().hashCode());
+        hashCode = prime * hashCode + ((getAutoCreate() == null) ? 0 : getAutoCreate().hashCode());
+        hashCode = prime * hashCode + ((getGroupingType() == null) ? 0 : getGroupingType().hashCode());
+        hashCode = prime * hashCode + ((getAttachMissingPermission() == null) ? 0 : getAttachMissingPermission().hashCode());
         return hashCode;
     }
 

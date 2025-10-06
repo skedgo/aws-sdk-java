@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,8 @@ public class UpdateReservationRequestMarshaller {
 
     private static final MarshallingInfo<String> NAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("name").build();
+    private static final MarshallingInfo<StructuredPojo> RENEWALSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("renewalSettings").build();
     private static final MarshallingInfo<String> RESERVATIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PATH).marshallLocationName("reservationId").build();
 
@@ -49,6 +51,7 @@ public class UpdateReservationRequestMarshaller {
 
         try {
             protocolMarshaller.marshall(updateReservationRequest.getName(), NAME_BINDING);
+            protocolMarshaller.marshall(updateReservationRequest.getRenewalSettings(), RENEWALSETTINGS_BINDING);
             protocolMarshaller.marshall(updateReservationRequest.getReservationId(), RESERVATIONID_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

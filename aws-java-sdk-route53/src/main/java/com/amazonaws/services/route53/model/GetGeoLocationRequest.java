@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,7 +31,8 @@ public class GetGeoLocationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Amazon Route 53 supports the following continent codes:
+     * For geolocation resource record sets, a two-letter abbreviation that identifies a continent. Amazon Route 53
+     * supports the following continent codes:
      * </p>
      * <ul>
      * <li>
@@ -77,21 +78,27 @@ public class GetGeoLocationRequest extends com.amazonaws.AmazonWebServiceRequest
      * Amazon Route 53 uses the two-letter country codes that are specified in <a
      * href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.
      * </p>
+     * <p>
+     * Route 53 also supports the country code <b>UA</b> for Ukraine.
+     * </p>
      */
     private String countryCode;
     /**
      * <p>
-     * Amazon Route 53 uses the one- to three-letter subdivision codes that are specified in <a
-     * href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>. Route 53 doesn't support
-     * subdivision codes for all countries. If you specify <code>subdivisioncode</code>, you must also specify
-     * <code>countrycode</code>.
+     * The code for the subdivision, such as a particular state within the United States. For a list of US state
+     * abbreviations, see <a href="https://pe.usps.com/text/pub28/28apb.htm">Appendix B: Two–Letter State and Possession
+     * Abbreviations</a> on the United States Postal Service website. For a list of all supported subdivision codes, use
+     * the <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html">ListGeoLocations</a>
+     * API.
      * </p>
      */
     private String subdivisionCode;
 
     /**
      * <p>
-     * Amazon Route 53 supports the following continent codes:
+     * For geolocation resource record sets, a two-letter abbreviation that identifies a continent. Amazon Route 53
+     * supports the following continent codes:
      * </p>
      * <ul>
      * <li>
@@ -132,7 +139,8 @@ public class GetGeoLocationRequest extends com.amazonaws.AmazonWebServiceRequest
      * </ul>
      * 
      * @param continentCode
-     *        Amazon Route 53 supports the following continent codes:</p>
+     *        For geolocation resource record sets, a two-letter abbreviation that identifies a continent. Amazon Route
+     *        53 supports the following continent codes:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -177,7 +185,8 @@ public class GetGeoLocationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Amazon Route 53 supports the following continent codes:
+     * For geolocation resource record sets, a two-letter abbreviation that identifies a continent. Amazon Route 53
+     * supports the following continent codes:
      * </p>
      * <ul>
      * <li>
@@ -217,7 +226,8 @@ public class GetGeoLocationRequest extends com.amazonaws.AmazonWebServiceRequest
      * </li>
      * </ul>
      * 
-     * @return Amazon Route 53 supports the following continent codes:</p>
+     * @return For geolocation resource record sets, a two-letter abbreviation that identifies a continent. Amazon Route
+     *         53 supports the following continent codes:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -262,7 +272,8 @@ public class GetGeoLocationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Amazon Route 53 supports the following continent codes:
+     * For geolocation resource record sets, a two-letter abbreviation that identifies a continent. Amazon Route 53
+     * supports the following continent codes:
      * </p>
      * <ul>
      * <li>
@@ -303,7 +314,8 @@ public class GetGeoLocationRequest extends com.amazonaws.AmazonWebServiceRequest
      * </ul>
      * 
      * @param continentCode
-     *        Amazon Route 53 supports the following continent codes:</p>
+     *        For geolocation resource record sets, a two-letter abbreviation that identifies a continent. Amazon Route
+     *        53 supports the following continent codes:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -353,10 +365,15 @@ public class GetGeoLocationRequest extends com.amazonaws.AmazonWebServiceRequest
      * Amazon Route 53 uses the two-letter country codes that are specified in <a
      * href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.
      * </p>
+     * <p>
+     * Route 53 also supports the country code <b>UA</b> for Ukraine.
+     * </p>
      * 
      * @param countryCode
      *        Amazon Route 53 uses the two-letter country codes that are specified in <a
-     *        href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.
+     *        href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.</p>
+     *        <p>
+     *        Route 53 also supports the country code <b>UA</b> for Ukraine.
      */
 
     public void setCountryCode(String countryCode) {
@@ -368,9 +385,14 @@ public class GetGeoLocationRequest extends com.amazonaws.AmazonWebServiceRequest
      * Amazon Route 53 uses the two-letter country codes that are specified in <a
      * href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.
      * </p>
+     * <p>
+     * Route 53 also supports the country code <b>UA</b> for Ukraine.
+     * </p>
      * 
      * @return Amazon Route 53 uses the two-letter country codes that are specified in <a
-     *         href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.
+     *         href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.</p>
+     *         <p>
+     *         Route 53 also supports the country code <b>UA</b> for Ukraine.
      */
 
     public String getCountryCode() {
@@ -382,10 +404,15 @@ public class GetGeoLocationRequest extends com.amazonaws.AmazonWebServiceRequest
      * Amazon Route 53 uses the two-letter country codes that are specified in <a
      * href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.
      * </p>
+     * <p>
+     * Route 53 also supports the country code <b>UA</b> for Ukraine.
+     * </p>
      * 
      * @param countryCode
      *        Amazon Route 53 uses the two-letter country codes that are specified in <a
-     *        href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.
+     *        href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>.</p>
+     *        <p>
+     *        Route 53 also supports the country code <b>UA</b> for Ukraine.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -396,17 +423,21 @@ public class GetGeoLocationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Amazon Route 53 uses the one- to three-letter subdivision codes that are specified in <a
-     * href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>. Route 53 doesn't support
-     * subdivision codes for all countries. If you specify <code>subdivisioncode</code>, you must also specify
-     * <code>countrycode</code>.
+     * The code for the subdivision, such as a particular state within the United States. For a list of US state
+     * abbreviations, see <a href="https://pe.usps.com/text/pub28/28apb.htm">Appendix B: Two–Letter State and Possession
+     * Abbreviations</a> on the United States Postal Service website. For a list of all supported subdivision codes, use
+     * the <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html">ListGeoLocations</a>
+     * API.
      * </p>
      * 
      * @param subdivisionCode
-     *        Amazon Route 53 uses the one- to three-letter subdivision codes that are specified in <a
-     *        href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>. Route 53 doesn't
-     *        support subdivision codes for all countries. If you specify <code>subdivisioncode</code>, you must also
-     *        specify <code>countrycode</code>.
+     *        The code for the subdivision, such as a particular state within the United States. For a list of US state
+     *        abbreviations, see <a href="https://pe.usps.com/text/pub28/28apb.htm">Appendix B: Two–Letter State and
+     *        Possession Abbreviations</a> on the United States Postal Service website. For a list of all supported
+     *        subdivision codes, use the <a
+     *        href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html"
+     *        >ListGeoLocations</a> API.
      */
 
     public void setSubdivisionCode(String subdivisionCode) {
@@ -415,16 +446,20 @@ public class GetGeoLocationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Amazon Route 53 uses the one- to three-letter subdivision codes that are specified in <a
-     * href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>. Route 53 doesn't support
-     * subdivision codes for all countries. If you specify <code>subdivisioncode</code>, you must also specify
-     * <code>countrycode</code>.
+     * The code for the subdivision, such as a particular state within the United States. For a list of US state
+     * abbreviations, see <a href="https://pe.usps.com/text/pub28/28apb.htm">Appendix B: Two–Letter State and Possession
+     * Abbreviations</a> on the United States Postal Service website. For a list of all supported subdivision codes, use
+     * the <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html">ListGeoLocations</a>
+     * API.
      * </p>
      * 
-     * @return Amazon Route 53 uses the one- to three-letter subdivision codes that are specified in <a
-     *         href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>. Route 53 doesn't
-     *         support subdivision codes for all countries. If you specify <code>subdivisioncode</code>, you must also
-     *         specify <code>countrycode</code>.
+     * @return The code for the subdivision, such as a particular state within the United States. For a list of US state
+     *         abbreviations, see <a href="https://pe.usps.com/text/pub28/28apb.htm">Appendix B: Two–Letter State and
+     *         Possession Abbreviations</a> on the United States Postal Service website. For a list of all supported
+     *         subdivision codes, use the <a
+     *         href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html"
+     *         >ListGeoLocations</a> API.
      */
 
     public String getSubdivisionCode() {
@@ -433,17 +468,21 @@ public class GetGeoLocationRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Amazon Route 53 uses the one- to three-letter subdivision codes that are specified in <a
-     * href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>. Route 53 doesn't support
-     * subdivision codes for all countries. If you specify <code>subdivisioncode</code>, you must also specify
-     * <code>countrycode</code>.
+     * The code for the subdivision, such as a particular state within the United States. For a list of US state
+     * abbreviations, see <a href="https://pe.usps.com/text/pub28/28apb.htm">Appendix B: Two–Letter State and Possession
+     * Abbreviations</a> on the United States Postal Service website. For a list of all supported subdivision codes, use
+     * the <a
+     * href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html">ListGeoLocations</a>
+     * API.
      * </p>
      * 
      * @param subdivisionCode
-     *        Amazon Route 53 uses the one- to three-letter subdivision codes that are specified in <a
-     *        href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a>. Route 53 doesn't
-     *        support subdivision codes for all countries. If you specify <code>subdivisioncode</code>, you must also
-     *        specify <code>countrycode</code>.
+     *        The code for the subdivision, such as a particular state within the United States. For a list of US state
+     *        abbreviations, see <a href="https://pe.usps.com/text/pub28/28apb.htm">Appendix B: Two–Letter State and
+     *        Possession Abbreviations</a> on the United States Postal Service website. For a list of all supported
+     *        subdivision codes, use the <a
+     *        href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html"
+     *        >ListGeoLocations</a> API.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

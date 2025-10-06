@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,27 +19,34 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes an action that writes data to an Amazon Elasticsearch Service domain.
+ * Describes an action that writes data to an Amazon OpenSearch Service domain.
  * </p>
+ * <note>
+ * <p>
+ * The <code>Elasticsearch</code> action can only be used by existing rule actions. To create a new rule action or to
+ * update an existing rule action, use the <code>OpenSearch</code> rule action instead. For more information, see <a
+ * href="https://docs.aws.amazon.com/iot/latest/apireference/API_OpenSearchAction.html">OpenSearchAction</a>.
+ * </p>
+ * </note>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class ElasticsearchAction implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The IAM role ARN that has access to Elasticsearch.
+     * The IAM role ARN that has access to OpenSearch.
      * </p>
      */
     private String roleArn;
     /**
      * <p>
-     * The endpoint of your Elasticsearch domain.
+     * The endpoint of your OpenSearch domain.
      * </p>
      */
     private String endpoint;
     /**
      * <p>
-     * The Elasticsearch index where you want to store your data.
+     * The index where you want to store your data.
      * </p>
      */
     private String index;
@@ -58,11 +65,11 @@ public class ElasticsearchAction implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The IAM role ARN that has access to Elasticsearch.
+     * The IAM role ARN that has access to OpenSearch.
      * </p>
      * 
      * @param roleArn
-     *        The IAM role ARN that has access to Elasticsearch.
+     *        The IAM role ARN that has access to OpenSearch.
      */
 
     public void setRoleArn(String roleArn) {
@@ -71,10 +78,10 @@ public class ElasticsearchAction implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The IAM role ARN that has access to Elasticsearch.
+     * The IAM role ARN that has access to OpenSearch.
      * </p>
      * 
-     * @return The IAM role ARN that has access to Elasticsearch.
+     * @return The IAM role ARN that has access to OpenSearch.
      */
 
     public String getRoleArn() {
@@ -83,11 +90,11 @@ public class ElasticsearchAction implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The IAM role ARN that has access to Elasticsearch.
+     * The IAM role ARN that has access to OpenSearch.
      * </p>
      * 
      * @param roleArn
-     *        The IAM role ARN that has access to Elasticsearch.
+     *        The IAM role ARN that has access to OpenSearch.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -98,11 +105,11 @@ public class ElasticsearchAction implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The endpoint of your Elasticsearch domain.
+     * The endpoint of your OpenSearch domain.
      * </p>
      * 
      * @param endpoint
-     *        The endpoint of your Elasticsearch domain.
+     *        The endpoint of your OpenSearch domain.
      */
 
     public void setEndpoint(String endpoint) {
@@ -111,10 +118,10 @@ public class ElasticsearchAction implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The endpoint of your Elasticsearch domain.
+     * The endpoint of your OpenSearch domain.
      * </p>
      * 
-     * @return The endpoint of your Elasticsearch domain.
+     * @return The endpoint of your OpenSearch domain.
      */
 
     public String getEndpoint() {
@@ -123,11 +130,11 @@ public class ElasticsearchAction implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The endpoint of your Elasticsearch domain.
+     * The endpoint of your OpenSearch domain.
      * </p>
      * 
      * @param endpoint
-     *        The endpoint of your Elasticsearch domain.
+     *        The endpoint of your OpenSearch domain.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -138,11 +145,11 @@ public class ElasticsearchAction implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Elasticsearch index where you want to store your data.
+     * The index where you want to store your data.
      * </p>
      * 
      * @param index
-     *        The Elasticsearch index where you want to store your data.
+     *        The index where you want to store your data.
      */
 
     public void setIndex(String index) {
@@ -151,10 +158,10 @@ public class ElasticsearchAction implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Elasticsearch index where you want to store your data.
+     * The index where you want to store your data.
      * </p>
      * 
-     * @return The Elasticsearch index where you want to store your data.
+     * @return The index where you want to store your data.
      */
 
     public String getIndex() {
@@ -163,11 +170,11 @@ public class ElasticsearchAction implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * The Elasticsearch index where you want to store your data.
+     * The index where you want to store your data.
      * </p>
      * 
      * @param index
-     *        The Elasticsearch index where you want to store your data.
+     *        The index where you want to store your data.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

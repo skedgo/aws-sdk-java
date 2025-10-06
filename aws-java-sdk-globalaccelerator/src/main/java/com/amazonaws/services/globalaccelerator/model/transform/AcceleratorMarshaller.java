@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,12 +38,18 @@ public class AcceleratorMarshaller {
             .marshallLocationName("Enabled").build();
     private static final MarshallingInfo<List> IPSETS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("IpSets").build();
+    private static final MarshallingInfo<String> DNSNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("DnsName").build();
     private static final MarshallingInfo<String> STATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Status").build();
     private static final MarshallingInfo<java.util.Date> CREATEDTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CreatedTime").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<java.util.Date> LASTMODIFIEDTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastModifiedTime").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<String> DUALSTACKDNSNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DualStackDnsName").build();
+    private static final MarshallingInfo<List> EVENTS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Events").build();
 
     private static final AcceleratorMarshaller instance = new AcceleratorMarshaller();
 
@@ -66,9 +72,12 @@ public class AcceleratorMarshaller {
             protocolMarshaller.marshall(accelerator.getIpAddressType(), IPADDRESSTYPE_BINDING);
             protocolMarshaller.marshall(accelerator.getEnabled(), ENABLED_BINDING);
             protocolMarshaller.marshall(accelerator.getIpSets(), IPSETS_BINDING);
+            protocolMarshaller.marshall(accelerator.getDnsName(), DNSNAME_BINDING);
             protocolMarshaller.marshall(accelerator.getStatus(), STATUS_BINDING);
             protocolMarshaller.marshall(accelerator.getCreatedTime(), CREATEDTIME_BINDING);
             protocolMarshaller.marshall(accelerator.getLastModifiedTime(), LASTMODIFIEDTIME_BINDING);
+            protocolMarshaller.marshall(accelerator.getDualStackDnsName(), DUALSTACKDNSNAME_BINDING);
+            protocolMarshaller.marshall(accelerator.getEvents(), EVENTS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

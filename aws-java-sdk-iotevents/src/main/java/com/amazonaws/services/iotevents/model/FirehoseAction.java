@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Sends information about the detector model instance and the event which triggered the action to a Kinesis Data
- * Firehose stream.
+ * Sends information about the detector model instance and the event that triggered the action to an Amazon Kinesis Data
+ * Firehose delivery stream.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iotevents-2018-07-27/FirehoseAction" target="_top">AWS API
@@ -31,25 +31,31 @@ public class FirehoseAction implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the Kinesis Data Firehose stream where the data is written.
+     * The name of the Kinesis Data Firehose delivery stream where the data is written.
      * </p>
      */
     private String deliveryStreamName;
     /**
      * <p>
-     * A character separator that is used to separate records written to the Kinesis Data Firehose stream. Valid values
-     * are: '\n' (newline), '\t' (tab), '\r\n' (Windows newline), ',' (comma).
+     * A character separator that is used to separate records written to the Kinesis Data Firehose delivery stream.
+     * Valid values are: '\n' (newline), '\t' (tab), '\r\n' (Windows newline), ',' (comma).
      * </p>
      */
     private String separator;
+    /**
+     * <p>
+     * You can configure the action payload when you send a message to an Amazon Kinesis Data Firehose delivery stream.
+     * </p>
+     */
+    private Payload payload;
 
     /**
      * <p>
-     * The name of the Kinesis Data Firehose stream where the data is written.
+     * The name of the Kinesis Data Firehose delivery stream where the data is written.
      * </p>
      * 
      * @param deliveryStreamName
-     *        The name of the Kinesis Data Firehose stream where the data is written.
+     *        The name of the Kinesis Data Firehose delivery stream where the data is written.
      */
 
     public void setDeliveryStreamName(String deliveryStreamName) {
@@ -58,10 +64,10 @@ public class FirehoseAction implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the Kinesis Data Firehose stream where the data is written.
+     * The name of the Kinesis Data Firehose delivery stream where the data is written.
      * </p>
      * 
-     * @return The name of the Kinesis Data Firehose stream where the data is written.
+     * @return The name of the Kinesis Data Firehose delivery stream where the data is written.
      */
 
     public String getDeliveryStreamName() {
@@ -70,11 +76,11 @@ public class FirehoseAction implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the Kinesis Data Firehose stream where the data is written.
+     * The name of the Kinesis Data Firehose delivery stream where the data is written.
      * </p>
      * 
      * @param deliveryStreamName
-     *        The name of the Kinesis Data Firehose stream where the data is written.
+     *        The name of the Kinesis Data Firehose delivery stream where the data is written.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -85,13 +91,13 @@ public class FirehoseAction implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A character separator that is used to separate records written to the Kinesis Data Firehose stream. Valid values
-     * are: '\n' (newline), '\t' (tab), '\r\n' (Windows newline), ',' (comma).
+     * A character separator that is used to separate records written to the Kinesis Data Firehose delivery stream.
+     * Valid values are: '\n' (newline), '\t' (tab), '\r\n' (Windows newline), ',' (comma).
      * </p>
      * 
      * @param separator
-     *        A character separator that is used to separate records written to the Kinesis Data Firehose stream. Valid
-     *        values are: '\n' (newline), '\t' (tab), '\r\n' (Windows newline), ',' (comma).
+     *        A character separator that is used to separate records written to the Kinesis Data Firehose delivery
+     *        stream. Valid values are: '\n' (newline), '\t' (tab), '\r\n' (Windows newline), ',' (comma).
      */
 
     public void setSeparator(String separator) {
@@ -100,12 +106,12 @@ public class FirehoseAction implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A character separator that is used to separate records written to the Kinesis Data Firehose stream. Valid values
-     * are: '\n' (newline), '\t' (tab), '\r\n' (Windows newline), ',' (comma).
+     * A character separator that is used to separate records written to the Kinesis Data Firehose delivery stream.
+     * Valid values are: '\n' (newline), '\t' (tab), '\r\n' (Windows newline), ',' (comma).
      * </p>
      * 
-     * @return A character separator that is used to separate records written to the Kinesis Data Firehose stream. Valid
-     *         values are: '\n' (newline), '\t' (tab), '\r\n' (Windows newline), ',' (comma).
+     * @return A character separator that is used to separate records written to the Kinesis Data Firehose delivery
+     *         stream. Valid values are: '\n' (newline), '\t' (tab), '\r\n' (Windows newline), ',' (comma).
      */
 
     public String getSeparator() {
@@ -114,18 +120,61 @@ public class FirehoseAction implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * A character separator that is used to separate records written to the Kinesis Data Firehose stream. Valid values
-     * are: '\n' (newline), '\t' (tab), '\r\n' (Windows newline), ',' (comma).
+     * A character separator that is used to separate records written to the Kinesis Data Firehose delivery stream.
+     * Valid values are: '\n' (newline), '\t' (tab), '\r\n' (Windows newline), ',' (comma).
      * </p>
      * 
      * @param separator
-     *        A character separator that is used to separate records written to the Kinesis Data Firehose stream. Valid
-     *        values are: '\n' (newline), '\t' (tab), '\r\n' (Windows newline), ',' (comma).
+     *        A character separator that is used to separate records written to the Kinesis Data Firehose delivery
+     *        stream. Valid values are: '\n' (newline), '\t' (tab), '\r\n' (Windows newline), ',' (comma).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public FirehoseAction withSeparator(String separator) {
         setSeparator(separator);
+        return this;
+    }
+
+    /**
+     * <p>
+     * You can configure the action payload when you send a message to an Amazon Kinesis Data Firehose delivery stream.
+     * </p>
+     * 
+     * @param payload
+     *        You can configure the action payload when you send a message to an Amazon Kinesis Data Firehose delivery
+     *        stream.
+     */
+
+    public void setPayload(Payload payload) {
+        this.payload = payload;
+    }
+
+    /**
+     * <p>
+     * You can configure the action payload when you send a message to an Amazon Kinesis Data Firehose delivery stream.
+     * </p>
+     * 
+     * @return You can configure the action payload when you send a message to an Amazon Kinesis Data Firehose delivery
+     *         stream.
+     */
+
+    public Payload getPayload() {
+        return this.payload;
+    }
+
+    /**
+     * <p>
+     * You can configure the action payload when you send a message to an Amazon Kinesis Data Firehose delivery stream.
+     * </p>
+     * 
+     * @param payload
+     *        You can configure the action payload when you send a message to an Amazon Kinesis Data Firehose delivery
+     *        stream.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public FirehoseAction withPayload(Payload payload) {
+        setPayload(payload);
         return this;
     }
 
@@ -144,7 +193,9 @@ public class FirehoseAction implements Serializable, Cloneable, StructuredPojo {
         if (getDeliveryStreamName() != null)
             sb.append("DeliveryStreamName: ").append(getDeliveryStreamName()).append(",");
         if (getSeparator() != null)
-            sb.append("Separator: ").append(getSeparator());
+            sb.append("Separator: ").append(getSeparator()).append(",");
+        if (getPayload() != null)
+            sb.append("Payload: ").append(getPayload());
         sb.append("}");
         return sb.toString();
     }
@@ -167,6 +218,10 @@ public class FirehoseAction implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getSeparator() != null && other.getSeparator().equals(this.getSeparator()) == false)
             return false;
+        if (other.getPayload() == null ^ this.getPayload() == null)
+            return false;
+        if (other.getPayload() != null && other.getPayload().equals(this.getPayload()) == false)
+            return false;
         return true;
     }
 
@@ -177,6 +232,7 @@ public class FirehoseAction implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getDeliveryStreamName() == null) ? 0 : getDeliveryStreamName().hashCode());
         hashCode = prime * hashCode + ((getSeparator() == null) ? 0 : getSeparator().hashCode());
+        hashCode = prime * hashCode + ((getPayload() == null) ? 0 : getPayload().hashCode());
         return hashCode;
     }
 

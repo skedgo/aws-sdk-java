@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,12 +17,10 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes a launch template and the launch template version.
- * </p>
- * <p>
- * The launch template that is specified must be configured for use with an Auto Scaling group. For more information,
- * see <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/create-launch-template.html">Creating a Launch
- * Template for an Auto Scaling Group</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+ * Describes the launch template and the version of the launch template that Amazon EC2 Auto Scaling uses to launch
+ * Amazon EC2 instances. For more information about launch templates, see <a
+ * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/launch-templates.html">Launch templates</a> in the
+ * <i>Amazon EC2 Auto Scaling User Guide</i>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/LaunchTemplateSpecification"
@@ -33,33 +31,64 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the launch template. You must specify either a template ID or a template name.
+     * The ID of the launch template. To get the template ID, use the Amazon EC2 <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplates.html"
+     * >DescribeLaunchTemplates</a> API operation. New launch templates can be created using the Amazon EC2 <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html"
+     * >CreateLaunchTemplate</a> API.
+     * </p>
+     * <p>
+     * Conditional: You must specify either a <code>LaunchTemplateId</code> or a <code>LaunchTemplateName</code>.
      * </p>
      */
     private String launchTemplateId;
     /**
      * <p>
-     * The name of the launch template. You must specify either a template name or a template ID.
+     * The name of the launch template. To get the template name, use the Amazon EC2 <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplates.html"
+     * >DescribeLaunchTemplates</a> API operation. New launch templates can be created using the Amazon EC2 <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html"
+     * >CreateLaunchTemplate</a> API.
+     * </p>
+     * <p>
+     * Conditional: You must specify either a <code>LaunchTemplateId</code> or a <code>LaunchTemplateName</code>.
      * </p>
      */
     private String launchTemplateName;
     /**
      * <p>
-     * The version number, <code>$Latest</code>, or <code>$Default</code>. If the value is <code>$Latest</code>, Amazon
-     * EC2 Auto Scaling selects the latest version of the launch template when launching instances. If the value is
-     * <code>$Default</code>, Amazon EC2 Auto Scaling selects the default version of the launch template when launching
-     * instances. The default value is <code>$Default</code>.
+     * The version number, <code>$Latest</code>, or <code>$Default</code>. To get the version number, use the Amazon EC2
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplateVersions.html">
+     * DescribeLaunchTemplateVersions</a> API operation. New launch template versions can be created using the Amazon
+     * EC2 <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplateVersion.html">
+     * CreateLaunchTemplateVersion</a> API. If the value is <code>$Latest</code>, Amazon EC2 Auto Scaling selects the
+     * latest version of the launch template when launching instances. If the value is <code>$Default</code>, Amazon EC2
+     * Auto Scaling selects the default version of the launch template when launching instances. The default value is
+     * <code>$Default</code>.
      * </p>
      */
     private String version;
 
     /**
      * <p>
-     * The ID of the launch template. You must specify either a template ID or a template name.
+     * The ID of the launch template. To get the template ID, use the Amazon EC2 <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplates.html"
+     * >DescribeLaunchTemplates</a> API operation. New launch templates can be created using the Amazon EC2 <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html"
+     * >CreateLaunchTemplate</a> API.
+     * </p>
+     * <p>
+     * Conditional: You must specify either a <code>LaunchTemplateId</code> or a <code>LaunchTemplateName</code>.
      * </p>
      * 
      * @param launchTemplateId
-     *        The ID of the launch template. You must specify either a template ID or a template name.
+     *        The ID of the launch template. To get the template ID, use the Amazon EC2 <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplates.html"
+     *        >DescribeLaunchTemplates</a> API operation. New launch templates can be created using the Amazon EC2 <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html">
+     *        CreateLaunchTemplate</a> API. </p>
+     *        <p>
+     *        Conditional: You must specify either a <code>LaunchTemplateId</code> or a <code>LaunchTemplateName</code>.
      */
 
     public void setLaunchTemplateId(String launchTemplateId) {
@@ -68,10 +97,23 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the launch template. You must specify either a template ID or a template name.
+     * The ID of the launch template. To get the template ID, use the Amazon EC2 <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplates.html"
+     * >DescribeLaunchTemplates</a> API operation. New launch templates can be created using the Amazon EC2 <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html"
+     * >CreateLaunchTemplate</a> API.
+     * </p>
+     * <p>
+     * Conditional: You must specify either a <code>LaunchTemplateId</code> or a <code>LaunchTemplateName</code>.
      * </p>
      * 
-     * @return The ID of the launch template. You must specify either a template ID or a template name.
+     * @return The ID of the launch template. To get the template ID, use the Amazon EC2 <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplates.html"
+     *         >DescribeLaunchTemplates</a> API operation. New launch templates can be created using the Amazon EC2 <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html">
+     *         CreateLaunchTemplate</a> API. </p>
+     *         <p>
+     *         Conditional: You must specify either a <code>LaunchTemplateId</code> or a <code>LaunchTemplateName</code>.
      */
 
     public String getLaunchTemplateId() {
@@ -80,11 +122,24 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the launch template. You must specify either a template ID or a template name.
+     * The ID of the launch template. To get the template ID, use the Amazon EC2 <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplates.html"
+     * >DescribeLaunchTemplates</a> API operation. New launch templates can be created using the Amazon EC2 <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html"
+     * >CreateLaunchTemplate</a> API.
+     * </p>
+     * <p>
+     * Conditional: You must specify either a <code>LaunchTemplateId</code> or a <code>LaunchTemplateName</code>.
      * </p>
      * 
      * @param launchTemplateId
-     *        The ID of the launch template. You must specify either a template ID or a template name.
+     *        The ID of the launch template. To get the template ID, use the Amazon EC2 <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplates.html"
+     *        >DescribeLaunchTemplates</a> API operation. New launch templates can be created using the Amazon EC2 <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html">
+     *        CreateLaunchTemplate</a> API. </p>
+     *        <p>
+     *        Conditional: You must specify either a <code>LaunchTemplateId</code> or a <code>LaunchTemplateName</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -95,11 +150,24 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the launch template. You must specify either a template name or a template ID.
+     * The name of the launch template. To get the template name, use the Amazon EC2 <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplates.html"
+     * >DescribeLaunchTemplates</a> API operation. New launch templates can be created using the Amazon EC2 <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html"
+     * >CreateLaunchTemplate</a> API.
+     * </p>
+     * <p>
+     * Conditional: You must specify either a <code>LaunchTemplateId</code> or a <code>LaunchTemplateName</code>.
      * </p>
      * 
      * @param launchTemplateName
-     *        The name of the launch template. You must specify either a template name or a template ID.
+     *        The name of the launch template. To get the template name, use the Amazon EC2 <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplates.html"
+     *        >DescribeLaunchTemplates</a> API operation. New launch templates can be created using the Amazon EC2 <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html">
+     *        CreateLaunchTemplate</a> API. </p>
+     *        <p>
+     *        Conditional: You must specify either a <code>LaunchTemplateId</code> or a <code>LaunchTemplateName</code>.
      */
 
     public void setLaunchTemplateName(String launchTemplateName) {
@@ -108,10 +176,23 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the launch template. You must specify either a template name or a template ID.
+     * The name of the launch template. To get the template name, use the Amazon EC2 <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplates.html"
+     * >DescribeLaunchTemplates</a> API operation. New launch templates can be created using the Amazon EC2 <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html"
+     * >CreateLaunchTemplate</a> API.
+     * </p>
+     * <p>
+     * Conditional: You must specify either a <code>LaunchTemplateId</code> or a <code>LaunchTemplateName</code>.
      * </p>
      * 
-     * @return The name of the launch template. You must specify either a template name or a template ID.
+     * @return The name of the launch template. To get the template name, use the Amazon EC2 <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplates.html"
+     *         >DescribeLaunchTemplates</a> API operation. New launch templates can be created using the Amazon EC2 <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html">
+     *         CreateLaunchTemplate</a> API. </p>
+     *         <p>
+     *         Conditional: You must specify either a <code>LaunchTemplateId</code> or a <code>LaunchTemplateName</code>.
      */
 
     public String getLaunchTemplateName() {
@@ -120,11 +201,24 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the launch template. You must specify either a template name or a template ID.
+     * The name of the launch template. To get the template name, use the Amazon EC2 <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplates.html"
+     * >DescribeLaunchTemplates</a> API operation. New launch templates can be created using the Amazon EC2 <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html"
+     * >CreateLaunchTemplate</a> API.
+     * </p>
+     * <p>
+     * Conditional: You must specify either a <code>LaunchTemplateId</code> or a <code>LaunchTemplateName</code>.
      * </p>
      * 
      * @param launchTemplateName
-     *        The name of the launch template. You must specify either a template name or a template ID.
+     *        The name of the launch template. To get the template name, use the Amazon EC2 <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplates.html"
+     *        >DescribeLaunchTemplates</a> API operation. New launch templates can be created using the Amazon EC2 <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplate.html">
+     *        CreateLaunchTemplate</a> API. </p>
+     *        <p>
+     *        Conditional: You must specify either a <code>LaunchTemplateId</code> or a <code>LaunchTemplateName</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -135,17 +229,27 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The version number, <code>$Latest</code>, or <code>$Default</code>. If the value is <code>$Latest</code>, Amazon
-     * EC2 Auto Scaling selects the latest version of the launch template when launching instances. If the value is
-     * <code>$Default</code>, Amazon EC2 Auto Scaling selects the default version of the launch template when launching
-     * instances. The default value is <code>$Default</code>.
+     * The version number, <code>$Latest</code>, or <code>$Default</code>. To get the version number, use the Amazon EC2
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplateVersions.html">
+     * DescribeLaunchTemplateVersions</a> API operation. New launch template versions can be created using the Amazon
+     * EC2 <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplateVersion.html">
+     * CreateLaunchTemplateVersion</a> API. If the value is <code>$Latest</code>, Amazon EC2 Auto Scaling selects the
+     * latest version of the launch template when launching instances. If the value is <code>$Default</code>, Amazon EC2
+     * Auto Scaling selects the default version of the launch template when launching instances. The default value is
+     * <code>$Default</code>.
      * </p>
      * 
      * @param version
-     *        The version number, <code>$Latest</code>, or <code>$Default</code>. If the value is <code>$Latest</code>,
-     *        Amazon EC2 Auto Scaling selects the latest version of the launch template when launching instances. If the
-     *        value is <code>$Default</code>, Amazon EC2 Auto Scaling selects the default version of the launch template
-     *        when launching instances. The default value is <code>$Default</code>.
+     *        The version number, <code>$Latest</code>, or <code>$Default</code>. To get the version number, use the
+     *        Amazon EC2 <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplateVersions.html"
+     *        >DescribeLaunchTemplateVersions</a> API operation. New launch template versions can be created using the
+     *        Amazon EC2 <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplateVersion.html"
+     *        >CreateLaunchTemplateVersion</a> API. If the value is <code>$Latest</code>, Amazon EC2 Auto Scaling
+     *        selects the latest version of the launch template when launching instances. If the value is
+     *        <code>$Default</code>, Amazon EC2 Auto Scaling selects the default version of the launch template when
+     *        launching instances. The default value is <code>$Default</code>.
      */
 
     public void setVersion(String version) {
@@ -154,16 +258,26 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The version number, <code>$Latest</code>, or <code>$Default</code>. If the value is <code>$Latest</code>, Amazon
-     * EC2 Auto Scaling selects the latest version of the launch template when launching instances. If the value is
-     * <code>$Default</code>, Amazon EC2 Auto Scaling selects the default version of the launch template when launching
-     * instances. The default value is <code>$Default</code>.
+     * The version number, <code>$Latest</code>, or <code>$Default</code>. To get the version number, use the Amazon EC2
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplateVersions.html">
+     * DescribeLaunchTemplateVersions</a> API operation. New launch template versions can be created using the Amazon
+     * EC2 <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplateVersion.html">
+     * CreateLaunchTemplateVersion</a> API. If the value is <code>$Latest</code>, Amazon EC2 Auto Scaling selects the
+     * latest version of the launch template when launching instances. If the value is <code>$Default</code>, Amazon EC2
+     * Auto Scaling selects the default version of the launch template when launching instances. The default value is
+     * <code>$Default</code>.
      * </p>
      * 
-     * @return The version number, <code>$Latest</code>, or <code>$Default</code>. If the value is <code>$Latest</code>,
-     *         Amazon EC2 Auto Scaling selects the latest version of the launch template when launching instances. If
-     *         the value is <code>$Default</code>, Amazon EC2 Auto Scaling selects the default version of the launch
-     *         template when launching instances. The default value is <code>$Default</code>.
+     * @return The version number, <code>$Latest</code>, or <code>$Default</code>. To get the version number, use the
+     *         Amazon EC2 <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplateVersions.html"
+     *         >DescribeLaunchTemplateVersions</a> API operation. New launch template versions can be created using the
+     *         Amazon EC2 <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplateVersion.html"
+     *         >CreateLaunchTemplateVersion</a> API. If the value is <code>$Latest</code>, Amazon EC2 Auto Scaling
+     *         selects the latest version of the launch template when launching instances. If the value is
+     *         <code>$Default</code>, Amazon EC2 Auto Scaling selects the default version of the launch template when
+     *         launching instances. The default value is <code>$Default</code>.
      */
 
     public String getVersion() {
@@ -172,17 +286,27 @@ public class LaunchTemplateSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The version number, <code>$Latest</code>, or <code>$Default</code>. If the value is <code>$Latest</code>, Amazon
-     * EC2 Auto Scaling selects the latest version of the launch template when launching instances. If the value is
-     * <code>$Default</code>, Amazon EC2 Auto Scaling selects the default version of the launch template when launching
-     * instances. The default value is <code>$Default</code>.
+     * The version number, <code>$Latest</code>, or <code>$Default</code>. To get the version number, use the Amazon EC2
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplateVersions.html">
+     * DescribeLaunchTemplateVersions</a> API operation. New launch template versions can be created using the Amazon
+     * EC2 <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplateVersion.html">
+     * CreateLaunchTemplateVersion</a> API. If the value is <code>$Latest</code>, Amazon EC2 Auto Scaling selects the
+     * latest version of the launch template when launching instances. If the value is <code>$Default</code>, Amazon EC2
+     * Auto Scaling selects the default version of the launch template when launching instances. The default value is
+     * <code>$Default</code>.
      * </p>
      * 
      * @param version
-     *        The version number, <code>$Latest</code>, or <code>$Default</code>. If the value is <code>$Latest</code>,
-     *        Amazon EC2 Auto Scaling selects the latest version of the launch template when launching instances. If the
-     *        value is <code>$Default</code>, Amazon EC2 Auto Scaling selects the default version of the launch template
-     *        when launching instances. The default value is <code>$Default</code>.
+     *        The version number, <code>$Latest</code>, or <code>$Default</code>. To get the version number, use the
+     *        Amazon EC2 <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeLaunchTemplateVersions.html"
+     *        >DescribeLaunchTemplateVersions</a> API operation. New launch template versions can be created using the
+     *        Amazon EC2 <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateLaunchTemplateVersion.html"
+     *        >CreateLaunchTemplateVersion</a> API. If the value is <code>$Latest</code>, Amazon EC2 Auto Scaling
+     *        selects the latest version of the launch template when launching instances. If the value is
+     *        <code>$Default</code>, Amazon EC2 Auto Scaling selects the default version of the launch template when
+     *        launching instances. The default value is <code>$Default</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

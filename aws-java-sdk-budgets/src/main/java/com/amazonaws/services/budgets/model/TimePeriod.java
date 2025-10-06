@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The period of time that is covered by a budget. The period has a start date and an end date. The start date must come
+ * The period of time that's covered by a budget. The period has a start date and an end date. The start date must come
  * before the end date. There are no restrictions on the end date.
  * </p>
  */
@@ -28,12 +28,12 @@ public class TimePeriod implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The start date for a budget. If you created your budget and didn't specify a start date, AWS defaults to the
-     * start of your chosen time period (DAILY, MONTHLY, QUARTERLY, or ANNUALLY). For example, if you created your
-     * budget on January 24, 2018, chose <code>DAILY</code>, and didn't set a start date, AWS set your start date to
-     * <code>01/24/18 00:00 UTC</code>. If you chose <code>MONTHLY</code>, AWS set your start date to
-     * <code>01/01/18 00:00 UTC</code>. The defaults are the same for the AWS Billing and Cost Management console and
-     * the API.
+     * The start date for a budget. If you created your budget and didn't specify a start date, Amazon Web Services
+     * defaults to the start of your chosen time period (DAILY, MONTHLY, QUARTERLY, or ANNUALLY). For example, if you
+     * created your budget on January 24, 2018, chose <code>DAILY</code>, and didn't set a start date, Amazon Web
+     * Services set your start date to <code>01/24/18 00:00 UTC</code>. If you chose <code>MONTHLY</code>, Amazon Web
+     * Services set your start date to <code>01/01/18 00:00 UTC</code>. The defaults are the same for the Billing and
+     * Cost Management console and the API.
      * </p>
      * <p>
      * You can change your start date with the <code>UpdateBudget</code> operation.
@@ -42,37 +42,37 @@ public class TimePeriod implements Serializable, Cloneable, StructuredPojo {
     private java.util.Date start;
     /**
      * <p>
-     * The end date for a budget. If you didn't specify an end date, AWS set your end date to
-     * <code>06/15/87 00:00 UTC</code>. The defaults are the same for the AWS Billing and Cost Management console and
-     * the API.
+     * The end date for a budget. If you didn't specify an end date, Amazon Web Services set your end date to
+     * <code>06/15/87 00:00 UTC</code>. The defaults are the same for the Billing and Cost Management console and the
+     * API.
      * </p>
      * <p>
-     * After the end date, AWS deletes the budget and all associated notifications and subscribers. You can change your
-     * end date with the <code>UpdateBudget</code> operation.
+     * After the end date, Amazon Web Services deletes the budget and all the associated notifications and subscribers.
+     * You can change your end date with the <code>UpdateBudget</code> operation.
      * </p>
      */
     private java.util.Date end;
 
     /**
      * <p>
-     * The start date for a budget. If you created your budget and didn't specify a start date, AWS defaults to the
-     * start of your chosen time period (DAILY, MONTHLY, QUARTERLY, or ANNUALLY). For example, if you created your
-     * budget on January 24, 2018, chose <code>DAILY</code>, and didn't set a start date, AWS set your start date to
-     * <code>01/24/18 00:00 UTC</code>. If you chose <code>MONTHLY</code>, AWS set your start date to
-     * <code>01/01/18 00:00 UTC</code>. The defaults are the same for the AWS Billing and Cost Management console and
-     * the API.
+     * The start date for a budget. If you created your budget and didn't specify a start date, Amazon Web Services
+     * defaults to the start of your chosen time period (DAILY, MONTHLY, QUARTERLY, or ANNUALLY). For example, if you
+     * created your budget on January 24, 2018, chose <code>DAILY</code>, and didn't set a start date, Amazon Web
+     * Services set your start date to <code>01/24/18 00:00 UTC</code>. If you chose <code>MONTHLY</code>, Amazon Web
+     * Services set your start date to <code>01/01/18 00:00 UTC</code>. The defaults are the same for the Billing and
+     * Cost Management console and the API.
      * </p>
      * <p>
      * You can change your start date with the <code>UpdateBudget</code> operation.
      * </p>
      * 
      * @param start
-     *        The start date for a budget. If you created your budget and didn't specify a start date, AWS defaults to
-     *        the start of your chosen time period (DAILY, MONTHLY, QUARTERLY, or ANNUALLY). For example, if you created
-     *        your budget on January 24, 2018, chose <code>DAILY</code>, and didn't set a start date, AWS set your start
-     *        date to <code>01/24/18 00:00 UTC</code>. If you chose <code>MONTHLY</code>, AWS set your start date to
-     *        <code>01/01/18 00:00 UTC</code>. The defaults are the same for the AWS Billing and Cost Management console
-     *        and the API.</p>
+     *        The start date for a budget. If you created your budget and didn't specify a start date, Amazon Web
+     *        Services defaults to the start of your chosen time period (DAILY, MONTHLY, QUARTERLY, or ANNUALLY). For
+     *        example, if you created your budget on January 24, 2018, chose <code>DAILY</code>, and didn't set a start
+     *        date, Amazon Web Services set your start date to <code>01/24/18 00:00 UTC</code>. If you chose
+     *        <code>MONTHLY</code>, Amazon Web Services set your start date to <code>01/01/18 00:00 UTC</code>. The
+     *        defaults are the same for the Billing and Cost Management console and the API.</p>
      *        <p>
      *        You can change your start date with the <code>UpdateBudget</code> operation.
      */
@@ -83,23 +83,23 @@ public class TimePeriod implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The start date for a budget. If you created your budget and didn't specify a start date, AWS defaults to the
-     * start of your chosen time period (DAILY, MONTHLY, QUARTERLY, or ANNUALLY). For example, if you created your
-     * budget on January 24, 2018, chose <code>DAILY</code>, and didn't set a start date, AWS set your start date to
-     * <code>01/24/18 00:00 UTC</code>. If you chose <code>MONTHLY</code>, AWS set your start date to
-     * <code>01/01/18 00:00 UTC</code>. The defaults are the same for the AWS Billing and Cost Management console and
-     * the API.
+     * The start date for a budget. If you created your budget and didn't specify a start date, Amazon Web Services
+     * defaults to the start of your chosen time period (DAILY, MONTHLY, QUARTERLY, or ANNUALLY). For example, if you
+     * created your budget on January 24, 2018, chose <code>DAILY</code>, and didn't set a start date, Amazon Web
+     * Services set your start date to <code>01/24/18 00:00 UTC</code>. If you chose <code>MONTHLY</code>, Amazon Web
+     * Services set your start date to <code>01/01/18 00:00 UTC</code>. The defaults are the same for the Billing and
+     * Cost Management console and the API.
      * </p>
      * <p>
      * You can change your start date with the <code>UpdateBudget</code> operation.
      * </p>
      * 
-     * @return The start date for a budget. If you created your budget and didn't specify a start date, AWS defaults to
-     *         the start of your chosen time period (DAILY, MONTHLY, QUARTERLY, or ANNUALLY). For example, if you
-     *         created your budget on January 24, 2018, chose <code>DAILY</code>, and didn't set a start date, AWS set
-     *         your start date to <code>01/24/18 00:00 UTC</code>. If you chose <code>MONTHLY</code>, AWS set your start
-     *         date to <code>01/01/18 00:00 UTC</code>. The defaults are the same for the AWS Billing and Cost
-     *         Management console and the API.</p>
+     * @return The start date for a budget. If you created your budget and didn't specify a start date, Amazon Web
+     *         Services defaults to the start of your chosen time period (DAILY, MONTHLY, QUARTERLY, or ANNUALLY). For
+     *         example, if you created your budget on January 24, 2018, chose <code>DAILY</code>, and didn't set a start
+     *         date, Amazon Web Services set your start date to <code>01/24/18 00:00 UTC</code>. If you chose
+     *         <code>MONTHLY</code>, Amazon Web Services set your start date to <code>01/01/18 00:00 UTC</code>. The
+     *         defaults are the same for the Billing and Cost Management console and the API.</p>
      *         <p>
      *         You can change your start date with the <code>UpdateBudget</code> operation.
      */
@@ -110,24 +110,24 @@ public class TimePeriod implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The start date for a budget. If you created your budget and didn't specify a start date, AWS defaults to the
-     * start of your chosen time period (DAILY, MONTHLY, QUARTERLY, or ANNUALLY). For example, if you created your
-     * budget on January 24, 2018, chose <code>DAILY</code>, and didn't set a start date, AWS set your start date to
-     * <code>01/24/18 00:00 UTC</code>. If you chose <code>MONTHLY</code>, AWS set your start date to
-     * <code>01/01/18 00:00 UTC</code>. The defaults are the same for the AWS Billing and Cost Management console and
-     * the API.
+     * The start date for a budget. If you created your budget and didn't specify a start date, Amazon Web Services
+     * defaults to the start of your chosen time period (DAILY, MONTHLY, QUARTERLY, or ANNUALLY). For example, if you
+     * created your budget on January 24, 2018, chose <code>DAILY</code>, and didn't set a start date, Amazon Web
+     * Services set your start date to <code>01/24/18 00:00 UTC</code>. If you chose <code>MONTHLY</code>, Amazon Web
+     * Services set your start date to <code>01/01/18 00:00 UTC</code>. The defaults are the same for the Billing and
+     * Cost Management console and the API.
      * </p>
      * <p>
      * You can change your start date with the <code>UpdateBudget</code> operation.
      * </p>
      * 
      * @param start
-     *        The start date for a budget. If you created your budget and didn't specify a start date, AWS defaults to
-     *        the start of your chosen time period (DAILY, MONTHLY, QUARTERLY, or ANNUALLY). For example, if you created
-     *        your budget on January 24, 2018, chose <code>DAILY</code>, and didn't set a start date, AWS set your start
-     *        date to <code>01/24/18 00:00 UTC</code>. If you chose <code>MONTHLY</code>, AWS set your start date to
-     *        <code>01/01/18 00:00 UTC</code>. The defaults are the same for the AWS Billing and Cost Management console
-     *        and the API.</p>
+     *        The start date for a budget. If you created your budget and didn't specify a start date, Amazon Web
+     *        Services defaults to the start of your chosen time period (DAILY, MONTHLY, QUARTERLY, or ANNUALLY). For
+     *        example, if you created your budget on January 24, 2018, chose <code>DAILY</code>, and didn't set a start
+     *        date, Amazon Web Services set your start date to <code>01/24/18 00:00 UTC</code>. If you chose
+     *        <code>MONTHLY</code>, Amazon Web Services set your start date to <code>01/01/18 00:00 UTC</code>. The
+     *        defaults are the same for the Billing and Cost Management console and the API.</p>
      *        <p>
      *        You can change your start date with the <code>UpdateBudget</code> operation.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -140,22 +140,22 @@ public class TimePeriod implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The end date for a budget. If you didn't specify an end date, AWS set your end date to
-     * <code>06/15/87 00:00 UTC</code>. The defaults are the same for the AWS Billing and Cost Management console and
-     * the API.
+     * The end date for a budget. If you didn't specify an end date, Amazon Web Services set your end date to
+     * <code>06/15/87 00:00 UTC</code>. The defaults are the same for the Billing and Cost Management console and the
+     * API.
      * </p>
      * <p>
-     * After the end date, AWS deletes the budget and all associated notifications and subscribers. You can change your
-     * end date with the <code>UpdateBudget</code> operation.
+     * After the end date, Amazon Web Services deletes the budget and all the associated notifications and subscribers.
+     * You can change your end date with the <code>UpdateBudget</code> operation.
      * </p>
      * 
      * @param end
-     *        The end date for a budget. If you didn't specify an end date, AWS set your end date to
-     *        <code>06/15/87 00:00 UTC</code>. The defaults are the same for the AWS Billing and Cost Management console
-     *        and the API.</p>
+     *        The end date for a budget. If you didn't specify an end date, Amazon Web Services set your end date to
+     *        <code>06/15/87 00:00 UTC</code>. The defaults are the same for the Billing and Cost Management console and
+     *        the API.</p>
      *        <p>
-     *        After the end date, AWS deletes the budget and all associated notifications and subscribers. You can
-     *        change your end date with the <code>UpdateBudget</code> operation.
+     *        After the end date, Amazon Web Services deletes the budget and all the associated notifications and
+     *        subscribers. You can change your end date with the <code>UpdateBudget</code> operation.
      */
 
     public void setEnd(java.util.Date end) {
@@ -164,21 +164,21 @@ public class TimePeriod implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The end date for a budget. If you didn't specify an end date, AWS set your end date to
-     * <code>06/15/87 00:00 UTC</code>. The defaults are the same for the AWS Billing and Cost Management console and
-     * the API.
+     * The end date for a budget. If you didn't specify an end date, Amazon Web Services set your end date to
+     * <code>06/15/87 00:00 UTC</code>. The defaults are the same for the Billing and Cost Management console and the
+     * API.
      * </p>
      * <p>
-     * After the end date, AWS deletes the budget and all associated notifications and subscribers. You can change your
-     * end date with the <code>UpdateBudget</code> operation.
+     * After the end date, Amazon Web Services deletes the budget and all the associated notifications and subscribers.
+     * You can change your end date with the <code>UpdateBudget</code> operation.
      * </p>
      * 
-     * @return The end date for a budget. If you didn't specify an end date, AWS set your end date to
-     *         <code>06/15/87 00:00 UTC</code>. The defaults are the same for the AWS Billing and Cost Management
-     *         console and the API.</p>
+     * @return The end date for a budget. If you didn't specify an end date, Amazon Web Services set your end date to
+     *         <code>06/15/87 00:00 UTC</code>. The defaults are the same for the Billing and Cost Management console
+     *         and the API.</p>
      *         <p>
-     *         After the end date, AWS deletes the budget and all associated notifications and subscribers. You can
-     *         change your end date with the <code>UpdateBudget</code> operation.
+     *         After the end date, Amazon Web Services deletes the budget and all the associated notifications and
+     *         subscribers. You can change your end date with the <code>UpdateBudget</code> operation.
      */
 
     public java.util.Date getEnd() {
@@ -187,22 +187,22 @@ public class TimePeriod implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The end date for a budget. If you didn't specify an end date, AWS set your end date to
-     * <code>06/15/87 00:00 UTC</code>. The defaults are the same for the AWS Billing and Cost Management console and
-     * the API.
+     * The end date for a budget. If you didn't specify an end date, Amazon Web Services set your end date to
+     * <code>06/15/87 00:00 UTC</code>. The defaults are the same for the Billing and Cost Management console and the
+     * API.
      * </p>
      * <p>
-     * After the end date, AWS deletes the budget and all associated notifications and subscribers. You can change your
-     * end date with the <code>UpdateBudget</code> operation.
+     * After the end date, Amazon Web Services deletes the budget and all the associated notifications and subscribers.
+     * You can change your end date with the <code>UpdateBudget</code> operation.
      * </p>
      * 
      * @param end
-     *        The end date for a budget. If you didn't specify an end date, AWS set your end date to
-     *        <code>06/15/87 00:00 UTC</code>. The defaults are the same for the AWS Billing and Cost Management console
-     *        and the API.</p>
+     *        The end date for a budget. If you didn't specify an end date, Amazon Web Services set your end date to
+     *        <code>06/15/87 00:00 UTC</code>. The defaults are the same for the Billing and Cost Management console and
+     *        the API.</p>
      *        <p>
-     *        After the end date, AWS deletes the budget and all associated notifications and subscribers. You can
-     *        change your end date with the <code>UpdateBudget</code> operation.
+     *        After the end date, Amazon Web Services deletes the budget and all the associated notifications and
+     *        subscribers. You can change your end date with the <code>UpdateBudget</code> operation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

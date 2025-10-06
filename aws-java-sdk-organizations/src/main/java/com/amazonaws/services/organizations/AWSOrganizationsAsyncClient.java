@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,82 +30,33 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * representing the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive
  * notification when an asynchronous operation completes.
  * <p>
- * <fullname>AWS Organizations API Reference</fullname>
  * <p>
- * AWS Organizations is a web service that enables you to consolidate your multiple AWS accounts into an
+ * Organizations is a web service that enables you to consolidate your multiple Amazon Web Services accounts into an
  * <i>organization</i> and centrally manage your accounts and their resources.
  * </p>
  * <p>
- * This guide provides descriptions of the Organizations API. For more information about using this service, see the <a
- * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html">AWS Organizations User
+ * This guide provides descriptions of the Organizations operations. For more information about using this service, see
+ * the <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html">Organizations User
  * Guide</a>.
  * </p>
  * <p>
- * <b>API Version</b>
- * </p>
- * <p>
- * This version of the Organizations API Reference documents the Organizations API version 2016-11-28.
- * </p>
- * <note>
- * <p>
- * As an alternative to using the API directly, you can use one of the AWS SDKs, which consist of libraries and sample
- * code for various programming languages and platforms (Java, Ruby, .NET, iOS, Android, and more). The SDKs provide a
- * convenient way to create programmatic access to AWS Organizations. For example, the SDKs take care of
- * cryptographically signing requests, managing errors, and retrying requests automatically. For more information about
- * the AWS SDKs, including how to download and install them, see <a href="http://aws.amazon.com/tools/">Tools for Amazon
- * Web Services</a>.
- * </p>
- * </note>
- * <p>
- * We recommend that you use the AWS SDKs to make programmatic API calls to Organizations. However, you also can use the
- * Organizations Query API to make direct calls to the Organizations web service. To learn more about the Organizations
- * Query API, see <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_query-requests.html">Making
- * Query Requests</a> in the <i>AWS Organizations User Guide</i>. Organizations supports GET and POST requests for all
- * actions. That is, the API does not require you to use GET for some actions and POST for others. However, GET requests
- * are subject to the limitation size of a URL. Therefore, for operations that require larger sizes, use a POST request.
- * </p>
- * <p>
- * <b>Signing Requests</b>
- * </p>
- * <p>
- * When you send HTTP requests to AWS, you must sign the requests so that AWS can identify who sent them. You sign
- * requests with your AWS access key, which consists of an access key ID and a secret access key. We strongly recommend
- * that you do not create an access key for your root account. Anyone who has the access key for your root account has
- * unrestricted access to all the resources in your account. Instead, create an access key for an IAM user account that
- * has administrative privileges. As another option, use AWS Security Token Service to generate temporary security
- * credentials, and use those credentials to sign requests.
- * </p>
- * <p>
- * To sign requests, we recommend that you use <a
- * href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Signature Version 4</a>. If you have an
- * existing application that uses Signature Version 2, you do not have to update it to use Signature Version 4. However,
- * some operations now require Signature Version 4. The documentation for operations that require version 4 indicate
- * this requirement.
- * </p>
- * <p>
- * When you use the AWS Command Line Interface (AWS CLI) or one of the AWS SDKs to make requests to AWS, these tools
- * automatically sign the requests for you with the access key that you specify when you configure the tools.
- * </p>
- * <p>
- * In this release, each organization can have only one root. In a future release, a single organization will support
- * multiple roots.
- * </p>
- * <p>
- * <b>Support and Feedback for AWS Organizations</b>
+ * <b>Support and feedback for Organizations</b>
  * </p>
  * <p>
  * We welcome your feedback. Send your comments to <a
  * href="mailto:feedback-awsorganizations@amazon.com">feedback-awsorganizations@amazon.com</a> or post your feedback and
- * questions in the <a href="http://forums.aws.amazon.com/forum.jspa?forumID=219">AWS Organizations support forum</a>.
- * For more information about the AWS support forums, see <a href="http://forums.aws.amazon.com/help.jspa">Forums
- * Help</a>.
+ * questions in the <a href="http://forums.aws.amazon.com/forum.jspa?forumID=219">Organizations support forum</a>. For
+ * more information about the Amazon Web Services support forums, see <a
+ * href="http://forums.aws.amazon.com/help.jspa">Forums Help</a>.
  * </p>
  * <p>
- * <b>Endpoint to Call When Using the CLI or the AWS API</b>
+ * <b>Endpoint to call When using the CLI or the Amazon Web Services SDK</b>
  * </p>
  * <p>
- * For the current release of Organizations, you must specify the <code>us-east-1</code> region for all AWS API and CLI
- * calls. You can do this in the CLI by using these parameters and commands:
+ * For the current release of Organizations, specify the <code>us-east-1</code> region for all Amazon Web Services API
+ * and CLI calls made from the commercial Amazon Web Services Regions outside of China. If calling from one of the
+ * Amazon Web Services Regions in China, then specify <code>cn-northwest-1</code>. You can do this in the CLI by using
+ * these parameters and commands:
  * </p>
  * <ul>
  * <li>
@@ -113,7 +64,15 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * Use the following parameter with each command to specify both the endpoint and its region:
  * </p>
  * <p>
- * <code>--endpoint-url https://organizations.us-east-1.amazonaws.com</code>
+ * <code>--endpoint-url https://organizations.us-east-1.amazonaws.com</code> <i>(from commercial Amazon Web Services
+ * Regions outside of China)</i>
+ * </p>
+ * <p>
+ * or
+ * </p>
+ * <p>
+ * <code>--endpoint-url https://organizations.cn-northwest-1.amazonaws.com.cn</code> <i>(from Amazon Web Services
+ * Regions in China)</i>
  * </p>
  * </li>
  * <li>
@@ -121,7 +80,14 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * Use the default endpoint, but configure your default region with this command:
  * </p>
  * <p>
- * <code>aws configure set default.region us-east-1</code>
+ * <code>aws configure set default.region us-east-1</code> <i>(from commercial Amazon Web Services Regions outside of
+ * China)</i>
+ * </p>
+ * <p>
+ * or
+ * </p>
+ * <p>
+ * <code>aws configure set default.region cn-northwest-1</code> <i>(from Amazon Web Services Regions in China)</i>
  * </p>
  * </li>
  * <li>
@@ -129,39 +95,29 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * Use the following parameter with each command to specify the endpoint:
  * </p>
  * <p>
- * <code>--region us-east-1</code>
+ * <code>--region us-east-1</code> <i>(from commercial Amazon Web Services Regions outside of China)</i>
+ * </p>
+ * <p>
+ * or
+ * </p>
+ * <p>
+ * <code>--region cn-northwest-1</code> <i>(from Amazon Web Services Regions in China)</i>
  * </p>
  * </li>
  * </ul>
  * <p>
- * For the various SDKs used to call the APIs, see the documentation for the SDK of interest to learn how to direct the
- * requests to a specific endpoint. For more information, see <a
- * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sts_region">Regions and Endpoints</a> in the <i>AWS
- * General Reference</i>.
- * </p>
- * <p>
- * <b>How examples are presented</b>
- * </p>
- * <p>
- * The JSON returned by the AWS Organizations service as response to your requests is returned as a single long string
- * without line breaks or formatting whitespace. Both line breaks and whitespace are included in the examples in this
- * guide to improve readability. When example input parameters also would result in long strings that would extend
- * beyond the screen, we insert line breaks to enhance readability. You should always submit the input as a single JSON
- * text string.
- * </p>
- * <p>
  * <b>Recording API Requests</b>
  * </p>
  * <p>
- * AWS Organizations supports AWS CloudTrail, a service that records AWS API calls for your AWS account and delivers log
- * files to an Amazon S3 bucket. By using information collected by AWS CloudTrail, you can determine which requests were
- * successfully made to Organizations, who made the request, when it was made, and so on. For more about AWS
- * Organizations and its support for AWS CloudTrail, see <a
- * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_monitoring.html#orgs_cloudtrail-integration"
- * >Logging AWS Organizations Events with AWS CloudTrail</a> in the <i>AWS Organizations User Guide</i>. To learn more
- * about CloudTrail, including how to turn it on and find your log files, see the <a
- * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html">AWS CloudTrail
- * User Guide</a>.
+ * Organizations supports CloudTrail, a service that records Amazon Web Services API calls for your Amazon Web Services
+ * account and delivers log files to an Amazon S3 bucket. By using information collected by CloudTrail, you can
+ * determine which requests the Organizations service received, who made the request and when, and so on. For more about
+ * Organizations and its support for CloudTrail, see <a href=
+ * "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_incident-response.html#orgs_cloudtrail-integration"
+ * >Logging Organizations API calls with CloudTrail</a> in the <i>Organizations User Guide</i>. To learn more about
+ * CloudTrail, including how to turn it on and find your log files, see the <a
+ * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html">CloudTrail User
+ * Guide</a>.
  * </p>
  */
 @ThreadSafe
@@ -360,7 +316,19 @@ public class AWSOrganizationsAsyncClient extends AWSOrganizationsClient implemen
      *        Object providing client parameters.
      */
     AWSOrganizationsAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Organizations using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSOrganizationsAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -457,6 +425,39 @@ public class AWSOrganizationsAsyncClient extends AWSOrganizationsClient implemen
 
                 try {
                     result = executeCancelHandshake(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CloseAccountResult> closeAccountAsync(CloseAccountRequest request) {
+
+        return closeAccountAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CloseAccountResult> closeAccountAsync(final CloseAccountRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CloseAccountRequest, CloseAccountResult> asyncHandler) {
+        final CloseAccountRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CloseAccountResult>() {
+            @Override
+            public CloseAccountResult call() throws Exception {
+                CloseAccountResult result = null;
+
+                try {
+                    result = executeCloseAccount(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -770,6 +771,74 @@ public class AWSOrganizationsAsyncClient extends AWSOrganizationsClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest request) {
+
+        return deleteResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(final DeleteResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteResourcePolicyRequest, DeleteResourcePolicyResult> asyncHandler) {
+        final DeleteResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteResourcePolicyResult>() {
+            @Override
+            public DeleteResourcePolicyResult call() throws Exception {
+                DeleteResourcePolicyResult result = null;
+
+                try {
+                    result = executeDeleteResourcePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterDelegatedAdministratorResult> deregisterDelegatedAdministratorAsync(
+            DeregisterDelegatedAdministratorRequest request) {
+
+        return deregisterDelegatedAdministratorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterDelegatedAdministratorResult> deregisterDelegatedAdministratorAsync(
+            final DeregisterDelegatedAdministratorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeregisterDelegatedAdministratorRequest, DeregisterDelegatedAdministratorResult> asyncHandler) {
+        final DeregisterDelegatedAdministratorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeregisterDelegatedAdministratorResult>() {
+            @Override
+            public DeregisterDelegatedAdministratorResult call() throws Exception {
+                DeregisterDelegatedAdministratorResult result = null;
+
+                try {
+                    result = executeDeregisterDelegatedAdministrator(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeAccountResult> describeAccountAsync(DescribeAccountRequest request) {
 
         return describeAccountAsync(request, null);
@@ -820,6 +889,39 @@ public class AWSOrganizationsAsyncClient extends AWSOrganizationsClient implemen
 
                 try {
                     result = executeDescribeCreateAccountStatus(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEffectivePolicyResult> describeEffectivePolicyAsync(DescribeEffectivePolicyRequest request) {
+
+        return describeEffectivePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEffectivePolicyResult> describeEffectivePolicyAsync(final DescribeEffectivePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeEffectivePolicyRequest, DescribeEffectivePolicyResult> asyncHandler) {
+        final DescribeEffectivePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeEffectivePolicyResult>() {
+            @Override
+            public DescribeEffectivePolicyResult call() throws Exception {
+                DescribeEffectivePolicyResult result = null;
+
+                try {
+                    result = executeDescribeEffectivePolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -952,6 +1054,39 @@ public class AWSOrganizationsAsyncClient extends AWSOrganizationsClient implemen
 
                 try {
                     result = executeDescribePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeResourcePolicyResult> describeResourcePolicyAsync(DescribeResourcePolicyRequest request) {
+
+        return describeResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeResourcePolicyResult> describeResourcePolicyAsync(final DescribeResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeResourcePolicyRequest, DescribeResourcePolicyResult> asyncHandler) {
+        final DescribeResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeResourcePolicyResult>() {
+            @Override
+            public DescribeResourcePolicyResult call() throws Exception {
+                DescribeResourcePolicyResult result = null;
+
+                try {
+                    result = executeDescribeResourcePolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1399,6 +1534,74 @@ public class AWSOrganizationsAsyncClient extends AWSOrganizationsClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<ListDelegatedAdministratorsResult> listDelegatedAdministratorsAsync(ListDelegatedAdministratorsRequest request) {
+
+        return listDelegatedAdministratorsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDelegatedAdministratorsResult> listDelegatedAdministratorsAsync(final ListDelegatedAdministratorsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListDelegatedAdministratorsRequest, ListDelegatedAdministratorsResult> asyncHandler) {
+        final ListDelegatedAdministratorsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListDelegatedAdministratorsResult>() {
+            @Override
+            public ListDelegatedAdministratorsResult call() throws Exception {
+                ListDelegatedAdministratorsResult result = null;
+
+                try {
+                    result = executeListDelegatedAdministrators(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDelegatedServicesForAccountResult> listDelegatedServicesForAccountAsync(
+            ListDelegatedServicesForAccountRequest request) {
+
+        return listDelegatedServicesForAccountAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListDelegatedServicesForAccountResult> listDelegatedServicesForAccountAsync(
+            final ListDelegatedServicesForAccountRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListDelegatedServicesForAccountRequest, ListDelegatedServicesForAccountResult> asyncHandler) {
+        final ListDelegatedServicesForAccountRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListDelegatedServicesForAccountResult>() {
+            @Override
+            public ListDelegatedServicesForAccountResult call() throws Exception {
+                ListDelegatedServicesForAccountResult result = null;
+
+                try {
+                    result = executeListDelegatedServicesForAccount(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListHandshakesForAccountResult> listHandshakesForAccountAsync(ListHandshakesForAccountRequest request) {
 
         return listHandshakesForAccountAsync(request, null);
@@ -1716,6 +1919,73 @@ public class AWSOrganizationsAsyncClient extends AWSOrganizationsClient implemen
 
                 try {
                     result = executeMoveAccount(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest request) {
+
+        return putResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(final PutResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutResourcePolicyRequest, PutResourcePolicyResult> asyncHandler) {
+        final PutResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutResourcePolicyResult>() {
+            @Override
+            public PutResourcePolicyResult call() throws Exception {
+                PutResourcePolicyResult result = null;
+
+                try {
+                    result = executePutResourcePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterDelegatedAdministratorResult> registerDelegatedAdministratorAsync(RegisterDelegatedAdministratorRequest request) {
+
+        return registerDelegatedAdministratorAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterDelegatedAdministratorResult> registerDelegatedAdministratorAsync(
+            final RegisterDelegatedAdministratorRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RegisterDelegatedAdministratorRequest, RegisterDelegatedAdministratorResult> asyncHandler) {
+        final RegisterDelegatedAdministratorRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RegisterDelegatedAdministratorResult>() {
+            @Override
+            public RegisterDelegatedAdministratorResult call() throws Exception {
+                RegisterDelegatedAdministratorResult result = null;
+
+                try {
+                    result = executeRegisterDelegatedAdministrator(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Contains a DNS record value that you can use to can use to validate ownership or control of a domain. This is used by
- * the <a>DescribeCertificate</a> action.
+ * Contains a DNS record value that you can use to validate ownership or control of a domain. This is used by the
+ * <a>DescribeCertificate</a> action.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/ResourceRecord" target="_top">AWS API

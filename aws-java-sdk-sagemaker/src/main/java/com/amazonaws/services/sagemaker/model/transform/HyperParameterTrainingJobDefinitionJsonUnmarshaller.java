@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,18 @@ public class HyperParameterTrainingJobDefinitionJsonUnmarshaller implements Unma
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("DefinitionName", targetDepth)) {
+                    context.nextToken();
+                    hyperParameterTrainingJobDefinition.setDefinitionName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("TuningObjective", targetDepth)) {
+                    context.nextToken();
+                    hyperParameterTrainingJobDefinition.setTuningObjective(HyperParameterTuningJobObjectiveJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("HyperParameterRanges", targetDepth)) {
+                    context.nextToken();
+                    hyperParameterTrainingJobDefinition.setHyperParameterRanges(ParameterRangesJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("StaticHyperParameters", targetDepth)) {
                     context.nextToken();
                     hyperParameterTrainingJobDefinition.setStaticHyperParameters(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class),
@@ -65,7 +77,8 @@ public class HyperParameterTrainingJobDefinitionJsonUnmarshaller implements Unma
                 if (context.testExpression("InputDataConfig", targetDepth)) {
                     context.nextToken();
                     hyperParameterTrainingJobDefinition.setInputDataConfig(new ListUnmarshaller<Channel>(ChannelJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("VpcConfig", targetDepth)) {
                     context.nextToken();
@@ -79,6 +92,11 @@ public class HyperParameterTrainingJobDefinitionJsonUnmarshaller implements Unma
                     context.nextToken();
                     hyperParameterTrainingJobDefinition.setResourceConfig(ResourceConfigJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("HyperParameterTuningResourceConfig", targetDepth)) {
+                    context.nextToken();
+                    hyperParameterTrainingJobDefinition.setHyperParameterTuningResourceConfig(HyperParameterTuningResourceConfigJsonUnmarshaller.getInstance()
+                            .unmarshall(context));
+                }
                 if (context.testExpression("StoppingCondition", targetDepth)) {
                     context.nextToken();
                     hyperParameterTrainingJobDefinition.setStoppingCondition(StoppingConditionJsonUnmarshaller.getInstance().unmarshall(context));
@@ -90,6 +108,23 @@ public class HyperParameterTrainingJobDefinitionJsonUnmarshaller implements Unma
                 if (context.testExpression("EnableInterContainerTrafficEncryption", targetDepth)) {
                     context.nextToken();
                     hyperParameterTrainingJobDefinition.setEnableInterContainerTrafficEncryption(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("EnableManagedSpotTraining", targetDepth)) {
+                    context.nextToken();
+                    hyperParameterTrainingJobDefinition.setEnableManagedSpotTraining(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("CheckpointConfig", targetDepth)) {
+                    context.nextToken();
+                    hyperParameterTrainingJobDefinition.setCheckpointConfig(CheckpointConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("RetryStrategy", targetDepth)) {
+                    context.nextToken();
+                    hyperParameterTrainingJobDefinition.setRetryStrategy(RetryStrategyJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("Environment", targetDepth)) {
+                    context.nextToken();
+                    hyperParameterTrainingJobDefinition.setEnvironment(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
+                            .getUnmarshaller(String.class)).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

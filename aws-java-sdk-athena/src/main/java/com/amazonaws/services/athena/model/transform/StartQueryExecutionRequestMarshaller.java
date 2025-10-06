@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.athena.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -40,6 +41,10 @@ public class StartQueryExecutionRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResultConfiguration").build();
     private static final MarshallingInfo<String> WORKGROUP_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("WorkGroup").build();
+    private static final MarshallingInfo<List> EXECUTIONPARAMETERS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExecutionParameters").build();
+    private static final MarshallingInfo<StructuredPojo> RESULTREUSECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResultReuseConfiguration").build();
 
     private static final StartQueryExecutionRequestMarshaller instance = new StartQueryExecutionRequestMarshaller();
 
@@ -62,6 +67,8 @@ public class StartQueryExecutionRequestMarshaller {
             protocolMarshaller.marshall(startQueryExecutionRequest.getQueryExecutionContext(), QUERYEXECUTIONCONTEXT_BINDING);
             protocolMarshaller.marshall(startQueryExecutionRequest.getResultConfiguration(), RESULTCONFIGURATION_BINDING);
             protocolMarshaller.marshall(startQueryExecutionRequest.getWorkGroup(), WORKGROUP_BINDING);
+            protocolMarshaller.marshall(startQueryExecutionRequest.getExecutionParameters(), EXECUTIONPARAMETERS_BINDING);
+            protocolMarshaller.marshall(startQueryExecutionRequest.getResultReuseConfiguration(), RESULTREUSECONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

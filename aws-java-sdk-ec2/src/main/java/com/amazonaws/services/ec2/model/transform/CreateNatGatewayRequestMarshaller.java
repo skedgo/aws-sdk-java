@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,6 +21,7 @@ import com.amazonaws.http.HttpMethodName;
 import com.amazonaws.services.ec2.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
+import com.amazonaws.util.IdempotentUtils;
 
 /**
  * CreateNatGatewayRequest Marshaller
@@ -44,12 +45,85 @@ public class CreateNatGatewayRequestMarshaller implements Marshaller<Request<Cre
             request.addParameter("AllocationId", StringUtils.fromString(createNatGatewayRequest.getAllocationId()));
         }
 
-        if (createNatGatewayRequest.getClientToken() != null) {
-            request.addParameter("ClientToken", StringUtils.fromString(createNatGatewayRequest.getClientToken()));
-        }
+        request.addParameter("ClientToken", IdempotentUtils.resolveString(createNatGatewayRequest.getClientToken()));
 
         if (createNatGatewayRequest.getSubnetId() != null) {
             request.addParameter("SubnetId", StringUtils.fromString(createNatGatewayRequest.getSubnetId()));
+        }
+
+        com.amazonaws.internal.SdkInternalList<TagSpecification> createNatGatewayRequestTagSpecificationsList = (com.amazonaws.internal.SdkInternalList<TagSpecification>) createNatGatewayRequest
+                .getTagSpecifications();
+        if (!createNatGatewayRequestTagSpecificationsList.isEmpty() || !createNatGatewayRequestTagSpecificationsList.isAutoConstruct()) {
+            int tagSpecificationsListIndex = 1;
+
+            for (TagSpecification createNatGatewayRequestTagSpecificationsListValue : createNatGatewayRequestTagSpecificationsList) {
+
+                if (createNatGatewayRequestTagSpecificationsListValue.getResourceType() != null) {
+                    request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".ResourceType",
+                            StringUtils.fromString(createNatGatewayRequestTagSpecificationsListValue.getResourceType()));
+                }
+
+                com.amazonaws.internal.SdkInternalList<Tag> tagSpecificationTagsList = (com.amazonaws.internal.SdkInternalList<Tag>) createNatGatewayRequestTagSpecificationsListValue
+                        .getTags();
+                if (!tagSpecificationTagsList.isEmpty() || !tagSpecificationTagsList.isAutoConstruct()) {
+                    int tagsListIndex = 1;
+
+                    for (Tag tagSpecificationTagsListValue : tagSpecificationTagsList) {
+
+                        if (tagSpecificationTagsListValue.getKey() != null) {
+                            request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Key",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getKey()));
+                        }
+
+                        if (tagSpecificationTagsListValue.getValue() != null) {
+                            request.addParameter("TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Value",
+                                    StringUtils.fromString(tagSpecificationTagsListValue.getValue()));
+                        }
+                        tagsListIndex++;
+                    }
+                }
+                tagSpecificationsListIndex++;
+            }
+        }
+
+        if (createNatGatewayRequest.getConnectivityType() != null) {
+            request.addParameter("ConnectivityType", StringUtils.fromString(createNatGatewayRequest.getConnectivityType()));
+        }
+
+        if (createNatGatewayRequest.getPrivateIpAddress() != null) {
+            request.addParameter("PrivateIpAddress", StringUtils.fromString(createNatGatewayRequest.getPrivateIpAddress()));
+        }
+
+        com.amazonaws.internal.SdkInternalList<String> createNatGatewayRequestSecondaryAllocationIdsList = (com.amazonaws.internal.SdkInternalList<String>) createNatGatewayRequest
+                .getSecondaryAllocationIds();
+        if (!createNatGatewayRequestSecondaryAllocationIdsList.isEmpty() || !createNatGatewayRequestSecondaryAllocationIdsList.isAutoConstruct()) {
+            int secondaryAllocationIdsListIndex = 1;
+
+            for (String createNatGatewayRequestSecondaryAllocationIdsListValue : createNatGatewayRequestSecondaryAllocationIdsList) {
+                if (createNatGatewayRequestSecondaryAllocationIdsListValue != null) {
+                    request.addParameter("SecondaryAllocationId." + secondaryAllocationIdsListIndex,
+                            StringUtils.fromString(createNatGatewayRequestSecondaryAllocationIdsListValue));
+                }
+                secondaryAllocationIdsListIndex++;
+            }
+        }
+
+        com.amazonaws.internal.SdkInternalList<String> createNatGatewayRequestSecondaryPrivateIpAddressesList = (com.amazonaws.internal.SdkInternalList<String>) createNatGatewayRequest
+                .getSecondaryPrivateIpAddresses();
+        if (!createNatGatewayRequestSecondaryPrivateIpAddressesList.isEmpty() || !createNatGatewayRequestSecondaryPrivateIpAddressesList.isAutoConstruct()) {
+            int secondaryPrivateIpAddressesListIndex = 1;
+
+            for (String createNatGatewayRequestSecondaryPrivateIpAddressesListValue : createNatGatewayRequestSecondaryPrivateIpAddressesList) {
+                if (createNatGatewayRequestSecondaryPrivateIpAddressesListValue != null) {
+                    request.addParameter("SecondaryPrivateIpAddress." + secondaryPrivateIpAddressesListIndex,
+                            StringUtils.fromString(createNatGatewayRequestSecondaryPrivateIpAddressesListValue));
+                }
+                secondaryPrivateIpAddressesListIndex++;
+            }
+        }
+
+        if (createNatGatewayRequest.getSecondaryPrivateIpAddressCount() != null) {
+            request.addParameter("SecondaryPrivateIpAddressCount", StringUtils.fromInteger(createNatGatewayRequest.getSecondaryPrivateIpAddressCount()));
         }
 
         return request;

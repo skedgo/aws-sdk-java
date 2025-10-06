@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,10 @@ public class BackupJobJsonUnmarshaller implements Unmarshaller<BackupJob, JsonUn
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("AccountId", targetDepth)) {
+                    context.nextToken();
+                    backupJob.setAccountId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("BackupJobId", targetDepth)) {
                     context.nextToken();
                     backupJob.setBackupJobId(context.getUnmarshaller(String.class).unmarshall(context));
@@ -115,6 +119,36 @@ public class BackupJobJsonUnmarshaller implements Unmarshaller<BackupJob, JsonUn
                 if (context.testExpression("BytesTransferred", targetDepth)) {
                     context.nextToken();
                     backupJob.setBytesTransferred(context.getUnmarshaller(Long.class).unmarshall(context));
+                }
+                if (context.testExpression("BackupOptions", targetDepth)) {
+                    context.nextToken();
+                    backupJob
+                            .setBackupOptions(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
+                                    .unmarshall(context));
+                }
+                if (context.testExpression("BackupType", targetDepth)) {
+                    context.nextToken();
+                    backupJob.setBackupType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ParentJobId", targetDepth)) {
+                    context.nextToken();
+                    backupJob.setParentJobId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("IsParent", targetDepth)) {
+                    context.nextToken();
+                    backupJob.setIsParent(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("ResourceName", targetDepth)) {
+                    context.nextToken();
+                    backupJob.setResourceName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("InitiationDate", targetDepth)) {
+                    context.nextToken();
+                    backupJob.setInitiationDate(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("MessageCategory", targetDepth)) {
+                    context.nextToken();
+                    backupJob.setMessageCategory(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

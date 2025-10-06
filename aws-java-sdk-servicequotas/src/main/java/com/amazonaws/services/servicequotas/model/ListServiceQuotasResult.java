@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,36 +25,31 @@ public class ListServiceQuotasResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * If present in the response, this value indicates there's more output available that what's included in the
-     * current response. This can occur even when the response includes no values at all, such as when you ask for a
-     * filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in a subsequent
-     * call to the operation to continue processing and get the next part of the output. You should repeat this until
-     * the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * The response information for a quota lists all attribute information for the quota.
+     * Information about the quotas.
      * </p>
      */
     private java.util.List<ServiceQuota> quotas;
 
     /**
      * <p>
-     * If present in the response, this value indicates there's more output available that what's included in the
-     * current response. This can occur even when the response includes no values at all, such as when you ask for a
-     * filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in a subsequent
-     * call to the operation to continue processing and get the next part of the output. You should repeat this until
-     * the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      * 
      * @param nextToken
-     *        If present in the response, this value indicates there's more output available that what's included in the
-     *        current response. This can occur even when the response includes no values at all, such as when you ask
-     *        for a filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in
-     *        a subsequent call to the operation to continue processing and get the next part of the output. You should
-     *        repeat this until the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     *        If present, indicates that more output is available than is included in the current response. Use this
+     *        value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the
+     *        next part of the output. You should repeat this until the <code>NextToken</code> response element comes
+     *        back as <code>null</code>.
      */
 
     public void setNextToken(String nextToken) {
@@ -63,19 +58,15 @@ public class ListServiceQuotasResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * If present in the response, this value indicates there's more output available that what's included in the
-     * current response. This can occur even when the response includes no values at all, such as when you ask for a
-     * filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in a subsequent
-     * call to the operation to continue processing and get the next part of the output. You should repeat this until
-     * the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      * 
-     * @return If present in the response, this value indicates there's more output available that what's included in
-     *         the current response. This can occur even when the response includes no values at all, such as when you
-     *         ask for a filtered view of a very long list. Use this value in the <code>NextToken</code> request
-     *         parameter in a subsequent call to the operation to continue processing and get the next part of the
-     *         output. You should repeat this until the <code>NextToken</code> response element comes back empty (as
-     *         <code>null</code>).
+     * @return If present, indicates that more output is available than is included in the current response. Use this
+     *         value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the
+     *         next part of the output. You should repeat this until the <code>NextToken</code> response element comes
+     *         back as <code>null</code>.
      */
 
     public String getNextToken() {
@@ -84,19 +75,16 @@ public class ListServiceQuotasResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * If present in the response, this value indicates there's more output available that what's included in the
-     * current response. This can occur even when the response includes no values at all, such as when you ask for a
-     * filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in a subsequent
-     * call to the operation to continue processing and get the next part of the output. You should repeat this until
-     * the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      * 
      * @param nextToken
-     *        If present in the response, this value indicates there's more output available that what's included in the
-     *        current response. This can occur even when the response includes no values at all, such as when you ask
-     *        for a filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in
-     *        a subsequent call to the operation to continue processing and get the next part of the output. You should
-     *        repeat this until the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     *        If present, indicates that more output is available than is included in the current response. Use this
+     *        value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the
+     *        next part of the output. You should repeat this until the <code>NextToken</code> response element comes
+     *        back as <code>null</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -107,10 +95,10 @@ public class ListServiceQuotasResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The response information for a quota lists all attribute information for the quota.
+     * Information about the quotas.
      * </p>
      * 
-     * @return The response information for a quota lists all attribute information for the quota.
+     * @return Information about the quotas.
      */
 
     public java.util.List<ServiceQuota> getQuotas() {
@@ -119,11 +107,11 @@ public class ListServiceQuotasResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The response information for a quota lists all attribute information for the quota.
+     * Information about the quotas.
      * </p>
      * 
      * @param quotas
-     *        The response information for a quota lists all attribute information for the quota.
+     *        Information about the quotas.
      */
 
     public void setQuotas(java.util.Collection<ServiceQuota> quotas) {
@@ -137,7 +125,7 @@ public class ListServiceQuotasResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The response information for a quota lists all attribute information for the quota.
+     * Information about the quotas.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -146,7 +134,7 @@ public class ListServiceQuotasResult extends com.amazonaws.AmazonWebServiceResul
      * </p>
      * 
      * @param quotas
-     *        The response information for a quota lists all attribute information for the quota.
+     *        Information about the quotas.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -162,11 +150,11 @@ public class ListServiceQuotasResult extends com.amazonaws.AmazonWebServiceResul
 
     /**
      * <p>
-     * The response information for a quota lists all attribute information for the quota.
+     * Information about the quotas.
      * </p>
      * 
      * @param quotas
-     *        The response information for a quota lists all attribute information for the quota.
+     *        Information about the quotas.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

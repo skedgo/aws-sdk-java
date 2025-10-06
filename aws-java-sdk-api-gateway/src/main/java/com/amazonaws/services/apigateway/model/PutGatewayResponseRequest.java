@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Creates a customization of a <a>GatewayResponse</a> of a specified response type and status code on the given
- * <a>RestApi</a>.
+ * Creates a customization of a GatewayResponse of a specified response type and status code on the given RestApi.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -28,68 +27,43 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      */
     private String restApiId;
     /**
      * <p>
-     * [Required]
-     * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
-     * </p>
+     * The response type of the associated GatewayResponse
      * </p>
      */
     private String responseType;
-    /** The HTTP status code of the <a>GatewayResponse</a>. */
+    /**
+     * <p>
+     * The HTTP status code of the GatewayResponse.
+     * </p>
+     */
     private String statusCode;
     /**
      * <p>
-     * <p>
-     * Response parameters (paths, query strings and headers) of the <a>GatewayResponse</a> as a string-to-string map of
+     * Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of
      * key-value pairs.
-     * </p>
      * </p>
      */
     private java.util.Map<String, String> responseParameters;
     /**
      * <p>
-     * <p>
-     * Response templates of the <a>GatewayResponse</a> as a string-to-string map of key-value pairs.
-     * </p>
+     * Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
      * </p>
      */
     private java.util.Map<String, String> responseTemplates;
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      */
 
     public void setRestApiId(String restApiId) {
@@ -98,10 +72,10 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
-     * @return [Required] The string identifier of the associated <a>RestApi</a>.
+     * @return The string identifier of the associated RestApi.
      */
 
     public String getRestApiId() {
@@ -110,11 +84,11 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * [Required] The string identifier of the associated <a>RestApi</a>.
+     * The string identifier of the associated RestApi.
      * </p>
      * 
      * @param restApiId
-     *        [Required] The string identifier of the associated <a>RestApi</a>.
+     *        The string identifier of the associated RestApi.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -125,61 +99,11 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * [Required]
-     * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
-     * </p>
+     * The response type of the associated GatewayResponse
      * </p>
      * 
      * @param responseType
-     *        [Required]
-     *        <p>
-     *        The response type of the associated <a>GatewayResponse</a>. Valid values are
-     *        <ul>
-     *        <li>ACCESS_DENIED</li>
-     *        <li>API_CONFIGURATION_ERROR</li>
-     *        <li>AUTHORIZER_FAILURE</li>
-     *        <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     *        <li>BAD_REQUEST_PARAMETERS</li>
-     *        <li>BAD_REQUEST_BODY</li>
-     *        <li>DEFAULT_4XX</li>
-     *        <li>DEFAULT_5XX</li>
-     *        <li>EXPIRED_TOKEN</li>
-     *        <li>INVALID_SIGNATURE</li>
-     *        <li>INTEGRATION_FAILURE</li>
-     *        <li>INTEGRATION_TIMEOUT</li>
-     *        <li>INVALID_API_KEY</li>
-     *        <li>MISSING_AUTHENTICATION_TOKEN</li>
-     *        <li>QUOTA_EXCEEDED</li>
-     *        <li>REQUEST_TOO_LARGE</li>
-     *        <li>RESOURCE_NOT_FOUND</li>
-     *        <li>THROTTLED</li>
-     *        <li>UNAUTHORIZED</li>
-     *        <li>UNSUPPORTED_MEDIA_TYPE</li>
-     *        </ul>
-     *        </p>
+     *        The response type of the associated GatewayResponse
      * @see GatewayResponseType
      */
 
@@ -189,60 +113,10 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * [Required]
-     * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
-     * </p>
+     * The response type of the associated GatewayResponse
      * </p>
      * 
-     * @return [Required]
-     *         <p>
-     *         The response type of the associated <a>GatewayResponse</a>. Valid values are
-     *         <ul>
-     *         <li>ACCESS_DENIED</li>
-     *         <li>API_CONFIGURATION_ERROR</li>
-     *         <li>AUTHORIZER_FAILURE</li>
-     *         <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     *         <li>BAD_REQUEST_PARAMETERS</li>
-     *         <li>BAD_REQUEST_BODY</li>
-     *         <li>DEFAULT_4XX</li>
-     *         <li>DEFAULT_5XX</li>
-     *         <li>EXPIRED_TOKEN</li>
-     *         <li>INVALID_SIGNATURE</li>
-     *         <li>INTEGRATION_FAILURE</li>
-     *         <li>INTEGRATION_TIMEOUT</li>
-     *         <li>INVALID_API_KEY</li>
-     *         <li>MISSING_AUTHENTICATION_TOKEN</li>
-     *         <li>QUOTA_EXCEEDED</li>
-     *         <li>REQUEST_TOO_LARGE</li>
-     *         <li>RESOURCE_NOT_FOUND</li>
-     *         <li>THROTTLED</li>
-     *         <li>UNAUTHORIZED</li>
-     *         <li>UNSUPPORTED_MEDIA_TYPE</li>
-     *         </ul>
-     *         </p>
+     * @return The response type of the associated GatewayResponse
      * @see GatewayResponseType
      */
 
@@ -252,61 +126,11 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * [Required]
-     * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
-     * </p>
+     * The response type of the associated GatewayResponse
      * </p>
      * 
      * @param responseType
-     *        [Required]
-     *        <p>
-     *        The response type of the associated <a>GatewayResponse</a>. Valid values are
-     *        <ul>
-     *        <li>ACCESS_DENIED</li>
-     *        <li>API_CONFIGURATION_ERROR</li>
-     *        <li>AUTHORIZER_FAILURE</li>
-     *        <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     *        <li>BAD_REQUEST_PARAMETERS</li>
-     *        <li>BAD_REQUEST_BODY</li>
-     *        <li>DEFAULT_4XX</li>
-     *        <li>DEFAULT_5XX</li>
-     *        <li>EXPIRED_TOKEN</li>
-     *        <li>INVALID_SIGNATURE</li>
-     *        <li>INTEGRATION_FAILURE</li>
-     *        <li>INTEGRATION_TIMEOUT</li>
-     *        <li>INVALID_API_KEY</li>
-     *        <li>MISSING_AUTHENTICATION_TOKEN</li>
-     *        <li>QUOTA_EXCEEDED</li>
-     *        <li>REQUEST_TOO_LARGE</li>
-     *        <li>RESOURCE_NOT_FOUND</li>
-     *        <li>THROTTLED</li>
-     *        <li>UNAUTHORIZED</li>
-     *        <li>UNSUPPORTED_MEDIA_TYPE</li>
-     *        </ul>
-     *        </p>
+     *        The response type of the associated GatewayResponse
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see GatewayResponseType
      */
@@ -318,61 +142,11 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * [Required]
-     * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
-     * </p>
+     * The response type of the associated GatewayResponse
      * </p>
      * 
      * @param responseType
-     *        [Required]
-     *        <p>
-     *        The response type of the associated <a>GatewayResponse</a>. Valid values are
-     *        <ul>
-     *        <li>ACCESS_DENIED</li>
-     *        <li>API_CONFIGURATION_ERROR</li>
-     *        <li>AUTHORIZER_FAILURE</li>
-     *        <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     *        <li>BAD_REQUEST_PARAMETERS</li>
-     *        <li>BAD_REQUEST_BODY</li>
-     *        <li>DEFAULT_4XX</li>
-     *        <li>DEFAULT_5XX</li>
-     *        <li>EXPIRED_TOKEN</li>
-     *        <li>INVALID_SIGNATURE</li>
-     *        <li>INTEGRATION_FAILURE</li>
-     *        <li>INTEGRATION_TIMEOUT</li>
-     *        <li>INVALID_API_KEY</li>
-     *        <li>MISSING_AUTHENTICATION_TOKEN</li>
-     *        <li>QUOTA_EXCEEDED</li>
-     *        <li>REQUEST_TOO_LARGE</li>
-     *        <li>RESOURCE_NOT_FOUND</li>
-     *        <li>THROTTLED</li>
-     *        <li>UNAUTHORIZED</li>
-     *        <li>UNSUPPORTED_MEDIA_TYPE</li>
-     *        </ul>
-     *        </p>
+     *        The response type of the associated GatewayResponse
      * @see GatewayResponseType
      */
 
@@ -382,61 +156,11 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * [Required]
-     * <p>
-     * The response type of the associated <a>GatewayResponse</a>. Valid values are
-     * <ul>
-     * <li>ACCESS_DENIED</li>
-     * <li>API_CONFIGURATION_ERROR</li>
-     * <li>AUTHORIZER_FAILURE</li>
-     * <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     * <li>BAD_REQUEST_PARAMETERS</li>
-     * <li>BAD_REQUEST_BODY</li>
-     * <li>DEFAULT_4XX</li>
-     * <li>DEFAULT_5XX</li>
-     * <li>EXPIRED_TOKEN</li>
-     * <li>INVALID_SIGNATURE</li>
-     * <li>INTEGRATION_FAILURE</li>
-     * <li>INTEGRATION_TIMEOUT</li>
-     * <li>INVALID_API_KEY</li>
-     * <li>MISSING_AUTHENTICATION_TOKEN</li>
-     * <li>QUOTA_EXCEEDED</li>
-     * <li>REQUEST_TOO_LARGE</li>
-     * <li>RESOURCE_NOT_FOUND</li>
-     * <li>THROTTLED</li>
-     * <li>UNAUTHORIZED</li>
-     * <li>UNSUPPORTED_MEDIA_TYPE</li>
-     * </ul>
-     * </p>
+     * The response type of the associated GatewayResponse
      * </p>
      * 
      * @param responseType
-     *        [Required]
-     *        <p>
-     *        The response type of the associated <a>GatewayResponse</a>. Valid values are
-     *        <ul>
-     *        <li>ACCESS_DENIED</li>
-     *        <li>API_CONFIGURATION_ERROR</li>
-     *        <li>AUTHORIZER_FAILURE</li>
-     *        <li>AUTHORIZER_CONFIGURATION_ERROR</li>
-     *        <li>BAD_REQUEST_PARAMETERS</li>
-     *        <li>BAD_REQUEST_BODY</li>
-     *        <li>DEFAULT_4XX</li>
-     *        <li>DEFAULT_5XX</li>
-     *        <li>EXPIRED_TOKEN</li>
-     *        <li>INVALID_SIGNATURE</li>
-     *        <li>INTEGRATION_FAILURE</li>
-     *        <li>INTEGRATION_TIMEOUT</li>
-     *        <li>INVALID_API_KEY</li>
-     *        <li>MISSING_AUTHENTICATION_TOKEN</li>
-     *        <li>QUOTA_EXCEEDED</li>
-     *        <li>REQUEST_TOO_LARGE</li>
-     *        <li>RESOURCE_NOT_FOUND</li>
-     *        <li>THROTTLED</li>
-     *        <li>UNAUTHORIZED</li>
-     *        <li>UNSUPPORTED_MEDIA_TYPE</li>
-     *        </ul>
-     *        </p>
+     *        The response type of the associated GatewayResponse
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see GatewayResponseType
      */
@@ -447,10 +171,12 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
     }
 
     /**
-     * The HTTP status code of the <a>GatewayResponse</a>.
+     * <p>
+     * The HTTP status code of the GatewayResponse.
+     * </p>
      * 
      * @param statusCode
-     *        The HTTP status code of the <a>GatewayResponse</a>.
+     *        The HTTP status code of the GatewayResponse.
      */
 
     public void setStatusCode(String statusCode) {
@@ -458,9 +184,11 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
     }
 
     /**
-     * The HTTP status code of the <a>GatewayResponse</a>.
+     * <p>
+     * The HTTP status code of the GatewayResponse.
+     * </p>
      * 
-     * @return The HTTP status code of the <a>GatewayResponse</a>.
+     * @return The HTTP status code of the GatewayResponse.
      */
 
     public String getStatusCode() {
@@ -468,10 +196,12 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
     }
 
     /**
-     * The HTTP status code of the <a>GatewayResponse</a>.
+     * <p>
+     * The HTTP status code of the GatewayResponse.
+     * </p>
      * 
      * @param statusCode
-     *        The HTTP status code of the <a>GatewayResponse</a>.
+     *        The HTTP status code of the GatewayResponse.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -482,14 +212,12 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * <p>
-     * Response parameters (paths, query strings and headers) of the <a>GatewayResponse</a> as a string-to-string map of
+     * Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of
      * key-value pairs.
      * </p>
-     * </p>
      * 
-     * @return Response parameters (paths, query strings and headers) of the <a>GatewayResponse</a> as a
-     *         string-to-string map of key-value pairs.
+     * @return Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map
+     *         of key-value pairs.
      */
 
     public java.util.Map<String, String> getResponseParameters() {
@@ -498,15 +226,13 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * <p>
-     * Response parameters (paths, query strings and headers) of the <a>GatewayResponse</a> as a string-to-string map of
+     * Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of
      * key-value pairs.
-     * </p>
      * </p>
      * 
      * @param responseParameters
-     *        Response parameters (paths, query strings and headers) of the <a>GatewayResponse</a> as a string-to-string
-     *        map of key-value pairs.
+     *        Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of
+     *        key-value pairs.
      */
 
     public void setResponseParameters(java.util.Map<String, String> responseParameters) {
@@ -515,15 +241,13 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * <p>
-     * Response parameters (paths, query strings and headers) of the <a>GatewayResponse</a> as a string-to-string map of
+     * Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of
      * key-value pairs.
-     * </p>
      * </p>
      * 
      * @param responseParameters
-     *        Response parameters (paths, query strings and headers) of the <a>GatewayResponse</a> as a string-to-string
-     *        map of key-value pairs.
+     *        Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of
+     *        key-value pairs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -531,6 +255,13 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
         setResponseParameters(responseParameters);
         return this;
     }
+
+    /**
+     * Add a single ResponseParameters entry
+     *
+     * @see PutGatewayResponseRequest#withResponseParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public PutGatewayResponseRequest addResponseParametersEntry(String key, String value) {
         if (null == this.responseParameters) {
@@ -555,12 +286,10 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * <p>
-     * Response templates of the <a>GatewayResponse</a> as a string-to-string map of key-value pairs.
-     * </p>
+     * Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
      * </p>
      * 
-     * @return Response templates of the <a>GatewayResponse</a> as a string-to-string map of key-value pairs.
+     * @return Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
      */
 
     public java.util.Map<String, String> getResponseTemplates() {
@@ -569,13 +298,11 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * <p>
-     * Response templates of the <a>GatewayResponse</a> as a string-to-string map of key-value pairs.
-     * </p>
+     * Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
      * </p>
      * 
      * @param responseTemplates
-     *        Response templates of the <a>GatewayResponse</a> as a string-to-string map of key-value pairs.
+     *        Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
      */
 
     public void setResponseTemplates(java.util.Map<String, String> responseTemplates) {
@@ -584,13 +311,11 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * <p>
-     * Response templates of the <a>GatewayResponse</a> as a string-to-string map of key-value pairs.
-     * </p>
+     * Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
      * </p>
      * 
      * @param responseTemplates
-     *        Response templates of the <a>GatewayResponse</a> as a string-to-string map of key-value pairs.
+     *        Response templates of the GatewayResponse as a string-to-string map of key-value pairs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -598,6 +323,13 @@ public class PutGatewayResponseRequest extends com.amazonaws.AmazonWebServiceReq
         setResponseTemplates(responseTemplates);
         return this;
     }
+
+    /**
+     * Add a single ResponseTemplates entry
+     *
+     * @see PutGatewayResponseRequest#withResponseTemplates
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public PutGatewayResponseRequest addResponseTemplatesEntry(String key, String value) {
         if (null == this.responseTemplates) {

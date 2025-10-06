@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,26 +27,25 @@ public class DetectKeyPhrasesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A UTF-8 text string. Each string must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+     * A UTF-8 text string. The string must contain less than 100 KB of UTF-8 encoded characters.
      * </p>
      */
     private String text;
     /**
      * <p>
-     * The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend:
-     * German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents
-     * must be in the same language.
+     * The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend.
+     * All documents must be in the same language.
      * </p>
      */
     private String languageCode;
 
     /**
      * <p>
-     * A UTF-8 text string. Each string must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+     * A UTF-8 text string. The string must contain less than 100 KB of UTF-8 encoded characters.
      * </p>
      * 
      * @param text
-     *        A UTF-8 text string. Each string must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+     *        A UTF-8 text string. The string must contain less than 100 KB of UTF-8 encoded characters.
      */
 
     public void setText(String text) {
@@ -55,10 +54,10 @@ public class DetectKeyPhrasesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A UTF-8 text string. Each string must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+     * A UTF-8 text string. The string must contain less than 100 KB of UTF-8 encoded characters.
      * </p>
      * 
-     * @return A UTF-8 text string. Each string must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+     * @return A UTF-8 text string. The string must contain less than 100 KB of UTF-8 encoded characters.
      */
 
     public String getText() {
@@ -67,11 +66,11 @@ public class DetectKeyPhrasesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A UTF-8 text string. Each string must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+     * A UTF-8 text string. The string must contain less than 100 KB of UTF-8 encoded characters.
      * </p>
      * 
      * @param text
-     *        A UTF-8 text string. Each string must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+     *        A UTF-8 text string. The string must contain less than 100 KB of UTF-8 encoded characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -82,15 +81,13 @@ public class DetectKeyPhrasesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend:
-     * German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents
-     * must be in the same language.
+     * The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend.
+     * All documents must be in the same language.
      * </p>
      * 
      * @param languageCode
      *        The language of the input documents. You can specify any of the primary languages supported by Amazon
-     *        Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese
-     *        ("pt"). All documents must be in the same language.
+     *        Comprehend. All documents must be in the same language.
      * @see LanguageCode
      */
 
@@ -100,14 +97,12 @@ public class DetectKeyPhrasesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend:
-     * German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents
-     * must be in the same language.
+     * The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend.
+     * All documents must be in the same language.
      * </p>
      * 
      * @return The language of the input documents. You can specify any of the primary languages supported by Amazon
-     *         Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese
-     *         ("pt"). All documents must be in the same language.
+     *         Comprehend. All documents must be in the same language.
      * @see LanguageCode
      */
 
@@ -117,15 +112,13 @@ public class DetectKeyPhrasesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend:
-     * German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents
-     * must be in the same language.
+     * The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend.
+     * All documents must be in the same language.
      * </p>
      * 
      * @param languageCode
      *        The language of the input documents. You can specify any of the primary languages supported by Amazon
-     *        Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese
-     *        ("pt"). All documents must be in the same language.
+     *        Comprehend. All documents must be in the same language.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LanguageCode
      */
@@ -137,15 +130,13 @@ public class DetectKeyPhrasesRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend:
-     * German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents
-     * must be in the same language.
+     * The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend.
+     * All documents must be in the same language.
      * </p>
      * 
      * @param languageCode
      *        The language of the input documents. You can specify any of the primary languages supported by Amazon
-     *        Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese
-     *        ("pt"). All documents must be in the same language.
+     *        Comprehend. All documents must be in the same language.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LanguageCode
      */
@@ -168,7 +159,7 @@ public class DetectKeyPhrasesRequest extends com.amazonaws.AmazonWebServiceReque
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getText() != null)
-            sb.append("Text: ").append(getText()).append(",");
+            sb.append("Text: ").append("***Sensitive Data Redacted***").append(",");
         if (getLanguageCode() != null)
             sb.append("LanguageCode: ").append(getLanguageCode());
         sb.append("}");

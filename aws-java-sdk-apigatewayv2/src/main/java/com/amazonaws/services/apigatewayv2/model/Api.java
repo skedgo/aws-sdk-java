@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,18 +34,31 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
     private String apiEndpoint;
     /**
      * <p>
+     * Specifies whether an API is managed by API Gateway. You can't update or delete a managed API by using API
+     * Gateway. A managed API can be deleted only through the tooling or service that created it.
+     * </p>
+     */
+    private Boolean apiGatewayManaged;
+    /**
+     * <p>
      * The API ID.
      * </p>
      */
     private String apiId;
     /**
      * <p>
-     * An API key selection expression. See <a href=
+     * An API key selection expression. Supported only for WebSocket APIs. See <a href=
      * "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions"
      * >API Key Selection Expressions</a>.
      * </p>
      */
     private String apiKeySelectionExpression;
+    /**
+     * <p>
+     * A CORS configuration. Supported only for HTTP APIs.
+     * </p>
+     */
+    private Cors corsConfiguration;
     /**
      * <p>
      * The timestamp when the API was created.
@@ -60,10 +73,25 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
     private String description;
     /**
      * <p>
-     * Avoid validating models when creating a deployment.
+     * Avoid validating models when creating a deployment. Supported only for WebSocket APIs.
      * </p>
      */
     private Boolean disableSchemaValidation;
+    /**
+     * <p>
+     * Specifies whether clients can invoke your API by using the default execute-api endpoint. By default, clients can
+     * invoke your API with the default https://{api_id}.execute-api.{region}.amazonaws.com endpoint. To require that
+     * clients use a custom domain name to invoke your API, disable the default endpoint.
+     * </p>
+     */
+    private Boolean disableExecuteApiEndpoint;
+    /**
+     * <p>
+     * The validation information during API import. This may include particular properties of your OpenAPI definition
+     * which are ignored during import. Supported only for HTTP APIs.
+     * </p>
+     */
+    private java.util.List<String> importInfo;
     /**
      * <p>
      * The name of the API.
@@ -72,16 +100,24 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
     private String name;
     /**
      * <p>
-     * The API protocol: Currently only WEBSOCKET is supported.
+     * The API protocol.
      * </p>
      */
     private String protocolType;
     /**
      * <p>
-     * The route selection expression for the API.
+     * The route selection expression for the API. For HTTP APIs, the routeSelectionExpression must be ${request.method}
+     * ${request.path}. If not provided, this will be the default for HTTP APIs. This property is required for WebSocket
+     * APIs.
      * </p>
      */
     private String routeSelectionExpression;
+    /**
+     * <p>
+     * A collection of tags associated with the API.
+     * </p>
+     */
+    private java.util.Map<String, String> tags;
     /**
      * <p>
      * A version identifier for the API.
@@ -94,13 +130,6 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private java.util.List<String> warnings;
-    /**
-     * <p>
-     * The key-value map of strings. The valid character set is [a-zA-Z+-=._:/]. The tag key can be up to 128 characters
-     * and must not start with aws:. The tag value can be up to 256 characters..
-     * </p>
-     */
-    private java.util.Map<String, String> tags;
 
     /**
      * <p>
@@ -150,6 +179,66 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
+     * Specifies whether an API is managed by API Gateway. You can't update or delete a managed API by using API
+     * Gateway. A managed API can be deleted only through the tooling or service that created it.
+     * </p>
+     * 
+     * @param apiGatewayManaged
+     *        Specifies whether an API is managed by API Gateway. You can't update or delete a managed API by using API
+     *        Gateway. A managed API can be deleted only through the tooling or service that created it.
+     */
+
+    public void setApiGatewayManaged(Boolean apiGatewayManaged) {
+        this.apiGatewayManaged = apiGatewayManaged;
+    }
+
+    /**
+     * <p>
+     * Specifies whether an API is managed by API Gateway. You can't update or delete a managed API by using API
+     * Gateway. A managed API can be deleted only through the tooling or service that created it.
+     * </p>
+     * 
+     * @return Specifies whether an API is managed by API Gateway. You can't update or delete a managed API by using API
+     *         Gateway. A managed API can be deleted only through the tooling or service that created it.
+     */
+
+    public Boolean getApiGatewayManaged() {
+        return this.apiGatewayManaged;
+    }
+
+    /**
+     * <p>
+     * Specifies whether an API is managed by API Gateway. You can't update or delete a managed API by using API
+     * Gateway. A managed API can be deleted only through the tooling or service that created it.
+     * </p>
+     * 
+     * @param apiGatewayManaged
+     *        Specifies whether an API is managed by API Gateway. You can't update or delete a managed API by using API
+     *        Gateway. A managed API can be deleted only through the tooling or service that created it.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Api withApiGatewayManaged(Boolean apiGatewayManaged) {
+        setApiGatewayManaged(apiGatewayManaged);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether an API is managed by API Gateway. You can't update or delete a managed API by using API
+     * Gateway. A managed API can be deleted only through the tooling or service that created it.
+     * </p>
+     * 
+     * @return Specifies whether an API is managed by API Gateway. You can't update or delete a managed API by using API
+     *         Gateway. A managed API can be deleted only through the tooling or service that created it.
+     */
+
+    public Boolean isApiGatewayManaged() {
+        return this.apiGatewayManaged;
+    }
+
+    /**
+     * <p>
      * The API ID.
      * </p>
      * 
@@ -190,13 +279,13 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An API key selection expression. See <a href=
+     * An API key selection expression. Supported only for WebSocket APIs. See <a href=
      * "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions"
      * >API Key Selection Expressions</a>.
      * </p>
      * 
      * @param apiKeySelectionExpression
-     *        An API key selection expression. See <a href=
+     *        An API key selection expression. Supported only for WebSocket APIs. See <a href=
      *        "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions"
      *        >API Key Selection Expressions</a>.
      */
@@ -207,12 +296,12 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An API key selection expression. See <a href=
+     * An API key selection expression. Supported only for WebSocket APIs. See <a href=
      * "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions"
      * >API Key Selection Expressions</a>.
      * </p>
      * 
-     * @return An API key selection expression. See <a href=
+     * @return An API key selection expression. Supported only for WebSocket APIs. See <a href=
      *         "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions"
      *         >API Key Selection Expressions</a>.
      */
@@ -223,13 +312,13 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * An API key selection expression. See <a href=
+     * An API key selection expression. Supported only for WebSocket APIs. See <a href=
      * "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions"
      * >API Key Selection Expressions</a>.
      * </p>
      * 
      * @param apiKeySelectionExpression
-     *        An API key selection expression. See <a href=
+     *        An API key selection expression. Supported only for WebSocket APIs. See <a href=
      *        "https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions"
      *        >API Key Selection Expressions</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -237,6 +326,46 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
 
     public Api withApiKeySelectionExpression(String apiKeySelectionExpression) {
         setApiKeySelectionExpression(apiKeySelectionExpression);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A CORS configuration. Supported only for HTTP APIs.
+     * </p>
+     * 
+     * @param corsConfiguration
+     *        A CORS configuration. Supported only for HTTP APIs.
+     */
+
+    public void setCorsConfiguration(Cors corsConfiguration) {
+        this.corsConfiguration = corsConfiguration;
+    }
+
+    /**
+     * <p>
+     * A CORS configuration. Supported only for HTTP APIs.
+     * </p>
+     * 
+     * @return A CORS configuration. Supported only for HTTP APIs.
+     */
+
+    public Cors getCorsConfiguration() {
+        return this.corsConfiguration;
+    }
+
+    /**
+     * <p>
+     * A CORS configuration. Supported only for HTTP APIs.
+     * </p>
+     * 
+     * @param corsConfiguration
+     *        A CORS configuration. Supported only for HTTP APIs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Api withCorsConfiguration(Cors corsConfiguration) {
+        setCorsConfiguration(corsConfiguration);
         return this;
     }
 
@@ -322,11 +451,11 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Avoid validating models when creating a deployment.
+     * Avoid validating models when creating a deployment. Supported only for WebSocket APIs.
      * </p>
      * 
      * @param disableSchemaValidation
-     *        Avoid validating models when creating a deployment.
+     *        Avoid validating models when creating a deployment. Supported only for WebSocket APIs.
      */
 
     public void setDisableSchemaValidation(Boolean disableSchemaValidation) {
@@ -335,10 +464,10 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Avoid validating models when creating a deployment.
+     * Avoid validating models when creating a deployment. Supported only for WebSocket APIs.
      * </p>
      * 
-     * @return Avoid validating models when creating a deployment.
+     * @return Avoid validating models when creating a deployment. Supported only for WebSocket APIs.
      */
 
     public Boolean getDisableSchemaValidation() {
@@ -347,11 +476,11 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Avoid validating models when creating a deployment.
+     * Avoid validating models when creating a deployment. Supported only for WebSocket APIs.
      * </p>
      * 
      * @param disableSchemaValidation
-     *        Avoid validating models when creating a deployment.
+     *        Avoid validating models when creating a deployment. Supported only for WebSocket APIs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -362,14 +491,162 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Avoid validating models when creating a deployment.
+     * Avoid validating models when creating a deployment. Supported only for WebSocket APIs.
      * </p>
      * 
-     * @return Avoid validating models when creating a deployment.
+     * @return Avoid validating models when creating a deployment. Supported only for WebSocket APIs.
      */
 
     public Boolean isDisableSchemaValidation() {
         return this.disableSchemaValidation;
+    }
+
+    /**
+     * <p>
+     * Specifies whether clients can invoke your API by using the default execute-api endpoint. By default, clients can
+     * invoke your API with the default https://{api_id}.execute-api.{region}.amazonaws.com endpoint. To require that
+     * clients use a custom domain name to invoke your API, disable the default endpoint.
+     * </p>
+     * 
+     * @param disableExecuteApiEndpoint
+     *        Specifies whether clients can invoke your API by using the default execute-api endpoint. By default,
+     *        clients can invoke your API with the default https://{api_id}.execute-api.{region}.amazonaws.com endpoint.
+     *        To require that clients use a custom domain name to invoke your API, disable the default endpoint.
+     */
+
+    public void setDisableExecuteApiEndpoint(Boolean disableExecuteApiEndpoint) {
+        this.disableExecuteApiEndpoint = disableExecuteApiEndpoint;
+    }
+
+    /**
+     * <p>
+     * Specifies whether clients can invoke your API by using the default execute-api endpoint. By default, clients can
+     * invoke your API with the default https://{api_id}.execute-api.{region}.amazonaws.com endpoint. To require that
+     * clients use a custom domain name to invoke your API, disable the default endpoint.
+     * </p>
+     * 
+     * @return Specifies whether clients can invoke your API by using the default execute-api endpoint. By default,
+     *         clients can invoke your API with the default https://{api_id}.execute-api.{region}.amazonaws.com
+     *         endpoint. To require that clients use a custom domain name to invoke your API, disable the default
+     *         endpoint.
+     */
+
+    public Boolean getDisableExecuteApiEndpoint() {
+        return this.disableExecuteApiEndpoint;
+    }
+
+    /**
+     * <p>
+     * Specifies whether clients can invoke your API by using the default execute-api endpoint. By default, clients can
+     * invoke your API with the default https://{api_id}.execute-api.{region}.amazonaws.com endpoint. To require that
+     * clients use a custom domain name to invoke your API, disable the default endpoint.
+     * </p>
+     * 
+     * @param disableExecuteApiEndpoint
+     *        Specifies whether clients can invoke your API by using the default execute-api endpoint. By default,
+     *        clients can invoke your API with the default https://{api_id}.execute-api.{region}.amazonaws.com endpoint.
+     *        To require that clients use a custom domain name to invoke your API, disable the default endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Api withDisableExecuteApiEndpoint(Boolean disableExecuteApiEndpoint) {
+        setDisableExecuteApiEndpoint(disableExecuteApiEndpoint);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether clients can invoke your API by using the default execute-api endpoint. By default, clients can
+     * invoke your API with the default https://{api_id}.execute-api.{region}.amazonaws.com endpoint. To require that
+     * clients use a custom domain name to invoke your API, disable the default endpoint.
+     * </p>
+     * 
+     * @return Specifies whether clients can invoke your API by using the default execute-api endpoint. By default,
+     *         clients can invoke your API with the default https://{api_id}.execute-api.{region}.amazonaws.com
+     *         endpoint. To require that clients use a custom domain name to invoke your API, disable the default
+     *         endpoint.
+     */
+
+    public Boolean isDisableExecuteApiEndpoint() {
+        return this.disableExecuteApiEndpoint;
+    }
+
+    /**
+     * <p>
+     * The validation information during API import. This may include particular properties of your OpenAPI definition
+     * which are ignored during import. Supported only for HTTP APIs.
+     * </p>
+     * 
+     * @return The validation information during API import. This may include particular properties of your OpenAPI
+     *         definition which are ignored during import. Supported only for HTTP APIs.
+     */
+
+    public java.util.List<String> getImportInfo() {
+        return importInfo;
+    }
+
+    /**
+     * <p>
+     * The validation information during API import. This may include particular properties of your OpenAPI definition
+     * which are ignored during import. Supported only for HTTP APIs.
+     * </p>
+     * 
+     * @param importInfo
+     *        The validation information during API import. This may include particular properties of your OpenAPI
+     *        definition which are ignored during import. Supported only for HTTP APIs.
+     */
+
+    public void setImportInfo(java.util.Collection<String> importInfo) {
+        if (importInfo == null) {
+            this.importInfo = null;
+            return;
+        }
+
+        this.importInfo = new java.util.ArrayList<String>(importInfo);
+    }
+
+    /**
+     * <p>
+     * The validation information during API import. This may include particular properties of your OpenAPI definition
+     * which are ignored during import. Supported only for HTTP APIs.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setImportInfo(java.util.Collection)} or {@link #withImportInfo(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param importInfo
+     *        The validation information during API import. This may include particular properties of your OpenAPI
+     *        definition which are ignored during import. Supported only for HTTP APIs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Api withImportInfo(String... importInfo) {
+        if (this.importInfo == null) {
+            setImportInfo(new java.util.ArrayList<String>(importInfo.length));
+        }
+        for (String ele : importInfo) {
+            this.importInfo.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The validation information during API import. This may include particular properties of your OpenAPI definition
+     * which are ignored during import. Supported only for HTTP APIs.
+     * </p>
+     * 
+     * @param importInfo
+     *        The validation information during API import. This may include particular properties of your OpenAPI
+     *        definition which are ignored during import. Supported only for HTTP APIs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Api withImportInfo(java.util.Collection<String> importInfo) {
+        setImportInfo(importInfo);
+        return this;
     }
 
     /**
@@ -414,11 +691,11 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The API protocol: Currently only WEBSOCKET is supported.
+     * The API protocol.
      * </p>
      * 
      * @param protocolType
-     *        The API protocol: Currently only WEBSOCKET is supported.
+     *        The API protocol.
      * @see ProtocolType
      */
 
@@ -428,10 +705,10 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The API protocol: Currently only WEBSOCKET is supported.
+     * The API protocol.
      * </p>
      * 
-     * @return The API protocol: Currently only WEBSOCKET is supported.
+     * @return The API protocol.
      * @see ProtocolType
      */
 
@@ -441,11 +718,11 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The API protocol: Currently only WEBSOCKET is supported.
+     * The API protocol.
      * </p>
      * 
      * @param protocolType
-     *        The API protocol: Currently only WEBSOCKET is supported.
+     *        The API protocol.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ProtocolType
      */
@@ -457,11 +734,11 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The API protocol: Currently only WEBSOCKET is supported.
+     * The API protocol.
      * </p>
      * 
      * @param protocolType
-     *        The API protocol: Currently only WEBSOCKET is supported.
+     *        The API protocol.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ProtocolType
      */
@@ -473,11 +750,15 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The route selection expression for the API.
+     * The route selection expression for the API. For HTTP APIs, the routeSelectionExpression must be ${request.method}
+     * ${request.path}. If not provided, this will be the default for HTTP APIs. This property is required for WebSocket
+     * APIs.
      * </p>
      * 
      * @param routeSelectionExpression
-     *        The route selection expression for the API.
+     *        The route selection expression for the API. For HTTP APIs, the routeSelectionExpression must be
+     *        ${request.method} ${request.path}. If not provided, this will be the default for HTTP APIs. This property
+     *        is required for WebSocket APIs.
      */
 
     public void setRouteSelectionExpression(String routeSelectionExpression) {
@@ -486,10 +767,14 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The route selection expression for the API.
+     * The route selection expression for the API. For HTTP APIs, the routeSelectionExpression must be ${request.method}
+     * ${request.path}. If not provided, this will be the default for HTTP APIs. This property is required for WebSocket
+     * APIs.
      * </p>
      * 
-     * @return The route selection expression for the API.
+     * @return The route selection expression for the API. For HTTP APIs, the routeSelectionExpression must be
+     *         ${request.method} ${request.path}. If not provided, this will be the default for HTTP APIs. This property
+     *         is required for WebSocket APIs.
      */
 
     public String getRouteSelectionExpression() {
@@ -498,16 +783,88 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The route selection expression for the API.
+     * The route selection expression for the API. For HTTP APIs, the routeSelectionExpression must be ${request.method}
+     * ${request.path}. If not provided, this will be the default for HTTP APIs. This property is required for WebSocket
+     * APIs.
      * </p>
      * 
      * @param routeSelectionExpression
-     *        The route selection expression for the API.
+     *        The route selection expression for the API. For HTTP APIs, the routeSelectionExpression must be
+     *        ${request.method} ${request.path}. If not provided, this will be the default for HTTP APIs. This property
+     *        is required for WebSocket APIs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Api withRouteSelectionExpression(String routeSelectionExpression) {
         setRouteSelectionExpression(routeSelectionExpression);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A collection of tags associated with the API.
+     * </p>
+     * 
+     * @return A collection of tags associated with the API.
+     */
+
+    public java.util.Map<String, String> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * A collection of tags associated with the API.
+     * </p>
+     * 
+     * @param tags
+     *        A collection of tags associated with the API.
+     */
+
+    public void setTags(java.util.Map<String, String> tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * <p>
+     * A collection of tags associated with the API.
+     * </p>
+     * 
+     * @param tags
+     *        A collection of tags associated with the API.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Api withTags(java.util.Map<String, String> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see Api#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Api addTagsEntry(String key, String value) {
+        if (null == this.tags) {
+            this.tags = new java.util.HashMap<String, String>();
+        }
+        if (this.tags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.tags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Tags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Api clearTagsEntries() {
+        this.tags = null;
         return this;
     }
 
@@ -622,73 +979,6 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * <p>
-     * The key-value map of strings. The valid character set is [a-zA-Z+-=._:/]. The tag key can be up to 128 characters
-     * and must not start with aws:. The tag value can be up to 256 characters..
-     * </p>
-     * 
-     * @return The key-value map of strings. The valid character set is [a-zA-Z+-=._:/]. The tag key can be up to 128
-     *         characters and must not start with aws:. The tag value can be up to 256 characters..
-     */
-
-    public java.util.Map<String, String> getTags() {
-        return tags;
-    }
-
-    /**
-     * <p>
-     * The key-value map of strings. The valid character set is [a-zA-Z+-=._:/]. The tag key can be up to 128 characters
-     * and must not start with aws:. The tag value can be up to 256 characters..
-     * </p>
-     * 
-     * @param tags
-     *        The key-value map of strings. The valid character set is [a-zA-Z+-=._:/]. The tag key can be up to 128
-     *        characters and must not start with aws:. The tag value can be up to 256 characters..
-     */
-
-    public void setTags(java.util.Map<String, String> tags) {
-        this.tags = tags;
-    }
-
-    /**
-     * <p>
-     * The key-value map of strings. The valid character set is [a-zA-Z+-=._:/]. The tag key can be up to 128 characters
-     * and must not start with aws:. The tag value can be up to 256 characters..
-     * </p>
-     * 
-     * @param tags
-     *        The key-value map of strings. The valid character set is [a-zA-Z+-=._:/]. The tag key can be up to 128
-     *        characters and must not start with aws:. The tag value can be up to 256 characters..
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public Api withTags(java.util.Map<String, String> tags) {
-        setTags(tags);
-        return this;
-    }
-
-    public Api addTagsEntry(String key, String value) {
-        if (null == this.tags) {
-            this.tags = new java.util.HashMap<String, String>();
-        }
-        if (this.tags.containsKey(key))
-            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
-        this.tags.put(key, value);
-        return this;
-    }
-
-    /**
-     * Removes all the entries added into Tags.
-     *
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public Api clearTagsEntries() {
-        this.tags = null;
-        return this;
-    }
-
-    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -702,28 +992,36 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
         sb.append("{");
         if (getApiEndpoint() != null)
             sb.append("ApiEndpoint: ").append(getApiEndpoint()).append(",");
+        if (getApiGatewayManaged() != null)
+            sb.append("ApiGatewayManaged: ").append(getApiGatewayManaged()).append(",");
         if (getApiId() != null)
             sb.append("ApiId: ").append(getApiId()).append(",");
         if (getApiKeySelectionExpression() != null)
             sb.append("ApiKeySelectionExpression: ").append(getApiKeySelectionExpression()).append(",");
+        if (getCorsConfiguration() != null)
+            sb.append("CorsConfiguration: ").append(getCorsConfiguration()).append(",");
         if (getCreatedDate() != null)
             sb.append("CreatedDate: ").append(getCreatedDate()).append(",");
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
         if (getDisableSchemaValidation() != null)
             sb.append("DisableSchemaValidation: ").append(getDisableSchemaValidation()).append(",");
+        if (getDisableExecuteApiEndpoint() != null)
+            sb.append("DisableExecuteApiEndpoint: ").append(getDisableExecuteApiEndpoint()).append(",");
+        if (getImportInfo() != null)
+            sb.append("ImportInfo: ").append(getImportInfo()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getProtocolType() != null)
             sb.append("ProtocolType: ").append(getProtocolType()).append(",");
         if (getRouteSelectionExpression() != null)
             sb.append("RouteSelectionExpression: ").append(getRouteSelectionExpression()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
         if (getVersion() != null)
             sb.append("Version: ").append(getVersion()).append(",");
         if (getWarnings() != null)
-            sb.append("Warnings: ").append(getWarnings()).append(",");
-        if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Warnings: ").append(getWarnings());
         sb.append("}");
         return sb.toString();
     }
@@ -742,6 +1040,10 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getApiEndpoint() != null && other.getApiEndpoint().equals(this.getApiEndpoint()) == false)
             return false;
+        if (other.getApiGatewayManaged() == null ^ this.getApiGatewayManaged() == null)
+            return false;
+        if (other.getApiGatewayManaged() != null && other.getApiGatewayManaged().equals(this.getApiGatewayManaged()) == false)
+            return false;
         if (other.getApiId() == null ^ this.getApiId() == null)
             return false;
         if (other.getApiId() != null && other.getApiId().equals(this.getApiId()) == false)
@@ -749,6 +1051,10 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
         if (other.getApiKeySelectionExpression() == null ^ this.getApiKeySelectionExpression() == null)
             return false;
         if (other.getApiKeySelectionExpression() != null && other.getApiKeySelectionExpression().equals(this.getApiKeySelectionExpression()) == false)
+            return false;
+        if (other.getCorsConfiguration() == null ^ this.getCorsConfiguration() == null)
+            return false;
+        if (other.getCorsConfiguration() != null && other.getCorsConfiguration().equals(this.getCorsConfiguration()) == false)
             return false;
         if (other.getCreatedDate() == null ^ this.getCreatedDate() == null)
             return false;
@@ -762,6 +1068,14 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getDisableSchemaValidation() != null && other.getDisableSchemaValidation().equals(this.getDisableSchemaValidation()) == false)
             return false;
+        if (other.getDisableExecuteApiEndpoint() == null ^ this.getDisableExecuteApiEndpoint() == null)
+            return false;
+        if (other.getDisableExecuteApiEndpoint() != null && other.getDisableExecuteApiEndpoint().equals(this.getDisableExecuteApiEndpoint()) == false)
+            return false;
+        if (other.getImportInfo() == null ^ this.getImportInfo() == null)
+            return false;
+        if (other.getImportInfo() != null && other.getImportInfo().equals(this.getImportInfo()) == false)
+            return false;
         if (other.getName() == null ^ this.getName() == null)
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
@@ -774,6 +1088,10 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getRouteSelectionExpression() != null && other.getRouteSelectionExpression().equals(this.getRouteSelectionExpression()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         if (other.getVersion() == null ^ this.getVersion() == null)
             return false;
         if (other.getVersion() != null && other.getVersion().equals(this.getVersion()) == false)
@@ -781,10 +1099,6 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
         if (other.getWarnings() == null ^ this.getWarnings() == null)
             return false;
         if (other.getWarnings() != null && other.getWarnings().equals(this.getWarnings()) == false)
-            return false;
-        if (other.getTags() == null ^ this.getTags() == null)
-            return false;
-        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
         return true;
     }
@@ -795,17 +1109,21 @@ public class Api implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getApiEndpoint() == null) ? 0 : getApiEndpoint().hashCode());
+        hashCode = prime * hashCode + ((getApiGatewayManaged() == null) ? 0 : getApiGatewayManaged().hashCode());
         hashCode = prime * hashCode + ((getApiId() == null) ? 0 : getApiId().hashCode());
         hashCode = prime * hashCode + ((getApiKeySelectionExpression() == null) ? 0 : getApiKeySelectionExpression().hashCode());
+        hashCode = prime * hashCode + ((getCorsConfiguration() == null) ? 0 : getCorsConfiguration().hashCode());
         hashCode = prime * hashCode + ((getCreatedDate() == null) ? 0 : getCreatedDate().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getDisableSchemaValidation() == null) ? 0 : getDisableSchemaValidation().hashCode());
+        hashCode = prime * hashCode + ((getDisableExecuteApiEndpoint() == null) ? 0 : getDisableExecuteApiEndpoint().hashCode());
+        hashCode = prime * hashCode + ((getImportInfo() == null) ? 0 : getImportInfo().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getProtocolType() == null) ? 0 : getProtocolType().hashCode());
         hashCode = prime * hashCode + ((getRouteSelectionExpression() == null) ? 0 : getRouteSelectionExpression().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getVersion() == null) ? 0 : getVersion().hashCode());
         hashCode = prime * hashCode + ((getWarnings() == null) ? 0 : getWarnings().hashCode());
-        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

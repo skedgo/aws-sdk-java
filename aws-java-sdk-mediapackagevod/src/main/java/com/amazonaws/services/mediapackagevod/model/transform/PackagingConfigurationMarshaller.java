@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -11,6 +11,8 @@
  * and limitations under the License.
  */
 package com.amazonaws.services.mediapackagevod.model.transform;
+
+import java.util.Map;
 
 import javax.annotation.Generated;
 
@@ -31,6 +33,8 @@ public class PackagingConfigurationMarshaller {
             .marshallLocationName("arn").build();
     private static final MarshallingInfo<StructuredPojo> CMAFPACKAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("cmafPackage").build();
+    private static final MarshallingInfo<String> CREATEDAT_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("createdAt").build();
     private static final MarshallingInfo<StructuredPojo> DASHPACKAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dashPackage").build();
     private static final MarshallingInfo<StructuredPojo> HLSPACKAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -41,6 +45,8 @@ public class PackagingConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("mssPackage").build();
     private static final MarshallingInfo<String> PACKAGINGGROUPID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("packagingGroupId").build();
+    private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("tags").build();
 
     private static final PackagingConfigurationMarshaller instance = new PackagingConfigurationMarshaller();
 
@@ -60,11 +66,13 @@ public class PackagingConfigurationMarshaller {
         try {
             protocolMarshaller.marshall(packagingConfiguration.getArn(), ARN_BINDING);
             protocolMarshaller.marshall(packagingConfiguration.getCmafPackage(), CMAFPACKAGE_BINDING);
+            protocolMarshaller.marshall(packagingConfiguration.getCreatedAt(), CREATEDAT_BINDING);
             protocolMarshaller.marshall(packagingConfiguration.getDashPackage(), DASHPACKAGE_BINDING);
             protocolMarshaller.marshall(packagingConfiguration.getHlsPackage(), HLSPACKAGE_BINDING);
             protocolMarshaller.marshall(packagingConfiguration.getId(), ID_BINDING);
             protocolMarshaller.marshall(packagingConfiguration.getMssPackage(), MSSPACKAGE_BINDING);
             protocolMarshaller.marshall(packagingConfiguration.getPackagingGroupId(), PACKAGINGGROUPID_BINDING);
+            protocolMarshaller.marshall(packagingConfiguration.getTags(), TAGS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

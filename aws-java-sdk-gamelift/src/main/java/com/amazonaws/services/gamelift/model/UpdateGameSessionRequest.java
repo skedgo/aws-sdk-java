@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * Represents the input for a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/UpdateGameSession" target="_top">AWS API
  *      Documentation</a>
@@ -30,25 +27,25 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Unique identifier for the game session to update.
+     * A unique identifier for the game session to update.
      * </p>
      */
     private String gameSessionId;
     /**
      * <p>
-     * Maximum number of players that can be connected simultaneously to the game session.
+     * The maximum number of players that can be connected simultaneously to the game session.
      * </p>
      */
     private Integer maximumPlayerSessionCount;
     /**
      * <p>
-     * Descriptive label that is associated with a game session. Session names do not need to be unique.
+     * A descriptive label that is associated with a game session. Session names do not need to be unique.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * Policy determining whether or not the game session accepts new players.
+     * A policy that determines whether the game session is accepting new players.
      * </p>
      */
     private String playerSessionCreationPolicy;
@@ -71,14 +68,25 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
      * </ul>
      */
     private String protectionPolicy;
+    /**
+     * <p>
+     * A set of key-value pairs that can store custom data in a game session. For example:
+     * <code>{"Key": "difficulty", "Value": "novice"}</code>. You can use this parameter to modify game properties in an
+     * active game session. This action adds new properties and modifies existing properties. There is no way to delete
+     * properties. For an example, see <a href=
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-client-api.html#game-properties-update"
+     * >Update the value of a game property</a>.
+     * </p>
+     */
+    private java.util.List<GameProperty> gameProperties;
 
     /**
      * <p>
-     * Unique identifier for the game session to update.
+     * A unique identifier for the game session to update.
      * </p>
      * 
      * @param gameSessionId
-     *        Unique identifier for the game session to update.
+     *        A unique identifier for the game session to update.
      */
 
     public void setGameSessionId(String gameSessionId) {
@@ -87,10 +95,10 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Unique identifier for the game session to update.
+     * A unique identifier for the game session to update.
      * </p>
      * 
-     * @return Unique identifier for the game session to update.
+     * @return A unique identifier for the game session to update.
      */
 
     public String getGameSessionId() {
@@ -99,11 +107,11 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Unique identifier for the game session to update.
+     * A unique identifier for the game session to update.
      * </p>
      * 
      * @param gameSessionId
-     *        Unique identifier for the game session to update.
+     *        A unique identifier for the game session to update.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -114,11 +122,11 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Maximum number of players that can be connected simultaneously to the game session.
+     * The maximum number of players that can be connected simultaneously to the game session.
      * </p>
      * 
      * @param maximumPlayerSessionCount
-     *        Maximum number of players that can be connected simultaneously to the game session.
+     *        The maximum number of players that can be connected simultaneously to the game session.
      */
 
     public void setMaximumPlayerSessionCount(Integer maximumPlayerSessionCount) {
@@ -127,10 +135,10 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Maximum number of players that can be connected simultaneously to the game session.
+     * The maximum number of players that can be connected simultaneously to the game session.
      * </p>
      * 
-     * @return Maximum number of players that can be connected simultaneously to the game session.
+     * @return The maximum number of players that can be connected simultaneously to the game session.
      */
 
     public Integer getMaximumPlayerSessionCount() {
@@ -139,11 +147,11 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Maximum number of players that can be connected simultaneously to the game session.
+     * The maximum number of players that can be connected simultaneously to the game session.
      * </p>
      * 
      * @param maximumPlayerSessionCount
-     *        Maximum number of players that can be connected simultaneously to the game session.
+     *        The maximum number of players that can be connected simultaneously to the game session.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -154,11 +162,11 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Descriptive label that is associated with a game session. Session names do not need to be unique.
+     * A descriptive label that is associated with a game session. Session names do not need to be unique.
      * </p>
      * 
      * @param name
-     *        Descriptive label that is associated with a game session. Session names do not need to be unique.
+     *        A descriptive label that is associated with a game session. Session names do not need to be unique.
      */
 
     public void setName(String name) {
@@ -167,10 +175,10 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Descriptive label that is associated with a game session. Session names do not need to be unique.
+     * A descriptive label that is associated with a game session. Session names do not need to be unique.
      * </p>
      * 
-     * @return Descriptive label that is associated with a game session. Session names do not need to be unique.
+     * @return A descriptive label that is associated with a game session. Session names do not need to be unique.
      */
 
     public String getName() {
@@ -179,11 +187,11 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Descriptive label that is associated with a game session. Session names do not need to be unique.
+     * A descriptive label that is associated with a game session. Session names do not need to be unique.
      * </p>
      * 
      * @param name
-     *        Descriptive label that is associated with a game session. Session names do not need to be unique.
+     *        A descriptive label that is associated with a game session. Session names do not need to be unique.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -194,11 +202,11 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Policy determining whether or not the game session accepts new players.
+     * A policy that determines whether the game session is accepting new players.
      * </p>
      * 
      * @param playerSessionCreationPolicy
-     *        Policy determining whether or not the game session accepts new players.
+     *        A policy that determines whether the game session is accepting new players.
      * @see PlayerSessionCreationPolicy
      */
 
@@ -208,10 +216,10 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Policy determining whether or not the game session accepts new players.
+     * A policy that determines whether the game session is accepting new players.
      * </p>
      * 
-     * @return Policy determining whether or not the game session accepts new players.
+     * @return A policy that determines whether the game session is accepting new players.
      * @see PlayerSessionCreationPolicy
      */
 
@@ -221,11 +229,11 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Policy determining whether or not the game session accepts new players.
+     * A policy that determines whether the game session is accepting new players.
      * </p>
      * 
      * @param playerSessionCreationPolicy
-     *        Policy determining whether or not the game session accepts new players.
+     *        A policy that determines whether the game session is accepting new players.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PlayerSessionCreationPolicy
      */
@@ -237,11 +245,11 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Policy determining whether or not the game session accepts new players.
+     * A policy that determines whether the game session is accepting new players.
      * </p>
      * 
      * @param playerSessionCreationPolicy
-     *        Policy determining whether or not the game session accepts new players.
+     *        A policy that determines whether the game session is accepting new players.
      * @see PlayerSessionCreationPolicy
      */
 
@@ -251,11 +259,11 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Policy determining whether or not the game session accepts new players.
+     * A policy that determines whether the game session is accepting new players.
      * </p>
      * 
      * @param playerSessionCreationPolicy
-     *        Policy determining whether or not the game session accepts new players.
+     *        A policy that determines whether the game session is accepting new players.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PlayerSessionCreationPolicy
      */
@@ -464,6 +472,116 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
     }
 
     /**
+     * <p>
+     * A set of key-value pairs that can store custom data in a game session. For example:
+     * <code>{"Key": "difficulty", "Value": "novice"}</code>. You can use this parameter to modify game properties in an
+     * active game session. This action adds new properties and modifies existing properties. There is no way to delete
+     * properties. For an example, see <a href=
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-client-api.html#game-properties-update"
+     * >Update the value of a game property</a>.
+     * </p>
+     * 
+     * @return A set of key-value pairs that can store custom data in a game session. For example:
+     *         <code>{"Key": "difficulty", "Value": "novice"}</code>. You can use this parameter to modify game
+     *         properties in an active game session. This action adds new properties and modifies existing properties.
+     *         There is no way to delete properties. For an example, see <a href=
+     *         "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-client-api.html#game-properties-update"
+     *         >Update the value of a game property</a>.
+     */
+
+    public java.util.List<GameProperty> getGameProperties() {
+        return gameProperties;
+    }
+
+    /**
+     * <p>
+     * A set of key-value pairs that can store custom data in a game session. For example:
+     * <code>{"Key": "difficulty", "Value": "novice"}</code>. You can use this parameter to modify game properties in an
+     * active game session. This action adds new properties and modifies existing properties. There is no way to delete
+     * properties. For an example, see <a href=
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-client-api.html#game-properties-update"
+     * >Update the value of a game property</a>.
+     * </p>
+     * 
+     * @param gameProperties
+     *        A set of key-value pairs that can store custom data in a game session. For example:
+     *        <code>{"Key": "difficulty", "Value": "novice"}</code>. You can use this parameter to modify game
+     *        properties in an active game session. This action adds new properties and modifies existing properties.
+     *        There is no way to delete properties. For an example, see <a href=
+     *        "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-client-api.html#game-properties-update"
+     *        >Update the value of a game property</a>.
+     */
+
+    public void setGameProperties(java.util.Collection<GameProperty> gameProperties) {
+        if (gameProperties == null) {
+            this.gameProperties = null;
+            return;
+        }
+
+        this.gameProperties = new java.util.ArrayList<GameProperty>(gameProperties);
+    }
+
+    /**
+     * <p>
+     * A set of key-value pairs that can store custom data in a game session. For example:
+     * <code>{"Key": "difficulty", "Value": "novice"}</code>. You can use this parameter to modify game properties in an
+     * active game session. This action adds new properties and modifies existing properties. There is no way to delete
+     * properties. For an example, see <a href=
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-client-api.html#game-properties-update"
+     * >Update the value of a game property</a>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setGameProperties(java.util.Collection)} or {@link #withGameProperties(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param gameProperties
+     *        A set of key-value pairs that can store custom data in a game session. For example:
+     *        <code>{"Key": "difficulty", "Value": "novice"}</code>. You can use this parameter to modify game
+     *        properties in an active game session. This action adds new properties and modifies existing properties.
+     *        There is no way to delete properties. For an example, see <a href=
+     *        "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-client-api.html#game-properties-update"
+     *        >Update the value of a game property</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateGameSessionRequest withGameProperties(GameProperty... gameProperties) {
+        if (this.gameProperties == null) {
+            setGameProperties(new java.util.ArrayList<GameProperty>(gameProperties.length));
+        }
+        for (GameProperty ele : gameProperties) {
+            this.gameProperties.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A set of key-value pairs that can store custom data in a game session. For example:
+     * <code>{"Key": "difficulty", "Value": "novice"}</code>. You can use this parameter to modify game properties in an
+     * active game session. This action adds new properties and modifies existing properties. There is no way to delete
+     * properties. For an example, see <a href=
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-client-api.html#game-properties-update"
+     * >Update the value of a game property</a>.
+     * </p>
+     * 
+     * @param gameProperties
+     *        A set of key-value pairs that can store custom data in a game session. For example:
+     *        <code>{"Key": "difficulty", "Value": "novice"}</code>. You can use this parameter to modify game
+     *        properties in an active game session. This action adds new properties and modifies existing properties.
+     *        There is no way to delete properties. For an example, see <a href=
+     *        "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-client-api.html#game-properties-update"
+     *        >Update the value of a game property</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateGameSessionRequest withGameProperties(java.util.Collection<GameProperty> gameProperties) {
+        setGameProperties(gameProperties);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -484,7 +602,9 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
         if (getPlayerSessionCreationPolicy() != null)
             sb.append("PlayerSessionCreationPolicy: ").append(getPlayerSessionCreationPolicy()).append(",");
         if (getProtectionPolicy() != null)
-            sb.append("ProtectionPolicy: ").append(getProtectionPolicy());
+            sb.append("ProtectionPolicy: ").append(getProtectionPolicy()).append(",");
+        if (getGameProperties() != null)
+            sb.append("GameProperties: ").append(getGameProperties());
         sb.append("}");
         return sb.toString();
     }
@@ -519,6 +639,10 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
             return false;
         if (other.getProtectionPolicy() != null && other.getProtectionPolicy().equals(this.getProtectionPolicy()) == false)
             return false;
+        if (other.getGameProperties() == null ^ this.getGameProperties() == null)
+            return false;
+        if (other.getGameProperties() != null && other.getGameProperties().equals(this.getGameProperties()) == false)
+            return false;
         return true;
     }
 
@@ -532,6 +656,7 @@ public class UpdateGameSessionRequest extends com.amazonaws.AmazonWebServiceRequ
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getPlayerSessionCreationPolicy() == null) ? 0 : getPlayerSessionCreationPolicy().hashCode());
         hashCode = prime * hashCode + ((getProtectionPolicy() == null) ? 0 : getProtectionPolicy().hashCode());
+        hashCode = prime * hashCode + ((getGameProperties() == null) ? 0 : getGameProperties().hashCode());
         return hashCode;
     }
 

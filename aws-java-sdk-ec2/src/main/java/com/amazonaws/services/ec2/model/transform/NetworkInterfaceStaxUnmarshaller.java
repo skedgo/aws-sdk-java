@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,6 +60,11 @@ public class NetworkInterfaceStaxUnmarshaller implements Unmarshaller<NetworkInt
                     continue;
                 }
 
+                if (context.testExpression("connectionTrackingConfiguration", targetDepth)) {
+                    networkInterface.setConnectionTrackingConfiguration(ConnectionTrackingConfigurationStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("description", targetDepth)) {
                     networkInterface.setDescription(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
@@ -100,6 +105,11 @@ public class NetworkInterfaceStaxUnmarshaller implements Unmarshaller<NetworkInt
                     continue;
                 }
 
+                if (context.testExpression("outpostArn", targetDepth)) {
+                    networkInterface.setOutpostArn(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("ownerId", targetDepth)) {
                     networkInterface.setOwnerId(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
@@ -122,6 +132,26 @@ public class NetworkInterfaceStaxUnmarshaller implements Unmarshaller<NetworkInt
 
                 if (context.testExpression("privateIpAddressesSet/item", targetDepth)) {
                     networkInterface.withPrivateIpAddresses(NetworkInterfacePrivateIpAddressStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ipv4PrefixSet", targetDepth)) {
+                    networkInterface.withIpv4Prefixes(new ArrayList<Ipv4PrefixSpecification>());
+                    continue;
+                }
+
+                if (context.testExpression("ipv4PrefixSet/item", targetDepth)) {
+                    networkInterface.withIpv4Prefixes(Ipv4PrefixSpecificationStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ipv6PrefixSet", targetDepth)) {
+                    networkInterface.withIpv6Prefixes(new ArrayList<Ipv6PrefixSpecification>());
+                    continue;
+                }
+
+                if (context.testExpression("ipv6PrefixSet/item", targetDepth)) {
+                    networkInterface.withIpv6Prefixes(Ipv6PrefixSpecificationStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
 
@@ -162,6 +192,21 @@ public class NetworkInterfaceStaxUnmarshaller implements Unmarshaller<NetworkInt
 
                 if (context.testExpression("vpcId", targetDepth)) {
                     networkInterface.setVpcId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("denyAllIgwTraffic", targetDepth)) {
+                    networkInterface.setDenyAllIgwTraffic(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ipv6Native", targetDepth)) {
+                    networkInterface.setIpv6Native(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ipv6Address", targetDepth)) {
+                    networkInterface.setIpv6Address(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

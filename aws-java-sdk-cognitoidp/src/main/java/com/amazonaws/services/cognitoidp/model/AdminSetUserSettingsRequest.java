@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Represents the request to set user settings as an administrator.
+ * You can use this parameter to set an MFA configuration that uses the SMS delivery medium.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminSetUserSettings" target="_top">AWS
@@ -30,30 +30,33 @@ public class AdminSetUserSettingsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The user pool ID for the user pool where you want to set the user's settings, such as MFA options.
+     * The ID of the user pool that contains the user whose options you're setting.
      * </p>
      */
     private String userPoolId;
     /**
      * <p>
-     * The user name of the user for whom you wish to set user settings.
+     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
+     * username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your
+     * user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party
+     * IdP.
      * </p>
      */
     private String username;
     /**
      * <p>
-     * Specifies the options for MFA (e.g., email or phone number).
+     * You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      * </p>
      */
     private java.util.List<MFAOptionType> mFAOptions;
 
     /**
      * <p>
-     * The user pool ID for the user pool where you want to set the user's settings, such as MFA options.
+     * The ID of the user pool that contains the user whose options you're setting.
      * </p>
      * 
      * @param userPoolId
-     *        The user pool ID for the user pool where you want to set the user's settings, such as MFA options.
+     *        The ID of the user pool that contains the user whose options you're setting.
      */
 
     public void setUserPoolId(String userPoolId) {
@@ -62,10 +65,10 @@ public class AdminSetUserSettingsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The user pool ID for the user pool where you want to set the user's settings, such as MFA options.
+     * The ID of the user pool that contains the user whose options you're setting.
      * </p>
      * 
-     * @return The user pool ID for the user pool where you want to set the user's settings, such as MFA options.
+     * @return The ID of the user pool that contains the user whose options you're setting.
      */
 
     public String getUserPoolId() {
@@ -74,11 +77,11 @@ public class AdminSetUserSettingsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The user pool ID for the user pool where you want to set the user's settings, such as MFA options.
+     * The ID of the user pool that contains the user whose options you're setting.
      * </p>
      * 
      * @param userPoolId
-     *        The user pool ID for the user pool where you want to set the user's settings, such as MFA options.
+     *        The ID of the user pool that contains the user whose options you're setting.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -89,11 +92,17 @@ public class AdminSetUserSettingsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The user name of the user for whom you wish to set user settings.
+     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
+     * username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your
+     * user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party
+     * IdP.
      * </p>
      * 
      * @param username
-     *        The user name of the user for whom you wish to set user settings.
+     *        The username of the user that you want to query or modify. The value of this parameter is typically your
+     *        user's username, but it can be any of their alias attributes. If <code>username</code> isn't an alias
+     *        attribute in your user pool, this value must be the <code>sub</code> of a local user or the username of a
+     *        user from a third-party IdP.
      */
 
     public void setUsername(String username) {
@@ -102,10 +111,16 @@ public class AdminSetUserSettingsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The user name of the user for whom you wish to set user settings.
+     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
+     * username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your
+     * user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party
+     * IdP.
      * </p>
      * 
-     * @return The user name of the user for whom you wish to set user settings.
+     * @return The username of the user that you want to query or modify. The value of this parameter is typically your
+     *         user's username, but it can be any of their alias attributes. If <code>username</code> isn't an alias
+     *         attribute in your user pool, this value must be the <code>sub</code> of a local user or the username of a
+     *         user from a third-party IdP.
      */
 
     public String getUsername() {
@@ -114,11 +129,17 @@ public class AdminSetUserSettingsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The user name of the user for whom you wish to set user settings.
+     * The username of the user that you want to query or modify. The value of this parameter is typically your user's
+     * username, but it can be any of their alias attributes. If <code>username</code> isn't an alias attribute in your
+     * user pool, this value must be the <code>sub</code> of a local user or the username of a user from a third-party
+     * IdP.
      * </p>
      * 
      * @param username
-     *        The user name of the user for whom you wish to set user settings.
+     *        The username of the user that you want to query or modify. The value of this parameter is typically your
+     *        user's username, but it can be any of their alias attributes. If <code>username</code> isn't an alias
+     *        attribute in your user pool, this value must be the <code>sub</code> of a local user or the username of a
+     *        user from a third-party IdP.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -129,10 +150,10 @@ public class AdminSetUserSettingsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Specifies the options for MFA (e.g., email or phone number).
+     * You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      * </p>
      * 
-     * @return Specifies the options for MFA (e.g., email or phone number).
+     * @return You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      */
 
     public java.util.List<MFAOptionType> getMFAOptions() {
@@ -141,11 +162,11 @@ public class AdminSetUserSettingsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Specifies the options for MFA (e.g., email or phone number).
+     * You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      * </p>
      * 
      * @param mFAOptions
-     *        Specifies the options for MFA (e.g., email or phone number).
+     *        You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      */
 
     public void setMFAOptions(java.util.Collection<MFAOptionType> mFAOptions) {
@@ -159,7 +180,7 @@ public class AdminSetUserSettingsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Specifies the options for MFA (e.g., email or phone number).
+     * You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -168,7 +189,7 @@ public class AdminSetUserSettingsRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param mFAOptions
-     *        Specifies the options for MFA (e.g., email or phone number).
+     *        You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -184,11 +205,11 @@ public class AdminSetUserSettingsRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Specifies the options for MFA (e.g., email or phone number).
+     * You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      * </p>
      * 
      * @param mFAOptions
-     *        Specifies the options for MFA (e.g., email or phone number).
+     *        You can use this parameter only to set an SMS configuration that uses SMS for delivery.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

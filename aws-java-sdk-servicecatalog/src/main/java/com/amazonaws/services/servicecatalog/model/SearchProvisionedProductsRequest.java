@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,11 +32,6 @@ public class SearchProvisionedProductsRequest extends com.amazonaws.AmazonWebSer
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -61,8 +56,10 @@ public class SearchProvisionedProductsRequest extends com.amazonaws.AmazonWebSer
      * <p>
      * When the key is <code>SearchQuery</code>, the searchable fields are <code>arn</code>, <code>createdTime</code>,
      * <code>id</code>, <code>lastRecordId</code>, <code>idempotencyToken</code>, <code>name</code>,
-     * <code>physicalId</code>, <code>productId</code>, <code>provisioningArtifact</code>, <code>type</code>,
-     * <code>status</code>, <code>tags</code>, <code>userArn</code>, and <code>userArnSession</code>.
+     * <code>physicalId</code>, <code>productId</code>, <code>provisioningArtifactId</code>, <code>type</code>,
+     * <code>status</code>, <code>tags</code>, <code>userArn</code>, <code>userArnSession</code>,
+     * <code>lastProvisioningRecordId</code>, <code>lastSuccessfulProvisioningRecordId</code>, <code>productName</code>,
+     * and <code>provisioningArtifactName</code>.
      * </p>
      * <p>
      * Example: <code>"SearchQuery":["status:AVAILABLE"]</code>
@@ -102,11 +99,6 @@ public class SearchProvisionedProductsRequest extends com.amazonaws.AmazonWebSer
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -120,11 +112,6 @@ public class SearchProvisionedProductsRequest extends com.amazonaws.AmazonWebSer
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -148,11 +135,6 @@ public class SearchProvisionedProductsRequest extends com.amazonaws.AmazonWebSer
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -165,11 +147,6 @@ public class SearchProvisionedProductsRequest extends com.amazonaws.AmazonWebSer
      * 
      * @return The language code.</p>
      *         <ul>
-     *         <li>
-     *         <p>
-     *         <code>en</code> - English (default)
-     *         </p>
-     *         </li>
      *         <li>
      *         <p>
      *         <code>jp</code> - Japanese
@@ -193,11 +170,6 @@ public class SearchProvisionedProductsRequest extends com.amazonaws.AmazonWebSer
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -211,11 +183,6 @@ public class SearchProvisionedProductsRequest extends com.amazonaws.AmazonWebSer
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -281,8 +248,10 @@ public class SearchProvisionedProductsRequest extends com.amazonaws.AmazonWebSer
      * <p>
      * When the key is <code>SearchQuery</code>, the searchable fields are <code>arn</code>, <code>createdTime</code>,
      * <code>id</code>, <code>lastRecordId</code>, <code>idempotencyToken</code>, <code>name</code>,
-     * <code>physicalId</code>, <code>productId</code>, <code>provisioningArtifact</code>, <code>type</code>,
-     * <code>status</code>, <code>tags</code>, <code>userArn</code>, and <code>userArnSession</code>.
+     * <code>physicalId</code>, <code>productId</code>, <code>provisioningArtifactId</code>, <code>type</code>,
+     * <code>status</code>, <code>tags</code>, <code>userArn</code>, <code>userArnSession</code>,
+     * <code>lastProvisioningRecordId</code>, <code>lastSuccessfulProvisioningRecordId</code>, <code>productName</code>,
+     * and <code>provisioningArtifactName</code>.
      * </p>
      * <p>
      * Example: <code>"SearchQuery":["status:AVAILABLE"]</code>
@@ -292,9 +261,11 @@ public class SearchProvisionedProductsRequest extends com.amazonaws.AmazonWebSer
      *         <p>
      *         When the key is <code>SearchQuery</code>, the searchable fields are <code>arn</code>,
      *         <code>createdTime</code>, <code>id</code>, <code>lastRecordId</code>, <code>idempotencyToken</code>,
-     *         <code>name</code>, <code>physicalId</code>, <code>productId</code>, <code>provisioningArtifact</code>,
-     *         <code>type</code>, <code>status</code>, <code>tags</code>, <code>userArn</code>, and
-     *         <code>userArnSession</code>.
+     *         <code>name</code>, <code>physicalId</code>, <code>productId</code>, <code>provisioningArtifactId</code>,
+     *         <code>type</code>, <code>status</code>, <code>tags</code>, <code>userArn</code>,
+     *         <code>userArnSession</code>, <code>lastProvisioningRecordId</code>,
+     *         <code>lastSuccessfulProvisioningRecordId</code>, <code>productName</code>, and
+     *         <code>provisioningArtifactName</code>.
      *         </p>
      *         <p>
      *         Example: <code>"SearchQuery":["status:AVAILABLE"]</code>
@@ -311,8 +282,10 @@ public class SearchProvisionedProductsRequest extends com.amazonaws.AmazonWebSer
      * <p>
      * When the key is <code>SearchQuery</code>, the searchable fields are <code>arn</code>, <code>createdTime</code>,
      * <code>id</code>, <code>lastRecordId</code>, <code>idempotencyToken</code>, <code>name</code>,
-     * <code>physicalId</code>, <code>productId</code>, <code>provisioningArtifact</code>, <code>type</code>,
-     * <code>status</code>, <code>tags</code>, <code>userArn</code>, and <code>userArnSession</code>.
+     * <code>physicalId</code>, <code>productId</code>, <code>provisioningArtifactId</code>, <code>type</code>,
+     * <code>status</code>, <code>tags</code>, <code>userArn</code>, <code>userArnSession</code>,
+     * <code>lastProvisioningRecordId</code>, <code>lastSuccessfulProvisioningRecordId</code>, <code>productName</code>,
+     * and <code>provisioningArtifactName</code>.
      * </p>
      * <p>
      * Example: <code>"SearchQuery":["status:AVAILABLE"]</code>
@@ -323,9 +296,11 @@ public class SearchProvisionedProductsRequest extends com.amazonaws.AmazonWebSer
      *        <p>
      *        When the key is <code>SearchQuery</code>, the searchable fields are <code>arn</code>,
      *        <code>createdTime</code>, <code>id</code>, <code>lastRecordId</code>, <code>idempotencyToken</code>,
-     *        <code>name</code>, <code>physicalId</code>, <code>productId</code>, <code>provisioningArtifact</code>,
-     *        <code>type</code>, <code>status</code>, <code>tags</code>, <code>userArn</code>, and
-     *        <code>userArnSession</code>.
+     *        <code>name</code>, <code>physicalId</code>, <code>productId</code>, <code>provisioningArtifactId</code>,
+     *        <code>type</code>, <code>status</code>, <code>tags</code>, <code>userArn</code>,
+     *        <code>userArnSession</code>, <code>lastProvisioningRecordId</code>,
+     *        <code>lastSuccessfulProvisioningRecordId</code>, <code>productName</code>, and
+     *        <code>provisioningArtifactName</code>.
      *        </p>
      *        <p>
      *        Example: <code>"SearchQuery":["status:AVAILABLE"]</code>
@@ -342,8 +317,10 @@ public class SearchProvisionedProductsRequest extends com.amazonaws.AmazonWebSer
      * <p>
      * When the key is <code>SearchQuery</code>, the searchable fields are <code>arn</code>, <code>createdTime</code>,
      * <code>id</code>, <code>lastRecordId</code>, <code>idempotencyToken</code>, <code>name</code>,
-     * <code>physicalId</code>, <code>productId</code>, <code>provisioningArtifact</code>, <code>type</code>,
-     * <code>status</code>, <code>tags</code>, <code>userArn</code>, and <code>userArnSession</code>.
+     * <code>physicalId</code>, <code>productId</code>, <code>provisioningArtifactId</code>, <code>type</code>,
+     * <code>status</code>, <code>tags</code>, <code>userArn</code>, <code>userArnSession</code>,
+     * <code>lastProvisioningRecordId</code>, <code>lastSuccessfulProvisioningRecordId</code>, <code>productName</code>,
+     * and <code>provisioningArtifactName</code>.
      * </p>
      * <p>
      * Example: <code>"SearchQuery":["status:AVAILABLE"]</code>
@@ -354,9 +331,11 @@ public class SearchProvisionedProductsRequest extends com.amazonaws.AmazonWebSer
      *        <p>
      *        When the key is <code>SearchQuery</code>, the searchable fields are <code>arn</code>,
      *        <code>createdTime</code>, <code>id</code>, <code>lastRecordId</code>, <code>idempotencyToken</code>,
-     *        <code>name</code>, <code>physicalId</code>, <code>productId</code>, <code>provisioningArtifact</code>,
-     *        <code>type</code>, <code>status</code>, <code>tags</code>, <code>userArn</code>, and
-     *        <code>userArnSession</code>.
+     *        <code>name</code>, <code>physicalId</code>, <code>productId</code>, <code>provisioningArtifactId</code>,
+     *        <code>type</code>, <code>status</code>, <code>tags</code>, <code>userArn</code>,
+     *        <code>userArnSession</code>, <code>lastProvisioningRecordId</code>,
+     *        <code>lastSuccessfulProvisioningRecordId</code>, <code>productName</code>, and
+     *        <code>provisioningArtifactName</code>.
      *        </p>
      *        <p>
      *        Example: <code>"SearchQuery":["status:AVAILABLE"]</code>
@@ -367,6 +346,13 @@ public class SearchProvisionedProductsRequest extends com.amazonaws.AmazonWebSer
         setFilters(filters);
         return this;
     }
+
+    /**
+     * Add a single Filters entry
+     *
+     * @see SearchProvisionedProductsRequest#withFilters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public SearchProvisionedProductsRequest addFiltersEntry(String key, java.util.List<String> value) {
         if (null == this.filters) {

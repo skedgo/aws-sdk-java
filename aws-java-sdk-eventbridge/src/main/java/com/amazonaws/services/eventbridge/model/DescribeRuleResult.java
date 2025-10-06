@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,14 +38,14 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
     /**
      * <p>
      * The event pattern. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and
+     * Event Patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      * </p>
      */
     private String eventPattern;
     /**
      * <p>
-     * The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or <code>"rate(5 minutes)"</code>.
+     * The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)".
      * </p>
      */
     private String scheduleExpression;
@@ -69,17 +69,26 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
     private String roleArn;
     /**
      * <p>
-     * If this is a managed rule, created by an AWS service on your behalf, this field displays the principal name of
-     * the AWS service that created the rule.
+     * If this is a managed rule, created by an Amazon Web Services service on your behalf, this field displays the
+     * principal name of the Amazon Web Services service that created the rule.
      * </p>
      */
     private String managedBy;
     /**
      * <p>
-     * The event bus associated with the rule.
+     * The name of the event bus associated with the rule.
      * </p>
      */
     private String eventBusName;
+    /**
+     * <p>
+     * The account ID of the user that created the rule. If you use <code>PutRule</code> to put a rule on an event bus
+     * in another account, the other account is the owner of the rule, and the rule ARN includes the account ID for that
+     * account. However, the value for <code>CreatedBy</code> is the account ID as the account that created the rule in
+     * the other account.
+     * </p>
+     */
+    private String createdBy;
 
     /**
      * <p>
@@ -164,14 +173,14 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
     /**
      * <p>
      * The event pattern. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and
+     * Event Patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      * </p>
      * 
      * @param eventPattern
      *        The event pattern. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     *        Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events
+     *        and Event Patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      */
 
     public void setEventPattern(String eventPattern) {
@@ -181,13 +190,13 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
     /**
      * <p>
      * The event pattern. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and
+     * Event Patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      * </p>
      * 
      * @return The event pattern. For more information, see <a
-     *         href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     *         Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     *         href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html"
+     *         >Events and Event Patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      */
 
     public String getEventPattern() {
@@ -197,14 +206,14 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
     /**
      * <p>
      * The event pattern. For more information, see <a
-     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     * Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     * href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events and
+     * Event Patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      * </p>
      * 
      * @param eventPattern
      *        The event pattern. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Event
-     *        Patterns</a> in the <i>Amazon EventBridge User Guide</i>.
+     *        href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html">Events
+     *        and Event Patterns</a> in the <i> <i>Amazon EventBridge User Guide</i> </i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -215,12 +224,11 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or <code>"rate(5 minutes)"</code>.
+     * The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)".
      * </p>
      * 
      * @param scheduleExpression
-     *        The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or
-     *        <code>"rate(5 minutes)"</code>.
+     *        The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)".
      */
 
     public void setScheduleExpression(String scheduleExpression) {
@@ -229,11 +237,10 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or <code>"rate(5 minutes)"</code>.
+     * The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)".
      * </p>
      * 
-     * @return The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or
-     *         <code>"rate(5 minutes)"</code>.
+     * @return The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)".
      */
 
     public String getScheduleExpression() {
@@ -242,12 +249,11 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or <code>"rate(5 minutes)"</code>.
+     * The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)".
      * </p>
      * 
      * @param scheduleExpression
-     *        The scheduling expression: for example, <code>"cron(0 20 * * ? *)"</code> or
-     *        <code>"rate(5 minutes)"</code>.
+     *        The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)".
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -397,13 +403,13 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * If this is a managed rule, created by an AWS service on your behalf, this field displays the principal name of
-     * the AWS service that created the rule.
+     * If this is a managed rule, created by an Amazon Web Services service on your behalf, this field displays the
+     * principal name of the Amazon Web Services service that created the rule.
      * </p>
      * 
      * @param managedBy
-     *        If this is a managed rule, created by an AWS service on your behalf, this field displays the principal
-     *        name of the AWS service that created the rule.
+     *        If this is a managed rule, created by an Amazon Web Services service on your behalf, this field displays
+     *        the principal name of the Amazon Web Services service that created the rule.
      */
 
     public void setManagedBy(String managedBy) {
@@ -412,12 +418,12 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * If this is a managed rule, created by an AWS service on your behalf, this field displays the principal name of
-     * the AWS service that created the rule.
+     * If this is a managed rule, created by an Amazon Web Services service on your behalf, this field displays the
+     * principal name of the Amazon Web Services service that created the rule.
      * </p>
      * 
-     * @return If this is a managed rule, created by an AWS service on your behalf, this field displays the principal
-     *         name of the AWS service that created the rule.
+     * @return If this is a managed rule, created by an Amazon Web Services service on your behalf, this field displays
+     *         the principal name of the Amazon Web Services service that created the rule.
      */
 
     public String getManagedBy() {
@@ -426,13 +432,13 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * If this is a managed rule, created by an AWS service on your behalf, this field displays the principal name of
-     * the AWS service that created the rule.
+     * If this is a managed rule, created by an Amazon Web Services service on your behalf, this field displays the
+     * principal name of the Amazon Web Services service that created the rule.
      * </p>
      * 
      * @param managedBy
-     *        If this is a managed rule, created by an AWS service on your behalf, this field displays the principal
-     *        name of the AWS service that created the rule.
+     *        If this is a managed rule, created by an Amazon Web Services service on your behalf, this field displays
+     *        the principal name of the Amazon Web Services service that created the rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -443,11 +449,11 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The event bus associated with the rule.
+     * The name of the event bus associated with the rule.
      * </p>
      * 
      * @param eventBusName
-     *        The event bus associated with the rule.
+     *        The name of the event bus associated with the rule.
      */
 
     public void setEventBusName(String eventBusName) {
@@ -456,10 +462,10 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The event bus associated with the rule.
+     * The name of the event bus associated with the rule.
      * </p>
      * 
-     * @return The event bus associated with the rule.
+     * @return The name of the event bus associated with the rule.
      */
 
     public String getEventBusName() {
@@ -468,16 +474,74 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The event bus associated with the rule.
+     * The name of the event bus associated with the rule.
      * </p>
      * 
      * @param eventBusName
-     *        The event bus associated with the rule.
+     *        The name of the event bus associated with the rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DescribeRuleResult withEventBusName(String eventBusName) {
         setEventBusName(eventBusName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The account ID of the user that created the rule. If you use <code>PutRule</code> to put a rule on an event bus
+     * in another account, the other account is the owner of the rule, and the rule ARN includes the account ID for that
+     * account. However, the value for <code>CreatedBy</code> is the account ID as the account that created the rule in
+     * the other account.
+     * </p>
+     * 
+     * @param createdBy
+     *        The account ID of the user that created the rule. If you use <code>PutRule</code> to put a rule on an
+     *        event bus in another account, the other account is the owner of the rule, and the rule ARN includes the
+     *        account ID for that account. However, the value for <code>CreatedBy</code> is the account ID as the
+     *        account that created the rule in the other account.
+     */
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    /**
+     * <p>
+     * The account ID of the user that created the rule. If you use <code>PutRule</code> to put a rule on an event bus
+     * in another account, the other account is the owner of the rule, and the rule ARN includes the account ID for that
+     * account. However, the value for <code>CreatedBy</code> is the account ID as the account that created the rule in
+     * the other account.
+     * </p>
+     * 
+     * @return The account ID of the user that created the rule. If you use <code>PutRule</code> to put a rule on an
+     *         event bus in another account, the other account is the owner of the rule, and the rule ARN includes the
+     *         account ID for that account. However, the value for <code>CreatedBy</code> is the account ID as the
+     *         account that created the rule in the other account.
+     */
+
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+
+    /**
+     * <p>
+     * The account ID of the user that created the rule. If you use <code>PutRule</code> to put a rule on an event bus
+     * in another account, the other account is the owner of the rule, and the rule ARN includes the account ID for that
+     * account. However, the value for <code>CreatedBy</code> is the account ID as the account that created the rule in
+     * the other account.
+     * </p>
+     * 
+     * @param createdBy
+     *        The account ID of the user that created the rule. If you use <code>PutRule</code> to put a rule on an
+     *        event bus in another account, the other account is the owner of the rule, and the rule ARN includes the
+     *        account ID for that account. However, the value for <code>CreatedBy</code> is the account ID as the
+     *        account that created the rule in the other account.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeRuleResult withCreatedBy(String createdBy) {
+        setCreatedBy(createdBy);
         return this;
     }
 
@@ -510,7 +574,9 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
         if (getManagedBy() != null)
             sb.append("ManagedBy: ").append(getManagedBy()).append(",");
         if (getEventBusName() != null)
-            sb.append("EventBusName: ").append(getEventBusName());
+            sb.append("EventBusName: ").append(getEventBusName()).append(",");
+        if (getCreatedBy() != null)
+            sb.append("CreatedBy: ").append(getCreatedBy());
         sb.append("}");
         return sb.toString();
     }
@@ -561,6 +627,10 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
             return false;
         if (other.getEventBusName() != null && other.getEventBusName().equals(this.getEventBusName()) == false)
             return false;
+        if (other.getCreatedBy() == null ^ this.getCreatedBy() == null)
+            return false;
+        if (other.getCreatedBy() != null && other.getCreatedBy().equals(this.getCreatedBy()) == false)
+            return false;
         return true;
     }
 
@@ -578,6 +648,7 @@ public class DescribeRuleResult extends com.amazonaws.AmazonWebServiceResult<com
         hashCode = prime * hashCode + ((getRoleArn() == null) ? 0 : getRoleArn().hashCode());
         hashCode = prime * hashCode + ((getManagedBy() == null) ? 0 : getManagedBy().hashCode());
         hashCode = prime * hashCode + ((getEventBusName() == null) ? 0 : getEventBusName().hashCode());
+        hashCode = prime * hashCode + ((getCreatedBy() == null) ? 0 : getCreatedBy().hashCode());
         return hashCode;
     }
 

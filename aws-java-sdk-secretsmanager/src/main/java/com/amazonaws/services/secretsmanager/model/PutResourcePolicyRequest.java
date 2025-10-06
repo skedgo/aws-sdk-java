@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,65 +27,73 @@ public class PutResourcePolicyRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies the secret that you want to attach the resource-based policy to. You can specify either the ARN or the
-     * friendly name of the secret.
+     * The ARN or name of the secret to attach the resource-based policy.
      * </p>
-     * <note>
      * <p>
-     * If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial ARN
-     * too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager adds at the
-     * end of the ARN when you created the secret. A partial ARN match can work as long as it uniquely matches only one
-     * secret. However, if your secret has a name that ends in a hyphen followed by six characters (before Secrets
-     * Manager adds the hyphen and six characters to the ARN) and you try to use that as a partial ARN, then those
-     * characters cause Secrets Manager to assume that you’re specifying a complete ARN. This confusion can cause
-     * unexpected results. To avoid this situation, we recommend that you don’t create secret names that end with a
-     * hyphen followed by six characters.
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding
+     * a secret from a partial ARN</a>.
      * </p>
-     * </note>
      */
     private String secretId;
     /**
      * <p>
-     * A JSON-formatted string that's constructed according to the grammar and syntax for an AWS resource-based policy.
-     * The policy in the string identifies who can access or manage this secret and its versions. For information on how
-     * to format a JSON parameter for the various command line tool environments, see <a
-     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using JSON for
-     * Parameters</a> in the <i>AWS CLI User Guide</i>.
+     * A JSON-formatted string for an Amazon Web Services resource-based policy. For example policies, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html">Permissions
+     * policy examples</a>.
      * </p>
      */
     private String resourcePolicy;
+    /**
+     * <p>
+     * Specifies whether to block resource-based policies that allow broad access to the secret, for example those that
+     * use a wildcard for the principal. By default, public policies aren't blocked.
+     * </p>
+     * <important>
+     * <p>
+     * Resource policy validation and the BlockPublicPolicy parameter help protect your resources by preventing public
+     * access from being granted through the resource policies that are directly attached to your secrets. In addition
+     * to using these features, carefully inspect the following policies to confirm that they do not grant public
+     * access:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Identity-based policies attached to associated Amazon Web Services principals (for example, IAM roles)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Resource-based policies attached to associated Amazon Web Services resources (for example, Key Management Service
+     * (KMS) keys)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To review permissions to your secrets, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/determine-acccess_examine-iam-policies.html"
+     * >Determine who has permissions to your secrets</a>.
+     * </p>
+     * </important>
+     */
+    private Boolean blockPublicPolicy;
 
     /**
      * <p>
-     * Specifies the secret that you want to attach the resource-based policy to. You can specify either the ARN or the
-     * friendly name of the secret.
+     * The ARN or name of the secret to attach the resource-based policy.
      * </p>
-     * <note>
      * <p>
-     * If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial ARN
-     * too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager adds at the
-     * end of the ARN when you created the secret. A partial ARN match can work as long as it uniquely matches only one
-     * secret. However, if your secret has a name that ends in a hyphen followed by six characters (before Secrets
-     * Manager adds the hyphen and six characters to the ARN) and you try to use that as a partial ARN, then those
-     * characters cause Secrets Manager to assume that you’re specifying a complete ARN. This confusion can cause
-     * unexpected results. To avoid this situation, we recommend that you don’t create secret names that end with a
-     * hyphen followed by six characters.
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding
+     * a secret from a partial ARN</a>.
      * </p>
-     * </note>
      * 
      * @param secretId
-     *        Specifies the secret that you want to attach the resource-based policy to. You can specify either the ARN
-     *        or the friendly name of the secret.</p> <note>
+     *        The ARN or name of the secret to attach the resource-based policy.</p>
      *        <p>
-     *        If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial
-     *        ARN too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager
-     *        adds at the end of the ARN when you created the secret. A partial ARN match can work as long as it
-     *        uniquely matches only one secret. However, if your secret has a name that ends in a hyphen followed by six
-     *        characters (before Secrets Manager adds the hyphen and six characters to the ARN) and you try to use that
-     *        as a partial ARN, then those characters cause Secrets Manager to assume that you’re specifying a complete
-     *        ARN. This confusion can cause unexpected results. To avoid this situation, we recommend that you don’t
-     *        create secret names that end with a hyphen followed by six characters.
-     *        </p>
+     *        For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href=
+     *        "https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen"
+     *        >Finding a secret from a partial ARN</a>.
      */
 
     public void setSecretId(String secretId) {
@@ -94,34 +102,19 @@ public class PutResourcePolicyRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies the secret that you want to attach the resource-based policy to. You can specify either the ARN or the
-     * friendly name of the secret.
+     * The ARN or name of the secret to attach the resource-based policy.
      * </p>
-     * <note>
      * <p>
-     * If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial ARN
-     * too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager adds at the
-     * end of the ARN when you created the secret. A partial ARN match can work as long as it uniquely matches only one
-     * secret. However, if your secret has a name that ends in a hyphen followed by six characters (before Secrets
-     * Manager adds the hyphen and six characters to the ARN) and you try to use that as a partial ARN, then those
-     * characters cause Secrets Manager to assume that you’re specifying a complete ARN. This confusion can cause
-     * unexpected results. To avoid this situation, we recommend that you don’t create secret names that end with a
-     * hyphen followed by six characters.
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding
+     * a secret from a partial ARN</a>.
      * </p>
-     * </note>
      * 
-     * @return Specifies the secret that you want to attach the resource-based policy to. You can specify either the ARN
-     *         or the friendly name of the secret.</p> <note>
+     * @return The ARN or name of the secret to attach the resource-based policy.</p>
      *         <p>
-     *         If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial
-     *         ARN too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager
-     *         adds at the end of the ARN when you created the secret. A partial ARN match can work as long as it
-     *         uniquely matches only one secret. However, if your secret has a name that ends in a hyphen followed by
-     *         six characters (before Secrets Manager adds the hyphen and six characters to the ARN) and you try to use
-     *         that as a partial ARN, then those characters cause Secrets Manager to assume that you’re specifying a
-     *         complete ARN. This confusion can cause unexpected results. To avoid this situation, we recommend that you
-     *         don’t create secret names that end with a hyphen followed by six characters.
-     *         </p>
+     *         For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href=
+     *         "https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen"
+     *         >Finding a secret from a partial ARN</a>.
      */
 
     public String getSecretId() {
@@ -130,35 +123,20 @@ public class PutResourcePolicyRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Specifies the secret that you want to attach the resource-based policy to. You can specify either the ARN or the
-     * friendly name of the secret.
+     * The ARN or name of the secret to attach the resource-based policy.
      * </p>
-     * <note>
      * <p>
-     * If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial ARN
-     * too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager adds at the
-     * end of the ARN when you created the secret. A partial ARN match can work as long as it uniquely matches only one
-     * secret. However, if your secret has a name that ends in a hyphen followed by six characters (before Secrets
-     * Manager adds the hyphen and six characters to the ARN) and you try to use that as a partial ARN, then those
-     * characters cause Secrets Manager to assume that you’re specifying a complete ARN. This confusion can cause
-     * unexpected results. To avoid this situation, we recommend that you don’t create secret names that end with a
-     * hyphen followed by six characters.
+     * For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen">Finding
+     * a secret from a partial ARN</a>.
      * </p>
-     * </note>
      * 
      * @param secretId
-     *        Specifies the secret that you want to attach the resource-based policy to. You can specify either the ARN
-     *        or the friendly name of the secret.</p> <note>
+     *        The ARN or name of the secret to attach the resource-based policy.</p>
      *        <p>
-     *        If you specify an ARN, we generally recommend that you specify a complete ARN. You can specify a partial
-     *        ARN too—for example, if you don’t include the final hyphen and six random characters that Secrets Manager
-     *        adds at the end of the ARN when you created the secret. A partial ARN match can work as long as it
-     *        uniquely matches only one secret. However, if your secret has a name that ends in a hyphen followed by six
-     *        characters (before Secrets Manager adds the hyphen and six characters to the ARN) and you try to use that
-     *        as a partial ARN, then those characters cause Secrets Manager to assume that you’re specifying a complete
-     *        ARN. This confusion can cause unexpected results. To avoid this situation, we recommend that you don’t
-     *        create secret names that end with a hyphen followed by six characters.
-     *        </p>
+     *        For an ARN, we recommend that you specify a complete ARN rather than a partial ARN. See <a href=
+     *        "https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen"
+     *        >Finding a secret from a partial ARN</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -169,19 +147,16 @@ public class PutResourcePolicyRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A JSON-formatted string that's constructed according to the grammar and syntax for an AWS resource-based policy.
-     * The policy in the string identifies who can access or manage this secret and its versions. For information on how
-     * to format a JSON parameter for the various command line tool environments, see <a
-     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using JSON for
-     * Parameters</a> in the <i>AWS CLI User Guide</i>.
+     * A JSON-formatted string for an Amazon Web Services resource-based policy. For example policies, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html">Permissions
+     * policy examples</a>.
      * </p>
      * 
      * @param resourcePolicy
-     *        A JSON-formatted string that's constructed according to the grammar and syntax for an AWS resource-based
-     *        policy. The policy in the string identifies who can access or manage this secret and its versions. For
-     *        information on how to format a JSON parameter for the various command line tool environments, see <a
-     *        href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using
-     *        JSON for Parameters</a> in the <i>AWS CLI User Guide</i>.
+     *        A JSON-formatted string for an Amazon Web Services resource-based policy. For example policies, see <a
+     *        href
+     *        ="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html">Permissions
+     *        policy examples</a>.
      */
 
     public void setResourcePolicy(String resourcePolicy) {
@@ -190,18 +165,15 @@ public class PutResourcePolicyRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A JSON-formatted string that's constructed according to the grammar and syntax for an AWS resource-based policy.
-     * The policy in the string identifies who can access or manage this secret and its versions. For information on how
-     * to format a JSON parameter for the various command line tool environments, see <a
-     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using JSON for
-     * Parameters</a> in the <i>AWS CLI User Guide</i>.
+     * A JSON-formatted string for an Amazon Web Services resource-based policy. For example policies, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html">Permissions
+     * policy examples</a>.
      * </p>
      * 
-     * @return A JSON-formatted string that's constructed according to the grammar and syntax for an AWS resource-based
-     *         policy. The policy in the string identifies who can access or manage this secret and its versions. For
-     *         information on how to format a JSON parameter for the various command line tool environments, see <a
-     *         href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using
-     *         JSON for Parameters</a> in the <i>AWS CLI User Guide</i>.
+     * @return A JSON-formatted string for an Amazon Web Services resource-based policy. For example policies, see <a
+     *         href
+     *         ="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html">Permissions
+     *         policy examples</a>.
      */
 
     public String getResourcePolicy() {
@@ -210,25 +182,282 @@ public class PutResourcePolicyRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * A JSON-formatted string that's constructed according to the grammar and syntax for an AWS resource-based policy.
-     * The policy in the string identifies who can access or manage this secret and its versions. For information on how
-     * to format a JSON parameter for the various command line tool environments, see <a
-     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using JSON for
-     * Parameters</a> in the <i>AWS CLI User Guide</i>.
+     * A JSON-formatted string for an Amazon Web Services resource-based policy. For example policies, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html">Permissions
+     * policy examples</a>.
      * </p>
      * 
      * @param resourcePolicy
-     *        A JSON-formatted string that's constructed according to the grammar and syntax for an AWS resource-based
-     *        policy. The policy in the string identifies who can access or manage this secret and its versions. For
-     *        information on how to format a JSON parameter for the various command line tool environments, see <a
-     *        href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json">Using
-     *        JSON for Parameters</a> in the <i>AWS CLI User Guide</i>.
+     *        A JSON-formatted string for an Amazon Web Services resource-based policy. For example policies, see <a
+     *        href
+     *        ="https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html">Permissions
+     *        policy examples</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public PutResourcePolicyRequest withResourcePolicy(String resourcePolicy) {
         setResourcePolicy(resourcePolicy);
         return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to block resource-based policies that allow broad access to the secret, for example those that
+     * use a wildcard for the principal. By default, public policies aren't blocked.
+     * </p>
+     * <important>
+     * <p>
+     * Resource policy validation and the BlockPublicPolicy parameter help protect your resources by preventing public
+     * access from being granted through the resource policies that are directly attached to your secrets. In addition
+     * to using these features, carefully inspect the following policies to confirm that they do not grant public
+     * access:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Identity-based policies attached to associated Amazon Web Services principals (for example, IAM roles)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Resource-based policies attached to associated Amazon Web Services resources (for example, Key Management Service
+     * (KMS) keys)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To review permissions to your secrets, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/determine-acccess_examine-iam-policies.html"
+     * >Determine who has permissions to your secrets</a>.
+     * </p>
+     * </important>
+     * 
+     * @param blockPublicPolicy
+     *        Specifies whether to block resource-based policies that allow broad access to the secret, for example
+     *        those that use a wildcard for the principal. By default, public policies aren't blocked.</p> <important>
+     *        <p>
+     *        Resource policy validation and the BlockPublicPolicy parameter help protect your resources by preventing
+     *        public access from being granted through the resource policies that are directly attached to your secrets.
+     *        In addition to using these features, carefully inspect the following policies to confirm that they do not
+     *        grant public access:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Identity-based policies attached to associated Amazon Web Services principals (for example, IAM roles)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Resource-based policies attached to associated Amazon Web Services resources (for example, Key Management
+     *        Service (KMS) keys)
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        To review permissions to your secrets, see <a href=
+     *        "https://docs.aws.amazon.com/secretsmanager/latest/userguide/determine-acccess_examine-iam-policies.html"
+     *        >Determine who has permissions to your secrets</a>.
+     *        </p>
+     */
+
+    public void setBlockPublicPolicy(Boolean blockPublicPolicy) {
+        this.blockPublicPolicy = blockPublicPolicy;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to block resource-based policies that allow broad access to the secret, for example those that
+     * use a wildcard for the principal. By default, public policies aren't blocked.
+     * </p>
+     * <important>
+     * <p>
+     * Resource policy validation and the BlockPublicPolicy parameter help protect your resources by preventing public
+     * access from being granted through the resource policies that are directly attached to your secrets. In addition
+     * to using these features, carefully inspect the following policies to confirm that they do not grant public
+     * access:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Identity-based policies attached to associated Amazon Web Services principals (for example, IAM roles)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Resource-based policies attached to associated Amazon Web Services resources (for example, Key Management Service
+     * (KMS) keys)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To review permissions to your secrets, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/determine-acccess_examine-iam-policies.html"
+     * >Determine who has permissions to your secrets</a>.
+     * </p>
+     * </important>
+     * 
+     * @return Specifies whether to block resource-based policies that allow broad access to the secret, for example
+     *         those that use a wildcard for the principal. By default, public policies aren't blocked.</p> <important>
+     *         <p>
+     *         Resource policy validation and the BlockPublicPolicy parameter help protect your resources by preventing
+     *         public access from being granted through the resource policies that are directly attached to your
+     *         secrets. In addition to using these features, carefully inspect the following policies to confirm that
+     *         they do not grant public access:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Identity-based policies attached to associated Amazon Web Services principals (for example, IAM roles)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Resource-based policies attached to associated Amazon Web Services resources (for example, Key Management
+     *         Service (KMS) keys)
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         To review permissions to your secrets, see <a href=
+     *         "https://docs.aws.amazon.com/secretsmanager/latest/userguide/determine-acccess_examine-iam-policies.html"
+     *         >Determine who has permissions to your secrets</a>.
+     *         </p>
+     */
+
+    public Boolean getBlockPublicPolicy() {
+        return this.blockPublicPolicy;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to block resource-based policies that allow broad access to the secret, for example those that
+     * use a wildcard for the principal. By default, public policies aren't blocked.
+     * </p>
+     * <important>
+     * <p>
+     * Resource policy validation and the BlockPublicPolicy parameter help protect your resources by preventing public
+     * access from being granted through the resource policies that are directly attached to your secrets. In addition
+     * to using these features, carefully inspect the following policies to confirm that they do not grant public
+     * access:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Identity-based policies attached to associated Amazon Web Services principals (for example, IAM roles)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Resource-based policies attached to associated Amazon Web Services resources (for example, Key Management Service
+     * (KMS) keys)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To review permissions to your secrets, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/determine-acccess_examine-iam-policies.html"
+     * >Determine who has permissions to your secrets</a>.
+     * </p>
+     * </important>
+     * 
+     * @param blockPublicPolicy
+     *        Specifies whether to block resource-based policies that allow broad access to the secret, for example
+     *        those that use a wildcard for the principal. By default, public policies aren't blocked.</p> <important>
+     *        <p>
+     *        Resource policy validation and the BlockPublicPolicy parameter help protect your resources by preventing
+     *        public access from being granted through the resource policies that are directly attached to your secrets.
+     *        In addition to using these features, carefully inspect the following policies to confirm that they do not
+     *        grant public access:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Identity-based policies attached to associated Amazon Web Services principals (for example, IAM roles)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Resource-based policies attached to associated Amazon Web Services resources (for example, Key Management
+     *        Service (KMS) keys)
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        To review permissions to your secrets, see <a href=
+     *        "https://docs.aws.amazon.com/secretsmanager/latest/userguide/determine-acccess_examine-iam-policies.html"
+     *        >Determine who has permissions to your secrets</a>.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutResourcePolicyRequest withBlockPublicPolicy(Boolean blockPublicPolicy) {
+        setBlockPublicPolicy(blockPublicPolicy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to block resource-based policies that allow broad access to the secret, for example those that
+     * use a wildcard for the principal. By default, public policies aren't blocked.
+     * </p>
+     * <important>
+     * <p>
+     * Resource policy validation and the BlockPublicPolicy parameter help protect your resources by preventing public
+     * access from being granted through the resource policies that are directly attached to your secrets. In addition
+     * to using these features, carefully inspect the following policies to confirm that they do not grant public
+     * access:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Identity-based policies attached to associated Amazon Web Services principals (for example, IAM roles)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Resource-based policies attached to associated Amazon Web Services resources (for example, Key Management Service
+     * (KMS) keys)
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To review permissions to your secrets, see <a
+     * href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/determine-acccess_examine-iam-policies.html"
+     * >Determine who has permissions to your secrets</a>.
+     * </p>
+     * </important>
+     * 
+     * @return Specifies whether to block resource-based policies that allow broad access to the secret, for example
+     *         those that use a wildcard for the principal. By default, public policies aren't blocked.</p> <important>
+     *         <p>
+     *         Resource policy validation and the BlockPublicPolicy parameter help protect your resources by preventing
+     *         public access from being granted through the resource policies that are directly attached to your
+     *         secrets. In addition to using these features, carefully inspect the following policies to confirm that
+     *         they do not grant public access:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Identity-based policies attached to associated Amazon Web Services principals (for example, IAM roles)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Resource-based policies attached to associated Amazon Web Services resources (for example, Key Management
+     *         Service (KMS) keys)
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         To review permissions to your secrets, see <a href=
+     *         "https://docs.aws.amazon.com/secretsmanager/latest/userguide/determine-acccess_examine-iam-policies.html"
+     *         >Determine who has permissions to your secrets</a>.
+     *         </p>
+     */
+
+    public Boolean isBlockPublicPolicy() {
+        return this.blockPublicPolicy;
     }
 
     /**
@@ -246,7 +475,9 @@ public class PutResourcePolicyRequest extends com.amazonaws.AmazonWebServiceRequ
         if (getSecretId() != null)
             sb.append("SecretId: ").append(getSecretId()).append(",");
         if (getResourcePolicy() != null)
-            sb.append("ResourcePolicy: ").append(getResourcePolicy());
+            sb.append("ResourcePolicy: ").append(getResourcePolicy()).append(",");
+        if (getBlockPublicPolicy() != null)
+            sb.append("BlockPublicPolicy: ").append(getBlockPublicPolicy());
         sb.append("}");
         return sb.toString();
     }
@@ -269,6 +500,10 @@ public class PutResourcePolicyRequest extends com.amazonaws.AmazonWebServiceRequ
             return false;
         if (other.getResourcePolicy() != null && other.getResourcePolicy().equals(this.getResourcePolicy()) == false)
             return false;
+        if (other.getBlockPublicPolicy() == null ^ this.getBlockPublicPolicy() == null)
+            return false;
+        if (other.getBlockPublicPolicy() != null && other.getBlockPublicPolicy().equals(this.getBlockPublicPolicy()) == false)
+            return false;
         return true;
     }
 
@@ -279,6 +514,7 @@ public class PutResourcePolicyRequest extends com.amazonaws.AmazonWebServiceRequ
 
         hashCode = prime * hashCode + ((getSecretId() == null) ? 0 : getSecretId().hashCode());
         hashCode = prime * hashCode + ((getResourcePolicy() == null) ? 0 : getResourcePolicy().hashCode());
+        hashCode = prime * hashCode + ((getBlockPublicPolicy() == null) ? 0 : getBlockPublicPolicy().hashCode());
         return hashCode;
     }
 

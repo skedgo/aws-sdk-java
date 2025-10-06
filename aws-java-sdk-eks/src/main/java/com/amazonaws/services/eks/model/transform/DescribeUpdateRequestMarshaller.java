@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,10 @@ public class DescribeUpdateRequestMarshaller {
             .marshallLocationName("name").build();
     private static final MarshallingInfo<String> UPDATEID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PATH)
             .marshallLocationName("updateId").build();
+    private static final MarshallingInfo<String> NODEGROUPNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("nodegroupName").build();
+    private static final MarshallingInfo<String> ADDONNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("addonName").build();
 
     private static final DescribeUpdateRequestMarshaller instance = new DescribeUpdateRequestMarshaller();
 
@@ -50,6 +54,8 @@ public class DescribeUpdateRequestMarshaller {
         try {
             protocolMarshaller.marshall(describeUpdateRequest.getName(), NAME_BINDING);
             protocolMarshaller.marshall(describeUpdateRequest.getUpdateId(), UPDATEID_BINDING);
+            protocolMarshaller.marshall(describeUpdateRequest.getNodegroupName(), NODEGROUPNAME_BINDING);
+            protocolMarshaller.marshall(describeUpdateRequest.getAddonName(), ADDONNAME_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

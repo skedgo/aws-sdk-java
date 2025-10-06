@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,9 +25,9 @@ import com.amazonaws.services.backup.model.*;
  * {@link com.amazonaws.services.backup.AbstractAWSBackupAsync} instead.
  * </p>
  * <p>
- * <fullname>AWS Backup</fullname>
+ * <fullname>Backup</fullname>
  * <p>
- * AWS Backup is a unified backup service designed to protect AWS services and their associated data. AWS Backup
+ * Backup is a unified backup service designed to protect Amazon Web Services services and their associated data. Backup
  * simplifies the creation, migration, restoration, and deletion of backups, while also providing reporting and
  * auditing.
  * </p>
@@ -37,12 +37,45 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Backup plans are documents that contain information that AWS Backup uses to schedule tasks that create recovery
-     * points of resources.
+     * This action removes the specified legal hold on a recovery point. This action can only be performed by a user
+     * with sufficient permissions.
+     * </p>
+     * 
+     * @param cancelLegalHoldRequest
+     * @return A Java Future containing the result of the CancelLegalHold operation returned by the service.
+     * @sample AWSBackupAsync.CancelLegalHold
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CancelLegalHold" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CancelLegalHoldResult> cancelLegalHoldAsync(CancelLegalHoldRequest cancelLegalHoldRequest);
+
+    /**
+     * <p>
+     * This action removes the specified legal hold on a recovery point. This action can only be performed by a user
+     * with sufficient permissions.
+     * </p>
+     * 
+     * @param cancelLegalHoldRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CancelLegalHold operation returned by the service.
+     * @sample AWSBackupAsyncHandler.CancelLegalHold
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CancelLegalHold" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CancelLegalHoldResult> cancelLegalHoldAsync(CancelLegalHoldRequest cancelLegalHoldRequest,
+            com.amazonaws.handlers.AsyncHandler<CancelLegalHoldRequest, CancelLegalHoldResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a backup plan using a backup plan name and backup rules. A backup plan is a document that contains
+     * information that Backup uses to schedule tasks that create recovery points for resources.
      * </p>
      * <p>
-     * If you call <code>CreateBackupPlan</code> with a plan that already exists, the existing <code>backupPlanId</code>
-     * is returned.
+     * If you call <code>CreateBackupPlan</code> with a plan that already exists, you receive an
+     * <code>AlreadyExistsException</code> exception.
      * </p>
      * 
      * @param createBackupPlanRequest
@@ -55,12 +88,12 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Backup plans are documents that contain information that AWS Backup uses to schedule tasks that create recovery
-     * points of resources.
+     * Creates a backup plan using a backup plan name and backup rules. A backup plan is a document that contains
+     * information that Backup uses to schedule tasks that create recovery points for resources.
      * </p>
      * <p>
-     * If you call <code>CreateBackupPlan</code> with a plan that already exists, the existing <code>backupPlanId</code>
-     * is returned.
+     * If you call <code>CreateBackupPlan</code> with a plan that already exists, you receive an
+     * <code>AlreadyExistsException</code> exception.
      * </p>
      * 
      * @param createBackupPlanRequest
@@ -78,50 +111,9 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Creates a JSON document that specifies a set of resources to assign to a backup plan. Resources can be included
-     * by specifying patterns for a <code>ListOfTags</code> and selected <code>Resources</code>.
-     * </p>
-     * <p>
-     * For example, consider the following patterns:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>Resources: "arn:aws:ec2:region:account-id:volume/volume-id"</code>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ConditionKey:"department"</code>
-     * </p>
-     * <p>
-     * <code>ConditionValue:"finance"</code>
-     * </p>
-     * <p>
-     * <code>ConditionType:"StringEquals"</code>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ConditionKey:"importance"</code>
-     * </p>
-     * <p>
-     * <code>ConditionValue:"critical"</code>
-     * </p>
-     * <p>
-     * <code>ConditionType:"StringEquals"</code>
-     * </p>
-     * </li>
-     * </ul>
-     * <p>
-     * Using these patterns would back up all Amazon Elastic Block Store (Amazon EBS) volumes that are tagged as
-     * <code>"department=finance"</code>, <code>"importance=critical"</code>, in addition to an EBS volume with the
-     * specified volume Id.
-     * </p>
-     * <p>
-     * Resources and conditions are additive in that all resources that match the pattern are selected. This shouldn't
-     * be confused with a logical AND, where all conditions must match. The matching patterns are logically 'put
-     * together using the OR operator. In other words, all patterns that match are selected for backup.
+     * Creates a JSON document that specifies a set of resources to assign to a backup plan. For examples, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/assigning-resources.html#assigning-resources-json"
+     * >Assigning resources programmatically</a>.
      * </p>
      * 
      * @param createBackupSelectionRequest
@@ -134,50 +126,9 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Creates a JSON document that specifies a set of resources to assign to a backup plan. Resources can be included
-     * by specifying patterns for a <code>ListOfTags</code> and selected <code>Resources</code>.
-     * </p>
-     * <p>
-     * For example, consider the following patterns:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <code>Resources: "arn:aws:ec2:region:account-id:volume/volume-id"</code>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ConditionKey:"department"</code>
-     * </p>
-     * <p>
-     * <code>ConditionValue:"finance"</code>
-     * </p>
-     * <p>
-     * <code>ConditionType:"StringEquals"</code>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>ConditionKey:"importance"</code>
-     * </p>
-     * <p>
-     * <code>ConditionValue:"critical"</code>
-     * </p>
-     * <p>
-     * <code>ConditionType:"StringEquals"</code>
-     * </p>
-     * </li>
-     * </ul>
-     * <p>
-     * Using these patterns would back up all Amazon Elastic Block Store (Amazon EBS) volumes that are tagged as
-     * <code>"department=finance"</code>, <code>"importance=critical"</code>, in addition to an EBS volume with the
-     * specified volume Id.
-     * </p>
-     * <p>
-     * Resources and conditions are additive in that all resources that match the pattern are selected. This shouldn't
-     * be confused with a logical AND, where all conditions must match. The matching patterns are logically 'put
-     * together using the OR operator. In other words, all patterns that match are selected for backup.
+     * Creates a JSON document that specifies a set of resources to assign to a backup plan. For examples, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/assigning-resources.html#assigning-resources-json"
+     * >Assigning resources programmatically</a>.
      * </p>
      * 
      * @param createBackupSelectionRequest
@@ -200,7 +151,7 @@ public interface AWSBackupAsync extends AWSBackup {
      * </p>
      * <note>
      * <p>
-     * Sensitive data, such as passport numbers, should not be included the name of a backup vault.
+     * Do not include sensitive data, such as passport numbers, in the name of a backup vault.
      * </p>
      * </note>
      * 
@@ -219,7 +170,7 @@ public interface AWSBackupAsync extends AWSBackup {
      * </p>
      * <note>
      * <p>
-     * Sensitive data, such as passport numbers, should not be included the name of a backup vault.
+     * Do not include sensitive data, such as passport numbers, in the name of a backup vault.
      * </p>
      * </note>
      * 
@@ -235,6 +186,300 @@ public interface AWSBackupAsync extends AWSBackup {
      */
     java.util.concurrent.Future<CreateBackupVaultResult> createBackupVaultAsync(CreateBackupVaultRequest createBackupVaultRequest,
             com.amazonaws.handlers.AsyncHandler<CreateBackupVaultRequest, CreateBackupVaultResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a framework with one or more controls. A framework is a collection of controls that you can use to
+     * evaluate your backup practices. By using pre-built customizable controls to define your policies, you can
+     * evaluate whether your backup practices comply with your policies and which resources are not yet in compliance.
+     * </p>
+     * 
+     * @param createFrameworkRequest
+     * @return A Java Future containing the result of the CreateFramework operation returned by the service.
+     * @sample AWSBackupAsync.CreateFramework
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateFramework" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateFrameworkResult> createFrameworkAsync(CreateFrameworkRequest createFrameworkRequest);
+
+    /**
+     * <p>
+     * Creates a framework with one or more controls. A framework is a collection of controls that you can use to
+     * evaluate your backup practices. By using pre-built customizable controls to define your policies, you can
+     * evaluate whether your backup practices comply with your policies and which resources are not yet in compliance.
+     * </p>
+     * 
+     * @param createFrameworkRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateFramework operation returned by the service.
+     * @sample AWSBackupAsyncHandler.CreateFramework
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateFramework" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateFrameworkResult> createFrameworkAsync(CreateFrameworkRequest createFrameworkRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateFrameworkRequest, CreateFrameworkResult> asyncHandler);
+
+    /**
+     * <p>
+     * This action creates a legal hold on a recovery point (backup). A legal hold is a restraint on altering or
+     * deleting a backup until an authorized user cancels the legal hold. Any actions to delete or disassociate a
+     * recovery point will fail with an error if one or more active legal holds are on the recovery point.
+     * </p>
+     * 
+     * @param createLegalHoldRequest
+     * @return A Java Future containing the result of the CreateLegalHold operation returned by the service.
+     * @sample AWSBackupAsync.CreateLegalHold
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateLegalHold" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateLegalHoldResult> createLegalHoldAsync(CreateLegalHoldRequest createLegalHoldRequest);
+
+    /**
+     * <p>
+     * This action creates a legal hold on a recovery point (backup). A legal hold is a restraint on altering or
+     * deleting a backup until an authorized user cancels the legal hold. Any actions to delete or disassociate a
+     * recovery point will fail with an error if one or more active legal holds are on the recovery point.
+     * </p>
+     * 
+     * @param createLegalHoldRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateLegalHold operation returned by the service.
+     * @sample AWSBackupAsyncHandler.CreateLegalHold
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateLegalHold" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateLegalHoldResult> createLegalHoldAsync(CreateLegalHoldRequest createLegalHoldRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateLegalHoldRequest, CreateLegalHoldResult> asyncHandler);
+
+    /**
+     * <p>
+     * This request creates a logical container to where backups may be copied.
+     * </p>
+     * <p>
+     * This request includes a name, the Region, the maximum number of retention days, the minimum number of retention
+     * days, and optionally can include tags and a creator request ID.
+     * </p>
+     * <note>
+     * <p>
+     * Do not include sensitive data, such as passport numbers, in the name of a backup vault.
+     * </p>
+     * </note>
+     * 
+     * @param createLogicallyAirGappedBackupVaultRequest
+     * @return A Java Future containing the result of the CreateLogicallyAirGappedBackupVault operation returned by the
+     *         service.
+     * @sample AWSBackupAsync.CreateLogicallyAirGappedBackupVault
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateLogicallyAirGappedBackupVault"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateLogicallyAirGappedBackupVaultResult> createLogicallyAirGappedBackupVaultAsync(
+            CreateLogicallyAirGappedBackupVaultRequest createLogicallyAirGappedBackupVaultRequest);
+
+    /**
+     * <p>
+     * This request creates a logical container to where backups may be copied.
+     * </p>
+     * <p>
+     * This request includes a name, the Region, the maximum number of retention days, the minimum number of retention
+     * days, and optionally can include tags and a creator request ID.
+     * </p>
+     * <note>
+     * <p>
+     * Do not include sensitive data, such as passport numbers, in the name of a backup vault.
+     * </p>
+     * </note>
+     * 
+     * @param createLogicallyAirGappedBackupVaultRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateLogicallyAirGappedBackupVault operation returned by the
+     *         service.
+     * @sample AWSBackupAsyncHandler.CreateLogicallyAirGappedBackupVault
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateLogicallyAirGappedBackupVault"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateLogicallyAirGappedBackupVaultResult> createLogicallyAirGappedBackupVaultAsync(
+            CreateLogicallyAirGappedBackupVaultRequest createLogicallyAirGappedBackupVaultRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateLogicallyAirGappedBackupVaultRequest, CreateLogicallyAirGappedBackupVaultResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a report plan. A report plan is a document that contains information about the contents of the report and
+     * where Backup will deliver it.
+     * </p>
+     * <p>
+     * If you call <code>CreateReportPlan</code> with a plan that already exists, you receive an
+     * <code>AlreadyExistsException</code> exception.
+     * </p>
+     * 
+     * @param createReportPlanRequest
+     * @return A Java Future containing the result of the CreateReportPlan operation returned by the service.
+     * @sample AWSBackupAsync.CreateReportPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateReportPlan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateReportPlanResult> createReportPlanAsync(CreateReportPlanRequest createReportPlanRequest);
+
+    /**
+     * <p>
+     * Creates a report plan. A report plan is a document that contains information about the contents of the report and
+     * where Backup will deliver it.
+     * </p>
+     * <p>
+     * If you call <code>CreateReportPlan</code> with a plan that already exists, you receive an
+     * <code>AlreadyExistsException</code> exception.
+     * </p>
+     * 
+     * @param createReportPlanRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateReportPlan operation returned by the service.
+     * @sample AWSBackupAsyncHandler.CreateReportPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateReportPlan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateReportPlanResult> createReportPlanAsync(CreateReportPlanRequest createReportPlanRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateReportPlanRequest, CreateReportPlanResult> asyncHandler);
+
+    /**
+     * <p>
+     * This is the first of two steps to create a restore testing plan; once this request is successful, finish the
+     * procedure with request CreateRestoreTestingSelection.
+     * </p>
+     * <p>
+     * You must include the parameter RestoreTestingPlan. You may optionally include CreatorRequestId and Tags.
+     * </p>
+     * 
+     * @param createRestoreTestingPlanRequest
+     * @return A Java Future containing the result of the CreateRestoreTestingPlan operation returned by the service.
+     * @sample AWSBackupAsync.CreateRestoreTestingPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateRestoreTestingPlan"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateRestoreTestingPlanResult> createRestoreTestingPlanAsync(CreateRestoreTestingPlanRequest createRestoreTestingPlanRequest);
+
+    /**
+     * <p>
+     * This is the first of two steps to create a restore testing plan; once this request is successful, finish the
+     * procedure with request CreateRestoreTestingSelection.
+     * </p>
+     * <p>
+     * You must include the parameter RestoreTestingPlan. You may optionally include CreatorRequestId and Tags.
+     * </p>
+     * 
+     * @param createRestoreTestingPlanRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateRestoreTestingPlan operation returned by the service.
+     * @sample AWSBackupAsyncHandler.CreateRestoreTestingPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateRestoreTestingPlan"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateRestoreTestingPlanResult> createRestoreTestingPlanAsync(CreateRestoreTestingPlanRequest createRestoreTestingPlanRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateRestoreTestingPlanRequest, CreateRestoreTestingPlanResult> asyncHandler);
+
+    /**
+     * <p>
+     * This request can be sent after CreateRestoreTestingPlan request returns successfully. This is the second part of
+     * creating a resource testing plan, and it must be completed sequentially.
+     * </p>
+     * <p>
+     * This consists of <code>RestoreTestingSelectionName</code>, <code>ProtectedResourceType</code>, and one of the
+     * following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ProtectedResourceArns</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ProtectedResourceConditions</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Each protected resource type can have one single value.
+     * </p>
+     * <p>
+     * A restore testing selection can include a wildcard value ("*") for <code>ProtectedResourceArns</code> along with
+     * <code>ProtectedResourceConditions</code>. Alternatively, you can include up to 30 specific protected resource
+     * ARNs in <code>ProtectedResourceArns</code>.
+     * </p>
+     * <p>
+     * Cannot select by both protected resource types AND specific ARNs. Request will fail if both are included.
+     * </p>
+     * 
+     * @param createRestoreTestingSelectionRequest
+     * @return A Java Future containing the result of the CreateRestoreTestingSelection operation returned by the
+     *         service.
+     * @sample AWSBackupAsync.CreateRestoreTestingSelection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateRestoreTestingSelection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateRestoreTestingSelectionResult> createRestoreTestingSelectionAsync(
+            CreateRestoreTestingSelectionRequest createRestoreTestingSelectionRequest);
+
+    /**
+     * <p>
+     * This request can be sent after CreateRestoreTestingPlan request returns successfully. This is the second part of
+     * creating a resource testing plan, and it must be completed sequentially.
+     * </p>
+     * <p>
+     * This consists of <code>RestoreTestingSelectionName</code>, <code>ProtectedResourceType</code>, and one of the
+     * following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ProtectedResourceArns</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ProtectedResourceConditions</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Each protected resource type can have one single value.
+     * </p>
+     * <p>
+     * A restore testing selection can include a wildcard value ("*") for <code>ProtectedResourceArns</code> along with
+     * <code>ProtectedResourceConditions</code>. Alternatively, you can include up to 30 specific protected resource
+     * ARNs in <code>ProtectedResourceArns</code>.
+     * </p>
+     * <p>
+     * Cannot select by both protected resource types AND specific ARNs. Request will fail if both are included.
+     * </p>
+     * 
+     * @param createRestoreTestingSelectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateRestoreTestingSelection operation returned by the
+     *         service.
+     * @sample AWSBackupAsyncHandler.CreateRestoreTestingSelection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateRestoreTestingSelection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateRestoreTestingSelectionResult> createRestoreTestingSelectionAsync(
+            CreateRestoreTestingSelectionRequest createRestoreTestingSelectionRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateRestoreTestingSelectionRequest, CreateRestoreTestingSelectionResult> asyncHandler);
 
     /**
      * <p>
@@ -370,6 +615,53 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
+     * Deletes Backup Vault Lock from a backup vault specified by a backup vault name.
+     * </p>
+     * <p>
+     * If the Vault Lock configuration is immutable, then you cannot delete Vault Lock using API operations, and you
+     * will receive an <code>InvalidRequestException</code> if you attempt to do so. For more information, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/vault-lock.html">Vault Lock</a> in the <i>Backup
+     * Developer Guide</i>.
+     * </p>
+     * 
+     * @param deleteBackupVaultLockConfigurationRequest
+     * @return A Java Future containing the result of the DeleteBackupVaultLockConfiguration operation returned by the
+     *         service.
+     * @sample AWSBackupAsync.DeleteBackupVaultLockConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DeleteBackupVaultLockConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteBackupVaultLockConfigurationResult> deleteBackupVaultLockConfigurationAsync(
+            DeleteBackupVaultLockConfigurationRequest deleteBackupVaultLockConfigurationRequest);
+
+    /**
+     * <p>
+     * Deletes Backup Vault Lock from a backup vault specified by a backup vault name.
+     * </p>
+     * <p>
+     * If the Vault Lock configuration is immutable, then you cannot delete Vault Lock using API operations, and you
+     * will receive an <code>InvalidRequestException</code> if you attempt to do so. For more information, see <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/vault-lock.html">Vault Lock</a> in the <i>Backup
+     * Developer Guide</i>.
+     * </p>
+     * 
+     * @param deleteBackupVaultLockConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteBackupVaultLockConfiguration operation returned by the
+     *         service.
+     * @sample AWSBackupAsyncHandler.DeleteBackupVaultLockConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DeleteBackupVaultLockConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteBackupVaultLockConfigurationResult> deleteBackupVaultLockConfigurationAsync(
+            DeleteBackupVaultLockConfigurationRequest deleteBackupVaultLockConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteBackupVaultLockConfigurationRequest, DeleteBackupVaultLockConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes event notifications for the specified backup vault.
      * </p>
      * 
@@ -405,7 +697,56 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
+     * Deletes the framework specified by a framework name.
+     * </p>
+     * 
+     * @param deleteFrameworkRequest
+     * @return A Java Future containing the result of the DeleteFramework operation returned by the service.
+     * @sample AWSBackupAsync.DeleteFramework
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DeleteFramework" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteFrameworkResult> deleteFrameworkAsync(DeleteFrameworkRequest deleteFrameworkRequest);
+
+    /**
+     * <p>
+     * Deletes the framework specified by a framework name.
+     * </p>
+     * 
+     * @param deleteFrameworkRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteFramework operation returned by the service.
+     * @sample AWSBackupAsyncHandler.DeleteFramework
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DeleteFramework" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteFrameworkResult> deleteFrameworkAsync(DeleteFrameworkRequest deleteFrameworkRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteFrameworkRequest, DeleteFrameworkResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes the recovery point specified by a recovery point ID.
+     * </p>
+     * <p>
+     * If the recovery point ID belongs to a continuous backup, calling this endpoint deletes the existing continuous
+     * backup and stops future continuous backup.
+     * </p>
+     * <p>
+     * When an IAM role's permissions are insufficient to call this API, the service sends back an HTTP 200 response
+     * with an empty HTTP body, but the recovery point is not deleted. Instead, it enters an <code>EXPIRED</code> state.
+     * </p>
+     * <p>
+     * <code>EXPIRED</code> recovery points can be deleted with this API once the IAM role has the
+     * <code>iam:CreateServiceLinkedRole</code> action. To learn more about adding this role, see <a href=
+     * "https://docs.aws.amazon.com/aws-backup/latest/devguide/deleting-backups.html#deleting-backups-troubleshooting">
+     * Troubleshooting manual deletions</a>.
+     * </p>
+     * <p>
+     * If the user or role is deleted or the permission within the role is removed, the deletion will not be successful
+     * and will enter an <code>EXPIRED</code> state.
      * </p>
      * 
      * @param deleteRecoveryPointRequest
@@ -419,6 +760,24 @@ public interface AWSBackupAsync extends AWSBackup {
     /**
      * <p>
      * Deletes the recovery point specified by a recovery point ID.
+     * </p>
+     * <p>
+     * If the recovery point ID belongs to a continuous backup, calling this endpoint deletes the existing continuous
+     * backup and stops future continuous backup.
+     * </p>
+     * <p>
+     * When an IAM role's permissions are insufficient to call this API, the service sends back an HTTP 200 response
+     * with an empty HTTP body, but the recovery point is not deleted. Instead, it enters an <code>EXPIRED</code> state.
+     * </p>
+     * <p>
+     * <code>EXPIRED</code> recovery points can be deleted with this API once the IAM role has the
+     * <code>iam:CreateServiceLinkedRole</code> action. To learn more about adding this role, see <a href=
+     * "https://docs.aws.amazon.com/aws-backup/latest/devguide/deleting-backups.html#deleting-backups-troubleshooting">
+     * Troubleshooting manual deletions</a>.
+     * </p>
+     * <p>
+     * If the user or role is deleted or the permission within the role is removed, the deletion will not be successful
+     * and will enter an <code>EXPIRED</code> state.
      * </p>
      * 
      * @param deleteRecoveryPointRequest
@@ -436,7 +795,118 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns metadata associated with creating a backup of a resource.
+     * Deletes the report plan specified by a report plan name.
+     * </p>
+     * 
+     * @param deleteReportPlanRequest
+     * @return A Java Future containing the result of the DeleteReportPlan operation returned by the service.
+     * @sample AWSBackupAsync.DeleteReportPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DeleteReportPlan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteReportPlanResult> deleteReportPlanAsync(DeleteReportPlanRequest deleteReportPlanRequest);
+
+    /**
+     * <p>
+     * Deletes the report plan specified by a report plan name.
+     * </p>
+     * 
+     * @param deleteReportPlanRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteReportPlan operation returned by the service.
+     * @sample AWSBackupAsyncHandler.DeleteReportPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DeleteReportPlan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteReportPlanResult> deleteReportPlanAsync(DeleteReportPlanRequest deleteReportPlanRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteReportPlanRequest, DeleteReportPlanResult> asyncHandler);
+
+    /**
+     * <p>
+     * This request deletes the specified restore testing plan.
+     * </p>
+     * <p>
+     * Deletion can only successfully occur if all associated restore testing selections are deleted first.
+     * </p>
+     * 
+     * @param deleteRestoreTestingPlanRequest
+     * @return A Java Future containing the result of the DeleteRestoreTestingPlan operation returned by the service.
+     * @sample AWSBackupAsync.DeleteRestoreTestingPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DeleteRestoreTestingPlan"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteRestoreTestingPlanResult> deleteRestoreTestingPlanAsync(DeleteRestoreTestingPlanRequest deleteRestoreTestingPlanRequest);
+
+    /**
+     * <p>
+     * This request deletes the specified restore testing plan.
+     * </p>
+     * <p>
+     * Deletion can only successfully occur if all associated restore testing selections are deleted first.
+     * </p>
+     * 
+     * @param deleteRestoreTestingPlanRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteRestoreTestingPlan operation returned by the service.
+     * @sample AWSBackupAsyncHandler.DeleteRestoreTestingPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DeleteRestoreTestingPlan"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteRestoreTestingPlanResult> deleteRestoreTestingPlanAsync(DeleteRestoreTestingPlanRequest deleteRestoreTestingPlanRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteRestoreTestingPlanRequest, DeleteRestoreTestingPlanResult> asyncHandler);
+
+    /**
+     * <p>
+     * Input the Restore Testing Plan name and Restore Testing Selection name.
+     * </p>
+     * <p>
+     * All testing selections associated with a restore testing plan must be deleted before the restore testing plan can
+     * be deleted.
+     * </p>
+     * 
+     * @param deleteRestoreTestingSelectionRequest
+     * @return A Java Future containing the result of the DeleteRestoreTestingSelection operation returned by the
+     *         service.
+     * @sample AWSBackupAsync.DeleteRestoreTestingSelection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DeleteRestoreTestingSelection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteRestoreTestingSelectionResult> deleteRestoreTestingSelectionAsync(
+            DeleteRestoreTestingSelectionRequest deleteRestoreTestingSelectionRequest);
+
+    /**
+     * <p>
+     * Input the Restore Testing Plan name and Restore Testing Selection name.
+     * </p>
+     * <p>
+     * All testing selections associated with a restore testing plan must be deleted before the restore testing plan can
+     * be deleted.
+     * </p>
+     * 
+     * @param deleteRestoreTestingSelectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteRestoreTestingSelection operation returned by the
+     *         service.
+     * @sample AWSBackupAsyncHandler.DeleteRestoreTestingSelection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DeleteRestoreTestingSelection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteRestoreTestingSelectionResult> deleteRestoreTestingSelectionAsync(
+            DeleteRestoreTestingSelectionRequest deleteRestoreTestingSelectionRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteRestoreTestingSelectionRequest, DeleteRestoreTestingSelectionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns backup job details for the specified <code>BackupJobId</code>.
      * </p>
      * 
      * @param describeBackupJobRequest
@@ -449,7 +919,7 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns metadata associated with creating a backup of a resource.
+     * Returns backup job details for the specified <code>BackupJobId</code>.
      * </p>
      * 
      * @param describeBackupJobRequest
@@ -498,8 +968,105 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns information about a saved resource, including the last time it was backed-up, its Amazon Resource Name
-     * (ARN), and the AWS service type of the saved resource.
+     * Returns metadata associated with creating a copy of a resource.
+     * </p>
+     * 
+     * @param describeCopyJobRequest
+     * @return A Java Future containing the result of the DescribeCopyJob operation returned by the service.
+     * @sample AWSBackupAsync.DescribeCopyJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeCopyJob" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeCopyJobResult> describeCopyJobAsync(DescribeCopyJobRequest describeCopyJobRequest);
+
+    /**
+     * <p>
+     * Returns metadata associated with creating a copy of a resource.
+     * </p>
+     * 
+     * @param describeCopyJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeCopyJob operation returned by the service.
+     * @sample AWSBackupAsyncHandler.DescribeCopyJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeCopyJob" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeCopyJobResult> describeCopyJobAsync(DescribeCopyJobRequest describeCopyJobRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeCopyJobRequest, DescribeCopyJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the framework details for the specified <code>FrameworkName</code>.
+     * </p>
+     * 
+     * @param describeFrameworkRequest
+     * @return A Java Future containing the result of the DescribeFramework operation returned by the service.
+     * @sample AWSBackupAsync.DescribeFramework
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeFramework" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeFrameworkResult> describeFrameworkAsync(DescribeFrameworkRequest describeFrameworkRequest);
+
+    /**
+     * <p>
+     * Returns the framework details for the specified <code>FrameworkName</code>.
+     * </p>
+     * 
+     * @param describeFrameworkRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeFramework operation returned by the service.
+     * @sample AWSBackupAsyncHandler.DescribeFramework
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeFramework" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeFrameworkResult> describeFrameworkAsync(DescribeFrameworkRequest describeFrameworkRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeFrameworkRequest, DescribeFrameworkResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes whether the Amazon Web Services account is opted in to cross-account backup. Returns an error if the
+     * account is not a member of an Organizations organization. Example:
+     * <code>describe-global-settings --region us-west-2</code>
+     * </p>
+     * 
+     * @param describeGlobalSettingsRequest
+     * @return A Java Future containing the result of the DescribeGlobalSettings operation returned by the service.
+     * @sample AWSBackupAsync.DescribeGlobalSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeGlobalSettings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeGlobalSettingsResult> describeGlobalSettingsAsync(DescribeGlobalSettingsRequest describeGlobalSettingsRequest);
+
+    /**
+     * <p>
+     * Describes whether the Amazon Web Services account is opted in to cross-account backup. Returns an error if the
+     * account is not a member of an Organizations organization. Example:
+     * <code>describe-global-settings --region us-west-2</code>
+     * </p>
+     * 
+     * @param describeGlobalSettingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeGlobalSettings operation returned by the service.
+     * @sample AWSBackupAsyncHandler.DescribeGlobalSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeGlobalSettings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeGlobalSettingsResult> describeGlobalSettingsAsync(DescribeGlobalSettingsRequest describeGlobalSettingsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeGlobalSettingsRequest, DescribeGlobalSettingsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns information about a saved resource, including the last time it was backed up, its Amazon Resource Name
+     * (ARN), and the Amazon Web Services service type of the saved resource.
      * </p>
      * 
      * @param describeProtectedResourceRequest
@@ -513,8 +1080,8 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns information about a saved resource, including the last time it was backed-up, its Amazon Resource Name
-     * (ARN), and the AWS service type of the saved resource.
+     * Returns information about a saved resource, including the last time it was backed up, its Amazon Resource Name
+     * (ARN), and the Amazon Web Services service type of the saved resource.
      * </p>
      * 
      * @param describeProtectedResourceRequest
@@ -564,6 +1131,103 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
+     * Returns the current service opt-in settings for the Region. If service opt-in is enabled for a service, Backup
+     * tries to protect that service's resources in this Region, when the resource is included in an on-demand backup or
+     * scheduled backup plan. Otherwise, Backup does not try to protect that service's resources in this Region.
+     * </p>
+     * 
+     * @param describeRegionSettingsRequest
+     * @return A Java Future containing the result of the DescribeRegionSettings operation returned by the service.
+     * @sample AWSBackupAsync.DescribeRegionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeRegionSettings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeRegionSettingsResult> describeRegionSettingsAsync(DescribeRegionSettingsRequest describeRegionSettingsRequest);
+
+    /**
+     * <p>
+     * Returns the current service opt-in settings for the Region. If service opt-in is enabled for a service, Backup
+     * tries to protect that service's resources in this Region, when the resource is included in an on-demand backup or
+     * scheduled backup plan. Otherwise, Backup does not try to protect that service's resources in this Region.
+     * </p>
+     * 
+     * @param describeRegionSettingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeRegionSettings operation returned by the service.
+     * @sample AWSBackupAsyncHandler.DescribeRegionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeRegionSettings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeRegionSettingsResult> describeRegionSettingsAsync(DescribeRegionSettingsRequest describeRegionSettingsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeRegionSettingsRequest, DescribeRegionSettingsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the details associated with creating a report as specified by its <code>ReportJobId</code>.
+     * </p>
+     * 
+     * @param describeReportJobRequest
+     * @return A Java Future containing the result of the DescribeReportJob operation returned by the service.
+     * @sample AWSBackupAsync.DescribeReportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeReportJob" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeReportJobResult> describeReportJobAsync(DescribeReportJobRequest describeReportJobRequest);
+
+    /**
+     * <p>
+     * Returns the details associated with creating a report as specified by its <code>ReportJobId</code>.
+     * </p>
+     * 
+     * @param describeReportJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeReportJob operation returned by the service.
+     * @sample AWSBackupAsyncHandler.DescribeReportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeReportJob" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeReportJobResult> describeReportJobAsync(DescribeReportJobRequest describeReportJobRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeReportJobRequest, DescribeReportJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of all report plans for an Amazon Web Services account and Amazon Web Services Region.
+     * </p>
+     * 
+     * @param describeReportPlanRequest
+     * @return A Java Future containing the result of the DescribeReportPlan operation returned by the service.
+     * @sample AWSBackupAsync.DescribeReportPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeReportPlan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeReportPlanResult> describeReportPlanAsync(DescribeReportPlanRequest describeReportPlanRequest);
+
+    /**
+     * <p>
+     * Returns a list of all report plans for an Amazon Web Services account and Amazon Web Services Region.
+     * </p>
+     * 
+     * @param describeReportPlanRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeReportPlan operation returned by the service.
+     * @sample AWSBackupAsyncHandler.DescribeReportPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeReportPlan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeReportPlanResult> describeReportPlanAsync(DescribeReportPlanRequest describeReportPlanRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeReportPlanRequest, DescribeReportPlanResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns metadata associated with a restore job that is specified by a job ID.
      * </p>
      * 
@@ -592,6 +1256,86 @@ public interface AWSBackupAsync extends AWSBackup {
      */
     java.util.concurrent.Future<DescribeRestoreJobResult> describeRestoreJobAsync(DescribeRestoreJobRequest describeRestoreJobRequest,
             com.amazonaws.handlers.AsyncHandler<DescribeRestoreJobRequest, DescribeRestoreJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes the specified continuous backup recovery point from Backup and releases control of that continuous backup
+     * to the source service, such as Amazon RDS. The source service will continue to create and retain continuous
+     * backups using the lifecycle that you specified in your original backup plan.
+     * </p>
+     * <p>
+     * Does not support snapshot backup recovery points.
+     * </p>
+     * 
+     * @param disassociateRecoveryPointRequest
+     * @return A Java Future containing the result of the DisassociateRecoveryPoint operation returned by the service.
+     * @sample AWSBackupAsync.DisassociateRecoveryPoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DisassociateRecoveryPoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateRecoveryPointResult> disassociateRecoveryPointAsync(
+            DisassociateRecoveryPointRequest disassociateRecoveryPointRequest);
+
+    /**
+     * <p>
+     * Deletes the specified continuous backup recovery point from Backup and releases control of that continuous backup
+     * to the source service, such as Amazon RDS. The source service will continue to create and retain continuous
+     * backups using the lifecycle that you specified in your original backup plan.
+     * </p>
+     * <p>
+     * Does not support snapshot backup recovery points.
+     * </p>
+     * 
+     * @param disassociateRecoveryPointRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DisassociateRecoveryPoint operation returned by the service.
+     * @sample AWSBackupAsyncHandler.DisassociateRecoveryPoint
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DisassociateRecoveryPoint"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateRecoveryPointResult> disassociateRecoveryPointAsync(
+            DisassociateRecoveryPointRequest disassociateRecoveryPointRequest,
+            com.amazonaws.handlers.AsyncHandler<DisassociateRecoveryPointRequest, DisassociateRecoveryPointResult> asyncHandler);
+
+    /**
+     * <p>
+     * This action to a specific child (nested) recovery point removes the relationship between the specified recovery
+     * point and its parent (composite) recovery point.
+     * </p>
+     * 
+     * @param disassociateRecoveryPointFromParentRequest
+     * @return A Java Future containing the result of the DisassociateRecoveryPointFromParent operation returned by the
+     *         service.
+     * @sample AWSBackupAsync.DisassociateRecoveryPointFromParent
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DisassociateRecoveryPointFromParent"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateRecoveryPointFromParentResult> disassociateRecoveryPointFromParentAsync(
+            DisassociateRecoveryPointFromParentRequest disassociateRecoveryPointFromParentRequest);
+
+    /**
+     * <p>
+     * This action to a specific child (nested) recovery point removes the relationship between the specified recovery
+     * point and its parent (composite) recovery point.
+     * </p>
+     * 
+     * @param disassociateRecoveryPointFromParentRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DisassociateRecoveryPointFromParent operation returned by the
+     *         service.
+     * @sample AWSBackupAsyncHandler.DisassociateRecoveryPointFromParent
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DisassociateRecoveryPointFromParent"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DisassociateRecoveryPointFromParentResult> disassociateRecoveryPointFromParentAsync(
+            DisassociateRecoveryPointFromParentRequest disassociateRecoveryPointFromParentRequest,
+            com.amazonaws.handlers.AsyncHandler<DisassociateRecoveryPointFromParentRequest, DisassociateRecoveryPointFromParentResult> asyncHandler);
 
     /**
      * <p>
@@ -626,7 +1370,8 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns the body of a backup plan in JSON format, in addition to plan metadata.
+     * Returns <code>BackupPlan</code> details for the specified <code>BackupPlanId</code>. The details are the body of
+     * a backup plan in JSON format, in addition to plan metadata.
      * </p>
      * 
      * @param getBackupPlanRequest
@@ -639,7 +1384,8 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns the body of a backup plan in JSON format, in addition to plan metadata.
+     * Returns <code>BackupPlan</code> details for the specified <code>BackupPlanId</code>. The details are the body of
+     * a backup plan in JSON format, in addition to plan metadata.
      * </p>
      * 
      * @param getBackupPlanRequest
@@ -820,13 +1566,40 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns two sets of metadata key-value pairs. The first set lists the metadata that the recovery point was
-     * created with. The second set lists the metadata key-value pairs that are required to restore the recovery point.
+     * This action returns details for a specified legal hold. The details are the body of a legal hold in JSON format,
+     * in addition to metadata.
      * </p>
+     * 
+     * @param getLegalHoldRequest
+     * @return A Java Future containing the result of the GetLegalHold operation returned by the service.
+     * @sample AWSBackupAsync.GetLegalHold
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetLegalHold" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetLegalHoldResult> getLegalHoldAsync(GetLegalHoldRequest getLegalHoldRequest);
+
+    /**
      * <p>
-     * These sets can be the same, or the restore metadata set can contain different values if the target service to be
-     * restored has changed since the recovery point was created and now requires additional or different information in
-     * order to be restored.
+     * This action returns details for a specified legal hold. The details are the body of a legal hold in JSON format,
+     * in addition to metadata.
+     * </p>
+     * 
+     * @param getLegalHoldRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetLegalHold operation returned by the service.
+     * @sample AWSBackupAsyncHandler.GetLegalHold
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetLegalHold" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<GetLegalHoldResult> getLegalHoldAsync(GetLegalHoldRequest getLegalHoldRequest,
+            com.amazonaws.handlers.AsyncHandler<GetLegalHoldRequest, GetLegalHoldResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a set of metadata key-value pairs that were used to create the backup.
      * </p>
      * 
      * @param getRecoveryPointRestoreMetadataRequest
@@ -841,13 +1614,7 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns two sets of metadata key-value pairs. The first set lists the metadata that the recovery point was
-     * created with. The second set lists the metadata key-value pairs that are required to restore the recovery point.
-     * </p>
-     * <p>
-     * These sets can be the same, or the restore metadata set can contain different values if the target service to be
-     * restored has changed since the recovery point was created and now requires additional or different information in
-     * order to be restored.
+     * Returns a set of metadata key-value pairs that were used to create the backup.
      * </p>
      * 
      * @param getRecoveryPointRestoreMetadataRequest
@@ -867,7 +1634,143 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns the AWS resource types supported by AWS Backup.
+     * This request returns the metadata for the specified restore job.
+     * </p>
+     * 
+     * @param getRestoreJobMetadataRequest
+     * @return A Java Future containing the result of the GetRestoreJobMetadata operation returned by the service.
+     * @sample AWSBackupAsync.GetRestoreJobMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetRestoreJobMetadata" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GetRestoreJobMetadataResult> getRestoreJobMetadataAsync(GetRestoreJobMetadataRequest getRestoreJobMetadataRequest);
+
+    /**
+     * <p>
+     * This request returns the metadata for the specified restore job.
+     * </p>
+     * 
+     * @param getRestoreJobMetadataRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetRestoreJobMetadata operation returned by the service.
+     * @sample AWSBackupAsyncHandler.GetRestoreJobMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetRestoreJobMetadata" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GetRestoreJobMetadataResult> getRestoreJobMetadataAsync(GetRestoreJobMetadataRequest getRestoreJobMetadataRequest,
+            com.amazonaws.handlers.AsyncHandler<GetRestoreJobMetadataRequest, GetRestoreJobMetadataResult> asyncHandler);
+
+    /**
+     * <p>
+     * This request returns the minimal required set of metadata needed to start a restore job with secure default
+     * settings. <code>BackupVaultName</code> and <code>RecoveryPointArn</code> are required parameters.
+     * <code>BackupVaultAccountId</code> is an optional parameter.
+     * </p>
+     * 
+     * @param getRestoreTestingInferredMetadataRequest
+     * @return A Java Future containing the result of the GetRestoreTestingInferredMetadata operation returned by the
+     *         service.
+     * @sample AWSBackupAsync.GetRestoreTestingInferredMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetRestoreTestingInferredMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetRestoreTestingInferredMetadataResult> getRestoreTestingInferredMetadataAsync(
+            GetRestoreTestingInferredMetadataRequest getRestoreTestingInferredMetadataRequest);
+
+    /**
+     * <p>
+     * This request returns the minimal required set of metadata needed to start a restore job with secure default
+     * settings. <code>BackupVaultName</code> and <code>RecoveryPointArn</code> are required parameters.
+     * <code>BackupVaultAccountId</code> is an optional parameter.
+     * </p>
+     * 
+     * @param getRestoreTestingInferredMetadataRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetRestoreTestingInferredMetadata operation returned by the
+     *         service.
+     * @sample AWSBackupAsyncHandler.GetRestoreTestingInferredMetadata
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetRestoreTestingInferredMetadata"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetRestoreTestingInferredMetadataResult> getRestoreTestingInferredMetadataAsync(
+            GetRestoreTestingInferredMetadataRequest getRestoreTestingInferredMetadataRequest,
+            com.amazonaws.handlers.AsyncHandler<GetRestoreTestingInferredMetadataRequest, GetRestoreTestingInferredMetadataResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns <code>RestoreTestingPlan</code> details for the specified <code>RestoreTestingPlanName</code>. The
+     * details are the body of a restore testing plan in JSON format, in addition to plan metadata.
+     * </p>
+     * 
+     * @param getRestoreTestingPlanRequest
+     * @return A Java Future containing the result of the GetRestoreTestingPlan operation returned by the service.
+     * @sample AWSBackupAsync.GetRestoreTestingPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetRestoreTestingPlan" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GetRestoreTestingPlanResult> getRestoreTestingPlanAsync(GetRestoreTestingPlanRequest getRestoreTestingPlanRequest);
+
+    /**
+     * <p>
+     * Returns <code>RestoreTestingPlan</code> details for the specified <code>RestoreTestingPlanName</code>. The
+     * details are the body of a restore testing plan in JSON format, in addition to plan metadata.
+     * </p>
+     * 
+     * @param getRestoreTestingPlanRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetRestoreTestingPlan operation returned by the service.
+     * @sample AWSBackupAsyncHandler.GetRestoreTestingPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetRestoreTestingPlan" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<GetRestoreTestingPlanResult> getRestoreTestingPlanAsync(GetRestoreTestingPlanRequest getRestoreTestingPlanRequest,
+            com.amazonaws.handlers.AsyncHandler<GetRestoreTestingPlanRequest, GetRestoreTestingPlanResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns RestoreTestingSelection, which displays resources and elements of the restore testing plan.
+     * </p>
+     * 
+     * @param getRestoreTestingSelectionRequest
+     * @return A Java Future containing the result of the GetRestoreTestingSelection operation returned by the service.
+     * @sample AWSBackupAsync.GetRestoreTestingSelection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetRestoreTestingSelection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetRestoreTestingSelectionResult> getRestoreTestingSelectionAsync(
+            GetRestoreTestingSelectionRequest getRestoreTestingSelectionRequest);
+
+    /**
+     * <p>
+     * Returns RestoreTestingSelection, which displays resources and elements of the restore testing plan.
+     * </p>
+     * 
+     * @param getRestoreTestingSelectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetRestoreTestingSelection operation returned by the service.
+     * @sample AWSBackupAsyncHandler.GetRestoreTestingSelection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetRestoreTestingSelection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GetRestoreTestingSelectionResult> getRestoreTestingSelectionAsync(
+            GetRestoreTestingSelectionRequest getRestoreTestingSelectionRequest,
+            com.amazonaws.handlers.AsyncHandler<GetRestoreTestingSelectionRequest, GetRestoreTestingSelectionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the Amazon Web Services resource types supported by Backup.
      * </p>
      * 
      * @param getSupportedResourceTypesRequest
@@ -881,7 +1784,7 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns the AWS resource types supported by AWS Backup.
+     * Returns the Amazon Web Services resource types supported by Backup.
      * </p>
      * 
      * @param getSupportedResourceTypesRequest
@@ -900,7 +1803,52 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns metadata about your backup jobs.
+     * This is a request for a summary of backup jobs created or running within the most recent 30 days. You can include
+     * parameters AccountID, State, ResourceType, MessageCategory, AggregationPeriod, MaxResults, or NextToken to filter
+     * results.
+     * </p>
+     * <p>
+     * This request returns a summary that contains Region, Account, State, ResourceType, MessageCategory, StartTime,
+     * EndTime, and Count of included jobs.
+     * </p>
+     * 
+     * @param listBackupJobSummariesRequest
+     * @return A Java Future containing the result of the ListBackupJobSummaries operation returned by the service.
+     * @sample AWSBackupAsync.ListBackupJobSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListBackupJobSummaries" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListBackupJobSummariesResult> listBackupJobSummariesAsync(ListBackupJobSummariesRequest listBackupJobSummariesRequest);
+
+    /**
+     * <p>
+     * This is a request for a summary of backup jobs created or running within the most recent 30 days. You can include
+     * parameters AccountID, State, ResourceType, MessageCategory, AggregationPeriod, MaxResults, or NextToken to filter
+     * results.
+     * </p>
+     * <p>
+     * This request returns a summary that contains Region, Account, State, ResourceType, MessageCategory, StartTime,
+     * EndTime, and Count of included jobs.
+     * </p>
+     * 
+     * @param listBackupJobSummariesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListBackupJobSummaries operation returned by the service.
+     * @sample AWSBackupAsyncHandler.ListBackupJobSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListBackupJobSummaries" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListBackupJobSummariesResult> listBackupJobSummariesAsync(ListBackupJobSummariesRequest listBackupJobSummariesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListBackupJobSummariesRequest, ListBackupJobSummariesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of existing backup jobs for an authenticated account for the last 30 days. For a longer period of
+     * time, consider using these <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">monitoring tools</a>.
      * </p>
      * 
      * @param listBackupJobsRequest
@@ -913,7 +1861,9 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns metadata about your backup jobs.
+     * Returns a list of existing backup jobs for an authenticated account for the last 30 days. For a longer period of
+     * time, consider using these <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html">monitoring tools</a>.
      * </p>
      * 
      * @param listBackupJobsRequest
@@ -997,8 +1947,9 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns metadata of your saved backup plans, including Amazon Resource Names (ARNs), plan IDs, creation and
-     * deletion dates, version IDs, plan names, and creator request IDs.
+     * Returns a list of all active backup plans for an authenticated account. The list contains information such as
+     * Amazon Resource Names (ARNs), plan IDs, creation and deletion dates, version IDs, plan names, and creator request
+     * IDs.
      * </p>
      * 
      * @param listBackupPlansRequest
@@ -1011,8 +1962,9 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns metadata of your saved backup plans, including Amazon Resource Names (ARNs), plan IDs, creation and
-     * deletion dates, version IDs, plan names, and creator request IDs.
+     * Returns a list of all active backup plans for an authenticated account. The list contains information such as
+     * Amazon Resource Names (ARNs), plan IDs, creation and deletion dates, version IDs, plan names, and creator request
+     * IDs.
      * </p>
      * 
      * @param listBackupPlansRequest
@@ -1092,7 +2044,143 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns an array of resources successfully backed up by AWS Backup, including the time the resource was saved, an
+     * This request obtains a list of copy jobs created or running within the the most recent 30 days. You can include
+     * parameters AccountID, State, ResourceType, MessageCategory, AggregationPeriod, MaxResults, or NextToken to filter
+     * results.
+     * </p>
+     * <p>
+     * This request returns a summary that contains Region, Account, State, RestourceType, MessageCategory, StartTime,
+     * EndTime, and Count of included jobs.
+     * </p>
+     * 
+     * @param listCopyJobSummariesRequest
+     * @return A Java Future containing the result of the ListCopyJobSummaries operation returned by the service.
+     * @sample AWSBackupAsync.ListCopyJobSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListCopyJobSummaries" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListCopyJobSummariesResult> listCopyJobSummariesAsync(ListCopyJobSummariesRequest listCopyJobSummariesRequest);
+
+    /**
+     * <p>
+     * This request obtains a list of copy jobs created or running within the the most recent 30 days. You can include
+     * parameters AccountID, State, ResourceType, MessageCategory, AggregationPeriod, MaxResults, or NextToken to filter
+     * results.
+     * </p>
+     * <p>
+     * This request returns a summary that contains Region, Account, State, RestourceType, MessageCategory, StartTime,
+     * EndTime, and Count of included jobs.
+     * </p>
+     * 
+     * @param listCopyJobSummariesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListCopyJobSummaries operation returned by the service.
+     * @sample AWSBackupAsyncHandler.ListCopyJobSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListCopyJobSummaries" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListCopyJobSummariesResult> listCopyJobSummariesAsync(ListCopyJobSummariesRequest listCopyJobSummariesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListCopyJobSummariesRequest, ListCopyJobSummariesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns metadata about your copy jobs.
+     * </p>
+     * 
+     * @param listCopyJobsRequest
+     * @return A Java Future containing the result of the ListCopyJobs operation returned by the service.
+     * @sample AWSBackupAsync.ListCopyJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListCopyJobs" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListCopyJobsResult> listCopyJobsAsync(ListCopyJobsRequest listCopyJobsRequest);
+
+    /**
+     * <p>
+     * Returns metadata about your copy jobs.
+     * </p>
+     * 
+     * @param listCopyJobsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListCopyJobs operation returned by the service.
+     * @sample AWSBackupAsyncHandler.ListCopyJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListCopyJobs" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListCopyJobsResult> listCopyJobsAsync(ListCopyJobsRequest listCopyJobsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListCopyJobsRequest, ListCopyJobsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of all frameworks for an Amazon Web Services account and Amazon Web Services Region.
+     * </p>
+     * 
+     * @param listFrameworksRequest
+     * @return A Java Future containing the result of the ListFrameworks operation returned by the service.
+     * @sample AWSBackupAsync.ListFrameworks
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListFrameworks" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListFrameworksResult> listFrameworksAsync(ListFrameworksRequest listFrameworksRequest);
+
+    /**
+     * <p>
+     * Returns a list of all frameworks for an Amazon Web Services account and Amazon Web Services Region.
+     * </p>
+     * 
+     * @param listFrameworksRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListFrameworks operation returned by the service.
+     * @sample AWSBackupAsyncHandler.ListFrameworks
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListFrameworks" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListFrameworksResult> listFrameworksAsync(ListFrameworksRequest listFrameworksRequest,
+            com.amazonaws.handlers.AsyncHandler<ListFrameworksRequest, ListFrameworksResult> asyncHandler);
+
+    /**
+     * <p>
+     * This action returns metadata about active and previous legal holds.
+     * </p>
+     * 
+     * @param listLegalHoldsRequest
+     * @return A Java Future containing the result of the ListLegalHolds operation returned by the service.
+     * @sample AWSBackupAsync.ListLegalHolds
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListLegalHolds" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListLegalHoldsResult> listLegalHoldsAsync(ListLegalHoldsRequest listLegalHoldsRequest);
+
+    /**
+     * <p>
+     * This action returns metadata about active and previous legal holds.
+     * </p>
+     * 
+     * @param listLegalHoldsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListLegalHolds operation returned by the service.
+     * @sample AWSBackupAsyncHandler.ListLegalHolds
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListLegalHolds" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListLegalHoldsResult> listLegalHoldsAsync(ListLegalHoldsRequest listLegalHoldsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListLegalHoldsRequest, ListLegalHoldsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns an array of resources successfully backed up by Backup, including the time the resource was saved, an
      * Amazon Resource Name (ARN) of the resource, and a resource type.
      * </p>
      * 
@@ -1106,7 +2194,7 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns an array of resources successfully backed up by AWS Backup, including the time the resource was saved, an
+     * Returns an array of resources successfully backed up by Backup, including the time the resource was saved, an
      * Amazon Resource Name (ARN) of the resource, and a resource type.
      * </p>
      * 
@@ -1122,6 +2210,41 @@ public interface AWSBackupAsync extends AWSBackup {
      */
     java.util.concurrent.Future<ListProtectedResourcesResult> listProtectedResourcesAsync(ListProtectedResourcesRequest listProtectedResourcesRequest,
             com.amazonaws.handlers.AsyncHandler<ListProtectedResourcesRequest, ListProtectedResourcesResult> asyncHandler);
+
+    /**
+     * <p>
+     * This request lists the protected resources corresponding to each backup vault.
+     * </p>
+     * 
+     * @param listProtectedResourcesByBackupVaultRequest
+     * @return A Java Future containing the result of the ListProtectedResourcesByBackupVault operation returned by the
+     *         service.
+     * @sample AWSBackupAsync.ListProtectedResourcesByBackupVault
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListProtectedResourcesByBackupVault"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListProtectedResourcesByBackupVaultResult> listProtectedResourcesByBackupVaultAsync(
+            ListProtectedResourcesByBackupVaultRequest listProtectedResourcesByBackupVaultRequest);
+
+    /**
+     * <p>
+     * This request lists the protected resources corresponding to each backup vault.
+     * </p>
+     * 
+     * @param listProtectedResourcesByBackupVaultRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListProtectedResourcesByBackupVault operation returned by the
+     *         service.
+     * @sample AWSBackupAsyncHandler.ListProtectedResourcesByBackupVault
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListProtectedResourcesByBackupVault"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListProtectedResourcesByBackupVaultResult> listProtectedResourcesByBackupVaultAsync(
+            ListProtectedResourcesByBackupVaultRequest listProtectedResourcesByBackupVaultRequest,
+            com.amazonaws.handlers.AsyncHandler<ListProtectedResourcesByBackupVaultRequest, ListProtectedResourcesByBackupVaultResult> asyncHandler);
 
     /**
      * <p>
@@ -1160,9 +2283,49 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns detailed information about recovery points of the type specified by a resource Amazon Resource Name
-     * (ARN).
+     * This action returns recovery point ARNs (Amazon Resource Names) of the specified legal hold.
      * </p>
+     * 
+     * @param listRecoveryPointsByLegalHoldRequest
+     * @return A Java Future containing the result of the ListRecoveryPointsByLegalHold operation returned by the
+     *         service.
+     * @sample AWSBackupAsync.ListRecoveryPointsByLegalHold
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRecoveryPointsByLegalHold"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListRecoveryPointsByLegalHoldResult> listRecoveryPointsByLegalHoldAsync(
+            ListRecoveryPointsByLegalHoldRequest listRecoveryPointsByLegalHoldRequest);
+
+    /**
+     * <p>
+     * This action returns recovery point ARNs (Amazon Resource Names) of the specified legal hold.
+     * </p>
+     * 
+     * @param listRecoveryPointsByLegalHoldRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListRecoveryPointsByLegalHold operation returned by the
+     *         service.
+     * @sample AWSBackupAsyncHandler.ListRecoveryPointsByLegalHold
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRecoveryPointsByLegalHold"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListRecoveryPointsByLegalHoldResult> listRecoveryPointsByLegalHoldAsync(
+            ListRecoveryPointsByLegalHoldRequest listRecoveryPointsByLegalHoldRequest,
+            com.amazonaws.handlers.AsyncHandler<ListRecoveryPointsByLegalHoldRequest, ListRecoveryPointsByLegalHoldResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns detailed information about all the recovery points of the type specified by a resource Amazon Resource
+     * Name (ARN).
+     * </p>
+     * <note>
+     * <p>
+     * For Amazon EFS and Amazon EC2, this action only lists recovery points created by Backup.
+     * </p>
+     * </note>
      * 
      * @param listRecoveryPointsByResourceRequest
      * @return A Java Future containing the result of the ListRecoveryPointsByResource operation returned by the
@@ -1176,9 +2339,14 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns detailed information about recovery points of the type specified by a resource Amazon Resource Name
-     * (ARN).
+     * Returns detailed information about all the recovery points of the type specified by a resource Amazon Resource
+     * Name (ARN).
      * </p>
+     * <note>
+     * <p>
+     * For Amazon EFS and Amazon EC2, this action only lists recovery points created by Backup.
+     * </p>
+     * </note>
      * 
      * @param listRecoveryPointsByResourceRequest
      * @param asyncHandler
@@ -1197,8 +2365,113 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns a list of jobs that AWS Backup initiated to restore a saved resource, including metadata about the
-     * recovery process.
+     * Returns details about your report jobs.
+     * </p>
+     * 
+     * @param listReportJobsRequest
+     * @return A Java Future containing the result of the ListReportJobs operation returned by the service.
+     * @sample AWSBackupAsync.ListReportJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListReportJobs" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListReportJobsResult> listReportJobsAsync(ListReportJobsRequest listReportJobsRequest);
+
+    /**
+     * <p>
+     * Returns details about your report jobs.
+     * </p>
+     * 
+     * @param listReportJobsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListReportJobs operation returned by the service.
+     * @sample AWSBackupAsyncHandler.ListReportJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListReportJobs" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListReportJobsResult> listReportJobsAsync(ListReportJobsRequest listReportJobsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListReportJobsRequest, ListReportJobsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of your report plans. For detailed information about a single report plan, use
+     * <code>DescribeReportPlan</code>.
+     * </p>
+     * 
+     * @param listReportPlansRequest
+     * @return A Java Future containing the result of the ListReportPlans operation returned by the service.
+     * @sample AWSBackupAsync.ListReportPlans
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListReportPlans" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListReportPlansResult> listReportPlansAsync(ListReportPlansRequest listReportPlansRequest);
+
+    /**
+     * <p>
+     * Returns a list of your report plans. For detailed information about a single report plan, use
+     * <code>DescribeReportPlan</code>.
+     * </p>
+     * 
+     * @param listReportPlansRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListReportPlans operation returned by the service.
+     * @sample AWSBackupAsyncHandler.ListReportPlans
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListReportPlans" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListReportPlansResult> listReportPlansAsync(ListReportPlansRequest listReportPlansRequest,
+            com.amazonaws.handlers.AsyncHandler<ListReportPlansRequest, ListReportPlansResult> asyncHandler);
+
+    /**
+     * <p>
+     * This request obtains a summary of restore jobs created or running within the the most recent 30 days. You can
+     * include parameters AccountID, State, ResourceType, AggregationPeriod, MaxResults, or NextToken to filter results.
+     * </p>
+     * <p>
+     * This request returns a summary that contains Region, Account, State, RestourceType, MessageCategory, StartTime,
+     * EndTime, and Count of included jobs.
+     * </p>
+     * 
+     * @param listRestoreJobSummariesRequest
+     * @return A Java Future containing the result of the ListRestoreJobSummaries operation returned by the service.
+     * @sample AWSBackupAsync.ListRestoreJobSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRestoreJobSummaries" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListRestoreJobSummariesResult> listRestoreJobSummariesAsync(ListRestoreJobSummariesRequest listRestoreJobSummariesRequest);
+
+    /**
+     * <p>
+     * This request obtains a summary of restore jobs created or running within the the most recent 30 days. You can
+     * include parameters AccountID, State, ResourceType, AggregationPeriod, MaxResults, or NextToken to filter results.
+     * </p>
+     * <p>
+     * This request returns a summary that contains Region, Account, State, RestourceType, MessageCategory, StartTime,
+     * EndTime, and Count of included jobs.
+     * </p>
+     * 
+     * @param listRestoreJobSummariesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListRestoreJobSummaries operation returned by the service.
+     * @sample AWSBackupAsyncHandler.ListRestoreJobSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRestoreJobSummaries" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListRestoreJobSummariesResult> listRestoreJobSummariesAsync(ListRestoreJobSummariesRequest listRestoreJobSummariesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListRestoreJobSummariesRequest, ListRestoreJobSummariesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of jobs that Backup initiated to restore a saved resource, including details about the recovery
+     * process.
      * </p>
      * 
      * @param listRestoreJobsRequest
@@ -1211,8 +2484,8 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Returns a list of jobs that AWS Backup initiated to restore a saved resource, including metadata about the
-     * recovery process.
+     * Returns a list of jobs that Backup initiated to restore a saved resource, including details about the recovery
+     * process.
      * </p>
      * 
      * @param listRestoreJobsRequest
@@ -1230,7 +2503,126 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
+     * This returns restore jobs that contain the specified protected resource.
+     * </p>
+     * <p>
+     * You must include <code>ResourceArn</code>. You can optionally include <code>NextToken</code>,
+     * <code>ByStatus</code>, <code>MaxResults</code>, <code>ByRecoveryPointCreationDateAfter</code> , and
+     * <code>ByRecoveryPointCreationDateBefore</code>.
+     * </p>
+     * 
+     * @param listRestoreJobsByProtectedResourceRequest
+     * @return A Java Future containing the result of the ListRestoreJobsByProtectedResource operation returned by the
+     *         service.
+     * @sample AWSBackupAsync.ListRestoreJobsByProtectedResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRestoreJobsByProtectedResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListRestoreJobsByProtectedResourceResult> listRestoreJobsByProtectedResourceAsync(
+            ListRestoreJobsByProtectedResourceRequest listRestoreJobsByProtectedResourceRequest);
+
+    /**
+     * <p>
+     * This returns restore jobs that contain the specified protected resource.
+     * </p>
+     * <p>
+     * You must include <code>ResourceArn</code>. You can optionally include <code>NextToken</code>,
+     * <code>ByStatus</code>, <code>MaxResults</code>, <code>ByRecoveryPointCreationDateAfter</code> , and
+     * <code>ByRecoveryPointCreationDateBefore</code>.
+     * </p>
+     * 
+     * @param listRestoreJobsByProtectedResourceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListRestoreJobsByProtectedResource operation returned by the
+     *         service.
+     * @sample AWSBackupAsyncHandler.ListRestoreJobsByProtectedResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRestoreJobsByProtectedResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListRestoreJobsByProtectedResourceResult> listRestoreJobsByProtectedResourceAsync(
+            ListRestoreJobsByProtectedResourceRequest listRestoreJobsByProtectedResourceRequest,
+            com.amazonaws.handlers.AsyncHandler<ListRestoreJobsByProtectedResourceRequest, ListRestoreJobsByProtectedResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of restore testing plans.
+     * </p>
+     * 
+     * @param listRestoreTestingPlansRequest
+     * @return A Java Future containing the result of the ListRestoreTestingPlans operation returned by the service.
+     * @sample AWSBackupAsync.ListRestoreTestingPlans
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRestoreTestingPlans" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListRestoreTestingPlansResult> listRestoreTestingPlansAsync(ListRestoreTestingPlansRequest listRestoreTestingPlansRequest);
+
+    /**
+     * <p>
+     * Returns a list of restore testing plans.
+     * </p>
+     * 
+     * @param listRestoreTestingPlansRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListRestoreTestingPlans operation returned by the service.
+     * @sample AWSBackupAsyncHandler.ListRestoreTestingPlans
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRestoreTestingPlans" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListRestoreTestingPlansResult> listRestoreTestingPlansAsync(ListRestoreTestingPlansRequest listRestoreTestingPlansRequest,
+            com.amazonaws.handlers.AsyncHandler<ListRestoreTestingPlansRequest, ListRestoreTestingPlansResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of restore testing selections. Can be filtered by <code>MaxResults</code> and
+     * <code>RestoreTestingPlanName</code>.
+     * </p>
+     * 
+     * @param listRestoreTestingSelectionsRequest
+     * @return A Java Future containing the result of the ListRestoreTestingSelections operation returned by the
+     *         service.
+     * @sample AWSBackupAsync.ListRestoreTestingSelections
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRestoreTestingSelections"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListRestoreTestingSelectionsResult> listRestoreTestingSelectionsAsync(
+            ListRestoreTestingSelectionsRequest listRestoreTestingSelectionsRequest);
+
+    /**
+     * <p>
+     * Returns a list of restore testing selections. Can be filtered by <code>MaxResults</code> and
+     * <code>RestoreTestingPlanName</code>.
+     * </p>
+     * 
+     * @param listRestoreTestingSelectionsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListRestoreTestingSelections operation returned by the
+     *         service.
+     * @sample AWSBackupAsyncHandler.ListRestoreTestingSelections
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRestoreTestingSelections"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListRestoreTestingSelectionsResult> listRestoreTestingSelectionsAsync(
+            ListRestoreTestingSelectionsRequest listRestoreTestingSelectionsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListRestoreTestingSelectionsRequest, ListRestoreTestingSelectionsResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns a list of key-value pairs assigned to a target recovery point, backup plan, or backup vault.
+     * </p>
+     * <p>
+     * <code>ListTags</code> only works for resource types that support full Backup management of their backups. Those
+     * resource types are listed in the "Full Backup management" section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table.
      * </p>
      * 
      * @param listTagsRequest
@@ -1244,6 +2636,12 @@ public interface AWSBackupAsync extends AWSBackup {
     /**
      * <p>
      * Returns a list of key-value pairs assigned to a target recovery point, backup plan, or backup vault.
+     * </p>
+     * <p>
+     * <code>ListTags</code> only works for resource types that support full Backup management of their backups. Those
+     * resource types are listed in the "Full Backup management" section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table.
      * </p>
      * 
      * @param listTagsRequest
@@ -1296,6 +2694,61 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
+     * Applies Backup Vault Lock to a backup vault, preventing attempts to delete any recovery point stored in or
+     * created in a backup vault. Vault Lock also prevents attempts to update the lifecycle policy that controls the
+     * retention period of any recovery point currently stored in a backup vault. If specified, Vault Lock enforces a
+     * minimum and maximum retention period for future backup and copy jobs that target a backup vault.
+     * </p>
+     * <note>
+     * <p>
+     * Backup Vault Lock has been assessed by Cohasset Associates for use in environments that are subject to SEC 17a-4,
+     * CFTC, and FINRA regulations. For more information about how Backup Vault Lock relates to these regulations, see
+     * the <a href="samples/cohassetreport.zip">Cohasset Associates Compliance Assessment.</a>
+     * </p>
+     * </note>
+     * 
+     * @param putBackupVaultLockConfigurationRequest
+     * @return A Java Future containing the result of the PutBackupVaultLockConfiguration operation returned by the
+     *         service.
+     * @sample AWSBackupAsync.PutBackupVaultLockConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/PutBackupVaultLockConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutBackupVaultLockConfigurationResult> putBackupVaultLockConfigurationAsync(
+            PutBackupVaultLockConfigurationRequest putBackupVaultLockConfigurationRequest);
+
+    /**
+     * <p>
+     * Applies Backup Vault Lock to a backup vault, preventing attempts to delete any recovery point stored in or
+     * created in a backup vault. Vault Lock also prevents attempts to update the lifecycle policy that controls the
+     * retention period of any recovery point currently stored in a backup vault. If specified, Vault Lock enforces a
+     * minimum and maximum retention period for future backup and copy jobs that target a backup vault.
+     * </p>
+     * <note>
+     * <p>
+     * Backup Vault Lock has been assessed by Cohasset Associates for use in environments that are subject to SEC 17a-4,
+     * CFTC, and FINRA regulations. For more information about how Backup Vault Lock relates to these regulations, see
+     * the <a href="samples/cohassetreport.zip">Cohasset Associates Compliance Assessment.</a>
+     * </p>
+     * </note>
+     * 
+     * @param putBackupVaultLockConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutBackupVaultLockConfiguration operation returned by the
+     *         service.
+     * @sample AWSBackupAsyncHandler.PutBackupVaultLockConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/PutBackupVaultLockConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutBackupVaultLockConfigurationResult> putBackupVaultLockConfigurationAsync(
+            PutBackupVaultLockConfigurationRequest putBackupVaultLockConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<PutBackupVaultLockConfigurationRequest, PutBackupVaultLockConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
      * Turns on notifications on a backup vault for the specified topic and events.
      * </p>
      * 
@@ -1329,7 +2782,44 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Starts a job to create a one-time backup of the specified resource.
+     * This request allows you to send your independent self-run restore test validation results.
+     * <code>RestoreJobId</code> and <code>ValidationStatus</code> are required. Optionally, you can input a
+     * <code>ValidationStatusMessage</code>.
+     * </p>
+     * 
+     * @param putRestoreValidationResultRequest
+     * @return A Java Future containing the result of the PutRestoreValidationResult operation returned by the service.
+     * @sample AWSBackupAsync.PutRestoreValidationResult
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/PutRestoreValidationResult"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutRestoreValidationResultResult> putRestoreValidationResultAsync(
+            PutRestoreValidationResultRequest putRestoreValidationResultRequest);
+
+    /**
+     * <p>
+     * This request allows you to send your independent self-run restore test validation results.
+     * <code>RestoreJobId</code> and <code>ValidationStatus</code> are required. Optionally, you can input a
+     * <code>ValidationStatusMessage</code>.
+     * </p>
+     * 
+     * @param putRestoreValidationResultRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the PutRestoreValidationResult operation returned by the service.
+     * @sample AWSBackupAsyncHandler.PutRestoreValidationResult
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/PutRestoreValidationResult"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<PutRestoreValidationResultResult> putRestoreValidationResultAsync(
+            PutRestoreValidationResultRequest putRestoreValidationResultRequest,
+            com.amazonaws.handlers.AsyncHandler<PutRestoreValidationResultRequest, PutRestoreValidationResultResult> asyncHandler);
+
+    /**
+     * <p>
+     * Starts an on-demand backup job for the specified resource.
      * </p>
      * 
      * @param startBackupJobRequest
@@ -1342,7 +2832,7 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Starts a job to create a one-time backup of the specified resource.
+     * Starts an on-demand backup job for the specified resource.
      * </p>
      * 
      * @param startBackupJobRequest
@@ -1360,11 +2850,75 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Recovers the saved resource identified by an Amazon Resource Name (ARN).
+     * Starts a job to create a one-time copy of the specified resource.
      * </p>
      * <p>
-     * If the resource ARN is included in the request, then the last complete backup of that resource is recovered. If
-     * the ARN of a recovery point is supplied, then that recovery point is restored.
+     * Does not support continuous backups.
+     * </p>
+     * 
+     * @param startCopyJobRequest
+     * @return A Java Future containing the result of the StartCopyJob operation returned by the service.
+     * @sample AWSBackupAsync.StartCopyJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/StartCopyJob" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StartCopyJobResult> startCopyJobAsync(StartCopyJobRequest startCopyJobRequest);
+
+    /**
+     * <p>
+     * Starts a job to create a one-time copy of the specified resource.
+     * </p>
+     * <p>
+     * Does not support continuous backups.
+     * </p>
+     * 
+     * @param startCopyJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartCopyJob operation returned by the service.
+     * @sample AWSBackupAsyncHandler.StartCopyJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/StartCopyJob" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StartCopyJobResult> startCopyJobAsync(StartCopyJobRequest startCopyJobRequest,
+            com.amazonaws.handlers.AsyncHandler<StartCopyJobRequest, StartCopyJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Starts an on-demand report job for the specified report plan.
+     * </p>
+     * 
+     * @param startReportJobRequest
+     * @return A Java Future containing the result of the StartReportJob operation returned by the service.
+     * @sample AWSBackupAsync.StartReportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/StartReportJob" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StartReportJobResult> startReportJobAsync(StartReportJobRequest startReportJobRequest);
+
+    /**
+     * <p>
+     * Starts an on-demand report job for the specified report plan.
+     * </p>
+     * 
+     * @param startReportJobRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartReportJob operation returned by the service.
+     * @sample AWSBackupAsyncHandler.StartReportJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/StartReportJob" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StartReportJobResult> startReportJobAsync(StartReportJobRequest startReportJobRequest,
+            com.amazonaws.handlers.AsyncHandler<StartReportJobRequest, StartReportJobResult> asyncHandler);
+
+    /**
+     * <p>
+     * Recovers the saved resource identified by an Amazon Resource Name (ARN).
      * </p>
      * 
      * @param startRestoreJobRequest
@@ -1378,10 +2932,6 @@ public interface AWSBackupAsync extends AWSBackup {
     /**
      * <p>
      * Recovers the saved resource identified by an Amazon Resource Name (ARN).
-     * </p>
-     * <p>
-     * If the resource ARN is included in the request, then the last complete backup of that resource is recovered. If
-     * the ARN of a recovery point is supplied, then that recovery point is restored.
      * </p>
      * 
      * @param startRestoreJobRequest
@@ -1401,6 +2951,11 @@ public interface AWSBackupAsync extends AWSBackup {
      * <p>
      * Attempts to cancel a job to create a one-time backup of a resource.
      * </p>
+     * <p>
+     * This action is not supported for the following services: Amazon FSx for Windows File Server, Amazon FSx for
+     * Lustre, Amazon FSx for NetApp ONTAP , Amazon FSx for OpenZFS, Amazon DocumentDB (with MongoDB compatibility),
+     * Amazon RDS, Amazon Aurora, and Amazon Neptune.
+     * </p>
      * 
      * @param stopBackupJobRequest
      * @return A Java Future containing the result of the StopBackupJob operation returned by the service.
@@ -1413,6 +2968,11 @@ public interface AWSBackupAsync extends AWSBackup {
     /**
      * <p>
      * Attempts to cancel a job to create a one-time backup of a resource.
+     * </p>
+     * <p>
+     * This action is not supported for the following services: Amazon FSx for Windows File Server, Amazon FSx for
+     * Lustre, Amazon FSx for NetApp ONTAP , Amazon FSx for OpenZFS, Amazon DocumentDB (with MongoDB compatibility),
+     * Amazon RDS, Amazon Aurora, and Amazon Neptune.
      * </p>
      * 
      * @param stopBackupJobRequest
@@ -1496,8 +3056,8 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Replaces the body of a saved backup plan identified by its <code>backupPlanId</code> with the input document in
-     * JSON format. The new version is uniquely identified by a <code>VersionId</code>.
+     * Updates an existing backup plan identified by its <code>backupPlanId</code> with the input document in JSON
+     * format. The new version is uniquely identified by a <code>VersionId</code>.
      * </p>
      * 
      * @param updateBackupPlanRequest
@@ -1510,8 +3070,8 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
-     * Replaces the body of a saved backup plan identified by its <code>backupPlanId</code> with the input document in
-     * JSON format. The new version is uniquely identified by a <code>VersionId</code>.
+     * Updates an existing backup plan identified by its <code>backupPlanId</code> with the input document in JSON
+     * format. The new version is uniquely identified by a <code>VersionId</code>.
      * </p>
      * 
      * @param updateBackupPlanRequest
@@ -1529,16 +3089,93 @@ public interface AWSBackupAsync extends AWSBackup {
 
     /**
      * <p>
+     * Updates an existing framework identified by its <code>FrameworkName</code> with the input document in JSON
+     * format.
+     * </p>
+     * 
+     * @param updateFrameworkRequest
+     * @return A Java Future containing the result of the UpdateFramework operation returned by the service.
+     * @sample AWSBackupAsync.UpdateFramework
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateFramework" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateFrameworkResult> updateFrameworkAsync(UpdateFrameworkRequest updateFrameworkRequest);
+
+    /**
+     * <p>
+     * Updates an existing framework identified by its <code>FrameworkName</code> with the input document in JSON
+     * format.
+     * </p>
+     * 
+     * @param updateFrameworkRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateFramework operation returned by the service.
+     * @sample AWSBackupAsyncHandler.UpdateFramework
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateFramework" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateFrameworkResult> updateFrameworkAsync(UpdateFrameworkRequest updateFrameworkRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateFrameworkRequest, UpdateFrameworkResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates whether the Amazon Web Services account is opted in to cross-account backup. Returns an error if the
+     * account is not an Organizations management account. Use the <code>DescribeGlobalSettings</code> API to determine
+     * the current settings.
+     * </p>
+     * 
+     * @param updateGlobalSettingsRequest
+     * @return A Java Future containing the result of the UpdateGlobalSettings operation returned by the service.
+     * @sample AWSBackupAsync.UpdateGlobalSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateGlobalSettings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateGlobalSettingsResult> updateGlobalSettingsAsync(UpdateGlobalSettingsRequest updateGlobalSettingsRequest);
+
+    /**
+     * <p>
+     * Updates whether the Amazon Web Services account is opted in to cross-account backup. Returns an error if the
+     * account is not an Organizations management account. Use the <code>DescribeGlobalSettings</code> API to determine
+     * the current settings.
+     * </p>
+     * 
+     * @param updateGlobalSettingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateGlobalSettings operation returned by the service.
+     * @sample AWSBackupAsyncHandler.UpdateGlobalSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateGlobalSettings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateGlobalSettingsResult> updateGlobalSettingsAsync(UpdateGlobalSettingsRequest updateGlobalSettingsRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateGlobalSettingsRequest, UpdateGlobalSettingsResult> asyncHandler);
+
+    /**
+     * <p>
      * Sets the transition lifecycle of a recovery point.
      * </p>
      * <p>
-     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS Backup
+     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup
      * transitions and expires backups automatically according to the lifecycle that you define.
      * </p>
      * <p>
      * Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore, the
-     * “expire after days” setting must be 90 days greater than the “transition to cold after days” setting. The
-     * “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition to
+     * cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * </p>
+     * <p>
+     * Resource types that are able to be transitioned to cold storage are listed in the "Lifecycle to cold storage"
+     * section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table. Backup ignores this expression for other resource types.
+     * </p>
+     * <p>
+     * This operation does not support continuous backups.
      * </p>
      * 
      * @param updateRecoveryPointLifecycleRequest
@@ -1556,13 +3193,22 @@ public interface AWSBackupAsync extends AWSBackup {
      * Sets the transition lifecycle of a recovery point.
      * </p>
      * <p>
-     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS Backup
+     * The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. Backup
      * transitions and expires backups automatically according to the lifecycle that you define.
      * </p>
      * <p>
      * Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore, the
-     * “expire after days” setting must be 90 days greater than the “transition to cold after days” setting. The
-     * “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * “retention” setting must be 90 days greater than the “transition to cold after days” setting. The “transition to
+     * cold after days” setting cannot be changed after a backup has been transitioned to cold.
+     * </p>
+     * <p>
+     * Resource types that are able to be transitioned to cold storage are listed in the "Lifecycle to cold storage"
+     * section of the <a
+     * href="https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource"> Feature
+     * availability by resource</a> table. Backup ignores this expression for other resource types.
+     * </p>
+     * <p>
+     * This operation does not support continuous backups.
      * </p>
      * 
      * @param updateRecoveryPointLifecycleRequest
@@ -1579,5 +3225,213 @@ public interface AWSBackupAsync extends AWSBackup {
     java.util.concurrent.Future<UpdateRecoveryPointLifecycleResult> updateRecoveryPointLifecycleAsync(
             UpdateRecoveryPointLifecycleRequest updateRecoveryPointLifecycleRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateRecoveryPointLifecycleRequest, UpdateRecoveryPointLifecycleResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the current service opt-in settings for the Region.
+     * </p>
+     * <p>
+     * Use the <code>DescribeRegionSettings</code> API to determine the resource types that are supported.
+     * </p>
+     * 
+     * @param updateRegionSettingsRequest
+     * @return A Java Future containing the result of the UpdateRegionSettings operation returned by the service.
+     * @sample AWSBackupAsync.UpdateRegionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateRegionSettings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateRegionSettingsResult> updateRegionSettingsAsync(UpdateRegionSettingsRequest updateRegionSettingsRequest);
+
+    /**
+     * <p>
+     * Updates the current service opt-in settings for the Region.
+     * </p>
+     * <p>
+     * Use the <code>DescribeRegionSettings</code> API to determine the resource types that are supported.
+     * </p>
+     * 
+     * @param updateRegionSettingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateRegionSettings operation returned by the service.
+     * @sample AWSBackupAsyncHandler.UpdateRegionSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateRegionSettings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateRegionSettingsResult> updateRegionSettingsAsync(UpdateRegionSettingsRequest updateRegionSettingsRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateRegionSettingsRequest, UpdateRegionSettingsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates an existing report plan identified by its <code>ReportPlanName</code> with the input document in JSON
+     * format.
+     * </p>
+     * 
+     * @param updateReportPlanRequest
+     * @return A Java Future containing the result of the UpdateReportPlan operation returned by the service.
+     * @sample AWSBackupAsync.UpdateReportPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateReportPlan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateReportPlanResult> updateReportPlanAsync(UpdateReportPlanRequest updateReportPlanRequest);
+
+    /**
+     * <p>
+     * Updates an existing report plan identified by its <code>ReportPlanName</code> with the input document in JSON
+     * format.
+     * </p>
+     * 
+     * @param updateReportPlanRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateReportPlan operation returned by the service.
+     * @sample AWSBackupAsyncHandler.UpdateReportPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateReportPlan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateReportPlanResult> updateReportPlanAsync(UpdateReportPlanRequest updateReportPlanRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateReportPlanRequest, UpdateReportPlanResult> asyncHandler);
+
+    /**
+     * <p>
+     * This request will send changes to your specified restore testing plan. <code>RestoreTestingPlanName</code> cannot
+     * be updated after it is created.
+     * </p>
+     * <p>
+     * <code>RecoveryPointSelection</code> can contain:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Algorithm</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ExcludeVaults</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>IncludeVaults</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RecoveryPointTypes</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SelectionWindowDays</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param updateRestoreTestingPlanRequest
+     * @return A Java Future containing the result of the UpdateRestoreTestingPlan operation returned by the service.
+     * @sample AWSBackupAsync.UpdateRestoreTestingPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateRestoreTestingPlan"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateRestoreTestingPlanResult> updateRestoreTestingPlanAsync(UpdateRestoreTestingPlanRequest updateRestoreTestingPlanRequest);
+
+    /**
+     * <p>
+     * This request will send changes to your specified restore testing plan. <code>RestoreTestingPlanName</code> cannot
+     * be updated after it is created.
+     * </p>
+     * <p>
+     * <code>RecoveryPointSelection</code> can contain:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Algorithm</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ExcludeVaults</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>IncludeVaults</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>RecoveryPointTypes</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>SelectionWindowDays</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param updateRestoreTestingPlanRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateRestoreTestingPlan operation returned by the service.
+     * @sample AWSBackupAsyncHandler.UpdateRestoreTestingPlan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateRestoreTestingPlan"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateRestoreTestingPlanResult> updateRestoreTestingPlanAsync(UpdateRestoreTestingPlanRequest updateRestoreTestingPlanRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateRestoreTestingPlanRequest, UpdateRestoreTestingPlanResult> asyncHandler);
+
+    /**
+     * <p>
+     * Most elements except the <code>RestoreTestingSelectionName</code> can be updated with this request.
+     * </p>
+     * <p>
+     * <code>RestoreTestingSelection</code> can use either protected resource ARNs or conditions, but not both. That is,
+     * if your selection has <code>ProtectedResourceArns</code>, requesting an update with the parameter
+     * <code>ProtectedResourceConditions</code> will be unsuccessful.
+     * </p>
+     * 
+     * @param updateRestoreTestingSelectionRequest
+     * @return A Java Future containing the result of the UpdateRestoreTestingSelection operation returned by the
+     *         service.
+     * @sample AWSBackupAsync.UpdateRestoreTestingSelection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateRestoreTestingSelection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateRestoreTestingSelectionResult> updateRestoreTestingSelectionAsync(
+            UpdateRestoreTestingSelectionRequest updateRestoreTestingSelectionRequest);
+
+    /**
+     * <p>
+     * Most elements except the <code>RestoreTestingSelectionName</code> can be updated with this request.
+     * </p>
+     * <p>
+     * <code>RestoreTestingSelection</code> can use either protected resource ARNs or conditions, but not both. That is,
+     * if your selection has <code>ProtectedResourceArns</code>, requesting an update with the parameter
+     * <code>ProtectedResourceConditions</code> will be unsuccessful.
+     * </p>
+     * 
+     * @param updateRestoreTestingSelectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateRestoreTestingSelection operation returned by the
+     *         service.
+     * @sample AWSBackupAsyncHandler.UpdateRestoreTestingSelection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateRestoreTestingSelection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateRestoreTestingSelectionResult> updateRestoreTestingSelectionAsync(
+            UpdateRestoreTestingSelectionRequest updateRestoreTestingSelectionRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateRestoreTestingSelectionRequest, UpdateRestoreTestingSelectionResult> asyncHandler);
 
 }

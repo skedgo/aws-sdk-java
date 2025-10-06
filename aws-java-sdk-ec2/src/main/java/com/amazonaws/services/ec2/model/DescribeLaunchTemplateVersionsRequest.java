@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,21 +28,44 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
 
     /**
      * <p>
-     * The ID of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The ID of the launch template.
+     * </p>
+     * <p>
+     * To describe one or more versions of a specified launch template, you must specify either the launch template ID
+     * or the launch template name, but not both.
+     * </p>
+     * <p>
+     * To describe all the latest or default launch template versions in your account, you must omit this parameter.
      * </p>
      */
     private String launchTemplateId;
     /**
      * <p>
-     * The name of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The name of the launch template.
+     * </p>
+     * <p>
+     * To describe one or more versions of a specified launch template, you must specify either the launch template name
+     * or the launch template ID, but not both.
+     * </p>
+     * <p>
+     * To describe all the latest or default launch template versions in your account, you must omit this parameter.
      * </p>
      */
     private String launchTemplateName;
     /**
      * <p>
-     * One or more versions of the launch template.
+     * One or more versions of the launch template. Valid values depend on whether you are describing a specified launch
+     * template (by ID or name) or all launch templates in your account.
+     * </p>
+     * <p>
+     * To describe one or more versions of a specified launch template, valid values are <code>$Latest</code>,
+     * <code>$Default</code>, and numbers.
+     * </p>
+     * <p>
+     * To describe all launch templates in your account that are defined as the latest version, the valid value is
+     * <code>$Latest</code>. To describe all launch templates in your account that are defined as the default version,
+     * the valid value is <code>$Default</code>. You can specify <code>$Latest</code> and <code>$Default</code> in the
+     * same request. You cannot specify numbers.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> versions;
@@ -88,6 +111,29 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      * </li>
      * <li>
      * <p>
+     * <code>http-endpoint</code> - Indicates whether the HTTP metadata endpoint on your instances is enabled (
+     * <code>enabled</code> | <code>disabled</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>http-protocol-ipv4</code> - Indicates whether the IPv4 endpoint for the instance metadata service is
+     * enabled (<code>enabled</code> | <code>disabled</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>host-resource-group-arn</code> - The ARN of the host resource group in which to launch the instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>http-tokens</code> - The state of token usage for your instance metadata requests (<code>optional</code> |
+     * <code>required</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>iam-instance-profile</code> - The ARN of the IAM instance profile.
      * </p>
      * </li>
@@ -114,22 +160,63 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      * </li>
      * <li>
      * <p>
+     * <code>license-configuration-arn</code> - The ARN of the license configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>network-card-index</code> - The index of the network card.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>ram-disk-id</code> - The RAM disk ID.
      * </p>
      * </li>
      * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
+    /**
+     * <p>
+     * If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI ID is
+     * displayed in the response for <code>imageId</code>.
+     * </p>
+     * <p>
+     * If <code>false</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the parameter is
+     * displayed in the response for <code>imageId</code>.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     */
+    private Boolean resolveAlias;
 
     /**
      * <p>
-     * The ID of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The ID of the launch template.
+     * </p>
+     * <p>
+     * To describe one or more versions of a specified launch template, you must specify either the launch template ID
+     * or the launch template name, but not both.
+     * </p>
+     * <p>
+     * To describe all the latest or default launch template versions in your account, you must omit this parameter.
      * </p>
      * 
      * @param launchTemplateId
-     *        The ID of the launch template. You must specify either the launch template ID or launch template name in
-     *        the request.
+     *        The ID of the launch template.</p>
+     *        <p>
+     *        To describe one or more versions of a specified launch template, you must specify either the launch
+     *        template ID or the launch template name, but not both.
+     *        </p>
+     *        <p>
+     *        To describe all the latest or default launch template versions in your account, you must omit this
+     *        parameter.
      */
 
     public void setLaunchTemplateId(String launchTemplateId) {
@@ -138,12 +225,24 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
 
     /**
      * <p>
-     * The ID of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The ID of the launch template.
+     * </p>
+     * <p>
+     * To describe one or more versions of a specified launch template, you must specify either the launch template ID
+     * or the launch template name, but not both.
+     * </p>
+     * <p>
+     * To describe all the latest or default launch template versions in your account, you must omit this parameter.
      * </p>
      * 
-     * @return The ID of the launch template. You must specify either the launch template ID or launch template name in
-     *         the request.
+     * @return The ID of the launch template.</p>
+     *         <p>
+     *         To describe one or more versions of a specified launch template, you must specify either the launch
+     *         template ID or the launch template name, but not both.
+     *         </p>
+     *         <p>
+     *         To describe all the latest or default launch template versions in your account, you must omit this
+     *         parameter.
      */
 
     public String getLaunchTemplateId() {
@@ -152,13 +251,25 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
 
     /**
      * <p>
-     * The ID of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The ID of the launch template.
+     * </p>
+     * <p>
+     * To describe one or more versions of a specified launch template, you must specify either the launch template ID
+     * or the launch template name, but not both.
+     * </p>
+     * <p>
+     * To describe all the latest or default launch template versions in your account, you must omit this parameter.
      * </p>
      * 
      * @param launchTemplateId
-     *        The ID of the launch template. You must specify either the launch template ID or launch template name in
-     *        the request.
+     *        The ID of the launch template.</p>
+     *        <p>
+     *        To describe one or more versions of a specified launch template, you must specify either the launch
+     *        template ID or the launch template name, but not both.
+     *        </p>
+     *        <p>
+     *        To describe all the latest or default launch template versions in your account, you must omit this
+     *        parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -169,13 +280,25 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
 
     /**
      * <p>
-     * The name of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The name of the launch template.
+     * </p>
+     * <p>
+     * To describe one or more versions of a specified launch template, you must specify either the launch template name
+     * or the launch template ID, but not both.
+     * </p>
+     * <p>
+     * To describe all the latest or default launch template versions in your account, you must omit this parameter.
      * </p>
      * 
      * @param launchTemplateName
-     *        The name of the launch template. You must specify either the launch template ID or launch template name in
-     *        the request.
+     *        The name of the launch template.</p>
+     *        <p>
+     *        To describe one or more versions of a specified launch template, you must specify either the launch
+     *        template name or the launch template ID, but not both.
+     *        </p>
+     *        <p>
+     *        To describe all the latest or default launch template versions in your account, you must omit this
+     *        parameter.
      */
 
     public void setLaunchTemplateName(String launchTemplateName) {
@@ -184,12 +307,24 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
 
     /**
      * <p>
-     * The name of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The name of the launch template.
+     * </p>
+     * <p>
+     * To describe one or more versions of a specified launch template, you must specify either the launch template name
+     * or the launch template ID, but not both.
+     * </p>
+     * <p>
+     * To describe all the latest or default launch template versions in your account, you must omit this parameter.
      * </p>
      * 
-     * @return The name of the launch template. You must specify either the launch template ID or launch template name
-     *         in the request.
+     * @return The name of the launch template.</p>
+     *         <p>
+     *         To describe one or more versions of a specified launch template, you must specify either the launch
+     *         template name or the launch template ID, but not both.
+     *         </p>
+     *         <p>
+     *         To describe all the latest or default launch template versions in your account, you must omit this
+     *         parameter.
      */
 
     public String getLaunchTemplateName() {
@@ -198,13 +333,25 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
 
     /**
      * <p>
-     * The name of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The name of the launch template.
+     * </p>
+     * <p>
+     * To describe one or more versions of a specified launch template, you must specify either the launch template name
+     * or the launch template ID, but not both.
+     * </p>
+     * <p>
+     * To describe all the latest or default launch template versions in your account, you must omit this parameter.
      * </p>
      * 
      * @param launchTemplateName
-     *        The name of the launch template. You must specify either the launch template ID or launch template name in
-     *        the request.
+     *        The name of the launch template.</p>
+     *        <p>
+     *        To describe one or more versions of a specified launch template, you must specify either the launch
+     *        template name or the launch template ID, but not both.
+     *        </p>
+     *        <p>
+     *        To describe all the latest or default launch template versions in your account, you must omit this
+     *        parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -215,10 +362,31 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
 
     /**
      * <p>
-     * One or more versions of the launch template.
+     * One or more versions of the launch template. Valid values depend on whether you are describing a specified launch
+     * template (by ID or name) or all launch templates in your account.
+     * </p>
+     * <p>
+     * To describe one or more versions of a specified launch template, valid values are <code>$Latest</code>,
+     * <code>$Default</code>, and numbers.
+     * </p>
+     * <p>
+     * To describe all launch templates in your account that are defined as the latest version, the valid value is
+     * <code>$Latest</code>. To describe all launch templates in your account that are defined as the default version,
+     * the valid value is <code>$Default</code>. You can specify <code>$Latest</code> and <code>$Default</code> in the
+     * same request. You cannot specify numbers.
      * </p>
      * 
-     * @return One or more versions of the launch template.
+     * @return One or more versions of the launch template. Valid values depend on whether you are describing a
+     *         specified launch template (by ID or name) or all launch templates in your account.</p>
+     *         <p>
+     *         To describe one or more versions of a specified launch template, valid values are <code>$Latest</code>,
+     *         <code>$Default</code>, and numbers.
+     *         </p>
+     *         <p>
+     *         To describe all launch templates in your account that are defined as the latest version, the valid value
+     *         is <code>$Latest</code>. To describe all launch templates in your account that are defined as the default
+     *         version, the valid value is <code>$Default</code>. You can specify <code>$Latest</code> and
+     *         <code>$Default</code> in the same request. You cannot specify numbers.
      */
 
     public java.util.List<String> getVersions() {
@@ -230,11 +398,32 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
 
     /**
      * <p>
-     * One or more versions of the launch template.
+     * One or more versions of the launch template. Valid values depend on whether you are describing a specified launch
+     * template (by ID or name) or all launch templates in your account.
+     * </p>
+     * <p>
+     * To describe one or more versions of a specified launch template, valid values are <code>$Latest</code>,
+     * <code>$Default</code>, and numbers.
+     * </p>
+     * <p>
+     * To describe all launch templates in your account that are defined as the latest version, the valid value is
+     * <code>$Latest</code>. To describe all launch templates in your account that are defined as the default version,
+     * the valid value is <code>$Default</code>. You can specify <code>$Latest</code> and <code>$Default</code> in the
+     * same request. You cannot specify numbers.
      * </p>
      * 
      * @param versions
-     *        One or more versions of the launch template.
+     *        One or more versions of the launch template. Valid values depend on whether you are describing a specified
+     *        launch template (by ID or name) or all launch templates in your account.</p>
+     *        <p>
+     *        To describe one or more versions of a specified launch template, valid values are <code>$Latest</code>,
+     *        <code>$Default</code>, and numbers.
+     *        </p>
+     *        <p>
+     *        To describe all launch templates in your account that are defined as the latest version, the valid value
+     *        is <code>$Latest</code>. To describe all launch templates in your account that are defined as the default
+     *        version, the valid value is <code>$Default</code>. You can specify <code>$Latest</code> and
+     *        <code>$Default</code> in the same request. You cannot specify numbers.
      */
 
     public void setVersions(java.util.Collection<String> versions) {
@@ -248,7 +437,18 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
 
     /**
      * <p>
-     * One or more versions of the launch template.
+     * One or more versions of the launch template. Valid values depend on whether you are describing a specified launch
+     * template (by ID or name) or all launch templates in your account.
+     * </p>
+     * <p>
+     * To describe one or more versions of a specified launch template, valid values are <code>$Latest</code>,
+     * <code>$Default</code>, and numbers.
+     * </p>
+     * <p>
+     * To describe all launch templates in your account that are defined as the latest version, the valid value is
+     * <code>$Latest</code>. To describe all launch templates in your account that are defined as the default version,
+     * the valid value is <code>$Default</code>. You can specify <code>$Latest</code> and <code>$Default</code> in the
+     * same request. You cannot specify numbers.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -257,7 +457,17 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      * </p>
      * 
      * @param versions
-     *        One or more versions of the launch template.
+     *        One or more versions of the launch template. Valid values depend on whether you are describing a specified
+     *        launch template (by ID or name) or all launch templates in your account.</p>
+     *        <p>
+     *        To describe one or more versions of a specified launch template, valid values are <code>$Latest</code>,
+     *        <code>$Default</code>, and numbers.
+     *        </p>
+     *        <p>
+     *        To describe all launch templates in your account that are defined as the latest version, the valid value
+     *        is <code>$Latest</code>. To describe all launch templates in your account that are defined as the default
+     *        version, the valid value is <code>$Default</code>. You can specify <code>$Latest</code> and
+     *        <code>$Default</code> in the same request. You cannot specify numbers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -273,11 +483,32 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
 
     /**
      * <p>
-     * One or more versions of the launch template.
+     * One or more versions of the launch template. Valid values depend on whether you are describing a specified launch
+     * template (by ID or name) or all launch templates in your account.
+     * </p>
+     * <p>
+     * To describe one or more versions of a specified launch template, valid values are <code>$Latest</code>,
+     * <code>$Default</code>, and numbers.
+     * </p>
+     * <p>
+     * To describe all launch templates in your account that are defined as the latest version, the valid value is
+     * <code>$Latest</code>. To describe all launch templates in your account that are defined as the default version,
+     * the valid value is <code>$Default</code>. You can specify <code>$Latest</code> and <code>$Default</code> in the
+     * same request. You cannot specify numbers.
      * </p>
      * 
      * @param versions
-     *        One or more versions of the launch template.
+     *        One or more versions of the launch template. Valid values depend on whether you are describing a specified
+     *        launch template (by ID or name) or all launch templates in your account.</p>
+     *        <p>
+     *        To describe one or more versions of a specified launch template, valid values are <code>$Latest</code>,
+     *        <code>$Default</code>, and numbers.
+     *        </p>
+     *        <p>
+     *        To describe all launch templates in your account that are defined as the latest version, the valid value
+     *        is <code>$Latest</code>. To describe all launch templates in your account that are defined as the default
+     *        version, the valid value is <code>$Default</code>. You can specify <code>$Latest</code> and
+     *        <code>$Default</code> in the same request. You cannot specify numbers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -469,6 +700,29 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      * </li>
      * <li>
      * <p>
+     * <code>http-endpoint</code> - Indicates whether the HTTP metadata endpoint on your instances is enabled (
+     * <code>enabled</code> | <code>disabled</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>http-protocol-ipv4</code> - Indicates whether the IPv4 endpoint for the instance metadata service is
+     * enabled (<code>enabled</code> | <code>disabled</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>host-resource-group-arn</code> - The ARN of the host resource group in which to launch the instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>http-tokens</code> - The state of token usage for your instance metadata requests (<code>optional</code> |
+     * <code>required</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>iam-instance-profile</code> - The ARN of the IAM instance profile.
      * </p>
      * </li>
@@ -495,6 +749,16 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      * </li>
      * <li>
      * <p>
+     * <code>license-configuration-arn</code> - The ARN of the license configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>network-card-index</code> - The index of the network card.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>ram-disk-id</code> - The RAM disk ID.
      * </p>
      * </li>
@@ -511,6 +775,30 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      *         <p>
      *         <code>ebs-optimized</code> - A boolean that indicates whether the instance is optimized for Amazon EBS
      *         I/O.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>http-endpoint</code> - Indicates whether the HTTP metadata endpoint on your instances is enabled (
+     *         <code>enabled</code> | <code>disabled</code>).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>http-protocol-ipv4</code> - Indicates whether the IPv4 endpoint for the instance metadata service
+     *         is enabled (<code>enabled</code> | <code>disabled</code>).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>host-resource-group-arn</code> - The ARN of the host resource group in which to launch the
+     *         instances.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>http-tokens</code> - The state of token usage for your instance metadata requests (
+     *         <code>optional</code> | <code>required</code>).
      *         </p>
      *         </li>
      *         <li>
@@ -537,6 +825,16 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      *         <li>
      *         <p>
      *         <code>kernel-id</code> - The kernel ID.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>license-configuration-arn</code> - The ARN of the license configuration.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>network-card-index</code> - The index of the network card.
      *         </p>
      *         </li>
      *         <li>
@@ -570,6 +868,29 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      * </li>
      * <li>
      * <p>
+     * <code>http-endpoint</code> - Indicates whether the HTTP metadata endpoint on your instances is enabled (
+     * <code>enabled</code> | <code>disabled</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>http-protocol-ipv4</code> - Indicates whether the IPv4 endpoint for the instance metadata service is
+     * enabled (<code>enabled</code> | <code>disabled</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>host-resource-group-arn</code> - The ARN of the host resource group in which to launch the instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>http-tokens</code> - The state of token usage for your instance metadata requests (<code>optional</code> |
+     * <code>required</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>iam-instance-profile</code> - The ARN of the IAM instance profile.
      * </p>
      * </li>
@@ -596,6 +917,16 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      * </li>
      * <li>
      * <p>
+     * <code>license-configuration-arn</code> - The ARN of the license configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>network-card-index</code> - The index of the network card.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>ram-disk-id</code> - The RAM disk ID.
      * </p>
      * </li>
@@ -613,6 +944,30 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      *        <p>
      *        <code>ebs-optimized</code> - A boolean that indicates whether the instance is optimized for Amazon EBS
      *        I/O.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>http-endpoint</code> - Indicates whether the HTTP metadata endpoint on your instances is enabled (
+     *        <code>enabled</code> | <code>disabled</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>http-protocol-ipv4</code> - Indicates whether the IPv4 endpoint for the instance metadata service is
+     *        enabled (<code>enabled</code> | <code>disabled</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>host-resource-group-arn</code> - The ARN of the host resource group in which to launch the
+     *        instances.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>http-tokens</code> - The state of token usage for your instance metadata requests (
+     *        <code>optional</code> | <code>required</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -639,6 +994,16 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      *        <li>
      *        <p>
      *        <code>kernel-id</code> - The kernel ID.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>license-configuration-arn</code> - The ARN of the license configuration.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>network-card-index</code> - The index of the network card.
      *        </p>
      *        </li>
      *        <li>
@@ -674,6 +1039,29 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      * </li>
      * <li>
      * <p>
+     * <code>http-endpoint</code> - Indicates whether the HTTP metadata endpoint on your instances is enabled (
+     * <code>enabled</code> | <code>disabled</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>http-protocol-ipv4</code> - Indicates whether the IPv4 endpoint for the instance metadata service is
+     * enabled (<code>enabled</code> | <code>disabled</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>host-resource-group-arn</code> - The ARN of the host resource group in which to launch the instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>http-tokens</code> - The state of token usage for your instance metadata requests (<code>optional</code> |
+     * <code>required</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>iam-instance-profile</code> - The ARN of the IAM instance profile.
      * </p>
      * </li>
@@ -696,6 +1084,16 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      * <li>
      * <p>
      * <code>kernel-id</code> - The kernel ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>license-configuration-arn</code> - The ARN of the license configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>network-card-index</code> - The index of the network card.
      * </p>
      * </li>
      * <li>
@@ -726,6 +1124,30 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      *        </li>
      *        <li>
      *        <p>
+     *        <code>http-endpoint</code> - Indicates whether the HTTP metadata endpoint on your instances is enabled (
+     *        <code>enabled</code> | <code>disabled</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>http-protocol-ipv4</code> - Indicates whether the IPv4 endpoint for the instance metadata service is
+     *        enabled (<code>enabled</code> | <code>disabled</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>host-resource-group-arn</code> - The ARN of the host resource group in which to launch the
+     *        instances.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>http-tokens</code> - The state of token usage for your instance metadata requests (
+     *        <code>optional</code> | <code>required</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>iam-instance-profile</code> - The ARN of the IAM instance profile.
      *        </p>
      *        </li>
@@ -748,6 +1170,16 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      *        <li>
      *        <p>
      *        <code>kernel-id</code> - The kernel ID.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>license-configuration-arn</code> - The ARN of the license configuration.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>network-card-index</code> - The index of the network card.
      *        </p>
      *        </li>
      *        <li>
@@ -785,6 +1217,29 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      * </li>
      * <li>
      * <p>
+     * <code>http-endpoint</code> - Indicates whether the HTTP metadata endpoint on your instances is enabled (
+     * <code>enabled</code> | <code>disabled</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>http-protocol-ipv4</code> - Indicates whether the IPv4 endpoint for the instance metadata service is
+     * enabled (<code>enabled</code> | <code>disabled</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>host-resource-group-arn</code> - The ARN of the host resource group in which to launch the instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>http-tokens</code> - The state of token usage for your instance metadata requests (<code>optional</code> |
+     * <code>required</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>iam-instance-profile</code> - The ARN of the IAM instance profile.
      * </p>
      * </li>
@@ -811,6 +1266,16 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      * </li>
      * <li>
      * <p>
+     * <code>license-configuration-arn</code> - The ARN of the license configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>network-card-index</code> - The index of the network card.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>ram-disk-id</code> - The RAM disk ID.
      * </p>
      * </li>
@@ -828,6 +1293,30 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      *        <p>
      *        <code>ebs-optimized</code> - A boolean that indicates whether the instance is optimized for Amazon EBS
      *        I/O.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>http-endpoint</code> - Indicates whether the HTTP metadata endpoint on your instances is enabled (
+     *        <code>enabled</code> | <code>disabled</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>http-protocol-ipv4</code> - Indicates whether the IPv4 endpoint for the instance metadata service is
+     *        enabled (<code>enabled</code> | <code>disabled</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>host-resource-group-arn</code> - The ARN of the host resource group in which to launch the
+     *        instances.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>http-tokens</code> - The state of token usage for your instance metadata requests (
+     *        <code>optional</code> | <code>required</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -858,6 +1347,16 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
      *        </li>
      *        <li>
      *        <p>
+     *        <code>license-configuration-arn</code> - The ARN of the license configuration.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>network-card-index</code> - The index of the network card.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>ram-disk-id</code> - The RAM disk ID.
      *        </p>
      *        </li>
@@ -867,6 +1366,158 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
     public DescribeLaunchTemplateVersionsRequest withFilters(java.util.Collection<Filter> filters) {
         setFilters(filters);
         return this;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI ID is
+     * displayed in the response for <code>imageId</code>.
+     * </p>
+     * <p>
+     * If <code>false</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the parameter is
+     * displayed in the response for <code>imageId</code>.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @param resolveAlias
+     *        If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI ID
+     *        is displayed in the response for <code>imageId</code>.</p>
+     *        <p>
+     *        If <code>false</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the
+     *        parameter is displayed in the response for <code>imageId</code>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *        >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Default: <code>false</code>
+     */
+
+    public void setResolveAlias(Boolean resolveAlias) {
+        this.resolveAlias = resolveAlias;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI ID is
+     * displayed in the response for <code>imageId</code>.
+     * </p>
+     * <p>
+     * If <code>false</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the parameter is
+     * displayed in the response for <code>imageId</code>.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @return If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI
+     *         ID is displayed in the response for <code>imageId</code>.</p>
+     *         <p>
+     *         If <code>false</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the
+     *         parameter is displayed in the response for <code>imageId</code>.
+     *         </p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *         >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Default: <code>false</code>
+     */
+
+    public Boolean getResolveAlias() {
+        return this.resolveAlias;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI ID is
+     * displayed in the response for <code>imageId</code>.
+     * </p>
+     * <p>
+     * If <code>false</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the parameter is
+     * displayed in the response for <code>imageId</code>.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @param resolveAlias
+     *        If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI ID
+     *        is displayed in the response for <code>imageId</code>.</p>
+     *        <p>
+     *        If <code>false</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the
+     *        parameter is displayed in the response for <code>imageId</code>.
+     *        </p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *        >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Default: <code>false</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeLaunchTemplateVersionsRequest withResolveAlias(Boolean resolveAlias) {
+        setResolveAlias(resolveAlias);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI ID is
+     * displayed in the response for <code>imageId</code>.
+     * </p>
+     * <p>
+     * If <code>false</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the parameter is
+     * displayed in the response for <code>imageId</code>.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     * >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @return If <code>true</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the AMI
+     *         ID is displayed in the response for <code>imageId</code>.</p>
+     *         <p>
+     *         If <code>false</code>, and if a Systems Manager parameter is specified for <code>ImageId</code>, the
+     *         parameter is displayed in the response for <code>imageId</code>.
+     *         </p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id"
+     *         >Use a Systems Manager parameter instead of an AMI ID</a> in the <i>Amazon EC2 User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Default: <code>false</code>
+     */
+
+    public Boolean isResolveAlias() {
+        return this.resolveAlias;
     }
 
     /**
@@ -907,7 +1558,9 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
         if (getMaxResults() != null)
             sb.append("MaxResults: ").append(getMaxResults()).append(",");
         if (getFilters() != null)
-            sb.append("Filters: ").append(getFilters());
+            sb.append("Filters: ").append(getFilters()).append(",");
+        if (getResolveAlias() != null)
+            sb.append("ResolveAlias: ").append(getResolveAlias());
         sb.append("}");
         return sb.toString();
     }
@@ -954,6 +1607,10 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
             return false;
         if (other.getFilters() != null && other.getFilters().equals(this.getFilters()) == false)
             return false;
+        if (other.getResolveAlias() == null ^ this.getResolveAlias() == null)
+            return false;
+        if (other.getResolveAlias() != null && other.getResolveAlias().equals(this.getResolveAlias()) == false)
+            return false;
         return true;
     }
 
@@ -970,6 +1627,7 @@ public class DescribeLaunchTemplateVersionsRequest extends AmazonWebServiceReque
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
         hashCode = prime * hashCode + ((getFilters() == null) ? 0 : getFilters().hashCode());
+        hashCode = prime * hashCode + ((getResolveAlias() == null) ? 0 : getResolveAlias().hashCode());
         return hashCode;
     }
 

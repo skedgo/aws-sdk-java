@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,16 +16,18 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The status of the domain name migration. The valid values are AVAILABLE and UPDATING. If the status is UPDATING, the
- * domain cannot be modified further until the existing operation is complete. If it is AVAILABLE, the domain can be
- * updated.
+ * The status of the domain name migration. The valid values are AVAILABLE, UPDATING, PENDING_CERTIFICATE_REIMPORT, and
+ * PENDING_OWNERSHIP_VERIFICATION. If the status is UPDATING, the domain cannot be modified further until the existing
+ * operation is complete. If it is AVAILABLE, the domain can be updated.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum DomainNameStatus {
 
     AVAILABLE("AVAILABLE"),
-    UPDATING("UPDATING");
+    UPDATING("UPDATING"),
+    PENDING_CERTIFICATE_REIMPORT("PENDING_CERTIFICATE_REIMPORT"),
+    PENDING_OWNERSHIP_VERIFICATION("PENDING_OWNERSHIP_VERIFICATION");
 
     private String value;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,7 +42,8 @@ public class AuthEventType implements Serializable, Cloneable, StructuredPojo {
     private String eventType;
     /**
      * <p>
-     * The creation date
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      */
     private java.util.Date creationDate;
@@ -66,8 +67,8 @@ public class AuthEventType implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<ChallengeResponseType> challengeResponses;
     /**
      * <p>
-     * The user context data captured at the time of an event request. It provides additional information about the
-     * client from which event the request is received.
+     * The user context data captured at the time of an event request. This value provides additional information about
+     * the client from which event the request is received.
      * </p>
      */
     private EventContextDataType eventContextData;
@@ -179,11 +180,14 @@ public class AuthEventType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The creation date
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
      * @param creationDate
-     *        The creation date
+     *        The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time
+     *        format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *        <code>Date</code> object.
      */
 
     public void setCreationDate(java.util.Date creationDate) {
@@ -192,10 +196,13 @@ public class AuthEventType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The creation date
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
-     * @return The creation date
+     * @return The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time
+     *         format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *         <code>Date</code> object.
      */
 
     public java.util.Date getCreationDate() {
@@ -204,11 +211,14 @@ public class AuthEventType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The creation date
+     * The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time format.
+     * Your SDK might render the output in a human-readable format like ISO 8601 or a Java <code>Date</code> object.
      * </p>
      * 
      * @param creationDate
-     *        The creation date
+     *        The date and time when the item was created. Amazon Cognito returns this timestamp in UNIX epoch time
+     *        format. Your SDK might render the output in a human-readable format like ISO 8601 or a Java
+     *        <code>Date</code> object.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -388,13 +398,13 @@ public class AuthEventType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The user context data captured at the time of an event request. It provides additional information about the
-     * client from which event the request is received.
+     * The user context data captured at the time of an event request. This value provides additional information about
+     * the client from which event the request is received.
      * </p>
      * 
      * @param eventContextData
-     *        The user context data captured at the time of an event request. It provides additional information about
-     *        the client from which event the request is received.
+     *        The user context data captured at the time of an event request. This value provides additional information
+     *        about the client from which event the request is received.
      */
 
     public void setEventContextData(EventContextDataType eventContextData) {
@@ -403,12 +413,12 @@ public class AuthEventType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The user context data captured at the time of an event request. It provides additional information about the
-     * client from which event the request is received.
+     * The user context data captured at the time of an event request. This value provides additional information about
+     * the client from which event the request is received.
      * </p>
      * 
-     * @return The user context data captured at the time of an event request. It provides additional information about
-     *         the client from which event the request is received.
+     * @return The user context data captured at the time of an event request. This value provides additional
+     *         information about the client from which event the request is received.
      */
 
     public EventContextDataType getEventContextData() {
@@ -417,13 +427,13 @@ public class AuthEventType implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The user context data captured at the time of an event request. It provides additional information about the
-     * client from which event the request is received.
+     * The user context data captured at the time of an event request. This value provides additional information about
+     * the client from which event the request is received.
      * </p>
      * 
      * @param eventContextData
-     *        The user context data captured at the time of an event request. It provides additional information about
-     *        the client from which event the request is received.
+     *        The user context data captured at the time of an event request. This value provides additional information
+     *        about the client from which event the request is received.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

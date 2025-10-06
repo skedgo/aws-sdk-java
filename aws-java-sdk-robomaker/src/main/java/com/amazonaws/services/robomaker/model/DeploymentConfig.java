@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,6 +40,19 @@ public class DeploymentConfig implements Serializable, Cloneable, StructuredPojo
      * </p>
      */
     private Integer failureThresholdPercentage;
+    /**
+     * <p>
+     * The amount of time, in seconds, to wait for deployment to a single robot to complete. Choose a time between 1
+     * minute and 7 days. The default is 5 hours.
+     * </p>
+     */
+    private Long robotDeploymentTimeoutInSeconds;
+    /**
+     * <p>
+     * The download condition file.
+     * </p>
+     */
+    private S3Object downloadConditionFile;
 
     /**
      * <p>
@@ -122,6 +135,92 @@ public class DeploymentConfig implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * <p>
+     * The amount of time, in seconds, to wait for deployment to a single robot to complete. Choose a time between 1
+     * minute and 7 days. The default is 5 hours.
+     * </p>
+     * 
+     * @param robotDeploymentTimeoutInSeconds
+     *        The amount of time, in seconds, to wait for deployment to a single robot to complete. Choose a time
+     *        between 1 minute and 7 days. The default is 5 hours.
+     */
+
+    public void setRobotDeploymentTimeoutInSeconds(Long robotDeploymentTimeoutInSeconds) {
+        this.robotDeploymentTimeoutInSeconds = robotDeploymentTimeoutInSeconds;
+    }
+
+    /**
+     * <p>
+     * The amount of time, in seconds, to wait for deployment to a single robot to complete. Choose a time between 1
+     * minute and 7 days. The default is 5 hours.
+     * </p>
+     * 
+     * @return The amount of time, in seconds, to wait for deployment to a single robot to complete. Choose a time
+     *         between 1 minute and 7 days. The default is 5 hours.
+     */
+
+    public Long getRobotDeploymentTimeoutInSeconds() {
+        return this.robotDeploymentTimeoutInSeconds;
+    }
+
+    /**
+     * <p>
+     * The amount of time, in seconds, to wait for deployment to a single robot to complete. Choose a time between 1
+     * minute and 7 days. The default is 5 hours.
+     * </p>
+     * 
+     * @param robotDeploymentTimeoutInSeconds
+     *        The amount of time, in seconds, to wait for deployment to a single robot to complete. Choose a time
+     *        between 1 minute and 7 days. The default is 5 hours.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DeploymentConfig withRobotDeploymentTimeoutInSeconds(Long robotDeploymentTimeoutInSeconds) {
+        setRobotDeploymentTimeoutInSeconds(robotDeploymentTimeoutInSeconds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The download condition file.
+     * </p>
+     * 
+     * @param downloadConditionFile
+     *        The download condition file.
+     */
+
+    public void setDownloadConditionFile(S3Object downloadConditionFile) {
+        this.downloadConditionFile = downloadConditionFile;
+    }
+
+    /**
+     * <p>
+     * The download condition file.
+     * </p>
+     * 
+     * @return The download condition file.
+     */
+
+    public S3Object getDownloadConditionFile() {
+        return this.downloadConditionFile;
+    }
+
+    /**
+     * <p>
+     * The download condition file.
+     * </p>
+     * 
+     * @param downloadConditionFile
+     *        The download condition file.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DeploymentConfig withDownloadConditionFile(S3Object downloadConditionFile) {
+        setDownloadConditionFile(downloadConditionFile);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -136,7 +235,11 @@ public class DeploymentConfig implements Serializable, Cloneable, StructuredPojo
         if (getConcurrentDeploymentPercentage() != null)
             sb.append("ConcurrentDeploymentPercentage: ").append(getConcurrentDeploymentPercentage()).append(",");
         if (getFailureThresholdPercentage() != null)
-            sb.append("FailureThresholdPercentage: ").append(getFailureThresholdPercentage());
+            sb.append("FailureThresholdPercentage: ").append(getFailureThresholdPercentage()).append(",");
+        if (getRobotDeploymentTimeoutInSeconds() != null)
+            sb.append("RobotDeploymentTimeoutInSeconds: ").append(getRobotDeploymentTimeoutInSeconds()).append(",");
+        if (getDownloadConditionFile() != null)
+            sb.append("DownloadConditionFile: ").append(getDownloadConditionFile());
         sb.append("}");
         return sb.toString();
     }
@@ -160,6 +263,15 @@ public class DeploymentConfig implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getFailureThresholdPercentage() != null && other.getFailureThresholdPercentage().equals(this.getFailureThresholdPercentage()) == false)
             return false;
+        if (other.getRobotDeploymentTimeoutInSeconds() == null ^ this.getRobotDeploymentTimeoutInSeconds() == null)
+            return false;
+        if (other.getRobotDeploymentTimeoutInSeconds() != null
+                && other.getRobotDeploymentTimeoutInSeconds().equals(this.getRobotDeploymentTimeoutInSeconds()) == false)
+            return false;
+        if (other.getDownloadConditionFile() == null ^ this.getDownloadConditionFile() == null)
+            return false;
+        if (other.getDownloadConditionFile() != null && other.getDownloadConditionFile().equals(this.getDownloadConditionFile()) == false)
+            return false;
         return true;
     }
 
@@ -170,6 +282,8 @@ public class DeploymentConfig implements Serializable, Cloneable, StructuredPojo
 
         hashCode = prime * hashCode + ((getConcurrentDeploymentPercentage() == null) ? 0 : getConcurrentDeploymentPercentage().hashCode());
         hashCode = prime * hashCode + ((getFailureThresholdPercentage() == null) ? 0 : getFailureThresholdPercentage().hashCode());
+        hashCode = prime * hashCode + ((getRobotDeploymentTimeoutInSeconds() == null) ? 0 : getRobotDeploymentTimeoutInSeconds().hashCode());
+        hashCode = prime * hashCode + ((getDownloadConditionFile() == null) ? 0 : getDownloadConditionFile().hashCode());
         return hashCode;
     }
 

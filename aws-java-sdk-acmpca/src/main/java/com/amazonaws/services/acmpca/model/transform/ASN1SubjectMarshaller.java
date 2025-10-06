@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.acmpca.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -55,6 +56,8 @@ public class ASN1SubjectMarshaller {
             .marshallLocationName("Pseudonym").build();
     private static final MarshallingInfo<String> GENERATIONQUALIFIER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("GenerationQualifier").build();
+    private static final MarshallingInfo<List> CUSTOMATTRIBUTES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CustomAttributes").build();
 
     private static final ASN1SubjectMarshaller instance = new ASN1SubjectMarshaller();
 
@@ -86,6 +89,7 @@ public class ASN1SubjectMarshaller {
             protocolMarshaller.marshall(aSN1Subject.getInitials(), INITIALS_BINDING);
             protocolMarshaller.marshall(aSN1Subject.getPseudonym(), PSEUDONYM_BINDING);
             protocolMarshaller.marshall(aSN1Subject.getGenerationQualifier(), GENERATIONQUALIFIER_BINDING);
+            protocolMarshaller.marshall(aSN1Subject.getCustomAttributes(), CUSTOMATTRIBUTES_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,6 +22,9 @@
  * <p>
  * For more information about how AWS IoT Things Graph works, see the <a
  * href="https://docs.aws.amazon.com/thingsgraph/latest/ug/iot-tg-whatis.html">User Guide</a>.
+ * </p>
+ * <p>
+ * The AWS IoT Things Graph service is discontinued.
  * </p>
  */
 package com.amazonaws.services.iotthingsgraph;

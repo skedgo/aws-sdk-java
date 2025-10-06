@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Specifies the configuration for AWS Lambda triggers.
+ * Specifies the configuration for Lambda triggers.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/LambdaConfigType" target="_top">AWS API
@@ -30,31 +30,31 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A pre-registration AWS Lambda trigger.
+     * A pre-registration Lambda trigger.
      * </p>
      */
     private String preSignUp;
     /**
      * <p>
-     * A custom Message AWS Lambda trigger.
+     * A custom Message Lambda trigger.
      * </p>
      */
     private String customMessage;
     /**
      * <p>
-     * A post-confirmation AWS Lambda trigger.
+     * A post-confirmation Lambda trigger.
      * </p>
      */
     private String postConfirmation;
     /**
      * <p>
-     * A pre-authentication AWS Lambda trigger.
+     * A pre-authentication Lambda trigger.
      * </p>
      */
     private String preAuthentication;
     /**
      * <p>
-     * A post-authentication AWS Lambda trigger.
+     * A post-authentication Lambda trigger.
      * </p>
      */
     private String postAuthentication;
@@ -78,7 +78,15 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
     private String verifyAuthChallengeResponse;
     /**
      * <p>
-     * A Lambda trigger that is invoked before token generation.
+     * The Amazon Resource Name (ARN) of the function that you want to assign to your Lambda trigger.
+     * </p>
+     * <p>
+     * Set this parameter for legacy purposes. If you also set an ARN in <code>PreTokenGenerationConfig</code>, its
+     * value must be identical to <code>PreTokenGeneration</code>. For new instances of pre token generation triggers,
+     * set the <code>LambdaArn</code> of <code>PreTokenGenerationConfig</code>.
+     * </p>
+     * <p>
+     * You can set <code/>
      * </p>
      */
     private String preTokenGeneration;
@@ -88,14 +96,41 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
      * </p>
      */
     private String userMigration;
+    /**
+     * <p>
+     * The detailed configuration of a pre token generation trigger. If you also set an ARN in
+     * <code>PreTokenGeneration</code>, its value must be identical to <code>PreTokenGenerationConfig</code>.
+     * </p>
+     */
+    private PreTokenGenerationVersionConfigType preTokenGenerationConfig;
+    /**
+     * <p>
+     * A custom SMS sender Lambda trigger.
+     * </p>
+     */
+    private CustomSMSLambdaVersionConfigType customSMSSender;
+    /**
+     * <p>
+     * A custom email sender Lambda trigger.
+     * </p>
+     */
+    private CustomEmailLambdaVersionConfigType customEmailSender;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an <a href="/kms/latest/developerguide/concepts.html#master_keys">KMS key</a>.
+     * Amazon Cognito uses the key to encrypt codes and temporary passwords sent to <code>CustomEmailSender</code> and
+     * <code>CustomSMSSender</code>.
+     * </p>
+     */
+    private String kMSKeyID;
 
     /**
      * <p>
-     * A pre-registration AWS Lambda trigger.
+     * A pre-registration Lambda trigger.
      * </p>
      * 
      * @param preSignUp
-     *        A pre-registration AWS Lambda trigger.
+     *        A pre-registration Lambda trigger.
      */
 
     public void setPreSignUp(String preSignUp) {
@@ -104,10 +139,10 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A pre-registration AWS Lambda trigger.
+     * A pre-registration Lambda trigger.
      * </p>
      * 
-     * @return A pre-registration AWS Lambda trigger.
+     * @return A pre-registration Lambda trigger.
      */
 
     public String getPreSignUp() {
@@ -116,11 +151,11 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A pre-registration AWS Lambda trigger.
+     * A pre-registration Lambda trigger.
      * </p>
      * 
      * @param preSignUp
-     *        A pre-registration AWS Lambda trigger.
+     *        A pre-registration Lambda trigger.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -131,11 +166,11 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A custom Message AWS Lambda trigger.
+     * A custom Message Lambda trigger.
      * </p>
      * 
      * @param customMessage
-     *        A custom Message AWS Lambda trigger.
+     *        A custom Message Lambda trigger.
      */
 
     public void setCustomMessage(String customMessage) {
@@ -144,10 +179,10 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A custom Message AWS Lambda trigger.
+     * A custom Message Lambda trigger.
      * </p>
      * 
-     * @return A custom Message AWS Lambda trigger.
+     * @return A custom Message Lambda trigger.
      */
 
     public String getCustomMessage() {
@@ -156,11 +191,11 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A custom Message AWS Lambda trigger.
+     * A custom Message Lambda trigger.
      * </p>
      * 
      * @param customMessage
-     *        A custom Message AWS Lambda trigger.
+     *        A custom Message Lambda trigger.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -171,11 +206,11 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A post-confirmation AWS Lambda trigger.
+     * A post-confirmation Lambda trigger.
      * </p>
      * 
      * @param postConfirmation
-     *        A post-confirmation AWS Lambda trigger.
+     *        A post-confirmation Lambda trigger.
      */
 
     public void setPostConfirmation(String postConfirmation) {
@@ -184,10 +219,10 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A post-confirmation AWS Lambda trigger.
+     * A post-confirmation Lambda trigger.
      * </p>
      * 
-     * @return A post-confirmation AWS Lambda trigger.
+     * @return A post-confirmation Lambda trigger.
      */
 
     public String getPostConfirmation() {
@@ -196,11 +231,11 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A post-confirmation AWS Lambda trigger.
+     * A post-confirmation Lambda trigger.
      * </p>
      * 
      * @param postConfirmation
-     *        A post-confirmation AWS Lambda trigger.
+     *        A post-confirmation Lambda trigger.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -211,11 +246,11 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A pre-authentication AWS Lambda trigger.
+     * A pre-authentication Lambda trigger.
      * </p>
      * 
      * @param preAuthentication
-     *        A pre-authentication AWS Lambda trigger.
+     *        A pre-authentication Lambda trigger.
      */
 
     public void setPreAuthentication(String preAuthentication) {
@@ -224,10 +259,10 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A pre-authentication AWS Lambda trigger.
+     * A pre-authentication Lambda trigger.
      * </p>
      * 
-     * @return A pre-authentication AWS Lambda trigger.
+     * @return A pre-authentication Lambda trigger.
      */
 
     public String getPreAuthentication() {
@@ -236,11 +271,11 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A pre-authentication AWS Lambda trigger.
+     * A pre-authentication Lambda trigger.
      * </p>
      * 
      * @param preAuthentication
-     *        A pre-authentication AWS Lambda trigger.
+     *        A pre-authentication Lambda trigger.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -251,11 +286,11 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A post-authentication AWS Lambda trigger.
+     * A post-authentication Lambda trigger.
      * </p>
      * 
      * @param postAuthentication
-     *        A post-authentication AWS Lambda trigger.
+     *        A post-authentication Lambda trigger.
      */
 
     public void setPostAuthentication(String postAuthentication) {
@@ -264,10 +299,10 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A post-authentication AWS Lambda trigger.
+     * A post-authentication Lambda trigger.
      * </p>
      * 
-     * @return A post-authentication AWS Lambda trigger.
+     * @return A post-authentication Lambda trigger.
      */
 
     public String getPostAuthentication() {
@@ -276,11 +311,11 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A post-authentication AWS Lambda trigger.
+     * A post-authentication Lambda trigger.
      * </p>
      * 
      * @param postAuthentication
-     *        A post-authentication AWS Lambda trigger.
+     *        A post-authentication Lambda trigger.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -411,11 +446,26 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A Lambda trigger that is invoked before token generation.
+     * The Amazon Resource Name (ARN) of the function that you want to assign to your Lambda trigger.
+     * </p>
+     * <p>
+     * Set this parameter for legacy purposes. If you also set an ARN in <code>PreTokenGenerationConfig</code>, its
+     * value must be identical to <code>PreTokenGeneration</code>. For new instances of pre token generation triggers,
+     * set the <code>LambdaArn</code> of <code>PreTokenGenerationConfig</code>.
+     * </p>
+     * <p>
+     * You can set <code/>
      * </p>
      * 
      * @param preTokenGeneration
-     *        A Lambda trigger that is invoked before token generation.
+     *        The Amazon Resource Name (ARN) of the function that you want to assign to your Lambda trigger.</p>
+     *        <p>
+     *        Set this parameter for legacy purposes. If you also set an ARN in <code>PreTokenGenerationConfig</code>,
+     *        its value must be identical to <code>PreTokenGeneration</code>. For new instances of pre token generation
+     *        triggers, set the <code>LambdaArn</code> of <code>PreTokenGenerationConfig</code>.
+     *        </p>
+     *        <p>
+     *        You can set <code/>
      */
 
     public void setPreTokenGeneration(String preTokenGeneration) {
@@ -424,10 +474,25 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A Lambda trigger that is invoked before token generation.
+     * The Amazon Resource Name (ARN) of the function that you want to assign to your Lambda trigger.
+     * </p>
+     * <p>
+     * Set this parameter for legacy purposes. If you also set an ARN in <code>PreTokenGenerationConfig</code>, its
+     * value must be identical to <code>PreTokenGeneration</code>. For new instances of pre token generation triggers,
+     * set the <code>LambdaArn</code> of <code>PreTokenGenerationConfig</code>.
+     * </p>
+     * <p>
+     * You can set <code/>
      * </p>
      * 
-     * @return A Lambda trigger that is invoked before token generation.
+     * @return The Amazon Resource Name (ARN) of the function that you want to assign to your Lambda trigger.</p>
+     *         <p>
+     *         Set this parameter for legacy purposes. If you also set an ARN in <code>PreTokenGenerationConfig</code>,
+     *         its value must be identical to <code>PreTokenGeneration</code>. For new instances of pre token generation
+     *         triggers, set the <code>LambdaArn</code> of <code>PreTokenGenerationConfig</code>.
+     *         </p>
+     *         <p>
+     *         You can set <code/>
      */
 
     public String getPreTokenGeneration() {
@@ -436,11 +501,26 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * A Lambda trigger that is invoked before token generation.
+     * The Amazon Resource Name (ARN) of the function that you want to assign to your Lambda trigger.
+     * </p>
+     * <p>
+     * Set this parameter for legacy purposes. If you also set an ARN in <code>PreTokenGenerationConfig</code>, its
+     * value must be identical to <code>PreTokenGeneration</code>. For new instances of pre token generation triggers,
+     * set the <code>LambdaArn</code> of <code>PreTokenGenerationConfig</code>.
+     * </p>
+     * <p>
+     * You can set <code/>
      * </p>
      * 
      * @param preTokenGeneration
-     *        A Lambda trigger that is invoked before token generation.
+     *        The Amazon Resource Name (ARN) of the function that you want to assign to your Lambda trigger.</p>
+     *        <p>
+     *        Set this parameter for legacy purposes. If you also set an ARN in <code>PreTokenGenerationConfig</code>,
+     *        its value must be identical to <code>PreTokenGeneration</code>. For new instances of pre token generation
+     *        triggers, set the <code>LambdaArn</code> of <code>PreTokenGenerationConfig</code>.
+     *        </p>
+     *        <p>
+     *        You can set <code/>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -490,6 +570,184 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * <p>
+     * The detailed configuration of a pre token generation trigger. If you also set an ARN in
+     * <code>PreTokenGeneration</code>, its value must be identical to <code>PreTokenGenerationConfig</code>.
+     * </p>
+     * 
+     * @param preTokenGenerationConfig
+     *        The detailed configuration of a pre token generation trigger. If you also set an ARN in
+     *        <code>PreTokenGeneration</code>, its value must be identical to <code>PreTokenGenerationConfig</code>.
+     */
+
+    public void setPreTokenGenerationConfig(PreTokenGenerationVersionConfigType preTokenGenerationConfig) {
+        this.preTokenGenerationConfig = preTokenGenerationConfig;
+    }
+
+    /**
+     * <p>
+     * The detailed configuration of a pre token generation trigger. If you also set an ARN in
+     * <code>PreTokenGeneration</code>, its value must be identical to <code>PreTokenGenerationConfig</code>.
+     * </p>
+     * 
+     * @return The detailed configuration of a pre token generation trigger. If you also set an ARN in
+     *         <code>PreTokenGeneration</code>, its value must be identical to <code>PreTokenGenerationConfig</code>.
+     */
+
+    public PreTokenGenerationVersionConfigType getPreTokenGenerationConfig() {
+        return this.preTokenGenerationConfig;
+    }
+
+    /**
+     * <p>
+     * The detailed configuration of a pre token generation trigger. If you also set an ARN in
+     * <code>PreTokenGeneration</code>, its value must be identical to <code>PreTokenGenerationConfig</code>.
+     * </p>
+     * 
+     * @param preTokenGenerationConfig
+     *        The detailed configuration of a pre token generation trigger. If you also set an ARN in
+     *        <code>PreTokenGeneration</code>, its value must be identical to <code>PreTokenGenerationConfig</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LambdaConfigType withPreTokenGenerationConfig(PreTokenGenerationVersionConfigType preTokenGenerationConfig) {
+        setPreTokenGenerationConfig(preTokenGenerationConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A custom SMS sender Lambda trigger.
+     * </p>
+     * 
+     * @param customSMSSender
+     *        A custom SMS sender Lambda trigger.
+     */
+
+    public void setCustomSMSSender(CustomSMSLambdaVersionConfigType customSMSSender) {
+        this.customSMSSender = customSMSSender;
+    }
+
+    /**
+     * <p>
+     * A custom SMS sender Lambda trigger.
+     * </p>
+     * 
+     * @return A custom SMS sender Lambda trigger.
+     */
+
+    public CustomSMSLambdaVersionConfigType getCustomSMSSender() {
+        return this.customSMSSender;
+    }
+
+    /**
+     * <p>
+     * A custom SMS sender Lambda trigger.
+     * </p>
+     * 
+     * @param customSMSSender
+     *        A custom SMS sender Lambda trigger.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LambdaConfigType withCustomSMSSender(CustomSMSLambdaVersionConfigType customSMSSender) {
+        setCustomSMSSender(customSMSSender);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A custom email sender Lambda trigger.
+     * </p>
+     * 
+     * @param customEmailSender
+     *        A custom email sender Lambda trigger.
+     */
+
+    public void setCustomEmailSender(CustomEmailLambdaVersionConfigType customEmailSender) {
+        this.customEmailSender = customEmailSender;
+    }
+
+    /**
+     * <p>
+     * A custom email sender Lambda trigger.
+     * </p>
+     * 
+     * @return A custom email sender Lambda trigger.
+     */
+
+    public CustomEmailLambdaVersionConfigType getCustomEmailSender() {
+        return this.customEmailSender;
+    }
+
+    /**
+     * <p>
+     * A custom email sender Lambda trigger.
+     * </p>
+     * 
+     * @param customEmailSender
+     *        A custom email sender Lambda trigger.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LambdaConfigType withCustomEmailSender(CustomEmailLambdaVersionConfigType customEmailSender) {
+        setCustomEmailSender(customEmailSender);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an <a href="/kms/latest/developerguide/concepts.html#master_keys">KMS key</a>.
+     * Amazon Cognito uses the key to encrypt codes and temporary passwords sent to <code>CustomEmailSender</code> and
+     * <code>CustomSMSSender</code>.
+     * </p>
+     * 
+     * @param kMSKeyID
+     *        The Amazon Resource Name (ARN) of an <a href="/kms/latest/developerguide/concepts.html#master_keys">KMS
+     *        key</a>. Amazon Cognito uses the key to encrypt codes and temporary passwords sent to
+     *        <code>CustomEmailSender</code> and <code>CustomSMSSender</code>.
+     */
+
+    public void setKMSKeyID(String kMSKeyID) {
+        this.kMSKeyID = kMSKeyID;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an <a href="/kms/latest/developerguide/concepts.html#master_keys">KMS key</a>.
+     * Amazon Cognito uses the key to encrypt codes and temporary passwords sent to <code>CustomEmailSender</code> and
+     * <code>CustomSMSSender</code>.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of an <a href="/kms/latest/developerguide/concepts.html#master_keys">KMS
+     *         key</a>. Amazon Cognito uses the key to encrypt codes and temporary passwords sent to
+     *         <code>CustomEmailSender</code> and <code>CustomSMSSender</code>.
+     */
+
+    public String getKMSKeyID() {
+        return this.kMSKeyID;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an <a href="/kms/latest/developerguide/concepts.html#master_keys">KMS key</a>.
+     * Amazon Cognito uses the key to encrypt codes and temporary passwords sent to <code>CustomEmailSender</code> and
+     * <code>CustomSMSSender</code>.
+     * </p>
+     * 
+     * @param kMSKeyID
+     *        The Amazon Resource Name (ARN) of an <a href="/kms/latest/developerguide/concepts.html#master_keys">KMS
+     *        key</a>. Amazon Cognito uses the key to encrypt codes and temporary passwords sent to
+     *        <code>CustomEmailSender</code> and <code>CustomSMSSender</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LambdaConfigType withKMSKeyID(String kMSKeyID) {
+        setKMSKeyID(kMSKeyID);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -520,7 +778,15 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
         if (getPreTokenGeneration() != null)
             sb.append("PreTokenGeneration: ").append(getPreTokenGeneration()).append(",");
         if (getUserMigration() != null)
-            sb.append("UserMigration: ").append(getUserMigration());
+            sb.append("UserMigration: ").append(getUserMigration()).append(",");
+        if (getPreTokenGenerationConfig() != null)
+            sb.append("PreTokenGenerationConfig: ").append(getPreTokenGenerationConfig()).append(",");
+        if (getCustomSMSSender() != null)
+            sb.append("CustomSMSSender: ").append(getCustomSMSSender()).append(",");
+        if (getCustomEmailSender() != null)
+            sb.append("CustomEmailSender: ").append(getCustomEmailSender()).append(",");
+        if (getKMSKeyID() != null)
+            sb.append("KMSKeyID: ").append(getKMSKeyID());
         sb.append("}");
         return sb.toString();
     }
@@ -575,6 +841,22 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getUserMigration() != null && other.getUserMigration().equals(this.getUserMigration()) == false)
             return false;
+        if (other.getPreTokenGenerationConfig() == null ^ this.getPreTokenGenerationConfig() == null)
+            return false;
+        if (other.getPreTokenGenerationConfig() != null && other.getPreTokenGenerationConfig().equals(this.getPreTokenGenerationConfig()) == false)
+            return false;
+        if (other.getCustomSMSSender() == null ^ this.getCustomSMSSender() == null)
+            return false;
+        if (other.getCustomSMSSender() != null && other.getCustomSMSSender().equals(this.getCustomSMSSender()) == false)
+            return false;
+        if (other.getCustomEmailSender() == null ^ this.getCustomEmailSender() == null)
+            return false;
+        if (other.getCustomEmailSender() != null && other.getCustomEmailSender().equals(this.getCustomEmailSender()) == false)
+            return false;
+        if (other.getKMSKeyID() == null ^ this.getKMSKeyID() == null)
+            return false;
+        if (other.getKMSKeyID() != null && other.getKMSKeyID().equals(this.getKMSKeyID()) == false)
+            return false;
         return true;
     }
 
@@ -593,6 +875,10 @@ public class LambdaConfigType implements Serializable, Cloneable, StructuredPojo
         hashCode = prime * hashCode + ((getVerifyAuthChallengeResponse() == null) ? 0 : getVerifyAuthChallengeResponse().hashCode());
         hashCode = prime * hashCode + ((getPreTokenGeneration() == null) ? 0 : getPreTokenGeneration().hashCode());
         hashCode = prime * hashCode + ((getUserMigration() == null) ? 0 : getUserMigration().hashCode());
+        hashCode = prime * hashCode + ((getPreTokenGenerationConfig() == null) ? 0 : getPreTokenGenerationConfig().hashCode());
+        hashCode = prime * hashCode + ((getCustomSMSSender() == null) ? 0 : getCustomSMSSender().hashCode());
+        hashCode = prime * hashCode + ((getCustomEmailSender() == null) ? 0 : getCustomEmailSender().hashCode());
+        hashCode = prime * hashCode + ((getKMSKeyID() == null) ? 0 : getKMSKeyID().hashCode());
         return hashCode;
     }
 

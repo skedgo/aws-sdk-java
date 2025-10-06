@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about a serialization/deserialization program (SerDe) which serves as an extractor and loader.
+ * Information about a serialization/deserialization program (SerDe) that serves as an extractor and loader.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/SerDeInfo" target="_top">AWS API
@@ -36,7 +36,7 @@ public class SerDeInfo implements Serializable, Cloneable, StructuredPojo {
     private String name;
     /**
      * <p>
-     * Usually the class that implements the SerDe. An example is:
+     * Usually the class that implements the SerDe. An example is
      * <code>org.apache.hadoop.hive.serde2.columnar.ColumnarSerDe</code>.
      * </p>
      */
@@ -90,12 +90,12 @@ public class SerDeInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Usually the class that implements the SerDe. An example is:
+     * Usually the class that implements the SerDe. An example is
      * <code>org.apache.hadoop.hive.serde2.columnar.ColumnarSerDe</code>.
      * </p>
      * 
      * @param serializationLibrary
-     *        Usually the class that implements the SerDe. An example is:
+     *        Usually the class that implements the SerDe. An example is
      *        <code>org.apache.hadoop.hive.serde2.columnar.ColumnarSerDe</code>.
      */
 
@@ -105,11 +105,11 @@ public class SerDeInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Usually the class that implements the SerDe. An example is:
+     * Usually the class that implements the SerDe. An example is
      * <code>org.apache.hadoop.hive.serde2.columnar.ColumnarSerDe</code>.
      * </p>
      * 
-     * @return Usually the class that implements the SerDe. An example is:
+     * @return Usually the class that implements the SerDe. An example is
      *         <code>org.apache.hadoop.hive.serde2.columnar.ColumnarSerDe</code>.
      */
 
@@ -119,12 +119,12 @@ public class SerDeInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Usually the class that implements the SerDe. An example is:
+     * Usually the class that implements the SerDe. An example is
      * <code>org.apache.hadoop.hive.serde2.columnar.ColumnarSerDe</code>.
      * </p>
      * 
      * @param serializationLibrary
-     *        Usually the class that implements the SerDe. An example is:
+     *        Usually the class that implements the SerDe. An example is
      *        <code>org.apache.hadoop.hive.serde2.columnar.ColumnarSerDe</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -173,6 +173,13 @@ public class SerDeInfo implements Serializable, Cloneable, StructuredPojo {
         setParameters(parameters);
         return this;
     }
+
+    /**
+     * Add a single Parameters entry
+     *
+     * @see SerDeInfo#withParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public SerDeInfo addParametersEntry(String key, String value) {
         if (null == this.parameters) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -13,7 +13,7 @@
 package com.amazonaws.services.mediaconvert.model.transform;
 
 import java.util.Map;
-
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -35,6 +35,8 @@ public class CreateJobTemplateRequestMarshaller {
             .marshallLocationName("category").build();
     private static final MarshallingInfo<String> DESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("description").build();
+    private static final MarshallingInfo<List> HOPDESTINATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("hopDestinations").build();
     private static final MarshallingInfo<String> NAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("name").build();
     private static final MarshallingInfo<Integer> PRIORITY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
@@ -67,6 +69,7 @@ public class CreateJobTemplateRequestMarshaller {
             protocolMarshaller.marshall(createJobTemplateRequest.getAccelerationSettings(), ACCELERATIONSETTINGS_BINDING);
             protocolMarshaller.marshall(createJobTemplateRequest.getCategory(), CATEGORY_BINDING);
             protocolMarshaller.marshall(createJobTemplateRequest.getDescription(), DESCRIPTION_BINDING);
+            protocolMarshaller.marshall(createJobTemplateRequest.getHopDestinations(), HOPDESTINATIONS_BINDING);
             protocolMarshaller.marshall(createJobTemplateRequest.getName(), NAME_BINDING);
             protocolMarshaller.marshall(createJobTemplateRequest.getPriority(), PRIORITY_BINDING);
             protocolMarshaller.marshall(createJobTemplateRequest.getQueue(), QUEUE_BINDING);

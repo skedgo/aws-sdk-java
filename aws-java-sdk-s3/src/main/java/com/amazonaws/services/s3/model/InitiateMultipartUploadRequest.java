@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,11 +14,11 @@
  */
 package com.amazonaws.services.s3.model;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import com.amazonaws.AmazonWebServiceRequest;
 import com.amazonaws.services.s3.AmazonS3;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * The InitiateMultipartUploadRequest contains the parameters used for the
@@ -26,7 +26,7 @@ import com.amazonaws.services.s3.AmazonS3;
  * <p>
  * If you are initiating multipart upload for <a
  * href="http://aws.amazon.com/kms/">KMS</a>-encrypted objects, you need to
- * specify the correct region of the bucket on your client and configure AWS
+ * specify the correct region of the bucket on your client and configure Amazon Web Services
  * Signature Version 4 for added security. For more information on how to do
  * this, see
  * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify
@@ -38,10 +38,31 @@ import com.amazonaws.services.s3.AmazonS3;
  * @see AmazonS3#initiateMultipartUpload(InitiateMultipartUploadRequest)
  */
 public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest
-        implements SSECustomerKeyProvider, SSEAwsKeyManagementParamsProvider, Serializable {
+        implements SSECustomerKeyProvider, SSEAwsKeyManagementParamsProvider, Serializable, ExpectedBucketOwnerRequest {
     /**
      * The name of the bucket in which to create the new multipart upload, and
      * hence, the eventual object created from the multipart upload.
+     *
+     * <p>
+     * When using this API with an access point, you must direct requests
+     * to the access point hostname. The access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com.
+     * </p>
+     * <p>
+     * When using this operation using an access point through the Amazon Web Services SDKs, you provide
+     * the access point ARN in place of the bucket name. For more information about access point
+     * ARNs, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html\">
+     * Using access points</a> in the <i>Amazon Simple Storage Service Developer Guide</i>.
+     * </p>
+     * <p>
+     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The
+     * S3 on Outposts hostname takes the form
+     * <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     * When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     * access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a> in the
+     * <i>Amazon S3 User Guide</i>.
+     * </p>
      */
     private String bucketName;
 
@@ -87,7 +108,7 @@ public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest
     private SSECustomerKey sseCustomerKey;
 
     /**
-     * The optional AWS Key Management system parameters to be used to encrypt
+     * The optional Amazon Web Services Key Management system parameters to be used to encrypt
      * the the object on the server side.
      */
     private SSEAwsKeyManagementParams sseAwsKeyManagementParams;
@@ -106,14 +127,54 @@ public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest
 
     private String objectLockLegalHoldStatus;
 
+    private String expectedBucketOwner;
+
+    private Boolean bucketKeyEnabled;
+
     /**
      * Constructs a request to initiate a new multipart upload in the specified
      * bucket, stored by the specified key.
      *
+     * <p>
+     * When using this action with an access point, you must direct requests to the access point hostname. The
+     * access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this action
+     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the
+     * bucket name. For more information about access point ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html">Using access points</a>
+     * in the <i>Amazon S3 User Guide</i>.
+     * </p>
+     * <p>
+     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The
+     * S3 on Outposts hostname takes the form
+     * <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     * When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     * access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a> in the
+     * <i>Amazon S3 User Guide</i>.
+     * </p>
+     *
      * @param bucketName
-     *            The name of the bucket in which to create the new multipart
+     *            The name of the bucket, or access point ARN, in which to create the new multipart
      *            upload, and hence, the eventual object created from the
      *            multipart upload.
+     *            <p>
+     *            When using this action with an access point, you must direct requests to the access point hostname.
+     *            The access point hostname takes the form
+     *            <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this
+     *            action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in
+     *            place of the bucket name. For more information about access point ARNs, see <a
+     *            href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html">Using access
+     *            points</a> in the <i>Amazon S3 User Guide</i>.
+     *            </p>
+     *            <p>
+     *            When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts
+     *            hostname. The S3 on Outposts hostname takes the form
+     *            <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     *            When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     *            access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     *            href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a>
+     *            in the <i>Amazon S3 User Guide</i>.
      * @param key
      *            The key by which to store the new multipart upload, and hence,
      *            the eventual object created from the multipart upload.
@@ -128,10 +189,46 @@ public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest
      * bucket, stored by the specified key, and with the additional specified
      * object metadata.
      *
+     * <p>
+     * When using this action with an access point, you must direct requests to the access point hostname. The
+     * access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this action
+     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the
+     * bucket name. For more information about access point ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html">Using access points</a>
+     * in the <i>Amazon S3 User Guide</i>.
+     * </p>
+     * <p>
+     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The
+     * S3 on Outposts hostname takes the form
+     * <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     * When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     * access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a> in the
+     * <i>Amazon S3 User Guide</i>.
+     * </p>
+     *
      * @param bucketName
-     *            The name of the bucket in which to create the new multipart
+     *            The name of the bucket, or access point ARN, in which to create the new multipart
      *            upload, and hence, the eventual object created from the
      *            multipart upload.
+     *            <p>
+     *            When using this action with an access point, you must direct requests to the access point hostname.
+     *            The access point hostname takes the form
+     *            <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this
+     *            action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in
+     *            place of the bucket name. For more information about access point ARNs, see <a
+     *            href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html">Using access
+     *            points</a> in the <i>Amazon S3 User Guide</i>.
+     *            </p>
+     *            <p>
+     *            When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts
+     *            hostname. The S3 on Outposts hostname takes the form
+     *            <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     *            When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     *            access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     *            href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a>
+     *            in the <i>Amazon S3 User Guide</i>.
      * @param key
      *            The key by which to store the new multipart upload, and hence,
      *            the eventual object created from the multipart upload.
@@ -145,14 +242,60 @@ public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest
         this.objectMetadata = objectMetadata;
     }
 
+    public String getExpectedBucketOwner() {
+        return expectedBucketOwner;
+    }
+
+    public InitiateMultipartUploadRequest withExpectedBucketOwner(String expectedBucketOwner) {
+        this.expectedBucketOwner = expectedBucketOwner;
+        return this;
+    }
+
+    public void setExpectedBucketOwner(String expectedBucketOwner) {
+        withExpectedBucketOwner(expectedBucketOwner);
+    }
 
     /**
-     * Returns the name of the bucket in which to create the new multipart
-     * upload, and hence, the eventual object created from the multipart upload.
+     * <p>
+     * The name of the bucket to which to initiate the upload
+     * </p>
+     * <p>
+     * When using this action with an access point, you must direct requests to the access point hostname. The
+     * access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this action
+     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the
+     * bucket name. For more information about access point ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html">Using access points</a>
+     * in the <i>Amazon S3 User Guide</i>.
+     * </p>
+     * <p>
+     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The
+     * S3 on Outposts hostname takes the form
+     * <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     * When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     * access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a> in the
+     * <i>Amazon S3 User Guide</i>.
+     * </p>
      *
-     * @return The name of the bucket in which to create the new multipart
-     *         upload, and hence, the eventual object created from the multipart
-     *         upload.
+     * @return The name of the bucket to which to initiate the upload</p>
+     *         <p>
+     *         When using this action with an access point, you must direct requests to the access point hostname.
+     *         The access point hostname takes the form
+     *         <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this
+     *         action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in
+     *         place of the bucket name. For more information about access point ARNs, see <a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html">Using access
+     *         points</a> in the <i>Amazon S3 User Guide</i>.
+     *         </p>
+     *         <p>
+     *         When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts
+     *         hostname. The S3 on Outposts hostname takes the form
+     *         <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     *         When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     *         access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a>
+     *         in the <i>Amazon S3 User Guide</i>.
      */
     public String getBucketName() {
         return bucketName;
@@ -162,28 +305,94 @@ public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest
      * Sets the name of the bucket in which to create the new multipart upload,
      * and hence, the eventual object created from the multipart upload.
      *
+     * <p>
+     * When using this action with an access point, you must direct requests to the access point hostname. The
+     * access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this action
+     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the
+     * bucket name. For more information about access point ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html">Using access points</a>
+     * in the <i>Amazon S3 User Guide</i>.
+     * </p>
+     * <p>
+     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The
+     * S3 on Outposts hostname takes the form
+     * <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     * When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     * access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a> in the
+     * <i>Amazon S3 User Guide</i>.
+     * </p>
+     *
      * @param bucketName
-     *            The name of the bucket in which to create the new multipart
+     *            The name of the bucket, or access point ARN, in which to create the new multipart
      *            upload, and hence, the eventual object created from the
      *            multipart upload.
+     *            <p>
+     *            When using this action with an access point, you must direct requests to the access point hostname.
+     *            The access point hostname takes the form
+     *            <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this
+     *            action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in
+     *            place of the bucket name. For more information about access point ARNs, see <a
+     *            href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html">Using access
+     *            points</a> in the <i>Amazon S3 User Guide</i>.
+     *            </p>
+     *            <p>
+     *            When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts
+     *            hostname. The S3 on Outposts hostname takes the form
+     *            <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     *            When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     *            access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     *            href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a>
+     *            in the <i>Amazon S3 User Guide</i>.
      */
     public void setBucketName(String bucketName) {
         this.bucketName = bucketName;
     }
 
     /**
-     * Sets the name of the bucket in which to create the new multipart upload,
-     * and hence, the eventual object created from the multipart upload.
      * <p>
-     * Returns this updated InitiateMultipartUploadRequest object so that
-     * additional method calls can be chained together.
+     * The name of the bucket to which to initiate the upload
+     * </p>
+     * <p>
+     * When using this action with an access point, you must direct requests to the access point hostname. The
+     * access point hostname takes the form
+     * <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this action
+     * with an access point through the Amazon Web Services SDKs, you provide the access point ARN in place of the
+     * bucket name. For more information about access point ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html">Using access points</a>
+     * in the <i>Amazon S3 User Guide</i>.
+     * </p>
+     * <p>
+     * When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts hostname. The
+     * S3 on Outposts hostname takes the form
+     * <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     * When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     * access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a> in the
+     * <i>Amazon S3 User Guide</i>.
+     * </p>
      *
      * @param bucketName
-     *            The name of the bucket in which to create the new multipart
-     *            upload, and hence, the eventual object created from the
-     *            multipart upload.
-     *
-     * @return This updated InitiateMultipartUploadRequest object.
+     *        The name of the bucket to which to initiate the upload</p>
+     *        <p>
+     *        When using this action with an access point, you must direct requests to the access point hostname.
+     *        The access point hostname takes the form
+     *        <i>AccessPointName</i>-<i>AccountId</i>.s3-accesspoint.<i>Region</i>.amazonaws.com. When using this
+     *        action with an access point through the Amazon Web Services SDKs, you provide the access point ARN in
+     *        place of the bucket name. For more information about access point ARNs, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html">Using access
+     *        points</a> in the <i>Amazon S3 User Guide</i>.
+     *        </p>
+     *        <p>
+     *        When you use this action with Amazon S3 on Outposts, you must direct requests to the S3 on Outposts
+     *        hostname. The S3 on Outposts hostname takes the form
+     *        <code> <i>AccessPointName</i>-<i>AccountId</i>.<i>outpostID</i>.s3-outposts.<i>Region</i>.amazonaws.com</code>.
+     *        When you use this action using S3 on Outposts through the Amazon Web Services SDKs, you provide the Outposts
+     *        access point ARN in place of the bucket name. For more information about S3 on Outposts ARNs, see <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html">What is S3 on Outposts</a>
+     *        in the <i>Amazon S3 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
      */
     public InitiateMultipartUploadRequest withBucketName(String bucketName) {
         this.bucketName = bucketName;
@@ -479,7 +688,7 @@ public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest
     }
 
     /**
-     * Returns the AWS Key Management System parameters used to encrypt the
+     * Returns the Amazon Web Services Key Management System parameters used to encrypt the
      * object on server side.
      */
     @Override
@@ -488,7 +697,7 @@ public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest
     }
 
     /**
-     * Sets the AWS Key Management System parameters used to encrypt the object
+     * Sets the Amazon Web Services Key Management System parameters used to encrypt the object
      * on server side.
      */
     public void setSSEAwsKeyManagementParams(SSEAwsKeyManagementParams params) {
@@ -500,7 +709,7 @@ public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest
     }
 
     /**
-     * Sets the AWS Key Management System parameters used to encrypt the object
+     * Sets the Amazon Web Services Key Management System parameters used to encrypt the object
      * on server side.
      *
      * @return returns the update InitiateMultipartUploadRequest
@@ -698,5 +907,35 @@ public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest
      */
     public void setObjectLockLegalHoldStatus(ObjectLockLegalHoldStatus objectLockLegalHoldStatus) {
         setObjectLockLegalHoldStatus(objectLockLegalHoldStatus.toString());
+    }
+
+    /**
+     * Returns whether or not bucket key encryption is used
+     */
+    public Boolean getBucketKeyEnabled() {
+        return bucketKeyEnabled;
+    }
+
+    /**
+     * Specifies whether the client should use an S3 Bucket Key for object encryption with server-side encryption using Amazon Web Services KMS
+     * (SSE-KMS). Setting this header to <code>true</code> causes the client to use an S3 Bucket Key for object encryption with
+     * SSE-KMS.
+     * <p>Specifying this header with an object operation doesn’t affect bucket-level settings for S3 Bucket Key.
+     */
+    public void setBucketKeyEnabled(Boolean bucketKeyEnabled) {
+        this.bucketKeyEnabled = bucketKeyEnabled;
+    }
+
+    /**
+     * Specifies whether the client should use an S3 Bucket Key for object encryption with server-side encryption using Amazon Web Services KMS
+     * (SSE-KMS). Setting this header to <code>true</code> causes the client to use an S3 Bucket Key for object encryption with
+     * SSE-KMS.
+     * <p>Specifying this header with an object operation doesn’t affect bucket-level settings for S3 Bucket Key.
+     *
+     * @return returns the update PutObjectRequest
+     */
+    public InitiateMultipartUploadRequest withBucketKeyEnabled(Boolean bucketKeyEnabled) {
+        setBucketKeyEnabled(bucketKeyEnabled);
+        return this;
     }
 }

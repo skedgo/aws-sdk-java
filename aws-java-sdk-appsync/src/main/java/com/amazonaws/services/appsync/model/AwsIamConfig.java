@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The AWS IAM configuration.
+ * The Identity and Access Management (IAM) configuration.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/AwsIamConfig" target="_top">AWS API
@@ -30,24 +30,24 @@ public class AwsIamConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The signing region for AWS IAM authorization.
+     * The signing Amazon Web Services Region for IAM authorization.
      * </p>
      */
     private String signingRegion;
     /**
      * <p>
-     * The signing service name for AWS IAM authorization.
+     * The signing service name for IAM authorization.
      * </p>
      */
     private String signingServiceName;
 
     /**
      * <p>
-     * The signing region for AWS IAM authorization.
+     * The signing Amazon Web Services Region for IAM authorization.
      * </p>
      * 
      * @param signingRegion
-     *        The signing region for AWS IAM authorization.
+     *        The signing Amazon Web Services Region for IAM authorization.
      */
 
     public void setSigningRegion(String signingRegion) {
@@ -56,10 +56,10 @@ public class AwsIamConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The signing region for AWS IAM authorization.
+     * The signing Amazon Web Services Region for IAM authorization.
      * </p>
      * 
-     * @return The signing region for AWS IAM authorization.
+     * @return The signing Amazon Web Services Region for IAM authorization.
      */
 
     public String getSigningRegion() {
@@ -68,11 +68,11 @@ public class AwsIamConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The signing region for AWS IAM authorization.
+     * The signing Amazon Web Services Region for IAM authorization.
      * </p>
      * 
      * @param signingRegion
-     *        The signing region for AWS IAM authorization.
+     *        The signing Amazon Web Services Region for IAM authorization.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -83,11 +83,11 @@ public class AwsIamConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The signing service name for AWS IAM authorization.
+     * The signing service name for IAM authorization.
      * </p>
      * 
      * @param signingServiceName
-     *        The signing service name for AWS IAM authorization.
+     *        The signing service name for IAM authorization.
      */
 
     public void setSigningServiceName(String signingServiceName) {
@@ -96,10 +96,10 @@ public class AwsIamConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The signing service name for AWS IAM authorization.
+     * The signing service name for IAM authorization.
      * </p>
      * 
-     * @return The signing service name for AWS IAM authorization.
+     * @return The signing service name for IAM authorization.
      */
 
     public String getSigningServiceName() {
@@ -108,11 +108,11 @@ public class AwsIamConfig implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The signing service name for AWS IAM authorization.
+     * The signing service name for IAM authorization.
      * </p>
      * 
      * @param signingServiceName
-     *        The signing service name for AWS IAM authorization.
+     *        The signing service name for IAM authorization.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -180,6 +180,27 @@ public class UpdateSecurityGroupRuleDescriptionsIngressRequestMarshaller impleme
                     }
                 }
                 ipPermissionsListIndex++;
+            }
+        }
+
+        com.amazonaws.internal.SdkInternalList<SecurityGroupRuleDescription> updateSecurityGroupRuleDescriptionsIngressRequestSecurityGroupRuleDescriptionsList = (com.amazonaws.internal.SdkInternalList<SecurityGroupRuleDescription>) updateSecurityGroupRuleDescriptionsIngressRequest
+                .getSecurityGroupRuleDescriptions();
+        if (!updateSecurityGroupRuleDescriptionsIngressRequestSecurityGroupRuleDescriptionsList.isEmpty()
+                || !updateSecurityGroupRuleDescriptionsIngressRequestSecurityGroupRuleDescriptionsList.isAutoConstruct()) {
+            int securityGroupRuleDescriptionsListIndex = 1;
+
+            for (SecurityGroupRuleDescription updateSecurityGroupRuleDescriptionsIngressRequestSecurityGroupRuleDescriptionsListValue : updateSecurityGroupRuleDescriptionsIngressRequestSecurityGroupRuleDescriptionsList) {
+
+                if (updateSecurityGroupRuleDescriptionsIngressRequestSecurityGroupRuleDescriptionsListValue.getSecurityGroupRuleId() != null) {
+                    request.addParameter("SecurityGroupRuleDescription." + securityGroupRuleDescriptionsListIndex + ".SecurityGroupRuleId", StringUtils
+                            .fromString(updateSecurityGroupRuleDescriptionsIngressRequestSecurityGroupRuleDescriptionsListValue.getSecurityGroupRuleId()));
+                }
+
+                if (updateSecurityGroupRuleDescriptionsIngressRequestSecurityGroupRuleDescriptionsListValue.getDescription() != null) {
+                    request.addParameter("SecurityGroupRuleDescription." + securityGroupRuleDescriptionsListIndex + ".Description",
+                            StringUtils.fromString(updateSecurityGroupRuleDescriptionsIngressRequestSecurityGroupRuleDescriptionsListValue.getDescription()));
+                }
+                securityGroupRuleDescriptionsListIndex++;
             }
         }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,17 +46,66 @@ public class UpgradeTarget implements Serializable, Cloneable {
     private String description;
     /**
      * <p>
-     * A value that indicates whether the target version is applied to any source DB instances that have
+     * Indicates whether the target version is applied to any source DB instances that have
      * <code>AutoMinorVersionUpgrade</code> set to true.
+     * </p>
+     * <p>
+     * This parameter is dynamic, and is set by RDS.
      * </p>
      */
     private Boolean autoUpgrade;
     /**
      * <p>
-     * A value that indicates whether a database engine is upgraded to a major version.
+     * Indicates whether upgrading to the target version requires upgrading the major version of the database engine.
      * </p>
      */
     private Boolean isMajorVersionUpgrade;
+    /**
+     * <p>
+     * A list of the supported DB engine modes for the target engine version.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> supportedEngineModes;
+    /**
+     * <p>
+     * Indicates whether you can use Aurora parallel query with the target engine version.
+     * </p>
+     */
+    private Boolean supportsParallelQuery;
+    /**
+     * <p>
+     * Indicates whether you can use Aurora global databases with the target engine version.
+     * </p>
+     */
+    private Boolean supportsGlobalDatabases;
+    /**
+     * <p>
+     * Indicates whether you can use Babelfish for Aurora PostgreSQL with the target engine version.
+     * </p>
+     */
+    private Boolean supportsBabelfish;
+    /**
+     * <p>
+     * Indicates whether the DB engine version supports Aurora Limitless Database.
+     * </p>
+     */
+    private Boolean supportsLimitlessDatabase;
+    /**
+     * <p>
+     * Indicates whether the target engine version supports forwarding write operations from reader DB instances to the
+     * writer DB instance in the DB cluster. By default, write operations aren't allowed on reader DB instances.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     */
+    private Boolean supportsLocalWriteForwarding;
+    /**
+     * <p>
+     * Indicates whether the DB engine version supports zero-ETL integrations with Amazon Redshift.
+     * </p>
+     */
+    private Boolean supportsIntegrations;
 
     /**
      * <p>
@@ -180,13 +229,18 @@ public class UpgradeTarget implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A value that indicates whether the target version is applied to any source DB instances that have
+     * Indicates whether the target version is applied to any source DB instances that have
      * <code>AutoMinorVersionUpgrade</code> set to true.
+     * </p>
+     * <p>
+     * This parameter is dynamic, and is set by RDS.
      * </p>
      * 
      * @param autoUpgrade
-     *        A value that indicates whether the target version is applied to any source DB instances that have
-     *        <code>AutoMinorVersionUpgrade</code> set to true.
+     *        Indicates whether the target version is applied to any source DB instances that have
+     *        <code>AutoMinorVersionUpgrade</code> set to true.</p>
+     *        <p>
+     *        This parameter is dynamic, and is set by RDS.
      */
 
     public void setAutoUpgrade(Boolean autoUpgrade) {
@@ -195,12 +249,17 @@ public class UpgradeTarget implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A value that indicates whether the target version is applied to any source DB instances that have
+     * Indicates whether the target version is applied to any source DB instances that have
      * <code>AutoMinorVersionUpgrade</code> set to true.
      * </p>
+     * <p>
+     * This parameter is dynamic, and is set by RDS.
+     * </p>
      * 
-     * @return A value that indicates whether the target version is applied to any source DB instances that have
-     *         <code>AutoMinorVersionUpgrade</code> set to true.
+     * @return Indicates whether the target version is applied to any source DB instances that have
+     *         <code>AutoMinorVersionUpgrade</code> set to true.</p>
+     *         <p>
+     *         This parameter is dynamic, and is set by RDS.
      */
 
     public Boolean getAutoUpgrade() {
@@ -209,13 +268,18 @@ public class UpgradeTarget implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A value that indicates whether the target version is applied to any source DB instances that have
+     * Indicates whether the target version is applied to any source DB instances that have
      * <code>AutoMinorVersionUpgrade</code> set to true.
+     * </p>
+     * <p>
+     * This parameter is dynamic, and is set by RDS.
      * </p>
      * 
      * @param autoUpgrade
-     *        A value that indicates whether the target version is applied to any source DB instances that have
-     *        <code>AutoMinorVersionUpgrade</code> set to true.
+     *        Indicates whether the target version is applied to any source DB instances that have
+     *        <code>AutoMinorVersionUpgrade</code> set to true.</p>
+     *        <p>
+     *        This parameter is dynamic, and is set by RDS.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -226,12 +290,17 @@ public class UpgradeTarget implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A value that indicates whether the target version is applied to any source DB instances that have
+     * Indicates whether the target version is applied to any source DB instances that have
      * <code>AutoMinorVersionUpgrade</code> set to true.
      * </p>
+     * <p>
+     * This parameter is dynamic, and is set by RDS.
+     * </p>
      * 
-     * @return A value that indicates whether the target version is applied to any source DB instances that have
-     *         <code>AutoMinorVersionUpgrade</code> set to true.
+     * @return Indicates whether the target version is applied to any source DB instances that have
+     *         <code>AutoMinorVersionUpgrade</code> set to true.</p>
+     *         <p>
+     *         This parameter is dynamic, and is set by RDS.
      */
 
     public Boolean isAutoUpgrade() {
@@ -240,11 +309,12 @@ public class UpgradeTarget implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A value that indicates whether a database engine is upgraded to a major version.
+     * Indicates whether upgrading to the target version requires upgrading the major version of the database engine.
      * </p>
      * 
      * @param isMajorVersionUpgrade
-     *        A value that indicates whether a database engine is upgraded to a major version.
+     *        Indicates whether upgrading to the target version requires upgrading the major version of the database
+     *        engine.
      */
 
     public void setIsMajorVersionUpgrade(Boolean isMajorVersionUpgrade) {
@@ -253,10 +323,11 @@ public class UpgradeTarget implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A value that indicates whether a database engine is upgraded to a major version.
+     * Indicates whether upgrading to the target version requires upgrading the major version of the database engine.
      * </p>
      * 
-     * @return A value that indicates whether a database engine is upgraded to a major version.
+     * @return Indicates whether upgrading to the target version requires upgrading the major version of the database
+     *         engine.
      */
 
     public Boolean getIsMajorVersionUpgrade() {
@@ -265,11 +336,12 @@ public class UpgradeTarget implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A value that indicates whether a database engine is upgraded to a major version.
+     * Indicates whether upgrading to the target version requires upgrading the major version of the database engine.
      * </p>
      * 
      * @param isMajorVersionUpgrade
-     *        A value that indicates whether a database engine is upgraded to a major version.
+     *        Indicates whether upgrading to the target version requires upgrading the major version of the database
+     *        engine.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -280,14 +352,432 @@ public class UpgradeTarget implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A value that indicates whether a database engine is upgraded to a major version.
+     * Indicates whether upgrading to the target version requires upgrading the major version of the database engine.
      * </p>
      * 
-     * @return A value that indicates whether a database engine is upgraded to a major version.
+     * @return Indicates whether upgrading to the target version requires upgrading the major version of the database
+     *         engine.
      */
 
     public Boolean isMajorVersionUpgrade() {
         return this.isMajorVersionUpgrade;
+    }
+
+    /**
+     * <p>
+     * A list of the supported DB engine modes for the target engine version.
+     * </p>
+     * 
+     * @return A list of the supported DB engine modes for the target engine version.
+     */
+
+    public java.util.List<String> getSupportedEngineModes() {
+        if (supportedEngineModes == null) {
+            supportedEngineModes = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return supportedEngineModes;
+    }
+
+    /**
+     * <p>
+     * A list of the supported DB engine modes for the target engine version.
+     * </p>
+     * 
+     * @param supportedEngineModes
+     *        A list of the supported DB engine modes for the target engine version.
+     */
+
+    public void setSupportedEngineModes(java.util.Collection<String> supportedEngineModes) {
+        if (supportedEngineModes == null) {
+            this.supportedEngineModes = null;
+            return;
+        }
+
+        this.supportedEngineModes = new com.amazonaws.internal.SdkInternalList<String>(supportedEngineModes);
+    }
+
+    /**
+     * <p>
+     * A list of the supported DB engine modes for the target engine version.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSupportedEngineModes(java.util.Collection)} or {@link #withSupportedEngineModes(java.util.Collection)}
+     * if you want to override the existing values.
+     * </p>
+     * 
+     * @param supportedEngineModes
+     *        A list of the supported DB engine modes for the target engine version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpgradeTarget withSupportedEngineModes(String... supportedEngineModes) {
+        if (this.supportedEngineModes == null) {
+            setSupportedEngineModes(new com.amazonaws.internal.SdkInternalList<String>(supportedEngineModes.length));
+        }
+        for (String ele : supportedEngineModes) {
+            this.supportedEngineModes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of the supported DB engine modes for the target engine version.
+     * </p>
+     * 
+     * @param supportedEngineModes
+     *        A list of the supported DB engine modes for the target engine version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpgradeTarget withSupportedEngineModes(java.util.Collection<String> supportedEngineModes) {
+        setSupportedEngineModes(supportedEngineModes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether you can use Aurora parallel query with the target engine version.
+     * </p>
+     * 
+     * @param supportsParallelQuery
+     *        Indicates whether you can use Aurora parallel query with the target engine version.
+     */
+
+    public void setSupportsParallelQuery(Boolean supportsParallelQuery) {
+        this.supportsParallelQuery = supportsParallelQuery;
+    }
+
+    /**
+     * <p>
+     * Indicates whether you can use Aurora parallel query with the target engine version.
+     * </p>
+     * 
+     * @return Indicates whether you can use Aurora parallel query with the target engine version.
+     */
+
+    public Boolean getSupportsParallelQuery() {
+        return this.supportsParallelQuery;
+    }
+
+    /**
+     * <p>
+     * Indicates whether you can use Aurora parallel query with the target engine version.
+     * </p>
+     * 
+     * @param supportsParallelQuery
+     *        Indicates whether you can use Aurora parallel query with the target engine version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpgradeTarget withSupportsParallelQuery(Boolean supportsParallelQuery) {
+        setSupportsParallelQuery(supportsParallelQuery);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether you can use Aurora parallel query with the target engine version.
+     * </p>
+     * 
+     * @return Indicates whether you can use Aurora parallel query with the target engine version.
+     */
+
+    public Boolean isSupportsParallelQuery() {
+        return this.supportsParallelQuery;
+    }
+
+    /**
+     * <p>
+     * Indicates whether you can use Aurora global databases with the target engine version.
+     * </p>
+     * 
+     * @param supportsGlobalDatabases
+     *        Indicates whether you can use Aurora global databases with the target engine version.
+     */
+
+    public void setSupportsGlobalDatabases(Boolean supportsGlobalDatabases) {
+        this.supportsGlobalDatabases = supportsGlobalDatabases;
+    }
+
+    /**
+     * <p>
+     * Indicates whether you can use Aurora global databases with the target engine version.
+     * </p>
+     * 
+     * @return Indicates whether you can use Aurora global databases with the target engine version.
+     */
+
+    public Boolean getSupportsGlobalDatabases() {
+        return this.supportsGlobalDatabases;
+    }
+
+    /**
+     * <p>
+     * Indicates whether you can use Aurora global databases with the target engine version.
+     * </p>
+     * 
+     * @param supportsGlobalDatabases
+     *        Indicates whether you can use Aurora global databases with the target engine version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpgradeTarget withSupportsGlobalDatabases(Boolean supportsGlobalDatabases) {
+        setSupportsGlobalDatabases(supportsGlobalDatabases);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether you can use Aurora global databases with the target engine version.
+     * </p>
+     * 
+     * @return Indicates whether you can use Aurora global databases with the target engine version.
+     */
+
+    public Boolean isSupportsGlobalDatabases() {
+        return this.supportsGlobalDatabases;
+    }
+
+    /**
+     * <p>
+     * Indicates whether you can use Babelfish for Aurora PostgreSQL with the target engine version.
+     * </p>
+     * 
+     * @param supportsBabelfish
+     *        Indicates whether you can use Babelfish for Aurora PostgreSQL with the target engine version.
+     */
+
+    public void setSupportsBabelfish(Boolean supportsBabelfish) {
+        this.supportsBabelfish = supportsBabelfish;
+    }
+
+    /**
+     * <p>
+     * Indicates whether you can use Babelfish for Aurora PostgreSQL with the target engine version.
+     * </p>
+     * 
+     * @return Indicates whether you can use Babelfish for Aurora PostgreSQL with the target engine version.
+     */
+
+    public Boolean getSupportsBabelfish() {
+        return this.supportsBabelfish;
+    }
+
+    /**
+     * <p>
+     * Indicates whether you can use Babelfish for Aurora PostgreSQL with the target engine version.
+     * </p>
+     * 
+     * @param supportsBabelfish
+     *        Indicates whether you can use Babelfish for Aurora PostgreSQL with the target engine version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpgradeTarget withSupportsBabelfish(Boolean supportsBabelfish) {
+        setSupportsBabelfish(supportsBabelfish);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether you can use Babelfish for Aurora PostgreSQL with the target engine version.
+     * </p>
+     * 
+     * @return Indicates whether you can use Babelfish for Aurora PostgreSQL with the target engine version.
+     */
+
+    public Boolean isSupportsBabelfish() {
+        return this.supportsBabelfish;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB engine version supports Aurora Limitless Database.
+     * </p>
+     * 
+     * @param supportsLimitlessDatabase
+     *        Indicates whether the DB engine version supports Aurora Limitless Database.
+     */
+
+    public void setSupportsLimitlessDatabase(Boolean supportsLimitlessDatabase) {
+        this.supportsLimitlessDatabase = supportsLimitlessDatabase;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB engine version supports Aurora Limitless Database.
+     * </p>
+     * 
+     * @return Indicates whether the DB engine version supports Aurora Limitless Database.
+     */
+
+    public Boolean getSupportsLimitlessDatabase() {
+        return this.supportsLimitlessDatabase;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB engine version supports Aurora Limitless Database.
+     * </p>
+     * 
+     * @param supportsLimitlessDatabase
+     *        Indicates whether the DB engine version supports Aurora Limitless Database.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpgradeTarget withSupportsLimitlessDatabase(Boolean supportsLimitlessDatabase) {
+        setSupportsLimitlessDatabase(supportsLimitlessDatabase);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB engine version supports Aurora Limitless Database.
+     * </p>
+     * 
+     * @return Indicates whether the DB engine version supports Aurora Limitless Database.
+     */
+
+    public Boolean isSupportsLimitlessDatabase() {
+        return this.supportsLimitlessDatabase;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the target engine version supports forwarding write operations from reader DB instances to the
+     * writer DB instance in the DB cluster. By default, write operations aren't allowed on reader DB instances.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @param supportsLocalWriteForwarding
+     *        Indicates whether the target engine version supports forwarding write operations from reader DB instances
+     *        to the writer DB instance in the DB cluster. By default, write operations aren't allowed on reader DB
+     *        instances.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
+     */
+
+    public void setSupportsLocalWriteForwarding(Boolean supportsLocalWriteForwarding) {
+        this.supportsLocalWriteForwarding = supportsLocalWriteForwarding;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the target engine version supports forwarding write operations from reader DB instances to the
+     * writer DB instance in the DB cluster. By default, write operations aren't allowed on reader DB instances.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @return Indicates whether the target engine version supports forwarding write operations from reader DB instances
+     *         to the writer DB instance in the DB cluster. By default, write operations aren't allowed on reader DB
+     *         instances.</p>
+     *         <p>
+     *         Valid for: Aurora DB clusters only
+     */
+
+    public Boolean getSupportsLocalWriteForwarding() {
+        return this.supportsLocalWriteForwarding;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the target engine version supports forwarding write operations from reader DB instances to the
+     * writer DB instance in the DB cluster. By default, write operations aren't allowed on reader DB instances.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @param supportsLocalWriteForwarding
+     *        Indicates whether the target engine version supports forwarding write operations from reader DB instances
+     *        to the writer DB instance in the DB cluster. By default, write operations aren't allowed on reader DB
+     *        instances.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpgradeTarget withSupportsLocalWriteForwarding(Boolean supportsLocalWriteForwarding) {
+        setSupportsLocalWriteForwarding(supportsLocalWriteForwarding);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the target engine version supports forwarding write operations from reader DB instances to the
+     * writer DB instance in the DB cluster. By default, write operations aren't allowed on reader DB instances.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @return Indicates whether the target engine version supports forwarding write operations from reader DB instances
+     *         to the writer DB instance in the DB cluster. By default, write operations aren't allowed on reader DB
+     *         instances.</p>
+     *         <p>
+     *         Valid for: Aurora DB clusters only
+     */
+
+    public Boolean isSupportsLocalWriteForwarding() {
+        return this.supportsLocalWriteForwarding;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB engine version supports zero-ETL integrations with Amazon Redshift.
+     * </p>
+     * 
+     * @param supportsIntegrations
+     *        Indicates whether the DB engine version supports zero-ETL integrations with Amazon Redshift.
+     */
+
+    public void setSupportsIntegrations(Boolean supportsIntegrations) {
+        this.supportsIntegrations = supportsIntegrations;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB engine version supports zero-ETL integrations with Amazon Redshift.
+     * </p>
+     * 
+     * @return Indicates whether the DB engine version supports zero-ETL integrations with Amazon Redshift.
+     */
+
+    public Boolean getSupportsIntegrations() {
+        return this.supportsIntegrations;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB engine version supports zero-ETL integrations with Amazon Redshift.
+     * </p>
+     * 
+     * @param supportsIntegrations
+     *        Indicates whether the DB engine version supports zero-ETL integrations with Amazon Redshift.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpgradeTarget withSupportsIntegrations(Boolean supportsIntegrations) {
+        setSupportsIntegrations(supportsIntegrations);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB engine version supports zero-ETL integrations with Amazon Redshift.
+     * </p>
+     * 
+     * @return Indicates whether the DB engine version supports zero-ETL integrations with Amazon Redshift.
+     */
+
+    public Boolean isSupportsIntegrations() {
+        return this.supportsIntegrations;
     }
 
     /**
@@ -311,7 +801,21 @@ public class UpgradeTarget implements Serializable, Cloneable {
         if (getAutoUpgrade() != null)
             sb.append("AutoUpgrade: ").append(getAutoUpgrade()).append(",");
         if (getIsMajorVersionUpgrade() != null)
-            sb.append("IsMajorVersionUpgrade: ").append(getIsMajorVersionUpgrade());
+            sb.append("IsMajorVersionUpgrade: ").append(getIsMajorVersionUpgrade()).append(",");
+        if (getSupportedEngineModes() != null)
+            sb.append("SupportedEngineModes: ").append(getSupportedEngineModes()).append(",");
+        if (getSupportsParallelQuery() != null)
+            sb.append("SupportsParallelQuery: ").append(getSupportsParallelQuery()).append(",");
+        if (getSupportsGlobalDatabases() != null)
+            sb.append("SupportsGlobalDatabases: ").append(getSupportsGlobalDatabases()).append(",");
+        if (getSupportsBabelfish() != null)
+            sb.append("SupportsBabelfish: ").append(getSupportsBabelfish()).append(",");
+        if (getSupportsLimitlessDatabase() != null)
+            sb.append("SupportsLimitlessDatabase: ").append(getSupportsLimitlessDatabase()).append(",");
+        if (getSupportsLocalWriteForwarding() != null)
+            sb.append("SupportsLocalWriteForwarding: ").append(getSupportsLocalWriteForwarding()).append(",");
+        if (getSupportsIntegrations() != null)
+            sb.append("SupportsIntegrations: ").append(getSupportsIntegrations());
         sb.append("}");
         return sb.toString();
     }
@@ -346,6 +850,34 @@ public class UpgradeTarget implements Serializable, Cloneable {
             return false;
         if (other.getIsMajorVersionUpgrade() != null && other.getIsMajorVersionUpgrade().equals(this.getIsMajorVersionUpgrade()) == false)
             return false;
+        if (other.getSupportedEngineModes() == null ^ this.getSupportedEngineModes() == null)
+            return false;
+        if (other.getSupportedEngineModes() != null && other.getSupportedEngineModes().equals(this.getSupportedEngineModes()) == false)
+            return false;
+        if (other.getSupportsParallelQuery() == null ^ this.getSupportsParallelQuery() == null)
+            return false;
+        if (other.getSupportsParallelQuery() != null && other.getSupportsParallelQuery().equals(this.getSupportsParallelQuery()) == false)
+            return false;
+        if (other.getSupportsGlobalDatabases() == null ^ this.getSupportsGlobalDatabases() == null)
+            return false;
+        if (other.getSupportsGlobalDatabases() != null && other.getSupportsGlobalDatabases().equals(this.getSupportsGlobalDatabases()) == false)
+            return false;
+        if (other.getSupportsBabelfish() == null ^ this.getSupportsBabelfish() == null)
+            return false;
+        if (other.getSupportsBabelfish() != null && other.getSupportsBabelfish().equals(this.getSupportsBabelfish()) == false)
+            return false;
+        if (other.getSupportsLimitlessDatabase() == null ^ this.getSupportsLimitlessDatabase() == null)
+            return false;
+        if (other.getSupportsLimitlessDatabase() != null && other.getSupportsLimitlessDatabase().equals(this.getSupportsLimitlessDatabase()) == false)
+            return false;
+        if (other.getSupportsLocalWriteForwarding() == null ^ this.getSupportsLocalWriteForwarding() == null)
+            return false;
+        if (other.getSupportsLocalWriteForwarding() != null && other.getSupportsLocalWriteForwarding().equals(this.getSupportsLocalWriteForwarding()) == false)
+            return false;
+        if (other.getSupportsIntegrations() == null ^ this.getSupportsIntegrations() == null)
+            return false;
+        if (other.getSupportsIntegrations() != null && other.getSupportsIntegrations().equals(this.getSupportsIntegrations()) == false)
+            return false;
         return true;
     }
 
@@ -359,6 +891,13 @@ public class UpgradeTarget implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getAutoUpgrade() == null) ? 0 : getAutoUpgrade().hashCode());
         hashCode = prime * hashCode + ((getIsMajorVersionUpgrade() == null) ? 0 : getIsMajorVersionUpgrade().hashCode());
+        hashCode = prime * hashCode + ((getSupportedEngineModes() == null) ? 0 : getSupportedEngineModes().hashCode());
+        hashCode = prime * hashCode + ((getSupportsParallelQuery() == null) ? 0 : getSupportsParallelQuery().hashCode());
+        hashCode = prime * hashCode + ((getSupportsGlobalDatabases() == null) ? 0 : getSupportsGlobalDatabases().hashCode());
+        hashCode = prime * hashCode + ((getSupportsBabelfish() == null) ? 0 : getSupportsBabelfish().hashCode());
+        hashCode = prime * hashCode + ((getSupportsLimitlessDatabase() == null) ? 0 : getSupportsLimitlessDatabase().hashCode());
+        hashCode = prime * hashCode + ((getSupportsLocalWriteForwarding() == null) ? 0 : getSupportsLocalWriteForwarding().hashCode());
+        hashCode = prime * hashCode + ((getSupportsIntegrations() == null) ? 0 : getSupportsIntegrations().hashCode());
         return hashCode;
     }
 

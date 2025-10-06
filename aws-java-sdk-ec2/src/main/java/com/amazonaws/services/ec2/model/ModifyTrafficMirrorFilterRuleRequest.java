@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,7 +34,7 @@ public class ModifyTrafficMirrorFilterRuleRequest extends AmazonWebServiceReques
     private String trafficMirrorFilterRuleId;
     /**
      * <p>
-     * The type of traffic (<code>ingress</code> | <code>egress</code>) to assign to the rule.
+     * The type of traffic to assign to the rule.
      * </p>
      */
     private String trafficDirection;
@@ -139,11 +139,11 @@ public class ModifyTrafficMirrorFilterRuleRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * The type of traffic (<code>ingress</code> | <code>egress</code>) to assign to the rule.
+     * The type of traffic to assign to the rule.
      * </p>
      * 
      * @param trafficDirection
-     *        The type of traffic (<code>ingress</code> | <code>egress</code>) to assign to the rule.
+     *        The type of traffic to assign to the rule.
      * @see TrafficDirection
      */
 
@@ -153,10 +153,10 @@ public class ModifyTrafficMirrorFilterRuleRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * The type of traffic (<code>ingress</code> | <code>egress</code>) to assign to the rule.
+     * The type of traffic to assign to the rule.
      * </p>
      * 
-     * @return The type of traffic (<code>ingress</code> | <code>egress</code>) to assign to the rule.
+     * @return The type of traffic to assign to the rule.
      * @see TrafficDirection
      */
 
@@ -166,11 +166,11 @@ public class ModifyTrafficMirrorFilterRuleRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * The type of traffic (<code>ingress</code> | <code>egress</code>) to assign to the rule.
+     * The type of traffic to assign to the rule.
      * </p>
      * 
      * @param trafficDirection
-     *        The type of traffic (<code>ingress</code> | <code>egress</code>) to assign to the rule.
+     *        The type of traffic to assign to the rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TrafficDirection
      */
@@ -182,11 +182,11 @@ public class ModifyTrafficMirrorFilterRuleRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * The type of traffic (<code>ingress</code> | <code>egress</code>) to assign to the rule.
+     * The type of traffic to assign to the rule.
      * </p>
      * 
      * @param trafficDirection
-     *        The type of traffic (<code>ingress</code> | <code>egress</code>) to assign to the rule.
+     *        The type of traffic to assign to the rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TrafficDirection
      */

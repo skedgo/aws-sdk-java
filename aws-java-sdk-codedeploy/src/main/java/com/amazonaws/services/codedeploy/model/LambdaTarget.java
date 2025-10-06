@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about the target AWS Lambda function during an AWS Lambda deployment.
+ * Information about the target Lambda function during an Lambda deployment.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/LambdaTarget" target="_top">AWS API
@@ -42,13 +42,13 @@ public class LambdaTarget implements Serializable, Cloneable, StructuredPojo {
     private String targetId;
     /**
      * <p>
-     * The ARN of the target.
+     * The Amazon Resource Name (ARN) of the target.
      * </p>
      */
     private String targetArn;
     /**
      * <p>
-     * The status an AWS Lambda deployment's target Lambda function.
+     * The status an Lambda deployment's target Lambda function.
      * </p>
      */
     private String status;
@@ -153,11 +153,11 @@ public class LambdaTarget implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the target.
+     * The Amazon Resource Name (ARN) of the target.
      * </p>
      * 
      * @param targetArn
-     *        The ARN of the target.
+     *        The Amazon Resource Name (ARN) of the target.
      */
 
     public void setTargetArn(String targetArn) {
@@ -166,10 +166,10 @@ public class LambdaTarget implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the target.
+     * The Amazon Resource Name (ARN) of the target.
      * </p>
      * 
-     * @return The ARN of the target.
+     * @return The Amazon Resource Name (ARN) of the target.
      */
 
     public String getTargetArn() {
@@ -178,11 +178,11 @@ public class LambdaTarget implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the target.
+     * The Amazon Resource Name (ARN) of the target.
      * </p>
      * 
      * @param targetArn
-     *        The ARN of the target.
+     *        The Amazon Resource Name (ARN) of the target.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -193,11 +193,11 @@ public class LambdaTarget implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status an AWS Lambda deployment's target Lambda function.
+     * The status an Lambda deployment's target Lambda function.
      * </p>
      * 
      * @param status
-     *        The status an AWS Lambda deployment's target Lambda function.
+     *        The status an Lambda deployment's target Lambda function.
      * @see TargetStatus
      */
 
@@ -207,10 +207,10 @@ public class LambdaTarget implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status an AWS Lambda deployment's target Lambda function.
+     * The status an Lambda deployment's target Lambda function.
      * </p>
      * 
-     * @return The status an AWS Lambda deployment's target Lambda function.
+     * @return The status an Lambda deployment's target Lambda function.
      * @see TargetStatus
      */
 
@@ -220,11 +220,11 @@ public class LambdaTarget implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status an AWS Lambda deployment's target Lambda function.
+     * The status an Lambda deployment's target Lambda function.
      * </p>
      * 
      * @param status
-     *        The status an AWS Lambda deployment's target Lambda function.
+     *        The status an Lambda deployment's target Lambda function.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TargetStatus
      */
@@ -236,11 +236,11 @@ public class LambdaTarget implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The status an AWS Lambda deployment's target Lambda function.
+     * The status an Lambda deployment's target Lambda function.
      * </p>
      * 
      * @param status
-     *        The status an AWS Lambda deployment's target Lambda function.
+     *        The status an Lambda deployment's target Lambda function.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TargetStatus
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
+ * DescribeProvisionedProductAPI input structure. AcceptLanguage - [Optional] The language code for localization. Id -
+ * [Optional] The provisioned product identifier. Name - [Optional] Another provisioned product identifier. Customers
+ * must provide either Id or Name.
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/DescribeProvisionedProduct"
  *      target="_top">AWS API Documentation</a>
@@ -30,11 +33,6 @@ public class DescribeProvisionedProductRequest extends com.amazonaws.AmazonWebSe
      * The language code.
      * </p>
      * <ul>
-     * <li>
-     * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
      * <li>
      * <p>
      * <code>jp</code> - Japanese
@@ -50,21 +48,30 @@ public class DescribeProvisionedProductRequest extends com.amazonaws.AmazonWebSe
     private String acceptLanguage;
     /**
      * <p>
-     * The provisioned product identifier.
+     * The provisioned product identifier. You must provide the name or ID, but not both.
+     * </p>
+     * <p>
+     * If you do not provide a name or ID, or you provide both name and ID, an <code>InvalidParametersException</code>
+     * will occur.
      * </p>
      */
     private String id;
+    /**
+     * <p>
+     * The name of the provisioned product. You must provide the name or ID, but not both.
+     * </p>
+     * <p>
+     * If you do not provide a name or ID, or you provide both name and ID, an <code>InvalidParametersException</code>
+     * will occur.
+     * </p>
+     */
+    private String name;
 
     /**
      * <p>
      * The language code.
      * </p>
      * <ul>
-     * <li>
-     * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
      * <li>
      * <p>
      * <code>jp</code> - Japanese
@@ -80,11 +87,6 @@ public class DescribeProvisionedProductRequest extends com.amazonaws.AmazonWebSe
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -108,11 +110,6 @@ public class DescribeProvisionedProductRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -125,11 +122,6 @@ public class DescribeProvisionedProductRequest extends com.amazonaws.AmazonWebSe
      * 
      * @return The language code.</p>
      *         <ul>
-     *         <li>
-     *         <p>
-     *         <code>en</code> - English (default)
-     *         </p>
-     *         </li>
      *         <li>
      *         <p>
      *         <code>jp</code> - Japanese
@@ -153,11 +145,6 @@ public class DescribeProvisionedProductRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -171,11 +158,6 @@ public class DescribeProvisionedProductRequest extends com.amazonaws.AmazonWebSe
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -196,11 +178,18 @@ public class DescribeProvisionedProductRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The provisioned product identifier.
+     * The provisioned product identifier. You must provide the name or ID, but not both.
+     * </p>
+     * <p>
+     * If you do not provide a name or ID, or you provide both name and ID, an <code>InvalidParametersException</code>
+     * will occur.
      * </p>
      * 
      * @param id
-     *        The provisioned product identifier.
+     *        The provisioned product identifier. You must provide the name or ID, but not both.</p>
+     *        <p>
+     *        If you do not provide a name or ID, or you provide both name and ID, an
+     *        <code>InvalidParametersException</code> will occur.
      */
 
     public void setId(String id) {
@@ -209,10 +198,17 @@ public class DescribeProvisionedProductRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The provisioned product identifier.
+     * The provisioned product identifier. You must provide the name or ID, but not both.
+     * </p>
+     * <p>
+     * If you do not provide a name or ID, or you provide both name and ID, an <code>InvalidParametersException</code>
+     * will occur.
      * </p>
      * 
-     * @return The provisioned product identifier.
+     * @return The provisioned product identifier. You must provide the name or ID, but not both.</p>
+     *         <p>
+     *         If you do not provide a name or ID, or you provide both name and ID, an
+     *         <code>InvalidParametersException</code> will occur.
      */
 
     public String getId() {
@@ -221,16 +217,84 @@ public class DescribeProvisionedProductRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The provisioned product identifier.
+     * The provisioned product identifier. You must provide the name or ID, but not both.
+     * </p>
+     * <p>
+     * If you do not provide a name or ID, or you provide both name and ID, an <code>InvalidParametersException</code>
+     * will occur.
      * </p>
      * 
      * @param id
-     *        The provisioned product identifier.
+     *        The provisioned product identifier. You must provide the name or ID, but not both.</p>
+     *        <p>
+     *        If you do not provide a name or ID, or you provide both name and ID, an
+     *        <code>InvalidParametersException</code> will occur.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DescribeProvisionedProductRequest withId(String id) {
         setId(id);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the provisioned product. You must provide the name or ID, but not both.
+     * </p>
+     * <p>
+     * If you do not provide a name or ID, or you provide both name and ID, an <code>InvalidParametersException</code>
+     * will occur.
+     * </p>
+     * 
+     * @param name
+     *        The name of the provisioned product. You must provide the name or ID, but not both.</p>
+     *        <p>
+     *        If you do not provide a name or ID, or you provide both name and ID, an
+     *        <code>InvalidParametersException</code> will occur.
+     */
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * <p>
+     * The name of the provisioned product. You must provide the name or ID, but not both.
+     * </p>
+     * <p>
+     * If you do not provide a name or ID, or you provide both name and ID, an <code>InvalidParametersException</code>
+     * will occur.
+     * </p>
+     * 
+     * @return The name of the provisioned product. You must provide the name or ID, but not both.</p>
+     *         <p>
+     *         If you do not provide a name or ID, or you provide both name and ID, an
+     *         <code>InvalidParametersException</code> will occur.
+     */
+
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * <p>
+     * The name of the provisioned product. You must provide the name or ID, but not both.
+     * </p>
+     * <p>
+     * If you do not provide a name or ID, or you provide both name and ID, an <code>InvalidParametersException</code>
+     * will occur.
+     * </p>
+     * 
+     * @param name
+     *        The name of the provisioned product. You must provide the name or ID, but not both.</p>
+     *        <p>
+     *        If you do not provide a name or ID, or you provide both name and ID, an
+     *        <code>InvalidParametersException</code> will occur.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeProvisionedProductRequest withName(String name) {
+        setName(name);
         return this;
     }
 
@@ -249,7 +313,9 @@ public class DescribeProvisionedProductRequest extends com.amazonaws.AmazonWebSe
         if (getAcceptLanguage() != null)
             sb.append("AcceptLanguage: ").append(getAcceptLanguage()).append(",");
         if (getId() != null)
-            sb.append("Id: ").append(getId());
+            sb.append("Id: ").append(getId()).append(",");
+        if (getName() != null)
+            sb.append("Name: ").append(getName());
         sb.append("}");
         return sb.toString();
     }
@@ -272,6 +338,10 @@ public class DescribeProvisionedProductRequest extends com.amazonaws.AmazonWebSe
             return false;
         if (other.getId() != null && other.getId().equals(this.getId()) == false)
             return false;
+        if (other.getName() == null ^ this.getName() == null)
+            return false;
+        if (other.getName() != null && other.getName().equals(this.getName()) == false)
+            return false;
         return true;
     }
 
@@ -282,6 +352,7 @@ public class DescribeProvisionedProductRequest extends com.amazonaws.AmazonWebSe
 
         hashCode = prime * hashCode + ((getAcceptLanguage() == null) ? 0 : getAcceptLanguage().hashCode());
         hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
+        hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         return hashCode;
     }
 

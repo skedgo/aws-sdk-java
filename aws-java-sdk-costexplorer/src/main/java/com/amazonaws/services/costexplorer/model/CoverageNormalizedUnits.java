@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,10 +19,10 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The amount of instance usage, in normalized units. Normalized units enable you to see your EC2 usage for multiple
- * sizes of instances in a uniform way. For example, suppose you run an xlarge instance and a 2xlarge instance. If you
- * run both instances for the same amount of time, the 2xlarge instance uses twice as much of your reservation as the
- * xlarge instance, even though both instances show only one instance-hour. Using normalized units instead of
+ * The amount of instance usage, in normalized units. You can use normalized units to see your EC2 usage for multiple
+ * sizes of instances in a uniform way. For example, suppose that you run an xlarge instance and a 2xlarge instance. If
+ * you run both instances for the same amount of time, the 2xlarge instance uses twice as much of your reservation as
+ * the xlarge instance, even though both instances show only one instance-hour. When you use normalized units instead of
  * instance-hours, the xlarge instance used 8 normalized units, and the 2xlarge instance used 16 normalized units.
  * </p>
  * <p>

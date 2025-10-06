@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,9 +43,8 @@ public class GetUserPolicyResult extends com.amazonaws.AmazonWebServiceResult<co
      * The policy document.
      * </p>
      * <p>
-     * IAM stores policies in JSON format. However, resources that were created using AWS CloudFormation templates can
-     * be formatted in YAML. AWS CloudFormation always converts a YAML policy to JSON format before submitting it to
-     * IAM.
+     * IAM stores policies in JSON format. However, resources that were created using CloudFormation templates can be
+     * formatted in YAML. CloudFormation always converts a YAML policy to JSON format before submitting it to IAM.
      * </p>
      */
     private String policyDocument;
@@ -135,17 +134,16 @@ public class GetUserPolicyResult extends com.amazonaws.AmazonWebServiceResult<co
      * The policy document.
      * </p>
      * <p>
-     * IAM stores policies in JSON format. However, resources that were created using AWS CloudFormation templates can
-     * be formatted in YAML. AWS CloudFormation always converts a YAML policy to JSON format before submitting it to
-     * IAM.
+     * IAM stores policies in JSON format. However, resources that were created using CloudFormation templates can be
+     * formatted in YAML. CloudFormation always converts a YAML policy to JSON format before submitting it to IAM.
      * </p>
      * 
      * @param policyDocument
      *        The policy document.</p>
      *        <p>
-     *        IAM stores policies in JSON format. However, resources that were created using AWS CloudFormation
-     *        templates can be formatted in YAML. AWS CloudFormation always converts a YAML policy to JSON format before
-     *        submitting it to IAM.
+     *        IAM stores policies in JSON format. However, resources that were created using CloudFormation templates
+     *        can be formatted in YAML. CloudFormation always converts a YAML policy to JSON format before submitting it
+     *        to IAM.
      */
 
     public void setPolicyDocument(String policyDocument) {
@@ -157,16 +155,15 @@ public class GetUserPolicyResult extends com.amazonaws.AmazonWebServiceResult<co
      * The policy document.
      * </p>
      * <p>
-     * IAM stores policies in JSON format. However, resources that were created using AWS CloudFormation templates can
-     * be formatted in YAML. AWS CloudFormation always converts a YAML policy to JSON format before submitting it to
-     * IAM.
+     * IAM stores policies in JSON format. However, resources that were created using CloudFormation templates can be
+     * formatted in YAML. CloudFormation always converts a YAML policy to JSON format before submitting it to IAM.
      * </p>
      * 
      * @return The policy document.</p>
      *         <p>
-     *         IAM stores policies in JSON format. However, resources that were created using AWS CloudFormation
-     *         templates can be formatted in YAML. AWS CloudFormation always converts a YAML policy to JSON format
-     *         before submitting it to IAM.
+     *         IAM stores policies in JSON format. However, resources that were created using CloudFormation templates
+     *         can be formatted in YAML. CloudFormation always converts a YAML policy to JSON format before submitting
+     *         it to IAM.
      */
 
     public String getPolicyDocument() {
@@ -178,17 +175,16 @@ public class GetUserPolicyResult extends com.amazonaws.AmazonWebServiceResult<co
      * The policy document.
      * </p>
      * <p>
-     * IAM stores policies in JSON format. However, resources that were created using AWS CloudFormation templates can
-     * be formatted in YAML. AWS CloudFormation always converts a YAML policy to JSON format before submitting it to
-     * IAM.
+     * IAM stores policies in JSON format. However, resources that were created using CloudFormation templates can be
+     * formatted in YAML. CloudFormation always converts a YAML policy to JSON format before submitting it to IAM.
      * </p>
      * 
      * @param policyDocument
      *        The policy document.</p>
      *        <p>
-     *        IAM stores policies in JSON format. However, resources that were created using AWS CloudFormation
-     *        templates can be formatted in YAML. AWS CloudFormation always converts a YAML policy to JSON format before
-     *        submitting it to IAM.
+     *        IAM stores policies in JSON format. However, resources that were created using CloudFormation templates
+     *        can be formatted in YAML. CloudFormation always converts a YAML policy to JSON format before submitting it
+     *        to IAM.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

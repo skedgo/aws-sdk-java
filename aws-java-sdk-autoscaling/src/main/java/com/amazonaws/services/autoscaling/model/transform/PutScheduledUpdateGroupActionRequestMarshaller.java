@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -76,6 +76,10 @@ public class PutScheduledUpdateGroupActionRequestMarshaller implements
 
         if (putScheduledUpdateGroupActionRequest.getDesiredCapacity() != null) {
             request.addParameter("DesiredCapacity", StringUtils.fromInteger(putScheduledUpdateGroupActionRequest.getDesiredCapacity()));
+        }
+
+        if (putScheduledUpdateGroupActionRequest.getTimeZone() != null) {
+            request.addParameter("TimeZone", StringUtils.fromString(putScheduledUpdateGroupActionRequest.getTimeZone()));
         }
 
         return request;

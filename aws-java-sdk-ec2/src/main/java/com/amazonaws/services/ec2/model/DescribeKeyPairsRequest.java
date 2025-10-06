@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,12 +32,31 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
      * <ul>
      * <li>
      * <p>
+     * <code>key-pair-id</code> - The ID of the key pair.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>fingerprint</code> - The fingerprint of the key pair.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>key-name</code> - The name of the key pair.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * </ul>
@@ -48,16 +67,36 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
      * The key pair names.
      * </p>
      * <p>
-     * Default: Describes all your key pairs.
+     * Default: Describes all of your key pairs.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> keyNames;
+    /**
+     * <p>
+     * The IDs of the key pairs.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> keyPairIds;
+    /**
+     * <p>
+     * If <code>true</code>, the public key material is included in the response.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     */
+    private Boolean includePublicKey;
 
     /**
      * <p>
      * The filters.
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>key-pair-id</code> - The ID of the key pair.
+     * </p>
+     * </li>
      * <li>
      * <p>
      * <code>fingerprint</code> - The fingerprint of the key pair.
@@ -68,10 +107,29 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
      * <code>key-name</code> - The name of the key pair.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @return The filters.</p>
      *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>key-pair-id</code> - The ID of the key pair.
+     *         </p>
+     *         </li>
      *         <li>
      *         <p>
      *         <code>fingerprint</code> - The fingerprint of the key pair.
@@ -80,6 +138,20 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
      *         <li>
      *         <p>
      *         <code>key-name</code> - The name of the key pair.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *         assigned a tag with a specific key, regardless of the tag value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *         key in the filter name and the tag value as the filter value. For example, to find all resources that
+     *         have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify
+     *         <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.
      *         </p>
      *         </li>
      */
@@ -98,12 +170,31 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
      * <ul>
      * <li>
      * <p>
+     * <code>key-pair-id</code> - The ID of the key pair.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>fingerprint</code> - The fingerprint of the key pair.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>key-name</code> - The name of the key pair.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * </ul>
@@ -113,12 +204,31 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
      *        <ul>
      *        <li>
      *        <p>
+     *        <code>key-pair-id</code> - The ID of the key pair.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>fingerprint</code> - The fingerprint of the key pair.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>key-name</code> - The name of the key pair.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        assigned a tag with a specific key, regardless of the tag value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
      *        </p>
      *        </li>
      */
@@ -139,12 +249,31 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
      * <ul>
      * <li>
      * <p>
+     * <code>key-pair-id</code> - The ID of the key pair.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>fingerprint</code> - The fingerprint of the key pair.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>key-name</code> - The name of the key pair.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * </ul>
@@ -159,12 +288,31 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
      *        <ul>
      *        <li>
      *        <p>
+     *        <code>key-pair-id</code> - The ID of the key pair.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>fingerprint</code> - The fingerprint of the key pair.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>key-name</code> - The name of the key pair.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        assigned a tag with a specific key, regardless of the tag value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -187,12 +335,31 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
      * <ul>
      * <li>
      * <p>
+     * <code>key-pair-id</code> - The ID of the key pair.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>fingerprint</code> - The fingerprint of the key pair.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>key-name</code> - The name of the key pair.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * </ul>
@@ -202,12 +369,31 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
      *        <ul>
      *        <li>
      *        <p>
+     *        <code>key-pair-id</code> - The ID of the key pair.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>fingerprint</code> - The fingerprint of the key pair.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>key-name</code> - The name of the key pair.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        assigned a tag with a specific key, regardless of the tag value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -223,12 +409,12 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
      * The key pair names.
      * </p>
      * <p>
-     * Default: Describes all your key pairs.
+     * Default: Describes all of your key pairs.
      * </p>
      * 
      * @return The key pair names.</p>
      *         <p>
-     *         Default: Describes all your key pairs.
+     *         Default: Describes all of your key pairs.
      */
 
     public java.util.List<String> getKeyNames() {
@@ -243,13 +429,13 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
      * The key pair names.
      * </p>
      * <p>
-     * Default: Describes all your key pairs.
+     * Default: Describes all of your key pairs.
      * </p>
      * 
      * @param keyNames
      *        The key pair names.</p>
      *        <p>
-     *        Default: Describes all your key pairs.
+     *        Default: Describes all of your key pairs.
      */
 
     public void setKeyNames(java.util.Collection<String> keyNames) {
@@ -266,7 +452,7 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
      * The key pair names.
      * </p>
      * <p>
-     * Default: Describes all your key pairs.
+     * Default: Describes all of your key pairs.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -277,7 +463,7 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
      * @param keyNames
      *        The key pair names.</p>
      *        <p>
-     *        Default: Describes all your key pairs.
+     *        Default: Describes all of your key pairs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -296,19 +482,164 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
      * The key pair names.
      * </p>
      * <p>
-     * Default: Describes all your key pairs.
+     * Default: Describes all of your key pairs.
      * </p>
      * 
      * @param keyNames
      *        The key pair names.</p>
      *        <p>
-     *        Default: Describes all your key pairs.
+     *        Default: Describes all of your key pairs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DescribeKeyPairsRequest withKeyNames(java.util.Collection<String> keyNames) {
         setKeyNames(keyNames);
         return this;
+    }
+
+    /**
+     * <p>
+     * The IDs of the key pairs.
+     * </p>
+     * 
+     * @return The IDs of the key pairs.
+     */
+
+    public java.util.List<String> getKeyPairIds() {
+        if (keyPairIds == null) {
+            keyPairIds = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return keyPairIds;
+    }
+
+    /**
+     * <p>
+     * The IDs of the key pairs.
+     * </p>
+     * 
+     * @param keyPairIds
+     *        The IDs of the key pairs.
+     */
+
+    public void setKeyPairIds(java.util.Collection<String> keyPairIds) {
+        if (keyPairIds == null) {
+            this.keyPairIds = null;
+            return;
+        }
+
+        this.keyPairIds = new com.amazonaws.internal.SdkInternalList<String>(keyPairIds);
+    }
+
+    /**
+     * <p>
+     * The IDs of the key pairs.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setKeyPairIds(java.util.Collection)} or {@link #withKeyPairIds(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param keyPairIds
+     *        The IDs of the key pairs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeKeyPairsRequest withKeyPairIds(String... keyPairIds) {
+        if (this.keyPairIds == null) {
+            setKeyPairIds(new com.amazonaws.internal.SdkInternalList<String>(keyPairIds.length));
+        }
+        for (String ele : keyPairIds) {
+            this.keyPairIds.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IDs of the key pairs.
+     * </p>
+     * 
+     * @param keyPairIds
+     *        The IDs of the key pairs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeKeyPairsRequest withKeyPairIds(java.util.Collection<String> keyPairIds) {
+        setKeyPairIds(keyPairIds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, the public key material is included in the response.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @param includePublicKey
+     *        If <code>true</code>, the public key material is included in the response.</p>
+     *        <p>
+     *        Default: <code>false</code>
+     */
+
+    public void setIncludePublicKey(Boolean includePublicKey) {
+        this.includePublicKey = includePublicKey;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, the public key material is included in the response.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @return If <code>true</code>, the public key material is included in the response.</p>
+     *         <p>
+     *         Default: <code>false</code>
+     */
+
+    public Boolean getIncludePublicKey() {
+        return this.includePublicKey;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, the public key material is included in the response.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @param includePublicKey
+     *        If <code>true</code>, the public key material is included in the response.</p>
+     *        <p>
+     *        Default: <code>false</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeKeyPairsRequest withIncludePublicKey(Boolean includePublicKey) {
+        setIncludePublicKey(includePublicKey);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If <code>true</code>, the public key material is included in the response.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @return If <code>true</code>, the public key material is included in the response.</p>
+     *         <p>
+     *         Default: <code>false</code>
+     */
+
+    public Boolean isIncludePublicKey() {
+        return this.includePublicKey;
     }
 
     /**
@@ -337,7 +668,11 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
         if (getFilters() != null)
             sb.append("Filters: ").append(getFilters()).append(",");
         if (getKeyNames() != null)
-            sb.append("KeyNames: ").append(getKeyNames());
+            sb.append("KeyNames: ").append(getKeyNames()).append(",");
+        if (getKeyPairIds() != null)
+            sb.append("KeyPairIds: ").append(getKeyPairIds()).append(",");
+        if (getIncludePublicKey() != null)
+            sb.append("IncludePublicKey: ").append(getIncludePublicKey());
         sb.append("}");
         return sb.toString();
     }
@@ -360,6 +695,14 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
             return false;
         if (other.getKeyNames() != null && other.getKeyNames().equals(this.getKeyNames()) == false)
             return false;
+        if (other.getKeyPairIds() == null ^ this.getKeyPairIds() == null)
+            return false;
+        if (other.getKeyPairIds() != null && other.getKeyPairIds().equals(this.getKeyPairIds()) == false)
+            return false;
+        if (other.getIncludePublicKey() == null ^ this.getIncludePublicKey() == null)
+            return false;
+        if (other.getIncludePublicKey() != null && other.getIncludePublicKey().equals(this.getIncludePublicKey()) == false)
+            return false;
         return true;
     }
 
@@ -370,6 +713,8 @@ public class DescribeKeyPairsRequest extends AmazonWebServiceRequest implements 
 
         hashCode = prime * hashCode + ((getFilters() == null) ? 0 : getFilters().hashCode());
         hashCode = prime * hashCode + ((getKeyNames() == null) ? 0 : getKeyNames().hashCode());
+        hashCode = prime * hashCode + ((getKeyPairIds() == null) ? 0 : getKeyPairIds().hashCode());
+        hashCode = prime * hashCode + ((getIncludePublicKey() == null) ? 0 : getIncludePublicKey().hashCode());
         return hashCode;
     }
 

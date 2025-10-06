@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,17 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The fully qualified name of the parameter that you want to add to the system. The fully qualified name includes
-     * the complete hierarchy of the parameter path and name. For example: <code>/Dev/DBServer/MySQL/db-string13</code>
+     * The fully qualified name of the parameter that you want to add to the system.
+     * </p>
+     * <note>
+     * <p>
+     * You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     * </p>
+     * </note>
+     * <p>
+     * The fully qualified name includes the complete hierarchy of the parameter path and name. For parameters in a
+     * hierarchy, you must include a leading forward slash character (/) when you create or reference a parameter. For
+     * example: <code>/Dev/DBServer/MySQL/db-string13</code>
      * </p>
      * <p>
      * Naming Constraints:
@@ -41,17 +50,21 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * A parameter name must be unique within an AWS Region
+     * A parameter name must be unique within an Amazon Web Services Region
      * </p>
      * </li>
      * <li>
      * <p>
-     * A parameter name can't be prefixed with "aws" or "ssm" (case-insensitive).
+     * A parameter name can't be prefixed with "<code>aws</code>" or "<code>ssm</code>" (case-insensitive).
      * </p>
      * </li>
      * <li>
      * <p>
-     * Parameter names can include only the following symbols and letters: <code>a-zA-Z0-9_.-/</code>
+     * Parameter names can include only the following symbols and letters: <code>a-zA-Z0-9_.-</code>
+     * </p>
+     * <p>
+     * In addition, the slash character ( / ) is used to delineate hierarchies in parameter names. For example:
+     * <code>/Dev/Production/East/Project-ABC/MyParameter</code>
      * </p>
      * </li>
      * <li>
@@ -67,13 +80,15 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </ul>
      * <p>
      * For additional information about valid values for parameter names, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-parameter-name-constraints.html"
-     * >Requirements and Constraints for Parameter Names</a> in the <i>AWS Systems Manager User Guide</i>.
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-create.html">Creating
+     * Systems Manager parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * The maximum length constraint listed below includes capacity for additional system attributes that are not part
-     * of the name. The maximum length for the fully qualified parameter name is 1011 characters.
+     * The maximum length constraint of 2048 characters listed below includes 1037 characters reserved for internal use
+     * by Systems Manager. The maximum length for a parameter name that you create is 1011 characters. This includes the
+     * characters in the ARN that precede the name you specify, such as
+     * <code>arn:aws:ssm:us-east-2:111122223333:parameter/</code>.
      * </p>
      * </note>
      */
@@ -84,7 +99,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * <important>
      * <p>
-     * Do not enter personally identifiable information in this field.
+     * Don't enter personally identifiable information in this field.
      * </p>
      * </important>
      */
@@ -94,41 +109,46 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The parameter value that you want to add to the system. Standard parameters have a value limit of 4 KB. Advanced
      * parameters have a value limit of 8 KB.
      * </p>
+     * <note>
+     * <p>
+     * Parameters can't be referenced or nested in the values of other parameters. You can't include <code>{{}}</code>
+     * or <code>{{ssm:<i>parameter-name</i>}}</code> in a parameter value.
+     * </p>
+     * </note>
      */
     private String value;
     /**
      * <p>
      * The type of parameter that you want to add to the system.
      * </p>
+     * <note>
+     * <p>
+     * <code>SecureString</code> isn't currently supported for CloudFormation templates.
+     * </p>
+     * </note>
      * <p>
      * Items in a <code>StringList</code> must be separated by a comma (,). You can't use other punctuation or special
      * character to escape items in the list. If you have a parameter value that requires a comma, then use the
      * <code>String</code> data type.
      * </p>
-     * <note>
+     * <important>
      * <p>
-     * <code>SecureString</code> is not currently supported for AWS CloudFormation templates or in the China Regions.
+     * Specifying a parameter type isn't required when updating a parameter. You must specify a parameter type when
+     * creating a parameter.
      * </p>
-     * </note>
+     * </important>
      */
     private String type;
     /**
      * <p>
-     * The KMS Key ID that you want to use to encrypt a parameter. Either the default AWS Key Management Service (AWS
-     * KMS) key automatically assigned to your AWS account or a custom key. Required for parameters that use the
-     * <code>SecureString</code> data type.
+     * The Key Management Service (KMS) ID that you want to use to encrypt a parameter. Use a custom key for better
+     * security. Required for parameters that use the <code>SecureString</code> data type.
      * </p>
      * <p>
-     * If you don't specify a key ID, the system uses the default key associated with your AWS account.
+     * If you don't specify a key ID, the system uses the default key associated with your Amazon Web Services account
+     * which is not as secure as using a custom key.
      * </p>
      * <ul>
-     * <li>
-     * <p>
-     * To use your default AWS KMS key, choose the <code>SecureString</code> data type, and do <i>not</i> specify the
-     * <code>Key ID</code> when you create the parameter. The system automatically populates <code>Key ID</code> with
-     * your default KMS key.
-     * </p>
-     * </li>
      * <li>
      * <p>
      * To use a custom KMS key, choose the <code>SecureString</code> data type with the <code>Key ID</code> parameter.
@@ -139,7 +159,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
     private String keyId;
     /**
      * <p>
-     * Overwrite an existing parameter. If not specified, will default to "false".
+     * Overwrite an existing parameter. The default value is <code>false</code>.
      * </p>
      */
     private Boolean overwrite;
@@ -155,7 +175,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such
      * as by purpose, owner, or environment. For example, you might want to tag a Systems Manager parameter to identify
      * the type of resource to which it applies, the environment, or the type of configuration data referenced by the
-     * parameter. In this case, you could specify the following key name/value pairs:
+     * parameter. In this case, you could specify the following key-value pairs:
      * </p>
      * <ul>
      * <li>
@@ -176,71 +196,194 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </ul>
      * <note>
      * <p>
-     * To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> action.
+     * To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> operation.
      * </p>
      * </note>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
     /**
      * <p>
-     * Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a value
-     * limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000 standard
-     * parameters per account and per Region. Standard parameters are offered at no additional cost.
+     * The parameter tier to assign to a parameter.
      * </p>
      * <p>
-     * Advanced parameters have a value limit of 8 KB and can be configured to use parameter policies. You can create a
-     * maximum of 100,000 advanced parameters per account and per Region. Advanced parameters incur a charge.
+     * Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a content
+     * size limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000 standard
+     * parameters for each Region in an Amazon Web Services account. Standard parameters are offered at no additional
+     * cost.
      * </p>
      * <p>
-     * If you don't specify a parameter tier when you create a new parameter, the parameter defaults to using the
-     * standard tier. You can change a standard parameter to an advanced parameter at any time. But you can't revert an
-     * advanced parameter to a standard parameter. Reverting an advanced parameter to a standard parameter would result
-     * in data loss because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would also
-     * remove any policies attached to the parameter. Lastly, advanced parameters use a different form of encryption
-     * than standard parameters.
+     * Advanced parameters have a content size limit of 8 KB and can be configured to use parameter policies. You can
+     * create a maximum of 100,000 advanced parameters for each Region in an Amazon Web Services account. Advanced
+     * parameters incur a charge. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html"
+     * >Managing parameter tiers</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * <p>
+     * You can change a standard parameter to an advanced parameter any time. But you can't revert an advanced parameter
+     * to a standard parameter. Reverting an advanced parameter to a standard parameter would result in data loss
+     * because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would also remove any
+     * policies attached to the parameter. Lastly, advanced parameters use a different form of encryption than standard
+     * parameters.
      * </p>
      * <p>
      * If you no longer need an advanced parameter, or if you no longer want to incur charges for an advanced parameter,
-     * you must delete it and recreate it as a new standard parameter. For more information, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html">About
-     * Advanced Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     * you must delete it and recreate it as a new standard parameter.
+     * </p>
+     * <p>
+     * <b>Using the Default Tier Configuration</b>
+     * </p>
+     * <p>
+     * In <code>PutParameter</code> requests, you can specify the tier to create the parameter in. Whenever you specify
+     * a tier in the request, Parameter Store creates or updates the parameter according to that request. However, if
+     * you don't specify a tier in a request, Parameter Store assigns the tier based on the current Parameter Store
+     * default tier configuration.
+     * </p>
+     * <p>
+     * The default tier when you begin using Parameter Store is the standard-parameter tier. If you use the
+     * advanced-parameter tier, you can specify one of the following as the default:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>Advanced</b>: With this option, Parameter Store evaluates all requests as advanced parameters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Intelligent-Tiering</b>: With this option, Parameter Store evaluates each request to determine if the
+     * parameter is standard or advanced.
+     * </p>
+     * <p>
+     * If the request doesn't include any options that require an advanced parameter, the parameter is created in the
+     * standard-parameter tier. If one or more options requiring an advanced parameter are included in the request,
+     * Parameter Store create a parameter in the advanced-parameter tier.
+     * </p>
+     * <p>
+     * This approach helps control your parameter-related costs by always creating standard parameters unless an
+     * advanced parameter is necessary.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Options that require an advanced parameter include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The content size of the parameter is more than 4 KB.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The parameter uses a parameter policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * More than 10,000 parameters already exist in your Amazon Web Services account in the current Amazon Web Services
+     * Region.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information about configuring the default tier option, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html#ps-default-tier"
+     * >Specifying a default parameter tier</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      */
     private String tier;
     /**
      * <p>
-     * One or more policies to apply to a parameter. This action takes a JSON array. Parameter Store supports the
-     * following policy types:
+     * One or more policies to apply to a parameter. This operation takes a JSON array. Parameter Store, a capability of
+     * Amazon Web Services Systems Manager supports the following policy types:
      * </p>
      * <p>
      * Expiration: This policy deletes the parameter after it expires. When you create the policy, you specify the
      * expiration date. You can update the expiration date and time by updating the policy. Updating the
-     * <i>parameter</i> does not affect the expiration date and time. When the expiration time is reached, Parameter
+     * <i>parameter</i> doesn't affect the expiration date and time. When the expiration time is reached, Parameter
      * Store deletes the parameter.
      * </p>
      * <p>
-     * ExpirationNotification: This policy triggers an event in Amazon CloudWatch Events that notifies you about the
+     * ExpirationNotification: This policy initiates an event in Amazon CloudWatch Events that notifies you about the
      * expiration. By using this policy, you can receive notification before or after the expiration time is reached, in
      * units of days or hours.
      * </p>
      * <p>
-     * NoChangeNotification: This policy triggers a CloudWatch event if a parameter has not been modified for a
+     * NoChangeNotification: This policy initiates a CloudWatch Events event if a parameter hasn't been modified for a
      * specified period of time. This policy type is useful when, for example, a secret needs to be changed within a
-     * period of time, but it has not been changed.
+     * period of time, but it hasn't been changed.
      * </p>
      * <p>
      * All existing policies are preserved until you send new policies or an empty policy. For more information about
      * parameter policies, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-policies.html">Working
-     * with Parameter Policies</a>.
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html">Assigning
+     * parameter policies</a>.
      * </p>
      */
     private String policies;
+    /**
+     * <p>
+     * The data type for a <code>String</code> parameter. Supported data types include plain text and Amazon Machine
+     * Image (AMI) IDs.
+     * </p>
+     * <p>
+     * <b>The following data type values are supported.</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>text</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aws:ec2:image</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aws:ssm:integration</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When you create a <code>String</code> parameter and specify <code>aws:ec2:image</code>, Amazon Web Services
+     * Systems Manager validates the parameter value is in the required format, such as
+     * <code>ami-12345abcdeEXAMPLE</code>, and that the specified AMI is available in your Amazon Web Services account.
+     * </p>
+     * <note>
+     * <p>
+     * If the action is successful, the service sends back an HTTP 200 response which indicates a successful
+     * <code>PutParameter</code> call for all cases except for data type <code>aws:ec2:image</code>. If you call
+     * <code>PutParameter</code> with <code>aws:ec2:image</code> data type, a successful HTTP 200 response does not
+     * guarantee that your parameter was successfully created or updated. The <code>aws:ec2:image</code> value is
+     * validated asynchronously, and the <code>PutParameter</code> call returns before the validation is complete. If
+     * you submit an invalid AMI value, the PutParameter operation will return success, but the asynchronous validation
+     * will fail and the parameter will not be created or updated. To monitor whether your <code>aws:ec2:image</code>
+     * parameters are created successfully, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-cwe.html">Setting up
+     * notifications or trigger actions based on Parameter Store events</a>. For more information about AMI format
+     * validation , see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-ec2-aliases.html">Native
+     * parameter support for Amazon Machine Image IDs</a>.
+     * </p>
+     * </note>
+     */
+    private String dataType;
 
     /**
      * <p>
-     * The fully qualified name of the parameter that you want to add to the system. The fully qualified name includes
-     * the complete hierarchy of the parameter path and name. For example: <code>/Dev/DBServer/MySQL/db-string13</code>
+     * The fully qualified name of the parameter that you want to add to the system.
+     * </p>
+     * <note>
+     * <p>
+     * You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     * </p>
+     * </note>
+     * <p>
+     * The fully qualified name includes the complete hierarchy of the parameter path and name. For parameters in a
+     * hierarchy, you must include a leading forward slash character (/) when you create or reference a parameter. For
+     * example: <code>/Dev/DBServer/MySQL/db-string13</code>
      * </p>
      * <p>
      * Naming Constraints:
@@ -253,17 +396,21 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * A parameter name must be unique within an AWS Region
+     * A parameter name must be unique within an Amazon Web Services Region
      * </p>
      * </li>
      * <li>
      * <p>
-     * A parameter name can't be prefixed with "aws" or "ssm" (case-insensitive).
+     * A parameter name can't be prefixed with "<code>aws</code>" or "<code>ssm</code>" (case-insensitive).
      * </p>
      * </li>
      * <li>
      * <p>
-     * Parameter names can include only the following symbols and letters: <code>a-zA-Z0-9_.-/</code>
+     * Parameter names can include only the following symbols and letters: <code>a-zA-Z0-9_.-</code>
+     * </p>
+     * <p>
+     * In addition, the slash character ( / ) is used to delineate hierarchies in parameter names. For example:
+     * <code>/Dev/Production/East/Project-ABC/MyParameter</code>
      * </p>
      * </li>
      * <li>
@@ -279,20 +426,29 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </ul>
      * <p>
      * For additional information about valid values for parameter names, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-parameter-name-constraints.html"
-     * >Requirements and Constraints for Parameter Names</a> in the <i>AWS Systems Manager User Guide</i>.
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-create.html">Creating
+     * Systems Manager parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * The maximum length constraint listed below includes capacity for additional system attributes that are not part
-     * of the name. The maximum length for the fully qualified parameter name is 1011 characters.
+     * The maximum length constraint of 2048 characters listed below includes 1037 characters reserved for internal use
+     * by Systems Manager. The maximum length for a parameter name that you create is 1011 characters. This includes the
+     * characters in the ARN that precede the name you specify, such as
+     * <code>arn:aws:ssm:us-east-2:111122223333:parameter/</code>.
      * </p>
      * </note>
      * 
      * @param name
-     *        The fully qualified name of the parameter that you want to add to the system. The fully qualified name
-     *        includes the complete hierarchy of the parameter path and name. For example:
-     *        <code>/Dev/DBServer/MySQL/db-string13</code> </p>
+     *        The fully qualified name of the parameter that you want to add to the system.</p> <note>
+     *        <p>
+     *        You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The fully qualified name includes the complete hierarchy of the parameter path and name. For parameters in
+     *        a hierarchy, you must include a leading forward slash character (/) when you create or reference a
+     *        parameter. For example: <code>/Dev/DBServer/MySQL/db-string13</code>
+     *        </p>
      *        <p>
      *        Naming Constraints:
      *        </p>
@@ -304,17 +460,21 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        </li>
      *        <li>
      *        <p>
-     *        A parameter name must be unique within an AWS Region
+     *        A parameter name must be unique within an Amazon Web Services Region
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        A parameter name can't be prefixed with "aws" or "ssm" (case-insensitive).
+     *        A parameter name can't be prefixed with "<code>aws</code>" or "<code>ssm</code>" (case-insensitive).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Parameter names can include only the following symbols and letters: <code>a-zA-Z0-9_.-/</code>
+     *        Parameter names can include only the following symbols and letters: <code>a-zA-Z0-9_.-</code>
+     *        </p>
+     *        <p>
+     *        In addition, the slash character ( / ) is used to delineate hierarchies in parameter names. For example:
+     *        <code>/Dev/Production/East/Project-ABC/MyParameter</code>
      *        </p>
      *        </li>
      *        <li>
@@ -329,14 +489,16 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        </li>
      *        </ul>
      *        <p>
-     *        For additional information about valid values for parameter names, see <a href=
-     *        "http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-parameter-name-constraints.html"
-     *        >Requirements and Constraints for Parameter Names</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        For additional information about valid values for parameter names, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-create.html"
+     *        >Creating Systems Manager parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      *        </p>
      *        <note>
      *        <p>
-     *        The maximum length constraint listed below includes capacity for additional system attributes that are not
-     *        part of the name. The maximum length for the fully qualified parameter name is 1011 characters.
+     *        The maximum length constraint of 2048 characters listed below includes 1037 characters reserved for
+     *        internal use by Systems Manager. The maximum length for a parameter name that you create is 1011
+     *        characters. This includes the characters in the ARN that precede the name you specify, such as
+     *        <code>arn:aws:ssm:us-east-2:111122223333:parameter/</code>.
      *        </p>
      */
 
@@ -346,8 +508,17 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The fully qualified name of the parameter that you want to add to the system. The fully qualified name includes
-     * the complete hierarchy of the parameter path and name. For example: <code>/Dev/DBServer/MySQL/db-string13</code>
+     * The fully qualified name of the parameter that you want to add to the system.
+     * </p>
+     * <note>
+     * <p>
+     * You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     * </p>
+     * </note>
+     * <p>
+     * The fully qualified name includes the complete hierarchy of the parameter path and name. For parameters in a
+     * hierarchy, you must include a leading forward slash character (/) when you create or reference a parameter. For
+     * example: <code>/Dev/DBServer/MySQL/db-string13</code>
      * </p>
      * <p>
      * Naming Constraints:
@@ -360,17 +531,21 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * A parameter name must be unique within an AWS Region
+     * A parameter name must be unique within an Amazon Web Services Region
      * </p>
      * </li>
      * <li>
      * <p>
-     * A parameter name can't be prefixed with "aws" or "ssm" (case-insensitive).
+     * A parameter name can't be prefixed with "<code>aws</code>" or "<code>ssm</code>" (case-insensitive).
      * </p>
      * </li>
      * <li>
      * <p>
-     * Parameter names can include only the following symbols and letters: <code>a-zA-Z0-9_.-/</code>
+     * Parameter names can include only the following symbols and letters: <code>a-zA-Z0-9_.-</code>
+     * </p>
+     * <p>
+     * In addition, the slash character ( / ) is used to delineate hierarchies in parameter names. For example:
+     * <code>/Dev/Production/East/Project-ABC/MyParameter</code>
      * </p>
      * </li>
      * <li>
@@ -386,19 +561,28 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </ul>
      * <p>
      * For additional information about valid values for parameter names, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-parameter-name-constraints.html"
-     * >Requirements and Constraints for Parameter Names</a> in the <i>AWS Systems Manager User Guide</i>.
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-create.html">Creating
+     * Systems Manager parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * The maximum length constraint listed below includes capacity for additional system attributes that are not part
-     * of the name. The maximum length for the fully qualified parameter name is 1011 characters.
+     * The maximum length constraint of 2048 characters listed below includes 1037 characters reserved for internal use
+     * by Systems Manager. The maximum length for a parameter name that you create is 1011 characters. This includes the
+     * characters in the ARN that precede the name you specify, such as
+     * <code>arn:aws:ssm:us-east-2:111122223333:parameter/</code>.
      * </p>
      * </note>
      * 
-     * @return The fully qualified name of the parameter that you want to add to the system. The fully qualified name
-     *         includes the complete hierarchy of the parameter path and name. For example:
-     *         <code>/Dev/DBServer/MySQL/db-string13</code> </p>
+     * @return The fully qualified name of the parameter that you want to add to the system.</p> <note>
+     *         <p>
+     *         You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         The fully qualified name includes the complete hierarchy of the parameter path and name. For parameters
+     *         in a hierarchy, you must include a leading forward slash character (/) when you create or reference a
+     *         parameter. For example: <code>/Dev/DBServer/MySQL/db-string13</code>
+     *         </p>
      *         <p>
      *         Naming Constraints:
      *         </p>
@@ -410,17 +594,21 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      *         </li>
      *         <li>
      *         <p>
-     *         A parameter name must be unique within an AWS Region
+     *         A parameter name must be unique within an Amazon Web Services Region
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         A parameter name can't be prefixed with "aws" or "ssm" (case-insensitive).
+     *         A parameter name can't be prefixed with "<code>aws</code>" or "<code>ssm</code>" (case-insensitive).
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Parameter names can include only the following symbols and letters: <code>a-zA-Z0-9_.-/</code>
+     *         Parameter names can include only the following symbols and letters: <code>a-zA-Z0-9_.-</code>
+     *         </p>
+     *         <p>
+     *         In addition, the slash character ( / ) is used to delineate hierarchies in parameter names. For example:
+     *         <code>/Dev/Production/East/Project-ABC/MyParameter</code>
      *         </p>
      *         </li>
      *         <li>
@@ -435,14 +623,16 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      *         </li>
      *         </ul>
      *         <p>
-     *         For additional information about valid values for parameter names, see <a href=
-     *         "http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-parameter-name-constraints.html"
-     *         >Requirements and Constraints for Parameter Names</a> in the <i>AWS Systems Manager User Guide</i>.
+     *         For additional information about valid values for parameter names, see <a
+     *         href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-create.html"
+     *         >Creating Systems Manager parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      *         </p>
      *         <note>
      *         <p>
-     *         The maximum length constraint listed below includes capacity for additional system attributes that are
-     *         not part of the name. The maximum length for the fully qualified parameter name is 1011 characters.
+     *         The maximum length constraint of 2048 characters listed below includes 1037 characters reserved for
+     *         internal use by Systems Manager. The maximum length for a parameter name that you create is 1011
+     *         characters. This includes the characters in the ARN that precede the name you specify, such as
+     *         <code>arn:aws:ssm:us-east-2:111122223333:parameter/</code>.
      *         </p>
      */
 
@@ -452,8 +642,17 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The fully qualified name of the parameter that you want to add to the system. The fully qualified name includes
-     * the complete hierarchy of the parameter path and name. For example: <code>/Dev/DBServer/MySQL/db-string13</code>
+     * The fully qualified name of the parameter that you want to add to the system.
+     * </p>
+     * <note>
+     * <p>
+     * You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     * </p>
+     * </note>
+     * <p>
+     * The fully qualified name includes the complete hierarchy of the parameter path and name. For parameters in a
+     * hierarchy, you must include a leading forward slash character (/) when you create or reference a parameter. For
+     * example: <code>/Dev/DBServer/MySQL/db-string13</code>
      * </p>
      * <p>
      * Naming Constraints:
@@ -466,17 +665,21 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * A parameter name must be unique within an AWS Region
+     * A parameter name must be unique within an Amazon Web Services Region
      * </p>
      * </li>
      * <li>
      * <p>
-     * A parameter name can't be prefixed with "aws" or "ssm" (case-insensitive).
+     * A parameter name can't be prefixed with "<code>aws</code>" or "<code>ssm</code>" (case-insensitive).
      * </p>
      * </li>
      * <li>
      * <p>
-     * Parameter names can include only the following symbols and letters: <code>a-zA-Z0-9_.-/</code>
+     * Parameter names can include only the following symbols and letters: <code>a-zA-Z0-9_.-</code>
+     * </p>
+     * <p>
+     * In addition, the slash character ( / ) is used to delineate hierarchies in parameter names. For example:
+     * <code>/Dev/Production/East/Project-ABC/MyParameter</code>
      * </p>
      * </li>
      * <li>
@@ -492,20 +695,29 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </ul>
      * <p>
      * For additional information about valid values for parameter names, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-parameter-name-constraints.html"
-     * >Requirements and Constraints for Parameter Names</a> in the <i>AWS Systems Manager User Guide</i>.
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-create.html">Creating
+     * Systems Manager parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * The maximum length constraint listed below includes capacity for additional system attributes that are not part
-     * of the name. The maximum length for the fully qualified parameter name is 1011 characters.
+     * The maximum length constraint of 2048 characters listed below includes 1037 characters reserved for internal use
+     * by Systems Manager. The maximum length for a parameter name that you create is 1011 characters. This includes the
+     * characters in the ARN that precede the name you specify, such as
+     * <code>arn:aws:ssm:us-east-2:111122223333:parameter/</code>.
      * </p>
      * </note>
      * 
      * @param name
-     *        The fully qualified name of the parameter that you want to add to the system. The fully qualified name
-     *        includes the complete hierarchy of the parameter path and name. For example:
-     *        <code>/Dev/DBServer/MySQL/db-string13</code> </p>
+     *        The fully qualified name of the parameter that you want to add to the system.</p> <note>
+     *        <p>
+     *        You can't enter the Amazon Resource Name (ARN) for a parameter, only the parameter name itself.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The fully qualified name includes the complete hierarchy of the parameter path and name. For parameters in
+     *        a hierarchy, you must include a leading forward slash character (/) when you create or reference a
+     *        parameter. For example: <code>/Dev/DBServer/MySQL/db-string13</code>
+     *        </p>
      *        <p>
      *        Naming Constraints:
      *        </p>
@@ -517,17 +729,21 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        </li>
      *        <li>
      *        <p>
-     *        A parameter name must be unique within an AWS Region
+     *        A parameter name must be unique within an Amazon Web Services Region
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        A parameter name can't be prefixed with "aws" or "ssm" (case-insensitive).
+     *        A parameter name can't be prefixed with "<code>aws</code>" or "<code>ssm</code>" (case-insensitive).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Parameter names can include only the following symbols and letters: <code>a-zA-Z0-9_.-/</code>
+     *        Parameter names can include only the following symbols and letters: <code>a-zA-Z0-9_.-</code>
+     *        </p>
+     *        <p>
+     *        In addition, the slash character ( / ) is used to delineate hierarchies in parameter names. For example:
+     *        <code>/Dev/Production/East/Project-ABC/MyParameter</code>
      *        </p>
      *        </li>
      *        <li>
@@ -542,14 +758,16 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        </li>
      *        </ul>
      *        <p>
-     *        For additional information about valid values for parameter names, see <a href=
-     *        "http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-parameter-name-constraints.html"
-     *        >Requirements and Constraints for Parameter Names</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        For additional information about valid values for parameter names, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-create.html"
+     *        >Creating Systems Manager parameters</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      *        </p>
      *        <note>
      *        <p>
-     *        The maximum length constraint listed below includes capacity for additional system attributes that are not
-     *        part of the name. The maximum length for the fully qualified parameter name is 1011 characters.
+     *        The maximum length constraint of 2048 characters listed below includes 1037 characters reserved for
+     *        internal use by Systems Manager. The maximum length for a parameter name that you create is 1011
+     *        characters. This includes the characters in the ARN that precede the name you specify, such as
+     *        <code>arn:aws:ssm:us-east-2:111122223333:parameter/</code>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -565,7 +783,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * <important>
      * <p>
-     * Do not enter personally identifiable information in this field.
+     * Don't enter personally identifiable information in this field.
      * </p>
      * </important>
      * 
@@ -573,7 +791,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        Information about the parameter that you want to add to the system. Optional but recommended.</p>
      *        <important>
      *        <p>
-     *        Do not enter personally identifiable information in this field.
+     *        Don't enter personally identifiable information in this field.
      *        </p>
      */
 
@@ -587,14 +805,14 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * <important>
      * <p>
-     * Do not enter personally identifiable information in this field.
+     * Don't enter personally identifiable information in this field.
      * </p>
      * </important>
      * 
      * @return Information about the parameter that you want to add to the system. Optional but recommended.</p>
      *         <important>
      *         <p>
-     *         Do not enter personally identifiable information in this field.
+     *         Don't enter personally identifiable information in this field.
      *         </p>
      */
 
@@ -608,7 +826,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * <important>
      * <p>
-     * Do not enter personally identifiable information in this field.
+     * Don't enter personally identifiable information in this field.
      * </p>
      * </important>
      * 
@@ -616,7 +834,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        Information about the parameter that you want to add to the system. Optional but recommended.</p>
      *        <important>
      *        <p>
-     *        Do not enter personally identifiable information in this field.
+     *        Don't enter personally identifiable information in this field.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -631,10 +849,20 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The parameter value that you want to add to the system. Standard parameters have a value limit of 4 KB. Advanced
      * parameters have a value limit of 8 KB.
      * </p>
+     * <note>
+     * <p>
+     * Parameters can't be referenced or nested in the values of other parameters. You can't include <code>{{}}</code>
+     * or <code>{{ssm:<i>parameter-name</i>}}</code> in a parameter value.
+     * </p>
+     * </note>
      * 
      * @param value
      *        The parameter value that you want to add to the system. Standard parameters have a value limit of 4 KB.
-     *        Advanced parameters have a value limit of 8 KB.
+     *        Advanced parameters have a value limit of 8 KB.</p> <note>
+     *        <p>
+     *        Parameters can't be referenced or nested in the values of other parameters. You can't include
+     *        <code>{{}}</code> or <code>{{ssm:<i>parameter-name</i>}}</code> in a parameter value.
+     *        </p>
      */
 
     public void setValue(String value) {
@@ -646,9 +874,19 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The parameter value that you want to add to the system. Standard parameters have a value limit of 4 KB. Advanced
      * parameters have a value limit of 8 KB.
      * </p>
+     * <note>
+     * <p>
+     * Parameters can't be referenced or nested in the values of other parameters. You can't include <code>{{}}</code>
+     * or <code>{{ssm:<i>parameter-name</i>}}</code> in a parameter value.
+     * </p>
+     * </note>
      * 
      * @return The parameter value that you want to add to the system. Standard parameters have a value limit of 4 KB.
-     *         Advanced parameters have a value limit of 8 KB.
+     *         Advanced parameters have a value limit of 8 KB.</p> <note>
+     *         <p>
+     *         Parameters can't be referenced or nested in the values of other parameters. You can't include
+     *         <code>{{}}</code> or <code>{{ssm:<i>parameter-name</i>}}</code> in a parameter value.
+     *         </p>
      */
 
     public String getValue() {
@@ -660,10 +898,20 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * The parameter value that you want to add to the system. Standard parameters have a value limit of 4 KB. Advanced
      * parameters have a value limit of 8 KB.
      * </p>
+     * <note>
+     * <p>
+     * Parameters can't be referenced or nested in the values of other parameters. You can't include <code>{{}}</code>
+     * or <code>{{ssm:<i>parameter-name</i>}}</code> in a parameter value.
+     * </p>
+     * </note>
      * 
      * @param value
      *        The parameter value that you want to add to the system. Standard parameters have a value limit of 4 KB.
-     *        Advanced parameters have a value limit of 8 KB.
+     *        Advanced parameters have a value limit of 8 KB.</p> <note>
+     *        <p>
+     *        Parameters can't be referenced or nested in the values of other parameters. You can't include
+     *        <code>{{}}</code> or <code>{{ssm:<i>parameter-name</i>}}</code> in a parameter value.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -676,28 +924,38 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * The type of parameter that you want to add to the system.
      * </p>
+     * <note>
+     * <p>
+     * <code>SecureString</code> isn't currently supported for CloudFormation templates.
+     * </p>
+     * </note>
      * <p>
      * Items in a <code>StringList</code> must be separated by a comma (,). You can't use other punctuation or special
      * character to escape items in the list. If you have a parameter value that requires a comma, then use the
      * <code>String</code> data type.
      * </p>
-     * <note>
+     * <important>
      * <p>
-     * <code>SecureString</code> is not currently supported for AWS CloudFormation templates or in the China Regions.
+     * Specifying a parameter type isn't required when updating a parameter. You must specify a parameter type when
+     * creating a parameter.
      * </p>
-     * </note>
+     * </important>
      * 
      * @param type
-     *        The type of parameter that you want to add to the system.</p>
+     *        The type of parameter that you want to add to the system.</p> <note>
+     *        <p>
+     *        <code>SecureString</code> isn't currently supported for CloudFormation templates.
+     *        </p>
+     *        </note>
      *        <p>
      *        Items in a <code>StringList</code> must be separated by a comma (,). You can't use other punctuation or
      *        special character to escape items in the list. If you have a parameter value that requires a comma, then
      *        use the <code>String</code> data type.
      *        </p>
-     *        <note>
+     *        <important>
      *        <p>
-     *        <code>SecureString</code> is not currently supported for AWS CloudFormation templates or in the China
-     *        Regions.
+     *        Specifying a parameter type isn't required when updating a parameter. You must specify a parameter type
+     *        when creating a parameter.
      *        </p>
      * @see ParameterType
      */
@@ -710,27 +968,37 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * The type of parameter that you want to add to the system.
      * </p>
+     * <note>
+     * <p>
+     * <code>SecureString</code> isn't currently supported for CloudFormation templates.
+     * </p>
+     * </note>
      * <p>
      * Items in a <code>StringList</code> must be separated by a comma (,). You can't use other punctuation or special
      * character to escape items in the list. If you have a parameter value that requires a comma, then use the
      * <code>String</code> data type.
      * </p>
-     * <note>
+     * <important>
      * <p>
-     * <code>SecureString</code> is not currently supported for AWS CloudFormation templates or in the China Regions.
+     * Specifying a parameter type isn't required when updating a parameter. You must specify a parameter type when
+     * creating a parameter.
      * </p>
-     * </note>
+     * </important>
      * 
-     * @return The type of parameter that you want to add to the system.</p>
+     * @return The type of parameter that you want to add to the system.</p> <note>
+     *         <p>
+     *         <code>SecureString</code> isn't currently supported for CloudFormation templates.
+     *         </p>
+     *         </note>
      *         <p>
      *         Items in a <code>StringList</code> must be separated by a comma (,). You can't use other punctuation or
      *         special character to escape items in the list. If you have a parameter value that requires a comma, then
      *         use the <code>String</code> data type.
      *         </p>
-     *         <note>
+     *         <important>
      *         <p>
-     *         <code>SecureString</code> is not currently supported for AWS CloudFormation templates or in the China
-     *         Regions.
+     *         Specifying a parameter type isn't required when updating a parameter. You must specify a parameter type
+     *         when creating a parameter.
      *         </p>
      * @see ParameterType
      */
@@ -743,28 +1011,38 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * The type of parameter that you want to add to the system.
      * </p>
+     * <note>
+     * <p>
+     * <code>SecureString</code> isn't currently supported for CloudFormation templates.
+     * </p>
+     * </note>
      * <p>
      * Items in a <code>StringList</code> must be separated by a comma (,). You can't use other punctuation or special
      * character to escape items in the list. If you have a parameter value that requires a comma, then use the
      * <code>String</code> data type.
      * </p>
-     * <note>
+     * <important>
      * <p>
-     * <code>SecureString</code> is not currently supported for AWS CloudFormation templates or in the China Regions.
+     * Specifying a parameter type isn't required when updating a parameter. You must specify a parameter type when
+     * creating a parameter.
      * </p>
-     * </note>
+     * </important>
      * 
      * @param type
-     *        The type of parameter that you want to add to the system.</p>
+     *        The type of parameter that you want to add to the system.</p> <note>
+     *        <p>
+     *        <code>SecureString</code> isn't currently supported for CloudFormation templates.
+     *        </p>
+     *        </note>
      *        <p>
      *        Items in a <code>StringList</code> must be separated by a comma (,). You can't use other punctuation or
      *        special character to escape items in the list. If you have a parameter value that requires a comma, then
      *        use the <code>String</code> data type.
      *        </p>
-     *        <note>
+     *        <important>
      *        <p>
-     *        <code>SecureString</code> is not currently supported for AWS CloudFormation templates or in the China
-     *        Regions.
+     *        Specifying a parameter type isn't required when updating a parameter. You must specify a parameter type
+     *        when creating a parameter.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ParameterType
@@ -779,28 +1057,38 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * The type of parameter that you want to add to the system.
      * </p>
+     * <note>
+     * <p>
+     * <code>SecureString</code> isn't currently supported for CloudFormation templates.
+     * </p>
+     * </note>
      * <p>
      * Items in a <code>StringList</code> must be separated by a comma (,). You can't use other punctuation or special
      * character to escape items in the list. If you have a parameter value that requires a comma, then use the
      * <code>String</code> data type.
      * </p>
-     * <note>
+     * <important>
      * <p>
-     * <code>SecureString</code> is not currently supported for AWS CloudFormation templates or in the China Regions.
+     * Specifying a parameter type isn't required when updating a parameter. You must specify a parameter type when
+     * creating a parameter.
      * </p>
-     * </note>
+     * </important>
      * 
      * @param type
-     *        The type of parameter that you want to add to the system.</p>
+     *        The type of parameter that you want to add to the system.</p> <note>
+     *        <p>
+     *        <code>SecureString</code> isn't currently supported for CloudFormation templates.
+     *        </p>
+     *        </note>
      *        <p>
      *        Items in a <code>StringList</code> must be separated by a comma (,). You can't use other punctuation or
      *        special character to escape items in the list. If you have a parameter value that requires a comma, then
      *        use the <code>String</code> data type.
      *        </p>
-     *        <note>
+     *        <important>
      *        <p>
-     *        <code>SecureString</code> is not currently supported for AWS CloudFormation templates or in the China
-     *        Regions.
+     *        Specifying a parameter type isn't required when updating a parameter. You must specify a parameter type
+     *        when creating a parameter.
      *        </p>
      * @see ParameterType
      */
@@ -813,28 +1101,38 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * The type of parameter that you want to add to the system.
      * </p>
+     * <note>
+     * <p>
+     * <code>SecureString</code> isn't currently supported for CloudFormation templates.
+     * </p>
+     * </note>
      * <p>
      * Items in a <code>StringList</code> must be separated by a comma (,). You can't use other punctuation or special
      * character to escape items in the list. If you have a parameter value that requires a comma, then use the
      * <code>String</code> data type.
      * </p>
-     * <note>
+     * <important>
      * <p>
-     * <code>SecureString</code> is not currently supported for AWS CloudFormation templates or in the China Regions.
+     * Specifying a parameter type isn't required when updating a parameter. You must specify a parameter type when
+     * creating a parameter.
      * </p>
-     * </note>
+     * </important>
      * 
      * @param type
-     *        The type of parameter that you want to add to the system.</p>
+     *        The type of parameter that you want to add to the system.</p> <note>
+     *        <p>
+     *        <code>SecureString</code> isn't currently supported for CloudFormation templates.
+     *        </p>
+     *        </note>
      *        <p>
      *        Items in a <code>StringList</code> must be separated by a comma (,). You can't use other punctuation or
      *        special character to escape items in the list. If you have a parameter value that requires a comma, then
      *        use the <code>String</code> data type.
      *        </p>
-     *        <note>
+     *        <important>
      *        <p>
-     *        <code>SecureString</code> is not currently supported for AWS CloudFormation templates or in the China
-     *        Regions.
+     *        Specifying a parameter type isn't required when updating a parameter. You must specify a parameter type
+     *        when creating a parameter.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ParameterType
@@ -847,21 +1145,14 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The KMS Key ID that you want to use to encrypt a parameter. Either the default AWS Key Management Service (AWS
-     * KMS) key automatically assigned to your AWS account or a custom key. Required for parameters that use the
-     * <code>SecureString</code> data type.
+     * The Key Management Service (KMS) ID that you want to use to encrypt a parameter. Use a custom key for better
+     * security. Required for parameters that use the <code>SecureString</code> data type.
      * </p>
      * <p>
-     * If you don't specify a key ID, the system uses the default key associated with your AWS account.
+     * If you don't specify a key ID, the system uses the default key associated with your Amazon Web Services account
+     * which is not as secure as using a custom key.
      * </p>
      * <ul>
-     * <li>
-     * <p>
-     * To use your default AWS KMS key, choose the <code>SecureString</code> data type, and do <i>not</i> specify the
-     * <code>Key ID</code> when you create the parameter. The system automatically populates <code>Key ID</code> with
-     * your default KMS key.
-     * </p>
-     * </li>
      * <li>
      * <p>
      * To use a custom KMS key, choose the <code>SecureString</code> data type with the <code>Key ID</code> parameter.
@@ -870,20 +1161,13 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </ul>
      * 
      * @param keyId
-     *        The KMS Key ID that you want to use to encrypt a parameter. Either the default AWS Key Management Service
-     *        (AWS KMS) key automatically assigned to your AWS account or a custom key. Required for parameters that use
-     *        the <code>SecureString</code> data type.</p>
+     *        The Key Management Service (KMS) ID that you want to use to encrypt a parameter. Use a custom key for
+     *        better security. Required for parameters that use the <code>SecureString</code> data type.</p>
      *        <p>
-     *        If you don't specify a key ID, the system uses the default key associated with your AWS account.
+     *        If you don't specify a key ID, the system uses the default key associated with your Amazon Web Services
+     *        account which is not as secure as using a custom key.
      *        </p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        To use your default AWS KMS key, choose the <code>SecureString</code> data type, and do <i>not</i> specify
-     *        the <code>Key ID</code> when you create the parameter. The system automatically populates
-     *        <code>Key ID</code> with your default KMS key.
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        To use a custom KMS key, choose the <code>SecureString</code> data type with the <code>Key ID</code>
@@ -898,21 +1182,14 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The KMS Key ID that you want to use to encrypt a parameter. Either the default AWS Key Management Service (AWS
-     * KMS) key automatically assigned to your AWS account or a custom key. Required for parameters that use the
-     * <code>SecureString</code> data type.
+     * The Key Management Service (KMS) ID that you want to use to encrypt a parameter. Use a custom key for better
+     * security. Required for parameters that use the <code>SecureString</code> data type.
      * </p>
      * <p>
-     * If you don't specify a key ID, the system uses the default key associated with your AWS account.
+     * If you don't specify a key ID, the system uses the default key associated with your Amazon Web Services account
+     * which is not as secure as using a custom key.
      * </p>
      * <ul>
-     * <li>
-     * <p>
-     * To use your default AWS KMS key, choose the <code>SecureString</code> data type, and do <i>not</i> specify the
-     * <code>Key ID</code> when you create the parameter. The system automatically populates <code>Key ID</code> with
-     * your default KMS key.
-     * </p>
-     * </li>
      * <li>
      * <p>
      * To use a custom KMS key, choose the <code>SecureString</code> data type with the <code>Key ID</code> parameter.
@@ -920,20 +1197,13 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </li>
      * </ul>
      * 
-     * @return The KMS Key ID that you want to use to encrypt a parameter. Either the default AWS Key Management Service
-     *         (AWS KMS) key automatically assigned to your AWS account or a custom key. Required for parameters that
-     *         use the <code>SecureString</code> data type.</p>
+     * @return The Key Management Service (KMS) ID that you want to use to encrypt a parameter. Use a custom key for
+     *         better security. Required for parameters that use the <code>SecureString</code> data type.</p>
      *         <p>
-     *         If you don't specify a key ID, the system uses the default key associated with your AWS account.
+     *         If you don't specify a key ID, the system uses the default key associated with your Amazon Web Services
+     *         account which is not as secure as using a custom key.
      *         </p>
      *         <ul>
-     *         <li>
-     *         <p>
-     *         To use your default AWS KMS key, choose the <code>SecureString</code> data type, and do <i>not</i>
-     *         specify the <code>Key ID</code> when you create the parameter. The system automatically populates
-     *         <code>Key ID</code> with your default KMS key.
-     *         </p>
-     *         </li>
      *         <li>
      *         <p>
      *         To use a custom KMS key, choose the <code>SecureString</code> data type with the <code>Key ID</code>
@@ -948,21 +1218,14 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The KMS Key ID that you want to use to encrypt a parameter. Either the default AWS Key Management Service (AWS
-     * KMS) key automatically assigned to your AWS account or a custom key. Required for parameters that use the
-     * <code>SecureString</code> data type.
+     * The Key Management Service (KMS) ID that you want to use to encrypt a parameter. Use a custom key for better
+     * security. Required for parameters that use the <code>SecureString</code> data type.
      * </p>
      * <p>
-     * If you don't specify a key ID, the system uses the default key associated with your AWS account.
+     * If you don't specify a key ID, the system uses the default key associated with your Amazon Web Services account
+     * which is not as secure as using a custom key.
      * </p>
      * <ul>
-     * <li>
-     * <p>
-     * To use your default AWS KMS key, choose the <code>SecureString</code> data type, and do <i>not</i> specify the
-     * <code>Key ID</code> when you create the parameter. The system automatically populates <code>Key ID</code> with
-     * your default KMS key.
-     * </p>
-     * </li>
      * <li>
      * <p>
      * To use a custom KMS key, choose the <code>SecureString</code> data type with the <code>Key ID</code> parameter.
@@ -971,20 +1234,13 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </ul>
      * 
      * @param keyId
-     *        The KMS Key ID that you want to use to encrypt a parameter. Either the default AWS Key Management Service
-     *        (AWS KMS) key automatically assigned to your AWS account or a custom key. Required for parameters that use
-     *        the <code>SecureString</code> data type.</p>
+     *        The Key Management Service (KMS) ID that you want to use to encrypt a parameter. Use a custom key for
+     *        better security. Required for parameters that use the <code>SecureString</code> data type.</p>
      *        <p>
-     *        If you don't specify a key ID, the system uses the default key associated with your AWS account.
+     *        If you don't specify a key ID, the system uses the default key associated with your Amazon Web Services
+     *        account which is not as secure as using a custom key.
      *        </p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        To use your default AWS KMS key, choose the <code>SecureString</code> data type, and do <i>not</i> specify
-     *        the <code>Key ID</code> when you create the parameter. The system automatically populates
-     *        <code>Key ID</code> with your default KMS key.
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        To use a custom KMS key, choose the <code>SecureString</code> data type with the <code>Key ID</code>
@@ -1001,11 +1257,11 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Overwrite an existing parameter. If not specified, will default to "false".
+     * Overwrite an existing parameter. The default value is <code>false</code>.
      * </p>
      * 
      * @param overwrite
-     *        Overwrite an existing parameter. If not specified, will default to "false".
+     *        Overwrite an existing parameter. The default value is <code>false</code>.
      */
 
     public void setOverwrite(Boolean overwrite) {
@@ -1014,10 +1270,10 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Overwrite an existing parameter. If not specified, will default to "false".
+     * Overwrite an existing parameter. The default value is <code>false</code>.
      * </p>
      * 
-     * @return Overwrite an existing parameter. If not specified, will default to "false".
+     * @return Overwrite an existing parameter. The default value is <code>false</code>.
      */
 
     public Boolean getOverwrite() {
@@ -1026,11 +1282,11 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Overwrite an existing parameter. If not specified, will default to "false".
+     * Overwrite an existing parameter. The default value is <code>false</code>.
      * </p>
      * 
      * @param overwrite
-     *        Overwrite an existing parameter. If not specified, will default to "false".
+     *        Overwrite an existing parameter. The default value is <code>false</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1041,10 +1297,10 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Overwrite an existing parameter. If not specified, will default to "false".
+     * Overwrite an existing parameter. The default value is <code>false</code>.
      * </p>
      * 
-     * @return Overwrite an existing parameter. If not specified, will default to "false".
+     * @return Overwrite an existing parameter. The default value is <code>false</code>.
      */
 
     public Boolean isOverwrite() {
@@ -1102,7 +1358,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such
      * as by purpose, owner, or environment. For example, you might want to tag a Systems Manager parameter to identify
      * the type of resource to which it applies, the environment, or the type of configuration data referenced by the
-     * parameter. In this case, you could specify the following key name/value pairs:
+     * parameter. In this case, you could specify the following key-value pairs:
      * </p>
      * <ul>
      * <li>
@@ -1123,15 +1379,15 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </ul>
      * <note>
      * <p>
-     * To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> action.
+     * To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> operation.
      * </p>
      * </note>
      * 
      * @return Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different
      *         ways, such as by purpose, owner, or environment. For example, you might want to tag a Systems Manager
      *         parameter to identify the type of resource to which it applies, the environment, or the type of
-     *         configuration data referenced by the parameter. In this case, you could specify the following key
-     *         name/value pairs:</p>
+     *         configuration data referenced by the parameter. In this case, you could specify the following key-value
+     *         pairs:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -1151,7 +1407,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      *         </ul>
      *         <note>
      *         <p>
-     *         To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> action.
+     *         To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> operation.
      *         </p>
      */
 
@@ -1167,7 +1423,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such
      * as by purpose, owner, or environment. For example, you might want to tag a Systems Manager parameter to identify
      * the type of resource to which it applies, the environment, or the type of configuration data referenced by the
-     * parameter. In this case, you could specify the following key name/value pairs:
+     * parameter. In this case, you could specify the following key-value pairs:
      * </p>
      * <ul>
      * <li>
@@ -1188,7 +1444,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </ul>
      * <note>
      * <p>
-     * To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> action.
+     * To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> operation.
      * </p>
      * </note>
      * 
@@ -1196,8 +1452,8 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different
      *        ways, such as by purpose, owner, or environment. For example, you might want to tag a Systems Manager
      *        parameter to identify the type of resource to which it applies, the environment, or the type of
-     *        configuration data referenced by the parameter. In this case, you could specify the following key
-     *        name/value pairs:</p>
+     *        configuration data referenced by the parameter. In this case, you could specify the following key-value
+     *        pairs:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1217,7 +1473,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        </ul>
      *        <note>
      *        <p>
-     *        To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> action.
+     *        To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> operation.
      *        </p>
      */
 
@@ -1235,7 +1491,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such
      * as by purpose, owner, or environment. For example, you might want to tag a Systems Manager parameter to identify
      * the type of resource to which it applies, the environment, or the type of configuration data referenced by the
-     * parameter. In this case, you could specify the following key name/value pairs:
+     * parameter. In this case, you could specify the following key-value pairs:
      * </p>
      * <ul>
      * <li>
@@ -1256,7 +1512,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </ul>
      * <note>
      * <p>
-     * To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> action.
+     * To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> operation.
      * </p>
      * </note>
      * <p>
@@ -1269,8 +1525,8 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different
      *        ways, such as by purpose, owner, or environment. For example, you might want to tag a Systems Manager
      *        parameter to identify the type of resource to which it applies, the environment, or the type of
-     *        configuration data referenced by the parameter. In this case, you could specify the following key
-     *        name/value pairs:</p>
+     *        configuration data referenced by the parameter. In this case, you could specify the following key-value
+     *        pairs:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1290,7 +1546,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        </ul>
      *        <note>
      *        <p>
-     *        To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> action.
+     *        To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> operation.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1310,7 +1566,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such
      * as by purpose, owner, or environment. For example, you might want to tag a Systems Manager parameter to identify
      * the type of resource to which it applies, the environment, or the type of configuration data referenced by the
-     * parameter. In this case, you could specify the following key name/value pairs:
+     * parameter. In this case, you could specify the following key-value pairs:
      * </p>
      * <ul>
      * <li>
@@ -1331,7 +1587,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </ul>
      * <note>
      * <p>
-     * To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> action.
+     * To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> operation.
      * </p>
      * </note>
      * 
@@ -1339,8 +1595,8 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different
      *        ways, such as by purpose, owner, or environment. For example, you might want to tag a Systems Manager
      *        parameter to identify the type of resource to which it applies, the environment, or the type of
-     *        configuration data referenced by the parameter. In this case, you could specify the following key
-     *        name/value pairs:</p>
+     *        configuration data referenced by the parameter. In this case, you could specify the following key-value
+     *        pairs:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1360,7 +1616,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        </ul>
      *        <note>
      *        <p>
-     *        To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> action.
+     *        To add tags to an existing Systems Manager parameter, use the <a>AddTagsToResource</a> operation.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1372,52 +1628,180 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a value
-     * limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000 standard
-     * parameters per account and per Region. Standard parameters are offered at no additional cost.
+     * The parameter tier to assign to a parameter.
      * </p>
      * <p>
-     * Advanced parameters have a value limit of 8 KB and can be configured to use parameter policies. You can create a
-     * maximum of 100,000 advanced parameters per account and per Region. Advanced parameters incur a charge.
+     * Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a content
+     * size limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000 standard
+     * parameters for each Region in an Amazon Web Services account. Standard parameters are offered at no additional
+     * cost.
      * </p>
      * <p>
-     * If you don't specify a parameter tier when you create a new parameter, the parameter defaults to using the
-     * standard tier. You can change a standard parameter to an advanced parameter at any time. But you can't revert an
-     * advanced parameter to a standard parameter. Reverting an advanced parameter to a standard parameter would result
-     * in data loss because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would also
-     * remove any policies attached to the parameter. Lastly, advanced parameters use a different form of encryption
-     * than standard parameters.
+     * Advanced parameters have a content size limit of 8 KB and can be configured to use parameter policies. You can
+     * create a maximum of 100,000 advanced parameters for each Region in an Amazon Web Services account. Advanced
+     * parameters incur a charge. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html"
+     * >Managing parameter tiers</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * <p>
+     * You can change a standard parameter to an advanced parameter any time. But you can't revert an advanced parameter
+     * to a standard parameter. Reverting an advanced parameter to a standard parameter would result in data loss
+     * because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would also remove any
+     * policies attached to the parameter. Lastly, advanced parameters use a different form of encryption than standard
+     * parameters.
      * </p>
      * <p>
      * If you no longer need an advanced parameter, or if you no longer want to incur charges for an advanced parameter,
-     * you must delete it and recreate it as a new standard parameter. For more information, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html">About
-     * Advanced Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     * you must delete it and recreate it as a new standard parameter.
+     * </p>
+     * <p>
+     * <b>Using the Default Tier Configuration</b>
+     * </p>
+     * <p>
+     * In <code>PutParameter</code> requests, you can specify the tier to create the parameter in. Whenever you specify
+     * a tier in the request, Parameter Store creates or updates the parameter according to that request. However, if
+     * you don't specify a tier in a request, Parameter Store assigns the tier based on the current Parameter Store
+     * default tier configuration.
+     * </p>
+     * <p>
+     * The default tier when you begin using Parameter Store is the standard-parameter tier. If you use the
+     * advanced-parameter tier, you can specify one of the following as the default:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>Advanced</b>: With this option, Parameter Store evaluates all requests as advanced parameters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Intelligent-Tiering</b>: With this option, Parameter Store evaluates each request to determine if the
+     * parameter is standard or advanced.
+     * </p>
+     * <p>
+     * If the request doesn't include any options that require an advanced parameter, the parameter is created in the
+     * standard-parameter tier. If one or more options requiring an advanced parameter are included in the request,
+     * Parameter Store create a parameter in the advanced-parameter tier.
+     * </p>
+     * <p>
+     * This approach helps control your parameter-related costs by always creating standard parameters unless an
+     * advanced parameter is necessary.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Options that require an advanced parameter include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The content size of the parameter is more than 4 KB.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The parameter uses a parameter policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * More than 10,000 parameters already exist in your Amazon Web Services account in the current Amazon Web Services
+     * Region.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information about configuring the default tier option, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html#ps-default-tier"
+     * >Specifying a default parameter tier</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param tier
-     *        Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a
-     *        value limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000
-     *        standard parameters per account and per Region. Standard parameters are offered at no additional cost.</p>
+     *        The parameter tier to assign to a parameter.</p>
      *        <p>
-     *        Advanced parameters have a value limit of 8 KB and can be configured to use parameter policies. You can
-     *        create a maximum of 100,000 advanced parameters per account and per Region. Advanced parameters incur a
-     *        charge.
+     *        Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a
+     *        content size limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of
+     *        10,000 standard parameters for each Region in an Amazon Web Services account. Standard parameters are
+     *        offered at no additional cost.
      *        </p>
      *        <p>
-     *        If you don't specify a parameter tier when you create a new parameter, the parameter defaults to using the
-     *        standard tier. You can change a standard parameter to an advanced parameter at any time. But you can't
-     *        revert an advanced parameter to a standard parameter. Reverting an advanced parameter to a standard
-     *        parameter would result in data loss because the system would truncate the size of the parameter from 8 KB
-     *        to 4 KB. Reverting would also remove any policies attached to the parameter. Lastly, advanced parameters
-     *        use a different form of encryption than standard parameters.
+     *        Advanced parameters have a content size limit of 8 KB and can be configured to use parameter policies. You
+     *        can create a maximum of 100,000 advanced parameters for each Region in an Amazon Web Services account.
+     *        Advanced parameters incur a charge. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html"
+     *        >Managing parameter tiers</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     *        </p>
+     *        <p>
+     *        You can change a standard parameter to an advanced parameter any time. But you can't revert an advanced
+     *        parameter to a standard parameter. Reverting an advanced parameter to a standard parameter would result in
+     *        data loss because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would
+     *        also remove any policies attached to the parameter. Lastly, advanced parameters use a different form of
+     *        encryption than standard parameters.
      *        </p>
      *        <p>
      *        If you no longer need an advanced parameter, or if you no longer want to incur charges for an advanced
-     *        parameter, you must delete it and recreate it as a new standard parameter. For more information, see <a
-     *        href
-     *        ="http://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html"
-     *        >About Advanced Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        parameter, you must delete it and recreate it as a new standard parameter.
+     *        </p>
+     *        <p>
+     *        <b>Using the Default Tier Configuration</b>
+     *        </p>
+     *        <p>
+     *        In <code>PutParameter</code> requests, you can specify the tier to create the parameter in. Whenever you
+     *        specify a tier in the request, Parameter Store creates or updates the parameter according to that request.
+     *        However, if you don't specify a tier in a request, Parameter Store assigns the tier based on the current
+     *        Parameter Store default tier configuration.
+     *        </p>
+     *        <p>
+     *        The default tier when you begin using Parameter Store is the standard-parameter tier. If you use the
+     *        advanced-parameter tier, you can specify one of the following as the default:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>Advanced</b>: With this option, Parameter Store evaluates all requests as advanced parameters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>Intelligent-Tiering</b>: With this option, Parameter Store evaluates each request to determine if the
+     *        parameter is standard or advanced.
+     *        </p>
+     *        <p>
+     *        If the request doesn't include any options that require an advanced parameter, the parameter is created in
+     *        the standard-parameter tier. If one or more options requiring an advanced parameter are included in the
+     *        request, Parameter Store create a parameter in the advanced-parameter tier.
+     *        </p>
+     *        <p>
+     *        This approach helps control your parameter-related costs by always creating standard parameters unless an
+     *        advanced parameter is necessary.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Options that require an advanced parameter include the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The content size of the parameter is more than 4 KB.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The parameter uses a parameter policy.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        More than 10,000 parameters already exist in your Amazon Web Services account in the current Amazon Web
+     *        Services Region.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information about configuring the default tier option, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html#ps-default-tier"
+     *        >Specifying a default parameter tier</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @see ParameterTier
      */
 
@@ -1427,52 +1811,179 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a value
-     * limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000 standard
-     * parameters per account and per Region. Standard parameters are offered at no additional cost.
+     * The parameter tier to assign to a parameter.
      * </p>
      * <p>
-     * Advanced parameters have a value limit of 8 KB and can be configured to use parameter policies. You can create a
-     * maximum of 100,000 advanced parameters per account and per Region. Advanced parameters incur a charge.
+     * Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a content
+     * size limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000 standard
+     * parameters for each Region in an Amazon Web Services account. Standard parameters are offered at no additional
+     * cost.
      * </p>
      * <p>
-     * If you don't specify a parameter tier when you create a new parameter, the parameter defaults to using the
-     * standard tier. You can change a standard parameter to an advanced parameter at any time. But you can't revert an
-     * advanced parameter to a standard parameter. Reverting an advanced parameter to a standard parameter would result
-     * in data loss because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would also
-     * remove any policies attached to the parameter. Lastly, advanced parameters use a different form of encryption
-     * than standard parameters.
+     * Advanced parameters have a content size limit of 8 KB and can be configured to use parameter policies. You can
+     * create a maximum of 100,000 advanced parameters for each Region in an Amazon Web Services account. Advanced
+     * parameters incur a charge. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html"
+     * >Managing parameter tiers</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * <p>
+     * You can change a standard parameter to an advanced parameter any time. But you can't revert an advanced parameter
+     * to a standard parameter. Reverting an advanced parameter to a standard parameter would result in data loss
+     * because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would also remove any
+     * policies attached to the parameter. Lastly, advanced parameters use a different form of encryption than standard
+     * parameters.
      * </p>
      * <p>
      * If you no longer need an advanced parameter, or if you no longer want to incur charges for an advanced parameter,
-     * you must delete it and recreate it as a new standard parameter. For more information, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html">About
-     * Advanced Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     * you must delete it and recreate it as a new standard parameter.
+     * </p>
+     * <p>
+     * <b>Using the Default Tier Configuration</b>
+     * </p>
+     * <p>
+     * In <code>PutParameter</code> requests, you can specify the tier to create the parameter in. Whenever you specify
+     * a tier in the request, Parameter Store creates or updates the parameter according to that request. However, if
+     * you don't specify a tier in a request, Parameter Store assigns the tier based on the current Parameter Store
+     * default tier configuration.
+     * </p>
+     * <p>
+     * The default tier when you begin using Parameter Store is the standard-parameter tier. If you use the
+     * advanced-parameter tier, you can specify one of the following as the default:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>Advanced</b>: With this option, Parameter Store evaluates all requests as advanced parameters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Intelligent-Tiering</b>: With this option, Parameter Store evaluates each request to determine if the
+     * parameter is standard or advanced.
+     * </p>
+     * <p>
+     * If the request doesn't include any options that require an advanced parameter, the parameter is created in the
+     * standard-parameter tier. If one or more options requiring an advanced parameter are included in the request,
+     * Parameter Store create a parameter in the advanced-parameter tier.
+     * </p>
+     * <p>
+     * This approach helps control your parameter-related costs by always creating standard parameters unless an
+     * advanced parameter is necessary.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Options that require an advanced parameter include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The content size of the parameter is more than 4 KB.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The parameter uses a parameter policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * More than 10,000 parameters already exist in your Amazon Web Services account in the current Amazon Web Services
+     * Region.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information about configuring the default tier option, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html#ps-default-tier"
+     * >Specifying a default parameter tier</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
-     * @return Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a
-     *         value limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000
-     *         standard parameters per account and per Region. Standard parameters are offered at no additional
-     *         cost.</p>
+     * @return The parameter tier to assign to a parameter.</p>
      *         <p>
-     *         Advanced parameters have a value limit of 8 KB and can be configured to use parameter policies. You can
-     *         create a maximum of 100,000 advanced parameters per account and per Region. Advanced parameters incur a
-     *         charge.
+     *         Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a
+     *         content size limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of
+     *         10,000 standard parameters for each Region in an Amazon Web Services account. Standard parameters are
+     *         offered at no additional cost.
      *         </p>
      *         <p>
-     *         If you don't specify a parameter tier when you create a new parameter, the parameter defaults to using
-     *         the standard tier. You can change a standard parameter to an advanced parameter at any time. But you
-     *         can't revert an advanced parameter to a standard parameter. Reverting an advanced parameter to a standard
-     *         parameter would result in data loss because the system would truncate the size of the parameter from 8 KB
-     *         to 4 KB. Reverting would also remove any policies attached to the parameter. Lastly, advanced parameters
-     *         use a different form of encryption than standard parameters.
+     *         Advanced parameters have a content size limit of 8 KB and can be configured to use parameter policies.
+     *         You can create a maximum of 100,000 advanced parameters for each Region in an Amazon Web Services
+     *         account. Advanced parameters incur a charge. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html"
+     *         >Managing parameter tiers</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     *         </p>
+     *         <p>
+     *         You can change a standard parameter to an advanced parameter any time. But you can't revert an advanced
+     *         parameter to a standard parameter. Reverting an advanced parameter to a standard parameter would result
+     *         in data loss because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting
+     *         would also remove any policies attached to the parameter. Lastly, advanced parameters use a different
+     *         form of encryption than standard parameters.
      *         </p>
      *         <p>
      *         If you no longer need an advanced parameter, or if you no longer want to incur charges for an advanced
-     *         parameter, you must delete it and recreate it as a new standard parameter. For more information, see <a
-     *         href
-     *         ="http://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html"
-     *         >About Advanced Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     *         parameter, you must delete it and recreate it as a new standard parameter.
+     *         </p>
+     *         <p>
+     *         <b>Using the Default Tier Configuration</b>
+     *         </p>
+     *         <p>
+     *         In <code>PutParameter</code> requests, you can specify the tier to create the parameter in. Whenever you
+     *         specify a tier in the request, Parameter Store creates or updates the parameter according to that
+     *         request. However, if you don't specify a tier in a request, Parameter Store assigns the tier based on the
+     *         current Parameter Store default tier configuration.
+     *         </p>
+     *         <p>
+     *         The default tier when you begin using Parameter Store is the standard-parameter tier. If you use the
+     *         advanced-parameter tier, you can specify one of the following as the default:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <b>Advanced</b>: With this option, Parameter Store evaluates all requests as advanced parameters.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <b>Intelligent-Tiering</b>: With this option, Parameter Store evaluates each request to determine if the
+     *         parameter is standard or advanced.
+     *         </p>
+     *         <p>
+     *         If the request doesn't include any options that require an advanced parameter, the parameter is created
+     *         in the standard-parameter tier. If one or more options requiring an advanced parameter are included in
+     *         the request, Parameter Store create a parameter in the advanced-parameter tier.
+     *         </p>
+     *         <p>
+     *         This approach helps control your parameter-related costs by always creating standard parameters unless an
+     *         advanced parameter is necessary.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Options that require an advanced parameter include the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         The content size of the parameter is more than 4 KB.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The parameter uses a parameter policy.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         More than 10,000 parameters already exist in your Amazon Web Services account in the current Amazon Web
+     *         Services Region.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information about configuring the default tier option, see <a href=
+     *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html#ps-default-tier"
+     *         >Specifying a default parameter tier</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @see ParameterTier
      */
 
@@ -1482,52 +1993,180 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a value
-     * limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000 standard
-     * parameters per account and per Region. Standard parameters are offered at no additional cost.
+     * The parameter tier to assign to a parameter.
      * </p>
      * <p>
-     * Advanced parameters have a value limit of 8 KB and can be configured to use parameter policies. You can create a
-     * maximum of 100,000 advanced parameters per account and per Region. Advanced parameters incur a charge.
+     * Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a content
+     * size limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000 standard
+     * parameters for each Region in an Amazon Web Services account. Standard parameters are offered at no additional
+     * cost.
      * </p>
      * <p>
-     * If you don't specify a parameter tier when you create a new parameter, the parameter defaults to using the
-     * standard tier. You can change a standard parameter to an advanced parameter at any time. But you can't revert an
-     * advanced parameter to a standard parameter. Reverting an advanced parameter to a standard parameter would result
-     * in data loss because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would also
-     * remove any policies attached to the parameter. Lastly, advanced parameters use a different form of encryption
-     * than standard parameters.
+     * Advanced parameters have a content size limit of 8 KB and can be configured to use parameter policies. You can
+     * create a maximum of 100,000 advanced parameters for each Region in an Amazon Web Services account. Advanced
+     * parameters incur a charge. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html"
+     * >Managing parameter tiers</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * <p>
+     * You can change a standard parameter to an advanced parameter any time. But you can't revert an advanced parameter
+     * to a standard parameter. Reverting an advanced parameter to a standard parameter would result in data loss
+     * because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would also remove any
+     * policies attached to the parameter. Lastly, advanced parameters use a different form of encryption than standard
+     * parameters.
      * </p>
      * <p>
      * If you no longer need an advanced parameter, or if you no longer want to incur charges for an advanced parameter,
-     * you must delete it and recreate it as a new standard parameter. For more information, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html">About
-     * Advanced Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     * you must delete it and recreate it as a new standard parameter.
+     * </p>
+     * <p>
+     * <b>Using the Default Tier Configuration</b>
+     * </p>
+     * <p>
+     * In <code>PutParameter</code> requests, you can specify the tier to create the parameter in. Whenever you specify
+     * a tier in the request, Parameter Store creates or updates the parameter according to that request. However, if
+     * you don't specify a tier in a request, Parameter Store assigns the tier based on the current Parameter Store
+     * default tier configuration.
+     * </p>
+     * <p>
+     * The default tier when you begin using Parameter Store is the standard-parameter tier. If you use the
+     * advanced-parameter tier, you can specify one of the following as the default:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>Advanced</b>: With this option, Parameter Store evaluates all requests as advanced parameters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Intelligent-Tiering</b>: With this option, Parameter Store evaluates each request to determine if the
+     * parameter is standard or advanced.
+     * </p>
+     * <p>
+     * If the request doesn't include any options that require an advanced parameter, the parameter is created in the
+     * standard-parameter tier. If one or more options requiring an advanced parameter are included in the request,
+     * Parameter Store create a parameter in the advanced-parameter tier.
+     * </p>
+     * <p>
+     * This approach helps control your parameter-related costs by always creating standard parameters unless an
+     * advanced parameter is necessary.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Options that require an advanced parameter include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The content size of the parameter is more than 4 KB.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The parameter uses a parameter policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * More than 10,000 parameters already exist in your Amazon Web Services account in the current Amazon Web Services
+     * Region.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information about configuring the default tier option, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html#ps-default-tier"
+     * >Specifying a default parameter tier</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param tier
-     *        Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a
-     *        value limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000
-     *        standard parameters per account and per Region. Standard parameters are offered at no additional cost.</p>
+     *        The parameter tier to assign to a parameter.</p>
      *        <p>
-     *        Advanced parameters have a value limit of 8 KB and can be configured to use parameter policies. You can
-     *        create a maximum of 100,000 advanced parameters per account and per Region. Advanced parameters incur a
-     *        charge.
+     *        Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a
+     *        content size limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of
+     *        10,000 standard parameters for each Region in an Amazon Web Services account. Standard parameters are
+     *        offered at no additional cost.
      *        </p>
      *        <p>
-     *        If you don't specify a parameter tier when you create a new parameter, the parameter defaults to using the
-     *        standard tier. You can change a standard parameter to an advanced parameter at any time. But you can't
-     *        revert an advanced parameter to a standard parameter. Reverting an advanced parameter to a standard
-     *        parameter would result in data loss because the system would truncate the size of the parameter from 8 KB
-     *        to 4 KB. Reverting would also remove any policies attached to the parameter. Lastly, advanced parameters
-     *        use a different form of encryption than standard parameters.
+     *        Advanced parameters have a content size limit of 8 KB and can be configured to use parameter policies. You
+     *        can create a maximum of 100,000 advanced parameters for each Region in an Amazon Web Services account.
+     *        Advanced parameters incur a charge. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html"
+     *        >Managing parameter tiers</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     *        </p>
+     *        <p>
+     *        You can change a standard parameter to an advanced parameter any time. But you can't revert an advanced
+     *        parameter to a standard parameter. Reverting an advanced parameter to a standard parameter would result in
+     *        data loss because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would
+     *        also remove any policies attached to the parameter. Lastly, advanced parameters use a different form of
+     *        encryption than standard parameters.
      *        </p>
      *        <p>
      *        If you no longer need an advanced parameter, or if you no longer want to incur charges for an advanced
-     *        parameter, you must delete it and recreate it as a new standard parameter. For more information, see <a
-     *        href
-     *        ="http://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html"
-     *        >About Advanced Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        parameter, you must delete it and recreate it as a new standard parameter.
+     *        </p>
+     *        <p>
+     *        <b>Using the Default Tier Configuration</b>
+     *        </p>
+     *        <p>
+     *        In <code>PutParameter</code> requests, you can specify the tier to create the parameter in. Whenever you
+     *        specify a tier in the request, Parameter Store creates or updates the parameter according to that request.
+     *        However, if you don't specify a tier in a request, Parameter Store assigns the tier based on the current
+     *        Parameter Store default tier configuration.
+     *        </p>
+     *        <p>
+     *        The default tier when you begin using Parameter Store is the standard-parameter tier. If you use the
+     *        advanced-parameter tier, you can specify one of the following as the default:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>Advanced</b>: With this option, Parameter Store evaluates all requests as advanced parameters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>Intelligent-Tiering</b>: With this option, Parameter Store evaluates each request to determine if the
+     *        parameter is standard or advanced.
+     *        </p>
+     *        <p>
+     *        If the request doesn't include any options that require an advanced parameter, the parameter is created in
+     *        the standard-parameter tier. If one or more options requiring an advanced parameter are included in the
+     *        request, Parameter Store create a parameter in the advanced-parameter tier.
+     *        </p>
+     *        <p>
+     *        This approach helps control your parameter-related costs by always creating standard parameters unless an
+     *        advanced parameter is necessary.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Options that require an advanced parameter include the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The content size of the parameter is more than 4 KB.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The parameter uses a parameter policy.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        More than 10,000 parameters already exist in your Amazon Web Services account in the current Amazon Web
+     *        Services Region.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information about configuring the default tier option, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html#ps-default-tier"
+     *        >Specifying a default parameter tier</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ParameterTier
      */
@@ -1539,52 +2178,180 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a value
-     * limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000 standard
-     * parameters per account and per Region. Standard parameters are offered at no additional cost.
+     * The parameter tier to assign to a parameter.
      * </p>
      * <p>
-     * Advanced parameters have a value limit of 8 KB and can be configured to use parameter policies. You can create a
-     * maximum of 100,000 advanced parameters per account and per Region. Advanced parameters incur a charge.
+     * Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a content
+     * size limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000 standard
+     * parameters for each Region in an Amazon Web Services account. Standard parameters are offered at no additional
+     * cost.
      * </p>
      * <p>
-     * If you don't specify a parameter tier when you create a new parameter, the parameter defaults to using the
-     * standard tier. You can change a standard parameter to an advanced parameter at any time. But you can't revert an
-     * advanced parameter to a standard parameter. Reverting an advanced parameter to a standard parameter would result
-     * in data loss because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would also
-     * remove any policies attached to the parameter. Lastly, advanced parameters use a different form of encryption
-     * than standard parameters.
+     * Advanced parameters have a content size limit of 8 KB and can be configured to use parameter policies. You can
+     * create a maximum of 100,000 advanced parameters for each Region in an Amazon Web Services account. Advanced
+     * parameters incur a charge. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html"
+     * >Managing parameter tiers</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * <p>
+     * You can change a standard parameter to an advanced parameter any time. But you can't revert an advanced parameter
+     * to a standard parameter. Reverting an advanced parameter to a standard parameter would result in data loss
+     * because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would also remove any
+     * policies attached to the parameter. Lastly, advanced parameters use a different form of encryption than standard
+     * parameters.
      * </p>
      * <p>
      * If you no longer need an advanced parameter, or if you no longer want to incur charges for an advanced parameter,
-     * you must delete it and recreate it as a new standard parameter. For more information, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html">About
-     * Advanced Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     * you must delete it and recreate it as a new standard parameter.
+     * </p>
+     * <p>
+     * <b>Using the Default Tier Configuration</b>
+     * </p>
+     * <p>
+     * In <code>PutParameter</code> requests, you can specify the tier to create the parameter in. Whenever you specify
+     * a tier in the request, Parameter Store creates or updates the parameter according to that request. However, if
+     * you don't specify a tier in a request, Parameter Store assigns the tier based on the current Parameter Store
+     * default tier configuration.
+     * </p>
+     * <p>
+     * The default tier when you begin using Parameter Store is the standard-parameter tier. If you use the
+     * advanced-parameter tier, you can specify one of the following as the default:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>Advanced</b>: With this option, Parameter Store evaluates all requests as advanced parameters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Intelligent-Tiering</b>: With this option, Parameter Store evaluates each request to determine if the
+     * parameter is standard or advanced.
+     * </p>
+     * <p>
+     * If the request doesn't include any options that require an advanced parameter, the parameter is created in the
+     * standard-parameter tier. If one or more options requiring an advanced parameter are included in the request,
+     * Parameter Store create a parameter in the advanced-parameter tier.
+     * </p>
+     * <p>
+     * This approach helps control your parameter-related costs by always creating standard parameters unless an
+     * advanced parameter is necessary.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Options that require an advanced parameter include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The content size of the parameter is more than 4 KB.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The parameter uses a parameter policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * More than 10,000 parameters already exist in your Amazon Web Services account in the current Amazon Web Services
+     * Region.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information about configuring the default tier option, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html#ps-default-tier"
+     * >Specifying a default parameter tier</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param tier
-     *        Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a
-     *        value limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000
-     *        standard parameters per account and per Region. Standard parameters are offered at no additional cost.</p>
+     *        The parameter tier to assign to a parameter.</p>
      *        <p>
-     *        Advanced parameters have a value limit of 8 KB and can be configured to use parameter policies. You can
-     *        create a maximum of 100,000 advanced parameters per account and per Region. Advanced parameters incur a
-     *        charge.
+     *        Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a
+     *        content size limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of
+     *        10,000 standard parameters for each Region in an Amazon Web Services account. Standard parameters are
+     *        offered at no additional cost.
      *        </p>
      *        <p>
-     *        If you don't specify a parameter tier when you create a new parameter, the parameter defaults to using the
-     *        standard tier. You can change a standard parameter to an advanced parameter at any time. But you can't
-     *        revert an advanced parameter to a standard parameter. Reverting an advanced parameter to a standard
-     *        parameter would result in data loss because the system would truncate the size of the parameter from 8 KB
-     *        to 4 KB. Reverting would also remove any policies attached to the parameter. Lastly, advanced parameters
-     *        use a different form of encryption than standard parameters.
+     *        Advanced parameters have a content size limit of 8 KB and can be configured to use parameter policies. You
+     *        can create a maximum of 100,000 advanced parameters for each Region in an Amazon Web Services account.
+     *        Advanced parameters incur a charge. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html"
+     *        >Managing parameter tiers</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     *        </p>
+     *        <p>
+     *        You can change a standard parameter to an advanced parameter any time. But you can't revert an advanced
+     *        parameter to a standard parameter. Reverting an advanced parameter to a standard parameter would result in
+     *        data loss because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would
+     *        also remove any policies attached to the parameter. Lastly, advanced parameters use a different form of
+     *        encryption than standard parameters.
      *        </p>
      *        <p>
      *        If you no longer need an advanced parameter, or if you no longer want to incur charges for an advanced
-     *        parameter, you must delete it and recreate it as a new standard parameter. For more information, see <a
-     *        href
-     *        ="http://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html"
-     *        >About Advanced Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        parameter, you must delete it and recreate it as a new standard parameter.
+     *        </p>
+     *        <p>
+     *        <b>Using the Default Tier Configuration</b>
+     *        </p>
+     *        <p>
+     *        In <code>PutParameter</code> requests, you can specify the tier to create the parameter in. Whenever you
+     *        specify a tier in the request, Parameter Store creates or updates the parameter according to that request.
+     *        However, if you don't specify a tier in a request, Parameter Store assigns the tier based on the current
+     *        Parameter Store default tier configuration.
+     *        </p>
+     *        <p>
+     *        The default tier when you begin using Parameter Store is the standard-parameter tier. If you use the
+     *        advanced-parameter tier, you can specify one of the following as the default:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>Advanced</b>: With this option, Parameter Store evaluates all requests as advanced parameters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>Intelligent-Tiering</b>: With this option, Parameter Store evaluates each request to determine if the
+     *        parameter is standard or advanced.
+     *        </p>
+     *        <p>
+     *        If the request doesn't include any options that require an advanced parameter, the parameter is created in
+     *        the standard-parameter tier. If one or more options requiring an advanced parameter are included in the
+     *        request, Parameter Store create a parameter in the advanced-parameter tier.
+     *        </p>
+     *        <p>
+     *        This approach helps control your parameter-related costs by always creating standard parameters unless an
+     *        advanced parameter is necessary.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Options that require an advanced parameter include the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The content size of the parameter is more than 4 KB.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The parameter uses a parameter policy.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        More than 10,000 parameters already exist in your Amazon Web Services account in the current Amazon Web
+     *        Services Region.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information about configuring the default tier option, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html#ps-default-tier"
+     *        >Specifying a default parameter tier</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @see ParameterTier
      */
 
@@ -1594,52 +2361,180 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a value
-     * limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000 standard
-     * parameters per account and per Region. Standard parameters are offered at no additional cost.
+     * The parameter tier to assign to a parameter.
      * </p>
      * <p>
-     * Advanced parameters have a value limit of 8 KB and can be configured to use parameter policies. You can create a
-     * maximum of 100,000 advanced parameters per account and per Region. Advanced parameters incur a charge.
+     * Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a content
+     * size limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000 standard
+     * parameters for each Region in an Amazon Web Services account. Standard parameters are offered at no additional
+     * cost.
      * </p>
      * <p>
-     * If you don't specify a parameter tier when you create a new parameter, the parameter defaults to using the
-     * standard tier. You can change a standard parameter to an advanced parameter at any time. But you can't revert an
-     * advanced parameter to a standard parameter. Reverting an advanced parameter to a standard parameter would result
-     * in data loss because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would also
-     * remove any policies attached to the parameter. Lastly, advanced parameters use a different form of encryption
-     * than standard parameters.
+     * Advanced parameters have a content size limit of 8 KB and can be configured to use parameter policies. You can
+     * create a maximum of 100,000 advanced parameters for each Region in an Amazon Web Services account. Advanced
+     * parameters incur a charge. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html"
+     * >Managing parameter tiers</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     * </p>
+     * <p>
+     * You can change a standard parameter to an advanced parameter any time. But you can't revert an advanced parameter
+     * to a standard parameter. Reverting an advanced parameter to a standard parameter would result in data loss
+     * because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would also remove any
+     * policies attached to the parameter. Lastly, advanced parameters use a different form of encryption than standard
+     * parameters.
      * </p>
      * <p>
      * If you no longer need an advanced parameter, or if you no longer want to incur charges for an advanced parameter,
-     * you must delete it and recreate it as a new standard parameter. For more information, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html">About
-     * Advanced Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     * you must delete it and recreate it as a new standard parameter.
+     * </p>
+     * <p>
+     * <b>Using the Default Tier Configuration</b>
+     * </p>
+     * <p>
+     * In <code>PutParameter</code> requests, you can specify the tier to create the parameter in. Whenever you specify
+     * a tier in the request, Parameter Store creates or updates the parameter according to that request. However, if
+     * you don't specify a tier in a request, Parameter Store assigns the tier based on the current Parameter Store
+     * default tier configuration.
+     * </p>
+     * <p>
+     * The default tier when you begin using Parameter Store is the standard-parameter tier. If you use the
+     * advanced-parameter tier, you can specify one of the following as the default:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <b>Advanced</b>: With this option, Parameter Store evaluates all requests as advanced parameters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>Intelligent-Tiering</b>: With this option, Parameter Store evaluates each request to determine if the
+     * parameter is standard or advanced.
+     * </p>
+     * <p>
+     * If the request doesn't include any options that require an advanced parameter, the parameter is created in the
+     * standard-parameter tier. If one or more options requiring an advanced parameter are included in the request,
+     * Parameter Store create a parameter in the advanced-parameter tier.
+     * </p>
+     * <p>
+     * This approach helps control your parameter-related costs by always creating standard parameters unless an
+     * advanced parameter is necessary.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Options that require an advanced parameter include the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The content size of the parameter is more than 4 KB.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The parameter uses a parameter policy.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * More than 10,000 parameters already exist in your Amazon Web Services account in the current Amazon Web Services
+     * Region.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information about configuring the default tier option, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html#ps-default-tier"
+     * >Specifying a default parameter tier</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param tier
-     *        Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a
-     *        value limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of 10,000
-     *        standard parameters per account and per Region. Standard parameters are offered at no additional cost.</p>
+     *        The parameter tier to assign to a parameter.</p>
      *        <p>
-     *        Advanced parameters have a value limit of 8 KB and can be configured to use parameter policies. You can
-     *        create a maximum of 100,000 advanced parameters per account and per Region. Advanced parameters incur a
-     *        charge.
+     *        Parameter Store offers a standard tier and an advanced tier for parameters. Standard parameters have a
+     *        content size limit of 4 KB and can't be configured to use parameter policies. You can create a maximum of
+     *        10,000 standard parameters for each Region in an Amazon Web Services account. Standard parameters are
+     *        offered at no additional cost.
      *        </p>
      *        <p>
-     *        If you don't specify a parameter tier when you create a new parameter, the parameter defaults to using the
-     *        standard tier. You can change a standard parameter to an advanced parameter at any time. But you can't
-     *        revert an advanced parameter to a standard parameter. Reverting an advanced parameter to a standard
-     *        parameter would result in data loss because the system would truncate the size of the parameter from 8 KB
-     *        to 4 KB. Reverting would also remove any policies attached to the parameter. Lastly, advanced parameters
-     *        use a different form of encryption than standard parameters.
+     *        Advanced parameters have a content size limit of 8 KB and can be configured to use parameter policies. You
+     *        can create a maximum of 100,000 advanced parameters for each Region in an Amazon Web Services account.
+     *        Advanced parameters incur a charge. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html"
+     *        >Managing parameter tiers</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
+     *        </p>
+     *        <p>
+     *        You can change a standard parameter to an advanced parameter any time. But you can't revert an advanced
+     *        parameter to a standard parameter. Reverting an advanced parameter to a standard parameter would result in
+     *        data loss because the system would truncate the size of the parameter from 8 KB to 4 KB. Reverting would
+     *        also remove any policies attached to the parameter. Lastly, advanced parameters use a different form of
+     *        encryption than standard parameters.
      *        </p>
      *        <p>
      *        If you no longer need an advanced parameter, or if you no longer want to incur charges for an advanced
-     *        parameter, you must delete it and recreate it as a new standard parameter. For more information, see <a
-     *        href
-     *        ="http://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html"
-     *        >About Advanced Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        parameter, you must delete it and recreate it as a new standard parameter.
+     *        </p>
+     *        <p>
+     *        <b>Using the Default Tier Configuration</b>
+     *        </p>
+     *        <p>
+     *        In <code>PutParameter</code> requests, you can specify the tier to create the parameter in. Whenever you
+     *        specify a tier in the request, Parameter Store creates or updates the parameter according to that request.
+     *        However, if you don't specify a tier in a request, Parameter Store assigns the tier based on the current
+     *        Parameter Store default tier configuration.
+     *        </p>
+     *        <p>
+     *        The default tier when you begin using Parameter Store is the standard-parameter tier. If you use the
+     *        advanced-parameter tier, you can specify one of the following as the default:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <b>Advanced</b>: With this option, Parameter Store evaluates all requests as advanced parameters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <b>Intelligent-Tiering</b>: With this option, Parameter Store evaluates each request to determine if the
+     *        parameter is standard or advanced.
+     *        </p>
+     *        <p>
+     *        If the request doesn't include any options that require an advanced parameter, the parameter is created in
+     *        the standard-parameter tier. If one or more options requiring an advanced parameter are included in the
+     *        request, Parameter Store create a parameter in the advanced-parameter tier.
+     *        </p>
+     *        <p>
+     *        This approach helps control your parameter-related costs by always creating standard parameters unless an
+     *        advanced parameter is necessary.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Options that require an advanced parameter include the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The content size of the parameter is more than 4 KB.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The parameter uses a parameter policy.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        More than 10,000 parameters already exist in your Amazon Web Services account in the current Amazon Web
+     *        Services Region.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information about configuring the default tier option, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html#ps-default-tier"
+     *        >Specifying a default parameter tier</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ParameterTier
      */
@@ -1651,56 +2546,56 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * One or more policies to apply to a parameter. This action takes a JSON array. Parameter Store supports the
-     * following policy types:
+     * One or more policies to apply to a parameter. This operation takes a JSON array. Parameter Store, a capability of
+     * Amazon Web Services Systems Manager supports the following policy types:
      * </p>
      * <p>
      * Expiration: This policy deletes the parameter after it expires. When you create the policy, you specify the
      * expiration date. You can update the expiration date and time by updating the policy. Updating the
-     * <i>parameter</i> does not affect the expiration date and time. When the expiration time is reached, Parameter
+     * <i>parameter</i> doesn't affect the expiration date and time. When the expiration time is reached, Parameter
      * Store deletes the parameter.
      * </p>
      * <p>
-     * ExpirationNotification: This policy triggers an event in Amazon CloudWatch Events that notifies you about the
+     * ExpirationNotification: This policy initiates an event in Amazon CloudWatch Events that notifies you about the
      * expiration. By using this policy, you can receive notification before or after the expiration time is reached, in
      * units of days or hours.
      * </p>
      * <p>
-     * NoChangeNotification: This policy triggers a CloudWatch event if a parameter has not been modified for a
+     * NoChangeNotification: This policy initiates a CloudWatch Events event if a parameter hasn't been modified for a
      * specified period of time. This policy type is useful when, for example, a secret needs to be changed within a
-     * period of time, but it has not been changed.
+     * period of time, but it hasn't been changed.
      * </p>
      * <p>
      * All existing policies are preserved until you send new policies or an empty policy. For more information about
      * parameter policies, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-policies.html">Working
-     * with Parameter Policies</a>.
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html">Assigning
+     * parameter policies</a>.
      * </p>
      * 
      * @param policies
-     *        One or more policies to apply to a parameter. This action takes a JSON array. Parameter Store supports the
-     *        following policy types:</p>
+     *        One or more policies to apply to a parameter. This operation takes a JSON array. Parameter Store, a
+     *        capability of Amazon Web Services Systems Manager supports the following policy types:</p>
      *        <p>
      *        Expiration: This policy deletes the parameter after it expires. When you create the policy, you specify
      *        the expiration date. You can update the expiration date and time by updating the policy. Updating the
-     *        <i>parameter</i> does not affect the expiration date and time. When the expiration time is reached,
+     *        <i>parameter</i> doesn't affect the expiration date and time. When the expiration time is reached,
      *        Parameter Store deletes the parameter.
      *        </p>
      *        <p>
-     *        ExpirationNotification: This policy triggers an event in Amazon CloudWatch Events that notifies you about
+     *        ExpirationNotification: This policy initiates an event in Amazon CloudWatch Events that notifies you about
      *        the expiration. By using this policy, you can receive notification before or after the expiration time is
      *        reached, in units of days or hours.
      *        </p>
      *        <p>
-     *        NoChangeNotification: This policy triggers a CloudWatch event if a parameter has not been modified for a
-     *        specified period of time. This policy type is useful when, for example, a secret needs to be changed
-     *        within a period of time, but it has not been changed.
+     *        NoChangeNotification: This policy initiates a CloudWatch Events event if a parameter hasn't been modified
+     *        for a specified period of time. This policy type is useful when, for example, a secret needs to be changed
+     *        within a period of time, but it hasn't been changed.
      *        </p>
      *        <p>
      *        All existing policies are preserved until you send new policies or an empty policy. For more information
      *        about parameter policies, see <a
-     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-policies.html"
-     *        >Working with Parameter Policies</a>.
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html"
+     *        >Assigning parameter policies</a>.
      */
 
     public void setPolicies(String policies) {
@@ -1709,55 +2604,55 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * One or more policies to apply to a parameter. This action takes a JSON array. Parameter Store supports the
-     * following policy types:
+     * One or more policies to apply to a parameter. This operation takes a JSON array. Parameter Store, a capability of
+     * Amazon Web Services Systems Manager supports the following policy types:
      * </p>
      * <p>
      * Expiration: This policy deletes the parameter after it expires. When you create the policy, you specify the
      * expiration date. You can update the expiration date and time by updating the policy. Updating the
-     * <i>parameter</i> does not affect the expiration date and time. When the expiration time is reached, Parameter
+     * <i>parameter</i> doesn't affect the expiration date and time. When the expiration time is reached, Parameter
      * Store deletes the parameter.
      * </p>
      * <p>
-     * ExpirationNotification: This policy triggers an event in Amazon CloudWatch Events that notifies you about the
+     * ExpirationNotification: This policy initiates an event in Amazon CloudWatch Events that notifies you about the
      * expiration. By using this policy, you can receive notification before or after the expiration time is reached, in
      * units of days or hours.
      * </p>
      * <p>
-     * NoChangeNotification: This policy triggers a CloudWatch event if a parameter has not been modified for a
+     * NoChangeNotification: This policy initiates a CloudWatch Events event if a parameter hasn't been modified for a
      * specified period of time. This policy type is useful when, for example, a secret needs to be changed within a
-     * period of time, but it has not been changed.
+     * period of time, but it hasn't been changed.
      * </p>
      * <p>
      * All existing policies are preserved until you send new policies or an empty policy. For more information about
      * parameter policies, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-policies.html">Working
-     * with Parameter Policies</a>.
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html">Assigning
+     * parameter policies</a>.
      * </p>
      * 
-     * @return One or more policies to apply to a parameter. This action takes a JSON array. Parameter Store supports
-     *         the following policy types:</p>
+     * @return One or more policies to apply to a parameter. This operation takes a JSON array. Parameter Store, a
+     *         capability of Amazon Web Services Systems Manager supports the following policy types:</p>
      *         <p>
      *         Expiration: This policy deletes the parameter after it expires. When you create the policy, you specify
      *         the expiration date. You can update the expiration date and time by updating the policy. Updating the
-     *         <i>parameter</i> does not affect the expiration date and time. When the expiration time is reached,
+     *         <i>parameter</i> doesn't affect the expiration date and time. When the expiration time is reached,
      *         Parameter Store deletes the parameter.
      *         </p>
      *         <p>
-     *         ExpirationNotification: This policy triggers an event in Amazon CloudWatch Events that notifies you about
-     *         the expiration. By using this policy, you can receive notification before or after the expiration time is
-     *         reached, in units of days or hours.
+     *         ExpirationNotification: This policy initiates an event in Amazon CloudWatch Events that notifies you
+     *         about the expiration. By using this policy, you can receive notification before or after the expiration
+     *         time is reached, in units of days or hours.
      *         </p>
      *         <p>
-     *         NoChangeNotification: This policy triggers a CloudWatch event if a parameter has not been modified for a
-     *         specified period of time. This policy type is useful when, for example, a secret needs to be changed
-     *         within a period of time, but it has not been changed.
+     *         NoChangeNotification: This policy initiates a CloudWatch Events event if a parameter hasn't been modified
+     *         for a specified period of time. This policy type is useful when, for example, a secret needs to be
+     *         changed within a period of time, but it hasn't been changed.
      *         </p>
      *         <p>
      *         All existing policies are preserved until you send new policies or an empty policy. For more information
      *         about parameter policies, see <a
-     *         href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-policies.html"
-     *         >Working with Parameter Policies</a>.
+     *         href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html"
+     *         >Assigning parameter policies</a>.
      */
 
     public String getPolicies() {
@@ -1766,61 +2661,359 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * One or more policies to apply to a parameter. This action takes a JSON array. Parameter Store supports the
-     * following policy types:
+     * One or more policies to apply to a parameter. This operation takes a JSON array. Parameter Store, a capability of
+     * Amazon Web Services Systems Manager supports the following policy types:
      * </p>
      * <p>
      * Expiration: This policy deletes the parameter after it expires. When you create the policy, you specify the
      * expiration date. You can update the expiration date and time by updating the policy. Updating the
-     * <i>parameter</i> does not affect the expiration date and time. When the expiration time is reached, Parameter
+     * <i>parameter</i> doesn't affect the expiration date and time. When the expiration time is reached, Parameter
      * Store deletes the parameter.
      * </p>
      * <p>
-     * ExpirationNotification: This policy triggers an event in Amazon CloudWatch Events that notifies you about the
+     * ExpirationNotification: This policy initiates an event in Amazon CloudWatch Events that notifies you about the
      * expiration. By using this policy, you can receive notification before or after the expiration time is reached, in
      * units of days or hours.
      * </p>
      * <p>
-     * NoChangeNotification: This policy triggers a CloudWatch event if a parameter has not been modified for a
+     * NoChangeNotification: This policy initiates a CloudWatch Events event if a parameter hasn't been modified for a
      * specified period of time. This policy type is useful when, for example, a secret needs to be changed within a
-     * period of time, but it has not been changed.
+     * period of time, but it hasn't been changed.
      * </p>
      * <p>
      * All existing policies are preserved until you send new policies or an empty policy. For more information about
      * parameter policies, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-policies.html">Working
-     * with Parameter Policies</a>.
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html">Assigning
+     * parameter policies</a>.
      * </p>
      * 
      * @param policies
-     *        One or more policies to apply to a parameter. This action takes a JSON array. Parameter Store supports the
-     *        following policy types:</p>
+     *        One or more policies to apply to a parameter. This operation takes a JSON array. Parameter Store, a
+     *        capability of Amazon Web Services Systems Manager supports the following policy types:</p>
      *        <p>
      *        Expiration: This policy deletes the parameter after it expires. When you create the policy, you specify
      *        the expiration date. You can update the expiration date and time by updating the policy. Updating the
-     *        <i>parameter</i> does not affect the expiration date and time. When the expiration time is reached,
+     *        <i>parameter</i> doesn't affect the expiration date and time. When the expiration time is reached,
      *        Parameter Store deletes the parameter.
      *        </p>
      *        <p>
-     *        ExpirationNotification: This policy triggers an event in Amazon CloudWatch Events that notifies you about
+     *        ExpirationNotification: This policy initiates an event in Amazon CloudWatch Events that notifies you about
      *        the expiration. By using this policy, you can receive notification before or after the expiration time is
      *        reached, in units of days or hours.
      *        </p>
      *        <p>
-     *        NoChangeNotification: This policy triggers a CloudWatch event if a parameter has not been modified for a
-     *        specified period of time. This policy type is useful when, for example, a secret needs to be changed
-     *        within a period of time, but it has not been changed.
+     *        NoChangeNotification: This policy initiates a CloudWatch Events event if a parameter hasn't been modified
+     *        for a specified period of time. This policy type is useful when, for example, a secret needs to be changed
+     *        within a period of time, but it hasn't been changed.
      *        </p>
      *        <p>
      *        All existing policies are preserved until you send new policies or an empty policy. For more information
      *        about parameter policies, see <a
-     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-policies.html"
-     *        >Working with Parameter Policies</a>.
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html"
+     *        >Assigning parameter policies</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public PutParameterRequest withPolicies(String policies) {
         setPolicies(policies);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The data type for a <code>String</code> parameter. Supported data types include plain text and Amazon Machine
+     * Image (AMI) IDs.
+     * </p>
+     * <p>
+     * <b>The following data type values are supported.</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>text</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aws:ec2:image</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aws:ssm:integration</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When you create a <code>String</code> parameter and specify <code>aws:ec2:image</code>, Amazon Web Services
+     * Systems Manager validates the parameter value is in the required format, such as
+     * <code>ami-12345abcdeEXAMPLE</code>, and that the specified AMI is available in your Amazon Web Services account.
+     * </p>
+     * <note>
+     * <p>
+     * If the action is successful, the service sends back an HTTP 200 response which indicates a successful
+     * <code>PutParameter</code> call for all cases except for data type <code>aws:ec2:image</code>. If you call
+     * <code>PutParameter</code> with <code>aws:ec2:image</code> data type, a successful HTTP 200 response does not
+     * guarantee that your parameter was successfully created or updated. The <code>aws:ec2:image</code> value is
+     * validated asynchronously, and the <code>PutParameter</code> call returns before the validation is complete. If
+     * you submit an invalid AMI value, the PutParameter operation will return success, but the asynchronous validation
+     * will fail and the parameter will not be created or updated. To monitor whether your <code>aws:ec2:image</code>
+     * parameters are created successfully, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-cwe.html">Setting up
+     * notifications or trigger actions based on Parameter Store events</a>. For more information about AMI format
+     * validation , see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-ec2-aliases.html">Native
+     * parameter support for Amazon Machine Image IDs</a>.
+     * </p>
+     * </note>
+     * 
+     * @param dataType
+     *        The data type for a <code>String</code> parameter. Supported data types include plain text and Amazon
+     *        Machine Image (AMI) IDs.</p>
+     *        <p>
+     *        <b>The following data type values are supported.</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>text</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>aws:ec2:image</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>aws:ssm:integration</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        When you create a <code>String</code> parameter and specify <code>aws:ec2:image</code>, Amazon Web
+     *        Services Systems Manager validates the parameter value is in the required format, such as
+     *        <code>ami-12345abcdeEXAMPLE</code>, and that the specified AMI is available in your Amazon Web Services
+     *        account.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If the action is successful, the service sends back an HTTP 200 response which indicates a successful
+     *        <code>PutParameter</code> call for all cases except for data type <code>aws:ec2:image</code>. If you call
+     *        <code>PutParameter</code> with <code>aws:ec2:image</code> data type, a successful HTTP 200 response does
+     *        not guarantee that your parameter was successfully created or updated. The <code>aws:ec2:image</code>
+     *        value is validated asynchronously, and the <code>PutParameter</code> call returns before the validation is
+     *        complete. If you submit an invalid AMI value, the PutParameter operation will return success, but the
+     *        asynchronous validation will fail and the parameter will not be created or updated. To monitor whether
+     *        your <code>aws:ec2:image</code> parameters are created successfully, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-cwe.html">Setting up
+     *        notifications or trigger actions based on Parameter Store events</a>. For more information about AMI
+     *        format validation , see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-ec2-aliases.html"
+     *        >Native parameter support for Amazon Machine Image IDs</a>.
+     *        </p>
+     */
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
+
+    /**
+     * <p>
+     * The data type for a <code>String</code> parameter. Supported data types include plain text and Amazon Machine
+     * Image (AMI) IDs.
+     * </p>
+     * <p>
+     * <b>The following data type values are supported.</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>text</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aws:ec2:image</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aws:ssm:integration</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When you create a <code>String</code> parameter and specify <code>aws:ec2:image</code>, Amazon Web Services
+     * Systems Manager validates the parameter value is in the required format, such as
+     * <code>ami-12345abcdeEXAMPLE</code>, and that the specified AMI is available in your Amazon Web Services account.
+     * </p>
+     * <note>
+     * <p>
+     * If the action is successful, the service sends back an HTTP 200 response which indicates a successful
+     * <code>PutParameter</code> call for all cases except for data type <code>aws:ec2:image</code>. If you call
+     * <code>PutParameter</code> with <code>aws:ec2:image</code> data type, a successful HTTP 200 response does not
+     * guarantee that your parameter was successfully created or updated. The <code>aws:ec2:image</code> value is
+     * validated asynchronously, and the <code>PutParameter</code> call returns before the validation is complete. If
+     * you submit an invalid AMI value, the PutParameter operation will return success, but the asynchronous validation
+     * will fail and the parameter will not be created or updated. To monitor whether your <code>aws:ec2:image</code>
+     * parameters are created successfully, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-cwe.html">Setting up
+     * notifications or trigger actions based on Parameter Store events</a>. For more information about AMI format
+     * validation , see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-ec2-aliases.html">Native
+     * parameter support for Amazon Machine Image IDs</a>.
+     * </p>
+     * </note>
+     * 
+     * @return The data type for a <code>String</code> parameter. Supported data types include plain text and Amazon
+     *         Machine Image (AMI) IDs.</p>
+     *         <p>
+     *         <b>The following data type values are supported.</b>
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>text</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>aws:ec2:image</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>aws:ssm:integration</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         When you create a <code>String</code> parameter and specify <code>aws:ec2:image</code>, Amazon Web
+     *         Services Systems Manager validates the parameter value is in the required format, such as
+     *         <code>ami-12345abcdeEXAMPLE</code>, and that the specified AMI is available in your Amazon Web Services
+     *         account.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         If the action is successful, the service sends back an HTTP 200 response which indicates a successful
+     *         <code>PutParameter</code> call for all cases except for data type <code>aws:ec2:image</code>. If you call
+     *         <code>PutParameter</code> with <code>aws:ec2:image</code> data type, a successful HTTP 200 response does
+     *         not guarantee that your parameter was successfully created or updated. The <code>aws:ec2:image</code>
+     *         value is validated asynchronously, and the <code>PutParameter</code> call returns before the validation
+     *         is complete. If you submit an invalid AMI value, the PutParameter operation will return success, but the
+     *         asynchronous validation will fail and the parameter will not be created or updated. To monitor whether
+     *         your <code>aws:ec2:image</code> parameters are created successfully, see <a
+     *         href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-cwe.html">Setting up
+     *         notifications or trigger actions based on Parameter Store events</a>. For more information about AMI
+     *         format validation , see <a
+     *         href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-ec2-aliases.html"
+     *         >Native parameter support for Amazon Machine Image IDs</a>.
+     *         </p>
+     */
+
+    public String getDataType() {
+        return this.dataType;
+    }
+
+    /**
+     * <p>
+     * The data type for a <code>String</code> parameter. Supported data types include plain text and Amazon Machine
+     * Image (AMI) IDs.
+     * </p>
+     * <p>
+     * <b>The following data type values are supported.</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>text</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aws:ec2:image</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>aws:ssm:integration</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When you create a <code>String</code> parameter and specify <code>aws:ec2:image</code>, Amazon Web Services
+     * Systems Manager validates the parameter value is in the required format, such as
+     * <code>ami-12345abcdeEXAMPLE</code>, and that the specified AMI is available in your Amazon Web Services account.
+     * </p>
+     * <note>
+     * <p>
+     * If the action is successful, the service sends back an HTTP 200 response which indicates a successful
+     * <code>PutParameter</code> call for all cases except for data type <code>aws:ec2:image</code>. If you call
+     * <code>PutParameter</code> with <code>aws:ec2:image</code> data type, a successful HTTP 200 response does not
+     * guarantee that your parameter was successfully created or updated. The <code>aws:ec2:image</code> value is
+     * validated asynchronously, and the <code>PutParameter</code> call returns before the validation is complete. If
+     * you submit an invalid AMI value, the PutParameter operation will return success, but the asynchronous validation
+     * will fail and the parameter will not be created or updated. To monitor whether your <code>aws:ec2:image</code>
+     * parameters are created successfully, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-cwe.html">Setting up
+     * notifications or trigger actions based on Parameter Store events</a>. For more information about AMI format
+     * validation , see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-ec2-aliases.html">Native
+     * parameter support for Amazon Machine Image IDs</a>.
+     * </p>
+     * </note>
+     * 
+     * @param dataType
+     *        The data type for a <code>String</code> parameter. Supported data types include plain text and Amazon
+     *        Machine Image (AMI) IDs.</p>
+     *        <p>
+     *        <b>The following data type values are supported.</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>text</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>aws:ec2:image</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>aws:ssm:integration</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        When you create a <code>String</code> parameter and specify <code>aws:ec2:image</code>, Amazon Web
+     *        Services Systems Manager validates the parameter value is in the required format, such as
+     *        <code>ami-12345abcdeEXAMPLE</code>, and that the specified AMI is available in your Amazon Web Services
+     *        account.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        If the action is successful, the service sends back an HTTP 200 response which indicates a successful
+     *        <code>PutParameter</code> call for all cases except for data type <code>aws:ec2:image</code>. If you call
+     *        <code>PutParameter</code> with <code>aws:ec2:image</code> data type, a successful HTTP 200 response does
+     *        not guarantee that your parameter was successfully created or updated. The <code>aws:ec2:image</code>
+     *        value is validated asynchronously, and the <code>PutParameter</code> call returns before the validation is
+     *        complete. If you submit an invalid AMI value, the PutParameter operation will return success, but the
+     *        asynchronous validation will fail and the parameter will not be created or updated. To monitor whether
+     *        your <code>aws:ec2:image</code> parameters are created successfully, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-cwe.html">Setting up
+     *        notifications or trigger actions based on Parameter Store events</a>. For more information about AMI
+     *        format validation , see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-ec2-aliases.html"
+     *        >Native parameter support for Amazon Machine Image IDs</a>.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutParameterRequest withDataType(String dataType) {
+        setDataType(dataType);
         return this;
     }
 
@@ -1841,7 +3034,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
         if (getValue() != null)
-            sb.append("Value: ").append(getValue()).append(",");
+            sb.append("Value: ").append("***Sensitive Data Redacted***").append(",");
         if (getType() != null)
             sb.append("Type: ").append(getType()).append(",");
         if (getKeyId() != null)
@@ -1855,7 +3048,9 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
         if (getTier() != null)
             sb.append("Tier: ").append(getTier()).append(",");
         if (getPolicies() != null)
-            sb.append("Policies: ").append(getPolicies());
+            sb.append("Policies: ").append(getPolicies()).append(",");
+        if (getDataType() != null)
+            sb.append("DataType: ").append(getDataType());
         sb.append("}");
         return sb.toString();
     }
@@ -1910,6 +3105,10 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
             return false;
         if (other.getPolicies() != null && other.getPolicies().equals(this.getPolicies()) == false)
             return false;
+        if (other.getDataType() == null ^ this.getDataType() == null)
+            return false;
+        if (other.getDataType() != null && other.getDataType().equals(this.getDataType()) == false)
+            return false;
         return true;
     }
 
@@ -1928,6 +3127,7 @@ public class PutParameterRequest extends com.amazonaws.AmazonWebServiceRequest i
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getTier() == null) ? 0 : getTier().hashCode());
         hashCode = prime * hashCode + ((getPolicies() == null) ? 0 : getPolicies().hashCode());
+        hashCode = prime * hashCode + ((getDataType() == null) ? 0 : getDataType().hashCode());
         return hashCode;
     }
 

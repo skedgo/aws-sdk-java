@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,11 +51,25 @@ public class DescribeProvisioningParametersResult extends com.amazonaws.AmazonWe
     private java.util.List<TagOptionSummary> tagOptions;
     /**
      * <p>
-     * An object that contains information about preferences, such as regions and accounts, for the provisioning
+     * An object that contains information about preferences, such as Regions and accounts, for the provisioning
      * artifact.
      * </p>
      */
     private ProvisioningArtifactPreferences provisioningArtifactPreferences;
+    /**
+     * <p>
+     * The output of the provisioning artifact.
+     * </p>
+     */
+    @Deprecated
+    private java.util.List<ProvisioningArtifactOutput> provisioningArtifactOutputs;
+    /**
+     * <p>
+     * A list of the keys and descriptions of the outputs. These outputs can be referenced from a provisioned product
+     * launched from this provisioning artifact.
+     * </p>
+     */
+    private java.util.List<ProvisioningArtifactOutput> provisioningArtifactOutputKeys;
 
     /**
      * <p>
@@ -348,12 +362,12 @@ public class DescribeProvisioningParametersResult extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * An object that contains information about preferences, such as regions and accounts, for the provisioning
+     * An object that contains information about preferences, such as Regions and accounts, for the provisioning
      * artifact.
      * </p>
      * 
      * @param provisioningArtifactPreferences
-     *        An object that contains information about preferences, such as regions and accounts, for the provisioning
+     *        An object that contains information about preferences, such as Regions and accounts, for the provisioning
      *        artifact.
      */
 
@@ -363,11 +377,11 @@ public class DescribeProvisioningParametersResult extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * An object that contains information about preferences, such as regions and accounts, for the provisioning
+     * An object that contains information about preferences, such as Regions and accounts, for the provisioning
      * artifact.
      * </p>
      * 
-     * @return An object that contains information about preferences, such as regions and accounts, for the provisioning
+     * @return An object that contains information about preferences, such as Regions and accounts, for the provisioning
      *         artifact.
      */
 
@@ -377,18 +391,167 @@ public class DescribeProvisioningParametersResult extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * An object that contains information about preferences, such as regions and accounts, for the provisioning
+     * An object that contains information about preferences, such as Regions and accounts, for the provisioning
      * artifact.
      * </p>
      * 
      * @param provisioningArtifactPreferences
-     *        An object that contains information about preferences, such as regions and accounts, for the provisioning
+     *        An object that contains information about preferences, such as Regions and accounts, for the provisioning
      *        artifact.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DescribeProvisioningParametersResult withProvisioningArtifactPreferences(ProvisioningArtifactPreferences provisioningArtifactPreferences) {
         setProvisioningArtifactPreferences(provisioningArtifactPreferences);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The output of the provisioning artifact.
+     * </p>
+     * 
+     * @return The output of the provisioning artifact.
+     */
+    @Deprecated
+    public java.util.List<ProvisioningArtifactOutput> getProvisioningArtifactOutputs() {
+        return provisioningArtifactOutputs;
+    }
+
+    /**
+     * <p>
+     * The output of the provisioning artifact.
+     * </p>
+     * 
+     * @param provisioningArtifactOutputs
+     *        The output of the provisioning artifact.
+     */
+    @Deprecated
+    public void setProvisioningArtifactOutputs(java.util.Collection<ProvisioningArtifactOutput> provisioningArtifactOutputs) {
+        if (provisioningArtifactOutputs == null) {
+            this.provisioningArtifactOutputs = null;
+            return;
+        }
+
+        this.provisioningArtifactOutputs = new java.util.ArrayList<ProvisioningArtifactOutput>(provisioningArtifactOutputs);
+    }
+
+    /**
+     * <p>
+     * The output of the provisioning artifact.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setProvisioningArtifactOutputs(java.util.Collection)} or
+     * {@link #withProvisioningArtifactOutputs(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param provisioningArtifactOutputs
+     *        The output of the provisioning artifact.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+    @Deprecated
+    public DescribeProvisioningParametersResult withProvisioningArtifactOutputs(ProvisioningArtifactOutput... provisioningArtifactOutputs) {
+        if (this.provisioningArtifactOutputs == null) {
+            setProvisioningArtifactOutputs(new java.util.ArrayList<ProvisioningArtifactOutput>(provisioningArtifactOutputs.length));
+        }
+        for (ProvisioningArtifactOutput ele : provisioningArtifactOutputs) {
+            this.provisioningArtifactOutputs.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The output of the provisioning artifact.
+     * </p>
+     * 
+     * @param provisioningArtifactOutputs
+     *        The output of the provisioning artifact.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+    @Deprecated
+    public DescribeProvisioningParametersResult withProvisioningArtifactOutputs(java.util.Collection<ProvisioningArtifactOutput> provisioningArtifactOutputs) {
+        setProvisioningArtifactOutputs(provisioningArtifactOutputs);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of the keys and descriptions of the outputs. These outputs can be referenced from a provisioned product
+     * launched from this provisioning artifact.
+     * </p>
+     * 
+     * @return A list of the keys and descriptions of the outputs. These outputs can be referenced from a provisioned
+     *         product launched from this provisioning artifact.
+     */
+
+    public java.util.List<ProvisioningArtifactOutput> getProvisioningArtifactOutputKeys() {
+        return provisioningArtifactOutputKeys;
+    }
+
+    /**
+     * <p>
+     * A list of the keys and descriptions of the outputs. These outputs can be referenced from a provisioned product
+     * launched from this provisioning artifact.
+     * </p>
+     * 
+     * @param provisioningArtifactOutputKeys
+     *        A list of the keys and descriptions of the outputs. These outputs can be referenced from a provisioned
+     *        product launched from this provisioning artifact.
+     */
+
+    public void setProvisioningArtifactOutputKeys(java.util.Collection<ProvisioningArtifactOutput> provisioningArtifactOutputKeys) {
+        if (provisioningArtifactOutputKeys == null) {
+            this.provisioningArtifactOutputKeys = null;
+            return;
+        }
+
+        this.provisioningArtifactOutputKeys = new java.util.ArrayList<ProvisioningArtifactOutput>(provisioningArtifactOutputKeys);
+    }
+
+    /**
+     * <p>
+     * A list of the keys and descriptions of the outputs. These outputs can be referenced from a provisioned product
+     * launched from this provisioning artifact.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setProvisioningArtifactOutputKeys(java.util.Collection)} or
+     * {@link #withProvisioningArtifactOutputKeys(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param provisioningArtifactOutputKeys
+     *        A list of the keys and descriptions of the outputs. These outputs can be referenced from a provisioned
+     *        product launched from this provisioning artifact.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeProvisioningParametersResult withProvisioningArtifactOutputKeys(ProvisioningArtifactOutput... provisioningArtifactOutputKeys) {
+        if (this.provisioningArtifactOutputKeys == null) {
+            setProvisioningArtifactOutputKeys(new java.util.ArrayList<ProvisioningArtifactOutput>(provisioningArtifactOutputKeys.length));
+        }
+        for (ProvisioningArtifactOutput ele : provisioningArtifactOutputKeys) {
+            this.provisioningArtifactOutputKeys.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of the keys and descriptions of the outputs. These outputs can be referenced from a provisioned product
+     * launched from this provisioning artifact.
+     * </p>
+     * 
+     * @param provisioningArtifactOutputKeys
+     *        A list of the keys and descriptions of the outputs. These outputs can be referenced from a provisioned
+     *        product launched from this provisioning artifact.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeProvisioningParametersResult withProvisioningArtifactOutputKeys(
+            java.util.Collection<ProvisioningArtifactOutput> provisioningArtifactOutputKeys) {
+        setProvisioningArtifactOutputKeys(provisioningArtifactOutputKeys);
         return this;
     }
 
@@ -413,7 +576,11 @@ public class DescribeProvisioningParametersResult extends com.amazonaws.AmazonWe
         if (getTagOptions() != null)
             sb.append("TagOptions: ").append(getTagOptions()).append(",");
         if (getProvisioningArtifactPreferences() != null)
-            sb.append("ProvisioningArtifactPreferences: ").append(getProvisioningArtifactPreferences());
+            sb.append("ProvisioningArtifactPreferences: ").append(getProvisioningArtifactPreferences()).append(",");
+        if (getProvisioningArtifactOutputs() != null)
+            sb.append("ProvisioningArtifactOutputs: ").append(getProvisioningArtifactOutputs()).append(",");
+        if (getProvisioningArtifactOutputKeys() != null)
+            sb.append("ProvisioningArtifactOutputKeys: ").append(getProvisioningArtifactOutputKeys());
         sb.append("}");
         return sb.toString();
     }
@@ -450,6 +617,15 @@ public class DescribeProvisioningParametersResult extends com.amazonaws.AmazonWe
         if (other.getProvisioningArtifactPreferences() != null
                 && other.getProvisioningArtifactPreferences().equals(this.getProvisioningArtifactPreferences()) == false)
             return false;
+        if (other.getProvisioningArtifactOutputs() == null ^ this.getProvisioningArtifactOutputs() == null)
+            return false;
+        if (other.getProvisioningArtifactOutputs() != null && other.getProvisioningArtifactOutputs().equals(this.getProvisioningArtifactOutputs()) == false)
+            return false;
+        if (other.getProvisioningArtifactOutputKeys() == null ^ this.getProvisioningArtifactOutputKeys() == null)
+            return false;
+        if (other.getProvisioningArtifactOutputKeys() != null
+                && other.getProvisioningArtifactOutputKeys().equals(this.getProvisioningArtifactOutputKeys()) == false)
+            return false;
         return true;
     }
 
@@ -463,6 +639,8 @@ public class DescribeProvisioningParametersResult extends com.amazonaws.AmazonWe
         hashCode = prime * hashCode + ((getUsageInstructions() == null) ? 0 : getUsageInstructions().hashCode());
         hashCode = prime * hashCode + ((getTagOptions() == null) ? 0 : getTagOptions().hashCode());
         hashCode = prime * hashCode + ((getProvisioningArtifactPreferences() == null) ? 0 : getProvisioningArtifactPreferences().hashCode());
+        hashCode = prime * hashCode + ((getProvisioningArtifactOutputs() == null) ? 0 : getProvisioningArtifactOutputs().hashCode());
+        hashCode = prime * hashCode + ((getProvisioningArtifactOutputKeys() == null) ? 0 : getProvisioningArtifactOutputKeys().hashCode());
         return hashCode;
     }
 

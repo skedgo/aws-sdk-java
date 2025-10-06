@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,22 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 public class FrameCaptureSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
-     * The frequency, in seconds, for capturing frames for inclusion in the output. For example, "10" means capture a
-     * frame every 10 seconds.
+     * The frequency at which to capture frames for inclusion in the output. May be specified in either seconds or
+     * milliseconds, as specified by captureIntervalUnits.
      */
     private Integer captureInterval;
+    /** Unit for the frame capture interval. */
+    private String captureIntervalUnits;
+    /** Timecode burn-in settings */
+    private TimecodeBurninSettings timecodeBurninSettings;
 
     /**
-     * The frequency, in seconds, for capturing frames for inclusion in the output. For example, "10" means capture a
-     * frame every 10 seconds.
+     * The frequency at which to capture frames for inclusion in the output. May be specified in either seconds or
+     * milliseconds, as specified by captureIntervalUnits.
      * 
      * @param captureInterval
-     *        The frequency, in seconds, for capturing frames for inclusion in the output. For example, "10" means
-     *        capture a frame every 10 seconds.
+     *        The frequency at which to capture frames for inclusion in the output. May be specified in either seconds
+     *        or milliseconds, as specified by captureIntervalUnits.
      */
 
     public void setCaptureInterval(Integer captureInterval) {
@@ -46,11 +50,11 @@ public class FrameCaptureSettings implements Serializable, Cloneable, Structured
     }
 
     /**
-     * The frequency, in seconds, for capturing frames for inclusion in the output. For example, "10" means capture a
-     * frame every 10 seconds.
+     * The frequency at which to capture frames for inclusion in the output. May be specified in either seconds or
+     * milliseconds, as specified by captureIntervalUnits.
      * 
-     * @return The frequency, in seconds, for capturing frames for inclusion in the output. For example, "10" means
-     *         capture a frame every 10 seconds.
+     * @return The frequency at which to capture frames for inclusion in the output. May be specified in either seconds
+     *         or milliseconds, as specified by captureIntervalUnits.
      */
 
     public Integer getCaptureInterval() {
@@ -58,17 +62,102 @@ public class FrameCaptureSettings implements Serializable, Cloneable, Structured
     }
 
     /**
-     * The frequency, in seconds, for capturing frames for inclusion in the output. For example, "10" means capture a
-     * frame every 10 seconds.
+     * The frequency at which to capture frames for inclusion in the output. May be specified in either seconds or
+     * milliseconds, as specified by captureIntervalUnits.
      * 
      * @param captureInterval
-     *        The frequency, in seconds, for capturing frames for inclusion in the output. For example, "10" means
-     *        capture a frame every 10 seconds.
+     *        The frequency at which to capture frames for inclusion in the output. May be specified in either seconds
+     *        or milliseconds, as specified by captureIntervalUnits.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public FrameCaptureSettings withCaptureInterval(Integer captureInterval) {
         setCaptureInterval(captureInterval);
+        return this;
+    }
+
+    /**
+     * Unit for the frame capture interval.
+     * 
+     * @param captureIntervalUnits
+     *        Unit for the frame capture interval.
+     * @see FrameCaptureIntervalUnit
+     */
+
+    public void setCaptureIntervalUnits(String captureIntervalUnits) {
+        this.captureIntervalUnits = captureIntervalUnits;
+    }
+
+    /**
+     * Unit for the frame capture interval.
+     * 
+     * @return Unit for the frame capture interval.
+     * @see FrameCaptureIntervalUnit
+     */
+
+    public String getCaptureIntervalUnits() {
+        return this.captureIntervalUnits;
+    }
+
+    /**
+     * Unit for the frame capture interval.
+     * 
+     * @param captureIntervalUnits
+     *        Unit for the frame capture interval.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see FrameCaptureIntervalUnit
+     */
+
+    public FrameCaptureSettings withCaptureIntervalUnits(String captureIntervalUnits) {
+        setCaptureIntervalUnits(captureIntervalUnits);
+        return this;
+    }
+
+    /**
+     * Unit for the frame capture interval.
+     * 
+     * @param captureIntervalUnits
+     *        Unit for the frame capture interval.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see FrameCaptureIntervalUnit
+     */
+
+    public FrameCaptureSettings withCaptureIntervalUnits(FrameCaptureIntervalUnit captureIntervalUnits) {
+        this.captureIntervalUnits = captureIntervalUnits.toString();
+        return this;
+    }
+
+    /**
+     * Timecode burn-in settings
+     * 
+     * @param timecodeBurninSettings
+     *        Timecode burn-in settings
+     */
+
+    public void setTimecodeBurninSettings(TimecodeBurninSettings timecodeBurninSettings) {
+        this.timecodeBurninSettings = timecodeBurninSettings;
+    }
+
+    /**
+     * Timecode burn-in settings
+     * 
+     * @return Timecode burn-in settings
+     */
+
+    public TimecodeBurninSettings getTimecodeBurninSettings() {
+        return this.timecodeBurninSettings;
+    }
+
+    /**
+     * Timecode burn-in settings
+     * 
+     * @param timecodeBurninSettings
+     *        Timecode burn-in settings
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public FrameCaptureSettings withTimecodeBurninSettings(TimecodeBurninSettings timecodeBurninSettings) {
+        setTimecodeBurninSettings(timecodeBurninSettings);
         return this;
     }
 
@@ -85,7 +174,11 @@ public class FrameCaptureSettings implements Serializable, Cloneable, Structured
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getCaptureInterval() != null)
-            sb.append("CaptureInterval: ").append(getCaptureInterval());
+            sb.append("CaptureInterval: ").append(getCaptureInterval()).append(",");
+        if (getCaptureIntervalUnits() != null)
+            sb.append("CaptureIntervalUnits: ").append(getCaptureIntervalUnits()).append(",");
+        if (getTimecodeBurninSettings() != null)
+            sb.append("TimecodeBurninSettings: ").append(getTimecodeBurninSettings());
         sb.append("}");
         return sb.toString();
     }
@@ -104,6 +197,14 @@ public class FrameCaptureSettings implements Serializable, Cloneable, Structured
             return false;
         if (other.getCaptureInterval() != null && other.getCaptureInterval().equals(this.getCaptureInterval()) == false)
             return false;
+        if (other.getCaptureIntervalUnits() == null ^ this.getCaptureIntervalUnits() == null)
+            return false;
+        if (other.getCaptureIntervalUnits() != null && other.getCaptureIntervalUnits().equals(this.getCaptureIntervalUnits()) == false)
+            return false;
+        if (other.getTimecodeBurninSettings() == null ^ this.getTimecodeBurninSettings() == null)
+            return false;
+        if (other.getTimecodeBurninSettings() != null && other.getTimecodeBurninSettings().equals(this.getTimecodeBurninSettings()) == false)
+            return false;
         return true;
     }
 
@@ -113,6 +214,8 @@ public class FrameCaptureSettings implements Serializable, Cloneable, Structured
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getCaptureInterval() == null) ? 0 : getCaptureInterval().hashCode());
+        hashCode = prime * hashCode + ((getCaptureIntervalUnits() == null) ? 0 : getCaptureIntervalUnits().hashCode());
+        hashCode = prime * hashCode + ((getTimecodeBurninSettings() == null) ? 0 : getTimecodeBurninSettings().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon Technologies, Inc.
+ * Copyright 2011-2025 Amazon Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,15 @@ import com.amazonaws.AmazonWebServiceRequest;
  * 
  * @see SetBucketNotificationConfigurationRequest#SetBucketNotificationConfigurationRequest(String, BucketNotificationConfiguration)
  */
-public class SetBucketNotificationConfigurationRequest extends AmazonWebServiceRequest implements Serializable {
+public class SetBucketNotificationConfigurationRequest extends AmazonWebServiceRequest implements Serializable, ExpectedBucketOwnerRequest {
 
     private BucketNotificationConfiguration notificationConfiguration;
 
     private String bucketName;
+
+    private String expectedBucketOwner;
+
+    private Boolean skipDestinationValidation;
 
     /**
      * @deprecated Use SetBucketNotificationConfigurationRequest(String, BucketNotificationConfiguration) instead.
@@ -37,7 +41,6 @@ public class SetBucketNotificationConfigurationRequest extends AmazonWebServiceR
         this.notificationConfiguration = bucketNotificationConfiguration;
         this.bucketName = bucket;
     }
-
     /**
      * Constructs a new {@link SetBucketNotificationConfigurationRequest} 
      * to set the bucket notification configuration of
@@ -54,6 +57,19 @@ public class SetBucketNotificationConfigurationRequest extends AmazonWebServiceR
             String bucketName, BucketNotificationConfiguration notificationConfiguration) {
         this.bucketName = bucketName;
         this.notificationConfiguration = notificationConfiguration;
+    }
+
+    public String getExpectedBucketOwner() {
+        return expectedBucketOwner;
+    }
+
+    public SetBucketNotificationConfigurationRequest withExpectedBucketOwner(String expectedBucketOwner) {
+        this.expectedBucketOwner = expectedBucketOwner;
+        return this;
+    }
+
+    public void setExpectedBucketOwner(String expectedBucketOwner) {
+        withExpectedBucketOwner(expectedBucketOwner);
     }
 
     /**
@@ -174,6 +190,28 @@ public class SetBucketNotificationConfigurationRequest extends AmazonWebServiceR
     public SetBucketNotificationConfigurationRequest withBucketName(
             String bucketName) {
         setBucketName(bucketName);
+        return this;
+    }
+
+    /**
+     * Skips validation of SQS, SNS, and Lambda destinations
+     */
+    public Boolean getSkipDestinationValidation() {
+        return skipDestinationValidation;
+    }
+
+    /**
+     * Skips validation of SQS, SNS, and Lambda destinations
+     */
+    public void setSkipDestinationValidation(Boolean skipDestinationValidation) {
+        this.skipDestinationValidation = skipDestinationValidation;
+    }
+
+    /**
+     * Skips validation of SQS, SNS, and Lambda destinations
+     */
+    public SetBucketNotificationConfigurationRequest withSkipDestinationValidation(Boolean skipDestinationValidation) {
+        this.skipDestinationValidation = skipDestinationValidation;
         return this;
     }
 }

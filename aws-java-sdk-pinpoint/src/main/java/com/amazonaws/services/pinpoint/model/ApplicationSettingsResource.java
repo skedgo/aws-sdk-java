@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,7 +37,8 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
     private String applicationId;
     /**
      * <p>
-     * The settings for the AWS Lambda function to use by default as a code hook for campaigns in the application.
+     * The settings for the AWS Lambda function to invoke by default as a code hook for campaigns in the application.
+     * You can use this hook to customize segments that are used by campaigns in the application.
      * </p>
      */
     private CampaignHook campaignHook;
@@ -55,8 +56,8 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
     private CampaignLimits limits;
     /**
      * <p>
-     * The default quiet time for campaigns in the application. Quiet time is a specific time range when campaigns don't
-     * send messages to endpoints, if all the following conditions are met:
+     * The default quiet time for campaigns in the application. Quiet time is a specific time range when messages aren't
+     * sent to endpoints, if all the following conditions are met:
      * </p>
      * <ul>
      * <li>
@@ -67,22 +68,29 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
      * <li>
      * <p>
      * The current time in the endpoint's time zone is later than or equal to the time specified by the QuietTime.Start
-     * property for the application (or a campaign that has custom quiet time settings).
+     * property for the application (or a campaign or journey that has custom quiet time settings).
      * </p>
      * </li>
      * <li>
      * <p>
      * The current time in the endpoint's time zone is earlier than or equal to the time specified by the QuietTime.End
-     * property for the application (or a campaign that has custom quiet time settings).
+     * property for the application (or a campaign or journey that has custom quiet time settings).
      * </p>
      * </li>
      * </ul>
      * <p>
-     * If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign, even if quiet
-     * time is enabled.
+     * If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign or journey, even
+     * if quiet time is enabled.
      * </p>
      */
     private QuietTime quietTime;
+    /**
+     * <p>
+     * The default sending limits for journeys in the application. These limits apply to each journey for the
+     * application but can be overridden, on a per journey basis, with the JourneyLimits resource.
+     * </p>
+     */
+    private ApplicationSettingsJourneyLimits journeyLimits;
 
     /**
      * <p>
@@ -132,12 +140,13 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The settings for the AWS Lambda function to use by default as a code hook for campaigns in the application.
+     * The settings for the AWS Lambda function to invoke by default as a code hook for campaigns in the application.
+     * You can use this hook to customize segments that are used by campaigns in the application.
      * </p>
      * 
      * @param campaignHook
-     *        The settings for the AWS Lambda function to use by default as a code hook for campaigns in the
-     *        application.
+     *        The settings for the AWS Lambda function to invoke by default as a code hook for campaigns in the
+     *        application. You can use this hook to customize segments that are used by campaigns in the application.
      */
 
     public void setCampaignHook(CampaignHook campaignHook) {
@@ -146,11 +155,12 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The settings for the AWS Lambda function to use by default as a code hook for campaigns in the application.
+     * The settings for the AWS Lambda function to invoke by default as a code hook for campaigns in the application.
+     * You can use this hook to customize segments that are used by campaigns in the application.
      * </p>
      * 
-     * @return The settings for the AWS Lambda function to use by default as a code hook for campaigns in the
-     *         application.
+     * @return The settings for the AWS Lambda function to invoke by default as a code hook for campaigns in the
+     *         application. You can use this hook to customize segments that are used by campaigns in the application.
      */
 
     public CampaignHook getCampaignHook() {
@@ -159,12 +169,13 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The settings for the AWS Lambda function to use by default as a code hook for campaigns in the application.
+     * The settings for the AWS Lambda function to invoke by default as a code hook for campaigns in the application.
+     * You can use this hook to customize segments that are used by campaigns in the application.
      * </p>
      * 
      * @param campaignHook
-     *        The settings for the AWS Lambda function to use by default as a code hook for campaigns in the
-     *        application.
+     *        The settings for the AWS Lambda function to invoke by default as a code hook for campaigns in the
+     *        application. You can use this hook to customize segments that are used by campaigns in the application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -255,8 +266,8 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The default quiet time for campaigns in the application. Quiet time is a specific time range when campaigns don't
-     * send messages to endpoints, if all the following conditions are met:
+     * The default quiet time for campaigns in the application. Quiet time is a specific time range when messages aren't
+     * sent to endpoints, if all the following conditions are met:
      * </p>
      * <ul>
      * <li>
@@ -267,24 +278,24 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
      * <li>
      * <p>
      * The current time in the endpoint's time zone is later than or equal to the time specified by the QuietTime.Start
-     * property for the application (or a campaign that has custom quiet time settings).
+     * property for the application (or a campaign or journey that has custom quiet time settings).
      * </p>
      * </li>
      * <li>
      * <p>
      * The current time in the endpoint's time zone is earlier than or equal to the time specified by the QuietTime.End
-     * property for the application (or a campaign that has custom quiet time settings).
+     * property for the application (or a campaign or journey that has custom quiet time settings).
      * </p>
      * </li>
      * </ul>
      * <p>
-     * If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign, even if quiet
-     * time is enabled.
+     * If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign or journey, even
+     * if quiet time is enabled.
      * </p>
      * 
      * @param quietTime
-     *        The default quiet time for campaigns in the application. Quiet time is a specific time range when
-     *        campaigns don't send messages to endpoints, if all the following conditions are met:</p>
+     *        The default quiet time for campaigns in the application. Quiet time is a specific time range when messages
+     *        aren't sent to endpoints, if all the following conditions are met:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -294,19 +305,20 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
      *        <li>
      *        <p>
      *        The current time in the endpoint's time zone is later than or equal to the time specified by the
-     *        QuietTime.Start property for the application (or a campaign that has custom quiet time settings).
+     *        QuietTime.Start property for the application (or a campaign or journey that has custom quiet time
+     *        settings).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        The current time in the endpoint's time zone is earlier than or equal to the time specified by the
-     *        QuietTime.End property for the application (or a campaign that has custom quiet time settings).
+     *        QuietTime.End property for the application (or a campaign or journey that has custom quiet time settings).
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
-     *        If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign, even if
-     *        quiet time is enabled.
+     *        If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign or
+     *        journey, even if quiet time is enabled.
      */
 
     public void setQuietTime(QuietTime quietTime) {
@@ -315,8 +327,8 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The default quiet time for campaigns in the application. Quiet time is a specific time range when campaigns don't
-     * send messages to endpoints, if all the following conditions are met:
+     * The default quiet time for campaigns in the application. Quiet time is a specific time range when messages aren't
+     * sent to endpoints, if all the following conditions are met:
      * </p>
      * <ul>
      * <li>
@@ -327,23 +339,23 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
      * <li>
      * <p>
      * The current time in the endpoint's time zone is later than or equal to the time specified by the QuietTime.Start
-     * property for the application (or a campaign that has custom quiet time settings).
+     * property for the application (or a campaign or journey that has custom quiet time settings).
      * </p>
      * </li>
      * <li>
      * <p>
      * The current time in the endpoint's time zone is earlier than or equal to the time specified by the QuietTime.End
-     * property for the application (or a campaign that has custom quiet time settings).
+     * property for the application (or a campaign or journey that has custom quiet time settings).
      * </p>
      * </li>
      * </ul>
      * <p>
-     * If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign, even if quiet
-     * time is enabled.
+     * If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign or journey, even
+     * if quiet time is enabled.
      * </p>
      * 
      * @return The default quiet time for campaigns in the application. Quiet time is a specific time range when
-     *         campaigns don't send messages to endpoints, if all the following conditions are met:</p>
+     *         messages aren't sent to endpoints, if all the following conditions are met:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -353,19 +365,21 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
      *         <li>
      *         <p>
      *         The current time in the endpoint's time zone is later than or equal to the time specified by the
-     *         QuietTime.Start property for the application (or a campaign that has custom quiet time settings).
+     *         QuietTime.Start property for the application (or a campaign or journey that has custom quiet time
+     *         settings).
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         The current time in the endpoint's time zone is earlier than or equal to the time specified by the
-     *         QuietTime.End property for the application (or a campaign that has custom quiet time settings).
+     *         QuietTime.End property for the application (or a campaign or journey that has custom quiet time
+     *         settings).
      *         </p>
      *         </li>
      *         </ul>
      *         <p>
-     *         If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign, even if
-     *         quiet time is enabled.
+     *         If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign or
+     *         journey, even if quiet time is enabled.
      */
 
     public QuietTime getQuietTime() {
@@ -374,8 +388,8 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * The default quiet time for campaigns in the application. Quiet time is a specific time range when campaigns don't
-     * send messages to endpoints, if all the following conditions are met:
+     * The default quiet time for campaigns in the application. Quiet time is a specific time range when messages aren't
+     * sent to endpoints, if all the following conditions are met:
      * </p>
      * <ul>
      * <li>
@@ -386,24 +400,24 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
      * <li>
      * <p>
      * The current time in the endpoint's time zone is later than or equal to the time specified by the QuietTime.Start
-     * property for the application (or a campaign that has custom quiet time settings).
+     * property for the application (or a campaign or journey that has custom quiet time settings).
      * </p>
      * </li>
      * <li>
      * <p>
      * The current time in the endpoint's time zone is earlier than or equal to the time specified by the QuietTime.End
-     * property for the application (or a campaign that has custom quiet time settings).
+     * property for the application (or a campaign or journey that has custom quiet time settings).
      * </p>
      * </li>
      * </ul>
      * <p>
-     * If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign, even if quiet
-     * time is enabled.
+     * If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign or journey, even
+     * if quiet time is enabled.
      * </p>
      * 
      * @param quietTime
-     *        The default quiet time for campaigns in the application. Quiet time is a specific time range when
-     *        campaigns don't send messages to endpoints, if all the following conditions are met:</p>
+     *        The default quiet time for campaigns in the application. Quiet time is a specific time range when messages
+     *        aren't sent to endpoints, if all the following conditions are met:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -413,24 +427,71 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
      *        <li>
      *        <p>
      *        The current time in the endpoint's time zone is later than or equal to the time specified by the
-     *        QuietTime.Start property for the application (or a campaign that has custom quiet time settings).
+     *        QuietTime.Start property for the application (or a campaign or journey that has custom quiet time
+     *        settings).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        The current time in the endpoint's time zone is earlier than or equal to the time specified by the
-     *        QuietTime.End property for the application (or a campaign that has custom quiet time settings).
+     *        QuietTime.End property for the application (or a campaign or journey that has custom quiet time settings).
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
-     *        If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign, even if
-     *        quiet time is enabled.
+     *        If any of the preceding conditions isn't met, the endpoint will receive messages from a campaign or
+     *        journey, even if quiet time is enabled.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ApplicationSettingsResource withQuietTime(QuietTime quietTime) {
         setQuietTime(quietTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The default sending limits for journeys in the application. These limits apply to each journey for the
+     * application but can be overridden, on a per journey basis, with the JourneyLimits resource.
+     * </p>
+     * 
+     * @param journeyLimits
+     *        The default sending limits for journeys in the application. These limits apply to each journey for the
+     *        application but can be overridden, on a per journey basis, with the JourneyLimits resource.
+     */
+
+    public void setJourneyLimits(ApplicationSettingsJourneyLimits journeyLimits) {
+        this.journeyLimits = journeyLimits;
+    }
+
+    /**
+     * <p>
+     * The default sending limits for journeys in the application. These limits apply to each journey for the
+     * application but can be overridden, on a per journey basis, with the JourneyLimits resource.
+     * </p>
+     * 
+     * @return The default sending limits for journeys in the application. These limits apply to each journey for the
+     *         application but can be overridden, on a per journey basis, with the JourneyLimits resource.
+     */
+
+    public ApplicationSettingsJourneyLimits getJourneyLimits() {
+        return this.journeyLimits;
+    }
+
+    /**
+     * <p>
+     * The default sending limits for journeys in the application. These limits apply to each journey for the
+     * application but can be overridden, on a per journey basis, with the JourneyLimits resource.
+     * </p>
+     * 
+     * @param journeyLimits
+     *        The default sending limits for journeys in the application. These limits apply to each journey for the
+     *        application but can be overridden, on a per journey basis, with the JourneyLimits resource.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationSettingsResource withJourneyLimits(ApplicationSettingsJourneyLimits journeyLimits) {
+        setJourneyLimits(journeyLimits);
         return this;
     }
 
@@ -455,7 +516,9 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
         if (getLimits() != null)
             sb.append("Limits: ").append(getLimits()).append(",");
         if (getQuietTime() != null)
-            sb.append("QuietTime: ").append(getQuietTime());
+            sb.append("QuietTime: ").append(getQuietTime()).append(",");
+        if (getJourneyLimits() != null)
+            sb.append("JourneyLimits: ").append(getJourneyLimits());
         sb.append("}");
         return sb.toString();
     }
@@ -490,6 +553,10 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
             return false;
         if (other.getQuietTime() != null && other.getQuietTime().equals(this.getQuietTime()) == false)
             return false;
+        if (other.getJourneyLimits() == null ^ this.getJourneyLimits() == null)
+            return false;
+        if (other.getJourneyLimits() != null && other.getJourneyLimits().equals(this.getJourneyLimits()) == false)
+            return false;
         return true;
     }
 
@@ -503,6 +570,7 @@ public class ApplicationSettingsResource implements Serializable, Cloneable, Str
         hashCode = prime * hashCode + ((getLastModifiedDate() == null) ? 0 : getLastModifiedDate().hashCode());
         hashCode = prime * hashCode + ((getLimits() == null) ? 0 : getLimits().hashCode());
         hashCode = prime * hashCode + ((getQuietTime() == null) ? 0 : getQuietTime().hashCode());
+        hashCode = prime * hashCode + ((getJourneyLimits() == null) ? 0 : getJourneyLimits().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,13 +30,13 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      */
     private String instanceId;
@@ -78,8 +78,9 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
     private String documentVersion;
     /**
      * <p>
-     * Specify the target for the association. This target is required for associations that use an Automation document
-     * and target resources by using rate controls.
+     * Choose the parameter that will define how your automation will branch out. This target is required for
+     * associations that use an Automation runbook and target resources by using rate controls. Automation is a
+     * capability of Amazon Web Services Systems Manager.
      * </p>
      */
     private String automationTargetParameterName;
@@ -97,7 +98,7 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
     private String associationId;
     /**
      * <p>
-     * The instances targeted by the request.
+     * The managed nodes targeted by the request.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Target> targets;
@@ -109,7 +110,7 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
     private String scheduleExpression;
     /**
      * <p>
-     * An Amazon S3 bucket where you want to store the output details of the request.
+     * An S3 bucket where you want to store the output details of the request.
      * </p>
      */
     private InstanceAssociationOutputLocation outputLocation;
@@ -137,13 +138,13 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
      * additional targets. You can specify either an absolute number of errors, for example 10, or a percentage of the
      * target set, for example 10%. If you specify 3, for example, the system stops sending requests when the fourth
      * error is received. If you specify 0, then the system stops sending requests after the first error is returned. If
-     * you run an association on 50 instances and set MaxError to 10%, then the system stops sending the request when
-     * the sixth error is received.
+     * you run an association on 50 managed nodes and set <code>MaxError</code> to 10%, then the system stops sending
+     * the request when the sixth error is received.
      * </p>
      * <p>
-     * Executions that are already running an association when MaxErrors is reached are allowed to complete, but some of
-     * these executions may fail as well. If you need to ensure that there won't be more than max-errors failed
-     * executions, set MaxConcurrency to 1 so that executions proceed one at a time.
+     * Executions that are already running an association when <code>MaxErrors</code> is reached are allowed to
+     * complete, but some of these executions may fail as well. If you need to ensure that there won't be more than
+     * max-errors failed executions, set <code>MaxConcurrency</code> to 1 so that executions proceed one at a time.
      * </p>
      */
     private String maxErrors;
@@ -154,9 +155,10 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
      * targets run the association at the same time.
      * </p>
      * <p>
-     * If a new instance starts and attempts to run an association while Systems Manager is running MaxConcurrency
-     * associations, the association is allowed to run. During the next association interval, the new instance will
-     * process its association within the limit specified for MaxConcurrency.
+     * If a new managed node starts and attempts to run an association while Systems Manager is running
+     * <code>MaxConcurrency</code> associations, the association is allowed to run. During the next association
+     * interval, the new managed node will process its association within the limit specified for
+     * <code>MaxConcurrency</code>.
      * </p>
      */
     private String maxConcurrency;
@@ -166,14 +168,85 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
      * </p>
      */
     private String complianceSeverity;
+    /**
+     * <p>
+     * The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>. In
+     * <code>AUTO</code> mode, the system uses the status of the association execution to determine the compliance
+     * status. If the association execution runs successfully, then the association is <code>COMPLIANT</code>. If the
+     * association execution doesn't run successfully, the association is <code>NON-COMPLIANT</code>.
+     * </p>
+     * <p>
+     * In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     * <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     * capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     * <a>PutComplianceItems</a> API operation.
+     * </p>
+     * <p>
+     * By default, all associations use <code>AUTO</code> mode.
+     * </p>
+     */
+    private String syncCompliance;
+    /**
+     * <p>
+     * By default, when you create a new associations, the system runs it immediately after it is created and then
+     * according to the schedule you specified. Specify this option if you don't want an association to run immediately
+     * after you create it. This parameter isn't supported for rate expressions.
+     * </p>
+     */
+    private Boolean applyOnlyAtCronInterval;
+    /**
+     * <p>
+     * The names or Amazon Resource Names (ARNs) of the Change Calendar type documents your associations are gated
+     * under. The associations only run when that change calendar is open. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">Amazon Web
+     * Services Systems Manager Change Calendar</a>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> calendarNames;
+    /**
+     * <p>
+     * The combination of Amazon Web Services Regions and Amazon Web Services accounts where you want to run the
+     * association.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<TargetLocation> targetLocations;
+    /**
+     * <p>
+     * Number of days to wait after the scheduled day to run an association.
+     * </p>
+     */
+    private Integer scheduleOffset;
+    /**
+     * <p>
+     * The number of hours that an association can run on specified targets. After the resulting cutoff time passes,
+     * associations that are currently running are cancelled, and no pending executions are started on remaining
+     * targets.
+     * </p>
+     */
+    private Integer duration;
+    /**
+     * <p>
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
+     * together.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<java.util.Map<String, java.util.List<String>>> targetMaps;
+
+    private AlarmConfiguration alarmConfiguration;
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked during the association.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<AlarmStateInformation> triggeredAlarms;
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      */
 
     public void setName(String name) {
@@ -182,10 +255,10 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
-     * @return The name of the Systems Manager document.
+     * @return The name of the SSM document.
      */
 
     public String getName() {
@@ -194,11 +267,11 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -209,11 +282,11 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      * 
      * @param instanceId
-     *        The ID of the instance.
+     *        The managed node ID.
      */
 
     public void setInstanceId(String instanceId) {
@@ -222,10 +295,10 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      * 
-     * @return The ID of the instance.
+     * @return The managed node ID.
      */
 
     public String getInstanceId() {
@@ -234,11 +307,11 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The ID of the instance.
+     * The managed node ID.
      * </p>
      * 
      * @param instanceId
-     *        The ID of the instance.
+     *        The managed node ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -489,13 +562,15 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Specify the target for the association. This target is required for associations that use an Automation document
-     * and target resources by using rate controls.
+     * Choose the parameter that will define how your automation will branch out. This target is required for
+     * associations that use an Automation runbook and target resources by using rate controls. Automation is a
+     * capability of Amazon Web Services Systems Manager.
      * </p>
      * 
      * @param automationTargetParameterName
-     *        Specify the target for the association. This target is required for associations that use an Automation
-     *        document and target resources by using rate controls.
+     *        Choose the parameter that will define how your automation will branch out. This target is required for
+     *        associations that use an Automation runbook and target resources by using rate controls. Automation is a
+     *        capability of Amazon Web Services Systems Manager.
      */
 
     public void setAutomationTargetParameterName(String automationTargetParameterName) {
@@ -504,12 +579,14 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Specify the target for the association. This target is required for associations that use an Automation document
-     * and target resources by using rate controls.
+     * Choose the parameter that will define how your automation will branch out. This target is required for
+     * associations that use an Automation runbook and target resources by using rate controls. Automation is a
+     * capability of Amazon Web Services Systems Manager.
      * </p>
      * 
-     * @return Specify the target for the association. This target is required for associations that use an Automation
-     *         document and target resources by using rate controls.
+     * @return Choose the parameter that will define how your automation will branch out. This target is required for
+     *         associations that use an Automation runbook and target resources by using rate controls. Automation is a
+     *         capability of Amazon Web Services Systems Manager.
      */
 
     public String getAutomationTargetParameterName() {
@@ -518,13 +595,15 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Specify the target for the association. This target is required for associations that use an Automation document
-     * and target resources by using rate controls.
+     * Choose the parameter that will define how your automation will branch out. This target is required for
+     * associations that use an Automation runbook and target resources by using rate controls. Automation is a
+     * capability of Amazon Web Services Systems Manager.
      * </p>
      * 
      * @param automationTargetParameterName
-     *        Specify the target for the association. This target is required for associations that use an Automation
-     *        document and target resources by using rate controls.
+     *        Choose the parameter that will define how your automation will branch out. This target is required for
+     *        associations that use an Automation runbook and target resources by using rate controls. Automation is a
+     *        capability of Amazon Web Services Systems Manager.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -572,6 +651,13 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
         setParameters(parameters);
         return this;
     }
+
+    /**
+     * Add a single Parameters entry
+     *
+     * @see AssociationDescription#withParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public AssociationDescription addParametersEntry(String key, java.util.List<String> value) {
         if (null == this.parameters) {
@@ -636,10 +722,10 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The instances targeted by the request.
+     * The managed nodes targeted by the request.
      * </p>
      * 
-     * @return The instances targeted by the request.
+     * @return The managed nodes targeted by the request.
      */
 
     public java.util.List<Target> getTargets() {
@@ -651,11 +737,11 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The instances targeted by the request.
+     * The managed nodes targeted by the request.
      * </p>
      * 
      * @param targets
-     *        The instances targeted by the request.
+     *        The managed nodes targeted by the request.
      */
 
     public void setTargets(java.util.Collection<Target> targets) {
@@ -669,7 +755,7 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The instances targeted by the request.
+     * The managed nodes targeted by the request.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -678,7 +764,7 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
      * </p>
      * 
      * @param targets
-     *        The instances targeted by the request.
+     *        The managed nodes targeted by the request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -694,11 +780,11 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The instances targeted by the request.
+     * The managed nodes targeted by the request.
      * </p>
      * 
      * @param targets
-     *        The instances targeted by the request.
+     *        The managed nodes targeted by the request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -749,11 +835,11 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * An Amazon S3 bucket where you want to store the output details of the request.
+     * An S3 bucket where you want to store the output details of the request.
      * </p>
      * 
      * @param outputLocation
-     *        An Amazon S3 bucket where you want to store the output details of the request.
+     *        An S3 bucket where you want to store the output details of the request.
      */
 
     public void setOutputLocation(InstanceAssociationOutputLocation outputLocation) {
@@ -762,10 +848,10 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * An Amazon S3 bucket where you want to store the output details of the request.
+     * An S3 bucket where you want to store the output details of the request.
      * </p>
      * 
-     * @return An Amazon S3 bucket where you want to store the output details of the request.
+     * @return An S3 bucket where you want to store the output details of the request.
      */
 
     public InstanceAssociationOutputLocation getOutputLocation() {
@@ -774,11 +860,11 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * An Amazon S3 bucket where you want to store the output details of the request.
+     * An S3 bucket where you want to store the output details of the request.
      * </p>
      * 
      * @param outputLocation
-     *        An Amazon S3 bucket where you want to store the output details of the request.
+     *        An S3 bucket where you want to store the output details of the request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -913,13 +999,13 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
      * additional targets. You can specify either an absolute number of errors, for example 10, or a percentage of the
      * target set, for example 10%. If you specify 3, for example, the system stops sending requests when the fourth
      * error is received. If you specify 0, then the system stops sending requests after the first error is returned. If
-     * you run an association on 50 instances and set MaxError to 10%, then the system stops sending the request when
-     * the sixth error is received.
+     * you run an association on 50 managed nodes and set <code>MaxError</code> to 10%, then the system stops sending
+     * the request when the sixth error is received.
      * </p>
      * <p>
-     * Executions that are already running an association when MaxErrors is reached are allowed to complete, but some of
-     * these executions may fail as well. If you need to ensure that there won't be more than max-errors failed
-     * executions, set MaxConcurrency to 1 so that executions proceed one at a time.
+     * Executions that are already running an association when <code>MaxErrors</code> is reached are allowed to
+     * complete, but some of these executions may fail as well. If you need to ensure that there won't be more than
+     * max-errors failed executions, set <code>MaxConcurrency</code> to 1 so that executions proceed one at a time.
      * </p>
      * 
      * @param maxErrors
@@ -927,12 +1013,13 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
      *        additional targets. You can specify either an absolute number of errors, for example 10, or a percentage
      *        of the target set, for example 10%. If you specify 3, for example, the system stops sending requests when
      *        the fourth error is received. If you specify 0, then the system stops sending requests after the first
-     *        error is returned. If you run an association on 50 instances and set MaxError to 10%, then the system
-     *        stops sending the request when the sixth error is received.</p>
+     *        error is returned. If you run an association on 50 managed nodes and set <code>MaxError</code> to 10%,
+     *        then the system stops sending the request when the sixth error is received.</p>
      *        <p>
-     *        Executions that are already running an association when MaxErrors is reached are allowed to complete, but
-     *        some of these executions may fail as well. If you need to ensure that there won't be more than max-errors
-     *        failed executions, set MaxConcurrency to 1 so that executions proceed one at a time.
+     *        Executions that are already running an association when <code>MaxErrors</code> is reached are allowed to
+     *        complete, but some of these executions may fail as well. If you need to ensure that there won't be more
+     *        than max-errors failed executions, set <code>MaxConcurrency</code> to 1 so that executions proceed one at
+     *        a time.
      */
 
     public void setMaxErrors(String maxErrors) {
@@ -945,25 +1032,26 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
      * additional targets. You can specify either an absolute number of errors, for example 10, or a percentage of the
      * target set, for example 10%. If you specify 3, for example, the system stops sending requests when the fourth
      * error is received. If you specify 0, then the system stops sending requests after the first error is returned. If
-     * you run an association on 50 instances and set MaxError to 10%, then the system stops sending the request when
-     * the sixth error is received.
+     * you run an association on 50 managed nodes and set <code>MaxError</code> to 10%, then the system stops sending
+     * the request when the sixth error is received.
      * </p>
      * <p>
-     * Executions that are already running an association when MaxErrors is reached are allowed to complete, but some of
-     * these executions may fail as well. If you need to ensure that there won't be more than max-errors failed
-     * executions, set MaxConcurrency to 1 so that executions proceed one at a time.
+     * Executions that are already running an association when <code>MaxErrors</code> is reached are allowed to
+     * complete, but some of these executions may fail as well. If you need to ensure that there won't be more than
+     * max-errors failed executions, set <code>MaxConcurrency</code> to 1 so that executions proceed one at a time.
      * </p>
      * 
      * @return The number of errors that are allowed before the system stops sending requests to run the association on
      *         additional targets. You can specify either an absolute number of errors, for example 10, or a percentage
      *         of the target set, for example 10%. If you specify 3, for example, the system stops sending requests when
      *         the fourth error is received. If you specify 0, then the system stops sending requests after the first
-     *         error is returned. If you run an association on 50 instances and set MaxError to 10%, then the system
-     *         stops sending the request when the sixth error is received.</p>
+     *         error is returned. If you run an association on 50 managed nodes and set <code>MaxError</code> to 10%,
+     *         then the system stops sending the request when the sixth error is received.</p>
      *         <p>
-     *         Executions that are already running an association when MaxErrors is reached are allowed to complete, but
-     *         some of these executions may fail as well. If you need to ensure that there won't be more than max-errors
-     *         failed executions, set MaxConcurrency to 1 so that executions proceed one at a time.
+     *         Executions that are already running an association when <code>MaxErrors</code> is reached are allowed to
+     *         complete, but some of these executions may fail as well. If you need to ensure that there won't be more
+     *         than max-errors failed executions, set <code>MaxConcurrency</code> to 1 so that executions proceed one at
+     *         a time.
      */
 
     public String getMaxErrors() {
@@ -976,13 +1064,13 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
      * additional targets. You can specify either an absolute number of errors, for example 10, or a percentage of the
      * target set, for example 10%. If you specify 3, for example, the system stops sending requests when the fourth
      * error is received. If you specify 0, then the system stops sending requests after the first error is returned. If
-     * you run an association on 50 instances and set MaxError to 10%, then the system stops sending the request when
-     * the sixth error is received.
+     * you run an association on 50 managed nodes and set <code>MaxError</code> to 10%, then the system stops sending
+     * the request when the sixth error is received.
      * </p>
      * <p>
-     * Executions that are already running an association when MaxErrors is reached are allowed to complete, but some of
-     * these executions may fail as well. If you need to ensure that there won't be more than max-errors failed
-     * executions, set MaxConcurrency to 1 so that executions proceed one at a time.
+     * Executions that are already running an association when <code>MaxErrors</code> is reached are allowed to
+     * complete, but some of these executions may fail as well. If you need to ensure that there won't be more than
+     * max-errors failed executions, set <code>MaxConcurrency</code> to 1 so that executions proceed one at a time.
      * </p>
      * 
      * @param maxErrors
@@ -990,12 +1078,13 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
      *        additional targets. You can specify either an absolute number of errors, for example 10, or a percentage
      *        of the target set, for example 10%. If you specify 3, for example, the system stops sending requests when
      *        the fourth error is received. If you specify 0, then the system stops sending requests after the first
-     *        error is returned. If you run an association on 50 instances and set MaxError to 10%, then the system
-     *        stops sending the request when the sixth error is received.</p>
+     *        error is returned. If you run an association on 50 managed nodes and set <code>MaxError</code> to 10%,
+     *        then the system stops sending the request when the sixth error is received.</p>
      *        <p>
-     *        Executions that are already running an association when MaxErrors is reached are allowed to complete, but
-     *        some of these executions may fail as well. If you need to ensure that there won't be more than max-errors
-     *        failed executions, set MaxConcurrency to 1 so that executions proceed one at a time.
+     *        Executions that are already running an association when <code>MaxErrors</code> is reached are allowed to
+     *        complete, but some of these executions may fail as well. If you need to ensure that there won't be more
+     *        than max-errors failed executions, set <code>MaxConcurrency</code> to 1 so that executions proceed one at
+     *        a time.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1011,9 +1100,10 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
      * targets run the association at the same time.
      * </p>
      * <p>
-     * If a new instance starts and attempts to run an association while Systems Manager is running MaxConcurrency
-     * associations, the association is allowed to run. During the next association interval, the new instance will
-     * process its association within the limit specified for MaxConcurrency.
+     * If a new managed node starts and attempts to run an association while Systems Manager is running
+     * <code>MaxConcurrency</code> associations, the association is allowed to run. During the next association
+     * interval, the new managed node will process its association within the limit specified for
+     * <code>MaxConcurrency</code>.
      * </p>
      * 
      * @param maxConcurrency
@@ -1021,9 +1111,10 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
      *        for example 10, or a percentage of the target set, for example 10%. The default value is 100%, which means
      *        all targets run the association at the same time.</p>
      *        <p>
-     *        If a new instance starts and attempts to run an association while Systems Manager is running
-     *        MaxConcurrency associations, the association is allowed to run. During the next association interval, the
-     *        new instance will process its association within the limit specified for MaxConcurrency.
+     *        If a new managed node starts and attempts to run an association while Systems Manager is running
+     *        <code>MaxConcurrency</code> associations, the association is allowed to run. During the next association
+     *        interval, the new managed node will process its association within the limit specified for
+     *        <code>MaxConcurrency</code>.
      */
 
     public void setMaxConcurrency(String maxConcurrency) {
@@ -1037,18 +1128,20 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
      * targets run the association at the same time.
      * </p>
      * <p>
-     * If a new instance starts and attempts to run an association while Systems Manager is running MaxConcurrency
-     * associations, the association is allowed to run. During the next association interval, the new instance will
-     * process its association within the limit specified for MaxConcurrency.
+     * If a new managed node starts and attempts to run an association while Systems Manager is running
+     * <code>MaxConcurrency</code> associations, the association is allowed to run. During the next association
+     * interval, the new managed node will process its association within the limit specified for
+     * <code>MaxConcurrency</code>.
      * </p>
      * 
      * @return The maximum number of targets allowed to run the association at the same time. You can specify a number,
      *         for example 10, or a percentage of the target set, for example 10%. The default value is 100%, which
      *         means all targets run the association at the same time.</p>
      *         <p>
-     *         If a new instance starts and attempts to run an association while Systems Manager is running
-     *         MaxConcurrency associations, the association is allowed to run. During the next association interval, the
-     *         new instance will process its association within the limit specified for MaxConcurrency.
+     *         If a new managed node starts and attempts to run an association while Systems Manager is running
+     *         <code>MaxConcurrency</code> associations, the association is allowed to run. During the next association
+     *         interval, the new managed node will process its association within the limit specified for
+     *         <code>MaxConcurrency</code>.
      */
 
     public String getMaxConcurrency() {
@@ -1062,9 +1155,10 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
      * targets run the association at the same time.
      * </p>
      * <p>
-     * If a new instance starts and attempts to run an association while Systems Manager is running MaxConcurrency
-     * associations, the association is allowed to run. During the next association interval, the new instance will
-     * process its association within the limit specified for MaxConcurrency.
+     * If a new managed node starts and attempts to run an association while Systems Manager is running
+     * <code>MaxConcurrency</code> associations, the association is allowed to run. During the next association
+     * interval, the new managed node will process its association within the limit specified for
+     * <code>MaxConcurrency</code>.
      * </p>
      * 
      * @param maxConcurrency
@@ -1072,9 +1166,10 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
      *        for example 10, or a percentage of the target set, for example 10%. The default value is 100%, which means
      *        all targets run the association at the same time.</p>
      *        <p>
-     *        If a new instance starts and attempts to run an association while Systems Manager is running
-     *        MaxConcurrency associations, the association is allowed to run. During the next association interval, the
-     *        new instance will process its association within the limit specified for MaxConcurrency.
+     *        If a new managed node starts and attempts to run an association while Systems Manager is running
+     *        <code>MaxConcurrency</code> associations, the association is allowed to run. During the next association
+     *        interval, the new managed node will process its association within the limit specified for
+     *        <code>MaxConcurrency</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1143,6 +1238,680 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>. In
+     * <code>AUTO</code> mode, the system uses the status of the association execution to determine the compliance
+     * status. If the association execution runs successfully, then the association is <code>COMPLIANT</code>. If the
+     * association execution doesn't run successfully, the association is <code>NON-COMPLIANT</code>.
+     * </p>
+     * <p>
+     * In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     * <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     * capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     * <a>PutComplianceItems</a> API operation.
+     * </p>
+     * <p>
+     * By default, all associations use <code>AUTO</code> mode.
+     * </p>
+     * 
+     * @param syncCompliance
+     *        The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>.
+     *        In <code>AUTO</code> mode, the system uses the status of the association execution to determine the
+     *        compliance status. If the association execution runs successfully, then the association is
+     *        <code>COMPLIANT</code>. If the association execution doesn't run successfully, the association is
+     *        <code>NON-COMPLIANT</code>.</p>
+     *        <p>
+     *        In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     *        <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     *        capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     *        <a>PutComplianceItems</a> API operation.
+     *        </p>
+     *        <p>
+     *        By default, all associations use <code>AUTO</code> mode.
+     * @see AssociationSyncCompliance
+     */
+
+    public void setSyncCompliance(String syncCompliance) {
+        this.syncCompliance = syncCompliance;
+    }
+
+    /**
+     * <p>
+     * The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>. In
+     * <code>AUTO</code> mode, the system uses the status of the association execution to determine the compliance
+     * status. If the association execution runs successfully, then the association is <code>COMPLIANT</code>. If the
+     * association execution doesn't run successfully, the association is <code>NON-COMPLIANT</code>.
+     * </p>
+     * <p>
+     * In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     * <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     * capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     * <a>PutComplianceItems</a> API operation.
+     * </p>
+     * <p>
+     * By default, all associations use <code>AUTO</code> mode.
+     * </p>
+     * 
+     * @return The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>.
+     *         In <code>AUTO</code> mode, the system uses the status of the association execution to determine the
+     *         compliance status. If the association execution runs successfully, then the association is
+     *         <code>COMPLIANT</code>. If the association execution doesn't run successfully, the association is
+     *         <code>NON-COMPLIANT</code>.</p>
+     *         <p>
+     *         In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     *         <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     *         capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     *         <a>PutComplianceItems</a> API operation.
+     *         </p>
+     *         <p>
+     *         By default, all associations use <code>AUTO</code> mode.
+     * @see AssociationSyncCompliance
+     */
+
+    public String getSyncCompliance() {
+        return this.syncCompliance;
+    }
+
+    /**
+     * <p>
+     * The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>. In
+     * <code>AUTO</code> mode, the system uses the status of the association execution to determine the compliance
+     * status. If the association execution runs successfully, then the association is <code>COMPLIANT</code>. If the
+     * association execution doesn't run successfully, the association is <code>NON-COMPLIANT</code>.
+     * </p>
+     * <p>
+     * In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     * <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     * capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     * <a>PutComplianceItems</a> API operation.
+     * </p>
+     * <p>
+     * By default, all associations use <code>AUTO</code> mode.
+     * </p>
+     * 
+     * @param syncCompliance
+     *        The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>.
+     *        In <code>AUTO</code> mode, the system uses the status of the association execution to determine the
+     *        compliance status. If the association execution runs successfully, then the association is
+     *        <code>COMPLIANT</code>. If the association execution doesn't run successfully, the association is
+     *        <code>NON-COMPLIANT</code>.</p>
+     *        <p>
+     *        In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     *        <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     *        capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     *        <a>PutComplianceItems</a> API operation.
+     *        </p>
+     *        <p>
+     *        By default, all associations use <code>AUTO</code> mode.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AssociationSyncCompliance
+     */
+
+    public AssociationDescription withSyncCompliance(String syncCompliance) {
+        setSyncCompliance(syncCompliance);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>. In
+     * <code>AUTO</code> mode, the system uses the status of the association execution to determine the compliance
+     * status. If the association execution runs successfully, then the association is <code>COMPLIANT</code>. If the
+     * association execution doesn't run successfully, the association is <code>NON-COMPLIANT</code>.
+     * </p>
+     * <p>
+     * In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     * <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     * capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     * <a>PutComplianceItems</a> API operation.
+     * </p>
+     * <p>
+     * By default, all associations use <code>AUTO</code> mode.
+     * </p>
+     * 
+     * @param syncCompliance
+     *        The mode for generating association compliance. You can specify <code>AUTO</code> or <code>MANUAL</code>.
+     *        In <code>AUTO</code> mode, the system uses the status of the association execution to determine the
+     *        compliance status. If the association execution runs successfully, then the association is
+     *        <code>COMPLIANT</code>. If the association execution doesn't run successfully, the association is
+     *        <code>NON-COMPLIANT</code>.</p>
+     *        <p>
+     *        In <code>MANUAL</code> mode, you must specify the <code>AssociationId</code> as a parameter for the
+     *        <a>PutComplianceItems</a> API operation. In this case, compliance data isn't managed by State Manager, a
+     *        capability of Amazon Web Services Systems Manager. It is managed by your direct call to the
+     *        <a>PutComplianceItems</a> API operation.
+     *        </p>
+     *        <p>
+     *        By default, all associations use <code>AUTO</code> mode.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AssociationSyncCompliance
+     */
+
+    public AssociationDescription withSyncCompliance(AssociationSyncCompliance syncCompliance) {
+        this.syncCompliance = syncCompliance.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * By default, when you create a new associations, the system runs it immediately after it is created and then
+     * according to the schedule you specified. Specify this option if you don't want an association to run immediately
+     * after you create it. This parameter isn't supported for rate expressions.
+     * </p>
+     * 
+     * @param applyOnlyAtCronInterval
+     *        By default, when you create a new associations, the system runs it immediately after it is created and
+     *        then according to the schedule you specified. Specify this option if you don't want an association to run
+     *        immediately after you create it. This parameter isn't supported for rate expressions.
+     */
+
+    public void setApplyOnlyAtCronInterval(Boolean applyOnlyAtCronInterval) {
+        this.applyOnlyAtCronInterval = applyOnlyAtCronInterval;
+    }
+
+    /**
+     * <p>
+     * By default, when you create a new associations, the system runs it immediately after it is created and then
+     * according to the schedule you specified. Specify this option if you don't want an association to run immediately
+     * after you create it. This parameter isn't supported for rate expressions.
+     * </p>
+     * 
+     * @return By default, when you create a new associations, the system runs it immediately after it is created and
+     *         then according to the schedule you specified. Specify this option if you don't want an association to run
+     *         immediately after you create it. This parameter isn't supported for rate expressions.
+     */
+
+    public Boolean getApplyOnlyAtCronInterval() {
+        return this.applyOnlyAtCronInterval;
+    }
+
+    /**
+     * <p>
+     * By default, when you create a new associations, the system runs it immediately after it is created and then
+     * according to the schedule you specified. Specify this option if you don't want an association to run immediately
+     * after you create it. This parameter isn't supported for rate expressions.
+     * </p>
+     * 
+     * @param applyOnlyAtCronInterval
+     *        By default, when you create a new associations, the system runs it immediately after it is created and
+     *        then according to the schedule you specified. Specify this option if you don't want an association to run
+     *        immediately after you create it. This parameter isn't supported for rate expressions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssociationDescription withApplyOnlyAtCronInterval(Boolean applyOnlyAtCronInterval) {
+        setApplyOnlyAtCronInterval(applyOnlyAtCronInterval);
+        return this;
+    }
+
+    /**
+     * <p>
+     * By default, when you create a new associations, the system runs it immediately after it is created and then
+     * according to the schedule you specified. Specify this option if you don't want an association to run immediately
+     * after you create it. This parameter isn't supported for rate expressions.
+     * </p>
+     * 
+     * @return By default, when you create a new associations, the system runs it immediately after it is created and
+     *         then according to the schedule you specified. Specify this option if you don't want an association to run
+     *         immediately after you create it. This parameter isn't supported for rate expressions.
+     */
+
+    public Boolean isApplyOnlyAtCronInterval() {
+        return this.applyOnlyAtCronInterval;
+    }
+
+    /**
+     * <p>
+     * The names or Amazon Resource Names (ARNs) of the Change Calendar type documents your associations are gated
+     * under. The associations only run when that change calendar is open. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">Amazon Web
+     * Services Systems Manager Change Calendar</a>.
+     * </p>
+     * 
+     * @return The names or Amazon Resource Names (ARNs) of the Change Calendar type documents your associations are
+     *         gated under. The associations only run when that change calendar is open. For more information, see <a
+     *         href
+     *         ="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">Amazon
+     *         Web Services Systems Manager Change Calendar</a>.
+     */
+
+    public java.util.List<String> getCalendarNames() {
+        if (calendarNames == null) {
+            calendarNames = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return calendarNames;
+    }
+
+    /**
+     * <p>
+     * The names or Amazon Resource Names (ARNs) of the Change Calendar type documents your associations are gated
+     * under. The associations only run when that change calendar is open. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">Amazon Web
+     * Services Systems Manager Change Calendar</a>.
+     * </p>
+     * 
+     * @param calendarNames
+     *        The names or Amazon Resource Names (ARNs) of the Change Calendar type documents your associations are
+     *        gated under. The associations only run when that change calendar is open. For more information, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">Amazon
+     *        Web Services Systems Manager Change Calendar</a>.
+     */
+
+    public void setCalendarNames(java.util.Collection<String> calendarNames) {
+        if (calendarNames == null) {
+            this.calendarNames = null;
+            return;
+        }
+
+        this.calendarNames = new com.amazonaws.internal.SdkInternalList<String>(calendarNames);
+    }
+
+    /**
+     * <p>
+     * The names or Amazon Resource Names (ARNs) of the Change Calendar type documents your associations are gated
+     * under. The associations only run when that change calendar is open. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">Amazon Web
+     * Services Systems Manager Change Calendar</a>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCalendarNames(java.util.Collection)} or {@link #withCalendarNames(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param calendarNames
+     *        The names or Amazon Resource Names (ARNs) of the Change Calendar type documents your associations are
+     *        gated under. The associations only run when that change calendar is open. For more information, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">Amazon
+     *        Web Services Systems Manager Change Calendar</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssociationDescription withCalendarNames(String... calendarNames) {
+        if (this.calendarNames == null) {
+            setCalendarNames(new com.amazonaws.internal.SdkInternalList<String>(calendarNames.length));
+        }
+        for (String ele : calendarNames) {
+            this.calendarNames.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The names or Amazon Resource Names (ARNs) of the Change Calendar type documents your associations are gated
+     * under. The associations only run when that change calendar is open. For more information, see <a
+     * href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">Amazon Web
+     * Services Systems Manager Change Calendar</a>.
+     * </p>
+     * 
+     * @param calendarNames
+     *        The names or Amazon Resource Names (ARNs) of the Change Calendar type documents your associations are
+     *        gated under. The associations only run when that change calendar is open. For more information, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar">Amazon
+     *        Web Services Systems Manager Change Calendar</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssociationDescription withCalendarNames(java.util.Collection<String> calendarNames) {
+        setCalendarNames(calendarNames);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The combination of Amazon Web Services Regions and Amazon Web Services accounts where you want to run the
+     * association.
+     * </p>
+     * 
+     * @return The combination of Amazon Web Services Regions and Amazon Web Services accounts where you want to run the
+     *         association.
+     */
+
+    public java.util.List<TargetLocation> getTargetLocations() {
+        if (targetLocations == null) {
+            targetLocations = new com.amazonaws.internal.SdkInternalList<TargetLocation>();
+        }
+        return targetLocations;
+    }
+
+    /**
+     * <p>
+     * The combination of Amazon Web Services Regions and Amazon Web Services accounts where you want to run the
+     * association.
+     * </p>
+     * 
+     * @param targetLocations
+     *        The combination of Amazon Web Services Regions and Amazon Web Services accounts where you want to run the
+     *        association.
+     */
+
+    public void setTargetLocations(java.util.Collection<TargetLocation> targetLocations) {
+        if (targetLocations == null) {
+            this.targetLocations = null;
+            return;
+        }
+
+        this.targetLocations = new com.amazonaws.internal.SdkInternalList<TargetLocation>(targetLocations);
+    }
+
+    /**
+     * <p>
+     * The combination of Amazon Web Services Regions and Amazon Web Services accounts where you want to run the
+     * association.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTargetLocations(java.util.Collection)} or {@link #withTargetLocations(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param targetLocations
+     *        The combination of Amazon Web Services Regions and Amazon Web Services accounts where you want to run the
+     *        association.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssociationDescription withTargetLocations(TargetLocation... targetLocations) {
+        if (this.targetLocations == null) {
+            setTargetLocations(new com.amazonaws.internal.SdkInternalList<TargetLocation>(targetLocations.length));
+        }
+        for (TargetLocation ele : targetLocations) {
+            this.targetLocations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The combination of Amazon Web Services Regions and Amazon Web Services accounts where you want to run the
+     * association.
+     * </p>
+     * 
+     * @param targetLocations
+     *        The combination of Amazon Web Services Regions and Amazon Web Services accounts where you want to run the
+     *        association.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssociationDescription withTargetLocations(java.util.Collection<TargetLocation> targetLocations) {
+        setTargetLocations(targetLocations);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Number of days to wait after the scheduled day to run an association.
+     * </p>
+     * 
+     * @param scheduleOffset
+     *        Number of days to wait after the scheduled day to run an association.
+     */
+
+    public void setScheduleOffset(Integer scheduleOffset) {
+        this.scheduleOffset = scheduleOffset;
+    }
+
+    /**
+     * <p>
+     * Number of days to wait after the scheduled day to run an association.
+     * </p>
+     * 
+     * @return Number of days to wait after the scheduled day to run an association.
+     */
+
+    public Integer getScheduleOffset() {
+        return this.scheduleOffset;
+    }
+
+    /**
+     * <p>
+     * Number of days to wait after the scheduled day to run an association.
+     * </p>
+     * 
+     * @param scheduleOffset
+     *        Number of days to wait after the scheduled day to run an association.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssociationDescription withScheduleOffset(Integer scheduleOffset) {
+        setScheduleOffset(scheduleOffset);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of hours that an association can run on specified targets. After the resulting cutoff time passes,
+     * associations that are currently running are cancelled, and no pending executions are started on remaining
+     * targets.
+     * </p>
+     * 
+     * @param duration
+     *        The number of hours that an association can run on specified targets. After the resulting cutoff time
+     *        passes, associations that are currently running are cancelled, and no pending executions are started on
+     *        remaining targets.
+     */
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
+    /**
+     * <p>
+     * The number of hours that an association can run on specified targets. After the resulting cutoff time passes,
+     * associations that are currently running are cancelled, and no pending executions are started on remaining
+     * targets.
+     * </p>
+     * 
+     * @return The number of hours that an association can run on specified targets. After the resulting cutoff time
+     *         passes, associations that are currently running are cancelled, and no pending executions are started on
+     *         remaining targets.
+     */
+
+    public Integer getDuration() {
+        return this.duration;
+    }
+
+    /**
+     * <p>
+     * The number of hours that an association can run on specified targets. After the resulting cutoff time passes,
+     * associations that are currently running are cancelled, and no pending executions are started on remaining
+     * targets.
+     * </p>
+     * 
+     * @param duration
+     *        The number of hours that an association can run on specified targets. After the resulting cutoff time
+     *        passes, associations that are currently running are cancelled, and no pending executions are started on
+     *        remaining targets.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssociationDescription withDuration(Integer duration) {
+        setDuration(duration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
+     * together.
+     * </p>
+     * 
+     * @return A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be
+     *         specified together.
+     */
+
+    public java.util.List<java.util.Map<String, java.util.List<String>>> getTargetMaps() {
+        if (targetMaps == null) {
+            targetMaps = new com.amazonaws.internal.SdkInternalList<java.util.Map<String, java.util.List<String>>>();
+        }
+        return targetMaps;
+    }
+
+    /**
+     * <p>
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
+     * together.
+     * </p>
+     * 
+     * @param targetMaps
+     *        A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be
+     *        specified together.
+     */
+
+    public void setTargetMaps(java.util.Collection<java.util.Map<String, java.util.List<String>>> targetMaps) {
+        if (targetMaps == null) {
+            this.targetMaps = null;
+            return;
+        }
+
+        this.targetMaps = new com.amazonaws.internal.SdkInternalList<java.util.Map<String, java.util.List<String>>>(targetMaps);
+    }
+
+    /**
+     * <p>
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
+     * together.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTargetMaps(java.util.Collection)} or {@link #withTargetMaps(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param targetMaps
+     *        A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be
+     *        specified together.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssociationDescription withTargetMaps(java.util.Map<String, java.util.List<String>>... targetMaps) {
+        if (this.targetMaps == null) {
+            setTargetMaps(new com.amazonaws.internal.SdkInternalList<java.util.Map<String, java.util.List<String>>>(targetMaps.length));
+        }
+        for (java.util.Map<String, java.util.List<String>> ele : targetMaps) {
+            this.targetMaps.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
+     * together.
+     * </p>
+     * 
+     * @param targetMaps
+     *        A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be
+     *        specified together.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssociationDescription withTargetMaps(java.util.Collection<java.util.Map<String, java.util.List<String>>> targetMaps) {
+        setTargetMaps(targetMaps);
+        return this;
+    }
+
+    /**
+     * @param alarmConfiguration
+     */
+
+    public void setAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        this.alarmConfiguration = alarmConfiguration;
+    }
+
+    /**
+     * @return
+     */
+
+    public AlarmConfiguration getAlarmConfiguration() {
+        return this.alarmConfiguration;
+    }
+
+    /**
+     * @param alarmConfiguration
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssociationDescription withAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        setAlarmConfiguration(alarmConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked during the association.
+     * </p>
+     * 
+     * @return The CloudWatch alarm that was invoked during the association.
+     */
+
+    public java.util.List<AlarmStateInformation> getTriggeredAlarms() {
+        if (triggeredAlarms == null) {
+            triggeredAlarms = new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>();
+        }
+        return triggeredAlarms;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked during the association.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarm that was invoked during the association.
+     */
+
+    public void setTriggeredAlarms(java.util.Collection<AlarmStateInformation> triggeredAlarms) {
+        if (triggeredAlarms == null) {
+            this.triggeredAlarms = null;
+            return;
+        }
+
+        this.triggeredAlarms = new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>(triggeredAlarms);
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked during the association.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTriggeredAlarms(java.util.Collection)} or {@link #withTriggeredAlarms(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarm that was invoked during the association.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssociationDescription withTriggeredAlarms(AlarmStateInformation... triggeredAlarms) {
+        if (this.triggeredAlarms == null) {
+            setTriggeredAlarms(new com.amazonaws.internal.SdkInternalList<AlarmStateInformation>(triggeredAlarms.length));
+        }
+        for (AlarmStateInformation ele : triggeredAlarms) {
+            this.triggeredAlarms.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm that was invoked during the association.
+     * </p>
+     * 
+     * @param triggeredAlarms
+     *        The CloudWatch alarm that was invoked during the association.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AssociationDescription withTriggeredAlarms(java.util.Collection<AlarmStateInformation> triggeredAlarms) {
+        setTriggeredAlarms(triggeredAlarms);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1173,7 +1942,7 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
         if (getAutomationTargetParameterName() != null)
             sb.append("AutomationTargetParameterName: ").append(getAutomationTargetParameterName()).append(",");
         if (getParameters() != null)
-            sb.append("Parameters: ").append(getParameters()).append(",");
+            sb.append("Parameters: ").append("***Sensitive Data Redacted***").append(",");
         if (getAssociationId() != null)
             sb.append("AssociationId: ").append(getAssociationId()).append(",");
         if (getTargets() != null)
@@ -1193,7 +1962,25 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
         if (getMaxConcurrency() != null)
             sb.append("MaxConcurrency: ").append(getMaxConcurrency()).append(",");
         if (getComplianceSeverity() != null)
-            sb.append("ComplianceSeverity: ").append(getComplianceSeverity());
+            sb.append("ComplianceSeverity: ").append(getComplianceSeverity()).append(",");
+        if (getSyncCompliance() != null)
+            sb.append("SyncCompliance: ").append(getSyncCompliance()).append(",");
+        if (getApplyOnlyAtCronInterval() != null)
+            sb.append("ApplyOnlyAtCronInterval: ").append(getApplyOnlyAtCronInterval()).append(",");
+        if (getCalendarNames() != null)
+            sb.append("CalendarNames: ").append(getCalendarNames()).append(",");
+        if (getTargetLocations() != null)
+            sb.append("TargetLocations: ").append(getTargetLocations()).append(",");
+        if (getScheduleOffset() != null)
+            sb.append("ScheduleOffset: ").append(getScheduleOffset()).append(",");
+        if (getDuration() != null)
+            sb.append("Duration: ").append(getDuration()).append(",");
+        if (getTargetMaps() != null)
+            sb.append("TargetMaps: ").append(getTargetMaps()).append(",");
+        if (getAlarmConfiguration() != null)
+            sb.append("AlarmConfiguration: ").append(getAlarmConfiguration()).append(",");
+        if (getTriggeredAlarms() != null)
+            sb.append("TriggeredAlarms: ").append(getTriggeredAlarms());
         sb.append("}");
         return sb.toString();
     }
@@ -1289,6 +2076,42 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
             return false;
         if (other.getComplianceSeverity() != null && other.getComplianceSeverity().equals(this.getComplianceSeverity()) == false)
             return false;
+        if (other.getSyncCompliance() == null ^ this.getSyncCompliance() == null)
+            return false;
+        if (other.getSyncCompliance() != null && other.getSyncCompliance().equals(this.getSyncCompliance()) == false)
+            return false;
+        if (other.getApplyOnlyAtCronInterval() == null ^ this.getApplyOnlyAtCronInterval() == null)
+            return false;
+        if (other.getApplyOnlyAtCronInterval() != null && other.getApplyOnlyAtCronInterval().equals(this.getApplyOnlyAtCronInterval()) == false)
+            return false;
+        if (other.getCalendarNames() == null ^ this.getCalendarNames() == null)
+            return false;
+        if (other.getCalendarNames() != null && other.getCalendarNames().equals(this.getCalendarNames()) == false)
+            return false;
+        if (other.getTargetLocations() == null ^ this.getTargetLocations() == null)
+            return false;
+        if (other.getTargetLocations() != null && other.getTargetLocations().equals(this.getTargetLocations()) == false)
+            return false;
+        if (other.getScheduleOffset() == null ^ this.getScheduleOffset() == null)
+            return false;
+        if (other.getScheduleOffset() != null && other.getScheduleOffset().equals(this.getScheduleOffset()) == false)
+            return false;
+        if (other.getDuration() == null ^ this.getDuration() == null)
+            return false;
+        if (other.getDuration() != null && other.getDuration().equals(this.getDuration()) == false)
+            return false;
+        if (other.getTargetMaps() == null ^ this.getTargetMaps() == null)
+            return false;
+        if (other.getTargetMaps() != null && other.getTargetMaps().equals(this.getTargetMaps()) == false)
+            return false;
+        if (other.getAlarmConfiguration() == null ^ this.getAlarmConfiguration() == null)
+            return false;
+        if (other.getAlarmConfiguration() != null && other.getAlarmConfiguration().equals(this.getAlarmConfiguration()) == false)
+            return false;
+        if (other.getTriggeredAlarms() == null ^ this.getTriggeredAlarms() == null)
+            return false;
+        if (other.getTriggeredAlarms() != null && other.getTriggeredAlarms().equals(this.getTriggeredAlarms()) == false)
+            return false;
         return true;
     }
 
@@ -1317,6 +2140,15 @@ public class AssociationDescription implements Serializable, Cloneable, Structur
         hashCode = prime * hashCode + ((getMaxErrors() == null) ? 0 : getMaxErrors().hashCode());
         hashCode = prime * hashCode + ((getMaxConcurrency() == null) ? 0 : getMaxConcurrency().hashCode());
         hashCode = prime * hashCode + ((getComplianceSeverity() == null) ? 0 : getComplianceSeverity().hashCode());
+        hashCode = prime * hashCode + ((getSyncCompliance() == null) ? 0 : getSyncCompliance().hashCode());
+        hashCode = prime * hashCode + ((getApplyOnlyAtCronInterval() == null) ? 0 : getApplyOnlyAtCronInterval().hashCode());
+        hashCode = prime * hashCode + ((getCalendarNames() == null) ? 0 : getCalendarNames().hashCode());
+        hashCode = prime * hashCode + ((getTargetLocations() == null) ? 0 : getTargetLocations().hashCode());
+        hashCode = prime * hashCode + ((getScheduleOffset() == null) ? 0 : getScheduleOffset().hashCode());
+        hashCode = prime * hashCode + ((getDuration() == null) ? 0 : getDuration().hashCode());
+        hashCode = prime * hashCode + ((getTargetMaps() == null) ? 0 : getTargetMaps().hashCode());
+        hashCode = prime * hashCode + ((getAlarmConfiguration() == null) ? 0 : getAlarmConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getTriggeredAlarms() == null) ? 0 : getTriggeredAlarms().hashCode());
         return hashCode;
     }
 

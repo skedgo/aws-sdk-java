@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -72,6 +72,21 @@ public class AbstractAWSElasticBeanstalkAsync extends AbstractAWSElasticBeanstal
     @Override
     public java.util.concurrent.Future<ApplyEnvironmentManagedActionResult> applyEnvironmentManagedActionAsync(ApplyEnvironmentManagedActionRequest request,
             com.amazonaws.handlers.AsyncHandler<ApplyEnvironmentManagedActionRequest, ApplyEnvironmentManagedActionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateEnvironmentOperationsRoleResult> associateEnvironmentOperationsRoleAsync(
+            AssociateEnvironmentOperationsRoleRequest request) {
+
+        return associateEnvironmentOperationsRoleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateEnvironmentOperationsRoleResult> associateEnvironmentOperationsRoleAsync(
+            AssociateEnvironmentOperationsRoleRequest request,
+            com.amazonaws.handlers.AsyncHandler<AssociateEnvironmentOperationsRoleRequest, AssociateEnvironmentOperationsRoleResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -534,6 +549,21 @@ public class AbstractAWSElasticBeanstalkAsync extends AbstractAWSElasticBeanstal
     }
 
     @Override
+    public java.util.concurrent.Future<DisassociateEnvironmentOperationsRoleResult> disassociateEnvironmentOperationsRoleAsync(
+            DisassociateEnvironmentOperationsRoleRequest request) {
+
+        return disassociateEnvironmentOperationsRoleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateEnvironmentOperationsRoleResult> disassociateEnvironmentOperationsRoleAsync(
+            DisassociateEnvironmentOperationsRoleRequest request,
+            com.amazonaws.handlers.AsyncHandler<DisassociateEnvironmentOperationsRoleRequest, DisassociateEnvironmentOperationsRoleResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListAvailableSolutionStacksResult> listAvailableSolutionStacksAsync(ListAvailableSolutionStacksRequest request) {
 
         return listAvailableSolutionStacksAsync(request, null);
@@ -567,6 +597,19 @@ public class AbstractAWSElasticBeanstalkAsync extends AbstractAWSElasticBeanstal
             com.amazonaws.handlers.AsyncHandler<ListAvailableSolutionStacksRequest, ListAvailableSolutionStacksResult> asyncHandler) {
 
         return listAvailableSolutionStacksAsync(new ListAvailableSolutionStacksRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPlatformBranchesResult> listPlatformBranchesAsync(ListPlatformBranchesRequest request) {
+
+        return listPlatformBranchesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPlatformBranchesResult> listPlatformBranchesAsync(ListPlatformBranchesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListPlatformBranchesRequest, ListPlatformBranchesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,6 +32,14 @@ public class WindowsFileSystemConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ActiveDirectoryId").build();
     private static final MarshallingInfo<StructuredPojo> SELFMANAGEDACTIVEDIRECTORYCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SelfManagedActiveDirectoryConfiguration").build();
+    private static final MarshallingInfo<String> DEPLOYMENTTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DeploymentType").build();
+    private static final MarshallingInfo<String> REMOTEADMINISTRATIONENDPOINT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RemoteAdministrationEndpoint").build();
+    private static final MarshallingInfo<String> PREFERREDSUBNETID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PreferredSubnetId").build();
+    private static final MarshallingInfo<String> PREFERREDFILESERVERIP_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PreferredFileServerIp").build();
     private static final MarshallingInfo<Integer> THROUGHPUTCAPACITY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ThroughputCapacity").build();
     private static final MarshallingInfo<List> MAINTENANCEOPERATIONSINPROGRESS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
@@ -44,6 +52,12 @@ public class WindowsFileSystemConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AutomaticBackupRetentionDays").build();
     private static final MarshallingInfo<Boolean> COPYTAGSTOBACKUPS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CopyTagsToBackups").build();
+    private static final MarshallingInfo<List> ALIASES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Aliases").build();
+    private static final MarshallingInfo<StructuredPojo> AUDITLOGCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AuditLogConfiguration").build();
+    private static final MarshallingInfo<StructuredPojo> DISKIOPSCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DiskIopsConfiguration").build();
 
     private static final WindowsFileSystemConfigurationMarshaller instance = new WindowsFileSystemConfigurationMarshaller();
 
@@ -64,12 +78,19 @@ public class WindowsFileSystemConfigurationMarshaller {
             protocolMarshaller.marshall(windowsFileSystemConfiguration.getActiveDirectoryId(), ACTIVEDIRECTORYID_BINDING);
             protocolMarshaller.marshall(windowsFileSystemConfiguration.getSelfManagedActiveDirectoryConfiguration(),
                     SELFMANAGEDACTIVEDIRECTORYCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(windowsFileSystemConfiguration.getDeploymentType(), DEPLOYMENTTYPE_BINDING);
+            protocolMarshaller.marshall(windowsFileSystemConfiguration.getRemoteAdministrationEndpoint(), REMOTEADMINISTRATIONENDPOINT_BINDING);
+            protocolMarshaller.marshall(windowsFileSystemConfiguration.getPreferredSubnetId(), PREFERREDSUBNETID_BINDING);
+            protocolMarshaller.marshall(windowsFileSystemConfiguration.getPreferredFileServerIp(), PREFERREDFILESERVERIP_BINDING);
             protocolMarshaller.marshall(windowsFileSystemConfiguration.getThroughputCapacity(), THROUGHPUTCAPACITY_BINDING);
             protocolMarshaller.marshall(windowsFileSystemConfiguration.getMaintenanceOperationsInProgress(), MAINTENANCEOPERATIONSINPROGRESS_BINDING);
             protocolMarshaller.marshall(windowsFileSystemConfiguration.getWeeklyMaintenanceStartTime(), WEEKLYMAINTENANCESTARTTIME_BINDING);
             protocolMarshaller.marshall(windowsFileSystemConfiguration.getDailyAutomaticBackupStartTime(), DAILYAUTOMATICBACKUPSTARTTIME_BINDING);
             protocolMarshaller.marshall(windowsFileSystemConfiguration.getAutomaticBackupRetentionDays(), AUTOMATICBACKUPRETENTIONDAYS_BINDING);
             protocolMarshaller.marshall(windowsFileSystemConfiguration.getCopyTagsToBackups(), COPYTAGSTOBACKUPS_BINDING);
+            protocolMarshaller.marshall(windowsFileSystemConfiguration.getAliases(), ALIASES_BINDING);
+            protocolMarshaller.marshall(windowsFileSystemConfiguration.getAuditLogConfiguration(), AUDITLOGCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(windowsFileSystemConfiguration.getDiskIopsConfiguration(), DISKIOPSCONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,10 +31,13 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
     private String adsOnDeliveryRestrictions;
 
     private DashEncryption encryption;
+    /** When enabled, an I-Frame only stream will be included in the output. */
+    private Boolean includeIframeOnlyStream;
     /**
      * Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL, elements like
      * SegmentTemplate and ContentProtection are included in each Representation. When set to COMPACT, duplicate
-     * elements are combined and presented at the AdaptationSet level.
+     * elements are combined and presented at the AdaptationSet level. When set to DRM_TOP_LEVEL_COMPACT, content
+     * protection elements are placed the MPD level and referenced at the AdaptationSet level.
      */
     private String manifestLayout;
     /** Time window (in seconds) contained in each manifest. */
@@ -55,7 +58,7 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<String> periodTriggers;
     /**
      * The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set to "HBBTV_1_5", HbbTV 1.5 compliant output
-     * is enabled.
+     * is enabled. When set to "DVB-DASH_2014", DVB-DASH 2014 compliant output is enabled.
      */
     private String profile;
     /**
@@ -74,6 +77,10 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
     private StreamSelection streamSelection;
     /** Duration (in seconds) to delay live content before presentation. */
     private Integer suggestedPresentationDelaySeconds;
+    /** Determines the type of UTCTiming included in the Media Presentation Description (MPD) */
+    private String utcTiming;
+    /** Specifies the value attribute of the UTCTiming field when utcTiming is set to HTTP-ISO, HTTP-HEAD or HTTP-XSDATE */
+    private String utcTimingUri;
 
     /**
      * @return
@@ -217,14 +224,61 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * When enabled, an I-Frame only stream will be included in the output.
+     * 
+     * @param includeIframeOnlyStream
+     *        When enabled, an I-Frame only stream will be included in the output.
+     */
+
+    public void setIncludeIframeOnlyStream(Boolean includeIframeOnlyStream) {
+        this.includeIframeOnlyStream = includeIframeOnlyStream;
+    }
+
+    /**
+     * When enabled, an I-Frame only stream will be included in the output.
+     * 
+     * @return When enabled, an I-Frame only stream will be included in the output.
+     */
+
+    public Boolean getIncludeIframeOnlyStream() {
+        return this.includeIframeOnlyStream;
+    }
+
+    /**
+     * When enabled, an I-Frame only stream will be included in the output.
+     * 
+     * @param includeIframeOnlyStream
+     *        When enabled, an I-Frame only stream will be included in the output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DashPackage withIncludeIframeOnlyStream(Boolean includeIframeOnlyStream) {
+        setIncludeIframeOnlyStream(includeIframeOnlyStream);
+        return this;
+    }
+
+    /**
+     * When enabled, an I-Frame only stream will be included in the output.
+     * 
+     * @return When enabled, an I-Frame only stream will be included in the output.
+     */
+
+    public Boolean isIncludeIframeOnlyStream() {
+        return this.includeIframeOnlyStream;
+    }
+
+    /**
      * Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL, elements like
      * SegmentTemplate and ContentProtection are included in each Representation. When set to COMPACT, duplicate
-     * elements are combined and presented at the AdaptationSet level.
+     * elements are combined and presented at the AdaptationSet level. When set to DRM_TOP_LEVEL_COMPACT, content
+     * protection elements are placed the MPD level and referenced at the AdaptationSet level.
      * 
      * @param manifestLayout
      *        Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL,
      *        elements like SegmentTemplate and ContentProtection are included in each Representation. When set to
-     *        COMPACT, duplicate elements are combined and presented at the AdaptationSet level.
+     *        COMPACT, duplicate elements are combined and presented at the AdaptationSet level. When set to
+     *        DRM_TOP_LEVEL_COMPACT, content protection elements are placed the MPD level and referenced at the
+     *        AdaptationSet level.
      * @see ManifestLayout
      */
 
@@ -235,11 +289,14 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
     /**
      * Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL, elements like
      * SegmentTemplate and ContentProtection are included in each Representation. When set to COMPACT, duplicate
-     * elements are combined and presented at the AdaptationSet level.
+     * elements are combined and presented at the AdaptationSet level. When set to DRM_TOP_LEVEL_COMPACT, content
+     * protection elements are placed the MPD level and referenced at the AdaptationSet level.
      * 
      * @return Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL,
      *         elements like SegmentTemplate and ContentProtection are included in each Representation. When set to
-     *         COMPACT, duplicate elements are combined and presented at the AdaptationSet level.
+     *         COMPACT, duplicate elements are combined and presented at the AdaptationSet level. When set to
+     *         DRM_TOP_LEVEL_COMPACT, content protection elements are placed the MPD level and referenced at the
+     *         AdaptationSet level.
      * @see ManifestLayout
      */
 
@@ -250,12 +307,15 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
     /**
      * Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL, elements like
      * SegmentTemplate and ContentProtection are included in each Representation. When set to COMPACT, duplicate
-     * elements are combined and presented at the AdaptationSet level.
+     * elements are combined and presented at the AdaptationSet level. When set to DRM_TOP_LEVEL_COMPACT, content
+     * protection elements are placed the MPD level and referenced at the AdaptationSet level.
      * 
      * @param manifestLayout
      *        Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL,
      *        elements like SegmentTemplate and ContentProtection are included in each Representation. When set to
-     *        COMPACT, duplicate elements are combined and presented at the AdaptationSet level.
+     *        COMPACT, duplicate elements are combined and presented at the AdaptationSet level. When set to
+     *        DRM_TOP_LEVEL_COMPACT, content protection elements are placed the MPD level and referenced at the
+     *        AdaptationSet level.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ManifestLayout
      */
@@ -268,12 +328,15 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
     /**
      * Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL, elements like
      * SegmentTemplate and ContentProtection are included in each Representation. When set to COMPACT, duplicate
-     * elements are combined and presented at the AdaptationSet level.
+     * elements are combined and presented at the AdaptationSet level. When set to DRM_TOP_LEVEL_COMPACT, content
+     * protection elements are placed the MPD level and referenced at the AdaptationSet level.
      * 
      * @param manifestLayout
      *        Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL,
      *        elements like SegmentTemplate and ContentProtection are included in each Representation. When set to
-     *        COMPACT, duplicate elements are combined and presented at the AdaptationSet level.
+     *        COMPACT, duplicate elements are combined and presented at the AdaptationSet level. When set to
+     *        DRM_TOP_LEVEL_COMPACT, content protection elements are placed the MPD level and referenced at the
+     *        AdaptationSet level.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ManifestLayout
      */
@@ -512,11 +575,11 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set to "HBBTV_1_5", HbbTV 1.5 compliant output
-     * is enabled.
+     * is enabled. When set to "DVB-DASH_2014", DVB-DASH 2014 compliant output is enabled.
      * 
      * @param profile
      *        The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set to "HBBTV_1_5", HbbTV 1.5 compliant
-     *        output is enabled.
+     *        output is enabled. When set to "DVB-DASH_2014", DVB-DASH 2014 compliant output is enabled.
      * @see Profile
      */
 
@@ -526,10 +589,10 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set to "HBBTV_1_5", HbbTV 1.5 compliant output
-     * is enabled.
+     * is enabled. When set to "DVB-DASH_2014", DVB-DASH 2014 compliant output is enabled.
      * 
      * @return The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set to "HBBTV_1_5", HbbTV 1.5
-     *         compliant output is enabled.
+     *         compliant output is enabled. When set to "DVB-DASH_2014", DVB-DASH 2014 compliant output is enabled.
      * @see Profile
      */
 
@@ -539,11 +602,11 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set to "HBBTV_1_5", HbbTV 1.5 compliant output
-     * is enabled.
+     * is enabled. When set to "DVB-DASH_2014", DVB-DASH 2014 compliant output is enabled.
      * 
      * @param profile
      *        The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set to "HBBTV_1_5", HbbTV 1.5 compliant
-     *        output is enabled.
+     *        output is enabled. When set to "DVB-DASH_2014", DVB-DASH 2014 compliant output is enabled.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Profile
      */
@@ -555,11 +618,11 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set to "HBBTV_1_5", HbbTV 1.5 compliant output
-     * is enabled.
+     * is enabled. When set to "DVB-DASH_2014", DVB-DASH 2014 compliant output is enabled.
      * 
      * @param profile
      *        The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set to "HBBTV_1_5", HbbTV 1.5 compliant
-     *        output is enabled.
+     *        output is enabled. When set to "DVB-DASH_2014", DVB-DASH 2014 compliant output is enabled.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Profile
      */
@@ -749,6 +812,94 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * Determines the type of UTCTiming included in the Media Presentation Description (MPD)
+     * 
+     * @param utcTiming
+     *        Determines the type of UTCTiming included in the Media Presentation Description (MPD)
+     * @see UtcTiming
+     */
+
+    public void setUtcTiming(String utcTiming) {
+        this.utcTiming = utcTiming;
+    }
+
+    /**
+     * Determines the type of UTCTiming included in the Media Presentation Description (MPD)
+     * 
+     * @return Determines the type of UTCTiming included in the Media Presentation Description (MPD)
+     * @see UtcTiming
+     */
+
+    public String getUtcTiming() {
+        return this.utcTiming;
+    }
+
+    /**
+     * Determines the type of UTCTiming included in the Media Presentation Description (MPD)
+     * 
+     * @param utcTiming
+     *        Determines the type of UTCTiming included in the Media Presentation Description (MPD)
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see UtcTiming
+     */
+
+    public DashPackage withUtcTiming(String utcTiming) {
+        setUtcTiming(utcTiming);
+        return this;
+    }
+
+    /**
+     * Determines the type of UTCTiming included in the Media Presentation Description (MPD)
+     * 
+     * @param utcTiming
+     *        Determines the type of UTCTiming included in the Media Presentation Description (MPD)
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see UtcTiming
+     */
+
+    public DashPackage withUtcTiming(UtcTiming utcTiming) {
+        this.utcTiming = utcTiming.toString();
+        return this;
+    }
+
+    /**
+     * Specifies the value attribute of the UTCTiming field when utcTiming is set to HTTP-ISO, HTTP-HEAD or HTTP-XSDATE
+     * 
+     * @param utcTimingUri
+     *        Specifies the value attribute of the UTCTiming field when utcTiming is set to HTTP-ISO, HTTP-HEAD or
+     *        HTTP-XSDATE
+     */
+
+    public void setUtcTimingUri(String utcTimingUri) {
+        this.utcTimingUri = utcTimingUri;
+    }
+
+    /**
+     * Specifies the value attribute of the UTCTiming field when utcTiming is set to HTTP-ISO, HTTP-HEAD or HTTP-XSDATE
+     * 
+     * @return Specifies the value attribute of the UTCTiming field when utcTiming is set to HTTP-ISO, HTTP-HEAD or
+     *         HTTP-XSDATE
+     */
+
+    public String getUtcTimingUri() {
+        return this.utcTimingUri;
+    }
+
+    /**
+     * Specifies the value attribute of the UTCTiming field when utcTiming is set to HTTP-ISO, HTTP-HEAD or HTTP-XSDATE
+     * 
+     * @param utcTimingUri
+     *        Specifies the value attribute of the UTCTiming field when utcTiming is set to HTTP-ISO, HTTP-HEAD or
+     *        HTTP-XSDATE
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DashPackage withUtcTimingUri(String utcTimingUri) {
+        setUtcTimingUri(utcTimingUri);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -766,6 +917,8 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
             sb.append("AdsOnDeliveryRestrictions: ").append(getAdsOnDeliveryRestrictions()).append(",");
         if (getEncryption() != null)
             sb.append("Encryption: ").append(getEncryption()).append(",");
+        if (getIncludeIframeOnlyStream() != null)
+            sb.append("IncludeIframeOnlyStream: ").append(getIncludeIframeOnlyStream()).append(",");
         if (getManifestLayout() != null)
             sb.append("ManifestLayout: ").append(getManifestLayout()).append(",");
         if (getManifestWindowSeconds() != null)
@@ -785,7 +938,11 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
         if (getStreamSelection() != null)
             sb.append("StreamSelection: ").append(getStreamSelection()).append(",");
         if (getSuggestedPresentationDelaySeconds() != null)
-            sb.append("SuggestedPresentationDelaySeconds: ").append(getSuggestedPresentationDelaySeconds());
+            sb.append("SuggestedPresentationDelaySeconds: ").append(getSuggestedPresentationDelaySeconds()).append(",");
+        if (getUtcTiming() != null)
+            sb.append("UtcTiming: ").append(getUtcTiming()).append(",");
+        if (getUtcTimingUri() != null)
+            sb.append("UtcTimingUri: ").append(getUtcTimingUri());
         sb.append("}");
         return sb.toString();
     }
@@ -811,6 +968,10 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
         if (other.getEncryption() == null ^ this.getEncryption() == null)
             return false;
         if (other.getEncryption() != null && other.getEncryption().equals(this.getEncryption()) == false)
+            return false;
+        if (other.getIncludeIframeOnlyStream() == null ^ this.getIncludeIframeOnlyStream() == null)
+            return false;
+        if (other.getIncludeIframeOnlyStream() != null && other.getIncludeIframeOnlyStream().equals(this.getIncludeIframeOnlyStream()) == false)
             return false;
         if (other.getManifestLayout() == null ^ this.getManifestLayout() == null)
             return false;
@@ -853,6 +1014,14 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
         if (other.getSuggestedPresentationDelaySeconds() != null
                 && other.getSuggestedPresentationDelaySeconds().equals(this.getSuggestedPresentationDelaySeconds()) == false)
             return false;
+        if (other.getUtcTiming() == null ^ this.getUtcTiming() == null)
+            return false;
+        if (other.getUtcTiming() != null && other.getUtcTiming().equals(this.getUtcTiming()) == false)
+            return false;
+        if (other.getUtcTimingUri() == null ^ this.getUtcTimingUri() == null)
+            return false;
+        if (other.getUtcTimingUri() != null && other.getUtcTimingUri().equals(this.getUtcTimingUri()) == false)
+            return false;
         return true;
     }
 
@@ -864,6 +1033,7 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getAdTriggers() == null) ? 0 : getAdTriggers().hashCode());
         hashCode = prime * hashCode + ((getAdsOnDeliveryRestrictions() == null) ? 0 : getAdsOnDeliveryRestrictions().hashCode());
         hashCode = prime * hashCode + ((getEncryption() == null) ? 0 : getEncryption().hashCode());
+        hashCode = prime * hashCode + ((getIncludeIframeOnlyStream() == null) ? 0 : getIncludeIframeOnlyStream().hashCode());
         hashCode = prime * hashCode + ((getManifestLayout() == null) ? 0 : getManifestLayout().hashCode());
         hashCode = prime * hashCode + ((getManifestWindowSeconds() == null) ? 0 : getManifestWindowSeconds().hashCode());
         hashCode = prime * hashCode + ((getMinBufferTimeSeconds() == null) ? 0 : getMinBufferTimeSeconds().hashCode());
@@ -874,6 +1044,8 @@ public class DashPackage implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getSegmentTemplateFormat() == null) ? 0 : getSegmentTemplateFormat().hashCode());
         hashCode = prime * hashCode + ((getStreamSelection() == null) ? 0 : getStreamSelection().hashCode());
         hashCode = prime * hashCode + ((getSuggestedPresentationDelaySeconds() == null) ? 0 : getSuggestedPresentationDelaySeconds().hashCode());
+        hashCode = prime * hashCode + ((getUtcTiming() == null) ? 0 : getUtcTiming().hashCode());
+        hashCode = prime * hashCode + ((getUtcTimingUri() == null) ? 0 : getUtcTimingUri().hashCode());
         return hashCode;
     }
 

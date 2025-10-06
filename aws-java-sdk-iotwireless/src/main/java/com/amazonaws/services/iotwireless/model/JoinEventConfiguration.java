@@ -1,0 +1,208 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.iotwireless.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * Join event configuration object for enabling or disabling topic.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iotwireless-2020-11-22/JoinEventConfiguration" target="_top">AWS
+ *      API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class JoinEventConfiguration implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * Join event configuration object for enabling or disabling LoRaWAN related event topics.
+     * </p>
+     */
+    private LoRaWANJoinEventNotificationConfigurations loRaWAN;
+    /**
+     * <p>
+     * Denotes whether the wireless device ID join event topic is enabled or disabled.
+     * </p>
+     */
+    private String wirelessDeviceIdEventTopic;
+
+    /**
+     * <p>
+     * Join event configuration object for enabling or disabling LoRaWAN related event topics.
+     * </p>
+     * 
+     * @param loRaWAN
+     *        Join event configuration object for enabling or disabling LoRaWAN related event topics.
+     */
+
+    public void setLoRaWAN(LoRaWANJoinEventNotificationConfigurations loRaWAN) {
+        this.loRaWAN = loRaWAN;
+    }
+
+    /**
+     * <p>
+     * Join event configuration object for enabling or disabling LoRaWAN related event topics.
+     * </p>
+     * 
+     * @return Join event configuration object for enabling or disabling LoRaWAN related event topics.
+     */
+
+    public LoRaWANJoinEventNotificationConfigurations getLoRaWAN() {
+        return this.loRaWAN;
+    }
+
+    /**
+     * <p>
+     * Join event configuration object for enabling or disabling LoRaWAN related event topics.
+     * </p>
+     * 
+     * @param loRaWAN
+     *        Join event configuration object for enabling or disabling LoRaWAN related event topics.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public JoinEventConfiguration withLoRaWAN(LoRaWANJoinEventNotificationConfigurations loRaWAN) {
+        setLoRaWAN(loRaWAN);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Denotes whether the wireless device ID join event topic is enabled or disabled.
+     * </p>
+     * 
+     * @param wirelessDeviceIdEventTopic
+     *        Denotes whether the wireless device ID join event topic is enabled or disabled.
+     * @see EventNotificationTopicStatus
+     */
+
+    public void setWirelessDeviceIdEventTopic(String wirelessDeviceIdEventTopic) {
+        this.wirelessDeviceIdEventTopic = wirelessDeviceIdEventTopic;
+    }
+
+    /**
+     * <p>
+     * Denotes whether the wireless device ID join event topic is enabled or disabled.
+     * </p>
+     * 
+     * @return Denotes whether the wireless device ID join event topic is enabled or disabled.
+     * @see EventNotificationTopicStatus
+     */
+
+    public String getWirelessDeviceIdEventTopic() {
+        return this.wirelessDeviceIdEventTopic;
+    }
+
+    /**
+     * <p>
+     * Denotes whether the wireless device ID join event topic is enabled or disabled.
+     * </p>
+     * 
+     * @param wirelessDeviceIdEventTopic
+     *        Denotes whether the wireless device ID join event topic is enabled or disabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EventNotificationTopicStatus
+     */
+
+    public JoinEventConfiguration withWirelessDeviceIdEventTopic(String wirelessDeviceIdEventTopic) {
+        setWirelessDeviceIdEventTopic(wirelessDeviceIdEventTopic);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Denotes whether the wireless device ID join event topic is enabled or disabled.
+     * </p>
+     * 
+     * @param wirelessDeviceIdEventTopic
+     *        Denotes whether the wireless device ID join event topic is enabled or disabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EventNotificationTopicStatus
+     */
+
+    public JoinEventConfiguration withWirelessDeviceIdEventTopic(EventNotificationTopicStatus wirelessDeviceIdEventTopic) {
+        this.wirelessDeviceIdEventTopic = wirelessDeviceIdEventTopic.toString();
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getLoRaWAN() != null)
+            sb.append("LoRaWAN: ").append(getLoRaWAN()).append(",");
+        if (getWirelessDeviceIdEventTopic() != null)
+            sb.append("WirelessDeviceIdEventTopic: ").append(getWirelessDeviceIdEventTopic());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof JoinEventConfiguration == false)
+            return false;
+        JoinEventConfiguration other = (JoinEventConfiguration) obj;
+        if (other.getLoRaWAN() == null ^ this.getLoRaWAN() == null)
+            return false;
+        if (other.getLoRaWAN() != null && other.getLoRaWAN().equals(this.getLoRaWAN()) == false)
+            return false;
+        if (other.getWirelessDeviceIdEventTopic() == null ^ this.getWirelessDeviceIdEventTopic() == null)
+            return false;
+        if (other.getWirelessDeviceIdEventTopic() != null && other.getWirelessDeviceIdEventTopic().equals(this.getWirelessDeviceIdEventTopic()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getLoRaWAN() == null) ? 0 : getLoRaWAN().hashCode());
+        hashCode = prime * hashCode + ((getWirelessDeviceIdEventTopic() == null) ? 0 : getWirelessDeviceIdEventTopic().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public JoinEventConfiguration clone() {
+        try {
+            return (JoinEventConfiguration) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.iotwireless.model.transform.JoinEventConfigurationMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

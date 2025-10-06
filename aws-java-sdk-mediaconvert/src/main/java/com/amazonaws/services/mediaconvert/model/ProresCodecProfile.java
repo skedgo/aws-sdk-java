@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -15,7 +15,7 @@ package com.amazonaws.services.mediaconvert.model;
 import javax.annotation.Generated;
 
 /**
- * Use Profile (ProResCodecProfile) to specifiy the type of Apple ProRes codec to use for this output.
+ * Use Profile to specify the type of Apple ProRes codec to use for this output.
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum ProresCodecProfile {
@@ -23,7 +23,9 @@ public enum ProresCodecProfile {
     APPLE_PRORES_422("APPLE_PRORES_422"),
     APPLE_PRORES_422_HQ("APPLE_PRORES_422_HQ"),
     APPLE_PRORES_422_LT("APPLE_PRORES_422_LT"),
-    APPLE_PRORES_422_PROXY("APPLE_PRORES_422_PROXY");
+    APPLE_PRORES_422_PROXY("APPLE_PRORES_422_PROXY"),
+    APPLE_PRORES_4444("APPLE_PRORES_4444"),
+    APPLE_PRORES_4444_XQ("APPLE_PRORES_4444_XQ");
 
     private String value;
 

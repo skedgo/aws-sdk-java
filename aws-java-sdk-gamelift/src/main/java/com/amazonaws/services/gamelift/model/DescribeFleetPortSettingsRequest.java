@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * Represents the input for a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribeFleetPortSettings" target="_top">AWS
  *      API Documentation</a>
@@ -30,18 +27,26 @@ public class DescribeFleetPortSettingsRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Unique identifier for a fleet to retrieve port settings for.
+     * A unique identifier for the fleet to retrieve port settings for. You can use either the fleet ID or ARN value.
      * </p>
      */
     private String fleetId;
+    /**
+     * <p>
+     * A remote location to check for status of port setting updates. Use the Amazon Web Services Region code format,
+     * such as <code>us-west-2</code>.
+     * </p>
+     */
+    private String location;
 
     /**
      * <p>
-     * Unique identifier for a fleet to retrieve port settings for.
+     * A unique identifier for the fleet to retrieve port settings for. You can use either the fleet ID or ARN value.
      * </p>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet to retrieve port settings for.
+     *        A unique identifier for the fleet to retrieve port settings for. You can use either the fleet ID or ARN
+     *        value.
      */
 
     public void setFleetId(String fleetId) {
@@ -50,10 +55,11 @@ public class DescribeFleetPortSettingsRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Unique identifier for a fleet to retrieve port settings for.
+     * A unique identifier for the fleet to retrieve port settings for. You can use either the fleet ID or ARN value.
      * </p>
      * 
-     * @return Unique identifier for a fleet to retrieve port settings for.
+     * @return A unique identifier for the fleet to retrieve port settings for. You can use either the fleet ID or ARN
+     *         value.
      */
 
     public String getFleetId() {
@@ -62,16 +68,63 @@ public class DescribeFleetPortSettingsRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Unique identifier for a fleet to retrieve port settings for.
+     * A unique identifier for the fleet to retrieve port settings for. You can use either the fleet ID or ARN value.
      * </p>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet to retrieve port settings for.
+     *        A unique identifier for the fleet to retrieve port settings for. You can use either the fleet ID or ARN
+     *        value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DescribeFleetPortSettingsRequest withFleetId(String fleetId) {
         setFleetId(fleetId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A remote location to check for status of port setting updates. Use the Amazon Web Services Region code format,
+     * such as <code>us-west-2</code>.
+     * </p>
+     * 
+     * @param location
+     *        A remote location to check for status of port setting updates. Use the Amazon Web Services Region code
+     *        format, such as <code>us-west-2</code>.
+     */
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    /**
+     * <p>
+     * A remote location to check for status of port setting updates. Use the Amazon Web Services Region code format,
+     * such as <code>us-west-2</code>.
+     * </p>
+     * 
+     * @return A remote location to check for status of port setting updates. Use the Amazon Web Services Region code
+     *         format, such as <code>us-west-2</code>.
+     */
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    /**
+     * <p>
+     * A remote location to check for status of port setting updates. Use the Amazon Web Services Region code format,
+     * such as <code>us-west-2</code>.
+     * </p>
+     * 
+     * @param location
+     *        A remote location to check for status of port setting updates. Use the Amazon Web Services Region code
+     *        format, such as <code>us-west-2</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeFleetPortSettingsRequest withLocation(String location) {
+        setLocation(location);
         return this;
     }
 
@@ -88,7 +141,9 @@ public class DescribeFleetPortSettingsRequest extends com.amazonaws.AmazonWebSer
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getFleetId() != null)
-            sb.append("FleetId: ").append(getFleetId());
+            sb.append("FleetId: ").append(getFleetId()).append(",");
+        if (getLocation() != null)
+            sb.append("Location: ").append(getLocation());
         sb.append("}");
         return sb.toString();
     }
@@ -107,6 +162,10 @@ public class DescribeFleetPortSettingsRequest extends com.amazonaws.AmazonWebSer
             return false;
         if (other.getFleetId() != null && other.getFleetId().equals(this.getFleetId()) == false)
             return false;
+        if (other.getLocation() == null ^ this.getLocation() == null)
+            return false;
+        if (other.getLocation() != null && other.getLocation().equals(this.getLocation()) == false)
+            return false;
         return true;
     }
 
@@ -116,6 +175,7 @@ public class DescribeFleetPortSettingsRequest extends com.amazonaws.AmazonWebSer
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getFleetId() == null) ? 0 : getFleetId().hashCode());
+        hashCode = prime * hashCode + ((getLocation() == null) ? 0 : getLocation().hashCode());
         return hashCode;
     }
 

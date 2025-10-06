@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,13 +42,13 @@ public class DirectoryConnectSettings implements Serializable, Cloneable, Struct
     private com.amazonaws.internal.SdkInternalList<String> subnetIds;
     /**
      * <p>
-     * A list of one or more IP addresses of DNS servers or domain controllers in the on-premises directory.
+     * A list of one or more IP addresses of DNS servers or domain controllers in your self-managed directory.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> customerDnsIps;
     /**
      * <p>
-     * The user name of an account in the on-premises directory that is used to connect to the directory. This account
+     * The user name of an account in your self-managed directory that is used to connect to the directory. This account
      * must have the following permissions:
      * </p>
      * <ul>
@@ -186,10 +186,10 @@ public class DirectoryConnectSettings implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * A list of one or more IP addresses of DNS servers or domain controllers in the on-premises directory.
+     * A list of one or more IP addresses of DNS servers or domain controllers in your self-managed directory.
      * </p>
      * 
-     * @return A list of one or more IP addresses of DNS servers or domain controllers in the on-premises directory.
+     * @return A list of one or more IP addresses of DNS servers or domain controllers in your self-managed directory.
      */
 
     public java.util.List<String> getCustomerDnsIps() {
@@ -201,11 +201,11 @@ public class DirectoryConnectSettings implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * A list of one or more IP addresses of DNS servers or domain controllers in the on-premises directory.
+     * A list of one or more IP addresses of DNS servers or domain controllers in your self-managed directory.
      * </p>
      * 
      * @param customerDnsIps
-     *        A list of one or more IP addresses of DNS servers or domain controllers in the on-premises directory.
+     *        A list of one or more IP addresses of DNS servers or domain controllers in your self-managed directory.
      */
 
     public void setCustomerDnsIps(java.util.Collection<String> customerDnsIps) {
@@ -219,7 +219,7 @@ public class DirectoryConnectSettings implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * A list of one or more IP addresses of DNS servers or domain controllers in the on-premises directory.
+     * A list of one or more IP addresses of DNS servers or domain controllers in your self-managed directory.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -228,7 +228,7 @@ public class DirectoryConnectSettings implements Serializable, Cloneable, Struct
      * </p>
      * 
      * @param customerDnsIps
-     *        A list of one or more IP addresses of DNS servers or domain controllers in the on-premises directory.
+     *        A list of one or more IP addresses of DNS servers or domain controllers in your self-managed directory.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -244,11 +244,11 @@ public class DirectoryConnectSettings implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * A list of one or more IP addresses of DNS servers or domain controllers in the on-premises directory.
+     * A list of one or more IP addresses of DNS servers or domain controllers in your self-managed directory.
      * </p>
      * 
      * @param customerDnsIps
-     *        A list of one or more IP addresses of DNS servers or domain controllers in the on-premises directory.
+     *        A list of one or more IP addresses of DNS servers or domain controllers in your self-managed directory.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -259,7 +259,7 @@ public class DirectoryConnectSettings implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The user name of an account in the on-premises directory that is used to connect to the directory. This account
+     * The user name of an account in your self-managed directory that is used to connect to the directory. This account
      * must have the following permissions:
      * </p>
      * <ul>
@@ -281,7 +281,7 @@ public class DirectoryConnectSettings implements Serializable, Cloneable, Struct
      * </ul>
      * 
      * @param customerUserName
-     *        The user name of an account in the on-premises directory that is used to connect to the directory. This
+     *        The user name of an account in your self-managed directory that is used to connect to the directory. This
      *        account must have the following permissions:</p>
      *        <ul>
      *        <li>
@@ -307,7 +307,7 @@ public class DirectoryConnectSettings implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The user name of an account in the on-premises directory that is used to connect to the directory. This account
+     * The user name of an account in your self-managed directory that is used to connect to the directory. This account
      * must have the following permissions:
      * </p>
      * <ul>
@@ -328,7 +328,7 @@ public class DirectoryConnectSettings implements Serializable, Cloneable, Struct
      * </li>
      * </ul>
      * 
-     * @return The user name of an account in the on-premises directory that is used to connect to the directory. This
+     * @return The user name of an account in your self-managed directory that is used to connect to the directory. This
      *         account must have the following permissions:</p>
      *         <ul>
      *         <li>
@@ -354,7 +354,7 @@ public class DirectoryConnectSettings implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The user name of an account in the on-premises directory that is used to connect to the directory. This account
+     * The user name of an account in your self-managed directory that is used to connect to the directory. This account
      * must have the following permissions:
      * </p>
      * <ul>
@@ -376,7 +376,7 @@ public class DirectoryConnectSettings implements Serializable, Cloneable, Struct
      * </ul>
      * 
      * @param customerUserName
-     *        The user name of an account in the on-premises directory that is used to connect to the directory. This
+     *        The user name of an account in your self-managed directory that is used to connect to the directory. This
      *        account must have the following permissions:</p>
      *        <ul>
      *        <li>

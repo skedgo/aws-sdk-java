@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,6 +30,12 @@ public class ApplicationInfo implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
+     * The AWS account ID for the owner of the application.
+     * </p>
+     */
+    private String accountId;
+    /**
+     * <p>
      * The name of the resource group used for the application.
      * </p>
      */
@@ -56,10 +62,88 @@ public class ApplicationInfo implements Serializable, Cloneable, StructuredPojo 
     private Boolean opsCenterEnabled;
     /**
      * <p>
-     * The issues on the user side that block Application Insights from successfully monitoring an application.
+     * Indicates whether Application Insights can listen to CloudWatch events for the application resources, such as
+     * <code>instance terminated</code>, <code>failed deployment</code>, and others.
      * </p>
      */
+    private Boolean cWEMonitorEnabled;
+    /**
+     * <p>
+     * The issues on the user side that block Application Insights from successfully monitoring an application. Example
+     * remarks include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * “Configuring application, detected 1 Errors, 3 Warnings”
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * “Configuring application, detected 1 Unconfigured Components”
+     * </p>
+     * </li>
+     * </ul>
+     */
     private String remarks;
+    /**
+     * <p>
+     * Indicates whether auto-configuration is turned on for this application.
+     * </p>
+     */
+    private Boolean autoConfigEnabled;
+    /**
+     * <p>
+     * The method used by Application Insights to onboard your resources.
+     * </p>
+     */
+    private String discoveryType;
+    /**
+     * <p>
+     * If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing.
+     * </p>
+     */
+    private Boolean attachMissingPermission;
+
+    /**
+     * <p>
+     * The AWS account ID for the owner of the application.
+     * </p>
+     * 
+     * @param accountId
+     *        The AWS account ID for the owner of the application.
+     */
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    /**
+     * <p>
+     * The AWS account ID for the owner of the application.
+     * </p>
+     * 
+     * @return The AWS account ID for the owner of the application.
+     */
+
+    public String getAccountId() {
+        return this.accountId;
+    }
+
+    /**
+     * <p>
+     * The AWS account ID for the owner of the application.
+     * </p>
+     * 
+     * @param accountId
+     *        The AWS account ID for the owner of the application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationInfo withAccountId(String accountId) {
+        setAccountId(accountId);
+        return this;
+    }
 
     /**
      * <p>
@@ -249,11 +333,96 @@ public class ApplicationInfo implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The issues on the user side that block Application Insights from successfully monitoring an application.
+     * Indicates whether Application Insights can listen to CloudWatch events for the application resources, such as
+     * <code>instance terminated</code>, <code>failed deployment</code>, and others.
      * </p>
+     * 
+     * @param cWEMonitorEnabled
+     *        Indicates whether Application Insights can listen to CloudWatch events for the application resources, such
+     *        as <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     */
+
+    public void setCWEMonitorEnabled(Boolean cWEMonitorEnabled) {
+        this.cWEMonitorEnabled = cWEMonitorEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Application Insights can listen to CloudWatch events for the application resources, such as
+     * <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     * </p>
+     * 
+     * @return Indicates whether Application Insights can listen to CloudWatch events for the application resources,
+     *         such as <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     */
+
+    public Boolean getCWEMonitorEnabled() {
+        return this.cWEMonitorEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Application Insights can listen to CloudWatch events for the application resources, such as
+     * <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     * </p>
+     * 
+     * @param cWEMonitorEnabled
+     *        Indicates whether Application Insights can listen to CloudWatch events for the application resources, such
+     *        as <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationInfo withCWEMonitorEnabled(Boolean cWEMonitorEnabled) {
+        setCWEMonitorEnabled(cWEMonitorEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether Application Insights can listen to CloudWatch events for the application resources, such as
+     * <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     * </p>
+     * 
+     * @return Indicates whether Application Insights can listen to CloudWatch events for the application resources,
+     *         such as <code>instance terminated</code>, <code>failed deployment</code>, and others.
+     */
+
+    public Boolean isCWEMonitorEnabled() {
+        return this.cWEMonitorEnabled;
+    }
+
+    /**
+     * <p>
+     * The issues on the user side that block Application Insights from successfully monitoring an application. Example
+     * remarks include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * “Configuring application, detected 1 Errors, 3 Warnings”
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * “Configuring application, detected 1 Unconfigured Components”
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param remarks
      *        The issues on the user side that block Application Insights from successfully monitoring an application.
+     *        Example remarks include:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        “Configuring application, detected 1 Errors, 3 Warnings”
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        “Configuring application, detected 1 Unconfigured Components”
+     *        </p>
+     *        </li>
      */
 
     public void setRemarks(String remarks) {
@@ -262,10 +431,35 @@ public class ApplicationInfo implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The issues on the user side that block Application Insights from successfully monitoring an application.
+     * The issues on the user side that block Application Insights from successfully monitoring an application. Example
+     * remarks include:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * “Configuring application, detected 1 Errors, 3 Warnings”
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * “Configuring application, detected 1 Unconfigured Components”
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @return The issues on the user side that block Application Insights from successfully monitoring an application.
+     *         Example remarks include:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         “Configuring application, detected 1 Errors, 3 Warnings”
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         “Configuring application, detected 1 Unconfigured Components”
+     *         </p>
+     *         </li>
      */
 
     public String getRemarks() {
@@ -274,17 +468,209 @@ public class ApplicationInfo implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The issues on the user side that block Application Insights from successfully monitoring an application.
+     * The issues on the user side that block Application Insights from successfully monitoring an application. Example
+     * remarks include:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * “Configuring application, detected 1 Errors, 3 Warnings”
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * “Configuring application, detected 1 Unconfigured Components”
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param remarks
      *        The issues on the user side that block Application Insights from successfully monitoring an application.
+     *        Example remarks include:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        “Configuring application, detected 1 Errors, 3 Warnings”
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        “Configuring application, detected 1 Unconfigured Components”
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ApplicationInfo withRemarks(String remarks) {
         setRemarks(remarks);
         return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether auto-configuration is turned on for this application.
+     * </p>
+     * 
+     * @param autoConfigEnabled
+     *        Indicates whether auto-configuration is turned on for this application.
+     */
+
+    public void setAutoConfigEnabled(Boolean autoConfigEnabled) {
+        this.autoConfigEnabled = autoConfigEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether auto-configuration is turned on for this application.
+     * </p>
+     * 
+     * @return Indicates whether auto-configuration is turned on for this application.
+     */
+
+    public Boolean getAutoConfigEnabled() {
+        return this.autoConfigEnabled;
+    }
+
+    /**
+     * <p>
+     * Indicates whether auto-configuration is turned on for this application.
+     * </p>
+     * 
+     * @param autoConfigEnabled
+     *        Indicates whether auto-configuration is turned on for this application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationInfo withAutoConfigEnabled(Boolean autoConfigEnabled) {
+        setAutoConfigEnabled(autoConfigEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether auto-configuration is turned on for this application.
+     * </p>
+     * 
+     * @return Indicates whether auto-configuration is turned on for this application.
+     */
+
+    public Boolean isAutoConfigEnabled() {
+        return this.autoConfigEnabled;
+    }
+
+    /**
+     * <p>
+     * The method used by Application Insights to onboard your resources.
+     * </p>
+     * 
+     * @param discoveryType
+     *        The method used by Application Insights to onboard your resources.
+     * @see DiscoveryType
+     */
+
+    public void setDiscoveryType(String discoveryType) {
+        this.discoveryType = discoveryType;
+    }
+
+    /**
+     * <p>
+     * The method used by Application Insights to onboard your resources.
+     * </p>
+     * 
+     * @return The method used by Application Insights to onboard your resources.
+     * @see DiscoveryType
+     */
+
+    public String getDiscoveryType() {
+        return this.discoveryType;
+    }
+
+    /**
+     * <p>
+     * The method used by Application Insights to onboard your resources.
+     * </p>
+     * 
+     * @param discoveryType
+     *        The method used by Application Insights to onboard your resources.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DiscoveryType
+     */
+
+    public ApplicationInfo withDiscoveryType(String discoveryType) {
+        setDiscoveryType(discoveryType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The method used by Application Insights to onboard your resources.
+     * </p>
+     * 
+     * @param discoveryType
+     *        The method used by Application Insights to onboard your resources.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DiscoveryType
+     */
+
+    public ApplicationInfo withDiscoveryType(DiscoveryType discoveryType) {
+        this.discoveryType = discoveryType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing.
+     * </p>
+     * 
+     * @param attachMissingPermission
+     *        If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are
+     *        missing.
+     */
+
+    public void setAttachMissingPermission(Boolean attachMissingPermission) {
+        this.attachMissingPermission = attachMissingPermission;
+    }
+
+    /**
+     * <p>
+     * If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing.
+     * </p>
+     * 
+     * @return If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are
+     *         missing.
+     */
+
+    public Boolean getAttachMissingPermission() {
+        return this.attachMissingPermission;
+    }
+
+    /**
+     * <p>
+     * If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing.
+     * </p>
+     * 
+     * @param attachMissingPermission
+     *        If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are
+     *        missing.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ApplicationInfo withAttachMissingPermission(Boolean attachMissingPermission) {
+        setAttachMissingPermission(attachMissingPermission);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing.
+     * </p>
+     * 
+     * @return If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are
+     *         missing.
+     */
+
+    public Boolean isAttachMissingPermission() {
+        return this.attachMissingPermission;
     }
 
     /**
@@ -299,6 +685,8 @@ public class ApplicationInfo implements Serializable, Cloneable, StructuredPojo 
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getAccountId() != null)
+            sb.append("AccountId: ").append(getAccountId()).append(",");
         if (getResourceGroupName() != null)
             sb.append("ResourceGroupName: ").append(getResourceGroupName()).append(",");
         if (getLifeCycle() != null)
@@ -307,8 +695,16 @@ public class ApplicationInfo implements Serializable, Cloneable, StructuredPojo 
             sb.append("OpsItemSNSTopicArn: ").append(getOpsItemSNSTopicArn()).append(",");
         if (getOpsCenterEnabled() != null)
             sb.append("OpsCenterEnabled: ").append(getOpsCenterEnabled()).append(",");
+        if (getCWEMonitorEnabled() != null)
+            sb.append("CWEMonitorEnabled: ").append(getCWEMonitorEnabled()).append(",");
         if (getRemarks() != null)
-            sb.append("Remarks: ").append(getRemarks());
+            sb.append("Remarks: ").append(getRemarks()).append(",");
+        if (getAutoConfigEnabled() != null)
+            sb.append("AutoConfigEnabled: ").append(getAutoConfigEnabled()).append(",");
+        if (getDiscoveryType() != null)
+            sb.append("DiscoveryType: ").append(getDiscoveryType()).append(",");
+        if (getAttachMissingPermission() != null)
+            sb.append("AttachMissingPermission: ").append(getAttachMissingPermission());
         sb.append("}");
         return sb.toString();
     }
@@ -323,6 +719,10 @@ public class ApplicationInfo implements Serializable, Cloneable, StructuredPojo 
         if (obj instanceof ApplicationInfo == false)
             return false;
         ApplicationInfo other = (ApplicationInfo) obj;
+        if (other.getAccountId() == null ^ this.getAccountId() == null)
+            return false;
+        if (other.getAccountId() != null && other.getAccountId().equals(this.getAccountId()) == false)
+            return false;
         if (other.getResourceGroupName() == null ^ this.getResourceGroupName() == null)
             return false;
         if (other.getResourceGroupName() != null && other.getResourceGroupName().equals(this.getResourceGroupName()) == false)
@@ -339,9 +739,25 @@ public class ApplicationInfo implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getOpsCenterEnabled() != null && other.getOpsCenterEnabled().equals(this.getOpsCenterEnabled()) == false)
             return false;
+        if (other.getCWEMonitorEnabled() == null ^ this.getCWEMonitorEnabled() == null)
+            return false;
+        if (other.getCWEMonitorEnabled() != null && other.getCWEMonitorEnabled().equals(this.getCWEMonitorEnabled()) == false)
+            return false;
         if (other.getRemarks() == null ^ this.getRemarks() == null)
             return false;
         if (other.getRemarks() != null && other.getRemarks().equals(this.getRemarks()) == false)
+            return false;
+        if (other.getAutoConfigEnabled() == null ^ this.getAutoConfigEnabled() == null)
+            return false;
+        if (other.getAutoConfigEnabled() != null && other.getAutoConfigEnabled().equals(this.getAutoConfigEnabled()) == false)
+            return false;
+        if (other.getDiscoveryType() == null ^ this.getDiscoveryType() == null)
+            return false;
+        if (other.getDiscoveryType() != null && other.getDiscoveryType().equals(this.getDiscoveryType()) == false)
+            return false;
+        if (other.getAttachMissingPermission() == null ^ this.getAttachMissingPermission() == null)
+            return false;
+        if (other.getAttachMissingPermission() != null && other.getAttachMissingPermission().equals(this.getAttachMissingPermission()) == false)
             return false;
         return true;
     }
@@ -351,11 +767,16 @@ public class ApplicationInfo implements Serializable, Cloneable, StructuredPojo 
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getAccountId() == null) ? 0 : getAccountId().hashCode());
         hashCode = prime * hashCode + ((getResourceGroupName() == null) ? 0 : getResourceGroupName().hashCode());
         hashCode = prime * hashCode + ((getLifeCycle() == null) ? 0 : getLifeCycle().hashCode());
         hashCode = prime * hashCode + ((getOpsItemSNSTopicArn() == null) ? 0 : getOpsItemSNSTopicArn().hashCode());
         hashCode = prime * hashCode + ((getOpsCenterEnabled() == null) ? 0 : getOpsCenterEnabled().hashCode());
+        hashCode = prime * hashCode + ((getCWEMonitorEnabled() == null) ? 0 : getCWEMonitorEnabled().hashCode());
         hashCode = prime * hashCode + ((getRemarks() == null) ? 0 : getRemarks().hashCode());
+        hashCode = prime * hashCode + ((getAutoConfigEnabled() == null) ? 0 : getAutoConfigEnabled().hashCode());
+        hashCode = prime * hashCode + ((getDiscoveryType() == null) ? 0 : getDiscoveryType().hashCode());
+        hashCode = prime * hashCode + ((getAttachMissingPermission() == null) ? 0 : getAttachMissingPermission().hashCode());
         return hashCode;
     }
 

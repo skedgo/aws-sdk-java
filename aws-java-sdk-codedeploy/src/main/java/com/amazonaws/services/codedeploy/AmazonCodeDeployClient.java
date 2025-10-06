@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,39 +45,39 @@ import com.amazonaws.services.codedeploy.waiters.AmazonCodeDeployWaiters;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.codedeploy.model.*;
+
 import com.amazonaws.services.codedeploy.model.transform.*;
 
 /**
  * Client for accessing CodeDeploy. All service calls made using this client are blocking, and will not return until the
  * service call completes.
  * <p>
- * <fullname>AWS CodeDeploy</fullname>
  * <p>
- * AWS CodeDeploy is a deployment service that automates application deployments to Amazon EC2 instances, on-premises
- * instances running in your own facility, serverless AWS Lambda functions, or applications in an Amazon ECS service.
+ * CodeDeploy is a deployment service that automates application deployments to Amazon EC2 instances, on-premises
+ * instances running in your own facility, serverless Lambda functions, or applications in an Amazon ECS service.
  * </p>
  * <p>
  * You can deploy a nearly unlimited variety of application content, such as an updated Lambda function, updated
  * applications in an Amazon ECS service, code, web and configuration files, executables, packages, scripts, multimedia
- * files, and so on. AWS CodeDeploy can deploy application content stored in Amazon S3 buckets, GitHub repositories, or
- * Bitbucket repositories. You do not need to make changes to your existing code before you can use AWS CodeDeploy.
+ * files, and so on. CodeDeploy can deploy application content stored in Amazon S3 buckets, GitHub repositories, or
+ * Bitbucket repositories. You do not need to make changes to your existing code before you can use CodeDeploy.
  * </p>
  * <p>
- * AWS CodeDeploy makes it easier for you to rapidly release new features, helps you avoid downtime during application
+ * CodeDeploy makes it easier for you to rapidly release new features, helps you avoid downtime during application
  * deployment, and handles the complexity of updating your applications, without many of the risks associated with
  * error-prone manual deployments.
  * </p>
  * <p>
- * <b>AWS CodeDeploy Components</b>
+ * <b>CodeDeploy Components</b>
  * </p>
  * <p>
- * Use the information in this guide to help you work with the following AWS CodeDeploy components:
+ * Use the information in this guide to help you work with the following CodeDeploy components:
  * </p>
  * <ul>
  * <li>
  * <p>
- * <b>Application</b>: A name that uniquely identifies the application you want to deploy. AWS CodeDeploy uses this
- * name, which functions as a container, to ensure the correct combination of revision, deployment configuration, and
+ * <b>Application</b>: A name that uniquely identifies the application you want to deploy. CodeDeploy uses this name,
+ * which functions as a container, to ensure the correct combination of revision, deployment configuration, and
  * deployment group are referenced during a deployment.
  * </p>
  * </li>
@@ -86,14 +86,14 @@ import com.amazonaws.services.codedeploy.model.transform.*;
  * <b>Deployment group</b>: A set of individual instances, CodeDeploy Lambda deployment configuration settings, or an
  * Amazon ECS service and network details. A Lambda deployment group specifies how to route traffic to a new version of
  * a Lambda function. An Amazon ECS deployment group specifies the service created in Amazon ECS to deploy, a load
- * balancer, and a listener to reroute production traffic to an updated containerized application. An EC2/On-premises
- * deployment group contains individually tagged instances, Amazon EC2 instances in Amazon EC2 Auto Scaling groups, or
- * both. All deployment groups can specify optional trigger, alarm, and rollback settings.
+ * balancer, and a listener to reroute production traffic to an updated containerized application. An Amazon
+ * EC2/On-premises deployment group contains individually tagged instances, Amazon EC2 instances in Amazon EC2 Auto
+ * Scaling groups, or both. All deployment groups can specify optional trigger, alarm, and rollback settings.
  * </p>
  * </li>
  * <li>
  * <p>
- * <b>Deployment configuration</b>: A set of deployment rules and deployment success and failure conditions used by AWS
+ * <b>Deployment configuration</b>: A set of deployment rules and deployment success and failure conditions used by
  * CodeDeploy during a deployment.
  * </p>
  * </li>
@@ -105,43 +105,43 @@ import com.amazonaws.services.codedeploy.model.transform.*;
  * </li>
  * <li>
  * <p>
- * <b>Application revisions</b>: For an AWS Lambda deployment, this is an AppSpec file that specifies the Lambda
- * function to be updated and one or more functions to validate deployment lifecycle events. For an Amazon ECS
- * deployment, this is an AppSpec file that specifies the Amazon ECS task definition, container, and port where
- * production traffic is rerouted. For an EC2/On-premises deployment, this is an archive file that contains source
- * content—source code, webpages, executable files, and deployment scripts—along with an AppSpec file. Revisions are
- * stored in Amazon S3 buckets or GitHub repositories. For Amazon S3, a revision is uniquely identified by its Amazon S3
- * object key and its ETag, version, or both. For GitHub, a revision is uniquely identified by its commit ID.
+ * <b>Application revisions</b>: For an Lambda deployment, this is an AppSpec file that specifies the Lambda function to
+ * be updated and one or more functions to validate deployment lifecycle events. For an Amazon ECS deployment, this is
+ * an AppSpec file that specifies the Amazon ECS task definition, container, and port where production traffic is
+ * rerouted. For an EC2/On-premises deployment, this is an archive file that contains source content—source code,
+ * webpages, executable files, and deployment scripts—along with an AppSpec file. Revisions are stored in Amazon S3
+ * buckets or GitHub repositories. For Amazon S3, a revision is uniquely identified by its Amazon S3 object key and its
+ * ETag, version, or both. For GitHub, a revision is uniquely identified by its commit ID.
  * </p>
  * </li>
  * </ul>
  * <p>
  * This guide also contains information to help you get details about the instances in your deployments, to make
- * on-premises instances available for AWS CodeDeploy deployments, to get details about a Lambda function deployment,
- * and to get details about Amazon ECS service deployments.
+ * on-premises instances available for CodeDeploy deployments, to get details about a Lambda function deployment, and to
+ * get details about Amazon ECS service deployments.
  * </p>
  * <p>
- * <b>AWS CodeDeploy Information Resources</b>
+ * <b>CodeDeploy Information Resources</b>
  * </p>
  * <ul>
  * <li>
  * <p>
- * <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide">AWS CodeDeploy User Guide</a>
+ * <a href="https://docs.aws.amazon.com/codedeploy/latest/userguide">CodeDeploy User Guide</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="https://docs.aws.amazon.com/codedeploy/latest/APIReference/">AWS CodeDeploy API Reference Guide</a>
+ * <a href="https://docs.aws.amazon.com/codedeploy/latest/APIReference/">CodeDeploy API Reference Guide</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="https://docs.aws.amazon.com/cli/latest/reference/deploy/index.html">AWS CLI Reference for AWS CodeDeploy</a>
+ * <a href="https://docs.aws.amazon.com/cli/latest/reference/deploy/index.html">CLI Reference for CodeDeploy</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="https://forums.aws.amazon.com/forum.jspa?forumID=179">AWS CodeDeploy Developer Forum</a>
+ * <a href="https://forums.aws.amazon.com/forum.jspa?forumID=179">CodeDeploy Developer Forum</a>
  * </p>
  * </li>
  * </ul>
@@ -171,329 +171,339 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceValidationException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.ResourceValidationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.ResourceValidationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("GitHubAccountTokenDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.GitHubAccountTokenDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidZonalDeploymentConfigurationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidZonalDeploymentConfigurationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidOperationException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidOperationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("GitHubAccountTokenDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.GitHubAccountTokenDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTagsToAddException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidTagsToAddException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidOperationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidOperationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TagSetListLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.TagSetListLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTagsToAddException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidTagsToAddExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentConfigDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentConfigDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TagSetListLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.TagSetListLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ApplicationNameRequiredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.ApplicationNameRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentConfigDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentConfigDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidLifecycleEventHookExecutionIdException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidLifecycleEventHookExecutionIdException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ApplicationNameRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.ApplicationNameRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidAutoRollbackConfigException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidAutoRollbackConfigException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidLifecycleEventHookExecutionIdException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidLifecycleEventHookExecutionIdExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidAutoRollbackConfigException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidAutoRollbackConfigExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidArnException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidArnException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTagFilterException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidTagFilterException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidArnException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidArnExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentAlreadyCompletedException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentAlreadyCompletedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTagFilterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidTagFilterExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceArnRequiredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.ResourceArnRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentAlreadyCompletedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentAlreadyCompletedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("OperationNotSupportedException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.OperationNotSupportedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceArnRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.ResourceArnRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentGroupLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentGroupLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("OperationNotSupportedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.OperationNotSupportedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeploymentGroupNameException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidDeploymentGroupNameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentGroupLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentGroupLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentTargetDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentTargetDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeploymentGroupNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidDeploymentGroupNameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AlarmsLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.AlarmsLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentTargetDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentTargetDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidNextTokenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AlarmsLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.AlarmsLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidGitHubAccountTokenException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidGitHubAccountTokenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidNextTokenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TriggerTargetsLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.TriggerTargetsLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidGitHubAccountTokenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidGitHubAccountTokenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidLoadBalancerInfoException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidLoadBalancerInfoException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TriggerTargetsLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.TriggerTargetsLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MultipleIamArnsProvidedException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.MultipleIamArnsProvidedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidLoadBalancerInfoException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidLoadBalancerInfoExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeploymentConfigNameException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidDeploymentConfigNameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MultipleIamArnsProvidedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.MultipleIamArnsProvidedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LifecycleHookLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.LifecycleHookLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeploymentConfigNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidDeploymentConfigNameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("IamUserArnAlreadyRegisteredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.IamUserArnAlreadyRegisteredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LifecycleHookLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.LifecycleHookLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RevisionRequiredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.RevisionRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("IamUserArnAlreadyRegisteredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.IamUserArnAlreadyRegisteredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentIsNotInReadyStateException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentIsNotInReadyStateException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RevisionRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.RevisionRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidGitHubAccountTokenNameException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidGitHubAccountTokenNameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentIsNotInReadyStateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentIsNotInReadyStateExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InstanceNotRegisteredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InstanceNotRegisteredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidGitHubAccountTokenNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidGitHubAccountTokenNameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidBlueGreenDeploymentConfigurationException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidBlueGreenDeploymentConfigurationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InstanceNotRegisteredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InstanceNotRegisteredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ApplicationAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.ApplicationAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidBlueGreenDeploymentConfigurationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidBlueGreenDeploymentConfigurationExceptionUnmarshaller
+                                            .getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeployedStateFilterException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidDeployedStateFilterException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ApplicationAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.ApplicationAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentTargetIdRequiredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentTargetIdRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeployedStateFilterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidDeployedStateFilterExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InstanceDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InstanceDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentTargetIdRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentTargetIdRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidECSServiceException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidECSServiceException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InstanceDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InstanceDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidAlarmConfigException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidAlarmConfigException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidECSServiceException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidECSServiceExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DescriptionTooLongException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DescriptionTooLongException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidAlarmConfigException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidAlarmConfigExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidInstanceStatusException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidInstanceStatusException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DescriptionTooLongException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DescriptionTooLongExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InstanceLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InstanceLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidInstanceStatusException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidInstanceStatusExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentIdRequiredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentIdRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InstanceLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InstanceLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidIgnoreApplicationStopFailuresValueException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidIgnoreApplicationStopFailuresValueException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentIdRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentIdRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentConfigNameRequiredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentConfigNameRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidIgnoreApplicationStopFailuresValueException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidIgnoreApplicationStopFailuresValueExceptionUnmarshaller
+                                            .getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTargetGroupPairException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidTargetGroupPairException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentConfigNameRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentConfigNameRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTargetFilterNameException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidTargetFilterNameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTargetGroupPairException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidTargetGroupPairExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ApplicationLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.ApplicationLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTargetFilterNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidTargetFilterNameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRegistrationStatusException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidRegistrationStatusException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ApplicationLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.ApplicationLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidLifecycleEventHookExecutionStatusException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidLifecycleEventHookExecutionStatusException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRegistrationStatusException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidRegistrationStatusExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentGroupDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentGroupDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidLifecycleEventHookExecutionStatusException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidLifecycleEventHookExecutionStatusExceptionUnmarshaller
+                                            .getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedActionForDeploymentTypeException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.UnsupportedActionForDeploymentTypeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidExternalIdException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidExternalIdExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidMinimumHealthyHostValueException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidMinimumHealthyHostValueException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentGroupDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentGroupDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BatchLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.BatchLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedActionForDeploymentTypeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.UnsupportedActionForDeploymentTypeExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ApplicationDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.ApplicationDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidMinimumHealthyHostValueException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidMinimumHealthyHostValueExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTargetInstancesException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidTargetInstancesException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BatchLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.BatchLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TagRequiredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.TagRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ApplicationDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.ApplicationDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BucketNameFilterRequiredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.BucketNameFilterRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTargetInstancesException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidTargetInstancesExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidIamUserArnException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidIamUserArnException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TagRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.TagRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidInstanceTypeException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidInstanceTypeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BucketNameFilterRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.BucketNameFilterRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTriggerConfigException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidTriggerConfigException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidIamUserArnException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidIamUserArnExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("IamArnRequiredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.IamArnRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidInstanceTypeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidInstanceTypeExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidKeyPrefixFilterException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidKeyPrefixFilterException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTriggerConfigException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidTriggerConfigExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("GitHubAccountTokenNameRequiredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.GitHubAccountTokenNameRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("IamArnRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.IamArnRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ECSServiceMappingLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.ECSServiceMappingLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidKeyPrefixFilterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidKeyPrefixFilterExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidBucketNameFilterException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidBucketNameFilterException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("GitHubAccountTokenNameRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.GitHubAccountTokenNameRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidComputePlatformException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidComputePlatformException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ECSServiceMappingLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.ECSServiceMappingLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RoleRequiredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.RoleRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidBucketNameFilterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidBucketNameFilterExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.ThrottlingException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidComputePlatformException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidComputePlatformExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentNotStartedException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentNotStartedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RoleRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.RoleRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LifecycleEventAlreadyCompletedException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.LifecycleEventAlreadyCompletedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.ThrottlingExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidIamSessionArnException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidIamSessionArnException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentNotStartedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentNotStartedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentGroupAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentGroupAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LifecycleEventAlreadyCompletedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.LifecycleEventAlreadyCompletedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidOnPremisesTagCombinationException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidOnPremisesTagCombinationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidIamSessionArnException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidIamSessionArnExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidEC2TagCombinationException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidEC2TagCombinationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentGroupAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentGroupAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InstanceNameRequiredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InstanceNameRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidOnPremisesTagCombinationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidOnPremisesTagCombinationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentConfigLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentConfigLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidEC2TagCombinationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidEC2TagCombinationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRevisionException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidRevisionException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InstanceNameRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InstanceNameRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("IamUserArnRequiredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.IamUserArnRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentConfigLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentConfigLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidUpdateOutdatedInstancesOnlyValueException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidUpdateOutdatedInstancesOnlyValueException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRevisionException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidRevisionExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeploymentIdException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidDeploymentIdException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("IamUserArnRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.IamUserArnRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ArnNotSupportedException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.ArnNotSupportedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidUpdateOutdatedInstancesOnlyValueException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidUpdateOutdatedInstancesOnlyValueExceptionUnmarshaller
+                                            .getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentTargetListSizeExceededException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentTargetListSizeExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeploymentIdException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidDeploymentIdExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeploymentStatusException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidDeploymentStatusException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ArnNotSupportedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.ArnNotSupportedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidInstanceNameException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidInstanceNameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentTargetListSizeExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentTargetListSizeExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentConfigInUseException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentConfigInUseException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeploymentStatusException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidDeploymentStatusExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentConfigAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentConfigAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidInstanceNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidInstanceNameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("IamSessionArnAlreadyRegisteredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.IamSessionArnAlreadyRegisteredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentConfigInUseException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentConfigInUseExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InstanceNameAlreadyRegisteredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InstanceNameAlreadyRegisteredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentConfigAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentConfigAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTagException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidTagException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("IamSessionArnAlreadyRegisteredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.IamSessionArnAlreadyRegisteredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidApplicationNameException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidApplicationNameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InstanceNameAlreadyRegisteredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InstanceNameAlreadyRegisteredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeploymentStyleException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidDeploymentStyleException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTagException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidTagExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTimeRangeException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidTimeRangeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidApplicationNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidApplicationNameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidInputException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidInputException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeploymentStyleException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidDeploymentStyleExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidSortByException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidSortByException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTimeRangeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidTimeRangeExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeploymentInstanceTypeException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidDeploymentInstanceTypeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidInputException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidInputExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidEC2TagException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidEC2TagException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidSortByException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidSortByExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeploymentInstanceTypeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidDeploymentInstanceTypeExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidSortOrderException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidSortOrderException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidEC2TagException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidEC2TagExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DeploymentGroupNameRequiredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.DeploymentGroupNameRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RevisionDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.RevisionDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidSortOrderException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidSortOrderExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRoleException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidRoleException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DeploymentGroupNameRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.DeploymentGroupNameRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InstanceIdRequiredException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InstanceIdRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RevisionDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.RevisionDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidFileExistsBehaviorException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidFileExistsBehaviorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRoleException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidRoleExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeploymentTargetIdException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidDeploymentTargetIdException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InstanceIdRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InstanceIdRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TagLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.TagLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidFileExistsBehaviorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidFileExistsBehaviorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeploymentWaitTypeException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidDeploymentWaitTypeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeploymentTargetIdException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidDeploymentTargetIdExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidAutoScalingGroupException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidAutoScalingGroupException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TagLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.TagLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTrafficRoutingConfigurationException").withModeledClass(
-                                    com.amazonaws.services.codedeploy.model.InvalidTrafficRoutingConfigurationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeploymentWaitTypeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidDeploymentWaitTypeExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidAutoScalingGroupException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidAutoScalingGroupExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTrafficRoutingConfigurationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codedeploy.model.transform.InvalidTrafficRoutingConfigurationExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.codedeploy.model.AmazonCodeDeployException.class));
 
     /**
@@ -743,6 +753,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(addTagsToOnPremisesInstancesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddTagsToOnPremisesInstances");
@@ -772,10 +784,10 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param batchGetApplicationRevisionsRequest
-     *        Represents the input of a BatchGetApplicationRevisions operation.
+     *        Represents the input of a <code>BatchGetApplicationRevisions</code> operation.
      * @return Result of the BatchGetApplicationRevisions operation returned by the service.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
@@ -812,6 +824,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(batchGetApplicationRevisionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchGetApplicationRevisions");
@@ -836,18 +850,18 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Gets information about one or more applications. The maximum number of applications that can be returned is 25.
+     * Gets information about one or more applications. The maximum number of applications that can be returned is 100.
      * </p>
      * 
      * @param batchGetApplicationsRequest
-     *        Represents the input of a BatchGetApplications operation.
+     *        Represents the input of a <code>BatchGetApplications</code> operation.
      * @return Result of the BatchGetApplications operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws BatchLimitExceededException
      *         The maximum number of names or IDs allowed for this request (100) was exceeded.
      * @sample AmazonCodeDeploy.BatchGetApplications
@@ -875,6 +889,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new BatchGetApplicationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(batchGetApplicationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchGetApplications");
@@ -907,14 +923,14 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param batchGetDeploymentGroupsRequest
-     *        Represents the input of a BatchGetDeploymentGroups operation.
+     *        Represents the input of a <code>BatchGetDeploymentGroups</code> operation.
      * @return Result of the BatchGetDeploymentGroups operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws DeploymentGroupNameRequiredException
      *         The deployment group name was not specified.
      * @throws InvalidDeploymentGroupNameException
@@ -922,7 +938,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws BatchLimitExceededException
      *         The maximum number of names or IDs allowed for this request (100) was exceeded.
      * @throws DeploymentConfigDoesNotExistException
-     *         The deployment configuration does not exist with the IAM user or AWS account.
+     *         The deployment configuration does not exist with the user or Amazon Web Services account.
      * @sample AmazonCodeDeploy.BatchGetDeploymentGroups
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/BatchGetDeploymentGroups"
      *      target="_top">AWS API Documentation</a>
@@ -949,6 +965,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(batchGetDeploymentGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchGetDeploymentGroups");
@@ -979,17 +997,17 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </note>
      * <p>
      * Returns an array of one or more instances associated with a deployment. This method works with EC2/On-premises
-     * and AWS Lambda compute platforms. The newer <code>BatchGetDeploymentTargets</code> works with all compute
-     * platforms. The maximum number of instances that can be returned is 25.
+     * and Lambda compute platforms. The newer <code>BatchGetDeploymentTargets</code> works with all compute platforms.
+     * The maximum number of instances that can be returned is 25.
      * </p>
      * 
      * @param batchGetDeploymentInstancesRequest
-     *        Represents the input of a BatchGetDeploymentInstances operation.
+     *        Represents the input of a <code>BatchGetDeploymentInstances</code> operation.
      * @return Result of the BatchGetDeploymentInstances operation returned by the service.
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws InstanceIdRequiredException
      *         The instance ID was not specified.
      * @throws InvalidDeploymentIdException
@@ -999,7 +1017,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws BatchLimitExceededException
      *         The maximum number of names or IDs allowed for this request (100) was exceeded.
      * @throws InvalidComputePlatformException
-     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code> or <code>Server</code>.
+     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code>, <code>Server</code>,
+     *         or <code>ECS</code>.
      * @sample AmazonCodeDeploy.BatchGetDeploymentInstances
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/BatchGetDeploymentInstances"
      *      target="_top">AWS API Documentation</a>
@@ -1027,6 +1046,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(batchGetDeploymentInstancesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchGetDeploymentInstances");
@@ -1056,22 +1077,28 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * targets that can be returned is 25.
      * </p>
      * <p>
-     * The type of targets returned depends on the deployment's compute platform:
+     * The type of targets returned depends on the deployment's compute platform or deployment method:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>EC2/On-premises</b>: Information about EC2 instance targets.
+     * <b>EC2/On-premises</b>: Information about Amazon EC2 instance targets.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>AWS Lambda</b>: Information about Lambda functions targets.
+     * <b>Lambda</b>: Information about Lambda functions targets.
      * </p>
      * </li>
      * <li>
      * <p>
      * <b>Amazon ECS</b>: Information about Amazon ECS service targets.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>CloudFormation</b>: Information about targets of blue/green deployments initiated by a CloudFormation stack
+     * update.
      * </p>
      * </li>
      * </ul>
@@ -1083,7 +1110,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws DeploymentNotStartedException
      *         The specified deployment has not started.
      * @throws DeploymentTargetIdRequiredException
@@ -1093,9 +1120,11 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws DeploymentTargetDoesNotExistException
      *         The provided target ID does not belong to the attempted deployment.
      * @throws DeploymentTargetListSizeExceededException
-     *         The maximum number of targets that can be associated with an Amazon ECS or AWS Lambda deployment was
+     *         The maximum number of targets that can be associated with an Amazon ECS or Lambda deployment was
      *         exceeded. The target list of both types of deployments must have exactly one item. This exception does
      *         not apply to EC2/On-premises deployments.
+     * @throws InstanceDoesNotExistException
+     *         The specified instance does not exist in the deployment group.
      * @sample AmazonCodeDeploy.BatchGetDeploymentTargets
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/BatchGetDeploymentTargets"
      *      target="_top">AWS API Documentation</a>
@@ -1122,6 +1151,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(batchGetDeploymentTargetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchGetDeploymentTargets");
@@ -1150,7 +1181,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param batchGetDeploymentsRequest
-     *        Represents the input of a BatchGetDeployments operation.
+     *        Represents the input of a <code>BatchGetDeployments</code> operation.
      * @return Result of the BatchGetDeployments operation returned by the service.
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
@@ -1183,6 +1214,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new BatchGetDeploymentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(batchGetDeploymentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchGetDeployments");
@@ -1216,7 +1249,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param batchGetOnPremisesInstancesRequest
-     *        Represents the input of a BatchGetOnPremisesInstances operation.
+     *        Represents the input of a <code>BatchGetOnPremisesInstances</code> operation.
      * @return Result of the BatchGetOnPremisesInstances operation returned by the service.
      * @throws InstanceNameRequiredException
      *         An on-premises instance name was not specified.
@@ -1250,6 +1283,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(batchGetOnPremisesInstancesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchGetOnPremisesInstances");
@@ -1290,7 +1325,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws DeploymentAlreadyCompletedException
      *         The deployment is already complete.
      * @throws InvalidDeploymentIdException
@@ -1328,6 +1363,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new ContinueDeploymentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(continueDeploymentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ContinueDeployment");
@@ -1355,18 +1392,19 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param createApplicationRequest
-     *        Represents the input of a CreateApplication operation.
+     *        Represents the input of a <code>CreateApplication</code> operation.
      * @return Result of the CreateApplication operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationAlreadyExistsException
-     *         An application with the specified name with the IAM user or AWS account already exists.
+     *         An application with the specified name with the user or Amazon Web Services account already exists.
      * @throws ApplicationLimitExceededException
      *         More applications were attempted to be created than are allowed.
      * @throws InvalidComputePlatformException
-     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code> or <code>Server</code>.
+     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code>, <code>Server</code>,
+     *         or <code>ECS</code>.
      * @throws InvalidTagsToAddException
      *         The specified tags are not valid.
      * @sample AmazonCodeDeploy.CreateApplication
@@ -1394,6 +1432,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new CreateApplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateApplication");
@@ -1421,30 +1461,30 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param createDeploymentRequest
-     *        Represents the input of a CreateDeployment operation.
+     *        Represents the input of a <code>CreateDeployment</code> operation.
      * @return Result of the CreateDeployment operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws DeploymentGroupNameRequiredException
      *         The deployment group name was not specified.
      * @throws InvalidDeploymentGroupNameException
      *         The deployment group name was specified in an invalid format.
      * @throws DeploymentGroupDoesNotExistException
-     *         The named deployment group with the IAM user or AWS account does not exist.
+     *         The named deployment group with the user or Amazon Web Services account does not exist.
      * @throws RevisionRequiredException
      *         The revision ID was not specified.
      * @throws RevisionDoesNotExistException
-     *         The named revision does not exist with the IAM user or AWS account.
+     *         The named revision does not exist with the user or Amazon Web Services account.
      * @throws InvalidRevisionException
      *         The revision was specified in an invalid format.
      * @throws InvalidDeploymentConfigNameException
      *         The deployment configuration name was specified in an invalid format.
      * @throws DeploymentConfigDoesNotExistException
-     *         The deployment configuration does not exist with the IAM user or AWS account.
+     *         The deployment configuration does not exist with the user or Amazon Web Services account.
      * @throws DescriptionTooLongException
      *         The description is too long.
      * @throws DeploymentLimitExceededException
@@ -1472,13 +1512,43 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      *         A specified tag is not currently applied to any instances.
      *         </p>
      *         </li>
+     * @throws InvalidAlarmConfigException
+     *         The format of the alarm configuration is invalid. Possible causes include:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         The alarm list is null.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The alarm object is null.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The alarm name is empty or null or exceeds the limit of 255 characters.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Two alarms with the same name have been specified.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The alarm configuration is enabled, but the alarm list is empty.
+     *         </p>
+     *         </li>
+     * @throws AlarmsLimitExceededException
+     *         The maximum number of alarms for a deployment group (10) was exceeded.
      * @throws InvalidAutoRollbackConfigException
      *         The automatic rollback configuration was specified in an invalid format. For example, automatic rollback
      *         is enabled, but an invalid triggering event type or no event types were listed.
      * @throws InvalidLoadBalancerInfoException
      *         An invalid load balancer name, or no load balancer name, was specified.
      * @throws InvalidFileExistsBehaviorException
-     *         An invalid fileExistsBehavior option was specified to determine how AWS CodeDeploy handles files or
+     *         An invalid fileExistsBehavior option was specified to determine how CodeDeploy handles files or
      *         directories that already exist in a deployment target location, but weren't part of the previous
      *         successful deployment. Valid values include "DISALLOW," "OVERWRITE," and "RETAIN."
      * @throws InvalidRoleException
@@ -1489,13 +1559,15 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws ThrottlingException
      *         An API function was called too frequently.
      * @throws InvalidUpdateOutdatedInstancesOnlyValueException
-     *         The UpdateOutdatedInstancesOnly value is invalid. For AWS Lambda deployments, <code>false</code> is
-     *         expected. For EC2/On-premises deployments, <code>true</code> or <code>false</code> is expected.
+     *         The UpdateOutdatedInstancesOnly value is invalid. For Lambda deployments, <code>false</code> is expected.
+     *         For EC2/On-premises deployments, <code>true</code> or <code>false</code> is expected.
      * @throws InvalidIgnoreApplicationStopFailuresValueException
-     *         The IgnoreApplicationStopFailures value is invalid. For AWS Lambda deployments, <code>false</code> is
+     *         The IgnoreApplicationStopFailures value is invalid. For Lambda deployments, <code>false</code> is
      *         expected. For EC2/On-premises deployments, <code>true</code> or <code>false</code> is expected.
      * @throws InvalidGitHubAccountTokenException
      *         The GitHub token is not valid.
+     * @throws InvalidTrafficRoutingConfigurationException
+     *         The configuration that specifies how traffic is routed during a deployment is invalid.
      * @sample AmazonCodeDeploy.CreateDeployment
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/CreateDeployment" target="_top">AWS
      *      API Documentation</a>
@@ -1521,6 +1593,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new CreateDeploymentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDeploymentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDeployment");
@@ -1548,22 +1622,26 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param createDeploymentConfigRequest
-     *        Represents the input of a CreateDeploymentConfig operation.
+     *        Represents the input of a <code>CreateDeploymentConfig</code> operation.
      * @return Result of the CreateDeploymentConfig operation returned by the service.
      * @throws InvalidDeploymentConfigNameException
      *         The deployment configuration name was specified in an invalid format.
      * @throws DeploymentConfigNameRequiredException
      *         The deployment configuration name was not specified.
      * @throws DeploymentConfigAlreadyExistsException
-     *         A deployment configuration with the specified name with the IAM user or AWS account already exists .
+     *         A deployment configuration with the specified name with the user or Amazon Web Services account already
+     *         exists.
      * @throws InvalidMinimumHealthyHostValueException
      *         The minimum healthy instance value was specified in an invalid format.
      * @throws DeploymentConfigLimitExceededException
      *         The deployment configurations limit was exceeded.
      * @throws InvalidComputePlatformException
-     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code> or <code>Server</code>.
+     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code>, <code>Server</code>,
+     *         or <code>ECS</code>.
      * @throws InvalidTrafficRoutingConfigurationException
      *         The configuration that specifies how traffic is routed during a deployment is invalid.
+     * @throws InvalidZonalDeploymentConfigurationException
+     *         The <code>ZonalConfig</code> object is not valid.
      * @sample AmazonCodeDeploy.CreateDeploymentConfig
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/CreateDeploymentConfig"
      *      target="_top">AWS API Documentation</a>
@@ -1589,6 +1667,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new CreateDeploymentConfigRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDeploymentConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDeploymentConfig");
@@ -1617,20 +1697,20 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param createDeploymentGroupRequest
-     *        Represents the input of a CreateDeploymentGroup operation.
+     *        Represents the input of a <code>CreateDeploymentGroup</code> operation.
      * @return Result of the CreateDeploymentGroup operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws DeploymentGroupNameRequiredException
      *         The deployment group name was not specified.
      * @throws InvalidDeploymentGroupNameException
      *         The deployment group name was specified in an invalid format.
      * @throws DeploymentGroupAlreadyExistsException
-     *         A deployment group with the specified name with the IAM user or AWS account already exists.
+     *         A deployment group with the specified name with the user or Amazon Web Services account already exists.
      * @throws InvalidEC2TagException
      *         The tag was specified in an invalid format.
      * @throws InvalidTagException
@@ -1640,7 +1720,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws InvalidDeploymentConfigNameException
      *         The deployment configuration name was specified in an invalid format.
      * @throws DeploymentConfigDoesNotExistException
-     *         The deployment configuration does not exist with the IAM user or AWS account.
+     *         The deployment configuration does not exist with the user or Amazon Web Services account.
      * @throws RoleRequiredException
      *         The role ID was not specified.
      * @throws InvalidRoleException
@@ -1716,6 +1796,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      *         associated with only one deployment group.
      * @throws InvalidTagsToAddException
      *         The specified tags are not valid.
+     * @throws InvalidTrafficRoutingConfigurationException
+     *         The configuration that specifies how traffic is routed during a deployment is invalid.
      * @sample AmazonCodeDeploy.CreateDeploymentGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/CreateDeploymentGroup"
      *      target="_top">AWS API Documentation</a>
@@ -1741,6 +1823,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new CreateDeploymentGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDeploymentGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDeploymentGroup");
@@ -1769,7 +1853,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param deleteApplicationRequest
-     *        Represents the input of a DeleteApplication operation.
+     *        Represents the input of a <code>DeleteApplication</code> operation.
      * @return Result of the DeleteApplication operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
@@ -1803,6 +1887,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new DeleteApplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteApplication");
@@ -1836,7 +1922,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </note>
      * 
      * @param deleteDeploymentConfigRequest
-     *        Represents the input of a DeleteDeploymentConfig operation.
+     *        Represents the input of a <code>DeleteDeploymentConfig</code> operation.
      * @return Result of the DeleteDeploymentConfig operation returned by the service.
      * @throws InvalidDeploymentConfigNameException
      *         The deployment configuration name was specified in an invalid format.
@@ -1871,6 +1957,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new DeleteDeploymentConfigRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDeploymentConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDeploymentConfig");
@@ -1899,7 +1987,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param deleteDeploymentGroupRequest
-     *        Represents the input of a DeleteDeploymentGroup operation.
+     *        Represents the input of a <code>DeleteDeploymentGroup</code> operation.
      * @return Result of the DeleteDeploymentGroup operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
@@ -1937,6 +2025,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new DeleteDeploymentGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDeploymentGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDeploymentGroup");
@@ -1965,7 +2055,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param deleteGitHubAccountTokenRequest
-     *        Represents the input of a DeleteGitHubAccount operation.
+     *        Represents the input of a <code>DeleteGitHubAccount</code> operation.
      * @return Result of the DeleteGitHubAccountToken operation returned by the service.
      * @throws GitHubAccountTokenNameRequiredException
      *         The call is missing a required GitHub account connection name.
@@ -2003,6 +2093,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(deleteGitHubAccountTokenRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteGitHubAccountToken");
@@ -2027,11 +2119,76 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
+     * Deletes resources linked to an external ID. This action only applies if you have configured blue/green
+     * deployments through CloudFormation.
+     * </p>
+     * <note>
+     * <p>
+     * It is not necessary to call this action directly. CloudFormation calls it on your behalf when it needs to delete
+     * stack resources. This action is offered publicly in case you need to delete resources to comply with General Data
+     * Protection Regulation (GDPR) requirements.
+     * </p>
+     * </note>
+     * 
+     * @param deleteResourcesByExternalIdRequest
+     * @return Result of the DeleteResourcesByExternalId operation returned by the service.
+     * @sample AmazonCodeDeploy.DeleteResourcesByExternalId
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/DeleteResourcesByExternalId"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteResourcesByExternalIdResult deleteResourcesByExternalId(DeleteResourcesByExternalIdRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteResourcesByExternalId(request);
+    }
+
+    @SdkInternalApi
+    final DeleteResourcesByExternalIdResult executeDeleteResourcesByExternalId(DeleteResourcesByExternalIdRequest deleteResourcesByExternalIdRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteResourcesByExternalIdRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteResourcesByExternalIdRequest> request = null;
+        Response<DeleteResourcesByExternalIdResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteResourcesByExternalIdRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteResourcesByExternalIdRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteResourcesByExternalId");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteResourcesByExternalIdResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteResourcesByExternalIdResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deregisters an on-premises instance.
      * </p>
      * 
      * @param deregisterOnPremisesInstanceRequest
-     *        Represents the input of a DeregisterOnPremisesInstance operation.
+     *        Represents the input of a <code>DeregisterOnPremisesInstance</code> operation.
      * @return Result of the DeregisterOnPremisesInstance operation returned by the service.
      * @throws InstanceNameRequiredException
      *         An on-premises instance name was not specified.
@@ -2063,6 +2220,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(deregisterOnPremisesInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeregisterOnPremisesInstance");
@@ -2091,14 +2250,14 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param getApplicationRequest
-     *        Represents the input of a GetApplication operation.
+     *        Represents the input of a <code>GetApplication</code> operation.
      * @return Result of the GetApplication operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @sample AmazonCodeDeploy.GetApplication
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/GetApplication" target="_top">AWS API
      *      Documentation</a>
@@ -2124,6 +2283,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new GetApplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetApplication");
@@ -2151,16 +2312,16 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param getApplicationRevisionRequest
-     *        Represents the input of a GetApplicationRevision operation.
+     *        Represents the input of a <code>GetApplicationRevision</code> operation.
      * @return Result of the GetApplicationRevision operation returned by the service.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws RevisionDoesNotExistException
-     *         The named revision does not exist with the IAM user or AWS account.
+     *         The named revision does not exist with the user or Amazon Web Services account.
      * @throws RevisionRequiredException
      *         The revision ID was not specified.
      * @throws InvalidRevisionException
@@ -2190,6 +2351,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new GetApplicationRevisionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getApplicationRevisionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetApplicationRevision");
@@ -2225,14 +2388,14 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </note>
      * 
      * @param getDeploymentRequest
-     *        Represents the input of a GetDeployment operation.
+     *        Represents the input of a <code>GetDeployment</code> operation.
      * @return Result of the GetDeployment operation returned by the service.
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws InvalidDeploymentIdException
      *         At least one of the deployment IDs was specified in an invalid format.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @sample AmazonCodeDeploy.GetDeployment
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/GetDeployment" target="_top">AWS API
      *      Documentation</a>
@@ -2258,6 +2421,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new GetDeploymentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDeploymentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDeployment");
@@ -2285,16 +2450,17 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param getDeploymentConfigRequest
-     *        Represents the input of a GetDeploymentConfig operation.
+     *        Represents the input of a <code>GetDeploymentConfig</code> operation.
      * @return Result of the GetDeploymentConfig operation returned by the service.
      * @throws InvalidDeploymentConfigNameException
      *         The deployment configuration name was specified in an invalid format.
      * @throws DeploymentConfigNameRequiredException
      *         The deployment configuration name was not specified.
      * @throws DeploymentConfigDoesNotExistException
-     *         The deployment configuration does not exist with the IAM user or AWS account.
+     *         The deployment configuration does not exist with the user or Amazon Web Services account.
      * @throws InvalidComputePlatformException
-     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code> or <code>Server</code>.
+     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code>, <code>Server</code>,
+     *         or <code>ECS</code>.
      * @sample AmazonCodeDeploy.GetDeploymentConfig
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/GetDeploymentConfig" target="_top">AWS
      *      API Documentation</a>
@@ -2320,6 +2486,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new GetDeploymentConfigRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDeploymentConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDeploymentConfig");
@@ -2347,22 +2515,22 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param getDeploymentGroupRequest
-     *        Represents the input of a GetDeploymentGroup operation.
+     *        Represents the input of a <code>GetDeploymentGroup</code> operation.
      * @return Result of the GetDeploymentGroup operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws DeploymentGroupNameRequiredException
      *         The deployment group name was not specified.
      * @throws InvalidDeploymentGroupNameException
      *         The deployment group name was specified in an invalid format.
      * @throws DeploymentGroupDoesNotExistException
-     *         The named deployment group with the IAM user or AWS account does not exist.
+     *         The named deployment group with the user or Amazon Web Services account does not exist.
      * @throws DeploymentConfigDoesNotExistException
-     *         The deployment configuration does not exist with the IAM user or AWS account.
+     *         The deployment configuration does not exist with the user or Amazon Web Services account.
      * @sample AmazonCodeDeploy.GetDeploymentGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/GetDeploymentGroup" target="_top">AWS
      *      API Documentation</a>
@@ -2388,6 +2556,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new GetDeploymentGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDeploymentGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDeploymentGroup");
@@ -2415,12 +2585,12 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param getDeploymentInstanceRequest
-     *        Represents the input of a GetDeploymentInstance operation.
+     *        Represents the input of a <code>GetDeploymentInstance</code> operation.
      * @return Result of the GetDeploymentInstance operation returned by the service.
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws InstanceIdRequiredException
      *         The instance ID was not specified.
      * @throws InvalidDeploymentIdException
@@ -2430,7 +2600,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws InvalidInstanceNameException
      *         The on-premises instance name was specified in an invalid format.
      * @throws InvalidComputePlatformException
-     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code> or <code>Server</code>.
+     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code>, <code>Server</code>,
+     *         or <code>ECS</code>.
      * @sample AmazonCodeDeploy.GetDeploymentInstance
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/GetDeploymentInstance"
      *      target="_top">AWS API Documentation</a>
@@ -2457,6 +2628,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new GetDeploymentInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDeploymentInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDeploymentInstance");
@@ -2491,7 +2664,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws DeploymentNotStartedException
      *         The specified deployment has not started.
      * @throws DeploymentTargetIdRequiredException
@@ -2527,6 +2700,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new GetDeploymentTargetRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDeploymentTargetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDeploymentTarget");
@@ -2554,7 +2729,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param getOnPremisesInstanceRequest
-     *        Represents the input of a GetOnPremisesInstance operation.
+     *        Represents the input of a <code>GetOnPremisesInstance</code> operation.
      * @return Result of the GetOnPremisesInstance operation returned by the service.
      * @throws InstanceNameRequiredException
      *         An on-premises instance name was not specified.
@@ -2587,6 +2762,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new GetOnPremisesInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getOnPremisesInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetOnPremisesInstance");
@@ -2615,10 +2792,10 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param listApplicationRevisionsRequest
-     *        Represents the input of a ListApplicationRevisions operation.
+     *        Represents the input of a <code>ListApplicationRevisions</code> operation.
      * @return Result of the ListApplicationRevisions operation returned by the service.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
@@ -2663,6 +2840,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(listApplicationRevisionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListApplicationRevisions");
@@ -2687,11 +2866,11 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Lists the applications registered with the IAM user or AWS account.
+     * Lists the applications registered with the user or Amazon Web Services account.
      * </p>
      * 
      * @param listApplicationsRequest
-     *        Represents the input of a ListApplications operation.
+     *        Represents the input of a <code>ListApplications</code> operation.
      * @return Result of the ListApplications operation returned by the service.
      * @throws InvalidNextTokenException
      *         The next token was specified in an invalid format.
@@ -2720,6 +2899,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new ListApplicationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listApplicationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListApplications");
@@ -2748,11 +2929,11 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Lists the deployment configurations with the IAM user or AWS account.
+     * Lists the deployment configurations with the user or Amazon Web Services account.
      * </p>
      * 
      * @param listDeploymentConfigsRequest
-     *        Represents the input of a ListDeploymentConfigs operation.
+     *        Represents the input of a <code>ListDeploymentConfigs</code> operation.
      * @return Result of the ListDeploymentConfigs operation returned by the service.
      * @throws InvalidNextTokenException
      *         The next token was specified in an invalid format.
@@ -2781,6 +2962,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new ListDeploymentConfigsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDeploymentConfigsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDeploymentConfigs");
@@ -2810,18 +2993,19 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Lists the deployment groups for an application registered with the IAM user or AWS account.
+     * Lists the deployment groups for an application registered with the Amazon Web Services user or Amazon Web
+     * Services account.
      * </p>
      * 
      * @param listDeploymentGroupsRequest
-     *        Represents the input of a ListDeploymentGroups operation.
+     *        Represents the input of a <code>ListDeploymentGroups</code> operation.
      * @return Result of the ListDeploymentGroups operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws InvalidNextTokenException
      *         The next token was specified in an invalid format.
      * @sample AmazonCodeDeploy.ListDeploymentGroups
@@ -2849,6 +3033,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new ListDeploymentGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDeploymentGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDeploymentGroups");
@@ -2873,22 +3059,22 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
     /**
      * <note>
      * <p>
-     * The newer BatchGetDeploymentTargets should be used instead because it works with all compute types.
+     * The newer <code>BatchGetDeploymentTargets</code> should be used instead because it works with all compute types.
      * <code>ListDeploymentInstances</code> throws an exception if it is used with a compute platform other than
-     * EC2/On-premises or AWS Lambda.
+     * EC2/On-premises or Lambda.
      * </p>
      * </note>
      * <p>
-     * Lists the instance for a deployment associated with the IAM user or AWS account.
+     * Lists the instance for a deployment associated with the user or Amazon Web Services account.
      * </p>
      * 
      * @param listDeploymentInstancesRequest
-     *        Represents the input of a ListDeploymentInstances operation.
+     *        Represents the input of a <code>ListDeploymentInstances</code> operation.
      * @return Result of the ListDeploymentInstances operation returned by the service.
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws DeploymentNotStartedException
      *         The specified deployment has not started.
      * @throws InvalidNextTokenException
@@ -2906,7 +3092,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws InvalidTargetFilterNameException
      *         The target filter name is invalid.
      * @throws InvalidComputePlatformException
-     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code> or <code>Server</code>.
+     *         The computePlatform is invalid. The computePlatform should be <code>Lambda</code>, <code>Server</code>,
+     *         or <code>ECS</code>.
      * @sample AmazonCodeDeploy.ListDeploymentInstances
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/ListDeploymentInstances"
      *      target="_top">AWS API Documentation</a>
@@ -2934,6 +3121,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(listDeploymentInstancesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDeploymentInstances");
@@ -2966,7 +3155,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws DeploymentNotStartedException
      *         The specified deployment has not started.
      * @throws InvalidNextTokenException
@@ -2981,6 +3170,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws InvalidDeploymentInstanceTypeException
      *         An instance type was specified for an in-place deployment. Instance types are supported for blue/green
      *         deployments only.
+     * @throws InvalidTargetFilterNameException
+     *         The target filter name is invalid.
      * @sample AmazonCodeDeploy.ListDeploymentTargets
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/ListDeploymentTargets"
      *      target="_top">AWS API Documentation</a>
@@ -3006,6 +3197,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new ListDeploymentTargetsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDeploymentTargetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDeploymentTargets");
@@ -3030,22 +3223,23 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Lists the deployments in a deployment group for an application registered with the IAM user or AWS account.
+     * Lists the deployments in a deployment group for an application registered with the user or Amazon Web Services
+     * account.
      * </p>
      * 
      * @param listDeploymentsRequest
-     *        Represents the input of a ListDeployments operation.
+     *        Represents the input of a <code>ListDeployments</code> operation.
      * @return Result of the ListDeployments operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws InvalidDeploymentGroupNameException
      *         The deployment group name was specified in an invalid format.
      * @throws DeploymentGroupDoesNotExistException
-     *         The named deployment group with the IAM user or AWS account does not exist.
+     *         The named deployment group with the user or Amazon Web Services account does not exist.
      * @throws DeploymentGroupNameRequiredException
      *         The deployment group name was not specified.
      * @throws InvalidTimeRangeException
@@ -3054,6 +3248,10 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      *         The specified deployment status doesn't exist or cannot be determined.
      * @throws InvalidNextTokenException
      *         The next token was specified in an invalid format.
+     * @throws InvalidExternalIdException
+     *         The external ID was specified in an invalid format.
+     * @throws InvalidInputException
+     *         The input was specified in an invalid format.
      * @sample AmazonCodeDeploy.ListDeployments
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/ListDeployments" target="_top">AWS API
      *      Documentation</a>
@@ -3079,6 +3277,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new ListDeploymentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDeploymentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDeployments");
@@ -3111,7 +3311,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param listGitHubAccountTokenNamesRequest
-     *        Represents the input of a ListGitHubAccountTokenNames operation.
+     *        Represents the input of a <code>ListGitHubAccountTokenNames</code> operation.
      * @return Result of the ListGitHubAccountTokenNames operation returned by the service.
      * @throws InvalidNextTokenException
      *         The next token was specified in an invalid format.
@@ -3145,6 +3345,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(listGitHubAccountTokenNamesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListGitHubAccountTokenNames");
@@ -3177,7 +3379,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param listOnPremisesInstancesRequest
-     *        Represents the input of a ListOnPremisesInstances operation.
+     *        Represents the input of a <code>ListOnPremisesInstances</code> operation.
      * @return Result of the ListOnPremisesInstances operation returned by the service.
      * @throws InvalidRegistrationStatusException
      *         The registration status was specified in an invalid format.
@@ -3211,6 +3413,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(listOnPremisesInstancesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListOnPremisesInstances");
@@ -3240,8 +3444,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Returns a list of tags for the resource identified by a specified ARN. Tags are used to organize and categorize
-     * your CodeDeploy resources.
+     * Returns a list of tags for the resource identified by a specified Amazon Resource Name (ARN). Tags are used to
+     * organize and categorize your CodeDeploy resources.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -3277,6 +3481,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -3300,9 +3506,16 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Sets the result of a Lambda validation function. The function validates one or both lifecycle events (
-     * <code>BeforeAllowTraffic</code> and <code>AfterAllowTraffic</code>) and returns <code>Succeeded</code> or
-     * <code>Failed</code>.
+     * Sets the result of a Lambda validation function. The function validates lifecycle hooks during a deployment that
+     * uses the Lambda or Amazon ECS compute platform. For Lambda deployments, the available lifecycle hooks are
+     * <code>BeforeAllowTraffic</code> and <code>AfterAllowTraffic</code>. For Amazon ECS deployments, the available
+     * lifecycle hooks are <code>BeforeInstall</code>, <code>AfterInstall</code>, <code>AfterAllowTestTraffic</code>,
+     * <code>BeforeAllowTraffic</code>, and <code>AfterAllowTraffic</code>. Lambda validation functions return
+     * <code>Succeeded</code> or <code>Failed</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#appspec-hooks-lambda"
+     * >AppSpec 'hooks' Section for an Lambda Deployment </a> and <a href=
+     * "https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#appspec-hooks-ecs"
+     * >AppSpec 'hooks' Section for an Amazon ECS Deployment</a>.
      * </p>
      * 
      * @param putLifecycleEventHookExecutionStatusRequest
@@ -3318,7 +3531,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws InvalidDeploymentIdException
      *         At least one of the deployment IDs was specified in an invalid format.
      * @throws UnsupportedActionForDeploymentTypeException
@@ -3350,6 +3563,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(putLifecycleEventHookExecutionStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutLifecycleEventHookExecutionStatus");
@@ -3374,14 +3589,14 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Registers with AWS CodeDeploy a revision for the specified application.
+     * Registers with CodeDeploy a revision for the specified application.
      * </p>
      * 
      * @param registerApplicationRevisionRequest
      *        Represents the input of a RegisterApplicationRevision operation.
      * @return Result of the RegisterApplicationRevision operation returned by the service.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
@@ -3418,6 +3633,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(registerApplicationRevisionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterApplicationRevision");
@@ -3456,23 +3673,23 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws InstanceNameAlreadyRegisteredException
      *         The specified on-premises instance name is already registered.
      * @throws IamArnRequiredException
-     *         No IAM ARN was included in the request. You must use an IAM session ARN or IAM user ARN in the request.
+     *         No IAM ARN was included in the request. You must use an IAM session ARN or user ARN in the request.
      * @throws IamSessionArnAlreadyRegisteredException
      *         The request included an IAM session ARN that has already been used to register a different instance.
      * @throws IamUserArnAlreadyRegisteredException
-     *         The specified IAM user ARN is already registered with an on-premises instance.
+     *         The specified user ARN is already registered with an on-premises instance.
      * @throws InstanceNameRequiredException
      *         An on-premises instance name was not specified.
      * @throws IamUserArnRequiredException
-     *         An IAM user ARN was not specified.
+     *         An user ARN was not specified.
      * @throws InvalidInstanceNameException
      *         The on-premises instance name was specified in an invalid format.
      * @throws InvalidIamSessionArnException
      *         The IAM session ARN was specified in an invalid format.
      * @throws InvalidIamUserArnException
-     *         The IAM user ARN was specified in an invalid format.
+     *         The user ARN was specified in an invalid format.
      * @throws MultipleIamArnsProvidedException
-     *         Both an IAM user ARN and an IAM session ARN were included in the request. Use only one ARN type.
+     *         Both an user ARN and an IAM session ARN were included in the request. Use only one ARN type.
      * @sample AmazonCodeDeploy.RegisterOnPremisesInstance
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/RegisterOnPremisesInstance"
      *      target="_top">AWS API Documentation</a>
@@ -3499,6 +3716,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(registerOnPremisesInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterOnPremisesInstance");
@@ -3527,7 +3746,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param removeTagsFromOnPremisesInstancesRequest
-     *        Represents the input of a RemoveTagsFromOnPremisesInstances operation.
+     *        Represents the input of a <code>RemoveTagsFromOnPremisesInstances</code> operation.
      * @return Result of the RemoveTagsFromOnPremisesInstances operation returned by the service.
      * @throws InstanceNameRequiredException
      *         An on-premises instance name was not specified.
@@ -3570,6 +3789,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(removeTagsFromOnPremisesInstancesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveTagsFromOnPremisesInstances");
@@ -3603,7 +3824,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws DeploymentAlreadyCompletedException
      *         The deployment is already complete.
      * @throws InvalidDeploymentIdException
@@ -3640,6 +3861,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(skipWaitTimeForInstanceTerminationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SkipWaitTimeForInstanceTermination");
@@ -3668,18 +3891,20 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param stopDeploymentRequest
-     *        Represents the input of a StopDeployment operation.
+     *        Represents the input of a <code>StopDeployment</code> operation.
      * @return Result of the StopDeployment operation returned by the service.
      * @throws DeploymentIdRequiredException
      *         At least one deployment ID must be specified.
      * @throws DeploymentDoesNotExistException
-     *         The deployment with the IAM user or AWS account does not exist.
+     *         The deployment with the user or Amazon Web Services account does not exist.
      * @throws DeploymentGroupDoesNotExistException
-     *         The named deployment group with the IAM user or AWS account does not exist.
+     *         The named deployment group with the user or Amazon Web Services account does not exist.
      * @throws DeploymentAlreadyCompletedException
      *         The deployment is already complete.
      * @throws InvalidDeploymentIdException
      *         At least one of the deployment IDs was specified in an invalid format.
+     * @throws UnsupportedActionForDeploymentTypeException
+     *         A call was submitted that is not supported for the specified deployment type.
      * @sample AmazonCodeDeploy.StopDeployment
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/StopDeployment" target="_top">AWS API
      *      Documentation</a>
@@ -3705,6 +3930,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new StopDeploymentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopDeploymentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopDeployment");
@@ -3737,11 +3964,11 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws ResourceArnRequiredException
      *         The ARN of a resource is required, but was not found.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws DeploymentGroupDoesNotExistException
-     *         The named deployment group with the IAM user or AWS account does not exist.
+     *         The named deployment group with the user or Amazon Web Services account does not exist.
      * @throws DeploymentConfigDoesNotExistException
-     *         The deployment configuration does not exist with the IAM user or AWS account.
+     *         The deployment configuration does not exist with the user or Amazon Web Services account.
      * @throws TagRequiredException
      *         A tag was not specified.
      * @throws InvalidTagsToAddException
@@ -3775,6 +4002,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -3799,7 +4028,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
     /**
      * <p>
      * Disassociates a resource from a list of tags. The resource is identified by the <code>ResourceArn</code> input
-     * parameter. The tags are identfied by the list of keys in the <code>TagKeys</code> input parameter.
+     * parameter. The tags are identified by the list of keys in the <code>TagKeys</code> input parameter.
      * </p>
      * 
      * @param untagResourceRequest
@@ -3807,11 +4036,11 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws ResourceArnRequiredException
      *         The ARN of a resource is required, but was not found.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws DeploymentGroupDoesNotExistException
-     *         The named deployment group with the IAM user or AWS account does not exist.
+     *         The named deployment group with the user or Amazon Web Services account does not exist.
      * @throws DeploymentConfigDoesNotExistException
-     *         The deployment configuration does not exist with the IAM user or AWS account.
+     *         The deployment configuration does not exist with the user or Amazon Web Services account.
      * @throws TagRequiredException
      *         A tag was not specified.
      * @throws InvalidTagsToAddException
@@ -3845,6 +4074,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -3872,16 +4103,16 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param updateApplicationRequest
-     *        Represents the input of an UpdateApplication operation.
+     *        Represents the input of an <code>UpdateApplication</code> operation.
      * @return Result of the UpdateApplication operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationAlreadyExistsException
-     *         An application with the specified name with the IAM user or AWS account already exists.
+     *         An application with the specified name with the user or Amazon Web Services account already exists.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @sample AmazonCodeDeploy.UpdateApplication
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/UpdateApplication" target="_top">AWS
      *      API Documentation</a>
@@ -3907,6 +4138,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new UpdateApplicationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateApplicationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateApplication");
@@ -3939,22 +4172,22 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param updateDeploymentGroupRequest
-     *        Represents the input of an UpdateDeploymentGroup operation.
+     *        Represents the input of an <code>UpdateDeploymentGroup</code> operation.
      * @return Result of the UpdateDeploymentGroup operation returned by the service.
      * @throws ApplicationNameRequiredException
      *         The minimum number of required application names was not specified.
      * @throws InvalidApplicationNameException
      *         The application name was specified in an invalid format.
      * @throws ApplicationDoesNotExistException
-     *         The application does not exist with the IAM user or AWS account.
+     *         The application does not exist with the user or Amazon Web Services account.
      * @throws InvalidDeploymentGroupNameException
      *         The deployment group name was specified in an invalid format.
      * @throws DeploymentGroupAlreadyExistsException
-     *         A deployment group with the specified name with the IAM user or AWS account already exists.
+     *         A deployment group with the specified name with the user or Amazon Web Services account already exists.
      * @throws DeploymentGroupNameRequiredException
      *         The deployment group name was not specified.
      * @throws DeploymentGroupDoesNotExistException
-     *         The named deployment group with the IAM user or AWS account does not exist.
+     *         The named deployment group with the user or Amazon Web Services account does not exist.
      * @throws InvalidEC2TagException
      *         The tag was specified in an invalid format.
      * @throws InvalidTagException
@@ -3964,7 +4197,7 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws InvalidDeploymentConfigNameException
      *         The deployment configuration name was specified in an invalid format.
      * @throws DeploymentConfigDoesNotExistException
-     *         The deployment configuration does not exist with the IAM user or AWS account.
+     *         The deployment configuration does not exist with the user or Amazon Web Services account.
      * @throws InvalidRoleException
      *         The service role ARN was specified in an invalid format. Or, if an Auto Scaling group was specified, the
      *         specified service role does not grant the appropriate permissions to Amazon EC2 Auto Scaling.
@@ -4034,6 +4267,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
      * @throws ECSServiceMappingLimitExceededException
      *         The Amazon ECS service is associated with more than one deployment groups. An Amazon ECS service can be
      *         associated with only one deployment group.
+     * @throws InvalidTrafficRoutingConfigurationException
+     *         The configuration that specifies how traffic is routed during a deployment is invalid.
      * @sample AmazonCodeDeploy.UpdateDeploymentGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/UpdateDeploymentGroup"
      *      target="_top">AWS API Documentation</a>
@@ -4059,6 +4294,8 @@ public class AmazonCodeDeployClient extends AmazonWebServiceClient implements Am
                 request = new UpdateDeploymentGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDeploymentGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeDeploy");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDeploymentGroup");

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,15 +30,18 @@ public class WorkspaceRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The identifier of the AWS Directory Service directory for the WorkSpace. You can use
+     * The identifier of the Directory Service directory for the WorkSpace. You can use
      * <a>DescribeWorkspaceDirectories</a> to list the available directories.
      * </p>
      */
     private String directoryId;
     /**
      * <p>
-     * The username of the user for the WorkSpace. This username must exist in the AWS Directory Service directory for
-     * the WorkSpace.
+     * The user name of the user for the WorkSpace. This user name must exist in the Directory Service directory for the
+     * WorkSpace.
+     * </p>
+     * <p>
+     * The reserved keyword, <code>[UNDEFINED]</code>, is used when creating user-decoupled WorkSpaces.
      * </p>
      */
     private String userName;
@@ -51,7 +54,8 @@ public class WorkspaceRequest implements Serializable, Cloneable, StructuredPojo
     private String bundleId;
     /**
      * <p>
-     * The KMS key used to encrypt data stored on your WorkSpace.
+     * The ARN of the symmetric KMS key used to encrypt data stored on your WorkSpace. Amazon WorkSpaces does not
+     * support asymmetric KMS keys.
      * </p>
      */
     private String volumeEncryptionKey;
@@ -79,15 +83,21 @@ public class WorkspaceRequest implements Serializable, Cloneable, StructuredPojo
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * The name of the user-decoupled WorkSpace.
+     * </p>
+     */
+    private String workspaceName;
 
     /**
      * <p>
-     * The identifier of the AWS Directory Service directory for the WorkSpace. You can use
+     * The identifier of the Directory Service directory for the WorkSpace. You can use
      * <a>DescribeWorkspaceDirectories</a> to list the available directories.
      * </p>
      * 
      * @param directoryId
-     *        The identifier of the AWS Directory Service directory for the WorkSpace. You can use
+     *        The identifier of the Directory Service directory for the WorkSpace. You can use
      *        <a>DescribeWorkspaceDirectories</a> to list the available directories.
      */
 
@@ -97,11 +107,11 @@ public class WorkspaceRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The identifier of the AWS Directory Service directory for the WorkSpace. You can use
+     * The identifier of the Directory Service directory for the WorkSpace. You can use
      * <a>DescribeWorkspaceDirectories</a> to list the available directories.
      * </p>
      * 
-     * @return The identifier of the AWS Directory Service directory for the WorkSpace. You can use
+     * @return The identifier of the Directory Service directory for the WorkSpace. You can use
      *         <a>DescribeWorkspaceDirectories</a> to list the available directories.
      */
 
@@ -111,12 +121,12 @@ public class WorkspaceRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The identifier of the AWS Directory Service directory for the WorkSpace. You can use
+     * The identifier of the Directory Service directory for the WorkSpace. You can use
      * <a>DescribeWorkspaceDirectories</a> to list the available directories.
      * </p>
      * 
      * @param directoryId
-     *        The identifier of the AWS Directory Service directory for the WorkSpace. You can use
+     *        The identifier of the Directory Service directory for the WorkSpace. You can use
      *        <a>DescribeWorkspaceDirectories</a> to list the available directories.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -128,13 +138,18 @@ public class WorkspaceRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The username of the user for the WorkSpace. This username must exist in the AWS Directory Service directory for
-     * the WorkSpace.
+     * The user name of the user for the WorkSpace. This user name must exist in the Directory Service directory for the
+     * WorkSpace.
+     * </p>
+     * <p>
+     * The reserved keyword, <code>[UNDEFINED]</code>, is used when creating user-decoupled WorkSpaces.
      * </p>
      * 
      * @param userName
-     *        The username of the user for the WorkSpace. This username must exist in the AWS Directory Service
-     *        directory for the WorkSpace.
+     *        The user name of the user for the WorkSpace. This user name must exist in the Directory Service directory
+     *        for the WorkSpace.</p>
+     *        <p>
+     *        The reserved keyword, <code>[UNDEFINED]</code>, is used when creating user-decoupled WorkSpaces.
      */
 
     public void setUserName(String userName) {
@@ -143,12 +158,17 @@ public class WorkspaceRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The username of the user for the WorkSpace. This username must exist in the AWS Directory Service directory for
-     * the WorkSpace.
+     * The user name of the user for the WorkSpace. This user name must exist in the Directory Service directory for the
+     * WorkSpace.
+     * </p>
+     * <p>
+     * The reserved keyword, <code>[UNDEFINED]</code>, is used when creating user-decoupled WorkSpaces.
      * </p>
      * 
-     * @return The username of the user for the WorkSpace. This username must exist in the AWS Directory Service
-     *         directory for the WorkSpace.
+     * @return The user name of the user for the WorkSpace. This user name must exist in the Directory Service directory
+     *         for the WorkSpace.</p>
+     *         <p>
+     *         The reserved keyword, <code>[UNDEFINED]</code>, is used when creating user-decoupled WorkSpaces.
      */
 
     public String getUserName() {
@@ -157,13 +177,18 @@ public class WorkspaceRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The username of the user for the WorkSpace. This username must exist in the AWS Directory Service directory for
-     * the WorkSpace.
+     * The user name of the user for the WorkSpace. This user name must exist in the Directory Service directory for the
+     * WorkSpace.
+     * </p>
+     * <p>
+     * The reserved keyword, <code>[UNDEFINED]</code>, is used when creating user-decoupled WorkSpaces.
      * </p>
      * 
      * @param userName
-     *        The username of the user for the WorkSpace. This username must exist in the AWS Directory Service
-     *        directory for the WorkSpace.
+     *        The user name of the user for the WorkSpace. This user name must exist in the Directory Service directory
+     *        for the WorkSpace.</p>
+     *        <p>
+     *        The reserved keyword, <code>[UNDEFINED]</code>, is used when creating user-decoupled WorkSpaces.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -220,11 +245,13 @@ public class WorkspaceRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The KMS key used to encrypt data stored on your WorkSpace.
+     * The ARN of the symmetric KMS key used to encrypt data stored on your WorkSpace. Amazon WorkSpaces does not
+     * support asymmetric KMS keys.
      * </p>
      * 
      * @param volumeEncryptionKey
-     *        The KMS key used to encrypt data stored on your WorkSpace.
+     *        The ARN of the symmetric KMS key used to encrypt data stored on your WorkSpace. Amazon WorkSpaces does not
+     *        support asymmetric KMS keys.
      */
 
     public void setVolumeEncryptionKey(String volumeEncryptionKey) {
@@ -233,10 +260,12 @@ public class WorkspaceRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The KMS key used to encrypt data stored on your WorkSpace.
+     * The ARN of the symmetric KMS key used to encrypt data stored on your WorkSpace. Amazon WorkSpaces does not
+     * support asymmetric KMS keys.
      * </p>
      * 
-     * @return The KMS key used to encrypt data stored on your WorkSpace.
+     * @return The ARN of the symmetric KMS key used to encrypt data stored on your WorkSpace. Amazon WorkSpaces does
+     *         not support asymmetric KMS keys.
      */
 
     public String getVolumeEncryptionKey() {
@@ -245,11 +274,13 @@ public class WorkspaceRequest implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The KMS key used to encrypt data stored on your WorkSpace.
+     * The ARN of the symmetric KMS key used to encrypt data stored on your WorkSpace. Amazon WorkSpaces does not
+     * support asymmetric KMS keys.
      * </p>
      * 
      * @param volumeEncryptionKey
-     *        The KMS key used to encrypt data stored on your WorkSpace.
+     *        The ARN of the symmetric KMS key used to encrypt data stored on your WorkSpace. Amazon WorkSpaces does not
+     *        support asymmetric KMS keys.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -476,6 +507,46 @@ public class WorkspaceRequest implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * <p>
+     * The name of the user-decoupled WorkSpace.
+     * </p>
+     * 
+     * @param workspaceName
+     *        The name of the user-decoupled WorkSpace.
+     */
+
+    public void setWorkspaceName(String workspaceName) {
+        this.workspaceName = workspaceName;
+    }
+
+    /**
+     * <p>
+     * The name of the user-decoupled WorkSpace.
+     * </p>
+     * 
+     * @return The name of the user-decoupled WorkSpace.
+     */
+
+    public String getWorkspaceName() {
+        return this.workspaceName;
+    }
+
+    /**
+     * <p>
+     * The name of the user-decoupled WorkSpace.
+     * </p>
+     * 
+     * @param workspaceName
+     *        The name of the user-decoupled WorkSpace.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public WorkspaceRequest withWorkspaceName(String workspaceName) {
+        setWorkspaceName(workspaceName);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -502,7 +573,9 @@ public class WorkspaceRequest implements Serializable, Cloneable, StructuredPojo
         if (getWorkspaceProperties() != null)
             sb.append("WorkspaceProperties: ").append(getWorkspaceProperties()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getWorkspaceName() != null)
+            sb.append("WorkspaceName: ").append(getWorkspaceName());
         sb.append("}");
         return sb.toString();
     }
@@ -549,6 +622,10 @@ public class WorkspaceRequest implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getWorkspaceName() == null ^ this.getWorkspaceName() == null)
+            return false;
+        if (other.getWorkspaceName() != null && other.getWorkspaceName().equals(this.getWorkspaceName()) == false)
+            return false;
         return true;
     }
 
@@ -565,6 +642,7 @@ public class WorkspaceRequest implements Serializable, Cloneable, StructuredPojo
         hashCode = prime * hashCode + ((getRootVolumeEncryptionEnabled() == null) ? 0 : getRootVolumeEncryptionEnabled().hashCode());
         hashCode = prime * hashCode + ((getWorkspaceProperties() == null) ? 0 : getWorkspaceProperties().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getWorkspaceName() == null) ? 0 : getWorkspaceName().hashCode());
         return hashCode;
     }
 

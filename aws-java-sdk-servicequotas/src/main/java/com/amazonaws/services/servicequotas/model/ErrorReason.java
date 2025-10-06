@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Returns an error that explains why the action did not succeed.
+ * An error that explains why an action did not succeed.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/service-quotas-2019-06-24/ErrorReason" target="_top">AWS API
@@ -30,64 +30,93 @@ public class ErrorReason implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Service Quotas returns the following error values.
+     * Service Quotas returns the following error values:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> is returned when the caller does not have permission to call the
-     * service or service quota. To resolve the error, you need permission to access the service or service quota.
+     * <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> - The caller does not have the required permissions to complete the
+     * action. To resolve the error, you must have permission to access the Amazon Web Service or quota.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * <code>DEPENDENCY_THROTTLING_ERROR</code> is returned when the service being called is throttling Service Quotas.
+     * <code>DEPENDENCY_THROTTLING_ERROR</code> - The Amazon Web Service is throttling Service Quotas.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * <code>DEPENDENCY_SERVICE_ERROR</code> is returned when the service being called has availability issues.
+     * <code>DEPENDENCY_SERVICE_ERROR</code> - The Amazon Web Service is not available.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> is returned when there was an error in Service Quotas.
+     * <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> - There was an error in Service Quotas.
      * </p>
+     * </li>
+     * </ul>
      */
     private String errorCode;
     /**
      * <p>
-     * The error message that provides more detail.
+     * The error message.
      * </p>
      */
     private String errorMessage;
 
     /**
      * <p>
-     * Service Quotas returns the following error values.
+     * Service Quotas returns the following error values:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> is returned when the caller does not have permission to call the
-     * service or service quota. To resolve the error, you need permission to access the service or service quota.
+     * <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> - The caller does not have the required permissions to complete the
+     * action. To resolve the error, you must have permission to access the Amazon Web Service or quota.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * <code>DEPENDENCY_THROTTLING_ERROR</code> is returned when the service being called is throttling Service Quotas.
+     * <code>DEPENDENCY_THROTTLING_ERROR</code> - The Amazon Web Service is throttling Service Quotas.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * <code>DEPENDENCY_SERVICE_ERROR</code> is returned when the service being called has availability issues.
+     * <code>DEPENDENCY_SERVICE_ERROR</code> - The Amazon Web Service is not available.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> is returned when there was an error in Service Quotas.
+     * <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> - There was an error in Service Quotas.
      * </p>
+     * </li>
+     * </ul>
      * 
      * @param errorCode
-     *        Service Quotas returns the following error values. </p>
+     *        Service Quotas returns the following error values:</p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> is returned when the caller does not have permission to call
-     *        the service or service quota. To resolve the error, you need permission to access the service or service
+     *        <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> - The caller does not have the required permissions to
+     *        complete the action. To resolve the error, you must have permission to access the Amazon Web Service or
      *        quota.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        <code>DEPENDENCY_THROTTLING_ERROR</code> is returned when the service being called is throttling Service
-     *        Quotas.
+     *        <code>DEPENDENCY_THROTTLING_ERROR</code> - The Amazon Web Service is throttling Service Quotas.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        <code>DEPENDENCY_SERVICE_ERROR</code> is returned when the service being called has availability issues.
+     *        <code>DEPENDENCY_SERVICE_ERROR</code> - The Amazon Web Service is not available.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> is returned when there was an error in Service Quotas.
+     *        <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> - There was an error in Service Quotas.
+     *        </p>
+     *        </li>
      * @see ErrorCode
      */
 
@@ -97,37 +126,56 @@ public class ErrorReason implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Service Quotas returns the following error values.
+     * Service Quotas returns the following error values:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> is returned when the caller does not have permission to call the
-     * service or service quota. To resolve the error, you need permission to access the service or service quota.
+     * <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> - The caller does not have the required permissions to complete the
+     * action. To resolve the error, you must have permission to access the Amazon Web Service or quota.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * <code>DEPENDENCY_THROTTLING_ERROR</code> is returned when the service being called is throttling Service Quotas.
+     * <code>DEPENDENCY_THROTTLING_ERROR</code> - The Amazon Web Service is throttling Service Quotas.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * <code>DEPENDENCY_SERVICE_ERROR</code> is returned when the service being called has availability issues.
+     * <code>DEPENDENCY_SERVICE_ERROR</code> - The Amazon Web Service is not available.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> is returned when there was an error in Service Quotas.
+     * <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> - There was an error in Service Quotas.
      * </p>
+     * </li>
+     * </ul>
      * 
-     * @return Service Quotas returns the following error values. </p>
+     * @return Service Quotas returns the following error values:</p>
+     *         <ul>
+     *         <li>
      *         <p>
-     *         <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> is returned when the caller does not have permission to call
-     *         the service or service quota. To resolve the error, you need permission to access the service or service
+     *         <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> - The caller does not have the required permissions to
+     *         complete the action. To resolve the error, you must have permission to access the Amazon Web Service or
      *         quota.
      *         </p>
+     *         </li>
+     *         <li>
      *         <p>
-     *         <code>DEPENDENCY_THROTTLING_ERROR</code> is returned when the service being called is throttling Service
-     *         Quotas.
+     *         <code>DEPENDENCY_THROTTLING_ERROR</code> - The Amazon Web Service is throttling Service Quotas.
      *         </p>
+     *         </li>
+     *         <li>
      *         <p>
-     *         <code>DEPENDENCY_SERVICE_ERROR</code> is returned when the service being called has availability issues.
+     *         <code>DEPENDENCY_SERVICE_ERROR</code> - The Amazon Web Service is not available.
      *         </p>
+     *         </li>
+     *         <li>
      *         <p>
-     *         <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> is returned when there was an error in Service Quotas.
+     *         <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> - There was an error in Service Quotas.
+     *         </p>
+     *         </li>
      * @see ErrorCode
      */
 
@@ -137,38 +185,57 @@ public class ErrorReason implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Service Quotas returns the following error values.
+     * Service Quotas returns the following error values:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> is returned when the caller does not have permission to call the
-     * service or service quota. To resolve the error, you need permission to access the service or service quota.
+     * <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> - The caller does not have the required permissions to complete the
+     * action. To resolve the error, you must have permission to access the Amazon Web Service or quota.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * <code>DEPENDENCY_THROTTLING_ERROR</code> is returned when the service being called is throttling Service Quotas.
+     * <code>DEPENDENCY_THROTTLING_ERROR</code> - The Amazon Web Service is throttling Service Quotas.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * <code>DEPENDENCY_SERVICE_ERROR</code> is returned when the service being called has availability issues.
+     * <code>DEPENDENCY_SERVICE_ERROR</code> - The Amazon Web Service is not available.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> is returned when there was an error in Service Quotas.
+     * <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> - There was an error in Service Quotas.
      * </p>
+     * </li>
+     * </ul>
      * 
      * @param errorCode
-     *        Service Quotas returns the following error values. </p>
+     *        Service Quotas returns the following error values:</p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> is returned when the caller does not have permission to call
-     *        the service or service quota. To resolve the error, you need permission to access the service or service
+     *        <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> - The caller does not have the required permissions to
+     *        complete the action. To resolve the error, you must have permission to access the Amazon Web Service or
      *        quota.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        <code>DEPENDENCY_THROTTLING_ERROR</code> is returned when the service being called is throttling Service
-     *        Quotas.
+     *        <code>DEPENDENCY_THROTTLING_ERROR</code> - The Amazon Web Service is throttling Service Quotas.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        <code>DEPENDENCY_SERVICE_ERROR</code> is returned when the service being called has availability issues.
+     *        <code>DEPENDENCY_SERVICE_ERROR</code> - The Amazon Web Service is not available.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> is returned when there was an error in Service Quotas.
+     *        <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> - There was an error in Service Quotas.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ErrorCode
      */
@@ -180,38 +247,57 @@ public class ErrorReason implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Service Quotas returns the following error values.
+     * Service Quotas returns the following error values:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> is returned when the caller does not have permission to call the
-     * service or service quota. To resolve the error, you need permission to access the service or service quota.
+     * <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> - The caller does not have the required permissions to complete the
+     * action. To resolve the error, you must have permission to access the Amazon Web Service or quota.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * <code>DEPENDENCY_THROTTLING_ERROR</code> is returned when the service being called is throttling Service Quotas.
+     * <code>DEPENDENCY_THROTTLING_ERROR</code> - The Amazon Web Service is throttling Service Quotas.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * <code>DEPENDENCY_SERVICE_ERROR</code> is returned when the service being called has availability issues.
+     * <code>DEPENDENCY_SERVICE_ERROR</code> - The Amazon Web Service is not available.
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> is returned when there was an error in Service Quotas.
+     * <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> - There was an error in Service Quotas.
      * </p>
+     * </li>
+     * </ul>
      * 
      * @param errorCode
-     *        Service Quotas returns the following error values. </p>
+     *        Service Quotas returns the following error values:</p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> is returned when the caller does not have permission to call
-     *        the service or service quota. To resolve the error, you need permission to access the service or service
+     *        <code>DEPENDENCY_ACCESS_DENIED_ERROR</code> - The caller does not have the required permissions to
+     *        complete the action. To resolve the error, you must have permission to access the Amazon Web Service or
      *        quota.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        <code>DEPENDENCY_THROTTLING_ERROR</code> is returned when the service being called is throttling Service
-     *        Quotas.
+     *        <code>DEPENDENCY_THROTTLING_ERROR</code> - The Amazon Web Service is throttling Service Quotas.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        <code>DEPENDENCY_SERVICE_ERROR</code> is returned when the service being called has availability issues.
+     *        <code>DEPENDENCY_SERVICE_ERROR</code> - The Amazon Web Service is not available.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> is returned when there was an error in Service Quotas.
+     *        <code>SERVICE_QUOTA_NOT_AVAILABLE_ERROR</code> - There was an error in Service Quotas.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ErrorCode
      */
@@ -223,11 +309,11 @@ public class ErrorReason implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The error message that provides more detail.
+     * The error message.
      * </p>
      * 
      * @param errorMessage
-     *        The error message that provides more detail.
+     *        The error message.
      */
 
     public void setErrorMessage(String errorMessage) {
@@ -236,10 +322,10 @@ public class ErrorReason implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The error message that provides more detail.
+     * The error message.
      * </p>
      * 
-     * @return The error message that provides more detail.
+     * @return The error message.
      */
 
     public String getErrorMessage() {
@@ -248,11 +334,11 @@ public class ErrorReason implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The error message that provides more detail.
+     * The error message.
      * </p>
      * 
      * @param errorMessage
-     *        The error message that provides more detail.
+     *        The error message.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

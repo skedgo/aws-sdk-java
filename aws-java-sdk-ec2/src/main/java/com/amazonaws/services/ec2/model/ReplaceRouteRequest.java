@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,6 +41,18 @@ public class ReplaceRouteRequest extends AmazonWebServiceRequest implements Seri
     private String destinationIpv6CidrBlock;
     /**
      * <p>
+     * The ID of the prefix list for the route.
+     * </p>
+     */
+    private String destinationPrefixListId;
+    /**
+     * <p>
+     * The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints only.
+     * </p>
+     */
+    private String vpcEndpointId;
+    /**
+     * <p>
      * [IPv6 traffic only] The ID of an egress-only internet gateway.
      * </p>
      */
@@ -59,6 +71,12 @@ public class ReplaceRouteRequest extends AmazonWebServiceRequest implements Seri
     private String instanceId;
     /**
      * <p>
+     * Specifies whether to reset the local route to its default target (<code>local</code>).
+     * </p>
+     */
+    private Boolean localTarget;
+    /**
+     * <p>
      * [IPv4 traffic only] The ID of a NAT gateway.
      * </p>
      */
@@ -69,6 +87,18 @@ public class ReplaceRouteRequest extends AmazonWebServiceRequest implements Seri
      * </p>
      */
     private String transitGatewayId;
+    /**
+     * <p>
+     * The ID of the local gateway.
+     * </p>
+     */
+    private String localGatewayId;
+    /**
+     * <p>
+     * [IPv4 traffic only] The ID of a carrier gateway.
+     * </p>
+     */
+    private String carrierGatewayId;
     /**
      * <p>
      * The ID of a network interface.
@@ -87,6 +117,12 @@ public class ReplaceRouteRequest extends AmazonWebServiceRequest implements Seri
      * </p>
      */
     private String vpcPeeringConnectionId;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the core network.
+     * </p>
+     */
+    private String coreNetworkArn;
 
     /**
      * <p>
@@ -177,6 +213,86 @@ public class ReplaceRouteRequest extends AmazonWebServiceRequest implements Seri
 
     public ReplaceRouteRequest withDestinationIpv6CidrBlock(String destinationIpv6CidrBlock) {
         setDestinationIpv6CidrBlock(destinationIpv6CidrBlock);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the prefix list for the route.
+     * </p>
+     * 
+     * @param destinationPrefixListId
+     *        The ID of the prefix list for the route.
+     */
+
+    public void setDestinationPrefixListId(String destinationPrefixListId) {
+        this.destinationPrefixListId = destinationPrefixListId;
+    }
+
+    /**
+     * <p>
+     * The ID of the prefix list for the route.
+     * </p>
+     * 
+     * @return The ID of the prefix list for the route.
+     */
+
+    public String getDestinationPrefixListId() {
+        return this.destinationPrefixListId;
+    }
+
+    /**
+     * <p>
+     * The ID of the prefix list for the route.
+     * </p>
+     * 
+     * @param destinationPrefixListId
+     *        The ID of the prefix list for the route.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplaceRouteRequest withDestinationPrefixListId(String destinationPrefixListId) {
+        setDestinationPrefixListId(destinationPrefixListId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints only.
+     * </p>
+     * 
+     * @param vpcEndpointId
+     *        The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints only.
+     */
+
+    public void setVpcEndpointId(String vpcEndpointId) {
+        this.vpcEndpointId = vpcEndpointId;
+    }
+
+    /**
+     * <p>
+     * The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints only.
+     * </p>
+     * 
+     * @return The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints only.
+     */
+
+    public String getVpcEndpointId() {
+        return this.vpcEndpointId;
+    }
+
+    /**
+     * <p>
+     * The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints only.
+     * </p>
+     * 
+     * @param vpcEndpointId
+     *        The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints only.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplaceRouteRequest withVpcEndpointId(String vpcEndpointId) {
+        setVpcEndpointId(vpcEndpointId);
         return this;
     }
 
@@ -302,6 +418,58 @@ public class ReplaceRouteRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
+     * Specifies whether to reset the local route to its default target (<code>local</code>).
+     * </p>
+     * 
+     * @param localTarget
+     *        Specifies whether to reset the local route to its default target (<code>local</code>).
+     */
+
+    public void setLocalTarget(Boolean localTarget) {
+        this.localTarget = localTarget;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to reset the local route to its default target (<code>local</code>).
+     * </p>
+     * 
+     * @return Specifies whether to reset the local route to its default target (<code>local</code>).
+     */
+
+    public Boolean getLocalTarget() {
+        return this.localTarget;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to reset the local route to its default target (<code>local</code>).
+     * </p>
+     * 
+     * @param localTarget
+     *        Specifies whether to reset the local route to its default target (<code>local</code>).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplaceRouteRequest withLocalTarget(Boolean localTarget) {
+        setLocalTarget(localTarget);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether to reset the local route to its default target (<code>local</code>).
+     * </p>
+     * 
+     * @return Specifies whether to reset the local route to its default target (<code>local</code>).
+     */
+
+    public Boolean isLocalTarget() {
+        return this.localTarget;
+    }
+
+    /**
+     * <p>
      * [IPv4 traffic only] The ID of a NAT gateway.
      * </p>
      * 
@@ -377,6 +545,86 @@ public class ReplaceRouteRequest extends AmazonWebServiceRequest implements Seri
 
     public ReplaceRouteRequest withTransitGatewayId(String transitGatewayId) {
         setTransitGatewayId(transitGatewayId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the local gateway.
+     * </p>
+     * 
+     * @param localGatewayId
+     *        The ID of the local gateway.
+     */
+
+    public void setLocalGatewayId(String localGatewayId) {
+        this.localGatewayId = localGatewayId;
+    }
+
+    /**
+     * <p>
+     * The ID of the local gateway.
+     * </p>
+     * 
+     * @return The ID of the local gateway.
+     */
+
+    public String getLocalGatewayId() {
+        return this.localGatewayId;
+    }
+
+    /**
+     * <p>
+     * The ID of the local gateway.
+     * </p>
+     * 
+     * @param localGatewayId
+     *        The ID of the local gateway.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplaceRouteRequest withLocalGatewayId(String localGatewayId) {
+        setLocalGatewayId(localGatewayId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * [IPv4 traffic only] The ID of a carrier gateway.
+     * </p>
+     * 
+     * @param carrierGatewayId
+     *        [IPv4 traffic only] The ID of a carrier gateway.
+     */
+
+    public void setCarrierGatewayId(String carrierGatewayId) {
+        this.carrierGatewayId = carrierGatewayId;
+    }
+
+    /**
+     * <p>
+     * [IPv4 traffic only] The ID of a carrier gateway.
+     * </p>
+     * 
+     * @return [IPv4 traffic only] The ID of a carrier gateway.
+     */
+
+    public String getCarrierGatewayId() {
+        return this.carrierGatewayId;
+    }
+
+    /**
+     * <p>
+     * [IPv4 traffic only] The ID of a carrier gateway.
+     * </p>
+     * 
+     * @param carrierGatewayId
+     *        [IPv4 traffic only] The ID of a carrier gateway.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplaceRouteRequest withCarrierGatewayId(String carrierGatewayId) {
+        setCarrierGatewayId(carrierGatewayId);
         return this;
     }
 
@@ -501,6 +749,46 @@ public class ReplaceRouteRequest extends AmazonWebServiceRequest implements Seri
     }
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the core network.
+     * </p>
+     * 
+     * @param coreNetworkArn
+     *        The Amazon Resource Name (ARN) of the core network.
+     */
+
+    public void setCoreNetworkArn(String coreNetworkArn) {
+        this.coreNetworkArn = coreNetworkArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the core network.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the core network.
+     */
+
+    public String getCoreNetworkArn() {
+        return this.coreNetworkArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the core network.
+     * </p>
+     * 
+     * @param coreNetworkArn
+     *        The Amazon Resource Name (ARN) of the core network.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplaceRouteRequest withCoreNetworkArn(String coreNetworkArn) {
+        setCoreNetworkArn(coreNetworkArn);
+        return this;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -527,22 +815,34 @@ public class ReplaceRouteRequest extends AmazonWebServiceRequest implements Seri
             sb.append("DestinationCidrBlock: ").append(getDestinationCidrBlock()).append(",");
         if (getDestinationIpv6CidrBlock() != null)
             sb.append("DestinationIpv6CidrBlock: ").append(getDestinationIpv6CidrBlock()).append(",");
+        if (getDestinationPrefixListId() != null)
+            sb.append("DestinationPrefixListId: ").append(getDestinationPrefixListId()).append(",");
+        if (getVpcEndpointId() != null)
+            sb.append("VpcEndpointId: ").append(getVpcEndpointId()).append(",");
         if (getEgressOnlyInternetGatewayId() != null)
             sb.append("EgressOnlyInternetGatewayId: ").append(getEgressOnlyInternetGatewayId()).append(",");
         if (getGatewayId() != null)
             sb.append("GatewayId: ").append(getGatewayId()).append(",");
         if (getInstanceId() != null)
             sb.append("InstanceId: ").append(getInstanceId()).append(",");
+        if (getLocalTarget() != null)
+            sb.append("LocalTarget: ").append(getLocalTarget()).append(",");
         if (getNatGatewayId() != null)
             sb.append("NatGatewayId: ").append(getNatGatewayId()).append(",");
         if (getTransitGatewayId() != null)
             sb.append("TransitGatewayId: ").append(getTransitGatewayId()).append(",");
+        if (getLocalGatewayId() != null)
+            sb.append("LocalGatewayId: ").append(getLocalGatewayId()).append(",");
+        if (getCarrierGatewayId() != null)
+            sb.append("CarrierGatewayId: ").append(getCarrierGatewayId()).append(",");
         if (getNetworkInterfaceId() != null)
             sb.append("NetworkInterfaceId: ").append(getNetworkInterfaceId()).append(",");
         if (getRouteTableId() != null)
             sb.append("RouteTableId: ").append(getRouteTableId()).append(",");
         if (getVpcPeeringConnectionId() != null)
-            sb.append("VpcPeeringConnectionId: ").append(getVpcPeeringConnectionId());
+            sb.append("VpcPeeringConnectionId: ").append(getVpcPeeringConnectionId()).append(",");
+        if (getCoreNetworkArn() != null)
+            sb.append("CoreNetworkArn: ").append(getCoreNetworkArn());
         sb.append("}");
         return sb.toString();
     }
@@ -565,6 +865,14 @@ public class ReplaceRouteRequest extends AmazonWebServiceRequest implements Seri
             return false;
         if (other.getDestinationIpv6CidrBlock() != null && other.getDestinationIpv6CidrBlock().equals(this.getDestinationIpv6CidrBlock()) == false)
             return false;
+        if (other.getDestinationPrefixListId() == null ^ this.getDestinationPrefixListId() == null)
+            return false;
+        if (other.getDestinationPrefixListId() != null && other.getDestinationPrefixListId().equals(this.getDestinationPrefixListId()) == false)
+            return false;
+        if (other.getVpcEndpointId() == null ^ this.getVpcEndpointId() == null)
+            return false;
+        if (other.getVpcEndpointId() != null && other.getVpcEndpointId().equals(this.getVpcEndpointId()) == false)
+            return false;
         if (other.getEgressOnlyInternetGatewayId() == null ^ this.getEgressOnlyInternetGatewayId() == null)
             return false;
         if (other.getEgressOnlyInternetGatewayId() != null && other.getEgressOnlyInternetGatewayId().equals(this.getEgressOnlyInternetGatewayId()) == false)
@@ -577,6 +885,10 @@ public class ReplaceRouteRequest extends AmazonWebServiceRequest implements Seri
             return false;
         if (other.getInstanceId() != null && other.getInstanceId().equals(this.getInstanceId()) == false)
             return false;
+        if (other.getLocalTarget() == null ^ this.getLocalTarget() == null)
+            return false;
+        if (other.getLocalTarget() != null && other.getLocalTarget().equals(this.getLocalTarget()) == false)
+            return false;
         if (other.getNatGatewayId() == null ^ this.getNatGatewayId() == null)
             return false;
         if (other.getNatGatewayId() != null && other.getNatGatewayId().equals(this.getNatGatewayId()) == false)
@@ -584,6 +896,14 @@ public class ReplaceRouteRequest extends AmazonWebServiceRequest implements Seri
         if (other.getTransitGatewayId() == null ^ this.getTransitGatewayId() == null)
             return false;
         if (other.getTransitGatewayId() != null && other.getTransitGatewayId().equals(this.getTransitGatewayId()) == false)
+            return false;
+        if (other.getLocalGatewayId() == null ^ this.getLocalGatewayId() == null)
+            return false;
+        if (other.getLocalGatewayId() != null && other.getLocalGatewayId().equals(this.getLocalGatewayId()) == false)
+            return false;
+        if (other.getCarrierGatewayId() == null ^ this.getCarrierGatewayId() == null)
+            return false;
+        if (other.getCarrierGatewayId() != null && other.getCarrierGatewayId().equals(this.getCarrierGatewayId()) == false)
             return false;
         if (other.getNetworkInterfaceId() == null ^ this.getNetworkInterfaceId() == null)
             return false;
@@ -597,6 +917,10 @@ public class ReplaceRouteRequest extends AmazonWebServiceRequest implements Seri
             return false;
         if (other.getVpcPeeringConnectionId() != null && other.getVpcPeeringConnectionId().equals(this.getVpcPeeringConnectionId()) == false)
             return false;
+        if (other.getCoreNetworkArn() == null ^ this.getCoreNetworkArn() == null)
+            return false;
+        if (other.getCoreNetworkArn() != null && other.getCoreNetworkArn().equals(this.getCoreNetworkArn()) == false)
+            return false;
         return true;
     }
 
@@ -607,14 +931,20 @@ public class ReplaceRouteRequest extends AmazonWebServiceRequest implements Seri
 
         hashCode = prime * hashCode + ((getDestinationCidrBlock() == null) ? 0 : getDestinationCidrBlock().hashCode());
         hashCode = prime * hashCode + ((getDestinationIpv6CidrBlock() == null) ? 0 : getDestinationIpv6CidrBlock().hashCode());
+        hashCode = prime * hashCode + ((getDestinationPrefixListId() == null) ? 0 : getDestinationPrefixListId().hashCode());
+        hashCode = prime * hashCode + ((getVpcEndpointId() == null) ? 0 : getVpcEndpointId().hashCode());
         hashCode = prime * hashCode + ((getEgressOnlyInternetGatewayId() == null) ? 0 : getEgressOnlyInternetGatewayId().hashCode());
         hashCode = prime * hashCode + ((getGatewayId() == null) ? 0 : getGatewayId().hashCode());
         hashCode = prime * hashCode + ((getInstanceId() == null) ? 0 : getInstanceId().hashCode());
+        hashCode = prime * hashCode + ((getLocalTarget() == null) ? 0 : getLocalTarget().hashCode());
         hashCode = prime * hashCode + ((getNatGatewayId() == null) ? 0 : getNatGatewayId().hashCode());
         hashCode = prime * hashCode + ((getTransitGatewayId() == null) ? 0 : getTransitGatewayId().hashCode());
+        hashCode = prime * hashCode + ((getLocalGatewayId() == null) ? 0 : getLocalGatewayId().hashCode());
+        hashCode = prime * hashCode + ((getCarrierGatewayId() == null) ? 0 : getCarrierGatewayId().hashCode());
         hashCode = prime * hashCode + ((getNetworkInterfaceId() == null) ? 0 : getNetworkInterfaceId().hashCode());
         hashCode = prime * hashCode + ((getRouteTableId() == null) ? 0 : getRouteTableId().hashCode());
         hashCode = prime * hashCode + ((getVpcPeeringConnectionId() == null) ? 0 : getVpcPeeringConnectionId().hashCode());
+        hashCode = prime * hashCode + ((getCoreNetworkArn() == null) ? 0 : getCoreNetworkArn().hashCode());
         return hashCode;
     }
 

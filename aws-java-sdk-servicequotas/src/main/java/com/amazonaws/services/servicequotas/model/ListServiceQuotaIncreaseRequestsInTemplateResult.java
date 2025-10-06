@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,27 +27,25 @@ public class ListServiceQuotaIncreaseRequestsInTemplateResult extends com.amazon
 
     /**
      * <p>
-     * Returns the list of values of the quota increase request in the template.
+     * Information about the quota increase requests.
      * </p>
      */
     private java.util.List<ServiceQuotaIncreaseRequestInTemplate> serviceQuotaIncreaseRequestInTemplateList;
     /**
      * <p>
-     * If present in the response, this value indicates there's more output available that what's included in the
-     * current response. This can occur even when the response includes no values at all, such as when you ask for a
-     * filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in a subsequent
-     * call to the operation to continue processing and get the next part of the output. You should repeat this until
-     * the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      */
     private String nextToken;
 
     /**
      * <p>
-     * Returns the list of values of the quota increase request in the template.
+     * Information about the quota increase requests.
      * </p>
      * 
-     * @return Returns the list of values of the quota increase request in the template.
+     * @return Information about the quota increase requests.
      */
 
     public java.util.List<ServiceQuotaIncreaseRequestInTemplate> getServiceQuotaIncreaseRequestInTemplateList() {
@@ -56,11 +54,11 @@ public class ListServiceQuotaIncreaseRequestsInTemplateResult extends com.amazon
 
     /**
      * <p>
-     * Returns the list of values of the quota increase request in the template.
+     * Information about the quota increase requests.
      * </p>
      * 
      * @param serviceQuotaIncreaseRequestInTemplateList
-     *        Returns the list of values of the quota increase request in the template.
+     *        Information about the quota increase requests.
      */
 
     public void setServiceQuotaIncreaseRequestInTemplateList(
@@ -76,7 +74,7 @@ public class ListServiceQuotaIncreaseRequestsInTemplateResult extends com.amazon
 
     /**
      * <p>
-     * Returns the list of values of the quota increase request in the template.
+     * Information about the quota increase requests.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -86,7 +84,7 @@ public class ListServiceQuotaIncreaseRequestsInTemplateResult extends com.amazon
      * </p>
      * 
      * @param serviceQuotaIncreaseRequestInTemplateList
-     *        Returns the list of values of the quota increase request in the template.
+     *        Information about the quota increase requests.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -104,11 +102,11 @@ public class ListServiceQuotaIncreaseRequestsInTemplateResult extends com.amazon
 
     /**
      * <p>
-     * Returns the list of values of the quota increase request in the template.
+     * Information about the quota increase requests.
      * </p>
      * 
      * @param serviceQuotaIncreaseRequestInTemplateList
-     *        Returns the list of values of the quota increase request in the template.
+     *        Information about the quota increase requests.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -120,19 +118,16 @@ public class ListServiceQuotaIncreaseRequestsInTemplateResult extends com.amazon
 
     /**
      * <p>
-     * If present in the response, this value indicates there's more output available that what's included in the
-     * current response. This can occur even when the response includes no values at all, such as when you ask for a
-     * filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in a subsequent
-     * call to the operation to continue processing and get the next part of the output. You should repeat this until
-     * the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      * 
      * @param nextToken
-     *        If present in the response, this value indicates there's more output available that what's included in the
-     *        current response. This can occur even when the response includes no values at all, such as when you ask
-     *        for a filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in
-     *        a subsequent call to the operation to continue processing and get the next part of the output. You should
-     *        repeat this until the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     *        If present, indicates that more output is available than is included in the current response. Use this
+     *        value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the
+     *        next part of the output. You should repeat this until the <code>NextToken</code> response element comes
+     *        back as <code>null</code>.
      */
 
     public void setNextToken(String nextToken) {
@@ -141,19 +136,15 @@ public class ListServiceQuotaIncreaseRequestsInTemplateResult extends com.amazon
 
     /**
      * <p>
-     * If present in the response, this value indicates there's more output available that what's included in the
-     * current response. This can occur even when the response includes no values at all, such as when you ask for a
-     * filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in a subsequent
-     * call to the operation to continue processing and get the next part of the output. You should repeat this until
-     * the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      * 
-     * @return If present in the response, this value indicates there's more output available that what's included in
-     *         the current response. This can occur even when the response includes no values at all, such as when you
-     *         ask for a filtered view of a very long list. Use this value in the <code>NextToken</code> request
-     *         parameter in a subsequent call to the operation to continue processing and get the next part of the
-     *         output. You should repeat this until the <code>NextToken</code> response element comes back empty (as
-     *         <code>null</code>).
+     * @return If present, indicates that more output is available than is included in the current response. Use this
+     *         value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the
+     *         next part of the output. You should repeat this until the <code>NextToken</code> response element comes
+     *         back as <code>null</code>.
      */
 
     public String getNextToken() {
@@ -162,19 +153,16 @@ public class ListServiceQuotaIncreaseRequestsInTemplateResult extends com.amazon
 
     /**
      * <p>
-     * If present in the response, this value indicates there's more output available that what's included in the
-     * current response. This can occur even when the response includes no values at all, such as when you ask for a
-     * filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in a subsequent
-     * call to the operation to continue processing and get the next part of the output. You should repeat this until
-     * the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     * If present, indicates that more output is available than is included in the current response. Use this value in
+     * the <code>NextToken</code> request parameter in a subsequent call to the operation to get the next part of the
+     * output. You should repeat this until the <code>NextToken</code> response element comes back as <code>null</code>.
      * </p>
      * 
      * @param nextToken
-     *        If present in the response, this value indicates there's more output available that what's included in the
-     *        current response. This can occur even when the response includes no values at all, such as when you ask
-     *        for a filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in
-     *        a subsequent call to the operation to continue processing and get the next part of the output. You should
-     *        repeat this until the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     *        If present, indicates that more output is available than is included in the current response. Use this
+     *        value in the <code>NextToken</code> request parameter in a subsequent call to the operation to get the
+     *        next part of the output. You should repeat this until the <code>NextToken</code> response element comes
+     *        back as <code>null</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

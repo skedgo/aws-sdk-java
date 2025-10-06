@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,8 +38,17 @@ public class Network implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The protocol of network-related information about a finding.
      * </p>
+     * <p>
+     * Length Constraints: Minimum of 1. Maximum of 16.
+     * </p>
      */
     private String protocol;
+    /**
+     * <p>
+     * The range of open ports that is present on the network.
+     * </p>
+     */
+    private PortRange openPortRange;
     /**
      * <p>
      * The source IPv4 address of network-related information about a finding.
@@ -61,6 +70,9 @@ public class Network implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The source domain of network-related information about a finding.
+     * </p>
+     * <p>
+     * Length Constraints: Minimum of 1. Maximum of 128.
      * </p>
      */
     private String sourceDomain;
@@ -91,6 +103,9 @@ public class Network implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The destination domain of network-related information about a finding.
+     * </p>
+     * <p>
+     * Length Constraints: Minimum of 1. Maximum of 128.
      * </p>
      */
     private String destinationDomain;
@@ -158,9 +173,14 @@ public class Network implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The protocol of network-related information about a finding.
      * </p>
+     * <p>
+     * Length Constraints: Minimum of 1. Maximum of 16.
+     * </p>
      * 
      * @param protocol
-     *        The protocol of network-related information about a finding.
+     *        The protocol of network-related information about a finding.</p>
+     *        <p>
+     *        Length Constraints: Minimum of 1. Maximum of 16.
      */
 
     public void setProtocol(String protocol) {
@@ -171,8 +191,13 @@ public class Network implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The protocol of network-related information about a finding.
      * </p>
+     * <p>
+     * Length Constraints: Minimum of 1. Maximum of 16.
+     * </p>
      * 
-     * @return The protocol of network-related information about a finding.
+     * @return The protocol of network-related information about a finding.</p>
+     *         <p>
+     *         Length Constraints: Minimum of 1. Maximum of 16.
      */
 
     public String getProtocol() {
@@ -183,14 +208,59 @@ public class Network implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The protocol of network-related information about a finding.
      * </p>
+     * <p>
+     * Length Constraints: Minimum of 1. Maximum of 16.
+     * </p>
      * 
      * @param protocol
-     *        The protocol of network-related information about a finding.
+     *        The protocol of network-related information about a finding.</p>
+     *        <p>
+     *        Length Constraints: Minimum of 1. Maximum of 16.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Network withProtocol(String protocol) {
         setProtocol(protocol);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The range of open ports that is present on the network.
+     * </p>
+     * 
+     * @param openPortRange
+     *        The range of open ports that is present on the network.
+     */
+
+    public void setOpenPortRange(PortRange openPortRange) {
+        this.openPortRange = openPortRange;
+    }
+
+    /**
+     * <p>
+     * The range of open ports that is present on the network.
+     * </p>
+     * 
+     * @return The range of open ports that is present on the network.
+     */
+
+    public PortRange getOpenPortRange() {
+        return this.openPortRange;
+    }
+
+    /**
+     * <p>
+     * The range of open ports that is present on the network.
+     * </p>
+     * 
+     * @param openPortRange
+     *        The range of open ports that is present on the network.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Network withOpenPortRange(PortRange openPortRange) {
+        setOpenPortRange(openPortRange);
         return this;
     }
 
@@ -318,9 +388,14 @@ public class Network implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The source domain of network-related information about a finding.
      * </p>
+     * <p>
+     * Length Constraints: Minimum of 1. Maximum of 128.
+     * </p>
      * 
      * @param sourceDomain
-     *        The source domain of network-related information about a finding.
+     *        The source domain of network-related information about a finding.</p>
+     *        <p>
+     *        Length Constraints: Minimum of 1. Maximum of 128.
      */
 
     public void setSourceDomain(String sourceDomain) {
@@ -331,8 +406,13 @@ public class Network implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The source domain of network-related information about a finding.
      * </p>
+     * <p>
+     * Length Constraints: Minimum of 1. Maximum of 128.
+     * </p>
      * 
-     * @return The source domain of network-related information about a finding.
+     * @return The source domain of network-related information about a finding.</p>
+     *         <p>
+     *         Length Constraints: Minimum of 1. Maximum of 128.
      */
 
     public String getSourceDomain() {
@@ -343,9 +423,14 @@ public class Network implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The source domain of network-related information about a finding.
      * </p>
+     * <p>
+     * Length Constraints: Minimum of 1. Maximum of 128.
+     * </p>
      * 
      * @param sourceDomain
-     *        The source domain of network-related information about a finding.
+     *        The source domain of network-related information about a finding.</p>
+     *        <p>
+     *        Length Constraints: Minimum of 1. Maximum of 128.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -518,9 +603,14 @@ public class Network implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The destination domain of network-related information about a finding.
      * </p>
+     * <p>
+     * Length Constraints: Minimum of 1. Maximum of 128.
+     * </p>
      * 
      * @param destinationDomain
-     *        The destination domain of network-related information about a finding.
+     *        The destination domain of network-related information about a finding.</p>
+     *        <p>
+     *        Length Constraints: Minimum of 1. Maximum of 128.
      */
 
     public void setDestinationDomain(String destinationDomain) {
@@ -531,8 +621,13 @@ public class Network implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The destination domain of network-related information about a finding.
      * </p>
+     * <p>
+     * Length Constraints: Minimum of 1. Maximum of 128.
+     * </p>
      * 
-     * @return The destination domain of network-related information about a finding.
+     * @return The destination domain of network-related information about a finding.</p>
+     *         <p>
+     *         Length Constraints: Minimum of 1. Maximum of 128.
      */
 
     public String getDestinationDomain() {
@@ -543,9 +638,14 @@ public class Network implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The destination domain of network-related information about a finding.
      * </p>
+     * <p>
+     * Length Constraints: Minimum of 1. Maximum of 128.
+     * </p>
      * 
      * @param destinationDomain
-     *        The destination domain of network-related information about a finding.
+     *        The destination domain of network-related information about a finding.</p>
+     *        <p>
+     *        Length Constraints: Minimum of 1. Maximum of 128.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -570,6 +670,8 @@ public class Network implements Serializable, Cloneable, StructuredPojo {
             sb.append("Direction: ").append(getDirection()).append(",");
         if (getProtocol() != null)
             sb.append("Protocol: ").append(getProtocol()).append(",");
+        if (getOpenPortRange() != null)
+            sb.append("OpenPortRange: ").append(getOpenPortRange()).append(",");
         if (getSourceIpV4() != null)
             sb.append("SourceIpV4: ").append(getSourceIpV4()).append(",");
         if (getSourceIpV6() != null)
@@ -609,6 +711,10 @@ public class Network implements Serializable, Cloneable, StructuredPojo {
         if (other.getProtocol() == null ^ this.getProtocol() == null)
             return false;
         if (other.getProtocol() != null && other.getProtocol().equals(this.getProtocol()) == false)
+            return false;
+        if (other.getOpenPortRange() == null ^ this.getOpenPortRange() == null)
+            return false;
+        if (other.getOpenPortRange() != null && other.getOpenPortRange().equals(this.getOpenPortRange()) == false)
             return false;
         if (other.getSourceIpV4() == null ^ this.getSourceIpV4() == null)
             return false;
@@ -656,6 +762,7 @@ public class Network implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getDirection() == null) ? 0 : getDirection().hashCode());
         hashCode = prime * hashCode + ((getProtocol() == null) ? 0 : getProtocol().hashCode());
+        hashCode = prime * hashCode + ((getOpenPortRange() == null) ? 0 : getOpenPortRange().hashCode());
         hashCode = prime * hashCode + ((getSourceIpV4() == null) ? 0 : getSourceIpV4().hashCode());
         hashCode = prime * hashCode + ((getSourceIpV6() == null) ? 0 : getSourceIpV6().hashCode());
         hashCode = prime * hashCode + ((getSourcePort() == null) ? 0 : getSourcePort().hashCode());

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class EC2ResourceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Hourly public On Demand rate for the instance type.
+     * The hourly public On-Demand rate for the instance type.
      * </p>
      */
     private String hourlyOnDemandRate;
@@ -61,36 +61,36 @@ public class EC2ResourceDetails implements Serializable, Cloneable, StructuredPo
     private String sku;
     /**
      * <p>
-     * Memory capacity of Amazon Web Services instance.
+     * The memory capacity of the Amazon Web Services instance.
      * </p>
      */
     private String memory;
     /**
      * <p>
-     * Network performance capacity of the Amazon Web Services instance.
+     * The network performance capacity of the Amazon Web Services instance.
      * </p>
      */
     private String networkPerformance;
     /**
      * <p>
-     * The disk storage of the Amazon Web Services instance (Not EBS storage).
+     * The disk storage of the Amazon Web Services instance. This doesn't include EBS storage.
      * </p>
      */
     private String storage;
     /**
      * <p>
-     * Number of VCPU cores in the Amazon Web Services instance type.
+     * The number of VCPU cores in the Amazon Web Services instance type.
      * </p>
      */
     private String vcpu;
 
     /**
      * <p>
-     * Hourly public On Demand rate for the instance type.
+     * The hourly public On-Demand rate for the instance type.
      * </p>
      * 
      * @param hourlyOnDemandRate
-     *        Hourly public On Demand rate for the instance type.
+     *        The hourly public On-Demand rate for the instance type.
      */
 
     public void setHourlyOnDemandRate(String hourlyOnDemandRate) {
@@ -99,10 +99,10 @@ public class EC2ResourceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Hourly public On Demand rate for the instance type.
+     * The hourly public On-Demand rate for the instance type.
      * </p>
      * 
-     * @return Hourly public On Demand rate for the instance type.
+     * @return The hourly public On-Demand rate for the instance type.
      */
 
     public String getHourlyOnDemandRate() {
@@ -111,11 +111,11 @@ public class EC2ResourceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Hourly public On Demand rate for the instance type.
+     * The hourly public On-Demand rate for the instance type.
      * </p>
      * 
      * @param hourlyOnDemandRate
-     *        Hourly public On Demand rate for the instance type.
+     *        The hourly public On-Demand rate for the instance type.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -292,11 +292,11 @@ public class EC2ResourceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Memory capacity of Amazon Web Services instance.
+     * The memory capacity of the Amazon Web Services instance.
      * </p>
      * 
      * @param memory
-     *        Memory capacity of Amazon Web Services instance.
+     *        The memory capacity of the Amazon Web Services instance.
      */
 
     public void setMemory(String memory) {
@@ -305,10 +305,10 @@ public class EC2ResourceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Memory capacity of Amazon Web Services instance.
+     * The memory capacity of the Amazon Web Services instance.
      * </p>
      * 
-     * @return Memory capacity of Amazon Web Services instance.
+     * @return The memory capacity of the Amazon Web Services instance.
      */
 
     public String getMemory() {
@@ -317,11 +317,11 @@ public class EC2ResourceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Memory capacity of Amazon Web Services instance.
+     * The memory capacity of the Amazon Web Services instance.
      * </p>
      * 
      * @param memory
-     *        Memory capacity of Amazon Web Services instance.
+     *        The memory capacity of the Amazon Web Services instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -332,11 +332,11 @@ public class EC2ResourceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Network performance capacity of the Amazon Web Services instance.
+     * The network performance capacity of the Amazon Web Services instance.
      * </p>
      * 
      * @param networkPerformance
-     *        Network performance capacity of the Amazon Web Services instance.
+     *        The network performance capacity of the Amazon Web Services instance.
      */
 
     public void setNetworkPerformance(String networkPerformance) {
@@ -345,10 +345,10 @@ public class EC2ResourceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Network performance capacity of the Amazon Web Services instance.
+     * The network performance capacity of the Amazon Web Services instance.
      * </p>
      * 
-     * @return Network performance capacity of the Amazon Web Services instance.
+     * @return The network performance capacity of the Amazon Web Services instance.
      */
 
     public String getNetworkPerformance() {
@@ -357,11 +357,11 @@ public class EC2ResourceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Network performance capacity of the Amazon Web Services instance.
+     * The network performance capacity of the Amazon Web Services instance.
      * </p>
      * 
      * @param networkPerformance
-     *        Network performance capacity of the Amazon Web Services instance.
+     *        The network performance capacity of the Amazon Web Services instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -372,11 +372,11 @@ public class EC2ResourceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The disk storage of the Amazon Web Services instance (Not EBS storage).
+     * The disk storage of the Amazon Web Services instance. This doesn't include EBS storage.
      * </p>
      * 
      * @param storage
-     *        The disk storage of the Amazon Web Services instance (Not EBS storage).
+     *        The disk storage of the Amazon Web Services instance. This doesn't include EBS storage.
      */
 
     public void setStorage(String storage) {
@@ -385,10 +385,10 @@ public class EC2ResourceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The disk storage of the Amazon Web Services instance (Not EBS storage).
+     * The disk storage of the Amazon Web Services instance. This doesn't include EBS storage.
      * </p>
      * 
-     * @return The disk storage of the Amazon Web Services instance (Not EBS storage).
+     * @return The disk storage of the Amazon Web Services instance. This doesn't include EBS storage.
      */
 
     public String getStorage() {
@@ -397,11 +397,11 @@ public class EC2ResourceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The disk storage of the Amazon Web Services instance (Not EBS storage).
+     * The disk storage of the Amazon Web Services instance. This doesn't include EBS storage.
      * </p>
      * 
      * @param storage
-     *        The disk storage of the Amazon Web Services instance (Not EBS storage).
+     *        The disk storage of the Amazon Web Services instance. This doesn't include EBS storage.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -412,11 +412,11 @@ public class EC2ResourceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Number of VCPU cores in the Amazon Web Services instance type.
+     * The number of VCPU cores in the Amazon Web Services instance type.
      * </p>
      * 
      * @param vcpu
-     *        Number of VCPU cores in the Amazon Web Services instance type.
+     *        The number of VCPU cores in the Amazon Web Services instance type.
      */
 
     public void setVcpu(String vcpu) {
@@ -425,10 +425,10 @@ public class EC2ResourceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Number of VCPU cores in the Amazon Web Services instance type.
+     * The number of VCPU cores in the Amazon Web Services instance type.
      * </p>
      * 
-     * @return Number of VCPU cores in the Amazon Web Services instance type.
+     * @return The number of VCPU cores in the Amazon Web Services instance type.
      */
 
     public String getVcpu() {
@@ -437,11 +437,11 @@ public class EC2ResourceDetails implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * Number of VCPU cores in the Amazon Web Services instance type.
+     * The number of VCPU cores in the Amazon Web Services instance type.
      * </p>
      * 
      * @param vcpu
-     *        Number of VCPU cores in the Amazon Web Services instance type.
+     *        The number of VCPU cores in the Amazon Web Services instance type.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

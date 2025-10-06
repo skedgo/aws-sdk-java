@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,18 +30,18 @@ public class GetUserRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The access token returned by the server response to get information about the user.
+     * A non-expired access token for the user whose information you want to query.
      * </p>
      */
     private String accessToken;
 
     /**
      * <p>
-     * The access token returned by the server response to get information about the user.
+     * A non-expired access token for the user whose information you want to query.
      * </p>
      * 
      * @param accessToken
-     *        The access token returned by the server response to get information about the user.
+     *        A non-expired access token for the user whose information you want to query.
      */
 
     public void setAccessToken(String accessToken) {
@@ -50,10 +50,10 @@ public class GetUserRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The access token returned by the server response to get information about the user.
+     * A non-expired access token for the user whose information you want to query.
      * </p>
      * 
-     * @return The access token returned by the server response to get information about the user.
+     * @return A non-expired access token for the user whose information you want to query.
      */
 
     public String getAccessToken() {
@@ -62,11 +62,11 @@ public class GetUserRequest extends com.amazonaws.AmazonWebServiceRequest implem
 
     /**
      * <p>
-     * The access token returned by the server response to get information about the user.
+     * A non-expired access token for the user whose information you want to query.
      * </p>
      * 
      * @param accessToken
-     *        The access token returned by the server response to get information about the user.
+     *        A non-expired access token for the user whose information you want to query.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

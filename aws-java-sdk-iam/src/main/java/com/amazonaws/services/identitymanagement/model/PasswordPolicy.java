@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,31 +37,37 @@ public class PasswordPolicy implements Serializable, Cloneable {
     private Integer minimumPasswordLength;
     /**
      * <p>
-     * Specifies whether to require symbols for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one of the following symbols:
+     * </p>
+     * <p>
+     * ! @ # $ % ^ &amp; * ( ) _ + - = [ ] { } | '
      * </p>
      */
     private Boolean requireSymbols;
     /**
      * <p>
-     * Specifies whether to require numbers for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one numeric character (0 to 9).
      * </p>
      */
     private Boolean requireNumbers;
     /**
      * <p>
-     * Specifies whether to require uppercase characters for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one uppercase character (A to Z).
      * </p>
      */
     private Boolean requireUppercaseCharacters;
     /**
      * <p>
-     * Specifies whether to require lowercase characters for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one lowercase character (a to z).
      * </p>
      */
     private Boolean requireLowercaseCharacters;
     /**
      * <p>
-     * Specifies whether IAM users are allowed to change their own password.
+     * Specifies whether IAM users are allowed to change their own password. Gives IAM users permissions to
+     * <code>iam:ChangePassword</code> for only their user and to the <code>iam:GetAccountPasswordPolicy</code> action.
+     * This option does not attach a permissions policy to each user, rather the permissions are applied at the
+     * account-level for all users by IAM.
      * </p>
      */
     private Boolean allowUsersToChangePassword;
@@ -86,7 +92,10 @@ public class PasswordPolicy implements Serializable, Cloneable {
     private Integer passwordReusePrevention;
     /**
      * <p>
-     * Specifies whether IAM users are prevented from setting a new password after their password has expired.
+     * Specifies whether IAM users are prevented from setting a new password via the Amazon Web Services Management
+     * Console after their password has expired. The IAM user cannot access the console until an administrator resets
+     * the password. IAM users with <code>iam:ChangePassword</code> permission and active access keys can reset their
+     * own expired console password using the CLI or API.
      * </p>
      */
     private Boolean hardExpiry;
@@ -133,11 +142,16 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to require symbols for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one of the following symbols:
+     * </p>
+     * <p>
+     * ! @ # $ % ^ &amp; * ( ) _ + - = [ ] { } | '
      * </p>
      * 
      * @param requireSymbols
-     *        Specifies whether to require symbols for IAM user passwords.
+     *        Specifies whether IAM user passwords must contain at least one of the following symbols:</p>
+     *        <p>
+     *        ! @ # $ % ^ &amp; * ( ) _ + - = [ ] { } | '
      */
 
     public void setRequireSymbols(Boolean requireSymbols) {
@@ -146,10 +160,15 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to require symbols for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one of the following symbols:
+     * </p>
+     * <p>
+     * ! @ # $ % ^ &amp; * ( ) _ + - = [ ] { } | '
      * </p>
      * 
-     * @return Specifies whether to require symbols for IAM user passwords.
+     * @return Specifies whether IAM user passwords must contain at least one of the following symbols:</p>
+     *         <p>
+     *         ! @ # $ % ^ &amp; * ( ) _ + - = [ ] { } | '
      */
 
     public Boolean getRequireSymbols() {
@@ -158,11 +177,16 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to require symbols for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one of the following symbols:
+     * </p>
+     * <p>
+     * ! @ # $ % ^ &amp; * ( ) _ + - = [ ] { } | '
      * </p>
      * 
      * @param requireSymbols
-     *        Specifies whether to require symbols for IAM user passwords.
+     *        Specifies whether IAM user passwords must contain at least one of the following symbols:</p>
+     *        <p>
+     *        ! @ # $ % ^ &amp; * ( ) _ + - = [ ] { } | '
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -173,10 +197,15 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to require symbols for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one of the following symbols:
+     * </p>
+     * <p>
+     * ! @ # $ % ^ &amp; * ( ) _ + - = [ ] { } | '
      * </p>
      * 
-     * @return Specifies whether to require symbols for IAM user passwords.
+     * @return Specifies whether IAM user passwords must contain at least one of the following symbols:</p>
+     *         <p>
+     *         ! @ # $ % ^ &amp; * ( ) _ + - = [ ] { } | '
      */
 
     public Boolean isRequireSymbols() {
@@ -185,11 +214,11 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to require numbers for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one numeric character (0 to 9).
      * </p>
      * 
      * @param requireNumbers
-     *        Specifies whether to require numbers for IAM user passwords.
+     *        Specifies whether IAM user passwords must contain at least one numeric character (0 to 9).
      */
 
     public void setRequireNumbers(Boolean requireNumbers) {
@@ -198,10 +227,10 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to require numbers for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one numeric character (0 to 9).
      * </p>
      * 
-     * @return Specifies whether to require numbers for IAM user passwords.
+     * @return Specifies whether IAM user passwords must contain at least one numeric character (0 to 9).
      */
 
     public Boolean getRequireNumbers() {
@@ -210,11 +239,11 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to require numbers for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one numeric character (0 to 9).
      * </p>
      * 
      * @param requireNumbers
-     *        Specifies whether to require numbers for IAM user passwords.
+     *        Specifies whether IAM user passwords must contain at least one numeric character (0 to 9).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -225,10 +254,10 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to require numbers for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one numeric character (0 to 9).
      * </p>
      * 
-     * @return Specifies whether to require numbers for IAM user passwords.
+     * @return Specifies whether IAM user passwords must contain at least one numeric character (0 to 9).
      */
 
     public Boolean isRequireNumbers() {
@@ -237,11 +266,11 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to require uppercase characters for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one uppercase character (A to Z).
      * </p>
      * 
      * @param requireUppercaseCharacters
-     *        Specifies whether to require uppercase characters for IAM user passwords.
+     *        Specifies whether IAM user passwords must contain at least one uppercase character (A to Z).
      */
 
     public void setRequireUppercaseCharacters(Boolean requireUppercaseCharacters) {
@@ -250,10 +279,10 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to require uppercase characters for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one uppercase character (A to Z).
      * </p>
      * 
-     * @return Specifies whether to require uppercase characters for IAM user passwords.
+     * @return Specifies whether IAM user passwords must contain at least one uppercase character (A to Z).
      */
 
     public Boolean getRequireUppercaseCharacters() {
@@ -262,11 +291,11 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to require uppercase characters for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one uppercase character (A to Z).
      * </p>
      * 
      * @param requireUppercaseCharacters
-     *        Specifies whether to require uppercase characters for IAM user passwords.
+     *        Specifies whether IAM user passwords must contain at least one uppercase character (A to Z).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -277,10 +306,10 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to require uppercase characters for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one uppercase character (A to Z).
      * </p>
      * 
-     * @return Specifies whether to require uppercase characters for IAM user passwords.
+     * @return Specifies whether IAM user passwords must contain at least one uppercase character (A to Z).
      */
 
     public Boolean isRequireUppercaseCharacters() {
@@ -289,11 +318,11 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to require lowercase characters for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one lowercase character (a to z).
      * </p>
      * 
      * @param requireLowercaseCharacters
-     *        Specifies whether to require lowercase characters for IAM user passwords.
+     *        Specifies whether IAM user passwords must contain at least one lowercase character (a to z).
      */
 
     public void setRequireLowercaseCharacters(Boolean requireLowercaseCharacters) {
@@ -302,10 +331,10 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to require lowercase characters for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one lowercase character (a to z).
      * </p>
      * 
-     * @return Specifies whether to require lowercase characters for IAM user passwords.
+     * @return Specifies whether IAM user passwords must contain at least one lowercase character (a to z).
      */
 
     public Boolean getRequireLowercaseCharacters() {
@@ -314,11 +343,11 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to require lowercase characters for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one lowercase character (a to z).
      * </p>
      * 
      * @param requireLowercaseCharacters
-     *        Specifies whether to require lowercase characters for IAM user passwords.
+     *        Specifies whether IAM user passwords must contain at least one lowercase character (a to z).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -329,10 +358,10 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether to require lowercase characters for IAM user passwords.
+     * Specifies whether IAM user passwords must contain at least one lowercase character (a to z).
      * </p>
      * 
-     * @return Specifies whether to require lowercase characters for IAM user passwords.
+     * @return Specifies whether IAM user passwords must contain at least one lowercase character (a to z).
      */
 
     public Boolean isRequireLowercaseCharacters() {
@@ -341,11 +370,17 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether IAM users are allowed to change their own password.
+     * Specifies whether IAM users are allowed to change their own password. Gives IAM users permissions to
+     * <code>iam:ChangePassword</code> for only their user and to the <code>iam:GetAccountPasswordPolicy</code> action.
+     * This option does not attach a permissions policy to each user, rather the permissions are applied at the
+     * account-level for all users by IAM.
      * </p>
      * 
      * @param allowUsersToChangePassword
-     *        Specifies whether IAM users are allowed to change their own password.
+     *        Specifies whether IAM users are allowed to change their own password. Gives IAM users permissions to
+     *        <code>iam:ChangePassword</code> for only their user and to the <code>iam:GetAccountPasswordPolicy</code>
+     *        action. This option does not attach a permissions policy to each user, rather the permissions are applied
+     *        at the account-level for all users by IAM.
      */
 
     public void setAllowUsersToChangePassword(Boolean allowUsersToChangePassword) {
@@ -354,10 +389,16 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether IAM users are allowed to change their own password.
+     * Specifies whether IAM users are allowed to change their own password. Gives IAM users permissions to
+     * <code>iam:ChangePassword</code> for only their user and to the <code>iam:GetAccountPasswordPolicy</code> action.
+     * This option does not attach a permissions policy to each user, rather the permissions are applied at the
+     * account-level for all users by IAM.
      * </p>
      * 
-     * @return Specifies whether IAM users are allowed to change their own password.
+     * @return Specifies whether IAM users are allowed to change their own password. Gives IAM users permissions to
+     *         <code>iam:ChangePassword</code> for only their user and to the <code>iam:GetAccountPasswordPolicy</code>
+     *         action. This option does not attach a permissions policy to each user, rather the permissions are applied
+     *         at the account-level for all users by IAM.
      */
 
     public Boolean getAllowUsersToChangePassword() {
@@ -366,11 +407,17 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether IAM users are allowed to change their own password.
+     * Specifies whether IAM users are allowed to change their own password. Gives IAM users permissions to
+     * <code>iam:ChangePassword</code> for only their user and to the <code>iam:GetAccountPasswordPolicy</code> action.
+     * This option does not attach a permissions policy to each user, rather the permissions are applied at the
+     * account-level for all users by IAM.
      * </p>
      * 
      * @param allowUsersToChangePassword
-     *        Specifies whether IAM users are allowed to change their own password.
+     *        Specifies whether IAM users are allowed to change their own password. Gives IAM users permissions to
+     *        <code>iam:ChangePassword</code> for only their user and to the <code>iam:GetAccountPasswordPolicy</code>
+     *        action. This option does not attach a permissions policy to each user, rather the permissions are applied
+     *        at the account-level for all users by IAM.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -381,10 +428,16 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether IAM users are allowed to change their own password.
+     * Specifies whether IAM users are allowed to change their own password. Gives IAM users permissions to
+     * <code>iam:ChangePassword</code> for only their user and to the <code>iam:GetAccountPasswordPolicy</code> action.
+     * This option does not attach a permissions policy to each user, rather the permissions are applied at the
+     * account-level for all users by IAM.
      * </p>
      * 
-     * @return Specifies whether IAM users are allowed to change their own password.
+     * @return Specifies whether IAM users are allowed to change their own password. Gives IAM users permissions to
+     *         <code>iam:ChangePassword</code> for only their user and to the <code>iam:GetAccountPasswordPolicy</code>
+     *         action. This option does not attach a permissions policy to each user, rather the permissions are applied
+     *         at the account-level for all users by IAM.
      */
 
     public Boolean isAllowUsersToChangePassword() {
@@ -533,11 +586,17 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether IAM users are prevented from setting a new password after their password has expired.
+     * Specifies whether IAM users are prevented from setting a new password via the Amazon Web Services Management
+     * Console after their password has expired. The IAM user cannot access the console until an administrator resets
+     * the password. IAM users with <code>iam:ChangePassword</code> permission and active access keys can reset their
+     * own expired console password using the CLI or API.
      * </p>
      * 
      * @param hardExpiry
-     *        Specifies whether IAM users are prevented from setting a new password after their password has expired.
+     *        Specifies whether IAM users are prevented from setting a new password via the Amazon Web Services
+     *        Management Console after their password has expired. The IAM user cannot access the console until an
+     *        administrator resets the password. IAM users with <code>iam:ChangePassword</code> permission and active
+     *        access keys can reset their own expired console password using the CLI or API.
      */
 
     public void setHardExpiry(Boolean hardExpiry) {
@@ -546,10 +605,16 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether IAM users are prevented from setting a new password after their password has expired.
+     * Specifies whether IAM users are prevented from setting a new password via the Amazon Web Services Management
+     * Console after their password has expired. The IAM user cannot access the console until an administrator resets
+     * the password. IAM users with <code>iam:ChangePassword</code> permission and active access keys can reset their
+     * own expired console password using the CLI or API.
      * </p>
      * 
-     * @return Specifies whether IAM users are prevented from setting a new password after their password has expired.
+     * @return Specifies whether IAM users are prevented from setting a new password via the Amazon Web Services
+     *         Management Console after their password has expired. The IAM user cannot access the console until an
+     *         administrator resets the password. IAM users with <code>iam:ChangePassword</code> permission and active
+     *         access keys can reset their own expired console password using the CLI or API.
      */
 
     public Boolean getHardExpiry() {
@@ -558,11 +623,17 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether IAM users are prevented from setting a new password after their password has expired.
+     * Specifies whether IAM users are prevented from setting a new password via the Amazon Web Services Management
+     * Console after their password has expired. The IAM user cannot access the console until an administrator resets
+     * the password. IAM users with <code>iam:ChangePassword</code> permission and active access keys can reset their
+     * own expired console password using the CLI or API.
      * </p>
      * 
      * @param hardExpiry
-     *        Specifies whether IAM users are prevented from setting a new password after their password has expired.
+     *        Specifies whether IAM users are prevented from setting a new password via the Amazon Web Services
+     *        Management Console after their password has expired. The IAM user cannot access the console until an
+     *        administrator resets the password. IAM users with <code>iam:ChangePassword</code> permission and active
+     *        access keys can reset their own expired console password using the CLI or API.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -573,10 +644,16 @@ public class PasswordPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether IAM users are prevented from setting a new password after their password has expired.
+     * Specifies whether IAM users are prevented from setting a new password via the Amazon Web Services Management
+     * Console after their password has expired. The IAM user cannot access the console until an administrator resets
+     * the password. IAM users with <code>iam:ChangePassword</code> permission and active access keys can reset their
+     * own expired console password using the CLI or API.
      * </p>
      * 
-     * @return Specifies whether IAM users are prevented from setting a new password after their password has expired.
+     * @return Specifies whether IAM users are prevented from setting a new password via the Amazon Web Services
+     *         Management Console after their password has expired. The IAM user cannot access the console until an
+     *         administrator resets the password. IAM users with <code>iam:ChangePassword</code> permission and active
+     *         access keys can reset their own expired console password using the CLI or API.
      */
 
     public Boolean isHardExpiry() {

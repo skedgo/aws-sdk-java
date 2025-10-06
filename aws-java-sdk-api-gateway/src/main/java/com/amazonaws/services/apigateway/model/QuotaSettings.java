@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class QuotaSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum number of requests that can be made in a given time period.
+     * The target maximum number of requests that can be made in a given time period.
      * </p>
      */
     private Integer limit;
@@ -46,11 +46,11 @@ public class QuotaSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum number of requests that can be made in a given time period.
+     * The target maximum number of requests that can be made in a given time period.
      * </p>
      * 
      * @param limit
-     *        The maximum number of requests that can be made in a given time period.
+     *        The target maximum number of requests that can be made in a given time period.
      */
 
     public void setLimit(Integer limit) {
@@ -59,10 +59,10 @@ public class QuotaSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum number of requests that can be made in a given time period.
+     * The target maximum number of requests that can be made in a given time period.
      * </p>
      * 
-     * @return The maximum number of requests that can be made in a given time period.
+     * @return The target maximum number of requests that can be made in a given time period.
      */
 
     public Integer getLimit() {
@@ -71,11 +71,11 @@ public class QuotaSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum number of requests that can be made in a given time period.
+     * The target maximum number of requests that can be made in a given time period.
      * </p>
      * 
      * @param limit
-     *        The maximum number of requests that can be made in a given time period.
+     *        The target maximum number of requests that can be made in a given time period.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

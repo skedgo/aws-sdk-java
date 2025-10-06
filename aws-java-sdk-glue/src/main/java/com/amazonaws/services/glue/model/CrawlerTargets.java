@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,16 +42,40 @@ public class CrawlerTargets implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<JdbcTarget> jdbcTargets;
     /**
      * <p>
+     * Specifies Amazon DocumentDB or MongoDB targets.
+     * </p>
+     */
+    private java.util.List<MongoDBTarget> mongoDBTargets;
+    /**
+     * <p>
      * Specifies Amazon DynamoDB targets.
      * </p>
      */
     private java.util.List<DynamoDBTarget> dynamoDBTargets;
     /**
      * <p>
-     * Specifies AWS Glue Data Catalog targets.
+     * Specifies Glue Data Catalog targets.
      * </p>
      */
     private java.util.List<CatalogTarget> catalogTargets;
+    /**
+     * <p>
+     * Specifies Delta data store targets.
+     * </p>
+     */
+    private java.util.List<DeltaTarget> deltaTargets;
+    /**
+     * <p>
+     * Specifies Apache Iceberg data store targets.
+     * </p>
+     */
+    private java.util.List<IcebergTarget> icebergTargets;
+    /**
+     * <p>
+     * Specifies Apache Hudi data store targets.
+     * </p>
+     */
+    private java.util.List<HudiTarget> hudiTargets;
 
     /**
      * <p>
@@ -195,6 +219,76 @@ public class CrawlerTargets implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
+     * Specifies Amazon DocumentDB or MongoDB targets.
+     * </p>
+     * 
+     * @return Specifies Amazon DocumentDB or MongoDB targets.
+     */
+
+    public java.util.List<MongoDBTarget> getMongoDBTargets() {
+        return mongoDBTargets;
+    }
+
+    /**
+     * <p>
+     * Specifies Amazon DocumentDB or MongoDB targets.
+     * </p>
+     * 
+     * @param mongoDBTargets
+     *        Specifies Amazon DocumentDB or MongoDB targets.
+     */
+
+    public void setMongoDBTargets(java.util.Collection<MongoDBTarget> mongoDBTargets) {
+        if (mongoDBTargets == null) {
+            this.mongoDBTargets = null;
+            return;
+        }
+
+        this.mongoDBTargets = new java.util.ArrayList<MongoDBTarget>(mongoDBTargets);
+    }
+
+    /**
+     * <p>
+     * Specifies Amazon DocumentDB or MongoDB targets.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setMongoDBTargets(java.util.Collection)} or {@link #withMongoDBTargets(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param mongoDBTargets
+     *        Specifies Amazon DocumentDB or MongoDB targets.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CrawlerTargets withMongoDBTargets(MongoDBTarget... mongoDBTargets) {
+        if (this.mongoDBTargets == null) {
+            setMongoDBTargets(new java.util.ArrayList<MongoDBTarget>(mongoDBTargets.length));
+        }
+        for (MongoDBTarget ele : mongoDBTargets) {
+            this.mongoDBTargets.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies Amazon DocumentDB or MongoDB targets.
+     * </p>
+     * 
+     * @param mongoDBTargets
+     *        Specifies Amazon DocumentDB or MongoDB targets.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CrawlerTargets withMongoDBTargets(java.util.Collection<MongoDBTarget> mongoDBTargets) {
+        setMongoDBTargets(mongoDBTargets);
+        return this;
+    }
+
+    /**
+     * <p>
      * Specifies Amazon DynamoDB targets.
      * </p>
      * 
@@ -265,10 +359,10 @@ public class CrawlerTargets implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies AWS Glue Data Catalog targets.
+     * Specifies Glue Data Catalog targets.
      * </p>
      * 
-     * @return Specifies AWS Glue Data Catalog targets.
+     * @return Specifies Glue Data Catalog targets.
      */
 
     public java.util.List<CatalogTarget> getCatalogTargets() {
@@ -277,11 +371,11 @@ public class CrawlerTargets implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies AWS Glue Data Catalog targets.
+     * Specifies Glue Data Catalog targets.
      * </p>
      * 
      * @param catalogTargets
-     *        Specifies AWS Glue Data Catalog targets.
+     *        Specifies Glue Data Catalog targets.
      */
 
     public void setCatalogTargets(java.util.Collection<CatalogTarget> catalogTargets) {
@@ -295,7 +389,7 @@ public class CrawlerTargets implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies AWS Glue Data Catalog targets.
+     * Specifies Glue Data Catalog targets.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -304,7 +398,7 @@ public class CrawlerTargets implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param catalogTargets
-     *        Specifies AWS Glue Data Catalog targets.
+     *        Specifies Glue Data Catalog targets.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -320,16 +414,226 @@ public class CrawlerTargets implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Specifies AWS Glue Data Catalog targets.
+     * Specifies Glue Data Catalog targets.
      * </p>
      * 
      * @param catalogTargets
-     *        Specifies AWS Glue Data Catalog targets.
+     *        Specifies Glue Data Catalog targets.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CrawlerTargets withCatalogTargets(java.util.Collection<CatalogTarget> catalogTargets) {
         setCatalogTargets(catalogTargets);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies Delta data store targets.
+     * </p>
+     * 
+     * @return Specifies Delta data store targets.
+     */
+
+    public java.util.List<DeltaTarget> getDeltaTargets() {
+        return deltaTargets;
+    }
+
+    /**
+     * <p>
+     * Specifies Delta data store targets.
+     * </p>
+     * 
+     * @param deltaTargets
+     *        Specifies Delta data store targets.
+     */
+
+    public void setDeltaTargets(java.util.Collection<DeltaTarget> deltaTargets) {
+        if (deltaTargets == null) {
+            this.deltaTargets = null;
+            return;
+        }
+
+        this.deltaTargets = new java.util.ArrayList<DeltaTarget>(deltaTargets);
+    }
+
+    /**
+     * <p>
+     * Specifies Delta data store targets.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setDeltaTargets(java.util.Collection)} or {@link #withDeltaTargets(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param deltaTargets
+     *        Specifies Delta data store targets.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CrawlerTargets withDeltaTargets(DeltaTarget... deltaTargets) {
+        if (this.deltaTargets == null) {
+            setDeltaTargets(new java.util.ArrayList<DeltaTarget>(deltaTargets.length));
+        }
+        for (DeltaTarget ele : deltaTargets) {
+            this.deltaTargets.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies Delta data store targets.
+     * </p>
+     * 
+     * @param deltaTargets
+     *        Specifies Delta data store targets.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CrawlerTargets withDeltaTargets(java.util.Collection<DeltaTarget> deltaTargets) {
+        setDeltaTargets(deltaTargets);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies Apache Iceberg data store targets.
+     * </p>
+     * 
+     * @return Specifies Apache Iceberg data store targets.
+     */
+
+    public java.util.List<IcebergTarget> getIcebergTargets() {
+        return icebergTargets;
+    }
+
+    /**
+     * <p>
+     * Specifies Apache Iceberg data store targets.
+     * </p>
+     * 
+     * @param icebergTargets
+     *        Specifies Apache Iceberg data store targets.
+     */
+
+    public void setIcebergTargets(java.util.Collection<IcebergTarget> icebergTargets) {
+        if (icebergTargets == null) {
+            this.icebergTargets = null;
+            return;
+        }
+
+        this.icebergTargets = new java.util.ArrayList<IcebergTarget>(icebergTargets);
+    }
+
+    /**
+     * <p>
+     * Specifies Apache Iceberg data store targets.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setIcebergTargets(java.util.Collection)} or {@link #withIcebergTargets(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param icebergTargets
+     *        Specifies Apache Iceberg data store targets.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CrawlerTargets withIcebergTargets(IcebergTarget... icebergTargets) {
+        if (this.icebergTargets == null) {
+            setIcebergTargets(new java.util.ArrayList<IcebergTarget>(icebergTargets.length));
+        }
+        for (IcebergTarget ele : icebergTargets) {
+            this.icebergTargets.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies Apache Iceberg data store targets.
+     * </p>
+     * 
+     * @param icebergTargets
+     *        Specifies Apache Iceberg data store targets.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CrawlerTargets withIcebergTargets(java.util.Collection<IcebergTarget> icebergTargets) {
+        setIcebergTargets(icebergTargets);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies Apache Hudi data store targets.
+     * </p>
+     * 
+     * @return Specifies Apache Hudi data store targets.
+     */
+
+    public java.util.List<HudiTarget> getHudiTargets() {
+        return hudiTargets;
+    }
+
+    /**
+     * <p>
+     * Specifies Apache Hudi data store targets.
+     * </p>
+     * 
+     * @param hudiTargets
+     *        Specifies Apache Hudi data store targets.
+     */
+
+    public void setHudiTargets(java.util.Collection<HudiTarget> hudiTargets) {
+        if (hudiTargets == null) {
+            this.hudiTargets = null;
+            return;
+        }
+
+        this.hudiTargets = new java.util.ArrayList<HudiTarget>(hudiTargets);
+    }
+
+    /**
+     * <p>
+     * Specifies Apache Hudi data store targets.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setHudiTargets(java.util.Collection)} or {@link #withHudiTargets(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param hudiTargets
+     *        Specifies Apache Hudi data store targets.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CrawlerTargets withHudiTargets(HudiTarget... hudiTargets) {
+        if (this.hudiTargets == null) {
+            setHudiTargets(new java.util.ArrayList<HudiTarget>(hudiTargets.length));
+        }
+        for (HudiTarget ele : hudiTargets) {
+            this.hudiTargets.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies Apache Hudi data store targets.
+     * </p>
+     * 
+     * @param hudiTargets
+     *        Specifies Apache Hudi data store targets.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CrawlerTargets withHudiTargets(java.util.Collection<HudiTarget> hudiTargets) {
+        setHudiTargets(hudiTargets);
         return this;
     }
 
@@ -349,10 +653,18 @@ public class CrawlerTargets implements Serializable, Cloneable, StructuredPojo {
             sb.append("S3Targets: ").append(getS3Targets()).append(",");
         if (getJdbcTargets() != null)
             sb.append("JdbcTargets: ").append(getJdbcTargets()).append(",");
+        if (getMongoDBTargets() != null)
+            sb.append("MongoDBTargets: ").append(getMongoDBTargets()).append(",");
         if (getDynamoDBTargets() != null)
             sb.append("DynamoDBTargets: ").append(getDynamoDBTargets()).append(",");
         if (getCatalogTargets() != null)
-            sb.append("CatalogTargets: ").append(getCatalogTargets());
+            sb.append("CatalogTargets: ").append(getCatalogTargets()).append(",");
+        if (getDeltaTargets() != null)
+            sb.append("DeltaTargets: ").append(getDeltaTargets()).append(",");
+        if (getIcebergTargets() != null)
+            sb.append("IcebergTargets: ").append(getIcebergTargets()).append(",");
+        if (getHudiTargets() != null)
+            sb.append("HudiTargets: ").append(getHudiTargets());
         sb.append("}");
         return sb.toString();
     }
@@ -375,6 +687,10 @@ public class CrawlerTargets implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getJdbcTargets() != null && other.getJdbcTargets().equals(this.getJdbcTargets()) == false)
             return false;
+        if (other.getMongoDBTargets() == null ^ this.getMongoDBTargets() == null)
+            return false;
+        if (other.getMongoDBTargets() != null && other.getMongoDBTargets().equals(this.getMongoDBTargets()) == false)
+            return false;
         if (other.getDynamoDBTargets() == null ^ this.getDynamoDBTargets() == null)
             return false;
         if (other.getDynamoDBTargets() != null && other.getDynamoDBTargets().equals(this.getDynamoDBTargets()) == false)
@@ -382,6 +698,18 @@ public class CrawlerTargets implements Serializable, Cloneable, StructuredPojo {
         if (other.getCatalogTargets() == null ^ this.getCatalogTargets() == null)
             return false;
         if (other.getCatalogTargets() != null && other.getCatalogTargets().equals(this.getCatalogTargets()) == false)
+            return false;
+        if (other.getDeltaTargets() == null ^ this.getDeltaTargets() == null)
+            return false;
+        if (other.getDeltaTargets() != null && other.getDeltaTargets().equals(this.getDeltaTargets()) == false)
+            return false;
+        if (other.getIcebergTargets() == null ^ this.getIcebergTargets() == null)
+            return false;
+        if (other.getIcebergTargets() != null && other.getIcebergTargets().equals(this.getIcebergTargets()) == false)
+            return false;
+        if (other.getHudiTargets() == null ^ this.getHudiTargets() == null)
+            return false;
+        if (other.getHudiTargets() != null && other.getHudiTargets().equals(this.getHudiTargets()) == false)
             return false;
         return true;
     }
@@ -393,8 +721,12 @@ public class CrawlerTargets implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getS3Targets() == null) ? 0 : getS3Targets().hashCode());
         hashCode = prime * hashCode + ((getJdbcTargets() == null) ? 0 : getJdbcTargets().hashCode());
+        hashCode = prime * hashCode + ((getMongoDBTargets() == null) ? 0 : getMongoDBTargets().hashCode());
         hashCode = prime * hashCode + ((getDynamoDBTargets() == null) ? 0 : getDynamoDBTargets().hashCode());
         hashCode = prime * hashCode + ((getCatalogTargets() == null) ? 0 : getCatalogTargets().hashCode());
+        hashCode = prime * hashCode + ((getDeltaTargets() == null) ? 0 : getDeltaTargets().hashCode());
+        hashCode = prime * hashCode + ((getIcebergTargets() == null) ? 0 : getIcebergTargets().hashCode());
+        hashCode = prime * hashCode + ((getHudiTargets() == null) ? 0 : getHudiTargets().hashCode());
         return hashCode;
     }
 

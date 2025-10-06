@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -11,6 +11,8 @@
  * and limitations under the License.
  */
 package com.amazonaws.services.ec2.model.transform;
+
+import java.util.ArrayList;
 
 import javax.xml.stream.events.XMLEvent;
 import javax.annotation.Generated;
@@ -72,6 +74,27 @@ public class TransitGatewayRequestOptionsStaxUnmarshaller implements Unmarshalle
                     transitGatewayRequestOptions.setDnsSupport(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
+
+                if (context.testExpression("SecurityGroupReferencingSupport", targetDepth)) {
+                    transitGatewayRequestOptions.setSecurityGroupReferencingSupport(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MulticastSupport", targetDepth)) {
+                    transitGatewayRequestOptions.setMulticastSupport(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("TransitGatewayCidrBlocks", targetDepth)) {
+                    transitGatewayRequestOptions.withTransitGatewayCidrBlocks(new ArrayList<String>());
+                    continue;
+                }
+
+                if (context.testExpression("TransitGatewayCidrBlocks/item", targetDepth)) {
+                    transitGatewayRequestOptions.withTransitGatewayCidrBlocks(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
                     return transitGatewayRequestOptions;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,11 +39,13 @@ public class AudioDescription implements Serializable, Cloneable, StructuredPojo
      * audioType are both ignored if inputType is broadcasterMixedAd.
      */
     private String audioTypeControl;
+    /** Settings to configure one or more solutions that insert audio watermarks in the audio encode */
+    private AudioWatermarkSettings audioWatermarkingSettings;
     /** Audio codec settings. */
     private AudioCodecSettings codecSettings;
     /**
-     * Indicates the language of the audio output track. Only used if languageControlMode is useConfigured, or there is
-     * no ISO 639 language code specified in the input.
+     * RFC 5646 language code representing the language of the audio output track. Only used if languageControlMode is
+     * useConfigured, or there is no ISO 639 language code specified in the input.
      */
     private String languageCode;
     /**
@@ -64,6 +66,16 @@ public class AudioDescription implements Serializable, Cloneable, StructuredPojo
      * Commentary).
      */
     private String streamName;
+    /**
+     * Identifies the DASH roles to assign to this audio output. Applies only when the audio output is configured for
+     * DVB DASH accessibility signaling.
+     */
+    private java.util.List<String> audioDashRoles;
+    /**
+     * Identifies DVB DASH accessibility signaling in this audio output. Used in Microsoft Smooth Streaming outputs to
+     * signal accessibility information to packagers.
+     */
+    private String dvbDashAccessibility;
 
     /**
      * Advanced audio normalization settings.
@@ -264,6 +276,40 @@ public class AudioDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * Settings to configure one or more solutions that insert audio watermarks in the audio encode
+     * 
+     * @param audioWatermarkingSettings
+     *        Settings to configure one or more solutions that insert audio watermarks in the audio encode
+     */
+
+    public void setAudioWatermarkingSettings(AudioWatermarkSettings audioWatermarkingSettings) {
+        this.audioWatermarkingSettings = audioWatermarkingSettings;
+    }
+
+    /**
+     * Settings to configure one or more solutions that insert audio watermarks in the audio encode
+     * 
+     * @return Settings to configure one or more solutions that insert audio watermarks in the audio encode
+     */
+
+    public AudioWatermarkSettings getAudioWatermarkingSettings() {
+        return this.audioWatermarkingSettings;
+    }
+
+    /**
+     * Settings to configure one or more solutions that insert audio watermarks in the audio encode
+     * 
+     * @param audioWatermarkingSettings
+     *        Settings to configure one or more solutions that insert audio watermarks in the audio encode
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AudioDescription withAudioWatermarkingSettings(AudioWatermarkSettings audioWatermarkingSettings) {
+        setAudioWatermarkingSettings(audioWatermarkingSettings);
+        return this;
+    }
+
+    /**
      * Audio codec settings.
      * 
      * @param codecSettings
@@ -298,12 +344,12 @@ public class AudioDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Indicates the language of the audio output track. Only used if languageControlMode is useConfigured, or there is
-     * no ISO 639 language code specified in the input.
+     * RFC 5646 language code representing the language of the audio output track. Only used if languageControlMode is
+     * useConfigured, or there is no ISO 639 language code specified in the input.
      * 
      * @param languageCode
-     *        Indicates the language of the audio output track. Only used if languageControlMode is useConfigured, or
-     *        there is no ISO 639 language code specified in the input.
+     *        RFC 5646 language code representing the language of the audio output track. Only used if
+     *        languageControlMode is useConfigured, or there is no ISO 639 language code specified in the input.
      */
 
     public void setLanguageCode(String languageCode) {
@@ -311,11 +357,11 @@ public class AudioDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Indicates the language of the audio output track. Only used if languageControlMode is useConfigured, or there is
-     * no ISO 639 language code specified in the input.
+     * RFC 5646 language code representing the language of the audio output track. Only used if languageControlMode is
+     * useConfigured, or there is no ISO 639 language code specified in the input.
      * 
-     * @return Indicates the language of the audio output track. Only used if languageControlMode is useConfigured, or
-     *         there is no ISO 639 language code specified in the input.
+     * @return RFC 5646 language code representing the language of the audio output track. Only used if
+     *         languageControlMode is useConfigured, or there is no ISO 639 language code specified in the input.
      */
 
     public String getLanguageCode() {
@@ -323,12 +369,12 @@ public class AudioDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Indicates the language of the audio output track. Only used if languageControlMode is useConfigured, or there is
-     * no ISO 639 language code specified in the input.
+     * RFC 5646 language code representing the language of the audio output track. Only used if languageControlMode is
+     * useConfigured, or there is no ISO 639 language code specified in the input.
      * 
      * @param languageCode
-     *        Indicates the language of the audio output track. Only used if languageControlMode is useConfigured, or
-     *        there is no ISO 639 language code specified in the input.
+     *        RFC 5646 language code representing the language of the audio output track. Only used if
+     *        languageControlMode is useConfigured, or there is no ISO 639 language code specified in the input.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -519,6 +565,163 @@ public class AudioDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * Identifies the DASH roles to assign to this audio output. Applies only when the audio output is configured for
+     * DVB DASH accessibility signaling.
+     * 
+     * @return Identifies the DASH roles to assign to this audio output. Applies only when the audio output is
+     *         configured for DVB DASH accessibility signaling.
+     * @see DashRoleAudio
+     */
+
+    public java.util.List<String> getAudioDashRoles() {
+        return audioDashRoles;
+    }
+
+    /**
+     * Identifies the DASH roles to assign to this audio output. Applies only when the audio output is configured for
+     * DVB DASH accessibility signaling.
+     * 
+     * @param audioDashRoles
+     *        Identifies the DASH roles to assign to this audio output. Applies only when the audio output is configured
+     *        for DVB DASH accessibility signaling.
+     * @see DashRoleAudio
+     */
+
+    public void setAudioDashRoles(java.util.Collection<String> audioDashRoles) {
+        if (audioDashRoles == null) {
+            this.audioDashRoles = null;
+            return;
+        }
+
+        this.audioDashRoles = new java.util.ArrayList<String>(audioDashRoles);
+    }
+
+    /**
+     * Identifies the DASH roles to assign to this audio output. Applies only when the audio output is configured for
+     * DVB DASH accessibility signaling.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAudioDashRoles(java.util.Collection)} or {@link #withAudioDashRoles(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param audioDashRoles
+     *        Identifies the DASH roles to assign to this audio output. Applies only when the audio output is configured
+     *        for DVB DASH accessibility signaling.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DashRoleAudio
+     */
+
+    public AudioDescription withAudioDashRoles(String... audioDashRoles) {
+        if (this.audioDashRoles == null) {
+            setAudioDashRoles(new java.util.ArrayList<String>(audioDashRoles.length));
+        }
+        for (String ele : audioDashRoles) {
+            this.audioDashRoles.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * Identifies the DASH roles to assign to this audio output. Applies only when the audio output is configured for
+     * DVB DASH accessibility signaling.
+     * 
+     * @param audioDashRoles
+     *        Identifies the DASH roles to assign to this audio output. Applies only when the audio output is configured
+     *        for DVB DASH accessibility signaling.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DashRoleAudio
+     */
+
+    public AudioDescription withAudioDashRoles(java.util.Collection<String> audioDashRoles) {
+        setAudioDashRoles(audioDashRoles);
+        return this;
+    }
+
+    /**
+     * Identifies the DASH roles to assign to this audio output. Applies only when the audio output is configured for
+     * DVB DASH accessibility signaling.
+     * 
+     * @param audioDashRoles
+     *        Identifies the DASH roles to assign to this audio output. Applies only when the audio output is configured
+     *        for DVB DASH accessibility signaling.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DashRoleAudio
+     */
+
+    public AudioDescription withAudioDashRoles(DashRoleAudio... audioDashRoles) {
+        java.util.ArrayList<String> audioDashRolesCopy = new java.util.ArrayList<String>(audioDashRoles.length);
+        for (DashRoleAudio value : audioDashRoles) {
+            audioDashRolesCopy.add(value.toString());
+        }
+        if (getAudioDashRoles() == null) {
+            setAudioDashRoles(audioDashRolesCopy);
+        } else {
+            getAudioDashRoles().addAll(audioDashRolesCopy);
+        }
+        return this;
+    }
+
+    /**
+     * Identifies DVB DASH accessibility signaling in this audio output. Used in Microsoft Smooth Streaming outputs to
+     * signal accessibility information to packagers.
+     * 
+     * @param dvbDashAccessibility
+     *        Identifies DVB DASH accessibility signaling in this audio output. Used in Microsoft Smooth Streaming
+     *        outputs to signal accessibility information to packagers.
+     * @see DvbDashAccessibility
+     */
+
+    public void setDvbDashAccessibility(String dvbDashAccessibility) {
+        this.dvbDashAccessibility = dvbDashAccessibility;
+    }
+
+    /**
+     * Identifies DVB DASH accessibility signaling in this audio output. Used in Microsoft Smooth Streaming outputs to
+     * signal accessibility information to packagers.
+     * 
+     * @return Identifies DVB DASH accessibility signaling in this audio output. Used in Microsoft Smooth Streaming
+     *         outputs to signal accessibility information to packagers.
+     * @see DvbDashAccessibility
+     */
+
+    public String getDvbDashAccessibility() {
+        return this.dvbDashAccessibility;
+    }
+
+    /**
+     * Identifies DVB DASH accessibility signaling in this audio output. Used in Microsoft Smooth Streaming outputs to
+     * signal accessibility information to packagers.
+     * 
+     * @param dvbDashAccessibility
+     *        Identifies DVB DASH accessibility signaling in this audio output. Used in Microsoft Smooth Streaming
+     *        outputs to signal accessibility information to packagers.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DvbDashAccessibility
+     */
+
+    public AudioDescription withDvbDashAccessibility(String dvbDashAccessibility) {
+        setDvbDashAccessibility(dvbDashAccessibility);
+        return this;
+    }
+
+    /**
+     * Identifies DVB DASH accessibility signaling in this audio output. Used in Microsoft Smooth Streaming outputs to
+     * signal accessibility information to packagers.
+     * 
+     * @param dvbDashAccessibility
+     *        Identifies DVB DASH accessibility signaling in this audio output. Used in Microsoft Smooth Streaming
+     *        outputs to signal accessibility information to packagers.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DvbDashAccessibility
+     */
+
+    public AudioDescription withDvbDashAccessibility(DvbDashAccessibility dvbDashAccessibility) {
+        this.dvbDashAccessibility = dvbDashAccessibility.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -538,6 +741,8 @@ public class AudioDescription implements Serializable, Cloneable, StructuredPojo
             sb.append("AudioType: ").append(getAudioType()).append(",");
         if (getAudioTypeControl() != null)
             sb.append("AudioTypeControl: ").append(getAudioTypeControl()).append(",");
+        if (getAudioWatermarkingSettings() != null)
+            sb.append("AudioWatermarkingSettings: ").append(getAudioWatermarkingSettings()).append(",");
         if (getCodecSettings() != null)
             sb.append("CodecSettings: ").append(getCodecSettings()).append(",");
         if (getLanguageCode() != null)
@@ -549,7 +754,11 @@ public class AudioDescription implements Serializable, Cloneable, StructuredPojo
         if (getRemixSettings() != null)
             sb.append("RemixSettings: ").append(getRemixSettings()).append(",");
         if (getStreamName() != null)
-            sb.append("StreamName: ").append(getStreamName());
+            sb.append("StreamName: ").append(getStreamName()).append(",");
+        if (getAudioDashRoles() != null)
+            sb.append("AudioDashRoles: ").append(getAudioDashRoles()).append(",");
+        if (getDvbDashAccessibility() != null)
+            sb.append("DvbDashAccessibility: ").append(getDvbDashAccessibility());
         sb.append("}");
         return sb.toString();
     }
@@ -580,6 +789,10 @@ public class AudioDescription implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getAudioTypeControl() != null && other.getAudioTypeControl().equals(this.getAudioTypeControl()) == false)
             return false;
+        if (other.getAudioWatermarkingSettings() == null ^ this.getAudioWatermarkingSettings() == null)
+            return false;
+        if (other.getAudioWatermarkingSettings() != null && other.getAudioWatermarkingSettings().equals(this.getAudioWatermarkingSettings()) == false)
+            return false;
         if (other.getCodecSettings() == null ^ this.getCodecSettings() == null)
             return false;
         if (other.getCodecSettings() != null && other.getCodecSettings().equals(this.getCodecSettings()) == false)
@@ -604,6 +817,14 @@ public class AudioDescription implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getStreamName() != null && other.getStreamName().equals(this.getStreamName()) == false)
             return false;
+        if (other.getAudioDashRoles() == null ^ this.getAudioDashRoles() == null)
+            return false;
+        if (other.getAudioDashRoles() != null && other.getAudioDashRoles().equals(this.getAudioDashRoles()) == false)
+            return false;
+        if (other.getDvbDashAccessibility() == null ^ this.getDvbDashAccessibility() == null)
+            return false;
+        if (other.getDvbDashAccessibility() != null && other.getDvbDashAccessibility().equals(this.getDvbDashAccessibility()) == false)
+            return false;
         return true;
     }
 
@@ -616,12 +837,15 @@ public class AudioDescription implements Serializable, Cloneable, StructuredPojo
         hashCode = prime * hashCode + ((getAudioSelectorName() == null) ? 0 : getAudioSelectorName().hashCode());
         hashCode = prime * hashCode + ((getAudioType() == null) ? 0 : getAudioType().hashCode());
         hashCode = prime * hashCode + ((getAudioTypeControl() == null) ? 0 : getAudioTypeControl().hashCode());
+        hashCode = prime * hashCode + ((getAudioWatermarkingSettings() == null) ? 0 : getAudioWatermarkingSettings().hashCode());
         hashCode = prime * hashCode + ((getCodecSettings() == null) ? 0 : getCodecSettings().hashCode());
         hashCode = prime * hashCode + ((getLanguageCode() == null) ? 0 : getLanguageCode().hashCode());
         hashCode = prime * hashCode + ((getLanguageCodeControl() == null) ? 0 : getLanguageCodeControl().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getRemixSettings() == null) ? 0 : getRemixSettings().hashCode());
         hashCode = prime * hashCode + ((getStreamName() == null) ? 0 : getStreamName().hashCode());
+        hashCode = prime * hashCode + ((getAudioDashRoles() == null) ? 0 : getAudioDashRoles().hashCode());
+        hashCode = prime * hashCode + ((getDvbDashAccessibility() == null) ? 0 : getDvbDashAccessibility().hashCode());
         return hashCode;
     }
 

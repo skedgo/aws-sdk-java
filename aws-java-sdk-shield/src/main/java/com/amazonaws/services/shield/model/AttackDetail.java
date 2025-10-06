@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,15 +48,13 @@ public class AttackDetail implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<SubResourceSummary> subResources;
     /**
      * <p>
-     * The time the attack started, in Unix time in seconds. For more information see <a
-     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.
+     * The time the attack started, in Unix time in seconds.
      * </p>
      */
     private java.util.Date startTime;
     /**
      * <p>
-     * The time the attack ended, in Unix time in seconds. For more information see <a
-     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.
+     * The time the attack ended, in Unix time in seconds.
      * </p>
      */
     private java.util.Date endTime;
@@ -68,7 +66,13 @@ public class AttackDetail implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<SummarizedCounter> attackCounters;
     /**
      * <p>
-     * The array of <a>AttackProperty</a> objects.
+     * The array of objects that provide details of the Shield event.
+     * </p>
+     * <p>
+     * For infrastructure layer events (L3 and L4 events), you can view metrics for top contributors in Amazon
+     * CloudWatch metrics. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/monitoring-cloudwatch.html#set-ddos-alarms">Shield
+     * metrics and alarms</a> in the <i>WAF Developer Guide</i>.
      * </p>
      */
     private java.util.List<AttackProperty> attackProperties;
@@ -231,13 +235,11 @@ public class AttackDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time the attack started, in Unix time in seconds. For more information see <a
-     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.
+     * The time the attack started, in Unix time in seconds.
      * </p>
      * 
      * @param startTime
-     *        The time the attack started, in Unix time in seconds. For more information see <a
-     *        href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.
+     *        The time the attack started, in Unix time in seconds.
      */
 
     public void setStartTime(java.util.Date startTime) {
@@ -246,13 +248,10 @@ public class AttackDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time the attack started, in Unix time in seconds. For more information see <a
-     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.
+     * The time the attack started, in Unix time in seconds.
      * </p>
      * 
-     * @return The time the attack started, in Unix time in seconds. For more information see <a
-     *         href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types"
-     *         >timestamp</a>.
+     * @return The time the attack started, in Unix time in seconds.
      */
 
     public java.util.Date getStartTime() {
@@ -261,13 +260,11 @@ public class AttackDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time the attack started, in Unix time in seconds. For more information see <a
-     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.
+     * The time the attack started, in Unix time in seconds.
      * </p>
      * 
      * @param startTime
-     *        The time the attack started, in Unix time in seconds. For more information see <a
-     *        href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.
+     *        The time the attack started, in Unix time in seconds.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -278,13 +275,11 @@ public class AttackDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time the attack ended, in Unix time in seconds. For more information see <a
-     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.
+     * The time the attack ended, in Unix time in seconds.
      * </p>
      * 
      * @param endTime
-     *        The time the attack ended, in Unix time in seconds. For more information see <a
-     *        href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.
+     *        The time the attack ended, in Unix time in seconds.
      */
 
     public void setEndTime(java.util.Date endTime) {
@@ -293,13 +288,10 @@ public class AttackDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time the attack ended, in Unix time in seconds. For more information see <a
-     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.
+     * The time the attack ended, in Unix time in seconds.
      * </p>
      * 
-     * @return The time the attack ended, in Unix time in seconds. For more information see <a
-     *         href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types"
-     *         >timestamp</a>.
+     * @return The time the attack ended, in Unix time in seconds.
      */
 
     public java.util.Date getEndTime() {
@@ -308,13 +300,11 @@ public class AttackDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time the attack ended, in Unix time in seconds. For more information see <a
-     * href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.
+     * The time the attack ended, in Unix time in seconds.
      * </p>
      * 
      * @param endTime
-     *        The time the attack ended, in Unix time in seconds. For more information see <a
-     *        href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types">timestamp</a>.
+     *        The time the attack ended, in Unix time in seconds.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -395,10 +385,21 @@ public class AttackDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The array of <a>AttackProperty</a> objects.
+     * The array of objects that provide details of the Shield event.
+     * </p>
+     * <p>
+     * For infrastructure layer events (L3 and L4 events), you can view metrics for top contributors in Amazon
+     * CloudWatch metrics. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/monitoring-cloudwatch.html#set-ddos-alarms">Shield
+     * metrics and alarms</a> in the <i>WAF Developer Guide</i>.
      * </p>
      * 
-     * @return The array of <a>AttackProperty</a> objects.
+     * @return The array of objects that provide details of the Shield event. </p>
+     *         <p>
+     *         For infrastructure layer events (L3 and L4 events), you can view metrics for top contributors in Amazon
+     *         CloudWatch metrics. For more information, see <a
+     *         href="https://docs.aws.amazon.com/waf/latest/developerguide/monitoring-cloudwatch.html#set-ddos-alarms"
+     *         >Shield metrics and alarms</a> in the <i>WAF Developer Guide</i>.
      */
 
     public java.util.List<AttackProperty> getAttackProperties() {
@@ -407,11 +408,22 @@ public class AttackDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The array of <a>AttackProperty</a> objects.
+     * The array of objects that provide details of the Shield event.
+     * </p>
+     * <p>
+     * For infrastructure layer events (L3 and L4 events), you can view metrics for top contributors in Amazon
+     * CloudWatch metrics. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/monitoring-cloudwatch.html#set-ddos-alarms">Shield
+     * metrics and alarms</a> in the <i>WAF Developer Guide</i>.
      * </p>
      * 
      * @param attackProperties
-     *        The array of <a>AttackProperty</a> objects.
+     *        The array of objects that provide details of the Shield event. </p>
+     *        <p>
+     *        For infrastructure layer events (L3 and L4 events), you can view metrics for top contributors in Amazon
+     *        CloudWatch metrics. For more information, see <a
+     *        href="https://docs.aws.amazon.com/waf/latest/developerguide/monitoring-cloudwatch.html#set-ddos-alarms"
+     *        >Shield metrics and alarms</a> in the <i>WAF Developer Guide</i>.
      */
 
     public void setAttackProperties(java.util.Collection<AttackProperty> attackProperties) {
@@ -425,7 +437,13 @@ public class AttackDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The array of <a>AttackProperty</a> objects.
+     * The array of objects that provide details of the Shield event.
+     * </p>
+     * <p>
+     * For infrastructure layer events (L3 and L4 events), you can view metrics for top contributors in Amazon
+     * CloudWatch metrics. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/monitoring-cloudwatch.html#set-ddos-alarms">Shield
+     * metrics and alarms</a> in the <i>WAF Developer Guide</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -434,7 +452,12 @@ public class AttackDetail implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param attackProperties
-     *        The array of <a>AttackProperty</a> objects.
+     *        The array of objects that provide details of the Shield event. </p>
+     *        <p>
+     *        For infrastructure layer events (L3 and L4 events), you can view metrics for top contributors in Amazon
+     *        CloudWatch metrics. For more information, see <a
+     *        href="https://docs.aws.amazon.com/waf/latest/developerguide/monitoring-cloudwatch.html#set-ddos-alarms"
+     *        >Shield metrics and alarms</a> in the <i>WAF Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -450,11 +473,22 @@ public class AttackDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The array of <a>AttackProperty</a> objects.
+     * The array of objects that provide details of the Shield event.
+     * </p>
+     * <p>
+     * For infrastructure layer events (L3 and L4 events), you can view metrics for top contributors in Amazon
+     * CloudWatch metrics. For more information, see <a
+     * href="https://docs.aws.amazon.com/waf/latest/developerguide/monitoring-cloudwatch.html#set-ddos-alarms">Shield
+     * metrics and alarms</a> in the <i>WAF Developer Guide</i>.
      * </p>
      * 
      * @param attackProperties
-     *        The array of <a>AttackProperty</a> objects.
+     *        The array of objects that provide details of the Shield event. </p>
+     *        <p>
+     *        For infrastructure layer events (L3 and L4 events), you can view metrics for top contributors in Amazon
+     *        CloudWatch metrics. For more information, see <a
+     *        href="https://docs.aws.amazon.com/waf/latest/developerguide/monitoring-cloudwatch.html#set-ddos-alarms"
+     *        >Shield metrics and alarms</a> in the <i>WAF Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

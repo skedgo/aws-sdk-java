@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,19 +40,19 @@ public class TransitGatewayAttachment implements Serializable, Cloneable {
     private String transitGatewayId;
     /**
      * <p>
-     * The ID of the AWS account that owns the transit gateway.
+     * The ID of the Amazon Web Services account that owns the transit gateway.
      * </p>
      */
     private String transitGatewayOwnerId;
     /**
      * <p>
-     * The ID of the AWS account that owns the resource.
+     * The ID of the Amazon Web Services account that owns the resource.
      * </p>
      */
     private String resourceOwnerId;
     /**
      * <p>
-     * The resource type.
+     * The resource type. Note that the <code>tgw-peering</code> resource type has been deprecated.
      * </p>
      */
     private String resourceType;
@@ -64,7 +64,7 @@ public class TransitGatewayAttachment implements Serializable, Cloneable {
     private String resourceId;
     /**
      * <p>
-     * The attachment state.
+     * The attachment state. Note that the <code>initiating</code> state has been deprecated.
      * </p>
      */
     private String state;
@@ -169,11 +169,11 @@ public class TransitGatewayAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the transit gateway.
+     * The ID of the Amazon Web Services account that owns the transit gateway.
      * </p>
      * 
      * @param transitGatewayOwnerId
-     *        The ID of the AWS account that owns the transit gateway.
+     *        The ID of the Amazon Web Services account that owns the transit gateway.
      */
 
     public void setTransitGatewayOwnerId(String transitGatewayOwnerId) {
@@ -182,10 +182,10 @@ public class TransitGatewayAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the transit gateway.
+     * The ID of the Amazon Web Services account that owns the transit gateway.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the transit gateway.
+     * @return The ID of the Amazon Web Services account that owns the transit gateway.
      */
 
     public String getTransitGatewayOwnerId() {
@@ -194,11 +194,11 @@ public class TransitGatewayAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the transit gateway.
+     * The ID of the Amazon Web Services account that owns the transit gateway.
      * </p>
      * 
      * @param transitGatewayOwnerId
-     *        The ID of the AWS account that owns the transit gateway.
+     *        The ID of the Amazon Web Services account that owns the transit gateway.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -209,11 +209,11 @@ public class TransitGatewayAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the resource.
+     * The ID of the Amazon Web Services account that owns the resource.
      * </p>
      * 
      * @param resourceOwnerId
-     *        The ID of the AWS account that owns the resource.
+     *        The ID of the Amazon Web Services account that owns the resource.
      */
 
     public void setResourceOwnerId(String resourceOwnerId) {
@@ -222,10 +222,10 @@ public class TransitGatewayAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the resource.
+     * The ID of the Amazon Web Services account that owns the resource.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the resource.
+     * @return The ID of the Amazon Web Services account that owns the resource.
      */
 
     public String getResourceOwnerId() {
@@ -234,11 +234,11 @@ public class TransitGatewayAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the resource.
+     * The ID of the Amazon Web Services account that owns the resource.
      * </p>
      * 
      * @param resourceOwnerId
-     *        The ID of the AWS account that owns the resource.
+     *        The ID of the Amazon Web Services account that owns the resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -249,11 +249,11 @@ public class TransitGatewayAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The resource type.
+     * The resource type. Note that the <code>tgw-peering</code> resource type has been deprecated.
      * </p>
      * 
      * @param resourceType
-     *        The resource type.
+     *        The resource type. Note that the <code>tgw-peering</code> resource type has been deprecated.
      * @see TransitGatewayAttachmentResourceType
      */
 
@@ -263,10 +263,10 @@ public class TransitGatewayAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The resource type.
+     * The resource type. Note that the <code>tgw-peering</code> resource type has been deprecated.
      * </p>
      * 
-     * @return The resource type.
+     * @return The resource type. Note that the <code>tgw-peering</code> resource type has been deprecated.
      * @see TransitGatewayAttachmentResourceType
      */
 
@@ -276,11 +276,11 @@ public class TransitGatewayAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The resource type.
+     * The resource type. Note that the <code>tgw-peering</code> resource type has been deprecated.
      * </p>
      * 
      * @param resourceType
-     *        The resource type.
+     *        The resource type. Note that the <code>tgw-peering</code> resource type has been deprecated.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TransitGatewayAttachmentResourceType
      */
@@ -292,11 +292,11 @@ public class TransitGatewayAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The resource type.
+     * The resource type. Note that the <code>tgw-peering</code> resource type has been deprecated.
      * </p>
      * 
      * @param resourceType
-     *        The resource type.
+     *        The resource type. Note that the <code>tgw-peering</code> resource type has been deprecated.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TransitGatewayAttachmentResourceType
      */
@@ -348,11 +348,11 @@ public class TransitGatewayAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The attachment state.
+     * The attachment state. Note that the <code>initiating</code> state has been deprecated.
      * </p>
      * 
      * @param state
-     *        The attachment state.
+     *        The attachment state. Note that the <code>initiating</code> state has been deprecated.
      * @see TransitGatewayAttachmentState
      */
 
@@ -362,10 +362,10 @@ public class TransitGatewayAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The attachment state.
+     * The attachment state. Note that the <code>initiating</code> state has been deprecated.
      * </p>
      * 
-     * @return The attachment state.
+     * @return The attachment state. Note that the <code>initiating</code> state has been deprecated.
      * @see TransitGatewayAttachmentState
      */
 
@@ -375,11 +375,11 @@ public class TransitGatewayAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The attachment state.
+     * The attachment state. Note that the <code>initiating</code> state has been deprecated.
      * </p>
      * 
      * @param state
-     *        The attachment state.
+     *        The attachment state. Note that the <code>initiating</code> state has been deprecated.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TransitGatewayAttachmentState
      */
@@ -391,11 +391,11 @@ public class TransitGatewayAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The attachment state.
+     * The attachment state. Note that the <code>initiating</code> state has been deprecated.
      * </p>
      * 
      * @param state
-     *        The attachment state.
+     *        The attachment state. Note that the <code>initiating</code> state has been deprecated.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TransitGatewayAttachmentState
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,8 @@ public class DeleteRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that contains the repository to delete. If you do not specify a
-     * registry, the default registry is assumed.
+     * The Amazon Web Services account ID associated with the registry that contains the repository to delete. If you do
+     * not specify a registry, the default registry is assumed.
      * </p>
      */
     private String registryId;
@@ -40,20 +40,21 @@ public class DeleteRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
     private String repositoryName;
     /**
      * <p>
-     * If a repository contains images, forces the deletion.
+     * If true, deleting the repository force deletes the contents of the repository. If false, the repository must be
+     * empty before attempting to delete it.
      * </p>
      */
     private Boolean force;
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that contains the repository to delete. If you do not specify a
-     * registry, the default registry is assumed.
+     * The Amazon Web Services account ID associated with the registry that contains the repository to delete. If you do
+     * not specify a registry, the default registry is assumed.
      * </p>
      * 
      * @param registryId
-     *        The AWS account ID associated with the registry that contains the repository to delete. If you do not
-     *        specify a registry, the default registry is assumed.
+     *        The Amazon Web Services account ID associated with the registry that contains the repository to delete. If
+     *        you do not specify a registry, the default registry is assumed.
      */
 
     public void setRegistryId(String registryId) {
@@ -62,12 +63,12 @@ public class DeleteRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that contains the repository to delete. If you do not specify a
-     * registry, the default registry is assumed.
+     * The Amazon Web Services account ID associated with the registry that contains the repository to delete. If you do
+     * not specify a registry, the default registry is assumed.
      * </p>
      * 
-     * @return The AWS account ID associated with the registry that contains the repository to delete. If you do not
-     *         specify a registry, the default registry is assumed.
+     * @return The Amazon Web Services account ID associated with the registry that contains the repository to delete.
+     *         If you do not specify a registry, the default registry is assumed.
      */
 
     public String getRegistryId() {
@@ -76,13 +77,13 @@ public class DeleteRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that contains the repository to delete. If you do not specify a
-     * registry, the default registry is assumed.
+     * The Amazon Web Services account ID associated with the registry that contains the repository to delete. If you do
+     * not specify a registry, the default registry is assumed.
      * </p>
      * 
      * @param registryId
-     *        The AWS account ID associated with the registry that contains the repository to delete. If you do not
-     *        specify a registry, the default registry is assumed.
+     *        The Amazon Web Services account ID associated with the registry that contains the repository to delete. If
+     *        you do not specify a registry, the default registry is assumed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -133,11 +134,13 @@ public class DeleteRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * If a repository contains images, forces the deletion.
+     * If true, deleting the repository force deletes the contents of the repository. If false, the repository must be
+     * empty before attempting to delete it.
      * </p>
      * 
      * @param force
-     *        If a repository contains images, forces the deletion.
+     *        If true, deleting the repository force deletes the contents of the repository. If false, the repository
+     *        must be empty before attempting to delete it.
      */
 
     public void setForce(Boolean force) {
@@ -146,10 +149,12 @@ public class DeleteRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * If a repository contains images, forces the deletion.
+     * If true, deleting the repository force deletes the contents of the repository. If false, the repository must be
+     * empty before attempting to delete it.
      * </p>
      * 
-     * @return If a repository contains images, forces the deletion.
+     * @return If true, deleting the repository force deletes the contents of the repository. If false, the repository
+     *         must be empty before attempting to delete it.
      */
 
     public Boolean getForce() {
@@ -158,11 +163,13 @@ public class DeleteRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * If a repository contains images, forces the deletion.
+     * If true, deleting the repository force deletes the contents of the repository. If false, the repository must be
+     * empty before attempting to delete it.
      * </p>
      * 
      * @param force
-     *        If a repository contains images, forces the deletion.
+     *        If true, deleting the repository force deletes the contents of the repository. If false, the repository
+     *        must be empty before attempting to delete it.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -173,10 +180,12 @@ public class DeleteRepositoryRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * If a repository contains images, forces the deletion.
+     * If true, deleting the repository force deletes the contents of the repository. If false, the repository must be
+     * empty before attempting to delete it.
      * </p>
      * 
-     * @return If a repository contains images, forces the deletion.
+     * @return If true, deleting the repository force deletes the contents of the repository. If false, the repository
+     *         must be empty before attempting to delete it.
      */
 
     public Boolean isForce() {

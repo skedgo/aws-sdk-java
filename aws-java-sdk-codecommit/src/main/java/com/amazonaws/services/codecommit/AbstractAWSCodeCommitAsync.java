@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,36 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     }
 
     @Override
+    public java.util.concurrent.Future<AssociateApprovalRuleTemplateWithRepositoryResult> associateApprovalRuleTemplateWithRepositoryAsync(
+            AssociateApprovalRuleTemplateWithRepositoryRequest request) {
+
+        return associateApprovalRuleTemplateWithRepositoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateApprovalRuleTemplateWithRepositoryResult> associateApprovalRuleTemplateWithRepositoryAsync(
+            AssociateApprovalRuleTemplateWithRepositoryRequest request,
+            com.amazonaws.handlers.AsyncHandler<AssociateApprovalRuleTemplateWithRepositoryRequest, AssociateApprovalRuleTemplateWithRepositoryResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchAssociateApprovalRuleTemplateWithRepositoriesResult> batchAssociateApprovalRuleTemplateWithRepositoriesAsync(
+            BatchAssociateApprovalRuleTemplateWithRepositoriesRequest request) {
+
+        return batchAssociateApprovalRuleTemplateWithRepositoriesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchAssociateApprovalRuleTemplateWithRepositoriesResult> batchAssociateApprovalRuleTemplateWithRepositoriesAsync(
+            BatchAssociateApprovalRuleTemplateWithRepositoriesRequest request,
+            com.amazonaws.handlers.AsyncHandler<BatchAssociateApprovalRuleTemplateWithRepositoriesRequest, BatchAssociateApprovalRuleTemplateWithRepositoriesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<BatchDescribeMergeConflictsResult> batchDescribeMergeConflictsAsync(BatchDescribeMergeConflictsRequest request) {
 
         return batchDescribeMergeConflictsAsync(request, null);
@@ -41,6 +71,34 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     }
 
     @Override
+    public java.util.concurrent.Future<BatchDisassociateApprovalRuleTemplateFromRepositoriesResult> batchDisassociateApprovalRuleTemplateFromRepositoriesAsync(
+            BatchDisassociateApprovalRuleTemplateFromRepositoriesRequest request) {
+
+        return batchDisassociateApprovalRuleTemplateFromRepositoriesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchDisassociateApprovalRuleTemplateFromRepositoriesResult> batchDisassociateApprovalRuleTemplateFromRepositoriesAsync(
+            BatchDisassociateApprovalRuleTemplateFromRepositoriesRequest request,
+            com.amazonaws.handlers.AsyncHandler<BatchDisassociateApprovalRuleTemplateFromRepositoriesRequest, BatchDisassociateApprovalRuleTemplateFromRepositoriesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchGetCommitsResult> batchGetCommitsAsync(BatchGetCommitsRequest request) {
+
+        return batchGetCommitsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchGetCommitsResult> batchGetCommitsAsync(BatchGetCommitsRequest request,
+            com.amazonaws.handlers.AsyncHandler<BatchGetCommitsRequest, BatchGetCommitsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<BatchGetRepositoriesResult> batchGetRepositoriesAsync(BatchGetRepositoriesRequest request) {
 
         return batchGetRepositoriesAsync(request, null);
@@ -49,6 +107,19 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     @Override
     public java.util.concurrent.Future<BatchGetRepositoriesResult> batchGetRepositoriesAsync(BatchGetRepositoriesRequest request,
             com.amazonaws.handlers.AsyncHandler<BatchGetRepositoriesRequest, BatchGetRepositoriesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateApprovalRuleTemplateResult> createApprovalRuleTemplateAsync(CreateApprovalRuleTemplateRequest request) {
+
+        return createApprovalRuleTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateApprovalRuleTemplateResult> createApprovalRuleTemplateAsync(CreateApprovalRuleTemplateRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateApprovalRuleTemplateRequest, CreateApprovalRuleTemplateResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -93,6 +164,19 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     }
 
     @Override
+    public java.util.concurrent.Future<CreatePullRequestApprovalRuleResult> createPullRequestApprovalRuleAsync(CreatePullRequestApprovalRuleRequest request) {
+
+        return createPullRequestApprovalRuleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePullRequestApprovalRuleResult> createPullRequestApprovalRuleAsync(CreatePullRequestApprovalRuleRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreatePullRequestApprovalRuleRequest, CreatePullRequestApprovalRuleResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateRepositoryResult> createRepositoryAsync(CreateRepositoryRequest request) {
 
         return createRepositoryAsync(request, null);
@@ -114,6 +198,19 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     @Override
     public java.util.concurrent.Future<CreateUnreferencedMergeCommitResult> createUnreferencedMergeCommitAsync(CreateUnreferencedMergeCommitRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateUnreferencedMergeCommitRequest, CreateUnreferencedMergeCommitResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteApprovalRuleTemplateResult> deleteApprovalRuleTemplateAsync(DeleteApprovalRuleTemplateRequest request) {
+
+        return deleteApprovalRuleTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteApprovalRuleTemplateResult> deleteApprovalRuleTemplateAsync(DeleteApprovalRuleTemplateRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteApprovalRuleTemplateRequest, DeleteApprovalRuleTemplateResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -158,6 +255,19 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     }
 
     @Override
+    public java.util.concurrent.Future<DeletePullRequestApprovalRuleResult> deletePullRequestApprovalRuleAsync(DeletePullRequestApprovalRuleRequest request) {
+
+        return deletePullRequestApprovalRuleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePullRequestApprovalRuleResult> deletePullRequestApprovalRuleAsync(DeletePullRequestApprovalRuleRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeletePullRequestApprovalRuleRequest, DeletePullRequestApprovalRuleResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteRepositoryResult> deleteRepositoryAsync(DeleteRepositoryRequest request) {
 
         return deleteRepositoryAsync(request, null);
@@ -197,6 +307,49 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     }
 
     @Override
+    public java.util.concurrent.Future<DisassociateApprovalRuleTemplateFromRepositoryResult> disassociateApprovalRuleTemplateFromRepositoryAsync(
+            DisassociateApprovalRuleTemplateFromRepositoryRequest request) {
+
+        return disassociateApprovalRuleTemplateFromRepositoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateApprovalRuleTemplateFromRepositoryResult> disassociateApprovalRuleTemplateFromRepositoryAsync(
+            DisassociateApprovalRuleTemplateFromRepositoryRequest request,
+            com.amazonaws.handlers.AsyncHandler<DisassociateApprovalRuleTemplateFromRepositoryRequest, DisassociateApprovalRuleTemplateFromRepositoryResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<EvaluatePullRequestApprovalRulesResult> evaluatePullRequestApprovalRulesAsync(
+            EvaluatePullRequestApprovalRulesRequest request) {
+
+        return evaluatePullRequestApprovalRulesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<EvaluatePullRequestApprovalRulesResult> evaluatePullRequestApprovalRulesAsync(
+            EvaluatePullRequestApprovalRulesRequest request,
+            com.amazonaws.handlers.AsyncHandler<EvaluatePullRequestApprovalRulesRequest, EvaluatePullRequestApprovalRulesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetApprovalRuleTemplateResult> getApprovalRuleTemplateAsync(GetApprovalRuleTemplateRequest request) {
+
+        return getApprovalRuleTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetApprovalRuleTemplateResult> getApprovalRuleTemplateAsync(GetApprovalRuleTemplateRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetApprovalRuleTemplateRequest, GetApprovalRuleTemplateResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetBlobResult> getBlobAsync(GetBlobRequest request) {
 
         return getBlobAsync(request, null);
@@ -231,6 +384,19 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     @Override
     public java.util.concurrent.Future<GetCommentResult> getCommentAsync(GetCommentRequest request,
             com.amazonaws.handlers.AsyncHandler<GetCommentRequest, GetCommentResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCommentReactionsResult> getCommentReactionsAsync(GetCommentReactionsRequest request) {
+
+        return getCommentReactionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCommentReactionsResult> getCommentReactionsAsync(GetCommentReactionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetCommentReactionsRequest, GetCommentReactionsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -366,6 +532,32 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     }
 
     @Override
+    public java.util.concurrent.Future<GetPullRequestApprovalStatesResult> getPullRequestApprovalStatesAsync(GetPullRequestApprovalStatesRequest request) {
+
+        return getPullRequestApprovalStatesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPullRequestApprovalStatesResult> getPullRequestApprovalStatesAsync(GetPullRequestApprovalStatesRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetPullRequestApprovalStatesRequest, GetPullRequestApprovalStatesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPullRequestOverrideStateResult> getPullRequestOverrideStateAsync(GetPullRequestOverrideStateRequest request) {
+
+        return getPullRequestOverrideStateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPullRequestOverrideStateResult> getPullRequestOverrideStateAsync(GetPullRequestOverrideStateRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetPullRequestOverrideStateRequest, GetPullRequestOverrideStateResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetRepositoryResult> getRepositoryAsync(GetRepositoryRequest request) {
 
         return getRepositoryAsync(request, null);
@@ -392,6 +584,34 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     }
 
     @Override
+    public java.util.concurrent.Future<ListApprovalRuleTemplatesResult> listApprovalRuleTemplatesAsync(ListApprovalRuleTemplatesRequest request) {
+
+        return listApprovalRuleTemplatesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListApprovalRuleTemplatesResult> listApprovalRuleTemplatesAsync(ListApprovalRuleTemplatesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListApprovalRuleTemplatesRequest, ListApprovalRuleTemplatesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAssociatedApprovalRuleTemplatesForRepositoryResult> listAssociatedApprovalRuleTemplatesForRepositoryAsync(
+            ListAssociatedApprovalRuleTemplatesForRepositoryRequest request) {
+
+        return listAssociatedApprovalRuleTemplatesForRepositoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAssociatedApprovalRuleTemplatesForRepositoryResult> listAssociatedApprovalRuleTemplatesForRepositoryAsync(
+            ListAssociatedApprovalRuleTemplatesForRepositoryRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListAssociatedApprovalRuleTemplatesForRepositoryRequest, ListAssociatedApprovalRuleTemplatesForRepositoryResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListBranchesResult> listBranchesAsync(ListBranchesRequest request) {
 
         return listBranchesAsync(request, null);
@@ -400,6 +620,19 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     @Override
     public java.util.concurrent.Future<ListBranchesResult> listBranchesAsync(ListBranchesRequest request,
             com.amazonaws.handlers.AsyncHandler<ListBranchesRequest, ListBranchesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFileCommitHistoryResult> listFileCommitHistoryAsync(ListFileCommitHistoryRequest request) {
+
+        return listFileCommitHistoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFileCommitHistoryResult> listFileCommitHistoryAsync(ListFileCommitHistoryRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListFileCommitHistoryRequest, ListFileCommitHistoryResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -426,6 +659,21 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     @Override
     public java.util.concurrent.Future<ListRepositoriesResult> listRepositoriesAsync(ListRepositoriesRequest request,
             com.amazonaws.handlers.AsyncHandler<ListRepositoriesRequest, ListRepositoriesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRepositoriesForApprovalRuleTemplateResult> listRepositoriesForApprovalRuleTemplateAsync(
+            ListRepositoriesForApprovalRuleTemplateRequest request) {
+
+        return listRepositoriesForApprovalRuleTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRepositoriesForApprovalRuleTemplateResult> listRepositoriesForApprovalRuleTemplateAsync(
+            ListRepositoriesForApprovalRuleTemplateRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListRepositoriesForApprovalRuleTemplateRequest, ListRepositoriesForApprovalRuleTemplateResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -522,6 +770,21 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     }
 
     @Override
+    public java.util.concurrent.Future<OverridePullRequestApprovalRulesResult> overridePullRequestApprovalRulesAsync(
+            OverridePullRequestApprovalRulesRequest request) {
+
+        return overridePullRequestApprovalRulesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<OverridePullRequestApprovalRulesResult> overridePullRequestApprovalRulesAsync(
+            OverridePullRequestApprovalRulesRequest request,
+            com.amazonaws.handlers.AsyncHandler<OverridePullRequestApprovalRulesRequest, OverridePullRequestApprovalRulesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<PostCommentForComparedCommitResult> postCommentForComparedCommitAsync(PostCommentForComparedCommitRequest request) {
 
         return postCommentForComparedCommitAsync(request, null);
@@ -556,6 +819,19 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     @Override
     public java.util.concurrent.Future<PostCommentReplyResult> postCommentReplyAsync(PostCommentReplyRequest request,
             com.amazonaws.handlers.AsyncHandler<PostCommentReplyRequest, PostCommentReplyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutCommentReactionResult> putCommentReactionAsync(PutCommentReactionRequest request) {
+
+        return putCommentReactionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutCommentReactionResult> putCommentReactionAsync(PutCommentReactionRequest request,
+            com.amazonaws.handlers.AsyncHandler<PutCommentReactionRequest, PutCommentReactionResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -626,6 +902,49 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateApprovalRuleTemplateContentResult> updateApprovalRuleTemplateContentAsync(
+            UpdateApprovalRuleTemplateContentRequest request) {
+
+        return updateApprovalRuleTemplateContentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateApprovalRuleTemplateContentResult> updateApprovalRuleTemplateContentAsync(
+            UpdateApprovalRuleTemplateContentRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateApprovalRuleTemplateContentRequest, UpdateApprovalRuleTemplateContentResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateApprovalRuleTemplateDescriptionResult> updateApprovalRuleTemplateDescriptionAsync(
+            UpdateApprovalRuleTemplateDescriptionRequest request) {
+
+        return updateApprovalRuleTemplateDescriptionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateApprovalRuleTemplateDescriptionResult> updateApprovalRuleTemplateDescriptionAsync(
+            UpdateApprovalRuleTemplateDescriptionRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateApprovalRuleTemplateDescriptionRequest, UpdateApprovalRuleTemplateDescriptionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateApprovalRuleTemplateNameResult> updateApprovalRuleTemplateNameAsync(UpdateApprovalRuleTemplateNameRequest request) {
+
+        return updateApprovalRuleTemplateNameAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateApprovalRuleTemplateNameResult> updateApprovalRuleTemplateNameAsync(UpdateApprovalRuleTemplateNameRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateApprovalRuleTemplateNameRequest, UpdateApprovalRuleTemplateNameResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateCommentResult> updateCommentAsync(UpdateCommentRequest request) {
 
         return updateCommentAsync(request, null);
@@ -647,6 +966,34 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     @Override
     public java.util.concurrent.Future<UpdateDefaultBranchResult> updateDefaultBranchAsync(UpdateDefaultBranchRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateDefaultBranchRequest, UpdateDefaultBranchResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePullRequestApprovalRuleContentResult> updatePullRequestApprovalRuleContentAsync(
+            UpdatePullRequestApprovalRuleContentRequest request) {
+
+        return updatePullRequestApprovalRuleContentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePullRequestApprovalRuleContentResult> updatePullRequestApprovalRuleContentAsync(
+            UpdatePullRequestApprovalRuleContentRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdatePullRequestApprovalRuleContentRequest, UpdatePullRequestApprovalRuleContentResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePullRequestApprovalStateResult> updatePullRequestApprovalStateAsync(UpdatePullRequestApprovalStateRequest request) {
+
+        return updatePullRequestApprovalStateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePullRequestApprovalStateResult> updatePullRequestApprovalStateAsync(UpdatePullRequestApprovalStateRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdatePullRequestApprovalStateRequest, UpdatePullRequestApprovalStateResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -699,6 +1046,19 @@ public class AbstractAWSCodeCommitAsync extends AbstractAWSCodeCommit implements
     @Override
     public java.util.concurrent.Future<UpdateRepositoryDescriptionResult> updateRepositoryDescriptionAsync(UpdateRepositoryDescriptionRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateRepositoryDescriptionRequest, UpdateRepositoryDescriptionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRepositoryEncryptionKeyResult> updateRepositoryEncryptionKeyAsync(UpdateRepositoryEncryptionKeyRequest request) {
+
+        return updateRepositoryEncryptionKeyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRepositoryEncryptionKeyResult> updateRepositoryEncryptionKeyAsync(UpdateRepositoryEncryptionKeyRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateRepositoryEncryptionKeyRequest, UpdateRepositoryEncryptionKeyResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

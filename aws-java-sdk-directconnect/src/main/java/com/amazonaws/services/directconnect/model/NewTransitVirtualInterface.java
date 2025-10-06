@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about the transit virtual interface.
+ * Information about a transit virtual interface.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/NewTransitVirtualInterface"
@@ -30,7 +30,8 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The name of the virtual interface assigned by the customer network.
+     * The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The
+     * following are valid characters: a-z, 0-9 and a hyphen (-).
      * </p>
      */
     private String virtualInterfaceName;
@@ -44,6 +45,9 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
      * <p>
      * The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
      * </p>
+     * <p>
+     * The valid values are 1-2147483647.
+     * </p>
      */
     private Integer asn;
     /**
@@ -54,7 +58,8 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
     private Integer mtu;
     /**
      * <p>
-     * The authentication key for BGP configuration.
+     * The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun
+     * lenth of 80 characters.
      * </p>
      */
     private String authKey;
@@ -84,18 +89,26 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
     private String directConnectGatewayId;
     /**
      * <p>
-     * Any tags assigned to the transit virtual interface.
+     * The tags associated with the transitive virtual interface.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * Indicates whether to enable or disable SiteLink.
+     * </p>
+     */
+    private Boolean enableSiteLink;
 
     /**
      * <p>
-     * The name of the virtual interface assigned by the customer network.
+     * The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The
+     * following are valid characters: a-z, 0-9 and a hyphen (-).
      * </p>
      * 
      * @param virtualInterfaceName
-     *        The name of the virtual interface assigned by the customer network.
+     *        The name of the virtual interface assigned by the customer network. The name has a maximum of 100
+     *        characters. The following are valid characters: a-z, 0-9 and a hyphen (-).
      */
 
     public void setVirtualInterfaceName(String virtualInterfaceName) {
@@ -104,10 +117,12 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The name of the virtual interface assigned by the customer network.
+     * The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The
+     * following are valid characters: a-z, 0-9 and a hyphen (-).
      * </p>
      * 
-     * @return The name of the virtual interface assigned by the customer network.
+     * @return The name of the virtual interface assigned by the customer network. The name has a maximum of 100
+     *         characters. The following are valid characters: a-z, 0-9 and a hyphen (-).
      */
 
     public String getVirtualInterfaceName() {
@@ -116,11 +131,13 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The name of the virtual interface assigned by the customer network.
+     * The name of the virtual interface assigned by the customer network. The name has a maximum of 100 characters. The
+     * following are valid characters: a-z, 0-9 and a hyphen (-).
      * </p>
      * 
      * @param virtualInterfaceName
-     *        The name of the virtual interface assigned by the customer network.
+     *        The name of the virtual interface assigned by the customer network. The name has a maximum of 100
+     *        characters. The following are valid characters: a-z, 0-9 and a hyphen (-).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -173,9 +190,14 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
      * <p>
      * The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
      * </p>
+     * <p>
+     * The valid values are 1-2147483647.
+     * </p>
      * 
      * @param asn
-     *        The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
+     *        The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.</p>
+     *        <p>
+     *        The valid values are 1-2147483647.
      */
 
     public void setAsn(Integer asn) {
@@ -186,8 +208,13 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
      * <p>
      * The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
      * </p>
+     * <p>
+     * The valid values are 1-2147483647.
+     * </p>
      * 
-     * @return The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
+     * @return The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.</p>
+     *         <p>
+     *         The valid values are 1-2147483647.
      */
 
     public Integer getAsn() {
@@ -198,9 +225,14 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
      * <p>
      * The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
      * </p>
+     * <p>
+     * The valid values are 1-2147483647.
+     * </p>
      * 
      * @param asn
-     *        The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.
+     *        The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.</p>
+     *        <p>
+     *        The valid values are 1-2147483647.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -254,11 +286,13 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The authentication key for BGP configuration.
+     * The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun
+     * lenth of 80 characters.
      * </p>
      * 
      * @param authKey
-     *        The authentication key for BGP configuration.
+     *        The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a
+     *        maximun lenth of 80 characters.
      */
 
     public void setAuthKey(String authKey) {
@@ -267,10 +301,12 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The authentication key for BGP configuration.
+     * The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun
+     * lenth of 80 characters.
      * </p>
      * 
-     * @return The authentication key for BGP configuration.
+     * @return The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a
+     *         maximun lenth of 80 characters.
      */
 
     public String getAuthKey() {
@@ -279,11 +315,13 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * The authentication key for BGP configuration.
+     * The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun
+     * lenth of 80 characters.
      * </p>
      * 
      * @param authKey
-     *        The authentication key for BGP configuration.
+     *        The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a
+     *        maximun lenth of 80 characters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -473,10 +511,10 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Any tags assigned to the transit virtual interface.
+     * The tags associated with the transitive virtual interface.
      * </p>
      * 
-     * @return Any tags assigned to the transit virtual interface.
+     * @return The tags associated with the transitive virtual interface.
      */
 
     public java.util.List<Tag> getTags() {
@@ -488,11 +526,11 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Any tags assigned to the transit virtual interface.
+     * The tags associated with the transitive virtual interface.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the transit virtual interface.
+     *        The tags associated with the transitive virtual interface.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -506,7 +544,7 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Any tags assigned to the transit virtual interface.
+     * The tags associated with the transitive virtual interface.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -515,7 +553,7 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the transit virtual interface.
+     *        The tags associated with the transitive virtual interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -531,17 +569,69 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Any tags assigned to the transit virtual interface.
+     * The tags associated with the transitive virtual interface.
      * </p>
      * 
      * @param tags
-     *        Any tags assigned to the transit virtual interface.
+     *        The tags associated with the transitive virtual interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public NewTransitVirtualInterface withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
         return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable or disable SiteLink.
+     * </p>
+     * 
+     * @param enableSiteLink
+     *        Indicates whether to enable or disable SiteLink.
+     */
+
+    public void setEnableSiteLink(Boolean enableSiteLink) {
+        this.enableSiteLink = enableSiteLink;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable or disable SiteLink.
+     * </p>
+     * 
+     * @return Indicates whether to enable or disable SiteLink.
+     */
+
+    public Boolean getEnableSiteLink() {
+        return this.enableSiteLink;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable or disable SiteLink.
+     * </p>
+     * 
+     * @param enableSiteLink
+     *        Indicates whether to enable or disable SiteLink.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NewTransitVirtualInterface withEnableSiteLink(Boolean enableSiteLink) {
+        setEnableSiteLink(enableSiteLink);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable or disable SiteLink.
+     * </p>
+     * 
+     * @return Indicates whether to enable or disable SiteLink.
+     */
+
+    public Boolean isEnableSiteLink() {
+        return this.enableSiteLink;
     }
 
     /**
@@ -575,7 +665,9 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
         if (getDirectConnectGatewayId() != null)
             sb.append("DirectConnectGatewayId: ").append(getDirectConnectGatewayId()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getEnableSiteLink() != null)
+            sb.append("EnableSiteLink: ").append(getEnableSiteLink());
         sb.append("}");
         return sb.toString();
     }
@@ -630,6 +722,10 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getEnableSiteLink() == null ^ this.getEnableSiteLink() == null)
+            return false;
+        if (other.getEnableSiteLink() != null && other.getEnableSiteLink().equals(this.getEnableSiteLink()) == false)
+            return false;
         return true;
     }
 
@@ -648,6 +744,7 @@ public class NewTransitVirtualInterface implements Serializable, Cloneable, Stru
         hashCode = prime * hashCode + ((getAddressFamily() == null) ? 0 : getAddressFamily().hashCode());
         hashCode = prime * hashCode + ((getDirectConnectGatewayId() == null) ? 0 : getDirectConnectGatewayId().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getEnableSiteLink() == null) ? 0 : getEnableSiteLink().hashCode());
         return hashCode;
     }
 

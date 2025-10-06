@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,11 +28,16 @@ public class CreateServiceResult extends com.amazonaws.AmazonWebServiceResult<co
      * The full description of your service following the create call.
      * </p>
      * <p>
+     * A service will return either a <code>capacityProviderStrategy</code> or <code>launchType</code> parameter, but
+     * not both, depending where one was specified when it was created.
+     * </p>
+     * <p>
      * If a service is using the <code>ECS</code> deployment controller, the <code>deploymentController</code> and
      * <code>taskSets</code> parameters will not be returned.
      * </p>
      * <p>
-     * If the service is using the <code>CODE_DEPLOY</code> deployment controller, the <code>deploymentController</code>, <code>taskSets</code> and <code>deployments</code> parameters will be returned, however the
+     * if the service uses the <code>CODE_DEPLOY</code> deployment controller, the <code>deploymentController</code>,
+     * <code>taskSets</code> and <code>deployments</code> parameters will be returned, however the
      * <code>deployments</code> parameter will be an empty list.
      * </p>
      */
@@ -43,22 +48,31 @@ public class CreateServiceResult extends com.amazonaws.AmazonWebServiceResult<co
      * The full description of your service following the create call.
      * </p>
      * <p>
+     * A service will return either a <code>capacityProviderStrategy</code> or <code>launchType</code> parameter, but
+     * not both, depending where one was specified when it was created.
+     * </p>
+     * <p>
      * If a service is using the <code>ECS</code> deployment controller, the <code>deploymentController</code> and
      * <code>taskSets</code> parameters will not be returned.
      * </p>
      * <p>
-     * If the service is using the <code>CODE_DEPLOY</code> deployment controller, the <code>deploymentController</code>, <code>taskSets</code> and <code>deployments</code> parameters will be returned, however the
+     * if the service uses the <code>CODE_DEPLOY</code> deployment controller, the <code>deploymentController</code>,
+     * <code>taskSets</code> and <code>deployments</code> parameters will be returned, however the
      * <code>deployments</code> parameter will be an empty list.
      * </p>
      * 
      * @param service
      *        The full description of your service following the create call.</p>
      *        <p>
+     *        A service will return either a <code>capacityProviderStrategy</code> or <code>launchType</code> parameter,
+     *        but not both, depending where one was specified when it was created.
+     *        </p>
+     *        <p>
      *        If a service is using the <code>ECS</code> deployment controller, the <code>deploymentController</code>
      *        and <code>taskSets</code> parameters will not be returned.
      *        </p>
      *        <p>
-     *        If the service is using the <code>CODE_DEPLOY</code> deployment controller, the
+     *        if the service uses the <code>CODE_DEPLOY</code> deployment controller, the
      *        <code>deploymentController</code>, <code>taskSets</code> and <code>deployments</code> parameters will be
      *        returned, however the <code>deployments</code> parameter will be an empty list.
      */
@@ -72,21 +86,30 @@ public class CreateServiceResult extends com.amazonaws.AmazonWebServiceResult<co
      * The full description of your service following the create call.
      * </p>
      * <p>
+     * A service will return either a <code>capacityProviderStrategy</code> or <code>launchType</code> parameter, but
+     * not both, depending where one was specified when it was created.
+     * </p>
+     * <p>
      * If a service is using the <code>ECS</code> deployment controller, the <code>deploymentController</code> and
      * <code>taskSets</code> parameters will not be returned.
      * </p>
      * <p>
-     * If the service is using the <code>CODE_DEPLOY</code> deployment controller, the <code>deploymentController</code>, <code>taskSets</code> and <code>deployments</code> parameters will be returned, however the
+     * if the service uses the <code>CODE_DEPLOY</code> deployment controller, the <code>deploymentController</code>,
+     * <code>taskSets</code> and <code>deployments</code> parameters will be returned, however the
      * <code>deployments</code> parameter will be an empty list.
      * </p>
      * 
      * @return The full description of your service following the create call.</p>
      *         <p>
+     *         A service will return either a <code>capacityProviderStrategy</code> or <code>launchType</code>
+     *         parameter, but not both, depending where one was specified when it was created.
+     *         </p>
+     *         <p>
      *         If a service is using the <code>ECS</code> deployment controller, the <code>deploymentController</code>
      *         and <code>taskSets</code> parameters will not be returned.
      *         </p>
      *         <p>
-     *         If the service is using the <code>CODE_DEPLOY</code> deployment controller, the
+     *         if the service uses the <code>CODE_DEPLOY</code> deployment controller, the
      *         <code>deploymentController</code>, <code>taskSets</code> and <code>deployments</code> parameters will be
      *         returned, however the <code>deployments</code> parameter will be an empty list.
      */
@@ -100,22 +123,31 @@ public class CreateServiceResult extends com.amazonaws.AmazonWebServiceResult<co
      * The full description of your service following the create call.
      * </p>
      * <p>
+     * A service will return either a <code>capacityProviderStrategy</code> or <code>launchType</code> parameter, but
+     * not both, depending where one was specified when it was created.
+     * </p>
+     * <p>
      * If a service is using the <code>ECS</code> deployment controller, the <code>deploymentController</code> and
      * <code>taskSets</code> parameters will not be returned.
      * </p>
      * <p>
-     * If the service is using the <code>CODE_DEPLOY</code> deployment controller, the <code>deploymentController</code>, <code>taskSets</code> and <code>deployments</code> parameters will be returned, however the
+     * if the service uses the <code>CODE_DEPLOY</code> deployment controller, the <code>deploymentController</code>,
+     * <code>taskSets</code> and <code>deployments</code> parameters will be returned, however the
      * <code>deployments</code> parameter will be an empty list.
      * </p>
      * 
      * @param service
      *        The full description of your service following the create call.</p>
      *        <p>
+     *        A service will return either a <code>capacityProviderStrategy</code> or <code>launchType</code> parameter,
+     *        but not both, depending where one was specified when it was created.
+     *        </p>
+     *        <p>
      *        If a service is using the <code>ECS</code> deployment controller, the <code>deploymentController</code>
      *        and <code>taskSets</code> parameters will not be returned.
      *        </p>
      *        <p>
-     *        If the service is using the <code>CODE_DEPLOY</code> deployment controller, the
+     *        if the service uses the <code>CODE_DEPLOY</code> deployment controller, the
      *        <code>deploymentController</code>, <code>taskSets</code> and <code>deployments</code> parameters will be
      *        returned, however the <code>deployments</code> parameter will be an empty list.
      * @return Returns a reference to this object so that method calls can be chained together.

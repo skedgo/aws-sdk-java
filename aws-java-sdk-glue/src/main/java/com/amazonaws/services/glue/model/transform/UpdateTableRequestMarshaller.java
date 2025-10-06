@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,14 @@ public class UpdateTableRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TableInput").build();
     private static final MarshallingInfo<Boolean> SKIPARCHIVE_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SkipArchive").build();
+    private static final MarshallingInfo<String> TRANSACTIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TransactionId").build();
+    private static final MarshallingInfo<String> VERSIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("VersionId").build();
+    private static final MarshallingInfo<String> VIEWUPDATEACTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ViewUpdateAction").build();
+    private static final MarshallingInfo<Boolean> FORCE_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Force").build();
 
     private static final UpdateTableRequestMarshaller instance = new UpdateTableRequestMarshaller();
 
@@ -56,6 +64,10 @@ public class UpdateTableRequestMarshaller {
             protocolMarshaller.marshall(updateTableRequest.getDatabaseName(), DATABASENAME_BINDING);
             protocolMarshaller.marshall(updateTableRequest.getTableInput(), TABLEINPUT_BINDING);
             protocolMarshaller.marshall(updateTableRequest.getSkipArchive(), SKIPARCHIVE_BINDING);
+            protocolMarshaller.marshall(updateTableRequest.getTransactionId(), TRANSACTIONID_BINDING);
+            protocolMarshaller.marshall(updateTableRequest.getVersionId(), VERSIONID_BINDING);
+            protocolMarshaller.marshall(updateTableRequest.getViewUpdateAction(), VIEWUPDATEACTION_BINDING);
+            protocolMarshaller.marshall(updateTableRequest.getForce(), FORCE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

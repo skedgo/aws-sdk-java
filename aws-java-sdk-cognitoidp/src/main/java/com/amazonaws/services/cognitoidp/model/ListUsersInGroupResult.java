@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,24 +25,23 @@ public class ListUsersInGroupResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * The users returned in the request to list users.
+     * A list of users in the group, and their attributes.
      * </p>
      */
     private java.util.List<UserType> users;
     /**
      * <p>
-     * An identifier that was returned from the previous call to this operation, which can be used to return the next
-     * set of items in the list.
+     * An identifier that you can use in a later request to return the next set of items in the list.
      * </p>
      */
     private String nextToken;
 
     /**
      * <p>
-     * The users returned in the request to list users.
+     * A list of users in the group, and their attributes.
      * </p>
      * 
-     * @return The users returned in the request to list users.
+     * @return A list of users in the group, and their attributes.
      */
 
     public java.util.List<UserType> getUsers() {
@@ -51,11 +50,11 @@ public class ListUsersInGroupResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * The users returned in the request to list users.
+     * A list of users in the group, and their attributes.
      * </p>
      * 
      * @param users
-     *        The users returned in the request to list users.
+     *        A list of users in the group, and their attributes.
      */
 
     public void setUsers(java.util.Collection<UserType> users) {
@@ -69,7 +68,7 @@ public class ListUsersInGroupResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * The users returned in the request to list users.
+     * A list of users in the group, and their attributes.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -78,7 +77,7 @@ public class ListUsersInGroupResult extends com.amazonaws.AmazonWebServiceResult
      * </p>
      * 
      * @param users
-     *        The users returned in the request to list users.
+     *        A list of users in the group, and their attributes.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -94,11 +93,11 @@ public class ListUsersInGroupResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * The users returned in the request to list users.
+     * A list of users in the group, and their attributes.
      * </p>
      * 
      * @param users
-     *        The users returned in the request to list users.
+     *        A list of users in the group, and their attributes.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -109,13 +108,11 @@ public class ListUsersInGroupResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * An identifier that was returned from the previous call to this operation, which can be used to return the next
-     * set of items in the list.
+     * An identifier that you can use in a later request to return the next set of items in the list.
      * </p>
      * 
      * @param nextToken
-     *        An identifier that was returned from the previous call to this operation, which can be used to return the
-     *        next set of items in the list.
+     *        An identifier that you can use in a later request to return the next set of items in the list.
      */
 
     public void setNextToken(String nextToken) {
@@ -124,12 +121,10 @@ public class ListUsersInGroupResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * An identifier that was returned from the previous call to this operation, which can be used to return the next
-     * set of items in the list.
+     * An identifier that you can use in a later request to return the next set of items in the list.
      * </p>
      * 
-     * @return An identifier that was returned from the previous call to this operation, which can be used to return the
-     *         next set of items in the list.
+     * @return An identifier that you can use in a later request to return the next set of items in the list.
      */
 
     public String getNextToken() {
@@ -138,13 +133,11 @@ public class ListUsersInGroupResult extends com.amazonaws.AmazonWebServiceResult
 
     /**
      * <p>
-     * An identifier that was returned from the previous call to this operation, which can be used to return the next
-     * set of items in the list.
+     * An identifier that you can use in a later request to return the next set of items in the list.
      * </p>
      * 
      * @param nextToken
-     *        An identifier that was returned from the previous call to this operation, which can be used to return the
-     *        next set of items in the list.
+     *        An identifier that you can use in a later request to return the next set of items in the list.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,10 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains information about the Amazon Web Services resource associated with the activity that prompted GuardDuty to
+ * generate a finding.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/Resource" target="_top">AWS API
  *      Documentation</a>
@@ -27,11 +31,17 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The IAM access key details (IAM user information) of a user that engaged in the activity that prompted GuardDuty
-     * to generate a finding.
+     * The IAM access key details (user information) of a user that engaged in the activity that prompted GuardDuty to
+     * generate a finding.
      * </p>
      */
     private AccessKeyDetails accessKeyDetails;
+    /**
+     * <p>
+     * Contains information on the S3 bucket.
+     * </p>
+     */
+    private java.util.List<S3BucketDetail> s3BucketDetails;
     /**
      * <p>
      * The information about the EC2 instance associated with the activity that prompted GuardDuty to generate a
@@ -41,19 +51,63 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
     private InstanceDetails instanceDetails;
     /**
      * <p>
-     * The type of the AWS resource.
+     * Details about the EKS cluster involved in a Kubernetes finding.
+     * </p>
+     */
+    private EksClusterDetails eksClusterDetails;
+    /**
+     * <p>
+     * Details about the Kubernetes user and workload involved in a Kubernetes finding.
+     * </p>
+     */
+    private KubernetesDetails kubernetesDetails;
+    /**
+     * <p>
+     * The type of Amazon Web Services resource.
      * </p>
      */
     private String resourceType;
+    /**
+     * <p>
+     * Contains list of scanned and skipped EBS volumes with details.
+     * </p>
+     */
+    private EbsVolumeDetails ebsVolumeDetails;
+    /**
+     * <p>
+     * Contains information about the details of the ECS Cluster.
+     * </p>
+     */
+    private EcsClusterDetails ecsClusterDetails;
+
+    private Container containerDetails;
+    /**
+     * <p>
+     * Contains information about the database instance to which an anomalous login attempt was made.
+     * </p>
+     */
+    private RdsDbInstanceDetails rdsDbInstanceDetails;
+    /**
+     * <p>
+     * Contains information about the user details through which anomalous login attempt was made.
+     * </p>
+     */
+    private RdsDbUserDetails rdsDbUserDetails;
+    /**
+     * <p>
+     * Contains information about the Lambda function that was involved in a finding.
+     * </p>
+     */
+    private LambdaDetails lambdaDetails;
 
     /**
      * <p>
-     * The IAM access key details (IAM user information) of a user that engaged in the activity that prompted GuardDuty
-     * to generate a finding.
+     * The IAM access key details (user information) of a user that engaged in the activity that prompted GuardDuty to
+     * generate a finding.
      * </p>
      * 
      * @param accessKeyDetails
-     *        The IAM access key details (IAM user information) of a user that engaged in the activity that prompted
+     *        The IAM access key details (user information) of a user that engaged in the activity that prompted
      *        GuardDuty to generate a finding.
      */
 
@@ -63,11 +117,11 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The IAM access key details (IAM user information) of a user that engaged in the activity that prompted GuardDuty
-     * to generate a finding.
+     * The IAM access key details (user information) of a user that engaged in the activity that prompted GuardDuty to
+     * generate a finding.
      * </p>
      * 
-     * @return The IAM access key details (IAM user information) of a user that engaged in the activity that prompted
+     * @return The IAM access key details (user information) of a user that engaged in the activity that prompted
      *         GuardDuty to generate a finding.
      */
 
@@ -77,18 +131,88 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The IAM access key details (IAM user information) of a user that engaged in the activity that prompted GuardDuty
-     * to generate a finding.
+     * The IAM access key details (user information) of a user that engaged in the activity that prompted GuardDuty to
+     * generate a finding.
      * </p>
      * 
      * @param accessKeyDetails
-     *        The IAM access key details (IAM user information) of a user that engaged in the activity that prompted
+     *        The IAM access key details (user information) of a user that engaged in the activity that prompted
      *        GuardDuty to generate a finding.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Resource withAccessKeyDetails(AccessKeyDetails accessKeyDetails) {
         setAccessKeyDetails(accessKeyDetails);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains information on the S3 bucket.
+     * </p>
+     * 
+     * @return Contains information on the S3 bucket.
+     */
+
+    public java.util.List<S3BucketDetail> getS3BucketDetails() {
+        return s3BucketDetails;
+    }
+
+    /**
+     * <p>
+     * Contains information on the S3 bucket.
+     * </p>
+     * 
+     * @param s3BucketDetails
+     *        Contains information on the S3 bucket.
+     */
+
+    public void setS3BucketDetails(java.util.Collection<S3BucketDetail> s3BucketDetails) {
+        if (s3BucketDetails == null) {
+            this.s3BucketDetails = null;
+            return;
+        }
+
+        this.s3BucketDetails = new java.util.ArrayList<S3BucketDetail>(s3BucketDetails);
+    }
+
+    /**
+     * <p>
+     * Contains information on the S3 bucket.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setS3BucketDetails(java.util.Collection)} or {@link #withS3BucketDetails(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param s3BucketDetails
+     *        Contains information on the S3 bucket.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Resource withS3BucketDetails(S3BucketDetail... s3BucketDetails) {
+        if (this.s3BucketDetails == null) {
+            setS3BucketDetails(new java.util.ArrayList<S3BucketDetail>(s3BucketDetails.length));
+        }
+        for (S3BucketDetail ele : s3BucketDetails) {
+            this.s3BucketDetails.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains information on the S3 bucket.
+     * </p>
+     * 
+     * @param s3BucketDetails
+     *        Contains information on the S3 bucket.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Resource withS3BucketDetails(java.util.Collection<S3BucketDetail> s3BucketDetails) {
+        setS3BucketDetails(s3BucketDetails);
         return this;
     }
 
@@ -140,11 +264,91 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of the AWS resource.
+     * Details about the EKS cluster involved in a Kubernetes finding.
+     * </p>
+     * 
+     * @param eksClusterDetails
+     *        Details about the EKS cluster involved in a Kubernetes finding.
+     */
+
+    public void setEksClusterDetails(EksClusterDetails eksClusterDetails) {
+        this.eksClusterDetails = eksClusterDetails;
+    }
+
+    /**
+     * <p>
+     * Details about the EKS cluster involved in a Kubernetes finding.
+     * </p>
+     * 
+     * @return Details about the EKS cluster involved in a Kubernetes finding.
+     */
+
+    public EksClusterDetails getEksClusterDetails() {
+        return this.eksClusterDetails;
+    }
+
+    /**
+     * <p>
+     * Details about the EKS cluster involved in a Kubernetes finding.
+     * </p>
+     * 
+     * @param eksClusterDetails
+     *        Details about the EKS cluster involved in a Kubernetes finding.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Resource withEksClusterDetails(EksClusterDetails eksClusterDetails) {
+        setEksClusterDetails(eksClusterDetails);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Details about the Kubernetes user and workload involved in a Kubernetes finding.
+     * </p>
+     * 
+     * @param kubernetesDetails
+     *        Details about the Kubernetes user and workload involved in a Kubernetes finding.
+     */
+
+    public void setKubernetesDetails(KubernetesDetails kubernetesDetails) {
+        this.kubernetesDetails = kubernetesDetails;
+    }
+
+    /**
+     * <p>
+     * Details about the Kubernetes user and workload involved in a Kubernetes finding.
+     * </p>
+     * 
+     * @return Details about the Kubernetes user and workload involved in a Kubernetes finding.
+     */
+
+    public KubernetesDetails getKubernetesDetails() {
+        return this.kubernetesDetails;
+    }
+
+    /**
+     * <p>
+     * Details about the Kubernetes user and workload involved in a Kubernetes finding.
+     * </p>
+     * 
+     * @param kubernetesDetails
+     *        Details about the Kubernetes user and workload involved in a Kubernetes finding.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Resource withKubernetesDetails(KubernetesDetails kubernetesDetails) {
+        setKubernetesDetails(kubernetesDetails);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of Amazon Web Services resource.
      * </p>
      * 
      * @param resourceType
-     *        The type of the AWS resource.
+     *        The type of Amazon Web Services resource.
      */
 
     public void setResourceType(String resourceType) {
@@ -153,10 +357,10 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of the AWS resource.
+     * The type of Amazon Web Services resource.
      * </p>
      * 
-     * @return The type of the AWS resource.
+     * @return The type of Amazon Web Services resource.
      */
 
     public String getResourceType() {
@@ -165,16 +369,242 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of the AWS resource.
+     * The type of Amazon Web Services resource.
      * </p>
      * 
      * @param resourceType
-     *        The type of the AWS resource.
+     *        The type of Amazon Web Services resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Resource withResourceType(String resourceType) {
         setResourceType(resourceType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains list of scanned and skipped EBS volumes with details.
+     * </p>
+     * 
+     * @param ebsVolumeDetails
+     *        Contains list of scanned and skipped EBS volumes with details.
+     */
+
+    public void setEbsVolumeDetails(EbsVolumeDetails ebsVolumeDetails) {
+        this.ebsVolumeDetails = ebsVolumeDetails;
+    }
+
+    /**
+     * <p>
+     * Contains list of scanned and skipped EBS volumes with details.
+     * </p>
+     * 
+     * @return Contains list of scanned and skipped EBS volumes with details.
+     */
+
+    public EbsVolumeDetails getEbsVolumeDetails() {
+        return this.ebsVolumeDetails;
+    }
+
+    /**
+     * <p>
+     * Contains list of scanned and skipped EBS volumes with details.
+     * </p>
+     * 
+     * @param ebsVolumeDetails
+     *        Contains list of scanned and skipped EBS volumes with details.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Resource withEbsVolumeDetails(EbsVolumeDetails ebsVolumeDetails) {
+        setEbsVolumeDetails(ebsVolumeDetails);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains information about the details of the ECS Cluster.
+     * </p>
+     * 
+     * @param ecsClusterDetails
+     *        Contains information about the details of the ECS Cluster.
+     */
+
+    public void setEcsClusterDetails(EcsClusterDetails ecsClusterDetails) {
+        this.ecsClusterDetails = ecsClusterDetails;
+    }
+
+    /**
+     * <p>
+     * Contains information about the details of the ECS Cluster.
+     * </p>
+     * 
+     * @return Contains information about the details of the ECS Cluster.
+     */
+
+    public EcsClusterDetails getEcsClusterDetails() {
+        return this.ecsClusterDetails;
+    }
+
+    /**
+     * <p>
+     * Contains information about the details of the ECS Cluster.
+     * </p>
+     * 
+     * @param ecsClusterDetails
+     *        Contains information about the details of the ECS Cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Resource withEcsClusterDetails(EcsClusterDetails ecsClusterDetails) {
+        setEcsClusterDetails(ecsClusterDetails);
+        return this;
+    }
+
+    /**
+     * @param containerDetails
+     */
+
+    public void setContainerDetails(Container containerDetails) {
+        this.containerDetails = containerDetails;
+    }
+
+    /**
+     * @return
+     */
+
+    public Container getContainerDetails() {
+        return this.containerDetails;
+    }
+
+    /**
+     * @param containerDetails
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Resource withContainerDetails(Container containerDetails) {
+        setContainerDetails(containerDetails);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains information about the database instance to which an anomalous login attempt was made.
+     * </p>
+     * 
+     * @param rdsDbInstanceDetails
+     *        Contains information about the database instance to which an anomalous login attempt was made.
+     */
+
+    public void setRdsDbInstanceDetails(RdsDbInstanceDetails rdsDbInstanceDetails) {
+        this.rdsDbInstanceDetails = rdsDbInstanceDetails;
+    }
+
+    /**
+     * <p>
+     * Contains information about the database instance to which an anomalous login attempt was made.
+     * </p>
+     * 
+     * @return Contains information about the database instance to which an anomalous login attempt was made.
+     */
+
+    public RdsDbInstanceDetails getRdsDbInstanceDetails() {
+        return this.rdsDbInstanceDetails;
+    }
+
+    /**
+     * <p>
+     * Contains information about the database instance to which an anomalous login attempt was made.
+     * </p>
+     * 
+     * @param rdsDbInstanceDetails
+     *        Contains information about the database instance to which an anomalous login attempt was made.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Resource withRdsDbInstanceDetails(RdsDbInstanceDetails rdsDbInstanceDetails) {
+        setRdsDbInstanceDetails(rdsDbInstanceDetails);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains information about the user details through which anomalous login attempt was made.
+     * </p>
+     * 
+     * @param rdsDbUserDetails
+     *        Contains information about the user details through which anomalous login attempt was made.
+     */
+
+    public void setRdsDbUserDetails(RdsDbUserDetails rdsDbUserDetails) {
+        this.rdsDbUserDetails = rdsDbUserDetails;
+    }
+
+    /**
+     * <p>
+     * Contains information about the user details through which anomalous login attempt was made.
+     * </p>
+     * 
+     * @return Contains information about the user details through which anomalous login attempt was made.
+     */
+
+    public RdsDbUserDetails getRdsDbUserDetails() {
+        return this.rdsDbUserDetails;
+    }
+
+    /**
+     * <p>
+     * Contains information about the user details through which anomalous login attempt was made.
+     * </p>
+     * 
+     * @param rdsDbUserDetails
+     *        Contains information about the user details through which anomalous login attempt was made.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Resource withRdsDbUserDetails(RdsDbUserDetails rdsDbUserDetails) {
+        setRdsDbUserDetails(rdsDbUserDetails);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains information about the Lambda function that was involved in a finding.
+     * </p>
+     * 
+     * @param lambdaDetails
+     *        Contains information about the Lambda function that was involved in a finding.
+     */
+
+    public void setLambdaDetails(LambdaDetails lambdaDetails) {
+        this.lambdaDetails = lambdaDetails;
+    }
+
+    /**
+     * <p>
+     * Contains information about the Lambda function that was involved in a finding.
+     * </p>
+     * 
+     * @return Contains information about the Lambda function that was involved in a finding.
+     */
+
+    public LambdaDetails getLambdaDetails() {
+        return this.lambdaDetails;
+    }
+
+    /**
+     * <p>
+     * Contains information about the Lambda function that was involved in a finding.
+     * </p>
+     * 
+     * @param lambdaDetails
+     *        Contains information about the Lambda function that was involved in a finding.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Resource withLambdaDetails(LambdaDetails lambdaDetails) {
+        setLambdaDetails(lambdaDetails);
         return this;
     }
 
@@ -192,10 +622,28 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
         sb.append("{");
         if (getAccessKeyDetails() != null)
             sb.append("AccessKeyDetails: ").append(getAccessKeyDetails()).append(",");
+        if (getS3BucketDetails() != null)
+            sb.append("S3BucketDetails: ").append(getS3BucketDetails()).append(",");
         if (getInstanceDetails() != null)
             sb.append("InstanceDetails: ").append(getInstanceDetails()).append(",");
+        if (getEksClusterDetails() != null)
+            sb.append("EksClusterDetails: ").append(getEksClusterDetails()).append(",");
+        if (getKubernetesDetails() != null)
+            sb.append("KubernetesDetails: ").append(getKubernetesDetails()).append(",");
         if (getResourceType() != null)
-            sb.append("ResourceType: ").append(getResourceType());
+            sb.append("ResourceType: ").append(getResourceType()).append(",");
+        if (getEbsVolumeDetails() != null)
+            sb.append("EbsVolumeDetails: ").append(getEbsVolumeDetails()).append(",");
+        if (getEcsClusterDetails() != null)
+            sb.append("EcsClusterDetails: ").append(getEcsClusterDetails()).append(",");
+        if (getContainerDetails() != null)
+            sb.append("ContainerDetails: ").append(getContainerDetails()).append(",");
+        if (getRdsDbInstanceDetails() != null)
+            sb.append("RdsDbInstanceDetails: ").append(getRdsDbInstanceDetails()).append(",");
+        if (getRdsDbUserDetails() != null)
+            sb.append("RdsDbUserDetails: ").append(getRdsDbUserDetails()).append(",");
+        if (getLambdaDetails() != null)
+            sb.append("LambdaDetails: ").append(getLambdaDetails());
         sb.append("}");
         return sb.toString();
     }
@@ -214,13 +662,49 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getAccessKeyDetails() != null && other.getAccessKeyDetails().equals(this.getAccessKeyDetails()) == false)
             return false;
+        if (other.getS3BucketDetails() == null ^ this.getS3BucketDetails() == null)
+            return false;
+        if (other.getS3BucketDetails() != null && other.getS3BucketDetails().equals(this.getS3BucketDetails()) == false)
+            return false;
         if (other.getInstanceDetails() == null ^ this.getInstanceDetails() == null)
             return false;
         if (other.getInstanceDetails() != null && other.getInstanceDetails().equals(this.getInstanceDetails()) == false)
             return false;
+        if (other.getEksClusterDetails() == null ^ this.getEksClusterDetails() == null)
+            return false;
+        if (other.getEksClusterDetails() != null && other.getEksClusterDetails().equals(this.getEksClusterDetails()) == false)
+            return false;
+        if (other.getKubernetesDetails() == null ^ this.getKubernetesDetails() == null)
+            return false;
+        if (other.getKubernetesDetails() != null && other.getKubernetesDetails().equals(this.getKubernetesDetails()) == false)
+            return false;
         if (other.getResourceType() == null ^ this.getResourceType() == null)
             return false;
         if (other.getResourceType() != null && other.getResourceType().equals(this.getResourceType()) == false)
+            return false;
+        if (other.getEbsVolumeDetails() == null ^ this.getEbsVolumeDetails() == null)
+            return false;
+        if (other.getEbsVolumeDetails() != null && other.getEbsVolumeDetails().equals(this.getEbsVolumeDetails()) == false)
+            return false;
+        if (other.getEcsClusterDetails() == null ^ this.getEcsClusterDetails() == null)
+            return false;
+        if (other.getEcsClusterDetails() != null && other.getEcsClusterDetails().equals(this.getEcsClusterDetails()) == false)
+            return false;
+        if (other.getContainerDetails() == null ^ this.getContainerDetails() == null)
+            return false;
+        if (other.getContainerDetails() != null && other.getContainerDetails().equals(this.getContainerDetails()) == false)
+            return false;
+        if (other.getRdsDbInstanceDetails() == null ^ this.getRdsDbInstanceDetails() == null)
+            return false;
+        if (other.getRdsDbInstanceDetails() != null && other.getRdsDbInstanceDetails().equals(this.getRdsDbInstanceDetails()) == false)
+            return false;
+        if (other.getRdsDbUserDetails() == null ^ this.getRdsDbUserDetails() == null)
+            return false;
+        if (other.getRdsDbUserDetails() != null && other.getRdsDbUserDetails().equals(this.getRdsDbUserDetails()) == false)
+            return false;
+        if (other.getLambdaDetails() == null ^ this.getLambdaDetails() == null)
+            return false;
+        if (other.getLambdaDetails() != null && other.getLambdaDetails().equals(this.getLambdaDetails()) == false)
             return false;
         return true;
     }
@@ -231,8 +715,17 @@ public class Resource implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getAccessKeyDetails() == null) ? 0 : getAccessKeyDetails().hashCode());
+        hashCode = prime * hashCode + ((getS3BucketDetails() == null) ? 0 : getS3BucketDetails().hashCode());
         hashCode = prime * hashCode + ((getInstanceDetails() == null) ? 0 : getInstanceDetails().hashCode());
+        hashCode = prime * hashCode + ((getEksClusterDetails() == null) ? 0 : getEksClusterDetails().hashCode());
+        hashCode = prime * hashCode + ((getKubernetesDetails() == null) ? 0 : getKubernetesDetails().hashCode());
         hashCode = prime * hashCode + ((getResourceType() == null) ? 0 : getResourceType().hashCode());
+        hashCode = prime * hashCode + ((getEbsVolumeDetails() == null) ? 0 : getEbsVolumeDetails().hashCode());
+        hashCode = prime * hashCode + ((getEcsClusterDetails() == null) ? 0 : getEcsClusterDetails().hashCode());
+        hashCode = prime * hashCode + ((getContainerDetails() == null) ? 0 : getContainerDetails().hashCode());
+        hashCode = prime * hashCode + ((getRdsDbInstanceDetails() == null) ? 0 : getRdsDbInstanceDetails().hashCode());
+        hashCode = prime * hashCode + ((getRdsDbUserDetails() == null) ? 0 : getRdsDbUserDetails().hashCode());
+        hashCode = prime * hashCode + ((getLambdaDetails() == null) ? 0 : getLambdaDetails().hashCode());
         return hashCode;
     }
 

@@ -54,6 +54,8 @@ public class MemberModel extends DocumentationModel {
 
     private boolean deprecated;
 
+    private boolean endpointDiscoveryId;
+
     private boolean sensitive;
 
     private ListModel listModel;
@@ -71,6 +73,8 @@ public class MemberModel extends DocumentationModel {
     private boolean isJsonValue;
 
     private boolean shouldEmitLegacyEnumSetter;
+
+    private boolean shouldFullyQualify = false;
 
     public String getName() {
         return name;
@@ -223,6 +227,14 @@ public class MemberModel extends DocumentationModel {
 
     public void setSensitive(boolean sensitive) {
         this.sensitive = sensitive;
+    }
+
+    public boolean isEndpointDiscoveryId() {
+        return endpointDiscoveryId;
+    }
+
+    public void setEndpointDiscoveryId(boolean endpointDiscoveryId) {
+        this.endpointDiscoveryId = endpointDiscoveryId;
     }
 
     public ListModel getListModel() {
@@ -563,6 +575,14 @@ public class MemberModel extends DocumentationModel {
 
     public void setShouldEmitLegacyEnumSetter(boolean shouldEmitLegacyEnumSetter) {
         this.shouldEmitLegacyEnumSetter = shouldEmitLegacyEnumSetter;
+    }
+
+    public void setShouldFullyQualify(boolean shouldFullyQualify) {
+        this.shouldFullyQualify = shouldFullyQualify;
+    }
+
+    public boolean getShouldFullyQualify() {
+        return shouldFullyQualify;
     }
 
     @Override

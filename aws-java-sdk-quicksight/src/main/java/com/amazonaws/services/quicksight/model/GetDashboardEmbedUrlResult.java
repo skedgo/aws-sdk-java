@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,6 +16,9 @@ import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
+ * <p>
+ * Output returned from the <code>GetDashboardEmbedUrl</code> operation.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/quicksight-2018-04-01/GetDashboardEmbedUrl" target="_top">AWS
  *      API Documentation</a>
@@ -25,36 +28,36 @@ public class GetDashboardEmbedUrlResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * URL that you can put into your server-side webpage to embed your dashboard. This URL is valid for 5 minutes, and
-     * the resulting session is valid for 10 hours. The API provides the URL with an auth_code that enables a
-     * single-signon session.
+     * A single-use URL that you can put into your server-side webpage to embed your dashboard. This URL is valid for 5
+     * minutes. The API operation provides the URL with an <code>auth_code</code> value that enables one (and only one)
+     * sign-on to a user session that is valid for 10 hours.
      * </p>
      */
     private String embedUrl;
     /**
      * <p>
-     * The http status of the request.
+     * The HTTP status of the request.
      * </p>
      */
     private Integer status;
     /**
      * <p>
-     * The AWS request ID for this operation.
+     * The Amazon Web Services request ID for this operation.
      * </p>
      */
     private String requestId;
 
     /**
      * <p>
-     * URL that you can put into your server-side webpage to embed your dashboard. This URL is valid for 5 minutes, and
-     * the resulting session is valid for 10 hours. The API provides the URL with an auth_code that enables a
-     * single-signon session.
+     * A single-use URL that you can put into your server-side webpage to embed your dashboard. This URL is valid for 5
+     * minutes. The API operation provides the URL with an <code>auth_code</code> value that enables one (and only one)
+     * sign-on to a user session that is valid for 10 hours.
      * </p>
      * 
      * @param embedUrl
-     *        URL that you can put into your server-side webpage to embed your dashboard. This URL is valid for 5
-     *        minutes, and the resulting session is valid for 10 hours. The API provides the URL with an auth_code that
-     *        enables a single-signon session.
+     *        A single-use URL that you can put into your server-side webpage to embed your dashboard. This URL is valid
+     *        for 5 minutes. The API operation provides the URL with an <code>auth_code</code> value that enables one
+     *        (and only one) sign-on to a user session that is valid for 10 hours.
      */
 
     public void setEmbedUrl(String embedUrl) {
@@ -63,14 +66,14 @@ public class GetDashboardEmbedUrlResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * URL that you can put into your server-side webpage to embed your dashboard. This URL is valid for 5 minutes, and
-     * the resulting session is valid for 10 hours. The API provides the URL with an auth_code that enables a
-     * single-signon session.
+     * A single-use URL that you can put into your server-side webpage to embed your dashboard. This URL is valid for 5
+     * minutes. The API operation provides the URL with an <code>auth_code</code> value that enables one (and only one)
+     * sign-on to a user session that is valid for 10 hours.
      * </p>
      * 
-     * @return URL that you can put into your server-side webpage to embed your dashboard. This URL is valid for 5
-     *         minutes, and the resulting session is valid for 10 hours. The API provides the URL with an auth_code that
-     *         enables a single-signon session.
+     * @return A single-use URL that you can put into your server-side webpage to embed your dashboard. This URL is
+     *         valid for 5 minutes. The API operation provides the URL with an <code>auth_code</code> value that enables
+     *         one (and only one) sign-on to a user session that is valid for 10 hours.
      */
 
     public String getEmbedUrl() {
@@ -79,15 +82,15 @@ public class GetDashboardEmbedUrlResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * URL that you can put into your server-side webpage to embed your dashboard. This URL is valid for 5 minutes, and
-     * the resulting session is valid for 10 hours. The API provides the URL with an auth_code that enables a
-     * single-signon session.
+     * A single-use URL that you can put into your server-side webpage to embed your dashboard. This URL is valid for 5
+     * minutes. The API operation provides the URL with an <code>auth_code</code> value that enables one (and only one)
+     * sign-on to a user session that is valid for 10 hours.
      * </p>
      * 
      * @param embedUrl
-     *        URL that you can put into your server-side webpage to embed your dashboard. This URL is valid for 5
-     *        minutes, and the resulting session is valid for 10 hours. The API provides the URL with an auth_code that
-     *        enables a single-signon session.
+     *        A single-use URL that you can put into your server-side webpage to embed your dashboard. This URL is valid
+     *        for 5 minutes. The API operation provides the URL with an <code>auth_code</code> value that enables one
+     *        (and only one) sign-on to a user session that is valid for 10 hours.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -98,11 +101,11 @@ public class GetDashboardEmbedUrlResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The http status of the request.
+     * The HTTP status of the request.
      * </p>
      * 
      * @param status
-     *        The http status of the request.
+     *        The HTTP status of the request.
      */
 
     public void setStatus(Integer status) {
@@ -111,10 +114,10 @@ public class GetDashboardEmbedUrlResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The http status of the request.
+     * The HTTP status of the request.
      * </p>
      * 
-     * @return The http status of the request.
+     * @return The HTTP status of the request.
      */
 
     public Integer getStatus() {
@@ -123,11 +126,11 @@ public class GetDashboardEmbedUrlResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The http status of the request.
+     * The HTTP status of the request.
      * </p>
      * 
      * @param status
-     *        The http status of the request.
+     *        The HTTP status of the request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -138,11 +141,11 @@ public class GetDashboardEmbedUrlResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The AWS request ID for this operation.
+     * The Amazon Web Services request ID for this operation.
      * </p>
      * 
      * @param requestId
-     *        The AWS request ID for this operation.
+     *        The Amazon Web Services request ID for this operation.
      */
 
     public void setRequestId(String requestId) {
@@ -151,10 +154,10 @@ public class GetDashboardEmbedUrlResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The AWS request ID for this operation.
+     * The Amazon Web Services request ID for this operation.
      * </p>
      * 
-     * @return The AWS request ID for this operation.
+     * @return The Amazon Web Services request ID for this operation.
      */
 
     public String getRequestId() {
@@ -163,11 +166,11 @@ public class GetDashboardEmbedUrlResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The AWS request ID for this operation.
+     * The Amazon Web Services request ID for this operation.
      * </p>
      * 
      * @param requestId
-     *        The AWS request ID for this operation.
+     *        The Amazon Web Services request ID for this operation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

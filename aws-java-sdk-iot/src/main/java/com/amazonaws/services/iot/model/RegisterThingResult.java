@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ public class RegisterThingResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * .
+     * The certificate data, in PEM format.
      * </p>
      */
     private String certificatePem;
@@ -33,11 +33,11 @@ public class RegisterThingResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * .
+     * The certificate data, in PEM format.
      * </p>
      * 
      * @param certificatePem
-     *        .
+     *        The certificate data, in PEM format.
      */
 
     public void setCertificatePem(String certificatePem) {
@@ -46,10 +46,10 @@ public class RegisterThingResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * .
+     * The certificate data, in PEM format.
      * </p>
      * 
-     * @return .
+     * @return The certificate data, in PEM format.
      */
 
     public String getCertificatePem() {
@@ -58,11 +58,11 @@ public class RegisterThingResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * .
+     * The certificate data, in PEM format.
      * </p>
      * 
      * @param certificatePem
-     *        .
+     *        The certificate data, in PEM format.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -110,6 +110,13 @@ public class RegisterThingResult extends com.amazonaws.AmazonWebServiceResult<co
         setResourceArns(resourceArns);
         return this;
     }
+
+    /**
+     * Add a single ResourceArns entry
+     *
+     * @see RegisterThingResult#withResourceArns
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public RegisterThingResult addResourceArnsEntry(String key, String value) {
         if (null == this.resourceArns) {

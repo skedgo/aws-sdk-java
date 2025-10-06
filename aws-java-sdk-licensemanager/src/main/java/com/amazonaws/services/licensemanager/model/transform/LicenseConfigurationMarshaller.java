@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,8 @@ public class LicenseConfigurationMarshaller {
             .marshallLocationName("LicenseCount").build();
     private static final MarshallingInfo<Boolean> LICENSECOUNTHARDLIMIT_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LicenseCountHardLimit").build();
+    private static final MarshallingInfo<Boolean> DISASSOCIATEWHENNOTFOUND_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DisassociateWhenNotFound").build();
     private static final MarshallingInfo<Long> CONSUMEDLICENSES_BINDING = MarshallingInfo.builder(MarshallingType.LONG)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ConsumedLicenses").build();
     private static final MarshallingInfo<String> STATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -54,6 +56,10 @@ public class LicenseConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ConsumedLicenseSummaryList").build();
     private static final MarshallingInfo<List> MANAGEDRESOURCESUMMARYLIST_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ManagedResourceSummaryList").build();
+    private static final MarshallingInfo<List> PRODUCTINFORMATIONLIST_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ProductInformationList").build();
+    private static final MarshallingInfo<StructuredPojo> AUTOMATEDDISCOVERYINFORMATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AutomatedDiscoveryInformation").build();
 
     private static final LicenseConfigurationMarshaller instance = new LicenseConfigurationMarshaller();
 
@@ -79,11 +85,14 @@ public class LicenseConfigurationMarshaller {
             protocolMarshaller.marshall(licenseConfiguration.getLicenseRules(), LICENSERULES_BINDING);
             protocolMarshaller.marshall(licenseConfiguration.getLicenseCount(), LICENSECOUNT_BINDING);
             protocolMarshaller.marshall(licenseConfiguration.getLicenseCountHardLimit(), LICENSECOUNTHARDLIMIT_BINDING);
+            protocolMarshaller.marshall(licenseConfiguration.getDisassociateWhenNotFound(), DISASSOCIATEWHENNOTFOUND_BINDING);
             protocolMarshaller.marshall(licenseConfiguration.getConsumedLicenses(), CONSUMEDLICENSES_BINDING);
             protocolMarshaller.marshall(licenseConfiguration.getStatus(), STATUS_BINDING);
             protocolMarshaller.marshall(licenseConfiguration.getOwnerAccountId(), OWNERACCOUNTID_BINDING);
             protocolMarshaller.marshall(licenseConfiguration.getConsumedLicenseSummaryList(), CONSUMEDLICENSESUMMARYLIST_BINDING);
             protocolMarshaller.marshall(licenseConfiguration.getManagedResourceSummaryList(), MANAGEDRESOURCESUMMARYLIST_BINDING);
+            protocolMarshaller.marshall(licenseConfiguration.getProductInformationList(), PRODUCTINFORMATIONLIST_BINDING);
+            protocolMarshaller.marshall(licenseConfiguration.getAutomatedDiscoveryInformation(), AUTOMATEDDISCOVERYINFORMATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

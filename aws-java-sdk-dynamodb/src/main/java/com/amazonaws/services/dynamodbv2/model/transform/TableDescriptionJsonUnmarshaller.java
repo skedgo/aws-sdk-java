@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,7 +51,8 @@ public class TableDescriptionJsonUnmarshaller implements Unmarshaller<TableDescr
                 if (context.testExpression("AttributeDefinitions", targetDepth)) {
                     context.nextToken();
                     tableDescription.setAttributeDefinitions(new ListUnmarshaller<AttributeDefinition>(AttributeDefinitionJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("TableName", targetDepth)) {
                     context.nextToken();
@@ -59,7 +60,9 @@ public class TableDescriptionJsonUnmarshaller implements Unmarshaller<TableDescr
                 }
                 if (context.testExpression("KeySchema", targetDepth)) {
                     context.nextToken();
-                    tableDescription.setKeySchema(new ListUnmarshaller<KeySchemaElement>(KeySchemaElementJsonUnmarshaller.getInstance()).unmarshall(context));
+                    tableDescription.setKeySchema(new ListUnmarshaller<KeySchemaElement>(KeySchemaElementJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("TableStatus", targetDepth)) {
                     context.nextToken();
@@ -96,12 +99,16 @@ public class TableDescriptionJsonUnmarshaller implements Unmarshaller<TableDescr
                 if (context.testExpression("LocalSecondaryIndexes", targetDepth)) {
                     context.nextToken();
                     tableDescription.setLocalSecondaryIndexes(new ListUnmarshaller<LocalSecondaryIndexDescription>(
-                            LocalSecondaryIndexDescriptionJsonUnmarshaller.getInstance()).unmarshall(context));
+                            LocalSecondaryIndexDescriptionJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("GlobalSecondaryIndexes", targetDepth)) {
                     context.nextToken();
                     tableDescription.setGlobalSecondaryIndexes(new ListUnmarshaller<GlobalSecondaryIndexDescription>(
-                            GlobalSecondaryIndexDescriptionJsonUnmarshaller.getInstance()).unmarshall(context));
+                            GlobalSecondaryIndexDescriptionJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("StreamSpecification", targetDepth)) {
                     context.nextToken();
@@ -115,6 +122,16 @@ public class TableDescriptionJsonUnmarshaller implements Unmarshaller<TableDescr
                     context.nextToken();
                     tableDescription.setLatestStreamArn(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("GlobalTableVersion", targetDepth)) {
+                    context.nextToken();
+                    tableDescription.setGlobalTableVersion(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Replicas", targetDepth)) {
+                    context.nextToken();
+                    tableDescription.setReplicas(new ListUnmarshaller<ReplicaDescription>(ReplicaDescriptionJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
                 if (context.testExpression("RestoreSummary", targetDepth)) {
                     context.nextToken();
                     tableDescription.setRestoreSummary(RestoreSummaryJsonUnmarshaller.getInstance().unmarshall(context));
@@ -122,6 +139,22 @@ public class TableDescriptionJsonUnmarshaller implements Unmarshaller<TableDescr
                 if (context.testExpression("SSEDescription", targetDepth)) {
                     context.nextToken();
                     tableDescription.setSSEDescription(SSEDescriptionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ArchivalSummary", targetDepth)) {
+                    context.nextToken();
+                    tableDescription.setArchivalSummary(ArchivalSummaryJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("TableClassSummary", targetDepth)) {
+                    context.nextToken();
+                    tableDescription.setTableClassSummary(TableClassSummaryJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("DeletionProtectionEnabled", targetDepth)) {
+                    context.nextToken();
+                    tableDescription.setDeletionProtectionEnabled(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("OnDemandThroughput", targetDepth)) {
+                    context.nextToken();
+                    tableDescription.setOnDemandThroughput(OnDemandThroughputJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -11,6 +11,8 @@
  * and limitations under the License.
  */
 package com.amazonaws.services.ec2.model.transform;
+
+import java.util.ArrayList;
 
 import javax.xml.stream.events.XMLEvent;
 import javax.annotation.Generated;
@@ -43,10 +45,61 @@ public class VpnConnectionOptionsStaxUnmarshaller implements Unmarshaller<VpnCon
 
             if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
 
+                if (context.testExpression("enableAcceleration", targetDepth)) {
+                    vpnConnectionOptions.setEnableAcceleration(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("staticRoutesOnly", targetDepth)) {
                     vpnConnectionOptions.setStaticRoutesOnly(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
+
+                if (context.testExpression("localIpv4NetworkCidr", targetDepth)) {
+                    vpnConnectionOptions.setLocalIpv4NetworkCidr(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("remoteIpv4NetworkCidr", targetDepth)) {
+                    vpnConnectionOptions.setRemoteIpv4NetworkCidr(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("localIpv6NetworkCidr", targetDepth)) {
+                    vpnConnectionOptions.setLocalIpv6NetworkCidr(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("remoteIpv6NetworkCidr", targetDepth)) {
+                    vpnConnectionOptions.setRemoteIpv6NetworkCidr(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("outsideIpAddressType", targetDepth)) {
+                    vpnConnectionOptions.setOutsideIpAddressType(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("transportTransitGatewayAttachmentId", targetDepth)) {
+                    vpnConnectionOptions.setTransportTransitGatewayAttachmentId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("tunnelInsideIpVersion", targetDepth)) {
+                    vpnConnectionOptions.setTunnelInsideIpVersion(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("tunnelOptionSet", targetDepth)) {
+                    vpnConnectionOptions.withTunnelOptions(new ArrayList<TunnelOption>());
+                    continue;
+                }
+
+                if (context.testExpression("tunnelOptionSet/item", targetDepth)) {
+                    vpnConnectionOptions.withTunnelOptions(TunnelOptionStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
                     return vpnConnectionOptions;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,15 +41,18 @@ public class ListMembersRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * You can use this parameter when paginating results. Set the value of this parameter to null on your first call to
-     * the list action. For subsequent calls to the action fill nextToken in the request with the value of NextToken
+     * the list action. For subsequent calls to the action, fill nextToken in the request with the value of NextToken
      * from the previous response to continue listing data.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * Specifies whether to only return associated members or to return all members (including members which haven't
-     * been invited yet or have been disassociated).
+     * Specifies whether to only return associated members or to return all members (including members who haven't been
+     * invited yet or have been disassociated). Member accounts must have been previously associated with the GuardDuty
+     * administrator account using <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_CreateMembers.html">
+     * <code>Create Members</code> </a>.
      * </p>
      */
     private String onlyAssociated;
@@ -143,13 +146,13 @@ public class ListMembersRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * You can use this parameter when paginating results. Set the value of this parameter to null on your first call to
-     * the list action. For subsequent calls to the action fill nextToken in the request with the value of NextToken
+     * the list action. For subsequent calls to the action, fill nextToken in the request with the value of NextToken
      * from the previous response to continue listing data.
      * </p>
      * 
      * @param nextToken
      *        You can use this parameter when paginating results. Set the value of this parameter to null on your first
-     *        call to the list action. For subsequent calls to the action fill nextToken in the request with the value
+     *        call to the list action. For subsequent calls to the action, fill nextToken in the request with the value
      *        of NextToken from the previous response to continue listing data.
      */
 
@@ -160,12 +163,12 @@ public class ListMembersRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * You can use this parameter when paginating results. Set the value of this parameter to null on your first call to
-     * the list action. For subsequent calls to the action fill nextToken in the request with the value of NextToken
+     * the list action. For subsequent calls to the action, fill nextToken in the request with the value of NextToken
      * from the previous response to continue listing data.
      * </p>
      * 
      * @return You can use this parameter when paginating results. Set the value of this parameter to null on your first
-     *         call to the list action. For subsequent calls to the action fill nextToken in the request with the value
+     *         call to the list action. For subsequent calls to the action, fill nextToken in the request with the value
      *         of NextToken from the previous response to continue listing data.
      */
 
@@ -176,13 +179,13 @@ public class ListMembersRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * You can use this parameter when paginating results. Set the value of this parameter to null on your first call to
-     * the list action. For subsequent calls to the action fill nextToken in the request with the value of NextToken
+     * the list action. For subsequent calls to the action, fill nextToken in the request with the value of NextToken
      * from the previous response to continue listing data.
      * </p>
      * 
      * @param nextToken
      *        You can use this parameter when paginating results. Set the value of this parameter to null on your first
-     *        call to the list action. For subsequent calls to the action fill nextToken in the request with the value
+     *        call to the list action. For subsequent calls to the action, fill nextToken in the request with the value
      *        of NextToken from the previous response to continue listing data.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -194,13 +197,19 @@ public class ListMembersRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies whether to only return associated members or to return all members (including members which haven't
-     * been invited yet or have been disassociated).
+     * Specifies whether to only return associated members or to return all members (including members who haven't been
+     * invited yet or have been disassociated). Member accounts must have been previously associated with the GuardDuty
+     * administrator account using <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_CreateMembers.html">
+     * <code>Create Members</code> </a>.
      * </p>
      * 
      * @param onlyAssociated
-     *        Specifies whether to only return associated members or to return all members (including members which
-     *        haven't been invited yet or have been disassociated).
+     *        Specifies whether to only return associated members or to return all members (including members who
+     *        haven't been invited yet or have been disassociated). Member accounts must have been previously associated
+     *        with the GuardDuty administrator account using <a
+     *        href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_CreateMembers.html">
+     *        <code>Create Members</code> </a>.
      */
 
     public void setOnlyAssociated(String onlyAssociated) {
@@ -209,12 +218,18 @@ public class ListMembersRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies whether to only return associated members or to return all members (including members which haven't
-     * been invited yet or have been disassociated).
+     * Specifies whether to only return associated members or to return all members (including members who haven't been
+     * invited yet or have been disassociated). Member accounts must have been previously associated with the GuardDuty
+     * administrator account using <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_CreateMembers.html">
+     * <code>Create Members</code> </a>.
      * </p>
      * 
-     * @return Specifies whether to only return associated members or to return all members (including members which
-     *         haven't been invited yet or have been disassociated).
+     * @return Specifies whether to only return associated members or to return all members (including members who
+     *         haven't been invited yet or have been disassociated). Member accounts must have been previously
+     *         associated with the GuardDuty administrator account using <a
+     *         href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_CreateMembers.html">
+     *         <code>Create Members</code> </a>.
      */
 
     public String getOnlyAssociated() {
@@ -223,13 +238,19 @@ public class ListMembersRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Specifies whether to only return associated members or to return all members (including members which haven't
-     * been invited yet or have been disassociated).
+     * Specifies whether to only return associated members or to return all members (including members who haven't been
+     * invited yet or have been disassociated). Member accounts must have been previously associated with the GuardDuty
+     * administrator account using <a
+     * href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_CreateMembers.html">
+     * <code>Create Members</code> </a>.
      * </p>
      * 
      * @param onlyAssociated
-     *        Specifies whether to only return associated members or to return all members (including members which
-     *        haven't been invited yet or have been disassociated).
+     *        Specifies whether to only return associated members or to return all members (including members who
+     *        haven't been invited yet or have been disassociated). Member accounts must have been previously associated
+     *        with the GuardDuty administrator account using <a
+     *        href="https://docs.aws.amazon.com/guardduty/latest/APIReference/API_CreateMembers.html">
+     *        <code>Create Members</code> </a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

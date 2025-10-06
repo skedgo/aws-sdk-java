@@ -90,6 +90,10 @@ final class AddExceptionShapes extends AddShapes implements IntermediateModelSha
     }
 
     private boolean isErrorCodeOverridden(ErrorTrait errorTrait) {
-        return errorTrait != null && !Utils.isNullOrEmpty(errorTrait.getErrorCode());
+        return protocolSupportsErrorCodeOverride() && errorTrait != null && !Utils.isNullOrEmpty(errorTrait.getErrorCode());
+    }
+
+    private boolean protocolSupportsErrorCodeOverride() {
+        return !getProtocol().equals("json") && !getProtocol().equals("smithy-rpc-v2-cbor");
     }
 }

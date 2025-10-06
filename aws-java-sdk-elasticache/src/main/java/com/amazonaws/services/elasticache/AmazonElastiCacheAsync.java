@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,13 +45,20 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Adds up to 50 cost allocation tags to the named resource. A cost allocation tag is a key-value pair where the key
-     * and value are case-sensitive. You can use cost allocation tags to categorize and track your AWS costs.
+     * A tag is a key-value pair where the key and value are case-sensitive. You can use tags to categorize and track
+     * all your ElastiCache resources, with the exception of global replication group. When you add or remove tags on
+     * replication groups, those actions will be replicated to all nodes in the replication group. For more information,
+     * see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.ResourceLevelPermissions.html">Resource
+     * -level permissions</a>.
      * </p>
      * <p>
-     * When you apply tags to your ElastiCache resources, AWS generates a cost allocation report as a comma-separated
-     * value (CSV) file with your usage and costs aggregated by your tags. You can apply tags that represent business
-     * categories (such as cost centers, application names, or owners) to organize your costs across multiple services.
+     * For example, you can use cost-allocation tags to your ElastiCache resources, Amazon generates a cost allocation
+     * report as a comma-separated value (CSV) file with your usage and costs aggregated by your tags. You can apply
+     * tags that represent business categories (such as cost centers, application names, or owners) to organize your
+     * costs across multiple services.
+     * </p>
+     * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Tagging.html">Using Cost Allocation Tags in
      * Amazon ElastiCache</a> in the <i>ElastiCache User Guide</i>.
@@ -68,13 +75,20 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Adds up to 50 cost allocation tags to the named resource. A cost allocation tag is a key-value pair where the key
-     * and value are case-sensitive. You can use cost allocation tags to categorize and track your AWS costs.
+     * A tag is a key-value pair where the key and value are case-sensitive. You can use tags to categorize and track
+     * all your ElastiCache resources, with the exception of global replication group. When you add or remove tags on
+     * replication groups, those actions will be replicated to all nodes in the replication group. For more information,
+     * see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.ResourceLevelPermissions.html">Resource
+     * -level permissions</a>.
      * </p>
      * <p>
-     * When you apply tags to your ElastiCache resources, AWS generates a cost allocation report as a comma-separated
-     * value (CSV) file with your usage and costs aggregated by your tags. You can apply tags that represent business
-     * categories (such as cost centers, application names, or owners) to organize your costs across multiple services.
+     * For example, you can use cost-allocation tags to your ElastiCache resources, Amazon generates a cost allocation
+     * report as a comma-separated value (CSV) file with your usage and costs aggregated by your tags. You can apply
+     * tags that represent business categories (such as cost centers, application names, or owners) to organize your
+     * costs across multiple services.
+     * </p>
+     * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Tagging.html">Using Cost Allocation Tags in
      * Amazon ElastiCache</a> in the <i>ElastiCache User Guide</i>.
@@ -217,11 +231,75 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
+     * Complete the migration of data.
+     * </p>
+     * 
+     * @param completeMigrationRequest
+     * @return A Java Future containing the result of the CompleteMigration operation returned by the service.
+     * @sample AmazonElastiCacheAsync.CompleteMigration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CompleteMigration" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ReplicationGroup> completeMigrationAsync(CompleteMigrationRequest completeMigrationRequest);
+
+    /**
+     * <p>
+     * Complete the migration of data.
+     * </p>
+     * 
+     * @param completeMigrationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CompleteMigration operation returned by the service.
+     * @sample AmazonElastiCacheAsyncHandler.CompleteMigration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CompleteMigration" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ReplicationGroup> completeMigrationAsync(CompleteMigrationRequest completeMigrationRequest,
+            com.amazonaws.handlers.AsyncHandler<CompleteMigrationRequest, ReplicationGroup> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a copy of an existing serverless cache’s snapshot. Available for Redis OSS and Serverless Memcached only.
+     * </p>
+     * 
+     * @param copyServerlessCacheSnapshotRequest
+     * @return A Java Future containing the result of the CopyServerlessCacheSnapshot operation returned by the service.
+     * @sample AmazonElastiCacheAsync.CopyServerlessCacheSnapshot
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CopyServerlessCacheSnapshot"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CopyServerlessCacheSnapshotResult> copyServerlessCacheSnapshotAsync(
+            CopyServerlessCacheSnapshotRequest copyServerlessCacheSnapshotRequest);
+
+    /**
+     * <p>
+     * Creates a copy of an existing serverless cache’s snapshot. Available for Redis OSS and Serverless Memcached only.
+     * </p>
+     * 
+     * @param copyServerlessCacheSnapshotRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CopyServerlessCacheSnapshot operation returned by the service.
+     * @sample AmazonElastiCacheAsyncHandler.CopyServerlessCacheSnapshot
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CopyServerlessCacheSnapshot"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CopyServerlessCacheSnapshotResult> copyServerlessCacheSnapshotAsync(
+            CopyServerlessCacheSnapshotRequest copyServerlessCacheSnapshotRequest,
+            com.amazonaws.handlers.AsyncHandler<CopyServerlessCacheSnapshotRequest, CopyServerlessCacheSnapshotResult> asyncHandler);
+
+    /**
+     * <p>
      * Makes a copy of an existing snapshot.
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note> <important>
      * <p>
@@ -339,7 +417,7 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note> <important>
      * <p>
@@ -459,10 +537,10 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
     /**
      * <p>
      * Creates a cluster. All nodes in the cluster run the same protocol-compliant cache engine software, either
-     * Memcached or Redis.
+     * Memcached or Redis OSS.
      * </p>
      * <p>
-     * This operation is not supported for Redis (cluster mode enabled) clusters.
+     * This operation is not supported for Redis OSS (cluster mode enabled) clusters.
      * </p>
      * 
      * @param createCacheClusterRequest
@@ -477,10 +555,10 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
     /**
      * <p>
      * Creates a cluster. All nodes in the cluster run the same protocol-compliant cache engine software, either
-     * Memcached or Redis.
+     * Memcached or Redis OSS.
      * </p>
      * <p>
-     * This operation is not supported for Redis (cluster mode enabled) clusters.
+     * This operation is not supported for Redis OSS (cluster mode enabled) clusters.
      * </p>
      * 
      * @param createCacheClusterRequest
@@ -660,31 +738,115 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Creates a Redis (cluster mode disabled) or a Redis (cluster mode enabled) replication group.
+     * Global Datastore for Redis OSS offers fully managed, fast, reliable and secure cross-region replication. Using
+     * Global Datastore for Redis OSS, you can create cross-region read replica clusters for ElastiCache (Redis OSS) to
+     * enable low-latency reads and disaster recovery across regions. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Redis-Global-Datastore.html">Replication Across
+     * Regions Using Global Datastore</a>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The <b>GlobalReplicationGroupIdSuffix</b> is the name of the Global datastore.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <b>PrimaryReplicationGroupId</b> represents the name of the primary cluster that accepts writes and will
+     * replicate updates to the secondary cluster.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createGlobalReplicationGroupRequest
+     * @return A Java Future containing the result of the CreateGlobalReplicationGroup operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsync.CreateGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalReplicationGroup> createGlobalReplicationGroupAsync(
+            CreateGlobalReplicationGroupRequest createGlobalReplicationGroupRequest);
+
+    /**
+     * <p>
+     * Global Datastore for Redis OSS offers fully managed, fast, reliable and secure cross-region replication. Using
+     * Global Datastore for Redis OSS, you can create cross-region read replica clusters for ElastiCache (Redis OSS) to
+     * enable low-latency reads and disaster recovery across regions. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Redis-Global-Datastore.html">Replication Across
+     * Regions Using Global Datastore</a>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The <b>GlobalReplicationGroupIdSuffix</b> is the name of the Global datastore.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <b>PrimaryReplicationGroupId</b> represents the name of the primary cluster that accepts writes and will
+     * replicate updates to the secondary cluster.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createGlobalReplicationGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateGlobalReplicationGroup operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsyncHandler.CreateGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalReplicationGroup> createGlobalReplicationGroupAsync(
+            CreateGlobalReplicationGroupRequest createGlobalReplicationGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateGlobalReplicationGroupRequest, GlobalReplicationGroup> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a Redis OSS (cluster mode disabled) or a Redis OSS (cluster mode enabled) replication group.
      * </p>
      * <p>
-     * A Redis (cluster mode disabled) replication group is a collection of clusters, where one of the clusters is a
+     * This API can be used to create a standalone regional replication group or a secondary replication group
+     * associated with a Global datastore.
+     * </p>
+     * <p>
+     * A Redis OSS (cluster mode disabled) replication group is a collection of nodes, where one of the nodes is a
      * read/write primary and the others are read-only replicas. Writes to the primary are asynchronously propagated to
      * the replicas.
      * </p>
      * <p>
-     * A Redis (cluster mode enabled) replication group is a collection of 1 to 90 node groups (shards). Each node group
-     * (shard) has one read/write primary node and up to 5 read-only replica nodes. Writes to the primary are
-     * asynchronously propagated to the replicas. Redis (cluster mode enabled) replication groups partition the data
-     * across node groups (shards).
+     * A Redis OSS cluster-mode enabled cluster is comprised of from 1 to 90 shards (API/CLI: node groups). Each shard
+     * has a primary node and up to 5 read-only replica nodes. The configuration can range from 90 shards and 0 replicas
+     * to 15 shards and 5 replicas, which is the maximum number or replicas allowed.
      * </p>
      * <p>
-     * When a Redis (cluster mode disabled) replication group has been successfully created, you can add one or more
-     * read replicas to it, up to a total of 5 read replicas. You cannot alter a Redis (cluster mode enabled)
-     * replication group after it has been created. However, if you need to increase or decrease the number of node
-     * groups (console: shards), you can avail yourself of ElastiCache for Redis' enhanced backup and restore. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-restoring.html">Restoring From a Backup
-     * with Cluster Resizing</a> in the <i>ElastiCache User Guide</i>.
+     * The node or shard limit can be increased to a maximum of 500 per cluster if the Redis OSS engine version is 5.0.6
+     * or higher. For example, you can choose to configure a 500 node cluster that ranges between 83 shards (one primary
+     * and 5 replicas per shard) and 500 shards (single primary and no replicas). Make sure there are enough available
+     * IP addresses to accommodate the increase. Common pitfalls include the subnets in the subnet group have too small
+     * a CIDR range or the subnets are shared and heavily used by other clusters. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SubnetGroups.Creating.html">Creating a Subnet
+     * Group</a>. For versions below 5.0.6, the limit is 250 per cluster.
+     * </p>
+     * <p>
+     * To request a limit increase, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html">Amazon Service Limits</a> and choose
+     * the limit type <b>Nodes per cluster per instance type</b>.
+     * </p>
+     * <p>
+     * When a Redis OSS (cluster mode disabled) replication group has been successfully created, you can add one or more
+     * read replicas to it, up to a total of 5 read replicas. If you need to increase or decrease the number of node
+     * groups (console: shards), you can use ElastiCache (Redis OSS) scaling. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Scaling.html">Scaling ElastiCache (Redis OSS)
+     * Clusters</a> in the <i>ElastiCache User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -699,31 +861,46 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Creates a Redis (cluster mode disabled) or a Redis (cluster mode enabled) replication group.
+     * Creates a Redis OSS (cluster mode disabled) or a Redis OSS (cluster mode enabled) replication group.
      * </p>
      * <p>
-     * A Redis (cluster mode disabled) replication group is a collection of clusters, where one of the clusters is a
+     * This API can be used to create a standalone regional replication group or a secondary replication group
+     * associated with a Global datastore.
+     * </p>
+     * <p>
+     * A Redis OSS (cluster mode disabled) replication group is a collection of nodes, where one of the nodes is a
      * read/write primary and the others are read-only replicas. Writes to the primary are asynchronously propagated to
      * the replicas.
      * </p>
      * <p>
-     * A Redis (cluster mode enabled) replication group is a collection of 1 to 90 node groups (shards). Each node group
-     * (shard) has one read/write primary node and up to 5 read-only replica nodes. Writes to the primary are
-     * asynchronously propagated to the replicas. Redis (cluster mode enabled) replication groups partition the data
-     * across node groups (shards).
+     * A Redis OSS cluster-mode enabled cluster is comprised of from 1 to 90 shards (API/CLI: node groups). Each shard
+     * has a primary node and up to 5 read-only replica nodes. The configuration can range from 90 shards and 0 replicas
+     * to 15 shards and 5 replicas, which is the maximum number or replicas allowed.
      * </p>
      * <p>
-     * When a Redis (cluster mode disabled) replication group has been successfully created, you can add one or more
-     * read replicas to it, up to a total of 5 read replicas. You cannot alter a Redis (cluster mode enabled)
-     * replication group after it has been created. However, if you need to increase or decrease the number of node
-     * groups (console: shards), you can avail yourself of ElastiCache for Redis' enhanced backup and restore. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-restoring.html">Restoring From a Backup
-     * with Cluster Resizing</a> in the <i>ElastiCache User Guide</i>.
+     * The node or shard limit can be increased to a maximum of 500 per cluster if the Redis OSS engine version is 5.0.6
+     * or higher. For example, you can choose to configure a 500 node cluster that ranges between 83 shards (one primary
+     * and 5 replicas per shard) and 500 shards (single primary and no replicas). Make sure there are enough available
+     * IP addresses to accommodate the increase. Common pitfalls include the subnets in the subnet group have too small
+     * a CIDR range or the subnets are shared and heavily used by other clusters. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SubnetGroups.Creating.html">Creating a Subnet
+     * Group</a>. For versions below 5.0.6, the limit is 250 per cluster.
+     * </p>
+     * <p>
+     * To request a limit increase, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html">Amazon Service Limits</a> and choose
+     * the limit type <b>Nodes per cluster per instance type</b>.
+     * </p>
+     * <p>
+     * When a Redis OSS (cluster mode disabled) replication group has been successfully created, you can add one or more
+     * read replicas to it, up to a total of 5 read replicas. If you need to increase or decrease the number of node
+     * groups (console: shards), you can use ElastiCache (Redis OSS) scaling. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Scaling.html">Scaling ElastiCache (Redis OSS)
+     * Clusters</a> in the <i>ElastiCache User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -743,11 +920,79 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
+     * Creates a serverless cache.
+     * </p>
+     * 
+     * @param createServerlessCacheRequest
+     * @return A Java Future containing the result of the CreateServerlessCache operation returned by the service.
+     * @sample AmazonElastiCacheAsync.CreateServerlessCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateServerlessCache"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateServerlessCacheResult> createServerlessCacheAsync(CreateServerlessCacheRequest createServerlessCacheRequest);
+
+    /**
+     * <p>
+     * Creates a serverless cache.
+     * </p>
+     * 
+     * @param createServerlessCacheRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateServerlessCache operation returned by the service.
+     * @sample AmazonElastiCacheAsyncHandler.CreateServerlessCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateServerlessCache"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateServerlessCacheResult> createServerlessCacheAsync(CreateServerlessCacheRequest createServerlessCacheRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateServerlessCacheRequest, CreateServerlessCacheResult> asyncHandler);
+
+    /**
+     * <p>
+     * This API creates a copy of an entire ServerlessCache at a specific moment in time. Available for Redis OSS and
+     * Serverless Memcached only.
+     * </p>
+     * 
+     * @param createServerlessCacheSnapshotRequest
+     * @return A Java Future containing the result of the CreateServerlessCacheSnapshot operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsync.CreateServerlessCacheSnapshot
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateServerlessCacheSnapshot"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateServerlessCacheSnapshotResult> createServerlessCacheSnapshotAsync(
+            CreateServerlessCacheSnapshotRequest createServerlessCacheSnapshotRequest);
+
+    /**
+     * <p>
+     * This API creates a copy of an entire ServerlessCache at a specific moment in time. Available for Redis OSS and
+     * Serverless Memcached only.
+     * </p>
+     * 
+     * @param createServerlessCacheSnapshotRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateServerlessCacheSnapshot operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsyncHandler.CreateServerlessCacheSnapshot
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateServerlessCacheSnapshot"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateServerlessCacheSnapshotResult> createServerlessCacheSnapshotAsync(
+            CreateServerlessCacheSnapshotRequest createServerlessCacheSnapshotRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateServerlessCacheSnapshotRequest, CreateServerlessCacheSnapshotResult> asyncHandler);
+
+    /**
+     * <p>
      * Creates a copy of an entire cluster or replication group at a specific moment in time.
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -766,7 +1011,7 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -786,9 +1031,116 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Dynamically decreases the number of replics in a Redis (cluster mode disabled) replication group or the number of
-     * replica nodes in one or more node groups (shards) of a Redis (cluster mode enabled) replication group. This
-     * operation is performed with no cluster down time.
+     * For Redis OSS engine version 6.0 onwards: Creates a Redis OSS user. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html">Using Role Based Access
+     * Control (RBAC)</a>.
+     * </p>
+     * 
+     * @param createUserRequest
+     * @return A Java Future containing the result of the CreateUser operation returned by the service.
+     * @sample AmazonElastiCacheAsync.CreateUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateUser" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateUserResult> createUserAsync(CreateUserRequest createUserRequest);
+
+    /**
+     * <p>
+     * For Redis OSS engine version 6.0 onwards: Creates a Redis OSS user. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html">Using Role Based Access
+     * Control (RBAC)</a>.
+     * </p>
+     * 
+     * @param createUserRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateUser operation returned by the service.
+     * @sample AmazonElastiCacheAsyncHandler.CreateUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateUser" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateUserResult> createUserAsync(CreateUserRequest createUserRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateUserRequest, CreateUserResult> asyncHandler);
+
+    /**
+     * <p>
+     * For Redis OSS engine version 6.0 onwards: Creates a Redis OSS user group. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html">Using Role Based Access
+     * Control (RBAC)</a>
+     * </p>
+     * 
+     * @param createUserGroupRequest
+     * @return A Java Future containing the result of the CreateUserGroup operation returned by the service.
+     * @sample AmazonElastiCacheAsync.CreateUserGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateUserGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateUserGroupResult> createUserGroupAsync(CreateUserGroupRequest createUserGroupRequest);
+
+    /**
+     * <p>
+     * For Redis OSS engine version 6.0 onwards: Creates a Redis OSS user group. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html">Using Role Based Access
+     * Control (RBAC)</a>
+     * </p>
+     * 
+     * @param createUserGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateUserGroup operation returned by the service.
+     * @sample AmazonElastiCacheAsyncHandler.CreateUserGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateUserGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateUserGroupResult> createUserGroupAsync(CreateUserGroupRequest createUserGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateUserGroupRequest, CreateUserGroupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Decreases the number of node groups in a Global datastore
+     * </p>
+     * 
+     * @param decreaseNodeGroupsInGlobalReplicationGroupRequest
+     * @return A Java Future containing the result of the DecreaseNodeGroupsInGlobalReplicationGroup operation returned
+     *         by the service.
+     * @sample AmazonElastiCacheAsync.DecreaseNodeGroupsInGlobalReplicationGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DecreaseNodeGroupsInGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalReplicationGroup> decreaseNodeGroupsInGlobalReplicationGroupAsync(
+            DecreaseNodeGroupsInGlobalReplicationGroupRequest decreaseNodeGroupsInGlobalReplicationGroupRequest);
+
+    /**
+     * <p>
+     * Decreases the number of node groups in a Global datastore
+     * </p>
+     * 
+     * @param decreaseNodeGroupsInGlobalReplicationGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DecreaseNodeGroupsInGlobalReplicationGroup operation returned
+     *         by the service.
+     * @sample AmazonElastiCacheAsyncHandler.DecreaseNodeGroupsInGlobalReplicationGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DecreaseNodeGroupsInGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalReplicationGroup> decreaseNodeGroupsInGlobalReplicationGroupAsync(
+            DecreaseNodeGroupsInGlobalReplicationGroupRequest decreaseNodeGroupsInGlobalReplicationGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<DecreaseNodeGroupsInGlobalReplicationGroupRequest, GlobalReplicationGroup> asyncHandler);
+
+    /**
+     * <p>
+     * Dynamically decreases the number of replicas in a Redis OSS (cluster mode disabled) replication group or the
+     * number of replica nodes in one or more node groups (shards) of a Redis OSS (cluster mode enabled) replication
+     * group. This operation is performed with no cluster down time.
      * </p>
      * 
      * @param decreaseReplicaCountRequest
@@ -801,9 +1153,9 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Dynamically decreases the number of replics in a Redis (cluster mode disabled) replication group or the number of
-     * replica nodes in one or more node groups (shards) of a Redis (cluster mode enabled) replication group. This
-     * operation is performed with no cluster down time.
+     * Dynamically decreases the number of replicas in a Redis OSS (cluster mode disabled) replication group or the
+     * number of replica nodes in one or more node groups (shards) of a Redis OSS (cluster mode enabled) replication
+     * group. This operation is performed with no cluster down time.
      * </p>
      * 
      * @param decreaseReplicaCountRequest
@@ -831,7 +1183,12 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * <ul>
      * <li>
      * <p>
-     * Redis (cluster mode enabled) clusters
+     * Redis OSS (cluster mode enabled) clusters
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Redis OSS (cluster mode disabled) clusters
      * </p>
      * </li>
      * <li>
@@ -841,12 +1198,17 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * </li>
      * <li>
      * <p>
+     * A cluster that is the primary node of a replication group
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * A node group (shard) that has Multi-AZ mode enabled
      * </p>
      * </li>
      * <li>
      * <p>
-     * A cluster from a Redis (cluster mode enabled) replication group
+     * A cluster from a Redis OSS (cluster mode enabled) replication group
      * </p>
      * </li>
      * <li>
@@ -877,7 +1239,12 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * <ul>
      * <li>
      * <p>
-     * Redis (cluster mode enabled) clusters
+     * Redis OSS (cluster mode enabled) clusters
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Redis OSS (cluster mode disabled) clusters
      * </p>
      * </li>
      * <li>
@@ -887,12 +1254,17 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * </li>
      * <li>
      * <p>
+     * A cluster that is the primary node of a replication group
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * A node group (shard) that has Multi-AZ mode enabled
      * </p>
      * </li>
      * <li>
      * <p>
-     * A cluster from a Redis (cluster mode enabled) replication group
+     * A cluster from a Redis OSS (cluster mode enabled) replication group
      * </p>
      * </li>
      * <li>
@@ -919,7 +1291,7 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
     /**
      * <p>
      * Deletes the specified cache parameter group. You cannot delete a cache parameter group if it is associated with
-     * any cache clusters.
+     * any cache clusters. You cannot delete the default cache parameter groups in your account.
      * </p>
      * 
      * @param deleteCacheParameterGroupRequest
@@ -935,7 +1307,7 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
     /**
      * <p>
      * Deletes the specified cache parameter group. You cannot delete a cache parameter group if it is associated with
-     * any cache clusters.
+     * any cache clusters. You cannot delete the default cache parameter groups in your account.
      * </p>
      * 
      * @param deleteCacheParameterGroupRequest
@@ -1002,7 +1374,7 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * </p>
      * <note>
      * <p>
-     * You cannot delete a cache subnet group if it is associated with any clusters.
+     * You cannot delete a default cache subnet group or one that is associated with any clusters.
      * </p>
      * </note>
      * 
@@ -1021,7 +1393,7 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * </p>
      * <note>
      * <p>
-     * You cannot delete a cache subnet group if it is associated with any clusters.
+     * You cannot delete a default cache subnet group or one that is associated with any clusters.
      * </p>
      * </note>
      * 
@@ -1041,6 +1413,89 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
+     * Deleting a Global datastore is a two-step process:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * First, you must <a>DisassociateGlobalReplicationGroup</a> to remove the secondary clusters in the Global
+     * datastore.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Once the Global datastore contains only the primary cluster, you can use the
+     * <code>DeleteGlobalReplicationGroup</code> API to delete the Global datastore while retainining the primary
+     * cluster using <code>RetainPrimaryReplicationGroup=true</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Since the Global Datastore has only a primary cluster, you can delete the Global Datastore while retaining the
+     * primary by setting <code>RetainPrimaryReplicationGroup=true</code>. The primary cluster is never deleted when
+     * deleting a Global Datastore. It can only be deleted when it no longer is associated with any Global Datastore.
+     * </p>
+     * <p>
+     * When you receive a successful response from this operation, Amazon ElastiCache immediately begins deleting the
+     * selected resources; you cannot cancel or revert this operation.
+     * </p>
+     * 
+     * @param deleteGlobalReplicationGroupRequest
+     * @return A Java Future containing the result of the DeleteGlobalReplicationGroup operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsync.DeleteGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalReplicationGroup> deleteGlobalReplicationGroupAsync(
+            DeleteGlobalReplicationGroupRequest deleteGlobalReplicationGroupRequest);
+
+    /**
+     * <p>
+     * Deleting a Global datastore is a two-step process:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * First, you must <a>DisassociateGlobalReplicationGroup</a> to remove the secondary clusters in the Global
+     * datastore.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Once the Global datastore contains only the primary cluster, you can use the
+     * <code>DeleteGlobalReplicationGroup</code> API to delete the Global datastore while retainining the primary
+     * cluster using <code>RetainPrimaryReplicationGroup=true</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Since the Global Datastore has only a primary cluster, you can delete the Global Datastore while retaining the
+     * primary by setting <code>RetainPrimaryReplicationGroup=true</code>. The primary cluster is never deleted when
+     * deleting a Global Datastore. It can only be deleted when it no longer is associated with any Global Datastore.
+     * </p>
+     * <p>
+     * When you receive a successful response from this operation, Amazon ElastiCache immediately begins deleting the
+     * selected resources; you cannot cancel or revert this operation.
+     * </p>
+     * 
+     * @param deleteGlobalReplicationGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteGlobalReplicationGroup operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsyncHandler.DeleteGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalReplicationGroup> deleteGlobalReplicationGroupAsync(
+            DeleteGlobalReplicationGroupRequest deleteGlobalReplicationGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteGlobalReplicationGroupRequest, GlobalReplicationGroup> asyncHandler);
+
+    /**
+     * <p>
      * Deletes an existing replication group. By default, this operation deletes the entire replication group, including
      * the primary/primaries and all of the read replicas. If the replication group has only one primary, you can
      * optionally delete only the read replicas, while retaining the primary by setting
@@ -1051,9 +1506,19 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * selected resources; you cannot cancel or revert this operation.
      * </p>
      * <note>
+     * <ul>
+     * <li>
      * <p>
-     * This operation is valid for Redis only.
+     * <code>CreateSnapshot</code> permission is required to create a final snapshot. Without this permission, the API
+     * call will fail with an <code>Access Denied</code> exception.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * This operation is valid for Redis OSS only.
+     * </p>
+     * </li>
+     * </ul>
      * </note>
      * 
      * @param deleteReplicationGroupRequest
@@ -1077,9 +1542,19 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * selected resources; you cannot cancel or revert this operation.
      * </p>
      * <note>
+     * <ul>
+     * <li>
      * <p>
-     * This operation is valid for Redis only.
+     * <code>CreateSnapshot</code> permission is required to create a final snapshot. Without this permission, the API
+     * call will fail with an <code>Access Denied</code> exception.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * This operation is valid for Redis OSS only.
+     * </p>
+     * </li>
+     * </ul>
      * </note>
      * 
      * @param deleteReplicationGroupRequest
@@ -1098,12 +1573,90 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
+     * Deletes a specified existing serverless cache.
+     * </p>
+     * <note>
+     * <p>
+     * <code>CreateServerlessCacheSnapshot</code> permission is required to create a final snapshot. Without this
+     * permission, the API call will fail with an <code>Access Denied</code> exception.
+     * </p>
+     * </note>
+     * 
+     * @param deleteServerlessCacheRequest
+     * @return A Java Future containing the result of the DeleteServerlessCache operation returned by the service.
+     * @sample AmazonElastiCacheAsync.DeleteServerlessCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteServerlessCache"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteServerlessCacheResult> deleteServerlessCacheAsync(DeleteServerlessCacheRequest deleteServerlessCacheRequest);
+
+    /**
+     * <p>
+     * Deletes a specified existing serverless cache.
+     * </p>
+     * <note>
+     * <p>
+     * <code>CreateServerlessCacheSnapshot</code> permission is required to create a final snapshot. Without this
+     * permission, the API call will fail with an <code>Access Denied</code> exception.
+     * </p>
+     * </note>
+     * 
+     * @param deleteServerlessCacheRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteServerlessCache operation returned by the service.
+     * @sample AmazonElastiCacheAsyncHandler.DeleteServerlessCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteServerlessCache"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteServerlessCacheResult> deleteServerlessCacheAsync(DeleteServerlessCacheRequest deleteServerlessCacheRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteServerlessCacheRequest, DeleteServerlessCacheResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an existing serverless cache snapshot. Available for Redis OSS and Serverless Memcached only.
+     * </p>
+     * 
+     * @param deleteServerlessCacheSnapshotRequest
+     * @return A Java Future containing the result of the DeleteServerlessCacheSnapshot operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsync.DeleteServerlessCacheSnapshot
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteServerlessCacheSnapshot"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteServerlessCacheSnapshotResult> deleteServerlessCacheSnapshotAsync(
+            DeleteServerlessCacheSnapshotRequest deleteServerlessCacheSnapshotRequest);
+
+    /**
+     * <p>
+     * Deletes an existing serverless cache snapshot. Available for Redis OSS and Serverless Memcached only.
+     * </p>
+     * 
+     * @param deleteServerlessCacheSnapshotRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteServerlessCacheSnapshot operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsyncHandler.DeleteServerlessCacheSnapshot
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteServerlessCacheSnapshot"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteServerlessCacheSnapshotResult> deleteServerlessCacheSnapshotAsync(
+            DeleteServerlessCacheSnapshotRequest deleteServerlessCacheSnapshotRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteServerlessCacheSnapshotRequest, DeleteServerlessCacheSnapshotResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes an existing snapshot. When you receive a successful response from this operation, ElastiCache immediately
      * begins deleting the snapshot; you cannot cancel or revert this operation.
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -1123,7 +1676,7 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -1140,6 +1693,80 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      */
     java.util.concurrent.Future<Snapshot> deleteSnapshotAsync(DeleteSnapshotRequest deleteSnapshotRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteSnapshotRequest, Snapshot> asyncHandler);
+
+    /**
+     * <p>
+     * For Redis OSS engine version 6.0 onwards: Deletes a user. The user will be removed from all user groups and in
+     * turn removed from all replication groups. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html">Using Role Based Access
+     * Control (RBAC)</a>.
+     * </p>
+     * 
+     * @param deleteUserRequest
+     * @return A Java Future containing the result of the DeleteUser operation returned by the service.
+     * @sample AmazonElastiCacheAsync.DeleteUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteUser" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteUserResult> deleteUserAsync(DeleteUserRequest deleteUserRequest);
+
+    /**
+     * <p>
+     * For Redis OSS engine version 6.0 onwards: Deletes a user. The user will be removed from all user groups and in
+     * turn removed from all replication groups. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html">Using Role Based Access
+     * Control (RBAC)</a>.
+     * </p>
+     * 
+     * @param deleteUserRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteUser operation returned by the service.
+     * @sample AmazonElastiCacheAsyncHandler.DeleteUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteUser" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteUserResult> deleteUserAsync(DeleteUserRequest deleteUserRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteUserRequest, DeleteUserResult> asyncHandler);
+
+    /**
+     * <p>
+     * For Redis OSS engine version 6.0 onwards: Deletes a user group. The user group must first be disassociated from
+     * the replication group before it can be deleted. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html">Using Role Based Access
+     * Control (RBAC)</a>.
+     * </p>
+     * 
+     * @param deleteUserGroupRequest
+     * @return A Java Future containing the result of the DeleteUserGroup operation returned by the service.
+     * @sample AmazonElastiCacheAsync.DeleteUserGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteUserGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteUserGroupResult> deleteUserGroupAsync(DeleteUserGroupRequest deleteUserGroupRequest);
+
+    /**
+     * <p>
+     * For Redis OSS engine version 6.0 onwards: Deletes a user group. The user group must first be disassociated from
+     * the replication group before it can be deleted. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html">Using Role Based Access
+     * Control (RBAC)</a>.
+     * </p>
+     * 
+     * @param deleteUserGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteUserGroup operation returned by the service.
+     * @sample AmazonElastiCacheAsyncHandler.DeleteUserGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteUserGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteUserGroupResult> deleteUserGroupAsync(DeleteUserGroupRequest deleteUserGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteUserGroupRequest, DeleteUserGroupResult> asyncHandler);
 
     /**
      * <p>
@@ -1575,12 +2202,49 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
+     * Returns information about a particular global replication group. If no identifier is specified, returns
+     * information about all Global datastores.
+     * </p>
+     * 
+     * @param describeGlobalReplicationGroupsRequest
+     * @return A Java Future containing the result of the DescribeGlobalReplicationGroups operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsync.DescribeGlobalReplicationGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeGlobalReplicationGroups"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeGlobalReplicationGroupsResult> describeGlobalReplicationGroupsAsync(
+            DescribeGlobalReplicationGroupsRequest describeGlobalReplicationGroupsRequest);
+
+    /**
+     * <p>
+     * Returns information about a particular global replication group. If no identifier is specified, returns
+     * information about all Global datastores.
+     * </p>
+     * 
+     * @param describeGlobalReplicationGroupsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeGlobalReplicationGroups operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsyncHandler.DescribeGlobalReplicationGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeGlobalReplicationGroups"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeGlobalReplicationGroupsResult> describeGlobalReplicationGroupsAsync(
+            DescribeGlobalReplicationGroupsRequest describeGlobalReplicationGroupsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeGlobalReplicationGroupsRequest, DescribeGlobalReplicationGroupsResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns information about a particular replication group. If no identifier is specified,
      * <code>DescribeReplicationGroups</code> returns information about all replication groups.
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -1601,7 +2265,7 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -1740,6 +2404,78 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
+     * Returns information about serverless cache snapshots. By default, this API lists all of the customer’s serverless
+     * cache snapshots. It can also describe a single serverless cache snapshot, or the snapshots associated with a
+     * particular serverless cache. Available for Redis OSS and Serverless Memcached only.
+     * </p>
+     * 
+     * @param describeServerlessCacheSnapshotsRequest
+     * @return A Java Future containing the result of the DescribeServerlessCacheSnapshots operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsync.DescribeServerlessCacheSnapshots
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeServerlessCacheSnapshots"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeServerlessCacheSnapshotsResult> describeServerlessCacheSnapshotsAsync(
+            DescribeServerlessCacheSnapshotsRequest describeServerlessCacheSnapshotsRequest);
+
+    /**
+     * <p>
+     * Returns information about serverless cache snapshots. By default, this API lists all of the customer’s serverless
+     * cache snapshots. It can also describe a single serverless cache snapshot, or the snapshots associated with a
+     * particular serverless cache. Available for Redis OSS and Serverless Memcached only.
+     * </p>
+     * 
+     * @param describeServerlessCacheSnapshotsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeServerlessCacheSnapshots operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsyncHandler.DescribeServerlessCacheSnapshots
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeServerlessCacheSnapshots"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeServerlessCacheSnapshotsResult> describeServerlessCacheSnapshotsAsync(
+            DescribeServerlessCacheSnapshotsRequest describeServerlessCacheSnapshotsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeServerlessCacheSnapshotsRequest, DescribeServerlessCacheSnapshotsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns information about a specific serverless cache. If no identifier is specified, then the API returns
+     * information on all the serverless caches belonging to this Amazon Web Services account.
+     * </p>
+     * 
+     * @param describeServerlessCachesRequest
+     * @return A Java Future containing the result of the DescribeServerlessCaches operation returned by the service.
+     * @sample AmazonElastiCacheAsync.DescribeServerlessCaches
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeServerlessCaches"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeServerlessCachesResult> describeServerlessCachesAsync(DescribeServerlessCachesRequest describeServerlessCachesRequest);
+
+    /**
+     * <p>
+     * Returns information about a specific serverless cache. If no identifier is specified, then the API returns
+     * information on all the serverless caches belonging to this Amazon Web Services account.
+     * </p>
+     * 
+     * @param describeServerlessCachesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeServerlessCaches operation returned by the service.
+     * @sample AmazonElastiCacheAsyncHandler.DescribeServerlessCaches
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeServerlessCaches"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeServerlessCachesResult> describeServerlessCachesAsync(DescribeServerlessCachesRequest describeServerlessCachesRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeServerlessCachesRequest, DescribeServerlessCachesResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns details of the service updates
      * </p>
      * 
@@ -1777,7 +2513,7 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -1798,7 +2534,7 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -1864,9 +2600,221 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Dynamically increases the number of replics in a Redis (cluster mode disabled) replication group or the number of
-     * replica nodes in one or more node groups (shards) of a Redis (cluster mode enabled) replication group. This
-     * operation is performed with no cluster down time.
+     * Returns a list of user groups.
+     * </p>
+     * 
+     * @param describeUserGroupsRequest
+     * @return A Java Future containing the result of the DescribeUserGroups operation returned by the service.
+     * @sample AmazonElastiCacheAsync.DescribeUserGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeUserGroups" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeUserGroupsResult> describeUserGroupsAsync(DescribeUserGroupsRequest describeUserGroupsRequest);
+
+    /**
+     * <p>
+     * Returns a list of user groups.
+     * </p>
+     * 
+     * @param describeUserGroupsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeUserGroups operation returned by the service.
+     * @sample AmazonElastiCacheAsyncHandler.DescribeUserGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeUserGroups" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeUserGroupsResult> describeUserGroupsAsync(DescribeUserGroupsRequest describeUserGroupsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeUserGroupsRequest, DescribeUserGroupsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of users.
+     * </p>
+     * 
+     * @param describeUsersRequest
+     * @return A Java Future containing the result of the DescribeUsers operation returned by the service.
+     * @sample AmazonElastiCacheAsync.DescribeUsers
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeUsers" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeUsersResult> describeUsersAsync(DescribeUsersRequest describeUsersRequest);
+
+    /**
+     * <p>
+     * Returns a list of users.
+     * </p>
+     * 
+     * @param describeUsersRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeUsers operation returned by the service.
+     * @sample AmazonElastiCacheAsyncHandler.DescribeUsers
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeUsers" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeUsersResult> describeUsersAsync(DescribeUsersRequest describeUsersRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeUsersRequest, DescribeUsersResult> asyncHandler);
+
+    /**
+     * <p>
+     * Remove a secondary cluster from the Global datastore using the Global datastore name. The secondary cluster will
+     * no longer receive updates from the primary cluster, but will remain as a standalone cluster in that Amazon
+     * region.
+     * </p>
+     * 
+     * @param disassociateGlobalReplicationGroupRequest
+     * @return A Java Future containing the result of the DisassociateGlobalReplicationGroup operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsync.DisassociateGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DisassociateGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalReplicationGroup> disassociateGlobalReplicationGroupAsync(
+            DisassociateGlobalReplicationGroupRequest disassociateGlobalReplicationGroupRequest);
+
+    /**
+     * <p>
+     * Remove a secondary cluster from the Global datastore using the Global datastore name. The secondary cluster will
+     * no longer receive updates from the primary cluster, but will remain as a standalone cluster in that Amazon
+     * region.
+     * </p>
+     * 
+     * @param disassociateGlobalReplicationGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DisassociateGlobalReplicationGroup operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsyncHandler.DisassociateGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DisassociateGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalReplicationGroup> disassociateGlobalReplicationGroupAsync(
+            DisassociateGlobalReplicationGroupRequest disassociateGlobalReplicationGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<DisassociateGlobalReplicationGroupRequest, GlobalReplicationGroup> asyncHandler);
+
+    /**
+     * <p>
+     * Provides the functionality to export the serverless cache snapshot data to Amazon S3. Available for Redis OSS
+     * only.
+     * </p>
+     * 
+     * @param exportServerlessCacheSnapshotRequest
+     * @return A Java Future containing the result of the ExportServerlessCacheSnapshot operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsync.ExportServerlessCacheSnapshot
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ExportServerlessCacheSnapshot"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ExportServerlessCacheSnapshotResult> exportServerlessCacheSnapshotAsync(
+            ExportServerlessCacheSnapshotRequest exportServerlessCacheSnapshotRequest);
+
+    /**
+     * <p>
+     * Provides the functionality to export the serverless cache snapshot data to Amazon S3. Available for Redis OSS
+     * only.
+     * </p>
+     * 
+     * @param exportServerlessCacheSnapshotRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ExportServerlessCacheSnapshot operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsyncHandler.ExportServerlessCacheSnapshot
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ExportServerlessCacheSnapshot"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ExportServerlessCacheSnapshotResult> exportServerlessCacheSnapshotAsync(
+            ExportServerlessCacheSnapshotRequest exportServerlessCacheSnapshotRequest,
+            com.amazonaws.handlers.AsyncHandler<ExportServerlessCacheSnapshotRequest, ExportServerlessCacheSnapshotResult> asyncHandler);
+
+    /**
+     * <p>
+     * Used to failover the primary region to a secondary region. The secondary region will become primary, and all
+     * other clusters will become secondary.
+     * </p>
+     * 
+     * @param failoverGlobalReplicationGroupRequest
+     * @return A Java Future containing the result of the FailoverGlobalReplicationGroup operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsync.FailoverGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/FailoverGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalReplicationGroup> failoverGlobalReplicationGroupAsync(
+            FailoverGlobalReplicationGroupRequest failoverGlobalReplicationGroupRequest);
+
+    /**
+     * <p>
+     * Used to failover the primary region to a secondary region. The secondary region will become primary, and all
+     * other clusters will become secondary.
+     * </p>
+     * 
+     * @param failoverGlobalReplicationGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the FailoverGlobalReplicationGroup operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsyncHandler.FailoverGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/FailoverGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalReplicationGroup> failoverGlobalReplicationGroupAsync(
+            FailoverGlobalReplicationGroupRequest failoverGlobalReplicationGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<FailoverGlobalReplicationGroupRequest, GlobalReplicationGroup> asyncHandler);
+
+    /**
+     * <p>
+     * Increase the number of node groups in the Global datastore
+     * </p>
+     * 
+     * @param increaseNodeGroupsInGlobalReplicationGroupRequest
+     * @return A Java Future containing the result of the IncreaseNodeGroupsInGlobalReplicationGroup operation returned
+     *         by the service.
+     * @sample AmazonElastiCacheAsync.IncreaseNodeGroupsInGlobalReplicationGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/IncreaseNodeGroupsInGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalReplicationGroup> increaseNodeGroupsInGlobalReplicationGroupAsync(
+            IncreaseNodeGroupsInGlobalReplicationGroupRequest increaseNodeGroupsInGlobalReplicationGroupRequest);
+
+    /**
+     * <p>
+     * Increase the number of node groups in the Global datastore
+     * </p>
+     * 
+     * @param increaseNodeGroupsInGlobalReplicationGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the IncreaseNodeGroupsInGlobalReplicationGroup operation returned
+     *         by the service.
+     * @sample AmazonElastiCacheAsyncHandler.IncreaseNodeGroupsInGlobalReplicationGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/IncreaseNodeGroupsInGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalReplicationGroup> increaseNodeGroupsInGlobalReplicationGroupAsync(
+            IncreaseNodeGroupsInGlobalReplicationGroupRequest increaseNodeGroupsInGlobalReplicationGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<IncreaseNodeGroupsInGlobalReplicationGroupRequest, GlobalReplicationGroup> asyncHandler);
+
+    /**
+     * <p>
+     * Dynamically increases the number of replicas in a Redis OSS (cluster mode disabled) replication group or the
+     * number of replica nodes in one or more node groups (shards) of a Redis OSS (cluster mode enabled) replication
+     * group. This operation is performed with no cluster down time.
      * </p>
      * 
      * @param increaseReplicaCountRequest
@@ -1879,9 +2827,9 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Dynamically increases the number of replics in a Redis (cluster mode disabled) replication group or the number of
-     * replica nodes in one or more node groups (shards) of a Redis (cluster mode enabled) replication group. This
-     * operation is performed with no cluster down time.
+     * Dynamically increases the number of replicas in a Redis OSS (cluster mode disabled) replication group or the
+     * number of replica nodes in one or more node groups (shards) of a Redis OSS (cluster mode enabled) replication
+     * group. This operation is performed with no cluster down time.
      * </p>
      * 
      * @param increaseReplicaCountRequest
@@ -1899,13 +2847,13 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Lists all available node types that you can scale your Redis cluster's or replication group's current node type
-     * up to.
+     * Lists all available node types that you can scale your Redis OSS cluster's or replication group's current node
+     * type.
      * </p>
      * <p>
-     * When you use the <code>ModifyCacheCluster</code> or <code>ModifyReplicationGroup</code> operations to scale up
-     * your cluster or replication group, the value of the <code>CacheNodeType</code> parameter must be one of the node
-     * types returned by this operation.
+     * When you use the <code>ModifyCacheCluster</code> or <code>ModifyReplicationGroup</code> operations to scale your
+     * cluster or replication group, the value of the <code>CacheNodeType</code> parameter must be one of the node types
+     * returned by this operation.
      * </p>
      * 
      * @param listAllowedNodeTypeModificationsRequest
@@ -1921,13 +2869,13 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Lists all available node types that you can scale your Redis cluster's or replication group's current node type
-     * up to.
+     * Lists all available node types that you can scale your Redis OSS cluster's or replication group's current node
+     * type.
      * </p>
      * <p>
-     * When you use the <code>ModifyCacheCluster</code> or <code>ModifyReplicationGroup</code> operations to scale up
-     * your cluster or replication group, the value of the <code>CacheNodeType</code> parameter must be one of the node
-     * types returned by this operation.
+     * When you use the <code>ModifyCacheCluster</code> or <code>ModifyReplicationGroup</code> operations to scale your
+     * cluster or replication group, the value of the <code>CacheNodeType</code> parameter must be one of the node types
+     * returned by this operation.
      * </p>
      * 
      * @param listAllowedNodeTypeModificationsRequest
@@ -1964,16 +2912,18 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Lists all cost allocation tags currently on the named resource. A <code>cost allocation tag</code> is a key-value
-     * pair where the key is case-sensitive and the value is optional. You can use cost allocation tags to categorize
-     * and track your AWS costs.
+     * Lists all tags currently on a named resource.
+     * </p>
+     * <p>
+     * A tag is a key-value pair where the key and value are case-sensitive. You can use tags to categorize and track
+     * all your ElastiCache resources, with the exception of global replication group. When you add or remove tags on
+     * replication groups, those actions will be replicated to all nodes in the replication group. For more information,
+     * see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.ResourceLevelPermissions.html">Resource
+     * -level permissions</a>.
      * </p>
      * <p>
      * If the cluster is not in the <i>available</i> state, <code>ListTagsForResource</code> returns an error.
-     * </p>
-     * <p>
-     * You can have a maximum of 50 cost allocation tags on an ElastiCache resource. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Tagging.html">Monitoring Costs with Tags</a>.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -1987,16 +2937,18 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Lists all cost allocation tags currently on the named resource. A <code>cost allocation tag</code> is a key-value
-     * pair where the key is case-sensitive and the value is optional. You can use cost allocation tags to categorize
-     * and track your AWS costs.
+     * Lists all tags currently on a named resource.
+     * </p>
+     * <p>
+     * A tag is a key-value pair where the key and value are case-sensitive. You can use tags to categorize and track
+     * all your ElastiCache resources, with the exception of global replication group. When you add or remove tags on
+     * replication groups, those actions will be replicated to all nodes in the replication group. For more information,
+     * see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.ResourceLevelPermissions.html">Resource
+     * -level permissions</a>.
      * </p>
      * <p>
      * If the cluster is not in the <i>available</i> state, <code>ListTagsForResource</code> returns an error.
-     * </p>
-     * <p>
-     * You can have a maximum of 50 cost allocation tags on an ElastiCache resource. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Tagging.html">Monitoring Costs with Tags</a>.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -2120,17 +3072,48 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Modifies the settings for a replication group.
+     * Modifies the settings for a Global datastore.
      * </p>
+     * 
+     * @param modifyGlobalReplicationGroupRequest
+     * @return A Java Future containing the result of the ModifyGlobalReplicationGroup operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsync.ModifyGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalReplicationGroup> modifyGlobalReplicationGroupAsync(
+            ModifyGlobalReplicationGroupRequest modifyGlobalReplicationGroupRequest);
+
+    /**
      * <p>
-     * For Redis (cluster mode enabled) clusters, this operation cannot be used to change a cluster's node type or
-     * engine version. For more information, see:
+     * Modifies the settings for a Global datastore.
+     * </p>
+     * 
+     * @param modifyGlobalReplicationGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyGlobalReplicationGroup operation returned by the
+     *         service.
+     * @sample AmazonElastiCacheAsyncHandler.ModifyGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalReplicationGroup> modifyGlobalReplicationGroupAsync(
+            ModifyGlobalReplicationGroupRequest modifyGlobalReplicationGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyGlobalReplicationGroupRequest, GlobalReplicationGroup> asyncHandler);
+
+    /**
+     * <p>
+     * Modifies the settings for a replication group. This is limited to Redis OSS 7 and newer.
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/scaling-redis-cluster-mode-enabled.html">
-     * Scaling for Amazon ElastiCache for Redis (cluster mode enabled)</a> in the ElastiCache User Guide
+     * Scaling for Amazon ElastiCache (Redis OSS) (cluster mode enabled)</a> in the ElastiCache User Guide
      * </p>
      * </li>
      * <li>
@@ -2143,7 +3126,7 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * </ul>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -2158,17 +3141,13 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Modifies the settings for a replication group.
-     * </p>
-     * <p>
-     * For Redis (cluster mode enabled) clusters, this operation cannot be used to change a cluster's node type or
-     * engine version. For more information, see:
+     * Modifies the settings for a replication group. This is limited to Redis OSS 7 and newer.
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/scaling-redis-cluster-mode-enabled.html">
-     * Scaling for Amazon ElastiCache for Redis (cluster mode enabled)</a> in the ElastiCache User Guide
+     * Scaling for Amazon ElastiCache (Redis OSS) (cluster mode enabled)</a> in the ElastiCache User Guide
      * </p>
      * </li>
      * <li>
@@ -2181,7 +3160,7 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * </ul>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -2202,7 +3181,7 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
     /**
      * <p>
      * Modifies a replication group's shards (node groups) by allowing you to add shards, remove shards, or rebalance
-     * the keyspaces among exisiting shards.
+     * the keyspaces among existing shards.
      * </p>
      * 
      * @param modifyReplicationGroupShardConfigurationRequest
@@ -2220,7 +3199,7 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
     /**
      * <p>
      * Modifies a replication group's shards (node groups) by allowing you to add shards, remove shards, or rebalance
-     * the keyspaces among exisiting shards.
+     * the keyspaces among existing shards.
      * </p>
      * 
      * @param modifyReplicationGroupShardConfigurationRequest
@@ -2242,7 +3221,105 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Allows you to purchase a reserved cache node offering.
+     * This API modifies the attributes of a serverless cache.
+     * </p>
+     * 
+     * @param modifyServerlessCacheRequest
+     * @return A Java Future containing the result of the ModifyServerlessCache operation returned by the service.
+     * @sample AmazonElastiCacheAsync.ModifyServerlessCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyServerlessCache"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyServerlessCacheResult> modifyServerlessCacheAsync(ModifyServerlessCacheRequest modifyServerlessCacheRequest);
+
+    /**
+     * <p>
+     * This API modifies the attributes of a serverless cache.
+     * </p>
+     * 
+     * @param modifyServerlessCacheRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyServerlessCache operation returned by the service.
+     * @sample AmazonElastiCacheAsyncHandler.ModifyServerlessCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyServerlessCache"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyServerlessCacheResult> modifyServerlessCacheAsync(ModifyServerlessCacheRequest modifyServerlessCacheRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyServerlessCacheRequest, ModifyServerlessCacheResult> asyncHandler);
+
+    /**
+     * <p>
+     * Changes user password(s) and/or access string.
+     * </p>
+     * 
+     * @param modifyUserRequest
+     * @return A Java Future containing the result of the ModifyUser operation returned by the service.
+     * @sample AmazonElastiCacheAsync.ModifyUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyUser" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyUserResult> modifyUserAsync(ModifyUserRequest modifyUserRequest);
+
+    /**
+     * <p>
+     * Changes user password(s) and/or access string.
+     * </p>
+     * 
+     * @param modifyUserRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyUser operation returned by the service.
+     * @sample AmazonElastiCacheAsyncHandler.ModifyUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyUser" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyUserResult> modifyUserAsync(ModifyUserRequest modifyUserRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyUserRequest, ModifyUserResult> asyncHandler);
+
+    /**
+     * <p>
+     * Changes the list of users that belong to the user group.
+     * </p>
+     * 
+     * @param modifyUserGroupRequest
+     * @return A Java Future containing the result of the ModifyUserGroup operation returned by the service.
+     * @sample AmazonElastiCacheAsync.ModifyUserGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyUserGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyUserGroupResult> modifyUserGroupAsync(ModifyUserGroupRequest modifyUserGroupRequest);
+
+    /**
+     * <p>
+     * Changes the list of users that belong to the user group.
+     * </p>
+     * 
+     * @param modifyUserGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ModifyUserGroup operation returned by the service.
+     * @sample AmazonElastiCacheAsyncHandler.ModifyUserGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyUserGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ModifyUserGroupResult> modifyUserGroupAsync(ModifyUserGroupRequest modifyUserGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<ModifyUserGroupRequest, ModifyUserGroupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Allows you to purchase a reserved cache node offering. Reserved nodes are not eligible for cancellation and are
+     * non-refundable. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/reserved-nodes.html">Managing Costs with
+     * Reserved Nodes</a> for Redis OSS or <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/reserved-nodes.html">Managing Costs with
+     * Reserved Nodes</a> for Memcached.
      * </p>
      * 
      * @param purchaseReservedCacheNodesOfferingRequest
@@ -2258,7 +3335,12 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Allows you to purchase a reserved cache node offering.
+     * Allows you to purchase a reserved cache node offering. Reserved nodes are not eligible for cancellation and are
+     * non-refundable. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/reserved-nodes.html">Managing Costs with
+     * Reserved Nodes</a> for Redis OSS or <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/reserved-nodes.html">Managing Costs with
+     * Reserved Nodes</a> for Memcached.
      * </p>
      * 
      * @param purchaseReservedCacheNodesOfferingRequest
@@ -2279,6 +3361,43 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
+     * Redistribute slots to ensure uniform distribution across existing shards in the cluster.
+     * </p>
+     * 
+     * @param rebalanceSlotsInGlobalReplicationGroupRequest
+     * @return A Java Future containing the result of the RebalanceSlotsInGlobalReplicationGroup operation returned by
+     *         the service.
+     * @sample AmazonElastiCacheAsync.RebalanceSlotsInGlobalReplicationGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/RebalanceSlotsInGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalReplicationGroup> rebalanceSlotsInGlobalReplicationGroupAsync(
+            RebalanceSlotsInGlobalReplicationGroupRequest rebalanceSlotsInGlobalReplicationGroupRequest);
+
+    /**
+     * <p>
+     * Redistribute slots to ensure uniform distribution across existing shards in the cluster.
+     * </p>
+     * 
+     * @param rebalanceSlotsInGlobalReplicationGroupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RebalanceSlotsInGlobalReplicationGroup operation returned by
+     *         the service.
+     * @sample AmazonElastiCacheAsyncHandler.RebalanceSlotsInGlobalReplicationGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/RebalanceSlotsInGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<GlobalReplicationGroup> rebalanceSlotsInGlobalReplicationGroupAsync(
+            RebalanceSlotsInGlobalReplicationGroupRequest rebalanceSlotsInGlobalReplicationGroupRequest,
+            com.amazonaws.handlers.AsyncHandler<RebalanceSlotsInGlobalReplicationGroupRequest, GlobalReplicationGroup> asyncHandler);
+
+    /**
+     * <p>
      * Reboots some, or all, of the cache nodes within a provisioned cluster. This operation applies any modified cache
      * parameter groups to the cluster. The reboot operation takes place as soon as possible, and results in a momentary
      * outage to the cluster. During the reboot, the cluster status is set to REBOOTING.
@@ -2290,13 +3409,13 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * When the reboot is complete, a cluster event is created.
      * </p>
      * <p>
-     * Rebooting a cluster is currently supported on Memcached and Redis (cluster mode disabled) clusters. Rebooting is
-     * not supported on Redis (cluster mode enabled) clusters.
+     * Rebooting a cluster is currently supported on Memcached and Redis OSS (cluster mode disabled) clusters. Rebooting
+     * is not supported on Redis OSS (cluster mode enabled) clusters.
      * </p>
      * <p>
-     * If you make changes to parameters that require a Redis (cluster mode enabled) cluster reboot for the changes to
-     * be applied, see <a
-     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html">Rebooting a Cluster</a>
+     * If you make changes to parameters that require a Redis OSS (cluster mode enabled) cluster reboot for the changes
+     * to be applied, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/nodes.rebooting.html">Rebooting a Cluster</a>
      * for an alternate process.
      * </p>
      * 
@@ -2322,13 +3441,13 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * When the reboot is complete, a cluster event is created.
      * </p>
      * <p>
-     * Rebooting a cluster is currently supported on Memcached and Redis (cluster mode disabled) clusters. Rebooting is
-     * not supported on Redis (cluster mode enabled) clusters.
+     * Rebooting a cluster is currently supported on Memcached and Redis OSS (cluster mode disabled) clusters. Rebooting
+     * is not supported on Redis OSS (cluster mode enabled) clusters.
      * </p>
      * <p>
-     * If you make changes to parameters that require a Redis (cluster mode enabled) cluster reboot for the changes to
-     * be applied, see <a
-     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html">Rebooting a Cluster</a>
+     * If you make changes to parameters that require a Redis OSS (cluster mode enabled) cluster reboot for the changes
+     * to be applied, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/nodes.rebooting.html">Rebooting a Cluster</a>
      * for an alternate process.
      * </p>
      * 
@@ -2348,7 +3467,12 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Removes the tags identified by the <code>TagKeys</code> list from the named resource.
+     * Removes the tags identified by the <code>TagKeys</code> list from the named resource. A tag is a key-value pair
+     * where the key and value are case-sensitive. You can use tags to categorize and track all your ElastiCache
+     * resources, with the exception of global replication group. When you add or remove tags on replication groups,
+     * those actions will be replicated to all nodes in the replication group. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.ResourceLevelPermissions.html"
+     * >Resource-level permissions</a>.
      * </p>
      * 
      * @param removeTagsFromResourceRequest
@@ -2362,7 +3486,12 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Removes the tags identified by the <code>TagKeys</code> list from the named resource.
+     * Removes the tags identified by the <code>TagKeys</code> list from the named resource. A tag is a key-value pair
+     * where the key and value are case-sensitive. You can use tags to categorize and track all your ElastiCache
+     * resources, with the exception of global replication group. When you add or remove tags on replication groups,
+     * those actions will be replicated to all nodes in the replication group. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.ResourceLevelPermissions.html"
+     * >Resource-level permissions</a>.
      * </p>
      * 
      * @param removeTagsFromResourceRequest
@@ -2457,8 +3586,44 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Represents the input of a <code>TestFailover</code> operation which test automatic failover on a specified node
+     * Start the migration of data.
+     * </p>
+     * 
+     * @param startMigrationRequest
+     * @return A Java Future containing the result of the StartMigration operation returned by the service.
+     * @sample AmazonElastiCacheAsync.StartMigration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/StartMigration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ReplicationGroup> startMigrationAsync(StartMigrationRequest startMigrationRequest);
+
+    /**
+     * <p>
+     * Start the migration of data.
+     * </p>
+     * 
+     * @param startMigrationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartMigration operation returned by the service.
+     * @sample AmazonElastiCacheAsyncHandler.StartMigration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/StartMigration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ReplicationGroup> startMigrationAsync(StartMigrationRequest startMigrationRequest,
+            com.amazonaws.handlers.AsyncHandler<StartMigrationRequest, ReplicationGroup> asyncHandler);
+
+    /**
+     * <p>
+     * Represents the input of a <code>TestFailover</code> operation which tests automatic failover on a specified node
      * group (called shard in the console) in a replication group (called cluster in the console).
+     * </p>
+     * <p>
+     * This API is designed for testing the behavior of your application in case of ElastiCache failover. It is not
+     * designed to be an operational tool for initiating a failover to overcome a problem you may have with the cluster.
+     * Moreover, in certain conditions such as large-scale operational events, Amazon may block this API.
      * </p>
      * <p class="title">
      * <b>Note the following</b>
@@ -2466,8 +3631,8 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * <ul>
      * <li>
      * <p>
-     * A customer can use this operation to test automatic failover on up to 5 shards (called node groups in the
-     * ElastiCache API and AWS CLI) in any rolling 24-hour period.
+     * A customer can use this operation to test automatic failover on up to 15 shards (called node groups in the
+     * ElastiCache API and Amazon CLI) in any rolling 24-hour period.
      * </p>
      * </li>
      * <li>
@@ -2479,14 +3644,14 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * </p></li>
      * <li>
      * <p>
-     * If calling this operation multiple times on different shards in the same Redis (cluster mode enabled) replication
-     * group, the first node replacement must complete before a subsequent call can be made.
+     * If calling this operation multiple times on different shards in the same Redis OSS (cluster mode enabled)
+     * replication group, the first node replacement must complete before a subsequent call can be made.
      * </p>
      * </li>
      * <li>
      * <p>
      * To determine whether the node replacement is complete you can check Events using the Amazon ElastiCache console,
-     * the AWS CLI, or the ElastiCache API. Look for the following automatic failover related events, listed here in
+     * the Amazon CLI, or the ElastiCache API. Look for the following automatic failover related events, listed here in
      * order of occurrance:
      * </p>
      * <ol>
@@ -2498,13 +3663,13 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * <li>
      * <p>
      * Cache cluster message:
-     * <code>Failover from master node &lt;primary-node-id&gt; to replica node &lt;node-id&gt; completed</code>
+     * <code>Failover from primary node &lt;primary-node-id&gt; to replica node &lt;node-id&gt; completed</code>
      * </p>
      * </li>
      * <li>
      * <p>
      * Replication group message:
-     * <code>Failover from master node &lt;primary-node-id&gt; to replica node &lt;node-id&gt; completed</code>
+     * <code>Failover from primary node &lt;primary-node-id&gt; to replica node &lt;node-id&gt; completed</code>
      * </p>
      * </li>
      * <li>
@@ -2541,7 +3706,7 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * <p>
      * Also see, <a
      * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html#auto-failover-test">Testing
-     * Multi-AZ with Automatic Failover</a> in the <i>ElastiCache User Guide</i>.
+     * Multi-AZ </a> in the <i>ElastiCache User Guide</i>.
      * </p>
      * 
      * @param testFailoverRequest
@@ -2554,8 +3719,13 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
 
     /**
      * <p>
-     * Represents the input of a <code>TestFailover</code> operation which test automatic failover on a specified node
+     * Represents the input of a <code>TestFailover</code> operation which tests automatic failover on a specified node
      * group (called shard in the console) in a replication group (called cluster in the console).
+     * </p>
+     * <p>
+     * This API is designed for testing the behavior of your application in case of ElastiCache failover. It is not
+     * designed to be an operational tool for initiating a failover to overcome a problem you may have with the cluster.
+     * Moreover, in certain conditions such as large-scale operational events, Amazon may block this API.
      * </p>
      * <p class="title">
      * <b>Note the following</b>
@@ -2563,8 +3733,8 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * <ul>
      * <li>
      * <p>
-     * A customer can use this operation to test automatic failover on up to 5 shards (called node groups in the
-     * ElastiCache API and AWS CLI) in any rolling 24-hour period.
+     * A customer can use this operation to test automatic failover on up to 15 shards (called node groups in the
+     * ElastiCache API and Amazon CLI) in any rolling 24-hour period.
      * </p>
      * </li>
      * <li>
@@ -2576,14 +3746,14 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * </p></li>
      * <li>
      * <p>
-     * If calling this operation multiple times on different shards in the same Redis (cluster mode enabled) replication
-     * group, the first node replacement must complete before a subsequent call can be made.
+     * If calling this operation multiple times on different shards in the same Redis OSS (cluster mode enabled)
+     * replication group, the first node replacement must complete before a subsequent call can be made.
      * </p>
      * </li>
      * <li>
      * <p>
      * To determine whether the node replacement is complete you can check Events using the Amazon ElastiCache console,
-     * the AWS CLI, or the ElastiCache API. Look for the following automatic failover related events, listed here in
+     * the Amazon CLI, or the ElastiCache API. Look for the following automatic failover related events, listed here in
      * order of occurrance:
      * </p>
      * <ol>
@@ -2595,13 +3765,13 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * <li>
      * <p>
      * Cache cluster message:
-     * <code>Failover from master node &lt;primary-node-id&gt; to replica node &lt;node-id&gt; completed</code>
+     * <code>Failover from primary node &lt;primary-node-id&gt; to replica node &lt;node-id&gt; completed</code>
      * </p>
      * </li>
      * <li>
      * <p>
      * Replication group message:
-     * <code>Failover from master node &lt;primary-node-id&gt; to replica node &lt;node-id&gt; completed</code>
+     * <code>Failover from primary node &lt;primary-node-id&gt; to replica node &lt;node-id&gt; completed</code>
      * </p>
      * </li>
      * <li>
@@ -2638,7 +3808,7 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      * <p>
      * Also see, <a
      * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html#auto-failover-test">Testing
-     * Multi-AZ with Automatic Failover</a> in the <i>ElastiCache User Guide</i>.
+     * Multi-AZ </a> in the <i>ElastiCache User Guide</i>.
      * </p>
      * 
      * @param testFailoverRequest
@@ -2653,5 +3823,36 @@ public interface AmazonElastiCacheAsync extends AmazonElastiCache {
      */
     java.util.concurrent.Future<ReplicationGroup> testFailoverAsync(TestFailoverRequest testFailoverRequest,
             com.amazonaws.handlers.AsyncHandler<TestFailoverRequest, ReplicationGroup> asyncHandler);
+
+    /**
+     * <p>
+     * Async API to test connection between source and target replication group.
+     * </p>
+     * 
+     * @param testMigrationRequest
+     * @return A Java Future containing the result of the TestMigration operation returned by the service.
+     * @sample AmazonElastiCacheAsync.TestMigration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/TestMigration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ReplicationGroup> testMigrationAsync(TestMigrationRequest testMigrationRequest);
+
+    /**
+     * <p>
+     * Async API to test connection between source and target replication group.
+     * </p>
+     * 
+     * @param testMigrationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the TestMigration operation returned by the service.
+     * @sample AmazonElastiCacheAsyncHandler.TestMigration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/TestMigration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ReplicationGroup> testMigrationAsync(TestMigrationRequest testMigrationRequest,
+            com.amazonaws.handlers.AsyncHandler<TestMigrationRequest, ReplicationGroup> asyncHandler);
 
 }

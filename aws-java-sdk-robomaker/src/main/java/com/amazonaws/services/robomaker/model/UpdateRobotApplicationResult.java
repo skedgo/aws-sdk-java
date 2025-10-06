@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,7 +49,7 @@ public class UpdateRobotApplicationResult extends com.amazonaws.AmazonWebService
     private java.util.List<Source> sources;
     /**
      * <p>
-     * The robot software suite used by the robot application.
+     * The robot software suite (ROS distribution) used by the robot application.
      * </p>
      */
     private RobotSoftwareSuite robotSoftwareSuite;
@@ -65,6 +65,12 @@ public class UpdateRobotApplicationResult extends com.amazonaws.AmazonWebService
      * </p>
      */
     private String revisionId;
+    /**
+     * <p>
+     * The object that contains the Docker image URI for your robot application.
+     * </p>
+     */
+    private Environment environment;
 
     /**
      * <p>
@@ -258,11 +264,11 @@ public class UpdateRobotApplicationResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The robot software suite used by the robot application.
+     * The robot software suite (ROS distribution) used by the robot application.
      * </p>
      * 
      * @param robotSoftwareSuite
-     *        The robot software suite used by the robot application.
+     *        The robot software suite (ROS distribution) used by the robot application.
      */
 
     public void setRobotSoftwareSuite(RobotSoftwareSuite robotSoftwareSuite) {
@@ -271,10 +277,10 @@ public class UpdateRobotApplicationResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The robot software suite used by the robot application.
+     * The robot software suite (ROS distribution) used by the robot application.
      * </p>
      * 
-     * @return The robot software suite used by the robot application.
+     * @return The robot software suite (ROS distribution) used by the robot application.
      */
 
     public RobotSoftwareSuite getRobotSoftwareSuite() {
@@ -283,11 +289,11 @@ public class UpdateRobotApplicationResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The robot software suite used by the robot application.
+     * The robot software suite (ROS distribution) used by the robot application.
      * </p>
      * 
      * @param robotSoftwareSuite
-     *        The robot software suite used by the robot application.
+     *        The robot software suite (ROS distribution) used by the robot application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -377,6 +383,46 @@ public class UpdateRobotApplicationResult extends com.amazonaws.AmazonWebService
     }
 
     /**
+     * <p>
+     * The object that contains the Docker image URI for your robot application.
+     * </p>
+     * 
+     * @param environment
+     *        The object that contains the Docker image URI for your robot application.
+     */
+
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
+
+    /**
+     * <p>
+     * The object that contains the Docker image URI for your robot application.
+     * </p>
+     * 
+     * @return The object that contains the Docker image URI for your robot application.
+     */
+
+    public Environment getEnvironment() {
+        return this.environment;
+    }
+
+    /**
+     * <p>
+     * The object that contains the Docker image URI for your robot application.
+     * </p>
+     * 
+     * @param environment
+     *        The object that contains the Docker image URI for your robot application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateRobotApplicationResult withEnvironment(Environment environment) {
+        setEnvironment(environment);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -401,7 +447,9 @@ public class UpdateRobotApplicationResult extends com.amazonaws.AmazonWebService
         if (getLastUpdatedAt() != null)
             sb.append("LastUpdatedAt: ").append(getLastUpdatedAt()).append(",");
         if (getRevisionId() != null)
-            sb.append("RevisionId: ").append(getRevisionId());
+            sb.append("RevisionId: ").append(getRevisionId()).append(",");
+        if (getEnvironment() != null)
+            sb.append("Environment: ").append(getEnvironment());
         sb.append("}");
         return sb.toString();
     }
@@ -444,6 +492,10 @@ public class UpdateRobotApplicationResult extends com.amazonaws.AmazonWebService
             return false;
         if (other.getRevisionId() != null && other.getRevisionId().equals(this.getRevisionId()) == false)
             return false;
+        if (other.getEnvironment() == null ^ this.getEnvironment() == null)
+            return false;
+        if (other.getEnvironment() != null && other.getEnvironment().equals(this.getEnvironment()) == false)
+            return false;
         return true;
     }
 
@@ -459,6 +511,7 @@ public class UpdateRobotApplicationResult extends com.amazonaws.AmazonWebService
         hashCode = prime * hashCode + ((getRobotSoftwareSuite() == null) ? 0 : getRobotSoftwareSuite().hashCode());
         hashCode = prime * hashCode + ((getLastUpdatedAt() == null) ? 0 : getLastUpdatedAt().hashCode());
         hashCode = prime * hashCode + ((getRevisionId() == null) ? 0 : getRevisionId().hashCode());
+        hashCode = prime * hashCode + ((getEnvironment() == null) ? 0 : getEnvironment().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public enum ExtraParamName {
     AU_ID_TYPE("AU_ID_TYPE"),
     CA_LEGAL_TYPE("CA_LEGAL_TYPE"),
     CA_BUSINESS_ENTITY_TYPE("CA_BUSINESS_ENTITY_TYPE"),
+    CA_LEGAL_REPRESENTATIVE("CA_LEGAL_REPRESENTATIVE"),
+    CA_LEGAL_REPRESENTATIVE_CAPACITY("CA_LEGAL_REPRESENTATIVE_CAPACITY"),
     ES_IDENTIFICATION("ES_IDENTIFICATION"),
     ES_IDENTIFICATION_TYPE("ES_IDENTIFICATION_TYPE"),
     ES_LEGAL_FORM("ES_LEGAL_FORM"),
@@ -38,6 +40,7 @@ public enum ExtraParamName {
     FI_ID_NUMBER("FI_ID_NUMBER"),
     FI_NATIONALITY("FI_NATIONALITY"),
     FI_ORGANIZATION_TYPE("FI_ORGANIZATION_TYPE"),
+    IT_NATIONALITY("IT_NATIONALITY"),
     IT_PIN("IT_PIN"),
     IT_REGISTRANT_ENTITY_TYPE("IT_REGISTRANT_ENTITY_TYPE"),
     RU_PASSPORT_DATA("RU_PASSPORT_DATA"),
@@ -45,7 +48,9 @@ public enum ExtraParamName {
     SG_ID_NUMBER("SG_ID_NUMBER"),
     VAT_NUMBER("VAT_NUMBER"),
     UK_CONTACT_TYPE("UK_CONTACT_TYPE"),
-    UK_COMPANY_NUMBER("UK_COMPANY_NUMBER");
+    UK_COMPANY_NUMBER("UK_COMPANY_NUMBER"),
+    EU_COUNTRY_OF_CITIZENSHIP("EU_COUNTRY_OF_CITIZENSHIP"),
+    AU_PRIORITY_TOKEN("AU_PRIORITY_TOKEN");
 
     private String value;
 

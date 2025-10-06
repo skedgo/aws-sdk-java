@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,7 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * A dependent AWS service or resource returned an error to the AWS Backup service, and the action cannot be completed.
+ * A dependent Amazon Web Services service or resource returned an error to the Backup service, and the action cannot be
+ * completed.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

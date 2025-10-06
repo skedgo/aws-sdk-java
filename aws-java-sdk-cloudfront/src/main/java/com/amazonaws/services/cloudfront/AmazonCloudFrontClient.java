@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,6 +45,7 @@ import com.amazonaws.services.cloudfront.waiters.AmazonCloudFrontWaiters;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.cloudfront.model.*;
+
 import com.amazonaws.services.cloudfront.model.transform.*;
 
 /**
@@ -54,8 +55,9 @@ import com.amazonaws.services.cloudfront.model.transform.*;
  * <fullname>Amazon CloudFront</fullname>
  * <p>
  * This is the <i>Amazon CloudFront API Reference</i>. This guide is for developers who need detailed information about
- * CloudFront API actions, data types, and errors. For detailed information about CloudFront features, see the <i>Amazon
- * CloudFront Developer Guide</i>.
+ * CloudFront API actions, data types, and errors. For detailed information about CloudFront features, see the <a
+ * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html">Amazon CloudFront
+ * Developer Guide</a>.
  * </p>
  */
 @ThreadSafe
@@ -78,9 +80,18 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
     private final AdvancedConfig advancedConfig;
 
     /**
-     * List of exception unmarshallers for all modeled exceptions
+     * Map of exception unmarshallers for all modeled exceptions
+     */
+    private final Map<String, Unmarshaller<AmazonServiceException, Node>> exceptionUnmarshallersMap = new HashMap<String, Unmarshaller<AmazonServiceException, Node>>();
+
+    /**
+     * List of exception unmarshallers for all modeled exceptions Even though this exceptionUnmarshallers is not used in
+     * Clients, this is not removed since this was directly used by Client extended classes. Using this list can cause
+     * performance impact.
      */
     protected final List<Unmarshaller<AmazonServiceException, Node>> exceptionUnmarshallers = new ArrayList<Unmarshaller<AmazonServiceException, Node>>();
+
+    protected Unmarshaller<AmazonServiceException, Node> defaultUnmarshaller;
 
     /**
      * Constructs a new client to invoke service methods on CloudFront. A credentials provider chain will be used that
@@ -271,87 +282,616 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
     }
 
     private void init() {
+        if (exceptionUnmarshallersMap.get("StreamingDistributionAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("StreamingDistributionAlreadyExists", new StreamingDistributionAlreadyExistsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new StreamingDistributionAlreadyExistsExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TrustedSignerDoesNotExistExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchInvalidation") == null) {
+            exceptionUnmarshallersMap.put("NoSuchInvalidation", new NoSuchInvalidationExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NoSuchInvalidationExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidWebACLIdExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchFieldLevelEncryptionConfig") == null) {
+            exceptionUnmarshallersMap.put("NoSuchFieldLevelEncryptionConfig", new NoSuchFieldLevelEncryptionConfigExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NoSuchFieldLevelEncryptionConfigExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TooManyHeadersInForwardedValuesExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidOriginReadTimeoutExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("OriginRequestPolicyAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("OriginRequestPolicyAlreadyExists", new OriginRequestPolicyAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new OriginRequestPolicyAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyKeyGroupsAssociatedToDistribution") == null) {
+            exceptionUnmarshallersMap.put("TooManyKeyGroupsAssociatedToDistribution", new TooManyKeyGroupsAssociatedToDistributionExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyKeyGroupsAssociatedToDistributionExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidMinimumProtocolVersion") == null) {
+            exceptionUnmarshallersMap.put("InvalidMinimumProtocolVersion", new InvalidMinimumProtocolVersionExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidMinimumProtocolVersionExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TooManyDistributionCNAMEsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyInvalidationsInProgress") == null) {
+            exceptionUnmarshallersMap.put("TooManyInvalidationsInProgress", new TooManyInvalidationsInProgressExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyInvalidationsInProgressExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyFieldLevelEncryptionConfigs") == null) {
+            exceptionUnmarshallersMap.put("TooManyFieldLevelEncryptionConfigs", new TooManyFieldLevelEncryptionConfigsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyFieldLevelEncryptionConfigsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyPublicKeys") == null) {
+            exceptionUnmarshallersMap.put("TooManyPublicKeys", new TooManyPublicKeysExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyPublicKeysExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidErrorCodeExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyCacheBehaviors") == null) {
+            exceptionUnmarshallersMap.put("TooManyCacheBehaviors", new TooManyCacheBehaviorsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyCacheBehaviorsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CloudFrontOriginAccessIdentityInUse") == null) {
+            exceptionUnmarshallersMap.put("CloudFrontOriginAccessIdentityInUse", new CloudFrontOriginAccessIdentityInUseExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new CloudFrontOriginAccessIdentityInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("FieldLevelEncryptionProfileAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("FieldLevelEncryptionProfileAlreadyExists", new FieldLevelEncryptionProfileAlreadyExistsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new FieldLevelEncryptionProfileAlreadyExistsExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TooManyFieldLevelEncryptionFieldPatternsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidOriginAccessControl") == null) {
+            exceptionUnmarshallersMap.put("InvalidOriginAccessControl", new InvalidOriginAccessControlExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidOriginAccessControlExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("MissingBody") == null) {
+            exceptionUnmarshallersMap.put("MissingBody", new MissingBodyExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new MissingBodyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyResponseHeadersPolicies") == null) {
+            exceptionUnmarshallersMap.put("TooManyResponseHeadersPolicies", new TooManyResponseHeadersPoliciesExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyResponseHeadersPoliciesExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyOrigins") == null) {
+            exceptionUnmarshallersMap.put("TooManyOrigins", new TooManyOriginsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyOriginsExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new IllegalFieldLevelEncryptionConfigAssociationWithCacheBehaviorExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("FunctionSizeLimitExceeded") == null) {
+            exceptionUnmarshallersMap.put("FunctionSizeLimitExceeded", new FunctionSizeLimitExceededExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new FunctionSizeLimitExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidTTLOrder") == null) {
+            exceptionUnmarshallersMap.put("InvalidTTLOrder", new InvalidTTLOrderExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidTTLOrderExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidRequiredProtocolExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new NoSuchOriginExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TooManyTrustedSignersExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyDistributionsWithSingleFunctionARN") == null) {
+            exceptionUnmarshallersMap.put("TooManyDistributionsWithSingleFunctionARN", new TooManyDistributionsWithSingleFunctionARNExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyDistributionsWithSingleFunctionARNExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("UnsupportedOperation") == null) {
+            exceptionUnmarshallersMap.put("UnsupportedOperation", new UnsupportedOperationExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new UnsupportedOperationExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("BatchTooLarge") == null) {
+            exceptionUnmarshallersMap.put("BatchTooLarge", new BatchTooLargeExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new BatchTooLargeExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("RealtimeLogConfigInUse") == null) {
+            exceptionUnmarshallersMap.put("RealtimeLogConfigInUse", new RealtimeLogConfigInUseExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new RealtimeLogConfigInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidResponseCode") == null) {
+            exceptionUnmarshallersMap.put("InvalidResponseCode", new InvalidResponseCodeExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidResponseCodeExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("FieldLevelEncryptionConfigAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("FieldLevelEncryptionConfigAlreadyExists", new FieldLevelEncryptionConfigAlreadyExistsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new FieldLevelEncryptionConfigAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidOriginKeepaliveTimeout") == null) {
+            exceptionUnmarshallersMap.put("InvalidOriginKeepaliveTimeout", new InvalidOriginKeepaliveTimeoutExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidOriginKeepaliveTimeoutExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TooManyStreamingDistributionsExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new PublicKeyInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("OriginAccessControlAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("OriginAccessControlAlreadyExists", new OriginAccessControlAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new OriginAccessControlAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("StreamingDistributionNotDisabled") == null) {
+            exceptionUnmarshallersMap.put("StreamingDistributionNotDisabled", new StreamingDistributionNotDisabledExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new StreamingDistributionNotDisabledExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new PreconditionFailedExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyQueryStringParameters") == null) {
+            exceptionUnmarshallersMap.put("TooManyQueryStringParameters", new TooManyQueryStringParametersExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyQueryStringParametersExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyFieldLevelEncryptionEncryptionEntities") == null) {
+            exceptionUnmarshallersMap.put("TooManyFieldLevelEncryptionEncryptionEntities",
+                    new TooManyFieldLevelEncryptionEncryptionEntitiesExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyFieldLevelEncryptionEncryptionEntitiesExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("FieldLevelEncryptionConfigInUse") == null) {
+            exceptionUnmarshallersMap.put("FieldLevelEncryptionConfigInUse", new FieldLevelEncryptionConfigInUseExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new FieldLevelEncryptionConfigInUseExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new DistributionAlreadyExistsExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TooManyStreamingDistributionCNAMEsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CloudFrontOriginAccessIdentityAlreadyExists") == null) {
+            exceptionUnmarshallersMap
+                    .put("CloudFrontOriginAccessIdentityAlreadyExists", new CloudFrontOriginAccessIdentityAlreadyExistsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new CloudFrontOriginAccessIdentityAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchOriginAccessControl") == null) {
+            exceptionUnmarshallersMap.put("NoSuchOriginAccessControl", new NoSuchOriginAccessControlExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchOriginAccessControlExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchRealtimeLogConfig") == null) {
+            exceptionUnmarshallersMap.put("NoSuchRealtimeLogConfig", new NoSuchRealtimeLogConfigExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchRealtimeLogConfigExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidProtocolSettings") == null) {
+            exceptionUnmarshallersMap.put("InvalidProtocolSettings", new InvalidProtocolSettingsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidProtocolSettingsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyFieldLevelEncryptionProfiles") == null) {
+            exceptionUnmarshallersMap.put("TooManyFieldLevelEncryptionProfiles", new TooManyFieldLevelEncryptionProfilesExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyFieldLevelEncryptionProfilesExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TooManyOriginCustomHeadersExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidLocationCodeExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ResourceInUse") == null) {
+            exceptionUnmarshallersMap.put("ResourceInUse", new ResourceInUseExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ResourceInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidForwardCookies") == null) {
+            exceptionUnmarshallersMap.put("InvalidForwardCookies", new InvalidForwardCookiesExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidForwardCookiesExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new FieldLevelEncryptionProfileSizeExceededExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TooManyCertificatesExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new QueryArgProfileEmptyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyPublicKeysInKeyGroup") == null) {
+            exceptionUnmarshallersMap.put("TooManyPublicKeysInKeyGroup", new TooManyPublicKeysInKeyGroupExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyPublicKeysInKeyGroupExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidOriginAccessIdentity") == null) {
+            exceptionUnmarshallersMap.put("InvalidOriginAccessIdentity", new InvalidOriginAccessIdentityExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidOriginAccessIdentityExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidQueryStringParametersExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new CNAMEAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("IllegalUpdate") == null) {
+            exceptionUnmarshallersMap.put("IllegalUpdate", new IllegalUpdateExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new IllegalUpdateExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CNAMEAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("CNAMEAlreadyExists", new CNAMEAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new CNAMEAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyCookieNamesInWhiteList") == null) {
+            exceptionUnmarshallersMap.put("TooManyCookieNamesInWhiteList", new TooManyCookieNamesInWhiteListExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyCookieNamesInWhiteListExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TrustedKeyGroupDoesNotExist") == null) {
+            exceptionUnmarshallersMap.put("TrustedKeyGroupDoesNotExist", new TrustedKeyGroupDoesNotExistExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TrustedKeyGroupDoesNotExistExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyDistributionsAssociatedToResponseHeadersPolicy") == null) {
+            exceptionUnmarshallersMap.put("TooManyDistributionsAssociatedToResponseHeadersPolicy",
+                    new TooManyDistributionsAssociatedToResponseHeadersPolicyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyDistributionsAssociatedToResponseHeadersPolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchDistribution") == null) {
+            exceptionUnmarshallersMap.put("NoSuchDistribution", new NoSuchDistributionExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NoSuchDistributionExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new NoSuchFieldLevelEncryptionProfileExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new NoSuchResourceExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InconsistentQuantitiesExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidLambdaFunctionAssociationExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TooManyLambdaFunctionAssociationsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchResponseHeadersPolicy") == null) {
+            exceptionUnmarshallersMap.put("NoSuchResponseHeadersPolicy", new NoSuchResponseHeadersPolicyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchResponseHeadersPolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("FunctionInUse") == null) {
+            exceptionUnmarshallersMap.put("FunctionInUse", new FunctionInUseExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new FunctionInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidViewerCertificate") == null) {
+            exceptionUnmarshallersMap.put("InvalidViewerCertificate", new InvalidViewerCertificateExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidViewerCertificateExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new DistributionNotDisabledExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TooManyOriginGroupsPerDistributionExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyCachePolicies") == null) {
+            exceptionUnmarshallersMap.put("TooManyCachePolicies", new TooManyCachePoliciesExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyCachePoliciesExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyQueryStringsInCachePolicy") == null) {
+            exceptionUnmarshallersMap.put("TooManyQueryStringsInCachePolicy", new TooManyQueryStringsInCachePolicyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyQueryStringsInCachePolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("FunctionAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("FunctionAlreadyExists", new FunctionAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new FunctionAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CachePolicyInUse") == null) {
+            exceptionUnmarshallersMap.put("CachePolicyInUse", new CachePolicyInUseExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new CachePolicyInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidDefaultRootObject") == null) {
+            exceptionUnmarshallersMap.put("InvalidDefaultRootObject", new InvalidDefaultRootObjectExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidDefaultRootObjectExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new AccessDeniedExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidArgumentExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new NoSuchStreamingDistributionExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("StagingDistributionInUse") == null) {
+            exceptionUnmarshallersMap.put("StagingDistributionInUse", new StagingDistributionInUseExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new StagingDistributionInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyCloudFrontOriginAccessIdentities") == null) {
+            exceptionUnmarshallersMap.put("TooManyCloudFrontOriginAccessIdentities", new TooManyCloudFrontOriginAccessIdentitiesExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyCloudFrontOriginAccessIdentitiesExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new NoSuchPublicKeyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("EntityNotFound") == null) {
+            exceptionUnmarshallersMap.put("EntityNotFound", new EntityNotFoundExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new EntityNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyFieldLevelEncryptionContentTypeProfiles") == null) {
+            exceptionUnmarshallersMap.put("TooManyFieldLevelEncryptionContentTypeProfiles",
+                    new TooManyFieldLevelEncryptionContentTypeProfilesExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyFieldLevelEncryptionContentTypeProfilesExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidRelativePath") == null) {
+            exceptionUnmarshallersMap.put("InvalidRelativePath", new InvalidRelativePathExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidRelativePathExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TooManyDistributionsAssociatedToFieldLevelEncryptionConfigExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyDistributionsWithLambdaAssociations") == null) {
+            exceptionUnmarshallersMap.put("TooManyDistributionsWithLambdaAssociations", new TooManyDistributionsWithLambdaAssociationsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyDistributionsWithLambdaAssociationsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("EntitySizeLimitExceeded") == null) {
+            exceptionUnmarshallersMap.put("EntitySizeLimitExceeded", new EntitySizeLimitExceededExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new EntitySizeLimitExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidHeadersForS3Origin") == null) {
+            exceptionUnmarshallersMap.put("InvalidHeadersForS3Origin", new InvalidHeadersForS3OriginExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidHeadersForS3OriginExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("RealtimeLogConfigAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("RealtimeLogConfigAlreadyExists", new RealtimeLogConfigAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new RealtimeLogConfigAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyDistributions") == null) {
+            exceptionUnmarshallersMap.put("TooManyDistributions", new TooManyDistributionsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyDistributionsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyDistributionsAssociatedToOriginRequestPolicy") == null) {
+            exceptionUnmarshallersMap.put("TooManyDistributionsAssociatedToOriginRequestPolicy",
+                    new TooManyDistributionsAssociatedToOriginRequestPolicyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyDistributionsAssociatedToOriginRequestPolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CannotChangeImmutablePublicKeyFields") == null) {
+            exceptionUnmarshallersMap.put("CannotChangeImmutablePublicKeyFields", new CannotChangeImmutablePublicKeyFieldsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new CannotChangeImmutablePublicKeyFieldsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyFieldLevelEncryptionQueryArgProfiles") == null) {
+            exceptionUnmarshallersMap
+                    .put("TooManyFieldLevelEncryptionQueryArgProfiles", new TooManyFieldLevelEncryptionQueryArgProfilesExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TooManyFieldLevelEncryptionQueryArgProfilesExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new PublicKeyAlreadyExistsExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new FieldLevelEncryptionProfileInUseExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidIfMatchVersionExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidTaggingExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyCookiesInOriginRequestPolicy") == null) {
+            exceptionUnmarshallersMap.put("TooManyCookiesInOriginRequestPolicy", new TooManyCookiesInOriginRequestPolicyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyCookiesInOriginRequestPolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("IllegalDelete") == null) {
+            exceptionUnmarshallersMap.put("IllegalDelete", new IllegalDeleteExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new IllegalDeleteExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidOrigin") == null) {
+            exceptionUnmarshallersMap.put("InvalidOrigin", new InvalidOriginExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidOriginExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new NoSuchCloudFrontOriginAccessIdentityExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TestFunctionFailed") == null) {
+            exceptionUnmarshallersMap.put("TestFunctionFailed", new TestFunctionFailedExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TestFunctionFailedExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidGeoRestrictionParameter") == null) {
+            exceptionUnmarshallersMap.put("InvalidGeoRestrictionParameter", new InvalidGeoRestrictionParameterExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidGeoRestrictionParameterExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyRemoveHeadersInResponseHeadersPolicy") == null) {
+            exceptionUnmarshallersMap
+                    .put("TooManyRemoveHeadersInResponseHeadersPolicy", new TooManyRemoveHeadersInResponseHeadersPolicyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyRemoveHeadersInResponseHeadersPolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyCustomHeadersInResponseHeadersPolicy") == null) {
+            exceptionUnmarshallersMap
+                    .put("TooManyCustomHeadersInResponseHeadersPolicy", new TooManyCustomHeadersInResponseHeadersPolicyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyCustomHeadersInResponseHeadersPolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TrustedSignerDoesNotExist") == null) {
+            exceptionUnmarshallersMap.put("TrustedSignerDoesNotExist", new TrustedSignerDoesNotExistExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TrustedSignerDoesNotExistExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidWebACLId") == null) {
+            exceptionUnmarshallersMap.put("InvalidWebACLId", new InvalidWebACLIdExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidWebACLIdExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ResponseHeadersPolicyInUse") == null) {
+            exceptionUnmarshallersMap.put("ResponseHeadersPolicyInUse", new ResponseHeadersPolicyInUseExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ResponseHeadersPolicyInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyHeadersInForwardedValues") == null) {
+            exceptionUnmarshallersMap.put("TooManyHeadersInForwardedValues", new TooManyHeadersInForwardedValuesExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyHeadersInForwardedValuesExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidOriginReadTimeout") == null) {
+            exceptionUnmarshallersMap.put("InvalidOriginReadTimeout", new InvalidOriginReadTimeoutExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidOriginReadTimeoutExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("OriginAccessControlInUse") == null) {
+            exceptionUnmarshallersMap.put("OriginAccessControlInUse", new OriginAccessControlInUseExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new OriginAccessControlInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("OriginRequestPolicyInUse") == null) {
+            exceptionUnmarshallersMap.put("OriginRequestPolicyInUse", new OriginRequestPolicyInUseExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new OriginRequestPolicyInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyDistributionsAssociatedToKeyGroup") == null) {
+            exceptionUnmarshallersMap.put("TooManyDistributionsAssociatedToKeyGroup", new TooManyDistributionsAssociatedToKeyGroupExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyDistributionsAssociatedToKeyGroupExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyDistributionCNAMEs") == null) {
+            exceptionUnmarshallersMap.put("TooManyDistributionCNAMEs", new TooManyDistributionCNAMEsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyDistributionCNAMEsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidErrorCode") == null) {
+            exceptionUnmarshallersMap.put("InvalidErrorCode", new InvalidErrorCodeExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidErrorCodeExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ContinuousDeploymentPolicyAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("ContinuousDeploymentPolicyAlreadyExists", new ContinuousDeploymentPolicyAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ContinuousDeploymentPolicyAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyFieldLevelEncryptionFieldPatterns") == null) {
+            exceptionUnmarshallersMap.put("TooManyFieldLevelEncryptionFieldPatterns", new TooManyFieldLevelEncryptionFieldPatternsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyFieldLevelEncryptionFieldPatternsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("IllegalFieldLevelEncryptionConfigAssociationWithCacheBehavior") == null) {
+            exceptionUnmarshallersMap.put("IllegalFieldLevelEncryptionConfigAssociationWithCacheBehavior",
+                    new IllegalFieldLevelEncryptionConfigAssociationWithCacheBehaviorExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new IllegalFieldLevelEncryptionConfigAssociationWithCacheBehaviorExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidRequiredProtocol") == null) {
+            exceptionUnmarshallersMap.put("InvalidRequiredProtocol", new InvalidRequiredProtocolExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidRequiredProtocolExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchOriginRequestPolicy") == null) {
+            exceptionUnmarshallersMap.put("NoSuchOriginRequestPolicy", new NoSuchOriginRequestPolicyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchOriginRequestPolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("EntityLimitExceeded") == null) {
+            exceptionUnmarshallersMap.put("EntityLimitExceeded", new EntityLimitExceededExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new EntityLimitExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchOrigin") == null) {
+            exceptionUnmarshallersMap.put("NoSuchOrigin", new NoSuchOriginExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchOriginExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyQueryStringsInOriginRequestPolicy") == null) {
+            exceptionUnmarshallersMap.put("TooManyQueryStringsInOriginRequestPolicy", new TooManyQueryStringsInOriginRequestPolicyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyQueryStringsInOriginRequestPolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyTrustedSigners") == null) {
+            exceptionUnmarshallersMap.put("TooManyTrustedSigners", new TooManyTrustedSignersExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyTrustedSignersExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyFunctions") == null) {
+            exceptionUnmarshallersMap.put("TooManyFunctions", new TooManyFunctionsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyFunctionsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyDistributionsWithFunctionAssociations") == null) {
+            exceptionUnmarshallersMap.put("TooManyDistributionsWithFunctionAssociations",
+                    new TooManyDistributionsWithFunctionAssociationsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyDistributionsWithFunctionAssociationsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyStreamingDistributions") == null) {
+            exceptionUnmarshallersMap.put("TooManyStreamingDistributions", new TooManyStreamingDistributionsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyStreamingDistributionsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("PublicKeyInUse") == null) {
+            exceptionUnmarshallersMap.put("PublicKeyInUse", new PublicKeyInUseExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new PublicKeyInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchContinuousDeploymentPolicy") == null) {
+            exceptionUnmarshallersMap.put("NoSuchContinuousDeploymentPolicy", new NoSuchContinuousDeploymentPolicyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchContinuousDeploymentPolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("PreconditionFailed") == null) {
+            exceptionUnmarshallersMap.put("PreconditionFailed", new PreconditionFailedExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new PreconditionFailedExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyKeyGroups") == null) {
+            exceptionUnmarshallersMap.put("TooManyKeyGroups", new TooManyKeyGroupsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyKeyGroupsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("DistributionAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("DistributionAlreadyExists", new DistributionAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new DistributionAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyStreamingDistributionCNAMEs") == null) {
+            exceptionUnmarshallersMap.put("TooManyStreamingDistributionCNAMEs", new TooManyStreamingDistributionCNAMEsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyStreamingDistributionCNAMEsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CachePolicyAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("CachePolicyAlreadyExists", new CachePolicyAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new CachePolicyAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ContinuousDeploymentPolicyInUse") == null) {
+            exceptionUnmarshallersMap.put("ContinuousDeploymentPolicyInUse", new ContinuousDeploymentPolicyInUseExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ContinuousDeploymentPolicyInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidDomainNameForOriginAccessControl") == null) {
+            exceptionUnmarshallersMap.put("InvalidDomainNameForOriginAccessControl", new InvalidDomainNameForOriginAccessControlExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidDomainNameForOriginAccessControlExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyOriginCustomHeaders") == null) {
+            exceptionUnmarshallersMap.put("TooManyOriginCustomHeaders", new TooManyOriginCustomHeadersExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyOriginCustomHeadersExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidLocationCode") == null) {
+            exceptionUnmarshallersMap.put("InvalidLocationCode", new InvalidLocationCodeExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidLocationCodeExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyContinuousDeploymentPolicies") == null) {
+            exceptionUnmarshallersMap.put("TooManyContinuousDeploymentPolicies", new TooManyContinuousDeploymentPoliciesExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyContinuousDeploymentPoliciesExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyFunctionAssociations") == null) {
+            exceptionUnmarshallersMap.put("TooManyFunctionAssociations", new TooManyFunctionAssociationsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyFunctionAssociationsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("FieldLevelEncryptionProfileSizeExceeded") == null) {
+            exceptionUnmarshallersMap.put("FieldLevelEncryptionProfileSizeExceeded", new FieldLevelEncryptionProfileSizeExceededExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new FieldLevelEncryptionProfileSizeExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyCertificates") == null) {
+            exceptionUnmarshallersMap.put("TooManyCertificates", new TooManyCertificatesExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyCertificatesExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("QueryArgProfileEmpty") == null) {
+            exceptionUnmarshallersMap.put("QueryArgProfileEmpty", new QueryArgProfileEmptyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new QueryArgProfileEmptyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("MonitoringSubscriptionAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("MonitoringSubscriptionAlreadyExists", new MonitoringSubscriptionAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new MonitoringSubscriptionAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyRealtimeLogConfigs") == null) {
+            exceptionUnmarshallersMap.put("TooManyRealtimeLogConfigs", new TooManyRealtimeLogConfigsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyRealtimeLogConfigsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidQueryStringParameters") == null) {
+            exceptionUnmarshallersMap.put("InvalidQueryStringParameters", new InvalidQueryStringParametersExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidQueryStringParametersExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchFunctionExists") == null) {
+            exceptionUnmarshallersMap.put("NoSuchFunctionExists", new NoSuchFunctionExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchFunctionExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyHeadersInCachePolicy") == null) {
+            exceptionUnmarshallersMap.put("TooManyHeadersInCachePolicy", new TooManyHeadersInCachePolicyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyHeadersInCachePolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("EntityAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("EntityAlreadyExists", new EntityAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new EntityAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("RealtimeLogConfigOwnerMismatch") == null) {
+            exceptionUnmarshallersMap.put("RealtimeLogConfigOwnerMismatch", new RealtimeLogConfigOwnerMismatchExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new RealtimeLogConfigOwnerMismatchExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchFieldLevelEncryptionProfile") == null) {
+            exceptionUnmarshallersMap.put("NoSuchFieldLevelEncryptionProfile", new NoSuchFieldLevelEncryptionProfileExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchFieldLevelEncryptionProfileExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchResource") == null) {
+            exceptionUnmarshallersMap.put("NoSuchResource", new NoSuchResourceExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchResourceExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InconsistentQuantities") == null) {
+            exceptionUnmarshallersMap.put("InconsistentQuantities", new InconsistentQuantitiesExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InconsistentQuantitiesExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidFunctionAssociation") == null) {
+            exceptionUnmarshallersMap.put("InvalidFunctionAssociation", new InvalidFunctionAssociationExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidFunctionAssociationExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchMonitoringSubscription") == null) {
+            exceptionUnmarshallersMap.put("NoSuchMonitoringSubscription", new NoSuchMonitoringSubscriptionExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchMonitoringSubscriptionExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidLambdaFunctionAssociation") == null) {
+            exceptionUnmarshallersMap.put("InvalidLambdaFunctionAssociation", new InvalidLambdaFunctionAssociationExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidLambdaFunctionAssociationExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooLongCSPInResponseHeadersPolicy") == null) {
+            exceptionUnmarshallersMap.put("TooLongCSPInResponseHeadersPolicy", new TooLongCSPInResponseHeadersPolicyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooLongCSPInResponseHeadersPolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyLambdaFunctionAssociations") == null) {
+            exceptionUnmarshallersMap.put("TooManyLambdaFunctionAssociations", new TooManyLambdaFunctionAssociationsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyLambdaFunctionAssociationsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("DistributionNotDisabled") == null) {
+            exceptionUnmarshallersMap.put("DistributionNotDisabled", new DistributionNotDisabledExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new DistributionNotDisabledExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ResponseHeadersPolicyAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("ResponseHeadersPolicyAlreadyExists", new ResponseHeadersPolicyAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ResponseHeadersPolicyAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyOriginGroupsPerDistribution") == null) {
+            exceptionUnmarshallersMap.put("TooManyOriginGroupsPerDistribution", new TooManyOriginGroupsPerDistributionExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyOriginGroupsPerDistributionExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CannotDeleteEntityWhileInUse") == null) {
+            exceptionUnmarshallersMap.put("CannotDeleteEntityWhileInUse", new CannotDeleteEntityWhileInUseExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new CannotDeleteEntityWhileInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("AccessDenied") == null) {
+            exceptionUnmarshallersMap.put("AccessDenied", new AccessDeniedExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new AccessDeniedExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyDistributionsAssociatedToOriginAccessControl") == null) {
+            exceptionUnmarshallersMap.put("TooManyDistributionsAssociatedToOriginAccessControl",
+                    new TooManyDistributionsAssociatedToOriginAccessControlExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyDistributionsAssociatedToOriginAccessControlExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("IllegalOriginAccessConfiguration") == null) {
+            exceptionUnmarshallersMap.put("IllegalOriginAccessConfiguration", new IllegalOriginAccessConfigurationExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new IllegalOriginAccessConfigurationExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyCookiesInCachePolicy") == null) {
+            exceptionUnmarshallersMap.put("TooManyCookiesInCachePolicy", new TooManyCookiesInCachePolicyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyCookiesInCachePolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyOriginAccessControls") == null) {
+            exceptionUnmarshallersMap.put("TooManyOriginAccessControls", new TooManyOriginAccessControlsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyOriginAccessControlsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidArgument") == null) {
+            exceptionUnmarshallersMap.put("InvalidArgument", new InvalidArgumentExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidArgumentExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyOriginRequestPolicies") == null) {
+            exceptionUnmarshallersMap.put("TooManyOriginRequestPolicies", new TooManyOriginRequestPoliciesExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyOriginRequestPoliciesExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchCachePolicy") == null) {
+            exceptionUnmarshallersMap.put("NoSuchCachePolicy", new NoSuchCachePolicyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchCachePolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("KeyGroupAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("KeyGroupAlreadyExists", new KeyGroupAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new KeyGroupAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchStreamingDistribution") == null) {
+            exceptionUnmarshallersMap.put("NoSuchStreamingDistribution", new NoSuchStreamingDistributionExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchStreamingDistributionExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchPublicKey") == null) {
+            exceptionUnmarshallersMap.put("NoSuchPublicKey", new NoSuchPublicKeyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchPublicKeyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyDistributionsAssociatedToFieldLevelEncryptionConfig") == null) {
+            exceptionUnmarshallersMap.put("TooManyDistributionsAssociatedToFieldLevelEncryptionConfig",
+                    new TooManyDistributionsAssociatedToFieldLevelEncryptionConfigExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyDistributionsAssociatedToFieldLevelEncryptionConfigExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyDistributionsAssociatedToCachePolicy") == null) {
+            exceptionUnmarshallersMap
+                    .put("TooManyDistributionsAssociatedToCachePolicy", new TooManyDistributionsAssociatedToCachePolicyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyDistributionsAssociatedToCachePolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("PublicKeyAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("PublicKeyAlreadyExists", new PublicKeyAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new PublicKeyAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("FieldLevelEncryptionProfileInUse") == null) {
+            exceptionUnmarshallersMap.put("FieldLevelEncryptionProfileInUse", new FieldLevelEncryptionProfileInUseExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new FieldLevelEncryptionProfileInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidIfMatchVersion") == null) {
+            exceptionUnmarshallersMap.put("InvalidIfMatchVersion", new InvalidIfMatchVersionExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidIfMatchVersionExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidTagging") == null) {
+            exceptionUnmarshallersMap.put("InvalidTagging", new InvalidTaggingExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidTaggingExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TooManyHeadersInOriginRequestPolicy") == null) {
+            exceptionUnmarshallersMap.put("TooManyHeadersInOriginRequestPolicy", new TooManyHeadersInOriginRequestPolicyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TooManyHeadersInOriginRequestPolicyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoSuchCloudFrontOriginAccessIdentity") == null) {
+            exceptionUnmarshallersMap.put("NoSuchCloudFrontOriginAccessIdentity", new NoSuchCloudFrontOriginAccessIdentityExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NoSuchCloudFrontOriginAccessIdentityExceptionUnmarshaller());
+        defaultUnmarshaller = new StandardErrorUnmarshaller(com.amazonaws.services.cloudfront.model.AmazonCloudFrontException.class);
         exceptionUnmarshallers.add(new StandardErrorUnmarshaller(com.amazonaws.services.cloudfront.model.AmazonCloudFrontException.class));
 
         setServiceNameIntern(DEFAULT_SIGNING_NAME);
@@ -362,6 +902,448 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
         requestHandler2s.addAll(chainFactory.newRequestHandlerChain("/com/amazonaws/services/cloudfront/request.handlers"));
         requestHandler2s.addAll(chainFactory.newRequestHandler2Chain("/com/amazonaws/services/cloudfront/request.handler2s"));
         requestHandler2s.addAll(chainFactory.getGlobalHandlers());
+    }
+
+    /**
+     * <p>
+     * Associates an alias (also known as a CNAME or an alternate domain name) with a CloudFront distribution.
+     * </p>
+     * <p>
+     * With this operation you can move an alias that's already in use on a CloudFront distribution to a different
+     * distribution in one step. This prevents the downtime that could occur if you first remove the alias from one
+     * distribution and then separately add the alias to another distribution.
+     * </p>
+     * <p>
+     * To use this operation to associate an alias with a distribution, you provide the alias and the ID of the target
+     * distribution for the alias. For more information, including how to set up the target distribution, prerequisites
+     * that you must complete, and other restrictions, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CNAMEs.html#alternate-domain-names-move"
+     * >Moving an alternate domain name to a different distribution</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * 
+     * @param associateAliasRequest
+     * @return Result of the AssociateAlias operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws NoSuchDistributionException
+     *         The specified distribution does not exist.
+     * @throws TooManyDistributionCNAMEsException
+     *         Your request contains more CNAMEs than are allowed per distribution.
+     * @throws IllegalUpdateException
+     *         The update contains modifications that are not allowed.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.AssociateAlias
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/AssociateAlias" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public AssociateAliasResult associateAlias(AssociateAliasRequest request) {
+        request = beforeClientExecution(request);
+        return executeAssociateAlias(request);
+    }
+
+    @SdkInternalApi
+    final AssociateAliasResult executeAssociateAlias(AssociateAliasRequest associateAliasRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(associateAliasRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AssociateAliasRequest> request = null;
+        Response<AssociateAliasResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AssociateAliasRequestMarshaller().marshall(super.beforeMarshalling(associateAliasRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateAlias");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<AssociateAliasResult> responseHandler = new StaxResponseHandler<AssociateAliasResult>(
+                    new AssociateAliasResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a staging distribution using the configuration of the provided primary distribution. A staging
+     * distribution is a copy of an existing distribution (called the primary distribution) that you can use in a
+     * continuous deployment workflow.
+     * </p>
+     * <p>
+     * After you create a staging distribution, you can use <code>UpdateDistribution</code> to modify the staging
+     * distribution's configuration. Then you can use <code>CreateContinuousDeploymentPolicy</code> to incrementally
+     * move traffic to the staging distribution.
+     * </p>
+     * <p>
+     * This API operation requires the following IAM permissions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetDistribution.html">GetDistribution</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateDistribution.html">
+     * CreateDistribution</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a
+     * href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CopyDistribution.html">CopyDistribution</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param copyDistributionRequest
+     * @return Result of the CopyDistribution operation returned by the service.
+     * @throws CNAMEAlreadyExistsException
+     *         The CNAME specified is already defined for CloudFront.
+     * @throws DistributionAlreadyExistsException
+     *         The caller reference you attempted to create the distribution with is associated with another
+     *         distribution.
+     * @throws InvalidOriginException
+     *         The Amazon S3 origin server specified does not refer to a valid Amazon S3 bucket.
+     * @throws InvalidOriginAccessIdentityException
+     *         The origin access identity is not valid or doesn't exist.
+     * @throws InvalidOriginAccessControlException
+     *         The origin access control is not valid.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchDistributionException
+     *         The specified distribution does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws TooManyTrustedSignersException
+     *         Your request contains more trusted signers than are allowed per distribution.
+     * @throws TrustedSignerDoesNotExistException
+     *         One or more of your trusted signers don't exist.
+     * @throws InvalidViewerCertificateException
+     *         A viewer certificate specified is not valid.
+     * @throws InvalidMinimumProtocolVersionException
+     *         The minimum protocol version specified is not valid.
+     * @throws MissingBodyException
+     *         This operation requires a body. Ensure that the body is present and the <code>Content-Type</code> header
+     *         is set.
+     * @throws TooManyDistributionCNAMEsException
+     *         Your request contains more CNAMEs than are allowed per distribution.
+     * @throws TooManyDistributionsException
+     *         Processing your request would cause you to exceed the maximum number of distributions allowed.
+     * @throws InvalidDefaultRootObjectException
+     *         The default root object file name is too big or contains an invalid character.
+     * @throws InvalidRelativePathException
+     *         The relative path is too big, is not URL-encoded, or does not begin with a slash (/).
+     * @throws InvalidErrorCodeException
+     *         An invalid error code was specified.
+     * @throws InvalidResponseCodeException
+     *         A response code is not valid.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InvalidRequiredProtocolException
+     *         This operation requires the HTTPS protocol. Ensure that you specify the HTTPS protocol in your request,
+     *         or omit the <code>RequiredProtocols</code> element from your distribution configuration.
+     * @throws NoSuchOriginException
+     *         No origin exists with the specified <code>Origin Id</code>.
+     * @throws TooManyOriginsException
+     *         You cannot create more origins for the distribution.
+     * @throws TooManyOriginGroupsPerDistributionException
+     *         Processing your request would cause you to exceed the maximum number of origin groups allowed.
+     * @throws TooManyCacheBehaviorsException
+     *         You cannot create more cache behaviors for the distribution.
+     * @throws TooManyCookieNamesInWhiteListException
+     *         Your request contains more cookie names in the whitelist than are allowed per cache behavior.
+     * @throws InvalidForwardCookiesException
+     *         Your request contains forward cookies option which doesn't match with the expectation for the
+     *         <code>whitelisted</code> list of cookie names. Either list of cookie names has been specified when not
+     *         allowed or list of cookie names is missing when expected.
+     * @throws TooManyHeadersInForwardedValuesException
+     *         Your request contains too many headers in forwarded values.
+     * @throws InvalidHeadersForS3OriginException
+     *         The headers specified are not valid for an Amazon S3 origin.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws TooManyCertificatesException
+     *         You cannot create anymore custom SSL/TLS certificates.
+     * @throws InvalidLocationCodeException
+     *         The location code specified is not valid.
+     * @throws InvalidGeoRestrictionParameterException
+     *         The specified geo restriction parameter is not valid.
+     * @throws InvalidProtocolSettingsException
+     *         You cannot specify SSLv3 as the minimum protocol version if you only want to support only clients that
+     *         support Server Name Indication (SNI).
+     * @throws InvalidTTLOrderException
+     *         The TTL order specified is not valid.
+     * @throws InvalidWebACLIdException
+     *         A web ACL ID specified is not valid. To specify a web ACL created using the latest version of WAF, use
+     *         the ACL ARN, for example
+     *         <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a</code>
+     *         . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     *         <code>473e64fd-f30b-4765-81a0-62ad96dd167a</code>.
+     * @throws TooManyOriginCustomHeadersException
+     *         Your request contains too many origin custom headers.
+     * @throws TooManyQueryStringParametersException
+     *         Your request contains too many query string parameters.
+     * @throws InvalidQueryStringParametersException
+     *         The query string parameters specified are not valid.
+     * @throws TooManyDistributionsWithLambdaAssociationsException
+     *         Processing your request would cause the maximum number of distributions with Lambda@Edge function
+     *         associations per owner to be exceeded.
+     * @throws TooManyDistributionsWithSingleFunctionARNException
+     *         The maximum number of distributions have been associated with the specified Lambda@Edge function.
+     * @throws TooManyLambdaFunctionAssociationsException
+     *         Your request contains more Lambda@Edge function associations than are allowed per distribution.
+     * @throws InvalidLambdaFunctionAssociationException
+     *         The specified Lambda@Edge function association is invalid.
+     * @throws TooManyDistributionsWithFunctionAssociationsException
+     *         You have reached the maximum number of distributions that are associated with a CloudFront function. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyFunctionAssociationsException
+     *         You have reached the maximum number of CloudFront function associations for this distribution. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws InvalidFunctionAssociationException
+     *         A CloudFront function association is invalid.
+     * @throws InvalidOriginReadTimeoutException
+     *         The read timeout specified for the origin is not valid.
+     * @throws InvalidOriginKeepaliveTimeoutException
+     *         The keep alive timeout specified for the origin is not valid.
+     * @throws NoSuchFieldLevelEncryptionConfigException
+     *         The specified configuration for field-level encryption doesn't exist.
+     * @throws IllegalFieldLevelEncryptionConfigAssociationWithCacheBehaviorException
+     *         The specified configuration for field-level encryption can't be associated with the specified cache
+     *         behavior.
+     * @throws TooManyDistributionsAssociatedToFieldLevelEncryptionConfigException
+     *         The maximum number of distributions have been associated with the specified configuration for field-level
+     *         encryption.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws TooManyDistributionsAssociatedToCachePolicyException
+     *         The maximum number of distributions have been associated with the specified cache policy. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToOriginAccessControlException
+     *         The maximum number of distributions have been associated with the specified origin access control.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws TooManyDistributionsAssociatedToResponseHeadersPolicyException
+     *         The maximum number of distributions have been associated with the specified response headers policy.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws TooManyDistributionsAssociatedToOriginRequestPolicyException
+     *         The maximum number of distributions have been associated with the specified origin request policy. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToKeyGroupException
+     *         The number of distributions that reference this key group is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyKeyGroupsAssociatedToDistributionException
+     *         The number of key groups referenced by this distribution is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TrustedKeyGroupDoesNotExistException
+     *         The specified key group does not exist.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @throws RealtimeLogConfigOwnerMismatchException
+     *         The specified real-time log configuration belongs to a different Amazon Web Services account.
+     * @sample AmazonCloudFront.CopyDistribution
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CopyDistribution" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CopyDistributionResult copyDistribution(CopyDistributionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCopyDistribution(request);
+    }
+
+    @SdkInternalApi
+    final CopyDistributionResult executeCopyDistribution(CopyDistributionRequest copyDistributionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(copyDistributionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CopyDistributionRequest> request = null;
+        Response<CopyDistributionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CopyDistributionRequestMarshaller().marshall(super.beforeMarshalling(copyDistributionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CopyDistribution");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CopyDistributionResult> responseHandler = new StaxResponseHandler<CopyDistributionResult>(
+                    new CopyDistributionResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a cache policy.
+     * </p>
+     * <p>
+     * After you create a cache policy, you can attach it to one or more cache behaviors. When it's attached to a cache
+     * behavior, the cache policy determines the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The values that CloudFront includes in the <i>cache key</i>. These values can include HTTP headers, cookies, and
+     * URL query strings. CloudFront uses the cache key to find an object in its cache that it can return to the viewer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The default, minimum, and maximum time to live (TTL) values that you want objects to stay in the CloudFront
+     * cache.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The headers, cookies, and query strings that are included in the cache key are also included in requests that
+     * CloudFront sends to the origin. CloudFront sends a request when it can't find an object in its cache that matches
+     * the request's cache key. If you want to send values to the origin but <i>not</i> include them in the cache key,
+     * use <code>OriginRequestPolicy</code>.
+     * </p>
+     * <p>
+     * For more information about cache policies, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-the-cache-key.html"
+     * >Controlling the cache key</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * 
+     * @param createCachePolicyRequest
+     * @return Result of the CreateCachePolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws CachePolicyAlreadyExistsException
+     *         A cache policy with this name already exists. You must provide a unique name. To modify an existing cache
+     *         policy, use <code>UpdateCachePolicy</code>.
+     * @throws TooManyCachePoliciesException
+     *         You have reached the maximum number of cache policies for this Amazon Web Services account. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyHeadersInCachePolicyException
+     *         The number of headers in the cache policy exceeds the maximum. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyCookiesInCachePolicyException
+     *         The number of cookies in the cache policy exceeds the maximum. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyQueryStringsInCachePolicyException
+     *         The number of query strings in the cache policy exceeds the maximum. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @sample AmazonCloudFront.CreateCachePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateCachePolicy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateCachePolicyResult createCachePolicy(CreateCachePolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateCachePolicy(request);
+    }
+
+    @SdkInternalApi
+    final CreateCachePolicyResult executeCreateCachePolicy(CreateCachePolicyRequest createCachePolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createCachePolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateCachePolicyRequest> request = null;
+        Response<CreateCachePolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateCachePolicyRequestMarshaller().marshall(super.beforeMarshalling(createCachePolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCachePolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CreateCachePolicyResult> responseHandler = new StaxResponseHandler<CreateCachePolicyResult>(
+                    new CreateCachePolicyResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
     }
 
     /**
@@ -391,11 +1373,11 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws TooManyCloudFrontOriginAccessIdentitiesException
      *         Processing your request would cause you to exceed the maximum number of origin access identities allowed.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @sample AmazonCloudFront.CreateCloudFrontOriginAccessIdentity
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreateCloudFrontOriginAccessIdentity"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateCloudFrontOriginAccessIdentity"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -421,6 +1403,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(createCloudFrontOriginAccessIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCloudFrontOriginAccessIdentity");
@@ -432,6 +1416,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<CreateCloudFrontOriginAccessIdentityResult> responseHandler = new StaxResponseHandler<CreateCloudFrontOriginAccessIdentityResult>(
                     new CreateCloudFrontOriginAccessIdentityResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -444,23 +1429,88 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Creates a new web distribution. You create a CloudFront distribution to tell CloudFront where you want content to
-     * be delivered from, and the details about how to track and manage content delivery. Send a <code>POST</code>
-     * request to the <code>/<i>CloudFront API version</i>/distribution</code>/<code>distribution ID</code> resource.
+     * Creates a continuous deployment policy that distributes traffic for a custom domain name to two different
+     * CloudFront distributions.
      * </p>
-     * <important>
      * <p>
-     * When you update a distribution, there are more required fields than when you create a distribution. When you
-     * update your distribution by using <a
-     * href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateDistribution.html"
-     * >UpdateDistribution</a>, follow the steps included in the documentation to get the current configuration and then
-     * make your updates. This helps to make sure that you include all of the required fields. To view a summary, see <a
-     * href
-     * ="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-overview-required-fields.html"
-     * >Required Fields for Create Distribution and Update Distribution</a> in the <i>Amazon CloudFront Developer
-     * Guide</i>.
+     * To use a continuous deployment policy, first use <code>CopyDistribution</code> to create a staging distribution,
+     * then use <code>UpdateDistribution</code> to modify the staging distribution's configuration.
      * </p>
-     * </important>
+     * <p>
+     * After you create and update a staging distribution, you can use a continuous deployment policy to incrementally
+     * move traffic to the staging distribution. This workflow enables you to test changes to a distribution's
+     * configuration before moving all of your domain's production traffic to the new configuration.
+     * </p>
+     * 
+     * @param createContinuousDeploymentPolicyRequest
+     * @return Result of the CreateContinuousDeploymentPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws ContinuousDeploymentPolicyAlreadyExistsException
+     *         A continuous deployment policy with this configuration already exists.
+     * @throws TooManyContinuousDeploymentPoliciesException
+     *         You have reached the maximum number of continuous deployment policies for this Amazon Web Services
+     *         account.
+     * @throws StagingDistributionInUseException
+     *         A continuous deployment policy for this staging distribution already exists.
+     * @sample AmazonCloudFront.CreateContinuousDeploymentPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateContinuousDeploymentPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateContinuousDeploymentPolicyResult createContinuousDeploymentPolicy(CreateContinuousDeploymentPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateContinuousDeploymentPolicy(request);
+    }
+
+    @SdkInternalApi
+    final CreateContinuousDeploymentPolicyResult executeCreateContinuousDeploymentPolicy(
+            CreateContinuousDeploymentPolicyRequest createContinuousDeploymentPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createContinuousDeploymentPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateContinuousDeploymentPolicyRequest> request = null;
+        Response<CreateContinuousDeploymentPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateContinuousDeploymentPolicyRequestMarshaller().marshall(super.beforeMarshalling(createContinuousDeploymentPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateContinuousDeploymentPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CreateContinuousDeploymentPolicyResult> responseHandler = new StaxResponseHandler<CreateContinuousDeploymentPolicyResult>(
+                    new CreateContinuousDeploymentPolicyResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a CloudFront distribution.
+     * </p>
      * 
      * @param createDistributionRequest
      *        The request to create a new distribution.
@@ -474,6 +1524,16 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      *         The Amazon S3 origin server specified does not refer to a valid Amazon S3 bucket.
      * @throws InvalidOriginAccessIdentityException
      *         The origin access identity is not valid or doesn't exist.
+     * @throws InvalidOriginAccessControlException
+     *         The origin access control is not valid.
+     * @throws IllegalOriginAccessConfigurationException
+     *         An origin cannot contain both an origin access control (OAC) and an origin access identity (OAI).
+     * @throws TooManyDistributionsAssociatedToOriginAccessControlException
+     *         The maximum number of distributions have been associated with the specified origin access control.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
      * @throws AccessDeniedException
      *         Access denied.
      * @throws TooManyTrustedSignersException
@@ -481,7 +1541,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws TrustedSignerDoesNotExistException
      *         One or more of your trusted signers don't exist.
      * @throws InvalidViewerCertificateException
-     *         A viewer certificate specified in the response body is not valid.
+     *         A viewer certificate specified is not valid.
      * @throws InvalidMinimumProtocolVersionException
      *         The minimum protocol version specified is not valid.
      * @throws MissingBodyException
@@ -498,9 +1558,9 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws InvalidErrorCodeException
      *         An invalid error code was specified.
      * @throws InvalidResponseCodeException
-     *         A response code specified in the response body is not valid.
+     *         A response code is not valid.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidRequiredProtocolException
      *         This operation requires the HTTPS protocol. Ensure that you specify the HTTPS protocol in your request,
      *         or omit the <code>RequiredProtocols</code> element from your distribution configuration.
@@ -534,22 +1594,40 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      *         You cannot specify SSLv3 as the minimum protocol version if you only want to support only clients that
      *         support Server Name Indication (SNI).
      * @throws InvalidTTLOrderException
-     *         TTL order specified in the response body is not valid.
+     *         The TTL order specified is not valid.
      * @throws InvalidWebACLIdException
-     *         A web ACL id specified in the response body is not valid.
+     *         A web ACL ID specified is not valid. To specify a web ACL created using the latest version of WAF, use
+     *         the ACL ARN, for example
+     *         <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a</code>
+     *         . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     *         <code>473e64fd-f30b-4765-81a0-62ad96dd167a</code>.
      * @throws TooManyOriginCustomHeadersException
      *         Your request contains too many origin custom headers.
      * @throws TooManyQueryStringParametersException
      *         Your request contains too many query string parameters.
      * @throws InvalidQueryStringParametersException
-     *         Query string parameters specified in the response body are not valid.
+     *         The query string parameters specified are not valid.
      * @throws TooManyDistributionsWithLambdaAssociationsException
-     *         Processing your request would cause the maximum number of distributions with Lambda function associations
-     *         per owner to be exceeded.
+     *         Processing your request would cause the maximum number of distributions with Lambda@Edge function
+     *         associations per owner to be exceeded.
+     * @throws TooManyDistributionsWithSingleFunctionARNException
+     *         The maximum number of distributions have been associated with the specified Lambda@Edge function.
      * @throws TooManyLambdaFunctionAssociationsException
-     *         Your request contains more Lambda function associations than are allowed per distribution.
+     *         Your request contains more Lambda@Edge function associations than are allowed per distribution.
      * @throws InvalidLambdaFunctionAssociationException
-     *         The specified Lambda function association is invalid.
+     *         The specified Lambda@Edge function association is invalid.
+     * @throws TooManyDistributionsWithFunctionAssociationsException
+     *         You have reached the maximum number of distributions that are associated with a CloudFront function. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyFunctionAssociationsException
+     *         You have reached the maximum number of CloudFront function associations for this distribution. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws InvalidFunctionAssociationException
+     *         A CloudFront function association is invalid.
      * @throws InvalidOriginReadTimeoutException
      *         The read timeout specified for the origin is not valid.
      * @throws InvalidOriginKeepaliveTimeoutException
@@ -562,8 +1640,53 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws TooManyDistributionsAssociatedToFieldLevelEncryptionConfigException
      *         The maximum number of distributions have been associated with the specified configuration for field-level
      *         encryption.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws TooManyDistributionsAssociatedToCachePolicyException
+     *         The maximum number of distributions have been associated with the specified cache policy. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws TooManyDistributionsAssociatedToResponseHeadersPolicyException
+     *         The maximum number of distributions have been associated with the specified response headers policy.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws TooManyDistributionsAssociatedToOriginRequestPolicyException
+     *         The maximum number of distributions have been associated with the specified origin request policy. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToKeyGroupException
+     *         The number of distributions that reference this key group is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyKeyGroupsAssociatedToDistributionException
+     *         The number of key groups referenced by this distribution is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TrustedKeyGroupDoesNotExistException
+     *         The specified key group does not exist.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @throws RealtimeLogConfigOwnerMismatchException
+     *         The specified real-time log configuration belongs to a different Amazon Web Services account.
+     * @throws ContinuousDeploymentPolicyInUseException
+     *         You cannot delete a continuous deployment policy that is associated with a primary distribution.
+     * @throws NoSuchContinuousDeploymentPolicyException
+     *         The continuous deployment policy doesn't exist.
+     * @throws InvalidDomainNameForOriginAccessControlException
+     *         An origin access control is associated with an origin whose domain name is not supported.
      * @sample AmazonCloudFront.CreateDistribution
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreateDistribution" target="_top">AWS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateDistribution" target="_top">AWS
      *      API Documentation</a>
      */
     @Override
@@ -587,6 +1710,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new CreateDistributionRequestMarshaller().marshall(super.beforeMarshalling(createDistributionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDistribution");
@@ -598,6 +1723,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<CreateDistributionResult> responseHandler = new StaxResponseHandler<CreateDistributionResult>(
                     new CreateDistributionResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -610,8 +1736,21 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Create a new distribution with tags.
+     * Create a new distribution with tags. This API operation requires the following IAM permissions:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CreateDistribution.html">
+     * CreateDistribution</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_TagResource.html">TagResource</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param createDistributionWithTagsRequest
      *        The request to create a new distribution with tags.
@@ -625,6 +1764,10 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      *         The Amazon S3 origin server specified does not refer to a valid Amazon S3 bucket.
      * @throws InvalidOriginAccessIdentityException
      *         The origin access identity is not valid or doesn't exist.
+     * @throws InvalidOriginAccessControlException
+     *         The origin access control is not valid.
+     * @throws IllegalOriginAccessConfigurationException
+     *         An origin cannot contain both an origin access control (OAC) and an origin access identity (OAI).
      * @throws AccessDeniedException
      *         Access denied.
      * @throws TooManyTrustedSignersException
@@ -632,7 +1775,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws TrustedSignerDoesNotExistException
      *         One or more of your trusted signers don't exist.
      * @throws InvalidViewerCertificateException
-     *         A viewer certificate specified in the response body is not valid.
+     *         A viewer certificate specified is not valid.
      * @throws InvalidMinimumProtocolVersionException
      *         The minimum protocol version specified is not valid.
      * @throws MissingBodyException
@@ -649,9 +1792,9 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws InvalidErrorCodeException
      *         An invalid error code was specified.
      * @throws InvalidResponseCodeException
-     *         A response code specified in the response body is not valid.
+     *         A response code is not valid.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidRequiredProtocolException
      *         This operation requires the HTTPS protocol. Ensure that you specify the HTTPS protocol in your request,
      *         or omit the <code>RequiredProtocols</code> element from your distribution configuration.
@@ -685,24 +1828,42 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      *         You cannot specify SSLv3 as the minimum protocol version if you only want to support only clients that
      *         support Server Name Indication (SNI).
      * @throws InvalidTTLOrderException
-     *         TTL order specified in the response body is not valid.
+     *         The TTL order specified is not valid.
      * @throws InvalidWebACLIdException
-     *         A web ACL id specified in the response body is not valid.
+     *         A web ACL ID specified is not valid. To specify a web ACL created using the latest version of WAF, use
+     *         the ACL ARN, for example
+     *         <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a</code>
+     *         . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     *         <code>473e64fd-f30b-4765-81a0-62ad96dd167a</code>.
      * @throws TooManyOriginCustomHeadersException
      *         Your request contains too many origin custom headers.
      * @throws InvalidTaggingException
-     *         Tagging specified in the response body is not valid.
+     *         The tagging specified is not valid.
      * @throws TooManyQueryStringParametersException
      *         Your request contains too many query string parameters.
      * @throws InvalidQueryStringParametersException
-     *         Query string parameters specified in the response body are not valid.
+     *         The query string parameters specified are not valid.
      * @throws TooManyDistributionsWithLambdaAssociationsException
-     *         Processing your request would cause the maximum number of distributions with Lambda function associations
-     *         per owner to be exceeded.
+     *         Processing your request would cause the maximum number of distributions with Lambda@Edge function
+     *         associations per owner to be exceeded.
+     * @throws TooManyDistributionsWithSingleFunctionARNException
+     *         The maximum number of distributions have been associated with the specified Lambda@Edge function.
      * @throws TooManyLambdaFunctionAssociationsException
-     *         Your request contains more Lambda function associations than are allowed per distribution.
+     *         Your request contains more Lambda@Edge function associations than are allowed per distribution.
      * @throws InvalidLambdaFunctionAssociationException
-     *         The specified Lambda function association is invalid.
+     *         The specified Lambda@Edge function association is invalid.
+     * @throws TooManyDistributionsWithFunctionAssociationsException
+     *         You have reached the maximum number of distributions that are associated with a CloudFront function. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyFunctionAssociationsException
+     *         You have reached the maximum number of CloudFront function associations for this distribution. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws InvalidFunctionAssociationException
+     *         A CloudFront function association is invalid.
      * @throws InvalidOriginReadTimeoutException
      *         The read timeout specified for the origin is not valid.
      * @throws InvalidOriginKeepaliveTimeoutException
@@ -715,8 +1876,59 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws TooManyDistributionsAssociatedToFieldLevelEncryptionConfigException
      *         The maximum number of distributions have been associated with the specified configuration for field-level
      *         encryption.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws TooManyDistributionsAssociatedToCachePolicyException
+     *         The maximum number of distributions have been associated with the specified cache policy. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToOriginAccessControlException
+     *         The maximum number of distributions have been associated with the specified origin access control.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws TooManyDistributionsAssociatedToResponseHeadersPolicyException
+     *         The maximum number of distributions have been associated with the specified response headers policy.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws TooManyDistributionsAssociatedToOriginRequestPolicyException
+     *         The maximum number of distributions have been associated with the specified origin request policy. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToKeyGroupException
+     *         The number of distributions that reference this key group is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyKeyGroupsAssociatedToDistributionException
+     *         The number of key groups referenced by this distribution is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TrustedKeyGroupDoesNotExistException
+     *         The specified key group does not exist.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @throws RealtimeLogConfigOwnerMismatchException
+     *         The specified real-time log configuration belongs to a different Amazon Web Services account.
+     * @throws ContinuousDeploymentPolicyInUseException
+     *         You cannot delete a continuous deployment policy that is associated with a primary distribution.
+     * @throws NoSuchContinuousDeploymentPolicyException
+     *         The continuous deployment policy doesn't exist.
+     * @throws InvalidDomainNameForOriginAccessControlException
+     *         An origin access control is associated with an origin whose domain name is not supported.
      * @sample AmazonCloudFront.CreateDistributionWithTags
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreateDistributionWithTags"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateDistributionWithTags"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -740,6 +1952,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new CreateDistributionWithTagsRequestMarshaller().marshall(super.beforeMarshalling(createDistributionWithTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDistributionWithTags");
@@ -751,6 +1965,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<CreateDistributionWithTagsResult> responseHandler = new StaxResponseHandler<CreateDistributionWithTagsResult>(
                     new CreateDistributionWithTagsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -771,7 +1986,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws NoSuchFieldLevelEncryptionProfileException
      *         The specified profile for field-level encryption doesn't exist.
      * @throws FieldLevelEncryptionConfigAlreadyExistsException
@@ -785,7 +2000,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws QueryArgProfileEmptyException
      *         No profile specified for the field-level encryption query argument.
      * @sample AmazonCloudFront.CreateFieldLevelEncryptionConfig
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreateFieldLevelEncryptionConfig"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateFieldLevelEncryptionConfig"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -810,6 +2025,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new CreateFieldLevelEncryptionConfigRequestMarshaller().marshall(super.beforeMarshalling(createFieldLevelEncryptionConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateFieldLevelEncryptionConfig");
@@ -821,6 +2038,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<CreateFieldLevelEncryptionConfigResult> responseHandler = new StaxResponseHandler<CreateFieldLevelEncryptionConfigResult>(
                     new CreateFieldLevelEncryptionConfigResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -841,7 +2059,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws NoSuchPublicKeyException
      *         The specified public key doesn't exist.
      * @throws FieldLevelEncryptionProfileAlreadyExistsException
@@ -855,7 +2073,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws TooManyFieldLevelEncryptionFieldPatternsException
      *         The maximum number of field patterns for field-level encryption have been created.
      * @sample AmazonCloudFront.CreateFieldLevelEncryptionProfile
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreateFieldLevelEncryptionProfile"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateFieldLevelEncryptionProfile"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -880,6 +2098,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new CreateFieldLevelEncryptionProfileRequestMarshaller().marshall(super.beforeMarshalling(createFieldLevelEncryptionProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateFieldLevelEncryptionProfile");
@@ -891,6 +2111,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<CreateFieldLevelEncryptionProfileResult> responseHandler = new StaxResponseHandler<CreateFieldLevelEncryptionProfileResult>(
                     new CreateFieldLevelEncryptionProfileResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -903,7 +2124,94 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Create a new invalidation.
+     * Creates a CloudFront function.
+     * </p>
+     * <p>
+     * To create a function, you provide the function code and some configuration information about the function. The
+     * response contains an Amazon Resource Name (ARN) that uniquely identifies the function.
+     * </p>
+     * <p>
+     * When you create a function, it's in the <code>DEVELOPMENT</code> stage. In this stage, you can test the function
+     * with <code>TestFunction</code>, and update it with <code>UpdateFunction</code>.
+     * </p>
+     * <p>
+     * When you're ready to use your function with a CloudFront distribution, use <code>PublishFunction</code> to copy
+     * the function from the <code>DEVELOPMENT</code> stage to <code>LIVE</code>. When it's live, you can attach the
+     * function to a distribution's cache behavior, using the function's ARN.
+     * </p>
+     * 
+     * @param createFunctionRequest
+     * @return Result of the CreateFunction operation returned by the service.
+     * @throws TooManyFunctionsException
+     *         You have reached the maximum number of CloudFront functions for this Amazon Web Services account. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws FunctionAlreadyExistsException
+     *         A function with the same name already exists in this Amazon Web Services account. To create a function,
+     *         you must provide a unique name. To update an existing function, use <code>UpdateFunction</code>.
+     * @throws FunctionSizeLimitExceededException
+     *         The function is too large. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.CreateFunction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateFunction" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateFunctionResult createFunction(CreateFunctionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateFunction(request);
+    }
+
+    @SdkInternalApi
+    final CreateFunctionResult executeCreateFunction(CreateFunctionRequest createFunctionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createFunctionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateFunctionRequest> request = null;
+        Response<CreateFunctionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateFunctionRequestMarshaller().marshall(super.beforeMarshalling(createFunctionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateFunction");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CreateFunctionResult> responseHandler = new StaxResponseHandler<CreateFunctionResult>(
+                    new CreateFunctionResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Create a new invalidation. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html">Invalidating
+     * files</a> in the <i>Amazon CloudFront Developer Guide</i>.
      * </p>
      * 
      * @param createInvalidationRequest
@@ -915,7 +2223,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      *         This operation requires a body. Ensure that the body is present and the <code>Content-Type</code> header
      *         is set.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws NoSuchDistributionException
      *         The specified distribution does not exist.
      * @throws BatchTooLargeException
@@ -926,7 +2234,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @sample AmazonCloudFront.CreateInvalidation
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreateInvalidation" target="_top">AWS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateInvalidation" target="_top">AWS
      *      API Documentation</a>
      */
     @Override
@@ -950,6 +2258,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new CreateInvalidationRequestMarshaller().marshall(super.beforeMarshalling(createInvalidationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateInvalidation");
@@ -961,6 +2271,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<CreateInvalidationResult> responseHandler = new StaxResponseHandler<CreateInvalidationResult>(
                     new CreateInvalidationResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -973,8 +2284,429 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Add a new public key to CloudFront to use, for example, for field-level encryption. You can add a maximum of 10
-     * public keys with one AWS account.
+     * Creates a key group that you can use with <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html">CloudFront signed
+     * URLs and signed cookies</a>.
+     * </p>
+     * <p>
+     * To create a key group, you must specify at least one public key for the key group. After you create a key group,
+     * you can reference it from one or more cache behaviors. When you reference a key group in a cache behavior,
+     * CloudFront requires signed URLs or signed cookies for all requests that match the cache behavior. The URLs or
+     * cookies must be signed with a private key whose corresponding public key is in the key group. The signed URL or
+     * cookie contains information about which public key CloudFront should use to verify the signature. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html">Serving private
+     * content</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * 
+     * @param createKeyGroupRequest
+     * @return Result of the CreateKeyGroup operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws KeyGroupAlreadyExistsException
+     *         A key group with this name already exists. You must provide a unique name. To modify an existing key
+     *         group, use <code>UpdateKeyGroup</code>.
+     * @throws TooManyKeyGroupsException
+     *         You have reached the maximum number of key groups for this Amazon Web Services account. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyPublicKeysInKeyGroupException
+     *         The number of public keys in this key group is more than the maximum allowed. For more information, see
+     *         <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html">Quotas
+     *         </a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @sample AmazonCloudFront.CreateKeyGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateKeyGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateKeyGroupResult createKeyGroup(CreateKeyGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateKeyGroup(request);
+    }
+
+    @SdkInternalApi
+    final CreateKeyGroupResult executeCreateKeyGroup(CreateKeyGroupRequest createKeyGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createKeyGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateKeyGroupRequest> request = null;
+        Response<CreateKeyGroupResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateKeyGroupRequestMarshaller().marshall(super.beforeMarshalling(createKeyGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateKeyGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CreateKeyGroupResult> responseHandler = new StaxResponseHandler<CreateKeyGroupResult>(
+                    new CreateKeyGroupResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Specifies the key value store resource to add to your account. In your account, the key value store names must be
+     * unique. You can also import key value store data in JSON format from an S3 bucket by providing a valid
+     * <code>ImportSource</code> that you own.
+     * </p>
+     * 
+     * @param createKeyValueStoreRequest
+     * @return Result of the CreateKeyValueStore operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws EntityLimitExceededException
+     *         The key value store entity limit has been exceeded.
+     * @throws EntityAlreadyExistsException
+     *         The key value store entity already exists. You must provide a unique key value store entity.
+     * @throws EntitySizeLimitExceededException
+     *         The key value store entity size limit was exceeded.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.CreateKeyValueStore
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateKeyValueStore" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateKeyValueStoreResult createKeyValueStore(CreateKeyValueStoreRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateKeyValueStore(request);
+    }
+
+    @SdkInternalApi
+    final CreateKeyValueStoreResult executeCreateKeyValueStore(CreateKeyValueStoreRequest createKeyValueStoreRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createKeyValueStoreRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateKeyValueStoreRequest> request = null;
+        Response<CreateKeyValueStoreResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateKeyValueStoreRequestMarshaller().marshall(super.beforeMarshalling(createKeyValueStoreRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateKeyValueStore");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CreateKeyValueStoreResult> responseHandler = new StaxResponseHandler<CreateKeyValueStoreResult>(
+                    new CreateKeyValueStoreResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Enables additional CloudWatch metrics for the specified CloudFront distribution. The additional metrics incur an
+     * additional cost.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/viewing-cloudfront-metrics.html#monitoring-console.distributions-additional"
+     * >Viewing additional CloudFront distribution metrics</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * 
+     * @param createMonitoringSubscriptionRequest
+     * @return Result of the CreateMonitoringSubscription operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchDistributionException
+     *         The specified distribution does not exist.
+     * @throws MonitoringSubscriptionAlreadyExistsException
+     *         A monitoring subscription already exists for the specified distribution.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.CreateMonitoringSubscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateMonitoringSubscription"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateMonitoringSubscriptionResult createMonitoringSubscription(CreateMonitoringSubscriptionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateMonitoringSubscription(request);
+    }
+
+    @SdkInternalApi
+    final CreateMonitoringSubscriptionResult executeCreateMonitoringSubscription(CreateMonitoringSubscriptionRequest createMonitoringSubscriptionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createMonitoringSubscriptionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateMonitoringSubscriptionRequest> request = null;
+        Response<CreateMonitoringSubscriptionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateMonitoringSubscriptionRequestMarshaller().marshall(super.beforeMarshalling(createMonitoringSubscriptionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateMonitoringSubscription");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CreateMonitoringSubscriptionResult> responseHandler = new StaxResponseHandler<CreateMonitoringSubscriptionResult>(
+                    new CreateMonitoringSubscriptionResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a new origin access control in CloudFront. After you create an origin access control, you can add it to
+     * an origin in a CloudFront distribution so that CloudFront sends authenticated (signed) requests to the origin.
+     * </p>
+     * <p>
+     * This makes it possible to block public access to the origin, allowing viewers (users) to access the origin's
+     * content only through CloudFront.
+     * </p>
+     * <p>
+     * For more information about using a CloudFront origin access control, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-origin.html"
+     * >Restricting access to an Amazon Web Services origin</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * 
+     * @param createOriginAccessControlRequest
+     * @return Result of the CreateOriginAccessControl operation returned by the service.
+     * @throws OriginAccessControlAlreadyExistsException
+     *         An origin access control with the specified parameters already exists.
+     * @throws TooManyOriginAccessControlsException
+     *         The number of origin access controls in your Amazon Web Services account exceeds the maximum allowed.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.CreateOriginAccessControl
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateOriginAccessControl"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateOriginAccessControlResult createOriginAccessControl(CreateOriginAccessControlRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateOriginAccessControl(request);
+    }
+
+    @SdkInternalApi
+    final CreateOriginAccessControlResult executeCreateOriginAccessControl(CreateOriginAccessControlRequest createOriginAccessControlRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createOriginAccessControlRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateOriginAccessControlRequest> request = null;
+        Response<CreateOriginAccessControlResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateOriginAccessControlRequestMarshaller().marshall(super.beforeMarshalling(createOriginAccessControlRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateOriginAccessControl");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CreateOriginAccessControlResult> responseHandler = new StaxResponseHandler<CreateOriginAccessControlResult>(
+                    new CreateOriginAccessControlResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates an origin request policy.
+     * </p>
+     * <p>
+     * After you create an origin request policy, you can attach it to one or more cache behaviors. When it's attached
+     * to a cache behavior, the origin request policy determines the values that CloudFront includes in requests that it
+     * sends to the origin. Each request that CloudFront sends to the origin includes the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The request body and the URL path (without the domain name) from the viewer request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The headers that CloudFront automatically includes in every origin request, including <code>Host</code>,
+     * <code>User-Agent</code>, and <code>X-Amz-Cf-Id</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * All HTTP headers, cookies, and URL query strings that are specified in the cache policy or the origin request
+     * policy. These can include items from the viewer request and, in the case of headers, additional ones that are
+     * added by CloudFront.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * CloudFront sends a request when it can't find a valid object in its cache that matches the request. If you want
+     * to send values to the origin and also include them in the cache key, use <code>CachePolicy</code>.
+     * </p>
+     * <p>
+     * For more information about origin request policies, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/controlling-origin-requests.html"
+     * >Controlling origin requests</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * 
+     * @param createOriginRequestPolicyRequest
+     * @return Result of the CreateOriginRequestPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws OriginRequestPolicyAlreadyExistsException
+     *         An origin request policy with this name already exists. You must provide a unique name. To modify an
+     *         existing origin request policy, use <code>UpdateOriginRequestPolicy</code>.
+     * @throws TooManyOriginRequestPoliciesException
+     *         You have reached the maximum number of origin request policies for this Amazon Web Services account. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyHeadersInOriginRequestPolicyException
+     *         The number of headers in the origin request policy exceeds the maximum. For more information, see <a
+     *         href=
+     *         "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html">Quotas</a>
+     *         (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyCookiesInOriginRequestPolicyException
+     *         The number of cookies in the origin request policy exceeds the maximum. For more information, see <a
+     *         href=
+     *         "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html">Quotas</a>
+     *         (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyQueryStringsInOriginRequestPolicyException
+     *         The number of query strings in the origin request policy exceeds the maximum. For more information, see
+     *         <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html">Quotas
+     *         </a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @sample AmazonCloudFront.CreateOriginRequestPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateOriginRequestPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateOriginRequestPolicyResult createOriginRequestPolicy(CreateOriginRequestPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateOriginRequestPolicy(request);
+    }
+
+    @SdkInternalApi
+    final CreateOriginRequestPolicyResult executeCreateOriginRequestPolicy(CreateOriginRequestPolicyRequest createOriginRequestPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createOriginRequestPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateOriginRequestPolicyRequest> request = null;
+        Response<CreateOriginRequestPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateOriginRequestPolicyRequestMarshaller().marshall(super.beforeMarshalling(createOriginRequestPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateOriginRequestPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CreateOriginRequestPolicyResult> responseHandler = new StaxResponseHandler<CreateOriginRequestPolicyResult>(
+                    new CreateOriginRequestPolicyResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Uploads a public key to CloudFront that you can use with <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html">signed URLs and
+     * signed cookies</a>, or with <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html">field-level
+     * encryption</a>.
      * </p>
      * 
      * @param createPublicKeyRequest
@@ -982,12 +2714,12 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws PublicKeyAlreadyExistsException
      *         The specified public key already exists.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws TooManyPublicKeysException
      *         The maximum number of public keys for field-level encryption have been created. To create a new public
      *         key, delete one of the existing keys.
      * @sample AmazonCloudFront.CreatePublicKey
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreatePublicKey" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreatePublicKey" target="_top">AWS API
      *      Documentation</a>
      */
     @Override
@@ -1011,6 +2743,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new CreatePublicKeyRequestMarshaller().marshall(super.beforeMarshalling(createPublicKeyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePublicKey");
@@ -1022,6 +2756,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<CreatePublicKeyResult> responseHandler = new StaxResponseHandler<CreatePublicKeyResult>(
                     new CreatePublicKeyResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1034,36 +2769,197 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Creates a new RTMP distribution. An RTMP distribution is similar to a web distribution, but an RTMP distribution
-     * streams media files using the Adobe Real-Time Messaging Protocol (RTMP) instead of serving files using HTTP.
+     * Creates a real-time log configuration.
      * </p>
      * <p>
-     * To create a new distribution, submit a <code>POST</code> request to the <i>CloudFront API
-     * version</i>/distribution resource. The request body must include a document with a
-     * <i>StreamingDistributionConfig</i> element. The response echoes the <code>StreamingDistributionConfig</code>
-     * element and returns other information about the RTMP distribution.
+     * After you create a real-time log configuration, you can attach it to one or more cache behaviors to send
+     * real-time log data to the specified Amazon Kinesis data stream.
      * </p>
      * <p>
-     * To get the status of your request, use the <i>GET StreamingDistribution</i> API action. When the value of
-     * <code>Enabled</code> is <code>true</code> and the value of <code>Status</code> is <code>Deployed</code>, your
-     * distribution is ready. A distribution usually deploys in less than 15 minutes.
+     * For more information about real-time log configurations, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/real-time-logs.html">Real-time logs</a>
+     * in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * 
+     * @param createRealtimeLogConfigRequest
+     * @return Result of the CreateRealtimeLogConfig operation returned by the service.
+     * @throws RealtimeLogConfigAlreadyExistsException
+     *         A real-time log configuration with this name already exists. You must provide a unique name. To modify an
+     *         existing real-time log configuration, use <code>UpdateRealtimeLogConfig</code>.
+     * @throws TooManyRealtimeLogConfigsException
+     *         You have reached the maximum number of real-time log configurations for this Amazon Web Services account.
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.CreateRealtimeLogConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateRealtimeLogConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateRealtimeLogConfigResult createRealtimeLogConfig(CreateRealtimeLogConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateRealtimeLogConfig(request);
+    }
+
+    @SdkInternalApi
+    final CreateRealtimeLogConfigResult executeCreateRealtimeLogConfig(CreateRealtimeLogConfigRequest createRealtimeLogConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createRealtimeLogConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateRealtimeLogConfigRequest> request = null;
+        Response<CreateRealtimeLogConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateRealtimeLogConfigRequestMarshaller().marshall(super.beforeMarshalling(createRealtimeLogConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRealtimeLogConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CreateRealtimeLogConfigResult> responseHandler = new StaxResponseHandler<CreateRealtimeLogConfigResult>(
+                    new CreateRealtimeLogConfigResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a response headers policy.
      * </p>
      * <p>
-     * For more information about web distributions, see <a
-     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-rtmp.html">Working with
-     * RTMP Distributions</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * A response headers policy contains information about a set of HTTP headers. To create a response headers policy,
+     * you provide some metadata about the policy and a set of configurations that specify the headers.
      * </p>
-     * <important>
      * <p>
-     * Beginning with the 2012-05-05 version of the CloudFront API, we made substantial changes to the format of the XML
-     * document that you include in the request body when you create or update a web distribution or an RTMP
-     * distribution, and when you invalidate objects. With previous versions of the API, we discovered that it was too
-     * easy to accidentally delete one or more values for an element that accepts multiple values, for example, CNAMEs
-     * and trusted signers. Our changes for the 2012-05-05 release are intended to prevent these accidental deletions
-     * and to notify you when there's a mismatch between the number of values you say you're specifying in the
-     * <code>Quantity</code> element and the number of values specified.
+     * After you create a response headers policy, you can use its ID to attach it to one or more cache behaviors in a
+     * CloudFront distribution. When it's attached to a cache behavior, the response headers policy affects the HTTP
+     * headers that CloudFront includes in HTTP responses to requests that match the cache behavior. CloudFront adds or
+     * removes response headers according to the configuration of the response headers policy.
      * </p>
-     * </important>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/modifying-response-headers.html">Adding
+     * or removing HTTP headers in CloudFront responses</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * 
+     * @param createResponseHeadersPolicyRequest
+     * @return Result of the CreateResponseHeadersPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws ResponseHeadersPolicyAlreadyExistsException
+     *         A response headers policy with this name already exists. You must provide a unique name. To modify an
+     *         existing response headers policy, use <code>UpdateResponseHeadersPolicy</code>.
+     * @throws TooManyResponseHeadersPoliciesException
+     *         You have reached the maximum number of response headers policies for this Amazon Web Services
+     *         account.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyCustomHeadersInResponseHeadersPolicyException
+     *         The number of custom headers in the response headers policy exceeds the maximum.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooLongCSPInResponseHeadersPolicyException
+     *         The length of the <code>Content-Security-Policy</code> header value in the response headers policy
+     *         exceeds the maximum.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyRemoveHeadersInResponseHeadersPolicyException
+     *         The number of headers in <code>RemoveHeadersConfig</code> in the response headers policy exceeds the
+     *         maximum.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @sample AmazonCloudFront.CreateResponseHeadersPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateResponseHeadersPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateResponseHeadersPolicyResult createResponseHeadersPolicy(CreateResponseHeadersPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateResponseHeadersPolicy(request);
+    }
+
+    @SdkInternalApi
+    final CreateResponseHeadersPolicyResult executeCreateResponseHeadersPolicy(CreateResponseHeadersPolicyRequest createResponseHeadersPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createResponseHeadersPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateResponseHeadersPolicyRequest> request = null;
+        Response<CreateResponseHeadersPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateResponseHeadersPolicyRequestMarshaller().marshall(super.beforeMarshalling(createResponseHeadersPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateResponseHeadersPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CreateResponseHeadersPolicyResult> responseHandler = new StaxResponseHandler<CreateResponseHeadersPolicyResult>(
+                    new CreateResponseHeadersPolicyResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * This API is deprecated. Amazon CloudFront is deprecating real-time messaging protocol (RTMP) distributions on
+     * December 31, 2020. For more information, <a href="http://forums.aws.amazon.com/ann.jspa?annID=7356">read the
+     * announcement</a> on the Amazon CloudFront discussion forum.
+     * </p>
      * 
      * @param createStreamingDistributionRequest
      *        The request to create a new streaming distribution.
@@ -1077,6 +2973,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      *         The Amazon S3 origin server specified does not refer to a valid Amazon S3 bucket.
      * @throws InvalidOriginAccessIdentityException
      *         The origin access identity is not valid or doesn't exist.
+     * @throws InvalidOriginAccessControlException
+     *         The origin access control is not valid.
      * @throws AccessDeniedException
      *         Access denied.
      * @throws TooManyTrustedSignersException
@@ -1091,11 +2989,11 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws TooManyStreamingDistributionsException
      *         Processing your request would cause you to exceed the maximum number of streaming distributions allowed.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @sample AmazonCloudFront.CreateStreamingDistribution
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreateStreamingDistribution"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateStreamingDistribution"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -1119,6 +3017,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new CreateStreamingDistributionRequestMarshaller().marshall(super.beforeMarshalling(createStreamingDistributionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateStreamingDistribution");
@@ -1130,6 +3030,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<CreateStreamingDistributionResult> responseHandler = new StaxResponseHandler<CreateStreamingDistributionResult>(
                     new CreateStreamingDistributionResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1142,7 +3043,9 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Create a new streaming distribution with tags.
+     * This API is deprecated. Amazon CloudFront is deprecating real-time messaging protocol (RTMP) distributions on
+     * December 31, 2020. For more information, <a href="http://forums.aws.amazon.com/ann.jspa?annID=7356">read the
+     * announcement</a> on the Amazon CloudFront discussion forum.
      * </p>
      * 
      * @param createStreamingDistributionWithTagsRequest
@@ -1157,6 +3060,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      *         The Amazon S3 origin server specified does not refer to a valid Amazon S3 bucket.
      * @throws InvalidOriginAccessIdentityException
      *         The origin access identity is not valid or doesn't exist.
+     * @throws InvalidOriginAccessControlException
+     *         The origin access control is not valid.
      * @throws AccessDeniedException
      *         Access denied.
      * @throws TooManyTrustedSignersException
@@ -1171,13 +3076,13 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws TooManyStreamingDistributionsException
      *         Processing your request would cause you to exceed the maximum number of streaming distributions allowed.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @throws InvalidTaggingException
-     *         Tagging specified in the response body is not valid.
+     *         The tagging specified is not valid.
      * @sample AmazonCloudFront.CreateStreamingDistributionWithTags
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/CreateStreamingDistributionWithTags"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateStreamingDistributionWithTags"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -1203,6 +3108,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(createStreamingDistributionWithTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateStreamingDistributionWithTags");
@@ -1214,6 +3121,83 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<CreateStreamingDistributionWithTagsResult> responseHandler = new StaxResponseHandler<CreateStreamingDistributionWithTagsResult>(
                     new CreateStreamingDistributionWithTagsResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a cache policy.
+     * </p>
+     * <p>
+     * You cannot delete a cache policy if it's attached to a cache behavior. First update your distributions to remove
+     * the cache policy from all cache behaviors, then delete the cache policy.
+     * </p>
+     * <p>
+     * To delete a cache policy, you must provide the policy's identifier and version. To get these values, you can use
+     * <code>ListCachePolicies</code> or <code>GetCachePolicy</code>.
+     * </p>
+     * 
+     * @param deleteCachePolicyRequest
+     * @return Result of the DeleteCachePolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws IllegalDeleteException
+     *         You cannot delete a managed policy.
+     * @throws CachePolicyInUseException
+     *         Cannot delete the cache policy because it is attached to one or more cache behaviors.
+     * @sample AmazonCloudFront.DeleteCachePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteCachePolicy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeleteCachePolicyResult deleteCachePolicy(DeleteCachePolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteCachePolicy(request);
+    }
+
+    @SdkInternalApi
+    final DeleteCachePolicyResult executeDeleteCachePolicy(DeleteCachePolicyRequest deleteCachePolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteCachePolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteCachePolicyRequest> request = null;
+        Response<DeleteCachePolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteCachePolicyRequestMarshaller().marshall(super.beforeMarshalling(deleteCachePolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCachePolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeleteCachePolicyResult> responseHandler = new StaxResponseHandler<DeleteCachePolicyResult>(
+                    new DeleteCachePolicyResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1235,15 +3219,15 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws AccessDeniedException
      *         Access denied.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws NoSuchCloudFrontOriginAccessIdentityException
      *         The specified origin access identity does not exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @throws CloudFrontOriginAccessIdentityInUseException
      *         The Origin Access Identity specified is already in use.
      * @sample AmazonCloudFront.DeleteCloudFrontOriginAccessIdentity
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/DeleteCloudFrontOriginAccessIdentity"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteCloudFrontOriginAccessIdentity"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -1269,6 +3253,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(deleteCloudFrontOriginAccessIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCloudFrontOriginAccessIdentity");
@@ -1280,6 +3266,80 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<DeleteCloudFrontOriginAccessIdentityResult> responseHandler = new StaxResponseHandler<DeleteCloudFrontOriginAccessIdentityResult>(
                     new DeleteCloudFrontOriginAccessIdentityResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a continuous deployment policy.
+     * </p>
+     * <p>
+     * You cannot delete a continuous deployment policy that's attached to a primary distribution. First update your
+     * distribution to remove the continuous deployment policy, then you can delete the policy.
+     * </p>
+     * 
+     * @param deleteContinuousDeploymentPolicyRequest
+     * @return Result of the DeleteContinuousDeploymentPolicy operation returned by the service.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws ContinuousDeploymentPolicyInUseException
+     *         You cannot delete a continuous deployment policy that is associated with a primary distribution.
+     * @throws NoSuchContinuousDeploymentPolicyException
+     *         The continuous deployment policy doesn't exist.
+     * @sample AmazonCloudFront.DeleteContinuousDeploymentPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteContinuousDeploymentPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteContinuousDeploymentPolicyResult deleteContinuousDeploymentPolicy(DeleteContinuousDeploymentPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteContinuousDeploymentPolicy(request);
+    }
+
+    @SdkInternalApi
+    final DeleteContinuousDeploymentPolicyResult executeDeleteContinuousDeploymentPolicy(
+            DeleteContinuousDeploymentPolicyRequest deleteContinuousDeploymentPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteContinuousDeploymentPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteContinuousDeploymentPolicyRequest> request = null;
+        Response<DeleteContinuousDeploymentPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteContinuousDeploymentPolicyRequestMarshaller().marshall(super.beforeMarshalling(deleteContinuousDeploymentPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteContinuousDeploymentPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeleteContinuousDeploymentPolicyResult> responseHandler = new StaxResponseHandler<DeleteContinuousDeploymentPolicyResult>(
+                    new DeleteContinuousDeploymentPolicyResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1364,13 +3424,13 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      *         The specified CloudFront distribution is not disabled. You must disable the distribution before you can
      *         delete it.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws NoSuchDistributionException
      *         The specified distribution does not exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @sample AmazonCloudFront.DeleteDistribution
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/DeleteDistribution" target="_top">AWS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteDistribution" target="_top">AWS
      *      API Documentation</a>
      */
     @Override
@@ -1394,6 +3454,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new DeleteDistributionRequestMarshaller().marshall(super.beforeMarshalling(deleteDistributionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDistribution");
@@ -1405,6 +3467,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<DeleteDistributionResult> responseHandler = new StaxResponseHandler<DeleteDistributionResult>(
                     new DeleteDistributionResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1425,15 +3488,15 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws AccessDeniedException
      *         Access denied.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws NoSuchFieldLevelEncryptionConfigException
      *         The specified configuration for field-level encryption doesn't exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @throws FieldLevelEncryptionConfigInUseException
      *         The specified configuration for field-level encryption is in use.
      * @sample AmazonCloudFront.DeleteFieldLevelEncryptionConfig
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/DeleteFieldLevelEncryptionConfig"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteFieldLevelEncryptionConfig"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -1458,6 +3521,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new DeleteFieldLevelEncryptionConfigRequestMarshaller().marshall(super.beforeMarshalling(deleteFieldLevelEncryptionConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFieldLevelEncryptionConfig");
@@ -1469,6 +3534,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<DeleteFieldLevelEncryptionConfigResult> responseHandler = new StaxResponseHandler<DeleteFieldLevelEncryptionConfigResult>(
                     new DeleteFieldLevelEncryptionConfigResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1489,15 +3555,15 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws AccessDeniedException
      *         Access denied.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws NoSuchFieldLevelEncryptionProfileException
      *         The specified profile for field-level encryption doesn't exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @throws FieldLevelEncryptionProfileInUseException
      *         The specified profile for field-level encryption is in use.
      * @sample AmazonCloudFront.DeleteFieldLevelEncryptionProfile
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/DeleteFieldLevelEncryptionProfile"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteFieldLevelEncryptionProfile"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -1522,6 +3588,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new DeleteFieldLevelEncryptionProfileRequestMarshaller().marshall(super.beforeMarshalling(deleteFieldLevelEncryptionProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFieldLevelEncryptionProfile");
@@ -1533,6 +3601,432 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<DeleteFieldLevelEncryptionProfileResult> responseHandler = new StaxResponseHandler<DeleteFieldLevelEncryptionProfileResult>(
                     new DeleteFieldLevelEncryptionProfileResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a CloudFront function.
+     * </p>
+     * <p>
+     * You cannot delete a function if it's associated with a cache behavior. First, update your distributions to remove
+     * the function association from all cache behaviors, then delete the function.
+     * </p>
+     * <p>
+     * To delete a function, you must provide the function's name and version (<code>ETag</code> value). To get these
+     * values, you can use <code>ListFunctions</code> and <code>DescribeFunction</code>.
+     * </p>
+     * 
+     * @param deleteFunctionRequest
+     * @return Result of the DeleteFunction operation returned by the service.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchFunctionExistsException
+     *         The function does not exist.
+     * @throws FunctionInUseException
+     *         Cannot delete the function because it's attached to one or more cache behaviors.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.DeleteFunction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteFunction" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteFunctionResult deleteFunction(DeleteFunctionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteFunction(request);
+    }
+
+    @SdkInternalApi
+    final DeleteFunctionResult executeDeleteFunction(DeleteFunctionRequest deleteFunctionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteFunctionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteFunctionRequest> request = null;
+        Response<DeleteFunctionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteFunctionRequestMarshaller().marshall(super.beforeMarshalling(deleteFunctionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFunction");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeleteFunctionResult> responseHandler = new StaxResponseHandler<DeleteFunctionResult>(
+                    new DeleteFunctionResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a key group.
+     * </p>
+     * <p>
+     * You cannot delete a key group that is referenced in a cache behavior. First update your distributions to remove
+     * the key group from all cache behaviors, then delete the key group.
+     * </p>
+     * <p>
+     * To delete a key group, you must provide the key group's identifier and version. To get these values, use
+     * <code>ListKeyGroups</code> followed by <code>GetKeyGroup</code> or <code>GetKeyGroupConfig</code>.
+     * </p>
+     * 
+     * @param deleteKeyGroupRequest
+     * @return Result of the DeleteKeyGroup operation returned by the service.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchResourceException
+     *         A resource that was specified is not valid.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws ResourceInUseException
+     *         Cannot delete this resource because it is in use.
+     * @sample AmazonCloudFront.DeleteKeyGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteKeyGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteKeyGroupResult deleteKeyGroup(DeleteKeyGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteKeyGroup(request);
+    }
+
+    @SdkInternalApi
+    final DeleteKeyGroupResult executeDeleteKeyGroup(DeleteKeyGroupRequest deleteKeyGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteKeyGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteKeyGroupRequest> request = null;
+        Response<DeleteKeyGroupResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteKeyGroupRequestMarshaller().marshall(super.beforeMarshalling(deleteKeyGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteKeyGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeleteKeyGroupResult> responseHandler = new StaxResponseHandler<DeleteKeyGroupResult>(
+                    new DeleteKeyGroupResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Specifies the key value store to delete.
+     * </p>
+     * 
+     * @param deleteKeyValueStoreRequest
+     * @return Result of the DeleteKeyValueStore operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws EntityNotFoundException
+     *         The key value store entity was not found.
+     * @throws CannotDeleteEntityWhileInUseException
+     *         The key value store entity cannot be deleted while it is in use.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.DeleteKeyValueStore
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteKeyValueStore" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeleteKeyValueStoreResult deleteKeyValueStore(DeleteKeyValueStoreRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteKeyValueStore(request);
+    }
+
+    @SdkInternalApi
+    final DeleteKeyValueStoreResult executeDeleteKeyValueStore(DeleteKeyValueStoreRequest deleteKeyValueStoreRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteKeyValueStoreRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteKeyValueStoreRequest> request = null;
+        Response<DeleteKeyValueStoreResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteKeyValueStoreRequestMarshaller().marshall(super.beforeMarshalling(deleteKeyValueStoreRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteKeyValueStore");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeleteKeyValueStoreResult> responseHandler = new StaxResponseHandler<DeleteKeyValueStoreResult>(
+                    new DeleteKeyValueStoreResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Disables additional CloudWatch metrics for the specified CloudFront distribution.
+     * </p>
+     * 
+     * @param deleteMonitoringSubscriptionRequest
+     * @return Result of the DeleteMonitoringSubscription operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchDistributionException
+     *         The specified distribution does not exist.
+     * @throws NoSuchMonitoringSubscriptionException
+     *         A monitoring subscription does not exist for the specified distribution.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.DeleteMonitoringSubscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteMonitoringSubscription"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteMonitoringSubscriptionResult deleteMonitoringSubscription(DeleteMonitoringSubscriptionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteMonitoringSubscription(request);
+    }
+
+    @SdkInternalApi
+    final DeleteMonitoringSubscriptionResult executeDeleteMonitoringSubscription(DeleteMonitoringSubscriptionRequest deleteMonitoringSubscriptionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteMonitoringSubscriptionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteMonitoringSubscriptionRequest> request = null;
+        Response<DeleteMonitoringSubscriptionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteMonitoringSubscriptionRequestMarshaller().marshall(super.beforeMarshalling(deleteMonitoringSubscriptionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteMonitoringSubscription");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeleteMonitoringSubscriptionResult> responseHandler = new StaxResponseHandler<DeleteMonitoringSubscriptionResult>(
+                    new DeleteMonitoringSubscriptionResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a CloudFront origin access control.
+     * </p>
+     * <p>
+     * You cannot delete an origin access control if it's in use. First, update all distributions to remove the origin
+     * access control from all origins, then delete the origin access control.
+     * </p>
+     * 
+     * @param deleteOriginAccessControlRequest
+     * @return Result of the DeleteOriginAccessControl operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchOriginAccessControlException
+     *         The origin access control does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws OriginAccessControlInUseException
+     *         Cannot delete the origin access control because it's in use by one or more distributions.
+     * @sample AmazonCloudFront.DeleteOriginAccessControl
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteOriginAccessControl"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteOriginAccessControlResult deleteOriginAccessControl(DeleteOriginAccessControlRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteOriginAccessControl(request);
+    }
+
+    @SdkInternalApi
+    final DeleteOriginAccessControlResult executeDeleteOriginAccessControl(DeleteOriginAccessControlRequest deleteOriginAccessControlRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteOriginAccessControlRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteOriginAccessControlRequest> request = null;
+        Response<DeleteOriginAccessControlResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteOriginAccessControlRequestMarshaller().marshall(super.beforeMarshalling(deleteOriginAccessControlRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteOriginAccessControl");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeleteOriginAccessControlResult> responseHandler = new StaxResponseHandler<DeleteOriginAccessControlResult>(
+                    new DeleteOriginAccessControlResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes an origin request policy.
+     * </p>
+     * <p>
+     * You cannot delete an origin request policy if it's attached to any cache behaviors. First update your
+     * distributions to remove the origin request policy from all cache behaviors, then delete the origin request
+     * policy.
+     * </p>
+     * <p>
+     * To delete an origin request policy, you must provide the policy's identifier and version. To get the identifier,
+     * you can use <code>ListOriginRequestPolicies</code> or <code>GetOriginRequestPolicy</code>.
+     * </p>
+     * 
+     * @param deleteOriginRequestPolicyRequest
+     * @return Result of the DeleteOriginRequestPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws IllegalDeleteException
+     *         You cannot delete a managed policy.
+     * @throws OriginRequestPolicyInUseException
+     *         Cannot delete the origin request policy because it is attached to one or more cache behaviors.
+     * @sample AmazonCloudFront.DeleteOriginRequestPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteOriginRequestPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteOriginRequestPolicyResult deleteOriginRequestPolicy(DeleteOriginRequestPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteOriginRequestPolicy(request);
+    }
+
+    @SdkInternalApi
+    final DeleteOriginRequestPolicyResult executeDeleteOriginRequestPolicy(DeleteOriginRequestPolicyRequest deleteOriginRequestPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteOriginRequestPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteOriginRequestPolicyRequest> request = null;
+        Response<DeleteOriginRequestPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteOriginRequestPolicyRequestMarshaller().marshall(super.beforeMarshalling(deleteOriginRequestPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteOriginRequestPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeleteOriginRequestPolicyResult> responseHandler = new StaxResponseHandler<DeleteOriginRequestPolicyResult>(
+                    new DeleteOriginRequestPolicyResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1555,13 +4049,13 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws PublicKeyInUseException
      *         The specified public key is in use.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws NoSuchPublicKeyException
      *         The specified public key doesn't exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @sample AmazonCloudFront.DeletePublicKey
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/DeletePublicKey" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeletePublicKey" target="_top">AWS API
      *      Documentation</a>
      */
     @Override
@@ -1585,6 +4079,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new DeletePublicKeyRequestMarshaller().marshall(super.beforeMarshalling(deletePublicKeyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePublicKey");
@@ -1596,6 +4092,158 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<DeletePublicKeyResult> responseHandler = new StaxResponseHandler<DeletePublicKeyResult>(
                     new DeletePublicKeyResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a real-time log configuration.
+     * </p>
+     * <p>
+     * You cannot delete a real-time log configuration if it's attached to a cache behavior. First update your
+     * distributions to remove the real-time log configuration from all cache behaviors, then delete the real-time log
+     * configuration.
+     * </p>
+     * <p>
+     * To delete a real-time log configuration, you can provide the configuration's name or its Amazon Resource Name
+     * (ARN). You must provide at least one. If you provide both, CloudFront uses the name to identify the real-time log
+     * configuration to delete.
+     * </p>
+     * 
+     * @param deleteRealtimeLogConfigRequest
+     * @return Result of the DeleteRealtimeLogConfig operation returned by the service.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @throws RealtimeLogConfigInUseException
+     *         Cannot delete the real-time log configuration because it is attached to one or more cache behaviors.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.DeleteRealtimeLogConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteRealtimeLogConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteRealtimeLogConfigResult deleteRealtimeLogConfig(DeleteRealtimeLogConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteRealtimeLogConfig(request);
+    }
+
+    @SdkInternalApi
+    final DeleteRealtimeLogConfigResult executeDeleteRealtimeLogConfig(DeleteRealtimeLogConfigRequest deleteRealtimeLogConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteRealtimeLogConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteRealtimeLogConfigRequest> request = null;
+        Response<DeleteRealtimeLogConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteRealtimeLogConfigRequestMarshaller().marshall(super.beforeMarshalling(deleteRealtimeLogConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRealtimeLogConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeleteRealtimeLogConfigResult> responseHandler = new StaxResponseHandler<DeleteRealtimeLogConfigResult>(
+                    new DeleteRealtimeLogConfigResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a response headers policy.
+     * </p>
+     * <p>
+     * You cannot delete a response headers policy if it's attached to a cache behavior. First update your distributions
+     * to remove the response headers policy from all cache behaviors, then delete the response headers policy.
+     * </p>
+     * <p>
+     * To delete a response headers policy, you must provide the policy's identifier and version. To get these values,
+     * you can use <code>ListResponseHeadersPolicies</code> or <code>GetResponseHeadersPolicy</code>.
+     * </p>
+     * 
+     * @param deleteResponseHeadersPolicyRequest
+     * @return Result of the DeleteResponseHeadersPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws IllegalDeleteException
+     *         You cannot delete a managed policy.
+     * @throws ResponseHeadersPolicyInUseException
+     *         Cannot delete the response headers policy because it is attached to one or more cache behaviors in a
+     *         CloudFront distribution.
+     * @sample AmazonCloudFront.DeleteResponseHeadersPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteResponseHeadersPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteResponseHeadersPolicyResult deleteResponseHeadersPolicy(DeleteResponseHeadersPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteResponseHeadersPolicy(request);
+    }
+
+    @SdkInternalApi
+    final DeleteResponseHeadersPolicyResult executeDeleteResponseHeadersPolicy(DeleteResponseHeadersPolicyRequest deleteResponseHeadersPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteResponseHeadersPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteResponseHeadersPolicyRequest> request = null;
+        Response<DeleteResponseHeadersPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteResponseHeadersPolicyRequestMarshaller().marshall(super.beforeMarshalling(deleteResponseHeadersPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteResponseHeadersPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeleteResponseHeadersPolicyResult> responseHandler = new StaxResponseHandler<DeleteResponseHeadersPolicyResult>(
+                    new DeleteResponseHeadersPolicyResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1681,13 +4329,13 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      *         The specified CloudFront distribution is not disabled. You must disable the distribution before you can
      *         delete it.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws NoSuchStreamingDistributionException
      *         The specified streaming distribution does not exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @sample AmazonCloudFront.DeleteStreamingDistribution
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/DeleteStreamingDistribution"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteStreamingDistribution"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -1711,6 +4359,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new DeleteStreamingDistributionRequestMarshaller().marshall(super.beforeMarshalling(deleteStreamingDistributionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteStreamingDistribution");
@@ -1722,6 +4372,280 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<DeleteStreamingDistributionResult> responseHandler = new StaxResponseHandler<DeleteStreamingDistributionResult>(
                     new DeleteStreamingDistributionResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets configuration information and metadata about a CloudFront function, but not the function's code. To get a
+     * function's code, use <code>GetFunction</code>.
+     * </p>
+     * <p>
+     * To get configuration information and metadata about a function, you must provide the function's name and stage.
+     * To get these values, you can use <code>ListFunctions</code>.
+     * </p>
+     * 
+     * @param describeFunctionRequest
+     * @return Result of the DescribeFunction operation returned by the service.
+     * @throws NoSuchFunctionExistsException
+     *         The function does not exist.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.DescribeFunction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DescribeFunction" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeFunctionResult describeFunction(DescribeFunctionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeFunction(request);
+    }
+
+    @SdkInternalApi
+    final DescribeFunctionResult executeDescribeFunction(DescribeFunctionRequest describeFunctionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeFunctionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeFunctionRequest> request = null;
+        Response<DescribeFunctionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeFunctionRequestMarshaller().marshall(super.beforeMarshalling(describeFunctionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeFunction");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DescribeFunctionResult> responseHandler = new StaxResponseHandler<DescribeFunctionResult>(
+                    new DescribeFunctionResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Specifies the key value store and its configuration.
+     * </p>
+     * 
+     * @param describeKeyValueStoreRequest
+     * @return Result of the DescribeKeyValueStore operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws EntityNotFoundException
+     *         The key value store entity was not found.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.DescribeKeyValueStore
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DescribeKeyValueStore"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeKeyValueStoreResult describeKeyValueStore(DescribeKeyValueStoreRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeKeyValueStore(request);
+    }
+
+    @SdkInternalApi
+    final DescribeKeyValueStoreResult executeDescribeKeyValueStore(DescribeKeyValueStoreRequest describeKeyValueStoreRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeKeyValueStoreRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeKeyValueStoreRequest> request = null;
+        Response<DescribeKeyValueStoreResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeKeyValueStoreRequestMarshaller().marshall(super.beforeMarshalling(describeKeyValueStoreRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeKeyValueStore");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DescribeKeyValueStoreResult> responseHandler = new StaxResponseHandler<DescribeKeyValueStoreResult>(
+                    new DescribeKeyValueStoreResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a cache policy, including the following metadata:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The policy's identifier.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The date and time when the policy was last modified.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To get a cache policy, you must provide the policy's identifier. If the cache policy is attached to a
+     * distribution's cache behavior, you can get the policy's identifier using <code>ListDistributions</code> or
+     * <code>GetDistribution</code>. If the cache policy is not attached to a cache behavior, you can get the identifier
+     * using <code>ListCachePolicies</code>.
+     * </p>
+     * 
+     * @param getCachePolicyRequest
+     * @return Result of the GetCachePolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @sample AmazonCloudFront.GetCachePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetCachePolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetCachePolicyResult getCachePolicy(GetCachePolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetCachePolicy(request);
+    }
+
+    @SdkInternalApi
+    final GetCachePolicyResult executeGetCachePolicy(GetCachePolicyRequest getCachePolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getCachePolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetCachePolicyRequest> request = null;
+        Response<GetCachePolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetCachePolicyRequestMarshaller().marshall(super.beforeMarshalling(getCachePolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCachePolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetCachePolicyResult> responseHandler = new StaxResponseHandler<GetCachePolicyResult>(
+                    new GetCachePolicyResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a cache policy configuration.
+     * </p>
+     * <p>
+     * To get a cache policy configuration, you must provide the policy's identifier. If the cache policy is attached to
+     * a distribution's cache behavior, you can get the policy's identifier using <code>ListDistributions</code> or
+     * <code>GetDistribution</code>. If the cache policy is not attached to a cache behavior, you can get the identifier
+     * using <code>ListCachePolicies</code>.
+     * </p>
+     * 
+     * @param getCachePolicyConfigRequest
+     * @return Result of the GetCachePolicyConfig operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @sample AmazonCloudFront.GetCachePolicyConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetCachePolicyConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetCachePolicyConfigResult getCachePolicyConfig(GetCachePolicyConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetCachePolicyConfig(request);
+    }
+
+    @SdkInternalApi
+    final GetCachePolicyConfigResult executeGetCachePolicyConfig(GetCachePolicyConfigRequest getCachePolicyConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getCachePolicyConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetCachePolicyConfigRequest> request = null;
+        Response<GetCachePolicyConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetCachePolicyConfigRequestMarshaller().marshall(super.beforeMarshalling(getCachePolicyConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCachePolicyConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetCachePolicyConfigResult> responseHandler = new StaxResponseHandler<GetCachePolicyConfigResult>(
+                    new GetCachePolicyConfigResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1745,7 +4669,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws AccessDeniedException
      *         Access denied.
      * @sample AmazonCloudFront.GetCloudFrontOriginAccessIdentity
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetCloudFrontOriginAccessIdentity"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetCloudFrontOriginAccessIdentity"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -1770,6 +4694,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new GetCloudFrontOriginAccessIdentityRequestMarshaller().marshall(super.beforeMarshalling(getCloudFrontOriginAccessIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCloudFrontOriginAccessIdentity");
@@ -1781,6 +4707,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<GetCloudFrontOriginAccessIdentityResult> responseHandler = new StaxResponseHandler<GetCloudFrontOriginAccessIdentityResult>(
                     new GetCloudFrontOriginAccessIdentityResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1807,7 +4734,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      *         Access denied.
      * @sample AmazonCloudFront.GetCloudFrontOriginAccessIdentityConfig
      * @see <a
-     *      href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetCloudFrontOriginAccessIdentityConfig"
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetCloudFrontOriginAccessIdentityConfig"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -1833,6 +4760,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(getCloudFrontOriginAccessIdentityConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCloudFrontOriginAccessIdentityConfig");
@@ -1844,6 +4773,130 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<GetCloudFrontOriginAccessIdentityConfigResult> responseHandler = new StaxResponseHandler<GetCloudFrontOriginAccessIdentityConfigResult>(
                     new GetCloudFrontOriginAccessIdentityConfigResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a continuous deployment policy, including metadata (the policy's identifier and the date and time when the
+     * policy was last modified).
+     * </p>
+     * 
+     * @param getContinuousDeploymentPolicyRequest
+     * @return Result of the GetContinuousDeploymentPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchContinuousDeploymentPolicyException
+     *         The continuous deployment policy doesn't exist.
+     * @sample AmazonCloudFront.GetContinuousDeploymentPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetContinuousDeploymentPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetContinuousDeploymentPolicyResult getContinuousDeploymentPolicy(GetContinuousDeploymentPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetContinuousDeploymentPolicy(request);
+    }
+
+    @SdkInternalApi
+    final GetContinuousDeploymentPolicyResult executeGetContinuousDeploymentPolicy(GetContinuousDeploymentPolicyRequest getContinuousDeploymentPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getContinuousDeploymentPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetContinuousDeploymentPolicyRequest> request = null;
+        Response<GetContinuousDeploymentPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetContinuousDeploymentPolicyRequestMarshaller().marshall(super.beforeMarshalling(getContinuousDeploymentPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetContinuousDeploymentPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetContinuousDeploymentPolicyResult> responseHandler = new StaxResponseHandler<GetContinuousDeploymentPolicyResult>(
+                    new GetContinuousDeploymentPolicyResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets configuration information about a continuous deployment policy.
+     * </p>
+     * 
+     * @param getContinuousDeploymentPolicyConfigRequest
+     * @return Result of the GetContinuousDeploymentPolicyConfig operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchContinuousDeploymentPolicyException
+     *         The continuous deployment policy doesn't exist.
+     * @sample AmazonCloudFront.GetContinuousDeploymentPolicyConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetContinuousDeploymentPolicyConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetContinuousDeploymentPolicyConfigResult getContinuousDeploymentPolicyConfig(GetContinuousDeploymentPolicyConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetContinuousDeploymentPolicyConfig(request);
+    }
+
+    @SdkInternalApi
+    final GetContinuousDeploymentPolicyConfigResult executeGetContinuousDeploymentPolicyConfig(
+            GetContinuousDeploymentPolicyConfigRequest getContinuousDeploymentPolicyConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getContinuousDeploymentPolicyConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetContinuousDeploymentPolicyConfigRequest> request = null;
+        Response<GetContinuousDeploymentPolicyConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetContinuousDeploymentPolicyConfigRequestMarshaller().marshall(super
+                        .beforeMarshalling(getContinuousDeploymentPolicyConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetContinuousDeploymentPolicyConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetContinuousDeploymentPolicyConfigResult> responseHandler = new StaxResponseHandler<GetContinuousDeploymentPolicyConfigResult>(
+                    new GetContinuousDeploymentPolicyConfigResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1867,7 +4920,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws AccessDeniedException
      *         Access denied.
      * @sample AmazonCloudFront.GetDistribution
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetDistribution" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetDistribution" target="_top">AWS API
      *      Documentation</a>
      */
     @Override
@@ -1891,6 +4944,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new GetDistributionRequestMarshaller().marshall(super.beforeMarshalling(getDistributionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDistribution");
@@ -1902,6 +4957,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<GetDistributionResult> responseHandler = new StaxResponseHandler<GetDistributionResult>(
                     new GetDistributionResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1925,7 +4981,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws AccessDeniedException
      *         Access denied.
      * @sample AmazonCloudFront.GetDistributionConfig
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetDistributionConfig"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetDistributionConfig"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -1949,6 +5005,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new GetDistributionConfigRequestMarshaller().marshall(super.beforeMarshalling(getDistributionConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDistributionConfig");
@@ -1960,6 +5018,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<GetDistributionConfigResult> responseHandler = new StaxResponseHandler<GetDistributionConfigResult>(
                     new GetDistributionConfigResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1982,7 +5041,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws NoSuchFieldLevelEncryptionConfigException
      *         The specified configuration for field-level encryption doesn't exist.
      * @sample AmazonCloudFront.GetFieldLevelEncryption
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetFieldLevelEncryption"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetFieldLevelEncryption"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -2006,6 +5065,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new GetFieldLevelEncryptionRequestMarshaller().marshall(super.beforeMarshalling(getFieldLevelEncryptionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFieldLevelEncryption");
@@ -2017,6 +5078,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<GetFieldLevelEncryptionResult> responseHandler = new StaxResponseHandler<GetFieldLevelEncryptionResult>(
                     new GetFieldLevelEncryptionResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2039,7 +5101,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws NoSuchFieldLevelEncryptionConfigException
      *         The specified configuration for field-level encryption doesn't exist.
      * @sample AmazonCloudFront.GetFieldLevelEncryptionConfig
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetFieldLevelEncryptionConfig"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetFieldLevelEncryptionConfig"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -2063,6 +5125,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new GetFieldLevelEncryptionConfigRequestMarshaller().marshall(super.beforeMarshalling(getFieldLevelEncryptionConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFieldLevelEncryptionConfig");
@@ -2074,6 +5138,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<GetFieldLevelEncryptionConfigResult> responseHandler = new StaxResponseHandler<GetFieldLevelEncryptionConfigResult>(
                     new GetFieldLevelEncryptionConfigResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2096,7 +5161,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws NoSuchFieldLevelEncryptionProfileException
      *         The specified profile for field-level encryption doesn't exist.
      * @sample AmazonCloudFront.GetFieldLevelEncryptionProfile
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetFieldLevelEncryptionProfile"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetFieldLevelEncryptionProfile"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -2120,6 +5185,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new GetFieldLevelEncryptionProfileRequestMarshaller().marshall(super.beforeMarshalling(getFieldLevelEncryptionProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFieldLevelEncryptionProfile");
@@ -2131,6 +5198,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<GetFieldLevelEncryptionProfileResult> responseHandler = new StaxResponseHandler<GetFieldLevelEncryptionProfileResult>(
                     new GetFieldLevelEncryptionProfileResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2153,7 +5221,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws NoSuchFieldLevelEncryptionProfileException
      *         The specified profile for field-level encryption doesn't exist.
      * @sample AmazonCloudFront.GetFieldLevelEncryptionProfileConfig
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetFieldLevelEncryptionProfileConfig"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetFieldLevelEncryptionProfileConfig"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -2179,6 +5247,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(getFieldLevelEncryptionProfileConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFieldLevelEncryptionProfileConfig");
@@ -2190,6 +5260,72 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<GetFieldLevelEncryptionProfileConfigResult> responseHandler = new StaxResponseHandler<GetFieldLevelEncryptionProfileConfigResult>(
                     new GetFieldLevelEncryptionProfileConfigResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets the code of a CloudFront function. To get configuration information and metadata about a function, use
+     * <code>DescribeFunction</code>.
+     * </p>
+     * <p>
+     * To get a function's code, you must provide the function's name and stage. To get these values, you can use
+     * <code>ListFunctions</code>.
+     * </p>
+     * 
+     * @param getFunctionRequest
+     * @return Result of the GetFunction operation returned by the service.
+     * @throws NoSuchFunctionExistsException
+     *         The function does not exist.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.GetFunction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetFunction" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetFunctionResult getFunction(GetFunctionRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetFunction(request);
+    }
+
+    @SdkInternalApi
+    final GetFunctionResult executeGetFunction(GetFunctionRequest getFunctionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getFunctionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetFunctionRequest> request = null;
+        Response<GetFunctionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetFunctionRequestMarshaller().marshall(super.beforeMarshalling(getFunctionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFunction");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetFunctionResult> responseHandler = new StaxResponseHandler<GetFunctionResult>(new GetFunctionResultStaxUnmarshaller(), false,
+                    false);
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2215,7 +5351,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws AccessDeniedException
      *         Access denied.
      * @sample AmazonCloudFront.GetInvalidation
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetInvalidation" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetInvalidation" target="_top">AWS API
      *      Documentation</a>
      */
     @Override
@@ -2239,6 +5375,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new GetInvalidationRequestMarshaller().marshall(super.beforeMarshalling(getInvalidationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetInvalidation");
@@ -2250,6 +5388,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<GetInvalidationResult> responseHandler = new StaxResponseHandler<GetInvalidationResult>(
                     new GetInvalidationResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2262,7 +5401,463 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Get the public key information.
+     * Gets a key group, including the date and time when the key group was last modified.
+     * </p>
+     * <p>
+     * To get a key group, you must provide the key group's identifier. If the key group is referenced in a
+     * distribution's cache behavior, you can get the key group's identifier using <code>ListDistributions</code> or
+     * <code>GetDistribution</code>. If the key group is not referenced in a cache behavior, you can get the identifier
+     * using <code>ListKeyGroups</code>.
+     * </p>
+     * 
+     * @param getKeyGroupRequest
+     * @return Result of the GetKeyGroup operation returned by the service.
+     * @throws NoSuchResourceException
+     *         A resource that was specified is not valid.
+     * @sample AmazonCloudFront.GetKeyGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetKeyGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetKeyGroupResult getKeyGroup(GetKeyGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetKeyGroup(request);
+    }
+
+    @SdkInternalApi
+    final GetKeyGroupResult executeGetKeyGroup(GetKeyGroupRequest getKeyGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getKeyGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetKeyGroupRequest> request = null;
+        Response<GetKeyGroupResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetKeyGroupRequestMarshaller().marshall(super.beforeMarshalling(getKeyGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetKeyGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetKeyGroupResult> responseHandler = new StaxResponseHandler<GetKeyGroupResult>(new GetKeyGroupResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a key group configuration.
+     * </p>
+     * <p>
+     * To get a key group configuration, you must provide the key group's identifier. If the key group is referenced in
+     * a distribution's cache behavior, you can get the key group's identifier using <code>ListDistributions</code> or
+     * <code>GetDistribution</code>. If the key group is not referenced in a cache behavior, you can get the identifier
+     * using <code>ListKeyGroups</code>.
+     * </p>
+     * 
+     * @param getKeyGroupConfigRequest
+     * @return Result of the GetKeyGroupConfig operation returned by the service.
+     * @throws NoSuchResourceException
+     *         A resource that was specified is not valid.
+     * @sample AmazonCloudFront.GetKeyGroupConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetKeyGroupConfig" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public GetKeyGroupConfigResult getKeyGroupConfig(GetKeyGroupConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetKeyGroupConfig(request);
+    }
+
+    @SdkInternalApi
+    final GetKeyGroupConfigResult executeGetKeyGroupConfig(GetKeyGroupConfigRequest getKeyGroupConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getKeyGroupConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetKeyGroupConfigRequest> request = null;
+        Response<GetKeyGroupConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetKeyGroupConfigRequestMarshaller().marshall(super.beforeMarshalling(getKeyGroupConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetKeyGroupConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetKeyGroupConfigResult> responseHandler = new StaxResponseHandler<GetKeyGroupConfigResult>(
+                    new GetKeyGroupConfigResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets information about whether additional CloudWatch metrics are enabled for the specified CloudFront
+     * distribution.
+     * </p>
+     * 
+     * @param getMonitoringSubscriptionRequest
+     * @return Result of the GetMonitoringSubscription operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchDistributionException
+     *         The specified distribution does not exist.
+     * @throws NoSuchMonitoringSubscriptionException
+     *         A monitoring subscription does not exist for the specified distribution.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.GetMonitoringSubscription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetMonitoringSubscription"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetMonitoringSubscriptionResult getMonitoringSubscription(GetMonitoringSubscriptionRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetMonitoringSubscription(request);
+    }
+
+    @SdkInternalApi
+    final GetMonitoringSubscriptionResult executeGetMonitoringSubscription(GetMonitoringSubscriptionRequest getMonitoringSubscriptionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getMonitoringSubscriptionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetMonitoringSubscriptionRequest> request = null;
+        Response<GetMonitoringSubscriptionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetMonitoringSubscriptionRequestMarshaller().marshall(super.beforeMarshalling(getMonitoringSubscriptionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMonitoringSubscription");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetMonitoringSubscriptionResult> responseHandler = new StaxResponseHandler<GetMonitoringSubscriptionResult>(
+                    new GetMonitoringSubscriptionResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a CloudFront origin access control, including its unique identifier.
+     * </p>
+     * 
+     * @param getOriginAccessControlRequest
+     * @return Result of the GetOriginAccessControl operation returned by the service.
+     * @throws NoSuchOriginAccessControlException
+     *         The origin access control does not exist.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.GetOriginAccessControl
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetOriginAccessControl"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetOriginAccessControlResult getOriginAccessControl(GetOriginAccessControlRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetOriginAccessControl(request);
+    }
+
+    @SdkInternalApi
+    final GetOriginAccessControlResult executeGetOriginAccessControl(GetOriginAccessControlRequest getOriginAccessControlRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getOriginAccessControlRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetOriginAccessControlRequest> request = null;
+        Response<GetOriginAccessControlResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetOriginAccessControlRequestMarshaller().marshall(super.beforeMarshalling(getOriginAccessControlRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetOriginAccessControl");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetOriginAccessControlResult> responseHandler = new StaxResponseHandler<GetOriginAccessControlResult>(
+                    new GetOriginAccessControlResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a CloudFront origin access control configuration.
+     * </p>
+     * 
+     * @param getOriginAccessControlConfigRequest
+     * @return Result of the GetOriginAccessControlConfig operation returned by the service.
+     * @throws NoSuchOriginAccessControlException
+     *         The origin access control does not exist.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.GetOriginAccessControlConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetOriginAccessControlConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetOriginAccessControlConfigResult getOriginAccessControlConfig(GetOriginAccessControlConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetOriginAccessControlConfig(request);
+    }
+
+    @SdkInternalApi
+    final GetOriginAccessControlConfigResult executeGetOriginAccessControlConfig(GetOriginAccessControlConfigRequest getOriginAccessControlConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getOriginAccessControlConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetOriginAccessControlConfigRequest> request = null;
+        Response<GetOriginAccessControlConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetOriginAccessControlConfigRequestMarshaller().marshall(super.beforeMarshalling(getOriginAccessControlConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetOriginAccessControlConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetOriginAccessControlConfigResult> responseHandler = new StaxResponseHandler<GetOriginAccessControlConfigResult>(
+                    new GetOriginAccessControlConfigResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets an origin request policy, including the following metadata:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The policy's identifier.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The date and time when the policy was last modified.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To get an origin request policy, you must provide the policy's identifier. If the origin request policy is
+     * attached to a distribution's cache behavior, you can get the policy's identifier using
+     * <code>ListDistributions</code> or <code>GetDistribution</code>. If the origin request policy is not attached to a
+     * cache behavior, you can get the identifier using <code>ListOriginRequestPolicies</code>.
+     * </p>
+     * 
+     * @param getOriginRequestPolicyRequest
+     * @return Result of the GetOriginRequestPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @sample AmazonCloudFront.GetOriginRequestPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetOriginRequestPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetOriginRequestPolicyResult getOriginRequestPolicy(GetOriginRequestPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetOriginRequestPolicy(request);
+    }
+
+    @SdkInternalApi
+    final GetOriginRequestPolicyResult executeGetOriginRequestPolicy(GetOriginRequestPolicyRequest getOriginRequestPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getOriginRequestPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetOriginRequestPolicyRequest> request = null;
+        Response<GetOriginRequestPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetOriginRequestPolicyRequestMarshaller().marshall(super.beforeMarshalling(getOriginRequestPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetOriginRequestPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetOriginRequestPolicyResult> responseHandler = new StaxResponseHandler<GetOriginRequestPolicyResult>(
+                    new GetOriginRequestPolicyResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets an origin request policy configuration.
+     * </p>
+     * <p>
+     * To get an origin request policy configuration, you must provide the policy's identifier. If the origin request
+     * policy is attached to a distribution's cache behavior, you can get the policy's identifier using
+     * <code>ListDistributions</code> or <code>GetDistribution</code>. If the origin request policy is not attached to a
+     * cache behavior, you can get the identifier using <code>ListOriginRequestPolicies</code>.
+     * </p>
+     * 
+     * @param getOriginRequestPolicyConfigRequest
+     * @return Result of the GetOriginRequestPolicyConfig operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @sample AmazonCloudFront.GetOriginRequestPolicyConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetOriginRequestPolicyConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetOriginRequestPolicyConfigResult getOriginRequestPolicyConfig(GetOriginRequestPolicyConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetOriginRequestPolicyConfig(request);
+    }
+
+    @SdkInternalApi
+    final GetOriginRequestPolicyConfigResult executeGetOriginRequestPolicyConfig(GetOriginRequestPolicyConfigRequest getOriginRequestPolicyConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getOriginRequestPolicyConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetOriginRequestPolicyConfigRequest> request = null;
+        Response<GetOriginRequestPolicyConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetOriginRequestPolicyConfigRequestMarshaller().marshall(super.beforeMarshalling(getOriginRequestPolicyConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetOriginRequestPolicyConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetOriginRequestPolicyConfigResult> responseHandler = new StaxResponseHandler<GetOriginRequestPolicyConfigResult>(
+                    new GetOriginRequestPolicyConfigResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a public key.
      * </p>
      * 
      * @param getPublicKeyRequest
@@ -2272,7 +5867,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws NoSuchPublicKeyException
      *         The specified public key doesn't exist.
      * @sample AmazonCloudFront.GetPublicKey
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetPublicKey" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetPublicKey" target="_top">AWS API
      *      Documentation</a>
      */
     @Override
@@ -2296,6 +5891,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new GetPublicKeyRequestMarshaller().marshall(super.beforeMarshalling(getPublicKeyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPublicKey");
@@ -2306,6 +5903,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
             }
 
             StaxResponseHandler<GetPublicKeyResult> responseHandler = new StaxResponseHandler<GetPublicKeyResult>(new GetPublicKeyResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2318,7 +5916,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Return public key configuration informaation
+     * Gets a public key configuration.
      * </p>
      * 
      * @param getPublicKeyConfigRequest
@@ -2328,7 +5926,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws NoSuchPublicKeyException
      *         The specified public key doesn't exist.
      * @sample AmazonCloudFront.GetPublicKeyConfig
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetPublicKeyConfig" target="_top">AWS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetPublicKeyConfig" target="_top">AWS
      *      API Documentation</a>
      */
     @Override
@@ -2352,6 +5950,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new GetPublicKeyConfigRequestMarshaller().marshall(super.beforeMarshalling(getPublicKeyConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPublicKeyConfig");
@@ -2363,6 +5963,207 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<GetPublicKeyConfigResult> responseHandler = new StaxResponseHandler<GetPublicKeyConfigResult>(
                     new GetPublicKeyConfigResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a real-time log configuration.
+     * </p>
+     * <p>
+     * To get a real-time log configuration, you can provide the configuration's name or its Amazon Resource Name (ARN).
+     * You must provide at least one. If you provide both, CloudFront uses the name to identify the real-time log
+     * configuration to get.
+     * </p>
+     * 
+     * @param getRealtimeLogConfigRequest
+     * @return Result of the GetRealtimeLogConfig operation returned by the service.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.GetRealtimeLogConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetRealtimeLogConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetRealtimeLogConfigResult getRealtimeLogConfig(GetRealtimeLogConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetRealtimeLogConfig(request);
+    }
+
+    @SdkInternalApi
+    final GetRealtimeLogConfigResult executeGetRealtimeLogConfig(GetRealtimeLogConfigRequest getRealtimeLogConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getRealtimeLogConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetRealtimeLogConfigRequest> request = null;
+        Response<GetRealtimeLogConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetRealtimeLogConfigRequestMarshaller().marshall(super.beforeMarshalling(getRealtimeLogConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRealtimeLogConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetRealtimeLogConfigResult> responseHandler = new StaxResponseHandler<GetRealtimeLogConfigResult>(
+                    new GetRealtimeLogConfigResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a response headers policy, including metadata (the policy's identifier and the date and time when the policy
+     * was last modified).
+     * </p>
+     * <p>
+     * To get a response headers policy, you must provide the policy's identifier. If the response headers policy is
+     * attached to a distribution's cache behavior, you can get the policy's identifier using
+     * <code>ListDistributions</code> or <code>GetDistribution</code>. If the response headers policy is not attached to
+     * a cache behavior, you can get the identifier using <code>ListResponseHeadersPolicies</code>.
+     * </p>
+     * 
+     * @param getResponseHeadersPolicyRequest
+     * @return Result of the GetResponseHeadersPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @sample AmazonCloudFront.GetResponseHeadersPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetResponseHeadersPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetResponseHeadersPolicyResult getResponseHeadersPolicy(GetResponseHeadersPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetResponseHeadersPolicy(request);
+    }
+
+    @SdkInternalApi
+    final GetResponseHeadersPolicyResult executeGetResponseHeadersPolicy(GetResponseHeadersPolicyRequest getResponseHeadersPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getResponseHeadersPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetResponseHeadersPolicyRequest> request = null;
+        Response<GetResponseHeadersPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetResponseHeadersPolicyRequestMarshaller().marshall(super.beforeMarshalling(getResponseHeadersPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetResponseHeadersPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetResponseHeadersPolicyResult> responseHandler = new StaxResponseHandler<GetResponseHeadersPolicyResult>(
+                    new GetResponseHeadersPolicyResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a response headers policy configuration.
+     * </p>
+     * <p>
+     * To get a response headers policy configuration, you must provide the policy's identifier. If the response headers
+     * policy is attached to a distribution's cache behavior, you can get the policy's identifier using
+     * <code>ListDistributions</code> or <code>GetDistribution</code>. If the response headers policy is not attached to
+     * a cache behavior, you can get the identifier using <code>ListResponseHeadersPolicies</code>.
+     * </p>
+     * 
+     * @param getResponseHeadersPolicyConfigRequest
+     * @return Result of the GetResponseHeadersPolicyConfig operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @sample AmazonCloudFront.GetResponseHeadersPolicyConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetResponseHeadersPolicyConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetResponseHeadersPolicyConfigResult getResponseHeadersPolicyConfig(GetResponseHeadersPolicyConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetResponseHeadersPolicyConfig(request);
+    }
+
+    @SdkInternalApi
+    final GetResponseHeadersPolicyConfigResult executeGetResponseHeadersPolicyConfig(GetResponseHeadersPolicyConfigRequest getResponseHeadersPolicyConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getResponseHeadersPolicyConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetResponseHeadersPolicyConfigRequest> request = null;
+        Response<GetResponseHeadersPolicyConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetResponseHeadersPolicyConfigRequestMarshaller().marshall(super.beforeMarshalling(getResponseHeadersPolicyConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetResponseHeadersPolicyConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetResponseHeadersPolicyConfigResult> responseHandler = new StaxResponseHandler<GetResponseHeadersPolicyConfigResult>(
+                    new GetResponseHeadersPolicyConfigResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2386,7 +6187,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws AccessDeniedException
      *         Access denied.
      * @sample AmazonCloudFront.GetStreamingDistribution
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetStreamingDistribution"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetStreamingDistribution"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -2410,6 +6211,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new GetStreamingDistributionRequestMarshaller().marshall(super.beforeMarshalling(getStreamingDistributionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetStreamingDistribution");
@@ -2421,6 +6224,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<GetStreamingDistributionResult> responseHandler = new StaxResponseHandler<GetStreamingDistributionResult>(
                     new GetStreamingDistributionResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2444,7 +6248,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws AccessDeniedException
      *         Access denied.
      * @sample AmazonCloudFront.GetStreamingDistributionConfig
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/GetStreamingDistributionConfig"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetStreamingDistributionConfig"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -2468,6 +6272,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new GetStreamingDistributionConfigRequestMarshaller().marshall(super.beforeMarshalling(getStreamingDistributionConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetStreamingDistributionConfig");
@@ -2479,6 +6285,79 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<GetStreamingDistributionConfigResult> responseHandler = new StaxResponseHandler<GetStreamingDistributionConfigResult>(
                     new GetStreamingDistributionConfigResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a list of cache policies.
+     * </p>
+     * <p>
+     * You can optionally apply a filter to return only the managed policies created by Amazon Web Services, or only the
+     * custom policies created in your Amazon Web Services account.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listCachePoliciesRequest
+     * @return Result of the ListCachePolicies operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.ListCachePolicies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListCachePolicies" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListCachePoliciesResult listCachePolicies(ListCachePoliciesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListCachePolicies(request);
+    }
+
+    @SdkInternalApi
+    final ListCachePoliciesResult executeListCachePolicies(ListCachePoliciesRequest listCachePoliciesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listCachePoliciesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListCachePoliciesRequest> request = null;
+        Response<ListCachePoliciesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListCachePoliciesRequestMarshaller().marshall(super.beforeMarshalling(listCachePoliciesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCachePolicies");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListCachePoliciesResult> responseHandler = new StaxResponseHandler<ListCachePoliciesResult>(
+                    new ListCachePoliciesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2498,9 +6377,9 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      *        The request to list origin access identities.
      * @return Result of the ListCloudFrontOriginAccessIdentities operation returned by the service.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @sample AmazonCloudFront.ListCloudFrontOriginAccessIdentities
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListCloudFrontOriginAccessIdentities"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListCloudFrontOriginAccessIdentities"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -2526,6 +6405,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(listCloudFrontOriginAccessIdentitiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCloudFrontOriginAccessIdentities");
@@ -2537,6 +6418,161 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<ListCloudFrontOriginAccessIdentitiesResult> responseHandler = new StaxResponseHandler<ListCloudFrontOriginAccessIdentitiesResult>(
                     new ListCloudFrontOriginAccessIdentitiesResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a list of aliases (also called CNAMEs or alternate domain names) that conflict or overlap with the provided
+     * alias, and the associated CloudFront distributions and Amazon Web Services accounts for each conflicting alias.
+     * In the returned list, the distribution and account IDs are partially hidden, which allows you to identify the
+     * distributions and accounts that you own, but helps to protect the information of ones that you don't own.
+     * </p>
+     * <p>
+     * Use this operation to find aliases that are in use in CloudFront that conflict or overlap with the provided
+     * alias. For example, if you provide <code>www.example.com</code> as input, the returned list can include
+     * <code>www.example.com</code> and the overlapping wildcard alternate domain name (<code>*.example.com</code>), if
+     * they exist. If you provide <code>*.example.com</code> as input, the returned list can include
+     * <code>*.example.com</code> and any alternate domain names covered by that wildcard (for example,
+     * <code>www.example.com</code>, <code>test.example.com</code>, <code>dev.example.com</code>, and so on), if they
+     * exist.
+     * </p>
+     * <p>
+     * To list conflicting aliases, you provide the alias to search and the ID of a distribution in your account that
+     * has an attached SSL/TLS certificate that includes the provided alias. For more information, including how to set
+     * up the distribution and certificate, see <a href=
+     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CNAMEs.html#alternate-domain-names-move"
+     * >Moving an alternate domain name to a different distribution</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listConflictingAliasesRequest
+     * @return Result of the ListConflictingAliases operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws NoSuchDistributionException
+     *         The specified distribution does not exist.
+     * @sample AmazonCloudFront.ListConflictingAliases
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListConflictingAliases"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListConflictingAliasesResult listConflictingAliases(ListConflictingAliasesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListConflictingAliases(request);
+    }
+
+    @SdkInternalApi
+    final ListConflictingAliasesResult executeListConflictingAliases(ListConflictingAliasesRequest listConflictingAliasesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listConflictingAliasesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListConflictingAliasesRequest> request = null;
+        Response<ListConflictingAliasesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListConflictingAliasesRequestMarshaller().marshall(super.beforeMarshalling(listConflictingAliasesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListConflictingAliases");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListConflictingAliasesResult> responseHandler = new StaxResponseHandler<ListConflictingAliasesResult>(
+                    new ListConflictingAliasesResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a list of the continuous deployment policies in your Amazon Web Services account.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listContinuousDeploymentPoliciesRequest
+     * @return Result of the ListContinuousDeploymentPolicies operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchContinuousDeploymentPolicyException
+     *         The continuous deployment policy doesn't exist.
+     * @sample AmazonCloudFront.ListContinuousDeploymentPolicies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListContinuousDeploymentPolicies"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListContinuousDeploymentPoliciesResult listContinuousDeploymentPolicies(ListContinuousDeploymentPoliciesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListContinuousDeploymentPolicies(request);
+    }
+
+    @SdkInternalApi
+    final ListContinuousDeploymentPoliciesResult executeListContinuousDeploymentPolicies(
+            ListContinuousDeploymentPoliciesRequest listContinuousDeploymentPoliciesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listContinuousDeploymentPoliciesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListContinuousDeploymentPoliciesRequest> request = null;
+        Response<ListContinuousDeploymentPoliciesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListContinuousDeploymentPoliciesRequestMarshaller().marshall(super.beforeMarshalling(listContinuousDeploymentPoliciesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListContinuousDeploymentPolicies");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListContinuousDeploymentPoliciesResult> responseHandler = new StaxResponseHandler<ListContinuousDeploymentPoliciesResult>(
+                    new ListContinuousDeploymentPoliciesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2556,9 +6592,9 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      *        The request to list your distributions.
      * @return Result of the ListDistributions operation returned by the service.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @sample AmazonCloudFront.ListDistributions
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListDistributions" target="_top">AWS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributions" target="_top">AWS
      *      API Documentation</a>
      */
     @Override
@@ -2582,6 +6618,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new ListDistributionsRequestMarshaller().marshall(super.beforeMarshalling(listDistributionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDistributions");
@@ -2593,6 +6631,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<ListDistributionsResult> responseHandler = new StaxResponseHandler<ListDistributionsResult>(
                     new ListDistributionsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2605,18 +6644,375 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * List the distributions that are associated with a specified AWS WAF web ACL.
+     * Gets a list of distribution IDs for distributions that have a cache behavior that's associated with the specified
+     * cache policy.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listDistributionsByCachePolicyIdRequest
+     * @return Result of the ListDistributionsByCachePolicyId operation returned by the service.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.ListDistributionsByCachePolicyId
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributionsByCachePolicyId"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListDistributionsByCachePolicyIdResult listDistributionsByCachePolicyId(ListDistributionsByCachePolicyIdRequest request) {
+        request = beforeClientExecution(request);
+        return executeListDistributionsByCachePolicyId(request);
+    }
+
+    @SdkInternalApi
+    final ListDistributionsByCachePolicyIdResult executeListDistributionsByCachePolicyId(
+            ListDistributionsByCachePolicyIdRequest listDistributionsByCachePolicyIdRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listDistributionsByCachePolicyIdRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListDistributionsByCachePolicyIdRequest> request = null;
+        Response<ListDistributionsByCachePolicyIdResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListDistributionsByCachePolicyIdRequestMarshaller().marshall(super.beforeMarshalling(listDistributionsByCachePolicyIdRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDistributionsByCachePolicyId");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListDistributionsByCachePolicyIdResult> responseHandler = new StaxResponseHandler<ListDistributionsByCachePolicyIdResult>(
+                    new ListDistributionsByCachePolicyIdResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a list of distribution IDs for distributions that have a cache behavior that references the specified key
+     * group.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listDistributionsByKeyGroupRequest
+     * @return Result of the ListDistributionsByKeyGroup operation returned by the service.
+     * @throws NoSuchResourceException
+     *         A resource that was specified is not valid.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.ListDistributionsByKeyGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributionsByKeyGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListDistributionsByKeyGroupResult listDistributionsByKeyGroup(ListDistributionsByKeyGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeListDistributionsByKeyGroup(request);
+    }
+
+    @SdkInternalApi
+    final ListDistributionsByKeyGroupResult executeListDistributionsByKeyGroup(ListDistributionsByKeyGroupRequest listDistributionsByKeyGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listDistributionsByKeyGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListDistributionsByKeyGroupRequest> request = null;
+        Response<ListDistributionsByKeyGroupResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListDistributionsByKeyGroupRequestMarshaller().marshall(super.beforeMarshalling(listDistributionsByKeyGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDistributionsByKeyGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListDistributionsByKeyGroupResult> responseHandler = new StaxResponseHandler<ListDistributionsByKeyGroupResult>(
+                    new ListDistributionsByKeyGroupResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a list of distribution IDs for distributions that have a cache behavior that's associated with the specified
+     * origin request policy.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listDistributionsByOriginRequestPolicyIdRequest
+     * @return Result of the ListDistributionsByOriginRequestPolicyId operation returned by the service.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.ListDistributionsByOriginRequestPolicyId
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributionsByOriginRequestPolicyId"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListDistributionsByOriginRequestPolicyIdResult listDistributionsByOriginRequestPolicyId(ListDistributionsByOriginRequestPolicyIdRequest request) {
+        request = beforeClientExecution(request);
+        return executeListDistributionsByOriginRequestPolicyId(request);
+    }
+
+    @SdkInternalApi
+    final ListDistributionsByOriginRequestPolicyIdResult executeListDistributionsByOriginRequestPolicyId(
+            ListDistributionsByOriginRequestPolicyIdRequest listDistributionsByOriginRequestPolicyIdRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listDistributionsByOriginRequestPolicyIdRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListDistributionsByOriginRequestPolicyIdRequest> request = null;
+        Response<ListDistributionsByOriginRequestPolicyIdResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListDistributionsByOriginRequestPolicyIdRequestMarshaller().marshall(super
+                        .beforeMarshalling(listDistributionsByOriginRequestPolicyIdRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDistributionsByOriginRequestPolicyId");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListDistributionsByOriginRequestPolicyIdResult> responseHandler = new StaxResponseHandler<ListDistributionsByOriginRequestPolicyIdResult>(
+                    new ListDistributionsByOriginRequestPolicyIdResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a list of distributions that have a cache behavior that's associated with the specified real-time log
+     * configuration.
+     * </p>
+     * <p>
+     * You can specify the real-time log configuration by its name or its Amazon Resource Name (ARN). You must provide
+     * at least one. If you provide both, CloudFront uses the name to identify the real-time log configuration to list
+     * distributions for.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listDistributionsByRealtimeLogConfigRequest
+     * @return Result of the ListDistributionsByRealtimeLogConfig operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.ListDistributionsByRealtimeLogConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributionsByRealtimeLogConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListDistributionsByRealtimeLogConfigResult listDistributionsByRealtimeLogConfig(ListDistributionsByRealtimeLogConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeListDistributionsByRealtimeLogConfig(request);
+    }
+
+    @SdkInternalApi
+    final ListDistributionsByRealtimeLogConfigResult executeListDistributionsByRealtimeLogConfig(
+            ListDistributionsByRealtimeLogConfigRequest listDistributionsByRealtimeLogConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listDistributionsByRealtimeLogConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListDistributionsByRealtimeLogConfigRequest> request = null;
+        Response<ListDistributionsByRealtimeLogConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListDistributionsByRealtimeLogConfigRequestMarshaller().marshall(super
+                        .beforeMarshalling(listDistributionsByRealtimeLogConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDistributionsByRealtimeLogConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListDistributionsByRealtimeLogConfigResult> responseHandler = new StaxResponseHandler<ListDistributionsByRealtimeLogConfigResult>(
+                    new ListDistributionsByRealtimeLogConfigResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a list of distribution IDs for distributions that have a cache behavior that's associated with the specified
+     * response headers policy.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listDistributionsByResponseHeadersPolicyIdRequest
+     * @return Result of the ListDistributionsByResponseHeadersPolicyId operation returned by the service.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.ListDistributionsByResponseHeadersPolicyId
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributionsByResponseHeadersPolicyId"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListDistributionsByResponseHeadersPolicyIdResult listDistributionsByResponseHeadersPolicyId(ListDistributionsByResponseHeadersPolicyIdRequest request) {
+        request = beforeClientExecution(request);
+        return executeListDistributionsByResponseHeadersPolicyId(request);
+    }
+
+    @SdkInternalApi
+    final ListDistributionsByResponseHeadersPolicyIdResult executeListDistributionsByResponseHeadersPolicyId(
+            ListDistributionsByResponseHeadersPolicyIdRequest listDistributionsByResponseHeadersPolicyIdRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listDistributionsByResponseHeadersPolicyIdRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListDistributionsByResponseHeadersPolicyIdRequest> request = null;
+        Response<ListDistributionsByResponseHeadersPolicyIdResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListDistributionsByResponseHeadersPolicyIdRequestMarshaller().marshall(super
+                        .beforeMarshalling(listDistributionsByResponseHeadersPolicyIdRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDistributionsByResponseHeadersPolicyId");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListDistributionsByResponseHeadersPolicyIdResult> responseHandler = new StaxResponseHandler<ListDistributionsByResponseHeadersPolicyIdResult>(
+                    new ListDistributionsByResponseHeadersPolicyIdResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * List the distributions that are associated with a specified WAF web ACL.
      * </p>
      * 
      * @param listDistributionsByWebACLIdRequest
-     *        The request to list distributions that are associated with a specified AWS WAF web ACL.
+     *        The request to list distributions that are associated with a specified WAF web ACL.
      * @return Result of the ListDistributionsByWebACLId operation returned by the service.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidWebACLIdException
-     *         A web ACL id specified in the response body is not valid.
+     *         A web ACL ID specified is not valid. To specify a web ACL created using the latest version of WAF, use
+     *         the ACL ARN, for example
+     *         <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a</code>
+     *         . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     *         <code>473e64fd-f30b-4765-81a0-62ad96dd167a</code>.
      * @sample AmazonCloudFront.ListDistributionsByWebACLId
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListDistributionsByWebACLId"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributionsByWebACLId"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -2640,6 +7036,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new ListDistributionsByWebACLIdRequestMarshaller().marshall(super.beforeMarshalling(listDistributionsByWebACLIdRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDistributionsByWebACLId");
@@ -2651,6 +7049,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<ListDistributionsByWebACLIdResult> responseHandler = new StaxResponseHandler<ListDistributionsByWebACLIdResult>(
                     new ListDistributionsByWebACLIdResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2669,9 +7068,9 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @param listFieldLevelEncryptionConfigsRequest
      * @return Result of the ListFieldLevelEncryptionConfigs operation returned by the service.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @sample AmazonCloudFront.ListFieldLevelEncryptionConfigs
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListFieldLevelEncryptionConfigs"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListFieldLevelEncryptionConfigs"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -2696,6 +7095,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new ListFieldLevelEncryptionConfigsRequestMarshaller().marshall(super.beforeMarshalling(listFieldLevelEncryptionConfigsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFieldLevelEncryptionConfigs");
@@ -2707,6 +7108,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<ListFieldLevelEncryptionConfigsResult> responseHandler = new StaxResponseHandler<ListFieldLevelEncryptionConfigsResult>(
                     new ListFieldLevelEncryptionConfigsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2725,9 +7127,9 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @param listFieldLevelEncryptionProfilesRequest
      * @return Result of the ListFieldLevelEncryptionProfiles operation returned by the service.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @sample AmazonCloudFront.ListFieldLevelEncryptionProfiles
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListFieldLevelEncryptionProfiles"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListFieldLevelEncryptionProfiles"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -2752,6 +7154,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new ListFieldLevelEncryptionProfilesRequestMarshaller().marshall(super.beforeMarshalling(listFieldLevelEncryptionProfilesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFieldLevelEncryptionProfiles");
@@ -2763,6 +7167,76 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<ListFieldLevelEncryptionProfilesResult> responseHandler = new StaxResponseHandler<ListFieldLevelEncryptionProfilesResult>(
                     new ListFieldLevelEncryptionProfilesResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a list of all CloudFront functions in your Amazon Web Services account.
+     * </p>
+     * <p>
+     * You can optionally apply a filter to return only the functions that are in the specified stage, either
+     * <code>DEVELOPMENT</code> or <code>LIVE</code>.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listFunctionsRequest
+     * @return Result of the ListFunctions operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.ListFunctions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListFunctions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListFunctionsResult listFunctions(ListFunctionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListFunctions(request);
+    }
+
+    @SdkInternalApi
+    final ListFunctionsResult executeListFunctions(ListFunctionsRequest listFunctionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listFunctionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListFunctionsRequest> request = null;
+        Response<ListFunctionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListFunctionsRequestMarshaller().marshall(super.beforeMarshalling(listFunctionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFunctions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListFunctionsResult> responseHandler = new StaxResponseHandler<ListFunctionsResult>(new ListFunctionsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2782,13 +7256,13 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      *        The request to list invalidations.
      * @return Result of the ListInvalidations operation returned by the service.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws NoSuchDistributionException
      *         The specified distribution does not exist.
      * @throws AccessDeniedException
      *         Access denied.
      * @sample AmazonCloudFront.ListInvalidations
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListInvalidations" target="_top">AWS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListInvalidations" target="_top">AWS
      *      API Documentation</a>
      */
     @Override
@@ -2812,6 +7286,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new ListInvalidationsRequestMarshaller().marshall(super.beforeMarshalling(listInvalidationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListInvalidations");
@@ -2823,6 +7299,268 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<ListInvalidationsResult> responseHandler = new StaxResponseHandler<ListInvalidationsResult>(
                     new ListInvalidationsResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a list of key groups.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listKeyGroupsRequest
+     * @return Result of the ListKeyGroups operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.ListKeyGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListKeyGroups" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListKeyGroupsResult listKeyGroups(ListKeyGroupsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListKeyGroups(request);
+    }
+
+    @SdkInternalApi
+    final ListKeyGroupsResult executeListKeyGroups(ListKeyGroupsRequest listKeyGroupsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listKeyGroupsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListKeyGroupsRequest> request = null;
+        Response<ListKeyGroupsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListKeyGroupsRequestMarshaller().marshall(super.beforeMarshalling(listKeyGroupsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListKeyGroups");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListKeyGroupsResult> responseHandler = new StaxResponseHandler<ListKeyGroupsResult>(new ListKeyGroupsResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Specifies the key value stores to list.
+     * </p>
+     * 
+     * @param listKeyValueStoresRequest
+     * @return Result of the ListKeyValueStores operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.ListKeyValueStores
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListKeyValueStores" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListKeyValueStoresResult listKeyValueStores(ListKeyValueStoresRequest request) {
+        request = beforeClientExecution(request);
+        return executeListKeyValueStores(request);
+    }
+
+    @SdkInternalApi
+    final ListKeyValueStoresResult executeListKeyValueStores(ListKeyValueStoresRequest listKeyValueStoresRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listKeyValueStoresRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListKeyValueStoresRequest> request = null;
+        Response<ListKeyValueStoresResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListKeyValueStoresRequestMarshaller().marshall(super.beforeMarshalling(listKeyValueStoresRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListKeyValueStores");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListKeyValueStoresResult> responseHandler = new StaxResponseHandler<ListKeyValueStoresResult>(
+                    new ListKeyValueStoresResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets the list of CloudFront origin access controls in this Amazon Web Services account.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send another request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the next request.
+     * </p>
+     * 
+     * @param listOriginAccessControlsRequest
+     * @return Result of the ListOriginAccessControls operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.ListOriginAccessControls
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListOriginAccessControls"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListOriginAccessControlsResult listOriginAccessControls(ListOriginAccessControlsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListOriginAccessControls(request);
+    }
+
+    @SdkInternalApi
+    final ListOriginAccessControlsResult executeListOriginAccessControls(ListOriginAccessControlsRequest listOriginAccessControlsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listOriginAccessControlsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListOriginAccessControlsRequest> request = null;
+        Response<ListOriginAccessControlsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListOriginAccessControlsRequestMarshaller().marshall(super.beforeMarshalling(listOriginAccessControlsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListOriginAccessControls");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListOriginAccessControlsResult> responseHandler = new StaxResponseHandler<ListOriginAccessControlsResult>(
+                    new ListOriginAccessControlsResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a list of origin request policies.
+     * </p>
+     * <p>
+     * You can optionally apply a filter to return only the managed policies created by Amazon Web Services, or only the
+     * custom policies created in your Amazon Web Services account.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listOriginRequestPoliciesRequest
+     * @return Result of the ListOriginRequestPolicies operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.ListOriginRequestPolicies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListOriginRequestPolicies"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListOriginRequestPoliciesResult listOriginRequestPolicies(ListOriginRequestPoliciesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListOriginRequestPolicies(request);
+    }
+
+    @SdkInternalApi
+    final ListOriginRequestPoliciesResult executeListOriginRequestPolicies(ListOriginRequestPoliciesRequest listOriginRequestPoliciesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listOriginRequestPoliciesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListOriginRequestPoliciesRequest> request = null;
+        Response<ListOriginRequestPoliciesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListOriginRequestPoliciesRequestMarshaller().marshall(super.beforeMarshalling(listOriginRequestPoliciesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListOriginRequestPolicies");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListOriginRequestPoliciesResult> responseHandler = new StaxResponseHandler<ListOriginRequestPoliciesResult>(
+                    new ListOriginRequestPoliciesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2841,9 +7579,9 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @param listPublicKeysRequest
      * @return Result of the ListPublicKeys operation returned by the service.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @sample AmazonCloudFront.ListPublicKeys
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListPublicKeys" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListPublicKeys" target="_top">AWS API
      *      Documentation</a>
      */
     @Override
@@ -2867,6 +7605,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new ListPublicKeysRequestMarshaller().marshall(super.beforeMarshalling(listPublicKeysRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPublicKeys");
@@ -2878,6 +7618,147 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<ListPublicKeysResult> responseHandler = new StaxResponseHandler<ListPublicKeysResult>(
                     new ListPublicKeysResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a list of real-time log configurations.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listRealtimeLogConfigsRequest
+     * @return Result of the ListRealtimeLogConfigs operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @sample AmazonCloudFront.ListRealtimeLogConfigs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListRealtimeLogConfigs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListRealtimeLogConfigsResult listRealtimeLogConfigs(ListRealtimeLogConfigsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListRealtimeLogConfigs(request);
+    }
+
+    @SdkInternalApi
+    final ListRealtimeLogConfigsResult executeListRealtimeLogConfigs(ListRealtimeLogConfigsRequest listRealtimeLogConfigsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listRealtimeLogConfigsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListRealtimeLogConfigsRequest> request = null;
+        Response<ListRealtimeLogConfigsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListRealtimeLogConfigsRequestMarshaller().marshall(super.beforeMarshalling(listRealtimeLogConfigsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRealtimeLogConfigs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListRealtimeLogConfigsResult> responseHandler = new StaxResponseHandler<ListRealtimeLogConfigsResult>(
+                    new ListRealtimeLogConfigsResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a list of response headers policies.
+     * </p>
+     * <p>
+     * You can optionally apply a filter to get only the managed policies created by Amazon Web Services, or only the
+     * custom policies created in your Amazon Web Services account.
+     * </p>
+     * <p>
+     * You can optionally specify the maximum number of items to receive in the response. If the total number of items
+     * in the list exceeds the maximum that you specify, or the default maximum, the response is paginated. To get the
+     * next page of items, send a subsequent request that specifies the <code>NextMarker</code> value from the current
+     * response as the <code>Marker</code> value in the subsequent request.
+     * </p>
+     * 
+     * @param listResponseHeadersPoliciesRequest
+     * @return Result of the ListResponseHeadersPolicies operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.ListResponseHeadersPolicies
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListResponseHeadersPolicies"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListResponseHeadersPoliciesResult listResponseHeadersPolicies(ListResponseHeadersPoliciesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListResponseHeadersPolicies(request);
+    }
+
+    @SdkInternalApi
+    final ListResponseHeadersPoliciesResult executeListResponseHeadersPolicies(ListResponseHeadersPoliciesRequest listResponseHeadersPoliciesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listResponseHeadersPoliciesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListResponseHeadersPoliciesRequest> request = null;
+        Response<ListResponseHeadersPoliciesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListResponseHeadersPoliciesRequestMarshaller().marshall(super.beforeMarshalling(listResponseHeadersPoliciesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListResponseHeadersPolicies");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ListResponseHeadersPoliciesResult> responseHandler = new StaxResponseHandler<ListResponseHeadersPoliciesResult>(
+                    new ListResponseHeadersPoliciesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2897,9 +7778,9 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      *        The request to list your streaming distributions.
      * @return Result of the ListStreamingDistributions operation returned by the service.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @sample AmazonCloudFront.ListStreamingDistributions
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListStreamingDistributions"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListStreamingDistributions"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -2923,6 +7804,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new ListStreamingDistributionsRequestMarshaller().marshall(super.beforeMarshalling(listStreamingDistributionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListStreamingDistributions");
@@ -2934,6 +7817,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<ListStreamingDistributionsResult> responseHandler = new StaxResponseHandler<ListStreamingDistributionsResult>(
                     new ListStreamingDistributionsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2946,7 +7830,9 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * List tags for a CloudFront resource.
+     * List tags for a CloudFront resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html">Tagging a distribution</a>
+     * in the <i>Amazon CloudFront Developer Guide</i>.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -2955,13 +7841,13 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws AccessDeniedException
      *         Access denied.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidTaggingException
-     *         Tagging specified in the response body is not valid.
+     *         The tagging specified is not valid.
      * @throws NoSuchResourceException
      *         A resource that was specified is not valid.
      * @sample AmazonCloudFront.ListTagsForResource
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/ListTagsForResource" target="_top">AWS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListTagsForResource" target="_top">AWS
      *      API Documentation</a>
      */
     @Override
@@ -2985,6 +7871,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new ListTagsForResourceRequestMarshaller().marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -2996,6 +7884,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<ListTagsForResourceResult> responseHandler = new StaxResponseHandler<ListTagsForResourceResult>(
                     new ListTagsForResourceResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3008,7 +7897,85 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Add tags to a CloudFront resource.
+     * Publishes a CloudFront function by copying the function code from the <code>DEVELOPMENT</code> stage to
+     * <code>LIVE</code>. This automatically updates all cache behaviors that are using this function to use the newly
+     * published copy in the <code>LIVE</code> stage.
+     * </p>
+     * <p>
+     * When a function is published to the <code>LIVE</code> stage, you can attach the function to a distribution's
+     * cache behavior, using the function's Amazon Resource Name (ARN).
+     * </p>
+     * <p>
+     * To publish a function, you must provide the function's name and version (<code>ETag</code> value). To get these
+     * values, you can use <code>ListFunctions</code> and <code>DescribeFunction</code>.
+     * </p>
+     * 
+     * @param publishFunctionRequest
+     * @return Result of the PublishFunction operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchFunctionExistsException
+     *         The function does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.PublishFunction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/PublishFunction" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public PublishFunctionResult publishFunction(PublishFunctionRequest request) {
+        request = beforeClientExecution(request);
+        return executePublishFunction(request);
+    }
+
+    @SdkInternalApi
+    final PublishFunctionResult executePublishFunction(PublishFunctionRequest publishFunctionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(publishFunctionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PublishFunctionRequest> request = null;
+        Response<PublishFunctionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PublishFunctionRequestMarshaller().marshall(super.beforeMarshalling(publishFunctionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PublishFunction");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<PublishFunctionResult> responseHandler = new StaxResponseHandler<PublishFunctionResult>(
+                    new PublishFunctionResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Add tags to a CloudFront resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html">Tagging a distribution</a>
+     * in the <i>Amazon CloudFront Developer Guide</i>.
      * </p>
      * 
      * @param tagResourceRequest
@@ -3017,13 +7984,13 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws AccessDeniedException
      *         Access denied.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidTaggingException
-     *         Tagging specified in the response body is not valid.
+     *         The tagging specified is not valid.
      * @throws NoSuchResourceException
      *         A resource that was specified is not valid.
      * @sample AmazonCloudFront.TagResource
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/TagResource" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/TagResource" target="_top">AWS API
      *      Documentation</a>
      */
     @Override
@@ -3047,6 +8014,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new TagResourceRequestMarshaller().marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -3057,6 +8026,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
             }
 
             StaxResponseHandler<TagResourceResult> responseHandler = new StaxResponseHandler<TagResourceResult>(new TagResourceResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3069,7 +8039,88 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Remove tags from a CloudFront resource.
+     * Tests a CloudFront function.
+     * </p>
+     * <p>
+     * To test a function, you provide an <i>event object</i> that represents an HTTP request or response that your
+     * CloudFront distribution could receive in production. CloudFront runs the function, passing it the event object
+     * that you provided, and returns the function's result (the modified event object) in the response. The response
+     * also contains function logs and error messages, if any exist. For more information about testing functions, see
+     * <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/managing-functions.html#test-function"
+     * >Testing functions</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * </p>
+     * <p>
+     * To test a function, you provide the function's name and version (<code>ETag</code> value) along with the event
+     * object. To get the function's name and version, you can use <code>ListFunctions</code> and
+     * <code>DescribeFunction</code>.
+     * </p>
+     * 
+     * @param testFunctionRequest
+     * @return Result of the TestFunction operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchFunctionExistsException
+     *         The function does not exist.
+     * @throws TestFunctionFailedException
+     *         The CloudFront function failed.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.TestFunction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/TestFunction" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public TestFunctionResult testFunction(TestFunctionRequest request) {
+        request = beforeClientExecution(request);
+        return executeTestFunction(request);
+    }
+
+    @SdkInternalApi
+    final TestFunctionResult executeTestFunction(TestFunctionRequest testFunctionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(testFunctionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TestFunctionRequest> request = null;
+        Response<TestFunctionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TestFunctionRequestMarshaller().marshall(super.beforeMarshalling(testFunctionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TestFunction");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<TestFunctionResult> responseHandler = new StaxResponseHandler<TestFunctionResult>(new TestFunctionResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Remove tags from a CloudFront resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/tagging.html">Tagging a distribution</a>
+     * in the <i>Amazon CloudFront Developer Guide</i>.
      * </p>
      * 
      * @param untagResourceRequest
@@ -3078,13 +8129,13 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws AccessDeniedException
      *         Access denied.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidTaggingException
-     *         Tagging specified in the response body is not valid.
+     *         The tagging specified is not valid.
      * @throws NoSuchResourceException
      *         A resource that was specified is not valid.
      * @sample AmazonCloudFront.UntagResource
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/UntagResource" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UntagResource" target="_top">AWS API
      *      Documentation</a>
      */
     @Override
@@ -3108,6 +8159,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new UntagResourceRequestMarshaller().marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -3118,6 +8171,114 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
             }
 
             StaxResponseHandler<UntagResourceResult> responseHandler = new StaxResponseHandler<UntagResourceResult>(new UntagResourceResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a cache policy configuration.
+     * </p>
+     * <p>
+     * When you update a cache policy configuration, all the fields are updated with the values provided in the request.
+     * You cannot update some fields independent of others. To update a cache policy configuration:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Use <code>GetCachePolicyConfig</code> to get the current configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Locally modify the fields in the cache policy configuration that you want to update.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Call <code>UpdateCachePolicy</code> by providing the entire cache policy configuration, including the fields that
+     * you modified and those that you didn't.
+     * </p>
+     * </li>
+     * </ol>
+     * 
+     * @param updateCachePolicyRequest
+     * @return Result of the UpdateCachePolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws IllegalUpdateException
+     *         The update contains modifications that are not allowed.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws CachePolicyAlreadyExistsException
+     *         A cache policy with this name already exists. You must provide a unique name. To modify an existing cache
+     *         policy, use <code>UpdateCachePolicy</code>.
+     * @throws TooManyHeadersInCachePolicyException
+     *         The number of headers in the cache policy exceeds the maximum. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyCookiesInCachePolicyException
+     *         The number of cookies in the cache policy exceeds the maximum. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyQueryStringsInCachePolicyException
+     *         The number of query strings in the cache policy exceeds the maximum. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @sample AmazonCloudFront.UpdateCachePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateCachePolicy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UpdateCachePolicyResult updateCachePolicy(UpdateCachePolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateCachePolicy(request);
+    }
+
+    @SdkInternalApi
+    final UpdateCachePolicyResult executeUpdateCachePolicy(UpdateCachePolicyRequest updateCachePolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateCachePolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateCachePolicyRequest> request = null;
+        Response<UpdateCachePolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateCachePolicyRequestMarshaller().marshall(super.beforeMarshalling(updateCachePolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateCachePolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<UpdateCachePolicyResult> responseHandler = new StaxResponseHandler<UpdateCachePolicyResult>(
+                    new UpdateCachePolicyResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3139,22 +8300,22 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws AccessDeniedException
      *         Access denied.
      * @throws IllegalUpdateException
-     *         Origin and <code>CallerReference</code> cannot be updated.
+     *         The update contains modifications that are not allowed.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws MissingBodyException
      *         This operation requires a body. Ensure that the body is present and the <code>Content-Type</code> header
      *         is set.
      * @throws NoSuchCloudFrontOriginAccessIdentityException
      *         The specified origin access identity does not exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @sample AmazonCloudFront.UpdateCloudFrontOriginAccessIdentity
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/UpdateCloudFrontOriginAccessIdentity"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateCloudFrontOriginAccessIdentity"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -3180,6 +8341,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(updateCloudFrontOriginAccessIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateCloudFrontOriginAccessIdentity");
@@ -3191,6 +8354,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<UpdateCloudFrontOriginAccessIdentityResult> responseHandler = new StaxResponseHandler<UpdateCloudFrontOriginAccessIdentityResult>(
                     new UpdateCloudFrontOriginAccessIdentityResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3203,27 +8367,107 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Updates the configuration for a web distribution.
-     * </p>
-     * <important>
-     * <p>
-     * When you update a distribution, there are more required fields than when you create a distribution. When you
-     * update your distribution by using this API action, follow the steps here to get the current configuration and
-     * then make your updates, to make sure that you include all of the required fields. To view a summary, see <a href=
-     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-overview-required-fields.html"
-     * >Required Fields for Create Distribution and Update Distribution</a> in the <i>Amazon CloudFront Developer
-     * Guide</i>.
-     * </p>
-     * </important>
-     * <p>
-     * The update process includes getting the current distribution configuration, updating the XML document that is
-     * returned to make your changes, and then submitting an <code>UpdateDistribution</code> request to make the
-     * updates.
+     * Updates a continuous deployment policy. You can update a continuous deployment policy to enable or disable it, to
+     * change the percentage of traffic that it sends to the staging distribution, or to change the staging distribution
+     * that it sends traffic to.
      * </p>
      * <p>
-     * For information about updating a distribution using the CloudFront console instead, see <a href=
-     * "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-creating-console.html"
-     * >Creating a Distribution</a> in the <i>Amazon CloudFront Developer Guide</i>.
+     * When you update a continuous deployment policy configuration, all the fields are updated with the values that are
+     * provided in the request. You cannot update some fields independent of others. To update a continuous deployment
+     * policy configuration:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Use <code>GetContinuousDeploymentPolicyConfig</code> to get the current configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Locally modify the fields in the continuous deployment policy configuration that you want to update.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use <code>UpdateContinuousDeploymentPolicy</code>, providing the entire continuous deployment policy
+     * configuration, including the fields that you modified and those that you didn't.
+     * </p>
+     * </li>
+     * </ol>
+     * 
+     * @param updateContinuousDeploymentPolicyRequest
+     * @return Result of the UpdateContinuousDeploymentPolicy operation returned by the service.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws StagingDistributionInUseException
+     *         A continuous deployment policy for this staging distribution already exists.
+     * @throws NoSuchContinuousDeploymentPolicyException
+     *         The continuous deployment policy doesn't exist.
+     * @sample AmazonCloudFront.UpdateContinuousDeploymentPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateContinuousDeploymentPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateContinuousDeploymentPolicyResult updateContinuousDeploymentPolicy(UpdateContinuousDeploymentPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateContinuousDeploymentPolicy(request);
+    }
+
+    @SdkInternalApi
+    final UpdateContinuousDeploymentPolicyResult executeUpdateContinuousDeploymentPolicy(
+            UpdateContinuousDeploymentPolicyRequest updateContinuousDeploymentPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateContinuousDeploymentPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateContinuousDeploymentPolicyRequest> request = null;
+        Response<UpdateContinuousDeploymentPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateContinuousDeploymentPolicyRequestMarshaller().marshall(super.beforeMarshalling(updateContinuousDeploymentPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateContinuousDeploymentPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<UpdateContinuousDeploymentPolicyResult> responseHandler = new StaxResponseHandler<UpdateContinuousDeploymentPolicyResult>(
+                    new UpdateContinuousDeploymentPolicyResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the configuration for a CloudFront distribution.
+     * </p>
+     * <p>
+     * The update process includes getting the current distribution configuration, updating it to make your changes, and
+     * then submitting an <code>UpdateDistribution</code> request to make the updates.
      * </p>
      * <p>
      * <b>To update a web distribution using the CloudFront API</b>
@@ -3231,85 +8475,35 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * <ol>
      * <li>
      * <p>
-     * Submit a <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetDistributionConfig.html">
-     * GetDistributionConfig</a> request to get the current configuration and an <code>Etag</code> header for the
-     * distribution.
+     * Use <code>GetDistributionConfig</code> to get the current configuration, including the version identifier (
+     * <code>ETag</code>).
      * </p>
-     * <note>
-     * <p>
-     * If you update the distribution again, you must get a new <code>Etag</code> header.
-     * </p>
-     * </note></li>
+     * </li>
      * <li>
      * <p>
-     * Update the XML document that was returned in the response to your <code>GetDistributionConfig</code> request to
-     * include your changes.
-     * </p>
-     * <important>
-     * <p>
-     * When you edit the XML file, be aware of the following:
+     * Update the distribution configuration that was returned in the response. Note the following important
+     * requirements and restrictions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * You must strip out the ETag parameter that is returned.
+     * You must rename the <code>ETag</code> field to <code>IfMatch</code>, leaving the value unchanged. (Set the value
+     * of <code>IfMatch</code> to the value of <code>ETag</code>, then remove the <code>ETag</code> field.)
      * </p>
      * </li>
      * <li>
      * <p>
-     * Additional fields are required when you update a distribution. There may be fields included in the XML file for
-     * features that you haven't configured for your distribution. This is expected and required to successfully update
-     * the distribution.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * You can't change the value of <code>CallerReference</code>. If you try to change this value, CloudFront returns
-     * an <code>IllegalUpdate</code> error.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * The new configuration replaces the existing configuration; the values that you specify in an
-     * <code>UpdateDistribution</code> request are not merged into your existing configuration. When you add, delete, or
-     * replace values in an element that allows multiple values (for example, <code>CNAME</code>), you must specify all
-     * of the values that you want to appear in the updated distribution. In addition, you must update the corresponding
-     * <code>Quantity</code> element.
-     * </p>
-     * </li>
-     * </ul>
-     * </important></li>
-     * <li>
-     * <p>
-     * Submit an <code>UpdateDistribution</code> request to update the configuration for your distribution:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * In the request body, include the XML document that you updated in Step 2. The request body must include an XML
-     * document with a <code>DistributionConfig</code> element.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Set the value of the HTTP <code>If-Match</code> header to the value of the <code>ETag</code> header that
-     * CloudFront returned when you submitted the <code>GetDistributionConfig</code> request in Step 1.
+     * You can't change the value of <code>CallerReference</code>.
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * Review the response to the <code>UpdateDistribution</code> request to confirm that the configuration was
-     * successfully updated.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Optional: Submit a <a
-     * href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetDistribution.html">GetDistribution</a>
-     * request to confirm that your changes have propagated. When propagation is complete, the value of
-     * <code>Status</code> is <code>Deployed</code>.
+     * Submit an <code>UpdateDistribution</code> request, providing the distribution configuration. The new
+     * configuration replaces the existing configuration. The values that you specify in an
+     * <code>UpdateDistribution</code> request are not merged into your existing configuration. Make sure to include all
+     * fields: the ones that you modified and also the ones that you didn't.
      * </p>
      * </li>
      * </ol>
@@ -3322,16 +8516,16 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws CNAMEAlreadyExistsException
      *         The CNAME specified is already defined for CloudFront.
      * @throws IllegalUpdateException
-     *         Origin and <code>CallerReference</code> cannot be updated.
+     *         The update contains modifications that are not allowed.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws MissingBodyException
      *         This operation requires a body. Ensure that the body is present and the <code>Content-Type</code> header
      *         is set.
      * @throws NoSuchDistributionException
      *         The specified distribution does not exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @throws TooManyDistributionCNAMEsException
      *         Your request contains more CNAMEs than are allowed per distribution.
      * @throws InvalidDefaultRootObjectException
@@ -3341,17 +8535,19 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws InvalidErrorCodeException
      *         An invalid error code was specified.
      * @throws InvalidResponseCodeException
-     *         A response code specified in the response body is not valid.
+     *         A response code is not valid.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidOriginAccessIdentityException
      *         The origin access identity is not valid or doesn't exist.
+     * @throws InvalidOriginAccessControlException
+     *         The origin access control is not valid.
      * @throws TooManyTrustedSignersException
      *         Your request contains more trusted signers than are allowed per distribution.
      * @throws TrustedSignerDoesNotExistException
      *         One or more of your trusted signers don't exist.
      * @throws InvalidViewerCertificateException
-     *         A viewer certificate specified in the response body is not valid.
+     *         A viewer certificate specified is not valid.
      * @throws InvalidMinimumProtocolVersionException
      *         The minimum protocol version specified is not valid.
      * @throws InvalidRequiredProtocolException
@@ -3384,22 +8580,40 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws InvalidGeoRestrictionParameterException
      *         The specified geo restriction parameter is not valid.
      * @throws InvalidTTLOrderException
-     *         TTL order specified in the response body is not valid.
+     *         The TTL order specified is not valid.
      * @throws InvalidWebACLIdException
-     *         A web ACL id specified in the response body is not valid.
+     *         A web ACL ID specified is not valid. To specify a web ACL created using the latest version of WAF, use
+     *         the ACL ARN, for example
+     *         <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a</code>
+     *         . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     *         <code>473e64fd-f30b-4765-81a0-62ad96dd167a</code>.
      * @throws TooManyOriginCustomHeadersException
      *         Your request contains too many origin custom headers.
      * @throws TooManyQueryStringParametersException
      *         Your request contains too many query string parameters.
      * @throws InvalidQueryStringParametersException
-     *         Query string parameters specified in the response body are not valid.
+     *         The query string parameters specified are not valid.
      * @throws TooManyDistributionsWithLambdaAssociationsException
-     *         Processing your request would cause the maximum number of distributions with Lambda function associations
-     *         per owner to be exceeded.
+     *         Processing your request would cause the maximum number of distributions with Lambda@Edge function
+     *         associations per owner to be exceeded.
+     * @throws TooManyDistributionsWithSingleFunctionARNException
+     *         The maximum number of distributions have been associated with the specified Lambda@Edge function.
      * @throws TooManyLambdaFunctionAssociationsException
-     *         Your request contains more Lambda function associations than are allowed per distribution.
+     *         Your request contains more Lambda@Edge function associations than are allowed per distribution.
      * @throws InvalidLambdaFunctionAssociationException
-     *         The specified Lambda function association is invalid.
+     *         The specified Lambda@Edge function association is invalid.
+     * @throws TooManyDistributionsWithFunctionAssociationsException
+     *         You have reached the maximum number of distributions that are associated with a CloudFront function. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyFunctionAssociationsException
+     *         You have reached the maximum number of CloudFront function associations for this distribution. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws InvalidFunctionAssociationException
+     *         A CloudFront function association is invalid.
      * @throws InvalidOriginReadTimeoutException
      *         The read timeout specified for the origin is not valid.
      * @throws InvalidOriginKeepaliveTimeoutException
@@ -3412,8 +8626,63 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws TooManyDistributionsAssociatedToFieldLevelEncryptionConfigException
      *         The maximum number of distributions have been associated with the specified configuration for field-level
      *         encryption.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws TooManyDistributionsAssociatedToCachePolicyException
+     *         The maximum number of distributions have been associated with the specified cache policy. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToOriginAccessControlException
+     *         The maximum number of distributions have been associated with the specified origin access control.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws TooManyDistributionsAssociatedToResponseHeadersPolicyException
+     *         The maximum number of distributions have been associated with the specified response headers policy.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws TooManyDistributionsAssociatedToOriginRequestPolicyException
+     *         The maximum number of distributions have been associated with the specified origin request policy. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToKeyGroupException
+     *         The number of distributions that reference this key group is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyKeyGroupsAssociatedToDistributionException
+     *         The number of key groups referenced by this distribution is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TrustedKeyGroupDoesNotExistException
+     *         The specified key group does not exist.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @throws RealtimeLogConfigOwnerMismatchException
+     *         The specified real-time log configuration belongs to a different Amazon Web Services account.
+     * @throws ContinuousDeploymentPolicyInUseException
+     *         You cannot delete a continuous deployment policy that is associated with a primary distribution.
+     * @throws NoSuchContinuousDeploymentPolicyException
+     *         The continuous deployment policy doesn't exist.
+     * @throws StagingDistributionInUseException
+     *         A continuous deployment policy for this staging distribution already exists.
+     * @throws IllegalOriginAccessConfigurationException
+     *         An origin cannot contain both an origin access control (OAC) and an origin access identity (OAI).
+     * @throws InvalidDomainNameForOriginAccessControlException
+     *         An origin access control is associated with an origin whose domain name is not supported.
      * @sample AmazonCloudFront.UpdateDistribution
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/UpdateDistribution" target="_top">AWS
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateDistribution" target="_top">AWS
      *      API Documentation</a>
      */
     @Override
@@ -3437,6 +8706,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new UpdateDistributionRequestMarshaller().marshall(super.beforeMarshalling(updateDistributionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDistribution");
@@ -3448,6 +8719,251 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<UpdateDistributionResult> responseHandler = new StaxResponseHandler<UpdateDistributionResult>(
                     new UpdateDistributionResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Copies the staging distribution's configuration to its corresponding primary distribution. The primary
+     * distribution retains its <code>Aliases</code> (also known as alternate domain names or CNAMEs) and
+     * <code>ContinuousDeploymentPolicyId</code> value, but otherwise its configuration is overwritten to match the
+     * staging distribution.
+     * </p>
+     * <p>
+     * You can use this operation in a continuous deployment workflow after you have tested configuration changes on the
+     * staging distribution. After using a continuous deployment policy to move a portion of your domain name's traffic
+     * to the staging distribution and verifying that it works as intended, you can use this operation to copy the
+     * staging distribution's configuration to the primary distribution. This action will disable the continuous
+     * deployment policy and move your domain's traffic back to the primary distribution.
+     * </p>
+     * <p>
+     * This API operation requires the following IAM permissions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_GetDistribution.html">GetDistribution</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateDistribution.html">
+     * UpdateDistribution</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param updateDistributionWithStagingConfigRequest
+     * @return Result of the UpdateDistributionWithStagingConfig operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws CNAMEAlreadyExistsException
+     *         The CNAME specified is already defined for CloudFront.
+     * @throws IllegalUpdateException
+     *         The update contains modifications that are not allowed.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws MissingBodyException
+     *         This operation requires a body. Ensure that the body is present and the <code>Content-Type</code> header
+     *         is set.
+     * @throws NoSuchDistributionException
+     *         The specified distribution does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws TooManyDistributionCNAMEsException
+     *         Your request contains more CNAMEs than are allowed per distribution.
+     * @throws InvalidDefaultRootObjectException
+     *         The default root object file name is too big or contains an invalid character.
+     * @throws InvalidRelativePathException
+     *         The relative path is too big, is not URL-encoded, or does not begin with a slash (/).
+     * @throws InvalidErrorCodeException
+     *         An invalid error code was specified.
+     * @throws InvalidResponseCodeException
+     *         A response code is not valid.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InvalidOriginAccessIdentityException
+     *         The origin access identity is not valid or doesn't exist.
+     * @throws InvalidOriginAccessControlException
+     *         The origin access control is not valid.
+     * @throws TooManyTrustedSignersException
+     *         Your request contains more trusted signers than are allowed per distribution.
+     * @throws TrustedSignerDoesNotExistException
+     *         One or more of your trusted signers don't exist.
+     * @throws InvalidViewerCertificateException
+     *         A viewer certificate specified is not valid.
+     * @throws InvalidMinimumProtocolVersionException
+     *         The minimum protocol version specified is not valid.
+     * @throws InvalidRequiredProtocolException
+     *         This operation requires the HTTPS protocol. Ensure that you specify the HTTPS protocol in your request,
+     *         or omit the <code>RequiredProtocols</code> element from your distribution configuration.
+     * @throws NoSuchOriginException
+     *         No origin exists with the specified <code>Origin Id</code>.
+     * @throws TooManyOriginsException
+     *         You cannot create more origins for the distribution.
+     * @throws TooManyOriginGroupsPerDistributionException
+     *         Processing your request would cause you to exceed the maximum number of origin groups allowed.
+     * @throws TooManyCacheBehaviorsException
+     *         You cannot create more cache behaviors for the distribution.
+     * @throws TooManyCookieNamesInWhiteListException
+     *         Your request contains more cookie names in the whitelist than are allowed per cache behavior.
+     * @throws InvalidForwardCookiesException
+     *         Your request contains forward cookies option which doesn't match with the expectation for the
+     *         <code>whitelisted</code> list of cookie names. Either list of cookie names has been specified when not
+     *         allowed or list of cookie names is missing when expected.
+     * @throws TooManyHeadersInForwardedValuesException
+     *         Your request contains too many headers in forwarded values.
+     * @throws InvalidHeadersForS3OriginException
+     *         The headers specified are not valid for an Amazon S3 origin.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws TooManyCertificatesException
+     *         You cannot create anymore custom SSL/TLS certificates.
+     * @throws InvalidLocationCodeException
+     *         The location code specified is not valid.
+     * @throws InvalidGeoRestrictionParameterException
+     *         The specified geo restriction parameter is not valid.
+     * @throws InvalidTTLOrderException
+     *         The TTL order specified is not valid.
+     * @throws InvalidWebACLIdException
+     *         A web ACL ID specified is not valid. To specify a web ACL created using the latest version of WAF, use
+     *         the ACL ARN, for example
+     *         <code>arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a</code>
+     *         . To specify a web ACL created using WAF Classic, use the ACL ID, for example
+     *         <code>473e64fd-f30b-4765-81a0-62ad96dd167a</code>.
+     * @throws TooManyOriginCustomHeadersException
+     *         Your request contains too many origin custom headers.
+     * @throws TooManyQueryStringParametersException
+     *         Your request contains too many query string parameters.
+     * @throws InvalidQueryStringParametersException
+     *         The query string parameters specified are not valid.
+     * @throws TooManyDistributionsWithLambdaAssociationsException
+     *         Processing your request would cause the maximum number of distributions with Lambda@Edge function
+     *         associations per owner to be exceeded.
+     * @throws TooManyDistributionsWithSingleFunctionARNException
+     *         The maximum number of distributions have been associated with the specified Lambda@Edge function.
+     * @throws TooManyLambdaFunctionAssociationsException
+     *         Your request contains more Lambda@Edge function associations than are allowed per distribution.
+     * @throws InvalidLambdaFunctionAssociationException
+     *         The specified Lambda@Edge function association is invalid.
+     * @throws TooManyDistributionsWithFunctionAssociationsException
+     *         You have reached the maximum number of distributions that are associated with a CloudFront function. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyFunctionAssociationsException
+     *         You have reached the maximum number of CloudFront function associations for this distribution. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws InvalidFunctionAssociationException
+     *         A CloudFront function association is invalid.
+     * @throws InvalidOriginReadTimeoutException
+     *         The read timeout specified for the origin is not valid.
+     * @throws InvalidOriginKeepaliveTimeoutException
+     *         The keep alive timeout specified for the origin is not valid.
+     * @throws NoSuchFieldLevelEncryptionConfigException
+     *         The specified configuration for field-level encryption doesn't exist.
+     * @throws IllegalFieldLevelEncryptionConfigAssociationWithCacheBehaviorException
+     *         The specified configuration for field-level encryption can't be associated with the specified cache
+     *         behavior.
+     * @throws TooManyDistributionsAssociatedToFieldLevelEncryptionConfigException
+     *         The maximum number of distributions have been associated with the specified configuration for field-level
+     *         encryption.
+     * @throws NoSuchCachePolicyException
+     *         The cache policy does not exist.
+     * @throws TooManyDistributionsAssociatedToCachePolicyException
+     *         The maximum number of distributions have been associated with the specified cache policy. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToOriginAccessControlException
+     *         The maximum number of distributions have been associated with the specified origin access control.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws TooManyDistributionsAssociatedToResponseHeadersPolicyException
+     *         The maximum number of distributions have been associated with the specified response headers policy.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws TooManyDistributionsAssociatedToOriginRequestPolicyException
+     *         The maximum number of distributions have been associated with the specified origin request policy. For
+     *         more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyDistributionsAssociatedToKeyGroupException
+     *         The number of distributions that reference this key group is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyKeyGroupsAssociatedToDistributionException
+     *         The number of key groups referenced by this distribution is more than the maximum allowed. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TrustedKeyGroupDoesNotExistException
+     *         The specified key group does not exist.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @throws RealtimeLogConfigOwnerMismatchException
+     *         The specified real-time log configuration belongs to a different Amazon Web Services account.
+     * @sample AmazonCloudFront.UpdateDistributionWithStagingConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateDistributionWithStagingConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateDistributionWithStagingConfigResult updateDistributionWithStagingConfig(UpdateDistributionWithStagingConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateDistributionWithStagingConfig(request);
+    }
+
+    @SdkInternalApi
+    final UpdateDistributionWithStagingConfigResult executeUpdateDistributionWithStagingConfig(
+            UpdateDistributionWithStagingConfigRequest updateDistributionWithStagingConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateDistributionWithStagingConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateDistributionWithStagingConfigRequest> request = null;
+        Response<UpdateDistributionWithStagingConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateDistributionWithStagingConfigRequestMarshaller().marshall(super
+                        .beforeMarshalling(updateDistributionWithStagingConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDistributionWithStagingConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<UpdateDistributionWithStagingConfigResult> responseHandler = new StaxResponseHandler<UpdateDistributionWithStagingConfigResult>(
+                    new UpdateDistributionWithStagingConfigResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3468,19 +8984,19 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws AccessDeniedException
      *         Access denied.
      * @throws IllegalUpdateException
-     *         Origin and <code>CallerReference</code> cannot be updated.
+     *         The update contains modifications that are not allowed.
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws NoSuchFieldLevelEncryptionProfileException
      *         The specified profile for field-level encryption doesn't exist.
      * @throws NoSuchFieldLevelEncryptionConfigException
      *         The specified configuration for field-level encryption doesn't exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @throws TooManyFieldLevelEncryptionQueryArgProfilesException
      *         The maximum number of query arg profiles for field-level encryption have been created.
      * @throws TooManyFieldLevelEncryptionContentTypeProfilesException
@@ -3488,7 +9004,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws QueryArgProfileEmptyException
      *         No profile specified for the field-level encryption query argument.
      * @sample AmazonCloudFront.UpdateFieldLevelEncryptionConfig
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/UpdateFieldLevelEncryptionConfig"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateFieldLevelEncryptionConfig"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -3513,6 +9029,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new UpdateFieldLevelEncryptionConfigRequestMarshaller().marshall(super.beforeMarshalling(updateFieldLevelEncryptionConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateFieldLevelEncryptionConfig");
@@ -3524,6 +9042,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<UpdateFieldLevelEncryptionConfigResult> responseHandler = new StaxResponseHandler<UpdateFieldLevelEncryptionConfigResult>(
                     new UpdateFieldLevelEncryptionConfigResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3546,19 +9065,19 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws FieldLevelEncryptionProfileAlreadyExistsException
      *         The specified profile for field-level encryption already exists.
      * @throws IllegalUpdateException
-     *         Origin and <code>CallerReference</code> cannot be updated.
+     *         The update contains modifications that are not allowed.
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws NoSuchPublicKeyException
      *         The specified public key doesn't exist.
      * @throws NoSuchFieldLevelEncryptionProfileException
      *         The specified profile for field-level encryption doesn't exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @throws FieldLevelEncryptionProfileSizeExceededException
      *         The maximum size of a profile for field-level encryption was exceeded.
      * @throws TooManyFieldLevelEncryptionEncryptionEntitiesException
@@ -3566,7 +9085,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws TooManyFieldLevelEncryptionFieldPatternsException
      *         The maximum number of field patterns for field-level encryption have been created.
      * @sample AmazonCloudFront.UpdateFieldLevelEncryptionProfile
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/UpdateFieldLevelEncryptionProfile"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateFieldLevelEncryptionProfile"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -3591,6 +9110,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new UpdateFieldLevelEncryptionProfileRequestMarshaller().marshall(super.beforeMarshalling(updateFieldLevelEncryptionProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateFieldLevelEncryptionProfile");
@@ -3602,6 +9123,428 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<UpdateFieldLevelEncryptionProfileResult> responseHandler = new StaxResponseHandler<UpdateFieldLevelEncryptionProfileResult>(
                     new UpdateFieldLevelEncryptionProfileResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a CloudFront function.
+     * </p>
+     * <p>
+     * You can update a function's code or the comment that describes the function. You cannot update a function's name.
+     * </p>
+     * <p>
+     * To update a function, you provide the function's name and version (<code>ETag</code> value) along with the
+     * updated function code. To get the name and version, you can use <code>ListFunctions</code> and
+     * <code>DescribeFunction</code>.
+     * </p>
+     * 
+     * @param updateFunctionRequest
+     * @return Result of the UpdateFunction operation returned by the service.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchFunctionExistsException
+     *         The function does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws FunctionSizeLimitExceededException
+     *         The function is too large. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.UpdateFunction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateFunction" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UpdateFunctionResult updateFunction(UpdateFunctionRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateFunction(request);
+    }
+
+    @SdkInternalApi
+    final UpdateFunctionResult executeUpdateFunction(UpdateFunctionRequest updateFunctionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateFunctionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateFunctionRequest> request = null;
+        Response<UpdateFunctionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateFunctionRequestMarshaller().marshall(super.beforeMarshalling(updateFunctionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateFunction");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<UpdateFunctionResult> responseHandler = new StaxResponseHandler<UpdateFunctionResult>(
+                    new UpdateFunctionResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a key group.
+     * </p>
+     * <p>
+     * When you update a key group, all the fields are updated with the values provided in the request. You cannot
+     * update some fields independent of others. To update a key group:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Get the current key group with <code>GetKeyGroup</code> or <code>GetKeyGroupConfig</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Locally modify the fields in the key group that you want to update. For example, add or remove public key IDs.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Call <code>UpdateKeyGroup</code> with the entire key group object, including the fields that you modified and
+     * those that you didn't.
+     * </p>
+     * </li>
+     * </ol>
+     * 
+     * @param updateKeyGroupRequest
+     * @return Result of the UpdateKeyGroup operation returned by the service.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchResourceException
+     *         A resource that was specified is not valid.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws KeyGroupAlreadyExistsException
+     *         A key group with this name already exists. You must provide a unique name. To modify an existing key
+     *         group, use <code>UpdateKeyGroup</code>.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws TooManyPublicKeysInKeyGroupException
+     *         The number of public keys in this key group is more than the maximum allowed. For more information, see
+     *         <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html">Quotas
+     *         </a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @sample AmazonCloudFront.UpdateKeyGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateKeyGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UpdateKeyGroupResult updateKeyGroup(UpdateKeyGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateKeyGroup(request);
+    }
+
+    @SdkInternalApi
+    final UpdateKeyGroupResult executeUpdateKeyGroup(UpdateKeyGroupRequest updateKeyGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateKeyGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateKeyGroupRequest> request = null;
+        Response<UpdateKeyGroupResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateKeyGroupRequestMarshaller().marshall(super.beforeMarshalling(updateKeyGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateKeyGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<UpdateKeyGroupResult> responseHandler = new StaxResponseHandler<UpdateKeyGroupResult>(
+                    new UpdateKeyGroupResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Specifies the key value store to update.
+     * </p>
+     * 
+     * @param updateKeyValueStoreRequest
+     * @return Result of the UpdateKeyValueStore operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws EntityNotFoundException
+     *         The key value store entity was not found.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws UnsupportedOperationException
+     *         This operation is not supported in this region.
+     * @sample AmazonCloudFront.UpdateKeyValueStore
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateKeyValueStore" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UpdateKeyValueStoreResult updateKeyValueStore(UpdateKeyValueStoreRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateKeyValueStore(request);
+    }
+
+    @SdkInternalApi
+    final UpdateKeyValueStoreResult executeUpdateKeyValueStore(UpdateKeyValueStoreRequest updateKeyValueStoreRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateKeyValueStoreRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateKeyValueStoreRequest> request = null;
+        Response<UpdateKeyValueStoreResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateKeyValueStoreRequestMarshaller().marshall(super.beforeMarshalling(updateKeyValueStoreRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateKeyValueStore");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<UpdateKeyValueStoreResult> responseHandler = new StaxResponseHandler<UpdateKeyValueStoreResult>(
+                    new UpdateKeyValueStoreResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a CloudFront origin access control.
+     * </p>
+     * 
+     * @param updateOriginAccessControlRequest
+     * @return Result of the UpdateOriginAccessControl operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws IllegalUpdateException
+     *         The update contains modifications that are not allowed.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws OriginAccessControlAlreadyExistsException
+     *         An origin access control with the specified parameters already exists.
+     * @throws NoSuchOriginAccessControlException
+     *         The origin access control does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @sample AmazonCloudFront.UpdateOriginAccessControl
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateOriginAccessControl"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateOriginAccessControlResult updateOriginAccessControl(UpdateOriginAccessControlRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateOriginAccessControl(request);
+    }
+
+    @SdkInternalApi
+    final UpdateOriginAccessControlResult executeUpdateOriginAccessControl(UpdateOriginAccessControlRequest updateOriginAccessControlRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateOriginAccessControlRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateOriginAccessControlRequest> request = null;
+        Response<UpdateOriginAccessControlResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateOriginAccessControlRequestMarshaller().marshall(super.beforeMarshalling(updateOriginAccessControlRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateOriginAccessControl");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<UpdateOriginAccessControlResult> responseHandler = new StaxResponseHandler<UpdateOriginAccessControlResult>(
+                    new UpdateOriginAccessControlResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates an origin request policy configuration.
+     * </p>
+     * <p>
+     * When you update an origin request policy configuration, all the fields are updated with the values provided in
+     * the request. You cannot update some fields independent of others. To update an origin request policy
+     * configuration:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Use <code>GetOriginRequestPolicyConfig</code> to get the current configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Locally modify the fields in the origin request policy configuration that you want to update.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Call <code>UpdateOriginRequestPolicy</code> by providing the entire origin request policy configuration,
+     * including the fields that you modified and those that you didn't.
+     * </p>
+     * </li>
+     * </ol>
+     * 
+     * @param updateOriginRequestPolicyRequest
+     * @return Result of the UpdateOriginRequestPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws IllegalUpdateException
+     *         The update contains modifications that are not allowed.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchOriginRequestPolicyException
+     *         The origin request policy does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws OriginRequestPolicyAlreadyExistsException
+     *         An origin request policy with this name already exists. You must provide a unique name. To modify an
+     *         existing origin request policy, use <code>UpdateOriginRequestPolicy</code>.
+     * @throws TooManyHeadersInOriginRequestPolicyException
+     *         The number of headers in the origin request policy exceeds the maximum. For more information, see <a
+     *         href=
+     *         "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html">Quotas</a>
+     *         (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyCookiesInOriginRequestPolicyException
+     *         The number of cookies in the origin request policy exceeds the maximum. For more information, see <a
+     *         href=
+     *         "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html">Quotas</a>
+     *         (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyQueryStringsInOriginRequestPolicyException
+     *         The number of query strings in the origin request policy exceeds the maximum. For more information, see
+     *         <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html">Quotas
+     *         </a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @sample AmazonCloudFront.UpdateOriginRequestPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateOriginRequestPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateOriginRequestPolicyResult updateOriginRequestPolicy(UpdateOriginRequestPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateOriginRequestPolicy(request);
+    }
+
+    @SdkInternalApi
+    final UpdateOriginRequestPolicyResult executeUpdateOriginRequestPolicy(UpdateOriginRequestPolicyRequest updateOriginRequestPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateOriginRequestPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateOriginRequestPolicyRequest> request = null;
+        Response<UpdateOriginRequestPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateOriginRequestPolicyRequestMarshaller().marshall(super.beforeMarshalling(updateOriginRequestPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateOriginRequestPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<UpdateOriginRequestPolicyResult> responseHandler = new StaxResponseHandler<UpdateOriginRequestPolicyResult>(
+                    new UpdateOriginRequestPolicyResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3624,17 +9567,17 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws CannotChangeImmutablePublicKeyFieldsException
      *         You can't change the value of a public key.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws IllegalUpdateException
-     *         Origin and <code>CallerReference</code> cannot be updated.
+     *         The update contains modifications that are not allowed.
      * @throws NoSuchPublicKeyException
      *         The specified public key doesn't exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @sample AmazonCloudFront.UpdatePublicKey
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/UpdatePublicKey" target="_top">AWS API
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdatePublicKey" target="_top">AWS API
      *      Documentation</a>
      */
     @Override
@@ -3658,6 +9601,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new UpdatePublicKeyRequestMarshaller().marshall(super.beforeMarshalling(updatePublicKeyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePublicKey");
@@ -3669,6 +9614,211 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<UpdatePublicKeyResult> responseHandler = new StaxResponseHandler<UpdatePublicKeyResult>(
                     new UpdatePublicKeyResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a real-time log configuration.
+     * </p>
+     * <p>
+     * When you update a real-time log configuration, all the parameters are updated with the values provided in the
+     * request. You cannot update some parameters independent of others. To update a real-time log configuration:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Call <code>GetRealtimeLogConfig</code> to get the current real-time log configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Locally modify the parameters in the real-time log configuration that you want to update.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Call this API (<code>UpdateRealtimeLogConfig</code>) by providing the entire real-time log configuration,
+     * including the parameters that you modified and those that you didn't.
+     * </p>
+     * </li>
+     * </ol>
+     * <p>
+     * You cannot update a real-time log configuration's <code>Name</code> or <code>ARN</code>.
+     * </p>
+     * 
+     * @param updateRealtimeLogConfigRequest
+     * @return Result of the UpdateRealtimeLogConfig operation returned by the service.
+     * @throws NoSuchRealtimeLogConfigException
+     *         The real-time log configuration does not exist.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @sample AmazonCloudFront.UpdateRealtimeLogConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateRealtimeLogConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateRealtimeLogConfigResult updateRealtimeLogConfig(UpdateRealtimeLogConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateRealtimeLogConfig(request);
+    }
+
+    @SdkInternalApi
+    final UpdateRealtimeLogConfigResult executeUpdateRealtimeLogConfig(UpdateRealtimeLogConfigRequest updateRealtimeLogConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateRealtimeLogConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateRealtimeLogConfigRequest> request = null;
+        Response<UpdateRealtimeLogConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateRealtimeLogConfigRequestMarshaller().marshall(super.beforeMarshalling(updateRealtimeLogConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRealtimeLogConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<UpdateRealtimeLogConfigResult> responseHandler = new StaxResponseHandler<UpdateRealtimeLogConfigResult>(
+                    new UpdateRealtimeLogConfigResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a response headers policy.
+     * </p>
+     * <p>
+     * When you update a response headers policy, the entire policy is replaced. You cannot update some policy fields
+     * independent of others. To update a response headers policy configuration:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Use <code>GetResponseHeadersPolicyConfig</code> to get the current policy's configuration.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Modify the fields in the response headers policy configuration that you want to update.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Call <code>UpdateResponseHeadersPolicy</code>, providing the entire response headers policy configuration,
+     * including the fields that you modified and those that you didn't.
+     * </p>
+     * </li>
+     * </ol>
+     * 
+     * @param updateResponseHeadersPolicyRequest
+     * @return Result of the UpdateResponseHeadersPolicy operation returned by the service.
+     * @throws AccessDeniedException
+     *         Access denied.
+     * @throws IllegalUpdateException
+     *         The update contains modifications that are not allowed.
+     * @throws InconsistentQuantitiesException
+     *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
+     * @throws InvalidArgumentException
+     *         An argument is invalid.
+     * @throws InvalidIfMatchVersionException
+     *         The <code>If-Match</code> version is missing or not valid.
+     * @throws NoSuchResponseHeadersPolicyException
+     *         The response headers policy does not exist.
+     * @throws PreconditionFailedException
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
+     * @throws ResponseHeadersPolicyAlreadyExistsException
+     *         A response headers policy with this name already exists. You must provide a unique name. To modify an
+     *         existing response headers policy, use <code>UpdateResponseHeadersPolicy</code>.
+     * @throws TooManyCustomHeadersInResponseHeadersPolicyException
+     *         The number of custom headers in the response headers policy exceeds the maximum.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooLongCSPInResponseHeadersPolicyException
+     *         The length of the <code>Content-Security-Policy</code> header value in the response headers policy
+     *         exceeds the maximum.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @throws TooManyRemoveHeadersInResponseHeadersPolicyException
+     *         The number of headers in <code>RemoveHeadersConfig</code> in the response headers policy exceeds the
+     *         maximum.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html"
+     *         >Quotas</a> (formerly known as limits) in the <i>Amazon CloudFront Developer Guide</i>.
+     * @sample AmazonCloudFront.UpdateResponseHeadersPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateResponseHeadersPolicy"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateResponseHeadersPolicyResult updateResponseHeadersPolicy(UpdateResponseHeadersPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateResponseHeadersPolicy(request);
+    }
+
+    @SdkInternalApi
+    final UpdateResponseHeadersPolicyResult executeUpdateResponseHeadersPolicy(UpdateResponseHeadersPolicyRequest updateResponseHeadersPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateResponseHeadersPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateResponseHeadersPolicyRequest> request = null;
+        Response<UpdateResponseHeadersPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateResponseHeadersPolicyRequestMarshaller().marshall(super.beforeMarshalling(updateResponseHeadersPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateResponseHeadersPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<UpdateResponseHeadersPolicyResult> responseHandler = new StaxResponseHandler<UpdateResponseHeadersPolicyResult>(
+                    new UpdateResponseHeadersPolicyResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3692,22 +9842,24 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws CNAMEAlreadyExistsException
      *         The CNAME specified is already defined for CloudFront.
      * @throws IllegalUpdateException
-     *         Origin and <code>CallerReference</code> cannot be updated.
+     *         The update contains modifications that are not allowed.
      * @throws InvalidIfMatchVersionException
-     *         The <code>If-Match</code> version is missing or not valid for the distribution.
+     *         The <code>If-Match</code> version is missing or not valid.
      * @throws MissingBodyException
      *         This operation requires a body. Ensure that the body is present and the <code>Content-Type</code> header
      *         is set.
      * @throws NoSuchStreamingDistributionException
      *         The specified streaming distribution does not exist.
      * @throws PreconditionFailedException
-     *         The precondition given in one or more of the request-header fields evaluated to <code>false</code>.
+     *         The precondition in one or more of the request fields evaluated to <code>false</code>.
      * @throws TooManyStreamingDistributionCNAMEsException
      *         Your request contains more CNAMEs than are allowed per distribution.
      * @throws InvalidArgumentException
-     *         The argument is invalid.
+     *         An argument is invalid.
      * @throws InvalidOriginAccessIdentityException
      *         The origin access identity is not valid or doesn't exist.
+     * @throws InvalidOriginAccessControlException
+     *         The origin access control is not valid.
      * @throws TooManyTrustedSignersException
      *         Your request contains more trusted signers than are allowed per distribution.
      * @throws TrustedSignerDoesNotExistException
@@ -3715,7 +9867,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      * @throws InconsistentQuantitiesException
      *         The value of <code>Quantity</code> and the size of <code>Items</code> don't match.
      * @sample AmazonCloudFront.UpdateStreamingDistribution
-     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2019-03-26/UpdateStreamingDistribution"
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateStreamingDistribution"
      *      target="_top">AWS API Documentation</a>
      */
     @Override
@@ -3739,6 +9891,8 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 request = new UpdateStreamingDistributionRequestMarshaller().marshall(super.beforeMarshalling(updateStreamingDistributionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudFront");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateStreamingDistribution");
@@ -3750,6 +9904,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
             StaxResponseHandler<UpdateStreamingDistributionResult> responseHandler = new StaxResponseHandler<UpdateStreamingDistributionResult>(
                     new UpdateStreamingDistributionResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3826,7 +9981,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
 
         request.setTimeOffset(timeOffset);
 
-        DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallers);
+        DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallersMap, defaultUnmarshaller);
 
         return client.execute(request, responseHandler, errorResponseHandler, executionContext);
     }

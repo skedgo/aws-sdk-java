@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -67,12 +67,15 @@ public class ActionDeclarationJsonUnmarshaller implements Unmarshaller<ActionDec
                 }
                 if (context.testExpression("outputArtifacts", targetDepth)) {
                     context.nextToken();
-                    actionDeclaration
-                            .setOutputArtifacts(new ListUnmarshaller<OutputArtifact>(OutputArtifactJsonUnmarshaller.getInstance()).unmarshall(context));
+                    actionDeclaration.setOutputArtifacts(new ListUnmarshaller<OutputArtifact>(OutputArtifactJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("inputArtifacts", targetDepth)) {
                     context.nextToken();
-                    actionDeclaration.setInputArtifacts(new ListUnmarshaller<InputArtifact>(InputArtifactJsonUnmarshaller.getInstance()).unmarshall(context));
+                    actionDeclaration.setInputArtifacts(new ListUnmarshaller<InputArtifact>(InputArtifactJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("roleArn", targetDepth)) {
                     context.nextToken();
@@ -81,6 +84,14 @@ public class ActionDeclarationJsonUnmarshaller implements Unmarshaller<ActionDec
                 if (context.testExpression("region", targetDepth)) {
                     context.nextToken();
                     actionDeclaration.setRegion(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("namespace", targetDepth)) {
+                    context.nextToken();
+                    actionDeclaration.setNamespace(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("timeoutInMinutes", targetDepth)) {
+                    context.nextToken();
+                    actionDeclaration.setTimeoutInMinutes(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

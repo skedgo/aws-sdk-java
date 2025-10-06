@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The options that are available for a DB instance.
+ * The options that are available for an instance.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/OrderableDBInstanceOption" target="_top">AWS
@@ -28,48 +28,54 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The engine type of a DB instance.
+     * The engine type of an instance.
      * </p>
      */
     private String engine;
     /**
      * <p>
-     * The engine version of a DB instance.
+     * The engine version of an instance.
      * </p>
      */
     private String engineVersion;
     /**
      * <p>
-     * The DB instance class for a DB instance.
+     * The instance class for an instance.
      * </p>
      */
     private String dBInstanceClass;
     /**
      * <p>
-     * The license model for a DB instance.
+     * The license model for an instance.
      * </p>
      */
     private String licenseModel;
     /**
      * <p>
-     * A list of Availability Zones for a DB instance.
+     * A list of Availability Zones for an instance.
      * </p>
      */
     private java.util.List<AvailabilityZone> availabilityZones;
     /**
      * <p>
-     * Indicates whether a DB instance is in a virtual private cloud (VPC).
+     * Indicates whether an instance is in a virtual private cloud (VPC).
      * </p>
      */
     private Boolean vpc;
+    /**
+     * <p>
+     * The storage type to associate with the DB cluster
+     * </p>
+     */
+    private String storageType;
 
     /**
      * <p>
-     * The engine type of a DB instance.
+     * The engine type of an instance.
      * </p>
      * 
      * @param engine
-     *        The engine type of a DB instance.
+     *        The engine type of an instance.
      */
 
     public void setEngine(String engine) {
@@ -78,10 +84,10 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The engine type of a DB instance.
+     * The engine type of an instance.
      * </p>
      * 
-     * @return The engine type of a DB instance.
+     * @return The engine type of an instance.
      */
 
     public String getEngine() {
@@ -90,11 +96,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The engine type of a DB instance.
+     * The engine type of an instance.
      * </p>
      * 
      * @param engine
-     *        The engine type of a DB instance.
+     *        The engine type of an instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -105,11 +111,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The engine version of a DB instance.
+     * The engine version of an instance.
      * </p>
      * 
      * @param engineVersion
-     *        The engine version of a DB instance.
+     *        The engine version of an instance.
      */
 
     public void setEngineVersion(String engineVersion) {
@@ -118,10 +124,10 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The engine version of a DB instance.
+     * The engine version of an instance.
      * </p>
      * 
-     * @return The engine version of a DB instance.
+     * @return The engine version of an instance.
      */
 
     public String getEngineVersion() {
@@ -130,11 +136,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The engine version of a DB instance.
+     * The engine version of an instance.
      * </p>
      * 
      * @param engineVersion
-     *        The engine version of a DB instance.
+     *        The engine version of an instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -145,11 +151,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The DB instance class for a DB instance.
+     * The instance class for an instance.
      * </p>
      * 
      * @param dBInstanceClass
-     *        The DB instance class for a DB instance.
+     *        The instance class for an instance.
      */
 
     public void setDBInstanceClass(String dBInstanceClass) {
@@ -158,10 +164,10 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The DB instance class for a DB instance.
+     * The instance class for an instance.
      * </p>
      * 
-     * @return The DB instance class for a DB instance.
+     * @return The instance class for an instance.
      */
 
     public String getDBInstanceClass() {
@@ -170,11 +176,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The DB instance class for a DB instance.
+     * The instance class for an instance.
      * </p>
      * 
      * @param dBInstanceClass
-     *        The DB instance class for a DB instance.
+     *        The instance class for an instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -185,11 +191,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The license model for a DB instance.
+     * The license model for an instance.
      * </p>
      * 
      * @param licenseModel
-     *        The license model for a DB instance.
+     *        The license model for an instance.
      */
 
     public void setLicenseModel(String licenseModel) {
@@ -198,10 +204,10 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The license model for a DB instance.
+     * The license model for an instance.
      * </p>
      * 
-     * @return The license model for a DB instance.
+     * @return The license model for an instance.
      */
 
     public String getLicenseModel() {
@@ -210,11 +216,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The license model for a DB instance.
+     * The license model for an instance.
      * </p>
      * 
      * @param licenseModel
-     *        The license model for a DB instance.
+     *        The license model for an instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -225,10 +231,10 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of Availability Zones for a DB instance.
+     * A list of Availability Zones for an instance.
      * </p>
      * 
-     * @return A list of Availability Zones for a DB instance.
+     * @return A list of Availability Zones for an instance.
      */
 
     public java.util.List<AvailabilityZone> getAvailabilityZones() {
@@ -237,11 +243,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of Availability Zones for a DB instance.
+     * A list of Availability Zones for an instance.
      * </p>
      * 
      * @param availabilityZones
-     *        A list of Availability Zones for a DB instance.
+     *        A list of Availability Zones for an instance.
      */
 
     public void setAvailabilityZones(java.util.Collection<AvailabilityZone> availabilityZones) {
@@ -255,7 +261,7 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of Availability Zones for a DB instance.
+     * A list of Availability Zones for an instance.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -264,7 +270,7 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
      * </p>
      * 
      * @param availabilityZones
-     *        A list of Availability Zones for a DB instance.
+     *        A list of Availability Zones for an instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -280,11 +286,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of Availability Zones for a DB instance.
+     * A list of Availability Zones for an instance.
      * </p>
      * 
      * @param availabilityZones
-     *        A list of Availability Zones for a DB instance.
+     *        A list of Availability Zones for an instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -295,11 +301,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether a DB instance is in a virtual private cloud (VPC).
+     * Indicates whether an instance is in a virtual private cloud (VPC).
      * </p>
      * 
      * @param vpc
-     *        Indicates whether a DB instance is in a virtual private cloud (VPC).
+     *        Indicates whether an instance is in a virtual private cloud (VPC).
      */
 
     public void setVpc(Boolean vpc) {
@@ -308,10 +314,10 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether a DB instance is in a virtual private cloud (VPC).
+     * Indicates whether an instance is in a virtual private cloud (VPC).
      * </p>
      * 
-     * @return Indicates whether a DB instance is in a virtual private cloud (VPC).
+     * @return Indicates whether an instance is in a virtual private cloud (VPC).
      */
 
     public Boolean getVpc() {
@@ -320,11 +326,11 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether a DB instance is in a virtual private cloud (VPC).
+     * Indicates whether an instance is in a virtual private cloud (VPC).
      * </p>
      * 
      * @param vpc
-     *        Indicates whether a DB instance is in a virtual private cloud (VPC).
+     *        Indicates whether an instance is in a virtual private cloud (VPC).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -335,14 +341,54 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether a DB instance is in a virtual private cloud (VPC).
+     * Indicates whether an instance is in a virtual private cloud (VPC).
      * </p>
      * 
-     * @return Indicates whether a DB instance is in a virtual private cloud (VPC).
+     * @return Indicates whether an instance is in a virtual private cloud (VPC).
      */
 
     public Boolean isVpc() {
         return this.vpc;
+    }
+
+    /**
+     * <p>
+     * The storage type to associate with the DB cluster
+     * </p>
+     * 
+     * @param storageType
+     *        The storage type to associate with the DB cluster
+     */
+
+    public void setStorageType(String storageType) {
+        this.storageType = storageType;
+    }
+
+    /**
+     * <p>
+     * The storage type to associate with the DB cluster
+     * </p>
+     * 
+     * @return The storage type to associate with the DB cluster
+     */
+
+    public String getStorageType() {
+        return this.storageType;
+    }
+
+    /**
+     * <p>
+     * The storage type to associate with the DB cluster
+     * </p>
+     * 
+     * @param storageType
+     *        The storage type to associate with the DB cluster
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrderableDBInstanceOption withStorageType(String storageType) {
+        setStorageType(storageType);
+        return this;
     }
 
     /**
@@ -368,7 +414,9 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
         if (getAvailabilityZones() != null)
             sb.append("AvailabilityZones: ").append(getAvailabilityZones()).append(",");
         if (getVpc() != null)
-            sb.append("Vpc: ").append(getVpc());
+            sb.append("Vpc: ").append(getVpc()).append(",");
+        if (getStorageType() != null)
+            sb.append("StorageType: ").append(getStorageType());
         sb.append("}");
         return sb.toString();
     }
@@ -407,6 +455,10 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
             return false;
         if (other.getVpc() != null && other.getVpc().equals(this.getVpc()) == false)
             return false;
+        if (other.getStorageType() == null ^ this.getStorageType() == null)
+            return false;
+        if (other.getStorageType() != null && other.getStorageType().equals(this.getStorageType()) == false)
+            return false;
         return true;
     }
 
@@ -421,6 +473,7 @@ public class OrderableDBInstanceOption implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getLicenseModel() == null) ? 0 : getLicenseModel().hashCode());
         hashCode = prime * hashCode + ((getAvailabilityZones() == null) ? 0 : getAvailabilityZones().hashCode());
         hashCode = prime * hashCode + ((getVpc() == null) ? 0 : getVpc().hashCode());
+        hashCode = prime * hashCode + ((getStorageType() == null) ? 0 : getStorageType().hashCode());
         return hashCode;
     }
 

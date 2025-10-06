@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -79,11 +79,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * maintenance window.
      * </p>
      * <p>
-     * The <code>ApplyImmediately</code> parameter only affects the <code>NewDBClusterIdentifier</code> and
-     * <code>MasterUserPassword</code> values. If you set the <code>ApplyImmediately</code> parameter value to false,
-     * then changes to the <code>NewDBClusterIdentifier</code> and <code>MasterUserPassword</code> values are applied
-     * during the next maintenance window. All other changes are applied immediately, regardless of the value of the
-     * <code>ApplyImmediately</code> parameter.
+     * The <code>ApplyImmediately</code> parameter only affects <code>NewDBClusterIdentifier</code> values. If you set
+     * the <code>ApplyImmediately</code> parameter value to false, then changes to <code>NewDBClusterIdentifier</code>
+     * values are applied during the next maintenance window. All other changes are applied immediately, regardless of
+     * the value of the <code>ApplyImmediately</code> parameter.
      * </p>
      * <p>
      * Default: <code>false</code>
@@ -135,25 +134,13 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     private Integer port;
     /**
      * <p>
-     * The new password for the master database user. This password can contain any printable ASCII character except
-     * "/", """, or "@".
-     * </p>
-     * <p>
-     * Constraints: Must contain from 8 to 41 characters.
+     * Not supported by Neptune.
      * </p>
      */
     private String masterUserPassword;
     /**
      * <p>
-     * A value that indicates that the DB cluster should be associated with the specified option group. Changing this
-     * parameter doesn't result in an outage except in the following case, and the change is applied during the next
-     * maintenance window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for this
-     * request. If the parameter change results in an option group that enables OEM, this change can cause a brief
-     * (sub-second) period during which new connections are rejected but existing connections are not interrupted.
-     * </p>
-     * <p>
-     * Permanent options can't be removed from an option group. The option group can't be removed from a DB cluster once
-     * it is associated with a DB cluster.
+     * <i>Not supported by Neptune.</i>
      * </p>
      */
     private String optionGroupName;
@@ -163,7 +150,7 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region.
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Region.
      * </p>
      * <p>
      * Constraints:
@@ -200,8 +187,8 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
-     * on a random day of the week.
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Region,
+     * occurring on a random day of the week.
      * </p>
      * <p>
      * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
@@ -213,8 +200,8 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     private String preferredMaintenanceWindow;
     /**
      * <p>
-     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
-     * false.
+     * True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
+     * otherwise false.
      * </p>
      * <p>
      * Default: <code>false</code>
@@ -224,21 +211,116 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * The configuration setting for the log types to be enabled for export to CloudWatch Logs for a specific DB
-     * cluster.
+     * cluster. See <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html#cloudwatch-logs-cli">Using the
+     * CLI to publish Neptune audit logs to CloudWatch Logs</a>.
      * </p>
      */
     private CloudwatchLogsExportConfiguration cloudwatchLogsExportConfiguration;
     /**
      * <p>
      * The version number of the database engine to which you want to upgrade. Changing this parameter results in an
-     * outage. The change is applied during the next maintenance window unless the ApplyImmediately parameter is set to
-     * true.
+     * outage. The change is applied during the next maintenance window unless the <code>ApplyImmediately</code>
+     * parameter is set to true.
      * </p>
      * <p>
-     * For a list of valid engine versions, see <a>CreateDBInstance</a>, or call <a>DescribeDBEngineVersions</a>.
+     * For a list of valid engine versions, see <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/engine-releases.html">Engine Releases for Amazon
+     * Neptune</a>, or call <a>DescribeDBEngineVersions</a>.
      * </p>
      */
     private String engineVersion;
+    /**
+     * <p>
+     * A value that indicates whether upgrades between different major versions are allowed.
+     * </p>
+     * <p>
+     * Constraints: You must set the allow-major-version-upgrade flag when providing an <code>EngineVersion</code>
+     * parameter that uses a different major version than the DB cluster's current version.
+     * </p>
+     */
+    private Boolean allowMajorVersionUpgrade;
+    /**
+     * <p>
+     * The name of the DB parameter group to apply to all instances of the DB cluster.
+     * </p>
+     * <note>
+     * <p>
+     * When you apply a parameter group using <code>DBInstanceParameterGroupName</code>, parameter changes aren't
+     * applied during the next maintenance window but instead are applied immediately.
+     * </p>
+     * </note>
+     * <p>
+     * Default: The existing name setting
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The DB parameter group must be in the same DB parameter group family as the target DB cluster version.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <code>DBInstanceParameterGroupName</code> parameter is only valid in combination with the
+     * <code>AllowMajorVersionUpgrade</code> parameter.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String dBInstanceParameterGroupName;
+    /**
+     * <p>
+     * A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when
+     * deletion protection is enabled. By default, deletion protection is disabled.
+     * </p>
+     */
+    private Boolean deletionProtection;
+    /**
+     * <p>
+     * <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     * </p>
+     */
+    private Boolean copyTagsToSnapshot;
+    /**
+     * <p>
+     * Contains the scaling configuration of a Neptune Serverless DB cluster.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon Neptune
+     * Serverless</a> in the <i>Amazon Neptune User Guide</i>.
+     * </p>
+     */
+    private ServerlessV2ScalingConfiguration serverlessV2ScalingConfiguration;
+    /**
+     * <p>
+     * The storage type to associate with the DB cluster.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>standard | iopt1</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>standard</code>
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String storageType;
 
     /**
      * <p>
@@ -526,11 +608,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * maintenance window.
      * </p>
      * <p>
-     * The <code>ApplyImmediately</code> parameter only affects the <code>NewDBClusterIdentifier</code> and
-     * <code>MasterUserPassword</code> values. If you set the <code>ApplyImmediately</code> parameter value to false,
-     * then changes to the <code>NewDBClusterIdentifier</code> and <code>MasterUserPassword</code> values are applied
-     * during the next maintenance window. All other changes are applied immediately, regardless of the value of the
-     * <code>ApplyImmediately</code> parameter.
+     * The <code>ApplyImmediately</code> parameter only affects <code>NewDBClusterIdentifier</code> values. If you set
+     * the <code>ApplyImmediately</code> parameter value to false, then changes to <code>NewDBClusterIdentifier</code>
+     * values are applied during the next maintenance window. All other changes are applied immediately, regardless of
+     * the value of the <code>ApplyImmediately</code> parameter.
      * </p>
      * <p>
      * Default: <code>false</code>
@@ -542,11 +623,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        setting for the DB cluster. If this parameter is set to <code>false</code>, changes to the DB cluster are
      *        applied during the next maintenance window.</p>
      *        <p>
-     *        The <code>ApplyImmediately</code> parameter only affects the <code>NewDBClusterIdentifier</code> and
-     *        <code>MasterUserPassword</code> values. If you set the <code>ApplyImmediately</code> parameter value to
-     *        false, then changes to the <code>NewDBClusterIdentifier</code> and <code>MasterUserPassword</code> values
-     *        are applied during the next maintenance window. All other changes are applied immediately, regardless of
-     *        the value of the <code>ApplyImmediately</code> parameter.
+     *        The <code>ApplyImmediately</code> parameter only affects <code>NewDBClusterIdentifier</code> values. If
+     *        you set the <code>ApplyImmediately</code> parameter value to false, then changes to
+     *        <code>NewDBClusterIdentifier</code> values are applied during the next maintenance window. All other
+     *        changes are applied immediately, regardless of the value of the <code>ApplyImmediately</code> parameter.
      *        </p>
      *        <p>
      *        Default: <code>false</code>
@@ -564,11 +644,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * maintenance window.
      * </p>
      * <p>
-     * The <code>ApplyImmediately</code> parameter only affects the <code>NewDBClusterIdentifier</code> and
-     * <code>MasterUserPassword</code> values. If you set the <code>ApplyImmediately</code> parameter value to false,
-     * then changes to the <code>NewDBClusterIdentifier</code> and <code>MasterUserPassword</code> values are applied
-     * during the next maintenance window. All other changes are applied immediately, regardless of the value of the
-     * <code>ApplyImmediately</code> parameter.
+     * The <code>ApplyImmediately</code> parameter only affects <code>NewDBClusterIdentifier</code> values. If you set
+     * the <code>ApplyImmediately</code> parameter value to false, then changes to <code>NewDBClusterIdentifier</code>
+     * values are applied during the next maintenance window. All other changes are applied immediately, regardless of
+     * the value of the <code>ApplyImmediately</code> parameter.
      * </p>
      * <p>
      * Default: <code>false</code>
@@ -579,11 +658,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *         setting for the DB cluster. If this parameter is set to <code>false</code>, changes to the DB cluster are
      *         applied during the next maintenance window.</p>
      *         <p>
-     *         The <code>ApplyImmediately</code> parameter only affects the <code>NewDBClusterIdentifier</code> and
-     *         <code>MasterUserPassword</code> values. If you set the <code>ApplyImmediately</code> parameter value to
-     *         false, then changes to the <code>NewDBClusterIdentifier</code> and <code>MasterUserPassword</code> values
-     *         are applied during the next maintenance window. All other changes are applied immediately, regardless of
-     *         the value of the <code>ApplyImmediately</code> parameter.
+     *         The <code>ApplyImmediately</code> parameter only affects <code>NewDBClusterIdentifier</code> values. If
+     *         you set the <code>ApplyImmediately</code> parameter value to false, then changes to
+     *         <code>NewDBClusterIdentifier</code> values are applied during the next maintenance window. All other
+     *         changes are applied immediately, regardless of the value of the <code>ApplyImmediately</code> parameter.
      *         </p>
      *         <p>
      *         Default: <code>false</code>
@@ -601,11 +679,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * maintenance window.
      * </p>
      * <p>
-     * The <code>ApplyImmediately</code> parameter only affects the <code>NewDBClusterIdentifier</code> and
-     * <code>MasterUserPassword</code> values. If you set the <code>ApplyImmediately</code> parameter value to false,
-     * then changes to the <code>NewDBClusterIdentifier</code> and <code>MasterUserPassword</code> values are applied
-     * during the next maintenance window. All other changes are applied immediately, regardless of the value of the
-     * <code>ApplyImmediately</code> parameter.
+     * The <code>ApplyImmediately</code> parameter only affects <code>NewDBClusterIdentifier</code> values. If you set
+     * the <code>ApplyImmediately</code> parameter value to false, then changes to <code>NewDBClusterIdentifier</code>
+     * values are applied during the next maintenance window. All other changes are applied immediately, regardless of
+     * the value of the <code>ApplyImmediately</code> parameter.
      * </p>
      * <p>
      * Default: <code>false</code>
@@ -617,11 +694,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        setting for the DB cluster. If this parameter is set to <code>false</code>, changes to the DB cluster are
      *        applied during the next maintenance window.</p>
      *        <p>
-     *        The <code>ApplyImmediately</code> parameter only affects the <code>NewDBClusterIdentifier</code> and
-     *        <code>MasterUserPassword</code> values. If you set the <code>ApplyImmediately</code> parameter value to
-     *        false, then changes to the <code>NewDBClusterIdentifier</code> and <code>MasterUserPassword</code> values
-     *        are applied during the next maintenance window. All other changes are applied immediately, regardless of
-     *        the value of the <code>ApplyImmediately</code> parameter.
+     *        The <code>ApplyImmediately</code> parameter only affects <code>NewDBClusterIdentifier</code> values. If
+     *        you set the <code>ApplyImmediately</code> parameter value to false, then changes to
+     *        <code>NewDBClusterIdentifier</code> values are applied during the next maintenance window. All other
+     *        changes are applied immediately, regardless of the value of the <code>ApplyImmediately</code> parameter.
      *        </p>
      *        <p>
      *        Default: <code>false</code>
@@ -641,11 +717,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * maintenance window.
      * </p>
      * <p>
-     * The <code>ApplyImmediately</code> parameter only affects the <code>NewDBClusterIdentifier</code> and
-     * <code>MasterUserPassword</code> values. If you set the <code>ApplyImmediately</code> parameter value to false,
-     * then changes to the <code>NewDBClusterIdentifier</code> and <code>MasterUserPassword</code> values are applied
-     * during the next maintenance window. All other changes are applied immediately, regardless of the value of the
-     * <code>ApplyImmediately</code> parameter.
+     * The <code>ApplyImmediately</code> parameter only affects <code>NewDBClusterIdentifier</code> values. If you set
+     * the <code>ApplyImmediately</code> parameter value to false, then changes to <code>NewDBClusterIdentifier</code>
+     * values are applied during the next maintenance window. All other changes are applied immediately, regardless of
+     * the value of the <code>ApplyImmediately</code> parameter.
      * </p>
      * <p>
      * Default: <code>false</code>
@@ -656,11 +731,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *         setting for the DB cluster. If this parameter is set to <code>false</code>, changes to the DB cluster are
      *         applied during the next maintenance window.</p>
      *         <p>
-     *         The <code>ApplyImmediately</code> parameter only affects the <code>NewDBClusterIdentifier</code> and
-     *         <code>MasterUserPassword</code> values. If you set the <code>ApplyImmediately</code> parameter value to
-     *         false, then changes to the <code>NewDBClusterIdentifier</code> and <code>MasterUserPassword</code> values
-     *         are applied during the next maintenance window. All other changes are applied immediately, regardless of
-     *         the value of the <code>ApplyImmediately</code> parameter.
+     *         The <code>ApplyImmediately</code> parameter only affects <code>NewDBClusterIdentifier</code> values. If
+     *         you set the <code>ApplyImmediately</code> parameter value to false, then changes to
+     *         <code>NewDBClusterIdentifier</code> values are applied during the next maintenance window. All other
+     *         changes are applied immediately, regardless of the value of the <code>ApplyImmediately</code> parameter.
      *         </p>
      *         <p>
      *         Default: <code>false</code>
@@ -970,18 +1044,11 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The new password for the master database user. This password can contain any printable ASCII character except
-     * "/", """, or "@".
-     * </p>
-     * <p>
-     * Constraints: Must contain from 8 to 41 characters.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param masterUserPassword
-     *        The new password for the master database user. This password can contain any printable ASCII character
-     *        except "/", """, or "@".</p>
-     *        <p>
-     *        Constraints: Must contain from 8 to 41 characters.
+     *        Not supported by Neptune.
      */
 
     public void setMasterUserPassword(String masterUserPassword) {
@@ -990,17 +1057,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The new password for the master database user. This password can contain any printable ASCII character except
-     * "/", """, or "@".
-     * </p>
-     * <p>
-     * Constraints: Must contain from 8 to 41 characters.
+     * Not supported by Neptune.
      * </p>
      * 
-     * @return The new password for the master database user. This password can contain any printable ASCII character
-     *         except "/", """, or "@".</p>
-     *         <p>
-     *         Constraints: Must contain from 8 to 41 characters.
+     * @return Not supported by Neptune.
      */
 
     public String getMasterUserPassword() {
@@ -1009,18 +1069,11 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The new password for the master database user. This password can contain any printable ASCII character except
-     * "/", """, or "@".
-     * </p>
-     * <p>
-     * Constraints: Must contain from 8 to 41 characters.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param masterUserPassword
-     *        The new password for the master database user. This password can contain any printable ASCII character
-     *        except "/", """, or "@".</p>
-     *        <p>
-     *        Constraints: Must contain from 8 to 41 characters.
+     *        Not supported by Neptune.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1031,27 +1084,11 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates that the DB cluster should be associated with the specified option group. Changing this
-     * parameter doesn't result in an outage except in the following case, and the change is applied during the next
-     * maintenance window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for this
-     * request. If the parameter change results in an option group that enables OEM, this change can cause a brief
-     * (sub-second) period during which new connections are rejected but existing connections are not interrupted.
-     * </p>
-     * <p>
-     * Permanent options can't be removed from an option group. The option group can't be removed from a DB cluster once
-     * it is associated with a DB cluster.
+     * <i>Not supported by Neptune.</i>
      * </p>
      * 
      * @param optionGroupName
-     *        A value that indicates that the DB cluster should be associated with the specified option group. Changing
-     *        this parameter doesn't result in an outage except in the following case, and the change is applied during
-     *        the next maintenance window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code>
-     *        for this request. If the parameter change results in an option group that enables OEM, this change can
-     *        cause a brief (sub-second) period during which new connections are rejected but existing connections are
-     *        not interrupted.</p>
-     *        <p>
-     *        Permanent options can't be removed from an option group. The option group can't be removed from a DB
-     *        cluster once it is associated with a DB cluster.
+     *        <i>Not supported by Neptune.</i>
      */
 
     public void setOptionGroupName(String optionGroupName) {
@@ -1060,26 +1097,10 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates that the DB cluster should be associated with the specified option group. Changing this
-     * parameter doesn't result in an outage except in the following case, and the change is applied during the next
-     * maintenance window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for this
-     * request. If the parameter change results in an option group that enables OEM, this change can cause a brief
-     * (sub-second) period during which new connections are rejected but existing connections are not interrupted.
-     * </p>
-     * <p>
-     * Permanent options can't be removed from an option group. The option group can't be removed from a DB cluster once
-     * it is associated with a DB cluster.
+     * <i>Not supported by Neptune.</i>
      * </p>
      * 
-     * @return A value that indicates that the DB cluster should be associated with the specified option group. Changing
-     *         this parameter doesn't result in an outage except in the following case, and the change is applied during
-     *         the next maintenance window unless the <code>ApplyImmediately</code> parameter is set to
-     *         <code>true</code> for this request. If the parameter change results in an option group that enables OEM,
-     *         this change can cause a brief (sub-second) period during which new connections are rejected but existing
-     *         connections are not interrupted.</p>
-     *         <p>
-     *         Permanent options can't be removed from an option group. The option group can't be removed from a DB
-     *         cluster once it is associated with a DB cluster.
+     * @return <i>Not supported by Neptune.</i>
      */
 
     public String getOptionGroupName() {
@@ -1088,27 +1109,11 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A value that indicates that the DB cluster should be associated with the specified option group. Changing this
-     * parameter doesn't result in an outage except in the following case, and the change is applied during the next
-     * maintenance window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for this
-     * request. If the parameter change results in an option group that enables OEM, this change can cause a brief
-     * (sub-second) period during which new connections are rejected but existing connections are not interrupted.
-     * </p>
-     * <p>
-     * Permanent options can't be removed from an option group. The option group can't be removed from a DB cluster once
-     * it is associated with a DB cluster.
+     * <i>Not supported by Neptune.</i>
      * </p>
      * 
      * @param optionGroupName
-     *        A value that indicates that the DB cluster should be associated with the specified option group. Changing
-     *        this parameter doesn't result in an outage except in the following case, and the change is applied during
-     *        the next maintenance window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code>
-     *        for this request. If the parameter change results in an option group that enables OEM, this change can
-     *        cause a brief (sub-second) period during which new connections are rejected but existing connections are
-     *        not interrupted.</p>
-     *        <p>
-     *        Permanent options can't be removed from an option group. The option group can't be removed from a DB
-     *        cluster once it is associated with a DB cluster.
+     *        <i>Not supported by Neptune.</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1123,7 +1128,7 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region.
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Region.
      * </p>
      * <p>
      * Constraints:
@@ -1155,7 +1160,7 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        The daily time range during which automated backups are created if automated backups are enabled, using
      *        the <code>BackupRetentionPeriod</code> parameter.</p>
      *        <p>
-     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region.
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Region.
      *        </p>
      *        <p>
      *        Constraints:
@@ -1193,7 +1198,7 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region.
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Region.
      * </p>
      * <p>
      * Constraints:
@@ -1224,7 +1229,7 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * @return The daily time range during which automated backups are created if automated backups are enabled, using
      *         the <code>BackupRetentionPeriod</code> parameter.</p>
      *         <p>
-     *         The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region.
+     *         The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Region.
      *         </p>
      *         <p>
      *         Constraints:
@@ -1262,7 +1267,7 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region.
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Region.
      * </p>
      * <p>
      * Constraints:
@@ -1294,7 +1299,7 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        The daily time range during which automated backups are created if automated backups are enabled, using
      *        the <code>BackupRetentionPeriod</code> parameter.</p>
      *        <p>
-     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region.
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Region.
      *        </p>
      *        <p>
      *        Constraints:
@@ -1336,8 +1341,8 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
-     * on a random day of the week.
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Region,
+     * occurring on a random day of the week.
      * </p>
      * <p>
      * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
@@ -1352,7 +1357,7 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      *        </p>
      *        <p>
-     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region,
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Region,
      *        occurring on a random day of the week.
      *        </p>
      *        <p>
@@ -1374,8 +1379,8 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
-     * on a random day of the week.
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Region,
+     * occurring on a random day of the week.
      * </p>
      * <p>
      * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
@@ -1389,7 +1394,7 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *         Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      *         </p>
      *         <p>
-     *         The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region,
+     *         The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Region,
      *         occurring on a random day of the week.
      *         </p>
      *         <p>
@@ -1411,8 +1416,8 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      * </p>
      * <p>
-     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
-     * on a random day of the week.
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Region,
+     * occurring on a random day of the week.
      * </p>
      * <p>
      * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
@@ -1427,7 +1432,7 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      *        </p>
      *        <p>
-     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region,
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Region,
      *        occurring on a random day of the week.
      *        </p>
      *        <p>
@@ -1445,15 +1450,15 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
-     * false.
+     * True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
+     * otherwise false.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
      * @param enableIAMDatabaseAuthentication
-     *        True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and
+     *        True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
      *        otherwise false.</p>
      *        <p>
      *        Default: <code>false</code>
@@ -1465,14 +1470,14 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
-     * false.
+     * True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
+     * otherwise false.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
-     * @return True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and
+     * @return True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
      *         otherwise false.</p>
      *         <p>
      *         Default: <code>false</code>
@@ -1484,15 +1489,15 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
-     * false.
+     * True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
+     * otherwise false.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
      * @param enableIAMDatabaseAuthentication
-     *        True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and
+     *        True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
      *        otherwise false.</p>
      *        <p>
      *        Default: <code>false</code>
@@ -1506,14 +1511,14 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
-     * false.
+     * True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
+     * otherwise false.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
-     * @return True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and
+     * @return True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
      *         otherwise false.</p>
      *         <p>
      *         Default: <code>false</code>
@@ -1526,12 +1531,16 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * The configuration setting for the log types to be enabled for export to CloudWatch Logs for a specific DB
-     * cluster.
+     * cluster. See <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html#cloudwatch-logs-cli">Using the
+     * CLI to publish Neptune audit logs to CloudWatch Logs</a>.
      * </p>
      * 
      * @param cloudwatchLogsExportConfiguration
      *        The configuration setting for the log types to be enabled for export to CloudWatch Logs for a specific DB
-     *        cluster.
+     *        cluster. See <a
+     *        href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html#cloudwatch-logs-cli">Using
+     *        the CLI to publish Neptune audit logs to CloudWatch Logs</a>.
      */
 
     public void setCloudwatchLogsExportConfiguration(CloudwatchLogsExportConfiguration cloudwatchLogsExportConfiguration) {
@@ -1541,11 +1550,15 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * The configuration setting for the log types to be enabled for export to CloudWatch Logs for a specific DB
-     * cluster.
+     * cluster. See <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html#cloudwatch-logs-cli">Using the
+     * CLI to publish Neptune audit logs to CloudWatch Logs</a>.
      * </p>
      * 
      * @return The configuration setting for the log types to be enabled for export to CloudWatch Logs for a specific DB
-     *         cluster.
+     *         cluster. See <a
+     *         href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html#cloudwatch-logs-cli"
+     *         >Using the CLI to publish Neptune audit logs to CloudWatch Logs</a>.
      */
 
     public CloudwatchLogsExportConfiguration getCloudwatchLogsExportConfiguration() {
@@ -1555,12 +1568,16 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * The configuration setting for the log types to be enabled for export to CloudWatch Logs for a specific DB
-     * cluster.
+     * cluster. See <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html#cloudwatch-logs-cli">Using the
+     * CLI to publish Neptune audit logs to CloudWatch Logs</a>.
      * </p>
      * 
      * @param cloudwatchLogsExportConfiguration
      *        The configuration setting for the log types to be enabled for export to CloudWatch Logs for a specific DB
-     *        cluster.
+     *        cluster. See <a
+     *        href="https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html#cloudwatch-logs-cli">Using
+     *        the CLI to publish Neptune audit logs to CloudWatch Logs</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1572,19 +1589,23 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * The version number of the database engine to which you want to upgrade. Changing this parameter results in an
-     * outage. The change is applied during the next maintenance window unless the ApplyImmediately parameter is set to
-     * true.
+     * outage. The change is applied during the next maintenance window unless the <code>ApplyImmediately</code>
+     * parameter is set to true.
      * </p>
      * <p>
-     * For a list of valid engine versions, see <a>CreateDBInstance</a>, or call <a>DescribeDBEngineVersions</a>.
+     * For a list of valid engine versions, see <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/engine-releases.html">Engine Releases for Amazon
+     * Neptune</a>, or call <a>DescribeDBEngineVersions</a>.
      * </p>
      * 
      * @param engineVersion
      *        The version number of the database engine to which you want to upgrade. Changing this parameter results in
-     *        an outage. The change is applied during the next maintenance window unless the ApplyImmediately parameter
-     *        is set to true.</p>
+     *        an outage. The change is applied during the next maintenance window unless the
+     *        <code>ApplyImmediately</code> parameter is set to true.</p>
      *        <p>
-     *        For a list of valid engine versions, see <a>CreateDBInstance</a>, or call <a>DescribeDBEngineVersions</a>.
+     *        For a list of valid engine versions, see <a
+     *        href="https://docs.aws.amazon.com/neptune/latest/userguide/engine-releases.html">Engine Releases for
+     *        Amazon Neptune</a>, or call <a>DescribeDBEngineVersions</a>.
      */
 
     public void setEngineVersion(String engineVersion) {
@@ -1594,19 +1615,22 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * The version number of the database engine to which you want to upgrade. Changing this parameter results in an
-     * outage. The change is applied during the next maintenance window unless the ApplyImmediately parameter is set to
-     * true.
+     * outage. The change is applied during the next maintenance window unless the <code>ApplyImmediately</code>
+     * parameter is set to true.
      * </p>
      * <p>
-     * For a list of valid engine versions, see <a>CreateDBInstance</a>, or call <a>DescribeDBEngineVersions</a>.
+     * For a list of valid engine versions, see <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/engine-releases.html">Engine Releases for Amazon
+     * Neptune</a>, or call <a>DescribeDBEngineVersions</a>.
      * </p>
      * 
      * @return The version number of the database engine to which you want to upgrade. Changing this parameter results
-     *         in an outage. The change is applied during the next maintenance window unless the ApplyImmediately
-     *         parameter is set to true.</p>
+     *         in an outage. The change is applied during the next maintenance window unless the
+     *         <code>ApplyImmediately</code> parameter is set to true.</p>
      *         <p>
-     *         For a list of valid engine versions, see <a>CreateDBInstance</a>, or call
-     *         <a>DescribeDBEngineVersions</a>.
+     *         For a list of valid engine versions, see <a
+     *         href="https://docs.aws.amazon.com/neptune/latest/userguide/engine-releases.html">Engine Releases for
+     *         Amazon Neptune</a>, or call <a>DescribeDBEngineVersions</a>.
      */
 
     public String getEngineVersion() {
@@ -1616,24 +1640,632 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * The version number of the database engine to which you want to upgrade. Changing this parameter results in an
-     * outage. The change is applied during the next maintenance window unless the ApplyImmediately parameter is set to
-     * true.
+     * outage. The change is applied during the next maintenance window unless the <code>ApplyImmediately</code>
+     * parameter is set to true.
      * </p>
      * <p>
-     * For a list of valid engine versions, see <a>CreateDBInstance</a>, or call <a>DescribeDBEngineVersions</a>.
+     * For a list of valid engine versions, see <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/engine-releases.html">Engine Releases for Amazon
+     * Neptune</a>, or call <a>DescribeDBEngineVersions</a>.
      * </p>
      * 
      * @param engineVersion
      *        The version number of the database engine to which you want to upgrade. Changing this parameter results in
-     *        an outage. The change is applied during the next maintenance window unless the ApplyImmediately parameter
-     *        is set to true.</p>
+     *        an outage. The change is applied during the next maintenance window unless the
+     *        <code>ApplyImmediately</code> parameter is set to true.</p>
      *        <p>
-     *        For a list of valid engine versions, see <a>CreateDBInstance</a>, or call <a>DescribeDBEngineVersions</a>.
+     *        For a list of valid engine versions, see <a
+     *        href="https://docs.aws.amazon.com/neptune/latest/userguide/engine-releases.html">Engine Releases for
+     *        Amazon Neptune</a>, or call <a>DescribeDBEngineVersions</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ModifyDBClusterRequest withEngineVersion(String engineVersion) {
         setEngineVersion(engineVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether upgrades between different major versions are allowed.
+     * </p>
+     * <p>
+     * Constraints: You must set the allow-major-version-upgrade flag when providing an <code>EngineVersion</code>
+     * parameter that uses a different major version than the DB cluster's current version.
+     * </p>
+     * 
+     * @param allowMajorVersionUpgrade
+     *        A value that indicates whether upgrades between different major versions are allowed.</p>
+     *        <p>
+     *        Constraints: You must set the allow-major-version-upgrade flag when providing an
+     *        <code>EngineVersion</code> parameter that uses a different major version than the DB cluster's current
+     *        version.
+     */
+
+    public void setAllowMajorVersionUpgrade(Boolean allowMajorVersionUpgrade) {
+        this.allowMajorVersionUpgrade = allowMajorVersionUpgrade;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether upgrades between different major versions are allowed.
+     * </p>
+     * <p>
+     * Constraints: You must set the allow-major-version-upgrade flag when providing an <code>EngineVersion</code>
+     * parameter that uses a different major version than the DB cluster's current version.
+     * </p>
+     * 
+     * @return A value that indicates whether upgrades between different major versions are allowed.</p>
+     *         <p>
+     *         Constraints: You must set the allow-major-version-upgrade flag when providing an
+     *         <code>EngineVersion</code> parameter that uses a different major version than the DB cluster's current
+     *         version.
+     */
+
+    public Boolean getAllowMajorVersionUpgrade() {
+        return this.allowMajorVersionUpgrade;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether upgrades between different major versions are allowed.
+     * </p>
+     * <p>
+     * Constraints: You must set the allow-major-version-upgrade flag when providing an <code>EngineVersion</code>
+     * parameter that uses a different major version than the DB cluster's current version.
+     * </p>
+     * 
+     * @param allowMajorVersionUpgrade
+     *        A value that indicates whether upgrades between different major versions are allowed.</p>
+     *        <p>
+     *        Constraints: You must set the allow-major-version-upgrade flag when providing an
+     *        <code>EngineVersion</code> parameter that uses a different major version than the DB cluster's current
+     *        version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withAllowMajorVersionUpgrade(Boolean allowMajorVersionUpgrade) {
+        setAllowMajorVersionUpgrade(allowMajorVersionUpgrade);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether upgrades between different major versions are allowed.
+     * </p>
+     * <p>
+     * Constraints: You must set the allow-major-version-upgrade flag when providing an <code>EngineVersion</code>
+     * parameter that uses a different major version than the DB cluster's current version.
+     * </p>
+     * 
+     * @return A value that indicates whether upgrades between different major versions are allowed.</p>
+     *         <p>
+     *         Constraints: You must set the allow-major-version-upgrade flag when providing an
+     *         <code>EngineVersion</code> parameter that uses a different major version than the DB cluster's current
+     *         version.
+     */
+
+    public Boolean isAllowMajorVersionUpgrade() {
+        return this.allowMajorVersionUpgrade;
+    }
+
+    /**
+     * <p>
+     * The name of the DB parameter group to apply to all instances of the DB cluster.
+     * </p>
+     * <note>
+     * <p>
+     * When you apply a parameter group using <code>DBInstanceParameterGroupName</code>, parameter changes aren't
+     * applied during the next maintenance window but instead are applied immediately.
+     * </p>
+     * </note>
+     * <p>
+     * Default: The existing name setting
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The DB parameter group must be in the same DB parameter group family as the target DB cluster version.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <code>DBInstanceParameterGroupName</code> parameter is only valid in combination with the
+     * <code>AllowMajorVersionUpgrade</code> parameter.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param dBInstanceParameterGroupName
+     *        The name of the DB parameter group to apply to all instances of the DB cluster. </p> <note>
+     *        <p>
+     *        When you apply a parameter group using <code>DBInstanceParameterGroupName</code>, parameter changes aren't
+     *        applied during the next maintenance window but instead are applied immediately.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Default: The existing name setting
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The DB parameter group must be in the same DB parameter group family as the target DB cluster version.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The <code>DBInstanceParameterGroupName</code> parameter is only valid in combination with the
+     *        <code>AllowMajorVersionUpgrade</code> parameter.
+     *        </p>
+     *        </li>
+     */
+
+    public void setDBInstanceParameterGroupName(String dBInstanceParameterGroupName) {
+        this.dBInstanceParameterGroupName = dBInstanceParameterGroupName;
+    }
+
+    /**
+     * <p>
+     * The name of the DB parameter group to apply to all instances of the DB cluster.
+     * </p>
+     * <note>
+     * <p>
+     * When you apply a parameter group using <code>DBInstanceParameterGroupName</code>, parameter changes aren't
+     * applied during the next maintenance window but instead are applied immediately.
+     * </p>
+     * </note>
+     * <p>
+     * Default: The existing name setting
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The DB parameter group must be in the same DB parameter group family as the target DB cluster version.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <code>DBInstanceParameterGroupName</code> parameter is only valid in combination with the
+     * <code>AllowMajorVersionUpgrade</code> parameter.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The name of the DB parameter group to apply to all instances of the DB cluster. </p> <note>
+     *         <p>
+     *         When you apply a parameter group using <code>DBInstanceParameterGroupName</code>, parameter changes
+     *         aren't applied during the next maintenance window but instead are applied immediately.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         Default: The existing name setting
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         The DB parameter group must be in the same DB parameter group family as the target DB cluster version.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The <code>DBInstanceParameterGroupName</code> parameter is only valid in combination with the
+     *         <code>AllowMajorVersionUpgrade</code> parameter.
+     *         </p>
+     *         </li>
+     */
+
+    public String getDBInstanceParameterGroupName() {
+        return this.dBInstanceParameterGroupName;
+    }
+
+    /**
+     * <p>
+     * The name of the DB parameter group to apply to all instances of the DB cluster.
+     * </p>
+     * <note>
+     * <p>
+     * When you apply a parameter group using <code>DBInstanceParameterGroupName</code>, parameter changes aren't
+     * applied during the next maintenance window but instead are applied immediately.
+     * </p>
+     * </note>
+     * <p>
+     * Default: The existing name setting
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The DB parameter group must be in the same DB parameter group family as the target DB cluster version.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <code>DBInstanceParameterGroupName</code> parameter is only valid in combination with the
+     * <code>AllowMajorVersionUpgrade</code> parameter.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param dBInstanceParameterGroupName
+     *        The name of the DB parameter group to apply to all instances of the DB cluster. </p> <note>
+     *        <p>
+     *        When you apply a parameter group using <code>DBInstanceParameterGroupName</code>, parameter changes aren't
+     *        applied during the next maintenance window but instead are applied immediately.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        Default: The existing name setting
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The DB parameter group must be in the same DB parameter group family as the target DB cluster version.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The <code>DBInstanceParameterGroupName</code> parameter is only valid in combination with the
+     *        <code>AllowMajorVersionUpgrade</code> parameter.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withDBInstanceParameterGroupName(String dBInstanceParameterGroupName) {
+        setDBInstanceParameterGroupName(dBInstanceParameterGroupName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when
+     * deletion protection is enabled. By default, deletion protection is disabled.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        A value that indicates whether the DB cluster has deletion protection enabled. The database can't be
+     *        deleted when deletion protection is enabled. By default, deletion protection is disabled.
+     */
+
+    public void setDeletionProtection(Boolean deletionProtection) {
+        this.deletionProtection = deletionProtection;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when
+     * deletion protection is enabled. By default, deletion protection is disabled.
+     * </p>
+     * 
+     * @return A value that indicates whether the DB cluster has deletion protection enabled. The database can't be
+     *         deleted when deletion protection is enabled. By default, deletion protection is disabled.
+     */
+
+    public Boolean getDeletionProtection() {
+        return this.deletionProtection;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when
+     * deletion protection is enabled. By default, deletion protection is disabled.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        A value that indicates whether the DB cluster has deletion protection enabled. The database can't be
+     *        deleted when deletion protection is enabled. By default, deletion protection is disabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withDeletionProtection(Boolean deletionProtection) {
+        setDeletionProtection(deletionProtection);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when
+     * deletion protection is enabled. By default, deletion protection is disabled.
+     * </p>
+     * 
+     * @return A value that indicates whether the DB cluster has deletion protection enabled. The database can't be
+     *         deleted when deletion protection is enabled. By default, deletion protection is disabled.
+     */
+
+    public Boolean isDeletionProtection() {
+        return this.deletionProtection;
+    }
+
+    /**
+     * <p>
+     * <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     * </p>
+     * 
+     * @param copyTagsToSnapshot
+     *        <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     */
+
+    public void setCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        this.copyTagsToSnapshot = copyTagsToSnapshot;
+    }
+
+    /**
+     * <p>
+     * <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     * </p>
+     * 
+     * @return <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     */
+
+    public Boolean getCopyTagsToSnapshot() {
+        return this.copyTagsToSnapshot;
+    }
+
+    /**
+     * <p>
+     * <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     * </p>
+     * 
+     * @param copyTagsToSnapshot
+     *        <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        setCopyTagsToSnapshot(copyTagsToSnapshot);
+        return this;
+    }
+
+    /**
+     * <p>
+     * <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     * </p>
+     * 
+     * @return <i>If set to <code>true</code>, tags are copied to any snapshot of the DB cluster that is created.</i>
+     */
+
+    public Boolean isCopyTagsToSnapshot() {
+        return this.copyTagsToSnapshot;
+    }
+
+    /**
+     * <p>
+     * Contains the scaling configuration of a Neptune Serverless DB cluster.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon Neptune
+     * Serverless</a> in the <i>Amazon Neptune User Guide</i>.
+     * </p>
+     * 
+     * @param serverlessV2ScalingConfiguration
+     *        Contains the scaling configuration of a Neptune Serverless DB cluster.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon
+     *        Neptune Serverless</a> in the <i>Amazon Neptune User Guide</i>.
+     */
+
+    public void setServerlessV2ScalingConfiguration(ServerlessV2ScalingConfiguration serverlessV2ScalingConfiguration) {
+        this.serverlessV2ScalingConfiguration = serverlessV2ScalingConfiguration;
+    }
+
+    /**
+     * <p>
+     * Contains the scaling configuration of a Neptune Serverless DB cluster.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon Neptune
+     * Serverless</a> in the <i>Amazon Neptune User Guide</i>.
+     * </p>
+     * 
+     * @return Contains the scaling configuration of a Neptune Serverless DB cluster.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon
+     *         Neptune Serverless</a> in the <i>Amazon Neptune User Guide</i>.
+     */
+
+    public ServerlessV2ScalingConfiguration getServerlessV2ScalingConfiguration() {
+        return this.serverlessV2ScalingConfiguration;
+    }
+
+    /**
+     * <p>
+     * Contains the scaling configuration of a Neptune Serverless DB cluster.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon Neptune
+     * Serverless</a> in the <i>Amazon Neptune User Guide</i>.
+     * </p>
+     * 
+     * @param serverlessV2ScalingConfiguration
+     *        Contains the scaling configuration of a Neptune Serverless DB cluster.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/neptune/latest/userguide/neptune-serverless-using.html">Using Amazon
+     *        Neptune Serverless</a> in the <i>Amazon Neptune User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withServerlessV2ScalingConfiguration(ServerlessV2ScalingConfiguration serverlessV2ScalingConfiguration) {
+        setServerlessV2ScalingConfiguration(serverlessV2ScalingConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The storage type to associate with the DB cluster.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>standard | iopt1</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>standard</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param storageType
+     *        The storage type to associate with the DB cluster.</p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>standard | iopt1</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>standard</code>
+     *        </p>
+     *        </li>
+     */
+
+    public void setStorageType(String storageType) {
+        this.storageType = storageType;
+    }
+
+    /**
+     * <p>
+     * The storage type to associate with the DB cluster.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>standard | iopt1</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>standard</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The storage type to associate with the DB cluster.</p>
+     *         <p>
+     *         Valid Values:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>standard | iopt1</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Default:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>standard</code>
+     *         </p>
+     *         </li>
+     */
+
+    public String getStorageType() {
+        return this.storageType;
+    }
+
+    /**
+     * <p>
+     * The storage type to associate with the DB cluster.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>standard | iopt1</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Default:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>standard</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param storageType
+     *        The storage type to associate with the DB cluster.</p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>standard | iopt1</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Default:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>standard</code>
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBClusterRequest withStorageType(String storageType) {
+        setStorageType(storageType);
         return this;
     }
 
@@ -1676,7 +2308,19 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
         if (getCloudwatchLogsExportConfiguration() != null)
             sb.append("CloudwatchLogsExportConfiguration: ").append(getCloudwatchLogsExportConfiguration()).append(",");
         if (getEngineVersion() != null)
-            sb.append("EngineVersion: ").append(getEngineVersion());
+            sb.append("EngineVersion: ").append(getEngineVersion()).append(",");
+        if (getAllowMajorVersionUpgrade() != null)
+            sb.append("AllowMajorVersionUpgrade: ").append(getAllowMajorVersionUpgrade()).append(",");
+        if (getDBInstanceParameterGroupName() != null)
+            sb.append("DBInstanceParameterGroupName: ").append(getDBInstanceParameterGroupName()).append(",");
+        if (getDeletionProtection() != null)
+            sb.append("DeletionProtection: ").append(getDeletionProtection()).append(",");
+        if (getCopyTagsToSnapshot() != null)
+            sb.append("CopyTagsToSnapshot: ").append(getCopyTagsToSnapshot()).append(",");
+        if (getServerlessV2ScalingConfiguration() != null)
+            sb.append("ServerlessV2ScalingConfiguration: ").append(getServerlessV2ScalingConfiguration()).append(",");
+        if (getStorageType() != null)
+            sb.append("StorageType: ").append(getStorageType());
         sb.append("}");
         return sb.toString();
     }
@@ -1749,6 +2393,31 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
             return false;
         if (other.getEngineVersion() != null && other.getEngineVersion().equals(this.getEngineVersion()) == false)
             return false;
+        if (other.getAllowMajorVersionUpgrade() == null ^ this.getAllowMajorVersionUpgrade() == null)
+            return false;
+        if (other.getAllowMajorVersionUpgrade() != null && other.getAllowMajorVersionUpgrade().equals(this.getAllowMajorVersionUpgrade()) == false)
+            return false;
+        if (other.getDBInstanceParameterGroupName() == null ^ this.getDBInstanceParameterGroupName() == null)
+            return false;
+        if (other.getDBInstanceParameterGroupName() != null && other.getDBInstanceParameterGroupName().equals(this.getDBInstanceParameterGroupName()) == false)
+            return false;
+        if (other.getDeletionProtection() == null ^ this.getDeletionProtection() == null)
+            return false;
+        if (other.getDeletionProtection() != null && other.getDeletionProtection().equals(this.getDeletionProtection()) == false)
+            return false;
+        if (other.getCopyTagsToSnapshot() == null ^ this.getCopyTagsToSnapshot() == null)
+            return false;
+        if (other.getCopyTagsToSnapshot() != null && other.getCopyTagsToSnapshot().equals(this.getCopyTagsToSnapshot()) == false)
+            return false;
+        if (other.getServerlessV2ScalingConfiguration() == null ^ this.getServerlessV2ScalingConfiguration() == null)
+            return false;
+        if (other.getServerlessV2ScalingConfiguration() != null
+                && other.getServerlessV2ScalingConfiguration().equals(this.getServerlessV2ScalingConfiguration()) == false)
+            return false;
+        if (other.getStorageType() == null ^ this.getStorageType() == null)
+            return false;
+        if (other.getStorageType() != null && other.getStorageType().equals(this.getStorageType()) == false)
+            return false;
         return true;
     }
 
@@ -1771,6 +2440,12 @@ public class ModifyDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
         hashCode = prime * hashCode + ((getEnableIAMDatabaseAuthentication() == null) ? 0 : getEnableIAMDatabaseAuthentication().hashCode());
         hashCode = prime * hashCode + ((getCloudwatchLogsExportConfiguration() == null) ? 0 : getCloudwatchLogsExportConfiguration().hashCode());
         hashCode = prime * hashCode + ((getEngineVersion() == null) ? 0 : getEngineVersion().hashCode());
+        hashCode = prime * hashCode + ((getAllowMajorVersionUpgrade() == null) ? 0 : getAllowMajorVersionUpgrade().hashCode());
+        hashCode = prime * hashCode + ((getDBInstanceParameterGroupName() == null) ? 0 : getDBInstanceParameterGroupName().hashCode());
+        hashCode = prime * hashCode + ((getDeletionProtection() == null) ? 0 : getDeletionProtection().hashCode());
+        hashCode = prime * hashCode + ((getCopyTagsToSnapshot() == null) ? 0 : getCopyTagsToSnapshot().hashCode());
+        hashCode = prime * hashCode + ((getServerlessV2ScalingConfiguration() == null) ? 0 : getServerlessV2ScalingConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getStorageType() == null) ? 0 : getStorageType().hashCode());
         return hashCode;
     }
 

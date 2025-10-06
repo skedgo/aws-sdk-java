@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,6 +26,11 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class RtmpGroupSettings implements Serializable, Cloneable, StructuredPojo {
 
+    /**
+     * Choose the ad marker type for this output group. MediaLive will create a message based on the content of each
+     * SCTE-35 message, format it for that marker type, and insert it in the datastream.
+     */
+    private java.util.List<String> adMarkers;
     /** Authentication scheme to use when connecting with CDN */
     private String authenticationScheme;
     /**
@@ -56,6 +61,111 @@ public class RtmpGroupSettings implements Serializable, Cloneable, StructuredPoj
      * restart.
      */
     private Integer restartDelay;
+    /**
+     * Applies only when the rate control mode (in the codec settings) is CBR (constant bit rate). Controls whether the
+     * RTMP output stream is padded (with FILL NAL units) in order to achieve a constant bit rate that is truly
+     * constant. When there is no padding, the bandwidth varies (up to the bitrate value in the codec settings). We
+     * recommend that you choose Auto.
+     */
+    private String includeFillerNalUnits;
+
+    /**
+     * Choose the ad marker type for this output group. MediaLive will create a message based on the content of each
+     * SCTE-35 message, format it for that marker type, and insert it in the datastream.
+     * 
+     * @return Choose the ad marker type for this output group. MediaLive will create a message based on the content of
+     *         each SCTE-35 message, format it for that marker type, and insert it in the datastream.
+     * @see RtmpAdMarkers
+     */
+
+    public java.util.List<String> getAdMarkers() {
+        return adMarkers;
+    }
+
+    /**
+     * Choose the ad marker type for this output group. MediaLive will create a message based on the content of each
+     * SCTE-35 message, format it for that marker type, and insert it in the datastream.
+     * 
+     * @param adMarkers
+     *        Choose the ad marker type for this output group. MediaLive will create a message based on the content of
+     *        each SCTE-35 message, format it for that marker type, and insert it in the datastream.
+     * @see RtmpAdMarkers
+     */
+
+    public void setAdMarkers(java.util.Collection<String> adMarkers) {
+        if (adMarkers == null) {
+            this.adMarkers = null;
+            return;
+        }
+
+        this.adMarkers = new java.util.ArrayList<String>(adMarkers);
+    }
+
+    /**
+     * Choose the ad marker type for this output group. MediaLive will create a message based on the content of each
+     * SCTE-35 message, format it for that marker type, and insert it in the datastream.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAdMarkers(java.util.Collection)} or {@link #withAdMarkers(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param adMarkers
+     *        Choose the ad marker type for this output group. MediaLive will create a message based on the content of
+     *        each SCTE-35 message, format it for that marker type, and insert it in the datastream.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see RtmpAdMarkers
+     */
+
+    public RtmpGroupSettings withAdMarkers(String... adMarkers) {
+        if (this.adMarkers == null) {
+            setAdMarkers(new java.util.ArrayList<String>(adMarkers.length));
+        }
+        for (String ele : adMarkers) {
+            this.adMarkers.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * Choose the ad marker type for this output group. MediaLive will create a message based on the content of each
+     * SCTE-35 message, format it for that marker type, and insert it in the datastream.
+     * 
+     * @param adMarkers
+     *        Choose the ad marker type for this output group. MediaLive will create a message based on the content of
+     *        each SCTE-35 message, format it for that marker type, and insert it in the datastream.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see RtmpAdMarkers
+     */
+
+    public RtmpGroupSettings withAdMarkers(java.util.Collection<String> adMarkers) {
+        setAdMarkers(adMarkers);
+        return this;
+    }
+
+    /**
+     * Choose the ad marker type for this output group. MediaLive will create a message based on the content of each
+     * SCTE-35 message, format it for that marker type, and insert it in the datastream.
+     * 
+     * @param adMarkers
+     *        Choose the ad marker type for this output group. MediaLive will create a message based on the content of
+     *        each SCTE-35 message, format it for that marker type, and insert it in the datastream.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see RtmpAdMarkers
+     */
+
+    public RtmpGroupSettings withAdMarkers(RtmpAdMarkers... adMarkers) {
+        java.util.ArrayList<String> adMarkersCopy = new java.util.ArrayList<String>(adMarkers.length);
+        for (RtmpAdMarkers value : adMarkers) {
+            adMarkersCopy.add(value.toString());
+        }
+        if (getAdMarkers() == null) {
+            setAdMarkers(adMarkersCopy);
+        } else {
+            getAdMarkers().addAll(adMarkersCopy);
+        }
+        return this;
+    }
 
     /**
      * Authentication scheme to use when connecting with CDN
@@ -416,6 +526,81 @@ public class RtmpGroupSettings implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
+     * Applies only when the rate control mode (in the codec settings) is CBR (constant bit rate). Controls whether the
+     * RTMP output stream is padded (with FILL NAL units) in order to achieve a constant bit rate that is truly
+     * constant. When there is no padding, the bandwidth varies (up to the bitrate value in the codec settings). We
+     * recommend that you choose Auto.
+     * 
+     * @param includeFillerNalUnits
+     *        Applies only when the rate control mode (in the codec settings) is CBR (constant bit rate). Controls
+     *        whether the RTMP output stream is padded (with FILL NAL units) in order to achieve a constant bit rate
+     *        that is truly constant. When there is no padding, the bandwidth varies (up to the bitrate value in the
+     *        codec settings). We recommend that you choose Auto.
+     * @see IncludeFillerNalUnits
+     */
+
+    public void setIncludeFillerNalUnits(String includeFillerNalUnits) {
+        this.includeFillerNalUnits = includeFillerNalUnits;
+    }
+
+    /**
+     * Applies only when the rate control mode (in the codec settings) is CBR (constant bit rate). Controls whether the
+     * RTMP output stream is padded (with FILL NAL units) in order to achieve a constant bit rate that is truly
+     * constant. When there is no padding, the bandwidth varies (up to the bitrate value in the codec settings). We
+     * recommend that you choose Auto.
+     * 
+     * @return Applies only when the rate control mode (in the codec settings) is CBR (constant bit rate). Controls
+     *         whether the RTMP output stream is padded (with FILL NAL units) in order to achieve a constant bit rate
+     *         that is truly constant. When there is no padding, the bandwidth varies (up to the bitrate value in the
+     *         codec settings). We recommend that you choose Auto.
+     * @see IncludeFillerNalUnits
+     */
+
+    public String getIncludeFillerNalUnits() {
+        return this.includeFillerNalUnits;
+    }
+
+    /**
+     * Applies only when the rate control mode (in the codec settings) is CBR (constant bit rate). Controls whether the
+     * RTMP output stream is padded (with FILL NAL units) in order to achieve a constant bit rate that is truly
+     * constant. When there is no padding, the bandwidth varies (up to the bitrate value in the codec settings). We
+     * recommend that you choose Auto.
+     * 
+     * @param includeFillerNalUnits
+     *        Applies only when the rate control mode (in the codec settings) is CBR (constant bit rate). Controls
+     *        whether the RTMP output stream is padded (with FILL NAL units) in order to achieve a constant bit rate
+     *        that is truly constant. When there is no padding, the bandwidth varies (up to the bitrate value in the
+     *        codec settings). We recommend that you choose Auto.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IncludeFillerNalUnits
+     */
+
+    public RtmpGroupSettings withIncludeFillerNalUnits(String includeFillerNalUnits) {
+        setIncludeFillerNalUnits(includeFillerNalUnits);
+        return this;
+    }
+
+    /**
+     * Applies only when the rate control mode (in the codec settings) is CBR (constant bit rate). Controls whether the
+     * RTMP output stream is padded (with FILL NAL units) in order to achieve a constant bit rate that is truly
+     * constant. When there is no padding, the bandwidth varies (up to the bitrate value in the codec settings). We
+     * recommend that you choose Auto.
+     * 
+     * @param includeFillerNalUnits
+     *        Applies only when the rate control mode (in the codec settings) is CBR (constant bit rate). Controls
+     *        whether the RTMP output stream is padded (with FILL NAL units) in order to achieve a constant bit rate
+     *        that is truly constant. When there is no padding, the bandwidth varies (up to the bitrate value in the
+     *        codec settings). We recommend that you choose Auto.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IncludeFillerNalUnits
+     */
+
+    public RtmpGroupSettings withIncludeFillerNalUnits(IncludeFillerNalUnits includeFillerNalUnits) {
+        this.includeFillerNalUnits = includeFillerNalUnits.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -427,6 +612,8 @@ public class RtmpGroupSettings implements Serializable, Cloneable, StructuredPoj
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getAdMarkers() != null)
+            sb.append("AdMarkers: ").append(getAdMarkers()).append(",");
         if (getAuthenticationScheme() != null)
             sb.append("AuthenticationScheme: ").append(getAuthenticationScheme()).append(",");
         if (getCacheFullBehavior() != null)
@@ -438,7 +625,9 @@ public class RtmpGroupSettings implements Serializable, Cloneable, StructuredPoj
         if (getInputLossAction() != null)
             sb.append("InputLossAction: ").append(getInputLossAction()).append(",");
         if (getRestartDelay() != null)
-            sb.append("RestartDelay: ").append(getRestartDelay());
+            sb.append("RestartDelay: ").append(getRestartDelay()).append(",");
+        if (getIncludeFillerNalUnits() != null)
+            sb.append("IncludeFillerNalUnits: ").append(getIncludeFillerNalUnits());
         sb.append("}");
         return sb.toString();
     }
@@ -453,6 +642,10 @@ public class RtmpGroupSettings implements Serializable, Cloneable, StructuredPoj
         if (obj instanceof RtmpGroupSettings == false)
             return false;
         RtmpGroupSettings other = (RtmpGroupSettings) obj;
+        if (other.getAdMarkers() == null ^ this.getAdMarkers() == null)
+            return false;
+        if (other.getAdMarkers() != null && other.getAdMarkers().equals(this.getAdMarkers()) == false)
+            return false;
         if (other.getAuthenticationScheme() == null ^ this.getAuthenticationScheme() == null)
             return false;
         if (other.getAuthenticationScheme() != null && other.getAuthenticationScheme().equals(this.getAuthenticationScheme()) == false)
@@ -477,6 +670,10 @@ public class RtmpGroupSettings implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getRestartDelay() != null && other.getRestartDelay().equals(this.getRestartDelay()) == false)
             return false;
+        if (other.getIncludeFillerNalUnits() == null ^ this.getIncludeFillerNalUnits() == null)
+            return false;
+        if (other.getIncludeFillerNalUnits() != null && other.getIncludeFillerNalUnits().equals(this.getIncludeFillerNalUnits()) == false)
+            return false;
         return true;
     }
 
@@ -485,12 +682,14 @@ public class RtmpGroupSettings implements Serializable, Cloneable, StructuredPoj
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getAdMarkers() == null) ? 0 : getAdMarkers().hashCode());
         hashCode = prime * hashCode + ((getAuthenticationScheme() == null) ? 0 : getAuthenticationScheme().hashCode());
         hashCode = prime * hashCode + ((getCacheFullBehavior() == null) ? 0 : getCacheFullBehavior().hashCode());
         hashCode = prime * hashCode + ((getCacheLength() == null) ? 0 : getCacheLength().hashCode());
         hashCode = prime * hashCode + ((getCaptionData() == null) ? 0 : getCaptionData().hashCode());
         hashCode = prime * hashCode + ((getInputLossAction() == null) ? 0 : getInputLossAction().hashCode());
         hashCode = prime * hashCode + ((getRestartDelay() == null) ? 0 : getRestartDelay().hashCode());
+        hashCode = prime * hashCode + ((getIncludeFillerNalUnits() == null) ? 0 : getIncludeFillerNalUnits().hashCode());
         return hashCode;
     }
 

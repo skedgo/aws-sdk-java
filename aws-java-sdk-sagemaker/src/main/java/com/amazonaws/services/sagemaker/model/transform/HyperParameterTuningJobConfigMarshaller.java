@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,8 @@ public class HyperParameterTuningJobConfigMarshaller {
 
     private static final MarshallingInfo<String> STRATEGY_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Strategy").build();
+    private static final MarshallingInfo<StructuredPojo> STRATEGYCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StrategyConfig").build();
     private static final MarshallingInfo<StructuredPojo> HYPERPARAMETERTUNINGJOBOBJECTIVE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("HyperParameterTuningJobObjective").build();
     private static final MarshallingInfo<StructuredPojo> RESOURCELIMITS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -37,6 +39,10 @@ public class HyperParameterTuningJobConfigMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ParameterRanges").build();
     private static final MarshallingInfo<String> TRAININGJOBEARLYSTOPPINGTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TrainingJobEarlyStoppingType").build();
+    private static final MarshallingInfo<StructuredPojo> TUNINGJOBCOMPLETIONCRITERIA_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TuningJobCompletionCriteria").build();
+    private static final MarshallingInfo<Integer> RANDOMSEED_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RandomSeed").build();
 
     private static final HyperParameterTuningJobConfigMarshaller instance = new HyperParameterTuningJobConfigMarshaller();
 
@@ -55,10 +61,13 @@ public class HyperParameterTuningJobConfigMarshaller {
 
         try {
             protocolMarshaller.marshall(hyperParameterTuningJobConfig.getStrategy(), STRATEGY_BINDING);
+            protocolMarshaller.marshall(hyperParameterTuningJobConfig.getStrategyConfig(), STRATEGYCONFIG_BINDING);
             protocolMarshaller.marshall(hyperParameterTuningJobConfig.getHyperParameterTuningJobObjective(), HYPERPARAMETERTUNINGJOBOBJECTIVE_BINDING);
             protocolMarshaller.marshall(hyperParameterTuningJobConfig.getResourceLimits(), RESOURCELIMITS_BINDING);
             protocolMarshaller.marshall(hyperParameterTuningJobConfig.getParameterRanges(), PARAMETERRANGES_BINDING);
             protocolMarshaller.marshall(hyperParameterTuningJobConfig.getTrainingJobEarlyStoppingType(), TRAININGJOBEARLYSTOPPINGTYPE_BINDING);
+            protocolMarshaller.marshall(hyperParameterTuningJobConfig.getTuningJobCompletionCriteria(), TUNINGJOBCOMPLETIONCRITERIA_BINDING);
+            protocolMarshaller.marshall(hyperParameterTuningJobConfig.getRandomSeed(), RANDOMSEED_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

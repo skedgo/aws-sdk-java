@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,6 +34,12 @@ public class Tls implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private java.util.List<String> certificateAuthorityArnList;
+    /**
+     * <p>
+     * Specifies whether you want to turn on or turn off TLS authentication.
+     * </p>
+     */
+    private Boolean enabled;
 
     /**
      * <p>
@@ -115,6 +121,66 @@ public class Tls implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * Specifies whether you want to turn on or turn off TLS authentication.
+     * </p>
+     * 
+     * @param enabled
+     *        <p>
+     *        Specifies whether you want to turn on or turn off TLS authentication.
+     *        </p>
+     */
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    /**
+     * <p>
+     * Specifies whether you want to turn on or turn off TLS authentication.
+     * </p>
+     * 
+     * @return <p>
+     *         Specifies whether you want to turn on or turn off TLS authentication.
+     *         </p>
+     */
+
+    public Boolean getEnabled() {
+        return this.enabled;
+    }
+
+    /**
+     * <p>
+     * Specifies whether you want to turn on or turn off TLS authentication.
+     * </p>
+     * 
+     * @param enabled
+     *        <p>
+     *        Specifies whether you want to turn on or turn off TLS authentication.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Tls withEnabled(Boolean enabled) {
+        setEnabled(enabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether you want to turn on or turn off TLS authentication.
+     * </p>
+     * 
+     * @return <p>
+     *         Specifies whether you want to turn on or turn off TLS authentication.
+     *         </p>
+     */
+
+    public Boolean isEnabled() {
+        return this.enabled;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -127,7 +193,9 @@ public class Tls implements Serializable, Cloneable, StructuredPojo {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getCertificateAuthorityArnList() != null)
-            sb.append("CertificateAuthorityArnList: ").append(getCertificateAuthorityArnList());
+            sb.append("CertificateAuthorityArnList: ").append(getCertificateAuthorityArnList()).append(",");
+        if (getEnabled() != null)
+            sb.append("Enabled: ").append(getEnabled());
         sb.append("}");
         return sb.toString();
     }
@@ -146,6 +214,10 @@ public class Tls implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getCertificateAuthorityArnList() != null && other.getCertificateAuthorityArnList().equals(this.getCertificateAuthorityArnList()) == false)
             return false;
+        if (other.getEnabled() == null ^ this.getEnabled() == null)
+            return false;
+        if (other.getEnabled() != null && other.getEnabled().equals(this.getEnabled()) == false)
+            return false;
         return true;
     }
 
@@ -155,6 +227,7 @@ public class Tls implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getCertificateAuthorityArnList() == null) ? 0 : getCertificateAuthorityArnList().hashCode());
+        hashCode = prime * hashCode + ((getEnabled() == null) ? 0 : getEnabled().hashCode());
         return hashCode;
     }
 

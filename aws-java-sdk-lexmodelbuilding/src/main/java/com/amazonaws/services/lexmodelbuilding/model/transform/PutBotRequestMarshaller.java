@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,6 +34,10 @@ public class PutBotRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("description").build();
     private static final MarshallingInfo<List> INTENTS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("intents").build();
+    private static final MarshallingInfo<Boolean> ENABLEMODELIMPROVEMENTS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("enableModelImprovements").build();
+    private static final MarshallingInfo<Double> NLUINTENTCONFIDENCETHRESHOLD_BINDING = MarshallingInfo.builder(MarshallingType.DOUBLE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("nluIntentConfidenceThreshold").build();
     private static final MarshallingInfo<StructuredPojo> CLARIFICATIONPROMPT_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("clarificationPrompt").build();
     private static final MarshallingInfo<StructuredPojo> ABORTSTATEMENT_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -50,8 +54,12 @@ public class PutBotRequestMarshaller {
             .marshallLocationName("locale").build();
     private static final MarshallingInfo<Boolean> CHILDDIRECTED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("childDirected").build();
+    private static final MarshallingInfo<Boolean> DETECTSENTIMENT_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("detectSentiment").build();
     private static final MarshallingInfo<Boolean> CREATEVERSION_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("createVersion").build();
+    private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("tags").build();
 
     private static final PutBotRequestMarshaller instance = new PutBotRequestMarshaller();
 
@@ -72,6 +80,8 @@ public class PutBotRequestMarshaller {
             protocolMarshaller.marshall(putBotRequest.getName(), NAME_BINDING);
             protocolMarshaller.marshall(putBotRequest.getDescription(), DESCRIPTION_BINDING);
             protocolMarshaller.marshall(putBotRequest.getIntents(), INTENTS_BINDING);
+            protocolMarshaller.marshall(putBotRequest.getEnableModelImprovements(), ENABLEMODELIMPROVEMENTS_BINDING);
+            protocolMarshaller.marshall(putBotRequest.getNluIntentConfidenceThreshold(), NLUINTENTCONFIDENCETHRESHOLD_BINDING);
             protocolMarshaller.marshall(putBotRequest.getClarificationPrompt(), CLARIFICATIONPROMPT_BINDING);
             protocolMarshaller.marshall(putBotRequest.getAbortStatement(), ABORTSTATEMENT_BINDING);
             protocolMarshaller.marshall(putBotRequest.getIdleSessionTTLInSeconds(), IDLESESSIONTTLINSECONDS_BINDING);
@@ -80,7 +90,9 @@ public class PutBotRequestMarshaller {
             protocolMarshaller.marshall(putBotRequest.getProcessBehavior(), PROCESSBEHAVIOR_BINDING);
             protocolMarshaller.marshall(putBotRequest.getLocale(), LOCALE_BINDING);
             protocolMarshaller.marshall(putBotRequest.getChildDirected(), CHILDDIRECTED_BINDING);
+            protocolMarshaller.marshall(putBotRequest.getDetectSentiment(), DETECTSENTIMENT_BINDING);
             protocolMarshaller.marshall(putBotRequest.getCreateVersion(), CREATEVERSION_BINDING);
+            protocolMarshaller.marshall(putBotRequest.getTags(), TAGS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

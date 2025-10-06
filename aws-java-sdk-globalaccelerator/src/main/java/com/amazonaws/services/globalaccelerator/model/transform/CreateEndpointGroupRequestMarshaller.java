@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,6 +17,8 @@ import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.globalaccelerator.model.*;
+
+import com.amazonaws.util.IdempotentUtils;
 
 import com.amazonaws.protocol.*;
 import com.amazonaws.annotation.SdkInternalApi;
@@ -47,7 +49,10 @@ public class CreateEndpointGroupRequestMarshaller {
     private static final MarshallingInfo<Integer> THRESHOLDCOUNT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ThresholdCount").build();
     private static final MarshallingInfo<String> IDEMPOTENCYTOKEN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IdempotencyToken").build();
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IdempotencyToken")
+            .defaultValueSupplier(com.amazonaws.util.IdempotentUtils.getGenerator()).build();
+    private static final MarshallingInfo<List> PORTOVERRIDES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("PortOverrides").build();
 
     private static final CreateEndpointGroupRequestMarshaller instance = new CreateEndpointGroupRequestMarshaller();
 
@@ -75,6 +80,7 @@ public class CreateEndpointGroupRequestMarshaller {
             protocolMarshaller.marshall(createEndpointGroupRequest.getHealthCheckIntervalSeconds(), HEALTHCHECKINTERVALSECONDS_BINDING);
             protocolMarshaller.marshall(createEndpointGroupRequest.getThresholdCount(), THRESHOLDCOUNT_BINDING);
             protocolMarshaller.marshall(createEndpointGroupRequest.getIdempotencyToken(), IDEMPOTENCYTOKEN_BINDING);
+            protocolMarshaller.marshall(createEndpointGroupRequest.getPortOverrides(), PORTOVERRIDES_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

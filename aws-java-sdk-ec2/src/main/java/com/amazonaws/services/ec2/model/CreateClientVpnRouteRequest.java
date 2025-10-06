@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,19 +49,25 @@ public class CreateClientVpnRouteRequest extends AmazonWebServiceRequest impleme
      * </li>
      * <li>
      * <p>
-     * To add a route for an on-premises network, enter the AWS Site-to-Site VPN connection's IPv4 CIDR range
+     * To add a route for an on-premises network, enter the Amazon Web Services Site-to-Site VPN connection's IPv4 CIDR
+     * range
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To add a route for the local network, enter the client CIDR range
      * </p>
      * </li>
      * </ul>
-     * <p>
-     * Route address ranges cannot overlap with the CIDR range specified for client allocation.
-     * </p>
      */
     private String destinationCidrBlock;
     /**
      * <p>
      * The ID of the subnet through which you want to route traffic. The specified subnet must be an existing target
      * network of the Client VPN endpoint.
+     * </p>
+     * <p>
+     * Alternatively, if you're adding a route for the local network, specify <code>local</code>.
      * </p>
      */
     private String targetVpcSubnetId;
@@ -74,9 +80,8 @@ public class CreateClientVpnRouteRequest extends AmazonWebServiceRequest impleme
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      */
     private String clientToken;
@@ -138,13 +143,16 @@ public class CreateClientVpnRouteRequest extends AmazonWebServiceRequest impleme
      * </li>
      * <li>
      * <p>
-     * To add a route for an on-premises network, enter the AWS Site-to-Site VPN connection's IPv4 CIDR range
+     * To add a route for an on-premises network, enter the Amazon Web Services Site-to-Site VPN connection's IPv4 CIDR
+     * range
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To add a route for the local network, enter the client CIDR range
      * </p>
      * </li>
      * </ul>
-     * <p>
-     * Route address ranges cannot overlap with the CIDR range specified for client allocation.
-     * </p>
      * 
      * @param destinationCidrBlock
      *        The IPv4 address range, in CIDR notation, of the route destination. For example:</p>
@@ -161,12 +169,15 @@ public class CreateClientVpnRouteRequest extends AmazonWebServiceRequest impleme
      *        </li>
      *        <li>
      *        <p>
-     *        To add a route for an on-premises network, enter the AWS Site-to-Site VPN connection's IPv4 CIDR range
+     *        To add a route for an on-premises network, enter the Amazon Web Services Site-to-Site VPN connection's
+     *        IPv4 CIDR range
      *        </p>
      *        </li>
-     *        </ul>
+     *        <li>
      *        <p>
-     *        Route address ranges cannot overlap with the CIDR range specified for client allocation.
+     *        To add a route for the local network, enter the client CIDR range
+     *        </p>
+     *        </li>
      */
 
     public void setDestinationCidrBlock(String destinationCidrBlock) {
@@ -190,13 +201,16 @@ public class CreateClientVpnRouteRequest extends AmazonWebServiceRequest impleme
      * </li>
      * <li>
      * <p>
-     * To add a route for an on-premises network, enter the AWS Site-to-Site VPN connection's IPv4 CIDR range
+     * To add a route for an on-premises network, enter the Amazon Web Services Site-to-Site VPN connection's IPv4 CIDR
+     * range
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To add a route for the local network, enter the client CIDR range
      * </p>
      * </li>
      * </ul>
-     * <p>
-     * Route address ranges cannot overlap with the CIDR range specified for client allocation.
-     * </p>
      * 
      * @return The IPv4 address range, in CIDR notation, of the route destination. For example:</p>
      *         <ul>
@@ -212,12 +226,15 @@ public class CreateClientVpnRouteRequest extends AmazonWebServiceRequest impleme
      *         </li>
      *         <li>
      *         <p>
-     *         To add a route for an on-premises network, enter the AWS Site-to-Site VPN connection's IPv4 CIDR range
+     *         To add a route for an on-premises network, enter the Amazon Web Services Site-to-Site VPN connection's
+     *         IPv4 CIDR range
      *         </p>
      *         </li>
-     *         </ul>
+     *         <li>
      *         <p>
-     *         Route address ranges cannot overlap with the CIDR range specified for client allocation.
+     *         To add a route for the local network, enter the client CIDR range
+     *         </p>
+     *         </li>
      */
 
     public String getDestinationCidrBlock() {
@@ -241,13 +258,16 @@ public class CreateClientVpnRouteRequest extends AmazonWebServiceRequest impleme
      * </li>
      * <li>
      * <p>
-     * To add a route for an on-premises network, enter the AWS Site-to-Site VPN connection's IPv4 CIDR range
+     * To add a route for an on-premises network, enter the Amazon Web Services Site-to-Site VPN connection's IPv4 CIDR
+     * range
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * To add a route for the local network, enter the client CIDR range
      * </p>
      * </li>
      * </ul>
-     * <p>
-     * Route address ranges cannot overlap with the CIDR range specified for client allocation.
-     * </p>
      * 
      * @param destinationCidrBlock
      *        The IPv4 address range, in CIDR notation, of the route destination. For example:</p>
@@ -264,12 +284,15 @@ public class CreateClientVpnRouteRequest extends AmazonWebServiceRequest impleme
      *        </li>
      *        <li>
      *        <p>
-     *        To add a route for an on-premises network, enter the AWS Site-to-Site VPN connection's IPv4 CIDR range
+     *        To add a route for an on-premises network, enter the Amazon Web Services Site-to-Site VPN connection's
+     *        IPv4 CIDR range
      *        </p>
      *        </li>
-     *        </ul>
+     *        <li>
      *        <p>
-     *        Route address ranges cannot overlap with the CIDR range specified for client allocation.
+     *        To add a route for the local network, enter the client CIDR range
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -283,10 +306,15 @@ public class CreateClientVpnRouteRequest extends AmazonWebServiceRequest impleme
      * The ID of the subnet through which you want to route traffic. The specified subnet must be an existing target
      * network of the Client VPN endpoint.
      * </p>
+     * <p>
+     * Alternatively, if you're adding a route for the local network, specify <code>local</code>.
+     * </p>
      * 
      * @param targetVpcSubnetId
      *        The ID of the subnet through which you want to route traffic. The specified subnet must be an existing
-     *        target network of the Client VPN endpoint.
+     *        target network of the Client VPN endpoint.</p>
+     *        <p>
+     *        Alternatively, if you're adding a route for the local network, specify <code>local</code>.
      */
 
     public void setTargetVpcSubnetId(String targetVpcSubnetId) {
@@ -298,9 +326,14 @@ public class CreateClientVpnRouteRequest extends AmazonWebServiceRequest impleme
      * The ID of the subnet through which you want to route traffic. The specified subnet must be an existing target
      * network of the Client VPN endpoint.
      * </p>
+     * <p>
+     * Alternatively, if you're adding a route for the local network, specify <code>local</code>.
+     * </p>
      * 
      * @return The ID of the subnet through which you want to route traffic. The specified subnet must be an existing
-     *         target network of the Client VPN endpoint.
+     *         target network of the Client VPN endpoint.</p>
+     *         <p>
+     *         Alternatively, if you're adding a route for the local network, specify <code>local</code>.
      */
 
     public String getTargetVpcSubnetId() {
@@ -312,10 +345,15 @@ public class CreateClientVpnRouteRequest extends AmazonWebServiceRequest impleme
      * The ID of the subnet through which you want to route traffic. The specified subnet must be an existing target
      * network of the Client VPN endpoint.
      * </p>
+     * <p>
+     * Alternatively, if you're adding a route for the local network, specify <code>local</code>.
+     * </p>
      * 
      * @param targetVpcSubnetId
      *        The ID of the subnet through which you want to route traffic. The specified subnet must be an existing
-     *        target network of the Client VPN endpoint.
+     *        target network of the Client VPN endpoint.</p>
+     *        <p>
+     *        Alternatively, if you're adding a route for the local network, specify <code>local</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -367,16 +405,14 @@ public class CreateClientVpnRouteRequest extends AmazonWebServiceRequest impleme
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * 
      * @param clientToken
      *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *        Idempotency</a>.
+     *        href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.
      */
 
     public void setClientToken(String clientToken) {
@@ -386,15 +422,13 @@ public class CreateClientVpnRouteRequest extends AmazonWebServiceRequest impleme
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * 
      * @return Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *         information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *         Idempotency</a>.
+     *         href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.
      */
 
     public String getClientToken() {
@@ -404,16 +438,14 @@ public class CreateClientVpnRouteRequest extends AmazonWebServiceRequest impleme
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * 
      * @param clientToken
      *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *        Idempotency</a>.
+     *        href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

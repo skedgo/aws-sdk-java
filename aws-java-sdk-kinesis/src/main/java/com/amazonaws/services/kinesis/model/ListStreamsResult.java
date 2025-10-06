@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,8 @@ public class ListStreamsResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The names of the streams that are associated with the AWS account making the <code>ListStreams</code> request.
+     * The names of the streams that are associated with the Amazon Web Services account making the
+     * <code>ListStreams</code> request.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> streamNames;
@@ -38,14 +39,19 @@ public class ListStreamsResult extends com.amazonaws.AmazonWebServiceResult<com.
      * </p>
      */
     private Boolean hasMoreStreams;
+    /** <p/> */
+    private String nextToken;
+    /** <p/> */
+    private com.amazonaws.internal.SdkInternalList<StreamSummary> streamSummaries;
 
     /**
      * <p>
-     * The names of the streams that are associated with the AWS account making the <code>ListStreams</code> request.
+     * The names of the streams that are associated with the Amazon Web Services account making the
+     * <code>ListStreams</code> request.
      * </p>
      * 
-     * @return The names of the streams that are associated with the AWS account making the <code>ListStreams</code>
-     *         request.
+     * @return The names of the streams that are associated with the Amazon Web Services account making the
+     *         <code>ListStreams</code> request.
      */
 
     public java.util.List<String> getStreamNames() {
@@ -57,12 +63,13 @@ public class ListStreamsResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The names of the streams that are associated with the AWS account making the <code>ListStreams</code> request.
+     * The names of the streams that are associated with the Amazon Web Services account making the
+     * <code>ListStreams</code> request.
      * </p>
      * 
      * @param streamNames
-     *        The names of the streams that are associated with the AWS account making the <code>ListStreams</code>
-     *        request.
+     *        The names of the streams that are associated with the Amazon Web Services account making the
+     *        <code>ListStreams</code> request.
      */
 
     public void setStreamNames(java.util.Collection<String> streamNames) {
@@ -76,7 +83,8 @@ public class ListStreamsResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The names of the streams that are associated with the AWS account making the <code>ListStreams</code> request.
+     * The names of the streams that are associated with the Amazon Web Services account making the
+     * <code>ListStreams</code> request.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -85,8 +93,8 @@ public class ListStreamsResult extends com.amazonaws.AmazonWebServiceResult<com.
      * </p>
      * 
      * @param streamNames
-     *        The names of the streams that are associated with the AWS account making the <code>ListStreams</code>
-     *        request.
+     *        The names of the streams that are associated with the Amazon Web Services account making the
+     *        <code>ListStreams</code> request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -102,12 +110,13 @@ public class ListStreamsResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * The names of the streams that are associated with the AWS account making the <code>ListStreams</code> request.
+     * The names of the streams that are associated with the Amazon Web Services account making the
+     * <code>ListStreams</code> request.
      * </p>
      * 
      * @param streamNames
-     *        The names of the streams that are associated with the AWS account making the <code>ListStreams</code>
-     *        request.
+     *        The names of the streams that are associated with the Amazon Web Services account making the
+     *        <code>ListStreams</code> request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -169,6 +178,100 @@ public class ListStreamsResult extends com.amazonaws.AmazonWebServiceResult<com.
     }
 
     /**
+     * <p/>
+     * 
+     * @param nextToken
+     */
+
+    public void setNextToken(String nextToken) {
+        this.nextToken = nextToken;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @return
+     */
+
+    public String getNextToken() {
+        return this.nextToken;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @param nextToken
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListStreamsResult withNextToken(String nextToken) {
+        setNextToken(nextToken);
+        return this;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @return
+     */
+
+    public java.util.List<StreamSummary> getStreamSummaries() {
+        if (streamSummaries == null) {
+            streamSummaries = new com.amazonaws.internal.SdkInternalList<StreamSummary>();
+        }
+        return streamSummaries;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @param streamSummaries
+     */
+
+    public void setStreamSummaries(java.util.Collection<StreamSummary> streamSummaries) {
+        if (streamSummaries == null) {
+            this.streamSummaries = null;
+            return;
+        }
+
+        this.streamSummaries = new com.amazonaws.internal.SdkInternalList<StreamSummary>(streamSummaries);
+    }
+
+    /**
+     * <p/>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setStreamSummaries(java.util.Collection)} or {@link #withStreamSummaries(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param streamSummaries
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListStreamsResult withStreamSummaries(StreamSummary... streamSummaries) {
+        if (this.streamSummaries == null) {
+            setStreamSummaries(new com.amazonaws.internal.SdkInternalList<StreamSummary>(streamSummaries.length));
+        }
+        for (StreamSummary ele : streamSummaries) {
+            this.streamSummaries.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p/>
+     * 
+     * @param streamSummaries
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListStreamsResult withStreamSummaries(java.util.Collection<StreamSummary> streamSummaries) {
+        setStreamSummaries(streamSummaries);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -183,7 +286,11 @@ public class ListStreamsResult extends com.amazonaws.AmazonWebServiceResult<com.
         if (getStreamNames() != null)
             sb.append("StreamNames: ").append(getStreamNames()).append(",");
         if (getHasMoreStreams() != null)
-            sb.append("HasMoreStreams: ").append(getHasMoreStreams());
+            sb.append("HasMoreStreams: ").append(getHasMoreStreams()).append(",");
+        if (getNextToken() != null)
+            sb.append("NextToken: ").append(getNextToken()).append(",");
+        if (getStreamSummaries() != null)
+            sb.append("StreamSummaries: ").append(getStreamSummaries());
         sb.append("}");
         return sb.toString();
     }
@@ -206,6 +313,14 @@ public class ListStreamsResult extends com.amazonaws.AmazonWebServiceResult<com.
             return false;
         if (other.getHasMoreStreams() != null && other.getHasMoreStreams().equals(this.getHasMoreStreams()) == false)
             return false;
+        if (other.getNextToken() == null ^ this.getNextToken() == null)
+            return false;
+        if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
+            return false;
+        if (other.getStreamSummaries() == null ^ this.getStreamSummaries() == null)
+            return false;
+        if (other.getStreamSummaries() != null && other.getStreamSummaries().equals(this.getStreamSummaries()) == false)
+            return false;
         return true;
     }
 
@@ -216,6 +331,8 @@ public class ListStreamsResult extends com.amazonaws.AmazonWebServiceResult<com.
 
         hashCode = prime * hashCode + ((getStreamNames() == null) ? 0 : getStreamNames().hashCode());
         hashCode = prime * hashCode + ((getHasMoreStreams() == null) ? 0 : getHasMoreStreams().hashCode());
+        hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
+        hashCode = prime * hashCode + ((getStreamSummaries() == null) ? 0 : getStreamSummaries().hashCode());
         return hashCode;
     }
 

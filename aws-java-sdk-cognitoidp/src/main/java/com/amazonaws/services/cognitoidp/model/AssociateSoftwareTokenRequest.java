@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,13 +27,13 @@ public class AssociateSoftwareTokenRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose software token you want to generate.
      * </p>
      */
     private String accessToken;
     /**
      * <p>
-     * The session which should be passed both ways in challenge-response calls to the service. This allows
+     * The session that should be passed both ways in challenge-response calls to the service. This allows
      * authentication of the user as part of the MFA setup process.
      * </p>
      */
@@ -41,11 +41,11 @@ public class AssociateSoftwareTokenRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose software token you want to generate.
      * </p>
      * 
      * @param accessToken
-     *        The access token.
+     *        A valid access token that Amazon Cognito issued to the user whose software token you want to generate.
      */
 
     public void setAccessToken(String accessToken) {
@@ -54,10 +54,10 @@ public class AssociateSoftwareTokenRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose software token you want to generate.
      * </p>
      * 
-     * @return The access token.
+     * @return A valid access token that Amazon Cognito issued to the user whose software token you want to generate.
      */
 
     public String getAccessToken() {
@@ -66,11 +66,11 @@ public class AssociateSoftwareTokenRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose software token you want to generate.
      * </p>
      * 
      * @param accessToken
-     *        The access token.
+     *        A valid access token that Amazon Cognito issued to the user whose software token you want to generate.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -81,12 +81,12 @@ public class AssociateSoftwareTokenRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The session which should be passed both ways in challenge-response calls to the service. This allows
+     * The session that should be passed both ways in challenge-response calls to the service. This allows
      * authentication of the user as part of the MFA setup process.
      * </p>
      * 
      * @param session
-     *        The session which should be passed both ways in challenge-response calls to the service. This allows
+     *        The session that should be passed both ways in challenge-response calls to the service. This allows
      *        authentication of the user as part of the MFA setup process.
      */
 
@@ -96,11 +96,11 @@ public class AssociateSoftwareTokenRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The session which should be passed both ways in challenge-response calls to the service. This allows
+     * The session that should be passed both ways in challenge-response calls to the service. This allows
      * authentication of the user as part of the MFA setup process.
      * </p>
      * 
-     * @return The session which should be passed both ways in challenge-response calls to the service. This allows
+     * @return The session that should be passed both ways in challenge-response calls to the service. This allows
      *         authentication of the user as part of the MFA setup process.
      */
 
@@ -110,12 +110,12 @@ public class AssociateSoftwareTokenRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The session which should be passed both ways in challenge-response calls to the service. This allows
+     * The session that should be passed both ways in challenge-response calls to the service. This allows
      * authentication of the user as part of the MFA setup process.
      * </p>
      * 
      * @param session
-     *        The session which should be passed both ways in challenge-response calls to the service. This allows
+     *        The session that should be passed both ways in challenge-response calls to the service. This allows
      *        authentication of the user as part of the MFA setup process.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -140,7 +140,7 @@ public class AssociateSoftwareTokenRequest extends com.amazonaws.AmazonWebServic
         if (getAccessToken() != null)
             sb.append("AccessToken: ").append("***Sensitive Data Redacted***").append(",");
         if (getSession() != null)
-            sb.append("Session: ").append(getSession());
+            sb.append("Session: ").append("***Sensitive Data Redacted***");
         sb.append("}");
         return sb.toString();
     }

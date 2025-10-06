@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,24 +27,24 @@ public class DeleteThreatIntelSetRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The unique ID of the detector the threatIntelSet is associated with.
+     * The unique ID of the detector that the threatIntelSet is associated with.
      * </p>
      */
     private String detectorId;
     /**
      * <p>
-     * The unique ID of the threatIntelSet you want to delete.
+     * The unique ID of the threatIntelSet that you want to delete.
      * </p>
      */
     private String threatIntelSetId;
 
     /**
      * <p>
-     * The unique ID of the detector the threatIntelSet is associated with.
+     * The unique ID of the detector that the threatIntelSet is associated with.
      * </p>
      * 
      * @param detectorId
-     *        The unique ID of the detector the threatIntelSet is associated with.
+     *        The unique ID of the detector that the threatIntelSet is associated with.
      */
 
     public void setDetectorId(String detectorId) {
@@ -53,10 +53,10 @@ public class DeleteThreatIntelSetRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The unique ID of the detector the threatIntelSet is associated with.
+     * The unique ID of the detector that the threatIntelSet is associated with.
      * </p>
      * 
-     * @return The unique ID of the detector the threatIntelSet is associated with.
+     * @return The unique ID of the detector that the threatIntelSet is associated with.
      */
 
     public String getDetectorId() {
@@ -65,11 +65,11 @@ public class DeleteThreatIntelSetRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The unique ID of the detector the threatIntelSet is associated with.
+     * The unique ID of the detector that the threatIntelSet is associated with.
      * </p>
      * 
      * @param detectorId
-     *        The unique ID of the detector the threatIntelSet is associated with.
+     *        The unique ID of the detector that the threatIntelSet is associated with.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,11 +80,11 @@ public class DeleteThreatIntelSetRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The unique ID of the threatIntelSet you want to delete.
+     * The unique ID of the threatIntelSet that you want to delete.
      * </p>
      * 
      * @param threatIntelSetId
-     *        The unique ID of the threatIntelSet you want to delete.
+     *        The unique ID of the threatIntelSet that you want to delete.
      */
 
     public void setThreatIntelSetId(String threatIntelSetId) {
@@ -93,10 +93,10 @@ public class DeleteThreatIntelSetRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The unique ID of the threatIntelSet you want to delete.
+     * The unique ID of the threatIntelSet that you want to delete.
      * </p>
      * 
-     * @return The unique ID of the threatIntelSet you want to delete.
+     * @return The unique ID of the threatIntelSet that you want to delete.
      */
 
     public String getThreatIntelSetId() {
@@ -105,11 +105,11 @@ public class DeleteThreatIntelSetRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The unique ID of the threatIntelSet you want to delete.
+     * The unique ID of the threatIntelSet that you want to delete.
      * </p>
      * 
      * @param threatIntelSetId
-     *        The unique ID of the threatIntelSet you want to delete.
+     *        The unique ID of the threatIntelSet that you want to delete.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

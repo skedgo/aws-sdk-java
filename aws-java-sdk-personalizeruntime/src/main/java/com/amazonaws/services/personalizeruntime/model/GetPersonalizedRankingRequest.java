@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,8 +33,9 @@ public class GetPersonalizedRankingRequest extends com.amazonaws.AmazonWebServic
     private String campaignArn;
     /**
      * <p>
-     * A list of items (itemId's) to rank. If an item was not included in the training dataset, the item is appended to
-     * the end of the reranked list.
+     * A list of items (by <code>itemId</code>) to rank. If an item was not included in the training dataset, the item
+     * is appended to the end of the reranked list. If you are including metadata in recommendations, the maximum is 50.
+     * Otherwise, the maximum is 500.
      * </p>
      */
     private java.util.List<String> inputList;
@@ -44,6 +45,53 @@ public class GetPersonalizedRankingRequest extends com.amazonaws.AmazonWebServic
      * </p>
      */
     private String userId;
+    /**
+     * <p>
+     * The contextual metadata to use when getting recommendations. Contextual metadata includes any interaction
+     * information that might be relevant when getting a user's recommendations, such as the user's current location or
+     * device type.
+     * </p>
+     */
+    private java.util.Map<String, String> context;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of a filter you created to include items or exclude items from recommendations for
+     * a given user. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/filter.html">Filtering Recommendations</a>.
+     * </p>
+     */
+    private String filterArn;
+    /**
+     * <p>
+     * The values to use when filtering recommendations. For each placeholder parameter in your filter expression,
+     * provide the parameter name (in matching case) as a key and the filter value(s) as the corresponding value.
+     * Separate multiple values for one parameter with a comma.
+     * </p>
+     * <p>
+     * For filter expressions that use an <code>INCLUDE</code> element to include items, you must provide values for all
+     * parameters that are defined in the expression. For filters with expressions that use an <code>EXCLUDE</code>
+     * element to exclude items, you can omit the <code>filter-values</code>.In this case, Amazon Personalize doesn't
+     * use that portion of the expression to filter recommendations.
+     * </p>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/personalize/latest/dg/filter.html">Filtering
+     * Recommendations</a>.
+     * </p>
+     */
+    private java.util.Map<String, String> filterValues;
+    /**
+     * <p>
+     * If you enabled metadata in recommendations when you created or updated the campaign, specify metadata columns
+     * from your Items dataset to include in the personalized ranking. The map key is <code>ITEMS</code> and the value
+     * is a list of column names from your Items dataset. The maximum number of columns you can provide is 10.
+     * </p>
+     * <p>
+     * For information about enabling metadata for a campaign, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html#create-campaign-return-metadata">Enabling
+     * metadata in recommendations for a campaign</a>.
+     * </p>
+     */
+    private java.util.Map<String, java.util.List<String>> metadataColumns;
 
     /**
      * <p>
@@ -87,12 +135,14 @@ public class GetPersonalizedRankingRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of items (itemId's) to rank. If an item was not included in the training dataset, the item is appended to
-     * the end of the reranked list.
+     * A list of items (by <code>itemId</code>) to rank. If an item was not included in the training dataset, the item
+     * is appended to the end of the reranked list. If you are including metadata in recommendations, the maximum is 50.
+     * Otherwise, the maximum is 500.
      * </p>
      * 
-     * @return A list of items (itemId's) to rank. If an item was not included in the training dataset, the item is
-     *         appended to the end of the reranked list.
+     * @return A list of items (by <code>itemId</code>) to rank. If an item was not included in the training dataset,
+     *         the item is appended to the end of the reranked list. If you are including metadata in recommendations,
+     *         the maximum is 50. Otherwise, the maximum is 500.
      */
 
     public java.util.List<String> getInputList() {
@@ -101,13 +151,15 @@ public class GetPersonalizedRankingRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of items (itemId's) to rank. If an item was not included in the training dataset, the item is appended to
-     * the end of the reranked list.
+     * A list of items (by <code>itemId</code>) to rank. If an item was not included in the training dataset, the item
+     * is appended to the end of the reranked list. If you are including metadata in recommendations, the maximum is 50.
+     * Otherwise, the maximum is 500.
      * </p>
      * 
      * @param inputList
-     *        A list of items (itemId's) to rank. If an item was not included in the training dataset, the item is
-     *        appended to the end of the reranked list.
+     *        A list of items (by <code>itemId</code>) to rank. If an item was not included in the training dataset, the
+     *        item is appended to the end of the reranked list. If you are including metadata in recommendations, the
+     *        maximum is 50. Otherwise, the maximum is 500.
      */
 
     public void setInputList(java.util.Collection<String> inputList) {
@@ -121,8 +173,9 @@ public class GetPersonalizedRankingRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of items (itemId's) to rank. If an item was not included in the training dataset, the item is appended to
-     * the end of the reranked list.
+     * A list of items (by <code>itemId</code>) to rank. If an item was not included in the training dataset, the item
+     * is appended to the end of the reranked list. If you are including metadata in recommendations, the maximum is 50.
+     * Otherwise, the maximum is 500.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -131,8 +184,9 @@ public class GetPersonalizedRankingRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param inputList
-     *        A list of items (itemId's) to rank. If an item was not included in the training dataset, the item is
-     *        appended to the end of the reranked list.
+     *        A list of items (by <code>itemId</code>) to rank. If an item was not included in the training dataset, the
+     *        item is appended to the end of the reranked list. If you are including metadata in recommendations, the
+     *        maximum is 50. Otherwise, the maximum is 500.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -148,13 +202,15 @@ public class GetPersonalizedRankingRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * A list of items (itemId's) to rank. If an item was not included in the training dataset, the item is appended to
-     * the end of the reranked list.
+     * A list of items (by <code>itemId</code>) to rank. If an item was not included in the training dataset, the item
+     * is appended to the end of the reranked list. If you are including metadata in recommendations, the maximum is 50.
+     * Otherwise, the maximum is 500.
      * </p>
      * 
      * @param inputList
-     *        A list of items (itemId's) to rank. If an item was not included in the training dataset, the item is
-     *        appended to the end of the reranked list.
+     *        A list of items (by <code>itemId</code>) to rank. If an item was not included in the training dataset, the
+     *        item is appended to the end of the reranked list. If you are including metadata in recommendations, the
+     *        maximum is 50. Otherwise, the maximum is 500.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -204,6 +260,385 @@ public class GetPersonalizedRankingRequest extends com.amazonaws.AmazonWebServic
     }
 
     /**
+     * <p>
+     * The contextual metadata to use when getting recommendations. Contextual metadata includes any interaction
+     * information that might be relevant when getting a user's recommendations, such as the user's current location or
+     * device type.
+     * </p>
+     * 
+     * @return The contextual metadata to use when getting recommendations. Contextual metadata includes any interaction
+     *         information that might be relevant when getting a user's recommendations, such as the user's current
+     *         location or device type.
+     */
+
+    public java.util.Map<String, String> getContext() {
+        return context;
+    }
+
+    /**
+     * <p>
+     * The contextual metadata to use when getting recommendations. Contextual metadata includes any interaction
+     * information that might be relevant when getting a user's recommendations, such as the user's current location or
+     * device type.
+     * </p>
+     * 
+     * @param context
+     *        The contextual metadata to use when getting recommendations. Contextual metadata includes any interaction
+     *        information that might be relevant when getting a user's recommendations, such as the user's current
+     *        location or device type.
+     */
+
+    public void setContext(java.util.Map<String, String> context) {
+        this.context = context;
+    }
+
+    /**
+     * <p>
+     * The contextual metadata to use when getting recommendations. Contextual metadata includes any interaction
+     * information that might be relevant when getting a user's recommendations, such as the user's current location or
+     * device type.
+     * </p>
+     * 
+     * @param context
+     *        The contextual metadata to use when getting recommendations. Contextual metadata includes any interaction
+     *        information that might be relevant when getting a user's recommendations, such as the user's current
+     *        location or device type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPersonalizedRankingRequest withContext(java.util.Map<String, String> context) {
+        setContext(context);
+        return this;
+    }
+
+    /**
+     * Add a single Context entry
+     *
+     * @see GetPersonalizedRankingRequest#withContext
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPersonalizedRankingRequest addContextEntry(String key, String value) {
+        if (null == this.context) {
+            this.context = new java.util.HashMap<String, String>();
+        }
+        if (this.context.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.context.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Context.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPersonalizedRankingRequest clearContextEntries() {
+        this.context = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of a filter you created to include items or exclude items from recommendations for
+     * a given user. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/filter.html">Filtering Recommendations</a>.
+     * </p>
+     * 
+     * @param filterArn
+     *        The Amazon Resource Name (ARN) of a filter you created to include items or exclude items from
+     *        recommendations for a given user. For more information, see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/filter.html">Filtering Recommendations</a>.
+     */
+
+    public void setFilterArn(String filterArn) {
+        this.filterArn = filterArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of a filter you created to include items or exclude items from recommendations for
+     * a given user. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/filter.html">Filtering Recommendations</a>.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of a filter you created to include items or exclude items from
+     *         recommendations for a given user. For more information, see <a
+     *         href="https://docs.aws.amazon.com/personalize/latest/dg/filter.html">Filtering Recommendations</a>.
+     */
+
+    public String getFilterArn() {
+        return this.filterArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of a filter you created to include items or exclude items from recommendations for
+     * a given user. For more information, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/filter.html">Filtering Recommendations</a>.
+     * </p>
+     * 
+     * @param filterArn
+     *        The Amazon Resource Name (ARN) of a filter you created to include items or exclude items from
+     *        recommendations for a given user. For more information, see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/filter.html">Filtering Recommendations</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPersonalizedRankingRequest withFilterArn(String filterArn) {
+        setFilterArn(filterArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The values to use when filtering recommendations. For each placeholder parameter in your filter expression,
+     * provide the parameter name (in matching case) as a key and the filter value(s) as the corresponding value.
+     * Separate multiple values for one parameter with a comma.
+     * </p>
+     * <p>
+     * For filter expressions that use an <code>INCLUDE</code> element to include items, you must provide values for all
+     * parameters that are defined in the expression. For filters with expressions that use an <code>EXCLUDE</code>
+     * element to exclude items, you can omit the <code>filter-values</code>.In this case, Amazon Personalize doesn't
+     * use that portion of the expression to filter recommendations.
+     * </p>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/personalize/latest/dg/filter.html">Filtering
+     * Recommendations</a>.
+     * </p>
+     * 
+     * @return The values to use when filtering recommendations. For each placeholder parameter in your filter
+     *         expression, provide the parameter name (in matching case) as a key and the filter value(s) as the
+     *         corresponding value. Separate multiple values for one parameter with a comma. </p>
+     *         <p>
+     *         For filter expressions that use an <code>INCLUDE</code> element to include items, you must provide values
+     *         for all parameters that are defined in the expression. For filters with expressions that use an
+     *         <code>EXCLUDE</code> element to exclude items, you can omit the <code>filter-values</code>.In this case,
+     *         Amazon Personalize doesn't use that portion of the expression to filter recommendations.
+     *         </p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/personalize/latest/dg/filter.html">Filtering Recommendations</a>.
+     */
+
+    public java.util.Map<String, String> getFilterValues() {
+        return filterValues;
+    }
+
+    /**
+     * <p>
+     * The values to use when filtering recommendations. For each placeholder parameter in your filter expression,
+     * provide the parameter name (in matching case) as a key and the filter value(s) as the corresponding value.
+     * Separate multiple values for one parameter with a comma.
+     * </p>
+     * <p>
+     * For filter expressions that use an <code>INCLUDE</code> element to include items, you must provide values for all
+     * parameters that are defined in the expression. For filters with expressions that use an <code>EXCLUDE</code>
+     * element to exclude items, you can omit the <code>filter-values</code>.In this case, Amazon Personalize doesn't
+     * use that portion of the expression to filter recommendations.
+     * </p>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/personalize/latest/dg/filter.html">Filtering
+     * Recommendations</a>.
+     * </p>
+     * 
+     * @param filterValues
+     *        The values to use when filtering recommendations. For each placeholder parameter in your filter
+     *        expression, provide the parameter name (in matching case) as a key and the filter value(s) as the
+     *        corresponding value. Separate multiple values for one parameter with a comma. </p>
+     *        <p>
+     *        For filter expressions that use an <code>INCLUDE</code> element to include items, you must provide values
+     *        for all parameters that are defined in the expression. For filters with expressions that use an
+     *        <code>EXCLUDE</code> element to exclude items, you can omit the <code>filter-values</code>.In this case,
+     *        Amazon Personalize doesn't use that portion of the expression to filter recommendations.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/filter.html">Filtering Recommendations</a>.
+     */
+
+    public void setFilterValues(java.util.Map<String, String> filterValues) {
+        this.filterValues = filterValues;
+    }
+
+    /**
+     * <p>
+     * The values to use when filtering recommendations. For each placeholder parameter in your filter expression,
+     * provide the parameter name (in matching case) as a key and the filter value(s) as the corresponding value.
+     * Separate multiple values for one parameter with a comma.
+     * </p>
+     * <p>
+     * For filter expressions that use an <code>INCLUDE</code> element to include items, you must provide values for all
+     * parameters that are defined in the expression. For filters with expressions that use an <code>EXCLUDE</code>
+     * element to exclude items, you can omit the <code>filter-values</code>.In this case, Amazon Personalize doesn't
+     * use that portion of the expression to filter recommendations.
+     * </p>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/personalize/latest/dg/filter.html">Filtering
+     * Recommendations</a>.
+     * </p>
+     * 
+     * @param filterValues
+     *        The values to use when filtering recommendations. For each placeholder parameter in your filter
+     *        expression, provide the parameter name (in matching case) as a key and the filter value(s) as the
+     *        corresponding value. Separate multiple values for one parameter with a comma. </p>
+     *        <p>
+     *        For filter expressions that use an <code>INCLUDE</code> element to include items, you must provide values
+     *        for all parameters that are defined in the expression. For filters with expressions that use an
+     *        <code>EXCLUDE</code> element to exclude items, you can omit the <code>filter-values</code>.In this case,
+     *        Amazon Personalize doesn't use that portion of the expression to filter recommendations.
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/filter.html">Filtering Recommendations</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPersonalizedRankingRequest withFilterValues(java.util.Map<String, String> filterValues) {
+        setFilterValues(filterValues);
+        return this;
+    }
+
+    /**
+     * Add a single FilterValues entry
+     *
+     * @see GetPersonalizedRankingRequest#withFilterValues
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPersonalizedRankingRequest addFilterValuesEntry(String key, String value) {
+        if (null == this.filterValues) {
+            this.filterValues = new java.util.HashMap<String, String>();
+        }
+        if (this.filterValues.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.filterValues.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into FilterValues.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPersonalizedRankingRequest clearFilterValuesEntries() {
+        this.filterValues = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * If you enabled metadata in recommendations when you created or updated the campaign, specify metadata columns
+     * from your Items dataset to include in the personalized ranking. The map key is <code>ITEMS</code> and the value
+     * is a list of column names from your Items dataset. The maximum number of columns you can provide is 10.
+     * </p>
+     * <p>
+     * For information about enabling metadata for a campaign, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html#create-campaign-return-metadata">Enabling
+     * metadata in recommendations for a campaign</a>.
+     * </p>
+     * 
+     * @return If you enabled metadata in recommendations when you created or updated the campaign, specify metadata
+     *         columns from your Items dataset to include in the personalized ranking. The map key is <code>ITEMS</code>
+     *         and the value is a list of column names from your Items dataset. The maximum number of columns you can
+     *         provide is 10.</p>
+     *         <p>
+     *         For information about enabling metadata for a campaign, see <a
+     *         href="https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html#create-campaign-return-metadata"
+     *         >Enabling metadata in recommendations for a campaign</a>.
+     */
+
+    public java.util.Map<String, java.util.List<String>> getMetadataColumns() {
+        return metadataColumns;
+    }
+
+    /**
+     * <p>
+     * If you enabled metadata in recommendations when you created or updated the campaign, specify metadata columns
+     * from your Items dataset to include in the personalized ranking. The map key is <code>ITEMS</code> and the value
+     * is a list of column names from your Items dataset. The maximum number of columns you can provide is 10.
+     * </p>
+     * <p>
+     * For information about enabling metadata for a campaign, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html#create-campaign-return-metadata">Enabling
+     * metadata in recommendations for a campaign</a>.
+     * </p>
+     * 
+     * @param metadataColumns
+     *        If you enabled metadata in recommendations when you created or updated the campaign, specify metadata
+     *        columns from your Items dataset to include in the personalized ranking. The map key is <code>ITEMS</code>
+     *        and the value is a list of column names from your Items dataset. The maximum number of columns you can
+     *        provide is 10.</p>
+     *        <p>
+     *        For information about enabling metadata for a campaign, see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html#create-campaign-return-metadata"
+     *        >Enabling metadata in recommendations for a campaign</a>.
+     */
+
+    public void setMetadataColumns(java.util.Map<String, java.util.List<String>> metadataColumns) {
+        this.metadataColumns = metadataColumns;
+    }
+
+    /**
+     * <p>
+     * If you enabled metadata in recommendations when you created or updated the campaign, specify metadata columns
+     * from your Items dataset to include in the personalized ranking. The map key is <code>ITEMS</code> and the value
+     * is a list of column names from your Items dataset. The maximum number of columns you can provide is 10.
+     * </p>
+     * <p>
+     * For information about enabling metadata for a campaign, see <a
+     * href="https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html#create-campaign-return-metadata">Enabling
+     * metadata in recommendations for a campaign</a>.
+     * </p>
+     * 
+     * @param metadataColumns
+     *        If you enabled metadata in recommendations when you created or updated the campaign, specify metadata
+     *        columns from your Items dataset to include in the personalized ranking. The map key is <code>ITEMS</code>
+     *        and the value is a list of column names from your Items dataset. The maximum number of columns you can
+     *        provide is 10.</p>
+     *        <p>
+     *        For information about enabling metadata for a campaign, see <a
+     *        href="https://docs.aws.amazon.com/personalize/latest/dg/campaigns.html#create-campaign-return-metadata"
+     *        >Enabling metadata in recommendations for a campaign</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPersonalizedRankingRequest withMetadataColumns(java.util.Map<String, java.util.List<String>> metadataColumns) {
+        setMetadataColumns(metadataColumns);
+        return this;
+    }
+
+    /**
+     * Add a single MetadataColumns entry
+     *
+     * @see GetPersonalizedRankingRequest#withMetadataColumns
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPersonalizedRankingRequest addMetadataColumnsEntry(String key, java.util.List<String> value) {
+        if (null == this.metadataColumns) {
+            this.metadataColumns = new java.util.HashMap<String, java.util.List<String>>();
+        }
+        if (this.metadataColumns.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.metadataColumns.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into MetadataColumns.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPersonalizedRankingRequest clearMetadataColumnsEntries() {
+        this.metadataColumns = null;
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -220,7 +655,15 @@ public class GetPersonalizedRankingRequest extends com.amazonaws.AmazonWebServic
         if (getInputList() != null)
             sb.append("InputList: ").append(getInputList()).append(",");
         if (getUserId() != null)
-            sb.append("UserId: ").append(getUserId());
+            sb.append("UserId: ").append(getUserId()).append(",");
+        if (getContext() != null)
+            sb.append("Context: ").append("***Sensitive Data Redacted***").append(",");
+        if (getFilterArn() != null)
+            sb.append("FilterArn: ").append(getFilterArn()).append(",");
+        if (getFilterValues() != null)
+            sb.append("FilterValues: ").append("***Sensitive Data Redacted***").append(",");
+        if (getMetadataColumns() != null)
+            sb.append("MetadataColumns: ").append(getMetadataColumns());
         sb.append("}");
         return sb.toString();
     }
@@ -247,6 +690,22 @@ public class GetPersonalizedRankingRequest extends com.amazonaws.AmazonWebServic
             return false;
         if (other.getUserId() != null && other.getUserId().equals(this.getUserId()) == false)
             return false;
+        if (other.getContext() == null ^ this.getContext() == null)
+            return false;
+        if (other.getContext() != null && other.getContext().equals(this.getContext()) == false)
+            return false;
+        if (other.getFilterArn() == null ^ this.getFilterArn() == null)
+            return false;
+        if (other.getFilterArn() != null && other.getFilterArn().equals(this.getFilterArn()) == false)
+            return false;
+        if (other.getFilterValues() == null ^ this.getFilterValues() == null)
+            return false;
+        if (other.getFilterValues() != null && other.getFilterValues().equals(this.getFilterValues()) == false)
+            return false;
+        if (other.getMetadataColumns() == null ^ this.getMetadataColumns() == null)
+            return false;
+        if (other.getMetadataColumns() != null && other.getMetadataColumns().equals(this.getMetadataColumns()) == false)
+            return false;
         return true;
     }
 
@@ -258,6 +717,10 @@ public class GetPersonalizedRankingRequest extends com.amazonaws.AmazonWebServic
         hashCode = prime * hashCode + ((getCampaignArn() == null) ? 0 : getCampaignArn().hashCode());
         hashCode = prime * hashCode + ((getInputList() == null) ? 0 : getInputList().hashCode());
         hashCode = prime * hashCode + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        hashCode = prime * hashCode + ((getContext() == null) ? 0 : getContext().hashCode());
+        hashCode = prime * hashCode + ((getFilterArn() == null) ? 0 : getFilterArn().hashCode());
+        hashCode = prime * hashCode + ((getFilterValues() == null) ? 0 : getFilterValues().hashCode());
+        hashCode = prime * hashCode + ((getMetadataColumns() == null) ? 0 : getMetadataColumns().hashCode());
         return hashCode;
     }
 

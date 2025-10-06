@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.marketplaceentitlement.AWSMarketplaceEntitlementCl
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.marketplaceentitlement.model.*;
+
 import com.amazonaws.services.marketplaceentitlement.model.transform.*;
 
 /**
@@ -93,14 +94,14 @@ public class AWSMarketplaceEntitlementClient extends AmazonWebServiceClient impl
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withModeledClass(
-                                    com.amazonaws.services.marketplaceentitlement.model.InvalidParameterException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.marketplaceentitlement.model.transform.InvalidParameterExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServiceErrorException").withModeledClass(
-                                    com.amazonaws.services.marketplaceentitlement.model.InternalServiceErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServiceErrorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.marketplaceentitlement.model.transform.InternalServiceErrorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withModeledClass(
-                                    com.amazonaws.services.marketplaceentitlement.model.ThrottlingException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.marketplaceentitlement.model.transform.ThrottlingExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.marketplaceentitlement.model.AWSMarketplaceEntitlementException.class));
 
     public static AWSMarketplaceEntitlementClientBuilder builder() {
@@ -192,6 +193,8 @@ public class AWSMarketplaceEntitlementClient extends AmazonWebServiceClient impl
                 request = new GetEntitlementsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getEntitlementsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Marketplace Entitlement Service");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetEntitlements");
@@ -287,6 +290,11 @@ public class AWSMarketplaceEntitlementClient extends AmazonWebServiceClient impl
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

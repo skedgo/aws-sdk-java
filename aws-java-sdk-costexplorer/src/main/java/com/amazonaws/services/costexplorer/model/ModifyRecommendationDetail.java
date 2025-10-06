@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Details on the modification recommendation.
+ * Details for the modification recommendation.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/ModifyRecommendationDetail" target="_top">AWS API
@@ -30,17 +30,17 @@ public class ModifyRecommendationDetail implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Identifies whether this instance type is the Amazon Web Services default recommendation.
+     * Determines whether this instance type is the Amazon Web Services default recommendation.
      * </p>
      */
     private java.util.List<TargetInstance> targetInstances;
 
     /**
      * <p>
-     * Identifies whether this instance type is the Amazon Web Services default recommendation.
+     * Determines whether this instance type is the Amazon Web Services default recommendation.
      * </p>
      * 
-     * @return Identifies whether this instance type is the Amazon Web Services default recommendation.
+     * @return Determines whether this instance type is the Amazon Web Services default recommendation.
      */
 
     public java.util.List<TargetInstance> getTargetInstances() {
@@ -49,11 +49,11 @@ public class ModifyRecommendationDetail implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Identifies whether this instance type is the Amazon Web Services default recommendation.
+     * Determines whether this instance type is the Amazon Web Services default recommendation.
      * </p>
      * 
      * @param targetInstances
-     *        Identifies whether this instance type is the Amazon Web Services default recommendation.
+     *        Determines whether this instance type is the Amazon Web Services default recommendation.
      */
 
     public void setTargetInstances(java.util.Collection<TargetInstance> targetInstances) {
@@ -67,7 +67,7 @@ public class ModifyRecommendationDetail implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Identifies whether this instance type is the Amazon Web Services default recommendation.
+     * Determines whether this instance type is the Amazon Web Services default recommendation.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -76,7 +76,7 @@ public class ModifyRecommendationDetail implements Serializable, Cloneable, Stru
      * </p>
      * 
      * @param targetInstances
-     *        Identifies whether this instance type is the Amazon Web Services default recommendation.
+     *        Determines whether this instance type is the Amazon Web Services default recommendation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -92,11 +92,11 @@ public class ModifyRecommendationDetail implements Serializable, Cloneable, Stru
 
     /**
      * <p>
-     * Identifies whether this instance type is the Amazon Web Services default recommendation.
+     * Determines whether this instance type is the Amazon Web Services default recommendation.
      * </p>
      * 
      * @param targetInstances
-     *        Identifies whether this instance type is the Amazon Web Services default recommendation.
+     *        Determines whether this instance type is the Amazon Web Services default recommendation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

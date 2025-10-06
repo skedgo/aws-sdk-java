@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -150,6 +150,46 @@ public interface AmazonRedshift {
 
     /**
      * <p>
+     * Adds a partner integration to a cluster. This operation authorizes a partner to push status updates for the
+     * specified database. To complete the integration, you also set up the integration on the partner website.
+     * </p>
+     * 
+     * @param addPartnerRequest
+     * @return Result of the AddPartner operation returned by the service.
+     * @throws PartnerNotFoundException
+     *         The name of the partner was not found.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws UnauthorizedPartnerIntegrationException
+     *         The partner integration is not authorized.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.AddPartner
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/AddPartner" target="_top">AWS API
+     *      Documentation</a>
+     */
+    AddPartnerResult addPartner(AddPartnerRequest addPartnerRequest);
+
+    /**
+     * <p>
+     * From a datashare consumer account, associates a datashare with the account (AssociateEntireAccount) or the
+     * specified namespace (ConsumerArn). If you make this association, the consumer can consume the datashare.
+     * </p>
+     * 
+     * @param associateDataShareConsumerRequest
+     * @return Result of the AssociateDataShareConsumer operation returned by the service.
+     * @throws InvalidDataShareException
+     *         There is an error with the datashare.
+     * @throws InvalidNamespaceException
+     *         The namespace isn't valid because the namespace doesn't exist. Provide a valid namespace.
+     * @sample AmazonRedshift.AssociateDataShareConsumer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/AssociateDataShareConsumer"
+     *      target="_top">AWS API Documentation</a>
+     */
+    AssociateDataShareConsumerResult associateDataShareConsumer(AssociateDataShareConsumerRequest associateDataShareConsumerRequest);
+
+    /**
+     * <p>
      * Adds an inbound (ingress) rule to an Amazon Redshift security group. Depending on whether the application
      * accessing your cluster is running on the Internet or an Amazon EC2 instance, you can authorize inbound access to
      * either a Classless Interdomain Routing (CIDR)/Internet Protocol (IP) range or to an Amazon EC2 security group.
@@ -157,8 +197,8 @@ public interface AmazonRedshift {
      * </p>
      * <p>
      * If you authorize access to an Amazon EC2 security group, specify <i>EC2SecurityGroupName</i> and
-     * <i>EC2SecurityGroupOwnerId</i>. The Amazon EC2 security group and Amazon Redshift cluster must be in the same AWS
-     * Region.
+     * <i>EC2SecurityGroupOwnerId</i>. The Amazon EC2 security group and Amazon Redshift cluster must be in the same
+     * Amazon Web Services Region.
      * </p>
      * <p>
      * If you authorize access to a CIDR/IP address range, specify <i>CIDRIP</i>. For an overview of CIDR blocks, see
@@ -191,7 +231,49 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Authorizes the specified AWS customer account to restore the specified snapshot.
+     * From a data producer account, authorizes the sharing of a datashare with one or more consumer accounts or
+     * managing entities. To authorize a datashare for a data consumer, the producer account must have the correct
+     * access permissions.
+     * </p>
+     * 
+     * @param authorizeDataShareRequest
+     * @return Result of the AuthorizeDataShare operation returned by the service.
+     * @throws InvalidDataShareException
+     *         There is an error with the datashare.
+     * @sample AmazonRedshift.AuthorizeDataShare
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/AuthorizeDataShare" target="_top">AWS
+     *      API Documentation</a>
+     */
+    AuthorizeDataShareResult authorizeDataShare(AuthorizeDataShareRequest authorizeDataShareRequest);
+
+    /**
+     * <p>
+     * Grants access to a cluster.
+     * </p>
+     * 
+     * @param authorizeEndpointAccessRequest
+     * @return Result of the AuthorizeEndpointAccess operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws EndpointAuthorizationsPerClusterLimitExceededException
+     *         The number of endpoint authorizations per cluster has exceeded its limit.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @throws EndpointAuthorizationAlreadyExistsException
+     *         The authorization already exists for this endpoint.
+     * @throws InvalidAuthorizationStateException
+     *         The status of the authorization is not valid.
+     * @throws InvalidClusterStateException
+     *         The specified cluster is not in the <code>available</code> state.
+     * @sample AmazonRedshift.AuthorizeEndpointAccess
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/AuthorizeEndpointAccess"
+     *      target="_top">AWS API Documentation</a>
+     */
+    AuthorizeEndpointAccessResult authorizeEndpointAccess(AuthorizeEndpointAccessRequest authorizeEndpointAccessRequest);
+
+    /**
+     * <p>
+     * Authorizes the specified Amazon Web Services account to restore the specified snapshot.
      * </p>
      * <p>
      * For more information about working with snapshots, go to <a
@@ -215,7 +297,9 @@ public interface AmazonRedshift {
      *         The specified cluster snapshot is not in the <code>available</code> state, or other accounts are
      *         authorized to access the snapshot.
      * @throws LimitExceededException
-     *         The encryption key has exceeded its grant limit in AWS KMS.
+     *         The encryption key has exceeded its grant limit in Amazon Web Services KMS.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
      * @sample AmazonRedshift.AuthorizeSnapshotAccess
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/AuthorizeSnapshotAccess"
      *      target="_top">AWS API Documentation</a>
@@ -239,7 +323,7 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Modifies the settings for a list of snapshots.
+     * Modifies the settings for a set of cluster snapshots.
      * </p>
      * 
      * @param batchModifyClusterSnapshotsRequest
@@ -258,7 +342,7 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Cancels a resize operation.
+     * Cancels a resize operation for a cluster.
      * </p>
      * 
      * @param cancelResizeRequest
@@ -296,6 +380,8 @@ public interface AmazonRedshift {
      * 
      * @param copyClusterSnapshotRequest
      * @return Result of the CopyClusterSnapshot operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
      * @throws ClusterSnapshotAlreadyExistsException
      *         The value specified as a snapshot identifier is already used by an existing snapshot.
      * @throws ClusterSnapshotNotFoundException
@@ -317,7 +403,28 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Creates a new cluster.
+     * Creates an authentication profile with the specified parameters.
+     * </p>
+     * 
+     * @param createAuthenticationProfileRequest
+     * @return Result of the CreateAuthenticationProfile operation returned by the service.
+     * @throws AuthenticationProfileAlreadyExistsException
+     *         The authentication profile already exists.
+     * @throws AuthenticationProfileQuotaExceededException
+     *         The size or number of authentication profiles has exceeded the quota. The maximum length of the JSON
+     *         string and maximum number of authentication profiles is determined by a quota for your account.
+     * @throws InvalidAuthenticationProfileRequestException
+     *         The authentication profile request is not valid. The profile name can't be null or empty. The
+     *         authentication profile API operation must be available in the Amazon Web Services Region.
+     * @sample AmazonRedshift.CreateAuthenticationProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/CreateAuthenticationProfile"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateAuthenticationProfileResult createAuthenticationProfile(CreateAuthenticationProfileRequest createAuthenticationProfileRequest);
+
+    /**
+     * <p>
+     * Creates a new cluster with the specified parameters.
      * </p>
      * <p>
      * To create a cluster in Virtual Private Cloud (VPC), you must provide a cluster subnet group name. The cluster
@@ -370,7 +477,7 @@ public interface AmazonRedshift {
      * @throws InvalidTagException
      *         The tag is invalid.
      * @throws LimitExceededException
-     *         The encryption key has exceeded its grant limit in AWS KMS.
+     *         The encryption key has exceeded its grant limit in Amazon Web Services KMS.
      * @throws DependentServiceRequestThrottlingException
      *         The request cannot be completed because a dependent service is throttling requests made by Amazon
      *         Redshift on your behalf. Wait and retry the request.
@@ -382,6 +489,13 @@ public interface AmazonRedshift {
      *         The retention period specified is either in the past or is not a valid value.</p>
      *         <p>
      *         The value must be either -1 or an integer between 1 and 3,653.
+     * @throws Ipv6CidrBlockNotFoundException
+     *         There are no subnets in your VPC with associated IPv6 CIDR blocks. To use dual-stack mode, associate an
+     *         IPv6 CIDR block with each subnet in your VPC.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @throws RedshiftIdcApplicationNotExistsException
+     *         The application you attempted to find doesn't exist.
      * @sample AmazonRedshift.CreateCluster
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/CreateCluster" target="_top">AWS API
      *      Documentation</a>
@@ -530,6 +644,59 @@ public interface AmazonRedshift {
 
     /**
      * <p>
+     * Used to create a custom domain name for a cluster. Properties include the custom domain name, the cluster the
+     * custom domain is associated with, and the certificate Amazon Resource Name (ARN).
+     * </p>
+     * 
+     * @param createCustomDomainAssociationRequest
+     * @return Result of the CreateCustomDomainAssociation operation returned by the service.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws CustomCnameAssociationException
+     *         An error occurred when an attempt was made to change the custom domain association.
+     * @sample AmazonRedshift.CreateCustomDomainAssociation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/CreateCustomDomainAssociation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    CreateCustomDomainAssociationResult createCustomDomainAssociation(CreateCustomDomainAssociationRequest createCustomDomainAssociationRequest);
+
+    /**
+     * <p>
+     * Creates a Redshift-managed VPC endpoint.
+     * </p>
+     * 
+     * @param createEndpointAccessRequest
+     * @return Result of the CreateEndpointAccess operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws AccessToClusterDeniedException
+     *         You are not authorized to access the cluster.
+     * @throws EndpointsPerClusterLimitExceededException
+     *         The number of Redshift-managed VPC endpoints per cluster has exceeded its limit.
+     * @throws EndpointsPerAuthorizationLimitExceededException
+     *         The number of Redshift-managed VPC endpoints per authorization has exceeded its limit.
+     * @throws InvalidClusterSecurityGroupStateException
+     *         The state of the cluster security group is not <code>available</code>.
+     * @throws ClusterSubnetGroupNotFoundException
+     *         The cluster subnet group name does not refer to an existing cluster subnet group.
+     * @throws EndpointAlreadyExistsException
+     *         The account already has a Redshift-managed VPC endpoint with the given identifier.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @throws InvalidClusterStateException
+     *         The specified cluster is not in the <code>available</code> state.
+     * @throws UnauthorizedOperationException
+     *         Your account is not authorized to perform the requested operation.
+     * @sample AmazonRedshift.CreateEndpointAccess
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/CreateEndpointAccess" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreateEndpointAccessResult createEndpointAccess(CreateEndpointAccessRequest createEndpointAccessRequest);
+
+    /**
+     * <p>
      * Creates an Amazon Redshift event notification subscription. This action requires an ARN (Amazon Resource Name) of
      * an Amazon SNS topic created by either the Amazon Redshift console, the Amazon SNS console, or the Amazon SNS API.
      * To obtain an ARN with Amazon SNS, you must create a topic in Amazon SNS and subscribe to the topic. The ARN is
@@ -546,9 +713,9 @@ public interface AmazonRedshift {
      * If you specify both the source type and source IDs, such as source type = cluster and source identifier =
      * my-cluster-1, notifications will be sent for all the cluster events for my-cluster-1. If you specify a source
      * type but do not specify a source identifier, you will receive notice of the events for the objects of that type
-     * in your AWS account. If you do not specify either the SourceType nor the SourceIdentifier, you will be notified
-     * of events generated from all Amazon Redshift sources belonging to your AWS account. You must specify a source
-     * type if you specify a source ID.
+     * in your Amazon Web Services account. If you do not specify either the SourceType nor the SourceIdentifier, you
+     * will be notified of events generated from all Amazon Redshift sources belonging to your Amazon Web Services
+     * account. You must specify a source type if you specify a source ID.
      * </p>
      * 
      * @param createEventSubscriptionRequest
@@ -596,8 +763,8 @@ public interface AmazonRedshift {
      * The command returns a public key, which you must store in the HSM. In addition to creating the HSM certificate,
      * you must create an Amazon Redshift HSM configuration that provides a cluster the information needed to store and
      * use encryption keys in the HSM. For more information, go to <a
-     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-HSM.html">Hardware Security Modules</a> in
-     * the Amazon Redshift Cluster Management Guide.
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-db-encryption.html#working-with-HSM">Hardware
+     * Security Modules</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * 
      * @param createHsmClientCertificateRequest
@@ -650,8 +817,62 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Creates a snapshot copy grant that permits Amazon Redshift to use a customer master key (CMK) from AWS Key
-     * Management Service (AWS KMS) to encrypt copied snapshots in a destination region.
+     * Creates an Amazon Redshift application for use with IAM Identity Center.
+     * </p>
+     * 
+     * @param createRedshiftIdcApplicationRequest
+     * @return Result of the CreateRedshiftIdcApplication operation returned by the service.
+     * @throws RedshiftIdcApplicationAlreadyExistsException
+     *         The application you attempted to add already exists.
+     * @throws DependentServiceUnavailableException
+     *         Your request cannot be completed because a dependent internal service is temporarily unavailable. Wait 30
+     *         to 60 seconds and try again.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @throws DependentServiceAccessDeniedException
+     *         A dependent service denied access for the integration.
+     * @throws RedshiftIdcApplicationQuotaExceededException
+     *         The maximum number of Redshift IAM Identity Center applications was exceeded.
+     * @sample AmazonRedshift.CreateRedshiftIdcApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/CreateRedshiftIdcApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    RedshiftIdcApplication createRedshiftIdcApplication(CreateRedshiftIdcApplicationRequest createRedshiftIdcApplicationRequest);
+
+    /**
+     * <p>
+     * Creates a scheduled action. A scheduled action contains a schedule and an Amazon Redshift API action. For
+     * example, you can create a schedule of when to run the <code>ResizeCluster</code> API operation.
+     * </p>
+     * 
+     * @param createScheduledActionRequest
+     * @return Result of the CreateScheduledAction operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws ScheduledActionAlreadyExistsException
+     *         The scheduled action already exists.
+     * @throws ScheduledActionQuotaExceededException
+     *         The quota for scheduled actions exceeded.
+     * @throws ScheduledActionTypeUnsupportedException
+     *         The action type specified for a scheduled action is not supported.
+     * @throws InvalidScheduleException
+     *         The schedule you submitted isn't valid.
+     * @throws InvalidScheduledActionException
+     *         The scheduled action is not valid.
+     * @throws UnauthorizedOperationException
+     *         Your account is not authorized to perform the requested operation.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.CreateScheduledAction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/CreateScheduledAction" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreateScheduledActionResult createScheduledAction(CreateScheduledActionRequest createScheduledActionRequest);
+
+    /**
+     * <p>
+     * Creates a snapshot copy grant that permits Amazon Redshift to use an encrypted symmetric key from Key Management
+     * Service (KMS) to encrypt copied snapshots in a destination region.
      * </p>
      * <p>
      * For more information about managing snapshot copy grants, go to <a
@@ -665,9 +886,9 @@ public interface AmazonRedshift {
      * @throws SnapshotCopyGrantAlreadyExistsException
      *         The snapshot copy grant can't be created because a grant with the same name already exists.
      * @throws SnapshotCopyGrantQuotaExceededException
-     *         The AWS account has exceeded the maximum number of snapshot copy grants in this region.
+     *         The Amazon Web Services account has exceeded the maximum number of snapshot copy grants in this region.
      * @throws LimitExceededException
-     *         The encryption key has exceeded its grant limit in AWS KMS.
+     *         The encryption key has exceeded its grant limit in Amazon Web Services KMS.
      * @throws TagLimitExceededException
      *         You have exceeded the number of tags allowed.
      * @throws InvalidTagException
@@ -683,7 +904,8 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Creates a new snapshot schedule.
+     * Create a snapshot schedule that can be associated to a cluster and which overrides the default system backup
+     * schedule.
      * </p>
      * 
      * @param createSnapshotScheduleRequest
@@ -698,6 +920,8 @@ public interface AmazonRedshift {
      *         You have exceeded the number of tags allowed.
      * @throws ScheduleDefinitionTypeUnsupportedException
      *         The definition you submitted is not supported.
+     * @throws InvalidTagException
+     *         The tag is invalid.
      * @sample AmazonRedshift.CreateSnapshotSchedule
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/CreateSnapshotSchedule"
      *      target="_top">AWS API Documentation</a>
@@ -706,7 +930,7 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Adds one or more tags to a specified resource.
+     * Adds tags to a cluster.
      * </p>
      * <p>
      * A resource can have up to 50 tags. If you try to create more than 50 tags for a resource, you will receive an
@@ -726,6 +950,8 @@ public interface AmazonRedshift {
      *         The resource could not be found.
      * @throws InvalidTagException
      *         The tag is invalid.
+     * @throws InvalidClusterStateException
+     *         The specified cluster is not in the <code>available</code> state.
      * @sample AmazonRedshift.CreateTags
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/CreateTags" target="_top">AWS API
      *      Documentation</a>
@@ -734,9 +960,71 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Deletes a previously provisioned cluster. A successful response from the web service indicates that the request
-     * was received correctly. Use <a>DescribeClusters</a> to monitor the status of the deletion. The delete operation
-     * cannot be canceled or reverted once submitted. For more information about managing clusters, go to <a
+     * Creates a usage limit for a specified Amazon Redshift feature on a cluster. The usage limit is identified by the
+     * returned usage limit identifier.
+     * </p>
+     * 
+     * @param createUsageLimitRequest
+     * @return Result of the CreateUsageLimit operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws InvalidClusterStateException
+     *         The specified cluster is not in the <code>available</code> state.
+     * @throws LimitExceededException
+     *         The encryption key has exceeded its grant limit in Amazon Web Services KMS.
+     * @throws UsageLimitAlreadyExistsException
+     *         The usage limit already exists.
+     * @throws InvalidUsageLimitException
+     *         The usage limit is not valid.
+     * @throws TagLimitExceededException
+     *         You have exceeded the number of tags allowed.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.CreateUsageLimit
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/CreateUsageLimit" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateUsageLimitResult createUsageLimit(CreateUsageLimitRequest createUsageLimitRequest);
+
+    /**
+     * <p>
+     * From a datashare producer account, removes authorization from the specified datashare.
+     * </p>
+     * 
+     * @param deauthorizeDataShareRequest
+     * @return Result of the DeauthorizeDataShare operation returned by the service.
+     * @throws InvalidDataShareException
+     *         There is an error with the datashare.
+     * @sample AmazonRedshift.DeauthorizeDataShare
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DeauthorizeDataShare" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeauthorizeDataShareResult deauthorizeDataShare(DeauthorizeDataShareRequest deauthorizeDataShareRequest);
+
+    /**
+     * <p>
+     * Deletes an authentication profile.
+     * </p>
+     * 
+     * @param deleteAuthenticationProfileRequest
+     * @return Result of the DeleteAuthenticationProfile operation returned by the service.
+     * @throws AuthenticationProfileNotFoundException
+     *         The authentication profile can't be found.
+     * @throws InvalidAuthenticationProfileRequestException
+     *         The authentication profile request is not valid. The profile name can't be null or empty. The
+     *         authentication profile API operation must be available in the Amazon Web Services Region.
+     * @sample AmazonRedshift.DeleteAuthenticationProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DeleteAuthenticationProfile"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteAuthenticationProfileResult deleteAuthenticationProfile(DeleteAuthenticationProfileRequest deleteAuthenticationProfileRequest);
+
+    /**
+     * <p>
+     * Deletes a previously provisioned cluster without its final snapshot being created. A successful response from the
+     * web service indicates that the request was received correctly. Use <a>DescribeClusters</a> to monitor the status
+     * of the deletion. The delete operation cannot be canceled or reverted once submitted. For more information about
+     * managing clusters, go to <a
      * href="https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">Amazon Redshift Clusters</a>
      * in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
@@ -870,6 +1158,50 @@ public interface AmazonRedshift {
 
     /**
      * <p>
+     * Contains information about deleting a custom domain association for a cluster.
+     * </p>
+     * 
+     * @param deleteCustomDomainAssociationRequest
+     * @return Result of the DeleteCustomDomainAssociation operation returned by the service.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws CustomCnameAssociationException
+     *         An error occurred when an attempt was made to change the custom domain association.
+     * @throws CustomDomainAssociationNotFoundException
+     *         An error occurred. The custom domain name couldn't be found.
+     * @sample AmazonRedshift.DeleteCustomDomainAssociation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DeleteCustomDomainAssociation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteCustomDomainAssociationResult deleteCustomDomainAssociation(DeleteCustomDomainAssociationRequest deleteCustomDomainAssociationRequest);
+
+    /**
+     * <p>
+     * Deletes a Redshift-managed VPC endpoint.
+     * </p>
+     * 
+     * @param deleteEndpointAccessRequest
+     * @return Result of the DeleteEndpointAccess operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws InvalidEndpointStateException
+     *         The status of the endpoint is not valid.
+     * @throws InvalidClusterSecurityGroupStateException
+     *         The state of the cluster security group is not <code>available</code>.
+     * @throws EndpointNotFoundException
+     *         The endpoint name doesn't refer to an existing endpoint.
+     * @throws InvalidClusterStateException
+     *         The specified cluster is not in the <code>available</code> state.
+     * @sample AmazonRedshift.DeleteEndpointAccess
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DeleteEndpointAccess" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteEndpointAccessResult deleteEndpointAccess(DeleteEndpointAccessRequest deleteEndpointAccessRequest);
+
+    /**
+     * <p>
      * Deletes an Amazon Redshift event notification subscription.
      * </p>
      * 
@@ -924,6 +1256,84 @@ public interface AmazonRedshift {
 
     /**
      * <p>
+     * Deletes a partner integration from a cluster. Data can still flow to the cluster until the integration is deleted
+     * at the partner's website.
+     * </p>
+     * 
+     * @param deletePartnerRequest
+     * @return Result of the DeletePartner operation returned by the service.
+     * @throws PartnerNotFoundException
+     *         The name of the partner was not found.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws UnauthorizedPartnerIntegrationException
+     *         The partner integration is not authorized.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.DeletePartner
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DeletePartner" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeletePartnerResult deletePartner(DeletePartnerRequest deletePartnerRequest);
+
+    /**
+     * <p>
+     * Deletes an Amazon Redshift IAM Identity Center application.
+     * </p>
+     * 
+     * @param deleteRedshiftIdcApplicationRequest
+     * @return Result of the DeleteRedshiftIdcApplication operation returned by the service.
+     * @throws RedshiftIdcApplicationNotExistsException
+     *         The application you attempted to find doesn't exist.
+     * @throws DependentServiceUnavailableException
+     *         Your request cannot be completed because a dependent internal service is temporarily unavailable. Wait 30
+     *         to 60 seconds and try again.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @throws DependentServiceAccessDeniedException
+     *         A dependent service denied access for the integration.
+     * @sample AmazonRedshift.DeleteRedshiftIdcApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DeleteRedshiftIdcApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DeleteRedshiftIdcApplicationResult deleteRedshiftIdcApplication(DeleteRedshiftIdcApplicationRequest deleteRedshiftIdcApplicationRequest);
+
+    /**
+     * <p>
+     * Deletes the resource policy for a specified resource.
+     * </p>
+     * 
+     * @param deleteResourcePolicyRequest
+     * @return Result of the DeleteResourcePolicy operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.DeleteResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DeleteResourcePolicy" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteResourcePolicyResult deleteResourcePolicy(DeleteResourcePolicyRequest deleteResourcePolicyRequest);
+
+    /**
+     * <p>
+     * Deletes a scheduled action.
+     * </p>
+     * 
+     * @param deleteScheduledActionRequest
+     * @return Result of the DeleteScheduledAction operation returned by the service.
+     * @throws ScheduledActionNotFoundException
+     *         The scheduled action cannot be found.
+     * @throws UnauthorizedOperationException
+     *         Your account is not authorized to perform the requested operation.
+     * @sample AmazonRedshift.DeleteScheduledAction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DeleteScheduledAction" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteScheduledActionResult deleteScheduledAction(DeleteScheduledActionRequest deleteScheduledActionRequest);
+
+    /**
+     * <p>
      * Deletes the specified snapshot copy grant.
      * </p>
      * 
@@ -960,8 +1370,8 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Deletes a tag or tags from a resource. You must provide the ARN of the resource from which you want to delete the
-     * tag or tags.
+     * Deletes tags from a resource. You must provide the ARN of the resource from which you want to delete the tag or
+     * tags.
      * </p>
      * 
      * @param deleteTagsRequest
@@ -979,6 +1389,23 @@ public interface AmazonRedshift {
 
     /**
      * <p>
+     * Deletes a usage limit from a cluster.
+     * </p>
+     * 
+     * @param deleteUsageLimitRequest
+     * @return Result of the DeleteUsageLimit operation returned by the service.
+     * @throws UsageLimitNotFoundException
+     *         The usage limit identifier can't be found.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.DeleteUsageLimit
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DeleteUsageLimit" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteUsageLimitResult deleteUsageLimit(DeleteUsageLimitRequest deleteUsageLimitRequest);
+
+    /**
+     * <p>
      * Returns a list of attributes attached to an account
      * </p>
      * 
@@ -989,6 +1416,24 @@ public interface AmazonRedshift {
      *      target="_top">AWS API Documentation</a>
      */
     DescribeAccountAttributesResult describeAccountAttributes(DescribeAccountAttributesRequest describeAccountAttributesRequest);
+
+    /**
+     * <p>
+     * Describes an authentication profile.
+     * </p>
+     * 
+     * @param describeAuthenticationProfilesRequest
+     * @return Result of the DescribeAuthenticationProfiles operation returned by the service.
+     * @throws AuthenticationProfileNotFoundException
+     *         The authentication profile can't be found.
+     * @throws InvalidAuthenticationProfileRequestException
+     *         The authentication profile request is not valid. The profile name can't be null or empty. The
+     *         authentication profile API operation must be available in the Amazon Web Services Region.
+     * @sample AmazonRedshift.DescribeAuthenticationProfiles
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeAuthenticationProfiles"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeAuthenticationProfilesResult describeAuthenticationProfiles(DescribeAuthenticationProfilesRequest describeAuthenticationProfilesRequest);
 
     /**
      * <p>
@@ -1119,8 +1564,8 @@ public interface AmazonRedshift {
     /**
      * <p>
      * Returns one or more snapshot objects, which contain metadata about your cluster snapshots. By default, this
-     * operation returns information about all snapshots of all clusters that are owned by you AWS customer account. No
-     * information is returned for snapshots owned by inactive AWS customer accounts.
+     * operation returns information about all snapshots of all clusters that are owned by your Amazon Web Services
+     * account. No information is returned for snapshots owned by inactive Amazon Web Services accounts.
      * </p>
      * <p>
      * If you specify both tag keys and tag values in the same request, Amazon Redshift returns all snapshots that match
@@ -1142,6 +1587,8 @@ public interface AmazonRedshift {
      *         The snapshot identifier does not refer to an existing cluster snapshot.
      * @throws InvalidTagException
      *         The tag is invalid.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
      * @sample AmazonRedshift.DescribeClusterSnapshots
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeClusterSnapshots"
      *      target="_top">AWS API Documentation</a>
@@ -1158,7 +1605,8 @@ public interface AmazonRedshift {
     /**
      * <p>
      * Returns one or more cluster subnet group objects, which contain metadata about your cluster subnet groups. By
-     * default, this operation returns information about all cluster subnet groups that are defined in you AWS account.
+     * default, this operation returns information about all cluster subnet groups that are defined in your Amazon Web
+     * Services account.
      * </p>
      * <p>
      * If you specify both tag keys and tag values in the same request, Amazon Redshift returns all subnet groups that
@@ -1270,6 +1718,68 @@ public interface AmazonRedshift {
 
     /**
      * <p>
+     * Contains information about custom domain associations for a cluster.
+     * </p>
+     * 
+     * @param describeCustomDomainAssociationsRequest
+     * @return Result of the DescribeCustomDomainAssociations operation returned by the service.
+     * @throws CustomDomainAssociationNotFoundException
+     *         An error occurred. The custom domain name couldn't be found.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.DescribeCustomDomainAssociations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeCustomDomainAssociations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeCustomDomainAssociationsResult describeCustomDomainAssociations(DescribeCustomDomainAssociationsRequest describeCustomDomainAssociationsRequest);
+
+    /**
+     * <p>
+     * Shows the status of any inbound or outbound datashares available in the specified account.
+     * </p>
+     * 
+     * @param describeDataSharesRequest
+     * @return Result of the DescribeDataShares operation returned by the service.
+     * @throws InvalidDataShareException
+     *         There is an error with the datashare.
+     * @sample AmazonRedshift.DescribeDataShares
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeDataShares" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DescribeDataSharesResult describeDataShares(DescribeDataSharesRequest describeDataSharesRequest);
+
+    /**
+     * <p>
+     * Returns a list of datashares where the account identifier being called is a consumer account identifier.
+     * </p>
+     * 
+     * @param describeDataSharesForConsumerRequest
+     * @return Result of the DescribeDataSharesForConsumer operation returned by the service.
+     * @throws InvalidNamespaceException
+     *         The namespace isn't valid because the namespace doesn't exist. Provide a valid namespace.
+     * @sample AmazonRedshift.DescribeDataSharesForConsumer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeDataSharesForConsumer"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeDataSharesForConsumerResult describeDataSharesForConsumer(DescribeDataSharesForConsumerRequest describeDataSharesForConsumerRequest);
+
+    /**
+     * <p>
+     * Returns a list of datashares when the account identifier being called is a producer account identifier.
+     * </p>
+     * 
+     * @param describeDataSharesForProducerRequest
+     * @return Result of the DescribeDataSharesForProducer operation returned by the service.
+     * @throws InvalidNamespaceException
+     *         The namespace isn't valid because the namespace doesn't exist. Provide a valid namespace.
+     * @sample AmazonRedshift.DescribeDataSharesForProducer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeDataSharesForProducer"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeDataSharesForProducerResult describeDataSharesForProducer(DescribeDataSharesForProducerRequest describeDataSharesForProducerRequest);
+
+    /**
+     * <p>
      * Returns a list of parameter settings for the specified parameter group family.
      * </p>
      * <p>
@@ -1285,6 +1795,42 @@ public interface AmazonRedshift {
      *      target="_top">AWS API Documentation</a>
      */
     DefaultClusterParameters describeDefaultClusterParameters(DescribeDefaultClusterParametersRequest describeDefaultClusterParametersRequest);
+
+    /**
+     * <p>
+     * Describes a Redshift-managed VPC endpoint.
+     * </p>
+     * 
+     * @param describeEndpointAccessRequest
+     * @return Result of the DescribeEndpointAccess operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws InvalidClusterStateException
+     *         The specified cluster is not in the <code>available</code> state.
+     * @throws EndpointNotFoundException
+     *         The endpoint name doesn't refer to an existing endpoint.
+     * @sample AmazonRedshift.DescribeEndpointAccess
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeEndpointAccess"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeEndpointAccessResult describeEndpointAccess(DescribeEndpointAccessRequest describeEndpointAccessRequest);
+
+    /**
+     * <p>
+     * Describes an endpoint authorization.
+     * </p>
+     * 
+     * @param describeEndpointAuthorizationRequest
+     * @return Result of the DescribeEndpointAuthorization operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.DescribeEndpointAuthorization
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeEndpointAuthorization"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeEndpointAuthorizationResult describeEndpointAuthorization(DescribeEndpointAuthorizationRequest describeEndpointAuthorizationRequest);
 
     /**
      * <p>
@@ -1369,7 +1915,7 @@ public interface AmazonRedshift {
     /**
      * <p>
      * Returns information about the specified HSM client certificate. If no certificate ID is specified, returns
-     * information about all the HSM certificates owned by your AWS customer account.
+     * information about all the HSM certificates owned by your Amazon Web Services account.
      * </p>
      * <p>
      * If you specify both tag keys and tag values in the same request, Amazon Redshift returns all HSM client
@@ -1404,7 +1950,7 @@ public interface AmazonRedshift {
     /**
      * <p>
      * Returns information about the specified Amazon Redshift HSM configuration. If no configuration ID is specified,
-     * returns information about all the HSM configurations owned by your AWS customer account.
+     * returns information about all the HSM configurations owned by your Amazon Web Services account.
      * </p>
      * <p>
      * If you specify both tag keys and tag values in the same request, Amazon Redshift returns all HSM connections that
@@ -1438,6 +1984,25 @@ public interface AmazonRedshift {
 
     /**
      * <p>
+     * Returns a list of inbound integrations.
+     * </p>
+     * 
+     * @param describeInboundIntegrationsRequest
+     * @return Result of the DescribeInboundIntegrations operation returned by the service.
+     * @throws IntegrationNotFoundException
+     *         The integration can't be found.
+     * @throws InvalidNamespaceException
+     *         The namespace isn't valid because the namespace doesn't exist. Provide a valid namespace.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.DescribeInboundIntegrations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeInboundIntegrations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeInboundIntegrationsResult describeInboundIntegrations(DescribeInboundIntegrationsRequest describeInboundIntegrationsRequest);
+
+    /**
+     * <p>
      * Describes whether information, such as queries and connection attempts, is being logged for the specified Amazon
      * Redshift cluster.
      * </p>
@@ -1446,6 +2011,8 @@ public interface AmazonRedshift {
      * @return Result of the DescribeLoggingStatus operation returned by the service.
      * @throws ClusterNotFoundException
      *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
      * @sample AmazonRedshift.DescribeLoggingStatus
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeLoggingStatus" target="_top">AWS
      *      API Documentation</a>
@@ -1454,11 +2021,36 @@ public interface AmazonRedshift {
 
     /**
      * <p>
+     * Returns properties of possible node configurations such as node type, number of nodes, and disk usage for the
+     * specified action type.
+     * </p>
+     * 
+     * @param describeNodeConfigurationOptionsRequest
+     * @return Result of the DescribeNodeConfigurationOptions operation returned by the service.
+     * @throws ClusterSnapshotNotFoundException
+     *         The snapshot identifier does not refer to an existing cluster snapshot.
+     * @throws InvalidClusterSnapshotStateException
+     *         The specified cluster snapshot is not in the <code>available</code> state, or other accounts are
+     *         authorized to access the snapshot.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws AccessToSnapshotDeniedException
+     *         The owner of the specified snapshot has not authorized your account to access the snapshot.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.DescribeNodeConfigurationOptions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeNodeConfigurationOptions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeNodeConfigurationOptionsResult describeNodeConfigurationOptions(DescribeNodeConfigurationOptionsRequest describeNodeConfigurationOptionsRequest);
+
+    /**
+     * <p>
      * Returns a list of orderable cluster options. Before you create a new cluster you can use this operation to find
-     * what options are available, such as the EC2 Availability Zones (AZ) in the specific AWS Region that you can
-     * specify, and the node types you can request. The node types differ by available storage, memory, CPU and price.
-     * With the cost involved you might want to obtain a list of cluster options in the specific region and specify
-     * values when creating a cluster. For more information about managing clusters, go to <a
+     * what options are available, such as the EC2 Availability Zones (AZ) in the specific Amazon Web Services Region
+     * that you can specify, and the node types you can request. The node types differ by available storage, memory, CPU
+     * and price. With the cost involved you might want to obtain a list of cluster options in the specific region and
+     * specify values when creating a cluster. For more information about managing clusters, go to <a
      * href="https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">Amazon Redshift Clusters</a>
      * in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
@@ -1477,6 +2069,68 @@ public interface AmazonRedshift {
      * @see #describeOrderableClusterOptions(DescribeOrderableClusterOptionsRequest)
      */
     DescribeOrderableClusterOptionsResult describeOrderableClusterOptions();
+
+    /**
+     * <p>
+     * Returns information about the partner integrations defined for a cluster.
+     * </p>
+     * 
+     * @param describePartnersRequest
+     * @return Result of the DescribePartners operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws UnauthorizedPartnerIntegrationException
+     *         The partner integration is not authorized.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.DescribePartners
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribePartners" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DescribePartnersResult describePartners(DescribePartnersRequest describePartnersRequest);
+
+    /**
+     * <p>
+     * Lists the Amazon Redshift IAM Identity Center applications.
+     * </p>
+     * 
+     * @param describeRedshiftIdcApplicationsRequest
+     * @return Result of the DescribeRedshiftIdcApplications operation returned by the service.
+     * @throws RedshiftIdcApplicationNotExistsException
+     *         The application you attempted to find doesn't exist.
+     * @throws DependentServiceUnavailableException
+     *         Your request cannot be completed because a dependent internal service is temporarily unavailable. Wait 30
+     *         to 60 seconds and try again.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @throws DependentServiceAccessDeniedException
+     *         A dependent service denied access for the integration.
+     * @sample AmazonRedshift.DescribeRedshiftIdcApplications
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeRedshiftIdcApplications"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeRedshiftIdcApplicationsResult describeRedshiftIdcApplications(DescribeRedshiftIdcApplicationsRequest describeRedshiftIdcApplicationsRequest);
+
+    /**
+     * <p>
+     * Returns exchange status details and associated metadata for a reserved-node exchange. Statuses include such
+     * values as in progress and requested.
+     * </p>
+     * 
+     * @param describeReservedNodeExchangeStatusRequest
+     * @return Result of the DescribeReservedNodeExchangeStatus operation returned by the service.
+     * @throws ReservedNodeNotFoundException
+     *         The specified reserved compute node not found.
+     * @throws ReservedNodeExchangeNotFoundException
+     *         The reserved-node exchange status wasn't found.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.DescribeReservedNodeExchangeStatus
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeReservedNodeExchangeStatus"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeReservedNodeExchangeStatusResult describeReservedNodeExchangeStatus(
+            DescribeReservedNodeExchangeStatusRequest describeReservedNodeExchangeStatusRequest);
 
     /**
      * <p>
@@ -1556,6 +2210,8 @@ public interface AmazonRedshift {
      *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
      * @throws ResizeNotFoundException
      *         A resize operation for the specified cluster is not found.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
      * @sample AmazonRedshift.DescribeResize
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeResize" target="_top">AWS API
      *      Documentation</a>
@@ -1564,7 +2220,24 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Returns a list of snapshot copy grants owned by the AWS account in the destination region.
+     * Describes properties of scheduled actions.
+     * </p>
+     * 
+     * @param describeScheduledActionsRequest
+     * @return Result of the DescribeScheduledActions operation returned by the service.
+     * @throws ScheduledActionNotFoundException
+     *         The scheduled action cannot be found.
+     * @throws UnauthorizedOperationException
+     *         Your account is not authorized to perform the requested operation.
+     * @sample AmazonRedshift.DescribeScheduledActions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeScheduledActions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeScheduledActionsResult describeScheduledActions(DescribeScheduledActionsRequest describeScheduledActionsRequest);
+
+    /**
+     * <p>
+     * Returns a list of snapshot copy grants owned by the Amazon Web Services account in the destination region.
      * </p>
      * <p>
      * For more information about managing snapshot copy grants, go to <a
@@ -1608,7 +2281,7 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Returns the total amount of snapshot usage and provisioned storage for a user in megabytes.
+     * Returns account level backups storage size and provisional storage.
      * </p>
      * 
      * @param describeStorageRequest
@@ -1704,6 +2377,48 @@ public interface AmazonRedshift {
 
     /**
      * <p>
+     * Shows usage limits on a cluster. Results are filtered based on the combination of input usage limit identifier,
+     * cluster identifier, and feature type parameters:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If usage limit identifier, cluster identifier, and feature type are not provided, then all usage limit objects
+     * for the current account in the current region are returned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If usage limit identifier is provided, then the corresponding usage limit object is returned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If cluster identifier is provided, then all usage limit objects for the specified cluster are returned.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If cluster identifier and feature type are provided, then all usage limit objects for the combination of cluster
+     * and feature are returned.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param describeUsageLimitsRequest
+     * @return Result of the DescribeUsageLimits operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.DescribeUsageLimits
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeUsageLimits" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DescribeUsageLimitsResult describeUsageLimits(DescribeUsageLimitsRequest describeUsageLimitsRequest);
+
+    /**
+     * <p>
      * Stops logging information, such as queries and connection attempts, for the specified Amazon Redshift cluster.
      * </p>
      * 
@@ -1711,6 +2426,10 @@ public interface AmazonRedshift {
      * @return Result of the DisableLogging operation returned by the service.
      * @throws ClusterNotFoundException
      *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws InvalidClusterStateException
+     *         The specified cluster is not in the <code>available</code> state.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
      * @sample AmazonRedshift.DisableLogging
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DisableLogging" target="_top">AWS API
      *      Documentation</a>
@@ -1722,8 +2441,8 @@ public interface AmazonRedshift {
      * Disables the automatic copying of snapshots from one region to another region for a specified cluster.
      * </p>
      * <p>
-     * If your cluster and its snapshots are encrypted using a customer master key (CMK) from AWS KMS, use
-     * <a>DeleteSnapshotCopyGrant</a> to delete the grant that grants Amazon Redshift permission to the CMK in the
+     * If your cluster and its snapshots are encrypted using an encrypted symmetric key from Key Management Service, use
+     * <a>DeleteSnapshotCopyGrant</a> to delete the grant that grants Amazon Redshift permission to the key in the
      * destination region.
      * </p>
      * 
@@ -1737,11 +2456,30 @@ public interface AmazonRedshift {
      *         The specified cluster is not in the <code>available</code> state.
      * @throws UnauthorizedOperationException
      *         Your account is not authorized to perform the requested operation.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
      * @sample AmazonRedshift.DisableSnapshotCopy
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DisableSnapshotCopy" target="_top">AWS
      *      API Documentation</a>
      */
     Cluster disableSnapshotCopy(DisableSnapshotCopyRequest disableSnapshotCopyRequest);
+
+    /**
+     * <p>
+     * From a datashare consumer account, remove association for the specified datashare.
+     * </p>
+     * 
+     * @param disassociateDataShareConsumerRequest
+     * @return Result of the DisassociateDataShareConsumer operation returned by the service.
+     * @throws InvalidDataShareException
+     *         There is an error with the datashare.
+     * @throws InvalidNamespaceException
+     *         The namespace isn't valid because the namespace doesn't exist. Provide a valid namespace.
+     * @sample AmazonRedshift.DisassociateDataShareConsumer
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DisassociateDataShareConsumer"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DisassociateDataShareConsumerResult disassociateDataShareConsumer(DisassociateDataShareConsumerRequest disassociateDataShareConsumerRequest);
 
     /**
      * <p>
@@ -1763,6 +2501,10 @@ public interface AmazonRedshift {
      *         The S3 bucket name is invalid. For more information about naming rules, go to <a
      *         href="https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html">Bucket Restrictions and
      *         Limitations</a> in the Amazon Simple Storage Service (S3) Developer Guide.
+     * @throws InvalidClusterStateException
+     *         The specified cluster is not in the <code>available</code> state.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
      * @sample AmazonRedshift.EnableLogging
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/EnableLogging" target="_top">AWS API
      *      Documentation</a>
@@ -1794,7 +2536,7 @@ public interface AmazonRedshift {
      *         The specified snapshot copy grant can't be found. Make sure that the name is typed correctly and that the
      *         grant exists in the destination region.
      * @throws LimitExceededException
-     *         The encryption key has exceeded its grant limit in AWS KMS.
+     *         The encryption key has exceeded its grant limit in Amazon Web Services KMS.
      * @throws DependentServiceRequestThrottlingException
      *         The request cannot be completed because a dependent service is throttling requests made by Amazon
      *         Redshift on your behalf. Wait and retry the request.
@@ -1810,6 +2552,27 @@ public interface AmazonRedshift {
 
     /**
      * <p>
+     * Fails over the primary compute unit of the specified Multi-AZ cluster to another Availability Zone.
+     * </p>
+     * 
+     * @param failoverPrimaryComputeRequest
+     * @return Result of the FailoverPrimaryCompute operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @throws UnauthorizedOperationException
+     *         Your account is not authorized to perform the requested operation.
+     * @throws InvalidClusterStateException
+     *         The specified cluster is not in the <code>available</code> state.
+     * @sample AmazonRedshift.FailoverPrimaryCompute
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/FailoverPrimaryCompute"
+     *      target="_top">AWS API Documentation</a>
+     */
+    Cluster failoverPrimaryCompute(FailoverPrimaryComputeRequest failoverPrimaryComputeRequest);
+
+    /**
+     * <p>
      * Returns a database user name and temporary password with temporary authorization to log on to an Amazon Redshift
      * database. The action returns the database user name prefixed with <code>IAM:</code> if <code>AutoCreate</code> is
      * <code>False</code> or <code>IAMA:</code> if <code>AutoCreate</code> is <code>True</code>. You can optionally
@@ -1820,9 +2583,9 @@ public interface AmazonRedshift {
      * to Generate Database User Credentials</a> in the Amazon Redshift Cluster Management Guide.
      * </p>
      * <p>
-     * The AWS Identity and Access Management (IAM)user or role that executes GetClusterCredentials must have an IAM
-     * policy attached that allows access to all necessary actions and resources. For more information about
-     * permissions, see <a href=
+     * The Identity and Access Management (IAM) user or role that runs GetClusterCredentials must have an IAM policy
+     * attached that allows access to all necessary actions and resources. For more information about permissions, see
+     * <a href=
      * "https://docs.aws.amazon.com/redshift/latest/mgmt/redshift-iam-access-control-identity-based.html#redshift-policy-resources.getclustercredentials-resources"
      * >Resource Policies for GetClusterCredentials</a> in the Amazon Redshift Cluster Management Guide.
      * </p>
@@ -1832,7 +2595,7 @@ public interface AmazonRedshift {
      * </p>
      * <p>
      * In addition, if the <code>AutoCreate</code> parameter is set to <code>True</code>, then the policy must include
-     * the <code>redshift:CreateClusterUser</code> privilege.
+     * the <code>redshift:CreateClusterUser</code> permission.
      * </p>
      * <p>
      * If the <code>DbName</code> parameter is specified, the IAM policy must allow access to the resource
@@ -1851,6 +2614,67 @@ public interface AmazonRedshift {
      *      API Documentation</a>
      */
     GetClusterCredentialsResult getClusterCredentials(GetClusterCredentialsRequest getClusterCredentialsRequest);
+
+    /**
+     * <p>
+     * Returns a database user name and temporary password with temporary authorization to log in to an Amazon Redshift
+     * database. The database user is mapped 1:1 to the source Identity and Access Management (IAM) identity. For more
+     * information about IAM identities, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id.html">IAM
+     * Identities (users, user groups, and roles)</a> in the Amazon Web Services Identity and Access Management User
+     * Guide.
+     * </p>
+     * <p>
+     * The Identity and Access Management (IAM) identity that runs this operation must have an IAM policy attached that
+     * allows access to all necessary actions and resources. For more information about permissions, see <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/redshift-iam-access-control-identity-based.html">Using
+     * identity-based policies (IAM policies)</a> in the Amazon Redshift Cluster Management Guide.
+     * </p>
+     * 
+     * @param getClusterCredentialsWithIAMRequest
+     * @return Result of the GetClusterCredentialsWithIAM operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.GetClusterCredentialsWithIAM
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/GetClusterCredentialsWithIAM"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetClusterCredentialsWithIAMResult getClusterCredentialsWithIAM(GetClusterCredentialsWithIAMRequest getClusterCredentialsWithIAMRequest);
+
+    /**
+     * <p>
+     * Gets the configuration options for the reserved-node exchange. These options include information about the source
+     * reserved node and target reserved node offering. Details include the node type, the price, the node count, and
+     * the offering type.
+     * </p>
+     * 
+     * @param getReservedNodeExchangeConfigurationOptionsRequest
+     * @return Result of the GetReservedNodeExchangeConfigurationOptions operation returned by the service.
+     * @throws ReservedNodeNotFoundException
+     *         The specified reserved compute node not found.
+     * @throws InvalidReservedNodeStateException
+     *         Indicates that the Reserved Node being exchanged is not in an active state.
+     * @throws ReservedNodeAlreadyMigratedException
+     *         Indicates that the reserved node has already been exchanged.
+     * @throws ReservedNodeOfferingNotFoundException
+     *         Specified offering does not exist.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @throws DependentServiceUnavailableException
+     *         Your request cannot be completed because a dependent internal service is temporarily unavailable. Wait 30
+     *         to 60 seconds and try again.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws ClusterSnapshotNotFoundException
+     *         The snapshot identifier does not refer to an existing cluster snapshot.
+     * @sample AmazonRedshift.GetReservedNodeExchangeConfigurationOptions
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/GetReservedNodeExchangeConfigurationOptions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    GetReservedNodeExchangeConfigurationOptionsResult getReservedNodeExchangeConfigurationOptions(
+            GetReservedNodeExchangeConfigurationOptionsRequest getReservedNodeExchangeConfigurationOptionsRequest);
 
     /**
      * <p>
@@ -1881,16 +2705,96 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Modifies the settings for a cluster. For example, you can add another security or parameter group, update the
-     * preferred maintenance window, or change the master user password. Resetting a cluster password or modifying the
-     * security groups associated with a cluster do not need a reboot. However, modifying a parameter group requires a
-     * reboot for parameters to take effect. For more information about managing clusters, go to <a
-     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">Amazon Redshift Clusters</a>
-     * in the <i>Amazon Redshift Cluster Management Guide</i>.
+     * Get the resource policy for a specified resource.
+     * </p>
+     * 
+     * @param getResourcePolicyRequest
+     * @return Result of the GetResourcePolicy operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidPolicyException
+     *         The resource policy isn't valid.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.GetResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/GetResourcePolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetResourcePolicyResult getResourcePolicy(GetResourcePolicyRequest getResourcePolicyRequest);
+
+    /**
+     * <p>
+     * List the Amazon Redshift Advisor recommendations for one or multiple Amazon Redshift clusters in an Amazon Web
+     * Services account.
+     * </p>
+     * 
+     * @param listRecommendationsRequest
+     * @return Result of the ListRecommendations operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.ListRecommendations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/ListRecommendations" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListRecommendationsResult listRecommendations(ListRecommendationsRequest listRecommendationsRequest);
+
+    /**
+     * <p>
+     * This operation is retired. Calling this operation does not change AQUA configuration. Amazon Redshift
+     * automatically determines whether to use AQUA (Advanced Query Accelerator).
+     * </p>
+     * 
+     * @param modifyAquaConfigurationRequest
+     * @return Result of the ModifyAquaConfiguration operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws InvalidClusterStateException
+     *         The specified cluster is not in the <code>available</code> state.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.ModifyAquaConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/ModifyAquaConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ModifyAquaConfigurationResult modifyAquaConfiguration(ModifyAquaConfigurationRequest modifyAquaConfigurationRequest);
+
+    /**
+     * <p>
+     * Modifies an authentication profile.
+     * </p>
+     * 
+     * @param modifyAuthenticationProfileRequest
+     * @return Result of the ModifyAuthenticationProfile operation returned by the service.
+     * @throws AuthenticationProfileNotFoundException
+     *         The authentication profile can't be found.
+     * @throws AuthenticationProfileQuotaExceededException
+     *         The size or number of authentication profiles has exceeded the quota. The maximum length of the JSON
+     *         string and maximum number of authentication profiles is determined by a quota for your account.
+     * @throws InvalidAuthenticationProfileRequestException
+     *         The authentication profile request is not valid. The profile name can't be null or empty. The
+     *         authentication profile API operation must be available in the Amazon Web Services Region.
+     * @sample AmazonRedshift.ModifyAuthenticationProfile
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/ModifyAuthenticationProfile"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ModifyAuthenticationProfileResult modifyAuthenticationProfile(ModifyAuthenticationProfileRequest modifyAuthenticationProfileRequest);
+
+    /**
+     * <p>
+     * Modifies the settings for a cluster.
      * </p>
      * <p>
      * You can also change node type and the number of nodes to scale up or down the cluster. When resizing a cluster,
      * you must specify both the number of nodes and the node type even if one of the parameters does not change.
+     * </p>
+     * <p>
+     * You can add another security or parameter group, or change the admin user password. Resetting a cluster password
+     * or modifying the security groups associated with a cluster do not need a reboot. However, modifying a parameter
+     * group requires a reboot for parameters to take effect. For more information about managing clusters, go to <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html">Amazon Redshift Clusters</a>
+     * in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * 
      * @param modifyClusterRequest
@@ -1925,7 +2829,7 @@ public interface AmazonRedshift {
      * @throws ClusterAlreadyExistsException
      *         The account already has a cluster with the given identifier.
      * @throws LimitExceededException
-     *         The encryption key has exceeded its grant limit in AWS KMS.
+     *         The encryption key has exceeded its grant limit in Amazon Web Services KMS.
      * @throws DependentServiceRequestThrottlingException
      *         The request cannot be completed because a dependent service is throttling requests made by Amazon
      *         Redshift on your behalf. Wait and retry the request.
@@ -1939,6 +2843,13 @@ public interface AmazonRedshift {
      *         The retention period specified is either in the past or is not a valid value.</p>
      *         <p>
      *         The value must be either -1 or an integer between 1 and 3,653.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @throws CustomCnameAssociationException
+     *         An error occurred when an attempt was made to change the custom domain association.
+     * @throws Ipv6CidrBlockNotFoundException
+     *         There are no subnets in your VPC with associated IPv6 CIDR blocks. To use dual-stack mode, associate an
+     *         IPv6 CIDR block with each subnet in your VPC.
      * @sample AmazonRedshift.ModifyCluster
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/ModifyCluster" target="_top">AWS API
      *      Documentation</a>
@@ -1959,6 +2870,8 @@ public interface AmazonRedshift {
      *         Cluster is already on the latest database revision.
      * @throws InvalidClusterStateException
      *         The specified cluster is not in the <code>available</code> state.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
      * @sample AmazonRedshift.ModifyClusterDbRevision
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/ModifyClusterDbRevision"
      *      target="_top">AWS API Documentation</a>
@@ -1967,11 +2880,13 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Modifies the list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access
-     * other AWS services.
+     * Modifies the list of Identity and Access Management (IAM) roles that can be used by the cluster to access other
+     * Amazon Web Services services.
      * </p>
      * <p>
-     * A cluster can have up to 10 IAM roles associated at any time.
+     * The maximum number of IAM roles that you can associate is subject to a quota. For more information, go to <a
+     * href="https://docs.aws.amazon.com/redshift/latest/mgmt/amazon-redshift-limits.html">Quotas and limits</a> in the
+     * <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * 
      * @param modifyClusterIamRolesRequest
@@ -1988,14 +2903,15 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Modifies the maintenance settings of a cluster. For example, you can defer a maintenance window. You can also
-     * update or cancel a deferment.
+     * Modifies the maintenance settings of a cluster.
      * </p>
      * 
      * @param modifyClusterMaintenanceRequest
      * @return Result of the ModifyClusterMaintenance operation returned by the service.
      * @throws ClusterNotFoundException
      *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws InvalidClusterStateException
+     *         The specified cluster is not in the <code>available</code> state.
      * @sample AmazonRedshift.ModifyClusterMaintenance
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/ModifyClusterMaintenance"
      *      target="_top">AWS API Documentation</a>
@@ -2004,7 +2920,7 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Modifies the parameters of a parameter group.
+     * Modifies the parameters of a parameter group. For the parameters parameter, it can't contain ASCII characters.
      * </p>
      * <p>
      * For more information about parameters and parameter groups, go to <a
@@ -2013,6 +2929,7 @@ public interface AmazonRedshift {
      * </p>
      * 
      * @param modifyClusterParameterGroupRequest
+     *        Describes a modify cluster parameter group operation.
      * @return Result of the ModifyClusterParameterGroup operation returned by the service.
      * @throws ClusterParameterGroupNotFoundException
      *         The parameter group name does not refer to an existing parameter group.
@@ -2028,6 +2945,9 @@ public interface AmazonRedshift {
     /**
      * <p>
      * Modifies the settings for a snapshot.
+     * </p>
+     * <p>
+     * This exanmple modifies the manual retention period setting for a cluster snapshot.
      * </p>
      * 
      * @param modifyClusterSnapshotRequest
@@ -2098,6 +3018,52 @@ public interface AmazonRedshift {
 
     /**
      * <p>
+     * Contains information for changing a custom domain association.
+     * </p>
+     * 
+     * @param modifyCustomDomainAssociationRequest
+     * @return Result of the ModifyCustomDomainAssociation operation returned by the service.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws CustomCnameAssociationException
+     *         An error occurred when an attempt was made to change the custom domain association.
+     * @throws CustomDomainAssociationNotFoundException
+     *         An error occurred. The custom domain name couldn't be found.
+     * @sample AmazonRedshift.ModifyCustomDomainAssociation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/ModifyCustomDomainAssociation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ModifyCustomDomainAssociationResult modifyCustomDomainAssociation(ModifyCustomDomainAssociationRequest modifyCustomDomainAssociationRequest);
+
+    /**
+     * <p>
+     * Modifies a Redshift-managed VPC endpoint.
+     * </p>
+     * 
+     * @param modifyEndpointAccessRequest
+     * @return Result of the ModifyEndpointAccess operation returned by the service.
+     * @throws InvalidClusterSecurityGroupStateException
+     *         The state of the cluster security group is not <code>available</code>.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws InvalidEndpointStateException
+     *         The status of the endpoint is not valid.
+     * @throws EndpointNotFoundException
+     *         The endpoint name doesn't refer to an existing endpoint.
+     * @throws InvalidClusterStateException
+     *         The specified cluster is not in the <code>available</code> state.
+     * @throws UnauthorizedOperationException
+     *         Your account is not authorized to perform the requested operation.
+     * @sample AmazonRedshift.ModifyEndpointAccess
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/ModifyEndpointAccess" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ModifyEndpointAccessResult modifyEndpointAccess(ModifyEndpointAccessRequest modifyEndpointAccessRequest);
+
+    /**
+     * <p>
      * Modifies an existing Amazon Redshift event notification subscription.
      * </p>
      * 
@@ -2133,11 +3099,61 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Modifies the number of days to retain snapshots in the destination AWS Region after they are copied from the
-     * source AWS Region. By default, this operation only changes the retention period of copied automated snapshots.
-     * The retention periods for both new and existing copied automated snapshots are updated with the new retention
-     * period. You can set the manual option to change only the retention periods of copied manual snapshots. If you set
-     * this option, only newly copied manual snapshots have the new retention period.
+     * Changes an existing Amazon Redshift IAM Identity Center application.
+     * </p>
+     * 
+     * @param modifyRedshiftIdcApplicationRequest
+     * @return Result of the ModifyRedshiftIdcApplication operation returned by the service.
+     * @throws RedshiftIdcApplicationNotExistsException
+     *         The application you attempted to find doesn't exist.
+     * @throws DependentServiceUnavailableException
+     *         Your request cannot be completed because a dependent internal service is temporarily unavailable. Wait 30
+     *         to 60 seconds and try again.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @throws DependentServiceAccessDeniedException
+     *         A dependent service denied access for the integration.
+     * @sample AmazonRedshift.ModifyRedshiftIdcApplication
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/ModifyRedshiftIdcApplication"
+     *      target="_top">AWS API Documentation</a>
+     */
+    RedshiftIdcApplication modifyRedshiftIdcApplication(ModifyRedshiftIdcApplicationRequest modifyRedshiftIdcApplicationRequest);
+
+    /**
+     * <p>
+     * Modifies a scheduled action.
+     * </p>
+     * 
+     * @param modifyScheduledActionRequest
+     * @return Result of the ModifyScheduledAction operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws ScheduledActionNotFoundException
+     *         The scheduled action cannot be found.
+     * @throws ScheduledActionTypeUnsupportedException
+     *         The action type specified for a scheduled action is not supported.
+     * @throws InvalidScheduleException
+     *         The schedule you submitted isn't valid.
+     * @throws InvalidScheduledActionException
+     *         The scheduled action is not valid.
+     * @throws UnauthorizedOperationException
+     *         Your account is not authorized to perform the requested operation.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.ModifyScheduledAction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/ModifyScheduledAction" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ModifyScheduledActionResult modifyScheduledAction(ModifyScheduledActionRequest modifyScheduledActionRequest);
+
+    /**
+     * <p>
+     * Modifies the number of days to retain snapshots in the destination Amazon Web Services Region after they are
+     * copied from the source Amazon Web Services Region. By default, this operation only changes the retention period
+     * of copied automated snapshots. The retention periods for both new and existing copied automated snapshots are
+     * updated with the new retention period. You can set the manual option to change only the retention periods of
+     * copied manual snapshots. If you set this option, only newly copied manual snapshots have the new retention
+     * period.
      * </p>
      * 
      * @param modifySnapshotCopyRetentionPeriodRequest
@@ -2181,6 +3197,46 @@ public interface AmazonRedshift {
 
     /**
      * <p>
+     * Modifies a usage limit in a cluster. You can't modify the feature type or period of a usage limit.
+     * </p>
+     * 
+     * @param modifyUsageLimitRequest
+     * @return Result of the ModifyUsageLimit operation returned by the service.
+     * @throws InvalidUsageLimitException
+     *         The usage limit is not valid.
+     * @throws UsageLimitNotFoundException
+     *         The usage limit identifier can't be found.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.ModifyUsageLimit
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/ModifyUsageLimit" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ModifyUsageLimitResult modifyUsageLimit(ModifyUsageLimitRequest modifyUsageLimitRequest);
+
+    /**
+     * <p>
+     * Pauses a cluster.
+     * </p>
+     * 
+     * @param pauseClusterRequest
+     *        Describes a pause cluster operation. For example, a scheduled action to run the <code>PauseCluster</code>
+     *        API operation.
+     * @return Result of the PauseCluster operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws InvalidClusterStateException
+     *         The specified cluster is not in the <code>available</code> state.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.PauseCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/PauseCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    Cluster pauseCluster(PauseClusterRequest pauseClusterRequest);
+
+    /**
+     * <p>
      * Allows you to purchase reserved nodes. Amazon Redshift offers a predefined set of reserved node offerings. You
      * can purchase one or more of the offerings. You can call the <a>DescribeReservedNodeOfferings</a> API to obtain
      * the available reserved node offerings. You can call this API by providing a specific reserved node offering and
@@ -2212,6 +3268,27 @@ public interface AmazonRedshift {
 
     /**
      * <p>
+     * Updates the resource policy for a specified resource.
+     * </p>
+     * 
+     * @param putResourcePolicyRequest
+     * @return Result of the PutResourcePolicy operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidPolicyException
+     *         The resource policy isn't valid.
+     * @throws ConflictPolicyUpdateException
+     *         There is a conflict while updating the resource policy.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.PutResourcePolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/PutResourcePolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    PutResourcePolicyResult putResourcePolicy(PutResourcePolicyRequest putResourcePolicyRequest);
+
+    /**
+     * <p>
      * Reboots a cluster. This action is taken as soon as possible. It results in a momentary outage to the cluster,
      * during which the cluster status is set to <code>rebooting</code>. A cluster event is created when the reboot is
      * completed. Any pending cluster modifications (see <a>ModifyCluster</a>) are applied at this reboot. For more
@@ -2231,6 +3308,21 @@ public interface AmazonRedshift {
      *      Documentation</a>
      */
     Cluster rebootCluster(RebootClusterRequest rebootClusterRequest);
+
+    /**
+     * <p>
+     * From a datashare consumer account, rejects the specified datashare.
+     * </p>
+     * 
+     * @param rejectDataShareRequest
+     * @return Result of the RejectDataShare operation returned by the service.
+     * @throws InvalidDataShareException
+     *         There is an error with the datashare.
+     * @sample AmazonRedshift.RejectDataShare
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/RejectDataShare" target="_top">AWS API
+     *      Documentation</a>
+     */
+    RejectDataShareResult rejectDataShare(RejectDataShareRequest rejectDataShareRequest);
 
     /**
      * <p>
@@ -2279,12 +3371,17 @@ public interface AmazonRedshift {
      * </li>
      * <li>
      * <p>
-     * ds2.xlarge
+     * ra3.xlplus
      * </p>
      * </li>
      * <li>
      * <p>
-     * ds2.8xlarge
+     * ra3.4xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ra3.16xlarge
      * </p>
      * </li>
      * </ul>
@@ -2297,6 +3394,8 @@ public interface AmazonRedshift {
      * </ul>
      * 
      * @param resizeClusterRequest
+     *        Describes a resize cluster operation. For example, a scheduled action to run the
+     *        <code>ResizeCluster</code> API operation.
      * @return Result of the ResizeCluster operation returned by the service.
      * @throws InvalidClusterStateException
      *         The specified cluster is not in the <code>available</code> state.
@@ -2318,7 +3417,20 @@ public interface AmazonRedshift {
      * @throws UnauthorizedOperationException
      *         Your account is not authorized to perform the requested operation.
      * @throws LimitExceededException
-     *         The encryption key has exceeded its grant limit in AWS KMS.
+     *         The encryption key has exceeded its grant limit in Amazon Web Services KMS.
+     * @throws ReservedNodeNotFoundException
+     *         The specified reserved compute node not found.
+     * @throws InvalidReservedNodeStateException
+     *         Indicates that the Reserved Node being exchanged is not in an active state.
+     * @throws ReservedNodeAlreadyMigratedException
+     *         Indicates that the reserved node has already been exchanged.
+     * @throws ReservedNodeOfferingNotFoundException
+     *         Specified offering does not exist.
+     * @throws DependentServiceUnavailableException
+     *         Your request cannot be completed because a dependent internal service is temporarily unavailable. Wait 30
+     *         to 60 seconds and try again.
+     * @throws ReservedNodeAlreadyExistsException
+     *         User already has a reservation with the given identifier.
      * @sample AmazonRedshift.ResizeCluster
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/ResizeCluster" target="_top">AWS API
      *      Documentation</a>
@@ -2391,7 +3503,7 @@ public interface AmazonRedshift {
      * @throws ClusterSecurityGroupNotFoundException
      *         The cluster security group name does not refer to an existing cluster security group.
      * @throws LimitExceededException
-     *         The encryption key has exceeded its grant limit in AWS KMS.
+     *         The encryption key has exceeded its grant limit in Amazon Web Services KMS.
      * @throws DependentServiceRequestThrottlingException
      *         The request cannot be completed because a dependent service is throttling requests made by Amazon
      *         Redshift on your behalf. Wait and retry the request.
@@ -2403,6 +3515,24 @@ public interface AmazonRedshift {
      *         You have exceeded the number of tags allowed.
      * @throws InvalidTagException
      *         The tag is invalid.
+     * @throws ReservedNodeNotFoundException
+     *         The specified reserved compute node not found.
+     * @throws InvalidReservedNodeStateException
+     *         Indicates that the Reserved Node being exchanged is not in an active state.
+     * @throws ReservedNodeAlreadyMigratedException
+     *         Indicates that the reserved node has already been exchanged.
+     * @throws ReservedNodeOfferingNotFoundException
+     *         Specified offering does not exist.
+     * @throws DependentServiceUnavailableException
+     *         Your request cannot be completed because a dependent internal service is temporarily unavailable. Wait 30
+     *         to 60 seconds and try again.
+     * @throws ReservedNodeAlreadyExistsException
+     *         User already has a reservation with the given identifier.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @throws Ipv6CidrBlockNotFoundException
+     *         There are no subnets in your VPC with associated IPv6 CIDR blocks. To use dual-stack mode, associate an
+     *         IPv6 CIDR block with each subnet in your VPC.
      * @sample AmazonRedshift.RestoreFromClusterSnapshot
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/RestoreFromClusterSnapshot"
      *      target="_top">AWS API Documentation</a>
@@ -2422,6 +3552,11 @@ public interface AmazonRedshift {
      * then you can pass the original name of the table as the <code>NewTableName</code> parameter value in the call to
      * <code>RestoreTableFromClusterSnapshot</code>. This way, you can replace the original table with the table created
      * from the snapshot.
+     * </p>
+     * <p>
+     * You can't use this operation to restore tables with <a
+     * href="https://docs.aws.amazon.com/redshift/latest/dg/t_Sorting_data.html#t_Sorting_data-interleaved">interleaved
+     * sort keys</a>.
      * </p>
      * 
      * @param restoreTableFromClusterSnapshotRequest
@@ -2451,6 +3586,29 @@ public interface AmazonRedshift {
 
     /**
      * <p>
+     * Resumes a paused cluster.
+     * </p>
+     * 
+     * @param resumeClusterRequest
+     *        Describes a resume cluster operation. For example, a scheduled action to run the
+     *        <code>ResumeCluster</code> API operation.
+     * @return Result of the ResumeCluster operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws InvalidClusterStateException
+     *         The specified cluster is not in the <code>available</code> state.
+     * @throws InsufficientClusterCapacityException
+     *         The number of nodes specified exceeds the allotted capacity of the cluster.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.ResumeCluster
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/ResumeCluster" target="_top">AWS API
+     *      Documentation</a>
+     */
+    Cluster resumeCluster(ResumeClusterRequest resumeClusterRequest);
+
+    /**
+     * <p>
      * Revokes an ingress rule in an Amazon Redshift security group for a previously authorized IP range or Amazon EC2
      * security group. To add an ingress rule, see <a>AuthorizeClusterSecurityGroupIngress</a>. For information about
      * managing security groups, go to <a
@@ -2475,8 +3633,35 @@ public interface AmazonRedshift {
 
     /**
      * <p>
-     * Removes the ability of the specified AWS customer account to restore the specified snapshot. If the account is
-     * currently restoring the snapshot, the restore will run to completion.
+     * Revokes access to a cluster.
+     * </p>
+     * 
+     * @param revokeEndpointAccessRequest
+     * @return Result of the RevokeEndpointAccess operation returned by the service.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws InvalidEndpointStateException
+     *         The status of the endpoint is not valid.
+     * @throws InvalidClusterSecurityGroupStateException
+     *         The state of the cluster security group is not <code>available</code>.
+     * @throws EndpointNotFoundException
+     *         The endpoint name doesn't refer to an existing endpoint.
+     * @throws EndpointAuthorizationNotFoundException
+     *         The authorization for this endpoint can't be found.
+     * @throws InvalidAuthorizationStateException
+     *         The status of the authorization is not valid.
+     * @throws InvalidClusterStateException
+     *         The specified cluster is not in the <code>available</code> state.
+     * @sample AmazonRedshift.RevokeEndpointAccess
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/RevokeEndpointAccess" target="_top">AWS
+     *      API Documentation</a>
+     */
+    RevokeEndpointAccessResult revokeEndpointAccess(RevokeEndpointAccessRequest revokeEndpointAccessRequest);
+
+    /**
+     * <p>
+     * Removes the ability of the specified Amazon Web Services account to restore the specified snapshot. If the
+     * account is currently restoring the snapshot, the restore will run to completion.
      * </p>
      * <p>
      * For more information about working with snapshots, go to <a
@@ -2493,6 +3678,8 @@ public interface AmazonRedshift {
      *         group.
      * @throws ClusterSnapshotNotFoundException
      *         The snapshot identifier does not refer to an existing cluster snapshot.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
      * @sample AmazonRedshift.RevokeSnapshotAccess
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/RevokeSnapshotAccess" target="_top">AWS
      *      API Documentation</a>
@@ -2513,11 +3700,34 @@ public interface AmazonRedshift {
      * @throws DependentServiceRequestThrottlingException
      *         The request cannot be completed because a dependent service is throttling requests made by Amazon
      *         Redshift on your behalf. Wait and retry the request.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
      * @sample AmazonRedshift.RotateEncryptionKey
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/RotateEncryptionKey" target="_top">AWS
      *      API Documentation</a>
      */
     Cluster rotateEncryptionKey(RotateEncryptionKeyRequest rotateEncryptionKeyRequest);
+
+    /**
+     * <p>
+     * Updates the status of a partner integration.
+     * </p>
+     * 
+     * @param updatePartnerStatusRequest
+     * @return Result of the UpdatePartnerStatus operation returned by the service.
+     * @throws PartnerNotFoundException
+     *         The name of the partner was not found.
+     * @throws ClusterNotFoundException
+     *         The <code>ClusterIdentifier</code> parameter does not refer to an existing cluster.
+     * @throws UnauthorizedPartnerIntegrationException
+     *         The partner integration is not authorized.
+     * @throws UnsupportedOperationException
+     *         The requested operation isn't supported.
+     * @sample AmazonRedshift.UpdatePartnerStatus
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/UpdatePartnerStatus" target="_top">AWS
+     *      API Documentation</a>
+     */
+    UpdatePartnerStatusResult updatePartnerStatus(UpdatePartnerStatusRequest updatePartnerStatusRequest);
 
     /**
      * Shuts down this client object, releasing any resources that might be held open. This is an optional method, and

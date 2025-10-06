@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,30 +30,36 @@ public class UpdateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the project whose name you wish to update.
+     * The Amazon Resource Name (ARN) of the project whose name to update.
      * </p>
      */
     private String arn;
     /**
      * <p>
-     * A string representing the new name of the project that you are updating.
+     * A string that represents the new name of the project that you are updating.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The number of minutes a test run in the project will execute before it times out.
+     * The number of minutes a test run in the project executes before it times out.
      * </p>
      */
     private Integer defaultJobTimeoutMinutes;
+    /**
+     * <p>
+     * The VPC security groups and subnets that are attached to a project.
+     * </p>
+     */
+    private VpcConfig vpcConfig;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the project whose name you wish to update.
+     * The Amazon Resource Name (ARN) of the project whose name to update.
      * </p>
      * 
      * @param arn
-     *        The Amazon Resource Name (ARN) of the project whose name you wish to update.
+     *        The Amazon Resource Name (ARN) of the project whose name to update.
      */
 
     public void setArn(String arn) {
@@ -62,10 +68,10 @@ public class UpdateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the project whose name you wish to update.
+     * The Amazon Resource Name (ARN) of the project whose name to update.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the project whose name you wish to update.
+     * @return The Amazon Resource Name (ARN) of the project whose name to update.
      */
 
     public String getArn() {
@@ -74,11 +80,11 @@ public class UpdateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the project whose name you wish to update.
+     * The Amazon Resource Name (ARN) of the project whose name to update.
      * </p>
      * 
      * @param arn
-     *        The Amazon Resource Name (ARN) of the project whose name you wish to update.
+     *        The Amazon Resource Name (ARN) of the project whose name to update.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -89,11 +95,11 @@ public class UpdateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A string representing the new name of the project that you are updating.
+     * A string that represents the new name of the project that you are updating.
      * </p>
      * 
      * @param name
-     *        A string representing the new name of the project that you are updating.
+     *        A string that represents the new name of the project that you are updating.
      */
 
     public void setName(String name) {
@@ -102,10 +108,10 @@ public class UpdateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A string representing the new name of the project that you are updating.
+     * A string that represents the new name of the project that you are updating.
      * </p>
      * 
-     * @return A string representing the new name of the project that you are updating.
+     * @return A string that represents the new name of the project that you are updating.
      */
 
     public String getName() {
@@ -114,11 +120,11 @@ public class UpdateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * A string representing the new name of the project that you are updating.
+     * A string that represents the new name of the project that you are updating.
      * </p>
      * 
      * @param name
-     *        A string representing the new name of the project that you are updating.
+     *        A string that represents the new name of the project that you are updating.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -129,11 +135,11 @@ public class UpdateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The number of minutes a test run in the project will execute before it times out.
+     * The number of minutes a test run in the project executes before it times out.
      * </p>
      * 
      * @param defaultJobTimeoutMinutes
-     *        The number of minutes a test run in the project will execute before it times out.
+     *        The number of minutes a test run in the project executes before it times out.
      */
 
     public void setDefaultJobTimeoutMinutes(Integer defaultJobTimeoutMinutes) {
@@ -142,10 +148,10 @@ public class UpdateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The number of minutes a test run in the project will execute before it times out.
+     * The number of minutes a test run in the project executes before it times out.
      * </p>
      * 
-     * @return The number of minutes a test run in the project will execute before it times out.
+     * @return The number of minutes a test run in the project executes before it times out.
      */
 
     public Integer getDefaultJobTimeoutMinutes() {
@@ -154,16 +160,56 @@ public class UpdateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The number of minutes a test run in the project will execute before it times out.
+     * The number of minutes a test run in the project executes before it times out.
      * </p>
      * 
      * @param defaultJobTimeoutMinutes
-     *        The number of minutes a test run in the project will execute before it times out.
+     *        The number of minutes a test run in the project executes before it times out.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UpdateProjectRequest withDefaultJobTimeoutMinutes(Integer defaultJobTimeoutMinutes) {
         setDefaultJobTimeoutMinutes(defaultJobTimeoutMinutes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The VPC security groups and subnets that are attached to a project.
+     * </p>
+     * 
+     * @param vpcConfig
+     *        The VPC security groups and subnets that are attached to a project.
+     */
+
+    public void setVpcConfig(VpcConfig vpcConfig) {
+        this.vpcConfig = vpcConfig;
+    }
+
+    /**
+     * <p>
+     * The VPC security groups and subnets that are attached to a project.
+     * </p>
+     * 
+     * @return The VPC security groups and subnets that are attached to a project.
+     */
+
+    public VpcConfig getVpcConfig() {
+        return this.vpcConfig;
+    }
+
+    /**
+     * <p>
+     * The VPC security groups and subnets that are attached to a project.
+     * </p>
+     * 
+     * @param vpcConfig
+     *        The VPC security groups and subnets that are attached to a project.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateProjectRequest withVpcConfig(VpcConfig vpcConfig) {
+        setVpcConfig(vpcConfig);
         return this;
     }
 
@@ -184,7 +230,9 @@ public class UpdateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getDefaultJobTimeoutMinutes() != null)
-            sb.append("DefaultJobTimeoutMinutes: ").append(getDefaultJobTimeoutMinutes());
+            sb.append("DefaultJobTimeoutMinutes: ").append(getDefaultJobTimeoutMinutes()).append(",");
+        if (getVpcConfig() != null)
+            sb.append("VpcConfig: ").append(getVpcConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -211,6 +259,10 @@ public class UpdateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getDefaultJobTimeoutMinutes() != null && other.getDefaultJobTimeoutMinutes().equals(this.getDefaultJobTimeoutMinutes()) == false)
             return false;
+        if (other.getVpcConfig() == null ^ this.getVpcConfig() == null)
+            return false;
+        if (other.getVpcConfig() != null && other.getVpcConfig().equals(this.getVpcConfig()) == false)
+            return false;
         return true;
     }
 
@@ -222,6 +274,7 @@ public class UpdateProjectRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getDefaultJobTimeoutMinutes() == null) ? 0 : getDefaultJobTimeoutMinutes().hashCode());
+        hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
         return hashCode;
     }
 

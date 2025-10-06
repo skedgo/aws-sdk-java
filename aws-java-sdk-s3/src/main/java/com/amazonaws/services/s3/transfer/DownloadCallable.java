@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2019 Amazon Technologies, Inc.
+ * Copyright 2015-2025 Amazon Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -131,6 +131,8 @@ final class DownloadCallable extends AbstractDownloadCallable {
             lastFullyMergedPartPosition = 0L;
         }
 
+        int expectedPartCount = partCount - lastFullyMergedPartNumber;
+
         long previousPartLength = 0L;
         long filePositionToWrite = lastFullyMergedPartPosition;
 
@@ -142,32 +144,40 @@ final class DownloadCallable extends AbstractDownloadCallable {
             throw new FileLockException("Fail to lock " + dstfile);
         }
 
-        for (int i = lastFullyMergedPartNumber + 1; i <= partCount; i++) {
-            filePositionToWrite += previousPartLength;
+        try {
+            for (int i = lastFullyMergedPartNumber + 1; i <= partCount; i++) {
+                filePositionToWrite += previousPartLength;
 
-            GetObjectRequest getPartRequest = new GetObjectRequest(req.getBucketName(), req.getKey(),
-                                                                   req.getVersionId()).withUnmodifiedSinceConstraint(req.getUnmodifiedSinceConstraint())
-                                                                                      .withModifiedSinceConstraint(req.getModifiedSinceConstraint())
-                                                                                      .withResponseHeaders(req.getResponseHeaders()).withSSECustomerKey(req.getSSECustomerKey())
-                                                                                      .withGeneralProgressListener(req.getGeneralProgressListener());
+                GetObjectRequest getPartRequest = new GetObjectRequest(req.getBucketName(), req.getKey(),
+                                                                       req.getVersionId()).withUnmodifiedSinceConstraint(req.getUnmodifiedSinceConstraint())
+                                                                                          .withModifiedSinceConstraint(req.getModifiedSinceConstraint())
+                                                                                          .withResponseHeaders(req.getResponseHeaders()).withSSECustomerKey(req.getSSECustomerKey())
+                                                                                          .withGeneralProgressListener(req.getGeneralProgressListener());
 
-            getPartRequest.setMatchingETagConstraints(req.getMatchingETagConstraints());
-            getPartRequest.setNonmatchingETagConstraints(req.getNonmatchingETagConstraints());
-            getPartRequest.setRequesterPays(req.isRequesterPays());
+                getPartRequest.setMatchingETagConstraints(req.getMatchingETagConstraints());
+                getPartRequest.setNonmatchingETagConstraints(req.getNonmatchingETagConstraints());
+                getPartRequest.setRequesterPays(req.isRequesterPays());
+                getPartRequest.setRequestCredentialsProvider(req.getRequestCredentialsProvider());
 
-            // Update the part number
-            getPartRequest.setPartNumber(i);
+                // Update the part number
+                getPartRequest.setPartNumber(i);
 
-            futures.add(executor.submit(new DownloadS3ObjectCallable(serviceCall(getPartRequest),
-                                                                     dstfile,
-                                                                     filePositionToWrite)));
+                futures.add(executor.submit(new DownloadS3ObjectCallable(serviceCall(getPartRequest),
+                                                                         dstfile,
+                                                                         filePositionToWrite)));
 
-            previousPartLength = ServiceUtils.getPartSize(req, s3, i);
+                previousPartLength = ServiceUtils.getPartSize(req, s3, i);
+            }
+
+            Future<File> future = executor.submit(new CompleteMultipartDownload(futures, dstfile, download,
+                                                                                ++lastFullyMergedPartNumber,
+                                                                                expectedPartCount));
+            ((DownloadMonitor) download.getMonitor()).setFuture(future);
+
+        } catch (Exception exception){
+            FileLocks.unlock(dstfile);
+            throw exception;
         }
-
-        Future<File> future = executor.submit(new CompleteMultipartDownload(futures, dstfile, download,
-                                                                            ++lastFullyMergedPartNumber));
-        ((DownloadMonitor) download.getMonitor()).setFuture(future);
     }
 
     /**
@@ -177,7 +187,16 @@ final class DownloadCallable extends AbstractDownloadCallable {
         return new Callable<S3Object>() {
             @Override
             public S3Object call() throws Exception {
-                return s3.getObject(request);
+                S3Object s3Object = s3.getObject(request);
+                if (s3Object == null ){
+                    if (request.getMatchingETagConstraints() != null
+                            && !request.getMatchingETagConstraints().isEmpty() ) {
+                        throw new SdkClientException("Download failed: S3 returned no data for some parts." +
+                                " This might indicate the object was modified during download, " +
+                                "causing an ETag mismatch between the original object and its current state.");
+                    }
+                }
+                return s3Object;
             }
         };
     }

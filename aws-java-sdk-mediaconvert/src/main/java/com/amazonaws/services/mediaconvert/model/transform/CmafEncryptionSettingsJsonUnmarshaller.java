@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -59,6 +59,10 @@ public class CmafEncryptionSettingsJsonUnmarshaller implements Unmarshaller<Cmaf
                 if (context.testExpression("initializationVectorInManifest", targetDepth)) {
                     context.nextToken();
                     cmafEncryptionSettings.setInitializationVectorInManifest(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("spekeKeyProvider", targetDepth)) {
+                    context.nextToken();
+                    cmafEncryptionSettings.setSpekeKeyProvider(SpekeKeyProviderCmafJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("staticKeyProvider", targetDepth)) {
                     context.nextToken();

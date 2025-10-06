@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,9 +22,10 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * Describes a tag. A tag is a key-value pair. You can add up to 50 tags to a single DynamoDB table.
  * </p>
  * <p>
- * AWS-assigned tag names and values are automatically assigned the <code>aws:</code> prefix, which the user cannot
- * assign. AWS-assigned tag names do not count towards the tag limit of 50. User-assigned tag names have the prefix
- * <code>user:</code> in the Cost Allocation Report. You cannot backdate the application of a tag.
+ * Amazon Web Services-assigned tag names and values are automatically assigned the <code>aws:</code> prefix, which the
+ * user cannot assign. Amazon Web Services-assigned tag names do not count towards the tag limit of 50. User-assigned
+ * tag names have the prefix <code>user:</code> in the Cost Allocation Report. You cannot backdate the application of a
+ * tag.
  * </p>
  * <p>
  * For an overview on tagging DynamoDB resources, see <a

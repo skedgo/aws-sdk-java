@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,9 +25,9 @@ public class DeleteInventoryResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Every <code>DeleteInventory</code> action is assigned a unique ID. This option returns a unique ID. You can use
-     * this ID to query the status of a delete operation. This option is useful for ensuring that a delete operation has
-     * completed before you begin other actions.
+     * Every <code>DeleteInventory</code> operation is assigned a unique ID. This option returns a unique ID. You can
+     * use this ID to query the status of a delete operation. This option is useful for ensuring that a delete operation
+     * has completed before you begin other operations.
      * </p>
      */
     private String deletionId;
@@ -40,23 +40,23 @@ public class DeleteInventoryResult extends com.amazonaws.AmazonWebServiceResult<
     /**
      * <p>
      * A summary of the delete operation. For more information about this summary, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-delete.html#sysman-inventory-delete-summary"
-     * >Understanding the Delete Inventory Summary</a> in the <i>AWS Systems Manager User Guide</i>.
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-custom.html#sysman-inventory-delete-summary"
+     * >Understanding the delete inventory summary</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      */
     private InventoryDeletionSummary deletionSummary;
 
     /**
      * <p>
-     * Every <code>DeleteInventory</code> action is assigned a unique ID. This option returns a unique ID. You can use
-     * this ID to query the status of a delete operation. This option is useful for ensuring that a delete operation has
-     * completed before you begin other actions.
+     * Every <code>DeleteInventory</code> operation is assigned a unique ID. This option returns a unique ID. You can
+     * use this ID to query the status of a delete operation. This option is useful for ensuring that a delete operation
+     * has completed before you begin other operations.
      * </p>
      * 
      * @param deletionId
-     *        Every <code>DeleteInventory</code> action is assigned a unique ID. This option returns a unique ID. You
+     *        Every <code>DeleteInventory</code> operation is assigned a unique ID. This option returns a unique ID. You
      *        can use this ID to query the status of a delete operation. This option is useful for ensuring that a
-     *        delete operation has completed before you begin other actions.
+     *        delete operation has completed before you begin other operations.
      */
 
     public void setDeletionId(String deletionId) {
@@ -65,14 +65,14 @@ public class DeleteInventoryResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Every <code>DeleteInventory</code> action is assigned a unique ID. This option returns a unique ID. You can use
-     * this ID to query the status of a delete operation. This option is useful for ensuring that a delete operation has
-     * completed before you begin other actions.
+     * Every <code>DeleteInventory</code> operation is assigned a unique ID. This option returns a unique ID. You can
+     * use this ID to query the status of a delete operation. This option is useful for ensuring that a delete operation
+     * has completed before you begin other operations.
      * </p>
      * 
-     * @return Every <code>DeleteInventory</code> action is assigned a unique ID. This option returns a unique ID. You
-     *         can use this ID to query the status of a delete operation. This option is useful for ensuring that a
-     *         delete operation has completed before you begin other actions.
+     * @return Every <code>DeleteInventory</code> operation is assigned a unique ID. This option returns a unique ID.
+     *         You can use this ID to query the status of a delete operation. This option is useful for ensuring that a
+     *         delete operation has completed before you begin other operations.
      */
 
     public String getDeletionId() {
@@ -81,15 +81,15 @@ public class DeleteInventoryResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * Every <code>DeleteInventory</code> action is assigned a unique ID. This option returns a unique ID. You can use
-     * this ID to query the status of a delete operation. This option is useful for ensuring that a delete operation has
-     * completed before you begin other actions.
+     * Every <code>DeleteInventory</code> operation is assigned a unique ID. This option returns a unique ID. You can
+     * use this ID to query the status of a delete operation. This option is useful for ensuring that a delete operation
+     * has completed before you begin other operations.
      * </p>
      * 
      * @param deletionId
-     *        Every <code>DeleteInventory</code> action is assigned a unique ID. This option returns a unique ID. You
+     *        Every <code>DeleteInventory</code> operation is assigned a unique ID. This option returns a unique ID. You
      *        can use this ID to query the status of a delete operation. This option is useful for ensuring that a
-     *        delete operation has completed before you begin other actions.
+     *        delete operation has completed before you begin other operations.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -141,14 +141,15 @@ public class DeleteInventoryResult extends com.amazonaws.AmazonWebServiceResult<
     /**
      * <p>
      * A summary of the delete operation. For more information about this summary, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-delete.html#sysman-inventory-delete-summary"
-     * >Understanding the Delete Inventory Summary</a> in the <i>AWS Systems Manager User Guide</i>.
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-custom.html#sysman-inventory-delete-summary"
+     * >Understanding the delete inventory summary</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param deletionSummary
      *        A summary of the delete operation. For more information about this summary, see <a href=
-     *        "http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-delete.html#sysman-inventory-delete-summary"
-     *        >Understanding the Delete Inventory Summary</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-custom.html#sysman-inventory-delete-summary"
+     *        >Understanding the delete inventory summary</a> in the <i>Amazon Web Services Systems Manager User
+     *        Guide</i>.
      */
 
     public void setDeletionSummary(InventoryDeletionSummary deletionSummary) {
@@ -158,13 +159,14 @@ public class DeleteInventoryResult extends com.amazonaws.AmazonWebServiceResult<
     /**
      * <p>
      * A summary of the delete operation. For more information about this summary, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-delete.html#sysman-inventory-delete-summary"
-     * >Understanding the Delete Inventory Summary</a> in the <i>AWS Systems Manager User Guide</i>.
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-custom.html#sysman-inventory-delete-summary"
+     * >Understanding the delete inventory summary</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @return A summary of the delete operation. For more information about this summary, see <a href=
-     *         "http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-delete.html#sysman-inventory-delete-summary"
-     *         >Understanding the Delete Inventory Summary</a> in the <i>AWS Systems Manager User Guide</i>.
+     *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-custom.html#sysman-inventory-delete-summary"
+     *         >Understanding the delete inventory summary</a> in the <i>Amazon Web Services Systems Manager User
+     *         Guide</i>.
      */
 
     public InventoryDeletionSummary getDeletionSummary() {
@@ -174,14 +176,15 @@ public class DeleteInventoryResult extends com.amazonaws.AmazonWebServiceResult<
     /**
      * <p>
      * A summary of the delete operation. For more information about this summary, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-delete.html#sysman-inventory-delete-summary"
-     * >Understanding the Delete Inventory Summary</a> in the <i>AWS Systems Manager User Guide</i>.
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-custom.html#sysman-inventory-delete-summary"
+     * >Understanding the delete inventory summary</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param deletionSummary
      *        A summary of the delete operation. For more information about this summary, see <a href=
-     *        "http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-delete.html#sysman-inventory-delete-summary"
-     *        >Understanding the Delete Inventory Summary</a> in the <i>AWS Systems Manager User Guide</i>.
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-custom.html#sysman-inventory-delete-summary"
+     *        >Understanding the delete inventory summary</a> in the <i>Amazon Web Services Systems Manager User
+     *        Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

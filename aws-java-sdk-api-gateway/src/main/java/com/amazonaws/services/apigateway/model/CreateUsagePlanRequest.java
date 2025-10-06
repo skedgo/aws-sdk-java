@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class CreateUsagePlanRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * [Required] The name of the usage plan.
+     * The name of the usage plan.
      * </p>
      */
     private String name;
@@ -66,11 +66,11 @@ public class CreateUsagePlanRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * [Required] The name of the usage plan.
+     * The name of the usage plan.
      * </p>
      * 
      * @param name
-     *        [Required] The name of the usage plan.
+     *        The name of the usage plan.
      */
 
     public void setName(String name) {
@@ -79,10 +79,10 @@ public class CreateUsagePlanRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * [Required] The name of the usage plan.
+     * The name of the usage plan.
      * </p>
      * 
-     * @return [Required] The name of the usage plan.
+     * @return The name of the usage plan.
      */
 
     public String getName() {
@@ -91,11 +91,11 @@ public class CreateUsagePlanRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * [Required] The name of the usage plan.
+     * The name of the usage plan.
      * </p>
      * 
      * @param name
-     *        [Required] The name of the usage plan.
+     *        The name of the usage plan.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -339,6 +339,13 @@ public class CreateUsagePlanRequest extends com.amazonaws.AmazonWebServiceReques
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateUsagePlanRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public CreateUsagePlanRequest addTagsEntry(String key, String value) {
         if (null == this.tags) {

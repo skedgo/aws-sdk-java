@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,10 +27,14 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class AudioSelectorSettingsMarshaller {
 
+    private static final MarshallingInfo<StructuredPojo> AUDIOHLSRENDITIONSELECTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("audioHlsRenditionSelection").build();
     private static final MarshallingInfo<StructuredPojo> AUDIOLANGUAGESELECTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("audioLanguageSelection").build();
     private static final MarshallingInfo<StructuredPojo> AUDIOPIDSELECTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("audioPidSelection").build();
+    private static final MarshallingInfo<StructuredPojo> AUDIOTRACKSELECTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("audioTrackSelection").build();
 
     private static final AudioSelectorSettingsMarshaller instance = new AudioSelectorSettingsMarshaller();
 
@@ -48,8 +52,10 @@ public class AudioSelectorSettingsMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(audioSelectorSettings.getAudioHlsRenditionSelection(), AUDIOHLSRENDITIONSELECTION_BINDING);
             protocolMarshaller.marshall(audioSelectorSettings.getAudioLanguageSelection(), AUDIOLANGUAGESELECTION_BINDING);
             protocolMarshaller.marshall(audioSelectorSettings.getAudioPidSelection(), AUDIOPIDSELECTION_BINDING);
+            protocolMarshaller.marshall(audioSelectorSettings.getAudioTrackSelection(), AUDIOTRACKSELECTION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

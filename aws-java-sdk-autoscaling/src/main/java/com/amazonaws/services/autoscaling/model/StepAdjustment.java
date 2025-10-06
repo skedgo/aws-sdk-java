@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,8 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes an adjustment based on the difference between the value of the aggregated CloudWatch metric and the breach
- * threshold that you've defined for the alarm. Used in combination with <a>PutScalingPolicy</a>.
+ * Describes information used to create a step adjustment for a step scaling policy.
  * </p>
  * <p>
  * For the following examples, suppose that you have an alarm with a breach threshold of 50:
@@ -64,6 +63,11 @@ import javax.annotation.Generated;
  * </p>
  * </li>
  * </ul>
+ * <p>
+ * For more information, see <a
+ * href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-simple-step.html#as-scaling-steps">Step
+ * adjustments</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/StepAdjustment" target="_top">AWS API
  *      Documentation</a>
@@ -95,7 +99,8 @@ public class StepAdjustment implements Serializable, Cloneable {
     /**
      * <p>
      * The amount by which to scale, based on the specified adjustment type. A positive value adds to the current
-     * capacity while a negative number removes from the current capacity.
+     * capacity while a negative number removes from the current capacity. For exact capacity, you must specify a
+     * non-negative value.
      * </p>
      */
     private Integer scalingAdjustment;
@@ -234,12 +239,14 @@ public class StepAdjustment implements Serializable, Cloneable {
     /**
      * <p>
      * The amount by which to scale, based on the specified adjustment type. A positive value adds to the current
-     * capacity while a negative number removes from the current capacity.
+     * capacity while a negative number removes from the current capacity. For exact capacity, you must specify a
+     * non-negative value.
      * </p>
      * 
      * @param scalingAdjustment
      *        The amount by which to scale, based on the specified adjustment type. A positive value adds to the current
-     *        capacity while a negative number removes from the current capacity.
+     *        capacity while a negative number removes from the current capacity. For exact capacity, you must specify a
+     *        non-negative value.
      */
 
     public void setScalingAdjustment(Integer scalingAdjustment) {
@@ -249,11 +256,13 @@ public class StepAdjustment implements Serializable, Cloneable {
     /**
      * <p>
      * The amount by which to scale, based on the specified adjustment type. A positive value adds to the current
-     * capacity while a negative number removes from the current capacity.
+     * capacity while a negative number removes from the current capacity. For exact capacity, you must specify a
+     * non-negative value.
      * </p>
      * 
      * @return The amount by which to scale, based on the specified adjustment type. A positive value adds to the
-     *         current capacity while a negative number removes from the current capacity.
+     *         current capacity while a negative number removes from the current capacity. For exact capacity, you must
+     *         specify a non-negative value.
      */
 
     public Integer getScalingAdjustment() {
@@ -263,12 +272,14 @@ public class StepAdjustment implements Serializable, Cloneable {
     /**
      * <p>
      * The amount by which to scale, based on the specified adjustment type. A positive value adds to the current
-     * capacity while a negative number removes from the current capacity.
+     * capacity while a negative number removes from the current capacity. For exact capacity, you must specify a
+     * non-negative value.
      * </p>
      * 
      * @param scalingAdjustment
      *        The amount by which to scale, based on the specified adjustment type. A positive value adds to the current
-     *        capacity while a negative number removes from the current capacity.
+     *        capacity while a negative number removes from the current capacity. For exact capacity, you must specify a
+     *        non-negative value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2016. Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
  * A copy of the License is located at
  *
- * http://aws.amazon.com/apache2.0
+ *  http://aws.amazon.com/apache2.0
  *
  * or in the "license" file accompanying this file. This file is distributed
  * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
@@ -14,6 +14,9 @@
  */
 
 package com.amazonaws.codegen.model.service;
+
+import java.util.List;
+import java.util.Map;
 
 public class ServiceMetadata {
 
@@ -33,6 +36,8 @@ public class ServiceMetadata {
 
     private String protocol;
 
+    private List<String> protocols;
+
     private String jsonVersion;
 
     private boolean resultWrapped;
@@ -43,6 +48,8 @@ public class ServiceMetadata {
     private String targetPrefix;
 
     private String uid;
+
+    private Map<String, String> awsQueryCompatible;
 
     public String getApiVersion() {
         return apiVersion;
@@ -103,12 +110,28 @@ public class ServiceMetadata {
         this.xmlNamespace = xmlNamespace;
     }
 
+    /**
+     * {@code protocol} superseded by {@code protocols} field, resolved in {@code ProtocolSelector}
+     */
+    @Deprecated
     public String getProtocol() {
         return protocol;
     }
 
+    /**
+     * {@code protocol} superseded by {@code protocols} field, resolved in {@code ProtocolSelector}
+     */
+    @Deprecated
     public void setProtocol(String protocol) {
         this.protocol = protocol;
+    }
+
+    public List<String> getProtocols() {
+        return protocols;
+    }
+
+    public void setProtocols(List<String> protocols) {
+        this.protocols = protocols;
     }
 
     public String getJsonVersion() {
@@ -149,5 +172,13 @@ public class ServiceMetadata {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public Map<String, String> getAwsQueryCompatible() {
+        return awsQueryCompatible;
+    }
+
+    public void setAwsQueryCompatible(Map<String, String> awsQueryCompatible) {
+        this.awsQueryCompatible = awsQueryCompatible;
     }
 }

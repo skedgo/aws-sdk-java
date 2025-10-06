@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Indicates whether the account is compliant with the specified policy. An account is considered non-compliant if it
- * includes resources that are not protected by the policy.
+ * Indicates whether the account is compliant with the specified policy. An account is considered noncompliant if it
+ * includes resources that are not protected by the policy, for WAF and Shield Advanced policies, or that are
+ * noncompliant with the policy, for security group policies.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/fms-2018-01-01/PolicyComplianceStatus" target="_top">AWS API
@@ -31,19 +32,19 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The AWS account that created the AWS Firewall Manager policy.
+     * The Amazon Web Services account that created the Firewall Manager policy.
      * </p>
      */
     private String policyOwner;
     /**
      * <p>
-     * The ID of the AWS Firewall Manager policy.
+     * The ID of the Firewall Manager policy.
      * </p>
      */
     private String policyId;
     /**
      * <p>
-     * The friendly name of the AWS Firewall Manager policy.
+     * The name of the Firewall Manager policy.
      * </p>
      */
     private String policyName;
@@ -61,14 +62,13 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
     private java.util.List<EvaluationResult> evaluationResults;
     /**
      * <p>
-     * Time stamp of the last update to the <code>EvaluationResult</code> objects.
+     * Timestamp of the last update to the <code>EvaluationResult</code> objects.
      * </p>
      */
     private java.util.Date lastUpdated;
     /**
      * <p>
-     * Details about problems with dependent services, such as AWS WAF or AWS Config, that are causing a resource to be
-     * non-compliant. The details include the name of the dependent service and the error message received that
+     * Details about problems with dependent services, such as WAF or Config, and the error message received that
      * indicates the problem with the service.
      * </p>
      */
@@ -76,11 +76,11 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The AWS account that created the AWS Firewall Manager policy.
+     * The Amazon Web Services account that created the Firewall Manager policy.
      * </p>
      * 
      * @param policyOwner
-     *        The AWS account that created the AWS Firewall Manager policy.
+     *        The Amazon Web Services account that created the Firewall Manager policy.
      */
 
     public void setPolicyOwner(String policyOwner) {
@@ -89,10 +89,10 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The AWS account that created the AWS Firewall Manager policy.
+     * The Amazon Web Services account that created the Firewall Manager policy.
      * </p>
      * 
-     * @return The AWS account that created the AWS Firewall Manager policy.
+     * @return The Amazon Web Services account that created the Firewall Manager policy.
      */
 
     public String getPolicyOwner() {
@@ -101,11 +101,11 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The AWS account that created the AWS Firewall Manager policy.
+     * The Amazon Web Services account that created the Firewall Manager policy.
      * </p>
      * 
      * @param policyOwner
-     *        The AWS account that created the AWS Firewall Manager policy.
+     *        The Amazon Web Services account that created the Firewall Manager policy.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -116,11 +116,11 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The ID of the AWS Firewall Manager policy.
+     * The ID of the Firewall Manager policy.
      * </p>
      * 
      * @param policyId
-     *        The ID of the AWS Firewall Manager policy.
+     *        The ID of the Firewall Manager policy.
      */
 
     public void setPolicyId(String policyId) {
@@ -129,10 +129,10 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The ID of the AWS Firewall Manager policy.
+     * The ID of the Firewall Manager policy.
      * </p>
      * 
-     * @return The ID of the AWS Firewall Manager policy.
+     * @return The ID of the Firewall Manager policy.
      */
 
     public String getPolicyId() {
@@ -141,11 +141,11 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The ID of the AWS Firewall Manager policy.
+     * The ID of the Firewall Manager policy.
      * </p>
      * 
      * @param policyId
-     *        The ID of the AWS Firewall Manager policy.
+     *        The ID of the Firewall Manager policy.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -156,11 +156,11 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The friendly name of the AWS Firewall Manager policy.
+     * The name of the Firewall Manager policy.
      * </p>
      * 
      * @param policyName
-     *        The friendly name of the AWS Firewall Manager policy.
+     *        The name of the Firewall Manager policy.
      */
 
     public void setPolicyName(String policyName) {
@@ -169,10 +169,10 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The friendly name of the AWS Firewall Manager policy.
+     * The name of the Firewall Manager policy.
      * </p>
      * 
-     * @return The friendly name of the AWS Firewall Manager policy.
+     * @return The name of the Firewall Manager policy.
      */
 
     public String getPolicyName() {
@@ -181,11 +181,11 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * The friendly name of the AWS Firewall Manager policy.
+     * The name of the Firewall Manager policy.
      * </p>
      * 
      * @param policyName
-     *        The friendly name of the AWS Firewall Manager policy.
+     *        The name of the Firewall Manager policy.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -306,11 +306,11 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Time stamp of the last update to the <code>EvaluationResult</code> objects.
+     * Timestamp of the last update to the <code>EvaluationResult</code> objects.
      * </p>
      * 
      * @param lastUpdated
-     *        Time stamp of the last update to the <code>EvaluationResult</code> objects.
+     *        Timestamp of the last update to the <code>EvaluationResult</code> objects.
      */
 
     public void setLastUpdated(java.util.Date lastUpdated) {
@@ -319,10 +319,10 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Time stamp of the last update to the <code>EvaluationResult</code> objects.
+     * Timestamp of the last update to the <code>EvaluationResult</code> objects.
      * </p>
      * 
-     * @return Time stamp of the last update to the <code>EvaluationResult</code> objects.
+     * @return Timestamp of the last update to the <code>EvaluationResult</code> objects.
      */
 
     public java.util.Date getLastUpdated() {
@@ -331,11 +331,11 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Time stamp of the last update to the <code>EvaluationResult</code> objects.
+     * Timestamp of the last update to the <code>EvaluationResult</code> objects.
      * </p>
      * 
      * @param lastUpdated
-     *        Time stamp of the last update to the <code>EvaluationResult</code> objects.
+     *        Timestamp of the last update to the <code>EvaluationResult</code> objects.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -346,14 +346,12 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Details about problems with dependent services, such as AWS WAF or AWS Config, that are causing a resource to be
-     * non-compliant. The details include the name of the dependent service and the error message received that
+     * Details about problems with dependent services, such as WAF or Config, and the error message received that
      * indicates the problem with the service.
      * </p>
      * 
-     * @return Details about problems with dependent services, such as AWS WAF or AWS Config, that are causing a
-     *         resource to be non-compliant. The details include the name of the dependent service and the error message
-     *         received that indicates the problem with the service.
+     * @return Details about problems with dependent services, such as WAF or Config, and the error message received
+     *         that indicates the problem with the service.
      */
 
     public java.util.Map<String, String> getIssueInfoMap() {
@@ -362,15 +360,13 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Details about problems with dependent services, such as AWS WAF or AWS Config, that are causing a resource to be
-     * non-compliant. The details include the name of the dependent service and the error message received that
+     * Details about problems with dependent services, such as WAF or Config, and the error message received that
      * indicates the problem with the service.
      * </p>
      * 
      * @param issueInfoMap
-     *        Details about problems with dependent services, such as AWS WAF or AWS Config, that are causing a resource
-     *        to be non-compliant. The details include the name of the dependent service and the error message received
-     *        that indicates the problem with the service.
+     *        Details about problems with dependent services, such as WAF or Config, and the error message received that
+     *        indicates the problem with the service.
      */
 
     public void setIssueInfoMap(java.util.Map<String, String> issueInfoMap) {
@@ -379,15 +375,13 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
 
     /**
      * <p>
-     * Details about problems with dependent services, such as AWS WAF or AWS Config, that are causing a resource to be
-     * non-compliant. The details include the name of the dependent service and the error message received that
+     * Details about problems with dependent services, such as WAF or Config, and the error message received that
      * indicates the problem with the service.
      * </p>
      * 
      * @param issueInfoMap
-     *        Details about problems with dependent services, such as AWS WAF or AWS Config, that are causing a resource
-     *        to be non-compliant. The details include the name of the dependent service and the error message received
-     *        that indicates the problem with the service.
+     *        Details about problems with dependent services, such as WAF or Config, and the error message received that
+     *        indicates the problem with the service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -395,6 +389,13 @@ public class PolicyComplianceStatus implements Serializable, Cloneable, Structur
         setIssueInfoMap(issueInfoMap);
         return this;
     }
+
+    /**
+     * Add a single IssueInfoMap entry
+     *
+     * @see PolicyComplianceStatus#withIssueInfoMap
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public PolicyComplianceStatus addIssueInfoMapEntry(String key, String value) {
         if (null == this.issueInfoMap) {

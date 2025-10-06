@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,8 @@ public class CreateNotificationRequest extends com.amazonaws.AmazonWebServiceReq
     private String accountId;
     /**
      * <p>
-     * The name of the budget that you want AWS to notify you about. Budget names must be unique within an account.
+     * The name of the budget that you want Amazon Web Services to notify you about. Budget names must be unique within
+     * an account.
      * </p>
      */
     private String budgetName;
@@ -93,12 +94,13 @@ public class CreateNotificationRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the budget that you want AWS to notify you about. Budget names must be unique within an account.
+     * The name of the budget that you want Amazon Web Services to notify you about. Budget names must be unique within
+     * an account.
      * </p>
      * 
      * @param budgetName
-     *        The name of the budget that you want AWS to notify you about. Budget names must be unique within an
-     *        account.
+     *        The name of the budget that you want Amazon Web Services to notify you about. Budget names must be unique
+     *        within an account.
      */
 
     public void setBudgetName(String budgetName) {
@@ -107,11 +109,12 @@ public class CreateNotificationRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the budget that you want AWS to notify you about. Budget names must be unique within an account.
+     * The name of the budget that you want Amazon Web Services to notify you about. Budget names must be unique within
+     * an account.
      * </p>
      * 
-     * @return The name of the budget that you want AWS to notify you about. Budget names must be unique within an
-     *         account.
+     * @return The name of the budget that you want Amazon Web Services to notify you about. Budget names must be unique
+     *         within an account.
      */
 
     public String getBudgetName() {
@@ -120,12 +123,13 @@ public class CreateNotificationRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The name of the budget that you want AWS to notify you about. Budget names must be unique within an account.
+     * The name of the budget that you want Amazon Web Services to notify you about. Budget names must be unique within
+     * an account.
      * </p>
      * 
      * @param budgetName
-     *        The name of the budget that you want AWS to notify you about. Budget names must be unique within an
-     *        account.
+     *        The name of the budget that you want Amazon Web Services to notify you about. Budget names must be unique
+     *        within an account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

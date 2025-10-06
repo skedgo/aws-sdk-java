@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,14 @@ public class CopyBackupToRegionRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      */
     private String backupId;
+    /**
+     * <p>
+     * Tags to apply to the destination backup during creation. If you specify tags, only these tags will be applied to
+     * the destination backup. If you do not specify tags, the service copies tags from the source backup to the
+     * destination backup.
+     * </p>
+     */
+    private java.util.List<Tag> tagList;
 
     /**
      * <p>
@@ -119,6 +127,92 @@ public class CopyBackupToRegionRequest extends com.amazonaws.AmazonWebServiceReq
     }
 
     /**
+     * <p>
+     * Tags to apply to the destination backup during creation. If you specify tags, only these tags will be applied to
+     * the destination backup. If you do not specify tags, the service copies tags from the source backup to the
+     * destination backup.
+     * </p>
+     * 
+     * @return Tags to apply to the destination backup during creation. If you specify tags, only these tags will be
+     *         applied to the destination backup. If you do not specify tags, the service copies tags from the source
+     *         backup to the destination backup.
+     */
+
+    public java.util.List<Tag> getTagList() {
+        return tagList;
+    }
+
+    /**
+     * <p>
+     * Tags to apply to the destination backup during creation. If you specify tags, only these tags will be applied to
+     * the destination backup. If you do not specify tags, the service copies tags from the source backup to the
+     * destination backup.
+     * </p>
+     * 
+     * @param tagList
+     *        Tags to apply to the destination backup during creation. If you specify tags, only these tags will be
+     *        applied to the destination backup. If you do not specify tags, the service copies tags from the source
+     *        backup to the destination backup.
+     */
+
+    public void setTagList(java.util.Collection<Tag> tagList) {
+        if (tagList == null) {
+            this.tagList = null;
+            return;
+        }
+
+        this.tagList = new java.util.ArrayList<Tag>(tagList);
+    }
+
+    /**
+     * <p>
+     * Tags to apply to the destination backup during creation. If you specify tags, only these tags will be applied to
+     * the destination backup. If you do not specify tags, the service copies tags from the source backup to the
+     * destination backup.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTagList(java.util.Collection)} or {@link #withTagList(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param tagList
+     *        Tags to apply to the destination backup during creation. If you specify tags, only these tags will be
+     *        applied to the destination backup. If you do not specify tags, the service copies tags from the source
+     *        backup to the destination backup.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CopyBackupToRegionRequest withTagList(Tag... tagList) {
+        if (this.tagList == null) {
+            setTagList(new java.util.ArrayList<Tag>(tagList.length));
+        }
+        for (Tag ele : tagList) {
+            this.tagList.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Tags to apply to the destination backup during creation. If you specify tags, only these tags will be applied to
+     * the destination backup. If you do not specify tags, the service copies tags from the source backup to the
+     * destination backup.
+     * </p>
+     * 
+     * @param tagList
+     *        Tags to apply to the destination backup during creation. If you specify tags, only these tags will be
+     *        applied to the destination backup. If you do not specify tags, the service copies tags from the source
+     *        backup to the destination backup.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CopyBackupToRegionRequest withTagList(java.util.Collection<Tag> tagList) {
+        setTagList(tagList);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -133,7 +227,9 @@ public class CopyBackupToRegionRequest extends com.amazonaws.AmazonWebServiceReq
         if (getDestinationRegion() != null)
             sb.append("DestinationRegion: ").append(getDestinationRegion()).append(",");
         if (getBackupId() != null)
-            sb.append("BackupId: ").append(getBackupId());
+            sb.append("BackupId: ").append(getBackupId()).append(",");
+        if (getTagList() != null)
+            sb.append("TagList: ").append(getTagList());
         sb.append("}");
         return sb.toString();
     }
@@ -156,6 +252,10 @@ public class CopyBackupToRegionRequest extends com.amazonaws.AmazonWebServiceReq
             return false;
         if (other.getBackupId() != null && other.getBackupId().equals(this.getBackupId()) == false)
             return false;
+        if (other.getTagList() == null ^ this.getTagList() == null)
+            return false;
+        if (other.getTagList() != null && other.getTagList().equals(this.getTagList()) == false)
+            return false;
         return true;
     }
 
@@ -166,6 +266,7 @@ public class CopyBackupToRegionRequest extends com.amazonaws.AmazonWebServiceReq
 
         hashCode = prime * hashCode + ((getDestinationRegion() == null) ? 0 : getDestinationRegion().hashCode());
         hashCode = prime * hashCode + ((getBackupId() == null) ? 0 : getBackupId().hashCode());
+        hashCode = prime * hashCode + ((getTagList() == null) ? 0 : getTagList().hashCode());
         return hashCode;
     }
 

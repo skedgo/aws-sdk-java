@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,6 +51,17 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
      * <p>
      * The block device mapping entries.
      * </p>
+     * <p>
+     * If you specify an Amazon EBS volume using the ID of an Amazon EBS snapshot, you can't specify the encryption
+     * state of the volume.
+     * </p>
+     * <p>
+     * If you create an AMI on an Outpost, then all backing snapshots must be on the same Outpost or in the Region of
+     * that Outpost. AMIs on an Outpost that include local snapshots can be used to launch instances on the same Outpost
+     * only. For more information, <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#ami">Amazon EBS local snapshots on
+     * Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
      */
     private com.amazonaws.internal.SdkInternalList<BlockDeviceMapping> blockDeviceMappings;
     /**
@@ -88,8 +99,15 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     private String name;
     /**
      * <p>
-     * The billing product codes. Your account must be authorized to specify billing product codes. Otherwise, you can
-     * use the AWS Marketplace to bill for the use of an AMI.
+     * The billing product codes. Your account must be authorized to specify billing product codes.
+     * </p>
+     * <p>
+     * If your account is not authorized to specify billing product codes, you can publish AMIs that include billable
+     * software and list them on the Amazon Web Services Marketplace. You must first register as a seller on the Amazon
+     * Web Services Marketplace. For more information, see <a
+     * href="https://docs.aws.amazon.com/marketplace/latest/userguide/user-guide-for-sellers.html">Getting started as a
+     * seller</a> and <a href="https://docs.aws.amazon.com/marketplace/latest/userguide/ami-products.html">AMI-based
+     * products</a> in the <i>Amazon Web Services Marketplace Seller Guide</i>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> billingProducts;
@@ -128,6 +146,71 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
      * </p>
      */
     private String virtualizationType;
+    /**
+     * <p>
+     * The boot mode of the AMI. A value of <code>uefi-preferred</code> indicates that the AMI supports both UEFI and
+     * Legacy BIOS.
+     * </p>
+     * <note>
+     * <p>
+     * The operating system contained in the AMI must be configured to support the specified boot mode.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     * modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private String bootMode;
+    /**
+     * <p>
+     * Set to <code>v2.0</code> to enable Trusted Platform Module (TPM) support. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     */
+    private String tpmSupport;
+    /**
+     * <p>
+     * Base64 representation of the non-volatile UEFI variable store. To retrieve the UEFI data, use the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData">GetInstanceUefiData</a>
+     * command. You can inspect and modify the UEFI data by using the <a
+     * href="https://github.com/awslabs/python-uefivars">python-uefivars tool</a> on GitHub. For more information, see
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html">UEFI Secure Boot</a> in the
+     * <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private String uefiData;
+    /**
+     * <p>
+     * Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If you set the value to <code>v2.0</code>, make sure that your AMI software can support IMDSv2.
+     * </p>
+     * </note>
+     */
+    private String imdsSupport;
+    /**
+     * <p>
+     * The tags to apply to the AMI.
+     * </p>
+     * <p>
+     * To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>. If you specify another value
+     * for <code>ResourceType</code>, the request fails.
+     * </p>
+     * <p>
+     * To tag an AMI after it has been registered, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<TagSpecification> tagSpecifications;
 
     /**
      * Default constructor for RegisterImageRequest object. Callers should use the setter or fluent setter (with...)
@@ -327,8 +410,29 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
      * <p>
      * The block device mapping entries.
      * </p>
+     * <p>
+     * If you specify an Amazon EBS volume using the ID of an Amazon EBS snapshot, you can't specify the encryption
+     * state of the volume.
+     * </p>
+     * <p>
+     * If you create an AMI on an Outpost, then all backing snapshots must be on the same Outpost or in the Region of
+     * that Outpost. AMIs on an Outpost that include local snapshots can be used to launch instances on the same Outpost
+     * only. For more information, <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#ami">Amazon EBS local snapshots on
+     * Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
      * 
-     * @return The block device mapping entries.
+     * @return The block device mapping entries.</p>
+     *         <p>
+     *         If you specify an Amazon EBS volume using the ID of an Amazon EBS snapshot, you can't specify the
+     *         encryption state of the volume.
+     *         </p>
+     *         <p>
+     *         If you create an AMI on an Outpost, then all backing snapshots must be on the same Outpost or in the
+     *         Region of that Outpost. AMIs on an Outpost that include local snapshots can be used to launch instances
+     *         on the same Outpost only. For more information, <a
+     *         href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#ami">Amazon EBS local
+     *         snapshots on Outposts</a> in the <i>Amazon EBS User Guide</i>.
      */
 
     public java.util.List<BlockDeviceMapping> getBlockDeviceMappings() {
@@ -342,9 +446,30 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
      * <p>
      * The block device mapping entries.
      * </p>
+     * <p>
+     * If you specify an Amazon EBS volume using the ID of an Amazon EBS snapshot, you can't specify the encryption
+     * state of the volume.
+     * </p>
+     * <p>
+     * If you create an AMI on an Outpost, then all backing snapshots must be on the same Outpost or in the Region of
+     * that Outpost. AMIs on an Outpost that include local snapshots can be used to launch instances on the same Outpost
+     * only. For more information, <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#ami">Amazon EBS local snapshots on
+     * Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
      * 
      * @param blockDeviceMappings
-     *        The block device mapping entries.
+     *        The block device mapping entries.</p>
+     *        <p>
+     *        If you specify an Amazon EBS volume using the ID of an Amazon EBS snapshot, you can't specify the
+     *        encryption state of the volume.
+     *        </p>
+     *        <p>
+     *        If you create an AMI on an Outpost, then all backing snapshots must be on the same Outpost or in the
+     *        Region of that Outpost. AMIs on an Outpost that include local snapshots can be used to launch instances on
+     *        the same Outpost only. For more information, <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#ami">Amazon EBS local
+     *        snapshots on Outposts</a> in the <i>Amazon EBS User Guide</i>.
      */
 
     public void setBlockDeviceMappings(java.util.Collection<BlockDeviceMapping> blockDeviceMappings) {
@@ -361,13 +486,34 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
      * The block device mapping entries.
      * </p>
      * <p>
+     * If you specify an Amazon EBS volume using the ID of an Amazon EBS snapshot, you can't specify the encryption
+     * state of the volume.
+     * </p>
+     * <p>
+     * If you create an AMI on an Outpost, then all backing snapshots must be on the same Outpost or in the Region of
+     * that Outpost. AMIs on an Outpost that include local snapshots can be used to launch instances on the same Outpost
+     * only. For more information, <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#ami">Amazon EBS local snapshots on
+     * Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
+     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setBlockDeviceMappings(java.util.Collection)} or {@link #withBlockDeviceMappings(java.util.Collection)}
      * if you want to override the existing values.
      * </p>
      * 
      * @param blockDeviceMappings
-     *        The block device mapping entries.
+     *        The block device mapping entries.</p>
+     *        <p>
+     *        If you specify an Amazon EBS volume using the ID of an Amazon EBS snapshot, you can't specify the
+     *        encryption state of the volume.
+     *        </p>
+     *        <p>
+     *        If you create an AMI on an Outpost, then all backing snapshots must be on the same Outpost or in the
+     *        Region of that Outpost. AMIs on an Outpost that include local snapshots can be used to launch instances on
+     *        the same Outpost only. For more information, <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#ami">Amazon EBS local
+     *        snapshots on Outposts</a> in the <i>Amazon EBS User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -385,9 +531,30 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
      * <p>
      * The block device mapping entries.
      * </p>
+     * <p>
+     * If you specify an Amazon EBS volume using the ID of an Amazon EBS snapshot, you can't specify the encryption
+     * state of the volume.
+     * </p>
+     * <p>
+     * If you create an AMI on an Outpost, then all backing snapshots must be on the same Outpost or in the Region of
+     * that Outpost. AMIs on an Outpost that include local snapshots can be used to launch instances on the same Outpost
+     * only. For more information, <a
+     * href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#ami">Amazon EBS local snapshots on
+     * Outposts</a> in the <i>Amazon EBS User Guide</i>.
+     * </p>
      * 
      * @param blockDeviceMappings
-     *        The block device mapping entries.
+     *        The block device mapping entries.</p>
+     *        <p>
+     *        If you specify an Amazon EBS volume using the ID of an Amazon EBS snapshot, you can't specify the
+     *        encryption state of the volume.
+     *        </p>
+     *        <p>
+     *        If you create an AMI on an Outpost, then all backing snapshots must be on the same Outpost or in the
+     *        Region of that Outpost. AMIs on an Outpost that include local snapshots can be used to launch instances on
+     *        the same Outpost only. For more information, <a
+     *        href="https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#ami">Amazon EBS local
+     *        snapshots on Outposts</a> in the <i>Amazon EBS User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -627,12 +794,26 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
 
     /**
      * <p>
-     * The billing product codes. Your account must be authorized to specify billing product codes. Otherwise, you can
-     * use the AWS Marketplace to bill for the use of an AMI.
+     * The billing product codes. Your account must be authorized to specify billing product codes.
+     * </p>
+     * <p>
+     * If your account is not authorized to specify billing product codes, you can publish AMIs that include billable
+     * software and list them on the Amazon Web Services Marketplace. You must first register as a seller on the Amazon
+     * Web Services Marketplace. For more information, see <a
+     * href="https://docs.aws.amazon.com/marketplace/latest/userguide/user-guide-for-sellers.html">Getting started as a
+     * seller</a> and <a href="https://docs.aws.amazon.com/marketplace/latest/userguide/ami-products.html">AMI-based
+     * products</a> in the <i>Amazon Web Services Marketplace Seller Guide</i>.
      * </p>
      * 
-     * @return The billing product codes. Your account must be authorized to specify billing product codes. Otherwise,
-     *         you can use the AWS Marketplace to bill for the use of an AMI.
+     * @return The billing product codes. Your account must be authorized to specify billing product codes.</p>
+     *         <p>
+     *         If your account is not authorized to specify billing product codes, you can publish AMIs that include
+     *         billable software and list them on the Amazon Web Services Marketplace. You must first register as a
+     *         seller on the Amazon Web Services Marketplace. For more information, see <a
+     *         href="https://docs.aws.amazon.com/marketplace/latest/userguide/user-guide-for-sellers.html">Getting
+     *         started as a seller</a> and <a
+     *         href="https://docs.aws.amazon.com/marketplace/latest/userguide/ami-products.html">AMI-based products</a>
+     *         in the <i>Amazon Web Services Marketplace Seller Guide</i>.
      */
 
     public java.util.List<String> getBillingProducts() {
@@ -644,13 +825,27 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
 
     /**
      * <p>
-     * The billing product codes. Your account must be authorized to specify billing product codes. Otherwise, you can
-     * use the AWS Marketplace to bill for the use of an AMI.
+     * The billing product codes. Your account must be authorized to specify billing product codes.
+     * </p>
+     * <p>
+     * If your account is not authorized to specify billing product codes, you can publish AMIs that include billable
+     * software and list them on the Amazon Web Services Marketplace. You must first register as a seller on the Amazon
+     * Web Services Marketplace. For more information, see <a
+     * href="https://docs.aws.amazon.com/marketplace/latest/userguide/user-guide-for-sellers.html">Getting started as a
+     * seller</a> and <a href="https://docs.aws.amazon.com/marketplace/latest/userguide/ami-products.html">AMI-based
+     * products</a> in the <i>Amazon Web Services Marketplace Seller Guide</i>.
      * </p>
      * 
      * @param billingProducts
-     *        The billing product codes. Your account must be authorized to specify billing product codes. Otherwise,
-     *        you can use the AWS Marketplace to bill for the use of an AMI.
+     *        The billing product codes. Your account must be authorized to specify billing product codes.</p>
+     *        <p>
+     *        If your account is not authorized to specify billing product codes, you can publish AMIs that include
+     *        billable software and list them on the Amazon Web Services Marketplace. You must first register as a
+     *        seller on the Amazon Web Services Marketplace. For more information, see <a
+     *        href="https://docs.aws.amazon.com/marketplace/latest/userguide/user-guide-for-sellers.html">Getting
+     *        started as a seller</a> and <a
+     *        href="https://docs.aws.amazon.com/marketplace/latest/userguide/ami-products.html">AMI-based products</a>
+     *        in the <i>Amazon Web Services Marketplace Seller Guide</i>.
      */
 
     public void setBillingProducts(java.util.Collection<String> billingProducts) {
@@ -664,8 +859,15 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
 
     /**
      * <p>
-     * The billing product codes. Your account must be authorized to specify billing product codes. Otherwise, you can
-     * use the AWS Marketplace to bill for the use of an AMI.
+     * The billing product codes. Your account must be authorized to specify billing product codes.
+     * </p>
+     * <p>
+     * If your account is not authorized to specify billing product codes, you can publish AMIs that include billable
+     * software and list them on the Amazon Web Services Marketplace. You must first register as a seller on the Amazon
+     * Web Services Marketplace. For more information, see <a
+     * href="https://docs.aws.amazon.com/marketplace/latest/userguide/user-guide-for-sellers.html">Getting started as a
+     * seller</a> and <a href="https://docs.aws.amazon.com/marketplace/latest/userguide/ami-products.html">AMI-based
+     * products</a> in the <i>Amazon Web Services Marketplace Seller Guide</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -674,8 +876,15 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
      * </p>
      * 
      * @param billingProducts
-     *        The billing product codes. Your account must be authorized to specify billing product codes. Otherwise,
-     *        you can use the AWS Marketplace to bill for the use of an AMI.
+     *        The billing product codes. Your account must be authorized to specify billing product codes.</p>
+     *        <p>
+     *        If your account is not authorized to specify billing product codes, you can publish AMIs that include
+     *        billable software and list them on the Amazon Web Services Marketplace. You must first register as a
+     *        seller on the Amazon Web Services Marketplace. For more information, see <a
+     *        href="https://docs.aws.amazon.com/marketplace/latest/userguide/user-guide-for-sellers.html">Getting
+     *        started as a seller</a> and <a
+     *        href="https://docs.aws.amazon.com/marketplace/latest/userguide/ami-products.html">AMI-based products</a>
+     *        in the <i>Amazon Web Services Marketplace Seller Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -691,13 +900,27 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
 
     /**
      * <p>
-     * The billing product codes. Your account must be authorized to specify billing product codes. Otherwise, you can
-     * use the AWS Marketplace to bill for the use of an AMI.
+     * The billing product codes. Your account must be authorized to specify billing product codes.
+     * </p>
+     * <p>
+     * If your account is not authorized to specify billing product codes, you can publish AMIs that include billable
+     * software and list them on the Amazon Web Services Marketplace. You must first register as a seller on the Amazon
+     * Web Services Marketplace. For more information, see <a
+     * href="https://docs.aws.amazon.com/marketplace/latest/userguide/user-guide-for-sellers.html">Getting started as a
+     * seller</a> and <a href="https://docs.aws.amazon.com/marketplace/latest/userguide/ami-products.html">AMI-based
+     * products</a> in the <i>Amazon Web Services Marketplace Seller Guide</i>.
      * </p>
      * 
      * @param billingProducts
-     *        The billing product codes. Your account must be authorized to specify billing product codes. Otherwise,
-     *        you can use the AWS Marketplace to bill for the use of an AMI.
+     *        The billing product codes. Your account must be authorized to specify billing product codes.</p>
+     *        <p>
+     *        If your account is not authorized to specify billing product codes, you can publish AMIs that include
+     *        billable software and list them on the Amazon Web Services Marketplace. You must first register as a
+     *        seller on the Amazon Web Services Marketplace. For more information, see <a
+     *        href="https://docs.aws.amazon.com/marketplace/latest/userguide/user-guide-for-sellers.html">Getting
+     *        started as a seller</a> and <a
+     *        href="https://docs.aws.amazon.com/marketplace/latest/userguide/ami-products.html">AMI-based products</a>
+     *        in the <i>Amazon Web Services Marketplace Seller Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -927,6 +1150,630 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     }
 
     /**
+     * <p>
+     * The boot mode of the AMI. A value of <code>uefi-preferred</code> indicates that the AMI supports both UEFI and
+     * Legacy BIOS.
+     * </p>
+     * <note>
+     * <p>
+     * The operating system contained in the AMI must be configured to support the specified boot mode.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     * modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param bootMode
+     *        The boot mode of the AMI. A value of <code>uefi-preferred</code> indicates that the AMI supports both UEFI
+     *        and Legacy BIOS.</p> <note>
+     *        <p>
+     *        The operating system contained in the AMI must be configured to support the specified boot mode.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     *        modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * @see BootModeValues
+     */
+
+    public void setBootMode(String bootMode) {
+        this.bootMode = bootMode;
+    }
+
+    /**
+     * <p>
+     * The boot mode of the AMI. A value of <code>uefi-preferred</code> indicates that the AMI supports both UEFI and
+     * Legacy BIOS.
+     * </p>
+     * <note>
+     * <p>
+     * The operating system contained in the AMI must be configured to support the specified boot mode.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     * modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return The boot mode of the AMI. A value of <code>uefi-preferred</code> indicates that the AMI supports both
+     *         UEFI and Legacy BIOS.</p> <note>
+     *         <p>
+     *         The operating system contained in the AMI must be configured to support the specified boot mode.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot modes</a> in the <i>Amazon
+     *         EC2 User Guide</i>.
+     * @see BootModeValues
+     */
+
+    public String getBootMode() {
+        return this.bootMode;
+    }
+
+    /**
+     * <p>
+     * The boot mode of the AMI. A value of <code>uefi-preferred</code> indicates that the AMI supports both UEFI and
+     * Legacy BIOS.
+     * </p>
+     * <note>
+     * <p>
+     * The operating system contained in the AMI must be configured to support the specified boot mode.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     * modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param bootMode
+     *        The boot mode of the AMI. A value of <code>uefi-preferred</code> indicates that the AMI supports both UEFI
+     *        and Legacy BIOS.</p> <note>
+     *        <p>
+     *        The operating system contained in the AMI must be configured to support the specified boot mode.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     *        modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see BootModeValues
+     */
+
+    public RegisterImageRequest withBootMode(String bootMode) {
+        setBootMode(bootMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The boot mode of the AMI. A value of <code>uefi-preferred</code> indicates that the AMI supports both UEFI and
+     * Legacy BIOS.
+     * </p>
+     * <note>
+     * <p>
+     * The operating system contained in the AMI must be configured to support the specified boot mode.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     * modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param bootMode
+     *        The boot mode of the AMI. A value of <code>uefi-preferred</code> indicates that the AMI supports both UEFI
+     *        and Legacy BIOS.</p> <note>
+     *        <p>
+     *        The operating system contained in the AMI must be configured to support the specified boot mode.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     *        modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * @see BootModeValues
+     */
+
+    public void setBootMode(BootModeValues bootMode) {
+        withBootMode(bootMode);
+    }
+
+    /**
+     * <p>
+     * The boot mode of the AMI. A value of <code>uefi-preferred</code> indicates that the AMI supports both UEFI and
+     * Legacy BIOS.
+     * </p>
+     * <note>
+     * <p>
+     * The operating system contained in the AMI must be configured to support the specified boot mode.
+     * </p>
+     * </note>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     * modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param bootMode
+     *        The boot mode of the AMI. A value of <code>uefi-preferred</code> indicates that the AMI supports both UEFI
+     *        and Legacy BIOS.</p> <note>
+     *        <p>
+     *        The operating system contained in the AMI must be configured to support the specified boot mode.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html">Boot
+     *        modes</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see BootModeValues
+     */
+
+    public RegisterImageRequest withBootMode(BootModeValues bootMode) {
+        this.bootMode = bootMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Set to <code>v2.0</code> to enable Trusted Platform Module (TPM) support. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param tpmSupport
+     *        Set to <code>v2.0</code> to enable Trusted Platform Module (TPM) support. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2
+     *        User Guide</i>.
+     * @see TpmSupportValues
+     */
+
+    public void setTpmSupport(String tpmSupport) {
+        this.tpmSupport = tpmSupport;
+    }
+
+    /**
+     * <p>
+     * Set to <code>v2.0</code> to enable Trusted Platform Module (TPM) support. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @return Set to <code>v2.0</code> to enable Trusted Platform Module (TPM) support. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon
+     *         EC2 User Guide</i>.
+     * @see TpmSupportValues
+     */
+
+    public String getTpmSupport() {
+        return this.tpmSupport;
+    }
+
+    /**
+     * <p>
+     * Set to <code>v2.0</code> to enable Trusted Platform Module (TPM) support. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param tpmSupport
+     *        Set to <code>v2.0</code> to enable Trusted Platform Module (TPM) support. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2
+     *        User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TpmSupportValues
+     */
+
+    public RegisterImageRequest withTpmSupport(String tpmSupport) {
+        setTpmSupport(tpmSupport);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Set to <code>v2.0</code> to enable Trusted Platform Module (TPM) support. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param tpmSupport
+     *        Set to <code>v2.0</code> to enable Trusted Platform Module (TPM) support. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2
+     *        User Guide</i>.
+     * @see TpmSupportValues
+     */
+
+    public void setTpmSupport(TpmSupportValues tpmSupport) {
+        withTpmSupport(tpmSupport);
+    }
+
+    /**
+     * <p>
+     * Set to <code>v2.0</code> to enable Trusted Platform Module (TPM) support. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2 User
+     * Guide</i>.
+     * </p>
+     * 
+     * @param tpmSupport
+     *        Set to <code>v2.0</code> to enable Trusted Platform Module (TPM) support. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/nitrotpm.html">NitroTPM</a> in the <i>Amazon EC2
+     *        User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TpmSupportValues
+     */
+
+    public RegisterImageRequest withTpmSupport(TpmSupportValues tpmSupport) {
+        this.tpmSupport = tpmSupport.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Base64 representation of the non-volatile UEFI variable store. To retrieve the UEFI data, use the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData">GetInstanceUefiData</a>
+     * command. You can inspect and modify the UEFI data by using the <a
+     * href="https://github.com/awslabs/python-uefivars">python-uefivars tool</a> on GitHub. For more information, see
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html">UEFI Secure Boot</a> in the
+     * <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param uefiData
+     *        Base64 representation of the non-volatile UEFI variable store. To retrieve the UEFI data, use the <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData"
+     *        >GetInstanceUefiData</a> command. You can inspect and modify the UEFI data by using the <a
+     *        href="https://github.com/awslabs/python-uefivars">python-uefivars tool</a> on GitHub. For more
+     *        information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html">UEFI
+     *        Secure Boot</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setUefiData(String uefiData) {
+        this.uefiData = uefiData;
+    }
+
+    /**
+     * <p>
+     * Base64 representation of the non-volatile UEFI variable store. To retrieve the UEFI data, use the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData">GetInstanceUefiData</a>
+     * command. You can inspect and modify the UEFI data by using the <a
+     * href="https://github.com/awslabs/python-uefivars">python-uefivars tool</a> on GitHub. For more information, see
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html">UEFI Secure Boot</a> in the
+     * <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return Base64 representation of the non-volatile UEFI variable store. To retrieve the UEFI data, use the <a
+     *         href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData">GetInstanceUefiData</a>
+     *         command. You can inspect and modify the UEFI data by using the <a
+     *         href="https://github.com/awslabs/python-uefivars">python-uefivars tool</a> on GitHub. For more
+     *         information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html">UEFI
+     *         Secure Boot</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public String getUefiData() {
+        return this.uefiData;
+    }
+
+    /**
+     * <p>
+     * Base64 representation of the non-volatile UEFI variable store. To retrieve the UEFI data, use the <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData">GetInstanceUefiData</a>
+     * command. You can inspect and modify the UEFI data by using the <a
+     * href="https://github.com/awslabs/python-uefivars">python-uefivars tool</a> on GitHub. For more information, see
+     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html">UEFI Secure Boot</a> in the
+     * <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param uefiData
+     *        Base64 representation of the non-volatile UEFI variable store. To retrieve the UEFI data, use the <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceUefiData"
+     *        >GetInstanceUefiData</a> command. You can inspect and modify the UEFI data by using the <a
+     *        href="https://github.com/awslabs/python-uefivars">python-uefivars tool</a> on GitHub. For more
+     *        information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/uefi-secure-boot.html">UEFI
+     *        Secure Boot</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RegisterImageRequest withUefiData(String uefiData) {
+        setUefiData(uefiData);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If you set the value to <code>v2.0</code>, make sure that your AMI software can support IMDSv2.
+     * </p>
+     * </note>
+     * 
+     * @param imdsSupport
+     *        Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI
+     *        will have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the
+     *        instance requires that IMDSv2 is used when requesting instance metadata. In addition,
+     *        <code>HttpPutResponseHopLimit</code> is set to <code>2</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     *        >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.</p> <note>
+     *        <p>
+     *        If you set the value to <code>v2.0</code>, make sure that your AMI software can support IMDSv2.
+     *        </p>
+     * @see ImdsSupportValues
+     */
+
+    public void setImdsSupport(String imdsSupport) {
+        this.imdsSupport = imdsSupport;
+    }
+
+    /**
+     * <p>
+     * Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If you set the value to <code>v2.0</code>, make sure that your AMI software can support IMDSv2.
+     * </p>
+     * </note>
+     * 
+     * @return Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this
+     *         AMI will have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the
+     *         instance requires that IMDSv2 is used when requesting instance metadata. In addition,
+     *         <code>HttpPutResponseHopLimit</code> is set to <code>2</code>. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     *         >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.</p> <note>
+     *         <p>
+     *         If you set the value to <code>v2.0</code>, make sure that your AMI software can support IMDSv2.
+     *         </p>
+     * @see ImdsSupportValues
+     */
+
+    public String getImdsSupport() {
+        return this.imdsSupport;
+    }
+
+    /**
+     * <p>
+     * Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If you set the value to <code>v2.0</code>, make sure that your AMI software can support IMDSv2.
+     * </p>
+     * </note>
+     * 
+     * @param imdsSupport
+     *        Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI
+     *        will have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the
+     *        instance requires that IMDSv2 is used when requesting instance metadata. In addition,
+     *        <code>HttpPutResponseHopLimit</code> is set to <code>2</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     *        >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.</p> <note>
+     *        <p>
+     *        If you set the value to <code>v2.0</code>, make sure that your AMI software can support IMDSv2.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ImdsSupportValues
+     */
+
+    public RegisterImageRequest withImdsSupport(String imdsSupport) {
+        setImdsSupport(imdsSupport);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If you set the value to <code>v2.0</code>, make sure that your AMI software can support IMDSv2.
+     * </p>
+     * </note>
+     * 
+     * @param imdsSupport
+     *        Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI
+     *        will have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the
+     *        instance requires that IMDSv2 is used when requesting instance metadata. In addition,
+     *        <code>HttpPutResponseHopLimit</code> is set to <code>2</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     *        >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.</p> <note>
+     *        <p>
+     *        If you set the value to <code>v2.0</code>, make sure that your AMI software can support IMDSv2.
+     *        </p>
+     * @see ImdsSupportValues
+     */
+
+    public void setImdsSupport(ImdsSupportValues imdsSupport) {
+        withImdsSupport(imdsSupport);
+    }
+
+    /**
+     * <p>
+     * Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI will
+     * have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the instance
+     * requires that IMDSv2 is used when requesting instance metadata. In addition, <code>HttpPutResponseHopLimit</code>
+     * is set to <code>2</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     * >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * If you set the value to <code>v2.0</code>, make sure that your AMI software can support IMDSv2.
+     * </p>
+     * </note>
+     * 
+     * @param imdsSupport
+     *        Set to <code>v2.0</code> to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI
+     *        will have <code>HttpTokens</code> automatically set to <code>required</code> so that, by default, the
+     *        instance requires that IMDSv2 is used when requesting instance metadata. In addition,
+     *        <code>HttpPutResponseHopLimit</code> is set to <code>2</code>. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration"
+     *        >Configure the AMI</a> in the <i>Amazon EC2 User Guide</i>.</p> <note>
+     *        <p>
+     *        If you set the value to <code>v2.0</code>, make sure that your AMI software can support IMDSv2.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ImdsSupportValues
+     */
+
+    public RegisterImageRequest withImdsSupport(ImdsSupportValues imdsSupport) {
+        this.imdsSupport = imdsSupport.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the AMI.
+     * </p>
+     * <p>
+     * To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>. If you specify another value
+     * for <code>ResourceType</code>, the request fails.
+     * </p>
+     * <p>
+     * To tag an AMI after it has been registered, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * </p>
+     * 
+     * @return The tags to apply to the AMI.</p>
+     *         <p>
+     *         To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>. If you specify
+     *         another value for <code>ResourceType</code>, the request fails.
+     *         </p>
+     *         <p>
+     *         To tag an AMI after it has been registered, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     */
+
+    public java.util.List<TagSpecification> getTagSpecifications() {
+        if (tagSpecifications == null) {
+            tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>();
+        }
+        return tagSpecifications;
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the AMI.
+     * </p>
+     * <p>
+     * To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>. If you specify another value
+     * for <code>ResourceType</code>, the request fails.
+     * </p>
+     * <p>
+     * To tag an AMI after it has been registered, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to apply to the AMI.</p>
+     *        <p>
+     *        To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>. If you specify another
+     *        value for <code>ResourceType</code>, the request fails.
+     *        </p>
+     *        <p>
+     *        To tag an AMI after it has been registered, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     */
+
+    public void setTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        if (tagSpecifications == null) {
+            this.tagSpecifications = null;
+            return;
+        }
+
+        this.tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications);
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the AMI.
+     * </p>
+     * <p>
+     * To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>. If you specify another value
+     * for <code>ResourceType</code>, the request fails.
+     * </p>
+     * <p>
+     * To tag an AMI after it has been registered, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTagSpecifications(java.util.Collection)} or {@link #withTagSpecifications(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to apply to the AMI.</p>
+     *        <p>
+     *        To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>. If you specify another
+     *        value for <code>ResourceType</code>, the request fails.
+     *        </p>
+     *        <p>
+     *        To tag an AMI after it has been registered, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RegisterImageRequest withTagSpecifications(TagSpecification... tagSpecifications) {
+        if (this.tagSpecifications == null) {
+            setTagSpecifications(new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications.length));
+        }
+        for (TagSpecification ele : tagSpecifications) {
+            this.tagSpecifications.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the AMI.
+     * </p>
+     * <p>
+     * To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>. If you specify another value
+     * for <code>ResourceType</code>, the request fails.
+     * </p>
+     * <p>
+     * To tag an AMI after it has been registered, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to apply to the AMI.</p>
+     *        <p>
+     *        To tag the AMI, the value for <code>ResourceType</code> must be <code>image</code>. If you specify another
+     *        value for <code>ResourceType</code>, the request fails.
+     *        </p>
+     *        <p>
+     *        To tag an AMI after it has been registered, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RegisterImageRequest withTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        setTagSpecifications(tagSpecifications);
+        return this;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -972,7 +1819,17 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
         if (getSriovNetSupport() != null)
             sb.append("SriovNetSupport: ").append(getSriovNetSupport()).append(",");
         if (getVirtualizationType() != null)
-            sb.append("VirtualizationType: ").append(getVirtualizationType());
+            sb.append("VirtualizationType: ").append(getVirtualizationType()).append(",");
+        if (getBootMode() != null)
+            sb.append("BootMode: ").append(getBootMode()).append(",");
+        if (getTpmSupport() != null)
+            sb.append("TpmSupport: ").append(getTpmSupport()).append(",");
+        if (getUefiData() != null)
+            sb.append("UefiData: ").append(getUefiData()).append(",");
+        if (getImdsSupport() != null)
+            sb.append("ImdsSupport: ").append(getImdsSupport()).append(",");
+        if (getTagSpecifications() != null)
+            sb.append("TagSpecifications: ").append(getTagSpecifications());
         sb.append("}");
         return sb.toString();
     }
@@ -1035,6 +1892,26 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
             return false;
         if (other.getVirtualizationType() != null && other.getVirtualizationType().equals(this.getVirtualizationType()) == false)
             return false;
+        if (other.getBootMode() == null ^ this.getBootMode() == null)
+            return false;
+        if (other.getBootMode() != null && other.getBootMode().equals(this.getBootMode()) == false)
+            return false;
+        if (other.getTpmSupport() == null ^ this.getTpmSupport() == null)
+            return false;
+        if (other.getTpmSupport() != null && other.getTpmSupport().equals(this.getTpmSupport()) == false)
+            return false;
+        if (other.getUefiData() == null ^ this.getUefiData() == null)
+            return false;
+        if (other.getUefiData() != null && other.getUefiData().equals(this.getUefiData()) == false)
+            return false;
+        if (other.getImdsSupport() == null ^ this.getImdsSupport() == null)
+            return false;
+        if (other.getImdsSupport() != null && other.getImdsSupport().equals(this.getImdsSupport()) == false)
+            return false;
+        if (other.getTagSpecifications() == null ^ this.getTagSpecifications() == null)
+            return false;
+        if (other.getTagSpecifications() != null && other.getTagSpecifications().equals(this.getTagSpecifications()) == false)
+            return false;
         return true;
     }
 
@@ -1055,6 +1932,11 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
         hashCode = prime * hashCode + ((getRootDeviceName() == null) ? 0 : getRootDeviceName().hashCode());
         hashCode = prime * hashCode + ((getSriovNetSupport() == null) ? 0 : getSriovNetSupport().hashCode());
         hashCode = prime * hashCode + ((getVirtualizationType() == null) ? 0 : getVirtualizationType().hashCode());
+        hashCode = prime * hashCode + ((getBootMode() == null) ? 0 : getBootMode().hashCode());
+        hashCode = prime * hashCode + ((getTpmSupport() == null) ? 0 : getTpmSupport().hashCode());
+        hashCode = prime * hashCode + ((getUefiData() == null) ? 0 : getUefiData().hashCode());
+        hashCode = prime * hashCode + ((getImdsSupport() == null) ? 0 : getImdsSupport().hashCode());
+        hashCode = prime * hashCode + ((getTagSpecifications() == null) ? 0 : getTagSpecifications().hashCode());
         return hashCode;
     }
 

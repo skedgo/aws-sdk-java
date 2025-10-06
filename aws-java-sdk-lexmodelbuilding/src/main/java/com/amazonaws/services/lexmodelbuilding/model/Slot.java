@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -66,11 +66,11 @@ public class Slot implements Serializable, Cloneable, StructuredPojo {
     private Prompt valueElicitationPrompt;
     /**
      * <p>
-     * Directs Lex the order in which to elicit this slot value from the user. For example, if the intent has two slots
-     * with priorities 1 and 2, AWS Lex first elicits a value for the slot with priority 1.
+     * Directs Amazon Lex the order in which to elicit this slot value from the user. For example, if the intent has two
+     * slots with priorities 1 and 2, AWS Amazon Lex first elicits a value for the slot with priority 1.
      * </p>
      * <p>
-     * If multiple slots share the same priority, the order in which Lex elicits values is arbitrary.
+     * If multiple slots share the same priority, the order in which Amazon Lex elicits values is arbitrary.
      * </p>
      */
     private Integer priority;
@@ -89,6 +89,22 @@ public class Slot implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String responseCard;
+    /**
+     * <p>
+     * Determines whether a slot is obfuscated in conversation logs and stored utterances. When you obfuscate a slot,
+     * the value is replaced by the slot name in curly braces ({}). For example, if the slot name is "full_name",
+     * obfuscated values are replaced with "{full_name}". For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot Obfuscation </a>.
+     * </p>
+     */
+    private String obfuscationSetting;
+    /**
+     * <p>
+     * A list of default values for the slot. Default values are used when Amazon Lex hasn't determined a value for a
+     * slot. You can specify default values from context variables, session attributes, and defined values.
+     * </p>
+     */
+    private SlotDefaultValueSpec defaultValueSpec;
 
     /**
      * <p>
@@ -365,18 +381,19 @@ public class Slot implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Directs Lex the order in which to elicit this slot value from the user. For example, if the intent has two slots
-     * with priorities 1 and 2, AWS Lex first elicits a value for the slot with priority 1.
+     * Directs Amazon Lex the order in which to elicit this slot value from the user. For example, if the intent has two
+     * slots with priorities 1 and 2, AWS Amazon Lex first elicits a value for the slot with priority 1.
      * </p>
      * <p>
-     * If multiple slots share the same priority, the order in which Lex elicits values is arbitrary.
+     * If multiple slots share the same priority, the order in which Amazon Lex elicits values is arbitrary.
      * </p>
      * 
      * @param priority
-     *        Directs Lex the order in which to elicit this slot value from the user. For example, if the intent has two
-     *        slots with priorities 1 and 2, AWS Lex first elicits a value for the slot with priority 1.</p>
+     *        Directs Amazon Lex the order in which to elicit this slot value from the user. For example, if the intent
+     *        has two slots with priorities 1 and 2, AWS Amazon Lex first elicits a value for the slot with priority
+     *        1.</p>
      *        <p>
-     *        If multiple slots share the same priority, the order in which Lex elicits values is arbitrary.
+     *        If multiple slots share the same priority, the order in which Amazon Lex elicits values is arbitrary.
      */
 
     public void setPriority(Integer priority) {
@@ -385,17 +402,18 @@ public class Slot implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Directs Lex the order in which to elicit this slot value from the user. For example, if the intent has two slots
-     * with priorities 1 and 2, AWS Lex first elicits a value for the slot with priority 1.
+     * Directs Amazon Lex the order in which to elicit this slot value from the user. For example, if the intent has two
+     * slots with priorities 1 and 2, AWS Amazon Lex first elicits a value for the slot with priority 1.
      * </p>
      * <p>
-     * If multiple slots share the same priority, the order in which Lex elicits values is arbitrary.
+     * If multiple slots share the same priority, the order in which Amazon Lex elicits values is arbitrary.
      * </p>
      * 
-     * @return Directs Lex the order in which to elicit this slot value from the user. For example, if the intent has
-     *         two slots with priorities 1 and 2, AWS Lex first elicits a value for the slot with priority 1.</p>
+     * @return Directs Amazon Lex the order in which to elicit this slot value from the user. For example, if the intent
+     *         has two slots with priorities 1 and 2, AWS Amazon Lex first elicits a value for the slot with priority
+     *         1.</p>
      *         <p>
-     *         If multiple slots share the same priority, the order in which Lex elicits values is arbitrary.
+     *         If multiple slots share the same priority, the order in which Amazon Lex elicits values is arbitrary.
      */
 
     public Integer getPriority() {
@@ -404,18 +422,19 @@ public class Slot implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Directs Lex the order in which to elicit this slot value from the user. For example, if the intent has two slots
-     * with priorities 1 and 2, AWS Lex first elicits a value for the slot with priority 1.
+     * Directs Amazon Lex the order in which to elicit this slot value from the user. For example, if the intent has two
+     * slots with priorities 1 and 2, AWS Amazon Lex first elicits a value for the slot with priority 1.
      * </p>
      * <p>
-     * If multiple slots share the same priority, the order in which Lex elicits values is arbitrary.
+     * If multiple slots share the same priority, the order in which Amazon Lex elicits values is arbitrary.
      * </p>
      * 
      * @param priority
-     *        Directs Lex the order in which to elicit this slot value from the user. For example, if the intent has two
-     *        slots with priorities 1 and 2, AWS Lex first elicits a value for the slot with priority 1.</p>
+     *        Directs Amazon Lex the order in which to elicit this slot value from the user. For example, if the intent
+     *        has two slots with priorities 1 and 2, AWS Amazon Lex first elicits a value for the slot with priority
+     *        1.</p>
      *        <p>
-     *        If multiple slots share the same priority, the order in which Lex elicits values is arbitrary.
+     *        If multiple slots share the same priority, the order in which Amazon Lex elicits values is arbitrary.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -557,6 +576,156 @@ public class Slot implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * Determines whether a slot is obfuscated in conversation logs and stored utterances. When you obfuscate a slot,
+     * the value is replaced by the slot name in curly braces ({}). For example, if the slot name is "full_name",
+     * obfuscated values are replaced with "{full_name}". For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot Obfuscation </a>.
+     * </p>
+     * 
+     * @param obfuscationSetting
+     *        Determines whether a slot is obfuscated in conversation logs and stored utterances. When you obfuscate a
+     *        slot, the value is replaced by the slot name in curly braces ({}). For example, if the slot name is
+     *        "full_name", obfuscated values are replaced with "{full_name}". For more information, see <a
+     *        href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot Obfuscation </a>.
+     * @see ObfuscationSetting
+     */
+
+    public void setObfuscationSetting(String obfuscationSetting) {
+        this.obfuscationSetting = obfuscationSetting;
+    }
+
+    /**
+     * <p>
+     * Determines whether a slot is obfuscated in conversation logs and stored utterances. When you obfuscate a slot,
+     * the value is replaced by the slot name in curly braces ({}). For example, if the slot name is "full_name",
+     * obfuscated values are replaced with "{full_name}". For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot Obfuscation </a>.
+     * </p>
+     * 
+     * @return Determines whether a slot is obfuscated in conversation logs and stored utterances. When you obfuscate a
+     *         slot, the value is replaced by the slot name in curly braces ({}). For example, if the slot name is
+     *         "full_name", obfuscated values are replaced with "{full_name}". For more information, see <a
+     *         href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot Obfuscation </a>.
+     * @see ObfuscationSetting
+     */
+
+    public String getObfuscationSetting() {
+        return this.obfuscationSetting;
+    }
+
+    /**
+     * <p>
+     * Determines whether a slot is obfuscated in conversation logs and stored utterances. When you obfuscate a slot,
+     * the value is replaced by the slot name in curly braces ({}). For example, if the slot name is "full_name",
+     * obfuscated values are replaced with "{full_name}". For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot Obfuscation </a>.
+     * </p>
+     * 
+     * @param obfuscationSetting
+     *        Determines whether a slot is obfuscated in conversation logs and stored utterances. When you obfuscate a
+     *        slot, the value is replaced by the slot name in curly braces ({}). For example, if the slot name is
+     *        "full_name", obfuscated values are replaced with "{full_name}". For more information, see <a
+     *        href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot Obfuscation </a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ObfuscationSetting
+     */
+
+    public Slot withObfuscationSetting(String obfuscationSetting) {
+        setObfuscationSetting(obfuscationSetting);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Determines whether a slot is obfuscated in conversation logs and stored utterances. When you obfuscate a slot,
+     * the value is replaced by the slot name in curly braces ({}). For example, if the slot name is "full_name",
+     * obfuscated values are replaced with "{full_name}". For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot Obfuscation </a>.
+     * </p>
+     * 
+     * @param obfuscationSetting
+     *        Determines whether a slot is obfuscated in conversation logs and stored utterances. When you obfuscate a
+     *        slot, the value is replaced by the slot name in curly braces ({}). For example, if the slot name is
+     *        "full_name", obfuscated values are replaced with "{full_name}". For more information, see <a
+     *        href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot Obfuscation </a>.
+     * @see ObfuscationSetting
+     */
+
+    public void setObfuscationSetting(ObfuscationSetting obfuscationSetting) {
+        withObfuscationSetting(obfuscationSetting);
+    }
+
+    /**
+     * <p>
+     * Determines whether a slot is obfuscated in conversation logs and stored utterances. When you obfuscate a slot,
+     * the value is replaced by the slot name in curly braces ({}). For example, if the slot name is "full_name",
+     * obfuscated values are replaced with "{full_name}". For more information, see <a
+     * href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot Obfuscation </a>.
+     * </p>
+     * 
+     * @param obfuscationSetting
+     *        Determines whether a slot is obfuscated in conversation logs and stored utterances. When you obfuscate a
+     *        slot, the value is replaced by the slot name in curly braces ({}). For example, if the slot name is
+     *        "full_name", obfuscated values are replaced with "{full_name}". For more information, see <a
+     *        href="https://docs.aws.amazon.com/lex/latest/dg/how-obfuscate.html"> Slot Obfuscation </a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ObfuscationSetting
+     */
+
+    public Slot withObfuscationSetting(ObfuscationSetting obfuscationSetting) {
+        this.obfuscationSetting = obfuscationSetting.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of default values for the slot. Default values are used when Amazon Lex hasn't determined a value for a
+     * slot. You can specify default values from context variables, session attributes, and defined values.
+     * </p>
+     * 
+     * @param defaultValueSpec
+     *        A list of default values for the slot. Default values are used when Amazon Lex hasn't determined a value
+     *        for a slot. You can specify default values from context variables, session attributes, and defined values.
+     */
+
+    public void setDefaultValueSpec(SlotDefaultValueSpec defaultValueSpec) {
+        this.defaultValueSpec = defaultValueSpec;
+    }
+
+    /**
+     * <p>
+     * A list of default values for the slot. Default values are used when Amazon Lex hasn't determined a value for a
+     * slot. You can specify default values from context variables, session attributes, and defined values.
+     * </p>
+     * 
+     * @return A list of default values for the slot. Default values are used when Amazon Lex hasn't determined a value
+     *         for a slot. You can specify default values from context variables, session attributes, and defined
+     *         values.
+     */
+
+    public SlotDefaultValueSpec getDefaultValueSpec() {
+        return this.defaultValueSpec;
+    }
+
+    /**
+     * <p>
+     * A list of default values for the slot. Default values are used when Amazon Lex hasn't determined a value for a
+     * slot. You can specify default values from context variables, session attributes, and defined values.
+     * </p>
+     * 
+     * @param defaultValueSpec
+     *        A list of default values for the slot. Default values are used when Amazon Lex hasn't determined a value
+     *        for a slot. You can specify default values from context variables, session attributes, and defined values.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Slot withDefaultValueSpec(SlotDefaultValueSpec defaultValueSpec) {
+        setDefaultValueSpec(defaultValueSpec);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -585,7 +754,11 @@ public class Slot implements Serializable, Cloneable, StructuredPojo {
         if (getSampleUtterances() != null)
             sb.append("SampleUtterances: ").append(getSampleUtterances()).append(",");
         if (getResponseCard() != null)
-            sb.append("ResponseCard: ").append(getResponseCard());
+            sb.append("ResponseCard: ").append(getResponseCard()).append(",");
+        if (getObfuscationSetting() != null)
+            sb.append("ObfuscationSetting: ").append(getObfuscationSetting()).append(",");
+        if (getDefaultValueSpec() != null)
+            sb.append("DefaultValueSpec: ").append(getDefaultValueSpec());
         sb.append("}");
         return sb.toString();
     }
@@ -636,6 +809,14 @@ public class Slot implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getResponseCard() != null && other.getResponseCard().equals(this.getResponseCard()) == false)
             return false;
+        if (other.getObfuscationSetting() == null ^ this.getObfuscationSetting() == null)
+            return false;
+        if (other.getObfuscationSetting() != null && other.getObfuscationSetting().equals(this.getObfuscationSetting()) == false)
+            return false;
+        if (other.getDefaultValueSpec() == null ^ this.getDefaultValueSpec() == null)
+            return false;
+        if (other.getDefaultValueSpec() != null && other.getDefaultValueSpec().equals(this.getDefaultValueSpec()) == false)
+            return false;
         return true;
     }
 
@@ -653,6 +834,8 @@ public class Slot implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getPriority() == null) ? 0 : getPriority().hashCode());
         hashCode = prime * hashCode + ((getSampleUtterances() == null) ? 0 : getSampleUtterances().hashCode());
         hashCode = prime * hashCode + ((getResponseCard() == null) ? 0 : getResponseCard().hashCode());
+        hashCode = prime * hashCode + ((getObfuscationSetting() == null) ? 0 : getObfuscationSetting().hashCode());
+        hashCode = prime * hashCode + ((getDefaultValueSpec() == null) ? 0 : getDefaultValueSpec().hashCode());
         return hashCode;
     }
 

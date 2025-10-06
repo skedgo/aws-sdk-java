@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,32 +27,39 @@ public class ListBuildsForProjectRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The name of the AWS CodeBuild project.
+     * The name of the CodeBuild project.
      * </p>
      */
     private String projectName;
     /**
      * <p>
-     * The order to list build IDs. Valid values include:
+     * The order to sort the results in. The results are sorted by build number, not the build identifier. If this is
+     * not specified, the results are sorted in descending order.
+     * </p>
+     * <p>
+     * Valid values include:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>ASCENDING</code>: List the build IDs in ascending order by build ID.
+     * <code>ASCENDING</code>: List the build identifiers in ascending order, by build number.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DESCENDING</code>: List the build IDs in descending order by build ID.
+     * <code>DESCENDING</code>: List the build identifiers in descending order, by build number.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the project has more than 100 builds, setting the sort order will result in an error.
+     * </p>
      */
     private String sortOrder;
     /**
      * <p>
      * During a previous call, if there are more than 100 items in the list, only the first 100 items are returned,
-     * along with a unique string called a <i>next token</i>. To get the next batch of items in the list, call this
+     * along with a unique string called a <i>nextToken</i>. To get the next batch of items in the list, call this
      * operation again, adding the next token to the call. To get all of the items in the list, keep calling this
      * operation with each subsequent next token that is returned, until no more next tokens are returned.
      * </p>
@@ -61,11 +68,11 @@ public class ListBuildsForProjectRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The name of the AWS CodeBuild project.
+     * The name of the CodeBuild project.
      * </p>
      * 
      * @param projectName
-     *        The name of the AWS CodeBuild project.
+     *        The name of the CodeBuild project.
      */
 
     public void setProjectName(String projectName) {
@@ -74,10 +81,10 @@ public class ListBuildsForProjectRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The name of the AWS CodeBuild project.
+     * The name of the CodeBuild project.
      * </p>
      * 
-     * @return The name of the AWS CodeBuild project.
+     * @return The name of the CodeBuild project.
      */
 
     public String getProjectName() {
@@ -86,11 +93,11 @@ public class ListBuildsForProjectRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The name of the AWS CodeBuild project.
+     * The name of the CodeBuild project.
      * </p>
      * 
      * @param projectName
-     *        The name of the AWS CodeBuild project.
+     *        The name of the CodeBuild project.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -101,34 +108,48 @@ public class ListBuildsForProjectRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The order to list build IDs. Valid values include:
+     * The order to sort the results in. The results are sorted by build number, not the build identifier. If this is
+     * not specified, the results are sorted in descending order.
+     * </p>
+     * <p>
+     * Valid values include:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>ASCENDING</code>: List the build IDs in ascending order by build ID.
+     * <code>ASCENDING</code>: List the build identifiers in ascending order, by build number.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DESCENDING</code>: List the build IDs in descending order by build ID.
+     * <code>DESCENDING</code>: List the build identifiers in descending order, by build number.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the project has more than 100 builds, setting the sort order will result in an error.
+     * </p>
      * 
      * @param sortOrder
-     *        The order to list build IDs. Valid values include:</p>
+     *        The order to sort the results in. The results are sorted by build number, not the build identifier. If
+     *        this is not specified, the results are sorted in descending order.</p>
+     *        <p>
+     *        Valid values include:
+     *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>ASCENDING</code>: List the build IDs in ascending order by build ID.
+     *        <code>ASCENDING</code>: List the build identifiers in ascending order, by build number.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DESCENDING</code>: List the build IDs in descending order by build ID.
+     *        <code>DESCENDING</code>: List the build identifiers in descending order, by build number.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        If the project has more than 100 builds, setting the sort order will result in an error.
      * @see SortOrderType
      */
 
@@ -138,33 +159,47 @@ public class ListBuildsForProjectRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The order to list build IDs. Valid values include:
+     * The order to sort the results in. The results are sorted by build number, not the build identifier. If this is
+     * not specified, the results are sorted in descending order.
+     * </p>
+     * <p>
+     * Valid values include:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>ASCENDING</code>: List the build IDs in ascending order by build ID.
+     * <code>ASCENDING</code>: List the build identifiers in ascending order, by build number.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DESCENDING</code>: List the build IDs in descending order by build ID.
+     * <code>DESCENDING</code>: List the build identifiers in descending order, by build number.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the project has more than 100 builds, setting the sort order will result in an error.
+     * </p>
      * 
-     * @return The order to list build IDs. Valid values include:</p>
+     * @return The order to sort the results in. The results are sorted by build number, not the build identifier. If
+     *         this is not specified, the results are sorted in descending order.</p>
+     *         <p>
+     *         Valid values include:
+     *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>ASCENDING</code>: List the build IDs in ascending order by build ID.
+     *         <code>ASCENDING</code>: List the build identifiers in ascending order, by build number.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>DESCENDING</code>: List the build IDs in descending order by build ID.
+     *         <code>DESCENDING</code>: List the build identifiers in descending order, by build number.
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         If the project has more than 100 builds, setting the sort order will result in an error.
      * @see SortOrderType
      */
 
@@ -174,34 +209,48 @@ public class ListBuildsForProjectRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The order to list build IDs. Valid values include:
+     * The order to sort the results in. The results are sorted by build number, not the build identifier. If this is
+     * not specified, the results are sorted in descending order.
+     * </p>
+     * <p>
+     * Valid values include:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>ASCENDING</code>: List the build IDs in ascending order by build ID.
+     * <code>ASCENDING</code>: List the build identifiers in ascending order, by build number.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DESCENDING</code>: List the build IDs in descending order by build ID.
+     * <code>DESCENDING</code>: List the build identifiers in descending order, by build number.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the project has more than 100 builds, setting the sort order will result in an error.
+     * </p>
      * 
      * @param sortOrder
-     *        The order to list build IDs. Valid values include:</p>
+     *        The order to sort the results in. The results are sorted by build number, not the build identifier. If
+     *        this is not specified, the results are sorted in descending order.</p>
+     *        <p>
+     *        Valid values include:
+     *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>ASCENDING</code>: List the build IDs in ascending order by build ID.
+     *        <code>ASCENDING</code>: List the build identifiers in ascending order, by build number.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DESCENDING</code>: List the build IDs in descending order by build ID.
+     *        <code>DESCENDING</code>: List the build identifiers in descending order, by build number.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        If the project has more than 100 builds, setting the sort order will result in an error.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SortOrderType
      */
@@ -213,34 +262,48 @@ public class ListBuildsForProjectRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The order to list build IDs. Valid values include:
+     * The order to sort the results in. The results are sorted by build number, not the build identifier. If this is
+     * not specified, the results are sorted in descending order.
+     * </p>
+     * <p>
+     * Valid values include:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>ASCENDING</code>: List the build IDs in ascending order by build ID.
+     * <code>ASCENDING</code>: List the build identifiers in ascending order, by build number.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DESCENDING</code>: List the build IDs in descending order by build ID.
+     * <code>DESCENDING</code>: List the build identifiers in descending order, by build number.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the project has more than 100 builds, setting the sort order will result in an error.
+     * </p>
      * 
      * @param sortOrder
-     *        The order to list build IDs. Valid values include:</p>
+     *        The order to sort the results in. The results are sorted by build number, not the build identifier. If
+     *        this is not specified, the results are sorted in descending order.</p>
+     *        <p>
+     *        Valid values include:
+     *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>ASCENDING</code>: List the build IDs in ascending order by build ID.
+     *        <code>ASCENDING</code>: List the build identifiers in ascending order, by build number.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DESCENDING</code>: List the build IDs in descending order by build ID.
+     *        <code>DESCENDING</code>: List the build identifiers in descending order, by build number.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        If the project has more than 100 builds, setting the sort order will result in an error.
      * @see SortOrderType
      */
 
@@ -250,34 +313,48 @@ public class ListBuildsForProjectRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The order to list build IDs. Valid values include:
+     * The order to sort the results in. The results are sorted by build number, not the build identifier. If this is
+     * not specified, the results are sorted in descending order.
+     * </p>
+     * <p>
+     * Valid values include:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>ASCENDING</code>: List the build IDs in ascending order by build ID.
+     * <code>ASCENDING</code>: List the build identifiers in ascending order, by build number.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DESCENDING</code>: List the build IDs in descending order by build ID.
+     * <code>DESCENDING</code>: List the build identifiers in descending order, by build number.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the project has more than 100 builds, setting the sort order will result in an error.
+     * </p>
      * 
      * @param sortOrder
-     *        The order to list build IDs. Valid values include:</p>
+     *        The order to sort the results in. The results are sorted by build number, not the build identifier. If
+     *        this is not specified, the results are sorted in descending order.</p>
+     *        <p>
+     *        Valid values include:
+     *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>ASCENDING</code>: List the build IDs in ascending order by build ID.
+     *        <code>ASCENDING</code>: List the build identifiers in ascending order, by build number.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DESCENDING</code>: List the build IDs in descending order by build ID.
+     *        <code>DESCENDING</code>: List the build identifiers in descending order, by build number.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        If the project has more than 100 builds, setting the sort order will result in an error.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see SortOrderType
      */
@@ -290,14 +367,14 @@ public class ListBuildsForProjectRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * During a previous call, if there are more than 100 items in the list, only the first 100 items are returned,
-     * along with a unique string called a <i>next token</i>. To get the next batch of items in the list, call this
+     * along with a unique string called a <i>nextToken</i>. To get the next batch of items in the list, call this
      * operation again, adding the next token to the call. To get all of the items in the list, keep calling this
      * operation with each subsequent next token that is returned, until no more next tokens are returned.
      * </p>
      * 
      * @param nextToken
      *        During a previous call, if there are more than 100 items in the list, only the first 100 items are
-     *        returned, along with a unique string called a <i>next token</i>. To get the next batch of items in the
+     *        returned, along with a unique string called a <i>nextToken</i>. To get the next batch of items in the
      *        list, call this operation again, adding the next token to the call. To get all of the items in the list,
      *        keep calling this operation with each subsequent next token that is returned, until no more next tokens
      *        are returned.
@@ -310,13 +387,13 @@ public class ListBuildsForProjectRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * During a previous call, if there are more than 100 items in the list, only the first 100 items are returned,
-     * along with a unique string called a <i>next token</i>. To get the next batch of items in the list, call this
+     * along with a unique string called a <i>nextToken</i>. To get the next batch of items in the list, call this
      * operation again, adding the next token to the call. To get all of the items in the list, keep calling this
      * operation with each subsequent next token that is returned, until no more next tokens are returned.
      * </p>
      * 
      * @return During a previous call, if there are more than 100 items in the list, only the first 100 items are
-     *         returned, along with a unique string called a <i>next token</i>. To get the next batch of items in the
+     *         returned, along with a unique string called a <i>nextToken</i>. To get the next batch of items in the
      *         list, call this operation again, adding the next token to the call. To get all of the items in the list,
      *         keep calling this operation with each subsequent next token that is returned, until no more next tokens
      *         are returned.
@@ -329,14 +406,14 @@ public class ListBuildsForProjectRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * During a previous call, if there are more than 100 items in the list, only the first 100 items are returned,
-     * along with a unique string called a <i>next token</i>. To get the next batch of items in the list, call this
+     * along with a unique string called a <i>nextToken</i>. To get the next batch of items in the list, call this
      * operation again, adding the next token to the call. To get all of the items in the list, keep calling this
      * operation with each subsequent next token that is returned, until no more next tokens are returned.
      * </p>
      * 
      * @param nextToken
      *        During a previous call, if there are more than 100 items in the list, only the first 100 items are
-     *        returned, along with a unique string called a <i>next token</i>. To get the next batch of items in the
+     *        returned, along with a unique string called a <i>nextToken</i>. To get the next batch of items in the
      *        list, call this operation again, adding the next token to the call. To get all of the items in the list,
      *        keep calling this operation with each subsequent next token that is returned, until no more next tokens
      *        are returned.

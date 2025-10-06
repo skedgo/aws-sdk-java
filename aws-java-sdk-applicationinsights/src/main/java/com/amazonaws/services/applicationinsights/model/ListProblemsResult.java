@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,6 +36,18 @@ public class ListProblemsResult extends com.amazonaws.AmazonWebServiceResult<com
      * </p>
      */
     private String nextToken;
+    /**
+     * <p>
+     * The name of the resource group.
+     * </p>
+     */
+    private String resourceGroupName;
+    /**
+     * <p>
+     * The AWS account ID for the resource group owner.
+     * </p>
+     */
+    private String accountId;
 
     /**
      * <p>
@@ -154,6 +166,86 @@ public class ListProblemsResult extends com.amazonaws.AmazonWebServiceResult<com
     }
 
     /**
+     * <p>
+     * The name of the resource group.
+     * </p>
+     * 
+     * @param resourceGroupName
+     *        The name of the resource group.
+     */
+
+    public void setResourceGroupName(String resourceGroupName) {
+        this.resourceGroupName = resourceGroupName;
+    }
+
+    /**
+     * <p>
+     * The name of the resource group.
+     * </p>
+     * 
+     * @return The name of the resource group.
+     */
+
+    public String getResourceGroupName() {
+        return this.resourceGroupName;
+    }
+
+    /**
+     * <p>
+     * The name of the resource group.
+     * </p>
+     * 
+     * @param resourceGroupName
+     *        The name of the resource group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListProblemsResult withResourceGroupName(String resourceGroupName) {
+        setResourceGroupName(resourceGroupName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The AWS account ID for the resource group owner.
+     * </p>
+     * 
+     * @param accountId
+     *        The AWS account ID for the resource group owner.
+     */
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    /**
+     * <p>
+     * The AWS account ID for the resource group owner.
+     * </p>
+     * 
+     * @return The AWS account ID for the resource group owner.
+     */
+
+    public String getAccountId() {
+        return this.accountId;
+    }
+
+    /**
+     * <p>
+     * The AWS account ID for the resource group owner.
+     * </p>
+     * 
+     * @param accountId
+     *        The AWS account ID for the resource group owner.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListProblemsResult withAccountId(String accountId) {
+        setAccountId(accountId);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -168,7 +260,11 @@ public class ListProblemsResult extends com.amazonaws.AmazonWebServiceResult<com
         if (getProblemList() != null)
             sb.append("ProblemList: ").append(getProblemList()).append(",");
         if (getNextToken() != null)
-            sb.append("NextToken: ").append(getNextToken());
+            sb.append("NextToken: ").append(getNextToken()).append(",");
+        if (getResourceGroupName() != null)
+            sb.append("ResourceGroupName: ").append(getResourceGroupName()).append(",");
+        if (getAccountId() != null)
+            sb.append("AccountId: ").append(getAccountId());
         sb.append("}");
         return sb.toString();
     }
@@ -191,6 +287,14 @@ public class ListProblemsResult extends com.amazonaws.AmazonWebServiceResult<com
             return false;
         if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
             return false;
+        if (other.getResourceGroupName() == null ^ this.getResourceGroupName() == null)
+            return false;
+        if (other.getResourceGroupName() != null && other.getResourceGroupName().equals(this.getResourceGroupName()) == false)
+            return false;
+        if (other.getAccountId() == null ^ this.getAccountId() == null)
+            return false;
+        if (other.getAccountId() != null && other.getAccountId().equals(this.getAccountId()) == false)
+            return false;
         return true;
     }
 
@@ -201,6 +305,8 @@ public class ListProblemsResult extends com.amazonaws.AmazonWebServiceResult<com
 
         hashCode = prime * hashCode + ((getProblemList() == null) ? 0 : getProblemList().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
+        hashCode = prime * hashCode + ((getResourceGroupName() == null) ? 0 : getResourceGroupName().hashCode());
+        hashCode = prime * hashCode + ((getAccountId() == null) ? 0 : getAccountId().hashCode());
         return hashCode;
     }
 

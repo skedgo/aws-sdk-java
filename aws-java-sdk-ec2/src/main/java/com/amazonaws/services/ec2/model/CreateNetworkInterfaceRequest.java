@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,9 +20,7 @@ import com.amazonaws.Request;
 import com.amazonaws.services.ec2.model.transform.CreateNetworkInterfaceRequestMarshaller;
 
 /**
- * <p>
- * Contains the parameters for CreateNetworkInterface.
- * </p>
+ * 
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest implements Serializable, Cloneable,
@@ -43,16 +41,25 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
     /**
      * <p>
      * The number of IPv6 addresses to assign to a network interface. Amazon EC2 automatically selects the IPv6
-     * addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses. If your subnet
-     * has the <code>AssignIpv6AddressOnCreation</code> attribute set to <code>true</code>, you can specify
-     * <code>0</code> to override this setting.
+     * addresses from the subnet range.
+     * </p>
+     * <p>
+     * You can't specify a count of IPv6 addresses using this parameter if you've specified one of the following:
+     * specific IPv6 addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
+     * </p>
+     * <p>
+     * If your subnet has the <code>AssignIpv6AddressOnCreation</code> attribute set, you can override that setting by
+     * specifying 0 as the IPv6 address count.
      * </p>
      */
     private Integer ipv6AddressCount;
     /**
      * <p>
-     * One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet. You can't use this option if
-     * you're specifying a number of IPv6 addresses.
+     * The IPv6 addresses from the IPv6 CIDR block range of your subnet.
+     * </p>
+     * <p>
+     * You can't specify IPv6 addresses using this parameter if you've specified one of the following: a count of IPv6
+     * addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<InstanceIpv6Address> ipv6Addresses;
@@ -67,7 +74,11 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
     private String privateIpAddress;
     /**
      * <p>
-     * One or more private IPv4 addresses.
+     * The private IPv4 addresses.
+     * </p>
+     * <p>
+     * You can't specify private IPv4 addresses if you've specified one of the following: a count of private IPv4
+     * addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<PrivateIpAddressSpecification> privateIpAddresses;
@@ -78,17 +89,57 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
      * specify this option and specify more than one private IP address using <code>privateIpAddresses</code>.
      * </p>
      * <p>
-     * The number of IP addresses you can assign to a network interface varies by instance type. For more information,
-     * see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#AvailableIpPerENI">IP Addresses
-     * Per ENI Per Instance Type</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.
+     * You can't specify a count of private IPv4 addresses if you've specified one of the following: specific private
+     * IPv4 addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.
      * </p>
      */
     private Integer secondaryPrivateIpAddressCount;
     /**
      * <p>
-     * Indicates the type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For
-     * more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html"> Elastic Fabric
-     * Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * The IPv4 prefixes assigned to the network interface.
+     * </p>
+     * <p>
+     * You can't specify IPv4 prefixes if you've specified one of the following: a count of IPv4 prefixes, specific
+     * private IPv4 addresses, or a count of private IPv4 addresses.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest> ipv4Prefixes;
+    /**
+     * <p>
+     * The number of IPv4 prefixes that Amazon Web Services automatically assigns to the network interface.
+     * </p>
+     * <p>
+     * You can't specify a count of IPv4 prefixes if you've specified one of the following: specific IPv4 prefixes,
+     * specific private IPv4 addresses, or a count of private IPv4 addresses.
+     * </p>
+     */
+    private Integer ipv4PrefixCount;
+    /**
+     * <p>
+     * The IPv6 prefixes assigned to the network interface.
+     * </p>
+     * <p>
+     * You can't specify IPv6 prefixes if you've specified one of the following: a count of IPv6 prefixes, specific IPv6
+     * addresses, or a count of IPv6 addresses.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest> ipv6Prefixes;
+    /**
+     * <p>
+     * The number of IPv6 prefixes that Amazon Web Services automatically assigns to the network interface.
+     * </p>
+     * <p>
+     * You can't specify a count of IPv6 prefixes if you've specified one of the following: specific IPv6 prefixes,
+     * specific IPv6 addresses, or a count of IPv6 addresses.
+     * </p>
+     */
+    private Integer ipv6PrefixCount;
+    /**
+     * <p>
+     * The type of network interface. The default is <code>interface</code>.
+     * </p>
+     * <p>
+     * The only supported values are <code>interface</code>, <code>efa</code>, and <code>trunk</code>.
      * </p>
      */
     private String interfaceType;
@@ -98,6 +149,40 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
      * </p>
      */
     private String subnetId;
+    /**
+     * <p>
+     * The tags to apply to the new network interface.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<TagSpecification> tagSpecifications;
+    /**
+     * <p>
+     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
+     * </p>
+     */
+    private String clientToken;
+    /**
+     * <p>
+     * If you’re creating a network interface in a dual-stack or IPv6-only subnet, you have the option to assign a
+     * primary IPv6 IP address. A primary IPv6 address is an IPv6 GUA address associated with an ENI that you have
+     * enabled to use a primary IPv6 address. Use this option if the instance that this ENI will be attached to relies
+     * on its IPv6 address not changing. Amazon Web Services will automatically assign an IPv6 address associated with
+     * the ENI attached to your instance to be the primary IPv6 address. Once you enable an IPv6 GUA address to be a
+     * primary IPv6, you cannot disable it. When you enable an IPv6 GUA address to be a primary IPv6, the first IPv6 GUA
+     * will be made the primary IPv6 address until the instance is terminated or the network interface is detached. If
+     * you have multiple IPv6 addresses associated with an ENI attached to your instance and you enable a primary IPv6
+     * address, the first IPv6 GUA address associated with the ENI becomes the primary IPv6 address.
+     * </p>
+     */
+    private Boolean enablePrimaryIpv6;
+    /**
+     * <p>
+     * A connection tracking specification for the network interface.
+     * </p>
+     */
+    private ConnectionTrackingSpecificationRequest connectionTrackingSpecification;
 
     /**
      * <p>
@@ -215,16 +300,27 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
     /**
      * <p>
      * The number of IPv6 addresses to assign to a network interface. Amazon EC2 automatically selects the IPv6
-     * addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses. If your subnet
-     * has the <code>AssignIpv6AddressOnCreation</code> attribute set to <code>true</code>, you can specify
-     * <code>0</code> to override this setting.
+     * addresses from the subnet range.
+     * </p>
+     * <p>
+     * You can't specify a count of IPv6 addresses using this parameter if you've specified one of the following:
+     * specific IPv6 addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
+     * </p>
+     * <p>
+     * If your subnet has the <code>AssignIpv6AddressOnCreation</code> attribute set, you can override that setting by
+     * specifying 0 as the IPv6 address count.
      * </p>
      * 
      * @param ipv6AddressCount
      *        The number of IPv6 addresses to assign to a network interface. Amazon EC2 automatically selects the IPv6
-     *        addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses. If your
-     *        subnet has the <code>AssignIpv6AddressOnCreation</code> attribute set to <code>true</code>, you can
-     *        specify <code>0</code> to override this setting.
+     *        addresses from the subnet range.</p>
+     *        <p>
+     *        You can't specify a count of IPv6 addresses using this parameter if you've specified one of the following:
+     *        specific IPv6 addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
+     *        </p>
+     *        <p>
+     *        If your subnet has the <code>AssignIpv6AddressOnCreation</code> attribute set, you can override that
+     *        setting by specifying 0 as the IPv6 address count.
      */
 
     public void setIpv6AddressCount(Integer ipv6AddressCount) {
@@ -234,15 +330,26 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
     /**
      * <p>
      * The number of IPv6 addresses to assign to a network interface. Amazon EC2 automatically selects the IPv6
-     * addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses. If your subnet
-     * has the <code>AssignIpv6AddressOnCreation</code> attribute set to <code>true</code>, you can specify
-     * <code>0</code> to override this setting.
+     * addresses from the subnet range.
+     * </p>
+     * <p>
+     * You can't specify a count of IPv6 addresses using this parameter if you've specified one of the following:
+     * specific IPv6 addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
+     * </p>
+     * <p>
+     * If your subnet has the <code>AssignIpv6AddressOnCreation</code> attribute set, you can override that setting by
+     * specifying 0 as the IPv6 address count.
      * </p>
      * 
      * @return The number of IPv6 addresses to assign to a network interface. Amazon EC2 automatically selects the IPv6
-     *         addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses. If your
-     *         subnet has the <code>AssignIpv6AddressOnCreation</code> attribute set to <code>true</code>, you can
-     *         specify <code>0</code> to override this setting.
+     *         addresses from the subnet range.</p>
+     *         <p>
+     *         You can't specify a count of IPv6 addresses using this parameter if you've specified one of the
+     *         following: specific IPv6 addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
+     *         </p>
+     *         <p>
+     *         If your subnet has the <code>AssignIpv6AddressOnCreation</code> attribute set, you can override that
+     *         setting by specifying 0 as the IPv6 address count.
      */
 
     public Integer getIpv6AddressCount() {
@@ -252,16 +359,27 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
     /**
      * <p>
      * The number of IPv6 addresses to assign to a network interface. Amazon EC2 automatically selects the IPv6
-     * addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses. If your subnet
-     * has the <code>AssignIpv6AddressOnCreation</code> attribute set to <code>true</code>, you can specify
-     * <code>0</code> to override this setting.
+     * addresses from the subnet range.
+     * </p>
+     * <p>
+     * You can't specify a count of IPv6 addresses using this parameter if you've specified one of the following:
+     * specific IPv6 addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
+     * </p>
+     * <p>
+     * If your subnet has the <code>AssignIpv6AddressOnCreation</code> attribute set, you can override that setting by
+     * specifying 0 as the IPv6 address count.
      * </p>
      * 
      * @param ipv6AddressCount
      *        The number of IPv6 addresses to assign to a network interface. Amazon EC2 automatically selects the IPv6
-     *        addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses. If your
-     *        subnet has the <code>AssignIpv6AddressOnCreation</code> attribute set to <code>true</code>, you can
-     *        specify <code>0</code> to override this setting.
+     *        addresses from the subnet range.</p>
+     *        <p>
+     *        You can't specify a count of IPv6 addresses using this parameter if you've specified one of the following:
+     *        specific IPv6 addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
+     *        </p>
+     *        <p>
+     *        If your subnet has the <code>AssignIpv6AddressOnCreation</code> attribute set, you can override that
+     *        setting by specifying 0 as the IPv6 address count.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -272,12 +390,17 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet. You can't use this option if
-     * you're specifying a number of IPv6 addresses.
+     * The IPv6 addresses from the IPv6 CIDR block range of your subnet.
+     * </p>
+     * <p>
+     * You can't specify IPv6 addresses using this parameter if you've specified one of the following: a count of IPv6
+     * addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
      * </p>
      * 
-     * @return One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet. You can't use this
-     *         option if you're specifying a number of IPv6 addresses.
+     * @return The IPv6 addresses from the IPv6 CIDR block range of your subnet.</p>
+     *         <p>
+     *         You can't specify IPv6 addresses using this parameter if you've specified one of the following: a count
+     *         of IPv6 addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
      */
 
     public java.util.List<InstanceIpv6Address> getIpv6Addresses() {
@@ -289,13 +412,18 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet. You can't use this option if
-     * you're specifying a number of IPv6 addresses.
+     * The IPv6 addresses from the IPv6 CIDR block range of your subnet.
+     * </p>
+     * <p>
+     * You can't specify IPv6 addresses using this parameter if you've specified one of the following: a count of IPv6
+     * addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
      * </p>
      * 
      * @param ipv6Addresses
-     *        One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet. You can't use this
-     *        option if you're specifying a number of IPv6 addresses.
+     *        The IPv6 addresses from the IPv6 CIDR block range of your subnet.</p>
+     *        <p>
+     *        You can't specify IPv6 addresses using this parameter if you've specified one of the following: a count of
+     *        IPv6 addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
      */
 
     public void setIpv6Addresses(java.util.Collection<InstanceIpv6Address> ipv6Addresses) {
@@ -309,8 +437,11 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet. You can't use this option if
-     * you're specifying a number of IPv6 addresses.
+     * The IPv6 addresses from the IPv6 CIDR block range of your subnet.
+     * </p>
+     * <p>
+     * You can't specify IPv6 addresses using this parameter if you've specified one of the following: a count of IPv6
+     * addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -319,8 +450,10 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
      * </p>
      * 
      * @param ipv6Addresses
-     *        One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet. You can't use this
-     *        option if you're specifying a number of IPv6 addresses.
+     *        The IPv6 addresses from the IPv6 CIDR block range of your subnet.</p>
+     *        <p>
+     *        You can't specify IPv6 addresses using this parameter if you've specified one of the following: a count of
+     *        IPv6 addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -336,13 +469,18 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet. You can't use this option if
-     * you're specifying a number of IPv6 addresses.
+     * The IPv6 addresses from the IPv6 CIDR block range of your subnet.
+     * </p>
+     * <p>
+     * You can't specify IPv6 addresses using this parameter if you've specified one of the following: a count of IPv6
+     * addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
      * </p>
      * 
      * @param ipv6Addresses
-     *        One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet. You can't use this
-     *        option if you're specifying a number of IPv6 addresses.
+     *        The IPv6 addresses from the IPv6 CIDR block range of your subnet.</p>
+     *        <p>
+     *        You can't specify IPv6 addresses using this parameter if you've specified one of the following: a count of
+     *        IPv6 addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -411,10 +549,17 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * One or more private IPv4 addresses.
+     * The private IPv4 addresses.
+     * </p>
+     * <p>
+     * You can't specify private IPv4 addresses if you've specified one of the following: a count of private IPv4
+     * addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.
      * </p>
      * 
-     * @return One or more private IPv4 addresses.
+     * @return The private IPv4 addresses.</p>
+     *         <p>
+     *         You can't specify private IPv4 addresses if you've specified one of the following: a count of private
+     *         IPv4 addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.
      */
 
     public java.util.List<PrivateIpAddressSpecification> getPrivateIpAddresses() {
@@ -426,11 +571,18 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * One or more private IPv4 addresses.
+     * The private IPv4 addresses.
+     * </p>
+     * <p>
+     * You can't specify private IPv4 addresses if you've specified one of the following: a count of private IPv4
+     * addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.
      * </p>
      * 
      * @param privateIpAddresses
-     *        One or more private IPv4 addresses.
+     *        The private IPv4 addresses.</p>
+     *        <p>
+     *        You can't specify private IPv4 addresses if you've specified one of the following: a count of private IPv4
+     *        addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.
      */
 
     public void setPrivateIpAddresses(java.util.Collection<PrivateIpAddressSpecification> privateIpAddresses) {
@@ -444,7 +596,11 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * One or more private IPv4 addresses.
+     * The private IPv4 addresses.
+     * </p>
+     * <p>
+     * You can't specify private IPv4 addresses if you've specified one of the following: a count of private IPv4
+     * addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -453,7 +609,10 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
      * </p>
      * 
      * @param privateIpAddresses
-     *        One or more private IPv4 addresses.
+     *        The private IPv4 addresses.</p>
+     *        <p>
+     *        You can't specify private IPv4 addresses if you've specified one of the following: a count of private IPv4
+     *        addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -469,11 +628,18 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * One or more private IPv4 addresses.
+     * The private IPv4 addresses.
+     * </p>
+     * <p>
+     * You can't specify private IPv4 addresses if you've specified one of the following: a count of private IPv4
+     * addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.
      * </p>
      * 
      * @param privateIpAddresses
-     *        One or more private IPv4 addresses.
+     *        The private IPv4 addresses.</p>
+     *        <p>
+     *        You can't specify private IPv4 addresses if you've specified one of the following: a count of private IPv4
+     *        addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -489,9 +655,8 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
      * specify this option and specify more than one private IP address using <code>privateIpAddresses</code>.
      * </p>
      * <p>
-     * The number of IP addresses you can assign to a network interface varies by instance type. For more information,
-     * see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#AvailableIpPerENI">IP Addresses
-     * Per ENI Per Instance Type</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.
+     * You can't specify a count of private IPv4 addresses if you've specified one of the following: specific private
+     * IPv4 addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.
      * </p>
      * 
      * @param secondaryPrivateIpAddressCount
@@ -500,10 +665,8 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
      *        You can't specify this option and specify more than one private IP address using
      *        <code>privateIpAddresses</code>.</p>
      *        <p>
-     *        The number of IP addresses you can assign to a network interface varies by instance type. For more
-     *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#AvailableIpPerENI">IP Addresses
-     *        Per ENI Per Instance Type</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.
+     *        You can't specify a count of private IPv4 addresses if you've specified one of the following: specific
+     *        private IPv4 addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.
      */
 
     public void setSecondaryPrivateIpAddressCount(Integer secondaryPrivateIpAddressCount) {
@@ -517,9 +680,8 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
      * specify this option and specify more than one private IP address using <code>privateIpAddresses</code>.
      * </p>
      * <p>
-     * The number of IP addresses you can assign to a network interface varies by instance type. For more information,
-     * see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#AvailableIpPerENI">IP Addresses
-     * Per ENI Per Instance Type</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.
+     * You can't specify a count of private IPv4 addresses if you've specified one of the following: specific private
+     * IPv4 addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.
      * </p>
      * 
      * @return The number of secondary private IPv4 addresses to assign to a network interface. When you specify a
@@ -527,10 +689,8 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
      *         range. You can't specify this option and specify more than one private IP address using
      *         <code>privateIpAddresses</code>.</p>
      *         <p>
-     *         The number of IP addresses you can assign to a network interface varies by instance type. For more
-     *         information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#AvailableIpPerENI">IP Addresses
-     *         Per ENI Per Instance Type</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.
+     *         You can't specify a count of private IPv4 addresses if you've specified one of the following: specific
+     *         private IPv4 addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.
      */
 
     public Integer getSecondaryPrivateIpAddressCount() {
@@ -544,9 +704,8 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
      * specify this option and specify more than one private IP address using <code>privateIpAddresses</code>.
      * </p>
      * <p>
-     * The number of IP addresses you can assign to a network interface varies by instance type. For more information,
-     * see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#AvailableIpPerENI">IP Addresses
-     * Per ENI Per Instance Type</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.
+     * You can't specify a count of private IPv4 addresses if you've specified one of the following: specific private
+     * IPv4 addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.
      * </p>
      * 
      * @param secondaryPrivateIpAddressCount
@@ -555,10 +714,8 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
      *        You can't specify this option and specify more than one private IP address using
      *        <code>privateIpAddresses</code>.</p>
      *        <p>
-     *        The number of IP addresses you can assign to a network interface varies by instance type. For more
-     *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#AvailableIpPerENI">IP Addresses
-     *        Per ENI Per Instance Type</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.
+     *        You can't specify a count of private IPv4 addresses if you've specified one of the following: specific
+     *        private IPv4 addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -569,16 +726,340 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * Indicates the type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For
-     * more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html"> Elastic Fabric
-     * Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * The IPv4 prefixes assigned to the network interface.
+     * </p>
+     * <p>
+     * You can't specify IPv4 prefixes if you've specified one of the following: a count of IPv4 prefixes, specific
+     * private IPv4 addresses, or a count of private IPv4 addresses.
+     * </p>
+     * 
+     * @return The IPv4 prefixes assigned to the network interface.</p>
+     *         <p>
+     *         You can't specify IPv4 prefixes if you've specified one of the following: a count of IPv4 prefixes,
+     *         specific private IPv4 addresses, or a count of private IPv4 addresses.
+     */
+
+    public java.util.List<Ipv4PrefixSpecificationRequest> getIpv4Prefixes() {
+        if (ipv4Prefixes == null) {
+            ipv4Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest>();
+        }
+        return ipv4Prefixes;
+    }
+
+    /**
+     * <p>
+     * The IPv4 prefixes assigned to the network interface.
+     * </p>
+     * <p>
+     * You can't specify IPv4 prefixes if you've specified one of the following: a count of IPv4 prefixes, specific
+     * private IPv4 addresses, or a count of private IPv4 addresses.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        The IPv4 prefixes assigned to the network interface.</p>
+     *        <p>
+     *        You can't specify IPv4 prefixes if you've specified one of the following: a count of IPv4 prefixes,
+     *        specific private IPv4 addresses, or a count of private IPv4 addresses.
+     */
+
+    public void setIpv4Prefixes(java.util.Collection<Ipv4PrefixSpecificationRequest> ipv4Prefixes) {
+        if (ipv4Prefixes == null) {
+            this.ipv4Prefixes = null;
+            return;
+        }
+
+        this.ipv4Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest>(ipv4Prefixes);
+    }
+
+    /**
+     * <p>
+     * The IPv4 prefixes assigned to the network interface.
+     * </p>
+     * <p>
+     * You can't specify IPv4 prefixes if you've specified one of the following: a count of IPv4 prefixes, specific
+     * private IPv4 addresses, or a count of private IPv4 addresses.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setIpv4Prefixes(java.util.Collection)} or {@link #withIpv4Prefixes(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        The IPv4 prefixes assigned to the network interface.</p>
+     *        <p>
+     *        You can't specify IPv4 prefixes if you've specified one of the following: a count of IPv4 prefixes,
+     *        specific private IPv4 addresses, or a count of private IPv4 addresses.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNetworkInterfaceRequest withIpv4Prefixes(Ipv4PrefixSpecificationRequest... ipv4Prefixes) {
+        if (this.ipv4Prefixes == null) {
+            setIpv4Prefixes(new com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest>(ipv4Prefixes.length));
+        }
+        for (Ipv4PrefixSpecificationRequest ele : ipv4Prefixes) {
+            this.ipv4Prefixes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv4 prefixes assigned to the network interface.
+     * </p>
+     * <p>
+     * You can't specify IPv4 prefixes if you've specified one of the following: a count of IPv4 prefixes, specific
+     * private IPv4 addresses, or a count of private IPv4 addresses.
+     * </p>
+     * 
+     * @param ipv4Prefixes
+     *        The IPv4 prefixes assigned to the network interface.</p>
+     *        <p>
+     *        You can't specify IPv4 prefixes if you've specified one of the following: a count of IPv4 prefixes,
+     *        specific private IPv4 addresses, or a count of private IPv4 addresses.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNetworkInterfaceRequest withIpv4Prefixes(java.util.Collection<Ipv4PrefixSpecificationRequest> ipv4Prefixes) {
+        setIpv4Prefixes(ipv4Prefixes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of IPv4 prefixes that Amazon Web Services automatically assigns to the network interface.
+     * </p>
+     * <p>
+     * You can't specify a count of IPv4 prefixes if you've specified one of the following: specific IPv4 prefixes,
+     * specific private IPv4 addresses, or a count of private IPv4 addresses.
+     * </p>
+     * 
+     * @param ipv4PrefixCount
+     *        The number of IPv4 prefixes that Amazon Web Services automatically assigns to the network interface.</p>
+     *        <p>
+     *        You can't specify a count of IPv4 prefixes if you've specified one of the following: specific IPv4
+     *        prefixes, specific private IPv4 addresses, or a count of private IPv4 addresses.
+     */
+
+    public void setIpv4PrefixCount(Integer ipv4PrefixCount) {
+        this.ipv4PrefixCount = ipv4PrefixCount;
+    }
+
+    /**
+     * <p>
+     * The number of IPv4 prefixes that Amazon Web Services automatically assigns to the network interface.
+     * </p>
+     * <p>
+     * You can't specify a count of IPv4 prefixes if you've specified one of the following: specific IPv4 prefixes,
+     * specific private IPv4 addresses, or a count of private IPv4 addresses.
+     * </p>
+     * 
+     * @return The number of IPv4 prefixes that Amazon Web Services automatically assigns to the network interface.</p>
+     *         <p>
+     *         You can't specify a count of IPv4 prefixes if you've specified one of the following: specific IPv4
+     *         prefixes, specific private IPv4 addresses, or a count of private IPv4 addresses.
+     */
+
+    public Integer getIpv4PrefixCount() {
+        return this.ipv4PrefixCount;
+    }
+
+    /**
+     * <p>
+     * The number of IPv4 prefixes that Amazon Web Services automatically assigns to the network interface.
+     * </p>
+     * <p>
+     * You can't specify a count of IPv4 prefixes if you've specified one of the following: specific IPv4 prefixes,
+     * specific private IPv4 addresses, or a count of private IPv4 addresses.
+     * </p>
+     * 
+     * @param ipv4PrefixCount
+     *        The number of IPv4 prefixes that Amazon Web Services automatically assigns to the network interface.</p>
+     *        <p>
+     *        You can't specify a count of IPv4 prefixes if you've specified one of the following: specific IPv4
+     *        prefixes, specific private IPv4 addresses, or a count of private IPv4 addresses.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNetworkInterfaceRequest withIpv4PrefixCount(Integer ipv4PrefixCount) {
+        setIpv4PrefixCount(ipv4PrefixCount);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv6 prefixes assigned to the network interface.
+     * </p>
+     * <p>
+     * You can't specify IPv6 prefixes if you've specified one of the following: a count of IPv6 prefixes, specific IPv6
+     * addresses, or a count of IPv6 addresses.
+     * </p>
+     * 
+     * @return The IPv6 prefixes assigned to the network interface.</p>
+     *         <p>
+     *         You can't specify IPv6 prefixes if you've specified one of the following: a count of IPv6 prefixes,
+     *         specific IPv6 addresses, or a count of IPv6 addresses.
+     */
+
+    public java.util.List<Ipv6PrefixSpecificationRequest> getIpv6Prefixes() {
+        if (ipv6Prefixes == null) {
+            ipv6Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest>();
+        }
+        return ipv6Prefixes;
+    }
+
+    /**
+     * <p>
+     * The IPv6 prefixes assigned to the network interface.
+     * </p>
+     * <p>
+     * You can't specify IPv6 prefixes if you've specified one of the following: a count of IPv6 prefixes, specific IPv6
+     * addresses, or a count of IPv6 addresses.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        The IPv6 prefixes assigned to the network interface.</p>
+     *        <p>
+     *        You can't specify IPv6 prefixes if you've specified one of the following: a count of IPv6 prefixes,
+     *        specific IPv6 addresses, or a count of IPv6 addresses.
+     */
+
+    public void setIpv6Prefixes(java.util.Collection<Ipv6PrefixSpecificationRequest> ipv6Prefixes) {
+        if (ipv6Prefixes == null) {
+            this.ipv6Prefixes = null;
+            return;
+        }
+
+        this.ipv6Prefixes = new com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest>(ipv6Prefixes);
+    }
+
+    /**
+     * <p>
+     * The IPv6 prefixes assigned to the network interface.
+     * </p>
+     * <p>
+     * You can't specify IPv6 prefixes if you've specified one of the following: a count of IPv6 prefixes, specific IPv6
+     * addresses, or a count of IPv6 addresses.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setIpv6Prefixes(java.util.Collection)} or {@link #withIpv6Prefixes(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        The IPv6 prefixes assigned to the network interface.</p>
+     *        <p>
+     *        You can't specify IPv6 prefixes if you've specified one of the following: a count of IPv6 prefixes,
+     *        specific IPv6 addresses, or a count of IPv6 addresses.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNetworkInterfaceRequest withIpv6Prefixes(Ipv6PrefixSpecificationRequest... ipv6Prefixes) {
+        if (this.ipv6Prefixes == null) {
+            setIpv6Prefixes(new com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest>(ipv6Prefixes.length));
+        }
+        for (Ipv6PrefixSpecificationRequest ele : ipv6Prefixes) {
+            this.ipv6Prefixes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IPv6 prefixes assigned to the network interface.
+     * </p>
+     * <p>
+     * You can't specify IPv6 prefixes if you've specified one of the following: a count of IPv6 prefixes, specific IPv6
+     * addresses, or a count of IPv6 addresses.
+     * </p>
+     * 
+     * @param ipv6Prefixes
+     *        The IPv6 prefixes assigned to the network interface.</p>
+     *        <p>
+     *        You can't specify IPv6 prefixes if you've specified one of the following: a count of IPv6 prefixes,
+     *        specific IPv6 addresses, or a count of IPv6 addresses.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNetworkInterfaceRequest withIpv6Prefixes(java.util.Collection<Ipv6PrefixSpecificationRequest> ipv6Prefixes) {
+        setIpv6Prefixes(ipv6Prefixes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of IPv6 prefixes that Amazon Web Services automatically assigns to the network interface.
+     * </p>
+     * <p>
+     * You can't specify a count of IPv6 prefixes if you've specified one of the following: specific IPv6 prefixes,
+     * specific IPv6 addresses, or a count of IPv6 addresses.
+     * </p>
+     * 
+     * @param ipv6PrefixCount
+     *        The number of IPv6 prefixes that Amazon Web Services automatically assigns to the network interface.</p>
+     *        <p>
+     *        You can't specify a count of IPv6 prefixes if you've specified one of the following: specific IPv6
+     *        prefixes, specific IPv6 addresses, or a count of IPv6 addresses.
+     */
+
+    public void setIpv6PrefixCount(Integer ipv6PrefixCount) {
+        this.ipv6PrefixCount = ipv6PrefixCount;
+    }
+
+    /**
+     * <p>
+     * The number of IPv6 prefixes that Amazon Web Services automatically assigns to the network interface.
+     * </p>
+     * <p>
+     * You can't specify a count of IPv6 prefixes if you've specified one of the following: specific IPv6 prefixes,
+     * specific IPv6 addresses, or a count of IPv6 addresses.
+     * </p>
+     * 
+     * @return The number of IPv6 prefixes that Amazon Web Services automatically assigns to the network interface.</p>
+     *         <p>
+     *         You can't specify a count of IPv6 prefixes if you've specified one of the following: specific IPv6
+     *         prefixes, specific IPv6 addresses, or a count of IPv6 addresses.
+     */
+
+    public Integer getIpv6PrefixCount() {
+        return this.ipv6PrefixCount;
+    }
+
+    /**
+     * <p>
+     * The number of IPv6 prefixes that Amazon Web Services automatically assigns to the network interface.
+     * </p>
+     * <p>
+     * You can't specify a count of IPv6 prefixes if you've specified one of the following: specific IPv6 prefixes,
+     * specific IPv6 addresses, or a count of IPv6 addresses.
+     * </p>
+     * 
+     * @param ipv6PrefixCount
+     *        The number of IPv6 prefixes that Amazon Web Services automatically assigns to the network interface.</p>
+     *        <p>
+     *        You can't specify a count of IPv6 prefixes if you've specified one of the following: specific IPv6
+     *        prefixes, specific IPv6 addresses, or a count of IPv6 addresses.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNetworkInterfaceRequest withIpv6PrefixCount(Integer ipv6PrefixCount) {
+        setIpv6PrefixCount(ipv6PrefixCount);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of network interface. The default is <code>interface</code>.
+     * </p>
+     * <p>
+     * The only supported values are <code>interface</code>, <code>efa</code>, and <code>trunk</code>.
      * </p>
      * 
      * @param interfaceType
-     *        Indicates the type of network interface. To create an Elastic Fabric Adapter (EFA), specify
-     *        <code>efa</code>. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html"> Elastic Fabric Adapter</a> in the
-     *        <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        The type of network interface. The default is <code>interface</code>.</p>
+     *        <p>
+     *        The only supported values are <code>interface</code>, <code>efa</code>, and <code>trunk</code>.
      * @see NetworkInterfaceCreationType
      */
 
@@ -588,15 +1069,15 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * Indicates the type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For
-     * more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html"> Elastic Fabric
-     * Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * The type of network interface. The default is <code>interface</code>.
+     * </p>
+     * <p>
+     * The only supported values are <code>interface</code>, <code>efa</code>, and <code>trunk</code>.
      * </p>
      * 
-     * @return Indicates the type of network interface. To create an Elastic Fabric Adapter (EFA), specify
-     *         <code>efa</code>. For more information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html"> Elastic Fabric Adapter</a> in the
-     *         <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * @return The type of network interface. The default is <code>interface</code>.</p>
+     *         <p>
+     *         The only supported values are <code>interface</code>, <code>efa</code>, and <code>trunk</code>.
      * @see NetworkInterfaceCreationType
      */
 
@@ -606,16 +1087,16 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * Indicates the type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For
-     * more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html"> Elastic Fabric
-     * Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * The type of network interface. The default is <code>interface</code>.
+     * </p>
+     * <p>
+     * The only supported values are <code>interface</code>, <code>efa</code>, and <code>trunk</code>.
      * </p>
      * 
      * @param interfaceType
-     *        Indicates the type of network interface. To create an Elastic Fabric Adapter (EFA), specify
-     *        <code>efa</code>. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html"> Elastic Fabric Adapter</a> in the
-     *        <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        The type of network interface. The default is <code>interface</code>.</p>
+     *        <p>
+     *        The only supported values are <code>interface</code>, <code>efa</code>, and <code>trunk</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see NetworkInterfaceCreationType
      */
@@ -627,16 +1108,16 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * Indicates the type of network interface. To create an Elastic Fabric Adapter (EFA), specify <code>efa</code>. For
-     * more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html"> Elastic Fabric
-     * Adapter</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * The type of network interface. The default is <code>interface</code>.
+     * </p>
+     * <p>
+     * The only supported values are <code>interface</code>, <code>efa</code>, and <code>trunk</code>.
      * </p>
      * 
      * @param interfaceType
-     *        Indicates the type of network interface. To create an Elastic Fabric Adapter (EFA), specify
-     *        <code>efa</code>. For more information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html"> Elastic Fabric Adapter</a> in the
-     *        <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        The type of network interface. The default is <code>interface</code>.</p>
+     *        <p>
+     *        The only supported values are <code>interface</code>, <code>efa</code>, and <code>trunk</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see NetworkInterfaceCreationType
      */
@@ -687,6 +1168,291 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
     }
 
     /**
+     * <p>
+     * The tags to apply to the new network interface.
+     * </p>
+     * 
+     * @return The tags to apply to the new network interface.
+     */
+
+    public java.util.List<TagSpecification> getTagSpecifications() {
+        if (tagSpecifications == null) {
+            tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>();
+        }
+        return tagSpecifications;
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the new network interface.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to apply to the new network interface.
+     */
+
+    public void setTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        if (tagSpecifications == null) {
+            this.tagSpecifications = null;
+            return;
+        }
+
+        this.tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications);
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the new network interface.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTagSpecifications(java.util.Collection)} or {@link #withTagSpecifications(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to apply to the new network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNetworkInterfaceRequest withTagSpecifications(TagSpecification... tagSpecifications) {
+        if (this.tagSpecifications == null) {
+            setTagSpecifications(new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications.length));
+        }
+        for (TagSpecification ele : tagSpecifications) {
+            this.tagSpecifications.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags to apply to the new network interface.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to apply to the new network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNetworkInterfaceRequest withTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        setTagSpecifications(tagSpecifications);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
+     * </p>
+     * 
+     * @param clientToken
+     *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.
+     */
+
+    public void setClientToken(String clientToken) {
+        this.clientToken = clientToken;
+    }
+
+    /**
+     * <p>
+     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
+     * </p>
+     * 
+     * @return Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.
+     */
+
+    public String getClientToken() {
+        return this.clientToken;
+    }
+
+    /**
+     * <p>
+     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
+     * </p>
+     * 
+     * @param clientToken
+     *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNetworkInterfaceRequest withClientToken(String clientToken) {
+        setClientToken(clientToken);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If you’re creating a network interface in a dual-stack or IPv6-only subnet, you have the option to assign a
+     * primary IPv6 IP address. A primary IPv6 address is an IPv6 GUA address associated with an ENI that you have
+     * enabled to use a primary IPv6 address. Use this option if the instance that this ENI will be attached to relies
+     * on its IPv6 address not changing. Amazon Web Services will automatically assign an IPv6 address associated with
+     * the ENI attached to your instance to be the primary IPv6 address. Once you enable an IPv6 GUA address to be a
+     * primary IPv6, you cannot disable it. When you enable an IPv6 GUA address to be a primary IPv6, the first IPv6 GUA
+     * will be made the primary IPv6 address until the instance is terminated or the network interface is detached. If
+     * you have multiple IPv6 addresses associated with an ENI attached to your instance and you enable a primary IPv6
+     * address, the first IPv6 GUA address associated with the ENI becomes the primary IPv6 address.
+     * </p>
+     * 
+     * @param enablePrimaryIpv6
+     *        If you’re creating a network interface in a dual-stack or IPv6-only subnet, you have the option to assign
+     *        a primary IPv6 IP address. A primary IPv6 address is an IPv6 GUA address associated with an ENI that you
+     *        have enabled to use a primary IPv6 address. Use this option if the instance that this ENI will be attached
+     *        to relies on its IPv6 address not changing. Amazon Web Services will automatically assign an IPv6 address
+     *        associated with the ENI attached to your instance to be the primary IPv6 address. Once you enable an IPv6
+     *        GUA address to be a primary IPv6, you cannot disable it. When you enable an IPv6 GUA address to be a
+     *        primary IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or
+     *        the network interface is detached. If you have multiple IPv6 addresses associated with an ENI attached to
+     *        your instance and you enable a primary IPv6 address, the first IPv6 GUA address associated with the ENI
+     *        becomes the primary IPv6 address.
+     */
+
+    public void setEnablePrimaryIpv6(Boolean enablePrimaryIpv6) {
+        this.enablePrimaryIpv6 = enablePrimaryIpv6;
+    }
+
+    /**
+     * <p>
+     * If you’re creating a network interface in a dual-stack or IPv6-only subnet, you have the option to assign a
+     * primary IPv6 IP address. A primary IPv6 address is an IPv6 GUA address associated with an ENI that you have
+     * enabled to use a primary IPv6 address. Use this option if the instance that this ENI will be attached to relies
+     * on its IPv6 address not changing. Amazon Web Services will automatically assign an IPv6 address associated with
+     * the ENI attached to your instance to be the primary IPv6 address. Once you enable an IPv6 GUA address to be a
+     * primary IPv6, you cannot disable it. When you enable an IPv6 GUA address to be a primary IPv6, the first IPv6 GUA
+     * will be made the primary IPv6 address until the instance is terminated or the network interface is detached. If
+     * you have multiple IPv6 addresses associated with an ENI attached to your instance and you enable a primary IPv6
+     * address, the first IPv6 GUA address associated with the ENI becomes the primary IPv6 address.
+     * </p>
+     * 
+     * @return If you’re creating a network interface in a dual-stack or IPv6-only subnet, you have the option to assign
+     *         a primary IPv6 IP address. A primary IPv6 address is an IPv6 GUA address associated with an ENI that you
+     *         have enabled to use a primary IPv6 address. Use this option if the instance that this ENI will be
+     *         attached to relies on its IPv6 address not changing. Amazon Web Services will automatically assign an
+     *         IPv6 address associated with the ENI attached to your instance to be the primary IPv6 address. Once you
+     *         enable an IPv6 GUA address to be a primary IPv6, you cannot disable it. When you enable an IPv6 GUA
+     *         address to be a primary IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance
+     *         is terminated or the network interface is detached. If you have multiple IPv6 addresses associated with
+     *         an ENI attached to your instance and you enable a primary IPv6 address, the first IPv6 GUA address
+     *         associated with the ENI becomes the primary IPv6 address.
+     */
+
+    public Boolean getEnablePrimaryIpv6() {
+        return this.enablePrimaryIpv6;
+    }
+
+    /**
+     * <p>
+     * If you’re creating a network interface in a dual-stack or IPv6-only subnet, you have the option to assign a
+     * primary IPv6 IP address. A primary IPv6 address is an IPv6 GUA address associated with an ENI that you have
+     * enabled to use a primary IPv6 address. Use this option if the instance that this ENI will be attached to relies
+     * on its IPv6 address not changing. Amazon Web Services will automatically assign an IPv6 address associated with
+     * the ENI attached to your instance to be the primary IPv6 address. Once you enable an IPv6 GUA address to be a
+     * primary IPv6, you cannot disable it. When you enable an IPv6 GUA address to be a primary IPv6, the first IPv6 GUA
+     * will be made the primary IPv6 address until the instance is terminated or the network interface is detached. If
+     * you have multiple IPv6 addresses associated with an ENI attached to your instance and you enable a primary IPv6
+     * address, the first IPv6 GUA address associated with the ENI becomes the primary IPv6 address.
+     * </p>
+     * 
+     * @param enablePrimaryIpv6
+     *        If you’re creating a network interface in a dual-stack or IPv6-only subnet, you have the option to assign
+     *        a primary IPv6 IP address. A primary IPv6 address is an IPv6 GUA address associated with an ENI that you
+     *        have enabled to use a primary IPv6 address. Use this option if the instance that this ENI will be attached
+     *        to relies on its IPv6 address not changing. Amazon Web Services will automatically assign an IPv6 address
+     *        associated with the ENI attached to your instance to be the primary IPv6 address. Once you enable an IPv6
+     *        GUA address to be a primary IPv6, you cannot disable it. When you enable an IPv6 GUA address to be a
+     *        primary IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or
+     *        the network interface is detached. If you have multiple IPv6 addresses associated with an ENI attached to
+     *        your instance and you enable a primary IPv6 address, the first IPv6 GUA address associated with the ENI
+     *        becomes the primary IPv6 address.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNetworkInterfaceRequest withEnablePrimaryIpv6(Boolean enablePrimaryIpv6) {
+        setEnablePrimaryIpv6(enablePrimaryIpv6);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If you’re creating a network interface in a dual-stack or IPv6-only subnet, you have the option to assign a
+     * primary IPv6 IP address. A primary IPv6 address is an IPv6 GUA address associated with an ENI that you have
+     * enabled to use a primary IPv6 address. Use this option if the instance that this ENI will be attached to relies
+     * on its IPv6 address not changing. Amazon Web Services will automatically assign an IPv6 address associated with
+     * the ENI attached to your instance to be the primary IPv6 address. Once you enable an IPv6 GUA address to be a
+     * primary IPv6, you cannot disable it. When you enable an IPv6 GUA address to be a primary IPv6, the first IPv6 GUA
+     * will be made the primary IPv6 address until the instance is terminated or the network interface is detached. If
+     * you have multiple IPv6 addresses associated with an ENI attached to your instance and you enable a primary IPv6
+     * address, the first IPv6 GUA address associated with the ENI becomes the primary IPv6 address.
+     * </p>
+     * 
+     * @return If you’re creating a network interface in a dual-stack or IPv6-only subnet, you have the option to assign
+     *         a primary IPv6 IP address. A primary IPv6 address is an IPv6 GUA address associated with an ENI that you
+     *         have enabled to use a primary IPv6 address. Use this option if the instance that this ENI will be
+     *         attached to relies on its IPv6 address not changing. Amazon Web Services will automatically assign an
+     *         IPv6 address associated with the ENI attached to your instance to be the primary IPv6 address. Once you
+     *         enable an IPv6 GUA address to be a primary IPv6, you cannot disable it. When you enable an IPv6 GUA
+     *         address to be a primary IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance
+     *         is terminated or the network interface is detached. If you have multiple IPv6 addresses associated with
+     *         an ENI attached to your instance and you enable a primary IPv6 address, the first IPv6 GUA address
+     *         associated with the ENI becomes the primary IPv6 address.
+     */
+
+    public Boolean isEnablePrimaryIpv6() {
+        return this.enablePrimaryIpv6;
+    }
+
+    /**
+     * <p>
+     * A connection tracking specification for the network interface.
+     * </p>
+     * 
+     * @param connectionTrackingSpecification
+     *        A connection tracking specification for the network interface.
+     */
+
+    public void setConnectionTrackingSpecification(ConnectionTrackingSpecificationRequest connectionTrackingSpecification) {
+        this.connectionTrackingSpecification = connectionTrackingSpecification;
+    }
+
+    /**
+     * <p>
+     * A connection tracking specification for the network interface.
+     * </p>
+     * 
+     * @return A connection tracking specification for the network interface.
+     */
+
+    public ConnectionTrackingSpecificationRequest getConnectionTrackingSpecification() {
+        return this.connectionTrackingSpecification;
+    }
+
+    /**
+     * <p>
+     * A connection tracking specification for the network interface.
+     * </p>
+     * 
+     * @param connectionTrackingSpecification
+     *        A connection tracking specification for the network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNetworkInterfaceRequest withConnectionTrackingSpecification(ConnectionTrackingSpecificationRequest connectionTrackingSpecification) {
+        setConnectionTrackingSpecification(connectionTrackingSpecification);
+        return this;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -723,10 +1489,26 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
             sb.append("PrivateIpAddresses: ").append(getPrivateIpAddresses()).append(",");
         if (getSecondaryPrivateIpAddressCount() != null)
             sb.append("SecondaryPrivateIpAddressCount: ").append(getSecondaryPrivateIpAddressCount()).append(",");
+        if (getIpv4Prefixes() != null)
+            sb.append("Ipv4Prefixes: ").append(getIpv4Prefixes()).append(",");
+        if (getIpv4PrefixCount() != null)
+            sb.append("Ipv4PrefixCount: ").append(getIpv4PrefixCount()).append(",");
+        if (getIpv6Prefixes() != null)
+            sb.append("Ipv6Prefixes: ").append(getIpv6Prefixes()).append(",");
+        if (getIpv6PrefixCount() != null)
+            sb.append("Ipv6PrefixCount: ").append(getIpv6PrefixCount()).append(",");
         if (getInterfaceType() != null)
             sb.append("InterfaceType: ").append(getInterfaceType()).append(",");
         if (getSubnetId() != null)
-            sb.append("SubnetId: ").append(getSubnetId());
+            sb.append("SubnetId: ").append(getSubnetId()).append(",");
+        if (getTagSpecifications() != null)
+            sb.append("TagSpecifications: ").append(getTagSpecifications()).append(",");
+        if (getClientToken() != null)
+            sb.append("ClientToken: ").append(getClientToken()).append(",");
+        if (getEnablePrimaryIpv6() != null)
+            sb.append("EnablePrimaryIpv6: ").append(getEnablePrimaryIpv6()).append(",");
+        if (getConnectionTrackingSpecification() != null)
+            sb.append("ConnectionTrackingSpecification: ").append(getConnectionTrackingSpecification());
         sb.append("}");
         return sb.toString();
     }
@@ -770,6 +1552,22 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
         if (other.getSecondaryPrivateIpAddressCount() != null
                 && other.getSecondaryPrivateIpAddressCount().equals(this.getSecondaryPrivateIpAddressCount()) == false)
             return false;
+        if (other.getIpv4Prefixes() == null ^ this.getIpv4Prefixes() == null)
+            return false;
+        if (other.getIpv4Prefixes() != null && other.getIpv4Prefixes().equals(this.getIpv4Prefixes()) == false)
+            return false;
+        if (other.getIpv4PrefixCount() == null ^ this.getIpv4PrefixCount() == null)
+            return false;
+        if (other.getIpv4PrefixCount() != null && other.getIpv4PrefixCount().equals(this.getIpv4PrefixCount()) == false)
+            return false;
+        if (other.getIpv6Prefixes() == null ^ this.getIpv6Prefixes() == null)
+            return false;
+        if (other.getIpv6Prefixes() != null && other.getIpv6Prefixes().equals(this.getIpv6Prefixes()) == false)
+            return false;
+        if (other.getIpv6PrefixCount() == null ^ this.getIpv6PrefixCount() == null)
+            return false;
+        if (other.getIpv6PrefixCount() != null && other.getIpv6PrefixCount().equals(this.getIpv6PrefixCount()) == false)
+            return false;
         if (other.getInterfaceType() == null ^ this.getInterfaceType() == null)
             return false;
         if (other.getInterfaceType() != null && other.getInterfaceType().equals(this.getInterfaceType()) == false)
@@ -777,6 +1575,23 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
         if (other.getSubnetId() == null ^ this.getSubnetId() == null)
             return false;
         if (other.getSubnetId() != null && other.getSubnetId().equals(this.getSubnetId()) == false)
+            return false;
+        if (other.getTagSpecifications() == null ^ this.getTagSpecifications() == null)
+            return false;
+        if (other.getTagSpecifications() != null && other.getTagSpecifications().equals(this.getTagSpecifications()) == false)
+            return false;
+        if (other.getClientToken() == null ^ this.getClientToken() == null)
+            return false;
+        if (other.getClientToken() != null && other.getClientToken().equals(this.getClientToken()) == false)
+            return false;
+        if (other.getEnablePrimaryIpv6() == null ^ this.getEnablePrimaryIpv6() == null)
+            return false;
+        if (other.getEnablePrimaryIpv6() != null && other.getEnablePrimaryIpv6().equals(this.getEnablePrimaryIpv6()) == false)
+            return false;
+        if (other.getConnectionTrackingSpecification() == null ^ this.getConnectionTrackingSpecification() == null)
+            return false;
+        if (other.getConnectionTrackingSpecification() != null
+                && other.getConnectionTrackingSpecification().equals(this.getConnectionTrackingSpecification()) == false)
             return false;
         return true;
     }
@@ -793,8 +1608,16 @@ public class CreateNetworkInterfaceRequest extends AmazonWebServiceRequest imple
         hashCode = prime * hashCode + ((getPrivateIpAddress() == null) ? 0 : getPrivateIpAddress().hashCode());
         hashCode = prime * hashCode + ((getPrivateIpAddresses() == null) ? 0 : getPrivateIpAddresses().hashCode());
         hashCode = prime * hashCode + ((getSecondaryPrivateIpAddressCount() == null) ? 0 : getSecondaryPrivateIpAddressCount().hashCode());
+        hashCode = prime * hashCode + ((getIpv4Prefixes() == null) ? 0 : getIpv4Prefixes().hashCode());
+        hashCode = prime * hashCode + ((getIpv4PrefixCount() == null) ? 0 : getIpv4PrefixCount().hashCode());
+        hashCode = prime * hashCode + ((getIpv6Prefixes() == null) ? 0 : getIpv6Prefixes().hashCode());
+        hashCode = prime * hashCode + ((getIpv6PrefixCount() == null) ? 0 : getIpv6PrefixCount().hashCode());
         hashCode = prime * hashCode + ((getInterfaceType() == null) ? 0 : getInterfaceType().hashCode());
         hashCode = prime * hashCode + ((getSubnetId() == null) ? 0 : getSubnetId().hashCode());
+        hashCode = prime * hashCode + ((getTagSpecifications() == null) ? 0 : getTagSpecifications().hashCode());
+        hashCode = prime * hashCode + ((getClientToken() == null) ? 0 : getClientToken().hashCode());
+        hashCode = prime * hashCode + ((getEnablePrimaryIpv6() == null) ? 0 : getEnablePrimaryIpv6().hashCode());
+        hashCode = prime * hashCode + ((getConnectionTrackingSpecification() == null) ? 0 : getConnectionTrackingSpecification().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,14 +26,34 @@ import com.amazonaws.services.ec2.model.transform.GetCapacityReservationUsageReq
 public class GetCapacityReservationUsageRequest extends AmazonWebServiceRequest implements Serializable, Cloneable,
         DryRunSupportedRequest<GetCapacityReservationUsageRequest> {
 
+    /**
+     * <p>
+     * The ID of the Capacity Reservation.
+     * </p>
+     */
     private String capacityReservationId;
-
+    /**
+     * <p>
+     * The token to use to retrieve the next page of results.
+     * </p>
+     */
     private String nextToken;
-
+    /**
+     * <p>
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
+     * </p>
+     */
     private Integer maxResults;
 
     /**
+     * <p>
+     * The ID of the Capacity Reservation.
+     * </p>
+     * 
      * @param capacityReservationId
+     *        The ID of the Capacity Reservation.
      */
 
     public void setCapacityReservationId(String capacityReservationId) {
@@ -41,7 +61,11 @@ public class GetCapacityReservationUsageRequest extends AmazonWebServiceRequest 
     }
 
     /**
-     * @return
+     * <p>
+     * The ID of the Capacity Reservation.
+     * </p>
+     * 
+     * @return The ID of the Capacity Reservation.
      */
 
     public String getCapacityReservationId() {
@@ -49,7 +73,12 @@ public class GetCapacityReservationUsageRequest extends AmazonWebServiceRequest 
     }
 
     /**
+     * <p>
+     * The ID of the Capacity Reservation.
+     * </p>
+     * 
      * @param capacityReservationId
+     *        The ID of the Capacity Reservation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -59,7 +88,12 @@ public class GetCapacityReservationUsageRequest extends AmazonWebServiceRequest 
     }
 
     /**
+     * <p>
+     * The token to use to retrieve the next page of results.
+     * </p>
+     * 
      * @param nextToken
+     *        The token to use to retrieve the next page of results.
      */
 
     public void setNextToken(String nextToken) {
@@ -67,7 +101,11 @@ public class GetCapacityReservationUsageRequest extends AmazonWebServiceRequest 
     }
 
     /**
-     * @return
+     * <p>
+     * The token to use to retrieve the next page of results.
+     * </p>
+     * 
+     * @return The token to use to retrieve the next page of results.
      */
 
     public String getNextToken() {
@@ -75,7 +113,12 @@ public class GetCapacityReservationUsageRequest extends AmazonWebServiceRequest 
     }
 
     /**
+     * <p>
+     * The token to use to retrieve the next page of results.
+     * </p>
+     * 
      * @param nextToken
+     *        The token to use to retrieve the next page of results.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -85,7 +128,17 @@ public class GetCapacityReservationUsageRequest extends AmazonWebServiceRequest 
     }
 
     /**
+     * <p>
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
+     * </p>
+     * 
      * @param maxResults
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -93,7 +146,16 @@ public class GetCapacityReservationUsageRequest extends AmazonWebServiceRequest 
     }
 
     /**
-     * @return
+     * <p>
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
+     * </p>
+     * 
+     * @return The maximum number of items to return for this request. To get the next page of items, make another
+     *         request with the token returned in the output. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *         >Pagination</a>.
      */
 
     public Integer getMaxResults() {
@@ -101,7 +163,17 @@ public class GetCapacityReservationUsageRequest extends AmazonWebServiceRequest 
     }
 
     /**
+     * <p>
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
+     * </p>
+     * 
      * @param maxResults
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

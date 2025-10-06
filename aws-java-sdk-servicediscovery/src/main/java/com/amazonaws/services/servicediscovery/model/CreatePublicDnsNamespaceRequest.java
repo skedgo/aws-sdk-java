@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,13 +29,18 @@ public class CreatePublicDnsNamespaceRequest extends com.amazonaws.AmazonWebServ
      * <p>
      * The name that you want to assign to this namespace.
      * </p>
+     * <note>
+     * <p>
+     * Do not include sensitive information in the name. The name is publicly available using DNS queries.
+     * </p>
+     * </note>
      */
     private String name;
     /**
      * <p>
      * A unique string that identifies the request and that allows failed <code>CreatePublicDnsNamespace</code> requests
-     * to be retried without the risk of executing the operation twice. <code>CreatorRequestId</code> can be any unique
-     * string, for example, a date/time stamp.
+     * to be retried without the risk of running the operation twice. <code>CreatorRequestId</code> can be any unique
+     * string (for example, a date/timestamp).
      * </p>
      */
     private String creatorRequestId;
@@ -45,14 +50,35 @@ public class CreatePublicDnsNamespaceRequest extends com.amazonaws.AmazonWebServ
      * </p>
      */
     private String description;
+    /**
+     * <p>
+     * The tags to add to the namespace. Each tag consists of a key and an optional value that you define. Tags keys can
+     * be up to 128 characters in length, and tag values can be up to 256 characters in length.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * Properties for the public DNS namespace.
+     * </p>
+     */
+    private PublicDnsNamespaceProperties properties;
 
     /**
      * <p>
      * The name that you want to assign to this namespace.
      * </p>
+     * <note>
+     * <p>
+     * Do not include sensitive information in the name. The name is publicly available using DNS queries.
+     * </p>
+     * </note>
      * 
      * @param name
-     *        The name that you want to assign to this namespace.
+     *        The name that you want to assign to this namespace.</p> <note>
+     *        <p>
+     *        Do not include sensitive information in the name. The name is publicly available using DNS queries.
+     *        </p>
      */
 
     public void setName(String name) {
@@ -63,8 +89,16 @@ public class CreatePublicDnsNamespaceRequest extends com.amazonaws.AmazonWebServ
      * <p>
      * The name that you want to assign to this namespace.
      * </p>
+     * <note>
+     * <p>
+     * Do not include sensitive information in the name. The name is publicly available using DNS queries.
+     * </p>
+     * </note>
      * 
-     * @return The name that you want to assign to this namespace.
+     * @return The name that you want to assign to this namespace.</p> <note>
+     *         <p>
+     *         Do not include sensitive information in the name. The name is publicly available using DNS queries.
+     *         </p>
      */
 
     public String getName() {
@@ -75,9 +109,17 @@ public class CreatePublicDnsNamespaceRequest extends com.amazonaws.AmazonWebServ
      * <p>
      * The name that you want to assign to this namespace.
      * </p>
+     * <note>
+     * <p>
+     * Do not include sensitive information in the name. The name is publicly available using DNS queries.
+     * </p>
+     * </note>
      * 
      * @param name
-     *        The name that you want to assign to this namespace.
+     *        The name that you want to assign to this namespace.</p> <note>
+     *        <p>
+     *        Do not include sensitive information in the name. The name is publicly available using DNS queries.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -89,14 +131,14 @@ public class CreatePublicDnsNamespaceRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * A unique string that identifies the request and that allows failed <code>CreatePublicDnsNamespace</code> requests
-     * to be retried without the risk of executing the operation twice. <code>CreatorRequestId</code> can be any unique
-     * string, for example, a date/time stamp.
+     * to be retried without the risk of running the operation twice. <code>CreatorRequestId</code> can be any unique
+     * string (for example, a date/timestamp).
      * </p>
      * 
      * @param creatorRequestId
      *        A unique string that identifies the request and that allows failed <code>CreatePublicDnsNamespace</code>
-     *        requests to be retried without the risk of executing the operation twice. <code>CreatorRequestId</code>
-     *        can be any unique string, for example, a date/time stamp.
+     *        requests to be retried without the risk of running the operation twice. <code>CreatorRequestId</code> can
+     *        be any unique string (for example, a date/timestamp).
      */
 
     public void setCreatorRequestId(String creatorRequestId) {
@@ -106,13 +148,13 @@ public class CreatePublicDnsNamespaceRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * A unique string that identifies the request and that allows failed <code>CreatePublicDnsNamespace</code> requests
-     * to be retried without the risk of executing the operation twice. <code>CreatorRequestId</code> can be any unique
-     * string, for example, a date/time stamp.
+     * to be retried without the risk of running the operation twice. <code>CreatorRequestId</code> can be any unique
+     * string (for example, a date/timestamp).
      * </p>
      * 
      * @return A unique string that identifies the request and that allows failed <code>CreatePublicDnsNamespace</code>
-     *         requests to be retried without the risk of executing the operation twice. <code>CreatorRequestId</code>
-     *         can be any unique string, for example, a date/time stamp.
+     *         requests to be retried without the risk of running the operation twice. <code>CreatorRequestId</code> can
+     *         be any unique string (for example, a date/timestamp).
      */
 
     public String getCreatorRequestId() {
@@ -122,14 +164,14 @@ public class CreatePublicDnsNamespaceRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * A unique string that identifies the request and that allows failed <code>CreatePublicDnsNamespace</code> requests
-     * to be retried without the risk of executing the operation twice. <code>CreatorRequestId</code> can be any unique
-     * string, for example, a date/time stamp.
+     * to be retried without the risk of running the operation twice. <code>CreatorRequestId</code> can be any unique
+     * string (for example, a date/timestamp).
      * </p>
      * 
      * @param creatorRequestId
      *        A unique string that identifies the request and that allows failed <code>CreatePublicDnsNamespace</code>
-     *        requests to be retried without the risk of executing the operation twice. <code>CreatorRequestId</code>
-     *        can be any unique string, for example, a date/time stamp.
+     *        requests to be retried without the risk of running the operation twice. <code>CreatorRequestId</code> can
+     *        be any unique string (for example, a date/timestamp).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -179,6 +221,124 @@ public class CreatePublicDnsNamespaceRequest extends com.amazonaws.AmazonWebServ
     }
 
     /**
+     * <p>
+     * The tags to add to the namespace. Each tag consists of a key and an optional value that you define. Tags keys can
+     * be up to 128 characters in length, and tag values can be up to 256 characters in length.
+     * </p>
+     * 
+     * @return The tags to add to the namespace. Each tag consists of a key and an optional value that you define. Tags
+     *         keys can be up to 128 characters in length, and tag values can be up to 256 characters in length.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * The tags to add to the namespace. Each tag consists of a key and an optional value that you define. Tags keys can
+     * be up to 128 characters in length, and tag values can be up to 256 characters in length.
+     * </p>
+     * 
+     * @param tags
+     *        The tags to add to the namespace. Each tag consists of a key and an optional value that you define. Tags
+     *        keys can be up to 128 characters in length, and tag values can be up to 256 characters in length.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * The tags to add to the namespace. Each tag consists of a key and an optional value that you define. Tags keys can
+     * be up to 128 characters in length, and tag values can be up to 256 characters in length.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        The tags to add to the namespace. Each tag consists of a key and an optional value that you define. Tags
+     *        keys can be up to 128 characters in length, and tag values can be up to 256 characters in length.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreatePublicDnsNamespaceRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags to add to the namespace. Each tag consists of a key and an optional value that you define. Tags keys can
+     * be up to 128 characters in length, and tag values can be up to 256 characters in length.
+     * </p>
+     * 
+     * @param tags
+     *        The tags to add to the namespace. Each tag consists of a key and an optional value that you define. Tags
+     *        keys can be up to 128 characters in length, and tag values can be up to 256 characters in length.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreatePublicDnsNamespaceRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Properties for the public DNS namespace.
+     * </p>
+     * 
+     * @param properties
+     *        Properties for the public DNS namespace.
+     */
+
+    public void setProperties(PublicDnsNamespaceProperties properties) {
+        this.properties = properties;
+    }
+
+    /**
+     * <p>
+     * Properties for the public DNS namespace.
+     * </p>
+     * 
+     * @return Properties for the public DNS namespace.
+     */
+
+    public PublicDnsNamespaceProperties getProperties() {
+        return this.properties;
+    }
+
+    /**
+     * <p>
+     * Properties for the public DNS namespace.
+     * </p>
+     * 
+     * @param properties
+     *        Properties for the public DNS namespace.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreatePublicDnsNamespaceRequest withProperties(PublicDnsNamespaceProperties properties) {
+        setProperties(properties);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -195,7 +355,11 @@ public class CreatePublicDnsNamespaceRequest extends com.amazonaws.AmazonWebServ
         if (getCreatorRequestId() != null)
             sb.append("CreatorRequestId: ").append(getCreatorRequestId()).append(",");
         if (getDescription() != null)
-            sb.append("Description: ").append(getDescription());
+            sb.append("Description: ").append(getDescription()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getProperties() != null)
+            sb.append("Properties: ").append(getProperties());
         sb.append("}");
         return sb.toString();
     }
@@ -222,6 +386,14 @@ public class CreatePublicDnsNamespaceRequest extends com.amazonaws.AmazonWebServ
             return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getProperties() == null ^ this.getProperties() == null)
+            return false;
+        if (other.getProperties() != null && other.getProperties().equals(this.getProperties()) == false)
+            return false;
         return true;
     }
 
@@ -233,6 +405,8 @@ public class CreatePublicDnsNamespaceRequest extends com.amazonaws.AmazonWebServ
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getCreatorRequestId() == null) ? 0 : getCreatorRequestId().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getProperties() == null) ? 0 : getProperties().hashCode());
         return hashCode;
     }
 

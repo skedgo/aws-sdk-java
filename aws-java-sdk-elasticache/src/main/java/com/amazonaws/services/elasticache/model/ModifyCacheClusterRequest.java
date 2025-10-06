@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,8 +46,8 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * of the specific cache nodes to remove.
      * </p>
      * <p>
-     * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1
-     * and 20.
+     * For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be between
+     * 1 and 40.
      * </p>
      * <note>
      * <p>
@@ -101,15 +101,17 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * Availability Zone.
      * </p>
      * <p>
-     * Only newly created nodes are located in different Availability Zones. For instructions on how to move existing
-     * Memcached nodes to different Availability Zones, see the <b>Availability Zone Considerations</b> section of <a
-     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheNodes.SupportedTypes.html">Cache Node
-     * Considerations for Memcached</a>.
+     * Only newly created nodes are located in different Availability Zones.
      * </p>
      * </note>
      */
     private String aZMode;
     /**
+     * <note>
+     * <p>
+     * This option is only supported on Memcached clusters.
+     * </p>
+     * </note>
      * <p>
      * The list of Availability Zones where the new Memcached cache nodes are created.
      * </p>
@@ -117,9 +119,6 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * This parameter is only valid when <code>NumCacheNodes</code> in the request is greater than the sum of the number
      * of active cache nodes and the number of cache nodes pending creation (which may be zero). The number of
      * Availability Zones supplied in this list must match the cache nodes being added in this request.
-     * </p>
-     * <p>
-     * This option is only supported on Memcached clusters.
      * </p>
      * <p>
      * Scenarios:
@@ -396,7 +395,8 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
     private String engineVersion;
     /**
      * <p>
-     * This parameter is currently disabled.
+     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * </p>
      */
     private Boolean autoMinorVersionUpgrade;
@@ -425,6 +425,76 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      */
     private String cacheNodeType;
+    /**
+     * <p>
+     * Reserved parameter. The password used to access a password protected server. This parameter must be specified
+     * with the <code>auth-token-update</code> parameter. Password constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be only printable ASCII characters
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be at least 16 characters and no more than 128 characters in length
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cannot contain any of the following characters: '/', '"', or '@', '%'
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see AUTH password at <a href="http://redis.io/commands/AUTH">AUTH</a>.
+     * </p>
+     */
+    private String authToken;
+    /**
+     * <p>
+     * Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     * <code>auth-token</code> parameter. Possible values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ROTATE - default, if no update strategy is provided
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SET - allowed only after ROTATE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DELETE - allowed only when transitioning to RBAC
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with Redis OSS
+     * AUTH</a>
+     * </p>
+     */
+    private String authTokenUpdateStrategy;
+    /**
+     * <p>
+     * Specifies the destination, format and type of the logs.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<LogDeliveryConfigurationRequest> logDeliveryConfigurations;
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     */
+    private String ipDiscovery;
 
     /**
      * Default constructor for ModifyCacheClusterRequest object. Callers should use the setter or fluent setter
@@ -496,8 +566,8 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * of the specific cache nodes to remove.
      * </p>
      * <p>
-     * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1
-     * and 20.
+     * For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be between
+     * 1 and 40.
      * </p>
      * <note>
      * <p>
@@ -530,8 +600,8 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      *        the IDs of the specific cache nodes to remove.
      *        </p>
      *        <p>
-     *        For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be
-     *        between 1 and 20.
+     *        For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be
+     *        between 1 and 40.
      *        </p>
      *        <note>
      *        <p>
@@ -570,8 +640,8 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * of the specific cache nodes to remove.
      * </p>
      * <p>
-     * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1
-     * and 20.
+     * For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be between
+     * 1 and 40.
      * </p>
      * <note>
      * <p>
@@ -603,8 +673,8 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      *         the IDs of the specific cache nodes to remove.
      *         </p>
      *         <p>
-     *         For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be
-     *         between 1 and 20.
+     *         For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be
+     *         between 1 and 40.
      *         </p>
      *         <note>
      *         <p>
@@ -643,8 +713,8 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * of the specific cache nodes to remove.
      * </p>
      * <p>
-     * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1
-     * and 20.
+     * For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be between
+     * 1 and 40.
      * </p>
      * <note>
      * <p>
@@ -677,8 +747,8 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      *        the IDs of the specific cache nodes to remove.
      *        </p>
      *        <p>
-     *        For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be
-     *        between 1 and 20.
+     *        For clusters running Redis OSS, this value must be 1. For clusters running Memcached, this value must be
+     *        between 1 and 40.
      *        </p>
      *        <note>
      *        <p>
@@ -854,10 +924,7 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * Availability Zone.
      * </p>
      * <p>
-     * Only newly created nodes are located in different Availability Zones. For instructions on how to move existing
-     * Memcached nodes to different Availability Zones, see the <b>Availability Zone Considerations</b> section of <a
-     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheNodes.SupportedTypes.html">Cache Node
-     * Considerations for Memcached</a>.
+     * Only newly created nodes are located in different Availability Zones.
      * </p>
      * </note>
      * 
@@ -877,11 +944,7 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      *        current Availability Zone.
      *        </p>
      *        <p>
-     *        Only newly created nodes are located in different Availability Zones. For instructions on how to move
-     *        existing Memcached nodes to different Availability Zones, see the <b>Availability Zone Considerations</b>
-     *        section of <a
-     *        href="https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheNodes.SupportedTypes.html">Cache
-     *        Node Considerations for Memcached</a>.
+     *        Only newly created nodes are located in different Availability Zones.
      *        </p>
      * @see AZMode
      */
@@ -908,10 +971,7 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * Availability Zone.
      * </p>
      * <p>
-     * Only newly created nodes are located in different Availability Zones. For instructions on how to move existing
-     * Memcached nodes to different Availability Zones, see the <b>Availability Zone Considerations</b> section of <a
-     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheNodes.SupportedTypes.html">Cache Node
-     * Considerations for Memcached</a>.
+     * Only newly created nodes are located in different Availability Zones.
      * </p>
      * </note>
      * 
@@ -930,11 +990,7 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      *         current Availability Zone.
      *         </p>
      *         <p>
-     *         Only newly created nodes are located in different Availability Zones. For instructions on how to move
-     *         existing Memcached nodes to different Availability Zones, see the <b>Availability Zone Considerations</b>
-     *         section of <a
-     *         href="https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheNodes.SupportedTypes.html">Cache
-     *         Node Considerations for Memcached</a>.
+     *         Only newly created nodes are located in different Availability Zones.
      *         </p>
      * @see AZMode
      */
@@ -961,10 +1017,7 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * Availability Zone.
      * </p>
      * <p>
-     * Only newly created nodes are located in different Availability Zones. For instructions on how to move existing
-     * Memcached nodes to different Availability Zones, see the <b>Availability Zone Considerations</b> section of <a
-     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheNodes.SupportedTypes.html">Cache Node
-     * Considerations for Memcached</a>.
+     * Only newly created nodes are located in different Availability Zones.
      * </p>
      * </note>
      * 
@@ -984,11 +1037,7 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      *        current Availability Zone.
      *        </p>
      *        <p>
-     *        Only newly created nodes are located in different Availability Zones. For instructions on how to move
-     *        existing Memcached nodes to different Availability Zones, see the <b>Availability Zone Considerations</b>
-     *        section of <a
-     *        href="https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheNodes.SupportedTypes.html">Cache
-     *        Node Considerations for Memcached</a>.
+     *        Only newly created nodes are located in different Availability Zones.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AZMode
@@ -1017,10 +1066,7 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * Availability Zone.
      * </p>
      * <p>
-     * Only newly created nodes are located in different Availability Zones. For instructions on how to move existing
-     * Memcached nodes to different Availability Zones, see the <b>Availability Zone Considerations</b> section of <a
-     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheNodes.SupportedTypes.html">Cache Node
-     * Considerations for Memcached</a>.
+     * Only newly created nodes are located in different Availability Zones.
      * </p>
      * </note>
      * 
@@ -1040,11 +1086,7 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      *        current Availability Zone.
      *        </p>
      *        <p>
-     *        Only newly created nodes are located in different Availability Zones. For instructions on how to move
-     *        existing Memcached nodes to different Availability Zones, see the <b>Availability Zone Considerations</b>
-     *        section of <a
-     *        href="https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheNodes.SupportedTypes.html">Cache
-     *        Node Considerations for Memcached</a>.
+     *        Only newly created nodes are located in different Availability Zones.
      *        </p>
      * @see AZMode
      */
@@ -1071,10 +1113,7 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * Availability Zone.
      * </p>
      * <p>
-     * Only newly created nodes are located in different Availability Zones. For instructions on how to move existing
-     * Memcached nodes to different Availability Zones, see the <b>Availability Zone Considerations</b> section of <a
-     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheNodes.SupportedTypes.html">Cache Node
-     * Considerations for Memcached</a>.
+     * Only newly created nodes are located in different Availability Zones.
      * </p>
      * </note>
      * 
@@ -1094,11 +1133,7 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      *        current Availability Zone.
      *        </p>
      *        <p>
-     *        Only newly created nodes are located in different Availability Zones. For instructions on how to move
-     *        existing Memcached nodes to different Availability Zones, see the <b>Availability Zone Considerations</b>
-     *        section of <a
-     *        href="https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheNodes.SupportedTypes.html">Cache
-     *        Node Considerations for Memcached</a>.
+     *        Only newly created nodes are located in different Availability Zones.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AZMode
@@ -1110,6 +1145,11 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
     }
 
     /**
+     * <note>
+     * <p>
+     * This option is only supported on Memcached clusters.
+     * </p>
+     * </note>
      * <p>
      * The list of Availability Zones where the new Memcached cache nodes are created.
      * </p>
@@ -1117,9 +1157,6 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * This parameter is only valid when <code>NumCacheNodes</code> in the request is greater than the sum of the number
      * of active cache nodes and the number of cache nodes pending creation (which may be zero). The number of
      * Availability Zones supplied in this list must match the cache nodes being added in this request.
-     * </p>
-     * <p>
-     * This option is only supported on Memcached clusters.
      * </p>
      * <p>
      * Scenarios:
@@ -1255,15 +1292,18 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * </ul>
      * 
-     * @return The list of Availability Zones where the new Memcached cache nodes are created.</p>
+     * @return <p>
+     *         This option is only supported on Memcached clusters.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         The list of Availability Zones where the new Memcached cache nodes are created.
+     *         </p>
      *         <p>
      *         This parameter is only valid when <code>NumCacheNodes</code> in the request is greater than the sum of
      *         the number of active cache nodes and the number of cache nodes pending creation (which may be zero). The
      *         number of Availability Zones supplied in this list must match the cache nodes being added in this
      *         request.
-     *         </p>
-     *         <p>
-     *         This option is only supported on Memcached clusters.
      *         </p>
      *         <p>
      *         Scenarios:
@@ -1408,6 +1448,11 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
     }
 
     /**
+     * <note>
+     * <p>
+     * This option is only supported on Memcached clusters.
+     * </p>
+     * </note>
      * <p>
      * The list of Availability Zones where the new Memcached cache nodes are created.
      * </p>
@@ -1415,9 +1460,6 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * This parameter is only valid when <code>NumCacheNodes</code> in the request is greater than the sum of the number
      * of active cache nodes and the number of cache nodes pending creation (which may be zero). The number of
      * Availability Zones supplied in this list must match the cache nodes being added in this request.
-     * </p>
-     * <p>
-     * This option is only supported on Memcached clusters.
      * </p>
      * <p>
      * Scenarios:
@@ -1554,14 +1596,17 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * </ul>
      * 
      * @param newAvailabilityZones
-     *        The list of Availability Zones where the new Memcached cache nodes are created.</p>
+     *        <p>
+     *        This option is only supported on Memcached clusters.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The list of Availability Zones where the new Memcached cache nodes are created.
+     *        </p>
      *        <p>
      *        This parameter is only valid when <code>NumCacheNodes</code> in the request is greater than the sum of the
      *        number of active cache nodes and the number of cache nodes pending creation (which may be zero). The
      *        number of Availability Zones supplied in this list must match the cache nodes being added in this request.
-     *        </p>
-     *        <p>
-     *        This option is only supported on Memcached clusters.
      *        </p>
      *        <p>
      *        Scenarios:
@@ -1708,6 +1753,11 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
     }
 
     /**
+     * <note>
+     * <p>
+     * This option is only supported on Memcached clusters.
+     * </p>
+     * </note>
      * <p>
      * The list of Availability Zones where the new Memcached cache nodes are created.
      * </p>
@@ -1715,9 +1765,6 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * This parameter is only valid when <code>NumCacheNodes</code> in the request is greater than the sum of the number
      * of active cache nodes and the number of cache nodes pending creation (which may be zero). The number of
      * Availability Zones supplied in this list must match the cache nodes being added in this request.
-     * </p>
-     * <p>
-     * This option is only supported on Memcached clusters.
      * </p>
      * <p>
      * Scenarios:
@@ -1859,14 +1906,17 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * 
      * @param newAvailabilityZones
-     *        The list of Availability Zones where the new Memcached cache nodes are created.</p>
+     *        <p>
+     *        This option is only supported on Memcached clusters.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The list of Availability Zones where the new Memcached cache nodes are created.
+     *        </p>
      *        <p>
      *        This parameter is only valid when <code>NumCacheNodes</code> in the request is greater than the sum of the
      *        number of active cache nodes and the number of cache nodes pending creation (which may be zero). The
      *        number of Availability Zones supplied in this list must match the cache nodes being added in this request.
-     *        </p>
-     *        <p>
-     *        This option is only supported on Memcached clusters.
      *        </p>
      *        <p>
      *        Scenarios:
@@ -2015,6 +2065,11 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
     }
 
     /**
+     * <note>
+     * <p>
+     * This option is only supported on Memcached clusters.
+     * </p>
+     * </note>
      * <p>
      * The list of Availability Zones where the new Memcached cache nodes are created.
      * </p>
@@ -2022,9 +2077,6 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * This parameter is only valid when <code>NumCacheNodes</code> in the request is greater than the sum of the number
      * of active cache nodes and the number of cache nodes pending creation (which may be zero). The number of
      * Availability Zones supplied in this list must match the cache nodes being added in this request.
-     * </p>
-     * <p>
-     * This option is only supported on Memcached clusters.
      * </p>
      * <p>
      * Scenarios:
@@ -2161,14 +2213,17 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
      * </ul>
      * 
      * @param newAvailabilityZones
-     *        The list of Availability Zones where the new Memcached cache nodes are created.</p>
+     *        <p>
+     *        This option is only supported on Memcached clusters.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The list of Availability Zones where the new Memcached cache nodes are created.
+     *        </p>
      *        <p>
      *        This parameter is only valid when <code>NumCacheNodes</code> in the request is greater than the sum of the
      *        number of active cache nodes and the number of cache nodes pending creation (which may be zero). The
      *        number of Availability Zones supplied in this list must match the cache nodes being added in this request.
-     *        </p>
-     *        <p>
-     *        This option is only supported on Memcached clusters.
      *        </p>
      *        <p>
      *        Scenarios:
@@ -3292,11 +3347,13 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * This parameter is currently disabled.
+     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        This parameter is currently disabled.
+     *         If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in
+     *        to the next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      */
 
     public void setAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
@@ -3305,10 +3362,13 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * This parameter is currently disabled.
+     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * </p>
      * 
-     * @return This parameter is currently disabled.
+     * @return  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to
+     *         opt-in to the next auto minor version upgrade campaign. This parameter is disabled for previous
+     *         versions. 
      */
 
     public Boolean getAutoMinorVersionUpgrade() {
@@ -3317,11 +3377,13 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * This parameter is currently disabled.
+     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * </p>
      * 
      * @param autoMinorVersionUpgrade
-     *        This parameter is currently disabled.
+     *         If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in
+     *        to the next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3332,10 +3394,13 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * This parameter is currently disabled.
+     *  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions. 
      * </p>
      * 
-     * @return This parameter is currently disabled.
+     * @return  If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to
+     *         opt-in to the next auto minor version upgrade campaign. This parameter is disabled for previous
+     *         versions. 
      */
 
     public Boolean isAutoMinorVersionUpgrade() {
@@ -3499,6 +3564,633 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
     }
 
     /**
+     * <p>
+     * Reserved parameter. The password used to access a password protected server. This parameter must be specified
+     * with the <code>auth-token-update</code> parameter. Password constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be only printable ASCII characters
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be at least 16 characters and no more than 128 characters in length
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cannot contain any of the following characters: '/', '"', or '@', '%'
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see AUTH password at <a href="http://redis.io/commands/AUTH">AUTH</a>.
+     * </p>
+     * 
+     * @param authToken
+     *        Reserved parameter. The password used to access a password protected server. This parameter must be
+     *        specified with the <code>auth-token-update</code> parameter. Password constraints:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Must be only printable ASCII characters
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Must be at least 16 characters and no more than 128 characters in length
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Cannot contain any of the following characters: '/', '"', or '@', '%'
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see AUTH password at <a href="http://redis.io/commands/AUTH">AUTH</a>.
+     */
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
+    }
+
+    /**
+     * <p>
+     * Reserved parameter. The password used to access a password protected server. This parameter must be specified
+     * with the <code>auth-token-update</code> parameter. Password constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be only printable ASCII characters
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be at least 16 characters and no more than 128 characters in length
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cannot contain any of the following characters: '/', '"', or '@', '%'
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see AUTH password at <a href="http://redis.io/commands/AUTH">AUTH</a>.
+     * </p>
+     * 
+     * @return Reserved parameter. The password used to access a password protected server. This parameter must be
+     *         specified with the <code>auth-token-update</code> parameter. Password constraints:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Must be only printable ASCII characters
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Must be at least 16 characters and no more than 128 characters in length
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Cannot contain any of the following characters: '/', '"', or '@', '%'
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information, see AUTH password at <a href="http://redis.io/commands/AUTH">AUTH</a>.
+     */
+
+    public String getAuthToken() {
+        return this.authToken;
+    }
+
+    /**
+     * <p>
+     * Reserved parameter. The password used to access a password protected server. This parameter must be specified
+     * with the <code>auth-token-update</code> parameter. Password constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Must be only printable ASCII characters
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be at least 16 characters and no more than 128 characters in length
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cannot contain any of the following characters: '/', '"', or '@', '%'
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see AUTH password at <a href="http://redis.io/commands/AUTH">AUTH</a>.
+     * </p>
+     * 
+     * @param authToken
+     *        Reserved parameter. The password used to access a password protected server. This parameter must be
+     *        specified with the <code>auth-token-update</code> parameter. Password constraints:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Must be only printable ASCII characters
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Must be at least 16 characters and no more than 128 characters in length
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Cannot contain any of the following characters: '/', '"', or '@', '%'
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see AUTH password at <a href="http://redis.io/commands/AUTH">AUTH</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyCacheClusterRequest withAuthToken(String authToken) {
+        setAuthToken(authToken);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     * <code>auth-token</code> parameter. Possible values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ROTATE - default, if no update strategy is provided
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SET - allowed only after ROTATE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DELETE - allowed only when transitioning to RBAC
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with Redis OSS
+     * AUTH</a>
+     * </p>
+     * 
+     * @param authTokenUpdateStrategy
+     *        Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     *        <code>auth-token</code> parameter. Possible values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        ROTATE - default, if no update strategy is provided
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SET - allowed only after ROTATE
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DELETE - allowed only when transitioning to RBAC
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with
+     *        Redis OSS AUTH</a>
+     * @see AuthTokenUpdateStrategyType
+     */
+
+    public void setAuthTokenUpdateStrategy(String authTokenUpdateStrategy) {
+        this.authTokenUpdateStrategy = authTokenUpdateStrategy;
+    }
+
+    /**
+     * <p>
+     * Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     * <code>auth-token</code> parameter. Possible values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ROTATE - default, if no update strategy is provided
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SET - allowed only after ROTATE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DELETE - allowed only when transitioning to RBAC
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with Redis OSS
+     * AUTH</a>
+     * </p>
+     * 
+     * @return Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     *         <code>auth-token</code> parameter. Possible values:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         ROTATE - default, if no update strategy is provided
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         SET - allowed only after ROTATE
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         DELETE - allowed only when transitioning to RBAC
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information, see <a
+     *         href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with
+     *         Redis OSS AUTH</a>
+     * @see AuthTokenUpdateStrategyType
+     */
+
+    public String getAuthTokenUpdateStrategy() {
+        return this.authTokenUpdateStrategy;
+    }
+
+    /**
+     * <p>
+     * Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     * <code>auth-token</code> parameter. Possible values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ROTATE - default, if no update strategy is provided
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SET - allowed only after ROTATE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DELETE - allowed only when transitioning to RBAC
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with Redis OSS
+     * AUTH</a>
+     * </p>
+     * 
+     * @param authTokenUpdateStrategy
+     *        Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     *        <code>auth-token</code> parameter. Possible values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        ROTATE - default, if no update strategy is provided
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SET - allowed only after ROTATE
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DELETE - allowed only when transitioning to RBAC
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with
+     *        Redis OSS AUTH</a>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthTokenUpdateStrategyType
+     */
+
+    public ModifyCacheClusterRequest withAuthTokenUpdateStrategy(String authTokenUpdateStrategy) {
+        setAuthTokenUpdateStrategy(authTokenUpdateStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     * <code>auth-token</code> parameter. Possible values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ROTATE - default, if no update strategy is provided
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SET - allowed only after ROTATE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DELETE - allowed only when transitioning to RBAC
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with Redis OSS
+     * AUTH</a>
+     * </p>
+     * 
+     * @param authTokenUpdateStrategy
+     *        Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     *        <code>auth-token</code> parameter. Possible values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        ROTATE - default, if no update strategy is provided
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SET - allowed only after ROTATE
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DELETE - allowed only when transitioning to RBAC
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with
+     *        Redis OSS AUTH</a>
+     * @see AuthTokenUpdateStrategyType
+     */
+
+    public void setAuthTokenUpdateStrategy(AuthTokenUpdateStrategyType authTokenUpdateStrategy) {
+        withAuthTokenUpdateStrategy(authTokenUpdateStrategy);
+    }
+
+    /**
+     * <p>
+     * Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     * <code>auth-token</code> parameter. Possible values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ROTATE - default, if no update strategy is provided
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SET - allowed only after ROTATE
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DELETE - allowed only when transitioning to RBAC
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with Redis OSS
+     * AUTH</a>
+     * </p>
+     * 
+     * @param authTokenUpdateStrategy
+     *        Specifies the strategy to use to update the AUTH token. This parameter must be specified with the
+     *        <code>auth-token</code> parameter. Possible values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        ROTATE - default, if no update strategy is provided
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SET - allowed only after ROTATE
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        DELETE - allowed only when transitioning to RBAC
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a
+     *        href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/auth.html">Authenticating Users with
+     *        Redis OSS AUTH</a>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see AuthTokenUpdateStrategyType
+     */
+
+    public ModifyCacheClusterRequest withAuthTokenUpdateStrategy(AuthTokenUpdateStrategyType authTokenUpdateStrategy) {
+        this.authTokenUpdateStrategy = authTokenUpdateStrategy.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the destination, format and type of the logs.
+     * </p>
+     * 
+     * @return Specifies the destination, format and type of the logs.
+     */
+
+    public java.util.List<LogDeliveryConfigurationRequest> getLogDeliveryConfigurations() {
+        if (logDeliveryConfigurations == null) {
+            logDeliveryConfigurations = new com.amazonaws.internal.SdkInternalList<LogDeliveryConfigurationRequest>();
+        }
+        return logDeliveryConfigurations;
+    }
+
+    /**
+     * <p>
+     * Specifies the destination, format and type of the logs.
+     * </p>
+     * 
+     * @param logDeliveryConfigurations
+     *        Specifies the destination, format and type of the logs.
+     */
+
+    public void setLogDeliveryConfigurations(java.util.Collection<LogDeliveryConfigurationRequest> logDeliveryConfigurations) {
+        if (logDeliveryConfigurations == null) {
+            this.logDeliveryConfigurations = null;
+            return;
+        }
+
+        this.logDeliveryConfigurations = new com.amazonaws.internal.SdkInternalList<LogDeliveryConfigurationRequest>(logDeliveryConfigurations);
+    }
+
+    /**
+     * <p>
+     * Specifies the destination, format and type of the logs.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setLogDeliveryConfigurations(java.util.Collection)} or
+     * {@link #withLogDeliveryConfigurations(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param logDeliveryConfigurations
+     *        Specifies the destination, format and type of the logs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyCacheClusterRequest withLogDeliveryConfigurations(LogDeliveryConfigurationRequest... logDeliveryConfigurations) {
+        if (this.logDeliveryConfigurations == null) {
+            setLogDeliveryConfigurations(new com.amazonaws.internal.SdkInternalList<LogDeliveryConfigurationRequest>(logDeliveryConfigurations.length));
+        }
+        for (LogDeliveryConfigurationRequest ele : logDeliveryConfigurations) {
+            this.logDeliveryConfigurations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the destination, format and type of the logs.
+     * </p>
+     * 
+     * @param logDeliveryConfigurations
+     *        Specifies the destination, format and type of the logs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyCacheClusterRequest withLogDeliveryConfigurations(java.util.Collection<LogDeliveryConfigurationRequest> logDeliveryConfigurations) {
+        setLogDeliveryConfigurations(logDeliveryConfigurations);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @param ipDiscovery
+     *        The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6
+     *        is supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on
+     *        all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @see IpDiscovery
+     */
+
+    public void setIpDiscovery(String ipDiscovery) {
+        this.ipDiscovery = ipDiscovery;
+    }
+
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @return The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6
+     *         is supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on
+     *         all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @see IpDiscovery
+     */
+
+    public String getIpDiscovery() {
+        return this.ipDiscovery;
+    }
+
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @param ipDiscovery
+     *        The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6
+     *        is supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on
+     *        all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IpDiscovery
+     */
+
+    public ModifyCacheClusterRequest withIpDiscovery(String ipDiscovery) {
+        setIpDiscovery(ipDiscovery);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @param ipDiscovery
+     *        The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6
+     *        is supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on
+     *        all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @see IpDiscovery
+     */
+
+    public void setIpDiscovery(IpDiscovery ipDiscovery) {
+        withIpDiscovery(ipDiscovery);
+    }
+
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @param ipDiscovery
+     *        The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6
+     *        is supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on
+     *        all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IpDiscovery
+     */
+
+    public ModifyCacheClusterRequest withIpDiscovery(IpDiscovery ipDiscovery) {
+        this.ipDiscovery = ipDiscovery.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -3543,7 +4235,15 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
         if (getSnapshotWindow() != null)
             sb.append("SnapshotWindow: ").append(getSnapshotWindow()).append(",");
         if (getCacheNodeType() != null)
-            sb.append("CacheNodeType: ").append(getCacheNodeType());
+            sb.append("CacheNodeType: ").append(getCacheNodeType()).append(",");
+        if (getAuthToken() != null)
+            sb.append("AuthToken: ").append(getAuthToken()).append(",");
+        if (getAuthTokenUpdateStrategy() != null)
+            sb.append("AuthTokenUpdateStrategy: ").append(getAuthTokenUpdateStrategy()).append(",");
+        if (getLogDeliveryConfigurations() != null)
+            sb.append("LogDeliveryConfigurations: ").append(getLogDeliveryConfigurations()).append(",");
+        if (getIpDiscovery() != null)
+            sb.append("IpDiscovery: ").append(getIpDiscovery());
         sb.append("}");
         return sb.toString();
     }
@@ -3626,6 +4326,22 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
             return false;
         if (other.getCacheNodeType() != null && other.getCacheNodeType().equals(this.getCacheNodeType()) == false)
             return false;
+        if (other.getAuthToken() == null ^ this.getAuthToken() == null)
+            return false;
+        if (other.getAuthToken() != null && other.getAuthToken().equals(this.getAuthToken()) == false)
+            return false;
+        if (other.getAuthTokenUpdateStrategy() == null ^ this.getAuthTokenUpdateStrategy() == null)
+            return false;
+        if (other.getAuthTokenUpdateStrategy() != null && other.getAuthTokenUpdateStrategy().equals(this.getAuthTokenUpdateStrategy()) == false)
+            return false;
+        if (other.getLogDeliveryConfigurations() == null ^ this.getLogDeliveryConfigurations() == null)
+            return false;
+        if (other.getLogDeliveryConfigurations() != null && other.getLogDeliveryConfigurations().equals(this.getLogDeliveryConfigurations()) == false)
+            return false;
+        if (other.getIpDiscovery() == null ^ this.getIpDiscovery() == null)
+            return false;
+        if (other.getIpDiscovery() != null && other.getIpDiscovery().equals(this.getIpDiscovery()) == false)
+            return false;
         return true;
     }
 
@@ -3651,6 +4367,10 @@ public class ModifyCacheClusterRequest extends com.amazonaws.AmazonWebServiceReq
         hashCode = prime * hashCode + ((getSnapshotRetentionLimit() == null) ? 0 : getSnapshotRetentionLimit().hashCode());
         hashCode = prime * hashCode + ((getSnapshotWindow() == null) ? 0 : getSnapshotWindow().hashCode());
         hashCode = prime * hashCode + ((getCacheNodeType() == null) ? 0 : getCacheNodeType().hashCode());
+        hashCode = prime * hashCode + ((getAuthToken() == null) ? 0 : getAuthToken().hashCode());
+        hashCode = prime * hashCode + ((getAuthTokenUpdateStrategy() == null) ? 0 : getAuthTokenUpdateStrategy().hashCode());
+        hashCode = prime * hashCode + ((getLogDeliveryConfigurations() == null) ? 0 : getLogDeliveryConfigurations().hashCode());
+        hashCode = prime * hashCode + ((getIpDiscovery() == null) ? 0 : getIpDiscovery().hashCode());
         return hashCode;
     }
 

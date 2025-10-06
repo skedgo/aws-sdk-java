@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,18 @@ public class PutLoggingOptionsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The new values of the AWS IoT Analytics logging options.
+     * The new values of the IoT Analytics logging options.
      * </p>
      */
     private LoggingOptions loggingOptions;
 
     /**
      * <p>
-     * The new values of the AWS IoT Analytics logging options.
+     * The new values of the IoT Analytics logging options.
      * </p>
      * 
      * @param loggingOptions
-     *        The new values of the AWS IoT Analytics logging options.
+     *        The new values of the IoT Analytics logging options.
      */
 
     public void setLoggingOptions(LoggingOptions loggingOptions) {
@@ -47,10 +47,10 @@ public class PutLoggingOptionsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The new values of the AWS IoT Analytics logging options.
+     * The new values of the IoT Analytics logging options.
      * </p>
      * 
-     * @return The new values of the AWS IoT Analytics logging options.
+     * @return The new values of the IoT Analytics logging options.
      */
 
     public LoggingOptions getLoggingOptions() {
@@ -59,11 +59,11 @@ public class PutLoggingOptionsRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * The new values of the AWS IoT Analytics logging options.
+     * The new values of the IoT Analytics logging options.
      * </p>
      * 
      * @param loggingOptions
-     *        The new values of the AWS IoT Analytics logging options.
+     *        The new values of the IoT Analytics logging options.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

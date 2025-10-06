@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,28 +27,40 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 public class OutputGroupSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
-     * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to CMAF_GROUP_SETTINGS. Each output in a
-     * CMAF Output Group may only contain a single video, audio, or caption output.
+     * Settings related to your CMAF output package. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      */
     private CmafGroupSettings cmafGroupSettings;
-    /** Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to DASH_ISO_GROUP_SETTINGS. */
+    /**
+     * Settings related to your DASH output package. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
+     */
     private DashIsoGroupSettings dashIsoGroupSettings;
-    /** Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to FILE_GROUP_SETTINGS. */
+    /**
+     * Settings related to your File output group. MediaConvert uses this group of settings to generate a single
+     * standalone file, rather than a streaming package.
+     */
     private FileGroupSettings fileGroupSettings;
-    /** Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to HLS_GROUP_SETTINGS. */
+    /**
+     * Settings related to your HLS output package. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
+     */
     private HlsGroupSettings hlsGroupSettings;
-    /** Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to MS_SMOOTH_GROUP_SETTINGS. */
+    /**
+     * Settings related to your Microsoft Smooth Streaming output package. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
+     */
     private MsSmoothGroupSettings msSmoothGroupSettings;
     /** Type of output group (File group, Apple HLS, DASH ISO, Microsoft Smooth Streaming, CMAF) */
     private String type;
 
     /**
-     * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to CMAF_GROUP_SETTINGS. Each output in a
-     * CMAF Output Group may only contain a single video, audio, or caption output.
+     * Settings related to your CMAF output package. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      * 
      * @param cmafGroupSettings
-     *        Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to CMAF_GROUP_SETTINGS. Each
-     *        output in a CMAF Output Group may only contain a single video, audio, or caption output.
+     *        Settings related to your CMAF output package. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      */
 
     public void setCmafGroupSettings(CmafGroupSettings cmafGroupSettings) {
@@ -56,11 +68,11 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to CMAF_GROUP_SETTINGS. Each output in a
-     * CMAF Output Group may only contain a single video, audio, or caption output.
+     * Settings related to your CMAF output package. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      * 
-     * @return Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to CMAF_GROUP_SETTINGS. Each
-     *         output in a CMAF Output Group may only contain a single video, audio, or caption output.
+     * @return Settings related to your CMAF output package. For more information, see
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      */
 
     public CmafGroupSettings getCmafGroupSettings() {
@@ -68,12 +80,12 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to CMAF_GROUP_SETTINGS. Each output in a
-     * CMAF Output Group may only contain a single video, audio, or caption output.
+     * Settings related to your CMAF output package. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      * 
      * @param cmafGroupSettings
-     *        Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to CMAF_GROUP_SETTINGS. Each
-     *        output in a CMAF Output Group may only contain a single video, audio, or caption output.
+     *        Settings related to your CMAF output package. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -83,10 +95,12 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to DASH_ISO_GROUP_SETTINGS.
+     * Settings related to your DASH output package. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      * 
      * @param dashIsoGroupSettings
-     *        Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to DASH_ISO_GROUP_SETTINGS.
+     *        Settings related to your DASH output package. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      */
 
     public void setDashIsoGroupSettings(DashIsoGroupSettings dashIsoGroupSettings) {
@@ -94,9 +108,11 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to DASH_ISO_GROUP_SETTINGS.
+     * Settings related to your DASH output package. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      * 
-     * @return Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to DASH_ISO_GROUP_SETTINGS.
+     * @return Settings related to your DASH output package. For more information, see
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      */
 
     public DashIsoGroupSettings getDashIsoGroupSettings() {
@@ -104,10 +120,12 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to DASH_ISO_GROUP_SETTINGS.
+     * Settings related to your DASH output package. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      * 
      * @param dashIsoGroupSettings
-     *        Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to DASH_ISO_GROUP_SETTINGS.
+     *        Settings related to your DASH output package. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -117,10 +135,12 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to FILE_GROUP_SETTINGS.
+     * Settings related to your File output group. MediaConvert uses this group of settings to generate a single
+     * standalone file, rather than a streaming package.
      * 
      * @param fileGroupSettings
-     *        Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to FILE_GROUP_SETTINGS.
+     *        Settings related to your File output group. MediaConvert uses this group of settings to generate a single
+     *        standalone file, rather than a streaming package.
      */
 
     public void setFileGroupSettings(FileGroupSettings fileGroupSettings) {
@@ -128,9 +148,11 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to FILE_GROUP_SETTINGS.
+     * Settings related to your File output group. MediaConvert uses this group of settings to generate a single
+     * standalone file, rather than a streaming package.
      * 
-     * @return Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to FILE_GROUP_SETTINGS.
+     * @return Settings related to your File output group. MediaConvert uses this group of settings to generate a single
+     *         standalone file, rather than a streaming package.
      */
 
     public FileGroupSettings getFileGroupSettings() {
@@ -138,10 +160,12 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to FILE_GROUP_SETTINGS.
+     * Settings related to your File output group. MediaConvert uses this group of settings to generate a single
+     * standalone file, rather than a streaming package.
      * 
      * @param fileGroupSettings
-     *        Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to FILE_GROUP_SETTINGS.
+     *        Settings related to your File output group. MediaConvert uses this group of settings to generate a single
+     *        standalone file, rather than a streaming package.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -151,10 +175,12 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to HLS_GROUP_SETTINGS.
+     * Settings related to your HLS output package. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      * 
      * @param hlsGroupSettings
-     *        Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to HLS_GROUP_SETTINGS.
+     *        Settings related to your HLS output package. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      */
 
     public void setHlsGroupSettings(HlsGroupSettings hlsGroupSettings) {
@@ -162,9 +188,11 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to HLS_GROUP_SETTINGS.
+     * Settings related to your HLS output package. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      * 
-     * @return Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to HLS_GROUP_SETTINGS.
+     * @return Settings related to your HLS output package. For more information, see
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      */
 
     public HlsGroupSettings getHlsGroupSettings() {
@@ -172,10 +200,12 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to HLS_GROUP_SETTINGS.
+     * Settings related to your HLS output package. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      * 
      * @param hlsGroupSettings
-     *        Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to HLS_GROUP_SETTINGS.
+     *        Settings related to your HLS output package. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -185,10 +215,12 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to MS_SMOOTH_GROUP_SETTINGS.
+     * Settings related to your Microsoft Smooth Streaming output package. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      * 
      * @param msSmoothGroupSettings
-     *        Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to MS_SMOOTH_GROUP_SETTINGS.
+     *        Settings related to your Microsoft Smooth Streaming output package. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      */
 
     public void setMsSmoothGroupSettings(MsSmoothGroupSettings msSmoothGroupSettings) {
@@ -196,9 +228,11 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to MS_SMOOTH_GROUP_SETTINGS.
+     * Settings related to your Microsoft Smooth Streaming output package. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      * 
-     * @return Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to MS_SMOOTH_GROUP_SETTINGS.
+     * @return Settings related to your Microsoft Smooth Streaming output package. For more information, see
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      */
 
     public MsSmoothGroupSettings getMsSmoothGroupSettings() {
@@ -206,10 +240,12 @@ public class OutputGroupSettings implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to MS_SMOOTH_GROUP_SETTINGS.
+     * Settings related to your Microsoft Smooth Streaming output package. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      * 
      * @param msSmoothGroupSettings
-     *        Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to MS_SMOOTH_GROUP_SETTINGS.
+     *        Settings related to your Microsoft Smooth Streaming output package. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/outputs-file-ABR.html.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

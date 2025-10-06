@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Contains all of the attributes of a specific Redis replication group.
+ * Contains all of the attributes of a specific Redis OSS replication group.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ReplicationGroup" target="_top">AWS API
@@ -40,6 +40,12 @@ public class ReplicationGroup implements Serializable, Cloneable {
     private String description;
     /**
      * <p>
+     * The name of the Global datastore and role of this replication group in the Global datastore.
+     * </p>
+     */
+    private GlobalReplicationGroupInfo globalReplicationGroupInfo;
+    /**
+     * <p>
      * The current state of this replication group - <code>creating</code>, <code>available</code>,
      * <code>modifying</code>, <code>deleting</code>, <code>create-failed</code>, <code>snapshotting</code>.
      * </p>
@@ -60,9 +66,9 @@ public class ReplicationGroup implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<String> memberClusters;
     /**
      * <p>
-     * A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups, this is a
-     * single-element list. For Redis (cluster mode enabled) replication groups, the list contains an entry for each
-     * node group (shard).
+     * A list of node groups in this replication group. For Redis OSS (cluster mode disabled) replication groups, this
+     * is a single-element list. For Redis OSS (cluster mode enabled) replication groups, the list contains an entry for
+     * each node group (shard).
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<NodeGroup> nodeGroups;
@@ -74,30 +80,18 @@ public class ReplicationGroup implements Serializable, Cloneable {
     private String snapshottingClusterId;
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
+     * Indicates the status of automatic failover for this Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      */
     private String automaticFailover;
+    /**
+     * <p>
+     * A flag indicating if you have Multi-AZ enabled to enhance fault tolerance. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html">Minimizing Downtime:
+     * Multi-AZ</a>
+     * </p>
+     */
+    private String multiAZ;
     /**
      * <p>
      * The configuration endpoint for this replication group. Use the configuration endpoint to connect to this
@@ -153,7 +147,7 @@ public class ReplicationGroup implements Serializable, Cloneable {
     private String cacheNodeType;
     /**
      * <p>
-     * A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.
+     * A flag that enables using an <code>AuthToken</code> (password) when issuing Redis OSS commands.
      * </p>
      * <p>
      * Default: <code>false</code>
@@ -162,15 +156,16 @@ public class ReplicationGroup implements Serializable, Cloneable {
     private Boolean authTokenEnabled;
     /**
      * <p>
+     * The date the auth token was last modified
+     * </p>
+     */
+    private java.util.Date authTokenLastModifiedDate;
+    /**
+     * <p>
      * A flag that enables in-transit encryption when set to <code>true</code>.
      * </p>
      * <p>
-     * You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To enable
-     * in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to <code>true</code> when
-     * you create a cluster.
-     * </p>
-     * <p>
-     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS version
      * <code>3.2.6</code>, <code>4.x</code> or later.
      * </p>
      * <p>
@@ -188,7 +183,7 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * create a cluster.
      * </p>
      * <p>
-     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS version
      * <code>3.2.6</code>, <code>4.x</code> or later.
      * </p>
      * <p>
@@ -196,6 +191,88 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * </p>
      */
     private Boolean atRestEncryptionEnabled;
+    /**
+     * <p>
+     * The outpost ARNs of the replication group's member clusters.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> memberClustersOutpostArns;
+    /**
+     * <p>
+     * The ID of the KMS key used to encrypt the disk in the cluster.
+     * </p>
+     */
+    private String kmsKeyId;
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) of the replication group.
+     * </p>
+     */
+    private String aRN;
+    /**
+     * <p>
+     * The ID of the user group associated to the replication group.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> userGroupIds;
+    /**
+     * <p>
+     * Returns the destination, format and type of the logs.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<LogDeliveryConfiguration> logDeliveryConfigurations;
+    /**
+     * <p>
+     * The date and time when the cluster was created.
+     * </p>
+     */
+    private java.util.Date replicationGroupCreateTime;
+    /**
+     * <p>
+     * Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     * parameter must be set to true when using r6gd nodes. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * </p>
+     */
+    private String dataTiering;
+    /**
+     * <p>
+     * If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions.
+     * </p>
+     */
+    private Boolean autoMinorVersionUpgrade;
+    /**
+     * <p>
+     * Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. IPv6 is supported for workloads
+     * using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all instances built on the <a
+     * href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     */
+    private String networkType;
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     */
+    private String ipDiscovery;
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     */
+    private String transitEncryptionMode;
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     */
+    private String clusterMode;
 
     /**
      * <p>
@@ -274,6 +351,46 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     public ReplicationGroup withDescription(String description) {
         setDescription(description);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the Global datastore and role of this replication group in the Global datastore.
+     * </p>
+     * 
+     * @param globalReplicationGroupInfo
+     *        The name of the Global datastore and role of this replication group in the Global datastore.
+     */
+
+    public void setGlobalReplicationGroupInfo(GlobalReplicationGroupInfo globalReplicationGroupInfo) {
+        this.globalReplicationGroupInfo = globalReplicationGroupInfo;
+    }
+
+    /**
+     * <p>
+     * The name of the Global datastore and role of this replication group in the Global datastore.
+     * </p>
+     * 
+     * @return The name of the Global datastore and role of this replication group in the Global datastore.
+     */
+
+    public GlobalReplicationGroupInfo getGlobalReplicationGroupInfo() {
+        return this.globalReplicationGroupInfo;
+    }
+
+    /**
+     * <p>
+     * The name of the Global datastore and role of this replication group in the Global datastore.
+     * </p>
+     * 
+     * @param globalReplicationGroupInfo
+     *        The name of the Global datastore and role of this replication group in the Global datastore.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroup withGlobalReplicationGroupInfo(GlobalReplicationGroupInfo globalReplicationGroupInfo) {
+        setGlobalReplicationGroupInfo(globalReplicationGroupInfo);
         return this;
     }
 
@@ -444,14 +561,14 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups, this is a
-     * single-element list. For Redis (cluster mode enabled) replication groups, the list contains an entry for each
-     * node group (shard).
+     * A list of node groups in this replication group. For Redis OSS (cluster mode disabled) replication groups, this
+     * is a single-element list. For Redis OSS (cluster mode enabled) replication groups, the list contains an entry for
+     * each node group (shard).
      * </p>
      * 
-     * @return A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups,
-     *         this is a single-element list. For Redis (cluster mode enabled) replication groups, the list contains an
-     *         entry for each node group (shard).
+     * @return A list of node groups in this replication group. For Redis OSS (cluster mode disabled) replication
+     *         groups, this is a single-element list. For Redis OSS (cluster mode enabled) replication groups, the list
+     *         contains an entry for each node group (shard).
      */
 
     public java.util.List<NodeGroup> getNodeGroups() {
@@ -463,15 +580,15 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups, this is a
-     * single-element list. For Redis (cluster mode enabled) replication groups, the list contains an entry for each
-     * node group (shard).
+     * A list of node groups in this replication group. For Redis OSS (cluster mode disabled) replication groups, this
+     * is a single-element list. For Redis OSS (cluster mode enabled) replication groups, the list contains an entry for
+     * each node group (shard).
      * </p>
      * 
      * @param nodeGroups
-     *        A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups,
-     *        this is a single-element list. For Redis (cluster mode enabled) replication groups, the list contains an
-     *        entry for each node group (shard).
+     *        A list of node groups in this replication group. For Redis OSS (cluster mode disabled) replication groups,
+     *        this is a single-element list. For Redis OSS (cluster mode enabled) replication groups, the list contains
+     *        an entry for each node group (shard).
      */
 
     public void setNodeGroups(java.util.Collection<NodeGroup> nodeGroups) {
@@ -485,9 +602,9 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups, this is a
-     * single-element list. For Redis (cluster mode enabled) replication groups, the list contains an entry for each
-     * node group (shard).
+     * A list of node groups in this replication group. For Redis OSS (cluster mode disabled) replication groups, this
+     * is a single-element list. For Redis OSS (cluster mode enabled) replication groups, the list contains an entry for
+     * each node group (shard).
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -496,9 +613,9 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * </p>
      * 
      * @param nodeGroups
-     *        A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups,
-     *        this is a single-element list. For Redis (cluster mode enabled) replication groups, the list contains an
-     *        entry for each node group (shard).
+     *        A list of node groups in this replication group. For Redis OSS (cluster mode disabled) replication groups,
+     *        this is a single-element list. For Redis OSS (cluster mode enabled) replication groups, the list contains
+     *        an entry for each node group (shard).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -514,15 +631,15 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups, this is a
-     * single-element list. For Redis (cluster mode enabled) replication groups, the list contains an entry for each
-     * node group (shard).
+     * A list of node groups in this replication group. For Redis OSS (cluster mode disabled) replication groups, this
+     * is a single-element list. For Redis OSS (cluster mode enabled) replication groups, the list contains an entry for
+     * each node group (shard).
      * </p>
      * 
      * @param nodeGroups
-     *        A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups,
-     *        this is a single-element list. For Redis (cluster mode enabled) replication groups, the list contains an
-     *        entry for each node group (shard).
+     *        A list of node groups in this replication group. For Redis OSS (cluster mode disabled) replication groups,
+     *        this is a single-element list. For Redis OSS (cluster mode enabled) replication groups, the list contains
+     *        an entry for each node group (shard).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -573,50 +690,11 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
+     * Indicates the status of automatic failover for this Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param automaticFailover
-     *        Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
-     *        <p>
-     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        Redis versions earlier than 2.8.6.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode disabled): T1 node types.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode enabled): T1 node types.
-     *        </p>
-     *        </li>
+     *        Indicates the status of automatic failover for this Redis OSS replication group.
      * @see AutomaticFailoverStatus
      */
 
@@ -626,49 +704,10 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
+     * Indicates the status of automatic failover for this Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
-     * @return Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
-     *         <p>
-     *         Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *         </p>
-     *         <ul>
-     *         <li>
-     *         <p>
-     *         Redis versions earlier than 2.8.6.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Redis (cluster mode disabled): T1 node types.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Redis (cluster mode enabled): T1 node types.
-     *         </p>
-     *         </li>
+     * @return Indicates the status of automatic failover for this Redis OSS replication group.
      * @see AutomaticFailoverStatus
      */
 
@@ -678,50 +717,11 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
+     * Indicates the status of automatic failover for this Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param automaticFailover
-     *        Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
-     *        <p>
-     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        Redis versions earlier than 2.8.6.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode disabled): T1 node types.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode enabled): T1 node types.
-     *        </p>
-     *        </li>
+     *        Indicates the status of automatic failover for this Redis OSS replication group.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AutomaticFailoverStatus
      */
@@ -733,50 +733,11 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
+     * Indicates the status of automatic failover for this Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param automaticFailover
-     *        Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
-     *        <p>
-     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        Redis versions earlier than 2.8.6.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode disabled): T1 node types.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode enabled): T1 node types.
-     *        </p>
-     *        </li>
+     *        Indicates the status of automatic failover for this Redis OSS replication group.
      * @see AutomaticFailoverStatus
      */
 
@@ -786,56 +747,110 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
+     * Indicates the status of automatic failover for this Redis OSS replication group.
      * </p>
-     * <p>
-     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Redis versions earlier than 2.8.6.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode disabled): T1 node types.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Redis (cluster mode enabled): T1 node types.
-     * </p>
-     * </li>
-     * </ul>
      * 
      * @param automaticFailover
-     *        Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
-     *        <p>
-     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
-     *        </p>
-     *        <ul>
-     *        <li>
-     *        <p>
-     *        Redis versions earlier than 2.8.6.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode disabled): T1 node types.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Redis (cluster mode enabled): T1 node types.
-     *        </p>
-     *        </li>
+     *        Indicates the status of automatic failover for this Redis OSS replication group.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AutomaticFailoverStatus
      */
 
     public ReplicationGroup withAutomaticFailover(AutomaticFailoverStatus automaticFailover) {
         this.automaticFailover = automaticFailover.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * A flag indicating if you have Multi-AZ enabled to enhance fault tolerance. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html">Minimizing Downtime:
+     * Multi-AZ</a>
+     * </p>
+     * 
+     * @param multiAZ
+     *        A flag indicating if you have Multi-AZ enabled to enhance fault tolerance. For more information, see <a
+     *        href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html">Minimizing Downtime:
+     *        Multi-AZ</a>
+     * @see MultiAZStatus
+     */
+
+    public void setMultiAZ(String multiAZ) {
+        this.multiAZ = multiAZ;
+    }
+
+    /**
+     * <p>
+     * A flag indicating if you have Multi-AZ enabled to enhance fault tolerance. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html">Minimizing Downtime:
+     * Multi-AZ</a>
+     * </p>
+     * 
+     * @return A flag indicating if you have Multi-AZ enabled to enhance fault tolerance. For more information, see <a
+     *         href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html">Minimizing Downtime:
+     *         Multi-AZ</a>
+     * @see MultiAZStatus
+     */
+
+    public String getMultiAZ() {
+        return this.multiAZ;
+    }
+
+    /**
+     * <p>
+     * A flag indicating if you have Multi-AZ enabled to enhance fault tolerance. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html">Minimizing Downtime:
+     * Multi-AZ</a>
+     * </p>
+     * 
+     * @param multiAZ
+     *        A flag indicating if you have Multi-AZ enabled to enhance fault tolerance. For more information, see <a
+     *        href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html">Minimizing Downtime:
+     *        Multi-AZ</a>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MultiAZStatus
+     */
+
+    public ReplicationGroup withMultiAZ(String multiAZ) {
+        setMultiAZ(multiAZ);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A flag indicating if you have Multi-AZ enabled to enhance fault tolerance. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html">Minimizing Downtime:
+     * Multi-AZ</a>
+     * </p>
+     * 
+     * @param multiAZ
+     *        A flag indicating if you have Multi-AZ enabled to enhance fault tolerance. For more information, see <a
+     *        href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html">Minimizing Downtime:
+     *        Multi-AZ</a>
+     * @see MultiAZStatus
+     */
+
+    public void setMultiAZ(MultiAZStatus multiAZ) {
+        withMultiAZ(multiAZ);
+    }
+
+    /**
+     * <p>
+     * A flag indicating if you have Multi-AZ enabled to enhance fault tolerance. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html">Minimizing Downtime:
+     * Multi-AZ</a>
+     * </p>
+     * 
+     * @param multiAZ
+     *        A flag indicating if you have Multi-AZ enabled to enhance fault tolerance. For more information, see <a
+     *        href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html">Minimizing Downtime:
+     *        Multi-AZ</a>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MultiAZStatus
+     */
+
+    public ReplicationGroup withMultiAZ(MultiAZStatus multiAZ) {
+        this.multiAZ = multiAZ.toString();
         return this;
     }
 
@@ -1189,14 +1204,14 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.
+     * A flag that enables using an <code>AuthToken</code> (password) when issuing Redis OSS commands.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
      * @param authTokenEnabled
-     *        A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.</p>
+     *        A flag that enables using an <code>AuthToken</code> (password) when issuing Redis OSS commands.</p>
      *        <p>
      *        Default: <code>false</code>
      */
@@ -1207,13 +1222,13 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.
+     * A flag that enables using an <code>AuthToken</code> (password) when issuing Redis OSS commands.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
-     * @return A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.</p>
+     * @return A flag that enables using an <code>AuthToken</code> (password) when issuing Redis OSS commands.</p>
      *         <p>
      *         Default: <code>false</code>
      */
@@ -1224,14 +1239,14 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.
+     * A flag that enables using an <code>AuthToken</code> (password) when issuing Redis OSS commands.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
      * @param authTokenEnabled
-     *        A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.</p>
+     *        A flag that enables using an <code>AuthToken</code> (password) when issuing Redis OSS commands.</p>
      *        <p>
      *        Default: <code>false</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1244,13 +1259,13 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.
+     * A flag that enables using an <code>AuthToken</code> (password) when issuing Redis OSS commands.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
-     * @return A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.</p>
+     * @return A flag that enables using an <code>AuthToken</code> (password) when issuing Redis OSS commands.</p>
      *         <p>
      *         Default: <code>false</code>
      */
@@ -1261,15 +1276,50 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
+     * The date the auth token was last modified
+     * </p>
+     * 
+     * @param authTokenLastModifiedDate
+     *        The date the auth token was last modified
+     */
+
+    public void setAuthTokenLastModifiedDate(java.util.Date authTokenLastModifiedDate) {
+        this.authTokenLastModifiedDate = authTokenLastModifiedDate;
+    }
+
+    /**
+     * <p>
+     * The date the auth token was last modified
+     * </p>
+     * 
+     * @return The date the auth token was last modified
+     */
+
+    public java.util.Date getAuthTokenLastModifiedDate() {
+        return this.authTokenLastModifiedDate;
+    }
+
+    /**
+     * <p>
+     * The date the auth token was last modified
+     * </p>
+     * 
+     * @param authTokenLastModifiedDate
+     *        The date the auth token was last modified
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroup withAuthTokenLastModifiedDate(java.util.Date authTokenLastModifiedDate) {
+        setAuthTokenLastModifiedDate(authTokenLastModifiedDate);
+        return this;
+    }
+
+    /**
+     * <p>
      * A flag that enables in-transit encryption when set to <code>true</code>.
      * </p>
      * <p>
-     * You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To enable
-     * in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to <code>true</code> when
-     * you create a cluster.
-     * </p>
-     * <p>
-     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS version
      * <code>3.2.6</code>, <code>4.x</code> or later.
      * </p>
      * <p>
@@ -1279,12 +1329,7 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * @param transitEncryptionEnabled
      *        A flag that enables in-transit encryption when set to <code>true</code>.</p>
      *        <p>
-     *        You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To
-     *        enable in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to
-     *        <code>true</code> when you create a cluster.
-     *        </p>
-     *        <p>
-     *        <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     *        <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS version
      *        <code>3.2.6</code>, <code>4.x</code> or later.
      *        </p>
      *        <p>
@@ -1300,12 +1345,7 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * A flag that enables in-transit encryption when set to <code>true</code>.
      * </p>
      * <p>
-     * You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To enable
-     * in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to <code>true</code> when
-     * you create a cluster.
-     * </p>
-     * <p>
-     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS version
      * <code>3.2.6</code>, <code>4.x</code> or later.
      * </p>
      * <p>
@@ -1314,13 +1354,8 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * 
      * @return A flag that enables in-transit encryption when set to <code>true</code>.</p>
      *         <p>
-     *         You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To
-     *         enable in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to
-     *         <code>true</code> when you create a cluster.
-     *         </p>
-     *         <p>
-     *         <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
-     *         <code>3.2.6</code>, <code>4.x</code> or later.
+     *         <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS
+     *         version <code>3.2.6</code>, <code>4.x</code> or later.
      *         </p>
      *         <p>
      *         Default: <code>false</code>
@@ -1335,12 +1370,7 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * A flag that enables in-transit encryption when set to <code>true</code>.
      * </p>
      * <p>
-     * You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To enable
-     * in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to <code>true</code> when
-     * you create a cluster.
-     * </p>
-     * <p>
-     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS version
      * <code>3.2.6</code>, <code>4.x</code> or later.
      * </p>
      * <p>
@@ -1350,12 +1380,7 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * @param transitEncryptionEnabled
      *        A flag that enables in-transit encryption when set to <code>true</code>.</p>
      *        <p>
-     *        You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To
-     *        enable in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to
-     *        <code>true</code> when you create a cluster.
-     *        </p>
-     *        <p>
-     *        <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     *        <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS version
      *        <code>3.2.6</code>, <code>4.x</code> or later.
      *        </p>
      *        <p>
@@ -1373,12 +1398,7 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * A flag that enables in-transit encryption when set to <code>true</code>.
      * </p>
      * <p>
-     * You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To enable
-     * in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to <code>true</code> when
-     * you create a cluster.
-     * </p>
-     * <p>
-     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS version
      * <code>3.2.6</code>, <code>4.x</code> or later.
      * </p>
      * <p>
@@ -1387,13 +1407,8 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * 
      * @return A flag that enables in-transit encryption when set to <code>true</code>.</p>
      *         <p>
-     *         You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To
-     *         enable in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to
-     *         <code>true</code> when you create a cluster.
-     *         </p>
-     *         <p>
-     *         <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
-     *         <code>3.2.6</code>, <code>4.x</code> or later.
+     *         <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS
+     *         version <code>3.2.6</code>, <code>4.x</code> or later.
      *         </p>
      *         <p>
      *         Default: <code>false</code>
@@ -1413,7 +1428,7 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * create a cluster.
      * </p>
      * <p>
-     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS version
      * <code>3.2.6</code>, <code>4.x</code> or later.
      * </p>
      * <p>
@@ -1428,7 +1443,7 @@ public class ReplicationGroup implements Serializable, Cloneable {
      *        <code>true</code> when you create a cluster.
      *        </p>
      *        <p>
-     *        <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     *        <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS version
      *        <code>3.2.6</code>, <code>4.x</code> or later.
      *        </p>
      *        <p>
@@ -1449,7 +1464,7 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * create a cluster.
      * </p>
      * <p>
-     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS version
      * <code>3.2.6</code>, <code>4.x</code> or later.
      * </p>
      * <p>
@@ -1463,8 +1478,8 @@ public class ReplicationGroup implements Serializable, Cloneable {
      *         <code>true</code> when you create a cluster.
      *         </p>
      *         <p>
-     *         <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
-     *         <code>3.2.6</code>, <code>4.x</code> or later.
+     *         <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS
+     *         version <code>3.2.6</code>, <code>4.x</code> or later.
      *         </p>
      *         <p>
      *         Default: <code>false</code>
@@ -1484,7 +1499,7 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * create a cluster.
      * </p>
      * <p>
-     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS version
      * <code>3.2.6</code>, <code>4.x</code> or later.
      * </p>
      * <p>
@@ -1499,7 +1514,7 @@ public class ReplicationGroup implements Serializable, Cloneable {
      *        <code>true</code> when you create a cluster.
      *        </p>
      *        <p>
-     *        <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     *        <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS version
      *        <code>3.2.6</code>, <code>4.x</code> or later.
      *        </p>
      *        <p>
@@ -1522,7 +1537,7 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * create a cluster.
      * </p>
      * <p>
-     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS version
      * <code>3.2.6</code>, <code>4.x</code> or later.
      * </p>
      * <p>
@@ -1536,8 +1551,8 @@ public class ReplicationGroup implements Serializable, Cloneable {
      *         <code>true</code> when you create a cluster.
      *         </p>
      *         <p>
-     *         <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
-     *         <code>3.2.6</code>, <code>4.x</code> or later.
+     *         <b>Required:</b> Only available when creating a replication group in an Amazon VPC using Redis OSS
+     *         version <code>3.2.6</code>, <code>4.x</code> or later.
      *         </p>
      *         <p>
      *         Default: <code>false</code>
@@ -1545,6 +1560,860 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     public Boolean isAtRestEncryptionEnabled() {
         return this.atRestEncryptionEnabled;
+    }
+
+    /**
+     * <p>
+     * The outpost ARNs of the replication group's member clusters.
+     * </p>
+     * 
+     * @return The outpost ARNs of the replication group's member clusters.
+     */
+
+    public java.util.List<String> getMemberClustersOutpostArns() {
+        if (memberClustersOutpostArns == null) {
+            memberClustersOutpostArns = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return memberClustersOutpostArns;
+    }
+
+    /**
+     * <p>
+     * The outpost ARNs of the replication group's member clusters.
+     * </p>
+     * 
+     * @param memberClustersOutpostArns
+     *        The outpost ARNs of the replication group's member clusters.
+     */
+
+    public void setMemberClustersOutpostArns(java.util.Collection<String> memberClustersOutpostArns) {
+        if (memberClustersOutpostArns == null) {
+            this.memberClustersOutpostArns = null;
+            return;
+        }
+
+        this.memberClustersOutpostArns = new com.amazonaws.internal.SdkInternalList<String>(memberClustersOutpostArns);
+    }
+
+    /**
+     * <p>
+     * The outpost ARNs of the replication group's member clusters.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setMemberClustersOutpostArns(java.util.Collection)} or
+     * {@link #withMemberClustersOutpostArns(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param memberClustersOutpostArns
+     *        The outpost ARNs of the replication group's member clusters.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroup withMemberClustersOutpostArns(String... memberClustersOutpostArns) {
+        if (this.memberClustersOutpostArns == null) {
+            setMemberClustersOutpostArns(new com.amazonaws.internal.SdkInternalList<String>(memberClustersOutpostArns.length));
+        }
+        for (String ele : memberClustersOutpostArns) {
+            this.memberClustersOutpostArns.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The outpost ARNs of the replication group's member clusters.
+     * </p>
+     * 
+     * @param memberClustersOutpostArns
+     *        The outpost ARNs of the replication group's member clusters.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroup withMemberClustersOutpostArns(java.util.Collection<String> memberClustersOutpostArns) {
+        setMemberClustersOutpostArns(memberClustersOutpostArns);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the KMS key used to encrypt the disk in the cluster.
+     * </p>
+     * 
+     * @param kmsKeyId
+     *        The ID of the KMS key used to encrypt the disk in the cluster.
+     */
+
+    public void setKmsKeyId(String kmsKeyId) {
+        this.kmsKeyId = kmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The ID of the KMS key used to encrypt the disk in the cluster.
+     * </p>
+     * 
+     * @return The ID of the KMS key used to encrypt the disk in the cluster.
+     */
+
+    public String getKmsKeyId() {
+        return this.kmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The ID of the KMS key used to encrypt the disk in the cluster.
+     * </p>
+     * 
+     * @param kmsKeyId
+     *        The ID of the KMS key used to encrypt the disk in the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroup withKmsKeyId(String kmsKeyId) {
+        setKmsKeyId(kmsKeyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) of the replication group.
+     * </p>
+     * 
+     * @param aRN
+     *        The ARN (Amazon Resource Name) of the replication group.
+     */
+
+    public void setARN(String aRN) {
+        this.aRN = aRN;
+    }
+
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) of the replication group.
+     * </p>
+     * 
+     * @return The ARN (Amazon Resource Name) of the replication group.
+     */
+
+    public String getARN() {
+        return this.aRN;
+    }
+
+    /**
+     * <p>
+     * The ARN (Amazon Resource Name) of the replication group.
+     * </p>
+     * 
+     * @param aRN
+     *        The ARN (Amazon Resource Name) of the replication group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroup withARN(String aRN) {
+        setARN(aRN);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the user group associated to the replication group.
+     * </p>
+     * 
+     * @return The ID of the user group associated to the replication group.
+     */
+
+    public java.util.List<String> getUserGroupIds() {
+        if (userGroupIds == null) {
+            userGroupIds = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return userGroupIds;
+    }
+
+    /**
+     * <p>
+     * The ID of the user group associated to the replication group.
+     * </p>
+     * 
+     * @param userGroupIds
+     *        The ID of the user group associated to the replication group.
+     */
+
+    public void setUserGroupIds(java.util.Collection<String> userGroupIds) {
+        if (userGroupIds == null) {
+            this.userGroupIds = null;
+            return;
+        }
+
+        this.userGroupIds = new com.amazonaws.internal.SdkInternalList<String>(userGroupIds);
+    }
+
+    /**
+     * <p>
+     * The ID of the user group associated to the replication group.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setUserGroupIds(java.util.Collection)} or {@link #withUserGroupIds(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param userGroupIds
+     *        The ID of the user group associated to the replication group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroup withUserGroupIds(String... userGroupIds) {
+        if (this.userGroupIds == null) {
+            setUserGroupIds(new com.amazonaws.internal.SdkInternalList<String>(userGroupIds.length));
+        }
+        for (String ele : userGroupIds) {
+            this.userGroupIds.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the user group associated to the replication group.
+     * </p>
+     * 
+     * @param userGroupIds
+     *        The ID of the user group associated to the replication group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroup withUserGroupIds(java.util.Collection<String> userGroupIds) {
+        setUserGroupIds(userGroupIds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Returns the destination, format and type of the logs.
+     * </p>
+     * 
+     * @return Returns the destination, format and type of the logs.
+     */
+
+    public java.util.List<LogDeliveryConfiguration> getLogDeliveryConfigurations() {
+        if (logDeliveryConfigurations == null) {
+            logDeliveryConfigurations = new com.amazonaws.internal.SdkInternalList<LogDeliveryConfiguration>();
+        }
+        return logDeliveryConfigurations;
+    }
+
+    /**
+     * <p>
+     * Returns the destination, format and type of the logs.
+     * </p>
+     * 
+     * @param logDeliveryConfigurations
+     *        Returns the destination, format and type of the logs.
+     */
+
+    public void setLogDeliveryConfigurations(java.util.Collection<LogDeliveryConfiguration> logDeliveryConfigurations) {
+        if (logDeliveryConfigurations == null) {
+            this.logDeliveryConfigurations = null;
+            return;
+        }
+
+        this.logDeliveryConfigurations = new com.amazonaws.internal.SdkInternalList<LogDeliveryConfiguration>(logDeliveryConfigurations);
+    }
+
+    /**
+     * <p>
+     * Returns the destination, format and type of the logs.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setLogDeliveryConfigurations(java.util.Collection)} or
+     * {@link #withLogDeliveryConfigurations(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param logDeliveryConfigurations
+     *        Returns the destination, format and type of the logs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroup withLogDeliveryConfigurations(LogDeliveryConfiguration... logDeliveryConfigurations) {
+        if (this.logDeliveryConfigurations == null) {
+            setLogDeliveryConfigurations(new com.amazonaws.internal.SdkInternalList<LogDeliveryConfiguration>(logDeliveryConfigurations.length));
+        }
+        for (LogDeliveryConfiguration ele : logDeliveryConfigurations) {
+            this.logDeliveryConfigurations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Returns the destination, format and type of the logs.
+     * </p>
+     * 
+     * @param logDeliveryConfigurations
+     *        Returns the destination, format and type of the logs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroup withLogDeliveryConfigurations(java.util.Collection<LogDeliveryConfiguration> logDeliveryConfigurations) {
+        setLogDeliveryConfigurations(logDeliveryConfigurations);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date and time when the cluster was created.
+     * </p>
+     * 
+     * @param replicationGroupCreateTime
+     *        The date and time when the cluster was created.
+     */
+
+    public void setReplicationGroupCreateTime(java.util.Date replicationGroupCreateTime) {
+        this.replicationGroupCreateTime = replicationGroupCreateTime;
+    }
+
+    /**
+     * <p>
+     * The date and time when the cluster was created.
+     * </p>
+     * 
+     * @return The date and time when the cluster was created.
+     */
+
+    public java.util.Date getReplicationGroupCreateTime() {
+        return this.replicationGroupCreateTime;
+    }
+
+    /**
+     * <p>
+     * The date and time when the cluster was created.
+     * </p>
+     * 
+     * @param replicationGroupCreateTime
+     *        The date and time when the cluster was created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroup withReplicationGroupCreateTime(java.util.Date replicationGroupCreateTime) {
+        setReplicationGroupCreateTime(replicationGroupCreateTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     * parameter must be set to true when using r6gd nodes. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * </p>
+     * 
+     * @param dataTiering
+     *        Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     *        parameter must be set to true when using r6gd nodes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * @see DataTieringStatus
+     */
+
+    public void setDataTiering(String dataTiering) {
+        this.dataTiering = dataTiering;
+    }
+
+    /**
+     * <p>
+     * Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     * parameter must be set to true when using r6gd nodes. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * </p>
+     * 
+     * @return Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type.
+     *         This parameter must be set to true when using r6gd nodes. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * @see DataTieringStatus
+     */
+
+    public String getDataTiering() {
+        return this.dataTiering;
+    }
+
+    /**
+     * <p>
+     * Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     * parameter must be set to true when using r6gd nodes. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * </p>
+     * 
+     * @param dataTiering
+     *        Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     *        parameter must be set to true when using r6gd nodes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DataTieringStatus
+     */
+
+    public ReplicationGroup withDataTiering(String dataTiering) {
+        setDataTiering(dataTiering);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     * parameter must be set to true when using r6gd nodes. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * </p>
+     * 
+     * @param dataTiering
+     *        Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     *        parameter must be set to true when using r6gd nodes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * @see DataTieringStatus
+     */
+
+    public void setDataTiering(DataTieringStatus dataTiering) {
+        withDataTiering(dataTiering);
+    }
+
+    /**
+     * <p>
+     * Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     * parameter must be set to true when using r6gd nodes. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * </p>
+     * 
+     * @param dataTiering
+     *        Enables data tiering. Data tiering is only supported for replication groups using the r6gd node type. This
+     *        parameter must be set to true when using r6gd nodes. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/data-tiering.html">Data tiering</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DataTieringStatus
+     */
+
+    public ReplicationGroup withDataTiering(DataTieringStatus dataTiering) {
+        this.dataTiering = dataTiering.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions.
+     * </p>
+     * 
+     * @param autoMinorVersionUpgrade
+     *        If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in
+     *        to the next auto minor version upgrade campaign. This parameter is disabled for previous versions.
+     */
+
+    public void setAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
+        this.autoMinorVersionUpgrade = autoMinorVersionUpgrade;
+    }
+
+    /**
+     * <p>
+     * If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions.
+     * </p>
+     * 
+     * @return If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in
+     *         to the next auto minor version upgrade campaign. This parameter is disabled for previous versions.
+     */
+
+    public Boolean getAutoMinorVersionUpgrade() {
+        return this.autoMinorVersionUpgrade;
+    }
+
+    /**
+     * <p>
+     * If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions.
+     * </p>
+     * 
+     * @param autoMinorVersionUpgrade
+     *        If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in
+     *        to the next auto minor version upgrade campaign. This parameter is disabled for previous versions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroup withAutoMinorVersionUpgrade(Boolean autoMinorVersionUpgrade) {
+        setAutoMinorVersionUpgrade(autoMinorVersionUpgrade);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in to the
+     * next auto minor version upgrade campaign. This parameter is disabled for previous versions.
+     * </p>
+     * 
+     * @return If you are running Redis OSS engine version 6.0 or later, set this parameter to yes if you want to opt-in
+     *         to the next auto minor version upgrade campaign. This parameter is disabled for previous versions.
+     */
+
+    public Boolean isAutoMinorVersionUpgrade() {
+        return this.autoMinorVersionUpgrade;
+    }
+
+    /**
+     * <p>
+     * Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. IPv6 is supported for workloads
+     * using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all instances built on the <a
+     * href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @param networkType
+     *        Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. IPv6 is supported for
+     *        workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all instances
+     *        built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @see NetworkType
+     */
+
+    public void setNetworkType(String networkType) {
+        this.networkType = networkType;
+    }
+
+    /**
+     * <p>
+     * Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. IPv6 is supported for workloads
+     * using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all instances built on the <a
+     * href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @return Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. IPv6 is supported for
+     *         workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all instances
+     *         built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @see NetworkType
+     */
+
+    public String getNetworkType() {
+        return this.networkType;
+    }
+
+    /**
+     * <p>
+     * Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. IPv6 is supported for workloads
+     * using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all instances built on the <a
+     * href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @param networkType
+     *        Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. IPv6 is supported for
+     *        workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all instances
+     *        built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see NetworkType
+     */
+
+    public ReplicationGroup withNetworkType(String networkType) {
+        setNetworkType(networkType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. IPv6 is supported for workloads
+     * using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all instances built on the <a
+     * href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @param networkType
+     *        Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. IPv6 is supported for
+     *        workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all instances
+     *        built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @see NetworkType
+     */
+
+    public void setNetworkType(NetworkType networkType) {
+        withNetworkType(networkType);
+    }
+
+    /**
+     * <p>
+     * Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. IPv6 is supported for workloads
+     * using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all instances built on the <a
+     * href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @param networkType
+     *        Must be either <code>ipv4</code> | <code>ipv6</code> | <code>dual_stack</code>. IPv6 is supported for
+     *        workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all instances
+     *        built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see NetworkType
+     */
+
+    public ReplicationGroup withNetworkType(NetworkType networkType) {
+        this.networkType = networkType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @param ipDiscovery
+     *        The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6
+     *        is supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on
+     *        all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @see IpDiscovery
+     */
+
+    public void setIpDiscovery(String ipDiscovery) {
+        this.ipDiscovery = ipDiscovery;
+    }
+
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @return The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6
+     *         is supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on
+     *         all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @see IpDiscovery
+     */
+
+    public String getIpDiscovery() {
+        return this.ipDiscovery;
+    }
+
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @param ipDiscovery
+     *        The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6
+     *        is supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on
+     *        all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IpDiscovery
+     */
+
+    public ReplicationGroup withIpDiscovery(String ipDiscovery) {
+        setIpDiscovery(ipDiscovery);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @param ipDiscovery
+     *        The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6
+     *        is supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on
+     *        all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @see IpDiscovery
+     */
+
+    public void setIpDiscovery(IpDiscovery ipDiscovery) {
+        withIpDiscovery(ipDiscovery);
+    }
+
+    /**
+     * <p>
+     * The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6 is
+     * supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on all
+     * instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * </p>
+     * 
+     * @param ipDiscovery
+     *        The network type you choose when modifying a cluster, either <code>ipv4</code> | <code>ipv6</code>. IPv6
+     *        is supported for workloads using Redis OSS engine version 6.2 onward or Memcached engine version 1.6.6 on
+     *        all instances built on the <a href="http://aws.amazon.com/ec2/nitro/">Nitro system</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IpDiscovery
+     */
+
+    public ReplicationGroup withIpDiscovery(IpDiscovery ipDiscovery) {
+        this.ipDiscovery = ipDiscovery.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * 
+     * @param transitEncryptionMode
+     *        A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * @see TransitEncryptionMode
+     */
+
+    public void setTransitEncryptionMode(String transitEncryptionMode) {
+        this.transitEncryptionMode = transitEncryptionMode;
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * 
+     * @return A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * @see TransitEncryptionMode
+     */
+
+    public String getTransitEncryptionMode() {
+        return this.transitEncryptionMode;
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * 
+     * @param transitEncryptionMode
+     *        A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TransitEncryptionMode
+     */
+
+    public ReplicationGroup withTransitEncryptionMode(String transitEncryptionMode) {
+        setTransitEncryptionMode(transitEncryptionMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * 
+     * @param transitEncryptionMode
+     *        A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * @see TransitEncryptionMode
+     */
+
+    public void setTransitEncryptionMode(TransitEncryptionMode transitEncryptionMode) {
+        withTransitEncryptionMode(transitEncryptionMode);
+    }
+
+    /**
+     * <p>
+     * A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * </p>
+     * 
+     * @param transitEncryptionMode
+     *        A setting that allows you to migrate your clients to use in-transit encryption, with no downtime.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TransitEncryptionMode
+     */
+
+    public ReplicationGroup withTransitEncryptionMode(TransitEncryptionMode transitEncryptionMode) {
+        this.transitEncryptionMode = transitEncryptionMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     * 
+     * @param clusterMode
+     *        Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode
+     *        to Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled
+     *        and cluster mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can
+     *        then complete cluster mode configuration and set the cluster mode to Enabled.
+     * @see ClusterMode
+     */
+
+    public void setClusterMode(String clusterMode) {
+        this.clusterMode = clusterMode;
+    }
+
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     * 
+     * @return Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode
+     *         to Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled
+     *         and cluster mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can
+     *         then complete cluster mode configuration and set the cluster mode to Enabled.
+     * @see ClusterMode
+     */
+
+    public String getClusterMode() {
+        return this.clusterMode;
+    }
+
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     * 
+     * @param clusterMode
+     *        Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode
+     *        to Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled
+     *        and cluster mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can
+     *        then complete cluster mode configuration and set the cluster mode to Enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ClusterMode
+     */
+
+    public ReplicationGroup withClusterMode(String clusterMode) {
+        setClusterMode(clusterMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     * 
+     * @param clusterMode
+     *        Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode
+     *        to Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled
+     *        and cluster mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can
+     *        then complete cluster mode configuration and set the cluster mode to Enabled.
+     * @see ClusterMode
+     */
+
+    public void setClusterMode(ClusterMode clusterMode) {
+        withClusterMode(clusterMode);
+    }
+
+    /**
+     * <p>
+     * Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode to
+     * Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled and cluster
+     * mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can then complete cluster
+     * mode configuration and set the cluster mode to Enabled.
+     * </p>
+     * 
+     * @param clusterMode
+     *        Enabled or Disabled. To modify cluster mode from Disabled to Enabled, you must first set the cluster mode
+     *        to Compatible. Compatible mode allows your Redis OSS clients to connect using both cluster mode enabled
+     *        and cluster mode disabled. After you migrate all Redis OSS clients to use cluster mode enabled, you can
+     *        then complete cluster mode configuration and set the cluster mode to Enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ClusterMode
+     */
+
+    public ReplicationGroup withClusterMode(ClusterMode clusterMode) {
+        this.clusterMode = clusterMode.toString();
+        return this;
     }
 
     /**
@@ -1563,6 +2432,8 @@ public class ReplicationGroup implements Serializable, Cloneable {
             sb.append("ReplicationGroupId: ").append(getReplicationGroupId()).append(",");
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
+        if (getGlobalReplicationGroupInfo() != null)
+            sb.append("GlobalReplicationGroupInfo: ").append(getGlobalReplicationGroupInfo()).append(",");
         if (getStatus() != null)
             sb.append("Status: ").append(getStatus()).append(",");
         if (getPendingModifiedValues() != null)
@@ -1575,6 +2446,8 @@ public class ReplicationGroup implements Serializable, Cloneable {
             sb.append("SnapshottingClusterId: ").append(getSnapshottingClusterId()).append(",");
         if (getAutomaticFailover() != null)
             sb.append("AutomaticFailover: ").append(getAutomaticFailover()).append(",");
+        if (getMultiAZ() != null)
+            sb.append("MultiAZ: ").append(getMultiAZ()).append(",");
         if (getConfigurationEndpoint() != null)
             sb.append("ConfigurationEndpoint: ").append(getConfigurationEndpoint()).append(",");
         if (getSnapshotRetentionLimit() != null)
@@ -1587,10 +2460,36 @@ public class ReplicationGroup implements Serializable, Cloneable {
             sb.append("CacheNodeType: ").append(getCacheNodeType()).append(",");
         if (getAuthTokenEnabled() != null)
             sb.append("AuthTokenEnabled: ").append(getAuthTokenEnabled()).append(",");
+        if (getAuthTokenLastModifiedDate() != null)
+            sb.append("AuthTokenLastModifiedDate: ").append(getAuthTokenLastModifiedDate()).append(",");
         if (getTransitEncryptionEnabled() != null)
             sb.append("TransitEncryptionEnabled: ").append(getTransitEncryptionEnabled()).append(",");
         if (getAtRestEncryptionEnabled() != null)
-            sb.append("AtRestEncryptionEnabled: ").append(getAtRestEncryptionEnabled());
+            sb.append("AtRestEncryptionEnabled: ").append(getAtRestEncryptionEnabled()).append(",");
+        if (getMemberClustersOutpostArns() != null)
+            sb.append("MemberClustersOutpostArns: ").append(getMemberClustersOutpostArns()).append(",");
+        if (getKmsKeyId() != null)
+            sb.append("KmsKeyId: ").append(getKmsKeyId()).append(",");
+        if (getARN() != null)
+            sb.append("ARN: ").append(getARN()).append(",");
+        if (getUserGroupIds() != null)
+            sb.append("UserGroupIds: ").append(getUserGroupIds()).append(",");
+        if (getLogDeliveryConfigurations() != null)
+            sb.append("LogDeliveryConfigurations: ").append(getLogDeliveryConfigurations()).append(",");
+        if (getReplicationGroupCreateTime() != null)
+            sb.append("ReplicationGroupCreateTime: ").append(getReplicationGroupCreateTime()).append(",");
+        if (getDataTiering() != null)
+            sb.append("DataTiering: ").append(getDataTiering()).append(",");
+        if (getAutoMinorVersionUpgrade() != null)
+            sb.append("AutoMinorVersionUpgrade: ").append(getAutoMinorVersionUpgrade()).append(",");
+        if (getNetworkType() != null)
+            sb.append("NetworkType: ").append(getNetworkType()).append(",");
+        if (getIpDiscovery() != null)
+            sb.append("IpDiscovery: ").append(getIpDiscovery()).append(",");
+        if (getTransitEncryptionMode() != null)
+            sb.append("TransitEncryptionMode: ").append(getTransitEncryptionMode()).append(",");
+        if (getClusterMode() != null)
+            sb.append("ClusterMode: ").append(getClusterMode());
         sb.append("}");
         return sb.toString();
     }
@@ -1612,6 +2511,10 @@ public class ReplicationGroup implements Serializable, Cloneable {
         if (other.getDescription() == null ^ this.getDescription() == null)
             return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
+            return false;
+        if (other.getGlobalReplicationGroupInfo() == null ^ this.getGlobalReplicationGroupInfo() == null)
+            return false;
+        if (other.getGlobalReplicationGroupInfo() != null && other.getGlobalReplicationGroupInfo().equals(this.getGlobalReplicationGroupInfo()) == false)
             return false;
         if (other.getStatus() == null ^ this.getStatus() == null)
             return false;
@@ -1637,6 +2540,10 @@ public class ReplicationGroup implements Serializable, Cloneable {
             return false;
         if (other.getAutomaticFailover() != null && other.getAutomaticFailover().equals(this.getAutomaticFailover()) == false)
             return false;
+        if (other.getMultiAZ() == null ^ this.getMultiAZ() == null)
+            return false;
+        if (other.getMultiAZ() != null && other.getMultiAZ().equals(this.getMultiAZ()) == false)
+            return false;
         if (other.getConfigurationEndpoint() == null ^ this.getConfigurationEndpoint() == null)
             return false;
         if (other.getConfigurationEndpoint() != null && other.getConfigurationEndpoint().equals(this.getConfigurationEndpoint()) == false)
@@ -1661,6 +2568,10 @@ public class ReplicationGroup implements Serializable, Cloneable {
             return false;
         if (other.getAuthTokenEnabled() != null && other.getAuthTokenEnabled().equals(this.getAuthTokenEnabled()) == false)
             return false;
+        if (other.getAuthTokenLastModifiedDate() == null ^ this.getAuthTokenLastModifiedDate() == null)
+            return false;
+        if (other.getAuthTokenLastModifiedDate() != null && other.getAuthTokenLastModifiedDate().equals(this.getAuthTokenLastModifiedDate()) == false)
+            return false;
         if (other.getTransitEncryptionEnabled() == null ^ this.getTransitEncryptionEnabled() == null)
             return false;
         if (other.getTransitEncryptionEnabled() != null && other.getTransitEncryptionEnabled().equals(this.getTransitEncryptionEnabled()) == false)
@@ -1668,6 +2579,54 @@ public class ReplicationGroup implements Serializable, Cloneable {
         if (other.getAtRestEncryptionEnabled() == null ^ this.getAtRestEncryptionEnabled() == null)
             return false;
         if (other.getAtRestEncryptionEnabled() != null && other.getAtRestEncryptionEnabled().equals(this.getAtRestEncryptionEnabled()) == false)
+            return false;
+        if (other.getMemberClustersOutpostArns() == null ^ this.getMemberClustersOutpostArns() == null)
+            return false;
+        if (other.getMemberClustersOutpostArns() != null && other.getMemberClustersOutpostArns().equals(this.getMemberClustersOutpostArns()) == false)
+            return false;
+        if (other.getKmsKeyId() == null ^ this.getKmsKeyId() == null)
+            return false;
+        if (other.getKmsKeyId() != null && other.getKmsKeyId().equals(this.getKmsKeyId()) == false)
+            return false;
+        if (other.getARN() == null ^ this.getARN() == null)
+            return false;
+        if (other.getARN() != null && other.getARN().equals(this.getARN()) == false)
+            return false;
+        if (other.getUserGroupIds() == null ^ this.getUserGroupIds() == null)
+            return false;
+        if (other.getUserGroupIds() != null && other.getUserGroupIds().equals(this.getUserGroupIds()) == false)
+            return false;
+        if (other.getLogDeliveryConfigurations() == null ^ this.getLogDeliveryConfigurations() == null)
+            return false;
+        if (other.getLogDeliveryConfigurations() != null && other.getLogDeliveryConfigurations().equals(this.getLogDeliveryConfigurations()) == false)
+            return false;
+        if (other.getReplicationGroupCreateTime() == null ^ this.getReplicationGroupCreateTime() == null)
+            return false;
+        if (other.getReplicationGroupCreateTime() != null && other.getReplicationGroupCreateTime().equals(this.getReplicationGroupCreateTime()) == false)
+            return false;
+        if (other.getDataTiering() == null ^ this.getDataTiering() == null)
+            return false;
+        if (other.getDataTiering() != null && other.getDataTiering().equals(this.getDataTiering()) == false)
+            return false;
+        if (other.getAutoMinorVersionUpgrade() == null ^ this.getAutoMinorVersionUpgrade() == null)
+            return false;
+        if (other.getAutoMinorVersionUpgrade() != null && other.getAutoMinorVersionUpgrade().equals(this.getAutoMinorVersionUpgrade()) == false)
+            return false;
+        if (other.getNetworkType() == null ^ this.getNetworkType() == null)
+            return false;
+        if (other.getNetworkType() != null && other.getNetworkType().equals(this.getNetworkType()) == false)
+            return false;
+        if (other.getIpDiscovery() == null ^ this.getIpDiscovery() == null)
+            return false;
+        if (other.getIpDiscovery() != null && other.getIpDiscovery().equals(this.getIpDiscovery()) == false)
+            return false;
+        if (other.getTransitEncryptionMode() == null ^ this.getTransitEncryptionMode() == null)
+            return false;
+        if (other.getTransitEncryptionMode() != null && other.getTransitEncryptionMode().equals(this.getTransitEncryptionMode()) == false)
+            return false;
+        if (other.getClusterMode() == null ^ this.getClusterMode() == null)
+            return false;
+        if (other.getClusterMode() != null && other.getClusterMode().equals(this.getClusterMode()) == false)
             return false;
         return true;
     }
@@ -1679,20 +2638,35 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
         hashCode = prime * hashCode + ((getReplicationGroupId() == null) ? 0 : getReplicationGroupId().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        hashCode = prime * hashCode + ((getGlobalReplicationGroupInfo() == null) ? 0 : getGlobalReplicationGroupInfo().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getPendingModifiedValues() == null) ? 0 : getPendingModifiedValues().hashCode());
         hashCode = prime * hashCode + ((getMemberClusters() == null) ? 0 : getMemberClusters().hashCode());
         hashCode = prime * hashCode + ((getNodeGroups() == null) ? 0 : getNodeGroups().hashCode());
         hashCode = prime * hashCode + ((getSnapshottingClusterId() == null) ? 0 : getSnapshottingClusterId().hashCode());
         hashCode = prime * hashCode + ((getAutomaticFailover() == null) ? 0 : getAutomaticFailover().hashCode());
+        hashCode = prime * hashCode + ((getMultiAZ() == null) ? 0 : getMultiAZ().hashCode());
         hashCode = prime * hashCode + ((getConfigurationEndpoint() == null) ? 0 : getConfigurationEndpoint().hashCode());
         hashCode = prime * hashCode + ((getSnapshotRetentionLimit() == null) ? 0 : getSnapshotRetentionLimit().hashCode());
         hashCode = prime * hashCode + ((getSnapshotWindow() == null) ? 0 : getSnapshotWindow().hashCode());
         hashCode = prime * hashCode + ((getClusterEnabled() == null) ? 0 : getClusterEnabled().hashCode());
         hashCode = prime * hashCode + ((getCacheNodeType() == null) ? 0 : getCacheNodeType().hashCode());
         hashCode = prime * hashCode + ((getAuthTokenEnabled() == null) ? 0 : getAuthTokenEnabled().hashCode());
+        hashCode = prime * hashCode + ((getAuthTokenLastModifiedDate() == null) ? 0 : getAuthTokenLastModifiedDate().hashCode());
         hashCode = prime * hashCode + ((getTransitEncryptionEnabled() == null) ? 0 : getTransitEncryptionEnabled().hashCode());
         hashCode = prime * hashCode + ((getAtRestEncryptionEnabled() == null) ? 0 : getAtRestEncryptionEnabled().hashCode());
+        hashCode = prime * hashCode + ((getMemberClustersOutpostArns() == null) ? 0 : getMemberClustersOutpostArns().hashCode());
+        hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
+        hashCode = prime * hashCode + ((getARN() == null) ? 0 : getARN().hashCode());
+        hashCode = prime * hashCode + ((getUserGroupIds() == null) ? 0 : getUserGroupIds().hashCode());
+        hashCode = prime * hashCode + ((getLogDeliveryConfigurations() == null) ? 0 : getLogDeliveryConfigurations().hashCode());
+        hashCode = prime * hashCode + ((getReplicationGroupCreateTime() == null) ? 0 : getReplicationGroupCreateTime().hashCode());
+        hashCode = prime * hashCode + ((getDataTiering() == null) ? 0 : getDataTiering().hashCode());
+        hashCode = prime * hashCode + ((getAutoMinorVersionUpgrade() == null) ? 0 : getAutoMinorVersionUpgrade().hashCode());
+        hashCode = prime * hashCode + ((getNetworkType() == null) ? 0 : getNetworkType().hashCode());
+        hashCode = prime * hashCode + ((getIpDiscovery() == null) ? 0 : getIpDiscovery().hashCode());
+        hashCode = prime * hashCode + ((getTransitEncryptionMode() == null) ? 0 : getTransitEncryptionMode().hashCode());
+        hashCode = prime * hashCode + ((getClusterMode() == null) ? 0 : getClusterMode().hashCode());
         return hashCode;
     }
 

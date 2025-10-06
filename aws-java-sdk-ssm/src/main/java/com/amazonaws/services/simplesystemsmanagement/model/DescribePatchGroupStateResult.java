@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,68 +25,101 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances in the patch group.
+     * The number of managed nodes in the patch group.
      * </p>
      */
     private Integer instances;
     /**
      * <p>
-     * The number of instances with installed patches.
+     * The number of managed nodes with installed patches.
      * </p>
      */
     private Integer instancesWithInstalledPatches;
     /**
      * <p>
-     * The number of instances with patches installed that aren't defined in the patch baseline.
+     * The number of managed nodes with patches installed that aren't defined in the patch baseline.
      * </p>
      */
     private Integer instancesWithInstalledOtherPatches;
     /**
      * <p>
-     * The number of instances with patches installed that are specified in a RejectedPatches list. Patches with a
-     * status of <i>INSTALLED_REJECTED</i> were typically installed before they were added to a RejectedPatches list.
+     * The number of managed nodes with patches installed by Patch Manager that haven't been rebooted after the patch
+     * installation. The status of these managed nodes is <code>NON_COMPLIANT</code>.
+     * </p>
+     */
+    private Integer instancesWithInstalledPendingRebootPatches;
+    /**
+     * <p>
+     * The number of managed nodes with patches installed that are specified in a <code>RejectedPatches</code> list.
+     * Patches with a status of <code>INSTALLED_REJECTED</code> were typically installed before they were added to a
+     * <code>RejectedPatches</code> list.
      * </p>
      * <note>
      * <p>
-     * If ALLOW_AS_DEPENDENCY is the specified option for RejectedPatchesAction, the value of
-     * InstancesWithInstalledRejectedPatches will always be 0 (zero).
+     * If <code>ALLOW_AS_DEPENDENCY</code> is the specified option for <code>RejectedPatchesAction</code>, the value of
+     * <code>InstancesWithInstalledRejectedPatches</code> will always be <code>0</code> (zero).
      * </p>
      * </note>
      */
     private Integer instancesWithInstalledRejectedPatches;
     /**
      * <p>
-     * The number of instances with missing patches from the patch baseline.
+     * The number of managed nodes with missing patches from the patch baseline.
      * </p>
      */
     private Integer instancesWithMissingPatches;
     /**
      * <p>
-     * The number of instances with patches from the patch baseline that failed to install.
+     * The number of managed nodes with patches from the patch baseline that failed to install.
      * </p>
      */
     private Integer instancesWithFailedPatches;
     /**
      * <p>
-     * The number of instances with patches that aren't applicable.
+     * The number of managed nodes with patches that aren't applicable.
      * </p>
      */
     private Integer instancesWithNotApplicablePatches;
     /**
      * <p>
-     * The number of instances with <code>NotApplicable</code> patches beyond the supported limit, which are not
-     * reported by name to Systems Manager Inventory.
+     * The number of managed nodes with <code>NotApplicable</code> patches beyond the supported limit, which aren't
+     * reported by name to Inventory. Inventory is a capability of Amazon Web Services Systems Manager.
      * </p>
      */
     private Integer instancesWithUnreportedNotApplicablePatches;
+    /**
+     * <p>
+     * The number of managed nodes where patches that are specified as <code>Critical</code> for compliance reporting in
+     * the patch baseline aren't installed. These patches might be missing, have failed installation, were rejected, or
+     * were installed but awaiting a required managed node reboot. The status of these managed nodes is
+     * <code>NON_COMPLIANT</code>.
+     * </p>
+     */
+    private Integer instancesWithCriticalNonCompliantPatches;
+    /**
+     * <p>
+     * The number of managed nodes where patches that are specified as <code>Security</code> in a patch advisory aren't
+     * installed. These patches might be missing, have failed installation, were rejected, or were installed but
+     * awaiting a required managed node reboot. The status of these managed nodes is <code>NON_COMPLIANT</code>.
+     * </p>
+     */
+    private Integer instancesWithSecurityNonCompliantPatches;
+    /**
+     * <p>
+     * The number of managed nodes with patches installed that are specified as other than <code>Critical</code> or
+     * <code>Security</code> but aren't compliant with the patch baseline. The status of these managed nodes is
+     * <code>NON_COMPLIANT</code>.
+     * </p>
+     */
+    private Integer instancesWithOtherNonCompliantPatches;
 
     /**
      * <p>
-     * The number of instances in the patch group.
+     * The number of managed nodes in the patch group.
      * </p>
      * 
      * @param instances
-     *        The number of instances in the patch group.
+     *        The number of managed nodes in the patch group.
      */
 
     public void setInstances(Integer instances) {
@@ -95,10 +128,10 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances in the patch group.
+     * The number of managed nodes in the patch group.
      * </p>
      * 
-     * @return The number of instances in the patch group.
+     * @return The number of managed nodes in the patch group.
      */
 
     public Integer getInstances() {
@@ -107,11 +140,11 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances in the patch group.
+     * The number of managed nodes in the patch group.
      * </p>
      * 
      * @param instances
-     *        The number of instances in the patch group.
+     *        The number of managed nodes in the patch group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -122,11 +155,11 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with installed patches.
+     * The number of managed nodes with installed patches.
      * </p>
      * 
      * @param instancesWithInstalledPatches
-     *        The number of instances with installed patches.
+     *        The number of managed nodes with installed patches.
      */
 
     public void setInstancesWithInstalledPatches(Integer instancesWithInstalledPatches) {
@@ -135,10 +168,10 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with installed patches.
+     * The number of managed nodes with installed patches.
      * </p>
      * 
-     * @return The number of instances with installed patches.
+     * @return The number of managed nodes with installed patches.
      */
 
     public Integer getInstancesWithInstalledPatches() {
@@ -147,11 +180,11 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with installed patches.
+     * The number of managed nodes with installed patches.
      * </p>
      * 
      * @param instancesWithInstalledPatches
-     *        The number of instances with installed patches.
+     *        The number of managed nodes with installed patches.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -162,11 +195,11 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with patches installed that aren't defined in the patch baseline.
+     * The number of managed nodes with patches installed that aren't defined in the patch baseline.
      * </p>
      * 
      * @param instancesWithInstalledOtherPatches
-     *        The number of instances with patches installed that aren't defined in the patch baseline.
+     *        The number of managed nodes with patches installed that aren't defined in the patch baseline.
      */
 
     public void setInstancesWithInstalledOtherPatches(Integer instancesWithInstalledOtherPatches) {
@@ -175,10 +208,10 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with patches installed that aren't defined in the patch baseline.
+     * The number of managed nodes with patches installed that aren't defined in the patch baseline.
      * </p>
      * 
-     * @return The number of instances with patches installed that aren't defined in the patch baseline.
+     * @return The number of managed nodes with patches installed that aren't defined in the patch baseline.
      */
 
     public Integer getInstancesWithInstalledOtherPatches() {
@@ -187,11 +220,11 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with patches installed that aren't defined in the patch baseline.
+     * The number of managed nodes with patches installed that aren't defined in the patch baseline.
      * </p>
      * 
      * @param instancesWithInstalledOtherPatches
-     *        The number of instances with patches installed that aren't defined in the patch baseline.
+     *        The number of managed nodes with patches installed that aren't defined in the patch baseline.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -202,23 +235,70 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with patches installed that are specified in a RejectedPatches list. Patches with a
-     * status of <i>INSTALLED_REJECTED</i> were typically installed before they were added to a RejectedPatches list.
+     * The number of managed nodes with patches installed by Patch Manager that haven't been rebooted after the patch
+     * installation. The status of these managed nodes is <code>NON_COMPLIANT</code>.
+     * </p>
+     * 
+     * @param instancesWithInstalledPendingRebootPatches
+     *        The number of managed nodes with patches installed by Patch Manager that haven't been rebooted after the
+     *        patch installation. The status of these managed nodes is <code>NON_COMPLIANT</code>.
+     */
+
+    public void setInstancesWithInstalledPendingRebootPatches(Integer instancesWithInstalledPendingRebootPatches) {
+        this.instancesWithInstalledPendingRebootPatches = instancesWithInstalledPendingRebootPatches;
+    }
+
+    /**
+     * <p>
+     * The number of managed nodes with patches installed by Patch Manager that haven't been rebooted after the patch
+     * installation. The status of these managed nodes is <code>NON_COMPLIANT</code>.
+     * </p>
+     * 
+     * @return The number of managed nodes with patches installed by Patch Manager that haven't been rebooted after the
+     *         patch installation. The status of these managed nodes is <code>NON_COMPLIANT</code>.
+     */
+
+    public Integer getInstancesWithInstalledPendingRebootPatches() {
+        return this.instancesWithInstalledPendingRebootPatches;
+    }
+
+    /**
+     * <p>
+     * The number of managed nodes with patches installed by Patch Manager that haven't been rebooted after the patch
+     * installation. The status of these managed nodes is <code>NON_COMPLIANT</code>.
+     * </p>
+     * 
+     * @param instancesWithInstalledPendingRebootPatches
+     *        The number of managed nodes with patches installed by Patch Manager that haven't been rebooted after the
+     *        patch installation. The status of these managed nodes is <code>NON_COMPLIANT</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribePatchGroupStateResult withInstancesWithInstalledPendingRebootPatches(Integer instancesWithInstalledPendingRebootPatches) {
+        setInstancesWithInstalledPendingRebootPatches(instancesWithInstalledPendingRebootPatches);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of managed nodes with patches installed that are specified in a <code>RejectedPatches</code> list.
+     * Patches with a status of <code>INSTALLED_REJECTED</code> were typically installed before they were added to a
+     * <code>RejectedPatches</code> list.
      * </p>
      * <note>
      * <p>
-     * If ALLOW_AS_DEPENDENCY is the specified option for RejectedPatchesAction, the value of
-     * InstancesWithInstalledRejectedPatches will always be 0 (zero).
+     * If <code>ALLOW_AS_DEPENDENCY</code> is the specified option for <code>RejectedPatchesAction</code>, the value of
+     * <code>InstancesWithInstalledRejectedPatches</code> will always be <code>0</code> (zero).
      * </p>
      * </note>
      * 
      * @param instancesWithInstalledRejectedPatches
-     *        The number of instances with patches installed that are specified in a RejectedPatches list. Patches with
-     *        a status of <i>INSTALLED_REJECTED</i> were typically installed before they were added to a RejectedPatches
-     *        list.</p> <note>
+     *        The number of managed nodes with patches installed that are specified in a <code>RejectedPatches</code>
+     *        list. Patches with a status of <code>INSTALLED_REJECTED</code> were typically installed before they were
+     *        added to a <code>RejectedPatches</code> list.</p> <note>
      *        <p>
-     *        If ALLOW_AS_DEPENDENCY is the specified option for RejectedPatchesAction, the value of
-     *        InstancesWithInstalledRejectedPatches will always be 0 (zero).
+     *        If <code>ALLOW_AS_DEPENDENCY</code> is the specified option for <code>RejectedPatchesAction</code>, the
+     *        value of <code>InstancesWithInstalledRejectedPatches</code> will always be <code>0</code> (zero).
      *        </p>
      */
 
@@ -228,22 +308,23 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with patches installed that are specified in a RejectedPatches list. Patches with a
-     * status of <i>INSTALLED_REJECTED</i> were typically installed before they were added to a RejectedPatches list.
+     * The number of managed nodes with patches installed that are specified in a <code>RejectedPatches</code> list.
+     * Patches with a status of <code>INSTALLED_REJECTED</code> were typically installed before they were added to a
+     * <code>RejectedPatches</code> list.
      * </p>
      * <note>
      * <p>
-     * If ALLOW_AS_DEPENDENCY is the specified option for RejectedPatchesAction, the value of
-     * InstancesWithInstalledRejectedPatches will always be 0 (zero).
+     * If <code>ALLOW_AS_DEPENDENCY</code> is the specified option for <code>RejectedPatchesAction</code>, the value of
+     * <code>InstancesWithInstalledRejectedPatches</code> will always be <code>0</code> (zero).
      * </p>
      * </note>
      * 
-     * @return The number of instances with patches installed that are specified in a RejectedPatches list. Patches with
-     *         a status of <i>INSTALLED_REJECTED</i> were typically installed before they were added to a
-     *         RejectedPatches list.</p> <note>
+     * @return The number of managed nodes with patches installed that are specified in a <code>RejectedPatches</code>
+     *         list. Patches with a status of <code>INSTALLED_REJECTED</code> were typically installed before they were
+     *         added to a <code>RejectedPatches</code> list.</p> <note>
      *         <p>
-     *         If ALLOW_AS_DEPENDENCY is the specified option for RejectedPatchesAction, the value of
-     *         InstancesWithInstalledRejectedPatches will always be 0 (zero).
+     *         If <code>ALLOW_AS_DEPENDENCY</code> is the specified option for <code>RejectedPatchesAction</code>, the
+     *         value of <code>InstancesWithInstalledRejectedPatches</code> will always be <code>0</code> (zero).
      *         </p>
      */
 
@@ -253,23 +334,24 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with patches installed that are specified in a RejectedPatches list. Patches with a
-     * status of <i>INSTALLED_REJECTED</i> were typically installed before they were added to a RejectedPatches list.
+     * The number of managed nodes with patches installed that are specified in a <code>RejectedPatches</code> list.
+     * Patches with a status of <code>INSTALLED_REJECTED</code> were typically installed before they were added to a
+     * <code>RejectedPatches</code> list.
      * </p>
      * <note>
      * <p>
-     * If ALLOW_AS_DEPENDENCY is the specified option for RejectedPatchesAction, the value of
-     * InstancesWithInstalledRejectedPatches will always be 0 (zero).
+     * If <code>ALLOW_AS_DEPENDENCY</code> is the specified option for <code>RejectedPatchesAction</code>, the value of
+     * <code>InstancesWithInstalledRejectedPatches</code> will always be <code>0</code> (zero).
      * </p>
      * </note>
      * 
      * @param instancesWithInstalledRejectedPatches
-     *        The number of instances with patches installed that are specified in a RejectedPatches list. Patches with
-     *        a status of <i>INSTALLED_REJECTED</i> were typically installed before they were added to a RejectedPatches
-     *        list.</p> <note>
+     *        The number of managed nodes with patches installed that are specified in a <code>RejectedPatches</code>
+     *        list. Patches with a status of <code>INSTALLED_REJECTED</code> were typically installed before they were
+     *        added to a <code>RejectedPatches</code> list.</p> <note>
      *        <p>
-     *        If ALLOW_AS_DEPENDENCY is the specified option for RejectedPatchesAction, the value of
-     *        InstancesWithInstalledRejectedPatches will always be 0 (zero).
+     *        If <code>ALLOW_AS_DEPENDENCY</code> is the specified option for <code>RejectedPatchesAction</code>, the
+     *        value of <code>InstancesWithInstalledRejectedPatches</code> will always be <code>0</code> (zero).
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -281,11 +363,11 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with missing patches from the patch baseline.
+     * The number of managed nodes with missing patches from the patch baseline.
      * </p>
      * 
      * @param instancesWithMissingPatches
-     *        The number of instances with missing patches from the patch baseline.
+     *        The number of managed nodes with missing patches from the patch baseline.
      */
 
     public void setInstancesWithMissingPatches(Integer instancesWithMissingPatches) {
@@ -294,10 +376,10 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with missing patches from the patch baseline.
+     * The number of managed nodes with missing patches from the patch baseline.
      * </p>
      * 
-     * @return The number of instances with missing patches from the patch baseline.
+     * @return The number of managed nodes with missing patches from the patch baseline.
      */
 
     public Integer getInstancesWithMissingPatches() {
@@ -306,11 +388,11 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with missing patches from the patch baseline.
+     * The number of managed nodes with missing patches from the patch baseline.
      * </p>
      * 
      * @param instancesWithMissingPatches
-     *        The number of instances with missing patches from the patch baseline.
+     *        The number of managed nodes with missing patches from the patch baseline.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -321,11 +403,11 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with patches from the patch baseline that failed to install.
+     * The number of managed nodes with patches from the patch baseline that failed to install.
      * </p>
      * 
      * @param instancesWithFailedPatches
-     *        The number of instances with patches from the patch baseline that failed to install.
+     *        The number of managed nodes with patches from the patch baseline that failed to install.
      */
 
     public void setInstancesWithFailedPatches(Integer instancesWithFailedPatches) {
@@ -334,10 +416,10 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with patches from the patch baseline that failed to install.
+     * The number of managed nodes with patches from the patch baseline that failed to install.
      * </p>
      * 
-     * @return The number of instances with patches from the patch baseline that failed to install.
+     * @return The number of managed nodes with patches from the patch baseline that failed to install.
      */
 
     public Integer getInstancesWithFailedPatches() {
@@ -346,11 +428,11 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with patches from the patch baseline that failed to install.
+     * The number of managed nodes with patches from the patch baseline that failed to install.
      * </p>
      * 
      * @param instancesWithFailedPatches
-     *        The number of instances with patches from the patch baseline that failed to install.
+     *        The number of managed nodes with patches from the patch baseline that failed to install.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -361,11 +443,11 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with patches that aren't applicable.
+     * The number of managed nodes with patches that aren't applicable.
      * </p>
      * 
      * @param instancesWithNotApplicablePatches
-     *        The number of instances with patches that aren't applicable.
+     *        The number of managed nodes with patches that aren't applicable.
      */
 
     public void setInstancesWithNotApplicablePatches(Integer instancesWithNotApplicablePatches) {
@@ -374,10 +456,10 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with patches that aren't applicable.
+     * The number of managed nodes with patches that aren't applicable.
      * </p>
      * 
-     * @return The number of instances with patches that aren't applicable.
+     * @return The number of managed nodes with patches that aren't applicable.
      */
 
     public Integer getInstancesWithNotApplicablePatches() {
@@ -386,11 +468,11 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with patches that aren't applicable.
+     * The number of managed nodes with patches that aren't applicable.
      * </p>
      * 
      * @param instancesWithNotApplicablePatches
-     *        The number of instances with patches that aren't applicable.
+     *        The number of managed nodes with patches that aren't applicable.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -401,13 +483,13 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with <code>NotApplicable</code> patches beyond the supported limit, which are not
-     * reported by name to Systems Manager Inventory.
+     * The number of managed nodes with <code>NotApplicable</code> patches beyond the supported limit, which aren't
+     * reported by name to Inventory. Inventory is a capability of Amazon Web Services Systems Manager.
      * </p>
      * 
      * @param instancesWithUnreportedNotApplicablePatches
-     *        The number of instances with <code>NotApplicable</code> patches beyond the supported limit, which are not
-     *        reported by name to Systems Manager Inventory.
+     *        The number of managed nodes with <code>NotApplicable</code> patches beyond the supported limit, which
+     *        aren't reported by name to Inventory. Inventory is a capability of Amazon Web Services Systems Manager.
      */
 
     public void setInstancesWithUnreportedNotApplicablePatches(Integer instancesWithUnreportedNotApplicablePatches) {
@@ -416,12 +498,12 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with <code>NotApplicable</code> patches beyond the supported limit, which are not
-     * reported by name to Systems Manager Inventory.
+     * The number of managed nodes with <code>NotApplicable</code> patches beyond the supported limit, which aren't
+     * reported by name to Inventory. Inventory is a capability of Amazon Web Services Systems Manager.
      * </p>
      * 
-     * @return The number of instances with <code>NotApplicable</code> patches beyond the supported limit, which are not
-     *         reported by name to Systems Manager Inventory.
+     * @return The number of managed nodes with <code>NotApplicable</code> patches beyond the supported limit, which
+     *         aren't reported by name to Inventory. Inventory is a capability of Amazon Web Services Systems Manager.
      */
 
     public Integer getInstancesWithUnreportedNotApplicablePatches() {
@@ -430,18 +512,183 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The number of instances with <code>NotApplicable</code> patches beyond the supported limit, which are not
-     * reported by name to Systems Manager Inventory.
+     * The number of managed nodes with <code>NotApplicable</code> patches beyond the supported limit, which aren't
+     * reported by name to Inventory. Inventory is a capability of Amazon Web Services Systems Manager.
      * </p>
      * 
      * @param instancesWithUnreportedNotApplicablePatches
-     *        The number of instances with <code>NotApplicable</code> patches beyond the supported limit, which are not
-     *        reported by name to Systems Manager Inventory.
+     *        The number of managed nodes with <code>NotApplicable</code> patches beyond the supported limit, which
+     *        aren't reported by name to Inventory. Inventory is a capability of Amazon Web Services Systems Manager.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DescribePatchGroupStateResult withInstancesWithUnreportedNotApplicablePatches(Integer instancesWithUnreportedNotApplicablePatches) {
         setInstancesWithUnreportedNotApplicablePatches(instancesWithUnreportedNotApplicablePatches);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of managed nodes where patches that are specified as <code>Critical</code> for compliance reporting in
+     * the patch baseline aren't installed. These patches might be missing, have failed installation, were rejected, or
+     * were installed but awaiting a required managed node reboot. The status of these managed nodes is
+     * <code>NON_COMPLIANT</code>.
+     * </p>
+     * 
+     * @param instancesWithCriticalNonCompliantPatches
+     *        The number of managed nodes where patches that are specified as <code>Critical</code> for compliance
+     *        reporting in the patch baseline aren't installed. These patches might be missing, have failed
+     *        installation, were rejected, or were installed but awaiting a required managed node reboot. The status of
+     *        these managed nodes is <code>NON_COMPLIANT</code>.
+     */
+
+    public void setInstancesWithCriticalNonCompliantPatches(Integer instancesWithCriticalNonCompliantPatches) {
+        this.instancesWithCriticalNonCompliantPatches = instancesWithCriticalNonCompliantPatches;
+    }
+
+    /**
+     * <p>
+     * The number of managed nodes where patches that are specified as <code>Critical</code> for compliance reporting in
+     * the patch baseline aren't installed. These patches might be missing, have failed installation, were rejected, or
+     * were installed but awaiting a required managed node reboot. The status of these managed nodes is
+     * <code>NON_COMPLIANT</code>.
+     * </p>
+     * 
+     * @return The number of managed nodes where patches that are specified as <code>Critical</code> for compliance
+     *         reporting in the patch baseline aren't installed. These patches might be missing, have failed
+     *         installation, were rejected, or were installed but awaiting a required managed node reboot. The status of
+     *         these managed nodes is <code>NON_COMPLIANT</code>.
+     */
+
+    public Integer getInstancesWithCriticalNonCompliantPatches() {
+        return this.instancesWithCriticalNonCompliantPatches;
+    }
+
+    /**
+     * <p>
+     * The number of managed nodes where patches that are specified as <code>Critical</code> for compliance reporting in
+     * the patch baseline aren't installed. These patches might be missing, have failed installation, were rejected, or
+     * were installed but awaiting a required managed node reboot. The status of these managed nodes is
+     * <code>NON_COMPLIANT</code>.
+     * </p>
+     * 
+     * @param instancesWithCriticalNonCompliantPatches
+     *        The number of managed nodes where patches that are specified as <code>Critical</code> for compliance
+     *        reporting in the patch baseline aren't installed. These patches might be missing, have failed
+     *        installation, were rejected, or were installed but awaiting a required managed node reboot. The status of
+     *        these managed nodes is <code>NON_COMPLIANT</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribePatchGroupStateResult withInstancesWithCriticalNonCompliantPatches(Integer instancesWithCriticalNonCompliantPatches) {
+        setInstancesWithCriticalNonCompliantPatches(instancesWithCriticalNonCompliantPatches);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of managed nodes where patches that are specified as <code>Security</code> in a patch advisory aren't
+     * installed. These patches might be missing, have failed installation, were rejected, or were installed but
+     * awaiting a required managed node reboot. The status of these managed nodes is <code>NON_COMPLIANT</code>.
+     * </p>
+     * 
+     * @param instancesWithSecurityNonCompliantPatches
+     *        The number of managed nodes where patches that are specified as <code>Security</code> in a patch advisory
+     *        aren't installed. These patches might be missing, have failed installation, were rejected, or were
+     *        installed but awaiting a required managed node reboot. The status of these managed nodes is
+     *        <code>NON_COMPLIANT</code>.
+     */
+
+    public void setInstancesWithSecurityNonCompliantPatches(Integer instancesWithSecurityNonCompliantPatches) {
+        this.instancesWithSecurityNonCompliantPatches = instancesWithSecurityNonCompliantPatches;
+    }
+
+    /**
+     * <p>
+     * The number of managed nodes where patches that are specified as <code>Security</code> in a patch advisory aren't
+     * installed. These patches might be missing, have failed installation, were rejected, or were installed but
+     * awaiting a required managed node reboot. The status of these managed nodes is <code>NON_COMPLIANT</code>.
+     * </p>
+     * 
+     * @return The number of managed nodes where patches that are specified as <code>Security</code> in a patch advisory
+     *         aren't installed. These patches might be missing, have failed installation, were rejected, or were
+     *         installed but awaiting a required managed node reboot. The status of these managed nodes is
+     *         <code>NON_COMPLIANT</code>.
+     */
+
+    public Integer getInstancesWithSecurityNonCompliantPatches() {
+        return this.instancesWithSecurityNonCompliantPatches;
+    }
+
+    /**
+     * <p>
+     * The number of managed nodes where patches that are specified as <code>Security</code> in a patch advisory aren't
+     * installed. These patches might be missing, have failed installation, were rejected, or were installed but
+     * awaiting a required managed node reboot. The status of these managed nodes is <code>NON_COMPLIANT</code>.
+     * </p>
+     * 
+     * @param instancesWithSecurityNonCompliantPatches
+     *        The number of managed nodes where patches that are specified as <code>Security</code> in a patch advisory
+     *        aren't installed. These patches might be missing, have failed installation, were rejected, or were
+     *        installed but awaiting a required managed node reboot. The status of these managed nodes is
+     *        <code>NON_COMPLIANT</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribePatchGroupStateResult withInstancesWithSecurityNonCompliantPatches(Integer instancesWithSecurityNonCompliantPatches) {
+        setInstancesWithSecurityNonCompliantPatches(instancesWithSecurityNonCompliantPatches);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of managed nodes with patches installed that are specified as other than <code>Critical</code> or
+     * <code>Security</code> but aren't compliant with the patch baseline. The status of these managed nodes is
+     * <code>NON_COMPLIANT</code>.
+     * </p>
+     * 
+     * @param instancesWithOtherNonCompliantPatches
+     *        The number of managed nodes with patches installed that are specified as other than <code>Critical</code>
+     *        or <code>Security</code> but aren't compliant with the patch baseline. The status of these managed nodes
+     *        is <code>NON_COMPLIANT</code>.
+     */
+
+    public void setInstancesWithOtherNonCompliantPatches(Integer instancesWithOtherNonCompliantPatches) {
+        this.instancesWithOtherNonCompliantPatches = instancesWithOtherNonCompliantPatches;
+    }
+
+    /**
+     * <p>
+     * The number of managed nodes with patches installed that are specified as other than <code>Critical</code> or
+     * <code>Security</code> but aren't compliant with the patch baseline. The status of these managed nodes is
+     * <code>NON_COMPLIANT</code>.
+     * </p>
+     * 
+     * @return The number of managed nodes with patches installed that are specified as other than <code>Critical</code>
+     *         or <code>Security</code> but aren't compliant with the patch baseline. The status of these managed nodes
+     *         is <code>NON_COMPLIANT</code>.
+     */
+
+    public Integer getInstancesWithOtherNonCompliantPatches() {
+        return this.instancesWithOtherNonCompliantPatches;
+    }
+
+    /**
+     * <p>
+     * The number of managed nodes with patches installed that are specified as other than <code>Critical</code> or
+     * <code>Security</code> but aren't compliant with the patch baseline. The status of these managed nodes is
+     * <code>NON_COMPLIANT</code>.
+     * </p>
+     * 
+     * @param instancesWithOtherNonCompliantPatches
+     *        The number of managed nodes with patches installed that are specified as other than <code>Critical</code>
+     *        or <code>Security</code> but aren't compliant with the patch baseline. The status of these managed nodes
+     *        is <code>NON_COMPLIANT</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribePatchGroupStateResult withInstancesWithOtherNonCompliantPatches(Integer instancesWithOtherNonCompliantPatches) {
+        setInstancesWithOtherNonCompliantPatches(instancesWithOtherNonCompliantPatches);
         return this;
     }
 
@@ -463,6 +710,8 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
             sb.append("InstancesWithInstalledPatches: ").append(getInstancesWithInstalledPatches()).append(",");
         if (getInstancesWithInstalledOtherPatches() != null)
             sb.append("InstancesWithInstalledOtherPatches: ").append(getInstancesWithInstalledOtherPatches()).append(",");
+        if (getInstancesWithInstalledPendingRebootPatches() != null)
+            sb.append("InstancesWithInstalledPendingRebootPatches: ").append(getInstancesWithInstalledPendingRebootPatches()).append(",");
         if (getInstancesWithInstalledRejectedPatches() != null)
             sb.append("InstancesWithInstalledRejectedPatches: ").append(getInstancesWithInstalledRejectedPatches()).append(",");
         if (getInstancesWithMissingPatches() != null)
@@ -472,7 +721,13 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
         if (getInstancesWithNotApplicablePatches() != null)
             sb.append("InstancesWithNotApplicablePatches: ").append(getInstancesWithNotApplicablePatches()).append(",");
         if (getInstancesWithUnreportedNotApplicablePatches() != null)
-            sb.append("InstancesWithUnreportedNotApplicablePatches: ").append(getInstancesWithUnreportedNotApplicablePatches());
+            sb.append("InstancesWithUnreportedNotApplicablePatches: ").append(getInstancesWithUnreportedNotApplicablePatches()).append(",");
+        if (getInstancesWithCriticalNonCompliantPatches() != null)
+            sb.append("InstancesWithCriticalNonCompliantPatches: ").append(getInstancesWithCriticalNonCompliantPatches()).append(",");
+        if (getInstancesWithSecurityNonCompliantPatches() != null)
+            sb.append("InstancesWithSecurityNonCompliantPatches: ").append(getInstancesWithSecurityNonCompliantPatches()).append(",");
+        if (getInstancesWithOtherNonCompliantPatches() != null)
+            sb.append("InstancesWithOtherNonCompliantPatches: ").append(getInstancesWithOtherNonCompliantPatches());
         sb.append("}");
         return sb.toString();
     }
@@ -501,6 +756,11 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
         if (other.getInstancesWithInstalledOtherPatches() != null
                 && other.getInstancesWithInstalledOtherPatches().equals(this.getInstancesWithInstalledOtherPatches()) == false)
             return false;
+        if (other.getInstancesWithInstalledPendingRebootPatches() == null ^ this.getInstancesWithInstalledPendingRebootPatches() == null)
+            return false;
+        if (other.getInstancesWithInstalledPendingRebootPatches() != null
+                && other.getInstancesWithInstalledPendingRebootPatches().equals(this.getInstancesWithInstalledPendingRebootPatches()) == false)
+            return false;
         if (other.getInstancesWithInstalledRejectedPatches() == null ^ this.getInstancesWithInstalledRejectedPatches() == null)
             return false;
         if (other.getInstancesWithInstalledRejectedPatches() != null
@@ -524,6 +784,21 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
         if (other.getInstancesWithUnreportedNotApplicablePatches() != null
                 && other.getInstancesWithUnreportedNotApplicablePatches().equals(this.getInstancesWithUnreportedNotApplicablePatches()) == false)
             return false;
+        if (other.getInstancesWithCriticalNonCompliantPatches() == null ^ this.getInstancesWithCriticalNonCompliantPatches() == null)
+            return false;
+        if (other.getInstancesWithCriticalNonCompliantPatches() != null
+                && other.getInstancesWithCriticalNonCompliantPatches().equals(this.getInstancesWithCriticalNonCompliantPatches()) == false)
+            return false;
+        if (other.getInstancesWithSecurityNonCompliantPatches() == null ^ this.getInstancesWithSecurityNonCompliantPatches() == null)
+            return false;
+        if (other.getInstancesWithSecurityNonCompliantPatches() != null
+                && other.getInstancesWithSecurityNonCompliantPatches().equals(this.getInstancesWithSecurityNonCompliantPatches()) == false)
+            return false;
+        if (other.getInstancesWithOtherNonCompliantPatches() == null ^ this.getInstancesWithOtherNonCompliantPatches() == null)
+            return false;
+        if (other.getInstancesWithOtherNonCompliantPatches() != null
+                && other.getInstancesWithOtherNonCompliantPatches().equals(this.getInstancesWithOtherNonCompliantPatches()) == false)
+            return false;
         return true;
     }
 
@@ -535,12 +810,17 @@ public class DescribePatchGroupStateResult extends com.amazonaws.AmazonWebServic
         hashCode = prime * hashCode + ((getInstances() == null) ? 0 : getInstances().hashCode());
         hashCode = prime * hashCode + ((getInstancesWithInstalledPatches() == null) ? 0 : getInstancesWithInstalledPatches().hashCode());
         hashCode = prime * hashCode + ((getInstancesWithInstalledOtherPatches() == null) ? 0 : getInstancesWithInstalledOtherPatches().hashCode());
+        hashCode = prime * hashCode
+                + ((getInstancesWithInstalledPendingRebootPatches() == null) ? 0 : getInstancesWithInstalledPendingRebootPatches().hashCode());
         hashCode = prime * hashCode + ((getInstancesWithInstalledRejectedPatches() == null) ? 0 : getInstancesWithInstalledRejectedPatches().hashCode());
         hashCode = prime * hashCode + ((getInstancesWithMissingPatches() == null) ? 0 : getInstancesWithMissingPatches().hashCode());
         hashCode = prime * hashCode + ((getInstancesWithFailedPatches() == null) ? 0 : getInstancesWithFailedPatches().hashCode());
         hashCode = prime * hashCode + ((getInstancesWithNotApplicablePatches() == null) ? 0 : getInstancesWithNotApplicablePatches().hashCode());
         hashCode = prime * hashCode
                 + ((getInstancesWithUnreportedNotApplicablePatches() == null) ? 0 : getInstancesWithUnreportedNotApplicablePatches().hashCode());
+        hashCode = prime * hashCode + ((getInstancesWithCriticalNonCompliantPatches() == null) ? 0 : getInstancesWithCriticalNonCompliantPatches().hashCode());
+        hashCode = prime * hashCode + ((getInstancesWithSecurityNonCompliantPatches() == null) ? 0 : getInstancesWithSecurityNonCompliantPatches().hashCode());
+        hashCode = prime * hashCode + ((getInstancesWithOtherNonCompliantPatches() == null) ? 0 : getInstancesWithOtherNonCompliantPatches().hashCode());
         return hashCode;
     }
 

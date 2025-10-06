@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,21 +27,38 @@ public class GetRelationalDatabaseBundlesRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A token used for advancing to a specific page of results for your <code>get relational database bundles</code>
+     * The token to advance to the next page of results from your request.
+     * </p>
+     * <p>
+     * To get a page token, perform an initial <code>GetRelationalDatabaseBundles</code> request. If your results are
+     * paginated, the response will return a next page token that you can specify as the page token in a subsequent
      * request.
      * </p>
      */
     private String pageToken;
+    /**
+     * <p>
+     * A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your request.
+     * </p>
+     */
+    private Boolean includeInactive;
 
     /**
      * <p>
-     * A token used for advancing to a specific page of results for your <code>get relational database bundles</code>
+     * The token to advance to the next page of results from your request.
+     * </p>
+     * <p>
+     * To get a page token, perform an initial <code>GetRelationalDatabaseBundles</code> request. If your results are
+     * paginated, the response will return a next page token that you can specify as the page token in a subsequent
      * request.
      * </p>
      * 
      * @param pageToken
-     *        A token used for advancing to a specific page of results for your
-     *        <code>get relational database bundles</code> request.
+     *        The token to advance to the next page of results from your request.</p>
+     *        <p>
+     *        To get a page token, perform an initial <code>GetRelationalDatabaseBundles</code> request. If your results
+     *        are paginated, the response will return a next page token that you can specify as the page token in a
+     *        subsequent request.
      */
 
     public void setPageToken(String pageToken) {
@@ -50,12 +67,19 @@ public class GetRelationalDatabaseBundlesRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A token used for advancing to a specific page of results for your <code>get relational database bundles</code>
+     * The token to advance to the next page of results from your request.
+     * </p>
+     * <p>
+     * To get a page token, perform an initial <code>GetRelationalDatabaseBundles</code> request. If your results are
+     * paginated, the response will return a next page token that you can specify as the page token in a subsequent
      * request.
      * </p>
      * 
-     * @return A token used for advancing to a specific page of results for your
-     *         <code>get relational database bundles</code> request.
+     * @return The token to advance to the next page of results from your request.</p>
+     *         <p>
+     *         To get a page token, perform an initial <code>GetRelationalDatabaseBundles</code> request. If your
+     *         results are paginated, the response will return a next page token that you can specify as the page token
+     *         in a subsequent request.
      */
 
     public String getPageToken() {
@@ -64,19 +88,82 @@ public class GetRelationalDatabaseBundlesRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A token used for advancing to a specific page of results for your <code>get relational database bundles</code>
+     * The token to advance to the next page of results from your request.
+     * </p>
+     * <p>
+     * To get a page token, perform an initial <code>GetRelationalDatabaseBundles</code> request. If your results are
+     * paginated, the response will return a next page token that you can specify as the page token in a subsequent
      * request.
      * </p>
      * 
      * @param pageToken
-     *        A token used for advancing to a specific page of results for your
-     *        <code>get relational database bundles</code> request.
+     *        The token to advance to the next page of results from your request.</p>
+     *        <p>
+     *        To get a page token, perform an initial <code>GetRelationalDatabaseBundles</code> request. If your results
+     *        are paginated, the response will return a next page token that you can specify as the page token in a
+     *        subsequent request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GetRelationalDatabaseBundlesRequest withPageToken(String pageToken) {
         setPageToken(pageToken);
         return this;
+    }
+
+    /**
+     * <p>
+     * A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your request.
+     * </p>
+     * 
+     * @param includeInactive
+     *        A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your
+     *        request.
+     */
+
+    public void setIncludeInactive(Boolean includeInactive) {
+        this.includeInactive = includeInactive;
+    }
+
+    /**
+     * <p>
+     * A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your request.
+     * </p>
+     * 
+     * @return A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your
+     *         request.
+     */
+
+    public Boolean getIncludeInactive() {
+        return this.includeInactive;
+    }
+
+    /**
+     * <p>
+     * A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your request.
+     * </p>
+     * 
+     * @param includeInactive
+     *        A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your
+     *        request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetRelationalDatabaseBundlesRequest withIncludeInactive(Boolean includeInactive) {
+        setIncludeInactive(includeInactive);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your request.
+     * </p>
+     * 
+     * @return A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your
+     *         request.
+     */
+
+    public Boolean isIncludeInactive() {
+        return this.includeInactive;
     }
 
     /**
@@ -92,7 +179,9 @@ public class GetRelationalDatabaseBundlesRequest extends com.amazonaws.AmazonWeb
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getPageToken() != null)
-            sb.append("PageToken: ").append(getPageToken());
+            sb.append("PageToken: ").append(getPageToken()).append(",");
+        if (getIncludeInactive() != null)
+            sb.append("IncludeInactive: ").append(getIncludeInactive());
         sb.append("}");
         return sb.toString();
     }
@@ -111,6 +200,10 @@ public class GetRelationalDatabaseBundlesRequest extends com.amazonaws.AmazonWeb
             return false;
         if (other.getPageToken() != null && other.getPageToken().equals(this.getPageToken()) == false)
             return false;
+        if (other.getIncludeInactive() == null ^ this.getIncludeInactive() == null)
+            return false;
+        if (other.getIncludeInactive() != null && other.getIncludeInactive().equals(this.getIncludeInactive()) == false)
+            return false;
         return true;
     }
 
@@ -120,6 +213,7 @@ public class GetRelationalDatabaseBundlesRequest extends com.amazonaws.AmazonWeb
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getPageToken() == null) ? 0 : getPageToken().hashCode());
+        hashCode = prime * hashCode + ((getIncludeInactive() == null) ? 0 : getIncludeInactive().hashCode());
         return hashCode;
     }
 

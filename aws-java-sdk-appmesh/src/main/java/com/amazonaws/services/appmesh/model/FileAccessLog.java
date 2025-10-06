@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An object representing an access log file.
+ * An object that represents an access log file.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/FileAccessLog" target="_top">AWS API
@@ -28,6 +28,12 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class FileAccessLog implements Serializable, Cloneable, StructuredPojo {
 
+    /**
+     * <p>
+     * The specified format for the logs. The format is either <code>json_format</code> or <code>text_format</code>.
+     * </p>
+     */
+    private LoggingFormat format;
     /**
      * <p>
      * The file path to write access logs to. You can use <code>/dev/stdout</code> to send access logs to standard out
@@ -43,6 +49,49 @@ public class FileAccessLog implements Serializable, Cloneable, StructuredPojo {
      * </note>
      */
     private String path;
+
+    /**
+     * <p>
+     * The specified format for the logs. The format is either <code>json_format</code> or <code>text_format</code>.
+     * </p>
+     * 
+     * @param format
+     *        The specified format for the logs. The format is either <code>json_format</code> or
+     *        <code>text_format</code>.
+     */
+
+    public void setFormat(LoggingFormat format) {
+        this.format = format;
+    }
+
+    /**
+     * <p>
+     * The specified format for the logs. The format is either <code>json_format</code> or <code>text_format</code>.
+     * </p>
+     * 
+     * @return The specified format for the logs. The format is either <code>json_format</code> or
+     *         <code>text_format</code>.
+     */
+
+    public LoggingFormat getFormat() {
+        return this.format;
+    }
+
+    /**
+     * <p>
+     * The specified format for the logs. The format is either <code>json_format</code> or <code>text_format</code>.
+     * </p>
+     * 
+     * @param format
+     *        The specified format for the logs. The format is either <code>json_format</code> or
+     *        <code>text_format</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public FileAccessLog withFormat(LoggingFormat format) {
+        setFormat(format);
+        return this;
+    }
 
     /**
      * <p>
@@ -144,6 +193,8 @@ public class FileAccessLog implements Serializable, Cloneable, StructuredPojo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getFormat() != null)
+            sb.append("Format: ").append(getFormat()).append(",");
         if (getPath() != null)
             sb.append("Path: ").append(getPath());
         sb.append("}");
@@ -160,6 +211,10 @@ public class FileAccessLog implements Serializable, Cloneable, StructuredPojo {
         if (obj instanceof FileAccessLog == false)
             return false;
         FileAccessLog other = (FileAccessLog) obj;
+        if (other.getFormat() == null ^ this.getFormat() == null)
+            return false;
+        if (other.getFormat() != null && other.getFormat().equals(this.getFormat()) == false)
+            return false;
         if (other.getPath() == null ^ this.getPath() == null)
             return false;
         if (other.getPath() != null && other.getPath().equals(this.getPath()) == false)
@@ -172,6 +227,7 @@ public class FileAccessLog implements Serializable, Cloneable, StructuredPojo {
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getFormat() == null) ? 0 : getFormat().hashCode());
         hashCode = prime * hashCode + ((getPath() == null) ? 0 : getPath().hashCode());
         return hashCode;
     }

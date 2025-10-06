@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -66,8 +66,10 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
      */
     private Integer bitrate;
     /**
-     * If set to multiplex, use multiplex buffer model for accurate interleaving. Setting to bufferModel to none can
-     * lead to lower latency, but low-memory devices may not be able to play back the stream without interruptions.
+     * Controls the timing accuracy for output network traffic. Leave as MULTIPLEX to ensure accurate network packet
+     * timing. Or set to NONE, which might result in lower latency but will result in more variability in output network
+     * packet timing. This variability might cause interruptions, jitter, or bursty behavior in your playback or
+     * receiving devices.
      */
     private String bufferModel;
     /** When set to enabled, generates captionServiceDescriptor in PMT. */
@@ -135,6 +137,11 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
      * must be in the range of 32 (or 0x20)..8182 (or 0x1ff6).
      */
     private String klvDataPids;
+    /**
+     * If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and an
+     * equivalent ID3 tag will be inserted in the output.
+     */
+    private String nielsenId3Behavior;
     /**
      * Value in bits per second of extra null packets to insert into the transport stream. This can be used if a
      * downstream encryption system requires periodic null packets.
@@ -211,7 +218,7 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
      * exception to this rule.
      */
     private String segmentationStyle;
-    /** The length in seconds of each segment. Required unless markers is set to None_. */
+    /** The length in seconds of each segment. Required unless markers is set to _none_. */
     private Double segmentationTime;
     /** When set to passthrough, timed metadata will be passed through from input to output. */
     private String timedMetadataBehavior;
@@ -227,6 +234,14 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
      * hexadecimal value. Valid values are 32 (or 0x20)..8182 (or 0x1ff6).
      */
     private String videoPid;
+    /**
+     * Defines the amount SCTE-35 preroll will be increased (in milliseconds) on the output. Preroll is the amount of
+     * time between the presence of a SCTE-35 indication in a transport stream and the PTS of the video frame it
+     * references. Zero means don't add pullup (it doesn't mean set the preroll to zero). Negative pullup is not
+     * supported, which means that you can't make the preroll shorter. Be aware that latency in the output will increase
+     * by the pullup amount.
+     */
+    private Double scte35PrerollPullupMilliseconds;
 
     /**
      * When set to drop, output audio streams will be removed from the program if the selected input audio stream is
@@ -684,13 +699,16 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If set to multiplex, use multiplex buffer model for accurate interleaving. Setting to bufferModel to none can
-     * lead to lower latency, but low-memory devices may not be able to play back the stream without interruptions.
+     * Controls the timing accuracy for output network traffic. Leave as MULTIPLEX to ensure accurate network packet
+     * timing. Or set to NONE, which might result in lower latency but will result in more variability in output network
+     * packet timing. This variability might cause interruptions, jitter, or bursty behavior in your playback or
+     * receiving devices.
      * 
      * @param bufferModel
-     *        If set to multiplex, use multiplex buffer model for accurate interleaving. Setting to bufferModel to none
-     *        can lead to lower latency, but low-memory devices may not be able to play back the stream without
-     *        interruptions.
+     *        Controls the timing accuracy for output network traffic. Leave as MULTIPLEX to ensure accurate network
+     *        packet timing. Or set to NONE, which might result in lower latency but will result in more variability in
+     *        output network packet timing. This variability might cause interruptions, jitter, or bursty behavior in
+     *        your playback or receiving devices.
      * @see M2tsBufferModel
      */
 
@@ -699,12 +717,15 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If set to multiplex, use multiplex buffer model for accurate interleaving. Setting to bufferModel to none can
-     * lead to lower latency, but low-memory devices may not be able to play back the stream without interruptions.
+     * Controls the timing accuracy for output network traffic. Leave as MULTIPLEX to ensure accurate network packet
+     * timing. Or set to NONE, which might result in lower latency but will result in more variability in output network
+     * packet timing. This variability might cause interruptions, jitter, or bursty behavior in your playback or
+     * receiving devices.
      * 
-     * @return If set to multiplex, use multiplex buffer model for accurate interleaving. Setting to bufferModel to none
-     *         can lead to lower latency, but low-memory devices may not be able to play back the stream without
-     *         interruptions.
+     * @return Controls the timing accuracy for output network traffic. Leave as MULTIPLEX to ensure accurate network
+     *         packet timing. Or set to NONE, which might result in lower latency but will result in more variability in
+     *         output network packet timing. This variability might cause interruptions, jitter, or bursty behavior in
+     *         your playback or receiving devices.
      * @see M2tsBufferModel
      */
 
@@ -713,13 +734,16 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If set to multiplex, use multiplex buffer model for accurate interleaving. Setting to bufferModel to none can
-     * lead to lower latency, but low-memory devices may not be able to play back the stream without interruptions.
+     * Controls the timing accuracy for output network traffic. Leave as MULTIPLEX to ensure accurate network packet
+     * timing. Or set to NONE, which might result in lower latency but will result in more variability in output network
+     * packet timing. This variability might cause interruptions, jitter, or bursty behavior in your playback or
+     * receiving devices.
      * 
      * @param bufferModel
-     *        If set to multiplex, use multiplex buffer model for accurate interleaving. Setting to bufferModel to none
-     *        can lead to lower latency, but low-memory devices may not be able to play back the stream without
-     *        interruptions.
+     *        Controls the timing accuracy for output network traffic. Leave as MULTIPLEX to ensure accurate network
+     *        packet timing. Or set to NONE, which might result in lower latency but will result in more variability in
+     *        output network packet timing. This variability might cause interruptions, jitter, or bursty behavior in
+     *        your playback or receiving devices.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see M2tsBufferModel
      */
@@ -730,13 +754,16 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If set to multiplex, use multiplex buffer model for accurate interleaving. Setting to bufferModel to none can
-     * lead to lower latency, but low-memory devices may not be able to play back the stream without interruptions.
+     * Controls the timing accuracy for output network traffic. Leave as MULTIPLEX to ensure accurate network packet
+     * timing. Or set to NONE, which might result in lower latency but will result in more variability in output network
+     * packet timing. This variability might cause interruptions, jitter, or bursty behavior in your playback or
+     * receiving devices.
      * 
      * @param bufferModel
-     *        If set to multiplex, use multiplex buffer model for accurate interleaving. Setting to bufferModel to none
-     *        can lead to lower latency, but low-memory devices may not be able to play back the stream without
-     *        interruptions.
+     *        Controls the timing accuracy for output network traffic. Leave as MULTIPLEX to ensure accurate network
+     *        packet timing. Or set to NONE, which might result in lower latency but will result in more variability in
+     *        output network packet timing. This variability might cause interruptions, jitter, or bursty behavior in
+     *        your playback or receiving devices.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see M2tsBufferModel
      */
@@ -1525,6 +1552,65 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and an
+     * equivalent ID3 tag will be inserted in the output.
+     * 
+     * @param nielsenId3Behavior
+     *        If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and
+     *        an equivalent ID3 tag will be inserted in the output.
+     * @see M2tsNielsenId3Behavior
+     */
+
+    public void setNielsenId3Behavior(String nielsenId3Behavior) {
+        this.nielsenId3Behavior = nielsenId3Behavior;
+    }
+
+    /**
+     * If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and an
+     * equivalent ID3 tag will be inserted in the output.
+     * 
+     * @return If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and
+     *         an equivalent ID3 tag will be inserted in the output.
+     * @see M2tsNielsenId3Behavior
+     */
+
+    public String getNielsenId3Behavior() {
+        return this.nielsenId3Behavior;
+    }
+
+    /**
+     * If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and an
+     * equivalent ID3 tag will be inserted in the output.
+     * 
+     * @param nielsenId3Behavior
+     *        If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and
+     *        an equivalent ID3 tag will be inserted in the output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see M2tsNielsenId3Behavior
+     */
+
+    public M2tsSettings withNielsenId3Behavior(String nielsenId3Behavior) {
+        setNielsenId3Behavior(nielsenId3Behavior);
+        return this;
+    }
+
+    /**
+     * If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and an
+     * equivalent ID3 tag will be inserted in the output.
+     * 
+     * @param nielsenId3Behavior
+     *        If set to passthrough, Nielsen inaudible tones for media tracking will be detected in the input audio and
+     *        an equivalent ID3 tag will be inserted in the output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see M2tsNielsenId3Behavior
+     */
+
+    public M2tsSettings withNielsenId3Behavior(M2tsNielsenId3Behavior nielsenId3Behavior) {
+        this.nielsenId3Behavior = nielsenId3Behavior.toString();
+        return this;
+    }
+
+    /**
      * Value in bits per second of extra null packets to insert into the transport stream. This can be used if a
      * downstream encryption system requires periodic null packets.
      * 
@@ -2281,10 +2367,10 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The length in seconds of each segment. Required unless markers is set to None_.
+     * The length in seconds of each segment. Required unless markers is set to _none_.
      * 
      * @param segmentationTime
-     *        The length in seconds of each segment. Required unless markers is set to None_.
+     *        The length in seconds of each segment. Required unless markers is set to _none_.
      */
 
     public void setSegmentationTime(Double segmentationTime) {
@@ -2292,9 +2378,9 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The length in seconds of each segment. Required unless markers is set to None_.
+     * The length in seconds of each segment. Required unless markers is set to _none_.
      * 
-     * @return The length in seconds of each segment. Required unless markers is set to None_.
+     * @return The length in seconds of each segment. Required unless markers is set to _none_.
      */
 
     public Double getSegmentationTime() {
@@ -2302,10 +2388,10 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The length in seconds of each segment. Required unless markers is set to None_.
+     * The length in seconds of each segment. Required unless markers is set to _none_.
      * 
      * @param segmentationTime
-     *        The length in seconds of each segment. Required unless markers is set to None_.
+     *        The length in seconds of each segment. Required unless markers is set to _none_.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2480,6 +2566,64 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * Defines the amount SCTE-35 preroll will be increased (in milliseconds) on the output. Preroll is the amount of
+     * time between the presence of a SCTE-35 indication in a transport stream and the PTS of the video frame it
+     * references. Zero means don't add pullup (it doesn't mean set the preroll to zero). Negative pullup is not
+     * supported, which means that you can't make the preroll shorter. Be aware that latency in the output will increase
+     * by the pullup amount.
+     * 
+     * @param scte35PrerollPullupMilliseconds
+     *        Defines the amount SCTE-35 preroll will be increased (in milliseconds) on the output. Preroll is the
+     *        amount of time between the presence of a SCTE-35 indication in a transport stream and the PTS of the video
+     *        frame it references. Zero means don't add pullup (it doesn't mean set the preroll to zero). Negative
+     *        pullup is not supported, which means that you can't make the preroll shorter. Be aware that latency in the
+     *        output will increase by the pullup amount.
+     */
+
+    public void setScte35PrerollPullupMilliseconds(Double scte35PrerollPullupMilliseconds) {
+        this.scte35PrerollPullupMilliseconds = scte35PrerollPullupMilliseconds;
+    }
+
+    /**
+     * Defines the amount SCTE-35 preroll will be increased (in milliseconds) on the output. Preroll is the amount of
+     * time between the presence of a SCTE-35 indication in a transport stream and the PTS of the video frame it
+     * references. Zero means don't add pullup (it doesn't mean set the preroll to zero). Negative pullup is not
+     * supported, which means that you can't make the preroll shorter. Be aware that latency in the output will increase
+     * by the pullup amount.
+     * 
+     * @return Defines the amount SCTE-35 preroll will be increased (in milliseconds) on the output. Preroll is the
+     *         amount of time between the presence of a SCTE-35 indication in a transport stream and the PTS of the
+     *         video frame it references. Zero means don't add pullup (it doesn't mean set the preroll to zero).
+     *         Negative pullup is not supported, which means that you can't make the preroll shorter. Be aware that
+     *         latency in the output will increase by the pullup amount.
+     */
+
+    public Double getScte35PrerollPullupMilliseconds() {
+        return this.scte35PrerollPullupMilliseconds;
+    }
+
+    /**
+     * Defines the amount SCTE-35 preroll will be increased (in milliseconds) on the output. Preroll is the amount of
+     * time between the presence of a SCTE-35 indication in a transport stream and the PTS of the video frame it
+     * references. Zero means don't add pullup (it doesn't mean set the preroll to zero). Negative pullup is not
+     * supported, which means that you can't make the preroll shorter. Be aware that latency in the output will increase
+     * by the pullup amount.
+     * 
+     * @param scte35PrerollPullupMilliseconds
+     *        Defines the amount SCTE-35 preroll will be increased (in milliseconds) on the output. Preroll is the
+     *        amount of time between the presence of a SCTE-35 indication in a transport stream and the PTS of the video
+     *        frame it references. Zero means don't add pullup (it doesn't mean set the preroll to zero). Negative
+     *        pullup is not supported, which means that you can't make the preroll shorter. Be aware that latency in the
+     *        output will increase by the pullup amount.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public M2tsSettings withScte35PrerollPullupMilliseconds(Double scte35PrerollPullupMilliseconds) {
+        setScte35PrerollPullupMilliseconds(scte35PrerollPullupMilliseconds);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -2545,6 +2689,8 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
             sb.append("Klv: ").append(getKlv()).append(",");
         if (getKlvDataPids() != null)
             sb.append("KlvDataPids: ").append(getKlvDataPids()).append(",");
+        if (getNielsenId3Behavior() != null)
+            sb.append("NielsenId3Behavior: ").append(getNielsenId3Behavior()).append(",");
         if (getNullPacketBitrate() != null)
             sb.append("NullPacketBitrate: ").append(getNullPacketBitrate()).append(",");
         if (getPatInterval() != null)
@@ -2582,7 +2728,9 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
         if (getTransportStreamId() != null)
             sb.append("TransportStreamId: ").append(getTransportStreamId()).append(",");
         if (getVideoPid() != null)
-            sb.append("VideoPid: ").append(getVideoPid());
+            sb.append("VideoPid: ").append(getVideoPid()).append(",");
+        if (getScte35PrerollPullupMilliseconds() != null)
+            sb.append("Scte35PrerollPullupMilliseconds: ").append(getScte35PrerollPullupMilliseconds());
         sb.append("}");
         return sb.toString();
     }
@@ -2705,6 +2853,10 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getKlvDataPids() != null && other.getKlvDataPids().equals(this.getKlvDataPids()) == false)
             return false;
+        if (other.getNielsenId3Behavior() == null ^ this.getNielsenId3Behavior() == null)
+            return false;
+        if (other.getNielsenId3Behavior() != null && other.getNielsenId3Behavior().equals(this.getNielsenId3Behavior()) == false)
+            return false;
         if (other.getNullPacketBitrate() == null ^ this.getNullPacketBitrate() == null)
             return false;
         if (other.getNullPacketBitrate() != null && other.getNullPacketBitrate().equals(this.getNullPacketBitrate()) == false)
@@ -2781,6 +2933,11 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getVideoPid() != null && other.getVideoPid().equals(this.getVideoPid()) == false)
             return false;
+        if (other.getScte35PrerollPullupMilliseconds() == null ^ this.getScte35PrerollPullupMilliseconds() == null)
+            return false;
+        if (other.getScte35PrerollPullupMilliseconds() != null
+                && other.getScte35PrerollPullupMilliseconds().equals(this.getScte35PrerollPullupMilliseconds()) == false)
+            return false;
         return true;
     }
 
@@ -2816,6 +2973,7 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getFragmentTime() == null) ? 0 : getFragmentTime().hashCode());
         hashCode = prime * hashCode + ((getKlv() == null) ? 0 : getKlv().hashCode());
         hashCode = prime * hashCode + ((getKlvDataPids() == null) ? 0 : getKlvDataPids().hashCode());
+        hashCode = prime * hashCode + ((getNielsenId3Behavior() == null) ? 0 : getNielsenId3Behavior().hashCode());
         hashCode = prime * hashCode + ((getNullPacketBitrate() == null) ? 0 : getNullPacketBitrate().hashCode());
         hashCode = prime * hashCode + ((getPatInterval() == null) ? 0 : getPatInterval().hashCode());
         hashCode = prime * hashCode + ((getPcrControl() == null) ? 0 : getPcrControl().hashCode());
@@ -2835,6 +2993,7 @@ public class M2tsSettings implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getTimedMetadataPid() == null) ? 0 : getTimedMetadataPid().hashCode());
         hashCode = prime * hashCode + ((getTransportStreamId() == null) ? 0 : getTransportStreamId().hashCode());
         hashCode = prime * hashCode + ((getVideoPid() == null) ? 0 : getVideoPid().hashCode());
+        hashCode = prime * hashCode + ((getScte35PrerollPullupMilliseconds() == null) ? 0 : getScte35PrerollPullupMilliseconds().hashCode());
         return hashCode;
     }
 

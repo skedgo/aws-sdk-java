@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,11 @@ public class AbstractAWSBackup implements AWSBackup {
     }
 
     @Override
+    public CancelLegalHoldResult cancelLegalHold(CancelLegalHoldRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateBackupPlanResult createBackupPlan(CreateBackupPlanRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -39,6 +44,36 @@ public class AbstractAWSBackup implements AWSBackup {
 
     @Override
     public CreateBackupVaultResult createBackupVault(CreateBackupVaultRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateFrameworkResult createFramework(CreateFrameworkRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateLegalHoldResult createLegalHold(CreateLegalHoldRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateLogicallyAirGappedBackupVaultResult createLogicallyAirGappedBackupVault(CreateLogicallyAirGappedBackupVaultRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateReportPlanResult createReportPlan(CreateReportPlanRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateRestoreTestingPlanResult createRestoreTestingPlan(CreateRestoreTestingPlanRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateRestoreTestingSelectionResult createRestoreTestingSelection(CreateRestoreTestingSelectionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -63,12 +98,37 @@ public class AbstractAWSBackup implements AWSBackup {
     }
 
     @Override
+    public DeleteBackupVaultLockConfigurationResult deleteBackupVaultLockConfiguration(DeleteBackupVaultLockConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteBackupVaultNotificationsResult deleteBackupVaultNotifications(DeleteBackupVaultNotificationsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public DeleteFrameworkResult deleteFramework(DeleteFrameworkRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteRecoveryPointResult deleteRecoveryPoint(DeleteRecoveryPointRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteReportPlanResult deleteReportPlan(DeleteReportPlanRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteRestoreTestingPlanResult deleteRestoreTestingPlan(DeleteRestoreTestingPlanRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteRestoreTestingSelectionResult deleteRestoreTestingSelection(DeleteRestoreTestingSelectionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -83,6 +143,21 @@ public class AbstractAWSBackup implements AWSBackup {
     }
 
     @Override
+    public DescribeCopyJobResult describeCopyJob(DescribeCopyJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeFrameworkResult describeFramework(DescribeFrameworkRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeGlobalSettingsResult describeGlobalSettings(DescribeGlobalSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeProtectedResourceResult describeProtectedResource(DescribeProtectedResourceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -93,7 +168,32 @@ public class AbstractAWSBackup implements AWSBackup {
     }
 
     @Override
+    public DescribeRegionSettingsResult describeRegionSettings(DescribeRegionSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeReportJobResult describeReportJob(DescribeReportJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeReportPlanResult describeReportPlan(DescribeReportPlanRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeRestoreJobResult describeRestoreJob(DescribeRestoreJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateRecoveryPointResult disassociateRecoveryPoint(DisassociateRecoveryPointRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateRecoveryPointFromParentResult disassociateRecoveryPointFromParent(DisassociateRecoveryPointFromParentRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -133,12 +233,42 @@ public class AbstractAWSBackup implements AWSBackup {
     }
 
     @Override
+    public GetLegalHoldResult getLegalHold(GetLegalHoldRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetRecoveryPointRestoreMetadataResult getRecoveryPointRestoreMetadata(GetRecoveryPointRestoreMetadataRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public GetRestoreJobMetadataResult getRestoreJobMetadata(GetRestoreJobMetadataRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetRestoreTestingInferredMetadataResult getRestoreTestingInferredMetadata(GetRestoreTestingInferredMetadataRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetRestoreTestingPlanResult getRestoreTestingPlan(GetRestoreTestingPlanRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetRestoreTestingSelectionResult getRestoreTestingSelection(GetRestoreTestingSelectionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetSupportedResourceTypesResult getSupportedResourceTypes(GetSupportedResourceTypesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListBackupJobSummariesResult listBackupJobSummaries(ListBackupJobSummariesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -173,7 +303,32 @@ public class AbstractAWSBackup implements AWSBackup {
     }
 
     @Override
+    public ListCopyJobSummariesResult listCopyJobSummaries(ListCopyJobSummariesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListCopyJobsResult listCopyJobs(ListCopyJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListFrameworksResult listFrameworks(ListFrameworksRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListLegalHoldsResult listLegalHolds(ListLegalHoldsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListProtectedResourcesResult listProtectedResources(ListProtectedResourcesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListProtectedResourcesByBackupVaultResult listProtectedResourcesByBackupVault(ListProtectedResourcesByBackupVaultRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -183,12 +338,47 @@ public class AbstractAWSBackup implements AWSBackup {
     }
 
     @Override
+    public ListRecoveryPointsByLegalHoldResult listRecoveryPointsByLegalHold(ListRecoveryPointsByLegalHoldRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListRecoveryPointsByResourceResult listRecoveryPointsByResource(ListRecoveryPointsByResourceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public ListReportJobsResult listReportJobs(ListReportJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListReportPlansResult listReportPlans(ListReportPlansRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListRestoreJobSummariesResult listRestoreJobSummaries(ListRestoreJobSummariesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListRestoreJobsResult listRestoreJobs(ListRestoreJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListRestoreJobsByProtectedResourceResult listRestoreJobsByProtectedResource(ListRestoreJobsByProtectedResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListRestoreTestingPlansResult listRestoreTestingPlans(ListRestoreTestingPlansRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListRestoreTestingSelectionsResult listRestoreTestingSelections(ListRestoreTestingSelectionsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -203,12 +393,32 @@ public class AbstractAWSBackup implements AWSBackup {
     }
 
     @Override
+    public PutBackupVaultLockConfigurationResult putBackupVaultLockConfiguration(PutBackupVaultLockConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public PutBackupVaultNotificationsResult putBackupVaultNotifications(PutBackupVaultNotificationsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public PutRestoreValidationResultResult putRestoreValidationResult(PutRestoreValidationResultRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StartBackupJobResult startBackupJob(StartBackupJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartCopyJobResult startCopyJob(StartCopyJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartReportJobResult startReportJob(StartReportJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -238,7 +448,37 @@ public class AbstractAWSBackup implements AWSBackup {
     }
 
     @Override
+    public UpdateFrameworkResult updateFramework(UpdateFrameworkRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateGlobalSettingsResult updateGlobalSettings(UpdateGlobalSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateRecoveryPointLifecycleResult updateRecoveryPointLifecycle(UpdateRecoveryPointLifecycleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateRegionSettingsResult updateRegionSettings(UpdateRegionSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateReportPlanResult updateReportPlan(UpdateReportPlanRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateRestoreTestingPlanResult updateRestoreTestingPlan(UpdateRestoreTestingPlanRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateRestoreTestingSelectionResult updateRestoreTestingSelection(UpdateRestoreTestingSelectionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

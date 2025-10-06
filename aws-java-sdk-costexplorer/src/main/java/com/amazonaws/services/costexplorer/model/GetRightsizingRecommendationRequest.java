@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,17 @@ public class GetRightsizingRecommendationRequest extends com.amazonaws.AmazonWeb
     private Expression filter;
     /**
      * <p>
-     * The specific service that you want recommendations for.
+     * You can use Configuration to customize recommendations across two attributes. You can choose to view
+     * recommendations for instances within the same instance families or across different instance families. You can
+     * also choose to view your estimated savings that are associated with recommendations with consideration of
+     * existing Savings Plans or RI benefits, or neither.
+     * </p>
+     */
+    private RightsizingRecommendationConfiguration configuration;
+    /**
+     * <p>
+     * The specific service that you want recommendations for. The only valid value for
+     * <code>GetRightsizingRecommendation</code> is "<code>AmazonEC2</code>".
      * </p>
      */
     private String service;
@@ -73,11 +83,71 @@ public class GetRightsizingRecommendationRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The specific service that you want recommendations for.
+     * You can use Configuration to customize recommendations across two attributes. You can choose to view
+     * recommendations for instances within the same instance families or across different instance families. You can
+     * also choose to view your estimated savings that are associated with recommendations with consideration of
+     * existing Savings Plans or RI benefits, or neither.
+     * </p>
+     * 
+     * @param configuration
+     *        You can use Configuration to customize recommendations across two attributes. You can choose to view
+     *        recommendations for instances within the same instance families or across different instance families. You
+     *        can also choose to view your estimated savings that are associated with recommendations with consideration
+     *        of existing Savings Plans or RI benefits, or neither.
+     */
+
+    public void setConfiguration(RightsizingRecommendationConfiguration configuration) {
+        this.configuration = configuration;
+    }
+
+    /**
+     * <p>
+     * You can use Configuration to customize recommendations across two attributes. You can choose to view
+     * recommendations for instances within the same instance families or across different instance families. You can
+     * also choose to view your estimated savings that are associated with recommendations with consideration of
+     * existing Savings Plans or RI benefits, or neither.
+     * </p>
+     * 
+     * @return You can use Configuration to customize recommendations across two attributes. You can choose to view
+     *         recommendations for instances within the same instance families or across different instance families.
+     *         You can also choose to view your estimated savings that are associated with recommendations with
+     *         consideration of existing Savings Plans or RI benefits, or neither.
+     */
+
+    public RightsizingRecommendationConfiguration getConfiguration() {
+        return this.configuration;
+    }
+
+    /**
+     * <p>
+     * You can use Configuration to customize recommendations across two attributes. You can choose to view
+     * recommendations for instances within the same instance families or across different instance families. You can
+     * also choose to view your estimated savings that are associated with recommendations with consideration of
+     * existing Savings Plans or RI benefits, or neither.
+     * </p>
+     * 
+     * @param configuration
+     *        You can use Configuration to customize recommendations across two attributes. You can choose to view
+     *        recommendations for instances within the same instance families or across different instance families. You
+     *        can also choose to view your estimated savings that are associated with recommendations with consideration
+     *        of existing Savings Plans or RI benefits, or neither.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetRightsizingRecommendationRequest withConfiguration(RightsizingRecommendationConfiguration configuration) {
+        setConfiguration(configuration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The specific service that you want recommendations for. The only valid value for
+     * <code>GetRightsizingRecommendation</code> is "<code>AmazonEC2</code>".
      * </p>
      * 
      * @param service
-     *        The specific service that you want recommendations for.
+     *        The specific service that you want recommendations for. The only valid value for
+     *        <code>GetRightsizingRecommendation</code> is "<code>AmazonEC2</code>".
      */
 
     public void setService(String service) {
@@ -86,10 +156,12 @@ public class GetRightsizingRecommendationRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The specific service that you want recommendations for.
+     * The specific service that you want recommendations for. The only valid value for
+     * <code>GetRightsizingRecommendation</code> is "<code>AmazonEC2</code>".
      * </p>
      * 
-     * @return The specific service that you want recommendations for.
+     * @return The specific service that you want recommendations for. The only valid value for
+     *         <code>GetRightsizingRecommendation</code> is "<code>AmazonEC2</code>".
      */
 
     public String getService() {
@@ -98,11 +170,13 @@ public class GetRightsizingRecommendationRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The specific service that you want recommendations for.
+     * The specific service that you want recommendations for. The only valid value for
+     * <code>GetRightsizingRecommendation</code> is "<code>AmazonEC2</code>".
      * </p>
      * 
      * @param service
-     *        The specific service that you want recommendations for.
+     *        The specific service that you want recommendations for. The only valid value for
+     *        <code>GetRightsizingRecommendation</code> is "<code>AmazonEC2</code>".
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -205,6 +279,8 @@ public class GetRightsizingRecommendationRequest extends com.amazonaws.AmazonWeb
         sb.append("{");
         if (getFilter() != null)
             sb.append("Filter: ").append(getFilter()).append(",");
+        if (getConfiguration() != null)
+            sb.append("Configuration: ").append(getConfiguration()).append(",");
         if (getService() != null)
             sb.append("Service: ").append(getService()).append(",");
         if (getPageSize() != null)
@@ -229,6 +305,10 @@ public class GetRightsizingRecommendationRequest extends com.amazonaws.AmazonWeb
             return false;
         if (other.getFilter() != null && other.getFilter().equals(this.getFilter()) == false)
             return false;
+        if (other.getConfiguration() == null ^ this.getConfiguration() == null)
+            return false;
+        if (other.getConfiguration() != null && other.getConfiguration().equals(this.getConfiguration()) == false)
+            return false;
         if (other.getService() == null ^ this.getService() == null)
             return false;
         if (other.getService() != null && other.getService().equals(this.getService()) == false)
@@ -250,6 +330,7 @@ public class GetRightsizingRecommendationRequest extends com.amazonaws.AmazonWeb
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getFilter() == null) ? 0 : getFilter().hashCode());
+        hashCode = prime * hashCode + ((getConfiguration() == null) ? 0 : getConfiguration().hashCode());
         hashCode = prime * hashCode + ((getService() == null) ? 0 : getService().hashCode());
         hashCode = prime * hashCode + ((getPageSize() == null) ? 0 : getPageSize().hashCode());
         hashCode = prime * hashCode + ((getNextPageToken() == null) ? 0 : getNextPageToken().hashCode());

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,9 +48,40 @@ public class DocumentClassifierInputDataConfigJsonUnmarshaller implements Unmars
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("DataFormat", targetDepth)) {
+                    context.nextToken();
+                    documentClassifierInputDataConfig.setDataFormat(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("S3Uri", targetDepth)) {
                     context.nextToken();
                     documentClassifierInputDataConfig.setS3Uri(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("TestS3Uri", targetDepth)) {
+                    context.nextToken();
+                    documentClassifierInputDataConfig.setTestS3Uri(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("LabelDelimiter", targetDepth)) {
+                    context.nextToken();
+                    documentClassifierInputDataConfig.setLabelDelimiter(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("AugmentedManifests", targetDepth)) {
+                    context.nextToken();
+                    documentClassifierInputDataConfig.setAugmentedManifests(new ListUnmarshaller<AugmentedManifestsListItem>(
+                            AugmentedManifestsListItemJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("DocumentType", targetDepth)) {
+                    context.nextToken();
+                    documentClassifierInputDataConfig.setDocumentType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Documents", targetDepth)) {
+                    context.nextToken();
+                    documentClassifierInputDataConfig.setDocuments(DocumentClassifierDocumentsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("DocumentReaderConfig", targetDepth)) {
+                    context.nextToken();
+                    documentClassifierInputDataConfig.setDocumentReaderConfig(DocumentReaderConfigJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,13 +27,14 @@ import com.amazonaws.services.dlm.model.*;
  * <p>
  * <fullname>Amazon Data Lifecycle Manager</fullname>
  * <p>
- * With Amazon Data Lifecycle Manager, you can manage the lifecycle of your AWS resources. You create lifecycle
- * policies, which are used to automate operations on the specified resources.
+ * With Amazon Data Lifecycle Manager, you can manage the lifecycle of your Amazon Web Services resources. You create
+ * lifecycle policies, which are used to automate operations on the specified resources.
  * </p>
  * <p>
- * Amazon DLM supports Amazon EBS volumes and snapshots. For information about using Amazon DLM with Amazon EBS, see <a
- * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-lifecycle.html">Automating the Amazon EBS Snapshot
- * Lifecycle</a> in the <i>Amazon EC2 User Guide</i>.
+ * Amazon Data Lifecycle Manager supports Amazon EBS volumes and snapshots. For information about using Amazon Data
+ * Lifecycle Manager with Amazon EBS, see <a
+ * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-lifecycle.html"> Amazon Data Lifecycle Manager</a>
+ * in the <i>Amazon EC2 User Guide</i>.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -41,9 +42,46 @@ public interface AmazonDLMAsync extends AmazonDLM {
 
     /**
      * <p>
-     * Creates a policy to manage the lifecycle of the specified AWS resources. You can create up to 100 lifecycle
-     * policies.
+     * Creates an Amazon Data Lifecycle Manager lifecycle policy. Amazon Data Lifecycle Manager supports the following
+     * policy types:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Custom EBS snapshot policy
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Custom EBS-backed AMI policy
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cross-account copy event policy
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Default policy for EBS snapshots
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Default policy for EBS-backed AMIs
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/policy-differences.html">
+     * Default policies vs custom policies</a>.
+     * </p>
+     * <important>
+     * <p>
+     * If you create a default policy, you can specify the request parameters either in the request body, or in the
+     * PolicyDetails request structure, but not both.
+     * </p>
+     * </important>
      * 
      * @param createLifecyclePolicyRequest
      * @return A Java Future containing the result of the CreateLifecyclePolicy operation returned by the service.
@@ -55,9 +93,46 @@ public interface AmazonDLMAsync extends AmazonDLM {
 
     /**
      * <p>
-     * Creates a policy to manage the lifecycle of the specified AWS resources. You can create up to 100 lifecycle
-     * policies.
+     * Creates an Amazon Data Lifecycle Manager lifecycle policy. Amazon Data Lifecycle Manager supports the following
+     * policy types:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Custom EBS snapshot policy
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Custom EBS-backed AMI policy
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cross-account copy event policy
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Default policy for EBS snapshots
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Default policy for EBS-backed AMIs
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/policy-differences.html">
+     * Default policies vs custom policies</a>.
+     * </p>
+     * <important>
+     * <p>
+     * If you create a default policy, you can specify the request parameters either in the request body, or in the
+     * PolicyDetails request structure, but not both.
+     * </p>
+     * </important>
      * 
      * @param createLifecyclePolicyRequest
      * @param asyncHandler
@@ -76,6 +151,11 @@ public interface AmazonDLMAsync extends AmazonDLM {
      * <p>
      * Deletes the specified lifecycle policy and halts the automated operations that the policy specified.
      * </p>
+     * <p>
+     * For more information about deleting a policy, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/view-modify-delete.html#delete">Delete lifecycle
+     * policies</a>.
+     * </p>
      * 
      * @param deleteLifecyclePolicyRequest
      * @return A Java Future containing the result of the DeleteLifecyclePolicy operation returned by the service.
@@ -88,6 +168,11 @@ public interface AmazonDLMAsync extends AmazonDLM {
     /**
      * <p>
      * Deletes the specified lifecycle policy and halts the automated operations that the policy specified.
+     * </p>
+     * <p>
+     * For more information about deleting a policy, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/view-modify-delete.html#delete">Delete lifecycle
+     * policies</a>.
      * </p>
      * 
      * @param deleteLifecyclePolicyRequest
@@ -108,7 +193,8 @@ public interface AmazonDLMAsync extends AmazonDLM {
      * Gets summary information about all or the specified data lifecycle policies.
      * </p>
      * <p>
-     * To get complete information about a policy, use <a>GetLifecyclePolicy</a>.
+     * To get complete information about a policy, use <a
+     * href="https://docs.aws.amazon.com/dlm/latest/APIReference/API_GetLifecyclePolicy.html">GetLifecyclePolicy</a>.
      * </p>
      * 
      * @param getLifecyclePoliciesRequest
@@ -124,7 +210,8 @@ public interface AmazonDLMAsync extends AmazonDLM {
      * Gets summary information about all or the specified data lifecycle policies.
      * </p>
      * <p>
-     * To get complete information about a policy, use <a>GetLifecyclePolicy</a>.
+     * To get complete information about a policy, use <a
+     * href="https://docs.aws.amazon.com/dlm/latest/APIReference/API_GetLifecyclePolicy.html">GetLifecyclePolicy</a>.
      * </p>
      * 
      * @param getLifecyclePoliciesRequest
@@ -173,7 +260,105 @@ public interface AmazonDLMAsync extends AmazonDLM {
 
     /**
      * <p>
+     * Lists the tags for the specified resource.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return A Java Future containing the result of the ListTagsForResource operation returned by the service.
+     * @sample AmazonDLMAsync.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dlm-2018-01-12/ListTagsForResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest listTagsForResourceRequest);
+
+    /**
+     * <p>
+     * Lists the tags for the specified resource.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListTagsForResource operation returned by the service.
+     * @sample AmazonDLMAsyncHandler.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dlm-2018-01-12/ListTagsForResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest listTagsForResourceRequest,
+            com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Adds the specified tags to the specified resource.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return A Java Future containing the result of the TagResource operation returned by the service.
+     * @sample AmazonDLMAsync.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dlm-2018-01-12/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest tagResourceRequest);
+
+    /**
+     * <p>
+     * Adds the specified tags to the specified resource.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the TagResource operation returned by the service.
+     * @sample AmazonDLMAsyncHandler.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dlm-2018-01-12/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest tagResourceRequest,
+            com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Removes the specified tags from the specified resource.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return A Java Future containing the result of the UntagResource operation returned by the service.
+     * @sample AmazonDLMAsync.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dlm-2018-01-12/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest untagResourceRequest);
+
+    /**
+     * <p>
+     * Removes the specified tags from the specified resource.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UntagResource operation returned by the service.
+     * @sample AmazonDLMAsyncHandler.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dlm-2018-01-12/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest untagResourceRequest,
+            com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler);
+
+    /**
+     * <p>
      * Updates the specified lifecycle policy.
+     * </p>
+     * <p>
+     * For more information about updating a policy, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/view-modify-delete.html#modify">Modify lifecycle
+     * policies</a>.
      * </p>
      * 
      * @param updateLifecyclePolicyRequest
@@ -187,6 +372,11 @@ public interface AmazonDLMAsync extends AmazonDLM {
     /**
      * <p>
      * Updates the specified lifecycle policy.
+     * </p>
+     * <p>
+     * For more information about updating a policy, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/view-modify-delete.html#modify">Modify lifecycle
+     * policies</a>.
      * </p>
      * 
      * @param updateLifecyclePolicyRequest

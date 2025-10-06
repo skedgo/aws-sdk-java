@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,16 +27,13 @@ public class AllocateAddressRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * Set to <code>vpc</code> to allocate the address for use with instances in a VPC.
-     * </p>
-     * <p>
-     * Default: The address is for use with instances in EC2-Classic.
+     * The network (<code>vpc</code>).
      * </p>
      */
     private String domain;
     /**
      * <p>
-     * [EC2-VPC] The Elastic IP address to recover or an IPv4 address from an address pool.
+     * The Elastic IP address to recover or an IPv4 address from an address pool.
      * </p>
      */
     private String address;
@@ -47,19 +44,35 @@ public class AllocateAddressRequest extends AmazonWebServiceRequest implements S
      * </p>
      */
     private String publicIpv4Pool;
+    /**
+     * <p>
+     * A unique set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises IP
+     * addresses. Use this parameter to limit the IP address to this location. IP addresses cannot move between network
+     * border groups.
+     * </p>
+     */
+    private String networkBorderGroup;
+    /**
+     * <p>
+     * The ID of a customer-owned address pool. Use this parameter to let Amazon EC2 select an address from the address
+     * pool. Alternatively, specify a specific address from the address pool.
+     * </p>
+     */
+    private String customerOwnedIpv4Pool;
+    /**
+     * <p>
+     * The tags to assign to the Elastic IP address.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<TagSpecification> tagSpecifications;
 
     /**
      * <p>
-     * Set to <code>vpc</code> to allocate the address for use with instances in a VPC.
-     * </p>
-     * <p>
-     * Default: The address is for use with instances in EC2-Classic.
+     * The network (<code>vpc</code>).
      * </p>
      * 
      * @param domain
-     *        Set to <code>vpc</code> to allocate the address for use with instances in a VPC.</p>
-     *        <p>
-     *        Default: The address is for use with instances in EC2-Classic.
+     *        The network (<code>vpc</code>).
      * @see DomainType
      */
 
@@ -69,15 +82,10 @@ public class AllocateAddressRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * Set to <code>vpc</code> to allocate the address for use with instances in a VPC.
-     * </p>
-     * <p>
-     * Default: The address is for use with instances in EC2-Classic.
+     * The network (<code>vpc</code>).
      * </p>
      * 
-     * @return Set to <code>vpc</code> to allocate the address for use with instances in a VPC.</p>
-     *         <p>
-     *         Default: The address is for use with instances in EC2-Classic.
+     * @return The network (<code>vpc</code>).
      * @see DomainType
      */
 
@@ -87,16 +95,11 @@ public class AllocateAddressRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * Set to <code>vpc</code> to allocate the address for use with instances in a VPC.
-     * </p>
-     * <p>
-     * Default: The address is for use with instances in EC2-Classic.
+     * The network (<code>vpc</code>).
      * </p>
      * 
      * @param domain
-     *        Set to <code>vpc</code> to allocate the address for use with instances in a VPC.</p>
-     *        <p>
-     *        Default: The address is for use with instances in EC2-Classic.
+     *        The network (<code>vpc</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DomainType
      */
@@ -108,16 +111,11 @@ public class AllocateAddressRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * Set to <code>vpc</code> to allocate the address for use with instances in a VPC.
-     * </p>
-     * <p>
-     * Default: The address is for use with instances in EC2-Classic.
+     * The network (<code>vpc</code>).
      * </p>
      * 
      * @param domain
-     *        Set to <code>vpc</code> to allocate the address for use with instances in a VPC.</p>
-     *        <p>
-     *        Default: The address is for use with instances in EC2-Classic.
+     *        The network (<code>vpc</code>).
      * @see DomainType
      */
 
@@ -127,16 +125,11 @@ public class AllocateAddressRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * Set to <code>vpc</code> to allocate the address for use with instances in a VPC.
-     * </p>
-     * <p>
-     * Default: The address is for use with instances in EC2-Classic.
+     * The network (<code>vpc</code>).
      * </p>
      * 
      * @param domain
-     *        Set to <code>vpc</code> to allocate the address for use with instances in a VPC.</p>
-     *        <p>
-     *        Default: The address is for use with instances in EC2-Classic.
+     *        The network (<code>vpc</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DomainType
      */
@@ -148,11 +141,11 @@ public class AllocateAddressRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * [EC2-VPC] The Elastic IP address to recover or an IPv4 address from an address pool.
+     * The Elastic IP address to recover or an IPv4 address from an address pool.
      * </p>
      * 
      * @param address
-     *        [EC2-VPC] The Elastic IP address to recover or an IPv4 address from an address pool.
+     *        The Elastic IP address to recover or an IPv4 address from an address pool.
      */
 
     public void setAddress(String address) {
@@ -161,10 +154,10 @@ public class AllocateAddressRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * [EC2-VPC] The Elastic IP address to recover or an IPv4 address from an address pool.
+     * The Elastic IP address to recover or an IPv4 address from an address pool.
      * </p>
      * 
-     * @return [EC2-VPC] The Elastic IP address to recover or an IPv4 address from an address pool.
+     * @return The Elastic IP address to recover or an IPv4 address from an address pool.
      */
 
     public String getAddress() {
@@ -173,11 +166,11 @@ public class AllocateAddressRequest extends AmazonWebServiceRequest implements S
 
     /**
      * <p>
-     * [EC2-VPC] The Elastic IP address to recover or an IPv4 address from an address pool.
+     * The Elastic IP address to recover or an IPv4 address from an address pool.
      * </p>
      * 
      * @param address
-     *        [EC2-VPC] The Elastic IP address to recover or an IPv4 address from an address pool.
+     *        The Elastic IP address to recover or an IPv4 address from an address pool.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -236,6 +229,177 @@ public class AllocateAddressRequest extends AmazonWebServiceRequest implements S
     }
 
     /**
+     * <p>
+     * A unique set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises IP
+     * addresses. Use this parameter to limit the IP address to this location. IP addresses cannot move between network
+     * border groups.
+     * </p>
+     * 
+     * @param networkBorderGroup
+     *        A unique set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services
+     *        advertises IP addresses. Use this parameter to limit the IP address to this location. IP addresses cannot
+     *        move between network border groups.
+     */
+
+    public void setNetworkBorderGroup(String networkBorderGroup) {
+        this.networkBorderGroup = networkBorderGroup;
+    }
+
+    /**
+     * <p>
+     * A unique set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises IP
+     * addresses. Use this parameter to limit the IP address to this location. IP addresses cannot move between network
+     * border groups.
+     * </p>
+     * 
+     * @return A unique set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services
+     *         advertises IP addresses. Use this parameter to limit the IP address to this location. IP addresses cannot
+     *         move between network border groups.
+     */
+
+    public String getNetworkBorderGroup() {
+        return this.networkBorderGroup;
+    }
+
+    /**
+     * <p>
+     * A unique set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises IP
+     * addresses. Use this parameter to limit the IP address to this location. IP addresses cannot move between network
+     * border groups.
+     * </p>
+     * 
+     * @param networkBorderGroup
+     *        A unique set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services
+     *        advertises IP addresses. Use this parameter to limit the IP address to this location. IP addresses cannot
+     *        move between network border groups.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AllocateAddressRequest withNetworkBorderGroup(String networkBorderGroup) {
+        setNetworkBorderGroup(networkBorderGroup);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of a customer-owned address pool. Use this parameter to let Amazon EC2 select an address from the address
+     * pool. Alternatively, specify a specific address from the address pool.
+     * </p>
+     * 
+     * @param customerOwnedIpv4Pool
+     *        The ID of a customer-owned address pool. Use this parameter to let Amazon EC2 select an address from the
+     *        address pool. Alternatively, specify a specific address from the address pool.
+     */
+
+    public void setCustomerOwnedIpv4Pool(String customerOwnedIpv4Pool) {
+        this.customerOwnedIpv4Pool = customerOwnedIpv4Pool;
+    }
+
+    /**
+     * <p>
+     * The ID of a customer-owned address pool. Use this parameter to let Amazon EC2 select an address from the address
+     * pool. Alternatively, specify a specific address from the address pool.
+     * </p>
+     * 
+     * @return The ID of a customer-owned address pool. Use this parameter to let Amazon EC2 select an address from the
+     *         address pool. Alternatively, specify a specific address from the address pool.
+     */
+
+    public String getCustomerOwnedIpv4Pool() {
+        return this.customerOwnedIpv4Pool;
+    }
+
+    /**
+     * <p>
+     * The ID of a customer-owned address pool. Use this parameter to let Amazon EC2 select an address from the address
+     * pool. Alternatively, specify a specific address from the address pool.
+     * </p>
+     * 
+     * @param customerOwnedIpv4Pool
+     *        The ID of a customer-owned address pool. Use this parameter to let Amazon EC2 select an address from the
+     *        address pool. Alternatively, specify a specific address from the address pool.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AllocateAddressRequest withCustomerOwnedIpv4Pool(String customerOwnedIpv4Pool) {
+        setCustomerOwnedIpv4Pool(customerOwnedIpv4Pool);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags to assign to the Elastic IP address.
+     * </p>
+     * 
+     * @return The tags to assign to the Elastic IP address.
+     */
+
+    public java.util.List<TagSpecification> getTagSpecifications() {
+        if (tagSpecifications == null) {
+            tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>();
+        }
+        return tagSpecifications;
+    }
+
+    /**
+     * <p>
+     * The tags to assign to the Elastic IP address.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to assign to the Elastic IP address.
+     */
+
+    public void setTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        if (tagSpecifications == null) {
+            this.tagSpecifications = null;
+            return;
+        }
+
+        this.tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications);
+    }
+
+    /**
+     * <p>
+     * The tags to assign to the Elastic IP address.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTagSpecifications(java.util.Collection)} or {@link #withTagSpecifications(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to assign to the Elastic IP address.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AllocateAddressRequest withTagSpecifications(TagSpecification... tagSpecifications) {
+        if (this.tagSpecifications == null) {
+            setTagSpecifications(new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications.length));
+        }
+        for (TagSpecification ele : tagSpecifications) {
+            this.tagSpecifications.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags to assign to the Elastic IP address.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to assign to the Elastic IP address.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AllocateAddressRequest withTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        setTagSpecifications(tagSpecifications);
+        return this;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -263,7 +427,13 @@ public class AllocateAddressRequest extends AmazonWebServiceRequest implements S
         if (getAddress() != null)
             sb.append("Address: ").append(getAddress()).append(",");
         if (getPublicIpv4Pool() != null)
-            sb.append("PublicIpv4Pool: ").append(getPublicIpv4Pool());
+            sb.append("PublicIpv4Pool: ").append(getPublicIpv4Pool()).append(",");
+        if (getNetworkBorderGroup() != null)
+            sb.append("NetworkBorderGroup: ").append(getNetworkBorderGroup()).append(",");
+        if (getCustomerOwnedIpv4Pool() != null)
+            sb.append("CustomerOwnedIpv4Pool: ").append(getCustomerOwnedIpv4Pool()).append(",");
+        if (getTagSpecifications() != null)
+            sb.append("TagSpecifications: ").append(getTagSpecifications());
         sb.append("}");
         return sb.toString();
     }
@@ -290,6 +460,18 @@ public class AllocateAddressRequest extends AmazonWebServiceRequest implements S
             return false;
         if (other.getPublicIpv4Pool() != null && other.getPublicIpv4Pool().equals(this.getPublicIpv4Pool()) == false)
             return false;
+        if (other.getNetworkBorderGroup() == null ^ this.getNetworkBorderGroup() == null)
+            return false;
+        if (other.getNetworkBorderGroup() != null && other.getNetworkBorderGroup().equals(this.getNetworkBorderGroup()) == false)
+            return false;
+        if (other.getCustomerOwnedIpv4Pool() == null ^ this.getCustomerOwnedIpv4Pool() == null)
+            return false;
+        if (other.getCustomerOwnedIpv4Pool() != null && other.getCustomerOwnedIpv4Pool().equals(this.getCustomerOwnedIpv4Pool()) == false)
+            return false;
+        if (other.getTagSpecifications() == null ^ this.getTagSpecifications() == null)
+            return false;
+        if (other.getTagSpecifications() != null && other.getTagSpecifications().equals(this.getTagSpecifications()) == false)
+            return false;
         return true;
     }
 
@@ -301,6 +483,9 @@ public class AllocateAddressRequest extends AmazonWebServiceRequest implements S
         hashCode = prime * hashCode + ((getDomain() == null) ? 0 : getDomain().hashCode());
         hashCode = prime * hashCode + ((getAddress() == null) ? 0 : getAddress().hashCode());
         hashCode = prime * hashCode + ((getPublicIpv4Pool() == null) ? 0 : getPublicIpv4Pool().hashCode());
+        hashCode = prime * hashCode + ((getNetworkBorderGroup() == null) ? 0 : getNetworkBorderGroup().hashCode());
+        hashCode = prime * hashCode + ((getCustomerOwnedIpv4Pool() == null) ? 0 : getCustomerOwnedIpv4Pool().hashCode());
+        hashCode = prime * hashCode + ((getTagSpecifications() == null) ? 0 : getTagSpecifications().hashCode());
         return hashCode;
     }
 

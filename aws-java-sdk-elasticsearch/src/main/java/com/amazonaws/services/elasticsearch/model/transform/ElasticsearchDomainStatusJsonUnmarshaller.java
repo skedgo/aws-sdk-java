@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -134,6 +134,33 @@ public class ElasticsearchDomainStatusJsonUnmarshaller implements Unmarshaller<E
                 if (context.testExpression("ServiceSoftwareOptions", targetDepth)) {
                     context.nextToken();
                     elasticsearchDomainStatus.setServiceSoftwareOptions(ServiceSoftwareOptionsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("DomainEndpointOptions", targetDepth)) {
+                    context.nextToken();
+                    elasticsearchDomainStatus.setDomainEndpointOptions(DomainEndpointOptionsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("AdvancedSecurityOptions", targetDepth)) {
+                    context.nextToken();
+                    elasticsearchDomainStatus.setAdvancedSecurityOptions(AdvancedSecurityOptionsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("AutoTuneOptions", targetDepth)) {
+                    context.nextToken();
+                    elasticsearchDomainStatus.setAutoTuneOptions(AutoTuneOptionsOutputJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ChangeProgressDetails", targetDepth)) {
+                    context.nextToken();
+                    elasticsearchDomainStatus.setChangeProgressDetails(ChangeProgressDetailsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("DomainProcessingStatus", targetDepth)) {
+                    context.nextToken();
+                    elasticsearchDomainStatus.setDomainProcessingStatus(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ModifyingProperties", targetDepth)) {
+                    context.nextToken();
+                    elasticsearchDomainStatus.setModifyingProperties(new ListUnmarshaller<ModifyingProperties>(ModifyingPropertiesJsonUnmarshaller
+                            .getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

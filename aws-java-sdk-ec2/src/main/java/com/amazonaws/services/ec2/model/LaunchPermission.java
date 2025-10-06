@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,10 +34,25 @@ public class LaunchPermission implements Serializable, Cloneable {
     private String group;
     /**
      * <p>
-     * The AWS account ID.
+     * The Amazon Web Services account ID.
+     * </p>
+     * <p>
+     * Constraints: Up to 10 000 account IDs can be specified in a single request.
      * </p>
      */
     private String userId;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organization.
+     * </p>
+     */
+    private String organizationArn;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organizational unit (OU).
+     * </p>
+     */
+    private String organizationalUnitArn;
 
     /**
      * <p>
@@ -114,11 +129,16 @@ public class LaunchPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID.
+     * The Amazon Web Services account ID.
+     * </p>
+     * <p>
+     * Constraints: Up to 10 000 account IDs can be specified in a single request.
      * </p>
      * 
      * @param userId
-     *        The AWS account ID.
+     *        The Amazon Web Services account ID.</p>
+     *        <p>
+     *        Constraints: Up to 10 000 account IDs can be specified in a single request.
      */
 
     public void setUserId(String userId) {
@@ -127,10 +147,15 @@ public class LaunchPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID.
+     * The Amazon Web Services account ID.
+     * </p>
+     * <p>
+     * Constraints: Up to 10 000 account IDs can be specified in a single request.
      * </p>
      * 
-     * @return The AWS account ID.
+     * @return The Amazon Web Services account ID.</p>
+     *         <p>
+     *         Constraints: Up to 10 000 account IDs can be specified in a single request.
      */
 
     public String getUserId() {
@@ -139,16 +164,101 @@ public class LaunchPermission implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS account ID.
+     * The Amazon Web Services account ID.
+     * </p>
+     * <p>
+     * Constraints: Up to 10 000 account IDs can be specified in a single request.
      * </p>
      * 
      * @param userId
-     *        The AWS account ID.
+     *        The Amazon Web Services account ID.</p>
+     *        <p>
+     *        Constraints: Up to 10 000 account IDs can be specified in a single request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public LaunchPermission withUserId(String userId) {
         setUserId(userId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organization.
+     * </p>
+     * 
+     * @param organizationArn
+     *        The Amazon Resource Name (ARN) of an organization.
+     */
+
+    public void setOrganizationArn(String organizationArn) {
+        this.organizationArn = organizationArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organization.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of an organization.
+     */
+
+    public String getOrganizationArn() {
+        return this.organizationArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organization.
+     * </p>
+     * 
+     * @param organizationArn
+     *        The Amazon Resource Name (ARN) of an organization.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LaunchPermission withOrganizationArn(String organizationArn) {
+        setOrganizationArn(organizationArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organizational unit (OU).
+     * </p>
+     * 
+     * @param organizationalUnitArn
+     *        The Amazon Resource Name (ARN) of an organizational unit (OU).
+     */
+
+    public void setOrganizationalUnitArn(String organizationalUnitArn) {
+        this.organizationalUnitArn = organizationalUnitArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organizational unit (OU).
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of an organizational unit (OU).
+     */
+
+    public String getOrganizationalUnitArn() {
+        return this.organizationalUnitArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an organizational unit (OU).
+     * </p>
+     * 
+     * @param organizationalUnitArn
+     *        The Amazon Resource Name (ARN) of an organizational unit (OU).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LaunchPermission withOrganizationalUnitArn(String organizationalUnitArn) {
+        setOrganizationalUnitArn(organizationalUnitArn);
         return this;
     }
 
@@ -167,7 +277,11 @@ public class LaunchPermission implements Serializable, Cloneable {
         if (getGroup() != null)
             sb.append("Group: ").append(getGroup()).append(",");
         if (getUserId() != null)
-            sb.append("UserId: ").append(getUserId());
+            sb.append("UserId: ").append(getUserId()).append(",");
+        if (getOrganizationArn() != null)
+            sb.append("OrganizationArn: ").append(getOrganizationArn()).append(",");
+        if (getOrganizationalUnitArn() != null)
+            sb.append("OrganizationalUnitArn: ").append(getOrganizationalUnitArn());
         sb.append("}");
         return sb.toString();
     }
@@ -190,6 +304,14 @@ public class LaunchPermission implements Serializable, Cloneable {
             return false;
         if (other.getUserId() != null && other.getUserId().equals(this.getUserId()) == false)
             return false;
+        if (other.getOrganizationArn() == null ^ this.getOrganizationArn() == null)
+            return false;
+        if (other.getOrganizationArn() != null && other.getOrganizationArn().equals(this.getOrganizationArn()) == false)
+            return false;
+        if (other.getOrganizationalUnitArn() == null ^ this.getOrganizationalUnitArn() == null)
+            return false;
+        if (other.getOrganizationalUnitArn() != null && other.getOrganizationalUnitArn().equals(this.getOrganizationalUnitArn()) == false)
+            return false;
         return true;
     }
 
@@ -200,6 +322,8 @@ public class LaunchPermission implements Serializable, Cloneable {
 
         hashCode = prime * hashCode + ((getGroup() == null) ? 0 : getGroup().hashCode());
         hashCode = prime * hashCode + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        hashCode = prime * hashCode + ((getOrganizationArn() == null) ? 0 : getOrganizationArn().hashCode());
+        hashCode = prime * hashCode + ((getOrganizationalUnitArn() == null) ? 0 : getOrganizationalUnitArn().hashCode());
         return hashCode;
     }
 

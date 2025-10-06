@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,8 @@ import javax.annotation.Generated;
 /**
  * <p>
  * An operation requiring TagOptions failed because the TagOptions migration process has not been performed for this
- * account. Please use the AWS console to perform the migration process before retrying the operation.
+ * account. Use the Amazon Web Services Management Console to perform the migration process before retrying the
+ * operation.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

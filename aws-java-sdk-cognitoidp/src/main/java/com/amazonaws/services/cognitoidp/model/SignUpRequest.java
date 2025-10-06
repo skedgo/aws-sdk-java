@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,13 +43,14 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
     private String secretHash;
     /**
      * <p>
-     * The user name of the user you wish to register.
+     * The username of the user that you want to sign up. The value of this parameter is typically a username, but can
+     * be any alias attribute in your user pool.
      * </p>
      */
     private String username;
     /**
      * <p>
-     * The password of the user you wish to register.
+     * The password of the user you want to register.
      * </p>
      */
     private String password;
@@ -64,23 +65,81 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
     private java.util.List<AttributeType> userAttributes;
     /**
      * <p>
-     * The validation data in the request to register a user.
+     * Temporary user attributes that contribute to the outcomes of your pre sign-up Lambda trigger. This set of
+     * key-value pairs are for custom validation of information that you collect from your users but don't need to
+     * retain.
+     * </p>
+     * <p>
+     * Your Lambda function can analyze this additional data and act on it. Your function might perform external API
+     * operations like logging user attributes and validation data to Amazon CloudWatch Logs. Validation data might also
+     * affect the response that your function returns to Amazon Cognito, like automatically confirming the user if they
+     * sign up from within your network.
+     * </p>
+     * <p>
+     * For more information about the pre sign-up Lambda trigger, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html">Pre sign-up
+     * Lambda trigger</a>.
      * </p>
      */
     private java.util.List<AttributeType> validationData;
     /**
      * <p>
-     * The Amazon Pinpoint analytics metadata for collecting metrics for <code>SignUp</code> calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>SignUp</code> calls.
      * </p>
      */
     private AnalyticsMetadataType analyticsMetadata;
     /**
      * <p>
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
-     * unexpected event by Amazon Cognito advanced security.
+     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
+     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
+     * passes to Amazon Cognito when it makes API requests.
      * </p>
      */
     private UserContextDataType userContextData;
+    /**
+     * <p>
+     * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
+     * </p>
+     * <p>
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the SignUp API
+     * action, Amazon Cognito invokes any functions that are assigned to the following triggers: <i>pre sign-up</i>,
+     * <i>custom message</i>, and <i>post confirmation</i>. When Amazon Cognito invokes any of these functions, it
+     * passes a JSON payload, which the function receives as input. This payload contains a <code>clientMetadata</code>
+     * attribute, which provides the data that you assigned to the ClientMetadata parameter in your SignUp request. In
+     * your function code in Lambda, you can process the <code>clientMetadata</code> value to enhance your workflow for
+     * your specific needs.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     * > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * parameter serves no purpose.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Validate the ClientMetadata value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     */
+    private java.util.Map<String, String> clientMetadata;
 
     /**
      * <p>
@@ -170,11 +229,13 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The user name of the user you wish to register.
+     * The username of the user that you want to sign up. The value of this parameter is typically a username, but can
+     * be any alias attribute in your user pool.
      * </p>
      * 
      * @param username
-     *        The user name of the user you wish to register.
+     *        The username of the user that you want to sign up. The value of this parameter is typically a username,
+     *        but can be any alias attribute in your user pool.
      */
 
     public void setUsername(String username) {
@@ -183,10 +244,12 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The user name of the user you wish to register.
+     * The username of the user that you want to sign up. The value of this parameter is typically a username, but can
+     * be any alias attribute in your user pool.
      * </p>
      * 
-     * @return The user name of the user you wish to register.
+     * @return The username of the user that you want to sign up. The value of this parameter is typically a username,
+     *         but can be any alias attribute in your user pool.
      */
 
     public String getUsername() {
@@ -195,11 +258,13 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The user name of the user you wish to register.
+     * The username of the user that you want to sign up. The value of this parameter is typically a username, but can
+     * be any alias attribute in your user pool.
      * </p>
      * 
      * @param username
-     *        The user name of the user you wish to register.
+     *        The username of the user that you want to sign up. The value of this parameter is typically a username,
+     *        but can be any alias attribute in your user pool.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -210,11 +275,11 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The password of the user you wish to register.
+     * The password of the user you want to register.
      * </p>
      * 
      * @param password
-     *        The password of the user you wish to register.
+     *        The password of the user you want to register.
      */
 
     public void setPassword(String password) {
@@ -223,10 +288,10 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The password of the user you wish to register.
+     * The password of the user you want to register.
      * </p>
      * 
-     * @return The password of the user you wish to register.
+     * @return The password of the user you want to register.
      */
 
     public String getPassword() {
@@ -235,11 +300,11 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The password of the user you wish to register.
+     * The password of the user you want to register.
      * </p>
      * 
      * @param password
-     *        The password of the user you wish to register.
+     *        The password of the user you want to register.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -340,10 +405,35 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The validation data in the request to register a user.
+     * Temporary user attributes that contribute to the outcomes of your pre sign-up Lambda trigger. This set of
+     * key-value pairs are for custom validation of information that you collect from your users but don't need to
+     * retain.
+     * </p>
+     * <p>
+     * Your Lambda function can analyze this additional data and act on it. Your function might perform external API
+     * operations like logging user attributes and validation data to Amazon CloudWatch Logs. Validation data might also
+     * affect the response that your function returns to Amazon Cognito, like automatically confirming the user if they
+     * sign up from within your network.
+     * </p>
+     * <p>
+     * For more information about the pre sign-up Lambda trigger, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html">Pre sign-up
+     * Lambda trigger</a>.
      * </p>
      * 
-     * @return The validation data in the request to register a user.
+     * @return Temporary user attributes that contribute to the outcomes of your pre sign-up Lambda trigger. This set of
+     *         key-value pairs are for custom validation of information that you collect from your users but don't need
+     *         to retain.</p>
+     *         <p>
+     *         Your Lambda function can analyze this additional data and act on it. Your function might perform external
+     *         API operations like logging user attributes and validation data to Amazon CloudWatch Logs. Validation
+     *         data might also affect the response that your function returns to Amazon Cognito, like automatically
+     *         confirming the user if they sign up from within your network.
+     *         </p>
+     *         <p>
+     *         For more information about the pre sign-up Lambda trigger, see <a
+     *         href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html">Pre
+     *         sign-up Lambda trigger</a>.
      */
 
     public java.util.List<AttributeType> getValidationData() {
@@ -352,11 +442,36 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The validation data in the request to register a user.
+     * Temporary user attributes that contribute to the outcomes of your pre sign-up Lambda trigger. This set of
+     * key-value pairs are for custom validation of information that you collect from your users but don't need to
+     * retain.
+     * </p>
+     * <p>
+     * Your Lambda function can analyze this additional data and act on it. Your function might perform external API
+     * operations like logging user attributes and validation data to Amazon CloudWatch Logs. Validation data might also
+     * affect the response that your function returns to Amazon Cognito, like automatically confirming the user if they
+     * sign up from within your network.
+     * </p>
+     * <p>
+     * For more information about the pre sign-up Lambda trigger, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html">Pre sign-up
+     * Lambda trigger</a>.
      * </p>
      * 
      * @param validationData
-     *        The validation data in the request to register a user.
+     *        Temporary user attributes that contribute to the outcomes of your pre sign-up Lambda trigger. This set of
+     *        key-value pairs are for custom validation of information that you collect from your users but don't need
+     *        to retain.</p>
+     *        <p>
+     *        Your Lambda function can analyze this additional data and act on it. Your function might perform external
+     *        API operations like logging user attributes and validation data to Amazon CloudWatch Logs. Validation data
+     *        might also affect the response that your function returns to Amazon Cognito, like automatically confirming
+     *        the user if they sign up from within your network.
+     *        </p>
+     *        <p>
+     *        For more information about the pre sign-up Lambda trigger, see <a
+     *        href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html">Pre
+     *        sign-up Lambda trigger</a>.
      */
 
     public void setValidationData(java.util.Collection<AttributeType> validationData) {
@@ -370,7 +485,20 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The validation data in the request to register a user.
+     * Temporary user attributes that contribute to the outcomes of your pre sign-up Lambda trigger. This set of
+     * key-value pairs are for custom validation of information that you collect from your users but don't need to
+     * retain.
+     * </p>
+     * <p>
+     * Your Lambda function can analyze this additional data and act on it. Your function might perform external API
+     * operations like logging user attributes and validation data to Amazon CloudWatch Logs. Validation data might also
+     * affect the response that your function returns to Amazon Cognito, like automatically confirming the user if they
+     * sign up from within your network.
+     * </p>
+     * <p>
+     * For more information about the pre sign-up Lambda trigger, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html">Pre sign-up
+     * Lambda trigger</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -379,7 +507,19 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
      * </p>
      * 
      * @param validationData
-     *        The validation data in the request to register a user.
+     *        Temporary user attributes that contribute to the outcomes of your pre sign-up Lambda trigger. This set of
+     *        key-value pairs are for custom validation of information that you collect from your users but don't need
+     *        to retain.</p>
+     *        <p>
+     *        Your Lambda function can analyze this additional data and act on it. Your function might perform external
+     *        API operations like logging user attributes and validation data to Amazon CloudWatch Logs. Validation data
+     *        might also affect the response that your function returns to Amazon Cognito, like automatically confirming
+     *        the user if they sign up from within your network.
+     *        </p>
+     *        <p>
+     *        For more information about the pre sign-up Lambda trigger, see <a
+     *        href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html">Pre
+     *        sign-up Lambda trigger</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -395,11 +535,36 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The validation data in the request to register a user.
+     * Temporary user attributes that contribute to the outcomes of your pre sign-up Lambda trigger. This set of
+     * key-value pairs are for custom validation of information that you collect from your users but don't need to
+     * retain.
+     * </p>
+     * <p>
+     * Your Lambda function can analyze this additional data and act on it. Your function might perform external API
+     * operations like logging user attributes and validation data to Amazon CloudWatch Logs. Validation data might also
+     * affect the response that your function returns to Amazon Cognito, like automatically confirming the user if they
+     * sign up from within your network.
+     * </p>
+     * <p>
+     * For more information about the pre sign-up Lambda trigger, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html">Pre sign-up
+     * Lambda trigger</a>.
      * </p>
      * 
      * @param validationData
-     *        The validation data in the request to register a user.
+     *        Temporary user attributes that contribute to the outcomes of your pre sign-up Lambda trigger. This set of
+     *        key-value pairs are for custom validation of information that you collect from your users but don't need
+     *        to retain.</p>
+     *        <p>
+     *        Your Lambda function can analyze this additional data and act on it. Your function might perform external
+     *        API operations like logging user attributes and validation data to Amazon CloudWatch Logs. Validation data
+     *        might also affect the response that your function returns to Amazon Cognito, like automatically confirming
+     *        the user if they sign up from within your network.
+     *        </p>
+     *        <p>
+     *        For more information about the pre sign-up Lambda trigger, see <a
+     *        href="https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-sign-up.html">Pre
+     *        sign-up Lambda trigger</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -410,11 +575,11 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The Amazon Pinpoint analytics metadata for collecting metrics for <code>SignUp</code> calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>SignUp</code> calls.
      * </p>
      * 
      * @param analyticsMetadata
-     *        The Amazon Pinpoint analytics metadata for collecting metrics for <code>SignUp</code> calls.
+     *        The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>SignUp</code> calls.
      */
 
     public void setAnalyticsMetadata(AnalyticsMetadataType analyticsMetadata) {
@@ -423,10 +588,10 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The Amazon Pinpoint analytics metadata for collecting metrics for <code>SignUp</code> calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>SignUp</code> calls.
      * </p>
      * 
-     * @return The Amazon Pinpoint analytics metadata for collecting metrics for <code>SignUp</code> calls.
+     * @return The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>SignUp</code> calls.
      */
 
     public AnalyticsMetadataType getAnalyticsMetadata() {
@@ -435,11 +600,11 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * The Amazon Pinpoint analytics metadata for collecting metrics for <code>SignUp</code> calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>SignUp</code> calls.
      * </p>
      * 
      * @param analyticsMetadata
-     *        The Amazon Pinpoint analytics metadata for collecting metrics for <code>SignUp</code> calls.
+     *        The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>SignUp</code> calls.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -450,13 +615,15 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
-     * unexpected event by Amazon Cognito advanced security.
+     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
+     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
+     * passes to Amazon Cognito when it makes API requests.
      * </p>
      * 
      * @param userContextData
-     *        Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the
-     *        risk of an unexpected event by Amazon Cognito advanced security.
+     *        Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon
+     *        Cognito advanced security evaluates the risk of an authentication event based on the context that your app
+     *        generates and passes to Amazon Cognito when it makes API requests.
      */
 
     public void setUserContextData(UserContextDataType userContextData) {
@@ -465,12 +632,14 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
-     * unexpected event by Amazon Cognito advanced security.
+     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
+     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
+     * passes to Amazon Cognito when it makes API requests.
      * </p>
      * 
-     * @return Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the
-     *         risk of an unexpected event by Amazon Cognito advanced security.
+     * @return Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon
+     *         Cognito advanced security evaluates the risk of an authentication event based on the context that your
+     *         app generates and passes to Amazon Cognito when it makes API requests.
      */
 
     public UserContextDataType getUserContextData() {
@@ -479,18 +648,316 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
-     * unexpected event by Amazon Cognito advanced security.
+     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
+     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
+     * passes to Amazon Cognito when it makes API requests.
      * </p>
      * 
      * @param userContextData
-     *        Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the
-     *        risk of an unexpected event by Amazon Cognito advanced security.
+     *        Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon
+     *        Cognito advanced security evaluates the risk of an authentication event based on the context that your app
+     *        generates and passes to Amazon Cognito when it makes API requests.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public SignUpRequest withUserContextData(UserContextDataType userContextData) {
         setUserContextData(userContextData);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
+     * </p>
+     * <p>
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the SignUp API
+     * action, Amazon Cognito invokes any functions that are assigned to the following triggers: <i>pre sign-up</i>,
+     * <i>custom message</i>, and <i>post confirmation</i>. When Amazon Cognito invokes any of these functions, it
+     * passes a JSON payload, which the function receives as input. This payload contains a <code>clientMetadata</code>
+     * attribute, which provides the data that you assigned to the ClientMetadata parameter in your SignUp request. In
+     * your function code in Lambda, you can process the <code>clientMetadata</code> value to enhance your workflow for
+     * your specific needs.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     * > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * parameter serves no purpose.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Validate the ClientMetadata value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @return A map of custom key-value pairs that you can provide as input for any custom workflows that this action
+     *         triggers.</p>
+     *         <p>
+     *         You create custom workflows by assigning Lambda functions to user pool triggers. When you use the SignUp
+     *         API action, Amazon Cognito invokes any functions that are assigned to the following triggers: <i>pre
+     *         sign-up</i>, <i>custom message</i>, and <i>post confirmation</i>. When Amazon Cognito invokes any of
+     *         these functions, it passes a JSON payload, which the function receives as input. This payload contains a
+     *         <code>clientMetadata</code> attribute, which provides the data that you assigned to the ClientMetadata
+     *         parameter in your SignUp request. In your function code in Lambda, you can process the
+     *         <code>clientMetadata</code> value to enhance your workflow for your specific needs.
+     *         </p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     *         > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a
+     *         user pool to support custom workflows. If your user pool configuration doesn't include triggers, the
+     *         ClientMetadata parameter serves no purpose.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Validate the ClientMetadata value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     *         </p>
+     *         </li>
+     *         </ul>
+     */
+
+    public java.util.Map<String, String> getClientMetadata() {
+        return clientMetadata;
+    }
+
+    /**
+     * <p>
+     * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
+     * </p>
+     * <p>
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the SignUp API
+     * action, Amazon Cognito invokes any functions that are assigned to the following triggers: <i>pre sign-up</i>,
+     * <i>custom message</i>, and <i>post confirmation</i>. When Amazon Cognito invokes any of these functions, it
+     * passes a JSON payload, which the function receives as input. This payload contains a <code>clientMetadata</code>
+     * attribute, which provides the data that you assigned to the ClientMetadata parameter in your SignUp request. In
+     * your function code in Lambda, you can process the <code>clientMetadata</code> value to enhance your workflow for
+     * your specific needs.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     * > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * parameter serves no purpose.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Validate the ClientMetadata value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param clientMetadata
+     *        A map of custom key-value pairs that you can provide as input for any custom workflows that this action
+     *        triggers.</p>
+     *        <p>
+     *        You create custom workflows by assigning Lambda functions to user pool triggers. When you use the SignUp
+     *        API action, Amazon Cognito invokes any functions that are assigned to the following triggers: <i>pre
+     *        sign-up</i>, <i>custom message</i>, and <i>post confirmation</i>. When Amazon Cognito invokes any of these
+     *        functions, it passes a JSON payload, which the function receives as input. This payload contains a
+     *        <code>clientMetadata</code> attribute, which provides the data that you assigned to the ClientMetadata
+     *        parameter in your SignUp request. In your function code in Lambda, you can process the
+     *        <code>clientMetadata</code> value to enhance your workflow for your specific needs.
+     *        </p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     *        > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user
+     *        pool to support custom workflows. If your user pool configuration doesn't include triggers, the
+     *        ClientMetadata parameter serves no purpose.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Validate the ClientMetadata value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     *        </p>
+     *        </li>
+     *        </ul>
+     */
+
+    public void setClientMetadata(java.util.Map<String, String> clientMetadata) {
+        this.clientMetadata = clientMetadata;
+    }
+
+    /**
+     * <p>
+     * A map of custom key-value pairs that you can provide as input for any custom workflows that this action triggers.
+     * </p>
+     * <p>
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the SignUp API
+     * action, Amazon Cognito invokes any functions that are assigned to the following triggers: <i>pre sign-up</i>,
+     * <i>custom message</i>, and <i>post confirmation</i>. When Amazon Cognito invokes any of these functions, it
+     * passes a JSON payload, which the function receives as input. This payload contains a <code>clientMetadata</code>
+     * attribute, which provides the data that you assigned to the ClientMetadata parameter in your SignUp request. In
+     * your function code in Lambda, you can process the <code>clientMetadata</code> value to enhance your workflow for
+     * your specific needs.
+     * </p>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     * > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * parameter serves no purpose.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Validate the ClientMetadata value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param clientMetadata
+     *        A map of custom key-value pairs that you can provide as input for any custom workflows that this action
+     *        triggers.</p>
+     *        <p>
+     *        You create custom workflows by assigning Lambda functions to user pool triggers. When you use the SignUp
+     *        API action, Amazon Cognito invokes any functions that are assigned to the following triggers: <i>pre
+     *        sign-up</i>, <i>custom message</i>, and <i>post confirmation</i>. When Amazon Cognito invokes any of these
+     *        functions, it passes a JSON payload, which the function receives as input. This payload contains a
+     *        <code>clientMetadata</code> attribute, which provides the data that you assigned to the ClientMetadata
+     *        parameter in your SignUp request. In your function code in Lambda, you can process the
+     *        <code>clientMetadata</code> value to enhance your workflow for your specific needs.
+     *        </p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     *        > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user
+     *        pool to support custom workflows. If your user pool configuration doesn't include triggers, the
+     *        ClientMetadata parameter serves no purpose.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Validate the ClientMetadata value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     *        </p>
+     *        </li>
+     *        </ul>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SignUpRequest withClientMetadata(java.util.Map<String, String> clientMetadata) {
+        setClientMetadata(clientMetadata);
+        return this;
+    }
+
+    /**
+     * Add a single ClientMetadata entry
+     *
+     * @see SignUpRequest#withClientMetadata
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SignUpRequest addClientMetadataEntry(String key, String value) {
+        if (null == this.clientMetadata) {
+            this.clientMetadata = new java.util.HashMap<String, String>();
+        }
+        if (this.clientMetadata.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.clientMetadata.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into ClientMetadata.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SignUpRequest clearClientMetadataEntries() {
+        this.clientMetadata = null;
         return this;
     }
 
@@ -521,7 +988,9 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
         if (getAnalyticsMetadata() != null)
             sb.append("AnalyticsMetadata: ").append(getAnalyticsMetadata()).append(",");
         if (getUserContextData() != null)
-            sb.append("UserContextData: ").append(getUserContextData());
+            sb.append("UserContextData: ").append("***Sensitive Data Redacted***").append(",");
+        if (getClientMetadata() != null)
+            sb.append("ClientMetadata: ").append(getClientMetadata());
         sb.append("}");
         return sb.toString();
     }
@@ -568,6 +1037,10 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
             return false;
         if (other.getUserContextData() != null && other.getUserContextData().equals(this.getUserContextData()) == false)
             return false;
+        if (other.getClientMetadata() == null ^ this.getClientMetadata() == null)
+            return false;
+        if (other.getClientMetadata() != null && other.getClientMetadata().equals(this.getClientMetadata()) == false)
+            return false;
         return true;
     }
 
@@ -584,6 +1057,7 @@ public class SignUpRequest extends com.amazonaws.AmazonWebServiceRequest impleme
         hashCode = prime * hashCode + ((getValidationData() == null) ? 0 : getValidationData().hashCode());
         hashCode = prime * hashCode + ((getAnalyticsMetadata() == null) ? 0 : getAnalyticsMetadata().hashCode());
         hashCode = prime * hashCode + ((getUserContextData() == null) ? 0 : getUserContextData().hashCode());
+        hashCode = prime * hashCode + ((getClientMetadata() == null) ? 0 : getClientMetadata().hashCode());
         return hashCode;
     }
 

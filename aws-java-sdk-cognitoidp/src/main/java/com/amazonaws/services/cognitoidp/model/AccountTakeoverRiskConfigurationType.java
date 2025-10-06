@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,7 +37,7 @@ public class AccountTakeoverRiskConfigurationType implements Serializable, Clone
     private NotifyConfigurationType notifyConfiguration;
     /**
      * <p>
-     * Account takeover risk configuration actions
+     * Account takeover risk configuration actions.
      * </p>
      */
     private AccountTakeoverActionsType actions;
@@ -84,11 +84,11 @@ public class AccountTakeoverRiskConfigurationType implements Serializable, Clone
 
     /**
      * <p>
-     * Account takeover risk configuration actions
+     * Account takeover risk configuration actions.
      * </p>
      * 
      * @param actions
-     *        Account takeover risk configuration actions
+     *        Account takeover risk configuration actions.
      */
 
     public void setActions(AccountTakeoverActionsType actions) {
@@ -97,10 +97,10 @@ public class AccountTakeoverRiskConfigurationType implements Serializable, Clone
 
     /**
      * <p>
-     * Account takeover risk configuration actions
+     * Account takeover risk configuration actions.
      * </p>
      * 
-     * @return Account takeover risk configuration actions
+     * @return Account takeover risk configuration actions.
      */
 
     public AccountTakeoverActionsType getActions() {
@@ -109,11 +109,11 @@ public class AccountTakeoverRiskConfigurationType implements Serializable, Clone
 
     /**
      * <p>
-     * Account takeover risk configuration actions
+     * Account takeover risk configuration actions.
      * </p>
      * 
      * @param actions
-     *        Account takeover risk configuration actions
+     *        Account takeover risk configuration actions.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

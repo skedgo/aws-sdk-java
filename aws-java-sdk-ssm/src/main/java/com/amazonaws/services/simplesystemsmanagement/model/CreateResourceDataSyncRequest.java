@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,10 +33,29 @@ public class CreateResourceDataSyncRequest extends com.amazonaws.AmazonWebServic
     private String syncName;
     /**
      * <p>
-     * Amazon S3 configuration details for the sync.
+     * Amazon S3 configuration details for the sync. This parameter is required if the <code>SyncType</code> value is
+     * SyncToDestination.
      * </p>
      */
     private ResourceDataSyncS3Destination s3Destination;
+    /**
+     * <p>
+     * Specify <code>SyncToDestination</code> to create a resource data sync that synchronizes data to an S3 bucket for
+     * Inventory. If you specify <code>SyncToDestination</code>, you must provide a value for <code>S3Destination</code>
+     * . Specify <code>SyncFromSource</code> to synchronize data from a single account and multiple Regions, or multiple
+     * Amazon Web Services accounts and Amazon Web Services Regions, as listed in Organizations for Explorer. If you
+     * specify <code>SyncFromSource</code>, you must provide a value for <code>SyncSource</code>. The default value is
+     * <code>SyncToDestination</code>.
+     * </p>
+     */
+    private String syncType;
+    /**
+     * <p>
+     * Specify information about the data sources to synchronize. This parameter is required if the
+     * <code>SyncType</code> value is SyncFromSource.
+     * </p>
+     */
+    private ResourceDataSyncSource syncSource;
 
     /**
      * <p>
@@ -80,11 +99,13 @@ public class CreateResourceDataSyncRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Amazon S3 configuration details for the sync.
+     * Amazon S3 configuration details for the sync. This parameter is required if the <code>SyncType</code> value is
+     * SyncToDestination.
      * </p>
      * 
      * @param s3Destination
-     *        Amazon S3 configuration details for the sync.
+     *        Amazon S3 configuration details for the sync. This parameter is required if the <code>SyncType</code>
+     *        value is SyncToDestination.
      */
 
     public void setS3Destination(ResourceDataSyncS3Destination s3Destination) {
@@ -93,10 +114,12 @@ public class CreateResourceDataSyncRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Amazon S3 configuration details for the sync.
+     * Amazon S3 configuration details for the sync. This parameter is required if the <code>SyncType</code> value is
+     * SyncToDestination.
      * </p>
      * 
-     * @return Amazon S3 configuration details for the sync.
+     * @return Amazon S3 configuration details for the sync. This parameter is required if the <code>SyncType</code>
+     *         value is SyncToDestination.
      */
 
     public ResourceDataSyncS3Destination getS3Destination() {
@@ -105,16 +128,134 @@ public class CreateResourceDataSyncRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Amazon S3 configuration details for the sync.
+     * Amazon S3 configuration details for the sync. This parameter is required if the <code>SyncType</code> value is
+     * SyncToDestination.
      * </p>
      * 
      * @param s3Destination
-     *        Amazon S3 configuration details for the sync.
+     *        Amazon S3 configuration details for the sync. This parameter is required if the <code>SyncType</code>
+     *        value is SyncToDestination.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateResourceDataSyncRequest withS3Destination(ResourceDataSyncS3Destination s3Destination) {
         setS3Destination(s3Destination);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specify <code>SyncToDestination</code> to create a resource data sync that synchronizes data to an S3 bucket for
+     * Inventory. If you specify <code>SyncToDestination</code>, you must provide a value for <code>S3Destination</code>
+     * . Specify <code>SyncFromSource</code> to synchronize data from a single account and multiple Regions, or multiple
+     * Amazon Web Services accounts and Amazon Web Services Regions, as listed in Organizations for Explorer. If you
+     * specify <code>SyncFromSource</code>, you must provide a value for <code>SyncSource</code>. The default value is
+     * <code>SyncToDestination</code>.
+     * </p>
+     * 
+     * @param syncType
+     *        Specify <code>SyncToDestination</code> to create a resource data sync that synchronizes data to an S3
+     *        bucket for Inventory. If you specify <code>SyncToDestination</code>, you must provide a value for
+     *        <code>S3Destination</code>. Specify <code>SyncFromSource</code> to synchronize data from a single account
+     *        and multiple Regions, or multiple Amazon Web Services accounts and Amazon Web Services Regions, as listed
+     *        in Organizations for Explorer. If you specify <code>SyncFromSource</code>, you must provide a value for
+     *        <code>SyncSource</code>. The default value is <code>SyncToDestination</code>.
+     */
+
+    public void setSyncType(String syncType) {
+        this.syncType = syncType;
+    }
+
+    /**
+     * <p>
+     * Specify <code>SyncToDestination</code> to create a resource data sync that synchronizes data to an S3 bucket for
+     * Inventory. If you specify <code>SyncToDestination</code>, you must provide a value for <code>S3Destination</code>
+     * . Specify <code>SyncFromSource</code> to synchronize data from a single account and multiple Regions, or multiple
+     * Amazon Web Services accounts and Amazon Web Services Regions, as listed in Organizations for Explorer. If you
+     * specify <code>SyncFromSource</code>, you must provide a value for <code>SyncSource</code>. The default value is
+     * <code>SyncToDestination</code>.
+     * </p>
+     * 
+     * @return Specify <code>SyncToDestination</code> to create a resource data sync that synchronizes data to an S3
+     *         bucket for Inventory. If you specify <code>SyncToDestination</code>, you must provide a value for
+     *         <code>S3Destination</code>. Specify <code>SyncFromSource</code> to synchronize data from a single account
+     *         and multiple Regions, or multiple Amazon Web Services accounts and Amazon Web Services Regions, as listed
+     *         in Organizations for Explorer. If you specify <code>SyncFromSource</code>, you must provide a value for
+     *         <code>SyncSource</code>. The default value is <code>SyncToDestination</code>.
+     */
+
+    public String getSyncType() {
+        return this.syncType;
+    }
+
+    /**
+     * <p>
+     * Specify <code>SyncToDestination</code> to create a resource data sync that synchronizes data to an S3 bucket for
+     * Inventory. If you specify <code>SyncToDestination</code>, you must provide a value for <code>S3Destination</code>
+     * . Specify <code>SyncFromSource</code> to synchronize data from a single account and multiple Regions, or multiple
+     * Amazon Web Services accounts and Amazon Web Services Regions, as listed in Organizations for Explorer. If you
+     * specify <code>SyncFromSource</code>, you must provide a value for <code>SyncSource</code>. The default value is
+     * <code>SyncToDestination</code>.
+     * </p>
+     * 
+     * @param syncType
+     *        Specify <code>SyncToDestination</code> to create a resource data sync that synchronizes data to an S3
+     *        bucket for Inventory. If you specify <code>SyncToDestination</code>, you must provide a value for
+     *        <code>S3Destination</code>. Specify <code>SyncFromSource</code> to synchronize data from a single account
+     *        and multiple Regions, or multiple Amazon Web Services accounts and Amazon Web Services Regions, as listed
+     *        in Organizations for Explorer. If you specify <code>SyncFromSource</code>, you must provide a value for
+     *        <code>SyncSource</code>. The default value is <code>SyncToDestination</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateResourceDataSyncRequest withSyncType(String syncType) {
+        setSyncType(syncType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specify information about the data sources to synchronize. This parameter is required if the
+     * <code>SyncType</code> value is SyncFromSource.
+     * </p>
+     * 
+     * @param syncSource
+     *        Specify information about the data sources to synchronize. This parameter is required if the
+     *        <code>SyncType</code> value is SyncFromSource.
+     */
+
+    public void setSyncSource(ResourceDataSyncSource syncSource) {
+        this.syncSource = syncSource;
+    }
+
+    /**
+     * <p>
+     * Specify information about the data sources to synchronize. This parameter is required if the
+     * <code>SyncType</code> value is SyncFromSource.
+     * </p>
+     * 
+     * @return Specify information about the data sources to synchronize. This parameter is required if the
+     *         <code>SyncType</code> value is SyncFromSource.
+     */
+
+    public ResourceDataSyncSource getSyncSource() {
+        return this.syncSource;
+    }
+
+    /**
+     * <p>
+     * Specify information about the data sources to synchronize. This parameter is required if the
+     * <code>SyncType</code> value is SyncFromSource.
+     * </p>
+     * 
+     * @param syncSource
+     *        Specify information about the data sources to synchronize. This parameter is required if the
+     *        <code>SyncType</code> value is SyncFromSource.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateResourceDataSyncRequest withSyncSource(ResourceDataSyncSource syncSource) {
+        setSyncSource(syncSource);
         return this;
     }
 
@@ -133,7 +274,11 @@ public class CreateResourceDataSyncRequest extends com.amazonaws.AmazonWebServic
         if (getSyncName() != null)
             sb.append("SyncName: ").append(getSyncName()).append(",");
         if (getS3Destination() != null)
-            sb.append("S3Destination: ").append(getS3Destination());
+            sb.append("S3Destination: ").append(getS3Destination()).append(",");
+        if (getSyncType() != null)
+            sb.append("SyncType: ").append(getSyncType()).append(",");
+        if (getSyncSource() != null)
+            sb.append("SyncSource: ").append(getSyncSource());
         sb.append("}");
         return sb.toString();
     }
@@ -156,6 +301,14 @@ public class CreateResourceDataSyncRequest extends com.amazonaws.AmazonWebServic
             return false;
         if (other.getS3Destination() != null && other.getS3Destination().equals(this.getS3Destination()) == false)
             return false;
+        if (other.getSyncType() == null ^ this.getSyncType() == null)
+            return false;
+        if (other.getSyncType() != null && other.getSyncType().equals(this.getSyncType()) == false)
+            return false;
+        if (other.getSyncSource() == null ^ this.getSyncSource() == null)
+            return false;
+        if (other.getSyncSource() != null && other.getSyncSource().equals(this.getSyncSource()) == false)
+            return false;
         return true;
     }
 
@@ -166,6 +319,8 @@ public class CreateResourceDataSyncRequest extends com.amazonaws.AmazonWebServic
 
         hashCode = prime * hashCode + ((getSyncName() == null) ? 0 : getSyncName().hashCode());
         hashCode = prime * hashCode + ((getS3Destination() == null) ? 0 : getS3Destination().hashCode());
+        hashCode = prime * hashCode + ((getSyncType() == null) ? 0 : getSyncType().hashCode());
+        hashCode = prime * hashCode + ((getSyncSource() == null) ? 0 : getSyncSource().hashCode());
         return hashCode;
     }
 

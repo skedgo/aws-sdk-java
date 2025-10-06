@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,17 +43,14 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     private String dBInstanceIdentifier;
     /**
      * <p>
-     * The new amount of storage (in gibibytes) to allocate for the DB instance.
-     * </p>
-     * <p>
-     * Not applicable. Storage is managed by the DB Cluster.
+     * Not supported by Neptune.
      * </p>
      */
     private Integer allocatedStorage;
     /**
      * <p>
      * The new compute and memory capacity of the DB instance, for example, <code>db.m4.large</code>. Not all DB
-     * instance classes are available in all AWS Regions.
+     * instance classes are available in all Amazon Regions.
      * </p>
      * <p>
      * If you modify the DB instance class, an outage occurs during the change. The change is applied during the next
@@ -136,7 +133,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     private Boolean applyImmediately;
     /**
      * <p>
-     * Not applicable.
+     * Not supported by Neptune.
      * </p>
      */
     private String masterUserPassword;
@@ -233,14 +230,8 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     private Boolean multiAZ;
     /**
      * <p>
-     * The version number of the database engine to upgrade to. Changing this parameter results in an outage and the
-     * change is applied during the next maintenance window unless the <code>ApplyImmediately</code> parameter is set to
-     * <code>true</code> for this request.
-     * </p>
-     * <p>
-     * For major version upgrades, if a nondefault DB parameter group is currently in use, a new DB parameter group in
-     * the DB parameter group family for the new engine version must be specified. The new DB parameter group can be the
-     * default for that DB parameter group family.
+     * The version number of the database engine to upgrade to. Currently, setting this parameter has no effect. To
+     * upgrade your database engine to the most recent release, use the <a>ApplyPendingMaintenanceAction</a> API.
      * </p>
      */
     private String engineVersion;
@@ -248,10 +239,6 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * <p>
      * Indicates that major version upgrades are allowed. Changing this parameter doesn't result in an outage and the
      * change is asynchronously applied as soon as possible.
-     * </p>
-     * <p>
-     * Constraints: This parameter must be set to true when specifying a value for the EngineVersion parameter that is a
-     * different major version than the DB instance's current version.
      * </p>
      */
     private Boolean allowMajorVersionUpgrade;
@@ -267,7 +254,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     private Boolean autoMinorVersionUpgrade;
     /**
      * <p>
-     * Not supported.
+     * Not supported by Neptune.
      * </p>
      */
     private String licenseModel;
@@ -286,15 +273,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     private Integer iops;
     /**
      * <p>
-     * Indicates that the DB instance should be associated with the specified option group. Changing this parameter
-     * doesn't result in an outage except in the following case and the change is applied during the next maintenance
-     * window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for this request. If the
-     * parameter change results in an option group that enables OEM, this change can cause a brief (sub-second) period
-     * during which new connections are rejected but existing connections are not interrupted.
-     * </p>
-     * <p>
-     * Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an option
-     * group, and that option group can't be removed from a DB instance once it is associated with a DB instance
+     * <i>(Not supported by Neptune)</i>
      * </p>
      */
     private String optionGroupName;
@@ -437,15 +416,15 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     private Integer promotionTier;
     /**
      * <p>
-     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
-     * false.
+     * True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
+     * otherwise false.
      * </p>
      * <p>
      * You can enable IAM database authentication for the following database engines
      * </p>
      * <p>
-     * Not applicable. Mapping AWS IAM accounts to database accounts is managed by the DB cluster. For more information,
-     * see <a>ModifyDBCluster</a>.
+     * Not applicable. Mapping Amazon IAM accounts to database accounts is managed by the DB cluster. For more
+     * information, see <a>ModifyDBCluster</a>.
      * </p>
      * <p>
      * Default: <code>false</code>
@@ -454,13 +433,13 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     private Boolean enableIAMDatabaseAuthentication;
     /**
      * <p>
-     * Not supported.
+     * <i>(Not supported by Neptune)</i>
      * </p>
      */
     private Boolean enablePerformanceInsights;
     /**
      * <p>
-     * Not supported.
+     * <i>(Not supported by Neptune)</i>
      * </p>
      */
     private String performanceInsightsKMSKeyId;
@@ -471,6 +450,15 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      */
     private CloudwatchLogsExportConfiguration cloudwatchLogsExportConfiguration;
+    /**
+     * <p>
+     * A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted
+     * when deletion protection is enabled. By default, deletion protection is disabled. See <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/manage-console-instances-delete.html">Deleting a DB
+     * Instance</a>.
+     * </p>
+     */
+    private Boolean deletionProtection;
 
     /**
      * <p>
@@ -571,16 +559,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new amount of storage (in gibibytes) to allocate for the DB instance.
-     * </p>
-     * <p>
-     * Not applicable. Storage is managed by the DB Cluster.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param allocatedStorage
-     *        The new amount of storage (in gibibytes) to allocate for the DB instance.</p>
-     *        <p>
-     *        Not applicable. Storage is managed by the DB Cluster.
+     *        Not supported by Neptune.
      */
 
     public void setAllocatedStorage(Integer allocatedStorage) {
@@ -589,15 +572,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new amount of storage (in gibibytes) to allocate for the DB instance.
-     * </p>
-     * <p>
-     * Not applicable. Storage is managed by the DB Cluster.
+     * Not supported by Neptune.
      * </p>
      * 
-     * @return The new amount of storage (in gibibytes) to allocate for the DB instance.</p>
-     *         <p>
-     *         Not applicable. Storage is managed by the DB Cluster.
+     * @return Not supported by Neptune.
      */
 
     public Integer getAllocatedStorage() {
@@ -606,16 +584,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The new amount of storage (in gibibytes) to allocate for the DB instance.
-     * </p>
-     * <p>
-     * Not applicable. Storage is managed by the DB Cluster.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param allocatedStorage
-     *        The new amount of storage (in gibibytes) to allocate for the DB instance.</p>
-     *        <p>
-     *        Not applicable. Storage is managed by the DB Cluster.
+     *        Not supported by Neptune.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -627,7 +600,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * The new compute and memory capacity of the DB instance, for example, <code>db.m4.large</code>. Not all DB
-     * instance classes are available in all AWS Regions.
+     * instance classes are available in all Amazon Regions.
      * </p>
      * <p>
      * If you modify the DB instance class, an outage occurs during the change. The change is applied during the next
@@ -639,7 +612,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * 
      * @param dBInstanceClass
      *        The new compute and memory capacity of the DB instance, for example, <code>db.m4.large</code>. Not all DB
-     *        instance classes are available in all AWS Regions.</p>
+     *        instance classes are available in all Amazon Regions.</p>
      *        <p>
      *        If you modify the DB instance class, an outage occurs during the change. The change is applied during the
      *        next maintenance window, unless <code>ApplyImmediately</code> is specified as <code>true</code> for this
@@ -656,7 +629,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * The new compute and memory capacity of the DB instance, for example, <code>db.m4.large</code>. Not all DB
-     * instance classes are available in all AWS Regions.
+     * instance classes are available in all Amazon Regions.
      * </p>
      * <p>
      * If you modify the DB instance class, an outage occurs during the change. The change is applied during the next
@@ -667,7 +640,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * 
      * @return The new compute and memory capacity of the DB instance, for example, <code>db.m4.large</code>. Not all DB
-     *         instance classes are available in all AWS Regions.</p>
+     *         instance classes are available in all Amazon Regions.</p>
      *         <p>
      *         If you modify the DB instance class, an outage occurs during the change. The change is applied during the
      *         next maintenance window, unless <code>ApplyImmediately</code> is specified as <code>true</code> for this
@@ -684,7 +657,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     /**
      * <p>
      * The new compute and memory capacity of the DB instance, for example, <code>db.m4.large</code>. Not all DB
-     * instance classes are available in all AWS Regions.
+     * instance classes are available in all Amazon Regions.
      * </p>
      * <p>
      * If you modify the DB instance class, an outage occurs during the change. The change is applied during the next
@@ -696,7 +669,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * 
      * @param dBInstanceClass
      *        The new compute and memory capacity of the DB instance, for example, <code>db.m4.large</code>. Not all DB
-     *        instance classes are available in all AWS Regions.</p>
+     *        instance classes are available in all Amazon Regions.</p>
      *        <p>
      *        If you modify the DB instance class, an outage occurs during the change. The change is applied during the
      *        next maintenance window, unless <code>ApplyImmediately</code> is specified as <code>true</code> for this
@@ -1281,11 +1254,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Not applicable.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param masterUserPassword
-     *        Not applicable.
+     *        Not supported by Neptune.
      */
 
     public void setMasterUserPassword(String masterUserPassword) {
@@ -1294,10 +1267,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Not applicable.
+     * Not supported by Neptune.
      * </p>
      * 
-     * @return Not applicable.
+     * @return Not supported by Neptune.
      */
 
     public String getMasterUserPassword() {
@@ -1306,11 +1279,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Not applicable.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param masterUserPassword
-     *        Not applicable.
+     *        Not supported by Neptune.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1891,24 +1864,14 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The version number of the database engine to upgrade to. Changing this parameter results in an outage and the
-     * change is applied during the next maintenance window unless the <code>ApplyImmediately</code> parameter is set to
-     * <code>true</code> for this request.
-     * </p>
-     * <p>
-     * For major version upgrades, if a nondefault DB parameter group is currently in use, a new DB parameter group in
-     * the DB parameter group family for the new engine version must be specified. The new DB parameter group can be the
-     * default for that DB parameter group family.
+     * The version number of the database engine to upgrade to. Currently, setting this parameter has no effect. To
+     * upgrade your database engine to the most recent release, use the <a>ApplyPendingMaintenanceAction</a> API.
      * </p>
      * 
      * @param engineVersion
-     *        The version number of the database engine to upgrade to. Changing this parameter results in an outage and
-     *        the change is applied during the next maintenance window unless the <code>ApplyImmediately</code>
-     *        parameter is set to <code>true</code> for this request.</p>
-     *        <p>
-     *        For major version upgrades, if a nondefault DB parameter group is currently in use, a new DB parameter
-     *        group in the DB parameter group family for the new engine version must be specified. The new DB parameter
-     *        group can be the default for that DB parameter group family.
+     *        The version number of the database engine to upgrade to. Currently, setting this parameter has no effect.
+     *        To upgrade your database engine to the most recent release, use the <a>ApplyPendingMaintenanceAction</a>
+     *        API.
      */
 
     public void setEngineVersion(String engineVersion) {
@@ -1917,23 +1880,13 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The version number of the database engine to upgrade to. Changing this parameter results in an outage and the
-     * change is applied during the next maintenance window unless the <code>ApplyImmediately</code> parameter is set to
-     * <code>true</code> for this request.
-     * </p>
-     * <p>
-     * For major version upgrades, if a nondefault DB parameter group is currently in use, a new DB parameter group in
-     * the DB parameter group family for the new engine version must be specified. The new DB parameter group can be the
-     * default for that DB parameter group family.
+     * The version number of the database engine to upgrade to. Currently, setting this parameter has no effect. To
+     * upgrade your database engine to the most recent release, use the <a>ApplyPendingMaintenanceAction</a> API.
      * </p>
      * 
-     * @return The version number of the database engine to upgrade to. Changing this parameter results in an outage and
-     *         the change is applied during the next maintenance window unless the <code>ApplyImmediately</code>
-     *         parameter is set to <code>true</code> for this request.</p>
-     *         <p>
-     *         For major version upgrades, if a nondefault DB parameter group is currently in use, a new DB parameter
-     *         group in the DB parameter group family for the new engine version must be specified. The new DB parameter
-     *         group can be the default for that DB parameter group family.
+     * @return The version number of the database engine to upgrade to. Currently, setting this parameter has no effect.
+     *         To upgrade your database engine to the most recent release, use the <a>ApplyPendingMaintenanceAction</a>
+     *         API.
      */
 
     public String getEngineVersion() {
@@ -1942,24 +1895,14 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The version number of the database engine to upgrade to. Changing this parameter results in an outage and the
-     * change is applied during the next maintenance window unless the <code>ApplyImmediately</code> parameter is set to
-     * <code>true</code> for this request.
-     * </p>
-     * <p>
-     * For major version upgrades, if a nondefault DB parameter group is currently in use, a new DB parameter group in
-     * the DB parameter group family for the new engine version must be specified. The new DB parameter group can be the
-     * default for that DB parameter group family.
+     * The version number of the database engine to upgrade to. Currently, setting this parameter has no effect. To
+     * upgrade your database engine to the most recent release, use the <a>ApplyPendingMaintenanceAction</a> API.
      * </p>
      * 
      * @param engineVersion
-     *        The version number of the database engine to upgrade to. Changing this parameter results in an outage and
-     *        the change is applied during the next maintenance window unless the <code>ApplyImmediately</code>
-     *        parameter is set to <code>true</code> for this request.</p>
-     *        <p>
-     *        For major version upgrades, if a nondefault DB parameter group is currently in use, a new DB parameter
-     *        group in the DB parameter group family for the new engine version must be specified. The new DB parameter
-     *        group can be the default for that DB parameter group family.
+     *        The version number of the database engine to upgrade to. Currently, setting this parameter has no effect.
+     *        To upgrade your database engine to the most recent release, use the <a>ApplyPendingMaintenanceAction</a>
+     *        API.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1973,17 +1916,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * Indicates that major version upgrades are allowed. Changing this parameter doesn't result in an outage and the
      * change is asynchronously applied as soon as possible.
      * </p>
-     * <p>
-     * Constraints: This parameter must be set to true when specifying a value for the EngineVersion parameter that is a
-     * different major version than the DB instance's current version.
-     * </p>
      * 
      * @param allowMajorVersionUpgrade
      *        Indicates that major version upgrades are allowed. Changing this parameter doesn't result in an outage and
-     *        the change is asynchronously applied as soon as possible.</p>
-     *        <p>
-     *        Constraints: This parameter must be set to true when specifying a value for the EngineVersion parameter
-     *        that is a different major version than the DB instance's current version.
+     *        the change is asynchronously applied as soon as possible.
      */
 
     public void setAllowMajorVersionUpgrade(Boolean allowMajorVersionUpgrade) {
@@ -1995,16 +1931,9 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * Indicates that major version upgrades are allowed. Changing this parameter doesn't result in an outage and the
      * change is asynchronously applied as soon as possible.
      * </p>
-     * <p>
-     * Constraints: This parameter must be set to true when specifying a value for the EngineVersion parameter that is a
-     * different major version than the DB instance's current version.
-     * </p>
      * 
      * @return Indicates that major version upgrades are allowed. Changing this parameter doesn't result in an outage
-     *         and the change is asynchronously applied as soon as possible.</p>
-     *         <p>
-     *         Constraints: This parameter must be set to true when specifying a value for the EngineVersion parameter
-     *         that is a different major version than the DB instance's current version.
+     *         and the change is asynchronously applied as soon as possible.
      */
 
     public Boolean getAllowMajorVersionUpgrade() {
@@ -2016,17 +1945,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * Indicates that major version upgrades are allowed. Changing this parameter doesn't result in an outage and the
      * change is asynchronously applied as soon as possible.
      * </p>
-     * <p>
-     * Constraints: This parameter must be set to true when specifying a value for the EngineVersion parameter that is a
-     * different major version than the DB instance's current version.
-     * </p>
      * 
      * @param allowMajorVersionUpgrade
      *        Indicates that major version upgrades are allowed. Changing this parameter doesn't result in an outage and
-     *        the change is asynchronously applied as soon as possible.</p>
-     *        <p>
-     *        Constraints: This parameter must be set to true when specifying a value for the EngineVersion parameter
-     *        that is a different major version than the DB instance's current version.
+     *        the change is asynchronously applied as soon as possible.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2040,16 +1962,9 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
      * Indicates that major version upgrades are allowed. Changing this parameter doesn't result in an outage and the
      * change is asynchronously applied as soon as possible.
      * </p>
-     * <p>
-     * Constraints: This parameter must be set to true when specifying a value for the EngineVersion parameter that is a
-     * different major version than the DB instance's current version.
-     * </p>
      * 
      * @return Indicates that major version upgrades are allowed. Changing this parameter doesn't result in an outage
-     *         and the change is asynchronously applied as soon as possible.</p>
-     *         <p>
-     *         Constraints: This parameter must be set to true when specifying a value for the EngineVersion parameter
-     *         that is a different major version than the DB instance's current version.
+     *         and the change is asynchronously applied as soon as possible.
      */
 
     public Boolean isAllowMajorVersionUpgrade() {
@@ -2142,11 +2057,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Not supported.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param licenseModel
-     *        Not supported.
+     *        Not supported by Neptune.
      */
 
     public void setLicenseModel(String licenseModel) {
@@ -2155,10 +2070,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Not supported.
+     * Not supported by Neptune.
      * </p>
      * 
-     * @return Not supported.
+     * @return Not supported by Neptune.
      */
 
     public String getLicenseModel() {
@@ -2167,11 +2082,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Not supported.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param licenseModel
-     *        Not supported.
+     *        Not supported by Neptune.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2261,28 +2176,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Indicates that the DB instance should be associated with the specified option group. Changing this parameter
-     * doesn't result in an outage except in the following case and the change is applied during the next maintenance
-     * window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for this request. If the
-     * parameter change results in an option group that enables OEM, this change can cause a brief (sub-second) period
-     * during which new connections are rejected but existing connections are not interrupted.
-     * </p>
-     * <p>
-     * Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an option
-     * group, and that option group can't be removed from a DB instance once it is associated with a DB instance
+     * <i>(Not supported by Neptune)</i>
      * </p>
      * 
      * @param optionGroupName
-     *        Indicates that the DB instance should be associated with the specified option group. Changing this
-     *        parameter doesn't result in an outage except in the following case and the change is applied during the
-     *        next maintenance window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for
-     *        this request. If the parameter change results in an option group that enables OEM, this change can cause a
-     *        brief (sub-second) period during which new connections are rejected but existing connections are not
-     *        interrupted.</p>
-     *        <p>
-     *        Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an
-     *        option group, and that option group can't be removed from a DB instance once it is associated with a DB
-     *        instance
+     *        <i>(Not supported by Neptune)</i>
      */
 
     public void setOptionGroupName(String optionGroupName) {
@@ -2291,27 +2189,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Indicates that the DB instance should be associated with the specified option group. Changing this parameter
-     * doesn't result in an outage except in the following case and the change is applied during the next maintenance
-     * window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for this request. If the
-     * parameter change results in an option group that enables OEM, this change can cause a brief (sub-second) period
-     * during which new connections are rejected but existing connections are not interrupted.
-     * </p>
-     * <p>
-     * Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an option
-     * group, and that option group can't be removed from a DB instance once it is associated with a DB instance
+     * <i>(Not supported by Neptune)</i>
      * </p>
      * 
-     * @return Indicates that the DB instance should be associated with the specified option group. Changing this
-     *         parameter doesn't result in an outage except in the following case and the change is applied during the
-     *         next maintenance window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code>
-     *         for this request. If the parameter change results in an option group that enables OEM, this change can
-     *         cause a brief (sub-second) period during which new connections are rejected but existing connections are
-     *         not interrupted.</p>
-     *         <p>
-     *         Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an
-     *         option group, and that option group can't be removed from a DB instance once it is associated with a DB
-     *         instance
+     * @return <i>(Not supported by Neptune)</i>
      */
 
     public String getOptionGroupName() {
@@ -2320,28 +2201,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Indicates that the DB instance should be associated with the specified option group. Changing this parameter
-     * doesn't result in an outage except in the following case and the change is applied during the next maintenance
-     * window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for this request. If the
-     * parameter change results in an option group that enables OEM, this change can cause a brief (sub-second) period
-     * during which new connections are rejected but existing connections are not interrupted.
-     * </p>
-     * <p>
-     * Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an option
-     * group, and that option group can't be removed from a DB instance once it is associated with a DB instance
+     * <i>(Not supported by Neptune)</i>
      * </p>
      * 
      * @param optionGroupName
-     *        Indicates that the DB instance should be associated with the specified option group. Changing this
-     *        parameter doesn't result in an outage except in the following case and the change is applied during the
-     *        next maintenance window unless the <code>ApplyImmediately</code> parameter is set to <code>true</code> for
-     *        this request. If the parameter change results in an option group that enables OEM, this change can cause a
-     *        brief (sub-second) period during which new connections are rejected but existing connections are not
-     *        interrupted.</p>
-     *        <p>
-     *        Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an
-     *        option group, and that option group can't be removed from a DB instance once it is associated with a DB
-     *        instance
+     *        <i>(Not supported by Neptune)</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3231,28 +3095,28 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
-     * false.
+     * True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
+     * otherwise false.
      * </p>
      * <p>
      * You can enable IAM database authentication for the following database engines
      * </p>
      * <p>
-     * Not applicable. Mapping AWS IAM accounts to database accounts is managed by the DB cluster. For more information,
-     * see <a>ModifyDBCluster</a>.
+     * Not applicable. Mapping Amazon IAM accounts to database accounts is managed by the DB cluster. For more
+     * information, see <a>ModifyDBCluster</a>.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
      * @param enableIAMDatabaseAuthentication
-     *        True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and
+     *        True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
      *        otherwise false.</p>
      *        <p>
      *        You can enable IAM database authentication for the following database engines
      *        </p>
      *        <p>
-     *        Not applicable. Mapping AWS IAM accounts to database accounts is managed by the DB cluster. For more
+     *        Not applicable. Mapping Amazon IAM accounts to database accounts is managed by the DB cluster. For more
      *        information, see <a>ModifyDBCluster</a>.
      *        </p>
      *        <p>
@@ -3265,27 +3129,27 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
-     * false.
+     * True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
+     * otherwise false.
      * </p>
      * <p>
      * You can enable IAM database authentication for the following database engines
      * </p>
      * <p>
-     * Not applicable. Mapping AWS IAM accounts to database accounts is managed by the DB cluster. For more information,
-     * see <a>ModifyDBCluster</a>.
+     * Not applicable. Mapping Amazon IAM accounts to database accounts is managed by the DB cluster. For more
+     * information, see <a>ModifyDBCluster</a>.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
-     * @return True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and
+     * @return True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
      *         otherwise false.</p>
      *         <p>
      *         You can enable IAM database authentication for the following database engines
      *         </p>
      *         <p>
-     *         Not applicable. Mapping AWS IAM accounts to database accounts is managed by the DB cluster. For more
+     *         Not applicable. Mapping Amazon IAM accounts to database accounts is managed by the DB cluster. For more
      *         information, see <a>ModifyDBCluster</a>.
      *         </p>
      *         <p>
@@ -3298,28 +3162,28 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
-     * false.
+     * True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
+     * otherwise false.
      * </p>
      * <p>
      * You can enable IAM database authentication for the following database engines
      * </p>
      * <p>
-     * Not applicable. Mapping AWS IAM accounts to database accounts is managed by the DB cluster. For more information,
-     * see <a>ModifyDBCluster</a>.
+     * Not applicable. Mapping Amazon IAM accounts to database accounts is managed by the DB cluster. For more
+     * information, see <a>ModifyDBCluster</a>.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
      * @param enableIAMDatabaseAuthentication
-     *        True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and
+     *        True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
      *        otherwise false.</p>
      *        <p>
      *        You can enable IAM database authentication for the following database engines
      *        </p>
      *        <p>
-     *        Not applicable. Mapping AWS IAM accounts to database accounts is managed by the DB cluster. For more
+     *        Not applicable. Mapping Amazon IAM accounts to database accounts is managed by the DB cluster. For more
      *        information, see <a>ModifyDBCluster</a>.
      *        </p>
      *        <p>
@@ -3334,27 +3198,27 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
-     * false.
+     * True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
+     * otherwise false.
      * </p>
      * <p>
      * You can enable IAM database authentication for the following database engines
      * </p>
      * <p>
-     * Not applicable. Mapping AWS IAM accounts to database accounts is managed by the DB cluster. For more information,
-     * see <a>ModifyDBCluster</a>.
+     * Not applicable. Mapping Amazon IAM accounts to database accounts is managed by the DB cluster. For more
+     * information, see <a>ModifyDBCluster</a>.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
-     * @return True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and
+     * @return True to enable mapping of Amazon Identity and Access Management (IAM) accounts to database accounts, and
      *         otherwise false.</p>
      *         <p>
      *         You can enable IAM database authentication for the following database engines
      *         </p>
      *         <p>
-     *         Not applicable. Mapping AWS IAM accounts to database accounts is managed by the DB cluster. For more
+     *         Not applicable. Mapping Amazon IAM accounts to database accounts is managed by the DB cluster. For more
      *         information, see <a>ModifyDBCluster</a>.
      *         </p>
      *         <p>
@@ -3367,11 +3231,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Not supported.
+     * <i>(Not supported by Neptune)</i>
      * </p>
      * 
      * @param enablePerformanceInsights
-     *        Not supported.
+     *        <i>(Not supported by Neptune)</i>
      */
 
     public void setEnablePerformanceInsights(Boolean enablePerformanceInsights) {
@@ -3380,10 +3244,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Not supported.
+     * <i>(Not supported by Neptune)</i>
      * </p>
      * 
-     * @return Not supported.
+     * @return <i>(Not supported by Neptune)</i>
      */
 
     public Boolean getEnablePerformanceInsights() {
@@ -3392,11 +3256,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Not supported.
+     * <i>(Not supported by Neptune)</i>
      * </p>
      * 
      * @param enablePerformanceInsights
-     *        Not supported.
+     *        <i>(Not supported by Neptune)</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3407,10 +3271,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Not supported.
+     * <i>(Not supported by Neptune)</i>
      * </p>
      * 
-     * @return Not supported.
+     * @return <i>(Not supported by Neptune)</i>
      */
 
     public Boolean isEnablePerformanceInsights() {
@@ -3419,11 +3283,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Not supported.
+     * <i>(Not supported by Neptune)</i>
      * </p>
      * 
      * @param performanceInsightsKMSKeyId
-     *        Not supported.
+     *        <i>(Not supported by Neptune)</i>
      */
 
     public void setPerformanceInsightsKMSKeyId(String performanceInsightsKMSKeyId) {
@@ -3432,10 +3296,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Not supported.
+     * <i>(Not supported by Neptune)</i>
      * </p>
      * 
-     * @return Not supported.
+     * @return <i>(Not supported by Neptune)</i>
      */
 
     public String getPerformanceInsightsKMSKeyId() {
@@ -3444,11 +3308,11 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Not supported.
+     * <i>(Not supported by Neptune)</i>
      * </p>
      * 
      * @param performanceInsightsKMSKeyId
-     *        Not supported.
+     *        <i>(Not supported by Neptune)</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -3501,6 +3365,82 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
     public ModifyDBInstanceRequest withCloudwatchLogsExportConfiguration(CloudwatchLogsExportConfiguration cloudwatchLogsExportConfiguration) {
         setCloudwatchLogsExportConfiguration(cloudwatchLogsExportConfiguration);
         return this;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted
+     * when deletion protection is enabled. By default, deletion protection is disabled. See <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/manage-console-instances-delete.html">Deleting a DB
+     * Instance</a>.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        A value that indicates whether the DB instance has deletion protection enabled. The database can't be
+     *        deleted when deletion protection is enabled. By default, deletion protection is disabled. See <a
+     *        href="https://docs.aws.amazon.com/neptune/latest/userguide/manage-console-instances-delete.html">Deleting
+     *        a DB Instance</a>.
+     */
+
+    public void setDeletionProtection(Boolean deletionProtection) {
+        this.deletionProtection = deletionProtection;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted
+     * when deletion protection is enabled. By default, deletion protection is disabled. See <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/manage-console-instances-delete.html">Deleting a DB
+     * Instance</a>.
+     * </p>
+     * 
+     * @return A value that indicates whether the DB instance has deletion protection enabled. The database can't be
+     *         deleted when deletion protection is enabled. By default, deletion protection is disabled. See <a
+     *         href="https://docs.aws.amazon.com/neptune/latest/userguide/manage-console-instances-delete.html">Deleting
+     *         a DB Instance</a>.
+     */
+
+    public Boolean getDeletionProtection() {
+        return this.deletionProtection;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted
+     * when deletion protection is enabled. By default, deletion protection is disabled. See <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/manage-console-instances-delete.html">Deleting a DB
+     * Instance</a>.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        A value that indicates whether the DB instance has deletion protection enabled. The database can't be
+     *        deleted when deletion protection is enabled. By default, deletion protection is disabled. See <a
+     *        href="https://docs.aws.amazon.com/neptune/latest/userguide/manage-console-instances-delete.html">Deleting
+     *        a DB Instance</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifyDBInstanceRequest withDeletionProtection(Boolean deletionProtection) {
+        setDeletionProtection(deletionProtection);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted
+     * when deletion protection is enabled. By default, deletion protection is disabled. See <a
+     * href="https://docs.aws.amazon.com/neptune/latest/userguide/manage-console-instances-delete.html">Deleting a DB
+     * Instance</a>.
+     * </p>
+     * 
+     * @return A value that indicates whether the DB instance has deletion protection enabled. The database can't be
+     *         deleted when deletion protection is enabled. By default, deletion protection is disabled. See <a
+     *         href="https://docs.aws.amazon.com/neptune/latest/userguide/manage-console-instances-delete.html">Deleting
+     *         a DB Instance</a>.
+     */
+
+    public Boolean isDeletionProtection() {
+        return this.deletionProtection;
     }
 
     /**
@@ -3560,7 +3500,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
         if (getTdeCredentialArn() != null)
             sb.append("TdeCredentialArn: ").append(getTdeCredentialArn()).append(",");
         if (getTdeCredentialPassword() != null)
-            sb.append("TdeCredentialPassword: ").append(getTdeCredentialPassword()).append(",");
+            sb.append("TdeCredentialPassword: ").append("***Sensitive Data Redacted***").append(",");
         if (getCACertificateIdentifier() != null)
             sb.append("CACertificateIdentifier: ").append(getCACertificateIdentifier()).append(",");
         if (getDomain() != null)
@@ -3586,7 +3526,9 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
         if (getPerformanceInsightsKMSKeyId() != null)
             sb.append("PerformanceInsightsKMSKeyId: ").append(getPerformanceInsightsKMSKeyId()).append(",");
         if (getCloudwatchLogsExportConfiguration() != null)
-            sb.append("CloudwatchLogsExportConfiguration: ").append(getCloudwatchLogsExportConfiguration());
+            sb.append("CloudwatchLogsExportConfiguration: ").append(getCloudwatchLogsExportConfiguration()).append(",");
+        if (getDeletionProtection() != null)
+            sb.append("DeletionProtection: ").append(getDeletionProtection());
         sb.append("}");
         return sb.toString();
     }
@@ -3747,6 +3689,10 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
         if (other.getCloudwatchLogsExportConfiguration() != null
                 && other.getCloudwatchLogsExportConfiguration().equals(this.getCloudwatchLogsExportConfiguration()) == false)
             return false;
+        if (other.getDeletionProtection() == null ^ this.getDeletionProtection() == null)
+            return false;
+        if (other.getDeletionProtection() != null && other.getDeletionProtection().equals(this.getDeletionProtection()) == false)
+            return false;
         return true;
     }
 
@@ -3791,6 +3737,7 @@ public class ModifyDBInstanceRequest extends com.amazonaws.AmazonWebServiceReque
         hashCode = prime * hashCode + ((getEnablePerformanceInsights() == null) ? 0 : getEnablePerformanceInsights().hashCode());
         hashCode = prime * hashCode + ((getPerformanceInsightsKMSKeyId() == null) ? 0 : getPerformanceInsightsKMSKeyId().hashCode());
         hashCode = prime * hashCode + ((getCloudwatchLogsExportConfiguration() == null) ? 0 : getCloudwatchLogsExportConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getDeletionProtection() == null) ? 0 : getDeletionProtection().hashCode());
         return hashCode;
     }
 

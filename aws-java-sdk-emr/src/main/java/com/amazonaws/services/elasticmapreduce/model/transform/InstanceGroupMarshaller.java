@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -62,6 +62,8 @@ public class InstanceGroupMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ShrinkPolicy").build();
     private static final MarshallingInfo<StructuredPojo> AUTOSCALINGPOLICY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AutoScalingPolicy").build();
+    private static final MarshallingInfo<String> CUSTOMAMIID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CustomAmiId").build();
 
     private static final InstanceGroupMarshaller instance = new InstanceGroupMarshaller();
 
@@ -96,6 +98,7 @@ public class InstanceGroupMarshaller {
             protocolMarshaller.marshall(instanceGroup.getEbsOptimized(), EBSOPTIMIZED_BINDING);
             protocolMarshaller.marshall(instanceGroup.getShrinkPolicy(), SHRINKPOLICY_BINDING);
             protocolMarshaller.marshall(instanceGroup.getAutoScalingPolicy(), AUTOSCALINGPOLICY_BINDING);
+            protocolMarshaller.marshall(instanceGroup.getCustomAmiId(), CUSTOMAMIID_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

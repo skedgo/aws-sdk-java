@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -47,6 +47,12 @@ public class CreateCrawlerRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TablePrefix").build();
     private static final MarshallingInfo<StructuredPojo> SCHEMACHANGEPOLICY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SchemaChangePolicy").build();
+    private static final MarshallingInfo<StructuredPojo> RECRAWLPOLICY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RecrawlPolicy").build();
+    private static final MarshallingInfo<StructuredPojo> LINEAGECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LineageConfiguration").build();
+    private static final MarshallingInfo<StructuredPojo> LAKEFORMATIONCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LakeFormationConfiguration").build();
     private static final MarshallingInfo<String> CONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Configuration").build();
     private static final MarshallingInfo<String> CRAWLERSECURITYCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -79,6 +85,9 @@ public class CreateCrawlerRequestMarshaller {
             protocolMarshaller.marshall(createCrawlerRequest.getClassifiers(), CLASSIFIERS_BINDING);
             protocolMarshaller.marshall(createCrawlerRequest.getTablePrefix(), TABLEPREFIX_BINDING);
             protocolMarshaller.marshall(createCrawlerRequest.getSchemaChangePolicy(), SCHEMACHANGEPOLICY_BINDING);
+            protocolMarshaller.marshall(createCrawlerRequest.getRecrawlPolicy(), RECRAWLPOLICY_BINDING);
+            protocolMarshaller.marshall(createCrawlerRequest.getLineageConfiguration(), LINEAGECONFIGURATION_BINDING);
+            protocolMarshaller.marshall(createCrawlerRequest.getLakeFormationConfiguration(), LAKEFORMATIONCONFIGURATION_BINDING);
             protocolMarshaller.marshall(createCrawlerRequest.getConfiguration(), CONFIGURATION_BINDING);
             protocolMarshaller.marshall(createCrawlerRequest.getCrawlerSecurityConfiguration(), CRAWLERSECURITYCONFIGURATION_BINDING);
             protocolMarshaller.marshall(createCrawlerRequest.getTags(), TAGS_BINDING);

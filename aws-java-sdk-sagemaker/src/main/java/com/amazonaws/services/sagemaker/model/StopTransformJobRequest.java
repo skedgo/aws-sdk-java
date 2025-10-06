@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,18 @@ public class StopTransformJobRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The name of the transform job to stop.
+     * The name of the batch transform job to stop.
      * </p>
      */
     private String transformJobName;
 
     /**
      * <p>
-     * The name of the transform job to stop.
+     * The name of the batch transform job to stop.
      * </p>
      * 
      * @param transformJobName
-     *        The name of the transform job to stop.
+     *        The name of the batch transform job to stop.
      */
 
     public void setTransformJobName(String transformJobName) {
@@ -47,10 +47,10 @@ public class StopTransformJobRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The name of the transform job to stop.
+     * The name of the batch transform job to stop.
      * </p>
      * 
-     * @return The name of the transform job to stop.
+     * @return The name of the batch transform job to stop.
      */
 
     public String getTransformJobName() {
@@ -59,11 +59,11 @@ public class StopTransformJobRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The name of the transform job to stop.
+     * The name of the batch transform job to stop.
      * </p>
      * 
      * @param transformJobName
-     *        The name of the transform job to stop.
+     *        The name of the batch transform job to stop.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

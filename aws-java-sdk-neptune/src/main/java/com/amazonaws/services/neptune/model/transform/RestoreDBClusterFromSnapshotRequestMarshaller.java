@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -118,13 +118,15 @@ public class RestoreDBClusterFromSnapshotRequestMarshaller implements
                 int tagsListIndex = 1;
 
                 for (Tag tagsListValue : tagsList) {
+                    if (tagsListValue != null) {
 
-                    if (tagsListValue.getKey() != null) {
-                        request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
-                    }
+                        if (tagsListValue.getKey() != null) {
+                            request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
+                        }
 
-                    if (tagsListValue.getValue() != null) {
-                        request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                        if (tagsListValue.getValue() != null) {
+                            request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                        }
                     }
                     tagsListIndex++;
                 }
@@ -159,6 +161,34 @@ public class RestoreDBClusterFromSnapshotRequestMarshaller implements
 
         if (restoreDBClusterFromSnapshotRequest.getDBClusterParameterGroupName() != null) {
             request.addParameter("DBClusterParameterGroupName", StringUtils.fromString(restoreDBClusterFromSnapshotRequest.getDBClusterParameterGroupName()));
+        }
+
+        if (restoreDBClusterFromSnapshotRequest.getDeletionProtection() != null) {
+            request.addParameter("DeletionProtection", StringUtils.fromBoolean(restoreDBClusterFromSnapshotRequest.getDeletionProtection()));
+        }
+
+        if (restoreDBClusterFromSnapshotRequest.getCopyTagsToSnapshot() != null) {
+            request.addParameter("CopyTagsToSnapshot", StringUtils.fromBoolean(restoreDBClusterFromSnapshotRequest.getCopyTagsToSnapshot()));
+        }
+
+        {
+            ServerlessV2ScalingConfiguration serverlessV2ScalingConfiguration = restoreDBClusterFromSnapshotRequest.getServerlessV2ScalingConfiguration();
+            if (serverlessV2ScalingConfiguration != null) {
+
+                if (serverlessV2ScalingConfiguration.getMinCapacity() != null) {
+                    request.addParameter("ServerlessV2ScalingConfiguration.MinCapacity",
+                            StringUtils.fromDouble(serverlessV2ScalingConfiguration.getMinCapacity()));
+                }
+
+                if (serverlessV2ScalingConfiguration.getMaxCapacity() != null) {
+                    request.addParameter("ServerlessV2ScalingConfiguration.MaxCapacity",
+                            StringUtils.fromDouble(serverlessV2ScalingConfiguration.getMaxCapacity()));
+                }
+            }
+        }
+
+        if (restoreDBClusterFromSnapshotRequest.getStorageType() != null) {
+            request.addParameter("StorageType", StringUtils.fromString(restoreDBClusterFromSnapshotRequest.getStorageType()));
         }
 
         return request;

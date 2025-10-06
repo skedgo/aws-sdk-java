@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -75,6 +75,11 @@ public class InstanceAttributeStaxUnmarshaller implements Unmarshaller<InstanceA
                     continue;
                 }
 
+                if (context.testExpression("enclaveOptions", targetDepth)) {
+                    instanceAttribute.setEnclaveOptions(EnclaveOptionsStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("ebsOptimized/value", targetDepth)) {
                     instanceAttribute.setEbsOptimized(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
@@ -132,6 +137,11 @@ public class InstanceAttributeStaxUnmarshaller implements Unmarshaller<InstanceA
 
                 if (context.testExpression("userData/value", targetDepth)) {
                     instanceAttribute.setUserData(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("disableApiStop/value", targetDepth)) {
+                    instanceAttribute.setDisableApiStop(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -108,6 +108,14 @@ public class CreateDomainNameResultJsonUnmarshaller implements Unmarshaller<Crea
                     context.nextToken();
                     createDomainNameResult.setTags(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context
                             .getUnmarshaller(String.class)).unmarshall(context));
+                }
+                if (context.testExpression("mutualTlsAuthentication", targetDepth)) {
+                    context.nextToken();
+                    createDomainNameResult.setMutualTlsAuthentication(MutualTlsAuthenticationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ownershipVerificationCertificateArn", targetDepth)) {
+                    context.nextToken();
+                    createDomainNameResult.setOwnershipVerificationCertificateArn(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

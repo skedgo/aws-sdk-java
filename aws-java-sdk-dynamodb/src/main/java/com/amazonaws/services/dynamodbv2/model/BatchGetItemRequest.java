@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,8 +30,8 @@ public class BatchGetItemRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A map of one or more table names and, for each table, a map that describes one or more items to retrieve from
-     * that table. Each table name can be used only once per <code>BatchGetItem</code> request.
+     * A map of one or more table names or table ARNs and, for each table, a map that describes one or more items to
+     * retrieve from that table. Each table name or ARN can be used only once per <code>BatchGetItem</code> request.
      * </p>
      * <p>
      * Each element in the map of items to retrieve consists of the following:
@@ -163,8 +163,9 @@ public class BatchGetItemRequest extends com.amazonaws.AmazonWebServiceRequest i
      * initialize any additional object members.
      * 
      * @param requestItems
-     *        A map of one or more table names and, for each table, a map that describes one or more items to retrieve
-     *        from that table. Each table name can be used only once per <code>BatchGetItem</code> request.</p>
+     *        A map of one or more table names or table ARNs and, for each table, a map that describes one or more items
+     *        to retrieve from that table. Each table name or ARN can be used only once per <code>BatchGetItem</code>
+     *        request.</p>
      *        <p>
      *        Each element in the map of items to retrieve consists of the following:
      *        </p>
@@ -287,8 +288,9 @@ public class BatchGetItemRequest extends com.amazonaws.AmazonWebServiceRequest i
      * initialize any additional object members.
      * 
      * @param requestItems
-     *        A map of one or more table names and, for each table, a map that describes one or more items to retrieve
-     *        from that table. Each table name can be used only once per <code>BatchGetItem</code> request.</p>
+     *        A map of one or more table names or table ARNs and, for each table, a map that describes one or more items
+     *        to retrieve from that table. Each table name or ARN can be used only once per <code>BatchGetItem</code>
+     *        request.</p>
      *        <p>
      *        Each element in the map of items to retrieve consists of the following:
      *        </p>
@@ -413,8 +415,9 @@ public class BatchGetItemRequest extends com.amazonaws.AmazonWebServiceRequest i
      * initialize any additional object members.
      * 
      * @param requestItems
-     *        A map of one or more table names and, for each table, a map that describes one or more items to retrieve
-     *        from that table. Each table name can be used only once per <code>BatchGetItem</code> request.</p>
+     *        A map of one or more table names or table ARNs and, for each table, a map that describes one or more items
+     *        to retrieve from that table. Each table name or ARN can be used only once per <code>BatchGetItem</code>
+     *        request.</p>
      *        <p>
      *        Each element in the map of items to retrieve consists of the following:
      *        </p>
@@ -536,8 +539,8 @@ public class BatchGetItemRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A map of one or more table names and, for each table, a map that describes one or more items to retrieve from
-     * that table. Each table name can be used only once per <code>BatchGetItem</code> request.
+     * A map of one or more table names or table ARNs and, for each table, a map that describes one or more items to
+     * retrieve from that table. Each table name or ARN can be used only once per <code>BatchGetItem</code> request.
      * </p>
      * <p>
      * Each element in the map of items to retrieve consists of the following:
@@ -653,8 +656,9 @@ public class BatchGetItemRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </li>
      * </ul>
      * 
-     * @return A map of one or more table names and, for each table, a map that describes one or more items to retrieve
-     *         from that table. Each table name can be used only once per <code>BatchGetItem</code> request.</p>
+     * @return A map of one or more table names or table ARNs and, for each table, a map that describes one or more
+     *         items to retrieve from that table. Each table name or ARN can be used only once per
+     *         <code>BatchGetItem</code> request.</p>
      *         <p>
      *         Each element in the map of items to retrieve consists of the following:
      *         </p>
@@ -775,8 +779,8 @@ public class BatchGetItemRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A map of one or more table names and, for each table, a map that describes one or more items to retrieve from
-     * that table. Each table name can be used only once per <code>BatchGetItem</code> request.
+     * A map of one or more table names or table ARNs and, for each table, a map that describes one or more items to
+     * retrieve from that table. Each table name or ARN can be used only once per <code>BatchGetItem</code> request.
      * </p>
      * <p>
      * Each element in the map of items to retrieve consists of the following:
@@ -893,8 +897,9 @@ public class BatchGetItemRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </ul>
      * 
      * @param requestItems
-     *        A map of one or more table names and, for each table, a map that describes one or more items to retrieve
-     *        from that table. Each table name can be used only once per <code>BatchGetItem</code> request.</p>
+     *        A map of one or more table names or table ARNs and, for each table, a map that describes one or more items
+     *        to retrieve from that table. Each table name or ARN can be used only once per <code>BatchGetItem</code>
+     *        request.</p>
      *        <p>
      *        Each element in the map of items to retrieve consists of the following:
      *        </p>
@@ -1015,8 +1020,8 @@ public class BatchGetItemRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A map of one or more table names and, for each table, a map that describes one or more items to retrieve from
-     * that table. Each table name can be used only once per <code>BatchGetItem</code> request.
+     * A map of one or more table names or table ARNs and, for each table, a map that describes one or more items to
+     * retrieve from that table. Each table name or ARN can be used only once per <code>BatchGetItem</code> request.
      * </p>
      * <p>
      * Each element in the map of items to retrieve consists of the following:
@@ -1133,8 +1138,9 @@ public class BatchGetItemRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </ul>
      * 
      * @param requestItems
-     *        A map of one or more table names and, for each table, a map that describes one or more items to retrieve
-     *        from that table. Each table name can be used only once per <code>BatchGetItem</code> request.</p>
+     *        A map of one or more table names or table ARNs and, for each table, a map that describes one or more items
+     *        to retrieve from that table. Each table name or ARN can be used only once per <code>BatchGetItem</code>
+     *        request.</p>
      *        <p>
      *        Each element in the map of items to retrieve consists of the following:
      *        </p>
@@ -1254,6 +1260,13 @@ public class BatchGetItemRequest extends com.amazonaws.AmazonWebServiceRequest i
         setRequestItems(requestItems);
         return this;
     }
+
+    /**
+     * Add a single RequestItems entry
+     *
+     * @see BatchGetItemRequest#withRequestItems
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public BatchGetItemRequest addRequestItemsEntry(String key, KeysAndAttributes value) {
         if (null == this.requestItems) {

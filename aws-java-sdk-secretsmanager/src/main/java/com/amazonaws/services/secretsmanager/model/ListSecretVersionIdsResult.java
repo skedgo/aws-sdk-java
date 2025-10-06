@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,47 +25,37 @@ public class ListSecretVersionIdsResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The list of the currently available versions of the specified secret.
+     * A list of the versions of the secret.
      * </p>
      */
     private java.util.List<SecretVersionsListEntry> versions;
     /**
      * <p>
-     * If present in the response, this value indicates that there's more output available than what's included in the
-     * current response. This can occur even when the response includes no values at all, such as when you ask for a
-     * filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in a subsequent
-     * call to the operation to continue processing and get the next part of the output. You should repeat this until
-     * the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     * Secrets Manager includes this value if there's more output available than what is included in the current
+     * response. This can occur even when the response includes no values at all, such as when you ask for a filtered
+     * view of a long list. To get the next results, call <code>ListSecretVersionIds</code> again with this value.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the secret.
+     * The ARN of the secret.
      * </p>
-     * <note>
-     * <p>
-     * Secrets Manager automatically adds several random characters to the name at the end of the ARN when you initially
-     * create a secret. This affects only the ARN and not the actual friendly name. This ensures that if you create a
-     * new secret with the same name as an old secret that you previously deleted, then users with access to the old
-     * secret <i>don't</i> automatically get access to the new secret because the ARNs are different.
-     * </p>
-     * </note>
      */
     private String aRN;
     /**
      * <p>
-     * The friendly name of the secret.
+     * The name of the secret.
      * </p>
      */
     private String name;
 
     /**
      * <p>
-     * The list of the currently available versions of the specified secret.
+     * A list of the versions of the secret.
      * </p>
      * 
-     * @return The list of the currently available versions of the specified secret.
+     * @return A list of the versions of the secret.
      */
 
     public java.util.List<SecretVersionsListEntry> getVersions() {
@@ -74,11 +64,11 @@ public class ListSecretVersionIdsResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The list of the currently available versions of the specified secret.
+     * A list of the versions of the secret.
      * </p>
      * 
      * @param versions
-     *        The list of the currently available versions of the specified secret.
+     *        A list of the versions of the secret.
      */
 
     public void setVersions(java.util.Collection<SecretVersionsListEntry> versions) {
@@ -92,7 +82,7 @@ public class ListSecretVersionIdsResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The list of the currently available versions of the specified secret.
+     * A list of the versions of the secret.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -101,7 +91,7 @@ public class ListSecretVersionIdsResult extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param versions
-     *        The list of the currently available versions of the specified secret.
+     *        A list of the versions of the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -117,11 +107,11 @@ public class ListSecretVersionIdsResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The list of the currently available versions of the specified secret.
+     * A list of the versions of the secret.
      * </p>
      * 
      * @param versions
-     *        The list of the currently available versions of the specified secret.
+     *        A list of the versions of the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -132,20 +122,16 @@ public class ListSecretVersionIdsResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * If present in the response, this value indicates that there's more output available than what's included in the
-     * current response. This can occur even when the response includes no values at all, such as when you ask for a
-     * filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in a subsequent
-     * call to the operation to continue processing and get the next part of the output. You should repeat this until
-     * the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     * Secrets Manager includes this value if there's more output available than what is included in the current
+     * response. This can occur even when the response includes no values at all, such as when you ask for a filtered
+     * view of a long list. To get the next results, call <code>ListSecretVersionIds</code> again with this value.
      * </p>
      * 
      * @param nextToken
-     *        If present in the response, this value indicates that there's more output available than what's included
-     *        in the current response. This can occur even when the response includes no values at all, such as when you
-     *        ask for a filtered view of a very long list. Use this value in the <code>NextToken</code> request
-     *        parameter in a subsequent call to the operation to continue processing and get the next part of the
-     *        output. You should repeat this until the <code>NextToken</code> response element comes back empty (as
-     *        <code>null</code>).
+     *        Secrets Manager includes this value if there's more output available than what is included in the current
+     *        response. This can occur even when the response includes no values at all, such as when you ask for a
+     *        filtered view of a long list. To get the next results, call <code>ListSecretVersionIds</code> again with
+     *        this value.
      */
 
     public void setNextToken(String nextToken) {
@@ -154,19 +140,15 @@ public class ListSecretVersionIdsResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * If present in the response, this value indicates that there's more output available than what's included in the
-     * current response. This can occur even when the response includes no values at all, such as when you ask for a
-     * filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in a subsequent
-     * call to the operation to continue processing and get the next part of the output. You should repeat this until
-     * the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     * Secrets Manager includes this value if there's more output available than what is included in the current
+     * response. This can occur even when the response includes no values at all, such as when you ask for a filtered
+     * view of a long list. To get the next results, call <code>ListSecretVersionIds</code> again with this value.
      * </p>
      * 
-     * @return If present in the response, this value indicates that there's more output available than what's included
-     *         in the current response. This can occur even when the response includes no values at all, such as when
-     *         you ask for a filtered view of a very long list. Use this value in the <code>NextToken</code> request
-     *         parameter in a subsequent call to the operation to continue processing and get the next part of the
-     *         output. You should repeat this until the <code>NextToken</code> response element comes back empty (as
-     *         <code>null</code>).
+     * @return Secrets Manager includes this value if there's more output available than what is included in the current
+     *         response. This can occur even when the response includes no values at all, such as when you ask for a
+     *         filtered view of a long list. To get the next results, call <code>ListSecretVersionIds</code> again with
+     *         this value.
      */
 
     public String getNextToken() {
@@ -175,20 +157,16 @@ public class ListSecretVersionIdsResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * If present in the response, this value indicates that there's more output available than what's included in the
-     * current response. This can occur even when the response includes no values at all, such as when you ask for a
-     * filtered view of a very long list. Use this value in the <code>NextToken</code> request parameter in a subsequent
-     * call to the operation to continue processing and get the next part of the output. You should repeat this until
-     * the <code>NextToken</code> response element comes back empty (as <code>null</code>).
+     * Secrets Manager includes this value if there's more output available than what is included in the current
+     * response. This can occur even when the response includes no values at all, such as when you ask for a filtered
+     * view of a long list. To get the next results, call <code>ListSecretVersionIds</code> again with this value.
      * </p>
      * 
      * @param nextToken
-     *        If present in the response, this value indicates that there's more output available than what's included
-     *        in the current response. This can occur even when the response includes no values at all, such as when you
-     *        ask for a filtered view of a very long list. Use this value in the <code>NextToken</code> request
-     *        parameter in a subsequent call to the operation to continue processing and get the next part of the
-     *        output. You should repeat this until the <code>NextToken</code> response element comes back empty (as
-     *        <code>null</code>).
+     *        Secrets Manager includes this value if there's more output available than what is included in the current
+     *        response. This can occur even when the response includes no values at all, such as when you ask for a
+     *        filtered view of a long list. To get the next results, call <code>ListSecretVersionIds</code> again with
+     *        this value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -199,26 +177,11 @@ public class ListSecretVersionIdsResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the secret.
+     * The ARN of the secret.
      * </p>
-     * <note>
-     * <p>
-     * Secrets Manager automatically adds several random characters to the name at the end of the ARN when you initially
-     * create a secret. This affects only the ARN and not the actual friendly name. This ensures that if you create a
-     * new secret with the same name as an old secret that you previously deleted, then users with access to the old
-     * secret <i>don't</i> automatically get access to the new secret because the ARNs are different.
-     * </p>
-     * </note>
      * 
      * @param aRN
-     *        The Amazon Resource Name (ARN) for the secret.</p> <note>
-     *        <p>
-     *        Secrets Manager automatically adds several random characters to the name at the end of the ARN when you
-     *        initially create a secret. This affects only the ARN and not the actual friendly name. This ensures that
-     *        if you create a new secret with the same name as an old secret that you previously deleted, then users
-     *        with access to the old secret <i>don't</i> automatically get access to the new secret because the ARNs are
-     *        different.
-     *        </p>
+     *        The ARN of the secret.
      */
 
     public void setARN(String aRN) {
@@ -227,25 +190,10 @@ public class ListSecretVersionIdsResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the secret.
+     * The ARN of the secret.
      * </p>
-     * <note>
-     * <p>
-     * Secrets Manager automatically adds several random characters to the name at the end of the ARN when you initially
-     * create a secret. This affects only the ARN and not the actual friendly name. This ensures that if you create a
-     * new secret with the same name as an old secret that you previously deleted, then users with access to the old
-     * secret <i>don't</i> automatically get access to the new secret because the ARNs are different.
-     * </p>
-     * </note>
      * 
-     * @return The Amazon Resource Name (ARN) for the secret.</p> <note>
-     *         <p>
-     *         Secrets Manager automatically adds several random characters to the name at the end of the ARN when you
-     *         initially create a secret. This affects only the ARN and not the actual friendly name. This ensures that
-     *         if you create a new secret with the same name as an old secret that you previously deleted, then users
-     *         with access to the old secret <i>don't</i> automatically get access to the new secret because the ARNs
-     *         are different.
-     *         </p>
+     * @return The ARN of the secret.
      */
 
     public String getARN() {
@@ -254,26 +202,11 @@ public class ListSecretVersionIdsResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the secret.
+     * The ARN of the secret.
      * </p>
-     * <note>
-     * <p>
-     * Secrets Manager automatically adds several random characters to the name at the end of the ARN when you initially
-     * create a secret. This affects only the ARN and not the actual friendly name. This ensures that if you create a
-     * new secret with the same name as an old secret that you previously deleted, then users with access to the old
-     * secret <i>don't</i> automatically get access to the new secret because the ARNs are different.
-     * </p>
-     * </note>
      * 
      * @param aRN
-     *        The Amazon Resource Name (ARN) for the secret.</p> <note>
-     *        <p>
-     *        Secrets Manager automatically adds several random characters to the name at the end of the ARN when you
-     *        initially create a secret. This affects only the ARN and not the actual friendly name. This ensures that
-     *        if you create a new secret with the same name as an old secret that you previously deleted, then users
-     *        with access to the old secret <i>don't</i> automatically get access to the new secret because the ARNs are
-     *        different.
-     *        </p>
+     *        The ARN of the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -284,11 +217,11 @@ public class ListSecretVersionIdsResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The friendly name of the secret.
+     * The name of the secret.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret.
+     *        The name of the secret.
      */
 
     public void setName(String name) {
@@ -297,10 +230,10 @@ public class ListSecretVersionIdsResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The friendly name of the secret.
+     * The name of the secret.
      * </p>
      * 
-     * @return The friendly name of the secret.
+     * @return The name of the secret.
      */
 
     public String getName() {
@@ -309,11 +242,11 @@ public class ListSecretVersionIdsResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The friendly name of the secret.
+     * The name of the secret.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret.
+     *        The name of the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

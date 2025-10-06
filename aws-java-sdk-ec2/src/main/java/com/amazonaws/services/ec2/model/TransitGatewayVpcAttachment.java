@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,13 +46,13 @@ public class TransitGatewayVpcAttachment implements Serializable, Cloneable {
     private String vpcId;
     /**
      * <p>
-     * The ID of the AWS account that owns the VPC.
+     * The ID of the Amazon Web Services account that owns the VPC.
      * </p>
      */
     private String vpcOwnerId;
     /**
      * <p>
-     * The state of the VPC attachment.
+     * The state of the VPC attachment. Note that the <code>initiating</code> state has been deprecated.
      * </p>
      */
     private String state;
@@ -203,11 +203,11 @@ public class TransitGatewayVpcAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the VPC.
+     * The ID of the Amazon Web Services account that owns the VPC.
      * </p>
      * 
      * @param vpcOwnerId
-     *        The ID of the AWS account that owns the VPC.
+     *        The ID of the Amazon Web Services account that owns the VPC.
      */
 
     public void setVpcOwnerId(String vpcOwnerId) {
@@ -216,10 +216,10 @@ public class TransitGatewayVpcAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the VPC.
+     * The ID of the Amazon Web Services account that owns the VPC.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the VPC.
+     * @return The ID of the Amazon Web Services account that owns the VPC.
      */
 
     public String getVpcOwnerId() {
@@ -228,11 +228,11 @@ public class TransitGatewayVpcAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the VPC.
+     * The ID of the Amazon Web Services account that owns the VPC.
      * </p>
      * 
      * @param vpcOwnerId
-     *        The ID of the AWS account that owns the VPC.
+     *        The ID of the Amazon Web Services account that owns the VPC.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -243,11 +243,11 @@ public class TransitGatewayVpcAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The state of the VPC attachment.
+     * The state of the VPC attachment. Note that the <code>initiating</code> state has been deprecated.
      * </p>
      * 
      * @param state
-     *        The state of the VPC attachment.
+     *        The state of the VPC attachment. Note that the <code>initiating</code> state has been deprecated.
      * @see TransitGatewayAttachmentState
      */
 
@@ -257,10 +257,10 @@ public class TransitGatewayVpcAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The state of the VPC attachment.
+     * The state of the VPC attachment. Note that the <code>initiating</code> state has been deprecated.
      * </p>
      * 
-     * @return The state of the VPC attachment.
+     * @return The state of the VPC attachment. Note that the <code>initiating</code> state has been deprecated.
      * @see TransitGatewayAttachmentState
      */
 
@@ -270,11 +270,11 @@ public class TransitGatewayVpcAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The state of the VPC attachment.
+     * The state of the VPC attachment. Note that the <code>initiating</code> state has been deprecated.
      * </p>
      * 
      * @param state
-     *        The state of the VPC attachment.
+     *        The state of the VPC attachment. Note that the <code>initiating</code> state has been deprecated.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TransitGatewayAttachmentState
      */
@@ -286,11 +286,11 @@ public class TransitGatewayVpcAttachment implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The state of the VPC attachment.
+     * The state of the VPC attachment. Note that the <code>initiating</code> state has been deprecated.
      * </p>
      * 
      * @param state
-     *        The state of the VPC attachment.
+     *        The state of the VPC attachment. Note that the <code>initiating</code> state has been deprecated.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TransitGatewayAttachmentState
      */

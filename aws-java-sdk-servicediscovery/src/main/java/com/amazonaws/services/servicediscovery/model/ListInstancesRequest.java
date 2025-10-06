@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,9 +44,8 @@ public class ListInstancesRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String nextToken;
     /**
      * <p>
-     * The maximum number of instances that you want AWS Cloud Map to return in the response to a
-     * <code>ListInstances</code> request. If you don't specify a value for <code>MaxResults</code>, AWS Cloud Map
-     * returns up to 100 instances.
+     * The maximum number of instances that you want Cloud Map to return in the response to a <code>ListInstances</code>
+     * request. If you don't specify a value for <code>MaxResults</code>, Cloud Map returns up to 100 instances.
      * </p>
      */
     private Integer maxResults;
@@ -160,15 +159,14 @@ public class ListInstancesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The maximum number of instances that you want AWS Cloud Map to return in the response to a
-     * <code>ListInstances</code> request. If you don't specify a value for <code>MaxResults</code>, AWS Cloud Map
-     * returns up to 100 instances.
+     * The maximum number of instances that you want Cloud Map to return in the response to a <code>ListInstances</code>
+     * request. If you don't specify a value for <code>MaxResults</code>, Cloud Map returns up to 100 instances.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of instances that you want AWS Cloud Map to return in the response to a
-     *        <code>ListInstances</code> request. If you don't specify a value for <code>MaxResults</code>, AWS Cloud
-     *        Map returns up to 100 instances.
+     *        The maximum number of instances that you want Cloud Map to return in the response to a
+     *        <code>ListInstances</code> request. If you don't specify a value for <code>MaxResults</code>, Cloud Map
+     *        returns up to 100 instances.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -177,14 +175,13 @@ public class ListInstancesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The maximum number of instances that you want AWS Cloud Map to return in the response to a
-     * <code>ListInstances</code> request. If you don't specify a value for <code>MaxResults</code>, AWS Cloud Map
-     * returns up to 100 instances.
+     * The maximum number of instances that you want Cloud Map to return in the response to a <code>ListInstances</code>
+     * request. If you don't specify a value for <code>MaxResults</code>, Cloud Map returns up to 100 instances.
      * </p>
      * 
-     * @return The maximum number of instances that you want AWS Cloud Map to return in the response to a
-     *         <code>ListInstances</code> request. If you don't specify a value for <code>MaxResults</code>, AWS Cloud
-     *         Map returns up to 100 instances.
+     * @return The maximum number of instances that you want Cloud Map to return in the response to a
+     *         <code>ListInstances</code> request. If you don't specify a value for <code>MaxResults</code>, Cloud Map
+     *         returns up to 100 instances.
      */
 
     public Integer getMaxResults() {
@@ -193,15 +190,14 @@ public class ListInstancesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The maximum number of instances that you want AWS Cloud Map to return in the response to a
-     * <code>ListInstances</code> request. If you don't specify a value for <code>MaxResults</code>, AWS Cloud Map
-     * returns up to 100 instances.
+     * The maximum number of instances that you want Cloud Map to return in the response to a <code>ListInstances</code>
+     * request. If you don't specify a value for <code>MaxResults</code>, Cloud Map returns up to 100 instances.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of instances that you want AWS Cloud Map to return in the response to a
-     *        <code>ListInstances</code> request. If you don't specify a value for <code>MaxResults</code>, AWS Cloud
-     *        Map returns up to 100 instances.
+     *        The maximum number of instances that you want Cloud Map to return in the response to a
+     *        <code>ListInstances</code> request. If you don't specify a value for <code>MaxResults</code>, Cloud Map
+     *        returns up to 100 instances.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

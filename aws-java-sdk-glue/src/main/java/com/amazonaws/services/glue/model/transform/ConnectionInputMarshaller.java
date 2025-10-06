@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,6 +41,10 @@ public class ConnectionInputMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ConnectionProperties").build();
     private static final MarshallingInfo<StructuredPojo> PHYSICALCONNECTIONREQUIREMENTS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PhysicalConnectionRequirements").build();
+    private static final MarshallingInfo<StructuredPojo> AUTHENTICATIONCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AuthenticationConfiguration").build();
+    private static final MarshallingInfo<Boolean> VALIDATECREDENTIALS_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ValidateCredentials").build();
 
     private static final ConnectionInputMarshaller instance = new ConnectionInputMarshaller();
 
@@ -64,6 +68,8 @@ public class ConnectionInputMarshaller {
             protocolMarshaller.marshall(connectionInput.getMatchCriteria(), MATCHCRITERIA_BINDING);
             protocolMarshaller.marshall(connectionInput.getConnectionProperties(), CONNECTIONPROPERTIES_BINDING);
             protocolMarshaller.marshall(connectionInput.getPhysicalConnectionRequirements(), PHYSICALCONNECTIONREQUIREMENTS_BINDING);
+            protocolMarshaller.marshall(connectionInput.getAuthenticationConfiguration(), AUTHENTICATIONCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(connectionInput.getValidateCredentials(), VALIDATECREDENTIALS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

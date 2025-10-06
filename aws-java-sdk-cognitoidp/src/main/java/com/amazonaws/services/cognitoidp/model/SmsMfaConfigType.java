@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,24 +30,33 @@ public class SmsMfaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The SMS authentication message.
+     * The SMS authentication message that will be sent to users with the code they must sign in. The message must
+     * contain the ‘{####}’ placeholder, which is replaced with the code. If the message isn't included, and default
+     * message will be used.
      * </p>
      */
     private String smsAuthenticationMessage;
     /**
      * <p>
-     * The SMS configuration.
+     * The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message from
+     * your Amazon Web Services account through Amazon Simple Notification Service. To request Amazon SNS in the Amazon
+     * Web Services Region that you want, the Amazon Cognito user pool uses an Identity and Access Management (IAM) role
+     * that you provide for your Amazon Web Services account.
      * </p>
      */
     private SmsConfigurationType smsConfiguration;
 
     /**
      * <p>
-     * The SMS authentication message.
+     * The SMS authentication message that will be sent to users with the code they must sign in. The message must
+     * contain the ‘{####}’ placeholder, which is replaced with the code. If the message isn't included, and default
+     * message will be used.
      * </p>
      * 
      * @param smsAuthenticationMessage
-     *        The SMS authentication message.
+     *        The SMS authentication message that will be sent to users with the code they must sign in. The message
+     *        must contain the ‘{####}’ placeholder, which is replaced with the code. If the message isn't included, and
+     *        default message will be used.
      */
 
     public void setSmsAuthenticationMessage(String smsAuthenticationMessage) {
@@ -56,10 +65,14 @@ public class SmsMfaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The SMS authentication message.
+     * The SMS authentication message that will be sent to users with the code they must sign in. The message must
+     * contain the ‘{####}’ placeholder, which is replaced with the code. If the message isn't included, and default
+     * message will be used.
      * </p>
      * 
-     * @return The SMS authentication message.
+     * @return The SMS authentication message that will be sent to users with the code they must sign in. The message
+     *         must contain the ‘{####}’ placeholder, which is replaced with the code. If the message isn't included,
+     *         and default message will be used.
      */
 
     public String getSmsAuthenticationMessage() {
@@ -68,11 +81,15 @@ public class SmsMfaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The SMS authentication message.
+     * The SMS authentication message that will be sent to users with the code they must sign in. The message must
+     * contain the ‘{####}’ placeholder, which is replaced with the code. If the message isn't included, and default
+     * message will be used.
      * </p>
      * 
      * @param smsAuthenticationMessage
-     *        The SMS authentication message.
+     *        The SMS authentication message that will be sent to users with the code they must sign in. The message
+     *        must contain the ‘{####}’ placeholder, which is replaced with the code. If the message isn't included, and
+     *        default message will be used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -83,11 +100,17 @@ public class SmsMfaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The SMS configuration.
+     * The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message from
+     * your Amazon Web Services account through Amazon Simple Notification Service. To request Amazon SNS in the Amazon
+     * Web Services Region that you want, the Amazon Cognito user pool uses an Identity and Access Management (IAM) role
+     * that you provide for your Amazon Web Services account.
      * </p>
      * 
      * @param smsConfiguration
-     *        The SMS configuration.
+     *        The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message
+     *        from your Amazon Web Services account through Amazon Simple Notification Service. To request Amazon SNS in
+     *        the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an Identity and Access
+     *        Management (IAM) role that you provide for your Amazon Web Services account.
      */
 
     public void setSmsConfiguration(SmsConfigurationType smsConfiguration) {
@@ -96,10 +119,16 @@ public class SmsMfaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The SMS configuration.
+     * The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message from
+     * your Amazon Web Services account through Amazon Simple Notification Service. To request Amazon SNS in the Amazon
+     * Web Services Region that you want, the Amazon Cognito user pool uses an Identity and Access Management (IAM) role
+     * that you provide for your Amazon Web Services account.
      * </p>
      * 
-     * @return The SMS configuration.
+     * @return The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS
+     *         message from your Amazon Web Services account through Amazon Simple Notification Service. To request
+     *         Amazon SNS in the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an Identity
+     *         and Access Management (IAM) role that you provide for your Amazon Web Services account.
      */
 
     public SmsConfigurationType getSmsConfiguration() {
@@ -108,11 +137,17 @@ public class SmsMfaConfigType implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The SMS configuration.
+     * The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message from
+     * your Amazon Web Services account through Amazon Simple Notification Service. To request Amazon SNS in the Amazon
+     * Web Services Region that you want, the Amazon Cognito user pool uses an Identity and Access Management (IAM) role
+     * that you provide for your Amazon Web Services account.
      * </p>
      * 
      * @param smsConfiguration
-     *        The SMS configuration.
+     *        The SMS configuration with the settings that your Amazon Cognito user pool must use to send an SMS message
+     *        from your Amazon Web Services account through Amazon Simple Notification Service. To request Amazon SNS in
+     *        the Amazon Web Services Region that you want, the Amazon Cognito user pool uses an Identity and Access
+     *        Management (IAM) role that you provide for your Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

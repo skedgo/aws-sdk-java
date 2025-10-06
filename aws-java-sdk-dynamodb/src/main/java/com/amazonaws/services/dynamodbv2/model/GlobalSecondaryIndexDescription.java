@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,7 +54,7 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      * <note>
      * <p>
      * The partition key of an item is also known as its <i>hash attribute</i>. The term "hash attribute" derives from
-     * DynamoDB' usage of an internal hash function to evenly distribute data items across partitions, based on their
+     * DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their
      * partition key values.
      * </p>
      * <p>
@@ -107,6 +107,11 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      * partition key cannot have any duplicate values.) If an item can be added to the index, DynamoDB will do so. After
      * all items have been processed, the backfilling operation is complete and <code>Backfilling</code> is false.
      * </p>
+     * <p>
+     * You can delete an index that is being created during the <code>Backfilling</code> phase when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is true. You can't delete the index that
+     * is being created when <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is false.
+     * </p>
      * <note>
      * <p>
      * For indexes that were created during a <code>CreateTable</code> operation, the <code>Backfilling</code> attribute
@@ -121,8 +126,8 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      * </p>
      * <p>
      * For current minimum and maximum provisioned throughput values, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the <i>Amazon
-     * DynamoDB Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and Table
+     * Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      */
     private ProvisionedThroughputDescription provisionedThroughput;
@@ -146,6 +151,13 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      * </p>
      */
     private String indexArn;
+    /**
+     * <p>
+     * The maximum number of read and write units for the specified global secondary index. If you use this parameter,
+     * you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.
+     * </p>
+     */
+    private OnDemandThroughput onDemandThroughput;
 
     /**
      * <p>
@@ -207,7 +219,7 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      * <note>
      * <p>
      * The partition key of an item is also known as its <i>hash attribute</i>. The term "hash attribute" derives from
-     * DynamoDB' usage of an internal hash function to evenly distribute data items across partitions, based on their
+     * DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their
      * partition key values.
      * </p>
      * <p>
@@ -234,7 +246,7 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      *         <note>
      *         <p>
      *         The partition key of an item is also known as its <i>hash attribute</i>. The term "hash attribute"
-     *         derives from DynamoDB' usage of an internal hash function to evenly distribute data items across
+     *         derives from DynamoDB's usage of an internal hash function to evenly distribute data items across
      *         partitions, based on their partition key values.
      *         </p>
      *         <p>
@@ -268,7 +280,7 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      * <note>
      * <p>
      * The partition key of an item is also known as its <i>hash attribute</i>. The term "hash attribute" derives from
-     * DynamoDB' usage of an internal hash function to evenly distribute data items across partitions, based on their
+     * DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their
      * partition key values.
      * </p>
      * <p>
@@ -296,8 +308,8 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      *        <note>
      *        <p>
      *        The partition key of an item is also known as its <i>hash attribute</i>. The term "hash attribute" derives
-     *        from DynamoDB' usage of an internal hash function to evenly distribute data items across partitions, based
-     *        on their partition key values.
+     *        from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions,
+     *        based on their partition key values.
      *        </p>
      *        <p>
      *        The sort key of an item is also known as its <i>range attribute</i>. The term "range attribute" derives
@@ -335,7 +347,7 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      * <note>
      * <p>
      * The partition key of an item is also known as its <i>hash attribute</i>. The term "hash attribute" derives from
-     * DynamoDB' usage of an internal hash function to evenly distribute data items across partitions, based on their
+     * DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their
      * partition key values.
      * </p>
      * <p>
@@ -368,8 +380,8 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      *        <note>
      *        <p>
      *        The partition key of an item is also known as its <i>hash attribute</i>. The term "hash attribute" derives
-     *        from DynamoDB' usage of an internal hash function to evenly distribute data items across partitions, based
-     *        on their partition key values.
+     *        from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions,
+     *        based on their partition key values.
      *        </p>
      *        <p>
      *        The sort key of an item is also known as its <i>range attribute</i>. The term "range attribute" derives
@@ -409,7 +421,7 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      * <note>
      * <p>
      * The partition key of an item is also known as its <i>hash attribute</i>. The term "hash attribute" derives from
-     * DynamoDB' usage of an internal hash function to evenly distribute data items across partitions, based on their
+     * DynamoDB's usage of an internal hash function to evenly distribute data items across partitions, based on their
      * partition key values.
      * </p>
      * <p>
@@ -437,8 +449,8 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      *        <note>
      *        <p>
      *        The partition key of an item is also known as its <i>hash attribute</i>. The term "hash attribute" derives
-     *        from DynamoDB' usage of an internal hash function to evenly distribute data items across partitions, based
-     *        on their partition key values.
+     *        from DynamoDB's usage of an internal hash function to evenly distribute data items across partitions,
+     *        based on their partition key values.
      *        </p>
      *        <p>
      *        The sort key of an item is also known as its <i>range attribute</i>. The term "range attribute" derives
@@ -795,6 +807,11 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      * partition key cannot have any duplicate values.) If an item can be added to the index, DynamoDB will do so. After
      * all items have been processed, the backfilling operation is complete and <code>Backfilling</code> is false.
      * </p>
+     * <p>
+     * You can delete an index that is being created during the <code>Backfilling</code> phase when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is true. You can't delete the index that
+     * is being created when <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is false.
+     * </p>
      * <note>
      * <p>
      * For indexes that were created during a <code>CreateTable</code> operation, the <code>Backfilling</code> attribute
@@ -807,7 +824,14 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      *        from the table and determining whether they can be added to the index. (Not all items will qualify: For
      *        example, a partition key cannot have any duplicate values.) If an item can be added to the index, DynamoDB
      *        will do so. After all items have been processed, the backfilling operation is complete and
-     *        <code>Backfilling</code> is false.</p> <note>
+     *        <code>Backfilling</code> is false.</p>
+     *        <p>
+     *        You can delete an index that is being created during the <code>Backfilling</code> phase when
+     *        <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is true. You can't delete the
+     *        index that is being created when <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code>
+     *        is false.
+     *        </p>
+     *        <note>
      *        <p>
      *        For indexes that were created during a <code>CreateTable</code> operation, the <code>Backfilling</code>
      *        attribute does not appear in the <code>DescribeTable</code> output.
@@ -825,6 +849,11 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      * partition key cannot have any duplicate values.) If an item can be added to the index, DynamoDB will do so. After
      * all items have been processed, the backfilling operation is complete and <code>Backfilling</code> is false.
      * </p>
+     * <p>
+     * You can delete an index that is being created during the <code>Backfilling</code> phase when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is true. You can't delete the index that
+     * is being created when <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is false.
+     * </p>
      * <note>
      * <p>
      * For indexes that were created during a <code>CreateTable</code> operation, the <code>Backfilling</code> attribute
@@ -836,7 +865,14 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      *         from the table and determining whether they can be added to the index. (Not all items will qualify: For
      *         example, a partition key cannot have any duplicate values.) If an item can be added to the index,
      *         DynamoDB will do so. After all items have been processed, the backfilling operation is complete and
-     *         <code>Backfilling</code> is false.</p> <note>
+     *         <code>Backfilling</code> is false.</p>
+     *         <p>
+     *         You can delete an index that is being created during the <code>Backfilling</code> phase when
+     *         <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is true. You can't delete the
+     *         index that is being created when <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code>
+     *         is false.
+     *         </p>
+     *         <note>
      *         <p>
      *         For indexes that were created during a <code>CreateTable</code> operation, the <code>Backfilling</code>
      *         attribute does not appear in the <code>DescribeTable</code> output.
@@ -854,6 +890,11 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      * partition key cannot have any duplicate values.) If an item can be added to the index, DynamoDB will do so. After
      * all items have been processed, the backfilling operation is complete and <code>Backfilling</code> is false.
      * </p>
+     * <p>
+     * You can delete an index that is being created during the <code>Backfilling</code> phase when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is true. You can't delete the index that
+     * is being created when <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is false.
+     * </p>
      * <note>
      * <p>
      * For indexes that were created during a <code>CreateTable</code> operation, the <code>Backfilling</code> attribute
@@ -866,7 +907,14 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      *        from the table and determining whether they can be added to the index. (Not all items will qualify: For
      *        example, a partition key cannot have any duplicate values.) If an item can be added to the index, DynamoDB
      *        will do so. After all items have been processed, the backfilling operation is complete and
-     *        <code>Backfilling</code> is false.</p> <note>
+     *        <code>Backfilling</code> is false.</p>
+     *        <p>
+     *        You can delete an index that is being created during the <code>Backfilling</code> phase when
+     *        <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is true. You can't delete the
+     *        index that is being created when <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code>
+     *        is false.
+     *        </p>
+     *        <note>
      *        <p>
      *        For indexes that were created during a <code>CreateTable</code> operation, the <code>Backfilling</code>
      *        attribute does not appear in the <code>DescribeTable</code> output.
@@ -886,6 +934,11 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      * partition key cannot have any duplicate values.) If an item can be added to the index, DynamoDB will do so. After
      * all items have been processed, the backfilling operation is complete and <code>Backfilling</code> is false.
      * </p>
+     * <p>
+     * You can delete an index that is being created during the <code>Backfilling</code> phase when
+     * <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is true. You can't delete the index that
+     * is being created when <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is false.
+     * </p>
      * <note>
      * <p>
      * For indexes that were created during a <code>CreateTable</code> operation, the <code>Backfilling</code> attribute
@@ -897,7 +950,14 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      *         from the table and determining whether they can be added to the index. (Not all items will qualify: For
      *         example, a partition key cannot have any duplicate values.) If an item can be added to the index,
      *         DynamoDB will do so. After all items have been processed, the backfilling operation is complete and
-     *         <code>Backfilling</code> is false.</p> <note>
+     *         <code>Backfilling</code> is false.</p>
+     *         <p>
+     *         You can delete an index that is being created during the <code>Backfilling</code> phase when
+     *         <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code> is true. You can't delete the
+     *         index that is being created when <code>IndexStatus</code> is set to CREATING and <code>Backfilling</code>
+     *         is false.
+     *         </p>
+     *         <note>
      *         <p>
      *         For indexes that were created during a <code>CreateTable</code> operation, the <code>Backfilling</code>
      *         attribute does not appear in the <code>DescribeTable</code> output.
@@ -914,16 +974,16 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      * </p>
      * <p>
      * For current minimum and maximum provisioned throughput values, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the <i>Amazon
-     * DynamoDB Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and Table
+     * Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * 
      * @param provisionedThroughput
      *        Represents the provisioned throughput settings for the specified global secondary index.</p>
      *        <p>
      *        For current minimum and maximum provisioned throughput values, see <a
-     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the
-     *        <i>Amazon DynamoDB Developer Guide</i>.
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and
+     *        Table Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      */
 
     public void setProvisionedThroughput(ProvisionedThroughputDescription provisionedThroughput) {
@@ -936,15 +996,15 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      * </p>
      * <p>
      * For current minimum and maximum provisioned throughput values, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the <i>Amazon
-     * DynamoDB Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and Table
+     * Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * 
      * @return Represents the provisioned throughput settings for the specified global secondary index.</p>
      *         <p>
      *         For current minimum and maximum provisioned throughput values, see <a
-     *         href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the
-     *         <i>Amazon DynamoDB Developer Guide</i>.
+     *         href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and
+     *         Table Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      */
 
     public ProvisionedThroughputDescription getProvisionedThroughput() {
@@ -957,16 +1017,16 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
      * </p>
      * <p>
      * For current minimum and maximum provisioned throughput values, see <a
-     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the <i>Amazon
-     * DynamoDB Developer Guide</i>.
+     * href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and Table
+     * Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * 
      * @param provisionedThroughput
      *        Represents the provisioned throughput settings for the specified global secondary index.</p>
      *        <p>
      *        For current minimum and maximum provisioned throughput values, see <a
-     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Limits</a> in the
-     *        <i>Amazon DynamoDB Developer Guide</i>.
+     *        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html">Service, Account, and
+     *        Table Quotas</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1108,6 +1168,52 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
     }
 
     /**
+     * <p>
+     * The maximum number of read and write units for the specified global secondary index. If you use this parameter,
+     * you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.
+     * </p>
+     * 
+     * @param onDemandThroughput
+     *        The maximum number of read and write units for the specified global secondary index. If you use this
+     *        parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.
+     */
+
+    public void setOnDemandThroughput(OnDemandThroughput onDemandThroughput) {
+        this.onDemandThroughput = onDemandThroughput;
+    }
+
+    /**
+     * <p>
+     * The maximum number of read and write units for the specified global secondary index. If you use this parameter,
+     * you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.
+     * </p>
+     * 
+     * @return The maximum number of read and write units for the specified global secondary index. If you use this
+     *         parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.
+     */
+
+    public OnDemandThroughput getOnDemandThroughput() {
+        return this.onDemandThroughput;
+    }
+
+    /**
+     * <p>
+     * The maximum number of read and write units for the specified global secondary index. If you use this parameter,
+     * you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.
+     * </p>
+     * 
+     * @param onDemandThroughput
+     *        The maximum number of read and write units for the specified global secondary index. If you use this
+     *        parameter, you must specify <code>MaxReadRequestUnits</code>, <code>MaxWriteRequestUnits</code>, or both.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GlobalSecondaryIndexDescription withOnDemandThroughput(OnDemandThroughput onDemandThroughput) {
+        setOnDemandThroughput(onDemandThroughput);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1136,7 +1242,9 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
         if (getItemCount() != null)
             sb.append("ItemCount: ").append(getItemCount()).append(",");
         if (getIndexArn() != null)
-            sb.append("IndexArn: ").append(getIndexArn());
+            sb.append("IndexArn: ").append(getIndexArn()).append(",");
+        if (getOnDemandThroughput() != null)
+            sb.append("OnDemandThroughput: ").append(getOnDemandThroughput());
         sb.append("}");
         return sb.toString();
     }
@@ -1187,6 +1295,10 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
             return false;
         if (other.getIndexArn() != null && other.getIndexArn().equals(this.getIndexArn()) == false)
             return false;
+        if (other.getOnDemandThroughput() == null ^ this.getOnDemandThroughput() == null)
+            return false;
+        if (other.getOnDemandThroughput() != null && other.getOnDemandThroughput().equals(this.getOnDemandThroughput()) == false)
+            return false;
         return true;
     }
 
@@ -1204,6 +1316,7 @@ public class GlobalSecondaryIndexDescription implements Serializable, Cloneable,
         hashCode = prime * hashCode + ((getIndexSizeBytes() == null) ? 0 : getIndexSizeBytes().hashCode());
         hashCode = prime * hashCode + ((getItemCount() == null) ? 0 : getItemCount().hashCode());
         hashCode = prime * hashCode + ((getIndexArn() == null) ? 0 : getIndexArn().hashCode());
+        hashCode = prime * hashCode + ((getOnDemandThroughput() == null) ? 0 : getOnDemandThroughput().hashCode());
         return hashCode;
     }
 

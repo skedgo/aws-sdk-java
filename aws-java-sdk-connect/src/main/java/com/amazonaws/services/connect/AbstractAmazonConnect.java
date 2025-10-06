@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,12 +28,452 @@ public class AbstractAmazonConnect implements AmazonConnect {
     }
 
     @Override
+    public ActivateEvaluationFormResult activateEvaluationForm(ActivateEvaluationFormRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateAnalyticsDataSetResult associateAnalyticsDataSet(AssociateAnalyticsDataSetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateApprovedOriginResult associateApprovedOrigin(AssociateApprovedOriginRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateBotResult associateBot(AssociateBotRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateDefaultVocabularyResult associateDefaultVocabulary(AssociateDefaultVocabularyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateFlowResult associateFlow(AssociateFlowRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateInstanceStorageConfigResult associateInstanceStorageConfig(AssociateInstanceStorageConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateLambdaFunctionResult associateLambdaFunction(AssociateLambdaFunctionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateLexBotResult associateLexBot(AssociateLexBotRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociatePhoneNumberContactFlowResult associatePhoneNumberContactFlow(AssociatePhoneNumberContactFlowRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateQueueQuickConnectsResult associateQueueQuickConnects(AssociateQueueQuickConnectsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateRoutingProfileQueuesResult associateRoutingProfileQueues(AssociateRoutingProfileQueuesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateSecurityKeyResult associateSecurityKey(AssociateSecurityKeyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateTrafficDistributionGroupUserResult associateTrafficDistributionGroupUser(AssociateTrafficDistributionGroupUserRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateUserProficienciesResult associateUserProficiencies(AssociateUserProficienciesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public BatchAssociateAnalyticsDataSetResult batchAssociateAnalyticsDataSet(BatchAssociateAnalyticsDataSetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public BatchDisassociateAnalyticsDataSetResult batchDisassociateAnalyticsDataSet(BatchDisassociateAnalyticsDataSetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public BatchGetAttachedFileMetadataResult batchGetAttachedFileMetadata(BatchGetAttachedFileMetadataRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public BatchGetFlowAssociationResult batchGetFlowAssociation(BatchGetFlowAssociationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public BatchPutContactResult batchPutContact(BatchPutContactRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ClaimPhoneNumberResult claimPhoneNumber(ClaimPhoneNumberRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CompleteAttachedFileUploadResult completeAttachedFileUpload(CompleteAttachedFileUploadRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateAgentStatusResult createAgentStatus(CreateAgentStatusRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateContactFlowResult createContactFlow(CreateContactFlowRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateContactFlowModuleResult createContactFlowModule(CreateContactFlowModuleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateEvaluationFormResult createEvaluationForm(CreateEvaluationFormRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateHoursOfOperationResult createHoursOfOperation(CreateHoursOfOperationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateInstanceResult createInstance(CreateInstanceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateIntegrationAssociationResult createIntegrationAssociation(CreateIntegrationAssociationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateParticipantResult createParticipant(CreateParticipantRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreatePersistentContactAssociationResult createPersistentContactAssociation(CreatePersistentContactAssociationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreatePredefinedAttributeResult createPredefinedAttribute(CreatePredefinedAttributeRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreatePromptResult createPrompt(CreatePromptRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateQueueResult createQueue(CreateQueueRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateQuickConnectResult createQuickConnect(CreateQuickConnectRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateRoutingProfileResult createRoutingProfile(CreateRoutingProfileRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateRuleResult createRule(CreateRuleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateSecurityProfileResult createSecurityProfile(CreateSecurityProfileRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateTaskTemplateResult createTaskTemplate(CreateTaskTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateTrafficDistributionGroupResult createTrafficDistributionGroup(CreateTrafficDistributionGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateUseCaseResult createUseCase(CreateUseCaseRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateUserResult createUser(CreateUserRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public CreateUserHierarchyGroupResult createUserHierarchyGroup(CreateUserHierarchyGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateViewResult createView(CreateViewRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateViewVersionResult createViewVersion(CreateViewVersionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateVocabularyResult createVocabulary(CreateVocabularyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeactivateEvaluationFormResult deactivateEvaluationForm(DeactivateEvaluationFormRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteAttachedFileResult deleteAttachedFile(DeleteAttachedFileRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteContactEvaluationResult deleteContactEvaluation(DeleteContactEvaluationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteContactFlowResult deleteContactFlow(DeleteContactFlowRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteContactFlowModuleResult deleteContactFlowModule(DeleteContactFlowModuleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteEvaluationFormResult deleteEvaluationForm(DeleteEvaluationFormRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteHoursOfOperationResult deleteHoursOfOperation(DeleteHoursOfOperationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteInstanceResult deleteInstance(DeleteInstanceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteIntegrationAssociationResult deleteIntegrationAssociation(DeleteIntegrationAssociationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeletePredefinedAttributeResult deletePredefinedAttribute(DeletePredefinedAttributeRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeletePromptResult deletePrompt(DeletePromptRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteQueueResult deleteQueue(DeleteQueueRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteQuickConnectResult deleteQuickConnect(DeleteQuickConnectRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteRoutingProfileResult deleteRoutingProfile(DeleteRoutingProfileRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteRuleResult deleteRule(DeleteRuleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteSecurityProfileResult deleteSecurityProfile(DeleteSecurityProfileRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteTaskTemplateResult deleteTaskTemplate(DeleteTaskTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteTrafficDistributionGroupResult deleteTrafficDistributionGroup(DeleteTrafficDistributionGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteUseCaseResult deleteUseCase(DeleteUseCaseRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteUserResult deleteUser(DeleteUserRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteUserHierarchyGroupResult deleteUserHierarchyGroup(DeleteUserHierarchyGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteViewResult deleteView(DeleteViewRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteViewVersionResult deleteViewVersion(DeleteViewVersionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteVocabularyResult deleteVocabulary(DeleteVocabularyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeAgentStatusResult describeAgentStatus(DescribeAgentStatusRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeAuthenticationProfileResult describeAuthenticationProfile(DescribeAuthenticationProfileRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeContactResult describeContact(DescribeContactRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeContactEvaluationResult describeContactEvaluation(DescribeContactEvaluationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeContactFlowResult describeContactFlow(DescribeContactFlowRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeContactFlowModuleResult describeContactFlowModule(DescribeContactFlowModuleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeEvaluationFormResult describeEvaluationForm(DescribeEvaluationFormRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeHoursOfOperationResult describeHoursOfOperation(DescribeHoursOfOperationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeInstanceResult describeInstance(DescribeInstanceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeInstanceAttributeResult describeInstanceAttribute(DescribeInstanceAttributeRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeInstanceStorageConfigResult describeInstanceStorageConfig(DescribeInstanceStorageConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribePhoneNumberResult describePhoneNumber(DescribePhoneNumberRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribePredefinedAttributeResult describePredefinedAttribute(DescribePredefinedAttributeRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribePromptResult describePrompt(DescribePromptRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeQueueResult describeQueue(DescribeQueueRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeQuickConnectResult describeQuickConnect(DescribeQuickConnectRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeRoutingProfileResult describeRoutingProfile(DescribeRoutingProfileRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeRuleResult describeRule(DescribeRuleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeSecurityProfileResult describeSecurityProfile(DescribeSecurityProfileRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeTrafficDistributionGroupResult describeTrafficDistributionGroup(DescribeTrafficDistributionGroupRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -53,6 +493,91 @@ public class AbstractAmazonConnect implements AmazonConnect {
     }
 
     @Override
+    public DescribeViewResult describeView(DescribeViewRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeVocabularyResult describeVocabulary(DescribeVocabularyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateAnalyticsDataSetResult disassociateAnalyticsDataSet(DisassociateAnalyticsDataSetRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateApprovedOriginResult disassociateApprovedOrigin(DisassociateApprovedOriginRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateBotResult disassociateBot(DisassociateBotRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateFlowResult disassociateFlow(DisassociateFlowRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateInstanceStorageConfigResult disassociateInstanceStorageConfig(DisassociateInstanceStorageConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateLambdaFunctionResult disassociateLambdaFunction(DisassociateLambdaFunctionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateLexBotResult disassociateLexBot(DisassociateLexBotRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociatePhoneNumberContactFlowResult disassociatePhoneNumberContactFlow(DisassociatePhoneNumberContactFlowRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateQueueQuickConnectsResult disassociateQueueQuickConnects(DisassociateQueueQuickConnectsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateRoutingProfileQueuesResult disassociateRoutingProfileQueues(DisassociateRoutingProfileQueuesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateSecurityKeyResult disassociateSecurityKey(DisassociateSecurityKeyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateTrafficDistributionGroupUserResult disassociateTrafficDistributionGroupUser(DisassociateTrafficDistributionGroupUserRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateUserProficienciesResult disassociateUserProficiencies(DisassociateUserProficienciesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DismissUserContactResult dismissUserContact(DismissUserContactRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetAttachedFileResult getAttachedFile(GetAttachedFileRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetContactAttributesResult getContactAttributes(GetContactAttributesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -63,7 +588,17 @@ public class AbstractAmazonConnect implements AmazonConnect {
     }
 
     @Override
+    public GetCurrentUserDataResult getCurrentUserData(GetCurrentUserDataRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetFederationTokenResult getFederationToken(GetFederationTokenRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetFlowAssociationResult getFlowAssociation(GetFlowAssociationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -73,7 +608,197 @@ public class AbstractAmazonConnect implements AmazonConnect {
     }
 
     @Override
+    public GetMetricDataV2Result getMetricDataV2(GetMetricDataV2Request request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetPromptFileResult getPromptFile(GetPromptFileRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetTaskTemplateResult getTaskTemplate(GetTaskTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetTrafficDistributionResult getTrafficDistribution(GetTrafficDistributionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ImportPhoneNumberResult importPhoneNumber(ImportPhoneNumberRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListAgentStatusesResult listAgentStatuses(ListAgentStatusesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListAnalyticsDataAssociationsResult listAnalyticsDataAssociations(ListAnalyticsDataAssociationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListApprovedOriginsResult listApprovedOrigins(ListApprovedOriginsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListAuthenticationProfilesResult listAuthenticationProfiles(ListAuthenticationProfilesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListBotsResult listBots(ListBotsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListContactEvaluationsResult listContactEvaluations(ListContactEvaluationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListContactFlowModulesResult listContactFlowModules(ListContactFlowModulesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListContactFlowsResult listContactFlows(ListContactFlowsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListContactReferencesResult listContactReferences(ListContactReferencesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListDefaultVocabulariesResult listDefaultVocabularies(ListDefaultVocabulariesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListEvaluationFormVersionsResult listEvaluationFormVersions(ListEvaluationFormVersionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListEvaluationFormsResult listEvaluationForms(ListEvaluationFormsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListFlowAssociationsResult listFlowAssociations(ListFlowAssociationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListHoursOfOperationsResult listHoursOfOperations(ListHoursOfOperationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListInstanceAttributesResult listInstanceAttributes(ListInstanceAttributesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListInstanceStorageConfigsResult listInstanceStorageConfigs(ListInstanceStorageConfigsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListInstancesResult listInstances(ListInstancesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListIntegrationAssociationsResult listIntegrationAssociations(ListIntegrationAssociationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListLambdaFunctionsResult listLambdaFunctions(ListLambdaFunctionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListLexBotsResult listLexBots(ListLexBotsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListPhoneNumbersResult listPhoneNumbers(ListPhoneNumbersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListPhoneNumbersV2Result listPhoneNumbersV2(ListPhoneNumbersV2Request request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListPredefinedAttributesResult listPredefinedAttributes(ListPredefinedAttributesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListPromptsResult listPrompts(ListPromptsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListQueueQuickConnectsResult listQueueQuickConnects(ListQueueQuickConnectsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListQueuesResult listQueues(ListQueuesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListQuickConnectsResult listQuickConnects(ListQuickConnectsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListRealtimeContactAnalysisSegmentsV2Result listRealtimeContactAnalysisSegmentsV2(ListRealtimeContactAnalysisSegmentsV2Request request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListRoutingProfileQueuesResult listRoutingProfileQueues(ListRoutingProfileQueuesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListRoutingProfilesResult listRoutingProfiles(ListRoutingProfilesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListRulesResult listRules(ListRulesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListSecurityKeysResult listSecurityKeys(ListSecurityKeysRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListSecurityProfileApplicationsResult listSecurityProfileApplications(ListSecurityProfileApplicationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListSecurityProfilePermissionsResult listSecurityProfilePermissions(ListSecurityProfilePermissionsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -83,7 +808,37 @@ public class AbstractAmazonConnect implements AmazonConnect {
     }
 
     @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTaskTemplatesResult listTaskTemplates(ListTaskTemplatesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTrafficDistributionGroupUsersResult listTrafficDistributionGroupUsers(ListTrafficDistributionGroupUsersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTrafficDistributionGroupsResult listTrafficDistributionGroups(ListTrafficDistributionGroupsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListUseCasesResult listUseCases(ListUseCasesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListUserHierarchyGroupsResult listUserHierarchyGroups(ListUserHierarchyGroupsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListUserProficienciesResult listUserProficiencies(ListUserProficienciesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -93,7 +848,172 @@ public class AbstractAmazonConnect implements AmazonConnect {
     }
 
     @Override
+    public ListViewVersionsResult listViewVersions(ListViewVersionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListViewsResult listViews(ListViewsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public MonitorContactResult monitorContact(MonitorContactRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PauseContactResult pauseContact(PauseContactRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutUserStatusResult putUserStatus(PutUserStatusRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ReleasePhoneNumberResult releasePhoneNumber(ReleasePhoneNumberRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ReplicateInstanceResult replicateInstance(ReplicateInstanceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ResumeContactResult resumeContact(ResumeContactRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ResumeContactRecordingResult resumeContactRecording(ResumeContactRecordingRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchAgentStatusesResult searchAgentStatuses(SearchAgentStatusesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchAvailablePhoneNumbersResult searchAvailablePhoneNumbers(SearchAvailablePhoneNumbersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchContactFlowModulesResult searchContactFlowModules(SearchContactFlowModulesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchContactFlowsResult searchContactFlows(SearchContactFlowsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchContactsResult searchContacts(SearchContactsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchHoursOfOperationsResult searchHoursOfOperations(SearchHoursOfOperationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchPredefinedAttributesResult searchPredefinedAttributes(SearchPredefinedAttributesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchPromptsResult searchPrompts(SearchPromptsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchQueuesResult searchQueues(SearchQueuesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchQuickConnectsResult searchQuickConnects(SearchQuickConnectsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchResourceTagsResult searchResourceTags(SearchResourceTagsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchRoutingProfilesResult searchRoutingProfiles(SearchRoutingProfilesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchSecurityProfilesResult searchSecurityProfiles(SearchSecurityProfilesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchUserHierarchyGroupsResult searchUserHierarchyGroups(SearchUserHierarchyGroupsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchUsersResult searchUsers(SearchUsersRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SearchVocabulariesResult searchVocabularies(SearchVocabulariesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SendChatIntegrationEventResult sendChatIntegrationEvent(SendChatIntegrationEventRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartAttachedFileUploadResult startAttachedFileUpload(StartAttachedFileUploadRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartChatContactResult startChatContact(StartChatContactRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartContactEvaluationResult startContactEvaluation(StartContactEvaluationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartContactRecordingResult startContactRecording(StartContactRecordingRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartContactStreamingResult startContactStreaming(StartContactStreamingRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StartOutboundVoiceContactResult startOutboundVoiceContact(StartOutboundVoiceContactRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartTaskContactResult startTaskContact(StartTaskContactRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StartWebRTCContactResult startWebRTCContact(StartWebRTCContactRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -103,12 +1023,247 @@ public class AbstractAmazonConnect implements AmazonConnect {
     }
 
     @Override
+    public StopContactRecordingResult stopContactRecording(StopContactRecordingRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StopContactStreamingResult stopContactStreaming(StopContactStreamingRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SubmitContactEvaluationResult submitContactEvaluation(SubmitContactEvaluationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public SuspendContactRecordingResult suspendContactRecording(SuspendContactRecordingRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagContactResult tagContact(TagContactRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TransferContactResult transferContact(TransferContactRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagContactResult untagContact(UntagContactRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateAgentStatusResult updateAgentStatus(UpdateAgentStatusRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateAuthenticationProfileResult updateAuthenticationProfile(UpdateAuthenticationProfileRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateContactResult updateContact(UpdateContactRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateContactAttributesResult updateContactAttributes(UpdateContactAttributesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public UpdateContactEvaluationResult updateContactEvaluation(UpdateContactEvaluationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateContactFlowContentResult updateContactFlowContent(UpdateContactFlowContentRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateContactFlowMetadataResult updateContactFlowMetadata(UpdateContactFlowMetadataRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateContactFlowModuleContentResult updateContactFlowModuleContent(UpdateContactFlowModuleContentRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateContactFlowModuleMetadataResult updateContactFlowModuleMetadata(UpdateContactFlowModuleMetadataRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateContactFlowNameResult updateContactFlowName(UpdateContactFlowNameRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateContactRoutingDataResult updateContactRoutingData(UpdateContactRoutingDataRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateContactScheduleResult updateContactSchedule(UpdateContactScheduleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateEvaluationFormResult updateEvaluationForm(UpdateEvaluationFormRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateHoursOfOperationResult updateHoursOfOperation(UpdateHoursOfOperationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateInstanceAttributeResult updateInstanceAttribute(UpdateInstanceAttributeRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateInstanceStorageConfigResult updateInstanceStorageConfig(UpdateInstanceStorageConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateParticipantRoleConfigResult updateParticipantRoleConfig(UpdateParticipantRoleConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdatePhoneNumberResult updatePhoneNumber(UpdatePhoneNumberRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdatePhoneNumberMetadataResult updatePhoneNumberMetadata(UpdatePhoneNumberMetadataRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdatePredefinedAttributeResult updatePredefinedAttribute(UpdatePredefinedAttributeRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdatePromptResult updatePrompt(UpdatePromptRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateQueueHoursOfOperationResult updateQueueHoursOfOperation(UpdateQueueHoursOfOperationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateQueueMaxContactsResult updateQueueMaxContacts(UpdateQueueMaxContactsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateQueueNameResult updateQueueName(UpdateQueueNameRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateQueueOutboundCallerConfigResult updateQueueOutboundCallerConfig(UpdateQueueOutboundCallerConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateQueueStatusResult updateQueueStatus(UpdateQueueStatusRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateQuickConnectConfigResult updateQuickConnectConfig(UpdateQuickConnectConfigRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateQuickConnectNameResult updateQuickConnectName(UpdateQuickConnectNameRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateRoutingProfileAgentAvailabilityTimerResult updateRoutingProfileAgentAvailabilityTimer(UpdateRoutingProfileAgentAvailabilityTimerRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateRoutingProfileConcurrencyResult updateRoutingProfileConcurrency(UpdateRoutingProfileConcurrencyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateRoutingProfileDefaultOutboundQueueResult updateRoutingProfileDefaultOutboundQueue(UpdateRoutingProfileDefaultOutboundQueueRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateRoutingProfileNameResult updateRoutingProfileName(UpdateRoutingProfileNameRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateRoutingProfileQueuesResult updateRoutingProfileQueues(UpdateRoutingProfileQueuesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateRuleResult updateRule(UpdateRuleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateSecurityProfileResult updateSecurityProfile(UpdateSecurityProfileRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateTaskTemplateResult updateTaskTemplate(UpdateTaskTemplateRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateTrafficDistributionResult updateTrafficDistribution(UpdateTrafficDistributionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateUserHierarchyResult updateUserHierarchy(UpdateUserHierarchyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateUserHierarchyGroupNameResult updateUserHierarchyGroupName(UpdateUserHierarchyGroupNameRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateUserHierarchyStructureResult updateUserHierarchyStructure(UpdateUserHierarchyStructureRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -123,12 +1278,27 @@ public class AbstractAmazonConnect implements AmazonConnect {
     }
 
     @Override
+    public UpdateUserProficienciesResult updateUserProficiencies(UpdateUserProficienciesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateUserRoutingProfileResult updateUserRoutingProfile(UpdateUserRoutingProfileRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public UpdateUserSecurityProfilesResult updateUserSecurityProfiles(UpdateUserSecurityProfilesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateViewContentResult updateViewContent(UpdateViewContentRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateViewMetadataResult updateViewMetadata(UpdateViewMetadataRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

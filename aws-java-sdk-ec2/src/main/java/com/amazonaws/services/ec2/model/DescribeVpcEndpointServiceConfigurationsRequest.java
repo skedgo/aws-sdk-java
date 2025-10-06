@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,13 +28,13 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
 
     /**
      * <p>
-     * The IDs of one or more services.
+     * The IDs of the endpoint services.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> serviceIds;
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -51,6 +51,11 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      * <p>
      * <code>service-state</code> - The state of the service (<code>Pending</code> | <code>Available</code> |
      * <code>Deleting</code> | <code>Deleted</code> | <code>Failed</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>supported-ip-address-types</code> - The IP address type (<code>ipv4</code> | <code>ipv6</code>).
      * </p>
      * </li>
      * <li>
@@ -74,7 +79,8 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      * <p>
      * The maximum number of results to return for the request in a single page. The remaining results of the initial
      * request can be seen by sending another request with the returned <code>NextToken</code> value. This value can be
-     * between 5 and 1000; if <code>MaxResults</code> is given a value larger than 1000, only 1000 results are returned.
+     * between 5 and 1,000; if <code>MaxResults</code> is given a value larger than 1,000, only 1,000 results are
+     * returned.
      * </p>
      */
     private Integer maxResults;
@@ -87,10 +93,10 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
 
     /**
      * <p>
-     * The IDs of one or more services.
+     * The IDs of the endpoint services.
      * </p>
      * 
-     * @return The IDs of one or more services.
+     * @return The IDs of the endpoint services.
      */
 
     public java.util.List<String> getServiceIds() {
@@ -102,11 +108,11 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
 
     /**
      * <p>
-     * The IDs of one or more services.
+     * The IDs of the endpoint services.
      * </p>
      * 
      * @param serviceIds
-     *        The IDs of one or more services.
+     *        The IDs of the endpoint services.
      */
 
     public void setServiceIds(java.util.Collection<String> serviceIds) {
@@ -120,7 +126,7 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
 
     /**
      * <p>
-     * The IDs of one or more services.
+     * The IDs of the endpoint services.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -129,7 +135,7 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      * </p>
      * 
      * @param serviceIds
-     *        The IDs of one or more services.
+     *        The IDs of the endpoint services.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -145,11 +151,11 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
 
     /**
      * <p>
-     * The IDs of one or more services.
+     * The IDs of the endpoint services.
      * </p>
      * 
      * @param serviceIds
-     *        The IDs of one or more services.
+     *        The IDs of the endpoint services.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -160,7 +166,7 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -181,6 +187,11 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      * </li>
      * <li>
      * <p>
+     * <code>supported-ip-address-types</code> - The IP address type (<code>ipv4</code> | <code>ipv6</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
      * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
      * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
@@ -195,7 +206,7 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      * </li>
      * </ul>
      * 
-     * @return One or more filters.</p>
+     * @return The filters.</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -211,6 +222,11 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      *         <p>
      *         <code>service-state</code> - The state of the service (<code>Pending</code> | <code>Available</code> |
      *         <code>Deleting</code> | <code>Deleted</code> | <code>Failed</code>).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>supported-ip-address-types</code> - The IP address type (<code>ipv4</code> | <code>ipv6</code>).
      *         </p>
      *         </li>
      *         <li>
@@ -238,7 +254,7 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -259,6 +275,11 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      * </li>
      * <li>
      * <p>
+     * <code>supported-ip-address-types</code> - The IP address type (<code>ipv4</code> | <code>ipv6</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
      * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
      * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
@@ -274,7 +295,7 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      * </ul>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -290,6 +311,11 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      *        <p>
      *        <code>service-state</code> - The state of the service (<code>Pending</code> | <code>Available</code> |
      *        <code>Deleting</code> | <code>Deleted</code> | <code>Failed</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>supported-ip-address-types</code> - The IP address type (<code>ipv4</code> | <code>ipv6</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -319,7 +345,7 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -336,6 +362,11 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      * <p>
      * <code>service-state</code> - The state of the service (<code>Pending</code> | <code>Available</code> |
      * <code>Deleting</code> | <code>Deleted</code> | <code>Failed</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>supported-ip-address-types</code> - The IP address type (<code>ipv4</code> | <code>ipv6</code>).
      * </p>
      * </li>
      * <li>
@@ -360,7 +391,7 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      * </p>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -376,6 +407,11 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      *        <p>
      *        <code>service-state</code> - The state of the service (<code>Pending</code> | <code>Available</code> |
      *        <code>Deleting</code> | <code>Deleted</code> | <code>Failed</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>supported-ip-address-types</code> - The IP address type (<code>ipv4</code> | <code>ipv6</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -407,7 +443,7 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -428,6 +464,11 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      * </li>
      * <li>
      * <p>
+     * <code>supported-ip-address-types</code> - The IP address type (<code>ipv4</code> | <code>ipv6</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
      * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
      * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
@@ -443,7 +484,7 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      * </ul>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -459,6 +500,11 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      *        <p>
      *        <code>service-state</code> - The state of the service (<code>Pending</code> | <code>Available</code> |
      *        <code>Deleting</code> | <code>Deleted</code> | <code>Failed</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>supported-ip-address-types</code> - The IP address type (<code>ipv4</code> | <code>ipv6</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -487,14 +533,15 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      * <p>
      * The maximum number of results to return for the request in a single page. The remaining results of the initial
      * request can be seen by sending another request with the returned <code>NextToken</code> value. This value can be
-     * between 5 and 1000; if <code>MaxResults</code> is given a value larger than 1000, only 1000 results are returned.
+     * between 5 and 1,000; if <code>MaxResults</code> is given a value larger than 1,000, only 1,000 results are
+     * returned.
      * </p>
      * 
      * @param maxResults
      *        The maximum number of results to return for the request in a single page. The remaining results of the
      *        initial request can be seen by sending another request with the returned <code>NextToken</code> value.
-     *        This value can be between 5 and 1000; if <code>MaxResults</code> is given a value larger than 1000, only
-     *        1000 results are returned.
+     *        This value can be between 5 and 1,000; if <code>MaxResults</code> is given a value larger than 1,000, only
+     *        1,000 results are returned.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -505,13 +552,14 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      * <p>
      * The maximum number of results to return for the request in a single page. The remaining results of the initial
      * request can be seen by sending another request with the returned <code>NextToken</code> value. This value can be
-     * between 5 and 1000; if <code>MaxResults</code> is given a value larger than 1000, only 1000 results are returned.
+     * between 5 and 1,000; if <code>MaxResults</code> is given a value larger than 1,000, only 1,000 results are
+     * returned.
      * </p>
      * 
      * @return The maximum number of results to return for the request in a single page. The remaining results of the
      *         initial request can be seen by sending another request with the returned <code>NextToken</code> value.
-     *         This value can be between 5 and 1000; if <code>MaxResults</code> is given a value larger than 1000, only
-     *         1000 results are returned.
+     *         This value can be between 5 and 1,000; if <code>MaxResults</code> is given a value larger than 1,000,
+     *         only 1,000 results are returned.
      */
 
     public Integer getMaxResults() {
@@ -522,14 +570,15 @@ public class DescribeVpcEndpointServiceConfigurationsRequest extends AmazonWebSe
      * <p>
      * The maximum number of results to return for the request in a single page. The remaining results of the initial
      * request can be seen by sending another request with the returned <code>NextToken</code> value. This value can be
-     * between 5 and 1000; if <code>MaxResults</code> is given a value larger than 1000, only 1000 results are returned.
+     * between 5 and 1,000; if <code>MaxResults</code> is given a value larger than 1,000, only 1,000 results are
+     * returned.
      * </p>
      * 
      * @param maxResults
      *        The maximum number of results to return for the request in a single page. The remaining results of the
      *        initial request can be seen by sending another request with the returned <code>NextToken</code> value.
-     *        This value can be between 5 and 1000; if <code>MaxResults</code> is given a value larger than 1000, only
-     *        1000 results are returned.
+     *        This value can be between 5 and 1,000; if <code>MaxResults</code> is given a value larger than 1,000, only
+     *        1,000 results are returned.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

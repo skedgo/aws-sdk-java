@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,7 +42,7 @@ public class PendingModifiedValues implements Serializable, Cloneable {
     private Integer allocatedStorage;
     /**
      * <p>
-     * Contains the pending or currently-in-progress change of the master credentials for the DB instance.
+     * Not supported by Neptune.
      * </p>
      */
     private String masterUserPassword;
@@ -72,11 +72,7 @@ public class PendingModifiedValues implements Serializable, Cloneable {
     private String engineVersion;
     /**
      * <p>
-     * The license model for the DB instance.
-     * </p>
-     * <p>
-     * Valid values: <code>license-included</code> | <code>bring-your-own-license</code> |
-     * <code>general-public-license</code>
+     * Not supported by Neptune.
      * </p>
      */
     private String licenseModel;
@@ -113,7 +109,8 @@ public class PendingModifiedValues implements Serializable, Cloneable {
     private String dBSubnetGroupName;
     /**
      * <p>
-     * Specifies the CloudWatch logs to be exported.
+     * This <code>PendingCloudwatchLogsExports</code> structure specifies pending changes to which CloudWatch logs are
+     * enabled and which are disabled.
      * </p>
      */
     private PendingCloudwatchLogsExports pendingCloudwatchLogsExports;
@@ -212,11 +209,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the pending or currently-in-progress change of the master credentials for the DB instance.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param masterUserPassword
-     *        Contains the pending or currently-in-progress change of the master credentials for the DB instance.
+     *        Not supported by Neptune.
      */
 
     public void setMasterUserPassword(String masterUserPassword) {
@@ -225,10 +222,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the pending or currently-in-progress change of the master credentials for the DB instance.
+     * Not supported by Neptune.
      * </p>
      * 
-     * @return Contains the pending or currently-in-progress change of the master credentials for the DB instance.
+     * @return Not supported by Neptune.
      */
 
     public String getMasterUserPassword() {
@@ -237,11 +234,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Contains the pending or currently-in-progress change of the master credentials for the DB instance.
+     * Not supported by Neptune.
      * </p>
      * 
      * @param masterUserPassword
-     *        Contains the pending or currently-in-progress change of the master credentials for the DB instance.
+     *        Not supported by Neptune.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -424,18 +421,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The license model for the DB instance.
-     * </p>
-     * <p>
-     * Valid values: <code>license-included</code> | <code>bring-your-own-license</code> |
-     * <code>general-public-license</code>
+     * Not supported by Neptune.
      * </p>
      * 
      * @param licenseModel
-     *        The license model for the DB instance.</p>
-     *        <p>
-     *        Valid values: <code>license-included</code> | <code>bring-your-own-license</code> |
-     *        <code>general-public-license</code>
+     *        Not supported by Neptune.
      */
 
     public void setLicenseModel(String licenseModel) {
@@ -444,17 +434,10 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The license model for the DB instance.
-     * </p>
-     * <p>
-     * Valid values: <code>license-included</code> | <code>bring-your-own-license</code> |
-     * <code>general-public-license</code>
+     * Not supported by Neptune.
      * </p>
      * 
-     * @return The license model for the DB instance.</p>
-     *         <p>
-     *         Valid values: <code>license-included</code> | <code>bring-your-own-license</code> |
-     *         <code>general-public-license</code>
+     * @return Not supported by Neptune.
      */
 
     public String getLicenseModel() {
@@ -463,18 +446,11 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The license model for the DB instance.
-     * </p>
-     * <p>
-     * Valid values: <code>license-included</code> | <code>bring-your-own-license</code> |
-     * <code>general-public-license</code>
+     * Not supported by Neptune.
      * </p>
      * 
      * @param licenseModel
-     *        The license model for the DB instance.</p>
-     *        <p>
-     *        Valid values: <code>license-included</code> | <code>bring-your-own-license</code> |
-     *        <code>general-public-license</code>
+     *        Not supported by Neptune.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -694,11 +670,13 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the CloudWatch logs to be exported.
+     * This <code>PendingCloudwatchLogsExports</code> structure specifies pending changes to which CloudWatch logs are
+     * enabled and which are disabled.
      * </p>
      * 
      * @param pendingCloudwatchLogsExports
-     *        Specifies the CloudWatch logs to be exported.
+     *        This <code>PendingCloudwatchLogsExports</code> structure specifies pending changes to which CloudWatch
+     *        logs are enabled and which are disabled.
      */
 
     public void setPendingCloudwatchLogsExports(PendingCloudwatchLogsExports pendingCloudwatchLogsExports) {
@@ -707,10 +685,12 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the CloudWatch logs to be exported.
+     * This <code>PendingCloudwatchLogsExports</code> structure specifies pending changes to which CloudWatch logs are
+     * enabled and which are disabled.
      * </p>
      * 
-     * @return Specifies the CloudWatch logs to be exported.
+     * @return This <code>PendingCloudwatchLogsExports</code> structure specifies pending changes to which CloudWatch
+     *         logs are enabled and which are disabled.
      */
 
     public PendingCloudwatchLogsExports getPendingCloudwatchLogsExports() {
@@ -719,11 +699,13 @@ public class PendingModifiedValues implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the CloudWatch logs to be exported.
+     * This <code>PendingCloudwatchLogsExports</code> structure specifies pending changes to which CloudWatch logs are
+     * enabled and which are disabled.
      * </p>
      * 
      * @param pendingCloudwatchLogsExports
-     *        Specifies the CloudWatch logs to be exported.
+     *        This <code>PendingCloudwatchLogsExports</code> structure specifies pending changes to which CloudWatch
+     *        logs are enabled and which are disabled.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

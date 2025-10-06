@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,8 +26,59 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class S3DestinationSettings implements Serializable, Cloneable, StructuredPojo {
 
+    /**
+     * Optional. Have MediaConvert automatically apply Amazon S3 access control for the outputs in this output group.
+     * When you don't use this setting, S3 automatically applies the default access control list PRIVATE.
+     */
+    private S3DestinationAccessControl accessControl;
     /** Settings for how your job outputs are encrypted as they are uploaded to Amazon S3. */
     private S3EncryptionSettings encryption;
+    /**
+     * Specify the S3 storage class to use for this output. To use your destination's default storage class: Keep the
+     * default value, Not set. For more information about S3 storage classes, see
+     * https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html
+     */
+    private String storageClass;
+
+    /**
+     * Optional. Have MediaConvert automatically apply Amazon S3 access control for the outputs in this output group.
+     * When you don't use this setting, S3 automatically applies the default access control list PRIVATE.
+     * 
+     * @param accessControl
+     *        Optional. Have MediaConvert automatically apply Amazon S3 access control for the outputs in this output
+     *        group. When you don't use this setting, S3 automatically applies the default access control list PRIVATE.
+     */
+
+    public void setAccessControl(S3DestinationAccessControl accessControl) {
+        this.accessControl = accessControl;
+    }
+
+    /**
+     * Optional. Have MediaConvert automatically apply Amazon S3 access control for the outputs in this output group.
+     * When you don't use this setting, S3 automatically applies the default access control list PRIVATE.
+     * 
+     * @return Optional. Have MediaConvert automatically apply Amazon S3 access control for the outputs in this output
+     *         group. When you don't use this setting, S3 automatically applies the default access control list PRIVATE.
+     */
+
+    public S3DestinationAccessControl getAccessControl() {
+        return this.accessControl;
+    }
+
+    /**
+     * Optional. Have MediaConvert automatically apply Amazon S3 access control for the outputs in this output group.
+     * When you don't use this setting, S3 automatically applies the default access control list PRIVATE.
+     * 
+     * @param accessControl
+     *        Optional. Have MediaConvert automatically apply Amazon S3 access control for the outputs in this output
+     *        group. When you don't use this setting, S3 automatically applies the default access control list PRIVATE.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public S3DestinationSettings withAccessControl(S3DestinationAccessControl accessControl) {
+        setAccessControl(accessControl);
+        return this;
+    }
 
     /**
      * Settings for how your job outputs are encrypted as they are uploaded to Amazon S3.
@@ -64,6 +115,73 @@ public class S3DestinationSettings implements Serializable, Cloneable, Structure
     }
 
     /**
+     * Specify the S3 storage class to use for this output. To use your destination's default storage class: Keep the
+     * default value, Not set. For more information about S3 storage classes, see
+     * https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html
+     * 
+     * @param storageClass
+     *        Specify the S3 storage class to use for this output. To use your destination's default storage class: Keep
+     *        the default value, Not set. For more information about S3 storage classes, see
+     *        https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html
+     * @see S3StorageClass
+     */
+
+    public void setStorageClass(String storageClass) {
+        this.storageClass = storageClass;
+    }
+
+    /**
+     * Specify the S3 storage class to use for this output. To use your destination's default storage class: Keep the
+     * default value, Not set. For more information about S3 storage classes, see
+     * https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html
+     * 
+     * @return Specify the S3 storage class to use for this output. To use your destination's default storage class:
+     *         Keep the default value, Not set. For more information about S3 storage classes, see
+     *         https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html
+     * @see S3StorageClass
+     */
+
+    public String getStorageClass() {
+        return this.storageClass;
+    }
+
+    /**
+     * Specify the S3 storage class to use for this output. To use your destination's default storage class: Keep the
+     * default value, Not set. For more information about S3 storage classes, see
+     * https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html
+     * 
+     * @param storageClass
+     *        Specify the S3 storage class to use for this output. To use your destination's default storage class: Keep
+     *        the default value, Not set. For more information about S3 storage classes, see
+     *        https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see S3StorageClass
+     */
+
+    public S3DestinationSettings withStorageClass(String storageClass) {
+        setStorageClass(storageClass);
+        return this;
+    }
+
+    /**
+     * Specify the S3 storage class to use for this output. To use your destination's default storage class: Keep the
+     * default value, Not set. For more information about S3 storage classes, see
+     * https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html
+     * 
+     * @param storageClass
+     *        Specify the S3 storage class to use for this output. To use your destination's default storage class: Keep
+     *        the default value, Not set. For more information about S3 storage classes, see
+     *        https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see S3StorageClass
+     */
+
+    public S3DestinationSettings withStorageClass(S3StorageClass storageClass) {
+        this.storageClass = storageClass.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -75,8 +193,12 @@ public class S3DestinationSettings implements Serializable, Cloneable, Structure
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getAccessControl() != null)
+            sb.append("AccessControl: ").append(getAccessControl()).append(",");
         if (getEncryption() != null)
-            sb.append("Encryption: ").append(getEncryption());
+            sb.append("Encryption: ").append(getEncryption()).append(",");
+        if (getStorageClass() != null)
+            sb.append("StorageClass: ").append(getStorageClass());
         sb.append("}");
         return sb.toString();
     }
@@ -91,9 +213,17 @@ public class S3DestinationSettings implements Serializable, Cloneable, Structure
         if (obj instanceof S3DestinationSettings == false)
             return false;
         S3DestinationSettings other = (S3DestinationSettings) obj;
+        if (other.getAccessControl() == null ^ this.getAccessControl() == null)
+            return false;
+        if (other.getAccessControl() != null && other.getAccessControl().equals(this.getAccessControl()) == false)
+            return false;
         if (other.getEncryption() == null ^ this.getEncryption() == null)
             return false;
         if (other.getEncryption() != null && other.getEncryption().equals(this.getEncryption()) == false)
+            return false;
+        if (other.getStorageClass() == null ^ this.getStorageClass() == null)
+            return false;
+        if (other.getStorageClass() != null && other.getStorageClass().equals(this.getStorageClass()) == false)
             return false;
         return true;
     }
@@ -103,7 +233,9 @@ public class S3DestinationSettings implements Serializable, Cloneable, Structure
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getAccessControl() == null) ? 0 : getAccessControl().hashCode());
         hashCode = prime * hashCode + ((getEncryption() == null) ? 0 : getEncryption().hashCode());
+        hashCode = prime * hashCode + ((getStorageClass() == null) ? 0 : getStorageClass().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -68,6 +68,11 @@ public class AbstractAWSServiceDiscovery implements AWSServiceDiscovery {
     }
 
     @Override
+    public DiscoverInstancesRevisionResult discoverInstancesRevision(DiscoverInstancesRevisionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetInstanceResult getInstance(GetInstanceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -113,12 +118,42 @@ public class AbstractAWSServiceDiscovery implements AWSServiceDiscovery {
     }
 
     @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public RegisterInstanceResult registerInstance(RegisterInstanceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateHttpNamespaceResult updateHttpNamespace(UpdateHttpNamespaceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateInstanceCustomHealthStatusResult updateInstanceCustomHealthStatus(UpdateInstanceCustomHealthStatusRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdatePrivateDnsNamespaceResult updatePrivateDnsNamespace(UpdatePrivateDnsNamespaceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdatePublicDnsNamespaceResult updatePublicDnsNamespace(UpdatePublicDnsNamespaceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

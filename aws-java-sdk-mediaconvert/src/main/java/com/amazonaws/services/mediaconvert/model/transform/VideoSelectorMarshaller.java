@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,28 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class VideoSelectorMarshaller {
 
+    private static final MarshallingInfo<String> ALPHABEHAVIOR_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("alphaBehavior").build();
     private static final MarshallingInfo<String> COLORSPACE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("colorSpace").build();
     private static final MarshallingInfo<String> COLORSPACEUSAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("colorSpaceUsage").build();
+    private static final MarshallingInfo<String> EMBEDDEDTIMECODEOVERRIDE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("embeddedTimecodeOverride").build();
     private static final MarshallingInfo<StructuredPojo> HDR10METADATA_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("hdr10Metadata").build();
+    private static final MarshallingInfo<Integer> MAXLUMINANCE_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("maxLuminance").build();
+    private static final MarshallingInfo<String> PADVIDEO_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("padVideo").build();
     private static final MarshallingInfo<Integer> PID_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("pid").build();
     private static final MarshallingInfo<Integer> PROGRAMNUMBER_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("programNumber").build();
     private static final MarshallingInfo<String> ROTATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("rotate").build();
+    private static final MarshallingInfo<String> SAMPLERANGE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("sampleRange").build();
 
     private static final VideoSelectorMarshaller instance = new VideoSelectorMarshaller();
 
@@ -56,12 +66,17 @@ public class VideoSelectorMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(videoSelector.getAlphaBehavior(), ALPHABEHAVIOR_BINDING);
             protocolMarshaller.marshall(videoSelector.getColorSpace(), COLORSPACE_BINDING);
             protocolMarshaller.marshall(videoSelector.getColorSpaceUsage(), COLORSPACEUSAGE_BINDING);
+            protocolMarshaller.marshall(videoSelector.getEmbeddedTimecodeOverride(), EMBEDDEDTIMECODEOVERRIDE_BINDING);
             protocolMarshaller.marshall(videoSelector.getHdr10Metadata(), HDR10METADATA_BINDING);
+            protocolMarshaller.marshall(videoSelector.getMaxLuminance(), MAXLUMINANCE_BINDING);
+            protocolMarshaller.marshall(videoSelector.getPadVideo(), PADVIDEO_BINDING);
             protocolMarshaller.marshall(videoSelector.getPid(), PID_BINDING);
             protocolMarshaller.marshall(videoSelector.getProgramNumber(), PROGRAMNUMBER_BINDING);
             protocolMarshaller.marshall(videoSelector.getRotate(), ROTATE_BINDING);
+            protocolMarshaller.marshall(videoSelector.getSampleRange(), SAMPLERANGE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

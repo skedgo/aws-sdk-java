@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -62,7 +62,9 @@ public class ConnectionJsonUnmarshaller implements Unmarshaller<Connection, Json
                 }
                 if (context.testExpression("MatchCriteria", targetDepth)) {
                     context.nextToken();
-                    connection.setMatchCriteria(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    connection.setMatchCriteria(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("ConnectionProperties", targetDepth)) {
                     context.nextToken();
@@ -84,6 +86,22 @@ public class ConnectionJsonUnmarshaller implements Unmarshaller<Connection, Json
                 if (context.testExpression("LastUpdatedBy", targetDepth)) {
                     context.nextToken();
                     connection.setLastUpdatedBy(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("Status", targetDepth)) {
+                    context.nextToken();
+                    connection.setStatus(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("StatusReason", targetDepth)) {
+                    context.nextToken();
+                    connection.setStatusReason(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("LastConnectionValidationTime", targetDepth)) {
+                    context.nextToken();
+                    connection.setLastConnectionValidationTime(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("AuthenticationConfiguration", targetDepth)) {
+                    context.nextToken();
+                    connection.setAuthenticationConfiguration(AuthenticationConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

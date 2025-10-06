@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -11,6 +11,8 @@
  * and limitations under the License.
  */
 package com.amazonaws.services.managedblockchain.model.transform;
+
+import java.util.Map;
 
 import javax.annotation.Generated;
 
@@ -33,6 +35,12 @@ public class MemberConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Description").build();
     private static final MarshallingInfo<StructuredPojo> FRAMEWORKCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FrameworkConfiguration").build();
+    private static final MarshallingInfo<StructuredPojo> LOGPUBLISHINGCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LogPublishingConfiguration").build();
+    private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Tags").build();
+    private static final MarshallingInfo<String> KMSKEYARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("KmsKeyArn").build();
 
     private static final MemberConfigurationMarshaller instance = new MemberConfigurationMarshaller();
 
@@ -53,6 +61,9 @@ public class MemberConfigurationMarshaller {
             protocolMarshaller.marshall(memberConfiguration.getName(), NAME_BINDING);
             protocolMarshaller.marshall(memberConfiguration.getDescription(), DESCRIPTION_BINDING);
             protocolMarshaller.marshall(memberConfiguration.getFrameworkConfiguration(), FRAMEWORKCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(memberConfiguration.getLogPublishingConfiguration(), LOGPUBLISHINGCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(memberConfiguration.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(memberConfiguration.getKmsKeyArn(), KMSKEYARN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

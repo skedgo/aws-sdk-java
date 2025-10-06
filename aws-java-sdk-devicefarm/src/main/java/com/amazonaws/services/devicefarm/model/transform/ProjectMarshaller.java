@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,8 @@ public class ProjectMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("defaultJobTimeoutMinutes").build();
     private static final MarshallingInfo<java.util.Date> CREATED_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("created").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<StructuredPojo> VPCCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("vpcConfig").build();
 
     private static final ProjectMarshaller instance = new ProjectMarshaller();
 
@@ -56,6 +58,7 @@ public class ProjectMarshaller {
             protocolMarshaller.marshall(project.getName(), NAME_BINDING);
             protocolMarshaller.marshall(project.getDefaultJobTimeoutMinutes(), DEFAULTJOBTIMEOUTMINUTES_BINDING);
             protocolMarshaller.marshall(project.getCreated(), CREATED_BINDING);
+            protocolMarshaller.marshall(project.getVpcConfig(), VPCCONFIG_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

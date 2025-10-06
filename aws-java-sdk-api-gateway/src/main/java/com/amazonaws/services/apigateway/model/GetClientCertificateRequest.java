@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * A request to get information about the current <a>ClientCertificate</a> resource.
+ * A request to get information about the current ClientCertificate resource.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -27,18 +27,18 @@ public class GetClientCertificateRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * [Required] The identifier of the <a>ClientCertificate</a> resource to be described.
+     * The identifier of the ClientCertificate resource to be described.
      * </p>
      */
     private String clientCertificateId;
 
     /**
      * <p>
-     * [Required] The identifier of the <a>ClientCertificate</a> resource to be described.
+     * The identifier of the ClientCertificate resource to be described.
      * </p>
      * 
      * @param clientCertificateId
-     *        [Required] The identifier of the <a>ClientCertificate</a> resource to be described.
+     *        The identifier of the ClientCertificate resource to be described.
      */
 
     public void setClientCertificateId(String clientCertificateId) {
@@ -47,10 +47,10 @@ public class GetClientCertificateRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * [Required] The identifier of the <a>ClientCertificate</a> resource to be described.
+     * The identifier of the ClientCertificate resource to be described.
      * </p>
      * 
-     * @return [Required] The identifier of the <a>ClientCertificate</a> resource to be described.
+     * @return The identifier of the ClientCertificate resource to be described.
      */
 
     public String getClientCertificateId() {
@@ -59,11 +59,11 @@ public class GetClientCertificateRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * [Required] The identifier of the <a>ClientCertificate</a> resource to be described.
+     * The identifier of the ClientCertificate resource to be described.
      * </p>
      * 
      * @param clientCertificateId
-     *        [Required] The identifier of the <a>ClientCertificate</a> resource to be described.
+     *        The identifier of the ClientCertificate resource to be described.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

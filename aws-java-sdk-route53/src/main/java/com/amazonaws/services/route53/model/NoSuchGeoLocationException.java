@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,7 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Amazon Route 53 doesn't support the specified geographic location.
+ * Amazon Route 53 doesn't support the specified geographic location. For a list of supported geolocation codes, see the
+ * <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GeoLocation.html">GeoLocation</a> data type.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

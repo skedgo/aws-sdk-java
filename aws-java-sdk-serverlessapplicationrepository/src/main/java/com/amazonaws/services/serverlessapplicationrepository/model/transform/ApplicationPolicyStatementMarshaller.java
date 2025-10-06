@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,6 +30,8 @@ public class ApplicationPolicyStatementMarshaller {
 
     private static final MarshallingInfo<List> ACTIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("actions").build();
+    private static final MarshallingInfo<List> PRINCIPALORGIDS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("principalOrgIDs").build();
     private static final MarshallingInfo<List> PRINCIPALS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("principals").build();
     private static final MarshallingInfo<String> STATEMENTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -52,6 +54,7 @@ public class ApplicationPolicyStatementMarshaller {
 
         try {
             protocolMarshaller.marshall(applicationPolicyStatement.getActions(), ACTIONS_BINDING);
+            protocolMarshaller.marshall(applicationPolicyStatement.getPrincipalOrgIDs(), PRINCIPALORGIDS_BINDING);
             protocolMarshaller.marshall(applicationPolicyStatement.getPrincipals(), PRINCIPALS_BINDING);
             protocolMarshaller.marshall(applicationPolicyStatement.getStatementId(), STATEMENTID_BINDING);
         } catch (Exception e) {

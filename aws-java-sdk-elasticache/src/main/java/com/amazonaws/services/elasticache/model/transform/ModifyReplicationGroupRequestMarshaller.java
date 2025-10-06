@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,6 +58,14 @@ public class ModifyReplicationGroupRequestMarshaller implements Marshaller<Reque
 
         if (modifyReplicationGroupRequest.getAutomaticFailoverEnabled() != null) {
             request.addParameter("AutomaticFailoverEnabled", StringUtils.fromBoolean(modifyReplicationGroupRequest.getAutomaticFailoverEnabled()));
+        }
+
+        if (modifyReplicationGroupRequest.getMultiAZEnabled() != null) {
+            request.addParameter("MultiAZEnabled", StringUtils.fromBoolean(modifyReplicationGroupRequest.getMultiAZEnabled()));
+        }
+
+        if (modifyReplicationGroupRequest.getNodeGroupId() != null) {
+            request.addParameter("NodeGroupId", StringUtils.fromString(modifyReplicationGroupRequest.getNodeGroupId()));
         }
 
         if (!modifyReplicationGroupRequest.getCacheSecurityGroupNames().isEmpty()
@@ -129,8 +137,124 @@ public class ModifyReplicationGroupRequestMarshaller implements Marshaller<Reque
             request.addParameter("CacheNodeType", StringUtils.fromString(modifyReplicationGroupRequest.getCacheNodeType()));
         }
 
-        if (modifyReplicationGroupRequest.getNodeGroupId() != null) {
-            request.addParameter("NodeGroupId", StringUtils.fromString(modifyReplicationGroupRequest.getNodeGroupId()));
+        if (modifyReplicationGroupRequest.getAuthToken() != null) {
+            request.addParameter("AuthToken", StringUtils.fromString(modifyReplicationGroupRequest.getAuthToken()));
+        }
+
+        if (modifyReplicationGroupRequest.getAuthTokenUpdateStrategy() != null) {
+            request.addParameter("AuthTokenUpdateStrategy", StringUtils.fromString(modifyReplicationGroupRequest.getAuthTokenUpdateStrategy()));
+        }
+
+        if (!modifyReplicationGroupRequest.getUserGroupIdsToAdd().isEmpty()
+                || !((com.amazonaws.internal.SdkInternalList<String>) modifyReplicationGroupRequest.getUserGroupIdsToAdd()).isAutoConstruct()) {
+            com.amazonaws.internal.SdkInternalList<String> userGroupIdsToAddList = (com.amazonaws.internal.SdkInternalList<String>) modifyReplicationGroupRequest
+                    .getUserGroupIdsToAdd();
+            int userGroupIdsToAddListIndex = 1;
+
+            for (String userGroupIdsToAddListValue : userGroupIdsToAddList) {
+                if (userGroupIdsToAddListValue != null) {
+                    request.addParameter("UserGroupIdsToAdd.member." + userGroupIdsToAddListIndex, StringUtils.fromString(userGroupIdsToAddListValue));
+                }
+                userGroupIdsToAddListIndex++;
+            }
+        }
+
+        if (!modifyReplicationGroupRequest.getUserGroupIdsToRemove().isEmpty()
+                || !((com.amazonaws.internal.SdkInternalList<String>) modifyReplicationGroupRequest.getUserGroupIdsToRemove()).isAutoConstruct()) {
+            com.amazonaws.internal.SdkInternalList<String> userGroupIdsToRemoveList = (com.amazonaws.internal.SdkInternalList<String>) modifyReplicationGroupRequest
+                    .getUserGroupIdsToRemove();
+            int userGroupIdsToRemoveListIndex = 1;
+
+            for (String userGroupIdsToRemoveListValue : userGroupIdsToRemoveList) {
+                if (userGroupIdsToRemoveListValue != null) {
+                    request.addParameter("UserGroupIdsToRemove.member." + userGroupIdsToRemoveListIndex, StringUtils.fromString(userGroupIdsToRemoveListValue));
+                }
+                userGroupIdsToRemoveListIndex++;
+            }
+        }
+
+        if (modifyReplicationGroupRequest.getRemoveUserGroups() != null) {
+            request.addParameter("RemoveUserGroups", StringUtils.fromBoolean(modifyReplicationGroupRequest.getRemoveUserGroups()));
+        }
+
+        if (!modifyReplicationGroupRequest.getLogDeliveryConfigurations().isEmpty()
+                || !((com.amazonaws.internal.SdkInternalList<LogDeliveryConfigurationRequest>) modifyReplicationGroupRequest.getLogDeliveryConfigurations())
+                        .isAutoConstruct()) {
+            com.amazonaws.internal.SdkInternalList<LogDeliveryConfigurationRequest> logDeliveryConfigurationsList = (com.amazonaws.internal.SdkInternalList<LogDeliveryConfigurationRequest>) modifyReplicationGroupRequest
+                    .getLogDeliveryConfigurations();
+            int logDeliveryConfigurationsListIndex = 1;
+
+            for (LogDeliveryConfigurationRequest logDeliveryConfigurationsListValue : logDeliveryConfigurationsList) {
+                if (logDeliveryConfigurationsListValue != null) {
+
+                    if (logDeliveryConfigurationsListValue.getLogType() != null) {
+                        request.addParameter("LogDeliveryConfigurations.LogDeliveryConfigurationRequest." + logDeliveryConfigurationsListIndex + ".LogType",
+                                StringUtils.fromString(logDeliveryConfigurationsListValue.getLogType()));
+                    }
+
+                    if (logDeliveryConfigurationsListValue.getDestinationType() != null) {
+                        request.addParameter("LogDeliveryConfigurations.LogDeliveryConfigurationRequest." + logDeliveryConfigurationsListIndex
+                                + ".DestinationType", StringUtils.fromString(logDeliveryConfigurationsListValue.getDestinationType()));
+                    }
+
+                    {
+                        DestinationDetails destinationDetails = logDeliveryConfigurationsListValue.getDestinationDetails();
+                        if (destinationDetails != null) {
+
+                            {
+                                CloudWatchLogsDestinationDetails cloudWatchLogsDetails = destinationDetails.getCloudWatchLogsDetails();
+                                if (cloudWatchLogsDetails != null) {
+
+                                    if (cloudWatchLogsDetails.getLogGroup() != null) {
+                                        request.addParameter("LogDeliveryConfigurations.LogDeliveryConfigurationRequest." + logDeliveryConfigurationsListIndex
+                                                + ".DestinationDetails.CloudWatchLogsDetails.LogGroup",
+                                                StringUtils.fromString(cloudWatchLogsDetails.getLogGroup()));
+                                    }
+                                }
+                            }
+
+                            {
+                                KinesisFirehoseDestinationDetails kinesisFirehoseDetails = destinationDetails.getKinesisFirehoseDetails();
+                                if (kinesisFirehoseDetails != null) {
+
+                                    if (kinesisFirehoseDetails.getDeliveryStream() != null) {
+                                        request.addParameter("LogDeliveryConfigurations.LogDeliveryConfigurationRequest." + logDeliveryConfigurationsListIndex
+                                                + ".DestinationDetails.KinesisFirehoseDetails.DeliveryStream",
+                                                StringUtils.fromString(kinesisFirehoseDetails.getDeliveryStream()));
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (logDeliveryConfigurationsListValue.getLogFormat() != null) {
+                        request.addParameter("LogDeliveryConfigurations.LogDeliveryConfigurationRequest." + logDeliveryConfigurationsListIndex + ".LogFormat",
+                                StringUtils.fromString(logDeliveryConfigurationsListValue.getLogFormat()));
+                    }
+
+                    if (logDeliveryConfigurationsListValue.getEnabled() != null) {
+                        request.addParameter("LogDeliveryConfigurations.LogDeliveryConfigurationRequest." + logDeliveryConfigurationsListIndex + ".Enabled",
+                                StringUtils.fromBoolean(logDeliveryConfigurationsListValue.getEnabled()));
+                    }
+                }
+                logDeliveryConfigurationsListIndex++;
+            }
+        }
+
+        if (modifyReplicationGroupRequest.getIpDiscovery() != null) {
+            request.addParameter("IpDiscovery", StringUtils.fromString(modifyReplicationGroupRequest.getIpDiscovery()));
+        }
+
+        if (modifyReplicationGroupRequest.getTransitEncryptionEnabled() != null) {
+            request.addParameter("TransitEncryptionEnabled", StringUtils.fromBoolean(modifyReplicationGroupRequest.getTransitEncryptionEnabled()));
+        }
+
+        if (modifyReplicationGroupRequest.getTransitEncryptionMode() != null) {
+            request.addParameter("TransitEncryptionMode", StringUtils.fromString(modifyReplicationGroupRequest.getTransitEncryptionMode()));
+        }
+
+        if (modifyReplicationGroupRequest.getClusterMode() != null) {
+            request.addParameter("ClusterMode", StringUtils.fromString(modifyReplicationGroupRequest.getClusterMode()));
         }
 
         return request;

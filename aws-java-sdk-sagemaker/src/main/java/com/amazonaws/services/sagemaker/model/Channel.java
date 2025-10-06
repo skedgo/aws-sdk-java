@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,9 +58,9 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
      * <p/>
      * <p>
      * Specify RecordIO as the value when input data is in raw format but the training algorithm requires the RecordIO
-     * format. In this case, Amazon SageMaker wraps each individual S3 object in a RecordIO record. If the input data is
+     * format. In this case, SageMaker wraps each individual S3 object in a RecordIO record. If the input data is
      * already in RecordIO format, you don't need to set this attribute. For more information, see <a
-     * href="https://mxnet.incubator.apache.org/architecture/note_data_loading.html#data-format">Create a Dataset Using
+     * href="https://mxnet.apache.org/api/architecture/note_data_loading#data-format">Create a Dataset Using
      * RecordIO</a>.
      * </p>
      * <p>
@@ -71,12 +71,13 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * (Optional) The input mode to use for the data channel in a training job. If you don't set a value for
-     * <code>InputMode</code>, Amazon SageMaker uses the value set for <code>TrainingInputMode</code>. Use this
-     * parameter to override the <code>TrainingInputMode</code> setting in a <a>AlgorithmSpecification</a> request when
-     * you have a channel that needs a different input mode from the training job's general setting. To download the
-     * data from Amazon Simple Storage Service (Amazon S3) to the provisioned ML storage volume, and mount the directory
-     * to a Docker volume, use <code>File</code> input mode. To stream data directly from Amazon S3 to the container,
-     * choose <code>Pipe</code> input mode.
+     * <code>InputMode</code>, SageMaker uses the value set for <code>TrainingInputMode</code>. Use this parameter to
+     * override the <code>TrainingInputMode</code> setting in a <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_AlgorithmSpecification.html"
+     * >AlgorithmSpecification</a> request when you have a channel that needs a different input mode from the training
+     * job's general setting. To download the data from Amazon Simple Storage Service (Amazon S3) to the provisioned ML
+     * storage volume, and mount the directory to a Docker volume, use <code>File</code> input mode. To stream data
+     * directly from Amazon S3 to the container, choose <code>Pipe</code> input mode.
      * </p>
      * <p>
      * To use a model for incremental training, choose <code>File</code> input model.
@@ -300,9 +301,9 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
      * <p/>
      * <p>
      * Specify RecordIO as the value when input data is in raw format but the training algorithm requires the RecordIO
-     * format. In this case, Amazon SageMaker wraps each individual S3 object in a RecordIO record. If the input data is
+     * format. In this case, SageMaker wraps each individual S3 object in a RecordIO record. If the input data is
      * already in RecordIO format, you don't need to set this attribute. For more information, see <a
-     * href="https://mxnet.incubator.apache.org/architecture/note_data_loading.html#data-format">Create a Dataset Using
+     * href="https://mxnet.apache.org/api/architecture/note_data_loading#data-format">Create a Dataset Using
      * RecordIO</a>.
      * </p>
      * <p>
@@ -312,10 +313,10 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
      * @param recordWrapperType
      *        <p>
      *        Specify RecordIO as the value when input data is in raw format but the training algorithm requires the
-     *        RecordIO format. In this case, Amazon SageMaker wraps each individual S3 object in a RecordIO record. If
-     *        the input data is already in RecordIO format, you don't need to set this attribute. For more information,
-     *        see <a href="https://mxnet.incubator.apache.org/architecture/note_data_loading.html#data-format">Create a
-     *        Dataset Using RecordIO</a>.
+     *        RecordIO format. In this case, SageMaker wraps each individual S3 object in a RecordIO record. If the
+     *        input data is already in RecordIO format, you don't need to set this attribute. For more information, see
+     *        <a href="https://mxnet.apache.org/api/architecture/note_data_loading#data-format">Create a Dataset Using
+     *        RecordIO</a>.
      *        </p>
      *        <p>
      *        In File mode, leave this field unset or set it to None.
@@ -330,9 +331,9 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
      * <p/>
      * <p>
      * Specify RecordIO as the value when input data is in raw format but the training algorithm requires the RecordIO
-     * format. In this case, Amazon SageMaker wraps each individual S3 object in a RecordIO record. If the input data is
+     * format. In this case, SageMaker wraps each individual S3 object in a RecordIO record. If the input data is
      * already in RecordIO format, you don't need to set this attribute. For more information, see <a
-     * href="https://mxnet.incubator.apache.org/architecture/note_data_loading.html#data-format">Create a Dataset Using
+     * href="https://mxnet.apache.org/api/architecture/note_data_loading#data-format">Create a Dataset Using
      * RecordIO</a>.
      * </p>
      * <p>
@@ -341,10 +342,10 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
      * 
      * @return <p>
      *         Specify RecordIO as the value when input data is in raw format but the training algorithm requires the
-     *         RecordIO format. In this case, Amazon SageMaker wraps each individual S3 object in a RecordIO record. If
-     *         the input data is already in RecordIO format, you don't need to set this attribute. For more information,
-     *         see <a href="https://mxnet.incubator.apache.org/architecture/note_data_loading.html#data-format">Create a
-     *         Dataset Using RecordIO</a>.
+     *         RecordIO format. In this case, SageMaker wraps each individual S3 object in a RecordIO record. If the
+     *         input data is already in RecordIO format, you don't need to set this attribute. For more information, see
+     *         <a href="https://mxnet.apache.org/api/architecture/note_data_loading#data-format">Create a Dataset Using
+     *         RecordIO</a>.
      *         </p>
      *         <p>
      *         In File mode, leave this field unset or set it to None.
@@ -359,9 +360,9 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
      * <p/>
      * <p>
      * Specify RecordIO as the value when input data is in raw format but the training algorithm requires the RecordIO
-     * format. In this case, Amazon SageMaker wraps each individual S3 object in a RecordIO record. If the input data is
+     * format. In this case, SageMaker wraps each individual S3 object in a RecordIO record. If the input data is
      * already in RecordIO format, you don't need to set this attribute. For more information, see <a
-     * href="https://mxnet.incubator.apache.org/architecture/note_data_loading.html#data-format">Create a Dataset Using
+     * href="https://mxnet.apache.org/api/architecture/note_data_loading#data-format">Create a Dataset Using
      * RecordIO</a>.
      * </p>
      * <p>
@@ -371,10 +372,10 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
      * @param recordWrapperType
      *        <p>
      *        Specify RecordIO as the value when input data is in raw format but the training algorithm requires the
-     *        RecordIO format. In this case, Amazon SageMaker wraps each individual S3 object in a RecordIO record. If
-     *        the input data is already in RecordIO format, you don't need to set this attribute. For more information,
-     *        see <a href="https://mxnet.incubator.apache.org/architecture/note_data_loading.html#data-format">Create a
-     *        Dataset Using RecordIO</a>.
+     *        RecordIO format. In this case, SageMaker wraps each individual S3 object in a RecordIO record. If the
+     *        input data is already in RecordIO format, you don't need to set this attribute. For more information, see
+     *        <a href="https://mxnet.apache.org/api/architecture/note_data_loading#data-format">Create a Dataset Using
+     *        RecordIO</a>.
      *        </p>
      *        <p>
      *        In File mode, leave this field unset or set it to None.
@@ -391,9 +392,9 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
      * <p/>
      * <p>
      * Specify RecordIO as the value when input data is in raw format but the training algorithm requires the RecordIO
-     * format. In this case, Amazon SageMaker wraps each individual S3 object in a RecordIO record. If the input data is
+     * format. In this case, SageMaker wraps each individual S3 object in a RecordIO record. If the input data is
      * already in RecordIO format, you don't need to set this attribute. For more information, see <a
-     * href="https://mxnet.incubator.apache.org/architecture/note_data_loading.html#data-format">Create a Dataset Using
+     * href="https://mxnet.apache.org/api/architecture/note_data_loading#data-format">Create a Dataset Using
      * RecordIO</a>.
      * </p>
      * <p>
@@ -403,10 +404,10 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
      * @param recordWrapperType
      *        <p>
      *        Specify RecordIO as the value when input data is in raw format but the training algorithm requires the
-     *        RecordIO format. In this case, Amazon SageMaker wraps each individual S3 object in a RecordIO record. If
-     *        the input data is already in RecordIO format, you don't need to set this attribute. For more information,
-     *        see <a href="https://mxnet.incubator.apache.org/architecture/note_data_loading.html#data-format">Create a
-     *        Dataset Using RecordIO</a>.
+     *        RecordIO format. In this case, SageMaker wraps each individual S3 object in a RecordIO record. If the
+     *        input data is already in RecordIO format, you don't need to set this attribute. For more information, see
+     *        <a href="https://mxnet.apache.org/api/architecture/note_data_loading#data-format">Create a Dataset Using
+     *        RecordIO</a>.
      *        </p>
      *        <p>
      *        In File mode, leave this field unset or set it to None.
@@ -422,12 +423,13 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * (Optional) The input mode to use for the data channel in a training job. If you don't set a value for
-     * <code>InputMode</code>, Amazon SageMaker uses the value set for <code>TrainingInputMode</code>. Use this
-     * parameter to override the <code>TrainingInputMode</code> setting in a <a>AlgorithmSpecification</a> request when
-     * you have a channel that needs a different input mode from the training job's general setting. To download the
-     * data from Amazon Simple Storage Service (Amazon S3) to the provisioned ML storage volume, and mount the directory
-     * to a Docker volume, use <code>File</code> input mode. To stream data directly from Amazon S3 to the container,
-     * choose <code>Pipe</code> input mode.
+     * <code>InputMode</code>, SageMaker uses the value set for <code>TrainingInputMode</code>. Use this parameter to
+     * override the <code>TrainingInputMode</code> setting in a <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_AlgorithmSpecification.html"
+     * >AlgorithmSpecification</a> request when you have a channel that needs a different input mode from the training
+     * job's general setting. To download the data from Amazon Simple Storage Service (Amazon S3) to the provisioned ML
+     * storage volume, and mount the directory to a Docker volume, use <code>File</code> input mode. To stream data
+     * directly from Amazon S3 to the container, choose <code>Pipe</code> input mode.
      * </p>
      * <p>
      * To use a model for incremental training, choose <code>File</code> input model.
@@ -435,12 +437,13 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param inputMode
      *        (Optional) The input mode to use for the data channel in a training job. If you don't set a value for
-     *        <code>InputMode</code>, Amazon SageMaker uses the value set for <code>TrainingInputMode</code>. Use this
-     *        parameter to override the <code>TrainingInputMode</code> setting in a <a>AlgorithmSpecification</a>
-     *        request when you have a channel that needs a different input mode from the training job's general setting.
-     *        To download the data from Amazon Simple Storage Service (Amazon S3) to the provisioned ML storage volume,
-     *        and mount the directory to a Docker volume, use <code>File</code> input mode. To stream data directly from
-     *        Amazon S3 to the container, choose <code>Pipe</code> input mode.</p>
+     *        <code>InputMode</code>, SageMaker uses the value set for <code>TrainingInputMode</code>. Use this
+     *        parameter to override the <code>TrainingInputMode</code> setting in a <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_AlgorithmSpecification.html"
+     *        >AlgorithmSpecification</a> request when you have a channel that needs a different input mode from the
+     *        training job's general setting. To download the data from Amazon Simple Storage Service (Amazon S3) to the
+     *        provisioned ML storage volume, and mount the directory to a Docker volume, use <code>File</code> input
+     *        mode. To stream data directly from Amazon S3 to the container, choose <code>Pipe</code> input mode.</p>
      *        <p>
      *        To use a model for incremental training, choose <code>File</code> input model.
      * @see TrainingInputMode
@@ -453,24 +456,27 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * (Optional) The input mode to use for the data channel in a training job. If you don't set a value for
-     * <code>InputMode</code>, Amazon SageMaker uses the value set for <code>TrainingInputMode</code>. Use this
-     * parameter to override the <code>TrainingInputMode</code> setting in a <a>AlgorithmSpecification</a> request when
-     * you have a channel that needs a different input mode from the training job's general setting. To download the
-     * data from Amazon Simple Storage Service (Amazon S3) to the provisioned ML storage volume, and mount the directory
-     * to a Docker volume, use <code>File</code> input mode. To stream data directly from Amazon S3 to the container,
-     * choose <code>Pipe</code> input mode.
+     * <code>InputMode</code>, SageMaker uses the value set for <code>TrainingInputMode</code>. Use this parameter to
+     * override the <code>TrainingInputMode</code> setting in a <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_AlgorithmSpecification.html"
+     * >AlgorithmSpecification</a> request when you have a channel that needs a different input mode from the training
+     * job's general setting. To download the data from Amazon Simple Storage Service (Amazon S3) to the provisioned ML
+     * storage volume, and mount the directory to a Docker volume, use <code>File</code> input mode. To stream data
+     * directly from Amazon S3 to the container, choose <code>Pipe</code> input mode.
      * </p>
      * <p>
      * To use a model for incremental training, choose <code>File</code> input model.
      * </p>
      * 
      * @return (Optional) The input mode to use for the data channel in a training job. If you don't set a value for
-     *         <code>InputMode</code>, Amazon SageMaker uses the value set for <code>TrainingInputMode</code>. Use this
-     *         parameter to override the <code>TrainingInputMode</code> setting in a <a>AlgorithmSpecification</a>
-     *         request when you have a channel that needs a different input mode from the training job's general
-     *         setting. To download the data from Amazon Simple Storage Service (Amazon S3) to the provisioned ML
-     *         storage volume, and mount the directory to a Docker volume, use <code>File</code> input mode. To stream
-     *         data directly from Amazon S3 to the container, choose <code>Pipe</code> input mode.</p>
+     *         <code>InputMode</code>, SageMaker uses the value set for <code>TrainingInputMode</code>. Use this
+     *         parameter to override the <code>TrainingInputMode</code> setting in a <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_AlgorithmSpecification.html"
+     *         >AlgorithmSpecification</a> request when you have a channel that needs a different input mode from the
+     *         training job's general setting. To download the data from Amazon Simple Storage Service (Amazon S3) to
+     *         the provisioned ML storage volume, and mount the directory to a Docker volume, use <code>File</code>
+     *         input mode. To stream data directly from Amazon S3 to the container, choose <code>Pipe</code> input
+     *         mode.</p>
      *         <p>
      *         To use a model for incremental training, choose <code>File</code> input model.
      * @see TrainingInputMode
@@ -483,12 +489,13 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * (Optional) The input mode to use for the data channel in a training job. If you don't set a value for
-     * <code>InputMode</code>, Amazon SageMaker uses the value set for <code>TrainingInputMode</code>. Use this
-     * parameter to override the <code>TrainingInputMode</code> setting in a <a>AlgorithmSpecification</a> request when
-     * you have a channel that needs a different input mode from the training job's general setting. To download the
-     * data from Amazon Simple Storage Service (Amazon S3) to the provisioned ML storage volume, and mount the directory
-     * to a Docker volume, use <code>File</code> input mode. To stream data directly from Amazon S3 to the container,
-     * choose <code>Pipe</code> input mode.
+     * <code>InputMode</code>, SageMaker uses the value set for <code>TrainingInputMode</code>. Use this parameter to
+     * override the <code>TrainingInputMode</code> setting in a <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_AlgorithmSpecification.html"
+     * >AlgorithmSpecification</a> request when you have a channel that needs a different input mode from the training
+     * job's general setting. To download the data from Amazon Simple Storage Service (Amazon S3) to the provisioned ML
+     * storage volume, and mount the directory to a Docker volume, use <code>File</code> input mode. To stream data
+     * directly from Amazon S3 to the container, choose <code>Pipe</code> input mode.
      * </p>
      * <p>
      * To use a model for incremental training, choose <code>File</code> input model.
@@ -496,12 +503,13 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param inputMode
      *        (Optional) The input mode to use for the data channel in a training job. If you don't set a value for
-     *        <code>InputMode</code>, Amazon SageMaker uses the value set for <code>TrainingInputMode</code>. Use this
-     *        parameter to override the <code>TrainingInputMode</code> setting in a <a>AlgorithmSpecification</a>
-     *        request when you have a channel that needs a different input mode from the training job's general setting.
-     *        To download the data from Amazon Simple Storage Service (Amazon S3) to the provisioned ML storage volume,
-     *        and mount the directory to a Docker volume, use <code>File</code> input mode. To stream data directly from
-     *        Amazon S3 to the container, choose <code>Pipe</code> input mode.</p>
+     *        <code>InputMode</code>, SageMaker uses the value set for <code>TrainingInputMode</code>. Use this
+     *        parameter to override the <code>TrainingInputMode</code> setting in a <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_AlgorithmSpecification.html"
+     *        >AlgorithmSpecification</a> request when you have a channel that needs a different input mode from the
+     *        training job's general setting. To download the data from Amazon Simple Storage Service (Amazon S3) to the
+     *        provisioned ML storage volume, and mount the directory to a Docker volume, use <code>File</code> input
+     *        mode. To stream data directly from Amazon S3 to the container, choose <code>Pipe</code> input mode.</p>
      *        <p>
      *        To use a model for incremental training, choose <code>File</code> input model.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -516,12 +524,13 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * (Optional) The input mode to use for the data channel in a training job. If you don't set a value for
-     * <code>InputMode</code>, Amazon SageMaker uses the value set for <code>TrainingInputMode</code>. Use this
-     * parameter to override the <code>TrainingInputMode</code> setting in a <a>AlgorithmSpecification</a> request when
-     * you have a channel that needs a different input mode from the training job's general setting. To download the
-     * data from Amazon Simple Storage Service (Amazon S3) to the provisioned ML storage volume, and mount the directory
-     * to a Docker volume, use <code>File</code> input mode. To stream data directly from Amazon S3 to the container,
-     * choose <code>Pipe</code> input mode.
+     * <code>InputMode</code>, SageMaker uses the value set for <code>TrainingInputMode</code>. Use this parameter to
+     * override the <code>TrainingInputMode</code> setting in a <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_AlgorithmSpecification.html"
+     * >AlgorithmSpecification</a> request when you have a channel that needs a different input mode from the training
+     * job's general setting. To download the data from Amazon Simple Storage Service (Amazon S3) to the provisioned ML
+     * storage volume, and mount the directory to a Docker volume, use <code>File</code> input mode. To stream data
+     * directly from Amazon S3 to the container, choose <code>Pipe</code> input mode.
      * </p>
      * <p>
      * To use a model for incremental training, choose <code>File</code> input model.
@@ -529,12 +538,13 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param inputMode
      *        (Optional) The input mode to use for the data channel in a training job. If you don't set a value for
-     *        <code>InputMode</code>, Amazon SageMaker uses the value set for <code>TrainingInputMode</code>. Use this
-     *        parameter to override the <code>TrainingInputMode</code> setting in a <a>AlgorithmSpecification</a>
-     *        request when you have a channel that needs a different input mode from the training job's general setting.
-     *        To download the data from Amazon Simple Storage Service (Amazon S3) to the provisioned ML storage volume,
-     *        and mount the directory to a Docker volume, use <code>File</code> input mode. To stream data directly from
-     *        Amazon S3 to the container, choose <code>Pipe</code> input mode.</p>
+     *        <code>InputMode</code>, SageMaker uses the value set for <code>TrainingInputMode</code>. Use this
+     *        parameter to override the <code>TrainingInputMode</code> setting in a <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_AlgorithmSpecification.html"
+     *        >AlgorithmSpecification</a> request when you have a channel that needs a different input mode from the
+     *        training job's general setting. To download the data from Amazon Simple Storage Service (Amazon S3) to the
+     *        provisioned ML storage volume, and mount the directory to a Docker volume, use <code>File</code> input
+     *        mode. To stream data directly from Amazon S3 to the container, choose <code>Pipe</code> input mode.</p>
      *        <p>
      *        To use a model for incremental training, choose <code>File</code> input model.
      * @return Returns a reference to this object so that method calls can be chained together.

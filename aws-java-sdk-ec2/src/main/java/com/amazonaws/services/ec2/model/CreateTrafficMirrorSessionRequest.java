@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,12 +48,17 @@ public class CreateTrafficMirrorSessionRequest extends AmazonWebServiceRequest i
      * <p>
      * The number of bytes in each packet to mirror. These are bytes after the VXLAN header. Do not specify this
      * parameter when you want to mirror the entire packet. To mirror a subset of the packet, set this to the length (in
-     * bytes) that you want to mirror. For example, if you set this value to 1network0, then the first 100 bytes that
-     * meet the filter criteria are copied to the target.
+     * bytes) that you want to mirror. For example, if you set this value to 100, then the first 100 bytes that meet the
+     * filter criteria are copied to the target.
      * </p>
      * <p>
      * If you do not want to mirror the entire packet, use the <code>PacketLength</code> parameter to specify the number
      * of bytes in each packet to mirror.
+     * </p>
+     * <p>
+     * For sessions with Network Load Balancer (NLB) Traffic Mirror targets the default <code>PacketLength</code> will
+     * be set to 8500. Valid values are 1-8500. Setting a <code>PacketLength</code> greater than 8500 will result in an
+     * error response.
      * </p>
      */
     private Integer packetLength;
@@ -70,8 +75,8 @@ public class CreateTrafficMirrorSessionRequest extends AmazonWebServiceRequest i
     /**
      * <p>
      * The VXLAN ID for the Traffic Mirror session. For more information about the VXLAN protocol, see <a
-     * href="https://tools.ietf.org/html/rfc7348">RFC 7348</a>. If you do not specify a <code>VirtualNetworkId</code>,
-     * an account-wide unique id is chosen at random.
+     * href="https://datatracker.ietf.org/doc/html/rfc7348">RFC 7348</a>. If you do not specify a
+     * <code>VirtualNetworkId</code>, an account-wide unique ID is chosen at random.
      * </p>
      */
     private Integer virtualNetworkId;
@@ -90,9 +95,8 @@ public class CreateTrafficMirrorSessionRequest extends AmazonWebServiceRequest i
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to ensure
+     * idempotency</a>.
      * </p>
      */
     private String clientToken;
@@ -221,22 +225,32 @@ public class CreateTrafficMirrorSessionRequest extends AmazonWebServiceRequest i
      * <p>
      * The number of bytes in each packet to mirror. These are bytes after the VXLAN header. Do not specify this
      * parameter when you want to mirror the entire packet. To mirror a subset of the packet, set this to the length (in
-     * bytes) that you want to mirror. For example, if you set this value to 1network0, then the first 100 bytes that
-     * meet the filter criteria are copied to the target.
+     * bytes) that you want to mirror. For example, if you set this value to 100, then the first 100 bytes that meet the
+     * filter criteria are copied to the target.
      * </p>
      * <p>
      * If you do not want to mirror the entire packet, use the <code>PacketLength</code> parameter to specify the number
      * of bytes in each packet to mirror.
      * </p>
+     * <p>
+     * For sessions with Network Load Balancer (NLB) Traffic Mirror targets the default <code>PacketLength</code> will
+     * be set to 8500. Valid values are 1-8500. Setting a <code>PacketLength</code> greater than 8500 will result in an
+     * error response.
+     * </p>
      * 
      * @param packetLength
      *        The number of bytes in each packet to mirror. These are bytes after the VXLAN header. Do not specify this
      *        parameter when you want to mirror the entire packet. To mirror a subset of the packet, set this to the
-     *        length (in bytes) that you want to mirror. For example, if you set this value to 1network0, then the first
-     *        100 bytes that meet the filter criteria are copied to the target.</p>
+     *        length (in bytes) that you want to mirror. For example, if you set this value to 100, then the first 100
+     *        bytes that meet the filter criteria are copied to the target.</p>
      *        <p>
      *        If you do not want to mirror the entire packet, use the <code>PacketLength</code> parameter to specify the
      *        number of bytes in each packet to mirror.
+     *        </p>
+     *        <p>
+     *        For sessions with Network Load Balancer (NLB) Traffic Mirror targets the default <code>PacketLength</code>
+     *        will be set to 8500. Valid values are 1-8500. Setting a <code>PacketLength</code> greater than 8500 will
+     *        result in an error response.
      */
 
     public void setPacketLength(Integer packetLength) {
@@ -247,21 +261,31 @@ public class CreateTrafficMirrorSessionRequest extends AmazonWebServiceRequest i
      * <p>
      * The number of bytes in each packet to mirror. These are bytes after the VXLAN header. Do not specify this
      * parameter when you want to mirror the entire packet. To mirror a subset of the packet, set this to the length (in
-     * bytes) that you want to mirror. For example, if you set this value to 1network0, then the first 100 bytes that
-     * meet the filter criteria are copied to the target.
+     * bytes) that you want to mirror. For example, if you set this value to 100, then the first 100 bytes that meet the
+     * filter criteria are copied to the target.
      * </p>
      * <p>
      * If you do not want to mirror the entire packet, use the <code>PacketLength</code> parameter to specify the number
      * of bytes in each packet to mirror.
      * </p>
+     * <p>
+     * For sessions with Network Load Balancer (NLB) Traffic Mirror targets the default <code>PacketLength</code> will
+     * be set to 8500. Valid values are 1-8500. Setting a <code>PacketLength</code> greater than 8500 will result in an
+     * error response.
+     * </p>
      * 
      * @return The number of bytes in each packet to mirror. These are bytes after the VXLAN header. Do not specify this
      *         parameter when you want to mirror the entire packet. To mirror a subset of the packet, set this to the
-     *         length (in bytes) that you want to mirror. For example, if you set this value to 1network0, then the
-     *         first 100 bytes that meet the filter criteria are copied to the target.</p>
+     *         length (in bytes) that you want to mirror. For example, if you set this value to 100, then the first 100
+     *         bytes that meet the filter criteria are copied to the target.</p>
      *         <p>
      *         If you do not want to mirror the entire packet, use the <code>PacketLength</code> parameter to specify
      *         the number of bytes in each packet to mirror.
+     *         </p>
+     *         <p>
+     *         For sessions with Network Load Balancer (NLB) Traffic Mirror targets the default
+     *         <code>PacketLength</code> will be set to 8500. Valid values are 1-8500. Setting a
+     *         <code>PacketLength</code> greater than 8500 will result in an error response.
      */
 
     public Integer getPacketLength() {
@@ -272,22 +296,32 @@ public class CreateTrafficMirrorSessionRequest extends AmazonWebServiceRequest i
      * <p>
      * The number of bytes in each packet to mirror. These are bytes after the VXLAN header. Do not specify this
      * parameter when you want to mirror the entire packet. To mirror a subset of the packet, set this to the length (in
-     * bytes) that you want to mirror. For example, if you set this value to 1network0, then the first 100 bytes that
-     * meet the filter criteria are copied to the target.
+     * bytes) that you want to mirror. For example, if you set this value to 100, then the first 100 bytes that meet the
+     * filter criteria are copied to the target.
      * </p>
      * <p>
      * If you do not want to mirror the entire packet, use the <code>PacketLength</code> parameter to specify the number
      * of bytes in each packet to mirror.
      * </p>
+     * <p>
+     * For sessions with Network Load Balancer (NLB) Traffic Mirror targets the default <code>PacketLength</code> will
+     * be set to 8500. Valid values are 1-8500. Setting a <code>PacketLength</code> greater than 8500 will result in an
+     * error response.
+     * </p>
      * 
      * @param packetLength
      *        The number of bytes in each packet to mirror. These are bytes after the VXLAN header. Do not specify this
      *        parameter when you want to mirror the entire packet. To mirror a subset of the packet, set this to the
-     *        length (in bytes) that you want to mirror. For example, if you set this value to 1network0, then the first
-     *        100 bytes that meet the filter criteria are copied to the target.</p>
+     *        length (in bytes) that you want to mirror. For example, if you set this value to 100, then the first 100
+     *        bytes that meet the filter criteria are copied to the target.</p>
      *        <p>
      *        If you do not want to mirror the entire packet, use the <code>PacketLength</code> parameter to specify the
      *        number of bytes in each packet to mirror.
+     *        </p>
+     *        <p>
+     *        For sessions with Network Load Balancer (NLB) Traffic Mirror targets the default <code>PacketLength</code>
+     *        will be set to 8500. Valid values are 1-8500. Setting a <code>PacketLength</code> greater than 8500 will
+     *        result in an error response.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -360,14 +394,14 @@ public class CreateTrafficMirrorSessionRequest extends AmazonWebServiceRequest i
     /**
      * <p>
      * The VXLAN ID for the Traffic Mirror session. For more information about the VXLAN protocol, see <a
-     * href="https://tools.ietf.org/html/rfc7348">RFC 7348</a>. If you do not specify a <code>VirtualNetworkId</code>,
-     * an account-wide unique id is chosen at random.
+     * href="https://datatracker.ietf.org/doc/html/rfc7348">RFC 7348</a>. If you do not specify a
+     * <code>VirtualNetworkId</code>, an account-wide unique ID is chosen at random.
      * </p>
      * 
      * @param virtualNetworkId
      *        The VXLAN ID for the Traffic Mirror session. For more information about the VXLAN protocol, see <a
-     *        href="https://tools.ietf.org/html/rfc7348">RFC 7348</a>. If you do not specify a
-     *        <code>VirtualNetworkId</code>, an account-wide unique id is chosen at random.
+     *        href="https://datatracker.ietf.org/doc/html/rfc7348">RFC 7348</a>. If you do not specify a
+     *        <code>VirtualNetworkId</code>, an account-wide unique ID is chosen at random.
      */
 
     public void setVirtualNetworkId(Integer virtualNetworkId) {
@@ -377,13 +411,13 @@ public class CreateTrafficMirrorSessionRequest extends AmazonWebServiceRequest i
     /**
      * <p>
      * The VXLAN ID for the Traffic Mirror session. For more information about the VXLAN protocol, see <a
-     * href="https://tools.ietf.org/html/rfc7348">RFC 7348</a>. If you do not specify a <code>VirtualNetworkId</code>,
-     * an account-wide unique id is chosen at random.
+     * href="https://datatracker.ietf.org/doc/html/rfc7348">RFC 7348</a>. If you do not specify a
+     * <code>VirtualNetworkId</code>, an account-wide unique ID is chosen at random.
      * </p>
      * 
      * @return The VXLAN ID for the Traffic Mirror session. For more information about the VXLAN protocol, see <a
-     *         href="https://tools.ietf.org/html/rfc7348">RFC 7348</a>. If you do not specify a
-     *         <code>VirtualNetworkId</code>, an account-wide unique id is chosen at random.
+     *         href="https://datatracker.ietf.org/doc/html/rfc7348">RFC 7348</a>. If you do not specify a
+     *         <code>VirtualNetworkId</code>, an account-wide unique ID is chosen at random.
      */
 
     public Integer getVirtualNetworkId() {
@@ -393,14 +427,14 @@ public class CreateTrafficMirrorSessionRequest extends AmazonWebServiceRequest i
     /**
      * <p>
      * The VXLAN ID for the Traffic Mirror session. For more information about the VXLAN protocol, see <a
-     * href="https://tools.ietf.org/html/rfc7348">RFC 7348</a>. If you do not specify a <code>VirtualNetworkId</code>,
-     * an account-wide unique id is chosen at random.
+     * href="https://datatracker.ietf.org/doc/html/rfc7348">RFC 7348</a>. If you do not specify a
+     * <code>VirtualNetworkId</code>, an account-wide unique ID is chosen at random.
      * </p>
      * 
      * @param virtualNetworkId
      *        The VXLAN ID for the Traffic Mirror session. For more information about the VXLAN protocol, see <a
-     *        href="https://tools.ietf.org/html/rfc7348">RFC 7348</a>. If you do not specify a
-     *        <code>VirtualNetworkId</code>, an account-wide unique id is chosen at random.
+     *        href="https://datatracker.ietf.org/doc/html/rfc7348">RFC 7348</a>. If you do not specify a
+     *        <code>VirtualNetworkId</code>, an account-wide unique ID is chosen at random.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -525,16 +559,14 @@ public class CreateTrafficMirrorSessionRequest extends AmazonWebServiceRequest i
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to ensure
+     * idempotency</a>.
      * </p>
      * 
      * @param clientToken
      *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *        Idempotency</a>.
+     *        information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to
+     *        ensure idempotency</a>.
      */
 
     public void setClientToken(String clientToken) {
@@ -544,15 +576,13 @@ public class CreateTrafficMirrorSessionRequest extends AmazonWebServiceRequest i
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to ensure
+     * idempotency</a>.
      * </p>
      * 
      * @return Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     *         information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *         Idempotency</a>.
+     *         information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How
+     *         to ensure idempotency</a>.
      */
 
     public String getClientToken() {
@@ -562,16 +592,14 @@ public class CreateTrafficMirrorSessionRequest extends AmazonWebServiceRequest i
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to ensure
+     * idempotency</a>.
      * </p>
      * 
      * @param clientToken
      *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *        Idempotency</a>.
+     *        information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to
+     *        ensure idempotency</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

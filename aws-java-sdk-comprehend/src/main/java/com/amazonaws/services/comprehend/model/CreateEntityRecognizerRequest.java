@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,29 +28,36 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * The name given to the newly created recognizer. Recognizer names can be a maximum of 256 characters. Alphanumeric
-     * characters, hyphens (-) and underscores (_) are allowed. The name must be unique in the account/region.
+     * characters, hyphens (-) and underscores (_) are allowed. The name must be unique in the account/Region.
      * </p>
      */
     private String recognizerName;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend read
-     * access to your input data.
+     * The version name given to the newly created recognizer. Version names can be a maximum of 256 characters.
+     * Alphanumeric characters, hyphens (-) and underscores (_) are allowed. The version name must be unique among all
+     * models with the same recognizer name in the account/Region.
+     * </p>
+     */
+    private String versionName;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data.
      * </p>
      */
     private String dataAccessRoleArn;
     /**
      * <p>
-     * Tags to be associated with the entity recognizer being created. A tag is a key-value pair that adds as a metadata
-     * to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource
-     * to indicate its use by the sales department.
+     * Tags to associate with the entity recognizer. A tag is a key-value pair that adds as a metadata to a resource
+     * used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate
+     * its use by the sales department.
      * </p>
      */
     private java.util.List<Tag> tags;
     /**
      * <p>
      * Specifies the format and location of the input data. The S3 bucket containing the input data must be located in
-     * the same region as the entity recognizer being created.
+     * the same Region as the entity recognizer being created.
      * </p>
      */
     private EntityRecognizerInputDataConfig inputDataConfig;
@@ -62,16 +69,17 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
     private String clientRequestToken;
     /**
      * <p>
-     * The language of the input documents. All documents must be in the same language. Only English ("en") is currently
-     * supported.
+     * You can specify any of the following languages: English ("en"), Spanish ("es"), French ("fr"), Italian ("it"),
+     * German ("de"), or Portuguese ("pt"). If you plan to use this entity recognizer with PDF, Word, or image input
+     * files, you must specify English as the language. All training documents must be in the same language.
      * </p>
      */
     private String languageCode;
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -96,17 +104,59 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
      * </p>
      */
     private VpcConfig vpcConfig;
+    /**
+     * <p>
+     * ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either
+     * of the following formats:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Resource Name (ARN) of a KMS Key:
+     * <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String modelKmsKeyId;
+    /**
+     * <p>
+     * The JSON resource-based policy to attach to your custom entity recognizer model. You can use this policy to allow
+     * another Amazon Web Services account to import your custom model.
+     * </p>
+     * <p>
+     * Provide your JSON as a UTF-8 encoded string without line breaks. To provide valid JSON for your policy, enclose
+     * the attribute names and values in double quotes. If the JSON body is also enclosed in double quotes, then you
+     * must escape the double quotes that are inside the policy:
+     * </p>
+     * <p>
+     * <code>"{\"attribute\": \"value\", \"attribute\": [\"value\"]}"</code>
+     * </p>
+     * <p>
+     * To avoid escaping quotes, you can use single quotes to enclose the policy and double quotes to enclose the JSON
+     * names and values:
+     * </p>
+     * <p>
+     * <code>'{"attribute": "value", "attribute": ["value"]}'</code>
+     * </p>
+     */
+    private String modelPolicy;
 
     /**
      * <p>
      * The name given to the newly created recognizer. Recognizer names can be a maximum of 256 characters. Alphanumeric
-     * characters, hyphens (-) and underscores (_) are allowed. The name must be unique in the account/region.
+     * characters, hyphens (-) and underscores (_) are allowed. The name must be unique in the account/Region.
      * </p>
      * 
      * @param recognizerName
      *        The name given to the newly created recognizer. Recognizer names can be a maximum of 256 characters.
      *        Alphanumeric characters, hyphens (-) and underscores (_) are allowed. The name must be unique in the
-     *        account/region.
+     *        account/Region.
      */
 
     public void setRecognizerName(String recognizerName) {
@@ -116,12 +166,12 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * The name given to the newly created recognizer. Recognizer names can be a maximum of 256 characters. Alphanumeric
-     * characters, hyphens (-) and underscores (_) are allowed. The name must be unique in the account/region.
+     * characters, hyphens (-) and underscores (_) are allowed. The name must be unique in the account/Region.
      * </p>
      * 
      * @return The name given to the newly created recognizer. Recognizer names can be a maximum of 256 characters.
      *         Alphanumeric characters, hyphens (-) and underscores (_) are allowed. The name must be unique in the
-     *         account/region.
+     *         account/Region.
      */
 
     public String getRecognizerName() {
@@ -131,13 +181,13 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * The name given to the newly created recognizer. Recognizer names can be a maximum of 256 characters. Alphanumeric
-     * characters, hyphens (-) and underscores (_) are allowed. The name must be unique in the account/region.
+     * characters, hyphens (-) and underscores (_) are allowed. The name must be unique in the account/Region.
      * </p>
      * 
      * @param recognizerName
      *        The name given to the newly created recognizer. Recognizer names can be a maximum of 256 characters.
      *        Alphanumeric characters, hyphens (-) and underscores (_) are allowed. The name must be unique in the
-     *        account/region.
+     *        account/Region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -148,13 +198,64 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend read
-     * access to your input data.
+     * The version name given to the newly created recognizer. Version names can be a maximum of 256 characters.
+     * Alphanumeric characters, hyphens (-) and underscores (_) are allowed. The version name must be unique among all
+     * models with the same recognizer name in the account/Region.
+     * </p>
+     * 
+     * @param versionName
+     *        The version name given to the newly created recognizer. Version names can be a maximum of 256 characters.
+     *        Alphanumeric characters, hyphens (-) and underscores (_) are allowed. The version name must be unique
+     *        among all models with the same recognizer name in the account/Region.
+     */
+
+    public void setVersionName(String versionName) {
+        this.versionName = versionName;
+    }
+
+    /**
+     * <p>
+     * The version name given to the newly created recognizer. Version names can be a maximum of 256 characters.
+     * Alphanumeric characters, hyphens (-) and underscores (_) are allowed. The version name must be unique among all
+     * models with the same recognizer name in the account/Region.
+     * </p>
+     * 
+     * @return The version name given to the newly created recognizer. Version names can be a maximum of 256 characters.
+     *         Alphanumeric characters, hyphens (-) and underscores (_) are allowed. The version name must be unique
+     *         among all models with the same recognizer name in the account/Region.
+     */
+
+    public String getVersionName() {
+        return this.versionName;
+    }
+
+    /**
+     * <p>
+     * The version name given to the newly created recognizer. Version names can be a maximum of 256 characters.
+     * Alphanumeric characters, hyphens (-) and underscores (_) are allowed. The version name must be unique among all
+     * models with the same recognizer name in the account/Region.
+     * </p>
+     * 
+     * @param versionName
+     *        The version name given to the newly created recognizer. Version names can be a maximum of 256 characters.
+     *        Alphanumeric characters, hyphens (-) and underscores (_) are allowed. The version name must be unique
+     *        among all models with the same recognizer name in the account/Region.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEntityRecognizerRequest withVersionName(String versionName) {
+        setVersionName(versionName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data.
      * </p>
      * 
      * @param dataAccessRoleArn
-     *        The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend
-     *        read access to your input data.
+     *        The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input
+     *        data.
      */
 
     public void setDataAccessRoleArn(String dataAccessRoleArn) {
@@ -163,12 +264,11 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend read
-     * access to your input data.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon
-     *         Comprehend read access to your input data.
+     * @return The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input
+     *         data.
      */
 
     public String getDataAccessRoleArn() {
@@ -177,13 +277,12 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend read
-     * access to your input data.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input data.
      * </p>
      * 
      * @param dataAccessRoleArn
-     *        The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend
-     *        read access to your input data.
+     *        The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your input
+     *        data.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -194,14 +293,14 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Tags to be associated with the entity recognizer being created. A tag is a key-value pair that adds as a metadata
-     * to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource
-     * to indicate its use by the sales department.
+     * Tags to associate with the entity recognizer. A tag is a key-value pair that adds as a metadata to a resource
+     * used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate
+     * its use by the sales department.
      * </p>
      * 
-     * @return Tags to be associated with the entity recognizer being created. A tag is a key-value pair that adds as a
-     *         metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be
-     *         added to a resource to indicate its use by the sales department.
+     * @return Tags to associate with the entity recognizer. A tag is a key-value pair that adds as a metadata to a
+     *         resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a
+     *         resource to indicate its use by the sales department.
      */
 
     public java.util.List<Tag> getTags() {
@@ -210,15 +309,15 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Tags to be associated with the entity recognizer being created. A tag is a key-value pair that adds as a metadata
-     * to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource
-     * to indicate its use by the sales department.
+     * Tags to associate with the entity recognizer. A tag is a key-value pair that adds as a metadata to a resource
+     * used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate
+     * its use by the sales department.
      * </p>
      * 
      * @param tags
-     *        Tags to be associated with the entity recognizer being created. A tag is a key-value pair that adds as a
-     *        metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be
-     *        added to a resource to indicate its use by the sales department.
+     *        Tags to associate with the entity recognizer. A tag is a key-value pair that adds as a metadata to a
+     *        resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a
+     *        resource to indicate its use by the sales department.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -232,9 +331,9 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Tags to be associated with the entity recognizer being created. A tag is a key-value pair that adds as a metadata
-     * to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource
-     * to indicate its use by the sales department.
+     * Tags to associate with the entity recognizer. A tag is a key-value pair that adds as a metadata to a resource
+     * used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate
+     * its use by the sales department.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -243,9 +342,9 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param tags
-     *        Tags to be associated with the entity recognizer being created. A tag is a key-value pair that adds as a
-     *        metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be
-     *        added to a resource to indicate its use by the sales department.
+     *        Tags to associate with the entity recognizer. A tag is a key-value pair that adds as a metadata to a
+     *        resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a
+     *        resource to indicate its use by the sales department.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -261,15 +360,15 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Tags to be associated with the entity recognizer being created. A tag is a key-value pair that adds as a metadata
-     * to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource
-     * to indicate its use by the sales department.
+     * Tags to associate with the entity recognizer. A tag is a key-value pair that adds as a metadata to a resource
+     * used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a resource to indicate
+     * its use by the sales department.
      * </p>
      * 
      * @param tags
-     *        Tags to be associated with the entity recognizer being created. A tag is a key-value pair that adds as a
-     *        metadata to a resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be
-     *        added to a resource to indicate its use by the sales department.
+     *        Tags to associate with the entity recognizer. A tag is a key-value pair that adds as a metadata to a
+     *        resource used by Amazon Comprehend. For example, a tag with "Sales" as the key might be added to a
+     *        resource to indicate its use by the sales department.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -281,12 +380,12 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * Specifies the format and location of the input data. The S3 bucket containing the input data must be located in
-     * the same region as the entity recognizer being created.
+     * the same Region as the entity recognizer being created.
      * </p>
      * 
      * @param inputDataConfig
      *        Specifies the format and location of the input data. The S3 bucket containing the input data must be
-     *        located in the same region as the entity recognizer being created.
+     *        located in the same Region as the entity recognizer being created.
      */
 
     public void setInputDataConfig(EntityRecognizerInputDataConfig inputDataConfig) {
@@ -296,11 +395,11 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * Specifies the format and location of the input data. The S3 bucket containing the input data must be located in
-     * the same region as the entity recognizer being created.
+     * the same Region as the entity recognizer being created.
      * </p>
      * 
      * @return Specifies the format and location of the input data. The S3 bucket containing the input data must be
-     *         located in the same region as the entity recognizer being created.
+     *         located in the same Region as the entity recognizer being created.
      */
 
     public EntityRecognizerInputDataConfig getInputDataConfig() {
@@ -310,12 +409,12 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
     /**
      * <p>
      * Specifies the format and location of the input data. The S3 bucket containing the input data must be located in
-     * the same region as the entity recognizer being created.
+     * the same Region as the entity recognizer being created.
      * </p>
      * 
      * @param inputDataConfig
      *        Specifies the format and location of the input data. The S3 bucket containing the input data must be
-     *        located in the same region as the entity recognizer being created.
+     *        located in the same Region as the entity recognizer being created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -369,13 +468,16 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The language of the input documents. All documents must be in the same language. Only English ("en") is currently
-     * supported.
+     * You can specify any of the following languages: English ("en"), Spanish ("es"), French ("fr"), Italian ("it"),
+     * German ("de"), or Portuguese ("pt"). If you plan to use this entity recognizer with PDF, Word, or image input
+     * files, you must specify English as the language. All training documents must be in the same language.
      * </p>
      * 
      * @param languageCode
-     *        The language of the input documents. All documents must be in the same language. Only English ("en") is
-     *        currently supported.
+     *        You can specify any of the following languages: English ("en"), Spanish ("es"), French ("fr"), Italian
+     *        ("it"), German ("de"), or Portuguese ("pt"). If you plan to use this entity recognizer with PDF, Word, or
+     *        image input files, you must specify English as the language. All training documents must be in the same
+     *        language.
      * @see LanguageCode
      */
 
@@ -385,12 +487,15 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The language of the input documents. All documents must be in the same language. Only English ("en") is currently
-     * supported.
+     * You can specify any of the following languages: English ("en"), Spanish ("es"), French ("fr"), Italian ("it"),
+     * German ("de"), or Portuguese ("pt"). If you plan to use this entity recognizer with PDF, Word, or image input
+     * files, you must specify English as the language. All training documents must be in the same language.
      * </p>
      * 
-     * @return The language of the input documents. All documents must be in the same language. Only English ("en") is
-     *         currently supported.
+     * @return You can specify any of the following languages: English ("en"), Spanish ("es"), French ("fr"), Italian
+     *         ("it"), German ("de"), or Portuguese ("pt"). If you plan to use this entity recognizer with PDF, Word, or
+     *         image input files, you must specify English as the language. All training documents must be in the same
+     *         language.
      * @see LanguageCode
      */
 
@@ -400,13 +505,16 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The language of the input documents. All documents must be in the same language. Only English ("en") is currently
-     * supported.
+     * You can specify any of the following languages: English ("en"), Spanish ("es"), French ("fr"), Italian ("it"),
+     * German ("de"), or Portuguese ("pt"). If you plan to use this entity recognizer with PDF, Word, or image input
+     * files, you must specify English as the language. All training documents must be in the same language.
      * </p>
      * 
      * @param languageCode
-     *        The language of the input documents. All documents must be in the same language. Only English ("en") is
-     *        currently supported.
+     *        You can specify any of the following languages: English ("en"), Spanish ("es"), French ("fr"), Italian
+     *        ("it"), German ("de"), or Portuguese ("pt"). If you plan to use this entity recognizer with PDF, Word, or
+     *        image input files, you must specify English as the language. All training documents must be in the same
+     *        language.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LanguageCode
      */
@@ -418,13 +526,16 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The language of the input documents. All documents must be in the same language. Only English ("en") is currently
-     * supported.
+     * You can specify any of the following languages: English ("en"), Spanish ("es"), French ("fr"), Italian ("it"),
+     * German ("de"), or Portuguese ("pt"). If you plan to use this entity recognizer with PDF, Word, or image input
+     * files, you must specify English as the language. All training documents must be in the same language.
      * </p>
      * 
      * @param languageCode
-     *        The language of the input documents. All documents must be in the same language. Only English ("en") is
-     *        currently supported.
+     *        You can specify any of the following languages: English ("en"), Spanish ("es"), French ("fr"), Italian
+     *        ("it"), German ("de"), or Portuguese ("pt"). If you plan to use this entity recognizer with PDF, Word, or
+     *        image input files, you must specify English as the language. All training documents must be in the same
+     *        language.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LanguageCode
      */
@@ -436,9 +547,9 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -455,9 +566,9 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
      * </ul>
      * 
      * @param volumeKmsKeyId
-     *        ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage
-     *        volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be
-     *        either of the following formats:</p>
+     *        ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt
+     *        data on the storage volume attached to the ML compute instance(s) that process the analysis job. The
+     *        VolumeKmsKeyId can be either of the following formats:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -478,9 +589,9 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -496,9 +607,9 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
      * </li>
      * </ul>
      * 
-     * @return ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the
-     *         storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId
-     *         can be either of the following formats:</p>
+     * @return ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt
+     *         data on the storage volume attached to the ML compute instance(s) that process the analysis job. The
+     *         VolumeKmsKeyId can be either of the following formats:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -519,9 +630,9 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -538,9 +649,9 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
      * </ul>
      * 
      * @param volumeKmsKeyId
-     *        ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage
-     *        volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be
-     *        either of the following formats:</p>
+     *        ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt
+     *        data on the storage volume attached to the ML compute instance(s) that process the analysis job. The
+     *        VolumeKmsKeyId can be either of the following formats:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -614,6 +725,260 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
     }
 
     /**
+     * <p>
+     * ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either
+     * of the following formats:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Resource Name (ARN) of a KMS Key:
+     * <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param modelKmsKeyId
+     *        ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be
+     *        either of the following formats:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Resource Name (ARN) of a KMS Key:
+     *        <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     *        </p>
+     *        </li>
+     */
+
+    public void setModelKmsKeyId(String modelKmsKeyId) {
+        this.modelKmsKeyId = modelKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either
+     * of the following formats:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Resource Name (ARN) of a KMS Key:
+     * <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be
+     *         either of the following formats:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon Resource Name (ARN) of a KMS Key:
+     *         <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     *         </p>
+     *         </li>
+     */
+
+    public String getModelKmsKeyId() {
+        return this.modelKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be either
+     * of the following formats:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon Resource Name (ARN) of a KMS Key:
+     * <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param modelKmsKeyId
+     *        ID for the KMS key that Amazon Comprehend uses to encrypt trained custom models. The ModelKmsKeyId can be
+     *        either of the following formats:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon Resource Name (ARN) of a KMS Key:
+     *        <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code>
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEntityRecognizerRequest withModelKmsKeyId(String modelKmsKeyId) {
+        setModelKmsKeyId(modelKmsKeyId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The JSON resource-based policy to attach to your custom entity recognizer model. You can use this policy to allow
+     * another Amazon Web Services account to import your custom model.
+     * </p>
+     * <p>
+     * Provide your JSON as a UTF-8 encoded string without line breaks. To provide valid JSON for your policy, enclose
+     * the attribute names and values in double quotes. If the JSON body is also enclosed in double quotes, then you
+     * must escape the double quotes that are inside the policy:
+     * </p>
+     * <p>
+     * <code>"{\"attribute\": \"value\", \"attribute\": [\"value\"]}"</code>
+     * </p>
+     * <p>
+     * To avoid escaping quotes, you can use single quotes to enclose the policy and double quotes to enclose the JSON
+     * names and values:
+     * </p>
+     * <p>
+     * <code>'{"attribute": "value", "attribute": ["value"]}'</code>
+     * </p>
+     * 
+     * @param modelPolicy
+     *        The JSON resource-based policy to attach to your custom entity recognizer model. You can use this policy
+     *        to allow another Amazon Web Services account to import your custom model.</p>
+     *        <p>
+     *        Provide your JSON as a UTF-8 encoded string without line breaks. To provide valid JSON for your policy,
+     *        enclose the attribute names and values in double quotes. If the JSON body is also enclosed in double
+     *        quotes, then you must escape the double quotes that are inside the policy:
+     *        </p>
+     *        <p>
+     *        <code>"{\"attribute\": \"value\", \"attribute\": [\"value\"]}"</code>
+     *        </p>
+     *        <p>
+     *        To avoid escaping quotes, you can use single quotes to enclose the policy and double quotes to enclose the
+     *        JSON names and values:
+     *        </p>
+     *        <p>
+     *        <code>'{"attribute": "value", "attribute": ["value"]}'</code>
+     */
+
+    public void setModelPolicy(String modelPolicy) {
+        this.modelPolicy = modelPolicy;
+    }
+
+    /**
+     * <p>
+     * The JSON resource-based policy to attach to your custom entity recognizer model. You can use this policy to allow
+     * another Amazon Web Services account to import your custom model.
+     * </p>
+     * <p>
+     * Provide your JSON as a UTF-8 encoded string without line breaks. To provide valid JSON for your policy, enclose
+     * the attribute names and values in double quotes. If the JSON body is also enclosed in double quotes, then you
+     * must escape the double quotes that are inside the policy:
+     * </p>
+     * <p>
+     * <code>"{\"attribute\": \"value\", \"attribute\": [\"value\"]}"</code>
+     * </p>
+     * <p>
+     * To avoid escaping quotes, you can use single quotes to enclose the policy and double quotes to enclose the JSON
+     * names and values:
+     * </p>
+     * <p>
+     * <code>'{"attribute": "value", "attribute": ["value"]}'</code>
+     * </p>
+     * 
+     * @return The JSON resource-based policy to attach to your custom entity recognizer model. You can use this policy
+     *         to allow another Amazon Web Services account to import your custom model.</p>
+     *         <p>
+     *         Provide your JSON as a UTF-8 encoded string without line breaks. To provide valid JSON for your policy,
+     *         enclose the attribute names and values in double quotes. If the JSON body is also enclosed in double
+     *         quotes, then you must escape the double quotes that are inside the policy:
+     *         </p>
+     *         <p>
+     *         <code>"{\"attribute\": \"value\", \"attribute\": [\"value\"]}"</code>
+     *         </p>
+     *         <p>
+     *         To avoid escaping quotes, you can use single quotes to enclose the policy and double quotes to enclose
+     *         the JSON names and values:
+     *         </p>
+     *         <p>
+     *         <code>'{"attribute": "value", "attribute": ["value"]}'</code>
+     */
+
+    public String getModelPolicy() {
+        return this.modelPolicy;
+    }
+
+    /**
+     * <p>
+     * The JSON resource-based policy to attach to your custom entity recognizer model. You can use this policy to allow
+     * another Amazon Web Services account to import your custom model.
+     * </p>
+     * <p>
+     * Provide your JSON as a UTF-8 encoded string without line breaks. To provide valid JSON for your policy, enclose
+     * the attribute names and values in double quotes. If the JSON body is also enclosed in double quotes, then you
+     * must escape the double quotes that are inside the policy:
+     * </p>
+     * <p>
+     * <code>"{\"attribute\": \"value\", \"attribute\": [\"value\"]}"</code>
+     * </p>
+     * <p>
+     * To avoid escaping quotes, you can use single quotes to enclose the policy and double quotes to enclose the JSON
+     * names and values:
+     * </p>
+     * <p>
+     * <code>'{"attribute": "value", "attribute": ["value"]}'</code>
+     * </p>
+     * 
+     * @param modelPolicy
+     *        The JSON resource-based policy to attach to your custom entity recognizer model. You can use this policy
+     *        to allow another Amazon Web Services account to import your custom model.</p>
+     *        <p>
+     *        Provide your JSON as a UTF-8 encoded string without line breaks. To provide valid JSON for your policy,
+     *        enclose the attribute names and values in double quotes. If the JSON body is also enclosed in double
+     *        quotes, then you must escape the double quotes that are inside the policy:
+     *        </p>
+     *        <p>
+     *        <code>"{\"attribute\": \"value\", \"attribute\": [\"value\"]}"</code>
+     *        </p>
+     *        <p>
+     *        To avoid escaping quotes, you can use single quotes to enclose the policy and double quotes to enclose the
+     *        JSON names and values:
+     *        </p>
+     *        <p>
+     *        <code>'{"attribute": "value", "attribute": ["value"]}'</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEntityRecognizerRequest withModelPolicy(String modelPolicy) {
+        setModelPolicy(modelPolicy);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -627,6 +992,8 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
         sb.append("{");
         if (getRecognizerName() != null)
             sb.append("RecognizerName: ").append(getRecognizerName()).append(",");
+        if (getVersionName() != null)
+            sb.append("VersionName: ").append(getVersionName()).append(",");
         if (getDataAccessRoleArn() != null)
             sb.append("DataAccessRoleArn: ").append(getDataAccessRoleArn()).append(",");
         if (getTags() != null)
@@ -640,7 +1007,11 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
         if (getVolumeKmsKeyId() != null)
             sb.append("VolumeKmsKeyId: ").append(getVolumeKmsKeyId()).append(",");
         if (getVpcConfig() != null)
-            sb.append("VpcConfig: ").append(getVpcConfig());
+            sb.append("VpcConfig: ").append(getVpcConfig()).append(",");
+        if (getModelKmsKeyId() != null)
+            sb.append("ModelKmsKeyId: ").append(getModelKmsKeyId()).append(",");
+        if (getModelPolicy() != null)
+            sb.append("ModelPolicy: ").append(getModelPolicy());
         sb.append("}");
         return sb.toString();
     }
@@ -658,6 +1029,10 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
         if (other.getRecognizerName() == null ^ this.getRecognizerName() == null)
             return false;
         if (other.getRecognizerName() != null && other.getRecognizerName().equals(this.getRecognizerName()) == false)
+            return false;
+        if (other.getVersionName() == null ^ this.getVersionName() == null)
+            return false;
+        if (other.getVersionName() != null && other.getVersionName().equals(this.getVersionName()) == false)
             return false;
         if (other.getDataAccessRoleArn() == null ^ this.getDataAccessRoleArn() == null)
             return false;
@@ -687,6 +1062,14 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
             return false;
         if (other.getVpcConfig() != null && other.getVpcConfig().equals(this.getVpcConfig()) == false)
             return false;
+        if (other.getModelKmsKeyId() == null ^ this.getModelKmsKeyId() == null)
+            return false;
+        if (other.getModelKmsKeyId() != null && other.getModelKmsKeyId().equals(this.getModelKmsKeyId()) == false)
+            return false;
+        if (other.getModelPolicy() == null ^ this.getModelPolicy() == null)
+            return false;
+        if (other.getModelPolicy() != null && other.getModelPolicy().equals(this.getModelPolicy()) == false)
+            return false;
         return true;
     }
 
@@ -696,6 +1079,7 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getRecognizerName() == null) ? 0 : getRecognizerName().hashCode());
+        hashCode = prime * hashCode + ((getVersionName() == null) ? 0 : getVersionName().hashCode());
         hashCode = prime * hashCode + ((getDataAccessRoleArn() == null) ? 0 : getDataAccessRoleArn().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getInputDataConfig() == null) ? 0 : getInputDataConfig().hashCode());
@@ -703,6 +1087,8 @@ public class CreateEntityRecognizerRequest extends com.amazonaws.AmazonWebServic
         hashCode = prime * hashCode + ((getLanguageCode() == null) ? 0 : getLanguageCode().hashCode());
         hashCode = prime * hashCode + ((getVolumeKmsKeyId() == null) ? 0 : getVolumeKmsKeyId().hashCode());
         hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
+        hashCode = prime * hashCode + ((getModelKmsKeyId() == null) ? 0 : getModelKmsKeyId().hashCode());
+        hashCode = prime * hashCode + ((getModelPolicy() == null) ? 0 : getModelPolicy().hashCode());
         return hashCode;
     }
 

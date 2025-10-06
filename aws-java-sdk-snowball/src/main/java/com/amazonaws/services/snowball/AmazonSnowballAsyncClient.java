@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,11 +31,13 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * notification when an asynchronous operation completes.
  * <p>
  * <p>
- * AWS Snowball is a petabyte-scale data transport solution that uses secure devices to transfer large amounts of data
- * between your on-premises data centers and Amazon Simple Storage Service (Amazon S3). The commands described here
- * provide access to the same functionality that is available in the AWS Snowball Management Console, which enables you
- * to create and manage jobs for Snowball and Snowball Edge devices. To transfer data locally with a device, you'll need
- * to use the Snowball client or the Amazon S3 API adapter for Snowball.
+ * The Amazon Web Services Snow Family provides a petabyte-scale data transport solution that uses secure devices to
+ * transfer large amounts of data between your on-premises data centers and Amazon Simple Storage Service (Amazon S3).
+ * The Snow Family commands described here provide access to the same functionality that is available in the Amazon Web
+ * Services Snow Family Management Console, which enables you to create and manage jobs for a Snow Family device. To
+ * transfer data locally with a Snow Family device, you'll need to use the Snowball Edge client or the Amazon S3 API
+ * Interface for Snowball or OpsHub for Snow Family. For more information, see the <a
+ * href="https://docs.aws.amazon.com/AWSImportExport/latest/ug/api-reference.html">User Guide</a>.
  * </p>
  */
 @ThreadSafe
@@ -234,7 +236,19 @@ public class AmazonSnowballAsyncClient extends AmazonSnowballClient implements A
      *        Object providing client parameters.
      */
     AmazonSnowballAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Amazon Snowball using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonSnowballAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -413,6 +427,72 @@ public class AmazonSnowballAsyncClient extends AmazonSnowballClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<CreateLongTermPricingResult> createLongTermPricingAsync(CreateLongTermPricingRequest request) {
+
+        return createLongTermPricingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLongTermPricingResult> createLongTermPricingAsync(final CreateLongTermPricingRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateLongTermPricingRequest, CreateLongTermPricingResult> asyncHandler) {
+        final CreateLongTermPricingRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateLongTermPricingResult>() {
+            @Override
+            public CreateLongTermPricingResult call() throws Exception {
+                CreateLongTermPricingResult result = null;
+
+                try {
+                    result = executeCreateLongTermPricing(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateReturnShippingLabelResult> createReturnShippingLabelAsync(CreateReturnShippingLabelRequest request) {
+
+        return createReturnShippingLabelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateReturnShippingLabelResult> createReturnShippingLabelAsync(final CreateReturnShippingLabelRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateReturnShippingLabelRequest, CreateReturnShippingLabelResult> asyncHandler) {
+        final CreateReturnShippingLabelRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateReturnShippingLabelResult>() {
+            @Override
+            public CreateReturnShippingLabelResult call() throws Exception {
+                CreateReturnShippingLabelResult result = null;
+
+                try {
+                    result = executeCreateReturnShippingLabel(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeAddressResult> describeAddressAsync(DescribeAddressRequest request) {
 
         return describeAddressAsync(request, null);
@@ -545,6 +625,39 @@ public class AmazonSnowballAsyncClient extends AmazonSnowballClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeReturnShippingLabelResult> describeReturnShippingLabelAsync(DescribeReturnShippingLabelRequest request) {
+
+        return describeReturnShippingLabelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeReturnShippingLabelResult> describeReturnShippingLabelAsync(final DescribeReturnShippingLabelRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeReturnShippingLabelRequest, DescribeReturnShippingLabelResult> asyncHandler) {
+        final DescribeReturnShippingLabelRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeReturnShippingLabelResult>() {
+            @Override
+            public DescribeReturnShippingLabelResult call() throws Exception {
+                DescribeReturnShippingLabelResult result = null;
+
+                try {
+                    result = executeDescribeReturnShippingLabel(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetJobManifestResult> getJobManifestAsync(GetJobManifestRequest request) {
 
         return getJobManifestAsync(request, null);
@@ -628,6 +741,39 @@ public class AmazonSnowballAsyncClient extends AmazonSnowballClient implements A
 
                 try {
                     result = executeGetSnowballUsage(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSoftwareUpdatesResult> getSoftwareUpdatesAsync(GetSoftwareUpdatesRequest request) {
+
+        return getSoftwareUpdatesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSoftwareUpdatesResult> getSoftwareUpdatesAsync(final GetSoftwareUpdatesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetSoftwareUpdatesRequest, GetSoftwareUpdatesResult> asyncHandler) {
+        final GetSoftwareUpdatesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetSoftwareUpdatesResult>() {
+            @Override
+            public GetSoftwareUpdatesResult call() throws Exception {
+                GetSoftwareUpdatesResult result = null;
+
+                try {
+                    result = executeGetSoftwareUpdates(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -776,6 +922,105 @@ public class AmazonSnowballAsyncClient extends AmazonSnowballClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<ListLongTermPricingResult> listLongTermPricingAsync(ListLongTermPricingRequest request) {
+
+        return listLongTermPricingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListLongTermPricingResult> listLongTermPricingAsync(final ListLongTermPricingRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListLongTermPricingRequest, ListLongTermPricingResult> asyncHandler) {
+        final ListLongTermPricingRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListLongTermPricingResult>() {
+            @Override
+            public ListLongTermPricingResult call() throws Exception {
+                ListLongTermPricingResult result = null;
+
+                try {
+                    result = executeListLongTermPricing(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPickupLocationsResult> listPickupLocationsAsync(ListPickupLocationsRequest request) {
+
+        return listPickupLocationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPickupLocationsResult> listPickupLocationsAsync(final ListPickupLocationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListPickupLocationsRequest, ListPickupLocationsResult> asyncHandler) {
+        final ListPickupLocationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListPickupLocationsResult>() {
+            @Override
+            public ListPickupLocationsResult call() throws Exception {
+                ListPickupLocationsResult result = null;
+
+                try {
+                    result = executeListPickupLocations(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListServiceVersionsResult> listServiceVersionsAsync(ListServiceVersionsRequest request) {
+
+        return listServiceVersionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListServiceVersionsResult> listServiceVersionsAsync(final ListServiceVersionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListServiceVersionsRequest, ListServiceVersionsResult> asyncHandler) {
+        final ListServiceVersionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListServiceVersionsResult>() {
+            @Override
+            public ListServiceVersionsResult call() throws Exception {
+                ListServiceVersionsResult result = null;
+
+                try {
+                    result = executeListServiceVersions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateClusterResult> updateClusterAsync(UpdateClusterRequest request) {
 
         return updateClusterAsync(request, null);
@@ -826,6 +1071,72 @@ public class AmazonSnowballAsyncClient extends AmazonSnowballClient implements A
 
                 try {
                     result = executeUpdateJob(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateJobShipmentStateResult> updateJobShipmentStateAsync(UpdateJobShipmentStateRequest request) {
+
+        return updateJobShipmentStateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateJobShipmentStateResult> updateJobShipmentStateAsync(final UpdateJobShipmentStateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateJobShipmentStateRequest, UpdateJobShipmentStateResult> asyncHandler) {
+        final UpdateJobShipmentStateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateJobShipmentStateResult>() {
+            @Override
+            public UpdateJobShipmentStateResult call() throws Exception {
+                UpdateJobShipmentStateResult result = null;
+
+                try {
+                    result = executeUpdateJobShipmentState(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateLongTermPricingResult> updateLongTermPricingAsync(UpdateLongTermPricingRequest request) {
+
+        return updateLongTermPricingAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateLongTermPricingResult> updateLongTermPricingAsync(final UpdateLongTermPricingRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateLongTermPricingRequest, UpdateLongTermPricingResult> asyncHandler) {
+        final UpdateLongTermPricingRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateLongTermPricingResult>() {
+            @Override
+            public UpdateLongTermPricingResult call() throws Exception {
+                UpdateLongTermPricingResult result = null;
+
+                try {
+                    result = executeUpdateLongTermPricing(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

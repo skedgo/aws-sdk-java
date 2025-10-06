@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,20 +45,18 @@ import com.amazonaws.services.certificatemanager.waiters.AWSCertificateManagerWa
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.certificatemanager.model.*;
+
 import com.amazonaws.services.certificatemanager.model.transform.*;
 
 /**
  * Client for accessing ACM. All service calls made using this client are blocking, and will not return until the
  * service call completes.
  * <p>
- * <fullname>AWS Certificate Manager</fullname>
+ * <fullname>Certificate Manager</fullname>
  * <p>
- * Welcome to the AWS Certificate Manager (ACM) API documentation.
- * </p>
- * <p>
- * You can use ACM to manage SSL/TLS certificates for your AWS-based websites and applications. For general information
- * about using ACM, see the <a href="https://docs.aws.amazon.com/acm/latest/userguide/"> <i>AWS Certificate Manager User
- * Guide</i> </a>.
+ * You can use Certificate Manager (ACM) to manage SSL/TLS certificates for your Amazon Web Services-based websites and
+ * applications. For more information about using ACM, see the <a
+ * href="https://docs.aws.amazon.com/acm/latest/userguide/">Certificate Manager User Guide</a>.
  * </p>
  */
 @ThreadSafe
@@ -86,35 +84,55 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTagException").withModeledClass(
-                                    com.amazonaws.services.certificatemanager.model.InvalidTagException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTagException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.certificatemanager.model.transform.InvalidTagExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TooManyTagsException").withModeledClass(
-                                    com.amazonaws.services.certificatemanager.model.TooManyTagsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.certificatemanager.model.transform.AccessDeniedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withModeledClass(
-                                    com.amazonaws.services.certificatemanager.model.ResourceInUseException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyTagsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.certificatemanager.model.transform.TooManyTagsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.certificatemanager.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.certificatemanager.model.transform.ConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidArgsException").withModeledClass(
-                                    com.amazonaws.services.certificatemanager.model.InvalidArgsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.certificatemanager.model.transform.InvalidParameterExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidArnException").withModeledClass(
-                                    com.amazonaws.services.certificatemanager.model.InvalidArnException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.certificatemanager.model.transform.ResourceInUseExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RequestInProgressException").withModeledClass(
-                                    com.amazonaws.services.certificatemanager.model.RequestInProgressException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.certificatemanager.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidStateException").withModeledClass(
-                                    com.amazonaws.services.certificatemanager.model.InvalidStateException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidArgsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.certificatemanager.model.transform.InvalidArgsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidDomainValidationOptionsException").withModeledClass(
-                                    com.amazonaws.services.certificatemanager.model.InvalidDomainValidationOptionsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidArnException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.certificatemanager.model.transform.InvalidArnExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.certificatemanager.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ThrottlingException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.certificatemanager.model.transform.ThrottlingExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.certificatemanager.model.transform.ValidationExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TagPolicyException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.certificatemanager.model.transform.TagPolicyExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("RequestInProgressException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.certificatemanager.model.transform.RequestInProgressExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidStateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.certificatemanager.model.transform.InvalidStateExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDomainValidationOptionsException")
+                                    .withExceptionUnmarshaller(
+                                            com.amazonaws.services.certificatemanager.model.transform.InvalidDomainValidationOptionsExceptionUnmarshaller
+                                                    .getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.certificatemanager.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.certificatemanager.model.AWSCertificateManagerException.class));
 
     /**
@@ -317,9 +335,10 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
 
     /**
      * <p>
-     * Adds one or more tags to an ACM certificate. Tags are labels that you can use to identify and organize your AWS
-     * resources. Each tag consists of a <code>key</code> and an optional <code>value</code>. You specify the
-     * certificate on input by its Amazon Resource Name (ARN). You specify the tag by using a key-value pair.
+     * Adds one or more tags to an ACM certificate. Tags are labels that you can use to identify and organize your
+     * Amazon Web Services resources. Each tag consists of a <code>key</code> and an optional <code>value</code>. You
+     * specify the certificate on input by its Amazon Resource Name (ARN). You specify the tag by using a key-value
+     * pair.
      * </p>
      * <p>
      * You can apply a tag to just one certificate if you want to identify a specific characteristic of that
@@ -347,6 +366,12 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
      *         tag value that begins with <code>aws:</code>.
      * @throws TooManyTagsException
      *         The request contains too many tags. Try the request again with fewer tags.
+     * @throws TagPolicyException
+     *         A specified tag did not comply with an existing tag policy and was rejected.
+     * @throws InvalidParameterException
+     *         An input parameter was invalid.
+     * @throws ThrottlingException
+     *         The request was denied because it exceeded a quota.
      * @sample AWSCertificateManager.AddTagsToCertificate
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/AddTagsToCertificate" target="_top">AWS API
      *      Documentation</a>
@@ -372,6 +397,8 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
                 request = new AddTagsToCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addTagsToCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ACM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddTagsToCertificate");
@@ -397,12 +424,13 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
      * <p>
      * Deletes a certificate and its associated private key. If this action succeeds, the certificate no longer appears
      * in the list that can be displayed by calling the <a>ListCertificates</a> action or be retrieved by calling the
-     * <a>GetCertificate</a> action. The certificate will not be available for use by AWS services integrated with ACM.
+     * <a>GetCertificate</a> action. The certificate will not be available for use by Amazon Web Services services
+     * integrated with ACM.
      * </p>
      * <note>
      * <p>
-     * You cannot delete an ACM certificate that is being used by another AWS service. To delete a certificate that is
-     * in use, the certificate association must first be removed.
+     * You cannot delete an ACM certificate that is being used by another Amazon Web Services service. To delete a
+     * certificate that is in use, the certificate association must first be removed.
      * </p>
      * </note>
      * 
@@ -412,8 +440,15 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
      *         The specified certificate cannot be found in the caller's account or the caller's account cannot be
      *         found.
      * @throws ResourceInUseException
-     *         The certificate is in use by another AWS service in the caller's account. Remove the association and try
-     *         again.
+     *         The certificate is in use by another Amazon Web Services service in the caller's account. Remove the
+     *         association and try again.
+     * @throws AccessDeniedException
+     *         You do not have access required to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied because it exceeded a quota.
+     * @throws ConflictException
+     *         You are trying to update a resource or configuration that is already being created or updated. Wait for
+     *         the previous operation to finish and try again.
      * @throws InvalidArnException
      *         The requested Amazon Resource Name (ARN) does not refer to an existing resource.
      * @sample AWSCertificateManager.DeleteCertificate
@@ -441,6 +476,8 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
                 request = new DeleteCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ACM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCertificate");
@@ -465,6 +502,10 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
     /**
      * <p>
      * Returns detailed metadata about the specified ACM certificate.
+     * </p>
+     * <p>
+     * If you have just created a certificate using the <code>RequestCertificate</code> action, there is a delay of
+     * several seconds before you can retrieve information about it.
      * </p>
      * 
      * @param describeCertificateRequest
@@ -499,6 +540,8 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
                 request = new DescribeCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ACM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCertificate");
@@ -522,14 +565,15 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
 
     /**
      * <p>
-     * Exports a private certificate issued by a private certificate authority (CA) for use anywhere. You can export the
-     * certificate, the certificate chain, and the encrypted private key associated with the public key embedded in the
-     * certificate. You must store the private key securely. The private key is a 2048 bit RSA key. You must provide a
-     * passphrase for the private key when exporting it. You can use the following OpenSSL command to decrypt it later.
-     * Provide the passphrase when prompted.
+     * Exports a private certificate issued by a private certificate authority (CA) for use anywhere. The exported file
+     * contains the certificate, the certificate chain, and the encrypted private 2048-bit RSA key associated with the
+     * public key that is embedded in the certificate. For security, you must assign a passphrase for the private key
+     * when exporting it.
      * </p>
      * <p>
-     * <code>openssl rsa -in encrypted_key.pem -out decrypted_key.pem</code>
+     * For information about exporting and formatting a certificate using the ACM console or CLI, see <a
+     * href="https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-export-private.html">Export a Private
+     * Certificate</a>.
      * </p>
      * 
      * @param exportCertificateRequest
@@ -566,6 +610,8 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
                 request = new ExportCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(exportCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ACM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ExportCertificate");
@@ -589,10 +635,73 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
 
     /**
      * <p>
-     * Retrieves a certificate specified by an ARN and its certificate chain . The chain is an ordered list of
-     * certificates that contains the end entity certificate, intermediate certificates of subordinate CAs, and the root
-     * certificate in that order. The certificate and certificate chain are base64 encoded. If you want to decode the
-     * certificate to see the individual fields, you can use OpenSSL.
+     * Returns the account configuration options associated with an Amazon Web Services account.
+     * </p>
+     * 
+     * @param getAccountConfigurationRequest
+     * @return Result of the GetAccountConfiguration operation returned by the service.
+     * @throws AccessDeniedException
+     *         You do not have access required to perform this action.
+     * @throws ThrottlingException
+     *         The request was denied because it exceeded a quota.
+     * @sample AWSCertificateManager.GetAccountConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/GetAccountConfiguration" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public GetAccountConfigurationResult getAccountConfiguration(GetAccountConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetAccountConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final GetAccountConfigurationResult executeGetAccountConfiguration(GetAccountConfigurationRequest getAccountConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getAccountConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetAccountConfigurationRequest> request = null;
+        Response<GetAccountConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetAccountConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getAccountConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ACM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAccountConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetAccountConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetAccountConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a certificate and its certificate chain. The certificate may be either a public or private certificate
+     * issued using the ACM <code>RequestCertificate</code> action, or a certificate imported into ACM using the
+     * <code>ImportCertificate</code> action. The chain consists of the certificate of the issuing CA and the
+     * intermediate certificates of any other subordinate CAs. All of the certificates are base64 encoded. You can use
+     * <a href="https://wiki.openssl.org/index.php/Command_Line_Utilities">OpenSSL</a> to decode the certificates and
+     * inspect individual fields.
      * </p>
      * 
      * @param getCertificateRequest
@@ -629,6 +738,8 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
                 request = new GetCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ACM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCertificate");
@@ -652,13 +763,13 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
 
     /**
      * <p>
-     * Imports a certificate into AWS Certificate Manager (ACM) to use with services that are integrated with ACM. Note
-     * that <a href="https://docs.aws.amazon.com/acm/latest/userguide/acm-services.html">integrated services</a> allow
-     * only certificate types and keys they support to be associated with their resources. Further, their support
-     * differs depending on whether the certificate is imported into IAM or into ACM. For more information, see the
+     * Imports a certificate into Certificate Manager (ACM) to use with services that are integrated with ACM. Note that
+     * <a href="https://docs.aws.amazon.com/acm/latest/userguide/acm-services.html">integrated services</a> allow only
+     * certificate types and keys they support to be associated with their resources. Further, their support differs
+     * depending on whether the certificate is imported into IAM or into ACM. For more information, see the
      * documentation for each service. For more information about importing certificates into ACM, see <a
      * href="https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html">Importing Certificates</a> in the
-     * <i>AWS Certificate Manager User Guide</i>.
+     * <i>Certificate Manager User Guide</i>.
      * </p>
      * <note>
      * <p>
@@ -683,12 +794,7 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
      * </li>
      * <li>
      * <p>
-     * If the certificate you are importing is not self-signed, you must enter its certificate chain.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * If a certificate chain is included, the issuer must be the subject of one of the certificates in the chain.
+     * The private key must be no larger than 5 KB (5,120 bytes).
      * </p>
      * </li>
      * <li>
@@ -720,8 +826,8 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
      * <li>
      * <p>
      * When you import a certificate by using the CLI, you must specify the certificate, the certificate chain, and the
-     * private key by their file names preceded by <code>file://</code>. For example, you can specify a certificate
-     * saved in the <code>C:\temp</code> folder as <code>file://C:\temp\certificate_to_import.pem</code>. If you are
+     * private key by their file names preceded by <code>fileb://</code>. For example, you can specify a certificate
+     * saved in the <code>C:\temp</code> folder as <code>fileb://C:\temp\certificate_to_import.pem</code>. If you are
      * making an HTTP or HTTPS Query request, include these arguments as BLOBs.
      * </p>
      * </li>
@@ -729,6 +835,12 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
      * <p>
      * When you import a certificate by using an SDK, you must specify the certificate, the certificate chain, and the
      * private key files in the manner required by the programming language you're using.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The cryptographic algorithm of an imported certificate must match the algorithm of the signing CA. For example,
+     * if the signing CA key type is RSA, then the certificate key type must also be RSA.
      * </p>
      * </li>
      * </ul>
@@ -744,7 +856,18 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
      *         The specified certificate cannot be found in the caller's account or the caller's account cannot be
      *         found.
      * @throws LimitExceededException
-     *         An ACM limit has been exceeded.
+     *         An ACM quota has been exceeded.
+     * @throws InvalidTagException
+     *         One or both of the values that make up the key-value pair is not valid. For example, you cannot specify a
+     *         tag value that begins with <code>aws:</code>.
+     * @throws TooManyTagsException
+     *         The request contains too many tags. Try the request again with fewer tags.
+     * @throws TagPolicyException
+     *         A specified tag did not comply with an existing tag policy and was rejected.
+     * @throws InvalidParameterException
+     *         An input parameter was invalid.
+     * @throws InvalidArnException
+     *         The requested Amazon Resource Name (ARN) does not refer to an existing resource.
      * @sample AWSCertificateManager.ImportCertificate
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/ImportCertificate" target="_top">AWS API
      *      Documentation</a>
@@ -770,6 +893,8 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
                 request = new ImportCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(importCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ACM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ImportCertificate");
@@ -793,14 +918,22 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
 
     /**
      * <p>
-     * Retrieves a list of certificate ARNs and domain names. You can request that only certificates that match a
-     * specific status be listed. You can also filter by specific attributes of the certificate.
+     * Retrieves a list of certificate ARNs and domain names. By default, the API returns RSA_2048 certificates. To
+     * return all certificates in the account, include the <code>keyType</code> filter with the values
+     * <code>[RSA_1024, RSA_2048, RSA_3072, RSA_4096, EC_prime256v1, EC_secp384r1, EC_secp521r1]</code>.
+     * </p>
+     * <p>
+     * In addition to <code>keyType</code>, you can also filter by the <code>CertificateStatuses</code>,
+     * <code>keyUsage</code>, and <code>extendedKeyUsage</code> attributes on the certificate. For more information, see
+     * <a>Filters</a>.
      * </p>
      * 
      * @param listCertificatesRequest
      * @return Result of the ListCertificates operation returned by the service.
      * @throws InvalidArgsException
      *         One or more of of request parameters specified is not valid.
+     * @throws ValidationException
+     *         The supplied input failed to satisfy constraints of an Amazon Web Services service.
      * @sample AWSCertificateManager.ListCertificates
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/ListCertificates" target="_top">AWS API
      *      Documentation</a>
@@ -826,6 +959,8 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
                 request = new ListCertificatesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listCertificatesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ACM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCertificates");
@@ -886,6 +1021,8 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
                 request = new ListTagsForCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ACM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForCertificate");
@@ -898,6 +1035,78 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
             HttpResponseHandler<AmazonWebServiceResponse<ListTagsForCertificateResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new ListTagsForCertificateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Adds or modifies account-level configurations in ACM.
+     * </p>
+     * <p>
+     * The supported configuration option is <code>DaysBeforeExpiry</code>. This option specifies the number of days
+     * prior to certificate expiration when ACM starts generating <code>EventBridge</code> events. ACM sends one event
+     * per day per certificate until the certificate expires. By default, accounts receive events starting 45 days
+     * before certificate expiration.
+     * </p>
+     * 
+     * @param putAccountConfigurationRequest
+     * @return Result of the PutAccountConfiguration operation returned by the service.
+     * @throws ValidationException
+     *         The supplied input failed to satisfy constraints of an Amazon Web Services service.
+     * @throws ThrottlingException
+     *         The request was denied because it exceeded a quota.
+     * @throws AccessDeniedException
+     *         You do not have access required to perform this action.
+     * @throws ConflictException
+     *         You are trying to update a resource or configuration that is already being created or updated. Wait for
+     *         the previous operation to finish and try again.
+     * @sample AWSCertificateManager.PutAccountConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/PutAccountConfiguration" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public PutAccountConfigurationResult putAccountConfiguration(PutAccountConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executePutAccountConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final PutAccountConfigurationResult executePutAccountConfiguration(PutAccountConfigurationRequest putAccountConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putAccountConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutAccountConfigurationRequest> request = null;
+        Response<PutAccountConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutAccountConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(putAccountConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ACM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutAccountConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutAccountConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PutAccountConfigurationResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -929,6 +1138,12 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
      * @throws InvalidTagException
      *         One or both of the values that make up the key-value pair is not valid. For example, you cannot specify a
      *         tag value that begins with <code>aws:</code>.
+     * @throws TagPolicyException
+     *         A specified tag did not comply with an existing tag policy and was rejected.
+     * @throws InvalidParameterException
+     *         An input parameter was invalid.
+     * @throws ThrottlingException
+     *         The request was denied because it exceeded a quota.
      * @sample AWSCertificateManager.RemoveTagsFromCertificate
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/RemoveTagsFromCertificate" target="_top">AWS
      *      API Documentation</a>
@@ -955,6 +1170,8 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
                         .beforeMarshalling(removeTagsFromCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ACM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveTagsFromCertificate");
@@ -979,9 +1196,9 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
 
     /**
      * <p>
-     * Renews an eligable ACM certificate. At this time, only exported private certificates can be renewed with this
-     * operation. In order to renew your ACM PCA certificates with ACM, you must first <a
-     * href="https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaPermissions.html">grant the ACM service principal
+     * Renews an eligible ACM certificate. At this time, only exported private certificates can be renewed with this
+     * operation. In order to renew your Amazon Web Services Private CA certificates with ACM, you must first <a
+     * href="https://docs.aws.amazon.com/privateca/latest/userguide/PcaPermissions.html">grant the ACM service principal
      * permission to do so</a>. For more information, see <a
      * href="https://docs.aws.amazon.com/acm/latest/userguide/manual-renewal.html">Testing Managed Renewal</a> in the
      * ACM User Guide.
@@ -1019,6 +1236,8 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
                 request = new RenewCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(renewCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ACM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RenewCertificate");
@@ -1042,9 +1261,9 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
 
     /**
      * <p>
-     * Requests an ACM certificate for use with other AWS services. To request an ACM certificate, you must specify a
-     * fully qualified domain name (FQDN) in the <code>DomainName</code> parameter. You can also specify additional
-     * FQDNs in the <code>SubjectAlternativeNames</code> parameter.
+     * Requests an ACM certificate for use with other Amazon Web Services services. To request an ACM certificate, you
+     * must specify a fully qualified domain name (FQDN) in the <code>DomainName</code> parameter. You can also specify
+     * additional FQDNs in the <code>SubjectAlternativeNames</code> parameter.
      * </p>
      * <p>
      * If you are requesting a private certificate, domain validation is not required. If you are requesting a public
@@ -1054,15 +1273,35 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
      * validation</a>. We recommend that you use DNS validation. ACM issues public certificates after receiving approval
      * from the domain owner.
      * </p>
+     * <note>
+     * <p>
+     * ACM behavior differs from the <a href="https://datatracker.ietf.org/doc/html/rfc6125#appendix-B.2">RFC 6125</a>
+     * specification of the certificate validation process. ACM first checks for a Subject Alternative Name, and, if it
+     * finds one, ignores the common name (CN).
+     * </p>
+     * </note>
+     * <p>
+     * After successful completion of the <code>RequestCertificate</code> action, there is a delay of several seconds
+     * before you can retrieve information about the new certificate.
+     * </p>
      * 
      * @param requestCertificateRequest
      * @return Result of the RequestCertificate operation returned by the service.
      * @throws LimitExceededException
-     *         An ACM limit has been exceeded.
+     *         An ACM quota has been exceeded.
      * @throws InvalidDomainValidationOptionsException
      *         One or more values in the <a>DomainValidationOption</a> structure is incorrect.
      * @throws InvalidArnException
      *         The requested Amazon Resource Name (ARN) does not refer to an existing resource.
+     * @throws InvalidTagException
+     *         One or both of the values that make up the key-value pair is not valid. For example, you cannot specify a
+     *         tag value that begins with <code>aws:</code>.
+     * @throws TooManyTagsException
+     *         The request contains too many tags. Try the request again with fewer tags.
+     * @throws TagPolicyException
+     *         A specified tag did not comply with an existing tag policy and was rejected.
+     * @throws InvalidParameterException
+     *         An input parameter was invalid.
      * @sample AWSCertificateManager.RequestCertificate
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/RequestCertificate" target="_top">AWS API
      *      Documentation</a>
@@ -1088,6 +1327,8 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
                 request = new RequestCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(requestCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ACM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RequestCertificate");
@@ -1157,6 +1398,8 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
                 request = new ResendValidationEmailRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(resendValidationEmailRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ACM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ResendValidationEmail");
@@ -1193,7 +1436,7 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
      *         The specified certificate cannot be found in the caller's account or the caller's account cannot be
      *         found.
      * @throws LimitExceededException
-     *         An ACM limit has been exceeded.
+     *         An ACM quota has been exceeded.
      * @throws InvalidStateException
      *         Processing has reached an invalid state.
      * @throws InvalidArnException
@@ -1224,6 +1467,8 @@ public class AWSCertificateManagerClient extends AmazonWebServiceClient implemen
                         .beforeMarshalling(updateCertificateOptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ACM");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateCertificateOptions");

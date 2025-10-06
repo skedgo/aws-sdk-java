@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,10 @@ public class HyperParameterTuningJobConfigJsonUnmarshaller implements Unmarshall
                     context.nextToken();
                     hyperParameterTuningJobConfig.setStrategy(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("StrategyConfig", targetDepth)) {
+                    context.nextToken();
+                    hyperParameterTuningJobConfig.setStrategyConfig(HyperParameterTuningJobStrategyConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("HyperParameterTuningJobObjective", targetDepth)) {
                     context.nextToken();
                     hyperParameterTuningJobConfig.setHyperParameterTuningJobObjective(HyperParameterTuningJobObjectiveJsonUnmarshaller.getInstance()
@@ -68,6 +72,14 @@ public class HyperParameterTuningJobConfigJsonUnmarshaller implements Unmarshall
                 if (context.testExpression("TrainingJobEarlyStoppingType", targetDepth)) {
                     context.nextToken();
                     hyperParameterTuningJobConfig.setTrainingJobEarlyStoppingType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("TuningJobCompletionCriteria", targetDepth)) {
+                    context.nextToken();
+                    hyperParameterTuningJobConfig.setTuningJobCompletionCriteria(TuningJobCompletionCriteriaJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("RandomSeed", targetDepth)) {
+                    context.nextToken();
+                    hyperParameterTuningJobConfig.setRandomSeed(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

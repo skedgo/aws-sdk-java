@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,11 +30,6 @@ public class CreateProductRequest extends com.amazonaws.AmazonWebServiceRequest 
      * The language code.
      * </p>
      * <ul>
-     * <li>
-     * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
      * <li>
      * <p>
      * <code>jp</code> - Japanese
@@ -88,6 +83,9 @@ public class CreateProductRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The contact URL for product support.
      * </p>
+     * <p>
+     * <code>^https?:\/\// </code>/ is the pattern used to validate SupportUrl.
+     * </p>
      */
     private String supportUrl;
     /**
@@ -115,17 +113,32 @@ public class CreateProductRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      */
     private String idempotencyToken;
+    /**
+     * <p>
+     * Specifies connection details for the created product and syncs the product to the connection source artifact.
+     * This automatically manages the product's artifacts based on changes to the source. The
+     * <code>SourceConnection</code> parameter consists of the following sub-fields.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Type</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ConnectionParamters</code>
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private SourceConnection sourceConnection;
 
     /**
      * <p>
      * The language code.
      * </p>
      * <ul>
-     * <li>
-     * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
      * <li>
      * <p>
      * <code>jp</code> - Japanese
@@ -141,11 +154,6 @@ public class CreateProductRequest extends com.amazonaws.AmazonWebServiceRequest 
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -169,11 +177,6 @@ public class CreateProductRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -186,11 +189,6 @@ public class CreateProductRequest extends com.amazonaws.AmazonWebServiceRequest 
      * 
      * @return The language code.</p>
      *         <ul>
-     *         <li>
-     *         <p>
-     *         <code>en</code> - English (default)
-     *         </p>
-     *         </li>
      *         <li>
      *         <p>
      *         <code>jp</code> - Japanese
@@ -214,11 +212,6 @@ public class CreateProductRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -232,11 +225,6 @@ public class CreateProductRequest extends com.amazonaws.AmazonWebServiceRequest 
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -499,9 +487,14 @@ public class CreateProductRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The contact URL for product support.
      * </p>
+     * <p>
+     * <code>^https?:\/\// </code>/ is the pattern used to validate SupportUrl.
+     * </p>
      * 
      * @param supportUrl
-     *        The contact URL for product support.
+     *        The contact URL for product support.</p>
+     *        <p>
+     *        <code>^https?:\/\// </code>/ is the pattern used to validate SupportUrl.
      */
 
     public void setSupportUrl(String supportUrl) {
@@ -512,8 +505,13 @@ public class CreateProductRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The contact URL for product support.
      * </p>
+     * <p>
+     * <code>^https?:\/\// </code>/ is the pattern used to validate SupportUrl.
+     * </p>
      * 
-     * @return The contact URL for product support.
+     * @return The contact URL for product support.</p>
+     *         <p>
+     *         <code>^https?:\/\// </code>/ is the pattern used to validate SupportUrl.
      */
 
     public String getSupportUrl() {
@@ -524,9 +522,14 @@ public class CreateProductRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * The contact URL for product support.
      * </p>
+     * <p>
+     * <code>^https?:\/\// </code>/ is the pattern used to validate SupportUrl.
+     * </p>
      * 
      * @param supportUrl
-     *        The contact URL for product support.
+     *        The contact URL for product support.</p>
+     *        <p>
+     *        <code>^https?:\/\// </code>/ is the pattern used to validate SupportUrl.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -765,6 +768,127 @@ public class CreateProductRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
+     * <p>
+     * Specifies connection details for the created product and syncs the product to the connection source artifact.
+     * This automatically manages the product's artifacts based on changes to the source. The
+     * <code>SourceConnection</code> parameter consists of the following sub-fields.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Type</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ConnectionParamters</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param sourceConnection
+     *        Specifies connection details for the created product and syncs the product to the connection source
+     *        artifact. This automatically manages the product's artifacts based on changes to the source. The
+     *        <code>SourceConnection</code> parameter consists of the following sub-fields.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Type</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ConnectionParamters</code>
+     *        </p>
+     *        </li>
+     */
+
+    public void setSourceConnection(SourceConnection sourceConnection) {
+        this.sourceConnection = sourceConnection;
+    }
+
+    /**
+     * <p>
+     * Specifies connection details for the created product and syncs the product to the connection source artifact.
+     * This automatically manages the product's artifacts based on changes to the source. The
+     * <code>SourceConnection</code> parameter consists of the following sub-fields.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Type</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ConnectionParamters</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Specifies connection details for the created product and syncs the product to the connection source
+     *         artifact. This automatically manages the product's artifacts based on changes to the source. The
+     *         <code>SourceConnection</code> parameter consists of the following sub-fields.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>Type</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>ConnectionParamters</code>
+     *         </p>
+     *         </li>
+     */
+
+    public SourceConnection getSourceConnection() {
+        return this.sourceConnection;
+    }
+
+    /**
+     * <p>
+     * Specifies connection details for the created product and syncs the product to the connection source artifact.
+     * This automatically manages the product's artifacts based on changes to the source. The
+     * <code>SourceConnection</code> parameter consists of the following sub-fields.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Type</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ConnectionParamters</code>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param sourceConnection
+     *        Specifies connection details for the created product and syncs the product to the connection source
+     *        artifact. This automatically manages the product's artifacts based on changes to the source. The
+     *        <code>SourceConnection</code> parameter consists of the following sub-fields.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Type</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>ConnectionParamters</code>
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateProductRequest withSourceConnection(SourceConnection sourceConnection) {
+        setSourceConnection(sourceConnection);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -799,7 +923,9 @@ public class CreateProductRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getProvisioningArtifactParameters() != null)
             sb.append("ProvisioningArtifactParameters: ").append(getProvisioningArtifactParameters()).append(",");
         if (getIdempotencyToken() != null)
-            sb.append("IdempotencyToken: ").append(getIdempotencyToken());
+            sb.append("IdempotencyToken: ").append(getIdempotencyToken()).append(",");
+        if (getSourceConnection() != null)
+            sb.append("SourceConnection: ").append(getSourceConnection());
         sb.append("}");
         return sb.toString();
     }
@@ -863,6 +989,10 @@ public class CreateProductRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getIdempotencyToken() != null && other.getIdempotencyToken().equals(this.getIdempotencyToken()) == false)
             return false;
+        if (other.getSourceConnection() == null ^ this.getSourceConnection() == null)
+            return false;
+        if (other.getSourceConnection() != null && other.getSourceConnection().equals(this.getSourceConnection()) == false)
+            return false;
         return true;
     }
 
@@ -883,6 +1013,7 @@ public class CreateProductRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getProvisioningArtifactParameters() == null) ? 0 : getProvisioningArtifactParameters().hashCode());
         hashCode = prime * hashCode + ((getIdempotencyToken() == null) ? 0 : getIdempotencyToken().hashCode());
+        hashCode = prime * hashCode + ((getSourceConnection() == null) ? 0 : getSourceConnection().hashCode());
         return hashCode;
     }
 

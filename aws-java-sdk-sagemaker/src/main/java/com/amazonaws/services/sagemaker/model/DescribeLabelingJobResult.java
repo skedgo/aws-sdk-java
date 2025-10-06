@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -87,22 +87,34 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
     private LabelingJobInputConfig inputConfig;
     /**
      * <p>
-     * The location of the job's output data and the AWS Key Management Service key ID for the key used to encrypt the
-     * output data, if any.
+     * The location of the job's output data and the Amazon Web Services Key Management Service key ID for the key used
+     * to encrypt the output data, if any.
      * </p>
      */
     private LabelingJobOutputConfig outputConfig;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that Amazon SageMaker assumes to perform tasks on your behalf during data
-     * labeling.
+     * The Amazon Resource Name (ARN) that SageMaker assumes to perform tasks on your behalf during data labeling.
      * </p>
      */
     private String roleArn;
     /**
      * <p>
-     * The S3 location of the JSON file that defines the categories used to label data objects.
+     * The S3 location of the JSON file that defines the categories used to label data objects. Please note the
+     * following label-category limits:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Semantic segmentation labeling jobs using automated labeling: 20 labels
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Box bounding labeling jobs (all): 10 labels
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * The file is a JSON structure in the following format:
      * </p>
@@ -174,9 +186,9 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
     private HumanTaskConfig humanTaskConfig;
     /**
      * <p>
-     * An array of key/value pairs. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      */
     private java.util.List<Tag> tags;
@@ -620,13 +632,13 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The location of the job's output data and the AWS Key Management Service key ID for the key used to encrypt the
-     * output data, if any.
+     * The location of the job's output data and the Amazon Web Services Key Management Service key ID for the key used
+     * to encrypt the output data, if any.
      * </p>
      * 
      * @param outputConfig
-     *        The location of the job's output data and the AWS Key Management Service key ID for the key used to
-     *        encrypt the output data, if any.
+     *        The location of the job's output data and the Amazon Web Services Key Management Service key ID for the
+     *        key used to encrypt the output data, if any.
      */
 
     public void setOutputConfig(LabelingJobOutputConfig outputConfig) {
@@ -635,12 +647,12 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The location of the job's output data and the AWS Key Management Service key ID for the key used to encrypt the
-     * output data, if any.
+     * The location of the job's output data and the Amazon Web Services Key Management Service key ID for the key used
+     * to encrypt the output data, if any.
      * </p>
      * 
-     * @return The location of the job's output data and the AWS Key Management Service key ID for the key used to
-     *         encrypt the output data, if any.
+     * @return The location of the job's output data and the Amazon Web Services Key Management Service key ID for the
+     *         key used to encrypt the output data, if any.
      */
 
     public LabelingJobOutputConfig getOutputConfig() {
@@ -649,13 +661,13 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The location of the job's output data and the AWS Key Management Service key ID for the key used to encrypt the
-     * output data, if any.
+     * The location of the job's output data and the Amazon Web Services Key Management Service key ID for the key used
+     * to encrypt the output data, if any.
      * </p>
      * 
      * @param outputConfig
-     *        The location of the job's output data and the AWS Key Management Service key ID for the key used to
-     *        encrypt the output data, if any.
+     *        The location of the job's output data and the Amazon Web Services Key Management Service key ID for the
+     *        key used to encrypt the output data, if any.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -666,12 +678,11 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that Amazon SageMaker assumes to perform tasks on your behalf during data
-     * labeling.
+     * The Amazon Resource Name (ARN) that SageMaker assumes to perform tasks on your behalf during data labeling.
      * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) that Amazon SageMaker assumes to perform tasks on your behalf during data
+     *        The Amazon Resource Name (ARN) that SageMaker assumes to perform tasks on your behalf during data
      *        labeling.
      */
 
@@ -681,11 +692,10 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that Amazon SageMaker assumes to perform tasks on your behalf during data
-     * labeling.
+     * The Amazon Resource Name (ARN) that SageMaker assumes to perform tasks on your behalf during data labeling.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) that Amazon SageMaker assumes to perform tasks on your behalf during data
+     * @return The Amazon Resource Name (ARN) that SageMaker assumes to perform tasks on your behalf during data
      *         labeling.
      */
 
@@ -695,12 +705,11 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) that Amazon SageMaker assumes to perform tasks on your behalf during data
-     * labeling.
+     * The Amazon Resource Name (ARN) that SageMaker assumes to perform tasks on your behalf during data labeling.
      * </p>
      * 
      * @param roleArn
-     *        The Amazon Resource Name (ARN) that Amazon SageMaker assumes to perform tasks on your behalf during data
+     *        The Amazon Resource Name (ARN) that SageMaker assumes to perform tasks on your behalf during data
      *        labeling.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -712,8 +721,21 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The S3 location of the JSON file that defines the categories used to label data objects.
+     * The S3 location of the JSON file that defines the categories used to label data objects. Please note the
+     * following label-category limits:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Semantic segmentation labeling jobs using automated labeling: 20 labels
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Box bounding labeling jobs (all): 10 labels
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * The file is a JSON structure in the following format:
      * </p>
@@ -764,7 +786,20 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
      * </p>
      * 
      * @param labelCategoryConfigS3Uri
-     *        The S3 location of the JSON file that defines the categories used to label data objects.</p>
+     *        The S3 location of the JSON file that defines the categories used to label data objects. Please note the
+     *        following label-category limits:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Semantic segmentation labeling jobs using automated labeling: 20 labels
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Box bounding labeling jobs (all): 10 labels
+     *        </p>
+     *        </li>
+     *        </ul>
      *        <p>
      *        The file is a JSON structure in the following format:
      *        </p>
@@ -820,8 +855,21 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The S3 location of the JSON file that defines the categories used to label data objects.
+     * The S3 location of the JSON file that defines the categories used to label data objects. Please note the
+     * following label-category limits:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Semantic segmentation labeling jobs using automated labeling: 20 labels
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Box bounding labeling jobs (all): 10 labels
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * The file is a JSON structure in the following format:
      * </p>
@@ -871,7 +919,20 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
      * <code>}</code>
      * </p>
      * 
-     * @return The S3 location of the JSON file that defines the categories used to label data objects.</p>
+     * @return The S3 location of the JSON file that defines the categories used to label data objects. Please note the
+     *         following label-category limits:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Semantic segmentation labeling jobs using automated labeling: 20 labels
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Box bounding labeling jobs (all): 10 labels
+     *         </p>
+     *         </li>
+     *         </ul>
      *         <p>
      *         The file is a JSON structure in the following format:
      *         </p>
@@ -927,8 +988,21 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * The S3 location of the JSON file that defines the categories used to label data objects.
+     * The S3 location of the JSON file that defines the categories used to label data objects. Please note the
+     * following label-category limits:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Semantic segmentation labeling jobs using automated labeling: 20 labels
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Box bounding labeling jobs (all): 10 labels
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * The file is a JSON structure in the following format:
      * </p>
@@ -979,7 +1053,20 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
      * </p>
      * 
      * @param labelCategoryConfigS3Uri
-     *        The S3 location of the JSON file that defines the categories used to label data objects.</p>
+     *        The S3 location of the JSON file that defines the categories used to label data objects. Please note the
+     *        following label-category limits:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Semantic segmentation labeling jobs using automated labeling: 20 labels
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Box bounding labeling jobs (all): 10 labels
+     *        </p>
+     *        </li>
+     *        </ul>
      *        <p>
      *        The file is a JSON structure in the following format:
      *        </p>
@@ -1163,14 +1250,15 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * An array of key/value pairs. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * 
-     * @return An array of key/value pairs. For more information, see <a
-     *         href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
-     *         >Using Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     * @return An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *         different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *         Resources</a>.
      */
 
     public java.util.List<Tag> getTags() {
@@ -1179,15 +1267,16 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * An array of key/value pairs. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * 
      * @param tags
-     *        An array of key/value pairs. For more information, see <a
-     *        href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
-     *        >Using Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -1201,9 +1290,9 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * An array of key/value pairs. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1212,9 +1301,10 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
      * </p>
      * 
      * @param tags
-     *        An array of key/value pairs. For more information, see <a
-     *        href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
-     *        >Using Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1230,15 +1320,16 @@ public class DescribeLabelingJobResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * An array of key/value pairs. For more information, see <a
-     * href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * 
      * @param tags
-     *        An array of key/value pairs. For more information, see <a
-     *        href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
-     *        >Using Cost Allocation Tags</a> in the <i>AWS Billing and Cost Management User Guide</i>.
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

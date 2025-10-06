@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,9 +17,9 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * AWS Storage Gateway returns the Amazon Resource Name (ARN) of the activated gateway. It is a string made of
- * information such as your account, gateway name, and region. This ARN is used to reference the gateway in other API
- * operations as well as resource-based authorization.
+ * Storage Gateway returns the Amazon Resource Name (ARN) of the activated gateway. It is a string made of information
+ * such as your account, gateway name, and Amazon Web Services Region. This ARN is used to reference the gateway in
+ * other API operations as well as resource-based authorization.
  * </p>
  * <note>
  * <p>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -186,6 +186,11 @@ public class AbstractAWSServiceCatalog implements AWSServiceCatalog {
     }
 
     @Override
+    public DescribePortfolioSharesResult describePortfolioShares(DescribePortfolioSharesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeProductResult describeProduct(DescribeProductRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -292,6 +297,16 @@ public class AbstractAWSServiceCatalog implements AWSServiceCatalog {
     }
 
     @Override
+    public GetProvisionedProductOutputsResult getProvisionedProductOutputs(GetProvisionedProductOutputsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ImportAsProvisionedProductResult importAsProvisionedProduct(ImportAsProvisionedProductRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListAcceptedPortfolioSharesResult listAcceptedPortfolioShares(ListAcceptedPortfolioSharesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -382,6 +397,23 @@ public class AbstractAWSServiceCatalog implements AWSServiceCatalog {
     }
 
     @Override
+    public NotifyProvisionProductEngineWorkflowResultResult notifyProvisionProductEngineWorkflowResult(NotifyProvisionProductEngineWorkflowResultRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public NotifyTerminateProvisionedProductEngineWorkflowResultResult notifyTerminateProvisionedProductEngineWorkflowResult(
+            NotifyTerminateProvisionedProductEngineWorkflowResultRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public NotifyUpdateProvisionedProductEngineWorkflowResultResult notifyUpdateProvisionedProductEngineWorkflowResult(
+            NotifyUpdateProvisionedProductEngineWorkflowResultRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ProvisionProductResult provisionProduct(ProvisionProductRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -423,6 +455,11 @@ public class AbstractAWSServiceCatalog implements AWSServiceCatalog {
 
     @Override
     public UpdatePortfolioResult updatePortfolio(UpdatePortfolioRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdatePortfolioShareResult updatePortfolioShare(UpdatePortfolioShareRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

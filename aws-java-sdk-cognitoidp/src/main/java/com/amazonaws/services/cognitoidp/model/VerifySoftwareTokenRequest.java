@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,19 +27,21 @@ public class VerifySoftwareTokenRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose software token you want to verify.
      * </p>
      */
     private String accessToken;
     /**
      * <p>
-     * The session which should be passed both ways in challenge-response calls to the service.
+     * The session that should be passed both ways in challenge-response calls to the service.
      * </p>
      */
     private String session;
     /**
      * <p>
-     * The one time password computed using the secret code returned by
+     * The one- time password computed using the secret code returned by <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html"
+     * >AssociateSoftwareToken</a>.
      * </p>
      */
     private String userCode;
@@ -52,11 +54,11 @@ public class VerifySoftwareTokenRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose software token you want to verify.
      * </p>
      * 
      * @param accessToken
-     *        The access token.
+     *        A valid access token that Amazon Cognito issued to the user whose software token you want to verify.
      */
 
     public void setAccessToken(String accessToken) {
@@ -65,10 +67,10 @@ public class VerifySoftwareTokenRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose software token you want to verify.
      * </p>
      * 
-     * @return The access token.
+     * @return A valid access token that Amazon Cognito issued to the user whose software token you want to verify.
      */
 
     public String getAccessToken() {
@@ -77,11 +79,11 @@ public class VerifySoftwareTokenRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The access token.
+     * A valid access token that Amazon Cognito issued to the user whose software token you want to verify.
      * </p>
      * 
      * @param accessToken
-     *        The access token.
+     *        A valid access token that Amazon Cognito issued to the user whose software token you want to verify.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -92,11 +94,11 @@ public class VerifySoftwareTokenRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The session which should be passed both ways in challenge-response calls to the service.
+     * The session that should be passed both ways in challenge-response calls to the service.
      * </p>
      * 
      * @param session
-     *        The session which should be passed both ways in challenge-response calls to the service.
+     *        The session that should be passed both ways in challenge-response calls to the service.
      */
 
     public void setSession(String session) {
@@ -105,10 +107,10 @@ public class VerifySoftwareTokenRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The session which should be passed both ways in challenge-response calls to the service.
+     * The session that should be passed both ways in challenge-response calls to the service.
      * </p>
      * 
-     * @return The session which should be passed both ways in challenge-response calls to the service.
+     * @return The session that should be passed both ways in challenge-response calls to the service.
      */
 
     public String getSession() {
@@ -117,11 +119,11 @@ public class VerifySoftwareTokenRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The session which should be passed both ways in challenge-response calls to the service.
+     * The session that should be passed both ways in challenge-response calls to the service.
      * </p>
      * 
      * @param session
-     *        The session which should be passed both ways in challenge-response calls to the service.
+     *        The session that should be passed both ways in challenge-response calls to the service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -132,11 +134,15 @@ public class VerifySoftwareTokenRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The one time password computed using the secret code returned by
+     * The one- time password computed using the secret code returned by <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html"
+     * >AssociateSoftwareToken</a>.
      * </p>
      * 
      * @param userCode
-     *        The one time password computed using the secret code returned by
+     *        The one- time password computed using the secret code returned by <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html"
+     *        >AssociateSoftwareToken</a>.
      */
 
     public void setUserCode(String userCode) {
@@ -145,10 +151,14 @@ public class VerifySoftwareTokenRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The one time password computed using the secret code returned by
+     * The one- time password computed using the secret code returned by <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html"
+     * >AssociateSoftwareToken</a>.
      * </p>
      * 
-     * @return The one time password computed using the secret code returned by
+     * @return The one- time password computed using the secret code returned by <a href=
+     *         "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html"
+     *         >AssociateSoftwareToken</a>.
      */
 
     public String getUserCode() {
@@ -157,11 +167,15 @@ public class VerifySoftwareTokenRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The one time password computed using the secret code returned by
+     * The one- time password computed using the secret code returned by <a href=
+     * "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html"
+     * >AssociateSoftwareToken</a>.
      * </p>
      * 
      * @param userCode
-     *        The one time password computed using the secret code returned by
+     *        The one- time password computed using the secret code returned by <a href=
+     *        "https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AssociateSoftwareToken.html"
+     *        >AssociateSoftwareToken</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -225,9 +239,9 @@ public class VerifySoftwareTokenRequest extends com.amazonaws.AmazonWebServiceRe
         if (getAccessToken() != null)
             sb.append("AccessToken: ").append("***Sensitive Data Redacted***").append(",");
         if (getSession() != null)
-            sb.append("Session: ").append(getSession()).append(",");
+            sb.append("Session: ").append("***Sensitive Data Redacted***").append(",");
         if (getUserCode() != null)
-            sb.append("UserCode: ").append(getUserCode()).append(",");
+            sb.append("UserCode: ").append("***Sensitive Data Redacted***").append(",");
         if (getFriendlyDeviceName() != null)
             sb.append("FriendlyDeviceName: ").append(getFriendlyDeviceName());
         sb.append("}");

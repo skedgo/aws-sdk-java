@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,8 +37,20 @@ public class DestinationDescriptionMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RedshiftDestinationDescription").build();
     private static final MarshallingInfo<StructuredPojo> ELASTICSEARCHDESTINATIONDESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ElasticsearchDestinationDescription").build();
+    private static final MarshallingInfo<StructuredPojo> AMAZONOPENSEARCHSERVICEDESTINATIONDESCRIPTION_BINDING = MarshallingInfo
+            .builder(MarshallingType.STRUCTURED).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("AmazonopensearchserviceDestinationDescription").build();
     private static final MarshallingInfo<StructuredPojo> SPLUNKDESTINATIONDESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SplunkDestinationDescription").build();
+    private static final MarshallingInfo<StructuredPojo> HTTPENDPOINTDESTINATIONDESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("HttpEndpointDestinationDescription").build();
+    private static final MarshallingInfo<StructuredPojo> SNOWFLAKEDESTINATIONDESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SnowflakeDestinationDescription").build();
+    private static final MarshallingInfo<StructuredPojo> AMAZONOPENSEARCHSERVERLESSDESTINATIONDESCRIPTION_BINDING = MarshallingInfo
+            .builder(MarshallingType.STRUCTURED).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("AmazonOpenSearchServerlessDestinationDescription").build();
+    private static final MarshallingInfo<StructuredPojo> ICEBERGDESTINATIONDESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IcebergDestinationDescription").build();
 
     private static final DestinationDescriptionMarshaller instance = new DestinationDescriptionMarshaller();
 
@@ -61,7 +73,14 @@ public class DestinationDescriptionMarshaller {
             protocolMarshaller.marshall(destinationDescription.getExtendedS3DestinationDescription(), EXTENDEDS3DESTINATIONDESCRIPTION_BINDING);
             protocolMarshaller.marshall(destinationDescription.getRedshiftDestinationDescription(), REDSHIFTDESTINATIONDESCRIPTION_BINDING);
             protocolMarshaller.marshall(destinationDescription.getElasticsearchDestinationDescription(), ELASTICSEARCHDESTINATIONDESCRIPTION_BINDING);
+            protocolMarshaller.marshall(destinationDescription.getAmazonopensearchserviceDestinationDescription(),
+                    AMAZONOPENSEARCHSERVICEDESTINATIONDESCRIPTION_BINDING);
             protocolMarshaller.marshall(destinationDescription.getSplunkDestinationDescription(), SPLUNKDESTINATIONDESCRIPTION_BINDING);
+            protocolMarshaller.marshall(destinationDescription.getHttpEndpointDestinationDescription(), HTTPENDPOINTDESTINATIONDESCRIPTION_BINDING);
+            protocolMarshaller.marshall(destinationDescription.getSnowflakeDestinationDescription(), SNOWFLAKEDESTINATIONDESCRIPTION_BINDING);
+            protocolMarshaller.marshall(destinationDescription.getAmazonOpenSearchServerlessDestinationDescription(),
+                    AMAZONOPENSEARCHSERVERLESSDESTINATIONDESCRIPTION_BINDING);
+            protocolMarshaller.marshall(destinationDescription.getIcebergDestinationDescription(), ICEBERGDESTINATIONDESCRIPTION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

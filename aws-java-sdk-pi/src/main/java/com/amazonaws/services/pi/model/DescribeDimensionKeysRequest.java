@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,27 +27,38 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The AWS service for which Performance Insights will return metrics. The only valid value for <i>ServiceType</i>
-     * is: <code>RDS</code>
+     * The Amazon Web Services service for which Performance Insights will return metrics. Valid values are as follows:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>RDS</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DOCDB</code>
+     * </p>
+     * </li>
+     * </ul>
      */
     private String serviceType;
     /**
      * <p>
-     * An immutable, AWS Region-unique identifier for a data source. Performance Insights gathers metrics from this data
-     * source.
+     * An immutable, Amazon Web Services Region-unique identifier for a data source. Performance Insights gathers
+     * metrics from this data source.
      * </p>
      * <p>
-     * To use an Amazon RDS instance as a data source, you specify its <code>DbiResourceId</code> value - for example:
-     * <code>db-FAIHNTYBKTGAUSUZQYPDS2GW4A</code>
+     * To use an Amazon RDS instance as a data source, you specify its <code>DbiResourceId</code> value. For example,
+     * specify <code>db-FAIHNTYBKTGAUSUZQYPDS2GW4A</code>.
      * </p>
      */
     private String identifier;
     /**
      * <p>
-     * The date and time specifying the beginning of the requested time series data. You can't specify a
-     * <code>StartTime</code> that's earlier than 7 days ago. The value specified is <i>inclusive</i> - data points
-     * equal to or greater than <code>StartTime</code> will be returned.
+     * The date and time specifying the beginning of the requested time series data. You must specify a
+     * <code>StartTime</code> within the past 7 days. The value specified is <i>inclusive</i>, which means that data
+     * points equal to or greater than <code>StartTime</code> are returned.
      * </p>
      * <p>
      * The value for <code>StartTime</code> must be earlier than the value for <code>EndTime</code>.
@@ -56,8 +67,8 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
     private java.util.Date startTime;
     /**
      * <p>
-     * The date and time specifying the end of the requested time series data. The value specified is <i>exclusive</i> -
-     * data points less than (but not equal to) <code>EndTime</code> will be returned.
+     * The date and time specifying the end of the requested time series data. The value specified is <i>exclusive</i>,
+     * which means that data points less than (but not equal to) <code>EndTime</code> are returned.
      * </p>
      * <p>
      * The value for <code>EndTime</code> must be later than the value for <code>StartTime</code>.
@@ -74,15 +85,23 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      * <ul>
      * <li>
      * <p>
-     * <code>db.load.avg</code> - a scaled representation of the number of active sessions for the database engine.
+     * <code>db.load.avg</code> - A scaled representation of the number of active sessions for the database engine.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>db.sampledload.avg</code> - the raw number of active sessions for the database engine.
+     * <code>db.sampledload.avg</code> - The raw number of active sessions for the database engine.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the number of active sessions is less than an internal Performance Insights threshold,
+     * <code>db.load.avg</code> and <code>db.sampledload.avg</code> are the same value. If the number of active sessions
+     * is greater than the internal threshold, Performance Insights samples the active sessions, with
+     * <code>db.load.avg</code> showing the scaled values, <code>db.sampledload.avg</code> showing the raw values, and
+     * <code>db.sampledload.avg</code> less than <code>db.load.avg</code>. For most use cases, you can query
+     * <code>db.load.avg</code> only.
+     * </p>
      */
     private String metric;
     /**
@@ -118,20 +137,29 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      * </li>
      * </ul>
      * <p>
-     * If you don't specify <code>PeriodInSeconds</code>, then Performance Insights will choose a value for you, with a
-     * goal of returning roughly 100-200 data points in the response.
+     * If you don't specify <code>PeriodInSeconds</code>, then Performance Insights chooses a value for you, with a goal
+     * of returning roughly 100-200 data points in the response.
      * </p>
      */
     private Integer periodInSeconds;
     /**
      * <p>
      * A specification for how to aggregate the data points from a query result. You must specify a valid dimension
-     * group. Performance Insights will return all of the dimensions within that group, unless you provide the names of
-     * specific dimensions within that group. You can also request that Performance Insights return a limited number of
-     * values for a dimension.
+     * group. Performance Insights returns all dimensions within this group, unless you provide the names of specific
+     * dimensions within this group. You can also request that Performance Insights return a limited number of values
+     * for a dimension.
      * </p>
      */
     private DimensionGroup groupBy;
+    /**
+     * <p>
+     * Additional metrics for the top <code>N</code> dimension keys. If the specified dimension group in the
+     * <code>GroupBy</code> parameter is <code>db.sql_tokenized</code>, you can specify per-SQL metrics to get the
+     * values for the top <code>N</code> SQL digests. The response syntax is as follows:
+     * <code>"AdditionalMetrics" : { "<i>string</i>" : "<i>string</i>" }</code>.
+     * </p>
+     */
+    private java.util.List<String> additionalMetrics;
     /**
      * <p>
      * For each dimension specified in <code>GroupBy</code>, specify a secondary dimension to further subdivide the
@@ -156,6 +184,11 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * The <code>db.sql.db_id</code> filter isn't available for RDS for SQL Server DB instances.
+     * </p>
+     * </note>
      */
     private java.util.Map<String, String> filter;
     /**
@@ -176,13 +209,35 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The AWS service for which Performance Insights will return metrics. The only valid value for <i>ServiceType</i>
-     * is: <code>RDS</code>
+     * The Amazon Web Services service for which Performance Insights will return metrics. Valid values are as follows:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>RDS</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DOCDB</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param serviceType
-     *        The AWS service for which Performance Insights will return metrics. The only valid value for
-     *        <i>ServiceType</i> is: <code>RDS</code>
+     *        The Amazon Web Services service for which Performance Insights will return metrics. Valid values are as
+     *        follows:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>RDS</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DOCDB</code>
+     *        </p>
+     *        </li>
      * @see ServiceType
      */
 
@@ -192,12 +247,34 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The AWS service for which Performance Insights will return metrics. The only valid value for <i>ServiceType</i>
-     * is: <code>RDS</code>
+     * The Amazon Web Services service for which Performance Insights will return metrics. Valid values are as follows:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>RDS</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DOCDB</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The AWS service for which Performance Insights will return metrics. The only valid value for
-     *         <i>ServiceType</i> is: <code>RDS</code>
+     * @return The Amazon Web Services service for which Performance Insights will return metrics. Valid values are as
+     *         follows:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>RDS</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DOCDB</code>
+     *         </p>
+     *         </li>
      * @see ServiceType
      */
 
@@ -207,13 +284,35 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The AWS service for which Performance Insights will return metrics. The only valid value for <i>ServiceType</i>
-     * is: <code>RDS</code>
+     * The Amazon Web Services service for which Performance Insights will return metrics. Valid values are as follows:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>RDS</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DOCDB</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param serviceType
-     *        The AWS service for which Performance Insights will return metrics. The only valid value for
-     *        <i>ServiceType</i> is: <code>RDS</code>
+     *        The Amazon Web Services service for which Performance Insights will return metrics. Valid values are as
+     *        follows:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>RDS</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DOCDB</code>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ServiceType
      */
@@ -225,13 +324,35 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The AWS service for which Performance Insights will return metrics. The only valid value for <i>ServiceType</i>
-     * is: <code>RDS</code>
+     * The Amazon Web Services service for which Performance Insights will return metrics. Valid values are as follows:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>RDS</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DOCDB</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param serviceType
-     *        The AWS service for which Performance Insights will return metrics. The only valid value for
-     *        <i>ServiceType</i> is: <code>RDS</code>
+     *        The Amazon Web Services service for which Performance Insights will return metrics. Valid values are as
+     *        follows:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>RDS</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DOCDB</code>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ServiceType
      */
@@ -243,20 +364,20 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * An immutable, AWS Region-unique identifier for a data source. Performance Insights gathers metrics from this data
-     * source.
+     * An immutable, Amazon Web Services Region-unique identifier for a data source. Performance Insights gathers
+     * metrics from this data source.
      * </p>
      * <p>
-     * To use an Amazon RDS instance as a data source, you specify its <code>DbiResourceId</code> value - for example:
-     * <code>db-FAIHNTYBKTGAUSUZQYPDS2GW4A</code>
+     * To use an Amazon RDS instance as a data source, you specify its <code>DbiResourceId</code> value. For example,
+     * specify <code>db-FAIHNTYBKTGAUSUZQYPDS2GW4A</code>.
      * </p>
      * 
      * @param identifier
-     *        An immutable, AWS Region-unique identifier for a data source. Performance Insights gathers metrics from
-     *        this data source.</p>
+     *        An immutable, Amazon Web Services Region-unique identifier for a data source. Performance Insights gathers
+     *        metrics from this data source.</p>
      *        <p>
-     *        To use an Amazon RDS instance as a data source, you specify its <code>DbiResourceId</code> value - for
-     *        example: <code>db-FAIHNTYBKTGAUSUZQYPDS2GW4A</code>
+     *        To use an Amazon RDS instance as a data source, you specify its <code>DbiResourceId</code> value. For
+     *        example, specify <code>db-FAIHNTYBKTGAUSUZQYPDS2GW4A</code>.
      */
 
     public void setIdentifier(String identifier) {
@@ -265,19 +386,19 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * An immutable, AWS Region-unique identifier for a data source. Performance Insights gathers metrics from this data
-     * source.
+     * An immutable, Amazon Web Services Region-unique identifier for a data source. Performance Insights gathers
+     * metrics from this data source.
      * </p>
      * <p>
-     * To use an Amazon RDS instance as a data source, you specify its <code>DbiResourceId</code> value - for example:
-     * <code>db-FAIHNTYBKTGAUSUZQYPDS2GW4A</code>
+     * To use an Amazon RDS instance as a data source, you specify its <code>DbiResourceId</code> value. For example,
+     * specify <code>db-FAIHNTYBKTGAUSUZQYPDS2GW4A</code>.
      * </p>
      * 
-     * @return An immutable, AWS Region-unique identifier for a data source. Performance Insights gathers metrics from
-     *         this data source.</p>
+     * @return An immutable, Amazon Web Services Region-unique identifier for a data source. Performance Insights
+     *         gathers metrics from this data source.</p>
      *         <p>
-     *         To use an Amazon RDS instance as a data source, you specify its <code>DbiResourceId</code> value - for
-     *         example: <code>db-FAIHNTYBKTGAUSUZQYPDS2GW4A</code>
+     *         To use an Amazon RDS instance as a data source, you specify its <code>DbiResourceId</code> value. For
+     *         example, specify <code>db-FAIHNTYBKTGAUSUZQYPDS2GW4A</code>.
      */
 
     public String getIdentifier() {
@@ -286,20 +407,20 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * An immutable, AWS Region-unique identifier for a data source. Performance Insights gathers metrics from this data
-     * source.
+     * An immutable, Amazon Web Services Region-unique identifier for a data source. Performance Insights gathers
+     * metrics from this data source.
      * </p>
      * <p>
-     * To use an Amazon RDS instance as a data source, you specify its <code>DbiResourceId</code> value - for example:
-     * <code>db-FAIHNTYBKTGAUSUZQYPDS2GW4A</code>
+     * To use an Amazon RDS instance as a data source, you specify its <code>DbiResourceId</code> value. For example,
+     * specify <code>db-FAIHNTYBKTGAUSUZQYPDS2GW4A</code>.
      * </p>
      * 
      * @param identifier
-     *        An immutable, AWS Region-unique identifier for a data source. Performance Insights gathers metrics from
-     *        this data source.</p>
+     *        An immutable, Amazon Web Services Region-unique identifier for a data source. Performance Insights gathers
+     *        metrics from this data source.</p>
      *        <p>
-     *        To use an Amazon RDS instance as a data source, you specify its <code>DbiResourceId</code> value - for
-     *        example: <code>db-FAIHNTYBKTGAUSUZQYPDS2GW4A</code>
+     *        To use an Amazon RDS instance as a data source, you specify its <code>DbiResourceId</code> value. For
+     *        example, specify <code>db-FAIHNTYBKTGAUSUZQYPDS2GW4A</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -310,18 +431,18 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The date and time specifying the beginning of the requested time series data. You can't specify a
-     * <code>StartTime</code> that's earlier than 7 days ago. The value specified is <i>inclusive</i> - data points
-     * equal to or greater than <code>StartTime</code> will be returned.
+     * The date and time specifying the beginning of the requested time series data. You must specify a
+     * <code>StartTime</code> within the past 7 days. The value specified is <i>inclusive</i>, which means that data
+     * points equal to or greater than <code>StartTime</code> are returned.
      * </p>
      * <p>
      * The value for <code>StartTime</code> must be earlier than the value for <code>EndTime</code>.
      * </p>
      * 
      * @param startTime
-     *        The date and time specifying the beginning of the requested time series data. You can't specify a
-     *        <code>StartTime</code> that's earlier than 7 days ago. The value specified is <i>inclusive</i> - data
-     *        points equal to or greater than <code>StartTime</code> will be returned.</p>
+     *        The date and time specifying the beginning of the requested time series data. You must specify a
+     *        <code>StartTime</code> within the past 7 days. The value specified is <i>inclusive</i>, which means that
+     *        data points equal to or greater than <code>StartTime</code> are returned. </p>
      *        <p>
      *        The value for <code>StartTime</code> must be earlier than the value for <code>EndTime</code>.
      */
@@ -332,17 +453,17 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The date and time specifying the beginning of the requested time series data. You can't specify a
-     * <code>StartTime</code> that's earlier than 7 days ago. The value specified is <i>inclusive</i> - data points
-     * equal to or greater than <code>StartTime</code> will be returned.
+     * The date and time specifying the beginning of the requested time series data. You must specify a
+     * <code>StartTime</code> within the past 7 days. The value specified is <i>inclusive</i>, which means that data
+     * points equal to or greater than <code>StartTime</code> are returned.
      * </p>
      * <p>
      * The value for <code>StartTime</code> must be earlier than the value for <code>EndTime</code>.
      * </p>
      * 
-     * @return The date and time specifying the beginning of the requested time series data. You can't specify a
-     *         <code>StartTime</code> that's earlier than 7 days ago. The value specified is <i>inclusive</i> - data
-     *         points equal to or greater than <code>StartTime</code> will be returned.</p>
+     * @return The date and time specifying the beginning of the requested time series data. You must specify a
+     *         <code>StartTime</code> within the past 7 days. The value specified is <i>inclusive</i>, which means that
+     *         data points equal to or greater than <code>StartTime</code> are returned. </p>
      *         <p>
      *         The value for <code>StartTime</code> must be earlier than the value for <code>EndTime</code>.
      */
@@ -353,18 +474,18 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The date and time specifying the beginning of the requested time series data. You can't specify a
-     * <code>StartTime</code> that's earlier than 7 days ago. The value specified is <i>inclusive</i> - data points
-     * equal to or greater than <code>StartTime</code> will be returned.
+     * The date and time specifying the beginning of the requested time series data. You must specify a
+     * <code>StartTime</code> within the past 7 days. The value specified is <i>inclusive</i>, which means that data
+     * points equal to or greater than <code>StartTime</code> are returned.
      * </p>
      * <p>
      * The value for <code>StartTime</code> must be earlier than the value for <code>EndTime</code>.
      * </p>
      * 
      * @param startTime
-     *        The date and time specifying the beginning of the requested time series data. You can't specify a
-     *        <code>StartTime</code> that's earlier than 7 days ago. The value specified is <i>inclusive</i> - data
-     *        points equal to or greater than <code>StartTime</code> will be returned.</p>
+     *        The date and time specifying the beginning of the requested time series data. You must specify a
+     *        <code>StartTime</code> within the past 7 days. The value specified is <i>inclusive</i>, which means that
+     *        data points equal to or greater than <code>StartTime</code> are returned. </p>
      *        <p>
      *        The value for <code>StartTime</code> must be earlier than the value for <code>EndTime</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -377,8 +498,8 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The date and time specifying the end of the requested time series data. The value specified is <i>exclusive</i> -
-     * data points less than (but not equal to) <code>EndTime</code> will be returned.
+     * The date and time specifying the end of the requested time series data. The value specified is <i>exclusive</i>,
+     * which means that data points less than (but not equal to) <code>EndTime</code> are returned.
      * </p>
      * <p>
      * The value for <code>EndTime</code> must be later than the value for <code>StartTime</code>.
@@ -386,7 +507,8 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      * 
      * @param endTime
      *        The date and time specifying the end of the requested time series data. The value specified is
-     *        <i>exclusive</i> - data points less than (but not equal to) <code>EndTime</code> will be returned.</p>
+     *        <i>exclusive</i>, which means that data points less than (but not equal to) <code>EndTime</code> are
+     *        returned.</p>
      *        <p>
      *        The value for <code>EndTime</code> must be later than the value for <code>StartTime</code>.
      */
@@ -397,15 +519,16 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The date and time specifying the end of the requested time series data. The value specified is <i>exclusive</i> -
-     * data points less than (but not equal to) <code>EndTime</code> will be returned.
+     * The date and time specifying the end of the requested time series data. The value specified is <i>exclusive</i>,
+     * which means that data points less than (but not equal to) <code>EndTime</code> are returned.
      * </p>
      * <p>
      * The value for <code>EndTime</code> must be later than the value for <code>StartTime</code>.
      * </p>
      * 
      * @return The date and time specifying the end of the requested time series data. The value specified is
-     *         <i>exclusive</i> - data points less than (but not equal to) <code>EndTime</code> will be returned.</p>
+     *         <i>exclusive</i>, which means that data points less than (but not equal to) <code>EndTime</code> are
+     *         returned.</p>
      *         <p>
      *         The value for <code>EndTime</code> must be later than the value for <code>StartTime</code>.
      */
@@ -416,8 +539,8 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The date and time specifying the end of the requested time series data. The value specified is <i>exclusive</i> -
-     * data points less than (but not equal to) <code>EndTime</code> will be returned.
+     * The date and time specifying the end of the requested time series data. The value specified is <i>exclusive</i>,
+     * which means that data points less than (but not equal to) <code>EndTime</code> are returned.
      * </p>
      * <p>
      * The value for <code>EndTime</code> must be later than the value for <code>StartTime</code>.
@@ -425,7 +548,8 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      * 
      * @param endTime
      *        The date and time specifying the end of the requested time series data. The value specified is
-     *        <i>exclusive</i> - data points less than (but not equal to) <code>EndTime</code> will be returned.</p>
+     *        <i>exclusive</i>, which means that data points less than (but not equal to) <code>EndTime</code> are
+     *        returned.</p>
      *        <p>
      *        The value for <code>EndTime</code> must be later than the value for <code>StartTime</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -446,15 +570,23 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      * <ul>
      * <li>
      * <p>
-     * <code>db.load.avg</code> - a scaled representation of the number of active sessions for the database engine.
+     * <code>db.load.avg</code> - A scaled representation of the number of active sessions for the database engine.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>db.sampledload.avg</code> - the raw number of active sessions for the database engine.
+     * <code>db.sampledload.avg</code> - The raw number of active sessions for the database engine.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the number of active sessions is less than an internal Performance Insights threshold,
+     * <code>db.load.avg</code> and <code>db.sampledload.avg</code> are the same value. If the number of active sessions
+     * is greater than the internal threshold, Performance Insights samples the active sessions, with
+     * <code>db.load.avg</code> showing the scaled values, <code>db.sampledload.avg</code> showing the raw values, and
+     * <code>db.sampledload.avg</code> less than <code>db.load.avg</code>. For most use cases, you can query
+     * <code>db.load.avg</code> only.
+     * </p>
      * 
      * @param metric
      *        The name of a Performance Insights metric to be measured.</p>
@@ -464,15 +596,23 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>db.load.avg</code> - a scaled representation of the number of active sessions for the database
+     *        <code>db.load.avg</code> - A scaled representation of the number of active sessions for the database
      *        engine.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>db.sampledload.avg</code> - the raw number of active sessions for the database engine.
+     *        <code>db.sampledload.avg</code> - The raw number of active sessions for the database engine.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        If the number of active sessions is less than an internal Performance Insights threshold,
+     *        <code>db.load.avg</code> and <code>db.sampledload.avg</code> are the same value. If the number of active
+     *        sessions is greater than the internal threshold, Performance Insights samples the active sessions, with
+     *        <code>db.load.avg</code> showing the scaled values, <code>db.sampledload.avg</code> showing the raw
+     *        values, and <code>db.sampledload.avg</code> less than <code>db.load.avg</code>. For most use cases, you
+     *        can query <code>db.load.avg</code> only.
      */
 
     public void setMetric(String metric) {
@@ -489,15 +629,23 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      * <ul>
      * <li>
      * <p>
-     * <code>db.load.avg</code> - a scaled representation of the number of active sessions for the database engine.
+     * <code>db.load.avg</code> - A scaled representation of the number of active sessions for the database engine.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>db.sampledload.avg</code> - the raw number of active sessions for the database engine.
+     * <code>db.sampledload.avg</code> - The raw number of active sessions for the database engine.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the number of active sessions is less than an internal Performance Insights threshold,
+     * <code>db.load.avg</code> and <code>db.sampledload.avg</code> are the same value. If the number of active sessions
+     * is greater than the internal threshold, Performance Insights samples the active sessions, with
+     * <code>db.load.avg</code> showing the scaled values, <code>db.sampledload.avg</code> showing the raw values, and
+     * <code>db.sampledload.avg</code> less than <code>db.load.avg</code>. For most use cases, you can query
+     * <code>db.load.avg</code> only.
+     * </p>
      * 
      * @return The name of a Performance Insights metric to be measured.</p>
      *         <p>
@@ -506,15 +654,23 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>db.load.avg</code> - a scaled representation of the number of active sessions for the database
+     *         <code>db.load.avg</code> - A scaled representation of the number of active sessions for the database
      *         engine.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>db.sampledload.avg</code> - the raw number of active sessions for the database engine.
+     *         <code>db.sampledload.avg</code> - The raw number of active sessions for the database engine.
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         If the number of active sessions is less than an internal Performance Insights threshold,
+     *         <code>db.load.avg</code> and <code>db.sampledload.avg</code> are the same value. If the number of active
+     *         sessions is greater than the internal threshold, Performance Insights samples the active sessions, with
+     *         <code>db.load.avg</code> showing the scaled values, <code>db.sampledload.avg</code> showing the raw
+     *         values, and <code>db.sampledload.avg</code> less than <code>db.load.avg</code>. For most use cases, you
+     *         can query <code>db.load.avg</code> only.
      */
 
     public String getMetric() {
@@ -531,15 +687,23 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      * <ul>
      * <li>
      * <p>
-     * <code>db.load.avg</code> - a scaled representation of the number of active sessions for the database engine.
+     * <code>db.load.avg</code> - A scaled representation of the number of active sessions for the database engine.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>db.sampledload.avg</code> - the raw number of active sessions for the database engine.
+     * <code>db.sampledload.avg</code> - The raw number of active sessions for the database engine.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the number of active sessions is less than an internal Performance Insights threshold,
+     * <code>db.load.avg</code> and <code>db.sampledload.avg</code> are the same value. If the number of active sessions
+     * is greater than the internal threshold, Performance Insights samples the active sessions, with
+     * <code>db.load.avg</code> showing the scaled values, <code>db.sampledload.avg</code> showing the raw values, and
+     * <code>db.sampledload.avg</code> less than <code>db.load.avg</code>. For most use cases, you can query
+     * <code>db.load.avg</code> only.
+     * </p>
      * 
      * @param metric
      *        The name of a Performance Insights metric to be measured.</p>
@@ -549,15 +713,23 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>db.load.avg</code> - a scaled representation of the number of active sessions for the database
+     *        <code>db.load.avg</code> - A scaled representation of the number of active sessions for the database
      *        engine.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>db.sampledload.avg</code> - the raw number of active sessions for the database engine.
+     *        <code>db.sampledload.avg</code> - The raw number of active sessions for the database engine.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        If the number of active sessions is less than an internal Performance Insights threshold,
+     *        <code>db.load.avg</code> and <code>db.sampledload.avg</code> are the same value. If the number of active
+     *        sessions is greater than the internal threshold, Performance Insights samples the active sessions, with
+     *        <code>db.load.avg</code> showing the scaled values, <code>db.sampledload.avg</code> showing the raw
+     *        values, and <code>db.sampledload.avg</code> less than <code>db.load.avg</code>. For most use cases, you
+     *        can query <code>db.load.avg</code> only.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -599,13 +771,13 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      * </li>
      * </ul>
      * <p>
-     * If you don't specify <code>PeriodInSeconds</code>, then Performance Insights will choose a value for you, with a
-     * goal of returning roughly 100-200 data points in the response.
+     * If you don't specify <code>PeriodInSeconds</code>, then Performance Insights chooses a value for you, with a goal
+     * of returning roughly 100-200 data points in the response.
      * </p>
      * 
      * @param periodInSeconds
      *        The granularity, in seconds, of the data points returned from Performance Insights. A period can be as
-     *        short as one second, or as long as one day (86400 seconds). Valid values are:</p>
+     *        short as one second, or as long as one day (86400 seconds). Valid values are: </p>
      *        <ul>
      *        <li>
      *        <p>
@@ -634,8 +806,8 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      *        </li>
      *        </ul>
      *        <p>
-     *        If you don't specify <code>PeriodInSeconds</code>, then Performance Insights will choose a value for you,
-     *        with a goal of returning roughly 100-200 data points in the response.
+     *        If you don't specify <code>PeriodInSeconds</code>, then Performance Insights chooses a value for you, with
+     *        a goal of returning roughly 100-200 data points in the response.
      */
 
     public void setPeriodInSeconds(Integer periodInSeconds) {
@@ -675,12 +847,12 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      * </li>
      * </ul>
      * <p>
-     * If you don't specify <code>PeriodInSeconds</code>, then Performance Insights will choose a value for you, with a
-     * goal of returning roughly 100-200 data points in the response.
+     * If you don't specify <code>PeriodInSeconds</code>, then Performance Insights chooses a value for you, with a goal
+     * of returning roughly 100-200 data points in the response.
      * </p>
      * 
      * @return The granularity, in seconds, of the data points returned from Performance Insights. A period can be as
-     *         short as one second, or as long as one day (86400 seconds). Valid values are:</p>
+     *         short as one second, or as long as one day (86400 seconds). Valid values are: </p>
      *         <ul>
      *         <li>
      *         <p>
@@ -709,7 +881,7 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      *         </li>
      *         </ul>
      *         <p>
-     *         If you don't specify <code>PeriodInSeconds</code>, then Performance Insights will choose a value for you,
+     *         If you don't specify <code>PeriodInSeconds</code>, then Performance Insights chooses a value for you,
      *         with a goal of returning roughly 100-200 data points in the response.
      */
 
@@ -750,13 +922,13 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      * </li>
      * </ul>
      * <p>
-     * If you don't specify <code>PeriodInSeconds</code>, then Performance Insights will choose a value for you, with a
-     * goal of returning roughly 100-200 data points in the response.
+     * If you don't specify <code>PeriodInSeconds</code>, then Performance Insights chooses a value for you, with a goal
+     * of returning roughly 100-200 data points in the response.
      * </p>
      * 
      * @param periodInSeconds
      *        The granularity, in seconds, of the data points returned from Performance Insights. A period can be as
-     *        short as one second, or as long as one day (86400 seconds). Valid values are:</p>
+     *        short as one second, or as long as one day (86400 seconds). Valid values are: </p>
      *        <ul>
      *        <li>
      *        <p>
@@ -785,8 +957,8 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      *        </li>
      *        </ul>
      *        <p>
-     *        If you don't specify <code>PeriodInSeconds</code>, then Performance Insights will choose a value for you,
-     *        with a goal of returning roughly 100-200 data points in the response.
+     *        If you don't specify <code>PeriodInSeconds</code>, then Performance Insights chooses a value for you, with
+     *        a goal of returning roughly 100-200 data points in the response.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -798,16 +970,16 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A specification for how to aggregate the data points from a query result. You must specify a valid dimension
-     * group. Performance Insights will return all of the dimensions within that group, unless you provide the names of
-     * specific dimensions within that group. You can also request that Performance Insights return a limited number of
-     * values for a dimension.
+     * group. Performance Insights returns all dimensions within this group, unless you provide the names of specific
+     * dimensions within this group. You can also request that Performance Insights return a limited number of values
+     * for a dimension.
      * </p>
      * 
      * @param groupBy
      *        A specification for how to aggregate the data points from a query result. You must specify a valid
-     *        dimension group. Performance Insights will return all of the dimensions within that group, unless you
-     *        provide the names of specific dimensions within that group. You can also request that Performance Insights
-     *        return a limited number of values for a dimension.
+     *        dimension group. Performance Insights returns all dimensions within this group, unless you provide the
+     *        names of specific dimensions within this group. You can also request that Performance Insights return a
+     *        limited number of values for a dimension.
      */
 
     public void setGroupBy(DimensionGroup groupBy) {
@@ -817,15 +989,15 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A specification for how to aggregate the data points from a query result. You must specify a valid dimension
-     * group. Performance Insights will return all of the dimensions within that group, unless you provide the names of
-     * specific dimensions within that group. You can also request that Performance Insights return a limited number of
-     * values for a dimension.
+     * group. Performance Insights returns all dimensions within this group, unless you provide the names of specific
+     * dimensions within this group. You can also request that Performance Insights return a limited number of values
+     * for a dimension.
      * </p>
      * 
      * @return A specification for how to aggregate the data points from a query result. You must specify a valid
-     *         dimension group. Performance Insights will return all of the dimensions within that group, unless you
-     *         provide the names of specific dimensions within that group. You can also request that Performance
-     *         Insights return a limited number of values for a dimension.
+     *         dimension group. Performance Insights returns all dimensions within this group, unless you provide the
+     *         names of specific dimensions within this group. You can also request that Performance Insights return a
+     *         limited number of values for a dimension.
      */
 
     public DimensionGroup getGroupBy() {
@@ -835,21 +1007,115 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
     /**
      * <p>
      * A specification for how to aggregate the data points from a query result. You must specify a valid dimension
-     * group. Performance Insights will return all of the dimensions within that group, unless you provide the names of
-     * specific dimensions within that group. You can also request that Performance Insights return a limited number of
-     * values for a dimension.
+     * group. Performance Insights returns all dimensions within this group, unless you provide the names of specific
+     * dimensions within this group. You can also request that Performance Insights return a limited number of values
+     * for a dimension.
      * </p>
      * 
      * @param groupBy
      *        A specification for how to aggregate the data points from a query result. You must specify a valid
-     *        dimension group. Performance Insights will return all of the dimensions within that group, unless you
-     *        provide the names of specific dimensions within that group. You can also request that Performance Insights
-     *        return a limited number of values for a dimension.
+     *        dimension group. Performance Insights returns all dimensions within this group, unless you provide the
+     *        names of specific dimensions within this group. You can also request that Performance Insights return a
+     *        limited number of values for a dimension.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DescribeDimensionKeysRequest withGroupBy(DimensionGroup groupBy) {
         setGroupBy(groupBy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Additional metrics for the top <code>N</code> dimension keys. If the specified dimension group in the
+     * <code>GroupBy</code> parameter is <code>db.sql_tokenized</code>, you can specify per-SQL metrics to get the
+     * values for the top <code>N</code> SQL digests. The response syntax is as follows:
+     * <code>"AdditionalMetrics" : { "<i>string</i>" : "<i>string</i>" }</code>.
+     * </p>
+     * 
+     * @return Additional metrics for the top <code>N</code> dimension keys. If the specified dimension group in the
+     *         <code>GroupBy</code> parameter is <code>db.sql_tokenized</code>, you can specify per-SQL metrics to get
+     *         the values for the top <code>N</code> SQL digests. The response syntax is as follows:
+     *         <code>"AdditionalMetrics" : { "<i>string</i>" : "<i>string</i>" }</code>.
+     */
+
+    public java.util.List<String> getAdditionalMetrics() {
+        return additionalMetrics;
+    }
+
+    /**
+     * <p>
+     * Additional metrics for the top <code>N</code> dimension keys. If the specified dimension group in the
+     * <code>GroupBy</code> parameter is <code>db.sql_tokenized</code>, you can specify per-SQL metrics to get the
+     * values for the top <code>N</code> SQL digests. The response syntax is as follows:
+     * <code>"AdditionalMetrics" : { "<i>string</i>" : "<i>string</i>" }</code>.
+     * </p>
+     * 
+     * @param additionalMetrics
+     *        Additional metrics for the top <code>N</code> dimension keys. If the specified dimension group in the
+     *        <code>GroupBy</code> parameter is <code>db.sql_tokenized</code>, you can specify per-SQL metrics to get
+     *        the values for the top <code>N</code> SQL digests. The response syntax is as follows:
+     *        <code>"AdditionalMetrics" : { "<i>string</i>" : "<i>string</i>" }</code>.
+     */
+
+    public void setAdditionalMetrics(java.util.Collection<String> additionalMetrics) {
+        if (additionalMetrics == null) {
+            this.additionalMetrics = null;
+            return;
+        }
+
+        this.additionalMetrics = new java.util.ArrayList<String>(additionalMetrics);
+    }
+
+    /**
+     * <p>
+     * Additional metrics for the top <code>N</code> dimension keys. If the specified dimension group in the
+     * <code>GroupBy</code> parameter is <code>db.sql_tokenized</code>, you can specify per-SQL metrics to get the
+     * values for the top <code>N</code> SQL digests. The response syntax is as follows:
+     * <code>"AdditionalMetrics" : { "<i>string</i>" : "<i>string</i>" }</code>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setAdditionalMetrics(java.util.Collection)} or {@link #withAdditionalMetrics(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param additionalMetrics
+     *        Additional metrics for the top <code>N</code> dimension keys. If the specified dimension group in the
+     *        <code>GroupBy</code> parameter is <code>db.sql_tokenized</code>, you can specify per-SQL metrics to get
+     *        the values for the top <code>N</code> SQL digests. The response syntax is as follows:
+     *        <code>"AdditionalMetrics" : { "<i>string</i>" : "<i>string</i>" }</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeDimensionKeysRequest withAdditionalMetrics(String... additionalMetrics) {
+        if (this.additionalMetrics == null) {
+            setAdditionalMetrics(new java.util.ArrayList<String>(additionalMetrics.length));
+        }
+        for (String ele : additionalMetrics) {
+            this.additionalMetrics.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Additional metrics for the top <code>N</code> dimension keys. If the specified dimension group in the
+     * <code>GroupBy</code> parameter is <code>db.sql_tokenized</code>, you can specify per-SQL metrics to get the
+     * values for the top <code>N</code> SQL digests. The response syntax is as follows:
+     * <code>"AdditionalMetrics" : { "<i>string</i>" : "<i>string</i>" }</code>.
+     * </p>
+     * 
+     * @param additionalMetrics
+     *        Additional metrics for the top <code>N</code> dimension keys. If the specified dimension group in the
+     *        <code>GroupBy</code> parameter is <code>db.sql_tokenized</code>, you can specify per-SQL metrics to get
+     *        the values for the top <code>N</code> SQL digests. The response syntax is as follows:
+     *        <code>"AdditionalMetrics" : { "<i>string</i>" : "<i>string</i>" }</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeDimensionKeysRequest withAdditionalMetrics(java.util.Collection<String> additionalMetrics) {
+        setAdditionalMetrics(additionalMetrics);
         return this;
     }
 
@@ -916,6 +1182,11 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * The <code>db.sql.db_id</code> filter isn't available for RDS for SQL Server DB instances.
+     * </p>
+     * </note>
      * 
      * @return One or more filters to apply in the request. Restrictions:</p>
      *         <ul>
@@ -930,6 +1201,11 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      *         A single filter for any other dimension in this dimension group.
      *         </p>
      *         </li>
+     *         </ul>
+     *         <note>
+     *         <p>
+     *         The <code>db.sql.db_id</code> filter isn't available for RDS for SQL Server DB instances.
+     *         </p>
      */
 
     public java.util.Map<String, String> getFilter() {
@@ -953,6 +1229,11 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * The <code>db.sql.db_id</code> filter isn't available for RDS for SQL Server DB instances.
+     * </p>
+     * </note>
      * 
      * @param filter
      *        One or more filters to apply in the request. Restrictions:</p>
@@ -968,6 +1249,11 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      *        A single filter for any other dimension in this dimension group.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        The <code>db.sql.db_id</code> filter isn't available for RDS for SQL Server DB instances.
+     *        </p>
      */
 
     public void setFilter(java.util.Map<String, String> filter) {
@@ -991,6 +1277,11 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      * </p>
      * </li>
      * </ul>
+     * <note>
+     * <p>
+     * The <code>db.sql.db_id</code> filter isn't available for RDS for SQL Server DB instances.
+     * </p>
+     * </note>
      * 
      * @param filter
      *        One or more filters to apply in the request. Restrictions:</p>
@@ -1006,6 +1297,11 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
      *        A single filter for any other dimension in this dimension group.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        The <code>db.sql.db_id</code> filter isn't available for RDS for SQL Server DB instances.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1013,6 +1309,13 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
         setFilter(filter);
         return this;
     }
+
+    /**
+     * Add a single Filter entry
+     *
+     * @see DescribeDimensionKeysRequest#withFilter
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public DescribeDimensionKeysRequest addFilterEntry(String key, String value) {
         if (null == this.filter) {
@@ -1159,6 +1462,8 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
             sb.append("PeriodInSeconds: ").append(getPeriodInSeconds()).append(",");
         if (getGroupBy() != null)
             sb.append("GroupBy: ").append(getGroupBy()).append(",");
+        if (getAdditionalMetrics() != null)
+            sb.append("AdditionalMetrics: ").append(getAdditionalMetrics()).append(",");
         if (getPartitionBy() != null)
             sb.append("PartitionBy: ").append(getPartitionBy()).append(",");
         if (getFilter() != null)
@@ -1209,6 +1514,10 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
             return false;
         if (other.getGroupBy() != null && other.getGroupBy().equals(this.getGroupBy()) == false)
             return false;
+        if (other.getAdditionalMetrics() == null ^ this.getAdditionalMetrics() == null)
+            return false;
+        if (other.getAdditionalMetrics() != null && other.getAdditionalMetrics().equals(this.getAdditionalMetrics()) == false)
+            return false;
         if (other.getPartitionBy() == null ^ this.getPartitionBy() == null)
             return false;
         if (other.getPartitionBy() != null && other.getPartitionBy().equals(this.getPartitionBy()) == false)
@@ -1240,6 +1549,7 @@ public class DescribeDimensionKeysRequest extends com.amazonaws.AmazonWebService
         hashCode = prime * hashCode + ((getMetric() == null) ? 0 : getMetric().hashCode());
         hashCode = prime * hashCode + ((getPeriodInSeconds() == null) ? 0 : getPeriodInSeconds().hashCode());
         hashCode = prime * hashCode + ((getGroupBy() == null) ? 0 : getGroupBy().hashCode());
+        hashCode = prime * hashCode + ((getAdditionalMetrics() == null) ? 0 : getAdditionalMetrics().hashCode());
         hashCode = prime * hashCode + ((getPartitionBy() == null) ? 0 : getPartitionBy().hashCode());
         hashCode = prime * hashCode + ((getFilter() == null) ? 0 : getFilter().hashCode());
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());

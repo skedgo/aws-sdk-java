@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,7 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * Creates a new flow. The request must include one source. The request optionally can include outputs (up to 20) and
+ * Creates a new flow. The request must include one source. The request optionally can include outputs (up to 50) and
  * entitlements (up to 50).
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconnect-2018-11-14/CreateFlow" target="_top">AWS API
@@ -34,12 +34,25 @@ public class CreateFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
     private String availabilityZone;
     /** The entitlements that you want to grant on a flow. */
     private java.util.List<GrantEntitlementRequest> entitlements;
+    /**
+     * The media streams that you want to add to the flow. You can associate these media streams with sources and
+     * outputs on the flow.
+     */
+    private java.util.List<AddMediaStreamRequest> mediaStreams;
     /** The name of the flow. */
     private String name;
     /** The outputs that you want to add to this flow. */
     private java.util.List<AddOutputRequest> outputs;
 
     private SetSourceRequest source;
+
+    private FailoverConfig sourceFailoverConfig;
+
+    private java.util.List<SetSourceRequest> sources;
+    /** The VPC interfaces you want on the flow. */
+    private java.util.List<VpcInterfaceRequest> vpcInterfaces;
+
+    private AddMaintenance maintenance;
 
     /**
      * The Availability Zone that you want to create the flow in. These options are limited to the Availability Zones
@@ -140,6 +153,76 @@ public class CreateFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     public CreateFlowRequest withEntitlements(java.util.Collection<GrantEntitlementRequest> entitlements) {
         setEntitlements(entitlements);
+        return this;
+    }
+
+    /**
+     * The media streams that you want to add to the flow. You can associate these media streams with sources and
+     * outputs on the flow.
+     * 
+     * @return The media streams that you want to add to the flow. You can associate these media streams with sources
+     *         and outputs on the flow.
+     */
+
+    public java.util.List<AddMediaStreamRequest> getMediaStreams() {
+        return mediaStreams;
+    }
+
+    /**
+     * The media streams that you want to add to the flow. You can associate these media streams with sources and
+     * outputs on the flow.
+     * 
+     * @param mediaStreams
+     *        The media streams that you want to add to the flow. You can associate these media streams with sources and
+     *        outputs on the flow.
+     */
+
+    public void setMediaStreams(java.util.Collection<AddMediaStreamRequest> mediaStreams) {
+        if (mediaStreams == null) {
+            this.mediaStreams = null;
+            return;
+        }
+
+        this.mediaStreams = new java.util.ArrayList<AddMediaStreamRequest>(mediaStreams);
+    }
+
+    /**
+     * The media streams that you want to add to the flow. You can associate these media streams with sources and
+     * outputs on the flow.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setMediaStreams(java.util.Collection)} or {@link #withMediaStreams(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param mediaStreams
+     *        The media streams that you want to add to the flow. You can associate these media streams with sources and
+     *        outputs on the flow.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateFlowRequest withMediaStreams(AddMediaStreamRequest... mediaStreams) {
+        if (this.mediaStreams == null) {
+            setMediaStreams(new java.util.ArrayList<AddMediaStreamRequest>(mediaStreams.length));
+        }
+        for (AddMediaStreamRequest ele : mediaStreams) {
+            this.mediaStreams.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * The media streams that you want to add to the flow. You can associate these media streams with sources and
+     * outputs on the flow.
+     * 
+     * @param mediaStreams
+     *        The media streams that you want to add to the flow. You can associate these media streams with sources and
+     *        outputs on the flow.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateFlowRequest withMediaStreams(java.util.Collection<AddMediaStreamRequest> mediaStreams) {
+        setMediaStreams(mediaStreams);
         return this;
     }
 
@@ -266,6 +349,172 @@ public class CreateFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * @param sourceFailoverConfig
+     */
+
+    public void setSourceFailoverConfig(FailoverConfig sourceFailoverConfig) {
+        this.sourceFailoverConfig = sourceFailoverConfig;
+    }
+
+    /**
+     * @return
+     */
+
+    public FailoverConfig getSourceFailoverConfig() {
+        return this.sourceFailoverConfig;
+    }
+
+    /**
+     * @param sourceFailoverConfig
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateFlowRequest withSourceFailoverConfig(FailoverConfig sourceFailoverConfig) {
+        setSourceFailoverConfig(sourceFailoverConfig);
+        return this;
+    }
+
+    /**
+     * @return
+     */
+
+    public java.util.List<SetSourceRequest> getSources() {
+        return sources;
+    }
+
+    /**
+     * @param sources
+     */
+
+    public void setSources(java.util.Collection<SetSourceRequest> sources) {
+        if (sources == null) {
+            this.sources = null;
+            return;
+        }
+
+        this.sources = new java.util.ArrayList<SetSourceRequest>(sources);
+    }
+
+    /**
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSources(java.util.Collection)} or {@link #withSources(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param sources
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateFlowRequest withSources(SetSourceRequest... sources) {
+        if (this.sources == null) {
+            setSources(new java.util.ArrayList<SetSourceRequest>(sources.length));
+        }
+        for (SetSourceRequest ele : sources) {
+            this.sources.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * @param sources
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateFlowRequest withSources(java.util.Collection<SetSourceRequest> sources) {
+        setSources(sources);
+        return this;
+    }
+
+    /**
+     * The VPC interfaces you want on the flow.
+     * 
+     * @return The VPC interfaces you want on the flow.
+     */
+
+    public java.util.List<VpcInterfaceRequest> getVpcInterfaces() {
+        return vpcInterfaces;
+    }
+
+    /**
+     * The VPC interfaces you want on the flow.
+     * 
+     * @param vpcInterfaces
+     *        The VPC interfaces you want on the flow.
+     */
+
+    public void setVpcInterfaces(java.util.Collection<VpcInterfaceRequest> vpcInterfaces) {
+        if (vpcInterfaces == null) {
+            this.vpcInterfaces = null;
+            return;
+        }
+
+        this.vpcInterfaces = new java.util.ArrayList<VpcInterfaceRequest>(vpcInterfaces);
+    }
+
+    /**
+     * The VPC interfaces you want on the flow.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setVpcInterfaces(java.util.Collection)} or {@link #withVpcInterfaces(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param vpcInterfaces
+     *        The VPC interfaces you want on the flow.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateFlowRequest withVpcInterfaces(VpcInterfaceRequest... vpcInterfaces) {
+        if (this.vpcInterfaces == null) {
+            setVpcInterfaces(new java.util.ArrayList<VpcInterfaceRequest>(vpcInterfaces.length));
+        }
+        for (VpcInterfaceRequest ele : vpcInterfaces) {
+            this.vpcInterfaces.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * The VPC interfaces you want on the flow.
+     * 
+     * @param vpcInterfaces
+     *        The VPC interfaces you want on the flow.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateFlowRequest withVpcInterfaces(java.util.Collection<VpcInterfaceRequest> vpcInterfaces) {
+        setVpcInterfaces(vpcInterfaces);
+        return this;
+    }
+
+    /**
+     * @param maintenance
+     */
+
+    public void setMaintenance(AddMaintenance maintenance) {
+        this.maintenance = maintenance;
+    }
+
+    /**
+     * @return
+     */
+
+    public AddMaintenance getMaintenance() {
+        return this.maintenance;
+    }
+
+    /**
+     * @param maintenance
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateFlowRequest withMaintenance(AddMaintenance maintenance) {
+        setMaintenance(maintenance);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -281,12 +530,22 @@ public class CreateFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
             sb.append("AvailabilityZone: ").append(getAvailabilityZone()).append(",");
         if (getEntitlements() != null)
             sb.append("Entitlements: ").append(getEntitlements()).append(",");
+        if (getMediaStreams() != null)
+            sb.append("MediaStreams: ").append(getMediaStreams()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getOutputs() != null)
             sb.append("Outputs: ").append(getOutputs()).append(",");
         if (getSource() != null)
-            sb.append("Source: ").append(getSource());
+            sb.append("Source: ").append(getSource()).append(",");
+        if (getSourceFailoverConfig() != null)
+            sb.append("SourceFailoverConfig: ").append(getSourceFailoverConfig()).append(",");
+        if (getSources() != null)
+            sb.append("Sources: ").append(getSources()).append(",");
+        if (getVpcInterfaces() != null)
+            sb.append("VpcInterfaces: ").append(getVpcInterfaces()).append(",");
+        if (getMaintenance() != null)
+            sb.append("Maintenance: ").append(getMaintenance());
         sb.append("}");
         return sb.toString();
     }
@@ -309,6 +568,10 @@ public class CreateFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
             return false;
         if (other.getEntitlements() != null && other.getEntitlements().equals(this.getEntitlements()) == false)
             return false;
+        if (other.getMediaStreams() == null ^ this.getMediaStreams() == null)
+            return false;
+        if (other.getMediaStreams() != null && other.getMediaStreams().equals(this.getMediaStreams()) == false)
+            return false;
         if (other.getName() == null ^ this.getName() == null)
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
@@ -321,6 +584,22 @@ public class CreateFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
             return false;
         if (other.getSource() != null && other.getSource().equals(this.getSource()) == false)
             return false;
+        if (other.getSourceFailoverConfig() == null ^ this.getSourceFailoverConfig() == null)
+            return false;
+        if (other.getSourceFailoverConfig() != null && other.getSourceFailoverConfig().equals(this.getSourceFailoverConfig()) == false)
+            return false;
+        if (other.getSources() == null ^ this.getSources() == null)
+            return false;
+        if (other.getSources() != null && other.getSources().equals(this.getSources()) == false)
+            return false;
+        if (other.getVpcInterfaces() == null ^ this.getVpcInterfaces() == null)
+            return false;
+        if (other.getVpcInterfaces() != null && other.getVpcInterfaces().equals(this.getVpcInterfaces()) == false)
+            return false;
+        if (other.getMaintenance() == null ^ this.getMaintenance() == null)
+            return false;
+        if (other.getMaintenance() != null && other.getMaintenance().equals(this.getMaintenance()) == false)
+            return false;
         return true;
     }
 
@@ -331,9 +610,14 @@ public class CreateFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
         hashCode = prime * hashCode + ((getAvailabilityZone() == null) ? 0 : getAvailabilityZone().hashCode());
         hashCode = prime * hashCode + ((getEntitlements() == null) ? 0 : getEntitlements().hashCode());
+        hashCode = prime * hashCode + ((getMediaStreams() == null) ? 0 : getMediaStreams().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getOutputs() == null) ? 0 : getOutputs().hashCode());
         hashCode = prime * hashCode + ((getSource() == null) ? 0 : getSource().hashCode());
+        hashCode = prime * hashCode + ((getSourceFailoverConfig() == null) ? 0 : getSourceFailoverConfig().hashCode());
+        hashCode = prime * hashCode + ((getSources() == null) ? 0 : getSources().hashCode());
+        hashCode = prime * hashCode + ((getVpcInterfaces() == null) ? 0 : getVpcInterfaces().hashCode());
+        hashCode = prime * hashCode + ((getMaintenance() == null) ? 0 : getMaintenance().hashCode());
         return hashCode;
     }
 

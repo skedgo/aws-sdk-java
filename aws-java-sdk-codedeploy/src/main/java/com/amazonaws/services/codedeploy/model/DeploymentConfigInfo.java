@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,7 +42,7 @@ public class DeploymentConfigInfo implements Serializable, Cloneable, Structured
     private String deploymentConfigName;
     /**
      * <p>
-     * Information about the number or percentage of minimum healthy instance.
+     * Information about the number or percentage of minimum healthy instances.
      * </p>
      */
     private MinimumHealthyHosts minimumHealthyHosts;
@@ -60,11 +60,17 @@ public class DeploymentConfigInfo implements Serializable, Cloneable, Structured
     private String computePlatform;
     /**
      * <p>
-     * The configuration that specifies how the deployment traffic is routed. Only deployments with a Lambda compute
-     * platform can specify this.
+     * The configuration that specifies how the deployment traffic is routed. Used for deployments with a Lambda or
+     * Amazon ECS compute platform only.
      * </p>
      */
     private TrafficRoutingConfig trafficRoutingConfig;
+    /**
+     * <p>
+     * Information about a zonal configuration.
+     * </p>
+     */
+    private ZonalConfig zonalConfig;
 
     /**
      * <p>
@@ -148,11 +154,11 @@ public class DeploymentConfigInfo implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Information about the number or percentage of minimum healthy instance.
+     * Information about the number or percentage of minimum healthy instances.
      * </p>
      * 
      * @param minimumHealthyHosts
-     *        Information about the number or percentage of minimum healthy instance.
+     *        Information about the number or percentage of minimum healthy instances.
      */
 
     public void setMinimumHealthyHosts(MinimumHealthyHosts minimumHealthyHosts) {
@@ -161,10 +167,10 @@ public class DeploymentConfigInfo implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Information about the number or percentage of minimum healthy instance.
+     * Information about the number or percentage of minimum healthy instances.
      * </p>
      * 
-     * @return Information about the number or percentage of minimum healthy instance.
+     * @return Information about the number or percentage of minimum healthy instances.
      */
 
     public MinimumHealthyHosts getMinimumHealthyHosts() {
@@ -173,11 +179,11 @@ public class DeploymentConfigInfo implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Information about the number or percentage of minimum healthy instance.
+     * Information about the number or percentage of minimum healthy instances.
      * </p>
      * 
      * @param minimumHealthyHosts
-     *        Information about the number or percentage of minimum healthy instance.
+     *        Information about the number or percentage of minimum healthy instances.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -291,13 +297,13 @@ public class DeploymentConfigInfo implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The configuration that specifies how the deployment traffic is routed. Only deployments with a Lambda compute
-     * platform can specify this.
+     * The configuration that specifies how the deployment traffic is routed. Used for deployments with a Lambda or
+     * Amazon ECS compute platform only.
      * </p>
      * 
      * @param trafficRoutingConfig
-     *        The configuration that specifies how the deployment traffic is routed. Only deployments with a Lambda
-     *        compute platform can specify this.
+     *        The configuration that specifies how the deployment traffic is routed. Used for deployments with a Lambda
+     *        or Amazon ECS compute platform only.
      */
 
     public void setTrafficRoutingConfig(TrafficRoutingConfig trafficRoutingConfig) {
@@ -306,12 +312,12 @@ public class DeploymentConfigInfo implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The configuration that specifies how the deployment traffic is routed. Only deployments with a Lambda compute
-     * platform can specify this.
+     * The configuration that specifies how the deployment traffic is routed. Used for deployments with a Lambda or
+     * Amazon ECS compute platform only.
      * </p>
      * 
-     * @return The configuration that specifies how the deployment traffic is routed. Only deployments with a Lambda
-     *         compute platform can specify this.
+     * @return The configuration that specifies how the deployment traffic is routed. Used for deployments with a Lambda
+     *         or Amazon ECS compute platform only.
      */
 
     public TrafficRoutingConfig getTrafficRoutingConfig() {
@@ -320,18 +326,58 @@ public class DeploymentConfigInfo implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The configuration that specifies how the deployment traffic is routed. Only deployments with a Lambda compute
-     * platform can specify this.
+     * The configuration that specifies how the deployment traffic is routed. Used for deployments with a Lambda or
+     * Amazon ECS compute platform only.
      * </p>
      * 
      * @param trafficRoutingConfig
-     *        The configuration that specifies how the deployment traffic is routed. Only deployments with a Lambda
-     *        compute platform can specify this.
+     *        The configuration that specifies how the deployment traffic is routed. Used for deployments with a Lambda
+     *        or Amazon ECS compute platform only.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DeploymentConfigInfo withTrafficRoutingConfig(TrafficRoutingConfig trafficRoutingConfig) {
         setTrafficRoutingConfig(trafficRoutingConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about a zonal configuration.
+     * </p>
+     * 
+     * @param zonalConfig
+     *        Information about a zonal configuration.
+     */
+
+    public void setZonalConfig(ZonalConfig zonalConfig) {
+        this.zonalConfig = zonalConfig;
+    }
+
+    /**
+     * <p>
+     * Information about a zonal configuration.
+     * </p>
+     * 
+     * @return Information about a zonal configuration.
+     */
+
+    public ZonalConfig getZonalConfig() {
+        return this.zonalConfig;
+    }
+
+    /**
+     * <p>
+     * Information about a zonal configuration.
+     * </p>
+     * 
+     * @param zonalConfig
+     *        Information about a zonal configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DeploymentConfigInfo withZonalConfig(ZonalConfig zonalConfig) {
+        setZonalConfig(zonalConfig);
         return this;
     }
 
@@ -358,7 +404,9 @@ public class DeploymentConfigInfo implements Serializable, Cloneable, Structured
         if (getComputePlatform() != null)
             sb.append("ComputePlatform: ").append(getComputePlatform()).append(",");
         if (getTrafficRoutingConfig() != null)
-            sb.append("TrafficRoutingConfig: ").append(getTrafficRoutingConfig());
+            sb.append("TrafficRoutingConfig: ").append(getTrafficRoutingConfig()).append(",");
+        if (getZonalConfig() != null)
+            sb.append("ZonalConfig: ").append(getZonalConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -397,6 +445,10 @@ public class DeploymentConfigInfo implements Serializable, Cloneable, Structured
             return false;
         if (other.getTrafficRoutingConfig() != null && other.getTrafficRoutingConfig().equals(this.getTrafficRoutingConfig()) == false)
             return false;
+        if (other.getZonalConfig() == null ^ this.getZonalConfig() == null)
+            return false;
+        if (other.getZonalConfig() != null && other.getZonalConfig().equals(this.getZonalConfig()) == false)
+            return false;
         return true;
     }
 
@@ -411,6 +463,7 @@ public class DeploymentConfigInfo implements Serializable, Cloneable, Structured
         hashCode = prime * hashCode + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         hashCode = prime * hashCode + ((getComputePlatform() == null) ? 0 : getComputePlatform().hashCode());
         hashCode = prime * hashCode + ((getTrafficRoutingConfig() == null) ? 0 : getTrafficRoutingConfig().hashCode());
+        hashCode = prime * hashCode + ((getZonalConfig() == null) ? 0 : getZonalConfig().hashCode());
         return hashCode;
     }
 

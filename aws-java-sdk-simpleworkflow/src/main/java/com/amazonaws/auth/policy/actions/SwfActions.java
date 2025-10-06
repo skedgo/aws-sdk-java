@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,6 +33,10 @@ public enum SwfActions implements Action {
     CountPendingActivityTasks("swf:CountPendingActivityTasks"),
     /** Action for the CountPendingDecisionTasks operation. */
     CountPendingDecisionTasks("swf:CountPendingDecisionTasks"),
+    /** Action for the DeleteActivityType operation. */
+    DeleteActivityType("swf:DeleteActivityType"),
+    /** Action for the DeleteWorkflowType operation. */
+    DeleteWorkflowType("swf:DeleteWorkflowType"),
     /** Action for the DeprecateActivityType operation. */
     DeprecateActivityType("swf:DeprecateActivityType"),
     /** Action for the DeprecateDomain operation. */
@@ -110,5 +114,9 @@ public enum SwfActions implements Action {
 
     public String getActionName() {
         return this.action;
+    }
+
+    public boolean isNotType() {
+        return false;
     }
 }

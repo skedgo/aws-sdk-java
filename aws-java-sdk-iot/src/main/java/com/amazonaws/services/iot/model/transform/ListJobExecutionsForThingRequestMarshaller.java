@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,10 +31,14 @@ public class ListJobExecutionsForThingRequestMarshaller {
             .marshallLocationName("thingName").build();
     private static final MarshallingInfo<String> STATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("status").build();
+    private static final MarshallingInfo<String> NAMESPACEID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("namespaceId").build();
     private static final MarshallingInfo<Integer> MAXRESULTS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("maxResults").build();
     private static final MarshallingInfo<String> NEXTTOKEN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("nextToken").build();
+    private static final MarshallingInfo<String> JOBID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.QUERY_PARAM)
+            .marshallLocationName("jobId").build();
 
     private static final ListJobExecutionsForThingRequestMarshaller instance = new ListJobExecutionsForThingRequestMarshaller();
 
@@ -54,8 +58,10 @@ public class ListJobExecutionsForThingRequestMarshaller {
         try {
             protocolMarshaller.marshall(listJobExecutionsForThingRequest.getThingName(), THINGNAME_BINDING);
             protocolMarshaller.marshall(listJobExecutionsForThingRequest.getStatus(), STATUS_BINDING);
+            protocolMarshaller.marshall(listJobExecutionsForThingRequest.getNamespaceId(), NAMESPACEID_BINDING);
             protocolMarshaller.marshall(listJobExecutionsForThingRequest.getMaxResults(), MAXRESULTS_BINDING);
             protocolMarshaller.marshall(listJobExecutionsForThingRequest.getNextToken(), NEXTTOKEN_BINDING);
+            protocolMarshaller.marshall(listJobExecutionsForThingRequest.getJobId(), JOBID_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

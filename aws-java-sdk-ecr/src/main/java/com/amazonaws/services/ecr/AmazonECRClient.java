@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,10 +40,12 @@ import com.amazonaws.client.AwsSyncClientParams;
 import com.amazonaws.client.builder.AdvancedConfig;
 
 import com.amazonaws.services.ecr.AmazonECRClientBuilder;
+import com.amazonaws.services.ecr.waiters.AmazonECRWaiters;
 
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.ecr.model.*;
+
 import com.amazonaws.services.ecr.model.transform.*;
 
 /**
@@ -52,10 +54,16 @@ import com.amazonaws.services.ecr.model.transform.*;
  * <p>
  * <fullname>Amazon Elastic Container Registry</fullname>
  * <p>
- * Amazon Elastic Container Registry (Amazon ECR) is a managed Docker registry service. Customers can use the familiar
- * Docker CLI to push, pull, and manage images. Amazon ECR provides a secure, scalable, and reliable registry. Amazon
- * ECR supports private Docker repositories with resource-based permissions using IAM so that specific users or Amazon
- * EC2 instances can access repositories and images. Developers can use the Docker CLI to author and manage images.
+ * Amazon Elastic Container Registry (Amazon ECR) is a managed container image registry service. Customers can use the
+ * familiar Docker CLI, or their preferred client, to push, pull, and manage images. Amazon ECR provides a secure,
+ * scalable, and reliable registry for your Docker or Open Container Initiative (OCI) images. Amazon ECR supports
+ * private repositories with resource-based permissions using IAM so that specific users or Amazon EC2 instances can
+ * access repositories and images.
+ * </p>
+ * <p>
+ * Amazon ECR has service endpoints in each supported Region. For more information, see <a
+ * href="https://docs.aws.amazon.com/general/latest/gr/ecr.html">Amazon ECR endpoints</a> in the <i>Amazon Web Services
+ * General Reference</i>.
  * </p>
  */
 @ThreadSafe
@@ -70,6 +78,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
     /** Default signing name for the service. */
     private static final String DEFAULT_SIGNING_NAME = "ecr";
 
+    private volatile AmazonECRWaiters waiters;
+
     /** Client configuration factory providing ClientConfigurations tailored to this client */
     protected static final ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
 
@@ -81,74 +91,125 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LayerPartTooSmallException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.LayerPartTooSmallException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LayerPartTooSmallException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.LayerPartTooSmallExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.InvalidParameterException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RepositoryNotEmptyException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.RepositoryNotEmptyExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RepositoryNotEmptyException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.RepositoryNotEmptyException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LayerAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.LayerAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LayerAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.LayerAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnableToAccessSecretException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.UnableToAccessSecretExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("EmptyUploadException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.EmptyUploadException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("EmptyUploadException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.EmptyUploadExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RepositoryAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.RepositoryAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TemplateAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.TemplateAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RepositoryPolicyNotFoundException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.RepositoryPolicyNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TemplateNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.TemplateNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ImageAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.ImageAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RepositoryAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.RepositoryAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LayerInaccessibleException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.LayerInaccessibleException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RepositoryPolicyNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.RepositoryPolicyNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedUpstreamRegistryException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.UnsupportedUpstreamRegistryExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UploadNotFoundException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.UploadNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LayerInaccessibleException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.LayerInaccessibleExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TooManyTagsException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.TooManyTagsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidLayerPartException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.InvalidLayerPartException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidLayerPartException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.InvalidLayerPartExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ImageTagAlreadyExistsException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.ImageTagAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ImageTagAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.ImageTagAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LifecyclePolicyPreviewNotFoundException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.LifecyclePolicyPreviewNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LifecyclePolicyPreviewNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.LifecyclePolicyPreviewNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServerException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.ServerException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ScanNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.ScanNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LifecyclePolicyNotFoundException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.LifecyclePolicyNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LifecyclePolicyNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.LifecyclePolicyNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTagParameterException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.InvalidTagParameterException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.ValidationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ImageNotFoundException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.ImageNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RegistryPolicyNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.RegistryPolicyNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LayersNotFoundException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.LayersNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ImageNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.ImageNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidLayerException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.InvalidLayerException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("LayersNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.LayersNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RepositoryNotFoundException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.RepositoryNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RepositoryNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.RepositoryNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LifecyclePolicyPreviewInProgressException").withModeledClass(
-                                    com.amazonaws.services.ecr.model.LifecyclePolicyPreviewInProgressException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedImageTypeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.UnsupportedImageTypeExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.InvalidParameterExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("UnableToGetUpstreamImageException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.UnableToGetUpstreamImageExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("KmsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.KmsExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ReferencedImagesNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.ReferencedImagesNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("UnableToDecryptSecretValueException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.UnableToDecryptSecretValueExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ImageAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.ImageAlreadyExistsExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("UploadNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.UploadNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyTagsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.TooManyTagsExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("SecretNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.SecretNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ServerException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.ServerExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ImageDigestDoesNotMatchException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.ImageDigestDoesNotMatchExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("UnableToGetUpstreamLayerException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.UnableToGetUpstreamLayerExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTagParameterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.InvalidTagParameterExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidLayerException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.InvalidLayerExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("PullThroughCacheRuleNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.PullThroughCacheRuleNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("LifecyclePolicyPreviewInProgressException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.LifecyclePolicyPreviewInProgressExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("PullThroughCacheRuleAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.ecr.model.transform.PullThroughCacheRuleAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.ecr.model.AmazonECRException.class));
 
     /**
@@ -351,12 +412,16 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Check the availability of multiple image layers in a specified registry and repository.
+     * Checks the availability of one or more image layers in a repository.
+     * </p>
+     * <p>
+     * When an image is pushed to a repository, each image layer is checked to verify if it has been uploaded before. If
+     * it has been uploaded, then the image layer is skipped.
      * </p>
      * <note>
      * <p>
-     * This operation is used by the Amazon ECR proxy, and it is not intended for general use by customers for pulling
-     * and pushing images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
+     * This operation is used by the Amazon ECR proxy and is not generally used by customers for pulling and pushing
+     * images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
      * </p>
      * </note>
      * 
@@ -395,6 +460,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                         .beforeMarshalling(batchCheckLayerAvailabilityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchCheckLayerAvailability");
@@ -419,8 +486,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Deletes a list of specified images within a specified repository. Images are specified with either
-     * <code>imageTag</code> or <code>imageDigest</code>.
+     * Deletes a list of specified images within a repository. Images are specified with either an <code>imageTag</code>
+     * or <code>imageDigest</code>.
      * </p>
      * <p>
      * You can remove a tag from an image by specifying the image's tag in your request. When you remove the last tag
@@ -466,6 +533,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new BatchDeleteImageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(batchDeleteImageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchDeleteImage");
@@ -489,8 +558,11 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Gets detailed information for specified images within a specified repository. Images are specified with either
-     * <code>imageTag</code> or <code>imageDigest</code>.
+     * Gets detailed information for an image. Images are specified with either an <code>imageTag</code> or
+     * <code>imageDigest</code>.
+     * </p>
+     * <p>
+     * When an image is pulled, the BatchGetImage API is called once to retrieve the image manifest.
      * </p>
      * 
      * @param batchGetImageRequest
@@ -502,6 +574,14 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
      * @throws RepositoryNotFoundException
      *         The specified repository could not be found. Check the spelling of the specified repository and ensure
      *         that you are performing operations on the correct registry.
+     * @throws LimitExceededException
+     *         The operation did not succeed because it would have exceeded a service limit for your account. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service
+     *         quotas</a> in the Amazon Elastic Container Registry User Guide.
+     * @throws UnableToGetUpstreamImageException
+     *         The image or images were unable to be pulled using the pull through cache rule. This is usually caused
+     *         because of an issue with the Secrets Manager secret containing the credentials for the upstream registry.
      * @sample AmazonECR.BatchGetImage
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/BatchGetImage" target="_top">AWS API
      *      Documentation</a>
@@ -527,6 +607,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new BatchGetImageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(batchGetImageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchGetImage");
@@ -550,14 +632,85 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
+     * Gets the scanning configuration for one or more repositories.
+     * </p>
+     * 
+     * @param batchGetRepositoryScanningConfigurationRequest
+     * @return Result of the BatchGetRepositoryScanningConfiguration operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws RepositoryNotFoundException
+     *         The specified repository could not be found. Check the spelling of the specified repository and ensure
+     *         that you are performing operations on the correct registry.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.BatchGetRepositoryScanningConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/BatchGetRepositoryScanningConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public BatchGetRepositoryScanningConfigurationResult batchGetRepositoryScanningConfiguration(BatchGetRepositoryScanningConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeBatchGetRepositoryScanningConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final BatchGetRepositoryScanningConfigurationResult executeBatchGetRepositoryScanningConfiguration(
+            BatchGetRepositoryScanningConfigurationRequest batchGetRepositoryScanningConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(batchGetRepositoryScanningConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<BatchGetRepositoryScanningConfigurationRequest> request = null;
+        Response<BatchGetRepositoryScanningConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new BatchGetRepositoryScanningConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(batchGetRepositoryScanningConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchGetRepositoryScanningConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<BatchGetRepositoryScanningConfigurationResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new BatchGetRepositoryScanningConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Informs Amazon ECR that the image layer upload has completed for a specified registry, repository name, and
      * upload ID. You can optionally provide a <code>sha256</code> digest of the image layer for data validation
      * purposes.
      * </p>
+     * <p>
+     * When an image is pushed, the CompleteLayerUpload API is called once per each new image layer to verify that the
+     * upload has completed.
+     * </p>
      * <note>
      * <p>
-     * This operation is used by the Amazon ECR proxy, and it is not intended for general use by customers for pulling
-     * and pushing images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
+     * This operation is used by the Amazon ECR proxy and is not generally used by customers for pulling and pushing
+     * images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
      * </p>
      * </note>
      * 
@@ -571,7 +724,7 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
      *         The specified repository could not be found. Check the spelling of the specified repository and ensure
      *         that you are performing operations on the correct registry.
      * @throws UploadNotFoundException
-     *         The upload could not be found, or the specified upload id is not valid for this repository.
+     *         The upload could not be found, or the specified upload ID is not valid for this repository.
      * @throws InvalidLayerException
      *         The layer digest calculation performed by Amazon ECR upon receipt of the image layer does not match the
      *         digest specified.
@@ -581,6 +734,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
      *         The image layer already exists in the associated repository.
      * @throws EmptyUploadException
      *         The specified layer upload does not contain any layer parts.
+     * @throws KmsException
+     *         The operation failed due to a KMS exception.
      * @sample AmazonECR.CompleteLayerUpload
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/CompleteLayerUpload" target="_top">AWS API
      *      Documentation</a>
@@ -606,6 +761,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new CompleteLayerUploadRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(completeLayerUploadRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CompleteLayerUpload");
@@ -629,7 +786,91 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Creates an image repository.
+     * Creates a pull through cache rule. A pull through cache rule provides a way to cache images from an upstream
+     * registry source in your Amazon ECR private registry. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/pull-through-cache.html">Using pull through cache
+     * rules</a> in the <i>Amazon Elastic Container Registry User Guide</i>.
+     * </p>
+     * 
+     * @param createPullThroughCacheRuleRequest
+     * @return Result of the CreatePullThroughCacheRule operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws PullThroughCacheRuleAlreadyExistsException
+     *         A pull through cache rule with these settings already exists for the private registry.
+     * @throws UnsupportedUpstreamRegistryException
+     *         The specified upstream registry isn't supported.
+     * @throws LimitExceededException
+     *         The operation did not succeed because it would have exceeded a service limit for your account. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service
+     *         quotas</a> in the Amazon Elastic Container Registry User Guide.
+     * @throws UnableToAccessSecretException
+     *         The secret is unable to be accessed. Verify the resource permissions for the secret and try again.
+     * @throws SecretNotFoundException
+     *         The ARN of the secret specified in the pull through cache rule was not found. Update the pull through
+     *         cache rule with a valid secret ARN and try again.
+     * @throws UnableToDecryptSecretValueException
+     *         The secret is accessible but is unable to be decrypted. Verify the resource permisisons and try again.
+     * @sample AmazonECR.CreatePullThroughCacheRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/CreatePullThroughCacheRule" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreatePullThroughCacheRuleResult createPullThroughCacheRule(CreatePullThroughCacheRuleRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreatePullThroughCacheRule(request);
+    }
+
+    @SdkInternalApi
+    final CreatePullThroughCacheRuleResult executeCreatePullThroughCacheRule(CreatePullThroughCacheRuleRequest createPullThroughCacheRuleRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createPullThroughCacheRuleRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreatePullThroughCacheRuleRequest> request = null;
+        Response<CreatePullThroughCacheRuleResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreatePullThroughCacheRuleRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createPullThroughCacheRuleRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePullThroughCacheRule");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreatePullThroughCacheRuleResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreatePullThroughCacheRuleResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a repository. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/Repositories.html">Amazon ECR repositories</a> in
+     * the <i>Amazon Elastic Container Registry User Guide</i>.
      * </p>
      * 
      * @param createRepositoryRequest
@@ -649,8 +890,10 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
      * @throws LimitExceededException
      *         The operation did not succeed because it would have exceeded a service limit for your account. For more
      *         information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service_limits.html">Amazon ECR Default
-     *         Service Limits</a> in the Amazon Elastic Container Registry User Guide.
+     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service
+     *         quotas</a> in the Amazon Elastic Container Registry User Guide.
+     * @throws KmsException
+     *         The operation failed due to a KMS exception.
      * @sample AmazonECR.CreateRepository
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/CreateRepository" target="_top">AWS API
      *      Documentation</a>
@@ -676,6 +919,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new CreateRepositoryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRepositoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRepository");
@@ -699,7 +944,82 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Deletes the specified lifecycle policy.
+     * Creates a repository creation template. This template is used to define the settings for repositories created by
+     * Amazon ECR on your behalf. For example, repositories created through pull through cache actions. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-creation-templates.html">Private
+     * repository creation templates</a> in the <i>Amazon Elastic Container Registry User Guide</i>.
+     * </p>
+     * 
+     * @param createRepositoryCreationTemplateRequest
+     * @return Result of the CreateRepositoryCreationTemplate operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws LimitExceededException
+     *         The operation did not succeed because it would have exceeded a service limit for your account. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service
+     *         quotas</a> in the Amazon Elastic Container Registry User Guide.
+     * @throws TemplateAlreadyExistsException
+     *         The repository creation template already exists. Specify a unique prefix and try again.
+     * @sample AmazonECR.CreateRepositoryCreationTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/CreateRepositoryCreationTemplate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateRepositoryCreationTemplateResult createRepositoryCreationTemplate(CreateRepositoryCreationTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateRepositoryCreationTemplate(request);
+    }
+
+    @SdkInternalApi
+    final CreateRepositoryCreationTemplateResult executeCreateRepositoryCreationTemplate(
+            CreateRepositoryCreationTemplateRequest createRepositoryCreationTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createRepositoryCreationTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateRepositoryCreationTemplateRequest> request = null;
+        Response<CreateRepositoryCreationTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateRepositoryCreationTemplateRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createRepositoryCreationTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRepositoryCreationTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateRepositoryCreationTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateRepositoryCreationTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the lifecycle policy associated with the specified repository.
      * </p>
      * 
      * @param deleteLifecyclePolicyRequest
@@ -713,6 +1033,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
      *         that you are performing operations on the correct registry.
      * @throws LifecyclePolicyNotFoundException
      *         The lifecycle policy could not be found, and no policy is set to the repository.
+     * @throws ValidationException
+     *         There was an exception validating this request.
      * @sample AmazonECR.DeleteLifecyclePolicy
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteLifecyclePolicy" target="_top">AWS API
      *      Documentation</a>
@@ -738,6 +1060,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new DeleteLifecyclePolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteLifecyclePolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteLifecyclePolicy");
@@ -762,8 +1086,137 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Deletes an existing image repository. If a repository contains images, you must use the <code>force</code> option
-     * to delete it.
+     * Deletes a pull through cache rule.
+     * </p>
+     * 
+     * @param deletePullThroughCacheRuleRequest
+     * @return Result of the DeletePullThroughCacheRule operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws PullThroughCacheRuleNotFoundException
+     *         The pull through cache rule was not found. Specify a valid pull through cache rule and try again.
+     * @sample AmazonECR.DeletePullThroughCacheRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeletePullThroughCacheRule" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeletePullThroughCacheRuleResult deletePullThroughCacheRule(DeletePullThroughCacheRuleRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeletePullThroughCacheRule(request);
+    }
+
+    @SdkInternalApi
+    final DeletePullThroughCacheRuleResult executeDeletePullThroughCacheRule(DeletePullThroughCacheRuleRequest deletePullThroughCacheRuleRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deletePullThroughCacheRuleRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeletePullThroughCacheRuleRequest> request = null;
+        Response<DeletePullThroughCacheRuleResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeletePullThroughCacheRuleRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deletePullThroughCacheRuleRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePullThroughCacheRule");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeletePullThroughCacheRuleResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeletePullThroughCacheRuleResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the registry permissions policy.
+     * </p>
+     * 
+     * @param deleteRegistryPolicyRequest
+     * @return Result of the DeleteRegistryPolicy operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws RegistryPolicyNotFoundException
+     *         The registry doesn't have an associated registry policy.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.DeleteRegistryPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteRegistryPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteRegistryPolicyResult deleteRegistryPolicy(DeleteRegistryPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteRegistryPolicy(request);
+    }
+
+    @SdkInternalApi
+    final DeleteRegistryPolicyResult executeDeleteRegistryPolicy(DeleteRegistryPolicyRequest deleteRegistryPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteRegistryPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteRegistryPolicyRequest> request = null;
+        Response<DeleteRegistryPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteRegistryPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRegistryPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRegistryPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteRegistryPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteRegistryPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a repository. If the repository isn't empty, you must either delete the contents of the repository or use
+     * the <code>force</code> option to delete the repository and have Amazon ECR delete all of its contents on your
+     * behalf.
      * </p>
      * 
      * @param deleteRepositoryRequest
@@ -778,6 +1231,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
      * @throws RepositoryNotEmptyException
      *         The specified repository contains images. To delete a repository that contains images, you must force the
      *         deletion with the <code>force</code> parameter.
+     * @throws KmsException
+     *         The operation failed due to a KMS exception.
      * @sample AmazonECR.DeleteRepository
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteRepository" target="_top">AWS API
      *      Documentation</a>
@@ -803,6 +1258,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new DeleteRepositoryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRepositoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRepository");
@@ -826,7 +1283,74 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Deletes the repository policy from a specified repository.
+     * Deletes a repository creation template.
+     * </p>
+     * 
+     * @param deleteRepositoryCreationTemplateRequest
+     * @return Result of the DeleteRepositoryCreationTemplate operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws TemplateNotFoundException
+     *         The specified repository creation template can't be found. Verify the registry ID and prefix and try
+     *         again.
+     * @sample AmazonECR.DeleteRepositoryCreationTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteRepositoryCreationTemplate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteRepositoryCreationTemplateResult deleteRepositoryCreationTemplate(DeleteRepositoryCreationTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteRepositoryCreationTemplate(request);
+    }
+
+    @SdkInternalApi
+    final DeleteRepositoryCreationTemplateResult executeDeleteRepositoryCreationTemplate(
+            DeleteRepositoryCreationTemplateRequest deleteRepositoryCreationTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteRepositoryCreationTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteRepositoryCreationTemplateRequest> request = null;
+        Response<DeleteRepositoryCreationTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteRepositoryCreationTemplateRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteRepositoryCreationTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRepositoryCreationTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteRepositoryCreationTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteRepositoryCreationTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the repository policy associated with the specified repository.
      * </p>
      * 
      * @param deleteRepositoryPolicyRequest
@@ -865,6 +1389,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new DeleteRepositoryPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRepositoryPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRepositoryPolicy");
@@ -889,7 +1415,146 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Returns metadata about the images in a repository, including image size, image tags, and creation date.
+     * Returns the replication status for a specified image.
+     * </p>
+     * 
+     * @param describeImageReplicationStatusRequest
+     * @return Result of the DescribeImageReplicationStatus operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ImageNotFoundException
+     *         The image requested does not exist in the specified repository.
+     * @throws RepositoryNotFoundException
+     *         The specified repository could not be found. Check the spelling of the specified repository and ensure
+     *         that you are performing operations on the correct registry.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.DescribeImageReplicationStatus
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DescribeImageReplicationStatus"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeImageReplicationStatusResult describeImageReplicationStatus(DescribeImageReplicationStatusRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeImageReplicationStatus(request);
+    }
+
+    @SdkInternalApi
+    final DescribeImageReplicationStatusResult executeDescribeImageReplicationStatus(DescribeImageReplicationStatusRequest describeImageReplicationStatusRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeImageReplicationStatusRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeImageReplicationStatusRequest> request = null;
+        Response<DescribeImageReplicationStatusResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeImageReplicationStatusRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeImageReplicationStatusRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeImageReplicationStatus");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeImageReplicationStatusResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeImageReplicationStatusResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the scan findings for the specified image.
+     * </p>
+     * 
+     * @param describeImageScanFindingsRequest
+     * @return Result of the DescribeImageScanFindings operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws RepositoryNotFoundException
+     *         The specified repository could not be found. Check the spelling of the specified repository and ensure
+     *         that you are performing operations on the correct registry.
+     * @throws ImageNotFoundException
+     *         The image requested does not exist in the specified repository.
+     * @throws ScanNotFoundException
+     *         The specified image scan could not be found. Ensure that image scanning is enabled on the repository and
+     *         try again.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.DescribeImageScanFindings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DescribeImageScanFindings" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeImageScanFindingsResult describeImageScanFindings(DescribeImageScanFindingsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeImageScanFindings(request);
+    }
+
+    @SdkInternalApi
+    final DescribeImageScanFindingsResult executeDescribeImageScanFindings(DescribeImageScanFindingsRequest describeImageScanFindingsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeImageScanFindingsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeImageScanFindingsRequest> request = null;
+        Response<DescribeImageScanFindingsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeImageScanFindingsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeImageScanFindingsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeImageScanFindings");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeImageScanFindingsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeImageScanFindingsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns metadata about the images in a repository.
      * </p>
      * <note>
      * <p>
@@ -935,6 +1600,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new DescribeImagesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeImagesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeImages");
@@ -946,6 +1613,133 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
             HttpResponseHandler<AmazonWebServiceResponse<DescribeImagesResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeImagesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the pull through cache rules for a registry.
+     * </p>
+     * 
+     * @param describePullThroughCacheRulesRequest
+     * @return Result of the DescribePullThroughCacheRules operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws PullThroughCacheRuleNotFoundException
+     *         The pull through cache rule was not found. Specify a valid pull through cache rule and try again.
+     * @sample AmazonECR.DescribePullThroughCacheRules
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DescribePullThroughCacheRules"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribePullThroughCacheRulesResult describePullThroughCacheRules(DescribePullThroughCacheRulesRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribePullThroughCacheRules(request);
+    }
+
+    @SdkInternalApi
+    final DescribePullThroughCacheRulesResult executeDescribePullThroughCacheRules(DescribePullThroughCacheRulesRequest describePullThroughCacheRulesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describePullThroughCacheRulesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribePullThroughCacheRulesRequest> request = null;
+        Response<DescribePullThroughCacheRulesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribePullThroughCacheRulesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describePullThroughCacheRulesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribePullThroughCacheRules");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribePullThroughCacheRulesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribePullThroughCacheRulesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes the settings for a registry. The replication configuration for a repository can be created or updated
+     * with the <a>PutReplicationConfiguration</a> API action.
+     * </p>
+     * 
+     * @param describeRegistryRequest
+     * @return Result of the DescribeRegistry operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.DescribeRegistry
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DescribeRegistry" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DescribeRegistryResult describeRegistry(DescribeRegistryRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeRegistry(request);
+    }
+
+    @SdkInternalApi
+    final DescribeRegistryResult executeDescribeRegistry(DescribeRegistryRequest describeRegistryRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeRegistryRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeRegistryRequest> request = null;
+        Response<DescribeRegistryResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeRegistryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeRegistryRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRegistry");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeRegistryResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeRegistryResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -995,6 +1789,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new DescribeRepositoriesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeRepositoriesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRepositories");
@@ -1018,14 +1814,81 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Retrieves a token that is valid for a specified registry for 12 hours. This command allows you to use the
-     * <code>docker</code> CLI to push and pull images with Amazon ECR. If you do not specify a registry, the default
-     * registry is assumed.
+     * Returns details about the repository creation templates in a registry. The <code>prefixes</code> request
+     * parameter can be used to return the details for a specific repository creation template.
+     * </p>
+     * 
+     * @param describeRepositoryCreationTemplatesRequest
+     * @return Result of the DescribeRepositoryCreationTemplates operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @sample AmazonECR.DescribeRepositoryCreationTemplates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DescribeRepositoryCreationTemplates"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeRepositoryCreationTemplatesResult describeRepositoryCreationTemplates(DescribeRepositoryCreationTemplatesRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeRepositoryCreationTemplates(request);
+    }
+
+    @SdkInternalApi
+    final DescribeRepositoryCreationTemplatesResult executeDescribeRepositoryCreationTemplates(
+            DescribeRepositoryCreationTemplatesRequest describeRepositoryCreationTemplatesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeRepositoryCreationTemplatesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeRepositoryCreationTemplatesRequest> request = null;
+        Response<DescribeRepositoryCreationTemplatesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeRepositoryCreationTemplatesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeRepositoryCreationTemplatesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRepositoryCreationTemplates");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeRepositoryCreationTemplatesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeRepositoryCreationTemplatesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves an authorization token. An authorization token represents your IAM authentication credentials and can
+     * be used to access any Amazon ECR registry that your IAM principal has access to. The authorization token is valid
+     * for 12 hours.
      * </p>
      * <p>
-     * The <code>authorizationToken</code> returned for each registry specified is a base64 encoded string that can be
-     * decoded and used in a <code>docker login</code> command to authenticate to a registry. The AWS CLI offers an
-     * <code>aws ecr get-login</code> command that simplifies the login process.
+     * The <code>authorizationToken</code> returned is a base64 encoded string that can be decoded and used in a
+     * <code>docker login</code> command to authenticate to a registry. The CLI offers an
+     * <code>get-login-password</code> command that simplifies the login process. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth">Registry
+     * authentication</a> in the <i>Amazon Elastic Container Registry User Guide</i>.
      * </p>
      * 
      * @param getAuthorizationTokenRequest
@@ -1059,6 +1922,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new GetAuthorizationTokenRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getAuthorizationTokenRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAuthorizationToken");
@@ -1086,10 +1951,14 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
      * Retrieves the pre-signed Amazon S3 download URL corresponding to an image layer. You can only get URLs for image
      * layers that are referenced in an image.
      * </p>
+     * <p>
+     * When an image is pulled, the GetDownloadUrlForLayer API is called once per image layer that is not already
+     * cached.
+     * </p>
      * <note>
      * <p>
-     * This operation is used by the Amazon ECR proxy, and it is not intended for general use by customers for pulling
-     * and pushing images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
+     * This operation is used by the Amazon ECR proxy and is not generally used by customers for pulling and pushing
+     * images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
      * </p>
      * </note>
      * 
@@ -1107,6 +1976,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
      * @throws RepositoryNotFoundException
      *         The specified repository could not be found. Check the spelling of the specified repository and ensure
      *         that you are performing operations on the correct registry.
+     * @throws UnableToGetUpstreamLayerException
+     *         There was an issue getting the upstream layer matching the pull through cache rule.
      * @sample AmazonECR.GetDownloadUrlForLayer
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetDownloadUrlForLayer" target="_top">AWS API
      *      Documentation</a>
@@ -1132,6 +2003,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new GetDownloadUrlForLayerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDownloadUrlForLayerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDownloadUrlForLayer");
@@ -1156,7 +2029,7 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Retrieves the specified lifecycle policy.
+     * Retrieves the lifecycle policy for the specified repository.
      * </p>
      * 
      * @param getLifecyclePolicyRequest
@@ -1170,6 +2043,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
      *         that you are performing operations on the correct registry.
      * @throws LifecyclePolicyNotFoundException
      *         The lifecycle policy could not be found, and no policy is set to the repository.
+     * @throws ValidationException
+     *         There was an exception validating this request.
      * @sample AmazonECR.GetLifecyclePolicy
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicy" target="_top">AWS API
      *      Documentation</a>
@@ -1195,6 +2070,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new GetLifecyclePolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getLifecyclePolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetLifecyclePolicy");
@@ -1218,7 +2095,7 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Retrieves the results of the specified lifecycle policy preview request.
+     * Retrieves the results of the lifecycle policy preview request for the specified repository.
      * </p>
      * 
      * @param getLifecyclePolicyPreviewRequest
@@ -1232,6 +2109,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
      *         that you are performing operations on the correct registry.
      * @throws LifecyclePolicyPreviewNotFoundException
      *         There is no dry run for this repository.
+     * @throws ValidationException
+     *         There was an exception validating this request.
      * @sample AmazonECR.GetLifecyclePolicyPreview
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicyPreview" target="_top">AWS
      *      API Documentation</a>
@@ -1258,6 +2137,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                         .beforeMarshalling(getLifecyclePolicyPreviewRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetLifecyclePolicyPreview");
@@ -1282,7 +2163,134 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Retrieves the repository policy for a specified repository.
+     * Retrieves the permissions policy for a registry.
+     * </p>
+     * 
+     * @param getRegistryPolicyRequest
+     * @return Result of the GetRegistryPolicy operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws RegistryPolicyNotFoundException
+     *         The registry doesn't have an associated registry policy.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.GetRegistryPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetRegistryPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetRegistryPolicyResult getRegistryPolicy(GetRegistryPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetRegistryPolicy(request);
+    }
+
+    @SdkInternalApi
+    final GetRegistryPolicyResult executeGetRegistryPolicy(GetRegistryPolicyRequest getRegistryPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getRegistryPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetRegistryPolicyRequest> request = null;
+        Response<GetRegistryPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetRegistryPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRegistryPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRegistryPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetRegistryPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetRegistryPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves the scanning configuration for a registry.
+     * </p>
+     * 
+     * @param getRegistryScanningConfigurationRequest
+     * @return Result of the GetRegistryScanningConfiguration operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.GetRegistryScanningConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetRegistryScanningConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetRegistryScanningConfigurationResult getRegistryScanningConfiguration(GetRegistryScanningConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetRegistryScanningConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final GetRegistryScanningConfigurationResult executeGetRegistryScanningConfiguration(
+            GetRegistryScanningConfigurationRequest getRegistryScanningConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getRegistryScanningConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetRegistryScanningConfigurationRequest> request = null;
+        Response<GetRegistryScanningConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetRegistryScanningConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getRegistryScanningConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRegistryScanningConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetRegistryScanningConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetRegistryScanningConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves the repository policy for the specified repository.
      * </p>
      * 
      * @param getRepositoryPolicyRequest
@@ -1321,6 +2329,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new GetRepositoryPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRepositoryPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRepositoryPolicy");
@@ -1344,12 +2354,17 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Notify Amazon ECR that you intend to upload an image layer.
+     * Notifies Amazon ECR that you intend to upload an image layer.
+     * </p>
+     * <p>
+     * When an image is pushed, the InitiateLayerUpload API is called once per image layer that has not already been
+     * uploaded. Whether or not an image layer has been uploaded is determined by the BatchCheckLayerAvailability API
+     * action.
      * </p>
      * <note>
      * <p>
-     * This operation is used by the Amazon ECR proxy, and it is not intended for general use by customers for pulling
-     * and pushing images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
+     * This operation is used by the Amazon ECR proxy and is not generally used by customers for pulling and pushing
+     * images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
      * </p>
      * </note>
      * 
@@ -1362,6 +2377,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
      * @throws RepositoryNotFoundException
      *         The specified repository could not be found. Check the spelling of the specified repository and ensure
      *         that you are performing operations on the correct registry.
+     * @throws KmsException
+     *         The operation failed due to a KMS exception.
      * @sample AmazonECR.InitiateLayerUpload
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/InitiateLayerUpload" target="_top">AWS API
      *      Documentation</a>
@@ -1387,6 +2404,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new InitiateLayerUploadRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(initiateLayerUploadRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "InitiateLayerUpload");
@@ -1410,13 +2429,14 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Lists all the image IDs for a given repository.
+     * Lists all the image IDs for the specified repository.
      * </p>
      * <p>
-     * You can filter images based on whether or not they are tagged by setting the <code>tagStatus</code> parameter to
-     * <code>TAGGED</code> or <code>UNTAGGED</code>. For example, you can filter your results to return only
-     * <code>UNTAGGED</code> images and then pipe that result to a <a>BatchDeleteImage</a> operation to delete them. Or,
-     * you can filter your results to return only <code>TAGGED</code> images to list all of the tags in your repository.
+     * You can filter images based on whether or not they are tagged by using the <code>tagStatus</code> filter and
+     * specifying either <code>TAGGED</code>, <code>UNTAGGED</code> or <code>ANY</code>. For example, you can filter
+     * your results to return only <code>UNTAGGED</code> images and then pipe that result to a <a>BatchDeleteImage</a>
+     * operation to delete them. Or, you can filter your results to return only <code>TAGGED</code> images to list all
+     * of the tags in your repository.
      * </p>
      * 
      * @param listImagesRequest
@@ -1453,6 +2473,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new ListImagesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listImagesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListImages");
@@ -1513,6 +2535,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -1538,10 +2562,14 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
      * <p>
      * Creates or updates the image manifest and tags associated with an image.
      * </p>
+     * <p>
+     * When an image is pushed and all new image layers have been uploaded, the PutImage API is called once to create or
+     * update the image manifest and the tags associated with the image.
+     * </p>
      * <note>
      * <p>
-     * This operation is used by the Amazon ECR proxy, and it is not intended for general use by customers for pulling
-     * and pushing images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
+     * This operation is used by the Amazon ECR proxy and is not generally used by customers for pulling and pushing
+     * images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
      * </p>
      * </note>
      * 
@@ -1559,14 +2587,20 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
      *         the last push.
      * @throws LayersNotFoundException
      *         The specified layers could not be found, or the specified layer is not valid for this repository.
+     * @throws ReferencedImagesNotFoundException
+     *         The manifest list is referencing an image that does not exist.
      * @throws LimitExceededException
      *         The operation did not succeed because it would have exceeded a service limit for your account. For more
      *         information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service_limits.html">Amazon ECR Default
-     *         Service Limits</a> in the Amazon Elastic Container Registry User Guide.
+     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service
+     *         quotas</a> in the Amazon Elastic Container Registry User Guide.
      * @throws ImageTagAlreadyExistsException
      *         The specified image is tagged with a tag that already exists. The repository is configured for tag
      *         immutability.
+     * @throws ImageDigestDoesNotMatchException
+     *         The specified image digest does not match the digest that Amazon ECR calculated for the image.
+     * @throws KmsException
+     *         The operation failed due to a KMS exception.
      * @sample AmazonECR.PutImage
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutImage" target="_top">AWS API
      *      Documentation</a>
@@ -1592,6 +2626,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new PutImageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putImageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutImage");
@@ -1614,8 +2650,82 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
     }
 
     /**
+     * <important>
      * <p>
-     * Updates the image tag mutability settings for a repository.
+     * The <code>PutImageScanningConfiguration</code> API is being deprecated, in favor of specifying the image scanning
+     * configuration at the registry level. For more information, see <a>PutRegistryScanningConfiguration</a>.
+     * </p>
+     * </important>
+     * <p>
+     * Updates the image scanning configuration for the specified repository.
+     * </p>
+     * 
+     * @param putImageScanningConfigurationRequest
+     * @return Result of the PutImageScanningConfiguration operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws RepositoryNotFoundException
+     *         The specified repository could not be found. Check the spelling of the specified repository and ensure
+     *         that you are performing operations on the correct registry.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.PutImageScanningConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutImageScanningConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public PutImageScanningConfigurationResult putImageScanningConfiguration(PutImageScanningConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executePutImageScanningConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final PutImageScanningConfigurationResult executePutImageScanningConfiguration(PutImageScanningConfigurationRequest putImageScanningConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putImageScanningConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutImageScanningConfigurationRequest> request = null;
+        Response<PutImageScanningConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutImageScanningConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(putImageScanningConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutImageScanningConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutImageScanningConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PutImageScanningConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the image tag mutability settings for the specified repository. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-tag-mutability.html">Image tag mutability</a>
+     * in the <i>Amazon Elastic Container Registry User Guide</i>.
      * </p>
      * 
      * @param putImageTagMutabilityRequest
@@ -1652,6 +2762,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new PutImageTagMutabilityRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putImageTagMutabilityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutImageTagMutability");
@@ -1676,9 +2788,9 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Creates or updates a lifecycle policy. For information about lifecycle policy syntax, see <a
-     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html">Lifecycle Policy
-     * Template</a>.
+     * Creates or updates the lifecycle policy for the specified repository. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html">Lifecycle policy
+     * template</a>.
      * </p>
      * 
      * @param putLifecyclePolicyRequest
@@ -1690,6 +2802,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
      * @throws RepositoryNotFoundException
      *         The specified repository could not be found. Check the spelling of the specified repository and ensure
      *         that you are performing operations on the correct registry.
+     * @throws ValidationException
+     *         There was an exception validating this request.
      * @sample AmazonECR.PutLifecyclePolicy
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutLifecyclePolicy" target="_top">AWS API
      *      Documentation</a>
@@ -1715,6 +2829,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new PutLifecyclePolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putLifecyclePolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutLifecyclePolicy");
@@ -1738,9 +2854,218 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Applies a repository policy on a specified repository to control access permissions. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/RepositoryPolicies.html">Amazon ECR Repository
-     * Policies</a> in the <i>Amazon Elastic Container Registry User Guide</i>.
+     * Creates or updates the permissions policy for your registry.
+     * </p>
+     * <p>
+     * A registry policy is used to specify permissions for another Amazon Web Services account and is used when
+     * configuring cross-account replication. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/registry-permissions.html">Registry permissions</a>
+     * in the <i>Amazon Elastic Container Registry User Guide</i>.
+     * </p>
+     * 
+     * @param putRegistryPolicyRequest
+     * @return Result of the PutRegistryPolicy operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.PutRegistryPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutRegistryPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public PutRegistryPolicyResult putRegistryPolicy(PutRegistryPolicyRequest request) {
+        request = beforeClientExecution(request);
+        return executePutRegistryPolicy(request);
+    }
+
+    @SdkInternalApi
+    final PutRegistryPolicyResult executePutRegistryPolicy(PutRegistryPolicyRequest putRegistryPolicyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putRegistryPolicyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutRegistryPolicyRequest> request = null;
+        Response<PutRegistryPolicyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutRegistryPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putRegistryPolicyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutRegistryPolicy");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutRegistryPolicyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new PutRegistryPolicyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates or updates the scanning configuration for your private registry.
+     * </p>
+     * 
+     * @param putRegistryScanningConfigurationRequest
+     * @return Result of the PutRegistryScanningConfiguration operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.PutRegistryScanningConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutRegistryScanningConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public PutRegistryScanningConfigurationResult putRegistryScanningConfiguration(PutRegistryScanningConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executePutRegistryScanningConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final PutRegistryScanningConfigurationResult executePutRegistryScanningConfiguration(
+            PutRegistryScanningConfigurationRequest putRegistryScanningConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putRegistryScanningConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutRegistryScanningConfigurationRequest> request = null;
+        Response<PutRegistryScanningConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutRegistryScanningConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(putRegistryScanningConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutRegistryScanningConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutRegistryScanningConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PutRegistryScanningConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates or updates the replication configuration for a registry. The existing replication configuration for a
+     * repository can be retrieved with the <a>DescribeRegistry</a> API action. The first time the
+     * PutReplicationConfiguration API is called, a service-linked IAM role is created in your account for the
+     * replication process. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/using-service-linked-roles.html">Using
+     * service-linked roles for Amazon ECR</a> in the <i>Amazon Elastic Container Registry User Guide</i>. For more
+     * information on the custom role for replication, see <a href=
+     * "https://docs.aws.amazon.com/AmazonECR/latest/userguide/replication-creation-templates.html#roles-creatingrole-user-console"
+     * >Creating an IAM role for replication</a>.
+     * </p>
+     * <note>
+     * <p>
+     * When configuring cross-account replication, the destination account must grant the source account permission to
+     * replicate. This permission is controlled using a registry permissions policy. For more information, see
+     * <a>PutRegistryPolicy</a>.
+     * </p>
+     * </note>
+     * 
+     * @param putReplicationConfigurationRequest
+     * @return Result of the PutReplicationConfiguration operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.PutReplicationConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutReplicationConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public PutReplicationConfigurationResult putReplicationConfiguration(PutReplicationConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executePutReplicationConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final PutReplicationConfigurationResult executePutReplicationConfiguration(PutReplicationConfigurationRequest putReplicationConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putReplicationConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutReplicationConfigurationRequest> request = null;
+        Response<PutReplicationConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutReplicationConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(putReplicationConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutReplicationConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutReplicationConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PutReplicationConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Applies a repository policy to the specified repository to control access permissions. For more information, see
+     * <a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-policies.html">Amazon ECR Repository
+     * policies</a> in the <i>Amazon Elastic Container Registry User Guide</i>.
      * </p>
      * 
      * @param setRepositoryPolicyRequest
@@ -1777,6 +3102,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new SetRepositoryPolicyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(setRepositoryPolicyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetRepositoryPolicy");
@@ -1800,8 +3127,84 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
-     * Starts a preview of the specified lifecycle policy. This allows you to see the results before creating the
-     * lifecycle policy.
+     * Starts an image vulnerability scan. An image scan can only be started once per 24 hours on an individual image.
+     * This limit includes if an image was scanned on initial push. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html">Image scanning</a> in the
+     * <i>Amazon Elastic Container Registry User Guide</i>.
+     * </p>
+     * 
+     * @param startImageScanRequest
+     * @return Result of the StartImageScan operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws UnsupportedImageTypeException
+     *         The image is of a type that cannot be scanned.
+     * @throws LimitExceededException
+     *         The operation did not succeed because it would have exceeded a service limit for your account. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service
+     *         quotas</a> in the Amazon Elastic Container Registry User Guide.
+     * @throws RepositoryNotFoundException
+     *         The specified repository could not be found. Check the spelling of the specified repository and ensure
+     *         that you are performing operations on the correct registry.
+     * @throws ImageNotFoundException
+     *         The image requested does not exist in the specified repository.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @sample AmazonECR.StartImageScan
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/StartImageScan" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public StartImageScanResult startImageScan(StartImageScanRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartImageScan(request);
+    }
+
+    @SdkInternalApi
+    final StartImageScanResult executeStartImageScan(StartImageScanRequest startImageScanRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startImageScanRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartImageScanRequest> request = null;
+        Response<StartImageScanResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartImageScanRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startImageScanRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartImageScan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartImageScanResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StartImageScanResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Starts a preview of a lifecycle policy for the specified repository. This allows you to see the results before
+     * associating the lifecycle policy with the repository.
      * </p>
      * 
      * @param startLifecyclePolicyPreviewRequest
@@ -1816,7 +3219,9 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
      * @throws LifecyclePolicyNotFoundException
      *         The lifecycle policy could not be found, and no policy is set to the repository.
      * @throws LifecyclePolicyPreviewInProgressException
-     *         The previous lifecycle policy preview request has not completed. Please try again later.
+     *         The previous lifecycle policy preview request has not completed. Wait and try again.
+     * @throws ValidationException
+     *         There was an exception validating this request.
      * @sample AmazonECR.StartLifecyclePolicyPreview
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/StartLifecyclePolicyPreview"
      *      target="_top">AWS API Documentation</a>
@@ -1843,6 +3248,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                         .beforeMarshalling(startLifecyclePolicyPreviewRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartLifecyclePolicyPreview");
@@ -1911,6 +3318,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -1977,6 +3386,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -2000,12 +3411,155 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
     /**
      * <p>
+     * Updates an existing pull through cache rule.
+     * </p>
+     * 
+     * @param updatePullThroughCacheRuleRequest
+     * @return Result of the UpdatePullThroughCacheRule operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws UnableToAccessSecretException
+     *         The secret is unable to be accessed. Verify the resource permissions for the secret and try again.
+     * @throws PullThroughCacheRuleNotFoundException
+     *         The pull through cache rule was not found. Specify a valid pull through cache rule and try again.
+     * @throws SecretNotFoundException
+     *         The ARN of the secret specified in the pull through cache rule was not found. Update the pull through
+     *         cache rule with a valid secret ARN and try again.
+     * @throws UnableToDecryptSecretValueException
+     *         The secret is accessible but is unable to be decrypted. Verify the resource permisisons and try again.
+     * @sample AmazonECR.UpdatePullThroughCacheRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/UpdatePullThroughCacheRule" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UpdatePullThroughCacheRuleResult updatePullThroughCacheRule(UpdatePullThroughCacheRuleRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdatePullThroughCacheRule(request);
+    }
+
+    @SdkInternalApi
+    final UpdatePullThroughCacheRuleResult executeUpdatePullThroughCacheRule(UpdatePullThroughCacheRuleRequest updatePullThroughCacheRuleRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updatePullThroughCacheRuleRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdatePullThroughCacheRuleRequest> request = null;
+        Response<UpdatePullThroughCacheRuleResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdatePullThroughCacheRuleRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updatePullThroughCacheRuleRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePullThroughCacheRule");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdatePullThroughCacheRuleResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdatePullThroughCacheRuleResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates an existing repository creation template.
+     * </p>
+     * 
+     * @param updateRepositoryCreationTemplateRequest
+     * @return Result of the UpdateRepositoryCreationTemplate operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws TemplateNotFoundException
+     *         The specified repository creation template can't be found. Verify the registry ID and prefix and try
+     *         again.
+     * @sample AmazonECR.UpdateRepositoryCreationTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/UpdateRepositoryCreationTemplate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateRepositoryCreationTemplateResult updateRepositoryCreationTemplate(UpdateRepositoryCreationTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateRepositoryCreationTemplate(request);
+    }
+
+    @SdkInternalApi
+    final UpdateRepositoryCreationTemplateResult executeUpdateRepositoryCreationTemplate(
+            UpdateRepositoryCreationTemplateRequest updateRepositoryCreationTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateRepositoryCreationTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateRepositoryCreationTemplateRequest> request = null;
+        Response<UpdateRepositoryCreationTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateRepositoryCreationTemplateRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateRepositoryCreationTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRepositoryCreationTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateRepositoryCreationTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateRepositoryCreationTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Uploads an image layer part to Amazon ECR.
+     * </p>
+     * <p>
+     * When an image is pushed, each new image layer is uploaded in parts. The maximum size of each image layer part can
+     * be 20971520 bytes (or about 20MB). The UploadLayerPart API is called once per each new image layer part.
      * </p>
      * <note>
      * <p>
-     * This operation is used by the Amazon ECR proxy, and it is not intended for general use by customers for pulling
-     * and pushing images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
+     * This operation is used by the Amazon ECR proxy and is not generally used by customers for pulling and pushing
+     * images. In most cases, you should use the <code>docker</code> CLI to pull, tag, and push images.
      * </p>
      * </note>
      * 
@@ -2022,12 +3576,14 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
      *         The specified repository could not be found. Check the spelling of the specified repository and ensure
      *         that you are performing operations on the correct registry.
      * @throws UploadNotFoundException
-     *         The upload could not be found, or the specified upload id is not valid for this repository.
+     *         The upload could not be found, or the specified upload ID is not valid for this repository.
      * @throws LimitExceededException
      *         The operation did not succeed because it would have exceeded a service limit for your account. For more
      *         information, see <a
-     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service_limits.html">Amazon ECR Default
-     *         Service Limits</a> in the Amazon Elastic Container Registry User Guide.
+     *         href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/service-quotas.html">Amazon ECR service
+     *         quotas</a> in the Amazon Elastic Container Registry User Guide.
+     * @throws KmsException
+     *         The operation failed due to a KMS exception.
      * @sample AmazonECR.UploadLayerPart
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/UploadLayerPart" target="_top">AWS API
      *      Documentation</a>
@@ -2053,6 +3609,8 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
                 request = new UploadLayerPartRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(uploadLayerPartRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UploadLayerPart");
@@ -2064,6 +3622,73 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
 
             HttpResponseHandler<AmazonWebServiceResponse<UploadLayerPartResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UploadLayerPartResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Validates an existing pull through cache rule for an upstream registry that requires authentication. This will
+     * retrieve the contents of the Amazon Web Services Secrets Manager secret, verify the syntax, and then validate
+     * that authentication to the upstream registry is successful.
+     * </p>
+     * 
+     * @param validatePullThroughCacheRuleRequest
+     * @return Result of the ValidatePullThroughCacheRule operation returned by the service.
+     * @throws ServerException
+     *         These errors are usually caused by a server-side issue.
+     * @throws InvalidParameterException
+     *         The specified parameter is invalid. Review the available parameters for the API request.
+     * @throws ValidationException
+     *         There was an exception validating this request.
+     * @throws PullThroughCacheRuleNotFoundException
+     *         The pull through cache rule was not found. Specify a valid pull through cache rule and try again.
+     * @sample AmazonECR.ValidatePullThroughCacheRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/ValidatePullThroughCacheRule"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ValidatePullThroughCacheRuleResult validatePullThroughCacheRule(ValidatePullThroughCacheRuleRequest request) {
+        request = beforeClientExecution(request);
+        return executeValidatePullThroughCacheRule(request);
+    }
+
+    @SdkInternalApi
+    final ValidatePullThroughCacheRuleResult executeValidatePullThroughCacheRule(ValidatePullThroughCacheRuleRequest validatePullThroughCacheRuleRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(validatePullThroughCacheRuleRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ValidatePullThroughCacheRuleRequest> request = null;
+        Response<ValidatePullThroughCacheRuleResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ValidatePullThroughCacheRuleRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(validatePullThroughCacheRuleRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ECR");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ValidatePullThroughCacheRule");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ValidatePullThroughCacheRuleResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ValidatePullThroughCacheRuleResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2148,6 +3773,26 @@ public class AmazonECRClient extends AmazonWebServiceClient implements AmazonECR
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public AmazonECRWaiters waiters() {
+        if (waiters == null) {
+            synchronized (this) {
+                if (waiters == null) {
+                    waiters = new AmazonECRWaiters(this);
+                }
+            }
+        }
+        return waiters;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
+        if (waiters != null) {
+            waiters.shutdown();
+        }
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -101,6 +101,19 @@ public class AbstractAWSStorageGatewayAsync extends AbstractAWSStorageGateway im
     @Override
     public java.util.concurrent.Future<AssignTapePoolResult> assignTapePoolAsync(AssignTapePoolRequest request,
             com.amazonaws.handlers.AsyncHandler<AssignTapePoolRequest, AssignTapePoolResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateFileSystemResult> associateFileSystemAsync(AssociateFileSystemRequest request) {
+
+        return associateFileSystemAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateFileSystemResult> associateFileSystemAsync(AssociateFileSystemRequest request,
+            com.amazonaws.handlers.AsyncHandler<AssociateFileSystemRequest, AssociateFileSystemResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -225,6 +238,19 @@ public class AbstractAWSStorageGatewayAsync extends AbstractAWSStorageGateway im
     }
 
     @Override
+    public java.util.concurrent.Future<CreateTapePoolResult> createTapePoolAsync(CreateTapePoolRequest request) {
+
+        return createTapePoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateTapePoolResult> createTapePoolAsync(CreateTapePoolRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateTapePoolRequest, CreateTapePoolResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateTapeWithBarcodeResult> createTapeWithBarcodeAsync(CreateTapeWithBarcodeRequest request) {
 
         return createTapeWithBarcodeAsync(request, null);
@@ -246,6 +272,21 @@ public class AbstractAWSStorageGatewayAsync extends AbstractAWSStorageGateway im
     @Override
     public java.util.concurrent.Future<CreateTapesResult> createTapesAsync(CreateTapesRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateTapesRequest, CreateTapesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAutomaticTapeCreationPolicyResult> deleteAutomaticTapeCreationPolicyAsync(
+            DeleteAutomaticTapeCreationPolicyRequest request) {
+
+        return deleteAutomaticTapeCreationPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAutomaticTapeCreationPolicyResult> deleteAutomaticTapeCreationPolicyAsync(
+            DeleteAutomaticTapeCreationPolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteAutomaticTapeCreationPolicyRequest, DeleteAutomaticTapeCreationPolicyResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -342,6 +383,19 @@ public class AbstractAWSStorageGatewayAsync extends AbstractAWSStorageGateway im
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteTapePoolResult> deleteTapePoolAsync(DeleteTapePoolRequest request) {
+
+        return deleteTapePoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteTapePoolResult> deleteTapePoolAsync(DeleteTapePoolRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteTapePoolRequest, DeleteTapePoolResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteVolumeResult> deleteVolumeAsync(DeleteVolumeRequest request) {
 
         return deleteVolumeAsync(request, null);
@@ -355,6 +409,21 @@ public class AbstractAWSStorageGatewayAsync extends AbstractAWSStorageGateway im
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeAvailabilityMonitorTestResult> describeAvailabilityMonitorTestAsync(
+            DescribeAvailabilityMonitorTestRequest request) {
+
+        return describeAvailabilityMonitorTestAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAvailabilityMonitorTestResult> describeAvailabilityMonitorTestAsync(
+            DescribeAvailabilityMonitorTestRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeAvailabilityMonitorTestRequest, DescribeAvailabilityMonitorTestResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeBandwidthRateLimitResult> describeBandwidthRateLimitAsync(DescribeBandwidthRateLimitRequest request) {
 
         return describeBandwidthRateLimitAsync(request, null);
@@ -363,6 +432,21 @@ public class AbstractAWSStorageGatewayAsync extends AbstractAWSStorageGateway im
     @Override
     public java.util.concurrent.Future<DescribeBandwidthRateLimitResult> describeBandwidthRateLimitAsync(DescribeBandwidthRateLimitRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeBandwidthRateLimitRequest, DescribeBandwidthRateLimitResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeBandwidthRateLimitScheduleResult> describeBandwidthRateLimitScheduleAsync(
+            DescribeBandwidthRateLimitScheduleRequest request) {
+
+        return describeBandwidthRateLimitScheduleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeBandwidthRateLimitScheduleResult> describeBandwidthRateLimitScheduleAsync(
+            DescribeBandwidthRateLimitScheduleRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeBandwidthRateLimitScheduleRequest, DescribeBandwidthRateLimitScheduleResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -402,6 +486,19 @@ public class AbstractAWSStorageGatewayAsync extends AbstractAWSStorageGateway im
     @Override
     public java.util.concurrent.Future<DescribeChapCredentialsResult> describeChapCredentialsAsync(DescribeChapCredentialsRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeChapCredentialsRequest, DescribeChapCredentialsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFileSystemAssociationsResult> describeFileSystemAssociationsAsync(DescribeFileSystemAssociationsRequest request) {
+
+        return describeFileSystemAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFileSystemAssociationsResult> describeFileSystemAssociationsAsync(DescribeFileSystemAssociationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeFileSystemAssociationsRequest, DescribeFileSystemAssociationsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -625,6 +722,19 @@ public class AbstractAWSStorageGatewayAsync extends AbstractAWSStorageGateway im
     }
 
     @Override
+    public java.util.concurrent.Future<DisassociateFileSystemResult> disassociateFileSystemAsync(DisassociateFileSystemRequest request) {
+
+        return disassociateFileSystemAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateFileSystemResult> disassociateFileSystemAsync(DisassociateFileSystemRequest request,
+            com.amazonaws.handlers.AsyncHandler<DisassociateFileSystemRequest, DisassociateFileSystemResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<JoinDomainResult> joinDomainAsync(JoinDomainRequest request) {
 
         return joinDomainAsync(request, null);
@@ -638,6 +748,21 @@ public class AbstractAWSStorageGatewayAsync extends AbstractAWSStorageGateway im
     }
 
     @Override
+    public java.util.concurrent.Future<ListAutomaticTapeCreationPoliciesResult> listAutomaticTapeCreationPoliciesAsync(
+            ListAutomaticTapeCreationPoliciesRequest request) {
+
+        return listAutomaticTapeCreationPoliciesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAutomaticTapeCreationPoliciesResult> listAutomaticTapeCreationPoliciesAsync(
+            ListAutomaticTapeCreationPoliciesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListAutomaticTapeCreationPoliciesRequest, ListAutomaticTapeCreationPoliciesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListFileSharesResult> listFileSharesAsync(ListFileSharesRequest request) {
 
         return listFileSharesAsync(request, null);
@@ -646,6 +771,19 @@ public class AbstractAWSStorageGatewayAsync extends AbstractAWSStorageGateway im
     @Override
     public java.util.concurrent.Future<ListFileSharesResult> listFileSharesAsync(ListFileSharesRequest request,
             com.amazonaws.handlers.AsyncHandler<ListFileSharesRequest, ListFileSharesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFileSystemAssociationsResult> listFileSystemAssociationsAsync(ListFileSystemAssociationsRequest request) {
+
+        return listFileSystemAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFileSystemAssociationsResult> listFileSystemAssociationsAsync(ListFileSystemAssociationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListFileSystemAssociationsRequest, ListFileSystemAssociationsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -733,6 +871,19 @@ public class AbstractAWSStorageGatewayAsync extends AbstractAWSStorageGateway im
             com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
 
         return listTagsForResourceAsync(new ListTagsForResourceRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTapePoolsResult> listTapePoolsAsync(ListTapePoolsRequest request) {
+
+        return listTapePoolsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTapePoolsResult> listTapePoolsAsync(ListTapePoolsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListTapePoolsRequest, ListTapePoolsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -928,6 +1079,19 @@ public class AbstractAWSStorageGatewayAsync extends AbstractAWSStorageGateway im
     }
 
     @Override
+    public java.util.concurrent.Future<StartAvailabilityMonitorTestResult> startAvailabilityMonitorTestAsync(StartAvailabilityMonitorTestRequest request) {
+
+        return startAvailabilityMonitorTestAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartAvailabilityMonitorTestResult> startAvailabilityMonitorTestAsync(StartAvailabilityMonitorTestRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartAvailabilityMonitorTestRequest, StartAvailabilityMonitorTestResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<StartGatewayResult> startGatewayAsync(StartGatewayRequest request) {
 
         return startGatewayAsync(request, null);
@@ -936,6 +1100,21 @@ public class AbstractAWSStorageGatewayAsync extends AbstractAWSStorageGateway im
     @Override
     public java.util.concurrent.Future<StartGatewayResult> startGatewayAsync(StartGatewayRequest request,
             com.amazonaws.handlers.AsyncHandler<StartGatewayRequest, StartGatewayResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAutomaticTapeCreationPolicyResult> updateAutomaticTapeCreationPolicyAsync(
+            UpdateAutomaticTapeCreationPolicyRequest request) {
+
+        return updateAutomaticTapeCreationPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAutomaticTapeCreationPolicyResult> updateAutomaticTapeCreationPolicyAsync(
+            UpdateAutomaticTapeCreationPolicyRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateAutomaticTapeCreationPolicyRequest, UpdateAutomaticTapeCreationPolicyResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -954,6 +1133,21 @@ public class AbstractAWSStorageGatewayAsync extends AbstractAWSStorageGateway im
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateBandwidthRateLimitScheduleResult> updateBandwidthRateLimitScheduleAsync(
+            UpdateBandwidthRateLimitScheduleRequest request) {
+
+        return updateBandwidthRateLimitScheduleAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateBandwidthRateLimitScheduleResult> updateBandwidthRateLimitScheduleAsync(
+            UpdateBandwidthRateLimitScheduleRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateBandwidthRateLimitScheduleRequest, UpdateBandwidthRateLimitScheduleResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateChapCredentialsResult> updateChapCredentialsAsync(UpdateChapCredentialsRequest request) {
 
         return updateChapCredentialsAsync(request, null);
@@ -962,6 +1156,19 @@ public class AbstractAWSStorageGatewayAsync extends AbstractAWSStorageGateway im
     @Override
     public java.util.concurrent.Future<UpdateChapCredentialsResult> updateChapCredentialsAsync(UpdateChapCredentialsRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateChapCredentialsRequest, UpdateChapCredentialsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateFileSystemAssociationResult> updateFileSystemAssociationAsync(UpdateFileSystemAssociationRequest request) {
+
+        return updateFileSystemAssociationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateFileSystemAssociationResult> updateFileSystemAssociationAsync(UpdateFileSystemAssociationRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateFileSystemAssociationRequest, UpdateFileSystemAssociationResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -1027,6 +1234,32 @@ public class AbstractAWSStorageGatewayAsync extends AbstractAWSStorageGateway im
     @Override
     public java.util.concurrent.Future<UpdateSMBFileShareResult> updateSMBFileShareAsync(UpdateSMBFileShareRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateSMBFileShareRequest, UpdateSMBFileShareResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSMBFileShareVisibilityResult> updateSMBFileShareVisibilityAsync(UpdateSMBFileShareVisibilityRequest request) {
+
+        return updateSMBFileShareVisibilityAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSMBFileShareVisibilityResult> updateSMBFileShareVisibilityAsync(UpdateSMBFileShareVisibilityRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateSMBFileShareVisibilityRequest, UpdateSMBFileShareVisibilityResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSMBLocalGroupsResult> updateSMBLocalGroupsAsync(UpdateSMBLocalGroupsRequest request) {
+
+        return updateSMBLocalGroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSMBLocalGroupsResult> updateSMBLocalGroupsAsync(UpdateSMBLocalGroupsRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateSMBLocalGroupsRequest, UpdateSMBLocalGroupsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

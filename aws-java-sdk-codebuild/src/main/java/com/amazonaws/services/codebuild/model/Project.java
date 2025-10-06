@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -66,7 +66,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * For AWS CodeCommit: the commit ID to use.
+     * For CodeCommit: the commit ID, branch, or Git tag to use.
      * </p>
      * </li>
      * <li>
@@ -79,6 +79,11 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
+     * For GitLab: the commit ID, branch, or Git tag to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
      * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
      * branch's HEAD commit ID is used.
@@ -86,8 +91,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
-     * file to use.
+     * For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      * </p>
      * </li>
      * </ul>
@@ -98,7 +102,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version Sample
-     * with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     * with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      */
     private String sourceVersion;
@@ -135,14 +139,14 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
     private ProjectEnvironment environment;
     /**
      * <p>
-     * The ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with
-     * dependent AWS services on behalf of the AWS account.
+     * The ARN of the IAM role that enables CodeBuild to interact with dependent Amazon Web Services services on behalf
+     * of the Amazon Web Services account.
      * </p>
      */
     private String serviceRole;
     /**
      * <p>
-     * How long, in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait before timing out any related build that
+     * How long, in minutes, from 5 to 2160 (36 hours), for CodeBuild to wait before timing out any related build that
      * did not get marked as completed. The default is 60 minutes.
      * </p>
      */
@@ -155,8 +159,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
     private Integer queuedTimeoutInMinutes;
     /**
      * <p>
-     * The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build output
-     * artifacts.
+     * The Key Management Service customer master key (CMK) to be used for encrypting the build output artifacts.
      * </p>
      * <note>
      * <p>
@@ -166,16 +169,17 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * </note>
      * <p>
      * You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using the
-     * format <code>alias/<i>alias-name</i> </code>).
+     * format <code>alias/&lt;alias-name&gt;</code>). If you don't specify a value, CodeBuild uses the managed CMK for
+     * Amazon Simple Storage Service (Amazon S3).
      * </p>
      */
     private String encryptionKey;
     /**
      * <p>
-     * The tags for this build project.
+     * A list of tag key and value pairs associated with this build project.
      * </p>
      * <p>
-     * These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     * These tags are available for use by Amazon Web Services services that support CodeBuild build project tags.
      * </p>
      */
     private java.util.List<Tag> tags;
@@ -193,13 +197,13 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
     private java.util.Date lastModified;
     /**
      * <p>
-     * Information about a webhook that connects repository events to a build project in AWS CodeBuild.
+     * Information about a webhook that connects repository events to a build project in CodeBuild.
      * </p>
      */
     private Webhook webhook;
     /**
      * <p>
-     * Information about the VPC configuration that AWS CodeBuild accesses.
+     * Information about the VPC configuration that CodeBuild accesses.
      * </p>
      */
     private VpcConfig vpcConfig;
@@ -211,11 +215,51 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
     private ProjectBadge badge;
     /**
      * <p>
-     * Information about logs for the build project. A project can create logs in Amazon CloudWatch Logs, an S3 bucket,
-     * or both.
+     * Information about logs for the build project. A project can create logs in CloudWatch Logs, an S3 bucket, or
+     * both.
      * </p>
      */
     private LogsConfig logsConfig;
+    /**
+     * <p>
+     * An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     * <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>, <code>location</code>,
+     * <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a file system created using Amazon
+     * Elastic File System.
+     * </p>
+     */
+    private java.util.List<ProjectFileSystemLocation> fileSystemLocations;
+    /**
+     * <p>
+     * A <a>ProjectBuildBatchConfig</a> object that defines the batch build options for the project.
+     * </p>
+     */
+    private ProjectBuildBatchConfig buildBatchConfig;
+    /**
+     * <p>
+     * The maximum number of concurrent builds that are allowed for this project.
+     * </p>
+     * <p>
+     * New builds are only started if the current number of builds is less than or equal to this limit. If the current
+     * build count meets this limit, new builds are throttled and are not run.
+     * </p>
+     */
+    private Integer concurrentBuildLimit;
+
+    private String projectVisibility;
+    /**
+     * <p>
+     * Contains the project identifier used with the public build APIs.
+     * </p>
+     */
+    private String publicProjectAlias;
+    /**
+     * <p>
+     * The ARN of the IAM role that enables CodeBuild to access the CloudWatch Logs and Amazon S3 artifacts for the
+     * project's builds.
+     * </p>
+     */
+    private String resourceAccessRole;
 
     /**
      * <p>
@@ -455,7 +499,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * For AWS CodeCommit: the commit ID to use.
+     * For CodeCommit: the commit ID, branch, or Git tag to use.
      * </p>
      * </li>
      * <li>
@@ -468,6 +512,11 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
+     * For GitLab: the commit ID, branch, or Git tag to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
      * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
      * branch's HEAD commit ID is used.
@@ -475,8 +524,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
-     * file to use.
+     * For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      * </p>
      * </li>
      * </ul>
@@ -487,7 +535,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version Sample
-     * with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     * with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      * 
      * @param sourceVersion
@@ -496,7 +544,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        For AWS CodeCommit: the commit ID to use.
+     *        For CodeCommit: the commit ID, branch, or Git tag to use.
      *        </p>
      *        </li>
      *        <li>
@@ -509,6 +557,11 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
+     *        For GitLab: the commit ID, branch, or Git tag to use.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code
      *        you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified,
      *        the default branch's HEAD commit ID is used.
@@ -516,8 +569,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build
-     *        input ZIP file to use.
+     *        For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      *        </p>
      *        </li>
      *        </ul>
@@ -528,7 +580,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      *        <p>
      *        For more information, see <a
      *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version
-     *        Sample with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     *        Sample with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      */
 
     public void setSourceVersion(String sourceVersion) {
@@ -543,7 +595,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * For AWS CodeCommit: the commit ID to use.
+     * For CodeCommit: the commit ID, branch, or Git tag to use.
      * </p>
      * </li>
      * <li>
@@ -556,6 +608,11 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
+     * For GitLab: the commit ID, branch, or Git tag to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
      * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
      * branch's HEAD commit ID is used.
@@ -563,8 +620,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
-     * file to use.
+     * For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      * </p>
      * </li>
      * </ul>
@@ -575,7 +631,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version Sample
-     * with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     * with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      * 
      * @return A version of the build input to be built for this project. If not specified, the latest version is used.
@@ -583,7 +639,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      *         <ul>
      *         <li>
      *         <p>
-     *         For AWS CodeCommit: the commit ID to use.
+     *         For CodeCommit: the commit ID, branch, or Git tag to use.
      *         </p>
      *         </li>
      *         <li>
@@ -596,6 +652,11 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      *         </li>
      *         <li>
      *         <p>
+     *         For GitLab: the commit ID, branch, or Git tag to use.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code
      *         you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified,
      *         the default branch's HEAD commit ID is used.
@@ -603,8 +664,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      *         </li>
      *         <li>
      *         <p>
-     *         For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build
-     *         input ZIP file to use.
+     *         For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      *         </p>
      *         </li>
      *         </ul>
@@ -615,7 +675,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      *         <p>
      *         For more information, see <a
      *         href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version
-     *         Sample with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     *         Sample with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      */
 
     public String getSourceVersion() {
@@ -630,7 +690,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * For AWS CodeCommit: the commit ID to use.
+     * For CodeCommit: the commit ID, branch, or Git tag to use.
      * </p>
      * </li>
      * <li>
@@ -643,6 +703,11 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
+     * For GitLab: the commit ID, branch, or Git tag to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
      * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
      * branch's HEAD commit ID is used.
@@ -650,8 +715,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
-     * file to use.
+     * For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      * </p>
      * </li>
      * </ul>
@@ -662,7 +726,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version Sample
-     * with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     * with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * </p>
      * 
      * @param sourceVersion
@@ -671,7 +735,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        For AWS CodeCommit: the commit ID to use.
+     *        For CodeCommit: the commit ID, branch, or Git tag to use.
      *        </p>
      *        </li>
      *        <li>
@@ -684,6 +748,11 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
+     *        For GitLab: the commit ID, branch, or Git tag to use.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code
      *        you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified,
      *        the default branch's HEAD commit ID is used.
@@ -691,8 +760,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build
-     *        input ZIP file to use.
+     *        For Amazon S3: the version ID of the object that represents the build input ZIP file to use.
      *        </p>
      *        </li>
      *        </ul>
@@ -703,7 +771,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      *        <p>
      *        For more information, see <a
      *        href="https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html">Source Version
-     *        Sample with CodeBuild</a> in the <i>AWS CodeBuild User Guide</i>.
+     *        Sample with CodeBuild</a> in the <i>CodeBuild User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -986,13 +1054,13 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with
-     * dependent AWS services on behalf of the AWS account.
+     * The ARN of the IAM role that enables CodeBuild to interact with dependent Amazon Web Services services on behalf
+     * of the Amazon Web Services account.
      * </p>
      * 
      * @param serviceRole
-     *        The ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with
-     *        dependent AWS services on behalf of the AWS account.
+     *        The ARN of the IAM role that enables CodeBuild to interact with dependent Amazon Web Services services on
+     *        behalf of the Amazon Web Services account.
      */
 
     public void setServiceRole(String serviceRole) {
@@ -1001,12 +1069,12 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with
-     * dependent AWS services on behalf of the AWS account.
+     * The ARN of the IAM role that enables CodeBuild to interact with dependent Amazon Web Services services on behalf
+     * of the Amazon Web Services account.
      * </p>
      * 
-     * @return The ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with
-     *         dependent AWS services on behalf of the AWS account.
+     * @return The ARN of the IAM role that enables CodeBuild to interact with dependent Amazon Web Services services on
+     *         behalf of the Amazon Web Services account.
      */
 
     public String getServiceRole() {
@@ -1015,13 +1083,13 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with
-     * dependent AWS services on behalf of the AWS account.
+     * The ARN of the IAM role that enables CodeBuild to interact with dependent Amazon Web Services services on behalf
+     * of the Amazon Web Services account.
      * </p>
      * 
      * @param serviceRole
-     *        The ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with
-     *        dependent AWS services on behalf of the AWS account.
+     *        The ARN of the IAM role that enables CodeBuild to interact with dependent Amazon Web Services services on
+     *        behalf of the Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1032,13 +1100,13 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * How long, in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait before timing out any related build that
+     * How long, in minutes, from 5 to 2160 (36 hours), for CodeBuild to wait before timing out any related build that
      * did not get marked as completed. The default is 60 minutes.
      * </p>
      * 
      * @param timeoutInMinutes
-     *        How long, in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait before timing out any related
-     *        build that did not get marked as completed. The default is 60 minutes.
+     *        How long, in minutes, from 5 to 2160 (36 hours), for CodeBuild to wait before timing out any related build
+     *        that did not get marked as completed. The default is 60 minutes.
      */
 
     public void setTimeoutInMinutes(Integer timeoutInMinutes) {
@@ -1047,11 +1115,11 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * How long, in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait before timing out any related build that
+     * How long, in minutes, from 5 to 2160 (36 hours), for CodeBuild to wait before timing out any related build that
      * did not get marked as completed. The default is 60 minutes.
      * </p>
      * 
-     * @return How long, in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait before timing out any related
+     * @return How long, in minutes, from 5 to 2160 (36 hours), for CodeBuild to wait before timing out any related
      *         build that did not get marked as completed. The default is 60 minutes.
      */
 
@@ -1061,13 +1129,13 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * How long, in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait before timing out any related build that
+     * How long, in minutes, from 5 to 2160 (36 hours), for CodeBuild to wait before timing out any related build that
      * did not get marked as completed. The default is 60 minutes.
      * </p>
      * 
      * @param timeoutInMinutes
-     *        How long, in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait before timing out any related
-     *        build that did not get marked as completed. The default is 60 minutes.
+     *        How long, in minutes, from 5 to 2160 (36 hours), for CodeBuild to wait before timing out any related build
+     *        that did not get marked as completed. The default is 60 minutes.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1118,8 +1186,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build output
-     * artifacts.
+     * The Key Management Service customer master key (CMK) to be used for encrypting the build output artifacts.
      * </p>
      * <note>
      * <p>
@@ -1129,12 +1196,13 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * </note>
      * <p>
      * You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using the
-     * format <code>alias/<i>alias-name</i> </code>).
+     * format <code>alias/&lt;alias-name&gt;</code>). If you don't specify a value, CodeBuild uses the managed CMK for
+     * Amazon Simple Storage Service (Amazon S3).
      * </p>
      * 
      * @param encryptionKey
-     *        The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build
-     *        output artifacts.</p> <note>
+     *        The Key Management Service customer master key (CMK) to be used for encrypting the build output
+     *        artifacts.</p> <note>
      *        <p>
      *        You can use a cross-account KMS key to encrypt the build output artifacts if your service role has
      *        permission to that key.
@@ -1142,7 +1210,8 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      *        </note>
      *        <p>
      *        You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using
-     *        the format <code>alias/<i>alias-name</i> </code>).
+     *        the format <code>alias/&lt;alias-name&gt;</code>). If you don't specify a value, CodeBuild uses the
+     *        managed CMK for Amazon Simple Storage Service (Amazon S3).
      */
 
     public void setEncryptionKey(String encryptionKey) {
@@ -1151,8 +1220,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build output
-     * artifacts.
+     * The Key Management Service customer master key (CMK) to be used for encrypting the build output artifacts.
      * </p>
      * <note>
      * <p>
@@ -1162,11 +1230,12 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * </note>
      * <p>
      * You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using the
-     * format <code>alias/<i>alias-name</i> </code>).
+     * format <code>alias/&lt;alias-name&gt;</code>). If you don't specify a value, CodeBuild uses the managed CMK for
+     * Amazon Simple Storage Service (Amazon S3).
      * </p>
      * 
-     * @return The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build
-     *         output artifacts.</p> <note>
+     * @return The Key Management Service customer master key (CMK) to be used for encrypting the build output
+     *         artifacts.</p> <note>
      *         <p>
      *         You can use a cross-account KMS key to encrypt the build output artifacts if your service role has
      *         permission to that key.
@@ -1174,7 +1243,8 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      *         </note>
      *         <p>
      *         You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using
-     *         the format <code>alias/<i>alias-name</i> </code>).
+     *         the format <code>alias/&lt;alias-name&gt;</code>). If you don't specify a value, CodeBuild uses the
+     *         managed CMK for Amazon Simple Storage Service (Amazon S3).
      */
 
     public String getEncryptionKey() {
@@ -1183,8 +1253,7 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build output
-     * artifacts.
+     * The Key Management Service customer master key (CMK) to be used for encrypting the build output artifacts.
      * </p>
      * <note>
      * <p>
@@ -1194,12 +1263,13 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * </note>
      * <p>
      * You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using the
-     * format <code>alias/<i>alias-name</i> </code>).
+     * format <code>alias/&lt;alias-name&gt;</code>). If you don't specify a value, CodeBuild uses the managed CMK for
+     * Amazon Simple Storage Service (Amazon S3).
      * </p>
      * 
      * @param encryptionKey
-     *        The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build
-     *        output artifacts.</p> <note>
+     *        The Key Management Service customer master key (CMK) to be used for encrypting the build output
+     *        artifacts.</p> <note>
      *        <p>
      *        You can use a cross-account KMS key to encrypt the build output artifacts if your service role has
      *        permission to that key.
@@ -1207,7 +1277,8 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      *        </note>
      *        <p>
      *        You can specify either the Amazon Resource Name (ARN) of the CMK or, if available, the CMK's alias (using
-     *        the format <code>alias/<i>alias-name</i> </code>).
+     *        the format <code>alias/&lt;alias-name&gt;</code>). If you don't specify a value, CodeBuild uses the
+     *        managed CMK for Amazon Simple Storage Service (Amazon S3).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1218,15 +1289,16 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tags for this build project.
+     * A list of tag key and value pairs associated with this build project.
      * </p>
      * <p>
-     * These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     * These tags are available for use by Amazon Web Services services that support CodeBuild build project tags.
      * </p>
      * 
-     * @return The tags for this build project.</p>
+     * @return A list of tag key and value pairs associated with this build project.</p>
      *         <p>
-     *         These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     *         These tags are available for use by Amazon Web Services services that support CodeBuild build project
+     *         tags.
      */
 
     public java.util.List<Tag> getTags() {
@@ -1235,16 +1307,17 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tags for this build project.
+     * A list of tag key and value pairs associated with this build project.
      * </p>
      * <p>
-     * These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     * These tags are available for use by Amazon Web Services services that support CodeBuild build project tags.
      * </p>
      * 
      * @param tags
-     *        The tags for this build project.</p>
+     *        A list of tag key and value pairs associated with this build project.</p>
      *        <p>
-     *        These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     *        These tags are available for use by Amazon Web Services services that support CodeBuild build project
+     *        tags.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -1258,10 +1331,10 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tags for this build project.
+     * A list of tag key and value pairs associated with this build project.
      * </p>
      * <p>
-     * These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     * These tags are available for use by Amazon Web Services services that support CodeBuild build project tags.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1270,9 +1343,10 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param tags
-     *        The tags for this build project.</p>
+     *        A list of tag key and value pairs associated with this build project.</p>
      *        <p>
-     *        These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     *        These tags are available for use by Amazon Web Services services that support CodeBuild build project
+     *        tags.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1288,16 +1362,17 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The tags for this build project.
+     * A list of tag key and value pairs associated with this build project.
      * </p>
      * <p>
-     * These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     * These tags are available for use by Amazon Web Services services that support CodeBuild build project tags.
      * </p>
      * 
      * @param tags
-     *        The tags for this build project.</p>
+     *        A list of tag key and value pairs associated with this build project.</p>
      *        <p>
-     *        These tags are available for use by AWS services that support AWS CodeBuild build project tags.
+     *        These tags are available for use by Amazon Web Services services that support CodeBuild build project
+     *        tags.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1388,11 +1463,11 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about a webhook that connects repository events to a build project in AWS CodeBuild.
+     * Information about a webhook that connects repository events to a build project in CodeBuild.
      * </p>
      * 
      * @param webhook
-     *        Information about a webhook that connects repository events to a build project in AWS CodeBuild.
+     *        Information about a webhook that connects repository events to a build project in CodeBuild.
      */
 
     public void setWebhook(Webhook webhook) {
@@ -1401,10 +1476,10 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about a webhook that connects repository events to a build project in AWS CodeBuild.
+     * Information about a webhook that connects repository events to a build project in CodeBuild.
      * </p>
      * 
-     * @return Information about a webhook that connects repository events to a build project in AWS CodeBuild.
+     * @return Information about a webhook that connects repository events to a build project in CodeBuild.
      */
 
     public Webhook getWebhook() {
@@ -1413,11 +1488,11 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about a webhook that connects repository events to a build project in AWS CodeBuild.
+     * Information about a webhook that connects repository events to a build project in CodeBuild.
      * </p>
      * 
      * @param webhook
-     *        Information about a webhook that connects repository events to a build project in AWS CodeBuild.
+     *        Information about a webhook that connects repository events to a build project in CodeBuild.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1428,11 +1503,11 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about the VPC configuration that AWS CodeBuild accesses.
+     * Information about the VPC configuration that CodeBuild accesses.
      * </p>
      * 
      * @param vpcConfig
-     *        Information about the VPC configuration that AWS CodeBuild accesses.
+     *        Information about the VPC configuration that CodeBuild accesses.
      */
 
     public void setVpcConfig(VpcConfig vpcConfig) {
@@ -1441,10 +1516,10 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about the VPC configuration that AWS CodeBuild accesses.
+     * Information about the VPC configuration that CodeBuild accesses.
      * </p>
      * 
-     * @return Information about the VPC configuration that AWS CodeBuild accesses.
+     * @return Information about the VPC configuration that CodeBuild accesses.
      */
 
     public VpcConfig getVpcConfig() {
@@ -1453,11 +1528,11 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about the VPC configuration that AWS CodeBuild accesses.
+     * Information about the VPC configuration that CodeBuild accesses.
      * </p>
      * 
      * @param vpcConfig
-     *        Information about the VPC configuration that AWS CodeBuild accesses.
+     *        Information about the VPC configuration that CodeBuild accesses.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1508,13 +1583,13 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about logs for the build project. A project can create logs in Amazon CloudWatch Logs, an S3 bucket,
-     * or both.
+     * Information about logs for the build project. A project can create logs in CloudWatch Logs, an S3 bucket, or
+     * both.
      * </p>
      * 
      * @param logsConfig
-     *        Information about logs for the build project. A project can create logs in Amazon CloudWatch Logs, an S3
-     *        bucket, or both.
+     *        Information about logs for the build project. A project can create logs in CloudWatch Logs, an S3 bucket,
+     *        or both.
      */
 
     public void setLogsConfig(LogsConfig logsConfig) {
@@ -1523,12 +1598,12 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about logs for the build project. A project can create logs in Amazon CloudWatch Logs, an S3 bucket,
-     * or both.
+     * Information about logs for the build project. A project can create logs in CloudWatch Logs, an S3 bucket, or
+     * both.
      * </p>
      * 
-     * @return Information about logs for the build project. A project can create logs in Amazon CloudWatch Logs, an S3
-     *         bucket, or both.
+     * @return Information about logs for the build project. A project can create logs in CloudWatch Logs, an S3 bucket,
+     *         or both.
      */
 
     public LogsConfig getLogsConfig() {
@@ -1537,18 +1612,339 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about logs for the build project. A project can create logs in Amazon CloudWatch Logs, an S3 bucket,
-     * or both.
+     * Information about logs for the build project. A project can create logs in CloudWatch Logs, an S3 bucket, or
+     * both.
      * </p>
      * 
      * @param logsConfig
-     *        Information about logs for the build project. A project can create logs in Amazon CloudWatch Logs, an S3
-     *        bucket, or both.
+     *        Information about logs for the build project. A project can create logs in CloudWatch Logs, an S3 bucket,
+     *        or both.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Project withLogsConfig(LogsConfig logsConfig) {
         setLogsConfig(logsConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     * <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>, <code>location</code>,
+     * <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a file system created using Amazon
+     * Elastic File System.
+     * </p>
+     * 
+     * @return An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     *         <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>,
+     *         <code>location</code>, <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a
+     *         file system created using Amazon Elastic File System.
+     */
+
+    public java.util.List<ProjectFileSystemLocation> getFileSystemLocations() {
+        return fileSystemLocations;
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     * <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>, <code>location</code>,
+     * <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a file system created using Amazon
+     * Elastic File System.
+     * </p>
+     * 
+     * @param fileSystemLocations
+     *        An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     *        <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>, <code>location</code>
+     *        , <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a file system created using
+     *        Amazon Elastic File System.
+     */
+
+    public void setFileSystemLocations(java.util.Collection<ProjectFileSystemLocation> fileSystemLocations) {
+        if (fileSystemLocations == null) {
+            this.fileSystemLocations = null;
+            return;
+        }
+
+        this.fileSystemLocations = new java.util.ArrayList<ProjectFileSystemLocation>(fileSystemLocations);
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     * <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>, <code>location</code>,
+     * <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a file system created using Amazon
+     * Elastic File System.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setFileSystemLocations(java.util.Collection)} or {@link #withFileSystemLocations(java.util.Collection)}
+     * if you want to override the existing values.
+     * </p>
+     * 
+     * @param fileSystemLocations
+     *        An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     *        <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>, <code>location</code>
+     *        , <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a file system created using
+     *        Amazon Elastic File System.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Project withFileSystemLocations(ProjectFileSystemLocation... fileSystemLocations) {
+        if (this.fileSystemLocations == null) {
+            setFileSystemLocations(new java.util.ArrayList<ProjectFileSystemLocation>(fileSystemLocations.length));
+        }
+        for (ProjectFileSystemLocation ele : fileSystemLocations) {
+            this.fileSystemLocations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     * <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>, <code>location</code>,
+     * <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a file system created using Amazon
+     * Elastic File System.
+     * </p>
+     * 
+     * @param fileSystemLocations
+     *        An array of <code>ProjectFileSystemLocation</code> objects for a CodeBuild build project. A
+     *        <code>ProjectFileSystemLocation</code> object specifies the <code>identifier</code>, <code>location</code>
+     *        , <code>mountOptions</code>, <code>mountPoint</code>, and <code>type</code> of a file system created using
+     *        Amazon Elastic File System.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Project withFileSystemLocations(java.util.Collection<ProjectFileSystemLocation> fileSystemLocations) {
+        setFileSystemLocations(fileSystemLocations);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A <a>ProjectBuildBatchConfig</a> object that defines the batch build options for the project.
+     * </p>
+     * 
+     * @param buildBatchConfig
+     *        A <a>ProjectBuildBatchConfig</a> object that defines the batch build options for the project.
+     */
+
+    public void setBuildBatchConfig(ProjectBuildBatchConfig buildBatchConfig) {
+        this.buildBatchConfig = buildBatchConfig;
+    }
+
+    /**
+     * <p>
+     * A <a>ProjectBuildBatchConfig</a> object that defines the batch build options for the project.
+     * </p>
+     * 
+     * @return A <a>ProjectBuildBatchConfig</a> object that defines the batch build options for the project.
+     */
+
+    public ProjectBuildBatchConfig getBuildBatchConfig() {
+        return this.buildBatchConfig;
+    }
+
+    /**
+     * <p>
+     * A <a>ProjectBuildBatchConfig</a> object that defines the batch build options for the project.
+     * </p>
+     * 
+     * @param buildBatchConfig
+     *        A <a>ProjectBuildBatchConfig</a> object that defines the batch build options for the project.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Project withBuildBatchConfig(ProjectBuildBatchConfig buildBatchConfig) {
+        setBuildBatchConfig(buildBatchConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maximum number of concurrent builds that are allowed for this project.
+     * </p>
+     * <p>
+     * New builds are only started if the current number of builds is less than or equal to this limit. If the current
+     * build count meets this limit, new builds are throttled and are not run.
+     * </p>
+     * 
+     * @param concurrentBuildLimit
+     *        The maximum number of concurrent builds that are allowed for this project.</p>
+     *        <p>
+     *        New builds are only started if the current number of builds is less than or equal to this limit. If the
+     *        current build count meets this limit, new builds are throttled and are not run.
+     */
+
+    public void setConcurrentBuildLimit(Integer concurrentBuildLimit) {
+        this.concurrentBuildLimit = concurrentBuildLimit;
+    }
+
+    /**
+     * <p>
+     * The maximum number of concurrent builds that are allowed for this project.
+     * </p>
+     * <p>
+     * New builds are only started if the current number of builds is less than or equal to this limit. If the current
+     * build count meets this limit, new builds are throttled and are not run.
+     * </p>
+     * 
+     * @return The maximum number of concurrent builds that are allowed for this project.</p>
+     *         <p>
+     *         New builds are only started if the current number of builds is less than or equal to this limit. If the
+     *         current build count meets this limit, new builds are throttled and are not run.
+     */
+
+    public Integer getConcurrentBuildLimit() {
+        return this.concurrentBuildLimit;
+    }
+
+    /**
+     * <p>
+     * The maximum number of concurrent builds that are allowed for this project.
+     * </p>
+     * <p>
+     * New builds are only started if the current number of builds is less than or equal to this limit. If the current
+     * build count meets this limit, new builds are throttled and are not run.
+     * </p>
+     * 
+     * @param concurrentBuildLimit
+     *        The maximum number of concurrent builds that are allowed for this project.</p>
+     *        <p>
+     *        New builds are only started if the current number of builds is less than or equal to this limit. If the
+     *        current build count meets this limit, new builds are throttled and are not run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Project withConcurrentBuildLimit(Integer concurrentBuildLimit) {
+        setConcurrentBuildLimit(concurrentBuildLimit);
+        return this;
+    }
+
+    /**
+     * @param projectVisibility
+     * @see ProjectVisibilityType
+     */
+
+    public void setProjectVisibility(String projectVisibility) {
+        this.projectVisibility = projectVisibility;
+    }
+
+    /**
+     * @return
+     * @see ProjectVisibilityType
+     */
+
+    public String getProjectVisibility() {
+        return this.projectVisibility;
+    }
+
+    /**
+     * @param projectVisibility
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ProjectVisibilityType
+     */
+
+    public Project withProjectVisibility(String projectVisibility) {
+        setProjectVisibility(projectVisibility);
+        return this;
+    }
+
+    /**
+     * @param projectVisibility
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ProjectVisibilityType
+     */
+
+    public Project withProjectVisibility(ProjectVisibilityType projectVisibility) {
+        this.projectVisibility = projectVisibility.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains the project identifier used with the public build APIs.
+     * </p>
+     * 
+     * @param publicProjectAlias
+     *        Contains the project identifier used with the public build APIs.
+     */
+
+    public void setPublicProjectAlias(String publicProjectAlias) {
+        this.publicProjectAlias = publicProjectAlias;
+    }
+
+    /**
+     * <p>
+     * Contains the project identifier used with the public build APIs.
+     * </p>
+     * 
+     * @return Contains the project identifier used with the public build APIs.
+     */
+
+    public String getPublicProjectAlias() {
+        return this.publicProjectAlias;
+    }
+
+    /**
+     * <p>
+     * Contains the project identifier used with the public build APIs.
+     * </p>
+     * 
+     * @param publicProjectAlias
+     *        Contains the project identifier used with the public build APIs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Project withPublicProjectAlias(String publicProjectAlias) {
+        setPublicProjectAlias(publicProjectAlias);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ARN of the IAM role that enables CodeBuild to access the CloudWatch Logs and Amazon S3 artifacts for the
+     * project's builds.
+     * </p>
+     * 
+     * @param resourceAccessRole
+     *        The ARN of the IAM role that enables CodeBuild to access the CloudWatch Logs and Amazon S3 artifacts for
+     *        the project's builds.
+     */
+
+    public void setResourceAccessRole(String resourceAccessRole) {
+        this.resourceAccessRole = resourceAccessRole;
+    }
+
+    /**
+     * <p>
+     * The ARN of the IAM role that enables CodeBuild to access the CloudWatch Logs and Amazon S3 artifacts for the
+     * project's builds.
+     * </p>
+     * 
+     * @return The ARN of the IAM role that enables CodeBuild to access the CloudWatch Logs and Amazon S3 artifacts for
+     *         the project's builds.
+     */
+
+    public String getResourceAccessRole() {
+        return this.resourceAccessRole;
+    }
+
+    /**
+     * <p>
+     * The ARN of the IAM role that enables CodeBuild to access the CloudWatch Logs and Amazon S3 artifacts for the
+     * project's builds.
+     * </p>
+     * 
+     * @param resourceAccessRole
+     *        The ARN of the IAM role that enables CodeBuild to access the CloudWatch Logs and Amazon S3 artifacts for
+     *        the project's builds.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Project withResourceAccessRole(String resourceAccessRole) {
+        setResourceAccessRole(resourceAccessRole);
         return this;
     }
 
@@ -1607,7 +2003,19 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
         if (getBadge() != null)
             sb.append("Badge: ").append(getBadge()).append(",");
         if (getLogsConfig() != null)
-            sb.append("LogsConfig: ").append(getLogsConfig());
+            sb.append("LogsConfig: ").append(getLogsConfig()).append(",");
+        if (getFileSystemLocations() != null)
+            sb.append("FileSystemLocations: ").append(getFileSystemLocations()).append(",");
+        if (getBuildBatchConfig() != null)
+            sb.append("BuildBatchConfig: ").append(getBuildBatchConfig()).append(",");
+        if (getConcurrentBuildLimit() != null)
+            sb.append("ConcurrentBuildLimit: ").append(getConcurrentBuildLimit()).append(",");
+        if (getProjectVisibility() != null)
+            sb.append("ProjectVisibility: ").append(getProjectVisibility()).append(",");
+        if (getPublicProjectAlias() != null)
+            sb.append("PublicProjectAlias: ").append(getPublicProjectAlias()).append(",");
+        if (getResourceAccessRole() != null)
+            sb.append("ResourceAccessRole: ").append(getResourceAccessRole());
         sb.append("}");
         return sb.toString();
     }
@@ -1710,6 +2118,30 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getLogsConfig() != null && other.getLogsConfig().equals(this.getLogsConfig()) == false)
             return false;
+        if (other.getFileSystemLocations() == null ^ this.getFileSystemLocations() == null)
+            return false;
+        if (other.getFileSystemLocations() != null && other.getFileSystemLocations().equals(this.getFileSystemLocations()) == false)
+            return false;
+        if (other.getBuildBatchConfig() == null ^ this.getBuildBatchConfig() == null)
+            return false;
+        if (other.getBuildBatchConfig() != null && other.getBuildBatchConfig().equals(this.getBuildBatchConfig()) == false)
+            return false;
+        if (other.getConcurrentBuildLimit() == null ^ this.getConcurrentBuildLimit() == null)
+            return false;
+        if (other.getConcurrentBuildLimit() != null && other.getConcurrentBuildLimit().equals(this.getConcurrentBuildLimit()) == false)
+            return false;
+        if (other.getProjectVisibility() == null ^ this.getProjectVisibility() == null)
+            return false;
+        if (other.getProjectVisibility() != null && other.getProjectVisibility().equals(this.getProjectVisibility()) == false)
+            return false;
+        if (other.getPublicProjectAlias() == null ^ this.getPublicProjectAlias() == null)
+            return false;
+        if (other.getPublicProjectAlias() != null && other.getPublicProjectAlias().equals(this.getPublicProjectAlias()) == false)
+            return false;
+        if (other.getResourceAccessRole() == null ^ this.getResourceAccessRole() == null)
+            return false;
+        if (other.getResourceAccessRole() != null && other.getResourceAccessRole().equals(this.getResourceAccessRole()) == false)
+            return false;
         return true;
     }
 
@@ -1740,6 +2172,12 @@ public class Project implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
         hashCode = prime * hashCode + ((getBadge() == null) ? 0 : getBadge().hashCode());
         hashCode = prime * hashCode + ((getLogsConfig() == null) ? 0 : getLogsConfig().hashCode());
+        hashCode = prime * hashCode + ((getFileSystemLocations() == null) ? 0 : getFileSystemLocations().hashCode());
+        hashCode = prime * hashCode + ((getBuildBatchConfig() == null) ? 0 : getBuildBatchConfig().hashCode());
+        hashCode = prime * hashCode + ((getConcurrentBuildLimit() == null) ? 0 : getConcurrentBuildLimit().hashCode());
+        hashCode = prime * hashCode + ((getProjectVisibility() == null) ? 0 : getProjectVisibility().hashCode());
+        hashCode = prime * hashCode + ((getPublicProjectAlias() == null) ? 0 : getPublicProjectAlias().hashCode());
+        hashCode = prime * hashCode + ((getResourceAccessRole() == null) ? 0 : getResourceAccessRole().hashCode());
         return hashCode;
     }
 

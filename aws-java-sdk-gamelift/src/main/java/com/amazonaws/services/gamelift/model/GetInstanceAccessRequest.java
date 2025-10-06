@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * Represents the input for a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/GetInstanceAccess" target="_top">AWS API
  *      Documentation</a>
@@ -30,30 +27,46 @@ public class GetInstanceAccessRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Unique identifier for a fleet that contains the instance you want access to. The fleet can be in any of the
-     * following statuses: <code>ACTIVATING</code>, <code>ACTIVE</code>, or <code>ERROR</code>. Fleets with an
-     * <code>ERROR</code> status may be accessible for a short time before they are deleted.
+     * A unique identifier for the fleet that contains the instance you want to access. You can request access to
+     * instances in EC2 fleets with the following statuses: <code>ACTIVATING</code>, <code>ACTIVE</code>, or
+     * <code>ERROR</code>. Use either a fleet ID or an ARN value.
      * </p>
+     * <note>
+     * <p>
+     * You can access fleets in <code>ERROR</code> status for a short period of time before Amazon GameLift deletes
+     * them.
+     * </p>
+     * </note>
      */
     private String fleetId;
     /**
      * <p>
-     * Unique identifier for an instance you want to get access to. You can access an instance in any status.
+     * A unique identifier for the instance you want to access. You can access an instance in any status.
      * </p>
      */
     private String instanceId;
 
     /**
      * <p>
-     * Unique identifier for a fleet that contains the instance you want access to. The fleet can be in any of the
-     * following statuses: <code>ACTIVATING</code>, <code>ACTIVE</code>, or <code>ERROR</code>. Fleets with an
-     * <code>ERROR</code> status may be accessible for a short time before they are deleted.
+     * A unique identifier for the fleet that contains the instance you want to access. You can request access to
+     * instances in EC2 fleets with the following statuses: <code>ACTIVATING</code>, <code>ACTIVE</code>, or
+     * <code>ERROR</code>. Use either a fleet ID or an ARN value.
      * </p>
+     * <note>
+     * <p>
+     * You can access fleets in <code>ERROR</code> status for a short period of time before Amazon GameLift deletes
+     * them.
+     * </p>
+     * </note>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet that contains the instance you want access to. The fleet can be in any of
-     *        the following statuses: <code>ACTIVATING</code>, <code>ACTIVE</code>, or <code>ERROR</code>. Fleets with
-     *        an <code>ERROR</code> status may be accessible for a short time before they are deleted.
+     *        A unique identifier for the fleet that contains the instance you want to access. You can request access to
+     *        instances in EC2 fleets with the following statuses: <code>ACTIVATING</code>, <code>ACTIVE</code>, or
+     *        <code>ERROR</code>. Use either a fleet ID or an ARN value. </p> <note>
+     *        <p>
+     *        You can access fleets in <code>ERROR</code> status for a short period of time before Amazon GameLift
+     *        deletes them.
+     *        </p>
      */
 
     public void setFleetId(String fleetId) {
@@ -62,14 +75,24 @@ public class GetInstanceAccessRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Unique identifier for a fleet that contains the instance you want access to. The fleet can be in any of the
-     * following statuses: <code>ACTIVATING</code>, <code>ACTIVE</code>, or <code>ERROR</code>. Fleets with an
-     * <code>ERROR</code> status may be accessible for a short time before they are deleted.
+     * A unique identifier for the fleet that contains the instance you want to access. You can request access to
+     * instances in EC2 fleets with the following statuses: <code>ACTIVATING</code>, <code>ACTIVE</code>, or
+     * <code>ERROR</code>. Use either a fleet ID or an ARN value.
      * </p>
+     * <note>
+     * <p>
+     * You can access fleets in <code>ERROR</code> status for a short period of time before Amazon GameLift deletes
+     * them.
+     * </p>
+     * </note>
      * 
-     * @return Unique identifier for a fleet that contains the instance you want access to. The fleet can be in any of
-     *         the following statuses: <code>ACTIVATING</code>, <code>ACTIVE</code>, or <code>ERROR</code>. Fleets with
-     *         an <code>ERROR</code> status may be accessible for a short time before they are deleted.
+     * @return A unique identifier for the fleet that contains the instance you want to access. You can request access
+     *         to instances in EC2 fleets with the following statuses: <code>ACTIVATING</code>, <code>ACTIVE</code>, or
+     *         <code>ERROR</code>. Use either a fleet ID or an ARN value. </p> <note>
+     *         <p>
+     *         You can access fleets in <code>ERROR</code> status for a short period of time before Amazon GameLift
+     *         deletes them.
+     *         </p>
      */
 
     public String getFleetId() {
@@ -78,15 +101,25 @@ public class GetInstanceAccessRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Unique identifier for a fleet that contains the instance you want access to. The fleet can be in any of the
-     * following statuses: <code>ACTIVATING</code>, <code>ACTIVE</code>, or <code>ERROR</code>. Fleets with an
-     * <code>ERROR</code> status may be accessible for a short time before they are deleted.
+     * A unique identifier for the fleet that contains the instance you want to access. You can request access to
+     * instances in EC2 fleets with the following statuses: <code>ACTIVATING</code>, <code>ACTIVE</code>, or
+     * <code>ERROR</code>. Use either a fleet ID or an ARN value.
      * </p>
+     * <note>
+     * <p>
+     * You can access fleets in <code>ERROR</code> status for a short period of time before Amazon GameLift deletes
+     * them.
+     * </p>
+     * </note>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet that contains the instance you want access to. The fleet can be in any of
-     *        the following statuses: <code>ACTIVATING</code>, <code>ACTIVE</code>, or <code>ERROR</code>. Fleets with
-     *        an <code>ERROR</code> status may be accessible for a short time before they are deleted.
+     *        A unique identifier for the fleet that contains the instance you want to access. You can request access to
+     *        instances in EC2 fleets with the following statuses: <code>ACTIVATING</code>, <code>ACTIVE</code>, or
+     *        <code>ERROR</code>. Use either a fleet ID or an ARN value. </p> <note>
+     *        <p>
+     *        You can access fleets in <code>ERROR</code> status for a short period of time before Amazon GameLift
+     *        deletes them.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -97,11 +130,11 @@ public class GetInstanceAccessRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Unique identifier for an instance you want to get access to. You can access an instance in any status.
+     * A unique identifier for the instance you want to access. You can access an instance in any status.
      * </p>
      * 
      * @param instanceId
-     *        Unique identifier for an instance you want to get access to. You can access an instance in any status.
+     *        A unique identifier for the instance you want to access. You can access an instance in any status.
      */
 
     public void setInstanceId(String instanceId) {
@@ -110,10 +143,10 @@ public class GetInstanceAccessRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Unique identifier for an instance you want to get access to. You can access an instance in any status.
+     * A unique identifier for the instance you want to access. You can access an instance in any status.
      * </p>
      * 
-     * @return Unique identifier for an instance you want to get access to. You can access an instance in any status.
+     * @return A unique identifier for the instance you want to access. You can access an instance in any status.
      */
 
     public String getInstanceId() {
@@ -122,11 +155,11 @@ public class GetInstanceAccessRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Unique identifier for an instance you want to get access to. You can access an instance in any status.
+     * A unique identifier for the instance you want to access. You can access an instance in any status.
      * </p>
      * 
      * @param instanceId
-     *        Unique identifier for an instance you want to get access to. You can access an instance in any status.
+     *        A unique identifier for the instance you want to access. You can access an instance in any status.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

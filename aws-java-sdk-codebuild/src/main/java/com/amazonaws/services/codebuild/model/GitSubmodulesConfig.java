@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about the Git submodules configuration for an AWS CodeBuild build project.
+ * Information about the Git submodules configuration for an CodeBuild build project.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/GitSubmodulesConfig" target="_top">AWS API
@@ -30,18 +30,18 @@ public class GitSubmodulesConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Set to true to fetch Git submodules for your AWS CodeBuild build project.
+     * Set to true to fetch Git submodules for your CodeBuild build project.
      * </p>
      */
     private Boolean fetchSubmodules;
 
     /**
      * <p>
-     * Set to true to fetch Git submodules for your AWS CodeBuild build project.
+     * Set to true to fetch Git submodules for your CodeBuild build project.
      * </p>
      * 
      * @param fetchSubmodules
-     *        Set to true to fetch Git submodules for your AWS CodeBuild build project.
+     *        Set to true to fetch Git submodules for your CodeBuild build project.
      */
 
     public void setFetchSubmodules(Boolean fetchSubmodules) {
@@ -50,10 +50,10 @@ public class GitSubmodulesConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Set to true to fetch Git submodules for your AWS CodeBuild build project.
+     * Set to true to fetch Git submodules for your CodeBuild build project.
      * </p>
      * 
-     * @return Set to true to fetch Git submodules for your AWS CodeBuild build project.
+     * @return Set to true to fetch Git submodules for your CodeBuild build project.
      */
 
     public Boolean getFetchSubmodules() {
@@ -62,11 +62,11 @@ public class GitSubmodulesConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Set to true to fetch Git submodules for your AWS CodeBuild build project.
+     * Set to true to fetch Git submodules for your CodeBuild build project.
      * </p>
      * 
      * @param fetchSubmodules
-     *        Set to true to fetch Git submodules for your AWS CodeBuild build project.
+     *        Set to true to fetch Git submodules for your CodeBuild build project.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -77,10 +77,10 @@ public class GitSubmodulesConfig implements Serializable, Cloneable, StructuredP
 
     /**
      * <p>
-     * Set to true to fetch Git submodules for your AWS CodeBuild build project.
+     * Set to true to fetch Git submodules for your CodeBuild build project.
      * </p>
      * 
-     * @return Set to true to fetch Git submodules for your AWS CodeBuild build project.
+     * @return Set to true to fetch Git submodules for your CodeBuild build project.
      */
 
     public Boolean isFetchSubmodules() {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,6 +38,10 @@ public class AddOutputRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("encryption").build();
     private static final MarshallingInfo<Integer> MAXLATENCY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("maxLatency").build();
+    private static final MarshallingInfo<List> MEDIASTREAMOUTPUTCONFIGURATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("mediaStreamOutputConfigurations").build();
+    private static final MarshallingInfo<Integer> MINLATENCY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("minLatency").build();
     private static final MarshallingInfo<String> NAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("name").build();
     private static final MarshallingInfo<Integer> PORT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER).marshallLocation(MarshallLocation.PAYLOAD)
@@ -46,10 +50,16 @@ public class AddOutputRequestMarshaller {
             .marshallLocationName("protocol").build();
     private static final MarshallingInfo<String> REMOTEID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("remoteId").build();
+    private static final MarshallingInfo<Integer> SENDERCONTROLPORT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("senderControlPort").build();
     private static final MarshallingInfo<Integer> SMOOTHINGLATENCY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("smoothingLatency").build();
     private static final MarshallingInfo<String> STREAMID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("streamId").build();
+    private static final MarshallingInfo<StructuredPojo> VPCINTERFACEATTACHMENT_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("vpcInterfaceAttachment").build();
+    private static final MarshallingInfo<String> OUTPUTSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("outputStatus").build();
 
     private static final AddOutputRequestMarshaller instance = new AddOutputRequestMarshaller();
 
@@ -72,12 +82,17 @@ public class AddOutputRequestMarshaller {
             protocolMarshaller.marshall(addOutputRequest.getDestination(), DESTINATION_BINDING);
             protocolMarshaller.marshall(addOutputRequest.getEncryption(), ENCRYPTION_BINDING);
             protocolMarshaller.marshall(addOutputRequest.getMaxLatency(), MAXLATENCY_BINDING);
+            protocolMarshaller.marshall(addOutputRequest.getMediaStreamOutputConfigurations(), MEDIASTREAMOUTPUTCONFIGURATIONS_BINDING);
+            protocolMarshaller.marshall(addOutputRequest.getMinLatency(), MINLATENCY_BINDING);
             protocolMarshaller.marshall(addOutputRequest.getName(), NAME_BINDING);
             protocolMarshaller.marshall(addOutputRequest.getPort(), PORT_BINDING);
             protocolMarshaller.marshall(addOutputRequest.getProtocol(), PROTOCOL_BINDING);
             protocolMarshaller.marshall(addOutputRequest.getRemoteId(), REMOTEID_BINDING);
+            protocolMarshaller.marshall(addOutputRequest.getSenderControlPort(), SENDERCONTROLPORT_BINDING);
             protocolMarshaller.marshall(addOutputRequest.getSmoothingLatency(), SMOOTHINGLATENCY_BINDING);
             protocolMarshaller.marshall(addOutputRequest.getStreamId(), STREAMID_BINDING);
+            protocolMarshaller.marshall(addOutputRequest.getVpcInterfaceAttachment(), VPCINTERFACEATTACHMENT_BINDING);
+            protocolMarshaller.marshall(addOutputRequest.getOutputStatus(), OUTPUTSTATUS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

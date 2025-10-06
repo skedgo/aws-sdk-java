@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
+ * <p>
+ * Contains the parameters for <code>CreateJobQueue</code>.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/CreateJobQueue" target="_top">AWS API
  *      Documentation</a>
@@ -27,42 +30,84 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the job queue.
+     * The name of the job queue. It can be up to 128 letters long. It can contain uppercase and lowercase letters,
+     * numbers, hyphens (-), and underscores (_).
      * </p>
      */
     private String jobQueueName;
     /**
      * <p>
-     * The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs.
+     * The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs. If the job
+     * queue state is <code>DISABLED</code>, new jobs can't be added to the queue, but jobs already in the queue can
+     * finish.
      * </p>
      */
     private String state;
     /**
      * <p>
+     * The Amazon Resource Name (ARN) of the fair share scheduling policy. If this parameter is specified, the job queue
+     * uses a fair share scheduling policy. If this parameter isn't specified, the job queue uses a first in, first out
+     * (FIFO) scheduling policy. After a job queue is created, you can replace but can't remove the fair share
+     * scheduling policy. The format is
+     * <code>aws:<i>Partition</i>:batch:<i>Region</i>:<i>Account</i>:scheduling-policy/<i>Name</i> </code>. An example
+     * is <code>aws:aws:batch:us-west-2:123456789012:scheduling-policy/MySchedulingPolicy</code>.
+     * </p>
+     */
+    private String schedulingPolicyArn;
+    /**
+     * <p>
      * The priority of the job queue. Job queues with a higher priority (or a higher integer value for the
      * <code>priority</code> parameter) are evaluated first when associated with the same compute environment. Priority
-     * is determined in descending order, for example, a job queue with a priority value of <code>10</code> is given
-     * scheduling preference over a job queue with a priority value of <code>1</code>.
+     * is determined in descending order. For example, a job queue with a priority value of <code>10</code> is given
+     * scheduling preference over a job queue with a priority value of <code>1</code>. All of the compute environments
+     * must be either EC2 (<code>EC2</code> or <code>SPOT</code>) or Fargate (<code>FARGATE</code> or
+     * <code>FARGATE_SPOT</code>); EC2 and Fargate compute environments can't be mixed.
      * </p>
      */
     private Integer priority;
     /**
      * <p>
      * The set of compute environments mapped to a job queue and their order relative to each other. The job scheduler
-     * uses this parameter to determine which compute environment should execute a given job. Compute environments must
-     * be in the <code>VALID</code> state before you can associate them with a job queue. You can associate up to three
-     * compute environments with a job queue.
+     * uses this parameter to determine which compute environment runs a specific job. Compute environments must be in
+     * the <code>VALID</code> state before you can associate them with a job queue. You can associate up to three
+     * compute environments with a job queue. All of the compute environments must be either EC2 (<code>EC2</code> or
+     * <code>SPOT</code>) or Fargate (<code>FARGATE</code> or <code>FARGATE_SPOT</code>); EC2 and Fargate compute
+     * environments can't be mixed.
      * </p>
+     * <note>
+     * <p>
+     * All compute environments that are associated with a job queue must share the same architecture. Batch doesn't
+     * support mixing compute environment architecture types in a single job queue.
+     * </p>
+     * </note>
      */
     private java.util.List<ComputeEnvironmentOrder> computeEnvironmentOrder;
+    /**
+     * <p>
+     * The tags that you apply to the job queue to help you categorize and organize your resources. Each tag consists of
+     * a key and an optional value. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html">Tagging your Batch resources</a> in
+     * <i>Batch User Guide</i>.
+     * </p>
+     */
+    private java.util.Map<String, String> tags;
+    /**
+     * <p>
+     * The set of actions that Batch performs on jobs that remain at the head of the job queue in the specified state
+     * longer than specified times. Batch will perform each action after <code>maxTimeSeconds</code> has passed.
+     * </p>
+     */
+    private java.util.List<JobStateTimeLimitAction> jobStateTimeLimitActions;
 
     /**
      * <p>
-     * The name of the job queue.
+     * The name of the job queue. It can be up to 128 letters long. It can contain uppercase and lowercase letters,
+     * numbers, hyphens (-), and underscores (_).
      * </p>
      * 
      * @param jobQueueName
-     *        The name of the job queue.
+     *        The name of the job queue. It can be up to 128 letters long. It can contain uppercase and lowercase
+     *        letters, numbers, hyphens (-), and underscores (_).
      */
 
     public void setJobQueueName(String jobQueueName) {
@@ -71,10 +116,12 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the job queue.
+     * The name of the job queue. It can be up to 128 letters long. It can contain uppercase and lowercase letters,
+     * numbers, hyphens (-), and underscores (_).
      * </p>
      * 
-     * @return The name of the job queue.
+     * @return The name of the job queue. It can be up to 128 letters long. It can contain uppercase and lowercase
+     *         letters, numbers, hyphens (-), and underscores (_).
      */
 
     public String getJobQueueName() {
@@ -83,11 +130,13 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the job queue.
+     * The name of the job queue. It can be up to 128 letters long. It can contain uppercase and lowercase letters,
+     * numbers, hyphens (-), and underscores (_).
      * </p>
      * 
      * @param jobQueueName
-     *        The name of the job queue.
+     *        The name of the job queue. It can be up to 128 letters long. It can contain uppercase and lowercase
+     *        letters, numbers, hyphens (-), and underscores (_).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -98,11 +147,15 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs.
+     * The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs. If the job
+     * queue state is <code>DISABLED</code>, new jobs can't be added to the queue, but jobs already in the queue can
+     * finish.
      * </p>
      * 
      * @param state
-     *        The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs.
+     *        The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs. If
+     *        the job queue state is <code>DISABLED</code>, new jobs can't be added to the queue, but jobs already in
+     *        the queue can finish.
      * @see JQState
      */
 
@@ -112,10 +165,14 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs.
+     * The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs. If the job
+     * queue state is <code>DISABLED</code>, new jobs can't be added to the queue, but jobs already in the queue can
+     * finish.
      * </p>
      * 
-     * @return The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs.
+     * @return The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs. If
+     *         the job queue state is <code>DISABLED</code>, new jobs can't be added to the queue, but jobs already in
+     *         the queue can finish.
      * @see JQState
      */
 
@@ -125,11 +182,15 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs.
+     * The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs. If the job
+     * queue state is <code>DISABLED</code>, new jobs can't be added to the queue, but jobs already in the queue can
+     * finish.
      * </p>
      * 
      * @param state
-     *        The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs.
+     *        The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs. If
+     *        the job queue state is <code>DISABLED</code>, new jobs can't be added to the queue, but jobs already in
+     *        the queue can finish.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see JQState
      */
@@ -141,11 +202,15 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs.
+     * The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs. If the job
+     * queue state is <code>DISABLED</code>, new jobs can't be added to the queue, but jobs already in the queue can
+     * finish.
      * </p>
      * 
      * @param state
-     *        The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs.
+     *        The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs. If
+     *        the job queue state is <code>DISABLED</code>, new jobs can't be added to the queue, but jobs already in
+     *        the queue can finish.
      * @see JQState
      */
 
@@ -155,11 +220,15 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs.
+     * The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs. If the job
+     * queue state is <code>DISABLED</code>, new jobs can't be added to the queue, but jobs already in the queue can
+     * finish.
      * </p>
      * 
      * @param state
-     *        The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs.
+     *        The state of the job queue. If the job queue state is <code>ENABLED</code>, it is able to accept jobs. If
+     *        the job queue state is <code>DISABLED</code>, new jobs can't be added to the queue, but jobs already in
+     *        the queue can finish.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see JQState
      */
@@ -171,17 +240,91 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
+     * The Amazon Resource Name (ARN) of the fair share scheduling policy. If this parameter is specified, the job queue
+     * uses a fair share scheduling policy. If this parameter isn't specified, the job queue uses a first in, first out
+     * (FIFO) scheduling policy. After a job queue is created, you can replace but can't remove the fair share
+     * scheduling policy. The format is
+     * <code>aws:<i>Partition</i>:batch:<i>Region</i>:<i>Account</i>:scheduling-policy/<i>Name</i> </code>. An example
+     * is <code>aws:aws:batch:us-west-2:123456789012:scheduling-policy/MySchedulingPolicy</code>.
+     * </p>
+     * 
+     * @param schedulingPolicyArn
+     *        The Amazon Resource Name (ARN) of the fair share scheduling policy. If this parameter is specified, the
+     *        job queue uses a fair share scheduling policy. If this parameter isn't specified, the job queue uses a
+     *        first in, first out (FIFO) scheduling policy. After a job queue is created, you can replace but can't
+     *        remove the fair share scheduling policy. The format is
+     *        <code>aws:<i>Partition</i>:batch:<i>Region</i>:<i>Account</i>:scheduling-policy/<i>Name</i> </code>. An
+     *        example is <code>aws:aws:batch:us-west-2:123456789012:scheduling-policy/MySchedulingPolicy</code>.
+     */
+
+    public void setSchedulingPolicyArn(String schedulingPolicyArn) {
+        this.schedulingPolicyArn = schedulingPolicyArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the fair share scheduling policy. If this parameter is specified, the job queue
+     * uses a fair share scheduling policy. If this parameter isn't specified, the job queue uses a first in, first out
+     * (FIFO) scheduling policy. After a job queue is created, you can replace but can't remove the fair share
+     * scheduling policy. The format is
+     * <code>aws:<i>Partition</i>:batch:<i>Region</i>:<i>Account</i>:scheduling-policy/<i>Name</i> </code>. An example
+     * is <code>aws:aws:batch:us-west-2:123456789012:scheduling-policy/MySchedulingPolicy</code>.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the fair share scheduling policy. If this parameter is specified, the
+     *         job queue uses a fair share scheduling policy. If this parameter isn't specified, the job queue uses a
+     *         first in, first out (FIFO) scheduling policy. After a job queue is created, you can replace but can't
+     *         remove the fair share scheduling policy. The format is
+     *         <code>aws:<i>Partition</i>:batch:<i>Region</i>:<i>Account</i>:scheduling-policy/<i>Name</i> </code>. An
+     *         example is <code>aws:aws:batch:us-west-2:123456789012:scheduling-policy/MySchedulingPolicy</code>.
+     */
+
+    public String getSchedulingPolicyArn() {
+        return this.schedulingPolicyArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the fair share scheduling policy. If this parameter is specified, the job queue
+     * uses a fair share scheduling policy. If this parameter isn't specified, the job queue uses a first in, first out
+     * (FIFO) scheduling policy. After a job queue is created, you can replace but can't remove the fair share
+     * scheduling policy. The format is
+     * <code>aws:<i>Partition</i>:batch:<i>Region</i>:<i>Account</i>:scheduling-policy/<i>Name</i> </code>. An example
+     * is <code>aws:aws:batch:us-west-2:123456789012:scheduling-policy/MySchedulingPolicy</code>.
+     * </p>
+     * 
+     * @param schedulingPolicyArn
+     *        The Amazon Resource Name (ARN) of the fair share scheduling policy. If this parameter is specified, the
+     *        job queue uses a fair share scheduling policy. If this parameter isn't specified, the job queue uses a
+     *        first in, first out (FIFO) scheduling policy. After a job queue is created, you can replace but can't
+     *        remove the fair share scheduling policy. The format is
+     *        <code>aws:<i>Partition</i>:batch:<i>Region</i>:<i>Account</i>:scheduling-policy/<i>Name</i> </code>. An
+     *        example is <code>aws:aws:batch:us-west-2:123456789012:scheduling-policy/MySchedulingPolicy</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobQueueRequest withSchedulingPolicyArn(String schedulingPolicyArn) {
+        setSchedulingPolicyArn(schedulingPolicyArn);
+        return this;
+    }
+
+    /**
+     * <p>
      * The priority of the job queue. Job queues with a higher priority (or a higher integer value for the
      * <code>priority</code> parameter) are evaluated first when associated with the same compute environment. Priority
-     * is determined in descending order, for example, a job queue with a priority value of <code>10</code> is given
-     * scheduling preference over a job queue with a priority value of <code>1</code>.
+     * is determined in descending order. For example, a job queue with a priority value of <code>10</code> is given
+     * scheduling preference over a job queue with a priority value of <code>1</code>. All of the compute environments
+     * must be either EC2 (<code>EC2</code> or <code>SPOT</code>) or Fargate (<code>FARGATE</code> or
+     * <code>FARGATE_SPOT</code>); EC2 and Fargate compute environments can't be mixed.
      * </p>
      * 
      * @param priority
      *        The priority of the job queue. Job queues with a higher priority (or a higher integer value for the
      *        <code>priority</code> parameter) are evaluated first when associated with the same compute environment.
-     *        Priority is determined in descending order, for example, a job queue with a priority value of
+     *        Priority is determined in descending order. For example, a job queue with a priority value of
      *        <code>10</code> is given scheduling preference over a job queue with a priority value of <code>1</code>.
+     *        All of the compute environments must be either EC2 (<code>EC2</code> or <code>SPOT</code>) or Fargate (
+     *        <code>FARGATE</code> or <code>FARGATE_SPOT</code>); EC2 and Fargate compute environments can't be mixed.
      */
 
     public void setPriority(Integer priority) {
@@ -192,14 +335,18 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * The priority of the job queue. Job queues with a higher priority (or a higher integer value for the
      * <code>priority</code> parameter) are evaluated first when associated with the same compute environment. Priority
-     * is determined in descending order, for example, a job queue with a priority value of <code>10</code> is given
-     * scheduling preference over a job queue with a priority value of <code>1</code>.
+     * is determined in descending order. For example, a job queue with a priority value of <code>10</code> is given
+     * scheduling preference over a job queue with a priority value of <code>1</code>. All of the compute environments
+     * must be either EC2 (<code>EC2</code> or <code>SPOT</code>) or Fargate (<code>FARGATE</code> or
+     * <code>FARGATE_SPOT</code>); EC2 and Fargate compute environments can't be mixed.
      * </p>
      * 
      * @return The priority of the job queue. Job queues with a higher priority (or a higher integer value for the
      *         <code>priority</code> parameter) are evaluated first when associated with the same compute environment.
-     *         Priority is determined in descending order, for example, a job queue with a priority value of
+     *         Priority is determined in descending order. For example, a job queue with a priority value of
      *         <code>10</code> is given scheduling preference over a job queue with a priority value of <code>1</code>.
+     *         All of the compute environments must be either EC2 (<code>EC2</code> or <code>SPOT</code>) or Fargate (
+     *         <code>FARGATE</code> or <code>FARGATE_SPOT</code>); EC2 and Fargate compute environments can't be mixed.
      */
 
     public Integer getPriority() {
@@ -210,15 +357,19 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
      * <p>
      * The priority of the job queue. Job queues with a higher priority (or a higher integer value for the
      * <code>priority</code> parameter) are evaluated first when associated with the same compute environment. Priority
-     * is determined in descending order, for example, a job queue with a priority value of <code>10</code> is given
-     * scheduling preference over a job queue with a priority value of <code>1</code>.
+     * is determined in descending order. For example, a job queue with a priority value of <code>10</code> is given
+     * scheduling preference over a job queue with a priority value of <code>1</code>. All of the compute environments
+     * must be either EC2 (<code>EC2</code> or <code>SPOT</code>) or Fargate (<code>FARGATE</code> or
+     * <code>FARGATE_SPOT</code>); EC2 and Fargate compute environments can't be mixed.
      * </p>
      * 
      * @param priority
      *        The priority of the job queue. Job queues with a higher priority (or a higher integer value for the
      *        <code>priority</code> parameter) are evaluated first when associated with the same compute environment.
-     *        Priority is determined in descending order, for example, a job queue with a priority value of
+     *        Priority is determined in descending order. For example, a job queue with a priority value of
      *        <code>10</code> is given scheduling preference over a job queue with a priority value of <code>1</code>.
+     *        All of the compute environments must be either EC2 (<code>EC2</code> or <code>SPOT</code>) or Fargate (
+     *        <code>FARGATE</code> or <code>FARGATE_SPOT</code>); EC2 and Fargate compute environments can't be mixed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -230,15 +381,29 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * The set of compute environments mapped to a job queue and their order relative to each other. The job scheduler
-     * uses this parameter to determine which compute environment should execute a given job. Compute environments must
-     * be in the <code>VALID</code> state before you can associate them with a job queue. You can associate up to three
-     * compute environments with a job queue.
+     * uses this parameter to determine which compute environment runs a specific job. Compute environments must be in
+     * the <code>VALID</code> state before you can associate them with a job queue. You can associate up to three
+     * compute environments with a job queue. All of the compute environments must be either EC2 (<code>EC2</code> or
+     * <code>SPOT</code>) or Fargate (<code>FARGATE</code> or <code>FARGATE_SPOT</code>); EC2 and Fargate compute
+     * environments can't be mixed.
      * </p>
+     * <note>
+     * <p>
+     * All compute environments that are associated with a job queue must share the same architecture. Batch doesn't
+     * support mixing compute environment architecture types in a single job queue.
+     * </p>
+     * </note>
      * 
      * @return The set of compute environments mapped to a job queue and their order relative to each other. The job
-     *         scheduler uses this parameter to determine which compute environment should execute a given job. Compute
+     *         scheduler uses this parameter to determine which compute environment runs a specific job. Compute
      *         environments must be in the <code>VALID</code> state before you can associate them with a job queue. You
-     *         can associate up to three compute environments with a job queue.
+     *         can associate up to three compute environments with a job queue. All of the compute environments must be
+     *         either EC2 (<code>EC2</code> or <code>SPOT</code>) or Fargate (<code>FARGATE</code> or
+     *         <code>FARGATE_SPOT</code>); EC2 and Fargate compute environments can't be mixed.</p> <note>
+     *         <p>
+     *         All compute environments that are associated with a job queue must share the same architecture. Batch
+     *         doesn't support mixing compute environment architecture types in a single job queue.
+     *         </p>
      */
 
     public java.util.List<ComputeEnvironmentOrder> getComputeEnvironmentOrder() {
@@ -248,16 +413,30 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * The set of compute environments mapped to a job queue and their order relative to each other. The job scheduler
-     * uses this parameter to determine which compute environment should execute a given job. Compute environments must
-     * be in the <code>VALID</code> state before you can associate them with a job queue. You can associate up to three
-     * compute environments with a job queue.
+     * uses this parameter to determine which compute environment runs a specific job. Compute environments must be in
+     * the <code>VALID</code> state before you can associate them with a job queue. You can associate up to three
+     * compute environments with a job queue. All of the compute environments must be either EC2 (<code>EC2</code> or
+     * <code>SPOT</code>) or Fargate (<code>FARGATE</code> or <code>FARGATE_SPOT</code>); EC2 and Fargate compute
+     * environments can't be mixed.
      * </p>
+     * <note>
+     * <p>
+     * All compute environments that are associated with a job queue must share the same architecture. Batch doesn't
+     * support mixing compute environment architecture types in a single job queue.
+     * </p>
+     * </note>
      * 
      * @param computeEnvironmentOrder
      *        The set of compute environments mapped to a job queue and their order relative to each other. The job
-     *        scheduler uses this parameter to determine which compute environment should execute a given job. Compute
+     *        scheduler uses this parameter to determine which compute environment runs a specific job. Compute
      *        environments must be in the <code>VALID</code> state before you can associate them with a job queue. You
-     *        can associate up to three compute environments with a job queue.
+     *        can associate up to three compute environments with a job queue. All of the compute environments must be
+     *        either EC2 (<code>EC2</code> or <code>SPOT</code>) or Fargate (<code>FARGATE</code> or
+     *        <code>FARGATE_SPOT</code>); EC2 and Fargate compute environments can't be mixed.</p> <note>
+     *        <p>
+     *        All compute environments that are associated with a job queue must share the same architecture. Batch
+     *        doesn't support mixing compute environment architecture types in a single job queue.
+     *        </p>
      */
 
     public void setComputeEnvironmentOrder(java.util.Collection<ComputeEnvironmentOrder> computeEnvironmentOrder) {
@@ -272,10 +451,18 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * The set of compute environments mapped to a job queue and their order relative to each other. The job scheduler
-     * uses this parameter to determine which compute environment should execute a given job. Compute environments must
-     * be in the <code>VALID</code> state before you can associate them with a job queue. You can associate up to three
-     * compute environments with a job queue.
+     * uses this parameter to determine which compute environment runs a specific job. Compute environments must be in
+     * the <code>VALID</code> state before you can associate them with a job queue. You can associate up to three
+     * compute environments with a job queue. All of the compute environments must be either EC2 (<code>EC2</code> or
+     * <code>SPOT</code>) or Fargate (<code>FARGATE</code> or <code>FARGATE_SPOT</code>); EC2 and Fargate compute
+     * environments can't be mixed.
      * </p>
+     * <note>
+     * <p>
+     * All compute environments that are associated with a job queue must share the same architecture. Batch doesn't
+     * support mixing compute environment architecture types in a single job queue.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setComputeEnvironmentOrder(java.util.Collection)} or
@@ -284,9 +471,15 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
      * 
      * @param computeEnvironmentOrder
      *        The set of compute environments mapped to a job queue and their order relative to each other. The job
-     *        scheduler uses this parameter to determine which compute environment should execute a given job. Compute
+     *        scheduler uses this parameter to determine which compute environment runs a specific job. Compute
      *        environments must be in the <code>VALID</code> state before you can associate them with a job queue. You
-     *        can associate up to three compute environments with a job queue.
+     *        can associate up to three compute environments with a job queue. All of the compute environments must be
+     *        either EC2 (<code>EC2</code> or <code>SPOT</code>) or Fargate (<code>FARGATE</code> or
+     *        <code>FARGATE_SPOT</code>); EC2 and Fargate compute environments can't be mixed.</p> <note>
+     *        <p>
+     *        All compute environments that are associated with a job queue must share the same architecture. Batch
+     *        doesn't support mixing compute environment architecture types in a single job queue.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -303,21 +496,203 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * The set of compute environments mapped to a job queue and their order relative to each other. The job scheduler
-     * uses this parameter to determine which compute environment should execute a given job. Compute environments must
-     * be in the <code>VALID</code> state before you can associate them with a job queue. You can associate up to three
-     * compute environments with a job queue.
+     * uses this parameter to determine which compute environment runs a specific job. Compute environments must be in
+     * the <code>VALID</code> state before you can associate them with a job queue. You can associate up to three
+     * compute environments with a job queue. All of the compute environments must be either EC2 (<code>EC2</code> or
+     * <code>SPOT</code>) or Fargate (<code>FARGATE</code> or <code>FARGATE_SPOT</code>); EC2 and Fargate compute
+     * environments can't be mixed.
      * </p>
+     * <note>
+     * <p>
+     * All compute environments that are associated with a job queue must share the same architecture. Batch doesn't
+     * support mixing compute environment architecture types in a single job queue.
+     * </p>
+     * </note>
      * 
      * @param computeEnvironmentOrder
      *        The set of compute environments mapped to a job queue and their order relative to each other. The job
-     *        scheduler uses this parameter to determine which compute environment should execute a given job. Compute
+     *        scheduler uses this parameter to determine which compute environment runs a specific job. Compute
      *        environments must be in the <code>VALID</code> state before you can associate them with a job queue. You
-     *        can associate up to three compute environments with a job queue.
+     *        can associate up to three compute environments with a job queue. All of the compute environments must be
+     *        either EC2 (<code>EC2</code> or <code>SPOT</code>) or Fargate (<code>FARGATE</code> or
+     *        <code>FARGATE_SPOT</code>); EC2 and Fargate compute environments can't be mixed.</p> <note>
+     *        <p>
+     *        All compute environments that are associated with a job queue must share the same architecture. Batch
+     *        doesn't support mixing compute environment architecture types in a single job queue.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateJobQueueRequest withComputeEnvironmentOrder(java.util.Collection<ComputeEnvironmentOrder> computeEnvironmentOrder) {
         setComputeEnvironmentOrder(computeEnvironmentOrder);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags that you apply to the job queue to help you categorize and organize your resources. Each tag consists of
+     * a key and an optional value. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html">Tagging your Batch resources</a> in
+     * <i>Batch User Guide</i>.
+     * </p>
+     * 
+     * @return The tags that you apply to the job queue to help you categorize and organize your resources. Each tag
+     *         consists of a key and an optional value. For more information, see <a
+     *         href="https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html">Tagging your Batch
+     *         resources</a> in <i>Batch User Guide</i>.
+     */
+
+    public java.util.Map<String, String> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * The tags that you apply to the job queue to help you categorize and organize your resources. Each tag consists of
+     * a key and an optional value. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html">Tagging your Batch resources</a> in
+     * <i>Batch User Guide</i>.
+     * </p>
+     * 
+     * @param tags
+     *        The tags that you apply to the job queue to help you categorize and organize your resources. Each tag
+     *        consists of a key and an optional value. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html">Tagging your Batch resources</a>
+     *        in <i>Batch User Guide</i>.
+     */
+
+    public void setTags(java.util.Map<String, String> tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * <p>
+     * The tags that you apply to the job queue to help you categorize and organize your resources. Each tag consists of
+     * a key and an optional value. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html">Tagging your Batch resources</a> in
+     * <i>Batch User Guide</i>.
+     * </p>
+     * 
+     * @param tags
+     *        The tags that you apply to the job queue to help you categorize and organize your resources. Each tag
+     *        consists of a key and an optional value. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html">Tagging your Batch resources</a>
+     *        in <i>Batch User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobQueueRequest withTags(java.util.Map<String, String> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateJobQueueRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobQueueRequest addTagsEntry(String key, String value) {
+        if (null == this.tags) {
+            this.tags = new java.util.HashMap<String, String>();
+        }
+        if (this.tags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.tags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Tags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobQueueRequest clearTagsEntries() {
+        this.tags = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The set of actions that Batch performs on jobs that remain at the head of the job queue in the specified state
+     * longer than specified times. Batch will perform each action after <code>maxTimeSeconds</code> has passed.
+     * </p>
+     * 
+     * @return The set of actions that Batch performs on jobs that remain at the head of the job queue in the specified
+     *         state longer than specified times. Batch will perform each action after <code>maxTimeSeconds</code> has
+     *         passed.
+     */
+
+    public java.util.List<JobStateTimeLimitAction> getJobStateTimeLimitActions() {
+        return jobStateTimeLimitActions;
+    }
+
+    /**
+     * <p>
+     * The set of actions that Batch performs on jobs that remain at the head of the job queue in the specified state
+     * longer than specified times. Batch will perform each action after <code>maxTimeSeconds</code> has passed.
+     * </p>
+     * 
+     * @param jobStateTimeLimitActions
+     *        The set of actions that Batch performs on jobs that remain at the head of the job queue in the specified
+     *        state longer than specified times. Batch will perform each action after <code>maxTimeSeconds</code> has
+     *        passed.
+     */
+
+    public void setJobStateTimeLimitActions(java.util.Collection<JobStateTimeLimitAction> jobStateTimeLimitActions) {
+        if (jobStateTimeLimitActions == null) {
+            this.jobStateTimeLimitActions = null;
+            return;
+        }
+
+        this.jobStateTimeLimitActions = new java.util.ArrayList<JobStateTimeLimitAction>(jobStateTimeLimitActions);
+    }
+
+    /**
+     * <p>
+     * The set of actions that Batch performs on jobs that remain at the head of the job queue in the specified state
+     * longer than specified times. Batch will perform each action after <code>maxTimeSeconds</code> has passed.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setJobStateTimeLimitActions(java.util.Collection)} or
+     * {@link #withJobStateTimeLimitActions(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param jobStateTimeLimitActions
+     *        The set of actions that Batch performs on jobs that remain at the head of the job queue in the specified
+     *        state longer than specified times. Batch will perform each action after <code>maxTimeSeconds</code> has
+     *        passed.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobQueueRequest withJobStateTimeLimitActions(JobStateTimeLimitAction... jobStateTimeLimitActions) {
+        if (this.jobStateTimeLimitActions == null) {
+            setJobStateTimeLimitActions(new java.util.ArrayList<JobStateTimeLimitAction>(jobStateTimeLimitActions.length));
+        }
+        for (JobStateTimeLimitAction ele : jobStateTimeLimitActions) {
+            this.jobStateTimeLimitActions.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The set of actions that Batch performs on jobs that remain at the head of the job queue in the specified state
+     * longer than specified times. Batch will perform each action after <code>maxTimeSeconds</code> has passed.
+     * </p>
+     * 
+     * @param jobStateTimeLimitActions
+     *        The set of actions that Batch performs on jobs that remain at the head of the job queue in the specified
+     *        state longer than specified times. Batch will perform each action after <code>maxTimeSeconds</code> has
+     *        passed.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateJobQueueRequest withJobStateTimeLimitActions(java.util.Collection<JobStateTimeLimitAction> jobStateTimeLimitActions) {
+        setJobStateTimeLimitActions(jobStateTimeLimitActions);
         return this;
     }
 
@@ -337,10 +712,16 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
             sb.append("JobQueueName: ").append(getJobQueueName()).append(",");
         if (getState() != null)
             sb.append("State: ").append(getState()).append(",");
+        if (getSchedulingPolicyArn() != null)
+            sb.append("SchedulingPolicyArn: ").append(getSchedulingPolicyArn()).append(",");
         if (getPriority() != null)
             sb.append("Priority: ").append(getPriority()).append(",");
         if (getComputeEnvironmentOrder() != null)
-            sb.append("ComputeEnvironmentOrder: ").append(getComputeEnvironmentOrder());
+            sb.append("ComputeEnvironmentOrder: ").append(getComputeEnvironmentOrder()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getJobStateTimeLimitActions() != null)
+            sb.append("JobStateTimeLimitActions: ").append(getJobStateTimeLimitActions());
         sb.append("}");
         return sb.toString();
     }
@@ -363,6 +744,10 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getState() != null && other.getState().equals(this.getState()) == false)
             return false;
+        if (other.getSchedulingPolicyArn() == null ^ this.getSchedulingPolicyArn() == null)
+            return false;
+        if (other.getSchedulingPolicyArn() != null && other.getSchedulingPolicyArn().equals(this.getSchedulingPolicyArn()) == false)
+            return false;
         if (other.getPriority() == null ^ this.getPriority() == null)
             return false;
         if (other.getPriority() != null && other.getPriority().equals(this.getPriority()) == false)
@@ -370,6 +755,14 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
         if (other.getComputeEnvironmentOrder() == null ^ this.getComputeEnvironmentOrder() == null)
             return false;
         if (other.getComputeEnvironmentOrder() != null && other.getComputeEnvironmentOrder().equals(this.getComputeEnvironmentOrder()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getJobStateTimeLimitActions() == null ^ this.getJobStateTimeLimitActions() == null)
+            return false;
+        if (other.getJobStateTimeLimitActions() != null && other.getJobStateTimeLimitActions().equals(this.getJobStateTimeLimitActions()) == false)
             return false;
         return true;
     }
@@ -381,8 +774,11 @@ public class CreateJobQueueRequest extends com.amazonaws.AmazonWebServiceRequest
 
         hashCode = prime * hashCode + ((getJobQueueName() == null) ? 0 : getJobQueueName().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
+        hashCode = prime * hashCode + ((getSchedulingPolicyArn() == null) ? 0 : getSchedulingPolicyArn().hashCode());
         hashCode = prime * hashCode + ((getPriority() == null) ? 0 : getPriority().hashCode());
         hashCode = prime * hashCode + ((getComputeEnvironmentOrder() == null) ? 0 : getComputeEnvironmentOrder().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getJobStateTimeLimitActions() == null) ? 0 : getJobStateTimeLimitActions().hashCode());
         return hashCode;
     }
 

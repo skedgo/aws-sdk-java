@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.kms.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -57,6 +58,26 @@ public class KeyMetadataMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExpirationModel").build();
     private static final MarshallingInfo<String> KEYMANAGER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("KeyManager").build();
+    private static final MarshallingInfo<String> CUSTOMERMASTERKEYSPEC_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CustomerMasterKeySpec").build();
+    private static final MarshallingInfo<String> KEYSPEC_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("KeySpec").build();
+    private static final MarshallingInfo<List> ENCRYPTIONALGORITHMS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EncryptionAlgorithms").build();
+    private static final MarshallingInfo<List> SIGNINGALGORITHMS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SigningAlgorithms").build();
+    private static final MarshallingInfo<List> KEYAGREEMENTALGORITHMS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("KeyAgreementAlgorithms").build();
+    private static final MarshallingInfo<Boolean> MULTIREGION_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MultiRegion").build();
+    private static final MarshallingInfo<StructuredPojo> MULTIREGIONCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MultiRegionConfiguration").build();
+    private static final MarshallingInfo<Integer> PENDINGDELETIONWINDOWINDAYS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PendingDeletionWindowInDays").build();
+    private static final MarshallingInfo<List> MACALGORITHMS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("MacAlgorithms").build();
+    private static final MarshallingInfo<StructuredPojo> XKSKEYCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("XksKeyConfiguration").build();
 
     private static final KeyMetadataMarshaller instance = new KeyMetadataMarshaller();
 
@@ -89,6 +110,16 @@ public class KeyMetadataMarshaller {
             protocolMarshaller.marshall(keyMetadata.getCloudHsmClusterId(), CLOUDHSMCLUSTERID_BINDING);
             protocolMarshaller.marshall(keyMetadata.getExpirationModel(), EXPIRATIONMODEL_BINDING);
             protocolMarshaller.marshall(keyMetadata.getKeyManager(), KEYMANAGER_BINDING);
+            protocolMarshaller.marshall(keyMetadata.getCustomerMasterKeySpec(), CUSTOMERMASTERKEYSPEC_BINDING);
+            protocolMarshaller.marshall(keyMetadata.getKeySpec(), KEYSPEC_BINDING);
+            protocolMarshaller.marshall(keyMetadata.getEncryptionAlgorithms(), ENCRYPTIONALGORITHMS_BINDING);
+            protocolMarshaller.marshall(keyMetadata.getSigningAlgorithms(), SIGNINGALGORITHMS_BINDING);
+            protocolMarshaller.marshall(keyMetadata.getKeyAgreementAlgorithms(), KEYAGREEMENTALGORITHMS_BINDING);
+            protocolMarshaller.marshall(keyMetadata.getMultiRegion(), MULTIREGION_BINDING);
+            protocolMarshaller.marshall(keyMetadata.getMultiRegionConfiguration(), MULTIREGIONCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(keyMetadata.getPendingDeletionWindowInDays(), PENDINGDELETIONWINDOWINDAYS_BINDING);
+            protocolMarshaller.marshall(keyMetadata.getMacAlgorithms(), MACALGORITHMS_BINDING);
+            protocolMarshaller.marshall(keyMetadata.getXksKeyConfiguration(), XKSKEYCONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

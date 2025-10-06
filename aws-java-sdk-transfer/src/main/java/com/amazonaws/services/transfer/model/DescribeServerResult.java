@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,18 +25,18 @@ public class DescribeServerResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * An array containing the properties of the server with the <code>ServerID</code> you specified.
+     * An array containing the properties of a server with the <code>ServerID</code> you specified.
      * </p>
      */
     private DescribedServer server;
 
     /**
      * <p>
-     * An array containing the properties of the server with the <code>ServerID</code> you specified.
+     * An array containing the properties of a server with the <code>ServerID</code> you specified.
      * </p>
      * 
      * @param server
-     *        An array containing the properties of the server with the <code>ServerID</code> you specified.
+     *        An array containing the properties of a server with the <code>ServerID</code> you specified.
      */
 
     public void setServer(DescribedServer server) {
@@ -45,10 +45,10 @@ public class DescribeServerResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * An array containing the properties of the server with the <code>ServerID</code> you specified.
+     * An array containing the properties of a server with the <code>ServerID</code> you specified.
      * </p>
      * 
-     * @return An array containing the properties of the server with the <code>ServerID</code> you specified.
+     * @return An array containing the properties of a server with the <code>ServerID</code> you specified.
      */
 
     public DescribedServer getServer() {
@@ -57,11 +57,11 @@ public class DescribeServerResult extends com.amazonaws.AmazonWebServiceResult<c
 
     /**
      * <p>
-     * An array containing the properties of the server with the <code>ServerID</code> you specified.
+     * An array containing the properties of a server with the <code>ServerID</code> you specified.
      * </p>
      * 
      * @param server
-     *        An array containing the properties of the server with the <code>ServerID</code> you specified.
+     *        An array containing the properties of a server with the <code>ServerID</code> you specified.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

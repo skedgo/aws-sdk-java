@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,12 +21,6 @@ import javax.annotation.Generated;
  * guide you on how to interact with your collection. The collection offers a paginated view of the contained
  * deployments.
  * </p>
- * <div class="remarks">To create a new deployment of a <a>RestApi</a>, make a <code>POST</code> request against this
- * resource. To view, update, or delete an existing deployment, make a <code>GET</code>, <code>PATCH</code>, or
- * <code>DELETE</code> request, respectively, on a specified <a>Deployment</a> resource.</div> <div class="seeAlso"> <a
- * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-deploy-api.html">Deploying an API</a>, <a
- * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-deployment.html">AWS CLI</a>, <a
- * href="https://aws.amazon.com/tools/">AWS SDKs</a> </div>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class GetDeploymentsResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {

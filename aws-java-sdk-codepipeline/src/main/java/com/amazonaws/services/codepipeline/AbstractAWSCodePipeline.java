@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -88,6 +88,11 @@ public class AbstractAWSCodePipeline implements AWSCodePipeline {
     }
 
     @Override
+    public GetActionTypeResult getActionType(GetActionTypeRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetJobDetailsResult getJobDetails(GetJobDetailsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -133,12 +138,27 @@ public class AbstractAWSCodePipeline implements AWSCodePipeline {
     }
 
     @Override
+    public ListRuleExecutionsResult listRuleExecutions(ListRuleExecutionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListRuleTypesResult listRuleTypes(ListRuleTypesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public ListWebhooksResult listWebhooks(ListWebhooksRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public OverrideStageConditionResult overrideStageCondition(OverrideStageConditionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -198,7 +218,17 @@ public class AbstractAWSCodePipeline implements AWSCodePipeline {
     }
 
     @Override
+    public RollbackStageResult rollbackStage(RollbackStageRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StartPipelineExecutionResult startPipelineExecution(StartPipelineExecutionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StopPipelineExecutionResult stopPipelineExecution(StopPipelineExecutionRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -209,6 +239,11 @@ public class AbstractAWSCodePipeline implements AWSCodePipeline {
 
     @Override
     public UntagResourceResult untagResource(UntagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateActionTypeResult updateActionType(UpdateActionTypeRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2015-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -16,6 +16,10 @@ package com.amazonaws.handlers;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.client.builder.AdvancedConfig;
+import com.amazonaws.endpoints.AccountIdEndpointMode;
+import com.amazonaws.Protocol;
+
+import java.net.URI;
 
 /**
  * A type safe key used for setting and retrieving context in a {@link
@@ -51,9 +55,19 @@ public class HandlerContextKey<T> {
     public static final HandlerContextKey<AWSCredentials> AWS_CREDENTIALS = new HandlerContextKey<AWSCredentials>("AWSCredentials");
 
     /**
+     * The unique account identifier supplied by the credentials provider.
+     */
+    public static final HandlerContextKey<String> AWS_CREDENTIALS_ACCOUNT_ID = new HandlerContextKey<String>("AWSCredentialsAccountId");
+
+    /**
      * The region used to sign the request.
      */
     public static final HandlerContextKey<String> SIGNING_REGION = new HandlerContextKey<String>("SigningRegion");
+
+    /**
+     * The optional service name to sign the request. If present, it will override the service name in the client
+     */
+    public static final HandlerContextKey<String> SIGNING_NAME = new HandlerContextKey<String>("SIGNING_NAME");
 
     /**
      * The name of the operation for the request.
@@ -77,9 +91,35 @@ public class HandlerContextKey<T> {
     public static final HandlerContextKey<Boolean> HAS_STREAMING_INPUT = new HandlerContextKey<Boolean>("HasStreamingInput");
 
     /**
+     * A boolean value indicating if the output of the operation has a streaming member.
+     */
+    public static final HandlerContextKey<Boolean> HAS_STREAMING_OUTPUT = new HandlerContextKey<Boolean>("HasStreamingOutput");
+
+    /**
      * Advanced client configuration. Contents will be service specific.
      */
     public static final HandlerContextKey<AdvancedConfig> ADVANCED_CONFIG = new HandlerContextKey<AdvancedConfig>("AdvancedConfig");
+
+    /**
+     * A boolean value indicating if an endpoint is overridden or not
+     */
+    public static final HandlerContextKey<Boolean> ENDPOINT_OVERRIDDEN = new HandlerContextKey<Boolean>("EndpointOverridden");
+
+    /**
+     * The AccountIdEndpointMode which enables or disables account ID based endpoint routing for supported operations.
+     */
+    public static final HandlerContextKey<AccountIdEndpointMode> ACCOUNT_ID_ENDPOINT_MODE = 
+        new HandlerContextKey<AccountIdEndpointMode>("AccountIdEndpointMode");
+
+    /**
+     * The endpoint configured on the client.
+     */
+    public static final HandlerContextKey<URI> CLIENT_ENDPOINT = new HandlerContextKey<URI>("ClientEndpoint");
+
+    /**
+     * The protocol configured on the client.
+     */
+    public static final HandlerContextKey<Protocol> CLIENT_PROTOCOL = new HandlerContextKey<Protocol>("ClientProtocol");
 
     private final String name;
 

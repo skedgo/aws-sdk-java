@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,41 +28,144 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * The name of the endpoint configuration. You specify this name in a <a
-     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpoint.html">CreateEndpoint</a> request.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpoint.html">CreateEndpoint</a>
+     * request.
      * </p>
      */
     private String endpointConfigName;
     /**
      * <p>
-     * An list of <code>ProductionVariant</code> objects, one for each model that you want to host at this endpoint.
+     * An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this endpoint.
      * </p>
      */
     private java.util.List<ProductionVariant> productionVariants;
+
+    private DataCaptureConfig dataCaptureConfig;
     /**
      * <p>
-     * A list of key-value pairs. For more information, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a> in the <i> AWS Billing and Cost Management User Guide</i>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      */
     private java.util.List<Tag> tags;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of a AWS Key Management Service key that Amazon SageMaker uses to encrypt data on
-     * the storage volume attached to the ML compute instance that hosts the endpoint.
+     * The Amazon Resource Name (ARN) of a Amazon Web Services Key Management Service key that SageMaker uses to encrypt
+     * data on the storage volume attached to the ML compute instance that hosts the endpoint.
      * </p>
+     * <p>
+     * The KmsKeyId can be any of the following formats:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Key ARN: <code>arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Alias name: <code>alias/ExampleAlias</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Alias name ARN: <code>arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The KMS key policy must grant permission to the IAM role that you specify in your <code>CreateEndpoint</code>,
+     * <code>UpdateEndpoint</code> requests. For more information, refer to the Amazon Web Services Key Management
+     * Service section<a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html"> Using Key
+     * Policies in Amazon Web Services KMS </a>
+     * </p>
+     * <note>
+     * <p>
+     * Certain Nitro-based instances include local storage, dependent on the instance type. Local storage volumes are
+     * encrypted using a hardware module on the instance. You can't request a <code>KmsKeyId</code> when using an
+     * instance type with local storage. If any of the models that you specify in the <code>ProductionVariants</code>
+     * parameter use nitro-based instances with local storage, do not specify a value for the <code>KmsKeyId</code>
+     * parameter. If you specify a value for <code>KmsKeyId</code> when using any nitro-based instances with local
+     * storage, the call to <code>CreateEndpointConfig</code> fails.
+     * </p>
+     * <p>
+     * For a list of instance types that support local instance storage, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#instance-store-volumes">Instance
+     * Store Volumes</a>.
+     * </p>
+     * <p>
+     * For more information about local instance storage encryption, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html">SSD Instance Store
+     * Volumes</a>.
+     * </p>
+     * </note>
      */
     private String kmsKeyId;
+    /**
+     * <p>
+     * Specifies configuration for how an endpoint performs asynchronous inference. This is a required field in order
+     * for your Endpoint to be invoked using <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpointAsync.html"
+     * >InvokeEndpointAsync</a>.
+     * </p>
+     */
+    private AsyncInferenceConfig asyncInferenceConfig;
+    /**
+     * <p>
+     * A member of <code>CreateEndpointConfig</code> that enables explainers.
+     * </p>
+     */
+    private ExplainerConfig explainerConfig;
+    /**
+     * <p>
+     * An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this endpoint in
+     * shadow mode with production traffic replicated from the model specified on <code>ProductionVariants</code>. If
+     * you use this field, you can only specify one variant for <code>ProductionVariants</code> and one variant for
+     * <code>ShadowProductionVariants</code>.
+     * </p>
+     */
+    private java.util.List<ProductionVariant> shadowProductionVariants;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform actions on your behalf.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">SageMaker Roles</a>.
+     * </p>
+     * <note>
+     * <p>
+     * To be able to pass this role to Amazon SageMaker, the caller of this action must have the
+     * <code>iam:PassRole</code> permission.
+     * </p>
+     * </note>
+     */
+    private String executionRoleArn;
+
+    private VpcConfig vpcConfig;
+    /**
+     * <p>
+     * Sets whether all model containers deployed to the endpoint are isolated. If they are, no inbound or outbound
+     * network calls can be made to or from the model containers.
+     * </p>
+     */
+    private Boolean enableNetworkIsolation;
 
     /**
      * <p>
      * The name of the endpoint configuration. You specify this name in a <a
-     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpoint.html">CreateEndpoint</a> request.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpoint.html">CreateEndpoint</a>
+     * request.
      * </p>
      * 
      * @param endpointConfigName
      *        The name of the endpoint configuration. You specify this name in a <a
-     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpoint.html">CreateEndpoint</a> request.
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpoint.html"
+     *        >CreateEndpoint</a> request.
      */
 
     public void setEndpointConfigName(String endpointConfigName) {
@@ -72,12 +175,13 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * The name of the endpoint configuration. You specify this name in a <a
-     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpoint.html">CreateEndpoint</a> request.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpoint.html">CreateEndpoint</a>
+     * request.
      * </p>
      * 
      * @return The name of the endpoint configuration. You specify this name in a <a
-     *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpoint.html">CreateEndpoint</a>
-     *         request.
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpoint.html"
+     *         >CreateEndpoint</a> request.
      */
 
     public String getEndpointConfigName() {
@@ -87,12 +191,14 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
     /**
      * <p>
      * The name of the endpoint configuration. You specify this name in a <a
-     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpoint.html">CreateEndpoint</a> request.
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpoint.html">CreateEndpoint</a>
+     * request.
      * </p>
      * 
      * @param endpointConfigName
      *        The name of the endpoint configuration. You specify this name in a <a
-     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpoint.html">CreateEndpoint</a> request.
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpoint.html"
+     *        >CreateEndpoint</a> request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -103,10 +209,10 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * An list of <code>ProductionVariant</code> objects, one for each model that you want to host at this endpoint.
+     * An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this endpoint.
      * </p>
      * 
-     * @return An list of <code>ProductionVariant</code> objects, one for each model that you want to host at this
+     * @return An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this
      *         endpoint.
      */
 
@@ -116,11 +222,11 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * An list of <code>ProductionVariant</code> objects, one for each model that you want to host at this endpoint.
+     * An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this endpoint.
      * </p>
      * 
      * @param productionVariants
-     *        An list of <code>ProductionVariant</code> objects, one for each model that you want to host at this
+     *        An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this
      *        endpoint.
      */
 
@@ -135,7 +241,7 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * An list of <code>ProductionVariant</code> objects, one for each model that you want to host at this endpoint.
+     * An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this endpoint.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -144,7 +250,7 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param productionVariants
-     *        An list of <code>ProductionVariant</code> objects, one for each model that you want to host at this
+     *        An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this
      *        endpoint.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -161,11 +267,11 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * An list of <code>ProductionVariant</code> objects, one for each model that you want to host at this endpoint.
+     * An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this endpoint.
      * </p>
      * 
      * @param productionVariants
-     *        An list of <code>ProductionVariant</code> objects, one for each model that you want to host at this
+     *        An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this
      *        endpoint.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -176,15 +282,42 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
+     * @param dataCaptureConfig
+     */
+
+    public void setDataCaptureConfig(DataCaptureConfig dataCaptureConfig) {
+        this.dataCaptureConfig = dataCaptureConfig;
+    }
+
+    /**
+     * @return
+     */
+
+    public DataCaptureConfig getDataCaptureConfig() {
+        return this.dataCaptureConfig;
+    }
+
+    /**
+     * @param dataCaptureConfig
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEndpointConfigRequest withDataCaptureConfig(DataCaptureConfig dataCaptureConfig) {
+        setDataCaptureConfig(dataCaptureConfig);
+        return this;
+    }
+
+    /**
      * <p>
-     * A list of key-value pairs. For more information, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a> in the <i> AWS Billing and Cost Management User Guide</i>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * 
-     * @return A list of key-value pairs. For more information, see <a
-     *         href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
-     *         >Using Cost Allocation Tags</a> in the <i> AWS Billing and Cost Management User Guide</i>.
+     * @return An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *         different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *         Resources</a>.
      */
 
     public java.util.List<Tag> getTags() {
@@ -193,15 +326,16 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of key-value pairs. For more information, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a> in the <i> AWS Billing and Cost Management User Guide</i>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * 
      * @param tags
-     *        A list of key-value pairs. For more information, see <a
-     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
-     *        >Using Cost Allocation Tags</a> in the <i> AWS Billing and Cost Management User Guide</i>.
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -215,9 +349,9 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of key-value pairs. For more information, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a> in the <i> AWS Billing and Cost Management User Guide</i>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -226,9 +360,10 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param tags
-     *        A list of key-value pairs. For more information, see <a
-     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
-     *        >Using Cost Allocation Tags</a> in the <i> AWS Billing and Cost Management User Guide</i>.
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -244,15 +379,16 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of key-value pairs. For more information, see <a
-     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
-     * Cost Allocation Tags</a> in the <i> AWS Billing and Cost Management User Guide</i>.
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
      * </p>
      * 
      * @param tags
-     *        A list of key-value pairs. For more information, see <a
-     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
-     *        >Using Cost Allocation Tags</a> in the <i> AWS Billing and Cost Management User Guide</i>.
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -263,13 +399,115 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of a AWS Key Management Service key that Amazon SageMaker uses to encrypt data on
-     * the storage volume attached to the ML compute instance that hosts the endpoint.
+     * The Amazon Resource Name (ARN) of a Amazon Web Services Key Management Service key that SageMaker uses to encrypt
+     * data on the storage volume attached to the ML compute instance that hosts the endpoint.
      * </p>
+     * <p>
+     * The KmsKeyId can be any of the following formats:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Key ARN: <code>arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Alias name: <code>alias/ExampleAlias</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Alias name ARN: <code>arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The KMS key policy must grant permission to the IAM role that you specify in your <code>CreateEndpoint</code>,
+     * <code>UpdateEndpoint</code> requests. For more information, refer to the Amazon Web Services Key Management
+     * Service section<a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html"> Using Key
+     * Policies in Amazon Web Services KMS </a>
+     * </p>
+     * <note>
+     * <p>
+     * Certain Nitro-based instances include local storage, dependent on the instance type. Local storage volumes are
+     * encrypted using a hardware module on the instance. You can't request a <code>KmsKeyId</code> when using an
+     * instance type with local storage. If any of the models that you specify in the <code>ProductionVariants</code>
+     * parameter use nitro-based instances with local storage, do not specify a value for the <code>KmsKeyId</code>
+     * parameter. If you specify a value for <code>KmsKeyId</code> when using any nitro-based instances with local
+     * storage, the call to <code>CreateEndpointConfig</code> fails.
+     * </p>
+     * <p>
+     * For a list of instance types that support local instance storage, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#instance-store-volumes">Instance
+     * Store Volumes</a>.
+     * </p>
+     * <p>
+     * For more information about local instance storage encryption, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html">SSD Instance Store
+     * Volumes</a>.
+     * </p>
+     * </note>
      * 
      * @param kmsKeyId
-     *        The Amazon Resource Name (ARN) of a AWS Key Management Service key that Amazon SageMaker uses to encrypt
-     *        data on the storage volume attached to the ML compute instance that hosts the endpoint.
+     *        The Amazon Resource Name (ARN) of a Amazon Web Services Key Management Service key that SageMaker uses to
+     *        encrypt data on the storage volume attached to the ML compute instance that hosts the endpoint.</p>
+     *        <p>
+     *        The KmsKeyId can be any of the following formats:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Key ARN: <code>arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Alias name: <code>alias/ExampleAlias</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Alias name ARN: <code>arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The KMS key policy must grant permission to the IAM role that you specify in your
+     *        <code>CreateEndpoint</code>, <code>UpdateEndpoint</code> requests. For more information, refer to the
+     *        Amazon Web Services Key Management Service section<a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html"> Using Key Policies in
+     *        Amazon Web Services KMS </a>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Certain Nitro-based instances include local storage, dependent on the instance type. Local storage volumes
+     *        are encrypted using a hardware module on the instance. You can't request a <code>KmsKeyId</code> when
+     *        using an instance type with local storage. If any of the models that you specify in the
+     *        <code>ProductionVariants</code> parameter use nitro-based instances with local storage, do not specify a
+     *        value for the <code>KmsKeyId</code> parameter. If you specify a value for <code>KmsKeyId</code> when using
+     *        any nitro-based instances with local storage, the call to <code>CreateEndpointConfig</code> fails.
+     *        </p>
+     *        <p>
+     *        For a list of instance types that support local instance storage, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#instance-store-volumes"
+     *        >Instance Store Volumes</a>.
+     *        </p>
+     *        <p>
+     *        For more information about local instance storage encryption, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html">SSD Instance Store
+     *        Volumes</a>.
+     *        </p>
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -278,12 +516,114 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of a AWS Key Management Service key that Amazon SageMaker uses to encrypt data on
-     * the storage volume attached to the ML compute instance that hosts the endpoint.
+     * The Amazon Resource Name (ARN) of a Amazon Web Services Key Management Service key that SageMaker uses to encrypt
+     * data on the storage volume attached to the ML compute instance that hosts the endpoint.
      * </p>
+     * <p>
+     * The KmsKeyId can be any of the following formats:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Key ARN: <code>arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Alias name: <code>alias/ExampleAlias</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Alias name ARN: <code>arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The KMS key policy must grant permission to the IAM role that you specify in your <code>CreateEndpoint</code>,
+     * <code>UpdateEndpoint</code> requests. For more information, refer to the Amazon Web Services Key Management
+     * Service section<a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html"> Using Key
+     * Policies in Amazon Web Services KMS </a>
+     * </p>
+     * <note>
+     * <p>
+     * Certain Nitro-based instances include local storage, dependent on the instance type. Local storage volumes are
+     * encrypted using a hardware module on the instance. You can't request a <code>KmsKeyId</code> when using an
+     * instance type with local storage. If any of the models that you specify in the <code>ProductionVariants</code>
+     * parameter use nitro-based instances with local storage, do not specify a value for the <code>KmsKeyId</code>
+     * parameter. If you specify a value for <code>KmsKeyId</code> when using any nitro-based instances with local
+     * storage, the call to <code>CreateEndpointConfig</code> fails.
+     * </p>
+     * <p>
+     * For a list of instance types that support local instance storage, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#instance-store-volumes">Instance
+     * Store Volumes</a>.
+     * </p>
+     * <p>
+     * For more information about local instance storage encryption, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html">SSD Instance Store
+     * Volumes</a>.
+     * </p>
+     * </note>
      * 
-     * @return The Amazon Resource Name (ARN) of a AWS Key Management Service key that Amazon SageMaker uses to encrypt
-     *         data on the storage volume attached to the ML compute instance that hosts the endpoint.
+     * @return The Amazon Resource Name (ARN) of a Amazon Web Services Key Management Service key that SageMaker uses to
+     *         encrypt data on the storage volume attached to the ML compute instance that hosts the endpoint.</p>
+     *         <p>
+     *         The KmsKeyId can be any of the following formats:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Key ARN: <code>arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Alias name: <code>alias/ExampleAlias</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Alias name ARN: <code>arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The KMS key policy must grant permission to the IAM role that you specify in your
+     *         <code>CreateEndpoint</code>, <code>UpdateEndpoint</code> requests. For more information, refer to the
+     *         Amazon Web Services Key Management Service section<a
+     *         href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html"> Using Key Policies in
+     *         Amazon Web Services KMS </a>
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Certain Nitro-based instances include local storage, dependent on the instance type. Local storage
+     *         volumes are encrypted using a hardware module on the instance. You can't request a <code>KmsKeyId</code>
+     *         when using an instance type with local storage. If any of the models that you specify in the
+     *         <code>ProductionVariants</code> parameter use nitro-based instances with local storage, do not specify a
+     *         value for the <code>KmsKeyId</code> parameter. If you specify a value for <code>KmsKeyId</code> when
+     *         using any nitro-based instances with local storage, the call to <code>CreateEndpointConfig</code> fails.
+     *         </p>
+     *         <p>
+     *         For a list of instance types that support local instance storage, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#instance-store-volumes"
+     *         >Instance Store Volumes</a>.
+     *         </p>
+     *         <p>
+     *         For more information about local instance storage encryption, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html">SSD Instance Store
+     *         Volumes</a>.
+     *         </p>
      */
 
     public String getKmsKeyId() {
@@ -292,19 +632,484 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of a AWS Key Management Service key that Amazon SageMaker uses to encrypt data on
-     * the storage volume attached to the ML compute instance that hosts the endpoint.
+     * The Amazon Resource Name (ARN) of a Amazon Web Services Key Management Service key that SageMaker uses to encrypt
+     * data on the storage volume attached to the ML compute instance that hosts the endpoint.
      * </p>
+     * <p>
+     * The KmsKeyId can be any of the following formats:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Key ARN: <code>arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Alias name: <code>alias/ExampleAlias</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Alias name ARN: <code>arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The KMS key policy must grant permission to the IAM role that you specify in your <code>CreateEndpoint</code>,
+     * <code>UpdateEndpoint</code> requests. For more information, refer to the Amazon Web Services Key Management
+     * Service section<a href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html"> Using Key
+     * Policies in Amazon Web Services KMS </a>
+     * </p>
+     * <note>
+     * <p>
+     * Certain Nitro-based instances include local storage, dependent on the instance type. Local storage volumes are
+     * encrypted using a hardware module on the instance. You can't request a <code>KmsKeyId</code> when using an
+     * instance type with local storage. If any of the models that you specify in the <code>ProductionVariants</code>
+     * parameter use nitro-based instances with local storage, do not specify a value for the <code>KmsKeyId</code>
+     * parameter. If you specify a value for <code>KmsKeyId</code> when using any nitro-based instances with local
+     * storage, the call to <code>CreateEndpointConfig</code> fails.
+     * </p>
+     * <p>
+     * For a list of instance types that support local instance storage, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#instance-store-volumes">Instance
+     * Store Volumes</a>.
+     * </p>
+     * <p>
+     * For more information about local instance storage encryption, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html">SSD Instance Store
+     * Volumes</a>.
+     * </p>
+     * </note>
      * 
      * @param kmsKeyId
-     *        The Amazon Resource Name (ARN) of a AWS Key Management Service key that Amazon SageMaker uses to encrypt
-     *        data on the storage volume attached to the ML compute instance that hosts the endpoint.
+     *        The Amazon Resource Name (ARN) of a Amazon Web Services Key Management Service key that SageMaker uses to
+     *        encrypt data on the storage volume attached to the ML compute instance that hosts the endpoint.</p>
+     *        <p>
+     *        The KmsKeyId can be any of the following formats:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Key ARN: <code>arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Alias name: <code>alias/ExampleAlias</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Alias name ARN: <code>arn:aws:kms:us-west-2:111122223333:alias/ExampleAlias</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The KMS key policy must grant permission to the IAM role that you specify in your
+     *        <code>CreateEndpoint</code>, <code>UpdateEndpoint</code> requests. For more information, refer to the
+     *        Amazon Web Services Key Management Service section<a
+     *        href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html"> Using Key Policies in
+     *        Amazon Web Services KMS </a>
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Certain Nitro-based instances include local storage, dependent on the instance type. Local storage volumes
+     *        are encrypted using a hardware module on the instance. You can't request a <code>KmsKeyId</code> when
+     *        using an instance type with local storage. If any of the models that you specify in the
+     *        <code>ProductionVariants</code> parameter use nitro-based instances with local storage, do not specify a
+     *        value for the <code>KmsKeyId</code> parameter. If you specify a value for <code>KmsKeyId</code> when using
+     *        any nitro-based instances with local storage, the call to <code>CreateEndpointConfig</code> fails.
+     *        </p>
+     *        <p>
+     *        For a list of instance types that support local instance storage, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html#instance-store-volumes"
+     *        >Instance Store Volumes</a>.
+     *        </p>
+     *        <p>
+     *        For more information about local instance storage encryption, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html">SSD Instance Store
+     *        Volumes</a>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateEndpointConfigRequest withKmsKeyId(String kmsKeyId) {
         setKmsKeyId(kmsKeyId);
         return this;
+    }
+
+    /**
+     * <p>
+     * Specifies configuration for how an endpoint performs asynchronous inference. This is a required field in order
+     * for your Endpoint to be invoked using <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpointAsync.html"
+     * >InvokeEndpointAsync</a>.
+     * </p>
+     * 
+     * @param asyncInferenceConfig
+     *        Specifies configuration for how an endpoint performs asynchronous inference. This is a required field in
+     *        order for your Endpoint to be invoked using <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpointAsync.html"
+     *        >InvokeEndpointAsync</a>.
+     */
+
+    public void setAsyncInferenceConfig(AsyncInferenceConfig asyncInferenceConfig) {
+        this.asyncInferenceConfig = asyncInferenceConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies configuration for how an endpoint performs asynchronous inference. This is a required field in order
+     * for your Endpoint to be invoked using <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpointAsync.html"
+     * >InvokeEndpointAsync</a>.
+     * </p>
+     * 
+     * @return Specifies configuration for how an endpoint performs asynchronous inference. This is a required field in
+     *         order for your Endpoint to be invoked using <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpointAsync.html"
+     *         >InvokeEndpointAsync</a>.
+     */
+
+    public AsyncInferenceConfig getAsyncInferenceConfig() {
+        return this.asyncInferenceConfig;
+    }
+
+    /**
+     * <p>
+     * Specifies configuration for how an endpoint performs asynchronous inference. This is a required field in order
+     * for your Endpoint to be invoked using <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpointAsync.html"
+     * >InvokeEndpointAsync</a>.
+     * </p>
+     * 
+     * @param asyncInferenceConfig
+     *        Specifies configuration for how an endpoint performs asynchronous inference. This is a required field in
+     *        order for your Endpoint to be invoked using <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpointAsync.html"
+     *        >InvokeEndpointAsync</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEndpointConfigRequest withAsyncInferenceConfig(AsyncInferenceConfig asyncInferenceConfig) {
+        setAsyncInferenceConfig(asyncInferenceConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A member of <code>CreateEndpointConfig</code> that enables explainers.
+     * </p>
+     * 
+     * @param explainerConfig
+     *        A member of <code>CreateEndpointConfig</code> that enables explainers.
+     */
+
+    public void setExplainerConfig(ExplainerConfig explainerConfig) {
+        this.explainerConfig = explainerConfig;
+    }
+
+    /**
+     * <p>
+     * A member of <code>CreateEndpointConfig</code> that enables explainers.
+     * </p>
+     * 
+     * @return A member of <code>CreateEndpointConfig</code> that enables explainers.
+     */
+
+    public ExplainerConfig getExplainerConfig() {
+        return this.explainerConfig;
+    }
+
+    /**
+     * <p>
+     * A member of <code>CreateEndpointConfig</code> that enables explainers.
+     * </p>
+     * 
+     * @param explainerConfig
+     *        A member of <code>CreateEndpointConfig</code> that enables explainers.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEndpointConfigRequest withExplainerConfig(ExplainerConfig explainerConfig) {
+        setExplainerConfig(explainerConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this endpoint in
+     * shadow mode with production traffic replicated from the model specified on <code>ProductionVariants</code>. If
+     * you use this field, you can only specify one variant for <code>ProductionVariants</code> and one variant for
+     * <code>ShadowProductionVariants</code>.
+     * </p>
+     * 
+     * @return An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this
+     *         endpoint in shadow mode with production traffic replicated from the model specified on
+     *         <code>ProductionVariants</code>. If you use this field, you can only specify one variant for
+     *         <code>ProductionVariants</code> and one variant for <code>ShadowProductionVariants</code>.
+     */
+
+    public java.util.List<ProductionVariant> getShadowProductionVariants() {
+        return shadowProductionVariants;
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this endpoint in
+     * shadow mode with production traffic replicated from the model specified on <code>ProductionVariants</code>. If
+     * you use this field, you can only specify one variant for <code>ProductionVariants</code> and one variant for
+     * <code>ShadowProductionVariants</code>.
+     * </p>
+     * 
+     * @param shadowProductionVariants
+     *        An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this
+     *        endpoint in shadow mode with production traffic replicated from the model specified on
+     *        <code>ProductionVariants</code>. If you use this field, you can only specify one variant for
+     *        <code>ProductionVariants</code> and one variant for <code>ShadowProductionVariants</code>.
+     */
+
+    public void setShadowProductionVariants(java.util.Collection<ProductionVariant> shadowProductionVariants) {
+        if (shadowProductionVariants == null) {
+            this.shadowProductionVariants = null;
+            return;
+        }
+
+        this.shadowProductionVariants = new java.util.ArrayList<ProductionVariant>(shadowProductionVariants);
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this endpoint in
+     * shadow mode with production traffic replicated from the model specified on <code>ProductionVariants</code>. If
+     * you use this field, you can only specify one variant for <code>ProductionVariants</code> and one variant for
+     * <code>ShadowProductionVariants</code>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setShadowProductionVariants(java.util.Collection)} or
+     * {@link #withShadowProductionVariants(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param shadowProductionVariants
+     *        An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this
+     *        endpoint in shadow mode with production traffic replicated from the model specified on
+     *        <code>ProductionVariants</code>. If you use this field, you can only specify one variant for
+     *        <code>ProductionVariants</code> and one variant for <code>ShadowProductionVariants</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEndpointConfigRequest withShadowProductionVariants(ProductionVariant... shadowProductionVariants) {
+        if (this.shadowProductionVariants == null) {
+            setShadowProductionVariants(new java.util.ArrayList<ProductionVariant>(shadowProductionVariants.length));
+        }
+        for (ProductionVariant ele : shadowProductionVariants) {
+            this.shadowProductionVariants.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this endpoint in
+     * shadow mode with production traffic replicated from the model specified on <code>ProductionVariants</code>. If
+     * you use this field, you can only specify one variant for <code>ProductionVariants</code> and one variant for
+     * <code>ShadowProductionVariants</code>.
+     * </p>
+     * 
+     * @param shadowProductionVariants
+     *        An array of <code>ProductionVariant</code> objects, one for each model that you want to host at this
+     *        endpoint in shadow mode with production traffic replicated from the model specified on
+     *        <code>ProductionVariants</code>. If you use this field, you can only specify one variant for
+     *        <code>ProductionVariants</code> and one variant for <code>ShadowProductionVariants</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEndpointConfigRequest withShadowProductionVariants(java.util.Collection<ProductionVariant> shadowProductionVariants) {
+        setShadowProductionVariants(shadowProductionVariants);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform actions on your behalf.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">SageMaker Roles</a>.
+     * </p>
+     * <note>
+     * <p>
+     * To be able to pass this role to Amazon SageMaker, the caller of this action must have the
+     * <code>iam:PassRole</code> permission.
+     * </p>
+     * </note>
+     * 
+     * @param executionRoleArn
+     *        The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform actions on your
+     *        behalf. For more information, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">SageMaker Roles</a>. </p>
+     *        <note>
+     *        <p>
+     *        To be able to pass this role to Amazon SageMaker, the caller of this action must have the
+     *        <code>iam:PassRole</code> permission.
+     *        </p>
+     */
+
+    public void setExecutionRoleArn(String executionRoleArn) {
+        this.executionRoleArn = executionRoleArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform actions on your behalf.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">SageMaker Roles</a>.
+     * </p>
+     * <note>
+     * <p>
+     * To be able to pass this role to Amazon SageMaker, the caller of this action must have the
+     * <code>iam:PassRole</code> permission.
+     * </p>
+     * </note>
+     * 
+     * @return The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform actions on your
+     *         behalf. For more information, see <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">SageMaker Roles</a>. </p>
+     *         <note>
+     *         <p>
+     *         To be able to pass this role to Amazon SageMaker, the caller of this action must have the
+     *         <code>iam:PassRole</code> permission.
+     *         </p>
+     */
+
+    public String getExecutionRoleArn() {
+        return this.executionRoleArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform actions on your behalf.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">SageMaker Roles</a>.
+     * </p>
+     * <note>
+     * <p>
+     * To be able to pass this role to Amazon SageMaker, the caller of this action must have the
+     * <code>iam:PassRole</code> permission.
+     * </p>
+     * </note>
+     * 
+     * @param executionRoleArn
+     *        The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform actions on your
+     *        behalf. For more information, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">SageMaker Roles</a>. </p>
+     *        <note>
+     *        <p>
+     *        To be able to pass this role to Amazon SageMaker, the caller of this action must have the
+     *        <code>iam:PassRole</code> permission.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEndpointConfigRequest withExecutionRoleArn(String executionRoleArn) {
+        setExecutionRoleArn(executionRoleArn);
+        return this;
+    }
+
+    /**
+     * @param vpcConfig
+     */
+
+    public void setVpcConfig(VpcConfig vpcConfig) {
+        this.vpcConfig = vpcConfig;
+    }
+
+    /**
+     * @return
+     */
+
+    public VpcConfig getVpcConfig() {
+        return this.vpcConfig;
+    }
+
+    /**
+     * @param vpcConfig
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEndpointConfigRequest withVpcConfig(VpcConfig vpcConfig) {
+        setVpcConfig(vpcConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Sets whether all model containers deployed to the endpoint are isolated. If they are, no inbound or outbound
+     * network calls can be made to or from the model containers.
+     * </p>
+     * 
+     * @param enableNetworkIsolation
+     *        Sets whether all model containers deployed to the endpoint are isolated. If they are, no inbound or
+     *        outbound network calls can be made to or from the model containers.
+     */
+
+    public void setEnableNetworkIsolation(Boolean enableNetworkIsolation) {
+        this.enableNetworkIsolation = enableNetworkIsolation;
+    }
+
+    /**
+     * <p>
+     * Sets whether all model containers deployed to the endpoint are isolated. If they are, no inbound or outbound
+     * network calls can be made to or from the model containers.
+     * </p>
+     * 
+     * @return Sets whether all model containers deployed to the endpoint are isolated. If they are, no inbound or
+     *         outbound network calls can be made to or from the model containers.
+     */
+
+    public Boolean getEnableNetworkIsolation() {
+        return this.enableNetworkIsolation;
+    }
+
+    /**
+     * <p>
+     * Sets whether all model containers deployed to the endpoint are isolated. If they are, no inbound or outbound
+     * network calls can be made to or from the model containers.
+     * </p>
+     * 
+     * @param enableNetworkIsolation
+     *        Sets whether all model containers deployed to the endpoint are isolated. If they are, no inbound or
+     *        outbound network calls can be made to or from the model containers.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateEndpointConfigRequest withEnableNetworkIsolation(Boolean enableNetworkIsolation) {
+        setEnableNetworkIsolation(enableNetworkIsolation);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Sets whether all model containers deployed to the endpoint are isolated. If they are, no inbound or outbound
+     * network calls can be made to or from the model containers.
+     * </p>
+     * 
+     * @return Sets whether all model containers deployed to the endpoint are isolated. If they are, no inbound or
+     *         outbound network calls can be made to or from the model containers.
+     */
+
+    public Boolean isEnableNetworkIsolation() {
+        return this.enableNetworkIsolation;
     }
 
     /**
@@ -323,10 +1128,24 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
             sb.append("EndpointConfigName: ").append(getEndpointConfigName()).append(",");
         if (getProductionVariants() != null)
             sb.append("ProductionVariants: ").append(getProductionVariants()).append(",");
+        if (getDataCaptureConfig() != null)
+            sb.append("DataCaptureConfig: ").append(getDataCaptureConfig()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getKmsKeyId() != null)
-            sb.append("KmsKeyId: ").append(getKmsKeyId());
+            sb.append("KmsKeyId: ").append(getKmsKeyId()).append(",");
+        if (getAsyncInferenceConfig() != null)
+            sb.append("AsyncInferenceConfig: ").append(getAsyncInferenceConfig()).append(",");
+        if (getExplainerConfig() != null)
+            sb.append("ExplainerConfig: ").append(getExplainerConfig()).append(",");
+        if (getShadowProductionVariants() != null)
+            sb.append("ShadowProductionVariants: ").append(getShadowProductionVariants()).append(",");
+        if (getExecutionRoleArn() != null)
+            sb.append("ExecutionRoleArn: ").append(getExecutionRoleArn()).append(",");
+        if (getVpcConfig() != null)
+            sb.append("VpcConfig: ").append(getVpcConfig()).append(",");
+        if (getEnableNetworkIsolation() != null)
+            sb.append("EnableNetworkIsolation: ").append(getEnableNetworkIsolation());
         sb.append("}");
         return sb.toString();
     }
@@ -349,6 +1168,10 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getProductionVariants() != null && other.getProductionVariants().equals(this.getProductionVariants()) == false)
             return false;
+        if (other.getDataCaptureConfig() == null ^ this.getDataCaptureConfig() == null)
+            return false;
+        if (other.getDataCaptureConfig() != null && other.getDataCaptureConfig().equals(this.getDataCaptureConfig()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
@@ -356,6 +1179,30 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
         if (other.getKmsKeyId() == null ^ this.getKmsKeyId() == null)
             return false;
         if (other.getKmsKeyId() != null && other.getKmsKeyId().equals(this.getKmsKeyId()) == false)
+            return false;
+        if (other.getAsyncInferenceConfig() == null ^ this.getAsyncInferenceConfig() == null)
+            return false;
+        if (other.getAsyncInferenceConfig() != null && other.getAsyncInferenceConfig().equals(this.getAsyncInferenceConfig()) == false)
+            return false;
+        if (other.getExplainerConfig() == null ^ this.getExplainerConfig() == null)
+            return false;
+        if (other.getExplainerConfig() != null && other.getExplainerConfig().equals(this.getExplainerConfig()) == false)
+            return false;
+        if (other.getShadowProductionVariants() == null ^ this.getShadowProductionVariants() == null)
+            return false;
+        if (other.getShadowProductionVariants() != null && other.getShadowProductionVariants().equals(this.getShadowProductionVariants()) == false)
+            return false;
+        if (other.getExecutionRoleArn() == null ^ this.getExecutionRoleArn() == null)
+            return false;
+        if (other.getExecutionRoleArn() != null && other.getExecutionRoleArn().equals(this.getExecutionRoleArn()) == false)
+            return false;
+        if (other.getVpcConfig() == null ^ this.getVpcConfig() == null)
+            return false;
+        if (other.getVpcConfig() != null && other.getVpcConfig().equals(this.getVpcConfig()) == false)
+            return false;
+        if (other.getEnableNetworkIsolation() == null ^ this.getEnableNetworkIsolation() == null)
+            return false;
+        if (other.getEnableNetworkIsolation() != null && other.getEnableNetworkIsolation().equals(this.getEnableNetworkIsolation()) == false)
             return false;
         return true;
     }
@@ -367,8 +1214,15 @@ public class CreateEndpointConfigRequest extends com.amazonaws.AmazonWebServiceR
 
         hashCode = prime * hashCode + ((getEndpointConfigName() == null) ? 0 : getEndpointConfigName().hashCode());
         hashCode = prime * hashCode + ((getProductionVariants() == null) ? 0 : getProductionVariants().hashCode());
+        hashCode = prime * hashCode + ((getDataCaptureConfig() == null) ? 0 : getDataCaptureConfig().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
+        hashCode = prime * hashCode + ((getAsyncInferenceConfig() == null) ? 0 : getAsyncInferenceConfig().hashCode());
+        hashCode = prime * hashCode + ((getExplainerConfig() == null) ? 0 : getExplainerConfig().hashCode());
+        hashCode = prime * hashCode + ((getShadowProductionVariants() == null) ? 0 : getShadowProductionVariants().hashCode());
+        hashCode = prime * hashCode + ((getExecutionRoleArn() == null) ? 0 : getExecutionRoleArn().hashCode());
+        hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
+        hashCode = prime * hashCode + ((getEnableNetworkIsolation() == null) ? 0 : getEnableNetworkIsolation().hashCode());
         return hashCode;
     }
 

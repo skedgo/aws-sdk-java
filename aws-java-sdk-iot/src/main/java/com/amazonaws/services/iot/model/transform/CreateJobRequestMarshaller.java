@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.iot.model.transform;
 
+import java.util.Map;
 import java.util.List;
 import javax.annotation.Generated;
 
@@ -50,6 +51,18 @@ public class CreateJobRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("timeoutConfig").build();
     private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("tags").build();
+    private static final MarshallingInfo<String> NAMESPACEID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("namespaceId").build();
+    private static final MarshallingInfo<String> JOBTEMPLATEARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("jobTemplateArn").build();
+    private static final MarshallingInfo<StructuredPojo> JOBEXECUTIONSRETRYCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("jobExecutionsRetryConfig").build();
+    private static final MarshallingInfo<Map> DOCUMENTPARAMETERS_BINDING = MarshallingInfo.builder(MarshallingType.MAP)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("documentParameters").build();
+    private static final MarshallingInfo<StructuredPojo> SCHEDULINGCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("schedulingConfig").build();
+    private static final MarshallingInfo<List> DESTINATIONPACKAGEVERSIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("destinationPackageVersions").build();
 
     private static final CreateJobRequestMarshaller instance = new CreateJobRequestMarshaller();
 
@@ -78,6 +91,12 @@ public class CreateJobRequestMarshaller {
             protocolMarshaller.marshall(createJobRequest.getAbortConfig(), ABORTCONFIG_BINDING);
             protocolMarshaller.marshall(createJobRequest.getTimeoutConfig(), TIMEOUTCONFIG_BINDING);
             protocolMarshaller.marshall(createJobRequest.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(createJobRequest.getNamespaceId(), NAMESPACEID_BINDING);
+            protocolMarshaller.marshall(createJobRequest.getJobTemplateArn(), JOBTEMPLATEARN_BINDING);
+            protocolMarshaller.marshall(createJobRequest.getJobExecutionsRetryConfig(), JOBEXECUTIONSRETRYCONFIG_BINDING);
+            protocolMarshaller.marshall(createJobRequest.getDocumentParameters(), DOCUMENTPARAMETERS_BINDING);
+            protocolMarshaller.marshall(createJobRequest.getSchedulingConfig(), SCHEDULINGCONFIG_BINDING);
+            protocolMarshaller.marshall(createJobRequest.getDestinationPackageVersions(), DESTINATIONPACKAGEVERSIONS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

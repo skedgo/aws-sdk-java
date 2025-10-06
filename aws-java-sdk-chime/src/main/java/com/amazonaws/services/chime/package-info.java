@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,15 +12,27 @@
  */
 
 /**
+ * <important>
  * <p>
- * The Amazon Chime API (application programming interface) is designed for administrators to use to perform key tasks,
- * such as creating and managing Amazon Chime accounts and users. This guide provides detailed information about the
- * Amazon Chime API, including operations, types, inputs and outputs, and error codes.
+ * <b>Most of these APIs are no longer supported and will not be updated.</b> We recommend using the latest versions in
+ * the <a href="https://docs.aws.amazon.com/chime-sdk/latest/APIReference/welcome.html">Amazon Chime SDK API
+ * reference</a>, in the Amazon Chime SDK.
  * </p>
  * <p>
- * You can use an AWS SDK, the AWS Command Line Interface (AWS CLI), or the REST API to make API calls. We recommend
- * using an AWS SDK or the AWS CLI. Each API operation includes links to information about using it with a
- * language-specific AWS SDK or the AWS CLI.
+ * Using the latest versions requires migrating to dedicated namespaces. For more information, refer to <a
+ * href="https://docs.aws.amazon.com/chime-sdk/latest/dg/migrate-from-chm-namespace.html">Migrating from the Amazon
+ * Chime namespace</a> in the <i>Amazon Chime SDK Developer Guide</i>.
+ * </p>
+ * </important>
+ * <p>
+ * The Amazon Chime application programming interface (API) is designed so administrators can perform key tasks, such as
+ * creating and managing Amazon Chime accounts, users, and Voice Connectors. This guide provides detailed information
+ * about the Amazon Chime API, including operations, types, inputs and outputs, and error codes.
+ * </p>
+ * <p>
+ * You can use an AWS SDK, the AWS Command Line Interface (AWS CLI), or the REST API to make API calls for Amazon Chime.
+ * We recommend using an AWS SDK or the AWS CLI. The page for each API action contains a <i>See Also</i> section that
+ * includes links to information about using the action with a language-specific AWS SDK or the AWS CLI.
  * </p>
  * <dl>
  * <dt>Using an AWS SDK</dt>
@@ -41,11 +53,11 @@
  * Command Reference</i>.
  * </p>
  * </dd>
- * <dt>Using REST API</dt>
+ * <dt>Using REST APIs</dt>
  * <dd>
  * <p>
  * If you use REST to make API calls, you must authenticate your request by providing a signature. Amazon Chime supports
- * signature version 4. For more information, see <a
+ * Signature Version 4. For more information, see <a
  * href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Signature Version 4 Signing Process</a>
  * in the <i>Amazon Web Services General Reference</i>.
  * </p>
@@ -57,8 +69,8 @@
  * </dl>
  * <p>
  * Administrative permissions are controlled using AWS Identity and Access Management (IAM). For more information, see
- * <a href="https://docs.aws.amazon.com/chime/latest/ag/control-access.html">Control Access to the Amazon Chime
- * Console</a> in the <i>Amazon Chime Administration Guide</i>.
+ * <a href="https://docs.aws.amazon.com/chime/latest/ag/security-iam.html">Identity and Access Management for Amazon
+ * Chime</a> in the <i>Amazon Chime Administration Guide</i>.
  * </p>
  */
 package com.amazonaws.services.chime;

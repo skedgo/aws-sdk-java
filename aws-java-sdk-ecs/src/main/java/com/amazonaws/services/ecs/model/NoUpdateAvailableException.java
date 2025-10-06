@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,8 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * There is no update available for this Amazon ECS container agent. This could be because the agent is already running
- * the latest version, or it is so old that there is no update path to the current version.
+ * There's no update available for this Amazon ECS container agent. This might be because the agent is already running
+ * the latest version or because it's so old that there's no update path to the current version.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

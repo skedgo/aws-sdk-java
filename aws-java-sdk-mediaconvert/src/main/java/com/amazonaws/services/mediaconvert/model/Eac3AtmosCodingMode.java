@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -15,11 +15,14 @@ package com.amazonaws.services.mediaconvert.model;
 import javax.annotation.Generated;
 
 /**
- * The coding mode for Dolby Digital Plus JOC (Atmos) is always 9.1.6 (CODING_MODE_9_1_6).
+ * The coding mode for Dolby Digital Plus JOC (Atmos).
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum Eac3AtmosCodingMode {
 
+    CODING_MODE_AUTO("CODING_MODE_AUTO"),
+    CODING_MODE_5_1_4("CODING_MODE_5_1_4"),
+    CODING_MODE_7_1_4("CODING_MODE_7_1_4"),
     CODING_MODE_9_1_6("CODING_MODE_9_1_6");
 
     private String value;

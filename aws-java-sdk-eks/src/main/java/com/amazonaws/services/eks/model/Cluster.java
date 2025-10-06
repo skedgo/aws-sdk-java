@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,7 +29,7 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the cluster.
+     * The name of your cluster.
      * </p>
      */
     private String name;
@@ -41,7 +41,7 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
     private String arn;
     /**
      * <p>
-     * The Unix epoch timestamp in seconds for when the cluster was created.
+     * The Unix epoch timestamp at object creation.
      * </p>
      */
     private java.util.Date createdAt;
@@ -60,7 +60,7 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make
-     * calls to AWS API operations on your behalf.
+     * calls to Amazon Web Services API operations on your behalf.
      * </p>
      */
     private String roleArn;
@@ -68,18 +68,30 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific requirements to
      * work properly with Kubernetes. For more information, see <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC Considerations</a> and <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster Security Group
-     * Considerations</a> in the <i>Amazon EKS User Guide</i>.
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC considerations</a> and <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster security group
+     * considerations</a> in the <i>Amazon EKS User Guide</i>.
      * </p>
      */
     private VpcConfigResponse resourcesVpcConfig;
+    /**
+     * <p>
+     * The Kubernetes network configuration for the cluster.
+     * </p>
+     */
+    private KubernetesNetworkConfigResponse kubernetesNetworkConfig;
     /**
      * <p>
      * The logging configuration for your cluster.
      * </p>
      */
     private Logging logging;
+    /**
+     * <p>
+     * The identity provider information for the cluster.
+     * </p>
+     */
+    private Identity identity;
     /**
      * <p>
      * The current status of the cluster.
@@ -94,26 +106,84 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
     private Certificate certificateAuthority;
     /**
      * <p>
-     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      * </p>
      */
     private String clientRequestToken;
     /**
      * <p>
-     * The platform version of your Amazon EKS cluster. For more information, see <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html">Platform Versions</a> in the <i>
-     * <i>Amazon EKS User Guide</i> </i>.
+     * The platform version of your Amazon EKS cluster. For more information about clusters deployed on the Amazon Web
+     * Services Cloud, see <a href="https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html">Platform
+     * versions</a> in the <i> <i>Amazon EKS User Guide</i> </i>. For more information about local clusters deployed on
+     * an Outpost, see <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-platform-versions.html">Amazon EKS local
+     * cluster platform versions</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      */
     private String platformVersion;
+    /**
+     * <p>
+     * Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You
+     * define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+     * </p>
+     */
+    private java.util.Map<String, String> tags;
+    /**
+     * <p>
+     * The encryption configuration for the cluster.
+     * </p>
+     */
+    private java.util.List<EncryptionConfig> encryptionConfig;
+    /**
+     * <p>
+     * The configuration used to connect to a cluster for registration.
+     * </p>
+     */
+    private ConnectorConfigResponse connectorConfig;
+    /**
+     * <p>
+     * The ID of your local Amazon EKS cluster on an Amazon Web Services Outpost. This property isn't available for an
+     * Amazon EKS cluster on the Amazon Web Services cloud.
+     * </p>
+     */
+    private String id;
+    /**
+     * <p>
+     * An object representing the health of your Amazon EKS cluster.
+     * </p>
+     */
+    private ClusterHealth health;
+    /**
+     * <p>
+     * An object representing the configuration of your local Amazon EKS cluster on an Amazon Web Services Outpost. This
+     * object isn't available for clusters on the Amazon Web Services cloud.
+     * </p>
+     */
+    private OutpostConfigResponse outpostConfig;
+    /**
+     * <p>
+     * The access configuration for the cluster.
+     * </p>
+     */
+    private AccessConfigResponse accessConfig;
+    /**
+     * <p>
+     * This value indicates if extended support is enabled or disabled for the cluster.
+     * </p>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/eks/latest/userguide/extended-support-control.html">Learn more about EKS
+     * Extended Support in the EKS User Guide.</a>
+     * </p>
+     */
+    private UpgradePolicyResponse upgradePolicy;
 
     /**
      * <p>
-     * The name of the cluster.
+     * The name of your cluster.
      * </p>
      * 
      * @param name
-     *        The name of the cluster.
+     *        The name of your cluster.
      */
 
     public void setName(String name) {
@@ -122,10 +192,10 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the cluster.
+     * The name of your cluster.
      * </p>
      * 
-     * @return The name of the cluster.
+     * @return The name of your cluster.
      */
 
     public String getName() {
@@ -134,11 +204,11 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the cluster.
+     * The name of your cluster.
      * </p>
      * 
      * @param name
-     *        The name of the cluster.
+     *        The name of your cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -189,11 +259,11 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix epoch timestamp in seconds for when the cluster was created.
+     * The Unix epoch timestamp at object creation.
      * </p>
      * 
      * @param createdAt
-     *        The Unix epoch timestamp in seconds for when the cluster was created.
+     *        The Unix epoch timestamp at object creation.
      */
 
     public void setCreatedAt(java.util.Date createdAt) {
@@ -202,10 +272,10 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix epoch timestamp in seconds for when the cluster was created.
+     * The Unix epoch timestamp at object creation.
      * </p>
      * 
-     * @return The Unix epoch timestamp in seconds for when the cluster was created.
+     * @return The Unix epoch timestamp at object creation.
      */
 
     public java.util.Date getCreatedAt() {
@@ -214,11 +284,11 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix epoch timestamp in seconds for when the cluster was created.
+     * The Unix epoch timestamp at object creation.
      * </p>
      * 
      * @param createdAt
-     *        The Unix epoch timestamp in seconds for when the cluster was created.
+     *        The Unix epoch timestamp at object creation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -310,12 +380,12 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make
-     * calls to AWS API operations on your behalf.
+     * calls to Amazon Web Services API operations on your behalf.
      * </p>
      * 
      * @param roleArn
      *        The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane
-     *        to make calls to AWS API operations on your behalf.
+     *        to make calls to Amazon Web Services API operations on your behalf.
      */
 
     public void setRoleArn(String roleArn) {
@@ -325,11 +395,11 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make
-     * calls to AWS API operations on your behalf.
+     * calls to Amazon Web Services API operations on your behalf.
      * </p>
      * 
      * @return The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane
-     *         to make calls to AWS API operations on your behalf.
+     *         to make calls to Amazon Web Services API operations on your behalf.
      */
 
     public String getRoleArn() {
@@ -339,12 +409,12 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make
-     * calls to AWS API operations on your behalf.
+     * calls to Amazon Web Services API operations on your behalf.
      * </p>
      * 
      * @param roleArn
      *        The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane
-     *        to make calls to AWS API operations on your behalf.
+     *        to make calls to Amazon Web Services API operations on your behalf.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -357,17 +427,17 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific requirements to
      * work properly with Kubernetes. For more information, see <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC Considerations</a> and <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster Security Group
-     * Considerations</a> in the <i>Amazon EKS User Guide</i>.
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC considerations</a> and <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster security group
+     * considerations</a> in the <i>Amazon EKS User Guide</i>.
      * </p>
      * 
      * @param resourcesVpcConfig
      *        The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific
      *        requirements to work properly with Kubernetes. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC Considerations</a>
-     *        and <a href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster Security Group
-     *        Considerations</a> in the <i>Amazon EKS User Guide</i>.
+     *        href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC considerations</a>
+     *        and <a href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster security group
+     *        considerations</a> in the <i>Amazon EKS User Guide</i>.
      */
 
     public void setResourcesVpcConfig(VpcConfigResponse resourcesVpcConfig) {
@@ -378,16 +448,16 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific requirements to
      * work properly with Kubernetes. For more information, see <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC Considerations</a> and <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster Security Group
-     * Considerations</a> in the <i>Amazon EKS User Guide</i>.
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC considerations</a> and <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster security group
+     * considerations</a> in the <i>Amazon EKS User Guide</i>.
      * </p>
      * 
      * @return The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific
      *         requirements to work properly with Kubernetes. For more information, see <a
-     *         href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC Considerations</a>
-     *         and <a href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster Security Group
-     *         Considerations</a> in the <i>Amazon EKS User Guide</i>.
+     *         href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC considerations</a>
+     *         and <a href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster security group
+     *         considerations</a> in the <i>Amazon EKS User Guide</i>.
      */
 
     public VpcConfigResponse getResourcesVpcConfig() {
@@ -398,22 +468,62 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific requirements to
      * work properly with Kubernetes. For more information, see <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC Considerations</a> and <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster Security Group
-     * Considerations</a> in the <i>Amazon EKS User Guide</i>.
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC considerations</a> and <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster security group
+     * considerations</a> in the <i>Amazon EKS User Guide</i>.
      * </p>
      * 
      * @param resourcesVpcConfig
      *        The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific
      *        requirements to work properly with Kubernetes. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC Considerations</a>
-     *        and <a href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster Security Group
-     *        Considerations</a> in the <i>Amazon EKS User Guide</i>.
+     *        href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC considerations</a>
+     *        and <a href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster security group
+     *        considerations</a> in the <i>Amazon EKS User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Cluster withResourcesVpcConfig(VpcConfigResponse resourcesVpcConfig) {
         setResourcesVpcConfig(resourcesVpcConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Kubernetes network configuration for the cluster.
+     * </p>
+     * 
+     * @param kubernetesNetworkConfig
+     *        The Kubernetes network configuration for the cluster.
+     */
+
+    public void setKubernetesNetworkConfig(KubernetesNetworkConfigResponse kubernetesNetworkConfig) {
+        this.kubernetesNetworkConfig = kubernetesNetworkConfig;
+    }
+
+    /**
+     * <p>
+     * The Kubernetes network configuration for the cluster.
+     * </p>
+     * 
+     * @return The Kubernetes network configuration for the cluster.
+     */
+
+    public KubernetesNetworkConfigResponse getKubernetesNetworkConfig() {
+        return this.kubernetesNetworkConfig;
+    }
+
+    /**
+     * <p>
+     * The Kubernetes network configuration for the cluster.
+     * </p>
+     * 
+     * @param kubernetesNetworkConfig
+     *        The Kubernetes network configuration for the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withKubernetesNetworkConfig(KubernetesNetworkConfigResponse kubernetesNetworkConfig) {
+        setKubernetesNetworkConfig(kubernetesNetworkConfig);
         return this;
     }
 
@@ -454,6 +564,46 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     public Cluster withLogging(Logging logging) {
         setLogging(logging);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The identity provider information for the cluster.
+     * </p>
+     * 
+     * @param identity
+     *        The identity provider information for the cluster.
+     */
+
+    public void setIdentity(Identity identity) {
+        this.identity = identity;
+    }
+
+    /**
+     * <p>
+     * The identity provider information for the cluster.
+     * </p>
+     * 
+     * @return The identity provider information for the cluster.
+     */
+
+    public Identity getIdentity() {
+        return this.identity;
+    }
+
+    /**
+     * <p>
+     * The identity provider information for the cluster.
+     * </p>
+     * 
+     * @param identity
+     *        The identity provider information for the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withIdentity(Identity identity) {
+        setIdentity(identity);
         return this;
     }
 
@@ -558,11 +708,11 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      * </p>
      * 
      * @param clientRequestToken
-     *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      */
 
     public void setClientRequestToken(String clientRequestToken) {
@@ -571,10 +721,10 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      * </p>
      * 
-     * @return Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * @return A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      */
 
     public String getClientRequestToken() {
@@ -583,11 +733,11 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     * A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      * </p>
      * 
      * @param clientRequestToken
-     *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+     *        A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -598,15 +748,22 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The platform version of your Amazon EKS cluster. For more information, see <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html">Platform Versions</a> in the <i>
-     * <i>Amazon EKS User Guide</i> </i>.
+     * The platform version of your Amazon EKS cluster. For more information about clusters deployed on the Amazon Web
+     * Services Cloud, see <a href="https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html">Platform
+     * versions</a> in the <i> <i>Amazon EKS User Guide</i> </i>. For more information about local clusters deployed on
+     * an Outpost, see <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-platform-versions.html">Amazon EKS local
+     * cluster platform versions</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * 
      * @param platformVersion
-     *        The platform version of your Amazon EKS cluster. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html">Platform Versions</a> in
-     *        the <i> <i>Amazon EKS User Guide</i> </i>.
+     *        The platform version of your Amazon EKS cluster. For more information about clusters deployed on the
+     *        Amazon Web Services Cloud, see <a
+     *        href="https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html">Platform versions</a> in
+     *        the <i> <i>Amazon EKS User Guide</i> </i>. For more information about local clusters deployed on an
+     *        Outpost, see <a
+     *        href="https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-platform-versions.html">Amazon EKS
+     *        local cluster platform versions</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      */
 
     public void setPlatformVersion(String platformVersion) {
@@ -615,14 +772,21 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The platform version of your Amazon EKS cluster. For more information, see <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html">Platform Versions</a> in the <i>
-     * <i>Amazon EKS User Guide</i> </i>.
+     * The platform version of your Amazon EKS cluster. For more information about clusters deployed on the Amazon Web
+     * Services Cloud, see <a href="https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html">Platform
+     * versions</a> in the <i> <i>Amazon EKS User Guide</i> </i>. For more information about local clusters deployed on
+     * an Outpost, see <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-platform-versions.html">Amazon EKS local
+     * cluster platform versions</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * 
-     * @return The platform version of your Amazon EKS cluster. For more information, see <a
-     *         href="https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html">Platform Versions</a> in
-     *         the <i> <i>Amazon EKS User Guide</i> </i>.
+     * @return The platform version of your Amazon EKS cluster. For more information about clusters deployed on the
+     *         Amazon Web Services Cloud, see <a
+     *         href="https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html">Platform versions</a> in
+     *         the <i> <i>Amazon EKS User Guide</i> </i>. For more information about local clusters deployed on an
+     *         Outpost, see <a
+     *         href="https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-platform-versions.html">Amazon EKS
+     *         local cluster platform versions</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      */
 
     public String getPlatformVersion() {
@@ -631,20 +795,444 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The platform version of your Amazon EKS cluster. For more information, see <a
-     * href="https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html">Platform Versions</a> in the <i>
-     * <i>Amazon EKS User Guide</i> </i>.
+     * The platform version of your Amazon EKS cluster. For more information about clusters deployed on the Amazon Web
+     * Services Cloud, see <a href="https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html">Platform
+     * versions</a> in the <i> <i>Amazon EKS User Guide</i> </i>. For more information about local clusters deployed on
+     * an Outpost, see <a
+     * href="https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-platform-versions.html">Amazon EKS local
+     * cluster platform versions</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * </p>
      * 
      * @param platformVersion
-     *        The platform version of your Amazon EKS cluster. For more information, see <a
-     *        href="https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html">Platform Versions</a> in
-     *        the <i> <i>Amazon EKS User Guide</i> </i>.
+     *        The platform version of your Amazon EKS cluster. For more information about clusters deployed on the
+     *        Amazon Web Services Cloud, see <a
+     *        href="https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html">Platform versions</a> in
+     *        the <i> <i>Amazon EKS User Guide</i> </i>. For more information about local clusters deployed on an
+     *        Outpost, see <a
+     *        href="https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-platform-versions.html">Amazon EKS
+     *        local cluster platform versions</a> in the <i> <i>Amazon EKS User Guide</i> </i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Cluster withPlatformVersion(String platformVersion) {
         setPlatformVersion(platformVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You
+     * define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+     * </p>
+     * 
+     * @return Metadata that assists with categorization and organization. Each tag consists of a key and an optional
+     *         value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+     */
+
+    public java.util.Map<String, String> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You
+     * define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+     * </p>
+     * 
+     * @param tags
+     *        Metadata that assists with categorization and organization. Each tag consists of a key and an optional
+     *        value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+     */
+
+    public void setTags(java.util.Map<String, String> tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * <p>
+     * Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You
+     * define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+     * </p>
+     * 
+     * @param tags
+     *        Metadata that assists with categorization and organization. Each tag consists of a key and an optional
+     *        value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withTags(java.util.Map<String, String> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see Cluster#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster addTagsEntry(String key, String value) {
+        if (null == this.tags) {
+            this.tags = new java.util.HashMap<String, String>();
+        }
+        if (this.tags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.tags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Tags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster clearTagsEntries() {
+        this.tags = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The encryption configuration for the cluster.
+     * </p>
+     * 
+     * @return The encryption configuration for the cluster.
+     */
+
+    public java.util.List<EncryptionConfig> getEncryptionConfig() {
+        return encryptionConfig;
+    }
+
+    /**
+     * <p>
+     * The encryption configuration for the cluster.
+     * </p>
+     * 
+     * @param encryptionConfig
+     *        The encryption configuration for the cluster.
+     */
+
+    public void setEncryptionConfig(java.util.Collection<EncryptionConfig> encryptionConfig) {
+        if (encryptionConfig == null) {
+            this.encryptionConfig = null;
+            return;
+        }
+
+        this.encryptionConfig = new java.util.ArrayList<EncryptionConfig>(encryptionConfig);
+    }
+
+    /**
+     * <p>
+     * The encryption configuration for the cluster.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setEncryptionConfig(java.util.Collection)} or {@link #withEncryptionConfig(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param encryptionConfig
+     *        The encryption configuration for the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withEncryptionConfig(EncryptionConfig... encryptionConfig) {
+        if (this.encryptionConfig == null) {
+            setEncryptionConfig(new java.util.ArrayList<EncryptionConfig>(encryptionConfig.length));
+        }
+        for (EncryptionConfig ele : encryptionConfig) {
+            this.encryptionConfig.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The encryption configuration for the cluster.
+     * </p>
+     * 
+     * @param encryptionConfig
+     *        The encryption configuration for the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withEncryptionConfig(java.util.Collection<EncryptionConfig> encryptionConfig) {
+        setEncryptionConfig(encryptionConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The configuration used to connect to a cluster for registration.
+     * </p>
+     * 
+     * @param connectorConfig
+     *        The configuration used to connect to a cluster for registration.
+     */
+
+    public void setConnectorConfig(ConnectorConfigResponse connectorConfig) {
+        this.connectorConfig = connectorConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration used to connect to a cluster for registration.
+     * </p>
+     * 
+     * @return The configuration used to connect to a cluster for registration.
+     */
+
+    public ConnectorConfigResponse getConnectorConfig() {
+        return this.connectorConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration used to connect to a cluster for registration.
+     * </p>
+     * 
+     * @param connectorConfig
+     *        The configuration used to connect to a cluster for registration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withConnectorConfig(ConnectorConfigResponse connectorConfig) {
+        setConnectorConfig(connectorConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of your local Amazon EKS cluster on an Amazon Web Services Outpost. This property isn't available for an
+     * Amazon EKS cluster on the Amazon Web Services cloud.
+     * </p>
+     * 
+     * @param id
+     *        The ID of your local Amazon EKS cluster on an Amazon Web Services Outpost. This property isn't available
+     *        for an Amazon EKS cluster on the Amazon Web Services cloud.
+     */
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * <p>
+     * The ID of your local Amazon EKS cluster on an Amazon Web Services Outpost. This property isn't available for an
+     * Amazon EKS cluster on the Amazon Web Services cloud.
+     * </p>
+     * 
+     * @return The ID of your local Amazon EKS cluster on an Amazon Web Services Outpost. This property isn't available
+     *         for an Amazon EKS cluster on the Amazon Web Services cloud.
+     */
+
+    public String getId() {
+        return this.id;
+    }
+
+    /**
+     * <p>
+     * The ID of your local Amazon EKS cluster on an Amazon Web Services Outpost. This property isn't available for an
+     * Amazon EKS cluster on the Amazon Web Services cloud.
+     * </p>
+     * 
+     * @param id
+     *        The ID of your local Amazon EKS cluster on an Amazon Web Services Outpost. This property isn't available
+     *        for an Amazon EKS cluster on the Amazon Web Services cloud.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withId(String id) {
+        setId(id);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An object representing the health of your Amazon EKS cluster.
+     * </p>
+     * 
+     * @param health
+     *        An object representing the health of your Amazon EKS cluster.
+     */
+
+    public void setHealth(ClusterHealth health) {
+        this.health = health;
+    }
+
+    /**
+     * <p>
+     * An object representing the health of your Amazon EKS cluster.
+     * </p>
+     * 
+     * @return An object representing the health of your Amazon EKS cluster.
+     */
+
+    public ClusterHealth getHealth() {
+        return this.health;
+    }
+
+    /**
+     * <p>
+     * An object representing the health of your Amazon EKS cluster.
+     * </p>
+     * 
+     * @param health
+     *        An object representing the health of your Amazon EKS cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withHealth(ClusterHealth health) {
+        setHealth(health);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An object representing the configuration of your local Amazon EKS cluster on an Amazon Web Services Outpost. This
+     * object isn't available for clusters on the Amazon Web Services cloud.
+     * </p>
+     * 
+     * @param outpostConfig
+     *        An object representing the configuration of your local Amazon EKS cluster on an Amazon Web Services
+     *        Outpost. This object isn't available for clusters on the Amazon Web Services cloud.
+     */
+
+    public void setOutpostConfig(OutpostConfigResponse outpostConfig) {
+        this.outpostConfig = outpostConfig;
+    }
+
+    /**
+     * <p>
+     * An object representing the configuration of your local Amazon EKS cluster on an Amazon Web Services Outpost. This
+     * object isn't available for clusters on the Amazon Web Services cloud.
+     * </p>
+     * 
+     * @return An object representing the configuration of your local Amazon EKS cluster on an Amazon Web Services
+     *         Outpost. This object isn't available for clusters on the Amazon Web Services cloud.
+     */
+
+    public OutpostConfigResponse getOutpostConfig() {
+        return this.outpostConfig;
+    }
+
+    /**
+     * <p>
+     * An object representing the configuration of your local Amazon EKS cluster on an Amazon Web Services Outpost. This
+     * object isn't available for clusters on the Amazon Web Services cloud.
+     * </p>
+     * 
+     * @param outpostConfig
+     *        An object representing the configuration of your local Amazon EKS cluster on an Amazon Web Services
+     *        Outpost. This object isn't available for clusters on the Amazon Web Services cloud.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withOutpostConfig(OutpostConfigResponse outpostConfig) {
+        setOutpostConfig(outpostConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The access configuration for the cluster.
+     * </p>
+     * 
+     * @param accessConfig
+     *        The access configuration for the cluster.
+     */
+
+    public void setAccessConfig(AccessConfigResponse accessConfig) {
+        this.accessConfig = accessConfig;
+    }
+
+    /**
+     * <p>
+     * The access configuration for the cluster.
+     * </p>
+     * 
+     * @return The access configuration for the cluster.
+     */
+
+    public AccessConfigResponse getAccessConfig() {
+        return this.accessConfig;
+    }
+
+    /**
+     * <p>
+     * The access configuration for the cluster.
+     * </p>
+     * 
+     * @param accessConfig
+     *        The access configuration for the cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withAccessConfig(AccessConfigResponse accessConfig) {
+        setAccessConfig(accessConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This value indicates if extended support is enabled or disabled for the cluster.
+     * </p>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/eks/latest/userguide/extended-support-control.html">Learn more about EKS
+     * Extended Support in the EKS User Guide.</a>
+     * </p>
+     * 
+     * @param upgradePolicy
+     *        This value indicates if extended support is enabled or disabled for the cluster.</p>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/eks/latest/userguide/extended-support-control.html">Learn more about
+     *        EKS Extended Support in the EKS User Guide.</a>
+     */
+
+    public void setUpgradePolicy(UpgradePolicyResponse upgradePolicy) {
+        this.upgradePolicy = upgradePolicy;
+    }
+
+    /**
+     * <p>
+     * This value indicates if extended support is enabled or disabled for the cluster.
+     * </p>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/eks/latest/userguide/extended-support-control.html">Learn more about EKS
+     * Extended Support in the EKS User Guide.</a>
+     * </p>
+     * 
+     * @return This value indicates if extended support is enabled or disabled for the cluster.</p>
+     *         <p>
+     *         <a href="https://docs.aws.amazon.com/eks/latest/userguide/extended-support-control.html">Learn more about
+     *         EKS Extended Support in the EKS User Guide.</a>
+     */
+
+    public UpgradePolicyResponse getUpgradePolicy() {
+        return this.upgradePolicy;
+    }
+
+    /**
+     * <p>
+     * This value indicates if extended support is enabled or disabled for the cluster.
+     * </p>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/eks/latest/userguide/extended-support-control.html">Learn more about EKS
+     * Extended Support in the EKS User Guide.</a>
+     * </p>
+     * 
+     * @param upgradePolicy
+     *        This value indicates if extended support is enabled or disabled for the cluster.</p>
+     *        <p>
+     *        <a href="https://docs.aws.amazon.com/eks/latest/userguide/extended-support-control.html">Learn more about
+     *        EKS Extended Support in the EKS User Guide.</a>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Cluster withUpgradePolicy(UpgradePolicyResponse upgradePolicy) {
+        setUpgradePolicy(upgradePolicy);
         return this;
     }
 
@@ -674,8 +1262,12 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
             sb.append("RoleArn: ").append(getRoleArn()).append(",");
         if (getResourcesVpcConfig() != null)
             sb.append("ResourcesVpcConfig: ").append(getResourcesVpcConfig()).append(",");
+        if (getKubernetesNetworkConfig() != null)
+            sb.append("KubernetesNetworkConfig: ").append(getKubernetesNetworkConfig()).append(",");
         if (getLogging() != null)
             sb.append("Logging: ").append(getLogging()).append(",");
+        if (getIdentity() != null)
+            sb.append("Identity: ").append(getIdentity()).append(",");
         if (getStatus() != null)
             sb.append("Status: ").append(getStatus()).append(",");
         if (getCertificateAuthority() != null)
@@ -683,7 +1275,23 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
         if (getClientRequestToken() != null)
             sb.append("ClientRequestToken: ").append(getClientRequestToken()).append(",");
         if (getPlatformVersion() != null)
-            sb.append("PlatformVersion: ").append(getPlatformVersion());
+            sb.append("PlatformVersion: ").append(getPlatformVersion()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getEncryptionConfig() != null)
+            sb.append("EncryptionConfig: ").append(getEncryptionConfig()).append(",");
+        if (getConnectorConfig() != null)
+            sb.append("ConnectorConfig: ").append(getConnectorConfig()).append(",");
+        if (getId() != null)
+            sb.append("Id: ").append(getId()).append(",");
+        if (getHealth() != null)
+            sb.append("Health: ").append(getHealth()).append(",");
+        if (getOutpostConfig() != null)
+            sb.append("OutpostConfig: ").append(getOutpostConfig()).append(",");
+        if (getAccessConfig() != null)
+            sb.append("AccessConfig: ").append(getAccessConfig()).append(",");
+        if (getUpgradePolicy() != null)
+            sb.append("UpgradePolicy: ").append(getUpgradePolicy());
         sb.append("}");
         return sb.toString();
     }
@@ -726,9 +1334,17 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getResourcesVpcConfig() != null && other.getResourcesVpcConfig().equals(this.getResourcesVpcConfig()) == false)
             return false;
+        if (other.getKubernetesNetworkConfig() == null ^ this.getKubernetesNetworkConfig() == null)
+            return false;
+        if (other.getKubernetesNetworkConfig() != null && other.getKubernetesNetworkConfig().equals(this.getKubernetesNetworkConfig()) == false)
+            return false;
         if (other.getLogging() == null ^ this.getLogging() == null)
             return false;
         if (other.getLogging() != null && other.getLogging().equals(this.getLogging()) == false)
+            return false;
+        if (other.getIdentity() == null ^ this.getIdentity() == null)
+            return false;
+        if (other.getIdentity() != null && other.getIdentity().equals(this.getIdentity()) == false)
             return false;
         if (other.getStatus() == null ^ this.getStatus() == null)
             return false;
@@ -746,6 +1362,38 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getPlatformVersion() != null && other.getPlatformVersion().equals(this.getPlatformVersion()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getEncryptionConfig() == null ^ this.getEncryptionConfig() == null)
+            return false;
+        if (other.getEncryptionConfig() != null && other.getEncryptionConfig().equals(this.getEncryptionConfig()) == false)
+            return false;
+        if (other.getConnectorConfig() == null ^ this.getConnectorConfig() == null)
+            return false;
+        if (other.getConnectorConfig() != null && other.getConnectorConfig().equals(this.getConnectorConfig()) == false)
+            return false;
+        if (other.getId() == null ^ this.getId() == null)
+            return false;
+        if (other.getId() != null && other.getId().equals(this.getId()) == false)
+            return false;
+        if (other.getHealth() == null ^ this.getHealth() == null)
+            return false;
+        if (other.getHealth() != null && other.getHealth().equals(this.getHealth()) == false)
+            return false;
+        if (other.getOutpostConfig() == null ^ this.getOutpostConfig() == null)
+            return false;
+        if (other.getOutpostConfig() != null && other.getOutpostConfig().equals(this.getOutpostConfig()) == false)
+            return false;
+        if (other.getAccessConfig() == null ^ this.getAccessConfig() == null)
+            return false;
+        if (other.getAccessConfig() != null && other.getAccessConfig().equals(this.getAccessConfig()) == false)
+            return false;
+        if (other.getUpgradePolicy() == null ^ this.getUpgradePolicy() == null)
+            return false;
+        if (other.getUpgradePolicy() != null && other.getUpgradePolicy().equals(this.getUpgradePolicy()) == false)
+            return false;
         return true;
     }
 
@@ -761,11 +1409,21 @@ public class Cluster implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getEndpoint() == null) ? 0 : getEndpoint().hashCode());
         hashCode = prime * hashCode + ((getRoleArn() == null) ? 0 : getRoleArn().hashCode());
         hashCode = prime * hashCode + ((getResourcesVpcConfig() == null) ? 0 : getResourcesVpcConfig().hashCode());
+        hashCode = prime * hashCode + ((getKubernetesNetworkConfig() == null) ? 0 : getKubernetesNetworkConfig().hashCode());
         hashCode = prime * hashCode + ((getLogging() == null) ? 0 : getLogging().hashCode());
+        hashCode = prime * hashCode + ((getIdentity() == null) ? 0 : getIdentity().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getCertificateAuthority() == null) ? 0 : getCertificateAuthority().hashCode());
         hashCode = prime * hashCode + ((getClientRequestToken() == null) ? 0 : getClientRequestToken().hashCode());
         hashCode = prime * hashCode + ((getPlatformVersion() == null) ? 0 : getPlatformVersion().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getEncryptionConfig() == null) ? 0 : getEncryptionConfig().hashCode());
+        hashCode = prime * hashCode + ((getConnectorConfig() == null) ? 0 : getConnectorConfig().hashCode());
+        hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
+        hashCode = prime * hashCode + ((getHealth() == null) ? 0 : getHealth().hashCode());
+        hashCode = prime * hashCode + ((getOutpostConfig() == null) ? 0 : getOutpostConfig().hashCode());
+        hashCode = prime * hashCode + ((getAccessConfig() == null) ? 0 : getAccessConfig().hashCode());
+        hashCode = prime * hashCode + ((getUpgradePolicy() == null) ? 0 : getUpgradePolicy().hashCode());
         return hashCode;
     }
 

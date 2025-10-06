@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,7 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
+ * <zonbook></zonbook><xhtml></xhtml>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/DeleteVirtualRouter" target="_top">AWS API
  *      Documentation</a>
@@ -31,6 +32,14 @@ public class DeleteVirtualRouterRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      */
     private String meshName;
+    /**
+     * <p>
+     * The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then it's
+     * the ID of the account that shared the mesh with your account. For more information about mesh sharing, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     * </p>
+     */
+    private String meshOwner;
     /**
      * <p>
      * The name of the virtual router to delete.
@@ -75,6 +84,61 @@ public class DeleteVirtualRouterRequest extends com.amazonaws.AmazonWebServiceRe
 
     public DeleteVirtualRouterRequest withMeshName(String meshName) {
         setMeshName(meshName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then it's
+     * the ID of the account that shared the mesh with your account. For more information about mesh sharing, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     * </p>
+     * 
+     * @param meshOwner
+     *        The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then
+     *        it's the ID of the account that shared the mesh with your account. For more information about mesh
+     *        sharing, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with
+     *        shared meshes</a>.
+     */
+
+    public void setMeshOwner(String meshOwner) {
+        this.meshOwner = meshOwner;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then it's
+     * the ID of the account that shared the mesh with your account. For more information about mesh sharing, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     * </p>
+     * 
+     * @return The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then
+     *         it's the ID of the account that shared the mesh with your account. For more information about mesh
+     *         sharing, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with
+     *         shared meshes</a>.
+     */
+
+    public String getMeshOwner() {
+        return this.meshOwner;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then it's
+     * the ID of the account that shared the mesh with your account. For more information about mesh sharing, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     * </p>
+     * 
+     * @param meshOwner
+     *        The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then
+     *        it's the ID of the account that shared the mesh with your account. For more information about mesh
+     *        sharing, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with
+     *        shared meshes</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DeleteVirtualRouterRequest withMeshOwner(String meshOwner) {
+        setMeshOwner(meshOwner);
         return this;
     }
 
@@ -132,6 +196,8 @@ public class DeleteVirtualRouterRequest extends com.amazonaws.AmazonWebServiceRe
         sb.append("{");
         if (getMeshName() != null)
             sb.append("MeshName: ").append(getMeshName()).append(",");
+        if (getMeshOwner() != null)
+            sb.append("MeshOwner: ").append(getMeshOwner()).append(",");
         if (getVirtualRouterName() != null)
             sb.append("VirtualRouterName: ").append(getVirtualRouterName());
         sb.append("}");
@@ -152,6 +218,10 @@ public class DeleteVirtualRouterRequest extends com.amazonaws.AmazonWebServiceRe
             return false;
         if (other.getMeshName() != null && other.getMeshName().equals(this.getMeshName()) == false)
             return false;
+        if (other.getMeshOwner() == null ^ this.getMeshOwner() == null)
+            return false;
+        if (other.getMeshOwner() != null && other.getMeshOwner().equals(this.getMeshOwner()) == false)
+            return false;
         if (other.getVirtualRouterName() == null ^ this.getVirtualRouterName() == null)
             return false;
         if (other.getVirtualRouterName() != null && other.getVirtualRouterName().equals(this.getVirtualRouterName()) == false)
@@ -165,6 +235,7 @@ public class DeleteVirtualRouterRequest extends com.amazonaws.AmazonWebServiceRe
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getMeshName() == null) ? 0 : getMeshName().hashCode());
+        hashCode = prime * hashCode + ((getMeshOwner() == null) ? 0 : getMeshOwner().hashCode());
         hashCode = prime * hashCode + ((getVirtualRouterName() == null) ? 0 : getVirtualRouterName().hashCode());
         return hashCode;
     }

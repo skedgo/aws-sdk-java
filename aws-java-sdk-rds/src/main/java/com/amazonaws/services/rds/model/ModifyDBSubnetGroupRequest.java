@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,7 +35,7 @@ public class ModifyDBSubnetGroupRequest extends com.amazonaws.AmazonWebServiceRe
      * Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      * </p>
      * <p>
-     * Example: <code>mySubnetgroup</code>
+     * Example: <code>mydbsubnetgroup</code>
      * </p>
      */
     private String dBSubnetGroupName;
@@ -61,17 +61,17 @@ public class ModifyDBSubnetGroupRequest extends com.amazonaws.AmazonWebServiceRe
      * Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      * </p>
      * <p>
-     * Example: <code>mySubnetgroup</code>
+     * Example: <code>mydbsubnetgroup</code>
      * </p>
      * 
      * @param dBSubnetGroupName
      *        The name for the DB subnet group. This value is stored as a lowercase string. You can't modify the default
-     *        subnet group. </p>
+     *        subnet group.</p>
      *        <p>
      *        Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      *        </p>
      *        <p>
-     *        Example: <code>mySubnetgroup</code>
+     *        Example: <code>mydbsubnetgroup</code>
      */
 
     public void setDBSubnetGroupName(String dBSubnetGroupName) {
@@ -87,16 +87,16 @@ public class ModifyDBSubnetGroupRequest extends com.amazonaws.AmazonWebServiceRe
      * Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      * </p>
      * <p>
-     * Example: <code>mySubnetgroup</code>
+     * Example: <code>mydbsubnetgroup</code>
      * </p>
      * 
      * @return The name for the DB subnet group. This value is stored as a lowercase string. You can't modify the
-     *         default subnet group. </p>
+     *         default subnet group.</p>
      *         <p>
      *         Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      *         </p>
      *         <p>
-     *         Example: <code>mySubnetgroup</code>
+     *         Example: <code>mydbsubnetgroup</code>
      */
 
     public String getDBSubnetGroupName() {
@@ -112,17 +112,17 @@ public class ModifyDBSubnetGroupRequest extends com.amazonaws.AmazonWebServiceRe
      * Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      * </p>
      * <p>
-     * Example: <code>mySubnetgroup</code>
+     * Example: <code>mydbsubnetgroup</code>
      * </p>
      * 
      * @param dBSubnetGroupName
      *        The name for the DB subnet group. This value is stored as a lowercase string. You can't modify the default
-     *        subnet group. </p>
+     *        subnet group.</p>
      *        <p>
      *        Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      *        </p>
      *        <p>
-     *        Example: <code>mySubnetgroup</code>
+     *        Example: <code>mydbsubnetgroup</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

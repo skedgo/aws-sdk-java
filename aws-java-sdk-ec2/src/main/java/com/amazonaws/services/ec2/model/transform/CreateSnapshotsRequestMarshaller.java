@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,6 +54,24 @@ public class CreateSnapshotsRequestMarshaller implements Marshaller<Request<Crea
             if (instanceSpecification.getExcludeBootVolume() != null) {
                 request.addParameter("InstanceSpecification.ExcludeBootVolume", StringUtils.fromBoolean(instanceSpecification.getExcludeBootVolume()));
             }
+
+            com.amazonaws.internal.SdkInternalList<String> instanceSpecificationExcludeDataVolumeIdsList = (com.amazonaws.internal.SdkInternalList<String>) instanceSpecification
+                    .getExcludeDataVolumeIds();
+            if (!instanceSpecificationExcludeDataVolumeIdsList.isEmpty() || !instanceSpecificationExcludeDataVolumeIdsList.isAutoConstruct()) {
+                int excludeDataVolumeIdsListIndex = 1;
+
+                for (String instanceSpecificationExcludeDataVolumeIdsListValue : instanceSpecificationExcludeDataVolumeIdsList) {
+                    if (instanceSpecificationExcludeDataVolumeIdsListValue != null) {
+                        request.addParameter("InstanceSpecification.ExcludeDataVolumeId." + excludeDataVolumeIdsListIndex,
+                                StringUtils.fromString(instanceSpecificationExcludeDataVolumeIdsListValue));
+                    }
+                    excludeDataVolumeIdsListIndex++;
+                }
+            }
+        }
+
+        if (createSnapshotsRequest.getOutpostArn() != null) {
+            request.addParameter("OutpostArn", StringUtils.fromString(createSnapshotsRequest.getOutpostArn()));
         }
 
         com.amazonaws.internal.SdkInternalList<TagSpecification> createSnapshotsRequestTagSpecificationsList = (com.amazonaws.internal.SdkInternalList<TagSpecification>) createSnapshotsRequest

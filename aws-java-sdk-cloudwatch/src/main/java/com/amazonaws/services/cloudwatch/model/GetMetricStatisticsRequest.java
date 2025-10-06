@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -57,8 +57,8 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
      * that CloudWatch receives the request.
      * </p>
      * <p>
-     * The value specified is inclusive; results include data points with the specified time stamp. The time stamp must
-     * be in ISO 8601 UTC format (for example, 2016-10-03T23:00:00Z).
+     * The value specified is inclusive; results include data points with the specified time stamp. In a raw HTTP query,
+     * the time stamp must be in ISO 8601 UTC format (for example, 2016-10-03T23:00:00Z).
      * </p>
      * <p>
      * CloudWatch rounds the specified time stamp as follows:
@@ -97,8 +97,8 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
      * The time stamp that determines the last data point to return.
      * </p>
      * <p>
-     * The value specified is exclusive; results include data points up to the specified time stamp. The time stamp must
-     * be in ISO 8601 UTC format (for example, 2016-10-10T23:00:00Z).
+     * The value specified is exclusive; results include data points up to the specified time stamp. In a raw HTTP
+     * query, the time stamp must be in ISO 8601 UTC format (for example, 2016-10-10T23:00:00Z).
      * </p>
      */
     private java.util.Date endTime;
@@ -151,8 +151,11 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
     private com.amazonaws.internal.SdkInternalList<String> extendedStatistics;
     /**
      * <p>
-     * The unit for a given metric. Metrics may be reported in multiple units. Not supplying a unit results in all units
-     * being returned. If you specify only a unit that the metric does not report, the results of the call are null.
+     * The unit for a given metric. If you omit <code>Unit</code>, all data that was collected with any unit is
+     * returned, along with the corresponding units that were specified when the data was reported to CloudWatch. If you
+     * specify a unit, the operation returns only data that was collected with that unit specified. If you specify a
+     * unit that does not match the data collected, the results of the operation are null. CloudWatch does not perform
+     * unit conversions.
      * </p>
      */
     private String unit;
@@ -380,8 +383,8 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
      * that CloudWatch receives the request.
      * </p>
      * <p>
-     * The value specified is inclusive; results include data points with the specified time stamp. The time stamp must
-     * be in ISO 8601 UTC format (for example, 2016-10-03T23:00:00Z).
+     * The value specified is inclusive; results include data points with the specified time stamp. In a raw HTTP query,
+     * the time stamp must be in ISO 8601 UTC format (for example, 2016-10-03T23:00:00Z).
      * </p>
      * <p>
      * CloudWatch rounds the specified time stamp as follows:
@@ -418,8 +421,8 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
      *        The time stamp that determines the first data point to return. Start times are evaluated relative to the
      *        time that CloudWatch receives the request.</p>
      *        <p>
-     *        The value specified is inclusive; results include data points with the specified time stamp. The time
-     *        stamp must be in ISO 8601 UTC format (for example, 2016-10-03T23:00:00Z).
+     *        The value specified is inclusive; results include data points with the specified time stamp. In a raw HTTP
+     *        query, the time stamp must be in ISO 8601 UTC format (for example, 2016-10-03T23:00:00Z).
      *        </p>
      *        <p>
      *        CloudWatch rounds the specified time stamp as follows:
@@ -463,8 +466,8 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
      * that CloudWatch receives the request.
      * </p>
      * <p>
-     * The value specified is inclusive; results include data points with the specified time stamp. The time stamp must
-     * be in ISO 8601 UTC format (for example, 2016-10-03T23:00:00Z).
+     * The value specified is inclusive; results include data points with the specified time stamp. In a raw HTTP query,
+     * the time stamp must be in ISO 8601 UTC format (for example, 2016-10-03T23:00:00Z).
      * </p>
      * <p>
      * CloudWatch rounds the specified time stamp as follows:
@@ -500,8 +503,8 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
      * @return The time stamp that determines the first data point to return. Start times are evaluated relative to the
      *         time that CloudWatch receives the request.</p>
      *         <p>
-     *         The value specified is inclusive; results include data points with the specified time stamp. The time
-     *         stamp must be in ISO 8601 UTC format (for example, 2016-10-03T23:00:00Z).
+     *         The value specified is inclusive; results include data points with the specified time stamp. In a raw
+     *         HTTP query, the time stamp must be in ISO 8601 UTC format (for example, 2016-10-03T23:00:00Z).
      *         </p>
      *         <p>
      *         CloudWatch rounds the specified time stamp as follows:
@@ -545,8 +548,8 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
      * that CloudWatch receives the request.
      * </p>
      * <p>
-     * The value specified is inclusive; results include data points with the specified time stamp. The time stamp must
-     * be in ISO 8601 UTC format (for example, 2016-10-03T23:00:00Z).
+     * The value specified is inclusive; results include data points with the specified time stamp. In a raw HTTP query,
+     * the time stamp must be in ISO 8601 UTC format (for example, 2016-10-03T23:00:00Z).
      * </p>
      * <p>
      * CloudWatch rounds the specified time stamp as follows:
@@ -583,8 +586,8 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
      *        The time stamp that determines the first data point to return. Start times are evaluated relative to the
      *        time that CloudWatch receives the request.</p>
      *        <p>
-     *        The value specified is inclusive; results include data points with the specified time stamp. The time
-     *        stamp must be in ISO 8601 UTC format (for example, 2016-10-03T23:00:00Z).
+     *        The value specified is inclusive; results include data points with the specified time stamp. In a raw HTTP
+     *        query, the time stamp must be in ISO 8601 UTC format (for example, 2016-10-03T23:00:00Z).
      *        </p>
      *        <p>
      *        CloudWatch rounds the specified time stamp as follows:
@@ -629,15 +632,15 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
      * The time stamp that determines the last data point to return.
      * </p>
      * <p>
-     * The value specified is exclusive; results include data points up to the specified time stamp. The time stamp must
-     * be in ISO 8601 UTC format (for example, 2016-10-10T23:00:00Z).
+     * The value specified is exclusive; results include data points up to the specified time stamp. In a raw HTTP
+     * query, the time stamp must be in ISO 8601 UTC format (for example, 2016-10-10T23:00:00Z).
      * </p>
      * 
      * @param endTime
      *        The time stamp that determines the last data point to return.</p>
      *        <p>
-     *        The value specified is exclusive; results include data points up to the specified time stamp. The time
-     *        stamp must be in ISO 8601 UTC format (for example, 2016-10-10T23:00:00Z).
+     *        The value specified is exclusive; results include data points up to the specified time stamp. In a raw
+     *        HTTP query, the time stamp must be in ISO 8601 UTC format (for example, 2016-10-10T23:00:00Z).
      */
 
     public void setEndTime(java.util.Date endTime) {
@@ -649,14 +652,14 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
      * The time stamp that determines the last data point to return.
      * </p>
      * <p>
-     * The value specified is exclusive; results include data points up to the specified time stamp. The time stamp must
-     * be in ISO 8601 UTC format (for example, 2016-10-10T23:00:00Z).
+     * The value specified is exclusive; results include data points up to the specified time stamp. In a raw HTTP
+     * query, the time stamp must be in ISO 8601 UTC format (for example, 2016-10-10T23:00:00Z).
      * </p>
      * 
      * @return The time stamp that determines the last data point to return.</p>
      *         <p>
-     *         The value specified is exclusive; results include data points up to the specified time stamp. The time
-     *         stamp must be in ISO 8601 UTC format (for example, 2016-10-10T23:00:00Z).
+     *         The value specified is exclusive; results include data points up to the specified time stamp. In a raw
+     *         HTTP query, the time stamp must be in ISO 8601 UTC format (for example, 2016-10-10T23:00:00Z).
      */
 
     public java.util.Date getEndTime() {
@@ -668,15 +671,15 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
      * The time stamp that determines the last data point to return.
      * </p>
      * <p>
-     * The value specified is exclusive; results include data points up to the specified time stamp. The time stamp must
-     * be in ISO 8601 UTC format (for example, 2016-10-10T23:00:00Z).
+     * The value specified is exclusive; results include data points up to the specified time stamp. In a raw HTTP
+     * query, the time stamp must be in ISO 8601 UTC format (for example, 2016-10-10T23:00:00Z).
      * </p>
      * 
      * @param endTime
      *        The time stamp that determines the last data point to return.</p>
      *        <p>
-     *        The value specified is exclusive; results include data points up to the specified time stamp. The time
-     *        stamp must be in ISO 8601 UTC format (for example, 2016-10-10T23:00:00Z).
+     *        The value specified is exclusive; results include data points up to the specified time stamp. In a raw
+     *        HTTP query, the time stamp must be in ISO 8601 UTC format (for example, 2016-10-10T23:00:00Z).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1088,14 +1091,19 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The unit for a given metric. Metrics may be reported in multiple units. Not supplying a unit results in all units
-     * being returned. If you specify only a unit that the metric does not report, the results of the call are null.
+     * The unit for a given metric. If you omit <code>Unit</code>, all data that was collected with any unit is
+     * returned, along with the corresponding units that were specified when the data was reported to CloudWatch. If you
+     * specify a unit, the operation returns only data that was collected with that unit specified. If you specify a
+     * unit that does not match the data collected, the results of the operation are null. CloudWatch does not perform
+     * unit conversions.
      * </p>
      * 
      * @param unit
-     *        The unit for a given metric. Metrics may be reported in multiple units. Not supplying a unit results in
-     *        all units being returned. If you specify only a unit that the metric does not report, the results of the
-     *        call are null.
+     *        The unit for a given metric. If you omit <code>Unit</code>, all data that was collected with any unit is
+     *        returned, along with the corresponding units that were specified when the data was reported to CloudWatch.
+     *        If you specify a unit, the operation returns only data that was collected with that unit specified. If you
+     *        specify a unit that does not match the data collected, the results of the operation are null. CloudWatch
+     *        does not perform unit conversions.
      * @see StandardUnit
      */
 
@@ -1105,13 +1113,18 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The unit for a given metric. Metrics may be reported in multiple units. Not supplying a unit results in all units
-     * being returned. If you specify only a unit that the metric does not report, the results of the call are null.
+     * The unit for a given metric. If you omit <code>Unit</code>, all data that was collected with any unit is
+     * returned, along with the corresponding units that were specified when the data was reported to CloudWatch. If you
+     * specify a unit, the operation returns only data that was collected with that unit specified. If you specify a
+     * unit that does not match the data collected, the results of the operation are null. CloudWatch does not perform
+     * unit conversions.
      * </p>
      * 
-     * @return The unit for a given metric. Metrics may be reported in multiple units. Not supplying a unit results in
-     *         all units being returned. If you specify only a unit that the metric does not report, the results of the
-     *         call are null.
+     * @return The unit for a given metric. If you omit <code>Unit</code>, all data that was collected with any unit is
+     *         returned, along with the corresponding units that were specified when the data was reported to
+     *         CloudWatch. If you specify a unit, the operation returns only data that was collected with that unit
+     *         specified. If you specify a unit that does not match the data collected, the results of the operation are
+     *         null. CloudWatch does not perform unit conversions.
      * @see StandardUnit
      */
 
@@ -1121,14 +1134,19 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The unit for a given metric. Metrics may be reported in multiple units. Not supplying a unit results in all units
-     * being returned. If you specify only a unit that the metric does not report, the results of the call are null.
+     * The unit for a given metric. If you omit <code>Unit</code>, all data that was collected with any unit is
+     * returned, along with the corresponding units that were specified when the data was reported to CloudWatch. If you
+     * specify a unit, the operation returns only data that was collected with that unit specified. If you specify a
+     * unit that does not match the data collected, the results of the operation are null. CloudWatch does not perform
+     * unit conversions.
      * </p>
      * 
      * @param unit
-     *        The unit for a given metric. Metrics may be reported in multiple units. Not supplying a unit results in
-     *        all units being returned. If you specify only a unit that the metric does not report, the results of the
-     *        call are null.
+     *        The unit for a given metric. If you omit <code>Unit</code>, all data that was collected with any unit is
+     *        returned, along with the corresponding units that were specified when the data was reported to CloudWatch.
+     *        If you specify a unit, the operation returns only data that was collected with that unit specified. If you
+     *        specify a unit that does not match the data collected, the results of the operation are null. CloudWatch
+     *        does not perform unit conversions.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see StandardUnit
      */
@@ -1140,14 +1158,19 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The unit for a given metric. Metrics may be reported in multiple units. Not supplying a unit results in all units
-     * being returned. If you specify only a unit that the metric does not report, the results of the call are null.
+     * The unit for a given metric. If you omit <code>Unit</code>, all data that was collected with any unit is
+     * returned, along with the corresponding units that were specified when the data was reported to CloudWatch. If you
+     * specify a unit, the operation returns only data that was collected with that unit specified. If you specify a
+     * unit that does not match the data collected, the results of the operation are null. CloudWatch does not perform
+     * unit conversions.
      * </p>
      * 
      * @param unit
-     *        The unit for a given metric. Metrics may be reported in multiple units. Not supplying a unit results in
-     *        all units being returned. If you specify only a unit that the metric does not report, the results of the
-     *        call are null.
+     *        The unit for a given metric. If you omit <code>Unit</code>, all data that was collected with any unit is
+     *        returned, along with the corresponding units that were specified when the data was reported to CloudWatch.
+     *        If you specify a unit, the operation returns only data that was collected with that unit specified. If you
+     *        specify a unit that does not match the data collected, the results of the operation are null. CloudWatch
+     *        does not perform unit conversions.
      * @see StandardUnit
      */
 
@@ -1157,14 +1180,19 @@ public class GetMetricStatisticsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The unit for a given metric. Metrics may be reported in multiple units. Not supplying a unit results in all units
-     * being returned. If you specify only a unit that the metric does not report, the results of the call are null.
+     * The unit for a given metric. If you omit <code>Unit</code>, all data that was collected with any unit is
+     * returned, along with the corresponding units that were specified when the data was reported to CloudWatch. If you
+     * specify a unit, the operation returns only data that was collected with that unit specified. If you specify a
+     * unit that does not match the data collected, the results of the operation are null. CloudWatch does not perform
+     * unit conversions.
      * </p>
      * 
      * @param unit
-     *        The unit for a given metric. Metrics may be reported in multiple units. Not supplying a unit results in
-     *        all units being returned. If you specify only a unit that the metric does not report, the results of the
-     *        call are null.
+     *        The unit for a given metric. If you omit <code>Unit</code>, all data that was collected with any unit is
+     *        returned, along with the corresponding units that were specified when the data was reported to CloudWatch.
+     *        If you specify a unit, the operation returns only data that was collected with that unit specified. If you
+     *        specify a unit that does not match the data collected, the results of the operation are null. CloudWatch
+     *        does not perform unit conversions.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see StandardUnit
      */

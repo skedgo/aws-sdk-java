@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -63,8 +63,28 @@ public class JobOperationStaxUnmarshaller implements Unmarshaller<JobOperation, 
                     continue;
                 }
 
+                if (context.testExpression("S3DeleteObjectTagging", targetDepth)) {
+                    jobOperation.setS3DeleteObjectTagging(S3DeleteObjectTaggingOperationStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("S3InitiateRestoreObject", targetDepth)) {
                     jobOperation.setS3InitiateRestoreObject(S3InitiateRestoreObjectOperationStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("S3PutObjectLegalHold", targetDepth)) {
+                    jobOperation.setS3PutObjectLegalHold(S3SetObjectLegalHoldOperationStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("S3PutObjectRetention", targetDepth)) {
+                    jobOperation.setS3PutObjectRetention(S3SetObjectRetentionOperationStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("S3ReplicateObject", targetDepth)) {
+                    jobOperation.setS3ReplicateObject(S3ReplicateObjectOperationStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

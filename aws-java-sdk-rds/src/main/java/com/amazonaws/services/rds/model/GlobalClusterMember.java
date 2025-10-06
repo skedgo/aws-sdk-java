@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * A data structure with information about any primary and secondary clusters associated with an Aurora global database.
+ * A data structure with information about any primary and secondary clusters associated with a global cluster (Aurora
+ * global database).
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/GlobalClusterMember" target="_top">AWS API
@@ -28,31 +29,43 @@ public class GlobalClusterMember implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for each Aurora cluster.
+     * The Amazon Resource Name (ARN) for each Aurora DB cluster in the global cluster.
      * </p>
      */
     private String dBClusterArn;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the Aurora global database.
+     * The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the global cluster.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> readers;
     /**
      * <p>
-     * Specifies whether the Aurora cluster is the primary cluster (that is, has read-write capability) for the Aurora
-     * global database with which it is associated.
+     * Indicates whether the Aurora DB cluster is the primary cluster (that is, has read-write capability) for the
+     * global cluster with which it is associated.
      * </p>
      */
     private Boolean isWriter;
+    /**
+     * <p>
+     * The status of write forwarding for a secondary cluster in the global cluster.
+     * </p>
+     */
+    private String globalWriteForwardingStatus;
+    /**
+     * <p>
+     * The status of synchronization of each Aurora DB cluster in the global cluster.
+     * </p>
+     */
+    private String synchronizationStatus;
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for each Aurora cluster.
+     * The Amazon Resource Name (ARN) for each Aurora DB cluster in the global cluster.
      * </p>
      * 
      * @param dBClusterArn
-     *        The Amazon Resource Name (ARN) for each Aurora cluster.
+     *        The Amazon Resource Name (ARN) for each Aurora DB cluster in the global cluster.
      */
 
     public void setDBClusterArn(String dBClusterArn) {
@@ -61,10 +74,10 @@ public class GlobalClusterMember implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for each Aurora cluster.
+     * The Amazon Resource Name (ARN) for each Aurora DB cluster in the global cluster.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) for each Aurora cluster.
+     * @return The Amazon Resource Name (ARN) for each Aurora DB cluster in the global cluster.
      */
 
     public String getDBClusterArn() {
@@ -73,11 +86,11 @@ public class GlobalClusterMember implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for each Aurora cluster.
+     * The Amazon Resource Name (ARN) for each Aurora DB cluster in the global cluster.
      * </p>
      * 
      * @param dBClusterArn
-     *        The Amazon Resource Name (ARN) for each Aurora cluster.
+     *        The Amazon Resource Name (ARN) for each Aurora DB cluster in the global cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -88,11 +101,10 @@ public class GlobalClusterMember implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the Aurora global database.
+     * The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the global cluster.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the Aurora global
-     *         database.
+     * @return The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the global cluster.
      */
 
     public java.util.List<String> getReaders() {
@@ -104,12 +116,11 @@ public class GlobalClusterMember implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the Aurora global database.
+     * The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the global cluster.
      * </p>
      * 
      * @param readers
-     *        The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the Aurora global
-     *        database.
+     *        The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the global cluster.
      */
 
     public void setReaders(java.util.Collection<String> readers) {
@@ -123,7 +134,7 @@ public class GlobalClusterMember implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the Aurora global database.
+     * The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the global cluster.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -132,8 +143,7 @@ public class GlobalClusterMember implements Serializable, Cloneable {
      * </p>
      * 
      * @param readers
-     *        The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the Aurora global
-     *        database.
+     *        The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the global cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -149,12 +159,11 @@ public class GlobalClusterMember implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the Aurora global database.
+     * The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the global cluster.
      * </p>
      * 
      * @param readers
-     *        The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the Aurora global
-     *        database.
+     *        The Amazon Resource Name (ARN) for each read-only secondary cluster associated with the global cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -165,13 +174,13 @@ public class GlobalClusterMember implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the Aurora cluster is the primary cluster (that is, has read-write capability) for the Aurora
-     * global database with which it is associated.
+     * Indicates whether the Aurora DB cluster is the primary cluster (that is, has read-write capability) for the
+     * global cluster with which it is associated.
      * </p>
      * 
      * @param isWriter
-     *        Specifies whether the Aurora cluster is the primary cluster (that is, has read-write capability) for the
-     *        Aurora global database with which it is associated.
+     *        Indicates whether the Aurora DB cluster is the primary cluster (that is, has read-write capability) for
+     *        the global cluster with which it is associated.
      */
 
     public void setIsWriter(Boolean isWriter) {
@@ -180,12 +189,12 @@ public class GlobalClusterMember implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the Aurora cluster is the primary cluster (that is, has read-write capability) for the Aurora
-     * global database with which it is associated.
+     * Indicates whether the Aurora DB cluster is the primary cluster (that is, has read-write capability) for the
+     * global cluster with which it is associated.
      * </p>
      * 
-     * @return Specifies whether the Aurora cluster is the primary cluster (that is, has read-write capability) for the
-     *         Aurora global database with which it is associated.
+     * @return Indicates whether the Aurora DB cluster is the primary cluster (that is, has read-write capability) for
+     *         the global cluster with which it is associated.
      */
 
     public Boolean getIsWriter() {
@@ -194,13 +203,13 @@ public class GlobalClusterMember implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the Aurora cluster is the primary cluster (that is, has read-write capability) for the Aurora
-     * global database with which it is associated.
+     * Indicates whether the Aurora DB cluster is the primary cluster (that is, has read-write capability) for the
+     * global cluster with which it is associated.
      * </p>
      * 
      * @param isWriter
-     *        Specifies whether the Aurora cluster is the primary cluster (that is, has read-write capability) for the
-     *        Aurora global database with which it is associated.
+     *        Indicates whether the Aurora DB cluster is the primary cluster (that is, has read-write capability) for
+     *        the global cluster with which it is associated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -211,16 +220,134 @@ public class GlobalClusterMember implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the Aurora cluster is the primary cluster (that is, has read-write capability) for the Aurora
-     * global database with which it is associated.
+     * Indicates whether the Aurora DB cluster is the primary cluster (that is, has read-write capability) for the
+     * global cluster with which it is associated.
      * </p>
      * 
-     * @return Specifies whether the Aurora cluster is the primary cluster (that is, has read-write capability) for the
-     *         Aurora global database with which it is associated.
+     * @return Indicates whether the Aurora DB cluster is the primary cluster (that is, has read-write capability) for
+     *         the global cluster with which it is associated.
      */
 
     public Boolean isWriter() {
         return this.isWriter;
+    }
+
+    /**
+     * <p>
+     * The status of write forwarding for a secondary cluster in the global cluster.
+     * </p>
+     * 
+     * @param globalWriteForwardingStatus
+     *        The status of write forwarding for a secondary cluster in the global cluster.
+     * @see WriteForwardingStatus
+     */
+
+    public void setGlobalWriteForwardingStatus(String globalWriteForwardingStatus) {
+        this.globalWriteForwardingStatus = globalWriteForwardingStatus;
+    }
+
+    /**
+     * <p>
+     * The status of write forwarding for a secondary cluster in the global cluster.
+     * </p>
+     * 
+     * @return The status of write forwarding for a secondary cluster in the global cluster.
+     * @see WriteForwardingStatus
+     */
+
+    public String getGlobalWriteForwardingStatus() {
+        return this.globalWriteForwardingStatus;
+    }
+
+    /**
+     * <p>
+     * The status of write forwarding for a secondary cluster in the global cluster.
+     * </p>
+     * 
+     * @param globalWriteForwardingStatus
+     *        The status of write forwarding for a secondary cluster in the global cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see WriteForwardingStatus
+     */
+
+    public GlobalClusterMember withGlobalWriteForwardingStatus(String globalWriteForwardingStatus) {
+        setGlobalWriteForwardingStatus(globalWriteForwardingStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of write forwarding for a secondary cluster in the global cluster.
+     * </p>
+     * 
+     * @param globalWriteForwardingStatus
+     *        The status of write forwarding for a secondary cluster in the global cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see WriteForwardingStatus
+     */
+
+    public GlobalClusterMember withGlobalWriteForwardingStatus(WriteForwardingStatus globalWriteForwardingStatus) {
+        this.globalWriteForwardingStatus = globalWriteForwardingStatus.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of synchronization of each Aurora DB cluster in the global cluster.
+     * </p>
+     * 
+     * @param synchronizationStatus
+     *        The status of synchronization of each Aurora DB cluster in the global cluster.
+     * @see GlobalClusterMemberSynchronizationStatus
+     */
+
+    public void setSynchronizationStatus(String synchronizationStatus) {
+        this.synchronizationStatus = synchronizationStatus;
+    }
+
+    /**
+     * <p>
+     * The status of synchronization of each Aurora DB cluster in the global cluster.
+     * </p>
+     * 
+     * @return The status of synchronization of each Aurora DB cluster in the global cluster.
+     * @see GlobalClusterMemberSynchronizationStatus
+     */
+
+    public String getSynchronizationStatus() {
+        return this.synchronizationStatus;
+    }
+
+    /**
+     * <p>
+     * The status of synchronization of each Aurora DB cluster in the global cluster.
+     * </p>
+     * 
+     * @param synchronizationStatus
+     *        The status of synchronization of each Aurora DB cluster in the global cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see GlobalClusterMemberSynchronizationStatus
+     */
+
+    public GlobalClusterMember withSynchronizationStatus(String synchronizationStatus) {
+        setSynchronizationStatus(synchronizationStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The status of synchronization of each Aurora DB cluster in the global cluster.
+     * </p>
+     * 
+     * @param synchronizationStatus
+     *        The status of synchronization of each Aurora DB cluster in the global cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see GlobalClusterMemberSynchronizationStatus
+     */
+
+    public GlobalClusterMember withSynchronizationStatus(GlobalClusterMemberSynchronizationStatus synchronizationStatus) {
+        this.synchronizationStatus = synchronizationStatus.toString();
+        return this;
     }
 
     /**
@@ -240,7 +367,11 @@ public class GlobalClusterMember implements Serializable, Cloneable {
         if (getReaders() != null)
             sb.append("Readers: ").append(getReaders()).append(",");
         if (getIsWriter() != null)
-            sb.append("IsWriter: ").append(getIsWriter());
+            sb.append("IsWriter: ").append(getIsWriter()).append(",");
+        if (getGlobalWriteForwardingStatus() != null)
+            sb.append("GlobalWriteForwardingStatus: ").append(getGlobalWriteForwardingStatus()).append(",");
+        if (getSynchronizationStatus() != null)
+            sb.append("SynchronizationStatus: ").append(getSynchronizationStatus());
         sb.append("}");
         return sb.toString();
     }
@@ -267,6 +398,14 @@ public class GlobalClusterMember implements Serializable, Cloneable {
             return false;
         if (other.getIsWriter() != null && other.getIsWriter().equals(this.getIsWriter()) == false)
             return false;
+        if (other.getGlobalWriteForwardingStatus() == null ^ this.getGlobalWriteForwardingStatus() == null)
+            return false;
+        if (other.getGlobalWriteForwardingStatus() != null && other.getGlobalWriteForwardingStatus().equals(this.getGlobalWriteForwardingStatus()) == false)
+            return false;
+        if (other.getSynchronizationStatus() == null ^ this.getSynchronizationStatus() == null)
+            return false;
+        if (other.getSynchronizationStatus() != null && other.getSynchronizationStatus().equals(this.getSynchronizationStatus()) == false)
+            return false;
         return true;
     }
 
@@ -278,6 +417,8 @@ public class GlobalClusterMember implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getDBClusterArn() == null) ? 0 : getDBClusterArn().hashCode());
         hashCode = prime * hashCode + ((getReaders() == null) ? 0 : getReaders().hashCode());
         hashCode = prime * hashCode + ((getIsWriter() == null) ? 0 : getIsWriter().hashCode());
+        hashCode = prime * hashCode + ((getGlobalWriteForwardingStatus() == null) ? 0 : getGlobalWriteForwardingStatus().hashCode());
+        hashCode = prime * hashCode + ((getSynchronizationStatus() == null) ? 0 : getSynchronizationStatus().hashCode());
         return hashCode;
     }
 

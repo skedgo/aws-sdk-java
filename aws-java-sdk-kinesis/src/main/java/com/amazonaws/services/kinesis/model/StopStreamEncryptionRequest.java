@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,9 +39,9 @@ public class StopStreamEncryptionRequest extends com.amazonaws.AmazonWebServiceR
     private String encryptionType;
     /**
      * <p>
-     * The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     * identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or an alias name prefixed
-     * by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
+     * The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a globally
+     * unique identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or an alias name
+     * prefixed by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
      * <code>aws/kinesis</code>.
      * </p>
      * <ul>
@@ -73,6 +73,12 @@ public class StopStreamEncryptionRequest extends com.amazonaws.AmazonWebServiceR
      * </ul>
      */
     private String keyId;
+    /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     */
+    private String streamARN;
 
     /**
      * <p>
@@ -189,9 +195,9 @@ public class StopStreamEncryptionRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     * identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or an alias name prefixed
-     * by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
+     * The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a globally
+     * unique identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or an alias name
+     * prefixed by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
      * <code>aws/kinesis</code>.
      * </p>
      * <ul>
@@ -223,10 +229,10 @@ public class StopStreamEncryptionRequest extends com.amazonaws.AmazonWebServiceR
      * </ul>
      * 
      * @param keyId
-     *        The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     *        identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or an alias name
-     *        prefixed by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
-     *        <code>aws/kinesis</code>.</p>
+     *        The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a
+     *        globally unique identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or
+     *        an alias name prefixed by "alias/".You can also use a master key owned by Kinesis Data Streams by
+     *        specifying the alias <code>aws/kinesis</code>.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -261,9 +267,9 @@ public class StopStreamEncryptionRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     * identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or an alias name prefixed
-     * by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
+     * The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a globally
+     * unique identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or an alias name
+     * prefixed by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
      * <code>aws/kinesis</code>.
      * </p>
      * <ul>
@@ -294,10 +300,10 @@ public class StopStreamEncryptionRequest extends com.amazonaws.AmazonWebServiceR
      * </li>
      * </ul>
      * 
-     * @return The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     *         identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or an alias name
-     *         prefixed by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
-     *         <code>aws/kinesis</code>.</p>
+     * @return The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a
+     *         globally unique identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or
+     *         an alias name prefixed by "alias/".You can also use a master key owned by Kinesis Data Streams by
+     *         specifying the alias <code>aws/kinesis</code>.</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -332,9 +338,9 @@ public class StopStreamEncryptionRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     * identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or an alias name prefixed
-     * by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
+     * The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a globally
+     * unique identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or an alias name
+     * prefixed by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
      * <code>aws/kinesis</code>.
      * </p>
      * <ul>
@@ -366,10 +372,10 @@ public class StopStreamEncryptionRequest extends com.amazonaws.AmazonWebServiceR
      * </ul>
      * 
      * @param keyId
-     *        The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique
-     *        identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or an alias name
-     *        prefixed by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias
-     *        <code>aws/kinesis</code>.</p>
+     *        The GUID for the customer-managed Amazon Web Services KMS key to use for encryption. This value can be a
+     *        globally unique identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or
+     *        an alias name prefixed by "alias/".You can also use a master key owned by Kinesis Data Streams by
+     *        specifying the alias <code>aws/kinesis</code>.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -405,6 +411,46 @@ public class StopStreamEncryptionRequest extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     * 
+     * @param streamARN
+     *        The ARN of the stream.
+     */
+
+    public void setStreamARN(String streamARN) {
+        this.streamARN = streamARN;
+    }
+
+    /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     * 
+     * @return The ARN of the stream.
+     */
+
+    public String getStreamARN() {
+        return this.streamARN;
+    }
+
+    /**
+     * <p>
+     * The ARN of the stream.
+     * </p>
+     * 
+     * @param streamARN
+     *        The ARN of the stream.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StopStreamEncryptionRequest withStreamARN(String streamARN) {
+        setStreamARN(streamARN);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -421,7 +467,9 @@ public class StopStreamEncryptionRequest extends com.amazonaws.AmazonWebServiceR
         if (getEncryptionType() != null)
             sb.append("EncryptionType: ").append(getEncryptionType()).append(",");
         if (getKeyId() != null)
-            sb.append("KeyId: ").append(getKeyId());
+            sb.append("KeyId: ").append(getKeyId()).append(",");
+        if (getStreamARN() != null)
+            sb.append("StreamARN: ").append(getStreamARN());
         sb.append("}");
         return sb.toString();
     }
@@ -448,6 +496,10 @@ public class StopStreamEncryptionRequest extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getKeyId() != null && other.getKeyId().equals(this.getKeyId()) == false)
             return false;
+        if (other.getStreamARN() == null ^ this.getStreamARN() == null)
+            return false;
+        if (other.getStreamARN() != null && other.getStreamARN().equals(this.getStreamARN()) == false)
+            return false;
         return true;
     }
 
@@ -459,6 +511,7 @@ public class StopStreamEncryptionRequest extends com.amazonaws.AmazonWebServiceR
         hashCode = prime * hashCode + ((getStreamName() == null) ? 0 : getStreamName().hashCode());
         hashCode = prime * hashCode + ((getEncryptionType() == null) ? 0 : getEncryptionType().hashCode());
         hashCode = prime * hashCode + ((getKeyId() == null) ? 0 : getKeyId().hashCode());
+        hashCode = prime * hashCode + ((getStreamARN() == null) ? 0 : getStreamARN().hashCode());
         return hashCode;
     }
 

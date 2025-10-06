@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,19 +44,20 @@ import com.amazonaws.services.codecommit.AWSCodeCommitClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.codecommit.model.*;
+
 import com.amazonaws.services.codecommit.model.transform.*;
 
 /**
  * Client for accessing CodeCommit. All service calls made using this client are blocking, and will not return until the
  * service call completes.
  * <p>
- * <fullname>AWS CodeCommit</fullname>
+ * <fullname>CodeCommit</fullname>
  * <p>
- * This is the <i>AWS CodeCommit API Reference</i>. This reference provides descriptions of the operations and data
- * types for AWS CodeCommit API along with usage examples.
+ * This is the <i>CodeCommit API Reference</i>. This reference provides descriptions of the operations and data types
+ * for CodeCommit API along with usage examples.
  * </p>
  * <p>
- * You can use the AWS CodeCommit API to work with the following objects:
+ * You can use the CodeCommit API to work with the following objects:
  * </p>
  * <p>
  * Repositories, by calling the following:
@@ -64,18 +65,18 @@ import com.amazonaws.services.codecommit.model.transform.*;
  * <ul>
  * <li>
  * <p>
- * <a>BatchGetRepositories</a>, which returns information about one or more repositories associated with your AWS
- * account.
+ * <a>BatchGetRepositories</a>, which returns information about one or more repositories associated with your Amazon Web
+ * Services account.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>CreateRepository</a>, which creates an AWS CodeCommit repository.
+ * <a>CreateRepository</a>, which creates an CodeCommit repository.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DeleteRepository</a>, which deletes an AWS CodeCommit repository.
+ * <a>DeleteRepository</a>, which deletes an CodeCommit repository.
  * </p>
  * </li>
  * <li>
@@ -85,7 +86,7 @@ import com.amazonaws.services.codecommit.model.transform.*;
  * </li>
  * <li>
  * <p>
- * <a>ListRepositories</a>, which lists all AWS CodeCommit repositories associated with your AWS account.
+ * <a>ListRepositories</a>, which lists all CodeCommit repositories associated with your Amazon Web Services account.
  * </p>
  * </li>
  * <li>
@@ -95,8 +96,14 @@ import com.amazonaws.services.codecommit.model.transform.*;
  * </li>
  * <li>
  * <p>
+ * <a>UpdateRepositoryEncryptionKey</a>, which updates the Key Management Service encryption key used to encrypt and
+ * decrypt a repository.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
  * <a>UpdateRepositoryName</a>, which changes the name of the repository. If you change the name of a repository, no
- * other users of that repository will be able to access it until you send them the new HTTPS or SSH URL to use.
+ * other users of that repository can access it until you send them the new HTTPS or SSH URL to use.
  * </p>
  * </li>
  * </ul>
@@ -106,7 +113,7 @@ import com.amazonaws.services.codecommit.model.transform.*;
  * <ul>
  * <li>
  * <p>
- * <a>CreateBranch</a>, which creates a new branch in a specified repository.
+ * <a>CreateBranch</a>, which creates a branch in a specified repository.
  * </p>
  * </li>
  * <li>
@@ -141,7 +148,7 @@ import com.amazonaws.services.codecommit.model.transform.*;
  * </li>
  * <li>
  * <p>
- * <a>GetBlob</a>, which returns the base-64 encoded content of an individual Git blob object within a repository.
+ * <a>GetBlob</a>, which returns the base-64 encoded content of an individual Git blob object in a repository.
  * </p>
  * </li>
  * <li>
@@ -156,6 +163,11 @@ import com.amazonaws.services.codecommit.model.transform.*;
  * </li>
  * <li>
  * <p>
+ * <a>ListFileCommitHistory</a>, which retrieves a list of commits and changes to a specified file.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
  * <a>PutFile</a>, which adds or modifies a single file in a specified repository and branch.
  * </p>
  * </li>
@@ -164,6 +176,11 @@ import com.amazonaws.services.codecommit.model.transform.*;
  * Commits, by calling the following:
  * </p>
  * <ul>
+ * <li>
+ * <p>
+ * <a>BatchGetCommits</a>, which returns information about one or more commits in a repository.
+ * </p>
+ * </li>
  * <li>
  * <p>
  * <a>CreateCommit</a>, which creates a commit for changes to a repository.
@@ -178,7 +195,7 @@ import com.amazonaws.services.codecommit.model.transform.*;
  * <li>
  * <p>
  * <a>GetDifferences</a>, which returns information about the differences in a valid commit specifier (such as a branch,
- * tag, HEAD, commit ID or other fully qualified reference).
+ * tag, HEAD, commit ID, or other fully qualified reference).
  * </p>
  * </li>
  * </ul>
@@ -248,7 +265,23 @@ import com.amazonaws.services.codecommit.model.transform.*;
  * </li>
  * <li>
  * <p>
+ * <a>CreatePullRequestApprovalRule</a>, which creates an approval rule for a specified pull request.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DeletePullRequestApprovalRule</a>, which deletes an approval rule for a specified pull request.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
  * <a>DescribePullRequestEvents</a>, which returns information about one or more pull request events.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>EvaluatePullRequestApprovalRules</a>, which evaluates whether a pull request has met all the conditions specified
+ * in its associated approval rules.
  * </p>
  * </li>
  * <li>
@@ -259,6 +292,19 @@ import com.amazonaws.services.codecommit.model.transform.*;
  * <li>
  * <p>
  * <a>GetPullRequest</a>, which returns information about a specified pull request.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>GetPullRequestApprovalStates</a>, which returns information about the approval states for a specified pull
+ * request.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>GetPullRequestOverrideState</a>, which returns information about whether approval rules have been set aside
+ * (overriden) for a pull request, and if so, the Amazon Resource Name (ARN) of the user or identity that overrode the
+ * rules and their requirements for the pull request.
  * </p>
  * </li>
  * <li>
@@ -280,13 +326,28 @@ import com.amazonaws.services.codecommit.model.transform.*;
  * </li>
  * <li>
  * <p>
- * <a>MergePullRequestByThreeWay</a>. which merges the source destination branch of a pull request into the specified
+ * <a>MergePullRequestByThreeWay</a>, which merges the source destination branch of a pull request into the specified
  * destination branch for that pull request using the three-way merge option.
  * </p>
  * </li>
  * <li>
  * <p>
+ * <a>OverridePullRequestApprovalRules</a>, which sets aside all approval rule requirements for a pull request.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
  * <a>PostCommentForPullRequest</a>, which posts a comment to a pull request at the specified line, file, or request.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>UpdatePullRequestApprovalRuleContent</a>, which updates the structure of an approval rule for a pull request.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>UpdatePullRequestApprovalState</a>, which updates the state of an approval on a pull request.
  * </p>
  * </li>
  * <li>
@@ -306,6 +367,89 @@ import com.amazonaws.services.codecommit.model.transform.*;
  * </li>
  * </ul>
  * <p>
+ * Approval rule templates, by calling the following:
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <a>AssociateApprovalRuleTemplateWithRepository</a>, which associates a template with a specified repository. After
+ * the template is associated with a repository, CodeCommit creates approval rules that match the template conditions on
+ * every pull request created in the specified repository.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>BatchAssociateApprovalRuleTemplateWithRepositories</a>, which associates a template with one or more specified
+ * repositories. After the template is associated with a repository, CodeCommit creates approval rules that match the
+ * template conditions on every pull request created in the specified repositories.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>BatchDisassociateApprovalRuleTemplateFromRepositories</a>, which removes the association between a template and
+ * specified repositories so that approval rules based on the template are not automatically created when pull requests
+ * are created in those repositories.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>CreateApprovalRuleTemplate</a>, which creates a template for approval rules that can then be associated with one
+ * or more repositories in your Amazon Web Services account.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DeleteApprovalRuleTemplate</a>, which deletes the specified template. It does not remove approval rules on pull
+ * requests already created with the template.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DisassociateApprovalRuleTemplateFromRepository</a>, which removes the association between a template and a
+ * repository so that approval rules based on the template are not automatically created when pull requests are created
+ * in the specified repository.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>GetApprovalRuleTemplate</a>, which returns information about an approval rule template.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>ListApprovalRuleTemplates</a>, which lists all approval rule templates in the Amazon Web Services Region in your
+ * Amazon Web Services account.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>ListAssociatedApprovalRuleTemplatesForRepository</a>, which lists all approval rule templates that are associated
+ * with a specified repository.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>ListRepositoriesForApprovalRuleTemplate</a>, which lists all repositories associated with the specified approval
+ * rule template.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>UpdateApprovalRuleTemplateDescription</a>, which updates the description of an approval rule template.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>UpdateApprovalRuleTemplateName</a>, which updates the name of an approval rule template.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>UpdateApprovalRuleTemplateContent</a>, which updates the content of an approval rule template.
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
  * Comments in a repository, by calling the following:
  * </p>
  * <ul>
@@ -317,6 +461,11 @@ import com.amazonaws.services.codecommit.model.transform.*;
  * <li>
  * <p>
  * <a>GetComment</a>, which returns information about a comment on a commit.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>GetCommentReactions</a>, which returns information about emoji reactions to comments.
  * </p>
  * </li>
  * <li>
@@ -338,28 +487,33 @@ import com.amazonaws.services.codecommit.model.transform.*;
  * </li>
  * <li>
  * <p>
+ * <a>PutCommentReaction</a>, which creates or updates an emoji reaction to a comment.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
  * <a>UpdateComment</a>, which updates the content of a comment on a commit in a repository.
  * </p>
  * </li>
  * </ul>
  * <p>
- * Tags used to tag resources in AWS CodeCommit (not Git tags), by calling the following:
+ * Tags used to tag resources in CodeCommit (not Git tags), by calling the following:
  * </p>
  * <ul>
  * <li>
  * <p>
- * <a>ListTagsForResource</a>, which gets information about AWS tags for a specified Amazon Resource Name (ARN) in AWS
- * CodeCommit.
+ * <a>ListTagsForResource</a>, which gets information about Amazon Web Servicestags for a specified Amazon Resource Name
+ * (ARN) in CodeCommit.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>TagResource</a>, which adds or updates tags for a resource in AWS CodeCommit.
+ * <a>TagResource</a>, which adds or updates tags for a resource in CodeCommit.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>UntagResource</a>, which removes tags for a resource in AWS CodeCommit.
+ * <a>UntagResource</a>, which removes tags for a resource in CodeCommit.
  * </p>
  * </li>
  * </ul>
@@ -386,8 +540,8 @@ import com.amazonaws.services.codecommit.model.transform.*;
  * </li>
  * </ul>
  * <p>
- * For information about how to use AWS CodeCommit, see the <a
- * href="https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html">AWS CodeCommit User Guide</a>.
+ * For information about how to use CodeCommit, see the <a
+ * href="https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html">CodeCommit User Guide</a>.
  * </p>
  */
 @ThreadSafe
@@ -413,449 +567,582 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TargetsRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.TargetsRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("FileContentRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.FileContentRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RepositoryLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.RepositoryLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidApprovalRuleTemplateDescriptionException")
+                                    .withExceptionUnmarshaller(
+                                            com.amazonaws.services.codecommit.model.transform.InvalidApprovalRuleTemplateDescriptionExceptionUnmarshaller
+                                                    .getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("FileContentRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.FileContentRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ApprovalRuleTemplateDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ApprovalRuleTemplateDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BranchNameIsTagNameException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.BranchNameIsTagNameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CommentDeletedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.CommentDeletedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CommitIdRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.CommitIdRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MaximumItemsToCompareExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.MaximumItemsToCompareExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CommentDeletedException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.CommentDeletedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidBlobIdException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidBlobIdExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MaximumItemsToCompareExceededException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.MaximumItemsToCompareExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRepositoryDescriptionException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidRepositoryDescriptionExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TitleRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.TitleRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRepositoryTriggerDestinationArnException")
+                                    .withExceptionUnmarshaller(
+                                            com.amazonaws.services.codecommit.model.transform.InvalidRepositoryTriggerDestinationArnExceptionUnmarshaller
+                                                    .getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidBlobIdException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidBlobIdException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CommentDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.CommentDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRepositoryDescriptionException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidRepositoryDescriptionException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidConflictDetailLevelException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidConflictDetailLevelExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTargetsException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidTargetsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ReactionLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ReactionLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRepositoryTriggerDestinationArnException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidRepositoryTriggerDestinationArnException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BeforeCommitIdAndAfterCommitIdAreSameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.BeforeCommitIdAndAfterCommitIdAreSameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CommentDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.CommentDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CannotModifyApprovalRuleFromTemplateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.CannotModifyApprovalRuleFromTemplateExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MaximumRepositoryTriggersExceededException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.MaximumRepositoryTriggersExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RevisionIdRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.RevisionIdRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidConflictDetailLevelException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidConflictDetailLevelException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("PullRequestDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.PullRequestDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BlobIdRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.BlobIdRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ReferenceTypeNotSupportedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ReferenceTypeNotSupportedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidReplacementTypeException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidReplacementTypeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("FilePathConflictsWithSubmodulePathException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.FilePathConflictsWithSubmodulePathExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RepositoryNamesRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.RepositoryNamesRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RepositoryTriggerEventsListRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.RepositoryTriggerEventsListRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AuthorDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.AuthorDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("FileModeRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.FileModeRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidFilePositionException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidFilePositionException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CommitDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.CommitDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("FileNameConflictsWithDirectoryNameException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.FileNameConflictsWithDirectoryNameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceArnRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ResourceArnRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidResourceArnException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidResourceArnException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidReactionUserArnException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidReactionUserArnExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("EncryptionKeyAccessDeniedException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.EncryptionKeyAccessDeniedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRepositoryTriggerEventsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidRepositoryTriggerEventsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BeforeCommitIdAndAfterCommitIdAreSameException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.BeforeCommitIdAndAfterCommitIdAreSameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RepositoryNotAssociatedWithPullRequestException")
+                                    .withExceptionUnmarshaller(
+                                            com.amazonaws.services.codecommit.model.transform.RepositoryNotAssociatedWithPullRequestExceptionUnmarshaller
+                                                    .getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BranchDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.BranchDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidFileLocationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidFileLocationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("PullRequestDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.PullRequestDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MaximumBranchesExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.MaximumBranchesExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ReferenceTypeNotSupportedException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.ReferenceTypeNotSupportedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("EncryptionKeyInvalidIdException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.EncryptionKeyInvalidIdExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("FilePathConflictsWithSubmodulePathException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.FilePathConflictsWithSubmodulePathException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRelativeFileVersionEnumException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidRelativeFileVersionEnumExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RepositoryTriggerEventsListRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.RepositoryTriggerEventsListRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidReactionValueException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidReactionValueExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("FileModeRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.FileModeRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TagKeysListRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.TagKeysListRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CommitDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.CommitDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidClientRequestTokenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidClientRequestTokenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceArnRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.ResourceArnRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("FolderContentSizeLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.FolderContentSizeLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRepositoryTriggerCustomDataException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidRepositoryTriggerCustomDataException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RepositoryNameRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.RepositoryNameRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRepositoryTriggerEventsException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidRepositoryTriggerEventsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidReferenceNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidReferenceNameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RepositoryNotAssociatedWithPullRequestException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.RepositoryNotAssociatedWithPullRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CommentContentRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.CommentContentRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MaximumRepositoryNamesExceededException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.MaximumRepositoryNamesExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTagKeysListException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidTagKeysListExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RepositoryDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.RepositoryDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TagsMapRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.TagsMapRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidFileLocationException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidFileLocationException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("PathRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.PathRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MaximumOpenPullRequestsExceededException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.MaximumOpenPullRequestsExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidSystemTagUsageException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidSystemTagUsageExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DefaultBranchCannotBeDeletedException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.DefaultBranchCannotBeDeletedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CommitIdDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.CommitIdDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MaximumBranchesExceededException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.MaximumBranchesExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidParentCommitIdException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidParentCommitIdExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("EncryptionKeyNotFoundException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.EncryptionKeyNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ReferenceNameRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ReferenceNameRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidPathException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidPathException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidMaxConflictFilesException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidMaxConflictFilesExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRelativeFileVersionEnumException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidRelativeFileVersionEnumException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MaximumRuleTemplatesAssociatedWithRepositoryException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.MaximumRuleTemplatesAssociatedWithRepositoryExceptionUnmarshaller
+                                            .getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TagKeysListRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.TagKeysListRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ApprovalRuleTemplateContentRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ApprovalRuleTemplateContentRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidConflictResolutionException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidConflictResolutionException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidCommentIdException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidCommentIdExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidClientRequestTokenException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidClientRequestTokenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidApprovalStateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidApprovalStateExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("FolderContentSizeLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.FolderContentSizeLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidCommitException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidCommitExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RepositoryNameRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.RepositoryNameRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ApprovalRuleTemplateNameRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ApprovalRuleTemplateNameRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidReferenceNameException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidReferenceNameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NoChangeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.NoChangeExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RepositoryTriggerDestinationArnRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.RepositoryTriggerDestinationArnRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ApprovalRuleDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ApprovalRuleDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidConflictResolutionStrategyException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidConflictResolutionStrategyException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MaximumFileContentToLoadExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.MaximumFileContentToLoadExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidAuthorArnException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidAuthorArnException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MultipleRepositoriesInPullRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.MultipleRepositoriesInPullRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CommentContentRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.CommentContentRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BlobIdDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.BlobIdDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTagKeysListException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidTagKeysListException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MergeOptionRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.MergeOptionRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTargetBranchException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidTargetBranchException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidPullRequestIdException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidPullRequestIdExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TagsMapRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.TagsMapRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ApprovalRuleTemplateInUseException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ApprovalRuleTemplateInUseExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("PathRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.PathRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("FileDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.FileDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidSystemTagUsageException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidSystemTagUsageException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RepositoryNameExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.RepositoryNameExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ReplacementTypeRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.ReplacementTypeRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("PathDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.PathDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RepositoryTriggerNameRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.RepositoryTriggerNameRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BranchNameExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.BranchNameExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CommitIdDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.CommitIdDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("EncryptionIntegrityChecksFailedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.EncryptionIntegrityChecksFailedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidPullRequestStatusException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidPullRequestStatusException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidCommitIdException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidCommitIdExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidParentCommitIdException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidParentCommitIdException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidOrderException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidOrderExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ReferenceNameRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.ReferenceNameRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("PullRequestAlreadyClosedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.PullRequestAlreadyClosedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidPullRequestStatusUpdateException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidPullRequestStatusUpdateException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BranchNameRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.BranchNameRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidMaxConflictFilesException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidMaxConflictFilesException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRepositoryTriggerNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidRepositoryTriggerNameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ParentCommitIdRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.ParentCommitIdRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidMergeOptionException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidMergeOptionExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidCommentIdException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidCommentIdException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ParentCommitIdOutdatedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ParentCommitIdOutdatedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidPullRequestEventTypeException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidPullRequestEventTypeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CommitIdsListRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.CommitIdsListRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidCommitException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidCommitException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidContinuationTokenException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidContinuationTokenExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ActorDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.ActorDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MaximumFileEntriesExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.MaximumFileEntriesExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("IdempotencyParameterMismatchException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.IdempotencyParameterMismatchException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("PullRequestApprovalRulesNotSatisfiedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.PullRequestApprovalRulesNotSatisfiedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NoChangeException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.NoChangeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ClientRequestTokenRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ClientRequestTokenRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MaximumFileContentToLoadExceededException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.MaximumFileContentToLoadExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NameLengthExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.NameLengthExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidDescriptionException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidDescriptionException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("EncryptionKeyDisabledException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.EncryptionKeyDisabledExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MultipleRepositoriesInPullRequestException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.MultipleRepositoriesInPullRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MultipleConflictResolutionEntriesException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.MultipleConflictResolutionEntriesExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BlobIdDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.BlobIdDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyTagsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.TooManyTagsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MergeOptionRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.MergeOptionRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("FileContentSizeLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.FileContentSizeLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("FolderDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.FolderDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ManualMergeRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ManualMergeRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidPullRequestIdException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidPullRequestIdException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidApprovalRuleContentException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidApprovalRuleContentExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("PullRequestIdRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.PullRequestIdRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRepositoryTriggerBranchNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidRepositoryTriggerBranchNameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("FileDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.FileDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("SameFileContentException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.SameFileContentExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RepositoryNameExistsException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.RepositoryNameExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTargetException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidTargetExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("PathDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.PathDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRepositoryTriggerRegionException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidRepositoryTriggerRegionExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TipOfSourceReferenceIsDifferentException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.TipOfSourceReferenceIsDifferentException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CommentContentSizeLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.CommentContentSizeLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BranchNameExistsException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.BranchNameExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidMaxResultsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidMaxResultsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RepositoryTriggersListRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.RepositoryTriggersListRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ParentCommitDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ParentCommitDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidReplacementContentException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidReplacementContentException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("FileEntryRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.FileEntryRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("EncryptionIntegrityChecksFailedException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.EncryptionIntegrityChecksFailedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidActorArnException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidActorArnExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CommitMessageLengthExceededException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.CommitMessageLengthExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CommitIdsLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.CommitIdsLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidMaxMergeHunksException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidMaxMergeHunksException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDestinationCommitSpecifierException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidDestinationCommitSpecifierExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidCommitIdException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidCommitIdException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RepositoryTriggerBranchNameListRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.RepositoryTriggerBranchNameListRequiredExceptionUnmarshaller
+                                            .getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidOrderException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidOrderException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidApprovalRuleNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidApprovalRuleNameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidEmailException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidEmailException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DirectoryNameConflictsWithFileNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.DirectoryNameConflictsWithFileNameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("PullRequestAlreadyClosedException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.PullRequestAlreadyClosedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("SourceAndDestinationAreSameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.SourceAndDestinationAreSameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BranchNameRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.BranchNameRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTitleException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidTitleExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeletionParameterException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidDeletionParameterException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("EncryptionKeyUnavailableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.EncryptionKeyUnavailableExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("SourceFileOrContentRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.SourceFileOrContentRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRepositoryNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidRepositoryNameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CommentIdRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.CommentIdRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidBranchNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidBranchNameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRepositoryTriggerNameException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidRepositoryTriggerNameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TargetsRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.TargetsRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidMergeOptionException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidMergeOptionException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RepositoryLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.RepositoryLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ParentCommitIdOutdatedException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.ParentCommitIdOutdatedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BranchNameIsTagNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.BranchNameIsTagNameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidContinuationTokenException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidContinuationTokenException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("CommitIdRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.CommitIdRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CommitRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.CommitRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TitleRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.TitleRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MaximumFileEntriesExceededException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.MaximumFileEntriesExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTargetsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidTargetsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ClientRequestTokenRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.ClientRequestTokenRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MaximumRepositoryTriggersExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.MaximumRepositoryTriggersExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NameLengthExceededException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.NameLengthExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("EncryptionKeyInvalidUsageException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.EncryptionKeyInvalidUsageExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MaximumConflictResolutionEntriesExceededException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.MaximumConflictResolutionEntriesExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BlobIdRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.BlobIdRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("EncryptionKeyDisabledException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.EncryptionKeyDisabledException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidReplacementTypeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidReplacementTypeExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("MultipleConflictResolutionEntriesException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.MultipleConflictResolutionEntriesException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RepositoryNamesRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.RepositoryNamesRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TooManyTagsException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.TooManyTagsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AuthorDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.AuthorDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CommentNotCreatedByCallerException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.CommentNotCreatedByCallerException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidFilePositionException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidFilePositionExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("FileContentSizeLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.FileContentSizeLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("FileNameConflictsWithDirectoryNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.FileNameConflictsWithDirectoryNameExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TargetRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.TargetRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidResourceArnException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidResourceArnExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTagsMapException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidTagsMapException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("EncryptionKeyAccessDeniedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.EncryptionKeyAccessDeniedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RestrictedSourceFileException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.RestrictedSourceFileException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("PullRequestCannotBeApprovedByAuthorException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.PullRequestCannotBeApprovedByAuthorExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("FileTooLargeException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.FileTooLargeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("BranchDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.BranchDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ManualMergeRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.ManualMergeRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ReactionValueRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ReactionValueRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("PutFileEntryConflictException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.PutFileEntryConflictException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ApprovalRuleTemplateNameAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ApprovalRuleTemplateNameAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRepositoryTriggerBranchNameException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidRepositoryTriggerBranchNameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRepositoryTriggerCustomDataException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidRepositoryTriggerCustomDataExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("FileContentAndSourceFileSpecifiedException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.FileContentAndSourceFileSpecifiedException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ApprovalRuleContentRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ApprovalRuleContentRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("PullRequestStatusRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.PullRequestStatusRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MaximumRepositoryNamesExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.MaximumRepositoryNamesExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ConcurrentReferenceUpdateException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.ConcurrentReferenceUpdateException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RepositoryDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.RepositoryDoesNotExistExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("SamePathRequestException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.SamePathRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRevisionIdException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidRevisionIdExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TipsDivergenceExceededException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.TipsDivergenceExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("MaximumOpenPullRequestsExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.MaximumOpenPullRequestsExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidSortByException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidSortByException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DefaultBranchCannotBeDeletedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.DefaultBranchCannotBeDeletedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("SameFileContentException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.SameFileContentException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("EncryptionKeyNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.EncryptionKeyNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTargetException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidTargetException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidPathException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidPathExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRepositoryTriggerRegionException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidRepositoryTriggerRegionException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidConflictResolutionException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidConflictResolutionExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ReferenceDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.ReferenceDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("EncryptionKeyRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.EncryptionKeyRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CommentContentSizeLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.CommentContentSizeLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidApprovalRuleTemplateContentException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidApprovalRuleTemplateContentExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidMaxResultsException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidMaxResultsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RepositoryTriggerDestinationArnRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.RepositoryTriggerDestinationArnRequiredExceptionUnmarshaller
+                                            .getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ParentCommitDoesNotExistException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.ParentCommitDoesNotExistException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidConflictResolutionStrategyException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidConflictResolutionStrategyExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("FileEntryRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.FileEntryRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidAuthorArnException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidAuthorArnExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidActorArnException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidActorArnException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTargetBranchException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidTargetBranchExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidDestinationCommitSpecifierException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidDestinationCommitSpecifierException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ReplacementTypeRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ReplacementTypeRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TagPolicyException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.TagPolicyException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RepositoryTriggerNameRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.RepositoryTriggerNameRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("RepositoryTriggerBranchNameListRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.RepositoryTriggerBranchNameListRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("OperationNotAllowedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.OperationNotAllowedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidFileModeException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidFileModeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ApprovalStateRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ApprovalStateRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidSourceCommitSpecifierException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidSourceCommitSpecifierException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidPullRequestStatusException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidPullRequestStatusExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DirectoryNameConflictsWithFileNameException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.DirectoryNameConflictsWithFileNameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("OverrideAlreadySetException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.OverrideAlreadySetExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("SourceAndDestinationAreSameException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.SourceAndDestinationAreSameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NumberOfRulesExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.NumberOfRulesExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTitleException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidTitleException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidOverrideStatusException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidOverrideStatusExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("EncryptionKeyUnavailableException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.EncryptionKeyUnavailableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ApprovalRuleNameRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ApprovalRuleNameRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRepositoryNameException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidRepositoryNameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidPullRequestStatusUpdateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidPullRequestStatusUpdateExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ReplacementContentRequiredException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.ReplacementContentRequiredException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ParentCommitIdRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ParentCommitIdRequiredExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidBranchNameException").withModeledClass(
-                                    com.amazonaws.services.codecommit.model.InvalidBranchNameException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidPullRequestEventTypeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidPullRequestEventTypeExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ActorDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ActorDoesNotExistExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("IdempotencyParameterMismatchException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.IdempotencyParameterMismatchExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("NumberOfRuleTemplatesExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.NumberOfRuleTemplatesExceededExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDescriptionException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidDescriptionExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("FolderDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.FolderDoesNotExistExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("PullRequestIdRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.PullRequestIdRequiredExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TipOfSourceReferenceIsDifferentException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.TipOfSourceReferenceIsDifferentExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("RepositoryTriggersListRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.RepositoryTriggersListRequiredExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidReplacementContentException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidReplacementContentExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("MaximumNumberOfApprovalsExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.MaximumNumberOfApprovalsExceededExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("CommitMessageLengthExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.CommitMessageLengthExceededExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidMaxMergeHunksException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidMaxMergeHunksExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidEmailException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidEmailExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeletionParameterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidDeletionParameterExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRuleContentSha256Exception").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidRuleContentSha256ExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("SourceFileOrContentRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.SourceFileOrContentRequiredExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("CommentIdRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.CommentIdRequiredExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("CommitRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.CommitRequiredExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("RevisionNotCurrentException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.RevisionNotCurrentExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("MaximumConflictResolutionEntriesExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.MaximumConflictResolutionEntriesExceededExceptionUnmarshaller
+                                            .getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("CommentNotCreatedByCallerException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.CommentNotCreatedByCallerExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TargetRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.TargetRequiredExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTagsMapException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidTagsMapExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("RestrictedSourceFileException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.RestrictedSourceFileExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("FileTooLargeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.FileTooLargeExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("PutFileEntryConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.PutFileEntryConflictExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("FileContentAndSourceFileSpecifiedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.FileContentAndSourceFileSpecifiedExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("PullRequestStatusRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.PullRequestStatusRequiredExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ConcurrentReferenceUpdateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ConcurrentReferenceUpdateExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("SamePathRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.SamePathRequestExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TipsDivergenceExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.TipsDivergenceExceededExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidSortByException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidSortByExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("CannotDeleteApprovalRuleFromTemplateException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.CannotDeleteApprovalRuleFromTemplateExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ReferenceDoesNotExistException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ReferenceDoesNotExistExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("OverrideStatusRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.OverrideStatusRequiredExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ApprovalRuleNameAlreadyExistsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ApprovalRuleNameAlreadyExistsExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TagPolicyException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.TagPolicyExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidFileModeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidFileModeExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidApprovalRuleTemplateNameException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidApprovalRuleTemplateNameExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidSourceCommitSpecifierException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.InvalidSourceCommitSpecifierExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ReplacementContentRequiredException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.codecommit.model.transform.ReplacementContentRequiredExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.codecommit.model.AWSCodeCommitException.class));
 
     /**
@@ -1059,6 +1346,187 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
+     * Creates an association between an approval rule template and a specified repository. Then, the next time a pull
+     * request is created in the repository where the destination reference (if specified) matches the destination
+     * reference (branch) for the pull request, an approval rule that matches the template conditions is automatically
+     * created for that pull request. If no destination references are specified in the template, an approval rule that
+     * matches the template contents is created for all pull requests in that repository.
+     * </p>
+     * 
+     * @param associateApprovalRuleTemplateWithRepositoryRequest
+     * @return Result of the AssociateApprovalRuleTemplateWithRepository operation returned by the service.
+     * @throws ApprovalRuleTemplateNameRequiredException
+     *         An approval rule template name is required, but was not specified.
+     * @throws InvalidApprovalRuleTemplateNameException
+     *         The name of the approval rule template is not valid. Template names must be between 1 and 100 valid
+     *         characters in length. For more information about limits in CodeCommit, see <a
+     *         href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the
+     *         <i>CodeCommit User Guide</i>.
+     * @throws ApprovalRuleTemplateDoesNotExistException
+     *         The specified approval rule template does not exist. Verify that the name is correct and that you are
+     *         signed in to the Amazon Web Services Region where the template was created, and then try again.
+     * @throws MaximumRuleTemplatesAssociatedWithRepositoryException
+     *         The maximum number of approval rule templates for a repository has been exceeded. You cannot associate
+     *         more than 25 approval rule templates with a repository.
+     * @throws RepositoryNameRequiredException
+     *         A repository name is required, but was not specified.
+     * @throws InvalidRepositoryNameException
+     *         A specified repository name is not valid.</p> <note>
+     *         <p>
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
+     *         required repository parameter is missing, or when a specified repository does not exist.
+     *         </p>
+     * @throws RepositoryDoesNotExistException
+     *         The specified repository does not exist.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @sample AWSCodeCommit.AssociateApprovalRuleTemplateWithRepository
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/AssociateApprovalRuleTemplateWithRepository"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public AssociateApprovalRuleTemplateWithRepositoryResult associateApprovalRuleTemplateWithRepository(
+            AssociateApprovalRuleTemplateWithRepositoryRequest request) {
+        request = beforeClientExecution(request);
+        return executeAssociateApprovalRuleTemplateWithRepository(request);
+    }
+
+    @SdkInternalApi
+    final AssociateApprovalRuleTemplateWithRepositoryResult executeAssociateApprovalRuleTemplateWithRepository(
+            AssociateApprovalRuleTemplateWithRepositoryRequest associateApprovalRuleTemplateWithRepositoryRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(associateApprovalRuleTemplateWithRepositoryRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AssociateApprovalRuleTemplateWithRepositoryRequest> request = null;
+        Response<AssociateApprovalRuleTemplateWithRepositoryResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AssociateApprovalRuleTemplateWithRepositoryRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(associateApprovalRuleTemplateWithRepositoryRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateApprovalRuleTemplateWithRepository");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<AssociateApprovalRuleTemplateWithRepositoryResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new AssociateApprovalRuleTemplateWithRepositoryResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates an association between an approval rule template and one or more specified repositories.
+     * </p>
+     * 
+     * @param batchAssociateApprovalRuleTemplateWithRepositoriesRequest
+     * @return Result of the BatchAssociateApprovalRuleTemplateWithRepositories operation returned by the service.
+     * @throws ApprovalRuleTemplateNameRequiredException
+     *         An approval rule template name is required, but was not specified.
+     * @throws InvalidApprovalRuleTemplateNameException
+     *         The name of the approval rule template is not valid. Template names must be between 1 and 100 valid
+     *         characters in length. For more information about limits in CodeCommit, see <a
+     *         href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the
+     *         <i>CodeCommit User Guide</i>.
+     * @throws ApprovalRuleTemplateDoesNotExistException
+     *         The specified approval rule template does not exist. Verify that the name is correct and that you are
+     *         signed in to the Amazon Web Services Region where the template was created, and then try again.
+     * @throws RepositoryNamesRequiredException
+     *         At least one repository name object is required, but was not specified.
+     * @throws MaximumRepositoryNamesExceededException
+     *         The maximum number of allowed repository names was exceeded. Currently, this number is 100.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @sample AWSCodeCommit.BatchAssociateApprovalRuleTemplateWithRepositories
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/BatchAssociateApprovalRuleTemplateWithRepositories"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public BatchAssociateApprovalRuleTemplateWithRepositoriesResult batchAssociateApprovalRuleTemplateWithRepositories(
+            BatchAssociateApprovalRuleTemplateWithRepositoriesRequest request) {
+        request = beforeClientExecution(request);
+        return executeBatchAssociateApprovalRuleTemplateWithRepositories(request);
+    }
+
+    @SdkInternalApi
+    final BatchAssociateApprovalRuleTemplateWithRepositoriesResult executeBatchAssociateApprovalRuleTemplateWithRepositories(
+            BatchAssociateApprovalRuleTemplateWithRepositoriesRequest batchAssociateApprovalRuleTemplateWithRepositoriesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(batchAssociateApprovalRuleTemplateWithRepositoriesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<BatchAssociateApprovalRuleTemplateWithRepositoriesRequest> request = null;
+        Response<BatchAssociateApprovalRuleTemplateWithRepositoriesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new BatchAssociateApprovalRuleTemplateWithRepositoriesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(batchAssociateApprovalRuleTemplateWithRepositoriesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchAssociateApprovalRuleTemplateWithRepositories");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<BatchAssociateApprovalRuleTemplateWithRepositoriesResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new BatchAssociateApprovalRuleTemplateWithRepositoriesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns information about one or more merge conflicts in the attempted merge of two commit specifiers using the
      * squash or three-way merge strategy.
      * </p>
@@ -1066,11 +1534,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @param batchDescribeMergeConflictsRequest
      * @return Result of the BatchDescribeMergeConflicts operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -1103,8 +1571,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws MaximumFileContentToLoadExceededException
      *         The number of files to load exceeds the allowed limit.
      * @throws MaximumItemsToCompareExceededException
-     *         The maximum number of items to compare between the source or destination branches and the merge base has
-     *         exceeded the maximum allowed.
+     *         The number of items to compare between the source or destination branches and the merge base has exceeded
+     *         the maximum allowed.
      * @throws EncryptionIntegrityChecksFailedException
      *         An encryption integrity check failed.
      * @throws EncryptionKeyAccessDeniedException
@@ -1141,6 +1609,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                         .beforeMarshalling(batchDescribeMergeConflictsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchDescribeMergeConflicts");
@@ -1165,14 +1635,178 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
+     * Removes the association between an approval rule template and one or more specified repositories.
+     * </p>
+     * 
+     * @param batchDisassociateApprovalRuleTemplateFromRepositoriesRequest
+     * @return Result of the BatchDisassociateApprovalRuleTemplateFromRepositories operation returned by the service.
+     * @throws ApprovalRuleTemplateNameRequiredException
+     *         An approval rule template name is required, but was not specified.
+     * @throws InvalidApprovalRuleTemplateNameException
+     *         The name of the approval rule template is not valid. Template names must be between 1 and 100 valid
+     *         characters in length. For more information about limits in CodeCommit, see <a
+     *         href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the
+     *         <i>CodeCommit User Guide</i>.
+     * @throws ApprovalRuleTemplateDoesNotExistException
+     *         The specified approval rule template does not exist. Verify that the name is correct and that you are
+     *         signed in to the Amazon Web Services Region where the template was created, and then try again.
+     * @throws RepositoryNamesRequiredException
+     *         At least one repository name object is required, but was not specified.
+     * @throws MaximumRepositoryNamesExceededException
+     *         The maximum number of allowed repository names was exceeded. Currently, this number is 100.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @sample AWSCodeCommit.BatchDisassociateApprovalRuleTemplateFromRepositories
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/BatchDisassociateApprovalRuleTemplateFromRepositories"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public BatchDisassociateApprovalRuleTemplateFromRepositoriesResult batchDisassociateApprovalRuleTemplateFromRepositories(
+            BatchDisassociateApprovalRuleTemplateFromRepositoriesRequest request) {
+        request = beforeClientExecution(request);
+        return executeBatchDisassociateApprovalRuleTemplateFromRepositories(request);
+    }
+
+    @SdkInternalApi
+    final BatchDisassociateApprovalRuleTemplateFromRepositoriesResult executeBatchDisassociateApprovalRuleTemplateFromRepositories(
+            BatchDisassociateApprovalRuleTemplateFromRepositoriesRequest batchDisassociateApprovalRuleTemplateFromRepositoriesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(batchDisassociateApprovalRuleTemplateFromRepositoriesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<BatchDisassociateApprovalRuleTemplateFromRepositoriesRequest> request = null;
+        Response<BatchDisassociateApprovalRuleTemplateFromRepositoriesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new BatchDisassociateApprovalRuleTemplateFromRepositoriesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(batchDisassociateApprovalRuleTemplateFromRepositoriesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchDisassociateApprovalRuleTemplateFromRepositories");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<BatchDisassociateApprovalRuleTemplateFromRepositoriesResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new BatchDisassociateApprovalRuleTemplateFromRepositoriesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns information about the contents of one or more commits in a repository.
+     * </p>
+     * 
+     * @param batchGetCommitsRequest
+     * @return Result of the BatchGetCommits operation returned by the service.
+     * @throws CommitIdsListRequiredException
+     *         A list of commit IDs is required, but was either not specified or the list was empty.
+     * @throws CommitIdsLimitExceededException
+     *         The maximum number of allowed commit IDs in a batch request is 100. Verify that your batch requests
+     *         contains no more than 100 commit IDs, and then try again.
+     * @throws RepositoryNameRequiredException
+     *         A repository name is required, but was not specified.
+     * @throws InvalidRepositoryNameException
+     *         A specified repository name is not valid.</p> <note>
+     *         <p>
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
+     *         required repository parameter is missing, or when a specified repository does not exist.
+     *         </p>
+     * @throws RepositoryDoesNotExistException
+     *         The specified repository does not exist.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @sample AWSCodeCommit.BatchGetCommits
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/BatchGetCommits" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public BatchGetCommitsResult batchGetCommits(BatchGetCommitsRequest request) {
+        request = beforeClientExecution(request);
+        return executeBatchGetCommits(request);
+    }
+
+    @SdkInternalApi
+    final BatchGetCommitsResult executeBatchGetCommits(BatchGetCommitsRequest batchGetCommitsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(batchGetCommitsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<BatchGetCommitsRequest> request = null;
+        Response<BatchGetCommitsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new BatchGetCommitsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(batchGetCommitsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchGetCommits");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<BatchGetCommitsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new BatchGetCommitsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns information about one or more repositories.
      * </p>
      * <note>
      * <p>
      * The description field for a repository accepts all HTML characters and all valid Unicode characters. Applications
-     * that do not HTML-encode the description and display it in a web page could expose users to potentially malicious
+     * that do not HTML-encode the description and display it in a webpage can expose users to potentially malicious
      * code. Make sure that you HTML-encode the description field in any application that uses this API to display the
-     * repository description on a web page.
+     * repository description on a webpage.
      * </p>
      * </note>
      * 
@@ -1180,13 +1814,13 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *        Represents the input of a batch get repositories operation.
      * @return Result of the BatchGetRepositories operation returned by the service.
      * @throws RepositoryNamesRequiredException
-     *         A repository names object is required but was not specified.
+     *         At least one repository name object is required, but was not specified.
      * @throws MaximumRepositoryNamesExceededException
-     *         The maximum number of allowed repository names was exceeded. Currently, this number is 25.
+     *         The maximum number of allowed repository names was exceeded. Currently, this number is 100.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws EncryptionIntegrityChecksFailedException
@@ -1224,6 +1858,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new BatchGetRepositoriesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(batchGetRepositoriesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchGetRepositories");
@@ -1247,7 +1883,90 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
-     * Creates a new branch in a repository and points the branch to a commit.
+     * Creates a template for approval rules that can then be associated with one or more repositories in your Amazon
+     * Web Services account. When you associate a template with a repository, CodeCommit creates an approval rule that
+     * matches the conditions of the template for all pull requests that meet the conditions of the template. For more
+     * information, see <a>AssociateApprovalRuleTemplateWithRepository</a>.
+     * </p>
+     * 
+     * @param createApprovalRuleTemplateRequest
+     * @return Result of the CreateApprovalRuleTemplate operation returned by the service.
+     * @throws ApprovalRuleTemplateNameRequiredException
+     *         An approval rule template name is required, but was not specified.
+     * @throws InvalidApprovalRuleTemplateNameException
+     *         The name of the approval rule template is not valid. Template names must be between 1 and 100 valid
+     *         characters in length. For more information about limits in CodeCommit, see <a
+     *         href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the
+     *         <i>CodeCommit User Guide</i>.
+     * @throws ApprovalRuleTemplateNameAlreadyExistsException
+     *         You cannot create an approval rule template with that name because a template with that name already
+     *         exists in this Amazon Web Services Region for your Amazon Web Services account. Approval rule template
+     *         names must be unique.
+     * @throws ApprovalRuleTemplateContentRequiredException
+     *         The content for the approval rule template is empty. You must provide some content for an approval rule
+     *         template. The content cannot be null.
+     * @throws InvalidApprovalRuleTemplateContentException
+     *         The content of the approval rule template is not valid.
+     * @throws InvalidApprovalRuleTemplateDescriptionException
+     *         The description for the approval rule template is not valid because it exceeds the maximum characters
+     *         allowed for a description. For more information about limits in CodeCommit, see <a
+     *         href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the
+     *         <i>CodeCommit User Guide</i>.
+     * @throws NumberOfRuleTemplatesExceededException
+     *         The maximum number of approval rule templates has been exceeded for this Amazon Web Services Region.
+     * @sample AWSCodeCommit.CreateApprovalRuleTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CreateApprovalRuleTemplate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateApprovalRuleTemplateResult createApprovalRuleTemplate(CreateApprovalRuleTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateApprovalRuleTemplate(request);
+    }
+
+    @SdkInternalApi
+    final CreateApprovalRuleTemplateResult executeCreateApprovalRuleTemplate(CreateApprovalRuleTemplateRequest createApprovalRuleTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createApprovalRuleTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateApprovalRuleTemplateRequest> request = null;
+        Response<CreateApprovalRuleTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateApprovalRuleTemplateRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createApprovalRuleTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateApprovalRuleTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateApprovalRuleTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateApprovalRuleTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a branch in a repository and points the branch to a commit.
      * </p>
      * <note>
      * <p>
@@ -1260,19 +1979,20 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *        Represents the input of a create branch operation.
      * @return Result of the CreateBranch operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws BranchNameRequiredException
-     *         A branch name is required but was not specified.
+     *         A branch name is required, but was not specified.
      * @throws BranchNameExistsException
-     *         The specified branch name already exists.
+     *         Cannot create the branch with the specified name because the commit conflicts with an existing branch
+     *         with the same name. Branch names must be unique.
      * @throws InvalidBranchNameException
      *         The specified reference name is not valid.
      * @throws CommitIdRequiredException
@@ -1317,6 +2037,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new CreateBranchRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createBranchRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateBranch");
@@ -1346,11 +2068,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @param createCommitRequest
      * @return Result of the CreateCommit operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -1368,13 +2090,13 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         The file could not be added because the provided parent commit ID is not the current tip of the specified
      *         branch. To view the full commit ID of the current head of the branch, use <a>GetBranch</a>.
      * @throws BranchNameRequiredException
-     *         A branch name is required but was not specified.
+     *         A branch name is required, but was not specified.
      * @throws InvalidBranchNameException
      *         The specified reference name is not valid.
      * @throws BranchDoesNotExistException
      *         The specified branch does not exist.
      * @throws BranchNameIsTagNameException
-     *         The specified branch name is not valid because it is a tag name. Type the name of a current branch in the
+     *         The specified branch name is not valid because it is a tag name. Enter the name of a branch in the
      *         repository. For a list of valid branch names, use <a>ListBranches</a>.
      * @throws FileEntryRequiredException
      *         The commit cannot be created because no files have been specified as added, updated, or changed (PutFile
@@ -1389,7 +2111,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         The commit cannot be created because no source files or file content have been specified for the commit.
      * @throws FileContentAndSourceFileSpecifiedException
      *         The commit cannot be created because both a source file and file content have been specified for the same
-     *         file. You cannot provide both. Either specify a source file, or provide the file content directly.
+     *         file. You cannot provide both. Either specify a source file or provide the file content directly.
      * @throws PathRequiredException
      *         The folderPath for a location cannot be null.
      * @throws InvalidPathException
@@ -1399,11 +2121,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         file path. For example, you cannot make the same delete request to the same file in the same file path
      *         twice, or make a delete request and a move request to the same file as part of the same commit.
      * @throws FileDoesNotExistException
-     *         The specified file does not exist. Verify that you have provided the correct name of the file, including
-     *         its full path and extension.
+     *         The specified file does not exist. Verify that you have used the correct file name, full path, and
+     *         extension.
      * @throws FileContentSizeLimitExceededException
-     *         The file cannot be added because it is too large. The maximum file size that can be added is 6 MB, and
-     *         the combined file content change size is 7 MB. Consider making these changes using a Git client.
+     *         The file cannot be added because it is too large. The maximum file size is 6 MB, and the combined file
+     *         content change size is 7 MB. Consider making these changes using a Git client.
      * @throws FolderContentSizeLimitExceededException
      *         The commit cannot be created because at least one of the overall changes in the commit results in a
      *         folder whose contents exceed the limit of 6 MB. Either reduce the number and size of your changes, or
@@ -1413,8 +2135,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws RestrictedSourceFileException
      *         The commit cannot be created because one of the changes specifies copying or moving a .gitkeep file.
      * @throws FileModeRequiredException
-     *         The commit cannot be created because a file mode is required to update mode permissions for an existing
-     *         file, but no file mode has been specified.
+     *         The commit cannot be created because no file mode has been specified. A file mode is required to update
+     *         mode permissions for a file.
      * @throws InvalidFileModeException
      *         The specified file mode permission is not valid. For a list of valid file mode permissions, see
      *         <a>PutFile</a>.
@@ -1474,6 +2196,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new CreateCommitRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createCommitRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCommit");
@@ -1503,11 +2227,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @param createPullRequestRequest
      * @return Result of the CreatePullRequest operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -1524,19 +2248,19 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         The encryption key is not available.
      * @throws ClientRequestTokenRequiredException
      *         A client request token is required. A client request token is an unique, client-generated idempotency
-     *         token that when provided in a request, ensures the request cannot be repeated with a changed parameter.
-     *         If a request is received with the same parameters and a token is included, the request will return
+     *         token that, when provided in a request, ensures the request cannot be repeated with a changed parameter.
+     *         If a request is received with the same parameters and a token is included, the request returns
      *         information about the initial request that used that token.
      * @throws InvalidClientRequestTokenException
      *         The client request token is not valid.
      * @throws IdempotencyParameterMismatchException
      *         The client request token is not valid. Either the token is not in a valid format, or the token has been
-     *         used in a previous request and cannot be re-used.
+     *         used in a previous request and cannot be reused.
      * @throws ReferenceNameRequiredException
      *         A reference name is required, but none was provided.
      * @throws InvalidReferenceNameException
      *         The specified reference name format is not valid. Reference names must conform to the Git references
-     *         format, for example refs/heads/master. For more information, see <a
+     *         format (for example, refs/heads/main). For more information, see <a
      *         href="https://git-scm.com/book/en/v2/Git-Internals-Git-References">Git Internals - Git References</a> or
      *         consult your Git documentation.
      * @throws ReferenceDoesNotExistException
@@ -1548,7 +2272,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws InvalidTitleException
      *         The title of the pull request is not valid. Pull request titles cannot exceed 100 characters in length.
      * @throws InvalidDescriptionException
-     *         The pull request description is not valid. Descriptions are limited to 1,000 characters in length.
+     *         The pull request description is not valid. Descriptions cannot be more than 1,000 characters.
      * @throws TargetsRequiredException
      *         An array of target objects is required. It cannot be empty or null.
      * @throws InvalidTargetsException
@@ -1569,8 +2293,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         number of open pull requests for a repository is 1,000. Close one or more open pull requests, and then
      *         try again.
      * @throws SourceAndDestinationAreSameException
-     *         The source branch and the destination branch for the pull request are the same. You must specify
-     *         different branches for the source and destination.
+     *         The source branch and destination branch for the pull request are the same. You must specify different
+     *         branches for the source and destination.
      * @sample AWSCodeCommit.CreatePullRequest
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CreatePullRequest" target="_top">AWS
      *      API Documentation</a>
@@ -1596,6 +2320,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new CreatePullRequestRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createPullRequestRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePullRequest");
@@ -1619,26 +2345,36 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
-     * Creates a new, empty repository.
+     * Creates an approval rule for a pull request.
      * </p>
      * 
-     * @param createRepositoryRequest
-     *        Represents the input of a create repository operation.
-     * @return Result of the CreateRepository operation returned by the service.
-     * @throws RepositoryNameExistsException
-     *         The specified repository name already exists.
-     * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
-     * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
-     *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
-     *         required repository parameter is missing, or when a specified repository does not exist.
-     *         </p>
-     * @throws InvalidRepositoryDescriptionException
-     *         The specified repository description is not valid.
-     * @throws RepositoryLimitExceededException
-     *         A repository resource limit was exceeded.
+     * @param createPullRequestApprovalRuleRequest
+     * @return Result of the CreatePullRequestApprovalRule operation returned by the service.
+     * @throws ApprovalRuleNameRequiredException
+     *         An approval rule name is required, but was not specified.
+     * @throws InvalidApprovalRuleNameException
+     *         The name for the approval rule is not valid.
+     * @throws ApprovalRuleNameAlreadyExistsException
+     *         An approval rule with that name already exists. Approval rule names must be unique within the scope of a
+     *         pull request.
+     * @throws ApprovalRuleContentRequiredException
+     *         The content for the approval rule is empty. You must provide some content for an approval rule. The
+     *         content cannot be null.
+     * @throws InvalidApprovalRuleContentException
+     *         The content for the approval rule is not valid.
+     * @throws NumberOfRulesExceededException
+     *         The approval rule cannot be added. The pull request has the maximum number of approval rules associated
+     *         with it.
+     * @throws PullRequestDoesNotExistException
+     *         The pull request ID could not be found. Make sure that you have specified the correct repository name and
+     *         pull request ID, and then try again.
+     * @throws InvalidPullRequestIdException
+     *         The pull request ID is not valid. Make sure that you have provided the full ID and that the pull request
+     *         is in the specified repository, and then try again.
+     * @throws PullRequestIdRequiredException
+     *         A pull request ID is required, but none was provided.
+     * @throws PullRequestAlreadyClosedException
+     *         The pull request status cannot be updated because it is already closed.
      * @throws EncryptionIntegrityChecksFailedException
      *         An encryption integrity check failed.
      * @throws EncryptionKeyAccessDeniedException
@@ -1649,10 +2385,99 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         No encryption key was found.
      * @throws EncryptionKeyUnavailableException
      *         The encryption key is not available.
+     * @sample AWSCodeCommit.CreatePullRequestApprovalRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CreatePullRequestApprovalRule"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreatePullRequestApprovalRuleResult createPullRequestApprovalRule(CreatePullRequestApprovalRuleRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreatePullRequestApprovalRule(request);
+    }
+
+    @SdkInternalApi
+    final CreatePullRequestApprovalRuleResult executeCreatePullRequestApprovalRule(CreatePullRequestApprovalRuleRequest createPullRequestApprovalRuleRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createPullRequestApprovalRuleRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreatePullRequestApprovalRuleRequest> request = null;
+        Response<CreatePullRequestApprovalRuleResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreatePullRequestApprovalRuleRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createPullRequestApprovalRuleRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePullRequestApprovalRule");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreatePullRequestApprovalRuleResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreatePullRequestApprovalRuleResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a new, empty repository.
+     * </p>
+     * 
+     * @param createRepositoryRequest
+     *        Represents the input of a create repository operation.
+     * @return Result of the CreateRepository operation returned by the service.
+     * @throws RepositoryNameExistsException
+     *         The specified repository name already exists.
+     * @throws RepositoryNameRequiredException
+     *         A repository name is required, but was not specified.
+     * @throws InvalidRepositoryNameException
+     *         A specified repository name is not valid.</p> <note>
+     *         <p>
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
+     *         required repository parameter is missing, or when a specified repository does not exist.
+     *         </p>
+     * @throws InvalidRepositoryDescriptionException
+     *         The specified repository description is not valid.
+     * @throws RepositoryLimitExceededException
+     *         A repository resource limit was exceeded.
+     * @throws OperationNotAllowedException
+     *         The requested action is not allowed.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @throws EncryptionKeyInvalidIdException
+     *         The Key Management Service encryption key is not valid.
+     * @throws EncryptionKeyInvalidUsageException
+     *         A KMS encryption key was used to try and encrypt or decrypt a repository, but either the repository or
+     *         the key was not in a valid state to support the operation.
      * @throws InvalidTagsMapException
      *         The map of tags is not valid.
      * @throws TooManyTagsException
-     *         The maximum number of tags for an AWS CodeCommit resource has been exceeded.
+     *         The maximum number of tags for an CodeCommit resource has been exceeded.
      * @throws InvalidSystemTagUsageException
      *         The specified tag is not valid. Key names cannot be prefixed with aws:.
      * @throws TagPolicyException
@@ -1682,6 +2507,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new CreateRepositoryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRepositoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRepository");
@@ -1707,7 +2534,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * <p>
      * Creates an unreferenced commit that represents the result of merging two branches using a specified merge
      * strategy. This can help you determine the outcome of a potential merge. This API cannot be used with the
-     * fast-forward merge strategy, as that strategy does not create a merge commit.
+     * fast-forward merge strategy because that strategy does not create a merge commit.
      * </p>
      * <note>
      * <p>
@@ -1719,11 +2546,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @param createUnreferencedMergeCommitRequest
      * @return Result of the CreateUnreferencedMergeCommit operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -1762,7 +2589,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws InvalidReplacementTypeException
      *         Automerge was specified for resolving the conflict, but the specified replacement type is not valid.
      * @throws ReplacementContentRequiredException
-     *         USE_NEW_CONTENT was specified but no replacement content has been provided.
+     *         USE_NEW_CONTENT was specified, but no replacement content has been provided.
      * @throws InvalidReplacementContentException
      *         Automerge was specified for resolving the conflict, but the replacement type is not valid or content is
      *         missing.
@@ -1771,8 +2598,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws InvalidPathException
      *         The specified path is not valid.
      * @throws FileContentSizeLimitExceededException
-     *         The file cannot be added because it is too large. The maximum file size that can be added is 6 MB, and
-     *         the combined file content change size is 7 MB. Consider making these changes using a Git client.
+     *         The file cannot be added because it is too large. The maximum file size is 6 MB, and the combined file
+     *         content change size is 7 MB. Consider making these changes using a Git client.
      * @throws FolderContentSizeLimitExceededException
      *         The commit cannot be created because at least one of the overall changes in the commit results in a
      *         folder whose contents exceed the limit of 6 MB. Either reduce the number and size of your changes, or
@@ -1780,14 +2607,14 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws MaximumFileContentToLoadExceededException
      *         The number of files to load exceeds the allowed limit.
      * @throws MaximumItemsToCompareExceededException
-     *         The maximum number of items to compare between the source or destination branches and the merge base has
-     *         exceeded the maximum allowed.
+     *         The number of items to compare between the source or destination branches and the merge base has exceeded
+     *         the maximum allowed.
      * @throws ConcurrentReferenceUpdateException
      *         The merge cannot be completed because the target branch has been modified. Another user might have
      *         modified the target branch while the merge was in progress. Wait a few minutes, and then try again.
      * @throws FileModeRequiredException
-     *         The commit cannot be created because a file mode is required to update mode permissions for an existing
-     *         file, but no file mode has been specified.
+     *         The commit cannot be created because no file mode has been specified. A file mode is required to update
+     *         mode permissions for a file.
      * @throws InvalidFileModeException
      *         The specified file mode permission is not valid. For a list of valid file mode permissions, see
      *         <a>PutFile</a>.
@@ -1834,6 +2661,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                         .beforeMarshalling(createUnreferencedMergeCommitRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateUnreferencedMergeCommit");
@@ -1858,6 +2687,74 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
+     * Deletes a specified approval rule template. Deleting a template does not remove approval rules on pull requests
+     * already created with the template.
+     * </p>
+     * 
+     * @param deleteApprovalRuleTemplateRequest
+     * @return Result of the DeleteApprovalRuleTemplate operation returned by the service.
+     * @throws ApprovalRuleTemplateNameRequiredException
+     *         An approval rule template name is required, but was not specified.
+     * @throws InvalidApprovalRuleTemplateNameException
+     *         The name of the approval rule template is not valid. Template names must be between 1 and 100 valid
+     *         characters in length. For more information about limits in CodeCommit, see <a
+     *         href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the
+     *         <i>CodeCommit User Guide</i>.
+     * @throws ApprovalRuleTemplateInUseException
+     *         The approval rule template is associated with one or more repositories. You cannot delete a template that
+     *         is associated with a repository. Remove all associations, and then try again.
+     * @sample AWSCodeCommit.DeleteApprovalRuleTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteApprovalRuleTemplate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteApprovalRuleTemplateResult deleteApprovalRuleTemplate(DeleteApprovalRuleTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteApprovalRuleTemplate(request);
+    }
+
+    @SdkInternalApi
+    final DeleteApprovalRuleTemplateResult executeDeleteApprovalRuleTemplate(DeleteApprovalRuleTemplateRequest deleteApprovalRuleTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteApprovalRuleTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteApprovalRuleTemplateRequest> request = null;
+        Response<DeleteApprovalRuleTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteApprovalRuleTemplateRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteApprovalRuleTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteApprovalRuleTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteApprovalRuleTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteApprovalRuleTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Deletes a branch from a repository, unless that branch is the default branch for the repository.
      * </p>
      * 
@@ -1865,17 +2762,17 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *        Represents the input of a delete branch operation.
      * @return Result of the DeleteBranch operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws BranchNameRequiredException
-     *         A branch name is required but was not specified.
+     *         A branch name is required, but was not specified.
      * @throws InvalidBranchNameException
      *         The specified reference name is not valid.
      * @throws DefaultBranchCannotBeDeletedException
@@ -1916,6 +2813,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new DeleteBranchRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteBranchRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteBranch");
@@ -1945,7 +2844,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @param deleteCommentContentRequest
      * @return Result of the DeleteCommentContent operation returned by the service.
      * @throws CommentDoesNotExistException
-     *         No comment exists with the provided ID. Verify that you have provided the correct ID, and then try again.
+     *         No comment exists with the provided ID. Verify that you have used the correct ID, and then try again.
      * @throws CommentIdRequiredException
      *         The comment ID is missing or null. A comment ID is required.
      * @throws InvalidCommentIdException
@@ -1977,6 +2876,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new DeleteCommentContentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteCommentContentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCommentContent");
@@ -2001,17 +2902,17 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
     /**
      * <p>
      * Deletes a specified file from a specified branch. A commit is created on the branch that contains the revision.
-     * The file will still exist in the commits prior to the commit that contains the deletion.
+     * The file still exists in the commits earlier to the commit that contains the deletion.
      * </p>
      * 
      * @param deleteFileRequest
      * @return Result of the DeleteFile operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -2033,16 +2934,16 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws InvalidPathException
      *         The specified path is not valid.
      * @throws FileDoesNotExistException
-     *         The specified file does not exist. Verify that you have provided the correct name of the file, including
-     *         its full path and extension.
+     *         The specified file does not exist. Verify that you have used the correct file name, full path, and
+     *         extension.
      * @throws BranchNameRequiredException
-     *         A branch name is required but was not specified.
+     *         A branch name is required, but was not specified.
      * @throws InvalidBranchNameException
      *         The specified reference name is not valid.
      * @throws BranchDoesNotExistException
      *         The specified branch does not exist.
      * @throws BranchNameIsTagNameException
-     *         The specified branch name is not valid because it is a tag name. Type the name of a current branch in the
+     *         The specified branch name is not valid because it is a tag name. Enter the name of a branch in the
      *         repository. For a list of valid branch names, use <a>ListBranches</a>.
      * @throws NameLengthExceededException
      *         The user name is not valid because it has exceeded the character limit for author names.
@@ -2086,6 +2987,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new DeleteFileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteFileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFile");
@@ -2109,12 +3012,99 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
-     * Deletes a repository. If a specified repository was already deleted, a null repository ID will be returned.
+     * Deletes an approval rule from a specified pull request. Approval rules can be deleted from a pull request only if
+     * the pull request is open, and if the approval rule was created specifically for a pull request and not generated
+     * from an approval rule template associated with the repository where the pull request was created. You cannot
+     * delete an approval rule from a merged or closed pull request.
+     * </p>
+     * 
+     * @param deletePullRequestApprovalRuleRequest
+     * @return Result of the DeletePullRequestApprovalRule operation returned by the service.
+     * @throws PullRequestDoesNotExistException
+     *         The pull request ID could not be found. Make sure that you have specified the correct repository name and
+     *         pull request ID, and then try again.
+     * @throws InvalidPullRequestIdException
+     *         The pull request ID is not valid. Make sure that you have provided the full ID and that the pull request
+     *         is in the specified repository, and then try again.
+     * @throws PullRequestIdRequiredException
+     *         A pull request ID is required, but none was provided.
+     * @throws PullRequestAlreadyClosedException
+     *         The pull request status cannot be updated because it is already closed.
+     * @throws ApprovalRuleNameRequiredException
+     *         An approval rule name is required, but was not specified.
+     * @throws InvalidApprovalRuleNameException
+     *         The name for the approval rule is not valid.
+     * @throws CannotDeleteApprovalRuleFromTemplateException
+     *         The approval rule cannot be deleted from the pull request because it was created by an approval rule
+     *         template and applied to the pull request automatically.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @sample AWSCodeCommit.DeletePullRequestApprovalRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeletePullRequestApprovalRule"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeletePullRequestApprovalRuleResult deletePullRequestApprovalRule(DeletePullRequestApprovalRuleRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeletePullRequestApprovalRule(request);
+    }
+
+    @SdkInternalApi
+    final DeletePullRequestApprovalRuleResult executeDeletePullRequestApprovalRule(DeletePullRequestApprovalRuleRequest deletePullRequestApprovalRuleRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deletePullRequestApprovalRuleRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeletePullRequestApprovalRuleRequest> request = null;
+        Response<DeletePullRequestApprovalRuleResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeletePullRequestApprovalRuleRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deletePullRequestApprovalRuleRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePullRequestApprovalRule");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeletePullRequestApprovalRuleResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeletePullRequestApprovalRuleResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a repository. If a specified repository was already deleted, a null repository ID is returned.
      * </p>
      * <important>
      * <p>
      * Deleting a repository also deletes all associated objects and metadata. After a repository is deleted, all future
-     * push calls to the deleted repository will fail.
+     * push calls to the deleted repository fail.
      * </p>
      * </important>
      * 
@@ -2122,11 +3112,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *        Represents the input of a delete repository operation.
      * @return Result of the DeleteRepository operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws EncryptionIntegrityChecksFailedException
@@ -2164,6 +3154,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new DeleteRepositoryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRepositoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRepository");
@@ -2189,17 +3181,17 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * <p>
      * Returns information about one or more merge conflicts in the attempted merge of two commit specifiers using the
      * squash or three-way merge strategy. If the merge option for the attempted merge is specified as
-     * FAST_FORWARD_MERGE, an exception will be thrown.
+     * FAST_FORWARD_MERGE, an exception is thrown.
      * </p>
      * 
      * @param describeMergeConflictsRequest
      * @return Result of the DescribeMergeConflicts operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -2226,8 +3218,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws InvalidPathException
      *         The specified path is not valid.
      * @throws FileDoesNotExistException
-     *         The specified file does not exist. Verify that you have provided the correct name of the file, including
-     *         its full path and extension.
+     *         The specified file does not exist. Verify that you have used the correct file name, full path, and
+     *         extension.
      * @throws InvalidMaxMergeHunksException
      *         The specified value for the number of merge hunks to return is not valid.
      * @throws InvalidConflictDetailLevelException
@@ -2237,8 +3229,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws MaximumFileContentToLoadExceededException
      *         The number of files to load exceeds the allowed limit.
      * @throws MaximumItemsToCompareExceededException
-     *         The maximum number of items to compare between the source or destination branches and the merge base has
-     *         exceeded the maximum allowed.
+     *         The number of items to compare between the source or destination branches and the merge base has exceeded
+     *         the maximum allowed.
      * @throws EncryptionIntegrityChecksFailedException
      *         An encryption integrity check failed.
      * @throws EncryptionKeyAccessDeniedException
@@ -2274,6 +3266,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new DescribeMergeConflictsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeMergeConflictsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMergeConflicts");
@@ -2317,7 +3311,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         The Amazon Resource Name (ARN) is not valid. Make sure that you have provided the full ARN for the user
      *         who initiated the change for the pull request, and then try again.
      * @throws ActorDoesNotExistException
-     *         The specified Amazon Resource Name (ARN) does not exist in the AWS account.
+     *         The specified Amazon Resource Name (ARN) does not exist in the Amazon Web Services account.
      * @throws InvalidMaxResultsException
      *         The specified number of maximum results is not valid.
      * @throws InvalidContinuationTokenException
@@ -2358,6 +3352,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                         .beforeMarshalling(describePullRequestEventsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribePullRequestEvents");
@@ -2382,24 +3378,266 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
-     * Returns the base-64 encoded content of an individual blob within a repository.
+     * Removes the association between a template and a repository so that approval rules based on the template are not
+     * automatically created when pull requests are created in the specified repository. This does not delete any
+     * approval rules previously created for pull requests through the template association.
+     * </p>
+     * 
+     * @param disassociateApprovalRuleTemplateFromRepositoryRequest
+     * @return Result of the DisassociateApprovalRuleTemplateFromRepository operation returned by the service.
+     * @throws ApprovalRuleTemplateNameRequiredException
+     *         An approval rule template name is required, but was not specified.
+     * @throws InvalidApprovalRuleTemplateNameException
+     *         The name of the approval rule template is not valid. Template names must be between 1 and 100 valid
+     *         characters in length. For more information about limits in CodeCommit, see <a
+     *         href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the
+     *         <i>CodeCommit User Guide</i>.
+     * @throws ApprovalRuleTemplateDoesNotExistException
+     *         The specified approval rule template does not exist. Verify that the name is correct and that you are
+     *         signed in to the Amazon Web Services Region where the template was created, and then try again.
+     * @throws RepositoryNameRequiredException
+     *         A repository name is required, but was not specified.
+     * @throws InvalidRepositoryNameException
+     *         A specified repository name is not valid.</p> <note>
+     *         <p>
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
+     *         required repository parameter is missing, or when a specified repository does not exist.
+     *         </p>
+     * @throws RepositoryDoesNotExistException
+     *         The specified repository does not exist.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @sample AWSCodeCommit.DisassociateApprovalRuleTemplateFromRepository
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DisassociateApprovalRuleTemplateFromRepository"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DisassociateApprovalRuleTemplateFromRepositoryResult disassociateApprovalRuleTemplateFromRepository(
+            DisassociateApprovalRuleTemplateFromRepositoryRequest request) {
+        request = beforeClientExecution(request);
+        return executeDisassociateApprovalRuleTemplateFromRepository(request);
+    }
+
+    @SdkInternalApi
+    final DisassociateApprovalRuleTemplateFromRepositoryResult executeDisassociateApprovalRuleTemplateFromRepository(
+            DisassociateApprovalRuleTemplateFromRepositoryRequest disassociateApprovalRuleTemplateFromRepositoryRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(disassociateApprovalRuleTemplateFromRepositoryRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DisassociateApprovalRuleTemplateFromRepositoryRequest> request = null;
+        Response<DisassociateApprovalRuleTemplateFromRepositoryResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DisassociateApprovalRuleTemplateFromRepositoryRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(disassociateApprovalRuleTemplateFromRepositoryRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateApprovalRuleTemplateFromRepository");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DisassociateApprovalRuleTemplateFromRepositoryResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DisassociateApprovalRuleTemplateFromRepositoryResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Evaluates whether a pull request has met all the conditions specified in its associated approval rules.
+     * </p>
+     * 
+     * @param evaluatePullRequestApprovalRulesRequest
+     * @return Result of the EvaluatePullRequestApprovalRules operation returned by the service.
+     * @throws PullRequestDoesNotExistException
+     *         The pull request ID could not be found. Make sure that you have specified the correct repository name and
+     *         pull request ID, and then try again.
+     * @throws InvalidPullRequestIdException
+     *         The pull request ID is not valid. Make sure that you have provided the full ID and that the pull request
+     *         is in the specified repository, and then try again.
+     * @throws PullRequestIdRequiredException
+     *         A pull request ID is required, but none was provided.
+     * @throws InvalidRevisionIdException
+     *         The revision ID is not valid. Use GetPullRequest to determine the value.
+     * @throws RevisionIdRequiredException
+     *         A revision ID is required, but was not provided.
+     * @throws RevisionNotCurrentException
+     *         The revision ID provided in the request does not match the current revision ID. Use GetPullRequest to
+     *         retrieve the current revision ID.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @sample AWSCodeCommit.EvaluatePullRequestApprovalRules
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/EvaluatePullRequestApprovalRules"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public EvaluatePullRequestApprovalRulesResult evaluatePullRequestApprovalRules(EvaluatePullRequestApprovalRulesRequest request) {
+        request = beforeClientExecution(request);
+        return executeEvaluatePullRequestApprovalRules(request);
+    }
+
+    @SdkInternalApi
+    final EvaluatePullRequestApprovalRulesResult executeEvaluatePullRequestApprovalRules(
+            EvaluatePullRequestApprovalRulesRequest evaluatePullRequestApprovalRulesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(evaluatePullRequestApprovalRulesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<EvaluatePullRequestApprovalRulesRequest> request = null;
+        Response<EvaluatePullRequestApprovalRulesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new EvaluatePullRequestApprovalRulesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(evaluatePullRequestApprovalRulesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "EvaluatePullRequestApprovalRules");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<EvaluatePullRequestApprovalRulesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new EvaluatePullRequestApprovalRulesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns information about a specified approval rule template.
+     * </p>
+     * 
+     * @param getApprovalRuleTemplateRequest
+     * @return Result of the GetApprovalRuleTemplate operation returned by the service.
+     * @throws ApprovalRuleTemplateNameRequiredException
+     *         An approval rule template name is required, but was not specified.
+     * @throws InvalidApprovalRuleTemplateNameException
+     *         The name of the approval rule template is not valid. Template names must be between 1 and 100 valid
+     *         characters in length. For more information about limits in CodeCommit, see <a
+     *         href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the
+     *         <i>CodeCommit User Guide</i>.
+     * @throws ApprovalRuleTemplateDoesNotExistException
+     *         The specified approval rule template does not exist. Verify that the name is correct and that you are
+     *         signed in to the Amazon Web Services Region where the template was created, and then try again.
+     * @sample AWSCodeCommit.GetApprovalRuleTemplate
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetApprovalRuleTemplate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetApprovalRuleTemplateResult getApprovalRuleTemplate(GetApprovalRuleTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetApprovalRuleTemplate(request);
+    }
+
+    @SdkInternalApi
+    final GetApprovalRuleTemplateResult executeGetApprovalRuleTemplate(GetApprovalRuleTemplateRequest getApprovalRuleTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getApprovalRuleTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetApprovalRuleTemplateRequest> request = null;
+        Response<GetApprovalRuleTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetApprovalRuleTemplateRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getApprovalRuleTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetApprovalRuleTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetApprovalRuleTemplateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetApprovalRuleTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the base-64 encoded content of an individual blob in a repository.
      * </p>
      * 
      * @param getBlobRequest
      *        Represents the input of a get blob operation.
      * @return Result of the GetBlob operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws BlobIdRequiredException
-     *         A blob ID is required but was not specified.
+     *         A blob ID is required, but was not specified.
      * @throws InvalidBlobIdException
      *         The specified blob is not valid.
      * @throws BlobIdDoesNotExistException
@@ -2415,9 +3653,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws EncryptionKeyUnavailableException
      *         The encryption key is not available.
      * @throws FileTooLargeException
-     *         The specified file exceeds the file size limit for AWS CodeCommit. For more information about limits in
-     *         AWS CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">AWS
-     *         CodeCommit User Guide</a>.
+     *         The specified file exceeds the file size limit for CodeCommit. For more information about limits in
+     *         CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a>
+     *         in the <i>CodeCommit User Guide</i>.
      * @sample AWSCodeCommit.GetBlob
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetBlob" target="_top">AWS API
      *      Documentation</a>
@@ -2443,6 +3681,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new GetBlobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getBlobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetBlob");
@@ -2473,17 +3713,17 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *        Represents the input of a get branch operation.
      * @return Result of the GetBranch operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws BranchNameRequiredException
-     *         A branch name is required but was not specified.
+     *         A branch name is required, but was not specified.
      * @throws InvalidBranchNameException
      *         The specified reference name is not valid.
      * @throws BranchDoesNotExistException
@@ -2523,6 +3763,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new GetBranchRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getBranchRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetBranch");
@@ -2548,17 +3790,33 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * <p>
      * Returns the content of a comment made on a change, file, or commit in a repository.
      * </p>
+     * <note>
+     * <p>
+     * Reaction counts might include numbers from user identities who were deleted after the reaction was made. For a
+     * count of reactions from active identities, use GetCommentReactions.
+     * </p>
+     * </note>
      * 
      * @param getCommentRequest
      * @return Result of the GetComment operation returned by the service.
      * @throws CommentDoesNotExistException
-     *         No comment exists with the provided ID. Verify that you have provided the correct ID, and then try again.
+     *         No comment exists with the provided ID. Verify that you have used the correct ID, and then try again.
+     * @throws CommentDeletedException
+     *         This comment has already been deleted. You cannot edit or delete a deleted comment.
      * @throws CommentIdRequiredException
      *         The comment ID is missing or null. A comment ID is required.
      * @throws InvalidCommentIdException
      *         The comment ID is not in a valid format. Make sure that you have provided the full comment ID.
-     * @throws CommentDeletedException
-     *         This comment has already been deleted. You cannot edit or delete a deleted comment.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
      * @sample AWSCodeCommit.GetComment
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetComment" target="_top">AWS API
      *      Documentation</a>
@@ -2584,6 +3842,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new GetCommentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getCommentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetComment");
@@ -2607,19 +3867,95 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
+     * Returns information about reactions to a specified comment ID. Reactions from users who have been deleted will
+     * not be included in the count.
+     * </p>
+     * 
+     * @param getCommentReactionsRequest
+     * @return Result of the GetCommentReactions operation returned by the service.
+     * @throws CommentDoesNotExistException
+     *         No comment exists with the provided ID. Verify that you have used the correct ID, and then try again.
+     * @throws CommentIdRequiredException
+     *         The comment ID is missing or null. A comment ID is required.
+     * @throws InvalidCommentIdException
+     *         The comment ID is not in a valid format. Make sure that you have provided the full comment ID.
+     * @throws InvalidReactionUserArnException
+     *         The Amazon Resource Name (ARN) of the user or identity is not valid.
+     * @throws InvalidMaxResultsException
+     *         The specified number of maximum results is not valid.
+     * @throws InvalidContinuationTokenException
+     *         The specified continuation token is not valid.
+     * @throws CommentDeletedException
+     *         This comment has already been deleted. You cannot edit or delete a deleted comment.
+     * @sample AWSCodeCommit.GetCommentReactions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommentReactions" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public GetCommentReactionsResult getCommentReactions(GetCommentReactionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetCommentReactions(request);
+    }
+
+    @SdkInternalApi
+    final GetCommentReactionsResult executeGetCommentReactions(GetCommentReactionsRequest getCommentReactionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getCommentReactionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetCommentReactionsRequest> request = null;
+        Response<GetCommentReactionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetCommentReactionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getCommentReactionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCommentReactions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetCommentReactionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetCommentReactionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns information about comments made on the comparison between two commits.
      * </p>
+     * <note>
+     * <p>
+     * Reaction counts might include numbers from user identities who were deleted after the reaction was made. For a
+     * count of reactions from active identities, use GetCommentReactions.
+     * </p>
+     * </note>
      * 
      * @param getCommentsForComparedCommitRequest
      * @return Result of the GetCommentsForComparedCommit operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws CommitIdRequiredException
@@ -2669,6 +4005,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                         .beforeMarshalling(getCommentsForComparedCommitRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCommentsForComparedCommit");
@@ -2695,6 +4033,12 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * <p>
      * Returns comments made on a pull request.
      * </p>
+     * <note>
+     * <p>
+     * Reaction counts might include numbers from user identities who were deleted after the reaction was made. For a
+     * count of reactions from active identities, use GetCommentReactions.
+     * </p>
+     * </note>
      * 
      * @param getCommentsForPullRequestRequest
      * @return Result of the GetCommentsForPullRequest operation returned by the service.
@@ -2707,13 +4051,13 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         The pull request ID is not valid. Make sure that you have provided the full ID and that the pull request
      *         is in the specified repository, and then try again.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws CommitIdRequiredException
@@ -2766,6 +4110,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                         .beforeMarshalling(getCommentsForPullRequestRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCommentsForPullRequest");
@@ -2797,11 +4143,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *        Represents the input of a get commit operation.
      * @return Result of the GetCommit operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -2847,6 +4193,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new GetCommitRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getCommitRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCommit");
@@ -2870,20 +4218,20 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
-     * Returns information about the differences in a valid commit specifier (such as a branch, tag, HEAD, commit ID or
+     * Returns information about the differences in a valid commit specifier (such as a branch, tag, HEAD, commit ID, or
      * other fully qualified reference). Results can be limited to a specified path.
      * </p>
      * 
      * @param getDifferencesRequest
      * @return Result of the GetDifferences operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws InvalidContinuationTokenException
@@ -2938,6 +4286,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new GetDifferencesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDifferencesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDifferences");
@@ -2967,11 +4317,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @param getFileRequest
      * @return Result of the GetFile operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -2986,8 +4336,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws InvalidPathException
      *         The specified path is not valid.
      * @throws FileDoesNotExistException
-     *         The specified file does not exist. Verify that you have provided the correct name of the file, including
-     *         its full path and extension.
+     *         The specified file does not exist. Verify that you have used the correct file name, full path, and
+     *         extension.
      * @throws EncryptionIntegrityChecksFailedException
      *         An encryption integrity check failed.
      * @throws EncryptionKeyAccessDeniedException
@@ -2999,9 +4349,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws EncryptionKeyUnavailableException
      *         The encryption key is not available.
      * @throws FileTooLargeException
-     *         The specified file exceeds the file size limit for AWS CodeCommit. For more information about limits in
-     *         AWS CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">AWS
-     *         CodeCommit User Guide</a>.
+     *         The specified file exceeds the file size limit for CodeCommit. For more information about limits in
+     *         CodeCommit, see <a href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a>
+     *         in the <i>CodeCommit User Guide</i>.
      * @sample AWSCodeCommit.GetFile
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetFile" target="_top">AWS API
      *      Documentation</a>
@@ -3027,6 +4377,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new GetFileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getFileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFile");
@@ -3056,11 +4408,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @param getFolderRequest
      * @return Result of the GetFolder operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -3075,8 +4427,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws InvalidPathException
      *         The specified path is not valid.
      * @throws FolderDoesNotExistException
-     *         The specified folder does not exist. Either the folder name is not correct, or you did not provide the
-     *         full path to the folder.
+     *         The specified folder does not exist. Either the folder name is not correct, or you did not enter the full
+     *         path to the folder.
      * @throws EncryptionIntegrityChecksFailedException
      *         An encryption integrity check failed.
      * @throws EncryptionKeyAccessDeniedException
@@ -3112,6 +4464,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new GetFolderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getFolderRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFolder");
@@ -3141,11 +4495,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @param getMergeCommitRequest
      * @return Result of the GetMergeCommit operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -3196,6 +4550,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new GetMergeCommitRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getMergeCommitRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMergeCommit");
@@ -3226,11 +4582,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @param getMergeConflictsRequest
      * @return Result of the GetMergeConflicts operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -3266,8 +4622,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws MaximumFileContentToLoadExceededException
      *         The number of files to load exceeds the allowed limit.
      * @throws MaximumItemsToCompareExceededException
-     *         The maximum number of items to compare between the source or destination branches and the merge base has
-     *         exceeded the maximum allowed.
+     *         The number of items to compare between the source or destination branches and the merge base has exceeded
+     *         the maximum allowed.
      * @throws EncryptionIntegrityChecksFailedException
      *         An encryption integrity check failed.
      * @throws EncryptionKeyAccessDeniedException
@@ -3303,6 +4659,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new GetMergeConflictsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getMergeConflictsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMergeConflicts");
@@ -3327,17 +4685,17 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
     /**
      * <p>
      * Returns information about the merge options available for merging two specified branches. For details about why a
-     * particular merge option is not available, use GetMergeConflicts or DescribeMergeConflicts.
+     * merge option is not available, use GetMergeConflicts or DescribeMergeConflicts.
      * </p>
      * 
      * @param getMergeOptionsRequest
      * @return Result of the GetMergeOptions operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -3359,8 +4717,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws MaximumFileContentToLoadExceededException
      *         The number of files to load exceeds the allowed limit.
      * @throws MaximumItemsToCompareExceededException
-     *         The maximum number of items to compare between the source or destination branches and the merge base has
-     *         exceeded the maximum allowed.
+     *         The number of items to compare between the source or destination branches and the merge base has exceeded
+     *         the maximum allowed.
      * @throws EncryptionIntegrityChecksFailedException
      *         An encryption integrity check failed.
      * @throws EncryptionKeyAccessDeniedException
@@ -3396,6 +4754,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new GetMergeOptionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getMergeOptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMergeOptions");
@@ -3467,6 +4827,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new GetPullRequestRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPullRequestRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPullRequest");
@@ -3490,14 +4852,175 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
+     * Gets information about the approval states for a specified pull request. Approval states only apply to pull
+     * requests that have one or more approval rules applied to them.
+     * </p>
+     * 
+     * @param getPullRequestApprovalStatesRequest
+     * @return Result of the GetPullRequestApprovalStates operation returned by the service.
+     * @throws PullRequestDoesNotExistException
+     *         The pull request ID could not be found. Make sure that you have specified the correct repository name and
+     *         pull request ID, and then try again.
+     * @throws InvalidPullRequestIdException
+     *         The pull request ID is not valid. Make sure that you have provided the full ID and that the pull request
+     *         is in the specified repository, and then try again.
+     * @throws PullRequestIdRequiredException
+     *         A pull request ID is required, but none was provided.
+     * @throws InvalidRevisionIdException
+     *         The revision ID is not valid. Use GetPullRequest to determine the value.
+     * @throws RevisionIdRequiredException
+     *         A revision ID is required, but was not provided.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @sample AWSCodeCommit.GetPullRequestApprovalStates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetPullRequestApprovalStates"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetPullRequestApprovalStatesResult getPullRequestApprovalStates(GetPullRequestApprovalStatesRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetPullRequestApprovalStates(request);
+    }
+
+    @SdkInternalApi
+    final GetPullRequestApprovalStatesResult executeGetPullRequestApprovalStates(GetPullRequestApprovalStatesRequest getPullRequestApprovalStatesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getPullRequestApprovalStatesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetPullRequestApprovalStatesRequest> request = null;
+        Response<GetPullRequestApprovalStatesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetPullRequestApprovalStatesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getPullRequestApprovalStatesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPullRequestApprovalStates");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetPullRequestApprovalStatesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetPullRequestApprovalStatesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns information about whether approval rules have been set aside (overridden) for a pull request, and if so,
+     * the Amazon Resource Name (ARN) of the user or identity that overrode the rules and their requirements for the
+     * pull request.
+     * </p>
+     * 
+     * @param getPullRequestOverrideStateRequest
+     * @return Result of the GetPullRequestOverrideState operation returned by the service.
+     * @throws PullRequestDoesNotExistException
+     *         The pull request ID could not be found. Make sure that you have specified the correct repository name and
+     *         pull request ID, and then try again.
+     * @throws InvalidPullRequestIdException
+     *         The pull request ID is not valid. Make sure that you have provided the full ID and that the pull request
+     *         is in the specified repository, and then try again.
+     * @throws PullRequestIdRequiredException
+     *         A pull request ID is required, but none was provided.
+     * @throws InvalidRevisionIdException
+     *         The revision ID is not valid. Use GetPullRequest to determine the value.
+     * @throws RevisionIdRequiredException
+     *         A revision ID is required, but was not provided.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @sample AWSCodeCommit.GetPullRequestOverrideState
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetPullRequestOverrideState"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetPullRequestOverrideStateResult getPullRequestOverrideState(GetPullRequestOverrideStateRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetPullRequestOverrideState(request);
+    }
+
+    @SdkInternalApi
+    final GetPullRequestOverrideStateResult executeGetPullRequestOverrideState(GetPullRequestOverrideStateRequest getPullRequestOverrideStateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getPullRequestOverrideStateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetPullRequestOverrideStateRequest> request = null;
+        Response<GetPullRequestOverrideStateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetPullRequestOverrideStateRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getPullRequestOverrideStateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPullRequestOverrideState");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetPullRequestOverrideStateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetPullRequestOverrideStateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns information about a repository.
      * </p>
      * <note>
      * <p>
      * The description field for a repository accepts all HTML characters and all valid Unicode characters. Applications
-     * that do not HTML-encode the description and display it in a web page could expose users to potentially malicious
+     * that do not HTML-encode the description and display it in a webpage can expose users to potentially malicious
      * code. Make sure that you HTML-encode the description field in any application that uses this API to display the
-     * repository description on a web page.
+     * repository description on a webpage.
      * </p>
      * </note>
      * 
@@ -3505,13 +5028,13 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *        Represents the input of a get repository operation.
      * @return Result of the GetRepository operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws EncryptionIntegrityChecksFailedException
@@ -3549,6 +5072,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new GetRepositoryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRepositoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRepository");
@@ -3579,11 +5104,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *        Represents the input of a get repository triggers operation.
      * @return Result of the GetRepositoryTriggers operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -3623,6 +5148,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new GetRepositoryTriggersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRepositoryTriggersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRepositoryTriggers");
@@ -3647,6 +5174,153 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
+     * Lists all approval rule templates in the specified Amazon Web Services Region in your Amazon Web Services
+     * account. If an Amazon Web Services Region is not specified, the Amazon Web Services Region where you are signed
+     * in is used.
+     * </p>
+     * 
+     * @param listApprovalRuleTemplatesRequest
+     * @return Result of the ListApprovalRuleTemplates operation returned by the service.
+     * @throws InvalidMaxResultsException
+     *         The specified number of maximum results is not valid.
+     * @throws InvalidContinuationTokenException
+     *         The specified continuation token is not valid.
+     * @sample AWSCodeCommit.ListApprovalRuleTemplates
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListApprovalRuleTemplates"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListApprovalRuleTemplatesResult listApprovalRuleTemplates(ListApprovalRuleTemplatesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListApprovalRuleTemplates(request);
+    }
+
+    @SdkInternalApi
+    final ListApprovalRuleTemplatesResult executeListApprovalRuleTemplates(ListApprovalRuleTemplatesRequest listApprovalRuleTemplatesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listApprovalRuleTemplatesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListApprovalRuleTemplatesRequest> request = null;
+        Response<ListApprovalRuleTemplatesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListApprovalRuleTemplatesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listApprovalRuleTemplatesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListApprovalRuleTemplates");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListApprovalRuleTemplatesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListApprovalRuleTemplatesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists all approval rule templates that are associated with a specified repository.
+     * </p>
+     * 
+     * @param listAssociatedApprovalRuleTemplatesForRepositoryRequest
+     * @return Result of the ListAssociatedApprovalRuleTemplatesForRepository operation returned by the service.
+     * @throws RepositoryNameRequiredException
+     *         A repository name is required, but was not specified.
+     * @throws InvalidRepositoryNameException
+     *         A specified repository name is not valid.</p> <note>
+     *         <p>
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
+     *         required repository parameter is missing, or when a specified repository does not exist.
+     *         </p>
+     * @throws RepositoryDoesNotExistException
+     *         The specified repository does not exist.
+     * @throws InvalidMaxResultsException
+     *         The specified number of maximum results is not valid.
+     * @throws InvalidContinuationTokenException
+     *         The specified continuation token is not valid.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @sample AWSCodeCommit.ListAssociatedApprovalRuleTemplatesForRepository
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListAssociatedApprovalRuleTemplatesForRepository"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListAssociatedApprovalRuleTemplatesForRepositoryResult listAssociatedApprovalRuleTemplatesForRepository(
+            ListAssociatedApprovalRuleTemplatesForRepositoryRequest request) {
+        request = beforeClientExecution(request);
+        return executeListAssociatedApprovalRuleTemplatesForRepository(request);
+    }
+
+    @SdkInternalApi
+    final ListAssociatedApprovalRuleTemplatesForRepositoryResult executeListAssociatedApprovalRuleTemplatesForRepository(
+            ListAssociatedApprovalRuleTemplatesForRepositoryRequest listAssociatedApprovalRuleTemplatesForRepositoryRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listAssociatedApprovalRuleTemplatesForRepositoryRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListAssociatedApprovalRuleTemplatesForRepositoryRequest> request = null;
+        Response<ListAssociatedApprovalRuleTemplatesForRepositoryResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListAssociatedApprovalRuleTemplatesForRepositoryRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listAssociatedApprovalRuleTemplatesForRepositoryRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAssociatedApprovalRuleTemplatesForRepository");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListAssociatedApprovalRuleTemplatesForRepositoryResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new ListAssociatedApprovalRuleTemplatesForRepositoryResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Gets information about one or more branches in a repository.
      * </p>
      * 
@@ -3654,13 +5328,13 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *        Represents the input of a list branches operation.
      * @return Result of the ListBranches operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws EncryptionIntegrityChecksFailedException
@@ -3700,6 +5374,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new ListBranchesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listBranchesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListBranches");
@@ -3711,6 +5387,96 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
             HttpResponseHandler<AmazonWebServiceResponse<ListBranchesResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListBranchesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a list of commits and changes to a specified file.
+     * </p>
+     * 
+     * @param listFileCommitHistoryRequest
+     * @return Result of the ListFileCommitHistory operation returned by the service.
+     * @throws RepositoryNameRequiredException
+     *         A repository name is required, but was not specified.
+     * @throws InvalidRepositoryNameException
+     *         A specified repository name is not valid.</p> <note>
+     *         <p>
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
+     *         required repository parameter is missing, or when a specified repository does not exist.
+     *         </p>
+     * @throws RepositoryDoesNotExistException
+     *         The specified repository does not exist.
+     * @throws InvalidContinuationTokenException
+     *         The specified continuation token is not valid.
+     * @throws InvalidMaxResultsException
+     *         The specified number of maximum results is not valid.
+     * @throws TipsDivergenceExceededException
+     *         The divergence between the tips of the provided commit specifiers is too great to determine whether there
+     *         might be any merge conflicts. Locally compare the specifiers using <code>git diff</code> or a diff tool.
+     * @throws CommitRequiredException
+     *         A commit was not specified.
+     * @throws InvalidCommitException
+     *         The specified commit is not valid.
+     * @throws CommitDoesNotExistException
+     *         The specified commit does not exist or no commit was specified, and the specified repository has no
+     *         default branch.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @sample AWSCodeCommit.ListFileCommitHistory
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListFileCommitHistory"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListFileCommitHistoryResult listFileCommitHistory(ListFileCommitHistoryRequest request) {
+        request = beforeClientExecution(request);
+        return executeListFileCommitHistory(request);
+    }
+
+    @SdkInternalApi
+    final ListFileCommitHistoryResult executeListFileCommitHistory(ListFileCommitHistoryRequest listFileCommitHistoryRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listFileCommitHistoryRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListFileCommitHistoryRequest> request = null;
+        Response<ListFileCommitHistoryResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListFileCommitHistoryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listFileCommitHistoryRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFileCommitHistory");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListFileCommitHistoryResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new ListFileCommitHistoryResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3736,13 +5502,13 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         The Amazon Resource Name (ARN) is not valid. Make sure that you have provided the full ARN for the author
      *         of the pull request, and then try again.
      * @throws AuthorDoesNotExistException
-     *         The specified Amazon Resource Name (ARN) does not exist in the AWS account.
+     *         The specified Amazon Resource Name (ARN) does not exist in the Amazon Web Services account.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -3786,6 +5552,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new ListPullRequestsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPullRequestsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPullRequests");
@@ -3846,6 +5614,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new ListRepositoriesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listRepositoriesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRepositories");
@@ -3869,10 +5639,93 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
-     * Gets information about AWS tags for a specified Amazon Resource Name (ARN) in AWS CodeCommit. For a list of valid
-     * resources in AWS CodeCommit, see <a href=
+     * Lists all repositories associated with the specified approval rule template.
+     * </p>
+     * 
+     * @param listRepositoriesForApprovalRuleTemplateRequest
+     * @return Result of the ListRepositoriesForApprovalRuleTemplate operation returned by the service.
+     * @throws ApprovalRuleTemplateNameRequiredException
+     *         An approval rule template name is required, but was not specified.
+     * @throws InvalidApprovalRuleTemplateNameException
+     *         The name of the approval rule template is not valid. Template names must be between 1 and 100 valid
+     *         characters in length. For more information about limits in CodeCommit, see <a
+     *         href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the
+     *         <i>CodeCommit User Guide</i>.
+     * @throws ApprovalRuleTemplateDoesNotExistException
+     *         The specified approval rule template does not exist. Verify that the name is correct and that you are
+     *         signed in to the Amazon Web Services Region where the template was created, and then try again.
+     * @throws InvalidMaxResultsException
+     *         The specified number of maximum results is not valid.
+     * @throws InvalidContinuationTokenException
+     *         The specified continuation token is not valid.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @sample AWSCodeCommit.ListRepositoriesForApprovalRuleTemplate
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListRepositoriesForApprovalRuleTemplate"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListRepositoriesForApprovalRuleTemplateResult listRepositoriesForApprovalRuleTemplate(ListRepositoriesForApprovalRuleTemplateRequest request) {
+        request = beforeClientExecution(request);
+        return executeListRepositoriesForApprovalRuleTemplate(request);
+    }
+
+    @SdkInternalApi
+    final ListRepositoriesForApprovalRuleTemplateResult executeListRepositoriesForApprovalRuleTemplate(
+            ListRepositoriesForApprovalRuleTemplateRequest listRepositoriesForApprovalRuleTemplateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listRepositoriesForApprovalRuleTemplateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListRepositoriesForApprovalRuleTemplateRequest> request = null;
+        Response<ListRepositoriesForApprovalRuleTemplateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListRepositoriesForApprovalRuleTemplateRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listRepositoriesForApprovalRuleTemplateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListRepositoriesForApprovalRuleTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListRepositoriesForApprovalRuleTemplateResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new ListRepositoriesForApprovalRuleTemplateResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets information about Amazon Web Servicestags for a specified Amazon Resource Name (ARN) in CodeCommit. For a
+     * list of valid resources in CodeCommit, see <a href=
      * "https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"
-     * >CodeCommit Resources and Operations</a> in the AWS CodeCommit User Guide.
+     * >CodeCommit Resources and Operations</a> in the<i> CodeCommit User Guide</i>.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -3880,21 +5733,21 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws ResourceArnRequiredException
-     *         A valid Amazon Resource Name (ARN) for an AWS CodeCommit resource is required. For a list of valid
-     *         resources in AWS CodeCommit, see <a href=
+     *         A valid Amazon Resource Name (ARN) for an CodeCommit resource is required. For a list of valid resources
+     *         in CodeCommit, see <a href=
      *         "https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"
-     *         >CodeCommit Resources and Operations</a> in the AWS CodeCommit User Guide.
+     *         >CodeCommit Resources and Operations</a> in the CodeCommit User Guide.
      * @throws InvalidResourceArnException
-     *         The value for the resource ARN is not valid. For more information about resources in AWS CodeCommit, see
-     *         <a href=
+     *         The value for the resource ARN is not valid. For more information about resources in CodeCommit, see <a
+     *         href=
      *         "https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"
-     *         >CodeCommit Resources and Operations</a> in the AWS CodeCommit User Guide.
+     *         >CodeCommit Resources and Operations</a> in the CodeCommit User Guide.
      * @sample AWSCodeCommit.ListTagsForResource
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListTagsForResource" target="_top">AWS
      *      API Documentation</a>
@@ -3920,6 +5773,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -3949,11 +5804,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @param mergeBranchesByFastForwardRequest
      * @return Result of the MergeBranchesByFastForward operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -3973,9 +5828,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws InvalidBranchNameException
      *         The specified reference name is not valid.
      * @throws BranchNameRequiredException
-     *         A branch name is required but was not specified.
+     *         A branch name is required, but was not specified.
      * @throws BranchNameIsTagNameException
-     *         The specified branch name is not valid because it is a tag name. Type the name of a current branch in the
+     *         The specified branch name is not valid because it is a tag name. Enter the name of a branch in the
      *         repository. For a list of valid branch names, use <a>ListBranches</a>.
      * @throws BranchDoesNotExistException
      *         The specified branch does not exist.
@@ -4021,6 +5876,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                         .beforeMarshalling(mergeBranchesByFastForwardRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "MergeBranchesByFastForward");
@@ -4051,11 +5908,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @param mergeBranchesBySquashRequest
      * @return Result of the MergeBranchesBySquash operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -4075,9 +5932,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws InvalidBranchNameException
      *         The specified reference name is not valid.
      * @throws BranchNameRequiredException
-     *         A branch name is required but was not specified.
+     *         A branch name is required, but was not specified.
      * @throws BranchNameIsTagNameException
-     *         The specified branch name is not valid because it is a tag name. Type the name of a current branch in the
+     *         The specified branch name is not valid because it is a tag name. Enter the name of a branch in the
      *         repository. For a list of valid branch names, use <a>ListBranches</a>.
      * @throws BranchDoesNotExistException
      *         The specified branch does not exist.
@@ -4100,7 +5957,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws InvalidReplacementTypeException
      *         Automerge was specified for resolving the conflict, but the specified replacement type is not valid.
      * @throws ReplacementContentRequiredException
-     *         USE_NEW_CONTENT was specified but no replacement content has been provided.
+     *         USE_NEW_CONTENT was specified, but no replacement content has been provided.
      * @throws InvalidReplacementContentException
      *         Automerge was specified for resolving the conflict, but the replacement type is not valid or content is
      *         missing.
@@ -4109,8 +5966,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws InvalidPathException
      *         The specified path is not valid.
      * @throws FileContentSizeLimitExceededException
-     *         The file cannot be added because it is too large. The maximum file size that can be added is 6 MB, and
-     *         the combined file content change size is 7 MB. Consider making these changes using a Git client.
+     *         The file cannot be added because it is too large. The maximum file size is 6 MB, and the combined file
+     *         content change size is 7 MB. Consider making these changes using a Git client.
      * @throws FolderContentSizeLimitExceededException
      *         The commit cannot be created because at least one of the overall changes in the commit results in a
      *         folder whose contents exceed the limit of 6 MB. Either reduce the number and size of your changes, or
@@ -4118,11 +5975,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws MaximumFileContentToLoadExceededException
      *         The number of files to load exceeds the allowed limit.
      * @throws MaximumItemsToCompareExceededException
-     *         The maximum number of items to compare between the source or destination branches and the merge base has
-     *         exceeded the maximum allowed.
+     *         The number of items to compare between the source or destination branches and the merge base has exceeded
+     *         the maximum allowed.
      * @throws FileModeRequiredException
-     *         The commit cannot be created because a file mode is required to update mode permissions for an existing
-     *         file, but no file mode has been specified.
+     *         The commit cannot be created because no file mode has been specified. A file mode is required to update
+     *         mode permissions for a file.
      * @throws InvalidFileModeException
      *         The specified file mode permission is not valid. For a list of valid file mode permissions, see
      *         <a>PutFile</a>.
@@ -4171,6 +6028,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new MergeBranchesBySquashRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(mergeBranchesBySquashRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "MergeBranchesBySquash");
@@ -4201,11 +6060,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @param mergeBranchesByThreeWayRequest
      * @return Result of the MergeBranchesByThreeWay operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -4225,9 +6084,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws InvalidBranchNameException
      *         The specified reference name is not valid.
      * @throws BranchNameRequiredException
-     *         A branch name is required but was not specified.
+     *         A branch name is required, but was not specified.
      * @throws BranchNameIsTagNameException
-     *         The specified branch name is not valid because it is a tag name. Type the name of a current branch in the
+     *         The specified branch name is not valid because it is a tag name. Enter the name of a branch in the
      *         repository. For a list of valid branch names, use <a>ListBranches</a>.
      * @throws BranchDoesNotExistException
      *         The specified branch does not exist.
@@ -4253,7 +6112,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws InvalidReplacementTypeException
      *         Automerge was specified for resolving the conflict, but the specified replacement type is not valid.
      * @throws ReplacementContentRequiredException
-     *         USE_NEW_CONTENT was specified but no replacement content has been provided.
+     *         USE_NEW_CONTENT was specified, but no replacement content has been provided.
      * @throws InvalidReplacementContentException
      *         Automerge was specified for resolving the conflict, but the replacement type is not valid or content is
      *         missing.
@@ -4262,8 +6121,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws InvalidPathException
      *         The specified path is not valid.
      * @throws FileContentSizeLimitExceededException
-     *         The file cannot be added because it is too large. The maximum file size that can be added is 6 MB, and
-     *         the combined file content change size is 7 MB. Consider making these changes using a Git client.
+     *         The file cannot be added because it is too large. The maximum file size is 6 MB, and the combined file
+     *         content change size is 7 MB. Consider making these changes using a Git client.
      * @throws FolderContentSizeLimitExceededException
      *         The commit cannot be created because at least one of the overall changes in the commit results in a
      *         folder whose contents exceed the limit of 6 MB. Either reduce the number and size of your changes, or
@@ -4271,11 +6130,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws MaximumFileContentToLoadExceededException
      *         The number of files to load exceeds the allowed limit.
      * @throws MaximumItemsToCompareExceededException
-     *         The maximum number of items to compare between the source or destination branches and the merge base has
-     *         exceeded the maximum allowed.
+     *         The number of items to compare between the source or destination branches and the merge base has exceeded
+     *         the maximum allowed.
      * @throws FileModeRequiredException
-     *         The commit cannot be created because a file mode is required to update mode permissions for an existing
-     *         file, but no file mode has been specified.
+     *         The commit cannot be created because no file mode has been specified. A file mode is required to update
+     *         mode permissions for a file.
      * @throws InvalidFileModeException
      *         The specified file mode permission is not valid. For a list of valid file mode permissions, see
      *         <a>PutFile</a>.
@@ -4322,6 +6181,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                         .beforeMarshalling(mergeBranchesByThreeWayRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "MergeBranchesByThreeWay");
@@ -4378,11 +6239,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         The repository does not contain any pull requests with that pull request ID. Use GetPullRequest to verify
      *         the correct repository name for the pull request ID.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -4390,6 +6251,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws ConcurrentReferenceUpdateException
      *         The merge cannot be completed because the target branch has been modified. Another user might have
      *         modified the target branch while the merge was in progress. Wait a few minutes, and then try again.
+     * @throws PullRequestApprovalRulesNotSatisfiedException
+     *         The pull request cannot be merged because one or more approval rules applied to the pull request have
+     *         conditions that have not been met.
      * @throws EncryptionIntegrityChecksFailedException
      *         An encryption integrity check failed.
      * @throws EncryptionKeyAccessDeniedException
@@ -4426,6 +6290,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                         .beforeMarshalling(mergePullRequestByFastForwardRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "MergePullRequestByFastForward");
@@ -4499,7 +6365,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         More than one conflict resolution entries exists for the conflict. A conflict can have only one conflict
      *         resolution entry.
      * @throws ReplacementContentRequiredException
-     *         USE_NEW_CONTENT was specified but no replacement content has been provided.
+     *         USE_NEW_CONTENT was specified, but no replacement content has been provided.
      * @throws MaximumConflictResolutionEntriesExceededException
      *         The number of allowed conflict resolution entries was exceeded.
      * @throws ConcurrentReferenceUpdateException
@@ -4516,8 +6382,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         Automerge was specified for resolving the conflict, but the replacement type is not valid or content is
      *         missing.
      * @throws FileContentSizeLimitExceededException
-     *         The file cannot be added because it is too large. The maximum file size that can be added is 6 MB, and
-     *         the combined file content change size is 7 MB. Consider making these changes using a Git client.
+     *         The file cannot be added because it is too large. The maximum file size is 6 MB, and the combined file
+     *         content change size is 7 MB. Consider making these changes using a Git client.
      * @throws FolderContentSizeLimitExceededException
      *         The commit cannot be created because at least one of the overall changes in the commit results in a
      *         folder whose contents exceed the limit of 6 MB. Either reduce the number and size of your changes, or
@@ -4525,14 +6391,14 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws MaximumFileContentToLoadExceededException
      *         The number of files to load exceeds the allowed limit.
      * @throws MaximumItemsToCompareExceededException
-     *         The maximum number of items to compare between the source or destination branches and the merge base has
-     *         exceeded the maximum allowed.
+     *         The number of items to compare between the source or destination branches and the merge base has exceeded
+     *         the maximum allowed.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -4540,6 +6406,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws RepositoryNotAssociatedWithPullRequestException
      *         The repository does not contain any pull requests with that pull request ID. Use GetPullRequest to verify
      *         the correct repository name for the pull request ID.
+     * @throws PullRequestApprovalRulesNotSatisfiedException
+     *         The pull request cannot be merged because one or more approval rules applied to the pull request have
+     *         conditions that have not been met.
      * @throws EncryptionIntegrityChecksFailedException
      *         An encryption integrity check failed.
      * @throws EncryptionKeyAccessDeniedException
@@ -4576,6 +6445,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                         .beforeMarshalling(mergePullRequestBySquashRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "MergePullRequestBySquash");
@@ -4650,7 +6521,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         More than one conflict resolution entries exists for the conflict. A conflict can have only one conflict
      *         resolution entry.
      * @throws ReplacementContentRequiredException
-     *         USE_NEW_CONTENT was specified but no replacement content has been provided.
+     *         USE_NEW_CONTENT was specified, but no replacement content has been provided.
      * @throws MaximumConflictResolutionEntriesExceededException
      *         The number of allowed conflict resolution entries was exceeded.
      * @throws PathRequiredException
@@ -4664,8 +6535,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         Automerge was specified for resolving the conflict, but the replacement type is not valid or content is
      *         missing.
      * @throws FileContentSizeLimitExceededException
-     *         The file cannot be added because it is too large. The maximum file size that can be added is 6 MB, and
-     *         the combined file content change size is 7 MB. Consider making these changes using a Git client.
+     *         The file cannot be added because it is too large. The maximum file size is 6 MB, and the combined file
+     *         content change size is 7 MB. Consider making these changes using a Git client.
      * @throws FolderContentSizeLimitExceededException
      *         The commit cannot be created because at least one of the overall changes in the commit results in a
      *         folder whose contents exceed the limit of 6 MB. Either reduce the number and size of your changes, or
@@ -4673,14 +6544,14 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws MaximumFileContentToLoadExceededException
      *         The number of files to load exceeds the allowed limit.
      * @throws MaximumItemsToCompareExceededException
-     *         The maximum number of items to compare between the source or destination branches and the merge base has
-     *         exceeded the maximum allowed.
+     *         The number of items to compare between the source or destination branches and the merge base has exceeded
+     *         the maximum allowed.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -4691,6 +6562,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws ConcurrentReferenceUpdateException
      *         The merge cannot be completed because the target branch has been modified. Another user might have
      *         modified the target branch while the merge was in progress. Wait a few minutes, and then try again.
+     * @throws PullRequestApprovalRulesNotSatisfiedException
+     *         The pull request cannot be merged because one or more approval rules applied to the pull request have
+     *         conditions that have not been met.
      * @throws EncryptionIntegrityChecksFailedException
      *         An encryption integrity check failed.
      * @throws EncryptionKeyAccessDeniedException
@@ -4727,6 +6601,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                         .beforeMarshalling(mergePullRequestByThreeWayRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "MergePullRequestByThreeWay");
@@ -4751,38 +6627,128 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
+     * Sets aside (overrides) all approval rule requirements for a specified pull request.
+     * </p>
+     * 
+     * @param overridePullRequestApprovalRulesRequest
+     * @return Result of the OverridePullRequestApprovalRules operation returned by the service.
+     * @throws PullRequestDoesNotExistException
+     *         The pull request ID could not be found. Make sure that you have specified the correct repository name and
+     *         pull request ID, and then try again.
+     * @throws InvalidPullRequestIdException
+     *         The pull request ID is not valid. Make sure that you have provided the full ID and that the pull request
+     *         is in the specified repository, and then try again.
+     * @throws PullRequestIdRequiredException
+     *         A pull request ID is required, but none was provided.
+     * @throws InvalidRevisionIdException
+     *         The revision ID is not valid. Use GetPullRequest to determine the value.
+     * @throws RevisionIdRequiredException
+     *         A revision ID is required, but was not provided.
+     * @throws InvalidOverrideStatusException
+     *         The override status is not valid. Valid statuses are OVERRIDE and REVOKE.
+     * @throws OverrideStatusRequiredException
+     *         An override status is required, but no value was provided. Valid values include OVERRIDE and REVOKE.
+     * @throws OverrideAlreadySetException
+     *         The pull request has already had its approval rules set to override.
+     * @throws RevisionNotCurrentException
+     *         The revision ID provided in the request does not match the current revision ID. Use GetPullRequest to
+     *         retrieve the current revision ID.
+     * @throws PullRequestAlreadyClosedException
+     *         The pull request status cannot be updated because it is already closed.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @sample AWSCodeCommit.OverridePullRequestApprovalRules
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/OverridePullRequestApprovalRules"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public OverridePullRequestApprovalRulesResult overridePullRequestApprovalRules(OverridePullRequestApprovalRulesRequest request) {
+        request = beforeClientExecution(request);
+        return executeOverridePullRequestApprovalRules(request);
+    }
+
+    @SdkInternalApi
+    final OverridePullRequestApprovalRulesResult executeOverridePullRequestApprovalRules(
+            OverridePullRequestApprovalRulesRequest overridePullRequestApprovalRulesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(overridePullRequestApprovalRulesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<OverridePullRequestApprovalRulesRequest> request = null;
+        Response<OverridePullRequestApprovalRulesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new OverridePullRequestApprovalRulesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(overridePullRequestApprovalRulesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "OverridePullRequestApprovalRules");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<OverridePullRequestApprovalRulesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new OverridePullRequestApprovalRulesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Posts a comment on the comparison between two commits.
      * </p>
      * 
      * @param postCommentForComparedCommitRequest
      * @return Result of the PostCommentForComparedCommit operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws ClientRequestTokenRequiredException
      *         A client request token is required. A client request token is an unique, client-generated idempotency
-     *         token that when provided in a request, ensures the request cannot be repeated with a changed parameter.
-     *         If a request is received with the same parameters and a token is included, the request will return
+     *         token that, when provided in a request, ensures the request cannot be repeated with a changed parameter.
+     *         If a request is received with the same parameters and a token is included, the request returns
      *         information about the initial request that used that token.
      * @throws InvalidClientRequestTokenException
      *         The client request token is not valid.
      * @throws IdempotencyParameterMismatchException
      *         The client request token is not valid. Either the token is not in a valid format, or the token has been
-     *         used in a previous request and cannot be re-used.
+     *         used in a previous request and cannot be reused.
      * @throws CommentContentRequiredException
      *         The comment is empty. You must provide some content for a comment. The content cannot be null.
      * @throws CommentContentSizeLimitExceededException
-     *         The comment is too large. Comments are limited to 1,000 characters.
+     *         The comment is too large. Comments are limited to 10,240 characters.
      * @throws InvalidFileLocationException
-     *         The location of the file is not valid. Make sure that you include the extension of the file as well as
-     *         the file name.
+     *         The location of the file is not valid. Make sure that you include the file name and extension.
      * @throws InvalidRelativeFileVersionEnumException
      *         Either the enum is not in a valid format, or the specified file version enum is not valid in respect to
      *         the current file version.
@@ -4795,6 +6761,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         A commit ID was not specified.
      * @throws InvalidCommitIdException
      *         The specified commit ID is not valid.
+     * @throws BeforeCommitIdAndAfterCommitIdAreSameException
+     *         The before commit ID and the after commit ID are the same, which is not valid. The before commit ID and
+     *         the after commit ID must be different commit IDs.
      * @throws EncryptionIntegrityChecksFailedException
      *         An encryption integrity check failed.
      * @throws EncryptionKeyAccessDeniedException
@@ -4805,9 +6774,6 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         No encryption key was found.
      * @throws EncryptionKeyUnavailableException
      *         The encryption key is not available.
-     * @throws BeforeCommitIdAndAfterCommitIdAreSameException
-     *         The before commit ID and the after commit ID are the same, which is not valid. The before commit ID and
-     *         the after commit ID must be different commit IDs.
      * @throws CommitDoesNotExistException
      *         The specified commit does not exist or no commit was specified, and the specified repository has no
      *         default branch.
@@ -4815,6 +6781,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         The specified path is not valid.
      * @throws PathDoesNotExistException
      *         The specified path does not exist.
+     * @throws PathRequiredException
+     *         The folderPath for a location cannot be null.
      * @sample AWSCodeCommit.PostCommentForComparedCommit
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentForComparedCommit"
      *      target="_top">AWS API Documentation</a>
@@ -4841,6 +6809,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                         .beforeMarshalling(postCommentForComparedCommitRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PostCommentForComparedCommit");
@@ -4882,32 +6852,31 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         The repository does not contain any pull requests with that pull request ID. Use GetPullRequest to verify
      *         the correct repository name for the pull request ID.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws ClientRequestTokenRequiredException
      *         A client request token is required. A client request token is an unique, client-generated idempotency
-     *         token that when provided in a request, ensures the request cannot be repeated with a changed parameter.
-     *         If a request is received with the same parameters and a token is included, the request will return
+     *         token that, when provided in a request, ensures the request cannot be repeated with a changed parameter.
+     *         If a request is received with the same parameters and a token is included, the request returns
      *         information about the initial request that used that token.
      * @throws InvalidClientRequestTokenException
      *         The client request token is not valid.
      * @throws IdempotencyParameterMismatchException
      *         The client request token is not valid. Either the token is not in a valid format, or the token has been
-     *         used in a previous request and cannot be re-used.
+     *         used in a previous request and cannot be reused.
      * @throws CommentContentRequiredException
      *         The comment is empty. You must provide some content for a comment. The content cannot be null.
      * @throws CommentContentSizeLimitExceededException
-     *         The comment is too large. Comments are limited to 1,000 characters.
+     *         The comment is too large. Comments are limited to 10,240 characters.
      * @throws InvalidFileLocationException
-     *         The location of the file is not valid. Make sure that you include the extension of the file as well as
-     *         the file name.
+     *         The location of the file is not valid. Make sure that you include the file name and extension.
      * @throws InvalidRelativeFileVersionEnumException
      *         Either the enum is not in a valid format, or the specified file version enum is not valid in respect to
      *         the current file version.
@@ -4920,6 +6889,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         A commit ID was not specified.
      * @throws InvalidCommitIdException
      *         The specified commit ID is not valid.
+     * @throws BeforeCommitIdAndAfterCommitIdAreSameException
+     *         The before commit ID and the after commit ID are the same, which is not valid. The before commit ID and
+     *         the after commit ID must be different commit IDs.
      * @throws EncryptionIntegrityChecksFailedException
      *         An encryption integrity check failed.
      * @throws EncryptionKeyAccessDeniedException
@@ -4939,9 +6911,6 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         The specified path does not exist.
      * @throws PathRequiredException
      *         The folderPath for a location cannot be null.
-     * @throws BeforeCommitIdAndAfterCommitIdAreSameException
-     *         The before commit ID and the after commit ID are the same, which is not valid. The before commit ID and
-     *         the after commit ID must be different commit IDs.
      * @sample AWSCodeCommit.PostCommentForPullRequest
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentForPullRequest"
      *      target="_top">AWS API Documentation</a>
@@ -4968,6 +6937,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                         .beforeMarshalling(postCommentForPullRequestRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PostCommentForPullRequest");
@@ -4999,20 +6970,20 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @return Result of the PostCommentReply operation returned by the service.
      * @throws ClientRequestTokenRequiredException
      *         A client request token is required. A client request token is an unique, client-generated idempotency
-     *         token that when provided in a request, ensures the request cannot be repeated with a changed parameter.
-     *         If a request is received with the same parameters and a token is included, the request will return
+     *         token that, when provided in a request, ensures the request cannot be repeated with a changed parameter.
+     *         If a request is received with the same parameters and a token is included, the request returns
      *         information about the initial request that used that token.
      * @throws InvalidClientRequestTokenException
      *         The client request token is not valid.
      * @throws IdempotencyParameterMismatchException
      *         The client request token is not valid. Either the token is not in a valid format, or the token has been
-     *         used in a previous request and cannot be re-used.
+     *         used in a previous request and cannot be reused.
      * @throws CommentContentRequiredException
      *         The comment is empty. You must provide some content for a comment. The content cannot be null.
      * @throws CommentContentSizeLimitExceededException
-     *         The comment is too large. Comments are limited to 1,000 characters.
+     *         The comment is too large. Comments are limited to 10,240 characters.
      * @throws CommentDoesNotExistException
-     *         No comment exists with the provided ID. Verify that you have provided the correct ID, and then try again.
+     *         No comment exists with the provided ID. Verify that you have used the correct ID, and then try again.
      * @throws CommentIdRequiredException
      *         The comment ID is missing or null. A comment ID is required.
      * @throws InvalidCommentIdException
@@ -5042,6 +7013,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new PostCommentReplyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(postCommentReplyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PostCommentReply");
@@ -5065,18 +7038,90 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
-     * Adds or updates a file in a branch in an AWS CodeCommit repository, and generates a commit for the addition in
-     * the specified branch.
+     * Adds or updates a reaction to a specified comment for the user whose identity is used to make the request. You
+     * can only add or update a reaction for yourself. You cannot add, modify, or delete a reaction for another user.
+     * </p>
+     * 
+     * @param putCommentReactionRequest
+     * @return Result of the PutCommentReaction operation returned by the service.
+     * @throws CommentDoesNotExistException
+     *         No comment exists with the provided ID. Verify that you have used the correct ID, and then try again.
+     * @throws CommentIdRequiredException
+     *         The comment ID is missing or null. A comment ID is required.
+     * @throws InvalidCommentIdException
+     *         The comment ID is not in a valid format. Make sure that you have provided the full comment ID.
+     * @throws InvalidReactionValueException
+     *         The value of the reaction is not valid. For more information, see the <a
+     *         href="https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html">CodeCommit User Guide</a>.
+     * @throws ReactionValueRequiredException
+     *         A reaction value is required.
+     * @throws ReactionLimitExceededException
+     *         The number of reactions has been exceeded. Reactions are limited to one reaction per user for each
+     *         individual comment ID.
+     * @throws CommentDeletedException
+     *         This comment has already been deleted. You cannot edit or delete a deleted comment.
+     * @sample AWSCodeCommit.PutCommentReaction
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PutCommentReaction" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public PutCommentReactionResult putCommentReaction(PutCommentReactionRequest request) {
+        request = beforeClientExecution(request);
+        return executePutCommentReaction(request);
+    }
+
+    @SdkInternalApi
+    final PutCommentReactionResult executePutCommentReaction(PutCommentReactionRequest putCommentReactionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putCommentReactionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutCommentReactionRequest> request = null;
+        Response<PutCommentReactionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutCommentReactionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putCommentReactionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutCommentReaction");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutCommentReactionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new PutCommentReactionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Adds or updates a file in a branch in an CodeCommit repository, and generates a commit for the addition in the
+     * specified branch.
      * </p>
      * 
      * @param putFileRequest
      * @return Result of the PutFile operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryDoesNotExistException
@@ -5097,8 +7142,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         The file cannot be added because it is empty. Empty files cannot be added to the repository with this
      *         API.
      * @throws FileContentSizeLimitExceededException
-     *         The file cannot be added because it is too large. The maximum file size that can be added is 6 MB, and
-     *         the combined file content change size is 7 MB. Consider making these changes using a Git client.
+     *         The file cannot be added because it is too large. The maximum file size is 6 MB, and the combined file
+     *         content change size is 7 MB. Consider making these changes using a Git client.
      * @throws FolderContentSizeLimitExceededException
      *         The commit cannot be created because at least one of the overall changes in the commit results in a
      *         folder whose contents exceed the limit of 6 MB. Either reduce the number and size of your changes, or
@@ -5108,13 +7153,13 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws InvalidPathException
      *         The specified path is not valid.
      * @throws BranchNameRequiredException
-     *         A branch name is required but was not specified.
+     *         A branch name is required, but was not specified.
      * @throws InvalidBranchNameException
      *         The specified reference name is not valid.
      * @throws BranchDoesNotExistException
      *         The specified branch does not exist.
      * @throws BranchNameIsTagNameException
-     *         The specified branch name is not valid because it is a tag name. Type the name of a current branch in the
+     *         The specified branch name is not valid because it is a tag name. Enter the name of a branch in the
      *         repository. For a list of valid branch names, use <a>ListBranches</a>.
      * @throws InvalidFileModeException
      *         The specified file mode permission is not valid. For a list of valid file mode permissions, see
@@ -5177,6 +7222,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new PutFileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putFileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutFile");
@@ -5200,24 +7247,24 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
-     * Replaces all triggers for a repository. This can be used to create or delete triggers.
+     * Replaces all triggers for a repository. Used to create or delete triggers.
      * </p>
      * 
      * @param putRepositoryTriggersRequest
-     *        Represents the input ofa put repository triggers operation.
+     *        Represents the input of a put repository triggers operation.
      * @return Result of the PutRepositoryTriggers operation returned by the service.
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryTriggersListRequiredException
-     *         The list of triggers for the repository is required but was not specified.
+     *         The list of triggers for the repository is required, but was not specified.
      * @throws MaximumRepositoryTriggersExceededException
      *         The number of triggers allowed for the repository was exceeded.
      * @throws InvalidRepositoryTriggerNameException
@@ -5226,8 +7273,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         The Amazon Resource Name (ARN) for the trigger is not valid for the specified destination. The most
      *         common reason for this error is that the ARN does not meet the requirements for the service type.
      * @throws InvalidRepositoryTriggerRegionException
-     *         The region for the trigger target does not match the region for the repository. Triggers must be created
-     *         in the same region as the target for the trigger.
+     *         The Amazon Web Services Region for the trigger target does not match the Amazon Web Services Region for
+     *         the repository. Triggers must be created in the same Amazon Web Services Region as the target for the
+     *         trigger.
      * @throws InvalidRepositoryTriggerCustomDataException
      *         The custom data provided for the trigger is not valid.
      * @throws MaximumBranchesExceededException
@@ -5238,13 +7286,13 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         One or more events specified for the trigger is not valid. Check to make sure that all events specified
      *         match the requirements for allowed events.
      * @throws RepositoryTriggerNameRequiredException
-     *         A name for the trigger is required but was not specified.
+     *         A name for the trigger is required, but was not specified.
      * @throws RepositoryTriggerDestinationArnRequiredException
-     *         A destination ARN for the target service for the trigger is required but was not specified.
+     *         A destination ARN for the target service for the trigger is required, but was not specified.
      * @throws RepositoryTriggerBranchNameListRequiredException
-     *         At least one branch name is required but was not specified in the trigger configuration.
+     *         At least one branch name is required, but was not specified in the trigger configuration.
      * @throws RepositoryTriggerEventsListRequiredException
-     *         At least one event for the trigger is required but was not specified.
+     *         At least one event for the trigger is required, but was not specified.
      * @throws EncryptionIntegrityChecksFailedException
      *         An encryption integrity check failed.
      * @throws EncryptionKeyAccessDeniedException
@@ -5280,6 +7328,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new PutRepositoryTriggersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putRepositoryTriggersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutRepositoryTriggers");
@@ -5304,10 +7354,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
-     * Adds or updates tags for a resource in AWS CodeCommit. For a list of valid resources in AWS CodeCommit, see <a
-     * href=
+     * Adds or updates tags for a resource in CodeCommit. For a list of valid resources in CodeCommit, see <a href=
      * "https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"
-     * >CodeCommit Resources and Operations</a> in the AWS CodeCommit User Guide.
+     * >CodeCommit Resources and Operations</a> in the <i>CodeCommit User Guide</i>.
      * </p>
      * 
      * @param tagResourceRequest
@@ -5315,27 +7364,27 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws ResourceArnRequiredException
-     *         A valid Amazon Resource Name (ARN) for an AWS CodeCommit resource is required. For a list of valid
-     *         resources in AWS CodeCommit, see <a href=
+     *         A valid Amazon Resource Name (ARN) for an CodeCommit resource is required. For a list of valid resources
+     *         in CodeCommit, see <a href=
      *         "https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"
-     *         >CodeCommit Resources and Operations</a> in the AWS CodeCommit User Guide.
+     *         >CodeCommit Resources and Operations</a> in the CodeCommit User Guide.
      * @throws InvalidResourceArnException
-     *         The value for the resource ARN is not valid. For more information about resources in AWS CodeCommit, see
-     *         <a href=
+     *         The value for the resource ARN is not valid. For more information about resources in CodeCommit, see <a
+     *         href=
      *         "https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"
-     *         >CodeCommit Resources and Operations</a> in the AWS CodeCommit User Guide.
+     *         >CodeCommit Resources and Operations</a> in the CodeCommit User Guide.
      * @throws TagsMapRequiredException
      *         A map of tags is required.
      * @throws InvalidTagsMapException
      *         The map of tags is not valid.
      * @throws TooManyTagsException
-     *         The maximum number of tags for an AWS CodeCommit resource has been exceeded.
+     *         The maximum number of tags for an CodeCommit resource has been exceeded.
      * @throws InvalidSystemTagUsageException
      *         The specified tag is not valid. Key names cannot be prefixed with aws:.
      * @throws TagPolicyException
@@ -5365,6 +7414,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -5389,8 +7440,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
     /**
      * <p>
      * Tests the functionality of repository triggers by sending information to the trigger target. If real data is
-     * available in the repository, the test will send data from the last commit. If no data is available, sample data
-     * will be generated.
+     * available in the repository, the test sends data from the last commit. If no data is available, sample data is
+     * generated.
      * </p>
      * 
      * @param testRepositoryTriggersRequest
@@ -5399,15 +7450,15 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws RepositoryTriggersListRequiredException
-     *         The list of triggers for the repository is required but was not specified.
+     *         The list of triggers for the repository is required, but was not specified.
      * @throws MaximumRepositoryTriggersExceededException
      *         The number of triggers allowed for the repository was exceeded.
      * @throws InvalidRepositoryTriggerNameException
@@ -5416,8 +7467,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         The Amazon Resource Name (ARN) for the trigger is not valid for the specified destination. The most
      *         common reason for this error is that the ARN does not meet the requirements for the service type.
      * @throws InvalidRepositoryTriggerRegionException
-     *         The region for the trigger target does not match the region for the repository. Triggers must be created
-     *         in the same region as the target for the trigger.
+     *         The Amazon Web Services Region for the trigger target does not match the Amazon Web Services Region for
+     *         the repository. Triggers must be created in the same Amazon Web Services Region as the target for the
+     *         trigger.
      * @throws InvalidRepositoryTriggerCustomDataException
      *         The custom data provided for the trigger is not valid.
      * @throws MaximumBranchesExceededException
@@ -5428,13 +7480,13 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *         One or more events specified for the trigger is not valid. Check to make sure that all events specified
      *         match the requirements for allowed events.
      * @throws RepositoryTriggerNameRequiredException
-     *         A name for the trigger is required but was not specified.
+     *         A name for the trigger is required, but was not specified.
      * @throws RepositoryTriggerDestinationArnRequiredException
-     *         A destination ARN for the target service for the trigger is required but was not specified.
+     *         A destination ARN for the target service for the trigger is required, but was not specified.
      * @throws RepositoryTriggerBranchNameListRequiredException
-     *         At least one branch name is required but was not specified in the trigger configuration.
+     *         At least one branch name is required, but was not specified in the trigger configuration.
      * @throws RepositoryTriggerEventsListRequiredException
-     *         At least one event for the trigger is required but was not specified.
+     *         At least one event for the trigger is required, but was not specified.
      * @throws EncryptionIntegrityChecksFailedException
      *         An encryption integrity check failed.
      * @throws EncryptionKeyAccessDeniedException
@@ -5470,6 +7522,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new TestRepositoryTriggersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(testRepositoryTriggersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TestRepositoryTriggers");
@@ -5494,9 +7548,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
-     * Removes tags for a resource in AWS CodeCommit. For a list of valid resources in AWS CodeCommit, see <a href=
+     * Removes tags for a resource in CodeCommit. For a list of valid resources in CodeCommit, see <a href=
      * "https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"
-     * >CodeCommit Resources and Operations</a> in the AWS CodeCommit User Guide.
+     * >CodeCommit Resources and Operations</a> in the <i>CodeCommit User Guide</i>.
      * </p>
      * 
      * @param untagResourceRequest
@@ -5504,27 +7558,27 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws ResourceArnRequiredException
-     *         A valid Amazon Resource Name (ARN) for an AWS CodeCommit resource is required. For a list of valid
-     *         resources in AWS CodeCommit, see <a href=
+     *         A valid Amazon Resource Name (ARN) for an CodeCommit resource is required. For a list of valid resources
+     *         in CodeCommit, see <a href=
      *         "https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"
-     *         >CodeCommit Resources and Operations</a> in the AWS CodeCommit User Guide.
+     *         >CodeCommit Resources and Operations</a> in the CodeCommit User Guide.
      * @throws InvalidResourceArnException
-     *         The value for the resource ARN is not valid. For more information about resources in AWS CodeCommit, see
-     *         <a href=
+     *         The value for the resource ARN is not valid. For more information about resources in CodeCommit, see <a
+     *         href=
      *         "https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats"
-     *         >CodeCommit Resources and Operations</a> in the AWS CodeCommit User Guide.
+     *         >CodeCommit Resources and Operations</a> in the CodeCommit User Guide.
      * @throws TagKeysListRequiredException
      *         A list of tag keys is required. The list cannot be empty or null.
      * @throws InvalidTagKeysListException
      *         The list of tags is not valid.
      * @throws TooManyTagsException
-     *         The maximum number of tags for an AWS CodeCommit resource has been exceeded.
+     *         The maximum number of tags for an CodeCommit resource has been exceeded.
      * @throws InvalidSystemTagUsageException
      *         The specified tag is not valid. Key names cannot be prefixed with aws:.
      * @throws TagPolicyException
@@ -5554,6 +7608,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -5577,6 +7633,226 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
+     * Updates the content of an approval rule template. You can change the number of required approvals, the membership
+     * of the approval rule, and whether an approval pool is defined.
+     * </p>
+     * 
+     * @param updateApprovalRuleTemplateContentRequest
+     * @return Result of the UpdateApprovalRuleTemplateContent operation returned by the service.
+     * @throws InvalidApprovalRuleTemplateNameException
+     *         The name of the approval rule template is not valid. Template names must be between 1 and 100 valid
+     *         characters in length. For more information about limits in CodeCommit, see <a
+     *         href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the
+     *         <i>CodeCommit User Guide</i>.
+     * @throws ApprovalRuleTemplateNameRequiredException
+     *         An approval rule template name is required, but was not specified.
+     * @throws ApprovalRuleTemplateDoesNotExistException
+     *         The specified approval rule template does not exist. Verify that the name is correct and that you are
+     *         signed in to the Amazon Web Services Region where the template was created, and then try again.
+     * @throws InvalidApprovalRuleTemplateContentException
+     *         The content of the approval rule template is not valid.
+     * @throws InvalidRuleContentSha256Exception
+     *         The SHA-256 hash signature for the rule content is not valid.
+     * @throws ApprovalRuleTemplateContentRequiredException
+     *         The content for the approval rule template is empty. You must provide some content for an approval rule
+     *         template. The content cannot be null.
+     * @sample AWSCodeCommit.UpdateApprovalRuleTemplateContent
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdateApprovalRuleTemplateContent"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateApprovalRuleTemplateContentResult updateApprovalRuleTemplateContent(UpdateApprovalRuleTemplateContentRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateApprovalRuleTemplateContent(request);
+    }
+
+    @SdkInternalApi
+    final UpdateApprovalRuleTemplateContentResult executeUpdateApprovalRuleTemplateContent(
+            UpdateApprovalRuleTemplateContentRequest updateApprovalRuleTemplateContentRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateApprovalRuleTemplateContentRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateApprovalRuleTemplateContentRequest> request = null;
+        Response<UpdateApprovalRuleTemplateContentResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateApprovalRuleTemplateContentRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateApprovalRuleTemplateContentRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateApprovalRuleTemplateContent");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateApprovalRuleTemplateContentResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateApprovalRuleTemplateContentResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the description for a specified approval rule template.
+     * </p>
+     * 
+     * @param updateApprovalRuleTemplateDescriptionRequest
+     * @return Result of the UpdateApprovalRuleTemplateDescription operation returned by the service.
+     * @throws InvalidApprovalRuleTemplateNameException
+     *         The name of the approval rule template is not valid. Template names must be between 1 and 100 valid
+     *         characters in length. For more information about limits in CodeCommit, see <a
+     *         href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the
+     *         <i>CodeCommit User Guide</i>.
+     * @throws ApprovalRuleTemplateNameRequiredException
+     *         An approval rule template name is required, but was not specified.
+     * @throws ApprovalRuleTemplateDoesNotExistException
+     *         The specified approval rule template does not exist. Verify that the name is correct and that you are
+     *         signed in to the Amazon Web Services Region where the template was created, and then try again.
+     * @throws InvalidApprovalRuleTemplateDescriptionException
+     *         The description for the approval rule template is not valid because it exceeds the maximum characters
+     *         allowed for a description. For more information about limits in CodeCommit, see <a
+     *         href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the
+     *         <i>CodeCommit User Guide</i>.
+     * @sample AWSCodeCommit.UpdateApprovalRuleTemplateDescription
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdateApprovalRuleTemplateDescription"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateApprovalRuleTemplateDescriptionResult updateApprovalRuleTemplateDescription(UpdateApprovalRuleTemplateDescriptionRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateApprovalRuleTemplateDescription(request);
+    }
+
+    @SdkInternalApi
+    final UpdateApprovalRuleTemplateDescriptionResult executeUpdateApprovalRuleTemplateDescription(
+            UpdateApprovalRuleTemplateDescriptionRequest updateApprovalRuleTemplateDescriptionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateApprovalRuleTemplateDescriptionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateApprovalRuleTemplateDescriptionRequest> request = null;
+        Response<UpdateApprovalRuleTemplateDescriptionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateApprovalRuleTemplateDescriptionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateApprovalRuleTemplateDescriptionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateApprovalRuleTemplateDescription");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateApprovalRuleTemplateDescriptionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateApprovalRuleTemplateDescriptionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the name of a specified approval rule template.
+     * </p>
+     * 
+     * @param updateApprovalRuleTemplateNameRequest
+     * @return Result of the UpdateApprovalRuleTemplateName operation returned by the service.
+     * @throws InvalidApprovalRuleTemplateNameException
+     *         The name of the approval rule template is not valid. Template names must be between 1 and 100 valid
+     *         characters in length. For more information about limits in CodeCommit, see <a
+     *         href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the
+     *         <i>CodeCommit User Guide</i>.
+     * @throws ApprovalRuleTemplateNameRequiredException
+     *         An approval rule template name is required, but was not specified.
+     * @throws ApprovalRuleTemplateDoesNotExistException
+     *         The specified approval rule template does not exist. Verify that the name is correct and that you are
+     *         signed in to the Amazon Web Services Region where the template was created, and then try again.
+     * @throws ApprovalRuleTemplateNameAlreadyExistsException
+     *         You cannot create an approval rule template with that name because a template with that name already
+     *         exists in this Amazon Web Services Region for your Amazon Web Services account. Approval rule template
+     *         names must be unique.
+     * @sample AWSCodeCommit.UpdateApprovalRuleTemplateName
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdateApprovalRuleTemplateName"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateApprovalRuleTemplateNameResult updateApprovalRuleTemplateName(UpdateApprovalRuleTemplateNameRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateApprovalRuleTemplateName(request);
+    }
+
+    @SdkInternalApi
+    final UpdateApprovalRuleTemplateNameResult executeUpdateApprovalRuleTemplateName(UpdateApprovalRuleTemplateNameRequest updateApprovalRuleTemplateNameRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateApprovalRuleTemplateNameRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateApprovalRuleTemplateNameRequest> request = null;
+        Response<UpdateApprovalRuleTemplateNameResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateApprovalRuleTemplateNameRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateApprovalRuleTemplateNameRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateApprovalRuleTemplateName");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateApprovalRuleTemplateNameResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateApprovalRuleTemplateNameResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Replaces the contents of a comment.
      * </p>
      * 
@@ -5585,9 +7861,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws CommentContentRequiredException
      *         The comment is empty. You must provide some content for a comment. The content cannot be null.
      * @throws CommentContentSizeLimitExceededException
-     *         The comment is too large. Comments are limited to 1,000 characters.
+     *         The comment is too large. Comments are limited to 10,240 characters.
      * @throws CommentDoesNotExistException
-     *         No comment exists with the provided ID. Verify that you have provided the correct ID, and then try again.
+     *         No comment exists with the provided ID. Verify that you have used the correct ID, and then try again.
      * @throws CommentIdRequiredException
      *         The comment ID is missing or null. A comment ID is required.
      * @throws InvalidCommentIdException
@@ -5621,6 +7897,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new UpdateCommentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateCommentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateComment");
@@ -5657,17 +7935,17 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *        Represents the input of an update default branch operation.
      * @return Result of the UpdateDefaultBranch operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws BranchNameRequiredException
-     *         A branch name is required but was not specified.
+     *         A branch name is required, but was not specified.
      * @throws InvalidBranchNameException
      *         The specified reference name is not valid.
      * @throws BranchDoesNotExistException
@@ -5707,6 +7985,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new UpdateDefaultBranchRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDefaultBranchRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDefaultBranch");
@@ -5718,6 +7998,195 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
             HttpResponseHandler<AmazonWebServiceResponse<UpdateDefaultBranchResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateDefaultBranchResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the structure of an approval rule created specifically for a pull request. For example, you can change
+     * the number of required approvers and the approval pool for approvers.
+     * </p>
+     * 
+     * @param updatePullRequestApprovalRuleContentRequest
+     * @return Result of the UpdatePullRequestApprovalRuleContent operation returned by the service.
+     * @throws PullRequestDoesNotExistException
+     *         The pull request ID could not be found. Make sure that you have specified the correct repository name and
+     *         pull request ID, and then try again.
+     * @throws InvalidPullRequestIdException
+     *         The pull request ID is not valid. Make sure that you have provided the full ID and that the pull request
+     *         is in the specified repository, and then try again.
+     * @throws PullRequestIdRequiredException
+     *         A pull request ID is required, but none was provided.
+     * @throws PullRequestAlreadyClosedException
+     *         The pull request status cannot be updated because it is already closed.
+     * @throws ApprovalRuleNameRequiredException
+     *         An approval rule name is required, but was not specified.
+     * @throws InvalidApprovalRuleNameException
+     *         The name for the approval rule is not valid.
+     * @throws ApprovalRuleDoesNotExistException
+     *         The specified approval rule does not exist.
+     * @throws InvalidRuleContentSha256Exception
+     *         The SHA-256 hash signature for the rule content is not valid.
+     * @throws ApprovalRuleContentRequiredException
+     *         The content for the approval rule is empty. You must provide some content for an approval rule. The
+     *         content cannot be null.
+     * @throws InvalidApprovalRuleContentException
+     *         The content for the approval rule is not valid.
+     * @throws CannotModifyApprovalRuleFromTemplateException
+     *         The approval rule cannot be modified for the pull request because it was created by an approval rule
+     *         template and applied to the pull request automatically.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @sample AWSCodeCommit.UpdatePullRequestApprovalRuleContent
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestApprovalRuleContent"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdatePullRequestApprovalRuleContentResult updatePullRequestApprovalRuleContent(UpdatePullRequestApprovalRuleContentRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdatePullRequestApprovalRuleContent(request);
+    }
+
+    @SdkInternalApi
+    final UpdatePullRequestApprovalRuleContentResult executeUpdatePullRequestApprovalRuleContent(
+            UpdatePullRequestApprovalRuleContentRequest updatePullRequestApprovalRuleContentRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updatePullRequestApprovalRuleContentRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdatePullRequestApprovalRuleContentRequest> request = null;
+        Response<UpdatePullRequestApprovalRuleContentResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdatePullRequestApprovalRuleContentRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updatePullRequestApprovalRuleContentRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePullRequestApprovalRuleContent");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdatePullRequestApprovalRuleContentResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdatePullRequestApprovalRuleContentResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the state of a user's approval on a pull request. The user is derived from the signed-in account when the
+     * request is made.
+     * </p>
+     * 
+     * @param updatePullRequestApprovalStateRequest
+     * @return Result of the UpdatePullRequestApprovalState operation returned by the service.
+     * @throws PullRequestDoesNotExistException
+     *         The pull request ID could not be found. Make sure that you have specified the correct repository name and
+     *         pull request ID, and then try again.
+     * @throws InvalidPullRequestIdException
+     *         The pull request ID is not valid. Make sure that you have provided the full ID and that the pull request
+     *         is in the specified repository, and then try again.
+     * @throws PullRequestIdRequiredException
+     *         A pull request ID is required, but none was provided.
+     * @throws InvalidRevisionIdException
+     *         The revision ID is not valid. Use GetPullRequest to determine the value.
+     * @throws RevisionIdRequiredException
+     *         A revision ID is required, but was not provided.
+     * @throws InvalidApprovalStateException
+     *         The state for the approval is not valid. Valid values include APPROVE and REVOKE.
+     * @throws ApprovalStateRequiredException
+     *         An approval state is required, but was not specified.
+     * @throws PullRequestCannotBeApprovedByAuthorException
+     *         The approval cannot be applied because the user approving the pull request matches the user who created
+     *         the pull request. You cannot approve a pull request that you created.
+     * @throws RevisionNotCurrentException
+     *         The revision ID provided in the request does not match the current revision ID. Use GetPullRequest to
+     *         retrieve the current revision ID.
+     * @throws PullRequestAlreadyClosedException
+     *         The pull request status cannot be updated because it is already closed.
+     * @throws MaximumNumberOfApprovalsExceededException
+     *         The number of approvals required for the approval rule exceeds the maximum number allowed.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @sample AWSCodeCommit.UpdatePullRequestApprovalState
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestApprovalState"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdatePullRequestApprovalStateResult updatePullRequestApprovalState(UpdatePullRequestApprovalStateRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdatePullRequestApprovalState(request);
+    }
+
+    @SdkInternalApi
+    final UpdatePullRequestApprovalStateResult executeUpdatePullRequestApprovalState(UpdatePullRequestApprovalStateRequest updatePullRequestApprovalStateRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updatePullRequestApprovalStateRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdatePullRequestApprovalStateRequest> request = null;
+        Response<UpdatePullRequestApprovalStateResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdatePullRequestApprovalStateRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updatePullRequestApprovalStateRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePullRequestApprovalState");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdatePullRequestApprovalStateResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdatePullRequestApprovalStateResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -5744,7 +8213,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws PullRequestIdRequiredException
      *         A pull request ID is required, but none was provided.
      * @throws InvalidDescriptionException
-     *         The pull request description is not valid. Descriptions are limited to 1,000 characters in length.
+     *         The pull request description is not valid. Descriptions cannot be more than 1,000 characters.
      * @throws PullRequestAlreadyClosedException
      *         The pull request status cannot be updated because it is already closed.
      * @sample AWSCodeCommit.UpdatePullRequestDescription
@@ -5773,6 +8242,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                         .beforeMarshalling(updatePullRequestDescriptionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePullRequestDescription");
@@ -5854,6 +8325,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                         .beforeMarshalling(updatePullRequestStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePullRequestStatus");
@@ -5922,6 +8395,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new UpdatePullRequestTitleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updatePullRequestTitleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePullRequestTitle");
@@ -5951,9 +8426,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * <note>
      * <p>
      * The description field for a repository accepts all HTML characters and all valid Unicode characters. Applications
-     * that do not HTML-encode the description and display it in a web page could expose users to potentially malicious
+     * that do not HTML-encode the description and display it in a webpage can expose users to potentially malicious
      * code. Make sure that you HTML-encode the description field in any application that uses this API to display the
-     * repository description on a web page.
+     * repository description on a webpage.
      * </p>
      * </note>
      * 
@@ -5961,13 +8436,13 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      *        Represents the input of an update repository description operation.
      * @return Result of the UpdateRepositoryDescription operation returned by the service.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws RepositoryDoesNotExistException
      *         The specified repository does not exist.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @throws InvalidRepositoryDescriptionException
@@ -6008,6 +8483,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                         .beforeMarshalling(updateRepositoryDescriptionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRepositoryDescription");
@@ -6032,10 +8509,94 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
 
     /**
      * <p>
-     * Renames a repository. The repository name must be unique across the calling AWS account. In addition, repository
-     * names are limited to 100 alphanumeric, dash, and underscore characters, and cannot include certain characters.
-     * The suffix ".git" is prohibited. For a full description of the limits on repository names, see <a
-     * href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Limits</a> in the AWS CodeCommit User
+     * Updates the Key Management Service encryption key used to encrypt and decrypt a CodeCommit repository.
+     * </p>
+     * 
+     * @param updateRepositoryEncryptionKeyRequest
+     * @return Result of the UpdateRepositoryEncryptionKey operation returned by the service.
+     * @throws RepositoryNameRequiredException
+     *         A repository name is required, but was not specified.
+     * @throws RepositoryDoesNotExistException
+     *         The specified repository does not exist.
+     * @throws InvalidRepositoryNameException
+     *         A specified repository name is not valid.</p> <note>
+     *         <p>
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
+     *         required repository parameter is missing, or when a specified repository does not exist.
+     *         </p>
+     * @throws EncryptionKeyRequiredException
+     *         A KMS encryption key ID is required but was not specified.
+     * @throws EncryptionIntegrityChecksFailedException
+     *         An encryption integrity check failed.
+     * @throws EncryptionKeyAccessDeniedException
+     *         An encryption key could not be accessed.
+     * @throws EncryptionKeyInvalidIdException
+     *         The Key Management Service encryption key is not valid.
+     * @throws EncryptionKeyInvalidUsageException
+     *         A KMS encryption key was used to try and encrypt or decrypt a repository, but either the repository or
+     *         the key was not in a valid state to support the operation.
+     * @throws EncryptionKeyDisabledException
+     *         The encryption key is disabled.
+     * @throws EncryptionKeyNotFoundException
+     *         No encryption key was found.
+     * @throws EncryptionKeyUnavailableException
+     *         The encryption key is not available.
+     * @sample AWSCodeCommit.UpdateRepositoryEncryptionKey
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdateRepositoryEncryptionKey"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateRepositoryEncryptionKeyResult updateRepositoryEncryptionKey(UpdateRepositoryEncryptionKeyRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateRepositoryEncryptionKey(request);
+    }
+
+    @SdkInternalApi
+    final UpdateRepositoryEncryptionKeyResult executeUpdateRepositoryEncryptionKey(UpdateRepositoryEncryptionKeyRequest updateRepositoryEncryptionKeyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateRepositoryEncryptionKeyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateRepositoryEncryptionKeyRequest> request = null;
+        Response<UpdateRepositoryEncryptionKeyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateRepositoryEncryptionKeyRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateRepositoryEncryptionKeyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRepositoryEncryptionKey");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateRepositoryEncryptionKeyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateRepositoryEncryptionKeyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Renames a repository. The repository name must be unique across the calling Amazon Web Services account.
+     * Repository names are limited to 100 alphanumeric, dash, and underscore characters, and cannot include certain
+     * characters. The suffix .git is prohibited. For more information about the limits on repository names, see <a
+     * href="https://docs.aws.amazon.com/codecommit/latest/userguide/limits.html">Quotas</a> in the CodeCommit User
      * Guide.
      * </p>
      * 
@@ -6047,11 +8608,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
      * @throws RepositoryNameExistsException
      *         The specified repository name already exists.
      * @throws RepositoryNameRequiredException
-     *         A repository name is required but was not specified.
+     *         A repository name is required, but was not specified.
      * @throws InvalidRepositoryNameException
-     *         At least one specified repository name is not valid.</p> <note>
+     *         A specified repository name is not valid.</p> <note>
      *         <p>
-     *         This exception only occurs when a specified repository name is not valid. Other exceptions occur when a
+     *         This exception occurs only when a specified repository name is not valid. Other exceptions occur when a
      *         required repository parameter is missing, or when a specified repository does not exist.
      *         </p>
      * @sample AWSCodeCommit.UpdateRepositoryName
@@ -6079,6 +8640,8 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
                 request = new UpdateRepositoryNameRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRepositoryNameRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeCommit");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRepositoryName");
@@ -6174,6 +8737,11 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements AWSCo
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

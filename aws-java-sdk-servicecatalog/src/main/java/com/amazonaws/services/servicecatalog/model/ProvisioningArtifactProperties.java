@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,10 +42,20 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
     private String description;
     /**
      * <p>
-     * The URL of the CloudFormation template in Amazon S3. Specify the URL in JSON format as follows:
+     * Specify the template source with one of the following options, but not both. Keys accepted: [
+     * <code>LoadTemplateFromURL</code>, <code>ImportFromPhysicalId</code> ]
+     * </p>
+     * <p>
+     * The URL of the CloudFormation template in Amazon S3 or GitHub in JSON format. Specify the URL in JSON format as
+     * follows:
      * </p>
      * <p>
      * <code>"LoadTemplateFromURL": "https://s3.amazonaws.com/cf-templates-ozkq9d3hgiq2-us-east-1/..."</code>
+     * </p>
+     * <p>
+     * <code>ImportFromPhysicalId</code>: The physical id of the resource that contains the template. Currently only
+     * supports CloudFormation stack arn. Specify the physical id in JSON format as follows:
+     * <code>ImportFromPhysicalId: “arn:aws:cloudformation:[us-east-1]:[accountId]:stack/[StackName]/[resourceId]</code>
      * </p>
      */
     private java.util.Map<String, String> info;
@@ -56,17 +66,22 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
      * <ul>
      * <li>
      * <p>
-     * <code>CLOUD_FORMATION_TEMPLATE</code> - AWS CloudFormation template
+     * <code>CLOUD_FORMATION_TEMPLATE</code> - CloudFormation template
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MARKETPLACE_AMI</code> - AWS Marketplace AMI
+     * <code>TERRAFORM_OPEN_SOURCE</code> - Terraform Open Source configuration file
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MARKETPLACE_CAR</code> - AWS Marketplace Clusters and AWS Resources
+     * <code>TERRAFORM_CLOUD</code> - Terraform Cloud configuration file
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EXTERNAL</code> - External configuration file
      * </p>
      * </li>
      * </ul>
@@ -74,7 +89,10 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
     private String type;
     /**
      * <p>
-     * If set to true, AWS Service Catalog stops validating the specified provisioning artifact even if it is invalid.
+     * If set to true, Service Catalog stops validating the specified provisioning artifact even if it is invalid.
+     * </p>
+     * <p>
+     * Service Catalog does not support template validation for the <code>TERRAFORM_OS</code> product type.
      * </p>
      */
     private Boolean disableTemplateValidation;
@@ -164,15 +182,35 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The URL of the CloudFormation template in Amazon S3. Specify the URL in JSON format as follows:
+     * Specify the template source with one of the following options, but not both. Keys accepted: [
+     * <code>LoadTemplateFromURL</code>, <code>ImportFromPhysicalId</code> ]
+     * </p>
+     * <p>
+     * The URL of the CloudFormation template in Amazon S3 or GitHub in JSON format. Specify the URL in JSON format as
+     * follows:
      * </p>
      * <p>
      * <code>"LoadTemplateFromURL": "https://s3.amazonaws.com/cf-templates-ozkq9d3hgiq2-us-east-1/..."</code>
      * </p>
+     * <p>
+     * <code>ImportFromPhysicalId</code>: The physical id of the resource that contains the template. Currently only
+     * supports CloudFormation stack arn. Specify the physical id in JSON format as follows:
+     * <code>ImportFromPhysicalId: “arn:aws:cloudformation:[us-east-1]:[accountId]:stack/[StackName]/[resourceId]</code>
+     * </p>
      * 
-     * @return The URL of the CloudFormation template in Amazon S3. Specify the URL in JSON format as follows:</p>
+     * @return Specify the template source with one of the following options, but not both. Keys accepted: [
+     *         <code>LoadTemplateFromURL</code>, <code>ImportFromPhysicalId</code> ]</p>
+     *         <p>
+     *         The URL of the CloudFormation template in Amazon S3 or GitHub in JSON format. Specify the URL in JSON
+     *         format as follows:
+     *         </p>
      *         <p>
      *         <code>"LoadTemplateFromURL": "https://s3.amazonaws.com/cf-templates-ozkq9d3hgiq2-us-east-1/..."</code>
+     *         </p>
+     *         <p>
+     *         <code>ImportFromPhysicalId</code>: The physical id of the resource that contains the template. Currently
+     *         only supports CloudFormation stack arn. Specify the physical id in JSON format as follows:
+     *         <code>ImportFromPhysicalId: “arn:aws:cloudformation:[us-east-1]:[accountId]:stack/[StackName]/[resourceId]</code>
      */
 
     public java.util.Map<String, String> getInfo() {
@@ -181,16 +219,36 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The URL of the CloudFormation template in Amazon S3. Specify the URL in JSON format as follows:
+     * Specify the template source with one of the following options, but not both. Keys accepted: [
+     * <code>LoadTemplateFromURL</code>, <code>ImportFromPhysicalId</code> ]
+     * </p>
+     * <p>
+     * The URL of the CloudFormation template in Amazon S3 or GitHub in JSON format. Specify the URL in JSON format as
+     * follows:
      * </p>
      * <p>
      * <code>"LoadTemplateFromURL": "https://s3.amazonaws.com/cf-templates-ozkq9d3hgiq2-us-east-1/..."</code>
      * </p>
+     * <p>
+     * <code>ImportFromPhysicalId</code>: The physical id of the resource that contains the template. Currently only
+     * supports CloudFormation stack arn. Specify the physical id in JSON format as follows:
+     * <code>ImportFromPhysicalId: “arn:aws:cloudformation:[us-east-1]:[accountId]:stack/[StackName]/[resourceId]</code>
+     * </p>
      * 
      * @param info
-     *        The URL of the CloudFormation template in Amazon S3. Specify the URL in JSON format as follows:</p>
+     *        Specify the template source with one of the following options, but not both. Keys accepted: [
+     *        <code>LoadTemplateFromURL</code>, <code>ImportFromPhysicalId</code> ]</p>
+     *        <p>
+     *        The URL of the CloudFormation template in Amazon S3 or GitHub in JSON format. Specify the URL in JSON
+     *        format as follows:
+     *        </p>
      *        <p>
      *        <code>"LoadTemplateFromURL": "https://s3.amazonaws.com/cf-templates-ozkq9d3hgiq2-us-east-1/..."</code>
+     *        </p>
+     *        <p>
+     *        <code>ImportFromPhysicalId</code>: The physical id of the resource that contains the template. Currently
+     *        only supports CloudFormation stack arn. Specify the physical id in JSON format as follows:
+     *        <code>ImportFromPhysicalId: “arn:aws:cloudformation:[us-east-1]:[accountId]:stack/[StackName]/[resourceId]</code>
      */
 
     public void setInfo(java.util.Map<String, String> info) {
@@ -199,16 +257,36 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * The URL of the CloudFormation template in Amazon S3. Specify the URL in JSON format as follows:
+     * Specify the template source with one of the following options, but not both. Keys accepted: [
+     * <code>LoadTemplateFromURL</code>, <code>ImportFromPhysicalId</code> ]
+     * </p>
+     * <p>
+     * The URL of the CloudFormation template in Amazon S3 or GitHub in JSON format. Specify the URL in JSON format as
+     * follows:
      * </p>
      * <p>
      * <code>"LoadTemplateFromURL": "https://s3.amazonaws.com/cf-templates-ozkq9d3hgiq2-us-east-1/..."</code>
      * </p>
+     * <p>
+     * <code>ImportFromPhysicalId</code>: The physical id of the resource that contains the template. Currently only
+     * supports CloudFormation stack arn. Specify the physical id in JSON format as follows:
+     * <code>ImportFromPhysicalId: “arn:aws:cloudformation:[us-east-1]:[accountId]:stack/[StackName]/[resourceId]</code>
+     * </p>
      * 
      * @param info
-     *        The URL of the CloudFormation template in Amazon S3. Specify the URL in JSON format as follows:</p>
+     *        Specify the template source with one of the following options, but not both. Keys accepted: [
+     *        <code>LoadTemplateFromURL</code>, <code>ImportFromPhysicalId</code> ]</p>
+     *        <p>
+     *        The URL of the CloudFormation template in Amazon S3 or GitHub in JSON format. Specify the URL in JSON
+     *        format as follows:
+     *        </p>
      *        <p>
      *        <code>"LoadTemplateFromURL": "https://s3.amazonaws.com/cf-templates-ozkq9d3hgiq2-us-east-1/..."</code>
+     *        </p>
+     *        <p>
+     *        <code>ImportFromPhysicalId</code>: The physical id of the resource that contains the template. Currently
+     *        only supports CloudFormation stack arn. Specify the physical id in JSON format as follows:
+     *        <code>ImportFromPhysicalId: “arn:aws:cloudformation:[us-east-1]:[accountId]:stack/[StackName]/[resourceId]</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -216,6 +294,13 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
         setInfo(info);
         return this;
     }
+
+    /**
+     * Add a single Info entry
+     *
+     * @see ProvisioningArtifactProperties#withInfo
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public ProvisioningArtifactProperties addInfoEntry(String key, String value) {
         if (null == this.info) {
@@ -245,17 +330,22 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
      * <ul>
      * <li>
      * <p>
-     * <code>CLOUD_FORMATION_TEMPLATE</code> - AWS CloudFormation template
+     * <code>CLOUD_FORMATION_TEMPLATE</code> - CloudFormation template
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MARKETPLACE_AMI</code> - AWS Marketplace AMI
+     * <code>TERRAFORM_OPEN_SOURCE</code> - Terraform Open Source configuration file
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MARKETPLACE_CAR</code> - AWS Marketplace Clusters and AWS Resources
+     * <code>TERRAFORM_CLOUD</code> - Terraform Cloud configuration file
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EXTERNAL</code> - External configuration file
      * </p>
      * </li>
      * </ul>
@@ -265,17 +355,22 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>CLOUD_FORMATION_TEMPLATE</code> - AWS CloudFormation template
+     *        <code>CLOUD_FORMATION_TEMPLATE</code> - CloudFormation template
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MARKETPLACE_AMI</code> - AWS Marketplace AMI
+     *        <code>TERRAFORM_OPEN_SOURCE</code> - Terraform Open Source configuration file
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MARKETPLACE_CAR</code> - AWS Marketplace Clusters and AWS Resources
+     *        <code>TERRAFORM_CLOUD</code> - Terraform Cloud configuration file
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EXTERNAL</code> - External configuration file
      *        </p>
      *        </li>
      * @see ProvisioningArtifactType
@@ -292,17 +387,22 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
      * <ul>
      * <li>
      * <p>
-     * <code>CLOUD_FORMATION_TEMPLATE</code> - AWS CloudFormation template
+     * <code>CLOUD_FORMATION_TEMPLATE</code> - CloudFormation template
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MARKETPLACE_AMI</code> - AWS Marketplace AMI
+     * <code>TERRAFORM_OPEN_SOURCE</code> - Terraform Open Source configuration file
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MARKETPLACE_CAR</code> - AWS Marketplace Clusters and AWS Resources
+     * <code>TERRAFORM_CLOUD</code> - Terraform Cloud configuration file
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EXTERNAL</code> - External configuration file
      * </p>
      * </li>
      * </ul>
@@ -311,17 +411,22 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>CLOUD_FORMATION_TEMPLATE</code> - AWS CloudFormation template
+     *         <code>CLOUD_FORMATION_TEMPLATE</code> - CloudFormation template
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>MARKETPLACE_AMI</code> - AWS Marketplace AMI
+     *         <code>TERRAFORM_OPEN_SOURCE</code> - Terraform Open Source configuration file
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>MARKETPLACE_CAR</code> - AWS Marketplace Clusters and AWS Resources
+     *         <code>TERRAFORM_CLOUD</code> - Terraform Cloud configuration file
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>EXTERNAL</code> - External configuration file
      *         </p>
      *         </li>
      * @see ProvisioningArtifactType
@@ -338,17 +443,22 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
      * <ul>
      * <li>
      * <p>
-     * <code>CLOUD_FORMATION_TEMPLATE</code> - AWS CloudFormation template
+     * <code>CLOUD_FORMATION_TEMPLATE</code> - CloudFormation template
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MARKETPLACE_AMI</code> - AWS Marketplace AMI
+     * <code>TERRAFORM_OPEN_SOURCE</code> - Terraform Open Source configuration file
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MARKETPLACE_CAR</code> - AWS Marketplace Clusters and AWS Resources
+     * <code>TERRAFORM_CLOUD</code> - Terraform Cloud configuration file
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EXTERNAL</code> - External configuration file
      * </p>
      * </li>
      * </ul>
@@ -358,17 +468,22 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>CLOUD_FORMATION_TEMPLATE</code> - AWS CloudFormation template
+     *        <code>CLOUD_FORMATION_TEMPLATE</code> - CloudFormation template
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MARKETPLACE_AMI</code> - AWS Marketplace AMI
+     *        <code>TERRAFORM_OPEN_SOURCE</code> - Terraform Open Source configuration file
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MARKETPLACE_CAR</code> - AWS Marketplace Clusters and AWS Resources
+     *        <code>TERRAFORM_CLOUD</code> - Terraform Cloud configuration file
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EXTERNAL</code> - External configuration file
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -387,17 +502,22 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
      * <ul>
      * <li>
      * <p>
-     * <code>CLOUD_FORMATION_TEMPLATE</code> - AWS CloudFormation template
+     * <code>CLOUD_FORMATION_TEMPLATE</code> - CloudFormation template
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MARKETPLACE_AMI</code> - AWS Marketplace AMI
+     * <code>TERRAFORM_OPEN_SOURCE</code> - Terraform Open Source configuration file
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MARKETPLACE_CAR</code> - AWS Marketplace Clusters and AWS Resources
+     * <code>TERRAFORM_CLOUD</code> - Terraform Cloud configuration file
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EXTERNAL</code> - External configuration file
      * </p>
      * </li>
      * </ul>
@@ -407,17 +527,22 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>CLOUD_FORMATION_TEMPLATE</code> - AWS CloudFormation template
+     *        <code>CLOUD_FORMATION_TEMPLATE</code> - CloudFormation template
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MARKETPLACE_AMI</code> - AWS Marketplace AMI
+     *        <code>TERRAFORM_OPEN_SOURCE</code> - Terraform Open Source configuration file
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MARKETPLACE_CAR</code> - AWS Marketplace Clusters and AWS Resources
+     *        <code>TERRAFORM_CLOUD</code> - Terraform Cloud configuration file
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EXTERNAL</code> - External configuration file
      *        </p>
      *        </li>
      * @see ProvisioningArtifactType
@@ -434,17 +559,22 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
      * <ul>
      * <li>
      * <p>
-     * <code>CLOUD_FORMATION_TEMPLATE</code> - AWS CloudFormation template
+     * <code>CLOUD_FORMATION_TEMPLATE</code> - CloudFormation template
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MARKETPLACE_AMI</code> - AWS Marketplace AMI
+     * <code>TERRAFORM_OPEN_SOURCE</code> - Terraform Open Source configuration file
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>MARKETPLACE_CAR</code> - AWS Marketplace Clusters and AWS Resources
+     * <code>TERRAFORM_CLOUD</code> - Terraform Cloud configuration file
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>EXTERNAL</code> - External configuration file
      * </p>
      * </li>
      * </ul>
@@ -454,17 +584,22 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>CLOUD_FORMATION_TEMPLATE</code> - AWS CloudFormation template
+     *        <code>CLOUD_FORMATION_TEMPLATE</code> - CloudFormation template
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MARKETPLACE_AMI</code> - AWS Marketplace AMI
+     *        <code>TERRAFORM_OPEN_SOURCE</code> - Terraform Open Source configuration file
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>MARKETPLACE_CAR</code> - AWS Marketplace Clusters and AWS Resources
+     *        <code>TERRAFORM_CLOUD</code> - Terraform Cloud configuration file
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>EXTERNAL</code> - External configuration file
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -478,12 +613,17 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * If set to true, AWS Service Catalog stops validating the specified provisioning artifact even if it is invalid.
+     * If set to true, Service Catalog stops validating the specified provisioning artifact even if it is invalid.
+     * </p>
+     * <p>
+     * Service Catalog does not support template validation for the <code>TERRAFORM_OS</code> product type.
      * </p>
      * 
      * @param disableTemplateValidation
-     *        If set to true, AWS Service Catalog stops validating the specified provisioning artifact even if it is
-     *        invalid.
+     *        If set to true, Service Catalog stops validating the specified provisioning artifact even if it is
+     *        invalid. </p>
+     *        <p>
+     *        Service Catalog does not support template validation for the <code>TERRAFORM_OS</code> product type.
      */
 
     public void setDisableTemplateValidation(Boolean disableTemplateValidation) {
@@ -492,11 +632,16 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * If set to true, AWS Service Catalog stops validating the specified provisioning artifact even if it is invalid.
+     * If set to true, Service Catalog stops validating the specified provisioning artifact even if it is invalid.
+     * </p>
+     * <p>
+     * Service Catalog does not support template validation for the <code>TERRAFORM_OS</code> product type.
      * </p>
      * 
-     * @return If set to true, AWS Service Catalog stops validating the specified provisioning artifact even if it is
-     *         invalid.
+     * @return If set to true, Service Catalog stops validating the specified provisioning artifact even if it is
+     *         invalid. </p>
+     *         <p>
+     *         Service Catalog does not support template validation for the <code>TERRAFORM_OS</code> product type.
      */
 
     public Boolean getDisableTemplateValidation() {
@@ -505,12 +650,17 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * If set to true, AWS Service Catalog stops validating the specified provisioning artifact even if it is invalid.
+     * If set to true, Service Catalog stops validating the specified provisioning artifact even if it is invalid.
+     * </p>
+     * <p>
+     * Service Catalog does not support template validation for the <code>TERRAFORM_OS</code> product type.
      * </p>
      * 
      * @param disableTemplateValidation
-     *        If set to true, AWS Service Catalog stops validating the specified provisioning artifact even if it is
-     *        invalid.
+     *        If set to true, Service Catalog stops validating the specified provisioning artifact even if it is
+     *        invalid. </p>
+     *        <p>
+     *        Service Catalog does not support template validation for the <code>TERRAFORM_OS</code> product type.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -521,11 +671,16 @@ public class ProvisioningArtifactProperties implements Serializable, Cloneable, 
 
     /**
      * <p>
-     * If set to true, AWS Service Catalog stops validating the specified provisioning artifact even if it is invalid.
+     * If set to true, Service Catalog stops validating the specified provisioning artifact even if it is invalid.
+     * </p>
+     * <p>
+     * Service Catalog does not support template validation for the <code>TERRAFORM_OS</code> product type.
      * </p>
      * 
-     * @return If set to true, AWS Service Catalog stops validating the specified provisioning artifact even if it is
-     *         invalid.
+     * @return If set to true, Service Catalog stops validating the specified provisioning artifact even if it is
+     *         invalid. </p>
+     *         <p>
+     *         Service Catalog does not support template validation for the <code>TERRAFORM_OS</code> product type.
      */
 
     public Boolean isDisableTemplateValidation() {

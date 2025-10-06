@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -76,17 +76,25 @@ public class FileSystemJsonUnmarshaller implements Unmarshaller<FileSystem, Json
                     context.nextToken();
                     fileSystem.setStorageCapacity(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
+                if (context.testExpression("StorageType", targetDepth)) {
+                    context.nextToken();
+                    fileSystem.setStorageType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("VpcId", targetDepth)) {
                     context.nextToken();
                     fileSystem.setVpcId(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("SubnetIds", targetDepth)) {
                     context.nextToken();
-                    fileSystem.setSubnetIds(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    fileSystem.setSubnetIds(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("NetworkInterfaceIds", targetDepth)) {
                     context.nextToken();
-                    fileSystem.setNetworkInterfaceIds(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    fileSystem.setNetworkInterfaceIds(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("DNSName", targetDepth)) {
                     context.nextToken();
@@ -102,7 +110,9 @@ public class FileSystemJsonUnmarshaller implements Unmarshaller<FileSystem, Json
                 }
                 if (context.testExpression("Tags", targetDepth)) {
                     context.nextToken();
-                    fileSystem.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance()).unmarshall(context));
+                    fileSystem.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("WindowsConfiguration", targetDepth)) {
                     context.nextToken();
@@ -111,6 +121,24 @@ public class FileSystemJsonUnmarshaller implements Unmarshaller<FileSystem, Json
                 if (context.testExpression("LustreConfiguration", targetDepth)) {
                     context.nextToken();
                     fileSystem.setLustreConfiguration(LustreFileSystemConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("AdministrativeActions", targetDepth)) {
+                    context.nextToken();
+                    fileSystem.setAdministrativeActions(new ListUnmarshaller<AdministrativeAction>(AdministrativeActionJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("OntapConfiguration", targetDepth)) {
+                    context.nextToken();
+                    fileSystem.setOntapConfiguration(OntapFileSystemConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("FileSystemTypeVersion", targetDepth)) {
+                    context.nextToken();
+                    fileSystem.setFileSystemTypeVersion(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("OpenZFSConfiguration", targetDepth)) {
+                    context.nextToken();
+                    fileSystem.setOpenZFSConfiguration(OpenZFSFileSystemConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

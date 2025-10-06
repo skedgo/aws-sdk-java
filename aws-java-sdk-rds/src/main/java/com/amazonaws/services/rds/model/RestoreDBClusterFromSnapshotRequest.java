@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
     /**
      * <p>
      * Provides the list of Availability Zones (AZs) where instances in the restored DB cluster can be created.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> availabilityZones;
@@ -60,6 +63,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * Example: <code>my-snapshot-id</code>
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      */
     private String dBClusterIdentifier;
     /**
@@ -80,6 +86,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      */
     private String snapshotIdentifier;
     /**
@@ -92,11 +101,73 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * Constraint: Must be compatible with the engine of the source
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      */
     private String engine;
     /**
      * <p>
-     * The version of the database engine to use for the new DB cluster.
+     * The version of the database engine to use for the new DB cluster. If you don't specify an engine version, the
+     * default version for the database engine in the Amazon Web Services Region is used.
+     * </p>
+     * <p>
+     * To list all of the available engine versions for Aurora MySQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine aurora-mysql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for Aurora PostgreSQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for RDS for MySQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine mysql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for RDS for PostgreSQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * <b>Aurora MySQL</b>
+     * </p>
+     * <p>
+     * See <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Updates.html">Database
+     * engine updates for Amazon Aurora MySQL</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * <b>Aurora PostgreSQL</b>
+     * </p>
+     * <p>
+     * See <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraPostgreSQL.Updates.20180305.html">Amazon
+     * Aurora PostgreSQL releases and engine versions</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * <b>MySQL</b>
+     * </p>
+     * <p>
+     * See <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MySQL.html#MySQL.Concepts.VersionMgmt">Amazon
+     * RDS for MySQL</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * See <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts">Amazon RDS
+     * for PostgreSQL versions and extensions</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      */
     private String engineVersion;
@@ -110,6 +181,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * Default: The same port as the original DB cluster.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      */
     private Integer port;
     /**
@@ -120,7 +194,10 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * Constraints: If supplied, must match the name of an existing DB subnet group.
      * </p>
      * <p>
-     * Example: <code>mySubnetgroup</code>
+     * Example: <code>mydbsubnetgroup</code>
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      */
     private String dBSubnetGroupName;
@@ -128,11 +205,17 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The database name for the restored DB cluster.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      */
     private String databaseName;
     /**
      * <p>
      * The name of the option group to use for the restored DB cluster.
+     * </p>
+     * <p>
+     * DB clusters are associated with a default option group that can't be modified.
      * </p>
      */
     private String optionGroupName;
@@ -140,26 +223,31 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * A list of VPC security groups that the new DB cluster will belong to.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> vpcSecurityGroupIds;
     /**
      * <p>
      * The tags to be assigned to the restored DB cluster.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
     /**
      * <p>
-     * The AWS KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster
-     * snapshot.
+     * The Amazon Web Services KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB
+     * cluster snapshot.
      * </p>
      * <p>
-     * The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring a DB
-     * cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB cluster, then you
-     * can use the KMS key alias instead of the ARN for the KMS encryption key.
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To
+     * use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
      * </p>
      * <p>
-     * If you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
+     * When you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
      * </p>
      * <ul>
      * <li>
@@ -170,17 +258,28 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </li>
      * <li>
      * <p>
-     * If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is not encrypted, then the restored
-     * DB cluster is not encrypted.
+     * If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> isn't encrypted, then the restored
+     * DB cluster isn't encrypted.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      */
     private String kmsKeyId;
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
      * </p>
      */
     private Boolean enableIAMDatabaseAuthentication;
@@ -188,6 +287,11 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The target backtrack window, in seconds. To disable backtracking, set this value to 0.
      * </p>
+     * <note>
+     * <p>
+     * Currently, Backtrack is only supported for Aurora MySQL DB clusters.
+     * </p>
+     * </note>
      * <p>
      * Default: 0
      * </p>
@@ -201,27 +305,74 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
      */
     private Long backtrackWindow;
     /**
      * <p>
      * The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the list
-     * depend on the DB engine being used. For more information, see <a href=
+     * depend on the DB engine being used.
+     * </p>
+     * <p>
+     * <b>RDS for MySQL</b>
+     * </p>
+     * <p>
+     * Possible values are <code>error</code>, <code>general</code>, and <code>slowquery</code>.
+     * </p>
+     * <p>
+     * <b>RDS for PostgreSQL</b>
+     * </p>
+     * <p>
+     * Possible values are <code>postgresql</code> and <code>upgrade</code>.
+     * </p>
+     * <p>
+     * <b>Aurora MySQL</b>
+     * </p>
+     * <p>
+     * Possible values are <code>audit</code>, <code>error</code>, <code>general</code>, and <code>slowquery</code>.
+     * </p>
+     * <p>
+     * <b>Aurora PostgreSQL</b>
+     * </p>
+     * <p>
+     * Possible value is <code>postgresql</code>.
+     * </p>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon RDS, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon Aurora, see <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
-     * >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> enableCloudwatchLogsExports;
     /**
      * <p>
-     * The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>, or
-     * <code>parallelquery</code>.
+     * The DB engine mode of the DB cluster, either <code>provisioned</code> or <code>serverless</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html"> CreateDBCluster</a>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
      * </p>
      */
     private String engineMode;
     /**
      * <p>
      * For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
      * </p>
      */
     private ScalingConfiguration scalingConfiguration;
@@ -255,29 +406,262 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      */
     private String dBClusterParameterGroupName;
     /**
      * <p>
-     * A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when
-     * deletion protection is enabled. By default, deletion protection is disabled.
+     * Specifies whether to enable deletion protection for the DB cluster. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      */
     private Boolean deletionProtection;
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the restored DB cluster to snapshots of the restored DB
-     * cluster. The default is not to copy them.
+     * Specifies whether to copy all tags from the restored DB cluster to snapshots of the restored DB cluster. The
+     * default is not to copy them.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      */
     private Boolean copyTagsToSnapshot;
+    /**
+     * <p>
+     * The Active Directory directory ID to restore the DB cluster in. The domain must be created prior to this
+     * operation. Currently, only MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances can be created in an
+     * Active Directory Domain.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html"> Kerberos
+     * Authentication</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     */
+    private String domain;
+    /**
+     * <p>
+     * The name of the IAM role to be used when making API calls to the Directory Service.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     */
+    private String domainIAMRoleName;
+    /**
+     * <p>
+     * The compute and memory capacity of the each DB instance in the Multi-AZ DB cluster, for example db.m6gd.xlarge.
+     * Not all DB instance classes are available in all Amazon Web Services Regions, or for all database engines.
+     * </p>
+     * <p>
+     * For the full list of DB instance classes, and availability for your engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance Class</a>
+     * in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for: Multi-AZ DB clusters only
+     * </p>
+     */
+    private String dBClusterInstanceClass;
+    /**
+     * <p>
+     * Specifies the storage type to be associated with the DB cluster.
+     * </p>
+     * <p>
+     * When specified for a Multi-AZ DB cluster, a value for the <code>Iops</code> parameter is required.
+     * </p>
+     * <p>
+     * Valid Values: <code>aurora</code>, <code>aurora-iopt1</code> (Aurora DB clusters); <code>io1</code> (Multi-AZ DB
+     * clusters)
+     * </p>
+     * <p>
+     * Default: <code>aurora</code> (Aurora DB clusters); <code>io1</code> (Multi-AZ DB clusters)
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     */
+    private String storageType;
+    /**
+     * <p>
+     * The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for each DB
+     * instance in the Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * For information about valid IOPS values, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS Provisioned
+     * IOPS storage</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Constraints: Must be a multiple between .5 and 50 of the storage amount for the DB instance.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     */
+    private Integer iops;
+    /**
+     * <p>
+     * Specifies whether the DB cluster is publicly accessible.
+     * </p>
+     * <p>
+     * When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP
+     * address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address from
+     * outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security group it uses.
+     * That public access is not permitted if the security group assigned to the DB cluster doesn't permit it.
+     * </p>
+     * <p>
+     * When the DB cluster isn't publicly accessible, it is an internal DB cluster with a DNS name that resolves to a
+     * private IP address.
+     * </p>
+     * <p>
+     * Default: The default behavior varies depending on whether <code>DBSubnetGroupName</code> is specified.
+     * </p>
+     * <p>
+     * If <code>DBSubnetGroupName</code> isn't specified, and <code>PubliclyAccessible</code> isn't specified, the
+     * following applies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the default VPC in the target Region doesn’t have an internet gateway attached to it, the DB cluster is
+     * private.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the default VPC in the target Region has an internet gateway attached to it, the DB cluster is public.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If <code>DBSubnetGroupName</code> is specified, and <code>PubliclyAccessible</code> isn't specified, the
+     * following applies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the subnets are part of a VPC that doesn’t have an internet gateway attached to it, the DB cluster is private.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the subnets are part of a VPC that has an internet gateway attached to it, the DB cluster is public.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     */
+    private Boolean publiclyAccessible;
+
+    private ServerlessV2ScalingConfiguration serverlessV2ScalingConfiguration;
+    /**
+     * <p>
+     * The network type of the DB cluster.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The network type is determined by the <code>DBSubnetGroup</code> specified for the DB cluster. A
+     * <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     * Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     */
+    private String networkType;
+    /**
+     * <p>
+     * Reserved for future use.
+     * </p>
+     */
+    private RdsCustomClusterConfiguration rdsCustomClusterConfiguration;
+    /**
+     * <p>
+     * The life cycle type for this DB cluster.
+     * </p>
+     * <note>
+     * <p>
+     * By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB cluster
+     * into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by
+     * setting the value to <code>open-source-rds-extended-support-disabled</code>. In this case, RDS automatically
+     * upgrades your restored DB cluster to a higher engine version, if the major engine version is past its end of
+     * standard support date.
+     * </p>
+     * </note>
+     * <p>
+     * You can use this setting to enroll your DB cluster into Amazon RDS Extended Support. With RDS Extended Support,
+     * you can run the selected major engine version on your DB cluster past the end of standard support for that engine
+     * version. For more information, see the following sections:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Aurora (PostgreSQL only) - <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/extended-support.html">Using Amazon RDS
+     * Extended Support</a> in the <i>Amazon Aurora User Guide</i>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon RDS - <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon
+     * RDS Extended Support</a> in the <i>Amazon RDS User Guide</i>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     * </p>
+     * <p>
+     * Default: <code>open-source-rds-extended-support</code>
+     * </p>
+     */
+    private String engineLifecycleSupport;
 
     /**
      * <p>
      * Provides the list of Availability Zones (AZs) where instances in the restored DB cluster can be created.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
      * 
-     * @return Provides the list of Availability Zones (AZs) where instances in the restored DB cluster can be created.
+     * @return Provides the list of Availability Zones (AZs) where instances in the restored DB cluster can be
+     *         created.</p>
+     *         <p>
+     *         Valid for: Aurora DB clusters only
      */
 
     public java.util.List<String> getAvailabilityZones() {
@@ -291,9 +675,15 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * Provides the list of Availability Zones (AZs) where instances in the restored DB cluster can be created.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
      * 
      * @param availabilityZones
-     *        Provides the list of Availability Zones (AZs) where instances in the restored DB cluster can be created.
+     *        Provides the list of Availability Zones (AZs) where instances in the restored DB cluster can be
+     *        created.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
      */
 
     public void setAvailabilityZones(java.util.Collection<String> availabilityZones) {
@@ -310,13 +700,19 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * Provides the list of Availability Zones (AZs) where instances in the restored DB cluster can be created.
      * </p>
      * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setAvailabilityZones(java.util.Collection)} or {@link #withAvailabilityZones(java.util.Collection)} if
      * you want to override the existing values.
      * </p>
      * 
      * @param availabilityZones
-     *        Provides the list of Availability Zones (AZs) where instances in the restored DB cluster can be created.
+     *        Provides the list of Availability Zones (AZs) where instances in the restored DB cluster can be
+     *        created.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -334,9 +730,15 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * Provides the list of Availability Zones (AZs) where instances in the restored DB cluster can be created.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
      * 
      * @param availabilityZones
-     *        Provides the list of Availability Zones (AZs) where instances in the restored DB cluster can be created.
+     *        Provides the list of Availability Zones (AZs) where instances in the restored DB cluster can be
+     *        created.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -373,6 +775,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * Example: <code>my-snapshot-id</code>
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param dBClusterIdentifier
      *        The name of the DB cluster to create from the DB snapshot or DB cluster snapshot. This parameter isn't
@@ -399,6 +804,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        </ul>
      *        <p>
      *        Example: <code>my-snapshot-id</code>
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setDBClusterIdentifier(String dBClusterIdentifier) {
@@ -433,6 +841,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * Example: <code>my-snapshot-id</code>
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @return The name of the DB cluster to create from the DB snapshot or DB cluster snapshot. This parameter isn't
      *         case-sensitive.</p>
@@ -458,6 +869,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *         </ul>
      *         <p>
      *         Example: <code>my-snapshot-id</code>
+     *         </p>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public String getDBClusterIdentifier() {
@@ -492,6 +906,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * Example: <code>my-snapshot-id</code>
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param dBClusterIdentifier
      *        The name of the DB cluster to create from the DB snapshot or DB cluster snapshot. This parameter isn't
@@ -518,6 +935,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        </ul>
      *        <p>
      *        Example: <code>my-snapshot-id</code>
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -544,6 +964,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param snapshotIdentifier
      *        The identifier for the DB snapshot or DB cluster snapshot to restore from.</p>
@@ -560,6 +983,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        Must match the identifier of an existing Snapshot.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setSnapshotIdentifier(String snapshotIdentifier) {
@@ -584,6 +1010,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @return The identifier for the DB snapshot or DB cluster snapshot to restore from.</p>
      *         <p>
@@ -599,6 +1028,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *         Must match the identifier of an existing Snapshot.
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public String getSnapshotIdentifier() {
@@ -623,6 +1055,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param snapshotIdentifier
      *        The identifier for the DB snapshot or DB cluster snapshot to restore from.</p>
@@ -639,6 +1074,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        Must match the identifier of an existing Snapshot.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -657,6 +1095,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * Constraint: Must be compatible with the engine of the source
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param engine
      *        The database engine to use for the new DB cluster.</p>
@@ -665,6 +1106,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        </p>
      *        <p>
      *        Constraint: Must be compatible with the engine of the source
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setEngine(String engine) {
@@ -681,6 +1125,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * Constraint: Must be compatible with the engine of the source
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @return The database engine to use for the new DB cluster.</p>
      *         <p>
@@ -688,6 +1135,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *         </p>
      *         <p>
      *         Constraint: Must be compatible with the engine of the source
+     *         </p>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public String getEngine() {
@@ -704,6 +1154,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * Constraint: Must be compatible with the engine of the source
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param engine
      *        The database engine to use for the new DB cluster.</p>
@@ -712,6 +1165,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        </p>
      *        <p>
      *        Constraint: Must be compatible with the engine of the source
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -722,11 +1178,129 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The version of the database engine to use for the new DB cluster.
+     * The version of the database engine to use for the new DB cluster. If you don't specify an engine version, the
+     * default version for the database engine in the Amazon Web Services Region is used.
+     * </p>
+     * <p>
+     * To list all of the available engine versions for Aurora MySQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine aurora-mysql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for Aurora PostgreSQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for RDS for MySQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine mysql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for RDS for PostgreSQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * <b>Aurora MySQL</b>
+     * </p>
+     * <p>
+     * See <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Updates.html">Database
+     * engine updates for Amazon Aurora MySQL</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * <b>Aurora PostgreSQL</b>
+     * </p>
+     * <p>
+     * See <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraPostgreSQL.Updates.20180305.html">Amazon
+     * Aurora PostgreSQL releases and engine versions</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * <b>MySQL</b>
+     * </p>
+     * <p>
+     * See <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MySQL.html#MySQL.Concepts.VersionMgmt">Amazon
+     * RDS for MySQL</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * See <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts">Amazon RDS
+     * for PostgreSQL versions and extensions</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param engineVersion
-     *        The version of the database engine to use for the new DB cluster.
+     *        The version of the database engine to use for the new DB cluster. If you don't specify an engine version,
+     *        the default version for the database engine in the Amazon Web Services Region is used.</p>
+     *        <p>
+     *        To list all of the available engine versions for Aurora MySQL, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --engine aurora-mysql --query "DBEngineVersions[].EngineVersion"</code>
+     *        </p>
+     *        <p>
+     *        To list all of the available engine versions for Aurora PostgreSQL, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[].EngineVersion"</code>
+     *        </p>
+     *        <p>
+     *        To list all of the available engine versions for RDS for MySQL, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --engine mysql --query "DBEngineVersions[].EngineVersion"</code>
+     *        </p>
+     *        <p>
+     *        To list all of the available engine versions for RDS for PostgreSQL, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion"</code>
+     *        </p>
+     *        <p>
+     *        <b>Aurora MySQL</b>
+     *        </p>
+     *        <p>
+     *        See <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Updates.html">Database
+     *        engine updates for Amazon Aurora MySQL</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <p>
+     *        <b>Aurora PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        See <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraPostgreSQL.Updates.20180305.html"
+     *        >Amazon Aurora PostgreSQL releases and engine versions</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <p>
+     *        <b>MySQL</b>
+     *        </p>
+     *        <p>
+     *        See <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MySQL.html#MySQL.Concepts.VersionMgmt"
+     *        >Amazon RDS for MySQL</a> in the <i>Amazon RDS User Guide.</i>
+     *        </p>
+     *        <p>
+     *        <b>PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        See <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts"
+     *        >Amazon RDS for PostgreSQL versions and extensions</a> in the <i>Amazon RDS User Guide.</i>
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setEngineVersion(String engineVersion) {
@@ -735,10 +1309,128 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The version of the database engine to use for the new DB cluster.
+     * The version of the database engine to use for the new DB cluster. If you don't specify an engine version, the
+     * default version for the database engine in the Amazon Web Services Region is used.
+     * </p>
+     * <p>
+     * To list all of the available engine versions for Aurora MySQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine aurora-mysql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for Aurora PostgreSQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for RDS for MySQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine mysql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for RDS for PostgreSQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * <b>Aurora MySQL</b>
+     * </p>
+     * <p>
+     * See <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Updates.html">Database
+     * engine updates for Amazon Aurora MySQL</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * <b>Aurora PostgreSQL</b>
+     * </p>
+     * <p>
+     * See <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraPostgreSQL.Updates.20180305.html">Amazon
+     * Aurora PostgreSQL releases and engine versions</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * <b>MySQL</b>
+     * </p>
+     * <p>
+     * See <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MySQL.html#MySQL.Concepts.VersionMgmt">Amazon
+     * RDS for MySQL</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * See <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts">Amazon RDS
+     * for PostgreSQL versions and extensions</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
-     * @return The version of the database engine to use for the new DB cluster.
+     * @return The version of the database engine to use for the new DB cluster. If you don't specify an engine version,
+     *         the default version for the database engine in the Amazon Web Services Region is used.</p>
+     *         <p>
+     *         To list all of the available engine versions for Aurora MySQL, use the following command:
+     *         </p>
+     *         <p>
+     *         <code>aws rds describe-db-engine-versions --engine aurora-mysql --query "DBEngineVersions[].EngineVersion"</code>
+     *         </p>
+     *         <p>
+     *         To list all of the available engine versions for Aurora PostgreSQL, use the following command:
+     *         </p>
+     *         <p>
+     *         <code>aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[].EngineVersion"</code>
+     *         </p>
+     *         <p>
+     *         To list all of the available engine versions for RDS for MySQL, use the following command:
+     *         </p>
+     *         <p>
+     *         <code>aws rds describe-db-engine-versions --engine mysql --query "DBEngineVersions[].EngineVersion"</code>
+     *         </p>
+     *         <p>
+     *         To list all of the available engine versions for RDS for PostgreSQL, use the following command:
+     *         </p>
+     *         <p>
+     *         <code>aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion"</code>
+     *         </p>
+     *         <p>
+     *         <b>Aurora MySQL</b>
+     *         </p>
+     *         <p>
+     *         See <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Updates.html">Database
+     *         engine updates for Amazon Aurora MySQL</a> in the <i>Amazon Aurora User Guide</i>.
+     *         </p>
+     *         <p>
+     *         <b>Aurora PostgreSQL</b>
+     *         </p>
+     *         <p>
+     *         See <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraPostgreSQL.Updates.20180305.html"
+     *         >Amazon Aurora PostgreSQL releases and engine versions</a> in the <i>Amazon Aurora User Guide</i>.
+     *         </p>
+     *         <p>
+     *         <b>MySQL</b>
+     *         </p>
+     *         <p>
+     *         See <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MySQL.html#MySQL.Concepts.VersionMgmt"
+     *         >Amazon RDS for MySQL</a> in the <i>Amazon RDS User Guide.</i>
+     *         </p>
+     *         <p>
+     *         <b>PostgreSQL</b>
+     *         </p>
+     *         <p>
+     *         See <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts"
+     *         >Amazon RDS for PostgreSQL versions and extensions</a> in the <i>Amazon RDS User Guide.</i>
+     *         </p>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public String getEngineVersion() {
@@ -747,11 +1439,129 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The version of the database engine to use for the new DB cluster.
+     * The version of the database engine to use for the new DB cluster. If you don't specify an engine version, the
+     * default version for the database engine in the Amazon Web Services Region is used.
+     * </p>
+     * <p>
+     * To list all of the available engine versions for Aurora MySQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine aurora-mysql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for Aurora PostgreSQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for RDS for MySQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine mysql --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * To list all of the available engine versions for RDS for PostgreSQL, use the following command:
+     * </p>
+     * <p>
+     * <code>aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion"</code>
+     * </p>
+     * <p>
+     * <b>Aurora MySQL</b>
+     * </p>
+     * <p>
+     * See <a href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Updates.html">Database
+     * engine updates for Amazon Aurora MySQL</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * <b>Aurora PostgreSQL</b>
+     * </p>
+     * <p>
+     * See <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraPostgreSQL.Updates.20180305.html">Amazon
+     * Aurora PostgreSQL releases and engine versions</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * <b>MySQL</b>
+     * </p>
+     * <p>
+     * See <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MySQL.html#MySQL.Concepts.VersionMgmt">Amazon
+     * RDS for MySQL</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * See <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts">Amazon RDS
+     * for PostgreSQL versions and extensions</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param engineVersion
-     *        The version of the database engine to use for the new DB cluster.
+     *        The version of the database engine to use for the new DB cluster. If you don't specify an engine version,
+     *        the default version for the database engine in the Amazon Web Services Region is used.</p>
+     *        <p>
+     *        To list all of the available engine versions for Aurora MySQL, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --engine aurora-mysql --query "DBEngineVersions[].EngineVersion"</code>
+     *        </p>
+     *        <p>
+     *        To list all of the available engine versions for Aurora PostgreSQL, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --engine aurora-postgresql --query "DBEngineVersions[].EngineVersion"</code>
+     *        </p>
+     *        <p>
+     *        To list all of the available engine versions for RDS for MySQL, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --engine mysql --query "DBEngineVersions[].EngineVersion"</code>
+     *        </p>
+     *        <p>
+     *        To list all of the available engine versions for RDS for PostgreSQL, use the following command:
+     *        </p>
+     *        <p>
+     *        <code>aws rds describe-db-engine-versions --engine postgres --query "DBEngineVersions[].EngineVersion"</code>
+     *        </p>
+     *        <p>
+     *        <b>Aurora MySQL</b>
+     *        </p>
+     *        <p>
+     *        See <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Updates.html">Database
+     *        engine updates for Amazon Aurora MySQL</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <p>
+     *        <b>Aurora PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        See <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraPostgreSQL.Updates.20180305.html"
+     *        >Amazon Aurora PostgreSQL releases and engine versions</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <p>
+     *        <b>MySQL</b>
+     *        </p>
+     *        <p>
+     *        See <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MySQL.html#MySQL.Concepts.VersionMgmt"
+     *        >Amazon RDS for MySQL</a> in the <i>Amazon RDS User Guide.</i>
+     *        </p>
+     *        <p>
+     *        <b>PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        See <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts"
+     *        >Amazon RDS for PostgreSQL versions and extensions</a> in the <i>Amazon RDS User Guide.</i>
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -770,6 +1580,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * Default: The same port as the original DB cluster.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param port
      *        The port number on which the new DB cluster accepts connections.</p>
@@ -778,6 +1591,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        </p>
      *        <p>
      *        Default: The same port as the original DB cluster.
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setPort(Integer port) {
@@ -794,6 +1610,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * Default: The same port as the original DB cluster.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @return The port number on which the new DB cluster accepts connections.</p>
      *         <p>
@@ -801,6 +1620,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *         </p>
      *         <p>
      *         Default: The same port as the original DB cluster.
+     *         </p>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public Integer getPort() {
@@ -817,6 +1639,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * Default: The same port as the original DB cluster.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param port
      *        The port number on which the new DB cluster accepts connections.</p>
@@ -825,6 +1650,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        </p>
      *        <p>
      *        Default: The same port as the original DB cluster.
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -841,7 +1669,10 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * Constraints: If supplied, must match the name of an existing DB subnet group.
      * </p>
      * <p>
-     * Example: <code>mySubnetgroup</code>
+     * Example: <code>mydbsubnetgroup</code>
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param dBSubnetGroupName
@@ -850,7 +1681,10 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        Constraints: If supplied, must match the name of an existing DB subnet group.
      *        </p>
      *        <p>
-     *        Example: <code>mySubnetgroup</code>
+     *        Example: <code>mydbsubnetgroup</code>
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setDBSubnetGroupName(String dBSubnetGroupName) {
@@ -865,7 +1699,10 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * Constraints: If supplied, must match the name of an existing DB subnet group.
      * </p>
      * <p>
-     * Example: <code>mySubnetgroup</code>
+     * Example: <code>mydbsubnetgroup</code>
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @return The name of the DB subnet group to use for the new DB cluster.</p>
@@ -873,7 +1710,10 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *         Constraints: If supplied, must match the name of an existing DB subnet group.
      *         </p>
      *         <p>
-     *         Example: <code>mySubnetgroup</code>
+     *         Example: <code>mydbsubnetgroup</code>
+     *         </p>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public String getDBSubnetGroupName() {
@@ -888,7 +1728,10 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * Constraints: If supplied, must match the name of an existing DB subnet group.
      * </p>
      * <p>
-     * Example: <code>mySubnetgroup</code>
+     * Example: <code>mydbsubnetgroup</code>
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param dBSubnetGroupName
@@ -897,7 +1740,10 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        Constraints: If supplied, must match the name of an existing DB subnet group.
      *        </p>
      *        <p>
-     *        Example: <code>mySubnetgroup</code>
+     *        Example: <code>mydbsubnetgroup</code>
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -910,9 +1756,14 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The database name for the restored DB cluster.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param databaseName
-     *        The database name for the restored DB cluster.
+     *        The database name for the restored DB cluster.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setDatabaseName(String databaseName) {
@@ -923,8 +1774,13 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The database name for the restored DB cluster.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
-     * @return The database name for the restored DB cluster.
+     * @return The database name for the restored DB cluster.</p>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public String getDatabaseName() {
@@ -935,9 +1791,14 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The database name for the restored DB cluster.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param databaseName
-     *        The database name for the restored DB cluster.
+     *        The database name for the restored DB cluster.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -950,9 +1811,14 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The name of the option group to use for the restored DB cluster.
      * </p>
+     * <p>
+     * DB clusters are associated with a default option group that can't be modified.
+     * </p>
      * 
      * @param optionGroupName
-     *        The name of the option group to use for the restored DB cluster.
+     *        The name of the option group to use for the restored DB cluster.</p>
+     *        <p>
+     *        DB clusters are associated with a default option group that can't be modified.
      */
 
     public void setOptionGroupName(String optionGroupName) {
@@ -963,8 +1829,13 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The name of the option group to use for the restored DB cluster.
      * </p>
+     * <p>
+     * DB clusters are associated with a default option group that can't be modified.
+     * </p>
      * 
-     * @return The name of the option group to use for the restored DB cluster.
+     * @return The name of the option group to use for the restored DB cluster.</p>
+     *         <p>
+     *         DB clusters are associated with a default option group that can't be modified.
      */
 
     public String getOptionGroupName() {
@@ -975,9 +1846,14 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The name of the option group to use for the restored DB cluster.
      * </p>
+     * <p>
+     * DB clusters are associated with a default option group that can't be modified.
+     * </p>
      * 
      * @param optionGroupName
-     *        The name of the option group to use for the restored DB cluster.
+     *        The name of the option group to use for the restored DB cluster.</p>
+     *        <p>
+     *        DB clusters are associated with a default option group that can't be modified.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -990,8 +1866,13 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * A list of VPC security groups that the new DB cluster will belong to.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
-     * @return A list of VPC security groups that the new DB cluster will belong to.
+     * @return A list of VPC security groups that the new DB cluster will belong to.</p>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public java.util.List<String> getVpcSecurityGroupIds() {
@@ -1005,9 +1886,14 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * A list of VPC security groups that the new DB cluster will belong to.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param vpcSecurityGroupIds
-     *        A list of VPC security groups that the new DB cluster will belong to.
+     *        A list of VPC security groups that the new DB cluster will belong to.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setVpcSecurityGroupIds(java.util.Collection<String> vpcSecurityGroupIds) {
@@ -1024,13 +1910,18 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * A list of VPC security groups that the new DB cluster will belong to.
      * </p>
      * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setVpcSecurityGroupIds(java.util.Collection)} or {@link #withVpcSecurityGroupIds(java.util.Collection)}
      * if you want to override the existing values.
      * </p>
      * 
      * @param vpcSecurityGroupIds
-     *        A list of VPC security groups that the new DB cluster will belong to.
+     *        A list of VPC security groups that the new DB cluster will belong to.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1048,9 +1939,14 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * A list of VPC security groups that the new DB cluster will belong to.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param vpcSecurityGroupIds
-     *        A list of VPC security groups that the new DB cluster will belong to.
+     *        A list of VPC security groups that the new DB cluster will belong to.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1063,8 +1959,13 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The tags to be assigned to the restored DB cluster.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
-     * @return The tags to be assigned to the restored DB cluster.
+     * @return The tags to be assigned to the restored DB cluster.</p>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public java.util.List<Tag> getTags() {
@@ -1078,9 +1979,14 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The tags to be assigned to the restored DB cluster.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param tags
-     *        The tags to be assigned to the restored DB cluster.
+     *        The tags to be assigned to the restored DB cluster.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -1097,13 +2003,18 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * The tags to be assigned to the restored DB cluster.
      * </p>
      * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
      * existing values.
      * </p>
      * 
      * @param tags
-     *        The tags to be assigned to the restored DB cluster.
+     *        The tags to be assigned to the restored DB cluster.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1121,9 +2032,14 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The tags to be assigned to the restored DB cluster.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param tags
-     *        The tags to be assigned to the restored DB cluster.
+     *        The tags to be assigned to the restored DB cluster.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1134,16 +2050,15 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The AWS KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster
-     * snapshot.
+     * The Amazon Web Services KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB
+     * cluster snapshot.
      * </p>
      * <p>
-     * The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring a DB
-     * cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB cluster, then you
-     * can use the KMS key alias instead of the ARN for the KMS encryption key.
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To
+     * use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
      * </p>
      * <p>
-     * If you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
+     * When you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
      * </p>
      * <ul>
      * <li>
@@ -1154,22 +2069,24 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </li>
      * <li>
      * <p>
-     * If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is not encrypted, then the restored
-     * DB cluster is not encrypted.
+     * If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> isn't encrypted, then the restored
+     * DB cluster isn't encrypted.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param kmsKeyId
-     *        The AWS KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster
-     *        snapshot.</p>
+     *        The Amazon Web Services KMS key identifier to use when restoring an encrypted DB cluster from a DB
+     *        snapshot or DB cluster snapshot.</p>
      *        <p>
-     *        The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring
-     *        a DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB
-     *        cluster, then you can use the KMS key alias instead of the ARN for the KMS encryption key.
+     *        The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *        key. To use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
      *        </p>
      *        <p>
-     *        If you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
+     *        When you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
      *        </p>
      *        <ul>
      *        <li>
@@ -1181,10 +2098,13 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        </li>
      *        <li>
      *        <p>
-     *        If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is not encrypted, then the
-     *        restored DB cluster is not encrypted.
+     *        If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> isn't encrypted, then the
+     *        restored DB cluster isn't encrypted.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -1193,16 +2113,15 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The AWS KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster
-     * snapshot.
+     * The Amazon Web Services KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB
+     * cluster snapshot.
      * </p>
      * <p>
-     * The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring a DB
-     * cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB cluster, then you
-     * can use the KMS key alias instead of the ARN for the KMS encryption key.
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To
+     * use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
      * </p>
      * <p>
-     * If you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
+     * When you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
      * </p>
      * <ul>
      * <li>
@@ -1213,21 +2132,23 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </li>
      * <li>
      * <p>
-     * If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is not encrypted, then the restored
-     * DB cluster is not encrypted.
+     * If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> isn't encrypted, then the restored
+     * DB cluster isn't encrypted.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
-     * @return The AWS KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster
-     *         snapshot.</p>
+     * @return The Amazon Web Services KMS key identifier to use when restoring an encrypted DB cluster from a DB
+     *         snapshot or DB cluster snapshot.</p>
      *         <p>
-     *         The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring
-     *         a DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB
-     *         cluster, then you can use the KMS key alias instead of the ARN for the KMS encryption key.
+     *         The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *         key. To use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
      *         </p>
      *         <p>
-     *         If you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
+     *         When you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
      *         </p>
      *         <ul>
      *         <li>
@@ -1239,10 +2160,13 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *         </li>
      *         <li>
      *         <p>
-     *         If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is not encrypted, then the
-     *         restored DB cluster is not encrypted.
+     *         If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> isn't encrypted, then the
+     *         restored DB cluster isn't encrypted.
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public String getKmsKeyId() {
@@ -1251,16 +2175,15 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The AWS KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster
-     * snapshot.
+     * The Amazon Web Services KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB
+     * cluster snapshot.
      * </p>
      * <p>
-     * The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring a DB
-     * cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB cluster, then you
-     * can use the KMS key alias instead of the ARN for the KMS encryption key.
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key. To
+     * use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
      * </p>
      * <p>
-     * If you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
+     * When you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
      * </p>
      * <ul>
      * <li>
@@ -1271,22 +2194,24 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </li>
      * <li>
      * <p>
-     * If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is not encrypted, then the restored
-     * DB cluster is not encrypted.
+     * If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> isn't encrypted, then the restored
+     * DB cluster isn't encrypted.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param kmsKeyId
-     *        The AWS KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster
-     *        snapshot.</p>
+     *        The Amazon Web Services KMS key identifier to use when restoring an encrypted DB cluster from a DB
+     *        snapshot or DB cluster snapshot.</p>
      *        <p>
-     *        The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring
-     *        a DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB
-     *        cluster, then you can use the KMS key alias instead of the ARN for the KMS encryption key.
+     *        The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *        key. To use a KMS key in a different Amazon Web Services account, specify the key ARN or alias ARN.
      *        </p>
      *        <p>
-     *        If you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
+     *        When you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
      *        </p>
      *        <ul>
      *        <li>
@@ -1298,10 +2223,13 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        </li>
      *        <li>
      *        <p>
-     *        If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is not encrypted, then the
-     *        restored DB cluster is not encrypted.
+     *        If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> isn't encrypted, then the
+     *        restored DB cluster isn't encrypted.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1312,13 +2240,28 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
      * </p>
      * 
      * @param enableIAMDatabaseAuthentication
-     *        A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *        database accounts. By default, mapping is disabled.
+     *        Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts
+     *        to database accounts. By default, mapping isn't enabled.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM
+     *        Database Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
      */
 
     public void setEnableIAMDatabaseAuthentication(Boolean enableIAMDatabaseAuthentication) {
@@ -1327,12 +2270,27 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
      * </p>
      * 
-     * @return A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *         database accounts. By default, mapping is disabled.
+     * @return Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts
+     *         to database accounts. By default, mapping isn't enabled.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM
+     *         Database Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Valid for: Aurora DB clusters only
      */
 
     public Boolean getEnableIAMDatabaseAuthentication() {
@@ -1341,13 +2299,28 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
      * </p>
      * 
      * @param enableIAMDatabaseAuthentication
-     *        A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *        database accounts. By default, mapping is disabled.
+     *        Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts
+     *        to database accounts. By default, mapping isn't enabled.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM
+     *        Database Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1358,12 +2331,27 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts. By default, mapping is disabled.
+     * Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     * database accounts. By default, mapping isn't enabled.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM Database
+     * Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
      * </p>
      * 
-     * @return A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *         database accounts. By default, mapping is disabled.
+     * @return Specifies whether to enable mapping of Amazon Web Services Identity and Access Management (IAM) accounts
+     *         to database accounts. By default, mapping isn't enabled.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html"> IAM
+     *         Database Authentication</a> in the <i>Amazon Aurora User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Valid for: Aurora DB clusters only
      */
 
     public Boolean isEnableIAMDatabaseAuthentication() {
@@ -1374,6 +2362,11 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The target backtrack window, in seconds. To disable backtracking, set this value to 0.
      * </p>
+     * <note>
+     * <p>
+     * Currently, Backtrack is only supported for Aurora MySQL DB clusters.
+     * </p>
+     * </note>
      * <p>
      * Default: 0
      * </p>
@@ -1387,9 +2380,16 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
      * 
      * @param backtrackWindow
-     *        The target backtrack window, in seconds. To disable backtracking, set this value to 0.</p>
+     *        The target backtrack window, in seconds. To disable backtracking, set this value to 0.</p> <note>
+     *        <p>
+     *        Currently, Backtrack is only supported for Aurora MySQL DB clusters.
+     *        </p>
+     *        </note>
      *        <p>
      *        Default: 0
      *        </p>
@@ -1402,6 +2402,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        If specified, this value must be set to a number from 0 to 259,200 (72 hours).
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
      */
 
     public void setBacktrackWindow(Long backtrackWindow) {
@@ -1412,6 +2415,11 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The target backtrack window, in seconds. To disable backtracking, set this value to 0.
      * </p>
+     * <note>
+     * <p>
+     * Currently, Backtrack is only supported for Aurora MySQL DB clusters.
+     * </p>
+     * </note>
      * <p>
      * Default: 0
      * </p>
@@ -1425,8 +2433,15 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
      * 
-     * @return The target backtrack window, in seconds. To disable backtracking, set this value to 0.</p>
+     * @return The target backtrack window, in seconds. To disable backtracking, set this value to 0.</p> <note>
+     *         <p>
+     *         Currently, Backtrack is only supported for Aurora MySQL DB clusters.
+     *         </p>
+     *         </note>
      *         <p>
      *         Default: 0
      *         </p>
@@ -1439,6 +2454,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *         If specified, this value must be set to a number from 0 to 259,200 (72 hours).
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         Valid for: Aurora DB clusters only
      */
 
     public Long getBacktrackWindow() {
@@ -1449,6 +2467,11 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * The target backtrack window, in seconds. To disable backtracking, set this value to 0.
      * </p>
+     * <note>
+     * <p>
+     * Currently, Backtrack is only supported for Aurora MySQL DB clusters.
+     * </p>
+     * </note>
      * <p>
      * Default: 0
      * </p>
@@ -1462,9 +2485,16 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
      * 
      * @param backtrackWindow
-     *        The target backtrack window, in seconds. To disable backtracking, set this value to 0.</p>
+     *        The target backtrack window, in seconds. To disable backtracking, set this value to 0.</p> <note>
+     *        <p>
+     *        Currently, Backtrack is only supported for Aurora MySQL DB clusters.
+     *        </p>
+     *        </note>
      *        <p>
      *        Default: 0
      *        </p>
@@ -1477,6 +2507,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        If specified, this value must be set to a number from 0 to 259,200 (72 hours).
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1488,15 +2521,85 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
     /**
      * <p>
      * The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the list
-     * depend on the DB engine being used. For more information, see <a href=
+     * depend on the DB engine being used.
+     * </p>
+     * <p>
+     * <b>RDS for MySQL</b>
+     * </p>
+     * <p>
+     * Possible values are <code>error</code>, <code>general</code>, and <code>slowquery</code>.
+     * </p>
+     * <p>
+     * <b>RDS for PostgreSQL</b>
+     * </p>
+     * <p>
+     * Possible values are <code>postgresql</code> and <code>upgrade</code>.
+     * </p>
+     * <p>
+     * <b>Aurora MySQL</b>
+     * </p>
+     * <p>
+     * Possible values are <code>audit</code>, <code>error</code>, <code>general</code>, and <code>slowquery</code>.
+     * </p>
+     * <p>
+     * <b>Aurora PostgreSQL</b>
+     * </p>
+     * <p>
+     * Possible value is <code>postgresql</code>.
+     * </p>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon RDS, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon Aurora, see <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
-     * >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @return The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the
-     *         list depend on the DB engine being used. For more information, see <a href=
+     *         list depend on the DB engine being used.</p>
+     *         <p>
+     *         <b>RDS for MySQL</b>
+     *         </p>
+     *         <p>
+     *         Possible values are <code>error</code>, <code>general</code>, and <code>slowquery</code>.
+     *         </p>
+     *         <p>
+     *         <b>RDS for PostgreSQL</b>
+     *         </p>
+     *         <p>
+     *         Possible values are <code>postgresql</code> and <code>upgrade</code>.
+     *         </p>
+     *         <p>
+     *         <b>Aurora MySQL</b>
+     *         </p>
+     *         <p>
+     *         Possible values are <code>audit</code>, <code>error</code>, <code>general</code>, and
+     *         <code>slowquery</code>.
+     *         </p>
+     *         <p>
+     *         <b>Aurora PostgreSQL</b>
+     *         </p>
+     *         <p>
+     *         Possible value is <code>postgresql</code>.
+     *         </p>
+     *         <p>
+     *         For more information about exporting CloudWatch Logs for Amazon RDS, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *         >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     *         </p>
+     *         <p>
+     *         For more information about exporting CloudWatch Logs for Amazon Aurora, see <a href=
      *         "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
-     *         >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     *         >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public java.util.List<String> getEnableCloudwatchLogsExports() {
@@ -1509,16 +2612,86 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
     /**
      * <p>
      * The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the list
-     * depend on the DB engine being used. For more information, see <a href=
+     * depend on the DB engine being used.
+     * </p>
+     * <p>
+     * <b>RDS for MySQL</b>
+     * </p>
+     * <p>
+     * Possible values are <code>error</code>, <code>general</code>, and <code>slowquery</code>.
+     * </p>
+     * <p>
+     * <b>RDS for PostgreSQL</b>
+     * </p>
+     * <p>
+     * Possible values are <code>postgresql</code> and <code>upgrade</code>.
+     * </p>
+     * <p>
+     * <b>Aurora MySQL</b>
+     * </p>
+     * <p>
+     * Possible values are <code>audit</code>, <code>error</code>, <code>general</code>, and <code>slowquery</code>.
+     * </p>
+     * <p>
+     * <b>Aurora PostgreSQL</b>
+     * </p>
+     * <p>
+     * Possible value is <code>postgresql</code>.
+     * </p>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon RDS, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon Aurora, see <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
-     * >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param enableCloudwatchLogsExports
      *        The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the
-     *        list depend on the DB engine being used. For more information, see <a href=
+     *        list depend on the DB engine being used.</p>
+     *        <p>
+     *        <b>RDS for MySQL</b>
+     *        </p>
+     *        <p>
+     *        Possible values are <code>error</code>, <code>general</code>, and <code>slowquery</code>.
+     *        </p>
+     *        <p>
+     *        <b>RDS for PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        Possible values are <code>postgresql</code> and <code>upgrade</code>.
+     *        </p>
+     *        <p>
+     *        <b>Aurora MySQL</b>
+     *        </p>
+     *        <p>
+     *        Possible values are <code>audit</code>, <code>error</code>, <code>general</code>, and
+     *        <code>slowquery</code>.
+     *        </p>
+     *        <p>
+     *        <b>Aurora PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        Possible value is <code>postgresql</code>.
+     *        </p>
+     *        <p>
+     *        For more information about exporting CloudWatch Logs for Amazon RDS, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        For more information about exporting CloudWatch Logs for Amazon Aurora, see <a href=
      *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
-     *        >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setEnableCloudwatchLogsExports(java.util.Collection<String> enableCloudwatchLogsExports) {
@@ -1533,9 +2706,44 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
     /**
      * <p>
      * The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the list
-     * depend on the DB engine being used. For more information, see <a href=
+     * depend on the DB engine being used.
+     * </p>
+     * <p>
+     * <b>RDS for MySQL</b>
+     * </p>
+     * <p>
+     * Possible values are <code>error</code>, <code>general</code>, and <code>slowquery</code>.
+     * </p>
+     * <p>
+     * <b>RDS for PostgreSQL</b>
+     * </p>
+     * <p>
+     * Possible values are <code>postgresql</code> and <code>upgrade</code>.
+     * </p>
+     * <p>
+     * <b>Aurora MySQL</b>
+     * </p>
+     * <p>
+     * Possible values are <code>audit</code>, <code>error</code>, <code>general</code>, and <code>slowquery</code>.
+     * </p>
+     * <p>
+     * <b>Aurora PostgreSQL</b>
+     * </p>
+     * <p>
+     * Possible value is <code>postgresql</code>.
+     * </p>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon RDS, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon Aurora, see <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
-     * >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1545,9 +2753,44 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * 
      * @param enableCloudwatchLogsExports
      *        The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the
-     *        list depend on the DB engine being used. For more information, see <a href=
+     *        list depend on the DB engine being used.</p>
+     *        <p>
+     *        <b>RDS for MySQL</b>
+     *        </p>
+     *        <p>
+     *        Possible values are <code>error</code>, <code>general</code>, and <code>slowquery</code>.
+     *        </p>
+     *        <p>
+     *        <b>RDS for PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        Possible values are <code>postgresql</code> and <code>upgrade</code>.
+     *        </p>
+     *        <p>
+     *        <b>Aurora MySQL</b>
+     *        </p>
+     *        <p>
+     *        Possible values are <code>audit</code>, <code>error</code>, <code>general</code>, and
+     *        <code>slowquery</code>.
+     *        </p>
+     *        <p>
+     *        <b>Aurora PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        Possible value is <code>postgresql</code>.
+     *        </p>
+     *        <p>
+     *        For more information about exporting CloudWatch Logs for Amazon RDS, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        For more information about exporting CloudWatch Logs for Amazon Aurora, see <a href=
      *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
-     *        >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1564,16 +2807,86 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
     /**
      * <p>
      * The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the list
-     * depend on the DB engine being used. For more information, see <a href=
+     * depend on the DB engine being used.
+     * </p>
+     * <p>
+     * <b>RDS for MySQL</b>
+     * </p>
+     * <p>
+     * Possible values are <code>error</code>, <code>general</code>, and <code>slowquery</code>.
+     * </p>
+     * <p>
+     * <b>RDS for PostgreSQL</b>
+     * </p>
+     * <p>
+     * Possible values are <code>postgresql</code> and <code>upgrade</code>.
+     * </p>
+     * <p>
+     * <b>Aurora MySQL</b>
+     * </p>
+     * <p>
+     * Possible values are <code>audit</code>, <code>error</code>, <code>general</code>, and <code>slowquery</code>.
+     * </p>
+     * <p>
+     * <b>Aurora PostgreSQL</b>
+     * </p>
+     * <p>
+     * Possible value is <code>postgresql</code>.
+     * </p>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon RDS, see <a href=
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * For more information about exporting CloudWatch Logs for Amazon Aurora, see <a href=
      * "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
-     * >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param enableCloudwatchLogsExports
      *        The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the
-     *        list depend on the DB engine being used. For more information, see <a href=
+     *        list depend on the DB engine being used.</p>
+     *        <p>
+     *        <b>RDS for MySQL</b>
+     *        </p>
+     *        <p>
+     *        Possible values are <code>error</code>, <code>general</code>, and <code>slowquery</code>.
+     *        </p>
+     *        <p>
+     *        <b>RDS for PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        Possible values are <code>postgresql</code> and <code>upgrade</code>.
+     *        </p>
+     *        <p>
+     *        <b>Aurora MySQL</b>
+     *        </p>
+     *        <p>
+     *        Possible values are <code>audit</code>, <code>error</code>, <code>general</code>, and
+     *        <code>slowquery</code>.
+     *        </p>
+     *        <p>
+     *        <b>Aurora PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        Possible value is <code>postgresql</code>.
+     *        </p>
+     *        <p>
+     *        For more information about exporting CloudWatch Logs for Amazon RDS, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        For more information about exporting CloudWatch Logs for Amazon Aurora, see <a href=
      *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
-     *        >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1584,13 +2897,25 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>, or
-     * <code>parallelquery</code>.
+     * The DB engine mode of the DB cluster, either <code>provisioned</code> or <code>serverless</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html"> CreateDBCluster</a>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
      * </p>
      * 
      * @param engineMode
-     *        The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>, or
-     *        <code>parallelquery</code>.
+     *        The DB engine mode of the DB cluster, either <code>provisioned</code> or <code>serverless</code>.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html">
+     *        CreateDBCluster</a>.
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
      */
 
     public void setEngineMode(String engineMode) {
@@ -1599,12 +2924,24 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>, or
-     * <code>parallelquery</code>.
+     * The DB engine mode of the DB cluster, either <code>provisioned</code> or <code>serverless</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html"> CreateDBCluster</a>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
      * </p>
      * 
-     * @return The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>, or
-     *         <code>parallelquery</code>.
+     * @return The DB engine mode of the DB cluster, either <code>provisioned</code> or <code>serverless</code>.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html">
+     *         CreateDBCluster</a>.
+     *         </p>
+     *         <p>
+     *         Valid for: Aurora DB clusters only
      */
 
     public String getEngineMode() {
@@ -1613,13 +2950,25 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>, or
-     * <code>parallelquery</code>.
+     * The DB engine mode of the DB cluster, either <code>provisioned</code> or <code>serverless</code>.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html"> CreateDBCluster</a>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
      * </p>
      * 
      * @param engineMode
-     *        The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>, or
-     *        <code>parallelquery</code>.
+     *        The DB engine mode of the DB cluster, either <code>provisioned</code> or <code>serverless</code>.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html">
+     *        CreateDBCluster</a>.
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1632,9 +2981,14 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
      * 
      * @param scalingConfiguration
-     *        For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     *        For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
      */
 
     public void setScalingConfiguration(ScalingConfiguration scalingConfiguration) {
@@ -1645,8 +2999,13 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
      * 
-     * @return For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     * @return For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.</p>
+     *         <p>
+     *         Valid for: Aurora DB clusters only
      */
 
     public ScalingConfiguration getScalingConfiguration() {
@@ -1657,9 +3016,14 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <p>
      * For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
      * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
      * 
      * @param scalingConfiguration
-     *        For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     *        For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1698,6 +3062,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param dBClusterParameterGroupName
      *        The name of the DB cluster parameter group to associate with this DB cluster. If this argument is omitted,
@@ -1726,6 +3093,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        Can't end with a hyphen or contain two consecutive hyphens.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setDBClusterParameterGroupName(String dBClusterParameterGroupName) {
@@ -1762,6 +3132,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @return The name of the DB cluster parameter group to associate with this DB cluster. If this argument is
      *         omitted, the default DB cluster parameter group for the specified engine is used.</p>
@@ -1789,6 +3162,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *         Can't end with a hyphen or contain two consecutive hyphens.
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public String getDBClusterParameterGroupName() {
@@ -1825,6 +3201,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
      * 
      * @param dBClusterParameterGroupName
      *        The name of the DB cluster parameter group to associate with this DB cluster. If this argument is omitted,
@@ -1853,6 +3232,9 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        Can't end with a hyphen or contain two consecutive hyphens.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1863,13 +3245,18 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when
-     * deletion protection is enabled. By default, deletion protection is disabled.
+     * Specifies whether to enable deletion protection for the DB cluster. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param deletionProtection
-     *        A value that indicates whether the DB cluster has deletion protection enabled. The database can't be
-     *        deleted when deletion protection is enabled. By default, deletion protection is disabled.
+     *        Specifies whether to enable deletion protection for the DB cluster. The database can't be deleted when
+     *        deletion protection is enabled. By default, deletion protection isn't enabled.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setDeletionProtection(Boolean deletionProtection) {
@@ -1878,12 +3265,17 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when
-     * deletion protection is enabled. By default, deletion protection is disabled.
+     * Specifies whether to enable deletion protection for the DB cluster. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
-     * @return A value that indicates whether the DB cluster has deletion protection enabled. The database can't be
-     *         deleted when deletion protection is enabled. By default, deletion protection is disabled.
+     * @return Specifies whether to enable deletion protection for the DB cluster. The database can't be deleted when
+     *         deletion protection is enabled. By default, deletion protection isn't enabled.</p>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public Boolean getDeletionProtection() {
@@ -1892,13 +3284,18 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when
-     * deletion protection is enabled. By default, deletion protection is disabled.
+     * Specifies whether to enable deletion protection for the DB cluster. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param deletionProtection
-     *        A value that indicates whether the DB cluster has deletion protection enabled. The database can't be
-     *        deleted when deletion protection is enabled. By default, deletion protection is disabled.
+     *        Specifies whether to enable deletion protection for the DB cluster. The database can't be deleted when
+     *        deletion protection is enabled. By default, deletion protection isn't enabled.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1909,12 +3306,17 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when
-     * deletion protection is enabled. By default, deletion protection is disabled.
+     * Specifies whether to enable deletion protection for the DB cluster. The database can't be deleted when deletion
+     * protection is enabled. By default, deletion protection isn't enabled.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
-     * @return A value that indicates whether the DB cluster has deletion protection enabled. The database can't be
-     *         deleted when deletion protection is enabled. By default, deletion protection is disabled.
+     * @return Specifies whether to enable deletion protection for the DB cluster. The database can't be deleted when
+     *         deletion protection is enabled. By default, deletion protection isn't enabled.</p>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public Boolean isDeletionProtection() {
@@ -1923,13 +3325,18 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the restored DB cluster to snapshots of the restored DB
-     * cluster. The default is not to copy them.
+     * Specifies whether to copy all tags from the restored DB cluster to snapshots of the restored DB cluster. The
+     * default is not to copy them.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param copyTagsToSnapshot
-     *        A value that indicates whether to copy all tags from the restored DB cluster to snapshots of the restored
-     *        DB cluster. The default is not to copy them.
+     *        Specifies whether to copy all tags from the restored DB cluster to snapshots of the restored DB cluster.
+     *        The default is not to copy them.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public void setCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
@@ -1938,12 +3345,17 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the restored DB cluster to snapshots of the restored DB
-     * cluster. The default is not to copy them.
+     * Specifies whether to copy all tags from the restored DB cluster to snapshots of the restored DB cluster. The
+     * default is not to copy them.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
-     * @return A value that indicates whether to copy all tags from the restored DB cluster to snapshots of the restored
-     *         DB cluster. The default is not to copy them.
+     * @return Specifies whether to copy all tags from the restored DB cluster to snapshots of the restored DB cluster.
+     *         The default is not to copy them.</p>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public Boolean getCopyTagsToSnapshot() {
@@ -1952,13 +3364,18 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the restored DB cluster to snapshots of the restored DB
-     * cluster. The default is not to copy them.
+     * Specifies whether to copy all tags from the restored DB cluster to snapshots of the restored DB cluster. The
+     * default is not to copy them.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
      * @param copyTagsToSnapshot
-     *        A value that indicates whether to copy all tags from the restored DB cluster to snapshots of the restored
-     *        DB cluster. The default is not to copy them.
+     *        Specifies whether to copy all tags from the restored DB cluster to snapshots of the restored DB cluster.
+     *        The default is not to copy them.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1969,16 +3386,1472 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A value that indicates whether to copy all tags from the restored DB cluster to snapshots of the restored DB
-     * cluster. The default is not to copy them.
+     * Specifies whether to copy all tags from the restored DB cluster to snapshots of the restored DB cluster. The
+     * default is not to copy them.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
      * </p>
      * 
-     * @return A value that indicates whether to copy all tags from the restored DB cluster to snapshots of the restored
-     *         DB cluster. The default is not to copy them.
+     * @return Specifies whether to copy all tags from the restored DB cluster to snapshots of the restored DB cluster.
+     *         The default is not to copy them.</p>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
      */
 
     public Boolean isCopyTagsToSnapshot() {
         return this.copyTagsToSnapshot;
+    }
+
+    /**
+     * <p>
+     * The Active Directory directory ID to restore the DB cluster in. The domain must be created prior to this
+     * operation. Currently, only MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances can be created in an
+     * Active Directory Domain.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html"> Kerberos
+     * Authentication</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @param domain
+     *        The Active Directory directory ID to restore the DB cluster in. The domain must be created prior to this
+     *        operation. Currently, only MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances can be created
+     *        in an Active Directory Domain.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html"> Kerberos
+     *        Authentication</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
+     */
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    /**
+     * <p>
+     * The Active Directory directory ID to restore the DB cluster in. The domain must be created prior to this
+     * operation. Currently, only MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances can be created in an
+     * Active Directory Domain.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html"> Kerberos
+     * Authentication</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @return The Active Directory directory ID to restore the DB cluster in. The domain must be created prior to this
+     *         operation. Currently, only MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances can be
+     *         created in an Active Directory Domain.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html"> Kerberos
+     *         Authentication</a> in the <i>Amazon RDS User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Valid for: Aurora DB clusters only
+     */
+
+    public String getDomain() {
+        return this.domain;
+    }
+
+    /**
+     * <p>
+     * The Active Directory directory ID to restore the DB cluster in. The domain must be created prior to this
+     * operation. Currently, only MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances can be created in an
+     * Active Directory Domain.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html"> Kerberos
+     * Authentication</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @param domain
+     *        The Active Directory directory ID to restore the DB cluster in. The domain must be created prior to this
+     *        operation. Currently, only MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances can be created
+     *        in an Active Directory Domain.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html"> Kerberos
+     *        Authentication</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withDomain(String domain) {
+        setDomain(domain);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the IAM role to be used when making API calls to the Directory Service.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @param domainIAMRoleName
+     *        The name of the IAM role to be used when making API calls to the Directory Service.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
+     */
+
+    public void setDomainIAMRoleName(String domainIAMRoleName) {
+        this.domainIAMRoleName = domainIAMRoleName;
+    }
+
+    /**
+     * <p>
+     * The name of the IAM role to be used when making API calls to the Directory Service.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @return The name of the IAM role to be used when making API calls to the Directory Service.</p>
+     *         <p>
+     *         Valid for: Aurora DB clusters only
+     */
+
+    public String getDomainIAMRoleName() {
+        return this.domainIAMRoleName;
+    }
+
+    /**
+     * <p>
+     * The name of the IAM role to be used when making API calls to the Directory Service.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @param domainIAMRoleName
+     *        The name of the IAM role to be used when making API calls to the Directory Service.</p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withDomainIAMRoleName(String domainIAMRoleName) {
+        setDomainIAMRoleName(domainIAMRoleName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The compute and memory capacity of the each DB instance in the Multi-AZ DB cluster, for example db.m6gd.xlarge.
+     * Not all DB instance classes are available in all Amazon Web Services Regions, or for all database engines.
+     * </p>
+     * <p>
+     * For the full list of DB instance classes, and availability for your engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance Class</a>
+     * in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @param dBClusterInstanceClass
+     *        The compute and memory capacity of the each DB instance in the Multi-AZ DB cluster, for example
+     *        db.m6gd.xlarge. Not all DB instance classes are available in all Amazon Web Services Regions, or for all
+     *        database engines.</p>
+     *        <p>
+     *        For the full list of DB instance classes, and availability for your engine, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance
+     *        Class</a> in the <i>Amazon RDS User Guide.</i>
+     *        </p>
+     *        <p>
+     *        Valid for: Multi-AZ DB clusters only
+     */
+
+    public void setDBClusterInstanceClass(String dBClusterInstanceClass) {
+        this.dBClusterInstanceClass = dBClusterInstanceClass;
+    }
+
+    /**
+     * <p>
+     * The compute and memory capacity of the each DB instance in the Multi-AZ DB cluster, for example db.m6gd.xlarge.
+     * Not all DB instance classes are available in all Amazon Web Services Regions, or for all database engines.
+     * </p>
+     * <p>
+     * For the full list of DB instance classes, and availability for your engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance Class</a>
+     * in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @return The compute and memory capacity of the each DB instance in the Multi-AZ DB cluster, for example
+     *         db.m6gd.xlarge. Not all DB instance classes are available in all Amazon Web Services Regions, or for all
+     *         database engines.</p>
+     *         <p>
+     *         For the full list of DB instance classes, and availability for your engine, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance
+     *         Class</a> in the <i>Amazon RDS User Guide.</i>
+     *         </p>
+     *         <p>
+     *         Valid for: Multi-AZ DB clusters only
+     */
+
+    public String getDBClusterInstanceClass() {
+        return this.dBClusterInstanceClass;
+    }
+
+    /**
+     * <p>
+     * The compute and memory capacity of the each DB instance in the Multi-AZ DB cluster, for example db.m6gd.xlarge.
+     * Not all DB instance classes are available in all Amazon Web Services Regions, or for all database engines.
+     * </p>
+     * <p>
+     * For the full list of DB instance classes, and availability for your engine, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance Class</a>
+     * in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for: Multi-AZ DB clusters only
+     * </p>
+     * 
+     * @param dBClusterInstanceClass
+     *        The compute and memory capacity of the each DB instance in the Multi-AZ DB cluster, for example
+     *        db.m6gd.xlarge. Not all DB instance classes are available in all Amazon Web Services Regions, or for all
+     *        database engines.</p>
+     *        <p>
+     *        For the full list of DB instance classes, and availability for your engine, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance
+     *        Class</a> in the <i>Amazon RDS User Guide.</i>
+     *        </p>
+     *        <p>
+     *        Valid for: Multi-AZ DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withDBClusterInstanceClass(String dBClusterInstanceClass) {
+        setDBClusterInstanceClass(dBClusterInstanceClass);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the storage type to be associated with the DB cluster.
+     * </p>
+     * <p>
+     * When specified for a Multi-AZ DB cluster, a value for the <code>Iops</code> parameter is required.
+     * </p>
+     * <p>
+     * Valid Values: <code>aurora</code>, <code>aurora-iopt1</code> (Aurora DB clusters); <code>io1</code> (Multi-AZ DB
+     * clusters)
+     * </p>
+     * <p>
+     * Default: <code>aurora</code> (Aurora DB clusters); <code>io1</code> (Multi-AZ DB clusters)
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @param storageType
+     *        Specifies the storage type to be associated with the DB cluster.</p>
+     *        <p>
+     *        When specified for a Multi-AZ DB cluster, a value for the <code>Iops</code> parameter is required.
+     *        </p>
+     *        <p>
+     *        Valid Values: <code>aurora</code>, <code>aurora-iopt1</code> (Aurora DB clusters); <code>io1</code>
+     *        (Multi-AZ DB clusters)
+     *        </p>
+     *        <p>
+     *        Default: <code>aurora</code> (Aurora DB clusters); <code>io1</code> (Multi-AZ DB clusters)
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     */
+
+    public void setStorageType(String storageType) {
+        this.storageType = storageType;
+    }
+
+    /**
+     * <p>
+     * Specifies the storage type to be associated with the DB cluster.
+     * </p>
+     * <p>
+     * When specified for a Multi-AZ DB cluster, a value for the <code>Iops</code> parameter is required.
+     * </p>
+     * <p>
+     * Valid Values: <code>aurora</code>, <code>aurora-iopt1</code> (Aurora DB clusters); <code>io1</code> (Multi-AZ DB
+     * clusters)
+     * </p>
+     * <p>
+     * Default: <code>aurora</code> (Aurora DB clusters); <code>io1</code> (Multi-AZ DB clusters)
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @return Specifies the storage type to be associated with the DB cluster.</p>
+     *         <p>
+     *         When specified for a Multi-AZ DB cluster, a value for the <code>Iops</code> parameter is required.
+     *         </p>
+     *         <p>
+     *         Valid Values: <code>aurora</code>, <code>aurora-iopt1</code> (Aurora DB clusters); <code>io1</code>
+     *         (Multi-AZ DB clusters)
+     *         </p>
+     *         <p>
+     *         Default: <code>aurora</code> (Aurora DB clusters); <code>io1</code> (Multi-AZ DB clusters)
+     *         </p>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     */
+
+    public String getStorageType() {
+        return this.storageType;
+    }
+
+    /**
+     * <p>
+     * Specifies the storage type to be associated with the DB cluster.
+     * </p>
+     * <p>
+     * When specified for a Multi-AZ DB cluster, a value for the <code>Iops</code> parameter is required.
+     * </p>
+     * <p>
+     * Valid Values: <code>aurora</code>, <code>aurora-iopt1</code> (Aurora DB clusters); <code>io1</code> (Multi-AZ DB
+     * clusters)
+     * </p>
+     * <p>
+     * Default: <code>aurora</code> (Aurora DB clusters); <code>io1</code> (Multi-AZ DB clusters)
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @param storageType
+     *        Specifies the storage type to be associated with the DB cluster.</p>
+     *        <p>
+     *        When specified for a Multi-AZ DB cluster, a value for the <code>Iops</code> parameter is required.
+     *        </p>
+     *        <p>
+     *        Valid Values: <code>aurora</code>, <code>aurora-iopt1</code> (Aurora DB clusters); <code>io1</code>
+     *        (Multi-AZ DB clusters)
+     *        </p>
+     *        <p>
+     *        Default: <code>aurora</code> (Aurora DB clusters); <code>io1</code> (Multi-AZ DB clusters)
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withStorageType(String storageType) {
+        setStorageType(storageType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for each DB
+     * instance in the Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * For information about valid IOPS values, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS Provisioned
+     * IOPS storage</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Constraints: Must be a multiple between .5 and 50 of the storage amount for the DB instance.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @param iops
+     *        The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for each DB
+     *        instance in the Multi-AZ DB cluster.</p>
+     *        <p>
+     *        For information about valid IOPS values, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS
+     *        Provisioned IOPS storage</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Constraints: Must be a multiple between .5 and 50 of the storage amount for the DB instance.
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     */
+
+    public void setIops(Integer iops) {
+        this.iops = iops;
+    }
+
+    /**
+     * <p>
+     * The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for each DB
+     * instance in the Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * For information about valid IOPS values, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS Provisioned
+     * IOPS storage</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Constraints: Must be a multiple between .5 and 50 of the storage amount for the DB instance.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @return The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for each DB
+     *         instance in the Multi-AZ DB cluster.</p>
+     *         <p>
+     *         For information about valid IOPS values, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS
+     *         Provisioned IOPS storage</a> in the <i>Amazon RDS User Guide</i>.
+     *         </p>
+     *         <p>
+     *         Constraints: Must be a multiple between .5 and 50 of the storage amount for the DB instance.
+     *         </p>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     */
+
+    public Integer getIops() {
+        return this.iops;
+    }
+
+    /**
+     * <p>
+     * The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for each DB
+     * instance in the Multi-AZ DB cluster.
+     * </p>
+     * <p>
+     * For information about valid IOPS values, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS Provisioned
+     * IOPS storage</a> in the <i>Amazon RDS User Guide</i>.
+     * </p>
+     * <p>
+     * Constraints: Must be a multiple between .5 and 50 of the storage amount for the DB instance.
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @param iops
+     *        The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for each DB
+     *        instance in the Multi-AZ DB cluster.</p>
+     *        <p>
+     *        For information about valid IOPS values, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS">Amazon RDS
+     *        Provisioned IOPS storage</a> in the <i>Amazon RDS User Guide</i>.
+     *        </p>
+     *        <p>
+     *        Constraints: Must be a multiple between .5 and 50 of the storage amount for the DB instance.
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withIops(Integer iops) {
+        setIops(iops);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the DB cluster is publicly accessible.
+     * </p>
+     * <p>
+     * When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP
+     * address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address from
+     * outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security group it uses.
+     * That public access is not permitted if the security group assigned to the DB cluster doesn't permit it.
+     * </p>
+     * <p>
+     * When the DB cluster isn't publicly accessible, it is an internal DB cluster with a DNS name that resolves to a
+     * private IP address.
+     * </p>
+     * <p>
+     * Default: The default behavior varies depending on whether <code>DBSubnetGroupName</code> is specified.
+     * </p>
+     * <p>
+     * If <code>DBSubnetGroupName</code> isn't specified, and <code>PubliclyAccessible</code> isn't specified, the
+     * following applies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the default VPC in the target Region doesn’t have an internet gateway attached to it, the DB cluster is
+     * private.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the default VPC in the target Region has an internet gateway attached to it, the DB cluster is public.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If <code>DBSubnetGroupName</code> is specified, and <code>PubliclyAccessible</code> isn't specified, the
+     * following applies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the subnets are part of a VPC that doesn’t have an internet gateway attached to it, the DB cluster is private.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the subnets are part of a VPC that has an internet gateway attached to it, the DB cluster is public.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @param publiclyAccessible
+     *        Specifies whether the DB cluster is publicly accessible.</p>
+     *        <p>
+     *        When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private
+     *        IP address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address
+     *        from outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security
+     *        group it uses. That public access is not permitted if the security group assigned to the DB cluster
+     *        doesn't permit it.
+     *        </p>
+     *        <p>
+     *        When the DB cluster isn't publicly accessible, it is an internal DB cluster with a DNS name that resolves
+     *        to a private IP address.
+     *        </p>
+     *        <p>
+     *        Default: The default behavior varies depending on whether <code>DBSubnetGroupName</code> is specified.
+     *        </p>
+     *        <p>
+     *        If <code>DBSubnetGroupName</code> isn't specified, and <code>PubliclyAccessible</code> isn't specified,
+     *        the following applies:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If the default VPC in the target Region doesn’t have an internet gateway attached to it, the DB cluster is
+     *        private.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the default VPC in the target Region has an internet gateway attached to it, the DB cluster is public.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If <code>DBSubnetGroupName</code> is specified, and <code>PubliclyAccessible</code> isn't specified, the
+     *        following applies:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If the subnets are part of a VPC that doesn’t have an internet gateway attached to it, the DB cluster is
+     *        private.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the subnets are part of a VPC that has an internet gateway attached to it, the DB cluster is public.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     */
+
+    public void setPubliclyAccessible(Boolean publiclyAccessible) {
+        this.publiclyAccessible = publiclyAccessible;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the DB cluster is publicly accessible.
+     * </p>
+     * <p>
+     * When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP
+     * address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address from
+     * outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security group it uses.
+     * That public access is not permitted if the security group assigned to the DB cluster doesn't permit it.
+     * </p>
+     * <p>
+     * When the DB cluster isn't publicly accessible, it is an internal DB cluster with a DNS name that resolves to a
+     * private IP address.
+     * </p>
+     * <p>
+     * Default: The default behavior varies depending on whether <code>DBSubnetGroupName</code> is specified.
+     * </p>
+     * <p>
+     * If <code>DBSubnetGroupName</code> isn't specified, and <code>PubliclyAccessible</code> isn't specified, the
+     * following applies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the default VPC in the target Region doesn’t have an internet gateway attached to it, the DB cluster is
+     * private.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the default VPC in the target Region has an internet gateway attached to it, the DB cluster is public.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If <code>DBSubnetGroupName</code> is specified, and <code>PubliclyAccessible</code> isn't specified, the
+     * following applies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the subnets are part of a VPC that doesn’t have an internet gateway attached to it, the DB cluster is private.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the subnets are part of a VPC that has an internet gateway attached to it, the DB cluster is public.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @return Specifies whether the DB cluster is publicly accessible.</p>
+     *         <p>
+     *         When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private
+     *         IP address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address
+     *         from outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security
+     *         group it uses. That public access is not permitted if the security group assigned to the DB cluster
+     *         doesn't permit it.
+     *         </p>
+     *         <p>
+     *         When the DB cluster isn't publicly accessible, it is an internal DB cluster with a DNS name that resolves
+     *         to a private IP address.
+     *         </p>
+     *         <p>
+     *         Default: The default behavior varies depending on whether <code>DBSubnetGroupName</code> is specified.
+     *         </p>
+     *         <p>
+     *         If <code>DBSubnetGroupName</code> isn't specified, and <code>PubliclyAccessible</code> isn't specified,
+     *         the following applies:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If the default VPC in the target Region doesn’t have an internet gateway attached to it, the DB cluster
+     *         is private.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If the default VPC in the target Region has an internet gateway attached to it, the DB cluster is public.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         If <code>DBSubnetGroupName</code> is specified, and <code>PubliclyAccessible</code> isn't specified, the
+     *         following applies:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If the subnets are part of a VPC that doesn’t have an internet gateway attached to it, the DB cluster is
+     *         private.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If the subnets are part of a VPC that has an internet gateway attached to it, the DB cluster is public.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     */
+
+    public Boolean getPubliclyAccessible() {
+        return this.publiclyAccessible;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the DB cluster is publicly accessible.
+     * </p>
+     * <p>
+     * When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP
+     * address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address from
+     * outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security group it uses.
+     * That public access is not permitted if the security group assigned to the DB cluster doesn't permit it.
+     * </p>
+     * <p>
+     * When the DB cluster isn't publicly accessible, it is an internal DB cluster with a DNS name that resolves to a
+     * private IP address.
+     * </p>
+     * <p>
+     * Default: The default behavior varies depending on whether <code>DBSubnetGroupName</code> is specified.
+     * </p>
+     * <p>
+     * If <code>DBSubnetGroupName</code> isn't specified, and <code>PubliclyAccessible</code> isn't specified, the
+     * following applies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the default VPC in the target Region doesn’t have an internet gateway attached to it, the DB cluster is
+     * private.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the default VPC in the target Region has an internet gateway attached to it, the DB cluster is public.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If <code>DBSubnetGroupName</code> is specified, and <code>PubliclyAccessible</code> isn't specified, the
+     * following applies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the subnets are part of a VPC that doesn’t have an internet gateway attached to it, the DB cluster is private.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the subnets are part of a VPC that has an internet gateway attached to it, the DB cluster is public.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @param publiclyAccessible
+     *        Specifies whether the DB cluster is publicly accessible.</p>
+     *        <p>
+     *        When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private
+     *        IP address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address
+     *        from outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security
+     *        group it uses. That public access is not permitted if the security group assigned to the DB cluster
+     *        doesn't permit it.
+     *        </p>
+     *        <p>
+     *        When the DB cluster isn't publicly accessible, it is an internal DB cluster with a DNS name that resolves
+     *        to a private IP address.
+     *        </p>
+     *        <p>
+     *        Default: The default behavior varies depending on whether <code>DBSubnetGroupName</code> is specified.
+     *        </p>
+     *        <p>
+     *        If <code>DBSubnetGroupName</code> isn't specified, and <code>PubliclyAccessible</code> isn't specified,
+     *        the following applies:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If the default VPC in the target Region doesn’t have an internet gateway attached to it, the DB cluster is
+     *        private.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the default VPC in the target Region has an internet gateway attached to it, the DB cluster is public.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If <code>DBSubnetGroupName</code> is specified, and <code>PubliclyAccessible</code> isn't specified, the
+     *        following applies:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If the subnets are part of a VPC that doesn’t have an internet gateway attached to it, the DB cluster is
+     *        private.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the subnets are part of a VPC that has an internet gateway attached to it, the DB cluster is public.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withPubliclyAccessible(Boolean publiclyAccessible) {
+        setPubliclyAccessible(publiclyAccessible);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the DB cluster is publicly accessible.
+     * </p>
+     * <p>
+     * When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private IP
+     * address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address from
+     * outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security group it uses.
+     * That public access is not permitted if the security group assigned to the DB cluster doesn't permit it.
+     * </p>
+     * <p>
+     * When the DB cluster isn't publicly accessible, it is an internal DB cluster with a DNS name that resolves to a
+     * private IP address.
+     * </p>
+     * <p>
+     * Default: The default behavior varies depending on whether <code>DBSubnetGroupName</code> is specified.
+     * </p>
+     * <p>
+     * If <code>DBSubnetGroupName</code> isn't specified, and <code>PubliclyAccessible</code> isn't specified, the
+     * following applies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the default VPC in the target Region doesn’t have an internet gateway attached to it, the DB cluster is
+     * private.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the default VPC in the target Region has an internet gateway attached to it, the DB cluster is public.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If <code>DBSubnetGroupName</code> is specified, and <code>PubliclyAccessible</code> isn't specified, the
+     * following applies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the subnets are part of a VPC that doesn’t have an internet gateway attached to it, the DB cluster is private.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the subnets are part of a VPC that has an internet gateway attached to it, the DB cluster is public.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * 
+     * @return Specifies whether the DB cluster is publicly accessible.</p>
+     *         <p>
+     *         When the DB cluster is publicly accessible, its Domain Name System (DNS) endpoint resolves to the private
+     *         IP address from within the DB cluster's virtual private cloud (VPC). It resolves to the public IP address
+     *         from outside of the DB cluster's VPC. Access to the DB cluster is ultimately controlled by the security
+     *         group it uses. That public access is not permitted if the security group assigned to the DB cluster
+     *         doesn't permit it.
+     *         </p>
+     *         <p>
+     *         When the DB cluster isn't publicly accessible, it is an internal DB cluster with a DNS name that resolves
+     *         to a private IP address.
+     *         </p>
+     *         <p>
+     *         Default: The default behavior varies depending on whether <code>DBSubnetGroupName</code> is specified.
+     *         </p>
+     *         <p>
+     *         If <code>DBSubnetGroupName</code> isn't specified, and <code>PubliclyAccessible</code> isn't specified,
+     *         the following applies:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If the default VPC in the target Region doesn’t have an internet gateway attached to it, the DB cluster
+     *         is private.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If the default VPC in the target Region has an internet gateway attached to it, the DB cluster is public.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         If <code>DBSubnetGroupName</code> is specified, and <code>PubliclyAccessible</code> isn't specified, the
+     *         following applies:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If the subnets are part of a VPC that doesn’t have an internet gateway attached to it, the DB cluster is
+     *         private.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If the subnets are part of a VPC that has an internet gateway attached to it, the DB cluster is public.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Valid for: Aurora DB clusters and Multi-AZ DB clusters
+     */
+
+    public Boolean isPubliclyAccessible() {
+        return this.publiclyAccessible;
+    }
+
+    /**
+     * @param serverlessV2ScalingConfiguration
+     */
+
+    public void setServerlessV2ScalingConfiguration(ServerlessV2ScalingConfiguration serverlessV2ScalingConfiguration) {
+        this.serverlessV2ScalingConfiguration = serverlessV2ScalingConfiguration;
+    }
+
+    /**
+     * @return
+     */
+
+    public ServerlessV2ScalingConfiguration getServerlessV2ScalingConfiguration() {
+        return this.serverlessV2ScalingConfiguration;
+    }
+
+    /**
+     * @param serverlessV2ScalingConfiguration
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withServerlessV2ScalingConfiguration(ServerlessV2ScalingConfiguration serverlessV2ScalingConfiguration) {
+        setServerlessV2ScalingConfiguration(serverlessV2ScalingConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The network type of the DB cluster.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The network type is determined by the <code>DBSubnetGroup</code> specified for the DB cluster. A
+     * <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     * Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @param networkType
+     *        The network type of the DB cluster.</p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>IPV4</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DUAL</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The network type is determined by the <code>DBSubnetGroup</code> specified for the DB cluster. A
+     *        <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     *        <code>DUAL</code>).
+     *        </p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *        Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i>
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
+     */
+
+    public void setNetworkType(String networkType) {
+        this.networkType = networkType;
+    }
+
+    /**
+     * <p>
+     * The network type of the DB cluster.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The network type is determined by the <code>DBSubnetGroup</code> specified for the DB cluster. A
+     * <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     * Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @return The network type of the DB cluster.</p>
+     *         <p>
+     *         Valid Values:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>IPV4</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DUAL</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         The network type is determined by the <code>DBSubnetGroup</code> specified for the DB cluster. A
+     *         <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     *         <code>DUAL</code>).
+     *         </p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"
+     *         > Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i>
+     *         </p>
+     *         <p>
+     *         Valid for: Aurora DB clusters only
+     */
+
+    public String getNetworkType() {
+        return this.networkType;
+    }
+
+    /**
+     * <p>
+     * The network type of the DB cluster.
+     * </p>
+     * <p>
+     * Valid Values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * The network type is determined by the <code>DBSubnetGroup</code> specified for the DB cluster. A
+     * <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     * Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i>
+     * </p>
+     * <p>
+     * Valid for: Aurora DB clusters only
+     * </p>
+     * 
+     * @param networkType
+     *        The network type of the DB cluster.</p>
+     *        <p>
+     *        Valid Values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>IPV4</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DUAL</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        The network type is determined by the <code>DBSubnetGroup</code> specified for the DB cluster. A
+     *        <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     *        <code>DUAL</code>).
+     *        </p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *        Working with a DB instance in a VPC</a> in the <i>Amazon Aurora User Guide.</i>
+     *        </p>
+     *        <p>
+     *        Valid for: Aurora DB clusters only
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withNetworkType(String networkType) {
+        setNetworkType(networkType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @param rdsCustomClusterConfiguration
+     *        Reserved for future use.
+     */
+
+    public void setRdsCustomClusterConfiguration(RdsCustomClusterConfiguration rdsCustomClusterConfiguration) {
+        this.rdsCustomClusterConfiguration = rdsCustomClusterConfiguration;
+    }
+
+    /**
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @return Reserved for future use.
+     */
+
+    public RdsCustomClusterConfiguration getRdsCustomClusterConfiguration() {
+        return this.rdsCustomClusterConfiguration;
+    }
+
+    /**
+     * <p>
+     * Reserved for future use.
+     * </p>
+     * 
+     * @param rdsCustomClusterConfiguration
+     *        Reserved for future use.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withRdsCustomClusterConfiguration(RdsCustomClusterConfiguration rdsCustomClusterConfiguration) {
+        setRdsCustomClusterConfiguration(rdsCustomClusterConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The life cycle type for this DB cluster.
+     * </p>
+     * <note>
+     * <p>
+     * By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB cluster
+     * into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by
+     * setting the value to <code>open-source-rds-extended-support-disabled</code>. In this case, RDS automatically
+     * upgrades your restored DB cluster to a higher engine version, if the major engine version is past its end of
+     * standard support date.
+     * </p>
+     * </note>
+     * <p>
+     * You can use this setting to enroll your DB cluster into Amazon RDS Extended Support. With RDS Extended Support,
+     * you can run the selected major engine version on your DB cluster past the end of standard support for that engine
+     * version. For more information, see the following sections:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Aurora (PostgreSQL only) - <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/extended-support.html">Using Amazon RDS
+     * Extended Support</a> in the <i>Amazon Aurora User Guide</i>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon RDS - <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon
+     * RDS Extended Support</a> in the <i>Amazon RDS User Guide</i>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     * </p>
+     * <p>
+     * Default: <code>open-source-rds-extended-support</code>
+     * </p>
+     * 
+     * @param engineLifecycleSupport
+     *        The life cycle type for this DB cluster.</p> <note>
+     *        <p>
+     *        By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB
+     *        cluster into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for
+     *        Extended Support by setting the value to <code>open-source-rds-extended-support-disabled</code>. In this
+     *        case, RDS automatically upgrades your restored DB cluster to a higher engine version, if the major engine
+     *        version is past its end of standard support date.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        You can use this setting to enroll your DB cluster into Amazon RDS Extended Support. With RDS Extended
+     *        Support, you can run the selected major engine version on your DB cluster past the end of standard support
+     *        for that engine version. For more information, see the following sections:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Amazon Aurora (PostgreSQL only) - <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/extended-support.html">Using Amazon RDS
+     *        Extended Support</a> in the <i>Amazon Aurora User Guide</i>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon RDS - <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using
+     *        Amazon RDS Extended Support</a> in the <i>Amazon RDS User Guide</i>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
+     *        Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     *        </p>
+     *        <p>
+     *        Default: <code>open-source-rds-extended-support</code>
+     */
+
+    public void setEngineLifecycleSupport(String engineLifecycleSupport) {
+        this.engineLifecycleSupport = engineLifecycleSupport;
+    }
+
+    /**
+     * <p>
+     * The life cycle type for this DB cluster.
+     * </p>
+     * <note>
+     * <p>
+     * By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB cluster
+     * into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by
+     * setting the value to <code>open-source-rds-extended-support-disabled</code>. In this case, RDS automatically
+     * upgrades your restored DB cluster to a higher engine version, if the major engine version is past its end of
+     * standard support date.
+     * </p>
+     * </note>
+     * <p>
+     * You can use this setting to enroll your DB cluster into Amazon RDS Extended Support. With RDS Extended Support,
+     * you can run the selected major engine version on your DB cluster past the end of standard support for that engine
+     * version. For more information, see the following sections:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Aurora (PostgreSQL only) - <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/extended-support.html">Using Amazon RDS
+     * Extended Support</a> in the <i>Amazon Aurora User Guide</i>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon RDS - <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon
+     * RDS Extended Support</a> in the <i>Amazon RDS User Guide</i>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     * </p>
+     * <p>
+     * Default: <code>open-source-rds-extended-support</code>
+     * </p>
+     * 
+     * @return The life cycle type for this DB cluster.</p> <note>
+     *         <p>
+     *         By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB
+     *         cluster into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for
+     *         Extended Support by setting the value to <code>open-source-rds-extended-support-disabled</code>. In this
+     *         case, RDS automatically upgrades your restored DB cluster to a higher engine version, if the major engine
+     *         version is past its end of standard support date.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         You can use this setting to enroll your DB cluster into Amazon RDS Extended Support. With RDS Extended
+     *         Support, you can run the selected major engine version on your DB cluster past the end of standard
+     *         support for that engine version. For more information, see the following sections:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Amazon Aurora (PostgreSQL only) - <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/extended-support.html">Using Amazon
+     *         RDS Extended Support</a> in the <i>Amazon Aurora User Guide</i>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon RDS - <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using
+     *         Amazon RDS Extended Support</a> in the <i>Amazon RDS User Guide</i>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *         </p>
+     *         <p>
+     *         Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     *         </p>
+     *         <p>
+     *         Default: <code>open-source-rds-extended-support</code>
+     */
+
+    public String getEngineLifecycleSupport() {
+        return this.engineLifecycleSupport;
+    }
+
+    /**
+     * <p>
+     * The life cycle type for this DB cluster.
+     * </p>
+     * <note>
+     * <p>
+     * By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB cluster
+     * into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for Extended Support by
+     * setting the value to <code>open-source-rds-extended-support-disabled</code>. In this case, RDS automatically
+     * upgrades your restored DB cluster to a higher engine version, if the major engine version is past its end of
+     * standard support date.
+     * </p>
+     * </note>
+     * <p>
+     * You can use this setting to enroll your DB cluster into Amazon RDS Extended Support. With RDS Extended Support,
+     * you can run the selected major engine version on your DB cluster past the end of standard support for that engine
+     * version. For more information, see the following sections:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Amazon Aurora (PostgreSQL only) - <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/extended-support.html">Using Amazon RDS
+     * Extended Support</a> in the <i>Amazon Aurora User Guide</i>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon RDS - <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using Amazon
+     * RDS Extended Support</a> in the <i>Amazon RDS User Guide</i>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     * </p>
+     * <p>
+     * Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     * </p>
+     * <p>
+     * Default: <code>open-source-rds-extended-support</code>
+     * </p>
+     * 
+     * @param engineLifecycleSupport
+     *        The life cycle type for this DB cluster.</p> <note>
+     *        <p>
+     *        By default, this value is set to <code>open-source-rds-extended-support</code>, which enrolls your DB
+     *        cluster into Amazon RDS Extended Support. At the end of standard support, you can avoid charges for
+     *        Extended Support by setting the value to <code>open-source-rds-extended-support-disabled</code>. In this
+     *        case, RDS automatically upgrades your restored DB cluster to a higher engine version, if the major engine
+     *        version is past its end of standard support date.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        You can use this setting to enroll your DB cluster into Amazon RDS Extended Support. With RDS Extended
+     *        Support, you can run the selected major engine version on your DB cluster past the end of standard support
+     *        for that engine version. For more information, see the following sections:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Amazon Aurora (PostgreSQL only) - <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/extended-support.html">Using Amazon RDS
+     *        Extended Support</a> in the <i>Amazon Aurora User Guide</i>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon RDS - <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html">Using
+     *        Amazon RDS Extended Support</a> in the <i>Amazon RDS User Guide</i>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+     *        </p>
+     *        <p>
+     *        Valid Values: <code>open-source-rds-extended-support | open-source-rds-extended-support-disabled</code>
+     *        </p>
+     *        <p>
+     *        Default: <code>open-source-rds-extended-support</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withEngineLifecycleSupport(String engineLifecycleSupport) {
+        setEngineLifecycleSupport(engineLifecycleSupport);
+        return this;
     }
 
     /**
@@ -2032,7 +4905,27 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
         if (getDeletionProtection() != null)
             sb.append("DeletionProtection: ").append(getDeletionProtection()).append(",");
         if (getCopyTagsToSnapshot() != null)
-            sb.append("CopyTagsToSnapshot: ").append(getCopyTagsToSnapshot());
+            sb.append("CopyTagsToSnapshot: ").append(getCopyTagsToSnapshot()).append(",");
+        if (getDomain() != null)
+            sb.append("Domain: ").append(getDomain()).append(",");
+        if (getDomainIAMRoleName() != null)
+            sb.append("DomainIAMRoleName: ").append(getDomainIAMRoleName()).append(",");
+        if (getDBClusterInstanceClass() != null)
+            sb.append("DBClusterInstanceClass: ").append(getDBClusterInstanceClass()).append(",");
+        if (getStorageType() != null)
+            sb.append("StorageType: ").append(getStorageType()).append(",");
+        if (getIops() != null)
+            sb.append("Iops: ").append(getIops()).append(",");
+        if (getPubliclyAccessible() != null)
+            sb.append("PubliclyAccessible: ").append(getPubliclyAccessible()).append(",");
+        if (getServerlessV2ScalingConfiguration() != null)
+            sb.append("ServerlessV2ScalingConfiguration: ").append(getServerlessV2ScalingConfiguration()).append(",");
+        if (getNetworkType() != null)
+            sb.append("NetworkType: ").append(getNetworkType()).append(",");
+        if (getRdsCustomClusterConfiguration() != null)
+            sb.append("RdsCustomClusterConfiguration: ").append(getRdsCustomClusterConfiguration()).append(",");
+        if (getEngineLifecycleSupport() != null)
+            sb.append("EngineLifecycleSupport: ").append(getEngineLifecycleSupport());
         sb.append("}");
         return sb.toString();
     }
@@ -2128,6 +5021,48 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
             return false;
         if (other.getCopyTagsToSnapshot() != null && other.getCopyTagsToSnapshot().equals(this.getCopyTagsToSnapshot()) == false)
             return false;
+        if (other.getDomain() == null ^ this.getDomain() == null)
+            return false;
+        if (other.getDomain() != null && other.getDomain().equals(this.getDomain()) == false)
+            return false;
+        if (other.getDomainIAMRoleName() == null ^ this.getDomainIAMRoleName() == null)
+            return false;
+        if (other.getDomainIAMRoleName() != null && other.getDomainIAMRoleName().equals(this.getDomainIAMRoleName()) == false)
+            return false;
+        if (other.getDBClusterInstanceClass() == null ^ this.getDBClusterInstanceClass() == null)
+            return false;
+        if (other.getDBClusterInstanceClass() != null && other.getDBClusterInstanceClass().equals(this.getDBClusterInstanceClass()) == false)
+            return false;
+        if (other.getStorageType() == null ^ this.getStorageType() == null)
+            return false;
+        if (other.getStorageType() != null && other.getStorageType().equals(this.getStorageType()) == false)
+            return false;
+        if (other.getIops() == null ^ this.getIops() == null)
+            return false;
+        if (other.getIops() != null && other.getIops().equals(this.getIops()) == false)
+            return false;
+        if (other.getPubliclyAccessible() == null ^ this.getPubliclyAccessible() == null)
+            return false;
+        if (other.getPubliclyAccessible() != null && other.getPubliclyAccessible().equals(this.getPubliclyAccessible()) == false)
+            return false;
+        if (other.getServerlessV2ScalingConfiguration() == null ^ this.getServerlessV2ScalingConfiguration() == null)
+            return false;
+        if (other.getServerlessV2ScalingConfiguration() != null
+                && other.getServerlessV2ScalingConfiguration().equals(this.getServerlessV2ScalingConfiguration()) == false)
+            return false;
+        if (other.getNetworkType() == null ^ this.getNetworkType() == null)
+            return false;
+        if (other.getNetworkType() != null && other.getNetworkType().equals(this.getNetworkType()) == false)
+            return false;
+        if (other.getRdsCustomClusterConfiguration() == null ^ this.getRdsCustomClusterConfiguration() == null)
+            return false;
+        if (other.getRdsCustomClusterConfiguration() != null
+                && other.getRdsCustomClusterConfiguration().equals(this.getRdsCustomClusterConfiguration()) == false)
+            return false;
+        if (other.getEngineLifecycleSupport() == null ^ this.getEngineLifecycleSupport() == null)
+            return false;
+        if (other.getEngineLifecycleSupport() != null && other.getEngineLifecycleSupport().equals(this.getEngineLifecycleSupport()) == false)
+            return false;
         return true;
     }
 
@@ -2156,6 +5091,16 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
         hashCode = prime * hashCode + ((getDBClusterParameterGroupName() == null) ? 0 : getDBClusterParameterGroupName().hashCode());
         hashCode = prime * hashCode + ((getDeletionProtection() == null) ? 0 : getDeletionProtection().hashCode());
         hashCode = prime * hashCode + ((getCopyTagsToSnapshot() == null) ? 0 : getCopyTagsToSnapshot().hashCode());
+        hashCode = prime * hashCode + ((getDomain() == null) ? 0 : getDomain().hashCode());
+        hashCode = prime * hashCode + ((getDomainIAMRoleName() == null) ? 0 : getDomainIAMRoleName().hashCode());
+        hashCode = prime * hashCode + ((getDBClusterInstanceClass() == null) ? 0 : getDBClusterInstanceClass().hashCode());
+        hashCode = prime * hashCode + ((getStorageType() == null) ? 0 : getStorageType().hashCode());
+        hashCode = prime * hashCode + ((getIops() == null) ? 0 : getIops().hashCode());
+        hashCode = prime * hashCode + ((getPubliclyAccessible() == null) ? 0 : getPubliclyAccessible().hashCode());
+        hashCode = prime * hashCode + ((getServerlessV2ScalingConfiguration() == null) ? 0 : getServerlessV2ScalingConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getNetworkType() == null) ? 0 : getNetworkType().hashCode());
+        hashCode = prime * hashCode + ((getRdsCustomClusterConfiguration() == null) ? 0 : getRdsCustomClusterConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getEngineLifecycleSupport() == null) ? 0 : getEngineLifecycleSupport().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,7 +46,7 @@ public class TargetGroup implements Serializable, Cloneable {
     private String protocol;
     /**
      * <p>
-     * The port on which the targets are listening.
+     * The port on which the targets are listening. This parameter is not used if the target is a Lambda function.
      * </p>
      */
     private Integer port;
@@ -58,7 +58,8 @@ public class TargetGroup implements Serializable, Cloneable {
     private String vpcId;
     /**
      * <p>
-     * The protocol to use to connect with the target.
+     * The protocol to use to connect with the target. The GENEVE, TLS, UDP, and TCP_UDP protocols are not supported for
+     * health checks.
      * </p>
      */
     private String healthCheckProtocol;
@@ -100,30 +101,47 @@ public class TargetGroup implements Serializable, Cloneable {
     private Integer unhealthyThresholdCount;
     /**
      * <p>
-     * The destination for the health check request.
+     * The destination for health checks on the targets.
      * </p>
      */
     private String healthCheckPath;
     /**
      * <p>
-     * The HTTP codes to use when checking for a successful response from a target.
+     * The HTTP or gRPC codes to use when checking for a successful response from a target.
      * </p>
      */
     private Matcher matcher;
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the load balancers that route traffic to this target group.
+     * The Amazon Resource Name (ARN) of the load balancer that routes traffic to this target group. You can use each
+     * target group with only one load balancer.
      * </p>
      */
     private java.util.List<String> loadBalancerArns;
     /**
      * <p>
      * The type of target that you must specify when registering targets with this target group. The possible values are
-     * <code>instance</code> (targets are specified by instance ID) or <code>ip</code> (targets are specified by IP
-     * address).
+     * <code>instance</code> (register targets by instance ID), <code>ip</code> (register targets by IP address),
+     * <code>lambda</code> (register a single Lambda function as a target), or <code>alb</code> (register a single
+     * Application Load Balancer as a target).
      * </p>
      */
     private String targetType;
+    /**
+     * <p>
+     * [HTTP/HTTPS protocol] The protocol version. The possible values are <code>GRPC</code>, <code>HTTP1</code>, and
+     * <code>HTTP2</code>.
+     * </p>
+     */
+    private String protocolVersion;
+    /**
+     * <p>
+     * The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     * <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     * <code>ipv4</code>.
+     * </p>
+     */
+    private String ipAddressType;
 
     /**
      * <p>
@@ -280,11 +298,12 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The port on which the targets are listening.
+     * The port on which the targets are listening. This parameter is not used if the target is a Lambda function.
      * </p>
      * 
      * @param port
-     *        The port on which the targets are listening.
+     *        The port on which the targets are listening. This parameter is not used if the target is a Lambda
+     *        function.
      */
 
     public void setPort(Integer port) {
@@ -293,10 +312,11 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The port on which the targets are listening.
+     * The port on which the targets are listening. This parameter is not used if the target is a Lambda function.
      * </p>
      * 
-     * @return The port on which the targets are listening.
+     * @return The port on which the targets are listening. This parameter is not used if the target is a Lambda
+     *         function.
      */
 
     public Integer getPort() {
@@ -305,11 +325,12 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The port on which the targets are listening.
+     * The port on which the targets are listening. This parameter is not used if the target is a Lambda function.
      * </p>
      * 
      * @param port
-     *        The port on which the targets are listening.
+     *        The port on which the targets are listening. This parameter is not used if the target is a Lambda
+     *        function.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -360,11 +381,13 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The protocol to use to connect with the target.
+     * The protocol to use to connect with the target. The GENEVE, TLS, UDP, and TCP_UDP protocols are not supported for
+     * health checks.
      * </p>
      * 
      * @param healthCheckProtocol
-     *        The protocol to use to connect with the target.
+     *        The protocol to use to connect with the target. The GENEVE, TLS, UDP, and TCP_UDP protocols are not
+     *        supported for health checks.
      * @see ProtocolEnum
      */
 
@@ -374,10 +397,12 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The protocol to use to connect with the target.
+     * The protocol to use to connect with the target. The GENEVE, TLS, UDP, and TCP_UDP protocols are not supported for
+     * health checks.
      * </p>
      * 
-     * @return The protocol to use to connect with the target.
+     * @return The protocol to use to connect with the target. The GENEVE, TLS, UDP, and TCP_UDP protocols are not
+     *         supported for health checks.
      * @see ProtocolEnum
      */
 
@@ -387,11 +412,13 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The protocol to use to connect with the target.
+     * The protocol to use to connect with the target. The GENEVE, TLS, UDP, and TCP_UDP protocols are not supported for
+     * health checks.
      * </p>
      * 
      * @param healthCheckProtocol
-     *        The protocol to use to connect with the target.
+     *        The protocol to use to connect with the target. The GENEVE, TLS, UDP, and TCP_UDP protocols are not
+     *        supported for health checks.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ProtocolEnum
      */
@@ -403,11 +430,13 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The protocol to use to connect with the target.
+     * The protocol to use to connect with the target. The GENEVE, TLS, UDP, and TCP_UDP protocols are not supported for
+     * health checks.
      * </p>
      * 
      * @param healthCheckProtocol
-     *        The protocol to use to connect with the target.
+     *        The protocol to use to connect with the target. The GENEVE, TLS, UDP, and TCP_UDP protocols are not
+     *        supported for health checks.
      * @see ProtocolEnum
      */
 
@@ -417,11 +446,13 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The protocol to use to connect with the target.
+     * The protocol to use to connect with the target. The GENEVE, TLS, UDP, and TCP_UDP protocols are not supported for
+     * health checks.
      * </p>
      * 
      * @param healthCheckProtocol
-     *        The protocol to use to connect with the target.
+     *        The protocol to use to connect with the target. The GENEVE, TLS, UDP, and TCP_UDP protocols are not
+     *        supported for health checks.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ProtocolEnum
      */
@@ -686,11 +717,11 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The destination for the health check request.
+     * The destination for health checks on the targets.
      * </p>
      * 
      * @param healthCheckPath
-     *        The destination for the health check request.
+     *        The destination for health checks on the targets.
      */
 
     public void setHealthCheckPath(String healthCheckPath) {
@@ -699,10 +730,10 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The destination for the health check request.
+     * The destination for health checks on the targets.
      * </p>
      * 
-     * @return The destination for the health check request.
+     * @return The destination for health checks on the targets.
      */
 
     public String getHealthCheckPath() {
@@ -711,11 +742,11 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The destination for the health check request.
+     * The destination for health checks on the targets.
      * </p>
      * 
      * @param healthCheckPath
-     *        The destination for the health check request.
+     *        The destination for health checks on the targets.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -726,11 +757,11 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The HTTP codes to use when checking for a successful response from a target.
+     * The HTTP or gRPC codes to use when checking for a successful response from a target.
      * </p>
      * 
      * @param matcher
-     *        The HTTP codes to use when checking for a successful response from a target.
+     *        The HTTP or gRPC codes to use when checking for a successful response from a target.
      */
 
     public void setMatcher(Matcher matcher) {
@@ -739,10 +770,10 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The HTTP codes to use when checking for a successful response from a target.
+     * The HTTP or gRPC codes to use when checking for a successful response from a target.
      * </p>
      * 
-     * @return The HTTP codes to use when checking for a successful response from a target.
+     * @return The HTTP or gRPC codes to use when checking for a successful response from a target.
      */
 
     public Matcher getMatcher() {
@@ -751,11 +782,11 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The HTTP codes to use when checking for a successful response from a target.
+     * The HTTP or gRPC codes to use when checking for a successful response from a target.
      * </p>
      * 
      * @param matcher
-     *        The HTTP codes to use when checking for a successful response from a target.
+     *        The HTTP or gRPC codes to use when checking for a successful response from a target.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -766,10 +797,12 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the load balancers that route traffic to this target group.
+     * The Amazon Resource Name (ARN) of the load balancer that routes traffic to this target group. You can use each
+     * target group with only one load balancer.
      * </p>
      * 
-     * @return The Amazon Resource Names (ARN) of the load balancers that route traffic to this target group.
+     * @return The Amazon Resource Name (ARN) of the load balancer that routes traffic to this target group. You can use
+     *         each target group with only one load balancer.
      */
 
     public java.util.List<String> getLoadBalancerArns() {
@@ -778,11 +811,13 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the load balancers that route traffic to this target group.
+     * The Amazon Resource Name (ARN) of the load balancer that routes traffic to this target group. You can use each
+     * target group with only one load balancer.
      * </p>
      * 
      * @param loadBalancerArns
-     *        The Amazon Resource Names (ARN) of the load balancers that route traffic to this target group.
+     *        The Amazon Resource Name (ARN) of the load balancer that routes traffic to this target group. You can use
+     *        each target group with only one load balancer.
      */
 
     public void setLoadBalancerArns(java.util.Collection<String> loadBalancerArns) {
@@ -796,7 +831,8 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the load balancers that route traffic to this target group.
+     * The Amazon Resource Name (ARN) of the load balancer that routes traffic to this target group. You can use each
+     * target group with only one load balancer.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -805,7 +841,8 @@ public class TargetGroup implements Serializable, Cloneable {
      * </p>
      * 
      * @param loadBalancerArns
-     *        The Amazon Resource Names (ARN) of the load balancers that route traffic to this target group.
+     *        The Amazon Resource Name (ARN) of the load balancer that routes traffic to this target group. You can use
+     *        each target group with only one load balancer.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -821,11 +858,13 @@ public class TargetGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Names (ARN) of the load balancers that route traffic to this target group.
+     * The Amazon Resource Name (ARN) of the load balancer that routes traffic to this target group. You can use each
+     * target group with only one load balancer.
      * </p>
      * 
      * @param loadBalancerArns
-     *        The Amazon Resource Names (ARN) of the load balancers that route traffic to this target group.
+     *        The Amazon Resource Name (ARN) of the load balancer that routes traffic to this target group. You can use
+     *        each target group with only one load balancer.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -837,14 +876,16 @@ public class TargetGroup implements Serializable, Cloneable {
     /**
      * <p>
      * The type of target that you must specify when registering targets with this target group. The possible values are
-     * <code>instance</code> (targets are specified by instance ID) or <code>ip</code> (targets are specified by IP
-     * address).
+     * <code>instance</code> (register targets by instance ID), <code>ip</code> (register targets by IP address),
+     * <code>lambda</code> (register a single Lambda function as a target), or <code>alb</code> (register a single
+     * Application Load Balancer as a target).
      * </p>
      * 
      * @param targetType
      *        The type of target that you must specify when registering targets with this target group. The possible
-     *        values are <code>instance</code> (targets are specified by instance ID) or <code>ip</code> (targets are
-     *        specified by IP address).
+     *        values are <code>instance</code> (register targets by instance ID), <code>ip</code> (register targets by
+     *        IP address), <code>lambda</code> (register a single Lambda function as a target), or <code>alb</code>
+     *        (register a single Application Load Balancer as a target).
      * @see TargetTypeEnum
      */
 
@@ -855,13 +896,15 @@ public class TargetGroup implements Serializable, Cloneable {
     /**
      * <p>
      * The type of target that you must specify when registering targets with this target group. The possible values are
-     * <code>instance</code> (targets are specified by instance ID) or <code>ip</code> (targets are specified by IP
-     * address).
+     * <code>instance</code> (register targets by instance ID), <code>ip</code> (register targets by IP address),
+     * <code>lambda</code> (register a single Lambda function as a target), or <code>alb</code> (register a single
+     * Application Load Balancer as a target).
      * </p>
      * 
      * @return The type of target that you must specify when registering targets with this target group. The possible
-     *         values are <code>instance</code> (targets are specified by instance ID) or <code>ip</code> (targets are
-     *         specified by IP address).
+     *         values are <code>instance</code> (register targets by instance ID), <code>ip</code> (register targets by
+     *         IP address), <code>lambda</code> (register a single Lambda function as a target), or <code>alb</code>
+     *         (register a single Application Load Balancer as a target).
      * @see TargetTypeEnum
      */
 
@@ -872,14 +915,16 @@ public class TargetGroup implements Serializable, Cloneable {
     /**
      * <p>
      * The type of target that you must specify when registering targets with this target group. The possible values are
-     * <code>instance</code> (targets are specified by instance ID) or <code>ip</code> (targets are specified by IP
-     * address).
+     * <code>instance</code> (register targets by instance ID), <code>ip</code> (register targets by IP address),
+     * <code>lambda</code> (register a single Lambda function as a target), or <code>alb</code> (register a single
+     * Application Load Balancer as a target).
      * </p>
      * 
      * @param targetType
      *        The type of target that you must specify when registering targets with this target group. The possible
-     *        values are <code>instance</code> (targets are specified by instance ID) or <code>ip</code> (targets are
-     *        specified by IP address).
+     *        values are <code>instance</code> (register targets by instance ID), <code>ip</code> (register targets by
+     *        IP address), <code>lambda</code> (register a single Lambda function as a target), or <code>alb</code>
+     *        (register a single Application Load Balancer as a target).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TargetTypeEnum
      */
@@ -892,14 +937,16 @@ public class TargetGroup implements Serializable, Cloneable {
     /**
      * <p>
      * The type of target that you must specify when registering targets with this target group. The possible values are
-     * <code>instance</code> (targets are specified by instance ID) or <code>ip</code> (targets are specified by IP
-     * address).
+     * <code>instance</code> (register targets by instance ID), <code>ip</code> (register targets by IP address),
+     * <code>lambda</code> (register a single Lambda function as a target), or <code>alb</code> (register a single
+     * Application Load Balancer as a target).
      * </p>
      * 
      * @param targetType
      *        The type of target that you must specify when registering targets with this target group. The possible
-     *        values are <code>instance</code> (targets are specified by instance ID) or <code>ip</code> (targets are
-     *        specified by IP address).
+     *        values are <code>instance</code> (register targets by instance ID), <code>ip</code> (register targets by
+     *        IP address), <code>lambda</code> (register a single Lambda function as a target), or <code>alb</code>
+     *        (register a single Application Load Balancer as a target).
      * @see TargetTypeEnum
      */
 
@@ -910,20 +957,161 @@ public class TargetGroup implements Serializable, Cloneable {
     /**
      * <p>
      * The type of target that you must specify when registering targets with this target group. The possible values are
-     * <code>instance</code> (targets are specified by instance ID) or <code>ip</code> (targets are specified by IP
-     * address).
+     * <code>instance</code> (register targets by instance ID), <code>ip</code> (register targets by IP address),
+     * <code>lambda</code> (register a single Lambda function as a target), or <code>alb</code> (register a single
+     * Application Load Balancer as a target).
      * </p>
      * 
      * @param targetType
      *        The type of target that you must specify when registering targets with this target group. The possible
-     *        values are <code>instance</code> (targets are specified by instance ID) or <code>ip</code> (targets are
-     *        specified by IP address).
+     *        values are <code>instance</code> (register targets by instance ID), <code>ip</code> (register targets by
+     *        IP address), <code>lambda</code> (register a single Lambda function as a target), or <code>alb</code>
+     *        (register a single Application Load Balancer as a target).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TargetTypeEnum
      */
 
     public TargetGroup withTargetType(TargetTypeEnum targetType) {
         this.targetType = targetType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * [HTTP/HTTPS protocol] The protocol version. The possible values are <code>GRPC</code>, <code>HTTP1</code>, and
+     * <code>HTTP2</code>.
+     * </p>
+     * 
+     * @param protocolVersion
+     *        [HTTP/HTTPS protocol] The protocol version. The possible values are <code>GRPC</code>, <code>HTTP1</code>,
+     *        and <code>HTTP2</code>.
+     */
+
+    public void setProtocolVersion(String protocolVersion) {
+        this.protocolVersion = protocolVersion;
+    }
+
+    /**
+     * <p>
+     * [HTTP/HTTPS protocol] The protocol version. The possible values are <code>GRPC</code>, <code>HTTP1</code>, and
+     * <code>HTTP2</code>.
+     * </p>
+     * 
+     * @return [HTTP/HTTPS protocol] The protocol version. The possible values are <code>GRPC</code>, <code>HTTP1</code>
+     *         , and <code>HTTP2</code>.
+     */
+
+    public String getProtocolVersion() {
+        return this.protocolVersion;
+    }
+
+    /**
+     * <p>
+     * [HTTP/HTTPS protocol] The protocol version. The possible values are <code>GRPC</code>, <code>HTTP1</code>, and
+     * <code>HTTP2</code>.
+     * </p>
+     * 
+     * @param protocolVersion
+     *        [HTTP/HTTPS protocol] The protocol version. The possible values are <code>GRPC</code>, <code>HTTP1</code>,
+     *        and <code>HTTP2</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TargetGroup withProtocolVersion(String protocolVersion) {
+        setProtocolVersion(protocolVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     * <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     * <code>ipv4</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     *        <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     *        <code>ipv4</code>.
+     * @see TargetGroupIpAddressTypeEnum
+     */
+
+    public void setIpAddressType(String ipAddressType) {
+        this.ipAddressType = ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     * <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     * <code>ipv4</code>.
+     * </p>
+     * 
+     * @return The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     *         <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     *         <code>ipv4</code>.
+     * @see TargetGroupIpAddressTypeEnum
+     */
+
+    public String getIpAddressType() {
+        return this.ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     * <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     * <code>ipv4</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     *        <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     *        <code>ipv4</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TargetGroupIpAddressTypeEnum
+     */
+
+    public TargetGroup withIpAddressType(String ipAddressType) {
+        setIpAddressType(ipAddressType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     * <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     * <code>ipv4</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     *        <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     *        <code>ipv4</code>.
+     * @see TargetGroupIpAddressTypeEnum
+     */
+
+    public void setIpAddressType(TargetGroupIpAddressTypeEnum ipAddressType) {
+        withIpAddressType(ipAddressType);
+    }
+
+    /**
+     * <p>
+     * The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     * <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     * <code>ipv4</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The type of IP address used for this target group. The possible values are <code>ipv4</code> and
+     *        <code>ipv6</code>. This is an optional parameter. If not specified, the IP address type defaults to
+     *        <code>ipv4</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see TargetGroupIpAddressTypeEnum
+     */
+
+    public TargetGroup withIpAddressType(TargetGroupIpAddressTypeEnum ipAddressType) {
+        this.ipAddressType = ipAddressType.toString();
         return this;
     }
 
@@ -970,7 +1158,11 @@ public class TargetGroup implements Serializable, Cloneable {
         if (getLoadBalancerArns() != null)
             sb.append("LoadBalancerArns: ").append(getLoadBalancerArns()).append(",");
         if (getTargetType() != null)
-            sb.append("TargetType: ").append(getTargetType());
+            sb.append("TargetType: ").append(getTargetType()).append(",");
+        if (getProtocolVersion() != null)
+            sb.append("ProtocolVersion: ").append(getProtocolVersion()).append(",");
+        if (getIpAddressType() != null)
+            sb.append("IpAddressType: ").append(getIpAddressType());
         sb.append("}");
         return sb.toString();
     }
@@ -1049,6 +1241,14 @@ public class TargetGroup implements Serializable, Cloneable {
             return false;
         if (other.getTargetType() != null && other.getTargetType().equals(this.getTargetType()) == false)
             return false;
+        if (other.getProtocolVersion() == null ^ this.getProtocolVersion() == null)
+            return false;
+        if (other.getProtocolVersion() != null && other.getProtocolVersion().equals(this.getProtocolVersion()) == false)
+            return false;
+        if (other.getIpAddressType() == null ^ this.getIpAddressType() == null)
+            return false;
+        if (other.getIpAddressType() != null && other.getIpAddressType().equals(this.getIpAddressType()) == false)
+            return false;
         return true;
     }
 
@@ -1073,6 +1273,8 @@ public class TargetGroup implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getMatcher() == null) ? 0 : getMatcher().hashCode());
         hashCode = prime * hashCode + ((getLoadBalancerArns() == null) ? 0 : getLoadBalancerArns().hashCode());
         hashCode = prime * hashCode + ((getTargetType() == null) ? 0 : getTargetType().hashCode());
+        hashCode = prime * hashCode + ((getProtocolVersion() == null) ? 0 : getProtocolVersion().hashCode());
+        hashCode = prime * hashCode + ((getIpAddressType() == null) ? 0 : getIpAddressType().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,9 @@ public enum APIName {
     LIST_FRAGMENTS("LIST_FRAGMENTS"),
     GET_MEDIA_FOR_FRAGMENT_LIST("GET_MEDIA_FOR_FRAGMENT_LIST"),
     GET_HLS_STREAMING_SESSION_URL("GET_HLS_STREAMING_SESSION_URL"),
-    GET_DASH_STREAMING_SESSION_URL("GET_DASH_STREAMING_SESSION_URL");
+    GET_DASH_STREAMING_SESSION_URL("GET_DASH_STREAMING_SESSION_URL"),
+    GET_CLIP("GET_CLIP"),
+    GET_IMAGES("GET_IMAGES");
 
     private String value;
 

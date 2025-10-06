@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Specifies which files, folders and objects to include or exclude when transferring files from source to destination.
+ * Specifies which files, folders, and objects to include or exclude when transferring files from source to destination.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/datasync-2018-11-09/FilterRule" target="_top">AWS API
@@ -30,7 +30,7 @@ public class FilterRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of filter rule to apply. AWS DataSync only supports the SIMPLE_PATTERN rule type.
+     * The type of filter rule to apply. DataSync only supports the SIMPLE_PATTERN rule type.
      * </p>
      */
     private String filterType;
@@ -46,11 +46,11 @@ public class FilterRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of filter rule to apply. AWS DataSync only supports the SIMPLE_PATTERN rule type.
+     * The type of filter rule to apply. DataSync only supports the SIMPLE_PATTERN rule type.
      * </p>
      * 
      * @param filterType
-     *        The type of filter rule to apply. AWS DataSync only supports the SIMPLE_PATTERN rule type.
+     *        The type of filter rule to apply. DataSync only supports the SIMPLE_PATTERN rule type.
      * @see FilterType
      */
 
@@ -60,10 +60,10 @@ public class FilterRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of filter rule to apply. AWS DataSync only supports the SIMPLE_PATTERN rule type.
+     * The type of filter rule to apply. DataSync only supports the SIMPLE_PATTERN rule type.
      * </p>
      * 
-     * @return The type of filter rule to apply. AWS DataSync only supports the SIMPLE_PATTERN rule type.
+     * @return The type of filter rule to apply. DataSync only supports the SIMPLE_PATTERN rule type.
      * @see FilterType
      */
 
@@ -73,11 +73,11 @@ public class FilterRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of filter rule to apply. AWS DataSync only supports the SIMPLE_PATTERN rule type.
+     * The type of filter rule to apply. DataSync only supports the SIMPLE_PATTERN rule type.
      * </p>
      * 
      * @param filterType
-     *        The type of filter rule to apply. AWS DataSync only supports the SIMPLE_PATTERN rule type.
+     *        The type of filter rule to apply. DataSync only supports the SIMPLE_PATTERN rule type.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FilterType
      */
@@ -89,11 +89,11 @@ public class FilterRule implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The type of filter rule to apply. AWS DataSync only supports the SIMPLE_PATTERN rule type.
+     * The type of filter rule to apply. DataSync only supports the SIMPLE_PATTERN rule type.
      * </p>
      * 
      * @param filterType
-     *        The type of filter rule to apply. AWS DataSync only supports the SIMPLE_PATTERN rule type.
+     *        The type of filter rule to apply. DataSync only supports the SIMPLE_PATTERN rule type.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FilterType
      */

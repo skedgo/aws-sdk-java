@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,12 +30,36 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the domain that you want to transfer to Amazon Route 53.
+     * The name of the domain that you want to transfer to Route 53. The top-level domain (TLD), such as .com, must be a
+     * TLD that Route 53 supports. For a list of supported TLDs, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
+     * Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * <p>
-     * Constraints: The domain name can contain only the letters a through z, the numbers 0 through 9, and hyphen (-).
-     * Internationalized Domain Names are not supported.
+     * The domain name can contain only the following characters:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Letters a through z. Domain names are not case sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Numbers 0 through 9.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Hyphen (-). You can't specify a hyphen at the beginning or end of a label.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Period (.) to separate the labels in the name, such as the <code>.</code> in <code>example.com</code>.
+     * </p>
+     * </li>
+     * </ul>
      */
     private String domainName;
     /**
@@ -68,7 +92,7 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
     private String authCode;
     /**
      * <p>
-     * Indicates whether the domain will be automatically renewed (true) or not (false). Autorenewal only takes effect
+     * Indicates whether the domain will be automatically renewed (true) or not (false). Auto renewal only takes effect
      * after the account is charged.
      * </p>
      * <p>
@@ -97,10 +121,15 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
-     * ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or
-     * for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>, WHOIS queries return
-     * the information that you entered for the admin contact.
+     * ("who is") queries return contact information for the registrar, the phrase "REDACTED FOR PRIVACY", or
+     * "On behalf of &lt;domain name&gt; owner.".
      * </p>
+     * <note>
+     * <p>
+     * While some domains may allow different privacy settings per contact, we recommend specifying the same privacy
+     * setting for all contacts.
+     * </p>
+     * </note>
      * <p>
      * Default: <code>true</code>
      * </p>
@@ -109,10 +138,15 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
-     * ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or
-     * for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>, WHOIS queries return
-     * the information that you entered for the registrant contact (domain owner).
+     * ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi.
+     * If you specify <code>false</code>, WHOIS queries return the information that you entered for the registrant
+     * contact (domain owner).
      * </p>
+     * <note>
+     * <p>
+     * You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.
+     * </p>
+     * </note>
      * <p>
      * Default: <code>true</code>
      * </p>
@@ -121,30 +155,102 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
-     * ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or
-     * for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>, WHOIS queries return
-     * the information that you entered for the technical contact.
+     * ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi.
+     * If you specify <code>false</code>, WHOIS queries return the information that you entered for the technical
+     * contact.
      * </p>
+     * <note>
+     * <p>
+     * You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.
+     * </p>
+     * </note>
      * <p>
      * Default: <code>true</code>
      * </p>
      */
     private Boolean privacyProtectTechContact;
+    /**
+     * <p>
+     * Provides detailed contact information.
+     * </p>
+     */
+    private ContactDetail billingContact;
+    /**
+     * <p>
+     * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
+     * ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi.
+     * If you specify <code>false</code>, WHOIS queries return the information that you entered for the billing contact.
+     * </p>
+     * <note>
+     * <p>
+     * You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.
+     * </p>
+     * </note>
+     */
+    private Boolean privacyProtectBillingContact;
 
     /**
      * <p>
-     * The name of the domain that you want to transfer to Amazon Route 53.
+     * The name of the domain that you want to transfer to Route 53. The top-level domain (TLD), such as .com, must be a
+     * TLD that Route 53 supports. For a list of supported TLDs, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
+     * Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * <p>
-     * Constraints: The domain name can contain only the letters a through z, the numbers 0 through 9, and hyphen (-).
-     * Internationalized Domain Names are not supported.
+     * The domain name can contain only the following characters:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Letters a through z. Domain names are not case sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Numbers 0 through 9.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Hyphen (-). You can't specify a hyphen at the beginning or end of a label.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Period (.) to separate the labels in the name, such as the <code>.</code> in <code>example.com</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param domainName
-     *        The name of the domain that you want to transfer to Amazon Route 53.</p>
+     *        The name of the domain that you want to transfer to Route 53. The top-level domain (TLD), such as .com,
+     *        must be a TLD that Route 53 supports. For a list of supported TLDs, see <a
+     *        href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You
+     *        Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.</p>
      *        <p>
-     *        Constraints: The domain name can contain only the letters a through z, the numbers 0 through 9, and hyphen
-     *        (-). Internationalized Domain Names are not supported.
+     *        The domain name can contain only the following characters:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Letters a through z. Domain names are not case sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Numbers 0 through 9.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Hyphen (-). You can't specify a hyphen at the beginning or end of a label.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Period (.) to separate the labels in the name, such as the <code>.</code> in <code>example.com</code>.
+     *        </p>
+     *        </li>
      */
 
     public void setDomainName(String domainName) {
@@ -153,17 +259,65 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the domain that you want to transfer to Amazon Route 53.
+     * The name of the domain that you want to transfer to Route 53. The top-level domain (TLD), such as .com, must be a
+     * TLD that Route 53 supports. For a list of supported TLDs, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
+     * Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * <p>
-     * Constraints: The domain name can contain only the letters a through z, the numbers 0 through 9, and hyphen (-).
-     * Internationalized Domain Names are not supported.
+     * The domain name can contain only the following characters:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Letters a through z. Domain names are not case sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Numbers 0 through 9.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Hyphen (-). You can't specify a hyphen at the beginning or end of a label.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Period (.) to separate the labels in the name, such as the <code>.</code> in <code>example.com</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The name of the domain that you want to transfer to Amazon Route 53.</p>
+     * @return The name of the domain that you want to transfer to Route 53. The top-level domain (TLD), such as .com,
+     *         must be a TLD that Route 53 supports. For a list of supported TLDs, see <a
+     *         href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You
+     *         Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.</p>
      *         <p>
-     *         Constraints: The domain name can contain only the letters a through z, the numbers 0 through 9, and
-     *         hyphen (-). Internationalized Domain Names are not supported.
+     *         The domain name can contain only the following characters:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Letters a through z. Domain names are not case sensitive.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Numbers 0 through 9.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Hyphen (-). You can't specify a hyphen at the beginning or end of a label.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Period (.) to separate the labels in the name, such as the <code>.</code> in <code>example.com</code>.
+     *         </p>
+     *         </li>
      */
 
     public String getDomainName() {
@@ -172,18 +326,66 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the domain that you want to transfer to Amazon Route 53.
+     * The name of the domain that you want to transfer to Route 53. The top-level domain (TLD), such as .com, must be a
+     * TLD that Route 53 supports. For a list of supported TLDs, see <a
+     * href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You Can
+     * Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.
      * </p>
      * <p>
-     * Constraints: The domain name can contain only the letters a through z, the numbers 0 through 9, and hyphen (-).
-     * Internationalized Domain Names are not supported.
+     * The domain name can contain only the following characters:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Letters a through z. Domain names are not case sensitive.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Numbers 0 through 9.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Hyphen (-). You can't specify a hyphen at the beginning or end of a label.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Period (.) to separate the labels in the name, such as the <code>.</code> in <code>example.com</code>.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param domainName
-     *        The name of the domain that you want to transfer to Amazon Route 53.</p>
+     *        The name of the domain that you want to transfer to Route 53. The top-level domain (TLD), such as .com,
+     *        must be a TLD that Route 53 supports. For a list of supported TLDs, see <a
+     *        href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html">Domains that You
+     *        Can Register with Amazon Route 53</a> in the <i>Amazon Route 53 Developer Guide</i>.</p>
      *        <p>
-     *        Constraints: The domain name can contain only the letters a through z, the numbers 0 through 9, and hyphen
-     *        (-). Internationalized Domain Names are not supported.
+     *        The domain name can contain only the following characters:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Letters a through z. Domain names are not case sensitive.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Numbers 0 through 9.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Hyphen (-). You can't specify a hyphen at the beginning or end of a label.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Period (.) to separate the labels in the name, such as the <code>.</code> in <code>example.com</code>.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -408,7 +610,7 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Indicates whether the domain will be automatically renewed (true) or not (false). Autorenewal only takes effect
+     * Indicates whether the domain will be automatically renewed (true) or not (false). Auto renewal only takes effect
      * after the account is charged.
      * </p>
      * <p>
@@ -416,7 +618,7 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      * 
      * @param autoRenew
-     *        Indicates whether the domain will be automatically renewed (true) or not (false). Autorenewal only takes
+     *        Indicates whether the domain will be automatically renewed (true) or not (false). Auto renewal only takes
      *        effect after the account is charged.</p>
      *        <p>
      *        Default: true
@@ -428,14 +630,14 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Indicates whether the domain will be automatically renewed (true) or not (false). Autorenewal only takes effect
+     * Indicates whether the domain will be automatically renewed (true) or not (false). Auto renewal only takes effect
      * after the account is charged.
      * </p>
      * <p>
      * Default: true
      * </p>
      * 
-     * @return Indicates whether the domain will be automatically renewed (true) or not (false). Autorenewal only takes
+     * @return Indicates whether the domain will be automatically renewed (true) or not (false). Auto renewal only takes
      *         effect after the account is charged.</p>
      *         <p>
      *         Default: true
@@ -447,7 +649,7 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Indicates whether the domain will be automatically renewed (true) or not (false). Autorenewal only takes effect
+     * Indicates whether the domain will be automatically renewed (true) or not (false). Auto renewal only takes effect
      * after the account is charged.
      * </p>
      * <p>
@@ -455,7 +657,7 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      * 
      * @param autoRenew
-     *        Indicates whether the domain will be automatically renewed (true) or not (false). Autorenewal only takes
+     *        Indicates whether the domain will be automatically renewed (true) or not (false). Auto renewal only takes
      *        effect after the account is charged.</p>
      *        <p>
      *        Default: true
@@ -469,14 +671,14 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Indicates whether the domain will be automatically renewed (true) or not (false). Autorenewal only takes effect
+     * Indicates whether the domain will be automatically renewed (true) or not (false). Auto renewal only takes effect
      * after the account is charged.
      * </p>
      * <p>
      * Default: true
      * </p>
      * 
-     * @return Indicates whether the domain will be automatically renewed (true) or not (false). Autorenewal only takes
+     * @return Indicates whether the domain will be automatically renewed (true) or not (false). Auto renewal only takes
      *         effect after the account is charged.</p>
      *         <p>
      *         Default: true
@@ -609,19 +811,28 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
-     * ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or
-     * for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>, WHOIS queries return
-     * the information that you entered for the admin contact.
+     * ("who is") queries return contact information for the registrar, the phrase "REDACTED FOR PRIVACY", or
+     * "On behalf of &lt;domain name&gt; owner.".
      * </p>
+     * <note>
+     * <p>
+     * While some domains may allow different privacy settings per contact, we recommend specifying the same privacy
+     * setting for all contacts.
+     * </p>
+     * </note>
      * <p>
      * Default: <code>true</code>
      * </p>
      * 
      * @param privacyProtectAdminContact
      *        Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>,
-     *        WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org
-     *        domains) or for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>,
-     *        WHOIS queries return the information that you entered for the admin contact.</p>
+     *        WHOIS ("who is") queries return contact information for the registrar, the phrase "REDACTED FOR PRIVACY",
+     *        or "On behalf of &lt;domain name&gt; owner.".</p> <note>
+     *        <p>
+     *        While some domains may allow different privacy settings per contact, we recommend specifying the same
+     *        privacy setting for all contacts.
+     *        </p>
+     *        </note>
      *        <p>
      *        Default: <code>true</code>
      */
@@ -633,18 +844,27 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
-     * ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or
-     * for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>, WHOIS queries return
-     * the information that you entered for the admin contact.
+     * ("who is") queries return contact information for the registrar, the phrase "REDACTED FOR PRIVACY", or
+     * "On behalf of &lt;domain name&gt; owner.".
      * </p>
+     * <note>
+     * <p>
+     * While some domains may allow different privacy settings per contact, we recommend specifying the same privacy
+     * setting for all contacts.
+     * </p>
+     * </note>
      * <p>
      * Default: <code>true</code>
      * </p>
      * 
      * @return Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>,
-     *         WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org
-     *         domains) or for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>,
-     *         WHOIS queries return the information that you entered for the admin contact.</p>
+     *         WHOIS ("who is") queries return contact information for the registrar, the phrase "REDACTED FOR PRIVACY",
+     *         or "On behalf of &lt;domain name&gt; owner.".</p> <note>
+     *         <p>
+     *         While some domains may allow different privacy settings per contact, we recommend specifying the same
+     *         privacy setting for all contacts.
+     *         </p>
+     *         </note>
      *         <p>
      *         Default: <code>true</code>
      */
@@ -656,19 +876,28 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
-     * ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or
-     * for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>, WHOIS queries return
-     * the information that you entered for the admin contact.
+     * ("who is") queries return contact information for the registrar, the phrase "REDACTED FOR PRIVACY", or
+     * "On behalf of &lt;domain name&gt; owner.".
      * </p>
+     * <note>
+     * <p>
+     * While some domains may allow different privacy settings per contact, we recommend specifying the same privacy
+     * setting for all contacts.
+     * </p>
+     * </note>
      * <p>
      * Default: <code>true</code>
      * </p>
      * 
      * @param privacyProtectAdminContact
      *        Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>,
-     *        WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org
-     *        domains) or for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>,
-     *        WHOIS queries return the information that you entered for the admin contact.</p>
+     *        WHOIS ("who is") queries return contact information for the registrar, the phrase "REDACTED FOR PRIVACY",
+     *        or "On behalf of &lt;domain name&gt; owner.".</p> <note>
+     *        <p>
+     *        While some domains may allow different privacy settings per contact, we recommend specifying the same
+     *        privacy setting for all contacts.
+     *        </p>
+     *        </note>
      *        <p>
      *        Default: <code>true</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -682,18 +911,27 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
-     * ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or
-     * for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>, WHOIS queries return
-     * the information that you entered for the admin contact.
+     * ("who is") queries return contact information for the registrar, the phrase "REDACTED FOR PRIVACY", or
+     * "On behalf of &lt;domain name&gt; owner.".
      * </p>
+     * <note>
+     * <p>
+     * While some domains may allow different privacy settings per contact, we recommend specifying the same privacy
+     * setting for all contacts.
+     * </p>
+     * </note>
      * <p>
      * Default: <code>true</code>
      * </p>
      * 
      * @return Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>,
-     *         WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org
-     *         domains) or for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>,
-     *         WHOIS queries return the information that you entered for the admin contact.</p>
+     *         WHOIS ("who is") queries return contact information for the registrar, the phrase "REDACTED FOR PRIVACY",
+     *         or "On behalf of &lt;domain name&gt; owner.".</p> <note>
+     *         <p>
+     *         While some domains may allow different privacy settings per contact, we recommend specifying the same
+     *         privacy setting for all contacts.
+     *         </p>
+     *         </note>
      *         <p>
      *         Default: <code>true</code>
      */
@@ -705,19 +943,29 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
-     * ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or
-     * for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>, WHOIS queries return
-     * the information that you entered for the registrant contact (domain owner).
+     * ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi.
+     * If you specify <code>false</code>, WHOIS queries return the information that you entered for the registrant
+     * contact (domain owner).
      * </p>
+     * <note>
+     * <p>
+     * You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.
+     * </p>
+     * </note>
      * <p>
      * Default: <code>true</code>
      * </p>
      * 
      * @param privacyProtectRegistrantContact
      *        Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>,
-     *        WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org
-     *        domains) or for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>,
-     *        WHOIS queries return the information that you entered for the registrant contact (domain owner).</p>
+     *        WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar
+     *        associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you entered
+     *        for the registrant contact (domain owner).</p> <note>
+     *        <p>
+     *        You must specify the same privacy setting for the administrative, billing, registrant, and technical
+     *        contacts.
+     *        </p>
+     *        </note>
      *        <p>
      *        Default: <code>true</code>
      */
@@ -729,18 +977,28 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
-     * ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or
-     * for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>, WHOIS queries return
-     * the information that you entered for the registrant contact (domain owner).
+     * ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi.
+     * If you specify <code>false</code>, WHOIS queries return the information that you entered for the registrant
+     * contact (domain owner).
      * </p>
+     * <note>
+     * <p>
+     * You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.
+     * </p>
+     * </note>
      * <p>
      * Default: <code>true</code>
      * </p>
      * 
      * @return Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>,
-     *         WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org
-     *         domains) or for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>,
-     *         WHOIS queries return the information that you entered for the registrant contact (domain owner).</p>
+     *         WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar
+     *         associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you
+     *         entered for the registrant contact (domain owner).</p> <note>
+     *         <p>
+     *         You must specify the same privacy setting for the administrative, billing, registrant, and technical
+     *         contacts.
+     *         </p>
+     *         </note>
      *         <p>
      *         Default: <code>true</code>
      */
@@ -752,19 +1010,29 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
-     * ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or
-     * for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>, WHOIS queries return
-     * the information that you entered for the registrant contact (domain owner).
+     * ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi.
+     * If you specify <code>false</code>, WHOIS queries return the information that you entered for the registrant
+     * contact (domain owner).
      * </p>
+     * <note>
+     * <p>
+     * You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.
+     * </p>
+     * </note>
      * <p>
      * Default: <code>true</code>
      * </p>
      * 
      * @param privacyProtectRegistrantContact
      *        Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>,
-     *        WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org
-     *        domains) or for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>,
-     *        WHOIS queries return the information that you entered for the registrant contact (domain owner).</p>
+     *        WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar
+     *        associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you entered
+     *        for the registrant contact (domain owner).</p> <note>
+     *        <p>
+     *        You must specify the same privacy setting for the administrative, billing, registrant, and technical
+     *        contacts.
+     *        </p>
+     *        </note>
      *        <p>
      *        Default: <code>true</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -778,18 +1046,28 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
-     * ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or
-     * for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>, WHOIS queries return
-     * the information that you entered for the registrant contact (domain owner).
+     * ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi.
+     * If you specify <code>false</code>, WHOIS queries return the information that you entered for the registrant
+     * contact (domain owner).
      * </p>
+     * <note>
+     * <p>
+     * You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.
+     * </p>
+     * </note>
      * <p>
      * Default: <code>true</code>
      * </p>
      * 
      * @return Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>,
-     *         WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org
-     *         domains) or for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>,
-     *         WHOIS queries return the information that you entered for the registrant contact (domain owner).</p>
+     *         WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar
+     *         associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you
+     *         entered for the registrant contact (domain owner).</p> <note>
+     *         <p>
+     *         You must specify the same privacy setting for the administrative, billing, registrant, and technical
+     *         contacts.
+     *         </p>
+     *         </note>
      *         <p>
      *         Default: <code>true</code>
      */
@@ -801,19 +1079,29 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
-     * ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or
-     * for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>, WHOIS queries return
-     * the information that you entered for the technical contact.
+     * ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi.
+     * If you specify <code>false</code>, WHOIS queries return the information that you entered for the technical
+     * contact.
      * </p>
+     * <note>
+     * <p>
+     * You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.
+     * </p>
+     * </note>
      * <p>
      * Default: <code>true</code>
      * </p>
      * 
      * @param privacyProtectTechContact
      *        Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>,
-     *        WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org
-     *        domains) or for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>,
-     *        WHOIS queries return the information that you entered for the technical contact.</p>
+     *        WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar
+     *        associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you entered
+     *        for the technical contact.</p> <note>
+     *        <p>
+     *        You must specify the same privacy setting for the administrative, billing, registrant, and technical
+     *        contacts.
+     *        </p>
+     *        </note>
      *        <p>
      *        Default: <code>true</code>
      */
@@ -825,18 +1113,28 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
-     * ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or
-     * for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>, WHOIS queries return
-     * the information that you entered for the technical contact.
+     * ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi.
+     * If you specify <code>false</code>, WHOIS queries return the information that you entered for the technical
+     * contact.
      * </p>
+     * <note>
+     * <p>
+     * You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.
+     * </p>
+     * </note>
      * <p>
      * Default: <code>true</code>
      * </p>
      * 
      * @return Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>,
-     *         WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org
-     *         domains) or for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>,
-     *         WHOIS queries return the information that you entered for the technical contact.</p>
+     *         WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar
+     *         associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you
+     *         entered for the technical contact.</p> <note>
+     *         <p>
+     *         You must specify the same privacy setting for the administrative, billing, registrant, and technical
+     *         contacts.
+     *         </p>
+     *         </note>
      *         <p>
      *         Default: <code>true</code>
      */
@@ -848,19 +1146,29 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
-     * ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or
-     * for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>, WHOIS queries return
-     * the information that you entered for the technical contact.
+     * ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi.
+     * If you specify <code>false</code>, WHOIS queries return the information that you entered for the technical
+     * contact.
      * </p>
+     * <note>
+     * <p>
+     * You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.
+     * </p>
+     * </note>
      * <p>
      * Default: <code>true</code>
      * </p>
      * 
      * @param privacyProtectTechContact
      *        Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>,
-     *        WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org
-     *        domains) or for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>,
-     *        WHOIS queries return the information that you entered for the technical contact.</p>
+     *        WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar
+     *        associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you entered
+     *        for the technical contact.</p> <note>
+     *        <p>
+     *        You must specify the same privacy setting for the administrative, billing, registrant, and technical
+     *        contacts.
+     *        </p>
+     *        </note>
      *        <p>
      *        Default: <code>true</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -874,24 +1182,182 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
     /**
      * <p>
      * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
-     * ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org domains) or
-     * for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>, WHOIS queries return
-     * the information that you entered for the technical contact.
+     * ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi.
+     * If you specify <code>false</code>, WHOIS queries return the information that you entered for the technical
+     * contact.
      * </p>
+     * <note>
+     * <p>
+     * You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.
+     * </p>
+     * </note>
      * <p>
      * Default: <code>true</code>
      * </p>
      * 
      * @return Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>,
-     *         WHOIS ("who is") queries return contact information either for Amazon Registrar (for .com, .net, and .org
-     *         domains) or for our registrar associate, Gandi (for all other TLDs). If you specify <code>false</code>,
-     *         WHOIS queries return the information that you entered for the technical contact.</p>
+     *         WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar
+     *         associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you
+     *         entered for the technical contact.</p> <note>
+     *         <p>
+     *         You must specify the same privacy setting for the administrative, billing, registrant, and technical
+     *         contacts.
+     *         </p>
+     *         </note>
      *         <p>
      *         Default: <code>true</code>
      */
 
     public Boolean isPrivacyProtectTechContact() {
         return this.privacyProtectTechContact;
+    }
+
+    /**
+     * <p>
+     * Provides detailed contact information.
+     * </p>
+     * 
+     * @param billingContact
+     *        Provides detailed contact information.
+     */
+
+    public void setBillingContact(ContactDetail billingContact) {
+        this.billingContact = billingContact;
+    }
+
+    /**
+     * <p>
+     * Provides detailed contact information.
+     * </p>
+     * 
+     * @return Provides detailed contact information.
+     */
+
+    public ContactDetail getBillingContact() {
+        return this.billingContact;
+    }
+
+    /**
+     * <p>
+     * Provides detailed contact information.
+     * </p>
+     * 
+     * @param billingContact
+     *        Provides detailed contact information.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TransferDomainRequest withBillingContact(ContactDetail billingContact) {
+        setBillingContact(billingContact);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
+     * ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi.
+     * If you specify <code>false</code>, WHOIS queries return the information that you entered for the billing contact.
+     * </p>
+     * <note>
+     * <p>
+     * You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.
+     * </p>
+     * </note>
+     * 
+     * @param privacyProtectBillingContact
+     *        Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>,
+     *        WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar
+     *        associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you entered
+     *        for the billing contact. </p> <note>
+     *        <p>
+     *        You must specify the same privacy setting for the administrative, billing, registrant, and technical
+     *        contacts.
+     *        </p>
+     */
+
+    public void setPrivacyProtectBillingContact(Boolean privacyProtectBillingContact) {
+        this.privacyProtectBillingContact = privacyProtectBillingContact;
+    }
+
+    /**
+     * <p>
+     * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
+     * ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi.
+     * If you specify <code>false</code>, WHOIS queries return the information that you entered for the billing contact.
+     * </p>
+     * <note>
+     * <p>
+     * You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.
+     * </p>
+     * </note>
+     * 
+     * @return Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>,
+     *         WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar
+     *         associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you
+     *         entered for the billing contact. </p> <note>
+     *         <p>
+     *         You must specify the same privacy setting for the administrative, billing, registrant, and technical
+     *         contacts.
+     *         </p>
+     */
+
+    public Boolean getPrivacyProtectBillingContact() {
+        return this.privacyProtectBillingContact;
+    }
+
+    /**
+     * <p>
+     * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
+     * ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi.
+     * If you specify <code>false</code>, WHOIS queries return the information that you entered for the billing contact.
+     * </p>
+     * <note>
+     * <p>
+     * You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.
+     * </p>
+     * </note>
+     * 
+     * @param privacyProtectBillingContact
+     *        Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>,
+     *        WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar
+     *        associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you entered
+     *        for the billing contact. </p> <note>
+     *        <p>
+     *        You must specify the same privacy setting for the administrative, billing, registrant, and technical
+     *        contacts.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TransferDomainRequest withPrivacyProtectBillingContact(Boolean privacyProtectBillingContact) {
+        setPrivacyProtectBillingContact(privacyProtectBillingContact);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>, WHOIS
+     * ("who is") queries return contact information either for Amazon Registrar or for our registrar associate, Gandi.
+     * If you specify <code>false</code>, WHOIS queries return the information that you entered for the billing contact.
+     * </p>
+     * <note>
+     * <p>
+     * You must specify the same privacy setting for the administrative, billing, registrant, and technical contacts.
+     * </p>
+     * </note>
+     * 
+     * @return Whether you want to conceal contact information from WHOIS queries. If you specify <code>true</code>,
+     *         WHOIS ("who is") queries return contact information either for Amazon Registrar or for our registrar
+     *         associate, Gandi. If you specify <code>false</code>, WHOIS queries return the information that you
+     *         entered for the billing contact. </p> <note>
+     *         <p>
+     *         You must specify the same privacy setting for the administrative, billing, registrant, and technical
+     *         contacts.
+     *         </p>
+     */
+
+    public Boolean isPrivacyProtectBillingContact() {
+        return this.privacyProtectBillingContact;
     }
 
     /**
@@ -929,7 +1395,11 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
         if (getPrivacyProtectRegistrantContact() != null)
             sb.append("PrivacyProtectRegistrantContact: ").append(getPrivacyProtectRegistrantContact()).append(",");
         if (getPrivacyProtectTechContact() != null)
-            sb.append("PrivacyProtectTechContact: ").append(getPrivacyProtectTechContact());
+            sb.append("PrivacyProtectTechContact: ").append(getPrivacyProtectTechContact()).append(",");
+        if (getBillingContact() != null)
+            sb.append("BillingContact: ").append("***Sensitive Data Redacted***").append(",");
+        if (getPrivacyProtectBillingContact() != null)
+            sb.append("PrivacyProtectBillingContact: ").append(getPrivacyProtectBillingContact());
         sb.append("}");
         return sb.toString();
     }
@@ -993,6 +1463,14 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getPrivacyProtectTechContact() != null && other.getPrivacyProtectTechContact().equals(this.getPrivacyProtectTechContact()) == false)
             return false;
+        if (other.getBillingContact() == null ^ this.getBillingContact() == null)
+            return false;
+        if (other.getBillingContact() != null && other.getBillingContact().equals(this.getBillingContact()) == false)
+            return false;
+        if (other.getPrivacyProtectBillingContact() == null ^ this.getPrivacyProtectBillingContact() == null)
+            return false;
+        if (other.getPrivacyProtectBillingContact() != null && other.getPrivacyProtectBillingContact().equals(this.getPrivacyProtectBillingContact()) == false)
+            return false;
         return true;
     }
 
@@ -1013,6 +1491,8 @@ public class TransferDomainRequest extends com.amazonaws.AmazonWebServiceRequest
         hashCode = prime * hashCode + ((getPrivacyProtectAdminContact() == null) ? 0 : getPrivacyProtectAdminContact().hashCode());
         hashCode = prime * hashCode + ((getPrivacyProtectRegistrantContact() == null) ? 0 : getPrivacyProtectRegistrantContact().hashCode());
         hashCode = prime * hashCode + ((getPrivacyProtectTechContact() == null) ? 0 : getPrivacyProtectTechContact().hashCode());
+        hashCode = prime * hashCode + ((getBillingContact() == null) ? 0 : getBillingContact().hashCode());
+        hashCode = prime * hashCode + ((getPrivacyProtectBillingContact() == null) ? 0 : getPrivacyProtectBillingContact().hashCode());
         return hashCode;
     }
 

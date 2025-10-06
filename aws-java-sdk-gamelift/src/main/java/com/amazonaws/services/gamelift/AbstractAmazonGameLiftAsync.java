@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,6 +41,19 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     }
 
     @Override
+    public java.util.concurrent.Future<ClaimGameServerResult> claimGameServerAsync(ClaimGameServerRequest request) {
+
+        return claimGameServerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ClaimGameServerResult> claimGameServerAsync(ClaimGameServerRequest request,
+            com.amazonaws.handlers.AsyncHandler<ClaimGameServerRequest, ClaimGameServerResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateAliasResult> createAliasAsync(CreateAliasRequest request) {
 
         return createAliasAsync(request, null);
@@ -67,6 +80,19 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     }
 
     @Override
+    public java.util.concurrent.Future<CreateContainerGroupDefinitionResult> createContainerGroupDefinitionAsync(CreateContainerGroupDefinitionRequest request) {
+
+        return createContainerGroupDefinitionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateContainerGroupDefinitionResult> createContainerGroupDefinitionAsync(CreateContainerGroupDefinitionRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateContainerGroupDefinitionRequest, CreateContainerGroupDefinitionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateFleetResult> createFleetAsync(CreateFleetRequest request) {
 
         return createFleetAsync(request, null);
@@ -75,6 +101,32 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     @Override
     public java.util.concurrent.Future<CreateFleetResult> createFleetAsync(CreateFleetRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateFleetRequest, CreateFleetResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFleetLocationsResult> createFleetLocationsAsync(CreateFleetLocationsRequest request) {
+
+        return createFleetLocationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFleetLocationsResult> createFleetLocationsAsync(CreateFleetLocationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateFleetLocationsRequest, CreateFleetLocationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateGameServerGroupResult> createGameServerGroupAsync(CreateGameServerGroupRequest request) {
+
+        return createGameServerGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateGameServerGroupResult> createGameServerGroupAsync(CreateGameServerGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateGameServerGroupRequest, CreateGameServerGroupResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -101,6 +153,19 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     @Override
     public java.util.concurrent.Future<CreateGameSessionQueueResult> createGameSessionQueueAsync(CreateGameSessionQueueRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateGameSessionQueueRequest, CreateGameSessionQueueResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLocationResult> createLocationAsync(CreateLocationRequest request) {
+
+        return createLocationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLocationResult> createLocationAsync(CreateLocationRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateLocationRequest, CreateLocationResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -223,6 +288,19 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteContainerGroupDefinitionResult> deleteContainerGroupDefinitionAsync(DeleteContainerGroupDefinitionRequest request) {
+
+        return deleteContainerGroupDefinitionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteContainerGroupDefinitionResult> deleteContainerGroupDefinitionAsync(DeleteContainerGroupDefinitionRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteContainerGroupDefinitionRequest, DeleteContainerGroupDefinitionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteFleetResult> deleteFleetAsync(DeleteFleetRequest request) {
 
         return deleteFleetAsync(request, null);
@@ -236,6 +314,32 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteFleetLocationsResult> deleteFleetLocationsAsync(DeleteFleetLocationsRequest request) {
+
+        return deleteFleetLocationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFleetLocationsResult> deleteFleetLocationsAsync(DeleteFleetLocationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteFleetLocationsRequest, DeleteFleetLocationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteGameServerGroupResult> deleteGameServerGroupAsync(DeleteGameServerGroupRequest request) {
+
+        return deleteGameServerGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteGameServerGroupResult> deleteGameServerGroupAsync(DeleteGameServerGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteGameServerGroupRequest, DeleteGameServerGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteGameSessionQueueResult> deleteGameSessionQueueAsync(DeleteGameSessionQueueRequest request) {
 
         return deleteGameSessionQueueAsync(request, null);
@@ -244,6 +348,19 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     @Override
     public java.util.concurrent.Future<DeleteGameSessionQueueResult> deleteGameSessionQueueAsync(DeleteGameSessionQueueRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteGameSessionQueueRequest, DeleteGameSessionQueueResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteLocationResult> deleteLocationAsync(DeleteLocationRequest request) {
+
+        return deleteLocationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteLocationResult> deleteLocationAsync(DeleteLocationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteLocationRequest, DeleteLocationResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -327,6 +444,32 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DeregisterComputeResult> deregisterComputeAsync(DeregisterComputeRequest request) {
+
+        return deregisterComputeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterComputeResult> deregisterComputeAsync(DeregisterComputeRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeregisterComputeRequest, DeregisterComputeResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterGameServerResult> deregisterGameServerAsync(DeregisterGameServerRequest request) {
+
+        return deregisterGameServerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterGameServerResult> deregisterGameServerAsync(DeregisterGameServerRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeregisterGameServerRequest, DeregisterGameServerResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeAliasResult> describeAliasAsync(DescribeAliasRequest request) {
 
         return describeAliasAsync(request, null);
@@ -348,6 +491,34 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     @Override
     public java.util.concurrent.Future<DescribeBuildResult> describeBuildAsync(DescribeBuildRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeBuildRequest, DescribeBuildResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeComputeResult> describeComputeAsync(DescribeComputeRequest request) {
+
+        return describeComputeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeComputeResult> describeComputeAsync(DescribeComputeRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeComputeRequest, DescribeComputeResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeContainerGroupDefinitionResult> describeContainerGroupDefinitionAsync(
+            DescribeContainerGroupDefinitionRequest request) {
+
+        return describeContainerGroupDefinitionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeContainerGroupDefinitionResult> describeContainerGroupDefinitionAsync(
+            DescribeContainerGroupDefinitionRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeContainerGroupDefinitionRequest, DescribeContainerGroupDefinitionResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -405,6 +576,49 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeFleetLocationAttributesResult> describeFleetLocationAttributesAsync(
+            DescribeFleetLocationAttributesRequest request) {
+
+        return describeFleetLocationAttributesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFleetLocationAttributesResult> describeFleetLocationAttributesAsync(
+            DescribeFleetLocationAttributesRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeFleetLocationAttributesRequest, DescribeFleetLocationAttributesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFleetLocationCapacityResult> describeFleetLocationCapacityAsync(DescribeFleetLocationCapacityRequest request) {
+
+        return describeFleetLocationCapacityAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFleetLocationCapacityResult> describeFleetLocationCapacityAsync(DescribeFleetLocationCapacityRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeFleetLocationCapacityRequest, DescribeFleetLocationCapacityResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFleetLocationUtilizationResult> describeFleetLocationUtilizationAsync(
+            DescribeFleetLocationUtilizationRequest request) {
+
+        return describeFleetLocationUtilizationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFleetLocationUtilizationResult> describeFleetLocationUtilizationAsync(
+            DescribeFleetLocationUtilizationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeFleetLocationUtilizationRequest, DescribeFleetLocationUtilizationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeFleetPortSettingsResult> describeFleetPortSettingsAsync(DescribeFleetPortSettingsRequest request) {
 
         return describeFleetPortSettingsAsync(request, null);
@@ -426,6 +640,45 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     @Override
     public java.util.concurrent.Future<DescribeFleetUtilizationResult> describeFleetUtilizationAsync(DescribeFleetUtilizationRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeFleetUtilizationRequest, DescribeFleetUtilizationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeGameServerResult> describeGameServerAsync(DescribeGameServerRequest request) {
+
+        return describeGameServerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeGameServerResult> describeGameServerAsync(DescribeGameServerRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeGameServerRequest, DescribeGameServerResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeGameServerGroupResult> describeGameServerGroupAsync(DescribeGameServerGroupRequest request) {
+
+        return describeGameServerGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeGameServerGroupResult> describeGameServerGroupAsync(DescribeGameServerGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeGameServerGroupRequest, DescribeGameServerGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeGameServerInstancesResult> describeGameServerInstancesAsync(DescribeGameServerInstancesRequest request) {
+
+        return describeGameServerInstancesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeGameServerInstancesResult> describeGameServerInstancesAsync(DescribeGameServerInstancesRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeGameServerInstancesRequest, DescribeGameServerInstancesResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -617,6 +870,32 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     }
 
     @Override
+    public java.util.concurrent.Future<GetComputeAccessResult> getComputeAccessAsync(GetComputeAccessRequest request) {
+
+        return getComputeAccessAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetComputeAccessResult> getComputeAccessAsync(GetComputeAccessRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetComputeAccessRequest, GetComputeAccessResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetComputeAuthTokenResult> getComputeAuthTokenAsync(GetComputeAuthTokenRequest request) {
+
+        return getComputeAuthTokenAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetComputeAuthTokenResult> getComputeAuthTokenAsync(GetComputeAuthTokenRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetComputeAuthTokenRequest, GetComputeAuthTokenResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetGameSessionLogUrlResult> getGameSessionLogUrlAsync(GetGameSessionLogUrlRequest request) {
 
         return getGameSessionLogUrlAsync(request, null);
@@ -669,6 +948,32 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     }
 
     @Override
+    public java.util.concurrent.Future<ListComputeResult> listComputeAsync(ListComputeRequest request) {
+
+        return listComputeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListComputeResult> listComputeAsync(ListComputeRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListComputeRequest, ListComputeResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListContainerGroupDefinitionsResult> listContainerGroupDefinitionsAsync(ListContainerGroupDefinitionsRequest request) {
+
+        return listContainerGroupDefinitionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListContainerGroupDefinitionsResult> listContainerGroupDefinitionsAsync(ListContainerGroupDefinitionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListContainerGroupDefinitionsRequest, ListContainerGroupDefinitionsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListFleetsResult> listFleetsAsync(ListFleetsRequest request) {
 
         return listFleetsAsync(request, null);
@@ -677,6 +982,45 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     @Override
     public java.util.concurrent.Future<ListFleetsResult> listFleetsAsync(ListFleetsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListFleetsRequest, ListFleetsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListGameServerGroupsResult> listGameServerGroupsAsync(ListGameServerGroupsRequest request) {
+
+        return listGameServerGroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListGameServerGroupsResult> listGameServerGroupsAsync(ListGameServerGroupsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListGameServerGroupsRequest, ListGameServerGroupsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListGameServersResult> listGameServersAsync(ListGameServersRequest request) {
+
+        return listGameServersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListGameServersResult> listGameServersAsync(ListGameServersRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListGameServersRequest, ListGameServersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListLocationsResult> listLocationsAsync(ListLocationsRequest request) {
+
+        return listLocationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListLocationsResult> listLocationsAsync(ListLocationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListLocationsRequest, ListLocationsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -695,6 +1039,19 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     }
 
     @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<PutScalingPolicyResult> putScalingPolicyAsync(PutScalingPolicyRequest request) {
 
         return putScalingPolicyAsync(request, null);
@@ -703,6 +1060,32 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     @Override
     public java.util.concurrent.Future<PutScalingPolicyResult> putScalingPolicyAsync(PutScalingPolicyRequest request,
             com.amazonaws.handlers.AsyncHandler<PutScalingPolicyRequest, PutScalingPolicyResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterComputeResult> registerComputeAsync(RegisterComputeRequest request) {
+
+        return registerComputeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterComputeResult> registerComputeAsync(RegisterComputeRequest request,
+            com.amazonaws.handlers.AsyncHandler<RegisterComputeRequest, RegisterComputeResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterGameServerResult> registerGameServerAsync(RegisterGameServerRequest request) {
+
+        return registerGameServerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterGameServerResult> registerGameServerAsync(RegisterGameServerRequest request,
+            com.amazonaws.handlers.AsyncHandler<RegisterGameServerRequest, RegisterGameServerResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -729,6 +1112,19 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     @Override
     public java.util.concurrent.Future<ResolveAliasResult> resolveAliasAsync(ResolveAliasRequest request,
             com.amazonaws.handlers.AsyncHandler<ResolveAliasRequest, ResolveAliasResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ResumeGameServerGroupResult> resumeGameServerGroupAsync(ResumeGameServerGroupRequest request) {
+
+        return resumeGameServerGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ResumeGameServerGroupResult> resumeGameServerGroupAsync(ResumeGameServerGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<ResumeGameServerGroupRequest, ResumeGameServerGroupResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -838,6 +1234,45 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     }
 
     @Override
+    public java.util.concurrent.Future<SuspendGameServerGroupResult> suspendGameServerGroupAsync(SuspendGameServerGroupRequest request) {
+
+        return suspendGameServerGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SuspendGameServerGroupResult> suspendGameServerGroupAsync(SuspendGameServerGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<SuspendGameServerGroupRequest, SuspendGameServerGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request,
+            com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateAliasResult> updateAliasAsync(UpdateAliasRequest request) {
 
         return updateAliasAsync(request, null);
@@ -898,6 +1333,32 @@ public class AbstractAmazonGameLiftAsync extends AbstractAmazonGameLift implemen
     @Override
     public java.util.concurrent.Future<UpdateFleetPortSettingsResult> updateFleetPortSettingsAsync(UpdateFleetPortSettingsRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateFleetPortSettingsRequest, UpdateFleetPortSettingsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateGameServerResult> updateGameServerAsync(UpdateGameServerRequest request) {
+
+        return updateGameServerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateGameServerResult> updateGameServerAsync(UpdateGameServerRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateGameServerRequest, UpdateGameServerResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateGameServerGroupResult> updateGameServerGroupAsync(UpdateGameServerGroupRequest request) {
+
+        return updateGameServerGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateGameServerGroupResult> updateGameServerGroupAsync(UpdateGameServerGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateGameServerGroupRequest, UpdateGameServerGroupResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

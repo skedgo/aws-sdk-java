@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,46 +28,52 @@ public class ListServiceQuotaIncreaseRequestsInTemplateRequest extends com.amazo
 
     /**
      * <p>
-     * The identifier for a service. When performing an operation, use the <code>ServiceCode</code> to specify a
-     * particular service.
+     * Specifies the service identifier. To find the service code value for an Amazon Web Services service, use the
+     * <a>ListServices</a> operation.
      * </p>
      */
     private String serviceCode;
     /**
      * <p>
-     * Specifies the AWS Region for the quota that you want to use.
+     * Specifies the Amazon Web Services Region for which you made the request.
      * </p>
      */
     private String awsRegion;
     /**
      * <p>
-     * (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous request
-     * that indicates that there's more output available. In a subsequent call, set it to the value of the previous
-     * call's <code>NextToken</code> response to indicate where the output should continue from.
+     * Specifies a value for receiving additional results after you receive a <code>NextToken</code> response in a
+     * previous request. A <code>NextToken</code> response indicates that more output is available. Set this parameter
+     * to the value of the previous call's <code>NextToken</code> response to indicate where the output should continue
+     * from.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * (Optional) Limits the number of results that you want to include in the response. If you don't include this
-     * parameter, the response defaults to a value that's specific to the operation. If additional items exist beyond
-     * the specified maximum, the <code>NextToken</code> element is present and has a value (isn't null). Include that
-     * value as the <code>NextToken</code> request parameter in the call to the operation to get the next part of the
-     * results. You should check <code>NextToken</code> after every operation to ensure that you receive all of the
-     * results.
+     * Specifies the maximum number of results that you want included on each page of the response. If you do not
+     * include this parameter, it defaults to a value appropriate to the operation. If additional items exist beyond
+     * those included in the current response, the <code>NextToken</code> response element is present and has a value
+     * (is not null). Include that value as the <code>NextToken</code> request parameter in the next call to the
+     * operation to get the next part of the results.
      * </p>
+     * <note>
+     * <p>
+     * An API operation can return fewer results than the maximum even when there are more results available. You should
+     * check <code>NextToken</code> after every operation to ensure that you receive all of the results.
+     * </p>
+     * </note>
      */
     private Integer maxResults;
 
     /**
      * <p>
-     * The identifier for a service. When performing an operation, use the <code>ServiceCode</code> to specify a
-     * particular service.
+     * Specifies the service identifier. To find the service code value for an Amazon Web Services service, use the
+     * <a>ListServices</a> operation.
      * </p>
      * 
      * @param serviceCode
-     *        The identifier for a service. When performing an operation, use the <code>ServiceCode</code> to specify a
-     *        particular service.
+     *        Specifies the service identifier. To find the service code value for an Amazon Web Services service, use
+     *        the <a>ListServices</a> operation.
      */
 
     public void setServiceCode(String serviceCode) {
@@ -76,12 +82,12 @@ public class ListServiceQuotaIncreaseRequestsInTemplateRequest extends com.amazo
 
     /**
      * <p>
-     * The identifier for a service. When performing an operation, use the <code>ServiceCode</code> to specify a
-     * particular service.
+     * Specifies the service identifier. To find the service code value for an Amazon Web Services service, use the
+     * <a>ListServices</a> operation.
      * </p>
      * 
-     * @return The identifier for a service. When performing an operation, use the <code>ServiceCode</code> to specify a
-     *         particular service.
+     * @return Specifies the service identifier. To find the service code value for an Amazon Web Services service, use
+     *         the <a>ListServices</a> operation.
      */
 
     public String getServiceCode() {
@@ -90,13 +96,13 @@ public class ListServiceQuotaIncreaseRequestsInTemplateRequest extends com.amazo
 
     /**
      * <p>
-     * The identifier for a service. When performing an operation, use the <code>ServiceCode</code> to specify a
-     * particular service.
+     * Specifies the service identifier. To find the service code value for an Amazon Web Services service, use the
+     * <a>ListServices</a> operation.
      * </p>
      * 
      * @param serviceCode
-     *        The identifier for a service. When performing an operation, use the <code>ServiceCode</code> to specify a
-     *        particular service.
+     *        Specifies the service identifier. To find the service code value for an Amazon Web Services service, use
+     *        the <a>ListServices</a> operation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -107,11 +113,11 @@ public class ListServiceQuotaIncreaseRequestsInTemplateRequest extends com.amazo
 
     /**
      * <p>
-     * Specifies the AWS Region for the quota that you want to use.
+     * Specifies the Amazon Web Services Region for which you made the request.
      * </p>
      * 
      * @param awsRegion
-     *        Specifies the AWS Region for the quota that you want to use.
+     *        Specifies the Amazon Web Services Region for which you made the request.
      */
 
     public void setAwsRegion(String awsRegion) {
@@ -120,10 +126,10 @@ public class ListServiceQuotaIncreaseRequestsInTemplateRequest extends com.amazo
 
     /**
      * <p>
-     * Specifies the AWS Region for the quota that you want to use.
+     * Specifies the Amazon Web Services Region for which you made the request.
      * </p>
      * 
-     * @return Specifies the AWS Region for the quota that you want to use.
+     * @return Specifies the Amazon Web Services Region for which you made the request.
      */
 
     public String getAwsRegion() {
@@ -132,11 +138,11 @@ public class ListServiceQuotaIncreaseRequestsInTemplateRequest extends com.amazo
 
     /**
      * <p>
-     * Specifies the AWS Region for the quota that you want to use.
+     * Specifies the Amazon Web Services Region for which you made the request.
      * </p>
      * 
      * @param awsRegion
-     *        Specifies the AWS Region for the quota that you want to use.
+     *        Specifies the Amazon Web Services Region for which you made the request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -147,15 +153,17 @@ public class ListServiceQuotaIncreaseRequestsInTemplateRequest extends com.amazo
 
     /**
      * <p>
-     * (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous request
-     * that indicates that there's more output available. In a subsequent call, set it to the value of the previous
-     * call's <code>NextToken</code> response to indicate where the output should continue from.
+     * Specifies a value for receiving additional results after you receive a <code>NextToken</code> response in a
+     * previous request. A <code>NextToken</code> response indicates that more output is available. Set this parameter
+     * to the value of the previous call's <code>NextToken</code> response to indicate where the output should continue
+     * from.
      * </p>
      * 
      * @param nextToken
-     *        (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous
-     *        request that indicates that there's more output available. In a subsequent call, set it to the value of
-     *        the previous call's <code>NextToken</code> response to indicate where the output should continue from.
+     *        Specifies a value for receiving additional results after you receive a <code>NextToken</code> response in
+     *        a previous request. A <code>NextToken</code> response indicates that more output is available. Set this
+     *        parameter to the value of the previous call's <code>NextToken</code> response to indicate where the output
+     *        should continue from.
      */
 
     public void setNextToken(String nextToken) {
@@ -164,14 +172,16 @@ public class ListServiceQuotaIncreaseRequestsInTemplateRequest extends com.amazo
 
     /**
      * <p>
-     * (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous request
-     * that indicates that there's more output available. In a subsequent call, set it to the value of the previous
-     * call's <code>NextToken</code> response to indicate where the output should continue from.
+     * Specifies a value for receiving additional results after you receive a <code>NextToken</code> response in a
+     * previous request. A <code>NextToken</code> response indicates that more output is available. Set this parameter
+     * to the value of the previous call's <code>NextToken</code> response to indicate where the output should continue
+     * from.
      * </p>
      * 
-     * @return (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous
-     *         request that indicates that there's more output available. In a subsequent call, set it to the value of
-     *         the previous call's <code>NextToken</code> response to indicate where the output should continue from.
+     * @return Specifies a value for receiving additional results after you receive a <code>NextToken</code> response in
+     *         a previous request. A <code>NextToken</code> response indicates that more output is available. Set this
+     *         parameter to the value of the previous call's <code>NextToken</code> response to indicate where the
+     *         output should continue from.
      */
 
     public String getNextToken() {
@@ -180,15 +190,17 @@ public class ListServiceQuotaIncreaseRequestsInTemplateRequest extends com.amazo
 
     /**
      * <p>
-     * (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous request
-     * that indicates that there's more output available. In a subsequent call, set it to the value of the previous
-     * call's <code>NextToken</code> response to indicate where the output should continue from.
+     * Specifies a value for receiving additional results after you receive a <code>NextToken</code> response in a
+     * previous request. A <code>NextToken</code> response indicates that more output is available. Set this parameter
+     * to the value of the previous call's <code>NextToken</code> response to indicate where the output should continue
+     * from.
      * </p>
      * 
      * @param nextToken
-     *        (Optional) Use this parameter in a request if you receive a <code>NextToken</code> response in a previous
-     *        request that indicates that there's more output available. In a subsequent call, set it to the value of
-     *        the previous call's <code>NextToken</code> response to indicate where the output should continue from.
+     *        Specifies a value for receiving additional results after you receive a <code>NextToken</code> response in
+     *        a previous request. A <code>NextToken</code> response indicates that more output is available. Set this
+     *        parameter to the value of the previous call's <code>NextToken</code> response to indicate where the output
+     *        should continue from.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -199,21 +211,29 @@ public class ListServiceQuotaIncreaseRequestsInTemplateRequest extends com.amazo
 
     /**
      * <p>
-     * (Optional) Limits the number of results that you want to include in the response. If you don't include this
-     * parameter, the response defaults to a value that's specific to the operation. If additional items exist beyond
-     * the specified maximum, the <code>NextToken</code> element is present and has a value (isn't null). Include that
-     * value as the <code>NextToken</code> request parameter in the call to the operation to get the next part of the
-     * results. You should check <code>NextToken</code> after every operation to ensure that you receive all of the
-     * results.
+     * Specifies the maximum number of results that you want included on each page of the response. If you do not
+     * include this parameter, it defaults to a value appropriate to the operation. If additional items exist beyond
+     * those included in the current response, the <code>NextToken</code> response element is present and has a value
+     * (is not null). Include that value as the <code>NextToken</code> request parameter in the next call to the
+     * operation to get the next part of the results.
      * </p>
+     * <note>
+     * <p>
+     * An API operation can return fewer results than the maximum even when there are more results available. You should
+     * check <code>NextToken</code> after every operation to ensure that you receive all of the results.
+     * </p>
+     * </note>
      * 
      * @param maxResults
-     *        (Optional) Limits the number of results that you want to include in the response. If you don't include
-     *        this parameter, the response defaults to a value that's specific to the operation. If additional items
-     *        exist beyond the specified maximum, the <code>NextToken</code> element is present and has a value (isn't
-     *        null). Include that value as the <code>NextToken</code> request parameter in the call to the operation to
-     *        get the next part of the results. You should check <code>NextToken</code> after every operation to ensure
-     *        that you receive all of the results.
+     *        Specifies the maximum number of results that you want included on each page of the response. If you do not
+     *        include this parameter, it defaults to a value appropriate to the operation. If additional items exist
+     *        beyond those included in the current response, the <code>NextToken</code> response element is present and
+     *        has a value (is not null). Include that value as the <code>NextToken</code> request parameter in the next
+     *        call to the operation to get the next part of the results.</p> <note>
+     *        <p>
+     *        An API operation can return fewer results than the maximum even when there are more results available. You
+     *        should check <code>NextToken</code> after every operation to ensure that you receive all of the results.
+     *        </p>
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -222,20 +242,29 @@ public class ListServiceQuotaIncreaseRequestsInTemplateRequest extends com.amazo
 
     /**
      * <p>
-     * (Optional) Limits the number of results that you want to include in the response. If you don't include this
-     * parameter, the response defaults to a value that's specific to the operation. If additional items exist beyond
-     * the specified maximum, the <code>NextToken</code> element is present and has a value (isn't null). Include that
-     * value as the <code>NextToken</code> request parameter in the call to the operation to get the next part of the
-     * results. You should check <code>NextToken</code> after every operation to ensure that you receive all of the
-     * results.
+     * Specifies the maximum number of results that you want included on each page of the response. If you do not
+     * include this parameter, it defaults to a value appropriate to the operation. If additional items exist beyond
+     * those included in the current response, the <code>NextToken</code> response element is present and has a value
+     * (is not null). Include that value as the <code>NextToken</code> request parameter in the next call to the
+     * operation to get the next part of the results.
      * </p>
+     * <note>
+     * <p>
+     * An API operation can return fewer results than the maximum even when there are more results available. You should
+     * check <code>NextToken</code> after every operation to ensure that you receive all of the results.
+     * </p>
+     * </note>
      * 
-     * @return (Optional) Limits the number of results that you want to include in the response. If you don't include
-     *         this parameter, the response defaults to a value that's specific to the operation. If additional items
-     *         exist beyond the specified maximum, the <code>NextToken</code> element is present and has a value (isn't
-     *         null). Include that value as the <code>NextToken</code> request parameter in the call to the operation to
-     *         get the next part of the results. You should check <code>NextToken</code> after every operation to ensure
-     *         that you receive all of the results.
+     * @return Specifies the maximum number of results that you want included on each page of the response. If you do
+     *         not include this parameter, it defaults to a value appropriate to the operation. If additional items
+     *         exist beyond those included in the current response, the <code>NextToken</code> response element is
+     *         present and has a value (is not null). Include that value as the <code>NextToken</code> request parameter
+     *         in the next call to the operation to get the next part of the results.</p> <note>
+     *         <p>
+     *         An API operation can return fewer results than the maximum even when there are more results available.
+     *         You should check <code>NextToken</code> after every operation to ensure that you receive all of the
+     *         results.
+     *         </p>
      */
 
     public Integer getMaxResults() {
@@ -244,21 +273,29 @@ public class ListServiceQuotaIncreaseRequestsInTemplateRequest extends com.amazo
 
     /**
      * <p>
-     * (Optional) Limits the number of results that you want to include in the response. If you don't include this
-     * parameter, the response defaults to a value that's specific to the operation. If additional items exist beyond
-     * the specified maximum, the <code>NextToken</code> element is present and has a value (isn't null). Include that
-     * value as the <code>NextToken</code> request parameter in the call to the operation to get the next part of the
-     * results. You should check <code>NextToken</code> after every operation to ensure that you receive all of the
-     * results.
+     * Specifies the maximum number of results that you want included on each page of the response. If you do not
+     * include this parameter, it defaults to a value appropriate to the operation. If additional items exist beyond
+     * those included in the current response, the <code>NextToken</code> response element is present and has a value
+     * (is not null). Include that value as the <code>NextToken</code> request parameter in the next call to the
+     * operation to get the next part of the results.
      * </p>
+     * <note>
+     * <p>
+     * An API operation can return fewer results than the maximum even when there are more results available. You should
+     * check <code>NextToken</code> after every operation to ensure that you receive all of the results.
+     * </p>
+     * </note>
      * 
      * @param maxResults
-     *        (Optional) Limits the number of results that you want to include in the response. If you don't include
-     *        this parameter, the response defaults to a value that's specific to the operation. If additional items
-     *        exist beyond the specified maximum, the <code>NextToken</code> element is present and has a value (isn't
-     *        null). Include that value as the <code>NextToken</code> request parameter in the call to the operation to
-     *        get the next part of the results. You should check <code>NextToken</code> after every operation to ensure
-     *        that you receive all of the results.
+     *        Specifies the maximum number of results that you want included on each page of the response. If you do not
+     *        include this parameter, it defaults to a value appropriate to the operation. If additional items exist
+     *        beyond those included in the current response, the <code>NextToken</code> response element is present and
+     *        has a value (is not null). Include that value as the <code>NextToken</code> request parameter in the next
+     *        call to the operation to get the next part of the results.</p> <note>
+     *        <p>
+     *        An API operation can return fewer results than the maximum even when there are more results available. You
+     *        should check <code>NextToken</code> after every operation to ensure that you receive all of the results.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

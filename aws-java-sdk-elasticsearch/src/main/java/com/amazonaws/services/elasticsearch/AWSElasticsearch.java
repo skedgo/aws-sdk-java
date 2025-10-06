@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,14 @@ import com.amazonaws.services.elasticsearch.model.*;
  * <p>
  * <fullname>Amazon Elasticsearch Configuration Service</fullname>
  * <p>
- * Use the Amazon Elasticsearch configuration API to create, configure, and manage Elasticsearch domains.
+ * Use the Amazon Elasticsearch Configuration API to create, configure, and manage Elasticsearch domains.
+ * </p>
+ * <p>
+ * For sample code that uses the Configuration API, see the <a
+ * href="https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-configuration-samples.html">Amazon
+ * Elasticsearch Service Developer Guide</a>. The guide also contains <a
+ * href="https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-request-signing.html">sample code
+ * for sending signed HTTP requests to the Elasticsearch APIs</a>.
  * </p>
  * <p>
  * The endpoint for configuration service requests is region-specific: es.<i>region</i>.amazonaws.com. For example,
@@ -102,6 +109,28 @@ public interface AWSElasticsearch {
 
     /**
      * <p>
+     * Allows the destination domain owner to accept an inbound cross-cluster search connection request.
+     * </p>
+     * 
+     * @param acceptInboundCrossClusterSearchConnectionRequest
+     *        Container for the parameters to the <code><a>AcceptInboundCrossClusterSearchConnection</a></code>
+     *        operation.
+     * @return Result of the AcceptInboundCrossClusterSearchConnection operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws LimitExceededException
+     *         An exception for trying to create more than allowed resources or sub-resources. Gives http status code of
+     *         409.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @sample AWSElasticsearch.AcceptInboundCrossClusterSearchConnection
+     */
+    AcceptInboundCrossClusterSearchConnectionResult acceptInboundCrossClusterSearchConnection(
+            AcceptInboundCrossClusterSearchConnectionRequest acceptInboundCrossClusterSearchConnectionRequest);
+
+    /**
+     * <p>
      * Attaches tags to an existing Elasticsearch domain. Tags are a set of case-sensitive key value pairs. An
      * Elasticsearch domain may have up to 10 tags. See <a href=
      * "http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains.html#es-managedomains-awsresorcetagging"
@@ -125,6 +154,85 @@ public interface AWSElasticsearch {
      * @sample AWSElasticsearch.AddTags
      */
     AddTagsResult addTags(AddTagsRequest addTagsRequest);
+
+    /**
+     * <p>
+     * Associates a package with an Amazon ES domain.
+     * </p>
+     * 
+     * @param associatePackageRequest
+     *        Container for request parameters to <code> <a>AssociatePackage</a> </code> operation.
+     * @return Result of the AssociatePackage operation returned by the service.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws AccessDeniedException
+     *         An error occurred because user does not have permissions to access the resource. Returns HTTP status code
+     *         403.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @throws ConflictException
+     *         An error occurred because the client attempts to remove a resource that is currently in use. Returns HTTP
+     *         status code 409.
+     * @sample AWSElasticsearch.AssociatePackage
+     */
+    AssociatePackageResult associatePackage(AssociatePackageRequest associatePackageRequest);
+
+    /**
+     * <p>
+     * Provides access to an Amazon OpenSearch Service domain through the use of an interface VPC endpoint.
+     * </p>
+     * 
+     * @param authorizeVpcEndpointAccessRequest
+     *        Container for request parameters to the <code><a>AuthorizeVpcEndpointAccess</a></code> operation.
+     *        Specifies the account to be permitted to manage VPC endpoints against the domain.
+     * @return Result of the AuthorizeVpcEndpointAccess operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @throws LimitExceededException
+     *         An exception for trying to create more than allowed resources or sub-resources. Gives http status code of
+     *         409.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @sample AWSElasticsearch.AuthorizeVpcEndpointAccess
+     */
+    AuthorizeVpcEndpointAccessResult authorizeVpcEndpointAccess(AuthorizeVpcEndpointAccessRequest authorizeVpcEndpointAccessRequest);
+
+    /**
+     * <p>
+     * Cancels a pending configuration change on an Amazon OpenSearch Service domain.
+     * </p>
+     * 
+     * @param cancelDomainConfigChangeRequest
+     *        Container for parameters of the <code>CancelDomainConfigChange</code> operation.
+     * @return Result of the CancelDomainConfigChange operation returned by the service.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @sample AWSElasticsearch.CancelDomainConfigChange
+     */
+    CancelDomainConfigChangeResult cancelDomainConfigChange(CancelDomainConfigChangeRequest cancelDomainConfigChangeRequest);
 
     /**
      * <p>
@@ -185,6 +293,89 @@ public interface AWSElasticsearch {
 
     /**
      * <p>
+     * Creates a new cross-cluster search connection from a source domain to a destination domain.
+     * </p>
+     * 
+     * @param createOutboundCrossClusterSearchConnectionRequest
+     *        Container for the parameters to the <code><a>CreateOutboundCrossClusterSearchConnection</a></code>
+     *        operation.
+     * @return Result of the CreateOutboundCrossClusterSearchConnection operation returned by the service.
+     * @throws LimitExceededException
+     *         An exception for trying to create more than allowed resources or sub-resources. Gives http status code of
+     *         409.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws ResourceAlreadyExistsException
+     *         An exception for creating a resource that already exists. Gives http status code of 400.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @sample AWSElasticsearch.CreateOutboundCrossClusterSearchConnection
+     */
+    CreateOutboundCrossClusterSearchConnectionResult createOutboundCrossClusterSearchConnection(
+            CreateOutboundCrossClusterSearchConnectionRequest createOutboundCrossClusterSearchConnectionRequest);
+
+    /**
+     * <p>
+     * Create a package for use with Amazon ES domains.
+     * </p>
+     * 
+     * @param createPackageRequest
+     *        Container for request parameters to <code> <a>CreatePackage</a> </code> operation.
+     * @return Result of the CreatePackage operation returned by the service.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws LimitExceededException
+     *         An exception for trying to create more than allowed resources or sub-resources. Gives http status code of
+     *         409.
+     * @throws InvalidTypeException
+     *         An exception for trying to create or access sub-resource that is either invalid or not supported. Gives
+     *         http status code of 409.
+     * @throws ResourceAlreadyExistsException
+     *         An exception for creating a resource that already exists. Gives http status code of 400.
+     * @throws AccessDeniedException
+     *         An error occurred because user does not have permissions to access the resource. Returns HTTP status code
+     *         403.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @sample AWSElasticsearch.CreatePackage
+     */
+    CreatePackageResult createPackage(CreatePackageRequest createPackageRequest);
+
+    /**
+     * <p>
+     * Creates an Amazon OpenSearch Service-managed VPC endpoint.
+     * </p>
+     * 
+     * @param createVpcEndpointRequest
+     *        Container for the parameters to the <code><a>CreateVpcEndpointRequest</a></code> operation.
+     * @return Result of the CreateVpcEndpoint operation returned by the service.
+     * @throws ConflictException
+     *         An error occurred because the client attempts to remove a resource that is currently in use. Returns HTTP
+     *         status code 409.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @throws LimitExceededException
+     *         An exception for trying to create more than allowed resources or sub-resources. Gives http status code of
+     *         409.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @sample AWSElasticsearch.CreateVpcEndpoint
+     */
+    CreateVpcEndpointResult createVpcEndpoint(CreateVpcEndpointRequest createVpcEndpointRequest);
+
+    /**
+     * <p>
      * Permanently deletes the specified Elasticsearch domain and all of its data. Once a domain is deleted, it cannot
      * be recovered.
      * </p>
@@ -228,6 +419,138 @@ public interface AWSElasticsearch {
      * @sample AWSElasticsearch.DeleteElasticsearchServiceRole
      */
     DeleteElasticsearchServiceRoleResult deleteElasticsearchServiceRole(DeleteElasticsearchServiceRoleRequest deleteElasticsearchServiceRoleRequest);
+
+    /**
+     * <p>
+     * Allows the destination domain owner to delete an existing inbound cross-cluster search connection.
+     * </p>
+     * 
+     * @param deleteInboundCrossClusterSearchConnectionRequest
+     *        Container for the parameters to the <code><a>DeleteInboundCrossClusterSearchConnection</a></code>
+     *        operation.
+     * @return Result of the DeleteInboundCrossClusterSearchConnection operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @sample AWSElasticsearch.DeleteInboundCrossClusterSearchConnection
+     */
+    DeleteInboundCrossClusterSearchConnectionResult deleteInboundCrossClusterSearchConnection(
+            DeleteInboundCrossClusterSearchConnectionRequest deleteInboundCrossClusterSearchConnectionRequest);
+
+    /**
+     * <p>
+     * Allows the source domain owner to delete an existing outbound cross-cluster search connection.
+     * </p>
+     * 
+     * @param deleteOutboundCrossClusterSearchConnectionRequest
+     *        Container for the parameters to the <code><a>DeleteOutboundCrossClusterSearchConnection</a></code>
+     *        operation.
+     * @return Result of the DeleteOutboundCrossClusterSearchConnection operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @sample AWSElasticsearch.DeleteOutboundCrossClusterSearchConnection
+     */
+    DeleteOutboundCrossClusterSearchConnectionResult deleteOutboundCrossClusterSearchConnection(
+            DeleteOutboundCrossClusterSearchConnectionRequest deleteOutboundCrossClusterSearchConnectionRequest);
+
+    /**
+     * <p>
+     * Delete the package.
+     * </p>
+     * 
+     * @param deletePackageRequest
+     *        Container for request parameters to <code> <a>DeletePackage</a> </code> operation.
+     * @return Result of the DeletePackage operation returned by the service.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws AccessDeniedException
+     *         An error occurred because user does not have permissions to access the resource. Returns HTTP status code
+     *         403.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @throws ConflictException
+     *         An error occurred because the client attempts to remove a resource that is currently in use. Returns HTTP
+     *         status code 409.
+     * @sample AWSElasticsearch.DeletePackage
+     */
+    DeletePackageResult deletePackage(DeletePackageRequest deletePackageRequest);
+
+    /**
+     * <p>
+     * Deletes an Amazon OpenSearch Service-managed interface VPC endpoint.
+     * </p>
+     * 
+     * @param deleteVpcEndpointRequest
+     *        Deletes an Amazon OpenSearch Service-managed interface VPC endpoint.
+     * @return Result of the DeleteVpcEndpoint operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @sample AWSElasticsearch.DeleteVpcEndpoint
+     */
+    DeleteVpcEndpointResult deleteVpcEndpoint(DeleteVpcEndpointRequest deleteVpcEndpointRequest);
+
+    /**
+     * <p>
+     * Provides scheduled Auto-Tune action details for the Elasticsearch domain, such as Auto-Tune action type,
+     * description, severity, and scheduled date.
+     * </p>
+     * 
+     * @param describeDomainAutoTunesRequest
+     *        Container for the parameters to the <code>DescribeDomainAutoTunes</code> operation.
+     * @return Result of the DescribeDomainAutoTunes operation returned by the service.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @sample AWSElasticsearch.DescribeDomainAutoTunes
+     */
+    DescribeDomainAutoTunesResult describeDomainAutoTunes(DescribeDomainAutoTunesRequest describeDomainAutoTunesRequest);
+
+    /**
+     * <p>
+     * Returns information about the current blue/green deployment happening on a domain, including a change ID, status,
+     * and progress stages.
+     * </p>
+     * 
+     * @param describeDomainChangeProgressRequest
+     *        Container for the parameters to the <code>DescribeDomainChangeProgress</code> operation. Specifies the
+     *        domain name and optional change specific identity for which you want progress information.
+     * @return Result of the DescribeDomainChangeProgress operation returned by the service.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @sample AWSElasticsearch.DescribeDomainChangeProgress
+     */
+    DescribeDomainChangeProgressResult describeDomainChangeProgress(DescribeDomainChangeProgressRequest describeDomainChangeProgressRequest);
 
     /**
      * <p>
@@ -326,6 +649,71 @@ public interface AWSElasticsearch {
 
     /**
      * <p>
+     * Lists all the inbound cross-cluster search connections for a destination domain.
+     * </p>
+     * 
+     * @param describeInboundCrossClusterSearchConnectionsRequest
+     *        Container for the parameters to the <code><a>DescribeInboundCrossClusterSearchConnections</a></code>
+     *        operation.
+     * @return Result of the DescribeInboundCrossClusterSearchConnections operation returned by the service.
+     * @throws InvalidPaginationTokenException
+     *         The request processing has failed because of invalid pagination token provided by customer. Returns an
+     *         HTTP status code of 400.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @sample AWSElasticsearch.DescribeInboundCrossClusterSearchConnections
+     */
+    DescribeInboundCrossClusterSearchConnectionsResult describeInboundCrossClusterSearchConnections(
+            DescribeInboundCrossClusterSearchConnectionsRequest describeInboundCrossClusterSearchConnectionsRequest);
+
+    /**
+     * <p>
+     * Lists all the outbound cross-cluster search connections for a source domain.
+     * </p>
+     * 
+     * @param describeOutboundCrossClusterSearchConnectionsRequest
+     *        Container for the parameters to the <code><a>DescribeOutboundCrossClusterSearchConnections</a></code>
+     *        operation.
+     * @return Result of the DescribeOutboundCrossClusterSearchConnections operation returned by the service.
+     * @throws InvalidPaginationTokenException
+     *         The request processing has failed because of invalid pagination token provided by customer. Returns an
+     *         HTTP status code of 400.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @sample AWSElasticsearch.DescribeOutboundCrossClusterSearchConnections
+     */
+    DescribeOutboundCrossClusterSearchConnectionsResult describeOutboundCrossClusterSearchConnections(
+            DescribeOutboundCrossClusterSearchConnectionsRequest describeOutboundCrossClusterSearchConnectionsRequest);
+
+    /**
+     * <p>
+     * Describes all packages available to Amazon ES. Includes options for filtering, limiting the number of results,
+     * and pagination.
+     * </p>
+     * 
+     * @param describePackagesRequest
+     *        Container for request parameters to <code> <a>DescribePackage</a> </code> operation.
+     * @return Result of the DescribePackages operation returned by the service.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws AccessDeniedException
+     *         An error occurred because user does not have permissions to access the resource. Returns HTTP status code
+     *         403.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @sample AWSElasticsearch.DescribePackages
+     */
+    DescribePackagesResult describePackages(DescribePackagesRequest describePackagesRequest);
+
+    /**
+     * <p>
      * Lists available reserved Elasticsearch instance offerings.
      * </p>
      * 
@@ -372,6 +760,56 @@ public interface AWSElasticsearch {
 
     /**
      * <p>
+     * Describes one or more Amazon OpenSearch Service-managed VPC endpoints.
+     * </p>
+     * 
+     * @param describeVpcEndpointsRequest
+     *        Container for request parameters to the <code><a>DescribeVpcEndpoints</a></code> operation. Specifies the
+     *        list of VPC endpoints to be described.
+     * @return Result of the DescribeVpcEndpoints operation returned by the service.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @sample AWSElasticsearch.DescribeVpcEndpoints
+     */
+    DescribeVpcEndpointsResult describeVpcEndpoints(DescribeVpcEndpointsRequest describeVpcEndpointsRequest);
+
+    /**
+     * <p>
+     * Dissociates a package from the Amazon ES domain.
+     * </p>
+     * 
+     * @param dissociatePackageRequest
+     *        Container for request parameters to <code> <a>DissociatePackage</a> </code> operation.
+     * @return Result of the DissociatePackage operation returned by the service.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws AccessDeniedException
+     *         An error occurred because user does not have permissions to access the resource. Returns HTTP status code
+     *         403.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @throws ConflictException
+     *         An error occurred because the client attempts to remove a resource that is currently in use. Returns HTTP
+     *         status code 409.
+     * @sample AWSElasticsearch.DissociatePackage
+     */
+    DissociatePackageResult dissociatePackage(DissociatePackageRequest dissociatePackageRequest);
+
+    /**
+     * <p>
      * Returns a list of upgrade compatible Elastisearch versions. You can optionally pass a
      * <code> <a>DomainName</a> </code> to get all upgrade compatible Elasticsearch versions for that specific domain.
      * </p>
@@ -395,6 +833,30 @@ public interface AWSElasticsearch {
      */
     GetCompatibleElasticsearchVersionsResult getCompatibleElasticsearchVersions(
             GetCompatibleElasticsearchVersionsRequest getCompatibleElasticsearchVersionsRequest);
+
+    /**
+     * <p>
+     * Returns a list of versions of the package, along with their creation time and commit message.
+     * </p>
+     * 
+     * @param getPackageVersionHistoryRequest
+     *        Container for request parameters to <code> <a>GetPackageVersionHistory</a> </code> operation.
+     * @return Result of the GetPackageVersionHistory operation returned by the service.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws AccessDeniedException
+     *         An error occurred because user does not have permissions to access the resource. Returns HTTP status code
+     *         403.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @sample AWSElasticsearch.GetPackageVersionHistory
+     */
+    GetPackageVersionHistoryResult getPackageVersionHistory(GetPackageVersionHistoryRequest getPackageVersionHistoryRequest);
 
     /**
      * <p>
@@ -450,6 +912,7 @@ public interface AWSElasticsearch {
      * </p>
      * 
      * @param listDomainNamesRequest
+     *        Container for the parameters to the <code><a>ListDomainNames</a></code> operation.
      * @return Result of the ListDomainNames operation returned by the service.
      * @throws BaseException
      *         An error occurred while processing the request.
@@ -458,6 +921,30 @@ public interface AWSElasticsearch {
      * @sample AWSElasticsearch.ListDomainNames
      */
     ListDomainNamesResult listDomainNames(ListDomainNamesRequest listDomainNamesRequest);
+
+    /**
+     * <p>
+     * Lists all Amazon ES domains associated with the package.
+     * </p>
+     * 
+     * @param listDomainsForPackageRequest
+     *        Container for request parameters to <code> <a>ListDomainsForPackage</a> </code> operation.
+     * @return Result of the ListDomainsForPackage operation returned by the service.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws AccessDeniedException
+     *         An error occurred because user does not have permissions to access the resource. Returns HTTP status code
+     *         403.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @sample AWSElasticsearch.ListDomainsForPackage
+     */
+    ListDomainsForPackageResult listDomainsForPackage(ListDomainsForPackageRequest listDomainsForPackageRequest);
 
     /**
      * <p>
@@ -511,6 +998,30 @@ public interface AWSElasticsearch {
 
     /**
      * <p>
+     * Lists all packages associated with the Amazon ES domain.
+     * </p>
+     * 
+     * @param listPackagesForDomainRequest
+     *        Container for request parameters to <code> <a>ListPackagesForDomain</a> </code> operation.
+     * @return Result of the ListPackagesForDomain operation returned by the service.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws AccessDeniedException
+     *         An error occurred because user does not have permissions to access the resource. Returns HTTP status code
+     *         403.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @sample AWSElasticsearch.ListPackagesForDomain
+     */
+    ListPackagesForDomainResult listPackagesForDomain(ListPackagesForDomainRequest listPackagesForDomainRequest);
+
+    /**
+     * <p>
      * Returns all tags for the given Elasticsearch domain.
      * </p>
      * 
@@ -530,6 +1041,73 @@ public interface AWSElasticsearch {
      * @sample AWSElasticsearch.ListTags
      */
     ListTagsResult listTags(ListTagsRequest listTagsRequest);
+
+    /**
+     * <p>
+     * Retrieves information about each principal that is allowed to access a given Amazon OpenSearch Service domain
+     * through the use of an interface VPC endpoint.
+     * </p>
+     * 
+     * @param listVpcEndpointAccessRequest
+     *        Retrieves information about each principal that is allowed to access a given Amazon OpenSearch Service
+     *        domain through the use of an interface VPC endpoint
+     * @return Result of the ListVpcEndpointAccess operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @sample AWSElasticsearch.ListVpcEndpointAccess
+     */
+    ListVpcEndpointAccessResult listVpcEndpointAccess(ListVpcEndpointAccessRequest listVpcEndpointAccessRequest);
+
+    /**
+     * <p>
+     * Retrieves all Amazon OpenSearch Service-managed VPC endpoints in the current account and Region.
+     * </p>
+     * 
+     * @param listVpcEndpointsRequest
+     *        Container for request parameters to the <code><a>ListVpcEndpoints</a></code> operation.
+     * @return Result of the ListVpcEndpoints operation returned by the service.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @sample AWSElasticsearch.ListVpcEndpoints
+     */
+    ListVpcEndpointsResult listVpcEndpoints(ListVpcEndpointsRequest listVpcEndpointsRequest);
+
+    /**
+     * <p>
+     * Retrieves all Amazon OpenSearch Service-managed VPC endpoints associated with a particular domain.
+     * </p>
+     * 
+     * @param listVpcEndpointsForDomainRequest
+     *        Container for request parameters to the <code><a>ListVpcEndpointsForDomain</a></code> operation. Specifies
+     *        the domain whose VPC endpoints will be listed.
+     * @return Result of the ListVpcEndpointsForDomain operation returned by the service.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @sample AWSElasticsearch.ListVpcEndpointsForDomain
+     */
+    ListVpcEndpointsForDomainResult listVpcEndpointsForDomain(ListVpcEndpointsForDomainRequest listVpcEndpointsForDomainRequest);
 
     /**
      * <p>
@@ -561,6 +1139,25 @@ public interface AWSElasticsearch {
 
     /**
      * <p>
+     * Allows the destination domain owner to reject an inbound cross-cluster search connection request.
+     * </p>
+     * 
+     * @param rejectInboundCrossClusterSearchConnectionRequest
+     *        Container for the parameters to the <code><a>RejectInboundCrossClusterSearchConnection</a></code>
+     *        operation.
+     * @return Result of the RejectInboundCrossClusterSearchConnection operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @sample AWSElasticsearch.RejectInboundCrossClusterSearchConnection
+     */
+    RejectInboundCrossClusterSearchConnectionResult rejectInboundCrossClusterSearchConnection(
+            RejectInboundCrossClusterSearchConnectionRequest rejectInboundCrossClusterSearchConnectionRequest);
+
+    /**
+     * <p>
      * Removes the specified set of tags from the specified Elasticsearch domain.
      * </p>
      * 
@@ -578,6 +1175,30 @@ public interface AWSElasticsearch {
      * @sample AWSElasticsearch.RemoveTags
      */
     RemoveTagsResult removeTags(RemoveTagsRequest removeTagsRequest);
+
+    /**
+     * <p>
+     * Revokes access to an Amazon OpenSearch Service domain that was provided through an interface VPC endpoint.
+     * </p>
+     * 
+     * @param revokeVpcEndpointAccessRequest
+     *        Revokes access to an Amazon OpenSearch Service domain that was provided through an interface VPC endpoint.
+     * @return Result of the RevokeVpcEndpointAccess operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @sample AWSElasticsearch.RevokeVpcEndpointAccess
+     */
+    RevokeVpcEndpointAccessResult revokeVpcEndpointAccess(RevokeVpcEndpointAccessRequest revokeVpcEndpointAccessRequest);
 
     /**
      * <p>
@@ -630,6 +1251,60 @@ public interface AWSElasticsearch {
      * @sample AWSElasticsearch.UpdateElasticsearchDomainConfig
      */
     UpdateElasticsearchDomainConfigResult updateElasticsearchDomainConfig(UpdateElasticsearchDomainConfigRequest updateElasticsearchDomainConfigRequest);
+
+    /**
+     * <p>
+     * Updates a package for use with Amazon ES domains.
+     * </p>
+     * 
+     * @param updatePackageRequest
+     *        Container for request parameters to <code> <a>UpdatePackage</a> </code> operation.
+     * @return Result of the UpdatePackage operation returned by the service.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws LimitExceededException
+     *         An exception for trying to create more than allowed resources or sub-resources. Gives http status code of
+     *         409.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws AccessDeniedException
+     *         An error occurred because user does not have permissions to access the resource. Returns HTTP status code
+     *         403.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @sample AWSElasticsearch.UpdatePackage
+     */
+    UpdatePackageResult updatePackage(UpdatePackageRequest updatePackageRequest);
+
+    /**
+     * <p>
+     * Modifies an Amazon OpenSearch Service-managed interface VPC endpoint.
+     * </p>
+     * 
+     * @param updateVpcEndpointRequest
+     *        Modifies an Amazon OpenSearch Service-managed interface VPC endpoint.
+     * @return Result of the UpdateVpcEndpoint operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         An exception for accessing or deleting a resource that does not exist. Gives http status code of 400.
+     * @throws DisabledOperationException
+     *         An error occured because the client wanted to access a not supported operation. Gives http status code of
+     *         409.
+     * @throws InternalException
+     *         The request processing has failed because of an unknown error, exception or failure (the failure is
+     *         internal to the service) . Gives http status code of 500.
+     * @throws ValidationException
+     *         An exception for missing / invalid input fields. Gives http status code of 400.
+     * @throws ConflictException
+     *         An error occurred because the client attempts to remove a resource that is currently in use. Returns HTTP
+     *         status code 409.
+     * @throws BaseException
+     *         An error occurred while processing the request.
+     * @sample AWSElasticsearch.UpdateVpcEndpoint
+     */
+    UpdateVpcEndpointResult updateVpcEndpoint(UpdateVpcEndpointRequest updateVpcEndpointRequest);
 
     /**
      * <p>

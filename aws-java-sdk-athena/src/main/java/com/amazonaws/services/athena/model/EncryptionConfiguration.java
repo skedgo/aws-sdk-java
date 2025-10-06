@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * If query results are encrypted in Amazon S3, indicates the encryption option used (for example, <code>SSE-KMS</code>
- * or <code>CSE-KMS</code>) and key information.
+ * If query and calculation results are encrypted in Amazon S3, indicates the encryption option used (for example,
+ * <code>SSE_KMS</code> or <code>CSE_KMS</code>) and key information.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/athena-2017-05-18/EncryptionConfiguration" target="_top">AWS API
@@ -31,9 +31,9 @@ public class EncryptionConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE-S3</code>), server-side
-     * encryption with KMS-managed keys (<code>SSE-KMS</code>), or client-side encryption with KMS-managed keys
-     * (CSE-KMS) is used.
+     * Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE_S3</code>), server-side
+     * encryption with KMS-managed keys (<code>SSE_KMS</code>), or client-side encryption with KMS-managed keys (
+     * <code>CSE_KMS</code>) is used.
      * </p>
      * <p>
      * If a query runs in a workgroup and the workgroup overrides client-side settings, then the workgroup's setting for
@@ -44,16 +44,16 @@ public class EncryptionConfiguration implements Serializable, Cloneable, Structu
     private String encryptionOption;
     /**
      * <p>
-     * For <code>SSE-KMS</code> and <code>CSE-KMS</code>, this is the KMS key ARN or ID.
+     * For <code>SSE_KMS</code> and <code>CSE_KMS</code>, this is the KMS key ARN or ID.
      * </p>
      */
     private String kmsKey;
 
     /**
      * <p>
-     * Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE-S3</code>), server-side
-     * encryption with KMS-managed keys (<code>SSE-KMS</code>), or client-side encryption with KMS-managed keys
-     * (CSE-KMS) is used.
+     * Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE_S3</code>), server-side
+     * encryption with KMS-managed keys (<code>SSE_KMS</code>), or client-side encryption with KMS-managed keys (
+     * <code>CSE_KMS</code>) is used.
      * </p>
      * <p>
      * If a query runs in a workgroup and the workgroup overrides client-side settings, then the workgroup's setting for
@@ -62,9 +62,9 @@ public class EncryptionConfiguration implements Serializable, Cloneable, Structu
      * </p>
      * 
      * @param encryptionOption
-     *        Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE-S3</code>),
-     *        server-side encryption with KMS-managed keys (<code>SSE-KMS</code>), or client-side encryption with
-     *        KMS-managed keys (CSE-KMS) is used.</p>
+     *        Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE_S3</code>),
+     *        server-side encryption with KMS-managed keys (<code>SSE_KMS</code>), or client-side encryption with
+     *        KMS-managed keys (<code>CSE_KMS</code>) is used.</p>
      *        <p>
      *        If a query runs in a workgroup and the workgroup overrides client-side settings, then the workgroup's
      *        setting for encryption is used. It specifies whether query results must be encrypted, for all queries that
@@ -78,9 +78,9 @@ public class EncryptionConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE-S3</code>), server-side
-     * encryption with KMS-managed keys (<code>SSE-KMS</code>), or client-side encryption with KMS-managed keys
-     * (CSE-KMS) is used.
+     * Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE_S3</code>), server-side
+     * encryption with KMS-managed keys (<code>SSE_KMS</code>), or client-side encryption with KMS-managed keys (
+     * <code>CSE_KMS</code>) is used.
      * </p>
      * <p>
      * If a query runs in a workgroup and the workgroup overrides client-side settings, then the workgroup's setting for
@@ -88,9 +88,9 @@ public class EncryptionConfiguration implements Serializable, Cloneable, Structu
      * workgroup.
      * </p>
      * 
-     * @return Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE-S3</code>),
-     *         server-side encryption with KMS-managed keys (<code>SSE-KMS</code>), or client-side encryption with
-     *         KMS-managed keys (CSE-KMS) is used.</p>
+     * @return Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE_S3</code>),
+     *         server-side encryption with KMS-managed keys (<code>SSE_KMS</code>), or client-side encryption with
+     *         KMS-managed keys (<code>CSE_KMS</code>) is used.</p>
      *         <p>
      *         If a query runs in a workgroup and the workgroup overrides client-side settings, then the workgroup's
      *         setting for encryption is used. It specifies whether query results must be encrypted, for all queries
@@ -104,9 +104,9 @@ public class EncryptionConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE-S3</code>), server-side
-     * encryption with KMS-managed keys (<code>SSE-KMS</code>), or client-side encryption with KMS-managed keys
-     * (CSE-KMS) is used.
+     * Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE_S3</code>), server-side
+     * encryption with KMS-managed keys (<code>SSE_KMS</code>), or client-side encryption with KMS-managed keys (
+     * <code>CSE_KMS</code>) is used.
      * </p>
      * <p>
      * If a query runs in a workgroup and the workgroup overrides client-side settings, then the workgroup's setting for
@@ -115,9 +115,9 @@ public class EncryptionConfiguration implements Serializable, Cloneable, Structu
      * </p>
      * 
      * @param encryptionOption
-     *        Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE-S3</code>),
-     *        server-side encryption with KMS-managed keys (<code>SSE-KMS</code>), or client-side encryption with
-     *        KMS-managed keys (CSE-KMS) is used.</p>
+     *        Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE_S3</code>),
+     *        server-side encryption with KMS-managed keys (<code>SSE_KMS</code>), or client-side encryption with
+     *        KMS-managed keys (<code>CSE_KMS</code>) is used.</p>
      *        <p>
      *        If a query runs in a workgroup and the workgroup overrides client-side settings, then the workgroup's
      *        setting for encryption is used. It specifies whether query results must be encrypted, for all queries that
@@ -133,9 +133,9 @@ public class EncryptionConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE-S3</code>), server-side
-     * encryption with KMS-managed keys (<code>SSE-KMS</code>), or client-side encryption with KMS-managed keys
-     * (CSE-KMS) is used.
+     * Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE_S3</code>), server-side
+     * encryption with KMS-managed keys (<code>SSE_KMS</code>), or client-side encryption with KMS-managed keys (
+     * <code>CSE_KMS</code>) is used.
      * </p>
      * <p>
      * If a query runs in a workgroup and the workgroup overrides client-side settings, then the workgroup's setting for
@@ -144,9 +144,9 @@ public class EncryptionConfiguration implements Serializable, Cloneable, Structu
      * </p>
      * 
      * @param encryptionOption
-     *        Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE-S3</code>),
-     *        server-side encryption with KMS-managed keys (<code>SSE-KMS</code>), or client-side encryption with
-     *        KMS-managed keys (CSE-KMS) is used.</p>
+     *        Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE_S3</code>),
+     *        server-side encryption with KMS-managed keys (<code>SSE_KMS</code>), or client-side encryption with
+     *        KMS-managed keys (<code>CSE_KMS</code>) is used.</p>
      *        <p>
      *        If a query runs in a workgroup and the workgroup overrides client-side settings, then the workgroup's
      *        setting for encryption is used. It specifies whether query results must be encrypted, for all queries that
@@ -160,9 +160,9 @@ public class EncryptionConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE-S3</code>), server-side
-     * encryption with KMS-managed keys (<code>SSE-KMS</code>), or client-side encryption with KMS-managed keys
-     * (CSE-KMS) is used.
+     * Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE_S3</code>), server-side
+     * encryption with KMS-managed keys (<code>SSE_KMS</code>), or client-side encryption with KMS-managed keys (
+     * <code>CSE_KMS</code>) is used.
      * </p>
      * <p>
      * If a query runs in a workgroup and the workgroup overrides client-side settings, then the workgroup's setting for
@@ -171,9 +171,9 @@ public class EncryptionConfiguration implements Serializable, Cloneable, Structu
      * </p>
      * 
      * @param encryptionOption
-     *        Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE-S3</code>),
-     *        server-side encryption with KMS-managed keys (<code>SSE-KMS</code>), or client-side encryption with
-     *        KMS-managed keys (CSE-KMS) is used.</p>
+     *        Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<code>SSE_S3</code>),
+     *        server-side encryption with KMS-managed keys (<code>SSE_KMS</code>), or client-side encryption with
+     *        KMS-managed keys (<code>CSE_KMS</code>) is used.</p>
      *        <p>
      *        If a query runs in a workgroup and the workgroup overrides client-side settings, then the workgroup's
      *        setting for encryption is used. It specifies whether query results must be encrypted, for all queries that
@@ -189,11 +189,11 @@ public class EncryptionConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * For <code>SSE-KMS</code> and <code>CSE-KMS</code>, this is the KMS key ARN or ID.
+     * For <code>SSE_KMS</code> and <code>CSE_KMS</code>, this is the KMS key ARN or ID.
      * </p>
      * 
      * @param kmsKey
-     *        For <code>SSE-KMS</code> and <code>CSE-KMS</code>, this is the KMS key ARN or ID.
+     *        For <code>SSE_KMS</code> and <code>CSE_KMS</code>, this is the KMS key ARN or ID.
      */
 
     public void setKmsKey(String kmsKey) {
@@ -202,10 +202,10 @@ public class EncryptionConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * For <code>SSE-KMS</code> and <code>CSE-KMS</code>, this is the KMS key ARN or ID.
+     * For <code>SSE_KMS</code> and <code>CSE_KMS</code>, this is the KMS key ARN or ID.
      * </p>
      * 
-     * @return For <code>SSE-KMS</code> and <code>CSE-KMS</code>, this is the KMS key ARN or ID.
+     * @return For <code>SSE_KMS</code> and <code>CSE_KMS</code>, this is the KMS key ARN or ID.
      */
 
     public String getKmsKey() {
@@ -214,11 +214,11 @@ public class EncryptionConfiguration implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * For <code>SSE-KMS</code> and <code>CSE-KMS</code>, this is the KMS key ARN or ID.
+     * For <code>SSE_KMS</code> and <code>CSE_KMS</code>, this is the KMS key ARN or ID.
      * </p>
      * 
      * @param kmsKey
-     *        For <code>SSE-KMS</code> and <code>CSE-KMS</code>, this is the KMS key ARN or ID.
+     *        For <code>SSE_KMS</code> and <code>CSE_KMS</code>, this is the KMS key ARN or ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

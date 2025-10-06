@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -96,6 +96,10 @@ public class Mpeg2SettingsJsonUnmarshaller implements Unmarshaller<Mpeg2Settings
                     context.nextToken();
                     mpeg2Settings.setGopSizeUnits(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("hrdBufferFinalFillPercentage", targetDepth)) {
+                    context.nextToken();
+                    mpeg2Settings.setHrdBufferFinalFillPercentage(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
                 if (context.testExpression("hrdBufferInitialFillPercentage", targetDepth)) {
                     context.nextToken();
                     mpeg2Settings.setHrdBufferInitialFillPercentage(context.getUnmarshaller(Integer.class).unmarshall(context));
@@ -143,6 +147,10 @@ public class Mpeg2SettingsJsonUnmarshaller implements Unmarshaller<Mpeg2Settings
                 if (context.testExpression("rateControlMode", targetDepth)) {
                     context.nextToken();
                     mpeg2Settings.setRateControlMode(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("scanTypeConversionMode", targetDepth)) {
+                    context.nextToken();
+                    mpeg2Settings.setScanTypeConversionMode(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("sceneChangeDetect", targetDepth)) {
                     context.nextToken();

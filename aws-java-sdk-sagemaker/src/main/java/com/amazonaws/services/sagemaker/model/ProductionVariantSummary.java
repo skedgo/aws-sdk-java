@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -67,6 +67,37 @@ public class ProductionVariantSummary implements Serializable, Cloneable, Struct
      * </p>
      */
     private Integer desiredInstanceCount;
+    /**
+     * <p>
+     * The endpoint variant status which describes the current deployment stage status or operational status.
+     * </p>
+     */
+    private java.util.List<ProductionVariantStatus> variantStatus;
+    /**
+     * <p>
+     * The serverless configuration for the endpoint.
+     * </p>
+     */
+    private ProductionVariantServerlessConfig currentServerlessConfig;
+    /**
+     * <p>
+     * The serverless configuration requested for the endpoint update.
+     * </p>
+     */
+    private ProductionVariantServerlessConfig desiredServerlessConfig;
+    /**
+     * <p>
+     * Settings that control the range in the number of instances that the endpoint provisions as it scales up or down
+     * to accommodate traffic.
+     * </p>
+     */
+    private ProductionVariantManagedInstanceScaling managedInstanceScaling;
+    /**
+     * <p>
+     * Settings that control how the endpoint routes incoming traffic to the instances that the endpoint hosts.
+     * </p>
+     */
+    private ProductionVariantRoutingConfig routingConfig;
 
     /**
      * <p>
@@ -347,6 +378,242 @@ public class ProductionVariantSummary implements Serializable, Cloneable, Struct
     }
 
     /**
+     * <p>
+     * The endpoint variant status which describes the current deployment stage status or operational status.
+     * </p>
+     * 
+     * @return The endpoint variant status which describes the current deployment stage status or operational status.
+     */
+
+    public java.util.List<ProductionVariantStatus> getVariantStatus() {
+        return variantStatus;
+    }
+
+    /**
+     * <p>
+     * The endpoint variant status which describes the current deployment stage status or operational status.
+     * </p>
+     * 
+     * @param variantStatus
+     *        The endpoint variant status which describes the current deployment stage status or operational status.
+     */
+
+    public void setVariantStatus(java.util.Collection<ProductionVariantStatus> variantStatus) {
+        if (variantStatus == null) {
+            this.variantStatus = null;
+            return;
+        }
+
+        this.variantStatus = new java.util.ArrayList<ProductionVariantStatus>(variantStatus);
+    }
+
+    /**
+     * <p>
+     * The endpoint variant status which describes the current deployment stage status or operational status.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setVariantStatus(java.util.Collection)} or {@link #withVariantStatus(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param variantStatus
+     *        The endpoint variant status which describes the current deployment stage status or operational status.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProductionVariantSummary withVariantStatus(ProductionVariantStatus... variantStatus) {
+        if (this.variantStatus == null) {
+            setVariantStatus(new java.util.ArrayList<ProductionVariantStatus>(variantStatus.length));
+        }
+        for (ProductionVariantStatus ele : variantStatus) {
+            this.variantStatus.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The endpoint variant status which describes the current deployment stage status or operational status.
+     * </p>
+     * 
+     * @param variantStatus
+     *        The endpoint variant status which describes the current deployment stage status or operational status.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProductionVariantSummary withVariantStatus(java.util.Collection<ProductionVariantStatus> variantStatus) {
+        setVariantStatus(variantStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The serverless configuration for the endpoint.
+     * </p>
+     * 
+     * @param currentServerlessConfig
+     *        The serverless configuration for the endpoint.
+     */
+
+    public void setCurrentServerlessConfig(ProductionVariantServerlessConfig currentServerlessConfig) {
+        this.currentServerlessConfig = currentServerlessConfig;
+    }
+
+    /**
+     * <p>
+     * The serverless configuration for the endpoint.
+     * </p>
+     * 
+     * @return The serverless configuration for the endpoint.
+     */
+
+    public ProductionVariantServerlessConfig getCurrentServerlessConfig() {
+        return this.currentServerlessConfig;
+    }
+
+    /**
+     * <p>
+     * The serverless configuration for the endpoint.
+     * </p>
+     * 
+     * @param currentServerlessConfig
+     *        The serverless configuration for the endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProductionVariantSummary withCurrentServerlessConfig(ProductionVariantServerlessConfig currentServerlessConfig) {
+        setCurrentServerlessConfig(currentServerlessConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The serverless configuration requested for the endpoint update.
+     * </p>
+     * 
+     * @param desiredServerlessConfig
+     *        The serverless configuration requested for the endpoint update.
+     */
+
+    public void setDesiredServerlessConfig(ProductionVariantServerlessConfig desiredServerlessConfig) {
+        this.desiredServerlessConfig = desiredServerlessConfig;
+    }
+
+    /**
+     * <p>
+     * The serverless configuration requested for the endpoint update.
+     * </p>
+     * 
+     * @return The serverless configuration requested for the endpoint update.
+     */
+
+    public ProductionVariantServerlessConfig getDesiredServerlessConfig() {
+        return this.desiredServerlessConfig;
+    }
+
+    /**
+     * <p>
+     * The serverless configuration requested for the endpoint update.
+     * </p>
+     * 
+     * @param desiredServerlessConfig
+     *        The serverless configuration requested for the endpoint update.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProductionVariantSummary withDesiredServerlessConfig(ProductionVariantServerlessConfig desiredServerlessConfig) {
+        setDesiredServerlessConfig(desiredServerlessConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings that control the range in the number of instances that the endpoint provisions as it scales up or down
+     * to accommodate traffic.
+     * </p>
+     * 
+     * @param managedInstanceScaling
+     *        Settings that control the range in the number of instances that the endpoint provisions as it scales up or
+     *        down to accommodate traffic.
+     */
+
+    public void setManagedInstanceScaling(ProductionVariantManagedInstanceScaling managedInstanceScaling) {
+        this.managedInstanceScaling = managedInstanceScaling;
+    }
+
+    /**
+     * <p>
+     * Settings that control the range in the number of instances that the endpoint provisions as it scales up or down
+     * to accommodate traffic.
+     * </p>
+     * 
+     * @return Settings that control the range in the number of instances that the endpoint provisions as it scales up
+     *         or down to accommodate traffic.
+     */
+
+    public ProductionVariantManagedInstanceScaling getManagedInstanceScaling() {
+        return this.managedInstanceScaling;
+    }
+
+    /**
+     * <p>
+     * Settings that control the range in the number of instances that the endpoint provisions as it scales up or down
+     * to accommodate traffic.
+     * </p>
+     * 
+     * @param managedInstanceScaling
+     *        Settings that control the range in the number of instances that the endpoint provisions as it scales up or
+     *        down to accommodate traffic.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProductionVariantSummary withManagedInstanceScaling(ProductionVariantManagedInstanceScaling managedInstanceScaling) {
+        setManagedInstanceScaling(managedInstanceScaling);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings that control how the endpoint routes incoming traffic to the instances that the endpoint hosts.
+     * </p>
+     * 
+     * @param routingConfig
+     *        Settings that control how the endpoint routes incoming traffic to the instances that the endpoint hosts.
+     */
+
+    public void setRoutingConfig(ProductionVariantRoutingConfig routingConfig) {
+        this.routingConfig = routingConfig;
+    }
+
+    /**
+     * <p>
+     * Settings that control how the endpoint routes incoming traffic to the instances that the endpoint hosts.
+     * </p>
+     * 
+     * @return Settings that control how the endpoint routes incoming traffic to the instances that the endpoint hosts.
+     */
+
+    public ProductionVariantRoutingConfig getRoutingConfig() {
+        return this.routingConfig;
+    }
+
+    /**
+     * <p>
+     * Settings that control how the endpoint routes incoming traffic to the instances that the endpoint hosts.
+     * </p>
+     * 
+     * @param routingConfig
+     *        Settings that control how the endpoint routes incoming traffic to the instances that the endpoint hosts.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ProductionVariantSummary withRoutingConfig(ProductionVariantRoutingConfig routingConfig) {
+        setRoutingConfig(routingConfig);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -369,7 +636,17 @@ public class ProductionVariantSummary implements Serializable, Cloneable, Struct
         if (getCurrentInstanceCount() != null)
             sb.append("CurrentInstanceCount: ").append(getCurrentInstanceCount()).append(",");
         if (getDesiredInstanceCount() != null)
-            sb.append("DesiredInstanceCount: ").append(getDesiredInstanceCount());
+            sb.append("DesiredInstanceCount: ").append(getDesiredInstanceCount()).append(",");
+        if (getVariantStatus() != null)
+            sb.append("VariantStatus: ").append(getVariantStatus()).append(",");
+        if (getCurrentServerlessConfig() != null)
+            sb.append("CurrentServerlessConfig: ").append(getCurrentServerlessConfig()).append(",");
+        if (getDesiredServerlessConfig() != null)
+            sb.append("DesiredServerlessConfig: ").append(getDesiredServerlessConfig()).append(",");
+        if (getManagedInstanceScaling() != null)
+            sb.append("ManagedInstanceScaling: ").append(getManagedInstanceScaling()).append(",");
+        if (getRoutingConfig() != null)
+            sb.append("RoutingConfig: ").append(getRoutingConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -408,6 +685,26 @@ public class ProductionVariantSummary implements Serializable, Cloneable, Struct
             return false;
         if (other.getDesiredInstanceCount() != null && other.getDesiredInstanceCount().equals(this.getDesiredInstanceCount()) == false)
             return false;
+        if (other.getVariantStatus() == null ^ this.getVariantStatus() == null)
+            return false;
+        if (other.getVariantStatus() != null && other.getVariantStatus().equals(this.getVariantStatus()) == false)
+            return false;
+        if (other.getCurrentServerlessConfig() == null ^ this.getCurrentServerlessConfig() == null)
+            return false;
+        if (other.getCurrentServerlessConfig() != null && other.getCurrentServerlessConfig().equals(this.getCurrentServerlessConfig()) == false)
+            return false;
+        if (other.getDesiredServerlessConfig() == null ^ this.getDesiredServerlessConfig() == null)
+            return false;
+        if (other.getDesiredServerlessConfig() != null && other.getDesiredServerlessConfig().equals(this.getDesiredServerlessConfig()) == false)
+            return false;
+        if (other.getManagedInstanceScaling() == null ^ this.getManagedInstanceScaling() == null)
+            return false;
+        if (other.getManagedInstanceScaling() != null && other.getManagedInstanceScaling().equals(this.getManagedInstanceScaling()) == false)
+            return false;
+        if (other.getRoutingConfig() == null ^ this.getRoutingConfig() == null)
+            return false;
+        if (other.getRoutingConfig() != null && other.getRoutingConfig().equals(this.getRoutingConfig()) == false)
+            return false;
         return true;
     }
 
@@ -422,6 +719,11 @@ public class ProductionVariantSummary implements Serializable, Cloneable, Struct
         hashCode = prime * hashCode + ((getDesiredWeight() == null) ? 0 : getDesiredWeight().hashCode());
         hashCode = prime * hashCode + ((getCurrentInstanceCount() == null) ? 0 : getCurrentInstanceCount().hashCode());
         hashCode = prime * hashCode + ((getDesiredInstanceCount() == null) ? 0 : getDesiredInstanceCount().hashCode());
+        hashCode = prime * hashCode + ((getVariantStatus() == null) ? 0 : getVariantStatus().hashCode());
+        hashCode = prime * hashCode + ((getCurrentServerlessConfig() == null) ? 0 : getCurrentServerlessConfig().hashCode());
+        hashCode = prime * hashCode + ((getDesiredServerlessConfig() == null) ? 0 : getDesiredServerlessConfig().hashCode());
+        hashCode = prime * hashCode + ((getManagedInstanceScaling() == null) ? 0 : getManagedInstanceScaling().hashCode());
+        hashCode = prime * hashCode + ((getRoutingConfig() == null) ? 0 : getRoutingConfig().hashCode());
         return hashCode;
     }
 

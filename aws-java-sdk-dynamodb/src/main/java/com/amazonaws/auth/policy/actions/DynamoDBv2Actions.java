@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,6 +25,8 @@ public enum DynamoDBv2Actions implements Action {
     /** Represents any action executed on DynamoDB. */
     AllDynamoDBv2Actions("dynamodb:*"),
 
+    /** Action for the BatchExecuteStatement operation. */
+    BatchExecuteStatement("dynamodb:BatchExecuteStatement"),
     /** Action for the BatchGetItem operation. */
     BatchGetItem("dynamodb:BatchGetItem"),
     /** Action for the BatchWriteItem operation. */
@@ -39,36 +41,70 @@ public enum DynamoDBv2Actions implements Action {
     DeleteBackup("dynamodb:DeleteBackup"),
     /** Action for the DeleteItem operation. */
     DeleteItem("dynamodb:DeleteItem"),
+    /** Action for the DeleteResourcePolicy operation. */
+    DeleteResourcePolicy("dynamodb:DeleteResourcePolicy"),
     /** Action for the DeleteTable operation. */
     DeleteTable("dynamodb:DeleteTable"),
     /** Action for the DescribeBackup operation. */
     DescribeBackup("dynamodb:DescribeBackup"),
     /** Action for the DescribeContinuousBackups operation. */
     DescribeContinuousBackups("dynamodb:DescribeContinuousBackups"),
+    /** Action for the DescribeContributorInsights operation. */
+    DescribeContributorInsights("dynamodb:DescribeContributorInsights"),
     /** Action for the DescribeEndpoints operation. */
     DescribeEndpoints("dynamodb:DescribeEndpoints"),
+    /** Action for the DescribeExport operation. */
+    DescribeExport("dynamodb:DescribeExport"),
     /** Action for the DescribeGlobalTable operation. */
     DescribeGlobalTable("dynamodb:DescribeGlobalTable"),
     /** Action for the DescribeGlobalTableSettings operation. */
     DescribeGlobalTableSettings("dynamodb:DescribeGlobalTableSettings"),
+    /** Action for the DescribeImport operation. */
+    DescribeImport("dynamodb:DescribeImport"),
+    /** Action for the DescribeKinesisStreamingDestination operation. */
+    DescribeKinesisStreamingDestination("dynamodb:DescribeKinesisStreamingDestination"),
     /** Action for the DescribeLimits operation. */
     DescribeLimits("dynamodb:DescribeLimits"),
     /** Action for the DescribeTable operation. */
     DescribeTable("dynamodb:DescribeTable"),
+    /** Action for the DescribeTableReplicaAutoScaling operation. */
+    DescribeTableReplicaAutoScaling("dynamodb:DescribeTableReplicaAutoScaling"),
     /** Action for the DescribeTimeToLive operation. */
     DescribeTimeToLive("dynamodb:DescribeTimeToLive"),
+    /** Action for the DisableKinesisStreamingDestination operation. */
+    DisableKinesisStreamingDestination("dynamodb:DisableKinesisStreamingDestination"),
+    /** Action for the EnableKinesisStreamingDestination operation. */
+    EnableKinesisStreamingDestination("dynamodb:EnableKinesisStreamingDestination"),
+    /** Action for the ExecuteStatement operation. */
+    ExecuteStatement("dynamodb:ExecuteStatement"),
+    /** Action for the ExecuteTransaction operation. */
+    ExecuteTransaction("dynamodb:ExecuteTransaction"),
+    /** Action for the ExportTableToPointInTime operation. */
+    ExportTableToPointInTime("dynamodb:ExportTableToPointInTime"),
     /** Action for the GetItem operation. */
     GetItem("dynamodb:GetItem"),
+    /** Action for the GetResourcePolicy operation. */
+    GetResourcePolicy("dynamodb:GetResourcePolicy"),
+    /** Action for the ImportTable operation. */
+    ImportTable("dynamodb:ImportTable"),
     /** Action for the ListBackups operation. */
     ListBackups("dynamodb:ListBackups"),
+    /** Action for the ListContributorInsights operation. */
+    ListContributorInsights("dynamodb:ListContributorInsights"),
+    /** Action for the ListExports operation. */
+    ListExports("dynamodb:ListExports"),
     /** Action for the ListGlobalTables operation. */
     ListGlobalTables("dynamodb:ListGlobalTables"),
+    /** Action for the ListImports operation. */
+    ListImports("dynamodb:ListImports"),
     /** Action for the ListTables operation. */
     ListTables("dynamodb:ListTables"),
     /** Action for the ListTagsOfResource operation. */
     ListTagsOfResource("dynamodb:ListTagsOfResource"),
     /** Action for the PutItem operation. */
     PutItem("dynamodb:PutItem"),
+    /** Action for the PutResourcePolicy operation. */
+    PutResourcePolicy("dynamodb:PutResourcePolicy"),
     /** Action for the Query operation. */
     Query("dynamodb:Query"),
     /** Action for the RestoreTableFromBackup operation. */
@@ -87,14 +123,20 @@ public enum DynamoDBv2Actions implements Action {
     UntagResource("dynamodb:UntagResource"),
     /** Action for the UpdateContinuousBackups operation. */
     UpdateContinuousBackups("dynamodb:UpdateContinuousBackups"),
+    /** Action for the UpdateContributorInsights operation. */
+    UpdateContributorInsights("dynamodb:UpdateContributorInsights"),
     /** Action for the UpdateGlobalTable operation. */
     UpdateGlobalTable("dynamodb:UpdateGlobalTable"),
     /** Action for the UpdateGlobalTableSettings operation. */
     UpdateGlobalTableSettings("dynamodb:UpdateGlobalTableSettings"),
     /** Action for the UpdateItem operation. */
     UpdateItem("dynamodb:UpdateItem"),
+    /** Action for the UpdateKinesisStreamingDestination operation. */
+    UpdateKinesisStreamingDestination("dynamodb:UpdateKinesisStreamingDestination"),
     /** Action for the UpdateTable operation. */
     UpdateTable("dynamodb:UpdateTable"),
+    /** Action for the UpdateTableReplicaAutoScaling operation. */
+    UpdateTableReplicaAutoScaling("dynamodb:UpdateTableReplicaAutoScaling"),
     /** Action for the UpdateTimeToLive operation. */
     UpdateTimeToLive("dynamodb:UpdateTimeToLive"),
 
@@ -108,5 +150,9 @@ public enum DynamoDBv2Actions implements Action {
 
     public String getActionName() {
         return this.action;
+    }
+
+    public boolean isNotType() {
+        return false;
     }
 }

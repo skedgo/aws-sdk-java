@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,35 @@ public class GetKeyPairsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * A token used for advancing to the next page of results from your get key pairs request.
+     * The token to advance to the next page of results from your request.
+     * </p>
+     * <p>
+     * To get a page token, perform an initial <code>GetKeyPairs</code> request. If your results are paginated, the
+     * response will return a next page token that you can specify as the page token in a subsequent request.
      * </p>
      */
     private String pageToken;
+    /**
+     * <p>
+     * A Boolean value that indicates whether to include the default key pair in the response of your request.
+     * </p>
+     */
+    private Boolean includeDefaultKeyPair;
 
     /**
      * <p>
-     * A token used for advancing to the next page of results from your get key pairs request.
+     * The token to advance to the next page of results from your request.
+     * </p>
+     * <p>
+     * To get a page token, perform an initial <code>GetKeyPairs</code> request. If your results are paginated, the
+     * response will return a next page token that you can specify as the page token in a subsequent request.
      * </p>
      * 
      * @param pageToken
-     *        A token used for advancing to the next page of results from your get key pairs request.
+     *        The token to advance to the next page of results from your request.</p>
+     *        <p>
+     *        To get a page token, perform an initial <code>GetKeyPairs</code> request. If your results are paginated,
+     *        the response will return a next page token that you can specify as the page token in a subsequent request.
      */
 
     public void setPageToken(String pageToken) {
@@ -47,10 +64,18 @@ public class GetKeyPairsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * A token used for advancing to the next page of results from your get key pairs request.
+     * The token to advance to the next page of results from your request.
+     * </p>
+     * <p>
+     * To get a page token, perform an initial <code>GetKeyPairs</code> request. If your results are paginated, the
+     * response will return a next page token that you can specify as the page token in a subsequent request.
      * </p>
      * 
-     * @return A token used for advancing to the next page of results from your get key pairs request.
+     * @return The token to advance to the next page of results from your request.</p>
+     *         <p>
+     *         To get a page token, perform an initial <code>GetKeyPairs</code> request. If your results are paginated,
+     *         the response will return a next page token that you can specify as the page token in a subsequent
+     *         request.
      */
 
     public String getPageToken() {
@@ -59,17 +84,76 @@ public class GetKeyPairsRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * A token used for advancing to the next page of results from your get key pairs request.
+     * The token to advance to the next page of results from your request.
+     * </p>
+     * <p>
+     * To get a page token, perform an initial <code>GetKeyPairs</code> request. If your results are paginated, the
+     * response will return a next page token that you can specify as the page token in a subsequent request.
      * </p>
      * 
      * @param pageToken
-     *        A token used for advancing to the next page of results from your get key pairs request.
+     *        The token to advance to the next page of results from your request.</p>
+     *        <p>
+     *        To get a page token, perform an initial <code>GetKeyPairs</code> request. If your results are paginated,
+     *        the response will return a next page token that you can specify as the page token in a subsequent request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GetKeyPairsRequest withPageToken(String pageToken) {
         setPageToken(pageToken);
         return this;
+    }
+
+    /**
+     * <p>
+     * A Boolean value that indicates whether to include the default key pair in the response of your request.
+     * </p>
+     * 
+     * @param includeDefaultKeyPair
+     *        A Boolean value that indicates whether to include the default key pair in the response of your request.
+     */
+
+    public void setIncludeDefaultKeyPair(Boolean includeDefaultKeyPair) {
+        this.includeDefaultKeyPair = includeDefaultKeyPair;
+    }
+
+    /**
+     * <p>
+     * A Boolean value that indicates whether to include the default key pair in the response of your request.
+     * </p>
+     * 
+     * @return A Boolean value that indicates whether to include the default key pair in the response of your request.
+     */
+
+    public Boolean getIncludeDefaultKeyPair() {
+        return this.includeDefaultKeyPair;
+    }
+
+    /**
+     * <p>
+     * A Boolean value that indicates whether to include the default key pair in the response of your request.
+     * </p>
+     * 
+     * @param includeDefaultKeyPair
+     *        A Boolean value that indicates whether to include the default key pair in the response of your request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetKeyPairsRequest withIncludeDefaultKeyPair(Boolean includeDefaultKeyPair) {
+        setIncludeDefaultKeyPair(includeDefaultKeyPair);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A Boolean value that indicates whether to include the default key pair in the response of your request.
+     * </p>
+     * 
+     * @return A Boolean value that indicates whether to include the default key pair in the response of your request.
+     */
+
+    public Boolean isIncludeDefaultKeyPair() {
+        return this.includeDefaultKeyPair;
     }
 
     /**
@@ -85,7 +169,9 @@ public class GetKeyPairsRequest extends com.amazonaws.AmazonWebServiceRequest im
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getPageToken() != null)
-            sb.append("PageToken: ").append(getPageToken());
+            sb.append("PageToken: ").append(getPageToken()).append(",");
+        if (getIncludeDefaultKeyPair() != null)
+            sb.append("IncludeDefaultKeyPair: ").append(getIncludeDefaultKeyPair());
         sb.append("}");
         return sb.toString();
     }
@@ -104,6 +190,10 @@ public class GetKeyPairsRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getPageToken() != null && other.getPageToken().equals(this.getPageToken()) == false)
             return false;
+        if (other.getIncludeDefaultKeyPair() == null ^ this.getIncludeDefaultKeyPair() == null)
+            return false;
+        if (other.getIncludeDefaultKeyPair() != null && other.getIncludeDefaultKeyPair().equals(this.getIncludeDefaultKeyPair()) == false)
+            return false;
         return true;
     }
 
@@ -113,6 +203,7 @@ public class GetKeyPairsRequest extends com.amazonaws.AmazonWebServiceRequest im
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getPageToken() == null) ? 0 : getPageToken().hashCode());
+        hashCode = prime * hashCode + ((getIncludeDefaultKeyPair() == null) ? 0 : getIncludeDefaultKeyPair().hashCode());
         return hashCode;
     }
 

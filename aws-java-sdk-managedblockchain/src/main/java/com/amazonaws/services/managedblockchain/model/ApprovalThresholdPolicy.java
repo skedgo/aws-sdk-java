@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,6 +23,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * be based on criteria such as the percentage of <code>YES</code> votes and the duration of the proposal. The policy
  * applies to all proposals and is specified when the network is created.
  * </p>
+ * <p>
+ * Applies only to Hyperledger Fabric.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/managedblockchain-2018-09-24/ApprovalThresholdPolicy"
  *      target="_top">AWS API Documentation</a>
@@ -45,15 +48,15 @@ public class ApprovalThresholdPolicy implements Serializable, Cloneable, Structu
      * <p>
      * The duration from the time that a proposal is created until it expires. If members cast neither the required
      * number of <code>YES</code> votes to approve the proposal nor the number of <code>NO</code> votes required to
-     * reject it before the duration expires, the proposal is <code>EXPIRED</code> and <code>ProposalActions</code> are
-     * not carried out.
+     * reject it before the duration expires, the proposal is <code>EXPIRED</code> and <code>ProposalActions</code>
+     * aren't carried out.
      * </p>
      */
     private Integer proposalDurationInHours;
     /**
      * <p>
      * Determines whether the vote percentage must be greater than the <code>ThresholdPercentage</code> or must be
-     * greater than or equal to the <code>ThreholdPercentage</code> to be approved.
+     * greater than or equal to the <code>ThresholdPercentage</code> to be approved.
      * </p>
      */
     private String thresholdComparator;
@@ -132,15 +135,15 @@ public class ApprovalThresholdPolicy implements Serializable, Cloneable, Structu
      * <p>
      * The duration from the time that a proposal is created until it expires. If members cast neither the required
      * number of <code>YES</code> votes to approve the proposal nor the number of <code>NO</code> votes required to
-     * reject it before the duration expires, the proposal is <code>EXPIRED</code> and <code>ProposalActions</code> are
-     * not carried out.
+     * reject it before the duration expires, the proposal is <code>EXPIRED</code> and <code>ProposalActions</code>
+     * aren't carried out.
      * </p>
      * 
      * @param proposalDurationInHours
      *        The duration from the time that a proposal is created until it expires. If members cast neither the
      *        required number of <code>YES</code> votes to approve the proposal nor the number of <code>NO</code> votes
      *        required to reject it before the duration expires, the proposal is <code>EXPIRED</code> and
-     *        <code>ProposalActions</code> are not carried out.
+     *        <code>ProposalActions</code> aren't carried out.
      */
 
     public void setProposalDurationInHours(Integer proposalDurationInHours) {
@@ -151,14 +154,14 @@ public class ApprovalThresholdPolicy implements Serializable, Cloneable, Structu
      * <p>
      * The duration from the time that a proposal is created until it expires. If members cast neither the required
      * number of <code>YES</code> votes to approve the proposal nor the number of <code>NO</code> votes required to
-     * reject it before the duration expires, the proposal is <code>EXPIRED</code> and <code>ProposalActions</code> are
-     * not carried out.
+     * reject it before the duration expires, the proposal is <code>EXPIRED</code> and <code>ProposalActions</code>
+     * aren't carried out.
      * </p>
      * 
      * @return The duration from the time that a proposal is created until it expires. If members cast neither the
      *         required number of <code>YES</code> votes to approve the proposal nor the number of <code>NO</code> votes
      *         required to reject it before the duration expires, the proposal is <code>EXPIRED</code> and
-     *         <code>ProposalActions</code> are not carried out.
+     *         <code>ProposalActions</code> aren't carried out.
      */
 
     public Integer getProposalDurationInHours() {
@@ -169,15 +172,15 @@ public class ApprovalThresholdPolicy implements Serializable, Cloneable, Structu
      * <p>
      * The duration from the time that a proposal is created until it expires. If members cast neither the required
      * number of <code>YES</code> votes to approve the proposal nor the number of <code>NO</code> votes required to
-     * reject it before the duration expires, the proposal is <code>EXPIRED</code> and <code>ProposalActions</code> are
-     * not carried out.
+     * reject it before the duration expires, the proposal is <code>EXPIRED</code> and <code>ProposalActions</code>
+     * aren't carried out.
      * </p>
      * 
      * @param proposalDurationInHours
      *        The duration from the time that a proposal is created until it expires. If members cast neither the
      *        required number of <code>YES</code> votes to approve the proposal nor the number of <code>NO</code> votes
      *        required to reject it before the duration expires, the proposal is <code>EXPIRED</code> and
-     *        <code>ProposalActions</code> are not carried out.
+     *        <code>ProposalActions</code> aren't carried out.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -189,12 +192,12 @@ public class ApprovalThresholdPolicy implements Serializable, Cloneable, Structu
     /**
      * <p>
      * Determines whether the vote percentage must be greater than the <code>ThresholdPercentage</code> or must be
-     * greater than or equal to the <code>ThreholdPercentage</code> to be approved.
+     * greater than or equal to the <code>ThresholdPercentage</code> to be approved.
      * </p>
      * 
      * @param thresholdComparator
      *        Determines whether the vote percentage must be greater than the <code>ThresholdPercentage</code> or must
-     *        be greater than or equal to the <code>ThreholdPercentage</code> to be approved.
+     *        be greater than or equal to the <code>ThresholdPercentage</code> to be approved.
      * @see ThresholdComparator
      */
 
@@ -205,11 +208,11 @@ public class ApprovalThresholdPolicy implements Serializable, Cloneable, Structu
     /**
      * <p>
      * Determines whether the vote percentage must be greater than the <code>ThresholdPercentage</code> or must be
-     * greater than or equal to the <code>ThreholdPercentage</code> to be approved.
+     * greater than or equal to the <code>ThresholdPercentage</code> to be approved.
      * </p>
      * 
      * @return Determines whether the vote percentage must be greater than the <code>ThresholdPercentage</code> or must
-     *         be greater than or equal to the <code>ThreholdPercentage</code> to be approved.
+     *         be greater than or equal to the <code>ThresholdPercentage</code> to be approved.
      * @see ThresholdComparator
      */
 
@@ -220,12 +223,12 @@ public class ApprovalThresholdPolicy implements Serializable, Cloneable, Structu
     /**
      * <p>
      * Determines whether the vote percentage must be greater than the <code>ThresholdPercentage</code> or must be
-     * greater than or equal to the <code>ThreholdPercentage</code> to be approved.
+     * greater than or equal to the <code>ThresholdPercentage</code> to be approved.
      * </p>
      * 
      * @param thresholdComparator
      *        Determines whether the vote percentage must be greater than the <code>ThresholdPercentage</code> or must
-     *        be greater than or equal to the <code>ThreholdPercentage</code> to be approved.
+     *        be greater than or equal to the <code>ThresholdPercentage</code> to be approved.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ThresholdComparator
      */
@@ -238,12 +241,12 @@ public class ApprovalThresholdPolicy implements Serializable, Cloneable, Structu
     /**
      * <p>
      * Determines whether the vote percentage must be greater than the <code>ThresholdPercentage</code> or must be
-     * greater than or equal to the <code>ThreholdPercentage</code> to be approved.
+     * greater than or equal to the <code>ThresholdPercentage</code> to be approved.
      * </p>
      * 
      * @param thresholdComparator
      *        Determines whether the vote percentage must be greater than the <code>ThresholdPercentage</code> or must
-     *        be greater than or equal to the <code>ThreholdPercentage</code> to be approved.
+     *        be greater than or equal to the <code>ThresholdPercentage</code> to be approved.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ThresholdComparator
      */

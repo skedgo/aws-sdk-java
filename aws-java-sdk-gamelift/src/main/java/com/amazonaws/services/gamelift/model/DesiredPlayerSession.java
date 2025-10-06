@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Player information for use when creating player sessions using a game session placement request with
- * <a>StartGameSessionPlacement</a>.
+ * Player information for use when creating player sessions using a game session placement request.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DesiredPlayerSession" target="_top">AWS API
@@ -31,7 +30,7 @@ public class DesiredPlayerSession implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Unique identifier for a player to associate with the player session.
+     * A unique identifier for a player to associate with the player session.
      * </p>
      */
     private String playerId;
@@ -45,11 +44,11 @@ public class DesiredPlayerSession implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Unique identifier for a player to associate with the player session.
+     * A unique identifier for a player to associate with the player session.
      * </p>
      * 
      * @param playerId
-     *        Unique identifier for a player to associate with the player session.
+     *        A unique identifier for a player to associate with the player session.
      */
 
     public void setPlayerId(String playerId) {
@@ -58,10 +57,10 @@ public class DesiredPlayerSession implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Unique identifier for a player to associate with the player session.
+     * A unique identifier for a player to associate with the player session.
      * </p>
      * 
-     * @return Unique identifier for a player to associate with the player session.
+     * @return A unique identifier for a player to associate with the player session.
      */
 
     public String getPlayerId() {
@@ -70,11 +69,11 @@ public class DesiredPlayerSession implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * Unique identifier for a player to associate with the player session.
+     * A unique identifier for a player to associate with the player session.
      * </p>
      * 
      * @param playerId
-     *        Unique identifier for a player to associate with the player session.
+     *        A unique identifier for a player to associate with the player session.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -142,7 +141,7 @@ public class DesiredPlayerSession implements Serializable, Cloneable, Structured
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getPlayerId() != null)
-            sb.append("PlayerId: ").append(getPlayerId()).append(",");
+            sb.append("PlayerId: ").append("***Sensitive Data Redacted***").append(",");
         if (getPlayerData() != null)
             sb.append("PlayerData: ").append(getPlayerData());
         sb.append("}");

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -90,7 +90,9 @@ public class TableJsonUnmarshaller implements Unmarshaller<Table, JsonUnmarshall
                 }
                 if (context.testExpression("PartitionKeys", targetDepth)) {
                     context.nextToken();
-                    table.setPartitionKeys(new ListUnmarshaller<Column>(ColumnJsonUnmarshaller.getInstance()).unmarshall(context));
+                    table.setPartitionKeys(new ListUnmarshaller<Column>(ColumnJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("ViewOriginalText", targetDepth)) {
                     context.nextToken();
@@ -112,6 +114,34 @@ public class TableJsonUnmarshaller implements Unmarshaller<Table, JsonUnmarshall
                 if (context.testExpression("CreatedBy", targetDepth)) {
                     context.nextToken();
                     table.setCreatedBy(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("IsRegisteredWithLakeFormation", targetDepth)) {
+                    context.nextToken();
+                    table.setIsRegisteredWithLakeFormation(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("TargetTable", targetDepth)) {
+                    context.nextToken();
+                    table.setTargetTable(TableIdentifierJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("CatalogId", targetDepth)) {
+                    context.nextToken();
+                    table.setCatalogId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("VersionId", targetDepth)) {
+                    context.nextToken();
+                    table.setVersionId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("FederatedTable", targetDepth)) {
+                    context.nextToken();
+                    table.setFederatedTable(FederatedTableJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ViewDefinition", targetDepth)) {
+                    context.nextToken();
+                    table.setViewDefinition(ViewDefinitionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("IsMultiDialectView", targetDepth)) {
+                    context.nextToken();
+                    table.setIsMultiDialectView(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

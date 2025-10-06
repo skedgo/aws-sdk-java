@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -70,10 +70,28 @@ public class UpdateFunctionRequest extends com.amazonaws.AmazonWebServiceRequest
     private String responseMappingTemplate;
     /**
      * <p>
-     * The <code>version</code> of the request mapping template. Currently the supported value is 2018-05-29.
+     * The <code>version</code> of the request mapping template. Currently, the supported value is 2018-05-29. Note that
+     * when using VTL and mapping templates, the <code>functionVersion</code> is required.
      * </p>
      */
     private String functionVersion;
+
+    private SyncConfig syncConfig;
+    /**
+     * <p>
+     * The maximum batching size for a resolver.
+     * </p>
+     */
+    private Integer maxBatchSize;
+
+    private AppSyncRuntime runtime;
+    /**
+     * <p>
+     * The <code>function</code> code that contains the request and response functions. When code is used, the
+     * <code>runtime</code> is required. The <code>runtime</code> value must be <code>APPSYNC_JS</code>.
+     * </p>
+     */
+    private String code;
 
     /**
      * <p>
@@ -363,11 +381,13 @@ public class UpdateFunctionRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The <code>version</code> of the request mapping template. Currently the supported value is 2018-05-29.
+     * The <code>version</code> of the request mapping template. Currently, the supported value is 2018-05-29. Note that
+     * when using VTL and mapping templates, the <code>functionVersion</code> is required.
      * </p>
      * 
      * @param functionVersion
-     *        The <code>version</code> of the request mapping template. Currently the supported value is 2018-05-29.
+     *        The <code>version</code> of the request mapping template. Currently, the supported value is 2018-05-29.
+     *        Note that when using VTL and mapping templates, the <code>functionVersion</code> is required.
      */
 
     public void setFunctionVersion(String functionVersion) {
@@ -376,10 +396,12 @@ public class UpdateFunctionRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The <code>version</code> of the request mapping template. Currently the supported value is 2018-05-29.
+     * The <code>version</code> of the request mapping template. Currently, the supported value is 2018-05-29. Note that
+     * when using VTL and mapping templates, the <code>functionVersion</code> is required.
      * </p>
      * 
-     * @return The <code>version</code> of the request mapping template. Currently the supported value is 2018-05-29.
+     * @return The <code>version</code> of the request mapping template. Currently, the supported value is 2018-05-29.
+     *         Note that when using VTL and mapping templates, the <code>functionVersion</code> is required.
      */
 
     public String getFunctionVersion() {
@@ -388,16 +410,156 @@ public class UpdateFunctionRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The <code>version</code> of the request mapping template. Currently the supported value is 2018-05-29.
+     * The <code>version</code> of the request mapping template. Currently, the supported value is 2018-05-29. Note that
+     * when using VTL and mapping templates, the <code>functionVersion</code> is required.
      * </p>
      * 
      * @param functionVersion
-     *        The <code>version</code> of the request mapping template. Currently the supported value is 2018-05-29.
+     *        The <code>version</code> of the request mapping template. Currently, the supported value is 2018-05-29.
+     *        Note that when using VTL and mapping templates, the <code>functionVersion</code> is required.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UpdateFunctionRequest withFunctionVersion(String functionVersion) {
         setFunctionVersion(functionVersion);
+        return this;
+    }
+
+    /**
+     * @param syncConfig
+     */
+
+    public void setSyncConfig(SyncConfig syncConfig) {
+        this.syncConfig = syncConfig;
+    }
+
+    /**
+     * @return
+     */
+
+    public SyncConfig getSyncConfig() {
+        return this.syncConfig;
+    }
+
+    /**
+     * @param syncConfig
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFunctionRequest withSyncConfig(SyncConfig syncConfig) {
+        setSyncConfig(syncConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maximum batching size for a resolver.
+     * </p>
+     * 
+     * @param maxBatchSize
+     *        The maximum batching size for a resolver.
+     */
+
+    public void setMaxBatchSize(Integer maxBatchSize) {
+        this.maxBatchSize = maxBatchSize;
+    }
+
+    /**
+     * <p>
+     * The maximum batching size for a resolver.
+     * </p>
+     * 
+     * @return The maximum batching size for a resolver.
+     */
+
+    public Integer getMaxBatchSize() {
+        return this.maxBatchSize;
+    }
+
+    /**
+     * <p>
+     * The maximum batching size for a resolver.
+     * </p>
+     * 
+     * @param maxBatchSize
+     *        The maximum batching size for a resolver.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFunctionRequest withMaxBatchSize(Integer maxBatchSize) {
+        setMaxBatchSize(maxBatchSize);
+        return this;
+    }
+
+    /**
+     * @param runtime
+     */
+
+    public void setRuntime(AppSyncRuntime runtime) {
+        this.runtime = runtime;
+    }
+
+    /**
+     * @return
+     */
+
+    public AppSyncRuntime getRuntime() {
+        return this.runtime;
+    }
+
+    /**
+     * @param runtime
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFunctionRequest withRuntime(AppSyncRuntime runtime) {
+        setRuntime(runtime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The <code>function</code> code that contains the request and response functions. When code is used, the
+     * <code>runtime</code> is required. The <code>runtime</code> value must be <code>APPSYNC_JS</code>.
+     * </p>
+     * 
+     * @param code
+     *        The <code>function</code> code that contains the request and response functions. When code is used, the
+     *        <code>runtime</code> is required. The <code>runtime</code> value must be <code>APPSYNC_JS</code>.
+     */
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    /**
+     * <p>
+     * The <code>function</code> code that contains the request and response functions. When code is used, the
+     * <code>runtime</code> is required. The <code>runtime</code> value must be <code>APPSYNC_JS</code>.
+     * </p>
+     * 
+     * @return The <code>function</code> code that contains the request and response functions. When code is used, the
+     *         <code>runtime</code> is required. The <code>runtime</code> value must be <code>APPSYNC_JS</code>.
+     */
+
+    public String getCode() {
+        return this.code;
+    }
+
+    /**
+     * <p>
+     * The <code>function</code> code that contains the request and response functions. When code is used, the
+     * <code>runtime</code> is required. The <code>runtime</code> value must be <code>APPSYNC_JS</code>.
+     * </p>
+     * 
+     * @param code
+     *        The <code>function</code> code that contains the request and response functions. When code is used, the
+     *        <code>runtime</code> is required. The <code>runtime</code> value must be <code>APPSYNC_JS</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFunctionRequest withCode(String code) {
+        setCode(code);
         return this;
     }
 
@@ -428,7 +590,15 @@ public class UpdateFunctionRequest extends com.amazonaws.AmazonWebServiceRequest
         if (getResponseMappingTemplate() != null)
             sb.append("ResponseMappingTemplate: ").append(getResponseMappingTemplate()).append(",");
         if (getFunctionVersion() != null)
-            sb.append("FunctionVersion: ").append(getFunctionVersion());
+            sb.append("FunctionVersion: ").append(getFunctionVersion()).append(",");
+        if (getSyncConfig() != null)
+            sb.append("SyncConfig: ").append(getSyncConfig()).append(",");
+        if (getMaxBatchSize() != null)
+            sb.append("MaxBatchSize: ").append(getMaxBatchSize()).append(",");
+        if (getRuntime() != null)
+            sb.append("Runtime: ").append(getRuntime()).append(",");
+        if (getCode() != null)
+            sb.append("Code: ").append(getCode());
         sb.append("}");
         return sb.toString();
     }
@@ -475,6 +645,22 @@ public class UpdateFunctionRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getFunctionVersion() != null && other.getFunctionVersion().equals(this.getFunctionVersion()) == false)
             return false;
+        if (other.getSyncConfig() == null ^ this.getSyncConfig() == null)
+            return false;
+        if (other.getSyncConfig() != null && other.getSyncConfig().equals(this.getSyncConfig()) == false)
+            return false;
+        if (other.getMaxBatchSize() == null ^ this.getMaxBatchSize() == null)
+            return false;
+        if (other.getMaxBatchSize() != null && other.getMaxBatchSize().equals(this.getMaxBatchSize()) == false)
+            return false;
+        if (other.getRuntime() == null ^ this.getRuntime() == null)
+            return false;
+        if (other.getRuntime() != null && other.getRuntime().equals(this.getRuntime()) == false)
+            return false;
+        if (other.getCode() == null ^ this.getCode() == null)
+            return false;
+        if (other.getCode() != null && other.getCode().equals(this.getCode()) == false)
+            return false;
         return true;
     }
 
@@ -491,6 +677,10 @@ public class UpdateFunctionRequest extends com.amazonaws.AmazonWebServiceRequest
         hashCode = prime * hashCode + ((getRequestMappingTemplate() == null) ? 0 : getRequestMappingTemplate().hashCode());
         hashCode = prime * hashCode + ((getResponseMappingTemplate() == null) ? 0 : getResponseMappingTemplate().hashCode());
         hashCode = prime * hashCode + ((getFunctionVersion() == null) ? 0 : getFunctionVersion().hashCode());
+        hashCode = prime * hashCode + ((getSyncConfig() == null) ? 0 : getSyncConfig().hashCode());
+        hashCode = prime * hashCode + ((getMaxBatchSize() == null) ? 0 : getMaxBatchSize().hashCode());
+        hashCode = prime * hashCode + ((getRuntime() == null) ? 0 : getRuntime().hashCode());
+        hashCode = prime * hashCode + ((getCode() == null) ? 0 : getCode().hashCode());
         return hashCode;
     }
 

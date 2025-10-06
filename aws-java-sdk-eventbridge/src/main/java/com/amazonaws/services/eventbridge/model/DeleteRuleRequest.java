@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,16 +33,16 @@ public class DeleteRuleRequest extends com.amazonaws.AmazonWebServiceRequest imp
     private String name;
     /**
      * <p>
-     * The event bus associated with the rule. If you omit this, the default event bus is used.
+     * The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used.
      * </p>
      */
     private String eventBusName;
     /**
      * <p>
-     * If this is a managed rule, created by an AWS service on your behalf, you must specify <code>Force</code> as
-     * <code>True</code> to delete the rule. This parameter is ignored for rules that are not managed rules. You can
-     * check whether a rule is a managed rule by using <code>DescribeRule</code> or <code>ListRules</code> and checking
-     * the <code>ManagedBy</code> field of the response.
+     * If this is a managed rule, created by an Amazon Web Services service on your behalf, you must specify
+     * <code>Force</code> as <code>True</code> to delete the rule. This parameter is ignored for rules that are not
+     * managed rules. You can check whether a rule is a managed rule by using <code>DescribeRule</code> or
+     * <code>ListRules</code> and checking the <code>ManagedBy</code> field of the response.
      * </p>
      */
     private Boolean force;
@@ -89,11 +89,12 @@ public class DeleteRuleRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The event bus associated with the rule. If you omit this, the default event bus is used.
+     * The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used.
      * </p>
      * 
      * @param eventBusName
-     *        The event bus associated with the rule. If you omit this, the default event bus is used.
+     *        The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is
+     *        used.
      */
 
     public void setEventBusName(String eventBusName) {
@@ -102,10 +103,11 @@ public class DeleteRuleRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The event bus associated with the rule. If you omit this, the default event bus is used.
+     * The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used.
      * </p>
      * 
-     * @return The event bus associated with the rule. If you omit this, the default event bus is used.
+     * @return The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is
+     *         used.
      */
 
     public String getEventBusName() {
@@ -114,11 +116,12 @@ public class DeleteRuleRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The event bus associated with the rule. If you omit this, the default event bus is used.
+     * The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used.
      * </p>
      * 
      * @param eventBusName
-     *        The event bus associated with the rule. If you omit this, the default event bus is used.
+     *        The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is
+     *        used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -129,16 +132,16 @@ public class DeleteRuleRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * If this is a managed rule, created by an AWS service on your behalf, you must specify <code>Force</code> as
-     * <code>True</code> to delete the rule. This parameter is ignored for rules that are not managed rules. You can
-     * check whether a rule is a managed rule by using <code>DescribeRule</code> or <code>ListRules</code> and checking
-     * the <code>ManagedBy</code> field of the response.
+     * If this is a managed rule, created by an Amazon Web Services service on your behalf, you must specify
+     * <code>Force</code> as <code>True</code> to delete the rule. This parameter is ignored for rules that are not
+     * managed rules. You can check whether a rule is a managed rule by using <code>DescribeRule</code> or
+     * <code>ListRules</code> and checking the <code>ManagedBy</code> field of the response.
      * </p>
      * 
      * @param force
-     *        If this is a managed rule, created by an AWS service on your behalf, you must specify <code>Force</code>
-     *        as <code>True</code> to delete the rule. This parameter is ignored for rules that are not managed rules.
-     *        You can check whether a rule is a managed rule by using <code>DescribeRule</code> or
+     *        If this is a managed rule, created by an Amazon Web Services service on your behalf, you must specify
+     *        <code>Force</code> as <code>True</code> to delete the rule. This parameter is ignored for rules that are
+     *        not managed rules. You can check whether a rule is a managed rule by using <code>DescribeRule</code> or
      *        <code>ListRules</code> and checking the <code>ManagedBy</code> field of the response.
      */
 
@@ -148,15 +151,15 @@ public class DeleteRuleRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * If this is a managed rule, created by an AWS service on your behalf, you must specify <code>Force</code> as
-     * <code>True</code> to delete the rule. This parameter is ignored for rules that are not managed rules. You can
-     * check whether a rule is a managed rule by using <code>DescribeRule</code> or <code>ListRules</code> and checking
-     * the <code>ManagedBy</code> field of the response.
+     * If this is a managed rule, created by an Amazon Web Services service on your behalf, you must specify
+     * <code>Force</code> as <code>True</code> to delete the rule. This parameter is ignored for rules that are not
+     * managed rules. You can check whether a rule is a managed rule by using <code>DescribeRule</code> or
+     * <code>ListRules</code> and checking the <code>ManagedBy</code> field of the response.
      * </p>
      * 
-     * @return If this is a managed rule, created by an AWS service on your behalf, you must specify <code>Force</code>
-     *         as <code>True</code> to delete the rule. This parameter is ignored for rules that are not managed rules.
-     *         You can check whether a rule is a managed rule by using <code>DescribeRule</code> or
+     * @return If this is a managed rule, created by an Amazon Web Services service on your behalf, you must specify
+     *         <code>Force</code> as <code>True</code> to delete the rule. This parameter is ignored for rules that are
+     *         not managed rules. You can check whether a rule is a managed rule by using <code>DescribeRule</code> or
      *         <code>ListRules</code> and checking the <code>ManagedBy</code> field of the response.
      */
 
@@ -166,16 +169,16 @@ public class DeleteRuleRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * If this is a managed rule, created by an AWS service on your behalf, you must specify <code>Force</code> as
-     * <code>True</code> to delete the rule. This parameter is ignored for rules that are not managed rules. You can
-     * check whether a rule is a managed rule by using <code>DescribeRule</code> or <code>ListRules</code> and checking
-     * the <code>ManagedBy</code> field of the response.
+     * If this is a managed rule, created by an Amazon Web Services service on your behalf, you must specify
+     * <code>Force</code> as <code>True</code> to delete the rule. This parameter is ignored for rules that are not
+     * managed rules. You can check whether a rule is a managed rule by using <code>DescribeRule</code> or
+     * <code>ListRules</code> and checking the <code>ManagedBy</code> field of the response.
      * </p>
      * 
      * @param force
-     *        If this is a managed rule, created by an AWS service on your behalf, you must specify <code>Force</code>
-     *        as <code>True</code> to delete the rule. This parameter is ignored for rules that are not managed rules.
-     *        You can check whether a rule is a managed rule by using <code>DescribeRule</code> or
+     *        If this is a managed rule, created by an Amazon Web Services service on your behalf, you must specify
+     *        <code>Force</code> as <code>True</code> to delete the rule. This parameter is ignored for rules that are
+     *        not managed rules. You can check whether a rule is a managed rule by using <code>DescribeRule</code> or
      *        <code>ListRules</code> and checking the <code>ManagedBy</code> field of the response.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -187,15 +190,15 @@ public class DeleteRuleRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * If this is a managed rule, created by an AWS service on your behalf, you must specify <code>Force</code> as
-     * <code>True</code> to delete the rule. This parameter is ignored for rules that are not managed rules. You can
-     * check whether a rule is a managed rule by using <code>DescribeRule</code> or <code>ListRules</code> and checking
-     * the <code>ManagedBy</code> field of the response.
+     * If this is a managed rule, created by an Amazon Web Services service on your behalf, you must specify
+     * <code>Force</code> as <code>True</code> to delete the rule. This parameter is ignored for rules that are not
+     * managed rules. You can check whether a rule is a managed rule by using <code>DescribeRule</code> or
+     * <code>ListRules</code> and checking the <code>ManagedBy</code> field of the response.
      * </p>
      * 
-     * @return If this is a managed rule, created by an AWS service on your behalf, you must specify <code>Force</code>
-     *         as <code>True</code> to delete the rule. This parameter is ignored for rules that are not managed rules.
-     *         You can check whether a rule is a managed rule by using <code>DescribeRule</code> or
+     * @return If this is a managed rule, created by an Amazon Web Services service on your behalf, you must specify
+     *         <code>Force</code> as <code>True</code> to delete the rule. This parameter is ignored for rules that are
+     *         not managed rules. You can check whether a rule is a managed rule by using <code>DescribeRule</code> or
      *         <code>ListRules</code> and checking the <code>ManagedBy</code> field of the response.
      */
 

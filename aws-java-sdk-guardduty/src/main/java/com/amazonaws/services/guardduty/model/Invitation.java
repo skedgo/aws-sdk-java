@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains information about the invitation to become a member account.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/Invitation" target="_top">AWS API
  *      Documentation</a>
@@ -27,13 +30,13 @@ public class Invitation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Inviter account ID
+     * The ID of the account that the invitation was sent from.
      * </p>
      */
     private String accountId;
     /**
      * <p>
-     * This value is used to validate the inviter account to the member account.
+     * The ID of the invitation. This value is used to validate the inviter account to the member account.
      * </p>
      */
     private String invitationId;
@@ -45,18 +48,18 @@ public class Invitation implements Serializable, Cloneable, StructuredPojo {
     private String relationshipStatus;
     /**
      * <p>
-     * Timestamp at which the invitation was sent
+     * The timestamp when the invitation was sent.
      * </p>
      */
     private String invitedAt;
 
     /**
      * <p>
-     * Inviter account ID
+     * The ID of the account that the invitation was sent from.
      * </p>
      * 
      * @param accountId
-     *        Inviter account ID
+     *        The ID of the account that the invitation was sent from.
      */
 
     public void setAccountId(String accountId) {
@@ -65,10 +68,10 @@ public class Invitation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Inviter account ID
+     * The ID of the account that the invitation was sent from.
      * </p>
      * 
-     * @return Inviter account ID
+     * @return The ID of the account that the invitation was sent from.
      */
 
     public String getAccountId() {
@@ -77,11 +80,11 @@ public class Invitation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Inviter account ID
+     * The ID of the account that the invitation was sent from.
      * </p>
      * 
      * @param accountId
-     *        Inviter account ID
+     *        The ID of the account that the invitation was sent from.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -92,11 +95,11 @@ public class Invitation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This value is used to validate the inviter account to the member account.
+     * The ID of the invitation. This value is used to validate the inviter account to the member account.
      * </p>
      * 
      * @param invitationId
-     *        This value is used to validate the inviter account to the member account.
+     *        The ID of the invitation. This value is used to validate the inviter account to the member account.
      */
 
     public void setInvitationId(String invitationId) {
@@ -105,10 +108,10 @@ public class Invitation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This value is used to validate the inviter account to the member account.
+     * The ID of the invitation. This value is used to validate the inviter account to the member account.
      * </p>
      * 
-     * @return This value is used to validate the inviter account to the member account.
+     * @return The ID of the invitation. This value is used to validate the inviter account to the member account.
      */
 
     public String getInvitationId() {
@@ -117,11 +120,11 @@ public class Invitation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * This value is used to validate the inviter account to the member account.
+     * The ID of the invitation. This value is used to validate the inviter account to the member account.
      * </p>
      * 
      * @param invitationId
-     *        This value is used to validate the inviter account to the member account.
+     *        The ID of the invitation. This value is used to validate the inviter account to the member account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -172,11 +175,11 @@ public class Invitation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Timestamp at which the invitation was sent
+     * The timestamp when the invitation was sent.
      * </p>
      * 
      * @param invitedAt
-     *        Timestamp at which the invitation was sent
+     *        The timestamp when the invitation was sent.
      */
 
     public void setInvitedAt(String invitedAt) {
@@ -185,10 +188,10 @@ public class Invitation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Timestamp at which the invitation was sent
+     * The timestamp when the invitation was sent.
      * </p>
      * 
-     * @return Timestamp at which the invitation was sent
+     * @return The timestamp when the invitation was sent.
      */
 
     public String getInvitedAt() {
@@ -197,11 +200,11 @@ public class Invitation implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Timestamp at which the invitation was sent
+     * The timestamp when the invitation was sent.
      * </p>
      * 
      * @param invitedAt
-     *        Timestamp at which the invitation was sent
+     *        The timestamp when the invitation was sent.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

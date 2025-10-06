@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,18 +44,20 @@ import com.amazonaws.services.servicediscovery.AWSServiceDiscoveryClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.servicediscovery.model.*;
+
 import com.amazonaws.services.servicediscovery.model.transform.*;
 
 /**
  * Client for accessing ServiceDiscovery. All service calls made using this client are blocking, and will not return
  * until the service call completes.
  * <p>
+ * <fullname>Cloud Map</fullname>
  * <p>
- * AWS Cloud Map lets you configure public DNS, private DNS, or HTTP namespaces that your microservice applications run
- * in. When an instance of the service becomes available, you can call the AWS Cloud Map API to register the instance
- * with AWS Cloud Map. For public or private DNS namespaces, AWS Cloud Map automatically creates DNS records and an
- * optional health check. Clients that submit public or private DNS queries, or HTTP requests, for the service receive
- * an answer that contains up to eight healthy records.
+ * With Cloud Map, you can configure public DNS, private DNS, or HTTP namespaces that your microservice applications run
+ * in. When an instance becomes available, you can call the Cloud Map API to register the instance with Cloud Map. For
+ * public or private DNS namespaces, Cloud Map automatically creates DNS records and an optional health check. Clients
+ * that submit public or private DNS queries, or HTTP requests, for the service receive an answer that contains up to
+ * eight healthy records.
  * </p>
  */
 @ThreadSafe
@@ -81,38 +83,47 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("OperationNotFound").withModeledClass(
-                                    com.amazonaws.services.servicediscovery.model.OperationNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("RequestLimitExceeded").withExceptionUnmarshaller(
+                                    com.amazonaws.services.servicediscovery.model.transform.RequestLimitExceededExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUse").withModeledClass(
-                                    com.amazonaws.services.servicediscovery.model.ResourceInUseException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceInUse").withExceptionUnmarshaller(
+                                    com.amazonaws.services.servicediscovery.model.transform.ResourceInUseExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DuplicateRequest").withModeledClass(
-                                    com.amazonaws.services.servicediscovery.model.DuplicateRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DuplicateRequest").withExceptionUnmarshaller(
+                                    com.amazonaws.services.servicediscovery.model.transform.DuplicateRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidInput").withModeledClass(
-                                    com.amazonaws.services.servicediscovery.model.InvalidInputException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceAlreadyExists").withExceptionUnmarshaller(
+                                    com.amazonaws.services.servicediscovery.model.transform.ServiceAlreadyExistsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServiceAlreadyExists").withModeledClass(
-                                    com.amazonaws.services.servicediscovery.model.ServiceAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceNotFound").withExceptionUnmarshaller(
+                                    com.amazonaws.services.servicediscovery.model.transform.ServiceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServiceNotFound").withModeledClass(
-                                    com.amazonaws.services.servicediscovery.model.ServiceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InstanceNotFound").withExceptionUnmarshaller(
+                                    com.amazonaws.services.servicediscovery.model.transform.InstanceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NamespaceAlreadyExists").withModeledClass(
-                                    com.amazonaws.services.servicediscovery.model.NamespaceAlreadyExistsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("OperationNotFound").withExceptionUnmarshaller(
+                                    com.amazonaws.services.servicediscovery.model.transform.OperationNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InstanceNotFound").withModeledClass(
-                                    com.amazonaws.services.servicediscovery.model.InstanceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyTagsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.servicediscovery.model.transform.TooManyTagsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NamespaceNotFound").withModeledClass(
-                                    com.amazonaws.services.servicediscovery.model.NamespaceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.servicediscovery.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("CustomHealthNotFound").withModeledClass(
-                                    com.amazonaws.services.servicediscovery.model.CustomHealthNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidInput").withExceptionUnmarshaller(
+                                    com.amazonaws.services.servicediscovery.model.transform.InvalidInputExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceLimitExceeded").withModeledClass(
-                                    com.amazonaws.services.servicediscovery.model.ResourceLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NamespaceAlreadyExists").withExceptionUnmarshaller(
+                                    com.amazonaws.services.servicediscovery.model.transform.NamespaceAlreadyExistsExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("NamespaceNotFound").withExceptionUnmarshaller(
+                                    com.amazonaws.services.servicediscovery.model.transform.NamespaceNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("CustomHealthNotFound").withExceptionUnmarshaller(
+                                    com.amazonaws.services.servicediscovery.model.transform.CustomHealthNotFoundExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceLimitExceeded").withExceptionUnmarshaller(
+                                    com.amazonaws.services.servicediscovery.model.transform.ResourceLimitExceededExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.servicediscovery.model.AWSServiceDiscoveryException.class));
 
     public static AWSServiceDiscoveryClientBuilder builder() {
@@ -163,13 +174,13 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
 
     /**
      * <p>
-     * Creates an HTTP namespace. Service instances that you register using an HTTP namespace can be discovered using a
+     * Creates an HTTP namespace. Service instances registered using an HTTP namespace can be discovered using a
      * <code>DiscoverInstances</code> request but can't be discovered using DNS.
      * </p>
      * <p>
-     * For the current limit on the number of namespaces that you can create using the same AWS account, see <a
-     * href="http://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html">AWS Cloud Map Limits</a> in the
-     * <i>AWS Cloud Map Developer Guide</i>.
+     * For the current quota on the number of namespaces that you can create using the same Amazon Web Services account,
+     * see <a href="https://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html">Cloud Map quotas</a> in the
+     * <i>Cloud Map Developer Guide</i>.
      * </p>
      * 
      * @param createHttpNamespaceRequest
@@ -180,9 +191,12 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
      * @throws NamespaceAlreadyExistsException
      *         The namespace that you're trying to create already exists.
      * @throws ResourceLimitExceededException
-     *         The resource can't be created because you've reached the limit on the number of resources.
+     *         The resource can't be created because you've reached the quota on the number of resources.
      * @throws DuplicateRequestException
      *         The operation is already in progress.
+     * @throws TooManyTagsException
+     *         The list of tags on the resource is over the quota. The maximum number of tags that can be applied to a
+     *         resource is 50.
      * @sample AWSServiceDiscovery.CreateHttpNamespace
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreateHttpNamespace"
      *      target="_top">AWS API Documentation</a>
@@ -208,6 +222,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                 request = new CreateHttpNamespaceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createHttpNamespaceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateHttpNamespace");
@@ -231,12 +247,14 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
 
     /**
      * <p>
-     * Creates a private namespace based on DNS, which will be visible only inside a specified Amazon VPC. The namespace
+     * Creates a private namespace based on DNS, which is visible only inside a specified Amazon VPC. The namespace
      * defines your service naming scheme. For example, if you name your namespace <code>example.com</code> and name
-     * your service <code>backend</code>, the resulting DNS name for the service will be
-     * <code>backend.example.com</code>. For the current limit on the number of namespaces that you can create using the
-     * same AWS account, see <a href="http://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html">AWS Cloud
-     * Map Limits</a> in the <i>AWS Cloud Map Developer Guide</i>.
+     * your service <code>backend</code>, the resulting DNS name for the service is <code>backend.example.com</code>.
+     * Service instances that are registered using a private DNS namespace can be discovered using either a
+     * <code>DiscoverInstances</code> request or using DNS. For the current quota on the number of namespaces that you
+     * can create using the same Amazon Web Services account, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html">Cloud Map quotas</a> in the <i>Cloud
+     * Map Developer Guide</i>.
      * </p>
      * 
      * @param createPrivateDnsNamespaceRequest
@@ -247,9 +265,12 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
      * @throws NamespaceAlreadyExistsException
      *         The namespace that you're trying to create already exists.
      * @throws ResourceLimitExceededException
-     *         The resource can't be created because you've reached the limit on the number of resources.
+     *         The resource can't be created because you've reached the quota on the number of resources.
      * @throws DuplicateRequestException
      *         The operation is already in progress.
+     * @throws TooManyTagsException
+     *         The list of tags on the resource is over the quota. The maximum number of tags that can be applied to a
+     *         resource is 50.
      * @sample AWSServiceDiscovery.CreatePrivateDnsNamespace
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePrivateDnsNamespace"
      *      target="_top">AWS API Documentation</a>
@@ -276,6 +297,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(createPrivateDnsNamespaceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePrivateDnsNamespace");
@@ -300,13 +323,21 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
 
     /**
      * <p>
-     * Creates a public namespace based on DNS, which will be visible on the internet. The namespace defines your
-     * service naming scheme. For example, if you name your namespace <code>example.com</code> and name your service
-     * <code>backend</code>, the resulting DNS name for the service will be <code>backend.example.com</code>. For the
-     * current limit on the number of namespaces that you can create using the same AWS account, see <a
-     * href="http://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html">AWS Cloud Map Limits</a> in the
-     * <i>AWS Cloud Map Developer Guide</i>.
+     * Creates a public namespace based on DNS, which is visible on the internet. The namespace defines your service
+     * naming scheme. For example, if you name your namespace <code>example.com</code> and name your service
+     * <code>backend</code>, the resulting DNS name for the service is <code>backend.example.com</code>. You can
+     * discover instances that were registered with a public DNS namespace by using either a
+     * <code>DiscoverInstances</code> request or using DNS. For the current quota on the number of namespaces that you
+     * can create using the same Amazon Web Services account, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html">Cloud Map quotas</a> in the <i>Cloud
+     * Map Developer Guide</i>.
      * </p>
+     * <important>
+     * <p>
+     * The <code>CreatePublicDnsNamespace</code> API operation is not supported in the Amazon Web Services GovCloud (US)
+     * Regions.
+     * </p>
+     * </important>
      * 
      * @param createPublicDnsNamespaceRequest
      * @return Result of the CreatePublicDnsNamespace operation returned by the service.
@@ -316,9 +347,12 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
      * @throws NamespaceAlreadyExistsException
      *         The namespace that you're trying to create already exists.
      * @throws ResourceLimitExceededException
-     *         The resource can't be created because you've reached the limit on the number of resources.
+     *         The resource can't be created because you've reached the quota on the number of resources.
      * @throws DuplicateRequestException
      *         The operation is already in progress.
+     * @throws TooManyTagsException
+     *         The list of tags on the resource is over the quota. The maximum number of tags that can be applied to a
+     *         resource is 50.
      * @sample AWSServiceDiscovery.CreatePublicDnsNamespace
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePublicDnsNamespace"
      *      target="_top">AWS API Documentation</a>
@@ -345,6 +379,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(createPublicDnsNamespaceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePublicDnsNamespace");
@@ -369,37 +405,37 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
 
     /**
      * <p>
-     * Creates a service, which defines the configuration for the following entities:
+     * Creates a service. This action defines the configuration for the following entities:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * For public and private DNS namespaces, one of the following combinations of DNS records in Amazon Route 53:
+     * For public and private DNS namespaces, one of the following combinations of DNS records in Amazon Route 53:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * A
+     * <code>A</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * AAAA
+     * <code>AAAA</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * A and AAAA
+     * <code>A</code> and <code>AAAA</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * SRV
+     * <code>SRV</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * CNAME
+     * <code>CNAME</code>
      * </p>
      * </li>
      * </ul>
@@ -411,13 +447,14 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
      * </li>
      * </ul>
      * <p>
-     * After you create the service, you can submit a <a>RegisterInstance</a> request, and AWS Cloud Map uses the values
-     * in the configuration to create the specified entities.
+     * After you create the service, you can submit a <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_RegisterInstance.html">RegisterInstance</a> request,
+     * and Cloud Map uses the values in the configuration to create the specified entities.
      * </p>
      * <p>
-     * For the current limit on the number of instances that you can register using the same namespace and using the
-     * same service, see <a href="http://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html">AWS Cloud Map
-     * Limits</a> in the <i>AWS Cloud Map Developer Guide</i>.
+     * For the current quota on the number of instances that you can register using the same namespace and using the
+     * same service, see <a href="https://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html">Cloud Map
+     * quotas</a> in the <i>Cloud Map Developer Guide</i>.
      * </p>
      * 
      * @param createServiceRequest
@@ -426,11 +463,14 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
      *         One or more specified values aren't valid. For example, a required value might be missing, a numeric
      *         value might be outside the allowed range, or a string value might exceed length constraints.
      * @throws ResourceLimitExceededException
-     *         The resource can't be created because you've reached the limit on the number of resources.
+     *         The resource can't be created because you've reached the quota on the number of resources.
      * @throws NamespaceNotFoundException
      *         No namespace exists with the specified ID.
      * @throws ServiceAlreadyExistsException
      *         The service can't be created because a service with the same name already exists.
+     * @throws TooManyTagsException
+     *         The list of tags on the resource is over the quota. The maximum number of tags that can be applied to a
+     *         resource is 50.
      * @sample AWSServiceDiscovery.CreateService
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreateService" target="_top">AWS
      *      API Documentation</a>
@@ -456,6 +496,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                 request = new CreateServiceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createServiceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateService");
@@ -520,6 +562,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                 request = new DeleteNamespaceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteNamespaceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteNamespace");
@@ -581,6 +625,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                 request = new DeleteServiceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteServiceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteService");
@@ -604,7 +650,7 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
 
     /**
      * <p>
-     * Deletes the Amazon Route 53 DNS records and health check, if any, that AWS Cloud Map created for the specified
+     * Deletes the Amazon Route 53 DNS records and health check, if any, that Cloud Map created for the specified
      * instance.
      * </p>
      * 
@@ -648,6 +694,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                 request = new DeregisterInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deregisterInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeregisterInstance");
@@ -671,7 +719,10 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
 
     /**
      * <p>
-     * Discovers registered instances for a specified namespace and service.
+     * Discovers registered instances for a specified namespace and service. You can use <code>DiscoverInstances</code>
+     * to discover instances for any type of namespace. <code>DiscoverInstances</code> returns a randomized list of
+     * instances allowing customers to distribute traffic evenly across instances. For public and private DNS
+     * namespaces, you can also use DNS queries to discover instances.
      * </p>
      * 
      * @param discoverInstancesRequest
@@ -683,6 +734,10 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
      * @throws InvalidInputException
      *         One or more specified values aren't valid. For example, a required value might be missing, a numeric
      *         value might be outside the allowed range, or a string value might exceed length constraints.
+     * @throws RequestLimitExceededException
+     *         The operation can't be completed because you've reached the quota for the number of requests. For more
+     *         information, see <a href="https://docs.aws.amazon.com/cloud-map/latest/dg/throttling.html">Cloud Map API
+     *         request throttling quota</a> in the <i>Cloud Map Developer Guide</i>.
      * @sample AWSServiceDiscovery.DiscoverInstances
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DiscoverInstances"
      *      target="_top">AWS API Documentation</a>
@@ -708,6 +763,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                 request = new DiscoverInstancesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(discoverInstancesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DiscoverInstances");
@@ -728,6 +785,83 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
 
             HttpResponseHandler<AmazonWebServiceResponse<DiscoverInstancesResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DiscoverInstancesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext, null, endpointTraitHost);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Discovers the increasing revision associated with an instance.
+     * </p>
+     * 
+     * @param discoverInstancesRevisionRequest
+     * @return Result of the DiscoverInstancesRevision operation returned by the service.
+     * @throws ServiceNotFoundException
+     *         No service exists with the specified ID.
+     * @throws NamespaceNotFoundException
+     *         No namespace exists with the specified ID.
+     * @throws InvalidInputException
+     *         One or more specified values aren't valid. For example, a required value might be missing, a numeric
+     *         value might be outside the allowed range, or a string value might exceed length constraints.
+     * @throws RequestLimitExceededException
+     *         The operation can't be completed because you've reached the quota for the number of requests. For more
+     *         information, see <a href="https://docs.aws.amazon.com/cloud-map/latest/dg/throttling.html">Cloud Map API
+     *         request throttling quota</a> in the <i>Cloud Map Developer Guide</i>.
+     * @sample AWSServiceDiscovery.DiscoverInstancesRevision
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DiscoverInstancesRevision"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DiscoverInstancesRevisionResult discoverInstancesRevision(DiscoverInstancesRevisionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDiscoverInstancesRevision(request);
+    }
+
+    @SdkInternalApi
+    final DiscoverInstancesRevisionResult executeDiscoverInstancesRevision(DiscoverInstancesRevisionRequest discoverInstancesRevisionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(discoverInstancesRevisionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DiscoverInstancesRevisionRequest> request = null;
+        Response<DiscoverInstancesRevisionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DiscoverInstancesRevisionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(discoverInstancesRevisionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DiscoverInstancesRevision");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            URI endpointTraitHost = null;
+            if (!clientConfiguration.isDisableHostPrefixInjection()) {
+
+                String hostPrefix = "data-";
+                String resolvedHostPrefix = String.format("data-");
+
+                endpointTraitHost = UriResourcePathUtils.updateUriHost(endpoint, resolvedHostPrefix);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DiscoverInstancesRevisionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DiscoverInstancesRevisionResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext, null, endpointTraitHost);
 
             return response.getAwsResponse();
@@ -778,6 +912,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                 request = new GetInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetInstance");
@@ -806,7 +942,7 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
      * </p>
      * <note>
      * <p>
-     * There is a brief delay between when you register an instance and when the health status for the instance is
+     * There's a brief delay between when you register an instance and when the health status for the instance is
      * available.
      * </p>
      * </note>
@@ -847,6 +983,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(getInstancesHealthStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetInstancesHealthStatus");
@@ -906,6 +1044,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                 request = new GetNamespaceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getNamespaceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetNamespace");
@@ -930,11 +1070,12 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
     /**
      * <p>
      * Gets information about any operation that returns an operation ID in the response, such as a
-     * <code>CreateService</code> request.
+     * <code>CreateHttpNamespace</code> request.
      * </p>
      * <note>
      * <p>
-     * To get a list of operations that match specified criteria, see <a>ListOperations</a>.
+     * To get a list of operations that match specified criteria, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_ListOperations.html">ListOperations</a>.
      * </p>
      * </note>
      * 
@@ -970,6 +1111,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                 request = new GetOperationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getOperationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetOperation");
@@ -1028,6 +1171,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                 request = new GetServiceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getServiceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetService");
@@ -1086,6 +1231,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                 request = new ListInstancesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listInstancesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListInstances");
@@ -1109,7 +1256,7 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
 
     /**
      * <p>
-     * Lists summary information about the namespaces that were created by the current AWS account.
+     * Lists summary information about the namespaces that were created by the current Amazon Web Services account.
      * </p>
      * 
      * @param listNamespacesRequest
@@ -1142,6 +1289,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                 request = new ListNamespacesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listNamespacesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListNamespaces");
@@ -1198,6 +1347,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                 request = new ListOperationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listOperationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListOperations");
@@ -1221,7 +1372,7 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
 
     /**
      * <p>
-     * Lists summary information for all the services that are associated with one or more specified namespaces.
+     * Lists summary information for all the services that are associated with one or more namespaces.
      * </p>
      * 
      * @param listServicesRequest
@@ -1254,6 +1405,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                 request = new ListServicesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listServicesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListServices");
@@ -1277,14 +1430,74 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
 
     /**
      * <p>
+     * Lists tags for the specified resource.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The operation can't be completed because the resource was not found.
+     * @throws InvalidInputException
+     *         One or more specified values aren't valid. For example, a required value might be missing, a numeric
+     *         value might be outside the allowed range, or a string value might exceed length constraints.
+     * @sample AWSServiceDiscovery.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListTagsForResource"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTagsForResource(request);
+    }
+
+    @SdkInternalApi
+    final ListTagsForResourceResult executeListTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForResourceRequest> request = null;
+        Response<ListTagsForResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Creates or updates one or more records and, optionally, creates a health check based on the settings in a
      * specified service. When you submit a <code>RegisterInstance</code> request, the following occurs:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * For each DNS record that you define in the service that is specified by <code>ServiceId</code>, a record is
-     * created or updated in the hosted zone that is associated with the corresponding namespace.
+     * For each DNS record that you define in the service that's specified by <code>ServiceId</code>, a record is
+     * created or updated in the hosted zone that's associated with the corresponding namespace.
      * </p>
      * </li>
      * <li>
@@ -1306,10 +1519,11 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
      * </p>
      * </important>
      * <p>
-     * For more information, see <a>CreateService</a>.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_CreateService.html">CreateService</a>.
      * </p>
      * <p>
-     * When AWS Cloud Map receives a DNS query for the specified DNS name, it returns the applicable value:
+     * When Cloud Map receives a DNS query for the specified DNS name, it returns the applicable value:
      * </p>
      * <ul>
      * <li>
@@ -1329,9 +1543,9 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
      * </li>
      * </ul>
      * <p>
-     * For the current limit on the number of instances that you can register using the same namespace and using the
-     * same service, see <a href="http://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html">AWS Cloud Map
-     * Limits</a> in the <i>AWS Cloud Map Developer Guide</i>.
+     * For the current quota on the number of instances that you can register using the same namespace and using the
+     * same service, see <a href="https://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html">Cloud Map
+     * quotas</a> in the <i>Cloud Map Developer Guide</i>.
      * </p>
      * 
      * @param registerInstanceRequest
@@ -1345,7 +1559,7 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
      *         The specified resource can't be deleted because it contains other resources. For example, you can't
      *         delete a service that contains any instances.
      * @throws ResourceLimitExceededException
-     *         The resource can't be created because you've reached the limit on the number of resources.
+     *         The resource can't be created because you've reached the quota on the number of resources.
      * @throws ServiceNotFoundException
      *         No service exists with the specified ID.
      * @sample AWSServiceDiscovery.RegisterInstance
@@ -1373,6 +1587,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                 request = new RegisterInstanceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(registerInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterInstance");
@@ -1396,15 +1612,205 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
 
     /**
      * <p>
+     * Adds one or more tags to the specified resource.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The operation can't be completed because the resource was not found.
+     * @throws TooManyTagsException
+     *         The list of tags on the resource is over the quota. The maximum number of tags that can be applied to a
+     *         resource is 50.
+     * @throws InvalidInputException
+     *         One or more specified values aren't valid. For example, a required value might be missing, a numeric
+     *         value might be outside the allowed range, or a string value might exceed length constraints.
+     * @sample AWSServiceDiscovery.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/TagResource" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagResource(request);
+    }
+
+    @SdkInternalApi
+    final TagResourceResult executeTagResource(TagResourceRequest tagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagResourceRequest> request = null;
+        Response<TagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes one or more tags from the specified resource.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The operation can't be completed because the resource was not found.
+     * @throws InvalidInputException
+     *         One or more specified values aren't valid. For example, a required value might be missing, a numeric
+     *         value might be outside the allowed range, or a string value might exceed length constraints.
+     * @sample AWSServiceDiscovery.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/UntagResource" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagResource(request);
+    }
+
+    @SdkInternalApi
+    final UntagResourceResult executeUntagResource(UntagResourceRequest untagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagResourceRequest> request = null;
+        Response<UntagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates an HTTP namespace.
+     * </p>
+     * 
+     * @param updateHttpNamespaceRequest
+     * @return Result of the UpdateHttpNamespace operation returned by the service.
+     * @throws InvalidInputException
+     *         One or more specified values aren't valid. For example, a required value might be missing, a numeric
+     *         value might be outside the allowed range, or a string value might exceed length constraints.
+     * @throws NamespaceNotFoundException
+     *         No namespace exists with the specified ID.
+     * @throws ResourceInUseException
+     *         The specified resource can't be deleted because it contains other resources. For example, you can't
+     *         delete a service that contains any instances.
+     * @throws DuplicateRequestException
+     *         The operation is already in progress.
+     * @sample AWSServiceDiscovery.UpdateHttpNamespace
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/UpdateHttpNamespace"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateHttpNamespaceResult updateHttpNamespace(UpdateHttpNamespaceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateHttpNamespace(request);
+    }
+
+    @SdkInternalApi
+    final UpdateHttpNamespaceResult executeUpdateHttpNamespace(UpdateHttpNamespaceRequest updateHttpNamespaceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateHttpNamespaceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateHttpNamespaceRequest> request = null;
+        Response<UpdateHttpNamespaceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateHttpNamespaceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateHttpNamespaceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateHttpNamespace");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateHttpNamespaceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateHttpNamespaceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Submits a request to change the health status of a custom health check to healthy or unhealthy.
      * </p>
      * <p>
      * You can use <code>UpdateInstanceCustomHealthStatus</code> to change the status only for custom health checks,
      * which you define using <code>HealthCheckCustomConfig</code> when you create a service. You can't use it to change
-     * the status for Route 53 health checks, which you define using <code>HealthCheckConfig</code>.
+     * the status for Route 53 health checks, which you define using <code>HealthCheckConfig</code>.
      * </p>
      * <p>
-     * For more information, see <a>HealthCheckCustomConfig</a>.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/cloud-map/latest/api/API_HealthCheckCustomConfig.html"
+     * >HealthCheckCustomConfig</a>.
      * </p>
      * 
      * @param updateInstanceCustomHealthStatusRequest
@@ -1415,8 +1821,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
      * @throws ServiceNotFoundException
      *         No service exists with the specified ID.
      * @throws CustomHealthNotFoundException
-     *         The health check for the instance that is specified by <code>ServiceId</code> and <code>InstanceId</code>
-     *         is not a custom health check.
+     *         The health check for the instance that's specified by <code>ServiceId</code> and <code>InstanceId</code>
+     *         isn't a custom health check.
      * @throws InvalidInputException
      *         One or more specified values aren't valid. For example, a required value might be missing, a numeric
      *         value might be outside the allowed range, or a string value might exceed length constraints.
@@ -1448,6 +1854,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                         .beforeMarshalling(updateInstanceCustomHealthStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateInstanceCustomHealthStatus");
@@ -1472,14 +1880,143 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
 
     /**
      * <p>
+     * Updates a private DNS namespace.
+     * </p>
+     * 
+     * @param updatePrivateDnsNamespaceRequest
+     * @return Result of the UpdatePrivateDnsNamespace operation returned by the service.
+     * @throws InvalidInputException
+     *         One or more specified values aren't valid. For example, a required value might be missing, a numeric
+     *         value might be outside the allowed range, or a string value might exceed length constraints.
+     * @throws NamespaceNotFoundException
+     *         No namespace exists with the specified ID.
+     * @throws ResourceInUseException
+     *         The specified resource can't be deleted because it contains other resources. For example, you can't
+     *         delete a service that contains any instances.
+     * @throws DuplicateRequestException
+     *         The operation is already in progress.
+     * @sample AWSServiceDiscovery.UpdatePrivateDnsNamespace
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/UpdatePrivateDnsNamespace"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdatePrivateDnsNamespaceResult updatePrivateDnsNamespace(UpdatePrivateDnsNamespaceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdatePrivateDnsNamespace(request);
+    }
+
+    @SdkInternalApi
+    final UpdatePrivateDnsNamespaceResult executeUpdatePrivateDnsNamespace(UpdatePrivateDnsNamespaceRequest updatePrivateDnsNamespaceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updatePrivateDnsNamespaceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdatePrivateDnsNamespaceRequest> request = null;
+        Response<UpdatePrivateDnsNamespaceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdatePrivateDnsNamespaceRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updatePrivateDnsNamespaceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePrivateDnsNamespace");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdatePrivateDnsNamespaceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdatePrivateDnsNamespaceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a public DNS namespace.
+     * </p>
+     * 
+     * @param updatePublicDnsNamespaceRequest
+     * @return Result of the UpdatePublicDnsNamespace operation returned by the service.
+     * @throws InvalidInputException
+     *         One or more specified values aren't valid. For example, a required value might be missing, a numeric
+     *         value might be outside the allowed range, or a string value might exceed length constraints.
+     * @throws NamespaceNotFoundException
+     *         No namespace exists with the specified ID.
+     * @throws ResourceInUseException
+     *         The specified resource can't be deleted because it contains other resources. For example, you can't
+     *         delete a service that contains any instances.
+     * @throws DuplicateRequestException
+     *         The operation is already in progress.
+     * @sample AWSServiceDiscovery.UpdatePublicDnsNamespace
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/UpdatePublicDnsNamespace"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdatePublicDnsNamespaceResult updatePublicDnsNamespace(UpdatePublicDnsNamespaceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdatePublicDnsNamespace(request);
+    }
+
+    @SdkInternalApi
+    final UpdatePublicDnsNamespaceResult executeUpdatePublicDnsNamespace(UpdatePublicDnsNamespaceRequest updatePublicDnsNamespaceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updatePublicDnsNamespaceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdatePublicDnsNamespaceRequest> request = null;
+        Response<UpdatePublicDnsNamespaceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdatePublicDnsNamespaceRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updatePublicDnsNamespaceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePublicDnsNamespace");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdatePublicDnsNamespaceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdatePublicDnsNamespaceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Submits a request to perform the following operations:
      * </p>
      * <ul>
-     * <li>
-     * <p>
-     * Add or delete <code>DnsRecords</code> configurations
-     * </p>
-     * </li>
      * <li>
      * <p>
      * Update the TTL setting for existing <code>DnsRecords</code> configurations
@@ -1489,16 +2026,32 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
      * <p>
      * Add, update, or delete <code>HealthCheckConfig</code> for a specified service
      * </p>
+     * <note>
+     * <p>
+     * You can't add, update, or delete a <code>HealthCheckCustomConfig</code> configuration.
+     * </p>
+     * </note></li>
+     * </ul>
+     * <p>
+     * For public and private DNS namespaces, note the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If you omit any existing <code>DnsRecords</code> or <code>HealthCheckConfig</code> configurations from an
+     * <code>UpdateService</code> request, the configurations are deleted from the service.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If you omit an existing <code>HealthCheckCustomConfig</code> configuration from an <code>UpdateService</code>
+     * request, the configuration isn't deleted from the service.
+     * </p>
      * </li>
      * </ul>
      * <p>
-     * For public and private DNS namespaces, you must specify all <code>DnsRecords</code> configurations (and,
-     * optionally, <code>HealthCheckConfig</code>) that you want to appear in the updated service. Any current
-     * configurations that don't appear in an <code>UpdateService</code> request are deleted.
-     * </p>
-     * <p>
-     * When you update the TTL setting for a service, AWS Cloud Map also updates the corresponding settings in all the
-     * records and health checks that were created by using the specified service.
+     * When you update settings for a service, Cloud Map also updates the corresponding settings in all the records and
+     * health checks that were created by using the specified service.
      * </p>
      * 
      * @param updateServiceRequest
@@ -1535,6 +2088,8 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
                 request = new UpdateServiceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateServiceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ServiceDiscovery");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateService");
@@ -1630,6 +2185,11 @@ public class AWSServiceDiscoveryClient extends AmazonWebServiceClient implements
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

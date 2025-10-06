@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,7 +40,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
     /**
      * <p>
      * The path you provided to perform the load balancer health check. If you didn't specify a health check path,
-     * Lightsail uses the root path of your website (e.g., <code>"/"</code>).
+     * Lightsail uses the root path of your website (<code>"/"</code>).
      * </p>
      * <p>
      * You may want to specify a custom health check path other than the root of your application if your home page
@@ -60,7 +60,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
     private String certificateName;
     /**
      * <p>
-     * The domain name with which your certificate is associated (e.g., <code>example.com</code>).
+     * The domain name with which your certificate is associated (<code>example.com</code>).
      * </p>
      * <p>
      * If you specify <code>certificateDomainName</code>, then <code>certificateName</code> is required (and
@@ -70,7 +70,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
     private String certificateDomainName;
     /**
      * <p>
-     * The optional alternative domains and subdomains to use with your SSL/TLS certificate (e.g.,
+     * The optional alternative domains and subdomains to use with your SSL/TLS certificate (
      * <code>www.example.com</code>, <code>example.com</code>, <code>m.example.com</code>, <code>blog.example.com</code>
      * ).
      * </p>
@@ -81,10 +81,40 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      */
     private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * The IP address type for the load balancer.
+     * </p>
+     * <p>
+     * The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     * <code>dualstack</code> for IPv4 and IPv6.
+     * </p>
+     * <p>
+     * The default value is <code>dualstack</code>.
+     * </p>
+     */
+    private String ipAddressType;
+    /**
+     * <p>
+     * The name of the TLS policy to apply to the load balancer.
+     * </p>
+     * <p>
+     * Use the <a
+     * href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html"
+     * >GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can specify.
+     * </p>
+     * <p>
+     * For more information about load balancer TLS policies, see <a href=
+     * "https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configure-load-balancer-tls-security-policy"
+     * >Configuring TLS security policies on your Amazon Lightsail load balancers</a> in the <i>Amazon Lightsail
+     * Developer Guide</i>.
+     * </p>
+     */
+    private String tlsPolicyName;
 
     /**
      * <p>
@@ -169,7 +199,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
     /**
      * <p>
      * The path you provided to perform the load balancer health check. If you didn't specify a health check path,
-     * Lightsail uses the root path of your website (e.g., <code>"/"</code>).
+     * Lightsail uses the root path of your website (<code>"/"</code>).
      * </p>
      * <p>
      * You may want to specify a custom health check path other than the root of your application if your home page
@@ -178,7 +208,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
      * 
      * @param healthCheckPath
      *        The path you provided to perform the load balancer health check. If you didn't specify a health check
-     *        path, Lightsail uses the root path of your website (e.g., <code>"/"</code>).</p>
+     *        path, Lightsail uses the root path of your website (<code>"/"</code>).</p>
      *        <p>
      *        You may want to specify a custom health check path other than the root of your application if your home
      *        page loads slowly or has a lot of media or scripting on it.
@@ -191,7 +221,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
     /**
      * <p>
      * The path you provided to perform the load balancer health check. If you didn't specify a health check path,
-     * Lightsail uses the root path of your website (e.g., <code>"/"</code>).
+     * Lightsail uses the root path of your website (<code>"/"</code>).
      * </p>
      * <p>
      * You may want to specify a custom health check path other than the root of your application if your home page
@@ -199,7 +229,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * 
      * @return The path you provided to perform the load balancer health check. If you didn't specify a health check
-     *         path, Lightsail uses the root path of your website (e.g., <code>"/"</code>).</p>
+     *         path, Lightsail uses the root path of your website (<code>"/"</code>).</p>
      *         <p>
      *         You may want to specify a custom health check path other than the root of your application if your home
      *         page loads slowly or has a lot of media or scripting on it.
@@ -212,7 +242,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
     /**
      * <p>
      * The path you provided to perform the load balancer health check. If you didn't specify a health check path,
-     * Lightsail uses the root path of your website (e.g., <code>"/"</code>).
+     * Lightsail uses the root path of your website (<code>"/"</code>).
      * </p>
      * <p>
      * You may want to specify a custom health check path other than the root of your application if your home page
@@ -221,7 +251,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
      * 
      * @param healthCheckPath
      *        The path you provided to perform the load balancer health check. If you didn't specify a health check
-     *        path, Lightsail uses the root path of your website (e.g., <code>"/"</code>).</p>
+     *        path, Lightsail uses the root path of your website (<code>"/"</code>).</p>
      *        <p>
      *        You may want to specify a custom health check path other than the root of your application if your home
      *        page loads slowly or has a lot of media or scripting on it.
@@ -296,7 +326,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The domain name with which your certificate is associated (e.g., <code>example.com</code>).
+     * The domain name with which your certificate is associated (<code>example.com</code>).
      * </p>
      * <p>
      * If you specify <code>certificateDomainName</code>, then <code>certificateName</code> is required (and
@@ -304,7 +334,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * 
      * @param certificateDomainName
-     *        The domain name with which your certificate is associated (e.g., <code>example.com</code>).</p>
+     *        The domain name with which your certificate is associated (<code>example.com</code>).</p>
      *        <p>
      *        If you specify <code>certificateDomainName</code>, then <code>certificateName</code> is required (and
      *        vice-versa).
@@ -316,14 +346,14 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The domain name with which your certificate is associated (e.g., <code>example.com</code>).
+     * The domain name with which your certificate is associated (<code>example.com</code>).
      * </p>
      * <p>
      * If you specify <code>certificateDomainName</code>, then <code>certificateName</code> is required (and
      * vice-versa).
      * </p>
      * 
-     * @return The domain name with which your certificate is associated (e.g., <code>example.com</code>).</p>
+     * @return The domain name with which your certificate is associated (<code>example.com</code>).</p>
      *         <p>
      *         If you specify <code>certificateDomainName</code>, then <code>certificateName</code> is required (and
      *         vice-versa).
@@ -335,7 +365,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The domain name with which your certificate is associated (e.g., <code>example.com</code>).
+     * The domain name with which your certificate is associated (<code>example.com</code>).
      * </p>
      * <p>
      * If you specify <code>certificateDomainName</code>, then <code>certificateName</code> is required (and
@@ -343,7 +373,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * 
      * @param certificateDomainName
-     *        The domain name with which your certificate is associated (e.g., <code>example.com</code>).</p>
+     *        The domain name with which your certificate is associated (<code>example.com</code>).</p>
      *        <p>
      *        If you specify <code>certificateDomainName</code>, then <code>certificateName</code> is required (and
      *        vice-versa).
@@ -357,12 +387,12 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The optional alternative domains and subdomains to use with your SSL/TLS certificate (e.g.,
+     * The optional alternative domains and subdomains to use with your SSL/TLS certificate (
      * <code>www.example.com</code>, <code>example.com</code>, <code>m.example.com</code>, <code>blog.example.com</code>
      * ).
      * </p>
      * 
-     * @return The optional alternative domains and subdomains to use with your SSL/TLS certificate (e.g.,
+     * @return The optional alternative domains and subdomains to use with your SSL/TLS certificate (
      *         <code>www.example.com</code>, <code>example.com</code>, <code>m.example.com</code>,
      *         <code>blog.example.com</code>).
      */
@@ -373,13 +403,13 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The optional alternative domains and subdomains to use with your SSL/TLS certificate (e.g.,
+     * The optional alternative domains and subdomains to use with your SSL/TLS certificate (
      * <code>www.example.com</code>, <code>example.com</code>, <code>m.example.com</code>, <code>blog.example.com</code>
      * ).
      * </p>
      * 
      * @param certificateAlternativeNames
-     *        The optional alternative domains and subdomains to use with your SSL/TLS certificate (e.g.,
+     *        The optional alternative domains and subdomains to use with your SSL/TLS certificate (
      *        <code>www.example.com</code>, <code>example.com</code>, <code>m.example.com</code>,
      *        <code>blog.example.com</code>).
      */
@@ -395,7 +425,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The optional alternative domains and subdomains to use with your SSL/TLS certificate (e.g.,
+     * The optional alternative domains and subdomains to use with your SSL/TLS certificate (
      * <code>www.example.com</code>, <code>example.com</code>, <code>m.example.com</code>, <code>blog.example.com</code>
      * ).
      * </p>
@@ -406,7 +436,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * 
      * @param certificateAlternativeNames
-     *        The optional alternative domains and subdomains to use with your SSL/TLS certificate (e.g.,
+     *        The optional alternative domains and subdomains to use with your SSL/TLS certificate (
      *        <code>www.example.com</code>, <code>example.com</code>, <code>m.example.com</code>,
      *        <code>blog.example.com</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -424,13 +454,13 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The optional alternative domains and subdomains to use with your SSL/TLS certificate (e.g.,
+     * The optional alternative domains and subdomains to use with your SSL/TLS certificate (
      * <code>www.example.com</code>, <code>example.com</code>, <code>m.example.com</code>, <code>blog.example.com</code>
      * ).
      * </p>
      * 
      * @param certificateAlternativeNames
-     *        The optional alternative domains and subdomains to use with your SSL/TLS certificate (e.g.,
+     *        The optional alternative domains and subdomains to use with your SSL/TLS certificate (
      *        <code>www.example.com</code>, <code>example.com</code>, <code>m.example.com</code>,
      *        <code>blog.example.com</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -446,12 +476,12 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * 
      * @return The tag keys and optional values to add to the resource during create.</p>
      *         <p>
-     *         To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *         Use the <code>TagResource</code> action to tag a resource after it's created.
      */
 
     public java.util.List<Tag> getTags() {
@@ -463,13 +493,13 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values to add to the resource during create.</p>
      *        <p>
-     *        To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *        Use the <code>TagResource</code> action to tag a resource after it's created.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -486,7 +516,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -497,7 +527,7 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
      * @param tags
      *        The tag keys and optional values to add to the resource during create.</p>
      *        <p>
-     *        To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *        Use the <code>TagResource</code> action to tag a resource after it's created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -516,18 +546,232 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
      * The tag keys and optional values to add to the resource during create.
      * </p>
      * <p>
-     * To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     * Use the <code>TagResource</code> action to tag a resource after it's created.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values to add to the resource during create.</p>
      *        <p>
-     *        To tag a resource after it has been created, see the <code>tag resource</code> operation.
+     *        Use the <code>TagResource</code> action to tag a resource after it's created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateLoadBalancerRequest withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the load balancer.
+     * </p>
+     * <p>
+     * The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     * <code>dualstack</code> for IPv4 and IPv6.
+     * </p>
+     * <p>
+     * The default value is <code>dualstack</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type for the load balancer.</p>
+     *        <p>
+     *        The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     *        <code>dualstack</code> for IPv4 and IPv6.
+     *        </p>
+     *        <p>
+     *        The default value is <code>dualstack</code>.
+     * @see IpAddressType
+     */
+
+    public void setIpAddressType(String ipAddressType) {
+        this.ipAddressType = ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the load balancer.
+     * </p>
+     * <p>
+     * The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     * <code>dualstack</code> for IPv4 and IPv6.
+     * </p>
+     * <p>
+     * The default value is <code>dualstack</code>.
+     * </p>
+     * 
+     * @return The IP address type for the load balancer.</p>
+     *         <p>
+     *         The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     *         <code>dualstack</code> for IPv4 and IPv6.
+     *         </p>
+     *         <p>
+     *         The default value is <code>dualstack</code>.
+     * @see IpAddressType
+     */
+
+    public String getIpAddressType() {
+        return this.ipAddressType;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the load balancer.
+     * </p>
+     * <p>
+     * The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     * <code>dualstack</code> for IPv4 and IPv6.
+     * </p>
+     * <p>
+     * The default value is <code>dualstack</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type for the load balancer.</p>
+     *        <p>
+     *        The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     *        <code>dualstack</code> for IPv4 and IPv6.
+     *        </p>
+     *        <p>
+     *        The default value is <code>dualstack</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IpAddressType
+     */
+
+    public CreateLoadBalancerRequest withIpAddressType(String ipAddressType) {
+        setIpAddressType(ipAddressType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IP address type for the load balancer.
+     * </p>
+     * <p>
+     * The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     * <code>dualstack</code> for IPv4 and IPv6.
+     * </p>
+     * <p>
+     * The default value is <code>dualstack</code>.
+     * </p>
+     * 
+     * @param ipAddressType
+     *        The IP address type for the load balancer.</p>
+     *        <p>
+     *        The possible values are <code>ipv4</code> for IPv4 only, <code>ipv6</code> for IPv6 only, and
+     *        <code>dualstack</code> for IPv4 and IPv6.
+     *        </p>
+     *        <p>
+     *        The default value is <code>dualstack</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see IpAddressType
+     */
+
+    public CreateLoadBalancerRequest withIpAddressType(IpAddressType ipAddressType) {
+        this.ipAddressType = ipAddressType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the TLS policy to apply to the load balancer.
+     * </p>
+     * <p>
+     * Use the <a
+     * href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html"
+     * >GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can specify.
+     * </p>
+     * <p>
+     * For more information about load balancer TLS policies, see <a href=
+     * "https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configure-load-balancer-tls-security-policy"
+     * >Configuring TLS security policies on your Amazon Lightsail load balancers</a> in the <i>Amazon Lightsail
+     * Developer Guide</i>.
+     * </p>
+     * 
+     * @param tlsPolicyName
+     *        The name of the TLS policy to apply to the load balancer.</p>
+     *        <p>
+     *        Use the <a href=
+     *        "https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html"
+     *        >GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can specify.
+     *        </p>
+     *        <p>
+     *        For more information about load balancer TLS policies, see <a href=
+     *        "https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configure-load-balancer-tls-security-policy"
+     *        >Configuring TLS security policies on your Amazon Lightsail load balancers</a> in the <i>Amazon Lightsail
+     *        Developer Guide</i>.
+     */
+
+    public void setTlsPolicyName(String tlsPolicyName) {
+        this.tlsPolicyName = tlsPolicyName;
+    }
+
+    /**
+     * <p>
+     * The name of the TLS policy to apply to the load balancer.
+     * </p>
+     * <p>
+     * Use the <a
+     * href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html"
+     * >GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can specify.
+     * </p>
+     * <p>
+     * For more information about load balancer TLS policies, see <a href=
+     * "https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configure-load-balancer-tls-security-policy"
+     * >Configuring TLS security policies on your Amazon Lightsail load balancers</a> in the <i>Amazon Lightsail
+     * Developer Guide</i>.
+     * </p>
+     * 
+     * @return The name of the TLS policy to apply to the load balancer.</p>
+     *         <p>
+     *         Use the <a href=
+     *         "https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html"
+     *         >GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can specify.
+     *         </p>
+     *         <p>
+     *         For more information about load balancer TLS policies, see <a href=
+     *         "https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configure-load-balancer-tls-security-policy"
+     *         >Configuring TLS security policies on your Amazon Lightsail load balancers</a> in the <i>Amazon Lightsail
+     *         Developer Guide</i>.
+     */
+
+    public String getTlsPolicyName() {
+        return this.tlsPolicyName;
+    }
+
+    /**
+     * <p>
+     * The name of the TLS policy to apply to the load balancer.
+     * </p>
+     * <p>
+     * Use the <a
+     * href="https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html"
+     * >GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can specify.
+     * </p>
+     * <p>
+     * For more information about load balancer TLS policies, see <a href=
+     * "https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configure-load-balancer-tls-security-policy"
+     * >Configuring TLS security policies on your Amazon Lightsail load balancers</a> in the <i>Amazon Lightsail
+     * Developer Guide</i>.
+     * </p>
+     * 
+     * @param tlsPolicyName
+     *        The name of the TLS policy to apply to the load balancer.</p>
+     *        <p>
+     *        Use the <a href=
+     *        "https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetLoadBalancerTlsPolicies.html"
+     *        >GetLoadBalancerTlsPolicies</a> action to get a list of TLS policy names that you can specify.
+     *        </p>
+     *        <p>
+     *        For more information about load balancer TLS policies, see <a href=
+     *        "https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-configure-load-balancer-tls-security-policy"
+     *        >Configuring TLS security policies on your Amazon Lightsail load balancers</a> in the <i>Amazon Lightsail
+     *        Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateLoadBalancerRequest withTlsPolicyName(String tlsPolicyName) {
+        setTlsPolicyName(tlsPolicyName);
         return this;
     }
 
@@ -556,7 +800,11 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
         if (getCertificateAlternativeNames() != null)
             sb.append("CertificateAlternativeNames: ").append(getCertificateAlternativeNames()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getIpAddressType() != null)
+            sb.append("IpAddressType: ").append(getIpAddressType()).append(",");
+        if (getTlsPolicyName() != null)
+            sb.append("TlsPolicyName: ").append(getTlsPolicyName());
         sb.append("}");
         return sb.toString();
     }
@@ -599,6 +847,14 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getIpAddressType() == null ^ this.getIpAddressType() == null)
+            return false;
+        if (other.getIpAddressType() != null && other.getIpAddressType().equals(this.getIpAddressType()) == false)
+            return false;
+        if (other.getTlsPolicyName() == null ^ this.getTlsPolicyName() == null)
+            return false;
+        if (other.getTlsPolicyName() != null && other.getTlsPolicyName().equals(this.getTlsPolicyName()) == false)
+            return false;
         return true;
     }
 
@@ -614,6 +870,8 @@ public class CreateLoadBalancerRequest extends com.amazonaws.AmazonWebServiceReq
         hashCode = prime * hashCode + ((getCertificateDomainName() == null) ? 0 : getCertificateDomainName().hashCode());
         hashCode = prime * hashCode + ((getCertificateAlternativeNames() == null) ? 0 : getCertificateAlternativeNames().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getIpAddressType() == null) ? 0 : getIpAddressType().hashCode());
+        hashCode = prime * hashCode + ((getTlsPolicyName() == null) ? 0 : getTlsPolicyName().hashCode());
         return hashCode;
     }
 

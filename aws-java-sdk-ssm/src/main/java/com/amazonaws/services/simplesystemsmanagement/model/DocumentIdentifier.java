@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes the name of a Systems Manager document.
+ * Describes the name of a SSM document.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DocumentIdentifier" target="_top">AWS API
@@ -30,20 +30,33 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The AWS user account that created the document.
+     * The date the SSM document was created.
+     * </p>
+     */
+    private java.util.Date createdDate;
+    /**
+     * <p>
+     * An optional field where you can specify a friendly name for the SSM document. This value can differ for each
+     * version of the document. If you want to update this value, see <a>UpdateDocument</a>.
+     * </p>
+     */
+    private String displayName;
+    /**
+     * <p>
+     * The Amazon Web Services user that created the document.
      * </p>
      */
     private String owner;
     /**
      * <p>
-     * An optional field specifying the version of the artifact associated with the document. For example,
-     * "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * An optional field specifying the version of the artifact associated with the document. For example, 12.6. This
+     * value is unique across all versions of a document, and can't be changed.
      * </p>
      */
     private String versionName;
@@ -79,10 +92,10 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
     private String documentFormat;
     /**
      * <p>
-     * The target type which defines the kinds of resources the document can run on. For example, /AWS::EC2::Instance.
-     * For a list of valid resource types, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     * The target type which defines the kinds of resources the document can run on. For example,
+     * <code>/AWS::EC2::Instance</code>. For a list of valid resource types, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      * </p>
      */
     private String targetType;
@@ -92,14 +105,33 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code> document
+     * requires an <code>ApplicationConfigurationSchema</code> document.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<DocumentRequires> requires;
+    /**
+     * <p>
+     * The current status of a document review.
+     * </p>
+     */
+    private String reviewStatus;
+    /**
+     * <p>
+     * The user in your organization who created the document.
+     * </p>
+     */
+    private String author;
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      */
 
     public void setName(String name) {
@@ -108,10 +140,10 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
-     * @return The name of the Systems Manager document.
+     * @return The name of the SSM document.
      */
 
     public String getName() {
@@ -120,11 +152,11 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The name of the Systems Manager document.
+     * The name of the SSM document.
      * </p>
      * 
      * @param name
-     *        The name of the Systems Manager document.
+     *        The name of the SSM document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -135,11 +167,97 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The AWS user account that created the document.
+     * The date the SSM document was created.
+     * </p>
+     * 
+     * @param createdDate
+     *        The date the SSM document was created.
+     */
+
+    public void setCreatedDate(java.util.Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    /**
+     * <p>
+     * The date the SSM document was created.
+     * </p>
+     * 
+     * @return The date the SSM document was created.
+     */
+
+    public java.util.Date getCreatedDate() {
+        return this.createdDate;
+    }
+
+    /**
+     * <p>
+     * The date the SSM document was created.
+     * </p>
+     * 
+     * @param createdDate
+     *        The date the SSM document was created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentIdentifier withCreatedDate(java.util.Date createdDate) {
+        setCreatedDate(createdDate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An optional field where you can specify a friendly name for the SSM document. This value can differ for each
+     * version of the document. If you want to update this value, see <a>UpdateDocument</a>.
+     * </p>
+     * 
+     * @param displayName
+     *        An optional field where you can specify a friendly name for the SSM document. This value can differ for
+     *        each version of the document. If you want to update this value, see <a>UpdateDocument</a>.
+     */
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    /**
+     * <p>
+     * An optional field where you can specify a friendly name for the SSM document. This value can differ for each
+     * version of the document. If you want to update this value, see <a>UpdateDocument</a>.
+     * </p>
+     * 
+     * @return An optional field where you can specify a friendly name for the SSM document. This value can differ for
+     *         each version of the document. If you want to update this value, see <a>UpdateDocument</a>.
+     */
+
+    public String getDisplayName() {
+        return this.displayName;
+    }
+
+    /**
+     * <p>
+     * An optional field where you can specify a friendly name for the SSM document. This value can differ for each
+     * version of the document. If you want to update this value, see <a>UpdateDocument</a>.
+     * </p>
+     * 
+     * @param displayName
+     *        An optional field where you can specify a friendly name for the SSM document. This value can differ for
+     *        each version of the document. If you want to update this value, see <a>UpdateDocument</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentIdentifier withDisplayName(String displayName) {
+        setDisplayName(displayName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services user that created the document.
      * </p>
      * 
      * @param owner
-     *        The AWS user account that created the document.
+     *        The Amazon Web Services user that created the document.
      */
 
     public void setOwner(String owner) {
@@ -148,10 +266,10 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The AWS user account that created the document.
+     * The Amazon Web Services user that created the document.
      * </p>
      * 
-     * @return The AWS user account that created the document.
+     * @return The Amazon Web Services user that created the document.
      */
 
     public String getOwner() {
@@ -160,11 +278,11 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The AWS user account that created the document.
+     * The Amazon Web Services user that created the document.
      * </p>
      * 
      * @param owner
-     *        The AWS user account that created the document.
+     *        The Amazon Web Services user that created the document.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -175,13 +293,13 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * An optional field specifying the version of the artifact associated with the document. For example,
-     * "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * An optional field specifying the version of the artifact associated with the document. For example, 12.6. This
+     * value is unique across all versions of a document, and can't be changed.
      * </p>
      * 
      * @param versionName
-     *        An optional field specifying the version of the artifact associated with the document. For example,
-     *        "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     *        An optional field specifying the version of the artifact associated with the document. For example, 12.6.
+     *        This value is unique across all versions of a document, and can't be changed.
      */
 
     public void setVersionName(String versionName) {
@@ -190,12 +308,12 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * An optional field specifying the version of the artifact associated with the document. For example,
-     * "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * An optional field specifying the version of the artifact associated with the document. For example, 12.6. This
+     * value is unique across all versions of a document, and can't be changed.
      * </p>
      * 
-     * @return An optional field specifying the version of the artifact associated with the document. For example,
-     *         "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * @return An optional field specifying the version of the artifact associated with the document. For example, 12.6.
+     *         This value is unique across all versions of a document, and can't be changed.
      */
 
     public String getVersionName() {
@@ -204,13 +322,13 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * An optional field specifying the version of the artifact associated with the document. For example,
-     * "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     * An optional field specifying the version of the artifact associated with the document. For example, 12.6. This
+     * value is unique across all versions of a document, and can't be changed.
      * </p>
      * 
      * @param versionName
-     *        An optional field specifying the version of the artifact associated with the document. For example,
-     *        "Release 12, Update 6". This value is unique across all versions of a document, and cannot be changed.
+     *        An optional field specifying the version of the artifact associated with the document. For example, 12.6.
+     *        This value is unique across all versions of a document, and can't be changed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -548,17 +666,17 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The target type which defines the kinds of resources the document can run on. For example, /AWS::EC2::Instance.
-     * For a list of valid resource types, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     * The target type which defines the kinds of resources the document can run on. For example,
+     * <code>/AWS::EC2::Instance</code>. For a list of valid resource types, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      * </p>
      * 
      * @param targetType
      *        The target type which defines the kinds of resources the document can run on. For example,
-     *        /AWS::EC2::Instance. For a list of valid resource types, see <a
-     *        href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
-     *        >AWS Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     *        <code>/AWS::EC2::Instance</code>. For a list of valid resource types, see <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *        >Amazon Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      */
 
     public void setTargetType(String targetType) {
@@ -567,16 +685,16 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The target type which defines the kinds of resources the document can run on. For example, /AWS::EC2::Instance.
-     * For a list of valid resource types, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     * The target type which defines the kinds of resources the document can run on. For example,
+     * <code>/AWS::EC2::Instance</code>. For a list of valid resource types, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      * </p>
      * 
      * @return The target type which defines the kinds of resources the document can run on. For example,
-     *         /AWS::EC2::Instance. For a list of valid resource types, see <a href=
-     *         "http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     *         Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     *         <code>/AWS::EC2::Instance</code>. For a list of valid resource types, see <a
+     *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *         >Amazon Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      */
 
     public String getTargetType() {
@@ -585,17 +703,17 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The target type which defines the kinds of resources the document can run on. For example, /AWS::EC2::Instance.
-     * For a list of valid resource types, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS
-     * Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     * The target type which defines the kinds of resources the document can run on. For example,
+     * <code>/AWS::EC2::Instance</code>. For a list of valid resource types, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      * </p>
      * 
      * @param targetType
      *        The target type which defines the kinds of resources the document can run on. For example,
-     *        /AWS::EC2::Instance. For a list of valid resource types, see <a
-     *        href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
-     *        >AWS Resource Types Reference</a> in the <i>AWS CloudFormation User Guide</i>.
+     *        <code>/AWS::EC2::Instance</code>. For a list of valid resource types, see <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *        >Amazon Web Services resource and property types reference</a> in the <i>CloudFormation User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -678,6 +796,200 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
     }
 
     /**
+     * <p>
+     * A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code> document
+     * requires an <code>ApplicationConfigurationSchema</code> document.
+     * </p>
+     * 
+     * @return A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code>
+     *         document requires an <code>ApplicationConfigurationSchema</code> document.
+     */
+
+    public java.util.List<DocumentRequires> getRequires() {
+        if (requires == null) {
+            requires = new com.amazonaws.internal.SdkInternalList<DocumentRequires>();
+        }
+        return requires;
+    }
+
+    /**
+     * <p>
+     * A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code> document
+     * requires an <code>ApplicationConfigurationSchema</code> document.
+     * </p>
+     * 
+     * @param requires
+     *        A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code>
+     *        document requires an <code>ApplicationConfigurationSchema</code> document.
+     */
+
+    public void setRequires(java.util.Collection<DocumentRequires> requires) {
+        if (requires == null) {
+            this.requires = null;
+            return;
+        }
+
+        this.requires = new com.amazonaws.internal.SdkInternalList<DocumentRequires>(requires);
+    }
+
+    /**
+     * <p>
+     * A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code> document
+     * requires an <code>ApplicationConfigurationSchema</code> document.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setRequires(java.util.Collection)} or {@link #withRequires(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param requires
+     *        A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code>
+     *        document requires an <code>ApplicationConfigurationSchema</code> document.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentIdentifier withRequires(DocumentRequires... requires) {
+        if (this.requires == null) {
+            setRequires(new com.amazonaws.internal.SdkInternalList<DocumentRequires>(requires.length));
+        }
+        for (DocumentRequires ele : requires) {
+            this.requires.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code> document
+     * requires an <code>ApplicationConfigurationSchema</code> document.
+     * </p>
+     * 
+     * @param requires
+     *        A list of SSM documents required by a document. For example, an <code>ApplicationConfiguration</code>
+     *        document requires an <code>ApplicationConfigurationSchema</code> document.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentIdentifier withRequires(java.util.Collection<DocumentRequires> requires) {
+        setRequires(requires);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current status of a document review.
+     * </p>
+     * 
+     * @param reviewStatus
+     *        The current status of a document review.
+     * @see ReviewStatus
+     */
+
+    public void setReviewStatus(String reviewStatus) {
+        this.reviewStatus = reviewStatus;
+    }
+
+    /**
+     * <p>
+     * The current status of a document review.
+     * </p>
+     * 
+     * @return The current status of a document review.
+     * @see ReviewStatus
+     */
+
+    public String getReviewStatus() {
+        return this.reviewStatus;
+    }
+
+    /**
+     * <p>
+     * The current status of a document review.
+     * </p>
+     * 
+     * @param reviewStatus
+     *        The current status of a document review.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ReviewStatus
+     */
+
+    public DocumentIdentifier withReviewStatus(String reviewStatus) {
+        setReviewStatus(reviewStatus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The current status of a document review.
+     * </p>
+     * 
+     * @param reviewStatus
+     *        The current status of a document review.
+     * @see ReviewStatus
+     */
+
+    public void setReviewStatus(ReviewStatus reviewStatus) {
+        withReviewStatus(reviewStatus);
+    }
+
+    /**
+     * <p>
+     * The current status of a document review.
+     * </p>
+     * 
+     * @param reviewStatus
+     *        The current status of a document review.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ReviewStatus
+     */
+
+    public DocumentIdentifier withReviewStatus(ReviewStatus reviewStatus) {
+        this.reviewStatus = reviewStatus.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The user in your organization who created the document.
+     * </p>
+     * 
+     * @param author
+     *        The user in your organization who created the document.
+     */
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    /**
+     * <p>
+     * The user in your organization who created the document.
+     * </p>
+     * 
+     * @return The user in your organization who created the document.
+     */
+
+    public String getAuthor() {
+        return this.author;
+    }
+
+    /**
+     * <p>
+     * The user in your organization who created the document.
+     * </p>
+     * 
+     * @param author
+     *        The user in your organization who created the document.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DocumentIdentifier withAuthor(String author) {
+        setAuthor(author);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -691,6 +1003,10 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
         sb.append("{");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
+        if (getCreatedDate() != null)
+            sb.append("CreatedDate: ").append(getCreatedDate()).append(",");
+        if (getDisplayName() != null)
+            sb.append("DisplayName: ").append(getDisplayName()).append(",");
         if (getOwner() != null)
             sb.append("Owner: ").append(getOwner()).append(",");
         if (getVersionName() != null)
@@ -708,7 +1024,13 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
         if (getTargetType() != null)
             sb.append("TargetType: ").append(getTargetType()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getRequires() != null)
+            sb.append("Requires: ").append(getRequires()).append(",");
+        if (getReviewStatus() != null)
+            sb.append("ReviewStatus: ").append(getReviewStatus()).append(",");
+        if (getAuthor() != null)
+            sb.append("Author: ").append(getAuthor());
         sb.append("}");
         return sb.toString();
     }
@@ -726,6 +1048,14 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
         if (other.getName() == null ^ this.getName() == null)
             return false;
         if (other.getName() != null && other.getName().equals(this.getName()) == false)
+            return false;
+        if (other.getCreatedDate() == null ^ this.getCreatedDate() == null)
+            return false;
+        if (other.getCreatedDate() != null && other.getCreatedDate().equals(this.getCreatedDate()) == false)
+            return false;
+        if (other.getDisplayName() == null ^ this.getDisplayName() == null)
+            return false;
+        if (other.getDisplayName() != null && other.getDisplayName().equals(this.getDisplayName()) == false)
             return false;
         if (other.getOwner() == null ^ this.getOwner() == null)
             return false;
@@ -763,6 +1093,18 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getRequires() == null ^ this.getRequires() == null)
+            return false;
+        if (other.getRequires() != null && other.getRequires().equals(this.getRequires()) == false)
+            return false;
+        if (other.getReviewStatus() == null ^ this.getReviewStatus() == null)
+            return false;
+        if (other.getReviewStatus() != null && other.getReviewStatus().equals(this.getReviewStatus()) == false)
+            return false;
+        if (other.getAuthor() == null ^ this.getAuthor() == null)
+            return false;
+        if (other.getAuthor() != null && other.getAuthor().equals(this.getAuthor()) == false)
+            return false;
         return true;
     }
 
@@ -772,6 +1114,8 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
+        hashCode = prime * hashCode + ((getCreatedDate() == null) ? 0 : getCreatedDate().hashCode());
+        hashCode = prime * hashCode + ((getDisplayName() == null) ? 0 : getDisplayName().hashCode());
         hashCode = prime * hashCode + ((getOwner() == null) ? 0 : getOwner().hashCode());
         hashCode = prime * hashCode + ((getVersionName() == null) ? 0 : getVersionName().hashCode());
         hashCode = prime * hashCode + ((getPlatformTypes() == null) ? 0 : getPlatformTypes().hashCode());
@@ -781,6 +1125,9 @@ public class DocumentIdentifier implements Serializable, Cloneable, StructuredPo
         hashCode = prime * hashCode + ((getDocumentFormat() == null) ? 0 : getDocumentFormat().hashCode());
         hashCode = prime * hashCode + ((getTargetType() == null) ? 0 : getTargetType().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getRequires() == null) ? 0 : getRequires().hashCode());
+        hashCode = prime * hashCode + ((getReviewStatus() == null) ? 0 : getReviewStatus().hashCode());
+        hashCode = prime * hashCode + ((getAuthor() == null) ? 0 : getAuthor().hashCode());
         return hashCode;
     }
 

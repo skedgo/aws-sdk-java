@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,6 +21,7 @@ import com.amazonaws.http.HttpMethodName;
 import com.amazonaws.services.ec2.model.*;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringUtils;
+import com.amazonaws.util.IdempotentUtils;
 
 /**
  * CreateVolumeRequest Marshaller
@@ -54,6 +55,10 @@ public class CreateVolumeRequestMarshaller implements Marshaller<Request<CreateV
 
         if (createVolumeRequest.getKmsKeyId() != null) {
             request.addParameter("KmsKeyId", StringUtils.fromString(createVolumeRequest.getKmsKeyId()));
+        }
+
+        if (createVolumeRequest.getOutpostArn() != null) {
+            request.addParameter("OutpostArn", StringUtils.fromString(createVolumeRequest.getOutpostArn()));
         }
 
         if (createVolumeRequest.getSize() != null) {
@@ -102,6 +107,16 @@ public class CreateVolumeRequestMarshaller implements Marshaller<Request<CreateV
                 tagSpecificationsListIndex++;
             }
         }
+
+        if (createVolumeRequest.getMultiAttachEnabled() != null) {
+            request.addParameter("MultiAttachEnabled", StringUtils.fromBoolean(createVolumeRequest.getMultiAttachEnabled()));
+        }
+
+        if (createVolumeRequest.getThroughput() != null) {
+            request.addParameter("Throughput", StringUtils.fromInteger(createVolumeRequest.getThroughput()));
+        }
+
+        request.addParameter("ClientToken", IdempotentUtils.resolveString(createVolumeRequest.getClientToken()));
 
         return request;
     }

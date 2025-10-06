@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,7 +34,7 @@ public class DescribeEventsRequest extends com.amazonaws.AmazonWebServiceRequest
     private String sourceIdentifier;
     /**
      * <p>
-     * The type of AWS DMS resource that generates events.
+     * The type of DMS resource that generates events.
      * </p>
      * <p>
      * Valid values: replication-instance | replication-task
@@ -67,7 +67,7 @@ public class DescribeEventsRequest extends com.amazonaws.AmazonWebServiceRequest
     private java.util.List<String> eventCategories;
     /**
      * <p>
-     * Filters applied to the action.
+     * Filters applied to events. The only valid filter is <code>replication-instance-id</code>.
      * </p>
      */
     private java.util.List<Filter> filters;
@@ -135,14 +135,14 @@ public class DescribeEventsRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The type of AWS DMS resource that generates events.
+     * The type of DMS resource that generates events.
      * </p>
      * <p>
      * Valid values: replication-instance | replication-task
      * </p>
      * 
      * @param sourceType
-     *        The type of AWS DMS resource that generates events.</p>
+     *        The type of DMS resource that generates events.</p>
      *        <p>
      *        Valid values: replication-instance | replication-task
      * @see SourceType
@@ -154,13 +154,13 @@ public class DescribeEventsRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The type of AWS DMS resource that generates events.
+     * The type of DMS resource that generates events.
      * </p>
      * <p>
      * Valid values: replication-instance | replication-task
      * </p>
      * 
-     * @return The type of AWS DMS resource that generates events.</p>
+     * @return The type of DMS resource that generates events.</p>
      *         <p>
      *         Valid values: replication-instance | replication-task
      * @see SourceType
@@ -172,14 +172,14 @@ public class DescribeEventsRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The type of AWS DMS resource that generates events.
+     * The type of DMS resource that generates events.
      * </p>
      * <p>
      * Valid values: replication-instance | replication-task
      * </p>
      * 
      * @param sourceType
-     *        The type of AWS DMS resource that generates events.</p>
+     *        The type of DMS resource that generates events.</p>
      *        <p>
      *        Valid values: replication-instance | replication-task
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -193,14 +193,14 @@ public class DescribeEventsRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The type of AWS DMS resource that generates events.
+     * The type of DMS resource that generates events.
      * </p>
      * <p>
      * Valid values: replication-instance | replication-task
      * </p>
      * 
      * @param sourceType
-     *        The type of AWS DMS resource that generates events.</p>
+     *        The type of DMS resource that generates events.</p>
      *        <p>
      *        Valid values: replication-instance | replication-task
      * @see SourceType
@@ -212,14 +212,14 @@ public class DescribeEventsRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * The type of AWS DMS resource that generates events.
+     * The type of DMS resource that generates events.
      * </p>
      * <p>
      * Valid values: replication-instance | replication-task
      * </p>
      * 
      * @param sourceType
-     *        The type of AWS DMS resource that generates events.</p>
+     *        The type of DMS resource that generates events.</p>
      *        <p>
      *        Valid values: replication-instance | replication-task
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -423,10 +423,10 @@ public class DescribeEventsRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Filters applied to the action.
+     * Filters applied to events. The only valid filter is <code>replication-instance-id</code>.
      * </p>
      * 
-     * @return Filters applied to the action.
+     * @return Filters applied to events. The only valid filter is <code>replication-instance-id</code>.
      */
 
     public java.util.List<Filter> getFilters() {
@@ -435,11 +435,11 @@ public class DescribeEventsRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Filters applied to the action.
+     * Filters applied to events. The only valid filter is <code>replication-instance-id</code>.
      * </p>
      * 
      * @param filters
-     *        Filters applied to the action.
+     *        Filters applied to events. The only valid filter is <code>replication-instance-id</code>.
      */
 
     public void setFilters(java.util.Collection<Filter> filters) {
@@ -453,7 +453,7 @@ public class DescribeEventsRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Filters applied to the action.
+     * Filters applied to events. The only valid filter is <code>replication-instance-id</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -462,7 +462,7 @@ public class DescribeEventsRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      * 
      * @param filters
-     *        Filters applied to the action.
+     *        Filters applied to events. The only valid filter is <code>replication-instance-id</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -478,11 +478,11 @@ public class DescribeEventsRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * Filters applied to the action.
+     * Filters applied to events. The only valid filter is <code>replication-instance-id</code>.
      * </p>
      * 
      * @param filters
-     *        Filters applied to the action.
+     *        Filters applied to events. The only valid filter is <code>replication-instance-id</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

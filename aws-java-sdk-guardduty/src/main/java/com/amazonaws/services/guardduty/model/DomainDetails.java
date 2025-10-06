@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains information about the domain.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DomainDetails" target="_top">AWS API
  *      Documentation</a>
@@ -27,18 +30,18 @@ public class DomainDetails implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Domain information for the AWS API call.
+     * The domain information for the Amazon Web Services API call.
      * </p>
      */
     private String domain;
 
     /**
      * <p>
-     * Domain information for the AWS API call.
+     * The domain information for the Amazon Web Services API call.
      * </p>
      * 
      * @param domain
-     *        Domain information for the AWS API call.
+     *        The domain information for the Amazon Web Services API call.
      */
 
     public void setDomain(String domain) {
@@ -47,10 +50,10 @@ public class DomainDetails implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Domain information for the AWS API call.
+     * The domain information for the Amazon Web Services API call.
      * </p>
      * 
-     * @return Domain information for the AWS API call.
+     * @return The domain information for the Amazon Web Services API call.
      */
 
     public String getDomain() {
@@ -59,11 +62,11 @@ public class DomainDetails implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Domain information for the AWS API call.
+     * The domain information for the Amazon Web Services API call.
      * </p>
      * 
      * @param domain
-     *        Domain information for the AWS API call.
+     *        The domain information for the Amazon Web Services API call.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

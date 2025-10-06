@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,8 @@ public class UpdateClusterRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Description").build();
     private static final MarshallingInfo<StructuredPojo> RESOURCES_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Resources").build();
+    private static final MarshallingInfo<StructuredPojo> ONDEVICESERVICECONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OnDeviceServiceConfiguration").build();
     private static final MarshallingInfo<String> ADDRESSID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("AddressId").build();
     private static final MarshallingInfo<String> SHIPPINGOPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -64,6 +66,7 @@ public class UpdateClusterRequestMarshaller {
             protocolMarshaller.marshall(updateClusterRequest.getRoleARN(), ROLEARN_BINDING);
             protocolMarshaller.marshall(updateClusterRequest.getDescription(), DESCRIPTION_BINDING);
             protocolMarshaller.marshall(updateClusterRequest.getResources(), RESOURCES_BINDING);
+            protocolMarshaller.marshall(updateClusterRequest.getOnDeviceServiceConfiguration(), ONDEVICESERVICECONFIGURATION_BINDING);
             protocolMarshaller.marshall(updateClusterRequest.getAddressId(), ADDRESSID_BINDING);
             protocolMarshaller.marshall(updateClusterRequest.getShippingOption(), SHIPPINGOPTION_BINDING);
             protocolMarshaller.marshall(updateClusterRequest.getNotification(), NOTIFICATION_BINDING);

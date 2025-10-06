@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -82,11 +82,15 @@ public class ClusterJsonUnmarshaller implements Unmarshaller<Cluster, JsonUnmars
                 }
                 if (context.testExpression("NodeIdsToRemove", targetDepth)) {
                     context.nextToken();
-                    cluster.setNodeIdsToRemove(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    cluster.setNodeIdsToRemove(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("Nodes", targetDepth)) {
                     context.nextToken();
-                    cluster.setNodes(new ListUnmarshaller<Node>(NodeJsonUnmarshaller.getInstance()).unmarshall(context));
+                    cluster.setNodes(new ListUnmarshaller<Node>(NodeJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("PreferredMaintenanceWindow", targetDepth)) {
                     context.nextToken();
@@ -103,7 +107,8 @@ public class ClusterJsonUnmarshaller implements Unmarshaller<Cluster, JsonUnmars
                 if (context.testExpression("SecurityGroups", targetDepth)) {
                     context.nextToken();
                     cluster.setSecurityGroups(new ListUnmarshaller<SecurityGroupMembership>(SecurityGroupMembershipJsonUnmarshaller.getInstance())
-                            .unmarshall(context));
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("IamRoleArn", targetDepth)) {
                     context.nextToken();
@@ -116,6 +121,10 @@ public class ClusterJsonUnmarshaller implements Unmarshaller<Cluster, JsonUnmars
                 if (context.testExpression("SSEDescription", targetDepth)) {
                     context.nextToken();
                     cluster.setSSEDescription(SSEDescriptionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ClusterEndpointEncryptionType", targetDepth)) {
+                    context.nextToken();
+                    cluster.setClusterEndpointEncryptionType(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

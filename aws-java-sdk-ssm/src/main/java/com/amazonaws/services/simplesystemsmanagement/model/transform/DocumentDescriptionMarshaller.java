@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,6 +36,8 @@ public class DocumentDescriptionMarshaller {
             .marshallLocationName("HashType").build();
     private static final MarshallingInfo<String> NAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Name").build();
+    private static final MarshallingInfo<String> DISPLAYNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DisplayName").build();
     private static final MarshallingInfo<String> VERSIONNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VersionName").build();
     private static final MarshallingInfo<String> OWNER_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -70,6 +72,22 @@ public class DocumentDescriptionMarshaller {
             .marshallLocationName("Tags").build();
     private static final MarshallingInfo<List> ATTACHMENTSINFORMATION_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AttachmentsInformation").build();
+    private static final MarshallingInfo<List> REQUIRES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Requires").build();
+    private static final MarshallingInfo<String> AUTHOR_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Author").build();
+    private static final MarshallingInfo<List> REVIEWINFORMATION_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ReviewInformation").build();
+    private static final MarshallingInfo<String> APPROVEDVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ApprovedVersion").build();
+    private static final MarshallingInfo<String> PENDINGREVIEWVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PendingReviewVersion").build();
+    private static final MarshallingInfo<String> REVIEWSTATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ReviewStatus").build();
+    private static final MarshallingInfo<List> CATEGORY_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Category").build();
+    private static final MarshallingInfo<List> CATEGORYENUM_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("CategoryEnum").build();
 
     private static final DocumentDescriptionMarshaller instance = new DocumentDescriptionMarshaller();
 
@@ -91,6 +109,7 @@ public class DocumentDescriptionMarshaller {
             protocolMarshaller.marshall(documentDescription.getHash(), HASH_BINDING);
             protocolMarshaller.marshall(documentDescription.getHashType(), HASHTYPE_BINDING);
             protocolMarshaller.marshall(documentDescription.getName(), NAME_BINDING);
+            protocolMarshaller.marshall(documentDescription.getDisplayName(), DISPLAYNAME_BINDING);
             protocolMarshaller.marshall(documentDescription.getVersionName(), VERSIONNAME_BINDING);
             protocolMarshaller.marshall(documentDescription.getOwner(), OWNER_BINDING);
             protocolMarshaller.marshall(documentDescription.getCreatedDate(), CREATEDDATE_BINDING);
@@ -108,6 +127,14 @@ public class DocumentDescriptionMarshaller {
             protocolMarshaller.marshall(documentDescription.getTargetType(), TARGETTYPE_BINDING);
             protocolMarshaller.marshall(documentDescription.getTags(), TAGS_BINDING);
             protocolMarshaller.marshall(documentDescription.getAttachmentsInformation(), ATTACHMENTSINFORMATION_BINDING);
+            protocolMarshaller.marshall(documentDescription.getRequires(), REQUIRES_BINDING);
+            protocolMarshaller.marshall(documentDescription.getAuthor(), AUTHOR_BINDING);
+            protocolMarshaller.marshall(documentDescription.getReviewInformation(), REVIEWINFORMATION_BINDING);
+            protocolMarshaller.marshall(documentDescription.getApprovedVersion(), APPROVEDVERSION_BINDING);
+            protocolMarshaller.marshall(documentDescription.getPendingReviewVersion(), PENDINGREVIEWVERSION_BINDING);
+            protocolMarshaller.marshall(documentDescription.getReviewStatus(), REVIEWSTATUS_BINDING);
+            protocolMarshaller.marshall(documentDescription.getCategory(), CATEGORY_BINDING);
+            protocolMarshaller.marshall(documentDescription.getCategoryEnum(), CATEGORYENUM_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -72,6 +72,21 @@ public class SetSourceRequestJsonUnmarshaller implements Unmarshaller<SetSourceR
                     context.nextToken();
                     setSourceRequest.setMaxLatency(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
+                if (context.testExpression("maxSyncBuffer", targetDepth)) {
+                    context.nextToken();
+                    setSourceRequest.setMaxSyncBuffer(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("mediaStreamSourceConfigurations", targetDepth)) {
+                    context.nextToken();
+                    setSourceRequest.setMediaStreamSourceConfigurations(new ListUnmarshaller<MediaStreamSourceConfigurationRequest>(
+                            MediaStreamSourceConfigurationRequestJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("minLatency", targetDepth)) {
+                    context.nextToken();
+                    setSourceRequest.setMinLatency(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
                 if (context.testExpression("name", targetDepth)) {
                     context.nextToken();
                     setSourceRequest.setName(context.getUnmarshaller(String.class).unmarshall(context));
@@ -80,13 +95,37 @@ public class SetSourceRequestJsonUnmarshaller implements Unmarshaller<SetSourceR
                     context.nextToken();
                     setSourceRequest.setProtocol(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("senderControlPort", targetDepth)) {
+                    context.nextToken();
+                    setSourceRequest.setSenderControlPort(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("senderIpAddress", targetDepth)) {
+                    context.nextToken();
+                    setSourceRequest.setSenderIpAddress(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("sourceListenerAddress", targetDepth)) {
+                    context.nextToken();
+                    setSourceRequest.setSourceListenerAddress(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("sourceListenerPort", targetDepth)) {
+                    context.nextToken();
+                    setSourceRequest.setSourceListenerPort(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
                 if (context.testExpression("streamId", targetDepth)) {
                     context.nextToken();
                     setSourceRequest.setStreamId(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("vpcInterfaceName", targetDepth)) {
+                    context.nextToken();
+                    setSourceRequest.setVpcInterfaceName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("whitelistCidr", targetDepth)) {
                     context.nextToken();
                     setSourceRequest.setWhitelistCidr(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("gatewayBridgeSource", targetDepth)) {
+                    context.nextToken();
+                    setSourceRequest.setGatewayBridgeSource(SetGatewayBridgeSourceRequestJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

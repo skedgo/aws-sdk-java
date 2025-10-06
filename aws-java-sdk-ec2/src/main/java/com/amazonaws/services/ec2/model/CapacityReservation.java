@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,11 +32,23 @@ public class CapacityReservation implements Serializable, Cloneable {
      * </p>
      */
     private String capacityReservationId;
-
+    /**
+     * <p>
+     * The ID of the Amazon Web Services account that owns the Capacity Reservation.
+     * </p>
+     */
     private String ownerId;
-
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Capacity Reservation.
+     * </p>
+     */
     private String capacityReservationArn;
-
+    /**
+     * <p>
+     * The Availability Zone ID of the Capacity Reservation.
+     * </p>
+     */
     private String availabilityZoneId;
     /**
      * <p>
@@ -64,13 +76,14 @@ public class CapacityReservation implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS accounts.
+     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon Web
+     * Services accounts.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated to a
-     * single AWS account.
+     * single Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -78,7 +91,7 @@ public class CapacityReservation implements Serializable, Cloneable {
     private String tenancy;
     /**
      * <p>
-     * The number of instances for which the Capacity Reservation reserves capacity.
+     * The total number of instances for which the Capacity Reservation reserves capacity.
      * </p>
      */
     private Integer totalInstanceCount;
@@ -99,7 +112,7 @@ public class CapacityReservation implements Serializable, Cloneable {
     private Boolean ebsOptimized;
     /**
      * <p>
-     * Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     * <i>Deprecated.</i>
      * </p>
      */
     private Boolean ephemeralStorage;
@@ -115,14 +128,14 @@ public class CapacityReservation implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>cancelled</code> - The Capacity Reservation expired automatically at the date and time specified in your
+     * <code>expired</code> - The Capacity Reservation expired automatically at the date and time specified in your
      * request. The reserved capacity is no longer available for your use.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>expired</code> - The Capacity Reservation was manually cancelled. The reserved capacity is no longer
-     * available for your use.
+     * <code>cancelled</code> - The Capacity Reservation was cancelled. The reserved capacity is no longer available for
+     * your use.
      * </p>
      * </li>
      * <li>
@@ -140,6 +153,12 @@ public class CapacityReservation implements Serializable, Cloneable {
      * </ul>
      */
     private String state;
+    /**
+     * <p>
+     * The date and time at which the Capacity Reservation was started.
+     * </p>
+     */
+    private java.util.Date startDate;
     /**
      * <p>
      * The date and time at which the Capacity Reservation expires. When a Capacity Reservation expires, the reserved
@@ -201,6 +220,39 @@ public class CapacityReservation implements Serializable, Cloneable {
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost on which the Capacity Reservation was created.
+     * </p>
+     */
+    private String outpostArn;
+    /**
+     * <p>
+     * The ID of the Capacity Reservation Fleet to which the Capacity Reservation belongs. Only valid for Capacity
+     * Reservations that were created by a Capacity Reservation Fleet.
+     * </p>
+     */
+    private String capacityReservationFleetId;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the cluster placement group in which the Capacity Reservation was created. For
+     * more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cr-cpg.html"> Capacity
+     * Reservations for cluster placement groups</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     */
+    private String placementGroupArn;
+    /**
+     * <p>
+     * Information about instance capacity usage.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<CapacityAllocation> capacityAllocations;
+    /**
+     * <p>
+     * The type of Capacity Reservation.
+     * </p>
+     */
+    private String reservationType;
 
     /**
      * <p>
@@ -243,7 +295,12 @@ public class CapacityReservation implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The ID of the Amazon Web Services account that owns the Capacity Reservation.
+     * </p>
+     * 
      * @param ownerId
+     *        The ID of the Amazon Web Services account that owns the Capacity Reservation.
      */
 
     public void setOwnerId(String ownerId) {
@@ -251,7 +308,11 @@ public class CapacityReservation implements Serializable, Cloneable {
     }
 
     /**
-     * @return
+     * <p>
+     * The ID of the Amazon Web Services account that owns the Capacity Reservation.
+     * </p>
+     * 
+     * @return The ID of the Amazon Web Services account that owns the Capacity Reservation.
      */
 
     public String getOwnerId() {
@@ -259,7 +320,12 @@ public class CapacityReservation implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The ID of the Amazon Web Services account that owns the Capacity Reservation.
+     * </p>
+     * 
      * @param ownerId
+     *        The ID of the Amazon Web Services account that owns the Capacity Reservation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -269,7 +335,12 @@ public class CapacityReservation implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Capacity Reservation.
+     * </p>
+     * 
      * @param capacityReservationArn
+     *        The Amazon Resource Name (ARN) of the Capacity Reservation.
      */
 
     public void setCapacityReservationArn(String capacityReservationArn) {
@@ -277,7 +348,11 @@ public class CapacityReservation implements Serializable, Cloneable {
     }
 
     /**
-     * @return
+     * <p>
+     * The Amazon Resource Name (ARN) of the Capacity Reservation.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the Capacity Reservation.
      */
 
     public String getCapacityReservationArn() {
@@ -285,7 +360,12 @@ public class CapacityReservation implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Capacity Reservation.
+     * </p>
+     * 
      * @param capacityReservationArn
+     *        The Amazon Resource Name (ARN) of the Capacity Reservation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -295,7 +375,12 @@ public class CapacityReservation implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The Availability Zone ID of the Capacity Reservation.
+     * </p>
+     * 
      * @param availabilityZoneId
+     *        The Availability Zone ID of the Capacity Reservation.
      */
 
     public void setAvailabilityZoneId(String availabilityZoneId) {
@@ -303,7 +388,11 @@ public class CapacityReservation implements Serializable, Cloneable {
     }
 
     /**
-     * @return
+     * <p>
+     * The Availability Zone ID of the Capacity Reservation.
+     * </p>
+     * 
+     * @return The Availability Zone ID of the Capacity Reservation.
      */
 
     public String getAvailabilityZoneId() {
@@ -311,7 +400,12 @@ public class CapacityReservation implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The Availability Zone ID of the Capacity Reservation.
+     * </p>
+     * 
      * @param availabilityZoneId
+     *        The Availability Zone ID of the Capacity Reservation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -467,13 +561,14 @@ public class CapacityReservation implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS accounts.
+     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon Web
+     * Services accounts.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated to a
-     * single AWS account.
+     * single Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -484,14 +579,14 @@ public class CapacityReservation implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS
-     *        accounts.
+     *        <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon
+     *        Web Services accounts.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated
-     *        to a single AWS account.
+     *        to a single Amazon Web Services account.
      *        </p>
      *        </li>
      * @see CapacityReservationTenancy
@@ -509,13 +604,14 @@ public class CapacityReservation implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS accounts.
+     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon Web
+     * Services accounts.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated to a
-     * single AWS account.
+     * single Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -525,14 +621,14 @@ public class CapacityReservation implements Serializable, Cloneable {
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS
-     *         accounts.
+     *         <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon
+     *         Web Services accounts.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated
-     *         to a single AWS account.
+     *         to a single Amazon Web Services account.
      *         </p>
      *         </li>
      * @see CapacityReservationTenancy
@@ -550,13 +646,14 @@ public class CapacityReservation implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS accounts.
+     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon Web
+     * Services accounts.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated to a
-     * single AWS account.
+     * single Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -567,14 +664,14 @@ public class CapacityReservation implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS
-     *        accounts.
+     *        <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon
+     *        Web Services accounts.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated
-     *        to a single AWS account.
+     *        to a single Amazon Web Services account.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -594,13 +691,14 @@ public class CapacityReservation implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS accounts.
+     * <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon Web
+     * Services accounts.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated to a
-     * single AWS account.
+     * single Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -611,14 +709,14 @@ public class CapacityReservation implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>default</code> - The Capacity Reservation is created on hardware that is shared with other AWS
-     *        accounts.
+     *        <code>default</code> - The Capacity Reservation is created on hardware that is shared with other Amazon
+     *        Web Services accounts.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>dedicated</code> - The Capacity Reservation is created on single-tenant hardware that is dedicated
-     *        to a single AWS account.
+     *        to a single Amazon Web Services account.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -632,11 +730,11 @@ public class CapacityReservation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of instances for which the Capacity Reservation reserves capacity.
+     * The total number of instances for which the Capacity Reservation reserves capacity.
      * </p>
      * 
      * @param totalInstanceCount
-     *        The number of instances for which the Capacity Reservation reserves capacity.
+     *        The total number of instances for which the Capacity Reservation reserves capacity.
      */
 
     public void setTotalInstanceCount(Integer totalInstanceCount) {
@@ -645,10 +743,10 @@ public class CapacityReservation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of instances for which the Capacity Reservation reserves capacity.
+     * The total number of instances for which the Capacity Reservation reserves capacity.
      * </p>
      * 
-     * @return The number of instances for which the Capacity Reservation reserves capacity.
+     * @return The total number of instances for which the Capacity Reservation reserves capacity.
      */
 
     public Integer getTotalInstanceCount() {
@@ -657,11 +755,11 @@ public class CapacityReservation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of instances for which the Capacity Reservation reserves capacity.
+     * The total number of instances for which the Capacity Reservation reserves capacity.
      * </p>
      * 
      * @param totalInstanceCount
-     *        The number of instances for which the Capacity Reservation reserves capacity.
+     *        The total number of instances for which the Capacity Reservation reserves capacity.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -791,11 +889,11 @@ public class CapacityReservation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     * <i>Deprecated.</i>
      * </p>
      * 
      * @param ephemeralStorage
-     *        Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     *        <i>Deprecated.</i>
      */
 
     public void setEphemeralStorage(Boolean ephemeralStorage) {
@@ -804,10 +902,10 @@ public class CapacityReservation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     * <i>Deprecated.</i>
      * </p>
      * 
-     * @return Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     * @return <i>Deprecated.</i>
      */
 
     public Boolean getEphemeralStorage() {
@@ -816,11 +914,11 @@ public class CapacityReservation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     * <i>Deprecated.</i>
      * </p>
      * 
      * @param ephemeralStorage
-     *        Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     *        <i>Deprecated.</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -831,10 +929,10 @@ public class CapacityReservation implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     * <i>Deprecated.</i>
      * </p>
      * 
-     * @return Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.
+     * @return <i>Deprecated.</i>
      */
 
     public Boolean isEphemeralStorage() {
@@ -853,14 +951,14 @@ public class CapacityReservation implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>cancelled</code> - The Capacity Reservation expired automatically at the date and time specified in your
+     * <code>expired</code> - The Capacity Reservation expired automatically at the date and time specified in your
      * request. The reserved capacity is no longer available for your use.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>expired</code> - The Capacity Reservation was manually cancelled. The reserved capacity is no longer
-     * available for your use.
+     * <code>cancelled</code> - The Capacity Reservation was cancelled. The reserved capacity is no longer available for
+     * your use.
      * </p>
      * </li>
      * <li>
@@ -888,13 +986,13 @@ public class CapacityReservation implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>cancelled</code> - The Capacity Reservation expired automatically at the date and time specified in
+     *        <code>expired</code> - The Capacity Reservation expired automatically at the date and time specified in
      *        your request. The reserved capacity is no longer available for your use.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>expired</code> - The Capacity Reservation was manually cancelled. The reserved capacity is no longer
+     *        <code>cancelled</code> - The Capacity Reservation was cancelled. The reserved capacity is no longer
      *        available for your use.
      *        </p>
      *        </li>
@@ -930,14 +1028,14 @@ public class CapacityReservation implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>cancelled</code> - The Capacity Reservation expired automatically at the date and time specified in your
+     * <code>expired</code> - The Capacity Reservation expired automatically at the date and time specified in your
      * request. The reserved capacity is no longer available for your use.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>expired</code> - The Capacity Reservation was manually cancelled. The reserved capacity is no longer
-     * available for your use.
+     * <code>cancelled</code> - The Capacity Reservation was cancelled. The reserved capacity is no longer available for
+     * your use.
      * </p>
      * </li>
      * <li>
@@ -964,14 +1062,14 @@ public class CapacityReservation implements Serializable, Cloneable {
      *         </li>
      *         <li>
      *         <p>
-     *         <code>cancelled</code> - The Capacity Reservation expired automatically at the date and time specified in
+     *         <code>expired</code> - The Capacity Reservation expired automatically at the date and time specified in
      *         your request. The reserved capacity is no longer available for your use.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>expired</code> - The Capacity Reservation was manually cancelled. The reserved capacity is no
-     *         longer available for your use.
+     *         <code>cancelled</code> - The Capacity Reservation was cancelled. The reserved capacity is no longer
+     *         available for your use.
      *         </p>
      *         </li>
      *         <li>
@@ -1006,14 +1104,14 @@ public class CapacityReservation implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>cancelled</code> - The Capacity Reservation expired automatically at the date and time specified in your
+     * <code>expired</code> - The Capacity Reservation expired automatically at the date and time specified in your
      * request. The reserved capacity is no longer available for your use.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>expired</code> - The Capacity Reservation was manually cancelled. The reserved capacity is no longer
-     * available for your use.
+     * <code>cancelled</code> - The Capacity Reservation was cancelled. The reserved capacity is no longer available for
+     * your use.
      * </p>
      * </li>
      * <li>
@@ -1041,13 +1139,13 @@ public class CapacityReservation implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>cancelled</code> - The Capacity Reservation expired automatically at the date and time specified in
+     *        <code>expired</code> - The Capacity Reservation expired automatically at the date and time specified in
      *        your request. The reserved capacity is no longer available for your use.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>expired</code> - The Capacity Reservation was manually cancelled. The reserved capacity is no longer
+     *        <code>cancelled</code> - The Capacity Reservation was cancelled. The reserved capacity is no longer
      *        available for your use.
      *        </p>
      *        </li>
@@ -1085,14 +1183,14 @@ public class CapacityReservation implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>cancelled</code> - The Capacity Reservation expired automatically at the date and time specified in your
+     * <code>expired</code> - The Capacity Reservation expired automatically at the date and time specified in your
      * request. The reserved capacity is no longer available for your use.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>expired</code> - The Capacity Reservation was manually cancelled. The reserved capacity is no longer
-     * available for your use.
+     * <code>cancelled</code> - The Capacity Reservation was cancelled. The reserved capacity is no longer available for
+     * your use.
      * </p>
      * </li>
      * <li>
@@ -1120,13 +1218,13 @@ public class CapacityReservation implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>cancelled</code> - The Capacity Reservation expired automatically at the date and time specified in
+     *        <code>expired</code> - The Capacity Reservation expired automatically at the date and time specified in
      *        your request. The reserved capacity is no longer available for your use.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>expired</code> - The Capacity Reservation was manually cancelled. The reserved capacity is no longer
+     *        <code>cancelled</code> - The Capacity Reservation was cancelled. The reserved capacity is no longer
      *        available for your use.
      *        </p>
      *        </li>
@@ -1149,6 +1247,46 @@ public class CapacityReservation implements Serializable, Cloneable {
 
     public CapacityReservation withState(CapacityReservationState state) {
         this.state = state.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date and time at which the Capacity Reservation was started.
+     * </p>
+     * 
+     * @param startDate
+     *        The date and time at which the Capacity Reservation was started.
+     */
+
+    public void setStartDate(java.util.Date startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     * <p>
+     * The date and time at which the Capacity Reservation was started.
+     * </p>
+     * 
+     * @return The date and time at which the Capacity Reservation was started.
+     */
+
+    public java.util.Date getStartDate() {
+        return this.startDate;
+    }
+
+    /**
+     * <p>
+     * The date and time at which the Capacity Reservation was started.
+     * </p>
+     * 
+     * @param startDate
+     *        The date and time at which the Capacity Reservation was started.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CapacityReservation withStartDate(java.util.Date startDate) {
+        setStartDate(startDate);
         return this;
     }
 
@@ -1660,6 +1798,279 @@ public class CapacityReservation implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost on which the Capacity Reservation was created.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Outpost on which the Capacity Reservation was created.
+     */
+
+    public void setOutpostArn(String outpostArn) {
+        this.outpostArn = outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost on which the Capacity Reservation was created.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the Outpost on which the Capacity Reservation was created.
+     */
+
+    public String getOutpostArn() {
+        return this.outpostArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the Outpost on which the Capacity Reservation was created.
+     * </p>
+     * 
+     * @param outpostArn
+     *        The Amazon Resource Name (ARN) of the Outpost on which the Capacity Reservation was created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CapacityReservation withOutpostArn(String outpostArn) {
+        setOutpostArn(outpostArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the Capacity Reservation Fleet to which the Capacity Reservation belongs. Only valid for Capacity
+     * Reservations that were created by a Capacity Reservation Fleet.
+     * </p>
+     * 
+     * @param capacityReservationFleetId
+     *        The ID of the Capacity Reservation Fleet to which the Capacity Reservation belongs. Only valid for
+     *        Capacity Reservations that were created by a Capacity Reservation Fleet.
+     */
+
+    public void setCapacityReservationFleetId(String capacityReservationFleetId) {
+        this.capacityReservationFleetId = capacityReservationFleetId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Capacity Reservation Fleet to which the Capacity Reservation belongs. Only valid for Capacity
+     * Reservations that were created by a Capacity Reservation Fleet.
+     * </p>
+     * 
+     * @return The ID of the Capacity Reservation Fleet to which the Capacity Reservation belongs. Only valid for
+     *         Capacity Reservations that were created by a Capacity Reservation Fleet.
+     */
+
+    public String getCapacityReservationFleetId() {
+        return this.capacityReservationFleetId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Capacity Reservation Fleet to which the Capacity Reservation belongs. Only valid for Capacity
+     * Reservations that were created by a Capacity Reservation Fleet.
+     * </p>
+     * 
+     * @param capacityReservationFleetId
+     *        The ID of the Capacity Reservation Fleet to which the Capacity Reservation belongs. Only valid for
+     *        Capacity Reservations that were created by a Capacity Reservation Fleet.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CapacityReservation withCapacityReservationFleetId(String capacityReservationFleetId) {
+        setCapacityReservationFleetId(capacityReservationFleetId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the cluster placement group in which the Capacity Reservation was created. For
+     * more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cr-cpg.html"> Capacity
+     * Reservations for cluster placement groups</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param placementGroupArn
+     *        The Amazon Resource Name (ARN) of the cluster placement group in which the Capacity Reservation was
+     *        created. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cr-cpg.html"> Capacity Reservations for cluster
+     *        placement groups</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public void setPlacementGroupArn(String placementGroupArn) {
+        this.placementGroupArn = placementGroupArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the cluster placement group in which the Capacity Reservation was created. For
+     * more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cr-cpg.html"> Capacity
+     * Reservations for cluster placement groups</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the cluster placement group in which the Capacity Reservation was
+     *         created. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cr-cpg.html"> Capacity Reservations for cluster
+     *         placement groups</a> in the <i>Amazon EC2 User Guide</i>.
+     */
+
+    public String getPlacementGroupArn() {
+        return this.placementGroupArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the cluster placement group in which the Capacity Reservation was created. For
+     * more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cr-cpg.html"> Capacity
+     * Reservations for cluster placement groups</a> in the <i>Amazon EC2 User Guide</i>.
+     * </p>
+     * 
+     * @param placementGroupArn
+     *        The Amazon Resource Name (ARN) of the cluster placement group in which the Capacity Reservation was
+     *        created. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cr-cpg.html"> Capacity Reservations for cluster
+     *        placement groups</a> in the <i>Amazon EC2 User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CapacityReservation withPlacementGroupArn(String placementGroupArn) {
+        setPlacementGroupArn(placementGroupArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about instance capacity usage.
+     * </p>
+     * 
+     * @return Information about instance capacity usage.
+     */
+
+    public java.util.List<CapacityAllocation> getCapacityAllocations() {
+        if (capacityAllocations == null) {
+            capacityAllocations = new com.amazonaws.internal.SdkInternalList<CapacityAllocation>();
+        }
+        return capacityAllocations;
+    }
+
+    /**
+     * <p>
+     * Information about instance capacity usage.
+     * </p>
+     * 
+     * @param capacityAllocations
+     *        Information about instance capacity usage.
+     */
+
+    public void setCapacityAllocations(java.util.Collection<CapacityAllocation> capacityAllocations) {
+        if (capacityAllocations == null) {
+            this.capacityAllocations = null;
+            return;
+        }
+
+        this.capacityAllocations = new com.amazonaws.internal.SdkInternalList<CapacityAllocation>(capacityAllocations);
+    }
+
+    /**
+     * <p>
+     * Information about instance capacity usage.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCapacityAllocations(java.util.Collection)} or {@link #withCapacityAllocations(java.util.Collection)}
+     * if you want to override the existing values.
+     * </p>
+     * 
+     * @param capacityAllocations
+     *        Information about instance capacity usage.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CapacityReservation withCapacityAllocations(CapacityAllocation... capacityAllocations) {
+        if (this.capacityAllocations == null) {
+            setCapacityAllocations(new com.amazonaws.internal.SdkInternalList<CapacityAllocation>(capacityAllocations.length));
+        }
+        for (CapacityAllocation ele : capacityAllocations) {
+            this.capacityAllocations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about instance capacity usage.
+     * </p>
+     * 
+     * @param capacityAllocations
+     *        Information about instance capacity usage.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CapacityReservation withCapacityAllocations(java.util.Collection<CapacityAllocation> capacityAllocations) {
+        setCapacityAllocations(capacityAllocations);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of Capacity Reservation.
+     * </p>
+     * 
+     * @param reservationType
+     *        The type of Capacity Reservation.
+     * @see CapacityReservationType
+     */
+
+    public void setReservationType(String reservationType) {
+        this.reservationType = reservationType;
+    }
+
+    /**
+     * <p>
+     * The type of Capacity Reservation.
+     * </p>
+     * 
+     * @return The type of Capacity Reservation.
+     * @see CapacityReservationType
+     */
+
+    public String getReservationType() {
+        return this.reservationType;
+    }
+
+    /**
+     * <p>
+     * The type of Capacity Reservation.
+     * </p>
+     * 
+     * @param reservationType
+     *        The type of Capacity Reservation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CapacityReservationType
+     */
+
+    public CapacityReservation withReservationType(String reservationType) {
+        setReservationType(reservationType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of Capacity Reservation.
+     * </p>
+     * 
+     * @param reservationType
+     *        The type of Capacity Reservation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CapacityReservationType
+     */
+
+    public CapacityReservation withReservationType(CapacityReservationType reservationType) {
+        this.reservationType = reservationType.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1697,6 +2108,8 @@ public class CapacityReservation implements Serializable, Cloneable {
             sb.append("EphemeralStorage: ").append(getEphemeralStorage()).append(",");
         if (getState() != null)
             sb.append("State: ").append(getState()).append(",");
+        if (getStartDate() != null)
+            sb.append("StartDate: ").append(getStartDate()).append(",");
         if (getEndDate() != null)
             sb.append("EndDate: ").append(getEndDate()).append(",");
         if (getEndDateType() != null)
@@ -1706,7 +2119,17 @@ public class CapacityReservation implements Serializable, Cloneable {
         if (getCreateDate() != null)
             sb.append("CreateDate: ").append(getCreateDate()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getOutpostArn() != null)
+            sb.append("OutpostArn: ").append(getOutpostArn()).append(",");
+        if (getCapacityReservationFleetId() != null)
+            sb.append("CapacityReservationFleetId: ").append(getCapacityReservationFleetId()).append(",");
+        if (getPlacementGroupArn() != null)
+            sb.append("PlacementGroupArn: ").append(getPlacementGroupArn()).append(",");
+        if (getCapacityAllocations() != null)
+            sb.append("CapacityAllocations: ").append(getCapacityAllocations()).append(",");
+        if (getReservationType() != null)
+            sb.append("ReservationType: ").append(getReservationType());
         sb.append("}");
         return sb.toString();
     }
@@ -1773,6 +2196,10 @@ public class CapacityReservation implements Serializable, Cloneable {
             return false;
         if (other.getState() != null && other.getState().equals(this.getState()) == false)
             return false;
+        if (other.getStartDate() == null ^ this.getStartDate() == null)
+            return false;
+        if (other.getStartDate() != null && other.getStartDate().equals(this.getStartDate()) == false)
+            return false;
         if (other.getEndDate() == null ^ this.getEndDate() == null)
             return false;
         if (other.getEndDate() != null && other.getEndDate().equals(this.getEndDate()) == false)
@@ -1792,6 +2219,26 @@ public class CapacityReservation implements Serializable, Cloneable {
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getOutpostArn() == null ^ this.getOutpostArn() == null)
+            return false;
+        if (other.getOutpostArn() != null && other.getOutpostArn().equals(this.getOutpostArn()) == false)
+            return false;
+        if (other.getCapacityReservationFleetId() == null ^ this.getCapacityReservationFleetId() == null)
+            return false;
+        if (other.getCapacityReservationFleetId() != null && other.getCapacityReservationFleetId().equals(this.getCapacityReservationFleetId()) == false)
+            return false;
+        if (other.getPlacementGroupArn() == null ^ this.getPlacementGroupArn() == null)
+            return false;
+        if (other.getPlacementGroupArn() != null && other.getPlacementGroupArn().equals(this.getPlacementGroupArn()) == false)
+            return false;
+        if (other.getCapacityAllocations() == null ^ this.getCapacityAllocations() == null)
+            return false;
+        if (other.getCapacityAllocations() != null && other.getCapacityAllocations().equals(this.getCapacityAllocations()) == false)
+            return false;
+        if (other.getReservationType() == null ^ this.getReservationType() == null)
+            return false;
+        if (other.getReservationType() != null && other.getReservationType().equals(this.getReservationType()) == false)
             return false;
         return true;
     }
@@ -1814,11 +2261,17 @@ public class CapacityReservation implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getEbsOptimized() == null) ? 0 : getEbsOptimized().hashCode());
         hashCode = prime * hashCode + ((getEphemeralStorage() == null) ? 0 : getEphemeralStorage().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
+        hashCode = prime * hashCode + ((getStartDate() == null) ? 0 : getStartDate().hashCode());
         hashCode = prime * hashCode + ((getEndDate() == null) ? 0 : getEndDate().hashCode());
         hashCode = prime * hashCode + ((getEndDateType() == null) ? 0 : getEndDateType().hashCode());
         hashCode = prime * hashCode + ((getInstanceMatchCriteria() == null) ? 0 : getInstanceMatchCriteria().hashCode());
         hashCode = prime * hashCode + ((getCreateDate() == null) ? 0 : getCreateDate().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getOutpostArn() == null) ? 0 : getOutpostArn().hashCode());
+        hashCode = prime * hashCode + ((getCapacityReservationFleetId() == null) ? 0 : getCapacityReservationFleetId().hashCode());
+        hashCode = prime * hashCode + ((getPlacementGroupArn() == null) ? 0 : getPlacementGroupArn().hashCode());
+        hashCode = prime * hashCode + ((getCapacityAllocations() == null) ? 0 : getCapacityAllocations().hashCode());
+        hashCode = prime * hashCode + ((getReservationType() == null) ? 0 : getReservationType().hashCode());
         return hashCode;
     }
 

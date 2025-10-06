@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,18 @@ public class DeleteWebhookRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of the AWS CodeBuild project.
+     * The name of the CodeBuild project.
      * </p>
      */
     private String projectName;
 
     /**
      * <p>
-     * The name of the AWS CodeBuild project.
+     * The name of the CodeBuild project.
      * </p>
      * 
      * @param projectName
-     *        The name of the AWS CodeBuild project.
+     *        The name of the CodeBuild project.
      */
 
     public void setProjectName(String projectName) {
@@ -47,10 +47,10 @@ public class DeleteWebhookRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of the AWS CodeBuild project.
+     * The name of the CodeBuild project.
      * </p>
      * 
-     * @return The name of the AWS CodeBuild project.
+     * @return The name of the CodeBuild project.
      */
 
     public String getProjectName() {
@@ -59,11 +59,11 @@ public class DeleteWebhookRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of the AWS CodeBuild project.
+     * The name of the CodeBuild project.
      * </p>
      * 
      * @param projectName
-     *        The name of the AWS CodeBuild project.
+     *        The name of the CodeBuild project.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

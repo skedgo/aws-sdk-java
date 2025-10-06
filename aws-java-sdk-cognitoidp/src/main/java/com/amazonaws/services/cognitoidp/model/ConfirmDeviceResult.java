@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,18 +28,18 @@ public class ConfirmDeviceResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * Indicates whether the user confirmation is necessary to confirm the device response.
+     * Indicates whether the user confirmation must confirm the device response.
      * </p>
      */
     private Boolean userConfirmationNecessary;
 
     /**
      * <p>
-     * Indicates whether the user confirmation is necessary to confirm the device response.
+     * Indicates whether the user confirmation must confirm the device response.
      * </p>
      * 
      * @param userConfirmationNecessary
-     *        Indicates whether the user confirmation is necessary to confirm the device response.
+     *        Indicates whether the user confirmation must confirm the device response.
      */
 
     public void setUserConfirmationNecessary(Boolean userConfirmationNecessary) {
@@ -48,10 +48,10 @@ public class ConfirmDeviceResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * Indicates whether the user confirmation is necessary to confirm the device response.
+     * Indicates whether the user confirmation must confirm the device response.
      * </p>
      * 
-     * @return Indicates whether the user confirmation is necessary to confirm the device response.
+     * @return Indicates whether the user confirmation must confirm the device response.
      */
 
     public Boolean getUserConfirmationNecessary() {
@@ -60,11 +60,11 @@ public class ConfirmDeviceResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * Indicates whether the user confirmation is necessary to confirm the device response.
+     * Indicates whether the user confirmation must confirm the device response.
      * </p>
      * 
      * @param userConfirmationNecessary
-     *        Indicates whether the user confirmation is necessary to confirm the device response.
+     *        Indicates whether the user confirmation must confirm the device response.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -75,10 +75,10 @@ public class ConfirmDeviceResult extends com.amazonaws.AmazonWebServiceResult<co
 
     /**
      * <p>
-     * Indicates whether the user confirmation is necessary to confirm the device response.
+     * Indicates whether the user confirmation must confirm the device response.
      * </p>
      * 
-     * @return Indicates whether the user confirmation is necessary to confirm the device response.
+     * @return Indicates whether the user confirmation must confirm the device response.
      */
 
     public Boolean isUserConfirmationNecessary() {

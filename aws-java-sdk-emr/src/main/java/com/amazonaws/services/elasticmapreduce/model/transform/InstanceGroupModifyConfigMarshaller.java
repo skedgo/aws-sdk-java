@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,6 +36,8 @@ public class InstanceGroupModifyConfigMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EC2InstanceIdsToTerminate").build();
     private static final MarshallingInfo<StructuredPojo> SHRINKPOLICY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ShrinkPolicy").build();
+    private static final MarshallingInfo<String> RECONFIGURATIONTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ReconfigurationType").build();
     private static final MarshallingInfo<List> CONFIGURATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Configurations").build();
 
@@ -59,6 +61,7 @@ public class InstanceGroupModifyConfigMarshaller {
             protocolMarshaller.marshall(instanceGroupModifyConfig.getInstanceCount(), INSTANCECOUNT_BINDING);
             protocolMarshaller.marshall(instanceGroupModifyConfig.getEC2InstanceIdsToTerminate(), EC2INSTANCEIDSTOTERMINATE_BINDING);
             protocolMarshaller.marshall(instanceGroupModifyConfig.getShrinkPolicy(), SHRINKPOLICY_BINDING);
+            protocolMarshaller.marshall(instanceGroupModifyConfig.getReconfigurationType(), RECONFIGURATIONTYPE_BINDING);
             protocolMarshaller.marshall(instanceGroupModifyConfig.getConfigurations(), CONFIGURATIONS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

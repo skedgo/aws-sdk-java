@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,12 +28,18 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
 
     /** The Amazon Resource Name (ARN) assigned to the Channel. */
     private String arn;
+    /** The date and time the Channel was created. */
+    private String createdAt;
     /** A short text description of the Channel. */
     private String description;
+
+    private EgressAccessLogs egressAccessLogs;
 
     private HlsIngest hlsIngest;
     /** The ID of the Channel. */
     private String id;
+
+    private IngressAccessLogs ingressAccessLogs;
 
     private java.util.Map<String, String> tags;
 
@@ -72,6 +78,40 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * The date and time the Channel was created.
+     * 
+     * @param createdAt
+     *        The date and time the Channel was created.
+     */
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * The date and time the Channel was created.
+     * 
+     * @return The date and time the Channel was created.
+     */
+
+    public String getCreatedAt() {
+        return this.createdAt;
+    }
+
+    /**
+     * The date and time the Channel was created.
+     * 
+     * @param createdAt
+     *        The date and time the Channel was created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Channel withCreatedAt(String createdAt) {
+        setCreatedAt(createdAt);
+        return this;
+    }
+
+    /**
      * A short text description of the Channel.
      * 
      * @param description
@@ -102,6 +142,32 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
 
     public Channel withDescription(String description) {
         setDescription(description);
+        return this;
+    }
+
+    /**
+     * @param egressAccessLogs
+     */
+
+    public void setEgressAccessLogs(EgressAccessLogs egressAccessLogs) {
+        this.egressAccessLogs = egressAccessLogs;
+    }
+
+    /**
+     * @return
+     */
+
+    public EgressAccessLogs getEgressAccessLogs() {
+        return this.egressAccessLogs;
+    }
+
+    /**
+     * @param egressAccessLogs
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Channel withEgressAccessLogs(EgressAccessLogs egressAccessLogs) {
+        setEgressAccessLogs(egressAccessLogs);
         return this;
     }
 
@@ -166,6 +232,32 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * @param ingressAccessLogs
+     */
+
+    public void setIngressAccessLogs(IngressAccessLogs ingressAccessLogs) {
+        this.ingressAccessLogs = ingressAccessLogs;
+    }
+
+    /**
+     * @return
+     */
+
+    public IngressAccessLogs getIngressAccessLogs() {
+        return this.ingressAccessLogs;
+    }
+
+    /**
+     * @param ingressAccessLogs
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Channel withIngressAccessLogs(IngressAccessLogs ingressAccessLogs) {
+        setIngressAccessLogs(ingressAccessLogs);
+        return this;
+    }
+
+    /**
      * @return
      */
 
@@ -190,6 +282,13 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
         setTags(tags);
         return this;
     }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see Channel#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public Channel addTagsEntry(String key, String value) {
         if (null == this.tags) {
@@ -226,12 +325,18 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
         sb.append("{");
         if (getArn() != null)
             sb.append("Arn: ").append(getArn()).append(",");
+        if (getCreatedAt() != null)
+            sb.append("CreatedAt: ").append(getCreatedAt()).append(",");
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
+        if (getEgressAccessLogs() != null)
+            sb.append("EgressAccessLogs: ").append(getEgressAccessLogs()).append(",");
         if (getHlsIngest() != null)
             sb.append("HlsIngest: ").append(getHlsIngest()).append(",");
         if (getId() != null)
             sb.append("Id: ").append(getId()).append(",");
+        if (getIngressAccessLogs() != null)
+            sb.append("IngressAccessLogs: ").append(getIngressAccessLogs()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags());
         sb.append("}");
@@ -252,9 +357,17 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getArn() != null && other.getArn().equals(this.getArn()) == false)
             return false;
+        if (other.getCreatedAt() == null ^ this.getCreatedAt() == null)
+            return false;
+        if (other.getCreatedAt() != null && other.getCreatedAt().equals(this.getCreatedAt()) == false)
+            return false;
         if (other.getDescription() == null ^ this.getDescription() == null)
             return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
+            return false;
+        if (other.getEgressAccessLogs() == null ^ this.getEgressAccessLogs() == null)
+            return false;
+        if (other.getEgressAccessLogs() != null && other.getEgressAccessLogs().equals(this.getEgressAccessLogs()) == false)
             return false;
         if (other.getHlsIngest() == null ^ this.getHlsIngest() == null)
             return false;
@@ -263,6 +376,10 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
         if (other.getId() == null ^ this.getId() == null)
             return false;
         if (other.getId() != null && other.getId().equals(this.getId()) == false)
+            return false;
+        if (other.getIngressAccessLogs() == null ^ this.getIngressAccessLogs() == null)
+            return false;
+        if (other.getIngressAccessLogs() != null && other.getIngressAccessLogs().equals(this.getIngressAccessLogs()) == false)
             return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
@@ -277,9 +394,12 @@ public class Channel implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
+        hashCode = prime * hashCode + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        hashCode = prime * hashCode + ((getEgressAccessLogs() == null) ? 0 : getEgressAccessLogs().hashCode());
         hashCode = prime * hashCode + ((getHlsIngest() == null) ? 0 : getHlsIngest().hashCode());
         hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
+        hashCode = prime * hashCode + ((getIngressAccessLogs() == null) ? 0 : getIngressAccessLogs().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }

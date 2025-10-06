@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
+ * <p>
+ * Contains the parameters for <code>UpdateComputeEnvironment</code>.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/UpdateComputeEnvironment" target="_top">AWS API
  *      Documentation</a>
@@ -36,33 +39,90 @@ public class UpdateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
      * The state of the compute environment. Compute environments in the <code>ENABLED</code> state can accept jobs from
      * a queue and scale in or out automatically based on the workload demand of its associated queues.
      * </p>
+     * <p>
+     * If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an associated job
+     * queue on the compute resources within the environment. If the compute environment is managed, then it can scale
+     * its instances out or in automatically, based on the job queue demand.
+     * </p>
+     * <p>
+     * If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     * environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally. Managed
+     * compute environments in the <code>DISABLED</code> state don't scale out.
+     * </p>
+     * <note>
+     * <p>
+     * Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     * additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     * "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     * >State</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * </note>
+     * <p>
+     * When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the instance size
+     * doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a <code>minvCpus</code> value of
+     * <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>. This instance doesn't scale down to a
+     * <code>c5.large</code> instance.
+     * </p>
      */
     private String state;
     /**
      * <p>
+     * The maximum number of vCPUs expected to be used for an unmanaged compute environment. Don't specify this
+     * parameter for a managed compute environment. This parameter is only used for fair share scheduling to reserve
+     * vCPU capacity for new share identifiers. If this parameter isn't provided for a fair share job queue, no vCPU
+     * capacity is reserved.
+     * </p>
+     */
+    private Integer unmanagedvCpus;
+    /**
+     * <p>
      * Details of the compute resources managed by the compute environment. Required for a managed compute environment.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute Environments</a> in
+     * the <i>Batch User Guide</i>.
      * </p>
      */
     private ComputeResourceUpdate computeResources;
     /**
      * <p>
-     * The full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls to other AWS services on
-     * your behalf.
+     * The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web Services
+     * services on your behalf. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html">Batch service IAM role</a> in the
+     * <i>Batch User Guide</i>.
      * </p>
+     * <important>
      * <p>
-     * If your specified role has a path other than <code>/</code>, then you must either specify the full role ARN (this
-     * is recommended) or prefix the role name with the path.
+     * If the compute environment has a service-linked role, it can't be changed to use a regular IAM role. Likewise, if
+     * the compute environment has a regular IAM role, it can't be changed to use a service-linked role. To update the
+     * parameters for the compute environment that require an infrastructure update to change, the
+     * <b>AWSServiceRoleForBatch</b> service-linked role must be used. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html">Updating compute
+     * environments</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * </important>
+     * <p>
+     * If your specified role has a path other than <code>/</code>, then you must either specify the full role ARN
+     * (recommended) or prefix the role name with the path.
      * </p>
      * <note>
      * <p>
-     * Depending on how you created your AWS Batch service role, its ARN may contain the <code>service-role</code> path
-     * prefix. When you only specify the name of the service role, AWS Batch assumes that your ARN does not use the
+     * Depending on how you created your Batch service role, its ARN might contain the <code>service-role</code> path
+     * prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use the
      * <code>service-role</code> path prefix. Because of this, we recommend that you specify the full ARN of your
      * service role when you create compute environments.
      * </p>
      * </note>
      */
     private String serviceRole;
+    /**
+     * <p>
+     * Specifies the updated infrastructure update policy for the compute environment. For more information about
+     * infrastructure updates, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html">Updating compute
+     * environments</a> in the <i>Batch User Guide</i>.
+     * </p>
+     */
+    private UpdatePolicy updatePolicy;
 
     /**
      * <p>
@@ -109,10 +169,58 @@ public class UpdateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
      * The state of the compute environment. Compute environments in the <code>ENABLED</code> state can accept jobs from
      * a queue and scale in or out automatically based on the workload demand of its associated queues.
      * </p>
+     * <p>
+     * If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an associated job
+     * queue on the compute resources within the environment. If the compute environment is managed, then it can scale
+     * its instances out or in automatically, based on the job queue demand.
+     * </p>
+     * <p>
+     * If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     * environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally. Managed
+     * compute environments in the <code>DISABLED</code> state don't scale out.
+     * </p>
+     * <note>
+     * <p>
+     * Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     * additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     * "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     * >State</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * </note>
+     * <p>
+     * When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the instance size
+     * doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a <code>minvCpus</code> value of
+     * <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>. This instance doesn't scale down to a
+     * <code>c5.large</code> instance.
+     * </p>
      * 
      * @param state
      *        The state of the compute environment. Compute environments in the <code>ENABLED</code> state can accept
-     *        jobs from a queue and scale in or out automatically based on the workload demand of its associated queues.
+     *        jobs from a queue and scale in or out automatically based on the workload demand of its associated
+     *        queues.</p>
+     *        <p>
+     *        If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an
+     *        associated job queue on the compute resources within the environment. If the compute environment is
+     *        managed, then it can scale its instances out or in automatically, based on the job queue demand.
+     *        </p>
+     *        <p>
+     *        If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     *        environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally.
+     *        Managed compute environments in the <code>DISABLED</code> state don't scale out.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     *        additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     *        >State</a> in the <i>Batch User Guide</i>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the
+     *        instance size doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a
+     *        <code>minvCpus</code> value of <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>.
+     *        This instance doesn't scale down to a <code>c5.large</code> instance.
      * @see CEState
      */
 
@@ -125,10 +233,57 @@ public class UpdateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
      * The state of the compute environment. Compute environments in the <code>ENABLED</code> state can accept jobs from
      * a queue and scale in or out automatically based on the workload demand of its associated queues.
      * </p>
+     * <p>
+     * If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an associated job
+     * queue on the compute resources within the environment. If the compute environment is managed, then it can scale
+     * its instances out or in automatically, based on the job queue demand.
+     * </p>
+     * <p>
+     * If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     * environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally. Managed
+     * compute environments in the <code>DISABLED</code> state don't scale out.
+     * </p>
+     * <note>
+     * <p>
+     * Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     * additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     * "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     * >State</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * </note>
+     * <p>
+     * When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the instance size
+     * doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a <code>minvCpus</code> value of
+     * <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>. This instance doesn't scale down to a
+     * <code>c5.large</code> instance.
+     * </p>
      * 
      * @return The state of the compute environment. Compute environments in the <code>ENABLED</code> state can accept
      *         jobs from a queue and scale in or out automatically based on the workload demand of its associated
-     *         queues.
+     *         queues.</p>
+     *         <p>
+     *         If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an
+     *         associated job queue on the compute resources within the environment. If the compute environment is
+     *         managed, then it can scale its instances out or in automatically, based on the job queue demand.
+     *         </p>
+     *         <p>
+     *         If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     *         environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally.
+     *         Managed compute environments in the <code>DISABLED</code> state don't scale out.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     *         additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     *         >State</a> in the <i>Batch User Guide</i>.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the
+     *         instance size doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a
+     *         <code>minvCpus</code> value of <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>.
+     *         This instance doesn't scale down to a <code>c5.large</code> instance.
      * @see CEState
      */
 
@@ -141,10 +296,58 @@ public class UpdateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
      * The state of the compute environment. Compute environments in the <code>ENABLED</code> state can accept jobs from
      * a queue and scale in or out automatically based on the workload demand of its associated queues.
      * </p>
+     * <p>
+     * If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an associated job
+     * queue on the compute resources within the environment. If the compute environment is managed, then it can scale
+     * its instances out or in automatically, based on the job queue demand.
+     * </p>
+     * <p>
+     * If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     * environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally. Managed
+     * compute environments in the <code>DISABLED</code> state don't scale out.
+     * </p>
+     * <note>
+     * <p>
+     * Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     * additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     * "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     * >State</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * </note>
+     * <p>
+     * When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the instance size
+     * doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a <code>minvCpus</code> value of
+     * <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>. This instance doesn't scale down to a
+     * <code>c5.large</code> instance.
+     * </p>
      * 
      * @param state
      *        The state of the compute environment. Compute environments in the <code>ENABLED</code> state can accept
-     *        jobs from a queue and scale in or out automatically based on the workload demand of its associated queues.
+     *        jobs from a queue and scale in or out automatically based on the workload demand of its associated
+     *        queues.</p>
+     *        <p>
+     *        If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an
+     *        associated job queue on the compute resources within the environment. If the compute environment is
+     *        managed, then it can scale its instances out or in automatically, based on the job queue demand.
+     *        </p>
+     *        <p>
+     *        If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     *        environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally.
+     *        Managed compute environments in the <code>DISABLED</code> state don't scale out.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     *        additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     *        >State</a> in the <i>Batch User Guide</i>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the
+     *        instance size doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a
+     *        <code>minvCpus</code> value of <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>.
+     *        This instance doesn't scale down to a <code>c5.large</code> instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CEState
      */
@@ -159,10 +362,58 @@ public class UpdateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
      * The state of the compute environment. Compute environments in the <code>ENABLED</code> state can accept jobs from
      * a queue and scale in or out automatically based on the workload demand of its associated queues.
      * </p>
+     * <p>
+     * If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an associated job
+     * queue on the compute resources within the environment. If the compute environment is managed, then it can scale
+     * its instances out or in automatically, based on the job queue demand.
+     * </p>
+     * <p>
+     * If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     * environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally. Managed
+     * compute environments in the <code>DISABLED</code> state don't scale out.
+     * </p>
+     * <note>
+     * <p>
+     * Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     * additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     * "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     * >State</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * </note>
+     * <p>
+     * When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the instance size
+     * doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a <code>minvCpus</code> value of
+     * <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>. This instance doesn't scale down to a
+     * <code>c5.large</code> instance.
+     * </p>
      * 
      * @param state
      *        The state of the compute environment. Compute environments in the <code>ENABLED</code> state can accept
-     *        jobs from a queue and scale in or out automatically based on the workload demand of its associated queues.
+     *        jobs from a queue and scale in or out automatically based on the workload demand of its associated
+     *        queues.</p>
+     *        <p>
+     *        If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an
+     *        associated job queue on the compute resources within the environment. If the compute environment is
+     *        managed, then it can scale its instances out or in automatically, based on the job queue demand.
+     *        </p>
+     *        <p>
+     *        If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     *        environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally.
+     *        Managed compute environments in the <code>DISABLED</code> state don't scale out.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     *        additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     *        >State</a> in the <i>Batch User Guide</i>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the
+     *        instance size doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a
+     *        <code>minvCpus</code> value of <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>.
+     *        This instance doesn't scale down to a <code>c5.large</code> instance.
      * @see CEState
      */
 
@@ -175,10 +426,58 @@ public class UpdateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
      * The state of the compute environment. Compute environments in the <code>ENABLED</code> state can accept jobs from
      * a queue and scale in or out automatically based on the workload demand of its associated queues.
      * </p>
+     * <p>
+     * If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an associated job
+     * queue on the compute resources within the environment. If the compute environment is managed, then it can scale
+     * its instances out or in automatically, based on the job queue demand.
+     * </p>
+     * <p>
+     * If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     * environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally. Managed
+     * compute environments in the <code>DISABLED</code> state don't scale out.
+     * </p>
+     * <note>
+     * <p>
+     * Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     * additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     * "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     * >State</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * </note>
+     * <p>
+     * When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the instance size
+     * doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a <code>minvCpus</code> value of
+     * <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>. This instance doesn't scale down to a
+     * <code>c5.large</code> instance.
+     * </p>
      * 
      * @param state
      *        The state of the compute environment. Compute environments in the <code>ENABLED</code> state can accept
-     *        jobs from a queue and scale in or out automatically based on the workload demand of its associated queues.
+     *        jobs from a queue and scale in or out automatically based on the workload demand of its associated
+     *        queues.</p>
+     *        <p>
+     *        If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an
+     *        associated job queue on the compute resources within the environment. If the compute environment is
+     *        managed, then it can scale its instances out or in automatically, based on the job queue demand.
+     *        </p>
+     *        <p>
+     *        If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     *        environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally.
+     *        Managed compute environments in the <code>DISABLED</code> state don't scale out.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     *        additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     *        >State</a> in the <i>Batch User Guide</i>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the
+     *        instance size doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a
+     *        <code>minvCpus</code> value of <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>.
+     *        This instance doesn't scale down to a <code>c5.large</code> instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CEState
      */
@@ -190,12 +489,75 @@ public class UpdateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
+     * The maximum number of vCPUs expected to be used for an unmanaged compute environment. Don't specify this
+     * parameter for a managed compute environment. This parameter is only used for fair share scheduling to reserve
+     * vCPU capacity for new share identifiers. If this parameter isn't provided for a fair share job queue, no vCPU
+     * capacity is reserved.
+     * </p>
+     * 
+     * @param unmanagedvCpus
+     *        The maximum number of vCPUs expected to be used for an unmanaged compute environment. Don't specify this
+     *        parameter for a managed compute environment. This parameter is only used for fair share scheduling to
+     *        reserve vCPU capacity for new share identifiers. If this parameter isn't provided for a fair share job
+     *        queue, no vCPU capacity is reserved.
+     */
+
+    public void setUnmanagedvCpus(Integer unmanagedvCpus) {
+        this.unmanagedvCpus = unmanagedvCpus;
+    }
+
+    /**
+     * <p>
+     * The maximum number of vCPUs expected to be used for an unmanaged compute environment. Don't specify this
+     * parameter for a managed compute environment. This parameter is only used for fair share scheduling to reserve
+     * vCPU capacity for new share identifiers. If this parameter isn't provided for a fair share job queue, no vCPU
+     * capacity is reserved.
+     * </p>
+     * 
+     * @return The maximum number of vCPUs expected to be used for an unmanaged compute environment. Don't specify this
+     *         parameter for a managed compute environment. This parameter is only used for fair share scheduling to
+     *         reserve vCPU capacity for new share identifiers. If this parameter isn't provided for a fair share job
+     *         queue, no vCPU capacity is reserved.
+     */
+
+    public Integer getUnmanagedvCpus() {
+        return this.unmanagedvCpus;
+    }
+
+    /**
+     * <p>
+     * The maximum number of vCPUs expected to be used for an unmanaged compute environment. Don't specify this
+     * parameter for a managed compute environment. This parameter is only used for fair share scheduling to reserve
+     * vCPU capacity for new share identifiers. If this parameter isn't provided for a fair share job queue, no vCPU
+     * capacity is reserved.
+     * </p>
+     * 
+     * @param unmanagedvCpus
+     *        The maximum number of vCPUs expected to be used for an unmanaged compute environment. Don't specify this
+     *        parameter for a managed compute environment. This parameter is only used for fair share scheduling to
+     *        reserve vCPU capacity for new share identifiers. If this parameter isn't provided for a fair share job
+     *        queue, no vCPU capacity is reserved.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateComputeEnvironmentRequest withUnmanagedvCpus(Integer unmanagedvCpus) {
+        setUnmanagedvCpus(unmanagedvCpus);
+        return this;
+    }
+
+    /**
+     * <p>
      * Details of the compute resources managed by the compute environment. Required for a managed compute environment.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute Environments</a> in
+     * the <i>Batch User Guide</i>.
      * </p>
      * 
      * @param computeResources
      *        Details of the compute resources managed by the compute environment. Required for a managed compute
-     *        environment.
+     *        environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute
+     *        Environments</a> in the <i>Batch User Guide</i>.
      */
 
     public void setComputeResources(ComputeResourceUpdate computeResources) {
@@ -205,10 +567,15 @@ public class UpdateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * Details of the compute resources managed by the compute environment. Required for a managed compute environment.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute Environments</a> in
+     * the <i>Batch User Guide</i>.
      * </p>
      * 
      * @return Details of the compute resources managed by the compute environment. Required for a managed compute
-     *         environment.
+     *         environment. For more information, see <a
+     *         href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute
+     *         Environments</a> in the <i>Batch User Guide</i>.
      */
 
     public ComputeResourceUpdate getComputeResources() {
@@ -218,11 +585,16 @@ public class UpdateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * Details of the compute resources managed by the compute environment. Required for a managed compute environment.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute Environments</a> in
+     * the <i>Batch User Guide</i>.
      * </p>
      * 
      * @param computeResources
      *        Details of the compute resources managed by the compute environment. Required for a managed compute
-     *        environment.
+     *        environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute
+     *        Environments</a> in the <i>Batch User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -233,35 +605,58 @@ public class UpdateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls to other AWS services on
-     * your behalf.
+     * The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web Services
+     * services on your behalf. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html">Batch service IAM role</a> in the
+     * <i>Batch User Guide</i>.
      * </p>
+     * <important>
      * <p>
-     * If your specified role has a path other than <code>/</code>, then you must either specify the full role ARN (this
-     * is recommended) or prefix the role name with the path.
+     * If the compute environment has a service-linked role, it can't be changed to use a regular IAM role. Likewise, if
+     * the compute environment has a regular IAM role, it can't be changed to use a service-linked role. To update the
+     * parameters for the compute environment that require an infrastructure update to change, the
+     * <b>AWSServiceRoleForBatch</b> service-linked role must be used. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html">Updating compute
+     * environments</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * </important>
+     * <p>
+     * If your specified role has a path other than <code>/</code>, then you must either specify the full role ARN
+     * (recommended) or prefix the role name with the path.
      * </p>
      * <note>
      * <p>
-     * Depending on how you created your AWS Batch service role, its ARN may contain the <code>service-role</code> path
-     * prefix. When you only specify the name of the service role, AWS Batch assumes that your ARN does not use the
+     * Depending on how you created your Batch service role, its ARN might contain the <code>service-role</code> path
+     * prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use the
      * <code>service-role</code> path prefix. Because of this, we recommend that you specify the full ARN of your
      * service role when you create compute environments.
      * </p>
      * </note>
      * 
      * @param serviceRole
-     *        The full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls to other AWS
-     *        services on your behalf.</p>
+     *        The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web
+     *        Services services on your behalf. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html">Batch service IAM role</a>
+     *        in the <i>Batch User Guide</i>.</p> <important>
+     *        <p>
+     *        If the compute environment has a service-linked role, it can't be changed to use a regular IAM role.
+     *        Likewise, if the compute environment has a regular IAM role, it can't be changed to use a service-linked
+     *        role. To update the parameters for the compute environment that require an infrastructure update to
+     *        change, the <b>AWSServiceRoleForBatch</b> service-linked role must be used. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html">Updating
+     *        compute environments</a> in the <i>Batch User Guide</i>.
+     *        </p>
+     *        </important>
      *        <p>
      *        If your specified role has a path other than <code>/</code>, then you must either specify the full role
-     *        ARN (this is recommended) or prefix the role name with the path.
+     *        ARN (recommended) or prefix the role name with the path.
      *        </p>
      *        <note>
      *        <p>
-     *        Depending on how you created your AWS Batch service role, its ARN may contain the
-     *        <code>service-role</code> path prefix. When you only specify the name of the service role, AWS Batch
-     *        assumes that your ARN does not use the <code>service-role</code> path prefix. Because of this, we
-     *        recommend that you specify the full ARN of your service role when you create compute environments.
+     *        Depending on how you created your Batch service role, its ARN might contain the <code>service-role</code>
+     *        path prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use
+     *        the <code>service-role</code> path prefix. Because of this, we recommend that you specify the full ARN of
+     *        your service role when you create compute environments.
      *        </p>
      */
 
@@ -271,34 +666,57 @@ public class UpdateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls to other AWS services on
-     * your behalf.
+     * The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web Services
+     * services on your behalf. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html">Batch service IAM role</a> in the
+     * <i>Batch User Guide</i>.
      * </p>
+     * <important>
      * <p>
-     * If your specified role has a path other than <code>/</code>, then you must either specify the full role ARN (this
-     * is recommended) or prefix the role name with the path.
+     * If the compute environment has a service-linked role, it can't be changed to use a regular IAM role. Likewise, if
+     * the compute environment has a regular IAM role, it can't be changed to use a service-linked role. To update the
+     * parameters for the compute environment that require an infrastructure update to change, the
+     * <b>AWSServiceRoleForBatch</b> service-linked role must be used. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html">Updating compute
+     * environments</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * </important>
+     * <p>
+     * If your specified role has a path other than <code>/</code>, then you must either specify the full role ARN
+     * (recommended) or prefix the role name with the path.
      * </p>
      * <note>
      * <p>
-     * Depending on how you created your AWS Batch service role, its ARN may contain the <code>service-role</code> path
-     * prefix. When you only specify the name of the service role, AWS Batch assumes that your ARN does not use the
+     * Depending on how you created your Batch service role, its ARN might contain the <code>service-role</code> path
+     * prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use the
      * <code>service-role</code> path prefix. Because of this, we recommend that you specify the full ARN of your
      * service role when you create compute environments.
      * </p>
      * </note>
      * 
-     * @return The full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls to other AWS
-     *         services on your behalf.</p>
+     * @return The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web
+     *         Services services on your behalf. For more information, see <a
+     *         href="https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html">Batch service IAM
+     *         role</a> in the <i>Batch User Guide</i>.</p> <important>
+     *         <p>
+     *         If the compute environment has a service-linked role, it can't be changed to use a regular IAM role.
+     *         Likewise, if the compute environment has a regular IAM role, it can't be changed to use a service-linked
+     *         role. To update the parameters for the compute environment that require an infrastructure update to
+     *         change, the <b>AWSServiceRoleForBatch</b> service-linked role must be used. For more information, see <a
+     *         href="https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html">Updating
+     *         compute environments</a> in the <i>Batch User Guide</i>.
+     *         </p>
+     *         </important>
      *         <p>
      *         If your specified role has a path other than <code>/</code>, then you must either specify the full role
-     *         ARN (this is recommended) or prefix the role name with the path.
+     *         ARN (recommended) or prefix the role name with the path.
      *         </p>
      *         <note>
      *         <p>
-     *         Depending on how you created your AWS Batch service role, its ARN may contain the
-     *         <code>service-role</code> path prefix. When you only specify the name of the service role, AWS Batch
-     *         assumes that your ARN does not use the <code>service-role</code> path prefix. Because of this, we
-     *         recommend that you specify the full ARN of your service role when you create compute environments.
+     *         Depending on how you created your Batch service role, its ARN might contain the <code>service-role</code>
+     *         path prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use
+     *         the <code>service-role</code> path prefix. Because of this, we recommend that you specify the full ARN of
+     *         your service role when you create compute environments.
      *         </p>
      */
 
@@ -308,41 +726,122 @@ public class UpdateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls to other AWS services on
-     * your behalf.
+     * The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web Services
+     * services on your behalf. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html">Batch service IAM role</a> in the
+     * <i>Batch User Guide</i>.
      * </p>
+     * <important>
      * <p>
-     * If your specified role has a path other than <code>/</code>, then you must either specify the full role ARN (this
-     * is recommended) or prefix the role name with the path.
+     * If the compute environment has a service-linked role, it can't be changed to use a regular IAM role. Likewise, if
+     * the compute environment has a regular IAM role, it can't be changed to use a service-linked role. To update the
+     * parameters for the compute environment that require an infrastructure update to change, the
+     * <b>AWSServiceRoleForBatch</b> service-linked role must be used. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html">Updating compute
+     * environments</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * </important>
+     * <p>
+     * If your specified role has a path other than <code>/</code>, then you must either specify the full role ARN
+     * (recommended) or prefix the role name with the path.
      * </p>
      * <note>
      * <p>
-     * Depending on how you created your AWS Batch service role, its ARN may contain the <code>service-role</code> path
-     * prefix. When you only specify the name of the service role, AWS Batch assumes that your ARN does not use the
+     * Depending on how you created your Batch service role, its ARN might contain the <code>service-role</code> path
+     * prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use the
      * <code>service-role</code> path prefix. Because of this, we recommend that you specify the full ARN of your
      * service role when you create compute environments.
      * </p>
      * </note>
      * 
      * @param serviceRole
-     *        The full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls to other AWS
-     *        services on your behalf.</p>
+     *        The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web
+     *        Services services on your behalf. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html">Batch service IAM role</a>
+     *        in the <i>Batch User Guide</i>.</p> <important>
+     *        <p>
+     *        If the compute environment has a service-linked role, it can't be changed to use a regular IAM role.
+     *        Likewise, if the compute environment has a regular IAM role, it can't be changed to use a service-linked
+     *        role. To update the parameters for the compute environment that require an infrastructure update to
+     *        change, the <b>AWSServiceRoleForBatch</b> service-linked role must be used. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html">Updating
+     *        compute environments</a> in the <i>Batch User Guide</i>.
+     *        </p>
+     *        </important>
      *        <p>
      *        If your specified role has a path other than <code>/</code>, then you must either specify the full role
-     *        ARN (this is recommended) or prefix the role name with the path.
+     *        ARN (recommended) or prefix the role name with the path.
      *        </p>
      *        <note>
      *        <p>
-     *        Depending on how you created your AWS Batch service role, its ARN may contain the
-     *        <code>service-role</code> path prefix. When you only specify the name of the service role, AWS Batch
-     *        assumes that your ARN does not use the <code>service-role</code> path prefix. Because of this, we
-     *        recommend that you specify the full ARN of your service role when you create compute environments.
+     *        Depending on how you created your Batch service role, its ARN might contain the <code>service-role</code>
+     *        path prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use
+     *        the <code>service-role</code> path prefix. Because of this, we recommend that you specify the full ARN of
+     *        your service role when you create compute environments.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public UpdateComputeEnvironmentRequest withServiceRole(String serviceRole) {
         setServiceRole(serviceRole);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the updated infrastructure update policy for the compute environment. For more information about
+     * infrastructure updates, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html">Updating compute
+     * environments</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * 
+     * @param updatePolicy
+     *        Specifies the updated infrastructure update policy for the compute environment. For more information about
+     *        infrastructure updates, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html">Updating
+     *        compute environments</a> in the <i>Batch User Guide</i>.
+     */
+
+    public void setUpdatePolicy(UpdatePolicy updatePolicy) {
+        this.updatePolicy = updatePolicy;
+    }
+
+    /**
+     * <p>
+     * Specifies the updated infrastructure update policy for the compute environment. For more information about
+     * infrastructure updates, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html">Updating compute
+     * environments</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * 
+     * @return Specifies the updated infrastructure update policy for the compute environment. For more information
+     *         about infrastructure updates, see <a
+     *         href="https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html">Updating
+     *         compute environments</a> in the <i>Batch User Guide</i>.
+     */
+
+    public UpdatePolicy getUpdatePolicy() {
+        return this.updatePolicy;
+    }
+
+    /**
+     * <p>
+     * Specifies the updated infrastructure update policy for the compute environment. For more information about
+     * infrastructure updates, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html">Updating compute
+     * environments</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * 
+     * @param updatePolicy
+     *        Specifies the updated infrastructure update policy for the compute environment. For more information about
+     *        infrastructure updates, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html">Updating
+     *        compute environments</a> in the <i>Batch User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateComputeEnvironmentRequest withUpdatePolicy(UpdatePolicy updatePolicy) {
+        setUpdatePolicy(updatePolicy);
         return this;
     }
 
@@ -362,10 +861,14 @@ public class UpdateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
             sb.append("ComputeEnvironment: ").append(getComputeEnvironment()).append(",");
         if (getState() != null)
             sb.append("State: ").append(getState()).append(",");
+        if (getUnmanagedvCpus() != null)
+            sb.append("UnmanagedvCpus: ").append(getUnmanagedvCpus()).append(",");
         if (getComputeResources() != null)
             sb.append("ComputeResources: ").append(getComputeResources()).append(",");
         if (getServiceRole() != null)
-            sb.append("ServiceRole: ").append(getServiceRole());
+            sb.append("ServiceRole: ").append(getServiceRole()).append(",");
+        if (getUpdatePolicy() != null)
+            sb.append("UpdatePolicy: ").append(getUpdatePolicy());
         sb.append("}");
         return sb.toString();
     }
@@ -388,6 +891,10 @@ public class UpdateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
             return false;
         if (other.getState() != null && other.getState().equals(this.getState()) == false)
             return false;
+        if (other.getUnmanagedvCpus() == null ^ this.getUnmanagedvCpus() == null)
+            return false;
+        if (other.getUnmanagedvCpus() != null && other.getUnmanagedvCpus().equals(this.getUnmanagedvCpus()) == false)
+            return false;
         if (other.getComputeResources() == null ^ this.getComputeResources() == null)
             return false;
         if (other.getComputeResources() != null && other.getComputeResources().equals(this.getComputeResources()) == false)
@@ -395,6 +902,10 @@ public class UpdateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
         if (other.getServiceRole() == null ^ this.getServiceRole() == null)
             return false;
         if (other.getServiceRole() != null && other.getServiceRole().equals(this.getServiceRole()) == false)
+            return false;
+        if (other.getUpdatePolicy() == null ^ this.getUpdatePolicy() == null)
+            return false;
+        if (other.getUpdatePolicy() != null && other.getUpdatePolicy().equals(this.getUpdatePolicy()) == false)
             return false;
         return true;
     }
@@ -406,8 +917,10 @@ public class UpdateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
         hashCode = prime * hashCode + ((getComputeEnvironment() == null) ? 0 : getComputeEnvironment().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
+        hashCode = prime * hashCode + ((getUnmanagedvCpus() == null) ? 0 : getUnmanagedvCpus().hashCode());
         hashCode = prime * hashCode + ((getComputeResources() == null) ? 0 : getComputeResources().hashCode());
         hashCode = prime * hashCode + ((getServiceRole() == null) ? 0 : getServiceRole().hashCode());
+        hashCode = prime * hashCode + ((getUpdatePolicy() == null) ? 0 : getUpdatePolicy().hashCode());
         return hashCode;
     }
 

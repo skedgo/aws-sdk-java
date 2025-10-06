@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,6 +16,11 @@ import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
+ * <note>
+ * <p>
+ * This action is deprecated.
+ * </p>
+ * </note>
  * <p>
  * Describes the status of a moving Elastic IP address.
  * </p>
@@ -28,8 +33,7 @@ public class MovingAddressStatus implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The status of the Elastic IP address that's being moved to the EC2-VPC platform, or restored to the EC2-Classic
-     * platform.
+     * The status of the Elastic IP address that's being moved or restored.
      * </p>
      */
     private String moveStatus;
@@ -42,13 +46,11 @@ public class MovingAddressStatus implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The status of the Elastic IP address that's being moved to the EC2-VPC platform, or restored to the EC2-Classic
-     * platform.
+     * The status of the Elastic IP address that's being moved or restored.
      * </p>
      * 
      * @param moveStatus
-     *        The status of the Elastic IP address that's being moved to the EC2-VPC platform, or restored to the
-     *        EC2-Classic platform.
+     *        The status of the Elastic IP address that's being moved or restored.
      * @see MoveStatus
      */
 
@@ -58,12 +60,10 @@ public class MovingAddressStatus implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The status of the Elastic IP address that's being moved to the EC2-VPC platform, or restored to the EC2-Classic
-     * platform.
+     * The status of the Elastic IP address that's being moved or restored.
      * </p>
      * 
-     * @return The status of the Elastic IP address that's being moved to the EC2-VPC platform, or restored to the
-     *         EC2-Classic platform.
+     * @return The status of the Elastic IP address that's being moved or restored.
      * @see MoveStatus
      */
 
@@ -73,13 +73,11 @@ public class MovingAddressStatus implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The status of the Elastic IP address that's being moved to the EC2-VPC platform, or restored to the EC2-Classic
-     * platform.
+     * The status of the Elastic IP address that's being moved or restored.
      * </p>
      * 
      * @param moveStatus
-     *        The status of the Elastic IP address that's being moved to the EC2-VPC platform, or restored to the
-     *        EC2-Classic platform.
+     *        The status of the Elastic IP address that's being moved or restored.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see MoveStatus
      */
@@ -91,13 +89,11 @@ public class MovingAddressStatus implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The status of the Elastic IP address that's being moved to the EC2-VPC platform, or restored to the EC2-Classic
-     * platform.
+     * The status of the Elastic IP address that's being moved or restored.
      * </p>
      * 
      * @param moveStatus
-     *        The status of the Elastic IP address that's being moved to the EC2-VPC platform, or restored to the
-     *        EC2-Classic platform.
+     *        The status of the Elastic IP address that's being moved or restored.
      * @see MoveStatus
      */
 
@@ -107,13 +103,11 @@ public class MovingAddressStatus implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The status of the Elastic IP address that's being moved to the EC2-VPC platform, or restored to the EC2-Classic
-     * platform.
+     * The status of the Elastic IP address that's being moved or restored.
      * </p>
      * 
      * @param moveStatus
-     *        The status of the Elastic IP address that's being moved to the EC2-VPC platform, or restored to the
-     *        EC2-Classic platform.
+     *        The status of the Elastic IP address that's being moved or restored.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see MoveStatus
      */

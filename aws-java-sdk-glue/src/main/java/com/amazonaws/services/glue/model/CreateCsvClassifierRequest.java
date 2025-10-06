@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -71,6 +71,26 @@ public class CreateCsvClassifierRequest implements Serializable, Cloneable, Stru
      * </p>
      */
     private Boolean allowSingleColumn;
+    /**
+     * <p>
+     * Enables the configuration of custom datatypes.
+     * </p>
+     */
+    private Boolean customDatatypeConfigured;
+    /**
+     * <p>
+     * Creates a list of supported custom datatypes.
+     * </p>
+     */
+    private java.util.List<String> customDatatypes;
+    /**
+     * <p>
+     * Sets the SerDe for processing CSV in the classifier, which will be applied in the Data Catalog. Valid values are
+     * <code>OpenCSVSerDe</code>, <code>LazySimpleSerDe</code>, and <code>None</code>. You can specify the
+     * <code>None</code> value when you want the crawler to do the detection.
+     * </p>
+     */
+    private String serde;
 
     /**
      * <p>
@@ -432,6 +452,203 @@ public class CreateCsvClassifierRequest implements Serializable, Cloneable, Stru
     }
 
     /**
+     * <p>
+     * Enables the configuration of custom datatypes.
+     * </p>
+     * 
+     * @param customDatatypeConfigured
+     *        Enables the configuration of custom datatypes.
+     */
+
+    public void setCustomDatatypeConfigured(Boolean customDatatypeConfigured) {
+        this.customDatatypeConfigured = customDatatypeConfigured;
+    }
+
+    /**
+     * <p>
+     * Enables the configuration of custom datatypes.
+     * </p>
+     * 
+     * @return Enables the configuration of custom datatypes.
+     */
+
+    public Boolean getCustomDatatypeConfigured() {
+        return this.customDatatypeConfigured;
+    }
+
+    /**
+     * <p>
+     * Enables the configuration of custom datatypes.
+     * </p>
+     * 
+     * @param customDatatypeConfigured
+     *        Enables the configuration of custom datatypes.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateCsvClassifierRequest withCustomDatatypeConfigured(Boolean customDatatypeConfigured) {
+        setCustomDatatypeConfigured(customDatatypeConfigured);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Enables the configuration of custom datatypes.
+     * </p>
+     * 
+     * @return Enables the configuration of custom datatypes.
+     */
+
+    public Boolean isCustomDatatypeConfigured() {
+        return this.customDatatypeConfigured;
+    }
+
+    /**
+     * <p>
+     * Creates a list of supported custom datatypes.
+     * </p>
+     * 
+     * @return Creates a list of supported custom datatypes.
+     */
+
+    public java.util.List<String> getCustomDatatypes() {
+        return customDatatypes;
+    }
+
+    /**
+     * <p>
+     * Creates a list of supported custom datatypes.
+     * </p>
+     * 
+     * @param customDatatypes
+     *        Creates a list of supported custom datatypes.
+     */
+
+    public void setCustomDatatypes(java.util.Collection<String> customDatatypes) {
+        if (customDatatypes == null) {
+            this.customDatatypes = null;
+            return;
+        }
+
+        this.customDatatypes = new java.util.ArrayList<String>(customDatatypes);
+    }
+
+    /**
+     * <p>
+     * Creates a list of supported custom datatypes.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCustomDatatypes(java.util.Collection)} or {@link #withCustomDatatypes(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param customDatatypes
+     *        Creates a list of supported custom datatypes.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateCsvClassifierRequest withCustomDatatypes(String... customDatatypes) {
+        if (this.customDatatypes == null) {
+            setCustomDatatypes(new java.util.ArrayList<String>(customDatatypes.length));
+        }
+        for (String ele : customDatatypes) {
+            this.customDatatypes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Creates a list of supported custom datatypes.
+     * </p>
+     * 
+     * @param customDatatypes
+     *        Creates a list of supported custom datatypes.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateCsvClassifierRequest withCustomDatatypes(java.util.Collection<String> customDatatypes) {
+        setCustomDatatypes(customDatatypes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Sets the SerDe for processing CSV in the classifier, which will be applied in the Data Catalog. Valid values are
+     * <code>OpenCSVSerDe</code>, <code>LazySimpleSerDe</code>, and <code>None</code>. You can specify the
+     * <code>None</code> value when you want the crawler to do the detection.
+     * </p>
+     * 
+     * @param serde
+     *        Sets the SerDe for processing CSV in the classifier, which will be applied in the Data Catalog. Valid
+     *        values are <code>OpenCSVSerDe</code>, <code>LazySimpleSerDe</code>, and <code>None</code>. You can specify
+     *        the <code>None</code> value when you want the crawler to do the detection.
+     * @see CsvSerdeOption
+     */
+
+    public void setSerde(String serde) {
+        this.serde = serde;
+    }
+
+    /**
+     * <p>
+     * Sets the SerDe for processing CSV in the classifier, which will be applied in the Data Catalog. Valid values are
+     * <code>OpenCSVSerDe</code>, <code>LazySimpleSerDe</code>, and <code>None</code>. You can specify the
+     * <code>None</code> value when you want the crawler to do the detection.
+     * </p>
+     * 
+     * @return Sets the SerDe for processing CSV in the classifier, which will be applied in the Data Catalog. Valid
+     *         values are <code>OpenCSVSerDe</code>, <code>LazySimpleSerDe</code>, and <code>None</code>. You can
+     *         specify the <code>None</code> value when you want the crawler to do the detection.
+     * @see CsvSerdeOption
+     */
+
+    public String getSerde() {
+        return this.serde;
+    }
+
+    /**
+     * <p>
+     * Sets the SerDe for processing CSV in the classifier, which will be applied in the Data Catalog. Valid values are
+     * <code>OpenCSVSerDe</code>, <code>LazySimpleSerDe</code>, and <code>None</code>. You can specify the
+     * <code>None</code> value when you want the crawler to do the detection.
+     * </p>
+     * 
+     * @param serde
+     *        Sets the SerDe for processing CSV in the classifier, which will be applied in the Data Catalog. Valid
+     *        values are <code>OpenCSVSerDe</code>, <code>LazySimpleSerDe</code>, and <code>None</code>. You can specify
+     *        the <code>None</code> value when you want the crawler to do the detection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CsvSerdeOption
+     */
+
+    public CreateCsvClassifierRequest withSerde(String serde) {
+        setSerde(serde);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Sets the SerDe for processing CSV in the classifier, which will be applied in the Data Catalog. Valid values are
+     * <code>OpenCSVSerDe</code>, <code>LazySimpleSerDe</code>, and <code>None</code>. You can specify the
+     * <code>None</code> value when you want the crawler to do the detection.
+     * </p>
+     * 
+     * @param serde
+     *        Sets the SerDe for processing CSV in the classifier, which will be applied in the Data Catalog. Valid
+     *        values are <code>OpenCSVSerDe</code>, <code>LazySimpleSerDe</code>, and <code>None</code>. You can specify
+     *        the <code>None</code> value when you want the crawler to do the detection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CsvSerdeOption
+     */
+
+    public CreateCsvClassifierRequest withSerde(CsvSerdeOption serde) {
+        this.serde = serde.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -456,7 +673,13 @@ public class CreateCsvClassifierRequest implements Serializable, Cloneable, Stru
         if (getDisableValueTrimming() != null)
             sb.append("DisableValueTrimming: ").append(getDisableValueTrimming()).append(",");
         if (getAllowSingleColumn() != null)
-            sb.append("AllowSingleColumn: ").append(getAllowSingleColumn());
+            sb.append("AllowSingleColumn: ").append(getAllowSingleColumn()).append(",");
+        if (getCustomDatatypeConfigured() != null)
+            sb.append("CustomDatatypeConfigured: ").append(getCustomDatatypeConfigured()).append(",");
+        if (getCustomDatatypes() != null)
+            sb.append("CustomDatatypes: ").append(getCustomDatatypes()).append(",");
+        if (getSerde() != null)
+            sb.append("Serde: ").append(getSerde());
         sb.append("}");
         return sb.toString();
     }
@@ -499,6 +722,18 @@ public class CreateCsvClassifierRequest implements Serializable, Cloneable, Stru
             return false;
         if (other.getAllowSingleColumn() != null && other.getAllowSingleColumn().equals(this.getAllowSingleColumn()) == false)
             return false;
+        if (other.getCustomDatatypeConfigured() == null ^ this.getCustomDatatypeConfigured() == null)
+            return false;
+        if (other.getCustomDatatypeConfigured() != null && other.getCustomDatatypeConfigured().equals(this.getCustomDatatypeConfigured()) == false)
+            return false;
+        if (other.getCustomDatatypes() == null ^ this.getCustomDatatypes() == null)
+            return false;
+        if (other.getCustomDatatypes() != null && other.getCustomDatatypes().equals(this.getCustomDatatypes()) == false)
+            return false;
+        if (other.getSerde() == null ^ this.getSerde() == null)
+            return false;
+        if (other.getSerde() != null && other.getSerde().equals(this.getSerde()) == false)
+            return false;
         return true;
     }
 
@@ -514,6 +749,9 @@ public class CreateCsvClassifierRequest implements Serializable, Cloneable, Stru
         hashCode = prime * hashCode + ((getHeader() == null) ? 0 : getHeader().hashCode());
         hashCode = prime * hashCode + ((getDisableValueTrimming() == null) ? 0 : getDisableValueTrimming().hashCode());
         hashCode = prime * hashCode + ((getAllowSingleColumn() == null) ? 0 : getAllowSingleColumn().hashCode());
+        hashCode = prime * hashCode + ((getCustomDatatypeConfigured() == null) ? 0 : getCustomDatatypeConfigured().hashCode());
+        hashCode = prime * hashCode + ((getCustomDatatypes() == null) ? 0 : getCustomDatatypes().hashCode());
+        hashCode = prime * hashCode + ((getSerde() == null) ? 0 : getSerde().hashCode());
         return hashCode;
     }
 

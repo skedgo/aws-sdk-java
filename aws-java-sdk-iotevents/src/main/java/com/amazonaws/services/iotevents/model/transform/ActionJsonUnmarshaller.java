@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -87,6 +87,18 @@ public class ActionJsonUnmarshaller implements Unmarshaller<Action, JsonUnmarsha
                 if (context.testExpression("firehose", targetDepth)) {
                     context.nextToken();
                     action.setFirehose(FirehoseActionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("dynamoDB", targetDepth)) {
+                    context.nextToken();
+                    action.setDynamoDB(DynamoDBActionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("dynamoDBv2", targetDepth)) {
+                    context.nextToken();
+                    action.setDynamoDBv2(DynamoDBv2ActionJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("iotSiteWise", targetDepth)) {
+                    context.nextToken();
+                    action.setIotSiteWise(IotSiteWiseActionJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

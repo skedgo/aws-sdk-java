@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,19 +27,22 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name of the Automation document to use for this execution.
+     * The name of the SSM document to run. This can be a public document or a custom document. To run a shared document
+     * belonging to another account, specify the document ARN. For more information about how to use shared documents,
+     * see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-ssm-sharing.html">Sharing SSM
+     * documents</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      */
     private String documentName;
     /**
      * <p>
-     * The version of the Automation document to use for this execution.
+     * The version of the Automation runbook to use for this execution.
      * </p>
      */
     private String documentVersion;
     /**
      * <p>
-     * A key-value map of execution parameters, which match the declared parameters in the Automation document.
+     * A key-value map of execution parameters, which match the declared parameters in the Automation runbook.
      * </p>
      */
     private java.util.Map<String, java.util.List<String>> parameters;
@@ -72,7 +75,7 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
     private com.amazonaws.internal.SdkInternalList<Target> targets;
     /**
      * <p>
-     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps cannot be specified
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
      * together.
      * </p>
      */
@@ -80,7 +83,7 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The maximum number of targets allowed to run this task in parallel. You can specify a number, such as 10, or a
-     * percentage, such as 10%. The default value is 10.
+     * percentage, such as 10%. The default value is <code>10</code>.
      * </p>
      */
     private String maxConcurrency;
@@ -102,21 +105,62 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
     private String maxErrors;
     /**
      * <p>
-     * A location is a combination of AWS Regions and/or AWS accounts where you want to run the Automation. Use this
-     * action to start an Automation in multiple Regions and multiple accounts. For more information, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     * >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User Guide</i>.
+     * A location is a combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you want to
+     * run the automation. Use this operation to start an automation in multiple Amazon Web Services Regions and
+     * multiple Amazon Web Services accounts. For more information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     * >Running Automation workflows in multiple Amazon Web Services Regions and Amazon Web Services accounts</a> in the
+     * <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<TargetLocation> targetLocations;
+    /**
+     * <p>
+     * Optional metadata that you assign to a resource. You can specify a maximum of five tags for an automation. Tags
+     * enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For example,
+     * you might want to tag an automation to identify an environment or operating system. In this case, you could
+     * specify the following key-value pairs:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Key=environment,Value=test</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Key=OS,Value=Windows</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * To add tags to an existing automation, use the <a>AddTagsToResource</a> operation.
+     * </p>
+     * </note>
+     */
+    private com.amazonaws.internal.SdkInternalList<Tag> tags;
+    /**
+     * <p>
+     * The CloudWatch alarm you want to apply to your automation.
+     * </p>
+     */
+    private AlarmConfiguration alarmConfiguration;
 
     /**
      * <p>
-     * The name of the Automation document to use for this execution.
+     * The name of the SSM document to run. This can be a public document or a custom document. To run a shared document
+     * belonging to another account, specify the document ARN. For more information about how to use shared documents,
+     * see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-ssm-sharing.html">Sharing SSM
+     * documents</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param documentName
-     *        The name of the Automation document to use for this execution.
+     *        The name of the SSM document to run. This can be a public document or a custom document. To run a shared
+     *        document belonging to another account, specify the document ARN. For more information about how to use
+     *        shared documents, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-ssm-sharing.html">Sharing SSM
+     *        documents</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public void setDocumentName(String documentName) {
@@ -125,10 +169,17 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name of the Automation document to use for this execution.
+     * The name of the SSM document to run. This can be a public document or a custom document. To run a shared document
+     * belonging to another account, specify the document ARN. For more information about how to use shared documents,
+     * see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-ssm-sharing.html">Sharing SSM
+     * documents</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
-     * @return The name of the Automation document to use for this execution.
+     * @return The name of the SSM document to run. This can be a public document or a custom document. To run a shared
+     *         document belonging to another account, specify the document ARN. For more information about how to use
+     *         shared documents, see <a
+     *         href="https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-ssm-sharing.html">Sharing
+     *         SSM documents</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public String getDocumentName() {
@@ -137,11 +188,18 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name of the Automation document to use for this execution.
+     * The name of the SSM document to run. This can be a public document or a custom document. To run a shared document
+     * belonging to another account, specify the document ARN. For more information about how to use shared documents,
+     * see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-ssm-sharing.html">Sharing SSM
+     * documents</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param documentName
-     *        The name of the Automation document to use for this execution.
+     *        The name of the SSM document to run. This can be a public document or a custom document. To run a shared
+     *        document belonging to another account, specify the document ARN. For more information about how to use
+     *        shared documents, see <a
+     *        href="https://docs.aws.amazon.com/systems-manager/latest/userguide/documents-ssm-sharing.html">Sharing SSM
+     *        documents</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -152,11 +210,11 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The version of the Automation document to use for this execution.
+     * The version of the Automation runbook to use for this execution.
      * </p>
      * 
      * @param documentVersion
-     *        The version of the Automation document to use for this execution.
+     *        The version of the Automation runbook to use for this execution.
      */
 
     public void setDocumentVersion(String documentVersion) {
@@ -165,10 +223,10 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The version of the Automation document to use for this execution.
+     * The version of the Automation runbook to use for this execution.
      * </p>
      * 
-     * @return The version of the Automation document to use for this execution.
+     * @return The version of the Automation runbook to use for this execution.
      */
 
     public String getDocumentVersion() {
@@ -177,11 +235,11 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The version of the Automation document to use for this execution.
+     * The version of the Automation runbook to use for this execution.
      * </p>
      * 
      * @param documentVersion
-     *        The version of the Automation document to use for this execution.
+     *        The version of the Automation runbook to use for this execution.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -192,10 +250,10 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A key-value map of execution parameters, which match the declared parameters in the Automation document.
+     * A key-value map of execution parameters, which match the declared parameters in the Automation runbook.
      * </p>
      * 
-     * @return A key-value map of execution parameters, which match the declared parameters in the Automation document.
+     * @return A key-value map of execution parameters, which match the declared parameters in the Automation runbook.
      */
 
     public java.util.Map<String, java.util.List<String>> getParameters() {
@@ -204,11 +262,11 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A key-value map of execution parameters, which match the declared parameters in the Automation document.
+     * A key-value map of execution parameters, which match the declared parameters in the Automation runbook.
      * </p>
      * 
      * @param parameters
-     *        A key-value map of execution parameters, which match the declared parameters in the Automation document.
+     *        A key-value map of execution parameters, which match the declared parameters in the Automation runbook.
      */
 
     public void setParameters(java.util.Map<String, java.util.List<String>> parameters) {
@@ -217,11 +275,11 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A key-value map of execution parameters, which match the declared parameters in the Automation document.
+     * A key-value map of execution parameters, which match the declared parameters in the Automation runbook.
      * </p>
      * 
      * @param parameters
-     *        A key-value map of execution parameters, which match the declared parameters in the Automation document.
+     *        A key-value map of execution parameters, which match the declared parameters in the Automation runbook.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -229,6 +287,13 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
         setParameters(parameters);
         return this;
     }
+
+    /**
+     * Add a single Parameters entry
+     *
+     * @see StartAutomationExecutionRequest#withParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public StartAutomationExecutionRequest addParametersEntry(String key, java.util.List<String> value) {
         if (null == this.parameters) {
@@ -485,11 +550,11 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps cannot be specified
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
      * together.
      * </p>
      * 
-     * @return A key-value mapping of document parameters to target resources. Both Targets and TargetMaps cannot be
+     * @return A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be
      *         specified together.
      */
 
@@ -502,12 +567,12 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps cannot be specified
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
      * together.
      * </p>
      * 
      * @param targetMaps
-     *        A key-value mapping of document parameters to target resources. Both Targets and TargetMaps cannot be
+     *        A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be
      *        specified together.
      */
 
@@ -522,7 +587,7 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps cannot be specified
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
      * together.
      * </p>
      * <p>
@@ -532,7 +597,7 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
      * </p>
      * 
      * @param targetMaps
-     *        A key-value mapping of document parameters to target resources. Both Targets and TargetMaps cannot be
+     *        A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be
      *        specified together.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -549,12 +614,12 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps cannot be specified
+     * A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be specified
      * together.
      * </p>
      * 
      * @param targetMaps
-     *        A key-value mapping of document parameters to target resources. Both Targets and TargetMaps cannot be
+     *        A key-value mapping of document parameters to target resources. Both Targets and TargetMaps can't be
      *        specified together.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -567,12 +632,12 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The maximum number of targets allowed to run this task in parallel. You can specify a number, such as 10, or a
-     * percentage, such as 10%. The default value is 10.
+     * percentage, such as 10%. The default value is <code>10</code>.
      * </p>
      * 
      * @param maxConcurrency
      *        The maximum number of targets allowed to run this task in parallel. You can specify a number, such as 10,
-     *        or a percentage, such as 10%. The default value is 10.
+     *        or a percentage, such as 10%. The default value is <code>10</code>.
      */
 
     public void setMaxConcurrency(String maxConcurrency) {
@@ -582,11 +647,11 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The maximum number of targets allowed to run this task in parallel. You can specify a number, such as 10, or a
-     * percentage, such as 10%. The default value is 10.
+     * percentage, such as 10%. The default value is <code>10</code>.
      * </p>
      * 
      * @return The maximum number of targets allowed to run this task in parallel. You can specify a number, such as 10,
-     *         or a percentage, such as 10%. The default value is 10.
+     *         or a percentage, such as 10%. The default value is <code>10</code>.
      */
 
     public String getMaxConcurrency() {
@@ -596,12 +661,12 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The maximum number of targets allowed to run this task in parallel. You can specify a number, such as 10, or a
-     * percentage, such as 10%. The default value is 10.
+     * percentage, such as 10%. The default value is <code>10</code>.
      * </p>
      * 
      * @param maxConcurrency
      *        The maximum number of targets allowed to run this task in parallel. You can specify a number, such as 10,
-     *        or a percentage, such as 10%. The default value is 10.
+     *        or a percentage, such as 10%. The default value is <code>10</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -712,18 +777,20 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A location is a combination of AWS Regions and/or AWS accounts where you want to run the Automation. Use this
-     * action to start an Automation in multiple Regions and multiple accounts. For more information, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     * >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User Guide</i>.
+     * A location is a combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you want to
+     * run the automation. Use this operation to start an automation in multiple Amazon Web Services Regions and
+     * multiple Amazon Web Services accounts. For more information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     * >Running Automation workflows in multiple Amazon Web Services Regions and Amazon Web Services accounts</a> in the
+     * <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
-     * @return A location is a combination of AWS Regions and/or AWS accounts where you want to run the Automation. Use
-     *         this action to start an Automation in multiple Regions and multiple accounts. For more information, see
-     *         <a href=
-     *         "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     *         >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User
-     *         Guide</i>.
+     * @return A location is a combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you
+     *         want to run the automation. Use this operation to start an automation in multiple Amazon Web Services
+     *         Regions and multiple Amazon Web Services accounts. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     *         >Running Automation workflows in multiple Amazon Web Services Regions and Amazon Web Services
+     *         accounts</a> in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public java.util.List<TargetLocation> getTargetLocations() {
@@ -735,19 +802,21 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A location is a combination of AWS Regions and/or AWS accounts where you want to run the Automation. Use this
-     * action to start an Automation in multiple Regions and multiple accounts. For more information, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     * >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User Guide</i>.
+     * A location is a combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you want to
+     * run the automation. Use this operation to start an automation in multiple Amazon Web Services Regions and
+     * multiple Amazon Web Services accounts. For more information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     * >Running Automation workflows in multiple Amazon Web Services Regions and Amazon Web Services accounts</a> in the
+     * <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param targetLocations
-     *        A location is a combination of AWS Regions and/or AWS accounts where you want to run the Automation. Use
-     *        this action to start an Automation in multiple Regions and multiple accounts. For more information, see <a
-     *        href=
-     *        "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     *        >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User
-     *        Guide</i>.
+     *        A location is a combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you
+     *        want to run the automation. Use this operation to start an automation in multiple Amazon Web Services
+     *        Regions and multiple Amazon Web Services accounts. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     *        >Running Automation workflows in multiple Amazon Web Services Regions and Amazon Web Services accounts</a>
+     *        in the <i>Amazon Web Services Systems Manager User Guide</i>.
      */
 
     public void setTargetLocations(java.util.Collection<TargetLocation> targetLocations) {
@@ -761,10 +830,12 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A location is a combination of AWS Regions and/or AWS accounts where you want to run the Automation. Use this
-     * action to start an Automation in multiple Regions and multiple accounts. For more information, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     * >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User Guide</i>.
+     * A location is a combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you want to
+     * run the automation. Use this operation to start an automation in multiple Amazon Web Services Regions and
+     * multiple Amazon Web Services accounts. For more information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     * >Running Automation workflows in multiple Amazon Web Services Regions and Amazon Web Services accounts</a> in the
+     * <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -773,12 +844,12 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
      * </p>
      * 
      * @param targetLocations
-     *        A location is a combination of AWS Regions and/or AWS accounts where you want to run the Automation. Use
-     *        this action to start an Automation in multiple Regions and multiple accounts. For more information, see <a
-     *        href=
-     *        "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     *        >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User
-     *        Guide</i>.
+     *        A location is a combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you
+     *        want to run the automation. Use this operation to start an automation in multiple Amazon Web Services
+     *        Regions and multiple Amazon Web Services accounts. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     *        >Running Automation workflows in multiple Amazon Web Services Regions and Amazon Web Services accounts</a>
+     *        in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -794,24 +865,295 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * A location is a combination of AWS Regions and/or AWS accounts where you want to run the Automation. Use this
-     * action to start an Automation in multiple Regions and multiple accounts. For more information, see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     * >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User Guide</i>.
+     * A location is a combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you want to
+     * run the automation. Use this operation to start an automation in multiple Amazon Web Services Regions and
+     * multiple Amazon Web Services accounts. For more information, see <a href=
+     * "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     * >Running Automation workflows in multiple Amazon Web Services Regions and Amazon Web Services accounts</a> in the
+     * <i>Amazon Web Services Systems Manager User Guide</i>.
      * </p>
      * 
      * @param targetLocations
-     *        A location is a combination of AWS Regions and/or AWS accounts where you want to run the Automation. Use
-     *        this action to start an Automation in multiple Regions and multiple accounts. For more information, see <a
-     *        href=
-     *        "http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
-     *        >Executing Automations in Multiple AWS Regions and Accounts</a> in the <i>AWS Systems Manager User
-     *        Guide</i>.
+     *        A location is a combination of Amazon Web Services Regions and/or Amazon Web Services accounts where you
+     *        want to run the automation. Use this operation to start an automation in multiple Amazon Web Services
+     *        Regions and multiple Amazon Web Services accounts. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html"
+     *        >Running Automation workflows in multiple Amazon Web Services Regions and Amazon Web Services accounts</a>
+     *        in the <i>Amazon Web Services Systems Manager User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public StartAutomationExecutionRequest withTargetLocations(java.util.Collection<TargetLocation> targetLocations) {
         setTargetLocations(targetLocations);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Optional metadata that you assign to a resource. You can specify a maximum of five tags for an automation. Tags
+     * enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For example,
+     * you might want to tag an automation to identify an environment or operating system. In this case, you could
+     * specify the following key-value pairs:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Key=environment,Value=test</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Key=OS,Value=Windows</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * To add tags to an existing automation, use the <a>AddTagsToResource</a> operation.
+     * </p>
+     * </note>
+     * 
+     * @return Optional metadata that you assign to a resource. You can specify a maximum of five tags for an
+     *         automation. Tags enable you to categorize a resource in different ways, such as by purpose, owner, or
+     *         environment. For example, you might want to tag an automation to identify an environment or operating
+     *         system. In this case, you could specify the following key-value pairs:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>Key=environment,Value=test</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Key=OS,Value=Windows</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <note>
+     *         <p>
+     *         To add tags to an existing automation, use the <a>AddTagsToResource</a> operation.
+     *         </p>
+     */
+
+    public java.util.List<Tag> getTags() {
+        if (tags == null) {
+            tags = new com.amazonaws.internal.SdkInternalList<Tag>();
+        }
+        return tags;
+    }
+
+    /**
+     * <p>
+     * Optional metadata that you assign to a resource. You can specify a maximum of five tags for an automation. Tags
+     * enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For example,
+     * you might want to tag an automation to identify an environment or operating system. In this case, you could
+     * specify the following key-value pairs:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Key=environment,Value=test</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Key=OS,Value=Windows</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * To add tags to an existing automation, use the <a>AddTagsToResource</a> operation.
+     * </p>
+     * </note>
+     * 
+     * @param tags
+     *        Optional metadata that you assign to a resource. You can specify a maximum of five tags for an automation.
+     *        Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For
+     *        example, you might want to tag an automation to identify an environment or operating system. In this case,
+     *        you could specify the following key-value pairs:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Key=environment,Value=test</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Key=OS,Value=Windows</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        To add tags to an existing automation, use the <a>AddTagsToResource</a> operation.
+     *        </p>
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new com.amazonaws.internal.SdkInternalList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * Optional metadata that you assign to a resource. You can specify a maximum of five tags for an automation. Tags
+     * enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For example,
+     * you might want to tag an automation to identify an environment or operating system. In this case, you could
+     * specify the following key-value pairs:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Key=environment,Value=test</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Key=OS,Value=Windows</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * To add tags to an existing automation, use the <a>AddTagsToResource</a> operation.
+     * </p>
+     * </note>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        Optional metadata that you assign to a resource. You can specify a maximum of five tags for an automation.
+     *        Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For
+     *        example, you might want to tag an automation to identify an environment or operating system. In this case,
+     *        you could specify the following key-value pairs:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Key=environment,Value=test</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Key=OS,Value=Windows</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        To add tags to an existing automation, use the <a>AddTagsToResource</a> operation.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartAutomationExecutionRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new com.amazonaws.internal.SdkInternalList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Optional metadata that you assign to a resource. You can specify a maximum of five tags for an automation. Tags
+     * enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For example,
+     * you might want to tag an automation to identify an environment or operating system. In this case, you could
+     * specify the following key-value pairs:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Key=environment,Value=test</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Key=OS,Value=Windows</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
+     * <p>
+     * To add tags to an existing automation, use the <a>AddTagsToResource</a> operation.
+     * </p>
+     * </note>
+     * 
+     * @param tags
+     *        Optional metadata that you assign to a resource. You can specify a maximum of five tags for an automation.
+     *        Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For
+     *        example, you might want to tag an automation to identify an environment or operating system. In this case,
+     *        you could specify the following key-value pairs:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Key=environment,Value=test</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Key=OS,Value=Windows</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <note>
+     *        <p>
+     *        To add tags to an existing automation, use the <a>AddTagsToResource</a> operation.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartAutomationExecutionRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm you want to apply to your automation.
+     * </p>
+     * 
+     * @param alarmConfiguration
+     *        The CloudWatch alarm you want to apply to your automation.
+     */
+
+    public void setAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        this.alarmConfiguration = alarmConfiguration;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm you want to apply to your automation.
+     * </p>
+     * 
+     * @return The CloudWatch alarm you want to apply to your automation.
+     */
+
+    public AlarmConfiguration getAlarmConfiguration() {
+        return this.alarmConfiguration;
+    }
+
+    /**
+     * <p>
+     * The CloudWatch alarm you want to apply to your automation.
+     * </p>
+     * 
+     * @param alarmConfiguration
+     *        The CloudWatch alarm you want to apply to your automation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartAutomationExecutionRequest withAlarmConfiguration(AlarmConfiguration alarmConfiguration) {
+        setAlarmConfiguration(alarmConfiguration);
         return this;
     }
 
@@ -848,7 +1190,11 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
         if (getMaxErrors() != null)
             sb.append("MaxErrors: ").append(getMaxErrors()).append(",");
         if (getTargetLocations() != null)
-            sb.append("TargetLocations: ").append(getTargetLocations());
+            sb.append("TargetLocations: ").append(getTargetLocations()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getAlarmConfiguration() != null)
+            sb.append("AlarmConfiguration: ").append(getAlarmConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -907,6 +1253,14 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
             return false;
         if (other.getTargetLocations() != null && other.getTargetLocations().equals(this.getTargetLocations()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getAlarmConfiguration() == null ^ this.getAlarmConfiguration() == null)
+            return false;
+        if (other.getAlarmConfiguration() != null && other.getAlarmConfiguration().equals(this.getAlarmConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -926,6 +1280,8 @@ public class StartAutomationExecutionRequest extends com.amazonaws.AmazonWebServ
         hashCode = prime * hashCode + ((getMaxConcurrency() == null) ? 0 : getMaxConcurrency().hashCode());
         hashCode = prime * hashCode + ((getMaxErrors() == null) ? 0 : getMaxErrors().hashCode());
         hashCode = prime * hashCode + ((getTargetLocations() == null) ? 0 : getTargetLocations().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getAlarmConfiguration() == null) ? 0 : getAlarmConfiguration().hashCode());
         return hashCode;
     }
 

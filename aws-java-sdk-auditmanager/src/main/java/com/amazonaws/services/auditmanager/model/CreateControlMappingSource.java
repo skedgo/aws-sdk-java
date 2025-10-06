@@ -1,0 +1,638 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.auditmanager.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import com.amazonaws.protocol.StructuredPojo;
+import com.amazonaws.protocol.ProtocolMarshaller;
+
+/**
+ * <p>
+ * The mapping attributes that determine the evidence source for a given control, along with related parameters and
+ * metadata. This doesn't contain <code>mappingID</code>.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/auditmanager-2017-07-25/CreateControlMappingSource"
+ *      target="_top">AWS API Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class CreateControlMappingSource implements Serializable, Cloneable, StructuredPojo {
+
+    /**
+     * <p>
+     * The name of the control mapping data source.
+     * </p>
+     */
+    private String sourceName;
+    /**
+     * <p>
+     * The description of the data source that determines where Audit Manager collects evidence from for the control.
+     * </p>
+     */
+    private String sourceDescription;
+    /**
+     * <p>
+     * The setup option for the data source. This option reflects if the evidence collection method is automated or
+     * manual. If you don’t provide a value for <code>sourceSetUpOption</code>, Audit Manager automatically infers and
+     * populates the correct value based on the <code>sourceType</code> that you specify.
+     * </p>
+     */
+    private String sourceSetUpOption;
+    /**
+     * <p>
+     * Specifies which type of data source is used to collect evidence.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The source can be an individual data source type, such as <code>AWS_Cloudtrail</code>, <code>AWS_Config</code>,
+     * <code>AWS_Security_Hub</code>, <code>AWS_API_Call</code>, or <code>MANUAL</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The source can also be a managed grouping of data sources, such as a <code>Core_Control</code> or a
+     * <code>Common_Control</code>.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String sourceType;
+
+    private SourceKeyword sourceKeyword;
+    /**
+     * <p>
+     * Specifies how often evidence is collected from the control mapping source.
+     * </p>
+     */
+    private String sourceFrequency;
+    /**
+     * <p>
+     * The instructions for troubleshooting the control.
+     * </p>
+     */
+    private String troubleshootingText;
+
+    /**
+     * <p>
+     * The name of the control mapping data source.
+     * </p>
+     * 
+     * @param sourceName
+     *        The name of the control mapping data source.
+     */
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
+    }
+
+    /**
+     * <p>
+     * The name of the control mapping data source.
+     * </p>
+     * 
+     * @return The name of the control mapping data source.
+     */
+
+    public String getSourceName() {
+        return this.sourceName;
+    }
+
+    /**
+     * <p>
+     * The name of the control mapping data source.
+     * </p>
+     * 
+     * @param sourceName
+     *        The name of the control mapping data source.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateControlMappingSource withSourceName(String sourceName) {
+        setSourceName(sourceName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The description of the data source that determines where Audit Manager collects evidence from for the control.
+     * </p>
+     * 
+     * @param sourceDescription
+     *        The description of the data source that determines where Audit Manager collects evidence from for the
+     *        control.
+     */
+
+    public void setSourceDescription(String sourceDescription) {
+        this.sourceDescription = sourceDescription;
+    }
+
+    /**
+     * <p>
+     * The description of the data source that determines where Audit Manager collects evidence from for the control.
+     * </p>
+     * 
+     * @return The description of the data source that determines where Audit Manager collects evidence from for the
+     *         control.
+     */
+
+    public String getSourceDescription() {
+        return this.sourceDescription;
+    }
+
+    /**
+     * <p>
+     * The description of the data source that determines where Audit Manager collects evidence from for the control.
+     * </p>
+     * 
+     * @param sourceDescription
+     *        The description of the data source that determines where Audit Manager collects evidence from for the
+     *        control.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateControlMappingSource withSourceDescription(String sourceDescription) {
+        setSourceDescription(sourceDescription);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The setup option for the data source. This option reflects if the evidence collection method is automated or
+     * manual. If you don’t provide a value for <code>sourceSetUpOption</code>, Audit Manager automatically infers and
+     * populates the correct value based on the <code>sourceType</code> that you specify.
+     * </p>
+     * 
+     * @param sourceSetUpOption
+     *        The setup option for the data source. This option reflects if the evidence collection method is automated
+     *        or manual. If you don’t provide a value for <code>sourceSetUpOption</code>, Audit Manager automatically
+     *        infers and populates the correct value based on the <code>sourceType</code> that you specify.
+     * @see SourceSetUpOption
+     */
+
+    public void setSourceSetUpOption(String sourceSetUpOption) {
+        this.sourceSetUpOption = sourceSetUpOption;
+    }
+
+    /**
+     * <p>
+     * The setup option for the data source. This option reflects if the evidence collection method is automated or
+     * manual. If you don’t provide a value for <code>sourceSetUpOption</code>, Audit Manager automatically infers and
+     * populates the correct value based on the <code>sourceType</code> that you specify.
+     * </p>
+     * 
+     * @return The setup option for the data source. This option reflects if the evidence collection method is automated
+     *         or manual. If you don’t provide a value for <code>sourceSetUpOption</code>, Audit Manager automatically
+     *         infers and populates the correct value based on the <code>sourceType</code> that you specify.
+     * @see SourceSetUpOption
+     */
+
+    public String getSourceSetUpOption() {
+        return this.sourceSetUpOption;
+    }
+
+    /**
+     * <p>
+     * The setup option for the data source. This option reflects if the evidence collection method is automated or
+     * manual. If you don’t provide a value for <code>sourceSetUpOption</code>, Audit Manager automatically infers and
+     * populates the correct value based on the <code>sourceType</code> that you specify.
+     * </p>
+     * 
+     * @param sourceSetUpOption
+     *        The setup option for the data source. This option reflects if the evidence collection method is automated
+     *        or manual. If you don’t provide a value for <code>sourceSetUpOption</code>, Audit Manager automatically
+     *        infers and populates the correct value based on the <code>sourceType</code> that you specify.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SourceSetUpOption
+     */
+
+    public CreateControlMappingSource withSourceSetUpOption(String sourceSetUpOption) {
+        setSourceSetUpOption(sourceSetUpOption);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The setup option for the data source. This option reflects if the evidence collection method is automated or
+     * manual. If you don’t provide a value for <code>sourceSetUpOption</code>, Audit Manager automatically infers and
+     * populates the correct value based on the <code>sourceType</code> that you specify.
+     * </p>
+     * 
+     * @param sourceSetUpOption
+     *        The setup option for the data source. This option reflects if the evidence collection method is automated
+     *        or manual. If you don’t provide a value for <code>sourceSetUpOption</code>, Audit Manager automatically
+     *        infers and populates the correct value based on the <code>sourceType</code> that you specify.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SourceSetUpOption
+     */
+
+    public CreateControlMappingSource withSourceSetUpOption(SourceSetUpOption sourceSetUpOption) {
+        this.sourceSetUpOption = sourceSetUpOption.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies which type of data source is used to collect evidence.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The source can be an individual data source type, such as <code>AWS_Cloudtrail</code>, <code>AWS_Config</code>,
+     * <code>AWS_Security_Hub</code>, <code>AWS_API_Call</code>, or <code>MANUAL</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The source can also be a managed grouping of data sources, such as a <code>Core_Control</code> or a
+     * <code>Common_Control</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param sourceType
+     *        Specifies which type of data source is used to collect evidence. </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The source can be an individual data source type, such as <code>AWS_Cloudtrail</code>,
+     *        <code>AWS_Config</code>, <code>AWS_Security_Hub</code>, <code>AWS_API_Call</code>, or <code>MANUAL</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The source can also be a managed grouping of data sources, such as a <code>Core_Control</code> or a
+     *        <code>Common_Control</code>.
+     *        </p>
+     *        </li>
+     * @see SourceType
+     */
+
+    public void setSourceType(String sourceType) {
+        this.sourceType = sourceType;
+    }
+
+    /**
+     * <p>
+     * Specifies which type of data source is used to collect evidence.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The source can be an individual data source type, such as <code>AWS_Cloudtrail</code>, <code>AWS_Config</code>,
+     * <code>AWS_Security_Hub</code>, <code>AWS_API_Call</code>, or <code>MANUAL</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The source can also be a managed grouping of data sources, such as a <code>Core_Control</code> or a
+     * <code>Common_Control</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return Specifies which type of data source is used to collect evidence. </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         The source can be an individual data source type, such as <code>AWS_Cloudtrail</code>,
+     *         <code>AWS_Config</code>, <code>AWS_Security_Hub</code>, <code>AWS_API_Call</code>, or <code>MANUAL</code>
+     *         .
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The source can also be a managed grouping of data sources, such as a <code>Core_Control</code> or a
+     *         <code>Common_Control</code>.
+     *         </p>
+     *         </li>
+     * @see SourceType
+     */
+
+    public String getSourceType() {
+        return this.sourceType;
+    }
+
+    /**
+     * <p>
+     * Specifies which type of data source is used to collect evidence.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The source can be an individual data source type, such as <code>AWS_Cloudtrail</code>, <code>AWS_Config</code>,
+     * <code>AWS_Security_Hub</code>, <code>AWS_API_Call</code>, or <code>MANUAL</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The source can also be a managed grouping of data sources, such as a <code>Core_Control</code> or a
+     * <code>Common_Control</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param sourceType
+     *        Specifies which type of data source is used to collect evidence. </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The source can be an individual data source type, such as <code>AWS_Cloudtrail</code>,
+     *        <code>AWS_Config</code>, <code>AWS_Security_Hub</code>, <code>AWS_API_Call</code>, or <code>MANUAL</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The source can also be a managed grouping of data sources, such as a <code>Core_Control</code> or a
+     *        <code>Common_Control</code>.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SourceType
+     */
+
+    public CreateControlMappingSource withSourceType(String sourceType) {
+        setSourceType(sourceType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies which type of data source is used to collect evidence.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The source can be an individual data source type, such as <code>AWS_Cloudtrail</code>, <code>AWS_Config</code>,
+     * <code>AWS_Security_Hub</code>, <code>AWS_API_Call</code>, or <code>MANUAL</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The source can also be a managed grouping of data sources, such as a <code>Core_Control</code> or a
+     * <code>Common_Control</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param sourceType
+     *        Specifies which type of data source is used to collect evidence. </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        The source can be an individual data source type, such as <code>AWS_Cloudtrail</code>,
+     *        <code>AWS_Config</code>, <code>AWS_Security_Hub</code>, <code>AWS_API_Call</code>, or <code>MANUAL</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        The source can also be a managed grouping of data sources, such as a <code>Core_Control</code> or a
+     *        <code>Common_Control</code>.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SourceType
+     */
+
+    public CreateControlMappingSource withSourceType(SourceType sourceType) {
+        this.sourceType = sourceType.toString();
+        return this;
+    }
+
+    /**
+     * @param sourceKeyword
+     */
+
+    public void setSourceKeyword(SourceKeyword sourceKeyword) {
+        this.sourceKeyword = sourceKeyword;
+    }
+
+    /**
+     * @return
+     */
+
+    public SourceKeyword getSourceKeyword() {
+        return this.sourceKeyword;
+    }
+
+    /**
+     * @param sourceKeyword
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateControlMappingSource withSourceKeyword(SourceKeyword sourceKeyword) {
+        setSourceKeyword(sourceKeyword);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies how often evidence is collected from the control mapping source.
+     * </p>
+     * 
+     * @param sourceFrequency
+     *        Specifies how often evidence is collected from the control mapping source.
+     * @see SourceFrequency
+     */
+
+    public void setSourceFrequency(String sourceFrequency) {
+        this.sourceFrequency = sourceFrequency;
+    }
+
+    /**
+     * <p>
+     * Specifies how often evidence is collected from the control mapping source.
+     * </p>
+     * 
+     * @return Specifies how often evidence is collected from the control mapping source.
+     * @see SourceFrequency
+     */
+
+    public String getSourceFrequency() {
+        return this.sourceFrequency;
+    }
+
+    /**
+     * <p>
+     * Specifies how often evidence is collected from the control mapping source.
+     * </p>
+     * 
+     * @param sourceFrequency
+     *        Specifies how often evidence is collected from the control mapping source.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SourceFrequency
+     */
+
+    public CreateControlMappingSource withSourceFrequency(String sourceFrequency) {
+        setSourceFrequency(sourceFrequency);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies how often evidence is collected from the control mapping source.
+     * </p>
+     * 
+     * @param sourceFrequency
+     *        Specifies how often evidence is collected from the control mapping source.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SourceFrequency
+     */
+
+    public CreateControlMappingSource withSourceFrequency(SourceFrequency sourceFrequency) {
+        this.sourceFrequency = sourceFrequency.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The instructions for troubleshooting the control.
+     * </p>
+     * 
+     * @param troubleshootingText
+     *        The instructions for troubleshooting the control.
+     */
+
+    public void setTroubleshootingText(String troubleshootingText) {
+        this.troubleshootingText = troubleshootingText;
+    }
+
+    /**
+     * <p>
+     * The instructions for troubleshooting the control.
+     * </p>
+     * 
+     * @return The instructions for troubleshooting the control.
+     */
+
+    public String getTroubleshootingText() {
+        return this.troubleshootingText;
+    }
+
+    /**
+     * <p>
+     * The instructions for troubleshooting the control.
+     * </p>
+     * 
+     * @param troubleshootingText
+     *        The instructions for troubleshooting the control.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateControlMappingSource withTroubleshootingText(String troubleshootingText) {
+        setTroubleshootingText(troubleshootingText);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getSourceName() != null)
+            sb.append("SourceName: ").append(getSourceName()).append(",");
+        if (getSourceDescription() != null)
+            sb.append("SourceDescription: ").append(getSourceDescription()).append(",");
+        if (getSourceSetUpOption() != null)
+            sb.append("SourceSetUpOption: ").append(getSourceSetUpOption()).append(",");
+        if (getSourceType() != null)
+            sb.append("SourceType: ").append(getSourceType()).append(",");
+        if (getSourceKeyword() != null)
+            sb.append("SourceKeyword: ").append(getSourceKeyword()).append(",");
+        if (getSourceFrequency() != null)
+            sb.append("SourceFrequency: ").append(getSourceFrequency()).append(",");
+        if (getTroubleshootingText() != null)
+            sb.append("TroubleshootingText: ").append("***Sensitive Data Redacted***");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof CreateControlMappingSource == false)
+            return false;
+        CreateControlMappingSource other = (CreateControlMappingSource) obj;
+        if (other.getSourceName() == null ^ this.getSourceName() == null)
+            return false;
+        if (other.getSourceName() != null && other.getSourceName().equals(this.getSourceName()) == false)
+            return false;
+        if (other.getSourceDescription() == null ^ this.getSourceDescription() == null)
+            return false;
+        if (other.getSourceDescription() != null && other.getSourceDescription().equals(this.getSourceDescription()) == false)
+            return false;
+        if (other.getSourceSetUpOption() == null ^ this.getSourceSetUpOption() == null)
+            return false;
+        if (other.getSourceSetUpOption() != null && other.getSourceSetUpOption().equals(this.getSourceSetUpOption()) == false)
+            return false;
+        if (other.getSourceType() == null ^ this.getSourceType() == null)
+            return false;
+        if (other.getSourceType() != null && other.getSourceType().equals(this.getSourceType()) == false)
+            return false;
+        if (other.getSourceKeyword() == null ^ this.getSourceKeyword() == null)
+            return false;
+        if (other.getSourceKeyword() != null && other.getSourceKeyword().equals(this.getSourceKeyword()) == false)
+            return false;
+        if (other.getSourceFrequency() == null ^ this.getSourceFrequency() == null)
+            return false;
+        if (other.getSourceFrequency() != null && other.getSourceFrequency().equals(this.getSourceFrequency()) == false)
+            return false;
+        if (other.getTroubleshootingText() == null ^ this.getTroubleshootingText() == null)
+            return false;
+        if (other.getTroubleshootingText() != null && other.getTroubleshootingText().equals(this.getTroubleshootingText()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getSourceName() == null) ? 0 : getSourceName().hashCode());
+        hashCode = prime * hashCode + ((getSourceDescription() == null) ? 0 : getSourceDescription().hashCode());
+        hashCode = prime * hashCode + ((getSourceSetUpOption() == null) ? 0 : getSourceSetUpOption().hashCode());
+        hashCode = prime * hashCode + ((getSourceType() == null) ? 0 : getSourceType().hashCode());
+        hashCode = prime * hashCode + ((getSourceKeyword() == null) ? 0 : getSourceKeyword().hashCode());
+        hashCode = prime * hashCode + ((getSourceFrequency() == null) ? 0 : getSourceFrequency().hashCode());
+        hashCode = prime * hashCode + ((getTroubleshootingText() == null) ? 0 : getTroubleshootingText().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public CreateControlMappingSource clone() {
+        try {
+            return (CreateControlMappingSource) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    @Override
+    public void marshall(ProtocolMarshaller protocolMarshaller) {
+        com.amazonaws.services.auditmanager.model.transform.CreateControlMappingSourceMarshaller.getInstance().marshall(this, protocolMarshaller);
+    }
+}

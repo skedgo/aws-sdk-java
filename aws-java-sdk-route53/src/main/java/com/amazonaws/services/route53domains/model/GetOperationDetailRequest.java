@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * The <a>GetOperationDetail</a> request includes the following element.
+ * The <a href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_GetOperationDetail.html">
+ * GetOperationDetail</a> request includes the following element.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/GetOperationDetail" target="_top">AWS
@@ -30,21 +31,21 @@ public class GetOperationDetailRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The identifier for the operation for which you want to get the status. Amazon Route 53 returned the identifier in
-     * the response to the original request.
+     * The identifier for the operation for which you want to get the status. Route 53 returned the identifier in the
+     * response to the original request.
      * </p>
      */
     private String operationId;
 
     /**
      * <p>
-     * The identifier for the operation for which you want to get the status. Amazon Route 53 returned the identifier in
-     * the response to the original request.
+     * The identifier for the operation for which you want to get the status. Route 53 returned the identifier in the
+     * response to the original request.
      * </p>
      * 
      * @param operationId
-     *        The identifier for the operation for which you want to get the status. Amazon Route 53 returned the
-     *        identifier in the response to the original request.
+     *        The identifier for the operation for which you want to get the status. Route 53 returned the identifier in
+     *        the response to the original request.
      */
 
     public void setOperationId(String operationId) {
@@ -53,12 +54,12 @@ public class GetOperationDetailRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The identifier for the operation for which you want to get the status. Amazon Route 53 returned the identifier in
-     * the response to the original request.
+     * The identifier for the operation for which you want to get the status. Route 53 returned the identifier in the
+     * response to the original request.
      * </p>
      * 
-     * @return The identifier for the operation for which you want to get the status. Amazon Route 53 returned the
-     *         identifier in the response to the original request.
+     * @return The identifier for the operation for which you want to get the status. Route 53 returned the identifier
+     *         in the response to the original request.
      */
 
     public String getOperationId() {
@@ -67,13 +68,13 @@ public class GetOperationDetailRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * The identifier for the operation for which you want to get the status. Amazon Route 53 returned the identifier in
-     * the response to the original request.
+     * The identifier for the operation for which you want to get the status. Route 53 returned the identifier in the
+     * response to the original request.
      * </p>
      * 
      * @param operationId
-     *        The identifier for the operation for which you want to get the status. Amazon Route 53 returned the
-     *        identifier in the response to the original request.
+     *        The identifier for the operation for which you want to get the status. Route 53 returned the identifier in
+     *        the response to the original request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

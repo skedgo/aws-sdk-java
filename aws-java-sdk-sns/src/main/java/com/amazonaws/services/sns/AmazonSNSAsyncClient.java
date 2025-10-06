@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,10 +34,15 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * <p>
  * Amazon Simple Notification Service (Amazon SNS) is a web service that enables you to build distributed web-enabled
  * applications. Applications can use Amazon SNS to easily push real-time notification messages to interested
- * subscribers over multiple delivery protocols. For more information about this product see <a
- * href="http://aws.amazon.com/sns/">https://aws.amazon.com/sns</a>. For detailed information about Amazon SNS features
- * and their associated API calls, see the <a href="https://docs.aws.amazon.com/sns/latest/dg/">Amazon SNS Developer
+ * subscribers over multiple delivery protocols. For more information about this product see the <a
+ * href="http://aws.amazon.com/sns/">Amazon SNS product page</a>. For detailed information about Amazon SNS features and
+ * their associated API calls, see the <a href="https://docs.aws.amazon.com/sns/latest/dg/">Amazon SNS Developer
  * Guide</a>.
+ * </p>
+ * <p>
+ * For information on the permissions you need to use this API, see <a
+ * href="https://docs.aws.amazon.com/sns/latest/dg/sns-authentication-and-access-control.html">Identity and access
+ * management in Amazon SNS</a> in the <i>Amazon SNS Developer Guide.</i>
  * </p>
  * <p>
  * We also provide SDKs that enable you to access Amazon SNS from your preferred programming language. The SDKs contain
@@ -242,7 +247,19 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient implements AmazonSNSAs
      *        Object providing client parameters.
      */
     AmazonSNSAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Amazon SNS using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonSNSAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -495,6 +512,39 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient implements AmazonSNSAs
     }
 
     @Override
+    public java.util.concurrent.Future<CreateSMSSandboxPhoneNumberResult> createSMSSandboxPhoneNumberAsync(CreateSMSSandboxPhoneNumberRequest request) {
+
+        return createSMSSandboxPhoneNumberAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateSMSSandboxPhoneNumberResult> createSMSSandboxPhoneNumberAsync(final CreateSMSSandboxPhoneNumberRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateSMSSandboxPhoneNumberRequest, CreateSMSSandboxPhoneNumberResult> asyncHandler) {
+        final CreateSMSSandboxPhoneNumberRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateSMSSandboxPhoneNumberResult>() {
+            @Override
+            public CreateSMSSandboxPhoneNumberResult call() throws Exception {
+                CreateSMSSandboxPhoneNumberResult result = null;
+
+                try {
+                    result = executeCreateSMSSandboxPhoneNumber(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateTopicResult> createTopicAsync(CreateTopicRequest request) {
 
         return createTopicAsync(request, null);
@@ -617,6 +667,39 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient implements AmazonSNSAs
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteSMSSandboxPhoneNumberResult> deleteSMSSandboxPhoneNumberAsync(DeleteSMSSandboxPhoneNumberRequest request) {
+
+        return deleteSMSSandboxPhoneNumberAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteSMSSandboxPhoneNumberResult> deleteSMSSandboxPhoneNumberAsync(final DeleteSMSSandboxPhoneNumberRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteSMSSandboxPhoneNumberRequest, DeleteSMSSandboxPhoneNumberResult> asyncHandler) {
+        final DeleteSMSSandboxPhoneNumberRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteSMSSandboxPhoneNumberResult>() {
+            @Override
+            public DeleteSMSSandboxPhoneNumberResult call() throws Exception {
+                DeleteSMSSandboxPhoneNumberResult result = null;
+
+                try {
+                    result = executeDeleteSMSSandboxPhoneNumber(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteTopicResult> deleteTopicAsync(DeleteTopicRequest request) {
 
         return deleteTopicAsync(request, null);
@@ -670,6 +753,39 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient implements AmazonSNSAs
             com.amazonaws.handlers.AsyncHandler<DeleteTopicRequest, DeleteTopicResult> asyncHandler) {
 
         return deleteTopicAsync(new DeleteTopicRequest().withTopicArn(topicArn), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDataProtectionPolicyResult> getDataProtectionPolicyAsync(GetDataProtectionPolicyRequest request) {
+
+        return getDataProtectionPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDataProtectionPolicyResult> getDataProtectionPolicyAsync(final GetDataProtectionPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetDataProtectionPolicyRequest, GetDataProtectionPolicyResult> asyncHandler) {
+        final GetDataProtectionPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetDataProtectionPolicyResult>() {
+            @Override
+            public GetDataProtectionPolicyResult call() throws Exception {
+                GetDataProtectionPolicyResult result = null;
+
+                try {
+                    result = executeGetDataProtectionPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -758,6 +874,39 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient implements AmazonSNSAs
 
                 try {
                     result = executeGetSMSAttributes(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSMSSandboxAccountStatusResult> getSMSSandboxAccountStatusAsync(GetSMSSandboxAccountStatusRequest request) {
+
+        return getSMSSandboxAccountStatusAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSMSSandboxAccountStatusResult> getSMSSandboxAccountStatusAsync(final GetSMSSandboxAccountStatusRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetSMSSandboxAccountStatusRequest, GetSMSSandboxAccountStatusResult> asyncHandler) {
+        final GetSMSSandboxAccountStatusRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetSMSSandboxAccountStatusResult>() {
+            @Override
+            public GetSMSSandboxAccountStatusResult call() throws Exception {
+                GetSMSSandboxAccountStatusResult result = null;
+
+                try {
+                    result = executeGetSMSSandboxAccountStatus(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -921,6 +1070,39 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient implements AmazonSNSAs
     }
 
     @Override
+    public java.util.concurrent.Future<ListOriginationNumbersResult> listOriginationNumbersAsync(ListOriginationNumbersRequest request) {
+
+        return listOriginationNumbersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListOriginationNumbersResult> listOriginationNumbersAsync(final ListOriginationNumbersRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListOriginationNumbersRequest, ListOriginationNumbersResult> asyncHandler) {
+        final ListOriginationNumbersRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListOriginationNumbersResult>() {
+            @Override
+            public ListOriginationNumbersResult call() throws Exception {
+                ListOriginationNumbersResult result = null;
+
+                try {
+                    result = executeListOriginationNumbers(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListPhoneNumbersOptedOutResult> listPhoneNumbersOptedOutAsync(ListPhoneNumbersOptedOutRequest request) {
 
         return listPhoneNumbersOptedOutAsync(request, null);
@@ -1007,6 +1189,39 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient implements AmazonSNSAs
             com.amazonaws.handlers.AsyncHandler<ListPlatformApplicationsRequest, ListPlatformApplicationsResult> asyncHandler) {
 
         return listPlatformApplicationsAsync(new ListPlatformApplicationsRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSMSSandboxPhoneNumbersResult> listSMSSandboxPhoneNumbersAsync(ListSMSSandboxPhoneNumbersRequest request) {
+
+        return listSMSSandboxPhoneNumbersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSMSSandboxPhoneNumbersResult> listSMSSandboxPhoneNumbersAsync(final ListSMSSandboxPhoneNumbersRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListSMSSandboxPhoneNumbersRequest, ListSMSSandboxPhoneNumbersResult> asyncHandler) {
+        final ListSMSSandboxPhoneNumbersRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListSMSSandboxPhoneNumbersResult>() {
+            @Override
+            public ListSMSSandboxPhoneNumbersResult call() throws Exception {
+                ListSMSSandboxPhoneNumbersResult result = null;
+
+                try {
+                    result = executeListSMSSandboxPhoneNumbers(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -1388,6 +1603,72 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient implements AmazonSNSAs
             com.amazonaws.handlers.AsyncHandler<PublishRequest, PublishResult> asyncHandler) {
 
         return publishAsync(new PublishRequest().withTopicArn(topicArn).withMessage(message).withSubject(subject), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PublishBatchResult> publishBatchAsync(PublishBatchRequest request) {
+
+        return publishBatchAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PublishBatchResult> publishBatchAsync(final PublishBatchRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PublishBatchRequest, PublishBatchResult> asyncHandler) {
+        final PublishBatchRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PublishBatchResult>() {
+            @Override
+            public PublishBatchResult call() throws Exception {
+                PublishBatchResult result = null;
+
+                try {
+                    result = executePublishBatch(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutDataProtectionPolicyResult> putDataProtectionPolicyAsync(PutDataProtectionPolicyRequest request) {
+
+        return putDataProtectionPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutDataProtectionPolicyResult> putDataProtectionPolicyAsync(final PutDataProtectionPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutDataProtectionPolicyRequest, PutDataProtectionPolicyResult> asyncHandler) {
+        final PutDataProtectionPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutDataProtectionPolicyResult>() {
+            @Override
+            public PutDataProtectionPolicyResult call() throws Exception {
+                PutDataProtectionPolicyResult result = null;
+
+                try {
+                    result = executePutDataProtectionPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -1827,6 +2108,39 @@ public class AmazonSNSAsyncClient extends AmazonSNSClient implements AmazonSNSAs
 
                 try {
                     result = executeUntagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<VerifySMSSandboxPhoneNumberResult> verifySMSSandboxPhoneNumberAsync(VerifySMSSandboxPhoneNumberRequest request) {
+
+        return verifySMSSandboxPhoneNumberAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<VerifySMSSandboxPhoneNumberResult> verifySMSSandboxPhoneNumberAsync(final VerifySMSSandboxPhoneNumberRequest request,
+            final com.amazonaws.handlers.AsyncHandler<VerifySMSSandboxPhoneNumberRequest, VerifySMSSandboxPhoneNumberResult> asyncHandler) {
+        final VerifySMSSandboxPhoneNumberRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<VerifySMSSandboxPhoneNumberResult>() {
+            @Override
+            public VerifySMSSandboxPhoneNumberResult call() throws Exception {
+                VerifySMSSandboxPhoneNumberResult result = null;
+
+                try {
+                    result = executeVerifySMSSandboxPhoneNumber(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

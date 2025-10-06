@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Details on an event associated with a service.
+ * The details for an event that's associated with a service.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/ServiceEvent" target="_top">AWS API
@@ -30,13 +30,13 @@ public class ServiceEvent implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID string of the event.
+     * The ID string for the event.
      * </p>
      */
     private String id;
     /**
      * <p>
-     * The Unix timestamp for when the event was triggered.
+     * The Unix timestamp for the time when the event was triggered.
      * </p>
      */
     private java.util.Date createdAt;
@@ -49,11 +49,11 @@ public class ServiceEvent implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID string of the event.
+     * The ID string for the event.
      * </p>
      * 
      * @param id
-     *        The ID string of the event.
+     *        The ID string for the event.
      */
 
     public void setId(String id) {
@@ -62,10 +62,10 @@ public class ServiceEvent implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID string of the event.
+     * The ID string for the event.
      * </p>
      * 
-     * @return The ID string of the event.
+     * @return The ID string for the event.
      */
 
     public String getId() {
@@ -74,11 +74,11 @@ public class ServiceEvent implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The ID string of the event.
+     * The ID string for the event.
      * </p>
      * 
      * @param id
-     *        The ID string of the event.
+     *        The ID string for the event.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -89,11 +89,11 @@ public class ServiceEvent implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the event was triggered.
+     * The Unix timestamp for the time when the event was triggered.
      * </p>
      * 
      * @param createdAt
-     *        The Unix timestamp for when the event was triggered.
+     *        The Unix timestamp for the time when the event was triggered.
      */
 
     public void setCreatedAt(java.util.Date createdAt) {
@@ -102,10 +102,10 @@ public class ServiceEvent implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the event was triggered.
+     * The Unix timestamp for the time when the event was triggered.
      * </p>
      * 
-     * @return The Unix timestamp for when the event was triggered.
+     * @return The Unix timestamp for the time when the event was triggered.
      */
 
     public java.util.Date getCreatedAt() {
@@ -114,11 +114,11 @@ public class ServiceEvent implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Unix timestamp for when the event was triggered.
+     * The Unix timestamp for the time when the event was triggered.
      * </p>
      * 
      * @param createdAt
-     *        The Unix timestamp for when the event was triggered.
+     *        The Unix timestamp for the time when the event was triggered.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

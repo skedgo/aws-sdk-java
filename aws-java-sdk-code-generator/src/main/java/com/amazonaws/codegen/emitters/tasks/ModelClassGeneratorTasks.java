@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -68,7 +68,7 @@ public class ModelClassGeneratorTasks extends BaseGeneratorTasks {
                 .put("customConfig", model.getCustomizationConfig())
                 .put("shouldGenerateSdkRequestConfigSetter", shouldGenerateSdkRequestConfigSetter(shapeModel))
                 .put("awsDocsUrl", createLinkToServiceDocumentation(metadata, shapeModel))
-                .put("shouldEmitStructuredPojoInterface", model.getMetadata().isJsonProtocol()
+                .put("shouldEmitStructuredPojoInterface", (model.getMetadata().isJsonProtocol() || model.getMetadata().isRpcV2CborProtocol())
                                                           && shapeModel.getShapeType() == ShapeType.Model)
                 .put("transformPackage", model.getTransformPackage())
                 .build();

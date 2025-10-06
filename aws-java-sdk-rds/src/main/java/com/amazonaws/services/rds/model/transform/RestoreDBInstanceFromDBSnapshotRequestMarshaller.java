@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -105,13 +105,15 @@ public class RestoreDBInstanceFromDBSnapshotRequestMarshaller implements
             int tagsListIndex = 1;
 
             for (Tag tagsListValue : tagsList) {
+                if (tagsListValue != null) {
 
-                if (tagsListValue.getKey() != null) {
-                    request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
-                }
+                    if (tagsListValue.getKey() != null) {
+                        request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
+                    }
 
-                if (tagsListValue.getValue() != null) {
-                    request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    if (tagsListValue.getValue() != null) {
+                        request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    }
                 }
                 tagsListIndex++;
             }
@@ -146,6 +148,32 @@ public class RestoreDBInstanceFromDBSnapshotRequestMarshaller implements
 
         if (restoreDBInstanceFromDBSnapshotRequest.getDomain() != null) {
             request.addParameter("Domain", StringUtils.fromString(restoreDBInstanceFromDBSnapshotRequest.getDomain()));
+        }
+
+        if (restoreDBInstanceFromDBSnapshotRequest.getDomainFqdn() != null) {
+            request.addParameter("DomainFqdn", StringUtils.fromString(restoreDBInstanceFromDBSnapshotRequest.getDomainFqdn()));
+        }
+
+        if (restoreDBInstanceFromDBSnapshotRequest.getDomainOu() != null) {
+            request.addParameter("DomainOu", StringUtils.fromString(restoreDBInstanceFromDBSnapshotRequest.getDomainOu()));
+        }
+
+        if (restoreDBInstanceFromDBSnapshotRequest.getDomainAuthSecretArn() != null) {
+            request.addParameter("DomainAuthSecretArn", StringUtils.fromString(restoreDBInstanceFromDBSnapshotRequest.getDomainAuthSecretArn()));
+        }
+
+        if (!restoreDBInstanceFromDBSnapshotRequest.getDomainDnsIps().isEmpty()
+                || !((com.amazonaws.internal.SdkInternalList<String>) restoreDBInstanceFromDBSnapshotRequest.getDomainDnsIps()).isAutoConstruct()) {
+            com.amazonaws.internal.SdkInternalList<String> domainDnsIpsList = (com.amazonaws.internal.SdkInternalList<String>) restoreDBInstanceFromDBSnapshotRequest
+                    .getDomainDnsIps();
+            int domainDnsIpsListIndex = 1;
+
+            for (String domainDnsIpsListValue : domainDnsIpsList) {
+                if (domainDnsIpsListValue != null) {
+                    request.addParameter("DomainDnsIps.member." + domainDnsIpsListIndex, StringUtils.fromString(domainDnsIpsListValue));
+                }
+                domainDnsIpsListIndex++;
+            }
         }
 
         if (restoreDBInstanceFromDBSnapshotRequest.getCopyTagsToSnapshot() != null) {
@@ -185,15 +213,17 @@ public class RestoreDBInstanceFromDBSnapshotRequestMarshaller implements
             int processorFeaturesListIndex = 1;
 
             for (ProcessorFeature processorFeaturesListValue : processorFeaturesList) {
+                if (processorFeaturesListValue != null) {
 
-                if (processorFeaturesListValue.getName() != null) {
-                    request.addParameter("ProcessorFeatures.ProcessorFeature." + processorFeaturesListIndex + ".Name",
-                            StringUtils.fromString(processorFeaturesListValue.getName()));
-                }
+                    if (processorFeaturesListValue.getName() != null) {
+                        request.addParameter("ProcessorFeatures.ProcessorFeature." + processorFeaturesListIndex + ".Name",
+                                StringUtils.fromString(processorFeaturesListValue.getName()));
+                    }
 
-                if (processorFeaturesListValue.getValue() != null) {
-                    request.addParameter("ProcessorFeatures.ProcessorFeature." + processorFeaturesListIndex + ".Value",
-                            StringUtils.fromString(processorFeaturesListValue.getValue()));
+                    if (processorFeaturesListValue.getValue() != null) {
+                        request.addParameter("ProcessorFeatures.ProcessorFeature." + processorFeaturesListIndex + ".Value",
+                                StringUtils.fromString(processorFeaturesListValue.getValue()));
+                    }
                 }
                 processorFeaturesListIndex++;
             }
@@ -210,6 +240,46 @@ public class RestoreDBInstanceFromDBSnapshotRequestMarshaller implements
 
         if (restoreDBInstanceFromDBSnapshotRequest.getDeletionProtection() != null) {
             request.addParameter("DeletionProtection", StringUtils.fromBoolean(restoreDBInstanceFromDBSnapshotRequest.getDeletionProtection()));
+        }
+
+        if (restoreDBInstanceFromDBSnapshotRequest.getEnableCustomerOwnedIp() != null) {
+            request.addParameter("EnableCustomerOwnedIp", StringUtils.fromBoolean(restoreDBInstanceFromDBSnapshotRequest.getEnableCustomerOwnedIp()));
+        }
+
+        if (restoreDBInstanceFromDBSnapshotRequest.getCustomIamInstanceProfile() != null) {
+            request.addParameter("CustomIamInstanceProfile", StringUtils.fromString(restoreDBInstanceFromDBSnapshotRequest.getCustomIamInstanceProfile()));
+        }
+
+        if (restoreDBInstanceFromDBSnapshotRequest.getBackupTarget() != null) {
+            request.addParameter("BackupTarget", StringUtils.fromString(restoreDBInstanceFromDBSnapshotRequest.getBackupTarget()));
+        }
+
+        if (restoreDBInstanceFromDBSnapshotRequest.getNetworkType() != null) {
+            request.addParameter("NetworkType", StringUtils.fromString(restoreDBInstanceFromDBSnapshotRequest.getNetworkType()));
+        }
+
+        if (restoreDBInstanceFromDBSnapshotRequest.getStorageThroughput() != null) {
+            request.addParameter("StorageThroughput", StringUtils.fromInteger(restoreDBInstanceFromDBSnapshotRequest.getStorageThroughput()));
+        }
+
+        if (restoreDBInstanceFromDBSnapshotRequest.getDBClusterSnapshotIdentifier() != null) {
+            request.addParameter("DBClusterSnapshotIdentifier", StringUtils.fromString(restoreDBInstanceFromDBSnapshotRequest.getDBClusterSnapshotIdentifier()));
+        }
+
+        if (restoreDBInstanceFromDBSnapshotRequest.getAllocatedStorage() != null) {
+            request.addParameter("AllocatedStorage", StringUtils.fromInteger(restoreDBInstanceFromDBSnapshotRequest.getAllocatedStorage()));
+        }
+
+        if (restoreDBInstanceFromDBSnapshotRequest.getDedicatedLogVolume() != null) {
+            request.addParameter("DedicatedLogVolume", StringUtils.fromBoolean(restoreDBInstanceFromDBSnapshotRequest.getDedicatedLogVolume()));
+        }
+
+        if (restoreDBInstanceFromDBSnapshotRequest.getCACertificateIdentifier() != null) {
+            request.addParameter("CACertificateIdentifier", StringUtils.fromString(restoreDBInstanceFromDBSnapshotRequest.getCACertificateIdentifier()));
+        }
+
+        if (restoreDBInstanceFromDBSnapshotRequest.getEngineLifecycleSupport() != null) {
+            request.addParameter("EngineLifecycleSupport", StringUtils.fromString(restoreDBInstanceFromDBSnapshotRequest.getEngineLifecycleSupport()));
         }
 
         return request;

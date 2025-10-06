@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -75,6 +75,24 @@ public class InstancePortInfoJsonUnmarshaller implements Unmarshaller<InstancePo
                 if (context.testExpression("accessDirection", targetDepth)) {
                     context.nextToken();
                     instancePortInfo.setAccessDirection(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("cidrs", targetDepth)) {
+                    context.nextToken();
+                    instancePortInfo.setCidrs(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("ipv6Cidrs", targetDepth)) {
+                    context.nextToken();
+                    instancePortInfo.setIpv6Cidrs(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("cidrListAliases", targetDepth)) {
+                    context.nextToken();
+                    instancePortInfo.setCidrListAliases(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,27 +27,32 @@ public class StopContactRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The unique identifier of the contact to end.
+     * The ID of the contact.
      * </p>
      */
     private String contactId;
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      */
     private String instanceId;
+    /**
+     * <p>
+     * The reason a contact can be disconnected. Only Amazon Connect outbound campaigns can provide this field.
+     * </p>
+     */
+    private DisconnectReason disconnectReason;
 
     /**
      * <p>
-     * The unique identifier of the contact to end.
+     * The ID of the contact.
      * </p>
      * 
      * @param contactId
-     *        The unique identifier of the contact to end.
+     *        The ID of the contact.
      */
 
     public void setContactId(String contactId) {
@@ -56,10 +61,10 @@ public class StopContactRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The unique identifier of the contact to end.
+     * The ID of the contact.
      * </p>
      * 
-     * @return The unique identifier of the contact to end.
+     * @return The ID of the contact.
      */
 
     public String getContactId() {
@@ -68,11 +73,11 @@ public class StopContactRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The unique identifier of the contact to end.
+     * The ID of the contact.
      * </p>
      * 
      * @param contactId
-     *        The unique identifier of the contact to end.
+     *        The ID of the contact.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -83,17 +88,15 @@ public class StopContactRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      * 
      * @param instanceId
-     *        The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and
-     *        select Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is
-     *        displayed in the Overview section of your instance settings. For example, the instance ID is the set of
-     *        characters at the end of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     *        The identifier of the Amazon Connect instance. You can <a
+     *        href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance
+     *        ID</a> in the Amazon Resource Name (ARN) of the instance.
      */
 
     public void setInstanceId(String instanceId) {
@@ -102,17 +105,14 @@ public class StopContactRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      * 
-     * @return The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console
-     *         and select Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID
-     *         is displayed in the Overview section of your instance settings. For example, the instance ID is the set
-     *         of characters at the end of the instance ARN, after instance/, such as
-     *         10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * @return The identifier of the Amazon Connect instance. You can <a
+     *         href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance
+     *         ID</a> in the Amazon Resource Name (ARN) of the instance.
      */
 
     public String getInstanceId() {
@@ -121,22 +121,60 @@ public class StopContactRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and select
-     * Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is displayed in
-     * the Overview section of your instance settings. For example, the instance ID is the set of characters at the end
-     * of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     * The identifier of the Amazon Connect instance. You can <a
+     * href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance ID</a> in
+     * the Amazon Resource Name (ARN) of the instance.
      * </p>
      * 
      * @param instanceId
-     *        The identifier for your Amazon Connect instance. To find the ID of your instance, open the AWS console and
-     *        select Amazon Connect. Select the alias of the instance in the Instance alias column. The instance ID is
-     *        displayed in the Overview section of your instance settings. For example, the instance ID is the set of
-     *        characters at the end of the instance ARN, after instance/, such as 10a4c4eb-f57e-4d4c-b602-bf39176ced07.
+     *        The identifier of the Amazon Connect instance. You can <a
+     *        href="https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html">find the instance
+     *        ID</a> in the Amazon Resource Name (ARN) of the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public StopContactRequest withInstanceId(String instanceId) {
         setInstanceId(instanceId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The reason a contact can be disconnected. Only Amazon Connect outbound campaigns can provide this field.
+     * </p>
+     * 
+     * @param disconnectReason
+     *        The reason a contact can be disconnected. Only Amazon Connect outbound campaigns can provide this field.
+     */
+
+    public void setDisconnectReason(DisconnectReason disconnectReason) {
+        this.disconnectReason = disconnectReason;
+    }
+
+    /**
+     * <p>
+     * The reason a contact can be disconnected. Only Amazon Connect outbound campaigns can provide this field.
+     * </p>
+     * 
+     * @return The reason a contact can be disconnected. Only Amazon Connect outbound campaigns can provide this field.
+     */
+
+    public DisconnectReason getDisconnectReason() {
+        return this.disconnectReason;
+    }
+
+    /**
+     * <p>
+     * The reason a contact can be disconnected. Only Amazon Connect outbound campaigns can provide this field.
+     * </p>
+     * 
+     * @param disconnectReason
+     *        The reason a contact can be disconnected. Only Amazon Connect outbound campaigns can provide this field.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StopContactRequest withDisconnectReason(DisconnectReason disconnectReason) {
+        setDisconnectReason(disconnectReason);
         return this;
     }
 
@@ -155,7 +193,9 @@ public class StopContactRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getContactId() != null)
             sb.append("ContactId: ").append(getContactId()).append(",");
         if (getInstanceId() != null)
-            sb.append("InstanceId: ").append(getInstanceId());
+            sb.append("InstanceId: ").append(getInstanceId()).append(",");
+        if (getDisconnectReason() != null)
+            sb.append("DisconnectReason: ").append(getDisconnectReason());
         sb.append("}");
         return sb.toString();
     }
@@ -178,6 +218,10 @@ public class StopContactRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getInstanceId() != null && other.getInstanceId().equals(this.getInstanceId()) == false)
             return false;
+        if (other.getDisconnectReason() == null ^ this.getDisconnectReason() == null)
+            return false;
+        if (other.getDisconnectReason() != null && other.getDisconnectReason().equals(this.getDisconnectReason()) == false)
+            return false;
         return true;
     }
 
@@ -188,6 +232,7 @@ public class StopContactRequest extends com.amazonaws.AmazonWebServiceRequest im
 
         hashCode = prime * hashCode + ((getContactId() == null) ? 0 : getContactId().hashCode());
         hashCode = prime * hashCode + ((getInstanceId() == null) ? 0 : getInstanceId().hashCode());
+        hashCode = prime * hashCode + ((getDisconnectReason() == null) ? 0 : getDisconnectReason().hashCode());
         return hashCode;
     }
 

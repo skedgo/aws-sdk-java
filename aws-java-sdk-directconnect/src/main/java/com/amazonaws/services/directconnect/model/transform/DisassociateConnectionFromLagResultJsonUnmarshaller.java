@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -104,13 +104,41 @@ public class DisassociateConnectionFromLagResultJsonUnmarshaller implements Unma
                     context.nextToken();
                     disassociateConnectionFromLagResult.setAwsDeviceV2(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("awsLogicalDeviceId", targetDepth)) {
+                    context.nextToken();
+                    disassociateConnectionFromLagResult.setAwsLogicalDeviceId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("hasLogicalRedundancy", targetDepth)) {
                     context.nextToken();
                     disassociateConnectionFromLagResult.setHasLogicalRedundancy(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("tags", targetDepth)) {
                     context.nextToken();
-                    disassociateConnectionFromLagResult.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance()).unmarshall(context));
+                    disassociateConnectionFromLagResult.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("providerName", targetDepth)) {
+                    context.nextToken();
+                    disassociateConnectionFromLagResult.setProviderName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("macSecCapable", targetDepth)) {
+                    context.nextToken();
+                    disassociateConnectionFromLagResult.setMacSecCapable(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("portEncryptionStatus", targetDepth)) {
+                    context.nextToken();
+                    disassociateConnectionFromLagResult.setPortEncryptionStatus(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("encryptionMode", targetDepth)) {
+                    context.nextToken();
+                    disassociateConnectionFromLagResult.setEncryptionMode(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("macSecKeys", targetDepth)) {
+                    context.nextToken();
+                    disassociateConnectionFromLagResult.setMacSecKeys(new ListUnmarshaller<MacSecKey>(MacSecKeyJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

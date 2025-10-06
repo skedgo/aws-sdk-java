@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,7 @@ public class DescribeActivationsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * A list of activations for your AWS account.
+     * A list of activations for your Amazon Web Services account.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Activation> activationList;
@@ -38,10 +38,10 @@ public class DescribeActivationsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * A list of activations for your AWS account.
+     * A list of activations for your Amazon Web Services account.
      * </p>
      * 
-     * @return A list of activations for your AWS account.
+     * @return A list of activations for your Amazon Web Services account.
      */
 
     public java.util.List<Activation> getActivationList() {
@@ -53,11 +53,11 @@ public class DescribeActivationsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * A list of activations for your AWS account.
+     * A list of activations for your Amazon Web Services account.
      * </p>
      * 
      * @param activationList
-     *        A list of activations for your AWS account.
+     *        A list of activations for your Amazon Web Services account.
      */
 
     public void setActivationList(java.util.Collection<Activation> activationList) {
@@ -71,7 +71,7 @@ public class DescribeActivationsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * A list of activations for your AWS account.
+     * A list of activations for your Amazon Web Services account.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -80,7 +80,7 @@ public class DescribeActivationsResult extends com.amazonaws.AmazonWebServiceRes
      * </p>
      * 
      * @param activationList
-     *        A list of activations for your AWS account.
+     *        A list of activations for your Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -96,11 +96,11 @@ public class DescribeActivationsResult extends com.amazonaws.AmazonWebServiceRes
 
     /**
      * <p>
-     * A list of activations for your AWS account.
+     * A list of activations for your Amazon Web Services account.
      * </p>
      * 
      * @param activationList
-     *        A list of activations for your AWS account.
+     *        A list of activations for your Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

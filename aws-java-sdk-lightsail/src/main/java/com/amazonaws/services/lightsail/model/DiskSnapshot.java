@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the disk snapshot (e.g., <code>my-disk-snapshot</code>).
+     * The name of the disk snapshot (<code>my-disk-snapshot</code>).
      * </p>
      */
     private String name;
@@ -61,14 +61,15 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
     private ResourceLocation location;
     /**
      * <p>
-     * The Lightsail resource type (e.g., <code>DiskSnapshot</code>).
+     * The Lightsail resource type (<code>DiskSnapshot</code>).
      * </p>
      */
     private String resourceType;
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      */
     private java.util.List<Tag> tags;
@@ -86,7 +87,7 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
     private String state;
     /**
      * <p>
-     * The progress of the disk snapshot operation.
+     * The progress of the snapshot.
      * </p>
      */
     private String progress;
@@ -114,14 +115,20 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String fromInstanceArn;
+    /**
+     * <p>
+     * A Boolean value indicating whether the snapshot was created from an automatic snapshot.
+     * </p>
+     */
+    private Boolean isFromAutoSnapshot;
 
     /**
      * <p>
-     * The name of the disk snapshot (e.g., <code>my-disk-snapshot</code>).
+     * The name of the disk snapshot (<code>my-disk-snapshot</code>).
      * </p>
      * 
      * @param name
-     *        The name of the disk snapshot (e.g., <code>my-disk-snapshot</code>).
+     *        The name of the disk snapshot (<code>my-disk-snapshot</code>).
      */
 
     public void setName(String name) {
@@ -130,10 +137,10 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the disk snapshot (e.g., <code>my-disk-snapshot</code>).
+     * The name of the disk snapshot (<code>my-disk-snapshot</code>).
      * </p>
      * 
-     * @return The name of the disk snapshot (e.g., <code>my-disk-snapshot</code>).
+     * @return The name of the disk snapshot (<code>my-disk-snapshot</code>).
      */
 
     public String getName() {
@@ -142,11 +149,11 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the disk snapshot (e.g., <code>my-disk-snapshot</code>).
+     * The name of the disk snapshot (<code>my-disk-snapshot</code>).
      * </p>
      * 
      * @param name
-     *        The name of the disk snapshot (e.g., <code>my-disk-snapshot</code>).
+     *        The name of the disk snapshot (<code>my-disk-snapshot</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -326,11 +333,11 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Lightsail resource type (e.g., <code>DiskSnapshot</code>).
+     * The Lightsail resource type (<code>DiskSnapshot</code>).
      * </p>
      * 
      * @param resourceType
-     *        The Lightsail resource type (e.g., <code>DiskSnapshot</code>).
+     *        The Lightsail resource type (<code>DiskSnapshot</code>).
      * @see ResourceType
      */
 
@@ -340,10 +347,10 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Lightsail resource type (e.g., <code>DiskSnapshot</code>).
+     * The Lightsail resource type (<code>DiskSnapshot</code>).
      * </p>
      * 
-     * @return The Lightsail resource type (e.g., <code>DiskSnapshot</code>).
+     * @return The Lightsail resource type (<code>DiskSnapshot</code>).
      * @see ResourceType
      */
 
@@ -353,11 +360,11 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Lightsail resource type (e.g., <code>DiskSnapshot</code>).
+     * The Lightsail resource type (<code>DiskSnapshot</code>).
      * </p>
      * 
      * @param resourceType
-     *        The Lightsail resource type (e.g., <code>DiskSnapshot</code>).
+     *        The Lightsail resource type (<code>DiskSnapshot</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceType
      */
@@ -369,11 +376,11 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Lightsail resource type (e.g., <code>DiskSnapshot</code>).
+     * The Lightsail resource type (<code>DiskSnapshot</code>).
      * </p>
      * 
      * @param resourceType
-     *        The Lightsail resource type (e.g., <code>DiskSnapshot</code>).
+     *        The Lightsail resource type (<code>DiskSnapshot</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceType
      */
@@ -386,12 +393,13 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * 
      * @return The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *         <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *         Guide</a>.
+     *         <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *         Developer Guide</a>.
      */
 
     public java.util.List<Tag> getTags() {
@@ -401,13 +409,14 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *        Guide</a>.
+     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *        Developer Guide</a>.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -422,7 +431,8 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -432,8 +442,8 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param tags
      *        The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *        Guide</a>.
+     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *        Developer Guide</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -450,13 +460,14 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The tag keys and optional values for the resource. For more information about tags in Lightsail, see the <a
-     * href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev Guide</a>.
+     * href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail Developer
+     * Guide</a>.
      * </p>
      * 
      * @param tags
      *        The tag keys and optional values for the resource. For more information about tags in Lightsail, see the
-     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags">Lightsail Dev
-     *        Guide</a>.
+     *        <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-tags">Amazon Lightsail
+     *        Developer Guide</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -566,11 +577,11 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The progress of the disk snapshot operation.
+     * The progress of the snapshot.
      * </p>
      * 
      * @param progress
-     *        The progress of the disk snapshot operation.
+     *        The progress of the snapshot.
      */
 
     public void setProgress(String progress) {
@@ -579,10 +590,10 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The progress of the disk snapshot operation.
+     * The progress of the snapshot.
      * </p>
      * 
-     * @return The progress of the disk snapshot operation.
+     * @return The progress of the snapshot.
      */
 
     public String getProgress() {
@@ -591,11 +602,11 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The progress of the disk snapshot operation.
+     * The progress of the snapshot.
      * </p>
      * 
      * @param progress
-     *        The progress of the disk snapshot operation.
+     *        The progress of the snapshot.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -768,6 +779,58 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * A Boolean value indicating whether the snapshot was created from an automatic snapshot.
+     * </p>
+     * 
+     * @param isFromAutoSnapshot
+     *        A Boolean value indicating whether the snapshot was created from an automatic snapshot.
+     */
+
+    public void setIsFromAutoSnapshot(Boolean isFromAutoSnapshot) {
+        this.isFromAutoSnapshot = isFromAutoSnapshot;
+    }
+
+    /**
+     * <p>
+     * A Boolean value indicating whether the snapshot was created from an automatic snapshot.
+     * </p>
+     * 
+     * @return A Boolean value indicating whether the snapshot was created from an automatic snapshot.
+     */
+
+    public Boolean getIsFromAutoSnapshot() {
+        return this.isFromAutoSnapshot;
+    }
+
+    /**
+     * <p>
+     * A Boolean value indicating whether the snapshot was created from an automatic snapshot.
+     * </p>
+     * 
+     * @param isFromAutoSnapshot
+     *        A Boolean value indicating whether the snapshot was created from an automatic snapshot.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DiskSnapshot withIsFromAutoSnapshot(Boolean isFromAutoSnapshot) {
+        setIsFromAutoSnapshot(isFromAutoSnapshot);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A Boolean value indicating whether the snapshot was created from an automatic snapshot.
+     * </p>
+     * 
+     * @return A Boolean value indicating whether the snapshot was created from an automatic snapshot.
+     */
+
+    public Boolean isFromAutoSnapshot() {
+        return this.isFromAutoSnapshot;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -806,7 +869,9 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
         if (getFromInstanceName() != null)
             sb.append("FromInstanceName: ").append(getFromInstanceName()).append(",");
         if (getFromInstanceArn() != null)
-            sb.append("FromInstanceArn: ").append(getFromInstanceArn());
+            sb.append("FromInstanceArn: ").append(getFromInstanceArn()).append(",");
+        if (getIsFromAutoSnapshot() != null)
+            sb.append("IsFromAutoSnapshot: ").append(getIsFromAutoSnapshot());
         sb.append("}");
         return sb.toString();
     }
@@ -877,6 +942,10 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getFromInstanceArn() != null && other.getFromInstanceArn().equals(this.getFromInstanceArn()) == false)
             return false;
+        if (other.getIsFromAutoSnapshot() == null ^ this.getIsFromAutoSnapshot() == null)
+            return false;
+        if (other.getIsFromAutoSnapshot() != null && other.getIsFromAutoSnapshot().equals(this.getIsFromAutoSnapshot()) == false)
+            return false;
         return true;
     }
 
@@ -899,6 +968,7 @@ public class DiskSnapshot implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getFromDiskArn() == null) ? 0 : getFromDiskArn().hashCode());
         hashCode = prime * hashCode + ((getFromInstanceName() == null) ? 0 : getFromInstanceName().hashCode());
         hashCode = prime * hashCode + ((getFromInstanceArn() == null) ? 0 : getFromInstanceArn().hashCode());
+        hashCode = prime * hashCode + ((getIsFromAutoSnapshot() == null) ? 0 : getIsFromAutoSnapshot().hashCode());
         return hashCode;
     }
 

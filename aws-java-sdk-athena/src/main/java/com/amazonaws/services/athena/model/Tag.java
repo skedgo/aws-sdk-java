@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,12 +19,15 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A tag that you can add to a resource. A tag is a label that you assign to an AWS Athena resource (a workgroup). Each
- * tag consists of a key and an optional value, both of which you define. Tags enable you to categorize workgroups in
- * Athena, for example, by purpose, owner, or environment. Use a consistent set of tag keys to make it easier to search
- * and filter workgroups in your account. The maximum tag key length is 128 Unicode characters in UTF-8. The maximum tag
- * value length is 256 Unicode characters in UTF-8. You can use letters and numbers representable in UTF-8, and the
- * following characters: + - = . _ : / @. Tag keys and values are case-sensitive. Tag keys must be unique per resource.
+ * A label that you assign to a resource. Athena resources include workgroups, data catalogs, and capacity reservations.
+ * Each tag consists of a key and an optional value, both of which you define. For example, you can use tags to
+ * categorize Athena resources by purpose, owner, or environment. Use a consistent set of tag keys to make it easier to
+ * search and filter the resources in your account. For best practices, see <a
+ * href="https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/tagging-best-practices.html">Tagging Best
+ * Practices</a>. Tag keys can be from 1 to 128 UTF-8 Unicode characters, and tag values can be from 0 to 256 UTF-8
+ * Unicode characters. Tags can use letters and numbers representable in UTF-8, and the following characters: + - = . _
+ * : / @. Tag keys and values are case-sensitive. Tag keys must be unique per resource. If you specify more than one
+ * tag, separate them by commas.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/athena-2017-05-18/Tag" target="_top">AWS API Documentation</a>

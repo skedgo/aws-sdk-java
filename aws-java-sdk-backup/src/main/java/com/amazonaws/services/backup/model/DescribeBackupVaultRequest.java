@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,23 +28,29 @@ public class DescribeBackupVaultRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      */
     private String backupVaultName;
+    /**
+     * <p>
+     * This is the account ID of the specified backup vault.
+     * </p>
+     */
+    private String backupVaultAccountId;
 
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @param backupVaultName
      *        The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *        unique to the account used to create them and the AWS Region where they are created. They consist of
-     *        lowercase letters, numbers, and hyphens.
+     *        unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *        consist of lowercase letters, numbers, and hyphens.
      */
 
     public void setBackupVaultName(String backupVaultName) {
@@ -54,13 +60,13 @@ public class DescribeBackupVaultRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @return The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *         unique to the account used to create them and the AWS Region where they are created. They consist of
-     *         lowercase letters, numbers, and hyphens.
+     *         unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *         consist of lowercase letters, numbers, and hyphens.
      */
 
     public String getBackupVaultName() {
@@ -70,19 +76,59 @@ public class DescribeBackupVaultRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * The name of a logical container where backups are stored. Backup vaults are identified by names that are unique
-     * to the account used to create them and the AWS Region where they are created. They consist of lowercase letters,
-     * numbers, and hyphens.
+     * to the account used to create them and the Amazon Web Services Region where they are created. They consist of
+     * lowercase letters, numbers, and hyphens.
      * </p>
      * 
      * @param backupVaultName
      *        The name of a logical container where backups are stored. Backup vaults are identified by names that are
-     *        unique to the account used to create them and the AWS Region where they are created. They consist of
-     *        lowercase letters, numbers, and hyphens.
+     *        unique to the account used to create them and the Amazon Web Services Region where they are created. They
+     *        consist of lowercase letters, numbers, and hyphens.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DescribeBackupVaultRequest withBackupVaultName(String backupVaultName) {
         setBackupVaultName(backupVaultName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This is the account ID of the specified backup vault.
+     * </p>
+     * 
+     * @param backupVaultAccountId
+     *        This is the account ID of the specified backup vault.
+     */
+
+    public void setBackupVaultAccountId(String backupVaultAccountId) {
+        this.backupVaultAccountId = backupVaultAccountId;
+    }
+
+    /**
+     * <p>
+     * This is the account ID of the specified backup vault.
+     * </p>
+     * 
+     * @return This is the account ID of the specified backup vault.
+     */
+
+    public String getBackupVaultAccountId() {
+        return this.backupVaultAccountId;
+    }
+
+    /**
+     * <p>
+     * This is the account ID of the specified backup vault.
+     * </p>
+     * 
+     * @param backupVaultAccountId
+     *        This is the account ID of the specified backup vault.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeBackupVaultRequest withBackupVaultAccountId(String backupVaultAccountId) {
+        setBackupVaultAccountId(backupVaultAccountId);
         return this;
     }
 
@@ -99,7 +145,9 @@ public class DescribeBackupVaultRequest extends com.amazonaws.AmazonWebServiceRe
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getBackupVaultName() != null)
-            sb.append("BackupVaultName: ").append(getBackupVaultName());
+            sb.append("BackupVaultName: ").append(getBackupVaultName()).append(",");
+        if (getBackupVaultAccountId() != null)
+            sb.append("BackupVaultAccountId: ").append(getBackupVaultAccountId());
         sb.append("}");
         return sb.toString();
     }
@@ -118,6 +166,10 @@ public class DescribeBackupVaultRequest extends com.amazonaws.AmazonWebServiceRe
             return false;
         if (other.getBackupVaultName() != null && other.getBackupVaultName().equals(this.getBackupVaultName()) == false)
             return false;
+        if (other.getBackupVaultAccountId() == null ^ this.getBackupVaultAccountId() == null)
+            return false;
+        if (other.getBackupVaultAccountId() != null && other.getBackupVaultAccountId().equals(this.getBackupVaultAccountId()) == false)
+            return false;
         return true;
     }
 
@@ -127,6 +179,7 @@ public class DescribeBackupVaultRequest extends com.amazonaws.AmazonWebServiceRe
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getBackupVaultName() == null) ? 0 : getBackupVaultName().hashCode());
+        hashCode = prime * hashCode + ((getBackupVaultAccountId() == null) ? 0 : getBackupVaultAccountId().hashCode());
         return hashCode;
     }
 

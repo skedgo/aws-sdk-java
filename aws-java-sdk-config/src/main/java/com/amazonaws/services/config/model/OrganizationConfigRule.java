@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * An organization Config rule that has information about Config rules that Config creates in member accounts.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/OrganizationConfigRule" target="_top">AWS API
  *      Documentation</a>
@@ -25,20 +28,59 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class OrganizationConfigRule implements Serializable, Cloneable, StructuredPojo {
 
+    /**
+     * <p>
+     * The name that you assign to organization Config rule.
+     * </p>
+     */
     private String organizationConfigRuleName;
-
+    /**
+     * <p>
+     * Amazon Resource Name (ARN) of organization Config rule.
+     * </p>
+     */
     private String organizationConfigRuleArn;
-
+    /**
+     * <p>
+     * An <code>OrganizationManagedRuleMetadata</code> object.
+     * </p>
+     */
     private OrganizationManagedRuleMetadata organizationManagedRuleMetadata;
-
+    /**
+     * <p>
+     * An <code>OrganizationCustomRuleMetadata</code> object.
+     * </p>
+     */
     private OrganizationCustomRuleMetadata organizationCustomRuleMetadata;
-
+    /**
+     * <p>
+     * A comma-separated list of accounts excluded from organization Config rule.
+     * </p>
+     */
     private com.amazonaws.internal.SdkInternalList<String> excludedAccounts;
-
+    /**
+     * <p>
+     * The timestamp of the last update.
+     * </p>
+     */
     private java.util.Date lastUpdateTime;
+    /**
+     * <p>
+     * An object that specifies metadata for your organization's Config Custom Policy rule. The metadata includes the
+     * runtime system in use, which accounts have debug logging enabled, and other custom rule metadata, such as
+     * resource type, resource ID of Amazon Web Services resource, and organization trigger types that initiate Config
+     * to evaluate Amazon Web Services resources against a rule.
+     * </p>
+     */
+    private OrganizationCustomPolicyRuleMetadataNoPolicy organizationCustomPolicyRuleMetadata;
 
     /**
+     * <p>
+     * The name that you assign to organization Config rule.
+     * </p>
+     * 
      * @param organizationConfigRuleName
+     *        The name that you assign to organization Config rule.
      */
 
     public void setOrganizationConfigRuleName(String organizationConfigRuleName) {
@@ -46,7 +88,11 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
-     * @return
+     * <p>
+     * The name that you assign to organization Config rule.
+     * </p>
+     * 
+     * @return The name that you assign to organization Config rule.
      */
 
     public String getOrganizationConfigRuleName() {
@@ -54,7 +100,12 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * The name that you assign to organization Config rule.
+     * </p>
+     * 
      * @param organizationConfigRuleName
+     *        The name that you assign to organization Config rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -64,7 +115,12 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * Amazon Resource Name (ARN) of organization Config rule.
+     * </p>
+     * 
      * @param organizationConfigRuleArn
+     *        Amazon Resource Name (ARN) of organization Config rule.
      */
 
     public void setOrganizationConfigRuleArn(String organizationConfigRuleArn) {
@@ -72,7 +128,11 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
-     * @return
+     * <p>
+     * Amazon Resource Name (ARN) of organization Config rule.
+     * </p>
+     * 
+     * @return Amazon Resource Name (ARN) of organization Config rule.
      */
 
     public String getOrganizationConfigRuleArn() {
@@ -80,7 +140,12 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * Amazon Resource Name (ARN) of organization Config rule.
+     * </p>
+     * 
      * @param organizationConfigRuleArn
+     *        Amazon Resource Name (ARN) of organization Config rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -90,7 +155,12 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * An <code>OrganizationManagedRuleMetadata</code> object.
+     * </p>
+     * 
      * @param organizationManagedRuleMetadata
+     *        An <code>OrganizationManagedRuleMetadata</code> object.
      */
 
     public void setOrganizationManagedRuleMetadata(OrganizationManagedRuleMetadata organizationManagedRuleMetadata) {
@@ -98,7 +168,11 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
-     * @return
+     * <p>
+     * An <code>OrganizationManagedRuleMetadata</code> object.
+     * </p>
+     * 
+     * @return An <code>OrganizationManagedRuleMetadata</code> object.
      */
 
     public OrganizationManagedRuleMetadata getOrganizationManagedRuleMetadata() {
@@ -106,7 +180,12 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * An <code>OrganizationManagedRuleMetadata</code> object.
+     * </p>
+     * 
      * @param organizationManagedRuleMetadata
+     *        An <code>OrganizationManagedRuleMetadata</code> object.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -116,7 +195,12 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * An <code>OrganizationCustomRuleMetadata</code> object.
+     * </p>
+     * 
      * @param organizationCustomRuleMetadata
+     *        An <code>OrganizationCustomRuleMetadata</code> object.
      */
 
     public void setOrganizationCustomRuleMetadata(OrganizationCustomRuleMetadata organizationCustomRuleMetadata) {
@@ -124,7 +208,11 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
-     * @return
+     * <p>
+     * An <code>OrganizationCustomRuleMetadata</code> object.
+     * </p>
+     * 
+     * @return An <code>OrganizationCustomRuleMetadata</code> object.
      */
 
     public OrganizationCustomRuleMetadata getOrganizationCustomRuleMetadata() {
@@ -132,7 +220,12 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * An <code>OrganizationCustomRuleMetadata</code> object.
+     * </p>
+     * 
      * @param organizationCustomRuleMetadata
+     *        An <code>OrganizationCustomRuleMetadata</code> object.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -142,7 +235,11 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
-     * @return
+     * <p>
+     * A comma-separated list of accounts excluded from organization Config rule.
+     * </p>
+     * 
+     * @return A comma-separated list of accounts excluded from organization Config rule.
      */
 
     public java.util.List<String> getExcludedAccounts() {
@@ -153,7 +250,12 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * A comma-separated list of accounts excluded from organization Config rule.
+     * </p>
+     * 
      * @param excludedAccounts
+     *        A comma-separated list of accounts excluded from organization Config rule.
      */
 
     public void setExcludedAccounts(java.util.Collection<String> excludedAccounts) {
@@ -167,12 +269,16 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
 
     /**
      * <p>
+     * A comma-separated list of accounts excluded from organization Config rule.
+     * </p>
+     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setExcludedAccounts(java.util.Collection)} or {@link #withExcludedAccounts(java.util.Collection)} if you
      * want to override the existing values.
      * </p>
      * 
      * @param excludedAccounts
+     *        A comma-separated list of accounts excluded from organization Config rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -187,7 +293,12 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * A comma-separated list of accounts excluded from organization Config rule.
+     * </p>
+     * 
      * @param excludedAccounts
+     *        A comma-separated list of accounts excluded from organization Config rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -197,7 +308,12 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * The timestamp of the last update.
+     * </p>
+     * 
      * @param lastUpdateTime
+     *        The timestamp of the last update.
      */
 
     public void setLastUpdateTime(java.util.Date lastUpdateTime) {
@@ -205,7 +321,11 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
-     * @return
+     * <p>
+     * The timestamp of the last update.
+     * </p>
+     * 
+     * @return The timestamp of the last update.
      */
 
     public java.util.Date getLastUpdateTime() {
@@ -213,12 +333,75 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
     }
 
     /**
+     * <p>
+     * The timestamp of the last update.
+     * </p>
+     * 
      * @param lastUpdateTime
+     *        The timestamp of the last update.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public OrganizationConfigRule withLastUpdateTime(java.util.Date lastUpdateTime) {
         setLastUpdateTime(lastUpdateTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An object that specifies metadata for your organization's Config Custom Policy rule. The metadata includes the
+     * runtime system in use, which accounts have debug logging enabled, and other custom rule metadata, such as
+     * resource type, resource ID of Amazon Web Services resource, and organization trigger types that initiate Config
+     * to evaluate Amazon Web Services resources against a rule.
+     * </p>
+     * 
+     * @param organizationCustomPolicyRuleMetadata
+     *        An object that specifies metadata for your organization's Config Custom Policy rule. The metadata includes
+     *        the runtime system in use, which accounts have debug logging enabled, and other custom rule metadata, such
+     *        as resource type, resource ID of Amazon Web Services resource, and organization trigger types that
+     *        initiate Config to evaluate Amazon Web Services resources against a rule.
+     */
+
+    public void setOrganizationCustomPolicyRuleMetadata(OrganizationCustomPolicyRuleMetadataNoPolicy organizationCustomPolicyRuleMetadata) {
+        this.organizationCustomPolicyRuleMetadata = organizationCustomPolicyRuleMetadata;
+    }
+
+    /**
+     * <p>
+     * An object that specifies metadata for your organization's Config Custom Policy rule. The metadata includes the
+     * runtime system in use, which accounts have debug logging enabled, and other custom rule metadata, such as
+     * resource type, resource ID of Amazon Web Services resource, and organization trigger types that initiate Config
+     * to evaluate Amazon Web Services resources against a rule.
+     * </p>
+     * 
+     * @return An object that specifies metadata for your organization's Config Custom Policy rule. The metadata
+     *         includes the runtime system in use, which accounts have debug logging enabled, and other custom rule
+     *         metadata, such as resource type, resource ID of Amazon Web Services resource, and organization trigger
+     *         types that initiate Config to evaluate Amazon Web Services resources against a rule.
+     */
+
+    public OrganizationCustomPolicyRuleMetadataNoPolicy getOrganizationCustomPolicyRuleMetadata() {
+        return this.organizationCustomPolicyRuleMetadata;
+    }
+
+    /**
+     * <p>
+     * An object that specifies metadata for your organization's Config Custom Policy rule. The metadata includes the
+     * runtime system in use, which accounts have debug logging enabled, and other custom rule metadata, such as
+     * resource type, resource ID of Amazon Web Services resource, and organization trigger types that initiate Config
+     * to evaluate Amazon Web Services resources against a rule.
+     * </p>
+     * 
+     * @param organizationCustomPolicyRuleMetadata
+     *        An object that specifies metadata for your organization's Config Custom Policy rule. The metadata includes
+     *        the runtime system in use, which accounts have debug logging enabled, and other custom rule metadata, such
+     *        as resource type, resource ID of Amazon Web Services resource, and organization trigger types that
+     *        initiate Config to evaluate Amazon Web Services resources against a rule.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OrganizationConfigRule withOrganizationCustomPolicyRuleMetadata(OrganizationCustomPolicyRuleMetadataNoPolicy organizationCustomPolicyRuleMetadata) {
+        setOrganizationCustomPolicyRuleMetadata(organizationCustomPolicyRuleMetadata);
         return this;
     }
 
@@ -245,7 +428,9 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
         if (getExcludedAccounts() != null)
             sb.append("ExcludedAccounts: ").append(getExcludedAccounts()).append(",");
         if (getLastUpdateTime() != null)
-            sb.append("LastUpdateTime: ").append(getLastUpdateTime());
+            sb.append("LastUpdateTime: ").append(getLastUpdateTime()).append(",");
+        if (getOrganizationCustomPolicyRuleMetadata() != null)
+            sb.append("OrganizationCustomPolicyRuleMetadata: ").append(getOrganizationCustomPolicyRuleMetadata());
         sb.append("}");
         return sb.toString();
     }
@@ -286,6 +471,11 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
             return false;
         if (other.getLastUpdateTime() != null && other.getLastUpdateTime().equals(this.getLastUpdateTime()) == false)
             return false;
+        if (other.getOrganizationCustomPolicyRuleMetadata() == null ^ this.getOrganizationCustomPolicyRuleMetadata() == null)
+            return false;
+        if (other.getOrganizationCustomPolicyRuleMetadata() != null
+                && other.getOrganizationCustomPolicyRuleMetadata().equals(this.getOrganizationCustomPolicyRuleMetadata()) == false)
+            return false;
         return true;
     }
 
@@ -300,6 +490,7 @@ public class OrganizationConfigRule implements Serializable, Cloneable, Structur
         hashCode = prime * hashCode + ((getOrganizationCustomRuleMetadata() == null) ? 0 : getOrganizationCustomRuleMetadata().hashCode());
         hashCode = prime * hashCode + ((getExcludedAccounts() == null) ? 0 : getExcludedAccounts().hashCode());
         hashCode = prime * hashCode + ((getLastUpdateTime() == null) ? 0 : getLastUpdateTime().hashCode());
+        hashCode = prime * hashCode + ((getOrganizationCustomPolicyRuleMetadata() == null) ? 0 : getOrganizationCustomPolicyRuleMetadata().hashCode());
         return hashCode;
     }
 

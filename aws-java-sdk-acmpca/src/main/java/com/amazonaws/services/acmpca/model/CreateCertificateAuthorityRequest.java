@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,10 +34,48 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
     private CertificateAuthorityConfiguration certificateAuthorityConfiguration;
     /**
      * <p>
-     * Contains a Boolean value that you can use to enable a certification revocation list (CRL) for the CA, the name of
-     * the S3 bucket to which ACM Private CA will write the CRL, and an optional CNAME alias that you can use to hide
-     * the name of your bucket in the <b>CRL Distribution Points</b> extension of your CA certificate. For more
-     * information, see the <a>CrlConfiguration</a> structure.
+     * Contains information to enable Online Certificate Status Protocol (OCSP) support, to enable a certificate
+     * revocation list (CRL), to enable both, or to enable neither. The default is for both certificate validation
+     * mechanisms to be disabled.
+     * </p>
+     * <note>
+     * <p>
+     * The following requirements apply to revocation configurations.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A configuration disabling CRLs or OCSP must contain only the <code>Enabled=False</code> parameter, and will fail
+     * if other parameters such as <code>CustomCname</code> or <code>ExpirationInDays</code> are included.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In a CRL configuration, the <code>S3BucketName</code> parameter must conform to <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Amazon S3 bucket naming
+     * rules</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * A configuration containing a custom Canonical Name (CNAME) parameter for CRLs or OCSP must conform to <a
+     * href="https://www.ietf.org/rfc/rfc2396.txt">RFC2396</a> restrictions on the use of special characters in a CNAME.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In a CRL or OCSP configuration, the value of a CNAME parameter must not include a protocol prefix such as
+     * "http://" or "https://".
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * <p>
+     * For more information, see the <a
+     * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_OcspConfiguration.html">OcspConfiguration</a>
+     * and <a
+     * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_CrlConfiguration.html">CrlConfiguration</a>
+     * types.
      * </p>
      */
     private RevocationConfiguration revocationConfiguration;
@@ -49,26 +87,57 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
     private String certificateAuthorityType;
     /**
      * <p>
-     * Alphanumeric string that can be used to distinguish between calls to <b>CreateCertificateAuthority</b>.
-     * Idempotency tokens time out after five minutes. Therefore, if you call <b>CreateCertificateAuthority</b> multiple
-     * times with the same idempotency token within a five minute period, ACM Private CA recognizes that you are
-     * requesting only one certificate. As a result, ACM Private CA issues only one. If you change the idempotency token
-     * for each call, however, ACM Private CA recognizes that you are requesting multiple certificates.
+     * Custom string that can be used to distinguish between calls to the <b>CreateCertificateAuthority</b> action.
+     * Idempotency tokens for <b>CreateCertificateAuthority</b> time out after five minutes. Therefore, if you call
+     * <b>CreateCertificateAuthority</b> multiple times with the same idempotency token within five minutes, Amazon Web
+     * Services Private CA recognizes that you are requesting only certificate authority and will issue only one. If you
+     * change the idempotency token for each call, Amazon Web Services Private CA recognizes that you are requesting
+     * multiple certificate authorities.
      * </p>
      */
     private String idempotencyToken;
     /**
      * <p>
-     * Key-value pairs that will be attached to the new private CA. You can associate up to 50 tags with a private CA.
-     * For information using tags with
+     * Specifies a cryptographic key management compliance standard used for handling CA keys.
      * </p>
      * <p>
-     * IAM to manage permissions, see <a
+     * Default: FIPS_140_2_LEVEL_3_OR_HIGHER
+     * </p>
+     * <note>
+     * <p>
+     * Some Amazon Web Services Regions do not support the default. When creating a CA in these Regions, you must
+     * provide <code>FIPS_140_2_LEVEL_2_OR_HIGHER</code> as the argument for <code>KeyStorageSecurityStandard</code>.
+     * Failure to do this results in an <code>InvalidArgsException</code> with the message,
+     * "A certificate authority cannot be created in this region with the specified security standard."
+     * </p>
+     * <p>
+     * For information about security standard support in various Regions, see <a
+     * href="https://docs.aws.amazon.com/privateca/latest/userguide/data-protection.html#private-keys">Storage and
+     * security compliance of Amazon Web Services Private CA private keys</a>.
+     * </p>
+     * </note>
+     */
+    private String keyStorageSecurityStandard;
+    /**
+     * <p>
+     * Key-value pairs that will be attached to the new private CA. You can associate up to 50 tags with a private CA.
+     * For information using tags with IAM to manage permissions, see <a
      * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
      * Tags</a>.
      * </p>
      */
     private java.util.List<Tag> tags;
+    /**
+     * <p>
+     * Specifies whether the CA issues general-purpose certificates that typically require a revocation mechanism, or
+     * short-lived certificates that may optionally omit revocation because they expire quickly. Short-lived certificate
+     * validity is limited to seven days.
+     * </p>
+     * <p>
+     * The default value is GENERAL_PURPOSE.
+     * </p>
+     */
+    private String usageMode;
 
     /**
      * <p>
@@ -118,17 +187,93 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Contains a Boolean value that you can use to enable a certification revocation list (CRL) for the CA, the name of
-     * the S3 bucket to which ACM Private CA will write the CRL, and an optional CNAME alias that you can use to hide
-     * the name of your bucket in the <b>CRL Distribution Points</b> extension of your CA certificate. For more
-     * information, see the <a>CrlConfiguration</a> structure.
+     * Contains information to enable Online Certificate Status Protocol (OCSP) support, to enable a certificate
+     * revocation list (CRL), to enable both, or to enable neither. The default is for both certificate validation
+     * mechanisms to be disabled.
+     * </p>
+     * <note>
+     * <p>
+     * The following requirements apply to revocation configurations.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A configuration disabling CRLs or OCSP must contain only the <code>Enabled=False</code> parameter, and will fail
+     * if other parameters such as <code>CustomCname</code> or <code>ExpirationInDays</code> are included.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In a CRL configuration, the <code>S3BucketName</code> parameter must conform to <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Amazon S3 bucket naming
+     * rules</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * A configuration containing a custom Canonical Name (CNAME) parameter for CRLs or OCSP must conform to <a
+     * href="https://www.ietf.org/rfc/rfc2396.txt">RFC2396</a> restrictions on the use of special characters in a CNAME.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In a CRL or OCSP configuration, the value of a CNAME parameter must not include a protocol prefix such as
+     * "http://" or "https://".
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * <p>
+     * For more information, see the <a
+     * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_OcspConfiguration.html">OcspConfiguration</a>
+     * and <a
+     * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_CrlConfiguration.html">CrlConfiguration</a>
+     * types.
      * </p>
      * 
      * @param revocationConfiguration
-     *        Contains a Boolean value that you can use to enable a certification revocation list (CRL) for the CA, the
-     *        name of the S3 bucket to which ACM Private CA will write the CRL, and an optional CNAME alias that you can
-     *        use to hide the name of your bucket in the <b>CRL Distribution Points</b> extension of your CA
-     *        certificate. For more information, see the <a>CrlConfiguration</a> structure.
+     *        Contains information to enable Online Certificate Status Protocol (OCSP) support, to enable a certificate
+     *        revocation list (CRL), to enable both, or to enable neither. The default is for both certificate
+     *        validation mechanisms to be disabled. </p> <note>
+     *        <p>
+     *        The following requirements apply to revocation configurations.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A configuration disabling CRLs or OCSP must contain only the <code>Enabled=False</code> parameter, and
+     *        will fail if other parameters such as <code>CustomCname</code> or <code>ExpirationInDays</code> are
+     *        included.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        In a CRL configuration, the <code>S3BucketName</code> parameter must conform to <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Amazon S3 bucket
+     *        naming rules</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        A configuration containing a custom Canonical Name (CNAME) parameter for CRLs or OCSP must conform to <a
+     *        href="https://www.ietf.org/rfc/rfc2396.txt">RFC2396</a> restrictions on the use of special characters in a
+     *        CNAME.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        In a CRL or OCSP configuration, the value of a CNAME parameter must not include a protocol prefix such as
+     *        "http://" or "https://".
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </note>
+     *        <p>
+     *        For more information, see the <a
+     *        href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_OcspConfiguration.html"
+     *        >OcspConfiguration</a> and <a
+     *        href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_CrlConfiguration.html"
+     *        >CrlConfiguration</a> types.
      */
 
     public void setRevocationConfiguration(RevocationConfiguration revocationConfiguration) {
@@ -137,16 +282,92 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Contains a Boolean value that you can use to enable a certification revocation list (CRL) for the CA, the name of
-     * the S3 bucket to which ACM Private CA will write the CRL, and an optional CNAME alias that you can use to hide
-     * the name of your bucket in the <b>CRL Distribution Points</b> extension of your CA certificate. For more
-     * information, see the <a>CrlConfiguration</a> structure.
+     * Contains information to enable Online Certificate Status Protocol (OCSP) support, to enable a certificate
+     * revocation list (CRL), to enable both, or to enable neither. The default is for both certificate validation
+     * mechanisms to be disabled.
+     * </p>
+     * <note>
+     * <p>
+     * The following requirements apply to revocation configurations.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A configuration disabling CRLs or OCSP must contain only the <code>Enabled=False</code> parameter, and will fail
+     * if other parameters such as <code>CustomCname</code> or <code>ExpirationInDays</code> are included.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In a CRL configuration, the <code>S3BucketName</code> parameter must conform to <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Amazon S3 bucket naming
+     * rules</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * A configuration containing a custom Canonical Name (CNAME) parameter for CRLs or OCSP must conform to <a
+     * href="https://www.ietf.org/rfc/rfc2396.txt">RFC2396</a> restrictions on the use of special characters in a CNAME.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In a CRL or OCSP configuration, the value of a CNAME parameter must not include a protocol prefix such as
+     * "http://" or "https://".
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * <p>
+     * For more information, see the <a
+     * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_OcspConfiguration.html">OcspConfiguration</a>
+     * and <a
+     * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_CrlConfiguration.html">CrlConfiguration</a>
+     * types.
      * </p>
      * 
-     * @return Contains a Boolean value that you can use to enable a certification revocation list (CRL) for the CA, the
-     *         name of the S3 bucket to which ACM Private CA will write the CRL, and an optional CNAME alias that you
-     *         can use to hide the name of your bucket in the <b>CRL Distribution Points</b> extension of your CA
-     *         certificate. For more information, see the <a>CrlConfiguration</a> structure.
+     * @return Contains information to enable Online Certificate Status Protocol (OCSP) support, to enable a certificate
+     *         revocation list (CRL), to enable both, or to enable neither. The default is for both certificate
+     *         validation mechanisms to be disabled. </p> <note>
+     *         <p>
+     *         The following requirements apply to revocation configurations.
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         A configuration disabling CRLs or OCSP must contain only the <code>Enabled=False</code> parameter, and
+     *         will fail if other parameters such as <code>CustomCname</code> or <code>ExpirationInDays</code> are
+     *         included.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         In a CRL configuration, the <code>S3BucketName</code> parameter must conform to <a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Amazon S3 bucket
+     *         naming rules</a>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         A configuration containing a custom Canonical Name (CNAME) parameter for CRLs or OCSP must conform to <a
+     *         href="https://www.ietf.org/rfc/rfc2396.txt">RFC2396</a> restrictions on the use of special characters in
+     *         a CNAME.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         In a CRL or OCSP configuration, the value of a CNAME parameter must not include a protocol prefix such as
+     *         "http://" or "https://".
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         </note>
+     *         <p>
+     *         For more information, see the <a
+     *         href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_OcspConfiguration.html"
+     *         >OcspConfiguration</a> and <a
+     *         href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_CrlConfiguration.html"
+     *         >CrlConfiguration</a> types.
      */
 
     public RevocationConfiguration getRevocationConfiguration() {
@@ -155,17 +376,93 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Contains a Boolean value that you can use to enable a certification revocation list (CRL) for the CA, the name of
-     * the S3 bucket to which ACM Private CA will write the CRL, and an optional CNAME alias that you can use to hide
-     * the name of your bucket in the <b>CRL Distribution Points</b> extension of your CA certificate. For more
-     * information, see the <a>CrlConfiguration</a> structure.
+     * Contains information to enable Online Certificate Status Protocol (OCSP) support, to enable a certificate
+     * revocation list (CRL), to enable both, or to enable neither. The default is for both certificate validation
+     * mechanisms to be disabled.
+     * </p>
+     * <note>
+     * <p>
+     * The following requirements apply to revocation configurations.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A configuration disabling CRLs or OCSP must contain only the <code>Enabled=False</code> parameter, and will fail
+     * if other parameters such as <code>CustomCname</code> or <code>ExpirationInDays</code> are included.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In a CRL configuration, the <code>S3BucketName</code> parameter must conform to <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Amazon S3 bucket naming
+     * rules</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * A configuration containing a custom Canonical Name (CNAME) parameter for CRLs or OCSP must conform to <a
+     * href="https://www.ietf.org/rfc/rfc2396.txt">RFC2396</a> restrictions on the use of special characters in a CNAME.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * In a CRL or OCSP configuration, the value of a CNAME parameter must not include a protocol prefix such as
+     * "http://" or "https://".
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * <p>
+     * For more information, see the <a
+     * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_OcspConfiguration.html">OcspConfiguration</a>
+     * and <a
+     * href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_CrlConfiguration.html">CrlConfiguration</a>
+     * types.
      * </p>
      * 
      * @param revocationConfiguration
-     *        Contains a Boolean value that you can use to enable a certification revocation list (CRL) for the CA, the
-     *        name of the S3 bucket to which ACM Private CA will write the CRL, and an optional CNAME alias that you can
-     *        use to hide the name of your bucket in the <b>CRL Distribution Points</b> extension of your CA
-     *        certificate. For more information, see the <a>CrlConfiguration</a> structure.
+     *        Contains information to enable Online Certificate Status Protocol (OCSP) support, to enable a certificate
+     *        revocation list (CRL), to enable both, or to enable neither. The default is for both certificate
+     *        validation mechanisms to be disabled. </p> <note>
+     *        <p>
+     *        The following requirements apply to revocation configurations.
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        A configuration disabling CRLs or OCSP must contain only the <code>Enabled=False</code> parameter, and
+     *        will fail if other parameters such as <code>CustomCname</code> or <code>ExpirationInDays</code> are
+     *        included.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        In a CRL configuration, the <code>S3BucketName</code> parameter must conform to <a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html">Amazon S3 bucket
+     *        naming rules</a>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        A configuration containing a custom Canonical Name (CNAME) parameter for CRLs or OCSP must conform to <a
+     *        href="https://www.ietf.org/rfc/rfc2396.txt">RFC2396</a> restrictions on the use of special characters in a
+     *        CNAME.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        In a CRL or OCSP configuration, the value of a CNAME parameter must not include a protocol prefix such as
+     *        "http://" or "https://".
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        </note>
+     *        <p>
+     *        For more information, see the <a
+     *        href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_OcspConfiguration.html"
+     *        >OcspConfiguration</a> and <a
+     *        href="https://docs.aws.amazon.com/privateca/latest/APIReference/API_CrlConfiguration.html"
+     *        >CrlConfiguration</a> types.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -235,20 +532,21 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Alphanumeric string that can be used to distinguish between calls to <b>CreateCertificateAuthority</b>.
-     * Idempotency tokens time out after five minutes. Therefore, if you call <b>CreateCertificateAuthority</b> multiple
-     * times with the same idempotency token within a five minute period, ACM Private CA recognizes that you are
-     * requesting only one certificate. As a result, ACM Private CA issues only one. If you change the idempotency token
-     * for each call, however, ACM Private CA recognizes that you are requesting multiple certificates.
+     * Custom string that can be used to distinguish between calls to the <b>CreateCertificateAuthority</b> action.
+     * Idempotency tokens for <b>CreateCertificateAuthority</b> time out after five minutes. Therefore, if you call
+     * <b>CreateCertificateAuthority</b> multiple times with the same idempotency token within five minutes, Amazon Web
+     * Services Private CA recognizes that you are requesting only certificate authority and will issue only one. If you
+     * change the idempotency token for each call, Amazon Web Services Private CA recognizes that you are requesting
+     * multiple certificate authorities.
      * </p>
      * 
      * @param idempotencyToken
-     *        Alphanumeric string that can be used to distinguish between calls to <b>CreateCertificateAuthority</b>.
-     *        Idempotency tokens time out after five minutes. Therefore, if you call <b>CreateCertificateAuthority</b>
-     *        multiple times with the same idempotency token within a five minute period, ACM Private CA recognizes that
-     *        you are requesting only one certificate. As a result, ACM Private CA issues only one. If you change the
-     *        idempotency token for each call, however, ACM Private CA recognizes that you are requesting multiple
-     *        certificates.
+     *        Custom string that can be used to distinguish between calls to the <b>CreateCertificateAuthority</b>
+     *        action. Idempotency tokens for <b>CreateCertificateAuthority</b> time out after five minutes. Therefore,
+     *        if you call <b>CreateCertificateAuthority</b> multiple times with the same idempotency token within five
+     *        minutes, Amazon Web Services Private CA recognizes that you are requesting only certificate authority and
+     *        will issue only one. If you change the idempotency token for each call, Amazon Web Services Private CA
+     *        recognizes that you are requesting multiple certificate authorities.
      */
 
     public void setIdempotencyToken(String idempotencyToken) {
@@ -257,19 +555,20 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Alphanumeric string that can be used to distinguish between calls to <b>CreateCertificateAuthority</b>.
-     * Idempotency tokens time out after five minutes. Therefore, if you call <b>CreateCertificateAuthority</b> multiple
-     * times with the same idempotency token within a five minute period, ACM Private CA recognizes that you are
-     * requesting only one certificate. As a result, ACM Private CA issues only one. If you change the idempotency token
-     * for each call, however, ACM Private CA recognizes that you are requesting multiple certificates.
+     * Custom string that can be used to distinguish between calls to the <b>CreateCertificateAuthority</b> action.
+     * Idempotency tokens for <b>CreateCertificateAuthority</b> time out after five minutes. Therefore, if you call
+     * <b>CreateCertificateAuthority</b> multiple times with the same idempotency token within five minutes, Amazon Web
+     * Services Private CA recognizes that you are requesting only certificate authority and will issue only one. If you
+     * change the idempotency token for each call, Amazon Web Services Private CA recognizes that you are requesting
+     * multiple certificate authorities.
      * </p>
      * 
-     * @return Alphanumeric string that can be used to distinguish between calls to <b>CreateCertificateAuthority</b>.
-     *         Idempotency tokens time out after five minutes. Therefore, if you call <b>CreateCertificateAuthority</b>
-     *         multiple times with the same idempotency token within a five minute period, ACM Private CA recognizes
-     *         that you are requesting only one certificate. As a result, ACM Private CA issues only one. If you change
-     *         the idempotency token for each call, however, ACM Private CA recognizes that you are requesting multiple
-     *         certificates.
+     * @return Custom string that can be used to distinguish between calls to the <b>CreateCertificateAuthority</b>
+     *         action. Idempotency tokens for <b>CreateCertificateAuthority</b> time out after five minutes. Therefore,
+     *         if you call <b>CreateCertificateAuthority</b> multiple times with the same idempotency token within five
+     *         minutes, Amazon Web Services Private CA recognizes that you are requesting only certificate authority and
+     *         will issue only one. If you change the idempotency token for each call, Amazon Web Services Private CA
+     *         recognizes that you are requesting multiple certificate authorities.
      */
 
     public String getIdempotencyToken() {
@@ -278,20 +577,21 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Alphanumeric string that can be used to distinguish between calls to <b>CreateCertificateAuthority</b>.
-     * Idempotency tokens time out after five minutes. Therefore, if you call <b>CreateCertificateAuthority</b> multiple
-     * times with the same idempotency token within a five minute period, ACM Private CA recognizes that you are
-     * requesting only one certificate. As a result, ACM Private CA issues only one. If you change the idempotency token
-     * for each call, however, ACM Private CA recognizes that you are requesting multiple certificates.
+     * Custom string that can be used to distinguish between calls to the <b>CreateCertificateAuthority</b> action.
+     * Idempotency tokens for <b>CreateCertificateAuthority</b> time out after five minutes. Therefore, if you call
+     * <b>CreateCertificateAuthority</b> multiple times with the same idempotency token within five minutes, Amazon Web
+     * Services Private CA recognizes that you are requesting only certificate authority and will issue only one. If you
+     * change the idempotency token for each call, Amazon Web Services Private CA recognizes that you are requesting
+     * multiple certificate authorities.
      * </p>
      * 
      * @param idempotencyToken
-     *        Alphanumeric string that can be used to distinguish between calls to <b>CreateCertificateAuthority</b>.
-     *        Idempotency tokens time out after five minutes. Therefore, if you call <b>CreateCertificateAuthority</b>
-     *        multiple times with the same idempotency token within a five minute period, ACM Private CA recognizes that
-     *        you are requesting only one certificate. As a result, ACM Private CA issues only one. If you change the
-     *        idempotency token for each call, however, ACM Private CA recognizes that you are requesting multiple
-     *        certificates.
+     *        Custom string that can be used to distinguish between calls to the <b>CreateCertificateAuthority</b>
+     *        action. Idempotency tokens for <b>CreateCertificateAuthority</b> time out after five minutes. Therefore,
+     *        if you call <b>CreateCertificateAuthority</b> multiple times with the same idempotency token within five
+     *        minutes, Amazon Web Services Private CA recognizes that you are requesting only certificate authority and
+     *        will issue only one. If you change the idempotency token for each call, Amazon Web Services Private CA
+     *        recognizes that you are requesting multiple certificate authorities.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -302,19 +602,201 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Key-value pairs that will be attached to the new private CA. You can associate up to 50 tags with a private CA.
-     * For information using tags with
+     * Specifies a cryptographic key management compliance standard used for handling CA keys.
      * </p>
      * <p>
-     * IAM to manage permissions, see <a
+     * Default: FIPS_140_2_LEVEL_3_OR_HIGHER
+     * </p>
+     * <note>
+     * <p>
+     * Some Amazon Web Services Regions do not support the default. When creating a CA in these Regions, you must
+     * provide <code>FIPS_140_2_LEVEL_2_OR_HIGHER</code> as the argument for <code>KeyStorageSecurityStandard</code>.
+     * Failure to do this results in an <code>InvalidArgsException</code> with the message,
+     * "A certificate authority cannot be created in this region with the specified security standard."
+     * </p>
+     * <p>
+     * For information about security standard support in various Regions, see <a
+     * href="https://docs.aws.amazon.com/privateca/latest/userguide/data-protection.html#private-keys">Storage and
+     * security compliance of Amazon Web Services Private CA private keys</a>.
+     * </p>
+     * </note>
+     * 
+     * @param keyStorageSecurityStandard
+     *        Specifies a cryptographic key management compliance standard used for handling CA keys.</p>
+     *        <p>
+     *        Default: FIPS_140_2_LEVEL_3_OR_HIGHER
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Some Amazon Web Services Regions do not support the default. When creating a CA in these Regions, you must
+     *        provide <code>FIPS_140_2_LEVEL_2_OR_HIGHER</code> as the argument for
+     *        <code>KeyStorageSecurityStandard</code>. Failure to do this results in an
+     *        <code>InvalidArgsException</code> with the message,
+     *        "A certificate authority cannot be created in this region with the specified security standard."
+     *        </p>
+     *        <p>
+     *        For information about security standard support in various Regions, see <a
+     *        href="https://docs.aws.amazon.com/privateca/latest/userguide/data-protection.html#private-keys">Storage
+     *        and security compliance of Amazon Web Services Private CA private keys</a>.
+     *        </p>
+     * @see KeyStorageSecurityStandard
+     */
+
+    public void setKeyStorageSecurityStandard(String keyStorageSecurityStandard) {
+        this.keyStorageSecurityStandard = keyStorageSecurityStandard;
+    }
+
+    /**
+     * <p>
+     * Specifies a cryptographic key management compliance standard used for handling CA keys.
+     * </p>
+     * <p>
+     * Default: FIPS_140_2_LEVEL_3_OR_HIGHER
+     * </p>
+     * <note>
+     * <p>
+     * Some Amazon Web Services Regions do not support the default. When creating a CA in these Regions, you must
+     * provide <code>FIPS_140_2_LEVEL_2_OR_HIGHER</code> as the argument for <code>KeyStorageSecurityStandard</code>.
+     * Failure to do this results in an <code>InvalidArgsException</code> with the message,
+     * "A certificate authority cannot be created in this region with the specified security standard."
+     * </p>
+     * <p>
+     * For information about security standard support in various Regions, see <a
+     * href="https://docs.aws.amazon.com/privateca/latest/userguide/data-protection.html#private-keys">Storage and
+     * security compliance of Amazon Web Services Private CA private keys</a>.
+     * </p>
+     * </note>
+     * 
+     * @return Specifies a cryptographic key management compliance standard used for handling CA keys.</p>
+     *         <p>
+     *         Default: FIPS_140_2_LEVEL_3_OR_HIGHER
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Some Amazon Web Services Regions do not support the default. When creating a CA in these Regions, you
+     *         must provide <code>FIPS_140_2_LEVEL_2_OR_HIGHER</code> as the argument for
+     *         <code>KeyStorageSecurityStandard</code>. Failure to do this results in an
+     *         <code>InvalidArgsException</code> with the message,
+     *         "A certificate authority cannot be created in this region with the specified security standard."
+     *         </p>
+     *         <p>
+     *         For information about security standard support in various Regions, see <a
+     *         href="https://docs.aws.amazon.com/privateca/latest/userguide/data-protection.html#private-keys">Storage
+     *         and security compliance of Amazon Web Services Private CA private keys</a>.
+     *         </p>
+     * @see KeyStorageSecurityStandard
+     */
+
+    public String getKeyStorageSecurityStandard() {
+        return this.keyStorageSecurityStandard;
+    }
+
+    /**
+     * <p>
+     * Specifies a cryptographic key management compliance standard used for handling CA keys.
+     * </p>
+     * <p>
+     * Default: FIPS_140_2_LEVEL_3_OR_HIGHER
+     * </p>
+     * <note>
+     * <p>
+     * Some Amazon Web Services Regions do not support the default. When creating a CA in these Regions, you must
+     * provide <code>FIPS_140_2_LEVEL_2_OR_HIGHER</code> as the argument for <code>KeyStorageSecurityStandard</code>.
+     * Failure to do this results in an <code>InvalidArgsException</code> with the message,
+     * "A certificate authority cannot be created in this region with the specified security standard."
+     * </p>
+     * <p>
+     * For information about security standard support in various Regions, see <a
+     * href="https://docs.aws.amazon.com/privateca/latest/userguide/data-protection.html#private-keys">Storage and
+     * security compliance of Amazon Web Services Private CA private keys</a>.
+     * </p>
+     * </note>
+     * 
+     * @param keyStorageSecurityStandard
+     *        Specifies a cryptographic key management compliance standard used for handling CA keys.</p>
+     *        <p>
+     *        Default: FIPS_140_2_LEVEL_3_OR_HIGHER
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Some Amazon Web Services Regions do not support the default. When creating a CA in these Regions, you must
+     *        provide <code>FIPS_140_2_LEVEL_2_OR_HIGHER</code> as the argument for
+     *        <code>KeyStorageSecurityStandard</code>. Failure to do this results in an
+     *        <code>InvalidArgsException</code> with the message,
+     *        "A certificate authority cannot be created in this region with the specified security standard."
+     *        </p>
+     *        <p>
+     *        For information about security standard support in various Regions, see <a
+     *        href="https://docs.aws.amazon.com/privateca/latest/userguide/data-protection.html#private-keys">Storage
+     *        and security compliance of Amazon Web Services Private CA private keys</a>.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see KeyStorageSecurityStandard
+     */
+
+    public CreateCertificateAuthorityRequest withKeyStorageSecurityStandard(String keyStorageSecurityStandard) {
+        setKeyStorageSecurityStandard(keyStorageSecurityStandard);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies a cryptographic key management compliance standard used for handling CA keys.
+     * </p>
+     * <p>
+     * Default: FIPS_140_2_LEVEL_3_OR_HIGHER
+     * </p>
+     * <note>
+     * <p>
+     * Some Amazon Web Services Regions do not support the default. When creating a CA in these Regions, you must
+     * provide <code>FIPS_140_2_LEVEL_2_OR_HIGHER</code> as the argument for <code>KeyStorageSecurityStandard</code>.
+     * Failure to do this results in an <code>InvalidArgsException</code> with the message,
+     * "A certificate authority cannot be created in this region with the specified security standard."
+     * </p>
+     * <p>
+     * For information about security standard support in various Regions, see <a
+     * href="https://docs.aws.amazon.com/privateca/latest/userguide/data-protection.html#private-keys">Storage and
+     * security compliance of Amazon Web Services Private CA private keys</a>.
+     * </p>
+     * </note>
+     * 
+     * @param keyStorageSecurityStandard
+     *        Specifies a cryptographic key management compliance standard used for handling CA keys.</p>
+     *        <p>
+     *        Default: FIPS_140_2_LEVEL_3_OR_HIGHER
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Some Amazon Web Services Regions do not support the default. When creating a CA in these Regions, you must
+     *        provide <code>FIPS_140_2_LEVEL_2_OR_HIGHER</code> as the argument for
+     *        <code>KeyStorageSecurityStandard</code>. Failure to do this results in an
+     *        <code>InvalidArgsException</code> with the message,
+     *        "A certificate authority cannot be created in this region with the specified security standard."
+     *        </p>
+     *        <p>
+     *        For information about security standard support in various Regions, see <a
+     *        href="https://docs.aws.amazon.com/privateca/latest/userguide/data-protection.html#private-keys">Storage
+     *        and security compliance of Amazon Web Services Private CA private keys</a>.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see KeyStorageSecurityStandard
+     */
+
+    public CreateCertificateAuthorityRequest withKeyStorageSecurityStandard(KeyStorageSecurityStandard keyStorageSecurityStandard) {
+        this.keyStorageSecurityStandard = keyStorageSecurityStandard.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Key-value pairs that will be attached to the new private CA. You can associate up to 50 tags with a private CA.
+     * For information using tags with IAM to manage permissions, see <a
      * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
      * Tags</a>.
      * </p>
      * 
      * @return Key-value pairs that will be attached to the new private CA. You can associate up to 50 tags with a
-     *         private CA. For information using tags with </p>
-     *         <p>
-     *         IAM to manage permissions, see <a
+     *         private CA. For information using tags with IAM to manage permissions, see <a
      *         href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
      *         Tags</a>.
      */
@@ -326,19 +808,14 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Key-value pairs that will be attached to the new private CA. You can associate up to 50 tags with a private CA.
-     * For information using tags with
-     * </p>
-     * <p>
-     * IAM to manage permissions, see <a
+     * For information using tags with IAM to manage permissions, see <a
      * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
      * Tags</a>.
      * </p>
      * 
      * @param tags
      *        Key-value pairs that will be attached to the new private CA. You can associate up to 50 tags with a
-     *        private CA. For information using tags with </p>
-     *        <p>
-     *        IAM to manage permissions, see <a
+     *        private CA. For information using tags with IAM to manage permissions, see <a
      *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
      *        Tags</a>.
      */
@@ -355,10 +832,7 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Key-value pairs that will be attached to the new private CA. You can associate up to 50 tags with a private CA.
-     * For information using tags with
-     * </p>
-     * <p>
-     * IAM to manage permissions, see <a
+     * For information using tags with IAM to manage permissions, see <a
      * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
      * Tags</a>.
      * </p>
@@ -370,9 +844,7 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
      * 
      * @param tags
      *        Key-value pairs that will be attached to the new private CA. You can associate up to 50 tags with a
-     *        private CA. For information using tags with </p>
-     *        <p>
-     *        IAM to manage permissions, see <a
+     *        private CA. For information using tags with IAM to manage permissions, see <a
      *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
      *        Tags</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -391,19 +863,14 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
     /**
      * <p>
      * Key-value pairs that will be attached to the new private CA. You can associate up to 50 tags with a private CA.
-     * For information using tags with
-     * </p>
-     * <p>
-     * IAM to manage permissions, see <a
+     * For information using tags with IAM to manage permissions, see <a
      * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
      * Tags</a>.
      * </p>
      * 
      * @param tags
      *        Key-value pairs that will be attached to the new private CA. You can associate up to 50 tags with a
-     *        private CA. For information using tags with </p>
-     *        <p>
-     *        IAM to manage permissions, see <a
+     *        private CA. For information using tags with IAM to manage permissions, see <a
      *        href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM
      *        Tags</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -411,6 +878,101 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
 
     public CreateCertificateAuthorityRequest withTags(java.util.Collection<Tag> tags) {
         setTags(tags);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the CA issues general-purpose certificates that typically require a revocation mechanism, or
+     * short-lived certificates that may optionally omit revocation because they expire quickly. Short-lived certificate
+     * validity is limited to seven days.
+     * </p>
+     * <p>
+     * The default value is GENERAL_PURPOSE.
+     * </p>
+     * 
+     * @param usageMode
+     *        Specifies whether the CA issues general-purpose certificates that typically require a revocation
+     *        mechanism, or short-lived certificates that may optionally omit revocation because they expire quickly.
+     *        Short-lived certificate validity is limited to seven days.</p>
+     *        <p>
+     *        The default value is GENERAL_PURPOSE.
+     * @see CertificateAuthorityUsageMode
+     */
+
+    public void setUsageMode(String usageMode) {
+        this.usageMode = usageMode;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the CA issues general-purpose certificates that typically require a revocation mechanism, or
+     * short-lived certificates that may optionally omit revocation because they expire quickly. Short-lived certificate
+     * validity is limited to seven days.
+     * </p>
+     * <p>
+     * The default value is GENERAL_PURPOSE.
+     * </p>
+     * 
+     * @return Specifies whether the CA issues general-purpose certificates that typically require a revocation
+     *         mechanism, or short-lived certificates that may optionally omit revocation because they expire quickly.
+     *         Short-lived certificate validity is limited to seven days.</p>
+     *         <p>
+     *         The default value is GENERAL_PURPOSE.
+     * @see CertificateAuthorityUsageMode
+     */
+
+    public String getUsageMode() {
+        return this.usageMode;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the CA issues general-purpose certificates that typically require a revocation mechanism, or
+     * short-lived certificates that may optionally omit revocation because they expire quickly. Short-lived certificate
+     * validity is limited to seven days.
+     * </p>
+     * <p>
+     * The default value is GENERAL_PURPOSE.
+     * </p>
+     * 
+     * @param usageMode
+     *        Specifies whether the CA issues general-purpose certificates that typically require a revocation
+     *        mechanism, or short-lived certificates that may optionally omit revocation because they expire quickly.
+     *        Short-lived certificate validity is limited to seven days.</p>
+     *        <p>
+     *        The default value is GENERAL_PURPOSE.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CertificateAuthorityUsageMode
+     */
+
+    public CreateCertificateAuthorityRequest withUsageMode(String usageMode) {
+        setUsageMode(usageMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the CA issues general-purpose certificates that typically require a revocation mechanism, or
+     * short-lived certificates that may optionally omit revocation because they expire quickly. Short-lived certificate
+     * validity is limited to seven days.
+     * </p>
+     * <p>
+     * The default value is GENERAL_PURPOSE.
+     * </p>
+     * 
+     * @param usageMode
+     *        Specifies whether the CA issues general-purpose certificates that typically require a revocation
+     *        mechanism, or short-lived certificates that may optionally omit revocation because they expire quickly.
+     *        Short-lived certificate validity is limited to seven days.</p>
+     *        <p>
+     *        The default value is GENERAL_PURPOSE.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see CertificateAuthorityUsageMode
+     */
+
+    public CreateCertificateAuthorityRequest withUsageMode(CertificateAuthorityUsageMode usageMode) {
+        this.usageMode = usageMode.toString();
         return this;
     }
 
@@ -434,8 +996,12 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
             sb.append("CertificateAuthorityType: ").append(getCertificateAuthorityType()).append(",");
         if (getIdempotencyToken() != null)
             sb.append("IdempotencyToken: ").append(getIdempotencyToken()).append(",");
+        if (getKeyStorageSecurityStandard() != null)
+            sb.append("KeyStorageSecurityStandard: ").append(getKeyStorageSecurityStandard()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getUsageMode() != null)
+            sb.append("UsageMode: ").append(getUsageMode());
         sb.append("}");
         return sb.toString();
     }
@@ -467,9 +1033,17 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
             return false;
         if (other.getIdempotencyToken() != null && other.getIdempotencyToken().equals(this.getIdempotencyToken()) == false)
             return false;
+        if (other.getKeyStorageSecurityStandard() == null ^ this.getKeyStorageSecurityStandard() == null)
+            return false;
+        if (other.getKeyStorageSecurityStandard() != null && other.getKeyStorageSecurityStandard().equals(this.getKeyStorageSecurityStandard()) == false)
+            return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getUsageMode() == null ^ this.getUsageMode() == null)
+            return false;
+        if (other.getUsageMode() != null && other.getUsageMode().equals(this.getUsageMode()) == false)
             return false;
         return true;
     }
@@ -483,7 +1057,9 @@ public class CreateCertificateAuthorityRequest extends com.amazonaws.AmazonWebSe
         hashCode = prime * hashCode + ((getRevocationConfiguration() == null) ? 0 : getRevocationConfiguration().hashCode());
         hashCode = prime * hashCode + ((getCertificateAuthorityType() == null) ? 0 : getCertificateAuthorityType().hashCode());
         hashCode = prime * hashCode + ((getIdempotencyToken() == null) ? 0 : getIdempotencyToken().hashCode());
+        hashCode = prime * hashCode + ((getKeyStorageSecurityStandard() == null) ? 0 : getKeyStorageSecurityStandard().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getUsageMode() == null) ? 0 : getUsageMode().hashCode());
         return hashCode;
     }
 

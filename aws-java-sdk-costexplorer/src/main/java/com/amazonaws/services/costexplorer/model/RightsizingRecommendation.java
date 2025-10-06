@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,22 +42,29 @@ public class RightsizingRecommendation implements Serializable, Cloneable, Struc
     private CurrentInstance currentInstance;
     /**
      * <p>
-     * Recommendation to either terminate or modify the resource.
+     * A recommendation to either terminate or modify the resource.
      * </p>
      */
     private String rightsizingType;
     /**
      * <p>
-     * Details for modification recommendations.
+     * The details for the modification recommendations.
      * </p>
      */
     private ModifyRecommendationDetail modifyRecommendationDetail;
     /**
      * <p>
-     * Details for termination recommendations.
+     * The details for termination recommendations.
      * </p>
      */
     private TerminateRecommendationDetail terminateRecommendationDetail;
+    /**
+     * <p>
+     * The list of possible reasons why the recommendation is generated, such as under- or over-utilization of specific
+     * metrics (for example, CPU, Memory, Network).
+     * </p>
+     */
+    private java.util.List<String> findingReasonCodes;
 
     /**
      * <p>
@@ -141,11 +148,11 @@ public class RightsizingRecommendation implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Recommendation to either terminate or modify the resource.
+     * A recommendation to either terminate or modify the resource.
      * </p>
      * 
      * @param rightsizingType
-     *        Recommendation to either terminate or modify the resource.
+     *        A recommendation to either terminate or modify the resource.
      * @see RightsizingType
      */
 
@@ -155,10 +162,10 @@ public class RightsizingRecommendation implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Recommendation to either terminate or modify the resource.
+     * A recommendation to either terminate or modify the resource.
      * </p>
      * 
-     * @return Recommendation to either terminate or modify the resource.
+     * @return A recommendation to either terminate or modify the resource.
      * @see RightsizingType
      */
 
@@ -168,11 +175,11 @@ public class RightsizingRecommendation implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Recommendation to either terminate or modify the resource.
+     * A recommendation to either terminate or modify the resource.
      * </p>
      * 
      * @param rightsizingType
-     *        Recommendation to either terminate or modify the resource.
+     *        A recommendation to either terminate or modify the resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see RightsizingType
      */
@@ -184,11 +191,11 @@ public class RightsizingRecommendation implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Recommendation to either terminate or modify the resource.
+     * A recommendation to either terminate or modify the resource.
      * </p>
      * 
      * @param rightsizingType
-     *        Recommendation to either terminate or modify the resource.
+     *        A recommendation to either terminate or modify the resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see RightsizingType
      */
@@ -200,11 +207,11 @@ public class RightsizingRecommendation implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Details for modification recommendations.
+     * The details for the modification recommendations.
      * </p>
      * 
      * @param modifyRecommendationDetail
-     *        Details for modification recommendations.
+     *        The details for the modification recommendations.
      */
 
     public void setModifyRecommendationDetail(ModifyRecommendationDetail modifyRecommendationDetail) {
@@ -213,10 +220,10 @@ public class RightsizingRecommendation implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Details for modification recommendations.
+     * The details for the modification recommendations.
      * </p>
      * 
-     * @return Details for modification recommendations.
+     * @return The details for the modification recommendations.
      */
 
     public ModifyRecommendationDetail getModifyRecommendationDetail() {
@@ -225,11 +232,11 @@ public class RightsizingRecommendation implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Details for modification recommendations.
+     * The details for the modification recommendations.
      * </p>
      * 
      * @param modifyRecommendationDetail
-     *        Details for modification recommendations.
+     *        The details for the modification recommendations.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -240,11 +247,11 @@ public class RightsizingRecommendation implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Details for termination recommendations.
+     * The details for termination recommendations.
      * </p>
      * 
      * @param terminateRecommendationDetail
-     *        Details for termination recommendations.
+     *        The details for termination recommendations.
      */
 
     public void setTerminateRecommendationDetail(TerminateRecommendationDetail terminateRecommendationDetail) {
@@ -253,10 +260,10 @@ public class RightsizingRecommendation implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Details for termination recommendations.
+     * The details for termination recommendations.
      * </p>
      * 
-     * @return Details for termination recommendations.
+     * @return The details for termination recommendations.
      */
 
     public TerminateRecommendationDetail getTerminateRecommendationDetail() {
@@ -265,16 +272,124 @@ public class RightsizingRecommendation implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * Details for termination recommendations.
+     * The details for termination recommendations.
      * </p>
      * 
      * @param terminateRecommendationDetail
-     *        Details for termination recommendations.
+     *        The details for termination recommendations.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public RightsizingRecommendation withTerminateRecommendationDetail(TerminateRecommendationDetail terminateRecommendationDetail) {
         setTerminateRecommendationDetail(terminateRecommendationDetail);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of possible reasons why the recommendation is generated, such as under- or over-utilization of specific
+     * metrics (for example, CPU, Memory, Network).
+     * </p>
+     * 
+     * @return The list of possible reasons why the recommendation is generated, such as under- or over-utilization of
+     *         specific metrics (for example, CPU, Memory, Network).
+     * @see FindingReasonCode
+     */
+
+    public java.util.List<String> getFindingReasonCodes() {
+        return findingReasonCodes;
+    }
+
+    /**
+     * <p>
+     * The list of possible reasons why the recommendation is generated, such as under- or over-utilization of specific
+     * metrics (for example, CPU, Memory, Network).
+     * </p>
+     * 
+     * @param findingReasonCodes
+     *        The list of possible reasons why the recommendation is generated, such as under- or over-utilization of
+     *        specific metrics (for example, CPU, Memory, Network).
+     * @see FindingReasonCode
+     */
+
+    public void setFindingReasonCodes(java.util.Collection<String> findingReasonCodes) {
+        if (findingReasonCodes == null) {
+            this.findingReasonCodes = null;
+            return;
+        }
+
+        this.findingReasonCodes = new java.util.ArrayList<String>(findingReasonCodes);
+    }
+
+    /**
+     * <p>
+     * The list of possible reasons why the recommendation is generated, such as under- or over-utilization of specific
+     * metrics (for example, CPU, Memory, Network).
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setFindingReasonCodes(java.util.Collection)} or {@link #withFindingReasonCodes(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param findingReasonCodes
+     *        The list of possible reasons why the recommendation is generated, such as under- or over-utilization of
+     *        specific metrics (for example, CPU, Memory, Network).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see FindingReasonCode
+     */
+
+    public RightsizingRecommendation withFindingReasonCodes(String... findingReasonCodes) {
+        if (this.findingReasonCodes == null) {
+            setFindingReasonCodes(new java.util.ArrayList<String>(findingReasonCodes.length));
+        }
+        for (String ele : findingReasonCodes) {
+            this.findingReasonCodes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of possible reasons why the recommendation is generated, such as under- or over-utilization of specific
+     * metrics (for example, CPU, Memory, Network).
+     * </p>
+     * 
+     * @param findingReasonCodes
+     *        The list of possible reasons why the recommendation is generated, such as under- or over-utilization of
+     *        specific metrics (for example, CPU, Memory, Network).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see FindingReasonCode
+     */
+
+    public RightsizingRecommendation withFindingReasonCodes(java.util.Collection<String> findingReasonCodes) {
+        setFindingReasonCodes(findingReasonCodes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of possible reasons why the recommendation is generated, such as under- or over-utilization of specific
+     * metrics (for example, CPU, Memory, Network).
+     * </p>
+     * 
+     * @param findingReasonCodes
+     *        The list of possible reasons why the recommendation is generated, such as under- or over-utilization of
+     *        specific metrics (for example, CPU, Memory, Network).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see FindingReasonCode
+     */
+
+    public RightsizingRecommendation withFindingReasonCodes(FindingReasonCode... findingReasonCodes) {
+        java.util.ArrayList<String> findingReasonCodesCopy = new java.util.ArrayList<String>(findingReasonCodes.length);
+        for (FindingReasonCode value : findingReasonCodes) {
+            findingReasonCodesCopy.add(value.toString());
+        }
+        if (getFindingReasonCodes() == null) {
+            setFindingReasonCodes(findingReasonCodesCopy);
+        } else {
+            getFindingReasonCodes().addAll(findingReasonCodesCopy);
+        }
         return this;
     }
 
@@ -299,7 +414,9 @@ public class RightsizingRecommendation implements Serializable, Cloneable, Struc
         if (getModifyRecommendationDetail() != null)
             sb.append("ModifyRecommendationDetail: ").append(getModifyRecommendationDetail()).append(",");
         if (getTerminateRecommendationDetail() != null)
-            sb.append("TerminateRecommendationDetail: ").append(getTerminateRecommendationDetail());
+            sb.append("TerminateRecommendationDetail: ").append(getTerminateRecommendationDetail()).append(",");
+        if (getFindingReasonCodes() != null)
+            sb.append("FindingReasonCodes: ").append(getFindingReasonCodes());
         sb.append("}");
         return sb.toString();
     }
@@ -335,6 +452,10 @@ public class RightsizingRecommendation implements Serializable, Cloneable, Struc
         if (other.getTerminateRecommendationDetail() != null
                 && other.getTerminateRecommendationDetail().equals(this.getTerminateRecommendationDetail()) == false)
             return false;
+        if (other.getFindingReasonCodes() == null ^ this.getFindingReasonCodes() == null)
+            return false;
+        if (other.getFindingReasonCodes() != null && other.getFindingReasonCodes().equals(this.getFindingReasonCodes()) == false)
+            return false;
         return true;
     }
 
@@ -348,6 +469,7 @@ public class RightsizingRecommendation implements Serializable, Cloneable, Struc
         hashCode = prime * hashCode + ((getRightsizingType() == null) ? 0 : getRightsizingType().hashCode());
         hashCode = prime * hashCode + ((getModifyRecommendationDetail() == null) ? 0 : getModifyRecommendationDetail().hashCode());
         hashCode = prime * hashCode + ((getTerminateRecommendationDetail() == null) ? 0 : getTerminateRecommendationDetail().hashCode());
+        hashCode = prime * hashCode + ((getFindingReasonCodes() == null) ? 0 : getFindingReasonCodes().hashCode());
         return hashCode;
     }
 

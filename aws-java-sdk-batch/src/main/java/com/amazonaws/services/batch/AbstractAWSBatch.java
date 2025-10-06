@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -53,12 +53,22 @@ public class AbstractAWSBatch implements AWSBatch {
     }
 
     @Override
+    public CreateSchedulingPolicyResult createSchedulingPolicy(CreateSchedulingPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteComputeEnvironmentResult deleteComputeEnvironment(DeleteComputeEnvironmentRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public DeleteJobQueueResult deleteJobQueue(DeleteJobQueueRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteSchedulingPolicyResult deleteSchedulingPolicy(DeleteSchedulingPolicyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -88,7 +98,27 @@ public class AbstractAWSBatch implements AWSBatch {
     }
 
     @Override
+    public DescribeSchedulingPoliciesResult describeSchedulingPolicies(DescribeSchedulingPoliciesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetJobQueueSnapshotResult getJobQueueSnapshot(GetJobQueueSnapshotRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListJobsResult listJobs(ListJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListSchedulingPoliciesResult listSchedulingPolicies(ListSchedulingPoliciesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -103,7 +133,17 @@ public class AbstractAWSBatch implements AWSBatch {
     }
 
     @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public TerminateJobResult terminateJob(TerminateJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -114,6 +154,11 @@ public class AbstractAWSBatch implements AWSBatch {
 
     @Override
     public UpdateJobQueueResult updateJobQueue(UpdateJobQueueRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateSchedulingPolicyResult updateSchedulingPolicy(UpdateSchedulingPolicyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

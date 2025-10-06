@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,6 +45,7 @@ import com.amazonaws.services.elasticache.waiters.AmazonElastiCacheWaiters;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.elasticache.model.*;
+
 import com.amazonaws.services.elasticache.model.transform.*;
 
 /**
@@ -86,9 +87,18 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
     private final AdvancedConfig advancedConfig;
 
     /**
-     * List of exception unmarshallers for all modeled exceptions
+     * Map of exception unmarshallers for all modeled exceptions
+     */
+    private final Map<String, Unmarshaller<AmazonServiceException, Node>> exceptionUnmarshallersMap = new HashMap<String, Unmarshaller<AmazonServiceException, Node>>();
+
+    /**
+     * List of exception unmarshallers for all modeled exceptions Even though this exceptionUnmarshallers is not used in
+     * Clients, this is not removed since this was directly used by Client extended classes. Using this list can cause
+     * performance impact.
      */
     protected final List<Unmarshaller<AmazonServiceException, Node>> exceptionUnmarshallers = new ArrayList<Unmarshaller<AmazonServiceException, Node>>();
+
+    protected Unmarshaller<AmazonServiceException, Node> defaultUnmarshaller;
 
     /**
      * Constructs a new client to invoke service methods on Amazon ElastiCache. A credentials provider chain will be
@@ -280,55 +290,311 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
     }
 
     private void init() {
-        exceptionUnmarshallers.add(new ReservedCacheNodeAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CacheSubnetGroupNotFoundFault") == null) {
+            exceptionUnmarshallersMap.put("CacheSubnetGroupNotFoundFault", new CacheSubnetGroupNotFoundExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new CacheSubnetGroupNotFoundExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new CacheClusterNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("SubnetInUse") == null) {
+            exceptionUnmarshallersMap.put("SubnetInUse", new SubnetInUseExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new SubnetInUseExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CacheClusterAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("CacheClusterAlreadyExists", new CacheClusterAlreadyExistsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new CacheClusterAlreadyExistsExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidParameterValueExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CacheSecurityGroupAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("CacheSecurityGroupAlreadyExists", new CacheSecurityGroupAlreadyExistsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new CacheSecurityGroupAlreadyExistsExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new SnapshotAlreadyExistsExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidReplicationGroupStateExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidGlobalReplicationGroupState") == null) {
+            exceptionUnmarshallersMap.put("InvalidGlobalReplicationGroupState", new InvalidGlobalReplicationGroupStateExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidGlobalReplicationGroupStateExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ServerlessCacheSnapshotAlreadyExistsFault") == null) {
+            exceptionUnmarshallersMap.put("ServerlessCacheSnapshotAlreadyExistsFault", new ServerlessCacheSnapshotAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ServerlessCacheSnapshotAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ServerlessCacheSnapshotQuotaExceededFault") == null) {
+            exceptionUnmarshallersMap.put("ServerlessCacheSnapshotQuotaExceededFault", new ServerlessCacheSnapshotQuotaExceededExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ServerlessCacheSnapshotQuotaExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidCacheSecurityGroupState") == null) {
+            exceptionUnmarshallersMap.put("InvalidCacheSecurityGroupState", new InvalidCacheSecurityGroupStateExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidCacheSecurityGroupStateExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("QuotaExceeded.CacheSecurityGroup") == null) {
+            exceptionUnmarshallersMap.put("QuotaExceeded.CacheSecurityGroup", new CacheSecurityGroupQuotaExceededExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new CacheSecurityGroupQuotaExceededExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new SnapshotQuotaExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CacheParameterGroupQuotaExceeded") == null) {
+            exceptionUnmarshallersMap.put("CacheParameterGroupQuotaExceeded", new CacheParameterGroupQuotaExceededExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new CacheParameterGroupQuotaExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ReservedCacheNodesOfferingNotFound") == null) {
+            exceptionUnmarshallersMap.put("ReservedCacheNodesOfferingNotFound", new ReservedCacheNodesOfferingNotFoundExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new ReservedCacheNodesOfferingNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ReplicationGroupNotUnderMigrationFault") == null) {
+            exceptionUnmarshallersMap.put("ReplicationGroupNotUnderMigrationFault", new ReplicationGroupNotUnderMigrationExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ReplicationGroupNotUnderMigrationExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CacheParameterGroupAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("CacheParameterGroupAlreadyExists", new CacheParameterGroupAlreadyExistsExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new CacheParameterGroupAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TestFailoverNotAvailableFault") == null) {
+            exceptionUnmarshallersMap.put("TestFailoverNotAvailableFault", new TestFailoverNotAvailableExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new TestFailoverNotAvailableExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new NodeQuotaForCustomerExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("DuplicateUserName") == null) {
+            exceptionUnmarshallersMap.put("DuplicateUserName", new DuplicateUserNameExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new DuplicateUserNameExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CacheParameterGroupNotFound") == null) {
+            exceptionUnmarshallersMap.put("CacheParameterGroupNotFound", new CacheParameterGroupNotFoundExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new CacheParameterGroupNotFoundExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TagNotFoundExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new ClusterQuotaForCustomerExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("SubnetNotAllowedFault") == null) {
+            exceptionUnmarshallersMap.put("SubnetNotAllowedFault", new SubnetNotAllowedExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new SubnetNotAllowedExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ServiceLinkedRoleNotFoundFault") == null) {
+            exceptionUnmarshallersMap.put("ServiceLinkedRoleNotFoundFault", new ServiceLinkedRoleNotFoundExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new ServiceLinkedRoleNotFoundExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new NodeQuotaForClusterExceededExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new ServiceUpdateNotFoundExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidCacheClusterStateExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidVPCNetworkStateExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new CacheSubnetQuotaExceededExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new SnapshotFeatureNotSupportedExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("UserNotFound") == null) {
+            exceptionUnmarshallersMap.put("UserNotFound", new UserNotFoundExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new UserNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NodeGroupNotFoundFault") == null) {
+            exceptionUnmarshallersMap.put("NodeGroupNotFoundFault", new NodeGroupNotFoundExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NodeGroupNotFoundExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidSnapshotStateExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new CacheSubnetGroupAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("APICallRateForCustomerExceeded") == null) {
+            exceptionUnmarshallersMap.put("APICallRateForCustomerExceeded", new APICallRateForCustomerExceededExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new APICallRateForCustomerExceededExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new CacheSubnetGroupQuotaExceededExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new ReplicationGroupAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidKMSKeyFault") == null) {
+            exceptionUnmarshallersMap.put("InvalidKMSKeyFault", new InvalidKMSKeyExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidKMSKeyExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("GlobalReplicationGroupNotFoundFault") == null) {
+            exceptionUnmarshallersMap.put("GlobalReplicationGroupNotFoundFault", new GlobalReplicationGroupNotFoundExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new GlobalReplicationGroupNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidCredentialsException") == null) {
+            exceptionUnmarshallersMap.put("InvalidCredentialsException", new InvalidCredentialsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidCredentialsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InsufficientCacheClusterCapacity") == null) {
+            exceptionUnmarshallersMap.put("InsufficientCacheClusterCapacity", new InsufficientCacheClusterCapacityExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InsufficientCacheClusterCapacityExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidParameterCombinationExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ReservedCacheNodeNotFound") == null) {
+            exceptionUnmarshallersMap.put("ReservedCacheNodeNotFound", new ReservedCacheNodeNotFoundExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new ReservedCacheNodeNotFoundExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new SnapshotNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CacheSubnetGroupInUse") == null) {
+            exceptionUnmarshallersMap.put("CacheSubnetGroupInUse", new CacheSubnetGroupInUseExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new CacheSubnetGroupInUseExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new CacheSecurityGroupNotFoundExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidCacheParameterGroupStateExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new InvalidARNExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TagQuotaPerResourceExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidServerlessCacheStateFault") == null) {
+            exceptionUnmarshallersMap.put("InvalidServerlessCacheStateFault", new InvalidServerlessCacheStateExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidServerlessCacheStateExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ReplicationGroupNotFoundFault") == null) {
+            exceptionUnmarshallersMap.put("ReplicationGroupNotFoundFault", new ReplicationGroupNotFoundExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new ReplicationGroupNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidSubnet") == null) {
+            exceptionUnmarshallersMap.put("InvalidSubnet", new InvalidSubnetExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new InvalidSubnetExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new AuthorizationAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ServerlessCacheAlreadyExistsFault") == null) {
+            exceptionUnmarshallersMap.put("ServerlessCacheAlreadyExistsFault", new ServerlessCacheAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ServerlessCacheAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NoOperationFault") == null) {
+            exceptionUnmarshallersMap.put("NoOperationFault", new NoOperationExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NoOperationExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NodeGroupsPerReplicationGroupQuotaExceeded") == null) {
+            exceptionUnmarshallersMap.put("NodeGroupsPerReplicationGroupQuotaExceeded", new NodeGroupsPerReplicationGroupQuotaExceededExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new NodeGroupsPerReplicationGroupQuotaExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ReservedCacheNodeQuotaExceeded") == null) {
+            exceptionUnmarshallersMap.put("ReservedCacheNodeQuotaExceeded", new ReservedCacheNodeQuotaExceededExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new ReservedCacheNodeQuotaExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ReservedCacheNodeAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("ReservedCacheNodeAlreadyExists", new ReservedCacheNodeAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ReservedCacheNodeAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CacheClusterNotFound") == null) {
+            exceptionUnmarshallersMap.put("CacheClusterNotFound", new CacheClusterNotFoundExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new CacheClusterNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("GlobalReplicationGroupAlreadyExistsFault") == null) {
+            exceptionUnmarshallersMap.put("GlobalReplicationGroupAlreadyExistsFault", new GlobalReplicationGroupAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new GlobalReplicationGroupAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidParameterValue") == null) {
+            exceptionUnmarshallersMap.put("InvalidParameterValue", new InvalidParameterValueExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidParameterValueExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("SnapshotAlreadyExistsFault") == null) {
+            exceptionUnmarshallersMap.put("SnapshotAlreadyExistsFault", new SnapshotAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new SnapshotAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("UserGroupQuotaExceeded") == null) {
+            exceptionUnmarshallersMap.put("UserGroupQuotaExceeded", new UserGroupQuotaExceededExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new UserGroupQuotaExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidReplicationGroupState") == null) {
+            exceptionUnmarshallersMap.put("InvalidReplicationGroupState", new InvalidReplicationGroupStateExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidReplicationGroupStateExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("SnapshotQuotaExceededFault") == null) {
+            exceptionUnmarshallersMap.put("SnapshotQuotaExceededFault", new SnapshotQuotaExceededExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new SnapshotQuotaExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("UserGroupAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("UserGroupAlreadyExists", new UserGroupAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new UserGroupAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ServerlessCacheSnapshotNotFoundFault") == null) {
+            exceptionUnmarshallersMap.put("ServerlessCacheSnapshotNotFoundFault", new ServerlessCacheSnapshotNotFoundExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ServerlessCacheSnapshotNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("DefaultUserRequired") == null) {
+            exceptionUnmarshallersMap.put("DefaultUserRequired", new DefaultUserRequiredExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new DefaultUserRequiredExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NodeQuotaForCustomerExceeded") == null) {
+            exceptionUnmarshallersMap.put("NodeQuotaForCustomerExceeded", new NodeQuotaForCustomerExceededExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NodeQuotaForCustomerExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("UserAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("UserAlreadyExists", new UserAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new UserAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ServerlessCacheNotFoundFault") == null) {
+            exceptionUnmarshallersMap.put("ServerlessCacheNotFoundFault", new ServerlessCacheNotFoundExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ServerlessCacheNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidUserGroupState") == null) {
+            exceptionUnmarshallersMap.put("InvalidUserGroupState", new InvalidUserGroupStateExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidUserGroupStateExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TagNotFound") == null) {
+            exceptionUnmarshallersMap.put("TagNotFound", new TagNotFoundExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TagNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ClusterQuotaForCustomerExceeded") == null) {
+            exceptionUnmarshallersMap.put("ClusterQuotaForCustomerExceeded", new ClusterQuotaForCustomerExceededExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ClusterQuotaForCustomerExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ServerlessCacheQuotaForCustomerExceededFault") == null) {
+            exceptionUnmarshallersMap.put("ServerlessCacheQuotaForCustomerExceededFault", new ServerlessCacheQuotaForCustomerExceededExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ServerlessCacheQuotaForCustomerExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("NodeQuotaForClusterExceeded") == null) {
+            exceptionUnmarshallersMap.put("NodeQuotaForClusterExceeded", new NodeQuotaForClusterExceededExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new NodeQuotaForClusterExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ServiceUpdateNotFoundFault") == null) {
+            exceptionUnmarshallersMap.put("ServiceUpdateNotFoundFault", new ServiceUpdateNotFoundExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ServiceUpdateNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidCacheClusterState") == null) {
+            exceptionUnmarshallersMap.put("InvalidCacheClusterState", new InvalidCacheClusterStateExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidCacheClusterStateExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidVPCNetworkStateFault") == null) {
+            exceptionUnmarshallersMap.put("InvalidVPCNetworkStateFault", new InvalidVPCNetworkStateExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidVPCNetworkStateExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CacheSubnetQuotaExceededFault") == null) {
+            exceptionUnmarshallersMap.put("CacheSubnetQuotaExceededFault", new CacheSubnetQuotaExceededExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new CacheSubnetQuotaExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("SnapshotFeatureNotSupportedFault") == null) {
+            exceptionUnmarshallersMap.put("SnapshotFeatureNotSupportedFault", new SnapshotFeatureNotSupportedExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new SnapshotFeatureNotSupportedExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidSnapshotState") == null) {
+            exceptionUnmarshallersMap.put("InvalidSnapshotState", new InvalidSnapshotStateExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidSnapshotStateExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ReplicationGroupAlreadyUnderMigrationFault") == null) {
+            exceptionUnmarshallersMap.put("ReplicationGroupAlreadyUnderMigrationFault", new ReplicationGroupAlreadyUnderMigrationExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ReplicationGroupAlreadyUnderMigrationExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CacheSubnetGroupAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("CacheSubnetGroupAlreadyExists", new CacheSubnetGroupAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new CacheSubnetGroupAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CacheSubnetGroupQuotaExceeded") == null) {
+            exceptionUnmarshallersMap.put("CacheSubnetGroupQuotaExceeded", new CacheSubnetGroupQuotaExceededExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new CacheSubnetGroupQuotaExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("ReplicationGroupAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("ReplicationGroupAlreadyExists", new ReplicationGroupAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new ReplicationGroupAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("DefaultUserAssociatedToUserGroup") == null) {
+            exceptionUnmarshallersMap.put("DefaultUserAssociatedToUserGroup", new DefaultUserAssociatedToUserGroupExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new DefaultUserAssociatedToUserGroupExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidParameterCombination") == null) {
+            exceptionUnmarshallersMap.put("InvalidParameterCombination", new InvalidParameterCombinationExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidParameterCombinationExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidServerlessCacheSnapshotStateFault") == null) {
+            exceptionUnmarshallersMap.put("InvalidServerlessCacheSnapshotStateFault", new InvalidServerlessCacheSnapshotStateExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidServerlessCacheSnapshotStateExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidUserState") == null) {
+            exceptionUnmarshallersMap.put("InvalidUserState", new InvalidUserStateExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidUserStateExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("UserGroupNotFound") == null) {
+            exceptionUnmarshallersMap.put("UserGroupNotFound", new UserGroupNotFoundExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new UserGroupNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("SnapshotNotFoundFault") == null) {
+            exceptionUnmarshallersMap.put("SnapshotNotFoundFault", new SnapshotNotFoundExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new SnapshotNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("UserQuotaExceeded") == null) {
+            exceptionUnmarshallersMap.put("UserQuotaExceeded", new UserQuotaExceededExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new UserQuotaExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("CacheSecurityGroupNotFound") == null) {
+            exceptionUnmarshallersMap.put("CacheSecurityGroupNotFound", new CacheSecurityGroupNotFoundExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new CacheSecurityGroupNotFoundExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidCacheParameterGroupState") == null) {
+            exceptionUnmarshallersMap.put("InvalidCacheParameterGroupState", new InvalidCacheParameterGroupStateExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidCacheParameterGroupStateExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("InvalidARN") == null) {
+            exceptionUnmarshallersMap.put("InvalidARN", new InvalidARNExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new InvalidARNExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("TagQuotaPerResourceExceeded") == null) {
+            exceptionUnmarshallersMap.put("TagQuotaPerResourceExceeded", new TagQuotaPerResourceExceededExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new TagQuotaPerResourceExceededExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("AuthorizationAlreadyExists") == null) {
+            exceptionUnmarshallersMap.put("AuthorizationAlreadyExists", new AuthorizationAlreadyExistsExceptionUnmarshaller());
+        }
+        exceptionUnmarshallers.add(new AuthorizationAlreadyExistsExceptionUnmarshaller());
+        if (exceptionUnmarshallersMap.get("AuthorizationNotFound") == null) {
+            exceptionUnmarshallersMap.put("AuthorizationNotFound", new AuthorizationNotFoundExceptionUnmarshaller());
+        }
         exceptionUnmarshallers.add(new AuthorizationNotFoundExceptionUnmarshaller());
+        defaultUnmarshaller = new StandardErrorUnmarshaller(com.amazonaws.services.elasticache.model.AmazonElastiCacheException.class);
         exceptionUnmarshallers.add(new StandardErrorUnmarshaller(com.amazonaws.services.elasticache.model.AmazonElastiCacheException.class));
 
         setServiceNameIntern(DEFAULT_SIGNING_NAME);
@@ -343,13 +609,20 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Adds up to 50 cost allocation tags to the named resource. A cost allocation tag is a key-value pair where the key
-     * and value are case-sensitive. You can use cost allocation tags to categorize and track your AWS costs.
+     * A tag is a key-value pair where the key and value are case-sensitive. You can use tags to categorize and track
+     * all your ElastiCache resources, with the exception of global replication group. When you add or remove tags on
+     * replication groups, those actions will be replicated to all nodes in the replication group. For more information,
+     * see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.ResourceLevelPermissions.html">Resource
+     * -level permissions</a>.
      * </p>
      * <p>
-     * When you apply tags to your ElastiCache resources, AWS generates a cost allocation report as a comma-separated
-     * value (CSV) file with your usage and costs aggregated by your tags. You can apply tags that represent business
-     * categories (such as cost centers, application names, or owners) to organize your costs across multiple services.
+     * For example, you can use cost-allocation tags to your ElastiCache resources, Amazon generates a cost allocation
+     * report as a comma-separated value (CSV) file with your usage and costs aggregated by your tags. You can apply
+     * tags that represent business categories (such as cost centers, application names, or owners) to organize your
+     * costs across multiple services.
+     * </p>
+     * <p>
      * For more information, see <a
      * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Tagging.html">Using Cost Allocation Tags in
      * Amazon ElastiCache</a> in the <i>ElastiCache User Guide</i>.
@@ -360,8 +633,34 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * @return Result of the AddTagsToResource operation returned by the service.
      * @throws CacheClusterNotFoundException
      *         The requested cluster ID does not refer to an existing cluster.
+     * @throws CacheParameterGroupNotFoundException
+     *         The requested cache parameter group name does not refer to an existing cache parameter group.
+     * @throws CacheSecurityGroupNotFoundException
+     *         The requested cache security group name does not refer to an existing cache security group.
+     * @throws CacheSubnetGroupNotFoundException
+     *         The requested cache subnet group name does not refer to an existing cache subnet group.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws ReservedCacheNodeNotFoundException
+     *         The requested reserved cache node was not found.
      * @throws SnapshotNotFoundException
      *         The requested snapshot name does not refer to an existing snapshot.
+     * @throws UserNotFoundException
+     *         The user does not exist or could not be found.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws InvalidServerlessCacheStateException
+     *         The account for these credentials is not currently active.
+     * @throws ServerlessCacheSnapshotNotFoundException
+     *         This serverless cache snapshot could not be found or does not exist. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws InvalidServerlessCacheSnapshotStateException
+     *         The state of the serverless cache snapshot was not received. Available for Redis OSS and Serverless
+     *         Memcached only.
      * @throws TagQuotaPerResourceExceededException
      *         The request cannot be processed because it would cause the resource to have more than the allowed number
      *         of tags. The maximum number of tags permitted on a resource is 50.
@@ -392,6 +691,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new AddTagsToResourceRequestMarshaller().marshall(super.beforeMarshalling(addTagsToResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddTagsToResource");
@@ -403,6 +704,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<AddTagsToResourceResult> responseHandler = new StaxResponseHandler<AddTagsToResourceResult>(
                     new AddTagsToResourceResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -464,6 +766,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                         .marshall(super.beforeMarshalling(authorizeCacheSecurityGroupIngressRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AuthorizeCacheSecurityGroupIngress");
@@ -474,6 +778,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<CacheSecurityGroup> responseHandler = new StaxResponseHandler<CacheSecurityGroup>(new CacheSecurityGroupStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -522,6 +827,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new BatchApplyUpdateActionRequestMarshaller().marshall(super.beforeMarshalling(batchApplyUpdateActionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchApplyUpdateAction");
@@ -533,6 +840,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<BatchApplyUpdateActionResult> responseHandler = new StaxResponseHandler<BatchApplyUpdateActionResult>(
                     new BatchApplyUpdateActionResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -581,6 +889,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new BatchStopUpdateActionRequestMarshaller().marshall(super.beforeMarshalling(batchStopUpdateActionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchStopUpdateAction");
@@ -592,6 +902,145 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<BatchStopUpdateActionResult> responseHandler = new StaxResponseHandler<BatchStopUpdateActionResult>(
                     new BatchStopUpdateActionResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Complete the migration of data.
+     * </p>
+     * 
+     * @param completeMigrationRequest
+     * @return Result of the CompleteMigration operation returned by the service.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws ReplicationGroupNotUnderMigrationException
+     *         The designated replication group is not available for data migration.
+     * @sample AmazonElastiCache.CompleteMigration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CompleteMigration" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ReplicationGroup completeMigration(CompleteMigrationRequest request) {
+        request = beforeClientExecution(request);
+        return executeCompleteMigration(request);
+    }
+
+    @SdkInternalApi
+    final ReplicationGroup executeCompleteMigration(CompleteMigrationRequest completeMigrationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(completeMigrationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CompleteMigrationRequest> request = null;
+        Response<ReplicationGroup> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CompleteMigrationRequestMarshaller().marshall(super.beforeMarshalling(completeMigrationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CompleteMigration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ReplicationGroup> responseHandler = new StaxResponseHandler<ReplicationGroup>(new ReplicationGroupStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a copy of an existing serverless cache’s snapshot. Available for Redis OSS and Serverless Memcached only.
+     * </p>
+     * 
+     * @param copyServerlessCacheSnapshotRequest
+     * @return Result of the CopyServerlessCacheSnapshot operation returned by the service.
+     * @throws ServerlessCacheSnapshotAlreadyExistsException
+     *         A serverless cache snapshot with this name already exists. Available for Redis OSS and Serverless
+     *         Memcached only.
+     * @throws ServerlessCacheSnapshotNotFoundException
+     *         This serverless cache snapshot could not be found or does not exist. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws ServerlessCacheSnapshotQuotaExceededException
+     *         The number of serverless cache snapshots exceeds the customer snapshot quota. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws InvalidServerlessCacheSnapshotStateException
+     *         The state of the serverless cache snapshot was not received. Available for Redis OSS and Serverless
+     *         Memcached only.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.CopyServerlessCacheSnapshot
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CopyServerlessCacheSnapshot"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CopyServerlessCacheSnapshotResult copyServerlessCacheSnapshot(CopyServerlessCacheSnapshotRequest request) {
+        request = beforeClientExecution(request);
+        return executeCopyServerlessCacheSnapshot(request);
+    }
+
+    @SdkInternalApi
+    final CopyServerlessCacheSnapshotResult executeCopyServerlessCacheSnapshot(CopyServerlessCacheSnapshotRequest copyServerlessCacheSnapshotRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(copyServerlessCacheSnapshotRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CopyServerlessCacheSnapshotRequest> request = null;
+        Response<CopyServerlessCacheSnapshotResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CopyServerlessCacheSnapshotRequestMarshaller().marshall(super.beforeMarshalling(copyServerlessCacheSnapshotRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CopyServerlessCacheSnapshot");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CopyServerlessCacheSnapshotResult> responseHandler = new StaxResponseHandler<CopyServerlessCacheSnapshotResult>(
+                    new CopyServerlessCacheSnapshotResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -608,7 +1057,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note> <important>
      * <p>
@@ -722,6 +1171,9 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      *         The request cannot be processed because it would exceed the maximum number of snapshots.
      * @throws InvalidSnapshotStateException
      *         The current state of the snapshot does not allow the requested operation to occur.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -751,6 +1203,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new CopySnapshotRequestMarshaller().marshall(super.beforeMarshalling(copySnapshotRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CopySnapshot");
@@ -761,6 +1215,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<Snapshot> responseHandler = new StaxResponseHandler<Snapshot>(new SnapshotStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -774,10 +1229,10 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
     /**
      * <p>
      * Creates a cluster. All nodes in the cluster run the same protocol-compliant cache engine software, either
-     * Memcached or Redis.
+     * Memcached or Redis OSS.
      * </p>
      * <p>
-     * This operation is not supported for Redis (cluster mode enabled) clusters.
+     * This operation is not supported for Redis OSS (cluster mode enabled) clusters.
      * </p>
      * 
      * @param createCacheClusterRequest
@@ -841,6 +1296,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new CreateCacheClusterRequestMarshaller().marshall(super.beforeMarshalling(createCacheClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCacheCluster");
@@ -851,6 +1308,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<CacheCluster> responseHandler = new StaxResponseHandler<CacheCluster>(new CacheClusterStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -896,6 +1354,9 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      *         A cache parameter group with the requested name already exists.
      * @throws InvalidCacheParameterGroupStateException
      *         The current state of the cache parameter group does not allow the requested operation to occur.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -925,6 +1386,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new CreateCacheParameterGroupRequestMarshaller().marshall(super.beforeMarshalling(createCacheParameterGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCacheParameterGroup");
@@ -935,6 +1398,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<CacheParameterGroup> responseHandler = new StaxResponseHandler<CacheParameterGroup>(new CacheParameterGroupStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -964,6 +1428,9 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      *         A cache security group with the specified name already exists.
      * @throws CacheSecurityGroupQuotaExceededException
      *         The request cannot be processed because it would exceed the allowed number of cache security groups.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -993,6 +1460,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new CreateCacheSecurityGroupRequestMarshaller().marshall(super.beforeMarshalling(createCacheSecurityGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCacheSecurityGroup");
@@ -1003,6 +1472,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<CacheSecurityGroup> responseHandler = new StaxResponseHandler<CacheSecurityGroup>(new CacheSecurityGroupStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1031,8 +1501,15 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * @throws CacheSubnetQuotaExceededException
      *         The request cannot be processed because it would exceed the allowed number of subnets in a cache subnet
      *         group.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
      * @throws InvalidSubnetException
      *         An invalid subnet identifier was specified.
+     * @throws SubnetNotAllowedException
+     *         At least one subnet ID does not match the other subnet IDs. This mismatch typically occurs when a user
+     *         sets one subnet ID to a regional Availability Zone and a different one to an outpost. Or when a user sets
+     *         the subnet ID to an Outpost when not subscribed on this service.
      * @sample AmazonElastiCache.CreateCacheSubnetGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateCacheSubnetGroup"
      *      target="_top">AWS API Documentation</a>
@@ -1058,6 +1535,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new CreateCacheSubnetGroupRequestMarshaller().marshall(super.beforeMarshalling(createCacheSubnetGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCacheSubnetGroup");
@@ -1068,6 +1547,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<CacheSubnetGroup> responseHandler = new StaxResponseHandler<CacheSubnetGroup>(new CacheSubnetGroupStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1080,31 +1560,129 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Creates a Redis (cluster mode disabled) or a Redis (cluster mode enabled) replication group.
+     * Global Datastore for Redis OSS offers fully managed, fast, reliable and secure cross-region replication. Using
+     * Global Datastore for Redis OSS, you can create cross-region read replica clusters for ElastiCache (Redis OSS) to
+     * enable low-latency reads and disaster recovery across regions. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Redis-Global-Datastore.html">Replication Across
+     * Regions Using Global Datastore</a>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The <b>GlobalReplicationGroupIdSuffix</b> is the name of the Global datastore.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <b>PrimaryReplicationGroupId</b> represents the name of the primary cluster that accepts writes and will
+     * replicate updates to the secondary cluster.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createGlobalReplicationGroupRequest
+     * @return Result of the CreateGlobalReplicationGroup operation returned by the service.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws GlobalReplicationGroupAlreadyExistsException
+     *         The Global datastore name already exists.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.CreateGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GlobalReplicationGroup createGlobalReplicationGroup(CreateGlobalReplicationGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateGlobalReplicationGroup(request);
+    }
+
+    @SdkInternalApi
+    final GlobalReplicationGroup executeCreateGlobalReplicationGroup(CreateGlobalReplicationGroupRequest createGlobalReplicationGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createGlobalReplicationGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateGlobalReplicationGroupRequest> request = null;
+        Response<GlobalReplicationGroup> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateGlobalReplicationGroupRequestMarshaller().marshall(super.beforeMarshalling(createGlobalReplicationGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateGlobalReplicationGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GlobalReplicationGroup> responseHandler = new StaxResponseHandler<GlobalReplicationGroup>(
+                    new GlobalReplicationGroupStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a Redis OSS (cluster mode disabled) or a Redis OSS (cluster mode enabled) replication group.
      * </p>
      * <p>
-     * A Redis (cluster mode disabled) replication group is a collection of clusters, where one of the clusters is a
+     * This API can be used to create a standalone regional replication group or a secondary replication group
+     * associated with a Global datastore.
+     * </p>
+     * <p>
+     * A Redis OSS (cluster mode disabled) replication group is a collection of nodes, where one of the nodes is a
      * read/write primary and the others are read-only replicas. Writes to the primary are asynchronously propagated to
      * the replicas.
      * </p>
      * <p>
-     * A Redis (cluster mode enabled) replication group is a collection of 1 to 90 node groups (shards). Each node group
-     * (shard) has one read/write primary node and up to 5 read-only replica nodes. Writes to the primary are
-     * asynchronously propagated to the replicas. Redis (cluster mode enabled) replication groups partition the data
-     * across node groups (shards).
+     * A Redis OSS cluster-mode enabled cluster is comprised of from 1 to 90 shards (API/CLI: node groups). Each shard
+     * has a primary node and up to 5 read-only replica nodes. The configuration can range from 90 shards and 0 replicas
+     * to 15 shards and 5 replicas, which is the maximum number or replicas allowed.
      * </p>
      * <p>
-     * When a Redis (cluster mode disabled) replication group has been successfully created, you can add one or more
-     * read replicas to it, up to a total of 5 read replicas. You cannot alter a Redis (cluster mode enabled)
-     * replication group after it has been created. However, if you need to increase or decrease the number of node
-     * groups (console: shards), you can avail yourself of ElastiCache for Redis' enhanced backup and restore. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-restoring.html">Restoring From a Backup
-     * with Cluster Resizing</a> in the <i>ElastiCache User Guide</i>.
+     * The node or shard limit can be increased to a maximum of 500 per cluster if the Redis OSS engine version is 5.0.6
+     * or higher. For example, you can choose to configure a 500 node cluster that ranges between 83 shards (one primary
+     * and 5 replicas per shard) and 500 shards (single primary and no replicas). Make sure there are enough available
+     * IP addresses to accommodate the increase. Common pitfalls include the subnets in the subnet group have too small
+     * a CIDR range or the subnets are shared and heavily used by other clusters. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SubnetGroups.Creating.html">Creating a Subnet
+     * Group</a>. For versions below 5.0.6, the limit is 250 per cluster.
+     * </p>
+     * <p>
+     * To request a limit increase, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html">Amazon Service Limits</a> and choose
+     * the limit type <b>Nodes per cluster per instance type</b>.
+     * </p>
+     * <p>
+     * When a Redis OSS (cluster mode disabled) replication group has been successfully created, you can add one or more
+     * read replicas to it, up to a total of 5 read replicas. If you need to increase or decrease the number of node
+     * groups (console: shards), you can use ElastiCache (Redis OSS) scaling. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Scaling.html">Scaling ElastiCache (Redis OSS)
+     * Clusters</a> in the <i>ElastiCache User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -1117,6 +1695,10 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      *         The requested cluster is not in the <code>available</code> state.
      * @throws ReplicationGroupAlreadyExistsException
      *         The specified replication group already exists.
+     * @throws InvalidUserGroupStateException
+     *         The user group is not in an active state.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
      * @throws InsufficientCacheClusterCapacityException
      *         The requested cache node type is not available in the specified Availability Zone. For more information,
      *         see <a href=
@@ -1143,6 +1725,10 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * @throws NodeGroupsPerReplicationGroupQuotaExceededException
      *         The request cannot be processed because it would exceed the maximum allowed number of node groups
      *         (shards) in a single replication group. The default maximum is 90
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -1172,6 +1758,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new CreateReplicationGroupRequestMarshaller().marshall(super.beforeMarshalling(createReplicationGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateReplicationGroup");
@@ -1182,6 +1770,162 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<ReplicationGroup> responseHandler = new StaxResponseHandler<ReplicationGroup>(new ReplicationGroupStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a serverless cache.
+     * </p>
+     * 
+     * @param createServerlessCacheRequest
+     * @return Result of the CreateServerlessCache operation returned by the service.
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws InvalidServerlessCacheStateException
+     *         The account for these credentials is not currently active.
+     * @throws ServerlessCacheAlreadyExistsException
+     *         A serverless cache with this name already exists.
+     * @throws ServerlessCacheQuotaForCustomerExceededException
+     *         The number of serverless caches exceeds the customer quota.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @throws InvalidCredentialsException
+     *         You must enter valid credentials.
+     * @throws InvalidUserGroupStateException
+     *         The user group is not in an active state.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @sample AmazonElastiCache.CreateServerlessCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateServerlessCache"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateServerlessCacheResult createServerlessCache(CreateServerlessCacheRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateServerlessCache(request);
+    }
+
+    @SdkInternalApi
+    final CreateServerlessCacheResult executeCreateServerlessCache(CreateServerlessCacheRequest createServerlessCacheRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createServerlessCacheRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateServerlessCacheRequest> request = null;
+        Response<CreateServerlessCacheResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateServerlessCacheRequestMarshaller().marshall(super.beforeMarshalling(createServerlessCacheRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateServerlessCache");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CreateServerlessCacheResult> responseHandler = new StaxResponseHandler<CreateServerlessCacheResult>(
+                    new CreateServerlessCacheResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * This API creates a copy of an entire ServerlessCache at a specific moment in time. Available for Redis OSS and
+     * Serverless Memcached only.
+     * </p>
+     * 
+     * @param createServerlessCacheSnapshotRequest
+     * @return Result of the CreateServerlessCacheSnapshot operation returned by the service.
+     * @throws ServerlessCacheSnapshotAlreadyExistsException
+     *         A serverless cache snapshot with this name already exists. Available for Redis OSS and Serverless
+     *         Memcached only.
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws InvalidServerlessCacheStateException
+     *         The account for these credentials is not currently active.
+     * @throws ServerlessCacheSnapshotQuotaExceededException
+     *         The number of serverless cache snapshots exceeds the customer snapshot quota. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.CreateServerlessCacheSnapshot
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateServerlessCacheSnapshot"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateServerlessCacheSnapshotResult createServerlessCacheSnapshot(CreateServerlessCacheSnapshotRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateServerlessCacheSnapshot(request);
+    }
+
+    @SdkInternalApi
+    final CreateServerlessCacheSnapshotResult executeCreateServerlessCacheSnapshot(CreateServerlessCacheSnapshotRequest createServerlessCacheSnapshotRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createServerlessCacheSnapshotRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateServerlessCacheSnapshotRequest> request = null;
+        Response<CreateServerlessCacheSnapshotResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateServerlessCacheSnapshotRequestMarshaller().marshall(super.beforeMarshalling(createServerlessCacheSnapshotRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateServerlessCacheSnapshot");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CreateServerlessCacheSnapshotResult> responseHandler = new StaxResponseHandler<CreateServerlessCacheSnapshotResult>(
+                    new CreateServerlessCacheSnapshotResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1198,7 +1942,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -1222,17 +1966,20 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      *         <ul>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a Redis cluster running on a <code>cache.t1.micro</code> cache node.
+     *         Creating a snapshot of a Redis OSS cluster running on a <code>cache.t1.micro</code> cache node.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a cluster that is running Memcached rather than Redis.
+     *         Creating a snapshot of a cluster that is running Memcached rather than Redis OSS.
      *         </p>
      *         </li>
      *         </ul>
      *         <p>
      *         Neither of these are supported by ElastiCache.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
      * @throws InvalidParameterCombinationException
      *         Two or more incompatible parameters were specified.
      * @throws InvalidParameterValueException
@@ -1262,6 +2009,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new CreateSnapshotRequestMarshaller().marshall(super.beforeMarshalling(createSnapshotRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSnapshot");
@@ -1272,6 +2021,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<Snapshot> responseHandler = new StaxResponseHandler<Snapshot>(new SnapshotStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1284,9 +2034,223 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Dynamically decreases the number of replics in a Redis (cluster mode disabled) replication group or the number of
-     * replica nodes in one or more node groups (shards) of a Redis (cluster mode enabled) replication group. This
-     * operation is performed with no cluster down time.
+     * For Redis OSS engine version 6.0 onwards: Creates a Redis OSS user. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html">Using Role Based Access
+     * Control (RBAC)</a>.
+     * </p>
+     * 
+     * @param createUserRequest
+     * @return Result of the CreateUser operation returned by the service.
+     * @throws UserAlreadyExistsException
+     *         A user with this ID already exists.
+     * @throws UserQuotaExceededException
+     *         The quota of users has been exceeded.
+     * @throws DuplicateUserNameException
+     *         A user with this username already exists.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
+     * @sample AmazonElastiCache.CreateUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateUser" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public CreateUserResult createUser(CreateUserRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateUser(request);
+    }
+
+    @SdkInternalApi
+    final CreateUserResult executeCreateUser(CreateUserRequest createUserRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createUserRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateUserRequest> request = null;
+        Response<CreateUserResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateUserRequestMarshaller().marshall(super.beforeMarshalling(createUserRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateUser");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CreateUserResult> responseHandler = new StaxResponseHandler<CreateUserResult>(new CreateUserResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * For Redis OSS engine version 6.0 onwards: Creates a Redis OSS user group. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html">Using Role Based Access
+     * Control (RBAC)</a>
+     * </p>
+     * 
+     * @param createUserGroupRequest
+     * @return Result of the CreateUserGroup operation returned by the service.
+     * @throws UserNotFoundException
+     *         The user does not exist or could not be found.
+     * @throws DuplicateUserNameException
+     *         A user with this username already exists.
+     * @throws UserGroupAlreadyExistsException
+     *         The user group with this ID already exists.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws DefaultUserRequiredException
+     *         You must add default user to a user group.
+     * @throws UserGroupQuotaExceededException
+     *         The number of users exceeds the user group limit.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
+     * @sample AmazonElastiCache.CreateUserGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateUserGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateUserGroupResult createUserGroup(CreateUserGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateUserGroup(request);
+    }
+
+    @SdkInternalApi
+    final CreateUserGroupResult executeCreateUserGroup(CreateUserGroupRequest createUserGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createUserGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateUserGroupRequest> request = null;
+        Response<CreateUserGroupResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateUserGroupRequestMarshaller().marshall(super.beforeMarshalling(createUserGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateUserGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<CreateUserGroupResult> responseHandler = new StaxResponseHandler<CreateUserGroupResult>(
+                    new CreateUserGroupResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Decreases the number of node groups in a Global datastore
+     * </p>
+     * 
+     * @param decreaseNodeGroupsInGlobalReplicationGroupRequest
+     * @return Result of the DecreaseNodeGroupsInGlobalReplicationGroup operation returned by the service.
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.DecreaseNodeGroupsInGlobalReplicationGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DecreaseNodeGroupsInGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GlobalReplicationGroup decreaseNodeGroupsInGlobalReplicationGroup(DecreaseNodeGroupsInGlobalReplicationGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeDecreaseNodeGroupsInGlobalReplicationGroup(request);
+    }
+
+    @SdkInternalApi
+    final GlobalReplicationGroup executeDecreaseNodeGroupsInGlobalReplicationGroup(
+            DecreaseNodeGroupsInGlobalReplicationGroupRequest decreaseNodeGroupsInGlobalReplicationGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(decreaseNodeGroupsInGlobalReplicationGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DecreaseNodeGroupsInGlobalReplicationGroupRequest> request = null;
+        Response<GlobalReplicationGroup> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DecreaseNodeGroupsInGlobalReplicationGroupRequestMarshaller().marshall(super
+                        .beforeMarshalling(decreaseNodeGroupsInGlobalReplicationGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DecreaseNodeGroupsInGlobalReplicationGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GlobalReplicationGroup> responseHandler = new StaxResponseHandler<GlobalReplicationGroup>(
+                    new GlobalReplicationGroupStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Dynamically decreases the number of replicas in a Redis OSS (cluster mode disabled) replication group or the
+     * number of replica nodes in one or more node groups (shards) of a Redis OSS (cluster mode enabled) replication
+     * group. This operation is performed with no cluster down time.
      * </p>
      * 
      * @param decreaseReplicaCountRequest
@@ -1344,6 +2308,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DecreaseReplicaCountRequestMarshaller().marshall(super.beforeMarshalling(decreaseReplicaCountRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DecreaseReplicaCount");
@@ -1354,6 +2320,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<ReplicationGroup> responseHandler = new StaxResponseHandler<ReplicationGroup>(new ReplicationGroupStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1376,7 +2343,12 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * <ul>
      * <li>
      * <p>
-     * Redis (cluster mode enabled) clusters
+     * Redis OSS (cluster mode enabled) clusters
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Redis OSS (cluster mode disabled) clusters
      * </p>
      * </li>
      * <li>
@@ -1386,12 +2358,17 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * </li>
      * <li>
      * <p>
+     * A cluster that is the primary node of a replication group
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * A node group (shard) that has Multi-AZ mode enabled
      * </p>
      * </li>
      * <li>
      * <p>
-     * A cluster from a Redis (cluster mode enabled) replication group
+     * A cluster from a Redis OSS (cluster mode enabled) replication group
      * </p>
      * </li>
      * <li>
@@ -1415,12 +2392,12 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      *         <ul>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a Redis cluster running on a <code>cache.t1.micro</code> cache node.
+     *         Creating a snapshot of a Redis OSS cluster running on a <code>cache.t1.micro</code> cache node.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a cluster that is running Memcached rather than Redis.
+     *         Creating a snapshot of a cluster that is running Memcached rather than Redis OSS.
      *         </p>
      *         </li>
      *         </ul>
@@ -1457,6 +2434,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DeleteCacheClusterRequestMarshaller().marshall(super.beforeMarshalling(deleteCacheClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCacheCluster");
@@ -1467,6 +2446,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<CacheCluster> responseHandler = new StaxResponseHandler<CacheCluster>(new CacheClusterStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1480,7 +2460,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
     /**
      * <p>
      * Deletes the specified cache parameter group. You cannot delete a cache parameter group if it is associated with
-     * any cache clusters.
+     * any cache clusters. You cannot delete the default cache parameter groups in your account.
      * </p>
      * 
      * @param deleteCacheParameterGroupRequest
@@ -1519,6 +2499,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DeleteCacheParameterGroupRequestMarshaller().marshall(super.beforeMarshalling(deleteCacheParameterGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCacheParameterGroup");
@@ -1530,6 +2512,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DeleteCacheParameterGroupResult> responseHandler = new StaxResponseHandler<DeleteCacheParameterGroupResult>(
                     new DeleteCacheParameterGroupResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1586,6 +2569,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DeleteCacheSecurityGroupRequestMarshaller().marshall(super.beforeMarshalling(deleteCacheSecurityGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCacheSecurityGroup");
@@ -1597,6 +2582,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DeleteCacheSecurityGroupResult> responseHandler = new StaxResponseHandler<DeleteCacheSecurityGroupResult>(
                     new DeleteCacheSecurityGroupResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1613,7 +2599,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * </p>
      * <note>
      * <p>
-     * You cannot delete a cache subnet group if it is associated with any clusters.
+     * You cannot delete a default cache subnet group or one that is associated with any clusters.
      * </p>
      * </note>
      * 
@@ -1649,6 +2635,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DeleteCacheSubnetGroupRequestMarshaller().marshall(super.beforeMarshalling(deleteCacheSubnetGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCacheSubnetGroup");
@@ -1660,6 +2648,93 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DeleteCacheSubnetGroupResult> responseHandler = new StaxResponseHandler<DeleteCacheSubnetGroupResult>(
                     new DeleteCacheSubnetGroupResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deleting a Global datastore is a two-step process:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * First, you must <a>DisassociateGlobalReplicationGroup</a> to remove the secondary clusters in the Global
+     * datastore.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Once the Global datastore contains only the primary cluster, you can use the
+     * <code>DeleteGlobalReplicationGroup</code> API to delete the Global datastore while retainining the primary
+     * cluster using <code>RetainPrimaryReplicationGroup=true</code>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Since the Global Datastore has only a primary cluster, you can delete the Global Datastore while retaining the
+     * primary by setting <code>RetainPrimaryReplicationGroup=true</code>. The primary cluster is never deleted when
+     * deleting a Global Datastore. It can only be deleted when it no longer is associated with any Global Datastore.
+     * </p>
+     * <p>
+     * When you receive a successful response from this operation, Amazon ElastiCache immediately begins deleting the
+     * selected resources; you cannot cancel or revert this operation.
+     * </p>
+     * 
+     * @param deleteGlobalReplicationGroupRequest
+     * @return Result of the DeleteGlobalReplicationGroup operation returned by the service.
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.DeleteGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GlobalReplicationGroup deleteGlobalReplicationGroup(DeleteGlobalReplicationGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteGlobalReplicationGroup(request);
+    }
+
+    @SdkInternalApi
+    final GlobalReplicationGroup executeDeleteGlobalReplicationGroup(DeleteGlobalReplicationGroupRequest deleteGlobalReplicationGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteGlobalReplicationGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteGlobalReplicationGroupRequest> request = null;
+        Response<GlobalReplicationGroup> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteGlobalReplicationGroupRequestMarshaller().marshall(super.beforeMarshalling(deleteGlobalReplicationGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteGlobalReplicationGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GlobalReplicationGroup> responseHandler = new StaxResponseHandler<GlobalReplicationGroup>(
+                    new GlobalReplicationGroupStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1682,9 +2757,19 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * selected resources; you cannot cancel or revert this operation.
      * </p>
      * <note>
+     * <ul>
+     * <li>
      * <p>
-     * This operation is valid for Redis only.
+     * <code>CreateSnapshot</code> permission is required to create a final snapshot. Without this permission, the API
+     * call will fail with an <code>Access Denied</code> exception.
      * </p>
+     * </li>
+     * <li>
+     * <p>
+     * This operation is valid for Redis OSS only.
+     * </p>
+     * </li>
+     * </ul>
      * </note>
      * 
      * @param deleteReplicationGroupRequest
@@ -1701,12 +2786,12 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      *         <ul>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a Redis cluster running on a <code>cache.t1.micro</code> cache node.
+     *         Creating a snapshot of a Redis OSS cluster running on a <code>cache.t1.micro</code> cache node.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a cluster that is running Memcached rather than Redis.
+     *         Creating a snapshot of a cluster that is running Memcached rather than Redis OSS.
      *         </p>
      *         </li>
      *         </ul>
@@ -1743,6 +2828,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DeleteReplicationGroupRequestMarshaller().marshall(super.beforeMarshalling(deleteReplicationGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteReplicationGroup");
@@ -1753,6 +2840,150 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<ReplicationGroup> responseHandler = new StaxResponseHandler<ReplicationGroup>(new ReplicationGroupStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a specified existing serverless cache.
+     * </p>
+     * <note>
+     * <p>
+     * <code>CreateServerlessCacheSnapshot</code> permission is required to create a final snapshot. Without this
+     * permission, the API call will fail with an <code>Access Denied</code> exception.
+     * </p>
+     * </note>
+     * 
+     * @param deleteServerlessCacheRequest
+     * @return Result of the DeleteServerlessCache operation returned by the service.
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws InvalidServerlessCacheStateException
+     *         The account for these credentials is not currently active.
+     * @throws ServerlessCacheSnapshotAlreadyExistsException
+     *         A serverless cache snapshot with this name already exists. Available for Redis OSS and Serverless
+     *         Memcached only.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @throws InvalidCredentialsException
+     *         You must enter valid credentials.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @sample AmazonElastiCache.DeleteServerlessCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteServerlessCache"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteServerlessCacheResult deleteServerlessCache(DeleteServerlessCacheRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteServerlessCache(request);
+    }
+
+    @SdkInternalApi
+    final DeleteServerlessCacheResult executeDeleteServerlessCache(DeleteServerlessCacheRequest deleteServerlessCacheRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteServerlessCacheRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteServerlessCacheRequest> request = null;
+        Response<DeleteServerlessCacheResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteServerlessCacheRequestMarshaller().marshall(super.beforeMarshalling(deleteServerlessCacheRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteServerlessCache");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeleteServerlessCacheResult> responseHandler = new StaxResponseHandler<DeleteServerlessCacheResult>(
+                    new DeleteServerlessCacheResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes an existing serverless cache snapshot. Available for Redis OSS and Serverless Memcached only.
+     * </p>
+     * 
+     * @param deleteServerlessCacheSnapshotRequest
+     * @return Result of the DeleteServerlessCacheSnapshot operation returned by the service.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws ServerlessCacheSnapshotNotFoundException
+     *         This serverless cache snapshot could not be found or does not exist. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws InvalidServerlessCacheSnapshotStateException
+     *         The state of the serverless cache snapshot was not received. Available for Redis OSS and Serverless
+     *         Memcached only.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.DeleteServerlessCacheSnapshot
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteServerlessCacheSnapshot"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteServerlessCacheSnapshotResult deleteServerlessCacheSnapshot(DeleteServerlessCacheSnapshotRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteServerlessCacheSnapshot(request);
+    }
+
+    @SdkInternalApi
+    final DeleteServerlessCacheSnapshotResult executeDeleteServerlessCacheSnapshot(DeleteServerlessCacheSnapshotRequest deleteServerlessCacheSnapshotRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteServerlessCacheSnapshotRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteServerlessCacheSnapshotRequest> request = null;
+        Response<DeleteServerlessCacheSnapshotResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteServerlessCacheSnapshotRequestMarshaller().marshall(super.beforeMarshalling(deleteServerlessCacheSnapshotRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteServerlessCacheSnapshot");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeleteServerlessCacheSnapshotResult> responseHandler = new StaxResponseHandler<DeleteServerlessCacheSnapshotResult>(
+                    new DeleteServerlessCacheSnapshotResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1770,7 +3001,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -1810,6 +3041,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DeleteSnapshotRequestMarshaller().marshall(super.beforeMarshalling(deleteSnapshotRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSnapshot");
@@ -1820,6 +3053,142 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<Snapshot> responseHandler = new StaxResponseHandler<Snapshot>(new SnapshotStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * For Redis OSS engine version 6.0 onwards: Deletes a user. The user will be removed from all user groups and in
+     * turn removed from all replication groups. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html">Using Role Based Access
+     * Control (RBAC)</a>.
+     * </p>
+     * 
+     * @param deleteUserRequest
+     * @return Result of the DeleteUser operation returned by the service.
+     * @throws InvalidUserStateException
+     *         The user is not in active state.
+     * @throws UserNotFoundException
+     *         The user does not exist or could not be found.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws DefaultUserAssociatedToUserGroupException
+     *         The default user assigned to the user group.
+     * @sample AmazonElastiCache.DeleteUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteUser" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteUserResult deleteUser(DeleteUserRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteUser(request);
+    }
+
+    @SdkInternalApi
+    final DeleteUserResult executeDeleteUser(DeleteUserRequest deleteUserRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteUserRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteUserRequest> request = null;
+        Response<DeleteUserResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteUserRequestMarshaller().marshall(super.beforeMarshalling(deleteUserRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteUser");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeleteUserResult> responseHandler = new StaxResponseHandler<DeleteUserResult>(new DeleteUserResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * For Redis OSS engine version 6.0 onwards: Deletes a user group. The user group must first be disassociated from
+     * the replication group before it can be deleted. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html">Using Role Based Access
+     * Control (RBAC)</a>.
+     * </p>
+     * 
+     * @param deleteUserGroupRequest
+     * @return Result of the DeleteUserGroup operation returned by the service.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
+     * @throws InvalidUserGroupStateException
+     *         The user group is not in an active state.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.DeleteUserGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DeleteUserGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeleteUserGroupResult deleteUserGroup(DeleteUserGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteUserGroup(request);
+    }
+
+    @SdkInternalApi
+    final DeleteUserGroupResult executeDeleteUserGroup(DeleteUserGroupRequest deleteUserGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteUserGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteUserGroupRequest> request = null;
+        Response<DeleteUserGroupResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteUserGroupRequestMarshaller().marshall(super.beforeMarshalling(deleteUserGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteUserGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DeleteUserGroupResult> responseHandler = new StaxResponseHandler<DeleteUserGroupResult>(
+                    new DeleteUserGroupResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1891,6 +3260,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DescribeCacheClustersRequestMarshaller().marshall(super.beforeMarshalling(describeCacheClustersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCacheClusters");
@@ -1902,6 +3273,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeCacheClustersResult> responseHandler = new StaxResponseHandler<DescribeCacheClustersResult>(
                     new DescribeCacheClustersResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1950,6 +3322,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DescribeCacheEngineVersionsRequestMarshaller().marshall(super.beforeMarshalling(describeCacheEngineVersionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCacheEngineVersions");
@@ -1961,6 +3335,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeCacheEngineVersionsResult> responseHandler = new StaxResponseHandler<DescribeCacheEngineVersionsResult>(
                     new DescribeCacheEngineVersionsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2016,6 +3391,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DescribeCacheParameterGroupsRequestMarshaller().marshall(super.beforeMarshalling(describeCacheParameterGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCacheParameterGroups");
@@ -2027,6 +3404,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeCacheParameterGroupsResult> responseHandler = new StaxResponseHandler<DescribeCacheParameterGroupsResult>(
                     new DescribeCacheParameterGroupsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2081,6 +3459,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DescribeCacheParametersRequestMarshaller().marshall(super.beforeMarshalling(describeCacheParametersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCacheParameters");
@@ -2092,6 +3472,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeCacheParametersResult> responseHandler = new StaxResponseHandler<DescribeCacheParametersResult>(
                     new DescribeCacheParametersResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2142,6 +3523,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DescribeCacheSecurityGroupsRequestMarshaller().marshall(super.beforeMarshalling(describeCacheSecurityGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCacheSecurityGroups");
@@ -2153,6 +3536,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeCacheSecurityGroupsResult> responseHandler = new StaxResponseHandler<DescribeCacheSecurityGroupsResult>(
                     new DescribeCacheSecurityGroupsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2205,6 +3589,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DescribeCacheSubnetGroupsRequestMarshaller().marshall(super.beforeMarshalling(describeCacheSubnetGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeCacheSubnetGroups");
@@ -2216,6 +3602,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeCacheSubnetGroupsResult> responseHandler = new StaxResponseHandler<DescribeCacheSubnetGroupsResult>(
                     new DescribeCacheSubnetGroupsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2268,6 +3655,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DescribeEngineDefaultParametersRequestMarshaller().marshall(super.beforeMarshalling(describeEngineDefaultParametersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEngineDefaultParameters");
@@ -2278,6 +3667,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<EngineDefaults> responseHandler = new StaxResponseHandler<EngineDefaults>(new EngineDefaultsStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2331,6 +3721,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DescribeEventsRequestMarshaller().marshall(super.beforeMarshalling(describeEventsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEvents");
@@ -2342,6 +3734,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeEventsResult> responseHandler = new StaxResponseHandler<DescribeEventsResult>(
                     new DescribeEventsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2359,12 +3752,76 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * Returns information about a particular global replication group. If no identifier is specified, returns
+     * information about all Global datastores.
+     * </p>
+     * 
+     * @param describeGlobalReplicationGroupsRequest
+     * @return Result of the DescribeGlobalReplicationGroups operation returned by the service.
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.DescribeGlobalReplicationGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeGlobalReplicationGroups"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeGlobalReplicationGroupsResult describeGlobalReplicationGroups(DescribeGlobalReplicationGroupsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeGlobalReplicationGroups(request);
+    }
+
+    @SdkInternalApi
+    final DescribeGlobalReplicationGroupsResult executeDescribeGlobalReplicationGroups(
+            DescribeGlobalReplicationGroupsRequest describeGlobalReplicationGroupsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeGlobalReplicationGroupsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeGlobalReplicationGroupsRequest> request = null;
+        Response<DescribeGlobalReplicationGroupsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeGlobalReplicationGroupsRequestMarshaller().marshall(super.beforeMarshalling(describeGlobalReplicationGroupsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeGlobalReplicationGroups");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DescribeGlobalReplicationGroupsResult> responseHandler = new StaxResponseHandler<DescribeGlobalReplicationGroupsResult>(
+                    new DescribeGlobalReplicationGroupsResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns information about a particular replication group. If no identifier is specified,
      * <code>DescribeReplicationGroups</code> returns information about all replication groups.
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -2402,6 +3859,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DescribeReplicationGroupsRequestMarshaller().marshall(super.beforeMarshalling(describeReplicationGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReplicationGroups");
@@ -2413,6 +3872,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeReplicationGroupsResult> responseHandler = new StaxResponseHandler<DescribeReplicationGroupsResult>(
                     new DescribeReplicationGroupsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2467,6 +3927,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DescribeReservedCacheNodesRequestMarshaller().marshall(super.beforeMarshalling(describeReservedCacheNodesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReservedCacheNodes");
@@ -2478,6 +3940,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeReservedCacheNodesResult> responseHandler = new StaxResponseHandler<DescribeReservedCacheNodesResult>(
                     new DescribeReservedCacheNodesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2534,6 +3997,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(describeReservedCacheNodesOfferingsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeReservedCacheNodesOfferings");
@@ -2545,6 +4010,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeReservedCacheNodesOfferingsResult> responseHandler = new StaxResponseHandler<DescribeReservedCacheNodesOfferingsResult>(
                     new DescribeReservedCacheNodesOfferingsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2558,6 +4024,137 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
     @Override
     public DescribeReservedCacheNodesOfferingsResult describeReservedCacheNodesOfferings() {
         return describeReservedCacheNodesOfferings(new DescribeReservedCacheNodesOfferingsRequest());
+    }
+
+    /**
+     * <p>
+     * Returns information about serverless cache snapshots. By default, this API lists all of the customer’s serverless
+     * cache snapshots. It can also describe a single serverless cache snapshot, or the snapshots associated with a
+     * particular serverless cache. Available for Redis OSS and Serverless Memcached only.
+     * </p>
+     * 
+     * @param describeServerlessCacheSnapshotsRequest
+     * @return Result of the DescribeServerlessCacheSnapshots operation returned by the service.
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws ServerlessCacheSnapshotNotFoundException
+     *         This serverless cache snapshot could not be found or does not exist. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.DescribeServerlessCacheSnapshots
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeServerlessCacheSnapshots"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeServerlessCacheSnapshotsResult describeServerlessCacheSnapshots(DescribeServerlessCacheSnapshotsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeServerlessCacheSnapshots(request);
+    }
+
+    @SdkInternalApi
+    final DescribeServerlessCacheSnapshotsResult executeDescribeServerlessCacheSnapshots(
+            DescribeServerlessCacheSnapshotsRequest describeServerlessCacheSnapshotsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeServerlessCacheSnapshotsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeServerlessCacheSnapshotsRequest> request = null;
+        Response<DescribeServerlessCacheSnapshotsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeServerlessCacheSnapshotsRequestMarshaller().marshall(super.beforeMarshalling(describeServerlessCacheSnapshotsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeServerlessCacheSnapshots");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DescribeServerlessCacheSnapshotsResult> responseHandler = new StaxResponseHandler<DescribeServerlessCacheSnapshotsResult>(
+                    new DescribeServerlessCacheSnapshotsResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns information about a specific serverless cache. If no identifier is specified, then the API returns
+     * information on all the serverless caches belonging to this Amazon Web Services account.
+     * </p>
+     * 
+     * @param describeServerlessCachesRequest
+     * @return Result of the DescribeServerlessCaches operation returned by the service.
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.DescribeServerlessCaches
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeServerlessCaches"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeServerlessCachesResult describeServerlessCaches(DescribeServerlessCachesRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeServerlessCaches(request);
+    }
+
+    @SdkInternalApi
+    final DescribeServerlessCachesResult executeDescribeServerlessCaches(DescribeServerlessCachesRequest describeServerlessCachesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeServerlessCachesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeServerlessCachesRequest> request = null;
+        Response<DescribeServerlessCachesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeServerlessCachesRequestMarshaller().marshall(super.beforeMarshalling(describeServerlessCachesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeServerlessCaches");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DescribeServerlessCachesResult> responseHandler = new StaxResponseHandler<DescribeServerlessCachesResult>(
+                    new DescribeServerlessCachesResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
     }
 
     /**
@@ -2598,6 +4195,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DescribeServiceUpdatesRequestMarshaller().marshall(super.beforeMarshalling(describeServiceUpdatesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeServiceUpdates");
@@ -2609,6 +4208,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeServiceUpdatesResult> responseHandler = new StaxResponseHandler<DescribeServiceUpdatesResult>(
                     new DescribeServiceUpdatesResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2627,7 +4227,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * </p>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -2667,6 +4267,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DescribeSnapshotsRequestMarshaller().marshall(super.beforeMarshalling(describeSnapshotsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSnapshots");
@@ -2678,6 +4280,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeSnapshotsResult> responseHandler = new StaxResponseHandler<DescribeSnapshotsResult>(
                     new DescribeSnapshotsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2729,6 +4332,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new DescribeUpdateActionsRequestMarshaller().marshall(super.beforeMarshalling(describeUpdateActionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeUpdateActions");
@@ -2740,6 +4345,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<DescribeUpdateActionsResult> responseHandler = new StaxResponseHandler<DescribeUpdateActionsResult>(
                     new DescribeUpdateActionsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2752,9 +4358,396 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Dynamically increases the number of replics in a Redis (cluster mode disabled) replication group or the number of
-     * replica nodes in one or more node groups (shards) of a Redis (cluster mode enabled) replication group. This
-     * operation is performed with no cluster down time.
+     * Returns a list of user groups.
+     * </p>
+     * 
+     * @param describeUserGroupsRequest
+     * @return Result of the DescribeUserGroups operation returned by the service.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.DescribeUserGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeUserGroups" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeUserGroupsResult describeUserGroups(DescribeUserGroupsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeUserGroups(request);
+    }
+
+    @SdkInternalApi
+    final DescribeUserGroupsResult executeDescribeUserGroups(DescribeUserGroupsRequest describeUserGroupsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeUserGroupsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeUserGroupsRequest> request = null;
+        Response<DescribeUserGroupsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeUserGroupsRequestMarshaller().marshall(super.beforeMarshalling(describeUserGroupsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeUserGroups");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DescribeUserGroupsResult> responseHandler = new StaxResponseHandler<DescribeUserGroupsResult>(
+                    new DescribeUserGroupsResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of users.
+     * </p>
+     * 
+     * @param describeUsersRequest
+     * @return Result of the DescribeUsers operation returned by the service.
+     * @throws UserNotFoundException
+     *         The user does not exist or could not be found.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.DescribeUsers
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeUsers" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DescribeUsersResult describeUsers(DescribeUsersRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeUsers(request);
+    }
+
+    @SdkInternalApi
+    final DescribeUsersResult executeDescribeUsers(DescribeUsersRequest describeUsersRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeUsersRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeUsersRequest> request = null;
+        Response<DescribeUsersResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeUsersRequestMarshaller().marshall(super.beforeMarshalling(describeUsersRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeUsers");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<DescribeUsersResult> responseHandler = new StaxResponseHandler<DescribeUsersResult>(new DescribeUsersResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Remove a secondary cluster from the Global datastore using the Global datastore name. The secondary cluster will
+     * no longer receive updates from the primary cluster, but will remain as a standalone cluster in that Amazon
+     * region.
+     * </p>
+     * 
+     * @param disassociateGlobalReplicationGroupRequest
+     * @return Result of the DisassociateGlobalReplicationGroup operation returned by the service.
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.DisassociateGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DisassociateGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GlobalReplicationGroup disassociateGlobalReplicationGroup(DisassociateGlobalReplicationGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeDisassociateGlobalReplicationGroup(request);
+    }
+
+    @SdkInternalApi
+    final GlobalReplicationGroup executeDisassociateGlobalReplicationGroup(DisassociateGlobalReplicationGroupRequest disassociateGlobalReplicationGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(disassociateGlobalReplicationGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DisassociateGlobalReplicationGroupRequest> request = null;
+        Response<GlobalReplicationGroup> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DisassociateGlobalReplicationGroupRequestMarshaller()
+                        .marshall(super.beforeMarshalling(disassociateGlobalReplicationGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateGlobalReplicationGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GlobalReplicationGroup> responseHandler = new StaxResponseHandler<GlobalReplicationGroup>(
+                    new GlobalReplicationGroupStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides the functionality to export the serverless cache snapshot data to Amazon S3. Available for Redis OSS
+     * only.
+     * </p>
+     * 
+     * @param exportServerlessCacheSnapshotRequest
+     * @return Result of the ExportServerlessCacheSnapshot operation returned by the service.
+     * @throws ServerlessCacheSnapshotNotFoundException
+     *         This serverless cache snapshot could not be found or does not exist. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws InvalidServerlessCacheSnapshotStateException
+     *         The state of the serverless cache snapshot was not received. Available for Redis OSS and Serverless
+     *         Memcached only.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.ExportServerlessCacheSnapshot
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ExportServerlessCacheSnapshot"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ExportServerlessCacheSnapshotResult exportServerlessCacheSnapshot(ExportServerlessCacheSnapshotRequest request) {
+        request = beforeClientExecution(request);
+        return executeExportServerlessCacheSnapshot(request);
+    }
+
+    @SdkInternalApi
+    final ExportServerlessCacheSnapshotResult executeExportServerlessCacheSnapshot(ExportServerlessCacheSnapshotRequest exportServerlessCacheSnapshotRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(exportServerlessCacheSnapshotRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ExportServerlessCacheSnapshotRequest> request = null;
+        Response<ExportServerlessCacheSnapshotResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ExportServerlessCacheSnapshotRequestMarshaller().marshall(super.beforeMarshalling(exportServerlessCacheSnapshotRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ExportServerlessCacheSnapshot");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ExportServerlessCacheSnapshotResult> responseHandler = new StaxResponseHandler<ExportServerlessCacheSnapshotResult>(
+                    new ExportServerlessCacheSnapshotResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Used to failover the primary region to a secondary region. The secondary region will become primary, and all
+     * other clusters will become secondary.
+     * </p>
+     * 
+     * @param failoverGlobalReplicationGroupRequest
+     * @return Result of the FailoverGlobalReplicationGroup operation returned by the service.
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.FailoverGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/FailoverGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GlobalReplicationGroup failoverGlobalReplicationGroup(FailoverGlobalReplicationGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeFailoverGlobalReplicationGroup(request);
+    }
+
+    @SdkInternalApi
+    final GlobalReplicationGroup executeFailoverGlobalReplicationGroup(FailoverGlobalReplicationGroupRequest failoverGlobalReplicationGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(failoverGlobalReplicationGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<FailoverGlobalReplicationGroupRequest> request = null;
+        Response<GlobalReplicationGroup> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new FailoverGlobalReplicationGroupRequestMarshaller().marshall(super.beforeMarshalling(failoverGlobalReplicationGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "FailoverGlobalReplicationGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GlobalReplicationGroup> responseHandler = new StaxResponseHandler<GlobalReplicationGroup>(
+                    new GlobalReplicationGroupStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Increase the number of node groups in the Global datastore
+     * </p>
+     * 
+     * @param increaseNodeGroupsInGlobalReplicationGroupRequest
+     * @return Result of the IncreaseNodeGroupsInGlobalReplicationGroup operation returned by the service.
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.IncreaseNodeGroupsInGlobalReplicationGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/IncreaseNodeGroupsInGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GlobalReplicationGroup increaseNodeGroupsInGlobalReplicationGroup(IncreaseNodeGroupsInGlobalReplicationGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeIncreaseNodeGroupsInGlobalReplicationGroup(request);
+    }
+
+    @SdkInternalApi
+    final GlobalReplicationGroup executeIncreaseNodeGroupsInGlobalReplicationGroup(
+            IncreaseNodeGroupsInGlobalReplicationGroupRequest increaseNodeGroupsInGlobalReplicationGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(increaseNodeGroupsInGlobalReplicationGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<IncreaseNodeGroupsInGlobalReplicationGroupRequest> request = null;
+        Response<GlobalReplicationGroup> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new IncreaseNodeGroupsInGlobalReplicationGroupRequestMarshaller().marshall(super
+                        .beforeMarshalling(increaseNodeGroupsInGlobalReplicationGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "IncreaseNodeGroupsInGlobalReplicationGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GlobalReplicationGroup> responseHandler = new StaxResponseHandler<GlobalReplicationGroup>(
+                    new GlobalReplicationGroupStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Dynamically increases the number of replicas in a Redis OSS (cluster mode disabled) replication group or the
+     * number of replica nodes in one or more node groups (shards) of a Redis OSS (cluster mode enabled) replication
+     * group. This operation is performed with no cluster down time.
      * </p>
      * 
      * @param increaseReplicaCountRequest
@@ -2781,6 +4774,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      *         The request cannot be processed because it would exceed the allowed number of cache nodes per customer.
      * @throws NoOperationException
      *         The operation was not performed because no changes were required.
+     * @throws InvalidKMSKeyException
+     *         The KMS key supplied is not valid.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -2810,6 +4805,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new IncreaseReplicaCountRequestMarshaller().marshall(super.beforeMarshalling(increaseReplicaCountRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "IncreaseReplicaCount");
@@ -2820,6 +4817,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<ReplicationGroup> responseHandler = new StaxResponseHandler<ReplicationGroup>(new ReplicationGroupStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2832,13 +4830,13 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Lists all available node types that you can scale your Redis cluster's or replication group's current node type
-     * up to.
+     * Lists all available node types that you can scale your Redis OSS cluster's or replication group's current node
+     * type.
      * </p>
      * <p>
-     * When you use the <code>ModifyCacheCluster</code> or <code>ModifyReplicationGroup</code> operations to scale up
-     * your cluster or replication group, the value of the <code>CacheNodeType</code> parameter must be one of the node
-     * types returned by this operation.
+     * When you use the <code>ModifyCacheCluster</code> or <code>ModifyReplicationGroup</code> operations to scale your
+     * cluster or replication group, the value of the <code>CacheNodeType</code> parameter must be one of the node types
+     * returned by this operation.
      * </p>
      * 
      * @param listAllowedNodeTypeModificationsRequest
@@ -2878,6 +4876,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new ListAllowedNodeTypeModificationsRequestMarshaller().marshall(super.beforeMarshalling(listAllowedNodeTypeModificationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAllowedNodeTypeModifications");
@@ -2889,6 +4889,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<ListAllowedNodeTypeModificationsResult> responseHandler = new StaxResponseHandler<ListAllowedNodeTypeModificationsResult>(
                     new ListAllowedNodeTypeModificationsResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2906,16 +4907,18 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Lists all cost allocation tags currently on the named resource. A <code>cost allocation tag</code> is a key-value
-     * pair where the key is case-sensitive and the value is optional. You can use cost allocation tags to categorize
-     * and track your AWS costs.
+     * Lists all tags currently on a named resource.
+     * </p>
+     * <p>
+     * A tag is a key-value pair where the key and value are case-sensitive. You can use tags to categorize and track
+     * all your ElastiCache resources, with the exception of global replication group. When you add or remove tags on
+     * replication groups, those actions will be replicated to all nodes in the replication group. For more information,
+     * see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.ResourceLevelPermissions.html">Resource
+     * -level permissions</a>.
      * </p>
      * <p>
      * If the cluster is not in the <i>available</i> state, <code>ListTagsForResource</code> returns an error.
-     * </p>
-     * <p>
-     * You can have a maximum of 50 cost allocation tags on an ElastiCache resource. For more information, see <a
-     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Tagging.html">Monitoring Costs with Tags</a>.
      * </p>
      * 
      * @param listTagsForResourceRequest
@@ -2923,8 +4926,34 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * @return Result of the ListTagsForResource operation returned by the service.
      * @throws CacheClusterNotFoundException
      *         The requested cluster ID does not refer to an existing cluster.
+     * @throws CacheParameterGroupNotFoundException
+     *         The requested cache parameter group name does not refer to an existing cache parameter group.
+     * @throws CacheSecurityGroupNotFoundException
+     *         The requested cache security group name does not refer to an existing cache security group.
+     * @throws CacheSubnetGroupNotFoundException
+     *         The requested cache subnet group name does not refer to an existing cache subnet group.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws ReservedCacheNodeNotFoundException
+     *         The requested reserved cache node was not found.
      * @throws SnapshotNotFoundException
      *         The requested snapshot name does not refer to an existing snapshot.
+     * @throws UserNotFoundException
+     *         The user does not exist or could not be found.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws InvalidServerlessCacheStateException
+     *         The account for these credentials is not currently active.
+     * @throws ServerlessCacheSnapshotNotFoundException
+     *         This serverless cache snapshot could not be found or does not exist. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws InvalidServerlessCacheSnapshotStateException
+     *         The state of the serverless cache snapshot was not received. Available for Redis OSS and Serverless
+     *         Memcached only.
      * @throws InvalidARNException
      *         The requested Amazon Resource Name (ARN) does not refer to an existing resource.
      * @sample AmazonElastiCache.ListTagsForResource
@@ -2952,6 +4981,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new ListTagsForResourceRequestMarshaller().marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
@@ -2963,6 +4994,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<ListTagsForResourceResult> responseHandler = new StaxResponseHandler<ListTagsForResourceResult>(
                     new ListTagsForResourceResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3033,6 +5065,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new ModifyCacheClusterRequestMarshaller().marshall(super.beforeMarshalling(modifyCacheClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyCacheCluster");
@@ -3043,6 +5077,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<CacheCluster> responseHandler = new StaxResponseHandler<CacheCluster>(new CacheClusterStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3070,6 +5105,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
      *         Two or more incompatible parameters were specified.
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
      * @sample AmazonElastiCache.ModifyCacheParameterGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyCacheParameterGroup"
      *      target="_top">AWS API Documentation</a>
@@ -3095,6 +5132,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new ModifyCacheParameterGroupRequestMarshaller().marshall(super.beforeMarshalling(modifyCacheParameterGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyCacheParameterGroup");
@@ -3106,6 +5145,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<ModifyCacheParameterGroupResult> responseHandler = new StaxResponseHandler<ModifyCacheParameterGroupResult>(
                     new ModifyCacheParameterGroupResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3133,6 +5173,10 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      *         The requested subnet is being used by another cache subnet group.
      * @throws InvalidSubnetException
      *         An invalid subnet identifier was specified.
+     * @throws SubnetNotAllowedException
+     *         At least one subnet ID does not match the other subnet IDs. This mismatch typically occurs when a user
+     *         sets one subnet ID to a regional Availability Zone and a different one to an outpost. Or when a user sets
+     *         the subnet ID to an Outpost when not subscribed on this service.
      * @sample AmazonElastiCache.ModifyCacheSubnetGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyCacheSubnetGroup"
      *      target="_top">AWS API Documentation</a>
@@ -3158,6 +5202,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new ModifyCacheSubnetGroupRequestMarshaller().marshall(super.beforeMarshalling(modifyCacheSubnetGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyCacheSubnetGroup");
@@ -3168,6 +5214,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<CacheSubnetGroup> responseHandler = new StaxResponseHandler<CacheSubnetGroup>(new CacheSubnetGroupStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3180,17 +5227,75 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Modifies the settings for a replication group.
+     * Modifies the settings for a Global datastore.
      * </p>
+     * 
+     * @param modifyGlobalReplicationGroupRequest
+     * @return Result of the ModifyGlobalReplicationGroup operation returned by the service.
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.ModifyGlobalReplicationGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GlobalReplicationGroup modifyGlobalReplicationGroup(ModifyGlobalReplicationGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyGlobalReplicationGroup(request);
+    }
+
+    @SdkInternalApi
+    final GlobalReplicationGroup executeModifyGlobalReplicationGroup(ModifyGlobalReplicationGroupRequest modifyGlobalReplicationGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyGlobalReplicationGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyGlobalReplicationGroupRequest> request = null;
+        Response<GlobalReplicationGroup> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyGlobalReplicationGroupRequestMarshaller().marshall(super.beforeMarshalling(modifyGlobalReplicationGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyGlobalReplicationGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GlobalReplicationGroup> responseHandler = new StaxResponseHandler<GlobalReplicationGroup>(
+                    new GlobalReplicationGroupStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
      * <p>
-     * For Redis (cluster mode enabled) clusters, this operation cannot be used to change a cluster's node type or
-     * engine version. For more information, see:
+     * Modifies the settings for a replication group. This is limited to Redis OSS 7 and newer.
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/scaling-redis-cluster-mode-enabled.html">
-     * Scaling for Amazon ElastiCache for Redis (cluster mode enabled)</a> in the ElastiCache User Guide
+     * Scaling for Amazon ElastiCache (Redis OSS) (cluster mode enabled)</a> in the ElastiCache User Guide
      * </p>
      * </li>
      * <li>
@@ -3203,7 +5308,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * </ul>
      * <note>
      * <p>
-     * This operation is valid for Redis only.
+     * This operation is valid for Redis OSS only.
      * </p>
      * </note>
      * 
@@ -3214,6 +5319,10 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      *         The specified replication group does not exist.
      * @throws InvalidReplicationGroupStateException
      *         The requested replication group is not in the <code>available</code> state.
+     * @throws InvalidUserGroupStateException
+     *         The user group is not in an active state.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
      * @throws InvalidCacheClusterStateException
      *         The requested cluster is not in the <code>available</code> state.
      * @throws InvalidCacheSecurityGroupStateException
@@ -3236,6 +5345,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      *         The requested cache parameter group name does not refer to an existing cache parameter group.
      * @throws InvalidVPCNetworkStateException
      *         The VPC network is in an invalid state.
+     * @throws InvalidKMSKeyException
+     *         The KMS key supplied is not valid.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -3265,6 +5376,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new ModifyReplicationGroupRequestMarshaller().marshall(super.beforeMarshalling(modifyReplicationGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyReplicationGroup");
@@ -3275,6 +5388,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<ReplicationGroup> responseHandler = new StaxResponseHandler<ReplicationGroup>(new ReplicationGroupStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3288,7 +5402,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
     /**
      * <p>
      * Modifies a replication group's shards (node groups) by allowing you to add shards, remove shards, or rebalance
-     * the keyspaces among exisiting shards.
+     * the keyspaces among existing shards.
      * </p>
      * 
      * @param modifyReplicationGroupShardConfigurationRequest
@@ -3312,6 +5426,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      *         (shards) in a single replication group. The default maximum is 90
      * @throws NodeQuotaForCustomerExceededException
      *         The request cannot be processed because it would exceed the allowed number of cache nodes per customer.
+     * @throws InvalidKMSKeyException
+     *         The KMS key supplied is not valid.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -3344,6 +5460,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                         .beforeMarshalling(modifyReplicationGroupShardConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyReplicationGroupShardConfiguration");
@@ -3354,6 +5472,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<ReplicationGroup> responseHandler = new StaxResponseHandler<ReplicationGroup>(new ReplicationGroupStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3366,7 +5485,221 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Allows you to purchase a reserved cache node offering.
+     * This API modifies the attributes of a serverless cache.
+     * </p>
+     * 
+     * @param modifyServerlessCacheRequest
+     * @return Result of the ModifyServerlessCache operation returned by the service.
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws InvalidServerlessCacheStateException
+     *         The account for these credentials is not currently active.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @throws InvalidCredentialsException
+     *         You must enter valid credentials.
+     * @throws InvalidUserGroupStateException
+     *         The user group is not in an active state.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @sample AmazonElastiCache.ModifyServerlessCache
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyServerlessCache"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ModifyServerlessCacheResult modifyServerlessCache(ModifyServerlessCacheRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyServerlessCache(request);
+    }
+
+    @SdkInternalApi
+    final ModifyServerlessCacheResult executeModifyServerlessCache(ModifyServerlessCacheRequest modifyServerlessCacheRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyServerlessCacheRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyServerlessCacheRequest> request = null;
+        Response<ModifyServerlessCacheResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyServerlessCacheRequestMarshaller().marshall(super.beforeMarshalling(modifyServerlessCacheRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyServerlessCache");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ModifyServerlessCacheResult> responseHandler = new StaxResponseHandler<ModifyServerlessCacheResult>(
+                    new ModifyServerlessCacheResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Changes user password(s) and/or access string.
+     * </p>
+     * 
+     * @param modifyUserRequest
+     * @return Result of the ModifyUser operation returned by the service.
+     * @throws UserNotFoundException
+     *         The user does not exist or could not be found.
+     * @throws InvalidUserStateException
+     *         The user is not in active state.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.ModifyUser
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyUser" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ModifyUserResult modifyUser(ModifyUserRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyUser(request);
+    }
+
+    @SdkInternalApi
+    final ModifyUserResult executeModifyUser(ModifyUserRequest modifyUserRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyUserRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyUserRequest> request = null;
+        Response<ModifyUserResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyUserRequestMarshaller().marshall(super.beforeMarshalling(modifyUserRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyUser");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ModifyUserResult> responseHandler = new StaxResponseHandler<ModifyUserResult>(new ModifyUserResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Changes the list of users that belong to the user group.
+     * </p>
+     * 
+     * @param modifyUserGroupRequest
+     * @return Result of the ModifyUserGroup operation returned by the service.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
+     * @throws UserNotFoundException
+     *         The user does not exist or could not be found.
+     * @throws DuplicateUserNameException
+     *         A user with this username already exists.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws DefaultUserRequiredException
+     *         You must add default user to a user group.
+     * @throws InvalidUserGroupStateException
+     *         The user group is not in an active state.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.ModifyUserGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyUserGroup" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ModifyUserGroupResult modifyUserGroup(ModifyUserGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeModifyUserGroup(request);
+    }
+
+    @SdkInternalApi
+    final ModifyUserGroupResult executeModifyUserGroup(ModifyUserGroupRequest modifyUserGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(modifyUserGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ModifyUserGroupRequest> request = null;
+        Response<ModifyUserGroupResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ModifyUserGroupRequestMarshaller().marshall(super.beforeMarshalling(modifyUserGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyUserGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ModifyUserGroupResult> responseHandler = new StaxResponseHandler<ModifyUserGroupResult>(
+                    new ModifyUserGroupResultStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Allows you to purchase a reserved cache node offering. Reserved nodes are not eligible for cancellation and are
+     * non-refundable. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/reserved-nodes.html">Managing Costs with
+     * Reserved Nodes</a> for Redis OSS or <a
+     * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/reserved-nodes.html">Managing Costs with
+     * Reserved Nodes</a> for Memcached.
      * </p>
      * 
      * @param purchaseReservedCacheNodesOfferingRequest
@@ -3378,6 +5711,9 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      *         You already have a reservation with the given identifier.
      * @throws ReservedCacheNodeQuotaExceededException
      *         The request cannot be processed because it would exceed the user's cache node quota.
+     * @throws TagQuotaPerResourceExceededException
+     *         The request cannot be processed because it would cause the resource to have more than the allowed number
+     *         of tags. The maximum number of tags permitted on a resource is 50.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -3408,6 +5744,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                         .marshall(super.beforeMarshalling(purchaseReservedCacheNodesOfferingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PurchaseReservedCacheNodesOffering");
@@ -3418,6 +5756,72 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<ReservedCacheNode> responseHandler = new StaxResponseHandler<ReservedCacheNode>(new ReservedCacheNodeStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Redistribute slots to ensure uniform distribution across existing shards in the cluster.
+     * </p>
+     * 
+     * @param rebalanceSlotsInGlobalReplicationGroupRequest
+     * @return Result of the RebalanceSlotsInGlobalReplicationGroup operation returned by the service.
+     * @throws GlobalReplicationGroupNotFoundException
+     *         The Global datastore does not exist
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.RebalanceSlotsInGlobalReplicationGroup
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/RebalanceSlotsInGlobalReplicationGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GlobalReplicationGroup rebalanceSlotsInGlobalReplicationGroup(RebalanceSlotsInGlobalReplicationGroupRequest request) {
+        request = beforeClientExecution(request);
+        return executeRebalanceSlotsInGlobalReplicationGroup(request);
+    }
+
+    @SdkInternalApi
+    final GlobalReplicationGroup executeRebalanceSlotsInGlobalReplicationGroup(
+            RebalanceSlotsInGlobalReplicationGroupRequest rebalanceSlotsInGlobalReplicationGroupRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(rebalanceSlotsInGlobalReplicationGroupRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RebalanceSlotsInGlobalReplicationGroupRequest> request = null;
+        Response<GlobalReplicationGroup> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RebalanceSlotsInGlobalReplicationGroupRequestMarshaller().marshall(super
+                        .beforeMarshalling(rebalanceSlotsInGlobalReplicationGroupRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RebalanceSlotsInGlobalReplicationGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GlobalReplicationGroup> responseHandler = new StaxResponseHandler<GlobalReplicationGroup>(
+                    new GlobalReplicationGroupStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3441,13 +5845,13 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * When the reboot is complete, a cluster event is created.
      * </p>
      * <p>
-     * Rebooting a cluster is currently supported on Memcached and Redis (cluster mode disabled) clusters. Rebooting is
-     * not supported on Redis (cluster mode enabled) clusters.
+     * Rebooting a cluster is currently supported on Memcached and Redis OSS (cluster mode disabled) clusters. Rebooting
+     * is not supported on Redis OSS (cluster mode enabled) clusters.
      * </p>
      * <p>
-     * If you make changes to parameters that require a Redis (cluster mode enabled) cluster reboot for the changes to
-     * be applied, see <a
-     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html">Rebooting a Cluster</a>
+     * If you make changes to parameters that require a Redis OSS (cluster mode enabled) cluster reboot for the changes
+     * to be applied, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/nodes.rebooting.html">Rebooting a Cluster</a>
      * for an alternate process.
      * </p>
      * 
@@ -3483,6 +5887,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new RebootCacheClusterRequestMarshaller().marshall(super.beforeMarshalling(rebootCacheClusterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RebootCacheCluster");
@@ -3493,6 +5899,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<CacheCluster> responseHandler = new StaxResponseHandler<CacheCluster>(new CacheClusterStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3505,7 +5912,12 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Removes the tags identified by the <code>TagKeys</code> list from the named resource.
+     * Removes the tags identified by the <code>TagKeys</code> list from the named resource. A tag is a key-value pair
+     * where the key and value are case-sensitive. You can use tags to categorize and track all your ElastiCache
+     * resources, with the exception of global replication group. When you add or remove tags on replication groups,
+     * those actions will be replicated to all nodes in the replication group. For more information, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.ResourceLevelPermissions.html"
+     * >Resource-level permissions</a>.
      * </p>
      * 
      * @param removeTagsFromResourceRequest
@@ -3513,8 +5925,34 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * @return Result of the RemoveTagsFromResource operation returned by the service.
      * @throws CacheClusterNotFoundException
      *         The requested cluster ID does not refer to an existing cluster.
+     * @throws CacheParameterGroupNotFoundException
+     *         The requested cache parameter group name does not refer to an existing cache parameter group.
+     * @throws CacheSecurityGroupNotFoundException
+     *         The requested cache security group name does not refer to an existing cache security group.
+     * @throws CacheSubnetGroupNotFoundException
+     *         The requested cache subnet group name does not refer to an existing cache subnet group.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws ReservedCacheNodeNotFoundException
+     *         The requested reserved cache node was not found.
      * @throws SnapshotNotFoundException
      *         The requested snapshot name does not refer to an existing snapshot.
+     * @throws UserNotFoundException
+     *         The user does not exist or could not be found.
+     * @throws UserGroupNotFoundException
+     *         The user group was not found or does not exist
+     * @throws ServerlessCacheNotFoundException
+     *         The serverless cache was not found or does not exist.
+     * @throws InvalidServerlessCacheStateException
+     *         The account for these credentials is not currently active.
+     * @throws ServerlessCacheSnapshotNotFoundException
+     *         This serverless cache snapshot could not be found or does not exist. Available for Redis OSS and
+     *         Serverless Memcached only.
+     * @throws InvalidServerlessCacheSnapshotStateException
+     *         The state of the serverless cache snapshot was not received. Available for Redis OSS and Serverless
+     *         Memcached only.
      * @throws InvalidARNException
      *         The requested Amazon Resource Name (ARN) does not refer to an existing resource.
      * @throws TagNotFoundException
@@ -3544,6 +5982,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new RemoveTagsFromResourceRequestMarshaller().marshall(super.beforeMarshalling(removeTagsFromResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveTagsFromResource");
@@ -3555,6 +5995,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<RemoveTagsFromResourceResult> responseHandler = new StaxResponseHandler<RemoveTagsFromResourceResult>(
                     new RemoveTagsFromResourceResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3583,6 +6024,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
      *         Two or more incompatible parameters were specified.
+     * @throws InvalidGlobalReplicationGroupStateException
+     *         The Global datastore is not available or in primary-only state.
      * @sample AmazonElastiCache.ResetCacheParameterGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ResetCacheParameterGroup"
      *      target="_top">AWS API Documentation</a>
@@ -3608,6 +6051,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new ResetCacheParameterGroupRequestMarshaller().marshall(super.beforeMarshalling(resetCacheParameterGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ResetCacheParameterGroup");
@@ -3619,6 +6064,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
             StaxResponseHandler<ResetCacheParameterGroupResult> responseHandler = new StaxResponseHandler<ResetCacheParameterGroupResult>(
                     new ResetCacheParameterGroupResultStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3673,6 +6119,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new RevokeCacheSecurityGroupIngressRequestMarshaller().marshall(super.beforeMarshalling(revokeCacheSecurityGroupIngressRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RevokeCacheSecurityGroupIngress");
@@ -3683,6 +6131,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<CacheSecurityGroup> responseHandler = new StaxResponseHandler<CacheSecurityGroup>(new CacheSecurityGroupStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3695,8 +6144,76 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * Represents the input of a <code>TestFailover</code> operation which test automatic failover on a specified node
+     * Start the migration of data.
+     * </p>
+     * 
+     * @param startMigrationRequest
+     * @return Result of the StartMigration operation returned by the service.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws ReplicationGroupAlreadyUnderMigrationException
+     *         The targeted replication group is not available.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.StartMigration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/StartMigration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ReplicationGroup startMigration(StartMigrationRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartMigration(request);
+    }
+
+    @SdkInternalApi
+    final ReplicationGroup executeStartMigration(StartMigrationRequest startMigrationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startMigrationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartMigrationRequest> request = null;
+        Response<ReplicationGroup> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartMigrationRequestMarshaller().marshall(super.beforeMarshalling(startMigrationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartMigration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ReplicationGroup> responseHandler = new StaxResponseHandler<ReplicationGroup>(new ReplicationGroupStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Represents the input of a <code>TestFailover</code> operation which tests automatic failover on a specified node
      * group (called shard in the console) in a replication group (called cluster in the console).
+     * </p>
+     * <p>
+     * This API is designed for testing the behavior of your application in case of ElastiCache failover. It is not
+     * designed to be an operational tool for initiating a failover to overcome a problem you may have with the cluster.
+     * Moreover, in certain conditions such as large-scale operational events, Amazon may block this API.
      * </p>
      * <p class="title">
      * <b>Note the following</b>
@@ -3704,8 +6221,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * <ul>
      * <li>
      * <p>
-     * A customer can use this operation to test automatic failover on up to 5 shards (called node groups in the
-     * ElastiCache API and AWS CLI) in any rolling 24-hour period.
+     * A customer can use this operation to test automatic failover on up to 15 shards (called node groups in the
+     * ElastiCache API and Amazon CLI) in any rolling 24-hour period.
      * </p>
      * </li>
      * <li>
@@ -3717,14 +6234,14 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * </p></li>
      * <li>
      * <p>
-     * If calling this operation multiple times on different shards in the same Redis (cluster mode enabled) replication
-     * group, the first node replacement must complete before a subsequent call can be made.
+     * If calling this operation multiple times on different shards in the same Redis OSS (cluster mode enabled)
+     * replication group, the first node replacement must complete before a subsequent call can be made.
      * </p>
      * </li>
      * <li>
      * <p>
      * To determine whether the node replacement is complete you can check Events using the Amazon ElastiCache console,
-     * the AWS CLI, or the ElastiCache API. Look for the following automatic failover related events, listed here in
+     * the Amazon CLI, or the ElastiCache API. Look for the following automatic failover related events, listed here in
      * order of occurrance:
      * </p>
      * <ol>
@@ -3736,13 +6253,13 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * <li>
      * <p>
      * Cache cluster message:
-     * <code>Failover from master node &lt;primary-node-id&gt; to replica node &lt;node-id&gt; completed</code>
+     * <code>Failover from primary node &lt;primary-node-id&gt; to replica node &lt;node-id&gt; completed</code>
      * </p>
      * </li>
      * <li>
      * <p>
      * Replication group message:
-     * <code>Failover from master node &lt;primary-node-id&gt; to replica node &lt;node-id&gt; completed</code>
+     * <code>Failover from primary node &lt;primary-node-id&gt; to replica node &lt;node-id&gt; completed</code>
      * </p>
      * </li>
      * <li>
@@ -3779,7 +6296,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      * <p>
      * Also see, <a
      * href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html#auto-failover-test">Testing
-     * Multi-AZ with Automatic Failover</a> in the <i>ElastiCache User Guide</i>.
+     * Multi-AZ </a> in the <i>ElastiCache User Guide</i>.
      * </p>
      * 
      * @param testFailoverRequest
@@ -3797,6 +6314,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
      *         The specified replication group does not exist.
      * @throws TestFailoverNotAvailableException
      *         The <code>TestFailover</code> action is not available.
+     * @throws InvalidKMSKeyException
+     *         The KMS key supplied is not valid.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -3826,6 +6345,8 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
                 request = new TestFailoverRequestMarshaller().marshall(super.beforeMarshalling(testFailoverRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TestFailover");
@@ -3836,6 +6357,70 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
             }
 
             StaxResponseHandler<ReplicationGroup> responseHandler = new StaxResponseHandler<ReplicationGroup>(new ReplicationGroupStaxUnmarshaller());
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Async API to test connection between source and target replication group.
+     * </p>
+     * 
+     * @param testMigrationRequest
+     * @return Result of the TestMigration operation returned by the service.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws ReplicationGroupAlreadyUnderMigrationException
+     *         The targeted replication group is not available.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @sample AmazonElastiCache.TestMigration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/TestMigration" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ReplicationGroup testMigration(TestMigrationRequest request) {
+        request = beforeClientExecution(request);
+        return executeTestMigration(request);
+    }
+
+    @SdkInternalApi
+    final ReplicationGroup executeTestMigration(TestMigrationRequest testMigrationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(testMigrationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TestMigrationRequest> request = null;
+        Response<ReplicationGroup> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TestMigrationRequestMarshaller().marshall(super.beforeMarshalling(testMigrationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ElastiCache");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TestMigration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<ReplicationGroup> responseHandler = new StaxResponseHandler<ReplicationGroup>(new ReplicationGroupStaxUnmarshaller());
+
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3912,7 +6497,7 @@ public class AmazonElastiCacheClient extends AmazonWebServiceClient implements A
 
         request.setTimeOffset(timeOffset);
 
-        DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallers);
+        DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallersMap, defaultUnmarshaller);
 
         return client.execute(request, responseHandler, errorResponseHandler, executionContext);
     }

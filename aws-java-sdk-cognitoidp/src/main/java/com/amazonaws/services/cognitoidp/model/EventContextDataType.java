@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,7 +30,7 @@ public class EventContextDataType implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The user's IP address.
+     * The source IP address of your user's device.
      * </p>
      */
     private String ipAddress;
@@ -61,11 +61,11 @@ public class EventContextDataType implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The user's IP address.
+     * The source IP address of your user's device.
      * </p>
      * 
      * @param ipAddress
-     *        The user's IP address.
+     *        The source IP address of your user's device.
      */
 
     public void setIpAddress(String ipAddress) {
@@ -74,10 +74,10 @@ public class EventContextDataType implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The user's IP address.
+     * The source IP address of your user's device.
      * </p>
      * 
-     * @return The user's IP address.
+     * @return The source IP address of your user's device.
      */
 
     public String getIpAddress() {
@@ -86,11 +86,11 @@ public class EventContextDataType implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The user's IP address.
+     * The source IP address of your user's device.
      * </p>
      * 
      * @param ipAddress
-     *        The user's IP address.
+     *        The source IP address of your user's device.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

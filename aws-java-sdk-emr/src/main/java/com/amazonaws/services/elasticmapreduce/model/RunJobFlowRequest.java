@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,6 +43,13 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
     private String logUri;
     /**
      * <p>
+     * The KMS key used for encrypting log files. If a value is not provided, the logs remain encrypted by AES-256. This
+     * attribute is only available with Amazon EMR releases 5.30.0 and later, excluding Amazon EMR 6.0.0.
+     * </p>
+     */
+    private String logEncryptionKmsKeyId;
+    /**
+     * <p>
      * A JSON string for selecting additional features.
      * </p>
      */
@@ -57,11 +64,11 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * The Amazon EMR release label, which determines the version of open-source application packages installed on the
-     * cluster. Release labels are in the form <code>emr-x.x.x</code>, where x.x.x is an Amazon EMR release version, for
-     * example, <code>emr-5.14.0</code>. For more information about Amazon EMR release versions and included application
+     * cluster. Release labels are in the form <code>emr-x.x.x</code>, where x.x.x is an Amazon EMR release version such
+     * as <code>emr-5.14.0</code>. For more information about Amazon EMR release versions and included application
      * versions and features, see <a
      * href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">https://docs.aws.amazon.
-     * com/emr/latest/ReleaseGuide/</a>. The release label applies only to Amazon EMR releases versions 4.x and later.
+     * com/emr/latest/ReleaseGuide/</a>. The release label applies only to Amazon EMR releases version 4.0 and later.
      * Earlier versions use <code>AmiVersion</code>.
      * </p>
      */
@@ -117,7 +124,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </note>
      * <p>
      * A list of strings that indicates third-party software to use with the job flow that accepts a user argument list.
-     * EMR accepts and forwards the argument list to the corresponding installation script as bootstrap action
+     * Amazon EMR accepts and forwards the argument list to the corresponding installation script as bootstrap action
      * arguments. For more information, see "Launch a Job Flow on the MapR Distribution for Hadoop" in the <a
      * href="https://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-dg.pdf">Amazon EMR Developer Guide</a>. Supported
      * values are:
@@ -146,7 +153,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * "hunk" - launch the cluster with the Hunk Big Data Analtics Platform.
+     * "hunk" - launch the cluster with the Hunk Big Data Analytics Platform.
      * </p>
      * </li>
      * <li>
@@ -171,36 +178,51 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * <p>
      * Applies to Amazon EMR releases 4.0 and later. A case-insensitive list of applications for Amazon EMR to install
      * and configure when launching the cluster. For a list of applications available for each Amazon EMR release
-     * version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMR Release Guide</a>.
+     * version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMRRelease Guide</a>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Application> applications;
     /**
      * <p>
-     * For Amazon EMR releases 4.0 and later. The list of configurations supplied for the EMR cluster you are creating.
+     * For Amazon EMR releases 4.0 and later. The list of configurations supplied for the Amazon EMR cluster that you
+     * are creating.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Configuration> configurations;
     /**
+     * <important>
      * <p>
-     * Whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this value is
-     * set to <code>true</code>, all IAM users of that AWS account can view and (if they have the proper policy
-     * permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM user that created the
-     * cluster can view and manage it.
+     * The VisibleToAllUsers parameter is no longer supported. By default, the value is set to <code>true</code>.
+     * Setting it to <code>false</code> now has no effect.
+     * </p>
+     * </important>
+     * <p>
+     * Set this value to <code>true</code> so that IAM principals in the Amazon Web Services account associated with the
+     * cluster can perform Amazon EMR actions on the cluster that their IAM policies allow. This value defaults to
+     * <code>true</code> for clusters created using the Amazon EMR API or the CLI <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a> command.
+     * </p>
+     * <p>
+     * When set to <code>false</code>, only the IAM principal that created the cluster and the Amazon Web Services
+     * account root user can perform Amazon EMR actions for the cluster, regardless of the IAM permissions policies
+     * attached to other IAM principals. For more information, see <a href=
+     * "https://docs.aws.amazon.com/emr/latest/ManagementGuide/security_IAM_emr-with-IAM.html#security_set_visible_to_all_users"
+     * >Understanding the Amazon EMR cluster VisibleToAllUsers setting</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
      */
     private Boolean visibleToAllUsers;
     /**
      * <p>
-     * Also called instance profile and EC2 role. An IAM role for an EMR cluster. The EC2 instances of the cluster
-     * assume this role. The default role is <code>EMR_EC2_DefaultRole</code>. In order to use the default role, you
-     * must have already created it using the CLI or console.
+     * Also called instance profile and Amazon EC2 role. An IAM role for an Amazon EMR cluster. The Amazon EC2 instances
+     * of the cluster assume this role. The default role is <code>EMR_EC2_DefaultRole</code>. In order to use the
+     * default role, you must have already created it using the CLI or console.
      * </p>
      */
     private String jobFlowRole;
     /**
      * <p>
-     * The IAM role that will be assumed by the Amazon EMR service to access AWS resources on your behalf.
+     * The IAM role that Amazon EMR assumes in order to access Amazon Web Services resources on your behalf. If you've
+     * created a custom service role path, you must specify it for the service role when you launch your cluster.
      * </p>
      */
     private String serviceRole;
@@ -219,8 +241,8 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * An IAM role for automatic scaling policies. The default role is <code>EMR_AutoScaling_DefaultRole</code>. The IAM
-     * role provides permissions that the automatic scaling feature requires to launch and terminate EC2 instances in an
-     * instance group.
+     * role provides permissions that the automatic scaling feature requires to launch and terminate Amazon EC2
+     * instances in an instance group.
      * </p>
      */
     private String autoScalingRole;
@@ -230,22 +252,22 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * instance group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates nodes at
      * the instance-hour boundary, regardless of when the request to terminate the instance was submitted. This option
      * is only available with Amazon EMR 5.1.0 and later and is the default for clusters created using that version.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists and drains tasks from nodes before
-     * terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either behavior, Amazon EMR
-     * removes the least active nodes first and blocks instance termination if it could lead to HDFS corruption.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR version 4.1.0 and later, and is the
-     * default for versions of Amazon EMR earlier than 5.1.0.
+     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds nodes to a deny list and drains tasks
+     * from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either
+     * behavior, Amazon EMR removes the least active nodes first and blocks instance termination if it could lead to
+     * HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later,
+     * and is the default for releases of Amazon EMR earlier than 5.1.0.
      * </p>
      */
     private String scaleDownBehavior;
     /**
      * <p>
-     * Available only in Amazon EMR version 5.7.0 and later. The ID of a custom Amazon EBS-backed Linux AMI. If
-     * specified, Amazon EMR uses this AMI when it launches cluster EC2 instances. For more information about custom
-     * AMIs in Amazon EMR, see <a
+     * Available only in Amazon EMR releases 5.7.0 and later. The ID of a custom Amazon EBS-backed Linux AMI. If
+     * specified, Amazon EMR uses this AMI when it launches cluster Amazon EC2 instances. For more information about
+     * custom AMIs in Amazon EMR, see <a
      * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-custom-ami.html">Using a Custom AMI</a> in the
      * <i>Amazon EMR Management Guide</i>. If omitted, the cluster uses the base Linux AMI for the
-     * <code>ReleaseLabel</code> specified. For Amazon EMR versions 2.x and 3.x, use <code>AmiVersion</code> instead.
+     * <code>ReleaseLabel</code> specified. For Amazon EMR releases 2.x and 3.x, use <code>AmiVersion</code> instead.
      * </p>
      * <p>
      * For information about creating a custom AMI, see <a
@@ -258,8 +280,8 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
     private String customAmiId;
     /**
      * <p>
-     * The size, in GiB, of the EBS root device volume of the Linux AMI that is used for each EC2 instance. Available in
-     * Amazon EMR version 4.x and later.
+     * The size, in GiB, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2
+     * instance. Available in Amazon EMR releases 4.x and later.
      * </p>
      */
     private Integer ebsRootVolumeSize;
@@ -276,10 +298,52 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * <p>
      * Attributes for Kerberos configuration when Kerberos authentication is enabled using a security configuration. For
      * more information see <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-kerberos.html">Use
-     * Kerberos Authentication</a> in the <i>EMR Management Guide</i>.
+     * Kerberos Authentication</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
      */
     private KerberosAttributes kerberosAttributes;
+    /**
+     * <p>
+     * Specifies the number of steps that can be executed concurrently. The default value is <code>1</code>. The maximum
+     * value is <code>256</code>.
+     * </p>
+     */
+    private Integer stepConcurrencyLevel;
+    /**
+     * <p>
+     * The specified managed scaling policy for an Amazon EMR cluster.
+     * </p>
+     */
+    private ManagedScalingPolicy managedScalingPolicy;
+    /**
+     * <p>
+     * The specified placement group configuration for an Amazon EMR cluster.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<PlacementGroupConfig> placementGroupConfigs;
+
+    private AutoTerminationPolicy autoTerminationPolicy;
+    /**
+     * <p>
+     * Specifies a particular Amazon Linux release for all nodes in a cluster launch RunJobFlow request. If a release is
+     * not specified, Amazon EMR uses the latest validated Amazon Linux release for cluster launch.
+     * </p>
+     */
+    private String oSReleaseLabel;
+    /**
+     * <p>
+     * The IOPS, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2 instance.
+     * Available in Amazon EMR releases 6.15.0 and later.
+     * </p>
+     */
+    private Integer ebsRootVolumeIops;
+    /**
+     * <p>
+     * The throughput, in MiB/s, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2
+     * instance. Available in Amazon EMR releases 6.15.0 and later.
+     * </p>
+     */
+    private Integer ebsRootVolumeThroughput;
 
     /**
      * Default constructor for RunJobFlowRequest object. Callers should use the setter or fluent setter (with...)
@@ -390,6 +454,55 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
+     * The KMS key used for encrypting log files. If a value is not provided, the logs remain encrypted by AES-256. This
+     * attribute is only available with Amazon EMR releases 5.30.0 and later, excluding Amazon EMR 6.0.0.
+     * </p>
+     * 
+     * @param logEncryptionKmsKeyId
+     *        The KMS key used for encrypting log files. If a value is not provided, the logs remain encrypted by
+     *        AES-256. This attribute is only available with Amazon EMR releases 5.30.0 and later, excluding Amazon EMR
+     *        6.0.0.
+     */
+
+    public void setLogEncryptionKmsKeyId(String logEncryptionKmsKeyId) {
+        this.logEncryptionKmsKeyId = logEncryptionKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The KMS key used for encrypting log files. If a value is not provided, the logs remain encrypted by AES-256. This
+     * attribute is only available with Amazon EMR releases 5.30.0 and later, excluding Amazon EMR 6.0.0.
+     * </p>
+     * 
+     * @return The KMS key used for encrypting log files. If a value is not provided, the logs remain encrypted by
+     *         AES-256. This attribute is only available with Amazon EMR releases 5.30.0 and later, excluding Amazon EMR
+     *         6.0.0.
+     */
+
+    public String getLogEncryptionKmsKeyId() {
+        return this.logEncryptionKmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The KMS key used for encrypting log files. If a value is not provided, the logs remain encrypted by AES-256. This
+     * attribute is only available with Amazon EMR releases 5.30.0 and later, excluding Amazon EMR 6.0.0.
+     * </p>
+     * 
+     * @param logEncryptionKmsKeyId
+     *        The KMS key used for encrypting log files. If a value is not provided, the logs remain encrypted by
+     *        AES-256. This attribute is only available with Amazon EMR releases 5.30.0 and later, excluding Amazon EMR
+     *        6.0.0.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RunJobFlowRequest withLogEncryptionKmsKeyId(String logEncryptionKmsKeyId) {
+        setLogEncryptionKmsKeyId(logEncryptionKmsKeyId);
+        return this;
+    }
+
+    /**
+     * <p>
      * A JSON string for selecting additional features.
      * </p>
      * 
@@ -477,22 +590,22 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * The Amazon EMR release label, which determines the version of open-source application packages installed on the
-     * cluster. Release labels are in the form <code>emr-x.x.x</code>, where x.x.x is an Amazon EMR release version, for
-     * example, <code>emr-5.14.0</code>. For more information about Amazon EMR release versions and included application
+     * cluster. Release labels are in the form <code>emr-x.x.x</code>, where x.x.x is an Amazon EMR release version such
+     * as <code>emr-5.14.0</code>. For more information about Amazon EMR release versions and included application
      * versions and features, see <a
      * href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">https://docs.aws.amazon.
-     * com/emr/latest/ReleaseGuide/</a>. The release label applies only to Amazon EMR releases versions 4.x and later.
+     * com/emr/latest/ReleaseGuide/</a>. The release label applies only to Amazon EMR releases version 4.0 and later.
      * Earlier versions use <code>AmiVersion</code>.
      * </p>
      * 
      * @param releaseLabel
      *        The Amazon EMR release label, which determines the version of open-source application packages installed
      *        on the cluster. Release labels are in the form <code>emr-x.x.x</code>, where x.x.x is an Amazon EMR
-     *        release version, for example, <code>emr-5.14.0</code>. For more information about Amazon EMR release
-     *        versions and included application versions and features, see <a
+     *        release version such as <code>emr-5.14.0</code>. For more information about Amazon EMR release versions
+     *        and included application versions and features, see <a
      *        href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/"
      *        >https://docs.aws.amazon.com/emr/latest/ReleaseGuide/</a>. The release label applies only to Amazon EMR
-     *        releases versions 4.x and later. Earlier versions use <code>AmiVersion</code>.
+     *        releases version 4.0 and later. Earlier versions use <code>AmiVersion</code>.
      */
 
     public void setReleaseLabel(String releaseLabel) {
@@ -502,21 +615,21 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * The Amazon EMR release label, which determines the version of open-source application packages installed on the
-     * cluster. Release labels are in the form <code>emr-x.x.x</code>, where x.x.x is an Amazon EMR release version, for
-     * example, <code>emr-5.14.0</code>. For more information about Amazon EMR release versions and included application
+     * cluster. Release labels are in the form <code>emr-x.x.x</code>, where x.x.x is an Amazon EMR release version such
+     * as <code>emr-5.14.0</code>. For more information about Amazon EMR release versions and included application
      * versions and features, see <a
      * href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">https://docs.aws.amazon.
-     * com/emr/latest/ReleaseGuide/</a>. The release label applies only to Amazon EMR releases versions 4.x and later.
+     * com/emr/latest/ReleaseGuide/</a>. The release label applies only to Amazon EMR releases version 4.0 and later.
      * Earlier versions use <code>AmiVersion</code>.
      * </p>
      * 
      * @return The Amazon EMR release label, which determines the version of open-source application packages installed
      *         on the cluster. Release labels are in the form <code>emr-x.x.x</code>, where x.x.x is an Amazon EMR
-     *         release version, for example, <code>emr-5.14.0</code>. For more information about Amazon EMR release
-     *         versions and included application versions and features, see <a
+     *         release version such as <code>emr-5.14.0</code>. For more information about Amazon EMR release versions
+     *         and included application versions and features, see <a
      *         href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/"
      *         >https://docs.aws.amazon.com/emr/latest/ReleaseGuide/</a>. The release label applies only to Amazon EMR
-     *         releases versions 4.x and later. Earlier versions use <code>AmiVersion</code>.
+     *         releases version 4.0 and later. Earlier versions use <code>AmiVersion</code>.
      */
 
     public String getReleaseLabel() {
@@ -526,22 +639,22 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * The Amazon EMR release label, which determines the version of open-source application packages installed on the
-     * cluster. Release labels are in the form <code>emr-x.x.x</code>, where x.x.x is an Amazon EMR release version, for
-     * example, <code>emr-5.14.0</code>. For more information about Amazon EMR release versions and included application
+     * cluster. Release labels are in the form <code>emr-x.x.x</code>, where x.x.x is an Amazon EMR release version such
+     * as <code>emr-5.14.0</code>. For more information about Amazon EMR release versions and included application
      * versions and features, see <a
      * href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">https://docs.aws.amazon.
-     * com/emr/latest/ReleaseGuide/</a>. The release label applies only to Amazon EMR releases versions 4.x and later.
+     * com/emr/latest/ReleaseGuide/</a>. The release label applies only to Amazon EMR releases version 4.0 and later.
      * Earlier versions use <code>AmiVersion</code>.
      * </p>
      * 
      * @param releaseLabel
      *        The Amazon EMR release label, which determines the version of open-source application packages installed
      *        on the cluster. Release labels are in the form <code>emr-x.x.x</code>, where x.x.x is an Amazon EMR
-     *        release version, for example, <code>emr-5.14.0</code>. For more information about Amazon EMR release
-     *        versions and included application versions and features, see <a
+     *        release version such as <code>emr-5.14.0</code>. For more information about Amazon EMR release versions
+     *        and included application versions and features, see <a
      *        href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/"
      *        >https://docs.aws.amazon.com/emr/latest/ReleaseGuide/</a>. The release label applies only to Amazon EMR
-     *        releases versions 4.x and later. Earlier versions use <code>AmiVersion</code>.
+     *        releases version 4.0 and later. Earlier versions use <code>AmiVersion</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -969,7 +1082,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </note>
      * <p>
      * A list of strings that indicates third-party software to use with the job flow that accepts a user argument list.
-     * EMR accepts and forwards the argument list to the corresponding installation script as bootstrap action
+     * Amazon EMR accepts and forwards the argument list to the corresponding installation script as bootstrap action
      * arguments. For more information, see "Launch a Job Flow on the MapR Distribution for Hadoop" in the <a
      * href="https://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-dg.pdf">Amazon EMR Developer Guide</a>. Supported
      * values are:
@@ -998,7 +1111,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * "hunk" - launch the cluster with the Hunk Big Data Analtics Platform.
+     * "hunk" - launch the cluster with the Hunk Big Data Analytics Platform.
      * </p>
      * </li>
      * <li>
@@ -1024,8 +1137,8 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *         </note>
      *         <p>
      *         A list of strings that indicates third-party software to use with the job flow that accepts a user
-     *         argument list. EMR accepts and forwards the argument list to the corresponding installation script as
-     *         bootstrap action arguments. For more information, see
+     *         argument list. Amazon EMR accepts and forwards the argument list to the corresponding installation script
+     *         as bootstrap action arguments. For more information, see
      *         "Launch a Job Flow on the MapR Distribution for Hadoop" in the <a
      *         href="https://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-dg.pdf">Amazon EMR Developer Guide</a>.
      *         Supported values are:
@@ -1054,7 +1167,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *         </li>
      *         <li>
      *         <p>
-     *         "hunk" - launch the cluster with the Hunk Big Data Analtics Platform.
+     *         "hunk" - launch the cluster with the Hunk Big Data Analytics Platform.
      *         </p>
      *         </li>
      *         <li>
@@ -1089,7 +1202,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </note>
      * <p>
      * A list of strings that indicates third-party software to use with the job flow that accepts a user argument list.
-     * EMR accepts and forwards the argument list to the corresponding installation script as bootstrap action
+     * Amazon EMR accepts and forwards the argument list to the corresponding installation script as bootstrap action
      * arguments. For more information, see "Launch a Job Flow on the MapR Distribution for Hadoop" in the <a
      * href="https://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-dg.pdf">Amazon EMR Developer Guide</a>. Supported
      * values are:
@@ -1118,7 +1231,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * "hunk" - launch the cluster with the Hunk Big Data Analtics Platform.
+     * "hunk" - launch the cluster with the Hunk Big Data Analytics Platform.
      * </p>
      * </li>
      * <li>
@@ -1145,8 +1258,8 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *        </note>
      *        <p>
      *        A list of strings that indicates third-party software to use with the job flow that accepts a user
-     *        argument list. EMR accepts and forwards the argument list to the corresponding installation script as
-     *        bootstrap action arguments. For more information, see
+     *        argument list. Amazon EMR accepts and forwards the argument list to the corresponding installation script
+     *        as bootstrap action arguments. For more information, see
      *        "Launch a Job Flow on the MapR Distribution for Hadoop" in the <a
      *        href="https://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-dg.pdf">Amazon EMR Developer Guide</a>.
      *        Supported values are:
@@ -1175,7 +1288,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *        </li>
      *        <li>
      *        <p>
-     *        "hunk" - launch the cluster with the Hunk Big Data Analtics Platform.
+     *        "hunk" - launch the cluster with the Hunk Big Data Analytics Platform.
      *        </p>
      *        </li>
      *        <li>
@@ -1212,7 +1325,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </note>
      * <p>
      * A list of strings that indicates third-party software to use with the job flow that accepts a user argument list.
-     * EMR accepts and forwards the argument list to the corresponding installation script as bootstrap action
+     * Amazon EMR accepts and forwards the argument list to the corresponding installation script as bootstrap action
      * arguments. For more information, see "Launch a Job Flow on the MapR Distribution for Hadoop" in the <a
      * href="https://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-dg.pdf">Amazon EMR Developer Guide</a>. Supported
      * values are:
@@ -1241,7 +1354,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * "hunk" - launch the cluster with the Hunk Big Data Analtics Platform.
+     * "hunk" - launch the cluster with the Hunk Big Data Analytics Platform.
      * </p>
      * </li>
      * <li>
@@ -1273,8 +1386,8 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *        </note>
      *        <p>
      *        A list of strings that indicates third-party software to use with the job flow that accepts a user
-     *        argument list. EMR accepts and forwards the argument list to the corresponding installation script as
-     *        bootstrap action arguments. For more information, see
+     *        argument list. Amazon EMR accepts and forwards the argument list to the corresponding installation script
+     *        as bootstrap action arguments. For more information, see
      *        "Launch a Job Flow on the MapR Distribution for Hadoop" in the <a
      *        href="https://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-dg.pdf">Amazon EMR Developer Guide</a>.
      *        Supported values are:
@@ -1303,7 +1416,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *        </li>
      *        <li>
      *        <p>
-     *        "hunk" - launch the cluster with the Hunk Big Data Analtics Platform.
+     *        "hunk" - launch the cluster with the Hunk Big Data Analytics Platform.
      *        </p>
      *        </li>
      *        <li>
@@ -1342,7 +1455,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </note>
      * <p>
      * A list of strings that indicates third-party software to use with the job flow that accepts a user argument list.
-     * EMR accepts and forwards the argument list to the corresponding installation script as bootstrap action
+     * Amazon EMR accepts and forwards the argument list to the corresponding installation script as bootstrap action
      * arguments. For more information, see "Launch a Job Flow on the MapR Distribution for Hadoop" in the <a
      * href="https://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-dg.pdf">Amazon EMR Developer Guide</a>. Supported
      * values are:
@@ -1371,7 +1484,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * "hunk" - launch the cluster with the Hunk Big Data Analtics Platform.
+     * "hunk" - launch the cluster with the Hunk Big Data Analytics Platform.
      * </p>
      * </li>
      * <li>
@@ -1398,8 +1511,8 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *        </note>
      *        <p>
      *        A list of strings that indicates third-party software to use with the job flow that accepts a user
-     *        argument list. EMR accepts and forwards the argument list to the corresponding installation script as
-     *        bootstrap action arguments. For more information, see
+     *        argument list. Amazon EMR accepts and forwards the argument list to the corresponding installation script
+     *        as bootstrap action arguments. For more information, see
      *        "Launch a Job Flow on the MapR Distribution for Hadoop" in the <a
      *        href="https://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-dg.pdf">Amazon EMR Developer Guide</a>.
      *        Supported values are:
@@ -1428,7 +1541,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *        </li>
      *        <li>
      *        <p>
-     *        "hunk" - launch the cluster with the Hunk Big Data Analtics Platform.
+     *        "hunk" - launch the cluster with the Hunk Big Data Analytics Platform.
      *        </p>
      *        </li>
      *        <li>
@@ -1458,13 +1571,13 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * <p>
      * Applies to Amazon EMR releases 4.0 and later. A case-insensitive list of applications for Amazon EMR to install
      * and configure when launching the cluster. For a list of applications available for each Amazon EMR release
-     * version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMR Release Guide</a>.
+     * version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMRRelease Guide</a>.
      * </p>
      * 
      * @return Applies to Amazon EMR releases 4.0 and later. A case-insensitive list of applications for Amazon EMR to
      *         install and configure when launching the cluster. For a list of applications available for each Amazon
-     *         EMR release version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMR
-     *         Release Guide</a>.
+     *         EMR release version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon
+     *         EMRRelease Guide</a>.
      */
 
     public java.util.List<Application> getApplications() {
@@ -1478,13 +1591,13 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * <p>
      * Applies to Amazon EMR releases 4.0 and later. A case-insensitive list of applications for Amazon EMR to install
      * and configure when launching the cluster. For a list of applications available for each Amazon EMR release
-     * version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMR Release Guide</a>.
+     * version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMRRelease Guide</a>.
      * </p>
      * 
      * @param applications
      *        Applies to Amazon EMR releases 4.0 and later. A case-insensitive list of applications for Amazon EMR to
      *        install and configure when launching the cluster. For a list of applications available for each Amazon EMR
-     *        release version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMR Release
+     *        release version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMRRelease
      *        Guide</a>.
      */
 
@@ -1501,7 +1614,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * <p>
      * Applies to Amazon EMR releases 4.0 and later. A case-insensitive list of applications for Amazon EMR to install
      * and configure when launching the cluster. For a list of applications available for each Amazon EMR release
-     * version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMR Release Guide</a>.
+     * version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMRRelease Guide</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1512,7 +1625,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * @param applications
      *        Applies to Amazon EMR releases 4.0 and later. A case-insensitive list of applications for Amazon EMR to
      *        install and configure when launching the cluster. For a list of applications available for each Amazon EMR
-     *        release version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMR Release
+     *        release version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMRRelease
      *        Guide</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1531,13 +1644,13 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * <p>
      * Applies to Amazon EMR releases 4.0 and later. A case-insensitive list of applications for Amazon EMR to install
      * and configure when launching the cluster. For a list of applications available for each Amazon EMR release
-     * version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMR Release Guide</a>.
+     * version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMRRelease Guide</a>.
      * </p>
      * 
      * @param applications
      *        Applies to Amazon EMR releases 4.0 and later. A case-insensitive list of applications for Amazon EMR to
      *        install and configure when launching the cluster. For a list of applications available for each Amazon EMR
-     *        release version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMR Release
+     *        release version, see the <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/">Amazon EMRRelease
      *        Guide</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1549,11 +1662,12 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * For Amazon EMR releases 4.0 and later. The list of configurations supplied for the EMR cluster you are creating.
+     * For Amazon EMR releases 4.0 and later. The list of configurations supplied for the Amazon EMR cluster that you
+     * are creating.
      * </p>
      * 
-     * @return For Amazon EMR releases 4.0 and later. The list of configurations supplied for the EMR cluster you are
-     *         creating.
+     * @return For Amazon EMR releases 4.0 and later. The list of configurations supplied for the Amazon EMR cluster
+     *         that you are creating.
      */
 
     public java.util.List<Configuration> getConfigurations() {
@@ -1565,12 +1679,13 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * For Amazon EMR releases 4.0 and later. The list of configurations supplied for the EMR cluster you are creating.
+     * For Amazon EMR releases 4.0 and later. The list of configurations supplied for the Amazon EMR cluster that you
+     * are creating.
      * </p>
      * 
      * @param configurations
-     *        For Amazon EMR releases 4.0 and later. The list of configurations supplied for the EMR cluster you are
-     *        creating.
+     *        For Amazon EMR releases 4.0 and later. The list of configurations supplied for the Amazon EMR cluster that
+     *        you are creating.
      */
 
     public void setConfigurations(java.util.Collection<Configuration> configurations) {
@@ -1584,7 +1699,8 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * For Amazon EMR releases 4.0 and later. The list of configurations supplied for the EMR cluster you are creating.
+     * For Amazon EMR releases 4.0 and later. The list of configurations supplied for the Amazon EMR cluster that you
+     * are creating.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1593,8 +1709,8 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </p>
      * 
      * @param configurations
-     *        For Amazon EMR releases 4.0 and later. The list of configurations supplied for the EMR cluster you are
-     *        creating.
+     *        For Amazon EMR releases 4.0 and later. The list of configurations supplied for the Amazon EMR cluster that
+     *        you are creating.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1610,12 +1726,13 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * For Amazon EMR releases 4.0 and later. The list of configurations supplied for the EMR cluster you are creating.
+     * For Amazon EMR releases 4.0 and later. The list of configurations supplied for the Amazon EMR cluster that you
+     * are creating.
      * </p>
      * 
      * @param configurations
-     *        For Amazon EMR releases 4.0 and later. The list of configurations supplied for the EMR cluster you are
-     *        creating.
+     *        For Amazon EMR releases 4.0 and later. The list of configurations supplied for the Amazon EMR cluster that
+     *        you are creating.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1625,18 +1742,46 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <important>
      * <p>
-     * Whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this value is
-     * set to <code>true</code>, all IAM users of that AWS account can view and (if they have the proper policy
-     * permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM user that created the
-     * cluster can view and manage it.
+     * The VisibleToAllUsers parameter is no longer supported. By default, the value is set to <code>true</code>.
+     * Setting it to <code>false</code> now has no effect.
+     * </p>
+     * </important>
+     * <p>
+     * Set this value to <code>true</code> so that IAM principals in the Amazon Web Services account associated with the
+     * cluster can perform Amazon EMR actions on the cluster that their IAM policies allow. This value defaults to
+     * <code>true</code> for clusters created using the Amazon EMR API or the CLI <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a> command.
+     * </p>
+     * <p>
+     * When set to <code>false</code>, only the IAM principal that created the cluster and the Amazon Web Services
+     * account root user can perform Amazon EMR actions for the cluster, regardless of the IAM permissions policies
+     * attached to other IAM principals. For more information, see <a href=
+     * "https://docs.aws.amazon.com/emr/latest/ManagementGuide/security_IAM_emr-with-IAM.html#security_set_visible_to_all_users"
+     * >Understanding the Amazon EMR cluster VisibleToAllUsers setting</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
      * 
      * @param visibleToAllUsers
-     *        Whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this
-     *        value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have the proper
-     *        policy permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM user that
-     *        created the cluster can view and manage it.
+     *        <p>
+     *        The VisibleToAllUsers parameter is no longer supported. By default, the value is set to <code>true</code>.
+     *        Setting it to <code>false</code> now has no effect.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        Set this value to <code>true</code> so that IAM principals in the Amazon Web Services account associated
+     *        with the cluster can perform Amazon EMR actions on the cluster that their IAM policies allow. This value
+     *        defaults to <code>true</code> for clusters created using the Amazon EMR API or the CLI <a
+     *        href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a>
+     *        command.
+     *        </p>
+     *        <p>
+     *        When set to <code>false</code>, only the IAM principal that created the cluster and the Amazon Web
+     *        Services account root user can perform Amazon EMR actions for the cluster, regardless of the IAM
+     *        permissions policies attached to other IAM principals. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/emr/latest/ManagementGuide/security_IAM_emr-with-IAM.html#security_set_visible_to_all_users"
+     *        >Understanding the Amazon EMR cluster VisibleToAllUsers setting</a> in the <i>Amazon EMR Management
+     *        Guide</i>.
      */
 
     public void setVisibleToAllUsers(Boolean visibleToAllUsers) {
@@ -1644,17 +1789,45 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <important>
      * <p>
-     * Whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this value is
-     * set to <code>true</code>, all IAM users of that AWS account can view and (if they have the proper policy
-     * permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM user that created the
-     * cluster can view and manage it.
+     * The VisibleToAllUsers parameter is no longer supported. By default, the value is set to <code>true</code>.
+     * Setting it to <code>false</code> now has no effect.
+     * </p>
+     * </important>
+     * <p>
+     * Set this value to <code>true</code> so that IAM principals in the Amazon Web Services account associated with the
+     * cluster can perform Amazon EMR actions on the cluster that their IAM policies allow. This value defaults to
+     * <code>true</code> for clusters created using the Amazon EMR API or the CLI <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a> command.
+     * </p>
+     * <p>
+     * When set to <code>false</code>, only the IAM principal that created the cluster and the Amazon Web Services
+     * account root user can perform Amazon EMR actions for the cluster, regardless of the IAM permissions policies
+     * attached to other IAM principals. For more information, see <a href=
+     * "https://docs.aws.amazon.com/emr/latest/ManagementGuide/security_IAM_emr-with-IAM.html#security_set_visible_to_all_users"
+     * >Understanding the Amazon EMR cluster VisibleToAllUsers setting</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
      * 
-     * @return Whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this
-     *         value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have the
-     *         proper policy permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM user
-     *         that created the cluster can view and manage it.
+     * @return <p>
+     *         The VisibleToAllUsers parameter is no longer supported. By default, the value is set to <code>true</code>
+     *         . Setting it to <code>false</code> now has no effect.
+     *         </p>
+     *         </important>
+     *         <p>
+     *         Set this value to <code>true</code> so that IAM principals in the Amazon Web Services account associated
+     *         with the cluster can perform Amazon EMR actions on the cluster that their IAM policies allow. This value
+     *         defaults to <code>true</code> for clusters created using the Amazon EMR API or the CLI <a
+     *         href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a>
+     *         command.
+     *         </p>
+     *         <p>
+     *         When set to <code>false</code>, only the IAM principal that created the cluster and the Amazon Web
+     *         Services account root user can perform Amazon EMR actions for the cluster, regardless of the IAM
+     *         permissions policies attached to other IAM principals. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/emr/latest/ManagementGuide/security_IAM_emr-with-IAM.html#security_set_visible_to_all_users"
+     *         >Understanding the Amazon EMR cluster VisibleToAllUsers setting</a> in the <i>Amazon EMR Management
+     *         Guide</i>.
      */
 
     public Boolean getVisibleToAllUsers() {
@@ -1662,18 +1835,46 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <important>
      * <p>
-     * Whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this value is
-     * set to <code>true</code>, all IAM users of that AWS account can view and (if they have the proper policy
-     * permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM user that created the
-     * cluster can view and manage it.
+     * The VisibleToAllUsers parameter is no longer supported. By default, the value is set to <code>true</code>.
+     * Setting it to <code>false</code> now has no effect.
+     * </p>
+     * </important>
+     * <p>
+     * Set this value to <code>true</code> so that IAM principals in the Amazon Web Services account associated with the
+     * cluster can perform Amazon EMR actions on the cluster that their IAM policies allow. This value defaults to
+     * <code>true</code> for clusters created using the Amazon EMR API or the CLI <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a> command.
+     * </p>
+     * <p>
+     * When set to <code>false</code>, only the IAM principal that created the cluster and the Amazon Web Services
+     * account root user can perform Amazon EMR actions for the cluster, regardless of the IAM permissions policies
+     * attached to other IAM principals. For more information, see <a href=
+     * "https://docs.aws.amazon.com/emr/latest/ManagementGuide/security_IAM_emr-with-IAM.html#security_set_visible_to_all_users"
+     * >Understanding the Amazon EMR cluster VisibleToAllUsers setting</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
      * 
      * @param visibleToAllUsers
-     *        Whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this
-     *        value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have the proper
-     *        policy permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM user that
-     *        created the cluster can view and manage it.
+     *        <p>
+     *        The VisibleToAllUsers parameter is no longer supported. By default, the value is set to <code>true</code>.
+     *        Setting it to <code>false</code> now has no effect.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        Set this value to <code>true</code> so that IAM principals in the Amazon Web Services account associated
+     *        with the cluster can perform Amazon EMR actions on the cluster that their IAM policies allow. This value
+     *        defaults to <code>true</code> for clusters created using the Amazon EMR API or the CLI <a
+     *        href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a>
+     *        command.
+     *        </p>
+     *        <p>
+     *        When set to <code>false</code>, only the IAM principal that created the cluster and the Amazon Web
+     *        Services account root user can perform Amazon EMR actions for the cluster, regardless of the IAM
+     *        permissions policies attached to other IAM principals. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/emr/latest/ManagementGuide/security_IAM_emr-with-IAM.html#security_set_visible_to_all_users"
+     *        >Understanding the Amazon EMR cluster VisibleToAllUsers setting</a> in the <i>Amazon EMR Management
+     *        Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1683,17 +1884,45 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
+     * <important>
      * <p>
-     * Whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this value is
-     * set to <code>true</code>, all IAM users of that AWS account can view and (if they have the proper policy
-     * permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM user that created the
-     * cluster can view and manage it.
+     * The VisibleToAllUsers parameter is no longer supported. By default, the value is set to <code>true</code>.
+     * Setting it to <code>false</code> now has no effect.
+     * </p>
+     * </important>
+     * <p>
+     * Set this value to <code>true</code> so that IAM principals in the Amazon Web Services account associated with the
+     * cluster can perform Amazon EMR actions on the cluster that their IAM policies allow. This value defaults to
+     * <code>true</code> for clusters created using the Amazon EMR API or the CLI <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a> command.
+     * </p>
+     * <p>
+     * When set to <code>false</code>, only the IAM principal that created the cluster and the Amazon Web Services
+     * account root user can perform Amazon EMR actions for the cluster, regardless of the IAM permissions policies
+     * attached to other IAM principals. For more information, see <a href=
+     * "https://docs.aws.amazon.com/emr/latest/ManagementGuide/security_IAM_emr-with-IAM.html#security_set_visible_to_all_users"
+     * >Understanding the Amazon EMR cluster VisibleToAllUsers setting</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
      * 
-     * @return Whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this
-     *         value is set to <code>true</code>, all IAM users of that AWS account can view and (if they have the
-     *         proper policy permissions set) manage the cluster. If it is set to <code>false</code>, only the IAM user
-     *         that created the cluster can view and manage it.
+     * @return <p>
+     *         The VisibleToAllUsers parameter is no longer supported. By default, the value is set to <code>true</code>
+     *         . Setting it to <code>false</code> now has no effect.
+     *         </p>
+     *         </important>
+     *         <p>
+     *         Set this value to <code>true</code> so that IAM principals in the Amazon Web Services account associated
+     *         with the cluster can perform Amazon EMR actions on the cluster that their IAM policies allow. This value
+     *         defaults to <code>true</code> for clusters created using the Amazon EMR API or the CLI <a
+     *         href="https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html">create-cluster</a>
+     *         command.
+     *         </p>
+     *         <p>
+     *         When set to <code>false</code>, only the IAM principal that created the cluster and the Amazon Web
+     *         Services account root user can perform Amazon EMR actions for the cluster, regardless of the IAM
+     *         permissions policies attached to other IAM principals. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/emr/latest/ManagementGuide/security_IAM_emr-with-IAM.html#security_set_visible_to_all_users"
+     *         >Understanding the Amazon EMR cluster VisibleToAllUsers setting</a> in the <i>Amazon EMR Management
+     *         Guide</i>.
      */
 
     public Boolean isVisibleToAllUsers() {
@@ -1702,15 +1931,15 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Also called instance profile and EC2 role. An IAM role for an EMR cluster. The EC2 instances of the cluster
-     * assume this role. The default role is <code>EMR_EC2_DefaultRole</code>. In order to use the default role, you
-     * must have already created it using the CLI or console.
+     * Also called instance profile and Amazon EC2 role. An IAM role for an Amazon EMR cluster. The Amazon EC2 instances
+     * of the cluster assume this role. The default role is <code>EMR_EC2_DefaultRole</code>. In order to use the
+     * default role, you must have already created it using the CLI or console.
      * </p>
      * 
      * @param jobFlowRole
-     *        Also called instance profile and EC2 role. An IAM role for an EMR cluster. The EC2 instances of the
-     *        cluster assume this role. The default role is <code>EMR_EC2_DefaultRole</code>. In order to use the
-     *        default role, you must have already created it using the CLI or console.
+     *        Also called instance profile and Amazon EC2 role. An IAM role for an Amazon EMR cluster. The Amazon EC2
+     *        instances of the cluster assume this role. The default role is <code>EMR_EC2_DefaultRole</code>. In order
+     *        to use the default role, you must have already created it using the CLI or console.
      */
 
     public void setJobFlowRole(String jobFlowRole) {
@@ -1719,14 +1948,14 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Also called instance profile and EC2 role. An IAM role for an EMR cluster. The EC2 instances of the cluster
-     * assume this role. The default role is <code>EMR_EC2_DefaultRole</code>. In order to use the default role, you
-     * must have already created it using the CLI or console.
+     * Also called instance profile and Amazon EC2 role. An IAM role for an Amazon EMR cluster. The Amazon EC2 instances
+     * of the cluster assume this role. The default role is <code>EMR_EC2_DefaultRole</code>. In order to use the
+     * default role, you must have already created it using the CLI or console.
      * </p>
      * 
-     * @return Also called instance profile and EC2 role. An IAM role for an EMR cluster. The EC2 instances of the
-     *         cluster assume this role. The default role is <code>EMR_EC2_DefaultRole</code>. In order to use the
-     *         default role, you must have already created it using the CLI or console.
+     * @return Also called instance profile and Amazon EC2 role. An IAM role for an Amazon EMR cluster. The Amazon EC2
+     *         instances of the cluster assume this role. The default role is <code>EMR_EC2_DefaultRole</code>. In order
+     *         to use the default role, you must have already created it using the CLI or console.
      */
 
     public String getJobFlowRole() {
@@ -1735,15 +1964,15 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Also called instance profile and EC2 role. An IAM role for an EMR cluster. The EC2 instances of the cluster
-     * assume this role. The default role is <code>EMR_EC2_DefaultRole</code>. In order to use the default role, you
-     * must have already created it using the CLI or console.
+     * Also called instance profile and Amazon EC2 role. An IAM role for an Amazon EMR cluster. The Amazon EC2 instances
+     * of the cluster assume this role. The default role is <code>EMR_EC2_DefaultRole</code>. In order to use the
+     * default role, you must have already created it using the CLI or console.
      * </p>
      * 
      * @param jobFlowRole
-     *        Also called instance profile and EC2 role. An IAM role for an EMR cluster. The EC2 instances of the
-     *        cluster assume this role. The default role is <code>EMR_EC2_DefaultRole</code>. In order to use the
-     *        default role, you must have already created it using the CLI or console.
+     *        Also called instance profile and Amazon EC2 role. An IAM role for an Amazon EMR cluster. The Amazon EC2
+     *        instances of the cluster assume this role. The default role is <code>EMR_EC2_DefaultRole</code>. In order
+     *        to use the default role, you must have already created it using the CLI or console.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1754,11 +1983,14 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The IAM role that will be assumed by the Amazon EMR service to access AWS resources on your behalf.
+     * The IAM role that Amazon EMR assumes in order to access Amazon Web Services resources on your behalf. If you've
+     * created a custom service role path, you must specify it for the service role when you launch your cluster.
      * </p>
      * 
      * @param serviceRole
-     *        The IAM role that will be assumed by the Amazon EMR service to access AWS resources on your behalf.
+     *        The IAM role that Amazon EMR assumes in order to access Amazon Web Services resources on your behalf. If
+     *        you've created a custom service role path, you must specify it for the service role when you launch your
+     *        cluster.
      */
 
     public void setServiceRole(String serviceRole) {
@@ -1767,10 +1999,13 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The IAM role that will be assumed by the Amazon EMR service to access AWS resources on your behalf.
+     * The IAM role that Amazon EMR assumes in order to access Amazon Web Services resources on your behalf. If you've
+     * created a custom service role path, you must specify it for the service role when you launch your cluster.
      * </p>
      * 
-     * @return The IAM role that will be assumed by the Amazon EMR service to access AWS resources on your behalf.
+     * @return The IAM role that Amazon EMR assumes in order to access Amazon Web Services resources on your behalf. If
+     *         you've created a custom service role path, you must specify it for the service role when you launch your
+     *         cluster.
      */
 
     public String getServiceRole() {
@@ -1779,11 +2014,14 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The IAM role that will be assumed by the Amazon EMR service to access AWS resources on your behalf.
+     * The IAM role that Amazon EMR assumes in order to access Amazon Web Services resources on your behalf. If you've
+     * created a custom service role path, you must specify it for the service role when you launch your cluster.
      * </p>
      * 
      * @param serviceRole
-     *        The IAM role that will be assumed by the Amazon EMR service to access AWS resources on your behalf.
+     *        The IAM role that Amazon EMR assumes in order to access Amazon Web Services resources on your behalf. If
+     *        you've created a custom service role path, you must specify it for the service role when you launch your
+     *        cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1908,14 +2146,14 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * An IAM role for automatic scaling policies. The default role is <code>EMR_AutoScaling_DefaultRole</code>. The IAM
-     * role provides permissions that the automatic scaling feature requires to launch and terminate EC2 instances in an
-     * instance group.
+     * role provides permissions that the automatic scaling feature requires to launch and terminate Amazon EC2
+     * instances in an instance group.
      * </p>
      * 
      * @param autoScalingRole
      *        An IAM role for automatic scaling policies. The default role is <code>EMR_AutoScaling_DefaultRole</code>.
-     *        The IAM role provides permissions that the automatic scaling feature requires to launch and terminate EC2
-     *        instances in an instance group.
+     *        The IAM role provides permissions that the automatic scaling feature requires to launch and terminate
+     *        Amazon EC2 instances in an instance group.
      */
 
     public void setAutoScalingRole(String autoScalingRole) {
@@ -1925,13 +2163,13 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * An IAM role for automatic scaling policies. The default role is <code>EMR_AutoScaling_DefaultRole</code>. The IAM
-     * role provides permissions that the automatic scaling feature requires to launch and terminate EC2 instances in an
-     * instance group.
+     * role provides permissions that the automatic scaling feature requires to launch and terminate Amazon EC2
+     * instances in an instance group.
      * </p>
      * 
      * @return An IAM role for automatic scaling policies. The default role is <code>EMR_AutoScaling_DefaultRole</code>.
-     *         The IAM role provides permissions that the automatic scaling feature requires to launch and terminate EC2
-     *         instances in an instance group.
+     *         The IAM role provides permissions that the automatic scaling feature requires to launch and terminate
+     *         Amazon EC2 instances in an instance group.
      */
 
     public String getAutoScalingRole() {
@@ -1941,14 +2179,14 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
     /**
      * <p>
      * An IAM role for automatic scaling policies. The default role is <code>EMR_AutoScaling_DefaultRole</code>. The IAM
-     * role provides permissions that the automatic scaling feature requires to launch and terminate EC2 instances in an
-     * instance group.
+     * role provides permissions that the automatic scaling feature requires to launch and terminate Amazon EC2
+     * instances in an instance group.
      * </p>
      * 
      * @param autoScalingRole
      *        An IAM role for automatic scaling policies. The default role is <code>EMR_AutoScaling_DefaultRole</code>.
-     *        The IAM role provides permissions that the automatic scaling feature requires to launch and terminate EC2
-     *        instances in an instance group.
+     *        The IAM role provides permissions that the automatic scaling feature requires to launch and terminate
+     *        Amazon EC2 instances in an instance group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1963,11 +2201,11 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * instance group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates nodes at
      * the instance-hour boundary, regardless of when the request to terminate the instance was submitted. This option
      * is only available with Amazon EMR 5.1.0 and later and is the default for clusters created using that version.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists and drains tasks from nodes before
-     * terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either behavior, Amazon EMR
-     * removes the least active nodes first and blocks instance termination if it could lead to HDFS corruption.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR version 4.1.0 and later, and is the
-     * default for versions of Amazon EMR earlier than 5.1.0.
+     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds nodes to a deny list and drains tasks
+     * from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either
+     * behavior, Amazon EMR removes the least active nodes first and blocks instance termination if it could lead to
+     * HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later,
+     * and is the default for releases of Amazon EMR earlier than 5.1.0.
      * </p>
      * 
      * @param scaleDownBehavior
@@ -1976,11 +2214,11 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *        terminates nodes at the instance-hour boundary, regardless of when the request to terminate the instance
      *        was submitted. This option is only available with Amazon EMR 5.1.0 and later and is the default for
      *        clusters created using that version. <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR
-     *        blacklists and drains tasks from nodes before terminating the Amazon EC2 instances, regardless of the
-     *        instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes first and blocks
-     *        instance termination if it could lead to HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code>
-     *        available only in Amazon EMR version 4.1.0 and later, and is the default for versions of Amazon EMR
-     *        earlier than 5.1.0.
+     *        adds nodes to a deny list and drains tasks from nodes before terminating the Amazon EC2 instances,
+     *        regardless of the instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes
+     *        first and blocks instance termination if it could lead to HDFS corruption.
+     *        <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later, and is
+     *        the default for releases of Amazon EMR earlier than 5.1.0.
      * @see ScaleDownBehavior
      */
 
@@ -1994,11 +2232,11 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * instance group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates nodes at
      * the instance-hour boundary, regardless of when the request to terminate the instance was submitted. This option
      * is only available with Amazon EMR 5.1.0 and later and is the default for clusters created using that version.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists and drains tasks from nodes before
-     * terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either behavior, Amazon EMR
-     * removes the least active nodes first and blocks instance termination if it could lead to HDFS corruption.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR version 4.1.0 and later, and is the
-     * default for versions of Amazon EMR earlier than 5.1.0.
+     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds nodes to a deny list and drains tasks
+     * from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either
+     * behavior, Amazon EMR removes the least active nodes first and blocks instance termination if it could lead to
+     * HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later,
+     * and is the default for releases of Amazon EMR earlier than 5.1.0.
      * </p>
      * 
      * @return Specifies the way that individual Amazon EC2 instances terminate when an automatic scale-in activity
@@ -2006,11 +2244,11 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *         terminates nodes at the instance-hour boundary, regardless of when the request to terminate the instance
      *         was submitted. This option is only available with Amazon EMR 5.1.0 and later and is the default for
      *         clusters created using that version. <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR
-     *         blacklists and drains tasks from nodes before terminating the Amazon EC2 instances, regardless of the
-     *         instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes first and blocks
-     *         instance termination if it could lead to HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code>
-     *         available only in Amazon EMR version 4.1.0 and later, and is the default for versions of Amazon EMR
-     *         earlier than 5.1.0.
+     *         adds nodes to a deny list and drains tasks from nodes before terminating the Amazon EC2 instances,
+     *         regardless of the instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes
+     *         first and blocks instance termination if it could lead to HDFS corruption.
+     *         <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later, and is
+     *         the default for releases of Amazon EMR earlier than 5.1.0.
      * @see ScaleDownBehavior
      */
 
@@ -2024,11 +2262,11 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * instance group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates nodes at
      * the instance-hour boundary, regardless of when the request to terminate the instance was submitted. This option
      * is only available with Amazon EMR 5.1.0 and later and is the default for clusters created using that version.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists and drains tasks from nodes before
-     * terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either behavior, Amazon EMR
-     * removes the least active nodes first and blocks instance termination if it could lead to HDFS corruption.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR version 4.1.0 and later, and is the
-     * default for versions of Amazon EMR earlier than 5.1.0.
+     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds nodes to a deny list and drains tasks
+     * from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either
+     * behavior, Amazon EMR removes the least active nodes first and blocks instance termination if it could lead to
+     * HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later,
+     * and is the default for releases of Amazon EMR earlier than 5.1.0.
      * </p>
      * 
      * @param scaleDownBehavior
@@ -2037,11 +2275,11 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *        terminates nodes at the instance-hour boundary, regardless of when the request to terminate the instance
      *        was submitted. This option is only available with Amazon EMR 5.1.0 and later and is the default for
      *        clusters created using that version. <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR
-     *        blacklists and drains tasks from nodes before terminating the Amazon EC2 instances, regardless of the
-     *        instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes first and blocks
-     *        instance termination if it could lead to HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code>
-     *        available only in Amazon EMR version 4.1.0 and later, and is the default for versions of Amazon EMR
-     *        earlier than 5.1.0.
+     *        adds nodes to a deny list and drains tasks from nodes before terminating the Amazon EC2 instances,
+     *        regardless of the instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes
+     *        first and blocks instance termination if it could lead to HDFS corruption.
+     *        <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later, and is
+     *        the default for releases of Amazon EMR earlier than 5.1.0.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ScaleDownBehavior
      */
@@ -2057,11 +2295,11 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * instance group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates nodes at
      * the instance-hour boundary, regardless of when the request to terminate the instance was submitted. This option
      * is only available with Amazon EMR 5.1.0 and later and is the default for clusters created using that version.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists and drains tasks from nodes before
-     * terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either behavior, Amazon EMR
-     * removes the least active nodes first and blocks instance termination if it could lead to HDFS corruption.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR version 4.1.0 and later, and is the
-     * default for versions of Amazon EMR earlier than 5.1.0.
+     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds nodes to a deny list and drains tasks
+     * from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either
+     * behavior, Amazon EMR removes the least active nodes first and blocks instance termination if it could lead to
+     * HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later,
+     * and is the default for releases of Amazon EMR earlier than 5.1.0.
      * </p>
      * 
      * @param scaleDownBehavior
@@ -2070,11 +2308,11 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *        terminates nodes at the instance-hour boundary, regardless of when the request to terminate the instance
      *        was submitted. This option is only available with Amazon EMR 5.1.0 and later and is the default for
      *        clusters created using that version. <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR
-     *        blacklists and drains tasks from nodes before terminating the Amazon EC2 instances, regardless of the
-     *        instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes first and blocks
-     *        instance termination if it could lead to HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code>
-     *        available only in Amazon EMR version 4.1.0 and later, and is the default for versions of Amazon EMR
-     *        earlier than 5.1.0.
+     *        adds nodes to a deny list and drains tasks from nodes before terminating the Amazon EC2 instances,
+     *        regardless of the instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes
+     *        first and blocks instance termination if it could lead to HDFS corruption.
+     *        <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later, and is
+     *        the default for releases of Amazon EMR earlier than 5.1.0.
      * @see ScaleDownBehavior
      */
 
@@ -2088,11 +2326,11 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * instance group is resized. <code>TERMINATE_AT_INSTANCE_HOUR</code> indicates that Amazon EMR terminates nodes at
      * the instance-hour boundary, regardless of when the request to terminate the instance was submitted. This option
      * is only available with Amazon EMR 5.1.0 and later and is the default for clusters created using that version.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR blacklists and drains tasks from nodes before
-     * terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either behavior, Amazon EMR
-     * removes the least active nodes first and blocks instance termination if it could lead to HDFS corruption.
-     * <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR version 4.1.0 and later, and is the
-     * default for versions of Amazon EMR earlier than 5.1.0.
+     * <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR adds nodes to a deny list and drains tasks
+     * from nodes before terminating the Amazon EC2 instances, regardless of the instance-hour boundary. With either
+     * behavior, Amazon EMR removes the least active nodes first and blocks instance termination if it could lead to
+     * HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later,
+     * and is the default for releases of Amazon EMR earlier than 5.1.0.
      * </p>
      * 
      * @param scaleDownBehavior
@@ -2101,11 +2339,11 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      *        terminates nodes at the instance-hour boundary, regardless of when the request to terminate the instance
      *        was submitted. This option is only available with Amazon EMR 5.1.0 and later and is the default for
      *        clusters created using that version. <code>TERMINATE_AT_TASK_COMPLETION</code> indicates that Amazon EMR
-     *        blacklists and drains tasks from nodes before terminating the Amazon EC2 instances, regardless of the
-     *        instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes first and blocks
-     *        instance termination if it could lead to HDFS corruption. <code>TERMINATE_AT_TASK_COMPLETION</code>
-     *        available only in Amazon EMR version 4.1.0 and later, and is the default for versions of Amazon EMR
-     *        earlier than 5.1.0.
+     *        adds nodes to a deny list and drains tasks from nodes before terminating the Amazon EC2 instances,
+     *        regardless of the instance-hour boundary. With either behavior, Amazon EMR removes the least active nodes
+     *        first and blocks instance termination if it could lead to HDFS corruption.
+     *        <code>TERMINATE_AT_TASK_COMPLETION</code> available only in Amazon EMR releases 4.1.0 and later, and is
+     *        the default for releases of Amazon EMR earlier than 5.1.0.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ScaleDownBehavior
      */
@@ -2117,12 +2355,12 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Available only in Amazon EMR version 5.7.0 and later. The ID of a custom Amazon EBS-backed Linux AMI. If
-     * specified, Amazon EMR uses this AMI when it launches cluster EC2 instances. For more information about custom
-     * AMIs in Amazon EMR, see <a
+     * Available only in Amazon EMR releases 5.7.0 and later. The ID of a custom Amazon EBS-backed Linux AMI. If
+     * specified, Amazon EMR uses this AMI when it launches cluster Amazon EC2 instances. For more information about
+     * custom AMIs in Amazon EMR, see <a
      * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-custom-ami.html">Using a Custom AMI</a> in the
      * <i>Amazon EMR Management Guide</i>. If omitted, the cluster uses the base Linux AMI for the
-     * <code>ReleaseLabel</code> specified. For Amazon EMR versions 2.x and 3.x, use <code>AmiVersion</code> instead.
+     * <code>ReleaseLabel</code> specified. For Amazon EMR releases 2.x and 3.x, use <code>AmiVersion</code> instead.
      * </p>
      * <p>
      * For information about creating a custom AMI, see <a
@@ -2133,12 +2371,12 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </p>
      * 
      * @param customAmiId
-     *        Available only in Amazon EMR version 5.7.0 and later. The ID of a custom Amazon EBS-backed Linux AMI. If
-     *        specified, Amazon EMR uses this AMI when it launches cluster EC2 instances. For more information about
-     *        custom AMIs in Amazon EMR, see <a
+     *        Available only in Amazon EMR releases 5.7.0 and later. The ID of a custom Amazon EBS-backed Linux AMI. If
+     *        specified, Amazon EMR uses this AMI when it launches cluster Amazon EC2 instances. For more information
+     *        about custom AMIs in Amazon EMR, see <a
      *        href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-custom-ami.html">Using a Custom AMI</a>
      *        in the <i>Amazon EMR Management Guide</i>. If omitted, the cluster uses the base Linux AMI for the
-     *        <code>ReleaseLabel</code> specified. For Amazon EMR versions 2.x and 3.x, use <code>AmiVersion</code>
+     *        <code>ReleaseLabel</code> specified. For Amazon EMR releases 2.x and 3.x, use <code>AmiVersion</code>
      *        instead.</p>
      *        <p>
      *        For information about creating a custom AMI, see <a
@@ -2154,12 +2392,12 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Available only in Amazon EMR version 5.7.0 and later. The ID of a custom Amazon EBS-backed Linux AMI. If
-     * specified, Amazon EMR uses this AMI when it launches cluster EC2 instances. For more information about custom
-     * AMIs in Amazon EMR, see <a
+     * Available only in Amazon EMR releases 5.7.0 and later. The ID of a custom Amazon EBS-backed Linux AMI. If
+     * specified, Amazon EMR uses this AMI when it launches cluster Amazon EC2 instances. For more information about
+     * custom AMIs in Amazon EMR, see <a
      * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-custom-ami.html">Using a Custom AMI</a> in the
      * <i>Amazon EMR Management Guide</i>. If omitted, the cluster uses the base Linux AMI for the
-     * <code>ReleaseLabel</code> specified. For Amazon EMR versions 2.x and 3.x, use <code>AmiVersion</code> instead.
+     * <code>ReleaseLabel</code> specified. For Amazon EMR releases 2.x and 3.x, use <code>AmiVersion</code> instead.
      * </p>
      * <p>
      * For information about creating a custom AMI, see <a
@@ -2169,12 +2407,12 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * a Linux AMI</a>.
      * </p>
      * 
-     * @return Available only in Amazon EMR version 5.7.0 and later. The ID of a custom Amazon EBS-backed Linux AMI. If
-     *         specified, Amazon EMR uses this AMI when it launches cluster EC2 instances. For more information about
-     *         custom AMIs in Amazon EMR, see <a
+     * @return Available only in Amazon EMR releases 5.7.0 and later. The ID of a custom Amazon EBS-backed Linux AMI. If
+     *         specified, Amazon EMR uses this AMI when it launches cluster Amazon EC2 instances. For more information
+     *         about custom AMIs in Amazon EMR, see <a
      *         href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-custom-ami.html">Using a Custom AMI</a>
      *         in the <i>Amazon EMR Management Guide</i>. If omitted, the cluster uses the base Linux AMI for the
-     *         <code>ReleaseLabel</code> specified. For Amazon EMR versions 2.x and 3.x, use <code>AmiVersion</code>
+     *         <code>ReleaseLabel</code> specified. For Amazon EMR releases 2.x and 3.x, use <code>AmiVersion</code>
      *         instead.</p>
      *         <p>
      *         For information about creating a custom AMI, see <a
@@ -2190,12 +2428,12 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Available only in Amazon EMR version 5.7.0 and later. The ID of a custom Amazon EBS-backed Linux AMI. If
-     * specified, Amazon EMR uses this AMI when it launches cluster EC2 instances. For more information about custom
-     * AMIs in Amazon EMR, see <a
+     * Available only in Amazon EMR releases 5.7.0 and later. The ID of a custom Amazon EBS-backed Linux AMI. If
+     * specified, Amazon EMR uses this AMI when it launches cluster Amazon EC2 instances. For more information about
+     * custom AMIs in Amazon EMR, see <a
      * href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-custom-ami.html">Using a Custom AMI</a> in the
      * <i>Amazon EMR Management Guide</i>. If omitted, the cluster uses the base Linux AMI for the
-     * <code>ReleaseLabel</code> specified. For Amazon EMR versions 2.x and 3.x, use <code>AmiVersion</code> instead.
+     * <code>ReleaseLabel</code> specified. For Amazon EMR releases 2.x and 3.x, use <code>AmiVersion</code> instead.
      * </p>
      * <p>
      * For information about creating a custom AMI, see <a
@@ -2206,12 +2444,12 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </p>
      * 
      * @param customAmiId
-     *        Available only in Amazon EMR version 5.7.0 and later. The ID of a custom Amazon EBS-backed Linux AMI. If
-     *        specified, Amazon EMR uses this AMI when it launches cluster EC2 instances. For more information about
-     *        custom AMIs in Amazon EMR, see <a
+     *        Available only in Amazon EMR releases 5.7.0 and later. The ID of a custom Amazon EBS-backed Linux AMI. If
+     *        specified, Amazon EMR uses this AMI when it launches cluster Amazon EC2 instances. For more information
+     *        about custom AMIs in Amazon EMR, see <a
      *        href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-custom-ami.html">Using a Custom AMI</a>
      *        in the <i>Amazon EMR Management Guide</i>. If omitted, the cluster uses the base Linux AMI for the
-     *        <code>ReleaseLabel</code> specified. For Amazon EMR versions 2.x and 3.x, use <code>AmiVersion</code>
+     *        <code>ReleaseLabel</code> specified. For Amazon EMR releases 2.x and 3.x, use <code>AmiVersion</code>
      *        instead.</p>
      *        <p>
      *        For information about creating a custom AMI, see <a
@@ -2229,13 +2467,13 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The size, in GiB, of the EBS root device volume of the Linux AMI that is used for each EC2 instance. Available in
-     * Amazon EMR version 4.x and later.
+     * The size, in GiB, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2
+     * instance. Available in Amazon EMR releases 4.x and later.
      * </p>
      * 
      * @param ebsRootVolumeSize
-     *        The size, in GiB, of the EBS root device volume of the Linux AMI that is used for each EC2 instance.
-     *        Available in Amazon EMR version 4.x and later.
+     *        The size, in GiB, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2
+     *        instance. Available in Amazon EMR releases 4.x and later.
      */
 
     public void setEbsRootVolumeSize(Integer ebsRootVolumeSize) {
@@ -2244,12 +2482,12 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The size, in GiB, of the EBS root device volume of the Linux AMI that is used for each EC2 instance. Available in
-     * Amazon EMR version 4.x and later.
+     * The size, in GiB, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2
+     * instance. Available in Amazon EMR releases 4.x and later.
      * </p>
      * 
-     * @return The size, in GiB, of the EBS root device volume of the Linux AMI that is used for each EC2 instance.
-     *         Available in Amazon EMR version 4.x and later.
+     * @return The size, in GiB, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2
+     *         instance. Available in Amazon EMR releases 4.x and later.
      */
 
     public Integer getEbsRootVolumeSize() {
@@ -2258,13 +2496,13 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The size, in GiB, of the EBS root device volume of the Linux AMI that is used for each EC2 instance. Available in
-     * Amazon EMR version 4.x and later.
+     * The size, in GiB, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2
+     * instance. Available in Amazon EMR releases 4.x and later.
      * </p>
      * 
      * @param ebsRootVolumeSize
-     *        The size, in GiB, of the EBS root device volume of the Linux AMI that is used for each EC2 instance.
-     *        Available in Amazon EMR version 4.x and later.
+     *        The size, in GiB, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2
+     *        instance. Available in Amazon EMR releases 4.x and later.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2380,14 +2618,14 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * <p>
      * Attributes for Kerberos configuration when Kerberos authentication is enabled using a security configuration. For
      * more information see <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-kerberos.html">Use
-     * Kerberos Authentication</a> in the <i>EMR Management Guide</i>.
+     * Kerberos Authentication</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
      * 
      * @param kerberosAttributes
      *        Attributes for Kerberos configuration when Kerberos authentication is enabled using a security
      *        configuration. For more information see <a
      *        href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-kerberos.html">Use Kerberos
-     *        Authentication</a> in the <i>EMR Management Guide</i>.
+     *        Authentication</a> in the <i>Amazon EMR Management Guide</i>.
      */
 
     public void setKerberosAttributes(KerberosAttributes kerberosAttributes) {
@@ -2398,13 +2636,13 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * <p>
      * Attributes for Kerberos configuration when Kerberos authentication is enabled using a security configuration. For
      * more information see <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-kerberos.html">Use
-     * Kerberos Authentication</a> in the <i>EMR Management Guide</i>.
+     * Kerberos Authentication</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
      * 
      * @return Attributes for Kerberos configuration when Kerberos authentication is enabled using a security
      *         configuration. For more information see <a
      *         href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-kerberos.html">Use Kerberos
-     *         Authentication</a> in the <i>EMR Management Guide</i>.
+     *         Authentication</a> in the <i>Amazon EMR Management Guide</i>.
      */
 
     public KerberosAttributes getKerberosAttributes() {
@@ -2415,19 +2653,342 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * <p>
      * Attributes for Kerberos configuration when Kerberos authentication is enabled using a security configuration. For
      * more information see <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-kerberos.html">Use
-     * Kerberos Authentication</a> in the <i>EMR Management Guide</i>.
+     * Kerberos Authentication</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
      * 
      * @param kerberosAttributes
      *        Attributes for Kerberos configuration when Kerberos authentication is enabled using a security
      *        configuration. For more information see <a
      *        href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-kerberos.html">Use Kerberos
-     *        Authentication</a> in the <i>EMR Management Guide</i>.
+     *        Authentication</a> in the <i>Amazon EMR Management Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public RunJobFlowRequest withKerberosAttributes(KerberosAttributes kerberosAttributes) {
         setKerberosAttributes(kerberosAttributes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the number of steps that can be executed concurrently. The default value is <code>1</code>. The maximum
+     * value is <code>256</code>.
+     * </p>
+     * 
+     * @param stepConcurrencyLevel
+     *        Specifies the number of steps that can be executed concurrently. The default value is <code>1</code>. The
+     *        maximum value is <code>256</code>.
+     */
+
+    public void setStepConcurrencyLevel(Integer stepConcurrencyLevel) {
+        this.stepConcurrencyLevel = stepConcurrencyLevel;
+    }
+
+    /**
+     * <p>
+     * Specifies the number of steps that can be executed concurrently. The default value is <code>1</code>. The maximum
+     * value is <code>256</code>.
+     * </p>
+     * 
+     * @return Specifies the number of steps that can be executed concurrently. The default value is <code>1</code>. The
+     *         maximum value is <code>256</code>.
+     */
+
+    public Integer getStepConcurrencyLevel() {
+        return this.stepConcurrencyLevel;
+    }
+
+    /**
+     * <p>
+     * Specifies the number of steps that can be executed concurrently. The default value is <code>1</code>. The maximum
+     * value is <code>256</code>.
+     * </p>
+     * 
+     * @param stepConcurrencyLevel
+     *        Specifies the number of steps that can be executed concurrently. The default value is <code>1</code>. The
+     *        maximum value is <code>256</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RunJobFlowRequest withStepConcurrencyLevel(Integer stepConcurrencyLevel) {
+        setStepConcurrencyLevel(stepConcurrencyLevel);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The specified managed scaling policy for an Amazon EMR cluster.
+     * </p>
+     * 
+     * @param managedScalingPolicy
+     *        The specified managed scaling policy for an Amazon EMR cluster.
+     */
+
+    public void setManagedScalingPolicy(ManagedScalingPolicy managedScalingPolicy) {
+        this.managedScalingPolicy = managedScalingPolicy;
+    }
+
+    /**
+     * <p>
+     * The specified managed scaling policy for an Amazon EMR cluster.
+     * </p>
+     * 
+     * @return The specified managed scaling policy for an Amazon EMR cluster.
+     */
+
+    public ManagedScalingPolicy getManagedScalingPolicy() {
+        return this.managedScalingPolicy;
+    }
+
+    /**
+     * <p>
+     * The specified managed scaling policy for an Amazon EMR cluster.
+     * </p>
+     * 
+     * @param managedScalingPolicy
+     *        The specified managed scaling policy for an Amazon EMR cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RunJobFlowRequest withManagedScalingPolicy(ManagedScalingPolicy managedScalingPolicy) {
+        setManagedScalingPolicy(managedScalingPolicy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The specified placement group configuration for an Amazon EMR cluster.
+     * </p>
+     * 
+     * @return The specified placement group configuration for an Amazon EMR cluster.
+     */
+
+    public java.util.List<PlacementGroupConfig> getPlacementGroupConfigs() {
+        if (placementGroupConfigs == null) {
+            placementGroupConfigs = new com.amazonaws.internal.SdkInternalList<PlacementGroupConfig>();
+        }
+        return placementGroupConfigs;
+    }
+
+    /**
+     * <p>
+     * The specified placement group configuration for an Amazon EMR cluster.
+     * </p>
+     * 
+     * @param placementGroupConfigs
+     *        The specified placement group configuration for an Amazon EMR cluster.
+     */
+
+    public void setPlacementGroupConfigs(java.util.Collection<PlacementGroupConfig> placementGroupConfigs) {
+        if (placementGroupConfigs == null) {
+            this.placementGroupConfigs = null;
+            return;
+        }
+
+        this.placementGroupConfigs = new com.amazonaws.internal.SdkInternalList<PlacementGroupConfig>(placementGroupConfigs);
+    }
+
+    /**
+     * <p>
+     * The specified placement group configuration for an Amazon EMR cluster.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setPlacementGroupConfigs(java.util.Collection)} or
+     * {@link #withPlacementGroupConfigs(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param placementGroupConfigs
+     *        The specified placement group configuration for an Amazon EMR cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RunJobFlowRequest withPlacementGroupConfigs(PlacementGroupConfig... placementGroupConfigs) {
+        if (this.placementGroupConfigs == null) {
+            setPlacementGroupConfigs(new com.amazonaws.internal.SdkInternalList<PlacementGroupConfig>(placementGroupConfigs.length));
+        }
+        for (PlacementGroupConfig ele : placementGroupConfigs) {
+            this.placementGroupConfigs.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The specified placement group configuration for an Amazon EMR cluster.
+     * </p>
+     * 
+     * @param placementGroupConfigs
+     *        The specified placement group configuration for an Amazon EMR cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RunJobFlowRequest withPlacementGroupConfigs(java.util.Collection<PlacementGroupConfig> placementGroupConfigs) {
+        setPlacementGroupConfigs(placementGroupConfigs);
+        return this;
+    }
+
+    /**
+     * @param autoTerminationPolicy
+     */
+
+    public void setAutoTerminationPolicy(AutoTerminationPolicy autoTerminationPolicy) {
+        this.autoTerminationPolicy = autoTerminationPolicy;
+    }
+
+    /**
+     * @return
+     */
+
+    public AutoTerminationPolicy getAutoTerminationPolicy() {
+        return this.autoTerminationPolicy;
+    }
+
+    /**
+     * @param autoTerminationPolicy
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RunJobFlowRequest withAutoTerminationPolicy(AutoTerminationPolicy autoTerminationPolicy) {
+        setAutoTerminationPolicy(autoTerminationPolicy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies a particular Amazon Linux release for all nodes in a cluster launch RunJobFlow request. If a release is
+     * not specified, Amazon EMR uses the latest validated Amazon Linux release for cluster launch.
+     * </p>
+     * 
+     * @param oSReleaseLabel
+     *        Specifies a particular Amazon Linux release for all nodes in a cluster launch RunJobFlow request. If a
+     *        release is not specified, Amazon EMR uses the latest validated Amazon Linux release for cluster launch.
+     */
+
+    public void setOSReleaseLabel(String oSReleaseLabel) {
+        this.oSReleaseLabel = oSReleaseLabel;
+    }
+
+    /**
+     * <p>
+     * Specifies a particular Amazon Linux release for all nodes in a cluster launch RunJobFlow request. If a release is
+     * not specified, Amazon EMR uses the latest validated Amazon Linux release for cluster launch.
+     * </p>
+     * 
+     * @return Specifies a particular Amazon Linux release for all nodes in a cluster launch RunJobFlow request. If a
+     *         release is not specified, Amazon EMR uses the latest validated Amazon Linux release for cluster launch.
+     */
+
+    public String getOSReleaseLabel() {
+        return this.oSReleaseLabel;
+    }
+
+    /**
+     * <p>
+     * Specifies a particular Amazon Linux release for all nodes in a cluster launch RunJobFlow request. If a release is
+     * not specified, Amazon EMR uses the latest validated Amazon Linux release for cluster launch.
+     * </p>
+     * 
+     * @param oSReleaseLabel
+     *        Specifies a particular Amazon Linux release for all nodes in a cluster launch RunJobFlow request. If a
+     *        release is not specified, Amazon EMR uses the latest validated Amazon Linux release for cluster launch.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RunJobFlowRequest withOSReleaseLabel(String oSReleaseLabel) {
+        setOSReleaseLabel(oSReleaseLabel);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IOPS, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2 instance.
+     * Available in Amazon EMR releases 6.15.0 and later.
+     * </p>
+     * 
+     * @param ebsRootVolumeIops
+     *        The IOPS, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2 instance.
+     *        Available in Amazon EMR releases 6.15.0 and later.
+     */
+
+    public void setEbsRootVolumeIops(Integer ebsRootVolumeIops) {
+        this.ebsRootVolumeIops = ebsRootVolumeIops;
+    }
+
+    /**
+     * <p>
+     * The IOPS, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2 instance.
+     * Available in Amazon EMR releases 6.15.0 and later.
+     * </p>
+     * 
+     * @return The IOPS, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2
+     *         instance. Available in Amazon EMR releases 6.15.0 and later.
+     */
+
+    public Integer getEbsRootVolumeIops() {
+        return this.ebsRootVolumeIops;
+    }
+
+    /**
+     * <p>
+     * The IOPS, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2 instance.
+     * Available in Amazon EMR releases 6.15.0 and later.
+     * </p>
+     * 
+     * @param ebsRootVolumeIops
+     *        The IOPS, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2 instance.
+     *        Available in Amazon EMR releases 6.15.0 and later.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RunJobFlowRequest withEbsRootVolumeIops(Integer ebsRootVolumeIops) {
+        setEbsRootVolumeIops(ebsRootVolumeIops);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The throughput, in MiB/s, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2
+     * instance. Available in Amazon EMR releases 6.15.0 and later.
+     * </p>
+     * 
+     * @param ebsRootVolumeThroughput
+     *        The throughput, in MiB/s, of the Amazon EBS root device volume of the Linux AMI that is used for each
+     *        Amazon EC2 instance. Available in Amazon EMR releases 6.15.0 and later.
+     */
+
+    public void setEbsRootVolumeThroughput(Integer ebsRootVolumeThroughput) {
+        this.ebsRootVolumeThroughput = ebsRootVolumeThroughput;
+    }
+
+    /**
+     * <p>
+     * The throughput, in MiB/s, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2
+     * instance. Available in Amazon EMR releases 6.15.0 and later.
+     * </p>
+     * 
+     * @return The throughput, in MiB/s, of the Amazon EBS root device volume of the Linux AMI that is used for each
+     *         Amazon EC2 instance. Available in Amazon EMR releases 6.15.0 and later.
+     */
+
+    public Integer getEbsRootVolumeThroughput() {
+        return this.ebsRootVolumeThroughput;
+    }
+
+    /**
+     * <p>
+     * The throughput, in MiB/s, of the Amazon EBS root device volume of the Linux AMI that is used for each Amazon EC2
+     * instance. Available in Amazon EMR releases 6.15.0 and later.
+     * </p>
+     * 
+     * @param ebsRootVolumeThroughput
+     *        The throughput, in MiB/s, of the Amazon EBS root device volume of the Linux AMI that is used for each
+     *        Amazon EC2 instance. Available in Amazon EMR releases 6.15.0 and later.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RunJobFlowRequest withEbsRootVolumeThroughput(Integer ebsRootVolumeThroughput) {
+        setEbsRootVolumeThroughput(ebsRootVolumeThroughput);
         return this;
     }
 
@@ -2447,6 +3008,8 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
             sb.append("Name: ").append(getName()).append(",");
         if (getLogUri() != null)
             sb.append("LogUri: ").append(getLogUri()).append(",");
+        if (getLogEncryptionKmsKeyId() != null)
+            sb.append("LogEncryptionKmsKeyId: ").append(getLogEncryptionKmsKeyId()).append(",");
         if (getAdditionalInfo() != null)
             sb.append("AdditionalInfo: ").append(getAdditionalInfo()).append(",");
         if (getAmiVersion() != null)
@@ -2488,7 +3051,21 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
         if (getRepoUpgradeOnBoot() != null)
             sb.append("RepoUpgradeOnBoot: ").append(getRepoUpgradeOnBoot()).append(",");
         if (getKerberosAttributes() != null)
-            sb.append("KerberosAttributes: ").append(getKerberosAttributes());
+            sb.append("KerberosAttributes: ").append(getKerberosAttributes()).append(",");
+        if (getStepConcurrencyLevel() != null)
+            sb.append("StepConcurrencyLevel: ").append(getStepConcurrencyLevel()).append(",");
+        if (getManagedScalingPolicy() != null)
+            sb.append("ManagedScalingPolicy: ").append(getManagedScalingPolicy()).append(",");
+        if (getPlacementGroupConfigs() != null)
+            sb.append("PlacementGroupConfigs: ").append(getPlacementGroupConfigs()).append(",");
+        if (getAutoTerminationPolicy() != null)
+            sb.append("AutoTerminationPolicy: ").append(getAutoTerminationPolicy()).append(",");
+        if (getOSReleaseLabel() != null)
+            sb.append("OSReleaseLabel: ").append(getOSReleaseLabel()).append(",");
+        if (getEbsRootVolumeIops() != null)
+            sb.append("EbsRootVolumeIops: ").append(getEbsRootVolumeIops()).append(",");
+        if (getEbsRootVolumeThroughput() != null)
+            sb.append("EbsRootVolumeThroughput: ").append(getEbsRootVolumeThroughput());
         sb.append("}");
         return sb.toString();
     }
@@ -2510,6 +3087,10 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
         if (other.getLogUri() == null ^ this.getLogUri() == null)
             return false;
         if (other.getLogUri() != null && other.getLogUri().equals(this.getLogUri()) == false)
+            return false;
+        if (other.getLogEncryptionKmsKeyId() == null ^ this.getLogEncryptionKmsKeyId() == null)
+            return false;
+        if (other.getLogEncryptionKmsKeyId() != null && other.getLogEncryptionKmsKeyId().equals(this.getLogEncryptionKmsKeyId()) == false)
             return false;
         if (other.getAdditionalInfo() == null ^ this.getAdditionalInfo() == null)
             return false;
@@ -2595,6 +3176,34 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
             return false;
         if (other.getKerberosAttributes() != null && other.getKerberosAttributes().equals(this.getKerberosAttributes()) == false)
             return false;
+        if (other.getStepConcurrencyLevel() == null ^ this.getStepConcurrencyLevel() == null)
+            return false;
+        if (other.getStepConcurrencyLevel() != null && other.getStepConcurrencyLevel().equals(this.getStepConcurrencyLevel()) == false)
+            return false;
+        if (other.getManagedScalingPolicy() == null ^ this.getManagedScalingPolicy() == null)
+            return false;
+        if (other.getManagedScalingPolicy() != null && other.getManagedScalingPolicy().equals(this.getManagedScalingPolicy()) == false)
+            return false;
+        if (other.getPlacementGroupConfigs() == null ^ this.getPlacementGroupConfigs() == null)
+            return false;
+        if (other.getPlacementGroupConfigs() != null && other.getPlacementGroupConfigs().equals(this.getPlacementGroupConfigs()) == false)
+            return false;
+        if (other.getAutoTerminationPolicy() == null ^ this.getAutoTerminationPolicy() == null)
+            return false;
+        if (other.getAutoTerminationPolicy() != null && other.getAutoTerminationPolicy().equals(this.getAutoTerminationPolicy()) == false)
+            return false;
+        if (other.getOSReleaseLabel() == null ^ this.getOSReleaseLabel() == null)
+            return false;
+        if (other.getOSReleaseLabel() != null && other.getOSReleaseLabel().equals(this.getOSReleaseLabel()) == false)
+            return false;
+        if (other.getEbsRootVolumeIops() == null ^ this.getEbsRootVolumeIops() == null)
+            return false;
+        if (other.getEbsRootVolumeIops() != null && other.getEbsRootVolumeIops().equals(this.getEbsRootVolumeIops()) == false)
+            return false;
+        if (other.getEbsRootVolumeThroughput() == null ^ this.getEbsRootVolumeThroughput() == null)
+            return false;
+        if (other.getEbsRootVolumeThroughput() != null && other.getEbsRootVolumeThroughput().equals(this.getEbsRootVolumeThroughput()) == false)
+            return false;
         return true;
     }
 
@@ -2605,6 +3214,7 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getLogUri() == null) ? 0 : getLogUri().hashCode());
+        hashCode = prime * hashCode + ((getLogEncryptionKmsKeyId() == null) ? 0 : getLogEncryptionKmsKeyId().hashCode());
         hashCode = prime * hashCode + ((getAdditionalInfo() == null) ? 0 : getAdditionalInfo().hashCode());
         hashCode = prime * hashCode + ((getAmiVersion() == null) ? 0 : getAmiVersion().hashCode());
         hashCode = prime * hashCode + ((getReleaseLabel() == null) ? 0 : getReleaseLabel().hashCode());
@@ -2626,6 +3236,13 @@ public class RunJobFlowRequest extends com.amazonaws.AmazonWebServiceRequest imp
         hashCode = prime * hashCode + ((getEbsRootVolumeSize() == null) ? 0 : getEbsRootVolumeSize().hashCode());
         hashCode = prime * hashCode + ((getRepoUpgradeOnBoot() == null) ? 0 : getRepoUpgradeOnBoot().hashCode());
         hashCode = prime * hashCode + ((getKerberosAttributes() == null) ? 0 : getKerberosAttributes().hashCode());
+        hashCode = prime * hashCode + ((getStepConcurrencyLevel() == null) ? 0 : getStepConcurrencyLevel().hashCode());
+        hashCode = prime * hashCode + ((getManagedScalingPolicy() == null) ? 0 : getManagedScalingPolicy().hashCode());
+        hashCode = prime * hashCode + ((getPlacementGroupConfigs() == null) ? 0 : getPlacementGroupConfigs().hashCode());
+        hashCode = prime * hashCode + ((getAutoTerminationPolicy() == null) ? 0 : getAutoTerminationPolicy().hashCode());
+        hashCode = prime * hashCode + ((getOSReleaseLabel() == null) ? 0 : getOSReleaseLabel().hashCode());
+        hashCode = prime * hashCode + ((getEbsRootVolumeIops() == null) ? 0 : getEbsRootVolumeIops().hashCode());
+        hashCode = prime * hashCode + ((getEbsRootVolumeThroughput() == null) ? 0 : getEbsRootVolumeThroughput().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,7 +45,7 @@ public class UpdateSimulationApplicationRequest extends com.amazonaws.AmazonWebS
     private SimulationSoftwareSuite simulationSoftwareSuite;
     /**
      * <p>
-     * Information about the robot software suite.
+     * Information about the robot software suite (ROS distribution).
      * </p>
      */
     private RobotSoftwareSuite robotSoftwareSuite;
@@ -61,6 +61,12 @@ public class UpdateSimulationApplicationRequest extends com.amazonaws.AmazonWebS
      * </p>
      */
     private String currentRevisionId;
+    /**
+     * <p>
+     * The object that contains the Docker image URI for your simulation application.
+     * </p>
+     */
+    private Environment environment;
 
     /**
      * <p>
@@ -214,11 +220,11 @@ public class UpdateSimulationApplicationRequest extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * Information about the robot software suite.
+     * Information about the robot software suite (ROS distribution).
      * </p>
      * 
      * @param robotSoftwareSuite
-     *        Information about the robot software suite.
+     *        Information about the robot software suite (ROS distribution).
      */
 
     public void setRobotSoftwareSuite(RobotSoftwareSuite robotSoftwareSuite) {
@@ -227,10 +233,10 @@ public class UpdateSimulationApplicationRequest extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * Information about the robot software suite.
+     * Information about the robot software suite (ROS distribution).
      * </p>
      * 
-     * @return Information about the robot software suite.
+     * @return Information about the robot software suite (ROS distribution).
      */
 
     public RobotSoftwareSuite getRobotSoftwareSuite() {
@@ -239,11 +245,11 @@ public class UpdateSimulationApplicationRequest extends com.amazonaws.AmazonWebS
 
     /**
      * <p>
-     * Information about the robot software suite.
+     * Information about the robot software suite (ROS distribution).
      * </p>
      * 
      * @param robotSoftwareSuite
-     *        Information about the robot software suite.
+     *        Information about the robot software suite (ROS distribution).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -333,6 +339,46 @@ public class UpdateSimulationApplicationRequest extends com.amazonaws.AmazonWebS
     }
 
     /**
+     * <p>
+     * The object that contains the Docker image URI for your simulation application.
+     * </p>
+     * 
+     * @param environment
+     *        The object that contains the Docker image URI for your simulation application.
+     */
+
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
+
+    /**
+     * <p>
+     * The object that contains the Docker image URI for your simulation application.
+     * </p>
+     * 
+     * @return The object that contains the Docker image URI for your simulation application.
+     */
+
+    public Environment getEnvironment() {
+        return this.environment;
+    }
+
+    /**
+     * <p>
+     * The object that contains the Docker image URI for your simulation application.
+     * </p>
+     * 
+     * @param environment
+     *        The object that contains the Docker image URI for your simulation application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateSimulationApplicationRequest withEnvironment(Environment environment) {
+        setEnvironment(environment);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -355,7 +401,9 @@ public class UpdateSimulationApplicationRequest extends com.amazonaws.AmazonWebS
         if (getRenderingEngine() != null)
             sb.append("RenderingEngine: ").append(getRenderingEngine()).append(",");
         if (getCurrentRevisionId() != null)
-            sb.append("CurrentRevisionId: ").append(getCurrentRevisionId());
+            sb.append("CurrentRevisionId: ").append(getCurrentRevisionId()).append(",");
+        if (getEnvironment() != null)
+            sb.append("Environment: ").append(getEnvironment());
         sb.append("}");
         return sb.toString();
     }
@@ -394,6 +442,10 @@ public class UpdateSimulationApplicationRequest extends com.amazonaws.AmazonWebS
             return false;
         if (other.getCurrentRevisionId() != null && other.getCurrentRevisionId().equals(this.getCurrentRevisionId()) == false)
             return false;
+        if (other.getEnvironment() == null ^ this.getEnvironment() == null)
+            return false;
+        if (other.getEnvironment() != null && other.getEnvironment().equals(this.getEnvironment()) == false)
+            return false;
         return true;
     }
 
@@ -408,6 +460,7 @@ public class UpdateSimulationApplicationRequest extends com.amazonaws.AmazonWebS
         hashCode = prime * hashCode + ((getRobotSoftwareSuite() == null) ? 0 : getRobotSoftwareSuite().hashCode());
         hashCode = prime * hashCode + ((getRenderingEngine() == null) ? 0 : getRenderingEngine().hashCode());
         hashCode = prime * hashCode + ((getCurrentRevisionId() == null) ? 0 : getCurrentRevisionId().hashCode());
+        hashCode = prime * hashCode + ((getEnvironment() == null) ? 0 : getEnvironment().hashCode());
         return hashCode;
     }
 

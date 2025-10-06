@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,11 +29,24 @@ public class DeleteFleetsRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * The IDs of the EC2 Fleets.
      * </p>
+     * <p>
+     * Constraints: In a single request, you can specify up to 25 <code>instant</code> fleet IDs and up to 100
+     * <code>maintain</code> or <code>request</code> fleet IDs.
+     * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> fleetIds;
     /**
      * <p>
-     * Indicates whether to terminate instances for an EC2 Fleet if it is deleted successfully.
+     * Indicates whether to terminate the associated instances when the EC2 Fleet is deleted. The default is to
+     * terminate the instances.
+     * </p>
+     * <p>
+     * To let the instances continue to run after the EC2 Fleet is deleted, specify <code>no-terminate-instances</code>.
+     * Supported only for fleets of type <code>maintain</code> and <code>request</code>.
+     * </p>
+     * <p>
+     * For <code>instant</code> fleets, you cannot specify <code>NoTerminateInstances</code>. A deleted
+     * <code>instant</code> fleet with running instances is not supported.
      * </p>
      */
     private Boolean terminateInstances;
@@ -42,8 +55,15 @@ public class DeleteFleetsRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * The IDs of the EC2 Fleets.
      * </p>
+     * <p>
+     * Constraints: In a single request, you can specify up to 25 <code>instant</code> fleet IDs and up to 100
+     * <code>maintain</code> or <code>request</code> fleet IDs.
+     * </p>
      * 
-     * @return The IDs of the EC2 Fleets.
+     * @return The IDs of the EC2 Fleets.</p>
+     *         <p>
+     *         Constraints: In a single request, you can specify up to 25 <code>instant</code> fleet IDs and up to 100
+     *         <code>maintain</code> or <code>request</code> fleet IDs.
      */
 
     public java.util.List<String> getFleetIds() {
@@ -57,9 +77,16 @@ public class DeleteFleetsRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * The IDs of the EC2 Fleets.
      * </p>
+     * <p>
+     * Constraints: In a single request, you can specify up to 25 <code>instant</code> fleet IDs and up to 100
+     * <code>maintain</code> or <code>request</code> fleet IDs.
+     * </p>
      * 
      * @param fleetIds
-     *        The IDs of the EC2 Fleets.
+     *        The IDs of the EC2 Fleets.</p>
+     *        <p>
+     *        Constraints: In a single request, you can specify up to 25 <code>instant</code> fleet IDs and up to 100
+     *        <code>maintain</code> or <code>request</code> fleet IDs.
      */
 
     public void setFleetIds(java.util.Collection<String> fleetIds) {
@@ -76,13 +103,20 @@ public class DeleteFleetsRequest extends AmazonWebServiceRequest implements Seri
      * The IDs of the EC2 Fleets.
      * </p>
      * <p>
+     * Constraints: In a single request, you can specify up to 25 <code>instant</code> fleet IDs and up to 100
+     * <code>maintain</code> or <code>request</code> fleet IDs.
+     * </p>
+     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setFleetIds(java.util.Collection)} or {@link #withFleetIds(java.util.Collection)} if you want to override
      * the existing values.
      * </p>
      * 
      * @param fleetIds
-     *        The IDs of the EC2 Fleets.
+     *        The IDs of the EC2 Fleets.</p>
+     *        <p>
+     *        Constraints: In a single request, you can specify up to 25 <code>instant</code> fleet IDs and up to 100
+     *        <code>maintain</code> or <code>request</code> fleet IDs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -100,9 +134,16 @@ public class DeleteFleetsRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * The IDs of the EC2 Fleets.
      * </p>
+     * <p>
+     * Constraints: In a single request, you can specify up to 25 <code>instant</code> fleet IDs and up to 100
+     * <code>maintain</code> or <code>request</code> fleet IDs.
+     * </p>
      * 
      * @param fleetIds
-     *        The IDs of the EC2 Fleets.
+     *        The IDs of the EC2 Fleets.</p>
+     *        <p>
+     *        Constraints: In a single request, you can specify up to 25 <code>instant</code> fleet IDs and up to 100
+     *        <code>maintain</code> or <code>request</code> fleet IDs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -113,11 +154,29 @@ public class DeleteFleetsRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * Indicates whether to terminate instances for an EC2 Fleet if it is deleted successfully.
+     * Indicates whether to terminate the associated instances when the EC2 Fleet is deleted. The default is to
+     * terminate the instances.
+     * </p>
+     * <p>
+     * To let the instances continue to run after the EC2 Fleet is deleted, specify <code>no-terminate-instances</code>.
+     * Supported only for fleets of type <code>maintain</code> and <code>request</code>.
+     * </p>
+     * <p>
+     * For <code>instant</code> fleets, you cannot specify <code>NoTerminateInstances</code>. A deleted
+     * <code>instant</code> fleet with running instances is not supported.
      * </p>
      * 
      * @param terminateInstances
-     *        Indicates whether to terminate instances for an EC2 Fleet if it is deleted successfully.
+     *        Indicates whether to terminate the associated instances when the EC2 Fleet is deleted. The default is to
+     *        terminate the instances.</p>
+     *        <p>
+     *        To let the instances continue to run after the EC2 Fleet is deleted, specify
+     *        <code>no-terminate-instances</code>. Supported only for fleets of type <code>maintain</code> and
+     *        <code>request</code>.
+     *        </p>
+     *        <p>
+     *        For <code>instant</code> fleets, you cannot specify <code>NoTerminateInstances</code>. A deleted
+     *        <code>instant</code> fleet with running instances is not supported.
      */
 
     public void setTerminateInstances(Boolean terminateInstances) {
@@ -126,10 +185,28 @@ public class DeleteFleetsRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * Indicates whether to terminate instances for an EC2 Fleet if it is deleted successfully.
+     * Indicates whether to terminate the associated instances when the EC2 Fleet is deleted. The default is to
+     * terminate the instances.
+     * </p>
+     * <p>
+     * To let the instances continue to run after the EC2 Fleet is deleted, specify <code>no-terminate-instances</code>.
+     * Supported only for fleets of type <code>maintain</code> and <code>request</code>.
+     * </p>
+     * <p>
+     * For <code>instant</code> fleets, you cannot specify <code>NoTerminateInstances</code>. A deleted
+     * <code>instant</code> fleet with running instances is not supported.
      * </p>
      * 
-     * @return Indicates whether to terminate instances for an EC2 Fleet if it is deleted successfully.
+     * @return Indicates whether to terminate the associated instances when the EC2 Fleet is deleted. The default is to
+     *         terminate the instances.</p>
+     *         <p>
+     *         To let the instances continue to run after the EC2 Fleet is deleted, specify
+     *         <code>no-terminate-instances</code>. Supported only for fleets of type <code>maintain</code> and
+     *         <code>request</code>.
+     *         </p>
+     *         <p>
+     *         For <code>instant</code> fleets, you cannot specify <code>NoTerminateInstances</code>. A deleted
+     *         <code>instant</code> fleet with running instances is not supported.
      */
 
     public Boolean getTerminateInstances() {
@@ -138,11 +215,29 @@ public class DeleteFleetsRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * Indicates whether to terminate instances for an EC2 Fleet if it is deleted successfully.
+     * Indicates whether to terminate the associated instances when the EC2 Fleet is deleted. The default is to
+     * terminate the instances.
+     * </p>
+     * <p>
+     * To let the instances continue to run after the EC2 Fleet is deleted, specify <code>no-terminate-instances</code>.
+     * Supported only for fleets of type <code>maintain</code> and <code>request</code>.
+     * </p>
+     * <p>
+     * For <code>instant</code> fleets, you cannot specify <code>NoTerminateInstances</code>. A deleted
+     * <code>instant</code> fleet with running instances is not supported.
      * </p>
      * 
      * @param terminateInstances
-     *        Indicates whether to terminate instances for an EC2 Fleet if it is deleted successfully.
+     *        Indicates whether to terminate the associated instances when the EC2 Fleet is deleted. The default is to
+     *        terminate the instances.</p>
+     *        <p>
+     *        To let the instances continue to run after the EC2 Fleet is deleted, specify
+     *        <code>no-terminate-instances</code>. Supported only for fleets of type <code>maintain</code> and
+     *        <code>request</code>.
+     *        </p>
+     *        <p>
+     *        For <code>instant</code> fleets, you cannot specify <code>NoTerminateInstances</code>. A deleted
+     *        <code>instant</code> fleet with running instances is not supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -153,10 +248,28 @@ public class DeleteFleetsRequest extends AmazonWebServiceRequest implements Seri
 
     /**
      * <p>
-     * Indicates whether to terminate instances for an EC2 Fleet if it is deleted successfully.
+     * Indicates whether to terminate the associated instances when the EC2 Fleet is deleted. The default is to
+     * terminate the instances.
+     * </p>
+     * <p>
+     * To let the instances continue to run after the EC2 Fleet is deleted, specify <code>no-terminate-instances</code>.
+     * Supported only for fleets of type <code>maintain</code> and <code>request</code>.
+     * </p>
+     * <p>
+     * For <code>instant</code> fleets, you cannot specify <code>NoTerminateInstances</code>. A deleted
+     * <code>instant</code> fleet with running instances is not supported.
      * </p>
      * 
-     * @return Indicates whether to terminate instances for an EC2 Fleet if it is deleted successfully.
+     * @return Indicates whether to terminate the associated instances when the EC2 Fleet is deleted. The default is to
+     *         terminate the instances.</p>
+     *         <p>
+     *         To let the instances continue to run after the EC2 Fleet is deleted, specify
+     *         <code>no-terminate-instances</code>. Supported only for fleets of type <code>maintain</code> and
+     *         <code>request</code>.
+     *         </p>
+     *         <p>
+     *         For <code>instant</code> fleets, you cannot specify <code>NoTerminateInstances</code>. A deleted
+     *         <code>instant</code> fleet with running instances is not supported.
      */
 
     public Boolean isTerminateInstances() {

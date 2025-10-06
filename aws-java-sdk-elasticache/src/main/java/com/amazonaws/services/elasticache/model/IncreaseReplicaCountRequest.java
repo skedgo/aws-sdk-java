@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,16 +33,17 @@ public class IncreaseReplicaCountRequest extends com.amazonaws.AmazonWebServiceR
     private String replicationGroupId;
     /**
      * <p>
-     * The number of read replica nodes you want at the completion of this operation. For Redis (cluster mode disabled)
-     * replication groups, this is the number of replica nodes in the replication group. For Redis (cluster mode
-     * enabled) replication groups, this is the number of replica nodes in each of the replication group's node groups.
+     * The number of read replica nodes you want at the completion of this operation. For Redis OSS (cluster mode
+     * disabled) replication groups, this is the number of replica nodes in the replication group. For Redis OSS
+     * (cluster mode enabled) replication groups, this is the number of replica nodes in each of the replication group's
+     * node groups.
      * </p>
      */
     private Integer newReplicaCount;
     /**
      * <p>
-     * A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis (cluster mode
-     * enabled) replication group. The <code>ConfigureShard</code> has three members: <code>NewReplicaCount</code>,
+     * A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis OSS (cluster
+     * mode enabled) replication group. The <code>ConfigureShard</code> has three members: <code>NewReplicaCount</code>,
      * <code>NodeGroupId</code>, and <code>PreferredAvailabilityZones</code>.
      * </p>
      */
@@ -97,14 +98,15 @@ public class IncreaseReplicaCountRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The number of read replica nodes you want at the completion of this operation. For Redis (cluster mode disabled)
-     * replication groups, this is the number of replica nodes in the replication group. For Redis (cluster mode
-     * enabled) replication groups, this is the number of replica nodes in each of the replication group's node groups.
+     * The number of read replica nodes you want at the completion of this operation. For Redis OSS (cluster mode
+     * disabled) replication groups, this is the number of replica nodes in the replication group. For Redis OSS
+     * (cluster mode enabled) replication groups, this is the number of replica nodes in each of the replication group's
+     * node groups.
      * </p>
      * 
      * @param newReplicaCount
-     *        The number of read replica nodes you want at the completion of this operation. For Redis (cluster mode
-     *        disabled) replication groups, this is the number of replica nodes in the replication group. For Redis
+     *        The number of read replica nodes you want at the completion of this operation. For Redis OSS (cluster mode
+     *        disabled) replication groups, this is the number of replica nodes in the replication group. For Redis OSS
      *        (cluster mode enabled) replication groups, this is the number of replica nodes in each of the replication
      *        group's node groups.
      */
@@ -115,15 +117,16 @@ public class IncreaseReplicaCountRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The number of read replica nodes you want at the completion of this operation. For Redis (cluster mode disabled)
-     * replication groups, this is the number of replica nodes in the replication group. For Redis (cluster mode
-     * enabled) replication groups, this is the number of replica nodes in each of the replication group's node groups.
+     * The number of read replica nodes you want at the completion of this operation. For Redis OSS (cluster mode
+     * disabled) replication groups, this is the number of replica nodes in the replication group. For Redis OSS
+     * (cluster mode enabled) replication groups, this is the number of replica nodes in each of the replication group's
+     * node groups.
      * </p>
      * 
-     * @return The number of read replica nodes you want at the completion of this operation. For Redis (cluster mode
-     *         disabled) replication groups, this is the number of replica nodes in the replication group. For Redis
-     *         (cluster mode enabled) replication groups, this is the number of replica nodes in each of the replication
-     *         group's node groups.
+     * @return The number of read replica nodes you want at the completion of this operation. For Redis OSS (cluster
+     *         mode disabled) replication groups, this is the number of replica nodes in the replication group. For
+     *         Redis OSS (cluster mode enabled) replication groups, this is the number of replica nodes in each of the
+     *         replication group's node groups.
      */
 
     public Integer getNewReplicaCount() {
@@ -132,14 +135,15 @@ public class IncreaseReplicaCountRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The number of read replica nodes you want at the completion of this operation. For Redis (cluster mode disabled)
-     * replication groups, this is the number of replica nodes in the replication group. For Redis (cluster mode
-     * enabled) replication groups, this is the number of replica nodes in each of the replication group's node groups.
+     * The number of read replica nodes you want at the completion of this operation. For Redis OSS (cluster mode
+     * disabled) replication groups, this is the number of replica nodes in the replication group. For Redis OSS
+     * (cluster mode enabled) replication groups, this is the number of replica nodes in each of the replication group's
+     * node groups.
      * </p>
      * 
      * @param newReplicaCount
-     *        The number of read replica nodes you want at the completion of this operation. For Redis (cluster mode
-     *        disabled) replication groups, this is the number of replica nodes in the replication group. For Redis
+     *        The number of read replica nodes you want at the completion of this operation. For Redis OSS (cluster mode
+     *        disabled) replication groups, this is the number of replica nodes in the replication group. For Redis OSS
      *        (cluster mode enabled) replication groups, this is the number of replica nodes in each of the replication
      *        group's node groups.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -152,12 +156,12 @@ public class IncreaseReplicaCountRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis (cluster mode
-     * enabled) replication group. The <code>ConfigureShard</code> has three members: <code>NewReplicaCount</code>,
+     * A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis OSS (cluster
+     * mode enabled) replication group. The <code>ConfigureShard</code> has three members: <code>NewReplicaCount</code>,
      * <code>NodeGroupId</code>, and <code>PreferredAvailabilityZones</code>.
      * </p>
      * 
-     * @return A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis
+     * @return A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis OSS
      *         (cluster mode enabled) replication group. The <code>ConfigureShard</code> has three members:
      *         <code>NewReplicaCount</code>, <code>NodeGroupId</code>, and <code>PreferredAvailabilityZones</code>.
      */
@@ -171,14 +175,14 @@ public class IncreaseReplicaCountRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis (cluster mode
-     * enabled) replication group. The <code>ConfigureShard</code> has three members: <code>NewReplicaCount</code>,
+     * A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis OSS (cluster
+     * mode enabled) replication group. The <code>ConfigureShard</code> has three members: <code>NewReplicaCount</code>,
      * <code>NodeGroupId</code>, and <code>PreferredAvailabilityZones</code>.
      * </p>
      * 
      * @param replicaConfiguration
-     *        A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis (cluster
-     *        mode enabled) replication group. The <code>ConfigureShard</code> has three members:
+     *        A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis OSS
+     *        (cluster mode enabled) replication group. The <code>ConfigureShard</code> has three members:
      *        <code>NewReplicaCount</code>, <code>NodeGroupId</code>, and <code>PreferredAvailabilityZones</code>.
      */
 
@@ -193,8 +197,8 @@ public class IncreaseReplicaCountRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis (cluster mode
-     * enabled) replication group. The <code>ConfigureShard</code> has three members: <code>NewReplicaCount</code>,
+     * A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis OSS (cluster
+     * mode enabled) replication group. The <code>ConfigureShard</code> has three members: <code>NewReplicaCount</code>,
      * <code>NodeGroupId</code>, and <code>PreferredAvailabilityZones</code>.
      * </p>
      * <p>
@@ -204,8 +208,8 @@ public class IncreaseReplicaCountRequest extends com.amazonaws.AmazonWebServiceR
      * </p>
      * 
      * @param replicaConfiguration
-     *        A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis (cluster
-     *        mode enabled) replication group. The <code>ConfigureShard</code> has three members:
+     *        A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis OSS
+     *        (cluster mode enabled) replication group. The <code>ConfigureShard</code> has three members:
      *        <code>NewReplicaCount</code>, <code>NodeGroupId</code>, and <code>PreferredAvailabilityZones</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -222,14 +226,14 @@ public class IncreaseReplicaCountRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis (cluster mode
-     * enabled) replication group. The <code>ConfigureShard</code> has three members: <code>NewReplicaCount</code>,
+     * A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis OSS (cluster
+     * mode enabled) replication group. The <code>ConfigureShard</code> has three members: <code>NewReplicaCount</code>,
      * <code>NodeGroupId</code>, and <code>PreferredAvailabilityZones</code>.
      * </p>
      * 
      * @param replicaConfiguration
-     *        A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis (cluster
-     *        mode enabled) replication group. The <code>ConfigureShard</code> has three members:
+     *        A list of <code>ConfigureShard</code> objects that can be used to configure each shard in a Redis OSS
+     *        (cluster mode enabled) replication group. The <code>ConfigureShard</code> has three members:
      *        <code>NewReplicaCount</code>, <code>NodeGroupId</code>, and <code>PreferredAvailabilityZones</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

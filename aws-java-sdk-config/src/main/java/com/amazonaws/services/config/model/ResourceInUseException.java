@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,8 +16,48 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * The rule is currently being deleted or the rule is deleting your evaluation results. Try your request again later.
+ * You see this exception in the following cases:
  * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * For DeleteConfigRule, Config is deleting this rule. Try your request again later.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * For DeleteConfigRule, the rule is deleting your evaluation results. Try your request again later.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * For DeleteConfigRule, a remediation action is associated with the rule and Config cannot delete this rule. Delete the
+ * remediation action associated with the rule before deleting the rule and try your request again later.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * For PutConfigOrganizationRule, organization Config rule deletion is in progress. Try your request again later.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * For DeleteOrganizationConfigRule, organization Config rule creation is in progress. Try your request again later.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * For PutConformancePack and PutOrganizationConformancePack, a conformance pack creation, update, and deletion is in
+ * progress. Try your request again later.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * For DeleteConformancePack, a conformance pack creation, update, and deletion is in progress. Try your request again
+ * later.
+ * </p>
+ * </li>
+ * </ul>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class ResourceInUseException extends com.amazonaws.services.config.model.AmazonConfigException {

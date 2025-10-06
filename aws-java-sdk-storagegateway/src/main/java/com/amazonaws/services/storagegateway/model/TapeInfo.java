@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,7 +55,7 @@ public class TapeInfo implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a> operation to return a list of gateways
-     * for your account and region.
+     * for your account and Amazon Web Services Region.
      * </p>
      */
     private String gatewayARN;
@@ -63,13 +63,22 @@ public class TapeInfo implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The ID of the pool that you want to add your tape to for archiving. The tape in this pool is archived in the S3
      * storage class that is associated with the pool. When you use your backup application to eject the tape, the tape
-     * is archived directly into the storage class (Glacier or Deep Archive) that corresponds to the pool.
-     * </p>
-     * <p>
-     * Valid values: "GLACIER", "DEEP_ARCHIVE"
+     * is archived directly into the storage class (S3 Glacier or S3 Glacier Deep Archive) that corresponds to the pool.
      * </p>
      */
     private String poolId;
+    /**
+     * <p>
+     * The date that the tape became subject to tape retention lock.
+     * </p>
+     */
+    private java.util.Date retentionStartDate;
+    /**
+     * <p>
+     * The date that the tape entered the custom tape pool with tape retention lock enabled.
+     * </p>
+     */
+    private java.util.Date poolEntryDate;
 
     /**
      * <p>
@@ -234,12 +243,12 @@ public class TapeInfo implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a> operation to return a list of gateways
-     * for your account and region.
+     * for your account and Amazon Web Services Region.
      * </p>
      * 
      * @param gatewayARN
      *        The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a> operation to return a list of
-     *        gateways for your account and region.
+     *        gateways for your account and Amazon Web Services Region.
      */
 
     public void setGatewayARN(String gatewayARN) {
@@ -249,11 +258,11 @@ public class TapeInfo implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a> operation to return a list of gateways
-     * for your account and region.
+     * for your account and Amazon Web Services Region.
      * </p>
      * 
      * @return The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a> operation to return a list of
-     *         gateways for your account and region.
+     *         gateways for your account and Amazon Web Services Region.
      */
 
     public String getGatewayARN() {
@@ -263,12 +272,12 @@ public class TapeInfo implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a> operation to return a list of gateways
-     * for your account and region.
+     * for your account and Amazon Web Services Region.
      * </p>
      * 
      * @param gatewayARN
      *        The Amazon Resource Name (ARN) of the gateway. Use the <a>ListGateways</a> operation to return a list of
-     *        gateways for your account and region.
+     *        gateways for your account and Amazon Web Services Region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -281,19 +290,14 @@ public class TapeInfo implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The ID of the pool that you want to add your tape to for archiving. The tape in this pool is archived in the S3
      * storage class that is associated with the pool. When you use your backup application to eject the tape, the tape
-     * is archived directly into the storage class (Glacier or Deep Archive) that corresponds to the pool.
-     * </p>
-     * <p>
-     * Valid values: "GLACIER", "DEEP_ARCHIVE"
+     * is archived directly into the storage class (S3 Glacier or S3 Glacier Deep Archive) that corresponds to the pool.
      * </p>
      * 
      * @param poolId
      *        The ID of the pool that you want to add your tape to for archiving. The tape in this pool is archived in
      *        the S3 storage class that is associated with the pool. When you use your backup application to eject the
-     *        tape, the tape is archived directly into the storage class (Glacier or Deep Archive) that corresponds to
-     *        the pool.</p>
-     *        <p>
-     *        Valid values: "GLACIER", "DEEP_ARCHIVE"
+     *        tape, the tape is archived directly into the storage class (S3 Glacier or S3 Glacier Deep Archive) that
+     *        corresponds to the pool.
      */
 
     public void setPoolId(String poolId) {
@@ -304,18 +308,13 @@ public class TapeInfo implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The ID of the pool that you want to add your tape to for archiving. The tape in this pool is archived in the S3
      * storage class that is associated with the pool. When you use your backup application to eject the tape, the tape
-     * is archived directly into the storage class (Glacier or Deep Archive) that corresponds to the pool.
-     * </p>
-     * <p>
-     * Valid values: "GLACIER", "DEEP_ARCHIVE"
+     * is archived directly into the storage class (S3 Glacier or S3 Glacier Deep Archive) that corresponds to the pool.
      * </p>
      * 
      * @return The ID of the pool that you want to add your tape to for archiving. The tape in this pool is archived in
      *         the S3 storage class that is associated with the pool. When you use your backup application to eject the
-     *         tape, the tape is archived directly into the storage class (Glacier or Deep Archive) that corresponds to
-     *         the pool.</p>
-     *         <p>
-     *         Valid values: "GLACIER", "DEEP_ARCHIVE"
+     *         tape, the tape is archived directly into the storage class (S3 Glacier or S3 Glacier Deep Archive) that
+     *         corresponds to the pool.
      */
 
     public String getPoolId() {
@@ -326,24 +325,99 @@ public class TapeInfo implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The ID of the pool that you want to add your tape to for archiving. The tape in this pool is archived in the S3
      * storage class that is associated with the pool. When you use your backup application to eject the tape, the tape
-     * is archived directly into the storage class (Glacier or Deep Archive) that corresponds to the pool.
-     * </p>
-     * <p>
-     * Valid values: "GLACIER", "DEEP_ARCHIVE"
+     * is archived directly into the storage class (S3 Glacier or S3 Glacier Deep Archive) that corresponds to the pool.
      * </p>
      * 
      * @param poolId
      *        The ID of the pool that you want to add your tape to for archiving. The tape in this pool is archived in
      *        the S3 storage class that is associated with the pool. When you use your backup application to eject the
-     *        tape, the tape is archived directly into the storage class (Glacier or Deep Archive) that corresponds to
-     *        the pool.</p>
-     *        <p>
-     *        Valid values: "GLACIER", "DEEP_ARCHIVE"
+     *        tape, the tape is archived directly into the storage class (S3 Glacier or S3 Glacier Deep Archive) that
+     *        corresponds to the pool.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public TapeInfo withPoolId(String poolId) {
         setPoolId(poolId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date that the tape became subject to tape retention lock.
+     * </p>
+     * 
+     * @param retentionStartDate
+     *        The date that the tape became subject to tape retention lock.
+     */
+
+    public void setRetentionStartDate(java.util.Date retentionStartDate) {
+        this.retentionStartDate = retentionStartDate;
+    }
+
+    /**
+     * <p>
+     * The date that the tape became subject to tape retention lock.
+     * </p>
+     * 
+     * @return The date that the tape became subject to tape retention lock.
+     */
+
+    public java.util.Date getRetentionStartDate() {
+        return this.retentionStartDate;
+    }
+
+    /**
+     * <p>
+     * The date that the tape became subject to tape retention lock.
+     * </p>
+     * 
+     * @param retentionStartDate
+     *        The date that the tape became subject to tape retention lock.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TapeInfo withRetentionStartDate(java.util.Date retentionStartDate) {
+        setRetentionStartDate(retentionStartDate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The date that the tape entered the custom tape pool with tape retention lock enabled.
+     * </p>
+     * 
+     * @param poolEntryDate
+     *        The date that the tape entered the custom tape pool with tape retention lock enabled.
+     */
+
+    public void setPoolEntryDate(java.util.Date poolEntryDate) {
+        this.poolEntryDate = poolEntryDate;
+    }
+
+    /**
+     * <p>
+     * The date that the tape entered the custom tape pool with tape retention lock enabled.
+     * </p>
+     * 
+     * @return The date that the tape entered the custom tape pool with tape retention lock enabled.
+     */
+
+    public java.util.Date getPoolEntryDate() {
+        return this.poolEntryDate;
+    }
+
+    /**
+     * <p>
+     * The date that the tape entered the custom tape pool with tape retention lock enabled.
+     * </p>
+     * 
+     * @param poolEntryDate
+     *        The date that the tape entered the custom tape pool with tape retention lock enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TapeInfo withPoolEntryDate(java.util.Date poolEntryDate) {
+        setPoolEntryDate(poolEntryDate);
         return this;
     }
 
@@ -370,7 +444,11 @@ public class TapeInfo implements Serializable, Cloneable, StructuredPojo {
         if (getGatewayARN() != null)
             sb.append("GatewayARN: ").append(getGatewayARN()).append(",");
         if (getPoolId() != null)
-            sb.append("PoolId: ").append(getPoolId());
+            sb.append("PoolId: ").append(getPoolId()).append(",");
+        if (getRetentionStartDate() != null)
+            sb.append("RetentionStartDate: ").append(getRetentionStartDate()).append(",");
+        if (getPoolEntryDate() != null)
+            sb.append("PoolEntryDate: ").append(getPoolEntryDate());
         sb.append("}");
         return sb.toString();
     }
@@ -409,6 +487,14 @@ public class TapeInfo implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getPoolId() != null && other.getPoolId().equals(this.getPoolId()) == false)
             return false;
+        if (other.getRetentionStartDate() == null ^ this.getRetentionStartDate() == null)
+            return false;
+        if (other.getRetentionStartDate() != null && other.getRetentionStartDate().equals(this.getRetentionStartDate()) == false)
+            return false;
+        if (other.getPoolEntryDate() == null ^ this.getPoolEntryDate() == null)
+            return false;
+        if (other.getPoolEntryDate() != null && other.getPoolEntryDate().equals(this.getPoolEntryDate()) == false)
+            return false;
         return true;
     }
 
@@ -423,6 +509,8 @@ public class TapeInfo implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getTapeStatus() == null) ? 0 : getTapeStatus().hashCode());
         hashCode = prime * hashCode + ((getGatewayARN() == null) ? 0 : getGatewayARN().hashCode());
         hashCode = prime * hashCode + ((getPoolId() == null) ? 0 : getPoolId().hashCode());
+        hashCode = prime * hashCode + ((getRetentionStartDate() == null) ? 0 : getRetentionStartDate().hashCode());
+        hashCode = prime * hashCode + ((getPoolEntryDate() == null) ? 0 : getPoolEntryDate().hashCode());
         return hashCode;
     }
 

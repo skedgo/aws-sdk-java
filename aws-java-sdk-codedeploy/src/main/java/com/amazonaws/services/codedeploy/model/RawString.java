@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A revision for an AWS Lambda deployment that is a YAML-formatted or JSON-formatted string. For AWS Lambda
- * deployments, the revision is the same as the AppSpec file.
+ * A revision for an Lambda deployment that is a YAML-formatted or JSON-formatted string. For Lambda deployments, the
+ * revision is the same as the AppSpec file.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/RawString" target="_top">AWS API

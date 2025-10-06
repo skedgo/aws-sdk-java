@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -159,13 +159,15 @@ public class CreateClusterRequestMarshaller implements Marshaller<Request<Create
             int tagsListIndex = 1;
 
             for (Tag tagsListValue : tagsList) {
+                if (tagsListValue != null) {
 
-                if (tagsListValue.getKey() != null) {
-                    request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
-                }
+                    if (tagsListValue.getKey() != null) {
+                        request.addParameter("Tags.Tag." + tagsListIndex + ".Key", StringUtils.fromString(tagsListValue.getKey()));
+                    }
 
-                if (tagsListValue.getValue() != null) {
-                    request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    if (tagsListValue.getValue() != null) {
+                        request.addParameter("Tags.Tag." + tagsListIndex + ".Value", StringUtils.fromString(tagsListValue.getValue()));
+                    }
                 }
                 tagsListIndex++;
             }
@@ -202,6 +204,42 @@ public class CreateClusterRequestMarshaller implements Marshaller<Request<Create
 
         if (createClusterRequest.getSnapshotScheduleIdentifier() != null) {
             request.addParameter("SnapshotScheduleIdentifier", StringUtils.fromString(createClusterRequest.getSnapshotScheduleIdentifier()));
+        }
+
+        if (createClusterRequest.getAvailabilityZoneRelocation() != null) {
+            request.addParameter("AvailabilityZoneRelocation", StringUtils.fromBoolean(createClusterRequest.getAvailabilityZoneRelocation()));
+        }
+
+        if (createClusterRequest.getAquaConfigurationStatus() != null) {
+            request.addParameter("AquaConfigurationStatus", StringUtils.fromString(createClusterRequest.getAquaConfigurationStatus()));
+        }
+
+        if (createClusterRequest.getDefaultIamRoleArn() != null) {
+            request.addParameter("DefaultIamRoleArn", StringUtils.fromString(createClusterRequest.getDefaultIamRoleArn()));
+        }
+
+        if (createClusterRequest.getLoadSampleData() != null) {
+            request.addParameter("LoadSampleData", StringUtils.fromString(createClusterRequest.getLoadSampleData()));
+        }
+
+        if (createClusterRequest.getManageMasterPassword() != null) {
+            request.addParameter("ManageMasterPassword", StringUtils.fromBoolean(createClusterRequest.getManageMasterPassword()));
+        }
+
+        if (createClusterRequest.getMasterPasswordSecretKmsKeyId() != null) {
+            request.addParameter("MasterPasswordSecretKmsKeyId", StringUtils.fromString(createClusterRequest.getMasterPasswordSecretKmsKeyId()));
+        }
+
+        if (createClusterRequest.getIpAddressType() != null) {
+            request.addParameter("IpAddressType", StringUtils.fromString(createClusterRequest.getIpAddressType()));
+        }
+
+        if (createClusterRequest.getMultiAZ() != null) {
+            request.addParameter("MultiAZ", StringUtils.fromBoolean(createClusterRequest.getMultiAZ()));
+        }
+
+        if (createClusterRequest.getRedshiftIdcApplicationArn() != null) {
+            request.addParameter("RedshiftIdcApplicationArn", StringUtils.fromString(createClusterRequest.getRedshiftIdcApplicationArn()));
         }
 
         return request;

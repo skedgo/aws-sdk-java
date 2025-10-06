@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -99,6 +99,19 @@ public class AbstractAmazonKinesisAnalyticsV2Async extends AbstractAmazonKinesis
     }
 
     @Override
+    public java.util.concurrent.Future<AddApplicationVpcConfigurationResult> addApplicationVpcConfigurationAsync(AddApplicationVpcConfigurationRequest request) {
+
+        return addApplicationVpcConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AddApplicationVpcConfigurationResult> addApplicationVpcConfigurationAsync(AddApplicationVpcConfigurationRequest request,
+            com.amazonaws.handlers.AsyncHandler<AddApplicationVpcConfigurationRequest, AddApplicationVpcConfigurationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateApplicationResult> createApplicationAsync(CreateApplicationRequest request) {
 
         return createApplicationAsync(request, null);
@@ -107,6 +120,19 @@ public class AbstractAmazonKinesisAnalyticsV2Async extends AbstractAmazonKinesis
     @Override
     public java.util.concurrent.Future<CreateApplicationResult> createApplicationAsync(CreateApplicationRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateApplicationRequest, CreateApplicationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateApplicationPresignedUrlResult> createApplicationPresignedUrlAsync(CreateApplicationPresignedUrlRequest request) {
+
+        return createApplicationPresignedUrlAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateApplicationPresignedUrlResult> createApplicationPresignedUrlAsync(CreateApplicationPresignedUrlRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateApplicationPresignedUrlRequest, CreateApplicationPresignedUrlResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -209,6 +235,21 @@ public class AbstractAmazonKinesisAnalyticsV2Async extends AbstractAmazonKinesis
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteApplicationVpcConfigurationResult> deleteApplicationVpcConfigurationAsync(
+            DeleteApplicationVpcConfigurationRequest request) {
+
+        return deleteApplicationVpcConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteApplicationVpcConfigurationResult> deleteApplicationVpcConfigurationAsync(
+            DeleteApplicationVpcConfigurationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteApplicationVpcConfigurationRequest, DeleteApplicationVpcConfigurationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeApplicationResult> describeApplicationAsync(DescribeApplicationRequest request) {
 
         return describeApplicationAsync(request, null);
@@ -217,6 +258,19 @@ public class AbstractAmazonKinesisAnalyticsV2Async extends AbstractAmazonKinesis
     @Override
     public java.util.concurrent.Future<DescribeApplicationResult> describeApplicationAsync(DescribeApplicationRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeApplicationRequest, DescribeApplicationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeApplicationOperationResult> describeApplicationOperationAsync(DescribeApplicationOperationRequest request) {
+
+        return describeApplicationOperationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeApplicationOperationResult> describeApplicationOperationAsync(DescribeApplicationOperationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeApplicationOperationRequest, DescribeApplicationOperationResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -235,6 +289,19 @@ public class AbstractAmazonKinesisAnalyticsV2Async extends AbstractAmazonKinesis
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeApplicationVersionResult> describeApplicationVersionAsync(DescribeApplicationVersionRequest request) {
+
+        return describeApplicationVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeApplicationVersionResult> describeApplicationVersionAsync(DescribeApplicationVersionRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeApplicationVersionRequest, DescribeApplicationVersionResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DiscoverInputSchemaResult> discoverInputSchemaAsync(DiscoverInputSchemaRequest request) {
 
         return discoverInputSchemaAsync(request, null);
@@ -248,6 +315,19 @@ public class AbstractAmazonKinesisAnalyticsV2Async extends AbstractAmazonKinesis
     }
 
     @Override
+    public java.util.concurrent.Future<ListApplicationOperationsResult> listApplicationOperationsAsync(ListApplicationOperationsRequest request) {
+
+        return listApplicationOperationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListApplicationOperationsResult> listApplicationOperationsAsync(ListApplicationOperationsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListApplicationOperationsRequest, ListApplicationOperationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListApplicationSnapshotsResult> listApplicationSnapshotsAsync(ListApplicationSnapshotsRequest request) {
 
         return listApplicationSnapshotsAsync(request, null);
@@ -256,6 +336,19 @@ public class AbstractAmazonKinesisAnalyticsV2Async extends AbstractAmazonKinesis
     @Override
     public java.util.concurrent.Future<ListApplicationSnapshotsResult> listApplicationSnapshotsAsync(ListApplicationSnapshotsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListApplicationSnapshotsRequest, ListApplicationSnapshotsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListApplicationVersionsResult> listApplicationVersionsAsync(ListApplicationVersionsRequest request) {
+
+        return listApplicationVersionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListApplicationVersionsResult> listApplicationVersionsAsync(ListApplicationVersionsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListApplicationVersionsRequest, ListApplicationVersionsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -282,6 +375,19 @@ public class AbstractAmazonKinesisAnalyticsV2Async extends AbstractAmazonKinesis
     @Override
     public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request,
             com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<RollbackApplicationResult> rollbackApplicationAsync(RollbackApplicationRequest request) {
+
+        return rollbackApplicationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RollbackApplicationResult> rollbackApplicationAsync(RollbackApplicationRequest request,
+            com.amazonaws.handlers.AsyncHandler<RollbackApplicationRequest, RollbackApplicationResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -347,6 +453,21 @@ public class AbstractAmazonKinesisAnalyticsV2Async extends AbstractAmazonKinesis
     @Override
     public java.util.concurrent.Future<UpdateApplicationResult> updateApplicationAsync(UpdateApplicationRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateApplicationRequest, UpdateApplicationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateApplicationMaintenanceConfigurationResult> updateApplicationMaintenanceConfigurationAsync(
+            UpdateApplicationMaintenanceConfigurationRequest request) {
+
+        return updateApplicationMaintenanceConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateApplicationMaintenanceConfigurationResult> updateApplicationMaintenanceConfigurationAsync(
+            UpdateApplicationMaintenanceConfigurationRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateApplicationMaintenanceConfigurationRequest, UpdateApplicationMaintenanceConfigurationResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

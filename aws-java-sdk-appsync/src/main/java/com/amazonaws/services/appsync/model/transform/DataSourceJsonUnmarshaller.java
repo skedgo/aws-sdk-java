@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -80,6 +80,10 @@ public class DataSourceJsonUnmarshaller implements Unmarshaller<DataSource, Json
                     context.nextToken();
                     dataSource.setElasticsearchConfig(ElasticsearchDataSourceConfigJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("openSearchServiceConfig", targetDepth)) {
+                    context.nextToken();
+                    dataSource.setOpenSearchServiceConfig(OpenSearchServiceDataSourceConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("httpConfig", targetDepth)) {
                     context.nextToken();
                     dataSource.setHttpConfig(HttpDataSourceConfigJsonUnmarshaller.getInstance().unmarshall(context));
@@ -87,6 +91,14 @@ public class DataSourceJsonUnmarshaller implements Unmarshaller<DataSource, Json
                 if (context.testExpression("relationalDatabaseConfig", targetDepth)) {
                     context.nextToken();
                     dataSource.setRelationalDatabaseConfig(RelationalDatabaseDataSourceConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("eventBridgeConfig", targetDepth)) {
+                    context.nextToken();
+                    dataSource.setEventBridgeConfig(EventBridgeDataSourceConfigJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("metricsConfig", targetDepth)) {
+                    context.nextToken();
+                    dataSource.setMetricsConfig(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

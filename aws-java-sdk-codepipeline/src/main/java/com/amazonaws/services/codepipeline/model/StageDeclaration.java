@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,6 +46,27 @@ public class StageDeclaration implements Serializable, Cloneable, StructuredPojo
      * </p>
      */
     private java.util.List<ActionDeclaration> actions;
+    /**
+     * <p>
+     * The method to use when a stage has not completed successfully. For example, configuring this field for rollback
+     * will roll back a failed stage automatically to the last successful pipeline execution in the stage.
+     * </p>
+     */
+    private FailureConditions onFailure;
+    /**
+     * <p>
+     * The method to use when a stage has succeeded. For example, configuring this field for conditions will allow the
+     * stage to succeed when the conditions are met.
+     * </p>
+     */
+    private SuccessConditions onSuccess;
+    /**
+     * <p>
+     * The method to use when a stage allows entry. For example, configuring this field for conditions will allow entry
+     * to the stage when the conditions are met.
+     * </p>
+     */
+    private BeforeEntryConditions beforeEntry;
 
     /**
      * <p>
@@ -228,6 +249,147 @@ public class StageDeclaration implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * <p>
+     * The method to use when a stage has not completed successfully. For example, configuring this field for rollback
+     * will roll back a failed stage automatically to the last successful pipeline execution in the stage.
+     * </p>
+     * 
+     * @param onFailure
+     *        The method to use when a stage has not completed successfully. For example, configuring this field for
+     *        rollback will roll back a failed stage automatically to the last successful pipeline execution in the
+     *        stage.
+     */
+
+    public void setOnFailure(FailureConditions onFailure) {
+        this.onFailure = onFailure;
+    }
+
+    /**
+     * <p>
+     * The method to use when a stage has not completed successfully. For example, configuring this field for rollback
+     * will roll back a failed stage automatically to the last successful pipeline execution in the stage.
+     * </p>
+     * 
+     * @return The method to use when a stage has not completed successfully. For example, configuring this field for
+     *         rollback will roll back a failed stage automatically to the last successful pipeline execution in the
+     *         stage.
+     */
+
+    public FailureConditions getOnFailure() {
+        return this.onFailure;
+    }
+
+    /**
+     * <p>
+     * The method to use when a stage has not completed successfully. For example, configuring this field for rollback
+     * will roll back a failed stage automatically to the last successful pipeline execution in the stage.
+     * </p>
+     * 
+     * @param onFailure
+     *        The method to use when a stage has not completed successfully. For example, configuring this field for
+     *        rollback will roll back a failed stage automatically to the last successful pipeline execution in the
+     *        stage.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StageDeclaration withOnFailure(FailureConditions onFailure) {
+        setOnFailure(onFailure);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The method to use when a stage has succeeded. For example, configuring this field for conditions will allow the
+     * stage to succeed when the conditions are met.
+     * </p>
+     * 
+     * @param onSuccess
+     *        The method to use when a stage has succeeded. For example, configuring this field for conditions will
+     *        allow the stage to succeed when the conditions are met.
+     */
+
+    public void setOnSuccess(SuccessConditions onSuccess) {
+        this.onSuccess = onSuccess;
+    }
+
+    /**
+     * <p>
+     * The method to use when a stage has succeeded. For example, configuring this field for conditions will allow the
+     * stage to succeed when the conditions are met.
+     * </p>
+     * 
+     * @return The method to use when a stage has succeeded. For example, configuring this field for conditions will
+     *         allow the stage to succeed when the conditions are met.
+     */
+
+    public SuccessConditions getOnSuccess() {
+        return this.onSuccess;
+    }
+
+    /**
+     * <p>
+     * The method to use when a stage has succeeded. For example, configuring this field for conditions will allow the
+     * stage to succeed when the conditions are met.
+     * </p>
+     * 
+     * @param onSuccess
+     *        The method to use when a stage has succeeded. For example, configuring this field for conditions will
+     *        allow the stage to succeed when the conditions are met.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StageDeclaration withOnSuccess(SuccessConditions onSuccess) {
+        setOnSuccess(onSuccess);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The method to use when a stage allows entry. For example, configuring this field for conditions will allow entry
+     * to the stage when the conditions are met.
+     * </p>
+     * 
+     * @param beforeEntry
+     *        The method to use when a stage allows entry. For example, configuring this field for conditions will allow
+     *        entry to the stage when the conditions are met.
+     */
+
+    public void setBeforeEntry(BeforeEntryConditions beforeEntry) {
+        this.beforeEntry = beforeEntry;
+    }
+
+    /**
+     * <p>
+     * The method to use when a stage allows entry. For example, configuring this field for conditions will allow entry
+     * to the stage when the conditions are met.
+     * </p>
+     * 
+     * @return The method to use when a stage allows entry. For example, configuring this field for conditions will
+     *         allow entry to the stage when the conditions are met.
+     */
+
+    public BeforeEntryConditions getBeforeEntry() {
+        return this.beforeEntry;
+    }
+
+    /**
+     * <p>
+     * The method to use when a stage allows entry. For example, configuring this field for conditions will allow entry
+     * to the stage when the conditions are met.
+     * </p>
+     * 
+     * @param beforeEntry
+     *        The method to use when a stage allows entry. For example, configuring this field for conditions will allow
+     *        entry to the stage when the conditions are met.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StageDeclaration withBeforeEntry(BeforeEntryConditions beforeEntry) {
+        setBeforeEntry(beforeEntry);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -244,7 +406,13 @@ public class StageDeclaration implements Serializable, Cloneable, StructuredPojo
         if (getBlockers() != null)
             sb.append("Blockers: ").append(getBlockers()).append(",");
         if (getActions() != null)
-            sb.append("Actions: ").append(getActions());
+            sb.append("Actions: ").append(getActions()).append(",");
+        if (getOnFailure() != null)
+            sb.append("OnFailure: ").append(getOnFailure()).append(",");
+        if (getOnSuccess() != null)
+            sb.append("OnSuccess: ").append(getOnSuccess()).append(",");
+        if (getBeforeEntry() != null)
+            sb.append("BeforeEntry: ").append(getBeforeEntry());
         sb.append("}");
         return sb.toString();
     }
@@ -271,6 +439,18 @@ public class StageDeclaration implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getActions() != null && other.getActions().equals(this.getActions()) == false)
             return false;
+        if (other.getOnFailure() == null ^ this.getOnFailure() == null)
+            return false;
+        if (other.getOnFailure() != null && other.getOnFailure().equals(this.getOnFailure()) == false)
+            return false;
+        if (other.getOnSuccess() == null ^ this.getOnSuccess() == null)
+            return false;
+        if (other.getOnSuccess() != null && other.getOnSuccess().equals(this.getOnSuccess()) == false)
+            return false;
+        if (other.getBeforeEntry() == null ^ this.getBeforeEntry() == null)
+            return false;
+        if (other.getBeforeEntry() != null && other.getBeforeEntry().equals(this.getBeforeEntry()) == false)
+            return false;
         return true;
     }
 
@@ -282,6 +462,9 @@ public class StageDeclaration implements Serializable, Cloneable, StructuredPojo
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getBlockers() == null) ? 0 : getBlockers().hashCode());
         hashCode = prime * hashCode + ((getActions() == null) ? 0 : getActions().hashCode());
+        hashCode = prime * hashCode + ((getOnFailure() == null) ? 0 : getOnFailure().hashCode());
+        hashCode = prime * hashCode + ((getOnSuccess() == null) ? 0 : getOnSuccess().hashCode());
+        hashCode = prime * hashCode + ((getBeforeEntry() == null) ? 0 : getBeforeEntry().hashCode());
         return hashCode;
     }
 

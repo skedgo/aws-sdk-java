@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -26,13 +26,27 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class H265Settings implements Serializable, Cloneable, StructuredPojo {
 
-    /** Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality. */
+    /**
+     * When you set Adaptive Quantization to Auto, or leave blank, MediaConvert automatically applies quantization to
+     * improve the video quality of your output. Set Adaptive Quantization to Low, Medium, High, Higher, or Max to
+     * manually control the strength of the quantization filter. When you do, you can specify a value for Spatial
+     * Adaptive Quantization, Temporal Adaptive Quantization, and Flicker Adaptive Quantization, to further control the
+     * quantization filter. Set Adaptive Quantization to Off to apply no quantization to your output.
+     */
     private String adaptiveQuantization;
     /**
      * Enables Alternate Transfer Function SEI message for outputs using Hybrid Log Gamma (HLG) Electro-Optical Transfer
      * Function (EOTF).
      */
     private String alternateTransferFunctionSei;
+    /**
+     * The Bandwidth reduction filter increases the video quality of your output relative to its bitrate. Use to lower
+     * the bitrate of your constant quality QVBR output, with little or no perceptual decrease in quality. Or, use to
+     * increase the video quality of outputs with other rate control modes relative to the bitrate that you specify.
+     * Bandwidth reduction increases further when your input is low quality or noisy. Outputs that use this feature incur
+     * pro-tier pricing. When you include Bandwidth reduction filter, you cannot include the Noise reducer preprocessor.
+     */
+    private BandwidthReductionFilter bandwidthReductionFilter;
     /**
      * Specify the average bitrate in bits per second. Required for VBR and CBR. For MS Smooth outputs, bitrates must be
      * unique when rounded down to the nearest multiple of 1000.
@@ -47,59 +61,110 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
      */
     private String codecProfile;
     /**
-     * Choose Adaptive to improve subjective video quality for high-motion content. This will cause the service to use
-     * fewer B-frames (which infer information based on other frames) for high-motion portions of the video and more
-     * B-frames for low-motion portions. The maximum number of B-frames is limited by the value you provide for the
-     * setting B frames between reference frames (numberBFramesBetweenReferenceFrames).
+     * Specify whether to allow the number of B-frames in your output GOP structure to vary or not depending on your
+     * input video content. To improve the subjective video quality of your output that has high-motion content: Leave
+     * blank or keep the default value Adaptive. MediaConvert will use fewer B-frames for high-motion video content than
+     * low-motion content. The maximum number of B- frames is limited by the value that you choose for B-frames between
+     * reference frames. To use the same number B-frames for all types of content: Choose Static.
      */
     private String dynamicSubGop;
-    /** Adjust quantization within each frame to reduce flicker or 'pop' on I-frames. */
+    /**
+     * Optionally include or suppress markers at the end of your output that signal the end of the video stream. To
+     * include end of stream markers: Leave blank or keep the default value, Include. To not include end of stream
+     * markers: Choose Suppress. This is useful when your output will be inserted into another stream.
+     */
+    private String endOfStreamMarkers;
+    /**
+     * Enable this setting to have the encoder reduce I-frame pop. I-frame pop appears as a visual flicker that can
+     * arise when the encoder saves bits by copying some macroblocks many times from frame to frame, and then refreshes
+     * them at the I-frame. When you enable this setting, the encoder updates these macroblocks slightly more often to
+     * smooth out the flicker. This setting is disabled by default. Related setting: In addition to enabling this
+     * setting, you must also set adaptiveQuantization to a value other than Off.
+     */
     private String flickerAdaptiveQuantization;
     /**
-     * If you are using the console, use the Framerate setting to specify the frame rate for this output. If you want to
-     * keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion,
-     * choose a frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
-     * approximations of fractions. If you choose Custom, specify your frame rate as a fraction. If you are creating your
-     * transcoding job sepecification as a JSON file without the console, use FramerateControl to specify which value the
-     * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
-     * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the
-     * settings FramerateNumerator and FramerateDenominator.
+     * Use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame rate as
+     * the input video, choose Follow source. If you want to do frame rate conversion, choose a frame rate from the
+     * dropdown list or choose Custom. The framerates shown in the dropdown list are decimal approximations of fractions.
+     * If you choose Custom, specify your frame rate as a fraction.
      */
     private String framerateControl;
-    /** When set to INTERPOLATE, produces smoother motion during frame rate conversion. */
+    /**
+     * Choose the method that you want MediaConvert to use when increasing or decreasing the frame rate. For numerically
+     * simple conversions, such as 60 fps to 30 fps: We recommend that you keep the default value, Drop duplicate. For
+     * numerically complex conversions, to avoid stutter: Choose Interpolate. This results in a smooth picture, but might
+     * introduce undesirable video artifacts. For complex frame rate conversions, especially if your source video has
+     * already been converted from its original cadence: Choose FrameFormer to do motion-compensated interpolation.
+     * FrameFormer uses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding
+     * time and incurs a significant add-on cost. When you choose FrameFormer, your input video resolution must be at
+     * least 128x96.
+     */
     private String framerateConversionAlgorithm;
-    /** Frame rate denominator. */
+    /**
+     * When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a fraction. For
+     * example, 24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of this fraction. In this
+     * example, use 1001 for the value of FramerateDenominator. When you use the console for transcode jobs that use
+     * frame rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     */
     private Integer framerateDenominator;
-    /** Frame rate numerator - frame rate is a fraction, e.g. 24000 / 1001 = 23.976 fps. */
+    /**
+     * When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a fraction. For
+     * example, 24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this fraction. In this
+     * example, use 24000 for the value of FramerateNumerator. When you use the console for transcode jobs that use frame
+     * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
+     */
     private Integer framerateNumerator;
-    /** If enable, use reference B frames for GOP structures that have B frames > 1. */
+    /**
+     * Specify whether to allow B-frames to be referenced by other frame types. To use reference B-frames when your GOP
+     * structure has 1 or more B-frames: Leave blank or keep the default value Enabled. We recommend that you choose
+     * Enabled to help improve the video quality of your output relative to its bitrate. To not use reference B-frames:
+     * Choose Disabled.
+     */
     private String gopBReference;
     /**
-     * Frequency of closed GOPs. In streaming applications, it is recommended that this be set to 1 so a decoder joining
-     * mid-stream will receive an IDR frame as quickly as possible. Setting this value to 0 will break output
-     * segmenting.
+     * Specify the relative frequency of open to closed GOPs in this output. For example, if you want to allow four open
+     * GOPs and then require a closed GOP, set this value to 5. We recommend that you have the transcoder automatically
+     * choose this value for you based on characteristics of your input video. To enable this automatic behavior, do this
+     * by keeping the default empty value. If you do explicitly specify a value, for segmented outputs, don't set this
+     * value to 0.
      */
     private Integer gopClosedCadence;
-    /** GOP Length (keyframe interval) in frames or seconds. Must be greater than zero. */
+    /**
+     * Use this setting only when you set GOP mode control to Specified, frames or Specified, seconds. Specify the GOP
+     * length using a whole number of frames or a decimal value of seconds. MediaConvert will interpret this value as
+     * frames or seconds depending on the value you choose for GOP mode control. If you want to allow MediaConvert to
+     * automatically determine GOP size, leave GOP size blank and set GOP mode control to Auto. If your output group
+     * specifies HLS, DASH, or CMAF, leave GOP size blank and set GOP mode control to Auto in each output in your output
+     * group.
+     */
     private Double gopSize;
     /**
-     * Indicates if the GOP Size in H265 is specified in frames or seconds. If seconds the system will convert the GOP
-     * Size into a frame count at run time.
+     * Specify how the transcoder determines GOP size for this output. We recommend that you have the transcoder
+     * automatically choose this value for you based on characteristics of your input video. To enable this automatic
+     * behavior, choose Auto and and leave GOP size blank. By default, if you don't specify GOP mode control,
+     * MediaConvert will use automatic behavior. If your output group specifies HLS, DASH, or CMAF, set GOP mode control
+     * to Auto and leave GOP size blank in each output in your output group. To explicitly specify the GOP length, choose
+     * Specified, frames or Specified, seconds and then provide the GOP length in the related setting GOP size.
      */
     private String gopSizeUnits;
+    /**
+     * If your downstream systems have strict buffer requirements: Specify the minimum percentage of the HRD buffer
+     * that's available at the end of each encoded video segment. For the best video quality: Set to 0 or leave blank to
+     * automatically determine the final buffer fill percentage.
+     */
+    private Integer hrdBufferFinalFillPercentage;
     /** Percentage of the buffer that should initially be filled (HRD buffer model). */
     private Integer hrdBufferInitialFillPercentage;
     /** Size of buffer (HRD buffer model) in bits. For example, enter five megabits as 5000000. */
     private Integer hrdBufferSize;
     /**
-     * Use Interlace mode (InterlaceMode) to choose the scan line type for the output. * Top Field First (TOP_FIELD) and
-     * Bottom Field First (BOTTOM_FIELD) produce interlaced output with the entire output having the same field polarity
-     * (top or bottom first). * Follow, Default Top (FOLLOW_TOP_FIELD) and Follow, Default Bottom (FOLLOW_BOTTOM_FIELD)
-     * use the same field polarity as the source. Therefore, behavior depends on the input scan type. - If the source is
-     * interlaced, the output will be interlaced with the same polarity as the source (it will follow the source). The
-     * output could therefore be a mix of "top field first" and "bottom field first". - If the source is progressive,
-     * the output will be interlaced with "top field first" or "bottom field first" polarity, depending on which of the
-     * Follow options you chose.
+     * Choose the scan line type for the output. Keep the default value, Progressive to create a progressive output,
+     * regardless of the scan type of your input. Use Top field first or Bottom field first to create an output that's
+     * interlaced with the same field polarity throughout. Use Follow, default top or Follow, default bottom to produce
+     * outputs with the same field polarity as the source. For jobs that have multiple inputs, the output field polarity
+     * might change over the course of the output. Follow behavior depends on the input scan type. If the source is
+     * interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the
+     * output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
      */
     private String interlaceMode;
     /**
@@ -108,14 +173,23 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
      */
     private Integer maxBitrate;
     /**
-     * Enforces separation between repeated (cadence) I-frames and I-frames inserted by Scene Change Detection. If a
-     * scene change I-frame is within I-interval frames of a cadence I-frame, the GOP is shrunk and/or stretched to the
-     * scene change I-frame. GOP stretch requires enabling lookahead as well as setting I-interval. The normal cadence
-     * resumes for the next GOP. This setting is only used when Scene Change Detect is enabled. Note: Maximum GOP stretch
-     * = GOP size + Min-I-interval - 1
+     * Use this setting only when you also enable Scene change detection. This setting determines how the encoder
+     * manages the spacing between I-frames that it inserts as part of the I-frame cadence and the I-frames that it
+     * inserts for Scene change detection. We recommend that you have the transcoder automatically choose this value for
+     * you based on characteristics of your input video. To enable this automatic behavior, do this by keeping the
+     * default empty value. When you explicitly specify a value for this setting, the encoder determines whether to skip
+     * a cadence-driven I-frame by the value you set. For example, if you set Min I interval to 5 and a cadence-driven
+     * I-frame would fall within 5 frames of a scene-change I-frame, then the encoder skips the cadence-driven I-frame.
+     * In this way, one GOP is shrunk slightly and one GOP is stretched slightly. When the cadence-driven I-frames are
+     * farther from the scene-change I-frame than the value you set, then the encoder leaves all I-frames in place and
+     * the GOPs surrounding the scene change are smaller than the usual cadence GOPs.
      */
     private Integer minIInterval;
-    /** Number of B-frames between reference frames. */
+    /**
+     * Specify the number of B-frames between reference frames in this output. For the best video quality: Leave blank.
+     * MediaConvert automatically determines the number of B-frames to use based on the characteristics of your input
+     * video. To manually specify the number of B-frames between reference frames: Enter an integer from 0 to 7.
+     */
     private Integer numberBFramesBetweenReferenceFrames;
     /**
      * Number of reference frames to use. The encoder may use more than requested if using B-frames and/or interlaced
@@ -123,23 +197,34 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
      */
     private Integer numberReferenceFrames;
     /**
-     * Using the API, enable ParFollowSource if you want the service to use the pixel aspect ratio from the input. Using
-     * the console, do this by choosing Follow source for Pixel aspect ratio.
+     * Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default behavior,
+     * Follow source, uses the PAR from your input video for your output. To specify a different PAR, choose any value
+     * other than Follow source. When you choose SPECIFIED for this setting, you must also specify values for the
+     * parNumerator and parDenominator settings.
      */
     private String parControl;
-    /** Pixel Aspect Ratio denominator. */
+    /**
+     * Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other than
+     * Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR,
+     * provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In
+     * this example, the value for parDenominator is 33.
+     */
     private Integer parDenominator;
-    /** Pixel Aspect Ratio numerator. */
+    /**
+     * Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other than
+     * Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR,
+     * provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In
+     * this example, the value for parNumerator is 40.
+     */
     private Integer parNumerator;
     /**
-     * Use Quality tuning level (H265QualityTuningLevel) to specifiy whether to use fast single-pass, high-quality
-     * singlepass, or high-quality multipass video encoding.
+     * Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video quality.
+     * The default behavior is faster, lower quality, single-pass encoding.
      */
     private String qualityTuningLevel;
     /**
-     * Settings for quality-defined variable bitrate encoding with the H.265 codec. Required when you set Rate control
-     * mode to QVBR. Not valid when you set Rate control mode to a value other than QVBR, or when you don't define Rate
-     * control mode.
+     * Settings for quality-defined variable bitrate encoding with the H.265 codec. Use these settings only when you set
+     * QVBR for Rate control mode.
      */
     private H265QvbrSettings qvbrSettings;
     /**
@@ -152,7 +237,24 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
      * content
      */
     private String sampleAdaptiveOffsetFilterMode;
-    /** Scene change detection (inserts I-frames on scene changes). */
+    /**
+     * Use this setting for interlaced outputs, when your output frame rate is half of your input frame rate. In this
+     * situation, choose Optimized interlacing to create a better quality interlaced output. In this case, each
+     * progressive frame from the input corresponds to an interlaced field in the output. Keep the default value, Basic
+     * interlacing, for all other output frame rates. With basic interlacing, MediaConvert performs any frame rate
+     * conversion first and then interlaces the frames. When you choose Optimized interlacing and you set your output
+     * frame rate to a value that isn't suitable for optimized interlacing, MediaConvert automatically falls back to
+     * basic interlacing. Required settings: To use optimized interlacing, you must set Telecine to None or Soft. You
+     * can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode to a value other than
+     * Progressive.
+     */
+    private String scanTypeConversionMode;
+    /**
+     * Enable this setting to insert I-frames at scene changes that the service automatically detects. This improves
+     * video quality and is enabled by default. If this output uses QVBR, choose Transition detection for further video
+     * quality improvement. For more information about QVBR, see
+     * https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
+     */
     private String sceneChangeDetect;
     /**
      * Number of slices per picture. Must be less than or equal to the number of macroblock rows for progressive
@@ -160,21 +262,43 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
      */
     private Integer slices;
     /**
-     * Enables Slow PAL rate conversion. 23.976fps and 24fps input is relabeled as 25fps, and audio is sped up
-     * correspondingly.
+     * Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL to
+     * create a 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and resamples
+     * your audio to keep it synchronized with the video. Note that enabling this setting will slightly reduce the
+     * duration of your video. Required settings: You must also set Framerate to 25.
      */
     private String slowPal;
-    /** Adjust quantization within each frame based on spatial variation of content complexity. */
+    /**
+     * Keep the default value, Enabled, to adjust quantization within each frame based on spatial variation of content
+     * complexity. When you enable this feature, the encoder uses fewer bits on areas that can sustain more distortion
+     * with no noticeable visual degradation and uses more bits on areas where any small distortion will be noticeable.
+     * For example, complex textured blocks are encoded with fewer bits and smooth textured blocks are encoded with more
+     * bits. Enabling this feature will almost always improve your video quality. Note, though, that this feature doesn't
+     * take into account where the viewer's attention is likely to be. If viewers are likely to be focusing their
+     * attention on a part of the screen with a lot of complex texture, you might choose to disable this feature. Related
+     * setting: When you enable spatial adaptive quantization, set the value for Adaptive quantization depending on your
+     * content. For homogeneous content, such as cartoons and video games, set it to Low. For content with a wider
+     * variety of textures, set it to High or Higher.
+     */
     private String spatialAdaptiveQuantization;
     /**
-     * This field applies only if the Streams > Advanced > Framerate (framerate) field is set to 29.970. This field
-     * works with the Streams > Advanced > Preprocessors > Deinterlacer field (deinterlace_mode) and the Streams >
-     * Advanced > Interlaced Mode field (interlace_mode) to identify the scan type for the output: Progressive,
-     * Interlaced, Hard Telecine or Soft Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft: produces
-     * 23.976; the player converts this output to 29.97i.
+     * This field applies only if the Streams > Advanced > Framerate field is set to 29.970. This field works with the
+     * Streams > Advanced > Preprocessors > Deinterlacer field and the Streams > Advanced > Interlaced Mode field to
+     * identify the scan type for the output: Progressive, Interlaced, Hard Telecine or Soft Telecine. - Hard: produces
+     * 29.97i output from 23.976 input. - Soft: produces 23.976; the player converts this output to 29.97i.
      */
     private String telecine;
-    /** Adjust quantization within each frame based on temporal variation of content complexity. */
+    /**
+     * Keep the default value, Enabled, to adjust quantization within each frame based on temporal variation of content
+     * complexity. When you enable this feature, the encoder uses fewer bits on areas of the frame that aren't moving
+     * and uses more bits on complex objects with sharp edges that move a lot. For example, this feature improves the
+     * readability of text tickers on newscasts and scoreboards on sports matches. Enabling this feature will almost
+     * always improve your video quality. Note, though, that this feature doesn't take into account where the viewer's
+     * attention is likely to be. If viewers are likely to be focusing their attention on a part of the screen that
+     * doesn't have moving objects with sharp edges, such as sports athletes' faces, you might choose to disable this
+     * feature. Related setting: When you enable temporal quantization, adjust the strength of the filter with the
+     * setting Adaptive quantization.
+     */
     private String temporalAdaptiveQuantization;
     /**
      * Enables temporal layer identifiers in the encoded bitstream. Up to 3 layers are supported depending on GOP
@@ -190,22 +314,30 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     /** Inserts timecode for each frame as 4 bytes of an unregistered SEI message. */
     private String unregisteredSeiTimecode;
     /**
-     * Use this setting only for outputs encoded with H.265 that are in CMAF or DASH output groups. If you include
-     * writeMp4PackagingType in your JSON job specification for other outputs, your video might not work properly with
-     * downstream systems and video players. If the location of parameter set NAL units don't matter in your workflow,
-     * ignore this setting. The service defaults to marking your output as HEV1. Choose HVC1 to mark your output as HVC1.
-     * This makes your output compliant with this specification: ISO IECJTC1 SC29 N13798 Text ISO/IEC FDIS 14496-15 3rd
-     * Edition. For these outputs, the service stores parameter set NAL units in the sample headers but not in the
-     * samples directly. Keep the default HEV1 to mark your output as HEV1. For these outputs, the service writes
-     * parameter set NAL units directly into the samples.
+     * If the location of parameter set NAL units doesn't matter in your workflow, ignore this setting. Use this setting
+     * only with CMAF or DASH outputs, or with standalone file outputs in an MPEG-4 container (MP4 outputs). Choose HVC1
+     * to mark your output as HVC1. This makes your output compliant with the following specification: ISO IECJTC1 SC29
+     * N13798 Text ISO/IEC FDIS 14496-15 3rd Edition. For these outputs, the service stores parameter set NAL units in
+     * the sample headers but not in the samples directly. For MP4 outputs, when you choose HVC1, your output video might
+     * not work properly with some downstream systems and video players. The service defaults to marking your output as
+     * HEV1. For these outputs, the service writes parameter set NAL units directly into the samples.
      */
     private String writeMp4PackagingType;
 
     /**
-     * Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality.
+     * When you set Adaptive Quantization to Auto, or leave blank, MediaConvert automatically applies quantization to
+     * improve the video quality of your output. Set Adaptive Quantization to Low, Medium, High, Higher, or Max to
+     * manually control the strength of the quantization filter. When you do, you can specify a value for Spatial
+     * Adaptive Quantization, Temporal Adaptive Quantization, and Flicker Adaptive Quantization, to further control the
+     * quantization filter. Set Adaptive Quantization to Off to apply no quantization to your output.
      * 
      * @param adaptiveQuantization
-     *        Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality.
+     *        When you set Adaptive Quantization to Auto, or leave blank, MediaConvert automatically applies
+     *        quantization to improve the video quality of your output. Set Adaptive Quantization to Low, Medium, High,
+     *        Higher, or Max to manually control the strength of the quantization filter. When you do, you can specify a
+     *        value for Spatial Adaptive Quantization, Temporal Adaptive Quantization, and Flicker Adaptive
+     *        Quantization, to further control the quantization filter. Set Adaptive Quantization to Off to apply no
+     *        quantization to your output.
      * @see H265AdaptiveQuantization
      */
 
@@ -214,9 +346,18 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality.
+     * When you set Adaptive Quantization to Auto, or leave blank, MediaConvert automatically applies quantization to
+     * improve the video quality of your output. Set Adaptive Quantization to Low, Medium, High, Higher, or Max to
+     * manually control the strength of the quantization filter. When you do, you can specify a value for Spatial
+     * Adaptive Quantization, Temporal Adaptive Quantization, and Flicker Adaptive Quantization, to further control the
+     * quantization filter. Set Adaptive Quantization to Off to apply no quantization to your output.
      * 
-     * @return Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality.
+     * @return When you set Adaptive Quantization to Auto, or leave blank, MediaConvert automatically applies
+     *         quantization to improve the video quality of your output. Set Adaptive Quantization to Low, Medium, High,
+     *         Higher, or Max to manually control the strength of the quantization filter. When you do, you can specify
+     *         a value for Spatial Adaptive Quantization, Temporal Adaptive Quantization, and Flicker Adaptive
+     *         Quantization, to further control the quantization filter. Set Adaptive Quantization to Off to apply no
+     *         quantization to your output.
      * @see H265AdaptiveQuantization
      */
 
@@ -225,10 +366,19 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality.
+     * When you set Adaptive Quantization to Auto, or leave blank, MediaConvert automatically applies quantization to
+     * improve the video quality of your output. Set Adaptive Quantization to Low, Medium, High, Higher, or Max to
+     * manually control the strength of the quantization filter. When you do, you can specify a value for Spatial
+     * Adaptive Quantization, Temporal Adaptive Quantization, and Flicker Adaptive Quantization, to further control the
+     * quantization filter. Set Adaptive Quantization to Off to apply no quantization to your output.
      * 
      * @param adaptiveQuantization
-     *        Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality.
+     *        When you set Adaptive Quantization to Auto, or leave blank, MediaConvert automatically applies
+     *        quantization to improve the video quality of your output. Set Adaptive Quantization to Low, Medium, High,
+     *        Higher, or Max to manually control the strength of the quantization filter. When you do, you can specify a
+     *        value for Spatial Adaptive Quantization, Temporal Adaptive Quantization, and Flicker Adaptive
+     *        Quantization, to further control the quantization filter. Set Adaptive Quantization to Off to apply no
+     *        quantization to your output.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265AdaptiveQuantization
      */
@@ -239,10 +389,19 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality.
+     * When you set Adaptive Quantization to Auto, or leave blank, MediaConvert automatically applies quantization to
+     * improve the video quality of your output. Set Adaptive Quantization to Low, Medium, High, Higher, or Max to
+     * manually control the strength of the quantization filter. When you do, you can specify a value for Spatial
+     * Adaptive Quantization, Temporal Adaptive Quantization, and Flicker Adaptive Quantization, to further control the
+     * quantization filter. Set Adaptive Quantization to Off to apply no quantization to your output.
      * 
      * @param adaptiveQuantization
-     *        Adaptive quantization. Allows intra-frame quantizers to vary to improve visual quality.
+     *        When you set Adaptive Quantization to Auto, or leave blank, MediaConvert automatically applies
+     *        quantization to improve the video quality of your output. Set Adaptive Quantization to Low, Medium, High,
+     *        Higher, or Max to manually control the strength of the quantization filter. When you do, you can specify a
+     *        value for Spatial Adaptive Quantization, Temporal Adaptive Quantization, and Flicker Adaptive
+     *        Quantization, to further control the quantization filter. Set Adaptive Quantization to Off to apply no
+     *        quantization to your output.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265AdaptiveQuantization
      */
@@ -308,6 +467,67 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
 
     public H265Settings withAlternateTransferFunctionSei(H265AlternateTransferFunctionSei alternateTransferFunctionSei) {
         this.alternateTransferFunctionSei = alternateTransferFunctionSei.toString();
+        return this;
+    }
+
+    /**
+     * The Bandwidth reduction filter increases the video quality of your output relative to its bitrate. Use to lower
+     * the bitrate of your constant quality QVBR output, with little or no perceptual decrease in quality. Or, use to
+     * increase the video quality of outputs with other rate control modes relative to the bitrate that you specify.
+     * Bandwidth reduction increases further when your input is low quality or noisy. Outputs that use this feature incur
+     * pro-tier pricing. When you include Bandwidth reduction filter, you cannot include the Noise reducer preprocessor.
+     * 
+     * @param bandwidthReductionFilter
+     *        The Bandwidth reduction filter increases the video quality of your output relative to its bitrate. Use to
+     *        lower the bitrate of your constant quality QVBR output, with little or no perceptual decrease in quality.
+     *        Or, use to increase the video quality of outputs with other rate control modes relative to the bitrate
+     *        that you specify. Bandwidth reduction increases further when your input is low quality or noisy. Outputs
+     *        that use this feature incur pro-tier pricing. When you include Bandwidth reduction filter, you cannot
+     *        include the Noise reducer preprocessor.
+     */
+
+    public void setBandwidthReductionFilter(BandwidthReductionFilter bandwidthReductionFilter) {
+        this.bandwidthReductionFilter = bandwidthReductionFilter;
+    }
+
+    /**
+     * The Bandwidth reduction filter increases the video quality of your output relative to its bitrate. Use to lower
+     * the bitrate of your constant quality QVBR output, with little or no perceptual decrease in quality. Or, use to
+     * increase the video quality of outputs with other rate control modes relative to the bitrate that you specify.
+     * Bandwidth reduction increases further when your input is low quality or noisy. Outputs that use this feature incur
+     * pro-tier pricing. When you include Bandwidth reduction filter, you cannot include the Noise reducer preprocessor.
+     * 
+     * @return The Bandwidth reduction filter increases the video quality of your output relative to its bitrate. Use to
+     *         lower the bitrate of your constant quality QVBR output, with little or no perceptual decrease in quality.
+     *         Or, use to increase the video quality of outputs with other rate control modes relative to the bitrate
+     *         that you specify. Bandwidth reduction increases further when your input is low quality or noisy. Outputs
+     *         that use this feature incur pro-tier pricing. When you include Bandwidth reduction filter, you cannot
+     *         include the Noise reducer preprocessor.
+     */
+
+    public BandwidthReductionFilter getBandwidthReductionFilter() {
+        return this.bandwidthReductionFilter;
+    }
+
+    /**
+     * The Bandwidth reduction filter increases the video quality of your output relative to its bitrate. Use to lower
+     * the bitrate of your constant quality QVBR output, with little or no perceptual decrease in quality. Or, use to
+     * increase the video quality of outputs with other rate control modes relative to the bitrate that you specify.
+     * Bandwidth reduction increases further when your input is low quality or noisy. Outputs that use this feature incur
+     * pro-tier pricing. When you include Bandwidth reduction filter, you cannot include the Noise reducer preprocessor.
+     * 
+     * @param bandwidthReductionFilter
+     *        The Bandwidth reduction filter increases the video quality of your output relative to its bitrate. Use to
+     *        lower the bitrate of your constant quality QVBR output, with little or no perceptual decrease in quality.
+     *        Or, use to increase the video quality of outputs with other rate control modes relative to the bitrate
+     *        that you specify. Bandwidth reduction increases further when your input is low quality or noisy. Outputs
+     *        that use this feature incur pro-tier pricing. When you include Bandwidth reduction filter, you cannot
+     *        include the Noise reducer preprocessor.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public H265Settings withBandwidthReductionFilter(BandwidthReductionFilter bandwidthReductionFilter) {
+        setBandwidthReductionFilter(bandwidthReductionFilter);
         return this;
     }
 
@@ -470,16 +690,19 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Choose Adaptive to improve subjective video quality for high-motion content. This will cause the service to use
-     * fewer B-frames (which infer information based on other frames) for high-motion portions of the video and more
-     * B-frames for low-motion portions. The maximum number of B-frames is limited by the value you provide for the
-     * setting B frames between reference frames (numberBFramesBetweenReferenceFrames).
+     * Specify whether to allow the number of B-frames in your output GOP structure to vary or not depending on your
+     * input video content. To improve the subjective video quality of your output that has high-motion content: Leave
+     * blank or keep the default value Adaptive. MediaConvert will use fewer B-frames for high-motion video content than
+     * low-motion content. The maximum number of B- frames is limited by the value that you choose for B-frames between
+     * reference frames. To use the same number B-frames for all types of content: Choose Static.
      * 
      * @param dynamicSubGop
-     *        Choose Adaptive to improve subjective video quality for high-motion content. This will cause the service
-     *        to use fewer B-frames (which infer information based on other frames) for high-motion portions of the
-     *        video and more B-frames for low-motion portions. The maximum number of B-frames is limited by the value
-     *        you provide for the setting B frames between reference frames (numberBFramesBetweenReferenceFrames).
+     *        Specify whether to allow the number of B-frames in your output GOP structure to vary or not depending on
+     *        your input video content. To improve the subjective video quality of your output that has high-motion
+     *        content: Leave blank or keep the default value Adaptive. MediaConvert will use fewer B-frames for
+     *        high-motion video content than low-motion content. The maximum number of B- frames is limited by the value
+     *        that you choose for B-frames between reference frames. To use the same number B-frames for all types of
+     *        content: Choose Static.
      * @see H265DynamicSubGop
      */
 
@@ -488,15 +711,18 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Choose Adaptive to improve subjective video quality for high-motion content. This will cause the service to use
-     * fewer B-frames (which infer information based on other frames) for high-motion portions of the video and more
-     * B-frames for low-motion portions. The maximum number of B-frames is limited by the value you provide for the
-     * setting B frames between reference frames (numberBFramesBetweenReferenceFrames).
+     * Specify whether to allow the number of B-frames in your output GOP structure to vary or not depending on your
+     * input video content. To improve the subjective video quality of your output that has high-motion content: Leave
+     * blank or keep the default value Adaptive. MediaConvert will use fewer B-frames for high-motion video content than
+     * low-motion content. The maximum number of B- frames is limited by the value that you choose for B-frames between
+     * reference frames. To use the same number B-frames for all types of content: Choose Static.
      * 
-     * @return Choose Adaptive to improve subjective video quality for high-motion content. This will cause the service
-     *         to use fewer B-frames (which infer information based on other frames) for high-motion portions of the
-     *         video and more B-frames for low-motion portions. The maximum number of B-frames is limited by the value
-     *         you provide for the setting B frames between reference frames (numberBFramesBetweenReferenceFrames).
+     * @return Specify whether to allow the number of B-frames in your output GOP structure to vary or not depending on
+     *         your input video content. To improve the subjective video quality of your output that has high-motion
+     *         content: Leave blank or keep the default value Adaptive. MediaConvert will use fewer B-frames for
+     *         high-motion video content than low-motion content. The maximum number of B- frames is limited by the
+     *         value that you choose for B-frames between reference frames. To use the same number B-frames for all
+     *         types of content: Choose Static.
      * @see H265DynamicSubGop
      */
 
@@ -505,16 +731,19 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Choose Adaptive to improve subjective video quality for high-motion content. This will cause the service to use
-     * fewer B-frames (which infer information based on other frames) for high-motion portions of the video and more
-     * B-frames for low-motion portions. The maximum number of B-frames is limited by the value you provide for the
-     * setting B frames between reference frames (numberBFramesBetweenReferenceFrames).
+     * Specify whether to allow the number of B-frames in your output GOP structure to vary or not depending on your
+     * input video content. To improve the subjective video quality of your output that has high-motion content: Leave
+     * blank or keep the default value Adaptive. MediaConvert will use fewer B-frames for high-motion video content than
+     * low-motion content. The maximum number of B- frames is limited by the value that you choose for B-frames between
+     * reference frames. To use the same number B-frames for all types of content: Choose Static.
      * 
      * @param dynamicSubGop
-     *        Choose Adaptive to improve subjective video quality for high-motion content. This will cause the service
-     *        to use fewer B-frames (which infer information based on other frames) for high-motion portions of the
-     *        video and more B-frames for low-motion portions. The maximum number of B-frames is limited by the value
-     *        you provide for the setting B frames between reference frames (numberBFramesBetweenReferenceFrames).
+     *        Specify whether to allow the number of B-frames in your output GOP structure to vary or not depending on
+     *        your input video content. To improve the subjective video quality of your output that has high-motion
+     *        content: Leave blank or keep the default value Adaptive. MediaConvert will use fewer B-frames for
+     *        high-motion video content than low-motion content. The maximum number of B- frames is limited by the value
+     *        that you choose for B-frames between reference frames. To use the same number B-frames for all types of
+     *        content: Choose Static.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265DynamicSubGop
      */
@@ -525,16 +754,19 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Choose Adaptive to improve subjective video quality for high-motion content. This will cause the service to use
-     * fewer B-frames (which infer information based on other frames) for high-motion portions of the video and more
-     * B-frames for low-motion portions. The maximum number of B-frames is limited by the value you provide for the
-     * setting B frames between reference frames (numberBFramesBetweenReferenceFrames).
+     * Specify whether to allow the number of B-frames in your output GOP structure to vary or not depending on your
+     * input video content. To improve the subjective video quality of your output that has high-motion content: Leave
+     * blank or keep the default value Adaptive. MediaConvert will use fewer B-frames for high-motion video content than
+     * low-motion content. The maximum number of B- frames is limited by the value that you choose for B-frames between
+     * reference frames. To use the same number B-frames for all types of content: Choose Static.
      * 
      * @param dynamicSubGop
-     *        Choose Adaptive to improve subjective video quality for high-motion content. This will cause the service
-     *        to use fewer B-frames (which infer information based on other frames) for high-motion portions of the
-     *        video and more B-frames for low-motion portions. The maximum number of B-frames is limited by the value
-     *        you provide for the setting B frames between reference frames (numberBFramesBetweenReferenceFrames).
+     *        Specify whether to allow the number of B-frames in your output GOP structure to vary or not depending on
+     *        your input video content. To improve the subjective video quality of your output that has high-motion
+     *        content: Leave blank or keep the default value Adaptive. MediaConvert will use fewer B-frames for
+     *        high-motion video content than low-motion content. The maximum number of B- frames is limited by the value
+     *        that you choose for B-frames between reference frames. To use the same number B-frames for all types of
+     *        content: Choose Static.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265DynamicSubGop
      */
@@ -545,10 +777,85 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adjust quantization within each frame to reduce flicker or 'pop' on I-frames.
+     * Optionally include or suppress markers at the end of your output that signal the end of the video stream. To
+     * include end of stream markers: Leave blank or keep the default value, Include. To not include end of stream
+     * markers: Choose Suppress. This is useful when your output will be inserted into another stream.
+     * 
+     * @param endOfStreamMarkers
+     *        Optionally include or suppress markers at the end of your output that signal the end of the video stream.
+     *        To include end of stream markers: Leave blank or keep the default value, Include. To not include end of
+     *        stream markers: Choose Suppress. This is useful when your output will be inserted into another stream.
+     * @see H265EndOfStreamMarkers
+     */
+
+    public void setEndOfStreamMarkers(String endOfStreamMarkers) {
+        this.endOfStreamMarkers = endOfStreamMarkers;
+    }
+
+    /**
+     * Optionally include or suppress markers at the end of your output that signal the end of the video stream. To
+     * include end of stream markers: Leave blank or keep the default value, Include. To not include end of stream
+     * markers: Choose Suppress. This is useful when your output will be inserted into another stream.
+     * 
+     * @return Optionally include or suppress markers at the end of your output that signal the end of the video stream.
+     *         To include end of stream markers: Leave blank or keep the default value, Include. To not include end of
+     *         stream markers: Choose Suppress. This is useful when your output will be inserted into another stream.
+     * @see H265EndOfStreamMarkers
+     */
+
+    public String getEndOfStreamMarkers() {
+        return this.endOfStreamMarkers;
+    }
+
+    /**
+     * Optionally include or suppress markers at the end of your output that signal the end of the video stream. To
+     * include end of stream markers: Leave blank or keep the default value, Include. To not include end of stream
+     * markers: Choose Suppress. This is useful when your output will be inserted into another stream.
+     * 
+     * @param endOfStreamMarkers
+     *        Optionally include or suppress markers at the end of your output that signal the end of the video stream.
+     *        To include end of stream markers: Leave blank or keep the default value, Include. To not include end of
+     *        stream markers: Choose Suppress. This is useful when your output will be inserted into another stream.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see H265EndOfStreamMarkers
+     */
+
+    public H265Settings withEndOfStreamMarkers(String endOfStreamMarkers) {
+        setEndOfStreamMarkers(endOfStreamMarkers);
+        return this;
+    }
+
+    /**
+     * Optionally include or suppress markers at the end of your output that signal the end of the video stream. To
+     * include end of stream markers: Leave blank or keep the default value, Include. To not include end of stream
+     * markers: Choose Suppress. This is useful when your output will be inserted into another stream.
+     * 
+     * @param endOfStreamMarkers
+     *        Optionally include or suppress markers at the end of your output that signal the end of the video stream.
+     *        To include end of stream markers: Leave blank or keep the default value, Include. To not include end of
+     *        stream markers: Choose Suppress. This is useful when your output will be inserted into another stream.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see H265EndOfStreamMarkers
+     */
+
+    public H265Settings withEndOfStreamMarkers(H265EndOfStreamMarkers endOfStreamMarkers) {
+        this.endOfStreamMarkers = endOfStreamMarkers.toString();
+        return this;
+    }
+
+    /**
+     * Enable this setting to have the encoder reduce I-frame pop. I-frame pop appears as a visual flicker that can
+     * arise when the encoder saves bits by copying some macroblocks many times from frame to frame, and then refreshes
+     * them at the I-frame. When you enable this setting, the encoder updates these macroblocks slightly more often to
+     * smooth out the flicker. This setting is disabled by default. Related setting: In addition to enabling this
+     * setting, you must also set adaptiveQuantization to a value other than Off.
      * 
      * @param flickerAdaptiveQuantization
-     *        Adjust quantization within each frame to reduce flicker or 'pop' on I-frames.
+     *        Enable this setting to have the encoder reduce I-frame pop. I-frame pop appears as a visual flicker that
+     *        can arise when the encoder saves bits by copying some macroblocks many times from frame to frame, and then
+     *        refreshes them at the I-frame. When you enable this setting, the encoder updates these macroblocks
+     *        slightly more often to smooth out the flicker. This setting is disabled by default. Related setting: In
+     *        addition to enabling this setting, you must also set adaptiveQuantization to a value other than Off.
      * @see H265FlickerAdaptiveQuantization
      */
 
@@ -557,9 +864,17 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adjust quantization within each frame to reduce flicker or 'pop' on I-frames.
+     * Enable this setting to have the encoder reduce I-frame pop. I-frame pop appears as a visual flicker that can
+     * arise when the encoder saves bits by copying some macroblocks many times from frame to frame, and then refreshes
+     * them at the I-frame. When you enable this setting, the encoder updates these macroblocks slightly more often to
+     * smooth out the flicker. This setting is disabled by default. Related setting: In addition to enabling this
+     * setting, you must also set adaptiveQuantization to a value other than Off.
      * 
-     * @return Adjust quantization within each frame to reduce flicker or 'pop' on I-frames.
+     * @return Enable this setting to have the encoder reduce I-frame pop. I-frame pop appears as a visual flicker that
+     *         can arise when the encoder saves bits by copying some macroblocks many times from frame to frame, and
+     *         then refreshes them at the I-frame. When you enable this setting, the encoder updates these macroblocks
+     *         slightly more often to smooth out the flicker. This setting is disabled by default. Related setting: In
+     *         addition to enabling this setting, you must also set adaptiveQuantization to a value other than Off.
      * @see H265FlickerAdaptiveQuantization
      */
 
@@ -568,10 +883,18 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adjust quantization within each frame to reduce flicker or 'pop' on I-frames.
+     * Enable this setting to have the encoder reduce I-frame pop. I-frame pop appears as a visual flicker that can
+     * arise when the encoder saves bits by copying some macroblocks many times from frame to frame, and then refreshes
+     * them at the I-frame. When you enable this setting, the encoder updates these macroblocks slightly more often to
+     * smooth out the flicker. This setting is disabled by default. Related setting: In addition to enabling this
+     * setting, you must also set adaptiveQuantization to a value other than Off.
      * 
      * @param flickerAdaptiveQuantization
-     *        Adjust quantization within each frame to reduce flicker or 'pop' on I-frames.
+     *        Enable this setting to have the encoder reduce I-frame pop. I-frame pop appears as a visual flicker that
+     *        can arise when the encoder saves bits by copying some macroblocks many times from frame to frame, and then
+     *        refreshes them at the I-frame. When you enable this setting, the encoder updates these macroblocks
+     *        slightly more often to smooth out the flicker. This setting is disabled by default. Related setting: In
+     *        addition to enabling this setting, you must also set adaptiveQuantization to a value other than Off.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265FlickerAdaptiveQuantization
      */
@@ -582,10 +905,18 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adjust quantization within each frame to reduce flicker or 'pop' on I-frames.
+     * Enable this setting to have the encoder reduce I-frame pop. I-frame pop appears as a visual flicker that can
+     * arise when the encoder saves bits by copying some macroblocks many times from frame to frame, and then refreshes
+     * them at the I-frame. When you enable this setting, the encoder updates these macroblocks slightly more often to
+     * smooth out the flicker. This setting is disabled by default. Related setting: In addition to enabling this
+     * setting, you must also set adaptiveQuantization to a value other than Off.
      * 
      * @param flickerAdaptiveQuantization
-     *        Adjust quantization within each frame to reduce flicker or 'pop' on I-frames.
+     *        Enable this setting to have the encoder reduce I-frame pop. I-frame pop appears as a visual flicker that
+     *        can arise when the encoder saves bits by copying some macroblocks many times from frame to frame, and then
+     *        refreshes them at the I-frame. When you enable this setting, the encoder updates these macroblocks
+     *        slightly more often to smooth out the flicker. This setting is disabled by default. Related setting: In
+     *        addition to enabling this setting, you must also set adaptiveQuantization to a value other than Off.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265FlickerAdaptiveQuantization
      */
@@ -596,25 +927,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If you are using the console, use the Framerate setting to specify the frame rate for this output. If you want to
-     * keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion,
-     * choose a frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
-     * approximations of fractions. If you choose Custom, specify your frame rate as a fraction. If you are creating your
-     * transcoding job sepecification as a JSON file without the console, use FramerateControl to specify which value the
-     * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
-     * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the
-     * settings FramerateNumerator and FramerateDenominator.
+     * Use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame rate as
+     * the input video, choose Follow source. If you want to do frame rate conversion, choose a frame rate from the
+     * dropdown list or choose Custom. The framerates shown in the dropdown list are decimal approximations of fractions.
+     * If you choose Custom, specify your frame rate as a fraction.
      * 
      * @param framerateControl
-     *        If you are using the console, use the Framerate setting to specify the frame rate for this output. If you
-     *        want to keep the same frame rate as the input video, choose Follow source. If you want to do frame rate
-     *        conversion, choose a frame rate from the dropdown list or choose Custom. The framerates shown in the
-     *        dropdown list are decimal approximations of fractions. If you choose Custom, specify your frame rate as a
-     *        fraction. If you are creating your transcoding job sepecification as a JSON file without the console, use
-     *        FramerateControl to specify which value the service uses for the frame rate for this output. Choose
-     *        INITIALIZE_FROM_SOURCE if you want the service to use the frame rate from the input. Choose SPECIFIED if
-     *        you want the service to use the frame rate you specify in the settings FramerateNumerator and
-     *        FramerateDenominator.
+     *        Use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame
+     *        rate as the input video, choose Follow source. If you want to do frame rate conversion, choose a frame
+     *        rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
+     *        approximations of fractions. If you choose Custom, specify your frame rate as a fraction.
      * @see H265FramerateControl
      */
 
@@ -623,24 +945,15 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If you are using the console, use the Framerate setting to specify the frame rate for this output. If you want to
-     * keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion,
-     * choose a frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
-     * approximations of fractions. If you choose Custom, specify your frame rate as a fraction. If you are creating your
-     * transcoding job sepecification as a JSON file without the console, use FramerateControl to specify which value the
-     * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
-     * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the
-     * settings FramerateNumerator and FramerateDenominator.
+     * Use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame rate as
+     * the input video, choose Follow source. If you want to do frame rate conversion, choose a frame rate from the
+     * dropdown list or choose Custom. The framerates shown in the dropdown list are decimal approximations of fractions.
+     * If you choose Custom, specify your frame rate as a fraction.
      * 
-     * @return If you are using the console, use the Framerate setting to specify the frame rate for this output. If you
-     *         want to keep the same frame rate as the input video, choose Follow source. If you want to do frame rate
-     *         conversion, choose a frame rate from the dropdown list or choose Custom. The framerates shown in the
-     *         dropdown list are decimal approximations of fractions. If you choose Custom, specify your frame rate as a
-     *         fraction. If you are creating your transcoding job sepecification as a JSON file without the console, use
-     *         FramerateControl to specify which value the service uses for the frame rate for this output. Choose
-     *         INITIALIZE_FROM_SOURCE if you want the service to use the frame rate from the input. Choose SPECIFIED if
-     *         you want the service to use the frame rate you specify in the settings FramerateNumerator and
-     *         FramerateDenominator.
+     * @return Use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame
+     *         rate as the input video, choose Follow source. If you want to do frame rate conversion, choose a frame
+     *         rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
+     *         approximations of fractions. If you choose Custom, specify your frame rate as a fraction.
      * @see H265FramerateControl
      */
 
@@ -649,25 +962,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If you are using the console, use the Framerate setting to specify the frame rate for this output. If you want to
-     * keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion,
-     * choose a frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
-     * approximations of fractions. If you choose Custom, specify your frame rate as a fraction. If you are creating your
-     * transcoding job sepecification as a JSON file without the console, use FramerateControl to specify which value the
-     * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
-     * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the
-     * settings FramerateNumerator and FramerateDenominator.
+     * Use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame rate as
+     * the input video, choose Follow source. If you want to do frame rate conversion, choose a frame rate from the
+     * dropdown list or choose Custom. The framerates shown in the dropdown list are decimal approximations of fractions.
+     * If you choose Custom, specify your frame rate as a fraction.
      * 
      * @param framerateControl
-     *        If you are using the console, use the Framerate setting to specify the frame rate for this output. If you
-     *        want to keep the same frame rate as the input video, choose Follow source. If you want to do frame rate
-     *        conversion, choose a frame rate from the dropdown list or choose Custom. The framerates shown in the
-     *        dropdown list are decimal approximations of fractions. If you choose Custom, specify your frame rate as a
-     *        fraction. If you are creating your transcoding job sepecification as a JSON file without the console, use
-     *        FramerateControl to specify which value the service uses for the frame rate for this output. Choose
-     *        INITIALIZE_FROM_SOURCE if you want the service to use the frame rate from the input. Choose SPECIFIED if
-     *        you want the service to use the frame rate you specify in the settings FramerateNumerator and
-     *        FramerateDenominator.
+     *        Use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame
+     *        rate as the input video, choose Follow source. If you want to do frame rate conversion, choose a frame
+     *        rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
+     *        approximations of fractions. If you choose Custom, specify your frame rate as a fraction.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265FramerateControl
      */
@@ -678,25 +982,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If you are using the console, use the Framerate setting to specify the frame rate for this output. If you want to
-     * keep the same frame rate as the input video, choose Follow source. If you want to do frame rate conversion,
-     * choose a frame rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
-     * approximations of fractions. If you choose Custom, specify your frame rate as a fraction. If you are creating your
-     * transcoding job sepecification as a JSON file without the console, use FramerateControl to specify which value the
-     * service uses for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you want the service to use the
-     * frame rate from the input. Choose SPECIFIED if you want the service to use the frame rate you specify in the
-     * settings FramerateNumerator and FramerateDenominator.
+     * Use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame rate as
+     * the input video, choose Follow source. If you want to do frame rate conversion, choose a frame rate from the
+     * dropdown list or choose Custom. The framerates shown in the dropdown list are decimal approximations of fractions.
+     * If you choose Custom, specify your frame rate as a fraction.
      * 
      * @param framerateControl
-     *        If you are using the console, use the Framerate setting to specify the frame rate for this output. If you
-     *        want to keep the same frame rate as the input video, choose Follow source. If you want to do frame rate
-     *        conversion, choose a frame rate from the dropdown list or choose Custom. The framerates shown in the
-     *        dropdown list are decimal approximations of fractions. If you choose Custom, specify your frame rate as a
-     *        fraction. If you are creating your transcoding job sepecification as a JSON file without the console, use
-     *        FramerateControl to specify which value the service uses for the frame rate for this output. Choose
-     *        INITIALIZE_FROM_SOURCE if you want the service to use the frame rate from the input. Choose SPECIFIED if
-     *        you want the service to use the frame rate you specify in the settings FramerateNumerator and
-     *        FramerateDenominator.
+     *        Use the Framerate setting to specify the frame rate for this output. If you want to keep the same frame
+     *        rate as the input video, choose Follow source. If you want to do frame rate conversion, choose a frame
+     *        rate from the dropdown list or choose Custom. The framerates shown in the dropdown list are decimal
+     *        approximations of fractions. If you choose Custom, specify your frame rate as a fraction.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265FramerateControl
      */
@@ -707,10 +1002,24 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * When set to INTERPOLATE, produces smoother motion during frame rate conversion.
+     * Choose the method that you want MediaConvert to use when increasing or decreasing the frame rate. For numerically
+     * simple conversions, such as 60 fps to 30 fps: We recommend that you keep the default value, Drop duplicate. For
+     * numerically complex conversions, to avoid stutter: Choose Interpolate. This results in a smooth picture, but might
+     * introduce undesirable video artifacts. For complex frame rate conversions, especially if your source video has
+     * already been converted from its original cadence: Choose FrameFormer to do motion-compensated interpolation.
+     * FrameFormer uses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding
+     * time and incurs a significant add-on cost. When you choose FrameFormer, your input video resolution must be at
+     * least 128x96.
      * 
      * @param framerateConversionAlgorithm
-     *        When set to INTERPOLATE, produces smoother motion during frame rate conversion.
+     *        Choose the method that you want MediaConvert to use when increasing or decreasing the frame rate. For
+     *        numerically simple conversions, such as 60 fps to 30 fps: We recommend that you keep the default value,
+     *        Drop duplicate. For numerically complex conversions, to avoid stutter: Choose Interpolate. This results in
+     *        a smooth picture, but might introduce undesirable video artifacts. For complex frame rate conversions,
+     *        especially if your source video has already been converted from its original cadence: Choose FrameFormer
+     *        to do motion-compensated interpolation. FrameFormer uses the best conversion method frame by frame. Note
+     *        that using FrameFormer increases the transcoding time and incurs a significant add-on cost. When you
+     *        choose FrameFormer, your input video resolution must be at least 128x96.
      * @see H265FramerateConversionAlgorithm
      */
 
@@ -719,9 +1028,23 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * When set to INTERPOLATE, produces smoother motion during frame rate conversion.
+     * Choose the method that you want MediaConvert to use when increasing or decreasing the frame rate. For numerically
+     * simple conversions, such as 60 fps to 30 fps: We recommend that you keep the default value, Drop duplicate. For
+     * numerically complex conversions, to avoid stutter: Choose Interpolate. This results in a smooth picture, but might
+     * introduce undesirable video artifacts. For complex frame rate conversions, especially if your source video has
+     * already been converted from its original cadence: Choose FrameFormer to do motion-compensated interpolation.
+     * FrameFormer uses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding
+     * time and incurs a significant add-on cost. When you choose FrameFormer, your input video resolution must be at
+     * least 128x96.
      * 
-     * @return When set to INTERPOLATE, produces smoother motion during frame rate conversion.
+     * @return Choose the method that you want MediaConvert to use when increasing or decreasing the frame rate. For
+     *         numerically simple conversions, such as 60 fps to 30 fps: We recommend that you keep the default value,
+     *         Drop duplicate. For numerically complex conversions, to avoid stutter: Choose Interpolate. This results
+     *         in a smooth picture, but might introduce undesirable video artifacts. For complex frame rate conversions,
+     *         especially if your source video has already been converted from its original cadence: Choose FrameFormer
+     *         to do motion-compensated interpolation. FrameFormer uses the best conversion method frame by frame. Note
+     *         that using FrameFormer increases the transcoding time and incurs a significant add-on cost. When you
+     *         choose FrameFormer, your input video resolution must be at least 128x96.
      * @see H265FramerateConversionAlgorithm
      */
 
@@ -730,10 +1053,24 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * When set to INTERPOLATE, produces smoother motion during frame rate conversion.
+     * Choose the method that you want MediaConvert to use when increasing or decreasing the frame rate. For numerically
+     * simple conversions, such as 60 fps to 30 fps: We recommend that you keep the default value, Drop duplicate. For
+     * numerically complex conversions, to avoid stutter: Choose Interpolate. This results in a smooth picture, but might
+     * introduce undesirable video artifacts. For complex frame rate conversions, especially if your source video has
+     * already been converted from its original cadence: Choose FrameFormer to do motion-compensated interpolation.
+     * FrameFormer uses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding
+     * time and incurs a significant add-on cost. When you choose FrameFormer, your input video resolution must be at
+     * least 128x96.
      * 
      * @param framerateConversionAlgorithm
-     *        When set to INTERPOLATE, produces smoother motion during frame rate conversion.
+     *        Choose the method that you want MediaConvert to use when increasing or decreasing the frame rate. For
+     *        numerically simple conversions, such as 60 fps to 30 fps: We recommend that you keep the default value,
+     *        Drop duplicate. For numerically complex conversions, to avoid stutter: Choose Interpolate. This results in
+     *        a smooth picture, but might introduce undesirable video artifacts. For complex frame rate conversions,
+     *        especially if your source video has already been converted from its original cadence: Choose FrameFormer
+     *        to do motion-compensated interpolation. FrameFormer uses the best conversion method frame by frame. Note
+     *        that using FrameFormer increases the transcoding time and incurs a significant add-on cost. When you
+     *        choose FrameFormer, your input video resolution must be at least 128x96.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265FramerateConversionAlgorithm
      */
@@ -744,10 +1081,24 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * When set to INTERPOLATE, produces smoother motion during frame rate conversion.
+     * Choose the method that you want MediaConvert to use when increasing or decreasing the frame rate. For numerically
+     * simple conversions, such as 60 fps to 30 fps: We recommend that you keep the default value, Drop duplicate. For
+     * numerically complex conversions, to avoid stutter: Choose Interpolate. This results in a smooth picture, but might
+     * introduce undesirable video artifacts. For complex frame rate conversions, especially if your source video has
+     * already been converted from its original cadence: Choose FrameFormer to do motion-compensated interpolation.
+     * FrameFormer uses the best conversion method frame by frame. Note that using FrameFormer increases the transcoding
+     * time and incurs a significant add-on cost. When you choose FrameFormer, your input video resolution must be at
+     * least 128x96.
      * 
      * @param framerateConversionAlgorithm
-     *        When set to INTERPOLATE, produces smoother motion during frame rate conversion.
+     *        Choose the method that you want MediaConvert to use when increasing or decreasing the frame rate. For
+     *        numerically simple conversions, such as 60 fps to 30 fps: We recommend that you keep the default value,
+     *        Drop duplicate. For numerically complex conversions, to avoid stutter: Choose Interpolate. This results in
+     *        a smooth picture, but might introduce undesirable video artifacts. For complex frame rate conversions,
+     *        especially if your source video has already been converted from its original cadence: Choose FrameFormer
+     *        to do motion-compensated interpolation. FrameFormer uses the best conversion method frame by frame. Note
+     *        that using FrameFormer increases the transcoding time and incurs a significant add-on cost. When you
+     *        choose FrameFormer, your input video resolution must be at least 128x96.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265FramerateConversionAlgorithm
      */
@@ -758,10 +1109,17 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Frame rate denominator.
+     * When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a fraction. For
+     * example, 24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of this fraction. In this
+     * example, use 1001 for the value of FramerateDenominator. When you use the console for transcode jobs that use
+     * frame rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
      * 
      * @param framerateDenominator
-     *        Frame rate denominator.
+     *        When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a
+     *        fraction. For example, 24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of
+     *        this fraction. In this example, use 1001 for the value of FramerateDenominator. When you use the console
+     *        for transcode jobs that use frame rate conversion, provide the value as a decimal number for Framerate. In
+     *        this example, specify 23.976.
      */
 
     public void setFramerateDenominator(Integer framerateDenominator) {
@@ -769,9 +1127,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Frame rate denominator.
+     * When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a fraction. For
+     * example, 24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of this fraction. In this
+     * example, use 1001 for the value of FramerateDenominator. When you use the console for transcode jobs that use
+     * frame rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
      * 
-     * @return Frame rate denominator.
+     * @return When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a
+     *         fraction. For example, 24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of
+     *         this fraction. In this example, use 1001 for the value of FramerateDenominator. When you use the console
+     *         for transcode jobs that use frame rate conversion, provide the value as a decimal number for Framerate.
+     *         In this example, specify 23.976.
      */
 
     public Integer getFramerateDenominator() {
@@ -779,10 +1144,17 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Frame rate denominator.
+     * When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a fraction. For
+     * example, 24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of this fraction. In this
+     * example, use 1001 for the value of FramerateDenominator. When you use the console for transcode jobs that use
+     * frame rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
      * 
      * @param framerateDenominator
-     *        Frame rate denominator.
+     *        When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a
+     *        fraction. For example, 24000 / 1001 = 23.976 fps. Use FramerateDenominator to specify the denominator of
+     *        this fraction. In this example, use 1001 for the value of FramerateDenominator. When you use the console
+     *        for transcode jobs that use frame rate conversion, provide the value as a decimal number for Framerate. In
+     *        this example, specify 23.976.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -792,10 +1164,17 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Frame rate numerator - frame rate is a fraction, e.g. 24000 / 1001 = 23.976 fps.
+     * When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a fraction. For
+     * example, 24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this fraction. In this
+     * example, use 24000 for the value of FramerateNumerator. When you use the console for transcode jobs that use frame
+     * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
      * 
      * @param framerateNumerator
-     *        Frame rate numerator - frame rate is a fraction, e.g. 24000 / 1001 = 23.976 fps.
+     *        When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a
+     *        fraction. For example, 24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this
+     *        fraction. In this example, use 24000 for the value of FramerateNumerator. When you use the console for
+     *        transcode jobs that use frame rate conversion, provide the value as a decimal number for Framerate. In
+     *        this example, specify 23.976.
      */
 
     public void setFramerateNumerator(Integer framerateNumerator) {
@@ -803,9 +1182,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Frame rate numerator - frame rate is a fraction, e.g. 24000 / 1001 = 23.976 fps.
+     * When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a fraction. For
+     * example, 24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this fraction. In this
+     * example, use 24000 for the value of FramerateNumerator. When you use the console for transcode jobs that use frame
+     * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
      * 
-     * @return Frame rate numerator - frame rate is a fraction, e.g. 24000 / 1001 = 23.976 fps.
+     * @return When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a
+     *         fraction. For example, 24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this
+     *         fraction. In this example, use 24000 for the value of FramerateNumerator. When you use the console for
+     *         transcode jobs that use frame rate conversion, provide the value as a decimal number for Framerate. In
+     *         this example, specify 23.976.
      */
 
     public Integer getFramerateNumerator() {
@@ -813,10 +1199,17 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Frame rate numerator - frame rate is a fraction, e.g. 24000 / 1001 = 23.976 fps.
+     * When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a fraction. For
+     * example, 24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this fraction. In this
+     * example, use 24000 for the value of FramerateNumerator. When you use the console for transcode jobs that use frame
+     * rate conversion, provide the value as a decimal number for Framerate. In this example, specify 23.976.
      * 
      * @param framerateNumerator
-     *        Frame rate numerator - frame rate is a fraction, e.g. 24000 / 1001 = 23.976 fps.
+     *        When you use the API for transcode jobs that use frame rate conversion, specify the frame rate as a
+     *        fraction. For example, 24000 / 1001 = 23.976 fps. Use FramerateNumerator to specify the numerator of this
+     *        fraction. In this example, use 24000 for the value of FramerateNumerator. When you use the console for
+     *        transcode jobs that use frame rate conversion, provide the value as a decimal number for Framerate. In
+     *        this example, specify 23.976.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -826,10 +1219,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If enable, use reference B frames for GOP structures that have B frames > 1.
+     * Specify whether to allow B-frames to be referenced by other frame types. To use reference B-frames when your GOP
+     * structure has 1 or more B-frames: Leave blank or keep the default value Enabled. We recommend that you choose
+     * Enabled to help improve the video quality of your output relative to its bitrate. To not use reference B-frames:
+     * Choose Disabled.
      * 
      * @param gopBReference
-     *        If enable, use reference B frames for GOP structures that have B frames > 1.
+     *        Specify whether to allow B-frames to be referenced by other frame types. To use reference B-frames when
+     *        your GOP structure has 1 or more B-frames: Leave blank or keep the default value Enabled. We recommend
+     *        that you choose Enabled to help improve the video quality of your output relative to its bitrate. To not
+     *        use reference B-frames: Choose Disabled.
      * @see H265GopBReference
      */
 
@@ -838,9 +1237,15 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If enable, use reference B frames for GOP structures that have B frames > 1.
+     * Specify whether to allow B-frames to be referenced by other frame types. To use reference B-frames when your GOP
+     * structure has 1 or more B-frames: Leave blank or keep the default value Enabled. We recommend that you choose
+     * Enabled to help improve the video quality of your output relative to its bitrate. To not use reference B-frames:
+     * Choose Disabled.
      * 
-     * @return If enable, use reference B frames for GOP structures that have B frames > 1.
+     * @return Specify whether to allow B-frames to be referenced by other frame types. To use reference B-frames when
+     *         your GOP structure has 1 or more B-frames: Leave blank or keep the default value Enabled. We recommend
+     *         that you choose Enabled to help improve the video quality of your output relative to its bitrate. To not
+     *         use reference B-frames: Choose Disabled.
      * @see H265GopBReference
      */
 
@@ -849,10 +1254,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If enable, use reference B frames for GOP structures that have B frames > 1.
+     * Specify whether to allow B-frames to be referenced by other frame types. To use reference B-frames when your GOP
+     * structure has 1 or more B-frames: Leave blank or keep the default value Enabled. We recommend that you choose
+     * Enabled to help improve the video quality of your output relative to its bitrate. To not use reference B-frames:
+     * Choose Disabled.
      * 
      * @param gopBReference
-     *        If enable, use reference B frames for GOP structures that have B frames > 1.
+     *        Specify whether to allow B-frames to be referenced by other frame types. To use reference B-frames when
+     *        your GOP structure has 1 or more B-frames: Leave blank or keep the default value Enabled. We recommend
+     *        that you choose Enabled to help improve the video quality of your output relative to its bitrate. To not
+     *        use reference B-frames: Choose Disabled.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265GopBReference
      */
@@ -863,10 +1274,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * If enable, use reference B frames for GOP structures that have B frames > 1.
+     * Specify whether to allow B-frames to be referenced by other frame types. To use reference B-frames when your GOP
+     * structure has 1 or more B-frames: Leave blank or keep the default value Enabled. We recommend that you choose
+     * Enabled to help improve the video quality of your output relative to its bitrate. To not use reference B-frames:
+     * Choose Disabled.
      * 
      * @param gopBReference
-     *        If enable, use reference B frames for GOP structures that have B frames > 1.
+     *        Specify whether to allow B-frames to be referenced by other frame types. To use reference B-frames when
+     *        your GOP structure has 1 or more B-frames: Leave blank or keep the default value Enabled. We recommend
+     *        that you choose Enabled to help improve the video quality of your output relative to its bitrate. To not
+     *        use reference B-frames: Choose Disabled.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265GopBReference
      */
@@ -877,14 +1294,18 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Frequency of closed GOPs. In streaming applications, it is recommended that this be set to 1 so a decoder joining
-     * mid-stream will receive an IDR frame as quickly as possible. Setting this value to 0 will break output
-     * segmenting.
+     * Specify the relative frequency of open to closed GOPs in this output. For example, if you want to allow four open
+     * GOPs and then require a closed GOP, set this value to 5. We recommend that you have the transcoder automatically
+     * choose this value for you based on characteristics of your input video. To enable this automatic behavior, do this
+     * by keeping the default empty value. If you do explicitly specify a value, for segmented outputs, don't set this
+     * value to 0.
      * 
      * @param gopClosedCadence
-     *        Frequency of closed GOPs. In streaming applications, it is recommended that this be set to 1 so a decoder
-     *        joining mid-stream will receive an IDR frame as quickly as possible. Setting this value to 0 will break
-     *        output segmenting.
+     *        Specify the relative frequency of open to closed GOPs in this output. For example, if you want to allow
+     *        four open GOPs and then require a closed GOP, set this value to 5. We recommend that you have the
+     *        transcoder automatically choose this value for you based on characteristics of your input video. To enable
+     *        this automatic behavior, do this by keeping the default empty value. If you do explicitly specify a value,
+     *        for segmented outputs, don't set this value to 0.
      */
 
     public void setGopClosedCadence(Integer gopClosedCadence) {
@@ -892,13 +1313,17 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Frequency of closed GOPs. In streaming applications, it is recommended that this be set to 1 so a decoder joining
-     * mid-stream will receive an IDR frame as quickly as possible. Setting this value to 0 will break output
-     * segmenting.
+     * Specify the relative frequency of open to closed GOPs in this output. For example, if you want to allow four open
+     * GOPs and then require a closed GOP, set this value to 5. We recommend that you have the transcoder automatically
+     * choose this value for you based on characteristics of your input video. To enable this automatic behavior, do this
+     * by keeping the default empty value. If you do explicitly specify a value, for segmented outputs, don't set this
+     * value to 0.
      * 
-     * @return Frequency of closed GOPs. In streaming applications, it is recommended that this be set to 1 so a decoder
-     *         joining mid-stream will receive an IDR frame as quickly as possible. Setting this value to 0 will break
-     *         output segmenting.
+     * @return Specify the relative frequency of open to closed GOPs in this output. For example, if you want to allow
+     *         four open GOPs and then require a closed GOP, set this value to 5. We recommend that you have the
+     *         transcoder automatically choose this value for you based on characteristics of your input video. To
+     *         enable this automatic behavior, do this by keeping the default empty value. If you do explicitly specify
+     *         a value, for segmented outputs, don't set this value to 0.
      */
 
     public Integer getGopClosedCadence() {
@@ -906,14 +1331,18 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Frequency of closed GOPs. In streaming applications, it is recommended that this be set to 1 so a decoder joining
-     * mid-stream will receive an IDR frame as quickly as possible. Setting this value to 0 will break output
-     * segmenting.
+     * Specify the relative frequency of open to closed GOPs in this output. For example, if you want to allow four open
+     * GOPs and then require a closed GOP, set this value to 5. We recommend that you have the transcoder automatically
+     * choose this value for you based on characteristics of your input video. To enable this automatic behavior, do this
+     * by keeping the default empty value. If you do explicitly specify a value, for segmented outputs, don't set this
+     * value to 0.
      * 
      * @param gopClosedCadence
-     *        Frequency of closed GOPs. In streaming applications, it is recommended that this be set to 1 so a decoder
-     *        joining mid-stream will receive an IDR frame as quickly as possible. Setting this value to 0 will break
-     *        output segmenting.
+     *        Specify the relative frequency of open to closed GOPs in this output. For example, if you want to allow
+     *        four open GOPs and then require a closed GOP, set this value to 5. We recommend that you have the
+     *        transcoder automatically choose this value for you based on characteristics of your input video. To enable
+     *        this automatic behavior, do this by keeping the default empty value. If you do explicitly specify a value,
+     *        for segmented outputs, don't set this value to 0.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -923,10 +1352,20 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * GOP Length (keyframe interval) in frames or seconds. Must be greater than zero.
+     * Use this setting only when you set GOP mode control to Specified, frames or Specified, seconds. Specify the GOP
+     * length using a whole number of frames or a decimal value of seconds. MediaConvert will interpret this value as
+     * frames or seconds depending on the value you choose for GOP mode control. If you want to allow MediaConvert to
+     * automatically determine GOP size, leave GOP size blank and set GOP mode control to Auto. If your output group
+     * specifies HLS, DASH, or CMAF, leave GOP size blank and set GOP mode control to Auto in each output in your output
+     * group.
      * 
      * @param gopSize
-     *        GOP Length (keyframe interval) in frames or seconds. Must be greater than zero.
+     *        Use this setting only when you set GOP mode control to Specified, frames or Specified, seconds. Specify
+     *        the GOP length using a whole number of frames or a decimal value of seconds. MediaConvert will interpret
+     *        this value as frames or seconds depending on the value you choose for GOP mode control. If you want to
+     *        allow MediaConvert to automatically determine GOP size, leave GOP size blank and set GOP mode control to
+     *        Auto. If your output group specifies HLS, DASH, or CMAF, leave GOP size blank and set GOP mode control to
+     *        Auto in each output in your output group.
      */
 
     public void setGopSize(Double gopSize) {
@@ -934,9 +1373,19 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * GOP Length (keyframe interval) in frames or seconds. Must be greater than zero.
+     * Use this setting only when you set GOP mode control to Specified, frames or Specified, seconds. Specify the GOP
+     * length using a whole number of frames or a decimal value of seconds. MediaConvert will interpret this value as
+     * frames or seconds depending on the value you choose for GOP mode control. If you want to allow MediaConvert to
+     * automatically determine GOP size, leave GOP size blank and set GOP mode control to Auto. If your output group
+     * specifies HLS, DASH, or CMAF, leave GOP size blank and set GOP mode control to Auto in each output in your output
+     * group.
      * 
-     * @return GOP Length (keyframe interval) in frames or seconds. Must be greater than zero.
+     * @return Use this setting only when you set GOP mode control to Specified, frames or Specified, seconds. Specify
+     *         the GOP length using a whole number of frames or a decimal value of seconds. MediaConvert will interpret
+     *         this value as frames or seconds depending on the value you choose for GOP mode control. If you want to
+     *         allow MediaConvert to automatically determine GOP size, leave GOP size blank and set GOP mode control to
+     *         Auto. If your output group specifies HLS, DASH, or CMAF, leave GOP size blank and set GOP mode control to
+     *         Auto in each output in your output group.
      */
 
     public Double getGopSize() {
@@ -944,10 +1393,20 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * GOP Length (keyframe interval) in frames or seconds. Must be greater than zero.
+     * Use this setting only when you set GOP mode control to Specified, frames or Specified, seconds. Specify the GOP
+     * length using a whole number of frames or a decimal value of seconds. MediaConvert will interpret this value as
+     * frames or seconds depending on the value you choose for GOP mode control. If you want to allow MediaConvert to
+     * automatically determine GOP size, leave GOP size blank and set GOP mode control to Auto. If your output group
+     * specifies HLS, DASH, or CMAF, leave GOP size blank and set GOP mode control to Auto in each output in your output
+     * group.
      * 
      * @param gopSize
-     *        GOP Length (keyframe interval) in frames or seconds. Must be greater than zero.
+     *        Use this setting only when you set GOP mode control to Specified, frames or Specified, seconds. Specify
+     *        the GOP length using a whole number of frames or a decimal value of seconds. MediaConvert will interpret
+     *        this value as frames or seconds depending on the value you choose for GOP mode control. If you want to
+     *        allow MediaConvert to automatically determine GOP size, leave GOP size blank and set GOP mode control to
+     *        Auto. If your output group specifies HLS, DASH, or CMAF, leave GOP size blank and set GOP mode control to
+     *        Auto in each output in your output group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -957,12 +1416,21 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Indicates if the GOP Size in H265 is specified in frames or seconds. If seconds the system will convert the GOP
-     * Size into a frame count at run time.
+     * Specify how the transcoder determines GOP size for this output. We recommend that you have the transcoder
+     * automatically choose this value for you based on characteristics of your input video. To enable this automatic
+     * behavior, choose Auto and and leave GOP size blank. By default, if you don't specify GOP mode control,
+     * MediaConvert will use automatic behavior. If your output group specifies HLS, DASH, or CMAF, set GOP mode control
+     * to Auto and leave GOP size blank in each output in your output group. To explicitly specify the GOP length, choose
+     * Specified, frames or Specified, seconds and then provide the GOP length in the related setting GOP size.
      * 
      * @param gopSizeUnits
-     *        Indicates if the GOP Size in H265 is specified in frames or seconds. If seconds the system will convert
-     *        the GOP Size into a frame count at run time.
+     *        Specify how the transcoder determines GOP size for this output. We recommend that you have the transcoder
+     *        automatically choose this value for you based on characteristics of your input video. To enable this
+     *        automatic behavior, choose Auto and and leave GOP size blank. By default, if you don't specify GOP mode
+     *        control, MediaConvert will use automatic behavior. If your output group specifies HLS, DASH, or CMAF, set
+     *        GOP mode control to Auto and leave GOP size blank in each output in your output group. To explicitly
+     *        specify the GOP length, choose Specified, frames or Specified, seconds and then provide the GOP length in
+     *        the related setting GOP size.
      * @see H265GopSizeUnits
      */
 
@@ -971,11 +1439,20 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Indicates if the GOP Size in H265 is specified in frames or seconds. If seconds the system will convert the GOP
-     * Size into a frame count at run time.
+     * Specify how the transcoder determines GOP size for this output. We recommend that you have the transcoder
+     * automatically choose this value for you based on characteristics of your input video. To enable this automatic
+     * behavior, choose Auto and and leave GOP size blank. By default, if you don't specify GOP mode control,
+     * MediaConvert will use automatic behavior. If your output group specifies HLS, DASH, or CMAF, set GOP mode control
+     * to Auto and leave GOP size blank in each output in your output group. To explicitly specify the GOP length, choose
+     * Specified, frames or Specified, seconds and then provide the GOP length in the related setting GOP size.
      * 
-     * @return Indicates if the GOP Size in H265 is specified in frames or seconds. If seconds the system will convert
-     *         the GOP Size into a frame count at run time.
+     * @return Specify how the transcoder determines GOP size for this output. We recommend that you have the transcoder
+     *         automatically choose this value for you based on characteristics of your input video. To enable this
+     *         automatic behavior, choose Auto and and leave GOP size blank. By default, if you don't specify GOP mode
+     *         control, MediaConvert will use automatic behavior. If your output group specifies HLS, DASH, or CMAF, set
+     *         GOP mode control to Auto and leave GOP size blank in each output in your output group. To explicitly
+     *         specify the GOP length, choose Specified, frames or Specified, seconds and then provide the GOP length in
+     *         the related setting GOP size.
      * @see H265GopSizeUnits
      */
 
@@ -984,12 +1461,21 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Indicates if the GOP Size in H265 is specified in frames or seconds. If seconds the system will convert the GOP
-     * Size into a frame count at run time.
+     * Specify how the transcoder determines GOP size for this output. We recommend that you have the transcoder
+     * automatically choose this value for you based on characteristics of your input video. To enable this automatic
+     * behavior, choose Auto and and leave GOP size blank. By default, if you don't specify GOP mode control,
+     * MediaConvert will use automatic behavior. If your output group specifies HLS, DASH, or CMAF, set GOP mode control
+     * to Auto and leave GOP size blank in each output in your output group. To explicitly specify the GOP length, choose
+     * Specified, frames or Specified, seconds and then provide the GOP length in the related setting GOP size.
      * 
      * @param gopSizeUnits
-     *        Indicates if the GOP Size in H265 is specified in frames or seconds. If seconds the system will convert
-     *        the GOP Size into a frame count at run time.
+     *        Specify how the transcoder determines GOP size for this output. We recommend that you have the transcoder
+     *        automatically choose this value for you based on characteristics of your input video. To enable this
+     *        automatic behavior, choose Auto and and leave GOP size blank. By default, if you don't specify GOP mode
+     *        control, MediaConvert will use automatic behavior. If your output group specifies HLS, DASH, or CMAF, set
+     *        GOP mode control to Auto and leave GOP size blank in each output in your output group. To explicitly
+     *        specify the GOP length, choose Specified, frames or Specified, seconds and then provide the GOP length in
+     *        the related setting GOP size.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265GopSizeUnits
      */
@@ -1000,18 +1486,73 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Indicates if the GOP Size in H265 is specified in frames or seconds. If seconds the system will convert the GOP
-     * Size into a frame count at run time.
+     * Specify how the transcoder determines GOP size for this output. We recommend that you have the transcoder
+     * automatically choose this value for you based on characteristics of your input video. To enable this automatic
+     * behavior, choose Auto and and leave GOP size blank. By default, if you don't specify GOP mode control,
+     * MediaConvert will use automatic behavior. If your output group specifies HLS, DASH, or CMAF, set GOP mode control
+     * to Auto and leave GOP size blank in each output in your output group. To explicitly specify the GOP length, choose
+     * Specified, frames or Specified, seconds and then provide the GOP length in the related setting GOP size.
      * 
      * @param gopSizeUnits
-     *        Indicates if the GOP Size in H265 is specified in frames or seconds. If seconds the system will convert
-     *        the GOP Size into a frame count at run time.
+     *        Specify how the transcoder determines GOP size for this output. We recommend that you have the transcoder
+     *        automatically choose this value for you based on characteristics of your input video. To enable this
+     *        automatic behavior, choose Auto and and leave GOP size blank. By default, if you don't specify GOP mode
+     *        control, MediaConvert will use automatic behavior. If your output group specifies HLS, DASH, or CMAF, set
+     *        GOP mode control to Auto and leave GOP size blank in each output in your output group. To explicitly
+     *        specify the GOP length, choose Specified, frames or Specified, seconds and then provide the GOP length in
+     *        the related setting GOP size.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265GopSizeUnits
      */
 
     public H265Settings withGopSizeUnits(H265GopSizeUnits gopSizeUnits) {
         this.gopSizeUnits = gopSizeUnits.toString();
+        return this;
+    }
+
+    /**
+     * If your downstream systems have strict buffer requirements: Specify the minimum percentage of the HRD buffer
+     * that's available at the end of each encoded video segment. For the best video quality: Set to 0 or leave blank to
+     * automatically determine the final buffer fill percentage.
+     * 
+     * @param hrdBufferFinalFillPercentage
+     *        If your downstream systems have strict buffer requirements: Specify the minimum percentage of the HRD
+     *        buffer that's available at the end of each encoded video segment. For the best video quality: Set to 0 or
+     *        leave blank to automatically determine the final buffer fill percentage.
+     */
+
+    public void setHrdBufferFinalFillPercentage(Integer hrdBufferFinalFillPercentage) {
+        this.hrdBufferFinalFillPercentage = hrdBufferFinalFillPercentage;
+    }
+
+    /**
+     * If your downstream systems have strict buffer requirements: Specify the minimum percentage of the HRD buffer
+     * that's available at the end of each encoded video segment. For the best video quality: Set to 0 or leave blank to
+     * automatically determine the final buffer fill percentage.
+     * 
+     * @return If your downstream systems have strict buffer requirements: Specify the minimum percentage of the HRD
+     *         buffer that's available at the end of each encoded video segment. For the best video quality: Set to 0 or
+     *         leave blank to automatically determine the final buffer fill percentage.
+     */
+
+    public Integer getHrdBufferFinalFillPercentage() {
+        return this.hrdBufferFinalFillPercentage;
+    }
+
+    /**
+     * If your downstream systems have strict buffer requirements: Specify the minimum percentage of the HRD buffer
+     * that's available at the end of each encoded video segment. For the best video quality: Set to 0 or leave blank to
+     * automatically determine the final buffer fill percentage.
+     * 
+     * @param hrdBufferFinalFillPercentage
+     *        If your downstream systems have strict buffer requirements: Specify the minimum percentage of the HRD
+     *        buffer that's available at the end of each encoded video segment. For the best video quality: Set to 0 or
+     *        leave blank to automatically determine the final buffer fill percentage.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public H265Settings withHrdBufferFinalFillPercentage(Integer hrdBufferFinalFillPercentage) {
+        setHrdBufferFinalFillPercentage(hrdBufferFinalFillPercentage);
         return this;
     }
 
@@ -1084,25 +1625,23 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use Interlace mode (InterlaceMode) to choose the scan line type for the output. * Top Field First (TOP_FIELD) and
-     * Bottom Field First (BOTTOM_FIELD) produce interlaced output with the entire output having the same field polarity
-     * (top or bottom first). * Follow, Default Top (FOLLOW_TOP_FIELD) and Follow, Default Bottom (FOLLOW_BOTTOM_FIELD)
-     * use the same field polarity as the source. Therefore, behavior depends on the input scan type. - If the source is
-     * interlaced, the output will be interlaced with the same polarity as the source (it will follow the source). The
-     * output could therefore be a mix of "top field first" and "bottom field first". - If the source is progressive,
-     * the output will be interlaced with "top field first" or "bottom field first" polarity, depending on which of the
-     * Follow options you chose.
+     * Choose the scan line type for the output. Keep the default value, Progressive to create a progressive output,
+     * regardless of the scan type of your input. Use Top field first or Bottom field first to create an output that's
+     * interlaced with the same field polarity throughout. Use Follow, default top or Follow, default bottom to produce
+     * outputs with the same field polarity as the source. For jobs that have multiple inputs, the output field polarity
+     * might change over the course of the output. Follow behavior depends on the input scan type. If the source is
+     * interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the
+     * output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
      * 
      * @param interlaceMode
-     *        Use Interlace mode (InterlaceMode) to choose the scan line type for the output. * Top Field First
-     *        (TOP_FIELD) and Bottom Field First (BOTTOM_FIELD) produce interlaced output with the entire output having
-     *        the same field polarity (top or bottom first). * Follow, Default Top (FOLLOW_TOP_FIELD) and Follow,
-     *        Default Bottom (FOLLOW_BOTTOM_FIELD) use the same field polarity as the source. Therefore, behavior
-     *        depends on the input scan type. - If the source is interlaced, the output will be interlaced with the same
-     *        polarity as the source (it will follow the source). The output could therefore be a mix of
-     *        "top field first" and "bottom field first". - If the source is progressive, the output will be interlaced
-     *        with "top field first" or "bottom field first" polarity, depending on which of the Follow options you
-     *        chose.
+     *        Choose the scan line type for the output. Keep the default value, Progressive to create a progressive
+     *        output, regardless of the scan type of your input. Use Top field first or Bottom field first to create an
+     *        output that's interlaced with the same field polarity throughout. Use Follow, default top or Follow,
+     *        default bottom to produce outputs with the same field polarity as the source. For jobs that have multiple
+     *        inputs, the output field polarity might change over the course of the output. Follow behavior depends on
+     *        the input scan type. If the source is interlaced, the output will be interlaced with the same polarity as
+     *        the source. If the source is progressive, the output will be interlaced with top field bottom field first,
+     *        depending on which of the Follow options you choose.
      * @see H265InterlaceMode
      */
 
@@ -1111,24 +1650,22 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use Interlace mode (InterlaceMode) to choose the scan line type for the output. * Top Field First (TOP_FIELD) and
-     * Bottom Field First (BOTTOM_FIELD) produce interlaced output with the entire output having the same field polarity
-     * (top or bottom first). * Follow, Default Top (FOLLOW_TOP_FIELD) and Follow, Default Bottom (FOLLOW_BOTTOM_FIELD)
-     * use the same field polarity as the source. Therefore, behavior depends on the input scan type. - If the source is
-     * interlaced, the output will be interlaced with the same polarity as the source (it will follow the source). The
-     * output could therefore be a mix of "top field first" and "bottom field first". - If the source is progressive,
-     * the output will be interlaced with "top field first" or "bottom field first" polarity, depending on which of the
-     * Follow options you chose.
+     * Choose the scan line type for the output. Keep the default value, Progressive to create a progressive output,
+     * regardless of the scan type of your input. Use Top field first or Bottom field first to create an output that's
+     * interlaced with the same field polarity throughout. Use Follow, default top or Follow, default bottom to produce
+     * outputs with the same field polarity as the source. For jobs that have multiple inputs, the output field polarity
+     * might change over the course of the output. Follow behavior depends on the input scan type. If the source is
+     * interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the
+     * output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
      * 
-     * @return Use Interlace mode (InterlaceMode) to choose the scan line type for the output. * Top Field First
-     *         (TOP_FIELD) and Bottom Field First (BOTTOM_FIELD) produce interlaced output with the entire output having
-     *         the same field polarity (top or bottom first). * Follow, Default Top (FOLLOW_TOP_FIELD) and Follow,
-     *         Default Bottom (FOLLOW_BOTTOM_FIELD) use the same field polarity as the source. Therefore, behavior
-     *         depends on the input scan type. - If the source is interlaced, the output will be interlaced with the
-     *         same polarity as the source (it will follow the source). The output could therefore be a mix of
-     *         "top field first" and "bottom field first". - If the source is progressive, the output will be interlaced
-     *         with "top field first" or "bottom field first" polarity, depending on which of the Follow options you
-     *         chose.
+     * @return Choose the scan line type for the output. Keep the default value, Progressive to create a progressive
+     *         output, regardless of the scan type of your input. Use Top field first or Bottom field first to create an
+     *         output that's interlaced with the same field polarity throughout. Use Follow, default top or Follow,
+     *         default bottom to produce outputs with the same field polarity as the source. For jobs that have multiple
+     *         inputs, the output field polarity might change over the course of the output. Follow behavior depends on
+     *         the input scan type. If the source is interlaced, the output will be interlaced with the same polarity as
+     *         the source. If the source is progressive, the output will be interlaced with top field bottom field
+     *         first, depending on which of the Follow options you choose.
      * @see H265InterlaceMode
      */
 
@@ -1137,25 +1674,23 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use Interlace mode (InterlaceMode) to choose the scan line type for the output. * Top Field First (TOP_FIELD) and
-     * Bottom Field First (BOTTOM_FIELD) produce interlaced output with the entire output having the same field polarity
-     * (top or bottom first). * Follow, Default Top (FOLLOW_TOP_FIELD) and Follow, Default Bottom (FOLLOW_BOTTOM_FIELD)
-     * use the same field polarity as the source. Therefore, behavior depends on the input scan type. - If the source is
-     * interlaced, the output will be interlaced with the same polarity as the source (it will follow the source). The
-     * output could therefore be a mix of "top field first" and "bottom field first". - If the source is progressive,
-     * the output will be interlaced with "top field first" or "bottom field first" polarity, depending on which of the
-     * Follow options you chose.
+     * Choose the scan line type for the output. Keep the default value, Progressive to create a progressive output,
+     * regardless of the scan type of your input. Use Top field first or Bottom field first to create an output that's
+     * interlaced with the same field polarity throughout. Use Follow, default top or Follow, default bottom to produce
+     * outputs with the same field polarity as the source. For jobs that have multiple inputs, the output field polarity
+     * might change over the course of the output. Follow behavior depends on the input scan type. If the source is
+     * interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the
+     * output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
      * 
      * @param interlaceMode
-     *        Use Interlace mode (InterlaceMode) to choose the scan line type for the output. * Top Field First
-     *        (TOP_FIELD) and Bottom Field First (BOTTOM_FIELD) produce interlaced output with the entire output having
-     *        the same field polarity (top or bottom first). * Follow, Default Top (FOLLOW_TOP_FIELD) and Follow,
-     *        Default Bottom (FOLLOW_BOTTOM_FIELD) use the same field polarity as the source. Therefore, behavior
-     *        depends on the input scan type. - If the source is interlaced, the output will be interlaced with the same
-     *        polarity as the source (it will follow the source). The output could therefore be a mix of
-     *        "top field first" and "bottom field first". - If the source is progressive, the output will be interlaced
-     *        with "top field first" or "bottom field first" polarity, depending on which of the Follow options you
-     *        chose.
+     *        Choose the scan line type for the output. Keep the default value, Progressive to create a progressive
+     *        output, regardless of the scan type of your input. Use Top field first or Bottom field first to create an
+     *        output that's interlaced with the same field polarity throughout. Use Follow, default top or Follow,
+     *        default bottom to produce outputs with the same field polarity as the source. For jobs that have multiple
+     *        inputs, the output field polarity might change over the course of the output. Follow behavior depends on
+     *        the input scan type. If the source is interlaced, the output will be interlaced with the same polarity as
+     *        the source. If the source is progressive, the output will be interlaced with top field bottom field first,
+     *        depending on which of the Follow options you choose.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265InterlaceMode
      */
@@ -1166,25 +1701,23 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use Interlace mode (InterlaceMode) to choose the scan line type for the output. * Top Field First (TOP_FIELD) and
-     * Bottom Field First (BOTTOM_FIELD) produce interlaced output with the entire output having the same field polarity
-     * (top or bottom first). * Follow, Default Top (FOLLOW_TOP_FIELD) and Follow, Default Bottom (FOLLOW_BOTTOM_FIELD)
-     * use the same field polarity as the source. Therefore, behavior depends on the input scan type. - If the source is
-     * interlaced, the output will be interlaced with the same polarity as the source (it will follow the source). The
-     * output could therefore be a mix of "top field first" and "bottom field first". - If the source is progressive,
-     * the output will be interlaced with "top field first" or "bottom field first" polarity, depending on which of the
-     * Follow options you chose.
+     * Choose the scan line type for the output. Keep the default value, Progressive to create a progressive output,
+     * regardless of the scan type of your input. Use Top field first or Bottom field first to create an output that's
+     * interlaced with the same field polarity throughout. Use Follow, default top or Follow, default bottom to produce
+     * outputs with the same field polarity as the source. For jobs that have multiple inputs, the output field polarity
+     * might change over the course of the output. Follow behavior depends on the input scan type. If the source is
+     * interlaced, the output will be interlaced with the same polarity as the source. If the source is progressive, the
+     * output will be interlaced with top field bottom field first, depending on which of the Follow options you choose.
      * 
      * @param interlaceMode
-     *        Use Interlace mode (InterlaceMode) to choose the scan line type for the output. * Top Field First
-     *        (TOP_FIELD) and Bottom Field First (BOTTOM_FIELD) produce interlaced output with the entire output having
-     *        the same field polarity (top or bottom first). * Follow, Default Top (FOLLOW_TOP_FIELD) and Follow,
-     *        Default Bottom (FOLLOW_BOTTOM_FIELD) use the same field polarity as the source. Therefore, behavior
-     *        depends on the input scan type. - If the source is interlaced, the output will be interlaced with the same
-     *        polarity as the source (it will follow the source). The output could therefore be a mix of
-     *        "top field first" and "bottom field first". - If the source is progressive, the output will be interlaced
-     *        with "top field first" or "bottom field first" polarity, depending on which of the Follow options you
-     *        chose.
+     *        Choose the scan line type for the output. Keep the default value, Progressive to create a progressive
+     *        output, regardless of the scan type of your input. Use Top field first or Bottom field first to create an
+     *        output that's interlaced with the same field polarity throughout. Use Follow, default top or Follow,
+     *        default bottom to produce outputs with the same field polarity as the source. For jobs that have multiple
+     *        inputs, the output field polarity might change over the course of the output. Follow behavior depends on
+     *        the input scan type. If the source is interlaced, the output will be interlaced with the same polarity as
+     *        the source. If the source is progressive, the output will be interlaced with top field bottom field first,
+     *        depending on which of the Follow options you choose.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265InterlaceMode
      */
@@ -1235,18 +1768,29 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Enforces separation between repeated (cadence) I-frames and I-frames inserted by Scene Change Detection. If a
-     * scene change I-frame is within I-interval frames of a cadence I-frame, the GOP is shrunk and/or stretched to the
-     * scene change I-frame. GOP stretch requires enabling lookahead as well as setting I-interval. The normal cadence
-     * resumes for the next GOP. This setting is only used when Scene Change Detect is enabled. Note: Maximum GOP stretch
-     * = GOP size + Min-I-interval - 1
+     * Use this setting only when you also enable Scene change detection. This setting determines how the encoder
+     * manages the spacing between I-frames that it inserts as part of the I-frame cadence and the I-frames that it
+     * inserts for Scene change detection. We recommend that you have the transcoder automatically choose this value for
+     * you based on characteristics of your input video. To enable this automatic behavior, do this by keeping the
+     * default empty value. When you explicitly specify a value for this setting, the encoder determines whether to skip
+     * a cadence-driven I-frame by the value you set. For example, if you set Min I interval to 5 and a cadence-driven
+     * I-frame would fall within 5 frames of a scene-change I-frame, then the encoder skips the cadence-driven I-frame.
+     * In this way, one GOP is shrunk slightly and one GOP is stretched slightly. When the cadence-driven I-frames are
+     * farther from the scene-change I-frame than the value you set, then the encoder leaves all I-frames in place and
+     * the GOPs surrounding the scene change are smaller than the usual cadence GOPs.
      * 
      * @param minIInterval
-     *        Enforces separation between repeated (cadence) I-frames and I-frames inserted by Scene Change Detection.
-     *        If a scene change I-frame is within I-interval frames of a cadence I-frame, the GOP is shrunk and/or
-     *        stretched to the scene change I-frame. GOP stretch requires enabling lookahead as well as setting
-     *        I-interval. The normal cadence resumes for the next GOP. This setting is only used when Scene Change
-     *        Detect is enabled. Note: Maximum GOP stretch = GOP size + Min-I-interval - 1
+     *        Use this setting only when you also enable Scene change detection. This setting determines how the encoder
+     *        manages the spacing between I-frames that it inserts as part of the I-frame cadence and the I-frames that
+     *        it inserts for Scene change detection. We recommend that you have the transcoder automatically choose this
+     *        value for you based on characteristics of your input video. To enable this automatic behavior, do this by
+     *        keeping the default empty value. When you explicitly specify a value for this setting, the encoder
+     *        determines whether to skip a cadence-driven I-frame by the value you set. For example, if you set Min I
+     *        interval to 5 and a cadence-driven I-frame would fall within 5 frames of a scene-change I-frame, then the
+     *        encoder skips the cadence-driven I-frame. In this way, one GOP is shrunk slightly and one GOP is stretched
+     *        slightly. When the cadence-driven I-frames are farther from the scene-change I-frame than the value you
+     *        set, then the encoder leaves all I-frames in place and the GOPs surrounding the scene change are smaller
+     *        than the usual cadence GOPs.
      */
 
     public void setMinIInterval(Integer minIInterval) {
@@ -1254,17 +1798,28 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Enforces separation between repeated (cadence) I-frames and I-frames inserted by Scene Change Detection. If a
-     * scene change I-frame is within I-interval frames of a cadence I-frame, the GOP is shrunk and/or stretched to the
-     * scene change I-frame. GOP stretch requires enabling lookahead as well as setting I-interval. The normal cadence
-     * resumes for the next GOP. This setting is only used when Scene Change Detect is enabled. Note: Maximum GOP stretch
-     * = GOP size + Min-I-interval - 1
+     * Use this setting only when you also enable Scene change detection. This setting determines how the encoder
+     * manages the spacing between I-frames that it inserts as part of the I-frame cadence and the I-frames that it
+     * inserts for Scene change detection. We recommend that you have the transcoder automatically choose this value for
+     * you based on characteristics of your input video. To enable this automatic behavior, do this by keeping the
+     * default empty value. When you explicitly specify a value for this setting, the encoder determines whether to skip
+     * a cadence-driven I-frame by the value you set. For example, if you set Min I interval to 5 and a cadence-driven
+     * I-frame would fall within 5 frames of a scene-change I-frame, then the encoder skips the cadence-driven I-frame.
+     * In this way, one GOP is shrunk slightly and one GOP is stretched slightly. When the cadence-driven I-frames are
+     * farther from the scene-change I-frame than the value you set, then the encoder leaves all I-frames in place and
+     * the GOPs surrounding the scene change are smaller than the usual cadence GOPs.
      * 
-     * @return Enforces separation between repeated (cadence) I-frames and I-frames inserted by Scene Change Detection.
-     *         If a scene change I-frame is within I-interval frames of a cadence I-frame, the GOP is shrunk and/or
-     *         stretched to the scene change I-frame. GOP stretch requires enabling lookahead as well as setting
-     *         I-interval. The normal cadence resumes for the next GOP. This setting is only used when Scene Change
-     *         Detect is enabled. Note: Maximum GOP stretch = GOP size + Min-I-interval - 1
+     * @return Use this setting only when you also enable Scene change detection. This setting determines how the
+     *         encoder manages the spacing between I-frames that it inserts as part of the I-frame cadence and the
+     *         I-frames that it inserts for Scene change detection. We recommend that you have the transcoder
+     *         automatically choose this value for you based on characteristics of your input video. To enable this
+     *         automatic behavior, do this by keeping the default empty value. When you explicitly specify a value for
+     *         this setting, the encoder determines whether to skip a cadence-driven I-frame by the value you set. For
+     *         example, if you set Min I interval to 5 and a cadence-driven I-frame would fall within 5 frames of a
+     *         scene-change I-frame, then the encoder skips the cadence-driven I-frame. In this way, one GOP is shrunk
+     *         slightly and one GOP is stretched slightly. When the cadence-driven I-frames are farther from the
+     *         scene-change I-frame than the value you set, then the encoder leaves all I-frames in place and the GOPs
+     *         surrounding the scene change are smaller than the usual cadence GOPs.
      */
 
     public Integer getMinIInterval() {
@@ -1272,18 +1827,29 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Enforces separation between repeated (cadence) I-frames and I-frames inserted by Scene Change Detection. If a
-     * scene change I-frame is within I-interval frames of a cadence I-frame, the GOP is shrunk and/or stretched to the
-     * scene change I-frame. GOP stretch requires enabling lookahead as well as setting I-interval. The normal cadence
-     * resumes for the next GOP. This setting is only used when Scene Change Detect is enabled. Note: Maximum GOP stretch
-     * = GOP size + Min-I-interval - 1
+     * Use this setting only when you also enable Scene change detection. This setting determines how the encoder
+     * manages the spacing between I-frames that it inserts as part of the I-frame cadence and the I-frames that it
+     * inserts for Scene change detection. We recommend that you have the transcoder automatically choose this value for
+     * you based on characteristics of your input video. To enable this automatic behavior, do this by keeping the
+     * default empty value. When you explicitly specify a value for this setting, the encoder determines whether to skip
+     * a cadence-driven I-frame by the value you set. For example, if you set Min I interval to 5 and a cadence-driven
+     * I-frame would fall within 5 frames of a scene-change I-frame, then the encoder skips the cadence-driven I-frame.
+     * In this way, one GOP is shrunk slightly and one GOP is stretched slightly. When the cadence-driven I-frames are
+     * farther from the scene-change I-frame than the value you set, then the encoder leaves all I-frames in place and
+     * the GOPs surrounding the scene change are smaller than the usual cadence GOPs.
      * 
      * @param minIInterval
-     *        Enforces separation between repeated (cadence) I-frames and I-frames inserted by Scene Change Detection.
-     *        If a scene change I-frame is within I-interval frames of a cadence I-frame, the GOP is shrunk and/or
-     *        stretched to the scene change I-frame. GOP stretch requires enabling lookahead as well as setting
-     *        I-interval. The normal cadence resumes for the next GOP. This setting is only used when Scene Change
-     *        Detect is enabled. Note: Maximum GOP stretch = GOP size + Min-I-interval - 1
+     *        Use this setting only when you also enable Scene change detection. This setting determines how the encoder
+     *        manages the spacing between I-frames that it inserts as part of the I-frame cadence and the I-frames that
+     *        it inserts for Scene change detection. We recommend that you have the transcoder automatically choose this
+     *        value for you based on characteristics of your input video. To enable this automatic behavior, do this by
+     *        keeping the default empty value. When you explicitly specify a value for this setting, the encoder
+     *        determines whether to skip a cadence-driven I-frame by the value you set. For example, if you set Min I
+     *        interval to 5 and a cadence-driven I-frame would fall within 5 frames of a scene-change I-frame, then the
+     *        encoder skips the cadence-driven I-frame. In this way, one GOP is shrunk slightly and one GOP is stretched
+     *        slightly. When the cadence-driven I-frames are farther from the scene-change I-frame than the value you
+     *        set, then the encoder leaves all I-frames in place and the GOPs surrounding the scene change are smaller
+     *        than the usual cadence GOPs.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1293,10 +1859,15 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Number of B-frames between reference frames.
+     * Specify the number of B-frames between reference frames in this output. For the best video quality: Leave blank.
+     * MediaConvert automatically determines the number of B-frames to use based on the characteristics of your input
+     * video. To manually specify the number of B-frames between reference frames: Enter an integer from 0 to 7.
      * 
      * @param numberBFramesBetweenReferenceFrames
-     *        Number of B-frames between reference frames.
+     *        Specify the number of B-frames between reference frames in this output. For the best video quality: Leave
+     *        blank. MediaConvert automatically determines the number of B-frames to use based on the characteristics of
+     *        your input video. To manually specify the number of B-frames between reference frames: Enter an integer
+     *        from 0 to 7.
      */
 
     public void setNumberBFramesBetweenReferenceFrames(Integer numberBFramesBetweenReferenceFrames) {
@@ -1304,9 +1875,14 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Number of B-frames between reference frames.
+     * Specify the number of B-frames between reference frames in this output. For the best video quality: Leave blank.
+     * MediaConvert automatically determines the number of B-frames to use based on the characteristics of your input
+     * video. To manually specify the number of B-frames between reference frames: Enter an integer from 0 to 7.
      * 
-     * @return Number of B-frames between reference frames.
+     * @return Specify the number of B-frames between reference frames in this output. For the best video quality: Leave
+     *         blank. MediaConvert automatically determines the number of B-frames to use based on the characteristics
+     *         of your input video. To manually specify the number of B-frames between reference frames: Enter an
+     *         integer from 0 to 7.
      */
 
     public Integer getNumberBFramesBetweenReferenceFrames() {
@@ -1314,10 +1890,15 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Number of B-frames between reference frames.
+     * Specify the number of B-frames between reference frames in this output. For the best video quality: Leave blank.
+     * MediaConvert automatically determines the number of B-frames to use based on the characteristics of your input
+     * video. To manually specify the number of B-frames between reference frames: Enter an integer from 0 to 7.
      * 
      * @param numberBFramesBetweenReferenceFrames
-     *        Number of B-frames between reference frames.
+     *        Specify the number of B-frames between reference frames in this output. For the best video quality: Leave
+     *        blank. MediaConvert automatically determines the number of B-frames to use based on the characteristics of
+     *        your input video. To manually specify the number of B-frames between reference frames: Enter an integer
+     *        from 0 to 7.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1367,12 +1948,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Using the API, enable ParFollowSource if you want the service to use the pixel aspect ratio from the input. Using
-     * the console, do this by choosing Follow source for Pixel aspect ratio.
+     * Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default behavior,
+     * Follow source, uses the PAR from your input video for your output. To specify a different PAR, choose any value
+     * other than Follow source. When you choose SPECIFIED for this setting, you must also specify values for the
+     * parNumerator and parDenominator settings.
      * 
      * @param parControl
-     *        Using the API, enable ParFollowSource if you want the service to use the pixel aspect ratio from the
-     *        input. Using the console, do this by choosing Follow source for Pixel aspect ratio.
+     *        Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default
+     *        behavior, Follow source, uses the PAR from your input video for your output. To specify a different PAR,
+     *        choose any value other than Follow source. When you choose SPECIFIED for this setting, you must also
+     *        specify values for the parNumerator and parDenominator settings.
      * @see H265ParControl
      */
 
@@ -1381,11 +1966,15 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Using the API, enable ParFollowSource if you want the service to use the pixel aspect ratio from the input. Using
-     * the console, do this by choosing Follow source for Pixel aspect ratio.
+     * Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default behavior,
+     * Follow source, uses the PAR from your input video for your output. To specify a different PAR, choose any value
+     * other than Follow source. When you choose SPECIFIED for this setting, you must also specify values for the
+     * parNumerator and parDenominator settings.
      * 
-     * @return Using the API, enable ParFollowSource if you want the service to use the pixel aspect ratio from the
-     *         input. Using the console, do this by choosing Follow source for Pixel aspect ratio.
+     * @return Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default
+     *         behavior, Follow source, uses the PAR from your input video for your output. To specify a different PAR,
+     *         choose any value other than Follow source. When you choose SPECIFIED for this setting, you must also
+     *         specify values for the parNumerator and parDenominator settings.
      * @see H265ParControl
      */
 
@@ -1394,12 +1983,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Using the API, enable ParFollowSource if you want the service to use the pixel aspect ratio from the input. Using
-     * the console, do this by choosing Follow source for Pixel aspect ratio.
+     * Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default behavior,
+     * Follow source, uses the PAR from your input video for your output. To specify a different PAR, choose any value
+     * other than Follow source. When you choose SPECIFIED for this setting, you must also specify values for the
+     * parNumerator and parDenominator settings.
      * 
      * @param parControl
-     *        Using the API, enable ParFollowSource if you want the service to use the pixel aspect ratio from the
-     *        input. Using the console, do this by choosing Follow source for Pixel aspect ratio.
+     *        Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default
+     *        behavior, Follow source, uses the PAR from your input video for your output. To specify a different PAR,
+     *        choose any value other than Follow source. When you choose SPECIFIED for this setting, you must also
+     *        specify values for the parNumerator and parDenominator settings.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265ParControl
      */
@@ -1410,12 +2003,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Using the API, enable ParFollowSource if you want the service to use the pixel aspect ratio from the input. Using
-     * the console, do this by choosing Follow source for Pixel aspect ratio.
+     * Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default behavior,
+     * Follow source, uses the PAR from your input video for your output. To specify a different PAR, choose any value
+     * other than Follow source. When you choose SPECIFIED for this setting, you must also specify values for the
+     * parNumerator and parDenominator settings.
      * 
      * @param parControl
-     *        Using the API, enable ParFollowSource if you want the service to use the pixel aspect ratio from the
-     *        input. Using the console, do this by choosing Follow source for Pixel aspect ratio.
+     *        Optional. Specify how the service determines the pixel aspect ratio (PAR) for this output. The default
+     *        behavior, Follow source, uses the PAR from your input video for your output. To specify a different PAR,
+     *        choose any value other than Follow source. When you choose SPECIFIED for this setting, you must also
+     *        specify values for the parNumerator and parDenominator settings.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265ParControl
      */
@@ -1426,10 +2023,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Pixel Aspect Ratio denominator.
+     * Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other than
+     * Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR,
+     * provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In
+     * this example, the value for parDenominator is 33.
      * 
      * @param parDenominator
-     *        Pixel Aspect Ratio denominator.
+     *        Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other
+     *        than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input
+     *        video PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify
+     *        the ratio 40:33. In this example, the value for parDenominator is 33.
      */
 
     public void setParDenominator(Integer parDenominator) {
@@ -1437,9 +2040,15 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Pixel Aspect Ratio denominator.
+     * Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other than
+     * Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR,
+     * provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In
+     * this example, the value for parDenominator is 33.
      * 
-     * @return Pixel Aspect Ratio denominator.
+     * @return Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value
+     *         other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your
+     *         input video PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would
+     *         specify the ratio 40:33. In this example, the value for parDenominator is 33.
      */
 
     public Integer getParDenominator() {
@@ -1447,10 +2056,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Pixel Aspect Ratio denominator.
+     * Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other than
+     * Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR,
+     * provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In
+     * this example, the value for parDenominator is 33.
      * 
      * @param parDenominator
-     *        Pixel Aspect Ratio denominator.
+     *        Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other
+     *        than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input
+     *        video PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify
+     *        the ratio 40:33. In this example, the value for parDenominator is 33.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1460,10 +2075,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Pixel Aspect Ratio numerator.
+     * Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other than
+     * Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR,
+     * provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In
+     * this example, the value for parNumerator is 40.
      * 
      * @param parNumerator
-     *        Pixel Aspect Ratio numerator.
+     *        Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other
+     *        than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input
+     *        video PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify
+     *        the ratio 40:33. In this example, the value for parNumerator is 40.
      */
 
     public void setParNumerator(Integer parNumerator) {
@@ -1471,9 +2092,15 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Pixel Aspect Ratio numerator.
+     * Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other than
+     * Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR,
+     * provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In
+     * this example, the value for parNumerator is 40.
      * 
-     * @return Pixel Aspect Ratio numerator.
+     * @return Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value
+     *         other than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your
+     *         input video PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would
+     *         specify the ratio 40:33. In this example, the value for parNumerator is 40.
      */
 
     public Integer getParNumerator() {
@@ -1481,10 +2108,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Pixel Aspect Ratio numerator.
+     * Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other than
+     * Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input video PAR,
+     * provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify the ratio 40:33. In
+     * this example, the value for parNumerator is 40.
      * 
      * @param parNumerator
-     *        Pixel Aspect Ratio numerator.
+     *        Required when you set Pixel aspect ratio to SPECIFIED. On the console, this corresponds to any value other
+     *        than Follow source. When you specify an output pixel aspect ratio (PAR) that is different from your input
+     *        video PAR, provide your output PAR as a ratio. For example, for D1/DV NTSC widescreen, you would specify
+     *        the ratio 40:33. In this example, the value for parNumerator is 40.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1494,12 +2127,12 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use Quality tuning level (H265QualityTuningLevel) to specifiy whether to use fast single-pass, high-quality
-     * singlepass, or high-quality multipass video encoding.
+     * Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video quality.
+     * The default behavior is faster, lower quality, single-pass encoding.
      * 
      * @param qualityTuningLevel
-     *        Use Quality tuning level (H265QualityTuningLevel) to specifiy whether to use fast single-pass,
-     *        high-quality singlepass, or high-quality multipass video encoding.
+     *        Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video
+     *        quality. The default behavior is faster, lower quality, single-pass encoding.
      * @see H265QualityTuningLevel
      */
 
@@ -1508,11 +2141,11 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use Quality tuning level (H265QualityTuningLevel) to specifiy whether to use fast single-pass, high-quality
-     * singlepass, or high-quality multipass video encoding.
+     * Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video quality.
+     * The default behavior is faster, lower quality, single-pass encoding.
      * 
-     * @return Use Quality tuning level (H265QualityTuningLevel) to specifiy whether to use fast single-pass,
-     *         high-quality singlepass, or high-quality multipass video encoding.
+     * @return Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video
+     *         quality. The default behavior is faster, lower quality, single-pass encoding.
      * @see H265QualityTuningLevel
      */
 
@@ -1521,12 +2154,12 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use Quality tuning level (H265QualityTuningLevel) to specifiy whether to use fast single-pass, high-quality
-     * singlepass, or high-quality multipass video encoding.
+     * Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video quality.
+     * The default behavior is faster, lower quality, single-pass encoding.
      * 
      * @param qualityTuningLevel
-     *        Use Quality tuning level (H265QualityTuningLevel) to specifiy whether to use fast single-pass,
-     *        high-quality singlepass, or high-quality multipass video encoding.
+     *        Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video
+     *        quality. The default behavior is faster, lower quality, single-pass encoding.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265QualityTuningLevel
      */
@@ -1537,12 +2170,12 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use Quality tuning level (H265QualityTuningLevel) to specifiy whether to use fast single-pass, high-quality
-     * singlepass, or high-quality multipass video encoding.
+     * Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video quality.
+     * The default behavior is faster, lower quality, single-pass encoding.
      * 
      * @param qualityTuningLevel
-     *        Use Quality tuning level (H265QualityTuningLevel) to specifiy whether to use fast single-pass,
-     *        high-quality singlepass, or high-quality multipass video encoding.
+     *        Optional. Use Quality tuning level to choose how you want to trade off encoding speed for output video
+     *        quality. The default behavior is faster, lower quality, single-pass encoding.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265QualityTuningLevel
      */
@@ -1553,14 +2186,12 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Settings for quality-defined variable bitrate encoding with the H.265 codec. Required when you set Rate control
-     * mode to QVBR. Not valid when you set Rate control mode to a value other than QVBR, or when you don't define Rate
-     * control mode.
+     * Settings for quality-defined variable bitrate encoding with the H.265 codec. Use these settings only when you set
+     * QVBR for Rate control mode.
      * 
      * @param qvbrSettings
-     *        Settings for quality-defined variable bitrate encoding with the H.265 codec. Required when you set Rate
-     *        control mode to QVBR. Not valid when you set Rate control mode to a value other than QVBR, or when you
-     *        don't define Rate control mode.
+     *        Settings for quality-defined variable bitrate encoding with the H.265 codec. Use these settings only when
+     *        you set QVBR for Rate control mode.
      */
 
     public void setQvbrSettings(H265QvbrSettings qvbrSettings) {
@@ -1568,13 +2199,11 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Settings for quality-defined variable bitrate encoding with the H.265 codec. Required when you set Rate control
-     * mode to QVBR. Not valid when you set Rate control mode to a value other than QVBR, or when you don't define Rate
-     * control mode.
+     * Settings for quality-defined variable bitrate encoding with the H.265 codec. Use these settings only when you set
+     * QVBR for Rate control mode.
      * 
-     * @return Settings for quality-defined variable bitrate encoding with the H.265 codec. Required when you set Rate
-     *         control mode to QVBR. Not valid when you set Rate control mode to a value other than QVBR, or when you
-     *         don't define Rate control mode.
+     * @return Settings for quality-defined variable bitrate encoding with the H.265 codec. Use these settings only when
+     *         you set QVBR for Rate control mode.
      */
 
     public H265QvbrSettings getQvbrSettings() {
@@ -1582,14 +2211,12 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Settings for quality-defined variable bitrate encoding with the H.265 codec. Required when you set Rate control
-     * mode to QVBR. Not valid when you set Rate control mode to a value other than QVBR, or when you don't define Rate
-     * control mode.
+     * Settings for quality-defined variable bitrate encoding with the H.265 codec. Use these settings only when you set
+     * QVBR for Rate control mode.
      * 
      * @param qvbrSettings
-     *        Settings for quality-defined variable bitrate encoding with the H.265 codec. Required when you set Rate
-     *        control mode to QVBR. Not valid when you set Rate control mode to a value other than QVBR, or when you
-     *        don't define Rate control mode.
+     *        Settings for quality-defined variable bitrate encoding with the H.265 codec. Use these settings only when
+     *        you set QVBR for Rate control mode.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1717,10 +2344,131 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Scene change detection (inserts I-frames on scene changes).
+     * Use this setting for interlaced outputs, when your output frame rate is half of your input frame rate. In this
+     * situation, choose Optimized interlacing to create a better quality interlaced output. In this case, each
+     * progressive frame from the input corresponds to an interlaced field in the output. Keep the default value, Basic
+     * interlacing, for all other output frame rates. With basic interlacing, MediaConvert performs any frame rate
+     * conversion first and then interlaces the frames. When you choose Optimized interlacing and you set your output
+     * frame rate to a value that isn't suitable for optimized interlacing, MediaConvert automatically falls back to
+     * basic interlacing. Required settings: To use optimized interlacing, you must set Telecine to None or Soft. You
+     * can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode to a value other than
+     * Progressive.
+     * 
+     * @param scanTypeConversionMode
+     *        Use this setting for interlaced outputs, when your output frame rate is half of your input frame rate. In
+     *        this situation, choose Optimized interlacing to create a better quality interlaced output. In this case,
+     *        each progressive frame from the input corresponds to an interlaced field in the output. Keep the default
+     *        value, Basic interlacing, for all other output frame rates. With basic interlacing, MediaConvert performs
+     *        any frame rate conversion first and then interlaces the frames. When you choose Optimized interlacing and
+     *        you set your output frame rate to a value that isn't suitable for optimized interlacing, MediaConvert
+     *        automatically falls back to basic interlacing. Required settings: To use optimized interlacing, you must
+     *        set Telecine to None or Soft. You can't use optimized interlacing for hard telecine outputs. You must also
+     *        set Interlace mode to a value other than Progressive.
+     * @see H265ScanTypeConversionMode
+     */
+
+    public void setScanTypeConversionMode(String scanTypeConversionMode) {
+        this.scanTypeConversionMode = scanTypeConversionMode;
+    }
+
+    /**
+     * Use this setting for interlaced outputs, when your output frame rate is half of your input frame rate. In this
+     * situation, choose Optimized interlacing to create a better quality interlaced output. In this case, each
+     * progressive frame from the input corresponds to an interlaced field in the output. Keep the default value, Basic
+     * interlacing, for all other output frame rates. With basic interlacing, MediaConvert performs any frame rate
+     * conversion first and then interlaces the frames. When you choose Optimized interlacing and you set your output
+     * frame rate to a value that isn't suitable for optimized interlacing, MediaConvert automatically falls back to
+     * basic interlacing. Required settings: To use optimized interlacing, you must set Telecine to None or Soft. You
+     * can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode to a value other than
+     * Progressive.
+     * 
+     * @return Use this setting for interlaced outputs, when your output frame rate is half of your input frame rate. In
+     *         this situation, choose Optimized interlacing to create a better quality interlaced output. In this case,
+     *         each progressive frame from the input corresponds to an interlaced field in the output. Keep the default
+     *         value, Basic interlacing, for all other output frame rates. With basic interlacing, MediaConvert performs
+     *         any frame rate conversion first and then interlaces the frames. When you choose Optimized interlacing and
+     *         you set your output frame rate to a value that isn't suitable for optimized interlacing, MediaConvert
+     *         automatically falls back to basic interlacing. Required settings: To use optimized interlacing, you must
+     *         set Telecine to None or Soft. You can't use optimized interlacing for hard telecine outputs. You must
+     *         also set Interlace mode to a value other than Progressive.
+     * @see H265ScanTypeConversionMode
+     */
+
+    public String getScanTypeConversionMode() {
+        return this.scanTypeConversionMode;
+    }
+
+    /**
+     * Use this setting for interlaced outputs, when your output frame rate is half of your input frame rate. In this
+     * situation, choose Optimized interlacing to create a better quality interlaced output. In this case, each
+     * progressive frame from the input corresponds to an interlaced field in the output. Keep the default value, Basic
+     * interlacing, for all other output frame rates. With basic interlacing, MediaConvert performs any frame rate
+     * conversion first and then interlaces the frames. When you choose Optimized interlacing and you set your output
+     * frame rate to a value that isn't suitable for optimized interlacing, MediaConvert automatically falls back to
+     * basic interlacing. Required settings: To use optimized interlacing, you must set Telecine to None or Soft. You
+     * can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode to a value other than
+     * Progressive.
+     * 
+     * @param scanTypeConversionMode
+     *        Use this setting for interlaced outputs, when your output frame rate is half of your input frame rate. In
+     *        this situation, choose Optimized interlacing to create a better quality interlaced output. In this case,
+     *        each progressive frame from the input corresponds to an interlaced field in the output. Keep the default
+     *        value, Basic interlacing, for all other output frame rates. With basic interlacing, MediaConvert performs
+     *        any frame rate conversion first and then interlaces the frames. When you choose Optimized interlacing and
+     *        you set your output frame rate to a value that isn't suitable for optimized interlacing, MediaConvert
+     *        automatically falls back to basic interlacing. Required settings: To use optimized interlacing, you must
+     *        set Telecine to None or Soft. You can't use optimized interlacing for hard telecine outputs. You must also
+     *        set Interlace mode to a value other than Progressive.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see H265ScanTypeConversionMode
+     */
+
+    public H265Settings withScanTypeConversionMode(String scanTypeConversionMode) {
+        setScanTypeConversionMode(scanTypeConversionMode);
+        return this;
+    }
+
+    /**
+     * Use this setting for interlaced outputs, when your output frame rate is half of your input frame rate. In this
+     * situation, choose Optimized interlacing to create a better quality interlaced output. In this case, each
+     * progressive frame from the input corresponds to an interlaced field in the output. Keep the default value, Basic
+     * interlacing, for all other output frame rates. With basic interlacing, MediaConvert performs any frame rate
+     * conversion first and then interlaces the frames. When you choose Optimized interlacing and you set your output
+     * frame rate to a value that isn't suitable for optimized interlacing, MediaConvert automatically falls back to
+     * basic interlacing. Required settings: To use optimized interlacing, you must set Telecine to None or Soft. You
+     * can't use optimized interlacing for hard telecine outputs. You must also set Interlace mode to a value other than
+     * Progressive.
+     * 
+     * @param scanTypeConversionMode
+     *        Use this setting for interlaced outputs, when your output frame rate is half of your input frame rate. In
+     *        this situation, choose Optimized interlacing to create a better quality interlaced output. In this case,
+     *        each progressive frame from the input corresponds to an interlaced field in the output. Keep the default
+     *        value, Basic interlacing, for all other output frame rates. With basic interlacing, MediaConvert performs
+     *        any frame rate conversion first and then interlaces the frames. When you choose Optimized interlacing and
+     *        you set your output frame rate to a value that isn't suitable for optimized interlacing, MediaConvert
+     *        automatically falls back to basic interlacing. Required settings: To use optimized interlacing, you must
+     *        set Telecine to None or Soft. You can't use optimized interlacing for hard telecine outputs. You must also
+     *        set Interlace mode to a value other than Progressive.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see H265ScanTypeConversionMode
+     */
+
+    public H265Settings withScanTypeConversionMode(H265ScanTypeConversionMode scanTypeConversionMode) {
+        this.scanTypeConversionMode = scanTypeConversionMode.toString();
+        return this;
+    }
+
+    /**
+     * Enable this setting to insert I-frames at scene changes that the service automatically detects. This improves
+     * video quality and is enabled by default. If this output uses QVBR, choose Transition detection for further video
+     * quality improvement. For more information about QVBR, see
+     * https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
      * 
      * @param sceneChangeDetect
-     *        Scene change detection (inserts I-frames on scene changes).
+     *        Enable this setting to insert I-frames at scene changes that the service automatically detects. This
+     *        improves video quality and is enabled by default. If this output uses QVBR, choose Transition detection
+     *        for further video quality improvement. For more information about QVBR, see
+     *        https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
      * @see H265SceneChangeDetect
      */
 
@@ -1729,9 +2477,15 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Scene change detection (inserts I-frames on scene changes).
+     * Enable this setting to insert I-frames at scene changes that the service automatically detects. This improves
+     * video quality and is enabled by default. If this output uses QVBR, choose Transition detection for further video
+     * quality improvement. For more information about QVBR, see
+     * https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
      * 
-     * @return Scene change detection (inserts I-frames on scene changes).
+     * @return Enable this setting to insert I-frames at scene changes that the service automatically detects. This
+     *         improves video quality and is enabled by default. If this output uses QVBR, choose Transition detection
+     *         for further video quality improvement. For more information about QVBR, see
+     *         https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
      * @see H265SceneChangeDetect
      */
 
@@ -1740,10 +2494,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Scene change detection (inserts I-frames on scene changes).
+     * Enable this setting to insert I-frames at scene changes that the service automatically detects. This improves
+     * video quality and is enabled by default. If this output uses QVBR, choose Transition detection for further video
+     * quality improvement. For more information about QVBR, see
+     * https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
      * 
      * @param sceneChangeDetect
-     *        Scene change detection (inserts I-frames on scene changes).
+     *        Enable this setting to insert I-frames at scene changes that the service automatically detects. This
+     *        improves video quality and is enabled by default. If this output uses QVBR, choose Transition detection
+     *        for further video quality improvement. For more information about QVBR, see
+     *        https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265SceneChangeDetect
      */
@@ -1754,10 +2514,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Scene change detection (inserts I-frames on scene changes).
+     * Enable this setting to insert I-frames at scene changes that the service automatically detects. This improves
+     * video quality and is enabled by default. If this output uses QVBR, choose Transition detection for further video
+     * quality improvement. For more information about QVBR, see
+     * https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
      * 
      * @param sceneChangeDetect
-     *        Scene change detection (inserts I-frames on scene changes).
+     *        Enable this setting to insert I-frames at scene changes that the service automatically detects. This
+     *        improves video quality and is enabled by default. If this output uses QVBR, choose Transition detection
+     *        for further video quality improvement. For more information about QVBR, see
+     *        https://docs.aws.amazon.com/console/mediaconvert/cbr-vbr-qvbr.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265SceneChangeDetect
      */
@@ -1808,12 +2574,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Enables Slow PAL rate conversion. 23.976fps and 24fps input is relabeled as 25fps, and audio is sped up
-     * correspondingly.
+     * Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL to
+     * create a 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and resamples
+     * your audio to keep it synchronized with the video. Note that enabling this setting will slightly reduce the
+     * duration of your video. Required settings: You must also set Framerate to 25.
      * 
      * @param slowPal
-     *        Enables Slow PAL rate conversion. 23.976fps and 24fps input is relabeled as 25fps, and audio is sped up
-     *        correspondingly.
+     *        Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL
+     *        to create a 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and
+     *        resamples your audio to keep it synchronized with the video. Note that enabling this setting will slightly
+     *        reduce the duration of your video. Required settings: You must also set Framerate to 25.
      * @see H265SlowPal
      */
 
@@ -1822,11 +2592,15 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Enables Slow PAL rate conversion. 23.976fps and 24fps input is relabeled as 25fps, and audio is sped up
-     * correspondingly.
+     * Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL to
+     * create a 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and resamples
+     * your audio to keep it synchronized with the video. Note that enabling this setting will slightly reduce the
+     * duration of your video. Required settings: You must also set Framerate to 25.
      * 
-     * @return Enables Slow PAL rate conversion. 23.976fps and 24fps input is relabeled as 25fps, and audio is sped up
-     *         correspondingly.
+     * @return Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL
+     *         to create a 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and
+     *         resamples your audio to keep it synchronized with the video. Note that enabling this setting will
+     *         slightly reduce the duration of your video. Required settings: You must also set Framerate to 25.
      * @see H265SlowPal
      */
 
@@ -1835,12 +2609,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Enables Slow PAL rate conversion. 23.976fps and 24fps input is relabeled as 25fps, and audio is sped up
-     * correspondingly.
+     * Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL to
+     * create a 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and resamples
+     * your audio to keep it synchronized with the video. Note that enabling this setting will slightly reduce the
+     * duration of your video. Required settings: You must also set Framerate to 25.
      * 
      * @param slowPal
-     *        Enables Slow PAL rate conversion. 23.976fps and 24fps input is relabeled as 25fps, and audio is sped up
-     *        correspondingly.
+     *        Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL
+     *        to create a 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and
+     *        resamples your audio to keep it synchronized with the video. Note that enabling this setting will slightly
+     *        reduce the duration of your video. Required settings: You must also set Framerate to 25.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265SlowPal
      */
@@ -1851,12 +2629,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Enables Slow PAL rate conversion. 23.976fps and 24fps input is relabeled as 25fps, and audio is sped up
-     * correspondingly.
+     * Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL to
+     * create a 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and resamples
+     * your audio to keep it synchronized with the video. Note that enabling this setting will slightly reduce the
+     * duration of your video. Required settings: You must also set Framerate to 25.
      * 
      * @param slowPal
-     *        Enables Slow PAL rate conversion. 23.976fps and 24fps input is relabeled as 25fps, and audio is sped up
-     *        correspondingly.
+     *        Ignore this setting unless your input frame rate is 23.976 or 24 frames per second (fps). Enable slow PAL
+     *        to create a 25 fps output. When you enable slow PAL, MediaConvert relabels the video frames to 25 fps and
+     *        resamples your audio to keep it synchronized with the video. Note that enabling this setting will slightly
+     *        reduce the duration of your video. Required settings: You must also set Framerate to 25.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265SlowPal
      */
@@ -1867,10 +2649,29 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adjust quantization within each frame based on spatial variation of content complexity.
+     * Keep the default value, Enabled, to adjust quantization within each frame based on spatial variation of content
+     * complexity. When you enable this feature, the encoder uses fewer bits on areas that can sustain more distortion
+     * with no noticeable visual degradation and uses more bits on areas where any small distortion will be noticeable.
+     * For example, complex textured blocks are encoded with fewer bits and smooth textured blocks are encoded with more
+     * bits. Enabling this feature will almost always improve your video quality. Note, though, that this feature doesn't
+     * take into account where the viewer's attention is likely to be. If viewers are likely to be focusing their
+     * attention on a part of the screen with a lot of complex texture, you might choose to disable this feature. Related
+     * setting: When you enable spatial adaptive quantization, set the value for Adaptive quantization depending on your
+     * content. For homogeneous content, such as cartoons and video games, set it to Low. For content with a wider
+     * variety of textures, set it to High or Higher.
      * 
      * @param spatialAdaptiveQuantization
-     *        Adjust quantization within each frame based on spatial variation of content complexity.
+     *        Keep the default value, Enabled, to adjust quantization within each frame based on spatial variation of
+     *        content complexity. When you enable this feature, the encoder uses fewer bits on areas that can sustain
+     *        more distortion with no noticeable visual degradation and uses more bits on areas where any small
+     *        distortion will be noticeable. For example, complex textured blocks are encoded with fewer bits and smooth
+     *        textured blocks are encoded with more bits. Enabling this feature will almost always improve your video
+     *        quality. Note, though, that this feature doesn't take into account where the viewer's attention is likely
+     *        to be. If viewers are likely to be focusing their attention on a part of the screen with a lot of complex
+     *        texture, you might choose to disable this feature. Related setting: When you enable spatial adaptive
+     *        quantization, set the value for Adaptive quantization depending on your content. For homogeneous content,
+     *        such as cartoons and video games, set it to Low. For content with a wider variety of textures, set it to
+     *        High or Higher.
      * @see H265SpatialAdaptiveQuantization
      */
 
@@ -1879,9 +2680,28 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adjust quantization within each frame based on spatial variation of content complexity.
+     * Keep the default value, Enabled, to adjust quantization within each frame based on spatial variation of content
+     * complexity. When you enable this feature, the encoder uses fewer bits on areas that can sustain more distortion
+     * with no noticeable visual degradation and uses more bits on areas where any small distortion will be noticeable.
+     * For example, complex textured blocks are encoded with fewer bits and smooth textured blocks are encoded with more
+     * bits. Enabling this feature will almost always improve your video quality. Note, though, that this feature doesn't
+     * take into account where the viewer's attention is likely to be. If viewers are likely to be focusing their
+     * attention on a part of the screen with a lot of complex texture, you might choose to disable this feature. Related
+     * setting: When you enable spatial adaptive quantization, set the value for Adaptive quantization depending on your
+     * content. For homogeneous content, such as cartoons and video games, set it to Low. For content with a wider
+     * variety of textures, set it to High or Higher.
      * 
-     * @return Adjust quantization within each frame based on spatial variation of content complexity.
+     * @return Keep the default value, Enabled, to adjust quantization within each frame based on spatial variation of
+     *         content complexity. When you enable this feature, the encoder uses fewer bits on areas that can sustain
+     *         more distortion with no noticeable visual degradation and uses more bits on areas where any small
+     *         distortion will be noticeable. For example, complex textured blocks are encoded with fewer bits and
+     *         smooth textured blocks are encoded with more bits. Enabling this feature will almost always improve your
+     *         video quality. Note, though, that this feature doesn't take into account where the viewer's attention is
+     *         likely to be. If viewers are likely to be focusing their attention on a part of the screen with a lot of
+     *         complex texture, you might choose to disable this feature. Related setting: When you enable spatial
+     *         adaptive quantization, set the value for Adaptive quantization depending on your content. For homogeneous
+     *         content, such as cartoons and video games, set it to Low. For content with a wider variety of textures,
+     *         set it to High or Higher.
      * @see H265SpatialAdaptiveQuantization
      */
 
@@ -1890,10 +2710,29 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adjust quantization within each frame based on spatial variation of content complexity.
+     * Keep the default value, Enabled, to adjust quantization within each frame based on spatial variation of content
+     * complexity. When you enable this feature, the encoder uses fewer bits on areas that can sustain more distortion
+     * with no noticeable visual degradation and uses more bits on areas where any small distortion will be noticeable.
+     * For example, complex textured blocks are encoded with fewer bits and smooth textured blocks are encoded with more
+     * bits. Enabling this feature will almost always improve your video quality. Note, though, that this feature doesn't
+     * take into account where the viewer's attention is likely to be. If viewers are likely to be focusing their
+     * attention on a part of the screen with a lot of complex texture, you might choose to disable this feature. Related
+     * setting: When you enable spatial adaptive quantization, set the value for Adaptive quantization depending on your
+     * content. For homogeneous content, such as cartoons and video games, set it to Low. For content with a wider
+     * variety of textures, set it to High or Higher.
      * 
      * @param spatialAdaptiveQuantization
-     *        Adjust quantization within each frame based on spatial variation of content complexity.
+     *        Keep the default value, Enabled, to adjust quantization within each frame based on spatial variation of
+     *        content complexity. When you enable this feature, the encoder uses fewer bits on areas that can sustain
+     *        more distortion with no noticeable visual degradation and uses more bits on areas where any small
+     *        distortion will be noticeable. For example, complex textured blocks are encoded with fewer bits and smooth
+     *        textured blocks are encoded with more bits. Enabling this feature will almost always improve your video
+     *        quality. Note, though, that this feature doesn't take into account where the viewer's attention is likely
+     *        to be. If viewers are likely to be focusing their attention on a part of the screen with a lot of complex
+     *        texture, you might choose to disable this feature. Related setting: When you enable spatial adaptive
+     *        quantization, set the value for Adaptive quantization depending on your content. For homogeneous content,
+     *        such as cartoons and video games, set it to Low. For content with a wider variety of textures, set it to
+     *        High or Higher.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265SpatialAdaptiveQuantization
      */
@@ -1904,10 +2743,29 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adjust quantization within each frame based on spatial variation of content complexity.
+     * Keep the default value, Enabled, to adjust quantization within each frame based on spatial variation of content
+     * complexity. When you enable this feature, the encoder uses fewer bits on areas that can sustain more distortion
+     * with no noticeable visual degradation and uses more bits on areas where any small distortion will be noticeable.
+     * For example, complex textured blocks are encoded with fewer bits and smooth textured blocks are encoded with more
+     * bits. Enabling this feature will almost always improve your video quality. Note, though, that this feature doesn't
+     * take into account where the viewer's attention is likely to be. If viewers are likely to be focusing their
+     * attention on a part of the screen with a lot of complex texture, you might choose to disable this feature. Related
+     * setting: When you enable spatial adaptive quantization, set the value for Adaptive quantization depending on your
+     * content. For homogeneous content, such as cartoons and video games, set it to Low. For content with a wider
+     * variety of textures, set it to High or Higher.
      * 
      * @param spatialAdaptiveQuantization
-     *        Adjust quantization within each frame based on spatial variation of content complexity.
+     *        Keep the default value, Enabled, to adjust quantization within each frame based on spatial variation of
+     *        content complexity. When you enable this feature, the encoder uses fewer bits on areas that can sustain
+     *        more distortion with no noticeable visual degradation and uses more bits on areas where any small
+     *        distortion will be noticeable. For example, complex textured blocks are encoded with fewer bits and smooth
+     *        textured blocks are encoded with more bits. Enabling this feature will almost always improve your video
+     *        quality. Note, though, that this feature doesn't take into account where the viewer's attention is likely
+     *        to be. If viewers are likely to be focusing their attention on a part of the screen with a lot of complex
+     *        texture, you might choose to disable this feature. Related setting: When you enable spatial adaptive
+     *        quantization, set the value for Adaptive quantization depending on your content. For homogeneous content,
+     *        such as cartoons and video games, set it to Low. For content with a wider variety of textures, set it to
+     *        High or Higher.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265SpatialAdaptiveQuantization
      */
@@ -1918,18 +2776,17 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * This field applies only if the Streams > Advanced > Framerate (framerate) field is set to 29.970. This field
-     * works with the Streams > Advanced > Preprocessors > Deinterlacer field (deinterlace_mode) and the Streams >
-     * Advanced > Interlaced Mode field (interlace_mode) to identify the scan type for the output: Progressive,
-     * Interlaced, Hard Telecine or Soft Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft: produces
-     * 23.976; the player converts this output to 29.97i.
+     * This field applies only if the Streams > Advanced > Framerate field is set to 29.970. This field works with the
+     * Streams > Advanced > Preprocessors > Deinterlacer field and the Streams > Advanced > Interlaced Mode field to
+     * identify the scan type for the output: Progressive, Interlaced, Hard Telecine or Soft Telecine. - Hard: produces
+     * 29.97i output from 23.976 input. - Soft: produces 23.976; the player converts this output to 29.97i.
      * 
      * @param telecine
-     *        This field applies only if the Streams > Advanced > Framerate (framerate) field is set to 29.970. This
-     *        field works with the Streams > Advanced > Preprocessors > Deinterlacer field (deinterlace_mode) and the
-     *        Streams > Advanced > Interlaced Mode field (interlace_mode) to identify the scan type for the output:
-     *        Progressive, Interlaced, Hard Telecine or Soft Telecine. - Hard: produces 29.97i output from 23.976 input.
-     *        - Soft: produces 23.976; the player converts this output to 29.97i.
+     *        This field applies only if the Streams > Advanced > Framerate field is set to 29.970. This field works
+     *        with the Streams > Advanced > Preprocessors > Deinterlacer field and the Streams > Advanced > Interlaced
+     *        Mode field to identify the scan type for the output: Progressive, Interlaced, Hard Telecine or Soft
+     *        Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft: produces 23.976; the player converts
+     *        this output to 29.97i.
      * @see H265Telecine
      */
 
@@ -1938,17 +2795,16 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * This field applies only if the Streams > Advanced > Framerate (framerate) field is set to 29.970. This field
-     * works with the Streams > Advanced > Preprocessors > Deinterlacer field (deinterlace_mode) and the Streams >
-     * Advanced > Interlaced Mode field (interlace_mode) to identify the scan type for the output: Progressive,
-     * Interlaced, Hard Telecine or Soft Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft: produces
-     * 23.976; the player converts this output to 29.97i.
+     * This field applies only if the Streams > Advanced > Framerate field is set to 29.970. This field works with the
+     * Streams > Advanced > Preprocessors > Deinterlacer field and the Streams > Advanced > Interlaced Mode field to
+     * identify the scan type for the output: Progressive, Interlaced, Hard Telecine or Soft Telecine. - Hard: produces
+     * 29.97i output from 23.976 input. - Soft: produces 23.976; the player converts this output to 29.97i.
      * 
-     * @return This field applies only if the Streams > Advanced > Framerate (framerate) field is set to 29.970. This
-     *         field works with the Streams > Advanced > Preprocessors > Deinterlacer field (deinterlace_mode) and the
-     *         Streams > Advanced > Interlaced Mode field (interlace_mode) to identify the scan type for the output:
-     *         Progressive, Interlaced, Hard Telecine or Soft Telecine. - Hard: produces 29.97i output from 23.976
-     *         input. - Soft: produces 23.976; the player converts this output to 29.97i.
+     * @return This field applies only if the Streams > Advanced > Framerate field is set to 29.970. This field works
+     *         with the Streams > Advanced > Preprocessors > Deinterlacer field and the Streams > Advanced > Interlaced
+     *         Mode field to identify the scan type for the output: Progressive, Interlaced, Hard Telecine or Soft
+     *         Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft: produces 23.976; the player converts
+     *         this output to 29.97i.
      * @see H265Telecine
      */
 
@@ -1957,18 +2813,17 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * This field applies only if the Streams > Advanced > Framerate (framerate) field is set to 29.970. This field
-     * works with the Streams > Advanced > Preprocessors > Deinterlacer field (deinterlace_mode) and the Streams >
-     * Advanced > Interlaced Mode field (interlace_mode) to identify the scan type for the output: Progressive,
-     * Interlaced, Hard Telecine or Soft Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft: produces
-     * 23.976; the player converts this output to 29.97i.
+     * This field applies only if the Streams > Advanced > Framerate field is set to 29.970. This field works with the
+     * Streams > Advanced > Preprocessors > Deinterlacer field and the Streams > Advanced > Interlaced Mode field to
+     * identify the scan type for the output: Progressive, Interlaced, Hard Telecine or Soft Telecine. - Hard: produces
+     * 29.97i output from 23.976 input. - Soft: produces 23.976; the player converts this output to 29.97i.
      * 
      * @param telecine
-     *        This field applies only if the Streams > Advanced > Framerate (framerate) field is set to 29.970. This
-     *        field works with the Streams > Advanced > Preprocessors > Deinterlacer field (deinterlace_mode) and the
-     *        Streams > Advanced > Interlaced Mode field (interlace_mode) to identify the scan type for the output:
-     *        Progressive, Interlaced, Hard Telecine or Soft Telecine. - Hard: produces 29.97i output from 23.976 input.
-     *        - Soft: produces 23.976; the player converts this output to 29.97i.
+     *        This field applies only if the Streams > Advanced > Framerate field is set to 29.970. This field works
+     *        with the Streams > Advanced > Preprocessors > Deinterlacer field and the Streams > Advanced > Interlaced
+     *        Mode field to identify the scan type for the output: Progressive, Interlaced, Hard Telecine or Soft
+     *        Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft: produces 23.976; the player converts
+     *        this output to 29.97i.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265Telecine
      */
@@ -1979,18 +2834,17 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * This field applies only if the Streams > Advanced > Framerate (framerate) field is set to 29.970. This field
-     * works with the Streams > Advanced > Preprocessors > Deinterlacer field (deinterlace_mode) and the Streams >
-     * Advanced > Interlaced Mode field (interlace_mode) to identify the scan type for the output: Progressive,
-     * Interlaced, Hard Telecine or Soft Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft: produces
-     * 23.976; the player converts this output to 29.97i.
+     * This field applies only if the Streams > Advanced > Framerate field is set to 29.970. This field works with the
+     * Streams > Advanced > Preprocessors > Deinterlacer field and the Streams > Advanced > Interlaced Mode field to
+     * identify the scan type for the output: Progressive, Interlaced, Hard Telecine or Soft Telecine. - Hard: produces
+     * 29.97i output from 23.976 input. - Soft: produces 23.976; the player converts this output to 29.97i.
      * 
      * @param telecine
-     *        This field applies only if the Streams > Advanced > Framerate (framerate) field is set to 29.970. This
-     *        field works with the Streams > Advanced > Preprocessors > Deinterlacer field (deinterlace_mode) and the
-     *        Streams > Advanced > Interlaced Mode field (interlace_mode) to identify the scan type for the output:
-     *        Progressive, Interlaced, Hard Telecine or Soft Telecine. - Hard: produces 29.97i output from 23.976 input.
-     *        - Soft: produces 23.976; the player converts this output to 29.97i.
+     *        This field applies only if the Streams > Advanced > Framerate field is set to 29.970. This field works
+     *        with the Streams > Advanced > Preprocessors > Deinterlacer field and the Streams > Advanced > Interlaced
+     *        Mode field to identify the scan type for the output: Progressive, Interlaced, Hard Telecine or Soft
+     *        Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft: produces 23.976; the player converts
+     *        this output to 29.97i.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265Telecine
      */
@@ -2001,10 +2855,26 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adjust quantization within each frame based on temporal variation of content complexity.
+     * Keep the default value, Enabled, to adjust quantization within each frame based on temporal variation of content
+     * complexity. When you enable this feature, the encoder uses fewer bits on areas of the frame that aren't moving
+     * and uses more bits on complex objects with sharp edges that move a lot. For example, this feature improves the
+     * readability of text tickers on newscasts and scoreboards on sports matches. Enabling this feature will almost
+     * always improve your video quality. Note, though, that this feature doesn't take into account where the viewer's
+     * attention is likely to be. If viewers are likely to be focusing their attention on a part of the screen that
+     * doesn't have moving objects with sharp edges, such as sports athletes' faces, you might choose to disable this
+     * feature. Related setting: When you enable temporal quantization, adjust the strength of the filter with the
+     * setting Adaptive quantization.
      * 
      * @param temporalAdaptiveQuantization
-     *        Adjust quantization within each frame based on temporal variation of content complexity.
+     *        Keep the default value, Enabled, to adjust quantization within each frame based on temporal variation of
+     *        content complexity. When you enable this feature, the encoder uses fewer bits on areas of the frame that
+     *        aren't moving and uses more bits on complex objects with sharp edges that move a lot. For example, this
+     *        feature improves the readability of text tickers on newscasts and scoreboards on sports matches. Enabling
+     *        this feature will almost always improve your video quality. Note, though, that this feature doesn't take
+     *        into account where the viewer's attention is likely to be. If viewers are likely to be focusing their
+     *        attention on a part of the screen that doesn't have moving objects with sharp edges, such as sports
+     *        athletes' faces, you might choose to disable this feature. Related setting: When you enable temporal
+     *        quantization, adjust the strength of the filter with the setting Adaptive quantization.
      * @see H265TemporalAdaptiveQuantization
      */
 
@@ -2013,9 +2883,25 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adjust quantization within each frame based on temporal variation of content complexity.
+     * Keep the default value, Enabled, to adjust quantization within each frame based on temporal variation of content
+     * complexity. When you enable this feature, the encoder uses fewer bits on areas of the frame that aren't moving
+     * and uses more bits on complex objects with sharp edges that move a lot. For example, this feature improves the
+     * readability of text tickers on newscasts and scoreboards on sports matches. Enabling this feature will almost
+     * always improve your video quality. Note, though, that this feature doesn't take into account where the viewer's
+     * attention is likely to be. If viewers are likely to be focusing their attention on a part of the screen that
+     * doesn't have moving objects with sharp edges, such as sports athletes' faces, you might choose to disable this
+     * feature. Related setting: When you enable temporal quantization, adjust the strength of the filter with the
+     * setting Adaptive quantization.
      * 
-     * @return Adjust quantization within each frame based on temporal variation of content complexity.
+     * @return Keep the default value, Enabled, to adjust quantization within each frame based on temporal variation of
+     *         content complexity. When you enable this feature, the encoder uses fewer bits on areas of the frame that
+     *         aren't moving and uses more bits on complex objects with sharp edges that move a lot. For example, this
+     *         feature improves the readability of text tickers on newscasts and scoreboards on sports matches. Enabling
+     *         this feature will almost always improve your video quality. Note, though, that this feature doesn't take
+     *         into account where the viewer's attention is likely to be. If viewers are likely to be focusing their
+     *         attention on a part of the screen that doesn't have moving objects with sharp edges, such as sports
+     *         athletes' faces, you might choose to disable this feature. Related setting: When you enable temporal
+     *         quantization, adjust the strength of the filter with the setting Adaptive quantization.
      * @see H265TemporalAdaptiveQuantization
      */
 
@@ -2024,10 +2910,26 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adjust quantization within each frame based on temporal variation of content complexity.
+     * Keep the default value, Enabled, to adjust quantization within each frame based on temporal variation of content
+     * complexity. When you enable this feature, the encoder uses fewer bits on areas of the frame that aren't moving
+     * and uses more bits on complex objects with sharp edges that move a lot. For example, this feature improves the
+     * readability of text tickers on newscasts and scoreboards on sports matches. Enabling this feature will almost
+     * always improve your video quality. Note, though, that this feature doesn't take into account where the viewer's
+     * attention is likely to be. If viewers are likely to be focusing their attention on a part of the screen that
+     * doesn't have moving objects with sharp edges, such as sports athletes' faces, you might choose to disable this
+     * feature. Related setting: When you enable temporal quantization, adjust the strength of the filter with the
+     * setting Adaptive quantization.
      * 
      * @param temporalAdaptiveQuantization
-     *        Adjust quantization within each frame based on temporal variation of content complexity.
+     *        Keep the default value, Enabled, to adjust quantization within each frame based on temporal variation of
+     *        content complexity. When you enable this feature, the encoder uses fewer bits on areas of the frame that
+     *        aren't moving and uses more bits on complex objects with sharp edges that move a lot. For example, this
+     *        feature improves the readability of text tickers on newscasts and scoreboards on sports matches. Enabling
+     *        this feature will almost always improve your video quality. Note, though, that this feature doesn't take
+     *        into account where the viewer's attention is likely to be. If viewers are likely to be focusing their
+     *        attention on a part of the screen that doesn't have moving objects with sharp edges, such as sports
+     *        athletes' faces, you might choose to disable this feature. Related setting: When you enable temporal
+     *        quantization, adjust the strength of the filter with the setting Adaptive quantization.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265TemporalAdaptiveQuantization
      */
@@ -2038,10 +2940,26 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Adjust quantization within each frame based on temporal variation of content complexity.
+     * Keep the default value, Enabled, to adjust quantization within each frame based on temporal variation of content
+     * complexity. When you enable this feature, the encoder uses fewer bits on areas of the frame that aren't moving
+     * and uses more bits on complex objects with sharp edges that move a lot. For example, this feature improves the
+     * readability of text tickers on newscasts and scoreboards on sports matches. Enabling this feature will almost
+     * always improve your video quality. Note, though, that this feature doesn't take into account where the viewer's
+     * attention is likely to be. If viewers are likely to be focusing their attention on a part of the screen that
+     * doesn't have moving objects with sharp edges, such as sports athletes' faces, you might choose to disable this
+     * feature. Related setting: When you enable temporal quantization, adjust the strength of the filter with the
+     * setting Adaptive quantization.
      * 
      * @param temporalAdaptiveQuantization
-     *        Adjust quantization within each frame based on temporal variation of content complexity.
+     *        Keep the default value, Enabled, to adjust quantization within each frame based on temporal variation of
+     *        content complexity. When you enable this feature, the encoder uses fewer bits on areas of the frame that
+     *        aren't moving and uses more bits on complex objects with sharp edges that move a lot. For example, this
+     *        feature improves the readability of text tickers on newscasts and scoreboards on sports matches. Enabling
+     *        this feature will almost always improve your video quality. Note, though, that this feature doesn't take
+     *        into account where the viewer's attention is likely to be. If viewers are likely to be focusing their
+     *        attention on a part of the screen that doesn't have moving objects with sharp edges, such as sports
+     *        athletes' faces, you might choose to disable this feature. Related setting: When you enable temporal
+     *        quantization, adjust the strength of the filter with the setting Adaptive quantization.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265TemporalAdaptiveQuantization
      */
@@ -2245,24 +3163,23 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use this setting only for outputs encoded with H.265 that are in CMAF or DASH output groups. If you include
-     * writeMp4PackagingType in your JSON job specification for other outputs, your video might not work properly with
-     * downstream systems and video players. If the location of parameter set NAL units don't matter in your workflow,
-     * ignore this setting. The service defaults to marking your output as HEV1. Choose HVC1 to mark your output as HVC1.
-     * This makes your output compliant with this specification: ISO IECJTC1 SC29 N13798 Text ISO/IEC FDIS 14496-15 3rd
-     * Edition. For these outputs, the service stores parameter set NAL units in the sample headers but not in the
-     * samples directly. Keep the default HEV1 to mark your output as HEV1. For these outputs, the service writes
-     * parameter set NAL units directly into the samples.
+     * If the location of parameter set NAL units doesn't matter in your workflow, ignore this setting. Use this setting
+     * only with CMAF or DASH outputs, or with standalone file outputs in an MPEG-4 container (MP4 outputs). Choose HVC1
+     * to mark your output as HVC1. This makes your output compliant with the following specification: ISO IECJTC1 SC29
+     * N13798 Text ISO/IEC FDIS 14496-15 3rd Edition. For these outputs, the service stores parameter set NAL units in
+     * the sample headers but not in the samples directly. For MP4 outputs, when you choose HVC1, your output video might
+     * not work properly with some downstream systems and video players. The service defaults to marking your output as
+     * HEV1. For these outputs, the service writes parameter set NAL units directly into the samples.
      * 
      * @param writeMp4PackagingType
-     *        Use this setting only for outputs encoded with H.265 that are in CMAF or DASH output groups. If you
-     *        include writeMp4PackagingType in your JSON job specification for other outputs, your video might not work
-     *        properly with downstream systems and video players. If the location of parameter set NAL units don't
-     *        matter in your workflow, ignore this setting. The service defaults to marking your output as HEV1. Choose
-     *        HVC1 to mark your output as HVC1. This makes your output compliant with this specification: ISO IECJTC1
-     *        SC29 N13798 Text ISO/IEC FDIS 14496-15 3rd Edition. For these outputs, the service stores parameter set
-     *        NAL units in the sample headers but not in the samples directly. Keep the default HEV1 to mark your output
-     *        as HEV1. For these outputs, the service writes parameter set NAL units directly into the samples.
+     *        If the location of parameter set NAL units doesn't matter in your workflow, ignore this setting. Use this
+     *        setting only with CMAF or DASH outputs, or with standalone file outputs in an MPEG-4 container (MP4
+     *        outputs). Choose HVC1 to mark your output as HVC1. This makes your output compliant with the following
+     *        specification: ISO IECJTC1 SC29 N13798 Text ISO/IEC FDIS 14496-15 3rd Edition. For these outputs, the
+     *        service stores parameter set NAL units in the sample headers but not in the samples directly. For MP4
+     *        outputs, when you choose HVC1, your output video might not work properly with some downstream systems and
+     *        video players. The service defaults to marking your output as HEV1. For these outputs, the service writes
+     *        parameter set NAL units directly into the samples.
      * @see H265WriteMp4PackagingType
      */
 
@@ -2271,23 +3188,22 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use this setting only for outputs encoded with H.265 that are in CMAF or DASH output groups. If you include
-     * writeMp4PackagingType in your JSON job specification for other outputs, your video might not work properly with
-     * downstream systems and video players. If the location of parameter set NAL units don't matter in your workflow,
-     * ignore this setting. The service defaults to marking your output as HEV1. Choose HVC1 to mark your output as HVC1.
-     * This makes your output compliant with this specification: ISO IECJTC1 SC29 N13798 Text ISO/IEC FDIS 14496-15 3rd
-     * Edition. For these outputs, the service stores parameter set NAL units in the sample headers but not in the
-     * samples directly. Keep the default HEV1 to mark your output as HEV1. For these outputs, the service writes
-     * parameter set NAL units directly into the samples.
+     * If the location of parameter set NAL units doesn't matter in your workflow, ignore this setting. Use this setting
+     * only with CMAF or DASH outputs, or with standalone file outputs in an MPEG-4 container (MP4 outputs). Choose HVC1
+     * to mark your output as HVC1. This makes your output compliant with the following specification: ISO IECJTC1 SC29
+     * N13798 Text ISO/IEC FDIS 14496-15 3rd Edition. For these outputs, the service stores parameter set NAL units in
+     * the sample headers but not in the samples directly. For MP4 outputs, when you choose HVC1, your output video might
+     * not work properly with some downstream systems and video players. The service defaults to marking your output as
+     * HEV1. For these outputs, the service writes parameter set NAL units directly into the samples.
      * 
-     * @return Use this setting only for outputs encoded with H.265 that are in CMAF or DASH output groups. If you
-     *         include writeMp4PackagingType in your JSON job specification for other outputs, your video might not work
-     *         properly with downstream systems and video players. If the location of parameter set NAL units don't
-     *         matter in your workflow, ignore this setting. The service defaults to marking your output as HEV1. Choose
-     *         HVC1 to mark your output as HVC1. This makes your output compliant with this specification: ISO IECJTC1
-     *         SC29 N13798 Text ISO/IEC FDIS 14496-15 3rd Edition. For these outputs, the service stores parameter set
-     *         NAL units in the sample headers but not in the samples directly. Keep the default HEV1 to mark your
-     *         output as HEV1. For these outputs, the service writes parameter set NAL units directly into the samples.
+     * @return If the location of parameter set NAL units doesn't matter in your workflow, ignore this setting. Use this
+     *         setting only with CMAF or DASH outputs, or with standalone file outputs in an MPEG-4 container (MP4
+     *         outputs). Choose HVC1 to mark your output as HVC1. This makes your output compliant with the following
+     *         specification: ISO IECJTC1 SC29 N13798 Text ISO/IEC FDIS 14496-15 3rd Edition. For these outputs, the
+     *         service stores parameter set NAL units in the sample headers but not in the samples directly. For MP4
+     *         outputs, when you choose HVC1, your output video might not work properly with some downstream systems and
+     *         video players. The service defaults to marking your output as HEV1. For these outputs, the service writes
+     *         parameter set NAL units directly into the samples.
      * @see H265WriteMp4PackagingType
      */
 
@@ -2296,24 +3212,23 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use this setting only for outputs encoded with H.265 that are in CMAF or DASH output groups. If you include
-     * writeMp4PackagingType in your JSON job specification for other outputs, your video might not work properly with
-     * downstream systems and video players. If the location of parameter set NAL units don't matter in your workflow,
-     * ignore this setting. The service defaults to marking your output as HEV1. Choose HVC1 to mark your output as HVC1.
-     * This makes your output compliant with this specification: ISO IECJTC1 SC29 N13798 Text ISO/IEC FDIS 14496-15 3rd
-     * Edition. For these outputs, the service stores parameter set NAL units in the sample headers but not in the
-     * samples directly. Keep the default HEV1 to mark your output as HEV1. For these outputs, the service writes
-     * parameter set NAL units directly into the samples.
+     * If the location of parameter set NAL units doesn't matter in your workflow, ignore this setting. Use this setting
+     * only with CMAF or DASH outputs, or with standalone file outputs in an MPEG-4 container (MP4 outputs). Choose HVC1
+     * to mark your output as HVC1. This makes your output compliant with the following specification: ISO IECJTC1 SC29
+     * N13798 Text ISO/IEC FDIS 14496-15 3rd Edition. For these outputs, the service stores parameter set NAL units in
+     * the sample headers but not in the samples directly. For MP4 outputs, when you choose HVC1, your output video might
+     * not work properly with some downstream systems and video players. The service defaults to marking your output as
+     * HEV1. For these outputs, the service writes parameter set NAL units directly into the samples.
      * 
      * @param writeMp4PackagingType
-     *        Use this setting only for outputs encoded with H.265 that are in CMAF or DASH output groups. If you
-     *        include writeMp4PackagingType in your JSON job specification for other outputs, your video might not work
-     *        properly with downstream systems and video players. If the location of parameter set NAL units don't
-     *        matter in your workflow, ignore this setting. The service defaults to marking your output as HEV1. Choose
-     *        HVC1 to mark your output as HVC1. This makes your output compliant with this specification: ISO IECJTC1
-     *        SC29 N13798 Text ISO/IEC FDIS 14496-15 3rd Edition. For these outputs, the service stores parameter set
-     *        NAL units in the sample headers but not in the samples directly. Keep the default HEV1 to mark your output
-     *        as HEV1. For these outputs, the service writes parameter set NAL units directly into the samples.
+     *        If the location of parameter set NAL units doesn't matter in your workflow, ignore this setting. Use this
+     *        setting only with CMAF or DASH outputs, or with standalone file outputs in an MPEG-4 container (MP4
+     *        outputs). Choose HVC1 to mark your output as HVC1. This makes your output compliant with the following
+     *        specification: ISO IECJTC1 SC29 N13798 Text ISO/IEC FDIS 14496-15 3rd Edition. For these outputs, the
+     *        service stores parameter set NAL units in the sample headers but not in the samples directly. For MP4
+     *        outputs, when you choose HVC1, your output video might not work properly with some downstream systems and
+     *        video players. The service defaults to marking your output as HEV1. For these outputs, the service writes
+     *        parameter set NAL units directly into the samples.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265WriteMp4PackagingType
      */
@@ -2324,24 +3239,23 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Use this setting only for outputs encoded with H.265 that are in CMAF or DASH output groups. If you include
-     * writeMp4PackagingType in your JSON job specification for other outputs, your video might not work properly with
-     * downstream systems and video players. If the location of parameter set NAL units don't matter in your workflow,
-     * ignore this setting. The service defaults to marking your output as HEV1. Choose HVC1 to mark your output as HVC1.
-     * This makes your output compliant with this specification: ISO IECJTC1 SC29 N13798 Text ISO/IEC FDIS 14496-15 3rd
-     * Edition. For these outputs, the service stores parameter set NAL units in the sample headers but not in the
-     * samples directly. Keep the default HEV1 to mark your output as HEV1. For these outputs, the service writes
-     * parameter set NAL units directly into the samples.
+     * If the location of parameter set NAL units doesn't matter in your workflow, ignore this setting. Use this setting
+     * only with CMAF or DASH outputs, or with standalone file outputs in an MPEG-4 container (MP4 outputs). Choose HVC1
+     * to mark your output as HVC1. This makes your output compliant with the following specification: ISO IECJTC1 SC29
+     * N13798 Text ISO/IEC FDIS 14496-15 3rd Edition. For these outputs, the service stores parameter set NAL units in
+     * the sample headers but not in the samples directly. For MP4 outputs, when you choose HVC1, your output video might
+     * not work properly with some downstream systems and video players. The service defaults to marking your output as
+     * HEV1. For these outputs, the service writes parameter set NAL units directly into the samples.
      * 
      * @param writeMp4PackagingType
-     *        Use this setting only for outputs encoded with H.265 that are in CMAF or DASH output groups. If you
-     *        include writeMp4PackagingType in your JSON job specification for other outputs, your video might not work
-     *        properly with downstream systems and video players. If the location of parameter set NAL units don't
-     *        matter in your workflow, ignore this setting. The service defaults to marking your output as HEV1. Choose
-     *        HVC1 to mark your output as HVC1. This makes your output compliant with this specification: ISO IECJTC1
-     *        SC29 N13798 Text ISO/IEC FDIS 14496-15 3rd Edition. For these outputs, the service stores parameter set
-     *        NAL units in the sample headers but not in the samples directly. Keep the default HEV1 to mark your output
-     *        as HEV1. For these outputs, the service writes parameter set NAL units directly into the samples.
+     *        If the location of parameter set NAL units doesn't matter in your workflow, ignore this setting. Use this
+     *        setting only with CMAF or DASH outputs, or with standalone file outputs in an MPEG-4 container (MP4
+     *        outputs). Choose HVC1 to mark your output as HVC1. This makes your output compliant with the following
+     *        specification: ISO IECJTC1 SC29 N13798 Text ISO/IEC FDIS 14496-15 3rd Edition. For these outputs, the
+     *        service stores parameter set NAL units in the sample headers but not in the samples directly. For MP4
+     *        outputs, when you choose HVC1, your output video might not work properly with some downstream systems and
+     *        video players. The service defaults to marking your output as HEV1. For these outputs, the service writes
+     *        parameter set NAL units directly into the samples.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see H265WriteMp4PackagingType
      */
@@ -2367,6 +3281,8 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
             sb.append("AdaptiveQuantization: ").append(getAdaptiveQuantization()).append(",");
         if (getAlternateTransferFunctionSei() != null)
             sb.append("AlternateTransferFunctionSei: ").append(getAlternateTransferFunctionSei()).append(",");
+        if (getBandwidthReductionFilter() != null)
+            sb.append("BandwidthReductionFilter: ").append(getBandwidthReductionFilter()).append(",");
         if (getBitrate() != null)
             sb.append("Bitrate: ").append(getBitrate()).append(",");
         if (getCodecLevel() != null)
@@ -2375,6 +3291,8 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
             sb.append("CodecProfile: ").append(getCodecProfile()).append(",");
         if (getDynamicSubGop() != null)
             sb.append("DynamicSubGop: ").append(getDynamicSubGop()).append(",");
+        if (getEndOfStreamMarkers() != null)
+            sb.append("EndOfStreamMarkers: ").append(getEndOfStreamMarkers()).append(",");
         if (getFlickerAdaptiveQuantization() != null)
             sb.append("FlickerAdaptiveQuantization: ").append(getFlickerAdaptiveQuantization()).append(",");
         if (getFramerateControl() != null)
@@ -2393,6 +3311,8 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
             sb.append("GopSize: ").append(getGopSize()).append(",");
         if (getGopSizeUnits() != null)
             sb.append("GopSizeUnits: ").append(getGopSizeUnits()).append(",");
+        if (getHrdBufferFinalFillPercentage() != null)
+            sb.append("HrdBufferFinalFillPercentage: ").append(getHrdBufferFinalFillPercentage()).append(",");
         if (getHrdBufferInitialFillPercentage() != null)
             sb.append("HrdBufferInitialFillPercentage: ").append(getHrdBufferInitialFillPercentage()).append(",");
         if (getHrdBufferSize() != null)
@@ -2421,6 +3341,8 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
             sb.append("RateControlMode: ").append(getRateControlMode()).append(",");
         if (getSampleAdaptiveOffsetFilterMode() != null)
             sb.append("SampleAdaptiveOffsetFilterMode: ").append(getSampleAdaptiveOffsetFilterMode()).append(",");
+        if (getScanTypeConversionMode() != null)
+            sb.append("ScanTypeConversionMode: ").append(getScanTypeConversionMode()).append(",");
         if (getSceneChangeDetect() != null)
             sb.append("SceneChangeDetect: ").append(getSceneChangeDetect()).append(",");
         if (getSlices() != null)
@@ -2463,6 +3385,10 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getAlternateTransferFunctionSei() != null && other.getAlternateTransferFunctionSei().equals(this.getAlternateTransferFunctionSei()) == false)
             return false;
+        if (other.getBandwidthReductionFilter() == null ^ this.getBandwidthReductionFilter() == null)
+            return false;
+        if (other.getBandwidthReductionFilter() != null && other.getBandwidthReductionFilter().equals(this.getBandwidthReductionFilter()) == false)
+            return false;
         if (other.getBitrate() == null ^ this.getBitrate() == null)
             return false;
         if (other.getBitrate() != null && other.getBitrate().equals(this.getBitrate()) == false)
@@ -2478,6 +3404,10 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
         if (other.getDynamicSubGop() == null ^ this.getDynamicSubGop() == null)
             return false;
         if (other.getDynamicSubGop() != null && other.getDynamicSubGop().equals(this.getDynamicSubGop()) == false)
+            return false;
+        if (other.getEndOfStreamMarkers() == null ^ this.getEndOfStreamMarkers() == null)
+            return false;
+        if (other.getEndOfStreamMarkers() != null && other.getEndOfStreamMarkers().equals(this.getEndOfStreamMarkers()) == false)
             return false;
         if (other.getFlickerAdaptiveQuantization() == null ^ this.getFlickerAdaptiveQuantization() == null)
             return false;
@@ -2514,6 +3444,10 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
         if (other.getGopSizeUnits() == null ^ this.getGopSizeUnits() == null)
             return false;
         if (other.getGopSizeUnits() != null && other.getGopSizeUnits().equals(this.getGopSizeUnits()) == false)
+            return false;
+        if (other.getHrdBufferFinalFillPercentage() == null ^ this.getHrdBufferFinalFillPercentage() == null)
+            return false;
+        if (other.getHrdBufferFinalFillPercentage() != null && other.getHrdBufferFinalFillPercentage().equals(this.getHrdBufferFinalFillPercentage()) == false)
             return false;
         if (other.getHrdBufferInitialFillPercentage() == null ^ this.getHrdBufferInitialFillPercentage() == null)
             return false;
@@ -2574,6 +3508,10 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
         if (other.getSampleAdaptiveOffsetFilterMode() != null
                 && other.getSampleAdaptiveOffsetFilterMode().equals(this.getSampleAdaptiveOffsetFilterMode()) == false)
             return false;
+        if (other.getScanTypeConversionMode() == null ^ this.getScanTypeConversionMode() == null)
+            return false;
+        if (other.getScanTypeConversionMode() != null && other.getScanTypeConversionMode().equals(this.getScanTypeConversionMode()) == false)
+            return false;
         if (other.getSceneChangeDetect() == null ^ this.getSceneChangeDetect() == null)
             return false;
         if (other.getSceneChangeDetect() != null && other.getSceneChangeDetect().equals(this.getSceneChangeDetect()) == false)
@@ -2624,10 +3562,12 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getAdaptiveQuantization() == null) ? 0 : getAdaptiveQuantization().hashCode());
         hashCode = prime * hashCode + ((getAlternateTransferFunctionSei() == null) ? 0 : getAlternateTransferFunctionSei().hashCode());
+        hashCode = prime * hashCode + ((getBandwidthReductionFilter() == null) ? 0 : getBandwidthReductionFilter().hashCode());
         hashCode = prime * hashCode + ((getBitrate() == null) ? 0 : getBitrate().hashCode());
         hashCode = prime * hashCode + ((getCodecLevel() == null) ? 0 : getCodecLevel().hashCode());
         hashCode = prime * hashCode + ((getCodecProfile() == null) ? 0 : getCodecProfile().hashCode());
         hashCode = prime * hashCode + ((getDynamicSubGop() == null) ? 0 : getDynamicSubGop().hashCode());
+        hashCode = prime * hashCode + ((getEndOfStreamMarkers() == null) ? 0 : getEndOfStreamMarkers().hashCode());
         hashCode = prime * hashCode + ((getFlickerAdaptiveQuantization() == null) ? 0 : getFlickerAdaptiveQuantization().hashCode());
         hashCode = prime * hashCode + ((getFramerateControl() == null) ? 0 : getFramerateControl().hashCode());
         hashCode = prime * hashCode + ((getFramerateConversionAlgorithm() == null) ? 0 : getFramerateConversionAlgorithm().hashCode());
@@ -2637,6 +3577,7 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getGopClosedCadence() == null) ? 0 : getGopClosedCadence().hashCode());
         hashCode = prime * hashCode + ((getGopSize() == null) ? 0 : getGopSize().hashCode());
         hashCode = prime * hashCode + ((getGopSizeUnits() == null) ? 0 : getGopSizeUnits().hashCode());
+        hashCode = prime * hashCode + ((getHrdBufferFinalFillPercentage() == null) ? 0 : getHrdBufferFinalFillPercentage().hashCode());
         hashCode = prime * hashCode + ((getHrdBufferInitialFillPercentage() == null) ? 0 : getHrdBufferInitialFillPercentage().hashCode());
         hashCode = prime * hashCode + ((getHrdBufferSize() == null) ? 0 : getHrdBufferSize().hashCode());
         hashCode = prime * hashCode + ((getInterlaceMode() == null) ? 0 : getInterlaceMode().hashCode());
@@ -2651,6 +3592,7 @@ public class H265Settings implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getQvbrSettings() == null) ? 0 : getQvbrSettings().hashCode());
         hashCode = prime * hashCode + ((getRateControlMode() == null) ? 0 : getRateControlMode().hashCode());
         hashCode = prime * hashCode + ((getSampleAdaptiveOffsetFilterMode() == null) ? 0 : getSampleAdaptiveOffsetFilterMode().hashCode());
+        hashCode = prime * hashCode + ((getScanTypeConversionMode() == null) ? 0 : getScanTypeConversionMode().hashCode());
         hashCode = prime * hashCode + ((getSceneChangeDetect() == null) ? 0 : getSceneChangeDetect().hashCode());
         hashCode = prime * hashCode + ((getSlices() == null) ? 0 : getSlices().hashCode());
         hashCode = prime * hashCode + ((getSlowPal() == null) ? 0 : getSlowPal().hashCode());

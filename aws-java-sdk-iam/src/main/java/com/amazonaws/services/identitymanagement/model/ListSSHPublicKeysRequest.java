@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class ListSSHPublicKeysRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The name of the IAM user to list SSH public keys for. If none is specified, the <code>UserName</code> field is
-     * determined implicitly based on the AWS access key used to sign the request.
+     * determined implicitly based on the Amazon Web Services access key used to sign the request.
      * </p>
      * <p>
      * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
@@ -63,7 +63,7 @@ public class ListSSHPublicKeysRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The name of the IAM user to list SSH public keys for. If none is specified, the <code>UserName</code> field is
-     * determined implicitly based on the AWS access key used to sign the request.
+     * determined implicitly based on the Amazon Web Services access key used to sign the request.
      * </p>
      * <p>
      * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
@@ -73,7 +73,7 @@ public class ListSSHPublicKeysRequest extends com.amazonaws.AmazonWebServiceRequ
      * 
      * @param userName
      *        The name of the IAM user to list SSH public keys for. If none is specified, the <code>UserName</code>
-     *        field is determined implicitly based on the AWS access key used to sign the request.</p>
+     *        field is determined implicitly based on the Amazon Web Services access key used to sign the request.</p>
      *        <p>
      *        This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string
      *        of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also
@@ -87,7 +87,7 @@ public class ListSSHPublicKeysRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The name of the IAM user to list SSH public keys for. If none is specified, the <code>UserName</code> field is
-     * determined implicitly based on the AWS access key used to sign the request.
+     * determined implicitly based on the Amazon Web Services access key used to sign the request.
      * </p>
      * <p>
      * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
@@ -96,7 +96,7 @@ public class ListSSHPublicKeysRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * 
      * @return The name of the IAM user to list SSH public keys for. If none is specified, the <code>UserName</code>
-     *         field is determined implicitly based on the AWS access key used to sign the request.</p>
+     *         field is determined implicitly based on the Amazon Web Services access key used to sign the request.</p>
      *         <p>
      *         This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string
      *         of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also
@@ -110,7 +110,7 @@ public class ListSSHPublicKeysRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The name of the IAM user to list SSH public keys for. If none is specified, the <code>UserName</code> field is
-     * determined implicitly based on the AWS access key used to sign the request.
+     * determined implicitly based on the Amazon Web Services access key used to sign the request.
      * </p>
      * <p>
      * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
@@ -120,7 +120,7 @@ public class ListSSHPublicKeysRequest extends com.amazonaws.AmazonWebServiceRequ
      * 
      * @param userName
      *        The name of the IAM user to list SSH public keys for. If none is specified, the <code>UserName</code>
-     *        field is determined implicitly based on the AWS access key used to sign the request.</p>
+     *        field is determined implicitly based on the Amazon Web Services access key used to sign the request.</p>
      *        <p>
      *        This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string
      *        of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also

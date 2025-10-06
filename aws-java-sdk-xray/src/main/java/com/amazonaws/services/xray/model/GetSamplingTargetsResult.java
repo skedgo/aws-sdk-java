@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,13 +32,16 @@ public class GetSamplingTargetsResult extends com.amazonaws.AmazonWebServiceResu
     /**
      * <p>
      * The last time a user changed the sampling rule configuration. If the sampling rule configuration changed since
-     * the service last retrieved it, the service should call <a>GetSamplingRules</a> to get the latest version.
+     * the service last retrieved it, the service should call <a
+     * href="https://docs.aws.amazon.com/xray/latest/api/API_GetSamplingRules.html">GetSamplingRules</a> to get the
+     * latest version.
      * </p>
      */
     private java.util.Date lastRuleModification;
     /**
      * <p>
-     * Information about <a>SamplingStatisticsDocument</a> that X-Ray could not process.
+     * Information about <a href="https://docs.aws.amazon.com/xray/latest/api/API_SamplingStatisticsDocument.html">
+     * SamplingStatisticsDocument</a> that X-Ray could not process.
      * </p>
      */
     private java.util.List<UnprocessedStatistics> unprocessedStatistics;
@@ -116,13 +119,16 @@ public class GetSamplingTargetsResult extends com.amazonaws.AmazonWebServiceResu
     /**
      * <p>
      * The last time a user changed the sampling rule configuration. If the sampling rule configuration changed since
-     * the service last retrieved it, the service should call <a>GetSamplingRules</a> to get the latest version.
+     * the service last retrieved it, the service should call <a
+     * href="https://docs.aws.amazon.com/xray/latest/api/API_GetSamplingRules.html">GetSamplingRules</a> to get the
+     * latest version.
      * </p>
      * 
      * @param lastRuleModification
      *        The last time a user changed the sampling rule configuration. If the sampling rule configuration changed
-     *        since the service last retrieved it, the service should call <a>GetSamplingRules</a> to get the latest
-     *        version.
+     *        since the service last retrieved it, the service should call <a
+     *        href="https://docs.aws.amazon.com/xray/latest/api/API_GetSamplingRules.html">GetSamplingRules</a> to get
+     *        the latest version.
      */
 
     public void setLastRuleModification(java.util.Date lastRuleModification) {
@@ -132,12 +138,15 @@ public class GetSamplingTargetsResult extends com.amazonaws.AmazonWebServiceResu
     /**
      * <p>
      * The last time a user changed the sampling rule configuration. If the sampling rule configuration changed since
-     * the service last retrieved it, the service should call <a>GetSamplingRules</a> to get the latest version.
+     * the service last retrieved it, the service should call <a
+     * href="https://docs.aws.amazon.com/xray/latest/api/API_GetSamplingRules.html">GetSamplingRules</a> to get the
+     * latest version.
      * </p>
      * 
      * @return The last time a user changed the sampling rule configuration. If the sampling rule configuration changed
-     *         since the service last retrieved it, the service should call <a>GetSamplingRules</a> to get the latest
-     *         version.
+     *         since the service last retrieved it, the service should call <a
+     *         href="https://docs.aws.amazon.com/xray/latest/api/API_GetSamplingRules.html">GetSamplingRules</a> to get
+     *         the latest version.
      */
 
     public java.util.Date getLastRuleModification() {
@@ -147,13 +156,16 @@ public class GetSamplingTargetsResult extends com.amazonaws.AmazonWebServiceResu
     /**
      * <p>
      * The last time a user changed the sampling rule configuration. If the sampling rule configuration changed since
-     * the service last retrieved it, the service should call <a>GetSamplingRules</a> to get the latest version.
+     * the service last retrieved it, the service should call <a
+     * href="https://docs.aws.amazon.com/xray/latest/api/API_GetSamplingRules.html">GetSamplingRules</a> to get the
+     * latest version.
      * </p>
      * 
      * @param lastRuleModification
      *        The last time a user changed the sampling rule configuration. If the sampling rule configuration changed
-     *        since the service last retrieved it, the service should call <a>GetSamplingRules</a> to get the latest
-     *        version.
+     *        since the service last retrieved it, the service should call <a
+     *        href="https://docs.aws.amazon.com/xray/latest/api/API_GetSamplingRules.html">GetSamplingRules</a> to get
+     *        the latest version.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -164,10 +176,13 @@ public class GetSamplingTargetsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * Information about <a>SamplingStatisticsDocument</a> that X-Ray could not process.
+     * Information about <a href="https://docs.aws.amazon.com/xray/latest/api/API_SamplingStatisticsDocument.html">
+     * SamplingStatisticsDocument</a> that X-Ray could not process.
      * </p>
      * 
-     * @return Information about <a>SamplingStatisticsDocument</a> that X-Ray could not process.
+     * @return Information about <a
+     *         href="https://docs.aws.amazon.com/xray/latest/api/API_SamplingStatisticsDocument.html"
+     *         >SamplingStatisticsDocument</a> that X-Ray could not process.
      */
 
     public java.util.List<UnprocessedStatistics> getUnprocessedStatistics() {
@@ -176,11 +191,14 @@ public class GetSamplingTargetsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * Information about <a>SamplingStatisticsDocument</a> that X-Ray could not process.
+     * Information about <a href="https://docs.aws.amazon.com/xray/latest/api/API_SamplingStatisticsDocument.html">
+     * SamplingStatisticsDocument</a> that X-Ray could not process.
      * </p>
      * 
      * @param unprocessedStatistics
-     *        Information about <a>SamplingStatisticsDocument</a> that X-Ray could not process.
+     *        Information about <a
+     *        href="https://docs.aws.amazon.com/xray/latest/api/API_SamplingStatisticsDocument.html"
+     *        >SamplingStatisticsDocument</a> that X-Ray could not process.
      */
 
     public void setUnprocessedStatistics(java.util.Collection<UnprocessedStatistics> unprocessedStatistics) {
@@ -194,7 +212,8 @@ public class GetSamplingTargetsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * Information about <a>SamplingStatisticsDocument</a> that X-Ray could not process.
+     * Information about <a href="https://docs.aws.amazon.com/xray/latest/api/API_SamplingStatisticsDocument.html">
+     * SamplingStatisticsDocument</a> that X-Ray could not process.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -203,7 +222,9 @@ public class GetSamplingTargetsResult extends com.amazonaws.AmazonWebServiceResu
      * </p>
      * 
      * @param unprocessedStatistics
-     *        Information about <a>SamplingStatisticsDocument</a> that X-Ray could not process.
+     *        Information about <a
+     *        href="https://docs.aws.amazon.com/xray/latest/api/API_SamplingStatisticsDocument.html"
+     *        >SamplingStatisticsDocument</a> that X-Ray could not process.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -219,11 +240,14 @@ public class GetSamplingTargetsResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * Information about <a>SamplingStatisticsDocument</a> that X-Ray could not process.
+     * Information about <a href="https://docs.aws.amazon.com/xray/latest/api/API_SamplingStatisticsDocument.html">
+     * SamplingStatisticsDocument</a> that X-Ray could not process.
      * </p>
      * 
      * @param unprocessedStatistics
-     *        Information about <a>SamplingStatisticsDocument</a> that X-Ray could not process.
+     *        Information about <a
+     *        href="https://docs.aws.amazon.com/xray/latest/api/API_SamplingStatisticsDocument.html"
+     *        >SamplingStatisticsDocument</a> that X-Ray could not process.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

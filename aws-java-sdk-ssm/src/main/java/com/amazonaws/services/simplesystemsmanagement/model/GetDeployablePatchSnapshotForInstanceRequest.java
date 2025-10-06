@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,24 +27,30 @@ public class GetDeployablePatchSnapshotForInstanceRequest extends com.amazonaws.
 
     /**
      * <p>
-     * The ID of the instance for which the appropriate patch snapshot should be retrieved.
+     * The ID of the managed node for which the appropriate patch snapshot should be retrieved.
      * </p>
      */
     private String instanceId;
     /**
      * <p>
-     * The user-defined snapshot ID.
+     * The snapshot ID provided by the user when running <code>AWS-RunPatchBaseline</code>.
      * </p>
      */
     private String snapshotId;
+    /**
+     * <p>
+     * Defines the basic information about a patch baseline override.
+     * </p>
+     */
+    private BaselineOverride baselineOverride;
 
     /**
      * <p>
-     * The ID of the instance for which the appropriate patch snapshot should be retrieved.
+     * The ID of the managed node for which the appropriate patch snapshot should be retrieved.
      * </p>
      * 
      * @param instanceId
-     *        The ID of the instance for which the appropriate patch snapshot should be retrieved.
+     *        The ID of the managed node for which the appropriate patch snapshot should be retrieved.
      */
 
     public void setInstanceId(String instanceId) {
@@ -53,10 +59,10 @@ public class GetDeployablePatchSnapshotForInstanceRequest extends com.amazonaws.
 
     /**
      * <p>
-     * The ID of the instance for which the appropriate patch snapshot should be retrieved.
+     * The ID of the managed node for which the appropriate patch snapshot should be retrieved.
      * </p>
      * 
-     * @return The ID of the instance for which the appropriate patch snapshot should be retrieved.
+     * @return The ID of the managed node for which the appropriate patch snapshot should be retrieved.
      */
 
     public String getInstanceId() {
@@ -65,11 +71,11 @@ public class GetDeployablePatchSnapshotForInstanceRequest extends com.amazonaws.
 
     /**
      * <p>
-     * The ID of the instance for which the appropriate patch snapshot should be retrieved.
+     * The ID of the managed node for which the appropriate patch snapshot should be retrieved.
      * </p>
      * 
      * @param instanceId
-     *        The ID of the instance for which the appropriate patch snapshot should be retrieved.
+     *        The ID of the managed node for which the appropriate patch snapshot should be retrieved.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,11 +86,11 @@ public class GetDeployablePatchSnapshotForInstanceRequest extends com.amazonaws.
 
     /**
      * <p>
-     * The user-defined snapshot ID.
+     * The snapshot ID provided by the user when running <code>AWS-RunPatchBaseline</code>.
      * </p>
      * 
      * @param snapshotId
-     *        The user-defined snapshot ID.
+     *        The snapshot ID provided by the user when running <code>AWS-RunPatchBaseline</code>.
      */
 
     public void setSnapshotId(String snapshotId) {
@@ -93,10 +99,10 @@ public class GetDeployablePatchSnapshotForInstanceRequest extends com.amazonaws.
 
     /**
      * <p>
-     * The user-defined snapshot ID.
+     * The snapshot ID provided by the user when running <code>AWS-RunPatchBaseline</code>.
      * </p>
      * 
-     * @return The user-defined snapshot ID.
+     * @return The snapshot ID provided by the user when running <code>AWS-RunPatchBaseline</code>.
      */
 
     public String getSnapshotId() {
@@ -105,16 +111,56 @@ public class GetDeployablePatchSnapshotForInstanceRequest extends com.amazonaws.
 
     /**
      * <p>
-     * The user-defined snapshot ID.
+     * The snapshot ID provided by the user when running <code>AWS-RunPatchBaseline</code>.
      * </p>
      * 
      * @param snapshotId
-     *        The user-defined snapshot ID.
+     *        The snapshot ID provided by the user when running <code>AWS-RunPatchBaseline</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public GetDeployablePatchSnapshotForInstanceRequest withSnapshotId(String snapshotId) {
         setSnapshotId(snapshotId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Defines the basic information about a patch baseline override.
+     * </p>
+     * 
+     * @param baselineOverride
+     *        Defines the basic information about a patch baseline override.
+     */
+
+    public void setBaselineOverride(BaselineOverride baselineOverride) {
+        this.baselineOverride = baselineOverride;
+    }
+
+    /**
+     * <p>
+     * Defines the basic information about a patch baseline override.
+     * </p>
+     * 
+     * @return Defines the basic information about a patch baseline override.
+     */
+
+    public BaselineOverride getBaselineOverride() {
+        return this.baselineOverride;
+    }
+
+    /**
+     * <p>
+     * Defines the basic information about a patch baseline override.
+     * </p>
+     * 
+     * @param baselineOverride
+     *        Defines the basic information about a patch baseline override.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetDeployablePatchSnapshotForInstanceRequest withBaselineOverride(BaselineOverride baselineOverride) {
+        setBaselineOverride(baselineOverride);
         return this;
     }
 
@@ -133,7 +179,9 @@ public class GetDeployablePatchSnapshotForInstanceRequest extends com.amazonaws.
         if (getInstanceId() != null)
             sb.append("InstanceId: ").append(getInstanceId()).append(",");
         if (getSnapshotId() != null)
-            sb.append("SnapshotId: ").append(getSnapshotId());
+            sb.append("SnapshotId: ").append(getSnapshotId()).append(",");
+        if (getBaselineOverride() != null)
+            sb.append("BaselineOverride: ").append(getBaselineOverride());
         sb.append("}");
         return sb.toString();
     }
@@ -156,6 +204,10 @@ public class GetDeployablePatchSnapshotForInstanceRequest extends com.amazonaws.
             return false;
         if (other.getSnapshotId() != null && other.getSnapshotId().equals(this.getSnapshotId()) == false)
             return false;
+        if (other.getBaselineOverride() == null ^ this.getBaselineOverride() == null)
+            return false;
+        if (other.getBaselineOverride() != null && other.getBaselineOverride().equals(this.getBaselineOverride()) == false)
+            return false;
         return true;
     }
 
@@ -166,6 +218,7 @@ public class GetDeployablePatchSnapshotForInstanceRequest extends com.amazonaws.
 
         hashCode = prime * hashCode + ((getInstanceId() == null) ? 0 : getInstanceId().hashCode());
         hashCode = prime * hashCode + ((getSnapshotId() == null) ? 0 : getSnapshotId().hashCode());
+        hashCode = prime * hashCode + ((getBaselineOverride() == null) ? 0 : getBaselineOverride().hashCode());
         return hashCode;
     }
 

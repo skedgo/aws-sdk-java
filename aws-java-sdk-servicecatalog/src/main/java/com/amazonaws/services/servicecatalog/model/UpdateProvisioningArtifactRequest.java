@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,11 +30,6 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
      * The language code.
      * </p>
      * <ul>
-     * <li>
-     * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
      * <li>
      * <p>
      * <code>jp</code> - Japanese
@@ -76,6 +71,10 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
      * <p>
      * Indicates whether the product version is active.
      * </p>
+     * <p>
+     * Inactive provisioning artifacts are invisible to end users. End users cannot launch or update a provisioned
+     * product from an inactive provisioning artifact.
+     * </p>
      */
     private Boolean active;
     /**
@@ -100,11 +99,6 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -118,11 +112,6 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -146,11 +135,6 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -163,11 +147,6 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
      * 
      * @return The language code.</p>
      *         <ul>
-     *         <li>
-     *         <p>
-     *         <code>en</code> - English (default)
-     *         </p>
-     *         </li>
      *         <li>
      *         <p>
      *         <code>jp</code> - Japanese
@@ -191,11 +170,6 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -209,11 +183,6 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -396,9 +365,16 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
      * <p>
      * Indicates whether the product version is active.
      * </p>
+     * <p>
+     * Inactive provisioning artifacts are invisible to end users. End users cannot launch or update a provisioned
+     * product from an inactive provisioning artifact.
+     * </p>
      * 
      * @param active
-     *        Indicates whether the product version is active.
+     *        Indicates whether the product version is active.</p>
+     *        <p>
+     *        Inactive provisioning artifacts are invisible to end users. End users cannot launch or update a
+     *        provisioned product from an inactive provisioning artifact.
      */
 
     public void setActive(Boolean active) {
@@ -409,8 +385,15 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
      * <p>
      * Indicates whether the product version is active.
      * </p>
+     * <p>
+     * Inactive provisioning artifacts are invisible to end users. End users cannot launch or update a provisioned
+     * product from an inactive provisioning artifact.
+     * </p>
      * 
-     * @return Indicates whether the product version is active.
+     * @return Indicates whether the product version is active.</p>
+     *         <p>
+     *         Inactive provisioning artifacts are invisible to end users. End users cannot launch or update a
+     *         provisioned product from an inactive provisioning artifact.
      */
 
     public Boolean getActive() {
@@ -421,9 +404,16 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
      * <p>
      * Indicates whether the product version is active.
      * </p>
+     * <p>
+     * Inactive provisioning artifacts are invisible to end users. End users cannot launch or update a provisioned
+     * product from an inactive provisioning artifact.
+     * </p>
      * 
      * @param active
-     *        Indicates whether the product version is active.
+     *        Indicates whether the product version is active.</p>
+     *        <p>
+     *        Inactive provisioning artifacts are invisible to end users. End users cannot launch or update a
+     *        provisioned product from an inactive provisioning artifact.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -436,8 +426,15 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
      * <p>
      * Indicates whether the product version is active.
      * </p>
+     * <p>
+     * Inactive provisioning artifacts are invisible to end users. End users cannot launch or update a provisioned
+     * product from an inactive provisioning artifact.
+     * </p>
      * 
-     * @return Indicates whether the product version is active.
+     * @return Indicates whether the product version is active.</p>
+     *         <p>
+     *         Inactive provisioning artifacts are invisible to end users. End users cannot launch or update a
+     *         provisioned product from an inactive provisioning artifact.
      */
 
     public Boolean isActive() {

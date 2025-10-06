@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -123,6 +123,94 @@ public class S3SettingsJsonUnmarshaller implements Unmarshaller<S3Settings, Json
                 if (context.testExpression("TimestampColumnName", targetDepth)) {
                     context.nextToken();
                     s3Settings.setTimestampColumnName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("ParquetTimestampInMillisecond", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setParquetTimestampInMillisecond(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("CdcInsertsAndUpdates", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setCdcInsertsAndUpdates(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("DatePartitionEnabled", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setDatePartitionEnabled(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("DatePartitionSequence", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setDatePartitionSequence(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("DatePartitionDelimiter", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setDatePartitionDelimiter(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("UseCsvNoSupValue", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setUseCsvNoSupValue(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("CsvNoSupValue", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setCsvNoSupValue(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("PreserveTransactions", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setPreserveTransactions(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("CdcPath", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setCdcPath(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("UseTaskStartTimeForFullLoadTimestamp", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setUseTaskStartTimeForFullLoadTimestamp(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("CannedAclForObjects", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setCannedAclForObjects(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("AddColumnName", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setAddColumnName(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("CdcMaxBatchInterval", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setCdcMaxBatchInterval(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("CdcMinFileSize", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setCdcMinFileSize(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("CsvNullValue", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setCsvNullValue(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("IgnoreHeaderRows", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setIgnoreHeaderRows(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("MaxFileSize", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setMaxFileSize(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("Rfc4180", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setRfc4180(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("DatePartitionTimezone", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setDatePartitionTimezone(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("AddTrailingPaddingCharacter", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setAddTrailingPaddingCharacter(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("ExpectedBucketOwner", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setExpectedBucketOwner(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("GlueCatalogGeneration", targetDepth)) {
+                    context.nextToken();
+                    s3Settings.setGlueCatalogGeneration(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

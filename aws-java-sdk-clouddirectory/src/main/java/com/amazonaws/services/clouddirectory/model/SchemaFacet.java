@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,13 +32,14 @@ public class SchemaFacet implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The ARN of the schema that contains the facet with no minor component. See <a>arns</a> and <a
      * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_inplaceschemaupgrade.html"
-     * >In-Place Schema Upgrade</a> for a description of when to provide minor versions.
+     * >In-Place Schema Upgrade</a> for a description of when to provide minor versions. If this value is set, FacetName
+     * must also be set.
      * </p>
      */
     private String schemaArn;
     /**
      * <p>
-     * The name of the facet.
+     * The name of the facet. If this value is set, SchemaArn must also be set.
      * </p>
      */
     private String facetName;
@@ -47,13 +48,15 @@ public class SchemaFacet implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The ARN of the schema that contains the facet with no minor component. See <a>arns</a> and <a
      * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_inplaceschemaupgrade.html"
-     * >In-Place Schema Upgrade</a> for a description of when to provide minor versions.
+     * >In-Place Schema Upgrade</a> for a description of when to provide minor versions. If this value is set, FacetName
+     * must also be set.
      * </p>
      * 
      * @param schemaArn
      *        The ARN of the schema that contains the facet with no minor component. See <a>arns</a> and <a href=
      *        "https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_inplaceschemaupgrade.html"
-     *        >In-Place Schema Upgrade</a> for a description of when to provide minor versions.
+     *        >In-Place Schema Upgrade</a> for a description of when to provide minor versions. If this value is set,
+     *        FacetName must also be set.
      */
 
     public void setSchemaArn(String schemaArn) {
@@ -64,12 +67,14 @@ public class SchemaFacet implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The ARN of the schema that contains the facet with no minor component. See <a>arns</a> and <a
      * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_inplaceschemaupgrade.html"
-     * >In-Place Schema Upgrade</a> for a description of when to provide minor versions.
+     * >In-Place Schema Upgrade</a> for a description of when to provide minor versions. If this value is set, FacetName
+     * must also be set.
      * </p>
      * 
      * @return The ARN of the schema that contains the facet with no minor component. See <a>arns</a> and <a
      *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_inplaceschemaupgrade.html"
-     *         >In-Place Schema Upgrade</a> for a description of when to provide minor versions.
+     *         >In-Place Schema Upgrade</a> for a description of when to provide minor versions. If this value is set,
+     *         FacetName must also be set.
      */
 
     public String getSchemaArn() {
@@ -80,13 +85,15 @@ public class SchemaFacet implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The ARN of the schema that contains the facet with no minor component. See <a>arns</a> and <a
      * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_inplaceschemaupgrade.html"
-     * >In-Place Schema Upgrade</a> for a description of when to provide minor versions.
+     * >In-Place Schema Upgrade</a> for a description of when to provide minor versions. If this value is set, FacetName
+     * must also be set.
      * </p>
      * 
      * @param schemaArn
      *        The ARN of the schema that contains the facet with no minor component. See <a>arns</a> and <a href=
      *        "https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_inplaceschemaupgrade.html"
-     *        >In-Place Schema Upgrade</a> for a description of when to provide minor versions.
+     *        >In-Place Schema Upgrade</a> for a description of when to provide minor versions. If this value is set,
+     *        FacetName must also be set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -97,11 +104,11 @@ public class SchemaFacet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the facet.
+     * The name of the facet. If this value is set, SchemaArn must also be set.
      * </p>
      * 
      * @param facetName
-     *        The name of the facet.
+     *        The name of the facet. If this value is set, SchemaArn must also be set.
      */
 
     public void setFacetName(String facetName) {
@@ -110,10 +117,10 @@ public class SchemaFacet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the facet.
+     * The name of the facet. If this value is set, SchemaArn must also be set.
      * </p>
      * 
-     * @return The name of the facet.
+     * @return The name of the facet. If this value is set, SchemaArn must also be set.
      */
 
     public String getFacetName() {
@@ -122,11 +129,11 @@ public class SchemaFacet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the facet.
+     * The name of the facet. If this value is set, SchemaArn must also be set.
      * </p>
      * 
      * @param facetName
-     *        The name of the facet.
+     *        The name of the facet. If this value is set, SchemaArn must also be set.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

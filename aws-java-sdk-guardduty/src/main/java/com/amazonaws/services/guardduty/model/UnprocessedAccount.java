@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains information about the accounts that weren't processed.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/UnprocessedAccount" target="_top">AWS API
  *      Documentation</a>
@@ -27,7 +30,7 @@ public class UnprocessedAccount implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * AWS Account ID.
+     * The Amazon Web Services account ID.
      * </p>
      */
     private String accountId;
@@ -40,11 +43,11 @@ public class UnprocessedAccount implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * AWS Account ID.
+     * The Amazon Web Services account ID.
      * </p>
      * 
      * @param accountId
-     *        AWS Account ID.
+     *        The Amazon Web Services account ID.
      */
 
     public void setAccountId(String accountId) {
@@ -53,10 +56,10 @@ public class UnprocessedAccount implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * AWS Account ID.
+     * The Amazon Web Services account ID.
      * </p>
      * 
-     * @return AWS Account ID.
+     * @return The Amazon Web Services account ID.
      */
 
     public String getAccountId() {
@@ -65,11 +68,11 @@ public class UnprocessedAccount implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * AWS Account ID.
+     * The Amazon Web Services account ID.
      * </p>
      * 
      * @param accountId
-     *        AWS Account ID.
+     *        The Amazon Web Services account ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -62,7 +62,9 @@ public class UpdateSecurityProfileResultJsonUnmarshaller implements Unmarshaller
                 }
                 if (context.testExpression("behaviors", targetDepth)) {
                     context.nextToken();
-                    updateSecurityProfileResult.setBehaviors(new ListUnmarshaller<Behavior>(BehaviorJsonUnmarshaller.getInstance()).unmarshall(context));
+                    updateSecurityProfileResult.setBehaviors(new ListUnmarshaller<Behavior>(BehaviorJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("alertTargets", targetDepth)) {
                     context.nextToken();
@@ -72,7 +74,15 @@ public class UpdateSecurityProfileResultJsonUnmarshaller implements Unmarshaller
                 if (context.testExpression("additionalMetricsToRetain", targetDepth)) {
                     context.nextToken();
                     updateSecurityProfileResult.setAdditionalMetricsToRetain(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
-                            .unmarshall(context));
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("additionalMetricsToRetainV2", targetDepth)) {
+                    context.nextToken();
+                    updateSecurityProfileResult.setAdditionalMetricsToRetainV2(new ListUnmarshaller<MetricToRetain>(MetricToRetainJsonUnmarshaller
+                            .getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("version", targetDepth)) {
                     context.nextToken();
@@ -85,6 +95,10 @@ public class UpdateSecurityProfileResultJsonUnmarshaller implements Unmarshaller
                 if (context.testExpression("lastModifiedDate", targetDepth)) {
                     context.nextToken();
                     updateSecurityProfileResult.setLastModifiedDate(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("metricsExportConfig", targetDepth)) {
+                    context.nextToken();
+                    updateSecurityProfileResult.setMetricsExportConfig(MetricsExportConfigJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

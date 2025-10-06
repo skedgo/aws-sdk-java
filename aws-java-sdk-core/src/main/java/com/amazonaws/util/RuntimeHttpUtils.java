@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,11 +15,17 @@
 package com.amazonaws.util;
 
 import com.amazonaws.ClientConfiguration;
+import com.amazonaws.HandlerContextAware;
 import com.amazonaws.Protocol;
 import com.amazonaws.Request;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.annotation.SdkProtectedApi;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.ProviderNameAware;
+import com.amazonaws.endpoints.AccountIdEndpointMode;
+import com.amazonaws.handlers.HandlerContextKey;
+import com.amazonaws.retry.RetryMode;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
@@ -38,6 +44,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +54,14 @@ public class RuntimeHttpUtils {
 
     private static final String AWS_EXECUTION_ENV_PREFIX = "exec-env/";
     private static final String AWS_EXECUTION_ENV_NAME = "AWS_EXECUTION_ENV";
+
+    private static final String RETRY_MODE_PREFIX = "cfg/retry-mode/";
+    private static final String PROVIDER_NAME_PREFIX = "cfg/auth-source#";
+    public static final String BUSINESS_METADATA_PREFIX = "m/";
+
+    private static final String TRACE_ID_ENVIRONMENT_VARIABLE = "_X_AMZN_TRACE_ID";
+    private static final String TRACE_ID_SYSTEM_PROPERTY = "com.amazonaws.xray.traceHeader";
+    private static final String LAMBDA_FUNCTION_NAME_ENVIRONMENT_VARIABLE = "AWS_LAMBDA_FUNCTION_NAME";
 
 
     /**
@@ -109,14 +124,46 @@ public class RuntimeHttpUtils {
     }
 
     public static String getUserAgent(final ClientConfiguration config, final String userAgentMarker) {
-        String userDefinedPrefix = config != null ? config.getUserAgentPrefix() : "";
-        String userDefinedSuffix = config != null ? config.getUserAgentSuffix() : "";
+        return getUserAgent(config, userAgentMarker, null);
+    }
+
+    public static String getUserAgent(final ClientConfiguration config, final String userAgentMarker,
+                                      AWSCredentials credentials) {
+        return getUserAgent(config, userAgentMarker, credentials, null);
+    }
+
+    public static String getUserAgent(final ClientConfiguration config, final String userAgentMarker,
+                                      AWSCredentials credentials, final HandlerContextAware request) {
+        String userDefinedPrefix = "";
+        String userDefinedSuffix = "";
+        String retryModeName = "";
         String awsExecutionEnvironment = getEnvironmentVariable(AWS_EXECUTION_ENV_NAME);
+        String providerName = getProviderName(credentials);
+        String businessMetrics = getBusinessMetrics(request);
+
+        if (config != null) {
+            userDefinedPrefix = config.getUserAgentPrefix();
+            userDefinedSuffix = config.getUserAgentSuffix();
+            RetryMode retryMode = config.getRetryMode() == null ? config.getRetryPolicy().getRetryMode() : config.getRetryMode();
+            retryModeName = retryMode != null ? retryMode.getName() : "";
+        }
 
         StringBuilder userAgent = new StringBuilder(userDefinedPrefix.trim());
 
         if(!ClientConfiguration.DEFAULT_USER_AGENT.equals(userDefinedPrefix)) {
             userAgent.append(COMMA).append(ClientConfiguration.DEFAULT_USER_AGENT);
+        }
+
+        if(StringUtils.hasValue(retryModeName)) {
+            userAgent.append(SPACE).append(RETRY_MODE_PREFIX).append(retryModeName.trim());
+        }
+
+        if (StringUtils.hasValue(providerName)) {
+            userAgent.append(SPACE).append(PROVIDER_NAME_PREFIX).append(providerName);
+        }
+
+        if (StringUtils.hasValue(businessMetrics)) {
+            userAgent.append(SPACE).append(BUSINESS_METADATA_PREFIX).append(businessMetrics);
         }
 
         if(StringUtils.hasValue(userDefinedSuffix)) {
@@ -134,12 +181,65 @@ public class RuntimeHttpUtils {
         return userAgent.toString();
     }
 
+    private static String getProviderName(AWSCredentials credentials) {
+        if (credentials instanceof ProviderNameAware) {
+            ProviderNameAware providerNameAwareCredentials = (ProviderNameAware) credentials;
+            return CredentialsProviderNameMapping.mapFrom(providerNameAwareCredentials.getProviderName());
+        }
+        return null;
+    }
+
+    private static String getBusinessMetrics(HandlerContextAware request) {
+        if (request == null) {
+            return null;
+        }
+
+        List<String> recordedMetric = new ArrayList<>();
+
+        Boolean isEndpointOverridden = request.getHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN);
+        if (Boolean.TRUE.equals(isEndpointOverridden)) {
+            recordedMetric.add("N");
+        }
+
+        AccountIdEndpointMode accountIdEndpointMode = request.getHandlerContext(HandlerContextKey.ACCOUNT_ID_ENDPOINT_MODE);
+        if (accountIdEndpointMode != null) {
+            switch (accountIdEndpointMode) {
+                case PREFERRED:
+                    recordedMetric.add("P");
+                    break;
+                case REQUIRED:
+                    recordedMetric.add("R");
+                    break;
+                case DISABLED:
+                    recordedMetric.add("Q");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        String resolvedAccountId = request.getHandlerContext(HandlerContextKey.AWS_CREDENTIALS_ACCOUNT_ID);
+        if (resolvedAccountId != null) {
+            recordedMetric.add("T");
+        }
+
+        return String.join(",", recordedMetric);
+    }
+
     private static String getEnvironmentVariable(String environmentVariableName) {
         try {
             return System.getenv(environmentVariableName);
         } catch (Exception e) {
             // Return an empty string if unable to get environment variable
             return "";
+        }
+    }
+
+    private static String getSystemProperty(String systemProperty) {
+        try {
+            return System.getProperty(systemProperty);
+        } catch (Exception e) {
+            return null;
         }
     }
 
@@ -252,5 +352,26 @@ public class RuntimeHttpUtils {
             throw new SdkClientException(
                     "Unable to convert request to well formed URL: " + e.getMessage(), e);
         }
+    }
+
+    /**
+     * Returns the value of the trace id environment variable, if it exists and if there is also
+     * a lambda function name environment variable, indicating that the code executes within a lambda
+     */
+    public static String getLambdaEnvironmentTraceId() {
+        String lambdafunctionName = getEnvironmentVariable(LAMBDA_FUNCTION_NAME_ENVIRONMENT_VARIABLE);
+        String traceId = traceId();
+        if (!StringUtils.isNullOrEmpty(lambdafunctionName) && !StringUtils.isNullOrEmpty(traceId)) {
+            return traceId;
+        };
+        return null;
+    }
+
+    static String traceId() {
+        String traceId = getSystemProperty(TRACE_ID_SYSTEM_PROPERTY);
+        if (traceId == null) {
+            traceId = getEnvironmentVariable(TRACE_ID_ENVIRONMENT_VARIABLE);
+        }
+        return traceId;
     }
 }

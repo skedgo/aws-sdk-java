@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,8 @@ public class CreateCompilationJobRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A name for the model compilation job. The name must be unique within the AWS Region and within your AWS account.
+     * A name for the model compilation job. The name must be unique within the Amazon Web Services Region and within
+     * your Amazon Web Services account.
      * </p>
      */
     private String compilationJobName;
@@ -69,6 +70,14 @@ public class CreateCompilationJobRequest extends com.amazonaws.AmazonWebServiceR
     private String roleArn;
     /**
      * <p>
+     * The Amazon Resource Name (ARN) of a versioned model package. Provide either a <code>ModelPackageVersionArn</code>
+     * or an <code>InputConfig</code> object in the request syntax. The presence of both objects in the
+     * <code>CreateCompilationJob</code> request will return an exception.
+     * </p>
+     */
+    private String modelPackageVersionArn;
+    /**
+     * <p>
      * Provides information about the location of input model artifacts, the name and shape of the expected data inputs,
      * and the framework in which the model was trained.
      * </p>
@@ -82,20 +91,39 @@ public class CreateCompilationJobRequest extends com.amazonaws.AmazonWebServiceR
     private OutputConfig outputConfig;
     /**
      * <p>
+     * A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a> object
+     * that specifies the VPC that you want your compilation job to connect to. Control access to your models by
+     * configuring the VPC. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/neo-vpc.html">Protect Compilation Jobs by Using an Amazon
+     * Virtual Private Cloud</a>.
+     * </p>
+     */
+    private NeoVpcConfig vpcConfig;
+    /**
+     * <p>
      * Specifies a limit to how long a model compilation job can run. When the job reaches the time limit, Amazon
      * SageMaker ends the compilation job. Use this API to cap model training costs.
      * </p>
      */
     private StoppingCondition stoppingCondition;
+    /**
+     * <p>
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
 
     /**
      * <p>
-     * A name for the model compilation job. The name must be unique within the AWS Region and within your AWS account.
+     * A name for the model compilation job. The name must be unique within the Amazon Web Services Region and within
+     * your Amazon Web Services account.
      * </p>
      * 
      * @param compilationJobName
-     *        A name for the model compilation job. The name must be unique within the AWS Region and within your AWS
-     *        account.
+     *        A name for the model compilation job. The name must be unique within the Amazon Web Services Region and
+     *        within your Amazon Web Services account.
      */
 
     public void setCompilationJobName(String compilationJobName) {
@@ -104,11 +132,12 @@ public class CreateCompilationJobRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A name for the model compilation job. The name must be unique within the AWS Region and within your AWS account.
+     * A name for the model compilation job. The name must be unique within the Amazon Web Services Region and within
+     * your Amazon Web Services account.
      * </p>
      * 
-     * @return A name for the model compilation job. The name must be unique within the AWS Region and within your AWS
-     *         account.
+     * @return A name for the model compilation job. The name must be unique within the Amazon Web Services Region and
+     *         within your Amazon Web Services account.
      */
 
     public String getCompilationJobName() {
@@ -117,12 +146,13 @@ public class CreateCompilationJobRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * A name for the model compilation job. The name must be unique within the AWS Region and within your AWS account.
+     * A name for the model compilation job. The name must be unique within the Amazon Web Services Region and within
+     * your Amazon Web Services account.
      * </p>
      * 
      * @param compilationJobName
-     *        A name for the model compilation job. The name must be unique within the AWS Region and within your AWS
-     *        account.
+     *        A name for the model compilation job. The name must be unique within the Amazon Web Services Region and
+     *        within your Amazon Web Services account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -353,6 +383,58 @@ public class CreateCompilationJobRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
+     * The Amazon Resource Name (ARN) of a versioned model package. Provide either a <code>ModelPackageVersionArn</code>
+     * or an <code>InputConfig</code> object in the request syntax. The presence of both objects in the
+     * <code>CreateCompilationJob</code> request will return an exception.
+     * </p>
+     * 
+     * @param modelPackageVersionArn
+     *        The Amazon Resource Name (ARN) of a versioned model package. Provide either a
+     *        <code>ModelPackageVersionArn</code> or an <code>InputConfig</code> object in the request syntax. The
+     *        presence of both objects in the <code>CreateCompilationJob</code> request will return an exception.
+     */
+
+    public void setModelPackageVersionArn(String modelPackageVersionArn) {
+        this.modelPackageVersionArn = modelPackageVersionArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of a versioned model package. Provide either a <code>ModelPackageVersionArn</code>
+     * or an <code>InputConfig</code> object in the request syntax. The presence of both objects in the
+     * <code>CreateCompilationJob</code> request will return an exception.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of a versioned model package. Provide either a
+     *         <code>ModelPackageVersionArn</code> or an <code>InputConfig</code> object in the request syntax. The
+     *         presence of both objects in the <code>CreateCompilationJob</code> request will return an exception.
+     */
+
+    public String getModelPackageVersionArn() {
+        return this.modelPackageVersionArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of a versioned model package. Provide either a <code>ModelPackageVersionArn</code>
+     * or an <code>InputConfig</code> object in the request syntax. The presence of both objects in the
+     * <code>CreateCompilationJob</code> request will return an exception.
+     * </p>
+     * 
+     * @param modelPackageVersionArn
+     *        The Amazon Resource Name (ARN) of a versioned model package. Provide either a
+     *        <code>ModelPackageVersionArn</code> or an <code>InputConfig</code> object in the request syntax. The
+     *        presence of both objects in the <code>CreateCompilationJob</code> request will return an exception.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateCompilationJobRequest withModelPackageVersionArn(String modelPackageVersionArn) {
+        setModelPackageVersionArn(modelPackageVersionArn);
+        return this;
+    }
+
+    /**
+     * <p>
      * Provides information about the location of input model artifacts, the name and shape of the expected data inputs,
      * and the framework in which the model was trained.
      * </p>
@@ -442,6 +524,70 @@ public class CreateCompilationJobRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
+     * A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a> object
+     * that specifies the VPC that you want your compilation job to connect to. Control access to your models by
+     * configuring the VPC. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/neo-vpc.html">Protect Compilation Jobs by Using an Amazon
+     * Virtual Private Cloud</a>.
+     * </p>
+     * 
+     * @param vpcConfig
+     *        A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a>
+     *        object that specifies the VPC that you want your compilation job to connect to. Control access to your
+     *        models by configuring the VPC. For more information, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/neo-vpc.html">Protect Compilation Jobs by Using an
+     *        Amazon Virtual Private Cloud</a>.
+     */
+
+    public void setVpcConfig(NeoVpcConfig vpcConfig) {
+        this.vpcConfig = vpcConfig;
+    }
+
+    /**
+     * <p>
+     * A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a> object
+     * that specifies the VPC that you want your compilation job to connect to. Control access to your models by
+     * configuring the VPC. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/neo-vpc.html">Protect Compilation Jobs by Using an Amazon
+     * Virtual Private Cloud</a>.
+     * </p>
+     * 
+     * @return A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a>
+     *         object that specifies the VPC that you want your compilation job to connect to. Control access to your
+     *         models by configuring the VPC. For more information, see <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/neo-vpc.html">Protect Compilation Jobs by Using an
+     *         Amazon Virtual Private Cloud</a>.
+     */
+
+    public NeoVpcConfig getVpcConfig() {
+        return this.vpcConfig;
+    }
+
+    /**
+     * <p>
+     * A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a> object
+     * that specifies the VPC that you want your compilation job to connect to. Control access to your models by
+     * configuring the VPC. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/neo-vpc.html">Protect Compilation Jobs by Using an Amazon
+     * Virtual Private Cloud</a>.
+     * </p>
+     * 
+     * @param vpcConfig
+     *        A <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_VpcConfig.html">VpcConfig</a>
+     *        object that specifies the VPC that you want your compilation job to connect to. Control access to your
+     *        models by configuring the VPC. For more information, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/neo-vpc.html">Protect Compilation Jobs by Using an
+     *        Amazon Virtual Private Cloud</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateCompilationJobRequest withVpcConfig(NeoVpcConfig vpcConfig) {
+        setVpcConfig(vpcConfig);
+        return this;
+    }
+
+    /**
+     * <p>
      * Specifies a limit to how long a model compilation job can run. When the job reaches the time limit, Amazon
      * SageMaker ends the compilation job. Use this API to cap model training costs.
      * </p>
@@ -487,6 +633,96 @@ public class CreateCompilationJobRequest extends com.amazonaws.AmazonWebServiceR
     }
 
     /**
+     * <p>
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
+     * </p>
+     * 
+     * @return An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *         different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *         Resources</a>.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
+     * </p>
+     * 
+     * @param tags
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateCompilationJobRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in different ways,
+     * for example, by purpose, owner, or environment. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>.
+     * </p>
+     * 
+     * @param tags
+     *        An array of key-value pairs. You can use tags to categorize your Amazon Web Services resources in
+     *        different ways, for example, by purpose, owner, or environment. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateCompilationJobRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -502,12 +738,18 @@ public class CreateCompilationJobRequest extends com.amazonaws.AmazonWebServiceR
             sb.append("CompilationJobName: ").append(getCompilationJobName()).append(",");
         if (getRoleArn() != null)
             sb.append("RoleArn: ").append(getRoleArn()).append(",");
+        if (getModelPackageVersionArn() != null)
+            sb.append("ModelPackageVersionArn: ").append(getModelPackageVersionArn()).append(",");
         if (getInputConfig() != null)
             sb.append("InputConfig: ").append(getInputConfig()).append(",");
         if (getOutputConfig() != null)
             sb.append("OutputConfig: ").append(getOutputConfig()).append(",");
+        if (getVpcConfig() != null)
+            sb.append("VpcConfig: ").append(getVpcConfig()).append(",");
         if (getStoppingCondition() != null)
-            sb.append("StoppingCondition: ").append(getStoppingCondition());
+            sb.append("StoppingCondition: ").append(getStoppingCondition()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -530,6 +772,10 @@ public class CreateCompilationJobRequest extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getRoleArn() != null && other.getRoleArn().equals(this.getRoleArn()) == false)
             return false;
+        if (other.getModelPackageVersionArn() == null ^ this.getModelPackageVersionArn() == null)
+            return false;
+        if (other.getModelPackageVersionArn() != null && other.getModelPackageVersionArn().equals(this.getModelPackageVersionArn()) == false)
+            return false;
         if (other.getInputConfig() == null ^ this.getInputConfig() == null)
             return false;
         if (other.getInputConfig() != null && other.getInputConfig().equals(this.getInputConfig()) == false)
@@ -538,9 +784,17 @@ public class CreateCompilationJobRequest extends com.amazonaws.AmazonWebServiceR
             return false;
         if (other.getOutputConfig() != null && other.getOutputConfig().equals(this.getOutputConfig()) == false)
             return false;
+        if (other.getVpcConfig() == null ^ this.getVpcConfig() == null)
+            return false;
+        if (other.getVpcConfig() != null && other.getVpcConfig().equals(this.getVpcConfig()) == false)
+            return false;
         if (other.getStoppingCondition() == null ^ this.getStoppingCondition() == null)
             return false;
         if (other.getStoppingCondition() != null && other.getStoppingCondition().equals(this.getStoppingCondition()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
         return true;
     }
@@ -552,9 +806,12 @@ public class CreateCompilationJobRequest extends com.amazonaws.AmazonWebServiceR
 
         hashCode = prime * hashCode + ((getCompilationJobName() == null) ? 0 : getCompilationJobName().hashCode());
         hashCode = prime * hashCode + ((getRoleArn() == null) ? 0 : getRoleArn().hashCode());
+        hashCode = prime * hashCode + ((getModelPackageVersionArn() == null) ? 0 : getModelPackageVersionArn().hashCode());
         hashCode = prime * hashCode + ((getInputConfig() == null) ? 0 : getInputConfig().hashCode());
         hashCode = prime * hashCode + ((getOutputConfig() == null) ? 0 : getOutputConfig().hashCode());
+        hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
         hashCode = prime * hashCode + ((getStoppingCondition() == null) ? 0 : getStoppingCondition().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

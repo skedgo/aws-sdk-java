@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The OpsItem summaries result item.
+ * The OpsData summary.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/OpsEntityItem" target="_top">AWS API
@@ -30,17 +30,63 @@ public class OpsEntityItem implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The detailed data content for an OpsItem summaries result item.
+     * The time the OpsData was captured.
+     * </p>
+     */
+    private String captureTime;
+    /**
+     * <p>
+     * The details of an OpsData summary.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<java.util.Map<String, String>> content;
 
     /**
      * <p>
-     * The detailed data content for an OpsItem summaries result item.
+     * The time the OpsData was captured.
      * </p>
      * 
-     * @return The detailed data content for an OpsItem summaries result item.
+     * @param captureTime
+     *        The time the OpsData was captured.
+     */
+
+    public void setCaptureTime(String captureTime) {
+        this.captureTime = captureTime;
+    }
+
+    /**
+     * <p>
+     * The time the OpsData was captured.
+     * </p>
+     * 
+     * @return The time the OpsData was captured.
+     */
+
+    public String getCaptureTime() {
+        return this.captureTime;
+    }
+
+    /**
+     * <p>
+     * The time the OpsData was captured.
+     * </p>
+     * 
+     * @param captureTime
+     *        The time the OpsData was captured.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OpsEntityItem withCaptureTime(String captureTime) {
+        setCaptureTime(captureTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The details of an OpsData summary.
+     * </p>
+     * 
+     * @return The details of an OpsData summary.
      */
 
     public java.util.List<java.util.Map<String, String>> getContent() {
@@ -52,11 +98,11 @@ public class OpsEntityItem implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The detailed data content for an OpsItem summaries result item.
+     * The details of an OpsData summary.
      * </p>
      * 
      * @param content
-     *        The detailed data content for an OpsItem summaries result item.
+     *        The details of an OpsData summary.
      */
 
     public void setContent(java.util.Collection<java.util.Map<String, String>> content) {
@@ -70,7 +116,7 @@ public class OpsEntityItem implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The detailed data content for an OpsItem summaries result item.
+     * The details of an OpsData summary.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -79,7 +125,7 @@ public class OpsEntityItem implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param content
-     *        The detailed data content for an OpsItem summaries result item.
+     *        The details of an OpsData summary.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -95,11 +141,11 @@ public class OpsEntityItem implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The detailed data content for an OpsItem summaries result item.
+     * The details of an OpsData summary.
      * </p>
      * 
      * @param content
-     *        The detailed data content for an OpsItem summaries result item.
+     *        The details of an OpsData summary.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -120,6 +166,8 @@ public class OpsEntityItem implements Serializable, Cloneable, StructuredPojo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getCaptureTime() != null)
+            sb.append("CaptureTime: ").append(getCaptureTime()).append(",");
         if (getContent() != null)
             sb.append("Content: ").append(getContent());
         sb.append("}");
@@ -136,6 +184,10 @@ public class OpsEntityItem implements Serializable, Cloneable, StructuredPojo {
         if (obj instanceof OpsEntityItem == false)
             return false;
         OpsEntityItem other = (OpsEntityItem) obj;
+        if (other.getCaptureTime() == null ^ this.getCaptureTime() == null)
+            return false;
+        if (other.getCaptureTime() != null && other.getCaptureTime().equals(this.getCaptureTime()) == false)
+            return false;
         if (other.getContent() == null ^ this.getContent() == null)
             return false;
         if (other.getContent() != null && other.getContent().equals(this.getContent()) == false)
@@ -148,6 +200,7 @@ public class OpsEntityItem implements Serializable, Cloneable, StructuredPojo {
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getCaptureTime() == null) ? 0 : getCaptureTime().hashCode());
         hashCode = prime * hashCode + ((getContent() == null) ? 0 : getContent().hashCode());
         return hashCode;
     }

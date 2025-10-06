@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,7 +23,13 @@ public enum SnowballType {
     STANDARD("STANDARD"),
     EDGE("EDGE"),
     EDGE_C("EDGE_C"),
-    EDGE_CG("EDGE_CG");
+    EDGE_CG("EDGE_CG"),
+    EDGE_S("EDGE_S"),
+    SNC1_HDD("SNC1_HDD"),
+    SNC1_SSD("SNC1_SSD"),
+    V3_5C("V3_5C"),
+    V3_5S("V3_5S"),
+    RACK_5U_C("RACK_5U_C");
 
     private String value;
 

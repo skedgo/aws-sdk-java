@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -62,6 +62,11 @@ public class DBInstanceStaxUnmarshaller implements Unmarshaller<DBInstance, Stax
 
                 if (context.testExpression("DBInstanceStatus", targetDepth)) {
                     dBInstance.setDBInstanceStatus(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("AutomaticRestartTime", targetDepth)) {
+                    dBInstance.setAutomaticRestartTime(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
                     continue;
                 }
 
@@ -195,6 +200,11 @@ public class DBInstanceStaxUnmarshaller implements Unmarshaller<DBInstance, Stax
                     continue;
                 }
 
+                if (context.testExpression("ReplicaMode", targetDepth)) {
+                    dBInstance.setReplicaMode(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("LicenseModel", targetDepth)) {
                     dBInstance.setLicenseModel(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
@@ -217,6 +227,11 @@ public class DBInstanceStaxUnmarshaller implements Unmarshaller<DBInstance, Stax
 
                 if (context.testExpression("CharacterSetName", targetDepth)) {
                     dBInstance.setCharacterSetName(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("NcharCharacterSetName", targetDepth)) {
+                    dBInstance.setNcharCharacterSetName(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
 
@@ -387,6 +402,142 @@ public class DBInstanceStaxUnmarshaller implements Unmarshaller<DBInstance, Stax
 
                 if (context.testExpression("MaxAllocatedStorage", targetDepth)) {
                     dBInstance.setMaxAllocatedStorage(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("TagList", targetDepth)) {
+                    dBInstance.withTagList(new ArrayList<Tag>());
+                    continue;
+                }
+
+                if (context.testExpression("TagList/Tag", targetDepth)) {
+                    dBInstance.withTagList(TagStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DBInstanceAutomatedBackupsReplications", targetDepth)) {
+                    dBInstance.withDBInstanceAutomatedBackupsReplications(new ArrayList<DBInstanceAutomatedBackupsReplication>());
+                    continue;
+                }
+
+                if (context.testExpression("DBInstanceAutomatedBackupsReplications/DBInstanceAutomatedBackupsReplication", targetDepth)) {
+                    dBInstance.withDBInstanceAutomatedBackupsReplications(DBInstanceAutomatedBackupsReplicationStaxUnmarshaller.getInstance().unmarshall(
+                            context));
+                    continue;
+                }
+
+                if (context.testExpression("CustomerOwnedIpEnabled", targetDepth)) {
+                    dBInstance.setCustomerOwnedIpEnabled(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("AwsBackupRecoveryPointArn", targetDepth)) {
+                    dBInstance.setAwsBackupRecoveryPointArn(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ActivityStreamStatus", targetDepth)) {
+                    dBInstance.setActivityStreamStatus(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ActivityStreamKmsKeyId", targetDepth)) {
+                    dBInstance.setActivityStreamKmsKeyId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ActivityStreamKinesisStreamName", targetDepth)) {
+                    dBInstance.setActivityStreamKinesisStreamName(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ActivityStreamMode", targetDepth)) {
+                    dBInstance.setActivityStreamMode(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ActivityStreamEngineNativeAuditFieldsIncluded", targetDepth)) {
+                    dBInstance.setActivityStreamEngineNativeAuditFieldsIncluded(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("AutomationMode", targetDepth)) {
+                    dBInstance.setAutomationMode(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ResumeFullAutomationModeTime", targetDepth)) {
+                    dBInstance.setResumeFullAutomationModeTime(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("CustomIamInstanceProfile", targetDepth)) {
+                    dBInstance.setCustomIamInstanceProfile(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("BackupTarget", targetDepth)) {
+                    dBInstance.setBackupTarget(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("NetworkType", targetDepth)) {
+                    dBInstance.setNetworkType(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ActivityStreamPolicyStatus", targetDepth)) {
+                    dBInstance.setActivityStreamPolicyStatus(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("StorageThroughput", targetDepth)) {
+                    dBInstance.setStorageThroughput(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DBSystemId", targetDepth)) {
+                    dBInstance.setDBSystemId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MasterUserSecret", targetDepth)) {
+                    dBInstance.setMasterUserSecret(MasterUserSecretStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("CertificateDetails", targetDepth)) {
+                    dBInstance.setCertificateDetails(CertificateDetailsStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("ReadReplicaSourceDBClusterIdentifier", targetDepth)) {
+                    dBInstance.setReadReplicaSourceDBClusterIdentifier(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("PercentProgress", targetDepth)) {
+                    dBInstance.setPercentProgress(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DedicatedLogVolume", targetDepth)) {
+                    dBInstance.setDedicatedLogVolume(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("IsStorageConfigUpgradeAvailable", targetDepth)) {
+                    dBInstance.setIsStorageConfigUpgradeAvailable(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MultiTenant", targetDepth)) {
+                    dBInstance.setMultiTenant(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("EngineLifecycleSupport", targetDepth)) {
+                    dBInstance.setEngineLifecycleSupport(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

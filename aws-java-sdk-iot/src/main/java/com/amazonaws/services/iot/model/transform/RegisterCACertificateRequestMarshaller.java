@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.iot.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -37,6 +38,10 @@ public class RegisterCACertificateRequestMarshaller {
             .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("allowAutoRegistration").build();
     private static final MarshallingInfo<StructuredPojo> REGISTRATIONCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("registrationConfig").build();
+    private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("tags").build();
+    private static final MarshallingInfo<String> CERTIFICATEMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("certificateMode").build();
 
     private static final RegisterCACertificateRequestMarshaller instance = new RegisterCACertificateRequestMarshaller();
 
@@ -59,6 +64,8 @@ public class RegisterCACertificateRequestMarshaller {
             protocolMarshaller.marshall(registerCACertificateRequest.getSetAsActive(), SETASACTIVE_BINDING);
             protocolMarshaller.marshall(registerCACertificateRequest.getAllowAutoRegistration(), ALLOWAUTOREGISTRATION_BINDING);
             protocolMarshaller.marshall(registerCACertificateRequest.getRegistrationConfig(), REGISTRATIONCONFIG_BINDING);
+            protocolMarshaller.marshall(registerCACertificateRequest.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(registerCACertificateRequest.getCertificateMode(), CERTIFICATEMODE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

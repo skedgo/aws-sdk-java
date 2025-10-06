@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.translate.AmazonTranslateClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.translate.model.*;
+
 import com.amazonaws.services.translate.model.transform.*;
 
 /**
@@ -51,7 +52,7 @@ import com.amazonaws.services.translate.model.transform.*;
  * until the service call completes.
  * <p>
  * <p>
- * Provides translation between one source language and another of the same set of languages.
+ * Provides translation of the input content from the source language to the target language.
  * </p>
  */
 @ThreadSafe
@@ -77,35 +78,50 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withModeledClass(
-                                    com.amazonaws.services.translate.model.ServiceUnavailableException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConcurrentModificationException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.translate.model.transform.ConcurrentModificationExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DetectedLanguageLowConfidenceException").withModeledClass(
-                                    com.amazonaws.services.translate.model.DetectedLanguageLowConfidenceException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyTagsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.translate.model.transform.TooManyTagsExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterValueException").withModeledClass(
-                                    com.amazonaws.services.translate.model.InvalidParameterValueException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.translate.model.transform.ConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withModeledClass(
-                                    com.amazonaws.services.translate.model.InvalidRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("DetectedLanguageLowConfidenceException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.translate.model.transform.DetectedLanguageLowConfidenceExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TextSizeLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.translate.model.TextSizeLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidParameterValueException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.translate.model.transform.InvalidParameterValueExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withModeledClass(
-                                    com.amazonaws.services.translate.model.ResourceNotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.translate.model.transform.InvalidRequestExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InternalServerException").withModeledClass(
-                                    com.amazonaws.services.translate.model.InternalServerException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceNotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.translate.model.transform.ResourceNotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedLanguagePairException").withModeledClass(
-                                    com.amazonaws.services.translate.model.UnsupportedLanguagePairException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedLanguagePairException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.translate.model.transform.UnsupportedLanguagePairExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withModeledClass(
-                                    com.amazonaws.services.translate.model.TooManyRequestsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidFilterException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.translate.model.transform.InvalidFilterExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
-                                    com.amazonaws.services.translate.model.LimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.translate.model.transform.ServiceUnavailableExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TextSizeLimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.translate.model.transform.TextSizeLimitExceededExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InternalServerException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.translate.model.transform.InternalServerExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedDisplayLanguageCodeException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.translate.model.transform.UnsupportedDisplayLanguageCodeExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.translate.model.transform.TooManyRequestsExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.translate.model.transform.LimitExceededExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.translate.model.AmazonTranslateException.class));
 
     public static AmazonTranslateClientBuilder builder() {
@@ -156,6 +172,148 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
+     * Creates a parallel data resource in Amazon Translate by importing an input file from Amazon S3. Parallel data
+     * files contain examples that show how you want segments of text to be translated. By adding parallel data, you can
+     * influence the style, tone, and word choice in your translation output.
+     * </p>
+     * 
+     * @param createParallelDataRequest
+     * @return Result of the CreateParallelData operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws InvalidRequestException
+     *         The request that you made is not valid. Check your request to determine why it's not valid and then retry
+     *         the request.
+     * @throws LimitExceededException
+     *         The specified limit has been exceeded. Review your request and retry it with a quantity below the stated
+     *         limit.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws TooManyTagsException
+     *         You have added too many tags to this resource. The maximum is 50 tags.
+     * @throws ConflictException
+     *         There was a conflict processing the request. Try your request again.
+     * @throws ConcurrentModificationException
+     *         Another modification is being made. That modification must complete before you can make your change.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.CreateParallelData
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/CreateParallelData" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public CreateParallelDataResult createParallelData(CreateParallelDataRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateParallelData(request);
+    }
+
+    @SdkInternalApi
+    final CreateParallelDataResult executeCreateParallelData(CreateParallelDataRequest createParallelDataRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createParallelDataRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateParallelDataRequest> request = null;
+        Response<CreateParallelDataResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateParallelDataRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createParallelDataRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateParallelData");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateParallelDataResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateParallelDataResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a parallel data resource in Amazon Translate.
+     * </p>
+     * 
+     * @param deleteParallelDataRequest
+     * @return Result of the DeleteParallelData operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         Another modification is being made. That modification must complete before you can make your change.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.DeleteParallelData
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/DeleteParallelData" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DeleteParallelDataResult deleteParallelData(DeleteParallelDataRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteParallelData(request);
+    }
+
+    @SdkInternalApi
+    final DeleteParallelDataResult executeDeleteParallelData(DeleteParallelDataRequest deleteParallelDataRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteParallelDataRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteParallelDataRequest> request = null;
+        Response<DeleteParallelDataResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteParallelDataRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteParallelDataRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteParallelData");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteParallelDataResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteParallelDataResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * A synchronous action that deletes a custom terminology.
      * </p>
      * 
@@ -163,10 +321,13 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
      * @return Result of the DeleteTerminology operation returned by the service.
      * @throws ResourceNotFoundException
      *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
-     *         different resource will accomplish your needs before retrying the revised request. .
+     *         different resource will accomplish your needs before retrying the revised request.
      * @throws TooManyRequestsException
      *         You have made too many requests within a short period of time. Wait for a short time and then try your
      *         request again.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
      * @throws InternalServerException
      *         An internal server error occurred. Retry your request.
      * @sample AmazonTranslate.DeleteTerminology
@@ -194,6 +355,8 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
                 request = new DeleteTerminologyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteTerminologyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteTerminology");
@@ -217,6 +380,138 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
+     * Gets the properties associated with an asynchronous batch translation job including name, ID, status, source and
+     * target languages, input/output S3 buckets, and so on.
+     * </p>
+     * 
+     * @param describeTextTranslationJobRequest
+     * @return Result of the DescribeTextTranslationJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.DescribeTextTranslationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/DescribeTextTranslationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeTextTranslationJobResult describeTextTranslationJob(DescribeTextTranslationJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeTextTranslationJob(request);
+    }
+
+    @SdkInternalApi
+    final DescribeTextTranslationJobResult executeDescribeTextTranslationJob(DescribeTextTranslationJobRequest describeTextTranslationJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeTextTranslationJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeTextTranslationJobRequest> request = null;
+        Response<DescribeTextTranslationJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeTextTranslationJobRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeTextTranslationJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeTextTranslationJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeTextTranslationJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeTextTranslationJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides information about a parallel data resource.
+     * </p>
+     * 
+     * @param getParallelDataRequest
+     * @return Result of the GetParallelData operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.GetParallelData
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/GetParallelData" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetParallelDataResult getParallelData(GetParallelDataRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetParallelData(request);
+    }
+
+    @SdkInternalApi
+    final GetParallelDataResult executeGetParallelData(GetParallelDataRequest getParallelDataRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getParallelDataRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetParallelDataRequest> request = null;
+        Response<GetParallelDataResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetParallelDataRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getParallelDataRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetParallelData");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetParallelDataResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetParallelDataResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Retrieves a custom terminology.
      * </p>
      * 
@@ -224,10 +519,10 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
      * @return Result of the GetTerminology operation returned by the service.
      * @throws ResourceNotFoundException
      *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
-     *         different resource will accomplish your needs before retrying the revised request. .
+     *         different resource will accomplish your needs before retrying the revised request.
      * @throws InvalidParameterValueException
-     *         The value of the parameter is invalid. Review the value of the parameter you are using to correct it, and
-     *         then retry your operation.
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
      * @throws TooManyRequestsException
      *         You have made too many requests within a short period of time. Wait for a short time and then try your
      *         request again.
@@ -258,6 +553,8 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
                 request = new GetTerminologyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getTerminologyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetTerminology");
@@ -281,28 +578,31 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Creates or updates a custom terminology, depending on whether or not one already exists for the given terminology
-     * name. Importing a terminology with the same name as an existing one will merge the terminologies based on the
-     * chosen merge strategy. Currently, the only supported merge strategy is OVERWRITE, and so the imported terminology
-     * will overwrite an existing terminology of the same name.
+     * Creates or updates a custom terminology, depending on whether one already exists for the given terminology name.
+     * Importing a terminology with the same name as an existing one will merge the terminologies based on the chosen
+     * merge strategy. The only supported merge strategy is OVERWRITE, where the imported terminology overwrites the
+     * existing terminology of the same name.
      * </p>
      * <p>
-     * If you import a terminology that overwrites an existing one, the new terminology take up to 10 minutes to fully
-     * propagate and be available for use in a translation due to cache policies with the DataPlane service that
-     * performs the translations.
+     * If you import a terminology that overwrites an existing one, the new terminology takes up to 10 minutes to fully
+     * propagate. After that, translations have access to the new terminology.
      * </p>
      * 
      * @param importTerminologyRequest
      * @return Result of the ImportTerminology operation returned by the service.
      * @throws InvalidParameterValueException
-     *         The value of the parameter is invalid. Review the value of the parameter you are using to correct it, and
-     *         then retry your operation.
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
      * @throws LimitExceededException
      *         The specified limit has been exceeded. Review your request and retry it with a quantity below the stated
      *         limit.
      * @throws TooManyRequestsException
      *         You have made too many requests within a short period of time. Wait for a short time and then try your
      *         request again.
+     * @throws TooManyTagsException
+     *         You have added too many tags to this resource. The maximum is 50 tags.
+     * @throws ConcurrentModificationException
+     *         Another modification is being made. That modification must complete before you can make your change.
      * @throws InternalServerException
      *         An internal server error occurred. Retry your request.
      * @sample AmazonTranslate.ImportTerminology
@@ -330,6 +630,8 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
                 request = new ImportTerminologyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(importTerminologyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ImportTerminology");
@@ -353,14 +655,206 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
+     * Provides a list of languages (RFC-5646 codes and names) that Amazon Translate supports.
+     * </p>
+     * 
+     * @param listLanguagesRequest
+     * @return Result of the ListLanguages operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws UnsupportedDisplayLanguageCodeException
+     *         Requested display language code is not supported.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.ListLanguages
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/ListLanguages" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListLanguagesResult listLanguages(ListLanguagesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListLanguages(request);
+    }
+
+    @SdkInternalApi
+    final ListLanguagesResult executeListLanguages(ListLanguagesRequest listLanguagesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listLanguagesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListLanguagesRequest> request = null;
+        Response<ListLanguagesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListLanguagesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listLanguagesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListLanguages");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListLanguagesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListLanguagesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Provides a list of your parallel data resources in Amazon Translate.
+     * </p>
+     * 
+     * @param listParallelDataRequest
+     * @return Result of the ListParallelData operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.ListParallelData
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/ListParallelData" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListParallelDataResult listParallelData(ListParallelDataRequest request) {
+        request = beforeClientExecution(request);
+        return executeListParallelData(request);
+    }
+
+    @SdkInternalApi
+    final ListParallelDataResult executeListParallelData(ListParallelDataRequest listParallelDataRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listParallelDataRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListParallelDataRequest> request = null;
+        Response<ListParallelDataResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListParallelDataRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listParallelDataRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListParallelData");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListParallelDataResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListParallelDataResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists all tags associated with a given Amazon Translate resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/translate/latest/dg/tagging.html"> Tagging your resources</a>.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/ListTagsForResource" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTagsForResource(request);
+    }
+
+    @SdkInternalApi
+    final ListTagsForResourceResult executeListTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForResourceRequest> request = null;
+        Response<ListTagsForResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTagsForResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Provides a list of custom terminologies associated with your account.
      * </p>
      * 
      * @param listTerminologiesRequest
      * @return Result of the ListTerminologies operation returned by the service.
      * @throws InvalidParameterValueException
-     *         The value of the parameter is invalid. Review the value of the parameter you are using to correct it, and
-     *         then retry your operation.
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
      * @throws TooManyRequestsException
      *         You have made too many requests within a short period of time. Wait for a short time and then try your
      *         request again.
@@ -391,6 +885,8 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
                 request = new ListTerminologiesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTerminologiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTerminologies");
@@ -414,129 +910,393 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
 
     /**
      * <p>
-     * Translates input text from the source language to the target language. It is not necessary to use English (en) as
-     * either the source or the target language but not all language combinations are supported by Amazon Translate. For
-     * more information, see <a href="http://docs.aws.amazon.com/translate/latest/dg/pairs.html">Supported Language
-     * Pairs</a>.
+     * Gets a list of the batch translation jobs that you have submitted.
      * </p>
-     * <ul>
-     * <li>
+     * 
+     * @param listTextTranslationJobsRequest
+     * @return Result of the ListTextTranslationJobs operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request that you made is not valid. Check your request to determine why it's not valid and then retry
+     *         the request.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws InvalidFilterException
+     *         The filter specified for the operation is not valid. Specify a different filter.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.ListTextTranslationJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/ListTextTranslationJobs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListTextTranslationJobsResult listTextTranslationJobs(ListTextTranslationJobsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTextTranslationJobs(request);
+    }
+
+    @SdkInternalApi
+    final ListTextTranslationJobsResult executeListTextTranslationJobs(ListTextTranslationJobsRequest listTextTranslationJobsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTextTranslationJobsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTextTranslationJobsRequest> request = null;
+        Response<ListTextTranslationJobsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTextTranslationJobsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listTextTranslationJobsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTextTranslationJobs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTextTranslationJobsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListTextTranslationJobsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
      * <p>
-     * Arabic (ar)
+     * Starts an asynchronous batch translation job. Use batch translation jobs to translate large volumes of text
+     * across multiple documents at once. For batch translation, you can input documents with different source languages
+     * (specify <code>auto</code> as the source language). You can specify one or more target languages. Batch
+     * translation translates each input document into each of the target languages. For more information, see <a
+     * href="https://docs.aws.amazon.com/translate/latest/dg/async.html">Asynchronous batch processing</a>.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * Chinese (Simplified) (zh)
+     * Batch translation jobs can be described with the <a>DescribeTextTranslationJob</a> operation, listed with the
+     * <a>ListTextTranslationJobs</a> operation, and stopped with the <a>StopTextTranslationJob</a> operation.
      * </p>
-     * </li>
-     * <li>
+     * 
+     * @param startTextTranslationJobRequest
+     * @return Result of the StartTextTranslationJob operation returned by the service.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws UnsupportedLanguagePairException
+     *         Amazon Translate does not support translation from the language of the source text into the requested
+     *         target language. For more information, see <a
+     *         href="https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html">Supported languages</a>.
+     * @throws InvalidRequestException
+     *         The request that you made is not valid. Check your request to determine why it's not valid and then retry
+     *         the request.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.StartTextTranslationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/StartTextTranslationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public StartTextTranslationJobResult startTextTranslationJob(StartTextTranslationJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartTextTranslationJob(request);
+    }
+
+    @SdkInternalApi
+    final StartTextTranslationJobResult executeStartTextTranslationJob(StartTextTranslationJobRequest startTextTranslationJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startTextTranslationJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartTextTranslationJobRequest> request = null;
+        Response<StartTextTranslationJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartTextTranslationJobRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(startTextTranslationJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartTextTranslationJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartTextTranslationJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new StartTextTranslationJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
      * <p>
-     * Chinese (Traditional) (zh-TW)
+     * Stops an asynchronous batch translation job that is in progress.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * Czech (cs)
+     * If the job's state is <code>IN_PROGRESS</code>, the job will be marked for termination and put into the
+     * <code>STOP_REQUESTED</code> state. If the job completes before it can be stopped, it is put into the
+     * <code>COMPLETED</code> state. Otherwise, the job is put into the <code>STOPPED</code> state.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * Danish (da)
+     * Asynchronous batch translation jobs are started with the <a>StartTextTranslationJob</a> operation. You can use
+     * the <a>DescribeTextTranslationJob</a> or <a>ListTextTranslationJobs</a> operations to get a batch translation
+     * job's <code>JobId</code>.
      * </p>
-     * </li>
-     * <li>
+     * 
+     * @param stopTextTranslationJobRequest
+     * @return Result of the StopTextTranslationJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.StopTextTranslationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/StopTextTranslationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public StopTextTranslationJobResult stopTextTranslationJob(StopTextTranslationJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeStopTextTranslationJob(request);
+    }
+
+    @SdkInternalApi
+    final StopTextTranslationJobResult executeStopTextTranslationJob(StopTextTranslationJobRequest stopTextTranslationJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(stopTextTranslationJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StopTextTranslationJobRequest> request = null;
+        Response<StopTextTranslationJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StopTextTranslationJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopTextTranslationJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopTextTranslationJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StopTextTranslationJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new StopTextTranslationJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
      * <p>
-     * Dutch (nl)
+     * Associates a specific tag with a resource. A tag is a key-value pair that adds as a metadata to a resource. For
+     * more information, see <a href="https://docs.aws.amazon.com/translate/latest/dg/tagging.html"> Tagging your
+     * resources</a>.
      * </p>
-     * </li>
-     * <li>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws ConcurrentModificationException
+     *         Another modification is being made. That modification must complete before you can make your change.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws TooManyTagsException
+     *         You have added too many tags to this resource. The maximum is 50 tags.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagResource(request);
+    }
+
+    @SdkInternalApi
+    final TagResourceResult executeTagResource(TagResourceRequest tagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagResourceRequest> request = null;
+        Response<TagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
      * <p>
-     * English (en)
+     * Translates the input document from the source language to the target language. This synchronous operation
+     * supports text, HTML, or Word documents as the input document. <code>TranslateDocument</code> supports
+     * translations from English to any supported language, and from any supported language to English. Therefore,
+     * specify either the source language code or the target language code as “en” (English).
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * Finnish (fi)
+     * If you set the <code>Formality</code> parameter, the request will fail if the target language does not support
+     * formality. For a list of target languages that support formality, see <a
+     * href="https://docs.aws.amazon.com/translate/latest/dg/customizing-translations-formality.html">Setting
+     * formality</a>.
      * </p>
-     * </li>
-     * <li>
+     * 
+     * @param translateDocumentRequest
+     * @return Result of the TranslateDocument operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request that you made is not valid. Check your request to determine why it's not valid and then retry
+     *         the request.
+     * @throws LimitExceededException
+     *         The specified limit has been exceeded. Review your request and retry it with a quantity below the stated
+     *         limit.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws UnsupportedLanguagePairException
+     *         Amazon Translate does not support translation from the language of the source text into the requested
+     *         target language. For more information, see <a
+     *         href="https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html">Supported languages</a>.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @throws ServiceUnavailableException
+     *         The Amazon Translate service is temporarily unavailable. Wait a bit and then retry your request.
+     * @sample AmazonTranslate.TranslateDocument
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/TranslateDocument" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public TranslateDocumentResult translateDocument(TranslateDocumentRequest request) {
+        request = beforeClientExecution(request);
+        return executeTranslateDocument(request);
+    }
+
+    @SdkInternalApi
+    final TranslateDocumentResult executeTranslateDocument(TranslateDocumentRequest translateDocumentRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(translateDocumentRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TranslateDocumentRequest> request = null;
+        Response<TranslateDocumentResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TranslateDocumentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(translateDocumentRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TranslateDocument");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TranslateDocumentResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TranslateDocumentResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
      * <p>
-     * French (fr)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * German (de)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Hebrew (he)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Indonesian (id)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Italian (it)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Japanese (ja)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Korean (ko)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Polish (pl)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Portuguese (pt)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Russian (ru)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Spanish (es)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Swedish (sv)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Turkish (tr)
-     * </p>
-     * </li>
-     * </ul>
-     * <p>
-     * To have Amazon Translate determine the source language of your text, you can specify <code>auto</code> in the
-     * <code>SourceLanguageCode</code> field. If you specify <code>auto</code>, Amazon Translate will call Amazon
-     * Comprehend to determine the source language.
+     * Translates input text from the source language to the target language. For a list of available languages and
+     * language codes, see <a href="https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html">Supported
+     * languages</a>.
      * </p>
      * 
      * @param translateTextRequest
      * @return Result of the TranslateText operation returned by the service.
      * @throws InvalidRequestException
-     *         The request that you made is invalid. Check your request to determine why it's invalid and then retry the
-     *         request.
+     *         The request that you made is not valid. Check your request to determine why it's not valid and then retry
+     *         the request.
      * @throws TextSizeLimitExceededException
      *         The size of the text you submitted exceeds the size limit. Reduce the size of the text or use a smaller
      *         document and then retry your request.
@@ -545,7 +1305,8 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
      *         request again.
      * @throws UnsupportedLanguagePairException
      *         Amazon Translate does not support translation from the language of the source text into the requested
-     *         target language. For more information, see <a>how-to-error-msg</a>.
+     *         target language. For more information, see <a
+     *         href="https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html">Supported languages</a>.
      * @throws DetectedLanguageLowConfidenceException
      *         The confidence that Amazon Comprehend accurately detected the source language is low. If a low confidence
      *         level is acceptable for your application, you can use the language in the exception to call Amazon
@@ -554,11 +1315,11 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
      *         >DetectDominantLanguage</a> operation in the <i>Amazon Comprehend Developer Guide</i>.
      * @throws ResourceNotFoundException
      *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
-     *         different resource will accomplish your needs before retrying the revised request. .
+     *         different resource will accomplish your needs before retrying the revised request.
      * @throws InternalServerException
      *         An internal server error occurred. Retry your request.
      * @throws ServiceUnavailableException
-     *         The Amazon Translate service is temporarily unavailable. Please wait a bit and then retry your request.
+     *         The Amazon Translate service is temporarily unavailable. Wait a bit and then retry your request.
      * @sample AmazonTranslate.TranslateText
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/TranslateText" target="_top">AWS API
      *      Documentation</a>
@@ -584,6 +1345,8 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
                 request = new TranslateTextRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(translateTextRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TranslateText");
@@ -595,6 +1358,148 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
 
             HttpResponseHandler<AmazonWebServiceResponse<TranslateTextResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TranslateTextResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes a specific tag associated with an Amazon Translate resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/translate/latest/dg/tagging.html"> Tagging your resources</a>.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws ConcurrentModificationException
+     *         Another modification is being made. That modification must complete before you can make your change.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagResource(request);
+    }
+
+    @SdkInternalApi
+    final UntagResourceResult executeUntagResource(UntagResourceRequest untagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagResourceRequest> request = null;
+        Response<UntagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a previously created parallel data resource by importing a new input file from Amazon S3.
+     * </p>
+     * 
+     * @param updateParallelDataRequest
+     * @return Result of the UpdateParallelData operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         Another modification is being made. That modification must complete before you can make your change.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws InvalidRequestException
+     *         The request that you made is not valid. Check your request to determine why it's not valid and then retry
+     *         the request.
+     * @throws LimitExceededException
+     *         The specified limit has been exceeded. Review your request and retry it with a quantity below the stated
+     *         limit.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws ConflictException
+     *         There was a conflict processing the request. Try your request again.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.UpdateParallelData
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/UpdateParallelData" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public UpdateParallelDataResult updateParallelData(UpdateParallelDataRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateParallelData(request);
+    }
+
+    @SdkInternalApi
+    final UpdateParallelDataResult executeUpdateParallelData(UpdateParallelDataRequest updateParallelDataRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateParallelDataRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateParallelDataRequest> request = null;
+        Response<UpdateParallelDataResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateParallelDataRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateParallelDataRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Translate");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateParallelData");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateParallelDataResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateParallelDataResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -679,6 +1584,11 @@ public class AmazonTranslateClient extends AmazonWebServiceClient implements Ama
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

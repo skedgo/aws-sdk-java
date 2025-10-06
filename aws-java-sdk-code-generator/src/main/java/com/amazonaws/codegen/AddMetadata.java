@@ -23,6 +23,8 @@ import com.amazonaws.codegen.model.intermediate.Protocol;
 import com.amazonaws.codegen.model.service.Operation;
 import com.amazonaws.codegen.model.service.ServiceMetadata;
 import com.amazonaws.codegen.model.service.ServiceModel;
+import com.amazonaws.codegen.utils.ProtocolUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -117,12 +119,13 @@ final class AddMetadata {
                 .withServiceId(getServiceIdIfNotProvided(serviceMetadata, interfaceName))
                 .withSyncClient(Utils.getClientName(interfaceName))
                 .withSyncInterface(interfaceName)
-                .withProtocol(Protocol.fromValue(serviceMetadata.getProtocol()))
+                .withProtocol(Protocol.fromValue(ProtocolUtils.resolveProtocol(serviceMetadata)))
                 .withJsonVersion(serviceMetadata.getJsonVersion())
                 .withEndpointPrefix(serviceMetadata.getEndpointPrefix())
                 .withSigningName(serviceMetadata.getSigningName())
                 .withRequiresApiKey(requiresApiKey(serviceModel))
-                .withUid(serviceMetadata.getUid());
+                .withUid(serviceMetadata.getUid())
+                .withAwsQueryCompatible(serviceMetadata.getAwsQueryCompatible());
 
         final String jsonVersion = getJsonVersion(metadata, serviceMetadata);
         metadata.setJsonVersion(jsonVersion);

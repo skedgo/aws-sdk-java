@@ -1,0 +1,214 @@
+/*
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
+ * the License. A copy of the License is located at
+ * 
+ * http://aws.amazon.com/apache2.0
+ * 
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
+ * and limitations under the License.
+ */
+package com.amazonaws.services.ec2.model;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+
+/**
+ * <p>
+ * Describes the DNS options for an endpoint.
+ * </p>
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DnsOptions" target="_top">AWS API
+ *      Documentation</a>
+ */
+@Generated("com.amazonaws:aws-java-sdk-code-generator")
+public class DnsOptions implements Serializable, Cloneable {
+
+    /**
+     * <p>
+     * The DNS records created for the endpoint.
+     * </p>
+     */
+    private String dnsRecordIpType;
+    /**
+     * <p>
+     * Indicates whether to enable private DNS only for inbound endpoints.
+     * </p>
+     */
+    private Boolean privateDnsOnlyForInboundResolverEndpoint;
+
+    /**
+     * <p>
+     * The DNS records created for the endpoint.
+     * </p>
+     * 
+     * @param dnsRecordIpType
+     *        The DNS records created for the endpoint.
+     * @see DnsRecordIpType
+     */
+
+    public void setDnsRecordIpType(String dnsRecordIpType) {
+        this.dnsRecordIpType = dnsRecordIpType;
+    }
+
+    /**
+     * <p>
+     * The DNS records created for the endpoint.
+     * </p>
+     * 
+     * @return The DNS records created for the endpoint.
+     * @see DnsRecordIpType
+     */
+
+    public String getDnsRecordIpType() {
+        return this.dnsRecordIpType;
+    }
+
+    /**
+     * <p>
+     * The DNS records created for the endpoint.
+     * </p>
+     * 
+     * @param dnsRecordIpType
+     *        The DNS records created for the endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DnsRecordIpType
+     */
+
+    public DnsOptions withDnsRecordIpType(String dnsRecordIpType) {
+        setDnsRecordIpType(dnsRecordIpType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The DNS records created for the endpoint.
+     * </p>
+     * 
+     * @param dnsRecordIpType
+     *        The DNS records created for the endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DnsRecordIpType
+     */
+
+    public DnsOptions withDnsRecordIpType(DnsRecordIpType dnsRecordIpType) {
+        this.dnsRecordIpType = dnsRecordIpType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable private DNS only for inbound endpoints.
+     * </p>
+     * 
+     * @param privateDnsOnlyForInboundResolverEndpoint
+     *        Indicates whether to enable private DNS only for inbound endpoints.
+     */
+
+    public void setPrivateDnsOnlyForInboundResolverEndpoint(Boolean privateDnsOnlyForInboundResolverEndpoint) {
+        this.privateDnsOnlyForInboundResolverEndpoint = privateDnsOnlyForInboundResolverEndpoint;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable private DNS only for inbound endpoints.
+     * </p>
+     * 
+     * @return Indicates whether to enable private DNS only for inbound endpoints.
+     */
+
+    public Boolean getPrivateDnsOnlyForInboundResolverEndpoint() {
+        return this.privateDnsOnlyForInboundResolverEndpoint;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable private DNS only for inbound endpoints.
+     * </p>
+     * 
+     * @param privateDnsOnlyForInboundResolverEndpoint
+     *        Indicates whether to enable private DNS only for inbound endpoints.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DnsOptions withPrivateDnsOnlyForInboundResolverEndpoint(Boolean privateDnsOnlyForInboundResolverEndpoint) {
+        setPrivateDnsOnlyForInboundResolverEndpoint(privateDnsOnlyForInboundResolverEndpoint);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to enable private DNS only for inbound endpoints.
+     * </p>
+     * 
+     * @return Indicates whether to enable private DNS only for inbound endpoints.
+     */
+
+    public Boolean isPrivateDnsOnlyForInboundResolverEndpoint() {
+        return this.privateDnsOnlyForInboundResolverEndpoint;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
+     *
+     * @return A string representation of this object.
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        if (getDnsRecordIpType() != null)
+            sb.append("DnsRecordIpType: ").append(getDnsRecordIpType()).append(",");
+        if (getPrivateDnsOnlyForInboundResolverEndpoint() != null)
+            sb.append("PrivateDnsOnlyForInboundResolverEndpoint: ").append(getPrivateDnsOnlyForInboundResolverEndpoint());
+        sb.append("}");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof DnsOptions == false)
+            return false;
+        DnsOptions other = (DnsOptions) obj;
+        if (other.getDnsRecordIpType() == null ^ this.getDnsRecordIpType() == null)
+            return false;
+        if (other.getDnsRecordIpType() != null && other.getDnsRecordIpType().equals(this.getDnsRecordIpType()) == false)
+            return false;
+        if (other.getPrivateDnsOnlyForInboundResolverEndpoint() == null ^ this.getPrivateDnsOnlyForInboundResolverEndpoint() == null)
+            return false;
+        if (other.getPrivateDnsOnlyForInboundResolverEndpoint() != null
+                && other.getPrivateDnsOnlyForInboundResolverEndpoint().equals(this.getPrivateDnsOnlyForInboundResolverEndpoint()) == false)
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+
+        hashCode = prime * hashCode + ((getDnsRecordIpType() == null) ? 0 : getDnsRecordIpType().hashCode());
+        hashCode = prime * hashCode + ((getPrivateDnsOnlyForInboundResolverEndpoint() == null) ? 0 : getPrivateDnsOnlyForInboundResolverEndpoint().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public DnsOptions clone() {
+        try {
+            return (DnsOptions) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Got a CloneNotSupportedException from Object.clone() " + "even though we're Cloneable!", e);
+        }
+    }
+
+}

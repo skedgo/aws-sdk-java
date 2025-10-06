@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,7 +44,8 @@ public class AttributePayload implements Serializable, Cloneable, StructuredPojo
      * </p>
      * <note>
      * <p>
-     * The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code>.
+     * The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code> or
+     * <code>UpdateThingGroup</code>.
      * </p>
      * </note>
      */
@@ -105,6 +106,13 @@ public class AttributePayload implements Serializable, Cloneable, StructuredPojo
         return this;
     }
 
+    /**
+     * Add a single Attributes entry
+     *
+     * @see AttributePayload#withAttributes
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public AttributePayload addAttributesEntry(String key, String value) {
         if (null == this.attributes) {
             this.attributes = new java.util.HashMap<String, String>();
@@ -136,7 +144,8 @@ public class AttributePayload implements Serializable, Cloneable, StructuredPojo
      * </p>
      * <note>
      * <p>
-     * The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code>.
+     * The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code> or
+     * <code>UpdateThingGroup</code>.
      * </p>
      * </note>
      * 
@@ -148,7 +157,8 @@ public class AttributePayload implements Serializable, Cloneable, StructuredPojo
      *        </p>
      *        <note>
      *        <p>
-     *        The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code>.
+     *        The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code> or
+     *        <code>UpdateThingGroup</code>.
      *        </p>
      */
 
@@ -166,7 +176,8 @@ public class AttributePayload implements Serializable, Cloneable, StructuredPojo
      * </p>
      * <note>
      * <p>
-     * The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code>.
+     * The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code> or
+     * <code>UpdateThingGroup</code>.
      * </p>
      * </note>
      * 
@@ -177,7 +188,8 @@ public class AttributePayload implements Serializable, Cloneable, StructuredPojo
      *         </p>
      *         <note>
      *         <p>
-     *         The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code>.
+     *         The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code> or
+     *         <code>UpdateThingGroup</code>.
      *         </p>
      */
 
@@ -195,7 +207,8 @@ public class AttributePayload implements Serializable, Cloneable, StructuredPojo
      * </p>
      * <note>
      * <p>
-     * The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code>.
+     * The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code> or
+     * <code>UpdateThingGroup</code>.
      * </p>
      * </note>
      * 
@@ -207,7 +220,8 @@ public class AttributePayload implements Serializable, Cloneable, StructuredPojo
      *        </p>
      *        <note>
      *        <p>
-     *        The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code>.
+     *        The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code> or
+     *        <code>UpdateThingGroup</code>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -227,7 +241,8 @@ public class AttributePayload implements Serializable, Cloneable, StructuredPojo
      * </p>
      * <note>
      * <p>
-     * The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code>.
+     * The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code> or
+     * <code>UpdateThingGroup</code>.
      * </p>
      * </note>
      * 
@@ -238,7 +253,8 @@ public class AttributePayload implements Serializable, Cloneable, StructuredPojo
      *         </p>
      *         <note>
      *         <p>
-     *         The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code>.
+     *         The <code>merge</code> attribute is only valid when calling <code>UpdateThing</code> or
+     *         <code>UpdateThingGroup</code>.
      *         </p>
      */
 

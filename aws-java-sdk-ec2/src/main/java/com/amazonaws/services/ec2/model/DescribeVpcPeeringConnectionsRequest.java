@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -38,7 +38,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * <code>accepter-vpc-info.owner-id</code> - The AWS account ID of the owner of the accepter VPC.
+     * <code>accepter-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the accepter VPC.
      * </p>
      * </li>
      * <li>
@@ -58,7 +58,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * <code>requester-vpc-info.owner-id</code> - The AWS account ID of the owner of the requester VPC.
+     * <code>requester-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the requester VPC.
      * </p>
      * </li>
      * <li>
@@ -103,7 +103,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
     /**
      * <p>
-     * One or more VPC peering connection IDs.
+     * The IDs of the VPC peering connections.
      * </p>
      * <p>
      * Default: Describes all your VPC peering connections.
@@ -112,21 +112,23 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
     private com.amazonaws.internal.SdkInternalList<String> vpcPeeringConnectionIds;
     /**
      * <p>
-     * The token for the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      */
     private String nextToken;
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      */
     private Integer maxResults;
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -136,7 +138,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * <code>accepter-vpc-info.owner-id</code> - The AWS account ID of the owner of the accepter VPC.
+     * <code>accepter-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the accepter VPC.
      * </p>
      * </li>
      * <li>
@@ -156,7 +158,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * <code>requester-vpc-info.owner-id</code> - The AWS account ID of the owner of the requester VPC.
+     * <code>requester-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the requester VPC.
      * </p>
      * </li>
      * <li>
@@ -198,7 +200,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      * </li>
      * </ul>
      * 
-     * @return One or more filters.</p>
+     * @return The filters.</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -207,7 +209,8 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      *         </li>
      *         <li>
      *         <p>
-     *         <code>accepter-vpc-info.owner-id</code> - The AWS account ID of the owner of the accepter VPC.
+     *         <code>accepter-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the
+     *         accepter VPC.
      *         </p>
      *         </li>
      *         <li>
@@ -227,7 +230,8 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      *         </li>
      *         <li>
      *         <p>
-     *         <code>requester-vpc-info.owner-id</code> - The AWS account ID of the owner of the requester VPC.
+     *         <code>requester-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the
+     *         requester VPC.
      *         </p>
      *         </li>
      *         <li>
@@ -278,7 +282,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -288,7 +292,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * <code>accepter-vpc-info.owner-id</code> - The AWS account ID of the owner of the accepter VPC.
+     * <code>accepter-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the accepter VPC.
      * </p>
      * </li>
      * <li>
@@ -308,7 +312,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * <code>requester-vpc-info.owner-id</code> - The AWS account ID of the owner of the requester VPC.
+     * <code>requester-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the requester VPC.
      * </p>
      * </li>
      * <li>
@@ -351,7 +355,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      * </ul>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -360,7 +364,8 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      *        </li>
      *        <li>
      *        <p>
-     *        <code>accepter-vpc-info.owner-id</code> - The AWS account ID of the owner of the accepter VPC.
+     *        <code>accepter-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the accepter
+     *        VPC.
      *        </p>
      *        </li>
      *        <li>
@@ -380,7 +385,8 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      *        </li>
      *        <li>
      *        <p>
-     *        <code>requester-vpc-info.owner-id</code> - The AWS account ID of the owner of the requester VPC.
+     *        <code>requester-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the
+     *        requester VPC.
      *        </p>
      *        </li>
      *        <li>
@@ -433,7 +439,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -443,7 +449,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * <code>accepter-vpc-info.owner-id</code> - The AWS account ID of the owner of the accepter VPC.
+     * <code>accepter-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the accepter VPC.
      * </p>
      * </li>
      * <li>
@@ -463,7 +469,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * <code>requester-vpc-info.owner-id</code> - The AWS account ID of the owner of the requester VPC.
+     * <code>requester-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the requester VPC.
      * </p>
      * </li>
      * <li>
@@ -511,7 +517,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      * </p>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -520,7 +526,8 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      *        </li>
      *        <li>
      *        <p>
-     *        <code>accepter-vpc-info.owner-id</code> - The AWS account ID of the owner of the accepter VPC.
+     *        <code>accepter-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the accepter
+     *        VPC.
      *        </p>
      *        </li>
      *        <li>
@@ -540,7 +547,8 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      *        </li>
      *        <li>
      *        <p>
-     *        <code>requester-vpc-info.owner-id</code> - The AWS account ID of the owner of the requester VPC.
+     *        <code>requester-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the
+     *        requester VPC.
      *        </p>
      *        </li>
      *        <li>
@@ -595,7 +603,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * One or more filters.
+     * The filters.
      * </p>
      * <ul>
      * <li>
@@ -605,7 +613,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * <code>accepter-vpc-info.owner-id</code> - The AWS account ID of the owner of the accepter VPC.
+     * <code>accepter-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the accepter VPC.
      * </p>
      * </li>
      * <li>
@@ -625,7 +633,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * <code>requester-vpc-info.owner-id</code> - The AWS account ID of the owner of the requester VPC.
+     * <code>requester-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the requester VPC.
      * </p>
      * </li>
      * <li>
@@ -668,7 +676,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      * </ul>
      * 
      * @param filters
-     *        One or more filters.</p>
+     *        The filters.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -677,7 +685,8 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      *        </li>
      *        <li>
      *        <p>
-     *        <code>accepter-vpc-info.owner-id</code> - The AWS account ID of the owner of the accepter VPC.
+     *        <code>accepter-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the accepter
+     *        VPC.
      *        </p>
      *        </li>
      *        <li>
@@ -697,7 +706,8 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      *        </li>
      *        <li>
      *        <p>
-     *        <code>requester-vpc-info.owner-id</code> - The AWS account ID of the owner of the requester VPC.
+     *        <code>requester-vpc-info.owner-id</code> - The ID of the Amazon Web Services account that owns the
+     *        requester VPC.
      *        </p>
      *        </li>
      *        <li>
@@ -747,13 +757,13 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * One or more VPC peering connection IDs.
+     * The IDs of the VPC peering connections.
      * </p>
      * <p>
      * Default: Describes all your VPC peering connections.
      * </p>
      * 
-     * @return One or more VPC peering connection IDs.</p>
+     * @return The IDs of the VPC peering connections.</p>
      *         <p>
      *         Default: Describes all your VPC peering connections.
      */
@@ -767,14 +777,14 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * One or more VPC peering connection IDs.
+     * The IDs of the VPC peering connections.
      * </p>
      * <p>
      * Default: Describes all your VPC peering connections.
      * </p>
      * 
      * @param vpcPeeringConnectionIds
-     *        One or more VPC peering connection IDs.</p>
+     *        The IDs of the VPC peering connections.</p>
      *        <p>
      *        Default: Describes all your VPC peering connections.
      */
@@ -790,7 +800,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * One or more VPC peering connection IDs.
+     * The IDs of the VPC peering connections.
      * </p>
      * <p>
      * Default: Describes all your VPC peering connections.
@@ -802,7 +812,7 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
      * </p>
      * 
      * @param vpcPeeringConnectionIds
-     *        One or more VPC peering connection IDs.</p>
+     *        The IDs of the VPC peering connections.</p>
      *        <p>
      *        Default: Describes all your VPC peering connections.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -820,14 +830,14 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * One or more VPC peering connection IDs.
+     * The IDs of the VPC peering connections.
      * </p>
      * <p>
      * Default: Describes all your VPC peering connections.
      * </p>
      * 
      * @param vpcPeeringConnectionIds
-     *        One or more VPC peering connection IDs.</p>
+     *        The IDs of the VPC peering connections.</p>
      *        <p>
      *        Default: Describes all your VPC peering connections.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -840,11 +850,13 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * The token for the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token for the next page of results.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      */
 
     public void setNextToken(String nextToken) {
@@ -853,10 +865,12 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * The token for the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
-     * @return The token for the next page of results.
+     * @return The token returned from a previous paginated request. Pagination continues from the end of the items
+     *         returned by the previous request.
      */
 
     public String getNextToken() {
@@ -865,11 +879,13 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * The token for the next page of results.
+     * The token returned from a previous paginated request. Pagination continues from the end of the items returned by
+     * the previous request.
      * </p>
      * 
      * @param nextToken
-     *        The token for the next page of results.
+     *        The token returned from a previous paginated request. Pagination continues from the end of the items
+     *        returned by the previous request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -880,13 +896,16 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *        another call with the returned <code>nextToken</code> value.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -895,12 +914,15 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
-     * @return The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *         another call with the returned <code>nextToken</code> value.
+     * @return The maximum number of items to return for this request. To get the next page of items, make another
+     *         request with the token returned in the output. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *         >Pagination</a>.
      */
 
     public Integer getMaxResults() {
@@ -909,13 +931,16 @@ public class DescribeVpcPeeringConnectionsRequest extends AmazonWebServiceReques
 
     /**
      * <p>
-     * The maximum number of results to return with a single call. To retrieve the remaining results, make another call
-     * with the returned <code>nextToken</code> value.
+     * The maximum number of items to return for this request. To get the next page of items, make another request with
+     * the token returned in the output. For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination">Pagination</a>.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of results to return with a single call. To retrieve the remaining results, make
-     *        another call with the returned <code>nextToken</code> value.
+     *        The maximum number of items to return for this request. To get the next page of items, make another
+     *        request with the token returned in the output. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination"
+     *        >Pagination</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

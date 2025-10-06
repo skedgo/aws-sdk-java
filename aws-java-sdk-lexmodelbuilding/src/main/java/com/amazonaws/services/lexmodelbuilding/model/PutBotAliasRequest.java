@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -65,6 +65,20 @@ public class PutBotAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      */
     private String checksum;
+    /**
+     * <p>
+     * Settings for conversation logs for the alias.
+     * </p>
+     */
+    private ConversationLogsRequest conversationLogs;
+    /**
+     * <p>
+     * A list of tags to add to the bot alias. You can only add tags when you create an alias, you can't use the
+     * <code>PutBotAlias</code> operation to update the tags on a bot alias. To update tags, use the
+     * <code>TagResource</code> operation.
+     * </p>
+     */
+    private java.util.List<Tag> tags;
 
     /**
      * <p>
@@ -324,6 +338,132 @@ public class PutBotAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
+     * <p>
+     * Settings for conversation logs for the alias.
+     * </p>
+     * 
+     * @param conversationLogs
+     *        Settings for conversation logs for the alias.
+     */
+
+    public void setConversationLogs(ConversationLogsRequest conversationLogs) {
+        this.conversationLogs = conversationLogs;
+    }
+
+    /**
+     * <p>
+     * Settings for conversation logs for the alias.
+     * </p>
+     * 
+     * @return Settings for conversation logs for the alias.
+     */
+
+    public ConversationLogsRequest getConversationLogs() {
+        return this.conversationLogs;
+    }
+
+    /**
+     * <p>
+     * Settings for conversation logs for the alias.
+     * </p>
+     * 
+     * @param conversationLogs
+     *        Settings for conversation logs for the alias.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutBotAliasRequest withConversationLogs(ConversationLogsRequest conversationLogs) {
+        setConversationLogs(conversationLogs);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of tags to add to the bot alias. You can only add tags when you create an alias, you can't use the
+     * <code>PutBotAlias</code> operation to update the tags on a bot alias. To update tags, use the
+     * <code>TagResource</code> operation.
+     * </p>
+     * 
+     * @return A list of tags to add to the bot alias. You can only add tags when you create an alias, you can't use the
+     *         <code>PutBotAlias</code> operation to update the tags on a bot alias. To update tags, use the
+     *         <code>TagResource</code> operation.
+     */
+
+    public java.util.List<Tag> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * A list of tags to add to the bot alias. You can only add tags when you create an alias, you can't use the
+     * <code>PutBotAlias</code> operation to update the tags on a bot alias. To update tags, use the
+     * <code>TagResource</code> operation.
+     * </p>
+     * 
+     * @param tags
+     *        A list of tags to add to the bot alias. You can only add tags when you create an alias, you can't use the
+     *        <code>PutBotAlias</code> operation to update the tags on a bot alias. To update tags, use the
+     *        <code>TagResource</code> operation.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new java.util.ArrayList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * A list of tags to add to the bot alias. You can only add tags when you create an alias, you can't use the
+     * <code>PutBotAlias</code> operation to update the tags on a bot alias. To update tags, use the
+     * <code>TagResource</code> operation.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        A list of tags to add to the bot alias. You can only add tags when you create an alias, you can't use the
+     *        <code>PutBotAlias</code> operation to update the tags on a bot alias. To update tags, use the
+     *        <code>TagResource</code> operation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutBotAliasRequest withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new java.util.ArrayList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of tags to add to the bot alias. You can only add tags when you create an alias, you can't use the
+     * <code>PutBotAlias</code> operation to update the tags on a bot alias. To update tags, use the
+     * <code>TagResource</code> operation.
+     * </p>
+     * 
+     * @param tags
+     *        A list of tags to add to the bot alias. You can only add tags when you create an alias, you can't use the
+     *        <code>PutBotAlias</code> operation to update the tags on a bot alias. To update tags, use the
+     *        <code>TagResource</code> operation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutBotAliasRequest withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -344,7 +484,11 @@ public class PutBotAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getBotName() != null)
             sb.append("BotName: ").append(getBotName()).append(",");
         if (getChecksum() != null)
-            sb.append("Checksum: ").append(getChecksum());
+            sb.append("Checksum: ").append(getChecksum()).append(",");
+        if (getConversationLogs() != null)
+            sb.append("ConversationLogs: ").append(getConversationLogs()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -379,6 +523,14 @@ public class PutBotAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getChecksum() != null && other.getChecksum().equals(this.getChecksum()) == false)
             return false;
+        if (other.getConversationLogs() == null ^ this.getConversationLogs() == null)
+            return false;
+        if (other.getConversationLogs() != null && other.getConversationLogs().equals(this.getConversationLogs()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -392,6 +544,8 @@ public class PutBotAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getBotVersion() == null) ? 0 : getBotVersion().hashCode());
         hashCode = prime * hashCode + ((getBotName() == null) ? 0 : getBotName().hashCode());
         hashCode = prime * hashCode + ((getChecksum() == null) ? 0 : getChecksum().hashCode());
+        hashCode = prime * hashCode + ((getConversationLogs() == null) ? 0 : getConversationLogs().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class SetTimerActionMarshaller {
             .marshallLocationName("timerName").build();
     private static final MarshallingInfo<Integer> SECONDS_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("seconds").build();
+    private static final MarshallingInfo<String> DURATIONEXPRESSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("durationExpression").build();
 
     private static final SetTimerActionMarshaller instance = new SetTimerActionMarshaller();
 
@@ -50,6 +52,7 @@ public class SetTimerActionMarshaller {
         try {
             protocolMarshaller.marshall(setTimerAction.getTimerName(), TIMERNAME_BINDING);
             protocolMarshaller.marshall(setTimerAction.getSeconds(), SECONDS_BINDING);
+            protocolMarshaller.marshall(setTimerAction.getDurationExpression(), DURATIONEXPRESSION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -13,7 +13,7 @@
 package com.amazonaws.services.pi.model.transform;
 
 import java.util.Map;
-
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -43,6 +43,8 @@ public class DescribeDimensionKeysRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PeriodInSeconds").build();
     private static final MarshallingInfo<StructuredPojo> GROUPBY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("GroupBy").build();
+    private static final MarshallingInfo<List> ADDITIONALMETRICS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AdditionalMetrics").build();
     private static final MarshallingInfo<StructuredPojo> PARTITIONBY_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PartitionBy").build();
     private static final MarshallingInfo<Map> FILTER_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
@@ -75,6 +77,7 @@ public class DescribeDimensionKeysRequestMarshaller {
             protocolMarshaller.marshall(describeDimensionKeysRequest.getMetric(), METRIC_BINDING);
             protocolMarshaller.marshall(describeDimensionKeysRequest.getPeriodInSeconds(), PERIODINSECONDS_BINDING);
             protocolMarshaller.marshall(describeDimensionKeysRequest.getGroupBy(), GROUPBY_BINDING);
+            protocolMarshaller.marshall(describeDimensionKeysRequest.getAdditionalMetrics(), ADDITIONALMETRICS_BINDING);
             protocolMarshaller.marshall(describeDimensionKeysRequest.getPartitionBy(), PARTITIONBY_BINDING);
             protocolMarshaller.marshall(describeDimensionKeysRequest.getFilter(), FILTER_BINDING);
             protocolMarshaller.marshall(describeDimensionKeysRequest.getMaxResults(), MAXRESULTS_BINDING);

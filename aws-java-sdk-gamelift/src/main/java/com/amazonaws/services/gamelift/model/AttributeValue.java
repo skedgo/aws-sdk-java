@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,9 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Values for use in <a>Player</a> attribute key:value pairs. This object lets you specify an attribute value using any
- * of the valid data types: string, number, string array, or data map. Each <code>AttributeValue</code> object can use
- * only one of the available properties.
+ * Values for use in player attribute key-value pairs. This object lets you specify an attribute value using any of the
+ * valid data types: string, number, string array, or data map. Each <code>AttributeValue</code> object can use only one
+ * of the available properties.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/AttributeValue" target="_top">AWS API
@@ -44,7 +44,7 @@ public class AttributeValue implements Serializable, Cloneable, StructuredPojo {
     private Double n;
     /**
      * <p>
-     * For a list of up to 10 strings. Maximum length for each string is 100 characters. Duplicate values are not
+     * For a list of up to 100 strings. Maximum length for each string is 100 characters. Duplicate values are not
      * recognized; all occurrences of the repeated value after the first of a repeated value are ignored.
      * </p>
      */
@@ -138,11 +138,11 @@ public class AttributeValue implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * For a list of up to 10 strings. Maximum length for each string is 100 characters. Duplicate values are not
+     * For a list of up to 100 strings. Maximum length for each string is 100 characters. Duplicate values are not
      * recognized; all occurrences of the repeated value after the first of a repeated value are ignored.
      * </p>
      * 
-     * @return For a list of up to 10 strings. Maximum length for each string is 100 characters. Duplicate values are
+     * @return For a list of up to 100 strings. Maximum length for each string is 100 characters. Duplicate values are
      *         not recognized; all occurrences of the repeated value after the first of a repeated value are ignored.
      */
 
@@ -152,13 +152,13 @@ public class AttributeValue implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * For a list of up to 10 strings. Maximum length for each string is 100 characters. Duplicate values are not
+     * For a list of up to 100 strings. Maximum length for each string is 100 characters. Duplicate values are not
      * recognized; all occurrences of the repeated value after the first of a repeated value are ignored.
      * </p>
      * 
      * @param sL
-     *        For a list of up to 10 strings. Maximum length for each string is 100 characters. Duplicate values are not
-     *        recognized; all occurrences of the repeated value after the first of a repeated value are ignored.
+     *        For a list of up to 100 strings. Maximum length for each string is 100 characters. Duplicate values are
+     *        not recognized; all occurrences of the repeated value after the first of a repeated value are ignored.
      */
 
     public void setSL(java.util.Collection<String> sL) {
@@ -172,7 +172,7 @@ public class AttributeValue implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * For a list of up to 10 strings. Maximum length for each string is 100 characters. Duplicate values are not
+     * For a list of up to 100 strings. Maximum length for each string is 100 characters. Duplicate values are not
      * recognized; all occurrences of the repeated value after the first of a repeated value are ignored.
      * </p>
      * <p>
@@ -182,8 +182,8 @@ public class AttributeValue implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param sL
-     *        For a list of up to 10 strings. Maximum length for each string is 100 characters. Duplicate values are not
-     *        recognized; all occurrences of the repeated value after the first of a repeated value are ignored.
+     *        For a list of up to 100 strings. Maximum length for each string is 100 characters. Duplicate values are
+     *        not recognized; all occurrences of the repeated value after the first of a repeated value are ignored.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -199,13 +199,13 @@ public class AttributeValue implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * For a list of up to 10 strings. Maximum length for each string is 100 characters. Duplicate values are not
+     * For a list of up to 100 strings. Maximum length for each string is 100 characters. Duplicate values are not
      * recognized; all occurrences of the repeated value after the first of a repeated value are ignored.
      * </p>
      * 
      * @param sL
-     *        For a list of up to 10 strings. Maximum length for each string is 100 characters. Duplicate values are not
-     *        recognized; all occurrences of the repeated value after the first of a repeated value are ignored.
+     *        For a list of up to 100 strings. Maximum length for each string is 100 characters. Duplicate values are
+     *        not recognized; all occurrences of the repeated value after the first of a repeated value are ignored.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -253,6 +253,13 @@ public class AttributeValue implements Serializable, Cloneable, StructuredPojo {
         setSDM(sDM);
         return this;
     }
+
+    /**
+     * Add a single SDM entry
+     *
+     * @see AttributeValue#withSDM
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public AttributeValue addSDMEntry(String key, Double value) {
         if (null == this.sDM) {

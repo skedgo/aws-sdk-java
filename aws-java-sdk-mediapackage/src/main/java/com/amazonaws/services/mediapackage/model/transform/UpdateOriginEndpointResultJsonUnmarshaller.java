@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,10 @@ public class UpdateOriginEndpointResultJsonUnmarshaller implements Unmarshaller<
                     context.nextToken();
                     updateOriginEndpointResult.setArn(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("authorization", targetDepth)) {
+                    context.nextToken();
+                    updateOriginEndpointResult.setAuthorization(AuthorizationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("channelId", targetDepth)) {
                     context.nextToken();
                     updateOriginEndpointResult.setChannelId(context.getUnmarshaller(String.class).unmarshall(context));
@@ -59,6 +63,10 @@ public class UpdateOriginEndpointResultJsonUnmarshaller implements Unmarshaller<
                 if (context.testExpression("cmafPackage", targetDepth)) {
                     context.nextToken();
                     updateOriginEndpointResult.setCmafPackage(CmafPackageJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("createdAt", targetDepth)) {
+                    context.nextToken();
+                    updateOriginEndpointResult.setCreatedAt(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("dashPackage", targetDepth)) {
                     context.nextToken();
@@ -84,6 +92,10 @@ public class UpdateOriginEndpointResultJsonUnmarshaller implements Unmarshaller<
                     context.nextToken();
                     updateOriginEndpointResult.setMssPackage(MssPackageJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("origination", targetDepth)) {
+                    context.nextToken();
+                    updateOriginEndpointResult.setOrigination(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("startoverWindowSeconds", targetDepth)) {
                     context.nextToken();
                     updateOriginEndpointResult.setStartoverWindowSeconds(context.getUnmarshaller(Integer.class).unmarshall(context));
@@ -103,7 +115,9 @@ public class UpdateOriginEndpointResultJsonUnmarshaller implements Unmarshaller<
                 }
                 if (context.testExpression("whitelist", targetDepth)) {
                     context.nextToken();
-                    updateOriginEndpointResult.setWhitelist(new ListUnmarshaller<String>(context.getUnmarshaller(String.class)).unmarshall(context));
+                    updateOriginEndpointResult.setWhitelist(new ListUnmarshaller<String>(context.getUnmarshaller(String.class))
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

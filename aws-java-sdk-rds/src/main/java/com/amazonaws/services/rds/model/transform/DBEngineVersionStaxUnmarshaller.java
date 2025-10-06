@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -75,6 +75,16 @@ public class DBEngineVersionStaxUnmarshaller implements Unmarshaller<DBEngineVer
                     continue;
                 }
 
+                if (context.testExpression("Image", targetDepth)) {
+                    dBEngineVersion.setImage(CustomDBEngineVersionAMIStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DBEngineMediaType", targetDepth)) {
+                    dBEngineVersion.setDBEngineMediaType(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("SupportedCharacterSets", targetDepth)) {
                     dBEngineVersion.withSupportedCharacterSets(new ArrayList<CharacterSet>());
                     continue;
@@ -82,6 +92,16 @@ public class DBEngineVersionStaxUnmarshaller implements Unmarshaller<DBEngineVer
 
                 if (context.testExpression("SupportedCharacterSets/CharacterSet", targetDepth)) {
                     dBEngineVersion.withSupportedCharacterSets(CharacterSetStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportedNcharCharacterSets", targetDepth)) {
+                    dBEngineVersion.withSupportedNcharCharacterSets(new ArrayList<CharacterSet>());
+                    continue;
+                }
+
+                if (context.testExpression("SupportedNcharCharacterSets/CharacterSet", targetDepth)) {
+                    dBEngineVersion.withSupportedNcharCharacterSets(CharacterSetStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
 
@@ -147,6 +167,96 @@ public class DBEngineVersionStaxUnmarshaller implements Unmarshaller<DBEngineVer
 
                 if (context.testExpression("Status", targetDepth)) {
                     dBEngineVersion.setStatus(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportsParallelQuery", targetDepth)) {
+                    dBEngineVersion.setSupportsParallelQuery(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportsGlobalDatabases", targetDepth)) {
+                    dBEngineVersion.setSupportsGlobalDatabases(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("MajorEngineVersion", targetDepth)) {
+                    dBEngineVersion.setMajorEngineVersion(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DatabaseInstallationFilesS3BucketName", targetDepth)) {
+                    dBEngineVersion.setDatabaseInstallationFilesS3BucketName(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DatabaseInstallationFilesS3Prefix", targetDepth)) {
+                    dBEngineVersion.setDatabaseInstallationFilesS3Prefix(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("DBEngineVersionArn", targetDepth)) {
+                    dBEngineVersion.setDBEngineVersionArn(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("KMSKeyId", targetDepth)) {
+                    dBEngineVersion.setKMSKeyId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("CreateTime", targetDepth)) {
+                    dBEngineVersion.setCreateTime(DateStaxUnmarshallerFactory.getInstance("iso8601").unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("TagList", targetDepth)) {
+                    dBEngineVersion.withTagList(new ArrayList<Tag>());
+                    continue;
+                }
+
+                if (context.testExpression("TagList/Tag", targetDepth)) {
+                    dBEngineVersion.withTagList(TagStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportsBabelfish", targetDepth)) {
+                    dBEngineVersion.setSupportsBabelfish(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("CustomDBEngineVersionManifest", targetDepth)) {
+                    dBEngineVersion.setCustomDBEngineVersionManifest(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportsLimitlessDatabase", targetDepth)) {
+                    dBEngineVersion.setSupportsLimitlessDatabase(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportsCertificateRotationWithoutRestart", targetDepth)) {
+                    dBEngineVersion.setSupportsCertificateRotationWithoutRestart(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportedCACertificateIdentifiers", targetDepth)) {
+                    dBEngineVersion.withSupportedCACertificateIdentifiers(new ArrayList<String>());
+                    continue;
+                }
+
+                if (context.testExpression("SupportedCACertificateIdentifiers/member", targetDepth)) {
+                    dBEngineVersion.withSupportedCACertificateIdentifiers(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportsLocalWriteForwarding", targetDepth)) {
+                    dBEngineVersion.setSupportsLocalWriteForwarding(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("SupportsIntegrations", targetDepth)) {
+                    dBEngineVersion.setSupportsIntegrations(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

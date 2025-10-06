@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,7 +43,8 @@ public class DBSnapshot implements Serializable, Cloneable {
     private String dBInstanceIdentifier;
     /**
      * <p>
-     * Provides the time when the snapshot was taken, in Universal Coordinated Time (UTC).
+     * Specifies when the snapshot was taken in Coordinated Universal Time (UTC). Changes for the copy when the snapshot
+     * is copied.
      * </p>
      */
     private java.util.Date snapshotCreateTime;
@@ -85,7 +86,8 @@ public class DBSnapshot implements Serializable, Cloneable {
     private String vpcId;
     /**
      * <p>
-     * Specifies the time when the snapshot was taken, in Universal Coordinated Time (UTC).
+     * Specifies the time in Coordinated Universal Time (UTC) when the DB instance, from which the snapshot was taken,
+     * was created.
      * </p>
      */
     private java.util.Date instanceCreateTime;
@@ -133,14 +135,14 @@ public class DBSnapshot implements Serializable, Cloneable {
     private Integer percentProgress;
     /**
      * <p>
-     * The AWS Region that the DB snapshot was created in or copied from.
+     * The Amazon Web Services Region that the DB snapshot was created in or copied from.
      * </p>
      */
     private String sourceRegion;
     /**
      * <p>
-     * The DB snapshot Amazon Resource Name (ARN) that the DB snapshot was copied from. It only has value in case of
-     * cross-customer or cross-region copy.
+     * The DB snapshot Amazon Resource Name (ARN) that the DB snapshot was copied from. It only has a value in the case
+     * of a cross-account or cross-Region copy.
      * </p>
      */
     private String sourceDBSnapshotIdentifier;
@@ -158,13 +160,16 @@ public class DBSnapshot implements Serializable, Cloneable {
     private String tdeCredentialArn;
     /**
      * <p>
-     * Specifies whether the DB snapshot is encrypted.
+     * Indicates whether the DB snapshot is encrypted.
      * </p>
      */
     private Boolean encrypted;
     /**
      * <p>
-     * If <code>Encrypted</code> is true, the AWS KMS key identifier for the encrypted DB snapshot.
+     * If <code>Encrypted</code> is true, the Amazon Web Services KMS key identifier for the encrypted DB snapshot.
+     * </p>
+     * <p>
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
      * </p>
      */
     private String kmsKeyId;
@@ -184,8 +189,8 @@ public class DBSnapshot implements Serializable, Cloneable {
     private String timezone;
     /**
      * <p>
-     * True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     * otherwise false.
+     * Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database
+     * accounts is enabled.
      * </p>
      */
     private Boolean iAMDatabaseAuthenticationEnabled;
@@ -198,10 +203,65 @@ public class DBSnapshot implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<ProcessorFeature> processorFeatures;
     /**
      * <p>
-     * The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.
+     * The identifier for the source DB instance, which can't be changed and which is unique to an Amazon Web Services
+     * Region.
      * </p>
      */
     private String dbiResourceId;
+
+    private com.amazonaws.internal.SdkInternalList<Tag> tagList;
+    /**
+     * <p>
+     * Specifies the time of the CreateDBSnapshot operation in Coordinated Universal Time (UTC). Doesn't change when the
+     * snapshot is copied.
+     * </p>
+     */
+    private java.util.Date originalSnapshotCreateTime;
+    /**
+     * <p>
+     * The timestamp of the most recent transaction applied to the database that you're backing up. Thus, if you restore
+     * a snapshot, SnapshotDatabaseTime is the most recent transaction in the restored DB instance. In contrast,
+     * originalSnapshotCreateTime specifies the system time that the snapshot completed.
+     * </p>
+     * <p>
+     * If you back up a read replica, you can determine the replica lag by comparing SnapshotDatabaseTime with
+     * originalSnapshotCreateTime. For example, if originalSnapshotCreateTime is two hours later than
+     * SnapshotDatabaseTime, then the replica lag is two hours.
+     * </p>
+     */
+    private java.util.Date snapshotDatabaseTime;
+    /**
+     * <p>
+     * Specifies where manual snapshots are stored: Amazon Web Services Outposts or the Amazon Web Services Region.
+     * </p>
+     */
+    private String snapshotTarget;
+    /**
+     * <p>
+     * Specifies the storage throughput for the DB snapshot.
+     * </p>
+     */
+    private Integer storageThroughput;
+    /**
+     * <p>
+     * The Oracle system identifier (SID), which is the name of the Oracle database instance that manages your database
+     * files. The Oracle SID is also the name of your CDB.
+     * </p>
+     */
+    private String dBSystemId;
+    /**
+     * <p>
+     * Indicates whether the DB instance has a dedicated log volume (DLV) enabled.
+     * </p>
+     */
+    private Boolean dedicatedLogVolume;
+    /**
+     * <p>
+     * Indicates whether the snapshot is of a DB instance using the multi-tenant configuration (TRUE) or the
+     * single-tenant configuration (FALSE).
+     * </p>
+     */
+    private Boolean multiTenant;
 
     /**
      * <p>
@@ -285,11 +345,13 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the time when the snapshot was taken, in Universal Coordinated Time (UTC).
+     * Specifies when the snapshot was taken in Coordinated Universal Time (UTC). Changes for the copy when the snapshot
+     * is copied.
      * </p>
      * 
      * @param snapshotCreateTime
-     *        Provides the time when the snapshot was taken, in Universal Coordinated Time (UTC).
+     *        Specifies when the snapshot was taken in Coordinated Universal Time (UTC). Changes for the copy when the
+     *        snapshot is copied.
      */
 
     public void setSnapshotCreateTime(java.util.Date snapshotCreateTime) {
@@ -298,10 +360,12 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the time when the snapshot was taken, in Universal Coordinated Time (UTC).
+     * Specifies when the snapshot was taken in Coordinated Universal Time (UTC). Changes for the copy when the snapshot
+     * is copied.
      * </p>
      * 
-     * @return Provides the time when the snapshot was taken, in Universal Coordinated Time (UTC).
+     * @return Specifies when the snapshot was taken in Coordinated Universal Time (UTC). Changes for the copy when the
+     *         snapshot is copied.
      */
 
     public java.util.Date getSnapshotCreateTime() {
@@ -310,11 +374,13 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Provides the time when the snapshot was taken, in Universal Coordinated Time (UTC).
+     * Specifies when the snapshot was taken in Coordinated Universal Time (UTC). Changes for the copy when the snapshot
+     * is copied.
      * </p>
      * 
      * @param snapshotCreateTime
-     *        Provides the time when the snapshot was taken, in Universal Coordinated Time (UTC).
+     *        Specifies when the snapshot was taken in Coordinated Universal Time (UTC). Changes for the copy when the
+     *        snapshot is copied.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -566,11 +632,13 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the time when the snapshot was taken, in Universal Coordinated Time (UTC).
+     * Specifies the time in Coordinated Universal Time (UTC) when the DB instance, from which the snapshot was taken,
+     * was created.
      * </p>
      * 
      * @param instanceCreateTime
-     *        Specifies the time when the snapshot was taken, in Universal Coordinated Time (UTC).
+     *        Specifies the time in Coordinated Universal Time (UTC) when the DB instance, from which the snapshot was
+     *        taken, was created.
      */
 
     public void setInstanceCreateTime(java.util.Date instanceCreateTime) {
@@ -579,10 +647,12 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the time when the snapshot was taken, in Universal Coordinated Time (UTC).
+     * Specifies the time in Coordinated Universal Time (UTC) when the DB instance, from which the snapshot was taken,
+     * was created.
      * </p>
      * 
-     * @return Specifies the time when the snapshot was taken, in Universal Coordinated Time (UTC).
+     * @return Specifies the time in Coordinated Universal Time (UTC) when the DB instance, from which the snapshot was
+     *         taken, was created.
      */
 
     public java.util.Date getInstanceCreateTime() {
@@ -591,11 +661,13 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies the time when the snapshot was taken, in Universal Coordinated Time (UTC).
+     * Specifies the time in Coordinated Universal Time (UTC) when the DB instance, from which the snapshot was taken,
+     * was created.
      * </p>
      * 
      * @param instanceCreateTime
-     *        Specifies the time when the snapshot was taken, in Universal Coordinated Time (UTC).
+     *        Specifies the time in Coordinated Universal Time (UTC) when the DB instance, from which the snapshot was
+     *        taken, was created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -889,11 +961,11 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region that the DB snapshot was created in or copied from.
+     * The Amazon Web Services Region that the DB snapshot was created in or copied from.
      * </p>
      * 
      * @param sourceRegion
-     *        The AWS Region that the DB snapshot was created in or copied from.
+     *        The Amazon Web Services Region that the DB snapshot was created in or copied from.
      */
 
     public void setSourceRegion(String sourceRegion) {
@@ -902,10 +974,10 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region that the DB snapshot was created in or copied from.
+     * The Amazon Web Services Region that the DB snapshot was created in or copied from.
      * </p>
      * 
-     * @return The AWS Region that the DB snapshot was created in or copied from.
+     * @return The Amazon Web Services Region that the DB snapshot was created in or copied from.
      */
 
     public String getSourceRegion() {
@@ -914,11 +986,11 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The AWS Region that the DB snapshot was created in or copied from.
+     * The Amazon Web Services Region that the DB snapshot was created in or copied from.
      * </p>
      * 
      * @param sourceRegion
-     *        The AWS Region that the DB snapshot was created in or copied from.
+     *        The Amazon Web Services Region that the DB snapshot was created in or copied from.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -929,13 +1001,13 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The DB snapshot Amazon Resource Name (ARN) that the DB snapshot was copied from. It only has value in case of
-     * cross-customer or cross-region copy.
+     * The DB snapshot Amazon Resource Name (ARN) that the DB snapshot was copied from. It only has a value in the case
+     * of a cross-account or cross-Region copy.
      * </p>
      * 
      * @param sourceDBSnapshotIdentifier
-     *        The DB snapshot Amazon Resource Name (ARN) that the DB snapshot was copied from. It only has value in case
-     *        of cross-customer or cross-region copy.
+     *        The DB snapshot Amazon Resource Name (ARN) that the DB snapshot was copied from. It only has a value in
+     *        the case of a cross-account or cross-Region copy.
      */
 
     public void setSourceDBSnapshotIdentifier(String sourceDBSnapshotIdentifier) {
@@ -944,12 +1016,12 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The DB snapshot Amazon Resource Name (ARN) that the DB snapshot was copied from. It only has value in case of
-     * cross-customer or cross-region copy.
+     * The DB snapshot Amazon Resource Name (ARN) that the DB snapshot was copied from. It only has a value in the case
+     * of a cross-account or cross-Region copy.
      * </p>
      * 
-     * @return The DB snapshot Amazon Resource Name (ARN) that the DB snapshot was copied from. It only has value in
-     *         case of cross-customer or cross-region copy.
+     * @return The DB snapshot Amazon Resource Name (ARN) that the DB snapshot was copied from. It only has a value in
+     *         the case of a cross-account or cross-Region copy.
      */
 
     public String getSourceDBSnapshotIdentifier() {
@@ -958,13 +1030,13 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The DB snapshot Amazon Resource Name (ARN) that the DB snapshot was copied from. It only has value in case of
-     * cross-customer or cross-region copy.
+     * The DB snapshot Amazon Resource Name (ARN) that the DB snapshot was copied from. It only has a value in the case
+     * of a cross-account or cross-Region copy.
      * </p>
      * 
      * @param sourceDBSnapshotIdentifier
-     *        The DB snapshot Amazon Resource Name (ARN) that the DB snapshot was copied from. It only has value in case
-     *        of cross-customer or cross-region copy.
+     *        The DB snapshot Amazon Resource Name (ARN) that the DB snapshot was copied from. It only has a value in
+     *        the case of a cross-account or cross-Region copy.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1055,11 +1127,11 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the DB snapshot is encrypted.
+     * Indicates whether the DB snapshot is encrypted.
      * </p>
      * 
      * @param encrypted
-     *        Specifies whether the DB snapshot is encrypted.
+     *        Indicates whether the DB snapshot is encrypted.
      */
 
     public void setEncrypted(Boolean encrypted) {
@@ -1068,10 +1140,10 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the DB snapshot is encrypted.
+     * Indicates whether the DB snapshot is encrypted.
      * </p>
      * 
-     * @return Specifies whether the DB snapshot is encrypted.
+     * @return Indicates whether the DB snapshot is encrypted.
      */
 
     public Boolean getEncrypted() {
@@ -1080,11 +1152,11 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the DB snapshot is encrypted.
+     * Indicates whether the DB snapshot is encrypted.
      * </p>
      * 
      * @param encrypted
-     *        Specifies whether the DB snapshot is encrypted.
+     *        Indicates whether the DB snapshot is encrypted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1095,10 +1167,10 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Specifies whether the DB snapshot is encrypted.
+     * Indicates whether the DB snapshot is encrypted.
      * </p>
      * 
-     * @return Specifies whether the DB snapshot is encrypted.
+     * @return Indicates whether the DB snapshot is encrypted.
      */
 
     public Boolean isEncrypted() {
@@ -1107,11 +1179,18 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>Encrypted</code> is true, the AWS KMS key identifier for the encrypted DB snapshot.
+     * If <code>Encrypted</code> is true, the Amazon Web Services KMS key identifier for the encrypted DB snapshot.
+     * </p>
+     * <p>
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
      * </p>
      * 
      * @param kmsKeyId
-     *        If <code>Encrypted</code> is true, the AWS KMS key identifier for the encrypted DB snapshot.
+     *        If <code>Encrypted</code> is true, the Amazon Web Services KMS key identifier for the encrypted DB
+     *        snapshot.</p>
+     *        <p>
+     *        The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *        key.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -1120,10 +1199,17 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>Encrypted</code> is true, the AWS KMS key identifier for the encrypted DB snapshot.
+     * If <code>Encrypted</code> is true, the Amazon Web Services KMS key identifier for the encrypted DB snapshot.
+     * </p>
+     * <p>
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
      * </p>
      * 
-     * @return If <code>Encrypted</code> is true, the AWS KMS key identifier for the encrypted DB snapshot.
+     * @return If <code>Encrypted</code> is true, the Amazon Web Services KMS key identifier for the encrypted DB
+     *         snapshot.</p>
+     *         <p>
+     *         The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *         key.
      */
 
     public String getKmsKeyId() {
@@ -1132,11 +1218,18 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>Encrypted</code> is true, the AWS KMS key identifier for the encrypted DB snapshot.
+     * If <code>Encrypted</code> is true, the Amazon Web Services KMS key identifier for the encrypted DB snapshot.
+     * </p>
+     * <p>
+     * The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS key.
      * </p>
      * 
      * @param kmsKeyId
-     *        If <code>Encrypted</code> is true, the AWS KMS key identifier for the encrypted DB snapshot.
+     *        If <code>Encrypted</code> is true, the Amazon Web Services KMS key identifier for the encrypted DB
+     *        snapshot.</p>
+     *        <p>
+     *        The Amazon Web Services KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the KMS
+     *        key.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1239,13 +1332,13 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     * otherwise false.
+     * Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database
+     * accounts is enabled.
      * </p>
      * 
      * @param iAMDatabaseAuthenticationEnabled
-     *        True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     *        otherwise false.
+     *        Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database
+     *        accounts is enabled.
      */
 
     public void setIAMDatabaseAuthenticationEnabled(Boolean iAMDatabaseAuthenticationEnabled) {
@@ -1254,12 +1347,12 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     * otherwise false.
+     * Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database
+     * accounts is enabled.
      * </p>
      * 
-     * @return True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     *         otherwise false.
+     * @return Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     *         database accounts is enabled.
      */
 
     public Boolean getIAMDatabaseAuthenticationEnabled() {
@@ -1268,13 +1361,13 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     * otherwise false.
+     * Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database
+     * accounts is enabled.
      * </p>
      * 
      * @param iAMDatabaseAuthenticationEnabled
-     *        True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     *        otherwise false.
+     *        Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database
+     *        accounts is enabled.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1285,12 +1378,12 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     * otherwise false.
+     * Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to database
+     * accounts is enabled.
      * </p>
      * 
-     * @return True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and
-     *         otherwise false.
+     * @return Indicates whether mapping of Amazon Web Services Identity and Access Management (IAM) accounts to
+     *         database accounts is enabled.
      */
 
     public Boolean isIAMDatabaseAuthenticationEnabled() {
@@ -1380,11 +1473,13 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.
+     * The identifier for the source DB instance, which can't be changed and which is unique to an Amazon Web Services
+     * Region.
      * </p>
      * 
      * @param dbiResourceId
-     *        The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.
+     *        The identifier for the source DB instance, which can't be changed and which is unique to an Amazon Web
+     *        Services Region.
      */
 
     public void setDbiResourceId(String dbiResourceId) {
@@ -1393,10 +1488,12 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.
+     * The identifier for the source DB instance, which can't be changed and which is unique to an Amazon Web Services
+     * Region.
      * </p>
      * 
-     * @return The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.
+     * @return The identifier for the source DB instance, which can't be changed and which is unique to an Amazon Web
+     *         Services Region.
      */
 
     public String getDbiResourceId() {
@@ -1405,17 +1502,440 @@ public class DBSnapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.
+     * The identifier for the source DB instance, which can't be changed and which is unique to an Amazon Web Services
+     * Region.
      * </p>
      * 
      * @param dbiResourceId
-     *        The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.
+     *        The identifier for the source DB instance, which can't be changed and which is unique to an Amazon Web
+     *        Services Region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DBSnapshot withDbiResourceId(String dbiResourceId) {
         setDbiResourceId(dbiResourceId);
         return this;
+    }
+
+    /**
+     * @return
+     */
+
+    public java.util.List<Tag> getTagList() {
+        if (tagList == null) {
+            tagList = new com.amazonaws.internal.SdkInternalList<Tag>();
+        }
+        return tagList;
+    }
+
+    /**
+     * @param tagList
+     */
+
+    public void setTagList(java.util.Collection<Tag> tagList) {
+        if (tagList == null) {
+            this.tagList = null;
+            return;
+        }
+
+        this.tagList = new com.amazonaws.internal.SdkInternalList<Tag>(tagList);
+    }
+
+    /**
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTagList(java.util.Collection)} or {@link #withTagList(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param tagList
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBSnapshot withTagList(Tag... tagList) {
+        if (this.tagList == null) {
+            setTagList(new com.amazonaws.internal.SdkInternalList<Tag>(tagList.length));
+        }
+        for (Tag ele : tagList) {
+            this.tagList.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * @param tagList
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBSnapshot withTagList(java.util.Collection<Tag> tagList) {
+        setTagList(tagList);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the time of the CreateDBSnapshot operation in Coordinated Universal Time (UTC). Doesn't change when the
+     * snapshot is copied.
+     * </p>
+     * 
+     * @param originalSnapshotCreateTime
+     *        Specifies the time of the CreateDBSnapshot operation in Coordinated Universal Time (UTC). Doesn't change
+     *        when the snapshot is copied.
+     */
+
+    public void setOriginalSnapshotCreateTime(java.util.Date originalSnapshotCreateTime) {
+        this.originalSnapshotCreateTime = originalSnapshotCreateTime;
+    }
+
+    /**
+     * <p>
+     * Specifies the time of the CreateDBSnapshot operation in Coordinated Universal Time (UTC). Doesn't change when the
+     * snapshot is copied.
+     * </p>
+     * 
+     * @return Specifies the time of the CreateDBSnapshot operation in Coordinated Universal Time (UTC). Doesn't change
+     *         when the snapshot is copied.
+     */
+
+    public java.util.Date getOriginalSnapshotCreateTime() {
+        return this.originalSnapshotCreateTime;
+    }
+
+    /**
+     * <p>
+     * Specifies the time of the CreateDBSnapshot operation in Coordinated Universal Time (UTC). Doesn't change when the
+     * snapshot is copied.
+     * </p>
+     * 
+     * @param originalSnapshotCreateTime
+     *        Specifies the time of the CreateDBSnapshot operation in Coordinated Universal Time (UTC). Doesn't change
+     *        when the snapshot is copied.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBSnapshot withOriginalSnapshotCreateTime(java.util.Date originalSnapshotCreateTime) {
+        setOriginalSnapshotCreateTime(originalSnapshotCreateTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The timestamp of the most recent transaction applied to the database that you're backing up. Thus, if you restore
+     * a snapshot, SnapshotDatabaseTime is the most recent transaction in the restored DB instance. In contrast,
+     * originalSnapshotCreateTime specifies the system time that the snapshot completed.
+     * </p>
+     * <p>
+     * If you back up a read replica, you can determine the replica lag by comparing SnapshotDatabaseTime with
+     * originalSnapshotCreateTime. For example, if originalSnapshotCreateTime is two hours later than
+     * SnapshotDatabaseTime, then the replica lag is two hours.
+     * </p>
+     * 
+     * @param snapshotDatabaseTime
+     *        The timestamp of the most recent transaction applied to the database that you're backing up. Thus, if you
+     *        restore a snapshot, SnapshotDatabaseTime is the most recent transaction in the restored DB instance. In
+     *        contrast, originalSnapshotCreateTime specifies the system time that the snapshot completed.</p>
+     *        <p>
+     *        If you back up a read replica, you can determine the replica lag by comparing SnapshotDatabaseTime with
+     *        originalSnapshotCreateTime. For example, if originalSnapshotCreateTime is two hours later than
+     *        SnapshotDatabaseTime, then the replica lag is two hours.
+     */
+
+    public void setSnapshotDatabaseTime(java.util.Date snapshotDatabaseTime) {
+        this.snapshotDatabaseTime = snapshotDatabaseTime;
+    }
+
+    /**
+     * <p>
+     * The timestamp of the most recent transaction applied to the database that you're backing up. Thus, if you restore
+     * a snapshot, SnapshotDatabaseTime is the most recent transaction in the restored DB instance. In contrast,
+     * originalSnapshotCreateTime specifies the system time that the snapshot completed.
+     * </p>
+     * <p>
+     * If you back up a read replica, you can determine the replica lag by comparing SnapshotDatabaseTime with
+     * originalSnapshotCreateTime. For example, if originalSnapshotCreateTime is two hours later than
+     * SnapshotDatabaseTime, then the replica lag is two hours.
+     * </p>
+     * 
+     * @return The timestamp of the most recent transaction applied to the database that you're backing up. Thus, if you
+     *         restore a snapshot, SnapshotDatabaseTime is the most recent transaction in the restored DB instance. In
+     *         contrast, originalSnapshotCreateTime specifies the system time that the snapshot completed.</p>
+     *         <p>
+     *         If you back up a read replica, you can determine the replica lag by comparing SnapshotDatabaseTime with
+     *         originalSnapshotCreateTime. For example, if originalSnapshotCreateTime is two hours later than
+     *         SnapshotDatabaseTime, then the replica lag is two hours.
+     */
+
+    public java.util.Date getSnapshotDatabaseTime() {
+        return this.snapshotDatabaseTime;
+    }
+
+    /**
+     * <p>
+     * The timestamp of the most recent transaction applied to the database that you're backing up. Thus, if you restore
+     * a snapshot, SnapshotDatabaseTime is the most recent transaction in the restored DB instance. In contrast,
+     * originalSnapshotCreateTime specifies the system time that the snapshot completed.
+     * </p>
+     * <p>
+     * If you back up a read replica, you can determine the replica lag by comparing SnapshotDatabaseTime with
+     * originalSnapshotCreateTime. For example, if originalSnapshotCreateTime is two hours later than
+     * SnapshotDatabaseTime, then the replica lag is two hours.
+     * </p>
+     * 
+     * @param snapshotDatabaseTime
+     *        The timestamp of the most recent transaction applied to the database that you're backing up. Thus, if you
+     *        restore a snapshot, SnapshotDatabaseTime is the most recent transaction in the restored DB instance. In
+     *        contrast, originalSnapshotCreateTime specifies the system time that the snapshot completed.</p>
+     *        <p>
+     *        If you back up a read replica, you can determine the replica lag by comparing SnapshotDatabaseTime with
+     *        originalSnapshotCreateTime. For example, if originalSnapshotCreateTime is two hours later than
+     *        SnapshotDatabaseTime, then the replica lag is two hours.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBSnapshot withSnapshotDatabaseTime(java.util.Date snapshotDatabaseTime) {
+        setSnapshotDatabaseTime(snapshotDatabaseTime);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies where manual snapshots are stored: Amazon Web Services Outposts or the Amazon Web Services Region.
+     * </p>
+     * 
+     * @param snapshotTarget
+     *        Specifies where manual snapshots are stored: Amazon Web Services Outposts or the Amazon Web Services
+     *        Region.
+     */
+
+    public void setSnapshotTarget(String snapshotTarget) {
+        this.snapshotTarget = snapshotTarget;
+    }
+
+    /**
+     * <p>
+     * Specifies where manual snapshots are stored: Amazon Web Services Outposts or the Amazon Web Services Region.
+     * </p>
+     * 
+     * @return Specifies where manual snapshots are stored: Amazon Web Services Outposts or the Amazon Web Services
+     *         Region.
+     */
+
+    public String getSnapshotTarget() {
+        return this.snapshotTarget;
+    }
+
+    /**
+     * <p>
+     * Specifies where manual snapshots are stored: Amazon Web Services Outposts or the Amazon Web Services Region.
+     * </p>
+     * 
+     * @param snapshotTarget
+     *        Specifies where manual snapshots are stored: Amazon Web Services Outposts or the Amazon Web Services
+     *        Region.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBSnapshot withSnapshotTarget(String snapshotTarget) {
+        setSnapshotTarget(snapshotTarget);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the storage throughput for the DB snapshot.
+     * </p>
+     * 
+     * @param storageThroughput
+     *        Specifies the storage throughput for the DB snapshot.
+     */
+
+    public void setStorageThroughput(Integer storageThroughput) {
+        this.storageThroughput = storageThroughput;
+    }
+
+    /**
+     * <p>
+     * Specifies the storage throughput for the DB snapshot.
+     * </p>
+     * 
+     * @return Specifies the storage throughput for the DB snapshot.
+     */
+
+    public Integer getStorageThroughput() {
+        return this.storageThroughput;
+    }
+
+    /**
+     * <p>
+     * Specifies the storage throughput for the DB snapshot.
+     * </p>
+     * 
+     * @param storageThroughput
+     *        Specifies the storage throughput for the DB snapshot.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBSnapshot withStorageThroughput(Integer storageThroughput) {
+        setStorageThroughput(storageThroughput);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Oracle system identifier (SID), which is the name of the Oracle database instance that manages your database
+     * files. The Oracle SID is also the name of your CDB.
+     * </p>
+     * 
+     * @param dBSystemId
+     *        The Oracle system identifier (SID), which is the name of the Oracle database instance that manages your
+     *        database files. The Oracle SID is also the name of your CDB.
+     */
+
+    public void setDBSystemId(String dBSystemId) {
+        this.dBSystemId = dBSystemId;
+    }
+
+    /**
+     * <p>
+     * The Oracle system identifier (SID), which is the name of the Oracle database instance that manages your database
+     * files. The Oracle SID is also the name of your CDB.
+     * </p>
+     * 
+     * @return The Oracle system identifier (SID), which is the name of the Oracle database instance that manages your
+     *         database files. The Oracle SID is also the name of your CDB.
+     */
+
+    public String getDBSystemId() {
+        return this.dBSystemId;
+    }
+
+    /**
+     * <p>
+     * The Oracle system identifier (SID), which is the name of the Oracle database instance that manages your database
+     * files. The Oracle SID is also the name of your CDB.
+     * </p>
+     * 
+     * @param dBSystemId
+     *        The Oracle system identifier (SID), which is the name of the Oracle database instance that manages your
+     *        database files. The Oracle SID is also the name of your CDB.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBSnapshot withDBSystemId(String dBSystemId) {
+        setDBSystemId(dBSystemId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB instance has a dedicated log volume (DLV) enabled.
+     * </p>
+     * 
+     * @param dedicatedLogVolume
+     *        Indicates whether the DB instance has a dedicated log volume (DLV) enabled.
+     */
+
+    public void setDedicatedLogVolume(Boolean dedicatedLogVolume) {
+        this.dedicatedLogVolume = dedicatedLogVolume;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB instance has a dedicated log volume (DLV) enabled.
+     * </p>
+     * 
+     * @return Indicates whether the DB instance has a dedicated log volume (DLV) enabled.
+     */
+
+    public Boolean getDedicatedLogVolume() {
+        return this.dedicatedLogVolume;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB instance has a dedicated log volume (DLV) enabled.
+     * </p>
+     * 
+     * @param dedicatedLogVolume
+     *        Indicates whether the DB instance has a dedicated log volume (DLV) enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBSnapshot withDedicatedLogVolume(Boolean dedicatedLogVolume) {
+        setDedicatedLogVolume(dedicatedLogVolume);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the DB instance has a dedicated log volume (DLV) enabled.
+     * </p>
+     * 
+     * @return Indicates whether the DB instance has a dedicated log volume (DLV) enabled.
+     */
+
+    public Boolean isDedicatedLogVolume() {
+        return this.dedicatedLogVolume;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the snapshot is of a DB instance using the multi-tenant configuration (TRUE) or the
+     * single-tenant configuration (FALSE).
+     * </p>
+     * 
+     * @param multiTenant
+     *        Indicates whether the snapshot is of a DB instance using the multi-tenant configuration (TRUE) or the
+     *        single-tenant configuration (FALSE).
+     */
+
+    public void setMultiTenant(Boolean multiTenant) {
+        this.multiTenant = multiTenant;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the snapshot is of a DB instance using the multi-tenant configuration (TRUE) or the
+     * single-tenant configuration (FALSE).
+     * </p>
+     * 
+     * @return Indicates whether the snapshot is of a DB instance using the multi-tenant configuration (TRUE) or the
+     *         single-tenant configuration (FALSE).
+     */
+
+    public Boolean getMultiTenant() {
+        return this.multiTenant;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the snapshot is of a DB instance using the multi-tenant configuration (TRUE) or the
+     * single-tenant configuration (FALSE).
+     * </p>
+     * 
+     * @param multiTenant
+     *        Indicates whether the snapshot is of a DB instance using the multi-tenant configuration (TRUE) or the
+     *        single-tenant configuration (FALSE).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBSnapshot withMultiTenant(Boolean multiTenant) {
+        setMultiTenant(multiTenant);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the snapshot is of a DB instance using the multi-tenant configuration (TRUE) or the
+     * single-tenant configuration (FALSE).
+     * </p>
+     * 
+     * @return Indicates whether the snapshot is of a DB instance using the multi-tenant configuration (TRUE) or the
+     *         single-tenant configuration (FALSE).
+     */
+
+    public Boolean isMultiTenant() {
+        return this.multiTenant;
     }
 
     /**
@@ -1485,7 +2005,23 @@ public class DBSnapshot implements Serializable, Cloneable {
         if (getProcessorFeatures() != null)
             sb.append("ProcessorFeatures: ").append(getProcessorFeatures()).append(",");
         if (getDbiResourceId() != null)
-            sb.append("DbiResourceId: ").append(getDbiResourceId());
+            sb.append("DbiResourceId: ").append(getDbiResourceId()).append(",");
+        if (getTagList() != null)
+            sb.append("TagList: ").append(getTagList()).append(",");
+        if (getOriginalSnapshotCreateTime() != null)
+            sb.append("OriginalSnapshotCreateTime: ").append(getOriginalSnapshotCreateTime()).append(",");
+        if (getSnapshotDatabaseTime() != null)
+            sb.append("SnapshotDatabaseTime: ").append(getSnapshotDatabaseTime()).append(",");
+        if (getSnapshotTarget() != null)
+            sb.append("SnapshotTarget: ").append(getSnapshotTarget()).append(",");
+        if (getStorageThroughput() != null)
+            sb.append("StorageThroughput: ").append(getStorageThroughput()).append(",");
+        if (getDBSystemId() != null)
+            sb.append("DBSystemId: ").append(getDBSystemId()).append(",");
+        if (getDedicatedLogVolume() != null)
+            sb.append("DedicatedLogVolume: ").append(getDedicatedLogVolume()).append(",");
+        if (getMultiTenant() != null)
+            sb.append("MultiTenant: ").append(getMultiTenant());
         sb.append("}");
         return sb.toString();
     }
@@ -1613,6 +2149,38 @@ public class DBSnapshot implements Serializable, Cloneable {
             return false;
         if (other.getDbiResourceId() != null && other.getDbiResourceId().equals(this.getDbiResourceId()) == false)
             return false;
+        if (other.getTagList() == null ^ this.getTagList() == null)
+            return false;
+        if (other.getTagList() != null && other.getTagList().equals(this.getTagList()) == false)
+            return false;
+        if (other.getOriginalSnapshotCreateTime() == null ^ this.getOriginalSnapshotCreateTime() == null)
+            return false;
+        if (other.getOriginalSnapshotCreateTime() != null && other.getOriginalSnapshotCreateTime().equals(this.getOriginalSnapshotCreateTime()) == false)
+            return false;
+        if (other.getSnapshotDatabaseTime() == null ^ this.getSnapshotDatabaseTime() == null)
+            return false;
+        if (other.getSnapshotDatabaseTime() != null && other.getSnapshotDatabaseTime().equals(this.getSnapshotDatabaseTime()) == false)
+            return false;
+        if (other.getSnapshotTarget() == null ^ this.getSnapshotTarget() == null)
+            return false;
+        if (other.getSnapshotTarget() != null && other.getSnapshotTarget().equals(this.getSnapshotTarget()) == false)
+            return false;
+        if (other.getStorageThroughput() == null ^ this.getStorageThroughput() == null)
+            return false;
+        if (other.getStorageThroughput() != null && other.getStorageThroughput().equals(this.getStorageThroughput()) == false)
+            return false;
+        if (other.getDBSystemId() == null ^ this.getDBSystemId() == null)
+            return false;
+        if (other.getDBSystemId() != null && other.getDBSystemId().equals(this.getDBSystemId()) == false)
+            return false;
+        if (other.getDedicatedLogVolume() == null ^ this.getDedicatedLogVolume() == null)
+            return false;
+        if (other.getDedicatedLogVolume() != null && other.getDedicatedLogVolume().equals(this.getDedicatedLogVolume()) == false)
+            return false;
+        if (other.getMultiTenant() == null ^ this.getMultiTenant() == null)
+            return false;
+        if (other.getMultiTenant() != null && other.getMultiTenant().equals(this.getMultiTenant()) == false)
+            return false;
         return true;
     }
 
@@ -1649,6 +2217,14 @@ public class DBSnapshot implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getIAMDatabaseAuthenticationEnabled() == null) ? 0 : getIAMDatabaseAuthenticationEnabled().hashCode());
         hashCode = prime * hashCode + ((getProcessorFeatures() == null) ? 0 : getProcessorFeatures().hashCode());
         hashCode = prime * hashCode + ((getDbiResourceId() == null) ? 0 : getDbiResourceId().hashCode());
+        hashCode = prime * hashCode + ((getTagList() == null) ? 0 : getTagList().hashCode());
+        hashCode = prime * hashCode + ((getOriginalSnapshotCreateTime() == null) ? 0 : getOriginalSnapshotCreateTime().hashCode());
+        hashCode = prime * hashCode + ((getSnapshotDatabaseTime() == null) ? 0 : getSnapshotDatabaseTime().hashCode());
+        hashCode = prime * hashCode + ((getSnapshotTarget() == null) ? 0 : getSnapshotTarget().hashCode());
+        hashCode = prime * hashCode + ((getStorageThroughput() == null) ? 0 : getStorageThroughput().hashCode());
+        hashCode = prime * hashCode + ((getDBSystemId() == null) ? 0 : getDBSystemId().hashCode());
+        hashCode = prime * hashCode + ((getDedicatedLogVolume() == null) ? 0 : getDedicatedLogVolume().hashCode());
+        hashCode = prime * hashCode + ((getMultiTenant() == null) ? 0 : getMultiTenant().hashCode());
         return hashCode;
     }
 

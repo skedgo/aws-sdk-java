@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -53,6 +53,12 @@ public class GetOpenIdTokenForDeveloperIdentityRequest extends com.amazonaws.Ama
     private java.util.Map<String, String> logins;
     /**
      * <p>
+     * Use this operation to configure attribute mappings for custom providers.
+     * </p>
+     */
+    private java.util.Map<String, String> principalTags;
+    /**
+     * <p>
      * The expiration time of the token, in seconds. You can specify a custom expiration time for the token so that you
      * can cache it. If you don't provide an expiration time, the token is valid for 15 minutes. You can exchange the
      * token with Amazon STS for temporary AWS credentials, which are valid for a maximum of one hour. The maximum token
@@ -60,6 +66,11 @@ public class GetOpenIdTokenForDeveloperIdentityRequest extends com.amazonaws.Ama
      * significant security implications: an attacker could use a leaked token to access your AWS resources for the
      * token's duration.
      * </p>
+     * <note>
+     * <p>
+     * Please provide for a small grace period, usually no more than 5 minutes, to account for clock skew.
+     * </p>
+     * </note>
      */
     private Long tokenDuration;
 
@@ -216,6 +227,13 @@ public class GetOpenIdTokenForDeveloperIdentityRequest extends com.amazonaws.Ama
         return this;
     }
 
+    /**
+     * Add a single Logins entry
+     *
+     * @see GetOpenIdTokenForDeveloperIdentityRequest#withLogins
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public GetOpenIdTokenForDeveloperIdentityRequest addLoginsEntry(String key, String value) {
         if (null == this.logins) {
             this.logins = new java.util.HashMap<String, String>();
@@ -239,6 +257,74 @@ public class GetOpenIdTokenForDeveloperIdentityRequest extends com.amazonaws.Ama
 
     /**
      * <p>
+     * Use this operation to configure attribute mappings for custom providers.
+     * </p>
+     * 
+     * @return Use this operation to configure attribute mappings for custom providers.
+     */
+
+    public java.util.Map<String, String> getPrincipalTags() {
+        return principalTags;
+    }
+
+    /**
+     * <p>
+     * Use this operation to configure attribute mappings for custom providers.
+     * </p>
+     * 
+     * @param principalTags
+     *        Use this operation to configure attribute mappings for custom providers.
+     */
+
+    public void setPrincipalTags(java.util.Map<String, String> principalTags) {
+        this.principalTags = principalTags;
+    }
+
+    /**
+     * <p>
+     * Use this operation to configure attribute mappings for custom providers.
+     * </p>
+     * 
+     * @param principalTags
+     *        Use this operation to configure attribute mappings for custom providers.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetOpenIdTokenForDeveloperIdentityRequest withPrincipalTags(java.util.Map<String, String> principalTags) {
+        setPrincipalTags(principalTags);
+        return this;
+    }
+
+    /**
+     * Add a single PrincipalTags entry
+     *
+     * @see GetOpenIdTokenForDeveloperIdentityRequest#withPrincipalTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetOpenIdTokenForDeveloperIdentityRequest addPrincipalTagsEntry(String key, String value) {
+        if (null == this.principalTags) {
+            this.principalTags = new java.util.HashMap<String, String>();
+        }
+        if (this.principalTags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.principalTags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into PrincipalTags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetOpenIdTokenForDeveloperIdentityRequest clearPrincipalTagsEntries() {
+        this.principalTags = null;
+        return this;
+    }
+
+    /**
+     * <p>
      * The expiration time of the token, in seconds. You can specify a custom expiration time for the token so that you
      * can cache it. If you don't provide an expiration time, the token is valid for 15 minutes. You can exchange the
      * token with Amazon STS for temporary AWS credentials, which are valid for a maximum of one hour. The maximum token
@@ -246,6 +332,11 @@ public class GetOpenIdTokenForDeveloperIdentityRequest extends com.amazonaws.Ama
      * significant security implications: an attacker could use a leaked token to access your AWS resources for the
      * token's duration.
      * </p>
+     * <note>
+     * <p>
+     * Please provide for a small grace period, usually no more than 5 minutes, to account for clock skew.
+     * </p>
+     * </note>
      * 
      * @param tokenDuration
      *        The expiration time of the token, in seconds. You can specify a custom expiration time for the token so
@@ -253,7 +344,10 @@ public class GetOpenIdTokenForDeveloperIdentityRequest extends com.amazonaws.Ama
      *        exchange the token with Amazon STS for temporary AWS credentials, which are valid for a maximum of one
      *        hour. The maximum token duration you can set is 24 hours. You should take care in setting the expiration
      *        time for a token, as there are significant security implications: an attacker could use a leaked token to
-     *        access your AWS resources for the token's duration.
+     *        access your AWS resources for the token's duration.</p> <note>
+     *        <p>
+     *        Please provide for a small grace period, usually no more than 5 minutes, to account for clock skew.
+     *        </p>
      */
 
     public void setTokenDuration(Long tokenDuration) {
@@ -269,13 +363,21 @@ public class GetOpenIdTokenForDeveloperIdentityRequest extends com.amazonaws.Ama
      * significant security implications: an attacker could use a leaked token to access your AWS resources for the
      * token's duration.
      * </p>
+     * <note>
+     * <p>
+     * Please provide for a small grace period, usually no more than 5 minutes, to account for clock skew.
+     * </p>
+     * </note>
      * 
      * @return The expiration time of the token, in seconds. You can specify a custom expiration time for the token so
      *         that you can cache it. If you don't provide an expiration time, the token is valid for 15 minutes. You
      *         can exchange the token with Amazon STS for temporary AWS credentials, which are valid for a maximum of
      *         one hour. The maximum token duration you can set is 24 hours. You should take care in setting the
      *         expiration time for a token, as there are significant security implications: an attacker could use a
-     *         leaked token to access your AWS resources for the token's duration.
+     *         leaked token to access your AWS resources for the token's duration.</p> <note>
+     *         <p>
+     *         Please provide for a small grace period, usually no more than 5 minutes, to account for clock skew.
+     *         </p>
      */
 
     public Long getTokenDuration() {
@@ -291,6 +393,11 @@ public class GetOpenIdTokenForDeveloperIdentityRequest extends com.amazonaws.Ama
      * significant security implications: an attacker could use a leaked token to access your AWS resources for the
      * token's duration.
      * </p>
+     * <note>
+     * <p>
+     * Please provide for a small grace period, usually no more than 5 minutes, to account for clock skew.
+     * </p>
+     * </note>
      * 
      * @param tokenDuration
      *        The expiration time of the token, in seconds. You can specify a custom expiration time for the token so
@@ -298,7 +405,10 @@ public class GetOpenIdTokenForDeveloperIdentityRequest extends com.amazonaws.Ama
      *        exchange the token with Amazon STS for temporary AWS credentials, which are valid for a maximum of one
      *        hour. The maximum token duration you can set is 24 hours. You should take care in setting the expiration
      *        time for a token, as there are significant security implications: an attacker could use a leaked token to
-     *        access your AWS resources for the token's duration.
+     *        access your AWS resources for the token's duration.</p> <note>
+     *        <p>
+     *        Please provide for a small grace period, usually no more than 5 minutes, to account for clock skew.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -325,6 +435,8 @@ public class GetOpenIdTokenForDeveloperIdentityRequest extends com.amazonaws.Ama
             sb.append("IdentityId: ").append(getIdentityId()).append(",");
         if (getLogins() != null)
             sb.append("Logins: ").append(getLogins()).append(",");
+        if (getPrincipalTags() != null)
+            sb.append("PrincipalTags: ").append(getPrincipalTags()).append(",");
         if (getTokenDuration() != null)
             sb.append("TokenDuration: ").append(getTokenDuration());
         sb.append("}");
@@ -353,6 +465,10 @@ public class GetOpenIdTokenForDeveloperIdentityRequest extends com.amazonaws.Ama
             return false;
         if (other.getLogins() != null && other.getLogins().equals(this.getLogins()) == false)
             return false;
+        if (other.getPrincipalTags() == null ^ this.getPrincipalTags() == null)
+            return false;
+        if (other.getPrincipalTags() != null && other.getPrincipalTags().equals(this.getPrincipalTags()) == false)
+            return false;
         if (other.getTokenDuration() == null ^ this.getTokenDuration() == null)
             return false;
         if (other.getTokenDuration() != null && other.getTokenDuration().equals(this.getTokenDuration()) == false)
@@ -368,6 +484,7 @@ public class GetOpenIdTokenForDeveloperIdentityRequest extends com.amazonaws.Ama
         hashCode = prime * hashCode + ((getIdentityPoolId() == null) ? 0 : getIdentityPoolId().hashCode());
         hashCode = prime * hashCode + ((getIdentityId() == null) ? 0 : getIdentityId().hashCode());
         hashCode = prime * hashCode + ((getLogins() == null) ? 0 : getLogins().hashCode());
+        hashCode = prime * hashCode + ((getPrincipalTags() == null) ? 0 : getPrincipalTags().hashCode());
         hashCode = prime * hashCode + ((getTokenDuration() == null) ? 0 : getTokenDuration().hashCode());
         return hashCode;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,7 +46,19 @@ public class AWSMediaConvertAsyncClient extends AWSMediaConvertClient implements
      *        Object providing client parameters.
      */
     AWSMediaConvertAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on MediaConvert using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSMediaConvertAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -291,6 +303,39 @@ public class AWSMediaConvertAsyncClient extends AWSMediaConvertClient implements
     }
 
     @Override
+    public java.util.concurrent.Future<DeletePolicyResult> deletePolicyAsync(DeletePolicyRequest request) {
+
+        return deletePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePolicyResult> deletePolicyAsync(final DeletePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeletePolicyRequest, DeletePolicyResult> asyncHandler) {
+        final DeletePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeletePolicyResult>() {
+            @Override
+            public DeletePolicyResult call() throws Exception {
+                DeletePolicyResult result = null;
+
+                try {
+                    result = executeDeletePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeletePresetResult> deletePresetAsync(DeletePresetRequest request) {
 
         return deletePresetAsync(request, null);
@@ -357,12 +402,14 @@ public class AWSMediaConvertAsyncClient extends AWSMediaConvertClient implements
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeEndpointsResult> describeEndpointsAsync(DescribeEndpointsRequest request) {
 
         return describeEndpointsAsync(request, null);
     }
 
     @Override
+    @Deprecated
     public java.util.concurrent.Future<DescribeEndpointsResult> describeEndpointsAsync(final DescribeEndpointsRequest request,
             final com.amazonaws.handlers.AsyncHandler<DescribeEndpointsRequest, DescribeEndpointsResult> asyncHandler) {
         final DescribeEndpointsRequest finalRequest = beforeClientExecution(request);
@@ -473,6 +520,39 @@ public class AWSMediaConvertAsyncClient extends AWSMediaConvertClient implements
 
                 try {
                     result = executeGetJobTemplate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPolicyResult> getPolicyAsync(GetPolicyRequest request) {
+
+        return getPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPolicyResult> getPolicyAsync(final GetPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetPolicyRequest, GetPolicyResult> asyncHandler) {
+        final GetPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetPolicyResult>() {
+            @Override
+            public GetPolicyResult call() throws Exception {
+                GetPolicyResult result = null;
+
+                try {
+                    result = executeGetPolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -704,6 +784,72 @@ public class AWSMediaConvertAsyncClient extends AWSMediaConvertClient implements
 
                 try {
                     result = executeListTagsForResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutPolicyResult> putPolicyAsync(PutPolicyRequest request) {
+
+        return putPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutPolicyResult> putPolicyAsync(final PutPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutPolicyRequest, PutPolicyResult> asyncHandler) {
+        final PutPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutPolicyResult>() {
+            @Override
+            public PutPolicyResult call() throws Exception {
+                PutPolicyResult result = null;
+
+                try {
+                    result = executePutPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<SearchJobsResult> searchJobsAsync(SearchJobsRequest request) {
+
+        return searchJobsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SearchJobsResult> searchJobsAsync(final SearchJobsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<SearchJobsRequest, SearchJobsResult> asyncHandler) {
+        final SearchJobsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<SearchJobsResult>() {
+            @Override
+            public SearchJobsResult call() throws Exception {
+                SearchJobsResult result = null;
+
+                try {
+                    result = executeSearchJobs(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

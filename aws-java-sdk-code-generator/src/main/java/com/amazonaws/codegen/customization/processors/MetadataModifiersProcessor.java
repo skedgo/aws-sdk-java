@@ -20,6 +20,9 @@ import com.amazonaws.codegen.model.intermediate.IntermediateModel;
 import com.amazonaws.codegen.model.intermediate.Metadata;
 import com.amazonaws.codegen.model.service.ServiceMetadata;
 import com.amazonaws.codegen.model.service.ServiceModel;
+import com.amazonaws.codegen.protocol.ProtocolSelector;
+
+import java.util.Collections;
 
 /**
  * This processor handles preprocess modifications to service metadata and
@@ -35,13 +38,19 @@ public class MetadataModifiersProcessor implements CodegenCustomizationProcessor
 
     @Override
     public void preprocess(ServiceModel serviceModel) {
-        if (metadataConfig == null) return;
+        serviceModel.getMetadata().setProtocol(
+                ProtocolSelector.selectProtocol(serviceModel.getMetadata().getProtocol(),
+                                                serviceModel.getMetadata().getProtocols()));
+
+        if (metadataConfig == null) {
+            return;
+        }
 
         ServiceMetadata serviceMetadata = serviceModel.getMetadata();
 
         String customProtocol = metadataConfig.getProtocol();
         if (customProtocol != null) {
-            serviceMetadata.setProtocol(customProtocol);
+            serviceMetadata.setProtocols(Collections.singletonList(customProtocol));
         }
 
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,22 @@ public class WorkGroupConfigurationUpdatesMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("BytesScannedCutoffPerQuery").build();
     private static final MarshallingInfo<Boolean> REMOVEBYTESSCANNEDCUTOFFPERQUERY_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RemoveBytesScannedCutoffPerQuery").build();
+    private static final MarshallingInfo<Boolean> REQUESTERPAYSENABLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RequesterPaysEnabled").build();
+    private static final MarshallingInfo<StructuredPojo> ENGINEVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EngineVersion").build();
+    private static final MarshallingInfo<Boolean> REMOVECUSTOMERCONTENTENCRYPTIONCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RemoveCustomerContentEncryptionConfiguration").build();
+    private static final MarshallingInfo<String> ADDITIONALCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AdditionalConfiguration").build();
+    private static final MarshallingInfo<String> EXECUTIONROLE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExecutionRole").build();
+    private static final MarshallingInfo<StructuredPojo> CUSTOMERCONTENTENCRYPTIONCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CustomerContentEncryptionConfiguration").build();
+    private static final MarshallingInfo<Boolean> ENABLEMINIMUMENCRYPTIONCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EnableMinimumEncryptionConfiguration").build();
+    private static final MarshallingInfo<StructuredPojo> QUERYRESULTSS3ACCESSGRANTSCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("QueryResultsS3AccessGrantsConfiguration").build();
 
     private static final WorkGroupConfigurationUpdatesMarshaller instance = new WorkGroupConfigurationUpdatesMarshaller();
 
@@ -59,6 +75,17 @@ public class WorkGroupConfigurationUpdatesMarshaller {
             protocolMarshaller.marshall(workGroupConfigurationUpdates.getPublishCloudWatchMetricsEnabled(), PUBLISHCLOUDWATCHMETRICSENABLED_BINDING);
             protocolMarshaller.marshall(workGroupConfigurationUpdates.getBytesScannedCutoffPerQuery(), BYTESSCANNEDCUTOFFPERQUERY_BINDING);
             protocolMarshaller.marshall(workGroupConfigurationUpdates.getRemoveBytesScannedCutoffPerQuery(), REMOVEBYTESSCANNEDCUTOFFPERQUERY_BINDING);
+            protocolMarshaller.marshall(workGroupConfigurationUpdates.getRequesterPaysEnabled(), REQUESTERPAYSENABLED_BINDING);
+            protocolMarshaller.marshall(workGroupConfigurationUpdates.getEngineVersion(), ENGINEVERSION_BINDING);
+            protocolMarshaller.marshall(workGroupConfigurationUpdates.getRemoveCustomerContentEncryptionConfiguration(),
+                    REMOVECUSTOMERCONTENTENCRYPTIONCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(workGroupConfigurationUpdates.getAdditionalConfiguration(), ADDITIONALCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(workGroupConfigurationUpdates.getExecutionRole(), EXECUTIONROLE_BINDING);
+            protocolMarshaller.marshall(workGroupConfigurationUpdates.getCustomerContentEncryptionConfiguration(),
+                    CUSTOMERCONTENTENCRYPTIONCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(workGroupConfigurationUpdates.getEnableMinimumEncryptionConfiguration(), ENABLEMINIMUMENCRYPTIONCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(workGroupConfigurationUpdates.getQueryResultsS3AccessGrantsConfiguration(),
+                    QUERYRESULTSS3ACCESSGRANTSCONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

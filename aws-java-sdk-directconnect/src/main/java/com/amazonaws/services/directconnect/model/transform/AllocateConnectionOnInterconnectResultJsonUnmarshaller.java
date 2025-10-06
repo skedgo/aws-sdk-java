@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -104,13 +104,41 @@ public class AllocateConnectionOnInterconnectResultJsonUnmarshaller implements U
                     context.nextToken();
                     allocateConnectionOnInterconnectResult.setAwsDeviceV2(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("awsLogicalDeviceId", targetDepth)) {
+                    context.nextToken();
+                    allocateConnectionOnInterconnectResult.setAwsLogicalDeviceId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("hasLogicalRedundancy", targetDepth)) {
                     context.nextToken();
                     allocateConnectionOnInterconnectResult.setHasLogicalRedundancy(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("tags", targetDepth)) {
                     context.nextToken();
-                    allocateConnectionOnInterconnectResult.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance()).unmarshall(context));
+                    allocateConnectionOnInterconnectResult.setTags(new ListUnmarshaller<Tag>(TagJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("providerName", targetDepth)) {
+                    context.nextToken();
+                    allocateConnectionOnInterconnectResult.setProviderName(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("macSecCapable", targetDepth)) {
+                    context.nextToken();
+                    allocateConnectionOnInterconnectResult.setMacSecCapable(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                }
+                if (context.testExpression("portEncryptionStatus", targetDepth)) {
+                    context.nextToken();
+                    allocateConnectionOnInterconnectResult.setPortEncryptionStatus(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("encryptionMode", targetDepth)) {
+                    context.nextToken();
+                    allocateConnectionOnInterconnectResult.setEncryptionMode(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("macSecKeys", targetDepth)) {
+                    context.nextToken();
+                    allocateConnectionOnInterconnectResult.setMacSecKeys(new ListUnmarshaller<MacSecKey>(MacSecKeyJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,30 @@ public class UpdateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
     private String workteamName;
     /**
      * <p>
-     * A list of <code>MemberDefinition</code> objects that contain the updated work team members.
+     * A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make up the
+     * work team.
+     * </p>
+     * <p>
+     * Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private workforces
+     * created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created using your own OIDC
+     * identity provider (IdP) use <code>OidcMemberDefinition</code>. You should not provide input for both of these
+     * parameters in a single request.
+     * </p>
+     * <p>
+     * For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user groups</i>
+     * within the user pool used to create a workforce. All of the <code>CognitoMemberDefinition</code> objects that
+     * make up the member definition must have the same <code>ClientId</code> and <code>UserPool</code> values. To add a
+     * Amazon Cognito user group to an existing worker pool, see <a href="">Adding groups to a User Pool</a>. For more
+     * information about user pools, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon Cognito
+     * User Pools</a>.
+     * </p>
+     * <p>
+     * For workforces created using your own OIDC IdP, specify the user groups that you want to include in your private
+     * work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>. Be aware that user
+     * groups that are already in the work team must also be listed in <code>Groups</code> when you make this request to
+     * remain on the work team. If you do not include these user groups, they will no longer be associated with the work
+     * team you update.
      * </p>
      */
     private java.util.List<MemberDefinition> memberDefinitions;
@@ -49,6 +72,14 @@ public class UpdateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      */
     private NotificationConfiguration notificationConfiguration;
+    /**
+     * <p>
+     * Use this optional parameter to constrain access to an Amazon S3 resource based on the IP address using supported
+     * IAM global condition keys. The Amazon S3 resource is accessed in the worker portal using a Amazon S3 presigned
+     * URL.
+     * </p>
+     */
+    private WorkerAccessConfiguration workerAccessConfiguration;
 
     /**
      * <p>
@@ -92,10 +123,55 @@ public class UpdateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of <code>MemberDefinition</code> objects that contain the updated work team members.
+     * A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make up the
+     * work team.
+     * </p>
+     * <p>
+     * Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private workforces
+     * created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created using your own OIDC
+     * identity provider (IdP) use <code>OidcMemberDefinition</code>. You should not provide input for both of these
+     * parameters in a single request.
+     * </p>
+     * <p>
+     * For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user groups</i>
+     * within the user pool used to create a workforce. All of the <code>CognitoMemberDefinition</code> objects that
+     * make up the member definition must have the same <code>ClientId</code> and <code>UserPool</code> values. To add a
+     * Amazon Cognito user group to an existing worker pool, see <a href="">Adding groups to a User Pool</a>. For more
+     * information about user pools, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon Cognito
+     * User Pools</a>.
+     * </p>
+     * <p>
+     * For workforces created using your own OIDC IdP, specify the user groups that you want to include in your private
+     * work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>. Be aware that user
+     * groups that are already in the work team must also be listed in <code>Groups</code> when you make this request to
+     * remain on the work team. If you do not include these user groups, they will no longer be associated with the work
+     * team you update.
      * </p>
      * 
-     * @return A list of <code>MemberDefinition</code> objects that contain the updated work team members.
+     * @return A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make
+     *         up the work team. </p>
+     *         <p>
+     *         Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private
+     *         workforces created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created
+     *         using your own OIDC identity provider (IdP) use <code>OidcMemberDefinition</code>. You should not provide
+     *         input for both of these parameters in a single request.
+     *         </p>
+     *         <p>
+     *         For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user
+     *         groups</i> within the user pool used to create a workforce. All of the
+     *         <code>CognitoMemberDefinition</code> objects that make up the member definition must have the same
+     *         <code>ClientId</code> and <code>UserPool</code> values. To add a Amazon Cognito user group to an existing
+     *         worker pool, see <a href="">Adding groups to a User Pool</a>. For more information about user pools, see
+     *         <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">
+     *         Amazon Cognito User Pools</a>.
+     *         </p>
+     *         <p>
+     *         For workforces created using your own OIDC IdP, specify the user groups that you want to include in your
+     *         private work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>. Be
+     *         aware that user groups that are already in the work team must also be listed in <code>Groups</code> when
+     *         you make this request to remain on the work team. If you do not include these user groups, they will no
+     *         longer be associated with the work team you update.
      */
 
     public java.util.List<MemberDefinition> getMemberDefinitions() {
@@ -104,11 +180,57 @@ public class UpdateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of <code>MemberDefinition</code> objects that contain the updated work team members.
+     * A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make up the
+     * work team.
+     * </p>
+     * <p>
+     * Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private workforces
+     * created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created using your own OIDC
+     * identity provider (IdP) use <code>OidcMemberDefinition</code>. You should not provide input for both of these
+     * parameters in a single request.
+     * </p>
+     * <p>
+     * For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user groups</i>
+     * within the user pool used to create a workforce. All of the <code>CognitoMemberDefinition</code> objects that
+     * make up the member definition must have the same <code>ClientId</code> and <code>UserPool</code> values. To add a
+     * Amazon Cognito user group to an existing worker pool, see <a href="">Adding groups to a User Pool</a>. For more
+     * information about user pools, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon Cognito
+     * User Pools</a>.
+     * </p>
+     * <p>
+     * For workforces created using your own OIDC IdP, specify the user groups that you want to include in your private
+     * work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>. Be aware that user
+     * groups that are already in the work team must also be listed in <code>Groups</code> when you make this request to
+     * remain on the work team. If you do not include these user groups, they will no longer be associated with the work
+     * team you update.
      * </p>
      * 
      * @param memberDefinitions
-     *        A list of <code>MemberDefinition</code> objects that contain the updated work team members.
+     *        A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make
+     *        up the work team. </p>
+     *        <p>
+     *        Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private
+     *        workforces created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created
+     *        using your own OIDC identity provider (IdP) use <code>OidcMemberDefinition</code>. You should not provide
+     *        input for both of these parameters in a single request.
+     *        </p>
+     *        <p>
+     *        For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user
+     *        groups</i> within the user pool used to create a workforce. All of the
+     *        <code>CognitoMemberDefinition</code> objects that make up the member definition must have the same
+     *        <code>ClientId</code> and <code>UserPool</code> values. To add a Amazon Cognito user group to an existing
+     *        worker pool, see <a href="">Adding groups to a User Pool</a>. For more information about user pools, see
+     *        <a
+     *        href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon
+     *        Cognito User Pools</a>.
+     *        </p>
+     *        <p>
+     *        For workforces created using your own OIDC IdP, specify the user groups that you want to include in your
+     *        private work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>. Be
+     *        aware that user groups that are already in the work team must also be listed in <code>Groups</code> when
+     *        you make this request to remain on the work team. If you do not include these user groups, they will no
+     *        longer be associated with the work team you update.
      */
 
     public void setMemberDefinitions(java.util.Collection<MemberDefinition> memberDefinitions) {
@@ -122,7 +244,30 @@ public class UpdateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of <code>MemberDefinition</code> objects that contain the updated work team members.
+     * A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make up the
+     * work team.
+     * </p>
+     * <p>
+     * Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private workforces
+     * created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created using your own OIDC
+     * identity provider (IdP) use <code>OidcMemberDefinition</code>. You should not provide input for both of these
+     * parameters in a single request.
+     * </p>
+     * <p>
+     * For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user groups</i>
+     * within the user pool used to create a workforce. All of the <code>CognitoMemberDefinition</code> objects that
+     * make up the member definition must have the same <code>ClientId</code> and <code>UserPool</code> values. To add a
+     * Amazon Cognito user group to an existing worker pool, see <a href="">Adding groups to a User Pool</a>. For more
+     * information about user pools, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon Cognito
+     * User Pools</a>.
+     * </p>
+     * <p>
+     * For workforces created using your own OIDC IdP, specify the user groups that you want to include in your private
+     * work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>. Be aware that user
+     * groups that are already in the work team must also be listed in <code>Groups</code> when you make this request to
+     * remain on the work team. If you do not include these user groups, they will no longer be associated with the work
+     * team you update.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -131,7 +276,30 @@ public class UpdateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      * 
      * @param memberDefinitions
-     *        A list of <code>MemberDefinition</code> objects that contain the updated work team members.
+     *        A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make
+     *        up the work team. </p>
+     *        <p>
+     *        Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private
+     *        workforces created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created
+     *        using your own OIDC identity provider (IdP) use <code>OidcMemberDefinition</code>. You should not provide
+     *        input for both of these parameters in a single request.
+     *        </p>
+     *        <p>
+     *        For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user
+     *        groups</i> within the user pool used to create a workforce. All of the
+     *        <code>CognitoMemberDefinition</code> objects that make up the member definition must have the same
+     *        <code>ClientId</code> and <code>UserPool</code> values. To add a Amazon Cognito user group to an existing
+     *        worker pool, see <a href="">Adding groups to a User Pool</a>. For more information about user pools, see
+     *        <a
+     *        href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon
+     *        Cognito User Pools</a>.
+     *        </p>
+     *        <p>
+     *        For workforces created using your own OIDC IdP, specify the user groups that you want to include in your
+     *        private work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>. Be
+     *        aware that user groups that are already in the work team must also be listed in <code>Groups</code> when
+     *        you make this request to remain on the work team. If you do not include these user groups, they will no
+     *        longer be associated with the work team you update.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -147,11 +315,57 @@ public class UpdateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of <code>MemberDefinition</code> objects that contain the updated work team members.
+     * A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make up the
+     * work team.
+     * </p>
+     * <p>
+     * Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private workforces
+     * created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created using your own OIDC
+     * identity provider (IdP) use <code>OidcMemberDefinition</code>. You should not provide input for both of these
+     * parameters in a single request.
+     * </p>
+     * <p>
+     * For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user groups</i>
+     * within the user pool used to create a workforce. All of the <code>CognitoMemberDefinition</code> objects that
+     * make up the member definition must have the same <code>ClientId</code> and <code>UserPool</code> values. To add a
+     * Amazon Cognito user group to an existing worker pool, see <a href="">Adding groups to a User Pool</a>. For more
+     * information about user pools, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon Cognito
+     * User Pools</a>.
+     * </p>
+     * <p>
+     * For workforces created using your own OIDC IdP, specify the user groups that you want to include in your private
+     * work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>. Be aware that user
+     * groups that are already in the work team must also be listed in <code>Groups</code> when you make this request to
+     * remain on the work team. If you do not include these user groups, they will no longer be associated with the work
+     * team you update.
      * </p>
      * 
      * @param memberDefinitions
-     *        A list of <code>MemberDefinition</code> objects that contain the updated work team members.
+     *        A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make
+     *        up the work team. </p>
+     *        <p>
+     *        Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private
+     *        workforces created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created
+     *        using your own OIDC identity provider (IdP) use <code>OidcMemberDefinition</code>. You should not provide
+     *        input for both of these parameters in a single request.
+     *        </p>
+     *        <p>
+     *        For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user
+     *        groups</i> within the user pool used to create a workforce. All of the
+     *        <code>CognitoMemberDefinition</code> objects that make up the member definition must have the same
+     *        <code>ClientId</code> and <code>UserPool</code> values. To add a Amazon Cognito user group to an existing
+     *        worker pool, see <a href="">Adding groups to a User Pool</a>. For more information about user pools, see
+     *        <a
+     *        href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon
+     *        Cognito User Pools</a>.
+     *        </p>
+     *        <p>
+     *        For workforces created using your own OIDC IdP, specify the user groups that you want to include in your
+     *        private work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>. Be
+     *        aware that user groups that are already in the work team must also be listed in <code>Groups</code> when
+     *        you make this request to remain on the work team. If you do not include these user groups, they will no
+     *        longer be associated with the work team you update.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -241,6 +455,58 @@ public class UpdateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
     }
 
     /**
+     * <p>
+     * Use this optional parameter to constrain access to an Amazon S3 resource based on the IP address using supported
+     * IAM global condition keys. The Amazon S3 resource is accessed in the worker portal using a Amazon S3 presigned
+     * URL.
+     * </p>
+     * 
+     * @param workerAccessConfiguration
+     *        Use this optional parameter to constrain access to an Amazon S3 resource based on the IP address using
+     *        supported IAM global condition keys. The Amazon S3 resource is accessed in the worker portal using a
+     *        Amazon S3 presigned URL.
+     */
+
+    public void setWorkerAccessConfiguration(WorkerAccessConfiguration workerAccessConfiguration) {
+        this.workerAccessConfiguration = workerAccessConfiguration;
+    }
+
+    /**
+     * <p>
+     * Use this optional parameter to constrain access to an Amazon S3 resource based on the IP address using supported
+     * IAM global condition keys. The Amazon S3 resource is accessed in the worker portal using a Amazon S3 presigned
+     * URL.
+     * </p>
+     * 
+     * @return Use this optional parameter to constrain access to an Amazon S3 resource based on the IP address using
+     *         supported IAM global condition keys. The Amazon S3 resource is accessed in the worker portal using a
+     *         Amazon S3 presigned URL.
+     */
+
+    public WorkerAccessConfiguration getWorkerAccessConfiguration() {
+        return this.workerAccessConfiguration;
+    }
+
+    /**
+     * <p>
+     * Use this optional parameter to constrain access to an Amazon S3 resource based on the IP address using supported
+     * IAM global condition keys. The Amazon S3 resource is accessed in the worker portal using a Amazon S3 presigned
+     * URL.
+     * </p>
+     * 
+     * @param workerAccessConfiguration
+     *        Use this optional parameter to constrain access to an Amazon S3 resource based on the IP address using
+     *        supported IAM global condition keys. The Amazon S3 resource is accessed in the worker portal using a
+     *        Amazon S3 presigned URL.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateWorkteamRequest withWorkerAccessConfiguration(WorkerAccessConfiguration workerAccessConfiguration) {
+        setWorkerAccessConfiguration(workerAccessConfiguration);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -259,7 +525,9 @@ public class UpdateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
         if (getNotificationConfiguration() != null)
-            sb.append("NotificationConfiguration: ").append(getNotificationConfiguration());
+            sb.append("NotificationConfiguration: ").append(getNotificationConfiguration()).append(",");
+        if (getWorkerAccessConfiguration() != null)
+            sb.append("WorkerAccessConfiguration: ").append(getWorkerAccessConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -290,6 +558,10 @@ public class UpdateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getNotificationConfiguration() != null && other.getNotificationConfiguration().equals(this.getNotificationConfiguration()) == false)
             return false;
+        if (other.getWorkerAccessConfiguration() == null ^ this.getWorkerAccessConfiguration() == null)
+            return false;
+        if (other.getWorkerAccessConfiguration() != null && other.getWorkerAccessConfiguration().equals(this.getWorkerAccessConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -302,6 +574,7 @@ public class UpdateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
         hashCode = prime * hashCode + ((getMemberDefinitions() == null) ? 0 : getMemberDefinitions().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getNotificationConfiguration() == null) ? 0 : getNotificationConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getWorkerAccessConfiguration() == null) ? 0 : getWorkerAccessConfiguration().hashCode());
         return hashCode;
     }
 

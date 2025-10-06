@@ -17,11 +17,15 @@ package com.amazonaws.http.apache.client.impl;
 import com.amazonaws.SDKGlobalConfiguration;
 import com.amazonaws.http.AmazonHttpClient;
 import com.amazonaws.http.DelegatingDnsResolver;
+import com.amazonaws.http.SystemPropertyTlsKeyManagersProvider;
+import com.amazonaws.http.TlsKeyManagersProvider;
 import com.amazonaws.http.client.ConnectionManagerFactory;
 import com.amazonaws.http.conn.SdkPlainSocketFactory;
 import com.amazonaws.http.conn.ssl.SdkTLSSocketFactory;
 import com.amazonaws.http.settings.HttpClientSettings;
+import com.amazonaws.internal.InputShutdownCheckingSslSocket;
 import com.amazonaws.internal.SdkSSLContext;
+import com.amazonaws.internal.SdkSSLSocket;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpHost;
@@ -36,8 +40,8 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.conn.DefaultSchemePortResolver;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.protocol.HttpContext;
-
 import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.KeyManager;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.TrustManager;
@@ -86,10 +90,9 @@ public class ApacheConnectionManagerFactory implements
         return sslsf != null
                 ? sslsf
                 : new SdkTLSSocketFactory(
-                SdkSSLContext.getPreferredSSLContext(settings.getSecureRandom()),
+                SdkSSLContext.getPreferredSSLContext(getKeyManagers(settings), settings.getSecureRandom()),
                 getHostNameVerifier(settings));
     }
-
 
     private SocketConfig buildSocketConfig(HttpClientSettings settings) {
         return SocketConfig.custom()
@@ -109,6 +112,14 @@ public class ApacheConnectionManagerFactory implements
                 : ConnectionConfig.custom()
                 .setBufferSize(socketBufferSize)
                 .build();
+    }
+
+    private KeyManager[] getKeyManagers(HttpClientSettings settings) {
+        TlsKeyManagersProvider provider = settings.getTlsKeyMangersProvider();
+        if (provider == null) {
+            provider = new SystemPropertyTlsKeyManagersProvider();
+        }
+        return provider.getKeyManagers();
     }
 
     private HostnameVerifier getHostNameVerifier
@@ -176,6 +187,7 @@ public class ApacheConnectionManagerFactory implements
 
             SSLSocket sslsock = (SSLSocket) ((sock != null) ? sock :
                     createSocket(context));
+            sslsock = new InputShutdownCheckingSslSocket(new SdkSSLSocket(sslsock));
             if (localAddress != null) sslsock.bind(localAddress);
 
 

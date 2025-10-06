@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,7 +39,7 @@ public class BudgetedAndActualAmounts implements Serializable, Cloneable, Struct
     private Spend actualAmount;
     /**
      * <p>
-     * The time period covered by this budget comparison.
+     * The time period that's covered by this budget comparison.
      * </p>
      */
     private TimePeriod timePeriod;
@@ -126,11 +126,11 @@ public class BudgetedAndActualAmounts implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The time period covered by this budget comparison.
+     * The time period that's covered by this budget comparison.
      * </p>
      * 
      * @param timePeriod
-     *        The time period covered by this budget comparison.
+     *        The time period that's covered by this budget comparison.
      */
 
     public void setTimePeriod(TimePeriod timePeriod) {
@@ -139,10 +139,10 @@ public class BudgetedAndActualAmounts implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The time period covered by this budget comparison.
+     * The time period that's covered by this budget comparison.
      * </p>
      * 
-     * @return The time period covered by this budget comparison.
+     * @return The time period that's covered by this budget comparison.
      */
 
     public TimePeriod getTimePeriod() {
@@ -151,11 +151,11 @@ public class BudgetedAndActualAmounts implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The time period covered by this budget comparison.
+     * The time period that's covered by this budget comparison.
      * </p>
      * 
      * @param timePeriod
-     *        The time period covered by this budget comparison.
+     *        The time period that's covered by this budget comparison.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

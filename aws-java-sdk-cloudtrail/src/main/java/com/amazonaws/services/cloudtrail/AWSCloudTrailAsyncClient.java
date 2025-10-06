@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,28 +30,30 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * representing the asynchronous operation; overloads which accept an {@code AsyncHandler} can be used to receive
  * notification when an asynchronous operation completes.
  * <p>
- * <fullname>AWS CloudTrail</fullname>
+ * <fullname>CloudTrail</fullname>
  * <p>
  * This is the CloudTrail API Reference. It provides descriptions of actions, data types, common parameters, and common
  * errors for CloudTrail.
  * </p>
  * <p>
- * CloudTrail is a web service that records AWS API calls for your AWS account and delivers log files to an Amazon S3
- * bucket. The recorded information includes the identity of the user, the start time of the AWS API call, the source IP
- * address, the request parameters, and the response elements returned by the service.
+ * CloudTrail is a web service that records Amazon Web Services API calls for your Amazon Web Services account and
+ * delivers log files to an Amazon S3 bucket. The recorded information includes the identity of the user, the start time
+ * of the Amazon Web Services API call, the source IP address, the request parameters, and the response elements
+ * returned by the service.
  * </p>
  * <note>
  * <p>
- * As an alternative to the API, you can use one of the AWS SDKs, which consist of libraries and sample code for various
- * programming languages and platforms (Java, Ruby, .NET, iOS, Android, etc.). The SDKs provide a convenient way to
- * create programmatic access to AWSCloudTrail. For example, the SDKs take care of cryptographically signing requests,
- * managing errors, and retrying requests automatically. For information about the AWS SDKs, including how to download
- * and install them, see the <a href="http://aws.amazon.com/tools/">Tools for Amazon Web Services page</a>.
+ * As an alternative to the API, you can use one of the Amazon Web Services SDKs, which consist of libraries and sample
+ * code for various programming languages and platforms (Java, Ruby, .NET, iOS, Android, etc.). The SDKs provide
+ * programmatic access to CloudTrail. For example, the SDKs handle cryptographically signing requests, managing errors,
+ * and retrying requests automatically. For more information about the Amazon Web Services SDKs, including how to
+ * download and install them, see <a href="http://aws.amazon.com/tools/">Tools to Build on Amazon Web Services</a>.
  * </p>
  * </note>
  * <p>
- * See the <a href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html">AWS CloudTrail
- * User Guide</a> for information about the data that is included with each AWS API call listed in the log files.
+ * See the <a href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html">CloudTrail
+ * User Guide</a> for information about the data that is included with each Amazon Web Services API call listed in the
+ * log files.
  * </p>
  */
 @ThreadSafe
@@ -250,7 +252,19 @@ public class AWSCloudTrailAsyncClient extends AWSCloudTrailClient implements AWS
      *        Object providing client parameters.
      */
     AWSCloudTrailAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on CloudTrail using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AWSCloudTrailAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -281,6 +295,105 @@ public class AWSCloudTrailAsyncClient extends AWSCloudTrailClient implements AWS
 
                 try {
                     result = executeAddTags(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelQueryResult> cancelQueryAsync(CancelQueryRequest request) {
+
+        return cancelQueryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelQueryResult> cancelQueryAsync(final CancelQueryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CancelQueryRequest, CancelQueryResult> asyncHandler) {
+        final CancelQueryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CancelQueryResult>() {
+            @Override
+            public CancelQueryResult call() throws Exception {
+                CancelQueryResult result = null;
+
+                try {
+                    result = executeCancelQuery(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateChannelResult> createChannelAsync(CreateChannelRequest request) {
+
+        return createChannelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateChannelResult> createChannelAsync(final CreateChannelRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateChannelRequest, CreateChannelResult> asyncHandler) {
+        final CreateChannelRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateChannelResult>() {
+            @Override
+            public CreateChannelResult call() throws Exception {
+                CreateChannelResult result = null;
+
+                try {
+                    result = executeCreateChannel(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateEventDataStoreResult> createEventDataStoreAsync(CreateEventDataStoreRequest request) {
+
+        return createEventDataStoreAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateEventDataStoreResult> createEventDataStoreAsync(final CreateEventDataStoreRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateEventDataStoreRequest, CreateEventDataStoreResult> asyncHandler) {
+        final CreateEventDataStoreRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateEventDataStoreResult>() {
+            @Override
+            public CreateEventDataStoreResult call() throws Exception {
+                CreateEventDataStoreResult result = null;
+
+                try {
+                    result = executeCreateEventDataStore(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -330,6 +443,105 @@ public class AWSCloudTrailAsyncClient extends AWSCloudTrailClient implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteChannelResult> deleteChannelAsync(DeleteChannelRequest request) {
+
+        return deleteChannelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteChannelResult> deleteChannelAsync(final DeleteChannelRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteChannelRequest, DeleteChannelResult> asyncHandler) {
+        final DeleteChannelRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteChannelResult>() {
+            @Override
+            public DeleteChannelResult call() throws Exception {
+                DeleteChannelResult result = null;
+
+                try {
+                    result = executeDeleteChannel(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteEventDataStoreResult> deleteEventDataStoreAsync(DeleteEventDataStoreRequest request) {
+
+        return deleteEventDataStoreAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteEventDataStoreResult> deleteEventDataStoreAsync(final DeleteEventDataStoreRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteEventDataStoreRequest, DeleteEventDataStoreResult> asyncHandler) {
+        final DeleteEventDataStoreRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteEventDataStoreResult>() {
+            @Override
+            public DeleteEventDataStoreResult call() throws Exception {
+                DeleteEventDataStoreResult result = null;
+
+                try {
+                    result = executeDeleteEventDataStore(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(DeleteResourcePolicyRequest request) {
+
+        return deleteResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourcePolicyResult> deleteResourcePolicyAsync(final DeleteResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteResourcePolicyRequest, DeleteResourcePolicyResult> asyncHandler) {
+        final DeleteResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteResourcePolicyResult>() {
+            @Override
+            public DeleteResourcePolicyResult call() throws Exception {
+                DeleteResourcePolicyResult result = null;
+
+                try {
+                    result = executeDeleteResourcePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteTrailResult> deleteTrailAsync(DeleteTrailRequest request) {
 
         return deleteTrailAsync(request, null);
@@ -347,6 +559,74 @@ public class AWSCloudTrailAsyncClient extends AWSCloudTrailClient implements AWS
 
                 try {
                     result = executeDeleteTrail(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterOrganizationDelegatedAdminResult> deregisterOrganizationDelegatedAdminAsync(
+            DeregisterOrganizationDelegatedAdminRequest request) {
+
+        return deregisterOrganizationDelegatedAdminAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterOrganizationDelegatedAdminResult> deregisterOrganizationDelegatedAdminAsync(
+            final DeregisterOrganizationDelegatedAdminRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeregisterOrganizationDelegatedAdminRequest, DeregisterOrganizationDelegatedAdminResult> asyncHandler) {
+        final DeregisterOrganizationDelegatedAdminRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeregisterOrganizationDelegatedAdminResult>() {
+            @Override
+            public DeregisterOrganizationDelegatedAdminResult call() throws Exception {
+                DeregisterOrganizationDelegatedAdminResult result = null;
+
+                try {
+                    result = executeDeregisterOrganizationDelegatedAdmin(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeQueryResult> describeQueryAsync(DescribeQueryRequest request) {
+
+        return describeQueryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeQueryResult> describeQueryAsync(final DescribeQueryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeQueryRequest, DescribeQueryResult> asyncHandler) {
+        final DescribeQueryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeQueryResult>() {
+            @Override
+            public DescribeQueryResult call() throws Exception {
+                DescribeQueryResult result = null;
+
+                try {
+                    result = executeDescribeQuery(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -419,6 +699,138 @@ public class AWSCloudTrailAsyncClient extends AWSCloudTrailClient implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<DisableFederationResult> disableFederationAsync(DisableFederationRequest request) {
+
+        return disableFederationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableFederationResult> disableFederationAsync(final DisableFederationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisableFederationRequest, DisableFederationResult> asyncHandler) {
+        final DisableFederationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisableFederationResult>() {
+            @Override
+            public DisableFederationResult call() throws Exception {
+                DisableFederationResult result = null;
+
+                try {
+                    result = executeDisableFederation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableFederationResult> enableFederationAsync(EnableFederationRequest request) {
+
+        return enableFederationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableFederationResult> enableFederationAsync(final EnableFederationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<EnableFederationRequest, EnableFederationResult> asyncHandler) {
+        final EnableFederationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<EnableFederationResult>() {
+            @Override
+            public EnableFederationResult call() throws Exception {
+                EnableFederationResult result = null;
+
+                try {
+                    result = executeEnableFederation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetChannelResult> getChannelAsync(GetChannelRequest request) {
+
+        return getChannelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetChannelResult> getChannelAsync(final GetChannelRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetChannelRequest, GetChannelResult> asyncHandler) {
+        final GetChannelRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetChannelResult>() {
+            @Override
+            public GetChannelResult call() throws Exception {
+                GetChannelResult result = null;
+
+                try {
+                    result = executeGetChannel(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetEventDataStoreResult> getEventDataStoreAsync(GetEventDataStoreRequest request) {
+
+        return getEventDataStoreAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetEventDataStoreResult> getEventDataStoreAsync(final GetEventDataStoreRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetEventDataStoreRequest, GetEventDataStoreResult> asyncHandler) {
+        final GetEventDataStoreRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetEventDataStoreResult>() {
+            @Override
+            public GetEventDataStoreResult call() throws Exception {
+                GetEventDataStoreResult result = null;
+
+                try {
+                    result = executeGetEventDataStore(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetEventSelectorsResult> getEventSelectorsAsync(GetEventSelectorsRequest request) {
 
         return getEventSelectorsAsync(request, null);
@@ -452,6 +864,171 @@ public class AWSCloudTrailAsyncClient extends AWSCloudTrailClient implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<GetImportResult> getImportAsync(GetImportRequest request) {
+
+        return getImportAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetImportResult> getImportAsync(final GetImportRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetImportRequest, GetImportResult> asyncHandler) {
+        final GetImportRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetImportResult>() {
+            @Override
+            public GetImportResult call() throws Exception {
+                GetImportResult result = null;
+
+                try {
+                    result = executeGetImport(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetInsightSelectorsResult> getInsightSelectorsAsync(GetInsightSelectorsRequest request) {
+
+        return getInsightSelectorsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetInsightSelectorsResult> getInsightSelectorsAsync(final GetInsightSelectorsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetInsightSelectorsRequest, GetInsightSelectorsResult> asyncHandler) {
+        final GetInsightSelectorsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetInsightSelectorsResult>() {
+            @Override
+            public GetInsightSelectorsResult call() throws Exception {
+                GetInsightSelectorsResult result = null;
+
+                try {
+                    result = executeGetInsightSelectors(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetQueryResultsResult> getQueryResultsAsync(GetQueryResultsRequest request) {
+
+        return getQueryResultsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetQueryResultsResult> getQueryResultsAsync(final GetQueryResultsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetQueryResultsRequest, GetQueryResultsResult> asyncHandler) {
+        final GetQueryResultsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetQueryResultsResult>() {
+            @Override
+            public GetQueryResultsResult call() throws Exception {
+                GetQueryResultsResult result = null;
+
+                try {
+                    result = executeGetQueryResults(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResourcePolicyResult> getResourcePolicyAsync(GetResourcePolicyRequest request) {
+
+        return getResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResourcePolicyResult> getResourcePolicyAsync(final GetResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetResourcePolicyRequest, GetResourcePolicyResult> asyncHandler) {
+        final GetResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetResourcePolicyResult>() {
+            @Override
+            public GetResourcePolicyResult call() throws Exception {
+                GetResourcePolicyResult result = null;
+
+                try {
+                    result = executeGetResourcePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTrailResult> getTrailAsync(GetTrailRequest request) {
+
+        return getTrailAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTrailResult> getTrailAsync(final GetTrailRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetTrailRequest, GetTrailResult> asyncHandler) {
+        final GetTrailRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetTrailResult>() {
+            @Override
+            public GetTrailResult call() throws Exception {
+                GetTrailResult result = null;
+
+                try {
+                    result = executeGetTrail(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetTrailStatusResult> getTrailStatusAsync(GetTrailStatusRequest request) {
 
         return getTrailStatusAsync(request, null);
@@ -469,6 +1046,171 @@ public class AWSCloudTrailAsyncClient extends AWSCloudTrailClient implements AWS
 
                 try {
                     result = executeGetTrailStatus(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListChannelsResult> listChannelsAsync(ListChannelsRequest request) {
+
+        return listChannelsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListChannelsResult> listChannelsAsync(final ListChannelsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListChannelsRequest, ListChannelsResult> asyncHandler) {
+        final ListChannelsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListChannelsResult>() {
+            @Override
+            public ListChannelsResult call() throws Exception {
+                ListChannelsResult result = null;
+
+                try {
+                    result = executeListChannels(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEventDataStoresResult> listEventDataStoresAsync(ListEventDataStoresRequest request) {
+
+        return listEventDataStoresAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEventDataStoresResult> listEventDataStoresAsync(final ListEventDataStoresRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListEventDataStoresRequest, ListEventDataStoresResult> asyncHandler) {
+        final ListEventDataStoresRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListEventDataStoresResult>() {
+            @Override
+            public ListEventDataStoresResult call() throws Exception {
+                ListEventDataStoresResult result = null;
+
+                try {
+                    result = executeListEventDataStores(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListImportFailuresResult> listImportFailuresAsync(ListImportFailuresRequest request) {
+
+        return listImportFailuresAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListImportFailuresResult> listImportFailuresAsync(final ListImportFailuresRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListImportFailuresRequest, ListImportFailuresResult> asyncHandler) {
+        final ListImportFailuresRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListImportFailuresResult>() {
+            @Override
+            public ListImportFailuresResult call() throws Exception {
+                ListImportFailuresResult result = null;
+
+                try {
+                    result = executeListImportFailures(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListImportsResult> listImportsAsync(ListImportsRequest request) {
+
+        return listImportsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListImportsResult> listImportsAsync(final ListImportsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListImportsRequest, ListImportsResult> asyncHandler) {
+        final ListImportsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListImportsResult>() {
+            @Override
+            public ListImportsResult call() throws Exception {
+                ListImportsResult result = null;
+
+                try {
+                    result = executeListImports(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListInsightsMetricDataResult> listInsightsMetricDataAsync(ListInsightsMetricDataRequest request) {
+
+        return listInsightsMetricDataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListInsightsMetricDataResult> listInsightsMetricDataAsync(final ListInsightsMetricDataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListInsightsMetricDataRequest, ListInsightsMetricDataResult> asyncHandler) {
+        final ListInsightsMetricDataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListInsightsMetricDataResult>() {
+            @Override
+            public ListInsightsMetricDataResult call() throws Exception {
+                ListInsightsMetricDataResult result = null;
+
+                try {
+                    result = executeListInsightsMetricData(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -541,6 +1283,39 @@ public class AWSCloudTrailAsyncClient extends AWSCloudTrailClient implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<ListQueriesResult> listQueriesAsync(ListQueriesRequest request) {
+
+        return listQueriesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListQueriesResult> listQueriesAsync(final ListQueriesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListQueriesRequest, ListQueriesResult> asyncHandler) {
+        final ListQueriesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListQueriesResult>() {
+            @Override
+            public ListQueriesResult call() throws Exception {
+                ListQueriesResult result = null;
+
+                try {
+                    result = executeListQueries(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListTagsResult> listTagsAsync(ListTagsRequest request) {
 
         return listTagsAsync(request, null);
@@ -558,6 +1333,39 @@ public class AWSCloudTrailAsyncClient extends AWSCloudTrailClient implements AWS
 
                 try {
                     result = executeListTags(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTrailsResult> listTrailsAsync(ListTrailsRequest request) {
+
+        return listTrailsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTrailsResult> listTrailsAsync(final ListTrailsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTrailsRequest, ListTrailsResult> asyncHandler) {
+        final ListTrailsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTrailsResult>() {
+            @Override
+            public ListTrailsResult call() throws Exception {
+                ListTrailsResult result = null;
+
+                try {
+                    result = executeListTrails(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -663,6 +1471,107 @@ public class AWSCloudTrailAsyncClient extends AWSCloudTrailClient implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<PutInsightSelectorsResult> putInsightSelectorsAsync(PutInsightSelectorsRequest request) {
+
+        return putInsightSelectorsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutInsightSelectorsResult> putInsightSelectorsAsync(final PutInsightSelectorsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutInsightSelectorsRequest, PutInsightSelectorsResult> asyncHandler) {
+        final PutInsightSelectorsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutInsightSelectorsResult>() {
+            @Override
+            public PutInsightSelectorsResult call() throws Exception {
+                PutInsightSelectorsResult result = null;
+
+                try {
+                    result = executePutInsightSelectors(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(PutResourcePolicyRequest request) {
+
+        return putResourcePolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutResourcePolicyResult> putResourcePolicyAsync(final PutResourcePolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutResourcePolicyRequest, PutResourcePolicyResult> asyncHandler) {
+        final PutResourcePolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutResourcePolicyResult>() {
+            @Override
+            public PutResourcePolicyResult call() throws Exception {
+                PutResourcePolicyResult result = null;
+
+                try {
+                    result = executePutResourcePolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterOrganizationDelegatedAdminResult> registerOrganizationDelegatedAdminAsync(
+            RegisterOrganizationDelegatedAdminRequest request) {
+
+        return registerOrganizationDelegatedAdminAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterOrganizationDelegatedAdminResult> registerOrganizationDelegatedAdminAsync(
+            final RegisterOrganizationDelegatedAdminRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RegisterOrganizationDelegatedAdminRequest, RegisterOrganizationDelegatedAdminResult> asyncHandler) {
+        final RegisterOrganizationDelegatedAdminRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RegisterOrganizationDelegatedAdminResult>() {
+            @Override
+            public RegisterOrganizationDelegatedAdminResult call() throws Exception {
+                RegisterOrganizationDelegatedAdminResult result = null;
+
+                try {
+                    result = executeRegisterOrganizationDelegatedAdmin(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<RemoveTagsResult> removeTagsAsync(RemoveTagsRequest request) {
 
         return removeTagsAsync(request, null);
@@ -680,6 +1589,105 @@ public class AWSCloudTrailAsyncClient extends AWSCloudTrailClient implements AWS
 
                 try {
                     result = executeRemoveTags(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RestoreEventDataStoreResult> restoreEventDataStoreAsync(RestoreEventDataStoreRequest request) {
+
+        return restoreEventDataStoreAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RestoreEventDataStoreResult> restoreEventDataStoreAsync(final RestoreEventDataStoreRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RestoreEventDataStoreRequest, RestoreEventDataStoreResult> asyncHandler) {
+        final RestoreEventDataStoreRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RestoreEventDataStoreResult>() {
+            @Override
+            public RestoreEventDataStoreResult call() throws Exception {
+                RestoreEventDataStoreResult result = null;
+
+                try {
+                    result = executeRestoreEventDataStore(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartEventDataStoreIngestionResult> startEventDataStoreIngestionAsync(StartEventDataStoreIngestionRequest request) {
+
+        return startEventDataStoreIngestionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartEventDataStoreIngestionResult> startEventDataStoreIngestionAsync(final StartEventDataStoreIngestionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartEventDataStoreIngestionRequest, StartEventDataStoreIngestionResult> asyncHandler) {
+        final StartEventDataStoreIngestionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartEventDataStoreIngestionResult>() {
+            @Override
+            public StartEventDataStoreIngestionResult call() throws Exception {
+                StartEventDataStoreIngestionResult result = null;
+
+                try {
+                    result = executeStartEventDataStoreIngestion(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartImportResult> startImportAsync(StartImportRequest request) {
+
+        return startImportAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartImportResult> startImportAsync(final StartImportRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartImportRequest, StartImportResult> asyncHandler) {
+        final StartImportRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartImportResult>() {
+            @Override
+            public StartImportResult call() throws Exception {
+                StartImportResult result = null;
+
+                try {
+                    result = executeStartImport(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -729,6 +1737,105 @@ public class AWSCloudTrailAsyncClient extends AWSCloudTrailClient implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<StartQueryResult> startQueryAsync(StartQueryRequest request) {
+
+        return startQueryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartQueryResult> startQueryAsync(final StartQueryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartQueryRequest, StartQueryResult> asyncHandler) {
+        final StartQueryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartQueryResult>() {
+            @Override
+            public StartQueryResult call() throws Exception {
+                StartQueryResult result = null;
+
+                try {
+                    result = executeStartQuery(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopEventDataStoreIngestionResult> stopEventDataStoreIngestionAsync(StopEventDataStoreIngestionRequest request) {
+
+        return stopEventDataStoreIngestionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopEventDataStoreIngestionResult> stopEventDataStoreIngestionAsync(final StopEventDataStoreIngestionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StopEventDataStoreIngestionRequest, StopEventDataStoreIngestionResult> asyncHandler) {
+        final StopEventDataStoreIngestionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StopEventDataStoreIngestionResult>() {
+            @Override
+            public StopEventDataStoreIngestionResult call() throws Exception {
+                StopEventDataStoreIngestionResult result = null;
+
+                try {
+                    result = executeStopEventDataStoreIngestion(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopImportResult> stopImportAsync(StopImportRequest request) {
+
+        return stopImportAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopImportResult> stopImportAsync(final StopImportRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StopImportRequest, StopImportResult> asyncHandler) {
+        final StopImportRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StopImportResult>() {
+            @Override
+            public StopImportResult call() throws Exception {
+                StopImportResult result = null;
+
+                try {
+                    result = executeStopImport(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<StopLoggingResult> stopLoggingAsync(StopLoggingRequest request) {
 
         return stopLoggingAsync(request, null);
@@ -746,6 +1853,72 @@ public class AWSCloudTrailAsyncClient extends AWSCloudTrailClient implements AWS
 
                 try {
                     result = executeStopLogging(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateChannelResult> updateChannelAsync(UpdateChannelRequest request) {
+
+        return updateChannelAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateChannelResult> updateChannelAsync(final UpdateChannelRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateChannelRequest, UpdateChannelResult> asyncHandler) {
+        final UpdateChannelRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateChannelResult>() {
+            @Override
+            public UpdateChannelResult call() throws Exception {
+                UpdateChannelResult result = null;
+
+                try {
+                    result = executeUpdateChannel(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateEventDataStoreResult> updateEventDataStoreAsync(UpdateEventDataStoreRequest request) {
+
+        return updateEventDataStoreAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateEventDataStoreResult> updateEventDataStoreAsync(final UpdateEventDataStoreRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateEventDataStoreRequest, UpdateEventDataStoreResult> asyncHandler) {
+        final UpdateEventDataStoreRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateEventDataStoreResult>() {
+            @Override
+            public UpdateEventDataStoreResult call() throws Exception {
+                UpdateEventDataStoreResult result = null;
+
+                try {
+                    result = executeUpdateEventDataStore(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

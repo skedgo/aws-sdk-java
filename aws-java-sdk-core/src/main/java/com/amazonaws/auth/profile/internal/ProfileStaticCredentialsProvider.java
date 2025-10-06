@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -64,7 +64,8 @@ public class ProfileStaticCredentialsProvider implements AWSCredentialsProvider 
 
         if (profile.getAwsSessionToken() == null) {
             return new BasicAWSCredentials(profile.getAwsAccessIdKey(),
-                                           profile.getAwsSecretAccessKey());
+                                           profile.getAwsSecretAccessKey(),
+                                           profile.getAwsAccountId());
         } else {
             if (profile.getAwsSessionToken().isEmpty()) {
                 throw new SdkClientException(String.format(
@@ -74,7 +75,8 @@ public class ProfileStaticCredentialsProvider implements AWSCredentialsProvider 
 
             return new BasicSessionCredentials(profile.getAwsAccessIdKey(),
                                                profile.getAwsSecretAccessKey(),
-                                               profile.getAwsSessionToken());
+                                               profile.getAwsSessionToken(),
+                                               profile.getAwsAccountId());
         }
     }
 

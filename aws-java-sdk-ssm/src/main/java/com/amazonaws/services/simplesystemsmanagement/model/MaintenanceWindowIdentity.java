@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,8 +60,8 @@ public class MaintenanceWindowIdentity implements Serializable, Cloneable, Struc
     private Integer duration;
     /**
      * <p>
-     * The number of hours before the end of the maintenance window that Systems Manager stops scheduling new tasks for
-     * execution.
+     * The number of hours before the end of the maintenance window that Amazon Web Services Systems Manager stops
+     * scheduling new tasks for execution.
      * </p>
      */
     private Integer cutoff;
@@ -78,6 +78,12 @@ public class MaintenanceWindowIdentity implements Serializable, Cloneable, Struc
      * </p>
      */
     private String scheduleTimezone;
+    /**
+     * <p>
+     * The number of days to wait to run a maintenance window after the scheduled cron expression date and time.
+     * </p>
+     */
+    private Integer scheduleOffset;
     /**
      * <p>
      * The date and time, in ISO-8601 Extended format, for when the maintenance window is scheduled to become inactive.
@@ -312,13 +318,13 @@ public class MaintenanceWindowIdentity implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The number of hours before the end of the maintenance window that Systems Manager stops scheduling new tasks for
-     * execution.
+     * The number of hours before the end of the maintenance window that Amazon Web Services Systems Manager stops
+     * scheduling new tasks for execution.
      * </p>
      * 
      * @param cutoff
-     *        The number of hours before the end of the maintenance window that Systems Manager stops scheduling new
-     *        tasks for execution.
+     *        The number of hours before the end of the maintenance window that Amazon Web Services Systems Manager
+     *        stops scheduling new tasks for execution.
      */
 
     public void setCutoff(Integer cutoff) {
@@ -327,12 +333,12 @@ public class MaintenanceWindowIdentity implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The number of hours before the end of the maintenance window that Systems Manager stops scheduling new tasks for
-     * execution.
+     * The number of hours before the end of the maintenance window that Amazon Web Services Systems Manager stops
+     * scheduling new tasks for execution.
      * </p>
      * 
-     * @return The number of hours before the end of the maintenance window that Systems Manager stops scheduling new
-     *         tasks for execution.
+     * @return The number of hours before the end of the maintenance window that Amazon Web Services Systems Manager
+     *         stops scheduling new tasks for execution.
      */
 
     public Integer getCutoff() {
@@ -341,13 +347,13 @@ public class MaintenanceWindowIdentity implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The number of hours before the end of the maintenance window that Systems Manager stops scheduling new tasks for
-     * execution.
+     * The number of hours before the end of the maintenance window that Amazon Web Services Systems Manager stops
+     * scheduling new tasks for execution.
      * </p>
      * 
      * @param cutoff
-     *        The number of hours before the end of the maintenance window that Systems Manager stops scheduling new
-     *        tasks for execution.
+     *        The number of hours before the end of the maintenance window that Amazon Web Services Systems Manager
+     *        stops scheduling new tasks for execution.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -439,6 +445,46 @@ public class MaintenanceWindowIdentity implements Serializable, Cloneable, Struc
 
     public MaintenanceWindowIdentity withScheduleTimezone(String scheduleTimezone) {
         setScheduleTimezone(scheduleTimezone);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The number of days to wait to run a maintenance window after the scheduled cron expression date and time.
+     * </p>
+     * 
+     * @param scheduleOffset
+     *        The number of days to wait to run a maintenance window after the scheduled cron expression date and time.
+     */
+
+    public void setScheduleOffset(Integer scheduleOffset) {
+        this.scheduleOffset = scheduleOffset;
+    }
+
+    /**
+     * <p>
+     * The number of days to wait to run a maintenance window after the scheduled cron expression date and time.
+     * </p>
+     * 
+     * @return The number of days to wait to run a maintenance window after the scheduled cron expression date and time.
+     */
+
+    public Integer getScheduleOffset() {
+        return this.scheduleOffset;
+    }
+
+    /**
+     * <p>
+     * The number of days to wait to run a maintenance window after the scheduled cron expression date and time.
+     * </p>
+     * 
+     * @param scheduleOffset
+     *        The number of days to wait to run a maintenance window after the scheduled cron expression date and time.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MaintenanceWindowIdentity withScheduleOffset(Integer scheduleOffset) {
+        setScheduleOffset(scheduleOffset);
         return this;
     }
 
@@ -602,6 +648,8 @@ public class MaintenanceWindowIdentity implements Serializable, Cloneable, Struc
             sb.append("Schedule: ").append(getSchedule()).append(",");
         if (getScheduleTimezone() != null)
             sb.append("ScheduleTimezone: ").append(getScheduleTimezone()).append(",");
+        if (getScheduleOffset() != null)
+            sb.append("ScheduleOffset: ").append(getScheduleOffset()).append(",");
         if (getEndDate() != null)
             sb.append("EndDate: ").append(getEndDate()).append(",");
         if (getStartDate() != null)
@@ -654,6 +702,10 @@ public class MaintenanceWindowIdentity implements Serializable, Cloneable, Struc
             return false;
         if (other.getScheduleTimezone() != null && other.getScheduleTimezone().equals(this.getScheduleTimezone()) == false)
             return false;
+        if (other.getScheduleOffset() == null ^ this.getScheduleOffset() == null)
+            return false;
+        if (other.getScheduleOffset() != null && other.getScheduleOffset().equals(this.getScheduleOffset()) == false)
+            return false;
         if (other.getEndDate() == null ^ this.getEndDate() == null)
             return false;
         if (other.getEndDate() != null && other.getEndDate().equals(this.getEndDate()) == false)
@@ -682,6 +734,7 @@ public class MaintenanceWindowIdentity implements Serializable, Cloneable, Struc
         hashCode = prime * hashCode + ((getCutoff() == null) ? 0 : getCutoff().hashCode());
         hashCode = prime * hashCode + ((getSchedule() == null) ? 0 : getSchedule().hashCode());
         hashCode = prime * hashCode + ((getScheduleTimezone() == null) ? 0 : getScheduleTimezone().hashCode());
+        hashCode = prime * hashCode + ((getScheduleOffset() == null) ? 0 : getScheduleOffset().hashCode());
         hashCode = prime * hashCode + ((getEndDate() == null) ? 0 : getEndDate().hashCode());
         hashCode = prime * hashCode + ((getStartDate() == null) ? 0 : getStartDate().hashCode());
         hashCode = prime * hashCode + ((getNextExecutionTime() == null) ? 0 : getNextExecutionTime().hashCode());

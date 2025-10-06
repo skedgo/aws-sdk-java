@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * Removes the specified directory as a publisher to the specified SNS topic.
+ * Removes the specified directory as a publisher to the specified Amazon SNS topic.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ds-2015-04-16/DeregisterEventTopic" target="_top">AWS API
@@ -30,27 +30,27 @@ public class DeregisterEventTopicRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The Directory ID to remove as a publisher. This directory will no longer send messages to the specified SNS
-     * topic.
+     * The Directory ID to remove as a publisher. This directory will no longer send messages to the specified Amazon
+     * SNS topic.
      * </p>
      */
     private String directoryId;
     /**
      * <p>
-     * The name of the SNS topic from which to remove the directory as a publisher.
+     * The name of the Amazon SNS topic from which to remove the directory as a publisher.
      * </p>
      */
     private String topicName;
 
     /**
      * <p>
-     * The Directory ID to remove as a publisher. This directory will no longer send messages to the specified SNS
-     * topic.
+     * The Directory ID to remove as a publisher. This directory will no longer send messages to the specified Amazon
+     * SNS topic.
      * </p>
      * 
      * @param directoryId
      *        The Directory ID to remove as a publisher. This directory will no longer send messages to the specified
-     *        SNS topic.
+     *        Amazon SNS topic.
      */
 
     public void setDirectoryId(String directoryId) {
@@ -59,12 +59,12 @@ public class DeregisterEventTopicRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The Directory ID to remove as a publisher. This directory will no longer send messages to the specified SNS
-     * topic.
+     * The Directory ID to remove as a publisher. This directory will no longer send messages to the specified Amazon
+     * SNS topic.
      * </p>
      * 
      * @return The Directory ID to remove as a publisher. This directory will no longer send messages to the specified
-     *         SNS topic.
+     *         Amazon SNS topic.
      */
 
     public String getDirectoryId() {
@@ -73,13 +73,13 @@ public class DeregisterEventTopicRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The Directory ID to remove as a publisher. This directory will no longer send messages to the specified SNS
-     * topic.
+     * The Directory ID to remove as a publisher. This directory will no longer send messages to the specified Amazon
+     * SNS topic.
      * </p>
      * 
      * @param directoryId
      *        The Directory ID to remove as a publisher. This directory will no longer send messages to the specified
-     *        SNS topic.
+     *        Amazon SNS topic.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -90,11 +90,11 @@ public class DeregisterEventTopicRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The name of the SNS topic from which to remove the directory as a publisher.
+     * The name of the Amazon SNS topic from which to remove the directory as a publisher.
      * </p>
      * 
      * @param topicName
-     *        The name of the SNS topic from which to remove the directory as a publisher.
+     *        The name of the Amazon SNS topic from which to remove the directory as a publisher.
      */
 
     public void setTopicName(String topicName) {
@@ -103,10 +103,10 @@ public class DeregisterEventTopicRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The name of the SNS topic from which to remove the directory as a publisher.
+     * The name of the Amazon SNS topic from which to remove the directory as a publisher.
      * </p>
      * 
-     * @return The name of the SNS topic from which to remove the directory as a publisher.
+     * @return The name of the Amazon SNS topic from which to remove the directory as a publisher.
      */
 
     public String getTopicName() {
@@ -115,11 +115,11 @@ public class DeregisterEventTopicRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * The name of the SNS topic from which to remove the directory as a publisher.
+     * The name of the Amazon SNS topic from which to remove the directory as a publisher.
      * </p>
      * 
      * @param topicName
-     *        The name of the SNS topic from which to remove the directory as a publisher.
+     *        The name of the Amazon SNS topic from which to remove the directory as a publisher.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

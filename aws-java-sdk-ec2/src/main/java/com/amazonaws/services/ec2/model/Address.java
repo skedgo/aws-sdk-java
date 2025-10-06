@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Describes an Elastic IP address.
+ * Describes an Elastic IP address, or a carrier IP address.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/Address" target="_top">AWS API Documentation</a>
@@ -39,20 +39,19 @@ public class Address implements Serializable, Cloneable {
     private String publicIp;
     /**
      * <p>
-     * The ID representing the allocation of the address for use with EC2-VPC.
+     * The ID representing the allocation of the address.
      * </p>
      */
     private String allocationId;
     /**
      * <p>
-     * The ID representing the association of the address with an instance in a VPC.
+     * The ID representing the association of the address with an instance.
      * </p>
      */
     private String associationId;
     /**
      * <p>
-     * Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>) or
-     * instances in a VPC (<code>vpc</code>).
+     * The network (<code>vpc</code>).
      * </p>
      */
     private String domain;
@@ -64,7 +63,7 @@ public class Address implements Serializable, Cloneable {
     private String networkInterfaceId;
     /**
      * <p>
-     * The ID of the AWS account that owns the network interface.
+     * The ID of the Amazon Web Services account that owns the network interface.
      * </p>
      */
     private String networkInterfaceOwnerId;
@@ -86,6 +85,32 @@ public class Address implements Serializable, Cloneable {
      * </p>
      */
     private String publicIpv4Pool;
+    /**
+     * <p>
+     * The name of the unique set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services
+     * advertises IP addresses.
+     * </p>
+     */
+    private String networkBorderGroup;
+    /**
+     * <p>
+     * The customer-owned IP address.
+     * </p>
+     */
+    private String customerOwnedIp;
+    /**
+     * <p>
+     * The ID of the customer-owned address pool.
+     * </p>
+     */
+    private String customerOwnedIpv4Pool;
+    /**
+     * <p>
+     * The carrier IP address associated. This option is only available for network interfaces which reside in a subnet
+     * in a Wavelength Zone (for example an EC2 instance).
+     * </p>
+     */
+    private String carrierIp;
 
     /**
      * <p>
@@ -169,11 +194,11 @@ public class Address implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID representing the allocation of the address for use with EC2-VPC.
+     * The ID representing the allocation of the address.
      * </p>
      * 
      * @param allocationId
-     *        The ID representing the allocation of the address for use with EC2-VPC.
+     *        The ID representing the allocation of the address.
      */
 
     public void setAllocationId(String allocationId) {
@@ -182,10 +207,10 @@ public class Address implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID representing the allocation of the address for use with EC2-VPC.
+     * The ID representing the allocation of the address.
      * </p>
      * 
-     * @return The ID representing the allocation of the address for use with EC2-VPC.
+     * @return The ID representing the allocation of the address.
      */
 
     public String getAllocationId() {
@@ -194,11 +219,11 @@ public class Address implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID representing the allocation of the address for use with EC2-VPC.
+     * The ID representing the allocation of the address.
      * </p>
      * 
      * @param allocationId
-     *        The ID representing the allocation of the address for use with EC2-VPC.
+     *        The ID representing the allocation of the address.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -209,11 +234,11 @@ public class Address implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID representing the association of the address with an instance in a VPC.
+     * The ID representing the association of the address with an instance.
      * </p>
      * 
      * @param associationId
-     *        The ID representing the association of the address with an instance in a VPC.
+     *        The ID representing the association of the address with an instance.
      */
 
     public void setAssociationId(String associationId) {
@@ -222,10 +247,10 @@ public class Address implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID representing the association of the address with an instance in a VPC.
+     * The ID representing the association of the address with an instance.
      * </p>
      * 
-     * @return The ID representing the association of the address with an instance in a VPC.
+     * @return The ID representing the association of the address with an instance.
      */
 
     public String getAssociationId() {
@@ -234,11 +259,11 @@ public class Address implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID representing the association of the address with an instance in a VPC.
+     * The ID representing the association of the address with an instance.
      * </p>
      * 
      * @param associationId
-     *        The ID representing the association of the address with an instance in a VPC.
+     *        The ID representing the association of the address with an instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -249,13 +274,11 @@ public class Address implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>) or
-     * instances in a VPC (<code>vpc</code>).
+     * The network (<code>vpc</code>).
      * </p>
      * 
      * @param domain
-     *        Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>)
-     *        or instances in a VPC (<code>vpc</code>).
+     *        The network (<code>vpc</code>).
      * @see DomainType
      */
 
@@ -265,12 +288,10 @@ public class Address implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>) or
-     * instances in a VPC (<code>vpc</code>).
+     * The network (<code>vpc</code>).
      * </p>
      * 
-     * @return Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>
-     *         ) or instances in a VPC (<code>vpc</code>).
+     * @return The network (<code>vpc</code>).
      * @see DomainType
      */
 
@@ -280,13 +301,11 @@ public class Address implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>) or
-     * instances in a VPC (<code>vpc</code>).
+     * The network (<code>vpc</code>).
      * </p>
      * 
      * @param domain
-     *        Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>)
-     *        or instances in a VPC (<code>vpc</code>).
+     *        The network (<code>vpc</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DomainType
      */
@@ -298,13 +317,11 @@ public class Address implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>) or
-     * instances in a VPC (<code>vpc</code>).
+     * The network (<code>vpc</code>).
      * </p>
      * 
      * @param domain
-     *        Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>)
-     *        or instances in a VPC (<code>vpc</code>).
+     *        The network (<code>vpc</code>).
      * @see DomainType
      */
 
@@ -314,13 +331,11 @@ public class Address implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>) or
-     * instances in a VPC (<code>vpc</code>).
+     * The network (<code>vpc</code>).
      * </p>
      * 
      * @param domain
-     *        Indicates whether this Elastic IP address is for use with instances in EC2-Classic (<code>standard</code>)
-     *        or instances in a VPC (<code>vpc</code>).
+     *        The network (<code>vpc</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see DomainType
      */
@@ -372,11 +387,11 @@ public class Address implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the network interface.
+     * The ID of the Amazon Web Services account that owns the network interface.
      * </p>
      * 
      * @param networkInterfaceOwnerId
-     *        The ID of the AWS account that owns the network interface.
+     *        The ID of the Amazon Web Services account that owns the network interface.
      */
 
     public void setNetworkInterfaceOwnerId(String networkInterfaceOwnerId) {
@@ -385,10 +400,10 @@ public class Address implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the network interface.
+     * The ID of the Amazon Web Services account that owns the network interface.
      * </p>
      * 
-     * @return The ID of the AWS account that owns the network interface.
+     * @return The ID of the Amazon Web Services account that owns the network interface.
      */
 
     public String getNetworkInterfaceOwnerId() {
@@ -397,11 +412,11 @@ public class Address implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of the AWS account that owns the network interface.
+     * The ID of the Amazon Web Services account that owns the network interface.
      * </p>
      * 
      * @param networkInterfaceOwnerId
-     *        The ID of the AWS account that owns the network interface.
+     *        The ID of the Amazon Web Services account that owns the network interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -564,6 +579,178 @@ public class Address implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The name of the unique set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services
+     * advertises IP addresses.
+     * </p>
+     * 
+     * @param networkBorderGroup
+     *        The name of the unique set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web
+     *        Services advertises IP addresses.
+     */
+
+    public void setNetworkBorderGroup(String networkBorderGroup) {
+        this.networkBorderGroup = networkBorderGroup;
+    }
+
+    /**
+     * <p>
+     * The name of the unique set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services
+     * advertises IP addresses.
+     * </p>
+     * 
+     * @return The name of the unique set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web
+     *         Services advertises IP addresses.
+     */
+
+    public String getNetworkBorderGroup() {
+        return this.networkBorderGroup;
+    }
+
+    /**
+     * <p>
+     * The name of the unique set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services
+     * advertises IP addresses.
+     * </p>
+     * 
+     * @param networkBorderGroup
+     *        The name of the unique set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web
+     *        Services advertises IP addresses.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Address withNetworkBorderGroup(String networkBorderGroup) {
+        setNetworkBorderGroup(networkBorderGroup);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The customer-owned IP address.
+     * </p>
+     * 
+     * @param customerOwnedIp
+     *        The customer-owned IP address.
+     */
+
+    public void setCustomerOwnedIp(String customerOwnedIp) {
+        this.customerOwnedIp = customerOwnedIp;
+    }
+
+    /**
+     * <p>
+     * The customer-owned IP address.
+     * </p>
+     * 
+     * @return The customer-owned IP address.
+     */
+
+    public String getCustomerOwnedIp() {
+        return this.customerOwnedIp;
+    }
+
+    /**
+     * <p>
+     * The customer-owned IP address.
+     * </p>
+     * 
+     * @param customerOwnedIp
+     *        The customer-owned IP address.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Address withCustomerOwnedIp(String customerOwnedIp) {
+        setCustomerOwnedIp(customerOwnedIp);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the customer-owned address pool.
+     * </p>
+     * 
+     * @param customerOwnedIpv4Pool
+     *        The ID of the customer-owned address pool.
+     */
+
+    public void setCustomerOwnedIpv4Pool(String customerOwnedIpv4Pool) {
+        this.customerOwnedIpv4Pool = customerOwnedIpv4Pool;
+    }
+
+    /**
+     * <p>
+     * The ID of the customer-owned address pool.
+     * </p>
+     * 
+     * @return The ID of the customer-owned address pool.
+     */
+
+    public String getCustomerOwnedIpv4Pool() {
+        return this.customerOwnedIpv4Pool;
+    }
+
+    /**
+     * <p>
+     * The ID of the customer-owned address pool.
+     * </p>
+     * 
+     * @param customerOwnedIpv4Pool
+     *        The ID of the customer-owned address pool.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Address withCustomerOwnedIpv4Pool(String customerOwnedIpv4Pool) {
+        setCustomerOwnedIpv4Pool(customerOwnedIpv4Pool);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The carrier IP address associated. This option is only available for network interfaces which reside in a subnet
+     * in a Wavelength Zone (for example an EC2 instance).
+     * </p>
+     * 
+     * @param carrierIp
+     *        The carrier IP address associated. This option is only available for network interfaces which reside in a
+     *        subnet in a Wavelength Zone (for example an EC2 instance).
+     */
+
+    public void setCarrierIp(String carrierIp) {
+        this.carrierIp = carrierIp;
+    }
+
+    /**
+     * <p>
+     * The carrier IP address associated. This option is only available for network interfaces which reside in a subnet
+     * in a Wavelength Zone (for example an EC2 instance).
+     * </p>
+     * 
+     * @return The carrier IP address associated. This option is only available for network interfaces which reside in a
+     *         subnet in a Wavelength Zone (for example an EC2 instance).
+     */
+
+    public String getCarrierIp() {
+        return this.carrierIp;
+    }
+
+    /**
+     * <p>
+     * The carrier IP address associated. This option is only available for network interfaces which reside in a subnet
+     * in a Wavelength Zone (for example an EC2 instance).
+     * </p>
+     * 
+     * @param carrierIp
+     *        The carrier IP address associated. This option is only available for network interfaces which reside in a
+     *        subnet in a Wavelength Zone (for example an EC2 instance).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Address withCarrierIp(String carrierIp) {
+        setCarrierIp(carrierIp);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -594,7 +781,15 @@ public class Address implements Serializable, Cloneable {
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getPublicIpv4Pool() != null)
-            sb.append("PublicIpv4Pool: ").append(getPublicIpv4Pool());
+            sb.append("PublicIpv4Pool: ").append(getPublicIpv4Pool()).append(",");
+        if (getNetworkBorderGroup() != null)
+            sb.append("NetworkBorderGroup: ").append(getNetworkBorderGroup()).append(",");
+        if (getCustomerOwnedIp() != null)
+            sb.append("CustomerOwnedIp: ").append(getCustomerOwnedIp()).append(",");
+        if (getCustomerOwnedIpv4Pool() != null)
+            sb.append("CustomerOwnedIpv4Pool: ").append(getCustomerOwnedIpv4Pool()).append(",");
+        if (getCarrierIp() != null)
+            sb.append("CarrierIp: ").append(getCarrierIp());
         sb.append("}");
         return sb.toString();
     }
@@ -649,6 +844,22 @@ public class Address implements Serializable, Cloneable {
             return false;
         if (other.getPublicIpv4Pool() != null && other.getPublicIpv4Pool().equals(this.getPublicIpv4Pool()) == false)
             return false;
+        if (other.getNetworkBorderGroup() == null ^ this.getNetworkBorderGroup() == null)
+            return false;
+        if (other.getNetworkBorderGroup() != null && other.getNetworkBorderGroup().equals(this.getNetworkBorderGroup()) == false)
+            return false;
+        if (other.getCustomerOwnedIp() == null ^ this.getCustomerOwnedIp() == null)
+            return false;
+        if (other.getCustomerOwnedIp() != null && other.getCustomerOwnedIp().equals(this.getCustomerOwnedIp()) == false)
+            return false;
+        if (other.getCustomerOwnedIpv4Pool() == null ^ this.getCustomerOwnedIpv4Pool() == null)
+            return false;
+        if (other.getCustomerOwnedIpv4Pool() != null && other.getCustomerOwnedIpv4Pool().equals(this.getCustomerOwnedIpv4Pool()) == false)
+            return false;
+        if (other.getCarrierIp() == null ^ this.getCarrierIp() == null)
+            return false;
+        if (other.getCarrierIp() != null && other.getCarrierIp().equals(this.getCarrierIp()) == false)
+            return false;
         return true;
     }
 
@@ -667,6 +878,10 @@ public class Address implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getPrivateIpAddress() == null) ? 0 : getPrivateIpAddress().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getPublicIpv4Pool() == null) ? 0 : getPublicIpv4Pool().hashCode());
+        hashCode = prime * hashCode + ((getNetworkBorderGroup() == null) ? 0 : getNetworkBorderGroup().hashCode());
+        hashCode = prime * hashCode + ((getCustomerOwnedIp() == null) ? 0 : getCustomerOwnedIp().hashCode());
+        hashCode = prime * hashCode + ((getCustomerOwnedIpv4Pool() == null) ? 0 : getCustomerOwnedIpv4Pool().hashCode());
+        hashCode = prime * hashCode + ((getCarrierIp() == null) ? 0 : getCarrierIp().hashCode());
         return hashCode;
     }
 

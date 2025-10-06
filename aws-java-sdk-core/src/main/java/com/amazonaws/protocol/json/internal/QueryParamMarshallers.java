@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ import com.amazonaws.protocol.MarshallLocation;
 import com.amazonaws.protocol.MarshallingInfo;
 import com.amazonaws.util.StringUtils;
 import com.amazonaws.util.TimestampFormat;
+import com.amazonaws.util.ValueToStringConverters;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;

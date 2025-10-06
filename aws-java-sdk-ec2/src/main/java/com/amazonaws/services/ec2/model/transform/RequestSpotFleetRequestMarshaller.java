@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,6 +50,24 @@ public class RequestSpotFleetRequestMarshaller implements Marshaller<Request<Req
             if (spotFleetRequestConfig.getOnDemandAllocationStrategy() != null) {
                 request.addParameter("SpotFleetRequestConfig.OnDemandAllocationStrategy",
                         StringUtils.fromString(spotFleetRequestConfig.getOnDemandAllocationStrategy()));
+            }
+
+            SpotMaintenanceStrategies spotMaintenanceStrategies = spotFleetRequestConfig.getSpotMaintenanceStrategies();
+            if (spotMaintenanceStrategies != null) {
+
+                SpotCapacityRebalance capacityRebalance = spotMaintenanceStrategies.getCapacityRebalance();
+                if (capacityRebalance != null) {
+
+                    if (capacityRebalance.getReplacementStrategy() != null) {
+                        request.addParameter("SpotFleetRequestConfig.SpotMaintenanceStrategies.CapacityRebalance.ReplacementStrategy",
+                                StringUtils.fromString(capacityRebalance.getReplacementStrategy()));
+                    }
+
+                    if (capacityRebalance.getTerminationDelay() != null) {
+                        request.addParameter("SpotFleetRequestConfig.SpotMaintenanceStrategies.CapacityRebalance.TerminationDelay",
+                                StringUtils.fromInteger(capacityRebalance.getTerminationDelay()));
+                    }
+                }
             }
 
             if (spotFleetRequestConfig.getClientToken() != null) {
@@ -160,16 +178,28 @@ public class RequestSpotFleetRequestMarshaller implements Marshaller<Request<Req
                                             StringUtils.fromString(ebs.getVolumeType()));
                                 }
 
-                                if (ebs.getEncrypted() != null) {
-                                    request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
-                                            + ".BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Encrypted",
-                                            StringUtils.fromBoolean(ebs.getEncrypted()));
-                                }
-
                                 if (ebs.getKmsKeyId() != null) {
                                     request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
                                             + ".BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.KmsKeyId",
                                             StringUtils.fromString(ebs.getKmsKeyId()));
+                                }
+
+                                if (ebs.getThroughput() != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                            + ".BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Throughput",
+                                            StringUtils.fromInteger(ebs.getThroughput()));
+                                }
+
+                                if (ebs.getOutpostArn() != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                            + ".BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.OutpostArn",
+                                            StringUtils.fromString(ebs.getOutpostArn()));
+                                }
+
+                                if (ebs.getEncrypted() != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                            + ".BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Encrypted",
+                                            StringUtils.fromBoolean(ebs.getEncrypted()));
                                 }
                             }
 
@@ -297,6 +327,13 @@ public class RequestSpotFleetRequestMarshaller implements Marshaller<Request<Req
                                                 + ".Ipv6Address",
                                                 StringUtils.fromString(instanceNetworkInterfaceSpecificationIpv6AddressesListValue.getIpv6Address()));
                                     }
+
+                                    if (instanceNetworkInterfaceSpecificationIpv6AddressesListValue.getIsPrimaryIpv6() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                                + ".NetworkInterfaceSet." + networkInterfacesListIndex + ".Ipv6Addresses." + ipv6AddressesListIndex
+                                                + ".IsPrimaryIpv6",
+                                                StringUtils.fromBoolean(instanceNetworkInterfaceSpecificationIpv6AddressesListValue.getIsPrimaryIpv6()));
+                                    }
                                     ipv6AddressesListIndex++;
                                 }
                             }
@@ -350,10 +387,120 @@ public class RequestSpotFleetRequestMarshaller implements Marshaller<Request<Req
                                         StringUtils.fromString(spotFleetLaunchSpecificationNetworkInterfacesListValue.getSubnetId()));
                             }
 
+                            if (spotFleetLaunchSpecificationNetworkInterfacesListValue.getAssociateCarrierIpAddress() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex + ".NetworkInterfaceSet."
+                                        + networkInterfacesListIndex + ".AssociateCarrierIpAddress",
+                                        StringUtils.fromBoolean(spotFleetLaunchSpecificationNetworkInterfacesListValue.getAssociateCarrierIpAddress()));
+                            }
+
                             if (spotFleetLaunchSpecificationNetworkInterfacesListValue.getInterfaceType() != null) {
                                 request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex + ".NetworkInterfaceSet."
                                         + networkInterfacesListIndex + ".InterfaceType",
                                         StringUtils.fromString(spotFleetLaunchSpecificationNetworkInterfacesListValue.getInterfaceType()));
+                            }
+
+                            if (spotFleetLaunchSpecificationNetworkInterfacesListValue.getNetworkCardIndex() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex + ".NetworkInterfaceSet."
+                                        + networkInterfacesListIndex + ".NetworkCardIndex",
+                                        StringUtils.fromInteger(spotFleetLaunchSpecificationNetworkInterfacesListValue.getNetworkCardIndex()));
+                            }
+
+                            com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest> instanceNetworkInterfaceSpecificationIpv4PrefixesList = (com.amazonaws.internal.SdkInternalList<Ipv4PrefixSpecificationRequest>) spotFleetLaunchSpecificationNetworkInterfacesListValue
+                                    .getIpv4Prefixes();
+                            if (!instanceNetworkInterfaceSpecificationIpv4PrefixesList.isEmpty()
+                                    || !instanceNetworkInterfaceSpecificationIpv4PrefixesList.isAutoConstruct()) {
+                                int ipv4PrefixesListIndex = 1;
+
+                                for (Ipv4PrefixSpecificationRequest instanceNetworkInterfaceSpecificationIpv4PrefixesListValue : instanceNetworkInterfaceSpecificationIpv4PrefixesList) {
+
+                                    if (instanceNetworkInterfaceSpecificationIpv4PrefixesListValue.getIpv4Prefix() != null) {
+                                        request.addParameter(
+                                                "SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex + ".NetworkInterfaceSet."
+                                                        + networkInterfacesListIndex + ".Ipv4Prefix." + ipv4PrefixesListIndex + ".Ipv4Prefix",
+                                                StringUtils.fromString(instanceNetworkInterfaceSpecificationIpv4PrefixesListValue.getIpv4Prefix()));
+                                    }
+                                    ipv4PrefixesListIndex++;
+                                }
+                            }
+
+                            if (spotFleetLaunchSpecificationNetworkInterfacesListValue.getIpv4PrefixCount() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex + ".NetworkInterfaceSet."
+                                        + networkInterfacesListIndex + ".Ipv4PrefixCount",
+                                        StringUtils.fromInteger(spotFleetLaunchSpecificationNetworkInterfacesListValue.getIpv4PrefixCount()));
+                            }
+
+                            com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest> instanceNetworkInterfaceSpecificationIpv6PrefixesList = (com.amazonaws.internal.SdkInternalList<Ipv6PrefixSpecificationRequest>) spotFleetLaunchSpecificationNetworkInterfacesListValue
+                                    .getIpv6Prefixes();
+                            if (!instanceNetworkInterfaceSpecificationIpv6PrefixesList.isEmpty()
+                                    || !instanceNetworkInterfaceSpecificationIpv6PrefixesList.isAutoConstruct()) {
+                                int ipv6PrefixesListIndex = 1;
+
+                                for (Ipv6PrefixSpecificationRequest instanceNetworkInterfaceSpecificationIpv6PrefixesListValue : instanceNetworkInterfaceSpecificationIpv6PrefixesList) {
+
+                                    if (instanceNetworkInterfaceSpecificationIpv6PrefixesListValue.getIpv6Prefix() != null) {
+                                        request.addParameter(
+                                                "SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex + ".NetworkInterfaceSet."
+                                                        + networkInterfacesListIndex + ".Ipv6Prefix." + ipv6PrefixesListIndex + ".Ipv6Prefix",
+                                                StringUtils.fromString(instanceNetworkInterfaceSpecificationIpv6PrefixesListValue.getIpv6Prefix()));
+                                    }
+                                    ipv6PrefixesListIndex++;
+                                }
+                            }
+
+                            if (spotFleetLaunchSpecificationNetworkInterfacesListValue.getIpv6PrefixCount() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex + ".NetworkInterfaceSet."
+                                        + networkInterfacesListIndex + ".Ipv6PrefixCount",
+                                        StringUtils.fromInteger(spotFleetLaunchSpecificationNetworkInterfacesListValue.getIpv6PrefixCount()));
+                            }
+
+                            if (spotFleetLaunchSpecificationNetworkInterfacesListValue.getPrimaryIpv6() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex + ".NetworkInterfaceSet."
+                                        + networkInterfacesListIndex + ".PrimaryIpv6",
+                                        StringUtils.fromBoolean(spotFleetLaunchSpecificationNetworkInterfacesListValue.getPrimaryIpv6()));
+                            }
+
+                            EnaSrdSpecificationRequest enaSrdSpecification = spotFleetLaunchSpecificationNetworkInterfacesListValue.getEnaSrdSpecification();
+                            if (enaSrdSpecification != null) {
+
+                                if (enaSrdSpecification.getEnaSrdEnabled() != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                            + ".NetworkInterfaceSet." + networkInterfacesListIndex + ".EnaSrdSpecification.EnaSrdEnabled",
+                                            StringUtils.fromBoolean(enaSrdSpecification.getEnaSrdEnabled()));
+                                }
+
+                                EnaSrdUdpSpecificationRequest enaSrdUdpSpecification = enaSrdSpecification.getEnaSrdUdpSpecification();
+                                if (enaSrdUdpSpecification != null) {
+
+                                    if (enaSrdUdpSpecification.getEnaSrdUdpEnabled() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                                + ".NetworkInterfaceSet." + networkInterfacesListIndex
+                                                + ".EnaSrdSpecification.EnaSrdUdpSpecification.EnaSrdUdpEnabled",
+                                                StringUtils.fromBoolean(enaSrdUdpSpecification.getEnaSrdUdpEnabled()));
+                                    }
+                                }
+                            }
+
+                            ConnectionTrackingSpecificationRequest connectionTrackingSpecification = spotFleetLaunchSpecificationNetworkInterfacesListValue
+                                    .getConnectionTrackingSpecification();
+                            if (connectionTrackingSpecification != null) {
+
+                                if (connectionTrackingSpecification.getTcpEstablishedTimeout() != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                            + ".NetworkInterfaceSet." + networkInterfacesListIndex + ".ConnectionTrackingSpecification.TcpEstablishedTimeout",
+                                            StringUtils.fromInteger(connectionTrackingSpecification.getTcpEstablishedTimeout()));
+                                }
+
+                                if (connectionTrackingSpecification.getUdpStreamTimeout() != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                            + ".NetworkInterfaceSet." + networkInterfacesListIndex + ".ConnectionTrackingSpecification.UdpStreamTimeout",
+                                            StringUtils.fromInteger(connectionTrackingSpecification.getUdpStreamTimeout()));
+                                }
+
+                                if (connectionTrackingSpecification.getUdpTimeout() != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                            + ".NetworkInterfaceSet." + networkInterfacesListIndex + ".ConnectionTrackingSpecification.UdpTimeout",
+                                            StringUtils.fromInteger(connectionTrackingSpecification.getUdpTimeout()));
+                                }
                             }
                             networkInterfacesListIndex++;
                         }
@@ -441,6 +588,295 @@ public class RequestSpotFleetRequestMarshaller implements Marshaller<Request<Req
                             tagSpecificationsListIndex++;
                         }
                     }
+
+                    InstanceRequirements instanceRequirements = spotFleetRequestConfigDataLaunchSpecificationsListValue.getInstanceRequirements();
+                    if (instanceRequirements != null) {
+
+                        VCpuCountRange vCpuCount = instanceRequirements.getVCpuCount();
+                        if (vCpuCount != null) {
+
+                            if (vCpuCount.getMin() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.VCpuCount.Min", StringUtils.fromInteger(vCpuCount.getMin()));
+                            }
+
+                            if (vCpuCount.getMax() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.VCpuCount.Max", StringUtils.fromInteger(vCpuCount.getMax()));
+                            }
+                        }
+
+                        MemoryMiB memoryMiB = instanceRequirements.getMemoryMiB();
+                        if (memoryMiB != null) {
+
+                            if (memoryMiB.getMin() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.MemoryMiB.Min", StringUtils.fromInteger(memoryMiB.getMin()));
+                            }
+
+                            if (memoryMiB.getMax() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.MemoryMiB.Max", StringUtils.fromInteger(memoryMiB.getMax()));
+                            }
+                        }
+
+                        com.amazonaws.internal.SdkInternalList<String> instanceRequirementsCpuManufacturersList = (com.amazonaws.internal.SdkInternalList<String>) instanceRequirements
+                                .getCpuManufacturers();
+                        if (!instanceRequirementsCpuManufacturersList.isEmpty() || !instanceRequirementsCpuManufacturersList.isAutoConstruct()) {
+                            int cpuManufacturersListIndex = 1;
+
+                            for (String instanceRequirementsCpuManufacturersListValue : instanceRequirementsCpuManufacturersList) {
+                                if (instanceRequirementsCpuManufacturersListValue != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                            + ".InstanceRequirements.CpuManufacturerSet." + cpuManufacturersListIndex,
+                                            StringUtils.fromString(instanceRequirementsCpuManufacturersListValue));
+                                }
+                                cpuManufacturersListIndex++;
+                            }
+                        }
+
+                        MemoryGiBPerVCpu memoryGiBPerVCpu = instanceRequirements.getMemoryGiBPerVCpu();
+                        if (memoryGiBPerVCpu != null) {
+
+                            if (memoryGiBPerVCpu.getMin() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.MemoryGiBPerVCpu.Min", StringUtils.fromDouble(memoryGiBPerVCpu.getMin()));
+                            }
+
+                            if (memoryGiBPerVCpu.getMax() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.MemoryGiBPerVCpu.Max", StringUtils.fromDouble(memoryGiBPerVCpu.getMax()));
+                            }
+                        }
+
+                        com.amazonaws.internal.SdkInternalList<String> instanceRequirementsExcludedInstanceTypesList = (com.amazonaws.internal.SdkInternalList<String>) instanceRequirements
+                                .getExcludedInstanceTypes();
+                        if (!instanceRequirementsExcludedInstanceTypesList.isEmpty() || !instanceRequirementsExcludedInstanceTypesList.isAutoConstruct()) {
+                            int excludedInstanceTypesListIndex = 1;
+
+                            for (String instanceRequirementsExcludedInstanceTypesListValue : instanceRequirementsExcludedInstanceTypesList) {
+                                if (instanceRequirementsExcludedInstanceTypesListValue != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                            + ".InstanceRequirements.ExcludedInstanceTypeSet." + excludedInstanceTypesListIndex,
+                                            StringUtils.fromString(instanceRequirementsExcludedInstanceTypesListValue));
+                                }
+                                excludedInstanceTypesListIndex++;
+                            }
+                        }
+
+                        com.amazonaws.internal.SdkInternalList<String> instanceRequirementsInstanceGenerationsList = (com.amazonaws.internal.SdkInternalList<String>) instanceRequirements
+                                .getInstanceGenerations();
+                        if (!instanceRequirementsInstanceGenerationsList.isEmpty() || !instanceRequirementsInstanceGenerationsList.isAutoConstruct()) {
+                            int instanceGenerationsListIndex = 1;
+
+                            for (String instanceRequirementsInstanceGenerationsListValue : instanceRequirementsInstanceGenerationsList) {
+                                if (instanceRequirementsInstanceGenerationsListValue != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                            + ".InstanceRequirements.InstanceGenerationSet." + instanceGenerationsListIndex,
+                                            StringUtils.fromString(instanceRequirementsInstanceGenerationsListValue));
+                                }
+                                instanceGenerationsListIndex++;
+                            }
+                        }
+
+                        if (instanceRequirements.getSpotMaxPricePercentageOverLowestPrice() != null) {
+                            request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                    + ".InstanceRequirements.SpotMaxPricePercentageOverLowestPrice",
+                                    StringUtils.fromInteger(instanceRequirements.getSpotMaxPricePercentageOverLowestPrice()));
+                        }
+
+                        if (instanceRequirements.getOnDemandMaxPricePercentageOverLowestPrice() != null) {
+                            request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                    + ".InstanceRequirements.OnDemandMaxPricePercentageOverLowestPrice",
+                                    StringUtils.fromInteger(instanceRequirements.getOnDemandMaxPricePercentageOverLowestPrice()));
+                        }
+
+                        if (instanceRequirements.getBareMetal() != null) {
+                            request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                    + ".InstanceRequirements.BareMetal", StringUtils.fromString(instanceRequirements.getBareMetal()));
+                        }
+
+                        if (instanceRequirements.getBurstablePerformance() != null) {
+                            request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                    + ".InstanceRequirements.BurstablePerformance", StringUtils.fromString(instanceRequirements.getBurstablePerformance()));
+                        }
+
+                        if (instanceRequirements.getRequireHibernateSupport() != null) {
+                            request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                    + ".InstanceRequirements.RequireHibernateSupport",
+                                    StringUtils.fromBoolean(instanceRequirements.getRequireHibernateSupport()));
+                        }
+
+                        NetworkInterfaceCount networkInterfaceCount = instanceRequirements.getNetworkInterfaceCount();
+                        if (networkInterfaceCount != null) {
+
+                            if (networkInterfaceCount.getMin() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.NetworkInterfaceCount.Min", StringUtils.fromInteger(networkInterfaceCount.getMin()));
+                            }
+
+                            if (networkInterfaceCount.getMax() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.NetworkInterfaceCount.Max", StringUtils.fromInteger(networkInterfaceCount.getMax()));
+                            }
+                        }
+
+                        if (instanceRequirements.getLocalStorage() != null) {
+                            request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                    + ".InstanceRequirements.LocalStorage", StringUtils.fromString(instanceRequirements.getLocalStorage()));
+                        }
+
+                        com.amazonaws.internal.SdkInternalList<String> instanceRequirementsLocalStorageTypesList = (com.amazonaws.internal.SdkInternalList<String>) instanceRequirements
+                                .getLocalStorageTypes();
+                        if (!instanceRequirementsLocalStorageTypesList.isEmpty() || !instanceRequirementsLocalStorageTypesList.isAutoConstruct()) {
+                            int localStorageTypesListIndex = 1;
+
+                            for (String instanceRequirementsLocalStorageTypesListValue : instanceRequirementsLocalStorageTypesList) {
+                                if (instanceRequirementsLocalStorageTypesListValue != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                            + ".InstanceRequirements.LocalStorageTypeSet." + localStorageTypesListIndex,
+                                            StringUtils.fromString(instanceRequirementsLocalStorageTypesListValue));
+                                }
+                                localStorageTypesListIndex++;
+                            }
+                        }
+
+                        TotalLocalStorageGB totalLocalStorageGB = instanceRequirements.getTotalLocalStorageGB();
+                        if (totalLocalStorageGB != null) {
+
+                            if (totalLocalStorageGB.getMin() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.TotalLocalStorageGB.Min", StringUtils.fromDouble(totalLocalStorageGB.getMin()));
+                            }
+
+                            if (totalLocalStorageGB.getMax() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.TotalLocalStorageGB.Max", StringUtils.fromDouble(totalLocalStorageGB.getMax()));
+                            }
+                        }
+
+                        BaselineEbsBandwidthMbps baselineEbsBandwidthMbps = instanceRequirements.getBaselineEbsBandwidthMbps();
+                        if (baselineEbsBandwidthMbps != null) {
+
+                            if (baselineEbsBandwidthMbps.getMin() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.BaselineEbsBandwidthMbps.Min", StringUtils.fromInteger(baselineEbsBandwidthMbps.getMin()));
+                            }
+
+                            if (baselineEbsBandwidthMbps.getMax() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.BaselineEbsBandwidthMbps.Max", StringUtils.fromInteger(baselineEbsBandwidthMbps.getMax()));
+                            }
+                        }
+
+                        com.amazonaws.internal.SdkInternalList<String> instanceRequirementsAcceleratorTypesList = (com.amazonaws.internal.SdkInternalList<String>) instanceRequirements
+                                .getAcceleratorTypes();
+                        if (!instanceRequirementsAcceleratorTypesList.isEmpty() || !instanceRequirementsAcceleratorTypesList.isAutoConstruct()) {
+                            int acceleratorTypesListIndex = 1;
+
+                            for (String instanceRequirementsAcceleratorTypesListValue : instanceRequirementsAcceleratorTypesList) {
+                                if (instanceRequirementsAcceleratorTypesListValue != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                            + ".InstanceRequirements.AcceleratorTypeSet." + acceleratorTypesListIndex,
+                                            StringUtils.fromString(instanceRequirementsAcceleratorTypesListValue));
+                                }
+                                acceleratorTypesListIndex++;
+                            }
+                        }
+
+                        AcceleratorCount acceleratorCount = instanceRequirements.getAcceleratorCount();
+                        if (acceleratorCount != null) {
+
+                            if (acceleratorCount.getMin() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.AcceleratorCount.Min", StringUtils.fromInteger(acceleratorCount.getMin()));
+                            }
+
+                            if (acceleratorCount.getMax() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.AcceleratorCount.Max", StringUtils.fromInteger(acceleratorCount.getMax()));
+                            }
+                        }
+
+                        com.amazonaws.internal.SdkInternalList<String> instanceRequirementsAcceleratorManufacturersList = (com.amazonaws.internal.SdkInternalList<String>) instanceRequirements
+                                .getAcceleratorManufacturers();
+                        if (!instanceRequirementsAcceleratorManufacturersList.isEmpty() || !instanceRequirementsAcceleratorManufacturersList.isAutoConstruct()) {
+                            int acceleratorManufacturersListIndex = 1;
+
+                            for (String instanceRequirementsAcceleratorManufacturersListValue : instanceRequirementsAcceleratorManufacturersList) {
+                                if (instanceRequirementsAcceleratorManufacturersListValue != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                            + ".InstanceRequirements.AcceleratorManufacturerSet." + acceleratorManufacturersListIndex,
+                                            StringUtils.fromString(instanceRequirementsAcceleratorManufacturersListValue));
+                                }
+                                acceleratorManufacturersListIndex++;
+                            }
+                        }
+
+                        com.amazonaws.internal.SdkInternalList<String> instanceRequirementsAcceleratorNamesList = (com.amazonaws.internal.SdkInternalList<String>) instanceRequirements
+                                .getAcceleratorNames();
+                        if (!instanceRequirementsAcceleratorNamesList.isEmpty() || !instanceRequirementsAcceleratorNamesList.isAutoConstruct()) {
+                            int acceleratorNamesListIndex = 1;
+
+                            for (String instanceRequirementsAcceleratorNamesListValue : instanceRequirementsAcceleratorNamesList) {
+                                if (instanceRequirementsAcceleratorNamesListValue != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                            + ".InstanceRequirements.AcceleratorNameSet." + acceleratorNamesListIndex,
+                                            StringUtils.fromString(instanceRequirementsAcceleratorNamesListValue));
+                                }
+                                acceleratorNamesListIndex++;
+                            }
+                        }
+
+                        AcceleratorTotalMemoryMiB acceleratorTotalMemoryMiB = instanceRequirements.getAcceleratorTotalMemoryMiB();
+                        if (acceleratorTotalMemoryMiB != null) {
+
+                            if (acceleratorTotalMemoryMiB.getMin() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.AcceleratorTotalMemoryMiB.Min", StringUtils.fromInteger(acceleratorTotalMemoryMiB.getMin()));
+                            }
+
+                            if (acceleratorTotalMemoryMiB.getMax() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.AcceleratorTotalMemoryMiB.Max", StringUtils.fromInteger(acceleratorTotalMemoryMiB.getMax()));
+                            }
+                        }
+
+                        NetworkBandwidthGbps networkBandwidthGbps = instanceRequirements.getNetworkBandwidthGbps();
+                        if (networkBandwidthGbps != null) {
+
+                            if (networkBandwidthGbps.getMin() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.NetworkBandwidthGbps.Min", StringUtils.fromDouble(networkBandwidthGbps.getMin()));
+                            }
+
+                            if (networkBandwidthGbps.getMax() != null) {
+                                request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                        + ".InstanceRequirements.NetworkBandwidthGbps.Max", StringUtils.fromDouble(networkBandwidthGbps.getMax()));
+                            }
+                        }
+
+                        com.amazonaws.internal.SdkInternalList<String> instanceRequirementsAllowedInstanceTypesList = (com.amazonaws.internal.SdkInternalList<String>) instanceRequirements
+                                .getAllowedInstanceTypes();
+                        if (!instanceRequirementsAllowedInstanceTypesList.isEmpty() || !instanceRequirementsAllowedInstanceTypesList.isAutoConstruct()) {
+                            int allowedInstanceTypesListIndex = 1;
+
+                            for (String instanceRequirementsAllowedInstanceTypesListValue : instanceRequirementsAllowedInstanceTypesList) {
+                                if (instanceRequirementsAllowedInstanceTypesListValue != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                            + ".InstanceRequirements.AllowedInstanceTypeSet." + allowedInstanceTypesListIndex,
+                                            StringUtils.fromString(instanceRequirementsAllowedInstanceTypesListValue));
+                                }
+                                allowedInstanceTypesListIndex++;
+                            }
+                        }
+
+                        if (instanceRequirements.getMaxSpotPriceAsPercentageOfOptimalOnDemandPrice() != null) {
+                            request.addParameter("SpotFleetRequestConfig.LaunchSpecifications." + launchSpecificationsListIndex
+                                    + ".InstanceRequirements.MaxSpotPriceAsPercentageOfOptimalOnDemandPrice",
+                                    StringUtils.fromInteger(instanceRequirements.getMaxSpotPriceAsPercentageOfOptimalOnDemandPrice()));
+                        }
+                    }
                     launchSpecificationsListIndex++;
                 }
             }
@@ -512,6 +948,316 @@ public class RequestSpotFleetRequestMarshaller implements Marshaller<Request<Req
                             if (launchTemplateConfigOverridesListValue.getPriority() != null) {
                                 request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
                                         + overridesListIndex + ".Priority", StringUtils.fromDouble(launchTemplateConfigOverridesListValue.getPriority()));
+                            }
+
+                            InstanceRequirements instanceRequirements = launchTemplateConfigOverridesListValue.getInstanceRequirements();
+                            if (instanceRequirements != null) {
+
+                                VCpuCountRange vCpuCount = instanceRequirements.getVCpuCount();
+                                if (vCpuCount != null) {
+
+                                    if (vCpuCount.getMin() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.VCpuCount.Min", StringUtils.fromInteger(vCpuCount.getMin()));
+                                    }
+
+                                    if (vCpuCount.getMax() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.VCpuCount.Max", StringUtils.fromInteger(vCpuCount.getMax()));
+                                    }
+                                }
+
+                                MemoryMiB memoryMiB = instanceRequirements.getMemoryMiB();
+                                if (memoryMiB != null) {
+
+                                    if (memoryMiB.getMin() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.MemoryMiB.Min", StringUtils.fromInteger(memoryMiB.getMin()));
+                                    }
+
+                                    if (memoryMiB.getMax() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.MemoryMiB.Max", StringUtils.fromInteger(memoryMiB.getMax()));
+                                    }
+                                }
+
+                                com.amazonaws.internal.SdkInternalList<String> instanceRequirementsCpuManufacturersList = (com.amazonaws.internal.SdkInternalList<String>) instanceRequirements
+                                        .getCpuManufacturers();
+                                if (!instanceRequirementsCpuManufacturersList.isEmpty() || !instanceRequirementsCpuManufacturersList.isAutoConstruct()) {
+                                    int cpuManufacturersListIndex = 1;
+
+                                    for (String instanceRequirementsCpuManufacturersListValue : instanceRequirementsCpuManufacturersList) {
+                                        if (instanceRequirementsCpuManufacturersListValue != null) {
+                                            request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex
+                                                    + ".Overrides." + overridesListIndex + ".InstanceRequirements.CpuManufacturerSet."
+                                                    + cpuManufacturersListIndex, StringUtils.fromString(instanceRequirementsCpuManufacturersListValue));
+                                        }
+                                        cpuManufacturersListIndex++;
+                                    }
+                                }
+
+                                MemoryGiBPerVCpu memoryGiBPerVCpu = instanceRequirements.getMemoryGiBPerVCpu();
+                                if (memoryGiBPerVCpu != null) {
+
+                                    if (memoryGiBPerVCpu.getMin() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.MemoryGiBPerVCpu.Min",
+                                                StringUtils.fromDouble(memoryGiBPerVCpu.getMin()));
+                                    }
+
+                                    if (memoryGiBPerVCpu.getMax() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.MemoryGiBPerVCpu.Max",
+                                                StringUtils.fromDouble(memoryGiBPerVCpu.getMax()));
+                                    }
+                                }
+
+                                com.amazonaws.internal.SdkInternalList<String> instanceRequirementsExcludedInstanceTypesList = (com.amazonaws.internal.SdkInternalList<String>) instanceRequirements
+                                        .getExcludedInstanceTypes();
+                                if (!instanceRequirementsExcludedInstanceTypesList.isEmpty()
+                                        || !instanceRequirementsExcludedInstanceTypesList.isAutoConstruct()) {
+                                    int excludedInstanceTypesListIndex = 1;
+
+                                    for (String instanceRequirementsExcludedInstanceTypesListValue : instanceRequirementsExcludedInstanceTypesList) {
+                                        if (instanceRequirementsExcludedInstanceTypesListValue != null) {
+                                            request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex
+                                                    + ".Overrides." + overridesListIndex + ".InstanceRequirements.ExcludedInstanceTypeSet."
+                                                    + excludedInstanceTypesListIndex,
+                                                    StringUtils.fromString(instanceRequirementsExcludedInstanceTypesListValue));
+                                        }
+                                        excludedInstanceTypesListIndex++;
+                                    }
+                                }
+
+                                com.amazonaws.internal.SdkInternalList<String> instanceRequirementsInstanceGenerationsList = (com.amazonaws.internal.SdkInternalList<String>) instanceRequirements
+                                        .getInstanceGenerations();
+                                if (!instanceRequirementsInstanceGenerationsList.isEmpty() || !instanceRequirementsInstanceGenerationsList.isAutoConstruct()) {
+                                    int instanceGenerationsListIndex = 1;
+
+                                    for (String instanceRequirementsInstanceGenerationsListValue : instanceRequirementsInstanceGenerationsList) {
+                                        if (instanceRequirementsInstanceGenerationsListValue != null) {
+                                            request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex
+                                                    + ".Overrides." + overridesListIndex + ".InstanceRequirements.InstanceGenerationSet."
+                                                    + instanceGenerationsListIndex, StringUtils.fromString(instanceRequirementsInstanceGenerationsListValue));
+                                        }
+                                        instanceGenerationsListIndex++;
+                                    }
+                                }
+
+                                if (instanceRequirements.getSpotMaxPricePercentageOverLowestPrice() != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                            + overridesListIndex + ".InstanceRequirements.SpotMaxPricePercentageOverLowestPrice",
+                                            StringUtils.fromInteger(instanceRequirements.getSpotMaxPricePercentageOverLowestPrice()));
+                                }
+
+                                if (instanceRequirements.getOnDemandMaxPricePercentageOverLowestPrice() != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                            + overridesListIndex + ".InstanceRequirements.OnDemandMaxPricePercentageOverLowestPrice",
+                                            StringUtils.fromInteger(instanceRequirements.getOnDemandMaxPricePercentageOverLowestPrice()));
+                                }
+
+                                if (instanceRequirements.getBareMetal() != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                            + overridesListIndex + ".InstanceRequirements.BareMetal",
+                                            StringUtils.fromString(instanceRequirements.getBareMetal()));
+                                }
+
+                                if (instanceRequirements.getBurstablePerformance() != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                            + overridesListIndex + ".InstanceRequirements.BurstablePerformance",
+                                            StringUtils.fromString(instanceRequirements.getBurstablePerformance()));
+                                }
+
+                                if (instanceRequirements.getRequireHibernateSupport() != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                            + overridesListIndex + ".InstanceRequirements.RequireHibernateSupport",
+                                            StringUtils.fromBoolean(instanceRequirements.getRequireHibernateSupport()));
+                                }
+
+                                NetworkInterfaceCount networkInterfaceCount = instanceRequirements.getNetworkInterfaceCount();
+                                if (networkInterfaceCount != null) {
+
+                                    if (networkInterfaceCount.getMin() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.NetworkInterfaceCount.Min",
+                                                StringUtils.fromInteger(networkInterfaceCount.getMin()));
+                                    }
+
+                                    if (networkInterfaceCount.getMax() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.NetworkInterfaceCount.Max",
+                                                StringUtils.fromInteger(networkInterfaceCount.getMax()));
+                                    }
+                                }
+
+                                if (instanceRequirements.getLocalStorage() != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                            + overridesListIndex + ".InstanceRequirements.LocalStorage",
+                                            StringUtils.fromString(instanceRequirements.getLocalStorage()));
+                                }
+
+                                com.amazonaws.internal.SdkInternalList<String> instanceRequirementsLocalStorageTypesList = (com.amazonaws.internal.SdkInternalList<String>) instanceRequirements
+                                        .getLocalStorageTypes();
+                                if (!instanceRequirementsLocalStorageTypesList.isEmpty() || !instanceRequirementsLocalStorageTypesList.isAutoConstruct()) {
+                                    int localStorageTypesListIndex = 1;
+
+                                    for (String instanceRequirementsLocalStorageTypesListValue : instanceRequirementsLocalStorageTypesList) {
+                                        if (instanceRequirementsLocalStorageTypesListValue != null) {
+                                            request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex
+                                                    + ".Overrides." + overridesListIndex + ".InstanceRequirements.LocalStorageTypeSet."
+                                                    + localStorageTypesListIndex, StringUtils.fromString(instanceRequirementsLocalStorageTypesListValue));
+                                        }
+                                        localStorageTypesListIndex++;
+                                    }
+                                }
+
+                                TotalLocalStorageGB totalLocalStorageGB = instanceRequirements.getTotalLocalStorageGB();
+                                if (totalLocalStorageGB != null) {
+
+                                    if (totalLocalStorageGB.getMin() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.TotalLocalStorageGB.Min",
+                                                StringUtils.fromDouble(totalLocalStorageGB.getMin()));
+                                    }
+
+                                    if (totalLocalStorageGB.getMax() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.TotalLocalStorageGB.Max",
+                                                StringUtils.fromDouble(totalLocalStorageGB.getMax()));
+                                    }
+                                }
+
+                                BaselineEbsBandwidthMbps baselineEbsBandwidthMbps = instanceRequirements.getBaselineEbsBandwidthMbps();
+                                if (baselineEbsBandwidthMbps != null) {
+
+                                    if (baselineEbsBandwidthMbps.getMin() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.BaselineEbsBandwidthMbps.Min",
+                                                StringUtils.fromInteger(baselineEbsBandwidthMbps.getMin()));
+                                    }
+
+                                    if (baselineEbsBandwidthMbps.getMax() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.BaselineEbsBandwidthMbps.Max",
+                                                StringUtils.fromInteger(baselineEbsBandwidthMbps.getMax()));
+                                    }
+                                }
+
+                                com.amazonaws.internal.SdkInternalList<String> instanceRequirementsAcceleratorTypesList = (com.amazonaws.internal.SdkInternalList<String>) instanceRequirements
+                                        .getAcceleratorTypes();
+                                if (!instanceRequirementsAcceleratorTypesList.isEmpty() || !instanceRequirementsAcceleratorTypesList.isAutoConstruct()) {
+                                    int acceleratorTypesListIndex = 1;
+
+                                    for (String instanceRequirementsAcceleratorTypesListValue : instanceRequirementsAcceleratorTypesList) {
+                                        if (instanceRequirementsAcceleratorTypesListValue != null) {
+                                            request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex
+                                                    + ".Overrides." + overridesListIndex + ".InstanceRequirements.AcceleratorTypeSet."
+                                                    + acceleratorTypesListIndex, StringUtils.fromString(instanceRequirementsAcceleratorTypesListValue));
+                                        }
+                                        acceleratorTypesListIndex++;
+                                    }
+                                }
+
+                                AcceleratorCount acceleratorCount = instanceRequirements.getAcceleratorCount();
+                                if (acceleratorCount != null) {
+
+                                    if (acceleratorCount.getMin() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.AcceleratorCount.Min",
+                                                StringUtils.fromInteger(acceleratorCount.getMin()));
+                                    }
+
+                                    if (acceleratorCount.getMax() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.AcceleratorCount.Max",
+                                                StringUtils.fromInteger(acceleratorCount.getMax()));
+                                    }
+                                }
+
+                                com.amazonaws.internal.SdkInternalList<String> instanceRequirementsAcceleratorManufacturersList = (com.amazonaws.internal.SdkInternalList<String>) instanceRequirements
+                                        .getAcceleratorManufacturers();
+                                if (!instanceRequirementsAcceleratorManufacturersList.isEmpty()
+                                        || !instanceRequirementsAcceleratorManufacturersList.isAutoConstruct()) {
+                                    int acceleratorManufacturersListIndex = 1;
+
+                                    for (String instanceRequirementsAcceleratorManufacturersListValue : instanceRequirementsAcceleratorManufacturersList) {
+                                        if (instanceRequirementsAcceleratorManufacturersListValue != null) {
+                                            request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex
+                                                    + ".Overrides." + overridesListIndex + ".InstanceRequirements.AcceleratorManufacturerSet."
+                                                    + acceleratorManufacturersListIndex,
+                                                    StringUtils.fromString(instanceRequirementsAcceleratorManufacturersListValue));
+                                        }
+                                        acceleratorManufacturersListIndex++;
+                                    }
+                                }
+
+                                com.amazonaws.internal.SdkInternalList<String> instanceRequirementsAcceleratorNamesList = (com.amazonaws.internal.SdkInternalList<String>) instanceRequirements
+                                        .getAcceleratorNames();
+                                if (!instanceRequirementsAcceleratorNamesList.isEmpty() || !instanceRequirementsAcceleratorNamesList.isAutoConstruct()) {
+                                    int acceleratorNamesListIndex = 1;
+
+                                    for (String instanceRequirementsAcceleratorNamesListValue : instanceRequirementsAcceleratorNamesList) {
+                                        if (instanceRequirementsAcceleratorNamesListValue != null) {
+                                            request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex
+                                                    + ".Overrides." + overridesListIndex + ".InstanceRequirements.AcceleratorNameSet."
+                                                    + acceleratorNamesListIndex, StringUtils.fromString(instanceRequirementsAcceleratorNamesListValue));
+                                        }
+                                        acceleratorNamesListIndex++;
+                                    }
+                                }
+
+                                AcceleratorTotalMemoryMiB acceleratorTotalMemoryMiB = instanceRequirements.getAcceleratorTotalMemoryMiB();
+                                if (acceleratorTotalMemoryMiB != null) {
+
+                                    if (acceleratorTotalMemoryMiB.getMin() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.AcceleratorTotalMemoryMiB.Min",
+                                                StringUtils.fromInteger(acceleratorTotalMemoryMiB.getMin()));
+                                    }
+
+                                    if (acceleratorTotalMemoryMiB.getMax() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.AcceleratorTotalMemoryMiB.Max",
+                                                StringUtils.fromInteger(acceleratorTotalMemoryMiB.getMax()));
+                                    }
+                                }
+
+                                NetworkBandwidthGbps networkBandwidthGbps = instanceRequirements.getNetworkBandwidthGbps();
+                                if (networkBandwidthGbps != null) {
+
+                                    if (networkBandwidthGbps.getMin() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.NetworkBandwidthGbps.Min",
+                                                StringUtils.fromDouble(networkBandwidthGbps.getMin()));
+                                    }
+
+                                    if (networkBandwidthGbps.getMax() != null) {
+                                        request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                                + overridesListIndex + ".InstanceRequirements.NetworkBandwidthGbps.Max",
+                                                StringUtils.fromDouble(networkBandwidthGbps.getMax()));
+                                    }
+                                }
+
+                                com.amazonaws.internal.SdkInternalList<String> instanceRequirementsAllowedInstanceTypesList = (com.amazonaws.internal.SdkInternalList<String>) instanceRequirements
+                                        .getAllowedInstanceTypes();
+                                if (!instanceRequirementsAllowedInstanceTypesList.isEmpty() || !instanceRequirementsAllowedInstanceTypesList.isAutoConstruct()) {
+                                    int allowedInstanceTypesListIndex = 1;
+
+                                    for (String instanceRequirementsAllowedInstanceTypesListValue : instanceRequirementsAllowedInstanceTypesList) {
+                                        if (instanceRequirementsAllowedInstanceTypesListValue != null) {
+                                            request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex
+                                                    + ".Overrides." + overridesListIndex + ".InstanceRequirements.AllowedInstanceTypeSet."
+                                                    + allowedInstanceTypesListIndex, StringUtils.fromString(instanceRequirementsAllowedInstanceTypesListValue));
+                                        }
+                                        allowedInstanceTypesListIndex++;
+                                    }
+                                }
+
+                                if (instanceRequirements.getMaxSpotPriceAsPercentageOfOptimalOnDemandPrice() != null) {
+                                    request.addParameter("SpotFleetRequestConfig.LaunchTemplateConfigs." + launchTemplateConfigsListIndex + ".Overrides."
+                                            + overridesListIndex + ".InstanceRequirements.MaxSpotPriceAsPercentageOfOptimalOnDemandPrice",
+                                            StringUtils.fromInteger(instanceRequirements.getMaxSpotPriceAsPercentageOfOptimalOnDemandPrice()));
+                                }
                             }
                             overridesListIndex++;
                         }
@@ -614,6 +1360,51 @@ public class RequestSpotFleetRequestMarshaller implements Marshaller<Request<Req
             if (spotFleetRequestConfig.getInstancePoolsToUseCount() != null) {
                 request.addParameter("SpotFleetRequestConfig.InstancePoolsToUseCount",
                         StringUtils.fromInteger(spotFleetRequestConfig.getInstancePoolsToUseCount()));
+            }
+
+            if (spotFleetRequestConfig.getContext() != null) {
+                request.addParameter("SpotFleetRequestConfig.Context", StringUtils.fromString(spotFleetRequestConfig.getContext()));
+            }
+
+            if (spotFleetRequestConfig.getTargetCapacityUnitType() != null) {
+                request.addParameter("SpotFleetRequestConfig.TargetCapacityUnitType",
+                        StringUtils.fromString(spotFleetRequestConfig.getTargetCapacityUnitType()));
+            }
+
+            com.amazonaws.internal.SdkInternalList<TagSpecification> spotFleetRequestConfigDataTagSpecificationsList = (com.amazonaws.internal.SdkInternalList<TagSpecification>) spotFleetRequestConfig
+                    .getTagSpecifications();
+            if (!spotFleetRequestConfigDataTagSpecificationsList.isEmpty() || !spotFleetRequestConfigDataTagSpecificationsList.isAutoConstruct()) {
+                int tagSpecificationsListIndex = 1;
+
+                for (TagSpecification spotFleetRequestConfigDataTagSpecificationsListValue : spotFleetRequestConfigDataTagSpecificationsList) {
+
+                    if (spotFleetRequestConfigDataTagSpecificationsListValue.getResourceType() != null) {
+                        request.addParameter("SpotFleetRequestConfig.TagSpecification." + tagSpecificationsListIndex + ".ResourceType",
+                                StringUtils.fromString(spotFleetRequestConfigDataTagSpecificationsListValue.getResourceType()));
+                    }
+
+                    com.amazonaws.internal.SdkInternalList<Tag> tagSpecificationTagsList = (com.amazonaws.internal.SdkInternalList<Tag>) spotFleetRequestConfigDataTagSpecificationsListValue
+                            .getTags();
+                    if (!tagSpecificationTagsList.isEmpty() || !tagSpecificationTagsList.isAutoConstruct()) {
+                        int tagsListIndex = 1;
+
+                        for (Tag tagSpecificationTagsListValue : tagSpecificationTagsList) {
+
+                            if (tagSpecificationTagsListValue.getKey() != null) {
+                                request.addParameter(
+                                        "SpotFleetRequestConfig.TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex + ".Key",
+                                        StringUtils.fromString(tagSpecificationTagsListValue.getKey()));
+                            }
+
+                            if (tagSpecificationTagsListValue.getValue() != null) {
+                                request.addParameter("SpotFleetRequestConfig.TagSpecification." + tagSpecificationsListIndex + ".Tag." + tagsListIndex
+                                        + ".Value", StringUtils.fromString(tagSpecificationTagsListValue.getValue()));
+                            }
+                            tagsListIndex++;
+                        }
+                    }
+                    tagSpecificationsListIndex++;
+                }
             }
         }
 

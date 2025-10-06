@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class CreateAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name of the Lambda function.
+     * The name or ARN of the Lambda function.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -75,15 +75,15 @@ public class CreateAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
     private String description;
     /**
      * <p>
-     * The <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html">routing
-     * configuration</a> of the alias.
+     * The <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing">
+     * routing configuration</a> of the alias.
      * </p>
      */
     private AliasRoutingConfiguration routingConfig;
 
     /**
      * <p>
-     * The name of the Lambda function.
+     * The name or ARN of the Lambda function.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -111,7 +111,7 @@ public class CreateAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * 
      * @param functionName
-     *        The name of the Lambda function.</p>
+     *        The name or ARN of the Lambda function.</p>
      *        <p class="title">
      *        <b>Name formats</b>
      *        </p>
@@ -143,7 +143,7 @@ public class CreateAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name of the Lambda function.
+     * The name or ARN of the Lambda function.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -170,7 +170,7 @@ public class CreateAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
      * characters in length.
      * </p>
      * 
-     * @return The name of the Lambda function.</p>
+     * @return The name or ARN of the Lambda function.</p>
      *         <p class="title">
      *         <b>Name formats</b>
      *         </p>
@@ -202,7 +202,7 @@ public class CreateAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name of the Lambda function.
+     * The name or ARN of the Lambda function.
      * </p>
      * <p class="title">
      * <b>Name formats</b>
@@ -230,7 +230,7 @@ public class CreateAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * 
      * @param functionName
-     *        The name of the Lambda function.</p>
+     *        The name or ARN of the Lambda function.</p>
      *        <p class="title">
      *        <b>Name formats</b>
      *        </p>
@@ -384,14 +384,14 @@ public class CreateAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html">routing
-     * configuration</a> of the alias.
+     * The <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing">
+     * routing configuration</a> of the alias.
      * </p>
      * 
      * @param routingConfig
      *        The <a
-     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html">routing
-     *        configuration</a> of the alias.
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing"
+     *        >routing configuration</a> of the alias.
      */
 
     public void setRoutingConfig(AliasRoutingConfiguration routingConfig) {
@@ -400,13 +400,13 @@ public class CreateAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html">routing
-     * configuration</a> of the alias.
+     * The <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing">
+     * routing configuration</a> of the alias.
      * </p>
      * 
      * @return The <a
-     *         href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html">routing
-     *         configuration</a> of the alias.
+     *         href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing"
+     *         >routing configuration</a> of the alias.
      */
 
     public AliasRoutingConfiguration getRoutingConfig() {
@@ -415,14 +415,14 @@ public class CreateAliasRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html">routing
-     * configuration</a> of the alias.
+     * The <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing">
+     * routing configuration</a> of the alias.
      * </p>
      * 
      * @param routingConfig
      *        The <a
-     *        href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html">routing
-     *        configuration</a> of the alias.
+     *        href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing"
+     *        >routing configuration</a> of the alias.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

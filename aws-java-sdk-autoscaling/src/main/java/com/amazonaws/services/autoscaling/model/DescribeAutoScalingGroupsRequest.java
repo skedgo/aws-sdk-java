@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,11 +27,11 @@ public class DescribeAutoScalingGroupsRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The names of the Auto Scaling groups. Each name can be a maximum of 1600 characters. By default, you can only
-     * specify up to 50 names. You can optionally increase this limit using the <code>MaxRecords</code> parameter.
+     * The names of the Auto Scaling groups. By default, you can only specify up to 50 names. You can optionally
+     * increase this limit using the <code>MaxRecords</code> property.
      * </p>
      * <p>
-     * If you omit this parameter, all Auto Scaling groups are described.
+     * If you omit this property, all Auto Scaling groups are described.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> autoScalingGroupNames;
@@ -48,21 +48,26 @@ public class DescribeAutoScalingGroupsRequest extends com.amazonaws.AmazonWebSer
      * </p>
      */
     private Integer maxRecords;
+    /**
+     * <p>
+     * One or more filters to limit the results based on specific tags.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Filter> filters;
 
     /**
      * <p>
-     * The names of the Auto Scaling groups. Each name can be a maximum of 1600 characters. By default, you can only
-     * specify up to 50 names. You can optionally increase this limit using the <code>MaxRecords</code> parameter.
+     * The names of the Auto Scaling groups. By default, you can only specify up to 50 names. You can optionally
+     * increase this limit using the <code>MaxRecords</code> property.
      * </p>
      * <p>
-     * If you omit this parameter, all Auto Scaling groups are described.
+     * If you omit this property, all Auto Scaling groups are described.
      * </p>
      * 
-     * @return The names of the Auto Scaling groups. Each name can be a maximum of 1600 characters. By default, you can
-     *         only specify up to 50 names. You can optionally increase this limit using the <code>MaxRecords</code>
-     *         parameter. </p>
+     * @return The names of the Auto Scaling groups. By default, you can only specify up to 50 names. You can optionally
+     *         increase this limit using the <code>MaxRecords</code> property.</p>
      *         <p>
-     *         If you omit this parameter, all Auto Scaling groups are described.
+     *         If you omit this property, all Auto Scaling groups are described.
      */
 
     public java.util.List<String> getAutoScalingGroupNames() {
@@ -74,19 +79,18 @@ public class DescribeAutoScalingGroupsRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The names of the Auto Scaling groups. Each name can be a maximum of 1600 characters. By default, you can only
-     * specify up to 50 names. You can optionally increase this limit using the <code>MaxRecords</code> parameter.
+     * The names of the Auto Scaling groups. By default, you can only specify up to 50 names. You can optionally
+     * increase this limit using the <code>MaxRecords</code> property.
      * </p>
      * <p>
-     * If you omit this parameter, all Auto Scaling groups are described.
+     * If you omit this property, all Auto Scaling groups are described.
      * </p>
      * 
      * @param autoScalingGroupNames
-     *        The names of the Auto Scaling groups. Each name can be a maximum of 1600 characters. By default, you can
-     *        only specify up to 50 names. You can optionally increase this limit using the <code>MaxRecords</code>
-     *        parameter. </p>
+     *        The names of the Auto Scaling groups. By default, you can only specify up to 50 names. You can optionally
+     *        increase this limit using the <code>MaxRecords</code> property.</p>
      *        <p>
-     *        If you omit this parameter, all Auto Scaling groups are described.
+     *        If you omit this property, all Auto Scaling groups are described.
      */
 
     public void setAutoScalingGroupNames(java.util.Collection<String> autoScalingGroupNames) {
@@ -100,11 +104,11 @@ public class DescribeAutoScalingGroupsRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The names of the Auto Scaling groups. Each name can be a maximum of 1600 characters. By default, you can only
-     * specify up to 50 names. You can optionally increase this limit using the <code>MaxRecords</code> parameter.
+     * The names of the Auto Scaling groups. By default, you can only specify up to 50 names. You can optionally
+     * increase this limit using the <code>MaxRecords</code> property.
      * </p>
      * <p>
-     * If you omit this parameter, all Auto Scaling groups are described.
+     * If you omit this property, all Auto Scaling groups are described.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -113,11 +117,10 @@ public class DescribeAutoScalingGroupsRequest extends com.amazonaws.AmazonWebSer
      * </p>
      * 
      * @param autoScalingGroupNames
-     *        The names of the Auto Scaling groups. Each name can be a maximum of 1600 characters. By default, you can
-     *        only specify up to 50 names. You can optionally increase this limit using the <code>MaxRecords</code>
-     *        parameter. </p>
+     *        The names of the Auto Scaling groups. By default, you can only specify up to 50 names. You can optionally
+     *        increase this limit using the <code>MaxRecords</code> property.</p>
      *        <p>
-     *        If you omit this parameter, all Auto Scaling groups are described.
+     *        If you omit this property, all Auto Scaling groups are described.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -133,19 +136,18 @@ public class DescribeAutoScalingGroupsRequest extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * The names of the Auto Scaling groups. Each name can be a maximum of 1600 characters. By default, you can only
-     * specify up to 50 names. You can optionally increase this limit using the <code>MaxRecords</code> parameter.
+     * The names of the Auto Scaling groups. By default, you can only specify up to 50 names. You can optionally
+     * increase this limit using the <code>MaxRecords</code> property.
      * </p>
      * <p>
-     * If you omit this parameter, all Auto Scaling groups are described.
+     * If you omit this property, all Auto Scaling groups are described.
      * </p>
      * 
      * @param autoScalingGroupNames
-     *        The names of the Auto Scaling groups. Each name can be a maximum of 1600 characters. By default, you can
-     *        only specify up to 50 names. You can optionally increase this limit using the <code>MaxRecords</code>
-     *        parameter. </p>
+     *        The names of the Auto Scaling groups. By default, you can only specify up to 50 names. You can optionally
+     *        increase this limit using the <code>MaxRecords</code> property.</p>
      *        <p>
-     *        If you omit this parameter, all Auto Scaling groups are described.
+     *        If you omit this property, all Auto Scaling groups are described.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -241,6 +243,79 @@ public class DescribeAutoScalingGroupsRequest extends com.amazonaws.AmazonWebSer
     }
 
     /**
+     * <p>
+     * One or more filters to limit the results based on specific tags.
+     * </p>
+     * 
+     * @return One or more filters to limit the results based on specific tags.
+     */
+
+    public java.util.List<Filter> getFilters() {
+        if (filters == null) {
+            filters = new com.amazonaws.internal.SdkInternalList<Filter>();
+        }
+        return filters;
+    }
+
+    /**
+     * <p>
+     * One or more filters to limit the results based on specific tags.
+     * </p>
+     * 
+     * @param filters
+     *        One or more filters to limit the results based on specific tags.
+     */
+
+    public void setFilters(java.util.Collection<Filter> filters) {
+        if (filters == null) {
+            this.filters = null;
+            return;
+        }
+
+        this.filters = new com.amazonaws.internal.SdkInternalList<Filter>(filters);
+    }
+
+    /**
+     * <p>
+     * One or more filters to limit the results based on specific tags.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setFilters(java.util.Collection)} or {@link #withFilters(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param filters
+     *        One or more filters to limit the results based on specific tags.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeAutoScalingGroupsRequest withFilters(Filter... filters) {
+        if (this.filters == null) {
+            setFilters(new com.amazonaws.internal.SdkInternalList<Filter>(filters.length));
+        }
+        for (Filter ele : filters) {
+            this.filters.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * One or more filters to limit the results based on specific tags.
+     * </p>
+     * 
+     * @param filters
+     *        One or more filters to limit the results based on specific tags.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeAutoScalingGroupsRequest withFilters(java.util.Collection<Filter> filters) {
+        setFilters(filters);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -257,7 +332,9 @@ public class DescribeAutoScalingGroupsRequest extends com.amazonaws.AmazonWebSer
         if (getNextToken() != null)
             sb.append("NextToken: ").append(getNextToken()).append(",");
         if (getMaxRecords() != null)
-            sb.append("MaxRecords: ").append(getMaxRecords());
+            sb.append("MaxRecords: ").append(getMaxRecords()).append(",");
+        if (getFilters() != null)
+            sb.append("Filters: ").append(getFilters());
         sb.append("}");
         return sb.toString();
     }
@@ -284,6 +361,10 @@ public class DescribeAutoScalingGroupsRequest extends com.amazonaws.AmazonWebSer
             return false;
         if (other.getMaxRecords() != null && other.getMaxRecords().equals(this.getMaxRecords()) == false)
             return false;
+        if (other.getFilters() == null ^ this.getFilters() == null)
+            return false;
+        if (other.getFilters() != null && other.getFilters().equals(this.getFilters()) == false)
+            return false;
         return true;
     }
 
@@ -295,6 +376,7 @@ public class DescribeAutoScalingGroupsRequest extends com.amazonaws.AmazonWebSer
         hashCode = prime * hashCode + ((getAutoScalingGroupNames() == null) ? 0 : getAutoScalingGroupNames().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getMaxRecords() == null) ? 0 : getMaxRecords().hashCode());
+        hashCode = prime * hashCode + ((getFilters() == null) ? 0 : getFilters().hashCode());
         return hashCode;
     }
 

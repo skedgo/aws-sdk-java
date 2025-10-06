@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,58 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     }
 
     @Override
+    public java.util.concurrent.Future<AcceptInputDeviceTransferResult> acceptInputDeviceTransferAsync(AcceptInputDeviceTransferRequest request) {
+
+        return acceptInputDeviceTransferAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AcceptInputDeviceTransferResult> acceptInputDeviceTransferAsync(AcceptInputDeviceTransferRequest request,
+            com.amazonaws.handlers.AsyncHandler<AcceptInputDeviceTransferRequest, AcceptInputDeviceTransferResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchDeleteResult> batchDeleteAsync(BatchDeleteRequest request) {
+
+        return batchDeleteAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchDeleteResult> batchDeleteAsync(BatchDeleteRequest request,
+            com.amazonaws.handlers.AsyncHandler<BatchDeleteRequest, BatchDeleteResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchStartResult> batchStartAsync(BatchStartRequest request) {
+
+        return batchStartAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchStartResult> batchStartAsync(BatchStartRequest request,
+            com.amazonaws.handlers.AsyncHandler<BatchStartRequest, BatchStartResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchStopResult> batchStopAsync(BatchStopRequest request) {
+
+        return batchStopAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<BatchStopResult> batchStopAsync(BatchStopRequest request,
+            com.amazonaws.handlers.AsyncHandler<BatchStopRequest, BatchStopResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<BatchUpdateScheduleResult> batchUpdateScheduleAsync(BatchUpdateScheduleRequest request) {
 
         return batchUpdateScheduleAsync(request, null);
@@ -41,6 +93,32 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     }
 
     @Override
+    public java.util.concurrent.Future<CancelInputDeviceTransferResult> cancelInputDeviceTransferAsync(CancelInputDeviceTransferRequest request) {
+
+        return cancelInputDeviceTransferAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelInputDeviceTransferResult> cancelInputDeviceTransferAsync(CancelInputDeviceTransferRequest request,
+            com.amazonaws.handlers.AsyncHandler<CancelInputDeviceTransferRequest, CancelInputDeviceTransferResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ClaimDeviceResult> claimDeviceAsync(ClaimDeviceRequest request) {
+
+        return claimDeviceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ClaimDeviceResult> claimDeviceAsync(ClaimDeviceRequest request,
+            com.amazonaws.handlers.AsyncHandler<ClaimDeviceRequest, ClaimDeviceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateChannelResult> createChannelAsync(CreateChannelRequest request) {
 
         return createChannelAsync(request, null);
@@ -49,6 +127,62 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     @Override
     public java.util.concurrent.Future<CreateChannelResult> createChannelAsync(CreateChannelRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateChannelRequest, CreateChannelResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCloudWatchAlarmTemplateResult> createCloudWatchAlarmTemplateAsync(CreateCloudWatchAlarmTemplateRequest request) {
+
+        return createCloudWatchAlarmTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCloudWatchAlarmTemplateResult> createCloudWatchAlarmTemplateAsync(CreateCloudWatchAlarmTemplateRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateCloudWatchAlarmTemplateRequest, CreateCloudWatchAlarmTemplateResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCloudWatchAlarmTemplateGroupResult> createCloudWatchAlarmTemplateGroupAsync(
+            CreateCloudWatchAlarmTemplateGroupRequest request) {
+
+        return createCloudWatchAlarmTemplateGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCloudWatchAlarmTemplateGroupResult> createCloudWatchAlarmTemplateGroupAsync(
+            CreateCloudWatchAlarmTemplateGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateCloudWatchAlarmTemplateGroupRequest, CreateCloudWatchAlarmTemplateGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateEventBridgeRuleTemplateResult> createEventBridgeRuleTemplateAsync(CreateEventBridgeRuleTemplateRequest request) {
+
+        return createEventBridgeRuleTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateEventBridgeRuleTemplateResult> createEventBridgeRuleTemplateAsync(CreateEventBridgeRuleTemplateRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateEventBridgeRuleTemplateRequest, CreateEventBridgeRuleTemplateResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateEventBridgeRuleTemplateGroupResult> createEventBridgeRuleTemplateGroupAsync(
+            CreateEventBridgeRuleTemplateGroupRequest request) {
+
+        return createEventBridgeRuleTemplateGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateEventBridgeRuleTemplateGroupResult> createEventBridgeRuleTemplateGroupAsync(
+            CreateEventBridgeRuleTemplateGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateEventBridgeRuleTemplateGroupRequest, CreateEventBridgeRuleTemplateGroupResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -80,6 +214,58 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     }
 
     @Override
+    public java.util.concurrent.Future<CreateMultiplexResult> createMultiplexAsync(CreateMultiplexRequest request) {
+
+        return createMultiplexAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateMultiplexResult> createMultiplexAsync(CreateMultiplexRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateMultiplexRequest, CreateMultiplexResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateMultiplexProgramResult> createMultiplexProgramAsync(CreateMultiplexProgramRequest request) {
+
+        return createMultiplexProgramAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateMultiplexProgramResult> createMultiplexProgramAsync(CreateMultiplexProgramRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateMultiplexProgramRequest, CreateMultiplexProgramResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePartnerInputResult> createPartnerInputAsync(CreatePartnerInputRequest request) {
+
+        return createPartnerInputAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePartnerInputResult> createPartnerInputAsync(CreatePartnerInputRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreatePartnerInputRequest, CreatePartnerInputResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateSignalMapResult> createSignalMapAsync(CreateSignalMapRequest request) {
+
+        return createSignalMapAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateSignalMapResult> createSignalMapAsync(CreateSignalMapRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateSignalMapRequest, CreateSignalMapResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateTagsResult> createTagsAsync(CreateTagsRequest request) {
 
         return createTagsAsync(request, null);
@@ -101,6 +287,62 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     @Override
     public java.util.concurrent.Future<DeleteChannelResult> deleteChannelAsync(DeleteChannelRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteChannelRequest, DeleteChannelResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCloudWatchAlarmTemplateResult> deleteCloudWatchAlarmTemplateAsync(DeleteCloudWatchAlarmTemplateRequest request) {
+
+        return deleteCloudWatchAlarmTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCloudWatchAlarmTemplateResult> deleteCloudWatchAlarmTemplateAsync(DeleteCloudWatchAlarmTemplateRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteCloudWatchAlarmTemplateRequest, DeleteCloudWatchAlarmTemplateResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCloudWatchAlarmTemplateGroupResult> deleteCloudWatchAlarmTemplateGroupAsync(
+            DeleteCloudWatchAlarmTemplateGroupRequest request) {
+
+        return deleteCloudWatchAlarmTemplateGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteCloudWatchAlarmTemplateGroupResult> deleteCloudWatchAlarmTemplateGroupAsync(
+            DeleteCloudWatchAlarmTemplateGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteCloudWatchAlarmTemplateGroupRequest, DeleteCloudWatchAlarmTemplateGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteEventBridgeRuleTemplateResult> deleteEventBridgeRuleTemplateAsync(DeleteEventBridgeRuleTemplateRequest request) {
+
+        return deleteEventBridgeRuleTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteEventBridgeRuleTemplateResult> deleteEventBridgeRuleTemplateAsync(DeleteEventBridgeRuleTemplateRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteEventBridgeRuleTemplateRequest, DeleteEventBridgeRuleTemplateResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteEventBridgeRuleTemplateGroupResult> deleteEventBridgeRuleTemplateGroupAsync(
+            DeleteEventBridgeRuleTemplateGroupRequest request) {
+
+        return deleteEventBridgeRuleTemplateGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteEventBridgeRuleTemplateGroupResult> deleteEventBridgeRuleTemplateGroupAsync(
+            DeleteEventBridgeRuleTemplateGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteEventBridgeRuleTemplateGroupRequest, DeleteEventBridgeRuleTemplateGroupResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -132,6 +374,32 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteMultiplexResult> deleteMultiplexAsync(DeleteMultiplexRequest request) {
+
+        return deleteMultiplexAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteMultiplexResult> deleteMultiplexAsync(DeleteMultiplexRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteMultiplexRequest, DeleteMultiplexResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteMultiplexProgramResult> deleteMultiplexProgramAsync(DeleteMultiplexProgramRequest request) {
+
+        return deleteMultiplexProgramAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteMultiplexProgramResult> deleteMultiplexProgramAsync(DeleteMultiplexProgramRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteMultiplexProgramRequest, DeleteMultiplexProgramResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteReservationResult> deleteReservationAsync(DeleteReservationRequest request) {
 
         return deleteReservationAsync(request, null);
@@ -158,6 +426,19 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteSignalMapResult> deleteSignalMapAsync(DeleteSignalMapRequest request) {
+
+        return deleteSignalMapAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteSignalMapResult> deleteSignalMapAsync(DeleteSignalMapRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteSignalMapRequest, DeleteSignalMapResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteTagsResult> deleteTagsAsync(DeleteTagsRequest request) {
 
         return deleteTagsAsync(request, null);
@@ -166,6 +447,19 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     @Override
     public java.util.concurrent.Future<DeleteTagsResult> deleteTagsAsync(DeleteTagsRequest request,
             com.amazonaws.handlers.AsyncHandler<DeleteTagsRequest, DeleteTagsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAccountConfigurationResult> describeAccountConfigurationAsync(DescribeAccountConfigurationRequest request) {
+
+        return describeAccountConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAccountConfigurationResult> describeAccountConfigurationAsync(DescribeAccountConfigurationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeAccountConfigurationRequest, DescribeAccountConfigurationResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -197,6 +491,32 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeInputDeviceResult> describeInputDeviceAsync(DescribeInputDeviceRequest request) {
+
+        return describeInputDeviceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeInputDeviceResult> describeInputDeviceAsync(DescribeInputDeviceRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeInputDeviceRequest, DescribeInputDeviceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeInputDeviceThumbnailResult> describeInputDeviceThumbnailAsync(DescribeInputDeviceThumbnailRequest request) {
+
+        return describeInputDeviceThumbnailAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeInputDeviceThumbnailResult> describeInputDeviceThumbnailAsync(DescribeInputDeviceThumbnailRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeInputDeviceThumbnailRequest, DescribeInputDeviceThumbnailResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeInputSecurityGroupResult> describeInputSecurityGroupAsync(DescribeInputSecurityGroupRequest request) {
 
         return describeInputSecurityGroupAsync(request, null);
@@ -205,6 +525,32 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     @Override
     public java.util.concurrent.Future<DescribeInputSecurityGroupResult> describeInputSecurityGroupAsync(DescribeInputSecurityGroupRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeInputSecurityGroupRequest, DescribeInputSecurityGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeMultiplexResult> describeMultiplexAsync(DescribeMultiplexRequest request) {
+
+        return describeMultiplexAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeMultiplexResult> describeMultiplexAsync(DescribeMultiplexRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeMultiplexRequest, DescribeMultiplexResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeMultiplexProgramResult> describeMultiplexProgramAsync(DescribeMultiplexProgramRequest request) {
+
+        return describeMultiplexProgramAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeMultiplexProgramResult> describeMultiplexProgramAsync(DescribeMultiplexProgramRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeMultiplexProgramRequest, DescribeMultiplexProgramResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -249,6 +595,88 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeThumbnailsResult> describeThumbnailsAsync(DescribeThumbnailsRequest request) {
+
+        return describeThumbnailsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeThumbnailsResult> describeThumbnailsAsync(DescribeThumbnailsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeThumbnailsRequest, DescribeThumbnailsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCloudWatchAlarmTemplateResult> getCloudWatchAlarmTemplateAsync(GetCloudWatchAlarmTemplateRequest request) {
+
+        return getCloudWatchAlarmTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCloudWatchAlarmTemplateResult> getCloudWatchAlarmTemplateAsync(GetCloudWatchAlarmTemplateRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetCloudWatchAlarmTemplateRequest, GetCloudWatchAlarmTemplateResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCloudWatchAlarmTemplateGroupResult> getCloudWatchAlarmTemplateGroupAsync(
+            GetCloudWatchAlarmTemplateGroupRequest request) {
+
+        return getCloudWatchAlarmTemplateGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCloudWatchAlarmTemplateGroupResult> getCloudWatchAlarmTemplateGroupAsync(
+            GetCloudWatchAlarmTemplateGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetCloudWatchAlarmTemplateGroupRequest, GetCloudWatchAlarmTemplateGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetEventBridgeRuleTemplateResult> getEventBridgeRuleTemplateAsync(GetEventBridgeRuleTemplateRequest request) {
+
+        return getEventBridgeRuleTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetEventBridgeRuleTemplateResult> getEventBridgeRuleTemplateAsync(GetEventBridgeRuleTemplateRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetEventBridgeRuleTemplateRequest, GetEventBridgeRuleTemplateResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetEventBridgeRuleTemplateGroupResult> getEventBridgeRuleTemplateGroupAsync(
+            GetEventBridgeRuleTemplateGroupRequest request) {
+
+        return getEventBridgeRuleTemplateGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetEventBridgeRuleTemplateGroupResult> getEventBridgeRuleTemplateGroupAsync(
+            GetEventBridgeRuleTemplateGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetEventBridgeRuleTemplateGroupRequest, GetEventBridgeRuleTemplateGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSignalMapResult> getSignalMapAsync(GetSignalMapRequest request) {
+
+        return getSignalMapAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSignalMapResult> getSignalMapAsync(GetSignalMapRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetSignalMapRequest, GetSignalMapResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListChannelsResult> listChannelsAsync(ListChannelsRequest request) {
 
         return listChannelsAsync(request, null);
@@ -257,6 +685,88 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     @Override
     public java.util.concurrent.Future<ListChannelsResult> listChannelsAsync(ListChannelsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListChannelsRequest, ListChannelsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCloudWatchAlarmTemplateGroupsResult> listCloudWatchAlarmTemplateGroupsAsync(
+            ListCloudWatchAlarmTemplateGroupsRequest request) {
+
+        return listCloudWatchAlarmTemplateGroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCloudWatchAlarmTemplateGroupsResult> listCloudWatchAlarmTemplateGroupsAsync(
+            ListCloudWatchAlarmTemplateGroupsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListCloudWatchAlarmTemplateGroupsRequest, ListCloudWatchAlarmTemplateGroupsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCloudWatchAlarmTemplatesResult> listCloudWatchAlarmTemplatesAsync(ListCloudWatchAlarmTemplatesRequest request) {
+
+        return listCloudWatchAlarmTemplatesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCloudWatchAlarmTemplatesResult> listCloudWatchAlarmTemplatesAsync(ListCloudWatchAlarmTemplatesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListCloudWatchAlarmTemplatesRequest, ListCloudWatchAlarmTemplatesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEventBridgeRuleTemplateGroupsResult> listEventBridgeRuleTemplateGroupsAsync(
+            ListEventBridgeRuleTemplateGroupsRequest request) {
+
+        return listEventBridgeRuleTemplateGroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEventBridgeRuleTemplateGroupsResult> listEventBridgeRuleTemplateGroupsAsync(
+            ListEventBridgeRuleTemplateGroupsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListEventBridgeRuleTemplateGroupsRequest, ListEventBridgeRuleTemplateGroupsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEventBridgeRuleTemplatesResult> listEventBridgeRuleTemplatesAsync(ListEventBridgeRuleTemplatesRequest request) {
+
+        return listEventBridgeRuleTemplatesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEventBridgeRuleTemplatesResult> listEventBridgeRuleTemplatesAsync(ListEventBridgeRuleTemplatesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListEventBridgeRuleTemplatesRequest, ListEventBridgeRuleTemplatesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListInputDeviceTransfersResult> listInputDeviceTransfersAsync(ListInputDeviceTransfersRequest request) {
+
+        return listInputDeviceTransfersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListInputDeviceTransfersResult> listInputDeviceTransfersAsync(ListInputDeviceTransfersRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListInputDeviceTransfersRequest, ListInputDeviceTransfersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListInputDevicesResult> listInputDevicesAsync(ListInputDevicesRequest request) {
+
+        return listInputDevicesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListInputDevicesResult> listInputDevicesAsync(ListInputDevicesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListInputDevicesRequest, ListInputDevicesResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -288,6 +798,32 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     }
 
     @Override
+    public java.util.concurrent.Future<ListMultiplexProgramsResult> listMultiplexProgramsAsync(ListMultiplexProgramsRequest request) {
+
+        return listMultiplexProgramsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMultiplexProgramsResult> listMultiplexProgramsAsync(ListMultiplexProgramsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListMultiplexProgramsRequest, ListMultiplexProgramsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMultiplexesResult> listMultiplexesAsync(ListMultiplexesRequest request) {
+
+        return listMultiplexesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListMultiplexesResult> listMultiplexesAsync(ListMultiplexesRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListMultiplexesRequest, ListMultiplexesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListOfferingsResult> listOfferingsAsync(ListOfferingsRequest request) {
 
         return listOfferingsAsync(request, null);
@@ -309,6 +845,19 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     @Override
     public java.util.concurrent.Future<ListReservationsResult> listReservationsAsync(ListReservationsRequest request,
             com.amazonaws.handlers.AsyncHandler<ListReservationsRequest, ListReservationsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSignalMapsResult> listSignalMapsAsync(ListSignalMapsRequest request) {
+
+        return listSignalMapsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSignalMapsResult> listSignalMapsAsync(ListSignalMapsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListSignalMapsRequest, ListSignalMapsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -340,6 +889,45 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     }
 
     @Override
+    public java.util.concurrent.Future<RebootInputDeviceResult> rebootInputDeviceAsync(RebootInputDeviceRequest request) {
+
+        return rebootInputDeviceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RebootInputDeviceResult> rebootInputDeviceAsync(RebootInputDeviceRequest request,
+            com.amazonaws.handlers.AsyncHandler<RebootInputDeviceRequest, RebootInputDeviceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<RejectInputDeviceTransferResult> rejectInputDeviceTransferAsync(RejectInputDeviceTransferRequest request) {
+
+        return rejectInputDeviceTransferAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RejectInputDeviceTransferResult> rejectInputDeviceTransferAsync(RejectInputDeviceTransferRequest request,
+            com.amazonaws.handlers.AsyncHandler<RejectInputDeviceTransferRequest, RejectInputDeviceTransferResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<RestartChannelPipelinesResult> restartChannelPipelinesAsync(RestartChannelPipelinesRequest request) {
+
+        return restartChannelPipelinesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RestartChannelPipelinesResult> restartChannelPipelinesAsync(RestartChannelPipelinesRequest request,
+            com.amazonaws.handlers.AsyncHandler<RestartChannelPipelinesRequest, RestartChannelPipelinesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<StartChannelResult> startChannelAsync(StartChannelRequest request) {
 
         return startChannelAsync(request, null);
@@ -353,6 +941,86 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     }
 
     @Override
+    public java.util.concurrent.Future<StartDeleteMonitorDeploymentResult> startDeleteMonitorDeploymentAsync(StartDeleteMonitorDeploymentRequest request) {
+
+        return startDeleteMonitorDeploymentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartDeleteMonitorDeploymentResult> startDeleteMonitorDeploymentAsync(StartDeleteMonitorDeploymentRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartDeleteMonitorDeploymentRequest, StartDeleteMonitorDeploymentResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartInputDeviceResult> startInputDeviceAsync(StartInputDeviceRequest request) {
+
+        return startInputDeviceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartInputDeviceResult> startInputDeviceAsync(StartInputDeviceRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartInputDeviceRequest, StartInputDeviceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartInputDeviceMaintenanceWindowResult> startInputDeviceMaintenanceWindowAsync(
+            StartInputDeviceMaintenanceWindowRequest request) {
+
+        return startInputDeviceMaintenanceWindowAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartInputDeviceMaintenanceWindowResult> startInputDeviceMaintenanceWindowAsync(
+            StartInputDeviceMaintenanceWindowRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartInputDeviceMaintenanceWindowRequest, StartInputDeviceMaintenanceWindowResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartMonitorDeploymentResult> startMonitorDeploymentAsync(StartMonitorDeploymentRequest request) {
+
+        return startMonitorDeploymentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartMonitorDeploymentResult> startMonitorDeploymentAsync(StartMonitorDeploymentRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartMonitorDeploymentRequest, StartMonitorDeploymentResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartMultiplexResult> startMultiplexAsync(StartMultiplexRequest request) {
+
+        return startMultiplexAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartMultiplexResult> startMultiplexAsync(StartMultiplexRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartMultiplexRequest, StartMultiplexResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartUpdateSignalMapResult> startUpdateSignalMapAsync(StartUpdateSignalMapRequest request) {
+
+        return startUpdateSignalMapAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartUpdateSignalMapResult> startUpdateSignalMapAsync(StartUpdateSignalMapRequest request,
+            com.amazonaws.handlers.AsyncHandler<StartUpdateSignalMapRequest, StartUpdateSignalMapResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<StopChannelResult> stopChannelAsync(StopChannelRequest request) {
 
         return stopChannelAsync(request, null);
@@ -361,6 +1029,58 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     @Override
     public java.util.concurrent.Future<StopChannelResult> stopChannelAsync(StopChannelRequest request,
             com.amazonaws.handlers.AsyncHandler<StopChannelRequest, StopChannelResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopInputDeviceResult> stopInputDeviceAsync(StopInputDeviceRequest request) {
+
+        return stopInputDeviceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopInputDeviceResult> stopInputDeviceAsync(StopInputDeviceRequest request,
+            com.amazonaws.handlers.AsyncHandler<StopInputDeviceRequest, StopInputDeviceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopMultiplexResult> stopMultiplexAsync(StopMultiplexRequest request) {
+
+        return stopMultiplexAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopMultiplexResult> stopMultiplexAsync(StopMultiplexRequest request,
+            com.amazonaws.handlers.AsyncHandler<StopMultiplexRequest, StopMultiplexResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<TransferInputDeviceResult> transferInputDeviceAsync(TransferInputDeviceRequest request) {
+
+        return transferInputDeviceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TransferInputDeviceResult> transferInputDeviceAsync(TransferInputDeviceRequest request,
+            com.amazonaws.handlers.AsyncHandler<TransferInputDeviceRequest, TransferInputDeviceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAccountConfigurationResult> updateAccountConfigurationAsync(UpdateAccountConfigurationRequest request) {
+
+        return updateAccountConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAccountConfigurationResult> updateAccountConfigurationAsync(UpdateAccountConfigurationRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateAccountConfigurationRequest, UpdateAccountConfigurationResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -392,6 +1112,62 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateCloudWatchAlarmTemplateResult> updateCloudWatchAlarmTemplateAsync(UpdateCloudWatchAlarmTemplateRequest request) {
+
+        return updateCloudWatchAlarmTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCloudWatchAlarmTemplateResult> updateCloudWatchAlarmTemplateAsync(UpdateCloudWatchAlarmTemplateRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateCloudWatchAlarmTemplateRequest, UpdateCloudWatchAlarmTemplateResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCloudWatchAlarmTemplateGroupResult> updateCloudWatchAlarmTemplateGroupAsync(
+            UpdateCloudWatchAlarmTemplateGroupRequest request) {
+
+        return updateCloudWatchAlarmTemplateGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateCloudWatchAlarmTemplateGroupResult> updateCloudWatchAlarmTemplateGroupAsync(
+            UpdateCloudWatchAlarmTemplateGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateCloudWatchAlarmTemplateGroupRequest, UpdateCloudWatchAlarmTemplateGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateEventBridgeRuleTemplateResult> updateEventBridgeRuleTemplateAsync(UpdateEventBridgeRuleTemplateRequest request) {
+
+        return updateEventBridgeRuleTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateEventBridgeRuleTemplateResult> updateEventBridgeRuleTemplateAsync(UpdateEventBridgeRuleTemplateRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateEventBridgeRuleTemplateRequest, UpdateEventBridgeRuleTemplateResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateEventBridgeRuleTemplateGroupResult> updateEventBridgeRuleTemplateGroupAsync(
+            UpdateEventBridgeRuleTemplateGroupRequest request) {
+
+        return updateEventBridgeRuleTemplateGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateEventBridgeRuleTemplateGroupResult> updateEventBridgeRuleTemplateGroupAsync(
+            UpdateEventBridgeRuleTemplateGroupRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateEventBridgeRuleTemplateGroupRequest, UpdateEventBridgeRuleTemplateGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateInputResult> updateInputAsync(UpdateInputRequest request) {
 
         return updateInputAsync(request, null);
@@ -405,6 +1181,19 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateInputDeviceResult> updateInputDeviceAsync(UpdateInputDeviceRequest request) {
+
+        return updateInputDeviceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateInputDeviceResult> updateInputDeviceAsync(UpdateInputDeviceRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateInputDeviceRequest, UpdateInputDeviceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateInputSecurityGroupResult> updateInputSecurityGroupAsync(UpdateInputSecurityGroupRequest request) {
 
         return updateInputSecurityGroupAsync(request, null);
@@ -413,6 +1202,32 @@ public class AbstractAWSMediaLiveAsync extends AbstractAWSMediaLive implements A
     @Override
     public java.util.concurrent.Future<UpdateInputSecurityGroupResult> updateInputSecurityGroupAsync(UpdateInputSecurityGroupRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateInputSecurityGroupRequest, UpdateInputSecurityGroupResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMultiplexResult> updateMultiplexAsync(UpdateMultiplexRequest request) {
+
+        return updateMultiplexAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMultiplexResult> updateMultiplexAsync(UpdateMultiplexRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateMultiplexRequest, UpdateMultiplexResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMultiplexProgramResult> updateMultiplexProgramAsync(UpdateMultiplexProgramRequest request) {
+
+        return updateMultiplexProgramAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateMultiplexProgramResult> updateMultiplexProgramAsync(UpdateMultiplexProgramRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateMultiplexProgramRequest, UpdateMultiplexProgramResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

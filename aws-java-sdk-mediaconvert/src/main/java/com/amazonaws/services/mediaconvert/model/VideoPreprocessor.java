@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,8 +18,8 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
- * Find additional transcoding features under Preprocessors (VideoPreprocessors). Enable the features at each output
- * individually. These features are disabled by default.
+ * Find additional transcoding features under Preprocessors. Enable the features at each output individually. These
+ * features are disabled by default.
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/VideoPreprocessor" target="_top">AWS API
  *      Documentation</a>
@@ -28,32 +28,47 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 public class VideoPreprocessor implements Serializable, Cloneable, StructuredPojo {
 
     /**
-     * Enable the Color corrector (ColorCorrector) feature if necessary. Enable or disable this feature for each output
-     * individually. This setting is disabled by default.
+     * Use these settings to convert the color space or to modify properties such as hue and contrast for this output.
+     * For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/converting-the-color-space.html.
      */
     private ColorCorrector colorCorrector;
-    /** Use Deinterlacer (Deinterlacer) to produce smoother motion and a clearer picture. */
-    private Deinterlacer deinterlacer;
     /**
-     * Enable the Image inserter (ImageInserter) feature to include a graphic overlay on your video. Enable or disable
-     * this feature for each output individually. This setting is disabled by default.
+     * Use the deinterlacer to produce smoother motion and a clearer picture. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/working-with-scan-type.html.
+     */
+    private Deinterlacer deinterlacer;
+    /** Enable Dolby Vision feature to produce Dolby Vision compatible video output. */
+    private DolbyVision dolbyVision;
+    /** Enable HDR10+ analysis and metadata injection. Compatible with HEVC only. */
+    private Hdr10Plus hdr10Plus;
+    /**
+     * Enable the Image inserter feature to include a graphic overlay on your video. Enable or disable this feature for
+     * each output individually. This setting is disabled by default.
      */
     private ImageInserter imageInserter;
     /**
-     * Enable the Noise reducer (NoiseReducer) feature to remove noise from your video output if necessary. Enable or
-     * disable this feature for each output individually. This setting is disabled by default.
+     * Enable the Noise reducer feature to remove noise from your video output if necessary. Enable or disable this
+     * feature for each output individually. This setting is disabled by default. When you enable Noise reducer, you
+     * must also select a value for Noise reducer filter. For AVC outputs, when you include Noise reducer, you cannot
+     * include the Bandwidth reduction filter.
      */
     private NoiseReducer noiseReducer;
-    /** Timecode burn-in (TimecodeBurnIn)--Burns the output timecode and specified prefix into the output. */
+    /**
+     * If you work with a third party video watermarking partner, use the group of settings that correspond with your
+     * watermarking partner to include watermarks in your output.
+     */
+    private PartnerWatermarking partnerWatermarking;
+    /** Settings for burning the output timecode and specified prefix into the output. */
     private TimecodeBurnin timecodeBurnin;
 
     /**
-     * Enable the Color corrector (ColorCorrector) feature if necessary. Enable or disable this feature for each output
-     * individually. This setting is disabled by default.
+     * Use these settings to convert the color space or to modify properties such as hue and contrast for this output.
+     * For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/converting-the-color-space.html.
      * 
      * @param colorCorrector
-     *        Enable the Color corrector (ColorCorrector) feature if necessary. Enable or disable this feature for each
-     *        output individually. This setting is disabled by default.
+     *        Use these settings to convert the color space or to modify properties such as hue and contrast for this
+     *        output. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/converting-the-color-space.html.
      */
 
     public void setColorCorrector(ColorCorrector colorCorrector) {
@@ -61,11 +76,12 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Enable the Color corrector (ColorCorrector) feature if necessary. Enable or disable this feature for each output
-     * individually. This setting is disabled by default.
+     * Use these settings to convert the color space or to modify properties such as hue and contrast for this output.
+     * For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/converting-the-color-space.html.
      * 
-     * @return Enable the Color corrector (ColorCorrector) feature if necessary. Enable or disable this feature for each
-     *         output individually. This setting is disabled by default.
+     * @return Use these settings to convert the color space or to modify properties such as hue and contrast for this
+     *         output. For more information, see
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/converting-the-color-space.html.
      */
 
     public ColorCorrector getColorCorrector() {
@@ -73,12 +89,13 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Enable the Color corrector (ColorCorrector) feature if necessary. Enable or disable this feature for each output
-     * individually. This setting is disabled by default.
+     * Use these settings to convert the color space or to modify properties such as hue and contrast for this output.
+     * For more information, see https://docs.aws.amazon.com/mediaconvert/latest/ug/converting-the-color-space.html.
      * 
      * @param colorCorrector
-     *        Enable the Color corrector (ColorCorrector) feature if necessary. Enable or disable this feature for each
-     *        output individually. This setting is disabled by default.
+     *        Use these settings to convert the color space or to modify properties such as hue and contrast for this
+     *        output. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/converting-the-color-space.html.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -88,10 +105,12 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Use Deinterlacer (Deinterlacer) to produce smoother motion and a clearer picture.
+     * Use the deinterlacer to produce smoother motion and a clearer picture. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/working-with-scan-type.html.
      * 
      * @param deinterlacer
-     *        Use Deinterlacer (Deinterlacer) to produce smoother motion and a clearer picture.
+     *        Use the deinterlacer to produce smoother motion and a clearer picture. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/working-with-scan-type.html.
      */
 
     public void setDeinterlacer(Deinterlacer deinterlacer) {
@@ -99,9 +118,11 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Use Deinterlacer (Deinterlacer) to produce smoother motion and a clearer picture.
+     * Use the deinterlacer to produce smoother motion and a clearer picture. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/working-with-scan-type.html.
      * 
-     * @return Use Deinterlacer (Deinterlacer) to produce smoother motion and a clearer picture.
+     * @return Use the deinterlacer to produce smoother motion and a clearer picture. For more information, see
+     *         https://docs.aws.amazon.com/mediaconvert/latest/ug/working-with-scan-type.html.
      */
 
     public Deinterlacer getDeinterlacer() {
@@ -109,10 +130,12 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Use Deinterlacer (Deinterlacer) to produce smoother motion and a clearer picture.
+     * Use the deinterlacer to produce smoother motion and a clearer picture. For more information, see
+     * https://docs.aws.amazon.com/mediaconvert/latest/ug/working-with-scan-type.html.
      * 
      * @param deinterlacer
-     *        Use Deinterlacer (Deinterlacer) to produce smoother motion and a clearer picture.
+     *        Use the deinterlacer to produce smoother motion and a clearer picture. For more information, see
+     *        https://docs.aws.amazon.com/mediaconvert/latest/ug/working-with-scan-type.html.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -122,12 +145,80 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Enable the Image inserter (ImageInserter) feature to include a graphic overlay on your video. Enable or disable
-     * this feature for each output individually. This setting is disabled by default.
+     * Enable Dolby Vision feature to produce Dolby Vision compatible video output.
+     * 
+     * @param dolbyVision
+     *        Enable Dolby Vision feature to produce Dolby Vision compatible video output.
+     */
+
+    public void setDolbyVision(DolbyVision dolbyVision) {
+        this.dolbyVision = dolbyVision;
+    }
+
+    /**
+     * Enable Dolby Vision feature to produce Dolby Vision compatible video output.
+     * 
+     * @return Enable Dolby Vision feature to produce Dolby Vision compatible video output.
+     */
+
+    public DolbyVision getDolbyVision() {
+        return this.dolbyVision;
+    }
+
+    /**
+     * Enable Dolby Vision feature to produce Dolby Vision compatible video output.
+     * 
+     * @param dolbyVision
+     *        Enable Dolby Vision feature to produce Dolby Vision compatible video output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VideoPreprocessor withDolbyVision(DolbyVision dolbyVision) {
+        setDolbyVision(dolbyVision);
+        return this;
+    }
+
+    /**
+     * Enable HDR10+ analysis and metadata injection. Compatible with HEVC only.
+     * 
+     * @param hdr10Plus
+     *        Enable HDR10+ analysis and metadata injection. Compatible with HEVC only.
+     */
+
+    public void setHdr10Plus(Hdr10Plus hdr10Plus) {
+        this.hdr10Plus = hdr10Plus;
+    }
+
+    /**
+     * Enable HDR10+ analysis and metadata injection. Compatible with HEVC only.
+     * 
+     * @return Enable HDR10+ analysis and metadata injection. Compatible with HEVC only.
+     */
+
+    public Hdr10Plus getHdr10Plus() {
+        return this.hdr10Plus;
+    }
+
+    /**
+     * Enable HDR10+ analysis and metadata injection. Compatible with HEVC only.
+     * 
+     * @param hdr10Plus
+     *        Enable HDR10+ analysis and metadata injection. Compatible with HEVC only.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VideoPreprocessor withHdr10Plus(Hdr10Plus hdr10Plus) {
+        setHdr10Plus(hdr10Plus);
+        return this;
+    }
+
+    /**
+     * Enable the Image inserter feature to include a graphic overlay on your video. Enable or disable this feature for
+     * each output individually. This setting is disabled by default.
      * 
      * @param imageInserter
-     *        Enable the Image inserter (ImageInserter) feature to include a graphic overlay on your video. Enable or
-     *        disable this feature for each output individually. This setting is disabled by default.
+     *        Enable the Image inserter feature to include a graphic overlay on your video. Enable or disable this
+     *        feature for each output individually. This setting is disabled by default.
      */
 
     public void setImageInserter(ImageInserter imageInserter) {
@@ -135,11 +226,11 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Enable the Image inserter (ImageInserter) feature to include a graphic overlay on your video. Enable or disable
-     * this feature for each output individually. This setting is disabled by default.
+     * Enable the Image inserter feature to include a graphic overlay on your video. Enable or disable this feature for
+     * each output individually. This setting is disabled by default.
      * 
-     * @return Enable the Image inserter (ImageInserter) feature to include a graphic overlay on your video. Enable or
-     *         disable this feature for each output individually. This setting is disabled by default.
+     * @return Enable the Image inserter feature to include a graphic overlay on your video. Enable or disable this
+     *         feature for each output individually. This setting is disabled by default.
      */
 
     public ImageInserter getImageInserter() {
@@ -147,12 +238,12 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Enable the Image inserter (ImageInserter) feature to include a graphic overlay on your video. Enable or disable
-     * this feature for each output individually. This setting is disabled by default.
+     * Enable the Image inserter feature to include a graphic overlay on your video. Enable or disable this feature for
+     * each output individually. This setting is disabled by default.
      * 
      * @param imageInserter
-     *        Enable the Image inserter (ImageInserter) feature to include a graphic overlay on your video. Enable or
-     *        disable this feature for each output individually. This setting is disabled by default.
+     *        Enable the Image inserter feature to include a graphic overlay on your video. Enable or disable this
+     *        feature for each output individually. This setting is disabled by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -162,12 +253,16 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Enable the Noise reducer (NoiseReducer) feature to remove noise from your video output if necessary. Enable or
-     * disable this feature for each output individually. This setting is disabled by default.
+     * Enable the Noise reducer feature to remove noise from your video output if necessary. Enable or disable this
+     * feature for each output individually. This setting is disabled by default. When you enable Noise reducer, you
+     * must also select a value for Noise reducer filter. For AVC outputs, when you include Noise reducer, you cannot
+     * include the Bandwidth reduction filter.
      * 
      * @param noiseReducer
-     *        Enable the Noise reducer (NoiseReducer) feature to remove noise from your video output if necessary.
-     *        Enable or disable this feature for each output individually. This setting is disabled by default.
+     *        Enable the Noise reducer feature to remove noise from your video output if necessary. Enable or disable
+     *        this feature for each output individually. This setting is disabled by default. When you enable Noise
+     *        reducer, you must also select a value for Noise reducer filter. For AVC outputs, when you include Noise
+     *        reducer, you cannot include the Bandwidth reduction filter.
      */
 
     public void setNoiseReducer(NoiseReducer noiseReducer) {
@@ -175,11 +270,15 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Enable the Noise reducer (NoiseReducer) feature to remove noise from your video output if necessary. Enable or
-     * disable this feature for each output individually. This setting is disabled by default.
+     * Enable the Noise reducer feature to remove noise from your video output if necessary. Enable or disable this
+     * feature for each output individually. This setting is disabled by default. When you enable Noise reducer, you
+     * must also select a value for Noise reducer filter. For AVC outputs, when you include Noise reducer, you cannot
+     * include the Bandwidth reduction filter.
      * 
-     * @return Enable the Noise reducer (NoiseReducer) feature to remove noise from your video output if necessary.
-     *         Enable or disable this feature for each output individually. This setting is disabled by default.
+     * @return Enable the Noise reducer feature to remove noise from your video output if necessary. Enable or disable
+     *         this feature for each output individually. This setting is disabled by default. When you enable Noise
+     *         reducer, you must also select a value for Noise reducer filter. For AVC outputs, when you include Noise
+     *         reducer, you cannot include the Bandwidth reduction filter.
      */
 
     public NoiseReducer getNoiseReducer() {
@@ -187,12 +286,16 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Enable the Noise reducer (NoiseReducer) feature to remove noise from your video output if necessary. Enable or
-     * disable this feature for each output individually. This setting is disabled by default.
+     * Enable the Noise reducer feature to remove noise from your video output if necessary. Enable or disable this
+     * feature for each output individually. This setting is disabled by default. When you enable Noise reducer, you
+     * must also select a value for Noise reducer filter. For AVC outputs, when you include Noise reducer, you cannot
+     * include the Bandwidth reduction filter.
      * 
      * @param noiseReducer
-     *        Enable the Noise reducer (NoiseReducer) feature to remove noise from your video output if necessary.
-     *        Enable or disable this feature for each output individually. This setting is disabled by default.
+     *        Enable the Noise reducer feature to remove noise from your video output if necessary. Enable or disable
+     *        this feature for each output individually. This setting is disabled by default. When you enable Noise
+     *        reducer, you must also select a value for Noise reducer filter. For AVC outputs, when you include Noise
+     *        reducer, you cannot include the Bandwidth reduction filter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -202,10 +305,50 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Timecode burn-in (TimecodeBurnIn)--Burns the output timecode and specified prefix into the output.
+     * If you work with a third party video watermarking partner, use the group of settings that correspond with your
+     * watermarking partner to include watermarks in your output.
+     * 
+     * @param partnerWatermarking
+     *        If you work with a third party video watermarking partner, use the group of settings that correspond with
+     *        your watermarking partner to include watermarks in your output.
+     */
+
+    public void setPartnerWatermarking(PartnerWatermarking partnerWatermarking) {
+        this.partnerWatermarking = partnerWatermarking;
+    }
+
+    /**
+     * If you work with a third party video watermarking partner, use the group of settings that correspond with your
+     * watermarking partner to include watermarks in your output.
+     * 
+     * @return If you work with a third party video watermarking partner, use the group of settings that correspond with
+     *         your watermarking partner to include watermarks in your output.
+     */
+
+    public PartnerWatermarking getPartnerWatermarking() {
+        return this.partnerWatermarking;
+    }
+
+    /**
+     * If you work with a third party video watermarking partner, use the group of settings that correspond with your
+     * watermarking partner to include watermarks in your output.
+     * 
+     * @param partnerWatermarking
+     *        If you work with a third party video watermarking partner, use the group of settings that correspond with
+     *        your watermarking partner to include watermarks in your output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VideoPreprocessor withPartnerWatermarking(PartnerWatermarking partnerWatermarking) {
+        setPartnerWatermarking(partnerWatermarking);
+        return this;
+    }
+
+    /**
+     * Settings for burning the output timecode and specified prefix into the output.
      * 
      * @param timecodeBurnin
-     *        Timecode burn-in (TimecodeBurnIn)--Burns the output timecode and specified prefix into the output.
+     *        Settings for burning the output timecode and specified prefix into the output.
      */
 
     public void setTimecodeBurnin(TimecodeBurnin timecodeBurnin) {
@@ -213,9 +356,9 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Timecode burn-in (TimecodeBurnIn)--Burns the output timecode and specified prefix into the output.
+     * Settings for burning the output timecode and specified prefix into the output.
      * 
-     * @return Timecode burn-in (TimecodeBurnIn)--Burns the output timecode and specified prefix into the output.
+     * @return Settings for burning the output timecode and specified prefix into the output.
      */
 
     public TimecodeBurnin getTimecodeBurnin() {
@@ -223,10 +366,10 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Timecode burn-in (TimecodeBurnIn)--Burns the output timecode and specified prefix into the output.
+     * Settings for burning the output timecode and specified prefix into the output.
      * 
      * @param timecodeBurnin
-     *        Timecode burn-in (TimecodeBurnIn)--Burns the output timecode and specified prefix into the output.
+     *        Settings for burning the output timecode and specified prefix into the output.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -251,10 +394,16 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
             sb.append("ColorCorrector: ").append(getColorCorrector()).append(",");
         if (getDeinterlacer() != null)
             sb.append("Deinterlacer: ").append(getDeinterlacer()).append(",");
+        if (getDolbyVision() != null)
+            sb.append("DolbyVision: ").append(getDolbyVision()).append(",");
+        if (getHdr10Plus() != null)
+            sb.append("Hdr10Plus: ").append(getHdr10Plus()).append(",");
         if (getImageInserter() != null)
             sb.append("ImageInserter: ").append(getImageInserter()).append(",");
         if (getNoiseReducer() != null)
             sb.append("NoiseReducer: ").append(getNoiseReducer()).append(",");
+        if (getPartnerWatermarking() != null)
+            sb.append("PartnerWatermarking: ").append(getPartnerWatermarking()).append(",");
         if (getTimecodeBurnin() != null)
             sb.append("TimecodeBurnin: ").append(getTimecodeBurnin());
         sb.append("}");
@@ -279,6 +428,14 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getDeinterlacer() != null && other.getDeinterlacer().equals(this.getDeinterlacer()) == false)
             return false;
+        if (other.getDolbyVision() == null ^ this.getDolbyVision() == null)
+            return false;
+        if (other.getDolbyVision() != null && other.getDolbyVision().equals(this.getDolbyVision()) == false)
+            return false;
+        if (other.getHdr10Plus() == null ^ this.getHdr10Plus() == null)
+            return false;
+        if (other.getHdr10Plus() != null && other.getHdr10Plus().equals(this.getHdr10Plus()) == false)
+            return false;
         if (other.getImageInserter() == null ^ this.getImageInserter() == null)
             return false;
         if (other.getImageInserter() != null && other.getImageInserter().equals(this.getImageInserter()) == false)
@@ -286,6 +443,10 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
         if (other.getNoiseReducer() == null ^ this.getNoiseReducer() == null)
             return false;
         if (other.getNoiseReducer() != null && other.getNoiseReducer().equals(this.getNoiseReducer()) == false)
+            return false;
+        if (other.getPartnerWatermarking() == null ^ this.getPartnerWatermarking() == null)
+            return false;
+        if (other.getPartnerWatermarking() != null && other.getPartnerWatermarking().equals(this.getPartnerWatermarking()) == false)
             return false;
         if (other.getTimecodeBurnin() == null ^ this.getTimecodeBurnin() == null)
             return false;
@@ -301,8 +462,11 @@ public class VideoPreprocessor implements Serializable, Cloneable, StructuredPoj
 
         hashCode = prime * hashCode + ((getColorCorrector() == null) ? 0 : getColorCorrector().hashCode());
         hashCode = prime * hashCode + ((getDeinterlacer() == null) ? 0 : getDeinterlacer().hashCode());
+        hashCode = prime * hashCode + ((getDolbyVision() == null) ? 0 : getDolbyVision().hashCode());
+        hashCode = prime * hashCode + ((getHdr10Plus() == null) ? 0 : getHdr10Plus().hashCode());
         hashCode = prime * hashCode + ((getImageInserter() == null) ? 0 : getImageInserter().hashCode());
         hashCode = prime * hashCode + ((getNoiseReducer() == null) ? 0 : getNoiseReducer().hashCode());
+        hashCode = prime * hashCode + ((getPartnerWatermarking() == null) ? 0 : getPartnerWatermarking().hashCode());
         hashCode = prime * hashCode + ((getTimecodeBurnin() == null) ? 0 : getTimecodeBurnin().hashCode());
         return hashCode;
     }

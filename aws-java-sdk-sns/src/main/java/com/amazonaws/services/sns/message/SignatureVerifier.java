@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,8 @@ import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.net.ssl.SSLException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -52,6 +54,8 @@ class SignatureVerifier {
      * Field name of the SigningCertUrl.
      */
     private static final String SIGNING_CERT_URL = "SigningCertURL";
+    private static final Pattern X509_PATTERN = Pattern.compile(
+        "^[\\s]*-----BEGIN [A-Z]+-----\\n[A-Za-z\\d+\\/\\n]+[=]{0,2}\\n-----END [A-Z]+-----[\\s]*$");
 
     private final HttpClient client;
     private final DefaultHostnameVerifier hostnameVerifier = new DefaultHostnameVerifier();
@@ -104,7 +108,9 @@ class SignatureVerifier {
         URI certUrl = URI.create(messageJson.get(SIGNING_CERT_URL).asText());
         PublicKey publicKey = certificateCache.get(certUrl.toString());
         if (publicKey == null) {
-            publicKey = createPublicKey(downloadCertWithRetries(certUrl));
+            String certificateData = downloadCertWithRetries(certUrl);
+            validateCertificateData(certificateData);
+            publicKey = createPublicKey(certificateData);
             certificateCache.add(certUrl.toString(), publicKey);
         }
         return publicKey;
@@ -229,6 +235,18 @@ class SignatureVerifier {
             hostnameVerifier.verify(expectedCertCommonName, cer);
         } catch (SSLException e) {
             throw new SdkClientException("Certificate does not match expected common name: " + expectedCertCommonName, e);
+        }
+    }
+
+    /**
+     * Verifies that the downloaded certificate information matches the X509 format.
+     *
+     * @param data Text to check for correct format.
+     */
+    private void validateCertificateData(String data) {
+        Matcher m = X509_PATTERN.matcher(data);
+        if (!m.matches()) {
+            throw new SdkClientException("Certificate does not match expected X509 PEM format.");
         }
     }
 

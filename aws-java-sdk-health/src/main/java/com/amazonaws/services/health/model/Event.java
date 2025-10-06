@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,32 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Summary information about an event, returned by the <a>DescribeEvents</a> operation. The <a>DescribeEventDetails</a>
- * operation also returns this information, as well as the <a>EventDescription</a> and additional event metadata.
+ * Summary information about an Health event.
+ * </p>
+ * <p>
+ * Health events can be public or account-specific:
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <i>Public events</i> might be service events that are not specific to an Amazon Web Services account. For example, if
+ * there is an issue with an Amazon Web Services Region, Health provides information about the event, even if you don't
+ * use services or resources in that Region.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <i>Account-specific</i> events are specific to either your Amazon Web Services account or an account in your
+ * organization. For example, if there's an issue with Amazon Elastic Compute Cloud in a Region that you use, Health
+ * provides information about the event and the affected resources in the account.
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
+ * You can determine if an event is public or account-specific by using the <code>eventScopeCode</code> parameter. For
+ * more information, see <a
+ * href="https://docs.aws.amazon.com/health/latest/APIReference/API_Event.html#AWSHealth-Type-Event-eventScopeCode"
+ * >eventScopeCode</a>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/health-2016-08-04/Event" target="_top">AWS API Documentation</a>
@@ -30,16 +54,21 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The unique identifier for the event. Format:
+     * The unique identifier for the event. The event ARN has the
      * <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i> </code>
-     * . Example:
-     * <code>Example: arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     * format.
+     * </p>
+     * <p>
+     * For example, an event ARN might look like the following:
+     * </p>
+     * <p>
+     * <code>arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
      * </p>
      */
     private String arn;
     /**
      * <p>
-     * The AWS service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      */
     private String service;
@@ -52,20 +81,20 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
     private String eventTypeCode;
     /**
      * <p>
-     * The category of the event. Possible values are <code>issue</code>, <code>scheduledChange</code>, and
-     * <code>accountNotification</code>.
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      */
     private String eventTypeCategory;
     /**
      * <p>
-     * The AWS region name of the event.
+     * The Amazon Web Services Region name of the event.
      * </p>
      */
     private String region;
     /**
      * <p>
-     * The AWS Availability Zone of the event. For example, us-east-1a.
+     * The Amazon Web Services Availability Zone of the event. For example, us-east-1a.
      * </p>
      */
     private String availabilityZone;
@@ -94,20 +123,57 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String statusCode;
+    /**
+     * <p>
+     * This parameter specifies if the Health event is a public Amazon Web Service event or an account-specific event.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>PUBLIC</code>, then the <code>affectedAccounts</code> value is
+     * always empty.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>ACCOUNT_SPECIFIC</code>, then the <code>affectedAccounts</code>
+     * value lists the affected Amazon Web Services accounts in your organization. For example, if an event affects a
+     * service such as Amazon Elastic Compute Cloud and you have Amazon Web Services accounts that use that service,
+     * those account IDs appear in the response.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>NONE</code>, then the <code>eventArn</code> that you specified
+     * in the request is invalid or doesn't exist.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String eventScopeCode;
 
     /**
      * <p>
-     * The unique identifier for the event. Format:
+     * The unique identifier for the event. The event ARN has the
      * <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i> </code>
-     * . Example:
-     * <code>Example: arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     * format.
+     * </p>
+     * <p>
+     * For example, an event ARN might look like the following:
+     * </p>
+     * <p>
+     * <code>arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
      * </p>
      * 
      * @param arn
-     *        The unique identifier for the event. Format:
+     *        The unique identifier for the event. The event ARN has the
      *        <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i> </code>
-     *        . Example:
-     *        <code>Example: arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     *        format.</p>
+     *        <p>
+     *        For example, an event ARN might look like the following:
+     *        </p>
+     *        <p>
+     *        <code>arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
      */
 
     public void setArn(String arn) {
@@ -116,16 +182,25 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The unique identifier for the event. Format:
+     * The unique identifier for the event. The event ARN has the
      * <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i> </code>
-     * . Example:
-     * <code>Example: arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     * format.
+     * </p>
+     * <p>
+     * For example, an event ARN might look like the following:
+     * </p>
+     * <p>
+     * <code>arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
      * </p>
      * 
-     * @return The unique identifier for the event. Format:
+     * @return The unique identifier for the event. The event ARN has the
      *         <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i> </code>
-     *         . Example:
-     *         <code>Example: arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     *         format.</p>
+     *         <p>
+     *         For example, an event ARN might look like the following:
+     *         </p>
+     *         <p>
+     *         <code>arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
      */
 
     public String getArn() {
@@ -134,17 +209,26 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The unique identifier for the event. Format:
+     * The unique identifier for the event. The event ARN has the
      * <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i> </code>
-     * . Example:
-     * <code>Example: arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     * format.
+     * </p>
+     * <p>
+     * For example, an event ARN might look like the following:
+     * </p>
+     * <p>
+     * <code>arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
      * </p>
      * 
      * @param arn
-     *        The unique identifier for the event. Format:
+     *        The unique identifier for the event. The event ARN has the
      *        <code>arn:aws:health:<i>event-region</i>::event/<i>SERVICE</i>/<i>EVENT_TYPE_CODE</i>/<i>EVENT_TYPE_PLUS_ID</i> </code>
-     *        . Example:
-     *        <code>Example: arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
+     *        format.</p>
+     *        <p>
+     *        For example, an event ARN might look like the following:
+     *        </p>
+     *        <p>
+     *        <code>arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -155,11 +239,11 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      * 
      * @param service
-     *        The AWS service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
+     *        The Amazon Web Service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
      */
 
     public void setService(String service) {
@@ -168,10 +252,10 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      * 
-     * @return The AWS service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * @return The Amazon Web Service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
      */
 
     public String getService() {
@@ -180,11 +264,11 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
+     * The Amazon Web Service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
      * </p>
      * 
      * @param service
-     *        The AWS service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
+     *        The Amazon Web Service that is affected by the event. For example, <code>EC2</code>, <code>RDS</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -244,13 +328,14 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The category of the event. Possible values are <code>issue</code>, <code>scheduledChange</code>, and
-     * <code>accountNotification</code>.
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
      * @param eventTypeCategory
-     *        The category of the event. Possible values are <code>issue</code>, <code>scheduledChange</code>, and
-     *        <code>accountNotification</code>.
+     *        A list of event type category codes. Possible values are <code>issue</code>,
+     *        <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *        <code>investigation</code> value isn't supported at this time.
      * @see EventTypeCategory
      */
 
@@ -260,12 +345,13 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The category of the event. Possible values are <code>issue</code>, <code>scheduledChange</code>, and
-     * <code>accountNotification</code>.
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
-     * @return The category of the event. Possible values are <code>issue</code>, <code>scheduledChange</code>, and
-     *         <code>accountNotification</code>.
+     * @return A list of event type category codes. Possible values are <code>issue</code>,
+     *         <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *         <code>investigation</code> value isn't supported at this time.
      * @see EventTypeCategory
      */
 
@@ -275,13 +361,14 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The category of the event. Possible values are <code>issue</code>, <code>scheduledChange</code>, and
-     * <code>accountNotification</code>.
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
      * @param eventTypeCategory
-     *        The category of the event. Possible values are <code>issue</code>, <code>scheduledChange</code>, and
-     *        <code>accountNotification</code>.
+     *        A list of event type category codes. Possible values are <code>issue</code>,
+     *        <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *        <code>investigation</code> value isn't supported at this time.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EventTypeCategory
      */
@@ -293,13 +380,14 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The category of the event. Possible values are <code>issue</code>, <code>scheduledChange</code>, and
-     * <code>accountNotification</code>.
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
      * @param eventTypeCategory
-     *        The category of the event. Possible values are <code>issue</code>, <code>scheduledChange</code>, and
-     *        <code>accountNotification</code>.
+     *        A list of event type category codes. Possible values are <code>issue</code>,
+     *        <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *        <code>investigation</code> value isn't supported at this time.
      * @see EventTypeCategory
      */
 
@@ -309,13 +397,14 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The category of the event. Possible values are <code>issue</code>, <code>scheduledChange</code>, and
-     * <code>accountNotification</code>.
+     * A list of event type category codes. Possible values are <code>issue</code>, <code>accountNotification</code>, or
+     * <code>scheduledChange</code>. Currently, the <code>investigation</code> value isn't supported at this time.
      * </p>
      * 
      * @param eventTypeCategory
-     *        The category of the event. Possible values are <code>issue</code>, <code>scheduledChange</code>, and
-     *        <code>accountNotification</code>.
+     *        A list of event type category codes. Possible values are <code>issue</code>,
+     *        <code>accountNotification</code>, or <code>scheduledChange</code>. Currently, the
+     *        <code>investigation</code> value isn't supported at this time.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see EventTypeCategory
      */
@@ -327,11 +416,11 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS region name of the event.
+     * The Amazon Web Services Region name of the event.
      * </p>
      * 
      * @param region
-     *        The AWS region name of the event.
+     *        The Amazon Web Services Region name of the event.
      */
 
     public void setRegion(String region) {
@@ -340,10 +429,10 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS region name of the event.
+     * The Amazon Web Services Region name of the event.
      * </p>
      * 
-     * @return The AWS region name of the event.
+     * @return The Amazon Web Services Region name of the event.
      */
 
     public String getRegion() {
@@ -352,11 +441,11 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS region name of the event.
+     * The Amazon Web Services Region name of the event.
      * </p>
      * 
      * @param region
-     *        The AWS region name of the event.
+     *        The Amazon Web Services Region name of the event.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -367,11 +456,11 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Availability Zone of the event. For example, us-east-1a.
+     * The Amazon Web Services Availability Zone of the event. For example, us-east-1a.
      * </p>
      * 
      * @param availabilityZone
-     *        The AWS Availability Zone of the event. For example, us-east-1a.
+     *        The Amazon Web Services Availability Zone of the event. For example, us-east-1a.
      */
 
     public void setAvailabilityZone(String availabilityZone) {
@@ -380,10 +469,10 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Availability Zone of the event. For example, us-east-1a.
+     * The Amazon Web Services Availability Zone of the event. For example, us-east-1a.
      * </p>
      * 
-     * @return The AWS Availability Zone of the event. For example, us-east-1a.
+     * @return The Amazon Web Services Availability Zone of the event. For example, us-east-1a.
      */
 
     public String getAvailabilityZone() {
@@ -392,11 +481,11 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS Availability Zone of the event. For example, us-east-1a.
+     * The Amazon Web Services Availability Zone of the event. For example, us-east-1a.
      * </p>
      * 
      * @param availabilityZone
-     *        The AWS Availability Zone of the event. For example, us-east-1a.
+     *        The Amazon Web Services Availability Zone of the event. For example, us-east-1a.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -609,6 +698,299 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * <p>
+     * This parameter specifies if the Health event is a public Amazon Web Service event or an account-specific event.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>PUBLIC</code>, then the <code>affectedAccounts</code> value is
+     * always empty.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>ACCOUNT_SPECIFIC</code>, then the <code>affectedAccounts</code>
+     * value lists the affected Amazon Web Services accounts in your organization. For example, if an event affects a
+     * service such as Amazon Elastic Compute Cloud and you have Amazon Web Services accounts that use that service,
+     * those account IDs appear in the response.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>NONE</code>, then the <code>eventArn</code> that you specified
+     * in the request is invalid or doesn't exist.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param eventScopeCode
+     *        This parameter specifies if the Health event is a public Amazon Web Service event or an account-specific
+     *        event.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If the <code>eventScopeCode</code> value is <code>PUBLIC</code>, then the <code>affectedAccounts</code>
+     *        value is always empty.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the <code>eventScopeCode</code> value is <code>ACCOUNT_SPECIFIC</code>, then the
+     *        <code>affectedAccounts</code> value lists the affected Amazon Web Services accounts in your organization.
+     *        For example, if an event affects a service such as Amazon Elastic Compute Cloud and you have Amazon Web
+     *        Services accounts that use that service, those account IDs appear in the response.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the <code>eventScopeCode</code> value is <code>NONE</code>, then the <code>eventArn</code> that you
+     *        specified in the request is invalid or doesn't exist.
+     *        </p>
+     *        </li>
+     * @see EventScopeCode
+     */
+
+    public void setEventScopeCode(String eventScopeCode) {
+        this.eventScopeCode = eventScopeCode;
+    }
+
+    /**
+     * <p>
+     * This parameter specifies if the Health event is a public Amazon Web Service event or an account-specific event.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>PUBLIC</code>, then the <code>affectedAccounts</code> value is
+     * always empty.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>ACCOUNT_SPECIFIC</code>, then the <code>affectedAccounts</code>
+     * value lists the affected Amazon Web Services accounts in your organization. For example, if an event affects a
+     * service such as Amazon Elastic Compute Cloud and you have Amazon Web Services accounts that use that service,
+     * those account IDs appear in the response.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>NONE</code>, then the <code>eventArn</code> that you specified
+     * in the request is invalid or doesn't exist.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return This parameter specifies if the Health event is a public Amazon Web Service event or an account-specific
+     *         event.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If the <code>eventScopeCode</code> value is <code>PUBLIC</code>, then the <code>affectedAccounts</code>
+     *         value is always empty.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If the <code>eventScopeCode</code> value is <code>ACCOUNT_SPECIFIC</code>, then the
+     *         <code>affectedAccounts</code> value lists the affected Amazon Web Services accounts in your organization.
+     *         For example, if an event affects a service such as Amazon Elastic Compute Cloud and you have Amazon Web
+     *         Services accounts that use that service, those account IDs appear in the response.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If the <code>eventScopeCode</code> value is <code>NONE</code>, then the <code>eventArn</code> that you
+     *         specified in the request is invalid or doesn't exist.
+     *         </p>
+     *         </li>
+     * @see EventScopeCode
+     */
+
+    public String getEventScopeCode() {
+        return this.eventScopeCode;
+    }
+
+    /**
+     * <p>
+     * This parameter specifies if the Health event is a public Amazon Web Service event or an account-specific event.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>PUBLIC</code>, then the <code>affectedAccounts</code> value is
+     * always empty.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>ACCOUNT_SPECIFIC</code>, then the <code>affectedAccounts</code>
+     * value lists the affected Amazon Web Services accounts in your organization. For example, if an event affects a
+     * service such as Amazon Elastic Compute Cloud and you have Amazon Web Services accounts that use that service,
+     * those account IDs appear in the response.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>NONE</code>, then the <code>eventArn</code> that you specified
+     * in the request is invalid or doesn't exist.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param eventScopeCode
+     *        This parameter specifies if the Health event is a public Amazon Web Service event or an account-specific
+     *        event.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If the <code>eventScopeCode</code> value is <code>PUBLIC</code>, then the <code>affectedAccounts</code>
+     *        value is always empty.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the <code>eventScopeCode</code> value is <code>ACCOUNT_SPECIFIC</code>, then the
+     *        <code>affectedAccounts</code> value lists the affected Amazon Web Services accounts in your organization.
+     *        For example, if an event affects a service such as Amazon Elastic Compute Cloud and you have Amazon Web
+     *        Services accounts that use that service, those account IDs appear in the response.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the <code>eventScopeCode</code> value is <code>NONE</code>, then the <code>eventArn</code> that you
+     *        specified in the request is invalid or doesn't exist.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EventScopeCode
+     */
+
+    public Event withEventScopeCode(String eventScopeCode) {
+        setEventScopeCode(eventScopeCode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This parameter specifies if the Health event is a public Amazon Web Service event or an account-specific event.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>PUBLIC</code>, then the <code>affectedAccounts</code> value is
+     * always empty.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>ACCOUNT_SPECIFIC</code>, then the <code>affectedAccounts</code>
+     * value lists the affected Amazon Web Services accounts in your organization. For example, if an event affects a
+     * service such as Amazon Elastic Compute Cloud and you have Amazon Web Services accounts that use that service,
+     * those account IDs appear in the response.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>NONE</code>, then the <code>eventArn</code> that you specified
+     * in the request is invalid or doesn't exist.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param eventScopeCode
+     *        This parameter specifies if the Health event is a public Amazon Web Service event or an account-specific
+     *        event.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If the <code>eventScopeCode</code> value is <code>PUBLIC</code>, then the <code>affectedAccounts</code>
+     *        value is always empty.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the <code>eventScopeCode</code> value is <code>ACCOUNT_SPECIFIC</code>, then the
+     *        <code>affectedAccounts</code> value lists the affected Amazon Web Services accounts in your organization.
+     *        For example, if an event affects a service such as Amazon Elastic Compute Cloud and you have Amazon Web
+     *        Services accounts that use that service, those account IDs appear in the response.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the <code>eventScopeCode</code> value is <code>NONE</code>, then the <code>eventArn</code> that you
+     *        specified in the request is invalid or doesn't exist.
+     *        </p>
+     *        </li>
+     * @see EventScopeCode
+     */
+
+    public void setEventScopeCode(EventScopeCode eventScopeCode) {
+        withEventScopeCode(eventScopeCode);
+    }
+
+    /**
+     * <p>
+     * This parameter specifies if the Health event is a public Amazon Web Service event or an account-specific event.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>PUBLIC</code>, then the <code>affectedAccounts</code> value is
+     * always empty.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>ACCOUNT_SPECIFIC</code>, then the <code>affectedAccounts</code>
+     * value lists the affected Amazon Web Services accounts in your organization. For example, if an event affects a
+     * service such as Amazon Elastic Compute Cloud and you have Amazon Web Services accounts that use that service,
+     * those account IDs appear in the response.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the <code>eventScopeCode</code> value is <code>NONE</code>, then the <code>eventArn</code> that you specified
+     * in the request is invalid or doesn't exist.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param eventScopeCode
+     *        This parameter specifies if the Health event is a public Amazon Web Service event or an account-specific
+     *        event.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If the <code>eventScopeCode</code> value is <code>PUBLIC</code>, then the <code>affectedAccounts</code>
+     *        value is always empty.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the <code>eventScopeCode</code> value is <code>ACCOUNT_SPECIFIC</code>, then the
+     *        <code>affectedAccounts</code> value lists the affected Amazon Web Services accounts in your organization.
+     *        For example, if an event affects a service such as Amazon Elastic Compute Cloud and you have Amazon Web
+     *        Services accounts that use that service, those account IDs appear in the response.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the <code>eventScopeCode</code> value is <code>NONE</code>, then the <code>eventArn</code> that you
+     *        specified in the request is invalid or doesn't exist.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EventScopeCode
+     */
+
+    public Event withEventScopeCode(EventScopeCode eventScopeCode) {
+        this.eventScopeCode = eventScopeCode.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -639,7 +1021,9 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
         if (getLastUpdatedTime() != null)
             sb.append("LastUpdatedTime: ").append(getLastUpdatedTime()).append(",");
         if (getStatusCode() != null)
-            sb.append("StatusCode: ").append(getStatusCode());
+            sb.append("StatusCode: ").append(getStatusCode()).append(",");
+        if (getEventScopeCode() != null)
+            sb.append("EventScopeCode: ").append(getEventScopeCode());
         sb.append("}");
         return sb.toString();
     }
@@ -694,6 +1078,10 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getStatusCode() != null && other.getStatusCode().equals(this.getStatusCode()) == false)
             return false;
+        if (other.getEventScopeCode() == null ^ this.getEventScopeCode() == null)
+            return false;
+        if (other.getEventScopeCode() != null && other.getEventScopeCode().equals(this.getEventScopeCode()) == false)
+            return false;
         return true;
     }
 
@@ -712,6 +1100,7 @@ public class Event implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getEndTime() == null) ? 0 : getEndTime().hashCode());
         hashCode = prime * hashCode + ((getLastUpdatedTime() == null) ? 0 : getLastUpdatedTime().hashCode());
         hashCode = prime * hashCode + ((getStatusCode() == null) ? 0 : getStatusCode().hashCode());
+        hashCode = prime * hashCode + ((getEventScopeCode() == null) ? 0 : getEventScopeCode().hashCode());
         return hashCode;
     }
 

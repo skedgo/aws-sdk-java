@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,6 +51,40 @@ public class UpdateFileSystemLustreConfigurationJsonUnmarshaller implements Unma
                 if (context.testExpression("WeeklyMaintenanceStartTime", targetDepth)) {
                     context.nextToken();
                     updateFileSystemLustreConfiguration.setWeeklyMaintenanceStartTime(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("DailyAutomaticBackupStartTime", targetDepth)) {
+                    context.nextToken();
+                    updateFileSystemLustreConfiguration.setDailyAutomaticBackupStartTime(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("AutomaticBackupRetentionDays", targetDepth)) {
+                    context.nextToken();
+                    updateFileSystemLustreConfiguration.setAutomaticBackupRetentionDays(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("AutoImportPolicy", targetDepth)) {
+                    context.nextToken();
+                    updateFileSystemLustreConfiguration.setAutoImportPolicy(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("DataCompressionType", targetDepth)) {
+                    context.nextToken();
+                    updateFileSystemLustreConfiguration.setDataCompressionType(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("LogConfiguration", targetDepth)) {
+                    context.nextToken();
+                    updateFileSystemLustreConfiguration.setLogConfiguration(LustreLogCreateConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("RootSquashConfiguration", targetDepth)) {
+                    context.nextToken();
+                    updateFileSystemLustreConfiguration.setRootSquashConfiguration(LustreRootSquashConfigurationJsonUnmarshaller.getInstance().unmarshall(
+                            context));
+                }
+                if (context.testExpression("PerUnitStorageThroughput", targetDepth)) {
+                    context.nextToken();
+                    updateFileSystemLustreConfiguration.setPerUnitStorageThroughput(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("MetadataConfiguration", targetDepth)) {
+                    context.nextToken();
+                    updateFileSystemLustreConfiguration.setMetadataConfiguration(UpdateFileSystemLustreMetadataConfigurationJsonUnmarshaller.getInstance()
+                            .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

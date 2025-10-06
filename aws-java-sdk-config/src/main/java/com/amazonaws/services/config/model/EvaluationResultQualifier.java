@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Identifies an AWS Config rule that evaluated an AWS resource, and provides the type and ID of the resource that the
- * rule evaluated.
+ * Identifies an Config rule that evaluated an Amazon Web Services resource, and provides the type and ID of the
+ * resource that the rule evaluated.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/EvaluationResultQualifier" target="_top">AWS
@@ -31,30 +31,36 @@ public class EvaluationResultQualifier implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The name of the AWS Config rule that was used in the evaluation.
+     * The name of the Config rule that was used in the evaluation.
      * </p>
      */
     private String configRuleName;
     /**
      * <p>
-     * The type of AWS resource that was evaluated.
+     * The type of Amazon Web Services resource that was evaluated.
      * </p>
      */
     private String resourceType;
     /**
      * <p>
-     * The ID of the evaluated AWS resource.
+     * The ID of the evaluated Amazon Web Services resource.
      * </p>
      */
     private String resourceId;
+    /**
+     * <p>
+     * The mode of an evaluation. The valid values are Detective or Proactive.
+     * </p>
+     */
+    private String evaluationMode;
 
     /**
      * <p>
-     * The name of the AWS Config rule that was used in the evaluation.
+     * The name of the Config rule that was used in the evaluation.
      * </p>
      * 
      * @param configRuleName
-     *        The name of the AWS Config rule that was used in the evaluation.
+     *        The name of the Config rule that was used in the evaluation.
      */
 
     public void setConfigRuleName(String configRuleName) {
@@ -63,10 +69,10 @@ public class EvaluationResultQualifier implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The name of the AWS Config rule that was used in the evaluation.
+     * The name of the Config rule that was used in the evaluation.
      * </p>
      * 
-     * @return The name of the AWS Config rule that was used in the evaluation.
+     * @return The name of the Config rule that was used in the evaluation.
      */
 
     public String getConfigRuleName() {
@@ -75,11 +81,11 @@ public class EvaluationResultQualifier implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The name of the AWS Config rule that was used in the evaluation.
+     * The name of the Config rule that was used in the evaluation.
      * </p>
      * 
      * @param configRuleName
-     *        The name of the AWS Config rule that was used in the evaluation.
+     *        The name of the Config rule that was used in the evaluation.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -90,11 +96,11 @@ public class EvaluationResultQualifier implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The type of AWS resource that was evaluated.
+     * The type of Amazon Web Services resource that was evaluated.
      * </p>
      * 
      * @param resourceType
-     *        The type of AWS resource that was evaluated.
+     *        The type of Amazon Web Services resource that was evaluated.
      */
 
     public void setResourceType(String resourceType) {
@@ -103,10 +109,10 @@ public class EvaluationResultQualifier implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The type of AWS resource that was evaluated.
+     * The type of Amazon Web Services resource that was evaluated.
      * </p>
      * 
-     * @return The type of AWS resource that was evaluated.
+     * @return The type of Amazon Web Services resource that was evaluated.
      */
 
     public String getResourceType() {
@@ -115,11 +121,11 @@ public class EvaluationResultQualifier implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The type of AWS resource that was evaluated.
+     * The type of Amazon Web Services resource that was evaluated.
      * </p>
      * 
      * @param resourceType
-     *        The type of AWS resource that was evaluated.
+     *        The type of Amazon Web Services resource that was evaluated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -130,11 +136,11 @@ public class EvaluationResultQualifier implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The ID of the evaluated AWS resource.
+     * The ID of the evaluated Amazon Web Services resource.
      * </p>
      * 
      * @param resourceId
-     *        The ID of the evaluated AWS resource.
+     *        The ID of the evaluated Amazon Web Services resource.
      */
 
     public void setResourceId(String resourceId) {
@@ -143,10 +149,10 @@ public class EvaluationResultQualifier implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The ID of the evaluated AWS resource.
+     * The ID of the evaluated Amazon Web Services resource.
      * </p>
      * 
-     * @return The ID of the evaluated AWS resource.
+     * @return The ID of the evaluated Amazon Web Services resource.
      */
 
     public String getResourceId() {
@@ -155,16 +161,75 @@ public class EvaluationResultQualifier implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The ID of the evaluated AWS resource.
+     * The ID of the evaluated Amazon Web Services resource.
      * </p>
      * 
      * @param resourceId
-     *        The ID of the evaluated AWS resource.
+     *        The ID of the evaluated Amazon Web Services resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public EvaluationResultQualifier withResourceId(String resourceId) {
         setResourceId(resourceId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mode of an evaluation. The valid values are Detective or Proactive.
+     * </p>
+     * 
+     * @param evaluationMode
+     *        The mode of an evaluation. The valid values are Detective or Proactive.
+     * @see EvaluationMode
+     */
+
+    public void setEvaluationMode(String evaluationMode) {
+        this.evaluationMode = evaluationMode;
+    }
+
+    /**
+     * <p>
+     * The mode of an evaluation. The valid values are Detective or Proactive.
+     * </p>
+     * 
+     * @return The mode of an evaluation. The valid values are Detective or Proactive.
+     * @see EvaluationMode
+     */
+
+    public String getEvaluationMode() {
+        return this.evaluationMode;
+    }
+
+    /**
+     * <p>
+     * The mode of an evaluation. The valid values are Detective or Proactive.
+     * </p>
+     * 
+     * @param evaluationMode
+     *        The mode of an evaluation. The valid values are Detective or Proactive.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EvaluationMode
+     */
+
+    public EvaluationResultQualifier withEvaluationMode(String evaluationMode) {
+        setEvaluationMode(evaluationMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mode of an evaluation. The valid values are Detective or Proactive.
+     * </p>
+     * 
+     * @param evaluationMode
+     *        The mode of an evaluation. The valid values are Detective or Proactive.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EvaluationMode
+     */
+
+    public EvaluationResultQualifier withEvaluationMode(EvaluationMode evaluationMode) {
+        this.evaluationMode = evaluationMode.toString();
         return this;
     }
 
@@ -185,7 +250,9 @@ public class EvaluationResultQualifier implements Serializable, Cloneable, Struc
         if (getResourceType() != null)
             sb.append("ResourceType: ").append(getResourceType()).append(",");
         if (getResourceId() != null)
-            sb.append("ResourceId: ").append(getResourceId());
+            sb.append("ResourceId: ").append(getResourceId()).append(",");
+        if (getEvaluationMode() != null)
+            sb.append("EvaluationMode: ").append(getEvaluationMode());
         sb.append("}");
         return sb.toString();
     }
@@ -212,6 +279,10 @@ public class EvaluationResultQualifier implements Serializable, Cloneable, Struc
             return false;
         if (other.getResourceId() != null && other.getResourceId().equals(this.getResourceId()) == false)
             return false;
+        if (other.getEvaluationMode() == null ^ this.getEvaluationMode() == null)
+            return false;
+        if (other.getEvaluationMode() != null && other.getEvaluationMode().equals(this.getEvaluationMode()) == false)
+            return false;
         return true;
     }
 
@@ -223,6 +294,7 @@ public class EvaluationResultQualifier implements Serializable, Cloneable, Struc
         hashCode = prime * hashCode + ((getConfigRuleName() == null) ? 0 : getConfigRuleName().hashCode());
         hashCode = prime * hashCode + ((getResourceType() == null) ? 0 : getResourceType().hashCode());
         hashCode = prime * hashCode + ((getResourceId() == null) ? 0 : getResourceId().hashCode());
+        hashCode = prime * hashCode + ((getEvaluationMode() == null) ? 0 : getEvaluationMode().hashCode());
         return hashCode;
     }
 

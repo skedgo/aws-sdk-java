@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -68,6 +68,10 @@ public class OutputSettingsJsonUnmarshaller implements Unmarshaller<OutputSettin
                     context.nextToken();
                     outputSettings.setMsSmoothOutputSettings(MsSmoothOutputSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("multiplexOutputSettings", targetDepth)) {
+                    context.nextToken();
+                    outputSettings.setMultiplexOutputSettings(MultiplexOutputSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("rtmpOutputSettings", targetDepth)) {
                     context.nextToken();
                     outputSettings.setRtmpOutputSettings(RtmpOutputSettingsJsonUnmarshaller.getInstance().unmarshall(context));
@@ -75,6 +79,10 @@ public class OutputSettingsJsonUnmarshaller implements Unmarshaller<OutputSettin
                 if (context.testExpression("udpOutputSettings", targetDepth)) {
                     context.nextToken();
                     outputSettings.setUdpOutputSettings(UdpOutputSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("cmafIngestOutputSettings", targetDepth)) {
+                    context.nextToken();
+                    outputSettings.setCmafIngestOutputSettings(CmafIngestOutputSettingsJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

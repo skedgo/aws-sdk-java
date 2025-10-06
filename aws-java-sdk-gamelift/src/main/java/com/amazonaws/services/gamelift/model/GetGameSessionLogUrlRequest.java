@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * Represents the input for a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/GetGameSessionLogUrl" target="_top">AWS API
  *      Documentation</a>
@@ -30,18 +27,18 @@ public class GetGameSessionLogUrlRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Unique identifier for the game session to get logs for.
+     * A unique identifier for the game session to get logs for.
      * </p>
      */
     private String gameSessionId;
 
     /**
      * <p>
-     * Unique identifier for the game session to get logs for.
+     * A unique identifier for the game session to get logs for.
      * </p>
      * 
      * @param gameSessionId
-     *        Unique identifier for the game session to get logs for.
+     *        A unique identifier for the game session to get logs for.
      */
 
     public void setGameSessionId(String gameSessionId) {
@@ -50,10 +47,10 @@ public class GetGameSessionLogUrlRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Unique identifier for the game session to get logs for.
+     * A unique identifier for the game session to get logs for.
      * </p>
      * 
-     * @return Unique identifier for the game session to get logs for.
+     * @return A unique identifier for the game session to get logs for.
      */
 
     public String getGameSessionId() {
@@ -62,11 +59,11 @@ public class GetGameSessionLogUrlRequest extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * Unique identifier for the game session to get logs for.
+     * A unique identifier for the game session to get logs for.
      * </p>
      * 
      * @param gameSessionId
-     *        Unique identifier for the game session to get logs for.
+     *        A unique identifier for the game session to get logs for.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

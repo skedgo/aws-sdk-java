@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,6 +38,16 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
+     * <code>group-arn</code> - The Amazon Resource Name (ARN) of the placement group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>spread-level</code> - The spread level for the placement group (<code>host</code> | <code>rack</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>state</code> - The state of the placement group (<code>pending</code> | <code>available</code> |
      * <code>deleting</code> | <code>deleted</code>).
      * </p>
@@ -48,6 +58,20 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      * <code>partition</code>).
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources that have
+     * a tag with a specific key, regardless of the tag value.
+     * </p>
+     * </li>
      * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
@@ -56,10 +80,29 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      * The names of the placement groups.
      * </p>
      * <p>
-     * Default: Describes all your placement groups, or only those otherwise specified.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can specify a name only if the placement group is owned by your account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If a placement group is <i>shared</i> with your account, specifying the name results in an error. You must use
+     * the <code>GroupId</code> parameter instead.
+     * </p>
+     * </li>
+     * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<String> groupNames;
+    /**
+     * <p>
+     * The IDs of the placement groups.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> groupIds;
 
     /**
      * <p>
@@ -73,6 +116,16 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
+     * <code>group-arn</code> - The Amazon Resource Name (ARN) of the placement group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>spread-level</code> - The spread level for the placement group (<code>host</code> | <code>rack</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>state</code> - The state of the placement group (<code>pending</code> | <code>available</code> |
      * <code>deleting</code> | <code>deleted</code>).
      * </p>
@@ -81,6 +134,20 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      * <p>
      * <code>strategy</code> - The strategy of the placement group (<code>cluster</code> | <code>spread</code> |
      * <code>partition</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources that have
+     * a tag with a specific key, regardless of the tag value.
      * </p>
      * </li>
      * </ul>
@@ -94,6 +161,17 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      *         </li>
      *         <li>
      *         <p>
+     *         <code>group-arn</code> - The Amazon Resource Name (ARN) of the placement group.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>spread-level</code> - The spread level for the placement group (<code>host</code> |
+     *         <code>rack</code>).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         <code>state</code> - The state of the placement group (<code>pending</code> | <code>available</code> |
      *         <code>deleting</code> | <code>deleted</code>).
      *         </p>
@@ -102,6 +180,20 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      *         <p>
      *         <code>strategy</code> - The strategy of the placement group (<code>cluster</code> | <code>spread</code> |
      *         <code>partition</code>).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag
+     *         key in the filter name and the tag value as the filter value. For example, to find all resources that
+     *         have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify
+     *         <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *         that have a tag with a specific key, regardless of the tag value.
      *         </p>
      *         </li>
      */
@@ -125,6 +217,16 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
+     * <code>group-arn</code> - The Amazon Resource Name (ARN) of the placement group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>spread-level</code> - The spread level for the placement group (<code>host</code> | <code>rack</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>state</code> - The state of the placement group (<code>pending</code> | <code>available</code> |
      * <code>deleting</code> | <code>deleted</code>).
      * </p>
@@ -133,6 +235,20 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      * <p>
      * <code>strategy</code> - The strategy of the placement group (<code>cluster</code> | <code>spread</code> |
      * <code>partition</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources that have
+     * a tag with a specific key, regardless of the tag value.
      * </p>
      * </li>
      * </ul>
@@ -147,6 +263,17 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      *        </li>
      *        <li>
      *        <p>
+     *        <code>group-arn</code> - The Amazon Resource Name (ARN) of the placement group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>spread-level</code> - The spread level for the placement group (<code>host</code> |
+     *        <code>rack</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>state</code> - The state of the placement group (<code>pending</code> | <code>available</code> |
      *        <code>deleting</code> | <code>deleted</code>).
      *        </p>
@@ -155,6 +282,20 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      *        <p>
      *        <code>strategy</code> - The strategy of the placement group (<code>cluster</code> | <code>spread</code> |
      *        <code>partition</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        that have a tag with a specific key, regardless of the tag value.
      *        </p>
      *        </li>
      */
@@ -180,6 +321,16 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
+     * <code>group-arn</code> - The Amazon Resource Name (ARN) of the placement group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>spread-level</code> - The spread level for the placement group (<code>host</code> | <code>rack</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>state</code> - The state of the placement group (<code>pending</code> | <code>available</code> |
      * <code>deleting</code> | <code>deleted</code>).
      * </p>
@@ -188,6 +339,20 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      * <p>
      * <code>strategy</code> - The strategy of the placement group (<code>cluster</code> | <code>spread</code> |
      * <code>partition</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources that have
+     * a tag with a specific key, regardless of the tag value.
      * </p>
      * </li>
      * </ul>
@@ -207,6 +372,17 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      *        </li>
      *        <li>
      *        <p>
+     *        <code>group-arn</code> - The Amazon Resource Name (ARN) of the placement group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>spread-level</code> - The spread level for the placement group (<code>host</code> |
+     *        <code>rack</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>state</code> - The state of the placement group (<code>pending</code> | <code>available</code> |
      *        <code>deleting</code> | <code>deleted</code>).
      *        </p>
@@ -215,6 +391,20 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      *        <p>
      *        <code>strategy</code> - The strategy of the placement group (<code>cluster</code> | <code>spread</code> |
      *        <code>partition</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        that have a tag with a specific key, regardless of the tag value.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -242,6 +432,16 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      * </li>
      * <li>
      * <p>
+     * <code>group-arn</code> - The Amazon Resource Name (ARN) of the placement group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>spread-level</code> - The spread level for the placement group (<code>host</code> | <code>rack</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>state</code> - The state of the placement group (<code>pending</code> | <code>available</code> |
      * <code>deleting</code> | <code>deleted</code>).
      * </p>
@@ -250,6 +450,20 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      * <p>
      * <code>strategy</code> - The strategy of the placement group (<code>cluster</code> | <code>spread</code> |
      * <code>partition</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources that have
+     * a tag with a specific key, regardless of the tag value.
      * </p>
      * </li>
      * </ul>
@@ -264,6 +478,17 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      *        </li>
      *        <li>
      *        <p>
+     *        <code>group-arn</code> - The Amazon Resource Name (ARN) of the placement group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>spread-level</code> - The spread level for the placement group (<code>host</code> |
+     *        <code>rack</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>state</code> - The state of the placement group (<code>pending</code> | <code>available</code> |
      *        <code>deleting</code> | <code>deleted</code>).
      *        </p>
@@ -272,6 +497,20 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      *        <p>
      *        <code>strategy</code> - The strategy of the placement group (<code>cluster</code> | <code>spread</code> |
      *        <code>partition</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag:&lt;key&gt;</code> - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        that have a tag with a specific key, regardless of the tag value.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -287,12 +526,38 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      * The names of the placement groups.
      * </p>
      * <p>
-     * Default: Describes all your placement groups, or only those otherwise specified.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can specify a name only if the placement group is owned by your account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If a placement group is <i>shared</i> with your account, specifying the name results in an error. You must use
+     * the <code>GroupId</code> parameter instead.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @return The names of the placement groups.</p>
      *         <p>
-     *         Default: Describes all your placement groups, or only those otherwise specified.
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You can specify a name only if the placement group is owned by your account.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If a placement group is <i>shared</i> with your account, specifying the name results in an error. You
+     *         must use the <code>GroupId</code> parameter instead.
+     *         </p>
+     *         </li>
      */
 
     public java.util.List<String> getGroupNames() {
@@ -307,13 +572,39 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      * The names of the placement groups.
      * </p>
      * <p>
-     * Default: Describes all your placement groups, or only those otherwise specified.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can specify a name only if the placement group is owned by your account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If a placement group is <i>shared</i> with your account, specifying the name results in an error. You must use
+     * the <code>GroupId</code> parameter instead.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param groupNames
      *        The names of the placement groups.</p>
      *        <p>
-     *        Default: Describes all your placement groups, or only those otherwise specified.
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        You can specify a name only if the placement group is owned by your account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If a placement group is <i>shared</i> with your account, specifying the name results in an error. You must
+     *        use the <code>GroupId</code> parameter instead.
+     *        </p>
+     *        </li>
      */
 
     public void setGroupNames(java.util.Collection<String> groupNames) {
@@ -330,8 +621,21 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      * The names of the placement groups.
      * </p>
      * <p>
-     * Default: Describes all your placement groups, or only those otherwise specified.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can specify a name only if the placement group is owned by your account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If a placement group is <i>shared</i> with your account, specifying the name results in an error. You must use
+     * the <code>GroupId</code> parameter instead.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setGroupNames(java.util.Collection)} or {@link #withGroupNames(java.util.Collection)} if you want to
@@ -341,7 +645,20 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      * @param groupNames
      *        The names of the placement groups.</p>
      *        <p>
-     *        Default: Describes all your placement groups, or only those otherwise specified.
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        You can specify a name only if the placement group is owned by your account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If a placement group is <i>shared</i> with your account, specifying the name results in an error. You must
+     *        use the <code>GroupId</code> parameter instead.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -360,18 +677,117 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
      * The names of the placement groups.
      * </p>
      * <p>
-     * Default: Describes all your placement groups, or only those otherwise specified.
+     * Constraints:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can specify a name only if the placement group is owned by your account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If a placement group is <i>shared</i> with your account, specifying the name results in an error. You must use
+     * the <code>GroupId</code> parameter instead.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param groupNames
      *        The names of the placement groups.</p>
      *        <p>
-     *        Default: Describes all your placement groups, or only those otherwise specified.
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        You can specify a name only if the placement group is owned by your account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If a placement group is <i>shared</i> with your account, specifying the name results in an error. You must
+     *        use the <code>GroupId</code> parameter instead.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public DescribePlacementGroupsRequest withGroupNames(java.util.Collection<String> groupNames) {
         setGroupNames(groupNames);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IDs of the placement groups.
+     * </p>
+     * 
+     * @return The IDs of the placement groups.
+     */
+
+    public java.util.List<String> getGroupIds() {
+        if (groupIds == null) {
+            groupIds = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return groupIds;
+    }
+
+    /**
+     * <p>
+     * The IDs of the placement groups.
+     * </p>
+     * 
+     * @param groupIds
+     *        The IDs of the placement groups.
+     */
+
+    public void setGroupIds(java.util.Collection<String> groupIds) {
+        if (groupIds == null) {
+            this.groupIds = null;
+            return;
+        }
+
+        this.groupIds = new com.amazonaws.internal.SdkInternalList<String>(groupIds);
+    }
+
+    /**
+     * <p>
+     * The IDs of the placement groups.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setGroupIds(java.util.Collection)} or {@link #withGroupIds(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param groupIds
+     *        The IDs of the placement groups.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribePlacementGroupsRequest withGroupIds(String... groupIds) {
+        if (this.groupIds == null) {
+            setGroupIds(new com.amazonaws.internal.SdkInternalList<String>(groupIds.length));
+        }
+        for (String ele : groupIds) {
+            this.groupIds.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The IDs of the placement groups.
+     * </p>
+     * 
+     * @param groupIds
+     *        The IDs of the placement groups.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribePlacementGroupsRequest withGroupIds(java.util.Collection<String> groupIds) {
+        setGroupIds(groupIds);
         return this;
     }
 
@@ -401,7 +817,9 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
         if (getFilters() != null)
             sb.append("Filters: ").append(getFilters()).append(",");
         if (getGroupNames() != null)
-            sb.append("GroupNames: ").append(getGroupNames());
+            sb.append("GroupNames: ").append(getGroupNames()).append(",");
+        if (getGroupIds() != null)
+            sb.append("GroupIds: ").append(getGroupIds());
         sb.append("}");
         return sb.toString();
     }
@@ -424,6 +842,10 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
             return false;
         if (other.getGroupNames() != null && other.getGroupNames().equals(this.getGroupNames()) == false)
             return false;
+        if (other.getGroupIds() == null ^ this.getGroupIds() == null)
+            return false;
+        if (other.getGroupIds() != null && other.getGroupIds().equals(this.getGroupIds()) == false)
+            return false;
         return true;
     }
 
@@ -434,6 +856,7 @@ public class DescribePlacementGroupsRequest extends AmazonWebServiceRequest impl
 
         hashCode = prime * hashCode + ((getFilters() == null) ? 0 : getFilters().hashCode());
         hashCode = prime * hashCode + ((getGroupNames() == null) ? 0 : getGroupNames().hashCode());
+        hashCode = prime * hashCode + ((getGroupIds() == null) ? 0 : getGroupIds().hashCode());
         return hashCode;
     }
 

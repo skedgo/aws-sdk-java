@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Portions copyright 2006-2009 James Murty. Please see LICENSE.txt
  * for applicable license terms and NOTICE.txt for applicable notices.
@@ -18,7 +18,9 @@
 package com.amazonaws.util;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -49,6 +51,15 @@ public class DateUtils {
     /** Alternate ISO 8601 format without fractional seconds */
     protected static final DateTimeFormatter alternateIso8601DateFormat =
         DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss'Z'").withZone(GMT);
+
+    /**
+     * ISO 8601 format with a UTC Offset
+     */
+    protected static final DateTimeFormatter ISO8601_DATE_FORMAT_WITH_OFFSET =
+        DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssZZ");
+
+    private static final List<DateTimeFormatter> ALTERNATE_ISO8601_FORMATTERS = Arrays.asList(
+        alternateIso8601DateFormat, ISO8601_DATE_FORMAT_WITH_OFFSET);
 
     /** RFC 822 format */
     protected static final DateTimeFormatter rfc822DateFormat =
@@ -110,14 +121,17 @@ public class DateUtils {
             }
             return new Date(milli);
         } catch (IllegalArgumentException e) {
-            try {
-                return new Date(alternateIso8601DateFormat.parseMillis(dateString));
-                // If the first ISO 8601 parser didn't work, try the alternate
-                // version which doesn't include fractional seconds
-            } catch(Exception oops) {
-                // no the alternative route doesn't work; let's bubble up the original exception
-                throw e;
+            for (DateTimeFormatter dateTimeFormatter : ALTERNATE_ISO8601_FORMATTERS) {
+                try {
+                    return new Date(dateTimeFormatter.parseMillis(dateString));
+                    // If the first ISO 8601 parser didn't work, try the alternate
+                    // version which doesn't include fractional seconds
+                } catch(Exception oops) {
+                    // ignore
+                }
             }
+
+            throw e;
         }
     }
 
@@ -240,6 +254,7 @@ public class DateUtils {
         if (dateString == null)
             return null;
         try {
+            validateTimestampLength(dateString);
             BigDecimal dateValue = new BigDecimal(dateString);
             return new Date(dateValue.scaleByPowerOfTen(
                     AWS_DATE_MILLI_SECOND_PRECISION).longValue());
@@ -253,6 +268,7 @@ public class DateUtils {
         if (dateString == null)
             return null;
         try {
+            validateTimestampLength(dateString);
             BigDecimal dateValue = new BigDecimal(dateString);
             return new Date(dateValue.longValue());
         } catch (NumberFormatException nfe) {
@@ -292,5 +308,14 @@ public class DateUtils {
      */
     public static long numberOfDaysSinceEpoch(long milliSinceEpoch) {
         return TimeUnit.MILLISECONDS.toDays(milliSinceEpoch);
+    }
+
+    private static void validateTimestampLength(String timestamp) {
+        // Helps avoid BigDecimal parsing unnecessarily large numbers, since it's unbounded
+        // Long has a max value of 9,223,372,036,854,775,807, which is 19 digits. Assume that a valid timestamp is no
+        // no longer than 20 characters long (+1 for decimal)
+        if (timestamp.length() > 20) {
+            throw new RuntimeException("Input timestamp string must be no longer than 20 characters");
+        }
     }
 }

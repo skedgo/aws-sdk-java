@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,6 +44,7 @@ import com.amazonaws.services.apigatewayv2.AmazonApiGatewayV2ClientBuilder;
 import com.amazonaws.AmazonServiceException;
 
 import com.amazonaws.services.apigatewayv2.model.*;
+
 import com.amazonaws.services.apigatewayv2.model.transform.*;
 
 /**
@@ -76,19 +77,22 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
-                    .withContentTypeOverride("")
+                    .withContentTypeOverride("application/json")
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withModeledClass(
-                                    com.amazonaws.services.apigatewayv2.model.NotFoundException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.apigatewayv2.model.transform.NotFoundExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withModeledClass(
-                                    com.amazonaws.services.apigatewayv2.model.ConflictException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("AccessDeniedException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.apigatewayv2.model.transform.AccessDeniedExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withModeledClass(
-                                    com.amazonaws.services.apigatewayv2.model.TooManyRequestsException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.apigatewayv2.model.transform.ConflictExceptionUnmarshaller.getInstance()))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withModeledClass(
-                                    com.amazonaws.services.apigatewayv2.model.BadRequestException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.apigatewayv2.model.transform.TooManyRequestsExceptionUnmarshaller.getInstance()))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withExceptionUnmarshaller(
+                                    com.amazonaws.services.apigatewayv2.model.transform.BadRequestExceptionUnmarshaller.getInstance()))
                     .withBaseServiceExceptionClass(com.amazonaws.services.apigatewayv2.model.AmazonApiGatewayV2Exception.class));
 
     public static AmazonApiGatewayV2ClientBuilder builder() {
@@ -143,6 +147,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param createApiRequest
+     *        Creates a new Api resource to represent an API.
      * @return Result of the CreateApi operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -175,6 +180,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new CreateApiRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createApiRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateApi");
@@ -202,6 +209,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param createApiMappingRequest
+     *        Creates a new ApiMapping resource to represent an API mapping.
      * @return Result of the CreateApiMapping operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -234,6 +242,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new CreateApiMappingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createApiMappingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateApiMapping");
@@ -261,6 +271,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param createAuthorizerRequest
+     *        Creates a new Authorizer resource to represent an authorizer.
      * @return Result of the CreateAuthorizer operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -293,6 +304,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new CreateAuthorizerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateAuthorizer");
@@ -320,6 +333,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param createDeploymentRequest
+     *        Creates a new Deployment resource to represent a deployment.
      * @return Result of the CreateDeployment operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -352,6 +366,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new CreateDeploymentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDeploymentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDeployment");
@@ -379,6 +395,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param createDomainNameRequest
+     *        Creates a new DomainName resource to represent a domain name.
      * @return Result of the CreateDomainName operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -388,6 +405,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      *         One of the parameters in the request is invalid.
      * @throws ConflictException
      *         The resource already exists.
+     * @throws AccessDeniedException
+     *         403 response
      * @sample AmazonApiGatewayV2.CreateDomainName
      */
     @Override
@@ -411,6 +430,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new CreateDomainNameRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDomainNameRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDomainName");
@@ -438,6 +459,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param createIntegrationRequest
+     *        Creates a new Integration resource to represent an integration.
      * @return Result of the CreateIntegration operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -470,6 +492,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new CreateIntegrationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createIntegrationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateIntegration");
@@ -497,6 +521,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param createIntegrationResponseRequest
+     *        Creates a new IntegrationResponse resource to represent an integration response.
      * @return Result of the CreateIntegrationResponse operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -530,6 +555,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                         .beforeMarshalling(createIntegrationResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateIntegrationResponse");
@@ -558,6 +585,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param createModelRequest
+     *        Creates a new Model.
      * @return Result of the CreateModel operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -590,6 +618,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new CreateModelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createModelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateModel");
@@ -617,6 +647,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param createRouteRequest
+     *        Creates a new Route resource to represent a route.
      * @return Result of the CreateRoute operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -649,6 +680,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new CreateRouteRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRouteRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRoute");
@@ -676,6 +709,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param createRouteResponseRequest
+     *        Creates a new RouteResponse resource to represent a route response.
      * @return Result of the CreateRouteResponse operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -708,6 +742,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new CreateRouteResponseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRouteResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRouteResponse");
@@ -735,6 +771,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param createStageRequest
+     *        Creates a new Stage resource to represent a stage.
      * @return Result of the CreateStage operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -767,6 +804,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new CreateStageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createStageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateStage");
@@ -778,6 +817,123 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
 
             HttpResponseHandler<AmazonWebServiceResponse<CreateStageResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateStageResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a VPC link.
+     * </p>
+     * 
+     * @param createVpcLinkRequest
+     *        Creates a VPC link
+     * @return Result of the CreateVpcLink operation returned by the service.
+     * @throws BadRequestException
+     *         One of the parameters in the request is invalid.
+     * @throws TooManyRequestsException
+     *         The client is sending more than the allowed number of requests per unit of time.
+     * @sample AmazonApiGatewayV2.CreateVpcLink
+     */
+    @Override
+    public CreateVpcLinkResult createVpcLink(CreateVpcLinkRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateVpcLink(request);
+    }
+
+    @SdkInternalApi
+    final CreateVpcLinkResult executeCreateVpcLink(CreateVpcLinkRequest createVpcLinkRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createVpcLinkRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateVpcLinkRequest> request = null;
+        Response<CreateVpcLinkResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateVpcLinkRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createVpcLinkRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateVpcLink");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateVpcLinkResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateVpcLinkResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the AccessLogSettings for a Stage. To disable access logging for a Stage, delete its AccessLogSettings.
+     * </p>
+     * 
+     * @param deleteAccessLogSettingsRequest
+     * @return Result of the DeleteAccessLogSettings operation returned by the service.
+     * @throws NotFoundException
+     *         The resource specified in the request was not found.
+     * @throws TooManyRequestsException
+     *         The client is sending more than the allowed number of requests per unit of time.
+     * @sample AmazonApiGatewayV2.DeleteAccessLogSettings
+     */
+    @Override
+    public DeleteAccessLogSettingsResult deleteAccessLogSettings(DeleteAccessLogSettingsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteAccessLogSettings(request);
+    }
+
+    @SdkInternalApi
+    final DeleteAccessLogSettingsResult executeDeleteAccessLogSettings(DeleteAccessLogSettingsRequest deleteAccessLogSettingsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteAccessLogSettingsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteAccessLogSettingsRequest> request = null;
+        Response<DeleteAccessLogSettingsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteAccessLogSettingsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteAccessLogSettingsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAccessLogSettings");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteAccessLogSettingsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteAccessLogSettingsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -822,6 +978,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new DeleteApiRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteApiRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteApi");
@@ -879,6 +1037,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new DeleteApiMappingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteApiMappingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteApiMapping");
@@ -934,6 +1094,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new DeleteAuthorizerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAuthorizer");
@@ -945,6 +1107,65 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
 
             HttpResponseHandler<AmazonWebServiceResponse<DeleteAuthorizerResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteAuthorizerResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a CORS configuration.
+     * </p>
+     * 
+     * @param deleteCorsConfigurationRequest
+     * @return Result of the DeleteCorsConfiguration operation returned by the service.
+     * @throws NotFoundException
+     *         The resource specified in the request was not found.
+     * @throws TooManyRequestsException
+     *         The client is sending more than the allowed number of requests per unit of time.
+     * @sample AmazonApiGatewayV2.DeleteCorsConfiguration
+     */
+    @Override
+    public DeleteCorsConfigurationResult deleteCorsConfiguration(DeleteCorsConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteCorsConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final DeleteCorsConfigurationResult executeDeleteCorsConfiguration(DeleteCorsConfigurationRequest deleteCorsConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteCorsConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteCorsConfigurationRequest> request = null;
+        Response<DeleteCorsConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteCorsConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteCorsConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCorsConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteCorsConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteCorsConfigurationResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -989,6 +1210,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new DeleteDeploymentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDeploymentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDeployment");
@@ -1044,6 +1267,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new DeleteDomainNameRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDomainNameRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDomainName");
@@ -1099,6 +1324,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new DeleteIntegrationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteIntegrationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteIntegration");
@@ -1155,6 +1382,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                         .beforeMarshalling(deleteIntegrationResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteIntegrationResponse");
@@ -1211,6 +1440,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new DeleteModelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteModelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteModel");
@@ -1266,6 +1497,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new DeleteRouteRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRouteRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRoute");
@@ -1277,6 +1510,65 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
 
             HttpResponseHandler<AmazonWebServiceResponse<DeleteRouteResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteRouteResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a route request parameter. Supported only for WebSocket APIs.
+     * </p>
+     * 
+     * @param deleteRouteRequestParameterRequest
+     * @return Result of the DeleteRouteRequestParameter operation returned by the service.
+     * @throws NotFoundException
+     *         The resource specified in the request was not found.
+     * @throws TooManyRequestsException
+     *         The client is sending more than the allowed number of requests per unit of time.
+     * @sample AmazonApiGatewayV2.DeleteRouteRequestParameter
+     */
+    @Override
+    public DeleteRouteRequestParameterResult deleteRouteRequestParameter(DeleteRouteRequestParameterRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteRouteRequestParameter(request);
+    }
+
+    @SdkInternalApi
+    final DeleteRouteRequestParameterResult executeDeleteRouteRequestParameter(DeleteRouteRequestParameterRequest deleteRouteRequestParameterRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteRouteRequestParameterRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteRouteRequestParameterRequest> request = null;
+        Response<DeleteRouteRequestParameterResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteRouteRequestParameterRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteRouteRequestParameterRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRouteRequestParameter");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteRouteRequestParameterResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteRouteRequestParameterResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1321,6 +1613,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new DeleteRouteResponseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRouteResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRouteResponse");
@@ -1332,6 +1626,63 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
 
             HttpResponseHandler<AmazonWebServiceResponse<DeleteRouteResponseResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteRouteResponseResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the RouteSettings for a stage.
+     * </p>
+     * 
+     * @param deleteRouteSettingsRequest
+     * @return Result of the DeleteRouteSettings operation returned by the service.
+     * @throws NotFoundException
+     *         The resource specified in the request was not found.
+     * @throws TooManyRequestsException
+     *         The client is sending more than the allowed number of requests per unit of time.
+     * @sample AmazonApiGatewayV2.DeleteRouteSettings
+     */
+    @Override
+    public DeleteRouteSettingsResult deleteRouteSettings(DeleteRouteSettingsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteRouteSettings(request);
+    }
+
+    @SdkInternalApi
+    final DeleteRouteSettingsResult executeDeleteRouteSettings(DeleteRouteSettingsRequest deleteRouteSettingsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteRouteSettingsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteRouteSettingsRequest> request = null;
+        Response<DeleteRouteSettingsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteRouteSettingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRouteSettingsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRouteSettings");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteRouteSettingsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteRouteSettingsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1376,6 +1727,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new DeleteStageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteStageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteStage");
@@ -1387,6 +1740,118 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
 
             HttpResponseHandler<AmazonWebServiceResponse<DeleteStageResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteStageResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a VPC link.
+     * </p>
+     * 
+     * @param deleteVpcLinkRequest
+     * @return Result of the DeleteVpcLink operation returned by the service.
+     * @throws NotFoundException
+     *         The resource specified in the request was not found.
+     * @throws TooManyRequestsException
+     *         The client is sending more than the allowed number of requests per unit of time.
+     * @sample AmazonApiGatewayV2.DeleteVpcLink
+     */
+    @Override
+    public DeleteVpcLinkResult deleteVpcLink(DeleteVpcLinkRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteVpcLink(request);
+    }
+
+    @SdkInternalApi
+    final DeleteVpcLinkResult executeDeleteVpcLink(DeleteVpcLinkRequest deleteVpcLinkRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteVpcLinkRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteVpcLinkRequest> request = null;
+        Response<DeleteVpcLinkResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteVpcLinkRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteVpcLinkRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteVpcLink");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteVpcLinkResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteVpcLinkResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * @param exportApiRequest
+     * @return Result of the ExportApi operation returned by the service.
+     * @throws NotFoundException
+     *         The resource specified in the request was not found.
+     * @throws TooManyRequestsException
+     *         The client is sending more than the allowed number of requests per unit of time.
+     * @throws BadRequestException
+     *         One of the parameters in the request is invalid.
+     * @sample AmazonApiGatewayV2.ExportApi
+     */
+    @Override
+    public ExportApiResult exportApi(ExportApiRequest request) {
+        request = beforeClientExecution(request);
+        return executeExportApi(request);
+    }
+
+    @SdkInternalApi
+    final ExportApiResult executeExportApi(ExportApiRequest exportApiRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(exportApiRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ExportApiRequest> request = null;
+        Response<ExportApiResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ExportApiRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(exportApiRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ExportApi");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ExportApiResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(false).withHasStreamingSuccessResponse(false), new ExportApiResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1431,6 +1896,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetApiRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getApiRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetApi");
@@ -1454,7 +1921,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
 
     /**
      * <p>
-     * The API mapping.
+     * Gets an API mapping.
      * </p>
      * 
      * @param getApiMappingRequest
@@ -1488,6 +1955,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetApiMappingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getApiMappingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetApiMapping");
@@ -1511,7 +1980,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
 
     /**
      * <p>
-     * The API mappings.
+     * Gets API mappings.
      * </p>
      * 
      * @param getApiMappingsRequest
@@ -1545,6 +2014,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetApiMappingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getApiMappingsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetApiMappings");
@@ -1602,6 +2073,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetApisRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getApisRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetApis");
@@ -1657,6 +2130,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetAuthorizerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAuthorizer");
@@ -1714,6 +2189,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetAuthorizersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getAuthorizersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAuthorizers");
@@ -1769,6 +2246,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetDeploymentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDeploymentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDeployment");
@@ -1826,6 +2305,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetDeploymentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDeploymentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDeployments");
@@ -1881,6 +2362,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetDomainNameRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDomainNameRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDomainName");
@@ -1938,6 +2421,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetDomainNamesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDomainNamesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDomainNames");
@@ -1993,6 +2478,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetIntegrationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getIntegrationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetIntegration");
@@ -2048,6 +2535,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetIntegrationResponseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getIntegrationResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetIntegrationResponse");
@@ -2107,6 +2596,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                         .beforeMarshalling(getIntegrationResponsesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetIntegrationResponses");
@@ -2165,6 +2656,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetIntegrationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getIntegrationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetIntegrations");
@@ -2220,6 +2713,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetModelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getModelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetModel");
@@ -2275,6 +2770,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetModelTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getModelTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetModelTemplate");
@@ -2332,6 +2829,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetModelsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getModelsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetModels");
@@ -2387,6 +2886,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetRouteRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRouteRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRoute");
@@ -2442,6 +2943,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetRouteResponseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRouteResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRouteResponse");
@@ -2499,6 +3002,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetRouteResponsesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRouteResponsesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRouteResponses");
@@ -2556,6 +3061,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetRoutesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRoutesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRoutes");
@@ -2611,6 +3118,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetStageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getStageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetStage");
@@ -2668,6 +3177,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetStagesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getStagesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetStages");
@@ -2691,7 +3202,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
 
     /**
      * <p>
-     * Gets the Tags for an API.
+     * Gets a collection of Tag resources.
      * </p>
      * 
      * @param getTagsRequest
@@ -2727,6 +3238,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new GetTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getTagsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetTags");
@@ -2750,10 +3263,305 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
 
     /**
      * <p>
-     * Tag an APIGW resource
+     * Gets a VPC link.
+     * </p>
+     * 
+     * @param getVpcLinkRequest
+     * @return Result of the GetVpcLink operation returned by the service.
+     * @throws NotFoundException
+     *         The resource specified in the request was not found.
+     * @throws TooManyRequestsException
+     *         The client is sending more than the allowed number of requests per unit of time.
+     * @sample AmazonApiGatewayV2.GetVpcLink
+     */
+    @Override
+    public GetVpcLinkResult getVpcLink(GetVpcLinkRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetVpcLink(request);
+    }
+
+    @SdkInternalApi
+    final GetVpcLinkResult executeGetVpcLink(GetVpcLinkRequest getVpcLinkRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getVpcLinkRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetVpcLinkRequest> request = null;
+        Response<GetVpcLinkResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetVpcLinkRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getVpcLinkRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetVpcLink");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetVpcLinkResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetVpcLinkResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a collection of VPC links.
+     * </p>
+     * 
+     * @param getVpcLinksRequest
+     * @return Result of the GetVpcLinks operation returned by the service.
+     * @throws BadRequestException
+     *         One of the parameters in the request is invalid.
+     * @throws TooManyRequestsException
+     *         The client is sending more than the allowed number of requests per unit of time.
+     * @sample AmazonApiGatewayV2.GetVpcLinks
+     */
+    @Override
+    public GetVpcLinksResult getVpcLinks(GetVpcLinksRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetVpcLinks(request);
+    }
+
+    @SdkInternalApi
+    final GetVpcLinksResult executeGetVpcLinks(GetVpcLinksRequest getVpcLinksRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getVpcLinksRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetVpcLinksRequest> request = null;
+        Response<GetVpcLinksResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetVpcLinksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getVpcLinksRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetVpcLinks");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetVpcLinksResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetVpcLinksResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Imports an API.
+     * </p>
+     * 
+     * @param importApiRequest
+     * @return Result of the ImportApi operation returned by the service.
+     * @throws NotFoundException
+     *         The resource specified in the request was not found.
+     * @throws TooManyRequestsException
+     *         The client is sending more than the allowed number of requests per unit of time.
+     * @throws BadRequestException
+     *         One of the parameters in the request is invalid.
+     * @throws ConflictException
+     *         The resource already exists.
+     * @sample AmazonApiGatewayV2.ImportApi
+     */
+    @Override
+    public ImportApiResult importApi(ImportApiRequest request) {
+        request = beforeClientExecution(request);
+        return executeImportApi(request);
+    }
+
+    @SdkInternalApi
+    final ImportApiResult executeImportApi(ImportApiRequest importApiRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(importApiRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ImportApiRequest> request = null;
+        Response<ImportApiResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ImportApiRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(importApiRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ImportApi");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ImportApiResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new ImportApiResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Puts an Api resource.
+     * </p>
+     * 
+     * @param reimportApiRequest
+     * @return Result of the ReimportApi operation returned by the service.
+     * @throws NotFoundException
+     *         The resource specified in the request was not found.
+     * @throws TooManyRequestsException
+     *         The client is sending more than the allowed number of requests per unit of time.
+     * @throws BadRequestException
+     *         One of the parameters in the request is invalid.
+     * @throws ConflictException
+     *         The resource already exists.
+     * @sample AmazonApiGatewayV2.ReimportApi
+     */
+    @Override
+    public ReimportApiResult reimportApi(ReimportApiRequest request) {
+        request = beforeClientExecution(request);
+        return executeReimportApi(request);
+    }
+
+    @SdkInternalApi
+    final ReimportApiResult executeReimportApi(ReimportApiRequest reimportApiRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(reimportApiRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ReimportApiRequest> request = null;
+        Response<ReimportApiResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ReimportApiRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(reimportApiRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ReimportApi");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ReimportApiResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ReimportApiResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Resets all authorizer cache entries on a stage. Supported only for HTTP APIs.
+     * </p>
+     * 
+     * @param resetAuthorizersCacheRequest
+     * @return Result of the ResetAuthorizersCache operation returned by the service.
+     * @throws NotFoundException
+     *         The resource specified in the request was not found.
+     * @throws TooManyRequestsException
+     *         The client is sending more than the allowed number of requests per unit of time.
+     * @sample AmazonApiGatewayV2.ResetAuthorizersCache
+     */
+    @Override
+    public ResetAuthorizersCacheResult resetAuthorizersCache(ResetAuthorizersCacheRequest request) {
+        request = beforeClientExecution(request);
+        return executeResetAuthorizersCache(request);
+    }
+
+    @SdkInternalApi
+    final ResetAuthorizersCacheResult executeResetAuthorizersCache(ResetAuthorizersCacheRequest resetAuthorizersCacheRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(resetAuthorizersCacheRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ResetAuthorizersCacheRequest> request = null;
+        Response<ResetAuthorizersCacheResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ResetAuthorizersCacheRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(resetAuthorizersCacheRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ResetAuthorizersCache");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ResetAuthorizersCacheResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new ResetAuthorizersCacheResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a new Tag resource to represent a tag.
      * </p>
      * 
      * @param tagResourceRequest
+     *        Creates a new Tag resource to represent a tag.
      * @return Result of the TagResource operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -2786,6 +3594,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
@@ -2809,7 +3619,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
 
     /**
      * <p>
-     * Untag an APIGW resource
+     * Deletes a Tag.
      * </p>
      * 
      * @param untagResourceRequest
@@ -2845,6 +3655,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
@@ -2872,6 +3684,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param updateApiRequest
+     *        Updates an Api.
      * @return Result of the UpdateApi operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -2904,6 +3717,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new UpdateApiRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateApiRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateApi");
@@ -2931,6 +3746,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param updateApiMappingRequest
+     *        Updates an ApiMapping.
      * @return Result of the UpdateApiMapping operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -2963,6 +3779,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new UpdateApiMappingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateApiMappingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateApiMapping");
@@ -2990,6 +3808,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param updateAuthorizerRequest
+     *        Updates an Authorizer.
      * @return Result of the UpdateAuthorizer operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -3022,6 +3841,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new UpdateAuthorizerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateAuthorizer");
@@ -3049,6 +3870,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param updateDeploymentRequest
+     *        Updates a Deployment.
      * @return Result of the UpdateDeployment operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -3081,6 +3903,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new UpdateDeploymentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDeploymentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDeployment");
@@ -3108,6 +3932,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param updateDomainNameRequest
+     *        Updates a DomainName.
      * @return Result of the UpdateDomainName operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -3140,6 +3965,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new UpdateDomainNameRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDomainNameRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDomainName");
@@ -3167,6 +3994,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param updateIntegrationRequest
+     *        Updates an Integration.
      * @return Result of the UpdateIntegration operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -3199,6 +4027,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new UpdateIntegrationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateIntegrationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateIntegration");
@@ -3226,6 +4056,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param updateIntegrationResponseRequest
+     *        Updates an IntegrationResponses.
      * @return Result of the UpdateIntegrationResponse operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -3259,6 +4090,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                         .beforeMarshalling(updateIntegrationResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateIntegrationResponse");
@@ -3287,6 +4120,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param updateModelRequest
+     *        Updates a Model.
      * @return Result of the UpdateModel operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -3319,6 +4153,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new UpdateModelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateModelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateModel");
@@ -3346,6 +4182,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param updateRouteRequest
+     *        Updates a Route.
      * @return Result of the UpdateRoute operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -3378,6 +4215,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new UpdateRouteRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRouteRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRoute");
@@ -3405,6 +4244,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param updateRouteResponseRequest
+     *        Updates a RouteResponse.
      * @return Result of the UpdateRouteResponse operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -3437,6 +4277,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new UpdateRouteResponseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRouteResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRouteResponse");
@@ -3464,6 +4306,7 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
      * </p>
      * 
      * @param updateStageRequest
+     *        Updates a Stage.
      * @return Result of the UpdateStage operation returned by the service.
      * @throws NotFoundException
      *         The resource specified in the request was not found.
@@ -3496,6 +4339,8 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
                 request = new UpdateStageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateStageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
                 request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
                 request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
                 request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateStage");
@@ -3507,6 +4352,66 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
 
             HttpResponseHandler<AmazonWebServiceResponse<UpdateStageResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateStageResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates a VPC link.
+     * </p>
+     * 
+     * @param updateVpcLinkRequest
+     *        Updates a VPC link.
+     * @return Result of the UpdateVpcLink operation returned by the service.
+     * @throws NotFoundException
+     *         The resource specified in the request was not found.
+     * @throws TooManyRequestsException
+     *         The client is sending more than the allowed number of requests per unit of time.
+     * @throws BadRequestException
+     *         One of the parameters in the request is invalid.
+     * @sample AmazonApiGatewayV2.UpdateVpcLink
+     */
+    @Override
+    public UpdateVpcLinkResult updateVpcLink(UpdateVpcLinkRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateVpcLink(request);
+    }
+
+    @SdkInternalApi
+    final UpdateVpcLinkResult executeUpdateVpcLink(UpdateVpcLinkRequest updateVpcLinkRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateVpcLinkRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateVpcLinkRequest> request = null;
+        Response<UpdateVpcLinkResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateVpcLinkRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateVpcLinkRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.CLIENT_ENDPOINT, endpoint);
+                request.addHandlerContext(HandlerContextKey.ENDPOINT_OVERRIDDEN, isEndpointOverridden());
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "ApiGatewayV2");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateVpcLink");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateVpcLinkResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateVpcLinkResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3591,6 +4496,11 @@ public class AmazonApiGatewayV2Client extends AmazonWebServiceClient implements 
     @com.amazonaws.annotation.SdkInternalApi
     static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
         return protocolFactory;
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
     }
 
 }

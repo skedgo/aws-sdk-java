@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -88,6 +88,45 @@ public class UpdateElasticsearchDomainConfigRequest extends com.amazonaws.Amazon
      * </p>
      */
     private java.util.Map<String, LogPublishingOption> logPublishingOptions;
+    /**
+     * <p>
+     * Options to specify configuration that will be applied to the domain endpoint.
+     * </p>
+     */
+    private DomainEndpointOptions domainEndpointOptions;
+    /**
+     * <p>
+     * Specifies advanced security options.
+     * </p>
+     */
+    private AdvancedSecurityOptionsInput advancedSecurityOptions;
+    /**
+     * <p>
+     * Specifies the NodeToNodeEncryptionOptions.
+     * </p>
+     */
+    private NodeToNodeEncryptionOptions nodeToNodeEncryptionOptions;
+    /**
+     * <p>
+     * Specifies the Encryption At Rest Options.
+     * </p>
+     */
+    private EncryptionAtRestOptions encryptionAtRestOptions;
+    /**
+     * <p>
+     * Specifies Auto-Tune options.
+     * </p>
+     */
+    private AutoTuneOptions autoTuneOptions;
+    /**
+     * <p>
+     * This flag, when set to True, specifies whether the <code>UpdateElasticsearchDomain</code> request should return
+     * the results of validation checks without actually applying the change. This flag, when set to True, specifies the
+     * deployment mechanism through which the update shall be applied on the domain. This will not actually perform the
+     * Update.
+     * </p>
+     */
+    private Boolean dryRun;
 
     /**
      * <p>
@@ -417,6 +456,13 @@ public class UpdateElasticsearchDomainConfigRequest extends com.amazonaws.Amazon
         return this;
     }
 
+    /**
+     * Add a single AdvancedOptions entry
+     *
+     * @see UpdateElasticsearchDomainConfigRequest#withAdvancedOptions
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public UpdateElasticsearchDomainConfigRequest addAdvancedOptionsEntry(String key, String value) {
         if (null == this.advancedOptions) {
             this.advancedOptions = new java.util.HashMap<String, String>();
@@ -524,6 +570,13 @@ public class UpdateElasticsearchDomainConfigRequest extends com.amazonaws.Amazon
         return this;
     }
 
+    /**
+     * Add a single LogPublishingOptions entry
+     *
+     * @see UpdateElasticsearchDomainConfigRequest#withLogPublishingOptions
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public UpdateElasticsearchDomainConfigRequest addLogPublishingOptionsEntry(String key, LogPublishingOption value) {
         if (null == this.logPublishingOptions) {
             this.logPublishingOptions = new java.util.HashMap<String, LogPublishingOption>();
@@ -543,6 +596,282 @@ public class UpdateElasticsearchDomainConfigRequest extends com.amazonaws.Amazon
     public UpdateElasticsearchDomainConfigRequest clearLogPublishingOptionsEntries() {
         this.logPublishingOptions = null;
         return this;
+    }
+
+    /**
+     * <p>
+     * Options to specify configuration that will be applied to the domain endpoint.
+     * </p>
+     * 
+     * @param domainEndpointOptions
+     *        Options to specify configuration that will be applied to the domain endpoint.
+     */
+
+    public void setDomainEndpointOptions(DomainEndpointOptions domainEndpointOptions) {
+        this.domainEndpointOptions = domainEndpointOptions;
+    }
+
+    /**
+     * <p>
+     * Options to specify configuration that will be applied to the domain endpoint.
+     * </p>
+     * 
+     * @return Options to specify configuration that will be applied to the domain endpoint.
+     */
+
+    public DomainEndpointOptions getDomainEndpointOptions() {
+        return this.domainEndpointOptions;
+    }
+
+    /**
+     * <p>
+     * Options to specify configuration that will be applied to the domain endpoint.
+     * </p>
+     * 
+     * @param domainEndpointOptions
+     *        Options to specify configuration that will be applied to the domain endpoint.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateElasticsearchDomainConfigRequest withDomainEndpointOptions(DomainEndpointOptions domainEndpointOptions) {
+        setDomainEndpointOptions(domainEndpointOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies advanced security options.
+     * </p>
+     * 
+     * @param advancedSecurityOptions
+     *        Specifies advanced security options.
+     */
+
+    public void setAdvancedSecurityOptions(AdvancedSecurityOptionsInput advancedSecurityOptions) {
+        this.advancedSecurityOptions = advancedSecurityOptions;
+    }
+
+    /**
+     * <p>
+     * Specifies advanced security options.
+     * </p>
+     * 
+     * @return Specifies advanced security options.
+     */
+
+    public AdvancedSecurityOptionsInput getAdvancedSecurityOptions() {
+        return this.advancedSecurityOptions;
+    }
+
+    /**
+     * <p>
+     * Specifies advanced security options.
+     * </p>
+     * 
+     * @param advancedSecurityOptions
+     *        Specifies advanced security options.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateElasticsearchDomainConfigRequest withAdvancedSecurityOptions(AdvancedSecurityOptionsInput advancedSecurityOptions) {
+        setAdvancedSecurityOptions(advancedSecurityOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the NodeToNodeEncryptionOptions.
+     * </p>
+     * 
+     * @param nodeToNodeEncryptionOptions
+     *        Specifies the NodeToNodeEncryptionOptions.
+     */
+
+    public void setNodeToNodeEncryptionOptions(NodeToNodeEncryptionOptions nodeToNodeEncryptionOptions) {
+        this.nodeToNodeEncryptionOptions = nodeToNodeEncryptionOptions;
+    }
+
+    /**
+     * <p>
+     * Specifies the NodeToNodeEncryptionOptions.
+     * </p>
+     * 
+     * @return Specifies the NodeToNodeEncryptionOptions.
+     */
+
+    public NodeToNodeEncryptionOptions getNodeToNodeEncryptionOptions() {
+        return this.nodeToNodeEncryptionOptions;
+    }
+
+    /**
+     * <p>
+     * Specifies the NodeToNodeEncryptionOptions.
+     * </p>
+     * 
+     * @param nodeToNodeEncryptionOptions
+     *        Specifies the NodeToNodeEncryptionOptions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateElasticsearchDomainConfigRequest withNodeToNodeEncryptionOptions(NodeToNodeEncryptionOptions nodeToNodeEncryptionOptions) {
+        setNodeToNodeEncryptionOptions(nodeToNodeEncryptionOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies the Encryption At Rest Options.
+     * </p>
+     * 
+     * @param encryptionAtRestOptions
+     *        Specifies the Encryption At Rest Options.
+     */
+
+    public void setEncryptionAtRestOptions(EncryptionAtRestOptions encryptionAtRestOptions) {
+        this.encryptionAtRestOptions = encryptionAtRestOptions;
+    }
+
+    /**
+     * <p>
+     * Specifies the Encryption At Rest Options.
+     * </p>
+     * 
+     * @return Specifies the Encryption At Rest Options.
+     */
+
+    public EncryptionAtRestOptions getEncryptionAtRestOptions() {
+        return this.encryptionAtRestOptions;
+    }
+
+    /**
+     * <p>
+     * Specifies the Encryption At Rest Options.
+     * </p>
+     * 
+     * @param encryptionAtRestOptions
+     *        Specifies the Encryption At Rest Options.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateElasticsearchDomainConfigRequest withEncryptionAtRestOptions(EncryptionAtRestOptions encryptionAtRestOptions) {
+        setEncryptionAtRestOptions(encryptionAtRestOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies Auto-Tune options.
+     * </p>
+     * 
+     * @param autoTuneOptions
+     *        Specifies Auto-Tune options.
+     */
+
+    public void setAutoTuneOptions(AutoTuneOptions autoTuneOptions) {
+        this.autoTuneOptions = autoTuneOptions;
+    }
+
+    /**
+     * <p>
+     * Specifies Auto-Tune options.
+     * </p>
+     * 
+     * @return Specifies Auto-Tune options.
+     */
+
+    public AutoTuneOptions getAutoTuneOptions() {
+        return this.autoTuneOptions;
+    }
+
+    /**
+     * <p>
+     * Specifies Auto-Tune options.
+     * </p>
+     * 
+     * @param autoTuneOptions
+     *        Specifies Auto-Tune options.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateElasticsearchDomainConfigRequest withAutoTuneOptions(AutoTuneOptions autoTuneOptions) {
+        setAutoTuneOptions(autoTuneOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This flag, when set to True, specifies whether the <code>UpdateElasticsearchDomain</code> request should return
+     * the results of validation checks without actually applying the change. This flag, when set to True, specifies the
+     * deployment mechanism through which the update shall be applied on the domain. This will not actually perform the
+     * Update.
+     * </p>
+     * 
+     * @param dryRun
+     *        This flag, when set to True, specifies whether the <code>UpdateElasticsearchDomain</code> request should
+     *        return the results of validation checks without actually applying the change. This flag, when set to True,
+     *        specifies the deployment mechanism through which the update shall be applied on the domain. This will not
+     *        actually perform the Update.
+     */
+
+    public void setDryRun(Boolean dryRun) {
+        this.dryRun = dryRun;
+    }
+
+    /**
+     * <p>
+     * This flag, when set to True, specifies whether the <code>UpdateElasticsearchDomain</code> request should return
+     * the results of validation checks without actually applying the change. This flag, when set to True, specifies the
+     * deployment mechanism through which the update shall be applied on the domain. This will not actually perform the
+     * Update.
+     * </p>
+     * 
+     * @return This flag, when set to True, specifies whether the <code>UpdateElasticsearchDomain</code> request should
+     *         return the results of validation checks without actually applying the change. This flag, when set to
+     *         True, specifies the deployment mechanism through which the update shall be applied on the domain. This
+     *         will not actually perform the Update.
+     */
+
+    public Boolean getDryRun() {
+        return this.dryRun;
+    }
+
+    /**
+     * <p>
+     * This flag, when set to True, specifies whether the <code>UpdateElasticsearchDomain</code> request should return
+     * the results of validation checks without actually applying the change. This flag, when set to True, specifies the
+     * deployment mechanism through which the update shall be applied on the domain. This will not actually perform the
+     * Update.
+     * </p>
+     * 
+     * @param dryRun
+     *        This flag, when set to True, specifies whether the <code>UpdateElasticsearchDomain</code> request should
+     *        return the results of validation checks without actually applying the change. This flag, when set to True,
+     *        specifies the deployment mechanism through which the update shall be applied on the domain. This will not
+     *        actually perform the Update.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateElasticsearchDomainConfigRequest withDryRun(Boolean dryRun) {
+        setDryRun(dryRun);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This flag, when set to True, specifies whether the <code>UpdateElasticsearchDomain</code> request should return
+     * the results of validation checks without actually applying the change. This flag, when set to True, specifies the
+     * deployment mechanism through which the update shall be applied on the domain. This will not actually perform the
+     * Update.
+     * </p>
+     * 
+     * @return This flag, when set to True, specifies whether the <code>UpdateElasticsearchDomain</code> request should
+     *         return the results of validation checks without actually applying the change. This flag, when set to
+     *         True, specifies the deployment mechanism through which the update shall be applied on the domain. This
+     *         will not actually perform the Update.
+     */
+
+    public Boolean isDryRun() {
+        return this.dryRun;
     }
 
     /**
@@ -574,7 +903,19 @@ public class UpdateElasticsearchDomainConfigRequest extends com.amazonaws.Amazon
         if (getAccessPolicies() != null)
             sb.append("AccessPolicies: ").append(getAccessPolicies()).append(",");
         if (getLogPublishingOptions() != null)
-            sb.append("LogPublishingOptions: ").append(getLogPublishingOptions());
+            sb.append("LogPublishingOptions: ").append(getLogPublishingOptions()).append(",");
+        if (getDomainEndpointOptions() != null)
+            sb.append("DomainEndpointOptions: ").append(getDomainEndpointOptions()).append(",");
+        if (getAdvancedSecurityOptions() != null)
+            sb.append("AdvancedSecurityOptions: ").append(getAdvancedSecurityOptions()).append(",");
+        if (getNodeToNodeEncryptionOptions() != null)
+            sb.append("NodeToNodeEncryptionOptions: ").append(getNodeToNodeEncryptionOptions()).append(",");
+        if (getEncryptionAtRestOptions() != null)
+            sb.append("EncryptionAtRestOptions: ").append(getEncryptionAtRestOptions()).append(",");
+        if (getAutoTuneOptions() != null)
+            sb.append("AutoTuneOptions: ").append(getAutoTuneOptions()).append(",");
+        if (getDryRun() != null)
+            sb.append("DryRun: ").append(getDryRun());
         sb.append("}");
         return sb.toString();
     }
@@ -625,6 +966,30 @@ public class UpdateElasticsearchDomainConfigRequest extends com.amazonaws.Amazon
             return false;
         if (other.getLogPublishingOptions() != null && other.getLogPublishingOptions().equals(this.getLogPublishingOptions()) == false)
             return false;
+        if (other.getDomainEndpointOptions() == null ^ this.getDomainEndpointOptions() == null)
+            return false;
+        if (other.getDomainEndpointOptions() != null && other.getDomainEndpointOptions().equals(this.getDomainEndpointOptions()) == false)
+            return false;
+        if (other.getAdvancedSecurityOptions() == null ^ this.getAdvancedSecurityOptions() == null)
+            return false;
+        if (other.getAdvancedSecurityOptions() != null && other.getAdvancedSecurityOptions().equals(this.getAdvancedSecurityOptions()) == false)
+            return false;
+        if (other.getNodeToNodeEncryptionOptions() == null ^ this.getNodeToNodeEncryptionOptions() == null)
+            return false;
+        if (other.getNodeToNodeEncryptionOptions() != null && other.getNodeToNodeEncryptionOptions().equals(this.getNodeToNodeEncryptionOptions()) == false)
+            return false;
+        if (other.getEncryptionAtRestOptions() == null ^ this.getEncryptionAtRestOptions() == null)
+            return false;
+        if (other.getEncryptionAtRestOptions() != null && other.getEncryptionAtRestOptions().equals(this.getEncryptionAtRestOptions()) == false)
+            return false;
+        if (other.getAutoTuneOptions() == null ^ this.getAutoTuneOptions() == null)
+            return false;
+        if (other.getAutoTuneOptions() != null && other.getAutoTuneOptions().equals(this.getAutoTuneOptions()) == false)
+            return false;
+        if (other.getDryRun() == null ^ this.getDryRun() == null)
+            return false;
+        if (other.getDryRun() != null && other.getDryRun().equals(this.getDryRun()) == false)
+            return false;
         return true;
     }
 
@@ -642,6 +1007,12 @@ public class UpdateElasticsearchDomainConfigRequest extends com.amazonaws.Amazon
         hashCode = prime * hashCode + ((getAdvancedOptions() == null) ? 0 : getAdvancedOptions().hashCode());
         hashCode = prime * hashCode + ((getAccessPolicies() == null) ? 0 : getAccessPolicies().hashCode());
         hashCode = prime * hashCode + ((getLogPublishingOptions() == null) ? 0 : getLogPublishingOptions().hashCode());
+        hashCode = prime * hashCode + ((getDomainEndpointOptions() == null) ? 0 : getDomainEndpointOptions().hashCode());
+        hashCode = prime * hashCode + ((getAdvancedSecurityOptions() == null) ? 0 : getAdvancedSecurityOptions().hashCode());
+        hashCode = prime * hashCode + ((getNodeToNodeEncryptionOptions() == null) ? 0 : getNodeToNodeEncryptionOptions().hashCode());
+        hashCode = prime * hashCode + ((getEncryptionAtRestOptions() == null) ? 0 : getEncryptionAtRestOptions().hashCode());
+        hashCode = prime * hashCode + ((getAutoTuneOptions() == null) ? 0 : getAutoTuneOptions().hashCode());
+        hashCode = prime * hashCode + ((getDryRun() == null) ? 0 : getDryRun().hashCode());
         return hashCode;
     }
 

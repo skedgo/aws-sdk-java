@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,13 +52,19 @@ public class M2tsSettingsJsonUnmarshaller implements Unmarshaller<M2tsSettings, 
                     context.nextToken();
                     m2tsSettings.setAudioBufferModel(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("audioDuration", targetDepth)) {
+                    context.nextToken();
+                    m2tsSettings.setAudioDuration(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("audioFramesPerPes", targetDepth)) {
                     context.nextToken();
                     m2tsSettings.setAudioFramesPerPes(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
                 if (context.testExpression("audioPids", targetDepth)) {
                     context.nextToken();
-                    m2tsSettings.setAudioPids(new ListUnmarshaller<Integer>(context.getUnmarshaller(Integer.class)).unmarshall(context));
+                    m2tsSettings.setAudioPids(new ListUnmarshaller<Integer>(context.getUnmarshaller(Integer.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("bitrate", targetDepth)) {
                     context.nextToken();
@@ -67,6 +73,10 @@ public class M2tsSettingsJsonUnmarshaller implements Unmarshaller<M2tsSettings, 
                 if (context.testExpression("bufferModel", targetDepth)) {
                     context.nextToken();
                     m2tsSettings.setBufferModel(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("dataPTSControl", targetDepth)) {
+                    context.nextToken();
+                    m2tsSettings.setDataPTSControl(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("dvbNitSettings", targetDepth)) {
                     context.nextToken();
@@ -78,7 +88,9 @@ public class M2tsSettingsJsonUnmarshaller implements Unmarshaller<M2tsSettings, 
                 }
                 if (context.testExpression("dvbSubPids", targetDepth)) {
                     context.nextToken();
-                    m2tsSettings.setDvbSubPids(new ListUnmarshaller<Integer>(context.getUnmarshaller(Integer.class)).unmarshall(context));
+                    m2tsSettings.setDvbSubPids(new ListUnmarshaller<Integer>(context.getUnmarshaller(Integer.class))
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("dvbTdtSettings", targetDepth)) {
                     context.nextToken();
@@ -107,6 +119,10 @@ public class M2tsSettingsJsonUnmarshaller implements Unmarshaller<M2tsSettings, 
                 if (context.testExpression("fragmentTime", targetDepth)) {
                     context.nextToken();
                     m2tsSettings.setFragmentTime(context.getUnmarshaller(Double.class).unmarshall(context));
+                }
+                if (context.testExpression("klvMetadata", targetDepth)) {
+                    context.nextToken();
+                    m2tsSettings.setKlvMetadata(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("maxPcrInterval", targetDepth)) {
                     context.nextToken();
@@ -144,6 +160,10 @@ public class M2tsSettingsJsonUnmarshaller implements Unmarshaller<M2tsSettings, 
                     context.nextToken();
                     m2tsSettings.setPmtPid(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
+                if (context.testExpression("preventBufferUnderflow", targetDepth)) {
+                    context.nextToken();
+                    m2tsSettings.setPreventBufferUnderflow(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("privateMetadataPid", targetDepth)) {
                     context.nextToken();
                     m2tsSettings.setPrivateMetadataPid(context.getUnmarshaller(Integer.class).unmarshall(context));
@@ -151,6 +171,14 @@ public class M2tsSettingsJsonUnmarshaller implements Unmarshaller<M2tsSettings, 
                 if (context.testExpression("programNumber", targetDepth)) {
                     context.nextToken();
                     m2tsSettings.setProgramNumber(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("ptsOffset", targetDepth)) {
+                    context.nextToken();
+                    m2tsSettings.setPtsOffset(context.getUnmarshaller(Integer.class).unmarshall(context));
+                }
+                if (context.testExpression("ptsOffsetMode", targetDepth)) {
+                    context.nextToken();
+                    m2tsSettings.setPtsOffsetMode(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("rateMode", targetDepth)) {
                     context.nextToken();

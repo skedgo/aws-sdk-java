@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,7 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
+ * <zonbook></zonbook><xhtml></xhtml>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/ListVirtualRouters" target="_top">AWS API
  *      Documentation</a>
@@ -42,6 +43,14 @@ public class ListVirtualRoutersRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      */
     private String meshName;
+    /**
+     * <p>
+     * The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then it's
+     * the ID of the account that shared the mesh with your account. For more information about mesh sharing, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     * </p>
+     */
+    private String meshOwner;
     /**
      * <p>
      * The <code>nextToken</code> value returned from a previous paginated <code>ListVirtualRouters</code> request where
@@ -166,6 +175,61 @@ public class ListVirtualRoutersRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
+     * The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then it's
+     * the ID of the account that shared the mesh with your account. For more information about mesh sharing, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     * </p>
+     * 
+     * @param meshOwner
+     *        The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then
+     *        it's the ID of the account that shared the mesh with your account. For more information about mesh
+     *        sharing, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with
+     *        shared meshes</a>.
+     */
+
+    public void setMeshOwner(String meshOwner) {
+        this.meshOwner = meshOwner;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then it's
+     * the ID of the account that shared the mesh with your account. For more information about mesh sharing, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     * </p>
+     * 
+     * @return The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then
+     *         it's the ID of the account that shared the mesh with your account. For more information about mesh
+     *         sharing, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with
+     *         shared meshes</a>.
+     */
+
+    public String getMeshOwner() {
+        return this.meshOwner;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then it's
+     * the ID of the account that shared the mesh with your account. For more information about mesh sharing, see <a
+     * href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with shared meshes</a>.
+     * </p>
+     * 
+     * @param meshOwner
+     *        The Amazon Web Services IAM account ID of the service mesh owner. If the account ID is not your own, then
+     *        it's the ID of the account that shared the mesh with your account. For more information about mesh
+     *        sharing, see <a href="https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html">Working with
+     *        shared meshes</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListVirtualRoutersRequest withMeshOwner(String meshOwner) {
+        setMeshOwner(meshOwner);
+        return this;
+    }
+
+    /**
+     * <p>
      * The <code>nextToken</code> value returned from a previous paginated <code>ListVirtualRouters</code> request where
      * <code>limit</code> was used and the results exceeded the value of that parameter. Pagination continues from the
      * end of the previous results that returned the <code>nextToken</code> value.
@@ -232,6 +296,8 @@ public class ListVirtualRoutersRequest extends com.amazonaws.AmazonWebServiceReq
             sb.append("Limit: ").append(getLimit()).append(",");
         if (getMeshName() != null)
             sb.append("MeshName: ").append(getMeshName()).append(",");
+        if (getMeshOwner() != null)
+            sb.append("MeshOwner: ").append(getMeshOwner()).append(",");
         if (getNextToken() != null)
             sb.append("NextToken: ").append(getNextToken());
         sb.append("}");
@@ -256,6 +322,10 @@ public class ListVirtualRoutersRequest extends com.amazonaws.AmazonWebServiceReq
             return false;
         if (other.getMeshName() != null && other.getMeshName().equals(this.getMeshName()) == false)
             return false;
+        if (other.getMeshOwner() == null ^ this.getMeshOwner() == null)
+            return false;
+        if (other.getMeshOwner() != null && other.getMeshOwner().equals(this.getMeshOwner()) == false)
+            return false;
         if (other.getNextToken() == null ^ this.getNextToken() == null)
             return false;
         if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
@@ -270,6 +340,7 @@ public class ListVirtualRoutersRequest extends com.amazonaws.AmazonWebServiceReq
 
         hashCode = prime * hashCode + ((getLimit() == null) ? 0 : getLimit().hashCode());
         hashCode = prime * hashCode + ((getMeshName() == null) ? 0 : getMeshName().hashCode());
+        hashCode = prime * hashCode + ((getMeshOwner() == null) ? 0 : getMeshOwner().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         return hashCode;
     }

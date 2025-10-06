@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains other private IP address information of the EC2 instance.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/PrivateIpAddressDetails" target="_top">AWS
  *      API Documentation</a>
@@ -27,24 +30,24 @@ public class PrivateIpAddressDetails implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Private DNS name of the EC2 instance.
+     * The private DNS name of the EC2 instance.
      * </p>
      */
     private String privateDnsName;
     /**
      * <p>
-     * Private IP address of the EC2 instance.
+     * The private IP address of the EC2 instance.
      * </p>
      */
     private String privateIpAddress;
 
     /**
      * <p>
-     * Private DNS name of the EC2 instance.
+     * The private DNS name of the EC2 instance.
      * </p>
      * 
      * @param privateDnsName
-     *        Private DNS name of the EC2 instance.
+     *        The private DNS name of the EC2 instance.
      */
 
     public void setPrivateDnsName(String privateDnsName) {
@@ -53,10 +56,10 @@ public class PrivateIpAddressDetails implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Private DNS name of the EC2 instance.
+     * The private DNS name of the EC2 instance.
      * </p>
      * 
-     * @return Private DNS name of the EC2 instance.
+     * @return The private DNS name of the EC2 instance.
      */
 
     public String getPrivateDnsName() {
@@ -65,11 +68,11 @@ public class PrivateIpAddressDetails implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Private DNS name of the EC2 instance.
+     * The private DNS name of the EC2 instance.
      * </p>
      * 
      * @param privateDnsName
-     *        Private DNS name of the EC2 instance.
+     *        The private DNS name of the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,11 +83,11 @@ public class PrivateIpAddressDetails implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Private IP address of the EC2 instance.
+     * The private IP address of the EC2 instance.
      * </p>
      * 
      * @param privateIpAddress
-     *        Private IP address of the EC2 instance.
+     *        The private IP address of the EC2 instance.
      */
 
     public void setPrivateIpAddress(String privateIpAddress) {
@@ -93,10 +96,10 @@ public class PrivateIpAddressDetails implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Private IP address of the EC2 instance.
+     * The private IP address of the EC2 instance.
      * </p>
      * 
-     * @return Private IP address of the EC2 instance.
+     * @return The private IP address of the EC2 instance.
      */
 
     public String getPrivateIpAddress() {
@@ -105,11 +108,11 @@ public class PrivateIpAddressDetails implements Serializable, Cloneable, Structu
 
     /**
      * <p>
-     * Private IP address of the EC2 instance.
+     * The private IP address of the EC2 instance.
      * </p>
      * 
      * @param privateIpAddress
-     *        Private IP address of the EC2 instance.
+     *        The private IP address of the EC2 instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -133,7 +136,7 @@ public class PrivateIpAddressDetails implements Serializable, Cloneable, Structu
         if (getPrivateDnsName() != null)
             sb.append("PrivateDnsName: ").append(getPrivateDnsName()).append(",");
         if (getPrivateIpAddress() != null)
-            sb.append("PrivateIpAddress: ").append(getPrivateIpAddress());
+            sb.append("PrivateIpAddress: ").append("***Sensitive Data Redacted***");
         sb.append("}");
         return sb.toString();
     }

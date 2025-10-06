@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,6 +46,14 @@ public class AwsEc2InstanceDetailsMarshaller {
             .marshallLocationName("SubnetId").build();
     private static final MarshallingInfo<String> LAUNCHEDAT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LaunchedAt").build();
+    private static final MarshallingInfo<List> NETWORKINTERFACES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("NetworkInterfaces").build();
+    private static final MarshallingInfo<String> VIRTUALIZATIONTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VirtualizationType").build();
+    private static final MarshallingInfo<StructuredPojo> METADATAOPTIONS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MetadataOptions").build();
+    private static final MarshallingInfo<StructuredPojo> MONITORING_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Monitoring").build();
 
     private static final AwsEc2InstanceDetailsMarshaller instance = new AwsEc2InstanceDetailsMarshaller();
 
@@ -72,6 +80,10 @@ public class AwsEc2InstanceDetailsMarshaller {
             protocolMarshaller.marshall(awsEc2InstanceDetails.getVpcId(), VPCID_BINDING);
             protocolMarshaller.marshall(awsEc2InstanceDetails.getSubnetId(), SUBNETID_BINDING);
             protocolMarshaller.marshall(awsEc2InstanceDetails.getLaunchedAt(), LAUNCHEDAT_BINDING);
+            protocolMarshaller.marshall(awsEc2InstanceDetails.getNetworkInterfaces(), NETWORKINTERFACES_BINDING);
+            protocolMarshaller.marshall(awsEc2InstanceDetails.getVirtualizationType(), VIRTUALIZATIONTYPE_BINDING);
+            protocolMarshaller.marshall(awsEc2InstanceDetails.getMetadataOptions(), METADATAOPTIONS_BINDING);
+            protocolMarshaller.marshall(awsEc2InstanceDetails.getMonitoring(), MONITORING_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

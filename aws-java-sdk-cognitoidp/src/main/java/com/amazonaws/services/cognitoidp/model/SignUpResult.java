@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,7 +40,7 @@ public class SignUpResult extends com.amazonaws.AmazonWebServiceResult<com.amazo
     private CodeDeliveryDetailsType codeDeliveryDetails;
     /**
      * <p>
-     * The UUID of the authenticated user. This is not the same as <code>username</code>.
+     * The UUID of the authenticated user. This isn't the same as <code>username</code>.
      * </p>
      */
     private String userSub;
@@ -139,11 +139,11 @@ public class SignUpResult extends com.amazonaws.AmazonWebServiceResult<com.amazo
 
     /**
      * <p>
-     * The UUID of the authenticated user. This is not the same as <code>username</code>.
+     * The UUID of the authenticated user. This isn't the same as <code>username</code>.
      * </p>
      * 
      * @param userSub
-     *        The UUID of the authenticated user. This is not the same as <code>username</code>.
+     *        The UUID of the authenticated user. This isn't the same as <code>username</code>.
      */
 
     public void setUserSub(String userSub) {
@@ -152,10 +152,10 @@ public class SignUpResult extends com.amazonaws.AmazonWebServiceResult<com.amazo
 
     /**
      * <p>
-     * The UUID of the authenticated user. This is not the same as <code>username</code>.
+     * The UUID of the authenticated user. This isn't the same as <code>username</code>.
      * </p>
      * 
-     * @return The UUID of the authenticated user. This is not the same as <code>username</code>.
+     * @return The UUID of the authenticated user. This isn't the same as <code>username</code>.
      */
 
     public String getUserSub() {
@@ -164,11 +164,11 @@ public class SignUpResult extends com.amazonaws.AmazonWebServiceResult<com.amazo
 
     /**
      * <p>
-     * The UUID of the authenticated user. This is not the same as <code>username</code>.
+     * The UUID of the authenticated user. This isn't the same as <code>username</code>.
      * </p>
      * 
      * @param userSub
-     *        The UUID of the authenticated user. This is not the same as <code>username</code>.
+     *        The UUID of the authenticated user. This isn't the same as <code>username</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

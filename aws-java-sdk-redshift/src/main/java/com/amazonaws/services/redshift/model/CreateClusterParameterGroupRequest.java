@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,7 +51,7 @@ public class CreateClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      * </li>
      * <li>
      * <p>
-     * Must be unique withing your AWS account.
+     * Must be unique withing your Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -69,10 +69,10 @@ public class CreateClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      * </p>
      * <p>
      * To get a list of valid parameter group family names, you can call <a>DescribeClusterParameterGroups</a>. By
-     * default, Amazon Redshift returns a list of all the parameter groups that are owned by your AWS account, including
-     * the default parameter groups for each Amazon Redshift engine version. The parameter group family names associated
-     * with the default parameter groups provide you the valid values. For example, a valid family name is
-     * "redshift-1.0".
+     * default, Amazon Redshift returns a list of all the parameter groups that are owned by your Amazon Web Services
+     * account, including the default parameter groups for each Amazon Redshift engine version. The parameter group
+     * family names associated with the default parameter groups provide you the valid values. For example, a valid
+     * family name is "redshift-1.0".
      * </p>
      */
     private String parameterGroupFamily;
@@ -114,7 +114,7 @@ public class CreateClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      * </li>
      * <li>
      * <p>
-     * Must be unique withing your AWS account.
+     * Must be unique withing your Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -147,7 +147,7 @@ public class CreateClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      *        </li>
      *        <li>
      *        <p>
-     *        Must be unique withing your AWS account.
+     *        Must be unique withing your Amazon Web Services account.
      *        </p>
      *        </li>
      *        </ul>
@@ -186,7 +186,7 @@ public class CreateClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      * </li>
      * <li>
      * <p>
-     * Must be unique withing your AWS account.
+     * Must be unique withing your Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -218,7 +218,7 @@ public class CreateClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      *         </li>
      *         <li>
      *         <p>
-     *         Must be unique withing your AWS account.
+     *         Must be unique withing your Amazon Web Services account.
      *         </p>
      *         </li>
      *         </ul>
@@ -257,7 +257,7 @@ public class CreateClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      * </li>
      * <li>
      * <p>
-     * Must be unique withing your AWS account.
+     * Must be unique withing your Amazon Web Services account.
      * </p>
      * </li>
      * </ul>
@@ -290,7 +290,7 @@ public class CreateClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      *        </li>
      *        <li>
      *        <p>
-     *        Must be unique withing your AWS account.
+     *        Must be unique withing your Amazon Web Services account.
      *        </p>
      *        </li>
      *        </ul>
@@ -313,10 +313,10 @@ public class CreateClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      * </p>
      * <p>
      * To get a list of valid parameter group family names, you can call <a>DescribeClusterParameterGroups</a>. By
-     * default, Amazon Redshift returns a list of all the parameter groups that are owned by your AWS account, including
-     * the default parameter groups for each Amazon Redshift engine version. The parameter group family names associated
-     * with the default parameter groups provide you the valid values. For example, a valid family name is
-     * "redshift-1.0".
+     * default, Amazon Redshift returns a list of all the parameter groups that are owned by your Amazon Web Services
+     * account, including the default parameter groups for each Amazon Redshift engine version. The parameter group
+     * family names associated with the default parameter groups provide you the valid values. For example, a valid
+     * family name is "redshift-1.0".
      * </p>
      * 
      * @param parameterGroupFamily
@@ -324,10 +324,10 @@ public class CreateClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      *        version determines the set of parameters.</p>
      *        <p>
      *        To get a list of valid parameter group family names, you can call <a>DescribeClusterParameterGroups</a>.
-     *        By default, Amazon Redshift returns a list of all the parameter groups that are owned by your AWS account,
-     *        including the default parameter groups for each Amazon Redshift engine version. The parameter group family
-     *        names associated with the default parameter groups provide you the valid values. For example, a valid
-     *        family name is "redshift-1.0".
+     *        By default, Amazon Redshift returns a list of all the parameter groups that are owned by your Amazon Web
+     *        Services account, including the default parameter groups for each Amazon Redshift engine version. The
+     *        parameter group family names associated with the default parameter groups provide you the valid values.
+     *        For example, a valid family name is "redshift-1.0".
      */
 
     public void setParameterGroupFamily(String parameterGroupFamily) {
@@ -341,20 +341,20 @@ public class CreateClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      * </p>
      * <p>
      * To get a list of valid parameter group family names, you can call <a>DescribeClusterParameterGroups</a>. By
-     * default, Amazon Redshift returns a list of all the parameter groups that are owned by your AWS account, including
-     * the default parameter groups for each Amazon Redshift engine version. The parameter group family names associated
-     * with the default parameter groups provide you the valid values. For example, a valid family name is
-     * "redshift-1.0".
+     * default, Amazon Redshift returns a list of all the parameter groups that are owned by your Amazon Web Services
+     * account, including the default parameter groups for each Amazon Redshift engine version. The parameter group
+     * family names associated with the default parameter groups provide you the valid values. For example, a valid
+     * family name is "redshift-1.0".
      * </p>
      * 
      * @return The Amazon Redshift engine version to which the cluster parameter group applies. The cluster engine
      *         version determines the set of parameters.</p>
      *         <p>
      *         To get a list of valid parameter group family names, you can call <a>DescribeClusterParameterGroups</a>.
-     *         By default, Amazon Redshift returns a list of all the parameter groups that are owned by your AWS
-     *         account, including the default parameter groups for each Amazon Redshift engine version. The parameter
-     *         group family names associated with the default parameter groups provide you the valid values. For
-     *         example, a valid family name is "redshift-1.0".
+     *         By default, Amazon Redshift returns a list of all the parameter groups that are owned by your Amazon Web
+     *         Services account, including the default parameter groups for each Amazon Redshift engine version. The
+     *         parameter group family names associated with the default parameter groups provide you the valid values.
+     *         For example, a valid family name is "redshift-1.0".
      */
 
     public String getParameterGroupFamily() {
@@ -368,10 +368,10 @@ public class CreateClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      * </p>
      * <p>
      * To get a list of valid parameter group family names, you can call <a>DescribeClusterParameterGroups</a>. By
-     * default, Amazon Redshift returns a list of all the parameter groups that are owned by your AWS account, including
-     * the default parameter groups for each Amazon Redshift engine version. The parameter group family names associated
-     * with the default parameter groups provide you the valid values. For example, a valid family name is
-     * "redshift-1.0".
+     * default, Amazon Redshift returns a list of all the parameter groups that are owned by your Amazon Web Services
+     * account, including the default parameter groups for each Amazon Redshift engine version. The parameter group
+     * family names associated with the default parameter groups provide you the valid values. For example, a valid
+     * family name is "redshift-1.0".
      * </p>
      * 
      * @param parameterGroupFamily
@@ -379,10 +379,10 @@ public class CreateClusterParameterGroupRequest extends com.amazonaws.AmazonWebS
      *        version determines the set of parameters.</p>
      *        <p>
      *        To get a list of valid parameter group family names, you can call <a>DescribeClusterParameterGroups</a>.
-     *        By default, Amazon Redshift returns a list of all the parameter groups that are owned by your AWS account,
-     *        including the default parameter groups for each Amazon Redshift engine version. The parameter group family
-     *        names associated with the default parameter groups provide you the valid values. For example, a valid
-     *        family name is "redshift-1.0".
+     *        By default, Amazon Redshift returns a list of all the parameter groups that are owned by your Amazon Web
+     *        Services account, including the default parameter groups for each Amazon Redshift engine version. The
+     *        parameter group family names associated with the default parameter groups provide you the valid values.
+     *        For example, a valid family name is "redshift-1.0".
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

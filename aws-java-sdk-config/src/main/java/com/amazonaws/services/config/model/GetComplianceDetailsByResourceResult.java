@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class GetComplianceDetailsByResourceResult extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * Indicates whether the specified AWS resource complies each AWS Config rule.
+     * Indicates whether the specified Amazon Web Services resource complies each Config rule.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<EvaluationResult> evaluationResults;
@@ -40,10 +40,10 @@ public class GetComplianceDetailsByResourceResult extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * Indicates whether the specified AWS resource complies each AWS Config rule.
+     * Indicates whether the specified Amazon Web Services resource complies each Config rule.
      * </p>
      * 
-     * @return Indicates whether the specified AWS resource complies each AWS Config rule.
+     * @return Indicates whether the specified Amazon Web Services resource complies each Config rule.
      */
 
     public java.util.List<EvaluationResult> getEvaluationResults() {
@@ -55,11 +55,11 @@ public class GetComplianceDetailsByResourceResult extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * Indicates whether the specified AWS resource complies each AWS Config rule.
+     * Indicates whether the specified Amazon Web Services resource complies each Config rule.
      * </p>
      * 
      * @param evaluationResults
-     *        Indicates whether the specified AWS resource complies each AWS Config rule.
+     *        Indicates whether the specified Amazon Web Services resource complies each Config rule.
      */
 
     public void setEvaluationResults(java.util.Collection<EvaluationResult> evaluationResults) {
@@ -73,7 +73,7 @@ public class GetComplianceDetailsByResourceResult extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * Indicates whether the specified AWS resource complies each AWS Config rule.
+     * Indicates whether the specified Amazon Web Services resource complies each Config rule.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -82,7 +82,7 @@ public class GetComplianceDetailsByResourceResult extends com.amazonaws.AmazonWe
      * </p>
      * 
      * @param evaluationResults
-     *        Indicates whether the specified AWS resource complies each AWS Config rule.
+     *        Indicates whether the specified Amazon Web Services resource complies each Config rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -98,11 +98,11 @@ public class GetComplianceDetailsByResourceResult extends com.amazonaws.AmazonWe
 
     /**
      * <p>
-     * Indicates whether the specified AWS resource complies each AWS Config rule.
+     * Indicates whether the specified Amazon Web Services resource complies each Config rule.
      * </p>
      * 
      * @param evaluationResults
-     *        Indicates whether the specified AWS resource complies each AWS Config rule.
+     *        Indicates whether the specified Amazon Web Services resource complies each Config rule.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

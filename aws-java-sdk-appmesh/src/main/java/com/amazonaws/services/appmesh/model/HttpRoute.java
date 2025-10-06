@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An object representing the HTTP routing specification for a route.
+ * An object that represents an HTTP or HTTP/2 route type.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/HttpRoute" target="_top">AWS API
@@ -30,24 +30,36 @@ public class HttpRoute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The action to take if a match is determined.
+     * An object that represents the action to take if a match is determined.
      * </p>
      */
     private HttpRouteAction action;
     /**
      * <p>
-     * The criteria for determining an HTTP request match.
+     * An object that represents the criteria for determining a request match.
      * </p>
      */
     private HttpRouteMatch match;
+    /**
+     * <p>
+     * An object that represents a retry policy.
+     * </p>
+     */
+    private HttpRetryPolicy retryPolicy;
+    /**
+     * <p>
+     * An object that represents types of timeouts.
+     * </p>
+     */
+    private HttpTimeout timeout;
 
     /**
      * <p>
-     * The action to take if a match is determined.
+     * An object that represents the action to take if a match is determined.
      * </p>
      * 
      * @param action
-     *        The action to take if a match is determined.
+     *        An object that represents the action to take if a match is determined.
      */
 
     public void setAction(HttpRouteAction action) {
@@ -56,10 +68,10 @@ public class HttpRoute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The action to take if a match is determined.
+     * An object that represents the action to take if a match is determined.
      * </p>
      * 
-     * @return The action to take if a match is determined.
+     * @return An object that represents the action to take if a match is determined.
      */
 
     public HttpRouteAction getAction() {
@@ -68,11 +80,11 @@ public class HttpRoute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The action to take if a match is determined.
+     * An object that represents the action to take if a match is determined.
      * </p>
      * 
      * @param action
-     *        The action to take if a match is determined.
+     *        An object that represents the action to take if a match is determined.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -83,11 +95,11 @@ public class HttpRoute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The criteria for determining an HTTP request match.
+     * An object that represents the criteria for determining a request match.
      * </p>
      * 
      * @param match
-     *        The criteria for determining an HTTP request match.
+     *        An object that represents the criteria for determining a request match.
      */
 
     public void setMatch(HttpRouteMatch match) {
@@ -96,10 +108,10 @@ public class HttpRoute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The criteria for determining an HTTP request match.
+     * An object that represents the criteria for determining a request match.
      * </p>
      * 
-     * @return The criteria for determining an HTTP request match.
+     * @return An object that represents the criteria for determining a request match.
      */
 
     public HttpRouteMatch getMatch() {
@@ -108,16 +120,96 @@ public class HttpRoute implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The criteria for determining an HTTP request match.
+     * An object that represents the criteria for determining a request match.
      * </p>
      * 
      * @param match
-     *        The criteria for determining an HTTP request match.
+     *        An object that represents the criteria for determining a request match.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public HttpRoute withMatch(HttpRouteMatch match) {
         setMatch(match);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An object that represents a retry policy.
+     * </p>
+     * 
+     * @param retryPolicy
+     *        An object that represents a retry policy.
+     */
+
+    public void setRetryPolicy(HttpRetryPolicy retryPolicy) {
+        this.retryPolicy = retryPolicy;
+    }
+
+    /**
+     * <p>
+     * An object that represents a retry policy.
+     * </p>
+     * 
+     * @return An object that represents a retry policy.
+     */
+
+    public HttpRetryPolicy getRetryPolicy() {
+        return this.retryPolicy;
+    }
+
+    /**
+     * <p>
+     * An object that represents a retry policy.
+     * </p>
+     * 
+     * @param retryPolicy
+     *        An object that represents a retry policy.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HttpRoute withRetryPolicy(HttpRetryPolicy retryPolicy) {
+        setRetryPolicy(retryPolicy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An object that represents types of timeouts.
+     * </p>
+     * 
+     * @param timeout
+     *        An object that represents types of timeouts.
+     */
+
+    public void setTimeout(HttpTimeout timeout) {
+        this.timeout = timeout;
+    }
+
+    /**
+     * <p>
+     * An object that represents types of timeouts.
+     * </p>
+     * 
+     * @return An object that represents types of timeouts.
+     */
+
+    public HttpTimeout getTimeout() {
+        return this.timeout;
+    }
+
+    /**
+     * <p>
+     * An object that represents types of timeouts.
+     * </p>
+     * 
+     * @param timeout
+     *        An object that represents types of timeouts.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HttpRoute withTimeout(HttpTimeout timeout) {
+        setTimeout(timeout);
         return this;
     }
 
@@ -136,7 +228,11 @@ public class HttpRoute implements Serializable, Cloneable, StructuredPojo {
         if (getAction() != null)
             sb.append("Action: ").append(getAction()).append(",");
         if (getMatch() != null)
-            sb.append("Match: ").append(getMatch());
+            sb.append("Match: ").append(getMatch()).append(",");
+        if (getRetryPolicy() != null)
+            sb.append("RetryPolicy: ").append(getRetryPolicy()).append(",");
+        if (getTimeout() != null)
+            sb.append("Timeout: ").append(getTimeout());
         sb.append("}");
         return sb.toString();
     }
@@ -159,6 +255,14 @@ public class HttpRoute implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getMatch() != null && other.getMatch().equals(this.getMatch()) == false)
             return false;
+        if (other.getRetryPolicy() == null ^ this.getRetryPolicy() == null)
+            return false;
+        if (other.getRetryPolicy() != null && other.getRetryPolicy().equals(this.getRetryPolicy()) == false)
+            return false;
+        if (other.getTimeout() == null ^ this.getTimeout() == null)
+            return false;
+        if (other.getTimeout() != null && other.getTimeout().equals(this.getTimeout()) == false)
+            return false;
         return true;
     }
 
@@ -169,6 +273,8 @@ public class HttpRoute implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getAction() == null) ? 0 : getAction().hashCode());
         hashCode = prime * hashCode + ((getMatch() == null) ? 0 : getMatch().hashCode());
+        hashCode = prime * hashCode + ((getRetryPolicy() == null) ? 0 : getRetryPolicy().hashCode());
+        hashCode = prime * hashCode + ((getTimeout() == null) ? 0 : getTimeout().hashCode());
         return hashCode;
     }
 

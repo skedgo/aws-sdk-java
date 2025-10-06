@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,13 +48,14 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * </li>
      * <li>
      * <p>
-     * LEGAL_ENTITY_NAME - The name of the organization that sells you AWS services, such as Amazon Web Services.
+     * LEGAL_ENTITY_NAME - The name of the organization that sells you Amazon Web Services services, such as Amazon Web
+     * Services.
      * </p>
      * </li>
      * <li>
      * <p>
      * LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account. The
-     * value field contains the AWS ID of the member account.
+     * value field contains the Amazon Web Services ID of the member account.
      * </p>
      * </li>
      * <li>
@@ -80,7 +81,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * </li>
      * <li>
      * <p>
-     * SERVICE - The AWS service such as Amazon DynamoDB.
+     * SERVICE - The Amazon Web Services service such as Amazon DynamoDB.
      * </p>
      * </li>
      * <li>
@@ -98,6 +99,13 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * <li>
      * <p>
      * RECORD_TYPE - The different types of charges such as RI fees, usage costs, tax refunds, and credits.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RESOURCE_ID - The unique identifier of the resource. ResourceId is an opt-in feature only available for last 14
+     * days for EC2-Compute Service. You can opt-in by enabling <code>Hourly</code> and <code>Resource Level Data</code>
+     * in Cost Management Console preferences.
      * </p>
      * </li>
      * </ul>
@@ -129,7 +137,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * <li>
      * <p>
      * LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account. The
-     * value field contains the AWS ID of the member account.
+     * value field contains the Amazon Web Services ID of the member account.
      * </p>
      * </li>
      * <li>
@@ -139,7 +147,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * </li>
      * <li>
      * <p>
-     * REGION - The AWS Region.
+     * REGION - The Amazon Web Services Region.
      * </p>
      * </li>
      * <li>
@@ -159,11 +167,47 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If you set the context to <code>SAVINGS_PLANS</code>, you can use the following dimensions for searching:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * SAVINGS_PLANS_TYPE - Type of Savings Plans (EC2 Instance or Compute)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * PAYMENT_OPTION - Payment option for the given Savings Plans (for example, All Upfront)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * REGION - The Amazon Web Services Region.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * INSTANCE_TYPE_FAMILY - The family of instances (For example, <code>m5</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account. The
+     * value field contains the Amazon Web Services ID of the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SAVINGS_PLAN_ARN - The unique identifier for your Savings Plan
+     * </p>
+     * </li>
+     * </ul>
      */
     private java.util.List<DimensionValuesWithAttributes> dimensionValues;
     /**
      * <p>
-     * The number of results that AWS returned at one time.
+     * The number of results that Amazon Web Services returned at one time.
      * </p>
      */
     private Integer returnSize;
@@ -175,8 +219,8 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
     private Integer totalSize;
     /**
      * <p>
-     * The token for the next set of retrievable results. AWS provides the token when the response from a previous call
-     * has more results than the maximum page size.
+     * The token for the next set of retrievable results. Amazon Web Services provides the token when the response from
+     * a previous call has more results than the maximum page size.
      * </p>
      */
     private String nextPageToken;
@@ -206,13 +250,14 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * </li>
      * <li>
      * <p>
-     * LEGAL_ENTITY_NAME - The name of the organization that sells you AWS services, such as Amazon Web Services.
+     * LEGAL_ENTITY_NAME - The name of the organization that sells you Amazon Web Services services, such as Amazon Web
+     * Services.
      * </p>
      * </li>
      * <li>
      * <p>
      * LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account. The
-     * value field contains the AWS ID of the member account.
+     * value field contains the Amazon Web Services ID of the member account.
      * </p>
      * </li>
      * <li>
@@ -238,7 +283,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * </li>
      * <li>
      * <p>
-     * SERVICE - The AWS service such as Amazon DynamoDB.
+     * SERVICE - The Amazon Web Services service such as Amazon DynamoDB.
      * </p>
      * </li>
      * <li>
@@ -256,6 +301,13 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * <li>
      * <p>
      * RECORD_TYPE - The different types of charges such as RI fees, usage costs, tax refunds, and credits.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RESOURCE_ID - The unique identifier of the resource. ResourceId is an opt-in feature only available for last 14
+     * days for EC2-Compute Service. You can opt-in by enabling <code>Hourly</code> and <code>Resource Level Data</code>
+     * in Cost Management Console preferences.
      * </p>
      * </li>
      * </ul>
@@ -287,7 +339,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * <li>
      * <p>
      * LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account. The
-     * value field contains the AWS ID of the member account.
+     * value field contains the Amazon Web Services ID of the member account.
      * </p>
      * </li>
      * <li>
@@ -297,7 +349,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * </li>
      * <li>
      * <p>
-     * REGION - The AWS Region.
+     * REGION - The Amazon Web Services Region.
      * </p>
      * </li>
      * <li>
@@ -314,6 +366,42 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * <li>
      * <p>
      * TENANCY - The tenancy of a resource. Examples are shared or dedicated.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you set the context to <code>SAVINGS_PLANS</code>, you can use the following dimensions for searching:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * SAVINGS_PLANS_TYPE - Type of Savings Plans (EC2 Instance or Compute)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * PAYMENT_OPTION - Payment option for the given Savings Plans (for example, All Upfront)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * REGION - The Amazon Web Services Region.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * INSTANCE_TYPE_FAMILY - The family of instances (For example, <code>m5</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account. The
+     * value field contains the Amazon Web Services ID of the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SAVINGS_PLAN_ARN - The unique identifier for your Savings Plan
      * </p>
      * </li>
      * </ul>
@@ -342,14 +430,14 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *         </li>
      *         <li>
      *         <p>
-     *         LEGAL_ENTITY_NAME - The name of the organization that sells you AWS services, such as Amazon Web
-     *         Services.
+     *         LEGAL_ENTITY_NAME - The name of the organization that sells you Amazon Web Services services, such as
+     *         Amazon Web Services.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account.
-     *         The value field contains the AWS ID of the member account.
+     *         The value field contains the Amazon Web Services ID of the member account.
      *         </p>
      *         </li>
      *         <li>
@@ -376,7 +464,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *         </li>
      *         <li>
      *         <p>
-     *         SERVICE - The AWS service such as Amazon DynamoDB.
+     *         SERVICE - The Amazon Web Services service such as Amazon DynamoDB.
      *         </p>
      *         </li>
      *         <li>
@@ -394,6 +482,13 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *         <li>
      *         <p>
      *         RECORD_TYPE - The different types of charges such as RI fees, usage costs, tax refunds, and credits.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         RESOURCE_ID - The unique identifier of the resource. ResourceId is an opt-in feature only available for
+     *         last 14 days for EC2-Compute Service. You can opt-in by enabling <code>Hourly</code> and
+     *         <code>Resource Level Data</code> in Cost Management Console preferences.
      *         </p>
      *         </li>
      *         </ul>
@@ -425,7 +520,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *         <li>
      *         <p>
      *         LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account.
-     *         The value field contains the AWS ID of the member account.
+     *         The value field contains the Amazon Web Services ID of the member account.
      *         </p>
      *         </li>
      *         <li>
@@ -435,7 +530,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *         </li>
      *         <li>
      *         <p>
-     *         REGION - The AWS Region.
+     *         REGION - The Amazon Web Services Region.
      *         </p>
      *         </li>
      *         <li>
@@ -452,6 +547,42 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *         <li>
      *         <p>
      *         TENANCY - The tenancy of a resource. Examples are shared or dedicated.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         If you set the context to <code>SAVINGS_PLANS</code>, you can use the following dimensions for searching:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         SAVINGS_PLANS_TYPE - Type of Savings Plans (EC2 Instance or Compute)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         PAYMENT_OPTION - Payment option for the given Savings Plans (for example, All Upfront)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         REGION - The Amazon Web Services Region.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         INSTANCE_TYPE_FAMILY - The family of instances (For example, <code>m5</code>)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account.
+     *         The value field contains the Amazon Web Services ID of the member account.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         SAVINGS_PLAN_ARN - The unique identifier for your Savings Plan
      *         </p>
      *         </li>
      */
@@ -485,13 +616,14 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * </li>
      * <li>
      * <p>
-     * LEGAL_ENTITY_NAME - The name of the organization that sells you AWS services, such as Amazon Web Services.
+     * LEGAL_ENTITY_NAME - The name of the organization that sells you Amazon Web Services services, such as Amazon Web
+     * Services.
      * </p>
      * </li>
      * <li>
      * <p>
      * LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account. The
-     * value field contains the AWS ID of the member account.
+     * value field contains the Amazon Web Services ID of the member account.
      * </p>
      * </li>
      * <li>
@@ -517,7 +649,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * </li>
      * <li>
      * <p>
-     * SERVICE - The AWS service such as Amazon DynamoDB.
+     * SERVICE - The Amazon Web Services service such as Amazon DynamoDB.
      * </p>
      * </li>
      * <li>
@@ -535,6 +667,13 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * <li>
      * <p>
      * RECORD_TYPE - The different types of charges such as RI fees, usage costs, tax refunds, and credits.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RESOURCE_ID - The unique identifier of the resource. ResourceId is an opt-in feature only available for last 14
+     * days for EC2-Compute Service. You can opt-in by enabling <code>Hourly</code> and <code>Resource Level Data</code>
+     * in Cost Management Console preferences.
      * </p>
      * </li>
      * </ul>
@@ -566,7 +705,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * <li>
      * <p>
      * LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account. The
-     * value field contains the AWS ID of the member account.
+     * value field contains the Amazon Web Services ID of the member account.
      * </p>
      * </li>
      * <li>
@@ -576,7 +715,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * </li>
      * <li>
      * <p>
-     * REGION - The AWS Region.
+     * REGION - The Amazon Web Services Region.
      * </p>
      * </li>
      * <li>
@@ -593,6 +732,42 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * <li>
      * <p>
      * TENANCY - The tenancy of a resource. Examples are shared or dedicated.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you set the context to <code>SAVINGS_PLANS</code>, you can use the following dimensions for searching:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * SAVINGS_PLANS_TYPE - Type of Savings Plans (EC2 Instance or Compute)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * PAYMENT_OPTION - Payment option for the given Savings Plans (for example, All Upfront)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * REGION - The Amazon Web Services Region.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * INSTANCE_TYPE_FAMILY - The family of instances (For example, <code>m5</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account. The
+     * value field contains the Amazon Web Services ID of the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SAVINGS_PLAN_ARN - The unique identifier for your Savings Plan
      * </p>
      * </li>
      * </ul>
@@ -621,13 +796,14 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        </li>
      *        <li>
      *        <p>
-     *        LEGAL_ENTITY_NAME - The name of the organization that sells you AWS services, such as Amazon Web Services.
+     *        LEGAL_ENTITY_NAME - The name of the organization that sells you Amazon Web Services services, such as
+     *        Amazon Web Services.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account.
-     *        The value field contains the AWS ID of the member account.
+     *        The value field contains the Amazon Web Services ID of the member account.
      *        </p>
      *        </li>
      *        <li>
@@ -653,7 +829,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        </li>
      *        <li>
      *        <p>
-     *        SERVICE - The AWS service such as Amazon DynamoDB.
+     *        SERVICE - The Amazon Web Services service such as Amazon DynamoDB.
      *        </p>
      *        </li>
      *        <li>
@@ -671,6 +847,13 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        <li>
      *        <p>
      *        RECORD_TYPE - The different types of charges such as RI fees, usage costs, tax refunds, and credits.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RESOURCE_ID - The unique identifier of the resource. ResourceId is an opt-in feature only available for
+     *        last 14 days for EC2-Compute Service. You can opt-in by enabling <code>Hourly</code> and
+     *        <code>Resource Level Data</code> in Cost Management Console preferences.
      *        </p>
      *        </li>
      *        </ul>
@@ -702,7 +885,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        <li>
      *        <p>
      *        LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account.
-     *        The value field contains the AWS ID of the member account.
+     *        The value field contains the Amazon Web Services ID of the member account.
      *        </p>
      *        </li>
      *        <li>
@@ -712,7 +895,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        </li>
      *        <li>
      *        <p>
-     *        REGION - The AWS Region.
+     *        REGION - The Amazon Web Services Region.
      *        </p>
      *        </li>
      *        <li>
@@ -729,6 +912,42 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        <li>
      *        <p>
      *        TENANCY - The tenancy of a resource. Examples are shared or dedicated.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you set the context to <code>SAVINGS_PLANS</code>, you can use the following dimensions for searching:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        SAVINGS_PLANS_TYPE - Type of Savings Plans (EC2 Instance or Compute)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        PAYMENT_OPTION - Payment option for the given Savings Plans (for example, All Upfront)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        REGION - The Amazon Web Services Region.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        INSTANCE_TYPE_FAMILY - The family of instances (For example, <code>m5</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account.
+     *        The value field contains the Amazon Web Services ID of the member account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SAVINGS_PLAN_ARN - The unique identifier for your Savings Plan
      *        </p>
      *        </li>
      */
@@ -767,13 +986,14 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * </li>
      * <li>
      * <p>
-     * LEGAL_ENTITY_NAME - The name of the organization that sells you AWS services, such as Amazon Web Services.
+     * LEGAL_ENTITY_NAME - The name of the organization that sells you Amazon Web Services services, such as Amazon Web
+     * Services.
      * </p>
      * </li>
      * <li>
      * <p>
      * LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account. The
-     * value field contains the AWS ID of the member account.
+     * value field contains the Amazon Web Services ID of the member account.
      * </p>
      * </li>
      * <li>
@@ -799,7 +1019,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * </li>
      * <li>
      * <p>
-     * SERVICE - The AWS service such as Amazon DynamoDB.
+     * SERVICE - The Amazon Web Services service such as Amazon DynamoDB.
      * </p>
      * </li>
      * <li>
@@ -817,6 +1037,13 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * <li>
      * <p>
      * RECORD_TYPE - The different types of charges such as RI fees, usage costs, tax refunds, and credits.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RESOURCE_ID - The unique identifier of the resource. ResourceId is an opt-in feature only available for last 14
+     * days for EC2-Compute Service. You can opt-in by enabling <code>Hourly</code> and <code>Resource Level Data</code>
+     * in Cost Management Console preferences.
      * </p>
      * </li>
      * </ul>
@@ -848,7 +1075,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * <li>
      * <p>
      * LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account. The
-     * value field contains the AWS ID of the member account.
+     * value field contains the Amazon Web Services ID of the member account.
      * </p>
      * </li>
      * <li>
@@ -858,7 +1085,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * </li>
      * <li>
      * <p>
-     * REGION - The AWS Region.
+     * REGION - The Amazon Web Services Region.
      * </p>
      * </li>
      * <li>
@@ -875,6 +1102,42 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * <li>
      * <p>
      * TENANCY - The tenancy of a resource. Examples are shared or dedicated.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you set the context to <code>SAVINGS_PLANS</code>, you can use the following dimensions for searching:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * SAVINGS_PLANS_TYPE - Type of Savings Plans (EC2 Instance or Compute)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * PAYMENT_OPTION - Payment option for the given Savings Plans (for example, All Upfront)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * REGION - The Amazon Web Services Region.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * INSTANCE_TYPE_FAMILY - The family of instances (For example, <code>m5</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account. The
+     * value field contains the Amazon Web Services ID of the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SAVINGS_PLAN_ARN - The unique identifier for your Savings Plan
      * </p>
      * </li>
      * </ul>
@@ -908,13 +1171,14 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        </li>
      *        <li>
      *        <p>
-     *        LEGAL_ENTITY_NAME - The name of the organization that sells you AWS services, such as Amazon Web Services.
+     *        LEGAL_ENTITY_NAME - The name of the organization that sells you Amazon Web Services services, such as
+     *        Amazon Web Services.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account.
-     *        The value field contains the AWS ID of the member account.
+     *        The value field contains the Amazon Web Services ID of the member account.
      *        </p>
      *        </li>
      *        <li>
@@ -940,7 +1204,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        </li>
      *        <li>
      *        <p>
-     *        SERVICE - The AWS service such as Amazon DynamoDB.
+     *        SERVICE - The Amazon Web Services service such as Amazon DynamoDB.
      *        </p>
      *        </li>
      *        <li>
@@ -958,6 +1222,13 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        <li>
      *        <p>
      *        RECORD_TYPE - The different types of charges such as RI fees, usage costs, tax refunds, and credits.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RESOURCE_ID - The unique identifier of the resource. ResourceId is an opt-in feature only available for
+     *        last 14 days for EC2-Compute Service. You can opt-in by enabling <code>Hourly</code> and
+     *        <code>Resource Level Data</code> in Cost Management Console preferences.
      *        </p>
      *        </li>
      *        </ul>
@@ -989,7 +1260,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        <li>
      *        <p>
      *        LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account.
-     *        The value field contains the AWS ID of the member account.
+     *        The value field contains the Amazon Web Services ID of the member account.
      *        </p>
      *        </li>
      *        <li>
@@ -999,7 +1270,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        </li>
      *        <li>
      *        <p>
-     *        REGION - The AWS Region.
+     *        REGION - The Amazon Web Services Region.
      *        </p>
      *        </li>
      *        <li>
@@ -1016,6 +1287,42 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        <li>
      *        <p>
      *        TENANCY - The tenancy of a resource. Examples are shared or dedicated.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you set the context to <code>SAVINGS_PLANS</code>, you can use the following dimensions for searching:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        SAVINGS_PLANS_TYPE - Type of Savings Plans (EC2 Instance or Compute)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        PAYMENT_OPTION - Payment option for the given Savings Plans (for example, All Upfront)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        REGION - The Amazon Web Services Region.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        INSTANCE_TYPE_FAMILY - The family of instances (For example, <code>m5</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account.
+     *        The value field contains the Amazon Web Services ID of the member account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SAVINGS_PLAN_ARN - The unique identifier for your Savings Plan
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1056,13 +1363,14 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * </li>
      * <li>
      * <p>
-     * LEGAL_ENTITY_NAME - The name of the organization that sells you AWS services, such as Amazon Web Services.
+     * LEGAL_ENTITY_NAME - The name of the organization that sells you Amazon Web Services services, such as Amazon Web
+     * Services.
      * </p>
      * </li>
      * <li>
      * <p>
      * LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account. The
-     * value field contains the AWS ID of the member account.
+     * value field contains the Amazon Web Services ID of the member account.
      * </p>
      * </li>
      * <li>
@@ -1088,7 +1396,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * </li>
      * <li>
      * <p>
-     * SERVICE - The AWS service such as Amazon DynamoDB.
+     * SERVICE - The Amazon Web Services service such as Amazon DynamoDB.
      * </p>
      * </li>
      * <li>
@@ -1106,6 +1414,13 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * <li>
      * <p>
      * RECORD_TYPE - The different types of charges such as RI fees, usage costs, tax refunds, and credits.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * RESOURCE_ID - The unique identifier of the resource. ResourceId is an opt-in feature only available for last 14
+     * days for EC2-Compute Service. You can opt-in by enabling <code>Hourly</code> and <code>Resource Level Data</code>
+     * in Cost Management Console preferences.
      * </p>
      * </li>
      * </ul>
@@ -1137,7 +1452,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * <li>
      * <p>
      * LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account. The
-     * value field contains the AWS ID of the member account.
+     * value field contains the Amazon Web Services ID of the member account.
      * </p>
      * </li>
      * <li>
@@ -1147,7 +1462,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * </li>
      * <li>
      * <p>
-     * REGION - The AWS Region.
+     * REGION - The Amazon Web Services Region.
      * </p>
      * </li>
      * <li>
@@ -1164,6 +1479,42 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      * <li>
      * <p>
      * TENANCY - The tenancy of a resource. Examples are shared or dedicated.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you set the context to <code>SAVINGS_PLANS</code>, you can use the following dimensions for searching:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * SAVINGS_PLANS_TYPE - Type of Savings Plans (EC2 Instance or Compute)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * PAYMENT_OPTION - Payment option for the given Savings Plans (for example, All Upfront)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * REGION - The Amazon Web Services Region.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * INSTANCE_TYPE_FAMILY - The family of instances (For example, <code>m5</code>)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account. The
+     * value field contains the Amazon Web Services ID of the member account.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * SAVINGS_PLAN_ARN - The unique identifier for your Savings Plan
      * </p>
      * </li>
      * </ul>
@@ -1192,13 +1543,14 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        </li>
      *        <li>
      *        <p>
-     *        LEGAL_ENTITY_NAME - The name of the organization that sells you AWS services, such as Amazon Web Services.
+     *        LEGAL_ENTITY_NAME - The name of the organization that sells you Amazon Web Services services, such as
+     *        Amazon Web Services.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account.
-     *        The value field contains the AWS ID of the member account.
+     *        The value field contains the Amazon Web Services ID of the member account.
      *        </p>
      *        </li>
      *        <li>
@@ -1224,7 +1576,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        </li>
      *        <li>
      *        <p>
-     *        SERVICE - The AWS service such as Amazon DynamoDB.
+     *        SERVICE - The Amazon Web Services service such as Amazon DynamoDB.
      *        </p>
      *        </li>
      *        <li>
@@ -1242,6 +1594,13 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        <li>
      *        <p>
      *        RECORD_TYPE - The different types of charges such as RI fees, usage costs, tax refunds, and credits.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        RESOURCE_ID - The unique identifier of the resource. ResourceId is an opt-in feature only available for
+     *        last 14 days for EC2-Compute Service. You can opt-in by enabling <code>Hourly</code> and
+     *        <code>Resource Level Data</code> in Cost Management Console preferences.
      *        </p>
      *        </li>
      *        </ul>
@@ -1273,7 +1632,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        <li>
      *        <p>
      *        LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account.
-     *        The value field contains the AWS ID of the member account.
+     *        The value field contains the Amazon Web Services ID of the member account.
      *        </p>
      *        </li>
      *        <li>
@@ -1283,7 +1642,7 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        </li>
      *        <li>
      *        <p>
-     *        REGION - The AWS Region.
+     *        REGION - The Amazon Web Services Region.
      *        </p>
      *        </li>
      *        <li>
@@ -1302,6 +1661,42 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
      *        TENANCY - The tenancy of a resource. Examples are shared or dedicated.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        If you set the context to <code>SAVINGS_PLANS</code>, you can use the following dimensions for searching:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        SAVINGS_PLANS_TYPE - Type of Savings Plans (EC2 Instance or Compute)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        PAYMENT_OPTION - Payment option for the given Savings Plans (for example, All Upfront)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        REGION - The Amazon Web Services Region.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        INSTANCE_TYPE_FAMILY - The family of instances (For example, <code>m5</code>)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        LINKED_ACCOUNT - The description in the attribute map that includes the full name of the member account.
+     *        The value field contains the Amazon Web Services ID of the member account.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        SAVINGS_PLAN_ARN - The unique identifier for your Savings Plan
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1312,11 +1707,11 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The number of results that AWS returned at one time.
+     * The number of results that Amazon Web Services returned at one time.
      * </p>
      * 
      * @param returnSize
-     *        The number of results that AWS returned at one time.
+     *        The number of results that Amazon Web Services returned at one time.
      */
 
     public void setReturnSize(Integer returnSize) {
@@ -1325,10 +1720,10 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The number of results that AWS returned at one time.
+     * The number of results that Amazon Web Services returned at one time.
      * </p>
      * 
-     * @return The number of results that AWS returned at one time.
+     * @return The number of results that Amazon Web Services returned at one time.
      */
 
     public Integer getReturnSize() {
@@ -1337,11 +1732,11 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The number of results that AWS returned at one time.
+     * The number of results that Amazon Web Services returned at one time.
      * </p>
      * 
      * @param returnSize
-     *        The number of results that AWS returned at one time.
+     *        The number of results that Amazon Web Services returned at one time.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1392,13 +1787,13 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The token for the next set of retrievable results. AWS provides the token when the response from a previous call
-     * has more results than the maximum page size.
+     * The token for the next set of retrievable results. Amazon Web Services provides the token when the response from
+     * a previous call has more results than the maximum page size.
      * </p>
      * 
      * @param nextPageToken
-     *        The token for the next set of retrievable results. AWS provides the token when the response from a
-     *        previous call has more results than the maximum page size.
+     *        The token for the next set of retrievable results. Amazon Web Services provides the token when the
+     *        response from a previous call has more results than the maximum page size.
      */
 
     public void setNextPageToken(String nextPageToken) {
@@ -1407,12 +1802,12 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The token for the next set of retrievable results. AWS provides the token when the response from a previous call
-     * has more results than the maximum page size.
+     * The token for the next set of retrievable results. Amazon Web Services provides the token when the response from
+     * a previous call has more results than the maximum page size.
      * </p>
      * 
-     * @return The token for the next set of retrievable results. AWS provides the token when the response from a
-     *         previous call has more results than the maximum page size.
+     * @return The token for the next set of retrievable results. Amazon Web Services provides the token when the
+     *         response from a previous call has more results than the maximum page size.
      */
 
     public String getNextPageToken() {
@@ -1421,13 +1816,13 @@ public class GetDimensionValuesResult extends com.amazonaws.AmazonWebServiceResu
 
     /**
      * <p>
-     * The token for the next set of retrievable results. AWS provides the token when the response from a previous call
-     * has more results than the maximum page size.
+     * The token for the next set of retrievable results. Amazon Web Services provides the token when the response from
+     * a previous call has more results than the maximum page size.
      * </p>
      * 
      * @param nextPageToken
-     *        The token for the next set of retrievable results. AWS provides the token when the response from a
-     *        previous call has more results than the maximum page size.
+     *        The token for the next set of retrievable results. Amazon Web Services provides the token when the
+     *        response from a previous call has more results than the maximum page size.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The number of managed instances found for each patch severity level defined in the request filter.
+ * The number of managed nodes found for each patch severity level defined in the request filter.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/SeveritySummary" target="_top">AWS API
@@ -30,8 +30,8 @@ public class SeveritySummary implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The total number of resources or compliance items that have a severity level of critical. Critical severity is
-     * determined by the organization that published the compliance items.
+     * The total number of resources or compliance items that have a severity level of <code>Critical</code>. Critical
+     * severity is determined by the organization that published the compliance items.
      * </p>
      */
     private Integer criticalCount;
@@ -73,13 +73,13 @@ public class SeveritySummary implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The total number of resources or compliance items that have a severity level of critical. Critical severity is
-     * determined by the organization that published the compliance items.
+     * The total number of resources or compliance items that have a severity level of <code>Critical</code>. Critical
+     * severity is determined by the organization that published the compliance items.
      * </p>
      * 
      * @param criticalCount
-     *        The total number of resources or compliance items that have a severity level of critical. Critical
-     *        severity is determined by the organization that published the compliance items.
+     *        The total number of resources or compliance items that have a severity level of <code>Critical</code>.
+     *        Critical severity is determined by the organization that published the compliance items.
      */
 
     public void setCriticalCount(Integer criticalCount) {
@@ -88,12 +88,12 @@ public class SeveritySummary implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The total number of resources or compliance items that have a severity level of critical. Critical severity is
-     * determined by the organization that published the compliance items.
+     * The total number of resources or compliance items that have a severity level of <code>Critical</code>. Critical
+     * severity is determined by the organization that published the compliance items.
      * </p>
      * 
-     * @return The total number of resources or compliance items that have a severity level of critical. Critical
-     *         severity is determined by the organization that published the compliance items.
+     * @return The total number of resources or compliance items that have a severity level of <code>Critical</code>.
+     *         Critical severity is determined by the organization that published the compliance items.
      */
 
     public Integer getCriticalCount() {
@@ -102,13 +102,13 @@ public class SeveritySummary implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The total number of resources or compliance items that have a severity level of critical. Critical severity is
-     * determined by the organization that published the compliance items.
+     * The total number of resources or compliance items that have a severity level of <code>Critical</code>. Critical
+     * severity is determined by the organization that published the compliance items.
      * </p>
      * 
      * @param criticalCount
-     *        The total number of resources or compliance items that have a severity level of critical. Critical
-     *        severity is determined by the organization that published the compliance items.
+     *        The total number of resources or compliance items that have a severity level of <code>Critical</code>.
+     *        Critical severity is determined by the organization that published the compliance items.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

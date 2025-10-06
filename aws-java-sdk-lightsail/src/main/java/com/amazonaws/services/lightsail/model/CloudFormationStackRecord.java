@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Describes a CloudFormation stack record created as a result of the <code>create cloud formation stack</code>
- * operation.
+ * Describes a CloudFormation stack record created as a result of the <code>create cloud formation stack</code> action.
  * </p>
  * <p>
  * A CloudFormation stack record provides information about the AWS CloudFormation stack used to create a new Amazon
@@ -54,13 +53,14 @@ public class CloudFormationStackRecord implements Serializable, Cloneable, Struc
     private java.util.Date createdAt;
     /**
      * <p>
-     * A list of objects describing the Availability Zone and AWS Region of the CloudFormation stack record.
+     * A list of objects describing the Availability Zone and Amazon Web Services Region of the CloudFormation stack
+     * record.
      * </p>
      */
     private ResourceLocation location;
     /**
      * <p>
-     * The Lightsail resource type (e.g., <code>CloudFormationStackRecord</code>).
+     * The Lightsail resource type (<code>CloudFormationStackRecord</code>).
      * </p>
      */
     private String resourceType;
@@ -212,11 +212,13 @@ public class CloudFormationStackRecord implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * A list of objects describing the Availability Zone and AWS Region of the CloudFormation stack record.
+     * A list of objects describing the Availability Zone and Amazon Web Services Region of the CloudFormation stack
+     * record.
      * </p>
      * 
      * @param location
-     *        A list of objects describing the Availability Zone and AWS Region of the CloudFormation stack record.
+     *        A list of objects describing the Availability Zone and Amazon Web Services Region of the CloudFormation
+     *        stack record.
      */
 
     public void setLocation(ResourceLocation location) {
@@ -225,10 +227,12 @@ public class CloudFormationStackRecord implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * A list of objects describing the Availability Zone and AWS Region of the CloudFormation stack record.
+     * A list of objects describing the Availability Zone and Amazon Web Services Region of the CloudFormation stack
+     * record.
      * </p>
      * 
-     * @return A list of objects describing the Availability Zone and AWS Region of the CloudFormation stack record.
+     * @return A list of objects describing the Availability Zone and Amazon Web Services Region of the CloudFormation
+     *         stack record.
      */
 
     public ResourceLocation getLocation() {
@@ -237,11 +241,13 @@ public class CloudFormationStackRecord implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * A list of objects describing the Availability Zone and AWS Region of the CloudFormation stack record.
+     * A list of objects describing the Availability Zone and Amazon Web Services Region of the CloudFormation stack
+     * record.
      * </p>
      * 
      * @param location
-     *        A list of objects describing the Availability Zone and AWS Region of the CloudFormation stack record.
+     *        A list of objects describing the Availability Zone and Amazon Web Services Region of the CloudFormation
+     *        stack record.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -252,11 +258,11 @@ public class CloudFormationStackRecord implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The Lightsail resource type (e.g., <code>CloudFormationStackRecord</code>).
+     * The Lightsail resource type (<code>CloudFormationStackRecord</code>).
      * </p>
      * 
      * @param resourceType
-     *        The Lightsail resource type (e.g., <code>CloudFormationStackRecord</code>).
+     *        The Lightsail resource type (<code>CloudFormationStackRecord</code>).
      * @see ResourceType
      */
 
@@ -266,10 +272,10 @@ public class CloudFormationStackRecord implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The Lightsail resource type (e.g., <code>CloudFormationStackRecord</code>).
+     * The Lightsail resource type (<code>CloudFormationStackRecord</code>).
      * </p>
      * 
-     * @return The Lightsail resource type (e.g., <code>CloudFormationStackRecord</code>).
+     * @return The Lightsail resource type (<code>CloudFormationStackRecord</code>).
      * @see ResourceType
      */
 
@@ -279,11 +285,11 @@ public class CloudFormationStackRecord implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The Lightsail resource type (e.g., <code>CloudFormationStackRecord</code>).
+     * The Lightsail resource type (<code>CloudFormationStackRecord</code>).
      * </p>
      * 
      * @param resourceType
-     *        The Lightsail resource type (e.g., <code>CloudFormationStackRecord</code>).
+     *        The Lightsail resource type (<code>CloudFormationStackRecord</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceType
      */
@@ -295,11 +301,11 @@ public class CloudFormationStackRecord implements Serializable, Cloneable, Struc
 
     /**
      * <p>
-     * The Lightsail resource type (e.g., <code>CloudFormationStackRecord</code>).
+     * The Lightsail resource type (<code>CloudFormationStackRecord</code>).
      * </p>
      * 
      * @param resourceType
-     *        The Lightsail resource type (e.g., <code>CloudFormationStackRecord</code>).
+     *        The Lightsail resource type (<code>CloudFormationStackRecord</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ResourceType
      */

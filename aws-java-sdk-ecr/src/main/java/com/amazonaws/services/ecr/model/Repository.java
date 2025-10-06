@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,14 +31,15 @@ public class Repository implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Amazon Resource Name (ARN) that identifies the repository. The ARN contains the <code>arn:aws:ecr</code>
-     * namespace, followed by the region of the repository, AWS account ID of the repository owner, repository
-     * namespace, and repository name. For example, <code>arn:aws:ecr:region:012345678910:repository/test</code>.
+     * namespace, followed by the region of the repository, Amazon Web Services account ID of the repository owner,
+     * repository namespace, and repository name. For example,
+     * <code>arn:aws:ecr:region:012345678910:repository-namespace/repository-name</code>.
      * </p>
      */
     private String repositoryArn;
     /**
      * <p>
-     * The AWS account ID associated with the registry that contains the repository.
+     * The Amazon Web Services account ID associated with the registry that contains the repository.
      * </p>
      */
     private String registryId;
@@ -50,7 +51,8 @@ public class Repository implements Serializable, Cloneable, StructuredPojo {
     private String repositoryName;
     /**
      * <p>
-     * The URI for the repository. You can use this URI for Docker <code>push</code> or <code>pull</code> operations.
+     * The URI for the repository. You can use this URI for container image <code>push</code> and <code>pull</code>
+     * operations.
      * </p>
      */
     private String repositoryUri;
@@ -67,18 +69,28 @@ public class Repository implements Serializable, Cloneable, StructuredPojo {
      */
     private String imageTagMutability;
 
+    private ImageScanningConfiguration imageScanningConfiguration;
+    /**
+     * <p>
+     * The encryption configuration for the repository. This determines how the contents of your repository are
+     * encrypted at rest.
+     * </p>
+     */
+    private EncryptionConfiguration encryptionConfiguration;
+
     /**
      * <p>
      * The Amazon Resource Name (ARN) that identifies the repository. The ARN contains the <code>arn:aws:ecr</code>
-     * namespace, followed by the region of the repository, AWS account ID of the repository owner, repository
-     * namespace, and repository name. For example, <code>arn:aws:ecr:region:012345678910:repository/test</code>.
+     * namespace, followed by the region of the repository, Amazon Web Services account ID of the repository owner,
+     * repository namespace, and repository name. For example,
+     * <code>arn:aws:ecr:region:012345678910:repository-namespace/repository-name</code>.
      * </p>
      * 
      * @param repositoryArn
      *        The Amazon Resource Name (ARN) that identifies the repository. The ARN contains the
-     *        <code>arn:aws:ecr</code> namespace, followed by the region of the repository, AWS account ID of the
-     *        repository owner, repository namespace, and repository name. For example,
-     *        <code>arn:aws:ecr:region:012345678910:repository/test</code>.
+     *        <code>arn:aws:ecr</code> namespace, followed by the region of the repository, Amazon Web Services account
+     *        ID of the repository owner, repository namespace, and repository name. For example,
+     *        <code>arn:aws:ecr:region:012345678910:repository-namespace/repository-name</code>.
      */
 
     public void setRepositoryArn(String repositoryArn) {
@@ -88,14 +100,15 @@ public class Repository implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Amazon Resource Name (ARN) that identifies the repository. The ARN contains the <code>arn:aws:ecr</code>
-     * namespace, followed by the region of the repository, AWS account ID of the repository owner, repository
-     * namespace, and repository name. For example, <code>arn:aws:ecr:region:012345678910:repository/test</code>.
+     * namespace, followed by the region of the repository, Amazon Web Services account ID of the repository owner,
+     * repository namespace, and repository name. For example,
+     * <code>arn:aws:ecr:region:012345678910:repository-namespace/repository-name</code>.
      * </p>
      * 
      * @return The Amazon Resource Name (ARN) that identifies the repository. The ARN contains the
-     *         <code>arn:aws:ecr</code> namespace, followed by the region of the repository, AWS account ID of the
-     *         repository owner, repository namespace, and repository name. For example,
-     *         <code>arn:aws:ecr:region:012345678910:repository/test</code>.
+     *         <code>arn:aws:ecr</code> namespace, followed by the region of the repository, Amazon Web Services account
+     *         ID of the repository owner, repository namespace, and repository name. For example,
+     *         <code>arn:aws:ecr:region:012345678910:repository-namespace/repository-name</code>.
      */
 
     public String getRepositoryArn() {
@@ -105,15 +118,16 @@ public class Repository implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The Amazon Resource Name (ARN) that identifies the repository. The ARN contains the <code>arn:aws:ecr</code>
-     * namespace, followed by the region of the repository, AWS account ID of the repository owner, repository
-     * namespace, and repository name. For example, <code>arn:aws:ecr:region:012345678910:repository/test</code>.
+     * namespace, followed by the region of the repository, Amazon Web Services account ID of the repository owner,
+     * repository namespace, and repository name. For example,
+     * <code>arn:aws:ecr:region:012345678910:repository-namespace/repository-name</code>.
      * </p>
      * 
      * @param repositoryArn
      *        The Amazon Resource Name (ARN) that identifies the repository. The ARN contains the
-     *        <code>arn:aws:ecr</code> namespace, followed by the region of the repository, AWS account ID of the
-     *        repository owner, repository namespace, and repository name. For example,
-     *        <code>arn:aws:ecr:region:012345678910:repository/test</code>.
+     *        <code>arn:aws:ecr</code> namespace, followed by the region of the repository, Amazon Web Services account
+     *        ID of the repository owner, repository namespace, and repository name. For example,
+     *        <code>arn:aws:ecr:region:012345678910:repository-namespace/repository-name</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -124,11 +138,11 @@ public class Repository implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that contains the repository.
+     * The Amazon Web Services account ID associated with the registry that contains the repository.
      * </p>
      * 
      * @param registryId
-     *        The AWS account ID associated with the registry that contains the repository.
+     *        The Amazon Web Services account ID associated with the registry that contains the repository.
      */
 
     public void setRegistryId(String registryId) {
@@ -137,10 +151,10 @@ public class Repository implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that contains the repository.
+     * The Amazon Web Services account ID associated with the registry that contains the repository.
      * </p>
      * 
-     * @return The AWS account ID associated with the registry that contains the repository.
+     * @return The Amazon Web Services account ID associated with the registry that contains the repository.
      */
 
     public String getRegistryId() {
@@ -149,11 +163,11 @@ public class Repository implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that contains the repository.
+     * The Amazon Web Services account ID associated with the registry that contains the repository.
      * </p>
      * 
      * @param registryId
-     *        The AWS account ID associated with the registry that contains the repository.
+     *        The Amazon Web Services account ID associated with the registry that contains the repository.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -204,12 +218,13 @@ public class Repository implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The URI for the repository. You can use this URI for Docker <code>push</code> or <code>pull</code> operations.
+     * The URI for the repository. You can use this URI for container image <code>push</code> and <code>pull</code>
+     * operations.
      * </p>
      * 
      * @param repositoryUri
-     *        The URI for the repository. You can use this URI for Docker <code>push</code> or <code>pull</code>
-     *        operations.
+     *        The URI for the repository. You can use this URI for container image <code>push</code> and
+     *        <code>pull</code> operations.
      */
 
     public void setRepositoryUri(String repositoryUri) {
@@ -218,11 +233,12 @@ public class Repository implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The URI for the repository. You can use this URI for Docker <code>push</code> or <code>pull</code> operations.
+     * The URI for the repository. You can use this URI for container image <code>push</code> and <code>pull</code>
+     * operations.
      * </p>
      * 
-     * @return The URI for the repository. You can use this URI for Docker <code>push</code> or <code>pull</code>
-     *         operations.
+     * @return The URI for the repository. You can use this URI for container image <code>push</code> and
+     *         <code>pull</code> operations.
      */
 
     public String getRepositoryUri() {
@@ -231,12 +247,13 @@ public class Repository implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The URI for the repository. You can use this URI for Docker <code>push</code> or <code>pull</code> operations.
+     * The URI for the repository. You can use this URI for container image <code>push</code> and <code>pull</code>
+     * operations.
      * </p>
      * 
      * @param repositoryUri
-     *        The URI for the repository. You can use this URI for Docker <code>push</code> or <code>pull</code>
-     *        operations.
+     *        The URI for the repository. You can use this URI for container image <code>push</code> and
+     *        <code>pull</code> operations.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -345,6 +362,78 @@ public class Repository implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * @param imageScanningConfiguration
+     */
+
+    public void setImageScanningConfiguration(ImageScanningConfiguration imageScanningConfiguration) {
+        this.imageScanningConfiguration = imageScanningConfiguration;
+    }
+
+    /**
+     * @return
+     */
+
+    public ImageScanningConfiguration getImageScanningConfiguration() {
+        return this.imageScanningConfiguration;
+    }
+
+    /**
+     * @param imageScanningConfiguration
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Repository withImageScanningConfiguration(ImageScanningConfiguration imageScanningConfiguration) {
+        setImageScanningConfiguration(imageScanningConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The encryption configuration for the repository. This determines how the contents of your repository are
+     * encrypted at rest.
+     * </p>
+     * 
+     * @param encryptionConfiguration
+     *        The encryption configuration for the repository. This determines how the contents of your repository are
+     *        encrypted at rest.
+     */
+
+    public void setEncryptionConfiguration(EncryptionConfiguration encryptionConfiguration) {
+        this.encryptionConfiguration = encryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * The encryption configuration for the repository. This determines how the contents of your repository are
+     * encrypted at rest.
+     * </p>
+     * 
+     * @return The encryption configuration for the repository. This determines how the contents of your repository are
+     *         encrypted at rest.
+     */
+
+    public EncryptionConfiguration getEncryptionConfiguration() {
+        return this.encryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * The encryption configuration for the repository. This determines how the contents of your repository are
+     * encrypted at rest.
+     * </p>
+     * 
+     * @param encryptionConfiguration
+     *        The encryption configuration for the repository. This determines how the contents of your repository are
+     *        encrypted at rest.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Repository withEncryptionConfiguration(EncryptionConfiguration encryptionConfiguration) {
+        setEncryptionConfiguration(encryptionConfiguration);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -367,7 +456,11 @@ public class Repository implements Serializable, Cloneable, StructuredPojo {
         if (getCreatedAt() != null)
             sb.append("CreatedAt: ").append(getCreatedAt()).append(",");
         if (getImageTagMutability() != null)
-            sb.append("ImageTagMutability: ").append(getImageTagMutability());
+            sb.append("ImageTagMutability: ").append(getImageTagMutability()).append(",");
+        if (getImageScanningConfiguration() != null)
+            sb.append("ImageScanningConfiguration: ").append(getImageScanningConfiguration()).append(",");
+        if (getEncryptionConfiguration() != null)
+            sb.append("EncryptionConfiguration: ").append(getEncryptionConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -406,6 +499,14 @@ public class Repository implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getImageTagMutability() != null && other.getImageTagMutability().equals(this.getImageTagMutability()) == false)
             return false;
+        if (other.getImageScanningConfiguration() == null ^ this.getImageScanningConfiguration() == null)
+            return false;
+        if (other.getImageScanningConfiguration() != null && other.getImageScanningConfiguration().equals(this.getImageScanningConfiguration()) == false)
+            return false;
+        if (other.getEncryptionConfiguration() == null ^ this.getEncryptionConfiguration() == null)
+            return false;
+        if (other.getEncryptionConfiguration() != null && other.getEncryptionConfiguration().equals(this.getEncryptionConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -420,6 +521,8 @@ public class Repository implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getRepositoryUri() == null) ? 0 : getRepositoryUri().hashCode());
         hashCode = prime * hashCode + ((getCreatedAt() == null) ? 0 : getCreatedAt().hashCode());
         hashCode = prime * hashCode + ((getImageTagMutability() == null) ? 0 : getImageTagMutability().hashCode());
+        hashCode = prime * hashCode + ((getImageScanningConfiguration() == null) ? 0 : getImageScanningConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getEncryptionConfiguration() == null) ? 0 : getEncryptionConfiguration().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -7,7 +7,7 @@
  *
  *  http://aws.amazon.com/apache2.0
  *
- * or in the "license" file accompanying this file. This file is divalibuted
+ * or in the "license" file accompanying this file. This file is distributed
  * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
@@ -44,15 +44,17 @@ public class JsonProtocolMarshaller<OrigRequest> implements ProtocolRequestMarsh
     private final Request<OrigRequest> request;
     private final String contentType;
     private final boolean hasExplicitPayloadMember;
-
     private final JsonMarshallerContext marshallerContext;
     private final MarshallerRegistry marshallerRegistry;
+    private final boolean isAwsQueryCompatible;
 
     public JsonProtocolMarshaller(StructuredJsonGenerator jsonGenerator,
                                   String contentType,
                                   OperationInfo operationInfo,
                                   OrigRequest originalRequest,
-                                  MarshallerRegistry.Builder marshallerRegistryOverrides) {
+                                  MarshallerRegistry.Builder marshallerRegistryOverrides,
+                                  EmptyBodyJsonMarshaller emptyBodyMarshaller,
+                                  boolean isAwsQueryCompatible) {
         this.jsonGenerator = jsonGenerator;
         this.contentType = contentType;
         this.hasExplicitPayloadMember = operationInfo.hasExplicitPayloadMember();
@@ -63,7 +65,9 @@ public class JsonProtocolMarshaller<OrigRequest> implements ProtocolRequestMarsh
                                                       .marshallerRegistry(marshallerRegistry)
                                                       .protocolHandler(this)
                                                       .request(request)
+                                                      .emptyBodyJsonMarshaller(emptyBodyMarshaller)
                                                       .build();
+        this.isAwsQueryCompatible = isAwsQueryCompatible;
     }
 
     private Request<OrigRequest> fillBasicRequestParams(OperationInfo operationInfo, OrigRequest originalRequest) {
@@ -193,8 +197,12 @@ public class JsonProtocolMarshaller<OrigRequest> implements ProtocolRequestMarsh
                 request.addHeader("Content-Length", Integer.toString(content.length));
             }
         }
-        if (!request.getHeaders().containsKey("Content-Type")) {
+        if (!request.getHeaders().containsKey("Content-Type") && contentType != null && request.getHeaders().containsKey(
+            "Content-Length")) {
             request.addHeader("Content-Type", contentType);
+        }
+        if (isAwsQueryCompatible) {
+            request.addHeader("x-amzn-query-mode", "true");
         }
         return request;
     }

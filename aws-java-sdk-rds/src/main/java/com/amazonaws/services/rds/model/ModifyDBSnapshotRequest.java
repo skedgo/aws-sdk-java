@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,17 +41,25 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      * <p>
      * <b>MySQL</b>
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * <code>5.5.46</code> (supported for 5.1 DB snapshots)
+     * For the list of engine versions that are available for upgrading a DB snapshot, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/mysql-upgrade-snapshot.html"> Upgrading a MySQL DB
+     * snapshot engine version</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
-     * </li>
-     * </ul>
      * <p>
      * <b>Oracle</b>
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>19.0.0.0.ru-2022-01.rur-2022-01.r1</code> (supported for 12.2.0.1 DB snapshots)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>19.0.0.0.ru-2022-07.rur-2022-07.r1</code> (supported for 12.1.0.2 DB snapshots)
+     * </p>
+     * </li>
      * <li>
      * <p>
      * <code>12.1.0.2.v8</code> (supported for 12.1.0.1 DB snapshots)
@@ -68,6 +76,14 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * For the list of engine versions that are available for upgrading a DB snapshot, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBSnapshot.PostgreSQL.html"> Upgrading a
+     * PostgreSQL DB snapshot engine version</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
      */
     private String engineVersion;
     /**
@@ -77,8 +93,8 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      * <p>
      * You can specify this parameter when you upgrade an Oracle DB snapshot. The same option group considerations apply
      * when upgrading a DB snapshot as when upgrading a DB instance. For more information, see <a href=
-     * "http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG"
-     * >Option Group Considerations</a> in the <i>Amazon RDS User Guide.</i>
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG"
+     * >Option group considerations</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      */
     private String optionGroupName;
@@ -133,17 +149,25 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      * <p>
      * <b>MySQL</b>
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * <code>5.5.46</code> (supported for 5.1 DB snapshots)
+     * For the list of engine versions that are available for upgrading a DB snapshot, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/mysql-upgrade-snapshot.html"> Upgrading a MySQL DB
+     * snapshot engine version</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
-     * </li>
-     * </ul>
      * <p>
      * <b>Oracle</b>
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>19.0.0.0.ru-2022-01.rur-2022-01.r1</code> (supported for 12.2.0.1 DB snapshots)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>19.0.0.0.ru-2022-07.rur-2022-07.r1</code> (supported for 12.1.0.2 DB snapshots)
+     * </p>
+     * </li>
      * <li>
      * <p>
      * <code>12.1.0.2.v8</code> (supported for 12.1.0.1 DB snapshots)
@@ -160,9 +184,17 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * For the list of engine versions that are available for upgrading a DB snapshot, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBSnapshot.PostgreSQL.html"> Upgrading a
+     * PostgreSQL DB snapshot engine version</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
      * 
      * @param engineVersion
-     *        The engine version to upgrade the DB snapshot to. </p>
+     *        The engine version to upgrade the DB snapshot to.</p>
      *        <p>
      *        The following are the database engines and engine versions that are available when you upgrade a DB
      *        snapshot.
@@ -170,17 +202,25 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      *        <p>
      *        <b>MySQL</b>
      *        </p>
-     *        <ul>
-     *        <li>
      *        <p>
-     *        <code>5.5.46</code> (supported for 5.1 DB snapshots)
+     *        For the list of engine versions that are available for upgrading a DB snapshot, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/mysql-upgrade-snapshot.html"> Upgrading a
+     *        MySQL DB snapshot engine version</a> in the <i>Amazon RDS User Guide.</i>
      *        </p>
-     *        </li>
-     *        </ul>
      *        <p>
      *        <b>Oracle</b>
      *        </p>
      *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>19.0.0.0.ru-2022-01.rur-2022-01.r1</code> (supported for 12.2.0.1 DB snapshots)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>19.0.0.0.ru-2022-07.rur-2022-07.r1</code> (supported for 12.1.0.2 DB snapshots)
+     *        </p>
+     *        </li>
      *        <li>
      *        <p>
      *        <code>12.1.0.2.v8</code> (supported for 12.1.0.1 DB snapshots)
@@ -196,6 +236,14 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      *        <code>11.2.0.4.v11</code> (supported for 11.2.0.3 DB snapshots)
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        For the list of engine versions that are available for upgrading a DB snapshot, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBSnapshot.PostgreSQL.html">
+     *        Upgrading a PostgreSQL DB snapshot engine version</a> in the <i>Amazon RDS User Guide.</i>
      */
 
     public void setEngineVersion(String engineVersion) {
@@ -212,17 +260,25 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      * <p>
      * <b>MySQL</b>
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * <code>5.5.46</code> (supported for 5.1 DB snapshots)
+     * For the list of engine versions that are available for upgrading a DB snapshot, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/mysql-upgrade-snapshot.html"> Upgrading a MySQL DB
+     * snapshot engine version</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
-     * </li>
-     * </ul>
      * <p>
      * <b>Oracle</b>
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>19.0.0.0.ru-2022-01.rur-2022-01.r1</code> (supported for 12.2.0.1 DB snapshots)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>19.0.0.0.ru-2022-07.rur-2022-07.r1</code> (supported for 12.1.0.2 DB snapshots)
+     * </p>
+     * </li>
      * <li>
      * <p>
      * <code>12.1.0.2.v8</code> (supported for 12.1.0.1 DB snapshots)
@@ -239,8 +295,16 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * For the list of engine versions that are available for upgrading a DB snapshot, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBSnapshot.PostgreSQL.html"> Upgrading a
+     * PostgreSQL DB snapshot engine version</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
      * 
-     * @return The engine version to upgrade the DB snapshot to. </p>
+     * @return The engine version to upgrade the DB snapshot to.</p>
      *         <p>
      *         The following are the database engines and engine versions that are available when you upgrade a DB
      *         snapshot.
@@ -248,17 +312,25 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      *         <p>
      *         <b>MySQL</b>
      *         </p>
-     *         <ul>
-     *         <li>
      *         <p>
-     *         <code>5.5.46</code> (supported for 5.1 DB snapshots)
+     *         For the list of engine versions that are available for upgrading a DB snapshot, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/mysql-upgrade-snapshot.html"> Upgrading a
+     *         MySQL DB snapshot engine version</a> in the <i>Amazon RDS User Guide.</i>
      *         </p>
-     *         </li>
-     *         </ul>
      *         <p>
      *         <b>Oracle</b>
      *         </p>
      *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>19.0.0.0.ru-2022-01.rur-2022-01.r1</code> (supported for 12.2.0.1 DB snapshots)
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>19.0.0.0.ru-2022-07.rur-2022-07.r1</code> (supported for 12.1.0.2 DB snapshots)
+     *         </p>
+     *         </li>
      *         <li>
      *         <p>
      *         <code>12.1.0.2.v8</code> (supported for 12.1.0.1 DB snapshots)
@@ -274,6 +346,14 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      *         <code>11.2.0.4.v11</code> (supported for 11.2.0.3 DB snapshots)
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         <b>PostgreSQL</b>
+     *         </p>
+     *         <p>
+     *         For the list of engine versions that are available for upgrading a DB snapshot, see <a
+     *         href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBSnapshot.PostgreSQL.html">
+     *         Upgrading a PostgreSQL DB snapshot engine version</a> in the <i>Amazon RDS User Guide.</i>
      */
 
     public String getEngineVersion() {
@@ -290,17 +370,25 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      * <p>
      * <b>MySQL</b>
      * </p>
-     * <ul>
-     * <li>
      * <p>
-     * <code>5.5.46</code> (supported for 5.1 DB snapshots)
+     * For the list of engine versions that are available for upgrading a DB snapshot, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/mysql-upgrade-snapshot.html"> Upgrading a MySQL DB
+     * snapshot engine version</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
-     * </li>
-     * </ul>
      * <p>
      * <b>Oracle</b>
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>19.0.0.0.ru-2022-01.rur-2022-01.r1</code> (supported for 12.2.0.1 DB snapshots)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>19.0.0.0.ru-2022-07.rur-2022-07.r1</code> (supported for 12.1.0.2 DB snapshots)
+     * </p>
+     * </li>
      * <li>
      * <p>
      * <code>12.1.0.2.v8</code> (supported for 12.1.0.1 DB snapshots)
@@ -317,9 +405,17 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * <b>PostgreSQL</b>
+     * </p>
+     * <p>
+     * For the list of engine versions that are available for upgrading a DB snapshot, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBSnapshot.PostgreSQL.html"> Upgrading a
+     * PostgreSQL DB snapshot engine version</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
      * 
      * @param engineVersion
-     *        The engine version to upgrade the DB snapshot to. </p>
+     *        The engine version to upgrade the DB snapshot to.</p>
      *        <p>
      *        The following are the database engines and engine versions that are available when you upgrade a DB
      *        snapshot.
@@ -327,17 +423,25 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      *        <p>
      *        <b>MySQL</b>
      *        </p>
-     *        <ul>
-     *        <li>
      *        <p>
-     *        <code>5.5.46</code> (supported for 5.1 DB snapshots)
+     *        For the list of engine versions that are available for upgrading a DB snapshot, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/mysql-upgrade-snapshot.html"> Upgrading a
+     *        MySQL DB snapshot engine version</a> in the <i>Amazon RDS User Guide.</i>
      *        </p>
-     *        </li>
-     *        </ul>
      *        <p>
      *        <b>Oracle</b>
      *        </p>
      *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>19.0.0.0.ru-2022-01.rur-2022-01.r1</code> (supported for 12.2.0.1 DB snapshots)
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>19.0.0.0.ru-2022-07.rur-2022-07.r1</code> (supported for 12.1.0.2 DB snapshots)
+     *        </p>
+     *        </li>
      *        <li>
      *        <p>
      *        <code>12.1.0.2.v8</code> (supported for 12.1.0.1 DB snapshots)
@@ -353,6 +457,14 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      *        <code>11.2.0.4.v11</code> (supported for 11.2.0.3 DB snapshots)
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        <b>PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        For the list of engine versions that are available for upgrading a DB snapshot, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBSnapshot.PostgreSQL.html">
+     *        Upgrading a PostgreSQL DB snapshot engine version</a> in the <i>Amazon RDS User Guide.</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -368,18 +480,18 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      * <p>
      * You can specify this parameter when you upgrade an Oracle DB snapshot. The same option group considerations apply
      * when upgrading a DB snapshot as when upgrading a DB instance. For more information, see <a href=
-     * "http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG"
-     * >Option Group Considerations</a> in the <i>Amazon RDS User Guide.</i>
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG"
+     * >Option group considerations</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * 
      * @param optionGroupName
-     *        The option group to identify with the upgraded DB snapshot. </p>
+     *        The option group to identify with the upgraded DB snapshot.</p>
      *        <p>
      *        You can specify this parameter when you upgrade an Oracle DB snapshot. The same option group
      *        considerations apply when upgrading a DB snapshot as when upgrading a DB instance. For more information,
      *        see <a href=
-     *        "http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG"
-     *        >Option Group Considerations</a> in the <i>Amazon RDS User Guide.</i>
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG"
+     *        >Option group considerations</a> in the <i>Amazon RDS User Guide.</i>
      */
 
     public void setOptionGroupName(String optionGroupName) {
@@ -393,17 +505,17 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      * <p>
      * You can specify this parameter when you upgrade an Oracle DB snapshot. The same option group considerations apply
      * when upgrading a DB snapshot as when upgrading a DB instance. For more information, see <a href=
-     * "http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG"
-     * >Option Group Considerations</a> in the <i>Amazon RDS User Guide.</i>
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG"
+     * >Option group considerations</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * 
-     * @return The option group to identify with the upgraded DB snapshot. </p>
+     * @return The option group to identify with the upgraded DB snapshot.</p>
      *         <p>
      *         You can specify this parameter when you upgrade an Oracle DB snapshot. The same option group
      *         considerations apply when upgrading a DB snapshot as when upgrading a DB instance. For more information,
      *         see <a href=
-     *         "http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG"
-     *         >Option Group Considerations</a> in the <i>Amazon RDS User Guide.</i>
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG"
+     *         >Option group considerations</a> in the <i>Amazon RDS User Guide.</i>
      */
 
     public String getOptionGroupName() {
@@ -417,18 +529,18 @@ public class ModifyDBSnapshotRequest extends com.amazonaws.AmazonWebServiceReque
      * <p>
      * You can specify this parameter when you upgrade an Oracle DB snapshot. The same option group considerations apply
      * when upgrading a DB snapshot as when upgrading a DB instance. For more information, see <a href=
-     * "http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG"
-     * >Option Group Considerations</a> in the <i>Amazon RDS User Guide.</i>
+     * "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG"
+     * >Option group considerations</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
      * 
      * @param optionGroupName
-     *        The option group to identify with the upgraded DB snapshot. </p>
+     *        The option group to identify with the upgraded DB snapshot.</p>
      *        <p>
      *        You can specify this parameter when you upgrade an Oracle DB snapshot. The same option group
      *        considerations apply when upgrading a DB snapshot as when upgrading a DB instance. For more information,
      *        see <a href=
-     *        "http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG"
-     *        >Option Group Considerations</a> in the <i>Amazon RDS User Guide.</i>
+     *        "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG"
+     *        >Option group considerations</a> in the <i>Amazon RDS User Guide.</i>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

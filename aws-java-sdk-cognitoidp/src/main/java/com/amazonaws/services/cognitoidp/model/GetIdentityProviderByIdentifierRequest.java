@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,7 @@ public class GetIdentityProviderByIdentifierRequest extends com.amazonaws.Amazon
     private String userPoolId;
     /**
      * <p>
-     * The identity provider ID.
+     * The IdP identifier.
      * </p>
      */
     private String idpIdentifier;
@@ -80,11 +80,11 @@ public class GetIdentityProviderByIdentifierRequest extends com.amazonaws.Amazon
 
     /**
      * <p>
-     * The identity provider ID.
+     * The IdP identifier.
      * </p>
      * 
      * @param idpIdentifier
-     *        The identity provider ID.
+     *        The IdP identifier.
      */
 
     public void setIdpIdentifier(String idpIdentifier) {
@@ -93,10 +93,10 @@ public class GetIdentityProviderByIdentifierRequest extends com.amazonaws.Amazon
 
     /**
      * <p>
-     * The identity provider ID.
+     * The IdP identifier.
      * </p>
      * 
-     * @return The identity provider ID.
+     * @return The IdP identifier.
      */
 
     public String getIdpIdentifier() {
@@ -105,11 +105,11 @@ public class GetIdentityProviderByIdentifierRequest extends com.amazonaws.Amazon
 
     /**
      * <p>
-     * The identity provider ID.
+     * The IdP identifier.
      * </p>
      * 
      * @param idpIdentifier
-     *        The identity provider ID.
+     *        The IdP identifier.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

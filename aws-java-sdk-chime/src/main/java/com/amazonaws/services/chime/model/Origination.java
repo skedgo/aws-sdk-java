@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,6 +21,11 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <p>
  * Origination settings enable your SIP hosts to receive inbound calls using your Amazon Chime Voice Connector.
  * </p>
+ * <note>
+ * <p>
+ * The parameters listed below are not required, but you must use at least one.
+ * </p>
+ * </note>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/chime-2018-05-01/Origination" target="_top">AWS API
  *      Documentation</a>
@@ -31,13 +36,14 @@ public class Origination implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The call distribution properties defined for your SIP hosts. Valid range: Minimum value of 1. Maximum value of
-     * 20.
+     * 20. This parameter is not required, but you must specify this parameter or <code>Disabled</code>.
      * </p>
      */
     private java.util.List<OriginationRoute> routes;
     /**
      * <p>
-     * When origination settings are disabled, inbound calls are not enabled for your Amazon Chime Voice Connector.
+     * When origination settings are disabled, inbound calls are not enabled for your Amazon Chime Voice Connector. This
+     * parameter is not required, but you must specify this parameter or <code>Routes</code>.
      * </p>
      */
     private Boolean disabled;
@@ -45,11 +51,12 @@ public class Origination implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The call distribution properties defined for your SIP hosts. Valid range: Minimum value of 1. Maximum value of
-     * 20.
+     * 20. This parameter is not required, but you must specify this parameter or <code>Disabled</code>.
      * </p>
      * 
      * @return The call distribution properties defined for your SIP hosts. Valid range: Minimum value of 1. Maximum
-     *         value of 20.
+     *         value of 20. This parameter is not required, but you must specify this parameter or <code>Disabled</code>
+     *         .
      */
 
     public java.util.List<OriginationRoute> getRoutes() {
@@ -59,12 +66,12 @@ public class Origination implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The call distribution properties defined for your SIP hosts. Valid range: Minimum value of 1. Maximum value of
-     * 20.
+     * 20. This parameter is not required, but you must specify this parameter or <code>Disabled</code>.
      * </p>
      * 
      * @param routes
      *        The call distribution properties defined for your SIP hosts. Valid range: Minimum value of 1. Maximum
-     *        value of 20.
+     *        value of 20. This parameter is not required, but you must specify this parameter or <code>Disabled</code>.
      */
 
     public void setRoutes(java.util.Collection<OriginationRoute> routes) {
@@ -79,7 +86,7 @@ public class Origination implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The call distribution properties defined for your SIP hosts. Valid range: Minimum value of 1. Maximum value of
-     * 20.
+     * 20. This parameter is not required, but you must specify this parameter or <code>Disabled</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -89,7 +96,7 @@ public class Origination implements Serializable, Cloneable, StructuredPojo {
      * 
      * @param routes
      *        The call distribution properties defined for your SIP hosts. Valid range: Minimum value of 1. Maximum
-     *        value of 20.
+     *        value of 20. This parameter is not required, but you must specify this parameter or <code>Disabled</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -106,12 +113,12 @@ public class Origination implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * The call distribution properties defined for your SIP hosts. Valid range: Minimum value of 1. Maximum value of
-     * 20.
+     * 20. This parameter is not required, but you must specify this parameter or <code>Disabled</code>.
      * </p>
      * 
      * @param routes
      *        The call distribution properties defined for your SIP hosts. Valid range: Minimum value of 1. Maximum
-     *        value of 20.
+     *        value of 20. This parameter is not required, but you must specify this parameter or <code>Disabled</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -122,12 +129,13 @@ public class Origination implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * When origination settings are disabled, inbound calls are not enabled for your Amazon Chime Voice Connector.
+     * When origination settings are disabled, inbound calls are not enabled for your Amazon Chime Voice Connector. This
+     * parameter is not required, but you must specify this parameter or <code>Routes</code>.
      * </p>
      * 
      * @param disabled
      *        When origination settings are disabled, inbound calls are not enabled for your Amazon Chime Voice
-     *        Connector.
+     *        Connector. This parameter is not required, but you must specify this parameter or <code>Routes</code>.
      */
 
     public void setDisabled(Boolean disabled) {
@@ -136,11 +144,12 @@ public class Origination implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * When origination settings are disabled, inbound calls are not enabled for your Amazon Chime Voice Connector.
+     * When origination settings are disabled, inbound calls are not enabled for your Amazon Chime Voice Connector. This
+     * parameter is not required, but you must specify this parameter or <code>Routes</code>.
      * </p>
      * 
      * @return When origination settings are disabled, inbound calls are not enabled for your Amazon Chime Voice
-     *         Connector.
+     *         Connector. This parameter is not required, but you must specify this parameter or <code>Routes</code>.
      */
 
     public Boolean getDisabled() {
@@ -149,12 +158,13 @@ public class Origination implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * When origination settings are disabled, inbound calls are not enabled for your Amazon Chime Voice Connector.
+     * When origination settings are disabled, inbound calls are not enabled for your Amazon Chime Voice Connector. This
+     * parameter is not required, but you must specify this parameter or <code>Routes</code>.
      * </p>
      * 
      * @param disabled
      *        When origination settings are disabled, inbound calls are not enabled for your Amazon Chime Voice
-     *        Connector.
+     *        Connector. This parameter is not required, but you must specify this parameter or <code>Routes</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -165,11 +175,12 @@ public class Origination implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * When origination settings are disabled, inbound calls are not enabled for your Amazon Chime Voice Connector.
+     * When origination settings are disabled, inbound calls are not enabled for your Amazon Chime Voice Connector. This
+     * parameter is not required, but you must specify this parameter or <code>Routes</code>.
      * </p>
      * 
      * @return When origination settings are disabled, inbound calls are not enabled for your Amazon Chime Voice
-     *         Connector.
+     *         Connector. This parameter is not required, but you must specify this parameter or <code>Routes</code>.
      */
 
     public Boolean isDisabled() {

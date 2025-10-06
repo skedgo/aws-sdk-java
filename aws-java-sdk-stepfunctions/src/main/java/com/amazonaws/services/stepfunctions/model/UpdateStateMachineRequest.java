@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,6 +45,41 @@ public class UpdateStateMachineRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      */
     private String roleArn;
+    /**
+     * <p>
+     * Use the <code>LoggingConfiguration</code> data type to set CloudWatch Logs options.
+     * </p>
+     */
+    private LoggingConfiguration loggingConfiguration;
+    /**
+     * <p>
+     * Selects whether X-Ray tracing is enabled.
+     * </p>
+     */
+    private TracingConfiguration tracingConfiguration;
+    /**
+     * <p>
+     * Specifies whether the state machine version is published. The default is <code>false</code>. To publish a version
+     * after updating the state machine, set <code>publish</code> to <code>true</code>.
+     * </p>
+     */
+    private Boolean publish;
+    /**
+     * <p>
+     * An optional description of the state machine version to publish.
+     * </p>
+     * <p>
+     * You can only specify the <code>versionDescription</code> parameter if you've set <code>publish</code> to
+     * <code>true</code>.
+     * </p>
+     */
+    private String versionDescription;
+    /**
+     * <p>
+     * Settings to configure server-side encryption.
+     * </p>
+     */
+    private EncryptionConfiguration encryptionConfiguration;
 
     /**
      * <p>
@@ -179,6 +214,247 @@ public class UpdateStateMachineRequest extends com.amazonaws.AmazonWebServiceReq
     }
 
     /**
+     * <p>
+     * Use the <code>LoggingConfiguration</code> data type to set CloudWatch Logs options.
+     * </p>
+     * 
+     * @param loggingConfiguration
+     *        Use the <code>LoggingConfiguration</code> data type to set CloudWatch Logs options.
+     */
+
+    public void setLoggingConfiguration(LoggingConfiguration loggingConfiguration) {
+        this.loggingConfiguration = loggingConfiguration;
+    }
+
+    /**
+     * <p>
+     * Use the <code>LoggingConfiguration</code> data type to set CloudWatch Logs options.
+     * </p>
+     * 
+     * @return Use the <code>LoggingConfiguration</code> data type to set CloudWatch Logs options.
+     */
+
+    public LoggingConfiguration getLoggingConfiguration() {
+        return this.loggingConfiguration;
+    }
+
+    /**
+     * <p>
+     * Use the <code>LoggingConfiguration</code> data type to set CloudWatch Logs options.
+     * </p>
+     * 
+     * @param loggingConfiguration
+     *        Use the <code>LoggingConfiguration</code> data type to set CloudWatch Logs options.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateStateMachineRequest withLoggingConfiguration(LoggingConfiguration loggingConfiguration) {
+        setLoggingConfiguration(loggingConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Selects whether X-Ray tracing is enabled.
+     * </p>
+     * 
+     * @param tracingConfiguration
+     *        Selects whether X-Ray tracing is enabled.
+     */
+
+    public void setTracingConfiguration(TracingConfiguration tracingConfiguration) {
+        this.tracingConfiguration = tracingConfiguration;
+    }
+
+    /**
+     * <p>
+     * Selects whether X-Ray tracing is enabled.
+     * </p>
+     * 
+     * @return Selects whether X-Ray tracing is enabled.
+     */
+
+    public TracingConfiguration getTracingConfiguration() {
+        return this.tracingConfiguration;
+    }
+
+    /**
+     * <p>
+     * Selects whether X-Ray tracing is enabled.
+     * </p>
+     * 
+     * @param tracingConfiguration
+     *        Selects whether X-Ray tracing is enabled.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateStateMachineRequest withTracingConfiguration(TracingConfiguration tracingConfiguration) {
+        setTracingConfiguration(tracingConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the state machine version is published. The default is <code>false</code>. To publish a version
+     * after updating the state machine, set <code>publish</code> to <code>true</code>.
+     * </p>
+     * 
+     * @param publish
+     *        Specifies whether the state machine version is published. The default is <code>false</code>. To publish a
+     *        version after updating the state machine, set <code>publish</code> to <code>true</code>.
+     */
+
+    public void setPublish(Boolean publish) {
+        this.publish = publish;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the state machine version is published. The default is <code>false</code>. To publish a version
+     * after updating the state machine, set <code>publish</code> to <code>true</code>.
+     * </p>
+     * 
+     * @return Specifies whether the state machine version is published. The default is <code>false</code>. To publish a
+     *         version after updating the state machine, set <code>publish</code> to <code>true</code>.
+     */
+
+    public Boolean getPublish() {
+        return this.publish;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the state machine version is published. The default is <code>false</code>. To publish a version
+     * after updating the state machine, set <code>publish</code> to <code>true</code>.
+     * </p>
+     * 
+     * @param publish
+     *        Specifies whether the state machine version is published. The default is <code>false</code>. To publish a
+     *        version after updating the state machine, set <code>publish</code> to <code>true</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateStateMachineRequest withPublish(Boolean publish) {
+        setPublish(publish);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies whether the state machine version is published. The default is <code>false</code>. To publish a version
+     * after updating the state machine, set <code>publish</code> to <code>true</code>.
+     * </p>
+     * 
+     * @return Specifies whether the state machine version is published. The default is <code>false</code>. To publish a
+     *         version after updating the state machine, set <code>publish</code> to <code>true</code>.
+     */
+
+    public Boolean isPublish() {
+        return this.publish;
+    }
+
+    /**
+     * <p>
+     * An optional description of the state machine version to publish.
+     * </p>
+     * <p>
+     * You can only specify the <code>versionDescription</code> parameter if you've set <code>publish</code> to
+     * <code>true</code>.
+     * </p>
+     * 
+     * @param versionDescription
+     *        An optional description of the state machine version to publish.</p>
+     *        <p>
+     *        You can only specify the <code>versionDescription</code> parameter if you've set <code>publish</code> to
+     *        <code>true</code>.
+     */
+
+    public void setVersionDescription(String versionDescription) {
+        this.versionDescription = versionDescription;
+    }
+
+    /**
+     * <p>
+     * An optional description of the state machine version to publish.
+     * </p>
+     * <p>
+     * You can only specify the <code>versionDescription</code> parameter if you've set <code>publish</code> to
+     * <code>true</code>.
+     * </p>
+     * 
+     * @return An optional description of the state machine version to publish.</p>
+     *         <p>
+     *         You can only specify the <code>versionDescription</code> parameter if you've set <code>publish</code> to
+     *         <code>true</code>.
+     */
+
+    public String getVersionDescription() {
+        return this.versionDescription;
+    }
+
+    /**
+     * <p>
+     * An optional description of the state machine version to publish.
+     * </p>
+     * <p>
+     * You can only specify the <code>versionDescription</code> parameter if you've set <code>publish</code> to
+     * <code>true</code>.
+     * </p>
+     * 
+     * @param versionDescription
+     *        An optional description of the state machine version to publish.</p>
+     *        <p>
+     *        You can only specify the <code>versionDescription</code> parameter if you've set <code>publish</code> to
+     *        <code>true</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateStateMachineRequest withVersionDescription(String versionDescription) {
+        setVersionDescription(versionDescription);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Settings to configure server-side encryption.
+     * </p>
+     * 
+     * @param encryptionConfiguration
+     *        Settings to configure server-side encryption.
+     */
+
+    public void setEncryptionConfiguration(EncryptionConfiguration encryptionConfiguration) {
+        this.encryptionConfiguration = encryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * Settings to configure server-side encryption.
+     * </p>
+     * 
+     * @return Settings to configure server-side encryption.
+     */
+
+    public EncryptionConfiguration getEncryptionConfiguration() {
+        return this.encryptionConfiguration;
+    }
+
+    /**
+     * <p>
+     * Settings to configure server-side encryption.
+     * </p>
+     * 
+     * @param encryptionConfiguration
+     *        Settings to configure server-side encryption.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateStateMachineRequest withEncryptionConfiguration(EncryptionConfiguration encryptionConfiguration) {
+        setEncryptionConfiguration(encryptionConfiguration);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -195,7 +471,17 @@ public class UpdateStateMachineRequest extends com.amazonaws.AmazonWebServiceReq
         if (getDefinition() != null)
             sb.append("Definition: ").append("***Sensitive Data Redacted***").append(",");
         if (getRoleArn() != null)
-            sb.append("RoleArn: ").append(getRoleArn());
+            sb.append("RoleArn: ").append(getRoleArn()).append(",");
+        if (getLoggingConfiguration() != null)
+            sb.append("LoggingConfiguration: ").append(getLoggingConfiguration()).append(",");
+        if (getTracingConfiguration() != null)
+            sb.append("TracingConfiguration: ").append(getTracingConfiguration()).append(",");
+        if (getPublish() != null)
+            sb.append("Publish: ").append(getPublish()).append(",");
+        if (getVersionDescription() != null)
+            sb.append("VersionDescription: ").append("***Sensitive Data Redacted***").append(",");
+        if (getEncryptionConfiguration() != null)
+            sb.append("EncryptionConfiguration: ").append(getEncryptionConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -222,6 +508,26 @@ public class UpdateStateMachineRequest extends com.amazonaws.AmazonWebServiceReq
             return false;
         if (other.getRoleArn() != null && other.getRoleArn().equals(this.getRoleArn()) == false)
             return false;
+        if (other.getLoggingConfiguration() == null ^ this.getLoggingConfiguration() == null)
+            return false;
+        if (other.getLoggingConfiguration() != null && other.getLoggingConfiguration().equals(this.getLoggingConfiguration()) == false)
+            return false;
+        if (other.getTracingConfiguration() == null ^ this.getTracingConfiguration() == null)
+            return false;
+        if (other.getTracingConfiguration() != null && other.getTracingConfiguration().equals(this.getTracingConfiguration()) == false)
+            return false;
+        if (other.getPublish() == null ^ this.getPublish() == null)
+            return false;
+        if (other.getPublish() != null && other.getPublish().equals(this.getPublish()) == false)
+            return false;
+        if (other.getVersionDescription() == null ^ this.getVersionDescription() == null)
+            return false;
+        if (other.getVersionDescription() != null && other.getVersionDescription().equals(this.getVersionDescription()) == false)
+            return false;
+        if (other.getEncryptionConfiguration() == null ^ this.getEncryptionConfiguration() == null)
+            return false;
+        if (other.getEncryptionConfiguration() != null && other.getEncryptionConfiguration().equals(this.getEncryptionConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -233,6 +539,11 @@ public class UpdateStateMachineRequest extends com.amazonaws.AmazonWebServiceReq
         hashCode = prime * hashCode + ((getStateMachineArn() == null) ? 0 : getStateMachineArn().hashCode());
         hashCode = prime * hashCode + ((getDefinition() == null) ? 0 : getDefinition().hashCode());
         hashCode = prime * hashCode + ((getRoleArn() == null) ? 0 : getRoleArn().hashCode());
+        hashCode = prime * hashCode + ((getLoggingConfiguration() == null) ? 0 : getLoggingConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getTracingConfiguration() == null) ? 0 : getTracingConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getPublish() == null) ? 0 : getPublish().hashCode());
+        hashCode = prime * hashCode + ((getVersionDescription() == null) ? 0 : getVersionDescription().hashCode());
+        hashCode = prime * hashCode + ((getEncryptionConfiguration() == null) ? 0 : getEncryptionConfiguration().hashCode());
         return hashCode;
     }
 

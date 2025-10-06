@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,6 +40,8 @@ public class UpdateSimulationApplicationRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("renderingEngine").build();
     private static final MarshallingInfo<String> CURRENTREVISIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("currentRevisionId").build();
+    private static final MarshallingInfo<StructuredPojo> ENVIRONMENT_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("environment").build();
 
     private static final UpdateSimulationApplicationRequestMarshaller instance = new UpdateSimulationApplicationRequestMarshaller();
 
@@ -63,6 +65,7 @@ public class UpdateSimulationApplicationRequestMarshaller {
             protocolMarshaller.marshall(updateSimulationApplicationRequest.getRobotSoftwareSuite(), ROBOTSOFTWARESUITE_BINDING);
             protocolMarshaller.marshall(updateSimulationApplicationRequest.getRenderingEngine(), RENDERINGENGINE_BINDING);
             protocolMarshaller.marshall(updateSimulationApplicationRequest.getCurrentRevisionId(), CURRENTREVISIONID_BINDING);
+            protocolMarshaller.marshall(updateSimulationApplicationRequest.getEnvironment(), ENVIRONMENT_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

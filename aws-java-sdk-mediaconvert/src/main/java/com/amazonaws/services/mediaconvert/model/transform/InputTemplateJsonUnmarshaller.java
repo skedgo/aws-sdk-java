@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,14 @@ public class InputTemplateJsonUnmarshaller implements Unmarshaller<InputTemplate
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("advancedInputFilter", targetDepth)) {
+                    context.nextToken();
+                    inputTemplate.setAdvancedInputFilter(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("advancedInputFilterSettings", targetDepth)) {
+                    context.nextToken();
+                    inputTemplate.setAdvancedInputFilterSettings(AdvancedInputFilterSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("audioSelectorGroups", targetDepth)) {
                     context.nextToken();
                     inputTemplate.setAudioSelectorGroups(new MapUnmarshaller<String, AudioSelectorGroup>(context.getUnmarshaller(String.class),
@@ -75,6 +83,10 @@ public class InputTemplateJsonUnmarshaller implements Unmarshaller<InputTemplate
                     context.nextToken();
                     inputTemplate.setDenoiseFilter(context.getUnmarshaller(String.class).unmarshall(context));
                 }
+                if (context.testExpression("dolbyVisionMetadataXml", targetDepth)) {
+                    context.nextToken();
+                    inputTemplate.setDolbyVisionMetadataXml(context.getUnmarshaller(String.class).unmarshall(context));
+                }
                 if (context.testExpression("filterEnable", targetDepth)) {
                     context.nextToken();
                     inputTemplate.setFilterEnable(context.getUnmarshaller(String.class).unmarshall(context));
@@ -89,7 +101,13 @@ public class InputTemplateJsonUnmarshaller implements Unmarshaller<InputTemplate
                 }
                 if (context.testExpression("inputClippings", targetDepth)) {
                     context.nextToken();
-                    inputTemplate.setInputClippings(new ListUnmarshaller<InputClipping>(InputClippingJsonUnmarshaller.getInstance()).unmarshall(context));
+                    inputTemplate.setInputClippings(new ListUnmarshaller<InputClipping>(InputClippingJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("inputScanType", targetDepth)) {
+                    context.nextToken();
+                    inputTemplate.setInputScanType(context.getUnmarshaller(String.class).unmarshall(context));
                 }
                 if (context.testExpression("position", targetDepth)) {
                     context.nextToken();
@@ -106,6 +124,16 @@ public class InputTemplateJsonUnmarshaller implements Unmarshaller<InputTemplate
                 if (context.testExpression("timecodeSource", targetDepth)) {
                     context.nextToken();
                     inputTemplate.setTimecodeSource(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("timecodeStart", targetDepth)) {
+                    context.nextToken();
+                    inputTemplate.setTimecodeStart(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("videoOverlays", targetDepth)) {
+                    context.nextToken();
+                    inputTemplate.setVideoOverlays(new ListUnmarshaller<VideoOverlay>(VideoOverlayJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("videoSelector", targetDepth)) {
                     context.nextToken();

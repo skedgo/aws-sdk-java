@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,8 +54,9 @@ public class DescribeDimensionKeysResult extends com.amazonaws.AmazonWebServiceR
     private java.util.List<DimensionKeyDescription> keys;
     /**
      * <p>
-     * An optional pagination token provided by a previous request. If this parameter is specified, the response
-     * includes only records beyond the token, up to the value specified by <code>MaxRecords</code>.
+     * A pagination token that indicates the response didn’t return all available records because
+     * <code>MaxRecords</code> was specified in the previous request. To get the remaining records, specify
+     * <code>NextToken</code> in a separate request with this value.
      * </p>
      */
     private String nextToken;
@@ -314,13 +315,15 @@ public class DescribeDimensionKeysResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * An optional pagination token provided by a previous request. If this parameter is specified, the response
-     * includes only records beyond the token, up to the value specified by <code>MaxRecords</code>.
+     * A pagination token that indicates the response didn’t return all available records because
+     * <code>MaxRecords</code> was specified in the previous request. To get the remaining records, specify
+     * <code>NextToken</code> in a separate request with this value.
      * </p>
      * 
      * @param nextToken
-     *        An optional pagination token provided by a previous request. If this parameter is specified, the response
-     *        includes only records beyond the token, up to the value specified by <code>MaxRecords</code>.
+     *        A pagination token that indicates the response didn’t return all available records because
+     *        <code>MaxRecords</code> was specified in the previous request. To get the remaining records, specify
+     *        <code>NextToken</code> in a separate request with this value.
      */
 
     public void setNextToken(String nextToken) {
@@ -329,12 +332,14 @@ public class DescribeDimensionKeysResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * An optional pagination token provided by a previous request. If this parameter is specified, the response
-     * includes only records beyond the token, up to the value specified by <code>MaxRecords</code>.
+     * A pagination token that indicates the response didn’t return all available records because
+     * <code>MaxRecords</code> was specified in the previous request. To get the remaining records, specify
+     * <code>NextToken</code> in a separate request with this value.
      * </p>
      * 
-     * @return An optional pagination token provided by a previous request. If this parameter is specified, the response
-     *         includes only records beyond the token, up to the value specified by <code>MaxRecords</code>.
+     * @return A pagination token that indicates the response didn’t return all available records because
+     *         <code>MaxRecords</code> was specified in the previous request. To get the remaining records, specify
+     *         <code>NextToken</code> in a separate request with this value.
      */
 
     public String getNextToken() {
@@ -343,13 +348,15 @@ public class DescribeDimensionKeysResult extends com.amazonaws.AmazonWebServiceR
 
     /**
      * <p>
-     * An optional pagination token provided by a previous request. If this parameter is specified, the response
-     * includes only records beyond the token, up to the value specified by <code>MaxRecords</code>.
+     * A pagination token that indicates the response didn’t return all available records because
+     * <code>MaxRecords</code> was specified in the previous request. To get the remaining records, specify
+     * <code>NextToken</code> in a separate request with this value.
      * </p>
      * 
      * @param nextToken
-     *        An optional pagination token provided by a previous request. If this parameter is specified, the response
-     *        includes only records beyond the token, up to the value specified by <code>MaxRecords</code>.
+     *        A pagination token that indicates the response didn’t return all available records because
+     *        <code>MaxRecords</code> was specified in the previous request. To get the remaining records, specify
+     *        <code>NextToken</code> in a separate request with this value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

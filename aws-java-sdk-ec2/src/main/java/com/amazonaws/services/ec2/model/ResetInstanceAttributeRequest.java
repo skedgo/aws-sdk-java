@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,7 @@ public class ResetInstanceAttributeRequest extends AmazonWebServiceRequest imple
      * <important>
      * <p>
      * You can only reset the following attributes: <code>kernel</code> | <code>ramdisk</code> |
-     * <code>sourceDestCheck</code>. To change an instance attribute, use <a>ModifyInstanceAttribute</a>.
+     * <code>sourceDestCheck</code>.
      * </p>
      * </important>
      */
@@ -62,7 +62,7 @@ public class ResetInstanceAttributeRequest extends AmazonWebServiceRequest imple
      *        The attribute to reset.</p> <important>
      *        <p>
      *        You can only reset the following attributes: <code>kernel</code> | <code>ramdisk</code> |
-     *        <code>sourceDestCheck</code>. To change an instance attribute, use <a>ModifyInstanceAttribute</a>.
+     *        <code>sourceDestCheck</code>.
      *        </p>
      */
     public ResetInstanceAttributeRequest(String instanceId, String attribute) {
@@ -80,7 +80,7 @@ public class ResetInstanceAttributeRequest extends AmazonWebServiceRequest imple
      *        The attribute to reset.</p> <important>
      *        <p>
      *        You can only reset the following attributes: <code>kernel</code> | <code>ramdisk</code> |
-     *        <code>sourceDestCheck</code>. To change an instance attribute, use <a>ModifyInstanceAttribute</a>.
+     *        <code>sourceDestCheck</code>.
      *        </p>
      */
     public ResetInstanceAttributeRequest(String instanceId, InstanceAttributeName attribute) {
@@ -95,7 +95,7 @@ public class ResetInstanceAttributeRequest extends AmazonWebServiceRequest imple
      * <important>
      * <p>
      * You can only reset the following attributes: <code>kernel</code> | <code>ramdisk</code> |
-     * <code>sourceDestCheck</code>. To change an instance attribute, use <a>ModifyInstanceAttribute</a>.
+     * <code>sourceDestCheck</code>.
      * </p>
      * </important>
      * 
@@ -103,7 +103,7 @@ public class ResetInstanceAttributeRequest extends AmazonWebServiceRequest imple
      *        The attribute to reset.</p> <important>
      *        <p>
      *        You can only reset the following attributes: <code>kernel</code> | <code>ramdisk</code> |
-     *        <code>sourceDestCheck</code>. To change an instance attribute, use <a>ModifyInstanceAttribute</a>.
+     *        <code>sourceDestCheck</code>.
      *        </p>
      * @see InstanceAttributeName
      */
@@ -119,14 +119,14 @@ public class ResetInstanceAttributeRequest extends AmazonWebServiceRequest imple
      * <important>
      * <p>
      * You can only reset the following attributes: <code>kernel</code> | <code>ramdisk</code> |
-     * <code>sourceDestCheck</code>. To change an instance attribute, use <a>ModifyInstanceAttribute</a>.
+     * <code>sourceDestCheck</code>.
      * </p>
      * </important>
      * 
      * @return The attribute to reset.</p> <important>
      *         <p>
      *         You can only reset the following attributes: <code>kernel</code> | <code>ramdisk</code> |
-     *         <code>sourceDestCheck</code>. To change an instance attribute, use <a>ModifyInstanceAttribute</a>.
+     *         <code>sourceDestCheck</code>.
      *         </p>
      * @see InstanceAttributeName
      */
@@ -142,7 +142,7 @@ public class ResetInstanceAttributeRequest extends AmazonWebServiceRequest imple
      * <important>
      * <p>
      * You can only reset the following attributes: <code>kernel</code> | <code>ramdisk</code> |
-     * <code>sourceDestCheck</code>. To change an instance attribute, use <a>ModifyInstanceAttribute</a>.
+     * <code>sourceDestCheck</code>.
      * </p>
      * </important>
      * 
@@ -150,7 +150,7 @@ public class ResetInstanceAttributeRequest extends AmazonWebServiceRequest imple
      *        The attribute to reset.</p> <important>
      *        <p>
      *        You can only reset the following attributes: <code>kernel</code> | <code>ramdisk</code> |
-     *        <code>sourceDestCheck</code>. To change an instance attribute, use <a>ModifyInstanceAttribute</a>.
+     *        <code>sourceDestCheck</code>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceAttributeName
@@ -168,7 +168,7 @@ public class ResetInstanceAttributeRequest extends AmazonWebServiceRequest imple
      * <important>
      * <p>
      * You can only reset the following attributes: <code>kernel</code> | <code>ramdisk</code> |
-     * <code>sourceDestCheck</code>. To change an instance attribute, use <a>ModifyInstanceAttribute</a>.
+     * <code>sourceDestCheck</code>.
      * </p>
      * </important>
      * 
@@ -176,7 +176,7 @@ public class ResetInstanceAttributeRequest extends AmazonWebServiceRequest imple
      *        The attribute to reset.</p> <important>
      *        <p>
      *        You can only reset the following attributes: <code>kernel</code> | <code>ramdisk</code> |
-     *        <code>sourceDestCheck</code>. To change an instance attribute, use <a>ModifyInstanceAttribute</a>.
+     *        <code>sourceDestCheck</code>.
      *        </p>
      * @see InstanceAttributeName
      */
@@ -192,7 +192,7 @@ public class ResetInstanceAttributeRequest extends AmazonWebServiceRequest imple
      * <important>
      * <p>
      * You can only reset the following attributes: <code>kernel</code> | <code>ramdisk</code> |
-     * <code>sourceDestCheck</code>. To change an instance attribute, use <a>ModifyInstanceAttribute</a>.
+     * <code>sourceDestCheck</code>.
      * </p>
      * </important>
      * 
@@ -200,7 +200,7 @@ public class ResetInstanceAttributeRequest extends AmazonWebServiceRequest imple
      *        The attribute to reset.</p> <important>
      *        <p>
      *        You can only reset the following attributes: <code>kernel</code> | <code>ramdisk</code> |
-     *        <code>sourceDestCheck</code>. To change an instance attribute, use <a>ModifyInstanceAttribute</a>.
+     *        <code>sourceDestCheck</code>.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceAttributeName

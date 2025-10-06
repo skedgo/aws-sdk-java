@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,7 +45,7 @@ public class ViolationEvent implements Serializable, Cloneable, StructuredPojo {
     private String securityProfileName;
     /**
      * <p>
-     * The behavior which was violated.
+     * The behavior that was violated.
      * </p>
      */
     private Behavior behavior;
@@ -57,10 +57,28 @@ public class ViolationEvent implements Serializable, Cloneable, StructuredPojo {
     private MetricValue metricValue;
     /**
      * <p>
+     * The details of a violation event.
+     * </p>
+     */
+    private ViolationEventAdditionalInfo violationEventAdditionalInfo;
+    /**
+     * <p>
      * The type of violation event.
      * </p>
      */
     private String violationEventType;
+    /**
+     * <p>
+     * The verification state of the violation (detect alarm).
+     * </p>
+     */
+    private String verificationState;
+    /**
+     * <p>
+     * The description of the verification state of the violation.
+     * </p>
+     */
+    private String verificationStateDescription;
     /**
      * <p>
      * The time the violation event occurred.
@@ -190,11 +208,11 @@ public class ViolationEvent implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The behavior which was violated.
+     * The behavior that was violated.
      * </p>
      * 
      * @param behavior
-     *        The behavior which was violated.
+     *        The behavior that was violated.
      */
 
     public void setBehavior(Behavior behavior) {
@@ -203,10 +221,10 @@ public class ViolationEvent implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The behavior which was violated.
+     * The behavior that was violated.
      * </p>
      * 
-     * @return The behavior which was violated.
+     * @return The behavior that was violated.
      */
 
     public Behavior getBehavior() {
@@ -215,11 +233,11 @@ public class ViolationEvent implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The behavior which was violated.
+     * The behavior that was violated.
      * </p>
      * 
      * @param behavior
-     *        The behavior which was violated.
+     *        The behavior that was violated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -265,6 +283,46 @@ public class ViolationEvent implements Serializable, Cloneable, StructuredPojo {
 
     public ViolationEvent withMetricValue(MetricValue metricValue) {
         setMetricValue(metricValue);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The details of a violation event.
+     * </p>
+     * 
+     * @param violationEventAdditionalInfo
+     *        The details of a violation event.
+     */
+
+    public void setViolationEventAdditionalInfo(ViolationEventAdditionalInfo violationEventAdditionalInfo) {
+        this.violationEventAdditionalInfo = violationEventAdditionalInfo;
+    }
+
+    /**
+     * <p>
+     * The details of a violation event.
+     * </p>
+     * 
+     * @return The details of a violation event.
+     */
+
+    public ViolationEventAdditionalInfo getViolationEventAdditionalInfo() {
+        return this.violationEventAdditionalInfo;
+    }
+
+    /**
+     * <p>
+     * The details of a violation event.
+     * </p>
+     * 
+     * @param violationEventAdditionalInfo
+     *        The details of a violation event.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ViolationEvent withViolationEventAdditionalInfo(ViolationEventAdditionalInfo violationEventAdditionalInfo) {
+        setViolationEventAdditionalInfo(violationEventAdditionalInfo);
         return this;
     }
 
@@ -324,6 +382,105 @@ public class ViolationEvent implements Serializable, Cloneable, StructuredPojo {
 
     public ViolationEvent withViolationEventType(ViolationEventType violationEventType) {
         this.violationEventType = violationEventType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The verification state of the violation (detect alarm).
+     * </p>
+     * 
+     * @param verificationState
+     *        The verification state of the violation (detect alarm).
+     * @see VerificationState
+     */
+
+    public void setVerificationState(String verificationState) {
+        this.verificationState = verificationState;
+    }
+
+    /**
+     * <p>
+     * The verification state of the violation (detect alarm).
+     * </p>
+     * 
+     * @return The verification state of the violation (detect alarm).
+     * @see VerificationState
+     */
+
+    public String getVerificationState() {
+        return this.verificationState;
+    }
+
+    /**
+     * <p>
+     * The verification state of the violation (detect alarm).
+     * </p>
+     * 
+     * @param verificationState
+     *        The verification state of the violation (detect alarm).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see VerificationState
+     */
+
+    public ViolationEvent withVerificationState(String verificationState) {
+        setVerificationState(verificationState);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The verification state of the violation (detect alarm).
+     * </p>
+     * 
+     * @param verificationState
+     *        The verification state of the violation (detect alarm).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see VerificationState
+     */
+
+    public ViolationEvent withVerificationState(VerificationState verificationState) {
+        this.verificationState = verificationState.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The description of the verification state of the violation.
+     * </p>
+     * 
+     * @param verificationStateDescription
+     *        The description of the verification state of the violation.
+     */
+
+    public void setVerificationStateDescription(String verificationStateDescription) {
+        this.verificationStateDescription = verificationStateDescription;
+    }
+
+    /**
+     * <p>
+     * The description of the verification state of the violation.
+     * </p>
+     * 
+     * @return The description of the verification state of the violation.
+     */
+
+    public String getVerificationStateDescription() {
+        return this.verificationStateDescription;
+    }
+
+    /**
+     * <p>
+     * The description of the verification state of the violation.
+     * </p>
+     * 
+     * @param verificationStateDescription
+     *        The description of the verification state of the violation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ViolationEvent withVerificationStateDescription(String verificationStateDescription) {
+        setVerificationStateDescription(verificationStateDescription);
         return this;
     }
 
@@ -389,8 +546,14 @@ public class ViolationEvent implements Serializable, Cloneable, StructuredPojo {
             sb.append("Behavior: ").append(getBehavior()).append(",");
         if (getMetricValue() != null)
             sb.append("MetricValue: ").append(getMetricValue()).append(",");
+        if (getViolationEventAdditionalInfo() != null)
+            sb.append("ViolationEventAdditionalInfo: ").append(getViolationEventAdditionalInfo()).append(",");
         if (getViolationEventType() != null)
             sb.append("ViolationEventType: ").append(getViolationEventType()).append(",");
+        if (getVerificationState() != null)
+            sb.append("VerificationState: ").append(getVerificationState()).append(",");
+        if (getVerificationStateDescription() != null)
+            sb.append("VerificationStateDescription: ").append(getVerificationStateDescription()).append(",");
         if (getViolationEventTime() != null)
             sb.append("ViolationEventTime: ").append(getViolationEventTime());
         sb.append("}");
@@ -427,9 +590,21 @@ public class ViolationEvent implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getMetricValue() != null && other.getMetricValue().equals(this.getMetricValue()) == false)
             return false;
+        if (other.getViolationEventAdditionalInfo() == null ^ this.getViolationEventAdditionalInfo() == null)
+            return false;
+        if (other.getViolationEventAdditionalInfo() != null && other.getViolationEventAdditionalInfo().equals(this.getViolationEventAdditionalInfo()) == false)
+            return false;
         if (other.getViolationEventType() == null ^ this.getViolationEventType() == null)
             return false;
         if (other.getViolationEventType() != null && other.getViolationEventType().equals(this.getViolationEventType()) == false)
+            return false;
+        if (other.getVerificationState() == null ^ this.getVerificationState() == null)
+            return false;
+        if (other.getVerificationState() != null && other.getVerificationState().equals(this.getVerificationState()) == false)
+            return false;
+        if (other.getVerificationStateDescription() == null ^ this.getVerificationStateDescription() == null)
+            return false;
+        if (other.getVerificationStateDescription() != null && other.getVerificationStateDescription().equals(this.getVerificationStateDescription()) == false)
             return false;
         if (other.getViolationEventTime() == null ^ this.getViolationEventTime() == null)
             return false;
@@ -448,7 +623,10 @@ public class ViolationEvent implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getSecurityProfileName() == null) ? 0 : getSecurityProfileName().hashCode());
         hashCode = prime * hashCode + ((getBehavior() == null) ? 0 : getBehavior().hashCode());
         hashCode = prime * hashCode + ((getMetricValue() == null) ? 0 : getMetricValue().hashCode());
+        hashCode = prime * hashCode + ((getViolationEventAdditionalInfo() == null) ? 0 : getViolationEventAdditionalInfo().hashCode());
         hashCode = prime * hashCode + ((getViolationEventType() == null) ? 0 : getViolationEventType().hashCode());
+        hashCode = prime * hashCode + ((getVerificationState() == null) ? 0 : getVerificationState().hashCode());
+        hashCode = prime * hashCode + ((getVerificationStateDescription() == null) ? 0 : getVerificationStateDescription().hashCode());
         hashCode = prime * hashCode + ((getViolationEventTime() == null) ? 0 : getViolationEventTime().hashCode());
         return hashCode;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,7 +38,22 @@ public class AbstractAmazonWorkspaces implements AmazonWorkspaces {
     }
 
     @Override
+    public AcceptAccountLinkInvitationResult acceptAccountLinkInvitation(AcceptAccountLinkInvitationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateConnectionAliasResult associateConnectionAlias(AssociateConnectionAliasRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public AssociateIpGroupsResult associateIpGroups(AssociateIpGroupsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AssociateWorkspaceApplicationResult associateWorkspaceApplication(AssociateWorkspaceApplicationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -53,7 +68,27 @@ public class AbstractAmazonWorkspaces implements AmazonWorkspaces {
     }
 
     @Override
+    public CreateAccountLinkInvitationResult createAccountLinkInvitation(CreateAccountLinkInvitationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateConnectClientAddInResult createConnectClientAddIn(CreateConnectClientAddInRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateConnectionAliasResult createConnectionAlias(CreateConnectionAliasRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateIpGroupResult createIpGroup(CreateIpGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateStandbyWorkspacesResult createStandbyWorkspaces(CreateStandbyWorkspacesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -63,7 +98,47 @@ public class AbstractAmazonWorkspaces implements AmazonWorkspaces {
     }
 
     @Override
+    public CreateUpdatedWorkspaceImageResult createUpdatedWorkspaceImage(CreateUpdatedWorkspaceImageRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateWorkspaceBundleResult createWorkspaceBundle(CreateWorkspaceBundleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateWorkspaceImageResult createWorkspaceImage(CreateWorkspaceImageRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateWorkspacesResult createWorkspaces(CreateWorkspacesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateWorkspacesPoolResult createWorkspacesPool(CreateWorkspacesPoolRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteAccountLinkInvitationResult deleteAccountLinkInvitation(DeleteAccountLinkInvitationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteClientBrandingResult deleteClientBranding(DeleteClientBrandingRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteConnectClientAddInResult deleteConnectClientAddIn(DeleteConnectClientAddInRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteConnectionAliasResult deleteConnectionAlias(DeleteConnectionAliasRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -78,7 +153,22 @@ public class AbstractAmazonWorkspaces implements AmazonWorkspaces {
     }
 
     @Override
+    public DeleteWorkspaceBundleResult deleteWorkspaceBundle(DeleteWorkspaceBundleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteWorkspaceImageResult deleteWorkspaceImage(DeleteWorkspaceImageRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeployWorkspaceApplicationsResult deployWorkspaceApplications(DeployWorkspaceApplicationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeregisterWorkspaceDirectoryResult deregisterWorkspaceDirectory(DeregisterWorkspaceDirectoryRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -93,7 +183,47 @@ public class AbstractAmazonWorkspaces implements AmazonWorkspaces {
     }
 
     @Override
+    public DescribeApplicationAssociationsResult describeApplicationAssociations(DescribeApplicationAssociationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeApplicationsResult describeApplications(DescribeApplicationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeBundleAssociationsResult describeBundleAssociations(DescribeBundleAssociationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeClientBrandingResult describeClientBranding(DescribeClientBrandingRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeClientPropertiesResult describeClientProperties(DescribeClientPropertiesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeConnectClientAddInsResult describeConnectClientAddIns(DescribeConnectClientAddInsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeConnectionAliasPermissionsResult describeConnectionAliasPermissions(DescribeConnectionAliasPermissionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeConnectionAliasesResult describeConnectionAliases(DescribeConnectionAliasesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeImageAssociationsResult describeImageAssociations(DescribeImageAssociationsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -104,6 +234,11 @@ public class AbstractAmazonWorkspaces implements AmazonWorkspaces {
 
     @Override
     public DescribeTagsResult describeTags(DescribeTagsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeWorkspaceAssociationsResult describeWorkspaceAssociations(DescribeWorkspaceAssociationsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -128,7 +263,17 @@ public class AbstractAmazonWorkspaces implements AmazonWorkspaces {
     }
 
     @Override
+    public DescribeWorkspaceImagePermissionsResult describeWorkspaceImagePermissions(DescribeWorkspaceImagePermissionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeWorkspaceImagesResult describeWorkspaceImages(DescribeWorkspaceImagesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeWorkspaceSnapshotsResult describeWorkspaceSnapshots(DescribeWorkspaceSnapshotsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -148,7 +293,37 @@ public class AbstractAmazonWorkspaces implements AmazonWorkspaces {
     }
 
     @Override
+    public DescribeWorkspacesPoolSessionsResult describeWorkspacesPoolSessions(DescribeWorkspacesPoolSessionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeWorkspacesPoolsResult describeWorkspacesPools(DescribeWorkspacesPoolsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateConnectionAliasResult disassociateConnectionAlias(DisassociateConnectionAliasRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DisassociateIpGroupsResult disassociateIpGroups(DisassociateIpGroupsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DisassociateWorkspaceApplicationResult disassociateWorkspaceApplication(DisassociateWorkspaceApplicationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetAccountLinkResult getAccountLink(GetAccountLinkRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ImportClientBrandingResult importClientBranding(ImportClientBrandingRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -158,7 +333,17 @@ public class AbstractAmazonWorkspaces implements AmazonWorkspaces {
     }
 
     @Override
+    public ListAccountLinksResult listAccountLinks(ListAccountLinksRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListAvailableManagementCidrRangesResult listAvailableManagementCidrRanges(ListAvailableManagementCidrRangesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public MigrateWorkspaceResult migrateWorkspace(MigrateWorkspaceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -168,7 +353,37 @@ public class AbstractAmazonWorkspaces implements AmazonWorkspaces {
     }
 
     @Override
+    public ModifyCertificateBasedAuthPropertiesResult modifyCertificateBasedAuthProperties(ModifyCertificateBasedAuthPropertiesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ModifyClientPropertiesResult modifyClientProperties(ModifyClientPropertiesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ModifySamlPropertiesResult modifySamlProperties(ModifySamlPropertiesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ModifySelfservicePermissionsResult modifySelfservicePermissions(ModifySelfservicePermissionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ModifyStreamingPropertiesResult modifyStreamingProperties(ModifyStreamingPropertiesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ModifyWorkspaceAccessPropertiesResult modifyWorkspaceAccessProperties(ModifyWorkspaceAccessPropertiesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ModifyWorkspaceCreationPropertiesResult modifyWorkspaceCreationProperties(ModifyWorkspaceCreationPropertiesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -193,6 +408,21 @@ public class AbstractAmazonWorkspaces implements AmazonWorkspaces {
     }
 
     @Override
+    public RegisterWorkspaceDirectoryResult registerWorkspaceDirectory(RegisterWorkspaceDirectoryRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public RejectAccountLinkInvitationResult rejectAccountLinkInvitation(RejectAccountLinkInvitationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public RestoreWorkspaceResult restoreWorkspace(RestoreWorkspaceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public RevokeIpRulesResult revokeIpRules(RevokeIpRulesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -203,7 +433,17 @@ public class AbstractAmazonWorkspaces implements AmazonWorkspaces {
     }
 
     @Override
+    public StartWorkspacesPoolResult startWorkspacesPool(StartWorkspacesPoolRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StopWorkspacesResult stopWorkspaces(StopWorkspacesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public StopWorkspacesPoolResult stopWorkspacesPool(StopWorkspacesPoolRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -213,7 +453,42 @@ public class AbstractAmazonWorkspaces implements AmazonWorkspaces {
     }
 
     @Override
+    public TerminateWorkspacesPoolResult terminateWorkspacesPool(TerminateWorkspacesPoolRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TerminateWorkspacesPoolSessionResult terminateWorkspacesPoolSession(TerminateWorkspacesPoolSessionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateConnectClientAddInResult updateConnectClientAddIn(UpdateConnectClientAddInRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateConnectionAliasPermissionResult updateConnectionAliasPermission(UpdateConnectionAliasPermissionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateRulesOfIpGroupResult updateRulesOfIpGroup(UpdateRulesOfIpGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateWorkspaceBundleResult updateWorkspaceBundle(UpdateWorkspaceBundleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateWorkspaceImagePermissionResult updateWorkspaceImagePermission(UpdateWorkspaceImagePermissionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateWorkspacesPoolResult updateWorkspacesPool(UpdateWorkspacesPoolRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

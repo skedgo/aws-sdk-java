@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class UntagResourceRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The <code>GraphqlApi</code> ARN.
+     * The <code>GraphqlApi</code> Amazon Resource Name (ARN).
      * </p>
      */
     private String resourceArn;
@@ -40,11 +40,11 @@ public class UntagResourceRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The <code>GraphqlApi</code> ARN.
+     * The <code>GraphqlApi</code> Amazon Resource Name (ARN).
      * </p>
      * 
      * @param resourceArn
-     *        The <code>GraphqlApi</code> ARN.
+     *        The <code>GraphqlApi</code> Amazon Resource Name (ARN).
      */
 
     public void setResourceArn(String resourceArn) {
@@ -53,10 +53,10 @@ public class UntagResourceRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The <code>GraphqlApi</code> ARN.
+     * The <code>GraphqlApi</code> Amazon Resource Name (ARN).
      * </p>
      * 
-     * @return The <code>GraphqlApi</code> ARN.
+     * @return The <code>GraphqlApi</code> Amazon Resource Name (ARN).
      */
 
     public String getResourceArn() {
@@ -65,11 +65,11 @@ public class UntagResourceRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The <code>GraphqlApi</code> ARN.
+     * The <code>GraphqlApi</code> Amazon Resource Name (ARN).
      * </p>
      * 
      * @param resourceArn
-     *        The <code>GraphqlApi</code> ARN.
+     *        The <code>GraphqlApi</code> Amazon Resource Name (ARN).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

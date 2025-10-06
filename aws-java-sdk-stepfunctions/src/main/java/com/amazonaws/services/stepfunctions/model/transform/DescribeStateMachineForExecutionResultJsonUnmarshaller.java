@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -67,6 +67,31 @@ public class DescribeStateMachineForExecutionResultJsonUnmarshaller implements U
                 if (context.testExpression("updateDate", targetDepth)) {
                     context.nextToken();
                     describeStateMachineForExecutionResult.setUpdateDate(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
+                }
+                if (context.testExpression("loggingConfiguration", targetDepth)) {
+                    context.nextToken();
+                    describeStateMachineForExecutionResult.setLoggingConfiguration(LoggingConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("tracingConfiguration", targetDepth)) {
+                    context.nextToken();
+                    describeStateMachineForExecutionResult.setTracingConfiguration(TracingConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("mapRunArn", targetDepth)) {
+                    context.nextToken();
+                    describeStateMachineForExecutionResult.setMapRunArn(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("label", targetDepth)) {
+                    context.nextToken();
+                    describeStateMachineForExecutionResult.setLabel(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("revisionId", targetDepth)) {
+                    context.nextToken();
+                    describeStateMachineForExecutionResult.setRevisionId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("encryptionConfiguration", targetDepth)) {
+                    context.nextToken();
+                    describeStateMachineForExecutionResult
+                            .setEncryptionConfiguration(EncryptionConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

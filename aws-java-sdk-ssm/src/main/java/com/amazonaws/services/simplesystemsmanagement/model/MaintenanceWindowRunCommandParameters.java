@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The parameters for a RUN_COMMAND task type.
+ * The parameters for a <code>RUN_COMMAND</code> task type.
  * </p>
  * <p>
  * For information about specifying and updating task parameters, see <a>RegisterTaskWithMaintenanceWindow</a> and
@@ -27,10 +27,11 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * </p>
  * <note>
  * <p>
- * <code>LoggingInfo</code> has been deprecated. To specify an S3 bucket to contain logs, instead use the
- * <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
- * <code>TaskInvocationParameters</code> structure. For information about how Systems Manager handles these options for
- * the supported maintenance window task types, see <a>MaintenanceWindowTaskInvocationParameters</a>.
+ * <code>LoggingInfo</code> has been deprecated. To specify an Amazon Simple Storage Service (Amazon S3) bucket to
+ * contain logs, instead use the <code>OutputS3BucketName</code> and <code>OutputS3KeyPrefix</code> options in the
+ * <code>TaskInvocationParameters</code> structure. For information about how Amazon Web Services Systems Manager
+ * handles these options for the supported maintenance window task types, see
+ * <a>MaintenanceWindowTaskInvocationParameters</a>.
  * </p>
  * <p>
  * <code>TaskParameters</code> has been deprecated. To specify parameters to pass to a task when it runs, instead use
@@ -39,7 +40,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <a>MaintenanceWindowTaskInvocationParameters</a>.
  * </p>
  * <p>
- * For Run Command tasks, Systems Manager uses specified values for <code>TaskParameters</code> and
+ * For <code>RUN_COMMAND</code> tasks, Systems Manager uses specified values for <code>TaskParameters</code> and
  * <code>LoggingInfo</code> only if no values are specified for <code>TaskInvocationParameters</code>.
  * </p>
  * </note>
@@ -56,6 +57,8 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
      * </p>
      */
     private String comment;
+
+    private CloudWatchOutputConfig cloudWatchOutputConfig;
     /**
      * <p>
      * The SHA-256 or SHA-1 hash created by the system when the document was created. SHA-1 hashes have been deprecated.
@@ -70,38 +73,56 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
     private String documentHashType;
     /**
      * <p>
-     * Configurations for sending notifications about command status changes on a per-instance basis.
+     * The Amazon Web Services Systems Manager document (SSM document) version to use in the request. You can specify
+     * <code>$DEFAULT</code>, <code>$LATEST</code>, or a specific version number. If you run commands by using the
+     * Amazon Web Services CLI, then you must escape the first two options by using a backslash. If you specify a
+     * version number, then you don't need to use the backslash. For example:
+     * </p>
+     * <p>
+     * <code>--document-version "\$DEFAULT"</code>
+     * </p>
+     * <p>
+     * <code>--document-version "\$LATEST"</code>
+     * </p>
+     * <p>
+     * <code>--document-version "3"</code>
+     * </p>
+     */
+    private String documentVersion;
+    /**
+     * <p>
+     * Configurations for sending notifications about command status changes on a per-managed node basis.
      * </p>
      */
     private NotificationConfig notificationConfig;
     /**
      * <p>
-     * The name of the Amazon S3 bucket.
+     * The name of the Amazon Simple Storage Service (Amazon S3) bucket.
      * </p>
      */
     private String outputS3BucketName;
     /**
      * <p>
-     * The Amazon S3 bucket subfolder.
+     * The S3 bucket subfolder.
      * </p>
      */
     private String outputS3KeyPrefix;
     /**
      * <p>
-     * The parameters for the RUN_COMMAND task execution.
+     * The parameters for the <code>RUN_COMMAND</code> task execution.
      * </p>
      */
     private java.util.Map<String, java.util.List<String>> parameters;
     /**
      * <p>
-     * The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications
-     * for maintenance window Run Command tasks.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish Amazon
+     * Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      * </p>
      */
     private String serviceRoleArn;
     /**
      * <p>
-     * If this time is reached and the command has not already started running, it doesn't run.
+     * If this time is reached and the command hasn't already started running, it doesn't run.
      * </p>
      */
     private Integer timeoutSeconds;
@@ -143,6 +164,32 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     public MaintenanceWindowRunCommandParameters withComment(String comment) {
         setComment(comment);
+        return this;
+    }
+
+    /**
+     * @param cloudWatchOutputConfig
+     */
+
+    public void setCloudWatchOutputConfig(CloudWatchOutputConfig cloudWatchOutputConfig) {
+        this.cloudWatchOutputConfig = cloudWatchOutputConfig;
+    }
+
+    /**
+     * @return
+     */
+
+    public CloudWatchOutputConfig getCloudWatchOutputConfig() {
+        return this.cloudWatchOutputConfig;
+    }
+
+    /**
+     * @param cloudWatchOutputConfig
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MaintenanceWindowRunCommandParameters withCloudWatchOutputConfig(CloudWatchOutputConfig cloudWatchOutputConfig) {
+        setCloudWatchOutputConfig(cloudWatchOutputConfig);
         return this;
     }
 
@@ -250,11 +297,120 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * Configurations for sending notifications about command status changes on a per-instance basis.
+     * The Amazon Web Services Systems Manager document (SSM document) version to use in the request. You can specify
+     * <code>$DEFAULT</code>, <code>$LATEST</code>, or a specific version number. If you run commands by using the
+     * Amazon Web Services CLI, then you must escape the first two options by using a backslash. If you specify a
+     * version number, then you don't need to use the backslash. For example:
+     * </p>
+     * <p>
+     * <code>--document-version "\$DEFAULT"</code>
+     * </p>
+     * <p>
+     * <code>--document-version "\$LATEST"</code>
+     * </p>
+     * <p>
+     * <code>--document-version "3"</code>
+     * </p>
+     * 
+     * @param documentVersion
+     *        The Amazon Web Services Systems Manager document (SSM document) version to use in the request. You can
+     *        specify <code>$DEFAULT</code>, <code>$LATEST</code>, or a specific version number. If you run commands by
+     *        using the Amazon Web Services CLI, then you must escape the first two options by using a backslash. If you
+     *        specify a version number, then you don't need to use the backslash. For example:</p>
+     *        <p>
+     *        <code>--document-version "\$DEFAULT"</code>
+     *        </p>
+     *        <p>
+     *        <code>--document-version "\$LATEST"</code>
+     *        </p>
+     *        <p>
+     *        <code>--document-version "3"</code>
+     */
+
+    public void setDocumentVersion(String documentVersion) {
+        this.documentVersion = documentVersion;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services Systems Manager document (SSM document) version to use in the request. You can specify
+     * <code>$DEFAULT</code>, <code>$LATEST</code>, or a specific version number. If you run commands by using the
+     * Amazon Web Services CLI, then you must escape the first two options by using a backslash. If you specify a
+     * version number, then you don't need to use the backslash. For example:
+     * </p>
+     * <p>
+     * <code>--document-version "\$DEFAULT"</code>
+     * </p>
+     * <p>
+     * <code>--document-version "\$LATEST"</code>
+     * </p>
+     * <p>
+     * <code>--document-version "3"</code>
+     * </p>
+     * 
+     * @return The Amazon Web Services Systems Manager document (SSM document) version to use in the request. You can
+     *         specify <code>$DEFAULT</code>, <code>$LATEST</code>, or a specific version number. If you run commands by
+     *         using the Amazon Web Services CLI, then you must escape the first two options by using a backslash. If
+     *         you specify a version number, then you don't need to use the backslash. For example:</p>
+     *         <p>
+     *         <code>--document-version "\$DEFAULT"</code>
+     *         </p>
+     *         <p>
+     *         <code>--document-version "\$LATEST"</code>
+     *         </p>
+     *         <p>
+     *         <code>--document-version "3"</code>
+     */
+
+    public String getDocumentVersion() {
+        return this.documentVersion;
+    }
+
+    /**
+     * <p>
+     * The Amazon Web Services Systems Manager document (SSM document) version to use in the request. You can specify
+     * <code>$DEFAULT</code>, <code>$LATEST</code>, or a specific version number. If you run commands by using the
+     * Amazon Web Services CLI, then you must escape the first two options by using a backslash. If you specify a
+     * version number, then you don't need to use the backslash. For example:
+     * </p>
+     * <p>
+     * <code>--document-version "\$DEFAULT"</code>
+     * </p>
+     * <p>
+     * <code>--document-version "\$LATEST"</code>
+     * </p>
+     * <p>
+     * <code>--document-version "3"</code>
+     * </p>
+     * 
+     * @param documentVersion
+     *        The Amazon Web Services Systems Manager document (SSM document) version to use in the request. You can
+     *        specify <code>$DEFAULT</code>, <code>$LATEST</code>, or a specific version number. If you run commands by
+     *        using the Amazon Web Services CLI, then you must escape the first two options by using a backslash. If you
+     *        specify a version number, then you don't need to use the backslash. For example:</p>
+     *        <p>
+     *        <code>--document-version "\$DEFAULT"</code>
+     *        </p>
+     *        <p>
+     *        <code>--document-version "\$LATEST"</code>
+     *        </p>
+     *        <p>
+     *        <code>--document-version "3"</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MaintenanceWindowRunCommandParameters withDocumentVersion(String documentVersion) {
+        setDocumentVersion(documentVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Configurations for sending notifications about command status changes on a per-managed node basis.
      * </p>
      * 
      * @param notificationConfig
-     *        Configurations for sending notifications about command status changes on a per-instance basis.
+     *        Configurations for sending notifications about command status changes on a per-managed node basis.
      */
 
     public void setNotificationConfig(NotificationConfig notificationConfig) {
@@ -263,10 +419,10 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * Configurations for sending notifications about command status changes on a per-instance basis.
+     * Configurations for sending notifications about command status changes on a per-managed node basis.
      * </p>
      * 
-     * @return Configurations for sending notifications about command status changes on a per-instance basis.
+     * @return Configurations for sending notifications about command status changes on a per-managed node basis.
      */
 
     public NotificationConfig getNotificationConfig() {
@@ -275,11 +431,11 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * Configurations for sending notifications about command status changes on a per-instance basis.
+     * Configurations for sending notifications about command status changes on a per-managed node basis.
      * </p>
      * 
      * @param notificationConfig
-     *        Configurations for sending notifications about command status changes on a per-instance basis.
+     *        Configurations for sending notifications about command status changes on a per-managed node basis.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -290,11 +446,11 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * The name of the Amazon S3 bucket.
+     * The name of the Amazon Simple Storage Service (Amazon S3) bucket.
      * </p>
      * 
      * @param outputS3BucketName
-     *        The name of the Amazon S3 bucket.
+     *        The name of the Amazon Simple Storage Service (Amazon S3) bucket.
      */
 
     public void setOutputS3BucketName(String outputS3BucketName) {
@@ -303,10 +459,10 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * The name of the Amazon S3 bucket.
+     * The name of the Amazon Simple Storage Service (Amazon S3) bucket.
      * </p>
      * 
-     * @return The name of the Amazon S3 bucket.
+     * @return The name of the Amazon Simple Storage Service (Amazon S3) bucket.
      */
 
     public String getOutputS3BucketName() {
@@ -315,11 +471,11 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * The name of the Amazon S3 bucket.
+     * The name of the Amazon Simple Storage Service (Amazon S3) bucket.
      * </p>
      * 
      * @param outputS3BucketName
-     *        The name of the Amazon S3 bucket.
+     *        The name of the Amazon Simple Storage Service (Amazon S3) bucket.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -330,11 +486,11 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * The Amazon S3 bucket subfolder.
+     * The S3 bucket subfolder.
      * </p>
      * 
      * @param outputS3KeyPrefix
-     *        The Amazon S3 bucket subfolder.
+     *        The S3 bucket subfolder.
      */
 
     public void setOutputS3KeyPrefix(String outputS3KeyPrefix) {
@@ -343,10 +499,10 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * The Amazon S3 bucket subfolder.
+     * The S3 bucket subfolder.
      * </p>
      * 
-     * @return The Amazon S3 bucket subfolder.
+     * @return The S3 bucket subfolder.
      */
 
     public String getOutputS3KeyPrefix() {
@@ -355,11 +511,11 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * The Amazon S3 bucket subfolder.
+     * The S3 bucket subfolder.
      * </p>
      * 
      * @param outputS3KeyPrefix
-     *        The Amazon S3 bucket subfolder.
+     *        The S3 bucket subfolder.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -370,10 +526,10 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * The parameters for the RUN_COMMAND task execution.
+     * The parameters for the <code>RUN_COMMAND</code> task execution.
      * </p>
      * 
-     * @return The parameters for the RUN_COMMAND task execution.
+     * @return The parameters for the <code>RUN_COMMAND</code> task execution.
      */
 
     public java.util.Map<String, java.util.List<String>> getParameters() {
@@ -382,11 +538,11 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * The parameters for the RUN_COMMAND task execution.
+     * The parameters for the <code>RUN_COMMAND</code> task execution.
      * </p>
      * 
      * @param parameters
-     *        The parameters for the RUN_COMMAND task execution.
+     *        The parameters for the <code>RUN_COMMAND</code> task execution.
      */
 
     public void setParameters(java.util.Map<String, java.util.List<String>> parameters) {
@@ -395,11 +551,11 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * The parameters for the RUN_COMMAND task execution.
+     * The parameters for the <code>RUN_COMMAND</code> task execution.
      * </p>
      * 
      * @param parameters
-     *        The parameters for the RUN_COMMAND task execution.
+     *        The parameters for the <code>RUN_COMMAND</code> task execution.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -407,6 +563,13 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
         setParameters(parameters);
         return this;
     }
+
+    /**
+     * Add a single Parameters entry
+     *
+     * @see MaintenanceWindowRunCommandParameters#withParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public MaintenanceWindowRunCommandParameters addParametersEntry(String key, java.util.List<String> value) {
         if (null == this.parameters) {
@@ -431,13 +594,13 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications
-     * for maintenance window Run Command tasks.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish Amazon
+     * Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      * </p>
      * 
      * @param serviceRoleArn
-     *        The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS)
-     *        notifications for maintenance window Run Command tasks.
+     *        The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish
+     *        Amazon Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      */
 
     public void setServiceRoleArn(String serviceRoleArn) {
@@ -446,12 +609,12 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications
-     * for maintenance window Run Command tasks.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish Amazon
+     * Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      * </p>
      * 
-     * @return The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS)
-     *         notifications for maintenance window Run Command tasks.
+     * @return The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish
+     *         Amazon Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      */
 
     public String getServiceRoleArn() {
@@ -460,13 +623,13 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications
-     * for maintenance window Run Command tasks.
+     * The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish Amazon
+     * Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      * </p>
      * 
      * @param serviceRoleArn
-     *        The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS)
-     *        notifications for maintenance window Run Command tasks.
+     *        The Amazon Resource Name (ARN) of the Identity and Access Management (IAM) service role to use to publish
+     *        Amazon Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -477,11 +640,11 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * If this time is reached and the command has not already started running, it doesn't run.
+     * If this time is reached and the command hasn't already started running, it doesn't run.
      * </p>
      * 
      * @param timeoutSeconds
-     *        If this time is reached and the command has not already started running, it doesn't run.
+     *        If this time is reached and the command hasn't already started running, it doesn't run.
      */
 
     public void setTimeoutSeconds(Integer timeoutSeconds) {
@@ -490,10 +653,10 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * If this time is reached and the command has not already started running, it doesn't run.
+     * If this time is reached and the command hasn't already started running, it doesn't run.
      * </p>
      * 
-     * @return If this time is reached and the command has not already started running, it doesn't run.
+     * @return If this time is reached and the command hasn't already started running, it doesn't run.
      */
 
     public Integer getTimeoutSeconds() {
@@ -502,11 +665,11 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
 
     /**
      * <p>
-     * If this time is reached and the command has not already started running, it doesn't run.
+     * If this time is reached and the command hasn't already started running, it doesn't run.
      * </p>
      * 
      * @param timeoutSeconds
-     *        If this time is reached and the command has not already started running, it doesn't run.
+     *        If this time is reached and the command hasn't already started running, it doesn't run.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -529,10 +692,14 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
         sb.append("{");
         if (getComment() != null)
             sb.append("Comment: ").append(getComment()).append(",");
+        if (getCloudWatchOutputConfig() != null)
+            sb.append("CloudWatchOutputConfig: ").append(getCloudWatchOutputConfig()).append(",");
         if (getDocumentHash() != null)
             sb.append("DocumentHash: ").append(getDocumentHash()).append(",");
         if (getDocumentHashType() != null)
             sb.append("DocumentHashType: ").append(getDocumentHashType()).append(",");
+        if (getDocumentVersion() != null)
+            sb.append("DocumentVersion: ").append(getDocumentVersion()).append(",");
         if (getNotificationConfig() != null)
             sb.append("NotificationConfig: ").append(getNotificationConfig()).append(",");
         if (getOutputS3BucketName() != null)
@@ -540,7 +707,7 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
         if (getOutputS3KeyPrefix() != null)
             sb.append("OutputS3KeyPrefix: ").append(getOutputS3KeyPrefix()).append(",");
         if (getParameters() != null)
-            sb.append("Parameters: ").append(getParameters()).append(",");
+            sb.append("Parameters: ").append("***Sensitive Data Redacted***").append(",");
         if (getServiceRoleArn() != null)
             sb.append("ServiceRoleArn: ").append(getServiceRoleArn()).append(",");
         if (getTimeoutSeconds() != null)
@@ -563,6 +730,10 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
             return false;
         if (other.getComment() != null && other.getComment().equals(this.getComment()) == false)
             return false;
+        if (other.getCloudWatchOutputConfig() == null ^ this.getCloudWatchOutputConfig() == null)
+            return false;
+        if (other.getCloudWatchOutputConfig() != null && other.getCloudWatchOutputConfig().equals(this.getCloudWatchOutputConfig()) == false)
+            return false;
         if (other.getDocumentHash() == null ^ this.getDocumentHash() == null)
             return false;
         if (other.getDocumentHash() != null && other.getDocumentHash().equals(this.getDocumentHash()) == false)
@@ -570,6 +741,10 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
         if (other.getDocumentHashType() == null ^ this.getDocumentHashType() == null)
             return false;
         if (other.getDocumentHashType() != null && other.getDocumentHashType().equals(this.getDocumentHashType()) == false)
+            return false;
+        if (other.getDocumentVersion() == null ^ this.getDocumentVersion() == null)
+            return false;
+        if (other.getDocumentVersion() != null && other.getDocumentVersion().equals(this.getDocumentVersion()) == false)
             return false;
         if (other.getNotificationConfig() == null ^ this.getNotificationConfig() == null)
             return false;
@@ -604,8 +779,10 @@ public class MaintenanceWindowRunCommandParameters implements Serializable, Clon
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getComment() == null) ? 0 : getComment().hashCode());
+        hashCode = prime * hashCode + ((getCloudWatchOutputConfig() == null) ? 0 : getCloudWatchOutputConfig().hashCode());
         hashCode = prime * hashCode + ((getDocumentHash() == null) ? 0 : getDocumentHash().hashCode());
         hashCode = prime * hashCode + ((getDocumentHashType() == null) ? 0 : getDocumentHashType().hashCode());
+        hashCode = prime * hashCode + ((getDocumentVersion() == null) ? 0 : getDocumentVersion().hashCode());
         hashCode = prime * hashCode + ((getNotificationConfig() == null) ? 0 : getNotificationConfig().hashCode());
         hashCode = prime * hashCode + ((getOutputS3BucketName() == null) ? 0 : getOutputS3BucketName().hashCode());
         hashCode = prime * hashCode + ((getOutputS3KeyPrefix() == null) ? 0 : getOutputS3KeyPrefix().hashCode());

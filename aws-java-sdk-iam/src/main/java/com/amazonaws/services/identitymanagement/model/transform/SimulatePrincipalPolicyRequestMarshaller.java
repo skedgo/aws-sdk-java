@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -59,6 +59,21 @@ public class SimulatePrincipalPolicyRequestMarshaller implements Marshaller<Requ
             }
         }
 
+        if (!simulatePrincipalPolicyRequest.getPermissionsBoundaryPolicyInputList().isEmpty()
+                || !((com.amazonaws.internal.SdkInternalList<String>) simulatePrincipalPolicyRequest.getPermissionsBoundaryPolicyInputList()).isAutoConstruct()) {
+            com.amazonaws.internal.SdkInternalList<String> permissionsBoundaryPolicyInputListList = (com.amazonaws.internal.SdkInternalList<String>) simulatePrincipalPolicyRequest
+                    .getPermissionsBoundaryPolicyInputList();
+            int permissionsBoundaryPolicyInputListListIndex = 1;
+
+            for (String permissionsBoundaryPolicyInputListListValue : permissionsBoundaryPolicyInputListList) {
+                if (permissionsBoundaryPolicyInputListListValue != null) {
+                    request.addParameter("PermissionsBoundaryPolicyInputList.member." + permissionsBoundaryPolicyInputListListIndex,
+                            StringUtils.fromString(permissionsBoundaryPolicyInputListListValue));
+                }
+                permissionsBoundaryPolicyInputListListIndex++;
+            }
+        }
+
         if (!simulatePrincipalPolicyRequest.getActionNames().isEmpty()
                 || !((com.amazonaws.internal.SdkInternalList<String>) simulatePrincipalPolicyRequest.getActionNames()).isAutoConstruct()) {
             com.amazonaws.internal.SdkInternalList<String> actionNamesList = (com.amazonaws.internal.SdkInternalList<String>) simulatePrincipalPolicyRequest
@@ -106,30 +121,32 @@ public class SimulatePrincipalPolicyRequestMarshaller implements Marshaller<Requ
             int contextEntriesListIndex = 1;
 
             for (ContextEntry contextEntriesListValue : contextEntriesList) {
+                if (contextEntriesListValue != null) {
 
-                if (contextEntriesListValue.getContextKeyName() != null) {
-                    request.addParameter("ContextEntries.member." + contextEntriesListIndex + ".ContextKeyName",
-                            StringUtils.fromString(contextEntriesListValue.getContextKeyName()));
-                }
-
-                if (!contextEntriesListValue.getContextKeyValues().isEmpty()
-                        || !((com.amazonaws.internal.SdkInternalList<String>) contextEntriesListValue.getContextKeyValues()).isAutoConstruct()) {
-                    com.amazonaws.internal.SdkInternalList<String> contextKeyValuesList = (com.amazonaws.internal.SdkInternalList<String>) contextEntriesListValue
-                            .getContextKeyValues();
-                    int contextKeyValuesListIndex = 1;
-
-                    for (String contextKeyValuesListValue : contextKeyValuesList) {
-                        if (contextKeyValuesListValue != null) {
-                            request.addParameter("ContextEntries.member." + contextEntriesListIndex + ".ContextKeyValues.member." + contextKeyValuesListIndex,
-                                    StringUtils.fromString(contextKeyValuesListValue));
-                        }
-                        contextKeyValuesListIndex++;
+                    if (contextEntriesListValue.getContextKeyName() != null) {
+                        request.addParameter("ContextEntries.member." + contextEntriesListIndex + ".ContextKeyName",
+                                StringUtils.fromString(contextEntriesListValue.getContextKeyName()));
                     }
-                }
 
-                if (contextEntriesListValue.getContextKeyType() != null) {
-                    request.addParameter("ContextEntries.member." + contextEntriesListIndex + ".ContextKeyType",
-                            StringUtils.fromString(contextEntriesListValue.getContextKeyType()));
+                    if (!contextEntriesListValue.getContextKeyValues().isEmpty()
+                            || !((com.amazonaws.internal.SdkInternalList<String>) contextEntriesListValue.getContextKeyValues()).isAutoConstruct()) {
+                        com.amazonaws.internal.SdkInternalList<String> contextKeyValuesList = (com.amazonaws.internal.SdkInternalList<String>) contextEntriesListValue
+                                .getContextKeyValues();
+                        int contextKeyValuesListIndex = 1;
+
+                        for (String contextKeyValuesListValue : contextKeyValuesList) {
+                            if (contextKeyValuesListValue != null) {
+                                request.addParameter("ContextEntries.member." + contextEntriesListIndex + ".ContextKeyValues.member."
+                                        + contextKeyValuesListIndex, StringUtils.fromString(contextKeyValuesListValue));
+                            }
+                            contextKeyValuesListIndex++;
+                        }
+                    }
+
+                    if (contextEntriesListValue.getContextKeyType() != null) {
+                        request.addParameter("ContextEntries.member." + contextEntriesListIndex + ".ContextKeyType",
+                                StringUtils.fromString(contextEntriesListValue.getContextKeyType()));
+                    }
                 }
                 contextEntriesListIndex++;
             }

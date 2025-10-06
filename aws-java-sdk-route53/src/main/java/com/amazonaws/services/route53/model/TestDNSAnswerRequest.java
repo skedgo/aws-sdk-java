@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,8 +50,8 @@ public class TestDNSAnswerRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * If you want to simulate a request from a specific DNS resolver, specify the IP address for that resolver. If you
-     * omit this value, <code>TestDnsAnswer</code> uses the IP address of a DNS resolver in the AWS US East (N.
-     * Virginia) Region (<code>us-east-1</code>).
+     * omit this value, <code>TestDnsAnswer</code> uses the IP address of a DNS resolver in the Amazon Web Services US
+     * East (N. Virginia) Region (<code>us-east-1</code>).
      * </p>
      */
     private String resolverIP;
@@ -244,14 +244,14 @@ public class TestDNSAnswerRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * If you want to simulate a request from a specific DNS resolver, specify the IP address for that resolver. If you
-     * omit this value, <code>TestDnsAnswer</code> uses the IP address of a DNS resolver in the AWS US East (N.
-     * Virginia) Region (<code>us-east-1</code>).
+     * omit this value, <code>TestDnsAnswer</code> uses the IP address of a DNS resolver in the Amazon Web Services US
+     * East (N. Virginia) Region (<code>us-east-1</code>).
      * </p>
      * 
      * @param resolverIP
      *        If you want to simulate a request from a specific DNS resolver, specify the IP address for that resolver.
-     *        If you omit this value, <code>TestDnsAnswer</code> uses the IP address of a DNS resolver in the AWS US
-     *        East (N. Virginia) Region (<code>us-east-1</code>).
+     *        If you omit this value, <code>TestDnsAnswer</code> uses the IP address of a DNS resolver in the Amazon Web
+     *        Services US East (N. Virginia) Region (<code>us-east-1</code>).
      */
 
     public void setResolverIP(String resolverIP) {
@@ -261,13 +261,13 @@ public class TestDNSAnswerRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * If you want to simulate a request from a specific DNS resolver, specify the IP address for that resolver. If you
-     * omit this value, <code>TestDnsAnswer</code> uses the IP address of a DNS resolver in the AWS US East (N.
-     * Virginia) Region (<code>us-east-1</code>).
+     * omit this value, <code>TestDnsAnswer</code> uses the IP address of a DNS resolver in the Amazon Web Services US
+     * East (N. Virginia) Region (<code>us-east-1</code>).
      * </p>
      * 
      * @return If you want to simulate a request from a specific DNS resolver, specify the IP address for that resolver.
-     *         If you omit this value, <code>TestDnsAnswer</code> uses the IP address of a DNS resolver in the AWS US
-     *         East (N. Virginia) Region (<code>us-east-1</code>).
+     *         If you omit this value, <code>TestDnsAnswer</code> uses the IP address of a DNS resolver in the Amazon
+     *         Web Services US East (N. Virginia) Region (<code>us-east-1</code>).
      */
 
     public String getResolverIP() {
@@ -277,14 +277,14 @@ public class TestDNSAnswerRequest extends com.amazonaws.AmazonWebServiceRequest 
     /**
      * <p>
      * If you want to simulate a request from a specific DNS resolver, specify the IP address for that resolver. If you
-     * omit this value, <code>TestDnsAnswer</code> uses the IP address of a DNS resolver in the AWS US East (N.
-     * Virginia) Region (<code>us-east-1</code>).
+     * omit this value, <code>TestDnsAnswer</code> uses the IP address of a DNS resolver in the Amazon Web Services US
+     * East (N. Virginia) Region (<code>us-east-1</code>).
      * </p>
      * 
      * @param resolverIP
      *        If you want to simulate a request from a specific DNS resolver, specify the IP address for that resolver.
-     *        If you omit this value, <code>TestDnsAnswer</code> uses the IP address of a DNS resolver in the AWS US
-     *        East (N. Virginia) Region (<code>us-east-1</code>).
+     *        If you omit this value, <code>TestDnsAnswer</code> uses the IP address of a DNS resolver in the Amazon Web
+     *        Services US East (N. Virginia) Region (<code>us-east-1</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

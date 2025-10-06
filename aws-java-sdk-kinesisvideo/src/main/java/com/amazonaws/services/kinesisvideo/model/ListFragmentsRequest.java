@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,10 +27,18 @@ public class ListFragmentsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of the stream from which to retrieve a fragment list.
+     * The name of the stream from which to retrieve a fragment list. Specify either this parameter or the
+     * <code>StreamARN</code> parameter.
      * </p>
      */
     private String streamName;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the stream from which to retrieve a fragment list. Specify either this
+     * parameter or the <code>StreamName</code> parameter.
+     * </p>
+     */
+    private String streamARN;
     /**
      * <p>
      * The total number of fragments to return. If the total number of fragments available is more than the value
@@ -50,16 +58,23 @@ public class ListFragmentsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * Describes the timestamp range and timestamp origin for the range of fragments to return.
      * </p>
+     * <note>
+     * <p>
+     * This is only required when the <code>NextToken</code> isn't passed in the API.
+     * </p>
+     * </note>
      */
     private FragmentSelector fragmentSelector;
 
     /**
      * <p>
-     * The name of the stream from which to retrieve a fragment list.
+     * The name of the stream from which to retrieve a fragment list. Specify either this parameter or the
+     * <code>StreamARN</code> parameter.
      * </p>
      * 
      * @param streamName
-     *        The name of the stream from which to retrieve a fragment list.
+     *        The name of the stream from which to retrieve a fragment list. Specify either this parameter or the
+     *        <code>StreamARN</code> parameter.
      */
 
     public void setStreamName(String streamName) {
@@ -68,10 +83,12 @@ public class ListFragmentsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of the stream from which to retrieve a fragment list.
+     * The name of the stream from which to retrieve a fragment list. Specify either this parameter or the
+     * <code>StreamARN</code> parameter.
      * </p>
      * 
-     * @return The name of the stream from which to retrieve a fragment list.
+     * @return The name of the stream from which to retrieve a fragment list. Specify either this parameter or the
+     *         <code>StreamARN</code> parameter.
      */
 
     public String getStreamName() {
@@ -80,16 +97,64 @@ public class ListFragmentsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The name of the stream from which to retrieve a fragment list.
+     * The name of the stream from which to retrieve a fragment list. Specify either this parameter or the
+     * <code>StreamARN</code> parameter.
      * </p>
      * 
      * @param streamName
-     *        The name of the stream from which to retrieve a fragment list.
+     *        The name of the stream from which to retrieve a fragment list. Specify either this parameter or the
+     *        <code>StreamARN</code> parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public ListFragmentsRequest withStreamName(String streamName) {
         setStreamName(streamName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the stream from which to retrieve a fragment list. Specify either this
+     * parameter or the <code>StreamName</code> parameter.
+     * </p>
+     * 
+     * @param streamARN
+     *        The Amazon Resource Name (ARN) of the stream from which to retrieve a fragment list. Specify either this
+     *        parameter or the <code>StreamName</code> parameter.
+     */
+
+    public void setStreamARN(String streamARN) {
+        this.streamARN = streamARN;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the stream from which to retrieve a fragment list. Specify either this
+     * parameter or the <code>StreamName</code> parameter.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the stream from which to retrieve a fragment list. Specify either this
+     *         parameter or the <code>StreamName</code> parameter.
+     */
+
+    public String getStreamARN() {
+        return this.streamARN;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the stream from which to retrieve a fragment list. Specify either this
+     * parameter or the <code>StreamName</code> parameter.
+     * </p>
+     * 
+     * @param streamARN
+     *        The Amazon Resource Name (ARN) of the stream from which to retrieve a fragment list. Specify either this
+     *        parameter or the <code>StreamName</code> parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListFragmentsRequest withStreamARN(String streamARN) {
+        setStreamARN(streamARN);
         return this;
     }
 
@@ -195,9 +260,17 @@ public class ListFragmentsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * Describes the timestamp range and timestamp origin for the range of fragments to return.
      * </p>
+     * <note>
+     * <p>
+     * This is only required when the <code>NextToken</code> isn't passed in the API.
+     * </p>
+     * </note>
      * 
      * @param fragmentSelector
-     *        Describes the timestamp range and timestamp origin for the range of fragments to return.
+     *        Describes the timestamp range and timestamp origin for the range of fragments to return.</p> <note>
+     *        <p>
+     *        This is only required when the <code>NextToken</code> isn't passed in the API.
+     *        </p>
      */
 
     public void setFragmentSelector(FragmentSelector fragmentSelector) {
@@ -208,8 +281,16 @@ public class ListFragmentsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * Describes the timestamp range and timestamp origin for the range of fragments to return.
      * </p>
+     * <note>
+     * <p>
+     * This is only required when the <code>NextToken</code> isn't passed in the API.
+     * </p>
+     * </note>
      * 
-     * @return Describes the timestamp range and timestamp origin for the range of fragments to return.
+     * @return Describes the timestamp range and timestamp origin for the range of fragments to return.</p> <note>
+     *         <p>
+     *         This is only required when the <code>NextToken</code> isn't passed in the API.
+     *         </p>
      */
 
     public FragmentSelector getFragmentSelector() {
@@ -220,9 +301,17 @@ public class ListFragmentsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <p>
      * Describes the timestamp range and timestamp origin for the range of fragments to return.
      * </p>
+     * <note>
+     * <p>
+     * This is only required when the <code>NextToken</code> isn't passed in the API.
+     * </p>
+     * </note>
      * 
      * @param fragmentSelector
-     *        Describes the timestamp range and timestamp origin for the range of fragments to return.
+     *        Describes the timestamp range and timestamp origin for the range of fragments to return.</p> <note>
+     *        <p>
+     *        This is only required when the <code>NextToken</code> isn't passed in the API.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -245,6 +334,8 @@ public class ListFragmentsRequest extends com.amazonaws.AmazonWebServiceRequest 
         sb.append("{");
         if (getStreamName() != null)
             sb.append("StreamName: ").append(getStreamName()).append(",");
+        if (getStreamARN() != null)
+            sb.append("StreamARN: ").append(getStreamARN()).append(",");
         if (getMaxResults() != null)
             sb.append("MaxResults: ").append(getMaxResults()).append(",");
         if (getNextToken() != null)
@@ -269,6 +360,10 @@ public class ListFragmentsRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getStreamName() != null && other.getStreamName().equals(this.getStreamName()) == false)
             return false;
+        if (other.getStreamARN() == null ^ this.getStreamARN() == null)
+            return false;
+        if (other.getStreamARN() != null && other.getStreamARN().equals(this.getStreamARN()) == false)
+            return false;
         if (other.getMaxResults() == null ^ this.getMaxResults() == null)
             return false;
         if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false)
@@ -290,6 +385,7 @@ public class ListFragmentsRequest extends com.amazonaws.AmazonWebServiceRequest 
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getStreamName() == null) ? 0 : getStreamName().hashCode());
+        hashCode = prime * hashCode + ((getStreamARN() == null) ? 0 : getStreamARN().hashCode());
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getFragmentSelector() == null) ? 0 : getFragmentSelector().hashCode());

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,8 +41,8 @@ public class StackResourceSummary implements Serializable, Cloneable {
     /**
      * <p>
      * Type of resource. (For more information, go to <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"> AWS
-     * Resource Types Reference</a> in the AWS CloudFormation User Guide.)
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a> in the <i>CloudFormation User Guide</i>.)
      * </p>
      */
     private String resourceType;
@@ -69,11 +69,18 @@ public class StackResourceSummary implements Serializable, Cloneable {
      * Information about whether the resource's actual configuration differs, or has <i>drifted</i>, from its expected
      * configuration, as defined in the stack template and any values specified as template parameters. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
      * Unregulated Configuration Changes to Stacks and Resources</a>.
      * </p>
      */
     private StackResourceDriftInformationSummary driftInformation;
+    /**
+     * <p>
+     * Contains information about the module from which the resource was created, if the resource was created from a
+     * module included in the stack template.
+     * </p>
+     */
+    private ModuleInfo moduleInfo;
 
     /**
      * <p>
@@ -158,14 +165,14 @@ public class StackResourceSummary implements Serializable, Cloneable {
     /**
      * <p>
      * Type of resource. (For more information, go to <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"> AWS
-     * Resource Types Reference</a> in the AWS CloudFormation User Guide.)
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a> in the <i>CloudFormation User Guide</i>.)
      * </p>
      * 
      * @param resourceType
      *        Type of resource. (For more information, go to <a href=
-     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"> AWS
-     *        Resource Types Reference</a> in the AWS CloudFormation User Guide.)
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *        >Amazon Web Services Resource Types Reference</a> in the <i>CloudFormation User Guide</i>.)
      */
 
     public void setResourceType(String resourceType) {
@@ -175,13 +182,13 @@ public class StackResourceSummary implements Serializable, Cloneable {
     /**
      * <p>
      * Type of resource. (For more information, go to <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"> AWS
-     * Resource Types Reference</a> in the AWS CloudFormation User Guide.)
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a> in the <i>CloudFormation User Guide</i>.)
      * </p>
      * 
      * @return Type of resource. (For more information, go to <a
      *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
-     *         > AWS Resource Types Reference</a> in the AWS CloudFormation User Guide.)
+     *         >Amazon Web Services Resource Types Reference</a> in the <i>CloudFormation User Guide</i>.)
      */
 
     public String getResourceType() {
@@ -191,14 +198,14 @@ public class StackResourceSummary implements Serializable, Cloneable {
     /**
      * <p>
      * Type of resource. (For more information, go to <a
-     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"> AWS
-     * Resource Types Reference</a> in the AWS CloudFormation User Guide.)
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">Amazon
+     * Web Services Resource Types Reference</a> in the <i>CloudFormation User Guide</i>.)
      * </p>
      * 
      * @param resourceType
      *        Type of resource. (For more information, go to <a href=
-     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"> AWS
-     *        Resource Types Reference</a> in the AWS CloudFormation User Guide.)
+     *        "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html"
+     *        >Amazon Web Services Resource Types Reference</a> in the <i>CloudFormation User Guide</i>.)
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -365,7 +372,7 @@ public class StackResourceSummary implements Serializable, Cloneable {
      * Information about whether the resource's actual configuration differs, or has <i>drifted</i>, from its expected
      * configuration, as defined in the stack template and any values specified as template parameters. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
      * Unregulated Configuration Changes to Stacks and Resources</a>.
      * </p>
      * 
@@ -373,7 +380,7 @@ public class StackResourceSummary implements Serializable, Cloneable {
      *        Information about whether the resource's actual configuration differs, or has <i>drifted</i>, from its
      *        expected configuration, as defined in the stack template and any values specified as template parameters.
      *        For more information, see <a
-     *        href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
      *        Unregulated Configuration Changes to Stacks and Resources</a>.
      */
 
@@ -386,15 +393,15 @@ public class StackResourceSummary implements Serializable, Cloneable {
      * Information about whether the resource's actual configuration differs, or has <i>drifted</i>, from its expected
      * configuration, as defined in the stack template and any values specified as template parameters. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
      * Unregulated Configuration Changes to Stacks and Resources</a>.
      * </p>
      * 
      * @return Information about whether the resource's actual configuration differs, or has <i>drifted</i>, from its
      *         expected configuration, as defined in the stack template and any values specified as template parameters.
      *         For more information, see <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
-     *         Unregulated Configuration Changes to Stacks and Resources</a>.
+     *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html"
+     *         >Detecting Unregulated Configuration Changes to Stacks and Resources</a>.
      */
 
     public StackResourceDriftInformationSummary getDriftInformation() {
@@ -406,7 +413,7 @@ public class StackResourceSummary implements Serializable, Cloneable {
      * Information about whether the resource's actual configuration differs, or has <i>drifted</i>, from its expected
      * configuration, as defined in the stack template and any values specified as template parameters. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
      * Unregulated Configuration Changes to Stacks and Resources</a>.
      * </p>
      * 
@@ -414,13 +421,59 @@ public class StackResourceSummary implements Serializable, Cloneable {
      *        Information about whether the resource's actual configuration differs, or has <i>drifted</i>, from its
      *        expected configuration, as defined in the stack template and any values specified as template parameters.
      *        For more information, see <a
-     *        href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
      *        Unregulated Configuration Changes to Stacks and Resources</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public StackResourceSummary withDriftInformation(StackResourceDriftInformationSummary driftInformation) {
         setDriftInformation(driftInformation);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains information about the module from which the resource was created, if the resource was created from a
+     * module included in the stack template.
+     * </p>
+     * 
+     * @param moduleInfo
+     *        Contains information about the module from which the resource was created, if the resource was created
+     *        from a module included in the stack template.
+     */
+
+    public void setModuleInfo(ModuleInfo moduleInfo) {
+        this.moduleInfo = moduleInfo;
+    }
+
+    /**
+     * <p>
+     * Contains information about the module from which the resource was created, if the resource was created from a
+     * module included in the stack template.
+     * </p>
+     * 
+     * @return Contains information about the module from which the resource was created, if the resource was created
+     *         from a module included in the stack template.
+     */
+
+    public ModuleInfo getModuleInfo() {
+        return this.moduleInfo;
+    }
+
+    /**
+     * <p>
+     * Contains information about the module from which the resource was created, if the resource was created from a
+     * module included in the stack template.
+     * </p>
+     * 
+     * @param moduleInfo
+     *        Contains information about the module from which the resource was created, if the resource was created
+     *        from a module included in the stack template.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StackResourceSummary withModuleInfo(ModuleInfo moduleInfo) {
+        setModuleInfo(moduleInfo);
         return this;
     }
 
@@ -449,7 +502,9 @@ public class StackResourceSummary implements Serializable, Cloneable {
         if (getResourceStatusReason() != null)
             sb.append("ResourceStatusReason: ").append(getResourceStatusReason()).append(",");
         if (getDriftInformation() != null)
-            sb.append("DriftInformation: ").append(getDriftInformation());
+            sb.append("DriftInformation: ").append(getDriftInformation()).append(",");
+        if (getModuleInfo() != null)
+            sb.append("ModuleInfo: ").append(getModuleInfo());
         sb.append("}");
         return sb.toString();
     }
@@ -492,6 +547,10 @@ public class StackResourceSummary implements Serializable, Cloneable {
             return false;
         if (other.getDriftInformation() != null && other.getDriftInformation().equals(this.getDriftInformation()) == false)
             return false;
+        if (other.getModuleInfo() == null ^ this.getModuleInfo() == null)
+            return false;
+        if (other.getModuleInfo() != null && other.getModuleInfo().equals(this.getModuleInfo()) == false)
+            return false;
         return true;
     }
 
@@ -507,6 +566,7 @@ public class StackResourceSummary implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getResourceStatus() == null) ? 0 : getResourceStatus().hashCode());
         hashCode = prime * hashCode + ((getResourceStatusReason() == null) ? 0 : getResourceStatusReason().hashCode());
         hashCode = prime * hashCode + ((getDriftInformation() == null) ? 0 : getDriftInformation().hashCode());
+        hashCode = prime * hashCode + ((getModuleInfo() == null) ? 0 : getModuleInfo().hashCode());
         return hashCode;
     }
 

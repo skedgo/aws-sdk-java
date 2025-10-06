@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,8 @@ import java.util.concurrent.ExecutorService;
  * <p>
  * <p>
  * Amazon Elastic Kubernetes Service (Amazon EKS) is a managed service that makes it easy for you to run Kubernetes on
- * AWS without needing to stand up or maintain your own Kubernetes control plane. Kubernetes is an open-source system
- * for automating the deployment, scaling, and management of containerized applications.
+ * Amazon Web Services without needing to setup or maintain your own Kubernetes control plane. Kubernetes is an
+ * open-source system for automating the deployment, scaling, and management of containerized applications.
  * </p>
  * <p>
  * Amazon EKS runs up-to-date versions of the open-source Kubernetes software, so you can use all the existing plugins
@@ -57,7 +57,19 @@ public class AmazonEKSAsyncClient extends AmazonEKSClient implements AmazonEKSAs
      *        Object providing client parameters.
      */
     AmazonEKSAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Amazon EKS using the specified parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonEKSAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -68,6 +80,173 @@ public class AmazonEKSAsyncClient extends AmazonEKSClient implements AmazonEKSAs
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateAccessPolicyResult> associateAccessPolicyAsync(AssociateAccessPolicyRequest request) {
+
+        return associateAccessPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateAccessPolicyResult> associateAccessPolicyAsync(final AssociateAccessPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssociateAccessPolicyRequest, AssociateAccessPolicyResult> asyncHandler) {
+        final AssociateAccessPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssociateAccessPolicyResult>() {
+            @Override
+            public AssociateAccessPolicyResult call() throws Exception {
+                AssociateAccessPolicyResult result = null;
+
+                try {
+                    result = executeAssociateAccessPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateEncryptionConfigResult> associateEncryptionConfigAsync(AssociateEncryptionConfigRequest request) {
+
+        return associateEncryptionConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateEncryptionConfigResult> associateEncryptionConfigAsync(final AssociateEncryptionConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssociateEncryptionConfigRequest, AssociateEncryptionConfigResult> asyncHandler) {
+        final AssociateEncryptionConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssociateEncryptionConfigResult>() {
+            @Override
+            public AssociateEncryptionConfigResult call() throws Exception {
+                AssociateEncryptionConfigResult result = null;
+
+                try {
+                    result = executeAssociateEncryptionConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateIdentityProviderConfigResult> associateIdentityProviderConfigAsync(
+            AssociateIdentityProviderConfigRequest request) {
+
+        return associateIdentityProviderConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateIdentityProviderConfigResult> associateIdentityProviderConfigAsync(
+            final AssociateIdentityProviderConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssociateIdentityProviderConfigRequest, AssociateIdentityProviderConfigResult> asyncHandler) {
+        final AssociateIdentityProviderConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssociateIdentityProviderConfigResult>() {
+            @Override
+            public AssociateIdentityProviderConfigResult call() throws Exception {
+                AssociateIdentityProviderConfigResult result = null;
+
+                try {
+                    result = executeAssociateIdentityProviderConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAccessEntryResult> createAccessEntryAsync(CreateAccessEntryRequest request) {
+
+        return createAccessEntryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAccessEntryResult> createAccessEntryAsync(final CreateAccessEntryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateAccessEntryRequest, CreateAccessEntryResult> asyncHandler) {
+        final CreateAccessEntryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateAccessEntryResult>() {
+            @Override
+            public CreateAccessEntryResult call() throws Exception {
+                CreateAccessEntryResult result = null;
+
+                try {
+                    result = executeCreateAccessEntry(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAddonResult> createAddonAsync(CreateAddonRequest request) {
+
+        return createAddonAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateAddonResult> createAddonAsync(final CreateAddonRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateAddonRequest, CreateAddonResult> asyncHandler) {
+        final CreateAddonRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateAddonResult>() {
+            @Override
+            public CreateAddonResult call() throws Exception {
+                CreateAddonResult result = null;
+
+                try {
+                    result = executeCreateAddon(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -88,6 +267,205 @@ public class AmazonEKSAsyncClient extends AmazonEKSClient implements AmazonEKSAs
 
                 try {
                     result = executeCreateCluster(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateEksAnywhereSubscriptionResult> createEksAnywhereSubscriptionAsync(CreateEksAnywhereSubscriptionRequest request) {
+
+        return createEksAnywhereSubscriptionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateEksAnywhereSubscriptionResult> createEksAnywhereSubscriptionAsync(
+            final CreateEksAnywhereSubscriptionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateEksAnywhereSubscriptionRequest, CreateEksAnywhereSubscriptionResult> asyncHandler) {
+        final CreateEksAnywhereSubscriptionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateEksAnywhereSubscriptionResult>() {
+            @Override
+            public CreateEksAnywhereSubscriptionResult call() throws Exception {
+                CreateEksAnywhereSubscriptionResult result = null;
+
+                try {
+                    result = executeCreateEksAnywhereSubscription(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFargateProfileResult> createFargateProfileAsync(CreateFargateProfileRequest request) {
+
+        return createFargateProfileAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFargateProfileResult> createFargateProfileAsync(final CreateFargateProfileRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateFargateProfileRequest, CreateFargateProfileResult> asyncHandler) {
+        final CreateFargateProfileRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateFargateProfileResult>() {
+            @Override
+            public CreateFargateProfileResult call() throws Exception {
+                CreateFargateProfileResult result = null;
+
+                try {
+                    result = executeCreateFargateProfile(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateNodegroupResult> createNodegroupAsync(CreateNodegroupRequest request) {
+
+        return createNodegroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateNodegroupResult> createNodegroupAsync(final CreateNodegroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateNodegroupRequest, CreateNodegroupResult> asyncHandler) {
+        final CreateNodegroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateNodegroupResult>() {
+            @Override
+            public CreateNodegroupResult call() throws Exception {
+                CreateNodegroupResult result = null;
+
+                try {
+                    result = executeCreateNodegroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePodIdentityAssociationResult> createPodIdentityAssociationAsync(CreatePodIdentityAssociationRequest request) {
+
+        return createPodIdentityAssociationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreatePodIdentityAssociationResult> createPodIdentityAssociationAsync(final CreatePodIdentityAssociationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreatePodIdentityAssociationRequest, CreatePodIdentityAssociationResult> asyncHandler) {
+        final CreatePodIdentityAssociationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreatePodIdentityAssociationResult>() {
+            @Override
+            public CreatePodIdentityAssociationResult call() throws Exception {
+                CreatePodIdentityAssociationResult result = null;
+
+                try {
+                    result = executeCreatePodIdentityAssociation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAccessEntryResult> deleteAccessEntryAsync(DeleteAccessEntryRequest request) {
+
+        return deleteAccessEntryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAccessEntryResult> deleteAccessEntryAsync(final DeleteAccessEntryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteAccessEntryRequest, DeleteAccessEntryResult> asyncHandler) {
+        final DeleteAccessEntryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteAccessEntryResult>() {
+            @Override
+            public DeleteAccessEntryResult call() throws Exception {
+                DeleteAccessEntryResult result = null;
+
+                try {
+                    result = executeDeleteAccessEntry(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAddonResult> deleteAddonAsync(DeleteAddonRequest request) {
+
+        return deleteAddonAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteAddonResult> deleteAddonAsync(final DeleteAddonRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteAddonRequest, DeleteAddonResult> asyncHandler) {
+        final DeleteAddonRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteAddonResult>() {
+            @Override
+            public DeleteAddonResult call() throws Exception {
+                DeleteAddonResult result = null;
+
+                try {
+                    result = executeDeleteAddon(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -137,6 +515,304 @@ public class AmazonEKSAsyncClient extends AmazonEKSClient implements AmazonEKSAs
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteEksAnywhereSubscriptionResult> deleteEksAnywhereSubscriptionAsync(DeleteEksAnywhereSubscriptionRequest request) {
+
+        return deleteEksAnywhereSubscriptionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteEksAnywhereSubscriptionResult> deleteEksAnywhereSubscriptionAsync(
+            final DeleteEksAnywhereSubscriptionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteEksAnywhereSubscriptionRequest, DeleteEksAnywhereSubscriptionResult> asyncHandler) {
+        final DeleteEksAnywhereSubscriptionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteEksAnywhereSubscriptionResult>() {
+            @Override
+            public DeleteEksAnywhereSubscriptionResult call() throws Exception {
+                DeleteEksAnywhereSubscriptionResult result = null;
+
+                try {
+                    result = executeDeleteEksAnywhereSubscription(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFargateProfileResult> deleteFargateProfileAsync(DeleteFargateProfileRequest request) {
+
+        return deleteFargateProfileAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFargateProfileResult> deleteFargateProfileAsync(final DeleteFargateProfileRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteFargateProfileRequest, DeleteFargateProfileResult> asyncHandler) {
+        final DeleteFargateProfileRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteFargateProfileResult>() {
+            @Override
+            public DeleteFargateProfileResult call() throws Exception {
+                DeleteFargateProfileResult result = null;
+
+                try {
+                    result = executeDeleteFargateProfile(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteNodegroupResult> deleteNodegroupAsync(DeleteNodegroupRequest request) {
+
+        return deleteNodegroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteNodegroupResult> deleteNodegroupAsync(final DeleteNodegroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteNodegroupRequest, DeleteNodegroupResult> asyncHandler) {
+        final DeleteNodegroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteNodegroupResult>() {
+            @Override
+            public DeleteNodegroupResult call() throws Exception {
+                DeleteNodegroupResult result = null;
+
+                try {
+                    result = executeDeleteNodegroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePodIdentityAssociationResult> deletePodIdentityAssociationAsync(DeletePodIdentityAssociationRequest request) {
+
+        return deletePodIdentityAssociationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePodIdentityAssociationResult> deletePodIdentityAssociationAsync(final DeletePodIdentityAssociationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeletePodIdentityAssociationRequest, DeletePodIdentityAssociationResult> asyncHandler) {
+        final DeletePodIdentityAssociationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeletePodIdentityAssociationResult>() {
+            @Override
+            public DeletePodIdentityAssociationResult call() throws Exception {
+                DeletePodIdentityAssociationResult result = null;
+
+                try {
+                    result = executeDeletePodIdentityAssociation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterClusterResult> deregisterClusterAsync(DeregisterClusterRequest request) {
+
+        return deregisterClusterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeregisterClusterResult> deregisterClusterAsync(final DeregisterClusterRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeregisterClusterRequest, DeregisterClusterResult> asyncHandler) {
+        final DeregisterClusterRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeregisterClusterResult>() {
+            @Override
+            public DeregisterClusterResult call() throws Exception {
+                DeregisterClusterResult result = null;
+
+                try {
+                    result = executeDeregisterCluster(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAccessEntryResult> describeAccessEntryAsync(DescribeAccessEntryRequest request) {
+
+        return describeAccessEntryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAccessEntryResult> describeAccessEntryAsync(final DescribeAccessEntryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeAccessEntryRequest, DescribeAccessEntryResult> asyncHandler) {
+        final DescribeAccessEntryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeAccessEntryResult>() {
+            @Override
+            public DescribeAccessEntryResult call() throws Exception {
+                DescribeAccessEntryResult result = null;
+
+                try {
+                    result = executeDescribeAccessEntry(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAddonResult> describeAddonAsync(DescribeAddonRequest request) {
+
+        return describeAddonAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAddonResult> describeAddonAsync(final DescribeAddonRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeAddonRequest, DescribeAddonResult> asyncHandler) {
+        final DescribeAddonRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeAddonResult>() {
+            @Override
+            public DescribeAddonResult call() throws Exception {
+                DescribeAddonResult result = null;
+
+                try {
+                    result = executeDescribeAddon(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAddonConfigurationResult> describeAddonConfigurationAsync(DescribeAddonConfigurationRequest request) {
+
+        return describeAddonConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAddonConfigurationResult> describeAddonConfigurationAsync(final DescribeAddonConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeAddonConfigurationRequest, DescribeAddonConfigurationResult> asyncHandler) {
+        final DescribeAddonConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeAddonConfigurationResult>() {
+            @Override
+            public DescribeAddonConfigurationResult call() throws Exception {
+                DescribeAddonConfigurationResult result = null;
+
+                try {
+                    result = executeDescribeAddonConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAddonVersionsResult> describeAddonVersionsAsync(DescribeAddonVersionsRequest request) {
+
+        return describeAddonVersionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAddonVersionsResult> describeAddonVersionsAsync(final DescribeAddonVersionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeAddonVersionsRequest, DescribeAddonVersionsResult> asyncHandler) {
+        final DescribeAddonVersionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeAddonVersionsResult>() {
+            @Override
+            public DescribeAddonVersionsResult call() throws Exception {
+                DescribeAddonVersionsResult result = null;
+
+                try {
+                    result = executeDescribeAddonVersions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeClusterResult> describeClusterAsync(DescribeClusterRequest request) {
 
         return describeClusterAsync(request, null);
@@ -154,6 +830,208 @@ public class AmazonEKSAsyncClient extends AmazonEKSClient implements AmazonEKSAs
 
                 try {
                     result = executeDescribeCluster(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEksAnywhereSubscriptionResult> describeEksAnywhereSubscriptionAsync(
+            DescribeEksAnywhereSubscriptionRequest request) {
+
+        return describeEksAnywhereSubscriptionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeEksAnywhereSubscriptionResult> describeEksAnywhereSubscriptionAsync(
+            final DescribeEksAnywhereSubscriptionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeEksAnywhereSubscriptionRequest, DescribeEksAnywhereSubscriptionResult> asyncHandler) {
+        final DescribeEksAnywhereSubscriptionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeEksAnywhereSubscriptionResult>() {
+            @Override
+            public DescribeEksAnywhereSubscriptionResult call() throws Exception {
+                DescribeEksAnywhereSubscriptionResult result = null;
+
+                try {
+                    result = executeDescribeEksAnywhereSubscription(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFargateProfileResult> describeFargateProfileAsync(DescribeFargateProfileRequest request) {
+
+        return describeFargateProfileAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFargateProfileResult> describeFargateProfileAsync(final DescribeFargateProfileRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeFargateProfileRequest, DescribeFargateProfileResult> asyncHandler) {
+        final DescribeFargateProfileRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeFargateProfileResult>() {
+            @Override
+            public DescribeFargateProfileResult call() throws Exception {
+                DescribeFargateProfileResult result = null;
+
+                try {
+                    result = executeDescribeFargateProfile(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeIdentityProviderConfigResult> describeIdentityProviderConfigAsync(DescribeIdentityProviderConfigRequest request) {
+
+        return describeIdentityProviderConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeIdentityProviderConfigResult> describeIdentityProviderConfigAsync(
+            final DescribeIdentityProviderConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeIdentityProviderConfigRequest, DescribeIdentityProviderConfigResult> asyncHandler) {
+        final DescribeIdentityProviderConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeIdentityProviderConfigResult>() {
+            @Override
+            public DescribeIdentityProviderConfigResult call() throws Exception {
+                DescribeIdentityProviderConfigResult result = null;
+
+                try {
+                    result = executeDescribeIdentityProviderConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeInsightResult> describeInsightAsync(DescribeInsightRequest request) {
+
+        return describeInsightAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeInsightResult> describeInsightAsync(final DescribeInsightRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeInsightRequest, DescribeInsightResult> asyncHandler) {
+        final DescribeInsightRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeInsightResult>() {
+            @Override
+            public DescribeInsightResult call() throws Exception {
+                DescribeInsightResult result = null;
+
+                try {
+                    result = executeDescribeInsight(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeNodegroupResult> describeNodegroupAsync(DescribeNodegroupRequest request) {
+
+        return describeNodegroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeNodegroupResult> describeNodegroupAsync(final DescribeNodegroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeNodegroupRequest, DescribeNodegroupResult> asyncHandler) {
+        final DescribeNodegroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeNodegroupResult>() {
+            @Override
+            public DescribeNodegroupResult call() throws Exception {
+                DescribeNodegroupResult result = null;
+
+                try {
+                    result = executeDescribeNodegroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribePodIdentityAssociationResult> describePodIdentityAssociationAsync(DescribePodIdentityAssociationRequest request) {
+
+        return describePodIdentityAssociationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribePodIdentityAssociationResult> describePodIdentityAssociationAsync(
+            final DescribePodIdentityAssociationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribePodIdentityAssociationRequest, DescribePodIdentityAssociationResult> asyncHandler) {
+        final DescribePodIdentityAssociationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribePodIdentityAssociationResult>() {
+            @Override
+            public DescribePodIdentityAssociationResult call() throws Exception {
+                DescribePodIdentityAssociationResult result = null;
+
+                try {
+                    result = executeDescribePodIdentityAssociation(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -203,6 +1081,206 @@ public class AmazonEKSAsyncClient extends AmazonEKSClient implements AmazonEKSAs
     }
 
     @Override
+    public java.util.concurrent.Future<DisassociateAccessPolicyResult> disassociateAccessPolicyAsync(DisassociateAccessPolicyRequest request) {
+
+        return disassociateAccessPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateAccessPolicyResult> disassociateAccessPolicyAsync(final DisassociateAccessPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisassociateAccessPolicyRequest, DisassociateAccessPolicyResult> asyncHandler) {
+        final DisassociateAccessPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisassociateAccessPolicyResult>() {
+            @Override
+            public DisassociateAccessPolicyResult call() throws Exception {
+                DisassociateAccessPolicyResult result = null;
+
+                try {
+                    result = executeDisassociateAccessPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateIdentityProviderConfigResult> disassociateIdentityProviderConfigAsync(
+            DisassociateIdentityProviderConfigRequest request) {
+
+        return disassociateIdentityProviderConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateIdentityProviderConfigResult> disassociateIdentityProviderConfigAsync(
+            final DisassociateIdentityProviderConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisassociateIdentityProviderConfigRequest, DisassociateIdentityProviderConfigResult> asyncHandler) {
+        final DisassociateIdentityProviderConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisassociateIdentityProviderConfigResult>() {
+            @Override
+            public DisassociateIdentityProviderConfigResult call() throws Exception {
+                DisassociateIdentityProviderConfigResult result = null;
+
+                try {
+                    result = executeDisassociateIdentityProviderConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAccessEntriesResult> listAccessEntriesAsync(ListAccessEntriesRequest request) {
+
+        return listAccessEntriesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAccessEntriesResult> listAccessEntriesAsync(final ListAccessEntriesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListAccessEntriesRequest, ListAccessEntriesResult> asyncHandler) {
+        final ListAccessEntriesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListAccessEntriesResult>() {
+            @Override
+            public ListAccessEntriesResult call() throws Exception {
+                ListAccessEntriesResult result = null;
+
+                try {
+                    result = executeListAccessEntries(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAccessPoliciesResult> listAccessPoliciesAsync(ListAccessPoliciesRequest request) {
+
+        return listAccessPoliciesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAccessPoliciesResult> listAccessPoliciesAsync(final ListAccessPoliciesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListAccessPoliciesRequest, ListAccessPoliciesResult> asyncHandler) {
+        final ListAccessPoliciesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListAccessPoliciesResult>() {
+            @Override
+            public ListAccessPoliciesResult call() throws Exception {
+                ListAccessPoliciesResult result = null;
+
+                try {
+                    result = executeListAccessPolicies(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAddonsResult> listAddonsAsync(ListAddonsRequest request) {
+
+        return listAddonsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAddonsResult> listAddonsAsync(final ListAddonsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListAddonsRequest, ListAddonsResult> asyncHandler) {
+        final ListAddonsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListAddonsResult>() {
+            @Override
+            public ListAddonsResult call() throws Exception {
+                ListAddonsResult result = null;
+
+                try {
+                    result = executeListAddons(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAssociatedAccessPoliciesResult> listAssociatedAccessPoliciesAsync(ListAssociatedAccessPoliciesRequest request) {
+
+        return listAssociatedAccessPoliciesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAssociatedAccessPoliciesResult> listAssociatedAccessPoliciesAsync(final ListAssociatedAccessPoliciesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListAssociatedAccessPoliciesRequest, ListAssociatedAccessPoliciesResult> asyncHandler) {
+        final ListAssociatedAccessPoliciesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListAssociatedAccessPoliciesResult>() {
+            @Override
+            public ListAssociatedAccessPoliciesResult call() throws Exception {
+                ListAssociatedAccessPoliciesResult result = null;
+
+                try {
+                    result = executeListAssociatedAccessPolicies(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListClustersResult> listClustersAsync(ListClustersRequest request) {
 
         return listClustersAsync(request, null);
@@ -236,6 +1314,237 @@ public class AmazonEKSAsyncClient extends AmazonEKSClient implements AmazonEKSAs
     }
 
     @Override
+    public java.util.concurrent.Future<ListEksAnywhereSubscriptionsResult> listEksAnywhereSubscriptionsAsync(ListEksAnywhereSubscriptionsRequest request) {
+
+        return listEksAnywhereSubscriptionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListEksAnywhereSubscriptionsResult> listEksAnywhereSubscriptionsAsync(final ListEksAnywhereSubscriptionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListEksAnywhereSubscriptionsRequest, ListEksAnywhereSubscriptionsResult> asyncHandler) {
+        final ListEksAnywhereSubscriptionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListEksAnywhereSubscriptionsResult>() {
+            @Override
+            public ListEksAnywhereSubscriptionsResult call() throws Exception {
+                ListEksAnywhereSubscriptionsResult result = null;
+
+                try {
+                    result = executeListEksAnywhereSubscriptions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFargateProfilesResult> listFargateProfilesAsync(ListFargateProfilesRequest request) {
+
+        return listFargateProfilesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListFargateProfilesResult> listFargateProfilesAsync(final ListFargateProfilesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListFargateProfilesRequest, ListFargateProfilesResult> asyncHandler) {
+        final ListFargateProfilesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListFargateProfilesResult>() {
+            @Override
+            public ListFargateProfilesResult call() throws Exception {
+                ListFargateProfilesResult result = null;
+
+                try {
+                    result = executeListFargateProfiles(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListIdentityProviderConfigsResult> listIdentityProviderConfigsAsync(ListIdentityProviderConfigsRequest request) {
+
+        return listIdentityProviderConfigsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListIdentityProviderConfigsResult> listIdentityProviderConfigsAsync(final ListIdentityProviderConfigsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListIdentityProviderConfigsRequest, ListIdentityProviderConfigsResult> asyncHandler) {
+        final ListIdentityProviderConfigsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListIdentityProviderConfigsResult>() {
+            @Override
+            public ListIdentityProviderConfigsResult call() throws Exception {
+                ListIdentityProviderConfigsResult result = null;
+
+                try {
+                    result = executeListIdentityProviderConfigs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListInsightsResult> listInsightsAsync(ListInsightsRequest request) {
+
+        return listInsightsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListInsightsResult> listInsightsAsync(final ListInsightsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListInsightsRequest, ListInsightsResult> asyncHandler) {
+        final ListInsightsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListInsightsResult>() {
+            @Override
+            public ListInsightsResult call() throws Exception {
+                ListInsightsResult result = null;
+
+                try {
+                    result = executeListInsights(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListNodegroupsResult> listNodegroupsAsync(ListNodegroupsRequest request) {
+
+        return listNodegroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListNodegroupsResult> listNodegroupsAsync(final ListNodegroupsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListNodegroupsRequest, ListNodegroupsResult> asyncHandler) {
+        final ListNodegroupsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListNodegroupsResult>() {
+            @Override
+            public ListNodegroupsResult call() throws Exception {
+                ListNodegroupsResult result = null;
+
+                try {
+                    result = executeListNodegroups(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPodIdentityAssociationsResult> listPodIdentityAssociationsAsync(ListPodIdentityAssociationsRequest request) {
+
+        return listPodIdentityAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListPodIdentityAssociationsResult> listPodIdentityAssociationsAsync(final ListPodIdentityAssociationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListPodIdentityAssociationsRequest, ListPodIdentityAssociationsResult> asyncHandler) {
+        final ListPodIdentityAssociationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListPodIdentityAssociationsResult>() {
+            @Override
+            public ListPodIdentityAssociationsResult call() throws Exception {
+                ListPodIdentityAssociationsResult result = null;
+
+                try {
+                    result = executeListPodIdentityAssociations(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(ListTagsForResourceRequest request) {
+
+        return listTagsForResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForResourceResult> listTagsForResourceAsync(final ListTagsForResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListTagsForResourceRequest, ListTagsForResourceResult> asyncHandler) {
+        final ListTagsForResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListTagsForResourceResult>() {
+            @Override
+            public ListTagsForResourceResult call() throws Exception {
+                ListTagsForResourceResult result = null;
+
+                try {
+                    result = executeListTagsForResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListUpdatesResult> listUpdatesAsync(ListUpdatesRequest request) {
 
         return listUpdatesAsync(request, null);
@@ -253,6 +1562,171 @@ public class AmazonEKSAsyncClient extends AmazonEKSClient implements AmazonEKSAs
 
                 try {
                     result = executeListUpdates(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterClusterResult> registerClusterAsync(RegisterClusterRequest request) {
+
+        return registerClusterAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RegisterClusterResult> registerClusterAsync(final RegisterClusterRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RegisterClusterRequest, RegisterClusterResult> asyncHandler) {
+        final RegisterClusterRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RegisterClusterResult>() {
+            @Override
+            public RegisterClusterResult call() throws Exception {
+                RegisterClusterResult result = null;
+
+                try {
+                    result = executeRegisterCluster(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAccessEntryResult> updateAccessEntryAsync(UpdateAccessEntryRequest request) {
+
+        return updateAccessEntryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAccessEntryResult> updateAccessEntryAsync(final UpdateAccessEntryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateAccessEntryRequest, UpdateAccessEntryResult> asyncHandler) {
+        final UpdateAccessEntryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateAccessEntryResult>() {
+            @Override
+            public UpdateAccessEntryResult call() throws Exception {
+                UpdateAccessEntryResult result = null;
+
+                try {
+                    result = executeUpdateAccessEntry(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAddonResult> updateAddonAsync(UpdateAddonRequest request) {
+
+        return updateAddonAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAddonResult> updateAddonAsync(final UpdateAddonRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateAddonRequest, UpdateAddonResult> asyncHandler) {
+        final UpdateAddonRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateAddonResult>() {
+            @Override
+            public UpdateAddonResult call() throws Exception {
+                UpdateAddonResult result = null;
+
+                try {
+                    result = executeUpdateAddon(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -319,6 +1793,139 @@ public class AmazonEKSAsyncClient extends AmazonEKSClient implements AmazonEKSAs
 
                 try {
                     result = executeUpdateClusterVersion(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateEksAnywhereSubscriptionResult> updateEksAnywhereSubscriptionAsync(UpdateEksAnywhereSubscriptionRequest request) {
+
+        return updateEksAnywhereSubscriptionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateEksAnywhereSubscriptionResult> updateEksAnywhereSubscriptionAsync(
+            final UpdateEksAnywhereSubscriptionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateEksAnywhereSubscriptionRequest, UpdateEksAnywhereSubscriptionResult> asyncHandler) {
+        final UpdateEksAnywhereSubscriptionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateEksAnywhereSubscriptionResult>() {
+            @Override
+            public UpdateEksAnywhereSubscriptionResult call() throws Exception {
+                UpdateEksAnywhereSubscriptionResult result = null;
+
+                try {
+                    result = executeUpdateEksAnywhereSubscription(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateNodegroupConfigResult> updateNodegroupConfigAsync(UpdateNodegroupConfigRequest request) {
+
+        return updateNodegroupConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateNodegroupConfigResult> updateNodegroupConfigAsync(final UpdateNodegroupConfigRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateNodegroupConfigRequest, UpdateNodegroupConfigResult> asyncHandler) {
+        final UpdateNodegroupConfigRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateNodegroupConfigResult>() {
+            @Override
+            public UpdateNodegroupConfigResult call() throws Exception {
+                UpdateNodegroupConfigResult result = null;
+
+                try {
+                    result = executeUpdateNodegroupConfig(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateNodegroupVersionResult> updateNodegroupVersionAsync(UpdateNodegroupVersionRequest request) {
+
+        return updateNodegroupVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateNodegroupVersionResult> updateNodegroupVersionAsync(final UpdateNodegroupVersionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateNodegroupVersionRequest, UpdateNodegroupVersionResult> asyncHandler) {
+        final UpdateNodegroupVersionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateNodegroupVersionResult>() {
+            @Override
+            public UpdateNodegroupVersionResult call() throws Exception {
+                UpdateNodegroupVersionResult result = null;
+
+                try {
+                    result = executeUpdateNodegroupVersion(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePodIdentityAssociationResult> updatePodIdentityAssociationAsync(UpdatePodIdentityAssociationRequest request) {
+
+        return updatePodIdentityAssociationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdatePodIdentityAssociationResult> updatePodIdentityAssociationAsync(final UpdatePodIdentityAssociationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdatePodIdentityAssociationRequest, UpdatePodIdentityAssociationResult> asyncHandler) {
+        final UpdatePodIdentityAssociationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdatePodIdentityAssociationResult>() {
+            @Override
+            public UpdatePodIdentityAssociationResult call() throws Exception {
+                UpdatePodIdentityAssociationResult result = null;
+
+                try {
+                    result = executeUpdatePodIdentityAssociation(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class ResetUserPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Identifier of the AWS Managed Microsoft AD or Simple AD directory in which the user resides.
+     * Identifier of the Managed Microsoft AD or Simple AD directory in which the user resides.
      * </p>
      */
     private String directoryId;
@@ -46,11 +46,11 @@ public class ResetUserPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Identifier of the AWS Managed Microsoft AD or Simple AD directory in which the user resides.
+     * Identifier of the Managed Microsoft AD or Simple AD directory in which the user resides.
      * </p>
      * 
      * @param directoryId
-     *        Identifier of the AWS Managed Microsoft AD or Simple AD directory in which the user resides.
+     *        Identifier of the Managed Microsoft AD or Simple AD directory in which the user resides.
      */
 
     public void setDirectoryId(String directoryId) {
@@ -59,10 +59,10 @@ public class ResetUserPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Identifier of the AWS Managed Microsoft AD or Simple AD directory in which the user resides.
+     * Identifier of the Managed Microsoft AD or Simple AD directory in which the user resides.
      * </p>
      * 
-     * @return Identifier of the AWS Managed Microsoft AD or Simple AD directory in which the user resides.
+     * @return Identifier of the Managed Microsoft AD or Simple AD directory in which the user resides.
      */
 
     public String getDirectoryId() {
@@ -71,11 +71,11 @@ public class ResetUserPasswordRequest extends com.amazonaws.AmazonWebServiceRequ
 
     /**
      * <p>
-     * Identifier of the AWS Managed Microsoft AD or Simple AD directory in which the user resides.
+     * Identifier of the Managed Microsoft AD or Simple AD directory in which the user resides.
      * </p>
      * 
      * @param directoryId
-     *        Identifier of the AWS Managed Microsoft AD or Simple AD directory in which the user resides.
+     *        Identifier of the Managed Microsoft AD or Simple AD directory in which the user resides.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

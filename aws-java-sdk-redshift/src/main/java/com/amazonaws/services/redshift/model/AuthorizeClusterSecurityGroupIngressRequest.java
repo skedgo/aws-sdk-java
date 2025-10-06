@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,8 +46,8 @@ public class AuthorizeClusterSecurityGroupIngressRequest extends com.amazonaws.A
     private String eC2SecurityGroupName;
     /**
      * <p>
-     * The AWS account number of the owner of the security group specified by the <i>EC2SecurityGroupName</i> parameter.
-     * The AWS Access Key ID is not an acceptable value.
+     * The Amazon Web Services account number of the owner of the security group specified by the
+     * <i>EC2SecurityGroupName</i> parameter. The Amazon Web Services Access Key ID is not an acceptable value.
      * </p>
      * <p>
      * Example: <code>111122223333</code>
@@ -177,16 +177,17 @@ public class AuthorizeClusterSecurityGroupIngressRequest extends com.amazonaws.A
 
     /**
      * <p>
-     * The AWS account number of the owner of the security group specified by the <i>EC2SecurityGroupName</i> parameter.
-     * The AWS Access Key ID is not an acceptable value.
+     * The Amazon Web Services account number of the owner of the security group specified by the
+     * <i>EC2SecurityGroupName</i> parameter. The Amazon Web Services Access Key ID is not an acceptable value.
      * </p>
      * <p>
      * Example: <code>111122223333</code>
      * </p>
      * 
      * @param eC2SecurityGroupOwnerId
-     *        The AWS account number of the owner of the security group specified by the <i>EC2SecurityGroupName</i>
-     *        parameter. The AWS Access Key ID is not an acceptable value. </p>
+     *        The Amazon Web Services account number of the owner of the security group specified by the
+     *        <i>EC2SecurityGroupName</i> parameter. The Amazon Web Services Access Key ID is not an acceptable value.
+     *        </p>
      *        <p>
      *        Example: <code>111122223333</code>
      */
@@ -197,15 +198,16 @@ public class AuthorizeClusterSecurityGroupIngressRequest extends com.amazonaws.A
 
     /**
      * <p>
-     * The AWS account number of the owner of the security group specified by the <i>EC2SecurityGroupName</i> parameter.
-     * The AWS Access Key ID is not an acceptable value.
+     * The Amazon Web Services account number of the owner of the security group specified by the
+     * <i>EC2SecurityGroupName</i> parameter. The Amazon Web Services Access Key ID is not an acceptable value.
      * </p>
      * <p>
      * Example: <code>111122223333</code>
      * </p>
      * 
-     * @return The AWS account number of the owner of the security group specified by the <i>EC2SecurityGroupName</i>
-     *         parameter. The AWS Access Key ID is not an acceptable value. </p>
+     * @return The Amazon Web Services account number of the owner of the security group specified by the
+     *         <i>EC2SecurityGroupName</i> parameter. The Amazon Web Services Access Key ID is not an acceptable value.
+     *         </p>
      *         <p>
      *         Example: <code>111122223333</code>
      */
@@ -216,16 +218,17 @@ public class AuthorizeClusterSecurityGroupIngressRequest extends com.amazonaws.A
 
     /**
      * <p>
-     * The AWS account number of the owner of the security group specified by the <i>EC2SecurityGroupName</i> parameter.
-     * The AWS Access Key ID is not an acceptable value.
+     * The Amazon Web Services account number of the owner of the security group specified by the
+     * <i>EC2SecurityGroupName</i> parameter. The Amazon Web Services Access Key ID is not an acceptable value.
      * </p>
      * <p>
      * Example: <code>111122223333</code>
      * </p>
      * 
      * @param eC2SecurityGroupOwnerId
-     *        The AWS account number of the owner of the security group specified by the <i>EC2SecurityGroupName</i>
-     *        parameter. The AWS Access Key ID is not an acceptable value. </p>
+     *        The Amazon Web Services account number of the owner of the security group specified by the
+     *        <i>EC2SecurityGroupName</i> parameter. The Amazon Web Services Access Key ID is not an acceptable value.
+     *        </p>
      *        <p>
      *        Example: <code>111122223333</code>
      * @return Returns a reference to this object so that method calls can be chained together.

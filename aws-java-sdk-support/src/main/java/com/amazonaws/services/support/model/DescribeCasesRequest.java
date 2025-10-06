@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,7 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p/>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/support-2013-04-15/DescribeCases" target="_top">AWS API
  *      Documentation</a>
@@ -34,7 +33,7 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
     private com.amazonaws.internal.SdkInternalList<String> caseIdList;
     /**
      * <p>
-     * The ID displayed for a case in the AWS Support Center user interface.
+     * The ID displayed for a case in the Amazon Web Services Support Center user interface.
      * </p>
      */
     private String displayId;
@@ -54,8 +53,8 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String beforeTime;
     /**
      * <p>
-     * Specifies whether resolved support cases should be included in the <a>DescribeCases</a> results. The default is
-     * <i>false</i>.
+     * Specifies whether to include resolved support cases in the <code>DescribeCases</code> response. By default,
+     * resolved cases aren't included.
      * </p>
      */
     private Boolean includeResolvedCases;
@@ -73,15 +72,16 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
     private Integer maxResults;
     /**
      * <p>
-     * The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en")
-     * and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
+     * The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently
+     * supports Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”). You must specify the ISO 639-1 code
+     * for the <code>language</code> parameter if you want support in that language.
      * </p>
      */
     private String language;
     /**
      * <p>
-     * Specifies whether communications should be included in the <a>DescribeCases</a> results. The default is
-     * <i>true</i>.
+     * Specifies whether to include communications in the <code>DescribeCases</code> response. By default,
+     * communications are included.
      * </p>
      */
     private Boolean includeCommunications;
@@ -161,11 +161,11 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The ID displayed for a case in the AWS Support Center user interface.
+     * The ID displayed for a case in the Amazon Web Services Support Center user interface.
      * </p>
      * 
      * @param displayId
-     *        The ID displayed for a case in the AWS Support Center user interface.
+     *        The ID displayed for a case in the Amazon Web Services Support Center user interface.
      */
 
     public void setDisplayId(String displayId) {
@@ -174,10 +174,10 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The ID displayed for a case in the AWS Support Center user interface.
+     * The ID displayed for a case in the Amazon Web Services Support Center user interface.
      * </p>
      * 
-     * @return The ID displayed for a case in the AWS Support Center user interface.
+     * @return The ID displayed for a case in the Amazon Web Services Support Center user interface.
      */
 
     public String getDisplayId() {
@@ -186,11 +186,11 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The ID displayed for a case in the AWS Support Center user interface.
+     * The ID displayed for a case in the Amazon Web Services Support Center user interface.
      * </p>
      * 
      * @param displayId
-     *        The ID displayed for a case in the AWS Support Center user interface.
+     *        The ID displayed for a case in the Amazon Web Services Support Center user interface.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -293,13 +293,13 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Specifies whether resolved support cases should be included in the <a>DescribeCases</a> results. The default is
-     * <i>false</i>.
+     * Specifies whether to include resolved support cases in the <code>DescribeCases</code> response. By default,
+     * resolved cases aren't included.
      * </p>
      * 
      * @param includeResolvedCases
-     *        Specifies whether resolved support cases should be included in the <a>DescribeCases</a> results. The
-     *        default is <i>false</i>.
+     *        Specifies whether to include resolved support cases in the <code>DescribeCases</code> response. By
+     *        default, resolved cases aren't included.
      */
 
     public void setIncludeResolvedCases(Boolean includeResolvedCases) {
@@ -308,12 +308,12 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Specifies whether resolved support cases should be included in the <a>DescribeCases</a> results. The default is
-     * <i>false</i>.
+     * Specifies whether to include resolved support cases in the <code>DescribeCases</code> response. By default,
+     * resolved cases aren't included.
      * </p>
      * 
-     * @return Specifies whether resolved support cases should be included in the <a>DescribeCases</a> results. The
-     *         default is <i>false</i>.
+     * @return Specifies whether to include resolved support cases in the <code>DescribeCases</code> response. By
+     *         default, resolved cases aren't included.
      */
 
     public Boolean getIncludeResolvedCases() {
@@ -322,13 +322,13 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Specifies whether resolved support cases should be included in the <a>DescribeCases</a> results. The default is
-     * <i>false</i>.
+     * Specifies whether to include resolved support cases in the <code>DescribeCases</code> response. By default,
+     * resolved cases aren't included.
      * </p>
      * 
      * @param includeResolvedCases
-     *        Specifies whether resolved support cases should be included in the <a>DescribeCases</a> results. The
-     *        default is <i>false</i>.
+     *        Specifies whether to include resolved support cases in the <code>DescribeCases</code> response. By
+     *        default, resolved cases aren't included.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -339,12 +339,12 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Specifies whether resolved support cases should be included in the <a>DescribeCases</a> results. The default is
-     * <i>false</i>.
+     * Specifies whether to include resolved support cases in the <code>DescribeCases</code> response. By default,
+     * resolved cases aren't included.
      * </p>
      * 
-     * @return Specifies whether resolved support cases should be included in the <a>DescribeCases</a> results. The
-     *         default is <i>false</i>.
+     * @return Specifies whether to include resolved support cases in the <code>DescribeCases</code> response. By
+     *         default, resolved cases aren't included.
      */
 
     public Boolean isIncludeResolvedCases() {
@@ -433,13 +433,15 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en")
-     * and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
+     * The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently
+     * supports Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”). You must specify the ISO 639-1 code
+     * for the <code>language</code> parameter if you want support in that language.
      * </p>
      * 
      * @param language
-     *        The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English
-     *        ("en") and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
+     *        The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently
+     *        supports Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”). You must specify the ISO 639-1
+     *        code for the <code>language</code> parameter if you want support in that language.
      */
 
     public void setLanguage(String language) {
@@ -448,12 +450,14 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en")
-     * and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
+     * The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently
+     * supports Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”). You must specify the ISO 639-1 code
+     * for the <code>language</code> parameter if you want support in that language.
      * </p>
      * 
-     * @return The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English
-     *         ("en") and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
+     * @return The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently
+     *         supports Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”). You must specify the ISO
+     *         639-1 code for the <code>language</code> parameter if you want support in that language.
      */
 
     public String getLanguage() {
@@ -462,13 +466,15 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English ("en")
-     * and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
+     * The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently
+     * supports Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”). You must specify the ISO 639-1 code
+     * for the <code>language</code> parameter if you want support in that language.
      * </p>
      * 
      * @param language
-     *        The ISO 639-1 code for the language in which AWS provides support. AWS Support currently supports English
-     *        ("en") and Japanese ("ja"). Language parameters must be passed explicitly for operations that take them.
+     *        The language in which Amazon Web Services Support handles the case. Amazon Web Services Support currently
+     *        supports Chinese (“zh”), English ("en"), Japanese ("ja") and Korean (“ko”). You must specify the ISO 639-1
+     *        code for the <code>language</code> parameter if you want support in that language.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -479,13 +485,13 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Specifies whether communications should be included in the <a>DescribeCases</a> results. The default is
-     * <i>true</i>.
+     * Specifies whether to include communications in the <code>DescribeCases</code> response. By default,
+     * communications are included.
      * </p>
      * 
      * @param includeCommunications
-     *        Specifies whether communications should be included in the <a>DescribeCases</a> results. The default is
-     *        <i>true</i>.
+     *        Specifies whether to include communications in the <code>DescribeCases</code> response. By default,
+     *        communications are included.
      */
 
     public void setIncludeCommunications(Boolean includeCommunications) {
@@ -494,12 +500,12 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Specifies whether communications should be included in the <a>DescribeCases</a> results. The default is
-     * <i>true</i>.
+     * Specifies whether to include communications in the <code>DescribeCases</code> response. By default,
+     * communications are included.
      * </p>
      * 
-     * @return Specifies whether communications should be included in the <a>DescribeCases</a> results. The default is
-     *         <i>true</i>.
+     * @return Specifies whether to include communications in the <code>DescribeCases</code> response. By default,
+     *         communications are included.
      */
 
     public Boolean getIncludeCommunications() {
@@ -508,13 +514,13 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Specifies whether communications should be included in the <a>DescribeCases</a> results. The default is
-     * <i>true</i>.
+     * Specifies whether to include communications in the <code>DescribeCases</code> response. By default,
+     * communications are included.
      * </p>
      * 
      * @param includeCommunications
-     *        Specifies whether communications should be included in the <a>DescribeCases</a> results. The default is
-     *        <i>true</i>.
+     *        Specifies whether to include communications in the <code>DescribeCases</code> response. By default,
+     *        communications are included.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -525,12 +531,12 @@ public class DescribeCasesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Specifies whether communications should be included in the <a>DescribeCases</a> results. The default is
-     * <i>true</i>.
+     * Specifies whether to include communications in the <code>DescribeCases</code> response. By default,
+     * communications are included.
      * </p>
      * 
-     * @return Specifies whether communications should be included in the <a>DescribeCases</a> results. The default is
-     *         <i>true</i>.
+     * @return Specifies whether to include communications in the <code>DescribeCases</code> response. By default,
+     *         communications are included.
      */
 
     public Boolean isIncludeCommunications() {

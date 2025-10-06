@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
+ * <p>
+ * Contains the parameters for <code>CreateComputeEnvironment</code>.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/CreateComputeEnvironment" target="_top">AWS API
  *      Documentation</a>
@@ -27,16 +30,16 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, hyphens, and
-     * underscores are allowed.
+     * The name for your compute environment. It can be up to 128 characters long. It can contain uppercase and
+     * lowercase letters, numbers, hyphens (-), and underscores (_).
      * </p>
      */
     private String computeEnvironmentName;
     /**
      * <p>
-     * The type of the compute environment. For more information, see <a
+     * The type of the compute environment: <code>MANAGED</code> or <code>UNMANAGED</code>. For more information, see <a
      * href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute Environments</a> in
-     * the <i>AWS Batch User Guide</i>.
+     * the <i>Batch User Guide</i>.
      * </p>
      */
     private String type;
@@ -45,46 +48,117 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
      * The state of the compute environment. If the state is <code>ENABLED</code>, then the compute environment accepts
      * jobs from a queue and can scale out automatically based on queues.
      * </p>
+     * <p>
+     * If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an associated job
+     * queue on the compute resources within the environment. If the compute environment is managed, then it can scale
+     * its instances out or in automatically, based on the job queue demand.
+     * </p>
+     * <p>
+     * If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     * environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally. Managed
+     * compute environments in the <code>DISABLED</code> state don't scale out.
+     * </p>
+     * <note>
+     * <p>
+     * Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     * additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     * "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     * >State</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * </note>
+     * <p>
+     * When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the instance size
+     * doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a <code>minvCpus</code> value of
+     * <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>. This instance doesn't scale down to a
+     * <code>c5.large</code> instance.
+     * </p>
      */
     private String state;
     /**
      * <p>
-     * Details of the compute resources managed by the compute environment. This parameter is required for managed
+     * The maximum number of vCPUs for an unmanaged compute environment. This parameter is only used for fair share
+     * scheduling to reserve vCPU capacity for new share identifiers. If this parameter isn't provided for a fair share
+     * job queue, no vCPU capacity is reserved.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter is only supported when the <code>type</code> parameter is set to <code>UNMANAGED</code>.
+     * </p>
+     * </note>
+     */
+    private Integer unmanagedvCpus;
+    /**
+     * <p>
+     * Details about the compute resources managed by the compute environment. This parameter is required for managed
      * compute environments. For more information, see <a
      * href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute Environments</a> in
-     * the <i>AWS Batch User Guide</i>.
+     * the <i>Batch User Guide</i>.
      * </p>
      */
     private ComputeResource computeResources;
     /**
      * <p>
-     * The full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls to other AWS services on
-     * your behalf.
+     * The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web Services
+     * services on your behalf. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html">Batch service IAM role</a> in the
+     * <i>Batch User Guide</i>.
      * </p>
+     * <important>
      * <p>
-     * If your specified role has a path other than <code>/</code>, then you must either specify the full role ARN (this
-     * is recommended) or prefix the role name with the path.
+     * If your account already created the Batch service-linked role, that role is used by default for your compute
+     * environment unless you specify a different role here. If the Batch service-linked role doesn't exist in your
+     * account, and no role is specified here, the service attempts to create the Batch service-linked role in your
+     * account.
+     * </p>
+     * </important>
+     * <p>
+     * If your specified role has a path other than <code>/</code>, then you must specify either the full role ARN
+     * (recommended) or prefix the role name with the path. For example, if a role with the name <code>bar</code> has a
+     * path of <code>/foo/</code>, specify <code>/foo/bar</code> as the role name. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names"
+     * >Friendly names and paths</a> in the <i>IAM User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * Depending on how you created your AWS Batch service role, its ARN may contain the <code>service-role</code> path
-     * prefix. When you only specify the name of the service role, AWS Batch assumes that your ARN does not use the
+     * Depending on how you created your Batch service role, its ARN might contain the <code>service-role</code> path
+     * prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use the
      * <code>service-role</code> path prefix. Because of this, we recommend that you specify the full ARN of your
      * service role when you create compute environments.
      * </p>
      * </note>
      */
     private String serviceRole;
+    /**
+     * <p>
+     * The tags that you apply to the compute environment to help you categorize and organize your resources. Each tag
+     * consists of a key and an optional value. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>
+     * in <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * <p>
+     * These tags can be updated or removed using the <a
+     * href="https://docs.aws.amazon.com/batch/latest/APIReference/API_TagResource.html">TagResource</a> and <a
+     * href="https://docs.aws.amazon.com/batch/latest/APIReference/API_UntagResource.html">UntagResource</a> API
+     * operations. These tags don't propagate to the underlying compute resources.
+     * </p>
+     */
+    private java.util.Map<String, String> tags;
+    /**
+     * <p>
+     * The details for the Amazon EKS cluster that supports the compute environment.
+     * </p>
+     */
+    private EksConfiguration eksConfiguration;
 
     /**
      * <p>
-     * The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, hyphens, and
-     * underscores are allowed.
+     * The name for your compute environment. It can be up to 128 characters long. It can contain uppercase and
+     * lowercase letters, numbers, hyphens (-), and underscores (_).
      * </p>
      * 
      * @param computeEnvironmentName
-     *        The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, hyphens, and
-     *        underscores are allowed.
+     *        The name for your compute environment. It can be up to 128 characters long. It can contain uppercase and
+     *        lowercase letters, numbers, hyphens (-), and underscores (_).
      */
 
     public void setComputeEnvironmentName(String computeEnvironmentName) {
@@ -93,12 +167,12 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, hyphens, and
-     * underscores are allowed.
+     * The name for your compute environment. It can be up to 128 characters long. It can contain uppercase and
+     * lowercase letters, numbers, hyphens (-), and underscores (_).
      * </p>
      * 
-     * @return The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, hyphens, and
-     *         underscores are allowed.
+     * @return The name for your compute environment. It can be up to 128 characters long. It can contain uppercase and
+     *         lowercase letters, numbers, hyphens (-), and underscores (_).
      */
 
     public String getComputeEnvironmentName() {
@@ -107,13 +181,13 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, hyphens, and
-     * underscores are allowed.
+     * The name for your compute environment. It can be up to 128 characters long. It can contain uppercase and
+     * lowercase letters, numbers, hyphens (-), and underscores (_).
      * </p>
      * 
      * @param computeEnvironmentName
-     *        The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, hyphens, and
-     *        underscores are allowed.
+     *        The name for your compute environment. It can be up to 128 characters long. It can contain uppercase and
+     *        lowercase letters, numbers, hyphens (-), and underscores (_).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -124,15 +198,15 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The type of the compute environment. For more information, see <a
+     * The type of the compute environment: <code>MANAGED</code> or <code>UNMANAGED</code>. For more information, see <a
      * href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute Environments</a> in
-     * the <i>AWS Batch User Guide</i>.
+     * the <i>Batch User Guide</i>.
      * </p>
      * 
      * @param type
-     *        The type of the compute environment. For more information, see <a
-     *        href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute
-     *        Environments</a> in the <i>AWS Batch User Guide</i>.
+     *        The type of the compute environment: <code>MANAGED</code> or <code>UNMANAGED</code>. For more information,
+     *        see <a href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute
+     *        Environments</a> in the <i>Batch User Guide</i>.
      * @see CEType
      */
 
@@ -142,14 +216,15 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The type of the compute environment. For more information, see <a
+     * The type of the compute environment: <code>MANAGED</code> or <code>UNMANAGED</code>. For more information, see <a
      * href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute Environments</a> in
-     * the <i>AWS Batch User Guide</i>.
+     * the <i>Batch User Guide</i>.
      * </p>
      * 
-     * @return The type of the compute environment. For more information, see <a
+     * @return The type of the compute environment: <code>MANAGED</code> or <code>UNMANAGED</code>. For more
+     *         information, see <a
      *         href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute
-     *         Environments</a> in the <i>AWS Batch User Guide</i>.
+     *         Environments</a> in the <i>Batch User Guide</i>.
      * @see CEType
      */
 
@@ -159,15 +234,15 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The type of the compute environment. For more information, see <a
+     * The type of the compute environment: <code>MANAGED</code> or <code>UNMANAGED</code>. For more information, see <a
      * href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute Environments</a> in
-     * the <i>AWS Batch User Guide</i>.
+     * the <i>Batch User Guide</i>.
      * </p>
      * 
      * @param type
-     *        The type of the compute environment. For more information, see <a
-     *        href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute
-     *        Environments</a> in the <i>AWS Batch User Guide</i>.
+     *        The type of the compute environment: <code>MANAGED</code> or <code>UNMANAGED</code>. For more information,
+     *        see <a href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute
+     *        Environments</a> in the <i>Batch User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CEType
      */
@@ -179,15 +254,15 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The type of the compute environment. For more information, see <a
+     * The type of the compute environment: <code>MANAGED</code> or <code>UNMANAGED</code>. For more information, see <a
      * href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute Environments</a> in
-     * the <i>AWS Batch User Guide</i>.
+     * the <i>Batch User Guide</i>.
      * </p>
      * 
      * @param type
-     *        The type of the compute environment. For more information, see <a
-     *        href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute
-     *        Environments</a> in the <i>AWS Batch User Guide</i>.
+     *        The type of the compute environment: <code>MANAGED</code> or <code>UNMANAGED</code>. For more information,
+     *        see <a href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute
+     *        Environments</a> in the <i>Batch User Guide</i>.
      * @see CEType
      */
 
@@ -197,15 +272,15 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The type of the compute environment. For more information, see <a
+     * The type of the compute environment: <code>MANAGED</code> or <code>UNMANAGED</code>. For more information, see <a
      * href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute Environments</a> in
-     * the <i>AWS Batch User Guide</i>.
+     * the <i>Batch User Guide</i>.
      * </p>
      * 
      * @param type
-     *        The type of the compute environment. For more information, see <a
-     *        href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute
-     *        Environments</a> in the <i>AWS Batch User Guide</i>.
+     *        The type of the compute environment: <code>MANAGED</code> or <code>UNMANAGED</code>. For more information,
+     *        see <a href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute
+     *        Environments</a> in the <i>Batch User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CEType
      */
@@ -220,10 +295,57 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
      * The state of the compute environment. If the state is <code>ENABLED</code>, then the compute environment accepts
      * jobs from a queue and can scale out automatically based on queues.
      * </p>
+     * <p>
+     * If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an associated job
+     * queue on the compute resources within the environment. If the compute environment is managed, then it can scale
+     * its instances out or in automatically, based on the job queue demand.
+     * </p>
+     * <p>
+     * If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     * environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally. Managed
+     * compute environments in the <code>DISABLED</code> state don't scale out.
+     * </p>
+     * <note>
+     * <p>
+     * Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     * additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     * "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     * >State</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * </note>
+     * <p>
+     * When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the instance size
+     * doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a <code>minvCpus</code> value of
+     * <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>. This instance doesn't scale down to a
+     * <code>c5.large</code> instance.
+     * </p>
      * 
      * @param state
      *        The state of the compute environment. If the state is <code>ENABLED</code>, then the compute environment
-     *        accepts jobs from a queue and can scale out automatically based on queues.
+     *        accepts jobs from a queue and can scale out automatically based on queues.</p>
+     *        <p>
+     *        If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an
+     *        associated job queue on the compute resources within the environment. If the compute environment is
+     *        managed, then it can scale its instances out or in automatically, based on the job queue demand.
+     *        </p>
+     *        <p>
+     *        If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     *        environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally.
+     *        Managed compute environments in the <code>DISABLED</code> state don't scale out.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     *        additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     *        >State</a> in the <i>Batch User Guide</i>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the
+     *        instance size doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a
+     *        <code>minvCpus</code> value of <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>.
+     *        This instance doesn't scale down to a <code>c5.large</code> instance.
      * @see CEState
      */
 
@@ -236,9 +358,56 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
      * The state of the compute environment. If the state is <code>ENABLED</code>, then the compute environment accepts
      * jobs from a queue and can scale out automatically based on queues.
      * </p>
+     * <p>
+     * If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an associated job
+     * queue on the compute resources within the environment. If the compute environment is managed, then it can scale
+     * its instances out or in automatically, based on the job queue demand.
+     * </p>
+     * <p>
+     * If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     * environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally. Managed
+     * compute environments in the <code>DISABLED</code> state don't scale out.
+     * </p>
+     * <note>
+     * <p>
+     * Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     * additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     * "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     * >State</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * </note>
+     * <p>
+     * When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the instance size
+     * doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a <code>minvCpus</code> value of
+     * <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>. This instance doesn't scale down to a
+     * <code>c5.large</code> instance.
+     * </p>
      * 
      * @return The state of the compute environment. If the state is <code>ENABLED</code>, then the compute environment
-     *         accepts jobs from a queue and can scale out automatically based on queues.
+     *         accepts jobs from a queue and can scale out automatically based on queues.</p>
+     *         <p>
+     *         If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an
+     *         associated job queue on the compute resources within the environment. If the compute environment is
+     *         managed, then it can scale its instances out or in automatically, based on the job queue demand.
+     *         </p>
+     *         <p>
+     *         If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     *         environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally.
+     *         Managed compute environments in the <code>DISABLED</code> state don't scale out.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     *         additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     *         >State</a> in the <i>Batch User Guide</i>.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the
+     *         instance size doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a
+     *         <code>minvCpus</code> value of <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>.
+     *         This instance doesn't scale down to a <code>c5.large</code> instance.
      * @see CEState
      */
 
@@ -251,10 +420,57 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
      * The state of the compute environment. If the state is <code>ENABLED</code>, then the compute environment accepts
      * jobs from a queue and can scale out automatically based on queues.
      * </p>
+     * <p>
+     * If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an associated job
+     * queue on the compute resources within the environment. If the compute environment is managed, then it can scale
+     * its instances out or in automatically, based on the job queue demand.
+     * </p>
+     * <p>
+     * If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     * environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally. Managed
+     * compute environments in the <code>DISABLED</code> state don't scale out.
+     * </p>
+     * <note>
+     * <p>
+     * Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     * additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     * "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     * >State</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * </note>
+     * <p>
+     * When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the instance size
+     * doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a <code>minvCpus</code> value of
+     * <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>. This instance doesn't scale down to a
+     * <code>c5.large</code> instance.
+     * </p>
      * 
      * @param state
      *        The state of the compute environment. If the state is <code>ENABLED</code>, then the compute environment
-     *        accepts jobs from a queue and can scale out automatically based on queues.
+     *        accepts jobs from a queue and can scale out automatically based on queues.</p>
+     *        <p>
+     *        If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an
+     *        associated job queue on the compute resources within the environment. If the compute environment is
+     *        managed, then it can scale its instances out or in automatically, based on the job queue demand.
+     *        </p>
+     *        <p>
+     *        If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     *        environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally.
+     *        Managed compute environments in the <code>DISABLED</code> state don't scale out.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     *        additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     *        >State</a> in the <i>Batch User Guide</i>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the
+     *        instance size doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a
+     *        <code>minvCpus</code> value of <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>.
+     *        This instance doesn't scale down to a <code>c5.large</code> instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CEState
      */
@@ -269,10 +485,57 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
      * The state of the compute environment. If the state is <code>ENABLED</code>, then the compute environment accepts
      * jobs from a queue and can scale out automatically based on queues.
      * </p>
+     * <p>
+     * If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an associated job
+     * queue on the compute resources within the environment. If the compute environment is managed, then it can scale
+     * its instances out or in automatically, based on the job queue demand.
+     * </p>
+     * <p>
+     * If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     * environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally. Managed
+     * compute environments in the <code>DISABLED</code> state don't scale out.
+     * </p>
+     * <note>
+     * <p>
+     * Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     * additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     * "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     * >State</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * </note>
+     * <p>
+     * When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the instance size
+     * doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a <code>minvCpus</code> value of
+     * <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>. This instance doesn't scale down to a
+     * <code>c5.large</code> instance.
+     * </p>
      * 
      * @param state
      *        The state of the compute environment. If the state is <code>ENABLED</code>, then the compute environment
-     *        accepts jobs from a queue and can scale out automatically based on queues.
+     *        accepts jobs from a queue and can scale out automatically based on queues.</p>
+     *        <p>
+     *        If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an
+     *        associated job queue on the compute resources within the environment. If the compute environment is
+     *        managed, then it can scale its instances out or in automatically, based on the job queue demand.
+     *        </p>
+     *        <p>
+     *        If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     *        environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally.
+     *        Managed compute environments in the <code>DISABLED</code> state don't scale out.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     *        additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     *        >State</a> in the <i>Batch User Guide</i>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the
+     *        instance size doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a
+     *        <code>minvCpus</code> value of <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>.
+     *        This instance doesn't scale down to a <code>c5.large</code> instance.
      * @see CEState
      */
 
@@ -285,10 +548,57 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
      * The state of the compute environment. If the state is <code>ENABLED</code>, then the compute environment accepts
      * jobs from a queue and can scale out automatically based on queues.
      * </p>
+     * <p>
+     * If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an associated job
+     * queue on the compute resources within the environment. If the compute environment is managed, then it can scale
+     * its instances out or in automatically, based on the job queue demand.
+     * </p>
+     * <p>
+     * If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     * environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally. Managed
+     * compute environments in the <code>DISABLED</code> state don't scale out.
+     * </p>
+     * <note>
+     * <p>
+     * Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     * additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     * "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     * >State</a> in the <i>Batch User Guide</i>.
+     * </p>
+     * </note>
+     * <p>
+     * When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the instance size
+     * doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a <code>minvCpus</code> value of
+     * <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>. This instance doesn't scale down to a
+     * <code>c5.large</code> instance.
+     * </p>
      * 
      * @param state
      *        The state of the compute environment. If the state is <code>ENABLED</code>, then the compute environment
-     *        accepts jobs from a queue and can scale out automatically based on queues.
+     *        accepts jobs from a queue and can scale out automatically based on queues.</p>
+     *        <p>
+     *        If the state is <code>ENABLED</code>, then the Batch scheduler can attempt to place jobs from an
+     *        associated job queue on the compute resources within the environment. If the compute environment is
+     *        managed, then it can scale its instances out or in automatically, based on the job queue demand.
+     *        </p>
+     *        <p>
+     *        If the state is <code>DISABLED</code>, then the Batch scheduler doesn't attempt to place jobs within the
+     *        environment. Jobs in a <code>STARTING</code> or <code>RUNNING</code> state continue to progress normally.
+     *        Managed compute environments in the <code>DISABLED</code> state don't scale out.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        Compute environments in a <code>DISABLED</code> state may continue to incur billing charges. To prevent
+     *        additional charges, turn off and then delete the compute environment. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state"
+     *        >State</a> in the <i>Batch User Guide</i>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        When an instance is idle, the instance scales down to the <code>minvCpus</code> value. However, the
+     *        instance size doesn't change. For example, consider a <code>c5.8xlarge</code> instance with a
+     *        <code>minvCpus</code> value of <code>4</code> and a <code>desiredvCpus</code> value of <code>36</code>.
+     *        This instance doesn't scale down to a <code>c5.large</code> instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CEState
      */
@@ -300,17 +610,93 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Details of the compute resources managed by the compute environment. This parameter is required for managed
+     * The maximum number of vCPUs for an unmanaged compute environment. This parameter is only used for fair share
+     * scheduling to reserve vCPU capacity for new share identifiers. If this parameter isn't provided for a fair share
+     * job queue, no vCPU capacity is reserved.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter is only supported when the <code>type</code> parameter is set to <code>UNMANAGED</code>.
+     * </p>
+     * </note>
+     * 
+     * @param unmanagedvCpus
+     *        The maximum number of vCPUs for an unmanaged compute environment. This parameter is only used for fair
+     *        share scheduling to reserve vCPU capacity for new share identifiers. If this parameter isn't provided for
+     *        a fair share job queue, no vCPU capacity is reserved.</p> <note>
+     *        <p>
+     *        This parameter is only supported when the <code>type</code> parameter is set to <code>UNMANAGED</code>.
+     *        </p>
+     */
+
+    public void setUnmanagedvCpus(Integer unmanagedvCpus) {
+        this.unmanagedvCpus = unmanagedvCpus;
+    }
+
+    /**
+     * <p>
+     * The maximum number of vCPUs for an unmanaged compute environment. This parameter is only used for fair share
+     * scheduling to reserve vCPU capacity for new share identifiers. If this parameter isn't provided for a fair share
+     * job queue, no vCPU capacity is reserved.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter is only supported when the <code>type</code> parameter is set to <code>UNMANAGED</code>.
+     * </p>
+     * </note>
+     * 
+     * @return The maximum number of vCPUs for an unmanaged compute environment. This parameter is only used for fair
+     *         share scheduling to reserve vCPU capacity for new share identifiers. If this parameter isn't provided for
+     *         a fair share job queue, no vCPU capacity is reserved.</p> <note>
+     *         <p>
+     *         This parameter is only supported when the <code>type</code> parameter is set to <code>UNMANAGED</code>.
+     *         </p>
+     */
+
+    public Integer getUnmanagedvCpus() {
+        return this.unmanagedvCpus;
+    }
+
+    /**
+     * <p>
+     * The maximum number of vCPUs for an unmanaged compute environment. This parameter is only used for fair share
+     * scheduling to reserve vCPU capacity for new share identifiers. If this parameter isn't provided for a fair share
+     * job queue, no vCPU capacity is reserved.
+     * </p>
+     * <note>
+     * <p>
+     * This parameter is only supported when the <code>type</code> parameter is set to <code>UNMANAGED</code>.
+     * </p>
+     * </note>
+     * 
+     * @param unmanagedvCpus
+     *        The maximum number of vCPUs for an unmanaged compute environment. This parameter is only used for fair
+     *        share scheduling to reserve vCPU capacity for new share identifiers. If this parameter isn't provided for
+     *        a fair share job queue, no vCPU capacity is reserved.</p> <note>
+     *        <p>
+     *        This parameter is only supported when the <code>type</code> parameter is set to <code>UNMANAGED</code>.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateComputeEnvironmentRequest withUnmanagedvCpus(Integer unmanagedvCpus) {
+        setUnmanagedvCpus(unmanagedvCpus);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Details about the compute resources managed by the compute environment. This parameter is required for managed
      * compute environments. For more information, see <a
      * href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute Environments</a> in
-     * the <i>AWS Batch User Guide</i>.
+     * the <i>Batch User Guide</i>.
      * </p>
      * 
      * @param computeResources
-     *        Details of the compute resources managed by the compute environment. This parameter is required for
+     *        Details about the compute resources managed by the compute environment. This parameter is required for
      *        managed compute environments. For more information, see <a
      *        href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute
-     *        Environments</a> in the <i>AWS Batch User Guide</i>.
+     *        Environments</a> in the <i>Batch User Guide</i>.
      */
 
     public void setComputeResources(ComputeResource computeResources) {
@@ -319,16 +705,16 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Details of the compute resources managed by the compute environment. This parameter is required for managed
+     * Details about the compute resources managed by the compute environment. This parameter is required for managed
      * compute environments. For more information, see <a
      * href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute Environments</a> in
-     * the <i>AWS Batch User Guide</i>.
+     * the <i>Batch User Guide</i>.
      * </p>
      * 
-     * @return Details of the compute resources managed by the compute environment. This parameter is required for
+     * @return Details about the compute resources managed by the compute environment. This parameter is required for
      *         managed compute environments. For more information, see <a
      *         href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute
-     *         Environments</a> in the <i>AWS Batch User Guide</i>.
+     *         Environments</a> in the <i>Batch User Guide</i>.
      */
 
     public ComputeResource getComputeResources() {
@@ -337,17 +723,17 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Details of the compute resources managed by the compute environment. This parameter is required for managed
+     * Details about the compute resources managed by the compute environment. This parameter is required for managed
      * compute environments. For more information, see <a
      * href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute Environments</a> in
-     * the <i>AWS Batch User Guide</i>.
+     * the <i>Batch User Guide</i>.
      * </p>
      * 
      * @param computeResources
-     *        Details of the compute resources managed by the compute environment. This parameter is required for
+     *        Details about the compute resources managed by the compute environment. This parameter is required for
      *        managed compute environments. For more information, see <a
      *        href="https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute
-     *        Environments</a> in the <i>AWS Batch User Guide</i>.
+     *        Environments</a> in the <i>Batch User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -358,35 +744,61 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls to other AWS services on
-     * your behalf.
+     * The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web Services
+     * services on your behalf. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html">Batch service IAM role</a> in the
+     * <i>Batch User Guide</i>.
      * </p>
+     * <important>
      * <p>
-     * If your specified role has a path other than <code>/</code>, then you must either specify the full role ARN (this
-     * is recommended) or prefix the role name with the path.
+     * If your account already created the Batch service-linked role, that role is used by default for your compute
+     * environment unless you specify a different role here. If the Batch service-linked role doesn't exist in your
+     * account, and no role is specified here, the service attempts to create the Batch service-linked role in your
+     * account.
+     * </p>
+     * </important>
+     * <p>
+     * If your specified role has a path other than <code>/</code>, then you must specify either the full role ARN
+     * (recommended) or prefix the role name with the path. For example, if a role with the name <code>bar</code> has a
+     * path of <code>/foo/</code>, specify <code>/foo/bar</code> as the role name. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names"
+     * >Friendly names and paths</a> in the <i>IAM User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * Depending on how you created your AWS Batch service role, its ARN may contain the <code>service-role</code> path
-     * prefix. When you only specify the name of the service role, AWS Batch assumes that your ARN does not use the
+     * Depending on how you created your Batch service role, its ARN might contain the <code>service-role</code> path
+     * prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use the
      * <code>service-role</code> path prefix. Because of this, we recommend that you specify the full ARN of your
      * service role when you create compute environments.
      * </p>
      * </note>
      * 
      * @param serviceRole
-     *        The full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls to other AWS
-     *        services on your behalf.</p>
+     *        The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web
+     *        Services services on your behalf. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html">Batch service IAM role</a>
+     *        in the <i>Batch User Guide</i>.</p> <important>
      *        <p>
-     *        If your specified role has a path other than <code>/</code>, then you must either specify the full role
-     *        ARN (this is recommended) or prefix the role name with the path.
+     *        If your account already created the Batch service-linked role, that role is used by default for your
+     *        compute environment unless you specify a different role here. If the Batch service-linked role doesn't
+     *        exist in your account, and no role is specified here, the service attempts to create the Batch
+     *        service-linked role in your account.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        If your specified role has a path other than <code>/</code>, then you must specify either the full role
+     *        ARN (recommended) or prefix the role name with the path. For example, if a role with the name
+     *        <code>bar</code> has a path of <code>/foo/</code>, specify <code>/foo/bar</code> as the role name. For
+     *        more information, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names"
+     *        >Friendly names and paths</a> in the <i>IAM User Guide</i>.
      *        </p>
      *        <note>
      *        <p>
-     *        Depending on how you created your AWS Batch service role, its ARN may contain the
-     *        <code>service-role</code> path prefix. When you only specify the name of the service role, AWS Batch
-     *        assumes that your ARN does not use the <code>service-role</code> path prefix. Because of this, we
-     *        recommend that you specify the full ARN of your service role when you create compute environments.
+     *        Depending on how you created your Batch service role, its ARN might contain the <code>service-role</code>
+     *        path prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use
+     *        the <code>service-role</code> path prefix. Because of this, we recommend that you specify the full ARN of
+     *        your service role when you create compute environments.
      *        </p>
      */
 
@@ -396,34 +808,60 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls to other AWS services on
-     * your behalf.
+     * The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web Services
+     * services on your behalf. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html">Batch service IAM role</a> in the
+     * <i>Batch User Guide</i>.
      * </p>
+     * <important>
      * <p>
-     * If your specified role has a path other than <code>/</code>, then you must either specify the full role ARN (this
-     * is recommended) or prefix the role name with the path.
+     * If your account already created the Batch service-linked role, that role is used by default for your compute
+     * environment unless you specify a different role here. If the Batch service-linked role doesn't exist in your
+     * account, and no role is specified here, the service attempts to create the Batch service-linked role in your
+     * account.
+     * </p>
+     * </important>
+     * <p>
+     * If your specified role has a path other than <code>/</code>, then you must specify either the full role ARN
+     * (recommended) or prefix the role name with the path. For example, if a role with the name <code>bar</code> has a
+     * path of <code>/foo/</code>, specify <code>/foo/bar</code> as the role name. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names"
+     * >Friendly names and paths</a> in the <i>IAM User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * Depending on how you created your AWS Batch service role, its ARN may contain the <code>service-role</code> path
-     * prefix. When you only specify the name of the service role, AWS Batch assumes that your ARN does not use the
+     * Depending on how you created your Batch service role, its ARN might contain the <code>service-role</code> path
+     * prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use the
      * <code>service-role</code> path prefix. Because of this, we recommend that you specify the full ARN of your
      * service role when you create compute environments.
      * </p>
      * </note>
      * 
-     * @return The full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls to other AWS
-     *         services on your behalf.</p>
+     * @return The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web
+     *         Services services on your behalf. For more information, see <a
+     *         href="https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html">Batch service IAM
+     *         role</a> in the <i>Batch User Guide</i>.</p> <important>
      *         <p>
-     *         If your specified role has a path other than <code>/</code>, then you must either specify the full role
-     *         ARN (this is recommended) or prefix the role name with the path.
+     *         If your account already created the Batch service-linked role, that role is used by default for your
+     *         compute environment unless you specify a different role here. If the Batch service-linked role doesn't
+     *         exist in your account, and no role is specified here, the service attempts to create the Batch
+     *         service-linked role in your account.
+     *         </p>
+     *         </important>
+     *         <p>
+     *         If your specified role has a path other than <code>/</code>, then you must specify either the full role
+     *         ARN (recommended) or prefix the role name with the path. For example, if a role with the name
+     *         <code>bar</code> has a path of <code>/foo/</code>, specify <code>/foo/bar</code> as the role name. For
+     *         more information, see <a href=
+     *         "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names"
+     *         >Friendly names and paths</a> in the <i>IAM User Guide</i>.
      *         </p>
      *         <note>
      *         <p>
-     *         Depending on how you created your AWS Batch service role, its ARN may contain the
-     *         <code>service-role</code> path prefix. When you only specify the name of the service role, AWS Batch
-     *         assumes that your ARN does not use the <code>service-role</code> path prefix. Because of this, we
-     *         recommend that you specify the full ARN of your service role when you create compute environments.
+     *         Depending on how you created your Batch service role, its ARN might contain the <code>service-role</code>
+     *         path prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use
+     *         the <code>service-role</code> path prefix. Because of this, we recommend that you specify the full ARN of
+     *         your service role when you create compute environments.
      *         </p>
      */
 
@@ -433,41 +871,226 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls to other AWS services on
-     * your behalf.
+     * The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web Services
+     * services on your behalf. For more information, see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html">Batch service IAM role</a> in the
+     * <i>Batch User Guide</i>.
      * </p>
+     * <important>
      * <p>
-     * If your specified role has a path other than <code>/</code>, then you must either specify the full role ARN (this
-     * is recommended) or prefix the role name with the path.
+     * If your account already created the Batch service-linked role, that role is used by default for your compute
+     * environment unless you specify a different role here. If the Batch service-linked role doesn't exist in your
+     * account, and no role is specified here, the service attempts to create the Batch service-linked role in your
+     * account.
+     * </p>
+     * </important>
+     * <p>
+     * If your specified role has a path other than <code>/</code>, then you must specify either the full role ARN
+     * (recommended) or prefix the role name with the path. For example, if a role with the name <code>bar</code> has a
+     * path of <code>/foo/</code>, specify <code>/foo/bar</code> as the role name. For more information, see <a
+     * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names"
+     * >Friendly names and paths</a> in the <i>IAM User Guide</i>.
      * </p>
      * <note>
      * <p>
-     * Depending on how you created your AWS Batch service role, its ARN may contain the <code>service-role</code> path
-     * prefix. When you only specify the name of the service role, AWS Batch assumes that your ARN does not use the
+     * Depending on how you created your Batch service role, its ARN might contain the <code>service-role</code> path
+     * prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use the
      * <code>service-role</code> path prefix. Because of this, we recommend that you specify the full ARN of your
      * service role when you create compute environments.
      * </p>
      * </note>
      * 
      * @param serviceRole
-     *        The full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls to other AWS
-     *        services on your behalf.</p>
+     *        The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web
+     *        Services services on your behalf. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/service_IAM_role.html">Batch service IAM role</a>
+     *        in the <i>Batch User Guide</i>.</p> <important>
      *        <p>
-     *        If your specified role has a path other than <code>/</code>, then you must either specify the full role
-     *        ARN (this is recommended) or prefix the role name with the path.
+     *        If your account already created the Batch service-linked role, that role is used by default for your
+     *        compute environment unless you specify a different role here. If the Batch service-linked role doesn't
+     *        exist in your account, and no role is specified here, the service attempts to create the Batch
+     *        service-linked role in your account.
+     *        </p>
+     *        </important>
+     *        <p>
+     *        If your specified role has a path other than <code>/</code>, then you must specify either the full role
+     *        ARN (recommended) or prefix the role name with the path. For example, if a role with the name
+     *        <code>bar</code> has a path of <code>/foo/</code>, specify <code>/foo/bar</code> as the role name. For
+     *        more information, see <a href=
+     *        "https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names"
+     *        >Friendly names and paths</a> in the <i>IAM User Guide</i>.
      *        </p>
      *        <note>
      *        <p>
-     *        Depending on how you created your AWS Batch service role, its ARN may contain the
-     *        <code>service-role</code> path prefix. When you only specify the name of the service role, AWS Batch
-     *        assumes that your ARN does not use the <code>service-role</code> path prefix. Because of this, we
-     *        recommend that you specify the full ARN of your service role when you create compute environments.
+     *        Depending on how you created your Batch service role, its ARN might contain the <code>service-role</code>
+     *        path prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use
+     *        the <code>service-role</code> path prefix. Because of this, we recommend that you specify the full ARN of
+     *        your service role when you create compute environments.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateComputeEnvironmentRequest withServiceRole(String serviceRole) {
         setServiceRole(serviceRole);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags that you apply to the compute environment to help you categorize and organize your resources. Each tag
+     * consists of a key and an optional value. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>
+     * in <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * <p>
+     * These tags can be updated or removed using the <a
+     * href="https://docs.aws.amazon.com/batch/latest/APIReference/API_TagResource.html">TagResource</a> and <a
+     * href="https://docs.aws.amazon.com/batch/latest/APIReference/API_UntagResource.html">UntagResource</a> API
+     * operations. These tags don't propagate to the underlying compute resources.
+     * </p>
+     * 
+     * @return The tags that you apply to the compute environment to help you categorize and organize your resources.
+     *         Each tag consists of a key and an optional value. For more information, see <a
+     *         href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *         Resources</a> in <i>Amazon Web Services General Reference</i>.</p>
+     *         <p>
+     *         These tags can be updated or removed using the <a
+     *         href="https://docs.aws.amazon.com/batch/latest/APIReference/API_TagResource.html">TagResource</a> and <a
+     *         href="https://docs.aws.amazon.com/batch/latest/APIReference/API_UntagResource.html">UntagResource</a> API
+     *         operations. These tags don't propagate to the underlying compute resources.
+     */
+
+    public java.util.Map<String, String> getTags() {
+        return tags;
+    }
+
+    /**
+     * <p>
+     * The tags that you apply to the compute environment to help you categorize and organize your resources. Each tag
+     * consists of a key and an optional value. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>
+     * in <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * <p>
+     * These tags can be updated or removed using the <a
+     * href="https://docs.aws.amazon.com/batch/latest/APIReference/API_TagResource.html">TagResource</a> and <a
+     * href="https://docs.aws.amazon.com/batch/latest/APIReference/API_UntagResource.html">UntagResource</a> API
+     * operations. These tags don't propagate to the underlying compute resources.
+     * </p>
+     * 
+     * @param tags
+     *        The tags that you apply to the compute environment to help you categorize and organize your resources.
+     *        Each tag consists of a key and an optional value. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a> in <i>Amazon Web Services General Reference</i>.</p>
+     *        <p>
+     *        These tags can be updated or removed using the <a
+     *        href="https://docs.aws.amazon.com/batch/latest/APIReference/API_TagResource.html">TagResource</a> and <a
+     *        href="https://docs.aws.amazon.com/batch/latest/APIReference/API_UntagResource.html">UntagResource</a> API
+     *        operations. These tags don't propagate to the underlying compute resources.
+     */
+
+    public void setTags(java.util.Map<String, String> tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * <p>
+     * The tags that you apply to the compute environment to help you categorize and organize your resources. Each tag
+     * consists of a key and an optional value. For more information, see <a
+     * href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services Resources</a>
+     * in <i>Amazon Web Services General Reference</i>.
+     * </p>
+     * <p>
+     * These tags can be updated or removed using the <a
+     * href="https://docs.aws.amazon.com/batch/latest/APIReference/API_TagResource.html">TagResource</a> and <a
+     * href="https://docs.aws.amazon.com/batch/latest/APIReference/API_UntagResource.html">UntagResource</a> API
+     * operations. These tags don't propagate to the underlying compute resources.
+     * </p>
+     * 
+     * @param tags
+     *        The tags that you apply to the compute environment to help you categorize and organize your resources.
+     *        Each tag consists of a key and an optional value. For more information, see <a
+     *        href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging Amazon Web Services
+     *        Resources</a> in <i>Amazon Web Services General Reference</i>.</p>
+     *        <p>
+     *        These tags can be updated or removed using the <a
+     *        href="https://docs.aws.amazon.com/batch/latest/APIReference/API_TagResource.html">TagResource</a> and <a
+     *        href="https://docs.aws.amazon.com/batch/latest/APIReference/API_UntagResource.html">UntagResource</a> API
+     *        operations. These tags don't propagate to the underlying compute resources.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateComputeEnvironmentRequest withTags(java.util.Map<String, String> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateComputeEnvironmentRequest#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateComputeEnvironmentRequest addTagsEntry(String key, String value) {
+        if (null == this.tags) {
+            this.tags = new java.util.HashMap<String, String>();
+        }
+        if (this.tags.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.tags.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Tags.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateComputeEnvironmentRequest clearTagsEntries() {
+        this.tags = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The details for the Amazon EKS cluster that supports the compute environment.
+     * </p>
+     * 
+     * @param eksConfiguration
+     *        The details for the Amazon EKS cluster that supports the compute environment.
+     */
+
+    public void setEksConfiguration(EksConfiguration eksConfiguration) {
+        this.eksConfiguration = eksConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details for the Amazon EKS cluster that supports the compute environment.
+     * </p>
+     * 
+     * @return The details for the Amazon EKS cluster that supports the compute environment.
+     */
+
+    public EksConfiguration getEksConfiguration() {
+        return this.eksConfiguration;
+    }
+
+    /**
+     * <p>
+     * The details for the Amazon EKS cluster that supports the compute environment.
+     * </p>
+     * 
+     * @param eksConfiguration
+     *        The details for the Amazon EKS cluster that supports the compute environment.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateComputeEnvironmentRequest withEksConfiguration(EksConfiguration eksConfiguration) {
+        setEksConfiguration(eksConfiguration);
         return this;
     }
 
@@ -489,10 +1112,16 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
             sb.append("Type: ").append(getType()).append(",");
         if (getState() != null)
             sb.append("State: ").append(getState()).append(",");
+        if (getUnmanagedvCpus() != null)
+            sb.append("UnmanagedvCpus: ").append(getUnmanagedvCpus()).append(",");
         if (getComputeResources() != null)
             sb.append("ComputeResources: ").append(getComputeResources()).append(",");
         if (getServiceRole() != null)
-            sb.append("ServiceRole: ").append(getServiceRole());
+            sb.append("ServiceRole: ").append(getServiceRole()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getEksConfiguration() != null)
+            sb.append("EksConfiguration: ").append(getEksConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -519,6 +1148,10 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
             return false;
         if (other.getState() != null && other.getState().equals(this.getState()) == false)
             return false;
+        if (other.getUnmanagedvCpus() == null ^ this.getUnmanagedvCpus() == null)
+            return false;
+        if (other.getUnmanagedvCpus() != null && other.getUnmanagedvCpus().equals(this.getUnmanagedvCpus()) == false)
+            return false;
         if (other.getComputeResources() == null ^ this.getComputeResources() == null)
             return false;
         if (other.getComputeResources() != null && other.getComputeResources().equals(this.getComputeResources()) == false)
@@ -526,6 +1159,14 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
         if (other.getServiceRole() == null ^ this.getServiceRole() == null)
             return false;
         if (other.getServiceRole() != null && other.getServiceRole().equals(this.getServiceRole()) == false)
+            return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
+        if (other.getEksConfiguration() == null ^ this.getEksConfiguration() == null)
+            return false;
+        if (other.getEksConfiguration() != null && other.getEksConfiguration().equals(this.getEksConfiguration()) == false)
             return false;
         return true;
     }
@@ -538,8 +1179,11 @@ public class CreateComputeEnvironmentRequest extends com.amazonaws.AmazonWebServ
         hashCode = prime * hashCode + ((getComputeEnvironmentName() == null) ? 0 : getComputeEnvironmentName().hashCode());
         hashCode = prime * hashCode + ((getType() == null) ? 0 : getType().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
+        hashCode = prime * hashCode + ((getUnmanagedvCpus() == null) ? 0 : getUnmanagedvCpus().hashCode());
         hashCode = prime * hashCode + ((getComputeResources() == null) ? 0 : getComputeResources().hashCode());
         hashCode = prime * hashCode + ((getServiceRole() == null) ? 0 : getServiceRole().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getEksConfiguration() == null) ? 0 : getEksConfiguration().hashCode());
         return hashCode;
     }
 

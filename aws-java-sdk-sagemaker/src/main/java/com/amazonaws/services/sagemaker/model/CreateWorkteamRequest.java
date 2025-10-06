@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,14 +33,33 @@ public class CreateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
     private String workteamName;
     /**
      * <p>
-     * A list of <code>MemberDefinition</code> objects that contains objects that identify the Amazon Cognito user pool
-     * that makes up the work team. For more information, see <a
-     * href="http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon Cognito
+     * The name of the workforce.
+     * </p>
+     */
+    private String workforceName;
+    /**
+     * <p>
+     * A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make up the
+     * work team.
+     * </p>
+     * <p>
+     * Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private workforces
+     * created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created using your own OIDC
+     * identity provider (IdP) use <code>OidcMemberDefinition</code>. Do not provide input for both of these parameters
+     * in a single request.
+     * </p>
+     * <p>
+     * For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user groups</i>
+     * within the user pool used to create a workforce. All of the <code>CognitoMemberDefinition</code> objects that
+     * make up the member definition must have the same <code>ClientId</code> and <code>UserPool</code> values. To add a
+     * Amazon Cognito user group to an existing worker pool, see <a href="">Adding groups to a User Pool</a>. For more
+     * information about user pools, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon Cognito
      * User Pools</a>.
      * </p>
      * <p>
-     * All of the <code>CognitoMemberDefinition</code> objects that make up the member definition must have the same
-     * <code>ClientId</code> and <code>UserPool</code> values.
+     * For workforces created using your own OIDC IdP, specify the user groups that you want to include in your private
+     * work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>.
      * </p>
      */
     private java.util.List<MemberDefinition> memberDefinitions;
@@ -56,7 +75,26 @@ public class CreateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      */
     private NotificationConfiguration notificationConfiguration;
-    /** <p/> */
+    /**
+     * <p>
+     * Use this optional parameter to constrain access to an Amazon S3 resource based on the IP address using supported
+     * IAM global condition keys. The Amazon S3 resource is accessed in the worker portal using a Amazon S3 presigned
+     * URL.
+     * </p>
+     */
+    private WorkerAccessConfiguration workerAccessConfiguration;
+    /**
+     * <p>
+     * An array of key-value pairs.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html">Resource
+     * Tag</a> and <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
+     * Cost Allocation Tags</a> in the <i> Amazon Web Services Billing and Cost Management User Guide</i>.
+     * </p>
+     */
     private java.util.List<Tag> tags;
 
     /**
@@ -101,23 +139,89 @@ public class CreateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of <code>MemberDefinition</code> objects that contains objects that identify the Amazon Cognito user pool
-     * that makes up the work team. For more information, see <a
-     * href="http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon Cognito
+     * The name of the workforce.
+     * </p>
+     * 
+     * @param workforceName
+     *        The name of the workforce.
+     */
+
+    public void setWorkforceName(String workforceName) {
+        this.workforceName = workforceName;
+    }
+
+    /**
+     * <p>
+     * The name of the workforce.
+     * </p>
+     * 
+     * @return The name of the workforce.
+     */
+
+    public String getWorkforceName() {
+        return this.workforceName;
+    }
+
+    /**
+     * <p>
+     * The name of the workforce.
+     * </p>
+     * 
+     * @param workforceName
+     *        The name of the workforce.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWorkteamRequest withWorkforceName(String workforceName) {
+        setWorkforceName(workforceName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make up the
+     * work team.
+     * </p>
+     * <p>
+     * Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private workforces
+     * created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created using your own OIDC
+     * identity provider (IdP) use <code>OidcMemberDefinition</code>. Do not provide input for both of these parameters
+     * in a single request.
+     * </p>
+     * <p>
+     * For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user groups</i>
+     * within the user pool used to create a workforce. All of the <code>CognitoMemberDefinition</code> objects that
+     * make up the member definition must have the same <code>ClientId</code> and <code>UserPool</code> values. To add a
+     * Amazon Cognito user group to an existing worker pool, see <a href="">Adding groups to a User Pool</a>. For more
+     * information about user pools, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon Cognito
      * User Pools</a>.
      * </p>
      * <p>
-     * All of the <code>CognitoMemberDefinition</code> objects that make up the member definition must have the same
-     * <code>ClientId</code> and <code>UserPool</code> values.
+     * For workforces created using your own OIDC IdP, specify the user groups that you want to include in your private
+     * work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>.
      * </p>
      * 
-     * @return A list of <code>MemberDefinition</code> objects that contains objects that identify the Amazon Cognito
-     *         user pool that makes up the work team. For more information, see <a
-     *         href="http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon
-     *         Cognito User Pools</a>.</p>
+     * @return A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make
+     *         up the work team. </p>
      *         <p>
-     *         All of the <code>CognitoMemberDefinition</code> objects that make up the member definition must have the
-     *         same <code>ClientId</code> and <code>UserPool</code> values.
+     *         Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private
+     *         workforces created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created
+     *         using your own OIDC identity provider (IdP) use <code>OidcMemberDefinition</code>. Do not provide input
+     *         for both of these parameters in a single request.
+     *         </p>
+     *         <p>
+     *         For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user
+     *         groups</i> within the user pool used to create a workforce. All of the
+     *         <code>CognitoMemberDefinition</code> objects that make up the member definition must have the same
+     *         <code>ClientId</code> and <code>UserPool</code> values. To add a Amazon Cognito user group to an existing
+     *         worker pool, see <a href="">Adding groups to a User Pool</a>. For more information about user pools, see
+     *         <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">
+     *         Amazon Cognito User Pools</a>.
+     *         </p>
+     *         <p>
+     *         For workforces created using your own OIDC IdP, specify the user groups that you want to include in your
+     *         private work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>.
      */
 
     public java.util.List<MemberDefinition> getMemberDefinitions() {
@@ -126,24 +230,51 @@ public class CreateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of <code>MemberDefinition</code> objects that contains objects that identify the Amazon Cognito user pool
-     * that makes up the work team. For more information, see <a
-     * href="http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon Cognito
+     * A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make up the
+     * work team.
+     * </p>
+     * <p>
+     * Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private workforces
+     * created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created using your own OIDC
+     * identity provider (IdP) use <code>OidcMemberDefinition</code>. Do not provide input for both of these parameters
+     * in a single request.
+     * </p>
+     * <p>
+     * For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user groups</i>
+     * within the user pool used to create a workforce. All of the <code>CognitoMemberDefinition</code> objects that
+     * make up the member definition must have the same <code>ClientId</code> and <code>UserPool</code> values. To add a
+     * Amazon Cognito user group to an existing worker pool, see <a href="">Adding groups to a User Pool</a>. For more
+     * information about user pools, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon Cognito
      * User Pools</a>.
      * </p>
      * <p>
-     * All of the <code>CognitoMemberDefinition</code> objects that make up the member definition must have the same
-     * <code>ClientId</code> and <code>UserPool</code> values.
+     * For workforces created using your own OIDC IdP, specify the user groups that you want to include in your private
+     * work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>.
      * </p>
      * 
      * @param memberDefinitions
-     *        A list of <code>MemberDefinition</code> objects that contains objects that identify the Amazon Cognito
-     *        user pool that makes up the work team. For more information, see <a
-     *        href="http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon
-     *        Cognito User Pools</a>.</p>
+     *        A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make
+     *        up the work team. </p>
      *        <p>
-     *        All of the <code>CognitoMemberDefinition</code> objects that make up the member definition must have the
-     *        same <code>ClientId</code> and <code>UserPool</code> values.
+     *        Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private
+     *        workforces created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created
+     *        using your own OIDC identity provider (IdP) use <code>OidcMemberDefinition</code>. Do not provide input
+     *        for both of these parameters in a single request.
+     *        </p>
+     *        <p>
+     *        For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user
+     *        groups</i> within the user pool used to create a workforce. All of the
+     *        <code>CognitoMemberDefinition</code> objects that make up the member definition must have the same
+     *        <code>ClientId</code> and <code>UserPool</code> values. To add a Amazon Cognito user group to an existing
+     *        worker pool, see <a href="">Adding groups to a User Pool</a>. For more information about user pools, see
+     *        <a
+     *        href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon
+     *        Cognito User Pools</a>.
+     *        </p>
+     *        <p>
+     *        For workforces created using your own OIDC IdP, specify the user groups that you want to include in your
+     *        private work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>.
      */
 
     public void setMemberDefinitions(java.util.Collection<MemberDefinition> memberDefinitions) {
@@ -157,14 +288,27 @@ public class CreateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of <code>MemberDefinition</code> objects that contains objects that identify the Amazon Cognito user pool
-     * that makes up the work team. For more information, see <a
-     * href="http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon Cognito
+     * A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make up the
+     * work team.
+     * </p>
+     * <p>
+     * Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private workforces
+     * created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created using your own OIDC
+     * identity provider (IdP) use <code>OidcMemberDefinition</code>. Do not provide input for both of these parameters
+     * in a single request.
+     * </p>
+     * <p>
+     * For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user groups</i>
+     * within the user pool used to create a workforce. All of the <code>CognitoMemberDefinition</code> objects that
+     * make up the member definition must have the same <code>ClientId</code> and <code>UserPool</code> values. To add a
+     * Amazon Cognito user group to an existing worker pool, see <a href="">Adding groups to a User Pool</a>. For more
+     * information about user pools, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon Cognito
      * User Pools</a>.
      * </p>
      * <p>
-     * All of the <code>CognitoMemberDefinition</code> objects that make up the member definition must have the same
-     * <code>ClientId</code> and <code>UserPool</code> values.
+     * For workforces created using your own OIDC IdP, specify the user groups that you want to include in your private
+     * work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -173,13 +317,27 @@ public class CreateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      * 
      * @param memberDefinitions
-     *        A list of <code>MemberDefinition</code> objects that contains objects that identify the Amazon Cognito
-     *        user pool that makes up the work team. For more information, see <a
-     *        href="http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon
-     *        Cognito User Pools</a>.</p>
+     *        A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make
+     *        up the work team. </p>
      *        <p>
-     *        All of the <code>CognitoMemberDefinition</code> objects that make up the member definition must have the
-     *        same <code>ClientId</code> and <code>UserPool</code> values.
+     *        Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private
+     *        workforces created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created
+     *        using your own OIDC identity provider (IdP) use <code>OidcMemberDefinition</code>. Do not provide input
+     *        for both of these parameters in a single request.
+     *        </p>
+     *        <p>
+     *        For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user
+     *        groups</i> within the user pool used to create a workforce. All of the
+     *        <code>CognitoMemberDefinition</code> objects that make up the member definition must have the same
+     *        <code>ClientId</code> and <code>UserPool</code> values. To add a Amazon Cognito user group to an existing
+     *        worker pool, see <a href="">Adding groups to a User Pool</a>. For more information about user pools, see
+     *        <a
+     *        href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon
+     *        Cognito User Pools</a>.
+     *        </p>
+     *        <p>
+     *        For workforces created using your own OIDC IdP, specify the user groups that you want to include in your
+     *        private work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -195,24 +353,51 @@ public class CreateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
 
     /**
      * <p>
-     * A list of <code>MemberDefinition</code> objects that contains objects that identify the Amazon Cognito user pool
-     * that makes up the work team. For more information, see <a
-     * href="http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon Cognito
+     * A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make up the
+     * work team.
+     * </p>
+     * <p>
+     * Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private workforces
+     * created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created using your own OIDC
+     * identity provider (IdP) use <code>OidcMemberDefinition</code>. Do not provide input for both of these parameters
+     * in a single request.
+     * </p>
+     * <p>
+     * For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user groups</i>
+     * within the user pool used to create a workforce. All of the <code>CognitoMemberDefinition</code> objects that
+     * make up the member definition must have the same <code>ClientId</code> and <code>UserPool</code> values. To add a
+     * Amazon Cognito user group to an existing worker pool, see <a href="">Adding groups to a User Pool</a>. For more
+     * information about user pools, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon Cognito
      * User Pools</a>.
      * </p>
      * <p>
-     * All of the <code>CognitoMemberDefinition</code> objects that make up the member definition must have the same
-     * <code>ClientId</code> and <code>UserPool</code> values.
+     * For workforces created using your own OIDC IdP, specify the user groups that you want to include in your private
+     * work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>.
      * </p>
      * 
      * @param memberDefinitions
-     *        A list of <code>MemberDefinition</code> objects that contains objects that identify the Amazon Cognito
-     *        user pool that makes up the work team. For more information, see <a
-     *        href="http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon
-     *        Cognito User Pools</a>.</p>
+     *        A list of <code>MemberDefinition</code> objects that contains objects that identify the workers that make
+     *        up the work team. </p>
      *        <p>
-     *        All of the <code>CognitoMemberDefinition</code> objects that make up the member definition must have the
-     *        same <code>ClientId</code> and <code>UserPool</code> values.
+     *        Workforces can be created using Amazon Cognito or your own OIDC Identity Provider (IdP). For private
+     *        workforces created using Amazon Cognito use <code>CognitoMemberDefinition</code>. For workforces created
+     *        using your own OIDC identity provider (IdP) use <code>OidcMemberDefinition</code>. Do not provide input
+     *        for both of these parameters in a single request.
+     *        </p>
+     *        <p>
+     *        For workforces created using Amazon Cognito, private work teams correspond to Amazon Cognito <i>user
+     *        groups</i> within the user pool used to create a workforce. All of the
+     *        <code>CognitoMemberDefinition</code> objects that make up the member definition must have the same
+     *        <code>ClientId</code> and <code>UserPool</code> values. To add a Amazon Cognito user group to an existing
+     *        worker pool, see <a href="">Adding groups to a User Pool</a>. For more information about user pools, see
+     *        <a
+     *        href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html">Amazon
+     *        Cognito User Pools</a>.
+     *        </p>
+     *        <p>
+     *        For workforces created using your own OIDC IdP, specify the user groups that you want to include in your
+     *        private work team in <code>OidcMemberDefinition</code> by listing those groups in <code>Groups</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -302,9 +487,76 @@ public class CreateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
     }
 
     /**
-     * <p/>
+     * <p>
+     * Use this optional parameter to constrain access to an Amazon S3 resource based on the IP address using supported
+     * IAM global condition keys. The Amazon S3 resource is accessed in the worker portal using a Amazon S3 presigned
+     * URL.
+     * </p>
      * 
-     * @return
+     * @param workerAccessConfiguration
+     *        Use this optional parameter to constrain access to an Amazon S3 resource based on the IP address using
+     *        supported IAM global condition keys. The Amazon S3 resource is accessed in the worker portal using a
+     *        Amazon S3 presigned URL.
+     */
+
+    public void setWorkerAccessConfiguration(WorkerAccessConfiguration workerAccessConfiguration) {
+        this.workerAccessConfiguration = workerAccessConfiguration;
+    }
+
+    /**
+     * <p>
+     * Use this optional parameter to constrain access to an Amazon S3 resource based on the IP address using supported
+     * IAM global condition keys. The Amazon S3 resource is accessed in the worker portal using a Amazon S3 presigned
+     * URL.
+     * </p>
+     * 
+     * @return Use this optional parameter to constrain access to an Amazon S3 resource based on the IP address using
+     *         supported IAM global condition keys. The Amazon S3 resource is accessed in the worker portal using a
+     *         Amazon S3 presigned URL.
+     */
+
+    public WorkerAccessConfiguration getWorkerAccessConfiguration() {
+        return this.workerAccessConfiguration;
+    }
+
+    /**
+     * <p>
+     * Use this optional parameter to constrain access to an Amazon S3 resource based on the IP address using supported
+     * IAM global condition keys. The Amazon S3 resource is accessed in the worker portal using a Amazon S3 presigned
+     * URL.
+     * </p>
+     * 
+     * @param workerAccessConfiguration
+     *        Use this optional parameter to constrain access to an Amazon S3 resource based on the IP address using
+     *        supported IAM global condition keys. The Amazon S3 resource is accessed in the worker portal using a
+     *        Amazon S3 presigned URL.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateWorkteamRequest withWorkerAccessConfiguration(WorkerAccessConfiguration workerAccessConfiguration) {
+        setWorkerAccessConfiguration(workerAccessConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of key-value pairs.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html">Resource
+     * Tag</a> and <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
+     * Cost Allocation Tags</a> in the <i> Amazon Web Services Billing and Cost Management User Guide</i>.
+     * </p>
+     * 
+     * @return An array of key-value pairs.</p>
+     *         <p>
+     *         For more information, see <a
+     *         href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html"
+     *         >Resource Tag</a> and <a href=
+     *         "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
+     *         Cost Allocation Tags</a> in the <i> Amazon Web Services Billing and Cost Management User Guide</i>.
      */
 
     public java.util.List<Tag> getTags() {
@@ -312,9 +564,25 @@ public class CreateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
     }
 
     /**
-     * <p/>
+     * <p>
+     * An array of key-value pairs.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html">Resource
+     * Tag</a> and <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
+     * Cost Allocation Tags</a> in the <i> Amazon Web Services Billing and Cost Management User Guide</i>.
+     * </p>
      * 
      * @param tags
+     *        An array of key-value pairs.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html"
+     *        >Resource Tag</a> and <a
+     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
+     *        >Using Cost Allocation Tags</a> in the <i> Amazon Web Services Billing and Cost Management User Guide</i>.
      */
 
     public void setTags(java.util.Collection<Tag> tags) {
@@ -327,7 +595,16 @@ public class CreateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
     }
 
     /**
-     * <p/>
+     * <p>
+     * An array of key-value pairs.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html">Resource
+     * Tag</a> and <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
+     * Cost Allocation Tags</a> in the <i> Amazon Web Services Billing and Cost Management User Guide</i>.
+     * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
@@ -335,6 +612,13 @@ public class CreateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
      * </p>
      * 
      * @param tags
+     *        An array of key-value pairs.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html"
+     *        >Resource Tag</a> and <a
+     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
+     *        >Using Cost Allocation Tags</a> in the <i> Amazon Web Services Billing and Cost Management User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -349,9 +633,25 @@ public class CreateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
     }
 
     /**
-     * <p/>
+     * <p>
+     * An array of key-value pairs.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html">Resource
+     * Tag</a> and <a
+     * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using
+     * Cost Allocation Tags</a> in the <i> Amazon Web Services Billing and Cost Management User Guide</i>.
+     * </p>
      * 
      * @param tags
+     *        An array of key-value pairs.</p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html"
+     *        >Resource Tag</a> and <a
+     *        href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what"
+     *        >Using Cost Allocation Tags</a> in the <i> Amazon Web Services Billing and Cost Management User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -374,12 +674,16 @@ public class CreateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
         sb.append("{");
         if (getWorkteamName() != null)
             sb.append("WorkteamName: ").append(getWorkteamName()).append(",");
+        if (getWorkforceName() != null)
+            sb.append("WorkforceName: ").append(getWorkforceName()).append(",");
         if (getMemberDefinitions() != null)
             sb.append("MemberDefinitions: ").append(getMemberDefinitions()).append(",");
         if (getDescription() != null)
             sb.append("Description: ").append(getDescription()).append(",");
         if (getNotificationConfiguration() != null)
             sb.append("NotificationConfiguration: ").append(getNotificationConfiguration()).append(",");
+        if (getWorkerAccessConfiguration() != null)
+            sb.append("WorkerAccessConfiguration: ").append(getWorkerAccessConfiguration()).append(",");
         if (getTags() != null)
             sb.append("Tags: ").append(getTags());
         sb.append("}");
@@ -400,6 +704,10 @@ public class CreateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
             return false;
         if (other.getWorkteamName() != null && other.getWorkteamName().equals(this.getWorkteamName()) == false)
             return false;
+        if (other.getWorkforceName() == null ^ this.getWorkforceName() == null)
+            return false;
+        if (other.getWorkforceName() != null && other.getWorkforceName().equals(this.getWorkforceName()) == false)
+            return false;
         if (other.getMemberDefinitions() == null ^ this.getMemberDefinitions() == null)
             return false;
         if (other.getMemberDefinitions() != null && other.getMemberDefinitions().equals(this.getMemberDefinitions()) == false)
@@ -411,6 +719,10 @@ public class CreateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
         if (other.getNotificationConfiguration() == null ^ this.getNotificationConfiguration() == null)
             return false;
         if (other.getNotificationConfiguration() != null && other.getNotificationConfiguration().equals(this.getNotificationConfiguration()) == false)
+            return false;
+        if (other.getWorkerAccessConfiguration() == null ^ this.getWorkerAccessConfiguration() == null)
+            return false;
+        if (other.getWorkerAccessConfiguration() != null && other.getWorkerAccessConfiguration().equals(this.getWorkerAccessConfiguration()) == false)
             return false;
         if (other.getTags() == null ^ this.getTags() == null)
             return false;
@@ -425,9 +737,11 @@ public class CreateWorkteamRequest extends com.amazonaws.AmazonWebServiceRequest
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getWorkteamName() == null) ? 0 : getWorkteamName().hashCode());
+        hashCode = prime * hashCode + ((getWorkforceName() == null) ? 0 : getWorkforceName().hashCode());
         hashCode = prime * hashCode + ((getMemberDefinitions() == null) ? 0 : getMemberDefinitions().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getNotificationConfiguration() == null) ? 0 : getNotificationConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getWorkerAccessConfiguration() == null) ? 0 : getWorkerAccessConfiguration().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }

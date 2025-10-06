@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,16 +46,16 @@ public class CreateVpcEndpointConnectionNotificationRequest extends AmazonWebSer
     private String connectionNotificationArn;
     /**
      * <p>
-     * One or more endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
+     * The endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
      * <code>Connect</code>, <code>Delete</code>, and <code>Reject</code>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> connectionEvents;
     /**
      * <p>
-     * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see
-     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to ensure
+     * idempotency</a>.
      * </p>
      */
     private String clientToken;
@@ -182,11 +182,11 @@ public class CreateVpcEndpointConnectionNotificationRequest extends AmazonWebSer
 
     /**
      * <p>
-     * One or more endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
+     * The endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
      * <code>Connect</code>, <code>Delete</code>, and <code>Reject</code>.
      * </p>
      * 
-     * @return One or more endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
+     * @return The endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
      *         <code>Connect</code>, <code>Delete</code>, and <code>Reject</code>.
      */
 
@@ -199,12 +199,12 @@ public class CreateVpcEndpointConnectionNotificationRequest extends AmazonWebSer
 
     /**
      * <p>
-     * One or more endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
+     * The endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
      * <code>Connect</code>, <code>Delete</code>, and <code>Reject</code>.
      * </p>
      * 
      * @param connectionEvents
-     *        One or more endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
+     *        The endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
      *        <code>Connect</code>, <code>Delete</code>, and <code>Reject</code>.
      */
 
@@ -219,7 +219,7 @@ public class CreateVpcEndpointConnectionNotificationRequest extends AmazonWebSer
 
     /**
      * <p>
-     * One or more endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
+     * The endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
      * <code>Connect</code>, <code>Delete</code>, and <code>Reject</code>.
      * </p>
      * <p>
@@ -229,7 +229,7 @@ public class CreateVpcEndpointConnectionNotificationRequest extends AmazonWebSer
      * </p>
      * 
      * @param connectionEvents
-     *        One or more endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
+     *        The endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
      *        <code>Connect</code>, <code>Delete</code>, and <code>Reject</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -246,12 +246,12 @@ public class CreateVpcEndpointConnectionNotificationRequest extends AmazonWebSer
 
     /**
      * <p>
-     * One or more endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
+     * The endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
      * <code>Connect</code>, <code>Delete</code>, and <code>Reject</code>.
      * </p>
      * 
      * @param connectionEvents
-     *        One or more endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
+     *        The endpoint events for which to receive notifications. Valid values are <code>Accept</code>,
      *        <code>Connect</code>, <code>Delete</code>, and <code>Reject</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -263,16 +263,15 @@ public class CreateVpcEndpointConnectionNotificationRequest extends AmazonWebSer
 
     /**
      * <p>
-     * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see
-     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to ensure
+     * idempotency</a>.
      * </p>
      * 
      * @param clientToken
-     *        Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more
-     *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *        Idempotency</a>.
+     *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     *        information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to
+     *        ensure idempotency</a>.
      */
 
     public void setClientToken(String clientToken) {
@@ -281,15 +280,14 @@ public class CreateVpcEndpointConnectionNotificationRequest extends AmazonWebSer
 
     /**
      * <p>
-     * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see
-     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to ensure
+     * idempotency</a>.
      * </p>
      * 
-     * @return Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more
-     *         information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *         Idempotency</a>.
+     * @return Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     *         information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How
+     *         to ensure idempotency</a>.
      */
 
     public String getClientToken() {
@@ -298,16 +296,15 @@ public class CreateVpcEndpointConnectionNotificationRequest extends AmazonWebSer
 
     /**
      * <p>
-     * Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see
-     * <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to ensure
+     * idempotency</a>.
      * </p>
      * 
      * @param clientToken
-     *        Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more
-     *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *        Idempotency</a>.
+     *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
+     *        information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">How to
+     *        ensure idempotency</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

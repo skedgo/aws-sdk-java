@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * Represents the input for a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DeleteMatchmakingConfiguration"
  *      target="_top">AWS API Documentation</a>
@@ -30,18 +27,19 @@ public class DeleteMatchmakingConfigurationRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Unique identifier for a matchmaking configuration
+     * A unique identifier for the matchmaking configuration. You can use either the configuration name or ARN value.
      * </p>
      */
     private String name;
 
     /**
      * <p>
-     * Unique identifier for a matchmaking configuration
+     * A unique identifier for the matchmaking configuration. You can use either the configuration name or ARN value.
      * </p>
      * 
      * @param name
-     *        Unique identifier for a matchmaking configuration
+     *        A unique identifier for the matchmaking configuration. You can use either the configuration name or ARN
+     *        value.
      */
 
     public void setName(String name) {
@@ -50,10 +48,11 @@ public class DeleteMatchmakingConfigurationRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Unique identifier for a matchmaking configuration
+     * A unique identifier for the matchmaking configuration. You can use either the configuration name or ARN value.
      * </p>
      * 
-     * @return Unique identifier for a matchmaking configuration
+     * @return A unique identifier for the matchmaking configuration. You can use either the configuration name or ARN
+     *         value.
      */
 
     public String getName() {
@@ -62,11 +61,12 @@ public class DeleteMatchmakingConfigurationRequest extends com.amazonaws.AmazonW
 
     /**
      * <p>
-     * Unique identifier for a matchmaking configuration
+     * A unique identifier for the matchmaking configuration. You can use either the configuration name or ARN value.
      * </p>
      * 
      * @param name
-     *        Unique identifier for a matchmaking configuration
+     *        A unique identifier for the matchmaking configuration. You can use either the configuration name or ARN
+     *        value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Sends an IoT Events input, passing in information about the detector model instance and the event which triggered the
- * action.
+ * Sends an AWS IoT Events input, passing in information about the detector model instance and the event that triggered
+ * the action.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iotevents-2018-07-27/IotEventsAction" target="_top">AWS API
@@ -35,6 +35,12 @@ public class IotEventsAction implements Serializable, Cloneable, StructuredPojo 
      * </p>
      */
     private String inputName;
+    /**
+     * <p>
+     * You can configure the action payload when you send a message to an AWS IoT Events input.
+     * </p>
+     */
+    private Payload payload;
 
     /**
      * <p>
@@ -77,6 +83,46 @@ public class IotEventsAction implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
+     * <p>
+     * You can configure the action payload when you send a message to an AWS IoT Events input.
+     * </p>
+     * 
+     * @param payload
+     *        You can configure the action payload when you send a message to an AWS IoT Events input.
+     */
+
+    public void setPayload(Payload payload) {
+        this.payload = payload;
+    }
+
+    /**
+     * <p>
+     * You can configure the action payload when you send a message to an AWS IoT Events input.
+     * </p>
+     * 
+     * @return You can configure the action payload when you send a message to an AWS IoT Events input.
+     */
+
+    public Payload getPayload() {
+        return this.payload;
+    }
+
+    /**
+     * <p>
+     * You can configure the action payload when you send a message to an AWS IoT Events input.
+     * </p>
+     * 
+     * @param payload
+     *        You can configure the action payload when you send a message to an AWS IoT Events input.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public IotEventsAction withPayload(Payload payload) {
+        setPayload(payload);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -89,7 +135,9 @@ public class IotEventsAction implements Serializable, Cloneable, StructuredPojo 
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getInputName() != null)
-            sb.append("InputName: ").append(getInputName());
+            sb.append("InputName: ").append(getInputName()).append(",");
+        if (getPayload() != null)
+            sb.append("Payload: ").append(getPayload());
         sb.append("}");
         return sb.toString();
     }
@@ -108,6 +156,10 @@ public class IotEventsAction implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getInputName() != null && other.getInputName().equals(this.getInputName()) == false)
             return false;
+        if (other.getPayload() == null ^ this.getPayload() == null)
+            return false;
+        if (other.getPayload() != null && other.getPayload().equals(this.getPayload()) == false)
+            return false;
         return true;
     }
 
@@ -117,6 +169,7 @@ public class IotEventsAction implements Serializable, Cloneable, StructuredPojo 
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getInputName() == null) ? 0 : getInputName().hashCode());
+        hashCode = prime * hashCode + ((getPayload() == null) ? 0 : getPayload().hashCode());
         return hashCode;
     }
 

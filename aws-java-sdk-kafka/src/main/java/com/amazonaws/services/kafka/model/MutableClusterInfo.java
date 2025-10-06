@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -47,6 +47,67 @@ public class MutableClusterInfo implements Serializable, Cloneable, StructuredPo
      * </p>
      */
     private Integer numberOfBrokerNodes;
+    /**
+     * <p>
+     * Specifies which Apache Kafka metrics Amazon MSK gathers and sends to Amazon CloudWatch for this cluster.
+     * </p>
+     */
+    private String enhancedMonitoring;
+    /**
+     * <p>
+     * The settings for open monitoring.
+     * </p>
+     */
+    private OpenMonitoring openMonitoring;
+    /**
+     * <p>
+     * The Apache Kafka version.
+     * </p>
+     */
+    private String kafkaVersion;
+    /**
+     * <p>
+     * You can configure your MSK cluster to send broker logs to different destination types. This is a container for
+     * the configuration details related to broker logs.
+     * </p>
+     */
+    private LoggingInfo loggingInfo;
+    /**
+     * <p>
+     * Information about the Amazon MSK broker type.
+     * </p>
+     */
+    private String instanceType;
+    /**
+     * <p>
+     * Includes all client authentication information.
+     * </p>
+     */
+    private ClientAuthentication clientAuthentication;
+    /**
+     * <p>
+     * Includes all encryption-related information.
+     * </p>
+     */
+    private EncryptionInfo encryptionInfo;
+    /**
+     * <p>
+     * Information about the broker access configuration.
+     * </p>
+     */
+    private ConnectivityInfo connectivityInfo;
+    /**
+     * <p>
+     * This controls storage mode for supported storage tiers.
+     * </p>
+     */
+    private String storageMode;
+    /**
+     * <p>
+     * Describes brokers being changed during a broker count update.
+     * </p>
+     */
+    private BrokerCountUpdateInfo brokerCountUpdateInfo;
 
     /**
      * <p>
@@ -220,6 +281,514 @@ public class MutableClusterInfo implements Serializable, Cloneable, StructuredPo
     }
 
     /**
+     * <p>
+     * Specifies which Apache Kafka metrics Amazon MSK gathers and sends to Amazon CloudWatch for this cluster.
+     * </p>
+     * 
+     * @param enhancedMonitoring
+     *        <p>
+     *        Specifies which Apache Kafka metrics Amazon MSK gathers and sends to Amazon CloudWatch for this cluster.
+     *        </p>
+     * @see EnhancedMonitoring
+     */
+
+    public void setEnhancedMonitoring(String enhancedMonitoring) {
+        this.enhancedMonitoring = enhancedMonitoring;
+    }
+
+    /**
+     * <p>
+     * Specifies which Apache Kafka metrics Amazon MSK gathers and sends to Amazon CloudWatch for this cluster.
+     * </p>
+     * 
+     * @return <p>
+     *         Specifies which Apache Kafka metrics Amazon MSK gathers and sends to Amazon CloudWatch for this cluster.
+     *         </p>
+     * @see EnhancedMonitoring
+     */
+
+    public String getEnhancedMonitoring() {
+        return this.enhancedMonitoring;
+    }
+
+    /**
+     * <p>
+     * Specifies which Apache Kafka metrics Amazon MSK gathers and sends to Amazon CloudWatch for this cluster.
+     * </p>
+     * 
+     * @param enhancedMonitoring
+     *        <p>
+     *        Specifies which Apache Kafka metrics Amazon MSK gathers and sends to Amazon CloudWatch for this cluster.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EnhancedMonitoring
+     */
+
+    public MutableClusterInfo withEnhancedMonitoring(String enhancedMonitoring) {
+        setEnhancedMonitoring(enhancedMonitoring);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Specifies which Apache Kafka metrics Amazon MSK gathers and sends to Amazon CloudWatch for this cluster.
+     * </p>
+     * 
+     * @param enhancedMonitoring
+     *        <p>
+     *        Specifies which Apache Kafka metrics Amazon MSK gathers and sends to Amazon CloudWatch for this cluster.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EnhancedMonitoring
+     */
+
+    public MutableClusterInfo withEnhancedMonitoring(EnhancedMonitoring enhancedMonitoring) {
+        this.enhancedMonitoring = enhancedMonitoring.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The settings for open monitoring.
+     * </p>
+     * 
+     * @param openMonitoring
+     *        <p>
+     *        The settings for open monitoring.
+     *        </p>
+     */
+
+    public void setOpenMonitoring(OpenMonitoring openMonitoring) {
+        this.openMonitoring = openMonitoring;
+    }
+
+    /**
+     * <p>
+     * The settings for open monitoring.
+     * </p>
+     * 
+     * @return <p>
+     *         The settings for open monitoring.
+     *         </p>
+     */
+
+    public OpenMonitoring getOpenMonitoring() {
+        return this.openMonitoring;
+    }
+
+    /**
+     * <p>
+     * The settings for open monitoring.
+     * </p>
+     * 
+     * @param openMonitoring
+     *        <p>
+     *        The settings for open monitoring.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MutableClusterInfo withOpenMonitoring(OpenMonitoring openMonitoring) {
+        setOpenMonitoring(openMonitoring);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Apache Kafka version.
+     * </p>
+     * 
+     * @param kafkaVersion
+     *        <p>
+     *        The Apache Kafka version.
+     *        </p>
+     */
+
+    public void setKafkaVersion(String kafkaVersion) {
+        this.kafkaVersion = kafkaVersion;
+    }
+
+    /**
+     * <p>
+     * The Apache Kafka version.
+     * </p>
+     * 
+     * @return <p>
+     *         The Apache Kafka version.
+     *         </p>
+     */
+
+    public String getKafkaVersion() {
+        return this.kafkaVersion;
+    }
+
+    /**
+     * <p>
+     * The Apache Kafka version.
+     * </p>
+     * 
+     * @param kafkaVersion
+     *        <p>
+     *        The Apache Kafka version.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MutableClusterInfo withKafkaVersion(String kafkaVersion) {
+        setKafkaVersion(kafkaVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * You can configure your MSK cluster to send broker logs to different destination types. This is a container for
+     * the configuration details related to broker logs.
+     * </p>
+     * 
+     * @param loggingInfo
+     *        <p>
+     *        You can configure your MSK cluster to send broker logs to different destination types. This is a container
+     *        for the configuration details related to broker logs.
+     *        </p>
+     */
+
+    public void setLoggingInfo(LoggingInfo loggingInfo) {
+        this.loggingInfo = loggingInfo;
+    }
+
+    /**
+     * <p>
+     * You can configure your MSK cluster to send broker logs to different destination types. This is a container for
+     * the configuration details related to broker logs.
+     * </p>
+     * 
+     * @return <p>
+     *         You can configure your MSK cluster to send broker logs to different destination types. This is a
+     *         container for the configuration details related to broker logs.
+     *         </p>
+     */
+
+    public LoggingInfo getLoggingInfo() {
+        return this.loggingInfo;
+    }
+
+    /**
+     * <p>
+     * You can configure your MSK cluster to send broker logs to different destination types. This is a container for
+     * the configuration details related to broker logs.
+     * </p>
+     * 
+     * @param loggingInfo
+     *        <p>
+     *        You can configure your MSK cluster to send broker logs to different destination types. This is a container
+     *        for the configuration details related to broker logs.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MutableClusterInfo withLoggingInfo(LoggingInfo loggingInfo) {
+        setLoggingInfo(loggingInfo);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the Amazon MSK broker type.
+     * </p>
+     * 
+     * @param instanceType
+     *        <p>
+     *        Information about the Amazon MSK broker type.
+     *        </p>
+     */
+
+    public void setInstanceType(String instanceType) {
+        this.instanceType = instanceType;
+    }
+
+    /**
+     * <p>
+     * Information about the Amazon MSK broker type.
+     * </p>
+     * 
+     * @return <p>
+     *         Information about the Amazon MSK broker type.
+     *         </p>
+     */
+
+    public String getInstanceType() {
+        return this.instanceType;
+    }
+
+    /**
+     * <p>
+     * Information about the Amazon MSK broker type.
+     * </p>
+     * 
+     * @param instanceType
+     *        <p>
+     *        Information about the Amazon MSK broker type.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MutableClusterInfo withInstanceType(String instanceType) {
+        setInstanceType(instanceType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Includes all client authentication information.
+     * </p>
+     * 
+     * @param clientAuthentication
+     *        <p>
+     *        Includes all client authentication information.
+     *        </p>
+     */
+
+    public void setClientAuthentication(ClientAuthentication clientAuthentication) {
+        this.clientAuthentication = clientAuthentication;
+    }
+
+    /**
+     * <p>
+     * Includes all client authentication information.
+     * </p>
+     * 
+     * @return <p>
+     *         Includes all client authentication information.
+     *         </p>
+     */
+
+    public ClientAuthentication getClientAuthentication() {
+        return this.clientAuthentication;
+    }
+
+    /**
+     * <p>
+     * Includes all client authentication information.
+     * </p>
+     * 
+     * @param clientAuthentication
+     *        <p>
+     *        Includes all client authentication information.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MutableClusterInfo withClientAuthentication(ClientAuthentication clientAuthentication) {
+        setClientAuthentication(clientAuthentication);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Includes all encryption-related information.
+     * </p>
+     * 
+     * @param encryptionInfo
+     *        <p>
+     *        Includes all encryption-related information.
+     *        </p>
+     */
+
+    public void setEncryptionInfo(EncryptionInfo encryptionInfo) {
+        this.encryptionInfo = encryptionInfo;
+    }
+
+    /**
+     * <p>
+     * Includes all encryption-related information.
+     * </p>
+     * 
+     * @return <p>
+     *         Includes all encryption-related information.
+     *         </p>
+     */
+
+    public EncryptionInfo getEncryptionInfo() {
+        return this.encryptionInfo;
+    }
+
+    /**
+     * <p>
+     * Includes all encryption-related information.
+     * </p>
+     * 
+     * @param encryptionInfo
+     *        <p>
+     *        Includes all encryption-related information.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MutableClusterInfo withEncryptionInfo(EncryptionInfo encryptionInfo) {
+        setEncryptionInfo(encryptionInfo);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the broker access configuration.
+     * </p>
+     * 
+     * @param connectivityInfo
+     *        <p>
+     *        Information about the broker access configuration.
+     *        </p>
+     */
+
+    public void setConnectivityInfo(ConnectivityInfo connectivityInfo) {
+        this.connectivityInfo = connectivityInfo;
+    }
+
+    /**
+     * <p>
+     * Information about the broker access configuration.
+     * </p>
+     * 
+     * @return <p>
+     *         Information about the broker access configuration.
+     *         </p>
+     */
+
+    public ConnectivityInfo getConnectivityInfo() {
+        return this.connectivityInfo;
+    }
+
+    /**
+     * <p>
+     * Information about the broker access configuration.
+     * </p>
+     * 
+     * @param connectivityInfo
+     *        <p>
+     *        Information about the broker access configuration.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MutableClusterInfo withConnectivityInfo(ConnectivityInfo connectivityInfo) {
+        setConnectivityInfo(connectivityInfo);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This controls storage mode for supported storage tiers.
+     * </p>
+     * 
+     * @param storageMode
+     *        <p>
+     *        This controls storage mode for supported storage tiers.
+     *        </p>
+     * @see StorageMode
+     */
+
+    public void setStorageMode(String storageMode) {
+        this.storageMode = storageMode;
+    }
+
+    /**
+     * <p>
+     * This controls storage mode for supported storage tiers.
+     * </p>
+     * 
+     * @return <p>
+     *         This controls storage mode for supported storage tiers.
+     *         </p>
+     * @see StorageMode
+     */
+
+    public String getStorageMode() {
+        return this.storageMode;
+    }
+
+    /**
+     * <p>
+     * This controls storage mode for supported storage tiers.
+     * </p>
+     * 
+     * @param storageMode
+     *        <p>
+     *        This controls storage mode for supported storage tiers.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StorageMode
+     */
+
+    public MutableClusterInfo withStorageMode(String storageMode) {
+        setStorageMode(storageMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * This controls storage mode for supported storage tiers.
+     * </p>
+     * 
+     * @param storageMode
+     *        <p>
+     *        This controls storage mode for supported storage tiers.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see StorageMode
+     */
+
+    public MutableClusterInfo withStorageMode(StorageMode storageMode) {
+        this.storageMode = storageMode.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes brokers being changed during a broker count update.
+     * </p>
+     * 
+     * @param brokerCountUpdateInfo
+     *        <p>
+     *        Describes brokers being changed during a broker count update.
+     *        </p>
+     */
+
+    public void setBrokerCountUpdateInfo(BrokerCountUpdateInfo brokerCountUpdateInfo) {
+        this.brokerCountUpdateInfo = brokerCountUpdateInfo;
+    }
+
+    /**
+     * <p>
+     * Describes brokers being changed during a broker count update.
+     * </p>
+     * 
+     * @return <p>
+     *         Describes brokers being changed during a broker count update.
+     *         </p>
+     */
+
+    public BrokerCountUpdateInfo getBrokerCountUpdateInfo() {
+        return this.brokerCountUpdateInfo;
+    }
+
+    /**
+     * <p>
+     * Describes brokers being changed during a broker count update.
+     * </p>
+     * 
+     * @param brokerCountUpdateInfo
+     *        <p>
+     *        Describes brokers being changed during a broker count update.
+     *        </p>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MutableClusterInfo withBrokerCountUpdateInfo(BrokerCountUpdateInfo brokerCountUpdateInfo) {
+        setBrokerCountUpdateInfo(brokerCountUpdateInfo);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -236,7 +805,27 @@ public class MutableClusterInfo implements Serializable, Cloneable, StructuredPo
         if (getConfigurationInfo() != null)
             sb.append("ConfigurationInfo: ").append(getConfigurationInfo()).append(",");
         if (getNumberOfBrokerNodes() != null)
-            sb.append("NumberOfBrokerNodes: ").append(getNumberOfBrokerNodes());
+            sb.append("NumberOfBrokerNodes: ").append(getNumberOfBrokerNodes()).append(",");
+        if (getEnhancedMonitoring() != null)
+            sb.append("EnhancedMonitoring: ").append(getEnhancedMonitoring()).append(",");
+        if (getOpenMonitoring() != null)
+            sb.append("OpenMonitoring: ").append(getOpenMonitoring()).append(",");
+        if (getKafkaVersion() != null)
+            sb.append("KafkaVersion: ").append(getKafkaVersion()).append(",");
+        if (getLoggingInfo() != null)
+            sb.append("LoggingInfo: ").append(getLoggingInfo()).append(",");
+        if (getInstanceType() != null)
+            sb.append("InstanceType: ").append(getInstanceType()).append(",");
+        if (getClientAuthentication() != null)
+            sb.append("ClientAuthentication: ").append(getClientAuthentication()).append(",");
+        if (getEncryptionInfo() != null)
+            sb.append("EncryptionInfo: ").append(getEncryptionInfo()).append(",");
+        if (getConnectivityInfo() != null)
+            sb.append("ConnectivityInfo: ").append(getConnectivityInfo()).append(",");
+        if (getStorageMode() != null)
+            sb.append("StorageMode: ").append(getStorageMode()).append(",");
+        if (getBrokerCountUpdateInfo() != null)
+            sb.append("BrokerCountUpdateInfo: ").append(getBrokerCountUpdateInfo());
         sb.append("}");
         return sb.toString();
     }
@@ -263,6 +852,46 @@ public class MutableClusterInfo implements Serializable, Cloneable, StructuredPo
             return false;
         if (other.getNumberOfBrokerNodes() != null && other.getNumberOfBrokerNodes().equals(this.getNumberOfBrokerNodes()) == false)
             return false;
+        if (other.getEnhancedMonitoring() == null ^ this.getEnhancedMonitoring() == null)
+            return false;
+        if (other.getEnhancedMonitoring() != null && other.getEnhancedMonitoring().equals(this.getEnhancedMonitoring()) == false)
+            return false;
+        if (other.getOpenMonitoring() == null ^ this.getOpenMonitoring() == null)
+            return false;
+        if (other.getOpenMonitoring() != null && other.getOpenMonitoring().equals(this.getOpenMonitoring()) == false)
+            return false;
+        if (other.getKafkaVersion() == null ^ this.getKafkaVersion() == null)
+            return false;
+        if (other.getKafkaVersion() != null && other.getKafkaVersion().equals(this.getKafkaVersion()) == false)
+            return false;
+        if (other.getLoggingInfo() == null ^ this.getLoggingInfo() == null)
+            return false;
+        if (other.getLoggingInfo() != null && other.getLoggingInfo().equals(this.getLoggingInfo()) == false)
+            return false;
+        if (other.getInstanceType() == null ^ this.getInstanceType() == null)
+            return false;
+        if (other.getInstanceType() != null && other.getInstanceType().equals(this.getInstanceType()) == false)
+            return false;
+        if (other.getClientAuthentication() == null ^ this.getClientAuthentication() == null)
+            return false;
+        if (other.getClientAuthentication() != null && other.getClientAuthentication().equals(this.getClientAuthentication()) == false)
+            return false;
+        if (other.getEncryptionInfo() == null ^ this.getEncryptionInfo() == null)
+            return false;
+        if (other.getEncryptionInfo() != null && other.getEncryptionInfo().equals(this.getEncryptionInfo()) == false)
+            return false;
+        if (other.getConnectivityInfo() == null ^ this.getConnectivityInfo() == null)
+            return false;
+        if (other.getConnectivityInfo() != null && other.getConnectivityInfo().equals(this.getConnectivityInfo()) == false)
+            return false;
+        if (other.getStorageMode() == null ^ this.getStorageMode() == null)
+            return false;
+        if (other.getStorageMode() != null && other.getStorageMode().equals(this.getStorageMode()) == false)
+            return false;
+        if (other.getBrokerCountUpdateInfo() == null ^ this.getBrokerCountUpdateInfo() == null)
+            return false;
+        if (other.getBrokerCountUpdateInfo() != null && other.getBrokerCountUpdateInfo().equals(this.getBrokerCountUpdateInfo()) == false)
+            return false;
         return true;
     }
 
@@ -274,6 +903,16 @@ public class MutableClusterInfo implements Serializable, Cloneable, StructuredPo
         hashCode = prime * hashCode + ((getBrokerEBSVolumeInfo() == null) ? 0 : getBrokerEBSVolumeInfo().hashCode());
         hashCode = prime * hashCode + ((getConfigurationInfo() == null) ? 0 : getConfigurationInfo().hashCode());
         hashCode = prime * hashCode + ((getNumberOfBrokerNodes() == null) ? 0 : getNumberOfBrokerNodes().hashCode());
+        hashCode = prime * hashCode + ((getEnhancedMonitoring() == null) ? 0 : getEnhancedMonitoring().hashCode());
+        hashCode = prime * hashCode + ((getOpenMonitoring() == null) ? 0 : getOpenMonitoring().hashCode());
+        hashCode = prime * hashCode + ((getKafkaVersion() == null) ? 0 : getKafkaVersion().hashCode());
+        hashCode = prime * hashCode + ((getLoggingInfo() == null) ? 0 : getLoggingInfo().hashCode());
+        hashCode = prime * hashCode + ((getInstanceType() == null) ? 0 : getInstanceType().hashCode());
+        hashCode = prime * hashCode + ((getClientAuthentication() == null) ? 0 : getClientAuthentication().hashCode());
+        hashCode = prime * hashCode + ((getEncryptionInfo() == null) ? 0 : getEncryptionInfo().hashCode());
+        hashCode = prime * hashCode + ((getConnectivityInfo() == null) ? 0 : getConnectivityInfo().hashCode());
+        hashCode = prime * hashCode + ((getStorageMode() == null) ? 0 : getStorageMode().hashCode());
+        hashCode = prime * hashCode + ((getBrokerCountUpdateInfo() == null) ? 0 : getBrokerCountUpdateInfo().hashCode());
         return hashCode;
     }
 

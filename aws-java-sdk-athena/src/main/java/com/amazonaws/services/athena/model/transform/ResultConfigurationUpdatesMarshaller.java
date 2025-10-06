@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,14 @@ public class ResultConfigurationUpdatesMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EncryptionConfiguration").build();
     private static final MarshallingInfo<Boolean> REMOVEENCRYPTIONCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RemoveEncryptionConfiguration").build();
+    private static final MarshallingInfo<String> EXPECTEDBUCKETOWNER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExpectedBucketOwner").build();
+    private static final MarshallingInfo<Boolean> REMOVEEXPECTEDBUCKETOWNER_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RemoveExpectedBucketOwner").build();
+    private static final MarshallingInfo<StructuredPojo> ACLCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AclConfiguration").build();
+    private static final MarshallingInfo<Boolean> REMOVEACLCONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RemoveAclConfiguration").build();
 
     private static final ResultConfigurationUpdatesMarshaller instance = new ResultConfigurationUpdatesMarshaller();
 
@@ -56,6 +64,10 @@ public class ResultConfigurationUpdatesMarshaller {
             protocolMarshaller.marshall(resultConfigurationUpdates.getRemoveOutputLocation(), REMOVEOUTPUTLOCATION_BINDING);
             protocolMarshaller.marshall(resultConfigurationUpdates.getEncryptionConfiguration(), ENCRYPTIONCONFIGURATION_BINDING);
             protocolMarshaller.marshall(resultConfigurationUpdates.getRemoveEncryptionConfiguration(), REMOVEENCRYPTIONCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(resultConfigurationUpdates.getExpectedBucketOwner(), EXPECTEDBUCKETOWNER_BINDING);
+            protocolMarshaller.marshall(resultConfigurationUpdates.getRemoveExpectedBucketOwner(), REMOVEEXPECTEDBUCKETOWNER_BINDING);
+            protocolMarshaller.marshall(resultConfigurationUpdates.getAclConfiguration(), ACLCONFIGURATION_BINDING);
+            protocolMarshaller.marshall(resultConfigurationUpdates.getRemoveAclConfiguration(), REMOVEACLCONFIGURATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

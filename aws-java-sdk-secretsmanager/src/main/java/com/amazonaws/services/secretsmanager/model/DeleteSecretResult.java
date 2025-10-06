@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,20 +25,20 @@ public class DeleteSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The ARN of the secret that is now scheduled for deletion.
+     * The ARN of the secret.
      * </p>
      */
     private String aRN;
     /**
      * <p>
-     * The friendly name of the secret that is now scheduled for deletion.
+     * The name of the secret.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The date and time after which this secret can be deleted by Secrets Manager and can no longer be restored. This
-     * value is the date and time of the delete request plus the number of days specified in
+     * The date and time after which this secret Secrets Manager can permanently delete this secret, and it can no
+     * longer be restored. This value is the date and time of the delete request plus the number of days in
      * <code>RecoveryWindowInDays</code>.
      * </p>
      */
@@ -46,11 +46,11 @@ public class DeleteSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The ARN of the secret that is now scheduled for deletion.
+     * The ARN of the secret.
      * </p>
      * 
      * @param aRN
-     *        The ARN of the secret that is now scheduled for deletion.
+     *        The ARN of the secret.
      */
 
     public void setARN(String aRN) {
@@ -59,10 +59,10 @@ public class DeleteSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The ARN of the secret that is now scheduled for deletion.
+     * The ARN of the secret.
      * </p>
      * 
-     * @return The ARN of the secret that is now scheduled for deletion.
+     * @return The ARN of the secret.
      */
 
     public String getARN() {
@@ -71,11 +71,11 @@ public class DeleteSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The ARN of the secret that is now scheduled for deletion.
+     * The ARN of the secret.
      * </p>
      * 
      * @param aRN
-     *        The ARN of the secret that is now scheduled for deletion.
+     *        The ARN of the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -86,11 +86,11 @@ public class DeleteSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The friendly name of the secret that is now scheduled for deletion.
+     * The name of the secret.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret that is now scheduled for deletion.
+     *        The name of the secret.
      */
 
     public void setName(String name) {
@@ -99,10 +99,10 @@ public class DeleteSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The friendly name of the secret that is now scheduled for deletion.
+     * The name of the secret.
      * </p>
      * 
-     * @return The friendly name of the secret that is now scheduled for deletion.
+     * @return The name of the secret.
      */
 
     public String getName() {
@@ -111,11 +111,11 @@ public class DeleteSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The friendly name of the secret that is now scheduled for deletion.
+     * The name of the secret.
      * </p>
      * 
      * @param name
-     *        The friendly name of the secret that is now scheduled for deletion.
+     *        The name of the secret.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -126,14 +126,14 @@ public class DeleteSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The date and time after which this secret can be deleted by Secrets Manager and can no longer be restored. This
-     * value is the date and time of the delete request plus the number of days specified in
+     * The date and time after which this secret Secrets Manager can permanently delete this secret, and it can no
+     * longer be restored. This value is the date and time of the delete request plus the number of days in
      * <code>RecoveryWindowInDays</code>.
      * </p>
      * 
      * @param deletionDate
-     *        The date and time after which this secret can be deleted by Secrets Manager and can no longer be restored.
-     *        This value is the date and time of the delete request plus the number of days specified in
+     *        The date and time after which this secret Secrets Manager can permanently delete this secret, and it can
+     *        no longer be restored. This value is the date and time of the delete request plus the number of days in
      *        <code>RecoveryWindowInDays</code>.
      */
 
@@ -143,13 +143,13 @@ public class DeleteSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The date and time after which this secret can be deleted by Secrets Manager and can no longer be restored. This
-     * value is the date and time of the delete request plus the number of days specified in
+     * The date and time after which this secret Secrets Manager can permanently delete this secret, and it can no
+     * longer be restored. This value is the date and time of the delete request plus the number of days in
      * <code>RecoveryWindowInDays</code>.
      * </p>
      * 
-     * @return The date and time after which this secret can be deleted by Secrets Manager and can no longer be
-     *         restored. This value is the date and time of the delete request plus the number of days specified in
+     * @return The date and time after which this secret Secrets Manager can permanently delete this secret, and it can
+     *         no longer be restored. This value is the date and time of the delete request plus the number of days in
      *         <code>RecoveryWindowInDays</code>.
      */
 
@@ -159,14 +159,14 @@ public class DeleteSecretResult extends com.amazonaws.AmazonWebServiceResult<com
 
     /**
      * <p>
-     * The date and time after which this secret can be deleted by Secrets Manager and can no longer be restored. This
-     * value is the date and time of the delete request plus the number of days specified in
+     * The date and time after which this secret Secrets Manager can permanently delete this secret, and it can no
+     * longer be restored. This value is the date and time of the delete request plus the number of days in
      * <code>RecoveryWindowInDays</code>.
      * </p>
      * 
      * @param deletionDate
-     *        The date and time after which this secret can be deleted by Secrets Manager and can no longer be restored.
-     *        This value is the date and time of the delete request plus the number of days specified in
+     *        The date and time after which this secret Secrets Manager can permanently delete this secret, and it can
+     *        no longer be restored. This value is the date and time of the delete request plus the number of days in
      *        <code>RecoveryWindowInDays</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

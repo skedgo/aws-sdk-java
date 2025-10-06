@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class CreateChannelRequestMarshaller {
 
+    private static final MarshallingInfo<StructuredPojo> CDIINPUTSPECIFICATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("cdiInputSpecification").build();
     private static final MarshallingInfo<String> CHANNELCLASS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("channelClass").build();
     private static final MarshallingInfo<List> DESTINATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
@@ -43,6 +45,8 @@ public class CreateChannelRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("inputSpecification").build();
     private static final MarshallingInfo<String> LOGLEVEL_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("logLevel").build();
+    private static final MarshallingInfo<StructuredPojo> MAINTENANCE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("maintenance").build();
     private static final MarshallingInfo<String> NAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("name").build();
     private static final MarshallingInfo<String> REQUESTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -53,6 +57,8 @@ public class CreateChannelRequestMarshaller {
             .marshallLocationName("roleArn").build();
     private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("tags").build();
+    private static final MarshallingInfo<StructuredPojo> VPC_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("vpc").build();
 
     private static final CreateChannelRequestMarshaller instance = new CreateChannelRequestMarshaller();
 
@@ -70,17 +76,20 @@ public class CreateChannelRequestMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(createChannelRequest.getCdiInputSpecification(), CDIINPUTSPECIFICATION_BINDING);
             protocolMarshaller.marshall(createChannelRequest.getChannelClass(), CHANNELCLASS_BINDING);
             protocolMarshaller.marshall(createChannelRequest.getDestinations(), DESTINATIONS_BINDING);
             protocolMarshaller.marshall(createChannelRequest.getEncoderSettings(), ENCODERSETTINGS_BINDING);
             protocolMarshaller.marshall(createChannelRequest.getInputAttachments(), INPUTATTACHMENTS_BINDING);
             protocolMarshaller.marshall(createChannelRequest.getInputSpecification(), INPUTSPECIFICATION_BINDING);
             protocolMarshaller.marshall(createChannelRequest.getLogLevel(), LOGLEVEL_BINDING);
+            protocolMarshaller.marshall(createChannelRequest.getMaintenance(), MAINTENANCE_BINDING);
             protocolMarshaller.marshall(createChannelRequest.getName(), NAME_BINDING);
             protocolMarshaller.marshall(createChannelRequest.getRequestId(), REQUESTID_BINDING);
             protocolMarshaller.marshall(createChannelRequest.getReserved(), RESERVED_BINDING);
             protocolMarshaller.marshall(createChannelRequest.getRoleArn(), ROLEARN_BINDING);
             protocolMarshaller.marshall(createChannelRequest.getTags(), TAGS_BINDING);
+            protocolMarshaller.marshall(createChannelRequest.getVpc(), VPC_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

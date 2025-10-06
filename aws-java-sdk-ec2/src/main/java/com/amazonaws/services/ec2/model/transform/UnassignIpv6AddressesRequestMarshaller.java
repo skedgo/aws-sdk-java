@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,6 +50,19 @@ public class UnassignIpv6AddressesRequestMarshaller implements Marshaller<Reques
                     request.addParameter("Ipv6Addresses." + ipv6AddressesListIndex, StringUtils.fromString(unassignIpv6AddressesRequestIpv6AddressesListValue));
                 }
                 ipv6AddressesListIndex++;
+            }
+        }
+
+        com.amazonaws.internal.SdkInternalList<String> unassignIpv6AddressesRequestIpv6PrefixesList = (com.amazonaws.internal.SdkInternalList<String>) unassignIpv6AddressesRequest
+                .getIpv6Prefixes();
+        if (!unassignIpv6AddressesRequestIpv6PrefixesList.isEmpty() || !unassignIpv6AddressesRequestIpv6PrefixesList.isAutoConstruct()) {
+            int ipv6PrefixesListIndex = 1;
+
+            for (String unassignIpv6AddressesRequestIpv6PrefixesListValue : unassignIpv6AddressesRequestIpv6PrefixesList) {
+                if (unassignIpv6AddressesRequestIpv6PrefixesListValue != null) {
+                    request.addParameter("Ipv6Prefix." + ipv6PrefixesListIndex, StringUtils.fromString(unassignIpv6AddressesRequestIpv6PrefixesListValue));
+                }
+                ipv6PrefixesListIndex++;
             }
         }
 

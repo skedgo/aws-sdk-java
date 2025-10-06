@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,6 +27,80 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 public class WebvttDestinationSettings implements Serializable, Cloneable, StructuredPojo {
 
     /**
+     * Controls whether the color and position of the source captions is passed through to the WebVTT output captions.
+     * PASSTHROUGH - Valid only if the source captions are EMBEDDED or TELETEXT. NO_STYLE_DATA - Don't pass through the
+     * style. The output captions will not contain any font styling information.
+     */
+    private String styleControl;
+
+    /**
+     * Controls whether the color and position of the source captions is passed through to the WebVTT output captions.
+     * PASSTHROUGH - Valid only if the source captions are EMBEDDED or TELETEXT. NO_STYLE_DATA - Don't pass through the
+     * style. The output captions will not contain any font styling information.
+     * 
+     * @param styleControl
+     *        Controls whether the color and position of the source captions is passed through to the WebVTT output
+     *        captions. PASSTHROUGH - Valid only if the source captions are EMBEDDED or TELETEXT. NO_STYLE_DATA - Don't
+     *        pass through the style. The output captions will not contain any font styling information.
+     * @see WebvttDestinationStyleControl
+     */
+
+    public void setStyleControl(String styleControl) {
+        this.styleControl = styleControl;
+    }
+
+    /**
+     * Controls whether the color and position of the source captions is passed through to the WebVTT output captions.
+     * PASSTHROUGH - Valid only if the source captions are EMBEDDED or TELETEXT. NO_STYLE_DATA - Don't pass through the
+     * style. The output captions will not contain any font styling information.
+     * 
+     * @return Controls whether the color and position of the source captions is passed through to the WebVTT output
+     *         captions. PASSTHROUGH - Valid only if the source captions are EMBEDDED or TELETEXT. NO_STYLE_DATA - Don't
+     *         pass through the style. The output captions will not contain any font styling information.
+     * @see WebvttDestinationStyleControl
+     */
+
+    public String getStyleControl() {
+        return this.styleControl;
+    }
+
+    /**
+     * Controls whether the color and position of the source captions is passed through to the WebVTT output captions.
+     * PASSTHROUGH - Valid only if the source captions are EMBEDDED or TELETEXT. NO_STYLE_DATA - Don't pass through the
+     * style. The output captions will not contain any font styling information.
+     * 
+     * @param styleControl
+     *        Controls whether the color and position of the source captions is passed through to the WebVTT output
+     *        captions. PASSTHROUGH - Valid only if the source captions are EMBEDDED or TELETEXT. NO_STYLE_DATA - Don't
+     *        pass through the style. The output captions will not contain any font styling information.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see WebvttDestinationStyleControl
+     */
+
+    public WebvttDestinationSettings withStyleControl(String styleControl) {
+        setStyleControl(styleControl);
+        return this;
+    }
+
+    /**
+     * Controls whether the color and position of the source captions is passed through to the WebVTT output captions.
+     * PASSTHROUGH - Valid only if the source captions are EMBEDDED or TELETEXT. NO_STYLE_DATA - Don't pass through the
+     * style. The output captions will not contain any font styling information.
+     * 
+     * @param styleControl
+     *        Controls whether the color and position of the source captions is passed through to the WebVTT output
+     *        captions. PASSTHROUGH - Valid only if the source captions are EMBEDDED or TELETEXT. NO_STYLE_DATA - Don't
+     *        pass through the style. The output captions will not contain any font styling information.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see WebvttDestinationStyleControl
+     */
+
+    public WebvttDestinationSettings withStyleControl(WebvttDestinationStyleControl styleControl) {
+        this.styleControl = styleControl.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -38,6 +112,8 @@ public class WebvttDestinationSettings implements Serializable, Cloneable, Struc
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getStyleControl() != null)
+            sb.append("StyleControl: ").append(getStyleControl());
         sb.append("}");
         return sb.toString();
     }
@@ -52,6 +128,10 @@ public class WebvttDestinationSettings implements Serializable, Cloneable, Struc
         if (obj instanceof WebvttDestinationSettings == false)
             return false;
         WebvttDestinationSettings other = (WebvttDestinationSettings) obj;
+        if (other.getStyleControl() == null ^ this.getStyleControl() == null)
+            return false;
+        if (other.getStyleControl() != null && other.getStyleControl().equals(this.getStyleControl()) == false)
+            return false;
         return true;
     }
 
@@ -60,6 +140,7 @@ public class WebvttDestinationSettings implements Serializable, Cloneable, Struc
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getStyleControl() == null) ? 0 : getStyleControl().hashCode());
         return hashCode;
     }
 

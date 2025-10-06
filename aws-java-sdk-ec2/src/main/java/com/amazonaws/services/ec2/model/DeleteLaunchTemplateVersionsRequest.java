@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,34 +28,42 @@ public class DeleteLaunchTemplateVersionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The ID of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The ID of the launch template.
+     * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
      * </p>
      */
     private String launchTemplateId;
     /**
      * <p>
-     * The name of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The name of the launch template.
+     * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
      * </p>
      */
     private String launchTemplateName;
     /**
      * <p>
-     * The version numbers of one or more launch template versions to delete.
+     * The version numbers of one or more launch template versions to delete. You can specify up to 200 launch template
+     * version numbers.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> versions;
 
     /**
      * <p>
-     * The ID of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The ID of the launch template.
+     * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
      * </p>
      * 
      * @param launchTemplateId
-     *        The ID of the launch template. You must specify either the launch template ID or launch template name in
-     *        the request.
+     *        The ID of the launch template.</p>
+     *        <p>
+     *        You must specify either the launch template ID or the launch template name, but not both.
      */
 
     public void setLaunchTemplateId(String launchTemplateId) {
@@ -64,12 +72,15 @@ public class DeleteLaunchTemplateVersionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The ID of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The ID of the launch template.
+     * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
      * </p>
      * 
-     * @return The ID of the launch template. You must specify either the launch template ID or launch template name in
-     *         the request.
+     * @return The ID of the launch template.</p>
+     *         <p>
+     *         You must specify either the launch template ID or the launch template name, but not both.
      */
 
     public String getLaunchTemplateId() {
@@ -78,13 +89,16 @@ public class DeleteLaunchTemplateVersionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The ID of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The ID of the launch template.
+     * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
      * </p>
      * 
      * @param launchTemplateId
-     *        The ID of the launch template. You must specify either the launch template ID or launch template name in
-     *        the request.
+     *        The ID of the launch template.</p>
+     *        <p>
+     *        You must specify either the launch template ID or the launch template name, but not both.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -95,13 +109,16 @@ public class DeleteLaunchTemplateVersionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The name of the launch template.
+     * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
      * </p>
      * 
      * @param launchTemplateName
-     *        The name of the launch template. You must specify either the launch template ID or launch template name in
-     *        the request.
+     *        The name of the launch template.</p>
+     *        <p>
+     *        You must specify either the launch template ID or the launch template name, but not both.
      */
 
     public void setLaunchTemplateName(String launchTemplateName) {
@@ -110,12 +127,15 @@ public class DeleteLaunchTemplateVersionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The name of the launch template.
+     * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
      * </p>
      * 
-     * @return The name of the launch template. You must specify either the launch template ID or launch template name
-     *         in the request.
+     * @return The name of the launch template.</p>
+     *         <p>
+     *         You must specify either the launch template ID or the launch template name, but not both.
      */
 
     public String getLaunchTemplateName() {
@@ -124,13 +144,16 @@ public class DeleteLaunchTemplateVersionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The name of the launch template. You must specify either the launch template ID or launch template name in the
-     * request.
+     * The name of the launch template.
+     * </p>
+     * <p>
+     * You must specify either the launch template ID or the launch template name, but not both.
      * </p>
      * 
      * @param launchTemplateName
-     *        The name of the launch template. You must specify either the launch template ID or launch template name in
-     *        the request.
+     *        The name of the launch template.</p>
+     *        <p>
+     *        You must specify either the launch template ID or the launch template name, but not both.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -141,10 +164,12 @@ public class DeleteLaunchTemplateVersionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The version numbers of one or more launch template versions to delete.
+     * The version numbers of one or more launch template versions to delete. You can specify up to 200 launch template
+     * version numbers.
      * </p>
      * 
-     * @return The version numbers of one or more launch template versions to delete.
+     * @return The version numbers of one or more launch template versions to delete. You can specify up to 200 launch
+     *         template version numbers.
      */
 
     public java.util.List<String> getVersions() {
@@ -156,11 +181,13 @@ public class DeleteLaunchTemplateVersionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The version numbers of one or more launch template versions to delete.
+     * The version numbers of one or more launch template versions to delete. You can specify up to 200 launch template
+     * version numbers.
      * </p>
      * 
      * @param versions
-     *        The version numbers of one or more launch template versions to delete.
+     *        The version numbers of one or more launch template versions to delete. You can specify up to 200 launch
+     *        template version numbers.
      */
 
     public void setVersions(java.util.Collection<String> versions) {
@@ -174,7 +201,8 @@ public class DeleteLaunchTemplateVersionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The version numbers of one or more launch template versions to delete.
+     * The version numbers of one or more launch template versions to delete. You can specify up to 200 launch template
+     * version numbers.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -183,7 +211,8 @@ public class DeleteLaunchTemplateVersionsRequest extends AmazonWebServiceRequest
      * </p>
      * 
      * @param versions
-     *        The version numbers of one or more launch template versions to delete.
+     *        The version numbers of one or more launch template versions to delete. You can specify up to 200 launch
+     *        template version numbers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -199,11 +228,13 @@ public class DeleteLaunchTemplateVersionsRequest extends AmazonWebServiceRequest
 
     /**
      * <p>
-     * The version numbers of one or more launch template versions to delete.
+     * The version numbers of one or more launch template versions to delete. You can specify up to 200 launch template
+     * version numbers.
      * </p>
      * 
      * @param versions
-     *        The version numbers of one or more launch template versions to delete.
+     *        The version numbers of one or more launch template versions to delete. You can specify up to 200 launch
+     *        template version numbers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

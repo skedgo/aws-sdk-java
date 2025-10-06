@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,36 +31,52 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
     /**
      * <p>
      * Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use for the training job
-     * it launches. To use the Bayesian search stategy, set this to <code>Bayesian</code>. To randomly search, set it to
-     * <code>Random</code>. For information about search strategies, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How Hyperparameter
-     * Tuning Works</a>.
+     * it launches. For information about search strategies, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
+     * Hyperparameter Tuning Works</a>.
      * </p>
      */
     private String strategy;
     /**
      * <p>
-     * The <a>HyperParameterTuningJobObjective</a> object that specifies the objective metric for this tuning job.
+     * The configuration for the <code>Hyperband</code> optimization strategy. This parameter should be provided only if
+     * <code>Hyperband</code> is selected as the strategy for <code>HyperParameterTuningJobConfig</code>.
+     * </p>
+     */
+    private HyperParameterTuningJobStrategyConfig strategyConfig;
+    /**
+     * <p>
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobObjective.html">
+     * HyperParameterTuningJobObjective</a> specifies the objective metric used to evaluate the performance of training
+     * jobs launched by this tuning job.
      * </p>
      */
     private HyperParameterTuningJobObjective hyperParameterTuningJobObjective;
     /**
      * <p>
-     * The <a>ResourceLimits</a> object that specifies the maximum number of training jobs and parallel training jobs
-     * for this tuning job.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html">ResourceLimits</a>
+     * object that specifies the maximum number of training and parallel training jobs that can be used for this
+     * hyperparameter tuning job.
      * </p>
      */
     private ResourceLimits resourceLimits;
     /**
      * <p>
-     * The <a>ParameterRanges</a> object that specifies the ranges of hyperparameters that this tuning job searches.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ParameterRanges.html">ParameterRanges</a>
+     * object that specifies the ranges of hyperparameters that this tuning job searches over to find the optimal
+     * configuration for the highest model performance against your chosen objective metric.
      * </p>
      */
     private ParameterRanges parameterRanges;
     /**
      * <p>
-     * Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job. This can be
-     * one of the following values (the default value is <code>OFF</code>):
+     * Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job. Because the
+     * <code>Hyperband</code> strategy has its own advanced internal early stopping mechanism,
+     * <code>TrainingJobEarlyStoppingType</code> must be <code>OFF</code> to use <code>Hyperband</code>. This parameter
+     * can take on one of the following values (the default value is <code>OFF</code>):
      * </p>
      * <dl>
      * <dt>OFF</dt>
@@ -72,30 +88,42 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
      * <dt>AUTO</dt>
      * <dd>
      * <p>
-     * Amazon SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to perform
-     * better than previously completed training jobs. For more information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop Training
+     * SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to perform better
+     * than previously completed training jobs. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop Training
      * Jobs Early</a>.
      * </p>
      * </dd>
      * </dl>
      */
     private String trainingJobEarlyStoppingType;
+    /**
+     * <p>
+     * The tuning job's completion criteria.
+     * </p>
+     */
+    private TuningJobCompletionCriteria tuningJobCompletionCriteria;
+    /**
+     * <p>
+     * A value used to initialize a pseudo-random number generator. Setting a random seed and using the same seed later
+     * for the same tuning job will allow hyperparameter optimization to find more a consistent hyperparameter
+     * configuration between the two runs.
+     * </p>
+     */
+    private Integer randomSeed;
 
     /**
      * <p>
      * Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use for the training job
-     * it launches. To use the Bayesian search stategy, set this to <code>Bayesian</code>. To randomly search, set it to
-     * <code>Random</code>. For information about search strategies, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How Hyperparameter
-     * Tuning Works</a>.
+     * it launches. For information about search strategies, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
+     * Hyperparameter Tuning Works</a>.
      * </p>
      * 
      * @param strategy
      *        Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use for the
-     *        training job it launches. To use the Bayesian search stategy, set this to <code>Bayesian</code>. To
-     *        randomly search, set it to <code>Random</code>. For information about search strategies, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
+     *        training job it launches. For information about search strategies, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
      *        Hyperparameter Tuning Works</a>.
      * @see HyperParameterTuningJobStrategyType
      */
@@ -107,16 +135,14 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
     /**
      * <p>
      * Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use for the training job
-     * it launches. To use the Bayesian search stategy, set this to <code>Bayesian</code>. To randomly search, set it to
-     * <code>Random</code>. For information about search strategies, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How Hyperparameter
-     * Tuning Works</a>.
+     * it launches. For information about search strategies, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
+     * Hyperparameter Tuning Works</a>.
      * </p>
      * 
      * @return Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use for the
-     *         training job it launches. To use the Bayesian search stategy, set this to <code>Bayesian</code>. To
-     *         randomly search, set it to <code>Random</code>. For information about search strategies, see <a
-     *         href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
+     *         training job it launches. For information about search strategies, see <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
      *         Hyperparameter Tuning Works</a>.
      * @see HyperParameterTuningJobStrategyType
      */
@@ -128,17 +154,15 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
     /**
      * <p>
      * Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use for the training job
-     * it launches. To use the Bayesian search stategy, set this to <code>Bayesian</code>. To randomly search, set it to
-     * <code>Random</code>. For information about search strategies, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How Hyperparameter
-     * Tuning Works</a>.
+     * it launches. For information about search strategies, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
+     * Hyperparameter Tuning Works</a>.
      * </p>
      * 
      * @param strategy
      *        Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use for the
-     *        training job it launches. To use the Bayesian search stategy, set this to <code>Bayesian</code>. To
-     *        randomly search, set it to <code>Random</code>. For information about search strategies, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
+     *        training job it launches. For information about search strategies, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
      *        Hyperparameter Tuning Works</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HyperParameterTuningJobStrategyType
@@ -152,17 +176,15 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
     /**
      * <p>
      * Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use for the training job
-     * it launches. To use the Bayesian search stategy, set this to <code>Bayesian</code>. To randomly search, set it to
-     * <code>Random</code>. For information about search strategies, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How Hyperparameter
-     * Tuning Works</a>.
+     * it launches. For information about search strategies, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
+     * Hyperparameter Tuning Works</a>.
      * </p>
      * 
      * @param strategy
      *        Specifies how hyperparameter tuning chooses the combinations of hyperparameter values to use for the
-     *        training job it launches. To use the Bayesian search stategy, set this to <code>Bayesian</code>. To
-     *        randomly search, set it to <code>Random</code>. For information about search strategies, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
+     *        training job it launches. For information about search strategies, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html">How
      *        Hyperparameter Tuning Works</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see HyperParameterTuningJobStrategyType
@@ -175,12 +197,64 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The <a>HyperParameterTuningJobObjective</a> object that specifies the objective metric for this tuning job.
+     * The configuration for the <code>Hyperband</code> optimization strategy. This parameter should be provided only if
+     * <code>Hyperband</code> is selected as the strategy for <code>HyperParameterTuningJobConfig</code>.
+     * </p>
+     * 
+     * @param strategyConfig
+     *        The configuration for the <code>Hyperband</code> optimization strategy. This parameter should be provided
+     *        only if <code>Hyperband</code> is selected as the strategy for <code>HyperParameterTuningJobConfig</code>.
+     */
+
+    public void setStrategyConfig(HyperParameterTuningJobStrategyConfig strategyConfig) {
+        this.strategyConfig = strategyConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration for the <code>Hyperband</code> optimization strategy. This parameter should be provided only if
+     * <code>Hyperband</code> is selected as the strategy for <code>HyperParameterTuningJobConfig</code>.
+     * </p>
+     * 
+     * @return The configuration for the <code>Hyperband</code> optimization strategy. This parameter should be provided
+     *         only if <code>Hyperband</code> is selected as the strategy for <code>HyperParameterTuningJobConfig</code>
+     *         .
+     */
+
+    public HyperParameterTuningJobStrategyConfig getStrategyConfig() {
+        return this.strategyConfig;
+    }
+
+    /**
+     * <p>
+     * The configuration for the <code>Hyperband</code> optimization strategy. This parameter should be provided only if
+     * <code>Hyperband</code> is selected as the strategy for <code>HyperParameterTuningJobConfig</code>.
+     * </p>
+     * 
+     * @param strategyConfig
+     *        The configuration for the <code>Hyperband</code> optimization strategy. This parameter should be provided
+     *        only if <code>Hyperband</code> is selected as the strategy for <code>HyperParameterTuningJobConfig</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HyperParameterTuningJobConfig withStrategyConfig(HyperParameterTuningJobStrategyConfig strategyConfig) {
+        setStrategyConfig(strategyConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobObjective.html">
+     * HyperParameterTuningJobObjective</a> specifies the objective metric used to evaluate the performance of training
+     * jobs launched by this tuning job.
      * </p>
      * 
      * @param hyperParameterTuningJobObjective
-     *        The <a>HyperParameterTuningJobObjective</a> object that specifies the objective metric for this tuning
-     *        job.
+     *        The <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobObjective.html"
+     *        >HyperParameterTuningJobObjective</a> specifies the objective metric used to evaluate the performance of
+     *        training jobs launched by this tuning job.
      */
 
     public void setHyperParameterTuningJobObjective(HyperParameterTuningJobObjective hyperParameterTuningJobObjective) {
@@ -189,11 +263,16 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The <a>HyperParameterTuningJobObjective</a> object that specifies the objective metric for this tuning job.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobObjective.html">
+     * HyperParameterTuningJobObjective</a> specifies the objective metric used to evaluate the performance of training
+     * jobs launched by this tuning job.
      * </p>
      * 
-     * @return The <a>HyperParameterTuningJobObjective</a> object that specifies the objective metric for this tuning
-     *         job.
+     * @return The <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobObjective.html"
+     *         >HyperParameterTuningJobObjective</a> specifies the objective metric used to evaluate the performance of
+     *         training jobs launched by this tuning job.
      */
 
     public HyperParameterTuningJobObjective getHyperParameterTuningJobObjective() {
@@ -202,12 +281,17 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The <a>HyperParameterTuningJobObjective</a> object that specifies the objective metric for this tuning job.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobObjective.html">
+     * HyperParameterTuningJobObjective</a> specifies the objective metric used to evaluate the performance of training
+     * jobs launched by this tuning job.
      * </p>
      * 
      * @param hyperParameterTuningJobObjective
-     *        The <a>HyperParameterTuningJobObjective</a> object that specifies the objective metric for this tuning
-     *        job.
+     *        The <a href=
+     *        "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_HyperParameterTuningJobObjective.html"
+     *        >HyperParameterTuningJobObjective</a> specifies the objective metric used to evaluate the performance of
+     *        training jobs launched by this tuning job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -218,13 +302,17 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The <a>ResourceLimits</a> object that specifies the maximum number of training jobs and parallel training jobs
-     * for this tuning job.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html">ResourceLimits</a>
+     * object that specifies the maximum number of training and parallel training jobs that can be used for this
+     * hyperparameter tuning job.
      * </p>
      * 
      * @param resourceLimits
-     *        The <a>ResourceLimits</a> object that specifies the maximum number of training jobs and parallel training
-     *        jobs for this tuning job.
+     *        The <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html">ResourceLimits
+     *        </a> object that specifies the maximum number of training and parallel training jobs that can be used for
+     *        this hyperparameter tuning job.
      */
 
     public void setResourceLimits(ResourceLimits resourceLimits) {
@@ -233,12 +321,16 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The <a>ResourceLimits</a> object that specifies the maximum number of training jobs and parallel training jobs
-     * for this tuning job.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html">ResourceLimits</a>
+     * object that specifies the maximum number of training and parallel training jobs that can be used for this
+     * hyperparameter tuning job.
      * </p>
      * 
-     * @return The <a>ResourceLimits</a> object that specifies the maximum number of training jobs and parallel training
-     *         jobs for this tuning job.
+     * @return The <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html">ResourceLimits
+     *         </a> object that specifies the maximum number of training and parallel training jobs that can be used for
+     *         this hyperparameter tuning job.
      */
 
     public ResourceLimits getResourceLimits() {
@@ -247,13 +339,17 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The <a>ResourceLimits</a> object that specifies the maximum number of training jobs and parallel training jobs
-     * for this tuning job.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html">ResourceLimits</a>
+     * object that specifies the maximum number of training and parallel training jobs that can be used for this
+     * hyperparameter tuning job.
      * </p>
      * 
      * @param resourceLimits
-     *        The <a>ResourceLimits</a> object that specifies the maximum number of training jobs and parallel training
-     *        jobs for this tuning job.
+     *        The <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ResourceLimits.html">ResourceLimits
+     *        </a> object that specifies the maximum number of training and parallel training jobs that can be used for
+     *        this hyperparameter tuning job.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -264,12 +360,16 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The <a>ParameterRanges</a> object that specifies the ranges of hyperparameters that this tuning job searches.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ParameterRanges.html">ParameterRanges</a>
+     * object that specifies the ranges of hyperparameters that this tuning job searches over to find the optimal
+     * configuration for the highest model performance against your chosen objective metric.
      * </p>
      * 
      * @param parameterRanges
-     *        The <a>ParameterRanges</a> object that specifies the ranges of hyperparameters that this tuning job
-     *        searches.
+     *        The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ParameterRanges.html">
+     *        ParameterRanges</a> object that specifies the ranges of hyperparameters that this tuning job searches over
+     *        to find the optimal configuration for the highest model performance against your chosen objective metric.
      */
 
     public void setParameterRanges(ParameterRanges parameterRanges) {
@@ -278,11 +378,16 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The <a>ParameterRanges</a> object that specifies the ranges of hyperparameters that this tuning job searches.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ParameterRanges.html">ParameterRanges</a>
+     * object that specifies the ranges of hyperparameters that this tuning job searches over to find the optimal
+     * configuration for the highest model performance against your chosen objective metric.
      * </p>
      * 
-     * @return The <a>ParameterRanges</a> object that specifies the ranges of hyperparameters that this tuning job
-     *         searches.
+     * @return The <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ParameterRanges.html">ParameterRanges
+     *         </a> object that specifies the ranges of hyperparameters that this tuning job searches over to find the
+     *         optimal configuration for the highest model performance against your chosen objective metric.
      */
 
     public ParameterRanges getParameterRanges() {
@@ -291,12 +396,16 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * The <a>ParameterRanges</a> object that specifies the ranges of hyperparameters that this tuning job searches.
+     * The <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ParameterRanges.html">ParameterRanges</a>
+     * object that specifies the ranges of hyperparameters that this tuning job searches over to find the optimal
+     * configuration for the highest model performance against your chosen objective metric.
      * </p>
      * 
      * @param parameterRanges
-     *        The <a>ParameterRanges</a> object that specifies the ranges of hyperparameters that this tuning job
-     *        searches.
+     *        The <a href="https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ParameterRanges.html">
+     *        ParameterRanges</a> object that specifies the ranges of hyperparameters that this tuning job searches over
+     *        to find the optimal configuration for the highest model performance against your chosen objective metric.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -307,8 +416,10 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job. This can be
-     * one of the following values (the default value is <code>OFF</code>):
+     * Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job. Because the
+     * <code>Hyperband</code> strategy has its own advanced internal early stopping mechanism,
+     * <code>TrainingJobEarlyStoppingType</code> must be <code>OFF</code> to use <code>Hyperband</code>. This parameter
+     * can take on one of the following values (the default value is <code>OFF</code>):
      * </p>
      * <dl>
      * <dt>OFF</dt>
@@ -320,17 +431,19 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
      * <dt>AUTO</dt>
      * <dd>
      * <p>
-     * Amazon SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to perform
-     * better than previously completed training jobs. For more information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop Training
+     * SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to perform better
+     * than previously completed training jobs. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop Training
      * Jobs Early</a>.
      * </p>
      * </dd>
      * </dl>
      * 
      * @param trainingJobEarlyStoppingType
-     *        Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job. This
-     *        can be one of the following values (the default value is <code>OFF</code>):</p>
+     *        Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job.
+     *        Because the <code>Hyperband</code> strategy has its own advanced internal early stopping mechanism,
+     *        <code>TrainingJobEarlyStoppingType</code> must be <code>OFF</code> to use <code>Hyperband</code>. This
+     *        parameter can take on one of the following values (the default value is <code>OFF</code>):</p>
      *        <dl>
      *        <dt>OFF</dt>
      *        <dd>
@@ -341,9 +454,9 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
      *        <dt>AUTO</dt>
      *        <dd>
      *        <p>
-     *        Amazon SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to
-     *        perform better than previously completed training jobs. For more information, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop
+     *        SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to perform
+     *        better than previously completed training jobs. For more information, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop
      *        Training Jobs Early</a>.
      *        </p>
      *        </dd>
@@ -356,8 +469,10 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job. This can be
-     * one of the following values (the default value is <code>OFF</code>):
+     * Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job. Because the
+     * <code>Hyperband</code> strategy has its own advanced internal early stopping mechanism,
+     * <code>TrainingJobEarlyStoppingType</code> must be <code>OFF</code> to use <code>Hyperband</code>. This parameter
+     * can take on one of the following values (the default value is <code>OFF</code>):
      * </p>
      * <dl>
      * <dt>OFF</dt>
@@ -369,16 +484,18 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
      * <dt>AUTO</dt>
      * <dd>
      * <p>
-     * Amazon SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to perform
-     * better than previously completed training jobs. For more information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop Training
+     * SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to perform better
+     * than previously completed training jobs. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop Training
      * Jobs Early</a>.
      * </p>
      * </dd>
      * </dl>
      * 
-     * @return Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job. This
-     *         can be one of the following values (the default value is <code>OFF</code>):</p>
+     * @return Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job.
+     *         Because the <code>Hyperband</code> strategy has its own advanced internal early stopping mechanism,
+     *         <code>TrainingJobEarlyStoppingType</code> must be <code>OFF</code> to use <code>Hyperband</code>. This
+     *         parameter can take on one of the following values (the default value is <code>OFF</code>):</p>
      *         <dl>
      *         <dt>OFF</dt>
      *         <dd>
@@ -389,9 +506,9 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
      *         <dt>AUTO</dt>
      *         <dd>
      *         <p>
-     *         Amazon SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to
-     *         perform better than previously completed training jobs. For more information, see <a
-     *         href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop
+     *         SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to perform
+     *         better than previously completed training jobs. For more information, see <a
+     *         href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop
      *         Training Jobs Early</a>.
      *         </p>
      *         </dd>
@@ -404,8 +521,10 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job. This can be
-     * one of the following values (the default value is <code>OFF</code>):
+     * Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job. Because the
+     * <code>Hyperband</code> strategy has its own advanced internal early stopping mechanism,
+     * <code>TrainingJobEarlyStoppingType</code> must be <code>OFF</code> to use <code>Hyperband</code>. This parameter
+     * can take on one of the following values (the default value is <code>OFF</code>):
      * </p>
      * <dl>
      * <dt>OFF</dt>
@@ -417,17 +536,19 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
      * <dt>AUTO</dt>
      * <dd>
      * <p>
-     * Amazon SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to perform
-     * better than previously completed training jobs. For more information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop Training
+     * SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to perform better
+     * than previously completed training jobs. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop Training
      * Jobs Early</a>.
      * </p>
      * </dd>
      * </dl>
      * 
      * @param trainingJobEarlyStoppingType
-     *        Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job. This
-     *        can be one of the following values (the default value is <code>OFF</code>):</p>
+     *        Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job.
+     *        Because the <code>Hyperband</code> strategy has its own advanced internal early stopping mechanism,
+     *        <code>TrainingJobEarlyStoppingType</code> must be <code>OFF</code> to use <code>Hyperband</code>. This
+     *        parameter can take on one of the following values (the default value is <code>OFF</code>):</p>
      *        <dl>
      *        <dt>OFF</dt>
      *        <dd>
@@ -438,9 +559,9 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
      *        <dt>AUTO</dt>
      *        <dd>
      *        <p>
-     *        Amazon SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to
-     *        perform better than previously completed training jobs. For more information, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop
+     *        SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to perform
+     *        better than previously completed training jobs. For more information, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop
      *        Training Jobs Early</a>.
      *        </p>
      *        </dd>
@@ -455,8 +576,10 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
 
     /**
      * <p>
-     * Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job. This can be
-     * one of the following values (the default value is <code>OFF</code>):
+     * Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job. Because the
+     * <code>Hyperband</code> strategy has its own advanced internal early stopping mechanism,
+     * <code>TrainingJobEarlyStoppingType</code> must be <code>OFF</code> to use <code>Hyperband</code>. This parameter
+     * can take on one of the following values (the default value is <code>OFF</code>):
      * </p>
      * <dl>
      * <dt>OFF</dt>
@@ -468,17 +591,19 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
      * <dt>AUTO</dt>
      * <dd>
      * <p>
-     * Amazon SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to perform
-     * better than previously completed training jobs. For more information, see <a
-     * href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop Training
+     * SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to perform better
+     * than previously completed training jobs. For more information, see <a
+     * href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop Training
      * Jobs Early</a>.
      * </p>
      * </dd>
      * </dl>
      * 
      * @param trainingJobEarlyStoppingType
-     *        Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job. This
-     *        can be one of the following values (the default value is <code>OFF</code>):</p>
+     *        Specifies whether to use early stopping for training jobs launched by the hyperparameter tuning job.
+     *        Because the <code>Hyperband</code> strategy has its own advanced internal early stopping mechanism,
+     *        <code>TrainingJobEarlyStoppingType</code> must be <code>OFF</code> to use <code>Hyperband</code>. This
+     *        parameter can take on one of the following values (the default value is <code>OFF</code>):</p>
      *        <dl>
      *        <dt>OFF</dt>
      *        <dd>
@@ -489,9 +614,9 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
      *        <dt>AUTO</dt>
      *        <dd>
      *        <p>
-     *        Amazon SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to
-     *        perform better than previously completed training jobs. For more information, see <a
-     *        href="http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop
+     *        SageMaker stops training jobs launched by the hyperparameter tuning job when they are unlikely to perform
+     *        better than previously completed training jobs. For more information, see <a
+     *        href="https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html">Stop
      *        Training Jobs Early</a>.
      *        </p>
      *        </dd>
@@ -501,6 +626,98 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
 
     public HyperParameterTuningJobConfig withTrainingJobEarlyStoppingType(TrainingJobEarlyStoppingType trainingJobEarlyStoppingType) {
         this.trainingJobEarlyStoppingType = trainingJobEarlyStoppingType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tuning job's completion criteria.
+     * </p>
+     * 
+     * @param tuningJobCompletionCriteria
+     *        The tuning job's completion criteria.
+     */
+
+    public void setTuningJobCompletionCriteria(TuningJobCompletionCriteria tuningJobCompletionCriteria) {
+        this.tuningJobCompletionCriteria = tuningJobCompletionCriteria;
+    }
+
+    /**
+     * <p>
+     * The tuning job's completion criteria.
+     * </p>
+     * 
+     * @return The tuning job's completion criteria.
+     */
+
+    public TuningJobCompletionCriteria getTuningJobCompletionCriteria() {
+        return this.tuningJobCompletionCriteria;
+    }
+
+    /**
+     * <p>
+     * The tuning job's completion criteria.
+     * </p>
+     * 
+     * @param tuningJobCompletionCriteria
+     *        The tuning job's completion criteria.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HyperParameterTuningJobConfig withTuningJobCompletionCriteria(TuningJobCompletionCriteria tuningJobCompletionCriteria) {
+        setTuningJobCompletionCriteria(tuningJobCompletionCriteria);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value used to initialize a pseudo-random number generator. Setting a random seed and using the same seed later
+     * for the same tuning job will allow hyperparameter optimization to find more a consistent hyperparameter
+     * configuration between the two runs.
+     * </p>
+     * 
+     * @param randomSeed
+     *        A value used to initialize a pseudo-random number generator. Setting a random seed and using the same seed
+     *        later for the same tuning job will allow hyperparameter optimization to find more a consistent
+     *        hyperparameter configuration between the two runs.
+     */
+
+    public void setRandomSeed(Integer randomSeed) {
+        this.randomSeed = randomSeed;
+    }
+
+    /**
+     * <p>
+     * A value used to initialize a pseudo-random number generator. Setting a random seed and using the same seed later
+     * for the same tuning job will allow hyperparameter optimization to find more a consistent hyperparameter
+     * configuration between the two runs.
+     * </p>
+     * 
+     * @return A value used to initialize a pseudo-random number generator. Setting a random seed and using the same
+     *         seed later for the same tuning job will allow hyperparameter optimization to find more a consistent
+     *         hyperparameter configuration between the two runs.
+     */
+
+    public Integer getRandomSeed() {
+        return this.randomSeed;
+    }
+
+    /**
+     * <p>
+     * A value used to initialize a pseudo-random number generator. Setting a random seed and using the same seed later
+     * for the same tuning job will allow hyperparameter optimization to find more a consistent hyperparameter
+     * configuration between the two runs.
+     * </p>
+     * 
+     * @param randomSeed
+     *        A value used to initialize a pseudo-random number generator. Setting a random seed and using the same seed
+     *        later for the same tuning job will allow hyperparameter optimization to find more a consistent
+     *        hyperparameter configuration between the two runs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public HyperParameterTuningJobConfig withRandomSeed(Integer randomSeed) {
+        setRandomSeed(randomSeed);
         return this;
     }
 
@@ -518,6 +735,8 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
         sb.append("{");
         if (getStrategy() != null)
             sb.append("Strategy: ").append(getStrategy()).append(",");
+        if (getStrategyConfig() != null)
+            sb.append("StrategyConfig: ").append(getStrategyConfig()).append(",");
         if (getHyperParameterTuningJobObjective() != null)
             sb.append("HyperParameterTuningJobObjective: ").append(getHyperParameterTuningJobObjective()).append(",");
         if (getResourceLimits() != null)
@@ -525,7 +744,11 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
         if (getParameterRanges() != null)
             sb.append("ParameterRanges: ").append(getParameterRanges()).append(",");
         if (getTrainingJobEarlyStoppingType() != null)
-            sb.append("TrainingJobEarlyStoppingType: ").append(getTrainingJobEarlyStoppingType());
+            sb.append("TrainingJobEarlyStoppingType: ").append(getTrainingJobEarlyStoppingType()).append(",");
+        if (getTuningJobCompletionCriteria() != null)
+            sb.append("TuningJobCompletionCriteria: ").append(getTuningJobCompletionCriteria()).append(",");
+        if (getRandomSeed() != null)
+            sb.append("RandomSeed: ").append(getRandomSeed());
         sb.append("}");
         return sb.toString();
     }
@@ -544,6 +767,10 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
             return false;
         if (other.getStrategy() != null && other.getStrategy().equals(this.getStrategy()) == false)
             return false;
+        if (other.getStrategyConfig() == null ^ this.getStrategyConfig() == null)
+            return false;
+        if (other.getStrategyConfig() != null && other.getStrategyConfig().equals(this.getStrategyConfig()) == false)
+            return false;
         if (other.getHyperParameterTuningJobObjective() == null ^ this.getHyperParameterTuningJobObjective() == null)
             return false;
         if (other.getHyperParameterTuningJobObjective() != null
@@ -561,6 +788,14 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
             return false;
         if (other.getTrainingJobEarlyStoppingType() != null && other.getTrainingJobEarlyStoppingType().equals(this.getTrainingJobEarlyStoppingType()) == false)
             return false;
+        if (other.getTuningJobCompletionCriteria() == null ^ this.getTuningJobCompletionCriteria() == null)
+            return false;
+        if (other.getTuningJobCompletionCriteria() != null && other.getTuningJobCompletionCriteria().equals(this.getTuningJobCompletionCriteria()) == false)
+            return false;
+        if (other.getRandomSeed() == null ^ this.getRandomSeed() == null)
+            return false;
+        if (other.getRandomSeed() != null && other.getRandomSeed().equals(this.getRandomSeed()) == false)
+            return false;
         return true;
     }
 
@@ -570,10 +805,13 @@ public class HyperParameterTuningJobConfig implements Serializable, Cloneable, S
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getStrategy() == null) ? 0 : getStrategy().hashCode());
+        hashCode = prime * hashCode + ((getStrategyConfig() == null) ? 0 : getStrategyConfig().hashCode());
         hashCode = prime * hashCode + ((getHyperParameterTuningJobObjective() == null) ? 0 : getHyperParameterTuningJobObjective().hashCode());
         hashCode = prime * hashCode + ((getResourceLimits() == null) ? 0 : getResourceLimits().hashCode());
         hashCode = prime * hashCode + ((getParameterRanges() == null) ? 0 : getParameterRanges().hashCode());
         hashCode = prime * hashCode + ((getTrainingJobEarlyStoppingType() == null) ? 0 : getTrainingJobEarlyStoppingType().hashCode());
+        hashCode = prime * hashCode + ((getTuningJobCompletionCriteria() == null) ? 0 : getTuningJobCompletionCriteria().hashCode());
+        hashCode = prime * hashCode + ((getRandomSeed() == null) ? 0 : getRandomSeed().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -19,28 +19,39 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.AmazonWebServiceRequest;
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.SdkClientException;
+import com.amazonaws.auth.internal.StsAuthUtils;
 import com.amazonaws.retry.PredefinedBackoffStrategies;
 import com.amazonaws.retry.RetryPolicy;
 import com.amazonaws.retry.RetryUtils;
 import com.amazonaws.services.securitytoken.AWSSecurityTokenService;
-import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClient;
 import com.amazonaws.services.securitytoken.AWSSecurityTokenServiceClientBuilder;
 import com.amazonaws.services.securitytoken.model.AssumeRoleWithWebIdentityRequest;
 import com.amazonaws.services.securitytoken.model.AssumeRoleWithWebIdentityResult;
 import com.amazonaws.services.securitytoken.model.IDPCommunicationErrorException;
 import com.amazonaws.services.securitytoken.model.InvalidIdentityTokenException;
-import org.apache.http.impl.client.DefaultBackoffStrategy;
 
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.Callable;
 
+/**
+ * <p>
+ * <b>Migrating to the AWS SDK for Java v2</b>
+ * <p>
+ * The v2 equivalent of this class is
+ * <a href="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/sts/auth/StsAssumeRoleWithWebIdentityCredentialsProvider.html">StsAssumeRoleWithWebIdentityCredentialsProvider</a>
+ *
+ * <p>
+ * See <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/migration-client-credentials.html">Migration Guide</a>
+ * for more information.
+ */
 public class STSAssumeRoleWithWebIdentitySessionCredentialsProvider implements AWSSessionCredentialsProvider, Closeable {
+
+    private static final String PROVIDER_NAME = "StsAssumeRoleWithWebIdentityCredentialsProvider";
 
     /**
      * The client for starting STS sessions.
@@ -122,7 +133,11 @@ public class STSAssumeRoleWithWebIdentitySessionCredentialsProvider implements A
         ClientConfiguration clientConfiguration = new ClientConfiguration();
         clientConfiguration.setRetryPolicy(retryPolicy);
 
-        return AWSSecurityTokenServiceClientBuilder.standard().withClientConfiguration(clientConfiguration).build();
+        AnonymousAWSCredentials credentials = new AnonymousAWSCredentials(PROVIDER_NAME);
+        return AWSSecurityTokenServiceClientBuilder.standard()
+                                                   .withClientConfiguration(clientConfiguration)
+                                                   .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                                                   .build();
     }
 
     @Override
@@ -147,7 +162,7 @@ public class STSAssumeRoleWithWebIdentitySessionCredentialsProvider implements A
                 .withRoleSessionName(roleSessionName);
 
         AssumeRoleWithWebIdentityResult assumeRoleResult = securityTokenService.assumeRoleWithWebIdentity(assumeRoleRequest);
-        return new SessionCredentialsHolder(assumeRoleResult.getCredentials());
+        return new SessionCredentialsHolder(assumeRoleResult.getCredentials(), PROVIDER_NAME, StsAuthUtils.accountIdFromArn(assumeRoleResult.getAssumedRoleUser()));
     }
 
     private String getWebIdentityToken() {
@@ -227,7 +242,7 @@ public class STSAssumeRoleWithWebIdentitySessionCredentialsProvider implements A
         }
     }
 
-    private static class StsRetryCondition implements com.amazonaws.retry.RetryPolicy.RetryCondition {
+    static class StsRetryCondition implements com.amazonaws.retry.RetryPolicy.RetryCondition {
 
         @Override
         public boolean shouldRetry(AmazonWebServiceRequest originalRequest,
@@ -236,9 +251,11 @@ public class STSAssumeRoleWithWebIdentitySessionCredentialsProvider implements A
             // Always retry on client exceptions caused by IOException
             if (exception.getCause() instanceof IOException) return true;
 
-            if (exception.getCause() instanceof InvalidIdentityTokenException) return true;
+            if (exception instanceof InvalidIdentityTokenException || 
+                    exception.getCause() instanceof InvalidIdentityTokenException) return true;
 
-            if (exception.getCause() instanceof IDPCommunicationErrorException) return true;
+            if (exception instanceof IDPCommunicationErrorException || 
+                    exception.getCause() instanceof IDPCommunicationErrorException) return true;
 
             // Only retry on a subset of service exceptions
             if (exception instanceof AmazonServiceException) {

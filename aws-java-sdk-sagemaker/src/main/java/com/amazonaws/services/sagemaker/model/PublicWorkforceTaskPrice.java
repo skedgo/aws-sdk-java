@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,7 +22,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * Defines the amount of money paid to an Amazon Mechanical Turk worker for each task performed.
  * </p>
  * <p>
- * Use one of the following prices for bounding box tasks. Prices are in US dollars.
+ * Use one of the following prices for bounding box tasks. Prices are in US dollars and should be based on the
+ * complexity of the task; the longer it takes in your initial testing, the more you should offer.
  * </p>
  * <ul>
  * <li>
@@ -207,6 +208,313 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * </p>
  * </li>
  * </ul>
+ * <p>
+ * Use one of the following prices for Textract AnalyzeDocument Important Form Key Amazon Augmented AI review tasks.
+ * Prices are in US dollars.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * 2.400
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 2.280
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 2.160
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 2.040
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 1.920
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 1.800
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 1.680
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 1.560
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 1.440
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 1.320
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 1.200
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 1.080
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.960
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.840
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.720
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.600
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.480
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.360
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.240
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.120
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.072
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.060
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.048
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.036
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.024
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.012
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
+ * Use one of the following prices for Rekognition DetectModerationLabels Amazon Augmented AI review tasks. Prices are
+ * in US dollars.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * 1.200
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 1.080
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.960
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.840
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.720
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.600
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.480
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.360
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.240
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.120
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.072
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.060
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.048
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.036
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.024
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.012
+ * </p>
+ * </li>
+ * </ul>
+ * <p>
+ * Use one of the following prices for Amazon Augmented AI custom human review tasks. Prices are in US dollars.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * 1.200
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 1.080
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.960
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.840
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.720
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.600
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.480
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.360
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.240
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.120
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.072
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.060
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.048
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.036
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.024
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * 0.012
+ * </p>
+ * </li>
+ * </ul>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/PublicWorkforceTaskPrice" target="_top">AWS
  *      API Documentation</a>
@@ -216,18 +524,18 @@ public class PublicWorkforceTaskPrice implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Defines the amount of money paid to a worker in United States dollars.
+     * Defines the amount of money paid to an Amazon Mechanical Turk worker in United States dollars.
      * </p>
      */
     private USD amountInUsd;
 
     /**
      * <p>
-     * Defines the amount of money paid to a worker in United States dollars.
+     * Defines the amount of money paid to an Amazon Mechanical Turk worker in United States dollars.
      * </p>
      * 
      * @param amountInUsd
-     *        Defines the amount of money paid to a worker in United States dollars.
+     *        Defines the amount of money paid to an Amazon Mechanical Turk worker in United States dollars.
      */
 
     public void setAmountInUsd(USD amountInUsd) {
@@ -236,10 +544,10 @@ public class PublicWorkforceTaskPrice implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Defines the amount of money paid to a worker in United States dollars.
+     * Defines the amount of money paid to an Amazon Mechanical Turk worker in United States dollars.
      * </p>
      * 
-     * @return Defines the amount of money paid to a worker in United States dollars.
+     * @return Defines the amount of money paid to an Amazon Mechanical Turk worker in United States dollars.
      */
 
     public USD getAmountInUsd() {
@@ -248,11 +556,11 @@ public class PublicWorkforceTaskPrice implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * Defines the amount of money paid to a worker in United States dollars.
+     * Defines the amount of money paid to an Amazon Mechanical Turk worker in United States dollars.
      * </p>
      * 
      * @param amountInUsd
-     *        Defines the amount of money paid to a worker in United States dollars.
+     *        Defines the amount of money paid to an Amazon Mechanical Turk worker in United States dollars.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,6 +33,8 @@ public class VolumeSpecificationMarshaller {
             .marshallLocationName("Iops").build();
     private static final MarshallingInfo<Integer> SIZEINGB_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SizeInGB").build();
+    private static final MarshallingInfo<Integer> THROUGHPUT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Throughput").build();
 
     private static final VolumeSpecificationMarshaller instance = new VolumeSpecificationMarshaller();
 
@@ -53,6 +55,7 @@ public class VolumeSpecificationMarshaller {
             protocolMarshaller.marshall(volumeSpecification.getVolumeType(), VOLUMETYPE_BINDING);
             protocolMarshaller.marshall(volumeSpecification.getIops(), IOPS_BINDING);
             protocolMarshaller.marshall(volumeSpecification.getSizeInGB(), SIZEINGB_BINDING);
+            protocolMarshaller.marshall(volumeSpecification.getThroughput(), THROUGHPUT_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,6 +30,8 @@ public class M2tsSettingsMarshaller {
 
     private static final MarshallingInfo<String> AUDIOBUFFERMODEL_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("audioBufferModel").build();
+    private static final MarshallingInfo<String> AUDIODURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("audioDuration").build();
     private static final MarshallingInfo<Integer> AUDIOFRAMESPERPES_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("audioFramesPerPes").build();
     private static final MarshallingInfo<List> AUDIOPIDS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
@@ -38,6 +40,8 @@ public class M2tsSettingsMarshaller {
             .marshallLocationName("bitrate").build();
     private static final MarshallingInfo<String> BUFFERMODEL_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("bufferModel").build();
+    private static final MarshallingInfo<String> DATAPTSCONTROL_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dataPTSControl").build();
     private static final MarshallingInfo<StructuredPojo> DVBNITSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("dvbNitSettings").build();
     private static final MarshallingInfo<StructuredPojo> DVBSDTSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -58,6 +62,8 @@ public class M2tsSettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("forceTsVideoEbpOrder").build();
     private static final MarshallingInfo<Double> FRAGMENTTIME_BINDING = MarshallingInfo.builder(MarshallingType.DOUBLE)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("fragmentTime").build();
+    private static final MarshallingInfo<String> KLVMETADATA_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("klvMetadata").build();
     private static final MarshallingInfo<Integer> MAXPCRINTERVAL_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("maxPcrInterval").build();
     private static final MarshallingInfo<Integer> MINEBPINTERVAL_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
@@ -76,10 +82,16 @@ public class M2tsSettingsMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("pmtInterval").build();
     private static final MarshallingInfo<Integer> PMTPID_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("pmtPid").build();
+    private static final MarshallingInfo<String> PREVENTBUFFERUNDERFLOW_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("preventBufferUnderflow").build();
     private static final MarshallingInfo<Integer> PRIVATEMETADATAPID_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("privateMetadataPid").build();
     private static final MarshallingInfo<Integer> PROGRAMNUMBER_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("programNumber").build();
+    private static final MarshallingInfo<Integer> PTSOFFSET_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ptsOffset").build();
+    private static final MarshallingInfo<String> PTSOFFSETMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ptsOffsetMode").build();
     private static final MarshallingInfo<String> RATEMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("rateMode").build();
     private static final MarshallingInfo<StructuredPojo> SCTE35ESAM_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -118,10 +130,12 @@ public class M2tsSettingsMarshaller {
 
         try {
             protocolMarshaller.marshall(m2tsSettings.getAudioBufferModel(), AUDIOBUFFERMODEL_BINDING);
+            protocolMarshaller.marshall(m2tsSettings.getAudioDuration(), AUDIODURATION_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getAudioFramesPerPes(), AUDIOFRAMESPERPES_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getAudioPids(), AUDIOPIDS_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getBitrate(), BITRATE_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getBufferModel(), BUFFERMODEL_BINDING);
+            protocolMarshaller.marshall(m2tsSettings.getDataPTSControl(), DATAPTSCONTROL_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getDvbNitSettings(), DVBNITSETTINGS_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getDvbSdtSettings(), DVBSDTSETTINGS_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getDvbSubPids(), DVBSUBPIDS_BINDING);
@@ -132,6 +146,7 @@ public class M2tsSettingsMarshaller {
             protocolMarshaller.marshall(m2tsSettings.getEsRateInPes(), ESRATEINPES_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getForceTsVideoEbpOrder(), FORCETSVIDEOEBPORDER_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getFragmentTime(), FRAGMENTTIME_BINDING);
+            protocolMarshaller.marshall(m2tsSettings.getKlvMetadata(), KLVMETADATA_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getMaxPcrInterval(), MAXPCRINTERVAL_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getMinEbpInterval(), MINEBPINTERVAL_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getNielsenId3(), NIELSENID3_BINDING);
@@ -141,8 +156,11 @@ public class M2tsSettingsMarshaller {
             protocolMarshaller.marshall(m2tsSettings.getPcrPid(), PCRPID_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getPmtInterval(), PMTINTERVAL_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getPmtPid(), PMTPID_BINDING);
+            protocolMarshaller.marshall(m2tsSettings.getPreventBufferUnderflow(), PREVENTBUFFERUNDERFLOW_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getPrivateMetadataPid(), PRIVATEMETADATAPID_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getProgramNumber(), PROGRAMNUMBER_BINDING);
+            protocolMarshaller.marshall(m2tsSettings.getPtsOffset(), PTSOFFSET_BINDING);
+            protocolMarshaller.marshall(m2tsSettings.getPtsOffsetMode(), PTSOFFSETMODE_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getRateMode(), RATEMODE_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getScte35Esam(), SCTE35ESAM_BINDING);
             protocolMarshaller.marshall(m2tsSettings.getScte35Pid(), SCTE35PID_BINDING);

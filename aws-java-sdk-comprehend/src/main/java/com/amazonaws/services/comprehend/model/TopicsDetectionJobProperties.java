@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,6 +34,23 @@ public class TopicsDetectionJobProperties implements Serializable, Cloneable, St
      * </p>
      */
     private String jobId;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the topics detection job. It is a unique, fully qualified identifier for the
+     * job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The format of the
+     * ARN is as follows:
+     * </p>
+     * <p>
+     * <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:topics-detection-job/&lt;job-id&gt;</code>
+     * </p>
+     * <p>
+     * The following is an example job ARN:
+     * </p>
+     * <p>
+     * <code>arn:aws:comprehend:us-west-2:111122223333:topics-detection-job/1234abcd12ab34cd56ef1234567890ab</code>
+     * </p>
+     */
+    private String jobArn;
     /**
      * <p>
      * The name of the topic detection job.
@@ -85,16 +102,15 @@ public class TopicsDetectionJobProperties implements Serializable, Cloneable, St
     private Integer numberOfTopics;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend read
-     * access to your job data.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your job data.
      * </p>
      */
     private String dataAccessRoleArn;
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -157,6 +173,109 @@ public class TopicsDetectionJobProperties implements Serializable, Cloneable, St
 
     public TopicsDetectionJobProperties withJobId(String jobId) {
         setJobId(jobId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the topics detection job. It is a unique, fully qualified identifier for the
+     * job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The format of the
+     * ARN is as follows:
+     * </p>
+     * <p>
+     * <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:topics-detection-job/&lt;job-id&gt;</code>
+     * </p>
+     * <p>
+     * The following is an example job ARN:
+     * </p>
+     * <p>
+     * <code>arn:aws:comprehend:us-west-2:111122223333:topics-detection-job/1234abcd12ab34cd56ef1234567890ab</code>
+     * </p>
+     * 
+     * @param jobArn
+     *        The Amazon Resource Name (ARN) of the topics detection job. It is a unique, fully qualified identifier for
+     *        the job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The
+     *        format of the ARN is as follows:</p>
+     *        <p>
+     *        <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:topics-detection-job/&lt;job-id&gt;</code>
+     *        </p>
+     *        <p>
+     *        The following is an example job ARN:
+     *        </p>
+     *        <p>
+     *        <code>arn:aws:comprehend:us-west-2:111122223333:topics-detection-job/1234abcd12ab34cd56ef1234567890ab</code>
+     */
+
+    public void setJobArn(String jobArn) {
+        this.jobArn = jobArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the topics detection job. It is a unique, fully qualified identifier for the
+     * job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The format of the
+     * ARN is as follows:
+     * </p>
+     * <p>
+     * <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:topics-detection-job/&lt;job-id&gt;</code>
+     * </p>
+     * <p>
+     * The following is an example job ARN:
+     * </p>
+     * <p>
+     * <code>arn:aws:comprehend:us-west-2:111122223333:topics-detection-job/1234abcd12ab34cd56ef1234567890ab</code>
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the topics detection job. It is a unique, fully qualified identifier
+     *         for the job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The
+     *         format of the ARN is as follows:</p>
+     *         <p>
+     *         <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:topics-detection-job/&lt;job-id&gt;</code>
+     *         </p>
+     *         <p>
+     *         The following is an example job ARN:
+     *         </p>
+     *         <p>
+     *         <code>arn:aws:comprehend:us-west-2:111122223333:topics-detection-job/1234abcd12ab34cd56ef1234567890ab</code>
+     */
+
+    public String getJobArn() {
+        return this.jobArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the topics detection job. It is a unique, fully qualified identifier for the
+     * job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The format of the
+     * ARN is as follows:
+     * </p>
+     * <p>
+     * <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:topics-detection-job/&lt;job-id&gt;</code>
+     * </p>
+     * <p>
+     * The following is an example job ARN:
+     * </p>
+     * <p>
+     * <code>arn:aws:comprehend:us-west-2:111122223333:topics-detection-job/1234abcd12ab34cd56ef1234567890ab</code>
+     * </p>
+     * 
+     * @param jobArn
+     *        The Amazon Resource Name (ARN) of the topics detection job. It is a unique, fully qualified identifier for
+     *        the job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The
+     *        format of the ARN is as follows:</p>
+     *        <p>
+     *        <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:topics-detection-job/&lt;job-id&gt;</code>
+     *        </p>
+     *        <p>
+     *        The following is an example job ARN:
+     *        </p>
+     *        <p>
+     *        <code>arn:aws:comprehend:us-west-2:111122223333:topics-detection-job/1234abcd12ab34cd56ef1234567890ab</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TopicsDetectionJobProperties withJobArn(String jobArn) {
+        setJobArn(jobArn);
         return this;
     }
 
@@ -509,13 +628,11 @@ public class TopicsDetectionJobProperties implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend read
-     * access to your job data.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your job data.
      * </p>
      * 
      * @param dataAccessRoleArn
-     *        The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend
-     *        read access to your job data.
+     *        The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your job data.
      */
 
     public void setDataAccessRoleArn(String dataAccessRoleArn) {
@@ -524,12 +641,11 @@ public class TopicsDetectionJobProperties implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend read
-     * access to your job data.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your job data.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon
-     *         Comprehend read access to your job data.
+     * @return The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your job
+     *         data.
      */
 
     public String getDataAccessRoleArn() {
@@ -538,13 +654,11 @@ public class TopicsDetectionJobProperties implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend read
-     * access to your job data.
+     * The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your job data.
      * </p>
      * 
      * @param dataAccessRoleArn
-     *        The Amazon Resource Name (ARN) of the AWS Identity and Management (IAM) role that grants Amazon Comprehend
-     *        read access to your job data.
+     *        The Amazon Resource Name (ARN) of the IAM role that grants Amazon Comprehend read access to your job data.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -555,9 +669,9 @@ public class TopicsDetectionJobProperties implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -574,9 +688,9 @@ public class TopicsDetectionJobProperties implements Serializable, Cloneable, St
      * </ul>
      * 
      * @param volumeKmsKeyId
-     *        ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage
-     *        volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be
-     *        either of the following formats:</p>
+     *        ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt
+     *        data on the storage volume attached to the ML compute instance(s) that process the analysis job. The
+     *        VolumeKmsKeyId can be either of the following formats:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -597,9 +711,9 @@ public class TopicsDetectionJobProperties implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -615,9 +729,9 @@ public class TopicsDetectionJobProperties implements Serializable, Cloneable, St
      * </li>
      * </ul>
      * 
-     * @return ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the
-     *         storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId
-     *         can be either of the following formats:</p>
+     * @return ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt
+     *         data on the storage volume attached to the ML compute instance(s) that process the analysis job. The
+     *         VolumeKmsKeyId can be either of the following formats:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -638,9 +752,9 @@ public class TopicsDetectionJobProperties implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume
-     * attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the
-     * following formats:
+     * ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on
+     * the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can
+     * be either of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -657,9 +771,9 @@ public class TopicsDetectionJobProperties implements Serializable, Cloneable, St
      * </ul>
      * 
      * @param volumeKmsKeyId
-     *        ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage
-     *        volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be
-     *        either of the following formats:</p>
+     *        ID for the Amazon Web Services Key Management Service (KMS) key that Amazon Comprehend uses to encrypt
+     *        data on the storage volume attached to the ML compute instance(s) that process the analysis job. The
+     *        VolumeKmsKeyId can be either of the following formats:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -746,6 +860,8 @@ public class TopicsDetectionJobProperties implements Serializable, Cloneable, St
         sb.append("{");
         if (getJobId() != null)
             sb.append("JobId: ").append(getJobId()).append(",");
+        if (getJobArn() != null)
+            sb.append("JobArn: ").append(getJobArn()).append(",");
         if (getJobName() != null)
             sb.append("JobName: ").append(getJobName()).append(",");
         if (getJobStatus() != null)
@@ -785,6 +901,10 @@ public class TopicsDetectionJobProperties implements Serializable, Cloneable, St
         if (other.getJobId() == null ^ this.getJobId() == null)
             return false;
         if (other.getJobId() != null && other.getJobId().equals(this.getJobId()) == false)
+            return false;
+        if (other.getJobArn() == null ^ this.getJobArn() == null)
+            return false;
+        if (other.getJobArn() != null && other.getJobArn().equals(this.getJobArn()) == false)
             return false;
         if (other.getJobName() == null ^ this.getJobName() == null)
             return false;
@@ -839,6 +959,7 @@ public class TopicsDetectionJobProperties implements Serializable, Cloneable, St
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getJobId() == null) ? 0 : getJobId().hashCode());
+        hashCode = prime * hashCode + ((getJobArn() == null) ? 0 : getJobArn().hashCode());
         hashCode = prime * hashCode + ((getJobName() == null) ? 0 : getJobName().hashCode());
         hashCode = prime * hashCode + ((getJobStatus() == null) ? 0 : getJobStatus().hashCode());
         hashCode = prime * hashCode + ((getMessage() == null) ? 0 : getMessage().hashCode());

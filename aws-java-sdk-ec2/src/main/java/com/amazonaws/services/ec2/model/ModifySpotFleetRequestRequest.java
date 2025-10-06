@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,11 +30,22 @@ public class ModifySpotFleetRequestRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * Indicates whether running Spot Instances should be terminated if the target capacity of the Spot Fleet request is
+     * Indicates whether running instances should be terminated if the target capacity of the Spot Fleet request is
      * decreased below the current size of the Spot Fleet.
+     * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
      * </p>
      */
     private String excessCapacityTerminationPolicy;
+    /**
+     * <p>
+     * The launch template and overrides. You can only use this parameter if you specified a launch template (
+     * <code>LaunchTemplateConfigs</code>) in your Spot Fleet request. If you specified
+     * <code>LaunchSpecifications</code> in your Spot Fleet request, then omit this parameter.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<LaunchTemplateConfig> launchTemplateConfigs;
     /**
      * <p>
      * The ID of the Spot Fleet request.
@@ -53,16 +64,27 @@ public class ModifySpotFleetRequestRequest extends AmazonWebServiceRequest imple
      * </p>
      */
     private Integer onDemandTargetCapacity;
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     */
+    private String context;
 
     /**
      * <p>
-     * Indicates whether running Spot Instances should be terminated if the target capacity of the Spot Fleet request is
+     * Indicates whether running instances should be terminated if the target capacity of the Spot Fleet request is
      * decreased below the current size of the Spot Fleet.
+     * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
      * </p>
      * 
      * @param excessCapacityTerminationPolicy
-     *        Indicates whether running Spot Instances should be terminated if the target capacity of the Spot Fleet
-     *        request is decreased below the current size of the Spot Fleet.
+     *        Indicates whether running instances should be terminated if the target capacity of the Spot Fleet request
+     *        is decreased below the current size of the Spot Fleet.</p>
+     *        <p>
+     *        Supported only for fleets of type <code>maintain</code>.
      * @see ExcessCapacityTerminationPolicy
      */
 
@@ -72,12 +94,17 @@ public class ModifySpotFleetRequestRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * Indicates whether running Spot Instances should be terminated if the target capacity of the Spot Fleet request is
+     * Indicates whether running instances should be terminated if the target capacity of the Spot Fleet request is
      * decreased below the current size of the Spot Fleet.
      * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
+     * </p>
      * 
-     * @return Indicates whether running Spot Instances should be terminated if the target capacity of the Spot Fleet
-     *         request is decreased below the current size of the Spot Fleet.
+     * @return Indicates whether running instances should be terminated if the target capacity of the Spot Fleet request
+     *         is decreased below the current size of the Spot Fleet.</p>
+     *         <p>
+     *         Supported only for fleets of type <code>maintain</code>.
      * @see ExcessCapacityTerminationPolicy
      */
 
@@ -87,13 +114,18 @@ public class ModifySpotFleetRequestRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * Indicates whether running Spot Instances should be terminated if the target capacity of the Spot Fleet request is
+     * Indicates whether running instances should be terminated if the target capacity of the Spot Fleet request is
      * decreased below the current size of the Spot Fleet.
+     * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
      * </p>
      * 
      * @param excessCapacityTerminationPolicy
-     *        Indicates whether running Spot Instances should be terminated if the target capacity of the Spot Fleet
-     *        request is decreased below the current size of the Spot Fleet.
+     *        Indicates whether running instances should be terminated if the target capacity of the Spot Fleet request
+     *        is decreased below the current size of the Spot Fleet.</p>
+     *        <p>
+     *        Supported only for fleets of type <code>maintain</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ExcessCapacityTerminationPolicy
      */
@@ -105,13 +137,18 @@ public class ModifySpotFleetRequestRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * Indicates whether running Spot Instances should be terminated if the target capacity of the Spot Fleet request is
+     * Indicates whether running instances should be terminated if the target capacity of the Spot Fleet request is
      * decreased below the current size of the Spot Fleet.
+     * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
      * </p>
      * 
      * @param excessCapacityTerminationPolicy
-     *        Indicates whether running Spot Instances should be terminated if the target capacity of the Spot Fleet
-     *        request is decreased below the current size of the Spot Fleet.
+     *        Indicates whether running instances should be terminated if the target capacity of the Spot Fleet request
+     *        is decreased below the current size of the Spot Fleet.</p>
+     *        <p>
+     *        Supported only for fleets of type <code>maintain</code>.
      * @see ExcessCapacityTerminationPolicy
      */
 
@@ -121,19 +158,113 @@ public class ModifySpotFleetRequestRequest extends AmazonWebServiceRequest imple
 
     /**
      * <p>
-     * Indicates whether running Spot Instances should be terminated if the target capacity of the Spot Fleet request is
+     * Indicates whether running instances should be terminated if the target capacity of the Spot Fleet request is
      * decreased below the current size of the Spot Fleet.
+     * </p>
+     * <p>
+     * Supported only for fleets of type <code>maintain</code>.
      * </p>
      * 
      * @param excessCapacityTerminationPolicy
-     *        Indicates whether running Spot Instances should be terminated if the target capacity of the Spot Fleet
-     *        request is decreased below the current size of the Spot Fleet.
+     *        Indicates whether running instances should be terminated if the target capacity of the Spot Fleet request
+     *        is decreased below the current size of the Spot Fleet.</p>
+     *        <p>
+     *        Supported only for fleets of type <code>maintain</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ExcessCapacityTerminationPolicy
      */
 
     public ModifySpotFleetRequestRequest withExcessCapacityTerminationPolicy(ExcessCapacityTerminationPolicy excessCapacityTerminationPolicy) {
         this.excessCapacityTerminationPolicy = excessCapacityTerminationPolicy.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The launch template and overrides. You can only use this parameter if you specified a launch template (
+     * <code>LaunchTemplateConfigs</code>) in your Spot Fleet request. If you specified
+     * <code>LaunchSpecifications</code> in your Spot Fleet request, then omit this parameter.
+     * </p>
+     * 
+     * @return The launch template and overrides. You can only use this parameter if you specified a launch template (
+     *         <code>LaunchTemplateConfigs</code>) in your Spot Fleet request. If you specified
+     *         <code>LaunchSpecifications</code> in your Spot Fleet request, then omit this parameter.
+     */
+
+    public java.util.List<LaunchTemplateConfig> getLaunchTemplateConfigs() {
+        if (launchTemplateConfigs == null) {
+            launchTemplateConfigs = new com.amazonaws.internal.SdkInternalList<LaunchTemplateConfig>();
+        }
+        return launchTemplateConfigs;
+    }
+
+    /**
+     * <p>
+     * The launch template and overrides. You can only use this parameter if you specified a launch template (
+     * <code>LaunchTemplateConfigs</code>) in your Spot Fleet request. If you specified
+     * <code>LaunchSpecifications</code> in your Spot Fleet request, then omit this parameter.
+     * </p>
+     * 
+     * @param launchTemplateConfigs
+     *        The launch template and overrides. You can only use this parameter if you specified a launch template (
+     *        <code>LaunchTemplateConfigs</code>) in your Spot Fleet request. If you specified
+     *        <code>LaunchSpecifications</code> in your Spot Fleet request, then omit this parameter.
+     */
+
+    public void setLaunchTemplateConfigs(java.util.Collection<LaunchTemplateConfig> launchTemplateConfigs) {
+        if (launchTemplateConfigs == null) {
+            this.launchTemplateConfigs = null;
+            return;
+        }
+
+        this.launchTemplateConfigs = new com.amazonaws.internal.SdkInternalList<LaunchTemplateConfig>(launchTemplateConfigs);
+    }
+
+    /**
+     * <p>
+     * The launch template and overrides. You can only use this parameter if you specified a launch template (
+     * <code>LaunchTemplateConfigs</code>) in your Spot Fleet request. If you specified
+     * <code>LaunchSpecifications</code> in your Spot Fleet request, then omit this parameter.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setLaunchTemplateConfigs(java.util.Collection)} or
+     * {@link #withLaunchTemplateConfigs(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param launchTemplateConfigs
+     *        The launch template and overrides. You can only use this parameter if you specified a launch template (
+     *        <code>LaunchTemplateConfigs</code>) in your Spot Fleet request. If you specified
+     *        <code>LaunchSpecifications</code> in your Spot Fleet request, then omit this parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifySpotFleetRequestRequest withLaunchTemplateConfigs(LaunchTemplateConfig... launchTemplateConfigs) {
+        if (this.launchTemplateConfigs == null) {
+            setLaunchTemplateConfigs(new com.amazonaws.internal.SdkInternalList<LaunchTemplateConfig>(launchTemplateConfigs.length));
+        }
+        for (LaunchTemplateConfig ele : launchTemplateConfigs) {
+            this.launchTemplateConfigs.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The launch template and overrides. You can only use this parameter if you specified a launch template (
+     * <code>LaunchTemplateConfigs</code>) in your Spot Fleet request. If you specified
+     * <code>LaunchSpecifications</code> in your Spot Fleet request, then omit this parameter.
+     * </p>
+     * 
+     * @param launchTemplateConfigs
+     *        The launch template and overrides. You can only use this parameter if you specified a launch template (
+     *        <code>LaunchTemplateConfigs</code>) in your Spot Fleet request. If you specified
+     *        <code>LaunchSpecifications</code> in your Spot Fleet request, then omit this parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifySpotFleetRequestRequest withLaunchTemplateConfigs(java.util.Collection<LaunchTemplateConfig> launchTemplateConfigs) {
+        setLaunchTemplateConfigs(launchTemplateConfigs);
         return this;
     }
 
@@ -258,6 +389,46 @@ public class ModifySpotFleetRequestRequest extends AmazonWebServiceRequest imple
     }
 
     /**
+     * <p>
+     * Reserved.
+     * </p>
+     * 
+     * @param context
+     *        Reserved.
+     */
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     * 
+     * @return Reserved.
+     */
+
+    public String getContext() {
+        return this.context;
+    }
+
+    /**
+     * <p>
+     * Reserved.
+     * </p>
+     * 
+     * @param context
+     *        Reserved.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ModifySpotFleetRequestRequest withContext(String context) {
+        setContext(context);
+        return this;
+    }
+
+    /**
      * This method is intended for internal use only. Returns the marshaled request configured with additional
      * parameters to enable operation dry-run.
      */
@@ -282,12 +453,16 @@ public class ModifySpotFleetRequestRequest extends AmazonWebServiceRequest imple
         sb.append("{");
         if (getExcessCapacityTerminationPolicy() != null)
             sb.append("ExcessCapacityTerminationPolicy: ").append(getExcessCapacityTerminationPolicy()).append(",");
+        if (getLaunchTemplateConfigs() != null)
+            sb.append("LaunchTemplateConfigs: ").append(getLaunchTemplateConfigs()).append(",");
         if (getSpotFleetRequestId() != null)
             sb.append("SpotFleetRequestId: ").append(getSpotFleetRequestId()).append(",");
         if (getTargetCapacity() != null)
             sb.append("TargetCapacity: ").append(getTargetCapacity()).append(",");
         if (getOnDemandTargetCapacity() != null)
-            sb.append("OnDemandTargetCapacity: ").append(getOnDemandTargetCapacity());
+            sb.append("OnDemandTargetCapacity: ").append(getOnDemandTargetCapacity()).append(",");
+        if (getContext() != null)
+            sb.append("Context: ").append(getContext());
         sb.append("}");
         return sb.toString();
     }
@@ -307,6 +482,10 @@ public class ModifySpotFleetRequestRequest extends AmazonWebServiceRequest imple
         if (other.getExcessCapacityTerminationPolicy() != null
                 && other.getExcessCapacityTerminationPolicy().equals(this.getExcessCapacityTerminationPolicy()) == false)
             return false;
+        if (other.getLaunchTemplateConfigs() == null ^ this.getLaunchTemplateConfigs() == null)
+            return false;
+        if (other.getLaunchTemplateConfigs() != null && other.getLaunchTemplateConfigs().equals(this.getLaunchTemplateConfigs()) == false)
+            return false;
         if (other.getSpotFleetRequestId() == null ^ this.getSpotFleetRequestId() == null)
             return false;
         if (other.getSpotFleetRequestId() != null && other.getSpotFleetRequestId().equals(this.getSpotFleetRequestId()) == false)
@@ -319,6 +498,10 @@ public class ModifySpotFleetRequestRequest extends AmazonWebServiceRequest imple
             return false;
         if (other.getOnDemandTargetCapacity() != null && other.getOnDemandTargetCapacity().equals(this.getOnDemandTargetCapacity()) == false)
             return false;
+        if (other.getContext() == null ^ this.getContext() == null)
+            return false;
+        if (other.getContext() != null && other.getContext().equals(this.getContext()) == false)
+            return false;
         return true;
     }
 
@@ -328,9 +511,11 @@ public class ModifySpotFleetRequestRequest extends AmazonWebServiceRequest imple
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getExcessCapacityTerminationPolicy() == null) ? 0 : getExcessCapacityTerminationPolicy().hashCode());
+        hashCode = prime * hashCode + ((getLaunchTemplateConfigs() == null) ? 0 : getLaunchTemplateConfigs().hashCode());
         hashCode = prime * hashCode + ((getSpotFleetRequestId() == null) ? 0 : getSpotFleetRequestId().hashCode());
         hashCode = prime * hashCode + ((getTargetCapacity() == null) ? 0 : getTargetCapacity().hashCode());
         hashCode = prime * hashCode + ((getOnDemandTargetCapacity() == null) ? 0 : getOnDemandTargetCapacity().hashCode());
+        hashCode = prime * hashCode + ((getContext() == null) ? 0 : getContext().hashCode());
         return hashCode;
     }
 

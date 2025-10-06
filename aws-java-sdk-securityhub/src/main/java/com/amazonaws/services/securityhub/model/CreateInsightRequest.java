@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,14 +33,16 @@ public class CreateInsightRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String name;
     /**
      * <p>
-     * One or more attributes used to filter the findings included in the insight. Only findings that match the criteria
-     * defined in the filters are included in the insight.
+     * One or more attributes used to filter the findings included in the insight. The insight only includes findings
+     * that match the criteria defined in the filters.
      * </p>
      */
     private AwsSecurityFindingFilters filters;
     /**
      * <p>
-     * The attribute used as the aggregator to group related findings for the insight.
+     * The attribute used to group the findings for the insight. The grouping attribute identifies the type of item that
+     * the insight applies to. For example, if an insight is grouped by resource identifier, then the insight produces a
+     * list of resource identifiers.
      * </p>
      */
     private String groupByAttribute;
@@ -87,13 +89,13 @@ public class CreateInsightRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * One or more attributes used to filter the findings included in the insight. Only findings that match the criteria
-     * defined in the filters are included in the insight.
+     * One or more attributes used to filter the findings included in the insight. The insight only includes findings
+     * that match the criteria defined in the filters.
      * </p>
      * 
      * @param filters
-     *        One or more attributes used to filter the findings included in the insight. Only findings that match the
-     *        criteria defined in the filters are included in the insight.
+     *        One or more attributes used to filter the findings included in the insight. The insight only includes
+     *        findings that match the criteria defined in the filters.
      */
 
     public void setFilters(AwsSecurityFindingFilters filters) {
@@ -102,12 +104,12 @@ public class CreateInsightRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * One or more attributes used to filter the findings included in the insight. Only findings that match the criteria
-     * defined in the filters are included in the insight.
+     * One or more attributes used to filter the findings included in the insight. The insight only includes findings
+     * that match the criteria defined in the filters.
      * </p>
      * 
-     * @return One or more attributes used to filter the findings included in the insight. Only findings that match the
-     *         criteria defined in the filters are included in the insight.
+     * @return One or more attributes used to filter the findings included in the insight. The insight only includes
+     *         findings that match the criteria defined in the filters.
      */
 
     public AwsSecurityFindingFilters getFilters() {
@@ -116,13 +118,13 @@ public class CreateInsightRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * One or more attributes used to filter the findings included in the insight. Only findings that match the criteria
-     * defined in the filters are included in the insight.
+     * One or more attributes used to filter the findings included in the insight. The insight only includes findings
+     * that match the criteria defined in the filters.
      * </p>
      * 
      * @param filters
-     *        One or more attributes used to filter the findings included in the insight. Only findings that match the
-     *        criteria defined in the filters are included in the insight.
+     *        One or more attributes used to filter the findings included in the insight. The insight only includes
+     *        findings that match the criteria defined in the filters.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -133,11 +135,15 @@ public class CreateInsightRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The attribute used as the aggregator to group related findings for the insight.
+     * The attribute used to group the findings for the insight. The grouping attribute identifies the type of item that
+     * the insight applies to. For example, if an insight is grouped by resource identifier, then the insight produces a
+     * list of resource identifiers.
      * </p>
      * 
      * @param groupByAttribute
-     *        The attribute used as the aggregator to group related findings for the insight.
+     *        The attribute used to group the findings for the insight. The grouping attribute identifies the type of
+     *        item that the insight applies to. For example, if an insight is grouped by resource identifier, then the
+     *        insight produces a list of resource identifiers.
      */
 
     public void setGroupByAttribute(String groupByAttribute) {
@@ -146,10 +152,14 @@ public class CreateInsightRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The attribute used as the aggregator to group related findings for the insight.
+     * The attribute used to group the findings for the insight. The grouping attribute identifies the type of item that
+     * the insight applies to. For example, if an insight is grouped by resource identifier, then the insight produces a
+     * list of resource identifiers.
      * </p>
      * 
-     * @return The attribute used as the aggregator to group related findings for the insight.
+     * @return The attribute used to group the findings for the insight. The grouping attribute identifies the type of
+     *         item that the insight applies to. For example, if an insight is grouped by resource identifier, then the
+     *         insight produces a list of resource identifiers.
      */
 
     public String getGroupByAttribute() {
@@ -158,11 +168,15 @@ public class CreateInsightRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The attribute used as the aggregator to group related findings for the insight.
+     * The attribute used to group the findings for the insight. The grouping attribute identifies the type of item that
+     * the insight applies to. For example, if an insight is grouped by resource identifier, then the insight produces a
+     * list of resource identifiers.
      * </p>
      * 
      * @param groupByAttribute
-     *        The attribute used as the aggregator to group related findings for the insight.
+     *        The attribute used to group the findings for the insight. The grouping attribute identifies the type of
+     *        item that the insight applies to. For example, if an insight is grouped by resource identifier, then the
+     *        insight produces a list of resource identifiers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

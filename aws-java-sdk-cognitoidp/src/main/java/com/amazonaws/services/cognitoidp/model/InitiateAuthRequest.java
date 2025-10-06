@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,23 +30,23 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The authentication flow for this call to execute. The API action will depend on this value. For example:
+     * The authentication flow for this call to run. The API action will depend on this value. For example:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>REFRESH_TOKEN_AUTH</code> will take in a valid refresh token and return new tokens.
+     * <code>REFRESH_TOKEN_AUTH</code> takes in a valid refresh token and returns new tokens.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>USER_SRP_AUTH</code> will take in <code>USERNAME</code> and <code>SRP_A</code> and return the SRP variables
-     * to be used for next challenge execution.
+     * <code>USER_SRP_AUTH</code> takes in <code>USERNAME</code> and <code>SRP_A</code> and returns the SRP variables to
+     * be used for next challenge execution.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>USER_PASSWORD_AUTH</code> will take in <code>USERNAME</code> and <code>PASSWORD</code> and return the next
+     * <code>USER_PASSWORD_AUTH</code> takes in <code>USERNAME</code> and <code>PASSWORD</code> and returns the next
      * challenge or tokens.
      * </p>
      * </li>
@@ -73,20 +73,20 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; USERNAME and PASSWORD are passed directly. If a
-     * user migration Lambda trigger is set, this flow will invoke the user migration Lambda if the USERNAME is not
-     * found in the user pool.
+     * <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; user name and password are passed directly. If a
+     * user migration Lambda trigger is set, this flow will invoke the user migration Lambda if it doesn't find the user
+     * name in the user pool.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     * <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * </p>
      */
     private String authFlow;
     /**
      * <p>
-     * The authentication parameters. These are inputs corresponding to the <code>AuthFlow</code> that you are invoking.
+     * The authentication parameters. These are inputs corresponding to the <code>AuthFlow</code> that you're invoking.
      * The required values depend on the value of <code>AuthFlow</code>:
      * </p>
      * <ul>
@@ -94,28 +94,133 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * For <code>USER_SRP_AUTH</code>: <code>USERNAME</code> (required), <code>SRP_A</code> (required),
      * <code>SECRET_HASH</code> (required if the app client is configured with a client secret), <code>DEVICE_KEY</code>
+     * .
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>USER_PASSWORD_AUTH</code>: <code>USERNAME</code> (required), <code>PASSWORD</code> (required),
+     * <code>SECRET_HASH</code> (required if the app client is configured with a client secret), <code>DEVICE_KEY</code>
+     * .
      * </p>
      * </li>
      * <li>
      * <p>
      * For <code>REFRESH_TOKEN_AUTH/REFRESH_TOKEN</code>: <code>REFRESH_TOKEN</code> (required),
      * <code>SECRET_HASH</code> (required if the app client is configured with a client secret), <code>DEVICE_KEY</code>
+     * .
      * </p>
      * </li>
      * <li>
      * <p>
      * For <code>CUSTOM_AUTH</code>: <code>USERNAME</code> (required), <code>SECRET_HASH</code> (if app client is
-     * configured with client secret), <code>DEVICE_KEY</code>
+     * configured with client secret), <code>DEVICE_KEY</code>. To start the authentication flow with password
+     * verification, include <code>ChallengeName: SRP_A</code> and <code>SRP_A: (The SRP_A Value)</code>.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * For more information about <code>SECRET_HASH</code>, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     * >Computing secret hash values</a>. For information about <code>DEVICE_KEY</code>, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html"
+     * >Working with user devices in your user pool</a>.
+     * </p>
      */
     private java.util.Map<String, String> authParameters;
     /**
      * <p>
-     * This is a random key-value pair map which can contain any key and will be passed to your PreAuthentication Lambda
-     * trigger as-is. It can be used to implement additional validations around authentication.
+     * A map of custom key-value pairs that you can provide as input for certain custom workflows that this action
+     * triggers.
      * </p>
+     * <p>
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the InitiateAuth
+     * API action, Amazon Cognito invokes the Lambda functions that are specified for various triggers. The
+     * ClientMetadata value is passed as input to the functions for only the following triggers:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Pre signup
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pre authentication
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * User migration
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When Amazon Cognito invokes the functions for these triggers, it passes a JSON payload, which the function
+     * receives as input. This payload contains a <code>validationData</code> attribute, which provides the data that
+     * you assigned to the ClientMetadata parameter in your InitiateAuth request. In your function code in Lambda, you
+     * can process the <code>validationData</code> value to enhance your workflow for your specific needs.
+     * </p>
+     * <p>
+     * When you use the InitiateAuth API action, Amazon Cognito also invokes the functions for the following triggers,
+     * but it doesn't provide the ClientMetadata value as input:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Post authentication
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Custom message
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pre token generation
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Create auth challenge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Define auth challenge
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     * > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * parameter serves no purpose.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Validate the ClientMetadata value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
      */
     private java.util.Map<String, String> clientMetadata;
     /**
@@ -126,37 +231,38 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
     private String clientId;
     /**
      * <p>
-     * The Amazon Pinpoint analytics metadata for collecting metrics for <code>InitiateAuth</code> calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>InitiateAuth</code> calls.
      * </p>
      */
     private AnalyticsMetadataType analyticsMetadata;
     /**
      * <p>
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
-     * unexpected event by Amazon Cognito advanced security.
+     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
+     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
+     * passes to Amazon Cognito when it makes API requests.
      * </p>
      */
     private UserContextDataType userContextData;
 
     /**
      * <p>
-     * The authentication flow for this call to execute. The API action will depend on this value. For example:
+     * The authentication flow for this call to run. The API action will depend on this value. For example:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>REFRESH_TOKEN_AUTH</code> will take in a valid refresh token and return new tokens.
+     * <code>REFRESH_TOKEN_AUTH</code> takes in a valid refresh token and returns new tokens.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>USER_SRP_AUTH</code> will take in <code>USERNAME</code> and <code>SRP_A</code> and return the SRP variables
-     * to be used for next challenge execution.
+     * <code>USER_SRP_AUTH</code> takes in <code>USERNAME</code> and <code>SRP_A</code> and returns the SRP variables to
+     * be used for next challenge execution.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>USER_PASSWORD_AUTH</code> will take in <code>USERNAME</code> and <code>PASSWORD</code> and return the next
+     * <code>USER_PASSWORD_AUTH</code> takes in <code>USERNAME</code> and <code>PASSWORD</code> and returns the next
      * challenge or tokens.
      * </p>
      * </li>
@@ -183,35 +289,34 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; USERNAME and PASSWORD are passed directly. If a
-     * user migration Lambda trigger is set, this flow will invoke the user migration Lambda if the USERNAME is not
-     * found in the user pool.
+     * <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; user name and password are passed directly. If a
+     * user migration Lambda trigger is set, this flow will invoke the user migration Lambda if it doesn't find the user
+     * name in the user pool.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     * <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * </p>
      * 
      * @param authFlow
-     *        The authentication flow for this call to execute. The API action will depend on this value. For example:
-     *        </p>
+     *        The authentication flow for this call to run. The API action will depend on this value. For example:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>REFRESH_TOKEN_AUTH</code> will take in a valid refresh token and return new tokens.
+     *        <code>REFRESH_TOKEN_AUTH</code> takes in a valid refresh token and returns new tokens.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>USER_SRP_AUTH</code> will take in <code>USERNAME</code> and <code>SRP_A</code> and return the SRP
+     *        <code>USER_SRP_AUTH</code> takes in <code>USERNAME</code> and <code>SRP_A</code> and returns the SRP
      *        variables to be used for next challenge execution.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>USER_PASSWORD_AUTH</code> will take in <code>USERNAME</code> and <code>PASSWORD</code> and return
-     *        the next challenge or tokens.
+     *        <code>USER_PASSWORD_AUTH</code> takes in <code>USERNAME</code> and <code>PASSWORD</code> and returns the
+     *        next challenge or tokens.
      *        </p>
      *        </li>
      *        </ul>
@@ -237,14 +342,14 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        </li>
      *        <li>
      *        <p>
-     *        <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; USERNAME and PASSWORD are passed directly.
-     *        If a user migration Lambda trigger is set, this flow will invoke the user migration Lambda if the USERNAME
-     *        is not found in the user pool.
+     *        <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; user name and password are passed directly.
+     *        If a user migration Lambda trigger is set, this flow will invoke the user migration Lambda if it doesn't
+     *        find the user name in the user pool.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
-     *        <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     *        <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * @see AuthFlowType
      */
 
@@ -254,23 +359,23 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The authentication flow for this call to execute. The API action will depend on this value. For example:
+     * The authentication flow for this call to run. The API action will depend on this value. For example:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>REFRESH_TOKEN_AUTH</code> will take in a valid refresh token and return new tokens.
+     * <code>REFRESH_TOKEN_AUTH</code> takes in a valid refresh token and returns new tokens.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>USER_SRP_AUTH</code> will take in <code>USERNAME</code> and <code>SRP_A</code> and return the SRP variables
-     * to be used for next challenge execution.
+     * <code>USER_SRP_AUTH</code> takes in <code>USERNAME</code> and <code>SRP_A</code> and returns the SRP variables to
+     * be used for next challenge execution.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>USER_PASSWORD_AUTH</code> will take in <code>USERNAME</code> and <code>PASSWORD</code> and return the next
+     * <code>USER_PASSWORD_AUTH</code> takes in <code>USERNAME</code> and <code>PASSWORD</code> and returns the next
      * challenge or tokens.
      * </p>
      * </li>
@@ -297,34 +402,33 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; USERNAME and PASSWORD are passed directly. If a
-     * user migration Lambda trigger is set, this flow will invoke the user migration Lambda if the USERNAME is not
-     * found in the user pool.
+     * <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; user name and password are passed directly. If a
+     * user migration Lambda trigger is set, this flow will invoke the user migration Lambda if it doesn't find the user
+     * name in the user pool.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     * <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * </p>
      * 
-     * @return The authentication flow for this call to execute. The API action will depend on this value. For example:
-     *         </p>
+     * @return The authentication flow for this call to run. The API action will depend on this value. For example:</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>REFRESH_TOKEN_AUTH</code> will take in a valid refresh token and return new tokens.
+     *         <code>REFRESH_TOKEN_AUTH</code> takes in a valid refresh token and returns new tokens.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>USER_SRP_AUTH</code> will take in <code>USERNAME</code> and <code>SRP_A</code> and return the SRP
+     *         <code>USER_SRP_AUTH</code> takes in <code>USERNAME</code> and <code>SRP_A</code> and returns the SRP
      *         variables to be used for next challenge execution.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>USER_PASSWORD_AUTH</code> will take in <code>USERNAME</code> and <code>PASSWORD</code> and return
-     *         the next challenge or tokens.
+     *         <code>USER_PASSWORD_AUTH</code> takes in <code>USERNAME</code> and <code>PASSWORD</code> and returns the
+     *         next challenge or tokens.
      *         </p>
      *         </li>
      *         </ul>
@@ -350,14 +454,14 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
      *         </li>
      *         <li>
      *         <p>
-     *         <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; USERNAME and PASSWORD are passed directly.
-     *         If a user migration Lambda trigger is set, this flow will invoke the user migration Lambda if the
-     *         USERNAME is not found in the user pool.
+     *         <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; user name and password are passed directly.
+     *         If a user migration Lambda trigger is set, this flow will invoke the user migration Lambda if it doesn't
+     *         find the user name in the user pool.
      *         </p>
      *         </li>
      *         </ul>
      *         <p>
-     *         <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     *         <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * @see AuthFlowType
      */
 
@@ -367,23 +471,23 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The authentication flow for this call to execute. The API action will depend on this value. For example:
+     * The authentication flow for this call to run. The API action will depend on this value. For example:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>REFRESH_TOKEN_AUTH</code> will take in a valid refresh token and return new tokens.
+     * <code>REFRESH_TOKEN_AUTH</code> takes in a valid refresh token and returns new tokens.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>USER_SRP_AUTH</code> will take in <code>USERNAME</code> and <code>SRP_A</code> and return the SRP variables
-     * to be used for next challenge execution.
+     * <code>USER_SRP_AUTH</code> takes in <code>USERNAME</code> and <code>SRP_A</code> and returns the SRP variables to
+     * be used for next challenge execution.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>USER_PASSWORD_AUTH</code> will take in <code>USERNAME</code> and <code>PASSWORD</code> and return the next
+     * <code>USER_PASSWORD_AUTH</code> takes in <code>USERNAME</code> and <code>PASSWORD</code> and returns the next
      * challenge or tokens.
      * </p>
      * </li>
@@ -410,35 +514,34 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; USERNAME and PASSWORD are passed directly. If a
-     * user migration Lambda trigger is set, this flow will invoke the user migration Lambda if the USERNAME is not
-     * found in the user pool.
+     * <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; user name and password are passed directly. If a
+     * user migration Lambda trigger is set, this flow will invoke the user migration Lambda if it doesn't find the user
+     * name in the user pool.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     * <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * </p>
      * 
      * @param authFlow
-     *        The authentication flow for this call to execute. The API action will depend on this value. For example:
-     *        </p>
+     *        The authentication flow for this call to run. The API action will depend on this value. For example:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>REFRESH_TOKEN_AUTH</code> will take in a valid refresh token and return new tokens.
+     *        <code>REFRESH_TOKEN_AUTH</code> takes in a valid refresh token and returns new tokens.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>USER_SRP_AUTH</code> will take in <code>USERNAME</code> and <code>SRP_A</code> and return the SRP
+     *        <code>USER_SRP_AUTH</code> takes in <code>USERNAME</code> and <code>SRP_A</code> and returns the SRP
      *        variables to be used for next challenge execution.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>USER_PASSWORD_AUTH</code> will take in <code>USERNAME</code> and <code>PASSWORD</code> and return
-     *        the next challenge or tokens.
+     *        <code>USER_PASSWORD_AUTH</code> takes in <code>USERNAME</code> and <code>PASSWORD</code> and returns the
+     *        next challenge or tokens.
      *        </p>
      *        </li>
      *        </ul>
@@ -464,14 +567,14 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        </li>
      *        <li>
      *        <p>
-     *        <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; USERNAME and PASSWORD are passed directly.
-     *        If a user migration Lambda trigger is set, this flow will invoke the user migration Lambda if the USERNAME
-     *        is not found in the user pool.
+     *        <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; user name and password are passed directly.
+     *        If a user migration Lambda trigger is set, this flow will invoke the user migration Lambda if it doesn't
+     *        find the user name in the user pool.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
-     *        <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     *        <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AuthFlowType
      */
@@ -483,23 +586,23 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The authentication flow for this call to execute. The API action will depend on this value. For example:
+     * The authentication flow for this call to run. The API action will depend on this value. For example:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>REFRESH_TOKEN_AUTH</code> will take in a valid refresh token and return new tokens.
+     * <code>REFRESH_TOKEN_AUTH</code> takes in a valid refresh token and returns new tokens.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>USER_SRP_AUTH</code> will take in <code>USERNAME</code> and <code>SRP_A</code> and return the SRP variables
-     * to be used for next challenge execution.
+     * <code>USER_SRP_AUTH</code> takes in <code>USERNAME</code> and <code>SRP_A</code> and returns the SRP variables to
+     * be used for next challenge execution.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>USER_PASSWORD_AUTH</code> will take in <code>USERNAME</code> and <code>PASSWORD</code> and return the next
+     * <code>USER_PASSWORD_AUTH</code> takes in <code>USERNAME</code> and <code>PASSWORD</code> and returns the next
      * challenge or tokens.
      * </p>
      * </li>
@@ -526,35 +629,34 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; USERNAME and PASSWORD are passed directly. If a
-     * user migration Lambda trigger is set, this flow will invoke the user migration Lambda if the USERNAME is not
-     * found in the user pool.
+     * <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; user name and password are passed directly. If a
+     * user migration Lambda trigger is set, this flow will invoke the user migration Lambda if it doesn't find the user
+     * name in the user pool.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     * <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * </p>
      * 
      * @param authFlow
-     *        The authentication flow for this call to execute. The API action will depend on this value. For example:
-     *        </p>
+     *        The authentication flow for this call to run. The API action will depend on this value. For example:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>REFRESH_TOKEN_AUTH</code> will take in a valid refresh token and return new tokens.
+     *        <code>REFRESH_TOKEN_AUTH</code> takes in a valid refresh token and returns new tokens.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>USER_SRP_AUTH</code> will take in <code>USERNAME</code> and <code>SRP_A</code> and return the SRP
+     *        <code>USER_SRP_AUTH</code> takes in <code>USERNAME</code> and <code>SRP_A</code> and returns the SRP
      *        variables to be used for next challenge execution.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>USER_PASSWORD_AUTH</code> will take in <code>USERNAME</code> and <code>PASSWORD</code> and return
-     *        the next challenge or tokens.
+     *        <code>USER_PASSWORD_AUTH</code> takes in <code>USERNAME</code> and <code>PASSWORD</code> and returns the
+     *        next challenge or tokens.
      *        </p>
      *        </li>
      *        </ul>
@@ -580,14 +682,14 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        </li>
      *        <li>
      *        <p>
-     *        <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; USERNAME and PASSWORD are passed directly.
-     *        If a user migration Lambda trigger is set, this flow will invoke the user migration Lambda if the USERNAME
-     *        is not found in the user pool.
+     *        <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; user name and password are passed directly.
+     *        If a user migration Lambda trigger is set, this flow will invoke the user migration Lambda if it doesn't
+     *        find the user name in the user pool.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
-     *        <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     *        <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * @see AuthFlowType
      */
 
@@ -597,23 +699,23 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The authentication flow for this call to execute. The API action will depend on this value. For example:
+     * The authentication flow for this call to run. The API action will depend on this value. For example:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>REFRESH_TOKEN_AUTH</code> will take in a valid refresh token and return new tokens.
+     * <code>REFRESH_TOKEN_AUTH</code> takes in a valid refresh token and returns new tokens.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>USER_SRP_AUTH</code> will take in <code>USERNAME</code> and <code>SRP_A</code> and return the SRP variables
-     * to be used for next challenge execution.
+     * <code>USER_SRP_AUTH</code> takes in <code>USERNAME</code> and <code>SRP_A</code> and returns the SRP variables to
+     * be used for next challenge execution.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>USER_PASSWORD_AUTH</code> will take in <code>USERNAME</code> and <code>PASSWORD</code> and return the next
+     * <code>USER_PASSWORD_AUTH</code> takes in <code>USERNAME</code> and <code>PASSWORD</code> and returns the next
      * challenge or tokens.
      * </p>
      * </li>
@@ -640,35 +742,34 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </li>
      * <li>
      * <p>
-     * <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; USERNAME and PASSWORD are passed directly. If a
-     * user migration Lambda trigger is set, this flow will invoke the user migration Lambda if the USERNAME is not
-     * found in the user pool.
+     * <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; user name and password are passed directly. If a
+     * user migration Lambda trigger is set, this flow will invoke the user migration Lambda if it doesn't find the user
+     * name in the user pool.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     * <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * </p>
      * 
      * @param authFlow
-     *        The authentication flow for this call to execute. The API action will depend on this value. For example:
-     *        </p>
+     *        The authentication flow for this call to run. The API action will depend on this value. For example:</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>REFRESH_TOKEN_AUTH</code> will take in a valid refresh token and return new tokens.
+     *        <code>REFRESH_TOKEN_AUTH</code> takes in a valid refresh token and returns new tokens.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>USER_SRP_AUTH</code> will take in <code>USERNAME</code> and <code>SRP_A</code> and return the SRP
+     *        <code>USER_SRP_AUTH</code> takes in <code>USERNAME</code> and <code>SRP_A</code> and returns the SRP
      *        variables to be used for next challenge execution.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>USER_PASSWORD_AUTH</code> will take in <code>USERNAME</code> and <code>PASSWORD</code> and return
-     *        the next challenge or tokens.
+     *        <code>USER_PASSWORD_AUTH</code> takes in <code>USERNAME</code> and <code>PASSWORD</code> and returns the
+     *        next challenge or tokens.
      *        </p>
      *        </li>
      *        </ul>
@@ -694,14 +795,14 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        </li>
      *        <li>
      *        <p>
-     *        <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; USERNAME and PASSWORD are passed directly.
-     *        If a user migration Lambda trigger is set, this flow will invoke the user migration Lambda if the USERNAME
-     *        is not found in the user pool.
+     *        <code>USER_PASSWORD_AUTH</code>: Non-SRP authentication flow; user name and password are passed directly.
+     *        If a user migration Lambda trigger is set, this flow will invoke the user migration Lambda if it doesn't
+     *        find the user name in the user pool.
      *        </p>
      *        </li>
      *        </ul>
      *        <p>
-     *        <code>ADMIN_NO_SRP_AUTH</code> is not a valid value.
+     *        <code>ADMIN_NO_SRP_AUTH</code> isn't a valid value.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AuthFlowType
      */
@@ -713,7 +814,7 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The authentication parameters. These are inputs corresponding to the <code>AuthFlow</code> that you are invoking.
+     * The authentication parameters. These are inputs corresponding to the <code>AuthFlow</code> that you're invoking.
      * The required values depend on the value of <code>AuthFlow</code>:
      * </p>
      * <ul>
@@ -721,45 +822,78 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * For <code>USER_SRP_AUTH</code>: <code>USERNAME</code> (required), <code>SRP_A</code> (required),
      * <code>SECRET_HASH</code> (required if the app client is configured with a client secret), <code>DEVICE_KEY</code>
+     * .
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>USER_PASSWORD_AUTH</code>: <code>USERNAME</code> (required), <code>PASSWORD</code> (required),
+     * <code>SECRET_HASH</code> (required if the app client is configured with a client secret), <code>DEVICE_KEY</code>
+     * .
      * </p>
      * </li>
      * <li>
      * <p>
      * For <code>REFRESH_TOKEN_AUTH/REFRESH_TOKEN</code>: <code>REFRESH_TOKEN</code> (required),
      * <code>SECRET_HASH</code> (required if the app client is configured with a client secret), <code>DEVICE_KEY</code>
+     * .
      * </p>
      * </li>
      * <li>
      * <p>
      * For <code>CUSTOM_AUTH</code>: <code>USERNAME</code> (required), <code>SECRET_HASH</code> (if app client is
-     * configured with client secret), <code>DEVICE_KEY</code>
+     * configured with client secret), <code>DEVICE_KEY</code>. To start the authentication flow with password
+     * verification, include <code>ChallengeName: SRP_A</code> and <code>SRP_A: (The SRP_A Value)</code>.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * For more information about <code>SECRET_HASH</code>, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     * >Computing secret hash values</a>. For information about <code>DEVICE_KEY</code>, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html"
+     * >Working with user devices in your user pool</a>.
+     * </p>
      * 
-     * @return The authentication parameters. These are inputs corresponding to the <code>AuthFlow</code> that you are
+     * @return The authentication parameters. These are inputs corresponding to the <code>AuthFlow</code> that you're
      *         invoking. The required values depend on the value of <code>AuthFlow</code>:</p>
      *         <ul>
      *         <li>
      *         <p>
      *         For <code>USER_SRP_AUTH</code>: <code>USERNAME</code> (required), <code>SRP_A</code> (required),
      *         <code>SECRET_HASH</code> (required if the app client is configured with a client secret),
-     *         <code>DEVICE_KEY</code>
+     *         <code>DEVICE_KEY</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For <code>USER_PASSWORD_AUTH</code>: <code>USERNAME</code> (required), <code>PASSWORD</code> (required),
+     *         <code>SECRET_HASH</code> (required if the app client is configured with a client secret),
+     *         <code>DEVICE_KEY</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         For <code>REFRESH_TOKEN_AUTH/REFRESH_TOKEN</code>: <code>REFRESH_TOKEN</code> (required),
      *         <code>SECRET_HASH</code> (required if the app client is configured with a client secret),
-     *         <code>DEVICE_KEY</code>
+     *         <code>DEVICE_KEY</code>.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         For <code>CUSTOM_AUTH</code>: <code>USERNAME</code> (required), <code>SECRET_HASH</code> (if app client
-     *         is configured with client secret), <code>DEVICE_KEY</code>
+     *         is configured with client secret), <code>DEVICE_KEY</code>. To start the authentication flow with
+     *         password verification, include <code>ChallengeName: SRP_A</code> and
+     *         <code>SRP_A: (The SRP_A Value)</code>.
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information about <code>SECRET_HASH</code>, see <a href=
+     *         "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     *         >Computing secret hash values</a>. For information about <code>DEVICE_KEY</code>, see <a
+     *         href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html"
+     *         >Working with user devices in your user pool</a>.
      */
 
     public java.util.Map<String, String> getAuthParameters() {
@@ -768,7 +902,7 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The authentication parameters. These are inputs corresponding to the <code>AuthFlow</code> that you are invoking.
+     * The authentication parameters. These are inputs corresponding to the <code>AuthFlow</code> that you're invoking.
      * The required values depend on the value of <code>AuthFlow</code>:
      * </p>
      * <ul>
@@ -776,46 +910,78 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * For <code>USER_SRP_AUTH</code>: <code>USERNAME</code> (required), <code>SRP_A</code> (required),
      * <code>SECRET_HASH</code> (required if the app client is configured with a client secret), <code>DEVICE_KEY</code>
+     * .
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>USER_PASSWORD_AUTH</code>: <code>USERNAME</code> (required), <code>PASSWORD</code> (required),
+     * <code>SECRET_HASH</code> (required if the app client is configured with a client secret), <code>DEVICE_KEY</code>
+     * .
      * </p>
      * </li>
      * <li>
      * <p>
      * For <code>REFRESH_TOKEN_AUTH/REFRESH_TOKEN</code>: <code>REFRESH_TOKEN</code> (required),
      * <code>SECRET_HASH</code> (required if the app client is configured with a client secret), <code>DEVICE_KEY</code>
+     * .
      * </p>
      * </li>
      * <li>
      * <p>
      * For <code>CUSTOM_AUTH</code>: <code>USERNAME</code> (required), <code>SECRET_HASH</code> (if app client is
-     * configured with client secret), <code>DEVICE_KEY</code>
+     * configured with client secret), <code>DEVICE_KEY</code>. To start the authentication flow with password
+     * verification, include <code>ChallengeName: SRP_A</code> and <code>SRP_A: (The SRP_A Value)</code>.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * For more information about <code>SECRET_HASH</code>, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     * >Computing secret hash values</a>. For information about <code>DEVICE_KEY</code>, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html"
+     * >Working with user devices in your user pool</a>.
+     * </p>
      * 
      * @param authParameters
-     *        The authentication parameters. These are inputs corresponding to the <code>AuthFlow</code> that you are
+     *        The authentication parameters. These are inputs corresponding to the <code>AuthFlow</code> that you're
      *        invoking. The required values depend on the value of <code>AuthFlow</code>:</p>
      *        <ul>
      *        <li>
      *        <p>
      *        For <code>USER_SRP_AUTH</code>: <code>USERNAME</code> (required), <code>SRP_A</code> (required),
      *        <code>SECRET_HASH</code> (required if the app client is configured with a client secret),
-     *        <code>DEVICE_KEY</code>
+     *        <code>DEVICE_KEY</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For <code>USER_PASSWORD_AUTH</code>: <code>USERNAME</code> (required), <code>PASSWORD</code> (required),
+     *        <code>SECRET_HASH</code> (required if the app client is configured with a client secret),
+     *        <code>DEVICE_KEY</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        For <code>REFRESH_TOKEN_AUTH/REFRESH_TOKEN</code>: <code>REFRESH_TOKEN</code> (required),
      *        <code>SECRET_HASH</code> (required if the app client is configured with a client secret),
-     *        <code>DEVICE_KEY</code>
+     *        <code>DEVICE_KEY</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        For <code>CUSTOM_AUTH</code>: <code>USERNAME</code> (required), <code>SECRET_HASH</code> (if app client is
-     *        configured with client secret), <code>DEVICE_KEY</code>
+     *        configured with client secret), <code>DEVICE_KEY</code>. To start the authentication flow with password
+     *        verification, include <code>ChallengeName: SRP_A</code> and <code>SRP_A: (The SRP_A Value)</code>.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information about <code>SECRET_HASH</code>, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     *        >Computing secret hash values</a>. For information about <code>DEVICE_KEY</code>, see <a
+     *        href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html"
+     *        >Working with user devices in your user pool</a>.
      */
 
     public void setAuthParameters(java.util.Map<String, String> authParameters) {
@@ -824,7 +990,7 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The authentication parameters. These are inputs corresponding to the <code>AuthFlow</code> that you are invoking.
+     * The authentication parameters. These are inputs corresponding to the <code>AuthFlow</code> that you're invoking.
      * The required values depend on the value of <code>AuthFlow</code>:
      * </p>
      * <ul>
@@ -832,46 +998,78 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <p>
      * For <code>USER_SRP_AUTH</code>: <code>USERNAME</code> (required), <code>SRP_A</code> (required),
      * <code>SECRET_HASH</code> (required if the app client is configured with a client secret), <code>DEVICE_KEY</code>
+     * .
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For <code>USER_PASSWORD_AUTH</code>: <code>USERNAME</code> (required), <code>PASSWORD</code> (required),
+     * <code>SECRET_HASH</code> (required if the app client is configured with a client secret), <code>DEVICE_KEY</code>
+     * .
      * </p>
      * </li>
      * <li>
      * <p>
      * For <code>REFRESH_TOKEN_AUTH/REFRESH_TOKEN</code>: <code>REFRESH_TOKEN</code> (required),
      * <code>SECRET_HASH</code> (required if the app client is configured with a client secret), <code>DEVICE_KEY</code>
+     * .
      * </p>
      * </li>
      * <li>
      * <p>
      * For <code>CUSTOM_AUTH</code>: <code>USERNAME</code> (required), <code>SECRET_HASH</code> (if app client is
-     * configured with client secret), <code>DEVICE_KEY</code>
+     * configured with client secret), <code>DEVICE_KEY</code>. To start the authentication flow with password
+     * verification, include <code>ChallengeName: SRP_A</code> and <code>SRP_A: (The SRP_A Value)</code>.
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * For more information about <code>SECRET_HASH</code>, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     * >Computing secret hash values</a>. For information about <code>DEVICE_KEY</code>, see <a
+     * href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html"
+     * >Working with user devices in your user pool</a>.
+     * </p>
      * 
      * @param authParameters
-     *        The authentication parameters. These are inputs corresponding to the <code>AuthFlow</code> that you are
+     *        The authentication parameters. These are inputs corresponding to the <code>AuthFlow</code> that you're
      *        invoking. The required values depend on the value of <code>AuthFlow</code>:</p>
      *        <ul>
      *        <li>
      *        <p>
      *        For <code>USER_SRP_AUTH</code>: <code>USERNAME</code> (required), <code>SRP_A</code> (required),
      *        <code>SECRET_HASH</code> (required if the app client is configured with a client secret),
-     *        <code>DEVICE_KEY</code>
+     *        <code>DEVICE_KEY</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For <code>USER_PASSWORD_AUTH</code>: <code>USERNAME</code> (required), <code>PASSWORD</code> (required),
+     *        <code>SECRET_HASH</code> (required if the app client is configured with a client secret),
+     *        <code>DEVICE_KEY</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        For <code>REFRESH_TOKEN_AUTH/REFRESH_TOKEN</code>: <code>REFRESH_TOKEN</code> (required),
      *        <code>SECRET_HASH</code> (required if the app client is configured with a client secret),
-     *        <code>DEVICE_KEY</code>
+     *        <code>DEVICE_KEY</code>.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        For <code>CUSTOM_AUTH</code>: <code>USERNAME</code> (required), <code>SECRET_HASH</code> (if app client is
-     *        configured with client secret), <code>DEVICE_KEY</code>
+     *        configured with client secret), <code>DEVICE_KEY</code>. To start the authentication flow with password
+     *        verification, include <code>ChallengeName: SRP_A</code> and <code>SRP_A: (The SRP_A Value)</code>.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information about <code>SECRET_HASH</code>, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash"
+     *        >Computing secret hash values</a>. For information about <code>DEVICE_KEY</code>, see <a
+     *        href="https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-device-tracking.html"
+     *        >Working with user devices in your user pool</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -879,6 +1077,13 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
         setAuthParameters(authParameters);
         return this;
     }
+
+    /**
+     * Add a single AuthParameters entry
+     *
+     * @see InitiateAuthRequest#withAuthParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public InitiateAuthRequest addAuthParametersEntry(String key, String value) {
         if (null == this.authParameters) {
@@ -903,13 +1108,188 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * This is a random key-value pair map which can contain any key and will be passed to your PreAuthentication Lambda
-     * trigger as-is. It can be used to implement additional validations around authentication.
+     * A map of custom key-value pairs that you can provide as input for certain custom workflows that this action
+     * triggers.
      * </p>
+     * <p>
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the InitiateAuth
+     * API action, Amazon Cognito invokes the Lambda functions that are specified for various triggers. The
+     * ClientMetadata value is passed as input to the functions for only the following triggers:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Pre signup
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pre authentication
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * User migration
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When Amazon Cognito invokes the functions for these triggers, it passes a JSON payload, which the function
+     * receives as input. This payload contains a <code>validationData</code> attribute, which provides the data that
+     * you assigned to the ClientMetadata parameter in your InitiateAuth request. In your function code in Lambda, you
+     * can process the <code>validationData</code> value to enhance your workflow for your specific needs.
+     * </p>
+     * <p>
+     * When you use the InitiateAuth API action, Amazon Cognito also invokes the functions for the following triggers,
+     * but it doesn't provide the ClientMetadata value as input:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Post authentication
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Custom message
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pre token generation
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Create auth challenge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Define auth challenge
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     * > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * parameter serves no purpose.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Validate the ClientMetadata value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
      * 
-     * @return This is a random key-value pair map which can contain any key and will be passed to your
-     *         PreAuthentication Lambda trigger as-is. It can be used to implement additional validations around
-     *         authentication.
+     * @return A map of custom key-value pairs that you can provide as input for certain custom workflows that this
+     *         action triggers.</p>
+     *         <p>
+     *         You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     *         InitiateAuth API action, Amazon Cognito invokes the Lambda functions that are specified for various
+     *         triggers. The ClientMetadata value is passed as input to the functions for only the following triggers:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Pre signup
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Pre authentication
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         User migration
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         When Amazon Cognito invokes the functions for these triggers, it passes a JSON payload, which the
+     *         function receives as input. This payload contains a <code>validationData</code> attribute, which provides
+     *         the data that you assigned to the ClientMetadata parameter in your InitiateAuth request. In your function
+     *         code in Lambda, you can process the <code>validationData</code> value to enhance your workflow for your
+     *         specific needs.
+     *         </p>
+     *         <p>
+     *         When you use the InitiateAuth API action, Amazon Cognito also invokes the functions for the following
+     *         triggers, but it doesn't provide the ClientMetadata value as input:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Post authentication
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Custom message
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Pre token generation
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Create auth challenge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Define auth challenge
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     *         > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     *         </p>
+     *         <note>
+     *         <p>
+     *         When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a
+     *         user pool to support custom workflows. If your user pool configuration doesn't include triggers, the
+     *         ClientMetadata parameter serves no purpose.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Validate the ClientMetadata value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     *         </p>
+     *         </li>
+     *         </ul>
      */
 
     public java.util.Map<String, String> getClientMetadata() {
@@ -918,13 +1298,189 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * This is a random key-value pair map which can contain any key and will be passed to your PreAuthentication Lambda
-     * trigger as-is. It can be used to implement additional validations around authentication.
+     * A map of custom key-value pairs that you can provide as input for certain custom workflows that this action
+     * triggers.
      * </p>
+     * <p>
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the InitiateAuth
+     * API action, Amazon Cognito invokes the Lambda functions that are specified for various triggers. The
+     * ClientMetadata value is passed as input to the functions for only the following triggers:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Pre signup
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pre authentication
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * User migration
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When Amazon Cognito invokes the functions for these triggers, it passes a JSON payload, which the function
+     * receives as input. This payload contains a <code>validationData</code> attribute, which provides the data that
+     * you assigned to the ClientMetadata parameter in your InitiateAuth request. In your function code in Lambda, you
+     * can process the <code>validationData</code> value to enhance your workflow for your specific needs.
+     * </p>
+     * <p>
+     * When you use the InitiateAuth API action, Amazon Cognito also invokes the functions for the following triggers,
+     * but it doesn't provide the ClientMetadata value as input:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Post authentication
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Custom message
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pre token generation
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Create auth challenge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Define auth challenge
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     * > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * parameter serves no purpose.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Validate the ClientMetadata value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
      * 
      * @param clientMetadata
-     *        This is a random key-value pair map which can contain any key and will be passed to your PreAuthentication
-     *        Lambda trigger as-is. It can be used to implement additional validations around authentication.
+     *        A map of custom key-value pairs that you can provide as input for certain custom workflows that this
+     *        action triggers.</p>
+     *        <p>
+     *        You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     *        InitiateAuth API action, Amazon Cognito invokes the Lambda functions that are specified for various
+     *        triggers. The ClientMetadata value is passed as input to the functions for only the following triggers:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Pre signup
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Pre authentication
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        User migration
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        When Amazon Cognito invokes the functions for these triggers, it passes a JSON payload, which the function
+     *        receives as input. This payload contains a <code>validationData</code> attribute, which provides the data
+     *        that you assigned to the ClientMetadata parameter in your InitiateAuth request. In your function code in
+     *        Lambda, you can process the <code>validationData</code> value to enhance your workflow for your specific
+     *        needs.
+     *        </p>
+     *        <p>
+     *        When you use the InitiateAuth API action, Amazon Cognito also invokes the functions for the following
+     *        triggers, but it doesn't provide the ClientMetadata value as input:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Post authentication
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Custom message
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Pre token generation
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Create auth challenge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Define auth challenge
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     *        > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user
+     *        pool to support custom workflows. If your user pool configuration doesn't include triggers, the
+     *        ClientMetadata parameter serves no purpose.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Validate the ClientMetadata value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     *        </p>
+     *        </li>
+     *        </ul>
      */
 
     public void setClientMetadata(java.util.Map<String, String> clientMetadata) {
@@ -933,13 +1489,189 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * This is a random key-value pair map which can contain any key and will be passed to your PreAuthentication Lambda
-     * trigger as-is. It can be used to implement additional validations around authentication.
+     * A map of custom key-value pairs that you can provide as input for certain custom workflows that this action
+     * triggers.
      * </p>
+     * <p>
+     * You create custom workflows by assigning Lambda functions to user pool triggers. When you use the InitiateAuth
+     * API action, Amazon Cognito invokes the Lambda functions that are specified for various triggers. The
+     * ClientMetadata value is passed as input to the functions for only the following triggers:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Pre signup
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pre authentication
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * User migration
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * When Amazon Cognito invokes the functions for these triggers, it passes a JSON payload, which the function
+     * receives as input. This payload contains a <code>validationData</code> attribute, which provides the data that
+     * you assigned to the ClientMetadata parameter in your InitiateAuth request. In your function code in Lambda, you
+     * can process the <code>validationData</code> value to enhance your workflow for your specific needs.
+     * </p>
+     * <p>
+     * When you use the InitiateAuth API action, Amazon Cognito also invokes the functions for the following triggers,
+     * but it doesn't provide the ClientMetadata value as input:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Post authentication
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Custom message
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Pre token generation
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Create auth challenge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Define auth challenge
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href=
+     * "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     * > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     * </p>
+     * <note>
+     * <p>
+     * When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user pool
+     * to support custom workflows. If your user pool configuration doesn't include triggers, the ClientMetadata
+     * parameter serves no purpose.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Validate the ClientMetadata value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
      * 
      * @param clientMetadata
-     *        This is a random key-value pair map which can contain any key and will be passed to your PreAuthentication
-     *        Lambda trigger as-is. It can be used to implement additional validations around authentication.
+     *        A map of custom key-value pairs that you can provide as input for certain custom workflows that this
+     *        action triggers.</p>
+     *        <p>
+     *        You create custom workflows by assigning Lambda functions to user pool triggers. When you use the
+     *        InitiateAuth API action, Amazon Cognito invokes the Lambda functions that are specified for various
+     *        triggers. The ClientMetadata value is passed as input to the functions for only the following triggers:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Pre signup
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Pre authentication
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        User migration
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        When Amazon Cognito invokes the functions for these triggers, it passes a JSON payload, which the function
+     *        receives as input. This payload contains a <code>validationData</code> attribute, which provides the data
+     *        that you assigned to the ClientMetadata parameter in your InitiateAuth request. In your function code in
+     *        Lambda, you can process the <code>validationData</code> value to enhance your workflow for your specific
+     *        needs.
+     *        </p>
+     *        <p>
+     *        When you use the InitiateAuth API action, Amazon Cognito also invokes the functions for the following
+     *        triggers, but it doesn't provide the ClientMetadata value as input:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Post authentication
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Custom message
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Pre token generation
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Create auth challenge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Define auth challenge
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        For more information, see <a href=
+     *        "https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html"
+     *        > Customizing user pool Workflows with Lambda Triggers</a> in the <i>Amazon Cognito Developer Guide</i>.
+     *        </p>
+     *        <note>
+     *        <p>
+     *        When you use the ClientMetadata parameter, remember that Amazon Cognito won't do the following:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Store the ClientMetadata value. This data is available only to Lambda triggers that are assigned to a user
+     *        pool to support custom workflows. If your user pool configuration doesn't include triggers, the
+     *        ClientMetadata parameter serves no purpose.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Validate the ClientMetadata value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Encrypt the ClientMetadata value. Don't use Amazon Cognito to provide sensitive information.
+     *        </p>
+     *        </li>
+     *        </ul>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -947,6 +1679,13 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
         setClientMetadata(clientMetadata);
         return this;
     }
+
+    /**
+     * Add a single ClientMetadata entry
+     *
+     * @see InitiateAuthRequest#withClientMetadata
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public InitiateAuthRequest addClientMetadataEntry(String key, String value) {
         if (null == this.clientMetadata) {
@@ -1011,11 +1750,12 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The Amazon Pinpoint analytics metadata for collecting metrics for <code>InitiateAuth</code> calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>InitiateAuth</code> calls.
      * </p>
      * 
      * @param analyticsMetadata
-     *        The Amazon Pinpoint analytics metadata for collecting metrics for <code>InitiateAuth</code> calls.
+     *        The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>InitiateAuth</code>
+     *        calls.
      */
 
     public void setAnalyticsMetadata(AnalyticsMetadataType analyticsMetadata) {
@@ -1024,10 +1764,11 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The Amazon Pinpoint analytics metadata for collecting metrics for <code>InitiateAuth</code> calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>InitiateAuth</code> calls.
      * </p>
      * 
-     * @return The Amazon Pinpoint analytics metadata for collecting metrics for <code>InitiateAuth</code> calls.
+     * @return The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>InitiateAuth</code>
+     *         calls.
      */
 
     public AnalyticsMetadataType getAnalyticsMetadata() {
@@ -1036,11 +1777,12 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The Amazon Pinpoint analytics metadata for collecting metrics for <code>InitiateAuth</code> calls.
+     * The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>InitiateAuth</code> calls.
      * </p>
      * 
      * @param analyticsMetadata
-     *        The Amazon Pinpoint analytics metadata for collecting metrics for <code>InitiateAuth</code> calls.
+     *        The Amazon Pinpoint analytics metadata that contributes to your metrics for <code>InitiateAuth</code>
+     *        calls.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1051,13 +1793,15 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
-     * unexpected event by Amazon Cognito advanced security.
+     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
+     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
+     * passes to Amazon Cognito when it makes API requests.
      * </p>
      * 
      * @param userContextData
-     *        Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the
-     *        risk of an unexpected event by Amazon Cognito advanced security.
+     *        Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon
+     *        Cognito advanced security evaluates the risk of an authentication event based on the context that your app
+     *        generates and passes to Amazon Cognito when it makes API requests.
      */
 
     public void setUserContextData(UserContextDataType userContextData) {
@@ -1066,12 +1810,14 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
-     * unexpected event by Amazon Cognito advanced security.
+     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
+     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
+     * passes to Amazon Cognito when it makes API requests.
      * </p>
      * 
-     * @return Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the
-     *         risk of an unexpected event by Amazon Cognito advanced security.
+     * @return Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon
+     *         Cognito advanced security evaluates the risk of an authentication event based on the context that your
+     *         app generates and passes to Amazon Cognito when it makes API requests.
      */
 
     public UserContextDataType getUserContextData() {
@@ -1080,13 +1826,15 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an
-     * unexpected event by Amazon Cognito advanced security.
+     * Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon Cognito
+     * advanced security evaluates the risk of an authentication event based on the context that your app generates and
+     * passes to Amazon Cognito when it makes API requests.
      * </p>
      * 
      * @param userContextData
-     *        Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the
-     *        risk of an unexpected event by Amazon Cognito advanced security.
+     *        Contextual data about your user session, such as the device fingerprint, IP address, or location. Amazon
+     *        Cognito advanced security evaluates the risk of an authentication event based on the context that your app
+     *        generates and passes to Amazon Cognito when it makes API requests.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1110,7 +1858,7 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
         if (getAuthFlow() != null)
             sb.append("AuthFlow: ").append(getAuthFlow()).append(",");
         if (getAuthParameters() != null)
-            sb.append("AuthParameters: ").append(getAuthParameters()).append(",");
+            sb.append("AuthParameters: ").append("***Sensitive Data Redacted***").append(",");
         if (getClientMetadata() != null)
             sb.append("ClientMetadata: ").append(getClientMetadata()).append(",");
         if (getClientId() != null)
@@ -1118,7 +1866,7 @@ public class InitiateAuthRequest extends com.amazonaws.AmazonWebServiceRequest i
         if (getAnalyticsMetadata() != null)
             sb.append("AnalyticsMetadata: ").append(getAnalyticsMetadata()).append(",");
         if (getUserContextData() != null)
-            sb.append("UserContextData: ").append(getUserContextData());
+            sb.append("UserContextData: ").append("***Sensitive Data Redacted***");
         sb.append("}");
         return sb.toString();
     }

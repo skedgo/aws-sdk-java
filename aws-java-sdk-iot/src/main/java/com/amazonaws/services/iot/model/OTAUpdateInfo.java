@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -63,10 +63,23 @@ public class OTAUpdateInfo implements Serializable, Cloneable, StructuredPojo {
     private java.util.List<String> targets;
     /**
      * <p>
+     * The protocol used to transfer the OTA update image. Valid values are [HTTP], [MQTT], [HTTP, MQTT]. When both HTTP
+     * and MQTT are specified, the target device can choose the protocol.
+     * </p>
+     */
+    private java.util.List<String> protocols;
+    /**
+     * <p>
      * Configuration for the rollout of OTA updates.
      * </p>
      */
     private AwsJobExecutionsRolloutConfig awsJobExecutionsRolloutConfig;
+    /**
+     * <p>
+     * Configuration information for pre-signed URLs. Valid when <code>protocols</code> contains HTTP.
+     * </p>
+     */
+    private AwsJobPresignedUrlConfig awsJobPresignedUrlConfig;
     /**
      * <p>
      * Specifies whether the OTA update will continue to run (CONTINUOUS), or will be complete after all those things
@@ -90,13 +103,13 @@ public class OTAUpdateInfo implements Serializable, Cloneable, StructuredPojo {
     private String otaUpdateStatus;
     /**
      * <p>
-     * The AWS IoT job ID associated with the OTA update.
+     * The IoT job ID associated with the OTA update.
      * </p>
      */
     private String awsIotJobId;
     /**
      * <p>
-     * The AWS IoT job ARN associated with the OTA update.
+     * The IoT job ARN associated with the OTA update.
      * </p>
      */
     private String awsIotJobArn;
@@ -385,6 +398,114 @@ public class OTAUpdateInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
+     * The protocol used to transfer the OTA update image. Valid values are [HTTP], [MQTT], [HTTP, MQTT]. When both HTTP
+     * and MQTT are specified, the target device can choose the protocol.
+     * </p>
+     * 
+     * @return The protocol used to transfer the OTA update image. Valid values are [HTTP], [MQTT], [HTTP, MQTT]. When
+     *         both HTTP and MQTT are specified, the target device can choose the protocol.
+     * @see Protocol
+     */
+
+    public java.util.List<String> getProtocols() {
+        return protocols;
+    }
+
+    /**
+     * <p>
+     * The protocol used to transfer the OTA update image. Valid values are [HTTP], [MQTT], [HTTP, MQTT]. When both HTTP
+     * and MQTT are specified, the target device can choose the protocol.
+     * </p>
+     * 
+     * @param protocols
+     *        The protocol used to transfer the OTA update image. Valid values are [HTTP], [MQTT], [HTTP, MQTT]. When
+     *        both HTTP and MQTT are specified, the target device can choose the protocol.
+     * @see Protocol
+     */
+
+    public void setProtocols(java.util.Collection<String> protocols) {
+        if (protocols == null) {
+            this.protocols = null;
+            return;
+        }
+
+        this.protocols = new java.util.ArrayList<String>(protocols);
+    }
+
+    /**
+     * <p>
+     * The protocol used to transfer the OTA update image. Valid values are [HTTP], [MQTT], [HTTP, MQTT]. When both HTTP
+     * and MQTT are specified, the target device can choose the protocol.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setProtocols(java.util.Collection)} or {@link #withProtocols(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param protocols
+     *        The protocol used to transfer the OTA update image. Valid values are [HTTP], [MQTT], [HTTP, MQTT]. When
+     *        both HTTP and MQTT are specified, the target device can choose the protocol.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Protocol
+     */
+
+    public OTAUpdateInfo withProtocols(String... protocols) {
+        if (this.protocols == null) {
+            setProtocols(new java.util.ArrayList<String>(protocols.length));
+        }
+        for (String ele : protocols) {
+            this.protocols.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The protocol used to transfer the OTA update image. Valid values are [HTTP], [MQTT], [HTTP, MQTT]. When both HTTP
+     * and MQTT are specified, the target device can choose the protocol.
+     * </p>
+     * 
+     * @param protocols
+     *        The protocol used to transfer the OTA update image. Valid values are [HTTP], [MQTT], [HTTP, MQTT]. When
+     *        both HTTP and MQTT are specified, the target device can choose the protocol.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Protocol
+     */
+
+    public OTAUpdateInfo withProtocols(java.util.Collection<String> protocols) {
+        setProtocols(protocols);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The protocol used to transfer the OTA update image. Valid values are [HTTP], [MQTT], [HTTP, MQTT]. When both HTTP
+     * and MQTT are specified, the target device can choose the protocol.
+     * </p>
+     * 
+     * @param protocols
+     *        The protocol used to transfer the OTA update image. Valid values are [HTTP], [MQTT], [HTTP, MQTT]. When
+     *        both HTTP and MQTT are specified, the target device can choose the protocol.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see Protocol
+     */
+
+    public OTAUpdateInfo withProtocols(Protocol... protocols) {
+        java.util.ArrayList<String> protocolsCopy = new java.util.ArrayList<String>(protocols.length);
+        for (Protocol value : protocols) {
+            protocolsCopy.add(value.toString());
+        }
+        if (getProtocols() == null) {
+            setProtocols(protocolsCopy);
+        } else {
+            getProtocols().addAll(protocolsCopy);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
      * Configuration for the rollout of OTA updates.
      * </p>
      * 
@@ -420,6 +541,46 @@ public class OTAUpdateInfo implements Serializable, Cloneable, StructuredPojo {
 
     public OTAUpdateInfo withAwsJobExecutionsRolloutConfig(AwsJobExecutionsRolloutConfig awsJobExecutionsRolloutConfig) {
         setAwsJobExecutionsRolloutConfig(awsJobExecutionsRolloutConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Configuration information for pre-signed URLs. Valid when <code>protocols</code> contains HTTP.
+     * </p>
+     * 
+     * @param awsJobPresignedUrlConfig
+     *        Configuration information for pre-signed URLs. Valid when <code>protocols</code> contains HTTP.
+     */
+
+    public void setAwsJobPresignedUrlConfig(AwsJobPresignedUrlConfig awsJobPresignedUrlConfig) {
+        this.awsJobPresignedUrlConfig = awsJobPresignedUrlConfig;
+    }
+
+    /**
+     * <p>
+     * Configuration information for pre-signed URLs. Valid when <code>protocols</code> contains HTTP.
+     * </p>
+     * 
+     * @return Configuration information for pre-signed URLs. Valid when <code>protocols</code> contains HTTP.
+     */
+
+    public AwsJobPresignedUrlConfig getAwsJobPresignedUrlConfig() {
+        return this.awsJobPresignedUrlConfig;
+    }
+
+    /**
+     * <p>
+     * Configuration information for pre-signed URLs. Valid when <code>protocols</code> contains HTTP.
+     * </p>
+     * 
+     * @param awsJobPresignedUrlConfig
+     *        Configuration information for pre-signed URLs. Valid when <code>protocols</code> contains HTTP.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public OTAUpdateInfo withAwsJobPresignedUrlConfig(AwsJobPresignedUrlConfig awsJobPresignedUrlConfig) {
+        setAwsJobPresignedUrlConfig(awsJobPresignedUrlConfig);
         return this;
     }
 
@@ -641,11 +802,11 @@ public class OTAUpdateInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS IoT job ID associated with the OTA update.
+     * The IoT job ID associated with the OTA update.
      * </p>
      * 
      * @param awsIotJobId
-     *        The AWS IoT job ID associated with the OTA update.
+     *        The IoT job ID associated with the OTA update.
      */
 
     public void setAwsIotJobId(String awsIotJobId) {
@@ -654,10 +815,10 @@ public class OTAUpdateInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS IoT job ID associated with the OTA update.
+     * The IoT job ID associated with the OTA update.
      * </p>
      * 
-     * @return The AWS IoT job ID associated with the OTA update.
+     * @return The IoT job ID associated with the OTA update.
      */
 
     public String getAwsIotJobId() {
@@ -666,11 +827,11 @@ public class OTAUpdateInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS IoT job ID associated with the OTA update.
+     * The IoT job ID associated with the OTA update.
      * </p>
      * 
      * @param awsIotJobId
-     *        The AWS IoT job ID associated with the OTA update.
+     *        The IoT job ID associated with the OTA update.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -681,11 +842,11 @@ public class OTAUpdateInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS IoT job ARN associated with the OTA update.
+     * The IoT job ARN associated with the OTA update.
      * </p>
      * 
      * @param awsIotJobArn
-     *        The AWS IoT job ARN associated with the OTA update.
+     *        The IoT job ARN associated with the OTA update.
      */
 
     public void setAwsIotJobArn(String awsIotJobArn) {
@@ -694,10 +855,10 @@ public class OTAUpdateInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS IoT job ARN associated with the OTA update.
+     * The IoT job ARN associated with the OTA update.
      * </p>
      * 
-     * @return The AWS IoT job ARN associated with the OTA update.
+     * @return The IoT job ARN associated with the OTA update.
      */
 
     public String getAwsIotJobArn() {
@@ -706,11 +867,11 @@ public class OTAUpdateInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The AWS IoT job ARN associated with the OTA update.
+     * The IoT job ARN associated with the OTA update.
      * </p>
      * 
      * @param awsIotJobArn
-     *        The AWS IoT job ARN associated with the OTA update.
+     *        The IoT job ARN associated with the OTA update.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -799,6 +960,13 @@ public class OTAUpdateInfo implements Serializable, Cloneable, StructuredPojo {
         return this;
     }
 
+    /**
+     * Add a single AdditionalParameters entry
+     *
+     * @see OTAUpdateInfo#withAdditionalParameters
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public OTAUpdateInfo addAdditionalParametersEntry(String key, String value) {
         if (null == this.additionalParameters) {
             this.additionalParameters = new java.util.HashMap<String, String>();
@@ -844,8 +1012,12 @@ public class OTAUpdateInfo implements Serializable, Cloneable, StructuredPojo {
             sb.append("Description: ").append(getDescription()).append(",");
         if (getTargets() != null)
             sb.append("Targets: ").append(getTargets()).append(",");
+        if (getProtocols() != null)
+            sb.append("Protocols: ").append(getProtocols()).append(",");
         if (getAwsJobExecutionsRolloutConfig() != null)
             sb.append("AwsJobExecutionsRolloutConfig: ").append(getAwsJobExecutionsRolloutConfig()).append(",");
+        if (getAwsJobPresignedUrlConfig() != null)
+            sb.append("AwsJobPresignedUrlConfig: ").append(getAwsJobPresignedUrlConfig()).append(",");
         if (getTargetSelection() != null)
             sb.append("TargetSelection: ").append(getTargetSelection()).append(",");
         if (getOtaUpdateFiles() != null)
@@ -898,10 +1070,18 @@ public class OTAUpdateInfo implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getTargets() != null && other.getTargets().equals(this.getTargets()) == false)
             return false;
+        if (other.getProtocols() == null ^ this.getProtocols() == null)
+            return false;
+        if (other.getProtocols() != null && other.getProtocols().equals(this.getProtocols()) == false)
+            return false;
         if (other.getAwsJobExecutionsRolloutConfig() == null ^ this.getAwsJobExecutionsRolloutConfig() == null)
             return false;
         if (other.getAwsJobExecutionsRolloutConfig() != null
                 && other.getAwsJobExecutionsRolloutConfig().equals(this.getAwsJobExecutionsRolloutConfig()) == false)
+            return false;
+        if (other.getAwsJobPresignedUrlConfig() == null ^ this.getAwsJobPresignedUrlConfig() == null)
+            return false;
+        if (other.getAwsJobPresignedUrlConfig() != null && other.getAwsJobPresignedUrlConfig().equals(this.getAwsJobPresignedUrlConfig()) == false)
             return false;
         if (other.getTargetSelection() == null ^ this.getTargetSelection() == null)
             return false;
@@ -945,7 +1125,9 @@ public class OTAUpdateInfo implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getLastModifiedDate() == null) ? 0 : getLastModifiedDate().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getTargets() == null) ? 0 : getTargets().hashCode());
+        hashCode = prime * hashCode + ((getProtocols() == null) ? 0 : getProtocols().hashCode());
         hashCode = prime * hashCode + ((getAwsJobExecutionsRolloutConfig() == null) ? 0 : getAwsJobExecutionsRolloutConfig().hashCode());
+        hashCode = prime * hashCode + ((getAwsJobPresignedUrlConfig() == null) ? 0 : getAwsJobPresignedUrlConfig().hashCode());
         hashCode = prime * hashCode + ((getTargetSelection() == null) ? 0 : getTargetSelection().hashCode());
         hashCode = prime * hashCode + ((getOtaUpdateFiles() == null) ? 0 : getOtaUpdateFiles().hashCode());
         hashCode = prime * hashCode + ((getOtaUpdateStatus() == null) ? 0 : getOtaUpdateStatus().hashCode());

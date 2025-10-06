@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -133,11 +133,14 @@ public class ConditionFactory {
     }
 
     /**
-     * Constructs a new access control policy condition that tests the incoming
-     * request's user agent field against the specified value, using the
-     * specified comparison type. This condition can be used to allow or deny
-     * access to a resource based on what user agent is specified in the
-     * request.
+     * Constructs a new access control policy condition that tests the incoming request's user agent field against the
+     * specified value, using the specified comparison type.
+     *
+     * <p>
+     * This condition should be used carefully. Since the UserAgent value is provided by the caller in an HTTP header,
+     * unintended parties can use modified or custom browsers to provide any UserAgent value that they choose. As a result,
+     * UserAgent should not be used to prevent unintended parties from making direct AWS requests. You can use it to allow only
+     * specific client applications, and only after testing your policy.
      *
      * @param comparisonType
      *            The type of string comparison to perform when testing an

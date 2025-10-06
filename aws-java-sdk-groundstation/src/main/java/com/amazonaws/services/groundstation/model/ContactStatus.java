@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,7 +22,9 @@ public enum ContactStatus {
 
     AVAILABLE("AVAILABLE"),
     AWS_CANCELLED("AWS_CANCELLED"),
+    AWS_FAILED("AWS_FAILED"),
     CANCELLED("CANCELLED"),
+    CANCELLING("CANCELLING"),
     COMPLETED("COMPLETED"),
     FAILED("FAILED"),
     FAILED_TO_SCHEDULE("FAILED_TO_SCHEDULE"),

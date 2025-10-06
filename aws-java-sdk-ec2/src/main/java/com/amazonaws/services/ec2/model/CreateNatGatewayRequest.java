@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,17 +27,17 @@ public class CreateNatGatewayRequest extends AmazonWebServiceRequest implements 
 
     /**
      * <p>
-     * The allocation ID of an Elastic IP address to associate with the NAT gateway. If the Elastic IP address is
-     * associated with another resource, you must first disassociate it.
+     * [Public NAT gateways only] The allocation ID of an Elastic IP address to associate with the NAT gateway. You
+     * cannot specify an Elastic IP address with a private NAT gateway. If the Elastic IP address is associated with
+     * another resource, you must first disassociate it.
      * </p>
      */
     private String allocationId;
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * <p>
      * Constraint: Maximum 64 ASCII characters.
@@ -46,19 +46,65 @@ public class CreateNatGatewayRequest extends AmazonWebServiceRequest implements 
     private String clientToken;
     /**
      * <p>
-     * The subnet in which to create the NAT gateway.
+     * The ID of the subnet in which to create the NAT gateway.
      * </p>
      */
     private String subnetId;
+    /**
+     * <p>
+     * The tags to assign to the NAT gateway.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<TagSpecification> tagSpecifications;
+    /**
+     * <p>
+     * Indicates whether the NAT gateway supports public or private connectivity. The default is public connectivity.
+     * </p>
+     */
+    private String connectivityType;
+    /**
+     * <p>
+     * The private IPv4 address to assign to the NAT gateway. If you don't provide an address, a private IPv4 address
+     * will be automatically assigned.
+     * </p>
+     */
+    private String privateIpAddress;
+    /**
+     * <p>
+     * Secondary EIP allocation IDs. For more information, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a NAT
+     * gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> secondaryAllocationIds;
+    /**
+     * <p>
+     * Secondary private IPv4 addresses. For more information about secondary addresses, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a NAT
+     * gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> secondaryPrivateIpAddresses;
+    /**
+     * <p>
+     * [Private NAT gateway only] The number of secondary private IPv4 addresses you want to assign to the NAT gateway.
+     * For more information about secondary addresses, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a NAT
+     * gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * </p>
+     */
+    private Integer secondaryPrivateIpAddressCount;
 
     /**
      * <p>
-     * The allocation ID of an Elastic IP address to associate with the NAT gateway. If the Elastic IP address is
-     * associated with another resource, you must first disassociate it.
+     * [Public NAT gateways only] The allocation ID of an Elastic IP address to associate with the NAT gateway. You
+     * cannot specify an Elastic IP address with a private NAT gateway. If the Elastic IP address is associated with
+     * another resource, you must first disassociate it.
      * </p>
      * 
      * @param allocationId
-     *        The allocation ID of an Elastic IP address to associate with the NAT gateway. If the Elastic IP address is
+     *        [Public NAT gateways only] The allocation ID of an Elastic IP address to associate with the NAT gateway.
+     *        You cannot specify an Elastic IP address with a private NAT gateway. If the Elastic IP address is
      *        associated with another resource, you must first disassociate it.
      */
 
@@ -68,12 +114,14 @@ public class CreateNatGatewayRequest extends AmazonWebServiceRequest implements 
 
     /**
      * <p>
-     * The allocation ID of an Elastic IP address to associate with the NAT gateway. If the Elastic IP address is
-     * associated with another resource, you must first disassociate it.
+     * [Public NAT gateways only] The allocation ID of an Elastic IP address to associate with the NAT gateway. You
+     * cannot specify an Elastic IP address with a private NAT gateway. If the Elastic IP address is associated with
+     * another resource, you must first disassociate it.
      * </p>
      * 
-     * @return The allocation ID of an Elastic IP address to associate with the NAT gateway. If the Elastic IP address
-     *         is associated with another resource, you must first disassociate it.
+     * @return [Public NAT gateways only] The allocation ID of an Elastic IP address to associate with the NAT gateway.
+     *         You cannot specify an Elastic IP address with a private NAT gateway. If the Elastic IP address is
+     *         associated with another resource, you must first disassociate it.
      */
 
     public String getAllocationId() {
@@ -82,12 +130,14 @@ public class CreateNatGatewayRequest extends AmazonWebServiceRequest implements 
 
     /**
      * <p>
-     * The allocation ID of an Elastic IP address to associate with the NAT gateway. If the Elastic IP address is
-     * associated with another resource, you must first disassociate it.
+     * [Public NAT gateways only] The allocation ID of an Elastic IP address to associate with the NAT gateway. You
+     * cannot specify an Elastic IP address with a private NAT gateway. If the Elastic IP address is associated with
+     * another resource, you must first disassociate it.
      * </p>
      * 
      * @param allocationId
-     *        The allocation ID of an Elastic IP address to associate with the NAT gateway. If the Elastic IP address is
+     *        [Public NAT gateways only] The allocation ID of an Elastic IP address to associate with the NAT gateway.
+     *        You cannot specify an Elastic IP address with a private NAT gateway. If the Elastic IP address is
      *        associated with another resource, you must first disassociate it.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -100,9 +150,8 @@ public class CreateNatGatewayRequest extends AmazonWebServiceRequest implements 
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * <p>
      * Constraint: Maximum 64 ASCII characters.
@@ -111,8 +160,8 @@ public class CreateNatGatewayRequest extends AmazonWebServiceRequest implements 
      * @param clientToken
      *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *        Idempotency</a>.</p>
+     *        href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     *        idempotency</a>.</p>
      *        <p>
      *        Constraint: Maximum 64 ASCII characters.
      */
@@ -124,9 +173,8 @@ public class CreateNatGatewayRequest extends AmazonWebServiceRequest implements 
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * <p>
      * Constraint: Maximum 64 ASCII characters.
@@ -134,8 +182,8 @@ public class CreateNatGatewayRequest extends AmazonWebServiceRequest implements 
      * 
      * @return Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *         information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *         Idempotency</a>.</p>
+     *         href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     *         idempotency</a>.</p>
      *         <p>
      *         Constraint: Maximum 64 ASCII characters.
      */
@@ -147,9 +195,8 @@ public class CreateNatGatewayRequest extends AmazonWebServiceRequest implements 
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * <p>
      * Constraint: Maximum 64 ASCII characters.
@@ -158,8 +205,8 @@ public class CreateNatGatewayRequest extends AmazonWebServiceRequest implements 
      * @param clientToken
      *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *        Idempotency</a>.</p>
+     *        href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     *        idempotency</a>.</p>
      *        <p>
      *        Constraint: Maximum 64 ASCII characters.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -172,11 +219,11 @@ public class CreateNatGatewayRequest extends AmazonWebServiceRequest implements 
 
     /**
      * <p>
-     * The subnet in which to create the NAT gateway.
+     * The ID of the subnet in which to create the NAT gateway.
      * </p>
      * 
      * @param subnetId
-     *        The subnet in which to create the NAT gateway.
+     *        The ID of the subnet in which to create the NAT gateway.
      */
 
     public void setSubnetId(String subnetId) {
@@ -185,10 +232,10 @@ public class CreateNatGatewayRequest extends AmazonWebServiceRequest implements 
 
     /**
      * <p>
-     * The subnet in which to create the NAT gateway.
+     * The ID of the subnet in which to create the NAT gateway.
      * </p>
      * 
-     * @return The subnet in which to create the NAT gateway.
+     * @return The ID of the subnet in which to create the NAT gateway.
      */
 
     public String getSubnetId() {
@@ -197,16 +244,434 @@ public class CreateNatGatewayRequest extends AmazonWebServiceRequest implements 
 
     /**
      * <p>
-     * The subnet in which to create the NAT gateway.
+     * The ID of the subnet in which to create the NAT gateway.
      * </p>
      * 
      * @param subnetId
-     *        The subnet in which to create the NAT gateway.
+     *        The ID of the subnet in which to create the NAT gateway.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public CreateNatGatewayRequest withSubnetId(String subnetId) {
         setSubnetId(subnetId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags to assign to the NAT gateway.
+     * </p>
+     * 
+     * @return The tags to assign to the NAT gateway.
+     */
+
+    public java.util.List<TagSpecification> getTagSpecifications() {
+        if (tagSpecifications == null) {
+            tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>();
+        }
+        return tagSpecifications;
+    }
+
+    /**
+     * <p>
+     * The tags to assign to the NAT gateway.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to assign to the NAT gateway.
+     */
+
+    public void setTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        if (tagSpecifications == null) {
+            this.tagSpecifications = null;
+            return;
+        }
+
+        this.tagSpecifications = new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications);
+    }
+
+    /**
+     * <p>
+     * The tags to assign to the NAT gateway.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTagSpecifications(java.util.Collection)} or {@link #withTagSpecifications(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to assign to the NAT gateway.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNatGatewayRequest withTagSpecifications(TagSpecification... tagSpecifications) {
+        if (this.tagSpecifications == null) {
+            setTagSpecifications(new com.amazonaws.internal.SdkInternalList<TagSpecification>(tagSpecifications.length));
+        }
+        for (TagSpecification ele : tagSpecifications) {
+            this.tagSpecifications.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags to assign to the NAT gateway.
+     * </p>
+     * 
+     * @param tagSpecifications
+     *        The tags to assign to the NAT gateway.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNatGatewayRequest withTagSpecifications(java.util.Collection<TagSpecification> tagSpecifications) {
+        setTagSpecifications(tagSpecifications);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the NAT gateway supports public or private connectivity. The default is public connectivity.
+     * </p>
+     * 
+     * @param connectivityType
+     *        Indicates whether the NAT gateway supports public or private connectivity. The default is public
+     *        connectivity.
+     * @see ConnectivityType
+     */
+
+    public void setConnectivityType(String connectivityType) {
+        this.connectivityType = connectivityType;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the NAT gateway supports public or private connectivity. The default is public connectivity.
+     * </p>
+     * 
+     * @return Indicates whether the NAT gateway supports public or private connectivity. The default is public
+     *         connectivity.
+     * @see ConnectivityType
+     */
+
+    public String getConnectivityType() {
+        return this.connectivityType;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the NAT gateway supports public or private connectivity. The default is public connectivity.
+     * </p>
+     * 
+     * @param connectivityType
+     *        Indicates whether the NAT gateway supports public or private connectivity. The default is public
+     *        connectivity.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ConnectivityType
+     */
+
+    public CreateNatGatewayRequest withConnectivityType(String connectivityType) {
+        setConnectivityType(connectivityType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the NAT gateway supports public or private connectivity. The default is public connectivity.
+     * </p>
+     * 
+     * @param connectivityType
+     *        Indicates whether the NAT gateway supports public or private connectivity. The default is public
+     *        connectivity.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ConnectivityType
+     */
+
+    public CreateNatGatewayRequest withConnectivityType(ConnectivityType connectivityType) {
+        this.connectivityType = connectivityType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The private IPv4 address to assign to the NAT gateway. If you don't provide an address, a private IPv4 address
+     * will be automatically assigned.
+     * </p>
+     * 
+     * @param privateIpAddress
+     *        The private IPv4 address to assign to the NAT gateway. If you don't provide an address, a private IPv4
+     *        address will be automatically assigned.
+     */
+
+    public void setPrivateIpAddress(String privateIpAddress) {
+        this.privateIpAddress = privateIpAddress;
+    }
+
+    /**
+     * <p>
+     * The private IPv4 address to assign to the NAT gateway. If you don't provide an address, a private IPv4 address
+     * will be automatically assigned.
+     * </p>
+     * 
+     * @return The private IPv4 address to assign to the NAT gateway. If you don't provide an address, a private IPv4
+     *         address will be automatically assigned.
+     */
+
+    public String getPrivateIpAddress() {
+        return this.privateIpAddress;
+    }
+
+    /**
+     * <p>
+     * The private IPv4 address to assign to the NAT gateway. If you don't provide an address, a private IPv4 address
+     * will be automatically assigned.
+     * </p>
+     * 
+     * @param privateIpAddress
+     *        The private IPv4 address to assign to the NAT gateway. If you don't provide an address, a private IPv4
+     *        address will be automatically assigned.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNatGatewayRequest withPrivateIpAddress(String privateIpAddress) {
+        setPrivateIpAddress(privateIpAddress);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Secondary EIP allocation IDs. For more information, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a NAT
+     * gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * </p>
+     * 
+     * @return Secondary EIP allocation IDs. For more information, see <a
+     *         href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create
+     *         a NAT gateway</a> in the <i>Amazon VPC User Guide</i>.
+     */
+
+    public java.util.List<String> getSecondaryAllocationIds() {
+        if (secondaryAllocationIds == null) {
+            secondaryAllocationIds = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return secondaryAllocationIds;
+    }
+
+    /**
+     * <p>
+     * Secondary EIP allocation IDs. For more information, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a NAT
+     * gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * </p>
+     * 
+     * @param secondaryAllocationIds
+     *        Secondary EIP allocation IDs. For more information, see <a
+     *        href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a
+     *        NAT gateway</a> in the <i>Amazon VPC User Guide</i>.
+     */
+
+    public void setSecondaryAllocationIds(java.util.Collection<String> secondaryAllocationIds) {
+        if (secondaryAllocationIds == null) {
+            this.secondaryAllocationIds = null;
+            return;
+        }
+
+        this.secondaryAllocationIds = new com.amazonaws.internal.SdkInternalList<String>(secondaryAllocationIds);
+    }
+
+    /**
+     * <p>
+     * Secondary EIP allocation IDs. For more information, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a NAT
+     * gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSecondaryAllocationIds(java.util.Collection)} or
+     * {@link #withSecondaryAllocationIds(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param secondaryAllocationIds
+     *        Secondary EIP allocation IDs. For more information, see <a
+     *        href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a
+     *        NAT gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNatGatewayRequest withSecondaryAllocationIds(String... secondaryAllocationIds) {
+        if (this.secondaryAllocationIds == null) {
+            setSecondaryAllocationIds(new com.amazonaws.internal.SdkInternalList<String>(secondaryAllocationIds.length));
+        }
+        for (String ele : secondaryAllocationIds) {
+            this.secondaryAllocationIds.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Secondary EIP allocation IDs. For more information, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a NAT
+     * gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * </p>
+     * 
+     * @param secondaryAllocationIds
+     *        Secondary EIP allocation IDs. For more information, see <a
+     *        href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a
+     *        NAT gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNatGatewayRequest withSecondaryAllocationIds(java.util.Collection<String> secondaryAllocationIds) {
+        setSecondaryAllocationIds(secondaryAllocationIds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Secondary private IPv4 addresses. For more information about secondary addresses, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a NAT
+     * gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * </p>
+     * 
+     * @return Secondary private IPv4 addresses. For more information about secondary addresses, see <a
+     *         href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create
+     *         a NAT gateway</a> in the <i>Amazon VPC User Guide</i>.
+     */
+
+    public java.util.List<String> getSecondaryPrivateIpAddresses() {
+        if (secondaryPrivateIpAddresses == null) {
+            secondaryPrivateIpAddresses = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return secondaryPrivateIpAddresses;
+    }
+
+    /**
+     * <p>
+     * Secondary private IPv4 addresses. For more information about secondary addresses, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a NAT
+     * gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * </p>
+     * 
+     * @param secondaryPrivateIpAddresses
+     *        Secondary private IPv4 addresses. For more information about secondary addresses, see <a
+     *        href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a
+     *        NAT gateway</a> in the <i>Amazon VPC User Guide</i>.
+     */
+
+    public void setSecondaryPrivateIpAddresses(java.util.Collection<String> secondaryPrivateIpAddresses) {
+        if (secondaryPrivateIpAddresses == null) {
+            this.secondaryPrivateIpAddresses = null;
+            return;
+        }
+
+        this.secondaryPrivateIpAddresses = new com.amazonaws.internal.SdkInternalList<String>(secondaryPrivateIpAddresses);
+    }
+
+    /**
+     * <p>
+     * Secondary private IPv4 addresses. For more information about secondary addresses, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a NAT
+     * gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSecondaryPrivateIpAddresses(java.util.Collection)} or
+     * {@link #withSecondaryPrivateIpAddresses(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param secondaryPrivateIpAddresses
+     *        Secondary private IPv4 addresses. For more information about secondary addresses, see <a
+     *        href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a
+     *        NAT gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNatGatewayRequest withSecondaryPrivateIpAddresses(String... secondaryPrivateIpAddresses) {
+        if (this.secondaryPrivateIpAddresses == null) {
+            setSecondaryPrivateIpAddresses(new com.amazonaws.internal.SdkInternalList<String>(secondaryPrivateIpAddresses.length));
+        }
+        for (String ele : secondaryPrivateIpAddresses) {
+            this.secondaryPrivateIpAddresses.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Secondary private IPv4 addresses. For more information about secondary addresses, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a NAT
+     * gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * </p>
+     * 
+     * @param secondaryPrivateIpAddresses
+     *        Secondary private IPv4 addresses. For more information about secondary addresses, see <a
+     *        href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a
+     *        NAT gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNatGatewayRequest withSecondaryPrivateIpAddresses(java.util.Collection<String> secondaryPrivateIpAddresses) {
+        setSecondaryPrivateIpAddresses(secondaryPrivateIpAddresses);
+        return this;
+    }
+
+    /**
+     * <p>
+     * [Private NAT gateway only] The number of secondary private IPv4 addresses you want to assign to the NAT gateway.
+     * For more information about secondary addresses, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a NAT
+     * gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * </p>
+     * 
+     * @param secondaryPrivateIpAddressCount
+     *        [Private NAT gateway only] The number of secondary private IPv4 addresses you want to assign to the NAT
+     *        gateway. For more information about secondary addresses, see <a
+     *        href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a
+     *        NAT gateway</a> in the <i>Amazon VPC User Guide</i>.
+     */
+
+    public void setSecondaryPrivateIpAddressCount(Integer secondaryPrivateIpAddressCount) {
+        this.secondaryPrivateIpAddressCount = secondaryPrivateIpAddressCount;
+    }
+
+    /**
+     * <p>
+     * [Private NAT gateway only] The number of secondary private IPv4 addresses you want to assign to the NAT gateway.
+     * For more information about secondary addresses, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a NAT
+     * gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * </p>
+     * 
+     * @return [Private NAT gateway only] The number of secondary private IPv4 addresses you want to assign to the NAT
+     *         gateway. For more information about secondary addresses, see <a
+     *         href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create
+     *         a NAT gateway</a> in the <i>Amazon VPC User Guide</i>.
+     */
+
+    public Integer getSecondaryPrivateIpAddressCount() {
+        return this.secondaryPrivateIpAddressCount;
+    }
+
+    /**
+     * <p>
+     * [Private NAT gateway only] The number of secondary private IPv4 addresses you want to assign to the NAT gateway.
+     * For more information about secondary addresses, see <a
+     * href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a NAT
+     * gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * </p>
+     * 
+     * @param secondaryPrivateIpAddressCount
+     *        [Private NAT gateway only] The number of secondary private IPv4 addresses you want to assign to the NAT
+     *        gateway. For more information about secondary addresses, see <a
+     *        href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-creating">Create a
+     *        NAT gateway</a> in the <i>Amazon VPC User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateNatGatewayRequest withSecondaryPrivateIpAddressCount(Integer secondaryPrivateIpAddressCount) {
+        setSecondaryPrivateIpAddressCount(secondaryPrivateIpAddressCount);
         return this;
     }
 
@@ -238,7 +703,19 @@ public class CreateNatGatewayRequest extends AmazonWebServiceRequest implements 
         if (getClientToken() != null)
             sb.append("ClientToken: ").append(getClientToken()).append(",");
         if (getSubnetId() != null)
-            sb.append("SubnetId: ").append(getSubnetId());
+            sb.append("SubnetId: ").append(getSubnetId()).append(",");
+        if (getTagSpecifications() != null)
+            sb.append("TagSpecifications: ").append(getTagSpecifications()).append(",");
+        if (getConnectivityType() != null)
+            sb.append("ConnectivityType: ").append(getConnectivityType()).append(",");
+        if (getPrivateIpAddress() != null)
+            sb.append("PrivateIpAddress: ").append(getPrivateIpAddress()).append(",");
+        if (getSecondaryAllocationIds() != null)
+            sb.append("SecondaryAllocationIds: ").append(getSecondaryAllocationIds()).append(",");
+        if (getSecondaryPrivateIpAddresses() != null)
+            sb.append("SecondaryPrivateIpAddresses: ").append(getSecondaryPrivateIpAddresses()).append(",");
+        if (getSecondaryPrivateIpAddressCount() != null)
+            sb.append("SecondaryPrivateIpAddressCount: ").append(getSecondaryPrivateIpAddressCount());
         sb.append("}");
         return sb.toString();
     }
@@ -265,6 +742,31 @@ public class CreateNatGatewayRequest extends AmazonWebServiceRequest implements 
             return false;
         if (other.getSubnetId() != null && other.getSubnetId().equals(this.getSubnetId()) == false)
             return false;
+        if (other.getTagSpecifications() == null ^ this.getTagSpecifications() == null)
+            return false;
+        if (other.getTagSpecifications() != null && other.getTagSpecifications().equals(this.getTagSpecifications()) == false)
+            return false;
+        if (other.getConnectivityType() == null ^ this.getConnectivityType() == null)
+            return false;
+        if (other.getConnectivityType() != null && other.getConnectivityType().equals(this.getConnectivityType()) == false)
+            return false;
+        if (other.getPrivateIpAddress() == null ^ this.getPrivateIpAddress() == null)
+            return false;
+        if (other.getPrivateIpAddress() != null && other.getPrivateIpAddress().equals(this.getPrivateIpAddress()) == false)
+            return false;
+        if (other.getSecondaryAllocationIds() == null ^ this.getSecondaryAllocationIds() == null)
+            return false;
+        if (other.getSecondaryAllocationIds() != null && other.getSecondaryAllocationIds().equals(this.getSecondaryAllocationIds()) == false)
+            return false;
+        if (other.getSecondaryPrivateIpAddresses() == null ^ this.getSecondaryPrivateIpAddresses() == null)
+            return false;
+        if (other.getSecondaryPrivateIpAddresses() != null && other.getSecondaryPrivateIpAddresses().equals(this.getSecondaryPrivateIpAddresses()) == false)
+            return false;
+        if (other.getSecondaryPrivateIpAddressCount() == null ^ this.getSecondaryPrivateIpAddressCount() == null)
+            return false;
+        if (other.getSecondaryPrivateIpAddressCount() != null
+                && other.getSecondaryPrivateIpAddressCount().equals(this.getSecondaryPrivateIpAddressCount()) == false)
+            return false;
         return true;
     }
 
@@ -276,6 +778,12 @@ public class CreateNatGatewayRequest extends AmazonWebServiceRequest implements 
         hashCode = prime * hashCode + ((getAllocationId() == null) ? 0 : getAllocationId().hashCode());
         hashCode = prime * hashCode + ((getClientToken() == null) ? 0 : getClientToken().hashCode());
         hashCode = prime * hashCode + ((getSubnetId() == null) ? 0 : getSubnetId().hashCode());
+        hashCode = prime * hashCode + ((getTagSpecifications() == null) ? 0 : getTagSpecifications().hashCode());
+        hashCode = prime * hashCode + ((getConnectivityType() == null) ? 0 : getConnectivityType().hashCode());
+        hashCode = prime * hashCode + ((getPrivateIpAddress() == null) ? 0 : getPrivateIpAddress().hashCode());
+        hashCode = prime * hashCode + ((getSecondaryAllocationIds() == null) ? 0 : getSecondaryAllocationIds().hashCode());
+        hashCode = prime * hashCode + ((getSecondaryPrivateIpAddresses() == null) ? 0 : getSecondaryPrivateIpAddresses().hashCode());
+        hashCode = prime * hashCode + ((getSecondaryPrivateIpAddressCount() == null) ? 0 : getSecondaryPrivateIpAddressCount().hashCode());
         return hashCode;
     }
 

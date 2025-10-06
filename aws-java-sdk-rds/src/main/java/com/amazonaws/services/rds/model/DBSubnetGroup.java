@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -65,6 +65,36 @@ public class DBSubnetGroup implements Serializable, Cloneable {
      * </p>
      */
     private String dBSubnetGroupArn;
+    /**
+     * <p>
+     * The network type of the DB subnet group.
+     * </p>
+     * <p>
+     * Valid values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * A <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> supportedNetworkTypes;
 
     /**
      * <p>
@@ -340,6 +370,267 @@ public class DBSubnetGroup implements Serializable, Cloneable {
     }
 
     /**
+     * <p>
+     * The network type of the DB subnet group.
+     * </p>
+     * <p>
+     * Valid values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * A <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @return The network type of the DB subnet group.</p>
+     *         <p>
+     *         Valid values:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>IPV4</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DUAL</code>
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         A <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     *         <code>DUAL</code>).
+     *         </p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *         Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     */
+
+    public java.util.List<String> getSupportedNetworkTypes() {
+        if (supportedNetworkTypes == null) {
+            supportedNetworkTypes = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return supportedNetworkTypes;
+    }
+
+    /**
+     * <p>
+     * The network type of the DB subnet group.
+     * </p>
+     * <p>
+     * Valid values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * A <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param supportedNetworkTypes
+     *        The network type of the DB subnet group.</p>
+     *        <p>
+     *        Valid values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>IPV4</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DUAL</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        A <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     *        <code>DUAL</code>).
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *        Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     */
+
+    public void setSupportedNetworkTypes(java.util.Collection<String> supportedNetworkTypes) {
+        if (supportedNetworkTypes == null) {
+            this.supportedNetworkTypes = null;
+            return;
+        }
+
+        this.supportedNetworkTypes = new com.amazonaws.internal.SdkInternalList<String>(supportedNetworkTypes);
+    }
+
+    /**
+     * <p>
+     * The network type of the DB subnet group.
+     * </p>
+     * <p>
+     * Valid values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * A <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSupportedNetworkTypes(java.util.Collection)} or
+     * {@link #withSupportedNetworkTypes(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param supportedNetworkTypes
+     *        The network type of the DB subnet group.</p>
+     *        <p>
+     *        Valid values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>IPV4</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DUAL</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        A <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     *        <code>DUAL</code>).
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *        Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBSubnetGroup withSupportedNetworkTypes(String... supportedNetworkTypes) {
+        if (this.supportedNetworkTypes == null) {
+            setSupportedNetworkTypes(new com.amazonaws.internal.SdkInternalList<String>(supportedNetworkTypes.length));
+        }
+        for (String ele : supportedNetworkTypes) {
+            this.supportedNetworkTypes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The network type of the DB subnet group.
+     * </p>
+     * <p>
+     * Valid values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>IPV4</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DUAL</code>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * A <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     * <code>DUAL</code>).
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html"> Working
+     * with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * </p>
+     * 
+     * @param supportedNetworkTypes
+     *        The network type of the DB subnet group.</p>
+     *        <p>
+     *        Valid values:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>IPV4</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DUAL</code>
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        A <code>DBSubnetGroup</code> can support only the IPv4 protocol or the IPv4 and the IPv6 protocols (
+     *        <code>DUAL</code>).
+     *        </p>
+     *        <p>
+     *        For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html">
+     *        Working with a DB instance in a VPC</a> in the <i>Amazon RDS User Guide.</i>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DBSubnetGroup withSupportedNetworkTypes(java.util.Collection<String> supportedNetworkTypes) {
+        setSupportedNetworkTypes(supportedNetworkTypes);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -362,7 +653,9 @@ public class DBSubnetGroup implements Serializable, Cloneable {
         if (getSubnets() != null)
             sb.append("Subnets: ").append(getSubnets()).append(",");
         if (getDBSubnetGroupArn() != null)
-            sb.append("DBSubnetGroupArn: ").append(getDBSubnetGroupArn());
+            sb.append("DBSubnetGroupArn: ").append(getDBSubnetGroupArn()).append(",");
+        if (getSupportedNetworkTypes() != null)
+            sb.append("SupportedNetworkTypes: ").append(getSupportedNetworkTypes());
         sb.append("}");
         return sb.toString();
     }
@@ -401,6 +694,10 @@ public class DBSubnetGroup implements Serializable, Cloneable {
             return false;
         if (other.getDBSubnetGroupArn() != null && other.getDBSubnetGroupArn().equals(this.getDBSubnetGroupArn()) == false)
             return false;
+        if (other.getSupportedNetworkTypes() == null ^ this.getSupportedNetworkTypes() == null)
+            return false;
+        if (other.getSupportedNetworkTypes() != null && other.getSupportedNetworkTypes().equals(this.getSupportedNetworkTypes()) == false)
+            return false;
         return true;
     }
 
@@ -415,6 +712,7 @@ public class DBSubnetGroup implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getSubnetGroupStatus() == null) ? 0 : getSubnetGroupStatus().hashCode());
         hashCode = prime * hashCode + ((getSubnets() == null) ? 0 : getSubnets().hashCode());
         hashCode = prime * hashCode + ((getDBSubnetGroupArn() == null) ? 0 : getDBSubnetGroupArn().hashCode());
+        hashCode = prime * hashCode + ((getSupportedNetworkTypes() == null) ? 0 : getSupportedNetworkTypes().hashCode());
         return hashCode;
     }
 

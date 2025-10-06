@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The input properties for a topic detection job.
+ * The input properties for an inference job. The document reader config field applies only to non-text inputs for
+ * custom analysis.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/InputDataConfig" target="_top">AWS API
@@ -30,7 +31,7 @@ public class InputDataConfig implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The Amazon S3 URI for the input data. The URI must be in same region as the API endpoint that you are calling.
+     * The Amazon S3 URI for the input data. The URI must be in same Region as the API endpoint that you are calling.
      * The URI can point to a single input file or it can provide the prefix for a collection of data files.
      * </p>
      * <p>
@@ -60,10 +61,17 @@ public class InputDataConfig implements Serializable, Cloneable, StructuredPojo 
      * </ul>
      */
     private String inputFormat;
+    /**
+     * <p>
+     * Provides configuration parameters to override the default actions for extracting text from PDF documents and
+     * image files.
+     * </p>
+     */
+    private DocumentReaderConfig documentReaderConfig;
 
     /**
      * <p>
-     * The Amazon S3 URI for the input data. The URI must be in same region as the API endpoint that you are calling.
+     * The Amazon S3 URI for the input data. The URI must be in same Region as the API endpoint that you are calling.
      * The URI can point to a single input file or it can provide the prefix for a collection of data files.
      * </p>
      * <p>
@@ -73,7 +81,7 @@ public class InputDataConfig implements Serializable, Cloneable, StructuredPojo 
      * </p>
      * 
      * @param s3Uri
-     *        The Amazon S3 URI for the input data. The URI must be in same region as the API endpoint that you are
+     *        The Amazon S3 URI for the input data. The URI must be in same Region as the API endpoint that you are
      *        calling. The URI can point to a single input file or it can provide the prefix for a collection of data
      *        files. </p>
      *        <p>
@@ -88,7 +96,7 @@ public class InputDataConfig implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The Amazon S3 URI for the input data. The URI must be in same region as the API endpoint that you are calling.
+     * The Amazon S3 URI for the input data. The URI must be in same Region as the API endpoint that you are calling.
      * The URI can point to a single input file or it can provide the prefix for a collection of data files.
      * </p>
      * <p>
@@ -97,7 +105,7 @@ public class InputDataConfig implements Serializable, Cloneable, StructuredPojo 
      * them as input.
      * </p>
      * 
-     * @return The Amazon S3 URI for the input data. The URI must be in same region as the API endpoint that you are
+     * @return The Amazon S3 URI for the input data. The URI must be in same Region as the API endpoint that you are
      *         calling. The URI can point to a single input file or it can provide the prefix for a collection of data
      *         files. </p>
      *         <p>
@@ -112,7 +120,7 @@ public class InputDataConfig implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The Amazon S3 URI for the input data. The URI must be in same region as the API endpoint that you are calling.
+     * The Amazon S3 URI for the input data. The URI must be in same Region as the API endpoint that you are calling.
      * The URI can point to a single input file or it can provide the prefix for a collection of data files.
      * </p>
      * <p>
@@ -122,7 +130,7 @@ public class InputDataConfig implements Serializable, Cloneable, StructuredPojo 
      * </p>
      * 
      * @param s3Uri
-     *        The Amazon S3 URI for the input data. The URI must be in same region as the API endpoint that you are
+     *        The Amazon S3 URI for the input data. The URI must be in same Region as the API endpoint that you are
      *        calling. The URI can point to a single input file or it can provide the prefix for a collection of data
      *        files. </p>
      *        <p>
@@ -305,6 +313,52 @@ public class InputDataConfig implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
+     * <p>
+     * Provides configuration parameters to override the default actions for extracting text from PDF documents and
+     * image files.
+     * </p>
+     * 
+     * @param documentReaderConfig
+     *        Provides configuration parameters to override the default actions for extracting text from PDF documents
+     *        and image files.
+     */
+
+    public void setDocumentReaderConfig(DocumentReaderConfig documentReaderConfig) {
+        this.documentReaderConfig = documentReaderConfig;
+    }
+
+    /**
+     * <p>
+     * Provides configuration parameters to override the default actions for extracting text from PDF documents and
+     * image files.
+     * </p>
+     * 
+     * @return Provides configuration parameters to override the default actions for extracting text from PDF documents
+     *         and image files.
+     */
+
+    public DocumentReaderConfig getDocumentReaderConfig() {
+        return this.documentReaderConfig;
+    }
+
+    /**
+     * <p>
+     * Provides configuration parameters to override the default actions for extracting text from PDF documents and
+     * image files.
+     * </p>
+     * 
+     * @param documentReaderConfig
+     *        Provides configuration parameters to override the default actions for extracting text from PDF documents
+     *        and image files.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InputDataConfig withDocumentReaderConfig(DocumentReaderConfig documentReaderConfig) {
+        setDocumentReaderConfig(documentReaderConfig);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -319,7 +373,9 @@ public class InputDataConfig implements Serializable, Cloneable, StructuredPojo 
         if (getS3Uri() != null)
             sb.append("S3Uri: ").append(getS3Uri()).append(",");
         if (getInputFormat() != null)
-            sb.append("InputFormat: ").append(getInputFormat());
+            sb.append("InputFormat: ").append(getInputFormat()).append(",");
+        if (getDocumentReaderConfig() != null)
+            sb.append("DocumentReaderConfig: ").append(getDocumentReaderConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -342,6 +398,10 @@ public class InputDataConfig implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getInputFormat() != null && other.getInputFormat().equals(this.getInputFormat()) == false)
             return false;
+        if (other.getDocumentReaderConfig() == null ^ this.getDocumentReaderConfig() == null)
+            return false;
+        if (other.getDocumentReaderConfig() != null && other.getDocumentReaderConfig().equals(this.getDocumentReaderConfig()) == false)
+            return false;
         return true;
     }
 
@@ -352,6 +412,7 @@ public class InputDataConfig implements Serializable, Cloneable, StructuredPojo 
 
         hashCode = prime * hashCode + ((getS3Uri() == null) ? 0 : getS3Uri().hashCode());
         hashCode = prime * hashCode + ((getInputFormat() == null) ? 0 : getInputFormat().hashCode());
+        hashCode = prime * hashCode + ((getDocumentReaderConfig() == null) ? 0 : getDocumentReaderConfig().hashCode());
         return hashCode;
     }
 

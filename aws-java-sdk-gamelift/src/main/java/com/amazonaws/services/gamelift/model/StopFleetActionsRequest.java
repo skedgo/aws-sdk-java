@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class StopFleetActionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Unique identifier for a fleet
+     * A unique identifier for the fleet to stop actions on. You can use either the fleet ID or ARN value.
      * </p>
      */
     private String fleetId;
@@ -37,14 +37,21 @@ public class StopFleetActionsRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      */
     private java.util.List<String> actions;
+    /**
+     * <p>
+     * The fleet location to stop fleet actions for. Specify a location in the form of an Amazon Web Services Region
+     * code, such as <code>us-west-2</code>.
+     * </p>
+     */
+    private String location;
 
     /**
      * <p>
-     * Unique identifier for a fleet
+     * A unique identifier for the fleet to stop actions on. You can use either the fleet ID or ARN value.
      * </p>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet
+     *        A unique identifier for the fleet to stop actions on. You can use either the fleet ID or ARN value.
      */
 
     public void setFleetId(String fleetId) {
@@ -53,10 +60,10 @@ public class StopFleetActionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Unique identifier for a fleet
+     * A unique identifier for the fleet to stop actions on. You can use either the fleet ID or ARN value.
      * </p>
      * 
-     * @return Unique identifier for a fleet
+     * @return A unique identifier for the fleet to stop actions on. You can use either the fleet ID or ARN value.
      */
 
     public String getFleetId() {
@@ -65,11 +72,11 @@ public class StopFleetActionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Unique identifier for a fleet
+     * A unique identifier for the fleet to stop actions on. You can use either the fleet ID or ARN value.
      * </p>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet
+     *        A unique identifier for the fleet to stop actions on. You can use either the fleet ID or ARN value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -177,6 +184,52 @@ public class StopFleetActionsRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
+     * <p>
+     * The fleet location to stop fleet actions for. Specify a location in the form of an Amazon Web Services Region
+     * code, such as <code>us-west-2</code>.
+     * </p>
+     * 
+     * @param location
+     *        The fleet location to stop fleet actions for. Specify a location in the form of an Amazon Web Services
+     *        Region code, such as <code>us-west-2</code>.
+     */
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    /**
+     * <p>
+     * The fleet location to stop fleet actions for. Specify a location in the form of an Amazon Web Services Region
+     * code, such as <code>us-west-2</code>.
+     * </p>
+     * 
+     * @return The fleet location to stop fleet actions for. Specify a location in the form of an Amazon Web Services
+     *         Region code, such as <code>us-west-2</code>.
+     */
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    /**
+     * <p>
+     * The fleet location to stop fleet actions for. Specify a location in the form of an Amazon Web Services Region
+     * code, such as <code>us-west-2</code>.
+     * </p>
+     * 
+     * @param location
+     *        The fleet location to stop fleet actions for. Specify a location in the form of an Amazon Web Services
+     *        Region code, such as <code>us-west-2</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StopFleetActionsRequest withLocation(String location) {
+        setLocation(location);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -191,7 +244,9 @@ public class StopFleetActionsRequest extends com.amazonaws.AmazonWebServiceReque
         if (getFleetId() != null)
             sb.append("FleetId: ").append(getFleetId()).append(",");
         if (getActions() != null)
-            sb.append("Actions: ").append(getActions());
+            sb.append("Actions: ").append(getActions()).append(",");
+        if (getLocation() != null)
+            sb.append("Location: ").append(getLocation());
         sb.append("}");
         return sb.toString();
     }
@@ -214,6 +269,10 @@ public class StopFleetActionsRequest extends com.amazonaws.AmazonWebServiceReque
             return false;
         if (other.getActions() != null && other.getActions().equals(this.getActions()) == false)
             return false;
+        if (other.getLocation() == null ^ this.getLocation() == null)
+            return false;
+        if (other.getLocation() != null && other.getLocation().equals(this.getLocation()) == false)
+            return false;
         return true;
     }
 
@@ -224,6 +283,7 @@ public class StopFleetActionsRequest extends com.amazonaws.AmazonWebServiceReque
 
         hashCode = prime * hashCode + ((getFleetId() == null) ? 0 : getFleetId().hashCode());
         hashCode = prime * hashCode + ((getActions() == null) ? 0 : getActions().hashCode());
+        hashCode = prime * hashCode + ((getLocation() == null) ? 0 : getLocation().hashCode());
         return hashCode;
     }
 

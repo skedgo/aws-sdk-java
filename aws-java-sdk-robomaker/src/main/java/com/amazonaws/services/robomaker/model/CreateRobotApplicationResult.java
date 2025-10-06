@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,7 +49,7 @@ public class CreateRobotApplicationResult extends com.amazonaws.AmazonWebService
     private java.util.List<Source> sources;
     /**
      * <p>
-     * The robot software suite used by the robot application.
+     * The robot software suite (ROS distribution) used by the robot application.
      * </p>
      */
     private RobotSoftwareSuite robotSoftwareSuite;
@@ -71,6 +71,12 @@ public class CreateRobotApplicationResult extends com.amazonaws.AmazonWebService
      * </p>
      */
     private java.util.Map<String, String> tags;
+    /**
+     * <p>
+     * An object that contains the Docker image URI used to a create your robot application.
+     * </p>
+     */
+    private Environment environment;
 
     /**
      * <p>
@@ -264,11 +270,11 @@ public class CreateRobotApplicationResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The robot software suite used by the robot application.
+     * The robot software suite (ROS distribution) used by the robot application.
      * </p>
      * 
      * @param robotSoftwareSuite
-     *        The robot software suite used by the robot application.
+     *        The robot software suite (ROS distribution) used by the robot application.
      */
 
     public void setRobotSoftwareSuite(RobotSoftwareSuite robotSoftwareSuite) {
@@ -277,10 +283,10 @@ public class CreateRobotApplicationResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The robot software suite used by the robot application.
+     * The robot software suite (ROS distribution) used by the robot application.
      * </p>
      * 
-     * @return The robot software suite used by the robot application.
+     * @return The robot software suite (ROS distribution) used by the robot application.
      */
 
     public RobotSoftwareSuite getRobotSoftwareSuite() {
@@ -289,11 +295,11 @@ public class CreateRobotApplicationResult extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The robot software suite used by the robot application.
+     * The robot software suite (ROS distribution) used by the robot application.
      * </p>
      * 
      * @param robotSoftwareSuite
-     *        The robot software suite used by the robot application.
+     *        The robot software suite (ROS distribution) used by the robot application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -422,6 +428,13 @@ public class CreateRobotApplicationResult extends com.amazonaws.AmazonWebService
         return this;
     }
 
+    /**
+     * Add a single Tags entry
+     *
+     * @see CreateRobotApplicationResult#withTags
+     * @returns a reference to this object so that method calls can be chained together.
+     */
+
     public CreateRobotApplicationResult addTagsEntry(String key, String value) {
         if (null == this.tags) {
             this.tags = new java.util.HashMap<String, String>();
@@ -440,6 +453,46 @@ public class CreateRobotApplicationResult extends com.amazonaws.AmazonWebService
 
     public CreateRobotApplicationResult clearTagsEntries() {
         this.tags = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * An object that contains the Docker image URI used to a create your robot application.
+     * </p>
+     * 
+     * @param environment
+     *        An object that contains the Docker image URI used to a create your robot application.
+     */
+
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
+
+    /**
+     * <p>
+     * An object that contains the Docker image URI used to a create your robot application.
+     * </p>
+     * 
+     * @return An object that contains the Docker image URI used to a create your robot application.
+     */
+
+    public Environment getEnvironment() {
+        return this.environment;
+    }
+
+    /**
+     * <p>
+     * An object that contains the Docker image URI used to a create your robot application.
+     * </p>
+     * 
+     * @param environment
+     *        An object that contains the Docker image URI used to a create your robot application.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateRobotApplicationResult withEnvironment(Environment environment) {
+        setEnvironment(environment);
         return this;
     }
 
@@ -470,7 +523,9 @@ public class CreateRobotApplicationResult extends com.amazonaws.AmazonWebService
         if (getRevisionId() != null)
             sb.append("RevisionId: ").append(getRevisionId()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getEnvironment() != null)
+            sb.append("Environment: ").append(getEnvironment());
         sb.append("}");
         return sb.toString();
     }
@@ -517,6 +572,10 @@ public class CreateRobotApplicationResult extends com.amazonaws.AmazonWebService
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getEnvironment() == null ^ this.getEnvironment() == null)
+            return false;
+        if (other.getEnvironment() != null && other.getEnvironment().equals(this.getEnvironment()) == false)
+            return false;
         return true;
     }
 
@@ -533,6 +592,7 @@ public class CreateRobotApplicationResult extends com.amazonaws.AmazonWebService
         hashCode = prime * hashCode + ((getLastUpdatedAt() == null) ? 0 : getLastUpdatedAt().hashCode());
         hashCode = prime * hashCode + ((getRevisionId() == null) ? 0 : getRevisionId().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getEnvironment() == null) ? 0 : getEnvironment().hashCode());
         return hashCode;
     }
 

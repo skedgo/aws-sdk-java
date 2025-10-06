@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -24,8 +24,8 @@ public class GetTagsResult extends com.amazonaws.AmazonWebServiceResult<com.amaz
 
     /**
      * <p>
-     * The token for the next set of retrievable results. AWS provides the token when the response from a previous call
-     * has more results than the maximum page size.
+     * The token for the next set of retrievable results. Amazon Web Services provides the token when the response from
+     * a previous call has more results than the maximum page size.
      * </p>
      */
     private String nextPageToken;
@@ -37,7 +37,7 @@ public class GetTagsResult extends com.amazonaws.AmazonWebServiceResult<com.amaz
     private java.util.List<String> tags;
     /**
      * <p>
-     * The number of query results that AWS returns at a time.
+     * The number of query results that Amazon Web Services returns at a time.
      * </p>
      */
     private Integer returnSize;
@@ -50,13 +50,13 @@ public class GetTagsResult extends com.amazonaws.AmazonWebServiceResult<com.amaz
 
     /**
      * <p>
-     * The token for the next set of retrievable results. AWS provides the token when the response from a previous call
-     * has more results than the maximum page size.
+     * The token for the next set of retrievable results. Amazon Web Services provides the token when the response from
+     * a previous call has more results than the maximum page size.
      * </p>
      * 
      * @param nextPageToken
-     *        The token for the next set of retrievable results. AWS provides the token when the response from a
-     *        previous call has more results than the maximum page size.
+     *        The token for the next set of retrievable results. Amazon Web Services provides the token when the
+     *        response from a previous call has more results than the maximum page size.
      */
 
     public void setNextPageToken(String nextPageToken) {
@@ -65,12 +65,12 @@ public class GetTagsResult extends com.amazonaws.AmazonWebServiceResult<com.amaz
 
     /**
      * <p>
-     * The token for the next set of retrievable results. AWS provides the token when the response from a previous call
-     * has more results than the maximum page size.
+     * The token for the next set of retrievable results. Amazon Web Services provides the token when the response from
+     * a previous call has more results than the maximum page size.
      * </p>
      * 
-     * @return The token for the next set of retrievable results. AWS provides the token when the response from a
-     *         previous call has more results than the maximum page size.
+     * @return The token for the next set of retrievable results. Amazon Web Services provides the token when the
+     *         response from a previous call has more results than the maximum page size.
      */
 
     public String getNextPageToken() {
@@ -79,13 +79,13 @@ public class GetTagsResult extends com.amazonaws.AmazonWebServiceResult<com.amaz
 
     /**
      * <p>
-     * The token for the next set of retrievable results. AWS provides the token when the response from a previous call
-     * has more results than the maximum page size.
+     * The token for the next set of retrievable results. Amazon Web Services provides the token when the response from
+     * a previous call has more results than the maximum page size.
      * </p>
      * 
      * @param nextPageToken
-     *        The token for the next set of retrievable results. AWS provides the token when the response from a
-     *        previous call has more results than the maximum page size.
+     *        The token for the next set of retrievable results. Amazon Web Services provides the token when the
+     *        response from a previous call has more results than the maximum page size.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -166,11 +166,11 @@ public class GetTagsResult extends com.amazonaws.AmazonWebServiceResult<com.amaz
 
     /**
      * <p>
-     * The number of query results that AWS returns at a time.
+     * The number of query results that Amazon Web Services returns at a time.
      * </p>
      * 
      * @param returnSize
-     *        The number of query results that AWS returns at a time.
+     *        The number of query results that Amazon Web Services returns at a time.
      */
 
     public void setReturnSize(Integer returnSize) {
@@ -179,10 +179,10 @@ public class GetTagsResult extends com.amazonaws.AmazonWebServiceResult<com.amaz
 
     /**
      * <p>
-     * The number of query results that AWS returns at a time.
+     * The number of query results that Amazon Web Services returns at a time.
      * </p>
      * 
-     * @return The number of query results that AWS returns at a time.
+     * @return The number of query results that Amazon Web Services returns at a time.
      */
 
     public Integer getReturnSize() {
@@ -191,11 +191,11 @@ public class GetTagsResult extends com.amazonaws.AmazonWebServiceResult<com.amaz
 
     /**
      * <p>
-     * The number of query results that AWS returns at a time.
+     * The number of query results that Amazon Web Services returns at a time.
      * </p>
      * 
      * @param returnSize
-     *        The number of query results that AWS returns at a time.
+     *        The number of query results that Amazon Web Services returns at a time.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

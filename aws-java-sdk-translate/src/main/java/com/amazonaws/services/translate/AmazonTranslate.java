@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ import com.amazonaws.services.translate.model.*;
  * </p>
  * <p>
  * <p>
- * Provides translation between one source language and another of the same set of languages.
+ * Provides translation of the input content from the source language to the target language.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -43,6 +43,64 @@ public interface AmazonTranslate {
 
     /**
      * <p>
+     * Creates a parallel data resource in Amazon Translate by importing an input file from Amazon S3. Parallel data
+     * files contain examples that show how you want segments of text to be translated. By adding parallel data, you can
+     * influence the style, tone, and word choice in your translation output.
+     * </p>
+     * 
+     * @param createParallelDataRequest
+     * @return Result of the CreateParallelData operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws InvalidRequestException
+     *         The request that you made is not valid. Check your request to determine why it's not valid and then retry
+     *         the request.
+     * @throws LimitExceededException
+     *         The specified limit has been exceeded. Review your request and retry it with a quantity below the stated
+     *         limit.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws TooManyTagsException
+     *         You have added too many tags to this resource. The maximum is 50 tags.
+     * @throws ConflictException
+     *         There was a conflict processing the request. Try your request again.
+     * @throws ConcurrentModificationException
+     *         Another modification is being made. That modification must complete before you can make your change.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.CreateParallelData
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/CreateParallelData" target="_top">AWS
+     *      API Documentation</a>
+     */
+    CreateParallelDataResult createParallelData(CreateParallelDataRequest createParallelDataRequest);
+
+    /**
+     * <p>
+     * Deletes a parallel data resource in Amazon Translate.
+     * </p>
+     * 
+     * @param deleteParallelDataRequest
+     * @return Result of the DeleteParallelData operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         Another modification is being made. That modification must complete before you can make your change.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.DeleteParallelData
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/DeleteParallelData" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteParallelDataResult deleteParallelData(DeleteParallelDataRequest deleteParallelDataRequest);
+
+    /**
+     * <p>
      * A synchronous action that deletes a custom terminology.
      * </p>
      * 
@@ -50,10 +108,13 @@ public interface AmazonTranslate {
      * @return Result of the DeleteTerminology operation returned by the service.
      * @throws ResourceNotFoundException
      *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
-     *         different resource will accomplish your needs before retrying the revised request. .
+     *         different resource will accomplish your needs before retrying the revised request.
      * @throws TooManyRequestsException
      *         You have made too many requests within a short period of time. Wait for a short time and then try your
      *         request again.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
      * @throws InternalServerException
      *         An internal server error occurred. Retry your request.
      * @sample AmazonTranslate.DeleteTerminology
@@ -64,6 +125,52 @@ public interface AmazonTranslate {
 
     /**
      * <p>
+     * Gets the properties associated with an asynchronous batch translation job including name, ID, status, source and
+     * target languages, input/output S3 buckets, and so on.
+     * </p>
+     * 
+     * @param describeTextTranslationJobRequest
+     * @return Result of the DescribeTextTranslationJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.DescribeTextTranslationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/DescribeTextTranslationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeTextTranslationJobResult describeTextTranslationJob(DescribeTextTranslationJobRequest describeTextTranslationJobRequest);
+
+    /**
+     * <p>
+     * Provides information about a parallel data resource.
+     * </p>
+     * 
+     * @param getParallelDataRequest
+     * @return Result of the GetParallelData operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.GetParallelData
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/GetParallelData" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetParallelDataResult getParallelData(GetParallelDataRequest getParallelDataRequest);
+
+    /**
+     * <p>
      * Retrieves a custom terminology.
      * </p>
      * 
@@ -71,10 +178,10 @@ public interface AmazonTranslate {
      * @return Result of the GetTerminology operation returned by the service.
      * @throws ResourceNotFoundException
      *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
-     *         different resource will accomplish your needs before retrying the revised request. .
+     *         different resource will accomplish your needs before retrying the revised request.
      * @throws InvalidParameterValueException
-     *         The value of the parameter is invalid. Review the value of the parameter you are using to correct it, and
-     *         then retry your operation.
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
      * @throws TooManyRequestsException
      *         You have made too many requests within a short period of time. Wait for a short time and then try your
      *         request again.
@@ -88,28 +195,31 @@ public interface AmazonTranslate {
 
     /**
      * <p>
-     * Creates or updates a custom terminology, depending on whether or not one already exists for the given terminology
-     * name. Importing a terminology with the same name as an existing one will merge the terminologies based on the
-     * chosen merge strategy. Currently, the only supported merge strategy is OVERWRITE, and so the imported terminology
-     * will overwrite an existing terminology of the same name.
+     * Creates or updates a custom terminology, depending on whether one already exists for the given terminology name.
+     * Importing a terminology with the same name as an existing one will merge the terminologies based on the chosen
+     * merge strategy. The only supported merge strategy is OVERWRITE, where the imported terminology overwrites the
+     * existing terminology of the same name.
      * </p>
      * <p>
-     * If you import a terminology that overwrites an existing one, the new terminology take up to 10 minutes to fully
-     * propagate and be available for use in a translation due to cache policies with the DataPlane service that
-     * performs the translations.
+     * If you import a terminology that overwrites an existing one, the new terminology takes up to 10 minutes to fully
+     * propagate. After that, translations have access to the new terminology.
      * </p>
      * 
      * @param importTerminologyRequest
      * @return Result of the ImportTerminology operation returned by the service.
      * @throws InvalidParameterValueException
-     *         The value of the parameter is invalid. Review the value of the parameter you are using to correct it, and
-     *         then retry your operation.
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
      * @throws LimitExceededException
      *         The specified limit has been exceeded. Review your request and retry it with a quantity below the stated
      *         limit.
      * @throws TooManyRequestsException
      *         You have made too many requests within a short period of time. Wait for a short time and then try your
      *         request again.
+     * @throws TooManyTagsException
+     *         You have added too many tags to this resource. The maximum is 50 tags.
+     * @throws ConcurrentModificationException
+     *         Another modification is being made. That modification must complete before you can make your change.
      * @throws InternalServerException
      *         An internal server error occurred. Retry your request.
      * @sample AmazonTranslate.ImportTerminology
@@ -120,14 +230,80 @@ public interface AmazonTranslate {
 
     /**
      * <p>
+     * Provides a list of languages (RFC-5646 codes and names) that Amazon Translate supports.
+     * </p>
+     * 
+     * @param listLanguagesRequest
+     * @return Result of the ListLanguages operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws UnsupportedDisplayLanguageCodeException
+     *         Requested display language code is not supported.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.ListLanguages
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/ListLanguages" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListLanguagesResult listLanguages(ListLanguagesRequest listLanguagesRequest);
+
+    /**
+     * <p>
+     * Provides a list of your parallel data resources in Amazon Translate.
+     * </p>
+     * 
+     * @param listParallelDataRequest
+     * @return Result of the ListParallelData operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.ListParallelData
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/ListParallelData" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListParallelDataResult listParallelData(ListParallelDataRequest listParallelDataRequest);
+
+    /**
+     * <p>
+     * Lists all tags associated with a given Amazon Translate resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/translate/latest/dg/tagging.html"> Tagging your resources</a>.
+     * </p>
+     * 
+     * @param listTagsForResourceRequest
+     * @return Result of the ListTagsForResource operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.ListTagsForResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/ListTagsForResource" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest);
+
+    /**
+     * <p>
      * Provides a list of custom terminologies associated with your account.
      * </p>
      * 
      * @param listTerminologiesRequest
      * @return Result of the ListTerminologies operation returned by the service.
      * @throws InvalidParameterValueException
-     *         The value of the parameter is invalid. Review the value of the parameter you are using to correct it, and
-     *         then retry your operation.
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
      * @throws TooManyRequestsException
      *         You have made too many requests within a short period of time. Wait for a short time and then try your
      *         request again.
@@ -141,129 +317,178 @@ public interface AmazonTranslate {
 
     /**
      * <p>
-     * Translates input text from the source language to the target language. It is not necessary to use English (en) as
-     * either the source or the target language but not all language combinations are supported by Amazon Translate. For
-     * more information, see <a href="http://docs.aws.amazon.com/translate/latest/dg/pairs.html">Supported Language
-     * Pairs</a>.
+     * Gets a list of the batch translation jobs that you have submitted.
      * </p>
-     * <ul>
-     * <li>
+     * 
+     * @param listTextTranslationJobsRequest
+     * @return Result of the ListTextTranslationJobs operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request that you made is not valid. Check your request to determine why it's not valid and then retry
+     *         the request.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws InvalidFilterException
+     *         The filter specified for the operation is not valid. Specify a different filter.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.ListTextTranslationJobs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/ListTextTranslationJobs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListTextTranslationJobsResult listTextTranslationJobs(ListTextTranslationJobsRequest listTextTranslationJobsRequest);
+
+    /**
      * <p>
-     * Arabic (ar)
+     * Starts an asynchronous batch translation job. Use batch translation jobs to translate large volumes of text
+     * across multiple documents at once. For batch translation, you can input documents with different source languages
+     * (specify <code>auto</code> as the source language). You can specify one or more target languages. Batch
+     * translation translates each input document into each of the target languages. For more information, see <a
+     * href="https://docs.aws.amazon.com/translate/latest/dg/async.html">Asynchronous batch processing</a>.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * Chinese (Simplified) (zh)
+     * Batch translation jobs can be described with the <a>DescribeTextTranslationJob</a> operation, listed with the
+     * <a>ListTextTranslationJobs</a> operation, and stopped with the <a>StopTextTranslationJob</a> operation.
      * </p>
-     * </li>
-     * <li>
+     * 
+     * @param startTextTranslationJobRequest
+     * @return Result of the StartTextTranslationJob operation returned by the service.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws UnsupportedLanguagePairException
+     *         Amazon Translate does not support translation from the language of the source text into the requested
+     *         target language. For more information, see <a
+     *         href="https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html">Supported languages</a>.
+     * @throws InvalidRequestException
+     *         The request that you made is not valid. Check your request to determine why it's not valid and then retry
+     *         the request.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.StartTextTranslationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/StartTextTranslationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    StartTextTranslationJobResult startTextTranslationJob(StartTextTranslationJobRequest startTextTranslationJobRequest);
+
+    /**
      * <p>
-     * Chinese (Traditional) (zh-TW)
+     * Stops an asynchronous batch translation job that is in progress.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * Czech (cs)
+     * If the job's state is <code>IN_PROGRESS</code>, the job will be marked for termination and put into the
+     * <code>STOP_REQUESTED</code> state. If the job completes before it can be stopped, it is put into the
+     * <code>COMPLETED</code> state. Otherwise, the job is put into the <code>STOPPED</code> state.
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * Danish (da)
+     * Asynchronous batch translation jobs are started with the <a>StartTextTranslationJob</a> operation. You can use
+     * the <a>DescribeTextTranslationJob</a> or <a>ListTextTranslationJobs</a> operations to get a batch translation
+     * job's <code>JobId</code>.
      * </p>
-     * </li>
-     * <li>
+     * 
+     * @param stopTextTranslationJobRequest
+     * @return Result of the StopTextTranslationJob operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.StopTextTranslationJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/StopTextTranslationJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    StopTextTranslationJobResult stopTextTranslationJob(StopTextTranslationJobRequest stopTextTranslationJobRequest);
+
+    /**
      * <p>
-     * Dutch (nl)
+     * Associates a specific tag with a resource. A tag is a key-value pair that adds as a metadata to a resource. For
+     * more information, see <a href="https://docs.aws.amazon.com/translate/latest/dg/tagging.html"> Tagging your
+     * resources</a>.
      * </p>
-     * </li>
-     * <li>
+     * 
+     * @param tagResourceRequest
+     * @return Result of the TagResource operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws ConcurrentModificationException
+     *         Another modification is being made. That modification must complete before you can make your change.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws TooManyTagsException
+     *         You have added too many tags to this resource. The maximum is 50 tags.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.TagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/TagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    TagResourceResult tagResource(TagResourceRequest tagResourceRequest);
+
+    /**
      * <p>
-     * English (en)
+     * Translates the input document from the source language to the target language. This synchronous operation
+     * supports text, HTML, or Word documents as the input document. <code>TranslateDocument</code> supports
+     * translations from English to any supported language, and from any supported language to English. Therefore,
+     * specify either the source language code or the target language code as “en” (English).
      * </p>
-     * </li>
-     * <li>
      * <p>
-     * Finnish (fi)
+     * If you set the <code>Formality</code> parameter, the request will fail if the target language does not support
+     * formality. For a list of target languages that support formality, see <a
+     * href="https://docs.aws.amazon.com/translate/latest/dg/customizing-translations-formality.html">Setting
+     * formality</a>.
      * </p>
-     * </li>
-     * <li>
+     * 
+     * @param translateDocumentRequest
+     * @return Result of the TranslateDocument operation returned by the service.
+     * @throws InvalidRequestException
+     *         The request that you made is not valid. Check your request to determine why it's not valid and then retry
+     *         the request.
+     * @throws LimitExceededException
+     *         The specified limit has been exceeded. Review your request and retry it with a quantity below the stated
+     *         limit.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws UnsupportedLanguagePairException
+     *         Amazon Translate does not support translation from the language of the source text into the requested
+     *         target language. For more information, see <a
+     *         href="https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html">Supported languages</a>.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @throws ServiceUnavailableException
+     *         The Amazon Translate service is temporarily unavailable. Wait a bit and then retry your request.
+     * @sample AmazonTranslate.TranslateDocument
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/TranslateDocument" target="_top">AWS
+     *      API Documentation</a>
+     */
+    TranslateDocumentResult translateDocument(TranslateDocumentRequest translateDocumentRequest);
+
+    /**
      * <p>
-     * French (fr)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * German (de)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Hebrew (he)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Indonesian (id)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Italian (it)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Japanese (ja)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Korean (ko)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Polish (pl)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Portuguese (pt)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Russian (ru)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Spanish (es)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Swedish (sv)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Turkish (tr)
-     * </p>
-     * </li>
-     * </ul>
-     * <p>
-     * To have Amazon Translate determine the source language of your text, you can specify <code>auto</code> in the
-     * <code>SourceLanguageCode</code> field. If you specify <code>auto</code>, Amazon Translate will call Amazon
-     * Comprehend to determine the source language.
+     * Translates input text from the source language to the target language. For a list of available languages and
+     * language codes, see <a href="https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html">Supported
+     * languages</a>.
      * </p>
      * 
      * @param translateTextRequest
      * @return Result of the TranslateText operation returned by the service.
      * @throws InvalidRequestException
-     *         The request that you made is invalid. Check your request to determine why it's invalid and then retry the
-     *         request.
+     *         The request that you made is not valid. Check your request to determine why it's not valid and then retry
+     *         the request.
      * @throws TextSizeLimitExceededException
      *         The size of the text you submitted exceeds the size limit. Reduce the size of the text or use a smaller
      *         document and then retry your request.
@@ -272,7 +497,8 @@ public interface AmazonTranslate {
      *         request again.
      * @throws UnsupportedLanguagePairException
      *         Amazon Translate does not support translation from the language of the source text into the requested
-     *         target language. For more information, see <a>how-to-error-msg</a>.
+     *         target language. For more information, see <a
+     *         href="https://docs.aws.amazon.com/translate/latest/dg/what-is-languages.html">Supported languages</a>.
      * @throws DetectedLanguageLowConfidenceException
      *         The confidence that Amazon Comprehend accurately detected the source language is low. If a low confidence
      *         level is acceptable for your application, you can use the language in the exception to call Amazon
@@ -281,16 +507,74 @@ public interface AmazonTranslate {
      *         >DetectDominantLanguage</a> operation in the <i>Amazon Comprehend Developer Guide</i>.
      * @throws ResourceNotFoundException
      *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
-     *         different resource will accomplish your needs before retrying the revised request. .
+     *         different resource will accomplish your needs before retrying the revised request.
      * @throws InternalServerException
      *         An internal server error occurred. Retry your request.
      * @throws ServiceUnavailableException
-     *         The Amazon Translate service is temporarily unavailable. Please wait a bit and then retry your request.
+     *         The Amazon Translate service is temporarily unavailable. Wait a bit and then retry your request.
      * @sample AmazonTranslate.TranslateText
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/TranslateText" target="_top">AWS API
      *      Documentation</a>
      */
     TranslateTextResult translateText(TranslateTextRequest translateTextRequest);
+
+    /**
+     * <p>
+     * Removes a specific tag associated with an Amazon Translate resource. For more information, see <a
+     * href="https://docs.aws.amazon.com/translate/latest/dg/tagging.html"> Tagging your resources</a>.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws ConcurrentModificationException
+     *         Another modification is being made. That modification must complete before you can make your change.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.UntagResource
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/UntagResource" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UntagResourceResult untagResource(UntagResourceRequest untagResourceRequest);
+
+    /**
+     * <p>
+     * Updates a previously created parallel data resource by importing a new input file from Amazon S3.
+     * </p>
+     * 
+     * @param updateParallelDataRequest
+     * @return Result of the UpdateParallelData operation returned by the service.
+     * @throws ConcurrentModificationException
+     *         Another modification is being made. That modification must complete before you can make your change.
+     * @throws InvalidParameterValueException
+     *         The value of the parameter is not valid. Review the value of the parameter you are using to correct it,
+     *         and then retry your operation.
+     * @throws InvalidRequestException
+     *         The request that you made is not valid. Check your request to determine why it's not valid and then retry
+     *         the request.
+     * @throws LimitExceededException
+     *         The specified limit has been exceeded. Review your request and retry it with a quantity below the stated
+     *         limit.
+     * @throws TooManyRequestsException
+     *         You have made too many requests within a short period of time. Wait for a short time and then try your
+     *         request again.
+     * @throws ConflictException
+     *         There was a conflict processing the request. Try your request again.
+     * @throws ResourceNotFoundException
+     *         The resource you are looking for has not been found. Review the resource you're looking for and see if a
+     *         different resource will accomplish your needs before retrying the revised request.
+     * @throws InternalServerException
+     *         An internal server error occurred. Retry your request.
+     * @sample AmazonTranslate.UpdateParallelData
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/translate-2017-07-01/UpdateParallelData" target="_top">AWS
+     *      API Documentation</a>
+     */
+    UpdateParallelDataResult updateParallelData(UpdateParallelDataRequest updateParallelDataRequest);
 
     /**
      * Shuts down this client object, releasing any resources that might be held open. This is an optional method, and

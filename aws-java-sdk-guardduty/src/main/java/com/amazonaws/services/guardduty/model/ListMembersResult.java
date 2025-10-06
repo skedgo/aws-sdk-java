@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,11 +27,17 @@ public class ListMembersResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * A list of members.
      * </p>
+     * <note>
+     * <p>
+     * The values for <code>email</code> and <code>invitedAt</code> are available only if the member accounts are added
+     * by invitation.
+     * </p>
+     * </note>
      */
     private java.util.List<Member> members;
     /**
      * <p>
-     * Pagination parameter to be used on the next list operation to retrieve more items.
+     * The pagination parameter to be used on the next list operation to retrieve more items.
      * </p>
      */
     private String nextToken;
@@ -40,8 +46,18 @@ public class ListMembersResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * A list of members.
      * </p>
+     * <note>
+     * <p>
+     * The values for <code>email</code> and <code>invitedAt</code> are available only if the member accounts are added
+     * by invitation.
+     * </p>
+     * </note>
      * 
-     * @return A list of members.
+     * @return A list of members.</p> <note>
+     *         <p>
+     *         The values for <code>email</code> and <code>invitedAt</code> are available only if the member accounts
+     *         are added by invitation.
+     *         </p>
      */
 
     public java.util.List<Member> getMembers() {
@@ -52,9 +68,19 @@ public class ListMembersResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * A list of members.
      * </p>
+     * <note>
+     * <p>
+     * The values for <code>email</code> and <code>invitedAt</code> are available only if the member accounts are added
+     * by invitation.
+     * </p>
+     * </note>
      * 
      * @param members
-     *        A list of members.
+     *        A list of members.</p> <note>
+     *        <p>
+     *        The values for <code>email</code> and <code>invitedAt</code> are available only if the member accounts are
+     *        added by invitation.
+     *        </p>
      */
 
     public void setMembers(java.util.Collection<Member> members) {
@@ -70,6 +96,12 @@ public class ListMembersResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * A list of members.
      * </p>
+     * <note>
+     * <p>
+     * The values for <code>email</code> and <code>invitedAt</code> are available only if the member accounts are added
+     * by invitation.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setMembers(java.util.Collection)} or {@link #withMembers(java.util.Collection)} if you want to override
@@ -77,7 +109,11 @@ public class ListMembersResult extends com.amazonaws.AmazonWebServiceResult<com.
      * </p>
      * 
      * @param members
-     *        A list of members.
+     *        A list of members.</p> <note>
+     *        <p>
+     *        The values for <code>email</code> and <code>invitedAt</code> are available only if the member accounts are
+     *        added by invitation.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -95,9 +131,19 @@ public class ListMembersResult extends com.amazonaws.AmazonWebServiceResult<com.
      * <p>
      * A list of members.
      * </p>
+     * <note>
+     * <p>
+     * The values for <code>email</code> and <code>invitedAt</code> are available only if the member accounts are added
+     * by invitation.
+     * </p>
+     * </note>
      * 
      * @param members
-     *        A list of members.
+     *        A list of members.</p> <note>
+     *        <p>
+     *        The values for <code>email</code> and <code>invitedAt</code> are available only if the member accounts are
+     *        added by invitation.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -108,11 +154,11 @@ public class ListMembersResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Pagination parameter to be used on the next list operation to retrieve more items.
+     * The pagination parameter to be used on the next list operation to retrieve more items.
      * </p>
      * 
      * @param nextToken
-     *        Pagination parameter to be used on the next list operation to retrieve more items.
+     *        The pagination parameter to be used on the next list operation to retrieve more items.
      */
 
     public void setNextToken(String nextToken) {
@@ -121,10 +167,10 @@ public class ListMembersResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Pagination parameter to be used on the next list operation to retrieve more items.
+     * The pagination parameter to be used on the next list operation to retrieve more items.
      * </p>
      * 
-     * @return Pagination parameter to be used on the next list operation to retrieve more items.
+     * @return The pagination parameter to be used on the next list operation to retrieve more items.
      */
 
     public String getNextToken() {
@@ -133,11 +179,11 @@ public class ListMembersResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Pagination parameter to be used on the next list operation to retrieve more items.
+     * The pagination parameter to be used on the next list operation to retrieve more items.
      * </p>
      * 
      * @param nextToken
-     *        Pagination parameter to be used on the next list operation to retrieve more items.
+     *        The pagination parameter to be used on the next list operation to retrieve more items.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

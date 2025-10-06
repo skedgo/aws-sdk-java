@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,8 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Parameter Store does not support changing a parameter type in a hierarchy. For example, you can't change a parameter
- * from a String type to a SecureString type. You must create a new, unique parameter.
+ * Parameter Store doesn't support changing a parameter type in a hierarchy. For example, you can't change a parameter
+ * from a <code>String</code> type to a <code>SecureString</code> type. You must create a new, unique parameter.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

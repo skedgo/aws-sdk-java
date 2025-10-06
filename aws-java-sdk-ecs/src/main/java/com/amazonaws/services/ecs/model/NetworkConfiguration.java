@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An object representing the network configuration for a task or service.
+ * The network configuration for a task or service.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/NetworkConfiguration" target="_top">AWS API
@@ -30,7 +30,7 @@ public class NetworkConfiguration implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The VPC subnets and security groups associated with a task.
+     * The VPC subnets and security groups that are associated with a task.
      * </p>
      * <note>
      * <p>
@@ -42,7 +42,7 @@ public class NetworkConfiguration implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The VPC subnets and security groups associated with a task.
+     * The VPC subnets and security groups that are associated with a task.
      * </p>
      * <note>
      * <p>
@@ -51,7 +51,7 @@ public class NetworkConfiguration implements Serializable, Cloneable, Structured
      * </note>
      * 
      * @param awsvpcConfiguration
-     *        The VPC subnets and security groups associated with a task.</p> <note>
+     *        The VPC subnets and security groups that are associated with a task.</p> <note>
      *        <p>
      *        All specified subnets and security groups must be from the same VPC.
      *        </p>
@@ -63,7 +63,7 @@ public class NetworkConfiguration implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The VPC subnets and security groups associated with a task.
+     * The VPC subnets and security groups that are associated with a task.
      * </p>
      * <note>
      * <p>
@@ -71,7 +71,7 @@ public class NetworkConfiguration implements Serializable, Cloneable, Structured
      * </p>
      * </note>
      * 
-     * @return The VPC subnets and security groups associated with a task.</p> <note>
+     * @return The VPC subnets and security groups that are associated with a task.</p> <note>
      *         <p>
      *         All specified subnets and security groups must be from the same VPC.
      *         </p>
@@ -83,7 +83,7 @@ public class NetworkConfiguration implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * The VPC subnets and security groups associated with a task.
+     * The VPC subnets and security groups that are associated with a task.
      * </p>
      * <note>
      * <p>
@@ -92,7 +92,7 @@ public class NetworkConfiguration implements Serializable, Cloneable, Structured
      * </note>
      * 
      * @param awsvpcConfiguration
-     *        The VPC subnets and security groups associated with a task.</p> <note>
+     *        The VPC subnets and security groups that are associated with a task.</p> <note>
      *        <p>
      *        All specified subnets and security groups must be from the same VPC.
      *        </p>

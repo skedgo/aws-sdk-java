@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,9 @@ import com.amazonaws.protocol.StructuredPojo;
 import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
+ * <p>
+ * Contains information about the account.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/AccountDetail" target="_top">AWS API
  *      Documentation</a>
@@ -27,24 +30,24 @@ public class AccountDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Member account ID.
+     * The member account ID.
      * </p>
      */
     private String accountId;
     /**
      * <p>
-     * Member account's email address.
+     * The email address of the member account.
      * </p>
      */
     private String email;
 
     /**
      * <p>
-     * Member account ID.
+     * The member account ID.
      * </p>
      * 
      * @param accountId
-     *        Member account ID.
+     *        The member account ID.
      */
 
     public void setAccountId(String accountId) {
@@ -53,10 +56,10 @@ public class AccountDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Member account ID.
+     * The member account ID.
      * </p>
      * 
-     * @return Member account ID.
+     * @return The member account ID.
      */
 
     public String getAccountId() {
@@ -65,11 +68,11 @@ public class AccountDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Member account ID.
+     * The member account ID.
      * </p>
      * 
      * @param accountId
-     *        Member account ID.
+     *        The member account ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -80,11 +83,11 @@ public class AccountDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Member account's email address.
+     * The email address of the member account.
      * </p>
      * 
      * @param email
-     *        Member account's email address.
+     *        The email address of the member account.
      */
 
     public void setEmail(String email) {
@@ -93,10 +96,10 @@ public class AccountDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Member account's email address.
+     * The email address of the member account.
      * </p>
      * 
-     * @return Member account's email address.
+     * @return The email address of the member account.
      */
 
     public String getEmail() {
@@ -105,11 +108,11 @@ public class AccountDetail implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Member account's email address.
+     * The email address of the member account.
      * </p>
      * 
      * @param email
-     *        Member account's email address.
+     *        The email address of the member account.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -133,7 +136,7 @@ public class AccountDetail implements Serializable, Cloneable, StructuredPojo {
         if (getAccountId() != null)
             sb.append("AccountId: ").append(getAccountId()).append(",");
         if (getEmail() != null)
-            sb.append("Email: ").append(getEmail());
+            sb.append("Email: ").append("***Sensitive Data Redacted***");
         sb.append("}");
         return sb.toString();
     }

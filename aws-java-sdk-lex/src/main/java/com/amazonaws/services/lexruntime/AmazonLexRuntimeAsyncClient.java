@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,7 +56,20 @@ public class AmazonLexRuntimeAsyncClient extends AmazonLexRuntimeClient implemen
      *        Object providing client parameters.
      */
     AmazonLexRuntimeAsyncClient(AwsAsyncClientParams asyncClientParams) {
-        super(asyncClientParams);
+        this(asyncClientParams, false);
+    }
+
+    /**
+     * Constructs a new asynchronous client to invoke service methods on Amazon Lex Runtime Service using the specified
+     * parameters.
+     *
+     * @param asyncClientParams
+     *        Object providing client parameters.
+     * @param endpointDiscoveryEnabled
+     *        true will enable endpoint discovery if the service supports it.
+     */
+    AmazonLexRuntimeAsyncClient(AwsAsyncClientParams asyncClientParams, boolean endpointDiscoveryEnabled) {
+        super(asyncClientParams, endpointDiscoveryEnabled);
         this.executorService = asyncClientParams.getExecutor();
     }
 
@@ -67,6 +80,72 @@ public class AmazonLexRuntimeAsyncClient extends AmazonLexRuntimeClient implemen
      */
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteSessionResult> deleteSessionAsync(DeleteSessionRequest request) {
+
+        return deleteSessionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteSessionResult> deleteSessionAsync(final DeleteSessionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteSessionRequest, DeleteSessionResult> asyncHandler) {
+        final DeleteSessionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteSessionResult>() {
+            @Override
+            public DeleteSessionResult call() throws Exception {
+                DeleteSessionResult result = null;
+
+                try {
+                    result = executeDeleteSession(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSessionResult> getSessionAsync(GetSessionRequest request) {
+
+        return getSessionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSessionResult> getSessionAsync(final GetSessionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetSessionRequest, GetSessionResult> asyncHandler) {
+        final GetSessionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetSessionResult>() {
+            @Override
+            public GetSessionResult call() throws Exception {
+                GetSessionResult result = null;
+
+                try {
+                    result = executeGetSession(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -120,6 +199,39 @@ public class AmazonLexRuntimeAsyncClient extends AmazonLexRuntimeClient implemen
 
                 try {
                     result = executePostText(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutSessionResult> putSessionAsync(PutSessionRequest request) {
+
+        return putSessionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutSessionResult> putSessionAsync(final PutSessionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutSessionRequest, PutSessionResult> asyncHandler) {
+        final PutSessionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutSessionResult>() {
+            @Override
+            public PutSessionResult call() throws Exception {
+                PutSessionResult result = null;
+
+                try {
+                    result = executePutSession(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

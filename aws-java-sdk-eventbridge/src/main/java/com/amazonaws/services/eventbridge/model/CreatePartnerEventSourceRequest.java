@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,16 +28,16 @@ public class CreatePartnerEventSourceRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The name of the partner event source. This name must be unique and must be in the format
-     * <code> <i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>. The AWS account that wants to use
-     * this partner event source must create a partner event bus with a name that matches the name of the partner event
-     * source.
+     * <code> <i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>. The Amazon Web Services account that
+     * wants to use this partner event source must create a partner event bus with a name that matches the name of the
+     * partner event source.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The AWS account ID of the customer who is permitted to create a matching partner event bus for this partner event
-     * source.
+     * The Amazon Web Services account ID that is permitted to create a matching partner event bus for this partner
+     * event source.
      * </p>
      */
     private String account;
@@ -45,16 +45,16 @@ public class CreatePartnerEventSourceRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The name of the partner event source. This name must be unique and must be in the format
-     * <code> <i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>. The AWS account that wants to use
-     * this partner event source must create a partner event bus with a name that matches the name of the partner event
-     * source.
+     * <code> <i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>. The Amazon Web Services account that
+     * wants to use this partner event source must create a partner event bus with a name that matches the name of the
+     * partner event source.
      * </p>
      * 
      * @param name
      *        The name of the partner event source. This name must be unique and must be in the format
-     *        <code> <i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>. The AWS account that wants to
-     *        use this partner event source must create a partner event bus with a name that matches the name of the
-     *        partner event source.
+     *        <code> <i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>. The Amazon Web Services
+     *        account that wants to use this partner event source must create a partner event bus with a name that
+     *        matches the name of the partner event source.
      */
 
     public void setName(String name) {
@@ -64,15 +64,15 @@ public class CreatePartnerEventSourceRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The name of the partner event source. This name must be unique and must be in the format
-     * <code> <i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>. The AWS account that wants to use
-     * this partner event source must create a partner event bus with a name that matches the name of the partner event
-     * source.
+     * <code> <i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>. The Amazon Web Services account that
+     * wants to use this partner event source must create a partner event bus with a name that matches the name of the
+     * partner event source.
      * </p>
      * 
      * @return The name of the partner event source. This name must be unique and must be in the format
-     *         <code> <i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>. The AWS account that wants
-     *         to use this partner event source must create a partner event bus with a name that matches the name of the
-     *         partner event source.
+     *         <code> <i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>. The Amazon Web Services
+     *         account that wants to use this partner event source must create a partner event bus with a name that
+     *         matches the name of the partner event source.
      */
 
     public String getName() {
@@ -82,16 +82,16 @@ public class CreatePartnerEventSourceRequest extends com.amazonaws.AmazonWebServ
     /**
      * <p>
      * The name of the partner event source. This name must be unique and must be in the format
-     * <code> <i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>. The AWS account that wants to use
-     * this partner event source must create a partner event bus with a name that matches the name of the partner event
-     * source.
+     * <code> <i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>. The Amazon Web Services account that
+     * wants to use this partner event source must create a partner event bus with a name that matches the name of the
+     * partner event source.
      * </p>
      * 
      * @param name
      *        The name of the partner event source. This name must be unique and must be in the format
-     *        <code> <i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>. The AWS account that wants to
-     *        use this partner event source must create a partner event bus with a name that matches the name of the
-     *        partner event source.
+     *        <code> <i>partner_name</i>/<i>event_namespace</i>/<i>event_name</i> </code>. The Amazon Web Services
+     *        account that wants to use this partner event source must create a partner event bus with a name that
+     *        matches the name of the partner event source.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -102,12 +102,12 @@ public class CreatePartnerEventSourceRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The AWS account ID of the customer who is permitted to create a matching partner event bus for this partner event
-     * source.
+     * The Amazon Web Services account ID that is permitted to create a matching partner event bus for this partner
+     * event source.
      * </p>
      * 
      * @param account
-     *        The AWS account ID of the customer who is permitted to create a matching partner event bus for this
+     *        The Amazon Web Services account ID that is permitted to create a matching partner event bus for this
      *        partner event source.
      */
 
@@ -117,11 +117,11 @@ public class CreatePartnerEventSourceRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The AWS account ID of the customer who is permitted to create a matching partner event bus for this partner event
-     * source.
+     * The Amazon Web Services account ID that is permitted to create a matching partner event bus for this partner
+     * event source.
      * </p>
      * 
-     * @return The AWS account ID of the customer who is permitted to create a matching partner event bus for this
+     * @return The Amazon Web Services account ID that is permitted to create a matching partner event bus for this
      *         partner event source.
      */
 
@@ -131,12 +131,12 @@ public class CreatePartnerEventSourceRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * The AWS account ID of the customer who is permitted to create a matching partner event bus for this partner event
-     * source.
+     * The Amazon Web Services account ID that is permitted to create a matching partner event bus for this partner
+     * event source.
      * </p>
      * 
      * @param account
-     *        The AWS account ID of the customer who is permitted to create a matching partner event bus for this
+     *        The Amazon Web Services account ID that is permitted to create a matching partner event bus for this
      *        partner event source.
      * @return Returns a reference to this object so that method calls can be chained together.
      */

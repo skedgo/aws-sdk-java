@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -87,6 +87,25 @@ public class DescribeStreamProcessorResultJsonUnmarshaller implements Unmarshall
                 if (context.testExpression("Settings", targetDepth)) {
                     context.nextToken();
                     describeStreamProcessorResult.setSettings(StreamProcessorSettingsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("NotificationChannel", targetDepth)) {
+                    context.nextToken();
+                    describeStreamProcessorResult.setNotificationChannel(StreamProcessorNotificationChannelJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("KmsKeyId", targetDepth)) {
+                    context.nextToken();
+                    describeStreamProcessorResult.setKmsKeyId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("RegionsOfInterest", targetDepth)) {
+                    context.nextToken();
+                    describeStreamProcessorResult.setRegionsOfInterest(new ListUnmarshaller<RegionOfInterest>(RegionOfInterestJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
+                }
+                if (context.testExpression("DataSharingPreference", targetDepth)) {
+                    context.nextToken();
+                    describeStreamProcessorResult.setDataSharingPreference(StreamProcessorDataSharingPreferenceJsonUnmarshaller.getInstance().unmarshall(
+                            context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

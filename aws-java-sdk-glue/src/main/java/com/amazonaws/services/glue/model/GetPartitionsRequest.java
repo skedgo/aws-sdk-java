@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,8 +27,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account ID is
-     * used by default.
+     * The ID of the Data Catalog where the partitions in question reside. If none is provided, the Amazon Web Services
+     * account ID is used by default.
      * </p>
      */
     private String catalogId;
@@ -46,7 +46,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String tableName;
     /**
      * <p>
-     * An expression filtering the partitions to be returned.
+     * An expression that filters the partitions to be returned.
      * </p>
      * <p>
      * The expression uses SQL syntax similar to the SQL <code>WHERE</code> filter clause. The SQL statement parser <a
@@ -59,7 +59,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>=</dt>
      * <dd>
      * <p>
-     * Checks if the values of the two operands are equal or not; if yes, then the condition becomes true.
+     * Checks whether the values of the two operands are equal; if yes, then the condition becomes true.
      * </p>
      * <p>
      * Example: Assume 'variable a' holds 10 and 'variable b' holds 20.
@@ -71,7 +71,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&lt; &gt;</dt>
      * <dd>
      * <p>
-     * Checks if the values of two operands are equal or not; if the values are not equal, then the condition becomes
+     * Checks whether the values of two operands are equal; if the values are not equal, then the condition becomes
      * true.
      * </p>
      * <p>
@@ -81,7 +81,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&gt;</dt>
      * <dd>
      * <p>
-     * Checks if the value of the left operand is greater than the value of the right operand; if yes, then the
+     * Checks whether the value of the left operand is greater than the value of the right operand; if yes, then the
      * condition becomes true.
      * </p>
      * <p>
@@ -91,8 +91,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&lt;</dt>
      * <dd>
      * <p>
-     * Checks if the value of the left operand is less than the value of the right operand; if yes, then the condition
-     * becomes true.
+     * Checks whether the value of the left operand is less than the value of the right operand; if yes, then the
+     * condition becomes true.
      * </p>
      * <p>
      * Example: (a &lt; b) is true.
@@ -101,8 +101,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&gt;=</dt>
      * <dd>
      * <p>
-     * Checks if the value of the left operand is greater than or equal to the value of the right operand; if yes, then
-     * the condition becomes true.
+     * Checks whether the value of the left operand is greater than or equal to the value of the right operand; if yes,
+     * then the condition becomes true.
      * </p>
      * <p>
      * Example: (a &gt;= b) is not true.
@@ -111,8 +111,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&lt;=</dt>
      * <dd>
      * <p>
-     * Checks if the value of the left operand is less than or equal to the value of the right operand; if yes, then the
-     * condition becomes true.
+     * Checks whether the value of the left operand is less than or equal to the value of the right operand; if yes,
+     * then the condition becomes true.
      * </p>
      * <p>
      * Example: (a &lt;= b) is true.
@@ -126,7 +126,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </dd>
      * </dl>
      * <p>
-     * <i>Supported Partition Key Types</i>: The following are the the supported partition keys.
+     * <i>Supported Partition Key Types</i>: The following are the supported partition keys.
      * </p>
      * <ul>
      * <li>
@@ -176,7 +176,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * </ul>
      * <p>
-     * If an invalid type is encountered, an exception is thrown.
+     * If an type is encountered that is not valid, an exception is thrown.
      * </p>
      * <p>
      * The following list shows the valid operators on each type. When you define a crawler, the
@@ -205,16 +205,37 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      */
     private Integer maxResults;
+    /**
+     * <p>
+     * When true, specifies not returning the partition column schema. Useful when you are interested only in other
+     * partition attributes such as partition values or location. This approach avoids the problem of a large response
+     * by not returning duplicate data.
+     * </p>
+     */
+    private Boolean excludeColumnSchema;
+    /**
+     * <p>
+     * The transaction ID at which to read the partition contents.
+     * </p>
+     */
+    private String transactionId;
+    /**
+     * <p>
+     * The time as of when to read the partition contents. If not set, the most recent transaction commit time will be
+     * used. Cannot be specified along with <code>TransactionId</code>.
+     * </p>
+     */
+    private java.util.Date queryAsOfTime;
 
     /**
      * <p>
-     * The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account ID is
-     * used by default.
+     * The ID of the Data Catalog where the partitions in question reside. If none is provided, the Amazon Web Services
+     * account ID is used by default.
      * </p>
      * 
      * @param catalogId
-     *        The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account
-     *        ID is used by default.
+     *        The ID of the Data Catalog where the partitions in question reside. If none is provided, the Amazon Web
+     *        Services account ID is used by default.
      */
 
     public void setCatalogId(String catalogId) {
@@ -223,12 +244,12 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account ID is
-     * used by default.
+     * The ID of the Data Catalog where the partitions in question reside. If none is provided, the Amazon Web Services
+     * account ID is used by default.
      * </p>
      * 
-     * @return The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account
-     *         ID is used by default.
+     * @return The ID of the Data Catalog where the partitions in question reside. If none is provided, the Amazon Web
+     *         Services account ID is used by default.
      */
 
     public String getCatalogId() {
@@ -237,13 +258,13 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account ID is
-     * used by default.
+     * The ID of the Data Catalog where the partitions in question reside. If none is provided, the Amazon Web Services
+     * account ID is used by default.
      * </p>
      * 
      * @param catalogId
-     *        The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account
-     *        ID is used by default.
+     *        The ID of the Data Catalog where the partitions in question reside. If none is provided, the Amazon Web
+     *        Services account ID is used by default.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -334,7 +355,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * An expression filtering the partitions to be returned.
+     * An expression that filters the partitions to be returned.
      * </p>
      * <p>
      * The expression uses SQL syntax similar to the SQL <code>WHERE</code> filter clause. The SQL statement parser <a
@@ -347,7 +368,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>=</dt>
      * <dd>
      * <p>
-     * Checks if the values of the two operands are equal or not; if yes, then the condition becomes true.
+     * Checks whether the values of the two operands are equal; if yes, then the condition becomes true.
      * </p>
      * <p>
      * Example: Assume 'variable a' holds 10 and 'variable b' holds 20.
@@ -359,7 +380,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&lt; &gt;</dt>
      * <dd>
      * <p>
-     * Checks if the values of two operands are equal or not; if the values are not equal, then the condition becomes
+     * Checks whether the values of two operands are equal; if the values are not equal, then the condition becomes
      * true.
      * </p>
      * <p>
@@ -369,7 +390,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&gt;</dt>
      * <dd>
      * <p>
-     * Checks if the value of the left operand is greater than the value of the right operand; if yes, then the
+     * Checks whether the value of the left operand is greater than the value of the right operand; if yes, then the
      * condition becomes true.
      * </p>
      * <p>
@@ -379,8 +400,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&lt;</dt>
      * <dd>
      * <p>
-     * Checks if the value of the left operand is less than the value of the right operand; if yes, then the condition
-     * becomes true.
+     * Checks whether the value of the left operand is less than the value of the right operand; if yes, then the
+     * condition becomes true.
      * </p>
      * <p>
      * Example: (a &lt; b) is true.
@@ -389,8 +410,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&gt;=</dt>
      * <dd>
      * <p>
-     * Checks if the value of the left operand is greater than or equal to the value of the right operand; if yes, then
-     * the condition becomes true.
+     * Checks whether the value of the left operand is greater than or equal to the value of the right operand; if yes,
+     * then the condition becomes true.
      * </p>
      * <p>
      * Example: (a &gt;= b) is not true.
@@ -399,8 +420,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&lt;=</dt>
      * <dd>
      * <p>
-     * Checks if the value of the left operand is less than or equal to the value of the right operand; if yes, then the
-     * condition becomes true.
+     * Checks whether the value of the left operand is less than or equal to the value of the right operand; if yes,
+     * then the condition becomes true.
      * </p>
      * <p>
      * Example: (a &lt;= b) is true.
@@ -414,7 +435,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </dd>
      * </dl>
      * <p>
-     * <i>Supported Partition Key Types</i>: The following are the the supported partition keys.
+     * <i>Supported Partition Key Types</i>: The following are the supported partition keys.
      * </p>
      * <ul>
      * <li>
@@ -464,7 +485,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * </ul>
      * <p>
-     * If an invalid type is encountered, an exception is thrown.
+     * If an type is encountered that is not valid, an exception is thrown.
      * </p>
      * <p>
      * The following list shows the valid operators on each type. When you define a crawler, the
@@ -475,7 +496,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param expression
-     *        An expression filtering the partitions to be returned.</p>
+     *        An expression that filters the partitions to be returned.</p>
      *        <p>
      *        The expression uses SQL syntax similar to the SQL <code>WHERE</code> filter clause. The SQL statement
      *        parser <a href="http://jsqlparser.sourceforge.net/home.php">JSQLParser</a> parses the expression.
@@ -488,7 +509,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <dt>=</dt>
      *        <dd>
      *        <p>
-     *        Checks if the values of the two operands are equal or not; if yes, then the condition becomes true.
+     *        Checks whether the values of the two operands are equal; if yes, then the condition becomes true.
      *        </p>
      *        <p>
      *        Example: Assume 'variable a' holds 10 and 'variable b' holds 20.
@@ -500,7 +521,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <dt>&lt; &gt;</dt>
      *        <dd>
      *        <p>
-     *        Checks if the values of two operands are equal or not; if the values are not equal, then the condition
+     *        Checks whether the values of two operands are equal; if the values are not equal, then the condition
      *        becomes true.
      *        </p>
      *        <p>
@@ -510,8 +531,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <dt>&gt;</dt>
      *        <dd>
      *        <p>
-     *        Checks if the value of the left operand is greater than the value of the right operand; if yes, then the
-     *        condition becomes true.
+     *        Checks whether the value of the left operand is greater than the value of the right operand; if yes, then
+     *        the condition becomes true.
      *        </p>
      *        <p>
      *        Example: (a &gt; b) is not true.
@@ -520,7 +541,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <dt>&lt;</dt>
      *        <dd>
      *        <p>
-     *        Checks if the value of the left operand is less than the value of the right operand; if yes, then the
+     *        Checks whether the value of the left operand is less than the value of the right operand; if yes, then the
      *        condition becomes true.
      *        </p>
      *        <p>
@@ -530,8 +551,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <dt>&gt;=</dt>
      *        <dd>
      *        <p>
-     *        Checks if the value of the left operand is greater than or equal to the value of the right operand; if
-     *        yes, then the condition becomes true.
+     *        Checks whether the value of the left operand is greater than or equal to the value of the right operand;
+     *        if yes, then the condition becomes true.
      *        </p>
      *        <p>
      *        Example: (a &gt;= b) is not true.
@@ -540,8 +561,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <dt>&lt;=</dt>
      *        <dd>
      *        <p>
-     *        Checks if the value of the left operand is less than or equal to the value of the right operand; if yes,
-     *        then the condition becomes true.
+     *        Checks whether the value of the left operand is less than or equal to the value of the right operand; if
+     *        yes, then the condition becomes true.
      *        </p>
      *        <p>
      *        Example: (a &lt;= b) is true.
@@ -555,7 +576,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </dd>
      *        </dl>
      *        <p>
-     *        <i>Supported Partition Key Types</i>: The following are the the supported partition keys.
+     *        <i>Supported Partition Key Types</i>: The following are the supported partition keys.
      *        </p>
      *        <ul>
      *        <li>
@@ -605,7 +626,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </li>
      *        </ul>
      *        <p>
-     *        If an invalid type is encountered, an exception is thrown.
+     *        If an type is encountered that is not valid, an exception is thrown.
      *        </p>
      *        <p>
      *        The following list shows the valid operators on each type. When you define a crawler, the
@@ -622,7 +643,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * An expression filtering the partitions to be returned.
+     * An expression that filters the partitions to be returned.
      * </p>
      * <p>
      * The expression uses SQL syntax similar to the SQL <code>WHERE</code> filter clause. The SQL statement parser <a
@@ -635,7 +656,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>=</dt>
      * <dd>
      * <p>
-     * Checks if the values of the two operands are equal or not; if yes, then the condition becomes true.
+     * Checks whether the values of the two operands are equal; if yes, then the condition becomes true.
      * </p>
      * <p>
      * Example: Assume 'variable a' holds 10 and 'variable b' holds 20.
@@ -647,7 +668,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&lt; &gt;</dt>
      * <dd>
      * <p>
-     * Checks if the values of two operands are equal or not; if the values are not equal, then the condition becomes
+     * Checks whether the values of two operands are equal; if the values are not equal, then the condition becomes
      * true.
      * </p>
      * <p>
@@ -657,7 +678,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&gt;</dt>
      * <dd>
      * <p>
-     * Checks if the value of the left operand is greater than the value of the right operand; if yes, then the
+     * Checks whether the value of the left operand is greater than the value of the right operand; if yes, then the
      * condition becomes true.
      * </p>
      * <p>
@@ -667,8 +688,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&lt;</dt>
      * <dd>
      * <p>
-     * Checks if the value of the left operand is less than the value of the right operand; if yes, then the condition
-     * becomes true.
+     * Checks whether the value of the left operand is less than the value of the right operand; if yes, then the
+     * condition becomes true.
      * </p>
      * <p>
      * Example: (a &lt; b) is true.
@@ -677,8 +698,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&gt;=</dt>
      * <dd>
      * <p>
-     * Checks if the value of the left operand is greater than or equal to the value of the right operand; if yes, then
-     * the condition becomes true.
+     * Checks whether the value of the left operand is greater than or equal to the value of the right operand; if yes,
+     * then the condition becomes true.
      * </p>
      * <p>
      * Example: (a &gt;= b) is not true.
@@ -687,8 +708,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&lt;=</dt>
      * <dd>
      * <p>
-     * Checks if the value of the left operand is less than or equal to the value of the right operand; if yes, then the
-     * condition becomes true.
+     * Checks whether the value of the left operand is less than or equal to the value of the right operand; if yes,
+     * then the condition becomes true.
      * </p>
      * <p>
      * Example: (a &lt;= b) is true.
@@ -702,7 +723,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </dd>
      * </dl>
      * <p>
-     * <i>Supported Partition Key Types</i>: The following are the the supported partition keys.
+     * <i>Supported Partition Key Types</i>: The following are the supported partition keys.
      * </p>
      * <ul>
      * <li>
@@ -752,7 +773,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * </ul>
      * <p>
-     * If an invalid type is encountered, an exception is thrown.
+     * If an type is encountered that is not valid, an exception is thrown.
      * </p>
      * <p>
      * The following list shows the valid operators on each type. When you define a crawler, the
@@ -762,7 +783,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <i>Sample API Call</i>:
      * </p>
      * 
-     * @return An expression filtering the partitions to be returned.</p>
+     * @return An expression that filters the partitions to be returned.</p>
      *         <p>
      *         The expression uses SQL syntax similar to the SQL <code>WHERE</code> filter clause. The SQL statement
      *         parser <a href="http://jsqlparser.sourceforge.net/home.php">JSQLParser</a> parses the expression.
@@ -775,7 +796,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         <dt>=</dt>
      *         <dd>
      *         <p>
-     *         Checks if the values of the two operands are equal or not; if yes, then the condition becomes true.
+     *         Checks whether the values of the two operands are equal; if yes, then the condition becomes true.
      *         </p>
      *         <p>
      *         Example: Assume 'variable a' holds 10 and 'variable b' holds 20.
@@ -787,7 +808,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         <dt>&lt; &gt;</dt>
      *         <dd>
      *         <p>
-     *         Checks if the values of two operands are equal or not; if the values are not equal, then the condition
+     *         Checks whether the values of two operands are equal; if the values are not equal, then the condition
      *         becomes true.
      *         </p>
      *         <p>
@@ -797,8 +818,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         <dt>&gt;</dt>
      *         <dd>
      *         <p>
-     *         Checks if the value of the left operand is greater than the value of the right operand; if yes, then the
-     *         condition becomes true.
+     *         Checks whether the value of the left operand is greater than the value of the right operand; if yes, then
+     *         the condition becomes true.
      *         </p>
      *         <p>
      *         Example: (a &gt; b) is not true.
@@ -807,8 +828,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         <dt>&lt;</dt>
      *         <dd>
      *         <p>
-     *         Checks if the value of the left operand is less than the value of the right operand; if yes, then the
-     *         condition becomes true.
+     *         Checks whether the value of the left operand is less than the value of the right operand; if yes, then
+     *         the condition becomes true.
      *         </p>
      *         <p>
      *         Example: (a &lt; b) is true.
@@ -817,8 +838,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         <dt>&gt;=</dt>
      *         <dd>
      *         <p>
-     *         Checks if the value of the left operand is greater than or equal to the value of the right operand; if
-     *         yes, then the condition becomes true.
+     *         Checks whether the value of the left operand is greater than or equal to the value of the right operand;
+     *         if yes, then the condition becomes true.
      *         </p>
      *         <p>
      *         Example: (a &gt;= b) is not true.
@@ -827,8 +848,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         <dt>&lt;=</dt>
      *         <dd>
      *         <p>
-     *         Checks if the value of the left operand is less than or equal to the value of the right operand; if yes,
-     *         then the condition becomes true.
+     *         Checks whether the value of the left operand is less than or equal to the value of the right operand; if
+     *         yes, then the condition becomes true.
      *         </p>
      *         <p>
      *         Example: (a &lt;= b) is true.
@@ -842,7 +863,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         </dd>
      *         </dl>
      *         <p>
-     *         <i>Supported Partition Key Types</i>: The following are the the supported partition keys.
+     *         <i>Supported Partition Key Types</i>: The following are the supported partition keys.
      *         </p>
      *         <ul>
      *         <li>
@@ -892,7 +913,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *         </li>
      *         </ul>
      *         <p>
-     *         If an invalid type is encountered, an exception is thrown.
+     *         If an type is encountered that is not valid, an exception is thrown.
      *         </p>
      *         <p>
      *         The following list shows the valid operators on each type. When you define a crawler, the
@@ -909,7 +930,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * An expression filtering the partitions to be returned.
+     * An expression that filters the partitions to be returned.
      * </p>
      * <p>
      * The expression uses SQL syntax similar to the SQL <code>WHERE</code> filter clause. The SQL statement parser <a
@@ -922,7 +943,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>=</dt>
      * <dd>
      * <p>
-     * Checks if the values of the two operands are equal or not; if yes, then the condition becomes true.
+     * Checks whether the values of the two operands are equal; if yes, then the condition becomes true.
      * </p>
      * <p>
      * Example: Assume 'variable a' holds 10 and 'variable b' holds 20.
@@ -934,7 +955,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&lt; &gt;</dt>
      * <dd>
      * <p>
-     * Checks if the values of two operands are equal or not; if the values are not equal, then the condition becomes
+     * Checks whether the values of two operands are equal; if the values are not equal, then the condition becomes
      * true.
      * </p>
      * <p>
@@ -944,7 +965,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&gt;</dt>
      * <dd>
      * <p>
-     * Checks if the value of the left operand is greater than the value of the right operand; if yes, then the
+     * Checks whether the value of the left operand is greater than the value of the right operand; if yes, then the
      * condition becomes true.
      * </p>
      * <p>
@@ -954,8 +975,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&lt;</dt>
      * <dd>
      * <p>
-     * Checks if the value of the left operand is less than the value of the right operand; if yes, then the condition
-     * becomes true.
+     * Checks whether the value of the left operand is less than the value of the right operand; if yes, then the
+     * condition becomes true.
      * </p>
      * <p>
      * Example: (a &lt; b) is true.
@@ -964,8 +985,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&gt;=</dt>
      * <dd>
      * <p>
-     * Checks if the value of the left operand is greater than or equal to the value of the right operand; if yes, then
-     * the condition becomes true.
+     * Checks whether the value of the left operand is greater than or equal to the value of the right operand; if yes,
+     * then the condition becomes true.
      * </p>
      * <p>
      * Example: (a &gt;= b) is not true.
@@ -974,8 +995,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * <dt>&lt;=</dt>
      * <dd>
      * <p>
-     * Checks if the value of the left operand is less than or equal to the value of the right operand; if yes, then the
-     * condition becomes true.
+     * Checks whether the value of the left operand is less than or equal to the value of the right operand; if yes,
+     * then the condition becomes true.
      * </p>
      * <p>
      * Example: (a &lt;= b) is true.
@@ -989,7 +1010,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </dd>
      * </dl>
      * <p>
-     * <i>Supported Partition Key Types</i>: The following are the the supported partition keys.
+     * <i>Supported Partition Key Types</i>: The following are the supported partition keys.
      * </p>
      * <ul>
      * <li>
@@ -1039,7 +1060,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </li>
      * </ul>
      * <p>
-     * If an invalid type is encountered, an exception is thrown.
+     * If an type is encountered that is not valid, an exception is thrown.
      * </p>
      * <p>
      * The following list shows the valid operators on each type. When you define a crawler, the
@@ -1050,7 +1071,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param expression
-     *        An expression filtering the partitions to be returned.</p>
+     *        An expression that filters the partitions to be returned.</p>
      *        <p>
      *        The expression uses SQL syntax similar to the SQL <code>WHERE</code> filter clause. The SQL statement
      *        parser <a href="http://jsqlparser.sourceforge.net/home.php">JSQLParser</a> parses the expression.
@@ -1063,7 +1084,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <dt>=</dt>
      *        <dd>
      *        <p>
-     *        Checks if the values of the two operands are equal or not; if yes, then the condition becomes true.
+     *        Checks whether the values of the two operands are equal; if yes, then the condition becomes true.
      *        </p>
      *        <p>
      *        Example: Assume 'variable a' holds 10 and 'variable b' holds 20.
@@ -1075,7 +1096,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <dt>&lt; &gt;</dt>
      *        <dd>
      *        <p>
-     *        Checks if the values of two operands are equal or not; if the values are not equal, then the condition
+     *        Checks whether the values of two operands are equal; if the values are not equal, then the condition
      *        becomes true.
      *        </p>
      *        <p>
@@ -1085,8 +1106,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <dt>&gt;</dt>
      *        <dd>
      *        <p>
-     *        Checks if the value of the left operand is greater than the value of the right operand; if yes, then the
-     *        condition becomes true.
+     *        Checks whether the value of the left operand is greater than the value of the right operand; if yes, then
+     *        the condition becomes true.
      *        </p>
      *        <p>
      *        Example: (a &gt; b) is not true.
@@ -1095,7 +1116,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <dt>&lt;</dt>
      *        <dd>
      *        <p>
-     *        Checks if the value of the left operand is less than the value of the right operand; if yes, then the
+     *        Checks whether the value of the left operand is less than the value of the right operand; if yes, then the
      *        condition becomes true.
      *        </p>
      *        <p>
@@ -1105,8 +1126,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <dt>&gt;=</dt>
      *        <dd>
      *        <p>
-     *        Checks if the value of the left operand is greater than or equal to the value of the right operand; if
-     *        yes, then the condition becomes true.
+     *        Checks whether the value of the left operand is greater than or equal to the value of the right operand;
+     *        if yes, then the condition becomes true.
      *        </p>
      *        <p>
      *        Example: (a &gt;= b) is not true.
@@ -1115,8 +1136,8 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        <dt>&lt;=</dt>
      *        <dd>
      *        <p>
-     *        Checks if the value of the left operand is less than or equal to the value of the right operand; if yes,
-     *        then the condition becomes true.
+     *        Checks whether the value of the left operand is less than or equal to the value of the right operand; if
+     *        yes, then the condition becomes true.
      *        </p>
      *        <p>
      *        Example: (a &lt;= b) is true.
@@ -1130,7 +1151,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </dd>
      *        </dl>
      *        <p>
-     *        <i>Supported Partition Key Types</i>: The following are the the supported partition keys.
+     *        <i>Supported Partition Key Types</i>: The following are the supported partition keys.
      *        </p>
      *        <ul>
      *        <li>
@@ -1180,7 +1201,7 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
      *        </li>
      *        </ul>
      *        <p>
-     *        If an invalid type is encountered, an exception is thrown.
+     *        If an type is encountered that is not valid, an exception is thrown.
      *        </p>
      *        <p>
      *        The following list shows the valid operators on each type. When you define a crawler, the
@@ -1318,6 +1339,160 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
+     * <p>
+     * When true, specifies not returning the partition column schema. Useful when you are interested only in other
+     * partition attributes such as partition values or location. This approach avoids the problem of a large response
+     * by not returning duplicate data.
+     * </p>
+     * 
+     * @param excludeColumnSchema
+     *        When true, specifies not returning the partition column schema. Useful when you are interested only in
+     *        other partition attributes such as partition values or location. This approach avoids the problem of a
+     *        large response by not returning duplicate data.
+     */
+
+    public void setExcludeColumnSchema(Boolean excludeColumnSchema) {
+        this.excludeColumnSchema = excludeColumnSchema;
+    }
+
+    /**
+     * <p>
+     * When true, specifies not returning the partition column schema. Useful when you are interested only in other
+     * partition attributes such as partition values or location. This approach avoids the problem of a large response
+     * by not returning duplicate data.
+     * </p>
+     * 
+     * @return When true, specifies not returning the partition column schema. Useful when you are interested only in
+     *         other partition attributes such as partition values or location. This approach avoids the problem of a
+     *         large response by not returning duplicate data.
+     */
+
+    public Boolean getExcludeColumnSchema() {
+        return this.excludeColumnSchema;
+    }
+
+    /**
+     * <p>
+     * When true, specifies not returning the partition column schema. Useful when you are interested only in other
+     * partition attributes such as partition values or location. This approach avoids the problem of a large response
+     * by not returning duplicate data.
+     * </p>
+     * 
+     * @param excludeColumnSchema
+     *        When true, specifies not returning the partition column schema. Useful when you are interested only in
+     *        other partition attributes such as partition values or location. This approach avoids the problem of a
+     *        large response by not returning duplicate data.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPartitionsRequest withExcludeColumnSchema(Boolean excludeColumnSchema) {
+        setExcludeColumnSchema(excludeColumnSchema);
+        return this;
+    }
+
+    /**
+     * <p>
+     * When true, specifies not returning the partition column schema. Useful when you are interested only in other
+     * partition attributes such as partition values or location. This approach avoids the problem of a large response
+     * by not returning duplicate data.
+     * </p>
+     * 
+     * @return When true, specifies not returning the partition column schema. Useful when you are interested only in
+     *         other partition attributes such as partition values or location. This approach avoids the problem of a
+     *         large response by not returning duplicate data.
+     */
+
+    public Boolean isExcludeColumnSchema() {
+        return this.excludeColumnSchema;
+    }
+
+    /**
+     * <p>
+     * The transaction ID at which to read the partition contents.
+     * </p>
+     * 
+     * @param transactionId
+     *        The transaction ID at which to read the partition contents.
+     */
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    /**
+     * <p>
+     * The transaction ID at which to read the partition contents.
+     * </p>
+     * 
+     * @return The transaction ID at which to read the partition contents.
+     */
+
+    public String getTransactionId() {
+        return this.transactionId;
+    }
+
+    /**
+     * <p>
+     * The transaction ID at which to read the partition contents.
+     * </p>
+     * 
+     * @param transactionId
+     *        The transaction ID at which to read the partition contents.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPartitionsRequest withTransactionId(String transactionId) {
+        setTransactionId(transactionId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The time as of when to read the partition contents. If not set, the most recent transaction commit time will be
+     * used. Cannot be specified along with <code>TransactionId</code>.
+     * </p>
+     * 
+     * @param queryAsOfTime
+     *        The time as of when to read the partition contents. If not set, the most recent transaction commit time
+     *        will be used. Cannot be specified along with <code>TransactionId</code>.
+     */
+
+    public void setQueryAsOfTime(java.util.Date queryAsOfTime) {
+        this.queryAsOfTime = queryAsOfTime;
+    }
+
+    /**
+     * <p>
+     * The time as of when to read the partition contents. If not set, the most recent transaction commit time will be
+     * used. Cannot be specified along with <code>TransactionId</code>.
+     * </p>
+     * 
+     * @return The time as of when to read the partition contents. If not set, the most recent transaction commit time
+     *         will be used. Cannot be specified along with <code>TransactionId</code>.
+     */
+
+    public java.util.Date getQueryAsOfTime() {
+        return this.queryAsOfTime;
+    }
+
+    /**
+     * <p>
+     * The time as of when to read the partition contents. If not set, the most recent transaction commit time will be
+     * used. Cannot be specified along with <code>TransactionId</code>.
+     * </p>
+     * 
+     * @param queryAsOfTime
+     *        The time as of when to read the partition contents. If not set, the most recent transaction commit time
+     *        will be used. Cannot be specified along with <code>TransactionId</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetPartitionsRequest withQueryAsOfTime(java.util.Date queryAsOfTime) {
+        setQueryAsOfTime(queryAsOfTime);
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -1342,7 +1517,13 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
         if (getSegment() != null)
             sb.append("Segment: ").append(getSegment()).append(",");
         if (getMaxResults() != null)
-            sb.append("MaxResults: ").append(getMaxResults());
+            sb.append("MaxResults: ").append(getMaxResults()).append(",");
+        if (getExcludeColumnSchema() != null)
+            sb.append("ExcludeColumnSchema: ").append(getExcludeColumnSchema()).append(",");
+        if (getTransactionId() != null)
+            sb.append("TransactionId: ").append(getTransactionId()).append(",");
+        if (getQueryAsOfTime() != null)
+            sb.append("QueryAsOfTime: ").append(getQueryAsOfTime());
         sb.append("}");
         return sb.toString();
     }
@@ -1385,6 +1566,18 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
             return false;
         if (other.getMaxResults() != null && other.getMaxResults().equals(this.getMaxResults()) == false)
             return false;
+        if (other.getExcludeColumnSchema() == null ^ this.getExcludeColumnSchema() == null)
+            return false;
+        if (other.getExcludeColumnSchema() != null && other.getExcludeColumnSchema().equals(this.getExcludeColumnSchema()) == false)
+            return false;
+        if (other.getTransactionId() == null ^ this.getTransactionId() == null)
+            return false;
+        if (other.getTransactionId() != null && other.getTransactionId().equals(this.getTransactionId()) == false)
+            return false;
+        if (other.getQueryAsOfTime() == null ^ this.getQueryAsOfTime() == null)
+            return false;
+        if (other.getQueryAsOfTime() != null && other.getQueryAsOfTime().equals(this.getQueryAsOfTime()) == false)
+            return false;
         return true;
     }
 
@@ -1400,6 +1593,9 @@ public class GetPartitionsRequest extends com.amazonaws.AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
         hashCode = prime * hashCode + ((getSegment() == null) ? 0 : getSegment().hashCode());
         hashCode = prime * hashCode + ((getMaxResults() == null) ? 0 : getMaxResults().hashCode());
+        hashCode = prime * hashCode + ((getExcludeColumnSchema() == null) ? 0 : getExcludeColumnSchema().hashCode());
+        hashCode = prime * hashCode + ((getTransactionId() == null) ? 0 : getTransactionId().hashCode());
+        hashCode = prime * hashCode + ((getQueryAsOfTime() == null) ? 0 : getQueryAsOfTime().hashCode());
         return hashCode;
     }
 

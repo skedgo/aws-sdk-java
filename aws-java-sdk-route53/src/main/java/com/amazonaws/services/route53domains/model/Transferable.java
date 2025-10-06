@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,11 +16,11 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Whether the domain name can be transferred to Amazon Route 53.
+ * Whether the domain name can be transferred to Route 53.
  * </p>
  * <note>
  * <p>
- * You can transfer only domains that have a value of <code>TRANSFERABLE</code> for <code>Transferable</code>.
+ * You can transfer only domains that have a value of <code>TRANSFERABLE</code> or <code>Transferable</code>.
  * </p>
  * </note>
  * <p>
@@ -30,19 +30,37 @@ import javax.annotation.Generated;
  * <dt>TRANSFERABLE</dt>
  * <dd>
  * <p>
- * The domain name can be transferred to Amazon Route 53.
+ * The domain name can be transferred to Route 53.
  * </p>
  * </dd>
  * <dt>UNTRANSFERRABLE</dt>
  * <dd>
  * <p>
- * The domain name can't be transferred to Amazon Route 53.
+ * The domain name can't be transferred to Route 53.
  * </p>
  * </dd>
  * <dt>DONT_KNOW</dt>
  * <dd>
  * <p>
  * Reserved for future use.
+ * </p>
+ * </dd>
+ * <dt>DOMAIN_IN_OWN_ACCOUNT</dt>
+ * <dd>
+ * <p>
+ * The domain already exists in the current Amazon Web Services account.
+ * </p>
+ * </dd>
+ * <dt>DOMAIN_IN_ANOTHER_ACCOUNT</dt>
+ * <dd>
+ * <p>
+ * The domain exists in another Amazon Web Services account.
+ * </p>
+ * </dd>
+ * <dt>PREMIUM_DOMAIN</dt>
+ * <dd>
+ * <p>
+ * Premium domain transfer is not supported.
  * </p>
  * </dd>
  * </dl>
@@ -52,7 +70,10 @@ public enum Transferable {
 
     TRANSFERABLE("TRANSFERABLE"),
     UNTRANSFERABLE("UNTRANSFERABLE"),
-    DONT_KNOW("DONT_KNOW");
+    DONT_KNOW("DONT_KNOW"),
+    DOMAIN_IN_OWN_ACCOUNT("DOMAIN_IN_OWN_ACCOUNT"),
+    DOMAIN_IN_ANOTHER_ACCOUNT("DOMAIN_IN_ANOTHER_ACCOUNT"),
+    PREMIUM_DOMAIN("PREMIUM_DOMAIN");
 
     private String value;
 

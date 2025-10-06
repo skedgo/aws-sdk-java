@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * Represents the input for a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribePlayerSessions" target="_top">AWS
  *      API Documentation</a>
@@ -30,25 +27,26 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Unique identifier for the game session to retrieve player sessions for.
+     * A unique identifier for the game session to retrieve player sessions for.
      * </p>
      */
     private String gameSessionId;
     /**
      * <p>
-     * Unique identifier for a player to retrieve player sessions for.
+     * A unique identifier for a player to retrieve player sessions for.
      * </p>
      */
     private String playerId;
     /**
      * <p>
-     * Unique identifier for a player session to retrieve.
+     * A unique identifier for a player session to retrieve.
      * </p>
      */
     private String playerSessionId;
     /**
      * <p>
-     * Player session status to filter results on.
+     * Player session status to filter results on. Note that when a PlayerSessionId or PlayerId is provided in a
+     * DescribePlayerSessions request, then the PlayerSessionStatusFilter has no effect on the response.
      * </p>
      * <p>
      * Possible player session statuses include the following:
@@ -81,15 +79,15 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
     private String playerSessionStatusFilter;
     /**
      * <p>
-     * Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of
-     * sequential pages. If a player session ID is specified, this parameter is ignored.
+     * The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set
+     * of sequential pages. If a player session ID is specified, this parameter is ignored.
      * </p>
      */
     private Integer limit;
     /**
      * <p>
-     * Token that indicates the start of the next sequential page of results. Use the token that is returned with a
-     * previous call to this action. To start at the beginning of the result set, do not specify a value. If a player
+     * A token that indicates the start of the next sequential page of results. Use the token that is returned with a
+     * previous call to this operation. To start at the beginning of the result set, do not specify a value. If a player
      * session ID is specified, this parameter is ignored.
      * </p>
      */
@@ -97,11 +95,11 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Unique identifier for the game session to retrieve player sessions for.
+     * A unique identifier for the game session to retrieve player sessions for.
      * </p>
      * 
      * @param gameSessionId
-     *        Unique identifier for the game session to retrieve player sessions for.
+     *        A unique identifier for the game session to retrieve player sessions for.
      */
 
     public void setGameSessionId(String gameSessionId) {
@@ -110,10 +108,10 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Unique identifier for the game session to retrieve player sessions for.
+     * A unique identifier for the game session to retrieve player sessions for.
      * </p>
      * 
-     * @return Unique identifier for the game session to retrieve player sessions for.
+     * @return A unique identifier for the game session to retrieve player sessions for.
      */
 
     public String getGameSessionId() {
@@ -122,11 +120,11 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Unique identifier for the game session to retrieve player sessions for.
+     * A unique identifier for the game session to retrieve player sessions for.
      * </p>
      * 
      * @param gameSessionId
-     *        Unique identifier for the game session to retrieve player sessions for.
+     *        A unique identifier for the game session to retrieve player sessions for.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -137,11 +135,11 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Unique identifier for a player to retrieve player sessions for.
+     * A unique identifier for a player to retrieve player sessions for.
      * </p>
      * 
      * @param playerId
-     *        Unique identifier for a player to retrieve player sessions for.
+     *        A unique identifier for a player to retrieve player sessions for.
      */
 
     public void setPlayerId(String playerId) {
@@ -150,10 +148,10 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Unique identifier for a player to retrieve player sessions for.
+     * A unique identifier for a player to retrieve player sessions for.
      * </p>
      * 
-     * @return Unique identifier for a player to retrieve player sessions for.
+     * @return A unique identifier for a player to retrieve player sessions for.
      */
 
     public String getPlayerId() {
@@ -162,11 +160,11 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Unique identifier for a player to retrieve player sessions for.
+     * A unique identifier for a player to retrieve player sessions for.
      * </p>
      * 
      * @param playerId
-     *        Unique identifier for a player to retrieve player sessions for.
+     *        A unique identifier for a player to retrieve player sessions for.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -177,11 +175,11 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Unique identifier for a player session to retrieve.
+     * A unique identifier for a player session to retrieve.
      * </p>
      * 
      * @param playerSessionId
-     *        Unique identifier for a player session to retrieve.
+     *        A unique identifier for a player session to retrieve.
      */
 
     public void setPlayerSessionId(String playerSessionId) {
@@ -190,10 +188,10 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Unique identifier for a player session to retrieve.
+     * A unique identifier for a player session to retrieve.
      * </p>
      * 
-     * @return Unique identifier for a player session to retrieve.
+     * @return A unique identifier for a player session to retrieve.
      */
 
     public String getPlayerSessionId() {
@@ -202,11 +200,11 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Unique identifier for a player session to retrieve.
+     * A unique identifier for a player session to retrieve.
      * </p>
      * 
      * @param playerSessionId
-     *        Unique identifier for a player session to retrieve.
+     *        A unique identifier for a player session to retrieve.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -217,7 +215,8 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Player session status to filter results on.
+     * Player session status to filter results on. Note that when a PlayerSessionId or PlayerId is provided in a
+     * DescribePlayerSessions request, then the PlayerSessionStatusFilter has no effect on the response.
      * </p>
      * <p>
      * Possible player session statuses include the following:
@@ -248,7 +247,8 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
      * </ul>
      * 
      * @param playerSessionStatusFilter
-     *        Player session status to filter results on.</p>
+     *        Player session status to filter results on. Note that when a PlayerSessionId or PlayerId is provided in a
+     *        DescribePlayerSessions request, then the PlayerSessionStatusFilter has no effect on the response.</p>
      *        <p>
      *        Possible player session statuses include the following:
      *        </p>
@@ -283,7 +283,8 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Player session status to filter results on.
+     * Player session status to filter results on. Note that when a PlayerSessionId or PlayerId is provided in a
+     * DescribePlayerSessions request, then the PlayerSessionStatusFilter has no effect on the response.
      * </p>
      * <p>
      * Possible player session statuses include the following:
@@ -313,7 +314,8 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
      * </li>
      * </ul>
      * 
-     * @return Player session status to filter results on.</p>
+     * @return Player session status to filter results on. Note that when a PlayerSessionId or PlayerId is provided in a
+     *         DescribePlayerSessions request, then the PlayerSessionStatusFilter has no effect on the response.</p>
      *         <p>
      *         Possible player session statuses include the following:
      *         </p>
@@ -348,7 +350,8 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Player session status to filter results on.
+     * Player session status to filter results on. Note that when a PlayerSessionId or PlayerId is provided in a
+     * DescribePlayerSessions request, then the PlayerSessionStatusFilter has no effect on the response.
      * </p>
      * <p>
      * Possible player session statuses include the following:
@@ -379,7 +382,8 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
      * </ul>
      * 
      * @param playerSessionStatusFilter
-     *        Player session status to filter results on.</p>
+     *        Player session status to filter results on. Note that when a PlayerSessionId or PlayerId is provided in a
+     *        DescribePlayerSessions request, then the PlayerSessionStatusFilter has no effect on the response.</p>
      *        <p>
      *        Possible player session statuses include the following:
      *        </p>
@@ -416,13 +420,13 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of
-     * sequential pages. If a player session ID is specified, this parameter is ignored.
+     * The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set
+     * of sequential pages. If a player session ID is specified, this parameter is ignored.
      * </p>
      * 
      * @param limit
-     *        Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a
-     *        set of sequential pages. If a player session ID is specified, this parameter is ignored.
+     *        The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as
+     *        a set of sequential pages. If a player session ID is specified, this parameter is ignored.
      */
 
     public void setLimit(Integer limit) {
@@ -431,12 +435,12 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of
-     * sequential pages. If a player session ID is specified, this parameter is ignored.
+     * The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set
+     * of sequential pages. If a player session ID is specified, this parameter is ignored.
      * </p>
      * 
-     * @return Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a
-     *         set of sequential pages. If a player session ID is specified, this parameter is ignored.
+     * @return The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as
+     *         a set of sequential pages. If a player session ID is specified, this parameter is ignored.
      */
 
     public Integer getLimit() {
@@ -445,13 +449,13 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of
-     * sequential pages. If a player session ID is specified, this parameter is ignored.
+     * The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set
+     * of sequential pages. If a player session ID is specified, this parameter is ignored.
      * </p>
      * 
      * @param limit
-     *        Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a
-     *        set of sequential pages. If a player session ID is specified, this parameter is ignored.
+     *        The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as
+     *        a set of sequential pages. If a player session ID is specified, this parameter is ignored.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -462,15 +466,15 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Token that indicates the start of the next sequential page of results. Use the token that is returned with a
-     * previous call to this action. To start at the beginning of the result set, do not specify a value. If a player
+     * A token that indicates the start of the next sequential page of results. Use the token that is returned with a
+     * previous call to this operation. To start at the beginning of the result set, do not specify a value. If a player
      * session ID is specified, this parameter is ignored.
      * </p>
      * 
      * @param nextToken
-     *        Token that indicates the start of the next sequential page of results. Use the token that is returned with
-     *        a previous call to this action. To start at the beginning of the result set, do not specify a value. If a
-     *        player session ID is specified, this parameter is ignored.
+     *        A token that indicates the start of the next sequential page of results. Use the token that is returned
+     *        with a previous call to this operation. To start at the beginning of the result set, do not specify a
+     *        value. If a player session ID is specified, this parameter is ignored.
      */
 
     public void setNextToken(String nextToken) {
@@ -479,14 +483,14 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Token that indicates the start of the next sequential page of results. Use the token that is returned with a
-     * previous call to this action. To start at the beginning of the result set, do not specify a value. If a player
+     * A token that indicates the start of the next sequential page of results. Use the token that is returned with a
+     * previous call to this operation. To start at the beginning of the result set, do not specify a value. If a player
      * session ID is specified, this parameter is ignored.
      * </p>
      * 
-     * @return Token that indicates the start of the next sequential page of results. Use the token that is returned
-     *         with a previous call to this action. To start at the beginning of the result set, do not specify a value.
-     *         If a player session ID is specified, this parameter is ignored.
+     * @return A token that indicates the start of the next sequential page of results. Use the token that is returned
+     *         with a previous call to this operation. To start at the beginning of the result set, do not specify a
+     *         value. If a player session ID is specified, this parameter is ignored.
      */
 
     public String getNextToken() {
@@ -495,15 +499,15 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Token that indicates the start of the next sequential page of results. Use the token that is returned with a
-     * previous call to this action. To start at the beginning of the result set, do not specify a value. If a player
+     * A token that indicates the start of the next sequential page of results. Use the token that is returned with a
+     * previous call to this operation. To start at the beginning of the result set, do not specify a value. If a player
      * session ID is specified, this parameter is ignored.
      * </p>
      * 
      * @param nextToken
-     *        Token that indicates the start of the next sequential page of results. Use the token that is returned with
-     *        a previous call to this action. To start at the beginning of the result set, do not specify a value. If a
-     *        player session ID is specified, this parameter is ignored.
+     *        A token that indicates the start of the next sequential page of results. Use the token that is returned
+     *        with a previous call to this operation. To start at the beginning of the result set, do not specify a
+     *        value. If a player session ID is specified, this parameter is ignored.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -527,7 +531,7 @@ public class DescribePlayerSessionsRequest extends com.amazonaws.AmazonWebServic
         if (getGameSessionId() != null)
             sb.append("GameSessionId: ").append(getGameSessionId()).append(",");
         if (getPlayerId() != null)
-            sb.append("PlayerId: ").append(getPlayerId()).append(",");
+            sb.append("PlayerId: ").append("***Sensitive Data Redacted***").append(",");
         if (getPlayerSessionId() != null)
             sb.append("PlayerSessionId: ").append(getPlayerSessionId()).append(",");
         if (getPlayerSessionStatusFilter() != null)

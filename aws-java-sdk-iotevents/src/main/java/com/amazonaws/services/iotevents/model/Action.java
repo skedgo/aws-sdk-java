@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * An action to be performed when the <code>"condition"</code> is TRUE.
+ * An action to be performed when the <code>condition</code> is TRUE.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/iotevents-2018-07-27/Action" target="_top">AWS API
@@ -66,31 +66,63 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
     private ResetTimerAction resetTimer;
     /**
      * <p>
-     * Calls a Lambda function, passing in information about the detector model instance and the event which triggered
+     * Calls a Lambda function, passing in information about the detector model instance and the event that triggered
      * the action.
      * </p>
      */
     private LambdaAction lambda;
     /**
      * <p>
-     * Sends an IoT Events input, passing in information about the detector model instance and the event which triggered
-     * the action.
+     * Sends AWS IoT Events input, which passes information about the detector model instance and the event that
+     * triggered the action.
      * </p>
      */
     private IotEventsAction iotEvents;
     /**
      * <p>
-     * Sends information about the detector model instance and the event which triggered the action to an AWS SQS queue.
+     * Sends information about the detector model instance and the event that triggered the action to an Amazon SQS
+     * queue.
      * </p>
      */
     private SqsAction sqs;
     /**
      * <p>
-     * Sends information about the detector model instance and the event which triggered the action to a Kinesis Data
-     * Firehose stream.
+     * Sends information about the detector model instance and the event that triggered the action to an Amazon Kinesis
+     * Data Firehose delivery stream.
      * </p>
      */
     private FirehoseAction firehose;
+    /**
+     * <p>
+     * Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that
+     * have the information about the detector model instance and the event that triggered the action. You can customize
+     * the <a href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html">payload</a>. One column
+     * of the DynamoDB table receives all attribute-value pairs in the payload that you specify. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html">Actions</a> in
+     * <i>AWS IoT Events Developer Guide</i>.
+     * </p>
+     */
+    private DynamoDBAction dynamoDB;
+    /**
+     * <p>
+     * Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that
+     * have the information about the detector model instance and the event that triggered the action. You can customize
+     * the <a href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html">payload</a>. A separate
+     * column of the DynamoDB table receives one attribute-value pair in the payload that you specify. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html">Actions</a> in
+     * <i>AWS IoT Events Developer Guide</i>.
+     * </p>
+     */
+    private DynamoDBv2Action dynamoDBv2;
+    /**
+     * <p>
+     * Sends information about the detector model instance and the event that triggered the action to an asset property
+     * in AWS IoT SiteWise .
+     * </p>
+     */
+    private IotSiteWiseAction iotSiteWise;
 
     /**
      * <p>
@@ -334,12 +366,12 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Calls a Lambda function, passing in information about the detector model instance and the event which triggered
+     * Calls a Lambda function, passing in information about the detector model instance and the event that triggered
      * the action.
      * </p>
      * 
      * @param lambda
-     *        Calls a Lambda function, passing in information about the detector model instance and the event which
+     *        Calls a Lambda function, passing in information about the detector model instance and the event that
      *        triggered the action.
      */
 
@@ -349,11 +381,11 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Calls a Lambda function, passing in information about the detector model instance and the event which triggered
+     * Calls a Lambda function, passing in information about the detector model instance and the event that triggered
      * the action.
      * </p>
      * 
-     * @return Calls a Lambda function, passing in information about the detector model instance and the event which
+     * @return Calls a Lambda function, passing in information about the detector model instance and the event that
      *         triggered the action.
      */
 
@@ -363,12 +395,12 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Calls a Lambda function, passing in information about the detector model instance and the event which triggered
+     * Calls a Lambda function, passing in information about the detector model instance and the event that triggered
      * the action.
      * </p>
      * 
      * @param lambda
-     *        Calls a Lambda function, passing in information about the detector model instance and the event which
+     *        Calls a Lambda function, passing in information about the detector model instance and the event that
      *        triggered the action.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -380,12 +412,12 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Sends an IoT Events input, passing in information about the detector model instance and the event which triggered
-     * the action.
+     * Sends AWS IoT Events input, which passes information about the detector model instance and the event that
+     * triggered the action.
      * </p>
      * 
      * @param iotEvents
-     *        Sends an IoT Events input, passing in information about the detector model instance and the event which
+     *        Sends AWS IoT Events input, which passes information about the detector model instance and the event that
      *        triggered the action.
      */
 
@@ -395,11 +427,11 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Sends an IoT Events input, passing in information about the detector model instance and the event which triggered
-     * the action.
+     * Sends AWS IoT Events input, which passes information about the detector model instance and the event that
+     * triggered the action.
      * </p>
      * 
-     * @return Sends an IoT Events input, passing in information about the detector model instance and the event which
+     * @return Sends AWS IoT Events input, which passes information about the detector model instance and the event that
      *         triggered the action.
      */
 
@@ -409,12 +441,12 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Sends an IoT Events input, passing in information about the detector model instance and the event which triggered
-     * the action.
+     * Sends AWS IoT Events input, which passes information about the detector model instance and the event that
+     * triggered the action.
      * </p>
      * 
      * @param iotEvents
-     *        Sends an IoT Events input, passing in information about the detector model instance and the event which
+     *        Sends AWS IoT Events input, which passes information about the detector model instance and the event that
      *        triggered the action.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -426,12 +458,13 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Sends information about the detector model instance and the event which triggered the action to an AWS SQS queue.
+     * Sends information about the detector model instance and the event that triggered the action to an Amazon SQS
+     * queue.
      * </p>
      * 
      * @param sqs
-     *        Sends information about the detector model instance and the event which triggered the action to an AWS SQS
-     *        queue.
+     *        Sends information about the detector model instance and the event that triggered the action to an Amazon
+     *        SQS queue.
      */
 
     public void setSqs(SqsAction sqs) {
@@ -440,10 +473,11 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Sends information about the detector model instance and the event which triggered the action to an AWS SQS queue.
+     * Sends information about the detector model instance and the event that triggered the action to an Amazon SQS
+     * queue.
      * </p>
      * 
-     * @return Sends information about the detector model instance and the event which triggered the action to an AWS
+     * @return Sends information about the detector model instance and the event that triggered the action to an Amazon
      *         SQS queue.
      */
 
@@ -453,12 +487,13 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Sends information about the detector model instance and the event which triggered the action to an AWS SQS queue.
+     * Sends information about the detector model instance and the event that triggered the action to an Amazon SQS
+     * queue.
      * </p>
      * 
      * @param sqs
-     *        Sends information about the detector model instance and the event which triggered the action to an AWS SQS
-     *        queue.
+     *        Sends information about the detector model instance and the event that triggered the action to an Amazon
+     *        SQS queue.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -469,13 +504,13 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Sends information about the detector model instance and the event which triggered the action to a Kinesis Data
-     * Firehose stream.
+     * Sends information about the detector model instance and the event that triggered the action to an Amazon Kinesis
+     * Data Firehose delivery stream.
      * </p>
      * 
      * @param firehose
-     *        Sends information about the detector model instance and the event which triggered the action to a Kinesis
-     *        Data Firehose stream.
+     *        Sends information about the detector model instance and the event that triggered the action to an Amazon
+     *        Kinesis Data Firehose delivery stream.
      */
 
     public void setFirehose(FirehoseAction firehose) {
@@ -484,12 +519,12 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Sends information about the detector model instance and the event which triggered the action to a Kinesis Data
-     * Firehose stream.
+     * Sends information about the detector model instance and the event that triggered the action to an Amazon Kinesis
+     * Data Firehose delivery stream.
      * </p>
      * 
-     * @return Sends information about the detector model instance and the event which triggered the action to a Kinesis
-     *         Data Firehose stream.
+     * @return Sends information about the detector model instance and the event that triggered the action to an Amazon
+     *         Kinesis Data Firehose delivery stream.
      */
 
     public FirehoseAction getFirehose() {
@@ -498,18 +533,222 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Sends information about the detector model instance and the event which triggered the action to a Kinesis Data
-     * Firehose stream.
+     * Sends information about the detector model instance and the event that triggered the action to an Amazon Kinesis
+     * Data Firehose delivery stream.
      * </p>
      * 
      * @param firehose
-     *        Sends information about the detector model instance and the event which triggered the action to a Kinesis
-     *        Data Firehose stream.
+     *        Sends information about the detector model instance and the event that triggered the action to an Amazon
+     *        Kinesis Data Firehose delivery stream.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public Action withFirehose(FirehoseAction firehose) {
         setFirehose(firehose);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that
+     * have the information about the detector model instance and the event that triggered the action. You can customize
+     * the <a href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html">payload</a>. One column
+     * of the DynamoDB table receives all attribute-value pairs in the payload that you specify. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html">Actions</a> in
+     * <i>AWS IoT Events Developer Guide</i>.
+     * </p>
+     * 
+     * @param dynamoDB
+     *        Writes to the DynamoDB table that you created. The default action payload contains all attribute-value
+     *        pairs that have the information about the detector model instance and the event that triggered the action.
+     *        You can customize the <a
+     *        href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html">payload</a>. One column
+     *        of the DynamoDB table receives all attribute-value pairs in the payload that you specify. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html"
+     *        >Actions</a> in <i>AWS IoT Events Developer Guide</i>.
+     */
+
+    public void setDynamoDB(DynamoDBAction dynamoDB) {
+        this.dynamoDB = dynamoDB;
+    }
+
+    /**
+     * <p>
+     * Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that
+     * have the information about the detector model instance and the event that triggered the action. You can customize
+     * the <a href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html">payload</a>. One column
+     * of the DynamoDB table receives all attribute-value pairs in the payload that you specify. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html">Actions</a> in
+     * <i>AWS IoT Events Developer Guide</i>.
+     * </p>
+     * 
+     * @return Writes to the DynamoDB table that you created. The default action payload contains all attribute-value
+     *         pairs that have the information about the detector model instance and the event that triggered the
+     *         action. You can customize the <a
+     *         href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html">payload</a>. One column
+     *         of the DynamoDB table receives all attribute-value pairs in the payload that you specify. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html"
+     *         >Actions</a> in <i>AWS IoT Events Developer Guide</i>.
+     */
+
+    public DynamoDBAction getDynamoDB() {
+        return this.dynamoDB;
+    }
+
+    /**
+     * <p>
+     * Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that
+     * have the information about the detector model instance and the event that triggered the action. You can customize
+     * the <a href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html">payload</a>. One column
+     * of the DynamoDB table receives all attribute-value pairs in the payload that you specify. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html">Actions</a> in
+     * <i>AWS IoT Events Developer Guide</i>.
+     * </p>
+     * 
+     * @param dynamoDB
+     *        Writes to the DynamoDB table that you created. The default action payload contains all attribute-value
+     *        pairs that have the information about the detector model instance and the event that triggered the action.
+     *        You can customize the <a
+     *        href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html">payload</a>. One column
+     *        of the DynamoDB table receives all attribute-value pairs in the payload that you specify. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html"
+     *        >Actions</a> in <i>AWS IoT Events Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Action withDynamoDB(DynamoDBAction dynamoDB) {
+        setDynamoDB(dynamoDB);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that
+     * have the information about the detector model instance and the event that triggered the action. You can customize
+     * the <a href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html">payload</a>. A separate
+     * column of the DynamoDB table receives one attribute-value pair in the payload that you specify. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html">Actions</a> in
+     * <i>AWS IoT Events Developer Guide</i>.
+     * </p>
+     * 
+     * @param dynamoDBv2
+     *        Writes to the DynamoDB table that you created. The default action payload contains all attribute-value
+     *        pairs that have the information about the detector model instance and the event that triggered the action.
+     *        You can customize the <a
+     *        href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html">payload</a>. A separate
+     *        column of the DynamoDB table receives one attribute-value pair in the payload that you specify. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html"
+     *        >Actions</a> in <i>AWS IoT Events Developer Guide</i>.
+     */
+
+    public void setDynamoDBv2(DynamoDBv2Action dynamoDBv2) {
+        this.dynamoDBv2 = dynamoDBv2;
+    }
+
+    /**
+     * <p>
+     * Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that
+     * have the information about the detector model instance and the event that triggered the action. You can customize
+     * the <a href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html">payload</a>. A separate
+     * column of the DynamoDB table receives one attribute-value pair in the payload that you specify. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html">Actions</a> in
+     * <i>AWS IoT Events Developer Guide</i>.
+     * </p>
+     * 
+     * @return Writes to the DynamoDB table that you created. The default action payload contains all attribute-value
+     *         pairs that have the information about the detector model instance and the event that triggered the
+     *         action. You can customize the <a
+     *         href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html">payload</a>. A separate
+     *         column of the DynamoDB table receives one attribute-value pair in the payload that you specify. For more
+     *         information, see <a
+     *         href="https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html"
+     *         >Actions</a> in <i>AWS IoT Events Developer Guide</i>.
+     */
+
+    public DynamoDBv2Action getDynamoDBv2() {
+        return this.dynamoDBv2;
+    }
+
+    /**
+     * <p>
+     * Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that
+     * have the information about the detector model instance and the event that triggered the action. You can customize
+     * the <a href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html">payload</a>. A separate
+     * column of the DynamoDB table receives one attribute-value pair in the payload that you specify. For more
+     * information, see <a
+     * href="https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html">Actions</a> in
+     * <i>AWS IoT Events Developer Guide</i>.
+     * </p>
+     * 
+     * @param dynamoDBv2
+     *        Writes to the DynamoDB table that you created. The default action payload contains all attribute-value
+     *        pairs that have the information about the detector model instance and the event that triggered the action.
+     *        You can customize the <a
+     *        href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html">payload</a>. A separate
+     *        column of the DynamoDB table receives one attribute-value pair in the payload that you specify. For more
+     *        information, see <a
+     *        href="https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html"
+     *        >Actions</a> in <i>AWS IoT Events Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Action withDynamoDBv2(DynamoDBv2Action dynamoDBv2) {
+        setDynamoDBv2(dynamoDBv2);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Sends information about the detector model instance and the event that triggered the action to an asset property
+     * in AWS IoT SiteWise .
+     * </p>
+     * 
+     * @param iotSiteWise
+     *        Sends information about the detector model instance and the event that triggered the action to an asset
+     *        property in AWS IoT SiteWise .
+     */
+
+    public void setIotSiteWise(IotSiteWiseAction iotSiteWise) {
+        this.iotSiteWise = iotSiteWise;
+    }
+
+    /**
+     * <p>
+     * Sends information about the detector model instance and the event that triggered the action to an asset property
+     * in AWS IoT SiteWise .
+     * </p>
+     * 
+     * @return Sends information about the detector model instance and the event that triggered the action to an asset
+     *         property in AWS IoT SiteWise .
+     */
+
+    public IotSiteWiseAction getIotSiteWise() {
+        return this.iotSiteWise;
+    }
+
+    /**
+     * <p>
+     * Sends information about the detector model instance and the event that triggered the action to an asset property
+     * in AWS IoT SiteWise .
+     * </p>
+     * 
+     * @param iotSiteWise
+     *        Sends information about the detector model instance and the event that triggered the action to an asset
+     *        property in AWS IoT SiteWise .
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Action withIotSiteWise(IotSiteWiseAction iotSiteWise) {
+        setIotSiteWise(iotSiteWise);
         return this;
     }
 
@@ -544,7 +783,13 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
         if (getSqs() != null)
             sb.append("Sqs: ").append(getSqs()).append(",");
         if (getFirehose() != null)
-            sb.append("Firehose: ").append(getFirehose());
+            sb.append("Firehose: ").append(getFirehose()).append(",");
+        if (getDynamoDB() != null)
+            sb.append("DynamoDB: ").append(getDynamoDB()).append(",");
+        if (getDynamoDBv2() != null)
+            sb.append("DynamoDBv2: ").append(getDynamoDBv2()).append(",");
+        if (getIotSiteWise() != null)
+            sb.append("IotSiteWise: ").append(getIotSiteWise());
         sb.append("}");
         return sb.toString();
     }
@@ -599,6 +844,18 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getFirehose() != null && other.getFirehose().equals(this.getFirehose()) == false)
             return false;
+        if (other.getDynamoDB() == null ^ this.getDynamoDB() == null)
+            return false;
+        if (other.getDynamoDB() != null && other.getDynamoDB().equals(this.getDynamoDB()) == false)
+            return false;
+        if (other.getDynamoDBv2() == null ^ this.getDynamoDBv2() == null)
+            return false;
+        if (other.getDynamoDBv2() != null && other.getDynamoDBv2().equals(this.getDynamoDBv2()) == false)
+            return false;
+        if (other.getIotSiteWise() == null ^ this.getIotSiteWise() == null)
+            return false;
+        if (other.getIotSiteWise() != null && other.getIotSiteWise().equals(this.getIotSiteWise()) == false)
+            return false;
         return true;
     }
 
@@ -617,6 +874,9 @@ public class Action implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getIotEvents() == null) ? 0 : getIotEvents().hashCode());
         hashCode = prime * hashCode + ((getSqs() == null) ? 0 : getSqs().hashCode());
         hashCode = prime * hashCode + ((getFirehose() == null) ? 0 : getFirehose().hashCode());
+        hashCode = prime * hashCode + ((getDynamoDB() == null) ? 0 : getDynamoDB().hashCode());
+        hashCode = prime * hashCode + ((getDynamoDBv2() == null) ? 0 : getDynamoDBv2().hashCode());
+        hashCode = prime * hashCode + ((getIotSiteWise() == null) ? 0 : getIotSiteWise().hashCode());
         return hashCode;
     }
 

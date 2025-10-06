@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -37,6 +37,11 @@ public class ProfileKeyConstants {
      * Property name for specifying the Amazon AWS Session Token
      */
     public static final String AWS_SESSION_TOKEN = "aws_session_token";
+
+    /**
+     * Property name for specifying the Amazon AWS Account ID associated with credentials
+     */
+    public static final String AWS_ACCOUNT_ID = "aws_account_id";
 
     /**
      * Property name for specifying the IAM role to assume

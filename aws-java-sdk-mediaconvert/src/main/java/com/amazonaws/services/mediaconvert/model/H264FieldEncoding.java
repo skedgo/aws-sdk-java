@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -15,13 +15,16 @@ package com.amazonaws.services.mediaconvert.model;
 import javax.annotation.Generated;
 
 /**
- * Choosing FORCE_FIELD disables PAFF encoding for interlaced outputs.
+ * The video encoding method for your MPEG-4 AVC output. Keep the default value, PAFF, to have MediaConvert use PAFF
+ * encoding for interlaced outputs. Choose Force field to disable PAFF encoding and create separate interlaced fields.
+ * Choose MBAFF to disable PAFF and have MediaConvert use MBAFF encoding for interlaced outputs.
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum H264FieldEncoding {
 
     PAFF("PAFF"),
-    FORCE_FIELD("FORCE_FIELD");
+    FORCE_FIELD("FORCE_FIELD"),
+    MBAFF("MBAFF");
 
     private String value;
 

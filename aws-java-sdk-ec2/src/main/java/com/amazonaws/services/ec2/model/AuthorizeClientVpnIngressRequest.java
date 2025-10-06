@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,14 +40,16 @@ public class AuthorizeClientVpnIngressRequest extends AmazonWebServiceRequest im
     private String targetNetworkCidr;
     /**
      * <p>
-     * The ID of the Active Directory group to grant access.
+     * The ID of the group to grant access to, for example, the Active Directory group or identity provider (IdP) group.
+     * Required if <code>AuthorizeAllGroups</code> is <code>false</code> or not specified.
      * </p>
      */
     private String accessGroupId;
     /**
      * <p>
-     * Indicates whether to grant access to all clients. Use <code>true</code> to grant all clients who successfully
-     * establish a VPN connection access to the network.
+     * Indicates whether to grant access to all clients. Specify <code>true</code> to grant all clients who successfully
+     * establish a VPN connection access to the network. Must be set to <code>true</code> if <code>AccessGroupId</code>
+     * is not specified.
      * </p>
      */
     private Boolean authorizeAllGroups;
@@ -60,9 +62,8 @@ public class AuthorizeClientVpnIngressRequest extends AmazonWebServiceRequest im
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      */
     private String clientToken;
@@ -149,11 +150,13 @@ public class AuthorizeClientVpnIngressRequest extends AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ID of the Active Directory group to grant access.
+     * The ID of the group to grant access to, for example, the Active Directory group or identity provider (IdP) group.
+     * Required if <code>AuthorizeAllGroups</code> is <code>false</code> or not specified.
      * </p>
      * 
      * @param accessGroupId
-     *        The ID of the Active Directory group to grant access.
+     *        The ID of the group to grant access to, for example, the Active Directory group or identity provider (IdP)
+     *        group. Required if <code>AuthorizeAllGroups</code> is <code>false</code> or not specified.
      */
 
     public void setAccessGroupId(String accessGroupId) {
@@ -162,10 +165,12 @@ public class AuthorizeClientVpnIngressRequest extends AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ID of the Active Directory group to grant access.
+     * The ID of the group to grant access to, for example, the Active Directory group or identity provider (IdP) group.
+     * Required if <code>AuthorizeAllGroups</code> is <code>false</code> or not specified.
      * </p>
      * 
-     * @return The ID of the Active Directory group to grant access.
+     * @return The ID of the group to grant access to, for example, the Active Directory group or identity provider
+     *         (IdP) group. Required if <code>AuthorizeAllGroups</code> is <code>false</code> or not specified.
      */
 
     public String getAccessGroupId() {
@@ -174,11 +179,13 @@ public class AuthorizeClientVpnIngressRequest extends AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The ID of the Active Directory group to grant access.
+     * The ID of the group to grant access to, for example, the Active Directory group or identity provider (IdP) group.
+     * Required if <code>AuthorizeAllGroups</code> is <code>false</code> or not specified.
      * </p>
      * 
      * @param accessGroupId
-     *        The ID of the Active Directory group to grant access.
+     *        The ID of the group to grant access to, for example, the Active Directory group or identity provider (IdP)
+     *        group. Required if <code>AuthorizeAllGroups</code> is <code>false</code> or not specified.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -189,13 +196,15 @@ public class AuthorizeClientVpnIngressRequest extends AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Indicates whether to grant access to all clients. Use <code>true</code> to grant all clients who successfully
-     * establish a VPN connection access to the network.
+     * Indicates whether to grant access to all clients. Specify <code>true</code> to grant all clients who successfully
+     * establish a VPN connection access to the network. Must be set to <code>true</code> if <code>AccessGroupId</code>
+     * is not specified.
      * </p>
      * 
      * @param authorizeAllGroups
-     *        Indicates whether to grant access to all clients. Use <code>true</code> to grant all clients who
-     *        successfully establish a VPN connection access to the network.
+     *        Indicates whether to grant access to all clients. Specify <code>true</code> to grant all clients who
+     *        successfully establish a VPN connection access to the network. Must be set to <code>true</code> if
+     *        <code>AccessGroupId</code> is not specified.
      */
 
     public void setAuthorizeAllGroups(Boolean authorizeAllGroups) {
@@ -204,12 +213,14 @@ public class AuthorizeClientVpnIngressRequest extends AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Indicates whether to grant access to all clients. Use <code>true</code> to grant all clients who successfully
-     * establish a VPN connection access to the network.
+     * Indicates whether to grant access to all clients. Specify <code>true</code> to grant all clients who successfully
+     * establish a VPN connection access to the network. Must be set to <code>true</code> if <code>AccessGroupId</code>
+     * is not specified.
      * </p>
      * 
-     * @return Indicates whether to grant access to all clients. Use <code>true</code> to grant all clients who
-     *         successfully establish a VPN connection access to the network.
+     * @return Indicates whether to grant access to all clients. Specify <code>true</code> to grant all clients who
+     *         successfully establish a VPN connection access to the network. Must be set to <code>true</code> if
+     *         <code>AccessGroupId</code> is not specified.
      */
 
     public Boolean getAuthorizeAllGroups() {
@@ -218,13 +229,15 @@ public class AuthorizeClientVpnIngressRequest extends AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Indicates whether to grant access to all clients. Use <code>true</code> to grant all clients who successfully
-     * establish a VPN connection access to the network.
+     * Indicates whether to grant access to all clients. Specify <code>true</code> to grant all clients who successfully
+     * establish a VPN connection access to the network. Must be set to <code>true</code> if <code>AccessGroupId</code>
+     * is not specified.
      * </p>
      * 
      * @param authorizeAllGroups
-     *        Indicates whether to grant access to all clients. Use <code>true</code> to grant all clients who
-     *        successfully establish a VPN connection access to the network.
+     *        Indicates whether to grant access to all clients. Specify <code>true</code> to grant all clients who
+     *        successfully establish a VPN connection access to the network. Must be set to <code>true</code> if
+     *        <code>AccessGroupId</code> is not specified.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -235,12 +248,14 @@ public class AuthorizeClientVpnIngressRequest extends AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Indicates whether to grant access to all clients. Use <code>true</code> to grant all clients who successfully
-     * establish a VPN connection access to the network.
+     * Indicates whether to grant access to all clients. Specify <code>true</code> to grant all clients who successfully
+     * establish a VPN connection access to the network. Must be set to <code>true</code> if <code>AccessGroupId</code>
+     * is not specified.
      * </p>
      * 
-     * @return Indicates whether to grant access to all clients. Use <code>true</code> to grant all clients who
-     *         successfully establish a VPN connection access to the network.
+     * @return Indicates whether to grant access to all clients. Specify <code>true</code> to grant all clients who
+     *         successfully establish a VPN connection access to the network. Must be set to <code>true</code> if
+     *         <code>AccessGroupId</code> is not specified.
      */
 
     public Boolean isAuthorizeAllGroups() {
@@ -290,16 +305,14 @@ public class AuthorizeClientVpnIngressRequest extends AmazonWebServiceRequest im
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * 
      * @param clientToken
      *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *        Idempotency</a>.
+     *        href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.
      */
 
     public void setClientToken(String clientToken) {
@@ -309,15 +322,13 @@ public class AuthorizeClientVpnIngressRequest extends AmazonWebServiceRequest im
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * 
      * @return Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *         information, see <a
-     *         href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *         Idempotency</a>.
+     *         href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.
      */
 
     public String getClientToken() {
@@ -327,16 +338,14 @@ public class AuthorizeClientVpnIngressRequest extends AmazonWebServiceRequest im
     /**
      * <p>
      * Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
-     * information, see <a
-     * href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     * Idempotency</a>.
+     * information, see <a href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring
+     * idempotency</a>.
      * </p>
      * 
      * @param clientToken
      *        Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more
      *        information, see <a
-     *        href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure
-     *        Idempotency</a>.
+     *        href="https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html">Ensuring idempotency</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

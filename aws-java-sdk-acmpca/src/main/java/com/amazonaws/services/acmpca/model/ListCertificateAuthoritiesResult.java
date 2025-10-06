@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,17 +25,63 @@ public class ListCertificateAuthoritiesResult extends com.amazonaws.AmazonWebSer
 
     /**
      * <p>
-     * Summary information about each certificate authority you have created.
-     * </p>
-     */
-    private java.util.List<CertificateAuthority> certificateAuthorities;
-    /**
-     * <p>
      * When the list is truncated, this value is present and should be used for the <code>NextToken</code> parameter in
      * a subsequent pagination request.
      * </p>
      */
     private String nextToken;
+    /**
+     * <p>
+     * Summary information about each certificate authority you have created.
+     * </p>
+     */
+    private java.util.List<CertificateAuthority> certificateAuthorities;
+
+    /**
+     * <p>
+     * When the list is truncated, this value is present and should be used for the <code>NextToken</code> parameter in
+     * a subsequent pagination request.
+     * </p>
+     * 
+     * @param nextToken
+     *        When the list is truncated, this value is present and should be used for the <code>NextToken</code>
+     *        parameter in a subsequent pagination request.
+     */
+
+    public void setNextToken(String nextToken) {
+        this.nextToken = nextToken;
+    }
+
+    /**
+     * <p>
+     * When the list is truncated, this value is present and should be used for the <code>NextToken</code> parameter in
+     * a subsequent pagination request.
+     * </p>
+     * 
+     * @return When the list is truncated, this value is present and should be used for the <code>NextToken</code>
+     *         parameter in a subsequent pagination request.
+     */
+
+    public String getNextToken() {
+        return this.nextToken;
+    }
+
+    /**
+     * <p>
+     * When the list is truncated, this value is present and should be used for the <code>NextToken</code> parameter in
+     * a subsequent pagination request.
+     * </p>
+     * 
+     * @param nextToken
+     *        When the list is truncated, this value is present and should be used for the <code>NextToken</code>
+     *        parameter in a subsequent pagination request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ListCertificateAuthoritiesResult withNextToken(String nextToken) {
+        setNextToken(nextToken);
+        return this;
+    }
 
     /**
      * <p>
@@ -108,52 +154,6 @@ public class ListCertificateAuthoritiesResult extends com.amazonaws.AmazonWebSer
     }
 
     /**
-     * <p>
-     * When the list is truncated, this value is present and should be used for the <code>NextToken</code> parameter in
-     * a subsequent pagination request.
-     * </p>
-     * 
-     * @param nextToken
-     *        When the list is truncated, this value is present and should be used for the <code>NextToken</code>
-     *        parameter in a subsequent pagination request.
-     */
-
-    public void setNextToken(String nextToken) {
-        this.nextToken = nextToken;
-    }
-
-    /**
-     * <p>
-     * When the list is truncated, this value is present and should be used for the <code>NextToken</code> parameter in
-     * a subsequent pagination request.
-     * </p>
-     * 
-     * @return When the list is truncated, this value is present and should be used for the <code>NextToken</code>
-     *         parameter in a subsequent pagination request.
-     */
-
-    public String getNextToken() {
-        return this.nextToken;
-    }
-
-    /**
-     * <p>
-     * When the list is truncated, this value is present and should be used for the <code>NextToken</code> parameter in
-     * a subsequent pagination request.
-     * </p>
-     * 
-     * @param nextToken
-     *        When the list is truncated, this value is present and should be used for the <code>NextToken</code>
-     *        parameter in a subsequent pagination request.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public ListCertificateAuthoritiesResult withNextToken(String nextToken) {
-        setNextToken(nextToken);
-        return this;
-    }
-
-    /**
      * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
      * redacted from this string using a placeholder value.
      *
@@ -165,10 +165,10 @@ public class ListCertificateAuthoritiesResult extends com.amazonaws.AmazonWebSer
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        if (getCertificateAuthorities() != null)
-            sb.append("CertificateAuthorities: ").append(getCertificateAuthorities()).append(",");
         if (getNextToken() != null)
-            sb.append("NextToken: ").append(getNextToken());
+            sb.append("NextToken: ").append(getNextToken()).append(",");
+        if (getCertificateAuthorities() != null)
+            sb.append("CertificateAuthorities: ").append(getCertificateAuthorities());
         sb.append("}");
         return sb.toString();
     }
@@ -183,13 +183,13 @@ public class ListCertificateAuthoritiesResult extends com.amazonaws.AmazonWebSer
         if (obj instanceof ListCertificateAuthoritiesResult == false)
             return false;
         ListCertificateAuthoritiesResult other = (ListCertificateAuthoritiesResult) obj;
-        if (other.getCertificateAuthorities() == null ^ this.getCertificateAuthorities() == null)
-            return false;
-        if (other.getCertificateAuthorities() != null && other.getCertificateAuthorities().equals(this.getCertificateAuthorities()) == false)
-            return false;
         if (other.getNextToken() == null ^ this.getNextToken() == null)
             return false;
         if (other.getNextToken() != null && other.getNextToken().equals(this.getNextToken()) == false)
+            return false;
+        if (other.getCertificateAuthorities() == null ^ this.getCertificateAuthorities() == null)
+            return false;
+        if (other.getCertificateAuthorities() != null && other.getCertificateAuthorities().equals(this.getCertificateAuthorities()) == false)
             return false;
         return true;
     }
@@ -199,8 +199,8 @@ public class ListCertificateAuthoritiesResult extends com.amazonaws.AmazonWebSer
         final int prime = 31;
         int hashCode = 1;
 
-        hashCode = prime * hashCode + ((getCertificateAuthorities() == null) ? 0 : getCertificateAuthorities().hashCode());
         hashCode = prime * hashCode + ((getNextToken() == null) ? 0 : getNextToken().hashCode());
+        hashCode = prime * hashCode + ((getCertificateAuthorities() == null) ? 0 : getCertificateAuthorities().hashCode());
         return hashCode;
     }
 

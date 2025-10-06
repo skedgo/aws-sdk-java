@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Information about the current creation or deletion lifecycle state of an AWS Cloud9 development environment.
+ * Information about the current creation or deletion lifecycle state of an Cloud9 development environment.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloud9-2017-09-23/EnvironmentLifecycle" target="_top">AWS API
@@ -35,17 +35,27 @@ public class EnvironmentLifecycle implements Serializable, Cloneable, Structured
      * <ul>
      * <li>
      * <p>
+     * <code>CREATING</code>: The environment is in the process of being created.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>CREATED</code>: The environment was successfully created.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DELETE_FAILED</code>: The environment failed to delete.
+     * <code>CREATE_FAILED</code>: The environment failed to be created.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DELETING</code>: The environment is in the process of being deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DELETE_FAILED</code>: The environment failed to delete.
      * </p>
      * </li>
      * </ul>
@@ -59,7 +69,7 @@ public class EnvironmentLifecycle implements Serializable, Cloneable, Structured
     private String reason;
     /**
      * <p>
-     * If the environment failed to delete, the Amazon Resource Name (ARN) of the related AWS resource.
+     * If the environment failed to delete, the Amazon Resource Name (ARN) of the related Amazon Web Services resource.
      * </p>
      */
     private String failureResource;
@@ -71,17 +81,27 @@ public class EnvironmentLifecycle implements Serializable, Cloneable, Structured
      * <ul>
      * <li>
      * <p>
+     * <code>CREATING</code>: The environment is in the process of being created.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>CREATED</code>: The environment was successfully created.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DELETE_FAILED</code>: The environment failed to delete.
+     * <code>CREATE_FAILED</code>: The environment failed to be created.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DELETING</code>: The environment is in the process of being deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DELETE_FAILED</code>: The environment failed to delete.
      * </p>
      * </li>
      * </ul>
@@ -91,17 +111,27 @@ public class EnvironmentLifecycle implements Serializable, Cloneable, Structured
      *        <ul>
      *        <li>
      *        <p>
+     *        <code>CREATING</code>: The environment is in the process of being created.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>CREATED</code>: The environment was successfully created.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DELETE_FAILED</code>: The environment failed to delete.
+     *        <code>CREATE_FAILED</code>: The environment failed to be created.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>DELETING</code>: The environment is in the process of being deleted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DELETE_FAILED</code>: The environment failed to delete.
      *        </p>
      *        </li>
      * @see EnvironmentLifecycleStatus
@@ -118,17 +148,27 @@ public class EnvironmentLifecycle implements Serializable, Cloneable, Structured
      * <ul>
      * <li>
      * <p>
+     * <code>CREATING</code>: The environment is in the process of being created.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>CREATED</code>: The environment was successfully created.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DELETE_FAILED</code>: The environment failed to delete.
+     * <code>CREATE_FAILED</code>: The environment failed to be created.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DELETING</code>: The environment is in the process of being deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DELETE_FAILED</code>: The environment failed to delete.
      * </p>
      * </li>
      * </ul>
@@ -137,17 +177,27 @@ public class EnvironmentLifecycle implements Serializable, Cloneable, Structured
      *         <ul>
      *         <li>
      *         <p>
+     *         <code>CREATING</code>: The environment is in the process of being created.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         <code>CREATED</code>: The environment was successfully created.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>DELETE_FAILED</code>: The environment failed to delete.
+     *         <code>CREATE_FAILED</code>: The environment failed to be created.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>DELETING</code>: The environment is in the process of being deleted.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>DELETE_FAILED</code>: The environment failed to delete.
      *         </p>
      *         </li>
      * @see EnvironmentLifecycleStatus
@@ -164,17 +214,27 @@ public class EnvironmentLifecycle implements Serializable, Cloneable, Structured
      * <ul>
      * <li>
      * <p>
+     * <code>CREATING</code>: The environment is in the process of being created.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>CREATED</code>: The environment was successfully created.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DELETE_FAILED</code>: The environment failed to delete.
+     * <code>CREATE_FAILED</code>: The environment failed to be created.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DELETING</code>: The environment is in the process of being deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DELETE_FAILED</code>: The environment failed to delete.
      * </p>
      * </li>
      * </ul>
@@ -184,17 +244,27 @@ public class EnvironmentLifecycle implements Serializable, Cloneable, Structured
      *        <ul>
      *        <li>
      *        <p>
+     *        <code>CREATING</code>: The environment is in the process of being created.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>CREATED</code>: The environment was successfully created.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DELETE_FAILED</code>: The environment failed to delete.
+     *        <code>CREATE_FAILED</code>: The environment failed to be created.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>DELETING</code>: The environment is in the process of being deleted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DELETE_FAILED</code>: The environment failed to delete.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -213,17 +283,27 @@ public class EnvironmentLifecycle implements Serializable, Cloneable, Structured
      * <ul>
      * <li>
      * <p>
+     * <code>CREATING</code>: The environment is in the process of being created.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>CREATED</code>: The environment was successfully created.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DELETE_FAILED</code>: The environment failed to delete.
+     * <code>CREATE_FAILED</code>: The environment failed to be created.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>DELETING</code>: The environment is in the process of being deleted.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>DELETE_FAILED</code>: The environment failed to delete.
      * </p>
      * </li>
      * </ul>
@@ -233,17 +313,27 @@ public class EnvironmentLifecycle implements Serializable, Cloneable, Structured
      *        <ul>
      *        <li>
      *        <p>
+     *        <code>CREATING</code>: The environment is in the process of being created.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>CREATED</code>: The environment was successfully created.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DELETE_FAILED</code>: The environment failed to delete.
+     *        <code>CREATE_FAILED</code>: The environment failed to be created.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>DELETING</code>: The environment is in the process of being deleted.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>DELETE_FAILED</code>: The environment failed to delete.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -297,11 +387,12 @@ public class EnvironmentLifecycle implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * If the environment failed to delete, the Amazon Resource Name (ARN) of the related AWS resource.
+     * If the environment failed to delete, the Amazon Resource Name (ARN) of the related Amazon Web Services resource.
      * </p>
      * 
      * @param failureResource
-     *        If the environment failed to delete, the Amazon Resource Name (ARN) of the related AWS resource.
+     *        If the environment failed to delete, the Amazon Resource Name (ARN) of the related Amazon Web Services
+     *        resource.
      */
 
     public void setFailureResource(String failureResource) {
@@ -310,10 +401,11 @@ public class EnvironmentLifecycle implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * If the environment failed to delete, the Amazon Resource Name (ARN) of the related AWS resource.
+     * If the environment failed to delete, the Amazon Resource Name (ARN) of the related Amazon Web Services resource.
      * </p>
      * 
-     * @return If the environment failed to delete, the Amazon Resource Name (ARN) of the related AWS resource.
+     * @return If the environment failed to delete, the Amazon Resource Name (ARN) of the related Amazon Web Services
+     *         resource.
      */
 
     public String getFailureResource() {
@@ -322,11 +414,12 @@ public class EnvironmentLifecycle implements Serializable, Cloneable, Structured
 
     /**
      * <p>
-     * If the environment failed to delete, the Amazon Resource Name (ARN) of the related AWS resource.
+     * If the environment failed to delete, the Amazon Resource Name (ARN) of the related Amazon Web Services resource.
      * </p>
      * 
      * @param failureResource
-     *        If the environment failed to delete, the Amazon Resource Name (ARN) of the related AWS resource.
+     *        If the environment failed to delete, the Amazon Resource Name (ARN) of the related Amazon Web Services
+     *        resource.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

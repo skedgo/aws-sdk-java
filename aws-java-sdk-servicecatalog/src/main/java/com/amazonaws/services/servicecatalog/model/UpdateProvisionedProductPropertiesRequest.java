@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,11 +32,6 @@ public class UpdateProvisionedProductPropertiesRequest extends com.amazonaws.Ama
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -59,12 +54,19 @@ public class UpdateProvisionedProductPropertiesRequest extends com.amazonaws.Ama
      * A map that contains the provisioned product properties to be updated.
      * </p>
      * <p>
-     * The <code>OWNER</code> key only accepts user ARNs. The owner is the user that is allowed to see, update,
-     * terminate, and execute service actions in the provisioned product.
+     * The <code>LAUNCH_ROLE</code> key accepts role ARNs. This key allows an administrator to call
+     * <code>UpdateProvisionedProductProperties</code> to update the launch role that is associated with a provisioned
+     * product. This role is used when an end user calls a provisioning operation such as
+     * <code>UpdateProvisionedProduct</code>, <code>TerminateProvisionedProduct</code>, or
+     * <code>ExecuteProvisionedProductServiceAction</code>. Only a role ARN is valid. A user ARN is invalid.
      * </p>
      * <p>
-     * The administrator can change the owner of a provisioned product to another IAM user within the same account. Both
-     * end user owners and administrators can see ownership history of the provisioned product using the
+     * The <code>OWNER</code> key accepts user ARNs, IAM role ARNs, and STS assumed-role ARNs. The owner is the user
+     * that has permission to see, update, terminate, and execute service actions in the provisioned product.
+     * </p>
+     * <p>
+     * The administrator can change the owner of a provisioned product to another IAM or STS entity within the same
+     * account. Both end user owners and administrators can see ownership history of the provisioned product using the
      * <code>ListRecordHistory</code> API. The new owner can describe all past records for the provisioned product using
      * the <code>DescribeRecord</code> API. The previous owner can no longer use <code>DescribeRecord</code>, but can
      * still see the product's history from when he was an owner using <code>ListRecordHistory</code>.
@@ -91,11 +93,6 @@ public class UpdateProvisionedProductPropertiesRequest extends com.amazonaws.Ama
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -109,11 +106,6 @@ public class UpdateProvisionedProductPropertiesRequest extends com.amazonaws.Ama
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -137,11 +129,6 @@ public class UpdateProvisionedProductPropertiesRequest extends com.amazonaws.Ama
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -154,11 +141,6 @@ public class UpdateProvisionedProductPropertiesRequest extends com.amazonaws.Ama
      * 
      * @return The language code.</p>
      *         <ul>
-     *         <li>
-     *         <p>
-     *         <code>en</code> - English (default)
-     *         </p>
-     *         </li>
      *         <li>
      *         <p>
      *         <code>jp</code> - Japanese
@@ -182,11 +164,6 @@ public class UpdateProvisionedProductPropertiesRequest extends com.amazonaws.Ama
      * <ul>
      * <li>
      * <p>
-     * <code>en</code> - English (default)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <code>jp</code> - Japanese
      * </p>
      * </li>
@@ -200,11 +177,6 @@ public class UpdateProvisionedProductPropertiesRequest extends com.amazonaws.Ama
      * @param acceptLanguage
      *        The language code.</p>
      *        <ul>
-     *        <li>
-     *        <p>
-     *        <code>en</code> - English (default)
-     *        </p>
-     *        </li>
      *        <li>
      *        <p>
      *        <code>jp</code> - Japanese
@@ -268,12 +240,19 @@ public class UpdateProvisionedProductPropertiesRequest extends com.amazonaws.Ama
      * A map that contains the provisioned product properties to be updated.
      * </p>
      * <p>
-     * The <code>OWNER</code> key only accepts user ARNs. The owner is the user that is allowed to see, update,
-     * terminate, and execute service actions in the provisioned product.
+     * The <code>LAUNCH_ROLE</code> key accepts role ARNs. This key allows an administrator to call
+     * <code>UpdateProvisionedProductProperties</code> to update the launch role that is associated with a provisioned
+     * product. This role is used when an end user calls a provisioning operation such as
+     * <code>UpdateProvisionedProduct</code>, <code>TerminateProvisionedProduct</code>, or
+     * <code>ExecuteProvisionedProductServiceAction</code>. Only a role ARN is valid. A user ARN is invalid.
      * </p>
      * <p>
-     * The administrator can change the owner of a provisioned product to another IAM user within the same account. Both
-     * end user owners and administrators can see ownership history of the provisioned product using the
+     * The <code>OWNER</code> key accepts user ARNs, IAM role ARNs, and STS assumed-role ARNs. The owner is the user
+     * that has permission to see, update, terminate, and execute service actions in the provisioned product.
+     * </p>
+     * <p>
+     * The administrator can change the owner of a provisioned product to another IAM or STS entity within the same
+     * account. Both end user owners and administrators can see ownership history of the provisioned product using the
      * <code>ListRecordHistory</code> API. The new owner can describe all past records for the provisioned product using
      * the <code>DescribeRecord</code> API. The previous owner can no longer use <code>DescribeRecord</code>, but can
      * still see the product's history from when he was an owner using <code>ListRecordHistory</code>.
@@ -287,13 +266,21 @@ public class UpdateProvisionedProductPropertiesRequest extends com.amazonaws.Ama
      * 
      * @return A map that contains the provisioned product properties to be updated.</p>
      *         <p>
-     *         The <code>OWNER</code> key only accepts user ARNs. The owner is the user that is allowed to see, update,
-     *         terminate, and execute service actions in the provisioned product.
+     *         The <code>LAUNCH_ROLE</code> key accepts role ARNs. This key allows an administrator to call
+     *         <code>UpdateProvisionedProductProperties</code> to update the launch role that is associated with a
+     *         provisioned product. This role is used when an end user calls a provisioning operation such as
+     *         <code>UpdateProvisionedProduct</code>, <code>TerminateProvisionedProduct</code>, or
+     *         <code>ExecuteProvisionedProductServiceAction</code>. Only a role ARN is valid. A user ARN is invalid.
      *         </p>
      *         <p>
-     *         The administrator can change the owner of a provisioned product to another IAM user within the same
-     *         account. Both end user owners and administrators can see ownership history of the provisioned product
-     *         using the <code>ListRecordHistory</code> API. The new owner can describe all past records for the
+     *         The <code>OWNER</code> key accepts user ARNs, IAM role ARNs, and STS assumed-role ARNs. The owner is the
+     *         user that has permission to see, update, terminate, and execute service actions in the provisioned
+     *         product.
+     *         </p>
+     *         <p>
+     *         The administrator can change the owner of a provisioned product to another IAM or STS entity within the
+     *         same account. Both end user owners and administrators can see ownership history of the provisioned
+     *         product using the <code>ListRecordHistory</code> API. The new owner can describe all past records for the
      *         provisioned product using the <code>DescribeRecord</code> API. The previous owner can no longer use
      *         <code>DescribeRecord</code>, but can still see the product's history from when he was an owner using
      *         <code>ListRecordHistory</code>.
@@ -314,12 +301,19 @@ public class UpdateProvisionedProductPropertiesRequest extends com.amazonaws.Ama
      * A map that contains the provisioned product properties to be updated.
      * </p>
      * <p>
-     * The <code>OWNER</code> key only accepts user ARNs. The owner is the user that is allowed to see, update,
-     * terminate, and execute service actions in the provisioned product.
+     * The <code>LAUNCH_ROLE</code> key accepts role ARNs. This key allows an administrator to call
+     * <code>UpdateProvisionedProductProperties</code> to update the launch role that is associated with a provisioned
+     * product. This role is used when an end user calls a provisioning operation such as
+     * <code>UpdateProvisionedProduct</code>, <code>TerminateProvisionedProduct</code>, or
+     * <code>ExecuteProvisionedProductServiceAction</code>. Only a role ARN is valid. A user ARN is invalid.
      * </p>
      * <p>
-     * The administrator can change the owner of a provisioned product to another IAM user within the same account. Both
-     * end user owners and administrators can see ownership history of the provisioned product using the
+     * The <code>OWNER</code> key accepts user ARNs, IAM role ARNs, and STS assumed-role ARNs. The owner is the user
+     * that has permission to see, update, terminate, and execute service actions in the provisioned product.
+     * </p>
+     * <p>
+     * The administrator can change the owner of a provisioned product to another IAM or STS entity within the same
+     * account. Both end user owners and administrators can see ownership history of the provisioned product using the
      * <code>ListRecordHistory</code> API. The new owner can describe all past records for the provisioned product using
      * the <code>DescribeRecord</code> API. The previous owner can no longer use <code>DescribeRecord</code>, but can
      * still see the product's history from when he was an owner using <code>ListRecordHistory</code>.
@@ -334,12 +328,20 @@ public class UpdateProvisionedProductPropertiesRequest extends com.amazonaws.Ama
      * @param provisionedProductProperties
      *        A map that contains the provisioned product properties to be updated.</p>
      *        <p>
-     *        The <code>OWNER</code> key only accepts user ARNs. The owner is the user that is allowed to see, update,
-     *        terminate, and execute service actions in the provisioned product.
+     *        The <code>LAUNCH_ROLE</code> key accepts role ARNs. This key allows an administrator to call
+     *        <code>UpdateProvisionedProductProperties</code> to update the launch role that is associated with a
+     *        provisioned product. This role is used when an end user calls a provisioning operation such as
+     *        <code>UpdateProvisionedProduct</code>, <code>TerminateProvisionedProduct</code>, or
+     *        <code>ExecuteProvisionedProductServiceAction</code>. Only a role ARN is valid. A user ARN is invalid.
      *        </p>
      *        <p>
-     *        The administrator can change the owner of a provisioned product to another IAM user within the same
-     *        account. Both end user owners and administrators can see ownership history of the provisioned product
+     *        The <code>OWNER</code> key accepts user ARNs, IAM role ARNs, and STS assumed-role ARNs. The owner is the
+     *        user that has permission to see, update, terminate, and execute service actions in the provisioned
+     *        product.
+     *        </p>
+     *        <p>
+     *        The administrator can change the owner of a provisioned product to another IAM or STS entity within the
+     *        same account. Both end user owners and administrators can see ownership history of the provisioned product
      *        using the <code>ListRecordHistory</code> API. The new owner can describe all past records for the
      *        provisioned product using the <code>DescribeRecord</code> API. The previous owner can no longer use
      *        <code>DescribeRecord</code>, but can still see the product's history from when he was an owner using
@@ -361,12 +363,19 @@ public class UpdateProvisionedProductPropertiesRequest extends com.amazonaws.Ama
      * A map that contains the provisioned product properties to be updated.
      * </p>
      * <p>
-     * The <code>OWNER</code> key only accepts user ARNs. The owner is the user that is allowed to see, update,
-     * terminate, and execute service actions in the provisioned product.
+     * The <code>LAUNCH_ROLE</code> key accepts role ARNs. This key allows an administrator to call
+     * <code>UpdateProvisionedProductProperties</code> to update the launch role that is associated with a provisioned
+     * product. This role is used when an end user calls a provisioning operation such as
+     * <code>UpdateProvisionedProduct</code>, <code>TerminateProvisionedProduct</code>, or
+     * <code>ExecuteProvisionedProductServiceAction</code>. Only a role ARN is valid. A user ARN is invalid.
      * </p>
      * <p>
-     * The administrator can change the owner of a provisioned product to another IAM user within the same account. Both
-     * end user owners and administrators can see ownership history of the provisioned product using the
+     * The <code>OWNER</code> key accepts user ARNs, IAM role ARNs, and STS assumed-role ARNs. The owner is the user
+     * that has permission to see, update, terminate, and execute service actions in the provisioned product.
+     * </p>
+     * <p>
+     * The administrator can change the owner of a provisioned product to another IAM or STS entity within the same
+     * account. Both end user owners and administrators can see ownership history of the provisioned product using the
      * <code>ListRecordHistory</code> API. The new owner can describe all past records for the provisioned product using
      * the <code>DescribeRecord</code> API. The previous owner can no longer use <code>DescribeRecord</code>, but can
      * still see the product's history from when he was an owner using <code>ListRecordHistory</code>.
@@ -381,12 +390,20 @@ public class UpdateProvisionedProductPropertiesRequest extends com.amazonaws.Ama
      * @param provisionedProductProperties
      *        A map that contains the provisioned product properties to be updated.</p>
      *        <p>
-     *        The <code>OWNER</code> key only accepts user ARNs. The owner is the user that is allowed to see, update,
-     *        terminate, and execute service actions in the provisioned product.
+     *        The <code>LAUNCH_ROLE</code> key accepts role ARNs. This key allows an administrator to call
+     *        <code>UpdateProvisionedProductProperties</code> to update the launch role that is associated with a
+     *        provisioned product. This role is used when an end user calls a provisioning operation such as
+     *        <code>UpdateProvisionedProduct</code>, <code>TerminateProvisionedProduct</code>, or
+     *        <code>ExecuteProvisionedProductServiceAction</code>. Only a role ARN is valid. A user ARN is invalid.
      *        </p>
      *        <p>
-     *        The administrator can change the owner of a provisioned product to another IAM user within the same
-     *        account. Both end user owners and administrators can see ownership history of the provisioned product
+     *        The <code>OWNER</code> key accepts user ARNs, IAM role ARNs, and STS assumed-role ARNs. The owner is the
+     *        user that has permission to see, update, terminate, and execute service actions in the provisioned
+     *        product.
+     *        </p>
+     *        <p>
+     *        The administrator can change the owner of a provisioned product to another IAM or STS entity within the
+     *        same account. Both end user owners and administrators can see ownership history of the provisioned product
      *        using the <code>ListRecordHistory</code> API. The new owner can describe all past records for the
      *        provisioned product using the <code>DescribeRecord</code> API. The previous owner can no longer use
      *        <code>DescribeRecord</code>, but can still see the product's history from when he was an owner using
@@ -404,6 +421,13 @@ public class UpdateProvisionedProductPropertiesRequest extends com.amazonaws.Ama
         setProvisionedProductProperties(provisionedProductProperties);
         return this;
     }
+
+    /**
+     * Add a single ProvisionedProductProperties entry
+     *
+     * @see UpdateProvisionedProductPropertiesRequest#withProvisionedProductProperties
+     * @returns a reference to this object so that method calls can be chained together.
+     */
 
     public UpdateProvisionedProductPropertiesRequest addProvisionedProductPropertiesEntry(String key, String value) {
         if (null == this.provisionedProductProperties) {

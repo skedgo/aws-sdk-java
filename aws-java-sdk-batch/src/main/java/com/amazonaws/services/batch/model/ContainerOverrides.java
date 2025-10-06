@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,6 +21,11 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <p>
  * The overrides that should be sent to a container.
  * </p>
+ * <p>
+ * For information about using Batch overrides when you connect event sources to targets, see <a
+ * href="https://docs.aws.amazon.com/eventbridge/latest/pipes-reference/API_BatchContainerOverrides.html"
+ * >BatchContainerOverrides</a>.
+ * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/ContainerOverrides" target="_top">AWS API
  *      Documentation</a>
@@ -30,28 +35,57 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The number of vCPUs to reserve for the container. This value overrides the value set in the job definition.
+     * This parameter is deprecated, use <code>resourceRequirements</code> to override the <code>vcpus</code> parameter
+     * that's set in the job definition. It's not supported for jobs running on Fargate resources. For jobs that run on
+     * Amazon EC2 resources, it overrides the <code>vcpus</code> parameter set in the job definition, but doesn't
+     * override any vCPU requirement specified in the <code>resourceRequirements</code> structure in the job definition.
+     * To override vCPU requirements that are specified in the <code>resourceRequirements</code> structure in the job
+     * definition, <code>resourceRequirements</code> must be specified in the <code>SubmitJob</code> request, with
+     * <code>type</code> set to <code>VCPU</code> and <code>value</code> set to the new value. For more information, see
+     * <a href="https://docs.aws.amazon.com/batch/latest/userguide/troubleshooting.html#override-resource-requirements">
+     * Can't override job definition resource requirements</a> in the <i>Batch User Guide</i>.
      * </p>
      */
+    @Deprecated
     private Integer vcpus;
     /**
      * <p>
-     * The number of MiB of memory reserved for the job. This value overrides the value set in the job definition.
+     * This parameter is deprecated, use <code>resourceRequirements</code> to override the memory requirements specified
+     * in the job definition. It's not supported for jobs running on Fargate resources. For jobs that run on Amazon EC2
+     * resources, it overrides the <code>memory</code> parameter set in the job definition, but doesn't override any
+     * memory requirement that's specified in the <code>resourceRequirements</code> structure in the job definition. To
+     * override memory requirements that are specified in the <code>resourceRequirements</code> structure in the job
+     * definition, <code>resourceRequirements</code> must be specified in the <code>SubmitJob</code> request, with
+     * <code>type</code> set to <code>MEMORY</code> and <code>value</code> set to the new value. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/troubleshooting.html#override-resource-requirements"
+     * >Can't override job definition resource requirements</a> in the <i>Batch User Guide</i>.
      * </p>
      */
+    @Deprecated
     private Integer memory;
     /**
      * <p>
      * The command to send to the container that overrides the default command from the Docker image or the job
      * definition.
      * </p>
+     * <note>
+     * <p>
+     * This parameter can't contain an empty string.
+     * </p>
+     * </note>
      */
     private java.util.List<String> command;
     /**
      * <p>
-     * The instance type to use for a multi-node parallel job. This parameter is not valid for single-node container
-     * jobs.
+     * The instance type to use for a multi-node parallel job.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to single-node container jobs or jobs that run on Fargate resources, and
+     * shouldn't be provided.
+     * </p>
+     * </note>
      */
     private String instanceType;
     /**
@@ -62,58 +96,106 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
      * </p>
      * <note>
      * <p>
-     * Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     * variables that are set by the AWS Batch service.
+     * Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     * variables that Batch sets.
      * </p>
      * </note>
      */
     private java.util.List<KeyValuePair> environment;
     /**
      * <p>
-     * The type and amount of a resource to assign to a container. This value overrides the value set in the job
-     * definition. Currently, the only supported resource is <code>GPU</code>.
+     * The type and amount of resources to assign to a container. This overrides the settings in the job definition. The
+     * supported resources include <code>GPU</code>, <code>MEMORY</code>, and <code>VCPU</code>.
      * </p>
      */
     private java.util.List<ResourceRequirement> resourceRequirements;
 
     /**
      * <p>
-     * The number of vCPUs to reserve for the container. This value overrides the value set in the job definition.
+     * This parameter is deprecated, use <code>resourceRequirements</code> to override the <code>vcpus</code> parameter
+     * that's set in the job definition. It's not supported for jobs running on Fargate resources. For jobs that run on
+     * Amazon EC2 resources, it overrides the <code>vcpus</code> parameter set in the job definition, but doesn't
+     * override any vCPU requirement specified in the <code>resourceRequirements</code> structure in the job definition.
+     * To override vCPU requirements that are specified in the <code>resourceRequirements</code> structure in the job
+     * definition, <code>resourceRequirements</code> must be specified in the <code>SubmitJob</code> request, with
+     * <code>type</code> set to <code>VCPU</code> and <code>value</code> set to the new value. For more information, see
+     * <a href="https://docs.aws.amazon.com/batch/latest/userguide/troubleshooting.html#override-resource-requirements">
+     * Can't override job definition resource requirements</a> in the <i>Batch User Guide</i>.
      * </p>
      * 
      * @param vcpus
-     *        The number of vCPUs to reserve for the container. This value overrides the value set in the job
-     *        definition.
+     *        This parameter is deprecated, use <code>resourceRequirements</code> to override the <code>vcpus</code>
+     *        parameter that's set in the job definition. It's not supported for jobs running on Fargate resources. For
+     *        jobs that run on Amazon EC2 resources, it overrides the <code>vcpus</code> parameter set in the job
+     *        definition, but doesn't override any vCPU requirement specified in the <code>resourceRequirements</code>
+     *        structure in the job definition. To override vCPU requirements that are specified in the
+     *        <code>resourceRequirements</code> structure in the job definition, <code>resourceRequirements</code> must
+     *        be specified in the <code>SubmitJob</code> request, with <code>type</code> set to <code>VCPU</code> and
+     *        <code>value</code> set to the new value. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/troubleshooting.html#override-resource-requirements"
+     *        >Can't override job definition resource requirements</a> in the <i>Batch User Guide</i>.
      */
-
+    @Deprecated
     public void setVcpus(Integer vcpus) {
         this.vcpus = vcpus;
     }
 
     /**
      * <p>
-     * The number of vCPUs to reserve for the container. This value overrides the value set in the job definition.
+     * This parameter is deprecated, use <code>resourceRequirements</code> to override the <code>vcpus</code> parameter
+     * that's set in the job definition. It's not supported for jobs running on Fargate resources. For jobs that run on
+     * Amazon EC2 resources, it overrides the <code>vcpus</code> parameter set in the job definition, but doesn't
+     * override any vCPU requirement specified in the <code>resourceRequirements</code> structure in the job definition.
+     * To override vCPU requirements that are specified in the <code>resourceRequirements</code> structure in the job
+     * definition, <code>resourceRequirements</code> must be specified in the <code>SubmitJob</code> request, with
+     * <code>type</code> set to <code>VCPU</code> and <code>value</code> set to the new value. For more information, see
+     * <a href="https://docs.aws.amazon.com/batch/latest/userguide/troubleshooting.html#override-resource-requirements">
+     * Can't override job definition resource requirements</a> in the <i>Batch User Guide</i>.
      * </p>
      * 
-     * @return The number of vCPUs to reserve for the container. This value overrides the value set in the job
-     *         definition.
+     * @return This parameter is deprecated, use <code>resourceRequirements</code> to override the <code>vcpus</code>
+     *         parameter that's set in the job definition. It's not supported for jobs running on Fargate resources. For
+     *         jobs that run on Amazon EC2 resources, it overrides the <code>vcpus</code> parameter set in the job
+     *         definition, but doesn't override any vCPU requirement specified in the <code>resourceRequirements</code>
+     *         structure in the job definition. To override vCPU requirements that are specified in the
+     *         <code>resourceRequirements</code> structure in the job definition, <code>resourceRequirements</code> must
+     *         be specified in the <code>SubmitJob</code> request, with <code>type</code> set to <code>VCPU</code> and
+     *         <code>value</code> set to the new value. For more information, see <a
+     *         href="https://docs.aws.amazon.com/batch/latest/userguide/troubleshooting.html#override-resource-requirements"
+     *         >Can't override job definition resource requirements</a> in the <i>Batch User Guide</i>.
      */
-
+    @Deprecated
     public Integer getVcpus() {
         return this.vcpus;
     }
 
     /**
      * <p>
-     * The number of vCPUs to reserve for the container. This value overrides the value set in the job definition.
+     * This parameter is deprecated, use <code>resourceRequirements</code> to override the <code>vcpus</code> parameter
+     * that's set in the job definition. It's not supported for jobs running on Fargate resources. For jobs that run on
+     * Amazon EC2 resources, it overrides the <code>vcpus</code> parameter set in the job definition, but doesn't
+     * override any vCPU requirement specified in the <code>resourceRequirements</code> structure in the job definition.
+     * To override vCPU requirements that are specified in the <code>resourceRequirements</code> structure in the job
+     * definition, <code>resourceRequirements</code> must be specified in the <code>SubmitJob</code> request, with
+     * <code>type</code> set to <code>VCPU</code> and <code>value</code> set to the new value. For more information, see
+     * <a href="https://docs.aws.amazon.com/batch/latest/userguide/troubleshooting.html#override-resource-requirements">
+     * Can't override job definition resource requirements</a> in the <i>Batch User Guide</i>.
      * </p>
      * 
      * @param vcpus
-     *        The number of vCPUs to reserve for the container. This value overrides the value set in the job
-     *        definition.
+     *        This parameter is deprecated, use <code>resourceRequirements</code> to override the <code>vcpus</code>
+     *        parameter that's set in the job definition. It's not supported for jobs running on Fargate resources. For
+     *        jobs that run on Amazon EC2 resources, it overrides the <code>vcpus</code> parameter set in the job
+     *        definition, but doesn't override any vCPU requirement specified in the <code>resourceRequirements</code>
+     *        structure in the job definition. To override vCPU requirements that are specified in the
+     *        <code>resourceRequirements</code> structure in the job definition, <code>resourceRequirements</code> must
+     *        be specified in the <code>SubmitJob</code> request, with <code>type</code> set to <code>VCPU</code> and
+     *        <code>value</code> set to the new value. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/troubleshooting.html#override-resource-requirements"
+     *        >Can't override job definition resource requirements</a> in the <i>Batch User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public ContainerOverrides withVcpus(Integer vcpus) {
         setVcpus(vcpus);
         return this;
@@ -121,42 +203,93 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The number of MiB of memory reserved for the job. This value overrides the value set in the job definition.
+     * This parameter is deprecated, use <code>resourceRequirements</code> to override the memory requirements specified
+     * in the job definition. It's not supported for jobs running on Fargate resources. For jobs that run on Amazon EC2
+     * resources, it overrides the <code>memory</code> parameter set in the job definition, but doesn't override any
+     * memory requirement that's specified in the <code>resourceRequirements</code> structure in the job definition. To
+     * override memory requirements that are specified in the <code>resourceRequirements</code> structure in the job
+     * definition, <code>resourceRequirements</code> must be specified in the <code>SubmitJob</code> request, with
+     * <code>type</code> set to <code>MEMORY</code> and <code>value</code> set to the new value. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/troubleshooting.html#override-resource-requirements"
+     * >Can't override job definition resource requirements</a> in the <i>Batch User Guide</i>.
      * </p>
      * 
      * @param memory
-     *        The number of MiB of memory reserved for the job. This value overrides the value set in the job
-     *        definition.
+     *        This parameter is deprecated, use <code>resourceRequirements</code> to override the memory requirements
+     *        specified in the job definition. It's not supported for jobs running on Fargate resources. For jobs that
+     *        run on Amazon EC2 resources, it overrides the <code>memory</code> parameter set in the job definition, but
+     *        doesn't override any memory requirement that's specified in the <code>resourceRequirements</code>
+     *        structure in the job definition. To override memory requirements that are specified in the
+     *        <code>resourceRequirements</code> structure in the job definition, <code>resourceRequirements</code> must
+     *        be specified in the <code>SubmitJob</code> request, with <code>type</code> set to <code>MEMORY</code> and
+     *        <code>value</code> set to the new value. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/troubleshooting.html#override-resource-requirements"
+     *        >Can't override job definition resource requirements</a> in the <i>Batch User Guide</i>.
      */
-
+    @Deprecated
     public void setMemory(Integer memory) {
         this.memory = memory;
     }
 
     /**
      * <p>
-     * The number of MiB of memory reserved for the job. This value overrides the value set in the job definition.
+     * This parameter is deprecated, use <code>resourceRequirements</code> to override the memory requirements specified
+     * in the job definition. It's not supported for jobs running on Fargate resources. For jobs that run on Amazon EC2
+     * resources, it overrides the <code>memory</code> parameter set in the job definition, but doesn't override any
+     * memory requirement that's specified in the <code>resourceRequirements</code> structure in the job definition. To
+     * override memory requirements that are specified in the <code>resourceRequirements</code> structure in the job
+     * definition, <code>resourceRequirements</code> must be specified in the <code>SubmitJob</code> request, with
+     * <code>type</code> set to <code>MEMORY</code> and <code>value</code> set to the new value. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/troubleshooting.html#override-resource-requirements"
+     * >Can't override job definition resource requirements</a> in the <i>Batch User Guide</i>.
      * </p>
      * 
-     * @return The number of MiB of memory reserved for the job. This value overrides the value set in the job
-     *         definition.
+     * @return This parameter is deprecated, use <code>resourceRequirements</code> to override the memory requirements
+     *         specified in the job definition. It's not supported for jobs running on Fargate resources. For jobs that
+     *         run on Amazon EC2 resources, it overrides the <code>memory</code> parameter set in the job definition,
+     *         but doesn't override any memory requirement that's specified in the <code>resourceRequirements</code>
+     *         structure in the job definition. To override memory requirements that are specified in the
+     *         <code>resourceRequirements</code> structure in the job definition, <code>resourceRequirements</code> must
+     *         be specified in the <code>SubmitJob</code> request, with <code>type</code> set to <code>MEMORY</code> and
+     *         <code>value</code> set to the new value. For more information, see <a
+     *         href="https://docs.aws.amazon.com/batch/latest/userguide/troubleshooting.html#override-resource-requirements"
+     *         >Can't override job definition resource requirements</a> in the <i>Batch User Guide</i>.
      */
-
+    @Deprecated
     public Integer getMemory() {
         return this.memory;
     }
 
     /**
      * <p>
-     * The number of MiB of memory reserved for the job. This value overrides the value set in the job definition.
+     * This parameter is deprecated, use <code>resourceRequirements</code> to override the memory requirements specified
+     * in the job definition. It's not supported for jobs running on Fargate resources. For jobs that run on Amazon EC2
+     * resources, it overrides the <code>memory</code> parameter set in the job definition, but doesn't override any
+     * memory requirement that's specified in the <code>resourceRequirements</code> structure in the job definition. To
+     * override memory requirements that are specified in the <code>resourceRequirements</code> structure in the job
+     * definition, <code>resourceRequirements</code> must be specified in the <code>SubmitJob</code> request, with
+     * <code>type</code> set to <code>MEMORY</code> and <code>value</code> set to the new value. For more information,
+     * see <a
+     * href="https://docs.aws.amazon.com/batch/latest/userguide/troubleshooting.html#override-resource-requirements"
+     * >Can't override job definition resource requirements</a> in the <i>Batch User Guide</i>.
      * </p>
      * 
      * @param memory
-     *        The number of MiB of memory reserved for the job. This value overrides the value set in the job
-     *        definition.
+     *        This parameter is deprecated, use <code>resourceRequirements</code> to override the memory requirements
+     *        specified in the job definition. It's not supported for jobs running on Fargate resources. For jobs that
+     *        run on Amazon EC2 resources, it overrides the <code>memory</code> parameter set in the job definition, but
+     *        doesn't override any memory requirement that's specified in the <code>resourceRequirements</code>
+     *        structure in the job definition. To override memory requirements that are specified in the
+     *        <code>resourceRequirements</code> structure in the job definition, <code>resourceRequirements</code> must
+     *        be specified in the <code>SubmitJob</code> request, with <code>type</code> set to <code>MEMORY</code> and
+     *        <code>value</code> set to the new value. For more information, see <a
+     *        href="https://docs.aws.amazon.com/batch/latest/userguide/troubleshooting.html#override-resource-requirements"
+     *        >Can't override job definition resource requirements</a> in the <i>Batch User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public ContainerOverrides withMemory(Integer memory) {
         setMemory(memory);
         return this;
@@ -167,9 +300,17 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
      * The command to send to the container that overrides the default command from the Docker image or the job
      * definition.
      * </p>
+     * <note>
+     * <p>
+     * This parameter can't contain an empty string.
+     * </p>
+     * </note>
      * 
      * @return The command to send to the container that overrides the default command from the Docker image or the job
-     *         definition.
+     *         definition.</p> <note>
+     *         <p>
+     *         This parameter can't contain an empty string.
+     *         </p>
      */
 
     public java.util.List<String> getCommand() {
@@ -181,10 +322,18 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
      * The command to send to the container that overrides the default command from the Docker image or the job
      * definition.
      * </p>
+     * <note>
+     * <p>
+     * This parameter can't contain an empty string.
+     * </p>
+     * </note>
      * 
      * @param command
      *        The command to send to the container that overrides the default command from the Docker image or the job
-     *        definition.
+     *        definition.</p> <note>
+     *        <p>
+     *        This parameter can't contain an empty string.
+     *        </p>
      */
 
     public void setCommand(java.util.Collection<String> command) {
@@ -201,6 +350,11 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
      * The command to send to the container that overrides the default command from the Docker image or the job
      * definition.
      * </p>
+     * <note>
+     * <p>
+     * This parameter can't contain an empty string.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setCommand(java.util.Collection)} or {@link #withCommand(java.util.Collection)} if you want to override
@@ -209,7 +363,10 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
      * 
      * @param command
      *        The command to send to the container that overrides the default command from the Docker image or the job
-     *        definition.
+     *        definition.</p> <note>
+     *        <p>
+     *        This parameter can't contain an empty string.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -228,10 +385,18 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
      * The command to send to the container that overrides the default command from the Docker image or the job
      * definition.
      * </p>
+     * <note>
+     * <p>
+     * This parameter can't contain an empty string.
+     * </p>
+     * </note>
      * 
      * @param command
      *        The command to send to the container that overrides the default command from the Docker image or the job
-     *        definition.
+     *        definition.</p> <note>
+     *        <p>
+     *        This parameter can't contain an empty string.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -242,13 +407,21 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The instance type to use for a multi-node parallel job. This parameter is not valid for single-node container
-     * jobs.
+     * The instance type to use for a multi-node parallel job.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to single-node container jobs or jobs that run on Fargate resources, and
+     * shouldn't be provided.
+     * </p>
+     * </note>
      * 
      * @param instanceType
-     *        The instance type to use for a multi-node parallel job. This parameter is not valid for single-node
-     *        container jobs.
+     *        The instance type to use for a multi-node parallel job.</p> <note>
+     *        <p>
+     *        This parameter isn't applicable to single-node container jobs or jobs that run on Fargate resources, and
+     *        shouldn't be provided.
+     *        </p>
      */
 
     public void setInstanceType(String instanceType) {
@@ -257,12 +430,20 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The instance type to use for a multi-node parallel job. This parameter is not valid for single-node container
-     * jobs.
+     * The instance type to use for a multi-node parallel job.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to single-node container jobs or jobs that run on Fargate resources, and
+     * shouldn't be provided.
+     * </p>
+     * </note>
      * 
-     * @return The instance type to use for a multi-node parallel job. This parameter is not valid for single-node
-     *         container jobs.
+     * @return The instance type to use for a multi-node parallel job.</p> <note>
+     *         <p>
+     *         This parameter isn't applicable to single-node container jobs or jobs that run on Fargate resources, and
+     *         shouldn't be provided.
+     *         </p>
      */
 
     public String getInstanceType() {
@@ -271,13 +452,21 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The instance type to use for a multi-node parallel job. This parameter is not valid for single-node container
-     * jobs.
+     * The instance type to use for a multi-node parallel job.
      * </p>
+     * <note>
+     * <p>
+     * This parameter isn't applicable to single-node container jobs or jobs that run on Fargate resources, and
+     * shouldn't be provided.
+     * </p>
+     * </note>
      * 
      * @param instanceType
-     *        The instance type to use for a multi-node parallel job. This parameter is not valid for single-node
-     *        container jobs.
+     *        The instance type to use for a multi-node parallel job.</p> <note>
+     *        <p>
+     *        This parameter isn't applicable to single-node container jobs or jobs that run on Fargate resources, and
+     *        shouldn't be provided.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -294,8 +483,8 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
      * </p>
      * <note>
      * <p>
-     * Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     * variables that are set by the AWS Batch service.
+     * Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     * variables that Batch sets.
      * </p>
      * </note>
      * 
@@ -303,8 +492,8 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
      *         added to the container at launch, or you can override the existing environment variables from the Docker
      *         image or the job definition.</p> <note>
      *         <p>
-     *         Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     *         variables that are set by the AWS Batch service.
+     *         Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     *         variables that Batch sets.
      *         </p>
      */
 
@@ -320,8 +509,8 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
      * </p>
      * <note>
      * <p>
-     * Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     * variables that are set by the AWS Batch service.
+     * Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     * variables that Batch sets.
      * </p>
      * </note>
      * 
@@ -330,8 +519,8 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
      *        to the container at launch, or you can override the existing environment variables from the Docker image
      *        or the job definition.</p> <note>
      *        <p>
-     *        Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     *        variables that are set by the AWS Batch service.
+     *        Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     *        variables that Batch sets.
      *        </p>
      */
 
@@ -352,8 +541,8 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
      * </p>
      * <note>
      * <p>
-     * Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     * variables that are set by the AWS Batch service.
+     * Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     * variables that Batch sets.
      * </p>
      * </note>
      * <p>
@@ -367,8 +556,8 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
      *        to the container at launch, or you can override the existing environment variables from the Docker image
      *        or the job definition.</p> <note>
      *        <p>
-     *        Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     *        variables that are set by the AWS Batch service.
+     *        Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     *        variables that Batch sets.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -391,8 +580,8 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
      * </p>
      * <note>
      * <p>
-     * Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     * variables that are set by the AWS Batch service.
+     * Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     * variables that Batch sets.
      * </p>
      * </note>
      * 
@@ -401,8 +590,8 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
      *        to the container at launch, or you can override the existing environment variables from the Docker image
      *        or the job definition.</p> <note>
      *        <p>
-     *        Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
-     *        variables that are set by the AWS Batch service.
+     *        Environment variables cannot start with "<code>AWS_BATCH</code>". This naming convention is reserved for
+     *        variables that Batch sets.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -414,12 +603,12 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The type and amount of a resource to assign to a container. This value overrides the value set in the job
-     * definition. Currently, the only supported resource is <code>GPU</code>.
+     * The type and amount of resources to assign to a container. This overrides the settings in the job definition. The
+     * supported resources include <code>GPU</code>, <code>MEMORY</code>, and <code>VCPU</code>.
      * </p>
      * 
-     * @return The type and amount of a resource to assign to a container. This value overrides the value set in the job
-     *         definition. Currently, the only supported resource is <code>GPU</code>.
+     * @return The type and amount of resources to assign to a container. This overrides the settings in the job
+     *         definition. The supported resources include <code>GPU</code>, <code>MEMORY</code>, and <code>VCPU</code>.
      */
 
     public java.util.List<ResourceRequirement> getResourceRequirements() {
@@ -428,13 +617,13 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The type and amount of a resource to assign to a container. This value overrides the value set in the job
-     * definition. Currently, the only supported resource is <code>GPU</code>.
+     * The type and amount of resources to assign to a container. This overrides the settings in the job definition. The
+     * supported resources include <code>GPU</code>, <code>MEMORY</code>, and <code>VCPU</code>.
      * </p>
      * 
      * @param resourceRequirements
-     *        The type and amount of a resource to assign to a container. This value overrides the value set in the job
-     *        definition. Currently, the only supported resource is <code>GPU</code>.
+     *        The type and amount of resources to assign to a container. This overrides the settings in the job
+     *        definition. The supported resources include <code>GPU</code>, <code>MEMORY</code>, and <code>VCPU</code>.
      */
 
     public void setResourceRequirements(java.util.Collection<ResourceRequirement> resourceRequirements) {
@@ -448,8 +637,8 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The type and amount of a resource to assign to a container. This value overrides the value set in the job
-     * definition. Currently, the only supported resource is <code>GPU</code>.
+     * The type and amount of resources to assign to a container. This overrides the settings in the job definition. The
+     * supported resources include <code>GPU</code>, <code>MEMORY</code>, and <code>VCPU</code>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -458,8 +647,8 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
      * </p>
      * 
      * @param resourceRequirements
-     *        The type and amount of a resource to assign to a container. This value overrides the value set in the job
-     *        definition. Currently, the only supported resource is <code>GPU</code>.
+     *        The type and amount of resources to assign to a container. This overrides the settings in the job
+     *        definition. The supported resources include <code>GPU</code>, <code>MEMORY</code>, and <code>VCPU</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -475,13 +664,13 @@ public class ContainerOverrides implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The type and amount of a resource to assign to a container. This value overrides the value set in the job
-     * definition. Currently, the only supported resource is <code>GPU</code>.
+     * The type and amount of resources to assign to a container. This overrides the settings in the job definition. The
+     * supported resources include <code>GPU</code>, <code>MEMORY</code>, and <code>VCPU</code>.
      * </p>
      * 
      * @param resourceRequirements
-     *        The type and amount of a resource to assign to a container. This value overrides the value set in the job
-     *        definition. Currently, the only supported resource is <code>GPU</code>.
+     *        The type and amount of resources to assign to a container. This overrides the settings in the job
+     *        definition. The supported resources include <code>GPU</code>, <code>MEMORY</code>, and <code>VCPU</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

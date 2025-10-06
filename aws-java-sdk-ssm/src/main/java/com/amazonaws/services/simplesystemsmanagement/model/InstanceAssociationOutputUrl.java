@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The URL of Amazon S3 bucket where you want to store the results of this request.
+ * The URL of S3 bucket where you want to store the results of this request.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/InstanceAssociationOutputUrl" target="_top">AWS
@@ -30,18 +30,18 @@ public class InstanceAssociationOutputUrl implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The URL of Amazon S3 bucket where you want to store the results of this request.
+     * The URL of S3 bucket where you want to store the results of this request.
      * </p>
      */
     private S3OutputUrl s3OutputUrl;
 
     /**
      * <p>
-     * The URL of Amazon S3 bucket where you want to store the results of this request.
+     * The URL of S3 bucket where you want to store the results of this request.
      * </p>
      * 
      * @param s3OutputUrl
-     *        The URL of Amazon S3 bucket where you want to store the results of this request.
+     *        The URL of S3 bucket where you want to store the results of this request.
      */
 
     public void setS3OutputUrl(S3OutputUrl s3OutputUrl) {
@@ -50,10 +50,10 @@ public class InstanceAssociationOutputUrl implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The URL of Amazon S3 bucket where you want to store the results of this request.
+     * The URL of S3 bucket where you want to store the results of this request.
      * </p>
      * 
-     * @return The URL of Amazon S3 bucket where you want to store the results of this request.
+     * @return The URL of S3 bucket where you want to store the results of this request.
      */
 
     public S3OutputUrl getS3OutputUrl() {
@@ -62,11 +62,11 @@ public class InstanceAssociationOutputUrl implements Serializable, Cloneable, St
 
     /**
      * <p>
-     * The URL of Amazon S3 bucket where you want to store the results of this request.
+     * The URL of S3 bucket where you want to store the results of this request.
      * </p>
      * 
      * @param s3OutputUrl
-     *        The URL of Amazon S3 bucket where you want to store the results of this request.
+     *        The URL of S3 bucket where you want to store the results of this request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

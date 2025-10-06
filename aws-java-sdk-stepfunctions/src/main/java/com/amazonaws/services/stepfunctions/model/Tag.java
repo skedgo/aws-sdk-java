@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,6 +20,15 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * Tags are key-value pairs that can be associated with Step Functions state machines and activities.
+ * </p>
+ * <p>
+ * An array of key-value pairs. For more information, see <a
+ * href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation
+ * Tags</a> in the <i>Amazon Web Services Billing and Cost Management User Guide</i>, and <a
+ * href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html">Controlling Access Using IAM Tags</a>.
+ * </p>
+ * <p>
+ * Tags may only contain Unicode letters, digits, white space, or these symbols: <code>_ . : / = + - @</code>.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/Tag" target="_top">AWS API Documentation</a>

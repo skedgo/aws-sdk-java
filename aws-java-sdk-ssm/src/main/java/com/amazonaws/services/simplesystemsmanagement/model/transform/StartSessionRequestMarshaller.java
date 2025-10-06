@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,6 +33,8 @@ public class StartSessionRequestMarshaller {
             .marshallLocationName("Target").build();
     private static final MarshallingInfo<String> DOCUMENTNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DocumentName").build();
+    private static final MarshallingInfo<String> REASON_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Reason").build();
     private static final MarshallingInfo<Map> PARAMETERS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Parameters").build();
 
@@ -54,6 +56,7 @@ public class StartSessionRequestMarshaller {
         try {
             protocolMarshaller.marshall(startSessionRequest.getTarget(), TARGET_BINDING);
             protocolMarshaller.marshall(startSessionRequest.getDocumentName(), DOCUMENTNAME_BINDING);
+            protocolMarshaller.marshall(startSessionRequest.getReason(), REASON_BINDING);
             protocolMarshaller.marshall(startSessionRequest.getParameters(), PARAMETERS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

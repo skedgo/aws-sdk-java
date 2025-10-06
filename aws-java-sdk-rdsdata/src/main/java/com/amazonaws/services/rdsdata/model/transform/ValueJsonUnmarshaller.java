@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,33 +48,25 @@ public class ValueJsonUnmarshaller implements Unmarshaller<Value, JsonUnmarshall
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
-                if (context.testExpression("arrayValues", targetDepth)) {
+                if (context.testExpression("isNull", targetDepth)) {
                     context.nextToken();
-                    value.setArrayValues(new ListUnmarshaller<Value>(ValueJsonUnmarshaller.getInstance()).unmarshall(context));
-                }
-                if (context.testExpression("bigIntValue", targetDepth)) {
-                    context.nextToken();
-                    value.setBigIntValue(context.getUnmarshaller(Long.class).unmarshall(context));
+                    value.setIsNull(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
                 if (context.testExpression("bitValue", targetDepth)) {
                     context.nextToken();
                     value.setBitValue(context.getUnmarshaller(Boolean.class).unmarshall(context));
                 }
-                if (context.testExpression("blobValue", targetDepth)) {
+                if (context.testExpression("bigIntValue", targetDepth)) {
                     context.nextToken();
-                    value.setBlobValue(context.getUnmarshaller(java.nio.ByteBuffer.class).unmarshall(context));
-                }
-                if (context.testExpression("doubleValue", targetDepth)) {
-                    context.nextToken();
-                    value.setDoubleValue(context.getUnmarshaller(Double.class).unmarshall(context));
+                    value.setBigIntValue(context.getUnmarshaller(Long.class).unmarshall(context));
                 }
                 if (context.testExpression("intValue", targetDepth)) {
                     context.nextToken();
                     value.setIntValue(context.getUnmarshaller(Integer.class).unmarshall(context));
                 }
-                if (context.testExpression("isNull", targetDepth)) {
+                if (context.testExpression("doubleValue", targetDepth)) {
                     context.nextToken();
-                    value.setIsNull(context.getUnmarshaller(Boolean.class).unmarshall(context));
+                    value.setDoubleValue(context.getUnmarshaller(Double.class).unmarshall(context));
                 }
                 if (context.testExpression("realValue", targetDepth)) {
                     context.nextToken();
@@ -83,6 +75,16 @@ public class ValueJsonUnmarshaller implements Unmarshaller<Value, JsonUnmarshall
                 if (context.testExpression("stringValue", targetDepth)) {
                     context.nextToken();
                     value.setStringValue(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("blobValue", targetDepth)) {
+                    context.nextToken();
+                    value.setBlobValue(context.getUnmarshaller(java.nio.ByteBuffer.class).unmarshall(context));
+                }
+                if (context.testExpression("arrayValues", targetDepth)) {
+                    context.nextToken();
+                    value.setArrayValues(new ListUnmarshaller<Value>(ValueJsonUnmarshaller.getInstance())
+
+                    .unmarshall(context));
                 }
                 if (context.testExpression("structValue", targetDepth)) {
                     context.nextToken();

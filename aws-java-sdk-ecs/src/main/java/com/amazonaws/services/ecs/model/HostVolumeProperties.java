@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,14 +31,14 @@ public class HostVolumeProperties implements Serializable, Cloneable, Structured
     /**
      * <p>
      * When the <code>host</code> parameter is used, specify a <code>sourcePath</code> to declare the path on the host
-     * container instance that is presented to the container. If this parameter is empty, then the Docker daemon has
+     * container instance that's presented to the container. If this parameter is empty, then the Docker daemon has
      * assigned a host path for you. If the <code>host</code> parameter contains a <code>sourcePath</code> file
      * location, then the data volume persists at the specified location on the host container instance until you delete
-     * it manually. If the <code>sourcePath</code> value does not exist on the host container instance, the Docker
-     * daemon creates it. If the location does exist, the contents of the source path folder are exported.
+     * it manually. If the <code>sourcePath</code> value doesn't exist on the host container instance, the Docker daemon
+     * creates it. If the location does exist, the contents of the source path folder are exported.
      * </p>
      * <p>
-     * If you are using the Fargate launch type, the <code>sourcePath</code> parameter is not supported.
+     * If you're using the Fargate launch type, the <code>sourcePath</code> parameter is not supported.
      * </p>
      */
     private String sourcePath;
@@ -46,26 +46,26 @@ public class HostVolumeProperties implements Serializable, Cloneable, Structured
     /**
      * <p>
      * When the <code>host</code> parameter is used, specify a <code>sourcePath</code> to declare the path on the host
-     * container instance that is presented to the container. If this parameter is empty, then the Docker daemon has
+     * container instance that's presented to the container. If this parameter is empty, then the Docker daemon has
      * assigned a host path for you. If the <code>host</code> parameter contains a <code>sourcePath</code> file
      * location, then the data volume persists at the specified location on the host container instance until you delete
-     * it manually. If the <code>sourcePath</code> value does not exist on the host container instance, the Docker
-     * daemon creates it. If the location does exist, the contents of the source path folder are exported.
+     * it manually. If the <code>sourcePath</code> value doesn't exist on the host container instance, the Docker daemon
+     * creates it. If the location does exist, the contents of the source path folder are exported.
      * </p>
      * <p>
-     * If you are using the Fargate launch type, the <code>sourcePath</code> parameter is not supported.
+     * If you're using the Fargate launch type, the <code>sourcePath</code> parameter is not supported.
      * </p>
      * 
      * @param sourcePath
      *        When the <code>host</code> parameter is used, specify a <code>sourcePath</code> to declare the path on the
-     *        host container instance that is presented to the container. If this parameter is empty, then the Docker
+     *        host container instance that's presented to the container. If this parameter is empty, then the Docker
      *        daemon has assigned a host path for you. If the <code>host</code> parameter contains a
      *        <code>sourcePath</code> file location, then the data volume persists at the specified location on the host
-     *        container instance until you delete it manually. If the <code>sourcePath</code> value does not exist on
-     *        the host container instance, the Docker daemon creates it. If the location does exist, the contents of the
+     *        container instance until you delete it manually. If the <code>sourcePath</code> value doesn't exist on the
+     *        host container instance, the Docker daemon creates it. If the location does exist, the contents of the
      *        source path folder are exported.</p>
      *        <p>
-     *        If you are using the Fargate launch type, the <code>sourcePath</code> parameter is not supported.
+     *        If you're using the Fargate launch type, the <code>sourcePath</code> parameter is not supported.
      */
 
     public void setSourcePath(String sourcePath) {
@@ -75,25 +75,25 @@ public class HostVolumeProperties implements Serializable, Cloneable, Structured
     /**
      * <p>
      * When the <code>host</code> parameter is used, specify a <code>sourcePath</code> to declare the path on the host
-     * container instance that is presented to the container. If this parameter is empty, then the Docker daemon has
+     * container instance that's presented to the container. If this parameter is empty, then the Docker daemon has
      * assigned a host path for you. If the <code>host</code> parameter contains a <code>sourcePath</code> file
      * location, then the data volume persists at the specified location on the host container instance until you delete
-     * it manually. If the <code>sourcePath</code> value does not exist on the host container instance, the Docker
-     * daemon creates it. If the location does exist, the contents of the source path folder are exported.
+     * it manually. If the <code>sourcePath</code> value doesn't exist on the host container instance, the Docker daemon
+     * creates it. If the location does exist, the contents of the source path folder are exported.
      * </p>
      * <p>
-     * If you are using the Fargate launch type, the <code>sourcePath</code> parameter is not supported.
+     * If you're using the Fargate launch type, the <code>sourcePath</code> parameter is not supported.
      * </p>
      * 
      * @return When the <code>host</code> parameter is used, specify a <code>sourcePath</code> to declare the path on
-     *         the host container instance that is presented to the container. If this parameter is empty, then the
+     *         the host container instance that's presented to the container. If this parameter is empty, then the
      *         Docker daemon has assigned a host path for you. If the <code>host</code> parameter contains a
      *         <code>sourcePath</code> file location, then the data volume persists at the specified location on the
-     *         host container instance until you delete it manually. If the <code>sourcePath</code> value does not exist
+     *         host container instance until you delete it manually. If the <code>sourcePath</code> value doesn't exist
      *         on the host container instance, the Docker daemon creates it. If the location does exist, the contents of
      *         the source path folder are exported.</p>
      *         <p>
-     *         If you are using the Fargate launch type, the <code>sourcePath</code> parameter is not supported.
+     *         If you're using the Fargate launch type, the <code>sourcePath</code> parameter is not supported.
      */
 
     public String getSourcePath() {
@@ -103,26 +103,26 @@ public class HostVolumeProperties implements Serializable, Cloneable, Structured
     /**
      * <p>
      * When the <code>host</code> parameter is used, specify a <code>sourcePath</code> to declare the path on the host
-     * container instance that is presented to the container. If this parameter is empty, then the Docker daemon has
+     * container instance that's presented to the container. If this parameter is empty, then the Docker daemon has
      * assigned a host path for you. If the <code>host</code> parameter contains a <code>sourcePath</code> file
      * location, then the data volume persists at the specified location on the host container instance until you delete
-     * it manually. If the <code>sourcePath</code> value does not exist on the host container instance, the Docker
-     * daemon creates it. If the location does exist, the contents of the source path folder are exported.
+     * it manually. If the <code>sourcePath</code> value doesn't exist on the host container instance, the Docker daemon
+     * creates it. If the location does exist, the contents of the source path folder are exported.
      * </p>
      * <p>
-     * If you are using the Fargate launch type, the <code>sourcePath</code> parameter is not supported.
+     * If you're using the Fargate launch type, the <code>sourcePath</code> parameter is not supported.
      * </p>
      * 
      * @param sourcePath
      *        When the <code>host</code> parameter is used, specify a <code>sourcePath</code> to declare the path on the
-     *        host container instance that is presented to the container. If this parameter is empty, then the Docker
+     *        host container instance that's presented to the container. If this parameter is empty, then the Docker
      *        daemon has assigned a host path for you. If the <code>host</code> parameter contains a
      *        <code>sourcePath</code> file location, then the data volume persists at the specified location on the host
-     *        container instance until you delete it manually. If the <code>sourcePath</code> value does not exist on
-     *        the host container instance, the Docker daemon creates it. If the location does exist, the contents of the
+     *        container instance until you delete it manually. If the <code>sourcePath</code> value doesn't exist on the
+     *        host container instance, the Docker daemon creates it. If the location does exist, the contents of the
      *        source path folder are exported.</p>
      *        <p>
-     *        If you are using the Fargate launch type, the <code>sourcePath</code> parameter is not supported.
+     *        If you're using the Fargate launch type, the <code>sourcePath</code> parameter is not supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

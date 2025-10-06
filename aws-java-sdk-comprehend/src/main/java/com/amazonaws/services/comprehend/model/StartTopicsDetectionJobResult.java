@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,6 +30,23 @@ public class StartTopicsDetectionJobResult extends com.amazonaws.AmazonWebServic
      * </p>
      */
     private String jobId;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the topics detection job. It is a unique, fully qualified identifier for the
+     * job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The format of the
+     * ARN is as follows:
+     * </p>
+     * <p>
+     * <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:topics-detection-job/&lt;job-id&gt;</code>
+     * </p>
+     * <p>
+     * The following is an example job ARN:
+     * </p>
+     * <p>
+     * <code>arn:aws:comprehend:us-west-2:111122223333:document-classification-job/1234abcd12ab34cd56ef1234567890ab</code>
+     * </p>
+     */
+    private String jobArn;
     /**
      * <p>
      * The status of the job:
@@ -102,6 +119,109 @@ public class StartTopicsDetectionJobResult extends com.amazonaws.AmazonWebServic
 
     public StartTopicsDetectionJobResult withJobId(String jobId) {
         setJobId(jobId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the topics detection job. It is a unique, fully qualified identifier for the
+     * job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The format of the
+     * ARN is as follows:
+     * </p>
+     * <p>
+     * <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:topics-detection-job/&lt;job-id&gt;</code>
+     * </p>
+     * <p>
+     * The following is an example job ARN:
+     * </p>
+     * <p>
+     * <code>arn:aws:comprehend:us-west-2:111122223333:document-classification-job/1234abcd12ab34cd56ef1234567890ab</code>
+     * </p>
+     * 
+     * @param jobArn
+     *        The Amazon Resource Name (ARN) of the topics detection job. It is a unique, fully qualified identifier for
+     *        the job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The
+     *        format of the ARN is as follows:</p>
+     *        <p>
+     *        <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:topics-detection-job/&lt;job-id&gt;</code>
+     *        </p>
+     *        <p>
+     *        The following is an example job ARN:
+     *        </p>
+     *        <p>
+     *        <code>arn:aws:comprehend:us-west-2:111122223333:document-classification-job/1234abcd12ab34cd56ef1234567890ab</code>
+     */
+
+    public void setJobArn(String jobArn) {
+        this.jobArn = jobArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the topics detection job. It is a unique, fully qualified identifier for the
+     * job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The format of the
+     * ARN is as follows:
+     * </p>
+     * <p>
+     * <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:topics-detection-job/&lt;job-id&gt;</code>
+     * </p>
+     * <p>
+     * The following is an example job ARN:
+     * </p>
+     * <p>
+     * <code>arn:aws:comprehend:us-west-2:111122223333:document-classification-job/1234abcd12ab34cd56ef1234567890ab</code>
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the topics detection job. It is a unique, fully qualified identifier
+     *         for the job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The
+     *         format of the ARN is as follows:</p>
+     *         <p>
+     *         <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:topics-detection-job/&lt;job-id&gt;</code>
+     *         </p>
+     *         <p>
+     *         The following is an example job ARN:
+     *         </p>
+     *         <p>
+     *         <code>arn:aws:comprehend:us-west-2:111122223333:document-classification-job/1234abcd12ab34cd56ef1234567890ab</code>
+     */
+
+    public String getJobArn() {
+        return this.jobArn;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the topics detection job. It is a unique, fully qualified identifier for the
+     * job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The format of the
+     * ARN is as follows:
+     * </p>
+     * <p>
+     * <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:topics-detection-job/&lt;job-id&gt;</code>
+     * </p>
+     * <p>
+     * The following is an example job ARN:
+     * </p>
+     * <p>
+     * <code>arn:aws:comprehend:us-west-2:111122223333:document-classification-job/1234abcd12ab34cd56ef1234567890ab</code>
+     * </p>
+     * 
+     * @param jobArn
+     *        The Amazon Resource Name (ARN) of the topics detection job. It is a unique, fully qualified identifier for
+     *        the job. It includes the Amazon Web Services account, Amazon Web Services Region, and the job ID. The
+     *        format of the ARN is as follows:</p>
+     *        <p>
+     *        <code>arn:&lt;partition&gt;:comprehend:&lt;region&gt;:&lt;account-id&gt;:topics-detection-job/&lt;job-id&gt;</code>
+     *        </p>
+     *        <p>
+     *        The following is an example job ARN:
+     *        </p>
+     *        <p>
+     *        <code>arn:aws:comprehend:us-west-2:111122223333:document-classification-job/1234abcd12ab34cd56ef1234567890ab</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StartTopicsDetectionJobResult withJobArn(String jobArn) {
+        setJobArn(jobArn);
         return this;
     }
 
@@ -354,6 +474,8 @@ public class StartTopicsDetectionJobResult extends com.amazonaws.AmazonWebServic
         sb.append("{");
         if (getJobId() != null)
             sb.append("JobId: ").append(getJobId()).append(",");
+        if (getJobArn() != null)
+            sb.append("JobArn: ").append(getJobArn()).append(",");
         if (getJobStatus() != null)
             sb.append("JobStatus: ").append(getJobStatus());
         sb.append("}");
@@ -374,6 +496,10 @@ public class StartTopicsDetectionJobResult extends com.amazonaws.AmazonWebServic
             return false;
         if (other.getJobId() != null && other.getJobId().equals(this.getJobId()) == false)
             return false;
+        if (other.getJobArn() == null ^ this.getJobArn() == null)
+            return false;
+        if (other.getJobArn() != null && other.getJobArn().equals(this.getJobArn()) == false)
+            return false;
         if (other.getJobStatus() == null ^ this.getJobStatus() == null)
             return false;
         if (other.getJobStatus() != null && other.getJobStatus().equals(this.getJobStatus()) == false)
@@ -387,6 +513,7 @@ public class StartTopicsDetectionJobResult extends com.amazonaws.AmazonWebServic
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getJobId() == null) ? 0 : getJobId().hashCode());
+        hashCode = prime * hashCode + ((getJobArn() == null) ? 0 : getJobArn().hashCode());
         hashCode = prime * hashCode + ((getJobStatus() == null) ? 0 : getJobStatus().hashCode());
         return hashCode;
     }

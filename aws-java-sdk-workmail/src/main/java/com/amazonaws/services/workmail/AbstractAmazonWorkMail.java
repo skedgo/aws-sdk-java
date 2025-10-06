@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,12 +38,42 @@ public class AbstractAmazonWorkMail implements AmazonWorkMail {
     }
 
     @Override
+    public AssumeImpersonationRoleResult assumeImpersonationRole(AssumeImpersonationRoleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CancelMailboxExportJobResult cancelMailboxExportJob(CancelMailboxExportJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateAliasResult createAlias(CreateAliasRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public CreateAvailabilityConfigurationResult createAvailabilityConfiguration(CreateAvailabilityConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public CreateGroupResult createGroup(CreateGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateImpersonationRoleResult createImpersonationRole(CreateImpersonationRoleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateMobileDeviceAccessRuleResult createMobileDeviceAccessRule(CreateMobileDeviceAccessRuleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CreateOrganizationResult createOrganization(CreateOrganizationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -58,7 +88,22 @@ public class AbstractAmazonWorkMail implements AmazonWorkMail {
     }
 
     @Override
+    public DeleteAccessControlRuleResult deleteAccessControlRule(DeleteAccessControlRuleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteAliasResult deleteAlias(DeleteAliasRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteAvailabilityConfigurationResult deleteAvailabilityConfiguration(DeleteAvailabilityConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteEmailMonitoringConfigurationResult deleteEmailMonitoringConfiguration(DeleteEmailMonitoringConfigurationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -68,12 +113,37 @@ public class AbstractAmazonWorkMail implements AmazonWorkMail {
     }
 
     @Override
+    public DeleteImpersonationRoleResult deleteImpersonationRole(DeleteImpersonationRoleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteMailboxPermissionsResult deleteMailboxPermissions(DeleteMailboxPermissionsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public DeleteMobileDeviceAccessOverrideResult deleteMobileDeviceAccessOverride(DeleteMobileDeviceAccessOverrideRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteMobileDeviceAccessRuleResult deleteMobileDeviceAccessRule(DeleteMobileDeviceAccessRuleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteOrganizationResult deleteOrganization(DeleteOrganizationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DeleteResourceResult deleteResource(DeleteResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteRetentionPolicyResult deleteRetentionPolicy(DeleteRetentionPolicyRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -88,7 +158,32 @@ public class AbstractAmazonWorkMail implements AmazonWorkMail {
     }
 
     @Override
+    public DeregisterMailDomainResult deregisterMailDomain(DeregisterMailDomainRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeEmailMonitoringConfigurationResult describeEmailMonitoringConfiguration(DescribeEmailMonitoringConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeEntityResult describeEntity(DescribeEntityRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeGroupResult describeGroup(DescribeGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeInboundDmarcSettingsResult describeInboundDmarcSettings(DescribeInboundDmarcSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeMailboxExportJobResult describeMailboxExportJob(DescribeMailboxExportJobRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -118,12 +213,57 @@ public class AbstractAmazonWorkMail implements AmazonWorkMail {
     }
 
     @Override
+    public GetAccessControlEffectResult getAccessControlEffect(GetAccessControlEffectRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetDefaultRetentionPolicyResult getDefaultRetentionPolicy(GetDefaultRetentionPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetImpersonationRoleResult getImpersonationRole(GetImpersonationRoleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetImpersonationRoleEffectResult getImpersonationRoleEffect(GetImpersonationRoleEffectRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetMailDomainResult getMailDomain(GetMailDomainRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetMailboxDetailsResult getMailboxDetails(GetMailboxDetailsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public GetMobileDeviceAccessEffectResult getMobileDeviceAccessEffect(GetMobileDeviceAccessEffectRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public GetMobileDeviceAccessOverrideResult getMobileDeviceAccessOverride(GetMobileDeviceAccessOverrideRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListAccessControlRulesResult listAccessControlRules(ListAccessControlRulesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListAliasesResult listAliases(ListAliasesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListAvailabilityConfigurationsResult listAvailabilityConfigurations(ListAvailabilityConfigurationsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -138,7 +278,37 @@ public class AbstractAmazonWorkMail implements AmazonWorkMail {
     }
 
     @Override
+    public ListGroupsForEntityResult listGroupsForEntity(ListGroupsForEntityRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListImpersonationRolesResult listImpersonationRoles(ListImpersonationRolesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListMailDomainsResult listMailDomains(ListMailDomainsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListMailboxExportJobsResult listMailboxExportJobs(ListMailboxExportJobsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListMailboxPermissionsResult listMailboxPermissions(ListMailboxPermissionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListMobileDeviceAccessOverridesResult listMobileDeviceAccessOverrides(ListMobileDeviceAccessOverridesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListMobileDeviceAccessRulesResult listMobileDeviceAccessRules(ListMobileDeviceAccessRulesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -158,12 +328,47 @@ public class AbstractAmazonWorkMail implements AmazonWorkMail {
     }
 
     @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListUsersResult listUsers(ListUsersRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
+    public PutAccessControlRuleResult putAccessControlRule(PutAccessControlRuleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutEmailMonitoringConfigurationResult putEmailMonitoringConfiguration(PutEmailMonitoringConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutInboundDmarcSettingsResult putInboundDmarcSettings(PutInboundDmarcSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public PutMailboxPermissionsResult putMailboxPermissions(PutMailboxPermissionsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutMobileDeviceAccessOverrideResult putMobileDeviceAccessOverride(PutMobileDeviceAccessOverrideRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutRetentionPolicyResult putRetentionPolicy(PutRetentionPolicyRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public RegisterMailDomainResult registerMailDomain(RegisterMailDomainRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -178,7 +383,52 @@ public class AbstractAmazonWorkMail implements AmazonWorkMail {
     }
 
     @Override
+    public StartMailboxExportJobResult startMailboxExportJob(StartMailboxExportJobRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TestAvailabilityConfigurationResult testAvailabilityConfiguration(TestAvailabilityConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateAvailabilityConfigurationResult updateAvailabilityConfiguration(UpdateAvailabilityConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateDefaultMailDomainResult updateDefaultMailDomain(UpdateDefaultMailDomainRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateGroupResult updateGroup(UpdateGroupRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateImpersonationRoleResult updateImpersonationRole(UpdateImpersonationRoleRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public UpdateMailboxQuotaResult updateMailboxQuota(UpdateMailboxQuotaRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateMobileDeviceAccessRuleResult updateMobileDeviceAccessRule(UpdateMobileDeviceAccessRuleRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -189,6 +439,11 @@ public class AbstractAmazonWorkMail implements AmazonWorkMail {
 
     @Override
     public UpdateResourceResult updateResource(UpdateResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateUserResult updateUser(UpdateUserRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

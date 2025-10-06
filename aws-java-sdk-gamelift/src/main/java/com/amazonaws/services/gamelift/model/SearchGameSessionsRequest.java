@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * Represents the input for a request action.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/SearchGameSessions" target="_top">AWS API
  *      Documentation</a>
@@ -30,18 +27,25 @@ public class SearchGameSessionsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * Unique identifier for a fleet to search for active game sessions. Each request must reference either a fleet ID
-     * or alias ID, but not both.
+     * A unique identifier for the fleet to search for active game sessions. You can use either the fleet ID or ARN
+     * value. Each request must reference either a fleet ID or alias ID, but not both.
      * </p>
      */
     private String fleetId;
     /**
      * <p>
-     * Unique identifier for an alias associated with the fleet to search for active game sessions. Each request must
-     * reference either a fleet ID or alias ID, but not both.
+     * A unique identifier for the alias associated with the fleet to search for active game sessions. You can use
+     * either the alias ID or ARN value. Each request must reference either a fleet ID or alias ID, but not both.
      * </p>
      */
     private String aliasId;
+    /**
+     * <p>
+     * A fleet location to search for game sessions. You can specify a fleet's home Region or a remote location. Use the
+     * Amazon Web Services Region code format, such as <code>us-west-2</code>.
+     * </p>
+     */
+    private String location;
     /**
      * <p>
      * String containing the search criteria for the session search. If no filter expression is included, the request
@@ -144,29 +148,29 @@ public class SearchGameSessionsRequest extends com.amazonaws.AmazonWebServiceReq
     private String sortExpression;
     /**
      * <p>
-     * Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of
-     * sequential pages. The maximum number of results returned is 20, even if this value is not set or is set higher
+     * The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set
+     * of sequential pages. The maximum number of results returned is 20, even if this value is not set or is set higher
      * than 20.
      * </p>
      */
     private Integer limit;
     /**
      * <p>
-     * Token that indicates the start of the next sequential page of results. Use the token that is returned with a
-     * previous call to this action. To start at the beginning of the result set, do not specify a value.
+     * A token that indicates the start of the next sequential page of results. Use the token that is returned with a
+     * previous call to this operation. To start at the beginning of the result set, do not specify a value.
      * </p>
      */
     private String nextToken;
 
     /**
      * <p>
-     * Unique identifier for a fleet to search for active game sessions. Each request must reference either a fleet ID
-     * or alias ID, but not both.
+     * A unique identifier for the fleet to search for active game sessions. You can use either the fleet ID or ARN
+     * value. Each request must reference either a fleet ID or alias ID, but not both.
      * </p>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet to search for active game sessions. Each request must reference either a
-     *        fleet ID or alias ID, but not both.
+     *        A unique identifier for the fleet to search for active game sessions. You can use either the fleet ID or
+     *        ARN value. Each request must reference either a fleet ID or alias ID, but not both.
      */
 
     public void setFleetId(String fleetId) {
@@ -175,12 +179,12 @@ public class SearchGameSessionsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * Unique identifier for a fleet to search for active game sessions. Each request must reference either a fleet ID
-     * or alias ID, but not both.
+     * A unique identifier for the fleet to search for active game sessions. You can use either the fleet ID or ARN
+     * value. Each request must reference either a fleet ID or alias ID, but not both.
      * </p>
      * 
-     * @return Unique identifier for a fleet to search for active game sessions. Each request must reference either a
-     *         fleet ID or alias ID, but not both.
+     * @return A unique identifier for the fleet to search for active game sessions. You can use either the fleet ID or
+     *         ARN value. Each request must reference either a fleet ID or alias ID, but not both.
      */
 
     public String getFleetId() {
@@ -189,13 +193,13 @@ public class SearchGameSessionsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * Unique identifier for a fleet to search for active game sessions. Each request must reference either a fleet ID
-     * or alias ID, but not both.
+     * A unique identifier for the fleet to search for active game sessions. You can use either the fleet ID or ARN
+     * value. Each request must reference either a fleet ID or alias ID, but not both.
      * </p>
      * 
      * @param fleetId
-     *        Unique identifier for a fleet to search for active game sessions. Each request must reference either a
-     *        fleet ID or alias ID, but not both.
+     *        A unique identifier for the fleet to search for active game sessions. You can use either the fleet ID or
+     *        ARN value. Each request must reference either a fleet ID or alias ID, but not both.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -206,13 +210,14 @@ public class SearchGameSessionsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * Unique identifier for an alias associated with the fleet to search for active game sessions. Each request must
-     * reference either a fleet ID or alias ID, but not both.
+     * A unique identifier for the alias associated with the fleet to search for active game sessions. You can use
+     * either the alias ID or ARN value. Each request must reference either a fleet ID or alias ID, but not both.
      * </p>
      * 
      * @param aliasId
-     *        Unique identifier for an alias associated with the fleet to search for active game sessions. Each request
-     *        must reference either a fleet ID or alias ID, but not both.
+     *        A unique identifier for the alias associated with the fleet to search for active game sessions. You can
+     *        use either the alias ID or ARN value. Each request must reference either a fleet ID or alias ID, but not
+     *        both.
      */
 
     public void setAliasId(String aliasId) {
@@ -221,12 +226,13 @@ public class SearchGameSessionsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * Unique identifier for an alias associated with the fleet to search for active game sessions. Each request must
-     * reference either a fleet ID or alias ID, but not both.
+     * A unique identifier for the alias associated with the fleet to search for active game sessions. You can use
+     * either the alias ID or ARN value. Each request must reference either a fleet ID or alias ID, but not both.
      * </p>
      * 
-     * @return Unique identifier for an alias associated with the fleet to search for active game sessions. Each request
-     *         must reference either a fleet ID or alias ID, but not both.
+     * @return A unique identifier for the alias associated with the fleet to search for active game sessions. You can
+     *         use either the alias ID or ARN value. Each request must reference either a fleet ID or alias ID, but not
+     *         both.
      */
 
     public String getAliasId() {
@@ -235,18 +241,65 @@ public class SearchGameSessionsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * Unique identifier for an alias associated with the fleet to search for active game sessions. Each request must
-     * reference either a fleet ID or alias ID, but not both.
+     * A unique identifier for the alias associated with the fleet to search for active game sessions. You can use
+     * either the alias ID or ARN value. Each request must reference either a fleet ID or alias ID, but not both.
      * </p>
      * 
      * @param aliasId
-     *        Unique identifier for an alias associated with the fleet to search for active game sessions. Each request
-     *        must reference either a fleet ID or alias ID, but not both.
+     *        A unique identifier for the alias associated with the fleet to search for active game sessions. You can
+     *        use either the alias ID or ARN value. Each request must reference either a fleet ID or alias ID, but not
+     *        both.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public SearchGameSessionsRequest withAliasId(String aliasId) {
         setAliasId(aliasId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A fleet location to search for game sessions. You can specify a fleet's home Region or a remote location. Use the
+     * Amazon Web Services Region code format, such as <code>us-west-2</code>.
+     * </p>
+     * 
+     * @param location
+     *        A fleet location to search for game sessions. You can specify a fleet's home Region or a remote location.
+     *        Use the Amazon Web Services Region code format, such as <code>us-west-2</code>.
+     */
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    /**
+     * <p>
+     * A fleet location to search for game sessions. You can specify a fleet's home Region or a remote location. Use the
+     * Amazon Web Services Region code format, such as <code>us-west-2</code>.
+     * </p>
+     * 
+     * @return A fleet location to search for game sessions. You can specify a fleet's home Region or a remote location.
+     *         Use the Amazon Web Services Region code format, such as <code>us-west-2</code>.
+     */
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    /**
+     * <p>
+     * A fleet location to search for game sessions. You can specify a fleet's home Region or a remote location. Use the
+     * Amazon Web Services Region code format, such as <code>us-west-2</code>.
+     * </p>
+     * 
+     * @param location
+     *        A fleet location to search for game sessions. You can specify a fleet's home Region or a remote location.
+     *        Use the Amazon Web Services Region code format, such as <code>us-west-2</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SearchGameSessionsRequest withLocation(String location) {
+        setLocation(location);
         return this;
     }
 
@@ -859,15 +912,15 @@ public class SearchGameSessionsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of
-     * sequential pages. The maximum number of results returned is 20, even if this value is not set or is set higher
+     * The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set
+     * of sequential pages. The maximum number of results returned is 20, even if this value is not set or is set higher
      * than 20.
      * </p>
      * 
      * @param limit
-     *        Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a
-     *        set of sequential pages. The maximum number of results returned is 20, even if this value is not set or is
-     *        set higher than 20.
+     *        The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as
+     *        a set of sequential pages. The maximum number of results returned is 20, even if this value is not set or
+     *        is set higher than 20.
      */
 
     public void setLimit(Integer limit) {
@@ -876,13 +929,13 @@ public class SearchGameSessionsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of
-     * sequential pages. The maximum number of results returned is 20, even if this value is not set or is set higher
+     * The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set
+     * of sequential pages. The maximum number of results returned is 20, even if this value is not set or is set higher
      * than 20.
      * </p>
      * 
-     * @return Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a
-     *         set of sequential pages. The maximum number of results returned is 20, even if this value is not set or
+     * @return The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as
+     *         a set of sequential pages. The maximum number of results returned is 20, even if this value is not set or
      *         is set higher than 20.
      */
 
@@ -892,15 +945,15 @@ public class SearchGameSessionsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set of
-     * sequential pages. The maximum number of results returned is 20, even if this value is not set or is set higher
+     * The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a set
+     * of sequential pages. The maximum number of results returned is 20, even if this value is not set or is set higher
      * than 20.
      * </p>
      * 
      * @param limit
-     *        Maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as a
-     *        set of sequential pages. The maximum number of results returned is 20, even if this value is not set or is
-     *        set higher than 20.
+     *        The maximum number of results to return. Use this parameter with <code>NextToken</code> to get results as
+     *        a set of sequential pages. The maximum number of results returned is 20, even if this value is not set or
+     *        is set higher than 20.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -911,13 +964,14 @@ public class SearchGameSessionsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * Token that indicates the start of the next sequential page of results. Use the token that is returned with a
-     * previous call to this action. To start at the beginning of the result set, do not specify a value.
+     * A token that indicates the start of the next sequential page of results. Use the token that is returned with a
+     * previous call to this operation. To start at the beginning of the result set, do not specify a value.
      * </p>
      * 
      * @param nextToken
-     *        Token that indicates the start of the next sequential page of results. Use the token that is returned with
-     *        a previous call to this action. To start at the beginning of the result set, do not specify a value.
+     *        A token that indicates the start of the next sequential page of results. Use the token that is returned
+     *        with a previous call to this operation. To start at the beginning of the result set, do not specify a
+     *        value.
      */
 
     public void setNextToken(String nextToken) {
@@ -926,12 +980,13 @@ public class SearchGameSessionsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * Token that indicates the start of the next sequential page of results. Use the token that is returned with a
-     * previous call to this action. To start at the beginning of the result set, do not specify a value.
+     * A token that indicates the start of the next sequential page of results. Use the token that is returned with a
+     * previous call to this operation. To start at the beginning of the result set, do not specify a value.
      * </p>
      * 
-     * @return Token that indicates the start of the next sequential page of results. Use the token that is returned
-     *         with a previous call to this action. To start at the beginning of the result set, do not specify a value.
+     * @return A token that indicates the start of the next sequential page of results. Use the token that is returned
+     *         with a previous call to this operation. To start at the beginning of the result set, do not specify a
+     *         value.
      */
 
     public String getNextToken() {
@@ -940,13 +995,14 @@ public class SearchGameSessionsRequest extends com.amazonaws.AmazonWebServiceReq
 
     /**
      * <p>
-     * Token that indicates the start of the next sequential page of results. Use the token that is returned with a
-     * previous call to this action. To start at the beginning of the result set, do not specify a value.
+     * A token that indicates the start of the next sequential page of results. Use the token that is returned with a
+     * previous call to this operation. To start at the beginning of the result set, do not specify a value.
      * </p>
      * 
      * @param nextToken
-     *        Token that indicates the start of the next sequential page of results. Use the token that is returned with
-     *        a previous call to this action. To start at the beginning of the result set, do not specify a value.
+     *        A token that indicates the start of the next sequential page of results. Use the token that is returned
+     *        with a previous call to this operation. To start at the beginning of the result set, do not specify a
+     *        value.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -971,6 +1027,8 @@ public class SearchGameSessionsRequest extends com.amazonaws.AmazonWebServiceReq
             sb.append("FleetId: ").append(getFleetId()).append(",");
         if (getAliasId() != null)
             sb.append("AliasId: ").append(getAliasId()).append(",");
+        if (getLocation() != null)
+            sb.append("Location: ").append(getLocation()).append(",");
         if (getFilterExpression() != null)
             sb.append("FilterExpression: ").append(getFilterExpression()).append(",");
         if (getSortExpression() != null)
@@ -1001,6 +1059,10 @@ public class SearchGameSessionsRequest extends com.amazonaws.AmazonWebServiceReq
             return false;
         if (other.getAliasId() != null && other.getAliasId().equals(this.getAliasId()) == false)
             return false;
+        if (other.getLocation() == null ^ this.getLocation() == null)
+            return false;
+        if (other.getLocation() != null && other.getLocation().equals(this.getLocation()) == false)
+            return false;
         if (other.getFilterExpression() == null ^ this.getFilterExpression() == null)
             return false;
         if (other.getFilterExpression() != null && other.getFilterExpression().equals(this.getFilterExpression()) == false)
@@ -1027,6 +1089,7 @@ public class SearchGameSessionsRequest extends com.amazonaws.AmazonWebServiceReq
 
         hashCode = prime * hashCode + ((getFleetId() == null) ? 0 : getFleetId().hashCode());
         hashCode = prime * hashCode + ((getAliasId() == null) ? 0 : getAliasId().hashCode());
+        hashCode = prime * hashCode + ((getLocation() == null) ? 0 : getLocation().hashCode());
         hashCode = prime * hashCode + ((getFilterExpression() == null) ? 0 : getFilterExpression().hashCode());
         hashCode = prime * hashCode + ((getSortExpression() == null) ? 0 : getSortExpression().hashCode());
         hashCode = prime * hashCode + ((getLimit() == null) ? 0 : getLimit().hashCode());

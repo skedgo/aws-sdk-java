@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,29 +22,59 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * A list of namespaced kernel parameters to set in the container. This parameter maps to <code>Sysctls</code> in the <a
  * href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a
  * href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <code>--sysctl</code> option to <a
- * href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+ * href="https://docs.docker.com/engine/reference/run/#security-configuration">docker run</a>. For example, you can
+ * configure <code>net.ipv4.tcp_keepalive_time</code> setting to maintain longer lived connections.
  * </p>
  * <p>
- * It is not recommended that you specify network-related <code>systemControls</code> parameters for multiple containers
- * in a single task that also uses either the <code>awsvpc</code> or <code>host</code> network mode for the following
- * reasons:
+ * We don't recommend that you specify network-related <code>systemControls</code> parameters for multiple containers in
+ * a single task that also uses either the <code>awsvpc</code> or <code>host</code> network mode. Doing this has the
+ * following disadvantages:
  * </p>
  * <ul>
  * <li>
  * <p>
- * For tasks that use the <code>awsvpc</code> network mode, if you set <code>systemControls</code> for any container, it
- * applies to all containers in the task. If you set different <code>systemControls</code> for multiple containers in a
- * single task, the container that is started last determines which <code>systemControls</code> take effect.
+ * For tasks that use the <code>awsvpc</code> network mode including Fargate, if you set <code>systemControls</code> for
+ * any container, it applies to all containers in the task. If you set different <code>systemControls</code> for
+ * multiple containers in a single task, the container that's started last determines which <code>systemControls</code>
+ * take effect.
  * </p>
  * </li>
  * <li>
  * <p>
- * For tasks that use the <code>host</code> network mode, the <code>systemControls</code> parameter applies to the
- * container instance's kernel parameter as well as that of all containers of any tasks running on that container
- * instance.
+ * For tasks that use the <code>host</code> network mode, the network namespace <code>systemControls</code> aren't
+ * supported.
  * </p>
  * </li>
  * </ul>
+ * <p>
+ * If you're setting an IPC resource namespace to use for the containers in the task, the following conditions apply to
+ * your system controls. For more information, see <a href=
+ * "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#task_definition_ipcmode"
+ * >IPC mode</a>.
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * For tasks that use the <code>host</code> IPC mode, IPC namespace <code>systemControls</code> aren't supported.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * For tasks that use the <code>task</code> IPC mode, IPC namespace <code>systemControls</code> values apply to all
+ * containers within a task.
+ * </p>
+ * </li>
+ * </ul>
+ * <note>
+ * <p>
+ * This parameter is not supported for Windows containers.
+ * </p>
+ * </note> <note>
+ * <p>
+ * This parameter is only supported for tasks that are hosted on Fargate if the tasks are using platform version
+ * <code>1.4.0</code> or later (Linux). This isn't supported for Windows containers on Fargate.
+ * </p>
+ * </note>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/SystemControl" target="_top">AWS API
  *      Documentation</a>
@@ -54,24 +84,35 @@ public class SystemControl implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The namespaced kernel parameter for which to set a <code>value</code>.
+     * The namespaced kernel parameter to set a <code>value</code> for.
      * </p>
      */
     private String namespace;
     /**
      * <p>
-     * The value for the namespaced kernel parameter specified in <code>namespace</code>.
+     * The namespaced kernel parameter to set a <code>value</code> for.
+     * </p>
+     * <p>
+     * Valid IPC namespace values:
+     * <code>"kernel.msgmax" | "kernel.msgmnb" | "kernel.msgmni" | "kernel.sem" | "kernel.shmall" | "kernel.shmmax" | "kernel.shmmni" | "kernel.shm_rmid_forced"</code>
+     * , and <code>Sysctls</code> that start with <code>"fs.mqueue.*"</code>
+     * </p>
+     * <p>
+     * Valid network namespace values: <code>Sysctls</code> that start with <code>"net.*"</code>
+     * </p>
+     * <p>
+     * All of these values are supported by Fargate.
      * </p>
      */
     private String value;
 
     /**
      * <p>
-     * The namespaced kernel parameter for which to set a <code>value</code>.
+     * The namespaced kernel parameter to set a <code>value</code> for.
      * </p>
      * 
      * @param namespace
-     *        The namespaced kernel parameter for which to set a <code>value</code>.
+     *        The namespaced kernel parameter to set a <code>value</code> for.
      */
 
     public void setNamespace(String namespace) {
@@ -80,10 +121,10 @@ public class SystemControl implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The namespaced kernel parameter for which to set a <code>value</code>.
+     * The namespaced kernel parameter to set a <code>value</code> for.
      * </p>
      * 
-     * @return The namespaced kernel parameter for which to set a <code>value</code>.
+     * @return The namespaced kernel parameter to set a <code>value</code> for.
      */
 
     public String getNamespace() {
@@ -92,11 +133,11 @@ public class SystemControl implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The namespaced kernel parameter for which to set a <code>value</code>.
+     * The namespaced kernel parameter to set a <code>value</code> for.
      * </p>
      * 
      * @param namespace
-     *        The namespaced kernel parameter for which to set a <code>value</code>.
+     *        The namespaced kernel parameter to set a <code>value</code> for.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -107,11 +148,32 @@ public class SystemControl implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value for the namespaced kernel parameter specified in <code>namespace</code>.
+     * The namespaced kernel parameter to set a <code>value</code> for.
+     * </p>
+     * <p>
+     * Valid IPC namespace values:
+     * <code>"kernel.msgmax" | "kernel.msgmnb" | "kernel.msgmni" | "kernel.sem" | "kernel.shmall" | "kernel.shmmax" | "kernel.shmmni" | "kernel.shm_rmid_forced"</code>
+     * , and <code>Sysctls</code> that start with <code>"fs.mqueue.*"</code>
+     * </p>
+     * <p>
+     * Valid network namespace values: <code>Sysctls</code> that start with <code>"net.*"</code>
+     * </p>
+     * <p>
+     * All of these values are supported by Fargate.
      * </p>
      * 
      * @param value
-     *        The value for the namespaced kernel parameter specified in <code>namespace</code>.
+     *        The namespaced kernel parameter to set a <code>value</code> for.</p>
+     *        <p>
+     *        Valid IPC namespace values:
+     *        <code>"kernel.msgmax" | "kernel.msgmnb" | "kernel.msgmni" | "kernel.sem" | "kernel.shmall" | "kernel.shmmax" | "kernel.shmmni" | "kernel.shm_rmid_forced"</code>
+     *        , and <code>Sysctls</code> that start with <code>"fs.mqueue.*"</code>
+     *        </p>
+     *        <p>
+     *        Valid network namespace values: <code>Sysctls</code> that start with <code>"net.*"</code>
+     *        </p>
+     *        <p>
+     *        All of these values are supported by Fargate.
      */
 
     public void setValue(String value) {
@@ -120,10 +182,31 @@ public class SystemControl implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value for the namespaced kernel parameter specified in <code>namespace</code>.
+     * The namespaced kernel parameter to set a <code>value</code> for.
+     * </p>
+     * <p>
+     * Valid IPC namespace values:
+     * <code>"kernel.msgmax" | "kernel.msgmnb" | "kernel.msgmni" | "kernel.sem" | "kernel.shmall" | "kernel.shmmax" | "kernel.shmmni" | "kernel.shm_rmid_forced"</code>
+     * , and <code>Sysctls</code> that start with <code>"fs.mqueue.*"</code>
+     * </p>
+     * <p>
+     * Valid network namespace values: <code>Sysctls</code> that start with <code>"net.*"</code>
+     * </p>
+     * <p>
+     * All of these values are supported by Fargate.
      * </p>
      * 
-     * @return The value for the namespaced kernel parameter specified in <code>namespace</code>.
+     * @return The namespaced kernel parameter to set a <code>value</code> for.</p>
+     *         <p>
+     *         Valid IPC namespace values:
+     *         <code>"kernel.msgmax" | "kernel.msgmnb" | "kernel.msgmni" | "kernel.sem" | "kernel.shmall" | "kernel.shmmax" | "kernel.shmmni" | "kernel.shm_rmid_forced"</code>
+     *         , and <code>Sysctls</code> that start with <code>"fs.mqueue.*"</code>
+     *         </p>
+     *         <p>
+     *         Valid network namespace values: <code>Sysctls</code> that start with <code>"net.*"</code>
+     *         </p>
+     *         <p>
+     *         All of these values are supported by Fargate.
      */
 
     public String getValue() {
@@ -132,11 +215,32 @@ public class SystemControl implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The value for the namespaced kernel parameter specified in <code>namespace</code>.
+     * The namespaced kernel parameter to set a <code>value</code> for.
+     * </p>
+     * <p>
+     * Valid IPC namespace values:
+     * <code>"kernel.msgmax" | "kernel.msgmnb" | "kernel.msgmni" | "kernel.sem" | "kernel.shmall" | "kernel.shmmax" | "kernel.shmmni" | "kernel.shm_rmid_forced"</code>
+     * , and <code>Sysctls</code> that start with <code>"fs.mqueue.*"</code>
+     * </p>
+     * <p>
+     * Valid network namespace values: <code>Sysctls</code> that start with <code>"net.*"</code>
+     * </p>
+     * <p>
+     * All of these values are supported by Fargate.
      * </p>
      * 
      * @param value
-     *        The value for the namespaced kernel parameter specified in <code>namespace</code>.
+     *        The namespaced kernel parameter to set a <code>value</code> for.</p>
+     *        <p>
+     *        Valid IPC namespace values:
+     *        <code>"kernel.msgmax" | "kernel.msgmnb" | "kernel.msgmni" | "kernel.sem" | "kernel.shmall" | "kernel.shmmax" | "kernel.shmmni" | "kernel.shm_rmid_forced"</code>
+     *        , and <code>Sysctls</code> that start with <code>"fs.mqueue.*"</code>
+     *        </p>
+     *        <p>
+     *        Valid network namespace values: <code>Sysctls</code> that start with <code>"net.*"</code>
+     *        </p>
+     *        <p>
+     *        All of these values are supported by Fargate.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

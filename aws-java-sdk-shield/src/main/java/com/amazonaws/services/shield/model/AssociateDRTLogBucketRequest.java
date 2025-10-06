@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,18 +27,18 @@ public class AssociateDRTLogBucketRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The Amazon S3 bucket that contains your AWS WAF logs.
+     * The Amazon S3 bucket that contains the logs that you want to share.
      * </p>
      */
     private String logBucket;
 
     /**
      * <p>
-     * The Amazon S3 bucket that contains your AWS WAF logs.
+     * The Amazon S3 bucket that contains the logs that you want to share.
      * </p>
      * 
      * @param logBucket
-     *        The Amazon S3 bucket that contains your AWS WAF logs.
+     *        The Amazon S3 bucket that contains the logs that you want to share.
      */
 
     public void setLogBucket(String logBucket) {
@@ -47,10 +47,10 @@ public class AssociateDRTLogBucketRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The Amazon S3 bucket that contains your AWS WAF logs.
+     * The Amazon S3 bucket that contains the logs that you want to share.
      * </p>
      * 
-     * @return The Amazon S3 bucket that contains your AWS WAF logs.
+     * @return The Amazon S3 bucket that contains the logs that you want to share.
      */
 
     public String getLogBucket() {
@@ -59,11 +59,11 @@ public class AssociateDRTLogBucketRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The Amazon S3 bucket that contains your AWS WAF logs.
+     * The Amazon S3 bucket that contains the logs that you want to share.
      * </p>
      * 
      * @param logBucket
-     *        The Amazon S3 bucket that contains your AWS WAF logs.
+     *        The Amazon S3 bucket that contains the logs that you want to share.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

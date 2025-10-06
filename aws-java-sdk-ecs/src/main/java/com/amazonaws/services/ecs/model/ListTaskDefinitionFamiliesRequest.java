@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2020-2025 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The <code>familyPrefix</code> is a string that is used to filter the results of
+     * The <code>familyPrefix</code> is a string that's used to filter the results of
      * <code>ListTaskDefinitionFamilies</code>. If you specify a <code>familyPrefix</code>, only task definition family
      * names that begin with the <code>familyPrefix</code> string are returned.
      * </p>
@@ -35,20 +35,20 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
     private String familyPrefix;
     /**
      * <p>
-     * The task definition family status with which to filter the <code>ListTaskDefinitionFamilies</code> results. By
-     * default, both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this
-     * parameter is set to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code> task
-     * definition revision are returned. If this parameter is set to <code>INACTIVE</code>, only task definition
-     * families that do not have any <code>ACTIVE</code> task definition revisions are returned. If you paginate the
-     * resulting output, be sure to keep the <code>status</code> value constant in each subsequent request.
+     * The task definition family status to filter the <code>ListTaskDefinitionFamilies</code> results with. By default,
+     * both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this parameter is set
+     * to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code> task definition revision
+     * are returned. If this parameter is set to <code>INACTIVE</code>, only task definition families that do not have
+     * any <code>ACTIVE</code> task definition revisions are returned. If you paginate the resulting output, be sure to
+     * keep the <code>status</code> value constant in each subsequent request.
      * </p>
      */
     private String status;
     /**
      * <p>
-     * The <code>nextToken</code> value returned from a previous paginated <code>ListTaskDefinitionFamilies</code>
-     * request where <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination
-     * continues from the end of the previous results that returned the <code>nextToken</code> value.
+     * The <code>nextToken</code> value returned from a <code>ListTaskDefinitionFamilies</code> request indicating that
+     * more results are available to fulfill the request and further calls will be needed. If <code>maxResults</code>
+     * was provided, it is possible the number of results to be fewer than <code>maxResults</code>.
      * </p>
      * <note>
      * <p>
@@ -60,12 +60,12 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
     private String nextToken;
     /**
      * <p>
-     * The maximum number of task definition family results returned by <code>ListTaskDefinitionFamilies</code> in
+     * The maximum number of task definition family results that <code>ListTaskDefinitionFamilies</code> returned in
      * paginated output. When this parameter is used, <code>ListTaskDefinitions</code> only returns
      * <code>maxResults</code> results in a single page along with a <code>nextToken</code> response element. The
      * remaining results of the initial request can be seen by sending another <code>ListTaskDefinitionFamilies</code>
-     * request with the returned <code>nextToken</code> value. This value can be between 1 and 100. If this parameter is
-     * not used, then <code>ListTaskDefinitionFamilies</code> returns up to 100 results and a <code>nextToken</code>
+     * request with the returned <code>nextToken</code> value. This value can be between 1 and 100. If this parameter
+     * isn't used, then <code>ListTaskDefinitionFamilies</code> returns up to 100 results and a <code>nextToken</code>
      * value if applicable.
      * </p>
      */
@@ -73,13 +73,13 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The <code>familyPrefix</code> is a string that is used to filter the results of
+     * The <code>familyPrefix</code> is a string that's used to filter the results of
      * <code>ListTaskDefinitionFamilies</code>. If you specify a <code>familyPrefix</code>, only task definition family
      * names that begin with the <code>familyPrefix</code> string are returned.
      * </p>
      * 
      * @param familyPrefix
-     *        The <code>familyPrefix</code> is a string that is used to filter the results of
+     *        The <code>familyPrefix</code> is a string that's used to filter the results of
      *        <code>ListTaskDefinitionFamilies</code>. If you specify a <code>familyPrefix</code>, only task definition
      *        family names that begin with the <code>familyPrefix</code> string are returned.
      */
@@ -90,12 +90,12 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The <code>familyPrefix</code> is a string that is used to filter the results of
+     * The <code>familyPrefix</code> is a string that's used to filter the results of
      * <code>ListTaskDefinitionFamilies</code>. If you specify a <code>familyPrefix</code>, only task definition family
      * names that begin with the <code>familyPrefix</code> string are returned.
      * </p>
      * 
-     * @return The <code>familyPrefix</code> is a string that is used to filter the results of
+     * @return The <code>familyPrefix</code> is a string that's used to filter the results of
      *         <code>ListTaskDefinitionFamilies</code>. If you specify a <code>familyPrefix</code>, only task definition
      *         family names that begin with the <code>familyPrefix</code> string are returned.
      */
@@ -106,13 +106,13 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The <code>familyPrefix</code> is a string that is used to filter the results of
+     * The <code>familyPrefix</code> is a string that's used to filter the results of
      * <code>ListTaskDefinitionFamilies</code>. If you specify a <code>familyPrefix</code>, only task definition family
      * names that begin with the <code>familyPrefix</code> string are returned.
      * </p>
      * 
      * @param familyPrefix
-     *        The <code>familyPrefix</code> is a string that is used to filter the results of
+     *        The <code>familyPrefix</code> is a string that's used to filter the results of
      *        <code>ListTaskDefinitionFamilies</code>. If you specify a <code>familyPrefix</code>, only task definition
      *        family names that begin with the <code>familyPrefix</code> string are returned.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -125,22 +125,22 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The task definition family status with which to filter the <code>ListTaskDefinitionFamilies</code> results. By
-     * default, both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this
-     * parameter is set to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code> task
-     * definition revision are returned. If this parameter is set to <code>INACTIVE</code>, only task definition
-     * families that do not have any <code>ACTIVE</code> task definition revisions are returned. If you paginate the
-     * resulting output, be sure to keep the <code>status</code> value constant in each subsequent request.
+     * The task definition family status to filter the <code>ListTaskDefinitionFamilies</code> results with. By default,
+     * both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this parameter is set
+     * to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code> task definition revision
+     * are returned. If this parameter is set to <code>INACTIVE</code>, only task definition families that do not have
+     * any <code>ACTIVE</code> task definition revisions are returned. If you paginate the resulting output, be sure to
+     * keep the <code>status</code> value constant in each subsequent request.
      * </p>
      * 
      * @param status
-     *        The task definition family status with which to filter the <code>ListTaskDefinitionFamilies</code>
-     *        results. By default, both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are
-     *        listed. If this parameter is set to <code>ACTIVE</code>, only task definition families that have an
-     *        <code>ACTIVE</code> task definition revision are returned. If this parameter is set to
-     *        <code>INACTIVE</code>, only task definition families that do not have any <code>ACTIVE</code> task
-     *        definition revisions are returned. If you paginate the resulting output, be sure to keep the
-     *        <code>status</code> value constant in each subsequent request.
+     *        The task definition family status to filter the <code>ListTaskDefinitionFamilies</code> results with. By
+     *        default, both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this
+     *        parameter is set to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code>
+     *        task definition revision are returned. If this parameter is set to <code>INACTIVE</code>, only task
+     *        definition families that do not have any <code>ACTIVE</code> task definition revisions are returned. If
+     *        you paginate the resulting output, be sure to keep the <code>status</code> value constant in each
+     *        subsequent request.
      * @see TaskDefinitionFamilyStatus
      */
 
@@ -150,21 +150,21 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The task definition family status with which to filter the <code>ListTaskDefinitionFamilies</code> results. By
-     * default, both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this
-     * parameter is set to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code> task
-     * definition revision are returned. If this parameter is set to <code>INACTIVE</code>, only task definition
-     * families that do not have any <code>ACTIVE</code> task definition revisions are returned. If you paginate the
-     * resulting output, be sure to keep the <code>status</code> value constant in each subsequent request.
+     * The task definition family status to filter the <code>ListTaskDefinitionFamilies</code> results with. By default,
+     * both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this parameter is set
+     * to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code> task definition revision
+     * are returned. If this parameter is set to <code>INACTIVE</code>, only task definition families that do not have
+     * any <code>ACTIVE</code> task definition revisions are returned. If you paginate the resulting output, be sure to
+     * keep the <code>status</code> value constant in each subsequent request.
      * </p>
      * 
-     * @return The task definition family status with which to filter the <code>ListTaskDefinitionFamilies</code>
-     *         results. By default, both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are
-     *         listed. If this parameter is set to <code>ACTIVE</code>, only task definition families that have an
-     *         <code>ACTIVE</code> task definition revision are returned. If this parameter is set to
-     *         <code>INACTIVE</code>, only task definition families that do not have any <code>ACTIVE</code> task
-     *         definition revisions are returned. If you paginate the resulting output, be sure to keep the
-     *         <code>status</code> value constant in each subsequent request.
+     * @return The task definition family status to filter the <code>ListTaskDefinitionFamilies</code> results with. By
+     *         default, both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this
+     *         parameter is set to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code>
+     *         task definition revision are returned. If this parameter is set to <code>INACTIVE</code>, only task
+     *         definition families that do not have any <code>ACTIVE</code> task definition revisions are returned. If
+     *         you paginate the resulting output, be sure to keep the <code>status</code> value constant in each
+     *         subsequent request.
      * @see TaskDefinitionFamilyStatus
      */
 
@@ -174,22 +174,22 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The task definition family status with which to filter the <code>ListTaskDefinitionFamilies</code> results. By
-     * default, both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this
-     * parameter is set to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code> task
-     * definition revision are returned. If this parameter is set to <code>INACTIVE</code>, only task definition
-     * families that do not have any <code>ACTIVE</code> task definition revisions are returned. If you paginate the
-     * resulting output, be sure to keep the <code>status</code> value constant in each subsequent request.
+     * The task definition family status to filter the <code>ListTaskDefinitionFamilies</code> results with. By default,
+     * both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this parameter is set
+     * to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code> task definition revision
+     * are returned. If this parameter is set to <code>INACTIVE</code>, only task definition families that do not have
+     * any <code>ACTIVE</code> task definition revisions are returned. If you paginate the resulting output, be sure to
+     * keep the <code>status</code> value constant in each subsequent request.
      * </p>
      * 
      * @param status
-     *        The task definition family status with which to filter the <code>ListTaskDefinitionFamilies</code>
-     *        results. By default, both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are
-     *        listed. If this parameter is set to <code>ACTIVE</code>, only task definition families that have an
-     *        <code>ACTIVE</code> task definition revision are returned. If this parameter is set to
-     *        <code>INACTIVE</code>, only task definition families that do not have any <code>ACTIVE</code> task
-     *        definition revisions are returned. If you paginate the resulting output, be sure to keep the
-     *        <code>status</code> value constant in each subsequent request.
+     *        The task definition family status to filter the <code>ListTaskDefinitionFamilies</code> results with. By
+     *        default, both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this
+     *        parameter is set to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code>
+     *        task definition revision are returned. If this parameter is set to <code>INACTIVE</code>, only task
+     *        definition families that do not have any <code>ACTIVE</code> task definition revisions are returned. If
+     *        you paginate the resulting output, be sure to keep the <code>status</code> value constant in each
+     *        subsequent request.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TaskDefinitionFamilyStatus
      */
@@ -201,22 +201,22 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The task definition family status with which to filter the <code>ListTaskDefinitionFamilies</code> results. By
-     * default, both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this
-     * parameter is set to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code> task
-     * definition revision are returned. If this parameter is set to <code>INACTIVE</code>, only task definition
-     * families that do not have any <code>ACTIVE</code> task definition revisions are returned. If you paginate the
-     * resulting output, be sure to keep the <code>status</code> value constant in each subsequent request.
+     * The task definition family status to filter the <code>ListTaskDefinitionFamilies</code> results with. By default,
+     * both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this parameter is set
+     * to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code> task definition revision
+     * are returned. If this parameter is set to <code>INACTIVE</code>, only task definition families that do not have
+     * any <code>ACTIVE</code> task definition revisions are returned. If you paginate the resulting output, be sure to
+     * keep the <code>status</code> value constant in each subsequent request.
      * </p>
      * 
      * @param status
-     *        The task definition family status with which to filter the <code>ListTaskDefinitionFamilies</code>
-     *        results. By default, both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are
-     *        listed. If this parameter is set to <code>ACTIVE</code>, only task definition families that have an
-     *        <code>ACTIVE</code> task definition revision are returned. If this parameter is set to
-     *        <code>INACTIVE</code>, only task definition families that do not have any <code>ACTIVE</code> task
-     *        definition revisions are returned. If you paginate the resulting output, be sure to keep the
-     *        <code>status</code> value constant in each subsequent request.
+     *        The task definition family status to filter the <code>ListTaskDefinitionFamilies</code> results with. By
+     *        default, both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this
+     *        parameter is set to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code>
+     *        task definition revision are returned. If this parameter is set to <code>INACTIVE</code>, only task
+     *        definition families that do not have any <code>ACTIVE</code> task definition revisions are returned. If
+     *        you paginate the resulting output, be sure to keep the <code>status</code> value constant in each
+     *        subsequent request.
      * @see TaskDefinitionFamilyStatus
      */
 
@@ -226,22 +226,22 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The task definition family status with which to filter the <code>ListTaskDefinitionFamilies</code> results. By
-     * default, both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this
-     * parameter is set to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code> task
-     * definition revision are returned. If this parameter is set to <code>INACTIVE</code>, only task definition
-     * families that do not have any <code>ACTIVE</code> task definition revisions are returned. If you paginate the
-     * resulting output, be sure to keep the <code>status</code> value constant in each subsequent request.
+     * The task definition family status to filter the <code>ListTaskDefinitionFamilies</code> results with. By default,
+     * both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this parameter is set
+     * to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code> task definition revision
+     * are returned. If this parameter is set to <code>INACTIVE</code>, only task definition families that do not have
+     * any <code>ACTIVE</code> task definition revisions are returned. If you paginate the resulting output, be sure to
+     * keep the <code>status</code> value constant in each subsequent request.
      * </p>
      * 
      * @param status
-     *        The task definition family status with which to filter the <code>ListTaskDefinitionFamilies</code>
-     *        results. By default, both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are
-     *        listed. If this parameter is set to <code>ACTIVE</code>, only task definition families that have an
-     *        <code>ACTIVE</code> task definition revision are returned. If this parameter is set to
-     *        <code>INACTIVE</code>, only task definition families that do not have any <code>ACTIVE</code> task
-     *        definition revisions are returned. If you paginate the resulting output, be sure to keep the
-     *        <code>status</code> value constant in each subsequent request.
+     *        The task definition family status to filter the <code>ListTaskDefinitionFamilies</code> results with. By
+     *        default, both <code>ACTIVE</code> and <code>INACTIVE</code> task definition families are listed. If this
+     *        parameter is set to <code>ACTIVE</code>, only task definition families that have an <code>ACTIVE</code>
+     *        task definition revision are returned. If this parameter is set to <code>INACTIVE</code>, only task
+     *        definition families that do not have any <code>ACTIVE</code> task definition revisions are returned. If
+     *        you paginate the resulting output, be sure to keep the <code>status</code> value constant in each
+     *        subsequent request.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see TaskDefinitionFamilyStatus
      */
@@ -253,9 +253,9 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The <code>nextToken</code> value returned from a previous paginated <code>ListTaskDefinitionFamilies</code>
-     * request where <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination
-     * continues from the end of the previous results that returned the <code>nextToken</code> value.
+     * The <code>nextToken</code> value returned from a <code>ListTaskDefinitionFamilies</code> request indicating that
+     * more results are available to fulfill the request and further calls will be needed. If <code>maxResults</code>
+     * was provided, it is possible the number of results to be fewer than <code>maxResults</code>.
      * </p>
      * <note>
      * <p>
@@ -265,10 +265,10 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
      * </note>
      * 
      * @param nextToken
-     *        The <code>nextToken</code> value returned from a previous paginated
-     *        <code>ListTaskDefinitionFamilies</code> request where <code>maxResults</code> was used and the results
-     *        exceeded the value of that parameter. Pagination continues from the end of the previous results that
-     *        returned the <code>nextToken</code> value.</p> <note>
+     *        The <code>nextToken</code> value returned from a <code>ListTaskDefinitionFamilies</code> request
+     *        indicating that more results are available to fulfill the request and further calls will be needed. If
+     *        <code>maxResults</code> was provided, it is possible the number of results to be fewer than
+     *        <code>maxResults</code>.</p> <note>
      *        <p>
      *        This token should be treated as an opaque identifier that is only used to retrieve the next items in a
      *        list and not for other programmatic purposes.
@@ -281,9 +281,9 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The <code>nextToken</code> value returned from a previous paginated <code>ListTaskDefinitionFamilies</code>
-     * request where <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination
-     * continues from the end of the previous results that returned the <code>nextToken</code> value.
+     * The <code>nextToken</code> value returned from a <code>ListTaskDefinitionFamilies</code> request indicating that
+     * more results are available to fulfill the request and further calls will be needed. If <code>maxResults</code>
+     * was provided, it is possible the number of results to be fewer than <code>maxResults</code>.
      * </p>
      * <note>
      * <p>
@@ -292,10 +292,10 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
      * </p>
      * </note>
      * 
-     * @return The <code>nextToken</code> value returned from a previous paginated
-     *         <code>ListTaskDefinitionFamilies</code> request where <code>maxResults</code> was used and the results
-     *         exceeded the value of that parameter. Pagination continues from the end of the previous results that
-     *         returned the <code>nextToken</code> value.</p> <note>
+     * @return The <code>nextToken</code> value returned from a <code>ListTaskDefinitionFamilies</code> request
+     *         indicating that more results are available to fulfill the request and further calls will be needed. If
+     *         <code>maxResults</code> was provided, it is possible the number of results to be fewer than
+     *         <code>maxResults</code>.</p> <note>
      *         <p>
      *         This token should be treated as an opaque identifier that is only used to retrieve the next items in a
      *         list and not for other programmatic purposes.
@@ -308,9 +308,9 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The <code>nextToken</code> value returned from a previous paginated <code>ListTaskDefinitionFamilies</code>
-     * request where <code>maxResults</code> was used and the results exceeded the value of that parameter. Pagination
-     * continues from the end of the previous results that returned the <code>nextToken</code> value.
+     * The <code>nextToken</code> value returned from a <code>ListTaskDefinitionFamilies</code> request indicating that
+     * more results are available to fulfill the request and further calls will be needed. If <code>maxResults</code>
+     * was provided, it is possible the number of results to be fewer than <code>maxResults</code>.
      * </p>
      * <note>
      * <p>
@@ -320,10 +320,10 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
      * </note>
      * 
      * @param nextToken
-     *        The <code>nextToken</code> value returned from a previous paginated
-     *        <code>ListTaskDefinitionFamilies</code> request where <code>maxResults</code> was used and the results
-     *        exceeded the value of that parameter. Pagination continues from the end of the previous results that
-     *        returned the <code>nextToken</code> value.</p> <note>
+     *        The <code>nextToken</code> value returned from a <code>ListTaskDefinitionFamilies</code> request
+     *        indicating that more results are available to fulfill the request and further calls will be needed. If
+     *        <code>maxResults</code> was provided, it is possible the number of results to be fewer than
+     *        <code>maxResults</code>.</p> <note>
      *        <p>
      *        This token should be treated as an opaque identifier that is only used to retrieve the next items in a
      *        list and not for other programmatic purposes.
@@ -338,22 +338,22 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The maximum number of task definition family results returned by <code>ListTaskDefinitionFamilies</code> in
+     * The maximum number of task definition family results that <code>ListTaskDefinitionFamilies</code> returned in
      * paginated output. When this parameter is used, <code>ListTaskDefinitions</code> only returns
      * <code>maxResults</code> results in a single page along with a <code>nextToken</code> response element. The
      * remaining results of the initial request can be seen by sending another <code>ListTaskDefinitionFamilies</code>
-     * request with the returned <code>nextToken</code> value. This value can be between 1 and 100. If this parameter is
-     * not used, then <code>ListTaskDefinitionFamilies</code> returns up to 100 results and a <code>nextToken</code>
+     * request with the returned <code>nextToken</code> value. This value can be between 1 and 100. If this parameter
+     * isn't used, then <code>ListTaskDefinitionFamilies</code> returns up to 100 results and a <code>nextToken</code>
      * value if applicable.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of task definition family results returned by <code>ListTaskDefinitionFamilies</code>
+     *        The maximum number of task definition family results that <code>ListTaskDefinitionFamilies</code> returned
      *        in paginated output. When this parameter is used, <code>ListTaskDefinitions</code> only returns
      *        <code>maxResults</code> results in a single page along with a <code>nextToken</code> response element. The
      *        remaining results of the initial request can be seen by sending another
      *        <code>ListTaskDefinitionFamilies</code> request with the returned <code>nextToken</code> value. This value
-     *        can be between 1 and 100. If this parameter is not used, then <code>ListTaskDefinitionFamilies</code>
+     *        can be between 1 and 100. If this parameter isn't used, then <code>ListTaskDefinitionFamilies</code>
      *        returns up to 100 results and a <code>nextToken</code> value if applicable.
      */
 
@@ -363,21 +363,21 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The maximum number of task definition family results returned by <code>ListTaskDefinitionFamilies</code> in
+     * The maximum number of task definition family results that <code>ListTaskDefinitionFamilies</code> returned in
      * paginated output. When this parameter is used, <code>ListTaskDefinitions</code> only returns
      * <code>maxResults</code> results in a single page along with a <code>nextToken</code> response element. The
      * remaining results of the initial request can be seen by sending another <code>ListTaskDefinitionFamilies</code>
-     * request with the returned <code>nextToken</code> value. This value can be between 1 and 100. If this parameter is
-     * not used, then <code>ListTaskDefinitionFamilies</code> returns up to 100 results and a <code>nextToken</code>
+     * request with the returned <code>nextToken</code> value. This value can be between 1 and 100. If this parameter
+     * isn't used, then <code>ListTaskDefinitionFamilies</code> returns up to 100 results and a <code>nextToken</code>
      * value if applicable.
      * </p>
      * 
-     * @return The maximum number of task definition family results returned by <code>ListTaskDefinitionFamilies</code>
-     *         in paginated output. When this parameter is used, <code>ListTaskDefinitions</code> only returns
+     * @return The maximum number of task definition family results that <code>ListTaskDefinitionFamilies</code>
+     *         returned in paginated output. When this parameter is used, <code>ListTaskDefinitions</code> only returns
      *         <code>maxResults</code> results in a single page along with a <code>nextToken</code> response element.
      *         The remaining results of the initial request can be seen by sending another
      *         <code>ListTaskDefinitionFamilies</code> request with the returned <code>nextToken</code> value. This
-     *         value can be between 1 and 100. If this parameter is not used, then
+     *         value can be between 1 and 100. If this parameter isn't used, then
      *         <code>ListTaskDefinitionFamilies</code> returns up to 100 results and a <code>nextToken</code> value if
      *         applicable.
      */
@@ -388,22 +388,22 @@ public class ListTaskDefinitionFamiliesRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The maximum number of task definition family results returned by <code>ListTaskDefinitionFamilies</code> in
+     * The maximum number of task definition family results that <code>ListTaskDefinitionFamilies</code> returned in
      * paginated output. When this parameter is used, <code>ListTaskDefinitions</code> only returns
      * <code>maxResults</code> results in a single page along with a <code>nextToken</code> response element. The
      * remaining results of the initial request can be seen by sending another <code>ListTaskDefinitionFamilies</code>
-     * request with the returned <code>nextToken</code> value. This value can be between 1 and 100. If this parameter is
-     * not used, then <code>ListTaskDefinitionFamilies</code> returns up to 100 results and a <code>nextToken</code>
+     * request with the returned <code>nextToken</code> value. This value can be between 1 and 100. If this parameter
+     * isn't used, then <code>ListTaskDefinitionFamilies</code> returns up to 100 results and a <code>nextToken</code>
      * value if applicable.
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of task definition family results returned by <code>ListTaskDefinitionFamilies</code>
+     *        The maximum number of task definition family results that <code>ListTaskDefinitionFamilies</code> returned
      *        in paginated output. When this parameter is used, <code>ListTaskDefinitions</code> only returns
      *        <code>maxResults</code> results in a single page along with a <code>nextToken</code> response element. The
      *        remaining results of the initial request can be seen by sending another
      *        <code>ListTaskDefinitionFamilies</code> request with the returned <code>nextToken</code> value. This value
-     *        can be between 1 and 100. If this parameter is not used, then <code>ListTaskDefinitionFamilies</code>
+     *        can be between 1 and 100. If this parameter isn't used, then <code>ListTaskDefinitionFamilies</code>
      *        returns up to 100 results and a <code>nextToken</code> value if applicable.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
